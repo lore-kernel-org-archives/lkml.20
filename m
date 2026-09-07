@@ -1,119 +1,125 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0F4382F1C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C14B3E1CFD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769350; cv=none; b=HIJLMSA66vIMvU8cIAQqSVO9A7vECy0qLLlqZcMTtLncYdxpQJjv7JCmIJQWCMo5ds9JLi6msw4KAQASqc+MHBY2RIG4lVymW/nxnDqjXwKJXm6WMEsDFL3YE8SIJdgoOXkM3SiILB0LyJDcibapIBZSJy0UEax+z2eKpKXgUgM=
+	t=1788769351; cv=none; b=krdkE01Fv3T0JJqwx+FEI0HoTvIBkgPNaoMWk8gqvVsCYAQY7QORY+2alIIuQtUSrtsWUi7NDqlddCuHYjiOIKy8NVlYpjJ0nMfCgXDSW0MKKf06nlGOrEP2gYIX2ooK0wtfdeFzp3LIyf6Z/5Nl7epefXcyXLSjcTT/gLpM/2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769350; c=relaxed/simple;
-	bh=SzFJP0jiUiQAnyIUqADYku5K5Hz/gi3DhoMO0xBKTaM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JzfP7jcW+tKlbUou5W7tCYFUbBVGnawydpRlZkVTe4IksLbEzDQmmw4Ll/fUIUjDY9P1JlV0AA3A8jVwD23vKaAiM+8M36+skwdBJLecuC595vsYCH4Hk0TRdWVCRle+cbcOKM7vFAWTqE8bc7+p1+54lz4Ci9CbsOWoEhYB1fA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UTq9ZTN+; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788769351; c=relaxed/simple;
+	bh=LSTwH7YPnh688EaYa+Imxdg38h8r1Vt9jgw0Fed1QyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YyO5sASRy4D7ysQIyMagOmhs0EJK6C9j2LmBuyANvcNYaUwwZ7aYEmtqCGVmMqTUr8GIv6N+1N9e8XaWJ8KZTo7X9l3K6pRmwxukX5nyKKQ2tWS0OyPziJHVWd2b/mhaOh7hEjh6kWDsIJjSJ50wCMFRIj1MlWL+uhn4VBUk0B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mrxItGnF; arc=none smtp.client-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UTq9ZTN+"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b0eab380eso29465445e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:22:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788769347; x=1789374147; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DsPWwpNpl6k7wrCmG7PQd50StcBQygwTK0Z6Y3sGKaY=;
-        b=UTq9ZTN+nlqcMXh7euzK5Z2NwVgkFpRojepdP0Zy9/4mIMO5W2Xr8l0XDl/6Hha5JP
-         SVdDWruXwiy/jS5DTCTKNXFrRptubY48qpYSF9c9ahA26+PKv/ZZSQQIUuiWHnDMIDKY
-         Lb6Mm3N+RxjIxFOh4s2lws3qgpbS4Lji3eS9dJx7oig679eVY5ZGVIMjSF8Ps0/Bb3So
-         VAJfQkUSAyuiOwHl1tRac0ctpo8ezzXJdR18ZO4PrWIe+L3stYV6kCuIBOX4o/NmLGQS
-         4KSE9YuIfT0k4STkLG8XlBFwLbmTka7bILEXT5ehot3Mqh2I3a6B+balKspz8F615XKc
-         dV5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769347; x=1789374147;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DsPWwpNpl6k7wrCmG7PQd50StcBQygwTK0Z6Y3sGKaY=;
-        b=NnDW7eRwVBrbbUoivX5qK090aCoy9iiyI8/o4PtSCBaKom+l1cSoGQjspNRcBdn5c6
-         NKLOy+rk7v2t4PTSWuUoeURrT906aIRZYfx9iqdNppl3tn4Y5laOpztW4WSV4IbXmFtI
-         6v4fNzsZkX8Jh16bI48N3/+HIibV8/NKX25nEDLu9rMQrvLpQ79FVyhTJnjdLxOAHXy1
-         ZIcHxmcgcDykdvlJ47YnjJK+A4hf2R+iZld4GKlfWib4rXn+sGGmSHOLqPWA/f6SKl8G
-         zs71Ds434Bro/9A4299sfDRTTMlegbb50J+M80IHjZCjs4l67r2ZKDhIj4Tfk6ahOMy5
-         1VLw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0Q6PTVaebnNHeOQBo1Z6u08S36PiZxDjWpzzLEkUq8yx3sKOnD+oX/lwHnsmnVGF5+a+riBEY8KsnQSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++k30o9l/bIUJyX+slTYiXTvdrCYJ1v4OwZ+SFkiBk+X4bZFpnYt
-	BNVhMEhtL7BrLVXXuiji+YZGNFqt84lpzTD3XZ+8oNiXWgrT6xXTejsE
-X-Gm-Gg: AYBFou2yGbbyYTu1b0WWhBa5PAttuS6AHKEHXxhZXNKjbny1wSosHyP3GWoZ0UeV8QP
-	0kNM0ee8t8Ah6gEFMB/GKit83nxFhB5yrxVOwlR83l4H3R9pntxW74V1a38kN44CM55ao0M9ZMM
-	C4so6SH+y2lJkPAYhcz1Gqdwu+Lru7kiWe73cBsrAsKgHWek7lQSt+tTn7EzdK2K4i99gxweftg
-	fhNuOoMuD9ylbCspp7NZ9UNnN3Og9i56bfzCPDcpOne4fnIeFE3fgvZin9Vx8Nva+82GaeqUQx8
-	zR3TNN+xABxIE5beN1LKzv/Xw73IXngkvZp47fIjF1eV09W/TNBRG5BUs0IJUSjQsQ6Soa6+mQi
-	AGfHmE/vuhFAErqIVK0IW3Faf8oaOJUdV/PdqDDhW8UKPNKAmBqKYSTjNCjALoulwX7wx6bqKCP
-	2knALa6jHxtmT9zV60iXacpwPGFVawg1X7IDqr2o9vP79pa9DuNCcLPKqXQ0WwKSTrVOnhUBN3
-X-Received: by 2002:a05:600d:8497:10b0:49c:f13e:e4f with SMTP id 5b1f17b1804b1-49cf891bce9mr137013075e9.12.1788769346885;
-        Mon, 07 Sep 2026 01:22:26 -0700 (PDT)
-Received: from localhost.localdomain ([165.51.77.174])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm191106465e9.0.2026.09.07.01.22.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:22:25 -0700 (PDT)
-From: Salah Triki <salah.triki@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Salah Triki <salah.triki@gmail.com>
-Subject: [PATCH] iio: temperature: tmp006: Fix endianness byte swap in trigger handler
-Date: Mon,  7 Sep 2026 09:22:15 +0100
-Message-ID: <20260907082216.52821-1-salah.triki@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mrxItGnF"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LSTwH7YPnh688EaYa+Imxdg38h8r1Vt9jgw0Fed1QyU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788769347; v=1; x=1789374147;
+ b=mrxItGnFwTWGotHuCk3Hld1+ca+c5UI7YaMhVPJrmlJCi2XoaB6veAgdadMq6NnSRAAJGre8
+ QmDWnF6Jt5fUdmtbVY5kE6d2DwOaZwA9lkhK2K+HvqxCuE4LeEsCWdgKIeC/6rwLts5PqZODGyK
+ 1QlEemYNLTSV5gpn544PWmc4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id a05b63f883a0db4a;
+	Mon, 07 Sep 2026 08:22:17 +0000
+X-Mizu-Trace-ID: a05b63f883a0db4a
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 7 Sep 2026 16:22:07 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Nikolay Aleksandrov <razor@blackwall.org>
+Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jussi Maki <joamaki@gmail.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net v3] bonding: fix slave_cnt leak on XDP error paths
+Message-ID: <ap50L7dUBxZulHWK@fedora>
+References: <20260907-bond_slave_cnt-v3-1-57df3b3cf2cb@kylinos.cn>
+ <c5d539bb-3bb6-4f76-8c75-05a8f240c39f@blackwall.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c5d539bb-3bb6-4f76-8c75-05a8f240c39f@blackwall.org>
 
-In tmp006_trigger_handler(), i2c_smbus_read_word_data() is used to read
-the VOBJECT and TAMBIENT registers. However, the TMP006 stores register
-values in Big Endian byte order, while i2c_smbus_read_word_data() assumes
-Little Endian.
+On Mon, Sep 07, 2026 at 10:41:50AM +0300, Nikolay Aleksandrov wrote:
+> On 07/09/2026 10:07, Hangbin Liu wrote:
+> > From: Hangbin Liu <liuhangbin@kylinos.cn>
+> > 
+> > When bond_enslave() succeeds up to the XDP setup stage, slave_cnt is
+> > already incremented. If XDP setup subsequently fails, the error paths
+> > jump directly to err_sysfs_del, bypassing the slave_cnt decrement.
+> > 
+> > This causes slave_cnt to drift upward on each failed enslaving attempt,
+> > which would lead to unbalanced traffic distribution with round-robin
+> > mode.
+> > 
+> > Fix it by moving the slave_cnt increase after XDP setup.
+> > 
+> > Fixes: 9e2ee5c7e7c3 ("net, bonding: Add XDP support to the bonding driver")
+> > Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+> > ---
+> > Changes in v3:
+> > - move the slave_cnt increasement before bond_update_slave_arr() (selftest)
+> > - run all bonding selftests on debug kernel to make sure no regression (Jakub)
+> > - Link to v2: https://lore.kernel.org/r/20260903-bond_slave_cnt-v2-1-02e27304ca36@kylinos.cn
+> > 
+> > Changes in v2:
+> > - move the slave_cnt increasement after XDP setup (Nikolay Aleksandrov)
+> > - balance-xor mode is not affected, not mention it (Nikolay Aleksandrov)
+> > - Link to v1: https://lore.kernel.org/r/20260902-bond_slave_cnt-v1-1-36e95bf4a6ff@kylinos.cn
+> > ---
+> >   drivers/net/bonding/bond_main.c | 4 +++-
+> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+> > index a9bff7663eec..1514a8ba0888 100644
+> > --- a/drivers/net/bonding/bond_main.c
+> > +++ b/drivers/net/bonding/bond_main.c
+> > @@ -2284,7 +2284,6 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >   		}
+> >   	}
+> > -	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+> >   	netdev_compute_master_upper_features(bond->dev, true);
+> >   	bond_set_carrier(bond);
+> > @@ -2332,6 +2331,9 @@ int bond_enslave(struct net_device *bond_dev, struct net_device *slave_dev,
+> >   			bpf_prog_inc(bond->xdp_prog);
+> >   	}
+> > +	/* Increase the slave count before rebuilding the slave arrays. */
+> > +	WRITE_ONCE(bond->slave_cnt, bond->slave_cnt + 1);
+> > +
+> >   	/* broadcast mode uses the all_slaves to loop through slaves. */
+> >   	if (bond_mode_can_use_xmit_hash(bond) ||
+> >   	    BOND_MODE(bond) == BOND_MODE_BROADCAST)
+> > 
+> > ---
+> > base-commit: 38b6be101006d3e7af972999f45d4f1e8250587a
+> > change-id: 20260807-bond_slave_cnt-88e78c5f0ab9
+> > 
+> > Best regards,
+> 
+> I think the comment is redundant, of course we should change slave_cnt before it
+> is used by anything that needs it.
 
-This causes byte-swapped values to be pushed to the IIO buffer on Little
-Endian architectures, leading to corrupted sensor readings when using
-triggered buffers.
+Yeah, this is a reminder if someone else need to move it to other place.
+I can remove it if others also ask.
 
-Fix this by switching to i2c_smbus_read_word_swapped() inside the trigger
-handler.
+> 
+> Anyway, the patch looks good:
+> Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
 
-Fixes: 91f75ccf9f03 ("iio: temperature: tmp006: add triggered buffer support")
-Assisted-by: LLM
-Signed-off-by: Salah Triki <salah.triki@gmail.com>
----
- drivers/iio/temperature/tmp006.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Thanks again for your review.
 
-diff --git a/drivers/iio/temperature/tmp006.c b/drivers/iio/temperature/tmp006.c
-index d9f6449ec0d8..f3b3de0bf221 100644
---- a/drivers/iio/temperature/tmp006.c
-+++ b/drivers/iio/temperature/tmp006.c
-@@ -256,12 +256,12 @@ static irqreturn_t tmp006_trigger_handler(int irq, void *p)
- 	} scan = { };
- 	s32 ret;
- 
--	ret = i2c_smbus_read_word_data(data->client, TMP006_VOBJECT);
-+	ret = i2c_smbus_read_word_swapped(data->client, TMP006_VOBJECT);
- 	if (ret < 0)
- 		goto err;
- 	scan.channels[0] = ret;
- 
--	ret = i2c_smbus_read_word_data(data->client, TMP006_TAMBIENT);
-+	ret = i2c_smbus_read_word_swapped(data->client, TMP006_TAMBIENT);
- 	if (ret < 0)
- 		goto err;
- 	scan.channels[1] = ret;
--- 
-2.43.0
-
+Regards
+Hangbin
