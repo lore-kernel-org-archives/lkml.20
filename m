@@ -1,73 +1,64 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B54F2DA756
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:56:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6965B10F1;
+	Mon,  7 Sep 2026 00:56:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742564; cv=none; b=qOgbLd1ENQKD0WbrzOHaNjCMSM5arRBbDdKfR/ihN0X6DeDS/CK+9bR/t5Vx8Yxm0VxDAMIpMtzlVnXOt8Twh+H7kYGyEAfB/fsMmA2tQkOr7Sxim+jNBhws34jZC5vv2XZdvuI+ErHZSLx/EmC+1Qh7wGIZZ24ahf+GUkM7qPQ=
+	t=1788742587; cv=none; b=IesZPolRHwip6oZbl9U0sm0GUnCqJeBZFFNj3Agu7D5APbzwBwrrwpddikZC6g/ubK548GM5H/8DzTpgL75ZTR1bezAPfDL74G3QFA0xGq0RD+u/ZB9tzBDPdrO7SR+RabCN8LI5vOQrXyDTZE5lyDLQDeodVu32oY5Ge1UGy0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742564; c=relaxed/simple;
-	bh=uiohtiXWJOSW0hLwT/zlndua/TXVtDIMzqQDrOCwTDQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ak22LwIn5pueIKXEJvgBU8Hxsu1TRxXO1O4hyODgJL5c9DsvALirPQCGmvIdKFI6IV3thZ2yTDUmEYhu8l/FG4qHIuf+Q6BrTdg8tQyciscZV3zL+8OX8MSQf4WQF8052vQK/gnagqNU5oUNG2IV93j+sInPB9d2yjoE/ZeU00s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G7E3v3T8; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788742587; c=relaxed/simple;
+	bh=Izd8bNgB9Ti83sycClvg2Fhi1fdjpuIvJKz5gwLn+OY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D2CwbC67BnihEPCI/xkjdNdUAfyDoMn2Ho343fRvE2ydA/P7dkRIa+epC/dAnRw9Pmm1ih9FvsmlGxFQnDGfxcMeqcid3GOjmbj/zZ8kTwVYkXK8ke0O50HN00Ib6wJG5af0On3MdtgAj8yBLWnDcb70p+tWlFG3ACUkBEvfva4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hFLYmJs9; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G7E3v3T8"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso3562415a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:56:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788742560; x=1789347360; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sELXrw22H/IsIeG/7YwT9q2MiplIi3+BT1tFOGBMF6I=;
-        b=G7E3v3T89CMycTKeD+MM665gcDfVaEmaCEpgWVxUVEtPKUm1uInzk6lhBrZF6xmSqM
-         Cs3ZWOZkVsDc83ANS8InzVh5mmpstRa6NnEJO3TA5sYOtoNvM4VKNqewOQEzFpsGRApD
-         cHcxfcobSGwJ8PfNzCagwU64NnGj7ITsX+Nwb875tN6YQ6M4d2XA6Q9bRZDRn2Z+xt78
-         9FgEuxQT2XD+REcxoDYe7lzocMLfAspCyyf71aa2AILEiv9MECB52gFRqUBRr64XfUNX
-         lsqCEuQw8LvgdwJJ88LCAe4qY3vvX71GUP+o8DkvbUw9pPLugUW7VIK2rawzunTD183c
-         G5gg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788742560; x=1789347360;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sELXrw22H/IsIeG/7YwT9q2MiplIi3+BT1tFOGBMF6I=;
-        b=EBWEklmCRjou655KfMGx5zk1JhyKTj9SvbMdn/bSvJ/Gq5KNDlpUrJ5cL3Uu33wZr+
-         fdmpEZlyZBMJDb8N4EWnDSBlFLjldsOw58EJjTrNU8Col4Ek95qKmEDUMqIK6AsVMKbp
-         m3ciOeWZEs1sDk2P5V9hM297ZXrvr4dAcojn5jzHTp73M8HsY0Rr/Fh+9ygCB8mbYZsx
-         Nucc1LTNtRJc1EZvn71/ZfLfCfO2B/pRE2jrEvAlCOHbJiv9JO9BWg0PhDX70nd/r/5U
-         m/KFl8jwYzm5gdmNHE5XI4MRws9UIt2x8olpNDvl8esuVkXAuDPSzWklqSQQwtKO+tJj
-         Ni9w==
-X-Forwarded-Encrypted: i=1; AKwUvByPmFx0/Y9wYyaZwn8gWZkoK5S/uxaFElYaoHavOceCeuqtgnXJM4Fl6ZRjde0nUTofRiZaq6AZExmdQUo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ka+1HAxnaJEDX/vWUijXvlidRE25UgfOsQwbXtG8b8mj6zP5gE
-	YxYO47XN0eZTXZ5puIiIolAp1NLnvtq685qeJkRTxESCZlUKNhKD1a3V
-X-Gm-Gg: AYBFou3rRR2ZATFq/rwUd7g6+27IPlX3gCWbpyhDDpo43h1RCEqmCvSI15IJMn7rdzU
-	GJGJUKQp43xaz7RB0MTQoEznCP2NngB3uyjGBVxnRnytkoAz9QFum4ZY1uDLaBWm90mBxMxxJ3o
-	r/pAej4jMi08T2RuYjZ2vHE44c+JAN04Ur8/77+ZXUbrqC/tOZEtr49mtpymM1YDGyyrb3sZ++N
-	Zrts52Zo8TVE1UgyGU8Gktvjokj3UB5SCJMVzEsE6UFHdYUctprIRuQoW4TOPVUp8d75LW/10Ay
-	OUXXWxXWyvo2Un2ZtcS803dWNs9iRo6Pu3bNqWqf3Wa25NWVtepk77cHn82K44Df9u8zvzw+Mkz
-	Sqye9jgxdnMlrM4SKsY5O84eqzpfPOgxCCqivg3L1zAtGELW9FX4pg82YZ6NMK/KdUYSwI7qTtt
-	TboWy9VOfgs0puGqyVj+Iplr8aZCh+LnYSCT8CI+lkcVdIfUzE0lXP73l99lnc7kqdMjgccI3zS
-	ktbXCbpRkcxfhU+lQWj/2OG42BmzgW+rchDC5INMrBtJOOJxu95kjHVQMyPK7ZiVKj3wB7bjuIX
-	KORRyQ+MSqu5I2aifVvkTvR8PTdnED6IJdTGfQ==
-X-Received: by 2002:a17:90b:4c51:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39b26204e5bmr27718526a91.13.1788742560180;
-        Sun, 06 Sep 2026 17:56:00 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm23328017a91.11.2026.09.06.17.55.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 17:55:59 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] mtd: rawnand: fsl_ifc: allocate shared ctrl with devm_kzalloc
-Date: Sun,  6 Sep 2026 17:55:58 -0700
-Message-ID: <20260907005558.229187-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hFLYmJs9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788742585; x=1820278585;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Izd8bNgB9Ti83sycClvg2Fhi1fdjpuIvJKz5gwLn+OY=;
+  b=hFLYmJs9EpU4gpXXTCL3nz6NAfV5UiacoTUXWMeE6WpsyWxz38NnJw0M
+   WoHSMRe2nTDvAkFl18UYxdLAP5KQA7r0Ur1dfS5PXsVcXa7TbL3BzMdG2
+   Qlh4UAEK0/mjTFLovVAZSSi8YL5sqSfwRVUaVYVLXpGHJFLIXB/AiyTUy
+   Yh1BDAkwVSLCnnAu4liE7UXtkemcty/bAC5neoZZnvPgsdUSq5kzDbFpp
+   N4K0RCWtFD4UhVZ7+id36y5jRG16D7xrgJTJ+ypNiB6/J/J8TqnfFfx5U
+   ZAoof9myKXnZimMpKfGqiPdPGXKmLCa6CNYYlPvkTMCIQ+Q2jL47H0tM+
+   g==;
+X-CSE-ConnectionGUID: cWO5qJIARSG8t9Q9SBIiFg==
+X-CSE-MsgGUID: UkMUA8JcRgSBOSqUO8QCbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89270036"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="89270036"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 17:56:24 -0700
+X-CSE-ConnectionGUID: QoXR4ffLS82gTmmwjVUGFg==
+X-CSE-MsgGUID: 3j/hgJP0TYuhLtmNhc6ewQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="264373779"
+Received: from emr-371.sh.intel.com ([10.112.106.137])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 17:56:21 -0700
+From: Baoli Zhang <baoli.zhang@linux.intel.com>
+To: "K. Y. Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	linux-hyperv@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Baoli Zhang <baoli.zhang@linux.intel.com>
+Subject: [PATCH] HID: hyperv: fix fortify write overflow in KUnit device info tests
+Date: Mon,  7 Sep 2026 08:46:17 +0800
+Message-ID: <20260907004619.2479833-1-baoli.zhang@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,64 +67,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allocate the shared fsl_ifc_nand_ctrl structure against the controller
-device, which outlives all NAND child devices, so it is freed
-automatically.  This drops the manual kfree() and the broken chip
-counter that was decremented in remove() but never incremented
-anywhere, leaking the structure and leaving the freed pointer in
-ctrl->nand on re-probe.
+allyesconfig fails to build:
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+  In function 'fortify_memset_chk',
+      inlined from 'mousevsc_device_info_valid_descriptor':
+  ./include/linux/fortify-string.h:430:25: error: call to
+  '__write_overflow_field' declared with attribute warning: detected
+  write beyond size of field (1st parameter); maybe use struct_group()?
+
+Both tests place a report descriptor in bytes allocated past
+struct synthhid_device_info, then memset() it, and derive its address
+from the hid_descriptor member:
+
+  report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+
+Because that expression is a member reference, the fortify checks bound
+the write by sizeof(info->hid_descriptor). bLength is exactly that size
+here, so the remaining room in the member is zero and every write is
+flagged, even though the memory really came from the caller's
+kunit_kzalloc(sizeof(*info) + N).
+
+Compute the address from the start of info instead, mirroring the
+desc_offset arithmetic that mousevsc_on_receive_device_info() itself
+uses. Deriving from info gives the whole allocation as the object, so
+the writes are no longer attributed to a single member. The result is
+the same address: (u8 *)&info->hid_descriptor is by definition
+(u8 *)info + offsetof(struct synthhid_device_info, hid_descriptor), so
+test behaviour is unchanged.
+
+sizeof(*info) deliberately is not used for this: hid_descriptor is
+__packed while synthhid_device_info is not, so the struct may carry
+trailing padding and the report would land at the wrong offset.
+
+Fixes: 83df7b5fa6735 ("HID: hyperv: add KUnit coverage for device info bounds")
+Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
 ---
- drivers/mtd/nand/raw/fsl_ifc_nand.c | 15 ++-------------
- 1 file changed, 2 insertions(+), 13 deletions(-)
+ drivers/hid/hid-hyperv.c | 23 +++++++++++++++++++++--
+ 1 file changed, 21 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
-index b34524726dec..db6bb0bb43e8 100644
---- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
-+++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
-@@ -48,7 +48,6 @@ struct fsl_ifc_nand_ctrl {
- 	unsigned int index;	/* Pointer to next byte to 'read'	*/
- 	unsigned int oob;	/* Non zero if operating on OOB data	*/
- 	unsigned int eccread;	/* Non zero for a full-page ECC read	*/
--	unsigned int counter;	/* counter for the initializations	*/
- 	unsigned int max_bitflips;  /* Saved during READ0 cmd		*/
- };
- 
-@@ -1034,15 +1033,13 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
- 
- 	mutex_lock(&fsl_ifc_nand_mutex);
- 	if (!ctrl->nand) {
--		ifc_nand_ctrl = kzalloc_obj(*ifc_nand_ctrl);
-+		ifc_nand_ctrl = devm_kzalloc(ctrl->dev, sizeof(*ifc_nand_ctrl),
-+					     GFP_KERNEL);
- 		if (!ifc_nand_ctrl) {
- 			mutex_unlock(&fsl_ifc_nand_mutex);
- 			return -ENOMEM;
- 		}
- 
--		ifc_nand_ctrl->read_bytes = 0;
--		ifc_nand_ctrl->index = 0;
--		ifc_nand_ctrl->addr = NULL;
- 		ctrl->nand = ifc_nand_ctrl;
- 
- 		nand_controller_init(&ifc_nand_ctrl->controller);
-@@ -1122,14 +1119,6 @@ static void fsl_ifc_nand_remove(struct platform_device *dev)
- 	nand_cleanup(chip);
- 
- 	fsl_ifc_chip_remove(priv);
--
--	mutex_lock(&fsl_ifc_nand_mutex);
--	ifc_nand_ctrl->counter--;
--	if (!ifc_nand_ctrl->counter) {
--		priv->ctrl->nand = NULL;
--		kfree(ifc_nand_ctrl);
--	}
--	mutex_unlock(&fsl_ifc_nand_mutex);
+diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+index 6579bd19da13a..f1042b36d10b7 100644
+--- a/drivers/hid/hid-hyperv.c
++++ b/drivers/hid/hid-hyperv.c
+@@ -657,6 +657,25 @@ static struct mousevsc_dev *mousevsc_kunit_alloc_dev(struct kunit *test)
+ 	return input_dev;
  }
  
- static const struct of_device_id fsl_ifc_nand_match[] = {
++/*
++ * Address of the report descriptor that mousevsc_on_receive_device_info()
++ * expects immediately after the HID descriptor.
++ *
++ * Computed from the start of @info, mirroring the desc_offset arithmetic in
++ * mousevsc_on_receive_device_info(), rather than from &info->hid_descriptor.
++ * The report lives in the extra bytes the caller allocated past the struct, so
++ * deriving it from the member would leave the fortify checks bounding writes
++ * by sizeof(info->hid_descriptor) and reject them. Note sizeof(*info) cannot
++ * be used instead: hid_descriptor is packed while synthhid_device_info is not,
++ * so the struct may carry trailing padding.
++ */
++static u8 *mousevsc_kunit_report_desc(struct synthhid_device_info *info)
++{
++	return (u8 *)info +
++	       offsetof(struct synthhid_device_info, hid_descriptor) +
++	       info->hid_descriptor.bLength;
++}
++
+ static void mousevsc_device_info_zero_blength(struct kunit *test)
+ {
+ 	struct synthhid_device_info *info;
+@@ -687,7 +706,7 @@ static void mousevsc_device_info_valid_descriptor(struct kunit *test)
+ 
+ 	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+ 	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(4);
+-	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
++	report = mousevsc_kunit_report_desc(info);
+ 	memset(report, 0x42, 4);
+ 
+ 	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 4);
+@@ -713,7 +732,7 @@ static void mousevsc_device_info_report_desc_oob(struct kunit *test)
+ 
+ 	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+ 	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(64);
+-	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
++	report = mousevsc_kunit_report_desc(info);
+ 	memset(report, 0x42, 8);
+ 
+ 	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 8);
 -- 
-2.55.0
+2.43.0
 
