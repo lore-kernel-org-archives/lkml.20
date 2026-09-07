@@ -1,142 +1,162 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012013.outbound.protection.outlook.com [52.101.66.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7487147987C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:41:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784891; cv=fail; b=FP2a3wdYeig4jFFxAHttch2EBXWz0akyeYAoH3AqrAsH4MTKEpqXRpo7lJkcA479u1t0am4MG9SgJ2IQo62yipGYMLdZStT7JMxBDyw4bJ+8hErx4ezwJ5XY+fu0k/0YIMxlvSWyBbnYI/Cp2fmO5BjKP5yCiw1u+sHE3cADq/A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784891; c=relaxed/simple;
-	bh=CV8dXQDMHtmQYuRTL1jCM2urRgBLKropAAlwDbjLhiY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=gnlwK7EZ98Bn2HTDM0fVTbVhE9JULq9+1r+LFar+Xh7map6ug57IlvIyxc6ojLIqy/nbUzrYlvOgtbxjW5Vkhlwyd+NMdagRLrXQe2Y46deLFJB6BA+gqcIpGDLA6/CKz+56O21i9Jzj3gEaM7hS+GSz2RKoBktUT7Lu9eI1gz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=nTvfwZSu; arc=fail smtp.client-ip=52.101.66.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205EF4B2055;
+	Mon,  7 Sep 2026 12:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788784898; cv=none; b=KSG7EBXUcYLE5qRe0NeKb+WGY+Xd/u/IXfkCk+918ApUS5j6GmZLWQokmMX4SAkrs031HY2USUXqhsVZa6RLDovgn2xYFuNi3v8LNJw+1+JNUdA78eD/0Ve+Mift6XG6WrOzPiqeZTfjPkFPcWqsZ1e93oBQaD4qNHHhQOOZ4QQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788784898; c=relaxed/simple;
+	bh=nNoPkc9f5O3mIgdkb8O5A3/CdnPez7t7H1K9/aRvCok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TtBFOIY4s01zceeft0OXHkObyWuEMu31a3IYbuBtBYKeYiMEGA50vw4ieAHZljMPhtRTdn/80YtaZ0DeghU7tINwB0kP4UxXjMY0RoBVtzJkl8REk2eydRMN4e34xju3faLIoyrZdM+JQygTUS8NDys34+mcvWFdbhxo2mi5Nh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOAtdZ9/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="nTvfwZSu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RPrA2wKLGHY3+O0z/TKvn+YPLP9PxWski3HctRHGFrpR3u+rRyhN22v1x90s/1oF4kvWCGVVaJnw5Yvdy1/vYZZvPcXkIIYoovR0TwNasLSlxnsgTzGJD8hkst5a79JjKG+oPxtJbHS1+/ZhrExZRUOo92eFEEUAOG3Fm75xSOnjQUW+7arC5oWDVD1DrDtxYPf4YB4HY9L3hKz7lJYMHh03d1aZjs5UGKq605eWKR1Z6HsD1WTMxtQMQ87Uh5BzuFtZQ2dLAl5cfBEI3DFlP76LuaLBdlLjT6ZBaopNEvaJ+nei9TnGDNL1MtQua3bIJiwwVZxfx+auzM0asthcrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/K8LDZYOUHw7Ya5sEO7TlPa2yHbZMv+H/IYUFcNLtkg=;
- b=Fo18Mu4uv+sSnF9ziXlYH0ZO1gJ/XhOD/cRnZY7chSJ3Ww7y57D0EjWAlbuH8pp1/h+RWc2Gzl+gZgmIy5xMTd4b0B3z7cO7Gd8AZapCIk4YLHPNW6jPDbs5fEUVA/WqDgpVDcHg3MaN5C5MrAx0GjfKNyiKANZESfX0uwtsaP4AOypSzmzynedLe9aVCCMlCfRr8ZGtZSfvjGNUD57bgVKPgua4Hj+7/RWwcikFjcNJLtGXYJBYMtQq0S+htN3xX/OW7Qm9uHFIwbL96cfZCGUHVLu11S8IC6ywwRGP/OJUWmDCO61DKsG+W0GzHulyx3zF8/+mH9EkgluLa6gTPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/K8LDZYOUHw7Ya5sEO7TlPa2yHbZMv+H/IYUFcNLtkg=;
- b=nTvfwZSuW9UEBtxSiw8EdM7d1Y/6+WAFdWlQSRPK9kf+RnCqpOKAdZcSVGZooypmiY5e9k0/XY50eJQCj6OOykMX2nqfSQrryNpAm1PhmUzWi/aR0oH3uwGSkguNjllqMTqR1bdRXNKM14XveHAB5ioaAQsif1mdJLH6g0d/P7MDiABIkW4eUFCu9CgCl4Wgd9ezUFfD7Hmy5zUyQ1FwzMfK9BVq7V6wGE3rC4aAtt+MVlE7HUadp5JGu5Q7E+sHY9Ztlm9uKI7vhdhrNbkMRuL9SCqFazj+3jNe1tDPVZ7H4CE+tU7jVMWMFRwVe+do87GW47fGEL40M29uU13ysw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13) by PA4PR04MB7583.eurprd04.prod.outlook.com
- (2603:10a6:102:e2::5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 12:41:25 +0000
-Received: from GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd]) by GVXPR04MB12290.eurprd04.prod.outlook.com
- ([fe80::1739:3404:2175:33dd%3]) with mapi id 15.21.0382.012; Mon, 7 Sep 2026
- 12:41:25 +0000
-Date: Mon, 7 Sep 2026 15:41:21 +0300
-From: Ioana Ciornei <ioana.ciornei@nxp.com>
-To: vjardin@free.fr
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Laurentiu Tudor <laurentiu.tudor@nxp.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable+noautosel@kernel.org
-Subject: Re: [PATCH] bus: fsl-mc: register the object drivers after
- misc_class exists
-Message-ID: <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
-References: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
-X-ClientProxiedBy: AS4P192CA0019.EURP192.PROD.OUTLOOK.COM
- (2603:10a6:20b:5e1::8) To GVXPR04MB12290.eurprd04.prod.outlook.com
- (2603:10a6:150:319::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOAtdZ9/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05B801F00A3D;
+	Mon,  7 Sep 2026 12:41:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788784896;
+	bh=R+iOXhikbtD7Hlx2TtBI13r7V57waJ+xZV8XYnDia6Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lOAtdZ9/rux5RHsaLQ3YTn+XxyVJ2epNDmq67tcnhLpWRZ6FZWVvxnI07aaFK8rZO
+	 dIMc1HiqdXkuTfjoh9zo9K7VMuXBjK1LOLeeByCu/uzbJKSvorNrkK+0ezm1MmS5dY
+	 mGKpBi3LycCGNAkpvN4erbVs0U4ta6l/ct9UNbEi4bt3kHwZGPMzVck0EZKa1j74LM
+	 evSin3W0nK/E7hcgiaAaQUoAHlfJxIjcazL/BsWJnOD2zEvDwnCGm9DC6q1QwZGaVZ
+	 ZzAiE+Ks15BS+MHyRVo1gMPSjFJzlJhTOZWmuPjityWOmfh1jIXwY2VpVEeu+HtZCf
+	 pVPQ/Dnnrsn+A==
+Date: Mon, 7 Sep 2026 14:41:30 +0200
+From: Joel Granados <joel.granados@kernel.org>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Gregory Price <gourry@gourry.net>, 
+	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, Kees Cook <kees@kernel.org>, 
+	Oleg Nesterov <oleg@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
+	Stephen Rothwell <sfr@canb.auug.org.au>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-next@vger.kernel.org
+Subject: Re: [PATCH v2] syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl
+ guard
+Message-ID: <zyz4yugeby6vs6y6pkr7yuc47djr7m7ong5lv5e56yfe7cjfhv@rpqeyifwublj>
+References: <20260813062039.14567-1-kmehltretter@gmail.com>
+ <20260822072325.51994-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12290:EE_|PA4PR04MB7583:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e95249a-13d4-4232-320d-08df0cdd544c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|376014|1800799024|23010399003|366016|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003|41080700001|15866825006;
-X-Microsoft-Antispam-Message-Info:
-	QqqntOa7tTc8zF4nFn67pneRvI+gCiNpUW72gYGE2396CGvg484LBIs/p34YAZneyXUh0/0Y/oF4QS4ZWehAVZafeLNo5cpsxC6Ya5e5Qo8YT4gwDgqkhpA+xKtIlv5gWAdQXe5X8YN76pga/jd7G2CJQtD6cmhKlW0LV2i341CfnWV2GURZKYXHgw1sLSWIx5XR2+FqKJ4YDVSUGLachekkuYUcQqVJsfWtIYesXGph0/QrC5KsqzMff7NRboR75YmytREKYaZk/Lo41RyUuF+5r5JpyVm9WyRc5QvYG1Eu9K0jLqc3tR/9ChvFKHFrOLw84KeucOiKZqejJmdeg+iiorQ2lzJrh66G+zJ3qbacygmpCuRT0vaJOW9pQnOqA0m8/Kw0Ve01BhWEe2fx8zxiSeCm67AsdKA9uSlzugtNF2QoYJWvOtdPcLKYUyivtWZVTXdj9OaJfyF22VFZMjX1mEisC6xsgLeQYkODoMWQRlnyeBj/4HEALSUmm+GeA72OMxydB6Tkqb9vWtDSFn+qNqP0n35Gwr4aw/0UeOJMM4RUES5OTmOMItPw9NJj8JZ50UjaLYvR25TRG0rOEKOGvO1x7aeJ05GapxGaELeIhdig+WjZeZFpKVZsO3qiZaRD7eyzDj6RlFuAjTNrmesKTlhc/bayWL2B/VdImLVRGFZu87cmoyZ/0pO88nSL2xyhGRtfxPA95NYmJIToiZsaRIKqXO3NZvc29I6uFSd8xhQ45n2QbgFmwJekbxj1
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12290.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(41080700001)(15866825006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Nu6qi5raqoqIZVpIcr2D1wir8B/wJVOkU0vhmJG8ZF4Xn5ohxcM1pfBOvOOR?=
- =?us-ascii?Q?EAxz9+RG6WwgEKUXFOSKkiNsngmpERr3lBGuRDTehYiYSerHuXEPZRzm2jIn?=
- =?us-ascii?Q?7wa1v7UoImpd+NQzBbLhdBALNjiy5bbI4beCzhF3ENKGbTD2alef3/9o51a2?=
- =?us-ascii?Q?x/RUSZCC2cOz/mPLYhxty/o4Ew7hRtZJtH1LOkxCL62IVtm/NjCds4zlZCRD?=
- =?us-ascii?Q?FDTZCuRz+x0ssoD6KbVKXWMx/hJQa5YtqNb03SXprlLCNjIZs8Uyp/Kqz2fg?=
- =?us-ascii?Q?OFgy7N7+2pOL+1l1UyUurYvTWXzdeM7nJ1dZlyUp55gtjNCtCOtenZ+2z7OF?=
- =?us-ascii?Q?ch49KvM4I7sSr9ljoU8FYpcXU0YSJStkaw91CEwwQndqxtI7gbyHP0BksGqq?=
- =?us-ascii?Q?ySuBmSHr7aVUccb4ab7wIUcjqZfJk/TziaFPfubKraOmYBNmW5URLA2tZgRU?=
- =?us-ascii?Q?Jyheh0D3Eo/qvJ5haBh4J0bDrMnmN4c0kjPUAU219HIaPLYpogrv6IjsFMig?=
- =?us-ascii?Q?lqlSsWsmtckz+gGHClvXnQUjp/TM0WRftwBD6nWwm1dMTuQu4UDS7oBeMbXM?=
- =?us-ascii?Q?tWlNgwp70I7AikWF1HR5ixSwR0cO1L0JKMF4DpTevh8agqYUzJfTs3mOhEqZ?=
- =?us-ascii?Q?MQYpFR+SKF85naIxXS2D6v+WrPHHTpGp3/WyQSvxIwKdiFfLXT9MHS9j0GrA?=
- =?us-ascii?Q?7dEw9kfAjnKn8NR4jakFzqCOErHrdFVM49oAOtrOTFtufXx9PI9xIX4/f9TJ?=
- =?us-ascii?Q?Ou6379j1KlimVhwqLFqX5UFWqAvY5aFJkaaVtbHD96veHCpnklSi6pabTFnx?=
- =?us-ascii?Q?jhbQN7sEpAo70wVcrlv9Od7afAG7QSB51oVO79Xz5utt9rMh9ADuHXVowCht?=
- =?us-ascii?Q?2f4kDDrgtylbMls3teP5j+OqlyyOFE5KJdfJqQYnfpsD3zt+AJVrJLAqg6UB?=
- =?us-ascii?Q?xiGcAaYOMYY6NJM4v9GDA0Ntq0YrhskUxQp1RybEbSuE6bHbPiU6t63rmzp/?=
- =?us-ascii?Q?dbia2yz4ZgwMjk54RgMbH5t3g6Eq7vU6TvNfvan77PjAOfcOjR/j1hYQqYyw?=
- =?us-ascii?Q?WoKXW1atUxRV+bNrmrkw5zmXqoyzYBImSy08pHANmKROnT6/HuDQllMo9VWE?=
- =?us-ascii?Q?Xvk1HIk//bF0s/T2vSGI642iQFPYaGbLgwcd3Ebc5oC9M7uYU6SCY4pnMHZu?=
- =?us-ascii?Q?2kiBWA9LsqkR5XB62VPf48XJR+WL4FIffaM34x9JhxYCqDYmWrvRTEiDB8QG?=
- =?us-ascii?Q?llDotdn3iZb7FxQAqkhxdQjZNBCyPjqWlvy/9NTfWD7PRe2AHDrRq8//RvP7?=
- =?us-ascii?Q?QUwnVFLyPl0utVmXJOZ4fCksk6MwCtXR4VkG6QFXIq2OjcASM0QUy8q38KSt?=
- =?us-ascii?Q?lAGxBICgY0+SYxMq1B8WhH9AR2CzPjnHiUoG/QU8oUU8oTILbBhCor01aztE?=
- =?us-ascii?Q?kReFPmvocSdy7IJOGl2+zZsiwtVECybGsFsXLZjIiyaouG9laQ/zdMrAJMDS?=
- =?us-ascii?Q?lNys4ppIieqWkChTyNOq2KIProthm3hghDMuC7fR9Vc+E4bBY9ENOlN7r4m2?=
- =?us-ascii?Q?5E8nkX0wZpUsTMT/L4W9ffgafIZkj7b6MkciZw7kKbTLfnQzz/K3Y5GVzSub?=
- =?us-ascii?Q?Yc+8sRDM6DFx3XSWJmZ09Nctvs/segmri1WERucnrwBDwH5xL+UHB6pB5nTc?=
- =?us-ascii?Q?NKnrKHQc5GRPeE51wip/cTdFfOGE1ZX1b25V4Z3pNg0a0HHfod/YZUTKYu33?=
- =?us-ascii?Q?4KBhXO1V4Q=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e95249a-13d4-4232-320d-08df0cdd544c
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12290.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 12:41:25.3127
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V99m/5C9iScC4VmybNk11Pui/Xe5X9COrd9lgfN5g2xJzxKEhszwjXcdTibvQGUQmawHHMZ04Uy4bekGPL67ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7583
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qlbwlyxfaaldjv5l"
+Content-Disposition: inline
+In-Reply-To: <20260822072325.51994-1-kmehltretter@gmail.com>
 
-On Tue, Sep 01, 2026 at 10:04:37PM +0200, Vincent Jardin via B4 Relay wrote:
-> From: Vincent Jardin <vjardin@free.fr>
-> 
-> Unbinding and re-binding the root DPRC fails with:
-> 
->   sysfs: cannot create duplicate filename '/dev/char/10:256'
->     misc_register / fsl_mc_uapi_create_device_file /
->     dprc_setup / dprc_probe
-> 
 
-Do you mean that the above error messages are triggered by an unbind and
-bind sequence like below?
+--qlbwlyxfaaldjv5l
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-$ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/unbind
-$ echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/bind
+On Sat, Aug 22, 2026 at 09:23:25AM +0200, Karl Mehltretter wrote:
+> Commit 8d75c338f0bc ("sysctl: remove CONFIG_PROC_SYSCTL, it just mirrors
+> CONFIG_SYSCTL") removed CONFIG_PROC_SYSCTL, but the sysctl added by
+> commit 5b6e32ba7b59 ("syscall_user_dispatch: Add
+> kernel.syscall_user_dispatch sysctl") is still guarded by it. Now that
+> both commits are merged, kernel.syscall_user_dispatch is no longer
+> registered.
+>=20
+> syscall_user_dispatch_allowed defaults to true. SUD therefore remains
+> available, but administrators cannot disable new activations.
+>=20
+> Use CONFIG_SYSCTL for the guard and documentation.
+>=20
+> Fixes: 5b6e32ba7b59 ("syscall_user_dispatch: Add kernel.syscall_user_disp=
+atch sysctl")
+> Assisted-by: Codex:gpt-5.6-sol
+> Acked-by: Oleg Nesterov <oleg@redhat.com>
+> Reviewed-by: Joel Granados <joel.granados@kernel.org>
+> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> ---
+> Changes in v2:
+>   - Reword changelog and rebase onto mainline now that both commits
+>     are merged there (v7.2 is unaffected, it has neither commit).
+>   - Collected Acked-by/Reviewed-by tags from v1. No code change.
+>=20
+> v1: https://lore.kernel.org/all/20260813062039.14567-1-kmehltretter@gmail=
+=2Ecom/
+>=20
+>  Documentation/admin-guide/sysctl/kernel.rst | 2 +-
+>  kernel/entry/syscall_user_dispatch.c        | 4 ++--
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/=
+admin-guide/sysctl/kernel.rst
+> index b6328cd0f43e..ffea61d448eb 100644
+> --- a/Documentation/admin-guide/sysctl/kernel.rst
+> +++ b/Documentation/admin-guide/sysctl/kernel.rst
+> @@ -1416,7 +1416,7 @@ Controls whether userspace may arm Syscall User Dis=
+patch via
+>    =3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> =20
+>  Only present when the kernel is built with ``CONFIG_SYSCALL_USER_DISPATC=
+H``
+> -and ``CONFIG_PROC_SYSCTL``.
+> +and ``CONFIG_SYSCTL``.
+> =20
+> =20
+>  sysctl_writes_strict
+> diff --git a/kernel/entry/syscall_user_dispatch.c b/kernel/entry/syscall_=
+user_dispatch.c
+> index 2002c7aae435..59c861866941 100644
+> --- a/kernel/entry/syscall_user_dispatch.c
+> +++ b/kernel/entry/syscall_user_dispatch.c
+> @@ -178,7 +178,7 @@ int syscall_user_dispatch_set_config(struct task_stru=
+ct *task, unsigned long siz
+>  					      (char __user *)(uintptr_t)cfg.selector);
+>  }
+> =20
+> -#ifdef CONFIG_PROC_SYSCTL
+> +#ifdef CONFIG_SYSCTL
+>  static const struct ctl_table syscall_user_dispatch_sysctls[] =3D {
+>  	{
+>  		.procname	=3D "syscall_user_dispatch",
+> @@ -195,4 +195,4 @@ static int __init syscall_user_dispatch_sysctl_init(v=
+oid)
+>  	return 0;
+>  }
+>  late_initcall(syscall_user_dispatch_sysctl_init);
+> -#endif /* CONFIG_PROC_SYSCTL */
+> +#endif /* CONFIG_SYSCTL */
+>=20
+> base-commit: 26260251022fbc2f248a3d747a9b2b961b18d2d8
+> --=20
+> 2.39.5 (Apple Git-154)
+>=20
 
-I am asking this because I cannot seem to trigger it myself. There is a
-misc_deregister() which should remove the char device upon unbinding the
-root DPRC.
+I don't see this anywhere upstream; I'll send this as a fix for 7.3-rc3
+in the middle of the week unless someone tells me that it is taking some
+other path.
 
-Ioana
+Best
 
+--qlbwlyxfaaldjv5l
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqesPkACgkQupfNUreW
+QU+YGQv9EzYNA9rNevyuWYw1Xj6C+dfFKDXbLe0cqOVrEYuVkru65rdS1E1NmrQr
+z1YrvKQf4hCKfFK8NwOLPwT4lSklqE08jgfx2kxCpxlIqI7JO5m/Xfn1nK1ncDaC
+3EwG5dGR5jij53kNJH/Y8Vzd+BjGojZy93SwTkjJJVdWV168yYtqenEPpluokXsH
+YH8vRfFjsyf8T9oPAY5D3U4+TE+fOD9Kc/sZji9RNQJ2Ni3pHDZkj+RyvRPWALKD
+Xi+05Em5JCGThlnWhbxlhmAciSdpqoHI6N5zTfJQhUz9Uh5PEUO2N8kUgvqdJ9Dp
+m9pUet+8ZeCuSnlEZA47PYz7k1v/4LxyuKrNPBqKRusvUMXMGFeODuv4CqMVIqx2
+/Li+uO70/rE6dfUjqjIBVgDaDLxxGltLEewcp3B3jlp00G0mrInwWgO6ZP/0hLTT
+Z8FmT01BJY+eKXf2BUia6TbiPJCoSzsScESJ/XdnOBGOyRl1azEtEz+pg8oyHDJQ
+3lZRCwqE
+=LRuk
+-----END PGP SIGNATURE-----
+
+--qlbwlyxfaaldjv5l--
