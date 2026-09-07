@@ -1,160 +1,224 @@
-Received: from smtpbgsg1.qq.com (smtpbgsg1.qq.com [54.254.200.92])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C8E409624;
-	Mon,  7 Sep 2026 07:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.92
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A26401A33
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:06:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764802; cv=none; b=Ay2OSDaZPSfMnalxT/D8Ve+Kt03m359BS+Q5XdFiSGChSg45xJGq9tuGjtyIbkMjX3G21IN5ze78qw7kaxWdqpsv8w7SBtDSbfaGfhyHKwLiTyyFmFQ8q/319EFIA+DWOeIOAQ+wcISG2m4aM0soYIUj8JhreeYxghyou1I2/bQ=
+	t=1788764812; cv=none; b=gmPGo1N+20jQGqjcOxPJOk59mCDayuAb5HAL5pTZdwRiL9tlR+2qByoyU0CpYAb1ylxtH2hkeN1xeWRBPTiN8ot9rjgnoW/+rYZy9zPx1MWcR9aSp9gU7ZNjk3ahfVYZ5luTuuU6+8BPnK3qIrSm6jqPuHqzjz9K9thEO960/Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764802; c=relaxed/simple;
-	bh=43l6s6Pgrn8yOxJeuT4TcGACuUoK6HUv620UrE/SUwQ=;
-	h=Date:From:To:Cc:Subject:References:Mime-Version:Message-ID:
-	 Content-Type; b=lwdWERuZ2RQhChmzNTBEOuNbWPMlrp356Ct2fzXf0vxAWweyglrQwBbE+0R+0YCfEITKeES3F6cbEUolLjF96Wcxym6nVfquIxvsIPEUkqmNrlAglw3N6CnQslVuif/EYF5HnuUrkeuoBqjiV4EGQERVcM5CpsPIDQolP+3tlOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=itsJW2M6; arc=none smtp.client-ip=54.254.200.92
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1788764812; c=relaxed/simple;
+	bh=qTwZJkfh2VUY8OtOKYeifb/aCPpwnvxrW/9H8LeVtbw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=pWmxhOZCHOc/0vbO/SRe/4d+9qBacb28ALU7zS8jqLb0eMNY3CS1SUyUkFhUB3BCdv2NG205JuZ62U4+bsWacNB8azEA9mydeVq02ymtGXDzivBoZgPFiFVTDaKowH3WERE84dTAm388lipIgW6poXqQE8czQZ8LGrF3zRgZC+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ko0vC4FJ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="itsJW2M6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1788764767;
-	bh=43l6s6Pgrn8yOxJeuT4TcGACuUoK6HUv620UrE/SUwQ=;
-	h=Date:From:To:Subject:Mime-Version:Message-ID;
-	b=itsJW2M6tfYi2OYOXATvxfBqmiX+I/hN1Vq/SROn0dhQvgNfh54PATLfgu2vxwsmD
-	 VCkCdYwhBBv43da8eW+XYwxU+B/6/fiQcN0CcLzia41jYUVYebNevXyTvpmYNdYEZ4
-	 M5T2TaqxHMmIGZ367Pd7cF74L/46S37SsTbKHUvk=
-X-QQ-mid: zesmtpgz4t1788764764tf478b456
-X-QQ-Originating-IP: /0CXJVCxXTrVWLkOYaAwZSxz5I8ztM5QAKcBZrDAjDE=
-Received: from PEN002676 ( [1.202.39.170])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 15:06:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16136033036701943877
-Date: Mon, 7 Sep 2026 15:06:02 +0800
-From: =?GB2312?B?1dS98MP3?= <zhaojinming@uniontech.com>
-To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
-Cc: maxime.chevallier <maxime.chevallier@bootlin.com>, 
-	andrew+netdev <andrew+netdev@lunn.ch>, 
-	davem <davem@davemloft.net>, 
-	edumazet <edumazet@google.com>, 
-	kuba <kuba@kernel.org>, 
-	pabeni <pabeni@redhat.com>, 
-	mcoquelin.stm32 <mcoquelin.stm32@gmail.com>, 
-	alexandre.torgue <alexandre.torgue@foss.st.com>, 
-	horms <horms@kernel.org>, 
-	ansuelsmth <ansuelsmth@gmail.com>, 
-	jose.abreu <Jose.Abreu@synopsys.com>, 
-	netdev <netdev@vger.kernel.org>, 
-	linux-stm32 <linux-stm32@st-md-mailman.stormreply.com>, 
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] net: stmmac: clear dma_conf in __stmmac_open error path
-References: <20260904-fix-stmmac-mtu-change-use-after-free-v2-1-91e680476921@uniontech.com>, 
-	<apqkBQJMqHKTUxEp@lore-desk>
-X-Priority: 3
-X-GUID: 3B32DCFF-6EB4-4369-948A-FAAB222D1623
-X-Has-Attach: no
-X-Mailer: Foxmail 7.2.25.375[cn]
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ko0vC4FJ"
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68741m4U660756;
+	Mon, 7 Sep 2026 07:06:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=U4F173
+	0LiN4V0F0jaP71ngB/OBRFul8aXhg6XG0+dpA=; b=ko0vC4FJh243BkxQ1m3Kxw
+	bTK0Kc6CdnUHxEpXGEEMlkxW+XMi4/mJIG6O/xCF31GHP0Ng6aPwRpnwh1TgRLk+
+	SSpH1U1DG+cPQxopn58jV7AzfbqOO+GtFd3eEMJLW3VmY1BIFqDmudmjewOuo37z
+	X63SlSAET9AHIw9gJgehzfFh/QUs50nEXgLQEo2EvWYpLsEWfbo6T7oFm5Swwi+w
+	JLaepuehLSk30bVUTIORZ+3KkuAuTwuPQM/PBNolQt92FHMireCb7ic3WCCi0/qn
+	JD4Z6O/ee/UxVH8KpvxHqz1PvllD/sTICd9FxFX4I17m6UKe7Gp4YYeihgBj8Stw
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbj7y19d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 07:06:43 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6876uGDl026935;
+	Mon, 7 Sep 2026 07:06:43 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggymg4a1g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 07:06:42 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68776fPR26083992
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 7 Sep 2026 07:06:42 GMT
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C10305805F;
+	Mon,  7 Sep 2026 07:06:41 +0000 (GMT)
+Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id CB3C358053;
+	Mon,  7 Sep 2026 07:06:38 +0000 (GMT)
+Received: from smtpclient.apple (unknown [9.61.246.56])
+	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTPS;
+	Mon,  7 Sep 2026 07:06:38 +0000 (GMT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-ID: <B2251BD5D0B36E28+202609071506015851872@uniontech.com>
-Content-Type: text/plain;
-	charset="GB2312"
-Content-Transfer-Encoding: base64
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NAeO0+xU6W76+Jh2d2IGzOW7akI7whTSpLuf7rgadEQDcg/aBN0oSvz5
-	48BtVfEFOLUCfIDY19iu+3p/Ag/VAT+OqPWLZhXOlVpk8Y1h3vT1X5BMLxvkOgeUYbKOyqh
-	msVJMrcHvE7hNijnnBSjs0TELx+y/4AYy4YCG9shuEm5gwkV7+bWIu9ORIgp8WaJUlIwJXu
-	drGfF44qct6G4ZlZsSW6Ew/kaUFR9fTJ05DCxEcdRYoSAudnWNyCzxLGSFdbbAJPqvMgYXe
-	BeVlP/WR9MIa9/drPicDBxHtt7zRbINmtujsnfQc/MK4XDjLcXRyLpYp2WHSw9ywc3flfhm
-	hsEJeWvhu2v80SMRAHOqGWktQ0i4wi/DdLeJNVIwGDv2vwknFVk75dXZm/ZRKhlfFAwst+H
-	VnTI1xWSB9LEUWCzVdBlu6IyOVTPIyW/qBG/Tbhojv+8KkhG54j6pJfyQa3IOmjo/Yd7Es2
-	f/Lbh+f9vyZHx5NPHaCMXOfhlelMeaZeSkTkjFZtDTzX34HSGxmCPjUTgR3KpoyOwIrpuw5
-	cNXoaAEoHbhzxpG0lgjzxf6m6WFqotpuNOGTjVColthyIYirl5i4gBzka/NLBfuzq0/qREM
-	+mIdZo+NazZUIGl7q+g+sIQ5whnhR/hq4xofReXpikH0iMLQiSPvSJiMkPcL4hHVVn4V5eg
-	JgwSR77MsSA8tofytTlTqOh99JfIJ3nrE87is6j/2jAUFVpjCv51eugEaYwU4vXSN4YgsSc
-	Y+s12IS2cuecEJV+CmYdHyx3/KzJcJRyA5wOcig4e5zrftQDPSm8oiIqgE8sGW3kSx6hxHa
-	YDE2GEwi+70mLGMMESIEV8+JPzfEeE3/YcHKDnS9zH+cXCPvl/kXcsIzL8KvoMAixiUp6Om
-	65Xu5K/4GMkrk8XziD5GRfllXx+lTi8gXWOirJ/7p+Dtal1fX3XrahFl4P6PaBhJGXDs+7x
-	FoJxkA17d0TRFA6ucaasl4KvPjGtFsu1Y08pOJf9MJ83gJqangKwdufSD+4CgCa9sre0=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v2] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+From: Venkat <venkat88@linux.ibm.com>
+In-Reply-To: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+Date: Mon, 7 Sep 2026 12:36:25 +0530
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>,
+        Christophe Leroy <chleroy@kernel.org>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        "Nysal Jan K . A ." <nysal@linux.ibm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <31C68D4C-E2A4-4052-A884-CF142AAC01C2@linux.ibm.com>
+References: <20260904025831.3439809-1-aboorvad@linux.ibm.com>
+To: Aboorva Devarajan <aboorvad@linux.ibm.com>
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: PWfMhVlJmuHV5igsf-2owlKHS7PAkfAt
+X-Proofpoint-ORIG-GUID: dd2lFNlfi2alnkv6gmJGNT8-EtxtSPM4
+X-Authority-Analysis: v=2.4 cv=RNCD2Yi+ c=1 sm=1 tr=0 ts=6a9e6284 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=pGLkceISAAAA:8 a=uId4siVdVRRDVQ4xNrcA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfXxozI5vMopOKA
+ j9Ext8WqzoRM+yMsd9LvQovnrYB8wvPl/W60rJFgpdLsipOUY8Ls7RQcqk3AuHT0abo1Oxn7TbO
+ HtA8Gd+lbT3+RdWEzA+Hjr2VRLhFlJ8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfX1sj6PRMuVwHZ
+ udqLgbPemIVKmZ4h2AozJWVEvfpP+BzYlOKcpL7iSeojE/gsNjlqeduotB5tgtn4ZXyHDcDA25G
+ e0q91iALv2Z3R7vQs7mAxVyleLJFwko8MduKzqSF9dbEyg0IoaNOaoT0Jo2PuE3krgZzAXSblJi
+ Ab7pXusujmpPZLmKZS0OKjTdU6vWiaAF9P95K9ZTgGvyW423Gx/9izkWfpgC+Nr2u1Py/v7lf9T
+ DqYOmiITFsXqKbjzlGqpekAjE1S8DL2cZTLddz5veY+7gPN6VhdCezBMQEXFQbQF7rxp4gZtyDs
+ zF/PyINoIPMOLSTaz2j1GjBRkZOCXRKdSlEPxph21kfSxfnb9xFPWjdbAz4KoQ7M2ztxNvtRHTV
+ qjouCWyzzWQoI2xXlh+BA1DZ255cpPu9AWRCSxBnAbVBvpSm96hJGXM6ZYGVbYqgJkQj8iFZoVU
+ Vu/Vqx7t6D1l+AjHMyQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 bulkscore=0 clxscore=1015 spamscore=0
+ impostorscore=0 adultscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070074
 
-VGhhbmtzIGZvciB0aGUgcmV2aWV3LgoKSSBhZ3JlZSB0aGF0IHVzaW5nIE5VTEwgYXMgYW4gZXhw
-bGljaXQgIm5vIGNvbmZpZ3VyYXRpb24iIHNlbnRpbmVsIGlzIGNsZWFuZXIgdGhhbiByZWx5aW5n
-IG9uIGFuIGFsbC16ZXJvIHN0cnVjdC4gSG93ZXZlciwgdGhlIHplcm9lZCBzdHJ1Y3QgaXMgY3Vy
-cmVudGx5IHNhZmUgdG8gdGVhciBkb3duLCBhbmQgdGhhdCBzYWZldHkgY29tZXMgZnJvbSBlc3Rh
-Ymxpc2hlZCBrZXJuZWwgY29udmVudGlvbnMgcmF0aGVyIHRoYW4gZnJvbSBhbnl0aGluZyBzdG1t
-YWMtc3BlY2lmaWM6CiAtIGtmcmVlKE5VTEwpIGlzIGEgbm8tb3AgYnkgZGVmaW5pdGlvbi4KIC0g
-ZG1hX2ZyZWVfY29oZXJlbnQoKSBiYWlscyBvdXQgZWFybHkgb24gYSBOVUxMIGNwdV9hZGRyIChz
-ZWUga2VybmVsL2RtYS9tYXBwaW5nLmMsIGRtYV9mcmVlX2F0dHJzKCkgLT4gImlmICghY3B1X2Fk
-ZHIpIHJldHVybjsiKS4KIC0gcGFnZV9wb29sX2Rlc3Ryb3koKSBpcyBndWFyZGVkIGJ5ICJpZiAo
-cnhfcS0+cGFnZV9wb29sKSIuCiAtIHhkcF9yeHFfaW5mb191bnJlZygpIGlzIGd1YXJkZWQgYnkg
-eGRwX3J4cV9pbmZvX2lzX3JlZygpLgogLSBUaGUgc2tiL2Rlc2NyaXB0b3IgbG9vcHMgYXJlIGJv
-dW5kZWQgYnkgZG1hX3R4X3NpemUvZG1hX3J4X3NpemUsIHdoaWNoIGFyZSB6ZXJvIGFmdGVyIHRo
-ZSBtZW1zZXQsIHNvIHRoZXkgbmV2ZXIgZGVyZWZlcmVuY2UgdGhlIChub3cgTlVMTCkgYnVmZmVy
-L2Rlc2NyaXB0b3IgcG9pbnRlcnMuClNvIHdoaWxlIG1lbXNldCgpIGRvZXMgbGVhbiBvbiB0aG9z
-ZSBndWFyZHMsIHRoZXkgYXJlIG5vdCBhY2NpZGVudGFsIGFuZCBob2xkIGZvciB0aGUgY3VycmVu
-dCBjb2RlLgoKQ29udmVydGluZyBwcml2LT5kbWFfY29uZiB0byBhIHBvaW50ZXIgaXMgYSBtdWNo
-IGxhcmdlciBjaGFuZ2UgdGhhbiBpdCBmaXJzdCBhcHBlYXJzOiBpdCBpcyByZWZlcmVuY2VkIH4x
-MjAgdGltZXMgYWNyb3NzIHNpeCBmaWxlcyAoc3RtbWFjX21haW4uYywgc3RtbWFjX3NlbGZ0ZXN0
-cy5jLCBzdG1tYWNfdGMuYywgc3RtbWFjX2V0aHRvb2wuYywgY2hhaW5fbW9kZS5jLCByaW5nX21v
-ZGUuYyksIGFuZCB3b3VsZCByZXF1aXJlIGNoYW5naW5nIHRoZSBhbGxvY2F0aW9uIGxpZmV0aW1l
-IGluIHByb2JlL3JlbW92ZSBwbHVzIE5VTEwgZ3VhcmRzIGF0IGV2ZXJ5IHRlYXJkb3duIHNpdGUu
-IFRoYXQgZmVlbHMgbGlrZSBuZXQtbmV4dCBjbGVhbnVwIG1hdGVyaWFsIHJhdGhlciB0aGFuIHNv
-bWV0aGluZyB0byBmb2xkIGludG8gYSB1c2UtYWZ0ZXItZnJlZSBmaXggdGhhdCBzaG91bGQgYmUg
-YmFja3BvcnRlZCB0byBzdGFibGUuCgpXb3VsZCB5b3UgYmUgT0sgd2l0aCBrZWVwaW5nIHRoZSBt
-ZW1zZXQoKSBoZXJlIGFzIHRoZSBtaW5pbWFsIGZpeCwgYW5kIEkgZm9sbG93IHVwIHdpdGggYSBz
-ZXBhcmF0ZSBuZXQtbmV4dCBzZXJpZXMgdG8gY29udmVydCBwcml2LT5kbWFfY29uZiB0byBhIHBv
-aW50ZXI/IElmIHlvdSdkIHN0aWxsIHByZWZlciB0aGUgcG9pbnRlciBhcHByb2FjaCBpbiB0aGlz
-IHBhdGNoLCBJIGNhbiBkbyBpdCwgYnV0IEkgd2FudGVkIHRvIGZsYWcgdGhlIHNjb3BlIGZpcnN0
-LgoKUmVnYXJkcywgClpoYW9KaW5taW5nCgoKCj4+IF9fc3RtbWFjX29wZW4oKSBjb3BpZXMgdGhl
-IGZyZXNobHkgYWxsb2NhdGVkIGRtYV9jb25mIGludG8gcHJpdi0+ZG1hX2NvbmYKCgoKPj4gdmlh
-IG1lbWNweSgpIGJlZm9yZSBpdCBjYW4gZmFpbCwgZS5nLiBpbiBzdG1tYWNfcmVxdWVzdF9pcnEo
-KS4/IFdoZW4gaXQKCgoKPj4gZG9lcyBmYWlsLCB0aGUgY2FsbGVycyBmcmVlIHRoZSBkbWFfY29u
-ZiBkZXNjcmlwdG9yIHJlc291cmNlcyBhbmQgdGhlCgoKCj4+IHN0cnVjdCBpdHNlbGYsIGJ1dCBw
-cml2LT5kbWFfY29uZiBzdGlsbCBob2xkcyBwb2ludGVycyB0byB0aG9zZSBmcmVlZAoKCgo+PiBy
-ZXNvdXJjZXMsIGEgdXNlLWFmdGVyLWZyZWUgdGhhdCB0cmlnZ2VycyB3aGVuIGEgc3Vic2VxdWVu
-dAoKCgo+PiBzdG1tYWNfcmVsZWFzZSgpIG9yIGFub3RoZXIgTVRVIGNoYW5nZSByZWxlYXNlcyB0
-aGUgcmVzb3VyY2VzIGFnYWluLgoKCgo+PiAKCgoKPj4gVW5kbyB0aGUgbWVtY3B5IGluIHRoZSBl
-cnJvciBwYXRoIGJ5IHplcm9pbmcgcHJpdi0+ZG1hX2NvbmYsIGxlYXZpbmcgdGhlCgoKCj4+IHN0
-YXRlIGNvbnNpc3RlbnQgcmVnYXJkbGVzcyBvZiB0aGUgY2FsbGVyLgoKCgo+PiAKCgoKPj4gRml4
-ZXM6IDMwMTM0YjdjNDdiZDIgKCJuZXQ6IGV0aGVybmV0OiBzdG1pY3JvOiBzdG1tYWM6IGZpeCBw
-b3NzaWJsZSBtZW1vcnkgbGVhayBpbiBfX3N0bW1hY19vcGVuIikKCgoKPj4gU2lnbmVkLW9mZi1i
-eTogWmhhb0ppbm1pbmcgPHpoYW9qaW5taW5nQHVuaW9udGVjaC5jb20+CgoKCj4KCgoKPkhpIFpo
-YW9KaW5taW5nLAoKCgo+CgoKCj5JIGFncmVlIHRoZSBpc3N1ZSBpcyByZWFsLCBidXQgYXNzdW1p
-bmcgZnJlZV9kbWFfZGVzY19yZXNvdXJjZXMoKSBhbHdheXMKCgoKPnRvbGVyYXRlcyBhIGZ1bGx5
-IHplcm9lZCBkbWFfY29uZiBzdHJ1Y3Qgc2VlbXMgYSBiaXQgZnJhZ2lsZSB0byBtZS4KCgoKPklz
-IGl0IGJldHRlciB0byB1c2UgYSBwb2ludGVyIGZvciBwcml2LT5kbWFfY29uZiB0aGF0IHdlIGNh
-biBzZXQgdG8gTlVMTCBpbgoKCgo+Y2FzZSBvZiBlcnJvcj8gV2hhdCBkbyB5b3UgdGhpbms/CgoK
-Cj4KCgoKPlJlZ2FyZHMsCgoKCj5Mb3JlbnpvCgoKCj4KCgoKPj4gLS0tCgoKCj4+IENoYW5nZXMg
-aW4gdjI6CgoKCj4+IC0gTW92ZSB0aGUgY2xlYXJpbmcgb2YgcHJpdi0+ZG1hX2NvbmYgZnJvbSBz
-dG1tYWNfY2hhbmdlX210dSgpIGludG8KCgoKPj4/PyBfX3N0bW1hY19vcGVuKCkgZXJyb3IgcGF0
-aCwgdW5kb2luZyB0aGUgbWVtY3B5KCkgYXQgdGhlIHBvaW50IHdoZXJlIGl0CgoKCj4+Pz8gd2Fz
-IG1hZGUgYW5kIGNvdmVyaW5nIGJvdGggY2FsbGVycy4KCgoKPj4gLSBMaW5rIHRvIHYxOiBodHRw
-czovL2xvcmUua2VybmVsLm9yZy9yLzIwMjYwOTAzLWZpeC1zdG1tYWMtbXR1LWNoYW5nZS11c2Ut
-YWZ0ZXItZnJlZS12MS0xLWM4MWRjN2Q2ZDE4YUB1bmlvbnRlY2guY29tCgoKCj4+IC0tLQoKCgo+
-Pj8gZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYyB8IDEg
-KwoKCgo+Pj8gMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgoKCj4+IAoKCgo+PiBkaWZm
-IC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4u
-YyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1hY19tYWluLmMKCgoK
-Pj4gaW5kZXggMjQ2NTZiMzUzNTBiMTQ0NTRmYjEwZGVjZWQ2NTE2ZWI4OWUyYzBjOS4uNDM2OWU2
-NGZhZjlmODc4YWEyMGFjNTA3NTcwNTA0NGY1NWM1ZjhiZiAxMDA2NDQKCgoKPj4gLS0tIGEvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvc3RtbWFjX21haW4uYwoKCgo+PiArKysg
-Yi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfbWFpbi5jCgoKCj4+
-IEBAIC00MTkwLDYgKzQxOTAsNyBAQCBzdGF0aWMgaW50IF9fc3RtbWFjX29wZW4oc3RydWN0IG5l
-dF9kZXZpY2UgKmRldiwKCgoKPj4/IAoKCgo+Pj8gCXN0bW1hY19yZWxlYXNlX3B0cChwcml2KTsK
-CgoKPj4/IGluaXRfZXJyb3I6CgoKCj4+ICsJbWVtc2V0KCZwcml2LT5kbWFfY29uZiwgMCwgc2l6
-ZW9mKHByaXYtPmRtYV9jb25mKSk7CgoKCj4+PyAJcmV0dXJuIHJldDsKCgoKPj4/IH0KCgoKPj4/
-IAoKCgo+PiAKCgoKPj4gLS0tCgoKCj4+IGJhc2UtY29tbWl0OiBhNTAwZGI3ODE5YzUwZGI1OWU1
-NWYxYjRmYTFjM2JhYTVhMjYxNmYzCgoKCj4+IGNoYW5nZS1pZDogMjAyNjA5MDMtZml4LXN0bW1h
-Yy1tdHUtY2hhbmdlLXVzZS1hZnRlci1mcmVlLTY5M2RhNmViNGEzMAoKCgo+PiAKCgoKPj4gQmVz
-dCByZWdhcmRzLAoKCgo+PiAtLSAKCgoKPj4gWmhhb0ppbm1pbmcgPHpoYW9qaW5taW5nQHVuaW9u
-dGVjaC5jb20+CgoKCj4+IAoKCgo+PiAKCgo=
+
+
+> On 4 Sep 2026, at 8:28=E2=80=AFAM, Aboorva Devarajan =
+<aboorvad@linux.ibm.com> wrote:
+>=20
+> Since the switch to generic entry, an interrupt from user mode
+> accounts user time twice: once in arch_interrupt_enter_prepare()
+> and again in arch_enter_from_user_mode(), which irqentry_enter()
+> invokes for the same interrupt:
+>=20
+> arch_interrupt_enter_prepare()
+>  account_cpu_user_entry() /* first */
+> irqentry_enter()
+>  arch_enter_from_user_mode()
+>    account_cpu_user_entry() /* second */
+>=20
+> The second call charges the same interval again, because
+> account_cpu_user_entry() accumulates the time spent in user mode
+> since the last return to user space.
+>=20
+> The two calls come from the GENERIC_ENTRY preparation series,
+> where each step was a no-op on its own. Commit 09a9d3a8499d
+> ("powerpc: introduce arch_enter_from_user_mode") added the hook
+> with the user-time accounting in it, but nothing called it yet.
+> Commit 893082ac769b ("powerpc: Prepare for IRQ entry exit")
+> copied interrupt_enter_prepare() verbatim into entry-common.h as
+> arch_interrupt_enter_prepare(); that copy was equally unused, as
+> handlers still called interrupt_enter_prepare().
+>=20
+> Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> made both live. On the syscall side it did the full conversion:
+> system_call_exception() now accounts once through the hook via
+> syscall_enter_from_user_mode(), rather than calling
+> account_cpu_user_entry() directly. On the interrupt side it
+> switched the handler macros to arch_interrupt_enter_prepare()
+> followed by irqentry_enter(), which also runs the hook, but the
+> accounting in arch_interrupt_enter_prepare() was not removed to
+> match. The double accounting starts with that commit.
+>=20
+> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
+> reported user time of any workload that takes interrupts. The
+> other accounting modes compile account_cpu_user_entry() to an
+> empty stub, so they are not affected.
+>=20
+> Remove the accounting from arch_interrupt_enter_prepare() and rely
+> on arch_enter_from_user_mode(), which already runs for both
+> syscalls and interrupts. The duplicate account_stolen_time() call
+> is removed the same way.
+>=20
+> On a pseries LPAR a busy loop reports 6s user time in 3s elapsed
+> (~210% CPU) before the fix, and 3s (~105% CPU) after it:
+>=20
+>  $ python3 -c 'while True: pass' &
+>  $ sleep 3; ps -p $! -o etime,time,pcpu
+>=20
+>            ELAPSED     TIME  %CPU
+>  Before      00:03 00:00:06   210
+>  After       00:03 00:00:03   105
+>=20
+> A 50% load reports ~70% usr / 30% idle before the fix, and
+> ~49% usr / 51% idle after it:
+>=20
+>  $ taskset -c 6 stress-ng --cpu 1 --cpu-load 50 &
+>  $ mpstat -P 6 1
+>=20
+>            CPU    %usr   %idle
+>  Before      6   69.74   30.26
+>  After       6   48.51   50.50
+>=20
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
+> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> ---
+
+I have tested this patch, by applying on top of latest mainline, and its =
+working as expected.
+
+Please add below tag.
+
+Tested-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+
+Regards,
+Venkat.
+> Changes in v2:
+> - Explain which commits introduced each accounting call and how
+>   they overlapped in commit message.
+> - Drop the code comment.
+>=20
+> v1: =
+https://lore.kernel.org/linuxppc-dev/20260902050628.2553909-1-aboorvad@lin=
+ux.ibm.com/
+>=20
+> arch/powerpc/include/asm/entry-common.h | 2 --
+> 1 file changed, 2 deletions(-)
+>=20
+> diff --git a/arch/powerpc/include/asm/entry-common.h =
+b/arch/powerpc/include/asm/entry-common.h
+> index c5adb5006361..000fa925e26a 100644
+> --- a/arch/powerpc/include/asm/entry-common.h
+> +++ b/arch/powerpc/include/asm/entry-common.h
+> @@ -222,8 +222,6 @@ static inline void =
+arch_interrupt_enter_prepare(struct pt_regs *regs)
+>=20
+> if (user_mode(regs)) {
+> kuap_lock();
+> - account_cpu_user_entry();
+> - account_stolen_time();
+> } else {
+> kuap_save_and_lock(regs);
+> /*
+>=20
+> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+> --=20
+> 2.54.0
+>=20
 
