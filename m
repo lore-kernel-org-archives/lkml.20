@@ -1,156 +1,307 @@
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67ACB376BD9;
-	Mon,  7 Sep 2026 02:56:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7153F376BD9;
+	Mon,  7 Sep 2026 02:57:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749816; cv=none; b=EmE0Z8hfUBnieEDvlyeTnPqeBDBAP8MJkLJ9N+Lo9v8DTQUorfLXb38Hb6yHfQfs5LFYp2/TuK3jNvH53YBf0e/vXqv8Bg9CO2yjB7SpSwrQSV/TxpwXLO7j8m82VLaCV454xqniGFx4kaxXiH/hScKKOi3BteZY27eWN2UOdBE=
+	t=1788749827; cv=none; b=pIQspBG0jFJOGo6+LtwXb3RIdSPFulMGe6YccRImYJk3FIGPd6XZ/T6tLDuSTzAS24XSkNpk1eXzqP1DPRXb5w/AxxcCoGP3UN+Bs14FfmjS72z3g77eKEZ+mmsenwmlweaHg8qSQnyEKqctn1G/L9YsrhF6nRhjGODtz5b6yTw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749816; c=relaxed/simple;
-	bh=6aDjopDtC9TELJP9Z/u/p2WjR0KPjRj6dj5gS1egddI=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=NmOlhgdA4J9PjvsJZ56SA9zEWeJLEtayb0M9CsomkC6/qEBQkCzY9AesXOmauq5qg3d3z0KzomJvON92Toeyl4IUhizVGhI/UgSZbLdKlfPbw8iCjGCV64JvcXXUhk6I7NZObgBwQaF/wUxJ+rfbxALDUIeKbc9nXOocoaJk+Mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.198])
-	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hdWWF0vgdzYQtk1;
-	Mon,  7 Sep 2026 10:39:53 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.112])
-	by mail.maildlp.com (Postfix) with ESMTP id 2715640577;
-	Mon,  7 Sep 2026 10:40:42 +0800 (CST)
-Received: from [10.174.176.103] (unknown [10.174.176.103])
-	by APP1 (Coremail) with UTF8SMTPA id cCh0CgDHrQgmJJ5q12MmBA--.51243S2;
-	Mon, 07 Sep 2026 10:40:41 +0800 (CST)
-Subject: Re: [PATCH bpf v4] bpf: Fix UAF due to concurrent consumption of
- ttrace lists in alloc_bulk
-To: Pu Lehui <pulehui@huaweicloud.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexei Starovoitov <ast@kernel.org>,
- Leon Hwang <leon.hwang@linux.dev>
-Cc: Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>,
- Yonghong Song <yonghong.song@linux.dev>, Song Liu <song@kernel.org>,
- Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Pu Lehui <pulehui@huawei.com>
-References: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-From: Hou Tao <houtao@huaweicloud.com>
-Message-ID: <87f13600-6988-f407-ed3b-61b11424da52@huaweicloud.com>
-Date: Mon, 7 Sep 2026 10:40:38 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	s=arc-20240116; t=1788749827; c=relaxed/simple;
+	bh=s0/gyL4DT92vLetKQ2d+0g4Wr2TTxYncKq3clGoPgqw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=aCsMs6nf/Wxo5ymjN3qE5Tj1BJIHvXEWO7sb88xYa3TUnnYltUgmEdf5CxlRvynEn3Ha8hxn45RJrjkPv4qFz2cDVZrukBDGo3ccblwNG2v2uXoUfNXjj7yzCvXMl3yGd8nh9KmRXx2p19ZEfCJVTLD9OJ0F5iE9D9+pWWxYDG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=tmyzvUB0; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="tmyzvUB0"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6872v08O12422432, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788749820; bh=rJy0msPsIWRoEvtAeLNY5tO+DEJtBsF57CCXNrbhlyo=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=tmyzvUB0nACVhp+82ZMQoyGdCYuNfuGwN00KVpZdfB6Jvn1tb0FzeW1usgFVlPfeT
+	 ncB1x3gJwud6WN7gE+jrDc1EJ7scvrBSwSQBVNl64JUmdX/XFWrTjM8TtOZOB5WB+2
+	 jQZy579vw8oFlC2B831Vc+2S6mX3zPCAoTcxq98LRPskUIppPa1CvjVjesltKqtXnU
+	 RjB4AunwA1KsqaSRVVPu1IwOUbdv+AiZQk1el1lR9jJuEoLO/AOIFtXiCRDQrDgrOh
+	 dKkh/C0qIm602U8AQOLZAsCnNQaVJFmsHOyw7FmbMvvzCkFRF+Ifz2YEej/gbxWUZR
+	 iEN/dggF5fbpA==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6872v08O12422432
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 7 Sep 2026 10:57:00 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Mon, 7 Sep 2026 10:57:00 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
+ 15.02.2562.043; Mon, 7 Sep 2026 10:57:00 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>, Jes Sorensen
+	<Jes.Sorensen@gmail.com>
+CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>
+Subject: RE: [PATCH] wifi: realtek: fix typos in comments
+Thread-Topic: [PATCH] wifi: realtek: fix typos in comments
+Thread-Index: AQHdPGS3XpPs/3IfWkqczYbSJKV/obbCbaAw
+Date: Mon, 7 Sep 2026 02:57:00 +0000
+Message-ID: <14025cfd9b964ea9b3b2c3775b192692@realtek.com>
+References: <20260904115826.12928-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260904115826.12928-1-hemanth.selam@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260905021139.4116529-1-pulehui@huaweicloud.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-CM-TRANSID:cCh0CgDHrQgmJJ5q12MmBA--.51243S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxXFy8GryUZFyxAw1DXrWUArb_yoW5ArykpF
-	Z5Zr98XF1kAw1aya40qr4xCrZ7ZrsrWw43GFZ7WFnakw13Kr1DKFWfKryYqr9Yyw4xua43
-	tryq9r1rJw1UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
-	n2IY04v7Mxk0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2
-	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
-	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
-	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
-	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
-	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUonmRUUUUU
-X-CM-SenderInfo: xkrx3t3r6k3tpzhluzxrxghudrp/
+
+Hemanth Selam <hemanth.selam@gmail.com> wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>=20
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  drivers/net/wireless/realtek/rtl8xxxu/regs.h       |  2 +-
+
+Please send this as an individual patch, and the subject looks like
+
+    wifi: rtl8xxxu: ....=20
+
+and subject of rtlwifi is
+    wifi: rtlwifi: ....
+
+The nit below is to add exact one space at initial and tail for single line
+comment. For comment block, I prefer not to stir them.=20
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/btcoexist/halbtc8723b2a=
+nt.c
+> b/drivers/net/wireless/realtek/rtlwifi/btcoexist/halbtc8723b2ant.c
+> index 7a71f063015a..df1ee39d6f49 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/btcoexist/halbtc8723b2ant.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/btcoexist/halbtc8723b2ant.c
+> @@ -1894,7 +1894,7 @@ static void btc8723b2ant_tdma_duration_adjust(struc=
+t btc_coexist *btcoexist,
+>                 result =3D 0;
+>                 wait_count =3D 0;
+>         } else {
+> -               /*accquire the BT TRx retry count from BT_Info byte2*/
+> +               /*acquire the BT TRx retry count from BT_Info byte2*/
+
+Add spaces after /* and before */
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/dm.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/dm.c
+> index f749d19ec5f5..069d89c7800d 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/dm.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8188ee/dm.c
+> @@ -879,7 +879,7 @@ static void dm_txpower_track_cb_therm(struct ieee8021=
+1_hw *hw)
+>                 {0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 25, 25, 25}
+>         };
+>=20
+> -       /*Initilization (7 steps in total) */
+> +       /*Initialization (7 steps in total) */
+
+Add a space after /*
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192ee/fw.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8192ee/fw.c
+> index 88b7a715f4c5..c5ca8f1551f9 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192ee/fw.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192ee/fw.c
+> @@ -762,7 +762,7 @@ void rtl92ee_set_fw_rsvdpagepkt(struct ieee80211_hw *=
+hw, bool b_dl_finished)
+>         }
+>  }
+>=20
+> -/*Shoud check FW support p2p or not.*/
+> +/*Should check FW support p2p or not.*/
+
+Add spaces after /* and before */
+
+>  static void rtl92ee_set_p2p_ctw_period_cmd(struct ieee80211_hw *hw, u8 c=
+twindow)
+>  {
+>         u8 u1_ctwindow_period[1] =3D {ctwindow};
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8192se/reg.h
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8192se/reg.h
+> index 45f968e0e57c..416bb6670da7 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8192se/reg.h
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8192se/reg.h
+> @@ -303,7 +303,7 @@
+>=20
+>  #define        RPWM                                    PCI_RPWM
+>=20
+> -/* Regsiter Bit and Content definition  */
+> +/* Register Bit and Content definition  */
+
+Keep single one space before */
+
+>=20
+>  #define        ISO_MD2PP                               BIT(0)
+>  #define        ISO_PA2PCIE                             BIT(3)
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8723be/dm.c
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8723be/dm.c
+> index c65d14fb914f..5df141c5960e 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8723be/dm.c
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8723be/dm.c
+> @@ -742,7 +742,7 @@ static void rtl8723be_dm_txpower_tracking_callback_th=
+ermalmeter(
+>                 5, 6, 6, 6, 6, 7, 7, 7, 8, 8,  9,
+>                 9, 10, 10, 11, 12, 13, 14, 15};
+>=20
+> -       /*Initilization ( 7 steps in total )*/
+> +       /*Initialization ( 7 steps in total )*/
+
+Add spaces after /* and before */
+
+>         rtlpriv->dm.txpower_trackinginit =3D true;
+>         rtl_dbg(rtlpriv, COMP_POWER_TRACKING, DBG_LOUD,
+>                 "%s\n", __func__);
+
+[...]
+
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/reg.h
+> b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/reg.h
+> index 7d833b72c7ed..caa7be69ac4d 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/reg.h
+> +++ b/drivers/net/wireless/realtek/rtlwifi/rtl8821ae/reg.h
+> @@ -631,7 +631,7 @@
+>  #define        HWSET_MAX_SIZE                          512
+>  #define   EFUSE_MAX_SECTION                    64
+>  #define   EFUSE_REAL_CONTENT_LEN               256
+> -/* PG data exclude header, dummy 7 bytes frome CP test and reserved 1byt=
+e.*/
+> +/* PG data exclude header, dummy 7 bytes from CP test and reserved 1byte=
+.*/
+
+Add a space before */
+
+>  #define                EFUSE_OOB_PROTECT_BYTES         18
+>=20
+>  #define        EEPROM_DEFAULT_TSSI                     0x0
+> @@ -1523,7 +1523,7 @@
+>  #define        ROFDM0_TXCOEFF5                 0xcb4
+>  #define        ROFDM0_TXCOEFF6                 0xcb8
+>=20
+> -/*Path_A RFE cotrol */
+> +/*Path_A RFE control */
+
+Add a space after /*
+
+>  #define        RA_RFE_CTRL_8812                0xcb8
+>  /*Path_B RFE control*/
+>  #define        RB_RFE_CTRL_8812                0xeb8
+> @@ -2336,7 +2336,7 @@
+>=20
+>  #define        REG_UN_used_register            0x01bf
+>=20
+> -/* Path_A RFE cotrol pinmux*/
+> +/* Path_A RFE control pinmux*/
+
+Add a space before */
+
+>  #define                RA_RFE_PINMUX           0xcb0
+>  /* Path_B RFE control pinmux*/
+>  #define                RB_RFE_PINMUX           0xeb0
+> @@ -2345,17 +2345,17 @@
+>  #define                RB_RFE_INV              0xeb4
+>=20
+>  /* RXIQC */
+> -/*RxIQ imblance matrix coeff. A & B*/
+> +/*RxIQ imbalance matrix coeff. A & B*/
+
+Add spaces after /* and before */
+
+>  #define RA_RXIQC_AB                    0xc10
+> -/*RxIQ imblance matrix coeff. C & D*/
+> +/*RxIQ imbalance matrix coeff. C & D*/
+
+Add spaces after /* and before */
+
+>  #define        RA_RXIQC_CD                     0xc14
+>  /* Pah_A TX scaling factor*/
+>  #define        RA_TXSCALE                      0xc1c
+>  /* Path_B TX scaling factor*/
+>  #define        RB_TXSCALE                      0xe1c
+> -/*RxIQ imblance matrix coeff. A & B*/
+> +/*RxIQ imbalance matrix coeff. A & B*/
+
+Add spaces after /* and before */
+
+>  #define        RB_RXIQC_AB                     0xe10
+> -/*RxIQ imblance matrix coeff. C & D*/
+> +/*RxIQ imbalance matrix coeff. C & D*/
+
+Add spaces after /* and before */
 
 
+>  #define        RB_RXIQC_CD                     0xe14
+>  /*bit mask for IQC matrix element A & C*/
+>  #define        RXIQC_AC                        0x02ff
 
-On 9/5/2026 10:11 AM, Pu Lehui wrote:
-> From: Pu Lehui <pulehui@huawei.com>
->
-> Syzkaller repeatedly triggered UAF splats related to nodes in
-> waiting_for_gp_ttrace within the bpf memalloc:
->
-> BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
-> Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
->  ...
->  llist_del_first+0x85/0x110 lib/llist.c:61
->  alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
->  bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
->
-> Freed by task 14:
->  ...
->  __free_rcu kernel/bpf/memalloc.c:281 [inline]
->  __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
->  rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
->  rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
->  rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
->
-> The reason is that the UAF occurs after the RCU Tasks Trace GP expires:
-> when the __free_rcu() callback runs, there is no synchronization
-> protecting llist_del_all() against concurrent alloc_bulk() operating on
-> waiting_for_gp_ttrace, leading to the race condition below:
->
-> CPU0                                           CPU1
->                                                __free_rcu (RCU Tasks Trace callback)
-> alloc_bulk
->   llist_del_first(&c->waiting_for_gp_ttrace)
->     entry = smp_load_acquire(&head->first);
->     do {
->       if (entry == NULL)
->         return NULL;
->                                                free_all(llist_del_all(&c->waiting_for_gp_ttrace))
->                                                  llist_for_each_safe(pos, t, llnode)
->                                                    free_one(pos);
->       next = READ_ONCE(entry->next); <-- trigger UAF
->     } while (!try_cmpxchg(&head->first, &entry, next));
->
-> In addition, there is also a theoretical race condition on the
-> free_by_rcu_ttrace list. This race requires two preconditions: an
-> in-flight Tasks Trace GP keeping c->call_rcu_ttrace_in_progress == 1,
-> and concurrent cross-CPU frees repopulating c->free_by_rcu_ttrace with
-> new nodes. Under these conditions, the following scenario triggers UAF:
->
-> // CPU0
-> // irq work is still busy (on PREEMPT_RT)
-> alloc_bulk()
->   llist_del_first(&c->free_by_rcu_ttrace)
->     entry = smp_load_acquire(&head->first);
->     do {
->       if (entry == NULL)
->         return NULL;
->
->         // CPU1
->         bpf_mem_alloc_destroy()
->           WRITE_ONCE(c->draining, true)
->           // wait for CPU0
->           irq_work_sync()
->
->                 // CPU2
->                 do_call_rcu_ttrace(tgt(CPU0))
->                   if (c->draining) {
->                     llist_del_all(&c->free_by_rcu_ttrace)
->                     free_all()
->                   }
->
-> // CPU0 continue
->       next = READ_ONCE(entry->next); <-- trigger UAF
->     while (!try_cmpxchg(&head->first, &entry, next));
->
-> Fix this by introducing a raw spinlock to synchronize the concurrent
-> consumption on waiting_for_gp_ttrace and free_by_rcu_ttrace.
->
-> Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
-> Suggested-by: Alexei Starovoitov <ast@kernel.org>
-> Suggested-by: Hou Tao <houtao1@huawei.com>
-> Signed-off-by: Pu Lehui <pulehui@huawei.com>
+[..]
 
-Acked-by: Hou Tao <houtao1@huawei.com>
+> diff --git a/drivers/net/wireless/realtek/rtlwifi/wifi.h
+> b/drivers/net/wireless/realtek/rtlwifi/wifi.h
+> index f1830ddcdd8c..9e2149bbac5a 100644
+> --- a/drivers/net/wireless/realtek/rtlwifi/wifi.h
+> +++ b/drivers/net/wireless/realtek/rtlwifi/wifi.h
+> @@ -744,7 +744,7 @@ enum rtl_var_map {
+>         RTL_IMR_BDOK,           /*Beacon Queue DMA OK Interrup */
+>         RTL_IMR_HIGHDOK,        /*High Queue DMA OK Interrupt */
+>         RTL_IMR_COMDOK,         /*Command Queue DMA OK Interrupt*/
+> -       RTL_IMR_TBDOK,          /*Transmit Beacon OK interrup */
+> +       RTL_IMR_TBDOK,          /*Transmit Beacon OK interrupt */
+
+Add a space after /*=20
+
+>         RTL_IMR_MGNTDOK,        /*Management Queue DMA OK Interrupt */
+>         RTL_IMR_TBDER,          /*For 92C,Transmit Beacon Error Interrupt=
+ */
+>         RTL_IMR_BKDOK,          /*AC_BK DMA OK Interrupt */
+> @@ -2693,7 +2693,7 @@ struct rtl_priv {
+>         int max_fw_size;
+>=20
+>         /* hal_cfg : for diff cards
+> -        * intf_ops : for diff interrface usb/pcie
+> +        * intf_ops : for diff interface usb/pcie
+>          */
+>         const struct rtl_hal_cfg *cfg;
+>         const struct rtl_intf_ops *intf_ops;
+> @@ -2841,7 +2841,7 @@ enum bt_radio_shared {
+>  #define        RT_RF_PS_LEVEL_ALWAYS_ASPM      BIT(6)
+>  /* no matter RFOFF or SLEEP we set PS_ASPM_LEVL*/
+>  #define        RT_PS_LEVEL_ASPM                BIT(7)
+> -/*When LPS is on, disable 2R if no packet is received or transmittd.*/
+> +/*When LPS is on, disable 2R if no packet is received or transmitted.*/
+
+Add spaces after /* and before */
+
+>  #define        RT_RF_LPS_DISALBE_2R            BIT(30)
+>  #define        RT_RF_LPS_LEVEL_ASPM            BIT(31) /*LPS with ASPM *=
+/
+>  #define        RT_IN_PS_LEVEL(ppsc, _ps_flg)           \
+> --
+> 2.48.1
 
