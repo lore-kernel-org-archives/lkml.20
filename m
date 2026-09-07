@@ -1,102 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F0B436BEA;
-	Mon,  7 Sep 2026 11:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437DE34752F;
+	Mon,  7 Sep 2026 11:47:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781631; cv=none; b=uwrEav22UCaI5n20qk2pMMwE5HwYFIm+I6swKVoT8TRdnm3XP38G+dc0JWwbf8VehatSI9WE1wyJF6y+EcV5n2BKl9eNQhTA5r3Zi2jKsUF9mP3FQATopYr1ZFBPV81aMukEagDkGgVSL6Y1jNRmBA2ctoBMORu+ITZZ2fxZRLs=
+	t=1788781632; cv=none; b=Eaxg3NwN/JA7OeogSnRw9sUVX45xmeZG/yCv2R3TwI/JmNOi8EUwqKRP7q4Y+BOQsIJNXJxRX4gf7FdEDDTUxObQZbJTI35cPLX/kckl92al3YgW1f717Cg5mo3k9KdDl0rMItlwLpfJSoLuA8hJcRvkgs/iPnyvi2TT0JgjCnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781631; c=relaxed/simple;
-	bh=t7zfQYsesefqvJ7HSJmkoBA515XbmR5tcBI3bJrJXaI=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EyivWwPgE6jq8S0VpdU0CHpJGwldTiYNNOFrSzk+c5GI4YAhPff16Rd+4oF7nuTFTyRjZCLazt2n82uSvDD+/wELC3czBvXPYXoxQ5hJnspJb4QXxa9unTnvIU384MO6hHi+sagWuM/lSVU9gP46fxlgXEb8BXjIMmAbUY+P3To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFTDFwQs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788781632; c=relaxed/simple;
+	bh=kTHD8aXOkJPGWuhiRXf5vbRHcdX1+9ZccklSQKrZSNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BG5TfyOvKLR3Kn9Rh7ytWBLq+Y+URNOCS2OveVpPMsUC/UUq9znnXkgXz/PYVD9X9watZ8vFzHzaqTvl66t++8lsEi9MugArXAA71Kw1cvOd72UMAfQihndrTJxMXgjeq2J4s8z8Ktx2IfxbZ+F86xY3ie0zi85sSXZYLJ81ycw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8gDzlxB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFTDFwQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5FB1F00A3D;
-	Mon,  7 Sep 2026 11:47:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8gDzlxB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3BF01F00A3A;
+	Mon,  7 Sep 2026 11:47:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781630;
-	bh=DVB6LVe97eZNFBERy+A154kH+m53kcC25g88DpohPr0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=iFTDFwQsQbJl/5TzD0+XECiLo7850iz9UBtGyreADq2cKdAzQmn2QqtxS3u1Jsbru
-	 T7ADD1ZpbJmdIp7K0/sQEMjDrSdqnoDAQvpe/jbHJyuwN9JTn1Phst5EN6d5L8Q2Qp
-	 84J3i5PcTd8KZybNAkQcxe+193DshRNB6Nzaub8mc8QXpc+b1S4VVijj8v6s+zdXgE
-	 P3aWWuOLB0vAo3Dcdt8D3/ydht8W/Ye2fCFSjAPcE68AjKezyE2JoA1REXC3F2kf4H
-	 vdW7FvGO1UADE5HJspSSbOcKjYme76WJEiXGNuaEHBL+ONTHBDwIr0PfPvFC+Bi7xA
-	 9yeaCKJytc78Q==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3XoZ-00000005k3D-2akC;
-	Mon, 07 Sep 2026 11:47:07 +0000
-Date: Mon, 07 Sep 2026 12:47:07 +0100
-Message-ID: <86ecf5472c.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Kohei Enju <enju.kohei@fujitsu.com>
-Cc: Steven Price <steven.price@arm.com>,
-	kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	James Morse <james.morse@arm.com>,
-	Oliver Upton <oliver.upton@linux.dev>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Joey Gouly <joey.gouly@arm.com>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Christoffer Dall <christoffer.dall@arm.com>,
-	Fuad Tabba <tabba@google.com>,
-	linux-coco@lists.linux.dev,
-	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
-	Gavin Shan <gshan@redhat.com>,
-	Shanker Donthineni <sdonthineni@nvidia.com>,
-	Alper Gun <alpergun@google.com>,
-	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
-	Emi Kisanuki <fj0570is@fujitsu.com>,
-	Vishal Annapurve <vannapurve@google.com>,
-	WeiLin.Chang@arm.com,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>
-Subject: Re: [PATCH v16 22/45] KVM: arm64: CCA: Handle RMI_EXIT_RIPAS_CHANGE
-In-Reply-To: <ap6YrZiCdS6FI83p@FCCLS0092175.localdomain>
-References: <20260803134403.80630-1-steven.price@arm.com>
-	<20260803134403.80630-23-steven.price@arm.com>
-	<ap49Orng5-oehc6J@FCCLS0092175.localdomain>
-	<86fqzl4biu.wl-maz@kernel.org>
-	<ap6YrZiCdS6FI83p@FCCLS0092175.localdomain>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788781631;
+	bh=LNBJFrIZsAeWFxgWmTtDLoYL/yB9knk6yB5nM6P3GBQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=I8gDzlxBd1Fy+9lJod8z5J1uHaNQjRuCEjOAg3oHk2xqUZAkXhJENtN3g64364YZm
+	 HoGo2FP/3/2GkAMmTif53WPY6yQ41X56IWa1L0ilE0XsKgUAC45sNGylTLhUBBtQxo
+	 /upYgfmP1qRbyBXvlbU6oFJfKVve/PE5iI8MqpQKvCyD7H+vOH3JxeHl3rJDQ+9545
+	 8Kwa4ht7JjIOmYKQpDuUvisfnOjML7xXY+r61nxAWcfXgt2l8DUoqDpfUgeBK7JWCh
+	 xrY51N5HLfgpIFE7Bl1OIs8LJk+X2GMh6MdZsWJ97WIpmHyjLjwsz/FTVrCcIEH2k1
+	 FjdxMV/2RXzXg==
+Date: Mon, 7 Sep 2026 12:47:07 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Seven Lee <wtli@nuvoton.com>,
+	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/9] ASoC: nau8821: stop resume when cache sync fails
+Message-ID: <054a2f42-97b5-4ea8-ac63-449f593ba6a8@sirena.org.uk>
+References: <20260906034321.86080-2-hppiscas@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: enju.kohei@fujitsu.com, steven.price@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, catalin.marinas@arm.com, will@kernel.org, james.morse@arm.com, oliver.upton@linux.dev, suzuki.poulose@arm.com, yuzenghui@huawei.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, alexandru.elisei@arm.com, christoffer.dall@arm.com, tabba@google.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, gshan@redhat.com, sdonthineni@nvidia.com, alpergun@google.com, aneesh.kumar@kernel.org, fj0570is@fujitsu.com, vannapurve@google.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="N6qI5uOVmknfOxdx"
+Content-Disposition: inline
+In-Reply-To: <20260906034321.86080-2-hppiscas@163.com>
+X-Cookie: Who's on first?
 
-On Mon, 07 Sep 2026 12:12:36 +0100,
-Kohei Enju <enju.kohei@fujitsu.com> wrote:
 
-> Is there any ongoing work to address this that you are aware of? This
-> seems like a fairly broad topic that may require a separate discussion.
+--N6qI5uOVmknfOxdx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-I don't think anyone is working on this yet.
+On Sun, Sep 06, 2026 at 11:43:13AM +0800, Pengpeng Hou wrote:
+> nau8821_resume() restores cached registers during component resume but
+> ignores a regcache_sync() failure and continues with IRQ enablement.
+> Those operations assume that the codec register state has already been
+> restored.
 
-But I guess that making it clear that this needs to be sorted *before*
-we merge the KVM CCA support should get things (and people) in motion.
+Something seems up with your mail, neither this nor the other series you
+posted at roughly the same time "ASoC: report additional component
+restore failures" ended up threaded together.
 
-Thanks,
+You might want to look at b4 to send the patches, especially it's web
+submission endpoint which avoids having to configure mail:
 
-	M.
+   https://b4.docs.kernel.org/en/latest/contributor/overview.html
 
--- 
-Without deviation from the norm, progress is not possible.
+
+--N6qI5uOVmknfOxdx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqepDYACgkQJNaLcl1U
+h9CxIwf/X6UmbDIF8GHJnFJ8vXZv6U0kWdkATpbYNQ9PPJXzs4aOX951/lgv98Ju
+8hQFI5x98IrbV7TGdd2fnuzE5xvKCZuEV6Zmjfkrs3XUT21rL1bTcD10/yhaqGtP
+2E+nvj4XwpF9cQobTtAd5wMrCVRz+7ibksh/DXIn7XdTf00KJ60R1XipodRMomny
++9lTQrCUvRFqTNUQtL5KqX31m0x8Hwm8+kSxxFTZR3WqhxL+5p+OFbfUrdjO9I2M
+Azzh8Q84Skipk+kxndHoYcj+xw+DzRMMZU0Wm5DjjDuP8P/jq6+GLwkeWrQDu6va
+8IlVGD4M/cvkQPRxHAfvnhxkAcryVA==
+=QfBs
+-----END PGP SIGNATURE-----
+
+--N6qI5uOVmknfOxdx--
