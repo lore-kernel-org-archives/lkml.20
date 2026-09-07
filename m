@@ -1,127 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B49F2512C8;
-	Mon,  7 Sep 2026 22:14:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9C933D512
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788819288; cv=none; b=da2whEqzEu59gzjo2qVhbcsc2LOacZqoGODMJ19HULATX0RUnPvIJ0bzs76v4gEvzvy/3x7K+Ff0oGwQ2z8LohSHQd6TxBSS0DVj1rjJrFHygSc//ynidCzcmlHeR/mtQHi1lZcFq3aC4ILufH51OolHKKQ5PF5WAdy1T2EAxlk=
+	t=1788819322; cv=none; b=livijyLEsBsTB1ri9gx/fpZV9R0ixxF5AAIlEOxTOcfz2KEQv9Dtn52q8h7szjQpGr2fAVPl97XpqgENz2Mw5SU741yMS5q0+4OFqgNnF6cJAZx7+N/cnBTZy6nuVKABT1Sl5pf/S+t5fsIL2+/sGyJCqHZfJNn4wbdjBP5R8wY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788819288; c=relaxed/simple;
-	bh=tHA8DvT+ZGAoZ+88//8DktoapK98E0GNZ/0yTO5Hbtc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=eAIqTCnpA3aHtOGWmD5C25rE5qzfOkMouVAUDU/H5rI752aalaFyf87YPAgtc/S3z7jFNuFXNm8lKG8CCVlRrWe+a6/ccpPkp0SN3R4oh5lR6g9xBCL4YWyJKQNjTG4vJUd0/55D01Lz/mQmdkW69Zmn68yzWa218blQJPvYxXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBGMCLZM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788819322; c=relaxed/simple;
+	bh=xWQKezu4BREhy3j/blXwxCRCfvwvHIXrTtHnHeeaEXk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jk+9zLsI2/mkQwV0DGlNotuJnLNLWaJkijMxwnv2j7DpMFfc5il7f5GwHr3bDosEOybsdyBy1XVC+IRArwzJwY4CCo93JNoC1L4EJX4Y8e5ekhY8PKUrvTAVFCGFRTCvDGPixrO4He0/fTSN35aSs7/wSgprAgvbHQ6QogyEqZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJqnduyv; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBGMCLZM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D9D1F00A3A;
-	Mon,  7 Sep 2026 22:14:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788819287;
-	bh=lWgXCcsB9CqG+/eI2m8zz0LJWHEJ6/DG+py2Q4e8IE0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nBGMCLZMn3JaCVqXK4ZBLAPY24CcGO6T1Vq7Ey8t24Cyec3ru3VSaVd8eIXC7iFhG
-	 2+RBB61bKEj/UNSkEoHDSbMQWvni3En8lsn84w3dshY4vuERLGG3M/qnSvILz7wq2d
-	 oEqXDblMLqvi/LAuqZglrwKJo5Qas8HFRvOqRyJiFzqZlW673kKaQpWVEdI9+9Y8vD
-	 kHX4V9Ij3CMAjg80lX7Z+LBONDjN80jw2sjZmoWFbFCi1f8v1+R/nFqr2yWoGectAK
-	 Pk8PrhVkVOnCGd9k1TVzk4ui475gdjaih+r7DvBOay2BN15EuSDCQ1ZeCgyKX18Vtx
-	 i2LgNdmFess5w==
-Date: Mon, 7 Sep 2026 23:14:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org
-Cc: Nicolas Pitre <nico@fluxnic.net>, Borislav Betkov <bp@alien8.de>, Ingo
- Molnar <mingo@redhat.com>, Thomas Gleinxer <tglx@linutronix.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260907231444.7fa2d116@jic23-huawei>
-In-Reply-To: <20260901175101.1e059ac8@jic23-huawei>
-References: <20260803094702.3852-1-david.laight.linux@gmail.com>
-	<11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
-	<20260803163955.627bdd3f@pumpkin>
-	<20260823233536.30b984ed@jic23-huawei>
-	<20260901175101.1e059ac8@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJqnduyv"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48589798dbbso3316881f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:15:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788819318; x=1789424118; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oxCw6MZUrUMQF3PxuLGYM79WzM4GNi956bvyl3WEJ2c=;
+        b=rJqnduyv3+GKruEiOn2qVV1C7znyq5QrRRS8m9CUavzzgCz57d0/XAd8J+yUQrhg3O
+         F0GCmdNrqMi7ytL99Rnq4dFDA58FMM9YfFX6s78vnx07rs0ylnylBPDT/qU8kkOBktKz
+         yC8rRFqMDdP4lxGY3fvArsigYGjlylSkxKzCt3lVKDTLpWb2q9fCuZgzrZ2v9HAXXMpY
+         RzL3zjzfevdli53ZcpxkIU6hS2QkZSuHgHOkt1YtMcnaty4fQzT2TwEBmQMAkVQ4etd9
+         D1dXx3OwuRL5WVEuXzTf0xpLuI6Q6CGwc62QzAJzVWS3oY0n1RFIkjwDj+ij9CvKeAgv
+         dl8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788819318; x=1789424118;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oxCw6MZUrUMQF3PxuLGYM79WzM4GNi956bvyl3WEJ2c=;
+        b=hTpWMHv49cGH/0XXu4wkfYES2xubFc2n7J/YGLkQZ4OsotDi/mclpnOByChBJtp9Qn
+         VvbtvuGbZPrQ+KbiTQzEi72VKqvHomjAuLjGc4dmYp0aiQabUQWPiHNzInHEoQdgd+YI
+         jrSSoJbD47qJREjK8DMuiZjB+GLETLwtTS7iV+SCBMm/gKwZNgjmm9RR8XsxQeDPqTlk
+         DWOaijrfswWJZbh+FtsK5TAJxINcG9lcCUyZQKJ7DWJHUvfl4UAWJHBHhzYgIeV+cKPG
+         +b/gwFXMztNhOHK6SF9zf6k9JGq4OsEQVHkorcMxCTyakzOc4mthcRxTsVp6EjjGDHjn
+         xDPg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJQFK/2Lv/05u6CMUCFbY3JGFyKb0AyttVwaWuFn9bTf863i2odeYSSIEDq4902w1hZxvWiwYOjSRhCis=@vger.kernel.org
+X-Gm-Message-State: AFuF++kflFYz+MBk+HXVE9Bx6EOq/X/blGaGJQzQm9qSpCGlKTbrKJia
+	1j/vjAQeo8E59xEqt77O4oihGeC8mnyQg8U650vD2CSdxkpauKQ6N0VY
+X-Gm-Gg: AYBFou3jabEUWB0BTPL0ZaL12/8oxWM0OepEj1UqEBBeeb29CYOeKd/F2iuHgOtn8LR
+	1+Hg8p/ywJN7k/PnjY5PxxQ0qGHYBPHXRUuQP8vIn/sBVkiDT0rv+J0fQ2h315E10VCQqyQUzC/
+	sVD+8ShEEFQDXYanZo8vsyh/EiFzxTZsBNG2mSaTUyuPpDfXb6h18JpGMBv585cluJOm1NNHfNk
+	ntVKr1eMbz50pNXv3DuUvotPa6tWrRqWv+Z1csmHNC8AjmNSspU9LkZRaBvp+Ua6XkwP4ML8NCE
+	lY3EdFAvTnAzZ0q2+04v2zlL5ISYXpBqaGrcMAwL7Rg9jsqMk+WZh2XMWx+M3hR9adSD7bMjKir
+	PxJWmQyBZjKeKu01rBzSm9/1xTS4PN+03xKbZeYOJJNAGvYMUXnhcdItzbo9zn7L8dXgntrueDn
+	VtJHzbJncdIPj/oNV+JnGI0VTYYiuP7eyWLJMtHhixYh5Ox7PgMczYOflVZNVKyPI0lE7Kf28tC
+	/lU6AxkpwMsRv8awjaI9vVi6woAsUPLKdFTAdTFJ+A6fS5fDQfPXfKY9/zu1M3C9L4Qj3wZgvQA
+	puaXn/yDWkxy3d75rH28fwVDarRvpwhvhaDPx8yjVxee/aU6c3hhNW/FojbldQab3GeGwx0eqHA
+	F
+X-Received: by 2002:a05:600c:8012:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49cf826818dmr259779075e9.11.1788819318162;
+        Mon, 07 Sep 2026 15:15:18 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-2a02-3100-b0c9-3601-cdce-ba4b-d0e3-dede.310.pool.telefonica.de. [2a02:3100:b0c9:3601:cdce:ba4b:d0e3:dede])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm29993570f8f.8.2026.09.07.15.15.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 15:15:17 -0700 (PDT)
+Date: Tue, 8 Sep 2026 00:15:14 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rusty Russell <rusty@rustcorp.com.au>, 
+	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>, 
+	Halil Pasic <pasic@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>, 
+	Richard Weinberger <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Hans de Goede <hansg@kernel.org>, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Vadim Pasternak <vadimp@nvidia.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	virtualization@lists.linux.dev, linux-input@vger.kernel.org, linux-s390@vger.kernel.org, 
+	kvm@vger.kernel.org, linux-um@lists.infradead.org, 
+	platform-driver-x86@vger.kernel.org, linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] virtio_input: stop callbacks before unregistering
+ input device
+Message-ID: <ap82pFlX8enNG0gZ@gmail.com>
+References: <20260905152059.89560-1-kmehltretter@gmail.com>
+ <20260905152059.89560-3-kmehltretter@gmail.com>
+ <20260907174559-mutt-send-email-mst@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907174559-mutt-send-email-mst@kernel.org>
 
-On Tue, 1 Sep 2026 17:51:01 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> On Sun, 23 Aug 2026 23:35:36 +0100
-> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+On Mon, Sep 07, 2026 at 05:46:07PM +0100, Michael S. Tsirkin wrote:
+> > Assisted-by: LLM
 > 
-> > On Mon, 3 Aug 2026 16:39:55 +0100
-> > David Laight <david.laight.linux@gmail.com> wrote:
-> >   
-> > > On Mon, 3 Aug 2026 10:49:40 -0400 (EDT)
-> > > Nicolas Pitre <nico@fluxnic.net> wrote:
-> > >     
-> > > > On Mon, 3 Aug 2026, David Laight wrote:
-> > > >       
-> > > > > The x86 instruction set only supports 32bit signed immediate values
-> > > > > for add/sub.
-> > > > > Replace the "ir" constraint with "er" to avoid build errors.
-> > > > > 
-> > > > > Found by a patch that added used mul_u64_add_u64_div_u64() to
-> > > > > do a rounding divide by 2^32 (perhaps not the best way to do this).
-> > > > > 
-> > > > > A quick grep only found one other affected file.        
-> > > > 
-> > > > Would be a good idea adding those cases to the test module.      
-> > > 
-> > > They fail to compile so it isn't a big deal.
-> > >     
-> > David, thanks for sorting this (and all for reviewing)
-> > 
-> > Seems like everyone is happy.  What route is this taking upstream?
-> > 
-> > I held Rodrigo's driver to avoid the build breakage and would like to
-> > get it queued up early in next cycle.  So not that urgent but nice
-> > to be able to tick it off the list!
-> >   
-> 
-> Given I have a driver queued up behind this, shall I just take it through
-> the drivers/iio tree?
-> 
-> I can do an immutable branch just in case anyone else needs it this cycle.
+> which llm and which agent?
 > 
 
-I went ahead and picked these up on
-https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git ib-iio-x86-asm-fix-7.3
-and merged that into the main IIO branch. I want to give plenty of time in next
-for the driver that was relying on them.
+Claude Code and OpenAI Codex, each with their current models.
 
-Currently this is all in my testing branch but I'll push that out as a non rebasing
-(ideally) branch a bit later in the week.
+I switch between them and let one do review, the other
+helps with implementation.
 
-Thanks
+"Assisted-by: LLM" is the form Documentation/process/coding-assistants.rst
+gives now.
 
-Jonathan
-
-> Jonathan
-> 
-> 
-> > Thanks,
-> > 
-> > Jonathan
-> >   
-> > > 	David
-> > >     
-> > > > 
-> > > > 
-> > > > Nicolas      
-> > >     
-> >   
-> 
-> 
-
+Thanks,
+Karl
