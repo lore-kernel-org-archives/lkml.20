@@ -1,64 +1,64 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB2003CC9E9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5174441623
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818100; cv=none; b=CG/033YUxnjKWH6vRNz1rE61gdFnxjX8tQSTp1Vb0+e7QnY3veMoioNUcVnD7qPcgT86mKZDvHxPm3nfsQbawQ8IxWbNKE7nvucQKEGzi5w4nrVAiHqzzRADBJuD6p3JM4luSAg8lbMGpK3jJdBkTml27jlMrnLJWx63k6Gm1SM=
+	t=1788818100; cv=none; b=UcpEcwbONa8HXI2Nfqdv7iG3dBQ2wWwBMSSOOi7DpwjQOLRZKm+DuE5yuE+6nGnVzb4YK3SEEtjZS0C+2GXej9DpKdgAyKizys5KuBcieXO2yMi/LJNjB+zFDSatiUKxaOa3YgPCru/24G+JxpoLjVRPcSZ7YRCfJSalVY+49P0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788818100; c=relaxed/simple;
-	bh=E+Mq+ULNyxirXwXDZ7xaGocuqj9Hq20RZCcXQzzR7B0=;
+	bh=cOuGuXTRwRbieXZHpEpUkyizPgeu40kkjKbILhrTpr8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JlLuMus8esHypKWljWRKSDVO7uQvy6fHIFf83sAjh2mEdajlLt54Ckzk8XEO6QQiRJp3x5dc98mEbDrp4h0GQ3h3qOJeEZOdIKYKnHKHhk2b4LwLrE+NY+0X8RV9AHcem1BiLZTRqcJ1X1W2yM1BZMeT+GKV+f86pzXMyVmD5X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VEDdWO+g; arc=none smtp.client-ip=74.125.224.48
+	 MIME-Version; b=TRkCs98oQVoDWhihlFNKv4ZQge0m+lOPHgxTNpqTLgQwiFPCz43kjLnCht5Zi7oW09O9NJDFRT5usCwbEF2baPu22utR0X4sJddzQX3bwQtiSJ9ymSgU3hYKBkJoIDB/uwZOp6ycMKTvgb6p+Gcpr7BUpKc0rz8S7kmabE/Z9Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YmWZmFn2; arc=none smtp.client-ip=209.85.128.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VEDdWO+g"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fdf2a9aacso1525231d50.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YmWZmFn2"
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-86e7f44b773so41516747b3.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788818088; x=1789422888; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788818087; x=1789422887; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U8WIjdrmzAfceuartpDLM7+z5YZ8GSTaR8aMPWb/Pj4=;
-        b=VEDdWO+gXRQbdBFam2f7xu+H+0Xhbkbd6nexacBnHSMcYOGt0pA5LU5DDOoD5aBSY+
-         YjSAlyBGMMceD6vueqTFXroFmsEC7rODL1//xRjKn0n2bBGhJ0PnnqnY/5UpClbSCqSW
-         r9lQzPgItl3MwdyKqXq3JLX3aA/s8eZuYRw2fAnOczvQ+KyJLWF/7Org8I1yqXSLmDa3
-         pGXGvBi7JsYN6gO36svL4pMY+seFwswycoakZPNUoxmbJNSExaI0ZcS0tH27HTRIgHJ9
-         wiVXoATfts+xBVqSJ5CBjq8YtA+hyoSB0VIAXuV32Z8+DmWaq51U3wzmsdctAG3grCOw
-         hlBg==
+        bh=EPMvbjF7fIzIRVphdYEwqQYdJVOJV5Z2qbhmmd1p55E=;
+        b=YmWZmFn28/CK0tr6SSuPRYdhyC/35acZMQr1WQTNnZ84JBn7jLqG1+yGOAikoLkcLj
+         EPnGlTkXXEMLh9/2cPX5BDS9YKntyu24/NvBxKqbjnHT+6Qwb4SjRkSXAKv9yiUzzUe0
+         YDXRJZzpS4btQvyfVZbuJr/pwxkXwVIePWgTbLFgZ8mH+dlWf9LUQOagjba2+d0liVvO
+         WyW00ba4NGGl/1iNfSnFhoX50mSty659UMQGRFo9Aq2daz1BklMY7qfmmJUWpcMNBgcn
+         5OIgdnrH4HPKaKKpXUpvWmIgbRXaj4g92N1eoY20CTLX0Nib9sWqLZX8a80d7r0RfuIA
+         6OTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788818088; x=1789422888;
+        d=1e100.net; s=20251104; t=1788818087; x=1789422887;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U8WIjdrmzAfceuartpDLM7+z5YZ8GSTaR8aMPWb/Pj4=;
-        b=Q1I/CI7hMz7QdomTXKvNuZA2pWV+Yf2DlytkEF8uFQ3ezxbDIgRsI6wnKuKiRIRHgw
-         v1Wgn3ZQMvFHbnDk8PKVpastNdnTELmjFRN+rCyJbd7r9GfHLmBqz2d7kwgl7Rkj+5HG
-         9qwFXfC/lQcvmnjU9n/LKXau4Tp7ge+kXMhszneyJQLE4aVTsvneUZhdg6I0X0oVDuEm
-         JMz0o3r3mI/QNHTgPsYiux+dtSqidiYxTLcszLIp6znPdKWzlzLWyqHWWKHvtVKJFCFI
-         eFB4AGl5jB/g6GZjoyX4KxxeWVl9rU+iS+PPayjQG/ZsZCmJWsFc246fkUu4Kyo0+wh6
-         +F5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzLiFb5sSZUoaEUwkUAT+8g62qfZWu5udKkH1xNf6UCmQmwWUQI6q2aT+z2FAgomwQ03/AKvT5rEAekCOU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbxrny+O8otWM3I9h/Ub8RRo7soTjCJxJUGhT8dtXeG+MOQx0Y
-	pBAYy6cOvNiSRxcAWyVnN2R7BJyXYgKy3fwODucRg7gkLw22BBls6mS6
-X-Gm-Gg: AYBFou0IDR88tlL9fmYg2gCsOM8Dy5axW0IcOprGzL2lI+jSfoxmxtguuPUQKjH2Gnc
-	b+yWqHFZbvfUMdNzLAPoxj+vR2Et6D9vxWxmcC4PqQ3Rx8uKae9UNrkaDKAR/dTXqOqwrprYCai
-	T5CaGZuChaDPbAEcN02/xZ402HbZi7/BWtCVjVYdPfeNwXLvSQqTyurYhsJqxPneqnZ0wlzLfi4
-	uTX71z05uWw1EaPSGyXVOmX6+0BDgrlDdDvx+6A4FJLXzVb5G55rWdbmcWRs0WiKpEDQLG6cS8O
-	HuPMY1rvoUNiFFKnd9bR8McAlTk8kBGSkQWTzXqNw8Zq6gMuVHVePxKuVJ6EZTOEYjBJ2bKmHrZ
-	/cOrx7157a4lOrlnVUeVM/X3dyT4qPUCSsZPmAfhHmHnvn5LxkwlcA8trrIY8SAQgcKYztBzZ+6
-	JIj5R/ZAkrclfJtdxaXw08TH5f+khlrkOpqbaBO7kSKWxpqayj954WI0s6IOHsm+3Sau8vtLstP
-	1viPfFyg5X4lyTZBhPvDD90F89D
-X-Received: by 2002:a53:d751:0:b0:66f:c1be:84f3 with SMTP id 956f58d0204a3-66fc1be873emr4452634d50.97.1788818087837;
-        Mon, 07 Sep 2026 14:54:47 -0700 (PDT)
+        bh=EPMvbjF7fIzIRVphdYEwqQYdJVOJV5Z2qbhmmd1p55E=;
+        b=pBQq5W4sWGtqYpE1iHZOq/VpQW9O+5DdcpZkxE494F7qHTgL5x9Hs33cRTX0va3Mff
+         nEkOMwpBg2Rh4Sb01MzrhDoXuzxL2GtznUHb6aHpJf9NX81OLUmoBCfFL8S0MyZ4DaHo
+         rJtXCii9+jV39JbtkI+JmIBXoRB6oHbWQzgiHvE2qjmZF/rxiOrFxo2mPNR4Jd4Fq7x0
+         kGY1JZe7mP4Dg8y5dm2RZPt4XQS9e1Iu0+6YM7UieVUroI5/ECccMGnOzVn5fveEvbrs
+         ZjSPB8NAkR5ATVf57RK0xCSidVU21N2k4fDJid5lPFYXyQokpsPPuAYgtcXUTD1YaAeG
+         dtMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzK6bJu1QkfV8WbfVYqfYhQm/aXsWeDPZjYiomH4UwW02LNtc5YLvg2dgz9dUdTxwTKPWHcIZA65XiPUcw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIv90ig1JEBwkvxI9QLX0hoMdOL9rllTY/iRnErltgqVPVMiNE
+	yERiOrOxma5Yg4q2LLeC4gPxAbcrTS4bNFltRqs23bGhtdqhuDfjKKng
+X-Gm-Gg: AYBFou2oi5uXTIWrz+X5QmWaj8hCxPLiEjp6kEuqr39wEYmBhkZavN21oXixRCziI31
+	28WyqaJADpZD9/PfFsdnjEdc6MC4pRRPcEh7NbR2/VvNoVMuPNnk2jaqIU4YeNU4ZwLCVIrm7va
+	29B7VM2QlzPkfqv2o+M8Xysru8XnC/BajIGVtyzh643d9E9yTeAeEQESr6P3xEas1ucO8qzqlJd
+	nlDmaOCbNgFu0/xRFiJKYXs21lHiRlMo8FsLESwi7sID9YbdIbVYRbJ63Q+uWG3SY20yuKoR7y8
+	H61XXQce3FeZbTtknQDwCWUD0KPlZuMe2AUarp4BnSO/YeI1aFf4J93GPUK3bnVrhkhRien5bVU
+	HyuKY+FpYhgiJ52dbzoKiQCn4H49nY2AEmJRX1f3CdQpTG2EINAtWCdwLnQtiROV2zImUAHxLUV
+	r3PPR4USkRy5XiyNgpLruGhpTQAwWa97h2SJFYIWbRO9EBonYL1xW5v/zCYSQy5AhpGHawAf5cD
+	NZLslxBq/IiPSbRww==
+X-Received: by 2002:a05:690c:e29b:10b0:873:5ddf:d864 with SMTP id 00721157ae682-8735ddfdab5mr46438527b3.47.1788818086989;
+        Mon, 07 Sep 2026 14:54:46 -0700 (PDT)
 Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714a87ead5sm77758477b3.28.2026.09.07.14.54.47
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b62bc77sm78551997b3.39.2026.09.07.14.54.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:54:47 -0700 (PDT)
+        Mon, 07 Sep 2026 14:54:46 -0700 (PDT)
 From: Yury Norov <yury.norov@gmail.com>
 X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
 To: Andrew Lunn <andrew@lunn.ch>,
@@ -82,9 +82,9 @@ Cc: Yury Norov <ynorov@nvidia.com>,
 	Yury Norov <yury.norov@gmail.com>,
 	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 7/9] net: phy: use linkmode operation return values in phy_device.c
-Date: Mon,  7 Sep 2026 17:54:36 -0400
-Message-ID: <20260907215439.409858-8-ynorov@nvidia.com>
+Subject: [PATCH 6/9] net: avoid copies before linkmode_and()
+Date: Mon,  7 Sep 2026 17:54:35 -0400
+Message-ID: <20260907215439.409858-7-ynorov@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907215439.409858-1-ynorov@nvidia.com>
 References: <20260907215439.409858-1-ynorov@nvidia.com>
@@ -96,71 +96,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use the return value of linkmode_and() where the resulting mask was
-previously scanned for emptiness. In phy_probe(), combine the AND and
-AND-NOT operations and use the return value of linkmode_and_andnot().
+Avoid separate linkmode_copy() calls by passing the original source
+bitmap directly to linkmode_and().
+
+In phy_ethtool_ksettings_set(), also use the return value of
+linkmode_and() when validating that the requested advertisement
+contains a supported link mode.
 
 Signed-off-by: Yury Norov <ynorov@nvidia.com>
 ---
- drivers/net/phy/phy_device.c | 14 ++++++--------
- include/linux/linkmode.h     |  9 +++++++++
- 2 files changed, 15 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c | 5 ++---
+ drivers/net/phy/phy.c                                   | 7 +++----
+ 2 files changed, 5 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-index 94b2e85e00a3..3430605695c5 100644
---- a/drivers/net/phy/phy_device.c
-+++ b/drivers/net/phy/phy_device.c
-@@ -1565,8 +1565,7 @@ static int phy_sfp_module_insert(void *upstream, const struct sfp_eeprom_id *id)
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+index cf881108fa57..5801da6100b8 100644
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+@@ -205,7 +205,6 @@ int hclge_mac_connect_phy(struct hnae3_handle *handle)
+ 	struct hclge_dev *hdev = vport->back;
+ 	struct net_device *netdev = hdev->vport[0].nic.netdev;
+ 	struct phy_device *phydev = hdev->hw.mac.phydev;
+-	__ETHTOOL_DECLARE_LINK_MODE_MASK(mask) = { 0, };
+ 	int ret;
  
- 	caps = sfp_get_module_caps(phydev->sfp_bus);
- 
--	linkmode_and(sfp_support, port->supported, caps->link_modes);
--	if (linkmode_empty(sfp_support)) {
-+	if (!linkmode_and(sfp_support, port->supported, caps->link_modes)) {
- 		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
- 		return -EINVAL;
+ 	if (!phydev)
+@@ -223,8 +222,8 @@ int hclge_mac_connect_phy(struct hnae3_handle *handle)
+ 		return ret;
  	}
-@@ -3761,15 +3760,14 @@ static int phy_probe(struct device *dev)
- 	/* Some PHYs may advertise, by default, not support EEE modes. So,
- 	 * we need to clean them. In addition remove all disabled EEE modes.
- 	 */
--	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
--		     phydev->advertising_eee);
--	linkmode_andnot(phydev->advertising_eee, phydev->advertising_eee,
--			phydev->eee_disabled_modes);
--
- 	/* There is no "enabled" flag. If PHY is advertising, assume it is
- 	 * kind of enabled.
- 	 */
--	phydev->eee_cfg.eee_enabled = !linkmode_empty(phydev->advertising_eee);
-+	phydev->eee_cfg.eee_enabled =
-+		linkmode_and_andnot(phydev->advertising_eee,
-+				    phydev->advertising_eee,
-+				    phydev->supported_eee,
-+				    phydev->eee_disabled_modes);
  
- 	/* Get master/slave strap overrides */
- 	of_set_phy_timing_role(phydev);
-diff --git a/include/linux/linkmode.h b/include/linux/linkmode.h
-index c08632c10c3d..49587a2e0f69 100644
---- a/include/linux/linkmode.h
-+++ b/include/linux/linkmode.h
-@@ -26,6 +26,15 @@ static inline bool linkmode_and(unsigned long *dst, const unsigned long *a,
- 	return bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
- }
+-	linkmode_copy(mask, hdev->hw.mac.supported);
+-	linkmode_and(phydev->supported, phydev->supported, mask);
++	linkmode_and(phydev->supported, phydev->supported,
++		     hdev->hw.mac.supported);
+ 	linkmode_copy(phydev->advertising, phydev->supported);
  
-+static inline bool linkmode_and_andnot(unsigned long *dst,
-+				       const unsigned long *a,
-+				       const unsigned long *b,
-+				       const unsigned long *c)
-+{
-+	return bitmap_and_andnot(dst, a, b, c,
-+				 __ETHTOOL_LINK_MODE_MASK_NBITS);
-+}
-+
- static inline void linkmode_or(unsigned long *dst, const unsigned long *a,
- 				const unsigned long *b)
+ 	/* supported flag is Pause and Asym Pause, but default advertising
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index fce9bc7be330..cd71186cd842 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -1160,6 +1160,7 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+ 			      const struct ethtool_link_ksettings *cmd)
  {
+ 	__ETHTOOL_DECLARE_LINK_MODE_MASK(advertising);
++	bool has_advertising;
+ 	u8 autoneg = cmd->base.autoneg;
+ 	u8 duplex = cmd->base.duplex;
+ 	u32 speed = cmd->base.speed;
+@@ -1167,17 +1168,15 @@ int phy_ethtool_ksettings_set(struct phy_device *phydev,
+ 	if (cmd->base.phy_address != phydev->mdio.addr)
+ 		return -EINVAL;
+ 
+-	linkmode_copy(advertising, cmd->link_modes.advertising);
+-
+ 	/* We make sure that we don't pass unsupported values in to the PHY */
+-	linkmode_and(advertising, advertising, phydev->supported);
++	has_advertising = linkmode_and(advertising, cmd->link_modes.advertising, phydev->supported);
+ 
+ 	/* Verify the settings we care about. */
+ 	if (autoneg != AUTONEG_ENABLE && autoneg != AUTONEG_DISABLE)
+ 		return -EINVAL;
+ 
+ 	if (autoneg == AUTONEG_ENABLE &&
+-	    (linkmode_empty(advertising) ||
++	    (!has_advertising ||
+ 	     !linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
+ 				phydev->supported)))
+ 		return -EINVAL;
 -- 
 2.53.0
 
