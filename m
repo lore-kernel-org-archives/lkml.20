@@ -1,104 +1,73 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1E830C179
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC1B3AC0C9;
+	Mon,  7 Sep 2026 06:31:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762683; cv=none; b=NpeadlabmF+8jBG27YTNZeHdtEwfWq71s5/xW9sOkHxci91eHmXFTCKAp3j7O4Focs3bcRdqVRfkHQ6RqVLf0qQdIAldFYTOcJzDA5uJFYuCfI9gbzaSxkjmy0Ezs9l1f7GapHDbn1+x0r8ZxygU+B5KMOtRb0E0FfeUSFkyed4=
+	t=1788762684; cv=none; b=VyCOcONOkSxULmY1CPnkQyof3xsGjkySzXXPo4lyxDQVuf4O3JIIl+FFy+PCk3F5G+fNQT04Z4BEIoho8LaQGEWU6r/kvS0Bn9Nc4vvDSMzJVDaRVR2zkx6qrGOjKq1zCQO2pfr0bK5TSPhqLdKST+XZbGRzKnx1Q4WsQFZanAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762683; c=relaxed/simple;
-	bh=nbqcYtO9Lklo7s3PrhiXadrEIwtOhmem+2QzHg3gK/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PgDQN4n+vr04o2wr7VZTGWZaREErerWOxOKS/CMyiZEJsMqZ7LvTPVBBQPR8+Tzd057y0w5Pdodldum62gy1dyt7QfdTbyHpbsEORMDESzsJGxZMXmov/odxOhz11+cQzkA2HJshiV6cMUbKaEIPQ+7FPjI71DJzyiUU+Auc9u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hq+RHQu7; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762684; c=relaxed/simple;
+	bh=yp8MmPjH3R9x5sDWZdHZKG8Cf/MP3TdFmmuG7mG56/I=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rK/jwaNWbYYJ4n8FysCb/3UEOIkEBAIAXaYcLb9JnPTS8r558+4Y03lgSj0Ax4qUrv2xiXgxgJ3RyC3uGV5+xfRFjZo1haMcPGocG6nf7NCvhcf5hJJsbZ7b36oevSY5+KAgODxErLyYXZ576J1KFHgHNnXEsyktpxM8dQMc5Zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ZUwwBt68; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hq+RHQu7"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso2250104a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:31:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762676; x=1789367476; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dq0SpKsLNqUdhZGKulcWkvLVKywODwI8oaC6/cTsqsk=;
-        b=Hq+RHQu7B6/Xpwf/2cTdUvKf5f3p8dM5e1vJxdpYzeUsaYX6oTGO5vR40QqgkZB4dC
-         2CrBhv7ryAli0mzAIDrZQtelzvzIijlVjxf4t00uDBiDUrNSUgAmCOCQw2RXmotX9T0F
-         Wp9dG2BZAD6X0dItEpJ8RdbxuxKxtUwnA1S8AVucrJNX58x5gY8f233A0lOdkHTZXeLO
-         TB4E/wETsw7CpN6aWGdrFCo7dXu8UhOBgV6vBjaNOWnFZWXSnVMdJYP8VL/WXZBz6cRa
-         ExGBG5WONPjRxlqSIWbfBPjprdMG781yDgkPm8ztKVluTKV4mXv5+rIQPdnitZncbK84
-         qlfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762676; x=1789367476;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dq0SpKsLNqUdhZGKulcWkvLVKywODwI8oaC6/cTsqsk=;
-        b=P9Kg5WGWJ84fmr6qhijQBtfzWiSoGehNYGcZ2qf12Ca867ak3SSUpKxrANgCUTOuMQ
-         FXtTSVt9BbKeGD7gBbB8sQY50vUcrs/T6V+dQQK4vsD11HvUGwkRC89gMgEB4CqyCfjF
-         LF0tt1aKQJOfEwZbwf0kCNOpQPsRZep63AwtORhfpGWmATY6HhEoGtIl81AMW/SjGfKr
-         W8D1wREHjH+DlwnSpOQGPETB4vvF098RopWi3HJIAldjdV4amkqaumUtl0G+P80hdEpc
-         EwWlqlv3D+/QX2J3Sp8wpKMqftZZYPPA3dxc5Nx+aE5fBKYLGODSc6xqG8ZYRzH+q5GM
-         6YSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZLyW8waDeG94asghuk1W/1lJHADOwD+qcXwNOiFN13+PEJmfHwQsJkzt8bprjlyJeZPJfDJ0fo0gb8N4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvvtnfzRbLgIhE+thks4vUseohE1KrVerX3qQ7bKGXEQHly4QP
-	/rhCDQ7MYNXMALTDx1eA5K4EsmgivdfhvLxxg7kO+3QFh3Q27AraiYC1
-X-Gm-Gg: AYBFou0x8WrAhWgtKmLjObtlGiE0AdZ89/ZMmUG9UhoMBmyQr+RVY1pn6dQdsy4S3nn
-	doi/G40NIkIsxNeiiqxLdUFLsgiaLg4JuHRfztJS+/JcKKAdnSIhSMBrO8+G9gdaNWP+ofEwA3Q
-	hzes+qgFplAmdLHIVFvs/2c7PGi1QJE15dHTdoeaeiFytrqw0GCMyocSEaB4PhtFF9np7gT8QWZ
-	eP8hYq3FZFrsqhV79gS+TFi6gl28l3tR859wac121X+AQ6E8ED9PnLLXjKgYsag1VGVwsu9Pyb5
-	UiziMgeIhGWCuSnZSHLXLDEOm91PBZEOMDjc85KI74wFsVHed3JpKEPz31Y90Kw7pF+NAmi6JrV
-	6MQv7QoxaRGadfM2pfXkaWk+tNepVuLShu1EE8K2yKdmScX4VwVGJ3u5xVukGXwedmfszqg01ev
-	ymCDYMB0Ewi5h/BSgMgCsj4vJg0Fn4Uf048b8/AmYuhO37UTm/ZT7qvpbsHzq5yK311YLzHjKTW
-	1MXtzUEJk5OAImCWHX/BtDI
-X-Received: by 2002:a17:90b:2552:b0:398:e6b6:acc1 with SMTP id 98e67ed59e1d1-39b262728cdmr32640824a91.15.1788762676486;
-        Sun, 06 Sep 2026 23:31:16 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm28325245eec.1.2026.09.06.23.31.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:31:16 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Richard Weinberger <richard@nod.at>,
-	Zhihao Cheng <chengzhihao1@huawei.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mtd: ubi: fix typo "occured" in comment
-Date: Mon,  7 Sep 2026 12:01:11 +0530
-Message-ID: <20260907063111.19769-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ZUwwBt68"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 63C154E4149C;
+	Mon,  7 Sep 2026 06:31:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 284AE60383;
+	Mon,  7 Sep 2026 06:31:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4A59611C79D5B;
+	Mon,  7 Sep 2026 08:30:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788762671; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=yp8MmPjH3R9x5sDWZdHZKG8Cf/MP3TdFmmuG7mG56/I=;
+	b=ZUwwBt68t/0d0NmookVUEIMgZYNO/0xrHsighyyC25OMHU7ijj8FHZFgBgNbfweY8VGuwO
+	w4oshTFAwXHggBZUxqnu4UV2aLqpHgQrgb9jSXjZccjyJRp5ey3U6ei0uP1nLiCSqhXA3t
+	1THFdVbE1ZQ426VJdKULNyve1u2BgOu7ewjs3ssRVr5xQDIbKQDQRwO3ZjtIVJ3OwEbEiD
+	Cn9L0Hq/JKT1ZZwMoR/Eqg2Ao3pVlaacX58/Jn0n6qa8Ej4RyAa18S+TEM9TmmAyraxbEo
+	SFRS+yxpeZIoJ1+oOeGXZIOOKXLOoRCEtb4B/2MPTILT2/E28LLDxvoCFRM8QQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  alex.aring@gmail.com,
+  stefan@datenfreihafen.org,  david.girault@qorvo.com,
+  davem@davemloft.net,  edumazet@google.com,  kuba@kernel.org,
+  pabeni@redhat.com,  horms@kernel.org,  stable@vger.kernel.org,  Xuanqiang
+ Luo <luoxuanqiang@kylinos.cn>
+Subject: Re: [PATCH net v1] mac802154: avoid extra skb references in RX queues
+In-Reply-To: <20260905061524.91223-1-xuanqiang.luo@linux.dev> (Xuanqiang Luo's
+	message of "Sat, 5 Sep 2026 14:15:23 +0800")
+References: <20260905061524.91223-1-xuanqiang.luo@linux.dev>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 07 Sep 2026 08:30:58 +0200
+Message-ID: <87mrtty3ml.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Correct "occured" to "occurred", reported by scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Only touches comments, no
-code changes.
+On 05/09/2026 at 14:15:23 +08, Xuanqiang Luo <xuanqiang.luo@linux.dev> wrote:
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/mtd/ubi/wl.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>
+> __ieee802154_rx_handle_packet() passes each cloned skb to
+> ieee802154_subif_frame() and does not release it after the call. The
+> callee consumes the skb on every path: it either frees it, hands it to
+> the networking stack, or stores it in a queued RX descriptor.
+>
+> The beacon and MAC command paths nevertheless call skb_get() before
+> storing the skb. The worker drops only that additional reference, leaving
+> the original clone reference without an owner and leaking every queued
+> skb.
 
-diff --git a/drivers/mtd/ubi/wl.c b/drivers/mtd/ubi/wl.c
-index 5a0db928a90e..44237de52250 100644
---- a/drivers/mtd/ubi/wl.c
-+++ b/drivers/mtd/ubi/wl.c
-@@ -1486,7 +1486,7 @@ static bool scrub_possible(struct ubi_device *ubi, struct ubi_wl_entry *e)
-  * @pnum: the physical eraseblock to schedule
-  * @force: don't read the block, assume bitflips happened and take action.
-  *
-- * This function reads the given eraseblock and checks if bitflips occured.
-+ * This function reads the given eraseblock and checks if bitflips occurred.
-  * In case of bitflips, the eraseblock is scheduled for scrubbing.
-  * If scrubbing is forced with @force, the eraseblock is not read,
-  * but scheduled for scrubbing right away.
--- 
-2.48.1
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
