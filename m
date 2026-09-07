@@ -1,166 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4515428470
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:51:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB5B4749DD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:52:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781886; cv=none; b=WSNU7O23cHzbpGgdbduD7IESIOL04hYw9U8WBwjlug4gaPlRkJxeL04Uh7Ro3pKC3iRJgCbjNb5ru+VW/s+/d3rme29qlBdQUMnfhckS6L0ZYjTMjOW9LG89LB+cHjQNkqkU1Q/ETibv09/1FJcPJodW9aSS5+1IcVlMa0wUEZo=
+	t=1788781958; cv=none; b=IuPfmZj1qqNLRFJ4SiJlpC0o82Gz6ItfZG72Hd9XGLrFcCsuBLm2a/CKBxdSMSqu+PRxybWrwSPYwswpDxAN3pV0OyG5RJmx+84qgfbPDminZsZ6vtlRm1BmJuFLMSCv08BWEr+HeTDY6VsQqEGMP+B45l/o/9Xvv9/nF2MuV9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781886; c=relaxed/simple;
-	bh=Rjdejn2cy5T5pLK3/p8C9NOeImQlLOQN3oGgciig5Wg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jTclNoE3UyQhFiAwoUEHIv/2uIwAAuJb0Y+Wk91eVPmiB/W0AdEKVr0G4vF5SH5Hzwp+RdNt3QoEfBNZVQ31RM/b8tz6jWDFDyfAzN111GJWhaunHTPALJTQiTOBC/PV+2vMZDOTvacMTguxQ16ahdM9JH3cQ7E/4KgLZ410Txs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHSF+NiD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788781958; c=relaxed/simple;
+	bh=q69YEzhTEBkji3Anf67azf9FUm9z1KB4pZFc1XEnZ5c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OUg447s/JiZLU/UdiZWpLkBUO1clRN+r30E9k4UGcP1eD7XuMk0kCS7m2gMyn6uJ7r0XX5xJawDpS8hCbaGVPPUmm3z5E26Rh0/z+G94tpcmLar43hVMSBo2hp0k2eBWZWzR+0y/a6JiMQXeyogzKm9Bui475QSks5vU/hNNhcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9CUiKD1; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHSF+NiD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A96911F00A3A;
-	Mon,  7 Sep 2026 11:51:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781885;
-	bh=y+aPhc/SqhJ7JSMC3ivXbbYiLBKgxE4zPMSB4aVyP+8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nHSF+NiD6uq7sSUj9YDZ36amjTyArKCHbqydgbhqrn7tOJpTXs1l04YLotUgTb0hO
-	 Ckhkl66Bqh9dJutppBBoVi6eA3IkONRUlRoOJapdpZtJorG5PFfwnggyU1u2W9rrgk
-	 CjkjBiP2I4Gp88q43O04If5BhwBZHoM9abcQpRSON/ZRVxLrmgLOub7baaxvz4NFmN
-	 MSJnNgxhU7iUwBAhlBuhsiBQWwMUFGCxLAl278BiyIa9q6EEfB69LerlaLQn4AFN/E
-	 KDG/V7ZSYcJq8MSe9RW3Z0SDC4pGGZC0XjkvhVzirwdNcy4JbYjiXqWkFq3ecDCUTi
-	 ISujGXYthbxPA==
-Message-ID: <5930324d-8252-42e1-ad50-aab796e41550@kernel.org>
-Date: Mon, 7 Sep 2026 13:51:20 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9CUiKD1"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so29114855e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:52:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788781954; x=1789386754; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+vgAaxOdJ37XQvKZXxM7LpSpiTxD4plNlhS9nHZF19I=;
+        b=d9CUiKD1Dhh4raXqYeqCCv4ZA6hupSZ6ffiMX59fYoeAITe6T3bVh80hcUFOu8di+m
+         XV/yQg4ivOK4Zx00eoaW/XEnljL7znOfXsspOCqEQw6OarxbMnfshSZsFyRdyphZcXDc
+         xO2uvoIJNNwffk+FW9YQJMXyCbSUXmPoNeGFdq1yxmgjU0fdX4KsZIYafcl5A3wfb9pP
+         p3Peuhr3TbtzAJcDDWurT1+jOroTjVxpGFiLpvFNauetfRAuhZMNQzZ57Gni0TqEZ0vn
+         9uOWya/RktoI87XMBPJ9HEmxADEJWuDj1zY7UA8XERBxYU6RjNItO1v117aJ6WpaSLNt
+         5qow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788781954; x=1789386754;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+vgAaxOdJ37XQvKZXxM7LpSpiTxD4plNlhS9nHZF19I=;
+        b=keDQ/Usmjx9E3sBd5wmEsHiIXYmiQC7KMWGZUS6jQ28NdykNjeZS5bZuNnkU6Dvji8
+         XRgv9JWq+7Ojb51WPIiwhEDs96ibPqE9kMOxFzE36UHdZORGc5kz9lVg/fIVJRSwHyPy
+         Ey4FXHbgSAjkEn8OPRVBc2n2xVes9GMt8NIrDm6JTtSNSCgvJXBFrFngn3wJ9Z1JQoz4
+         J5Dp0ZlQK8V39YeotLN4Pf1B0rcrdgq/CNgRYShmdQ9ZrYqjMFgkjo/z5NxmCLr/6k9v
+         LitNLK/ywBjsdHqTgky8bXciPSuHAxfQABwSm5Z0Be6xxRwXETeOanZ+EbSTISm8aKpI
+         kUSw==
+X-Forwarded-Encrypted: i=1; AKwUvBwitqC2ixDzMceTq20axQWc3qQEtsksdnCOWSV8JOLuPPscUpdpiEryJqkZ4CChQJOlZQnX9x8C+H23tW4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDMlIPr3uZiN19azcFrrUeZHxTkeDkU3LEQhFfM3A55OkPbAoU
+	a1HB18FlS5oSlSXIdWqjQpqniKq2s1Y5gp4eZZCiWxZsvJnTkc7Ofd89
+X-Gm-Gg: AYBFou3t1SV83pI/GgB9EJuH/9//uP1Jtk/wHE7HtWevJxpnY+JXGnJ50Us3+VtlwUo
+	jEcaNBpZtnnNHXKXcsDeZjepfIjQEJKBdjyBOeSnVGgbLDsZw60KWv+c+eG912SOwcr/8JTSgwi
+	ZBJJzsyq05eaQ39vVCcjD37sG0dWa7vzSduzTBMQOuSzoLr1iQ68ZSWJUmOMd+qhe3o9QVwpkTd
+	l94wjQAEou/bb+TsKTB+0+bUYd8dWhNKmTIeCva1EjFz3MeaBAoni3d9zqBpX02Trh07BCeXsdu
+	6qn4Mfv1fTw7T4+G15UF1GW0Z1ozScT8ZP6i+T3oBS25Oa9CiFterUEI+0Q2BgBcsbwGpednW5K
+	zCUhfV4jD7zWUpli7TEe+3I2yiRt7NfWJJZ7oPpmGTcMG4abzw/j+450PbvPUI8sNZXEsc12zgv
+	rvrBRBlJgmJ3pCDScoHWYdbaF/ZfZRVOlpY70oryBJL9SKQOqzFNWJrvbtsubFOZ2k
+X-Received: by 2002:a05:600d:8497:10b0:49d:daa:af6e with SMTP id 5b1f17b1804b1-49d0daab034mr51583285e9.16.1788781954505;
+        Mon, 07 Sep 2026 04:52:34 -0700 (PDT)
+Received: from Empers0n ([193.23.219.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm26830718f8f.3.2026.09.07.04.52.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:52:34 -0700 (PDT)
+From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+To: neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org
+Cc: jesszhan0024@gmail.com,
+	conor+dt@kernel.org,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	maarten.lankhorst@linux.intel.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+Subject: [PATCH 0/2] drm/panel: Add support for Samsung AMS662ZS01 panel
+Date: Mon,  7 Sep 2026 18:51:28 +0700
+Message-ID: <20260907115130.95394-1-sevanevorotov29@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
- MADV_WILLNEED
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Pedro Falcato <pfalcato@suse.de>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Mike Kaplinskiy <mike@recall.ai>,
- zhaozhengzhuo <zhaozhengzhuo@uniontech.com>
-References: <20260904-madv-will-need-map-private-v1-1-6b83cc99fcff@kernel.org>
- <apriM1q4GzAgP7JQ@pedro-suse.tail5790ac.ts.net> <aprjOxDy3JCPb2oa@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
- dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
- QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
- XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
- Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
- PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
- WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
- UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
- jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
- B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
- ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
- AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
- 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
- g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
- ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
- 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
- /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
- jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
- DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
- HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
- 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
- LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
- 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
- VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
- /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
- iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
- 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
- zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
- azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
- FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
- sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
- 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
- EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
- IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
- 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
- Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
- sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
- yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
- 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
- r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
- 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
- CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
- qIws/H2t
-In-Reply-To: <aprjOxDy3JCPb2oa@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-> And it's a real improvement to have unfaulted anon skip...
-> 
-> But I find that version is documenting what's going on a lot less.
-> 
-> Since both anon and MAP_PRIVATE file-backed are CoW mappings we could just
-> reference that.
-> 
-> Andrew - could you swap the patch out in-place with below? Thanks!
+This series adds Device Tree bindings and a DRM panel driver for the
+Samsung AMS662ZS01 FHD+ AMOLED panel found in the OnePlus 9RT (martini).
 
-A proper v2 would have been nice ;)
+Vsevolod Nevorotov (2):
+  dt-bindings: display: panel: Add Samsung AMS662ZS01
+  drm/panel: Add Samsung AMS662ZS01 panel driver
 
-(and would trigger sashiko and friends properly)
-
-> 
-> Cheers, Lorenzo
-> 
-> ----8<----
-> From a706374a1186b6b4409a0e760e8728bcadba0c96 Mon Sep 17 00:00:00 2001
-> From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-> Date: Thu, 3 Sep 2026 20:08:39 +0100
-> Subject: [PATCH] mm/madvise: swap in CoW'd MAP_PRIVATE-file mappings on
->  MADV_WILLNEED
-> 
-> Currently MADV_WILLNEED treats file-backed and pure anonymous mappings
-> entirely separately - using POSIX_FADV_WILLNEED (equivalent of a readahead)
-> for the former and a tree walk and swap in to swap cache for the latter.
-> 
-> MAP_PRIVATE-file backed mappings straddle the two and currently get treated
-> as if they were purely file-backed, meaning any swapped out private pages
-> remain swapped out.
-> 
-> Resolve the issue by explicitly checking for CoW'd MAP_PRIVATE-file backed
-> mappings and performing both walks in this case.
-> 
-> Since the logic checks for vma->anon_vma this means un-CoW'd
-> MAP_PRIVATE-file backed mappings retain only the single file walk.
-> 
-> Reported-by: Mike Kaplinskiy <mike@recall.ai>
-> Closes: https://lore.kernel.org/all/CABeknB_S2XJSHFgnHdgnN0rjzHhH4oQJs_APq9fvxHztQ_pgiA@mail.gmail.com/
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/madvise.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index 73c2901b9adb..963337f93a7a 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -297,11 +297,12 @@ static long madvise_willneed(struct madvise_behavior *madv_behavior)
->  	loff_t offset;
-> 
->  #ifdef CONFIG_SWAP
-> -	if (!file) {
-> +	if (vma_is_cow_mapping(vma) && vma->anon_vma) {
->  		walk_page_range_vma(vma, start, end, &swapin_walk_ops, vma);
->  		lru_add_drain(); /* Push any new pages onto the LRU now */
-> -		return 0;
->  	}
-> +	if (!file)
-> +		return 0;
-> 
-LGTM
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+ .../display/panel/samsung,ams662zs01.yaml     |  75 ++++
+ drivers/gpu/drm/panel/Kconfig                 |  13 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ .../gpu/drm/panel/panel-samsung-ams662zs01.c  | 398 ++++++++++++++++++
+ 4 files changed, 487 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/samsung,ams662zs01.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-samsung-ams662zs01.c
 
 -- 
-Cheers,
+2.55.0
 
-David
