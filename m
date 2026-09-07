@@ -1,147 +1,138 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5703BB113;
-	Mon,  7 Sep 2026 14:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A078E4FECEC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792703; cv=none; b=dxC2zMyuE45I2vbifHYCsS8O9hKkWGAFVUi1z81DOhE1WSGftN7QkbYQ4X/B/ALDhoOJo5A/1IbS5B2L0uXbrF26LO0VFLBfvnLu+ZFa7nbkrhulC1Trmz+FAkxkc/p/3aGabFAh4YTPsRa+hPQD4BJtd0VLROr8V9r6FWxkRXk=
+	t=1788792753; cv=none; b=DgNgYfIoB8Dx9fa9Hhu9xQAivD/w8cQPP1LSKYxPDYdg3ViL5txMY7/rFywDK7uzU9FppUjqqT5cfTcuQuML42z2AkEVVCaOjes86noGYpXh0DEev0TaQ4bXl8cJSM7vb3b7gdEt8hvpsXI4sFrau16mn4OFmenua+gwyKLILmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792703; c=relaxed/simple;
-	bh=VU3Y10yCGpg+zmCnQaJJEMBjTuK+919XG+6NtyAbZeI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=BlZBZZ7oypx7TlNks8eSXuPHyCpsmVX5eFzV2Ii14DXi9GYjJEF+5HUAG13R/KZkjDPsiI8vHiVLYvCL69ZLERVrChsEEPFq+MaAE4N4qjrbd7OXgX0vZEsytF71vQXWxljSM4eKIr8Y3ElloA93QAAKr/5gEeHa//R1Ypa2wCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=SQbL6SqH; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1788792753; c=relaxed/simple;
+	bh=/S2OeMB+pVw0IsnX1n74+dfcpu2Keflp/VCkHim9+Cc=;
+	h=Message-ID:Date:MIME-Version:Subject:References:To:From:
+	 In-Reply-To:Content-Type; b=AXHpN9D54OJ+d0dzvT0ySALizIPM+wAiAGQRLLce0lAXFCMic1yQ/JDQmM6rUTVQVq5T203NbnKSEJiw6oajOQ4ow3lRejQQxrO/TextHhHbAQvcQK6fgxnHFT+9ctxK5MNo6cmHezUMVSOew2uAOJe3eKeG1JG/5ESlQMDsGXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fnh5wxRU; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="SQbL6SqH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788792687; x=1789051887;
-	bh=maq+KPOCXrwfeg6YIPsRpiDqdaJtrTEPMyZmADR5n9c=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SQbL6SqHnsEGXYUxPSv47LWDNxpTWsRWBS3yVtT2U1AHjoNL2O+1yzQpigHFlLYr3
-	 dW7i+vW77hJUey+ryf7KZquoEGNcS9gmdmBvX+oHCsy2l9GZZt8l45qXSyWyUhbbPM
-	 bKyULaxggNDGFYveZi3HWjN3uQrvWMVl21wEBBqFckehFpcTCtRXEYaTtC1M3G+ftG
-	 BLLzPRgeAQjO6CeWJ2w9aeYnsetvSwnsdOM1Tj6xHKGwSKLRADwFPLpU+WerngeSlr
-	 jVTFvOv1jRzp4wJKoJoqAa416gXhaAQ8Mv8Yl7q4CzxY8Z5Gaupm2iDuQx8SDXYZee
-	 UJlcw6yTMN+og==
-X-Pm-Submission-Id: 4hdqlK5pqGz2SdlZ
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 07 Sep 2026 16:51:02 +0200
-Subject: [PATCH v8 7/9] iio: accel: mma8452: Allow open drain interrupt pin
- configuration
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fnh5wxRU"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8623b1e7cb2so14978267b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:52:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788792738; x=1789397538; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:to
+         :content-language:references:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=anfs5eR69uR3hgprcQRCB5kZHsZd0+SXQ4tCOJCunJw=;
+        b=fnh5wxRUz3J1D8yRKvAOLlUD0kH2Dy25Nrqgl5ga0JBg+aXaMh7EtOyz1WdVRAy+IE
+         CAg4426+d/Iw1GGUDsQXC6YQzR1WPwPLVvJcHEN+uXic6ee3Gt+l2s7iQAzcUInCMyrK
+         BnNKmabG8zQkzo5H33W/w4b9tXXceBdZrMvxonOqRtS/z4za5x3U/pXB9niNSntKppNl
+         1WB6AXK28fVz7gZLtt5rQmeB5gbNxcWSYcxizngu0ab3VuQ8ePOgsAvYwtnNS/qMGo3o
+         2IP+wdyOCVTdrVYdIBRTZVzLfsT58TIl6909+qgTuEiZuAtd66ryblusT9YiZECWjlwt
+         etnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788792738; x=1789397538;
+        h=content-transfer-encoding:content-type:in-reply-to:from:to
+         :content-language:references:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=anfs5eR69uR3hgprcQRCB5kZHsZd0+SXQ4tCOJCunJw=;
+        b=K9mgoO9TCM01Mb0Gc1KdgcOWEDi2kt5vz4DJ+kOKiIRf6XmAz5irCa3i1GXP62WTps
+         BANNy1/t+tSchTyb931pw2N1khedy75URTnVgqsepARXeeJnEMbR6iZVoijffUmPlv63
+         Iiy9p9N88uFrt/4FIUoLK7AOQCsFtqFMVb2yoX7NXljfixiEtA0eqWYkXf/DmGkMhQwL
+         bsmfQ9YCtPMluCpw0mI5eLUbYWLBVWG02BWvsSQf6+lNpGdYhi7fzv19//3Tz6JQ5tby
+         B+oNSpHrvNbUD99R4az2Jg1628ok4Au0VgxgRPIftqWFz4z45+MNKSqwRNveGkcd/Vm4
+         grLw==
+X-Forwarded-Encrypted: i=1; AKwUvBwTJ4Ilpbp4gAjixatHuERl2T9Uo2kfkO2uZ/O6CU39GIilYKBLlXrUXncqdjMKLVh5lwmDTrDoZYOWIvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNVBa/qOrpTznb9AN1XzaoeYWEsjs/2vZmf7D+xzBVvYDP7kMj
+	q3sxLOcTrX81s5+lckeh0AuCSpaXKaNfzLd5f1RN/yzOE6kDxEWO9ygV
+X-Gm-Gg: AYBFou29EPXCrUBqitBQMdEsA2gQbW6auOAoYverdadDXXPjADAekOfXubHwH+Nc/zh
+	FiF2YQnj5986f4g6CwwZz29HITjYyzhxtqARaHdq5K1VsTbTqs4SNc9Iqq7SsjdT+x9dFY12aWh
+	vYdQqh9QvcbvwZB4WDKmfIksdEBDCh3rR2OQB0TNoUAlyESfJX53QFY3Ve9hGPG5dwuag0hBXEo
+	AE9GGUUhD3TWOJ1s4Uh3PiQE5MbugUONbLAgHmjIjRjMHb+mhQZYI1IFUvghYgZ7kakxez/wBHq
+	AMLXdjborvIIsjd3/1nw+59JD+VOjG7adKkW1Pkp5rS3P/EbxCb31L9BewK1SJOTOoWuAQvo3FT
+	9lVOf/ysO0f3KYeQaF6HrcdbmzLfKzYknIqfeGuqMr4e3WqaD5a6V9cRvDk3Mlimqt8QPhKeszv
+	427+bHKB1kj7fQ7q0znISVq1wd6hJuR7GVBW4xZJJT6PL1RCchCqRHlUA4hwZAWNM7BlHx6IZUu
+	y/9rT96YbQsWBffeWooy8+fZnZ/
+X-Received: by 2002:a05:690c:c00f:b0:836:ec4d:bb29 with SMTP id 00721157ae682-87128cc54d5mr72607087b3.34.1788792738337;
+        Mon, 07 Sep 2026 07:52:18 -0700 (PDT)
+Received: from ?IPV6:2806:10be:d:e8df:57b9:51e0:e022:41c0? ([2806:10be:d:e8df:57b9:51e0:e022:41c0])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149315162sm72634707b3.12.2026.09.07.07.52.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 07:52:17 -0700 (PDT)
+Message-ID: <f9b29422-5389-4522-83e8-538e5306b3fb@gmail.com>
+Date: Mon, 7 Sep 2026 09:52:15 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-mma8452-open-drain-v8-7-c17407e22118@geanix.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-In-Reply-To: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
- Christoph Muellner <christoph.muellner@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788792664; l=2386;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=VU3Y10yCGpg+zmCnQaJJEMBjTuK+919XG+6NtyAbZeI=;
- b=qv6D1H2+8t+2Y+HtkWC9jUTUIASbgY9eqHTNvs80GASGBFEeIz2dtK3pVpb90UPNkxqahs+bD
- EoJjiemI+MzAJsy8dhED3zrXlk1CeTh+capASTiT+ukJqcF054+AoSI
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 02/14] cxl/ras: Fix cxl_rch_get_aer_severity() wrong
+ severity register
+References: <20260803221810.3685703-1-terry.bowman@amd.com>
+ <20260803221810.3685703-3-terry.bowman@amd.com> <anijY3eTVWSqHLxh@wunner.de>
+ <apkxP_fydVjpULaT@wunner.de>
+Content-Language: en-US
+To: lukas@wunner.de, linux-pci@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Terry Bowman <ktbowman@gmail.com>
+In-Reply-To: <apkxP_fydVjpULaT@wunner.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-When designing systems sharing the interrupt for mma8452 chips, it is
-helpful to be able to configure the irq pin in open-drain mode (default is
-push-pull).
+On 9/3/26 03:35, Lukas Wunner wrote:
+> Hi Terry,
+> 
+> You've submitted v20 of this series, but the following
+> questions haven't been addressed yet AFAICS.  I'd be
+> grateful if you could take a look:
+> 
+> On Sun, Aug 09, 2026 at 05:57:23PM +0200, Lukas Wunner wrote:
+>> Am I missing something?  Is a scenario ever conceivable where the RCEC
+>> receives a message with different severity than what is inferred from
+>> the registers by cxl_rch_get_aer_severity()?
+> [...]
+>> These so-called Advisory Non-Fatal Errors set one bit in the Correctable
+>> Error Status Register (Advisory Non-Fatal Error Status, bit 13) and
+>> additionally one or more bits in the Uncorrectable Error Status Register
+>> (see the commit for details).
+>>
+>> cxl_rch_get_aer_severity() is not able to cope with such errors and
+>> will incorrectly infer that the severity is AER_NONFATAL.
+>>
+>> Now I *think* this is not a problem because Advisory Non-Fatal Errors
+>> are masked by default and the commit only unmasks them on regular PCI
+>> devices, not in the RCRB of a CXL device.  Only once bit 13 in the
+>> Correctable Error Mask Register is cleared in the RCRB will
+>> cxl_rch_get_aer_severity() fail.  Right?
+> 
+> Thanks,
+> 
+> Lukas
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/iio/accel/mma8452.c | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+Hi Lukas,
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index 2c1b97b77bc1..b5ab85a86e72 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -83,6 +83,8 @@
- #define  MMA8452_CTRL_REG2_RST			BIT(6)
- #define  MMA8452_CTRL_REG2_MODS_SHIFT		3
- #define  MMA8452_CTRL_REG2_MODS_MASK		0x1b
-+#define MMA8452_CTRL_REG3			0x2c
-+#define  MMA8452_CTRL_REG3_PP_OD		BIT(0)
- #define MMA8452_CTRL_REG4			0x2d
- #define MMA8452_CTRL_REG5			0x2e
- #define MMA8452_OFF_X				0x2f
-@@ -136,6 +138,7 @@ struct mma8452_data {
- 	int sleep_val;
- 	u8 ctrl_reg1;
- 	u8 data_cfg;
-+	bool open_drain;
- };
- 
- /**
-@@ -659,6 +662,22 @@ static int mma8452_set_power_mode(struct mma8452_data *data, u8 mode)
- 	return mma8452_change_config(data, MMA8452_CTRL_REG2, reg);
- }
- 
-+static int mma8452_set_interrupt_pin_mode(struct mma8452_data *data)
-+{
-+	int reg;
-+
-+	reg = i2c_smbus_read_byte_data(data->client, MMA8452_CTRL_REG3);
-+	if (reg < 0)
-+		return reg;
-+
-+	if (data->open_drain)
-+		reg |= MMA8452_CTRL_REG3_PP_OD;
-+	else
-+		reg &= ~MMA8452_CTRL_REG3_PP_OD;
-+
-+	return i2c_smbus_write_byte_data(data->client, MMA8452_CTRL_REG3, reg);
-+}
-+
- /* returns >0 if in freefall mode, 0 if not or <0 if an error occurred */
- static int mma8452_freefall_mode_enabled(struct mma8452_data *data)
- {
-@@ -1665,6 +1684,11 @@ static int mma8452_probe(struct i2c_client *client)
- 			goto disable_regulators;
- 	}
- 
-+	data->open_drain = device_property_read_bool(dev, "drive-open-drain");
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto trigger_cleanup;
-+
- 	data->ctrl_reg1 = MMA8452_CTRL_ACTIVE |
- 			  (MMA8452_CTRL_DR_DEFAULT << MMA8452_CTRL_DR_SHIFT);
- 
-@@ -1792,6 +1816,10 @@ static int mma8452_runtime_resume(struct device *dev)
- 		return ret;
- 	}
- 
-+	ret = mma8452_set_interrupt_pin_mode(data);
-+	if (ret)
-+		goto runtime_resume_failed;
-+
- 	ret = mma8452_active(data);
- 	if (ret < 0)
- 		goto runtime_resume_failed;
+I’m sorry for missing your August 9 reply. Also, I am currently on PTO 
+this week and don’t have my work laptop, so I am responding from my 
+personal email account. I’ll be back in the office Wednesday.
 
--- 
-2.55.0
+Thanks for pointing out the issue with CE and UCE errors reported
+simultaneously. I agree this is a problem and have addressed it in v20.
+
+In v20 I remove the unused `cxl_rch_get_aer_severity()` helper, take a
+snapshot of the AER registers before calling `pci_print_aer()`, and now
+handle the CE and UCE parts in separate blocks. The UCE status is logged
+unconditionally, which prevents a fatal record from being lost under the
+advisory‑non‑fatal path. These changes directly address the scenario you
+raised for v19 and also cover any other situation where a CE and a UCE
+are co‑logged. The patch ishere: <https://lkml.org/lkml/2026/9/2/1629>
+(v20 3/9).
+
+Please let me know if you see any remaining concerns or corner cases
+that are not yet covered. Thanks again for your review and for pointing
+out the issue.
+
+- Terry
 
