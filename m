@@ -1,105 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from cs.upt.ro (smtp.cs.upt.ro [193.226.12.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7769E10F0;
-	Mon,  7 Sep 2026 00:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAEE72628D;
+	Mon,  7 Sep 2026 00:06:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.226.12.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788739455; cv=none; b=uxi1s9Gden4StUZXit5W5f2tIKMH5JZfaMMQPsmHPFlgjUfrZL3YrCCzrYjQxgj3zHcc3qf6xrsJZ7h97t6PjwyGfcusIHfcKMX0XEZvC6q6RJFk0Fdl2nOO3vB7U5l60fEBuaz5dt2zqDsb8cVXkkN3TdvIctbGkAtHGtrdMGE=
+	t=1788739612; cv=none; b=HhLTaQyNDz6Rbo+wzD50BVqI4LHTpMpsktDKtTJq5e/eq52xP7ZXRZKRsBbyJXpmcO9kLEd0a9VzI1VT09vCcViB+ouqdf5DvEq+Fzu3p2EO7juG13HCeglLq8vii1HPlz+fU8ZJXnvGY26CLlnJw3rMDkINiOc02Bd4Iz1Z78Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788739455; c=relaxed/simple;
-	bh=djpXOHjoWiFjiT5nNO4Lo8kjMOLJuJyHzz666JBCbqI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h29Iu/LlFcQiHllgpMtk0rmtzWmJUo+l7HIGDsqlM4I/ZPayNkwAsOfWGJ/5bYkanq0fi2N9GlPNXPv/lOaDhGYxQAoEOhrBtrLOW420iPHLE2KXk9lpitJAN9zh/s5q9d+Su0sWvaScOGvXdqWEYMCGZtmJvyQXqPeo1zqPjmg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c90eTKMR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788739612; c=relaxed/simple;
+	bh=Sjn5sQa/1cU6LsTI0yua3qDEZLFnx1sxSShHuHNwaGY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BTTFYOYcp/3feoDQb/2fNEI2pW8K4Lp752jNxNI97anvYdro/dqcX01dTTvHgaHvqBPs65E5NXeF6YKhlnDNaQTjMwhTq9OS8hsRbxCoiRIJJt/nBrjWQuoXYxZNqrskLNGKV+YwWUdYCAMPzqiYpdJSt1Tp/UMF2X8lR09Tcb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.upt.ro; spf=pass smtp.mailfrom=cs.upt.ro; dkim=pass (1024-bit key) header.d=cs.upt.ro header.i=@cs.upt.ro header.b=etiPi4yu; arc=none smtp.client-ip=193.226.12.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.upt.ro
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.upt.ro
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c90eTKMR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D01EF1F00A3A;
-	Mon,  7 Sep 2026 00:04:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788739448;
-	bh=wKA8NqDMPCDgfTpSSqkyVgeQHJUDiL37zmQxF4Gvu4c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=c90eTKMR6apTuyfqyiV6/rVuflWnPLrVWVlAcqBkquNWXw0iiVAhD5pP/dfBavDGt
-	 XtojeAD1v500lbOTiuEevPnud9Fjuc+oW0VMSUGcIJW94ZBToHpRPB1ALsHwfiO0ln
-	 AGu8DLlXfUOQk5KxP4gb7N5oVqq9VwkAnorsRRggCZ7n1opv5KlK+l9QI8eZIfXaPO
-	 W1xS45kxI2/6wE5Fvofx3SBcfuMMG2U6SySUwSYbUTLA2aVMt2Un+h37lcDp07cpXu
-	 w/cK3qLKe67oZG0KrBMcqXXslROYmfuWdXzHK+0Z7j0DSTvFM1uZ8dBySnvKoSEXgg
-	 4HfYVITOt9LlQ==
-Subject: Re: [PATCH net-next v5 12/12] gve: add link status/speed ctrl ops
-From: netdev-bot+sashiko@kernel.org
-To: hramamurthy@google.com
-Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
- john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
- willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com,
- jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- przemyslaw.kitszel@intel.com
-Date: Mon, 07 Sep 2026 00:04:06 +0000
-Message-ID: <178873944639.219967.903933985096101932@kernel.org>
-In-Reply-To: <20260903215606.31633-13-hramamurthy@google.com>
-References: <20260903215606.31633-13-hramamurthy@google.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=cs.upt.ro header.i=@cs.upt.ro header.b="etiPi4yu"
+Received: from localhost (localhost [127.0.0.1])
+	by cs.upt.ro (Postfix) with ESMTP id 16FBBDFA3D;
+	Mon,  7 Sep 2026 03:06:47 +0300 (EEST)
+X-Virus-Scanned: Debian amavis at smtp.cs.upt.ro
+Received: from cs.upt.ro ([127.0.0.1])
+ by localhost (smtp.cs.upt.ro [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id 47ry4XIKlIcp; Mon,  7 Sep 2026 03:06:45 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cs.upt.ro; s=mail;
+	t=1788739604; bh=Sjn5sQa/1cU6LsTI0yua3qDEZLFnx1sxSShHuHNwaGY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=etiPi4yu7d5Wjm/Sivu+gFL7gKoqRp6opFDhTK7DGqbTO9E0Th9FMOrVoDILPr+zg
+	 9k0CiEHF8ncn911Dw+/rzhH6PzVSTVAPk4GhsxAPNQB2r2EGoRol6cHGUnHits9hHr
+	 ZVyrv7yjapLhdKxDtebNKJP//nC83KSZG2BwWyhk=
+Received: from kcstation.tailba65d9.ts.net (unknown [5.12.49.127])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+	(No client certificate requested)
+	by cs.upt.ro (Postfix) with ESMTPSA id A8FD0DF947;
+	Mon,  7 Sep 2026 03:06:44 +0300 (EEST)
+From: Catalin Cereanu <catalin.cereanu@cs.upt.ro>
+To: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC] platform/x86: asus-wmi: no kbd backlight on Zenbook S 16 UM5606WA
+Date: Mon,  7 Sep 2026 03:06:31 +0300
+Message-ID: <20260907000631.18373-1-catalin.cereanu@cs.upt.ro>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260906235355.13404-1-catalin.cereanu@cs.upt.ro>
+References: <20260906235355.13404-1-catalin.cereanu@cs.upt.ro>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+Following up on my own RFC: after sending it I came across prior art for
+the first of the three questions I raised, which makes that part much
+less open-ended than I posed it.
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 1
+The FA401 series has the same shape of problem with a different device -
+WMI device 0x00100057 is not reported by DSTS even though the EC does
+support it - and that was handled with a DMI quirk ORing a quirk_entry
+flag into the availability test rather than trusting the probe:
 
-- [Low] Unrelated whitespace-only churn bundled into the functional hunk
-  of gve_get_link_ksettings().
+  https://lore.kernel.org/platform-driver-x86/20260902174718.16228-1-idotohors@gmail.com/
 
---
+If the same approach is acceptable for the keyboard backlight here, the
+equivalent would match DMI_SYS_VENDOR "ASUSTeK COMPUTER INC." and
+DMI_BOARD_NAME "UM5606WA", and do roughly:
 
-gve: add link status/speed ctrl ops
+    static struct quirk_entry quirk_asus_um5606wa = {
+            .kbd_backlight_available = true,
+    };
 
-This converts the gve link status check into a control plane op and adds
-an AQ-mode implementation that reads the device status register into
-priv->link_up.  It also adds a report_link_speed op that wraps
-gve_adminq_report_link_speed().
+with, in asus_wmi_led_init():
 
-> diff --git a/drivers/net/ethernet/google/gve/gve_ethtool.c b/drivers/net/ethernet/google/gve/gve_ethtool.c
-> index dd1c44fedc771..a3220c6514382 100644
-> --- a/drivers/net/ethernet/google/gve/gve_ethtool.c
-> +++ b/drivers/net/ethernet/google/gve/gve_ethtool.c
-> @@ -749,12 +749,11 @@ static int gve_get_link_ksettings(struct net_device *netdev,
->  	int err = 0;
->  
->  	if (priv->link_speed == 0)
-> -		err = gve_adminq_report_link_speed(priv);
-> +		err = priv->ctrl_ops->report_link_speed(priv);
->  
->  	cmd->base.speed = priv->link_speed;
->  
->  	cmd->base.duplex = DUPLEX_FULL;
-> -
->  	return err;
+    asus->kbd_led_avail = !kbd_led_read(asus, &led_val, NULL) ||
+                          asus->driver->quirks->kbd_backlight_available;
 
-[Severity: Low]
-This isn't a bug, but is the removal of the blank line between
-cmd->base.duplex = DUPLEX_FULL; and return err; in
-gve_get_link_ksettings() intentional?
+That would restore sysfs brightness control, since the DEVS setter at
+0x00050021 works regardless of what DSTS reports.
 
-The only functional change described for gve_ethtool.c is swapping
-gve_adminq_report_link_speed(priv) for priv->ctrl_ops->report_link_speed(priv),
-and neither the commit message nor the v3 changelog mentions a whitespace
-change here.  Could that blank line be left alone to keep the hunk limited to
-the ctrl op conversion?
+It would not restore the Fn+F4 key, which stays gated on KBLC in
+firmware, so questions 2 and 3 in the original mail still stand as
+written.
 
->  }
->  
+Happy to send this as a proper patch if the shape looks right.
 
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903215606.31633-1-hramamurthy%40google.com
+Thanks,
+Catalin Cereanu
