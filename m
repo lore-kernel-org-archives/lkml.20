@@ -1,328 +1,210 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011049.outbound.protection.outlook.com [52.101.62.49])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD2B3AA1A7;
-	Mon,  7 Sep 2026 08:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770740; cv=fail; b=tOaniOh+0AtqDWGrsf7ALbm4CeYY1QezScnXRkZhd7zCMKI65YqWLD8Tjp79qUODUGdctn7hyulPvWys5KC1BQ5aNWtNKBxws21uAdSE5krfJTMVk+GjoXLq5aiwIpCvHolZjLFZ9P0ltP5rD/SnSmfSfbmKpyyI0JIojcHljFg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770740; c=relaxed/simple;
-	bh=P5HHzjHurulN26Nfct/QQM27pgTtWJ9FU7zSRS57kdY=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=BCUFvfY80V3Y2KdGN58Dla9zY5J9jdNygSbaSKFS6tNBBA6+wbrq5LM46bpoSWyghBbUbmiP17uE1Zf8RJdpzVrZIF3asaQBrx71rrupczCxP1OAlJEBDABpnE5heY5Ktfjk2Wjlyh0mdlsCXH85Xm48uaw0StG8pv1yBft7xOo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Cicg29a6; arc=fail smtp.client-ip=52.101.62.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01CCB3AA1A7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788770758; cv=none; b=CyEOD4K+aFlp3KgZuOFcbCgtMEHj7yPwC6fxZYuoFxcCFuorwu5jqUbAOb3XyAuElOUt9eFojyJv+y1ilASnRF2PKDgIyIRDRdP9FmQx6Y/CulzrN1nKDYlX7a6GlE779tQSfmwzHz4yQ3R/2CWSShe8AbV3ZMDLkmbisC5EY+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788770758; c=relaxed/simple;
+	bh=1YVuQIRYSqkNtX77g8NT7j+E7lFkBcy3hwqxZOroS0A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RHVz5MzoYsfgbvhWe4qvbo9fQOgFSafSkl3ap4k+2vaQj3JTtqwUvieH7LJ3tP2Xmnw4oBLX0OnpNatbhFxb1y3SgQbdYBBwnbgBnZbwnpC4pxDAxfzAzB3+MbayCA9FzBaetq0QDGtZNPwMM7VKHxH1eV1cC35yUQiOzWF2LWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kTe8eMD/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jMZAP5Jj; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Cicg29a6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kEcanTe4q9a02pBXxfwaHvEMPqsbSqno2tyMdABU9jvnl574yBCqU7g1jdknTDzAgC1m7TWG1mokqxCBXhYn3JLceh/1qs+pr5l7j0WUF7d2EHfXFS6ZYo06yQ9Vr+y0aE7fVEKgtjP7w6sW+vZvF3llWoAHqJMlBxbfZMr5IqSPcS4euU4+xhsdjY8sKdhM22ygPK1zcJyxccqcZZw1O5/KHEqjvm8AZrFSe5403WcFLyBLs9Dt5idlJv1WEEWHKm0xDPr/bqRbGGynRhVU53bWr8OVSUrh+YKMlOJHZgaIvxRuKqzl7OOmTcuii47h0FNN6kfCZlOcXA1Bc8dM6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UmcWDh61tgnXMhkT4RPQb/8e+fPAoWDMTVqAeNshtzA=;
- b=TCkUDKLGMqv8yQHmNiA3P4H9+NAAWvzkQuKFfTI0RU4BoaNqK2Ot8cZz33xsD1/FhtYLdOv24t+GXZ+uVcl9mex1d+9Jlk0CrXUJ9yKpwkQbJekca0ukJc1Ru8H2LltBuyOhi+u9KxZeprphlYVV509AyvMuY2KB63r8BDXPSP+KlRE9qH/hoPSV0o1MPzn3rsDRLsOrrqZdzyfK3Wj1LNpYRwvlxP6O3AbajeLuOMAXgsKJGQYSm8CXkUpojm3ZbCtt33D+yshyS6F5qLGCkWNVnQArdMSTG71s0eypoO5RrSwQ/glrzHWTjf23masmV71gKdbFIoDTlz4hGZ6Ezw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UmcWDh61tgnXMhkT4RPQb/8e+fPAoWDMTVqAeNshtzA=;
- b=Cicg29a6WEHD7L2wqgd5qY/olOy3ZvjxQttkZ0dmNr8t/KLefTJPI9rj/RaFsP/+E6xbHZik3rlbMJu3JkGVreAWgfC+VgMJjPCKRkZa5nzzCLFovdqnCn/bPvTcZTYGrToFe9pdcB4F/MdO1GlpWTQ3VfdzuZIQV6mVft41AyzxFzcQIyx6qS7V1NOGnwnrIncQm0lRMC1RFfrBpOT5bz87MzDt8RTpxFrPcJnKvw5Jl7bwvmy6Y0m244NnqQTJNNiow1yV6bsjE0Iy1t+55IVL6LcxNFA3lNgLvpqNMPE1vI4vZQOKMscN9WYdaPWSBKEGwCQsGx69J8WYuthZxw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- SJ1PR12MB6097.namprd12.prod.outlook.com (2603:10b6:a03:488::6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.15; Mon, 7 Sep 2026 08:45:34 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 08:45:34 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 17:45:30 +0900
-Message-Id: <DL8YAXFG28GT.11FRAWC7NUBM7@nvidia.com>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] rust: const_eval: add `#[const_eval_only]`
- attribute
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>, "Eliot Courtney" <ecourtney@nvidia.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260903-cv-v2-0-e93b1613e40c@garyguo.net>
- <20260903-cv-v2-1-e93b1613e40c@garyguo.net>
-In-Reply-To: <20260903-cv-v2-1-e93b1613e40c@garyguo.net>
-X-ClientProxiedBy: TY4P301CA0069.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36a::6) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kTe8eMD/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jMZAP5Jj"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777DIk2838543
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 08:45:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=NzkvIz4E8Bn94zq8Ipxaeb
+	3rY0VkEU4sbNM/KCYhWbw=; b=kTe8eMD/VwQniEkZyPEVf3PxaSUvVj7+v/mJHW
+	VTjfq+13qU3IIFTUGmCSiPsNWLmwHaCPU5J4KpHU1vzbOWkpsdyJhKDckUsOxIQ4
+	Lp75wd7x66qLcPMSW99XxSVZj9fSxlMfFFT8Tmcvlmzc+3qSofpwEgk1PRA7xlc+
+	agJGfnd121ZvnNUEJQzgJKRyf2Fg0dvngOa4+RPyxEg2OCEFS0EO3GeIYa7fe6O1
+	jsNb5koSoWRjw+p3x+stGRCFHgFMrY0eT7UQVFvQJ8QIq9Hbz4X7Dh49f44Y7O5F
+	iH5FLPmWqQTdT3U1vCSvgt3usZDy9YA7SmLIqwwYT6bdu8rg==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggbuep1p7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:45:56 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398bb9a6408so941912a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:45:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788770755; x=1789375555; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NzkvIz4E8Bn94zq8Ipxaeb3rY0VkEU4sbNM/KCYhWbw=;
+        b=jMZAP5JjzD3clZd6euRVlweINPMf3qCSmf4OeNB0Bl9Xh3HaMGyNr0E0OQWPPmYrOB
+         CRVlmcp4SkdvEit4orL2j0K5sC3olIFJkx7Mj46UiEr67F19re/ytbWsorCkABExXLBR
+         p6sTv3xtK5CPpnNKAR18sfC5RL3GaHTqr3NzUmV4xcteTZ1AXMyi5D+DL7sWkX5fHvWK
+         51fxZgN/FoymCjWs/gu6HTScGu2uuA0CTQhQXTKSZgQu+Cdzi3LBSsRHMQvOeUUz9DO3
+         Afp4tGkwxJ6LWyA5rkGRcBWrPxBUPDnEZ6RIb3MMGRz/U0u1P22lut0sfK4YKV3VlRxF
+         /Sfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770755; x=1789375555;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NzkvIz4E8Bn94zq8Ipxaeb3rY0VkEU4sbNM/KCYhWbw=;
+        b=VX/eFfDVB04MlhQjIbWwR0R86nTaT3NdTdSEpT3/SP10TBb3lkxDbmL1wIxPwTM1C/
+         /fODm06KUDIVq6TSK6Jlpa1sTkFfKXalz3LpsHHC/9hRpHeaT54qEp6viqTUouzYA5k/
+         NaHDmB+AfCzioQLDIBDPSSagAjFmKzVDPXviW44x6KPQJI9D3frgYfA4LVXG43p3BdbY
+         M21hFOGLVnVRNE/v8wQvjmUimPF/osjxCTsJ6KwLUm9OSm5rzMX1slrkenrr+Z6tbpYd
+         FxKgOQcy7igWAggBbyTTiFJNXnLCNIt0bcEVGukX/WIq1r6uGDbJUjXW0BJgI5oTssdx
+         7cuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuiZMlabb4SrcoXM8wNEq5p88yOU84IG2RB6CyIkuJOyZGGwPphy5UrBvZ4eIUOUdwuz2RJwbjaI5CdQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmWJ+oToMM8w/uxO6X8TYTh04KFkKVKSkBwXMk9OGyPAa3b8V+
+	pxxtJnBoH92AZw8P6iHzZGE+SlCRK1QKWRcGYKIOixFbJlQeLdtLBTKeDam9Omh3i1mrO7D3dyQ
+	5VPqoNcfxYQ9ez8xtAMPPlAYz61Qp+fOWNZSDKFMoWDQnAKwLYCZNRiE6ZzKA1UCQHQ/M9+N62h
+	o=
+X-Gm-Gg: AYBFou3CGETpajzAP9hKsqMYwb1CnNKob5uDUkws9QpW8QnCVnG9lZa8sz8yzw6D8/i
+	iGfkP3GXOgIx7SWrWisY/UFCdRHEalR666KFZSDMz9/q0703xyeuCKpe+6TxvVnaoem8zrOHJWl
+	JTWMi7y0A4XiJQKfwLQ/NxGi0TV9FWBCsjlRXC2I1DLEcA5m3Erirh1VsR7dXbV7FKimK2NospX
+	fsB9GnD2LbIfXqc3GUmLpA6TF+vN07vM2lyb4WbgPzPpFpzEoCjCjn/GGu54XF+z19pbMXg8uMi
+	DCrNwv0YdO/CA7tybok+gfZVA1GogkLIg9dkTaI6pgxfajGgjiWBq0E/5R7NteERMUXcRxqEPee
+	kVmmWyIrL6n2/jzI8CCWVawrk9smQgzsHuT+GbvfQpl3xO94=
+X-Received: by 2002:a17:90b:17c5:b0:396:d28e:b52 with SMTP id 98e67ed59e1d1-39b3d7595b4mr14416455a91.3.1788770755218;
+        Mon, 07 Sep 2026 01:45:55 -0700 (PDT)
+X-Received: by 2002:a17:90b:17c5:b0:396:d28e:b52 with SMTP id 98e67ed59e1d1-39b3d7595b4mr14416414a91.3.1788770754682;
+        Mon, 07 Sep 2026 01:45:54 -0700 (PDT)
+Received: from hu-zijuhu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm23622117c88.13.2026.09.07.01.45.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:45:54 -0700 (PDT)
+From: Zijun Hu <zijun.hu@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] Bluetooth: btusb: Support Qualcomm multi-subsystem
+ QCC2072
+Date: Mon, 07 Sep 2026 01:45:37 -0700
+Message-Id: <20260907-btusb_qcc2072-v3-0-1f65350b03b8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|SJ1PR12MB6097:EE_
-X-MS-Office365-Filtering-Correlation-Id: 967c3859-255a-4287-ff37-08df0cbc61c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|10070799003|366016|23010399003|1800799024|921020|6133799003|10067099003|56012099006|4143699003|5023799004|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	rRTwqfark76+yPPbXCUoGVLpBOIDx1PeAdt1hA/Ilnt1emfJlJ+QQP3xDMSGmPW5tEnqFxsYI4NNipEhJmcd8Eh1B8CdgphWEQx9XEVCtGt/F82AHbRWyGzYr8EB2jb/Y3CyTBSfoWV2ruIJRp/rxYN57ckwQiM8IU6Uqc+46Du3pDU9Lc5Gu2YtZ2KSxkyyN1vZzTGbZu9pyBfNPyMWbnka+dCVMTKYSUx9YoPVvayTYtpxhk1xrOcrJxUzQK4mEqJ/y3MykMSAkOJ9yEREoUwZftwIKk1brZrlAiMwR1YQY612MxtjgVuUFmIpMhIF75NYrVH2qIAkNeReRSFEPRuhysCiPiQ7psSY9a4cS7yH3nG0ZtPY1cSR1OPrgAMwhWRki6PqaWYH4IeD6eL5GUQaiSb2DHZEzu5D31XwOGiyF+tT/LonJnoixvsfZXSP8zx0cKL03lqaFqmLnfEIZE4ZnfNp8Yb1ZPuyRXyv+rRMcUXGlBMSRsdg+paSSslQGcecZMUkYVQHGT9tQSg1p1tT6tHZrMVTJju1i74lK7r8ZS8lZ/n2aahdoS1/6srBHorGdQka3sW8OZSUENE6K+ywlkyGgRdwwNz/3EDOhnXyc+K4OzB0PrtRee2T4JYXgumBpo6CyPRTSefDY75ZAMQPGNBbVSBWPjnEHVIaxOOk1OtZ/mTsQEBUianMn56WzU2zJnSlxJ1UBavK4wi0WA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(366016)(23010399003)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(4143699003)(5023799004)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UGZ3U3FKSkNjVUsxUTFhbG4xc1J5aTN0amo2NnYyV2Q2WnBLaGRsdzM5QXFS?=
- =?utf-8?B?elp4RmM5MDNrWkNYaFNMWjg3NFpWd21yemRqRU0rYzJ2ZUVyRi9yVVNFQTBM?=
- =?utf-8?B?a2p2UlhzR005UjllSk9lTnc2NlhWRk9KR210ZDRQci9SNXA2RXk2Q2dTWS84?=
- =?utf-8?B?K2RGZENlVFJ3SXhEUDI1L05FcVcxTFNWQWVreXg1Q0tVMkxUNldGNEY0SHls?=
- =?utf-8?B?RHBtQ2tMQkNXdGw5eXVKcjlVeHVFcG1ycVU1NmlyYnRqQmZXc2FYUGtld1ls?=
- =?utf-8?B?dkE2RUc3MmtWcWJMS1JrY1VsNlhnZkhsTVI1NlBncjd5ekdUMDVIb0VyQ25X?=
- =?utf-8?B?Sy9iL1llcFBid3Z2VzVoc2M0RFA0aDhLQVUyUHBXU2E3UVdpaUo2bDJ4bmJq?=
- =?utf-8?B?b3lqSkI3VmtZMlNkejgwdUg0VlJuVWdCdjRLcjU1MThPbm5VM2Z5RnpkOTdO?=
- =?utf-8?B?UWZ3RGZrbngyVWE4YnoxK2IrWDg3WXNxZFY5S2EvOFBObWN1K2cxMjVsTFFy?=
- =?utf-8?B?YlRPZ0llemJEQm9Qa3Axdy84dEZMYTBGcHpSVTZkMEdyMnBmOGZQYzlBMlBs?=
- =?utf-8?B?UFJtcnNzemN5VlAwYjNmOTFmNWlTckpneVBISWc5TTF6MmtOYzE0b3p0OUJy?=
- =?utf-8?B?c0ZKZm1GMWJ0U3ZJOENId1A5SEVHak5QSnJId0tKT3ErNHNLMldBN3AyeGF6?=
- =?utf-8?B?M1JQSmc2Z1MzYXRMZXZrdVp3Z2ozNGd4bFRRelFOTUJnV2luSWlsZ29SVkFp?=
- =?utf-8?B?dkV5UWNpVndGeHZ5d0ZNSnNBc1pmcWxyd1dYOHQ1b0lHZjBuM2IvYkpuWFNn?=
- =?utf-8?B?RlA0aDFvUSswYWtHc0o4NVFteHhyYngzVTFkSFFkaE11Y01BSkM2UnYrQlNv?=
- =?utf-8?B?NlZuWVMxWXVBQkc5MmUySXBDOGJZVUNReG55SDNSbzJRa0Q2OG9aOXEwSmdK?=
- =?utf-8?B?THdtRWxnNFcvZ3U5MENwMWhDTmZhZW12RCtwUkc3bnJCUmYvc0I2MVFKUnZR?=
- =?utf-8?B?U2x4UU0xekRlc3BnQXFVYndva3BFb3pROUNIdlJUeW5ZZEZCazNER1dTbkJC?=
- =?utf-8?B?eURvcmRlNDVqRG0zc3lxY1lMK1pVb044QkZFSFZrSXJIdTZhSFpLU2kxRnYw?=
- =?utf-8?B?ZDEvbWUrbzZMV2dIWTFoazNacmFGdHk5b21BaFdKQlJTM2Zxbk40dENYRm5R?=
- =?utf-8?B?TmtkV3huek91UXVsNk5SR0RrV1k0WE5Mak40N0ZBUFBlYUIxNkRubERrUG1s?=
- =?utf-8?B?L01Ubmxna1ZKSTQ1NG5NQ2QzdTZDcmVhSm9RTUFhZGpQNUloYm5NQjNLejIz?=
- =?utf-8?B?cUNhY2NSLzRjTGxMdWcrTEptRGpqbUVZdGpYMEJtbkltYmpUMzJDeUFBK3Zj?=
- =?utf-8?B?SEZKZjdzUldTbEMvZk05eldnTXU1Qzd4UFJPZ2tOSy9VeTdDTEYyM01JT1RQ?=
- =?utf-8?B?VnUxV2FWeloyN1hHZmt1NERFc0NnNCtaQWlnNy9ET1cvV1JHeSthUFd3WnFJ?=
- =?utf-8?B?blVJcEI5YzQvQnIvNXF6WEhwMEFpR0JyQ2ZGY0U3WllxVW44SUsyMkRWSXZY?=
- =?utf-8?B?d3lQclpYWTRMQjhkdW5SRldPSWxibXBjbGZJbXlKcEJ2UVpPcDhSbjVDa0pI?=
- =?utf-8?B?M09DRk92cTJLSERQWU5HSzF6WjZPMkQrWVpFWDk3VHR6R21JV3Ntc3VDWld0?=
- =?utf-8?B?VGdmdkFkVjFhSmFmeFZXb3V2QTFjMlR3NVAyclpqbFlObEVROHN6bVF4cEVm?=
- =?utf-8?B?QlR1ZVM5SUhCWUFNS0NCNE1aRkw2VEdNVngzN2FKS2gxSnRVRkg2WjVlbzRJ?=
- =?utf-8?B?OUFrVCtEUi9uVlh4dHFZSlBacCtLR3lnRWpQVmNpM0N0ZE9SZzJMbloyVHlq?=
- =?utf-8?B?cVhodVAxOFphNlR2WDlCTmNZYUdRM3dVbUdnQlN3ajhQbVBZdjVFQjhIYW5S?=
- =?utf-8?B?SnBKWWN1NFN6TDJ0dllxZUU0Nyt2akYyWmd3N3NCV3M2ZnMwTEdSalowSHd5?=
- =?utf-8?B?WU40R1Z1TlBBRkU1NUJzU0JGMWhkL0hWcmNxclFZTDlET3BVMDFGMW1MWVBO?=
- =?utf-8?B?TWFjTXc2N2szOGJmSzNQck8xNDFETW5HSDFTb3pPMTNuemZyUzkrWnZacHFu?=
- =?utf-8?B?NTNXN0loRHI2Z2VvdDA2TDlWRW1GMHpjNVBzTTl5N0ZiMG1ycW0yTXMyZFlP?=
- =?utf-8?B?RjJvdHVXcmpXc2puMEkvQjJiWm1VTzB1bFpMVkhvTDlQU0pzVEVFOWVMbk91?=
- =?utf-8?B?MWNOVHVqNU56YUpwV040U3FVQWtZOWRGdWxZMzZpWnIrY1pPSDFhVExEaGxJ?=
- =?utf-8?B?ZWlxK0I2WTA5WkRQdmhaQkx5dDN4ZFRyallNRFFYOTRrc0tiMURGQ1Q4QzZP?=
- =?utf-8?Q?FmGAvfAwSnDvIlEA33VDBbpdP2NL0oBmXdlsGvf9b37wD?=
-X-MS-Exchange-AntiSpam-MessageData-1: gEzF6ZPyVM72fQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 967c3859-255a-4287-ff37-08df0cbc61c9
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 08:45:34.5580
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vDczUTuI78iuXRD7ZjGQ6tOfn9nGcgyvk9AH/BZesM6NK9ZT/aqMnW+bSX2ye8aOc+g9r68/ttZ9FHic3gYAOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6097
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIALF5nmoC/2WOyw6CMBBFf4V0bcl0QARX/ochpi+kRkBaaDSEf
+ 7eg0UQ3k9zcmTNnIk5box3ZRxOx2htnujaEZBMRWfP2rKlRIRMEzCDHlIphdOLUS4mwQ8qFKFj
+ ORYoIJNzcrK7MfeUdy1d2o7hoOSyQZaOyXUOH2mr+5e5Y8uGG1jPKaFJILiQolQE7dM7F/civo
+ W3iMBZQbdzQ2cdq7nF5+JZM4EfSIwW6laBBFkoVufjnlfM8PwHBd6nXDAEAAA==
+X-Change-ID: 20260824-btusb_qcc2072-abb918ab4220
+To: Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: Zijun Hu <zijun_hu@icloud.com>, linux-bluetooth@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Zijun Hu <zijun.hu@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5NCBTYWx0ZWRfX1aW90Z67qKl3
+ 6H5cIoJZCY0HYXLJ/jqMTbGnzvmzOWSUS5BTP7p16OuSND5gc7aW0QXSD5enkKrWJrTtDJnZqW7
+ UAp/Z6CCqLvE1vdEL4ywFv9uac+ybZDQfw5wPd8zMT2u4MVZHReVMcoqnV4aMOsk0FnotCzg7vG
+ EqgFXgeWCVjPBdbqsFAushp8eH9KULvmADh5A+tObib4c7d5y4TVLd0vsdBOsD+La8kaNItpb4l
+ gg2+epYeC7gkZ5VgQTDZiwOO+40VX4yAnDIdmx7c81xrgCho9vlI0oA6UibVGRSaS/ln0R1cA/t
+ hKLj4PwloeOqUvze4A8itSC7QgXRIqGh3+vAhnM1zI9mvIlKXzHlFCI59nlhh+hrRdO9FgRBog4
+ ordCKYsHXek9ou+86D8sE9hKmVgLQzlwJV1Qy9eaOwQNTPDgaTBQWN6ZuwH75Ux6DtZ+hCVwqHs
+ 82grpvaPkLhzK5xEdwA==
+X-Authority-Analysis: v=2.4 cv=P8AKQCAu c=1 sm=1 tr=0 ts=6a9e79c4 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=wiGumk0A3tkkXcSz67AA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: JsxeKZNcRcyO1LfvqHf34JCAIVN4sBds
+X-Proofpoint-ORIG-GUID: JsxeKZNcRcyO1LfvqHf34JCAIVN4sBds
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5NCBTYWx0ZWRfXx1gRmB4a13mE
+ ok3BG5kvAj7YnUdqSThBo+XjA8uKFSXJ4zJyDFFpbQNiHGbn9f1Z6kQKtT1AW8zY9VK7uP2iMod
+ ZEDHt/hDzxLT/qFu3fRV/Zk+AJ+c5U4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070094
 
-On Fri Sep 4, 2026 at 12:21 AM JST, Gary Guo wrote:
-> We have a lot of helper const functions which are intended to be used
-> during const evaluation only and runtime calls should not be generated. A=
-dd
-> a macro to denote this explicitly. This is similar to C++'s consteval
-> keyword.
->
-> Convert device_id.rs as an example.
->
-> Signed-off-by: Gary Guo <gary@garyguo.net>
-> ---
->  rust/build_error.rs       |  7 +++++++
->  rust/kernel/const_eval.rs |  9 +++++++++
->  rust/kernel/device_id.rs  |  4 ++++
->  rust/kernel/lib.rs        |  1 +
->  rust/macros/const_eval.rs | 24 ++++++++++++++++++++++++
->  rust/macros/lib.rs        | 21 +++++++++++++++++++++
->  6 files changed, 66 insertions(+)
->
-> diff --git a/rust/build_error.rs b/rust/build_error.rs
-> index fa24eeef9929..b7ef80596f1f 100644
-> --- a/rust/build_error.rs
-> +++ b/rust/build_error.rs
-> @@ -29,3 +29,10 @@
->  pub const fn build_error(msg: &'static str) -> ! {
->      panic!("{}", msg);
->  }
-> +
-> +/// Assert that the code is in const evaluation.
-> +///
-> +/// Triggers a build error if called at runtime.
-> +#[inline(never)]
-> +#[export_name =3D "rust_const_eval_called_at_runtime"]
-> +pub const fn assert_in_const_eval() {}
+Hi Luiz,
 
-IIUC if RUST_BUILD_ASSERT_ALLOW=3Dy then this will not cause a build error
-anything built-in. I don't expect the call will ever fail to be
-eliminated by link time here, so isn't it better to not use the same
-mechanism affected by RUST_BUILD_ASSERT_ALLOW=3Dy here? Guess you would
-need to make a new file for this.
+This revision addresses issues reported by Sashiko. Fixes are listed in
+the changelog below; false positives are addressed as Q&A further down.
 
-> diff --git a/rust/kernel/const_eval.rs b/rust/kernel/const_eval.rs
-> new file mode 100644
-> index 000000000000..f1b79d82549d
-> --- /dev/null
-> +++ b/rust/kernel/const_eval.rs
-> @@ -0,0 +1,9 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Utilities for const evaluation.
-> +
-> +#[doc(inline)]
-> +pub use build_error::assert_in_const_eval;
-> +
-> +#[doc(inline)]
-> +pub use macros::const_eval_only;
-> diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
-> index c81fca5b4986..dad9cadaeb1b 100644
-> --- a/rust/kernel/device_id.rs
-> +++ b/rust/kernel/device_id.rs
-> @@ -10,6 +10,8 @@
->      mem::MaybeUninit, //
->  };
-> =20
-> +use crate::const_eval::const_eval_only;
+Could you take a look at this new revision when you get a chance, and let
+me know if you have any further comments?
 
-I am used to C++ so #[consteval] looks nicer to me (same with Miguel)
-but no idea if that means it's better. Just another datapoint.
+False positives (no code change):
 
-> +
->  /// Marker trait to indicate a Rust device ID type represents a correspo=
-nding C device ID type.
->  ///
->  /// This is meant to be implemented by buses/subsystems so that they can=
- use [`IdTable`] to
-> @@ -108,6 +110,7 @@ impl<T: RawDeviceId + RawDeviceIdIndex, U: 'static, c=
-onst N: usize> IdArray<T, U
->      /// Creates a new instance of the array.
->      ///
->      /// The contents are derived from the given identifiers and context =
-information.
-> +    #[const_eval_only]
->      pub const fn new(ids: [(T, &'static U); N]) -> Self {
->          let mut raw_ids =3D [const { MaybeUninit::<T::RawType>::uninit()=
- }; N];
-> =20
-> @@ -144,6 +147,7 @@ impl<T: RawDeviceId, const N: usize> IdArray<T, (), N=
-> {
->      ///
->      /// The contents are derived from the given identifiers and context =
-information.
->      /// If the device implements [`RawDeviceIdIndex`], consider using [`=
-IdArray::new`] instead.
-> +    #[const_eval_only]
->      pub const fn new_without_index(ids: [T; N]) -> Self {
->          // SAFETY: `T` is layout-wise compatible with `T::RawType`, so i=
-s the array of them.
->          let raw_ids: [MaybeUninit<T::RawType>; N] =3D unsafe { core::mem=
-::transmute_copy(&ids) };
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 4d5c96ddc49c..d9ed25e96ff3 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -57,6 +57,7 @@
->  pub mod clk;
->  #[cfg(CONFIG_CONFIGFS_FS)]
->  pub mod configfs;
-> +pub mod const_eval;
->  pub mod cpu;
->  #[cfg(CONFIG_CPU_FREQ)]
->  pub mod cpufreq;
-> diff --git a/rust/macros/const_eval.rs b/rust/macros/const_eval.rs
-> new file mode 100644
-> index 000000000000..0664888d3b38
-> --- /dev/null
-> +++ b/rust/macros/const_eval.rs
-> @@ -0,0 +1,24 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +use proc_macro2::TokenStream;
-> +use quote::ToTokens;
-> +use syn::{
-> +    parse_quote,
-> +    ItemFn, //
-> +};
-> +
-> +pub(crate) fn const_eval_only(mut input: ItemFn) -> TokenStream {
-> +    // Prevent code generation as the function is for const evaluation o=
-nly.
-> +    input.attrs.push(parse_quote!(
-> +        #[inline(always)]
-> +    ));
-> +
-> +    input.block.stmts.insert(
-> +        0,
-> +        parse_quote!(
-> +            ::kernel::const_eval::assert_in_const_eval();
-> +        ),
-> +    );
-> +
-> +    input.into_token_stream()
-> +}
-> diff --git a/rust/macros/lib.rs b/rust/macros/lib.rs
-> index 24f96feaeb34..e47a8c35ccff 100644
-> --- a/rust/macros/lib.rs
-> +++ b/rust/macros/lib.rs
-> @@ -15,6 +15,7 @@
->  #![cfg_attr(not(CONFIG_RUSTC_HAS_SPAN_FILE), feature(proc_macro_span))]
-> =20
->  mod concat_idents;
-> +mod const_eval;
->  mod export;
->  mod fmt;
->  mod for_lt;
-> @@ -338,6 +339,26 @@ pub fn concat_idents(input: TokenStream) -> TokenStr=
-eam {
->      concat_idents::concat_idents(parse_macro_input!(input)).into()
->  }
-> =20
-> +/// Mark a function as usable from const evaluation only.
-> +///
-> +/// Build will fail if the function is used for runtime code.
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// #[const_eval_only]
-> +/// const fn call_for_const_eval_only() {
-> +///     // This code will be executed only during const eval!
-> +/// }
-> +///
-> +/// const _: () =3D call_for_const_eval_only();
-> +/// ```
+Q: Does this explicit padding with null bytes break userspace crash dump
+analysis for btqcom_submit_memdump()?
 
-Looks like `make rusttest` fails here?
+A: No — this header is internal and appended as dump data. Its fixed
+512-byte size is enough to delimit it from the dump data, so it doesn't
+need the text end marking like the external file header.
 
-> +#[proc_macro_attribute]
-> +pub fn const_eval_only(attr: TokenStream, input: TokenStream) -> TokenSt=
-ream {
-> +    parse_macro_input!(attr as syn::parse::Nothing);
-> +    const_eval::const_eval_only(parse_macro_input!(input)).into()
-> +}
-> +
->  /// Paste identifiers together.
->  ///
->  /// Within the `paste!` macro, identifiers inside `[<` and `>]` are conc=
-atenated together to form a
+Q: Does mixing goto statements with guard() declarations in
+qperi_try_wakeup() violate the scope-based cleanup guidelines?
 
-I think this is a useful thing to add! Thanks~
+A: No — all the gotos happen after guard(spinlock)() is taken, at
+function scope. Since every goto stays inside that same scope, it
+doesn't violate cleanup.h's guidance.
+
+Q: Could this cause a kernel panic if a zero-length packet is received
+for btqcom_recv_vendor_pkt()?
+
+A: No — not reachable from a socket write, recv_vendor_pkt() only runs
+on the RX side. And skb->len can't be 0 anyway: btusb_upward_frame()
+pushes 1 byte onto the skb right before tagging it HCI_VENDOR_PKT.
+
+Q: Can this lead to a null pointer dereference on the transmit path
+for btusb_qcom_send_frame()?
+
+A: No — skb->len can't be 0 here. Both producers of a HCI_VENDOR_PKT
+skb already reject zero length before reaching hdev->send():
+hci_sock_sendmsg's "len < 4" check for userspace writes, and
+hci_send_vendor_frame's own "!len" check for kernel-internal senders.
+
+This patch series supports Qualcomm multi-subsystem QCC2072. The first
+3 commits are simple dependencies of the last one.
+
+Signed-off-by: Zijun Hu <zijun.hu@oss.qualcomm.com>
+---
+Changes in v3:
+- Remove socket option BT_RECV_VENDOR_PKT
+- Fix heap overflow in hci_send_vendor_frame()
+- Fix a stray NUL byte in the memdump file header
+- Fix PM reference leak in btusb_do_reset_work()
+- Don't mix goto with scoped_guard() in __qperi_tx_sync_evt()
+- Don't mix goto with scoped_guard() in qperi_handle_evt()
+- Prepare btusb_qcom for bulk serialization mode support.
+- Link to v2: https://patch.msgid.link/20260830-btusb_qcc2072-v2-0-5c0e0c9dd98b@oss.qualcomm.com
+
+---
+Zijun Hu (4):
+      Bluetooth: btusb: Add recv_intr() hook to btusb_data
+      Bluetooth: Add generic support for vendor packets
+      Bluetooth: btusb: Build the driver from multiple source files
+      Bluetooth: btusb: Add support for Qualcomm multi-subsystem QCC2072
+
+ drivers/bluetooth/Kconfig                   |   14 +
+ drivers/bluetooth/Makefile                  |    3 +
+ drivers/bluetooth/{btusb.c => btusb_main.c} |  126 +-
+ drivers/bluetooth/btusb_qcom.c              | 4514 +++++++++++++++++++++++++++
+ drivers/bluetooth/btusb_qcom.h              |   99 +
+ include/net/bluetooth/hci_core.h            |    5 +
+ include/net/bluetooth/hci_mon.h             |    2 +
+ net/bluetooth/hci_core.c                    |   45 +
+ net/bluetooth/hci_sock.c                    |    8 +
+ 9 files changed, 4814 insertions(+), 2 deletions(-)
+---
+base-commit: 755cf7adf8dd2d12627cb7de223d35b12228e2f5
+change-id: 20260824-btusb_qcc2072-abb918ab4220
+
+Best regards,
+--  
+Zijun Hu <zijun.hu@oss.qualcomm.com>
+
