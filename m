@@ -1,69 +1,69 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33DD94FDE55
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC921471265
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793317; cv=none; b=Nh5tcc5wYjBF6IbX3XZEglbBZ6C2eMlwWiX2WWigAaD5fglgoDhQ8/kB0pkQF03oTvClt8jijVdiMJG95I0IbKjvqmHpk5CrQvCeO0aUXLQOZ02jJWCyYqjMC+9kngdETiAEX6f2nrQbqV0+EYKh1gbpqfAk6G1aH7PTTgcCTEE=
+	t=1788793319; cv=none; b=R2dws4Bv1HyQF6yDZXYlKifGO6EhtK4Bvft3zxS2/2FLwtDoE+00F7nHF88poCOHY/oQwtvBnAPn955IG37M6erHImCRwN78/Nay2LkgT20eqFZwb5Ke2TDFZhOSWJpA4cSoO6YKj2y2i/g/Y3WxmXqmX5wVUzm+wUWFWV0DK4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793317; c=relaxed/simple;
-	bh=fFBFontuCqoa+Ns1VZvMEqJqM1VnbRtNd5ndmJogdRc=;
+	s=arc-20240116; t=1788793319; c=relaxed/simple;
+	bh=yP9RfVxzD8mok6o8UT0hT5i3xCcDqcxVYHZ0/CWI8CE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FjcXPNNtLEBH6AsUOkO+7sdPyaBAq+VdwT01Nvbwd2LEUmoWX0MpPhkCNyNB2Tvo5wR5ihu208YgotJMqmJST4Ch+7MMDM3wJfaMbcny/vFQxLDkCDcyi2wf7v3xRn3BRwUklV5Aol1xGCEbsXKgLGCOL/lgVLGQUYsgV1vRHP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=qQn4oRbo; arc=none smtp.client-ip=209.85.128.48
+	 In-Reply-To:To:Cc; b=bhGDAsIOMqpaWO0gf++h6uVI3PbtwuaDqAGuQjpMsTqQ3GfQ7W3ESog+mRoZf8f0LPb6ig1D3zTbWT6xJfMBhOO6fWnQQ6OvGSJxdnl6iWUCag+JzLRIhMec4LNICp/W3NDKj6KtgVt179XHiUeQxpwdZOLJyVW9i2CnGlJTSzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=1XTWX0bR; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="qQn4oRbo"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso34760725e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:01:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="1XTWX0bR"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso39095615e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:01:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788793313; x=1789398113; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1788793316; x=1789398116; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4PGZ09ulVNgaF1vpoTSJtIuCw22RVQMsrEgCaeTkLjE=;
-        b=qQn4oRboYesYOvz3J4E1FFV4dFk8s0uZfn5uh79aQTxELllqkvSood3gJ0gQFXBwq2
-         eiA4GwFbVkPSzxj239uPmaKHmLCs3fxNUeF9tje2u4410zFUpaeB12ui2o7cko/vdERO
-         fZZ0CLXOPYyW3YLebtnLysAxLetzqyykZLl05IoaTIb16pYCajxL9s80f1SEodxZe+gN
-         Ym3ROHRv8j9CvTFxw9ZPsXEWjCUWS2DVYaUbpqaXGJ4OnTy2RHRD617Rb3xi02DDZ165
-         baIzUOzkhJ3TvRH/DSLCzbpBcaXS/1NG8qwxfWA6vluZxxdYag0C8um3CnnkgN6+XPx7
-         XyDg==
+        bh=cc/EAEQUnK6X7K+MUTGqGFOOzMk/azBNDSYL0Jyzjpg=;
+        b=1XTWX0bRxoY5JBfXvG8h1zF0SSeaO2WTjOXNiZeBF70C0uAuTe/X569S/MhOgnEdbW
+         uKH4VzLtMPuHrRZgnsBfU/0cBY7JBz7bxIQjN2KuzkfFQC/lQs+7yBIXmIPDyPK3LB3X
+         6Lz6O28WSl5/0fEQOF1MY4Yd+vXkJarpgLzqG/e2OoAQQonvn9S0I9+JFT/L0qMnABAl
+         u1fzgwmSZDuMfzaHx90/qhTBdWp7WjLRppL/h9krP0D7l8eIHyBInKi7ssMDlIb79pB/
+         pVC74VgtV03g+nK4p+mbU2Rl9K/j5W+89I2DBqHUrdkLH6w87w48GN29ZZA5UBbp6dBD
+         jUTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788793313; x=1789398113;
+        d=1e100.net; s=20251104; t=1788793316; x=1789398116;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4PGZ09ulVNgaF1vpoTSJtIuCw22RVQMsrEgCaeTkLjE=;
-        b=cqjccPTqcujDMWhP8SvhpbuBNKqcrzyg+qT8LSoqbXc7Iew9EHUzaWaqMLaAb+EagX
-         xIgR6yG+Trt5eo8BpkrblINHKZf0RdHsr1BTr4u3iMsmYJgoAfBq+YZcAOCQWdrm5Et4
-         9qdua/TwW3g4lDoqjZJxKdo0pV1FOcULBnd/2Uzi02THfqg+ZVq4a9RHgecSlHIKvzy2
-         9SRr/+j1G+ErF4viTAN9KitviJHCXwT4SePXTMvvvqECJ1imXnzi2YniTH1UhScxmb8i
-         uEG68JCqqizn/yVFiz1PhzVu+jpJH0+bw0ymPMlmMfoGbRowfC0w3CgzDOQmy8QidsuB
-         4Grw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/ca34UC1gCGaPnXWW7TbLjJqULi+ZOZ4BCIqWF9R3jgEaYqft3TfyZbR/E1JuvjPktNCIubqQFyKDrBU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPPQtRK0/1dm2/mLXrD2O1/g1bpjOkZmswPoyPBcZc1x9snN64
-	7/Yntzl0gOQD2O6VJ8SElAW8+mxdJE2rijBGCB0sgbHiWz54tcYPxyOt9631qEIHZc4=
-X-Gm-Gg: AYBFou1O2hJ3eJDa6SdrTFqdQa9rOij42gcSUojpY0mX/crtpsH3EmxNGc2qIt0PGUi
-	z6M01gflObUcEJskDp5YE0ji+whF/5Rw4/hs5Bv/hPUPd9Ynfy2kEjFlIoVXc/lrGVGbf30PKzD
-	+BcxTeQaSb+q7Ku/nwTv24qUtMWF04Tn2fYINhTEuaf96pICvCrUWnRv/+CmnwN0pyml/Urw/ge
-	YGPW1TR+SaN/0T/7Rjm/IkHzhzIrf4RnT0jnyU1H1ucY3pdO7qk9Nu/DOOVBLeUpKCm+HDfVMrf
-	AhZoLt37m4nXyO/Y0xofpkQWc50X9K/noT6QlcO8vUUfWkzDstF6Jr7abnekHvszIbKueHEw99I
-	pDv8qP5tCMrcebs+xSZKlOkyISwv3gXc0Q4+mnXWDp14i3P2GGPYimHIsKmhdqT/HvVPBr9muqL
-	z4bVW+xPyWGxoKQoYPGaNT2ZVKY7nx77k6n3uxJ96SpBUfRnfGRQ18Ft7Day34kb2jCclml64KD
-	F6atlQmmE2p/8UWY10y+prLxsyCvjfGXJ1h0ZR6
-X-Received: by 2002:a05:600c:3495:b0:496:c1f3:e8f8 with SMTP id 5b1f17b1804b1-49cf8244bc5mr230429545e9.7.1788793313278;
-        Mon, 07 Sep 2026 08:01:53 -0700 (PDT)
+        bh=cc/EAEQUnK6X7K+MUTGqGFOOzMk/azBNDSYL0Jyzjpg=;
+        b=IL82iEvsNxWtMui7o/tIYUekikIEAlT9ZEImVZ8ETnjWDFW1gdYLijej4LUk+9xogJ
+         PEVs21voTfaaKMMB7kceBA4RRQH61674LVFQ/434TtPalcic9dJ1gN9wyCzxUIGYHH7b
+         EAukiDfUnwDH2VZRzrdIul1Kmn3nCaG0fvaup2uGzSMxDNkpBk5LUALwxwg1Jigw890i
+         ToGZvbwSzFXwIKfQzw0vzlLDxD6xjliIYIN4lc6GTRwWMIwHRK/YtsWUIqEM3VtHmcvH
+         LGB8niYwrU7VUptPAECqqKVb0HvHlILwiNf34gEwBNcZoyMi69+V0SmVjDmqZWMnhw26
+         yoWA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgPsfg+IwXGlZlVa/CS8r7jjHTR21BHNpNdyzgPpc0h0b2EGWWTtgycMKjR03r3OKuPQ9MBr0ETWz1B4M=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndGxT0/v6Ci+eIAsQX3dqC+0kO9gKo+Ay8V/+5i5mceZcN9aq9
+	jWjvrVVVh07iB1J/QMFzXpoxqu+mdlX4kfClie2gNU055EqE3dJum0XZJdb58d275q4=
+X-Gm-Gg: AYBFou3fQ25uobuNwZLPxBtqXLQHDW1NaqYgW6jvwzIk4suRvMLtFcnAzYWRCKHqcTf
+	rlCvR2860w/1RoKd2lQe6k788IDcodeULU5n+4nzCoR8uarwuHMlrJRoHVwPDiZkLQZ/bmh1iXB
+	AxTGxHKqdt/UsWlJTE40R0hHYkhp6iQG0nICiwkpMq1z4+7MNoKVgt9fLYxfJ6txnGIBgjVsIaZ
+	bF4o7bjmJDHMlzLYxI0JxZmXkWrIH77NukDfb6XgBFniypqP2uQY9Yb6sAAG/na8P4UrX8zmxcg
+	cWQPsAZBmF65Pqt/LlMgyAXTp+LSEPqE3pQTniqrrn8DH5VKJVHVnDduNU20FZNd1MSAL2NhadK
+	BCtmJUBH9Oaa+rPSah/JwOAPK0TPiXMNfnkxS3NrTHyevKNYuwkvVr37/BdwTMbExyBfDhShylu
+	fK18t0yIbMTPEj8ewW5C50SMlbqjvd3cQ956TfQiuVBG++Bz7OEERRes2Nkf4Ptkto3M+qnSCEE
+	28FIucu57c6ugfe2sp9250N+5qh5zB8ry2pRbCp
+X-Received: by 2002:a05:600c:1990:b0:49c:f512:2361 with SMTP id 5b1f17b1804b1-49cf82524a2mr348015055e9.14.1788793315751;
+        Mon, 07 Sep 2026 08:01:55 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm262992705e9.14.2026.09.07.08.01.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm262992705e9.14.2026.09.07.08.01.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:01:53 -0700 (PDT)
+        Mon, 07 Sep 2026 08:01:55 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 07 Sep 2026 19:01:41 +0400
-Subject: [PATCH 1/5] power: supply: core: prevent unregistering a power
- supply while a callback runs
+Date: Mon, 07 Sep 2026 19:01:42 +0400
+Subject: [PATCH 2/5] power: supply: core: Allow getting battery info before
+ psy is registered
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-bq257xx-init-v1-1-1a08b29e1a68@flipper.net>
+Message-Id: <20260907-bq257xx-init-v1-2-1a08b29e1a68@flipper.net>
 References: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
 In-Reply-To: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
 To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
@@ -83,158 +83,274 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7016; i=alchark@flipper.net;
- h=from:subject:message-id; bh=fFBFontuCqoa+Ns1VZvMEqJqM1VnbRtNd5ndmJogdRc=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNu3jng3XwjD2LDMx/ZTTHrOC3nPd+mZ7WwzqNli1xa
- +psfv5W6JjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DI10jHWMGLg4BWCqV9cyMqxv5dp6b2Xthl+SOfdmeOgpp+7erXrMgluna+/pV563d+1n+Ke8MmF
- CsNn+QtapDH7GXzdmd+ZE1j7ccyXPcZ+90Kabb1gA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10290; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=yP9RfVxzD8mok6o8UT0hT5i3xCcDqcxVYHZ0/CWI8CE=;
+ b=kA0DAAoWsqLYjxBZ1KUByyZiAGqe0dyigbVIvbl5zZsiMDd32BxIu8uPObWbHxiDQzYGa6MH0
+ 4iRBAAWCgA5FiEEnfakPZUyDpq6SEj1sqLYjxBZ1KUFAmqe0dwbFIAAAAAABAAObWFudTIsMi41
+ KzEuMTIsMywyAAoJELKi2I8QWdSlIhIA/iBckGczH19zVds8L5SXN35KiYZiOKoqgTiy8aWdBvI
+ nAP9/vcBlHdtAfLfXF84QBQej6uGziahHEGBKftfEwvxxBA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Once a power supply is registered, its callbacks can immediately start
-firing from other contexts, such as external_power_changed() triggered by
-the TCPM stack. If a power supply is unregistered while the callback is
-still running, the driver data can already be freed when the callback
-tries to access it, leading to a use-after-free.
+Some power supplies, such as battery chargers, may need to program the
+device parameters based on what their connected battery allows. Current
+API requires registering the power supply to access battery information,
+which is problematic because a registered power supply is immediately
+available to the rest of the system, but the battery parameters may not
+be set yet in the charger.
 
-This happens e.g. when the hardware bus carrying the power supply device
-malfunctions (e.g. I2C is hogged down by another malfunctioning device)
-immediately after the power supply is registered, and thus the core is
-still processing the callbacks which were queued up when the driver
-starts the removal, leading in some cases to a kernel crash, e.g.:
+Given that the battery info helpers really only need a fwnode and a struct
+device to hang devres-allocated resourses on, add a pure dev-based get/put
+API alongside the existing psy-based one, which can be used to query the
+battery information before registering the power supply.
 
-[   11.645942] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000005
-[   11.646751] Mem abort info:
-[   11.647006]   ESR = 0x0000000096000004
-[   11.647338]   EC = 0x25: DABT (current EL), IL = 32 bits
-[   11.647806]   SET = 0, FnV = 0
-[   11.648077]   EA = 0, S1PTW = 0
-[   11.648356]   FSC = 0x04: level 0 translation fault
-[   11.648785] Data abort info:
-[   11.649041]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
-[   11.649524]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-[   11.649981]   GCS = 0, Overlay = 0, DirtyBit = 0
-[   11.650390] [0000000000000005] user address but active_mm is swapper
-[   11.650955] Internal error: Oops: 0000000096000004 [#1]  SMP
-[   11.651460] Modules linked in:
-[   11.651742] CPU: 1 UID: 0 PID: 144 Comm: kworker/1:2 Not tainted 7.2.0-rc6-g62a9297af2cd #1 PREEMPT
-[   11.652553] Hardware name: Flipper One rev. F0B1C2 (DT)
-[   11.653024] Workqueue: events power_supply_changed_work
-[   11.653511] pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[   11.654135] pc : __power_supply_is_supplied_by+0x18/0x100
-[   11.654624] lr : __power_supply_am_i_supplied+0x40/0xb8
-[   11.655098] sp : ffff80008192bb30
-[   11.655399] x29: ffff80008192bb30 x28: 0000000000000000 x27: 0000000000000000
-[   11.656049] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
-[   11.656695] x23: ffff0000c19f4200 x22: ffffdb2232ba4ea8 x21: ffff80008192bc28
-[   11.657344] x20: ffff0000c1eef000 x19: ffff80008192bc18 x18: 00000000a0886e62
-[   11.657991] x17: 000000040044ffff x16: 04500072b5503510 x15: 0000000000000000
-[   11.658639] x14: 0000000000000000 x13: 0000000000000220 x12: 0000000000000000
-[   11.659286] x11: 0000000000000000 x10: ffff0000c1fdb2b0 x9 : ffffdb2232ba5590
-[   11.659934] x8 : 00000000e5b906e6 x7 : ffff0000c2502778 x6 : ffffdb22339793d0
-[   11.660581] x5 : ffff80008192bc18 x4 : ffff0000c19cbca0 x3 : 0000000000000000
-[   11.661228] x2 : ffff0000c1fdaf40 x1 : ffffffffffffffed x0 : ffff0000c1eef000
-[   11.661878] Call trace:
-[   11.662103]  __power_supply_is_supplied_by+0x18/0x100 (P)
-[   11.662596]  __power_supply_am_i_supplied+0x40/0xb8
-[   11.663040]  psy_for_each_psy_cb+0x20/0x40
-[   11.663416]  class_for_each_device+0x110/0x150
-[   11.663825]  power_supply_am_i_supplied+0x68/0x100
-[   11.664262]  bq257xx_external_power_changed+0x58/0x140
-[   11.664733]  __power_supply_changed_work+0x60/0x80
-[   11.665170]  psy_for_each_psy_cb+0x20/0x40
-[   11.665545]  class_for_each_device+0x110/0x150
-[   11.665953]  power_supply_changed_work+0x98/0x1b8
-[   11.666382]  process_one_work+0x164/0x4c0
-[   11.666758]  worker_thread+0x19c/0x320
-[   11.667104]  kthread+0x138/0x150
-[   11.667408]  ret_from_fork+0x10/0x20
-[   11.667744] Code: d503233f a9bd7bfd 910003fd a90153f3 (f9400c34)
-[   11.668294] ---[ end trace 0000000000000000 ]---
-
-Add a read-write semaphore between external_power_changed() and
-power_supply_unregister() to prevent the latter from returning (and thus
-the driver from freeing its data) while the callback is still running.
-
-Fixes: bc1540561c9e ("power_supply: Add API for safe access of power supply function attrs")
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/power/supply/power_supply_core.c | 26 ++++++++++++++++++++++++--
- include/linux/power_supply.h             |  9 +++++++++
- 2 files changed, 33 insertions(+), 2 deletions(-)
+ drivers/power/supply/power_supply_core.c | 102 ++++++++++++++++++++++---------
+ include/linux/power_supply.h             |   4 ++
+ 2 files changed, 77 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-index 00d8bc98d588..83769fc33575 100644
+index 83769fc33575..855c89f712e8 100644
 --- a/drivers/power/supply/power_supply_core.c
 +++ b/drivers/power/supply/power_supply_core.c
-@@ -1526,8 +1526,19 @@ int power_supply_property_is_writeable(struct power_supply *psy,
+@@ -725,21 +725,18 @@ struct power_supply *devm_power_supply_get_by_reference(struct device *dev,
+ }
+ EXPORT_SYMBOL_GPL(devm_power_supply_get_by_reference);
  
- void power_supply_external_power_changed(struct power_supply *psy)
+-int power_supply_get_battery_info(struct power_supply *psy,
+-				  struct power_supply_battery_info **info_out)
++static int __power_supply_get_battery_info(struct device *dev,
++					   struct fwnode_handle *srcnode,
++					   struct power_supply_battery_info **info_out)
  {
--	if (atomic_read(&psy->use_cnt) <= 0 ||
--			!psy->desc->external_power_changed)
-+	if (!psy->desc->external_power_changed)
-+		return;
-+
-+	/*
-+	 * Keep power_supply_unregister() from returning, and thus from letting
-+	 * the driver's data be freed, while the callback is running. The
-+	 * use_cnt check has to happen under the lock as well: on its own it
-+	 * only tells us the supply was registered when we looked, not that it
-+	 * still is by the time the callback dereferences its driver data.
-+	 */
-+	guard(rwsem_read)(&psy->epc_sem);
-+
-+	if (atomic_read(&psy->use_cnt) <= 0)
- 		return;
+ 	struct power_supply_resistance_temp_table *resist_table;
+ 	struct power_supply_battery_info *info;
+-	struct fwnode_handle *srcnode, *fwnode;
++	struct fwnode_handle *fwnode;
+ 	const char *value;
+ 	int err, len, index, proplen;
+ 	u32 *propdata __free(kfree) = NULL;
+ 	u32 min_max[2];
  
- 	psy->desc->external_power_changed(psy);
-@@ -1774,6 +1785,7 @@ __power_supply_register(struct device *parent,
+-	srcnode = dev_fwnode(&psy->dev);
+-	if (!srcnode && psy->dev.parent)
+-		srcnode = dev_fwnode(psy->dev.parent);
+-
+ 	fwnode = fwnode_find_reference(srcnode, "monitored-battery", 0);
+ 	if (IS_ERR(fwnode))
+ 		return PTR_ERR(fwnode);
+@@ -750,7 +747,7 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 
+ 
+ 	/* Try static batteries first */
+-	err = samsung_sdi_battery_get_info(&psy->dev, value, &info);
++	err = samsung_sdi_battery_get_info(dev, value, &info);
+ 	if (!err)
+ 		goto out_ret_pointer;
+ 	else if (err == -ENODEV)
+@@ -765,7 +762,7 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		goto out_put_node;
  	}
  
- 	spin_lock_init(&psy->changed_lock);
-+	init_rwsem(&psy->epc_sem);
- 	init_rwsem(&psy->extensions_sem);
- 	INIT_LIST_HEAD(&psy->extensions);
+-	info = devm_kzalloc(&psy->dev, sizeof(*info), GFP_KERNEL);
++	info = devm_kzalloc(dev, sizeof(*info), GFP_KERNEL);
+ 	if (!info) {
+ 		err = -ENOMEM;
+ 		goto out_put_node;
+@@ -826,7 +823,7 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		else if (!strcmp("lithium-ion-manganese-oxide", value))
+ 			info->technology = POWER_SUPPLY_TECHNOLOGY_LiMn;
+ 		else
+-			dev_warn(&psy->dev, "%s unknown battery type\n", value);
++			dev_warn(dev, "%s unknown battery type\n", value);
+ 	}
  
-@@ -1915,6 +1927,16 @@ void power_supply_unregister(struct power_supply *psy)
+ 	fwnode_property_read_u32(fwnode, "energy-full-design-microwatt-hours",
+@@ -877,7 +874,7 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		err = len;
+ 		goto out_put_node;
+ 	} else if (len > POWER_SUPPLY_OCV_TEMP_MAX) {
+-		dev_err(&psy->dev, "Too many temperature values\n");
++		dev_err(dev, "Too many temperature values\n");
+ 		err = -EINVAL;
+ 		goto out_put_node;
+ 	} else if (len > 0) {
+@@ -892,28 +889,28 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		char *propname __free(kfree) = kasprintf(GFP_KERNEL, "ocv-capacity-table-%d",
+ 							 index);
+ 		if (!propname) {
+-			power_supply_put_battery_info(psy, info);
++			power_supply_put_battery_info_from_dev(dev, info);
+ 			err = -ENOMEM;
+ 			goto out_put_node;
+ 		}
+ 		proplen = fwnode_property_count_u32(fwnode, propname);
+ 		if (proplen < 0 || proplen % 2 != 0) {
+-			dev_err(&psy->dev, "failed to get %s\n", propname);
+-			power_supply_put_battery_info(psy, info);
++			dev_err(dev, "failed to get %s\n", propname);
++			power_supply_put_battery_info_from_dev(dev, info);
+ 			err = -EINVAL;
+ 			goto out_put_node;
+ 		}
+ 
+ 		u32 *propdata __free(kfree) = kcalloc(proplen, sizeof(*propdata), GFP_KERNEL);
+ 		if (!propdata) {
+-			power_supply_put_battery_info(psy, info);
++			power_supply_put_battery_info_from_dev(dev, info);
+ 			err = -EINVAL;
+ 			goto out_put_node;
+ 		}
+ 		err = fwnode_property_read_u32_array(fwnode, propname, propdata, proplen);
+ 		if (err < 0) {
+-			dev_err(&psy->dev, "failed to get %s\n", propname);
+-			power_supply_put_battery_info(psy, info);
++			dev_err(dev, "failed to get %s\n", propname);
++			power_supply_put_battery_info_from_dev(dev, info);
+ 			goto out_put_node;
+ 		}
+ 
+@@ -921,9 +918,9 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		info->ocv_table_size[index] = tab_len;
+ 
+ 		info->ocv_table[index] = table =
+-			devm_kcalloc(&psy->dev, tab_len, sizeof(*table), GFP_KERNEL);
++			devm_kcalloc(dev, tab_len, sizeof(*table), GFP_KERNEL);
+ 		if (!info->ocv_table[index]) {
+-			power_supply_put_battery_info(psy, info);
++			power_supply_put_battery_info_from_dev(dev, info);
+ 			err = -ENOMEM;
+ 			goto out_put_node;
+ 		}
+@@ -939,14 +936,14 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 		err = 0;
+ 		goto out_ret_pointer;
+ 	} else if (proplen < 0 || proplen % 2 != 0) {
+-		power_supply_put_battery_info(psy, info);
++		power_supply_put_battery_info_from_dev(dev, info);
+ 		err = (proplen < 0) ? proplen : -EINVAL;
+ 		goto out_put_node;
+ 	}
+ 
+ 	propdata = kcalloc(proplen, sizeof(*propdata), GFP_KERNEL);
+ 	if (!propdata) {
+-		power_supply_put_battery_info(psy, info);
++		power_supply_put_battery_info_from_dev(dev, info);
+ 		err = -ENOMEM;
+ 		goto out_put_node;
+ 	}
+@@ -954,17 +951,17 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 	err = fwnode_property_read_u32_array(fwnode, "resistance-temp-table",
+ 					     propdata, proplen);
+ 	if (err < 0) {
+-		power_supply_put_battery_info(psy, info);
++		power_supply_put_battery_info_from_dev(dev, info);
+ 		goto out_put_node;
+ 	}
+ 
+ 	info->resist_table_size = proplen / 2;
+-	info->resist_table = resist_table = devm_kcalloc(&psy->dev,
++	info->resist_table = resist_table = devm_kcalloc(dev,
+ 							 info->resist_table_size,
+ 							 sizeof(*resist_table),
+ 							 GFP_KERNEL);
+ 	if (!info->resist_table) {
+-		power_supply_put_battery_info(psy, info);
++		power_supply_put_battery_info_from_dev(dev, info);
+ 		err = -ENOMEM;
+ 		goto out_put_node;
+ 	}
+@@ -982,22 +979,69 @@ int power_supply_get_battery_info(struct power_supply *psy,
+ 	fwnode_handle_put(fwnode);
+ 	return err;
+ }
++
++int power_supply_get_battery_info(struct power_supply *psy,
++				  struct power_supply_battery_info **info_out)
++{
++	struct fwnode_handle *srcnode;
++
++	srcnode = dev_fwnode(&psy->dev);
++	if (!srcnode && psy->dev.parent)
++		srcnode = dev_fwnode(psy->dev.parent);
++
++	return __power_supply_get_battery_info(&psy->dev, srcnode, info_out);
++}
+ EXPORT_SYMBOL_GPL(power_supply_get_battery_info);
+ 
+-void power_supply_put_battery_info(struct power_supply *psy,
+-				   struct power_supply_battery_info *info)
++/**
++ * power_supply_get_battery_info_from_dev() - Get battery info without a supply
++ * @dev: Device holding the "monitored-battery" reference, which also owns the
++ *	 devres allocations made for the returned info
++ * @info_out: Pointer to store the resulting battery info
++ *
++ * Same as power_supply_get_battery_info(), but keyed off a plain device rather
++ * than a registered power supply. Chargers that program hardware limits taken
++ * from the battery node need those values *before* they can safely register
++ * their power supply: registering makes the supply callable, so a later probe
++ * failure would free driver data underneath a running callback.
++ *
++ * Release the result with power_supply_put_battery_info_from_dev().
++ *
++ * Return: 0 on success or an error code on failure.
++ */
++int power_supply_get_battery_info_from_dev(struct device *dev,
++					   struct power_supply_battery_info **info_out)
++{
++	return __power_supply_get_battery_info(dev, dev_fwnode(dev), info_out);
++}
++EXPORT_SYMBOL_GPL(power_supply_get_battery_info_from_dev);
++
++/**
++ * power_supply_put_battery_info_from_dev() - Release battery info
++ * @dev: Device passed to power_supply_get_battery_info_from_dev()
++ * @info: Battery info to release
++ */
++void power_supply_put_battery_info_from_dev(struct device *dev,
++					    struct power_supply_battery_info *info)
  {
- 	WARN_ON(atomic_dec_return(&psy->use_cnt));
- 	psy->removing = true;
+ 	int i;
+ 
+ 	for (i = 0; i < POWER_SUPPLY_OCV_TEMP_MAX; i++) {
+ 		if (info->ocv_table[i])
+-			devm_kfree(&psy->dev, info->ocv_table[i]);
++			devm_kfree(dev, info->ocv_table[i]);
+ 	}
+ 
+ 	if (info->resist_table)
+-		devm_kfree(&psy->dev, info->resist_table);
++		devm_kfree(dev, info->resist_table);
 +
-+	/*
-+	 * use_cnt is now zero, so no new ->external_power_changed() call can
-+	 * start. Wait for one that is already running: it may be a *supplier's*
-+	 * changed_work, which cancel_work_sync() below does not cover, and it
-+	 * may still dereference driver data that the caller is about to free.
-+	 */
-+	down_write(&psy->epc_sem);
-+	up_write(&psy->epc_sem);
-+
- 	cancel_work_sync(&psy->changed_work);
- 	cancel_delayed_work_sync(&psy->deferred_register_work);
- 	sysfs_remove_link(&psy->dev.kobj, "powers");
++	devm_kfree(dev, info);
++}
++EXPORT_SYMBOL_GPL(power_supply_put_battery_info_from_dev);
+ 
+-	devm_kfree(&psy->dev, info);
++void power_supply_put_battery_info(struct power_supply *psy,
++				   struct power_supply_battery_info *info)
++{
++	power_supply_put_battery_info_from_dev(&psy->dev, info);
+ }
+ EXPORT_SYMBOL_GPL(power_supply_put_battery_info);
+ 
 diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
-index e749d2189335..6a8c4b140a9c 100644
+index 6a8c4b140a9c..8a999a18c843 100644
 --- a/include/linux/power_supply.h
 +++ b/include/linux/power_supply.h
-@@ -351,6 +351,15 @@ struct power_supply {
- 	bool removing;
- 	atomic_t use_cnt;
- 	struct power_supply_battery_info *battery_info;
-+	/*
-+	 * Held for read while ->external_power_changed() runs, and for write by
-+	 * power_supply_unregister() so that it waits for an in-flight callback
-+	 * to finish. Without this a driver's data, typically devm-allocated on
-+	 * its own device, can be freed while the callback is still using it.
-+	 * Must not be shared with extensions_sem: callbacks may read their own
-+	 * properties, which takes that one for read.
-+	 */
-+	struct rw_semaphore epc_sem;
- 	struct rw_semaphore extensions_sem; /* protects "extensions" */
- 	struct list_head extensions;
- #ifdef CONFIG_THERMAL
+@@ -864,6 +864,10 @@ extern int power_supply_get_battery_info(struct power_supply *psy,
+ 					 struct power_supply_battery_info **info_out);
+ extern void power_supply_put_battery_info(struct power_supply *psy,
+ 					  struct power_supply_battery_info *info);
++extern int power_supply_get_battery_info_from_dev(struct device *dev,
++						  struct power_supply_battery_info **info_out);
++extern void power_supply_put_battery_info_from_dev(struct device *dev,
++						   struct power_supply_battery_info *info);
+ extern bool power_supply_battery_info_has_prop(struct power_supply_battery_info *info,
+ 					       enum power_supply_property psp);
+ extern int power_supply_battery_info_get_prop(struct power_supply_battery_info *info,
 
 -- 
 2.54.0
