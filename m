@@ -1,127 +1,148 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1202761FCE;
-	Mon,  7 Sep 2026 02:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12C561FCE;
+	Mon,  7 Sep 2026 02:36:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788748512; cv=none; b=IQA7t2SSBnH/rw6zNrJ13erUXTyzQ/w7M+l6JkC0EHUBbfPf8/mTRK7ix1F7MK4+k/x9chbaRodTbR8sFXjnyMd843y2w58507x/eTQHtWDoGl86vP+EcZVhmJGaFQo0qSk+/1SHKPuvwFe76WwR0cwS0deizyabwtgceoBgWFg=
+	t=1788748574; cv=none; b=klfxDK7dDxZIlkAl2QdLzhDh2O9rDcXaGImrYjE0faAHSW/mpeI5O6abmY7qUfxkIaYln4ja22kL2dqXV7tazYuFtn+o4IYaHuUvB5lLxXAKTcwSyL18a1SKtvcC0shoMUA/EKuba5si/bXqms4vDvekaq1PyR00bP3W/va4Oxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788748512; c=relaxed/simple;
-	bh=/n3xihmU93G11KDPuXpxUGjTF/aZtrqDlguEa+obsXQ=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=dYWPRRvKZCjr7BvOaSj/COVItThgcKi19y1DocWtCsjv9bly1SAVbtePH8Xj96vPdiAdqDQdjffcIsCecv9sTaQK3IP4VdH2QmU7CdkV/UKfMVf7yoKSk2eGFfN11sxv306t3cbJdUqrI+s4nRS9i38ANhEmabxIABiDRJ7VF4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=GxCkksjY; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788748574; c=relaxed/simple;
+	bh=PKjgGL7wqRSAIYcUtgZTni3j/REQVBk4n4ke07d4vV8=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=jDZtFZet/NzoEOYN9G4Xghy9DHtuf8/o4vdaB2dx0nxZgS1ZOQRfLML7WM+ibsAIksdm9laqQqnkCGVuivAO2Zv380f76dYN1X4Ajbl+eEV96jNJb98oznXlBT8YMjq8aAPP5IUTA/uV6d9TeH6C191WDJWRhmq36ZJckkC32js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/PB0F6u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="GxCkksjY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788748492;
-	bh=/n3xihmU93G11KDPuXpxUGjTF/aZtrqDlguEa+obsXQ=;
-	h=Mime-Version:Date:Message-Id:Subject:From:To;
-	b=GxCkksjY9QSu1j724vj4L5cIYhn+weJWoDDJfKVb4du5oPW3kXx+NoGp/fgmQUrco
-	 4v3nL11D+YIgUqyHnTVcgWZ+s8uNLUbk5Rp5bcD0xQJzpX9C3yX/9dPQqDDxWlsF9O
-	 dgWnCipG60qs6j2b93klLpr4qnwiZhotHcqPG9c0=
-X-QQ-mid: zesmtpgz3t1788748484t9bf26c94
-X-QQ-Originating-IP: 7jcO50RqRIZxPHY/moH8hgYnotivvrpyVTcywJ9C5gY=
-Received: from = ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 10:34:39 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 9707735077275929228
-EX-QQ-RecipientCnt: 59
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/PB0F6u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E42E1F00A3A;
+	Mon,  7 Sep 2026 02:36:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788748573;
+	bh=bTtpSexXUEzx8fR/jzDmJs1dEgtp2NCHWJDwbujXQII=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=F/PB0F6uom0UGqRVbUvDEwzudZDEdCFLpmrSJ9UmPydFRGlcx2BdesSIvFE7yk1tE
+	 InH6Q/jnWA2tyw4kU7RmWoyVa3hg8V7mTXMe2F9QLzwqbACwN6xe0V6318WGUDvrdx
+	 r/W/U8VcOPe4139iuuQO6ZsElcHbVm8LTat/jj+77Iuq/vGnPBfZk1Ky7HgOjGBEin
+	 TxZc8qf1MAD9ZilFXuCV3GquE4cegvQvHE6jD6bVTzt76uAw1R6Pulw1m1z6jPLfd5
+	 lxfUAHJIoKTcc6YGxABuEqHXa9Hldutc12veaFuU13SCYcQQJyObXFgzoJ080KrdnF
+	 a9a8phjdW2fpQ==
+Content-Type: multipart/mixed; boundary="===============4744973200865761988=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=c3446b7a882d909a1fb5e6c3d06e6abafc7af191330f8ccc8edf46454865;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 07 Sep 2026 10:34:37 +0800
-Message-Id: <DL8QEYABXVMN.2CF6XXBXZ1X6U@linux.spacemit.com>
-Cc: <linux-can@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-mediatek@lists.infradead.org>, <linux-renesas-soc@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-omap@vger.kernel.org>, "Troy Mitchell"
- <troy.mitchell@linux.spacemit.com>
-Subject: Re: [PATCH net-next 25/33] net: spacemit: k1_emac: Remove comma
- after sentinel-entry in match-table
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-To: "Siddharth Vadapalli" <s-vadapalli@ti.com>,
- <dario.binacchi@amarulasolutions.com>, <mkl@pengutronix.de>,
- <mailhol@kernel.org>, <msp@baylibre.com>, <florian.fainelli@broadcom.com>,
- <jonas.gorski@gmail.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
- <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
- <pabeni@redhat.com>, <kurt@linutronix.de>, <hauke@hauke-m.de>,
- <chester.a.unal@arinc9.com>, <daniel@makrotopia.org>,
- <matthias.bgg@gmail.com>, <angelogioacchino.delregno@collabora.com>,
- <ansuelsmth@gmail.com>, <linusw@kernel.org>, <luizluca@gmail.com>,
- <alvin.sipraga@analog.com>, <clement.leger@bootlin.com>,
- <justin.chen@broadcom.com>, <dlan@kernel.org>, <rogerq@kernel.org>,
- <hkallweit1@gmail.com>, <linux@armlinux.org.uk>, <rjui@broadcom.com>,
- <sbranden@broadcom.com>, <bcm-kernel-feedback-list@broadcom.com>,
- <opendmb@gmail.com>, <andrei.botila@oss.nxp.com>,
- <wangruikang@iscas.ac.cn>, <amadeus@jmu.edu.cn>, <kees@kernel.org>,
- <tmshlvck@gmail.com>, <c-vankar@ti.com>, <horms@kernel.org>,
- <vadim.fedorenko@linux.dev>, <daniel.zahka@gmail.com>,
- <nora.schiffer@ew.tq-group.com>, <v-singh1@ti.com>, <oss@vassilevski.com>,
- <haokexin@gmail.com>, <alex@sverdlin.org>, <aleksandr.loktionov@intel.com>,
- <lgs201920130244@gmail.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260904043724.2955444-1-s-vadapalli@ti.com>
- <20260904043724.2955444-26-s-vadapalli@ti.com>
-In-Reply-To: <20260904043724.2955444-26-s-vadapalli@ti.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MMgPz8MirN77HIyzHp1ahfW3FEkNnOOVFbJ5/WFX1TRhdcNMqGuBvXYc
-	JZ+G+7a/pUpoInAiMLi2eBtOasfCpvN3trpZGOajyLKAhi4srDsz+cLzbQ0LsvrBB6l9nTX
-	VO1ZggVEft0dcSq2Tw+GIzci2TgAXSaJsbPhpXxtLd98VQYINWREGy3DDPOdOVpwupVmdGA
-	ymQ6bXCX4i1lwSKvZKVAkObe/ZSo6w8ERtzIgGz7Ci5pfVsTxtsXR81WFC4FZ8/qQgQWD1q
-	76TIZuBU+3lwluYzrtWdGULsFpS+ZiQMSOb14J1iuouDYkLOwW0+aiEWavie4rWjgFajEBC
-	I4wUQCZPKPDdtgcVHvvoOaGXHj2IQgFLigQmsITuWoOQ+E2Y1SYxINPyb9SQf7ap7xCULgz
-	OL4JG3fzfCOfsx8kf47d6tpMqrLyCqeeW8sT3J5mcSXfo6bJNQxS8QiZwKGN58mmHmX3VHn
-	+o8tGsygyVX+y2OFQSpsr40MnnB/lwVHK7OcxG/OPFzf+hr4yKhwmp64v9nVLoWGJO2KsLD
-	5YPLQcGTpWGGHe2B94qDaERmLRozgGGIWwWxU8ZmKziTmu05n+/ZHSVvS0i2VX4FuYpTtd/
-	SpcbxGI8i+GVExaxBqCQoriL+3HbVEJMlerDfILtXnoJNaWgjyZWAq9uBRkRB9PgGTYH9TD
-	tAbtOiItPD1aA6KTmuvdMqu4K0F6kBZ2oRizc4mbJyxVrK0pSFdHHdYyZUTjLtdzIqsbGKl
-	LUAeKkUNJVGgWRzsgNgPeeZY/zcQadq+jxD7oE55YLw4pFLHGAUKYFWrIZ7eLHK0F1n+jPs
-	3cK9nZ8OHKk9OmXBL5saY/YLwry+mkuGUBSeCpU3zfCcsfpr7NHtBEq/k0ODe1xMwDRspJ1
-	rk3BWOXkqoqG/siWL+Zg2zQgynFiy8TRbwki1wTFNWO8UlqRnd8y69pc7H2geeHKW4Kh1ha
-	53vOEck3i5QUz/Y/gIBMTfKSMy/NT5hi2FhwIk3cUNgkrdfXa3NNtMHcfLawTD/tP/W6use
-	RUDo3Cu75myzOE+h0GCY7NsO+UULlwRsAngH/ib6qhPq18KzsTaXjUzjQFHZdxh2V+kv/aj
-	16vGbMw2WnV
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Message-Id: <514a0c26ff5e0322fe0442d07142cafc7dda338a3ce2c5b7e9437dd994cb0ba1@mail.kernel.org>
+In-Reply-To: <20260907015003.65087-2-sanghyun.park.cnu@gmail.com>
+References: <20260907015003.65087-2-sanghyun.park.cnu@gmail.com>
+Subject: Re: [PATCH bpf-next v6 1/2] bpf: Validate program attach type during link update
+From: bot+bpf-ci@kernel.org
+To: sanghyun.park.cnu@gmail.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,bpf@vger.kernel.org
+Cc: sanghyun.park.cnu@gmail.com,leon.hwang@linux.dev,john.fastabend@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,shuah@kernel.org,sdf@fomichev.me,pulehui@huawei.com,suchitkarunakaran@gmail.com,xukuohai@huawei.com,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Mon,  7 Sep 2026 02:36:12 +0000 (UTC)
 
---c3446b7a882d909a1fb5e6c3d06e6abafc7af191330f8ccc8edf46454865
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+--===============4744973200865761988==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-On Fri Sep 4, 2026 at 12:36 PM +08, Siddharth Vadapalli wrote:
-> Since sentinel is the last entry and we do not expect further entries
-> following it, remove the comma.
->
-> Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+> index c7bc9ba9b331..b394a37eecb4 100644
+> --- a/kernel/bpf/syscall.c
+> +++ b/kernel/bpf/syscall.c
+> @@ -4481,14 +4481,9 @@ static int bpf_prog_attach_check_attach_type(const struct bpf_prog *prog,
+>  	case BPF_PROG_TYPE_CGROUP_SOCK_ADDR:
+>  	case BPF_PROG_TYPE_CGROUP_SOCKOPT:
+>  	case BPF_PROG_TYPE_SK_LOOKUP:
+> +	case BPF_PROG_TYPE_LSM:
+>  		return attach_type == prog->expected_attach_type ? 0 : -EINVAL;
 
---=20
-Troy Mitchell
+Does adding BPF_PROG_TYPE_LSM to this arm also relax the check on the
+BPF_LINK_CREATE path?
+
+Before this patch, BPF_PROG_TYPE_LSM fell into the default arm:
+
+	default:
+		ptype = attach_type_to_prog_type(attach_type);
+		if (ptype == BPF_PROG_TYPE_UNSPEC || ptype != prog->type)
+			return -EINVAL;
+		return 0;
+
+Since attach_type_to_prog_type() returns BPF_PROG_TYPE_LSM only for
+BPF_LSM_MAC and BPF_LSM_CGROUP (kernel/bpf/syscall.c:4457, 4463), an LSM
+program could only ever be accepted for those two attach types.
+
+The new arm drops that constraint and accepts any attach_type as long as it
+equals prog->expected_attach_type. The other members of that arm are safe
+because bpf_prog_load_check_attach() restricts their expected_attach_type
+to a set that all maps back to the same prog type. BPF_PROG_TYPE_LSM is the
+one type in that arm with no such restriction: bpf_prog_load_check_attach()
+(kernel/bpf/syscall.c:2766 onwards) has no LSM case and falls into
+`default: return 0`, so prog->expected_attach_type is entirely
+userspace-controlled for LSM programs.
+
+An LSM program can be loaded with expected_attach_type == BPF_TRACE_ITER
+and attach_btf_id pointing at a bpf_iter_* function, because
+check_attach_btf_id() takes the ITER shortcut before the LSM-specific
+validation (kernel/bpf/verifier.c:20810-20819):
+
+	if (prog->expected_attach_type == BPF_TRACE_RAW_TP) {
+		prog->aux->attach_btf_trace = true;
+		return 0;
+	} else if (prog->expected_attach_type == BPF_TRACE_ITER) {
+		return bpf_iter_prog_supported(prog);
+	}
+
+	if (prog->type == BPF_PROG_TYPE_LSM) {
+		ret = bpf_lsm_verify_prog(&env->log, prog);
+
+bpf_check_attach_target()'s `case BPF_TRACE_ITER:` (kernel/bpf/verifier.c:
+20551) and bpf_iter_prog_supported() (kernel/bpf/bpf_iter.c:337) both
+switch on expected_attach_type only and never look at prog->type, so the
+load succeeds and bpf_lsm_verify_prog() never runs.
+
+Post-patch, BPF_LINK_CREATE with attach_type == BPF_TRACE_ITER then
+succeeds for that program. link_create() fetches the prog with plain
+bpf_prog_get() (no type filter, kernel/bpf/syscall.c:5813), so
+bpf_prog_attach_check_perm() is the only prog_type/attach_type gate; it now
+returns 0, and the `case BPF_PROG_TYPE_LSM: case BPF_PROG_TYPE_TRACING:`
+arm dispatches to bpf_iter_link_attach() (kernel/bpf/syscall.c:5847), which
+also performs no prog->type check. The result is a live BPF_LINK_TYPE_ITER
+link holding a BPF_PROG_TYPE_LSM program. Pre-patch this returned -EINVAL.
+
+BPF_PROG_ATTACH is not affected, because bpf_prog_attach() still calls
+bpf_prog_get_type(attr->attach_bpf_fd,
+attach_type_to_prog_type(attr->attach_type)) before the check. BPF_TRACE_ITER
+is also the only newly-permitted attach type that lacks a downstream
+prog->type guard: RAW_TP, FENTRY, FEXIT, FSESSION and MODIFY_RETURN all
+funnel into bpf_tracing_prog_attach(), which rejects
+`prog->expected_attach_type != BPF_LSM_MAC` for LSM programs
+(kernel/bpf/syscall.c:3663), and the *_MULTI types cannot be loaded for
+LSM at all.
+
+Could this be tightened to keep the mapping constraint for LSM?  For
+example, handle BPF_PROG_TYPE_LSM like BPF_PROG_TYPE_CGROUP_SKB does:
+verify attach_type_to_prog_type(attach_type) == prog->type first, then
+compare expected_attach_type.
+
+>  	case BPF_PROG_TYPE_CGROUP_SKB:
+> -		if (!bpf_token_capable(prog->aux->token, CAP_NET_ADMIN))
+> -			/* cg-skb progs can be loaded by unpriv user.
+> -			 * check permissions at attach time.
+> -			 */
+> -			return -EPERM;
+> -
+>  		ptype = attach_type_to_prog_type(attach_type);
+>  		if (prog->type != ptype)
+>  			return -EINVAL;
+
+[ ... ]
 
 
---c3446b7a882d909a1fb5e6c3d06e6abafc7af191330f8ccc8edf46454865
-Content-Type: application/pgp-signature; name="signature.asc"
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
------BEGIN PGP SIGNATURE-----
-
-iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap4ivQ0caUB0cm95LXku
-b3JnAAoJEJgJ74D5MzQvrKoA/jq66no0m3AM6WPip5A8SiOQeVPyie/PjbmRqO4w
-PamfAQCtuus+o1dOGS/PPW44oBGtqifxJT5WcMspAw/AJH0KCQ==
-=xCA3
------END PGP SIGNATURE-----
-
---c3446b7a882d909a1fb5e6c3d06e6abafc7af191330f8ccc8edf46454865--
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34074783015
+--===============4744973200865761988==--
