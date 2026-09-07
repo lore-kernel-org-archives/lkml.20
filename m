@@ -1,89 +1,90 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF612E06D2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:11:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B03DB409285;
+	Mon,  7 Sep 2026 07:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765070; cv=none; b=f9b1Kgqmr990HB/GqYFN31UPBknTAIrlMqu8jAxuxn3C2oCi8S1f76pdWVPZwgGXWG0sDcShB9F42bMqm5yDBtYrQhTFecmG6K3y+jIszTKDQ7Wz7N4OzMyyOiIzz8VBAsb1b+/QYUtgkiBLgfX06eV3FnbtRN8x5Hk4OhD9aIA=
+	t=1788765072; cv=none; b=jmbBs+FYXcsS3vzPch/IGltNcAylS6YRtc4yekfg3dOQmWmfKYIn2ujSV/QbSzMpPCVKiu1uDMgoikTuxVrusQLqiXdb5uoLQQa1eLMKJWF+AEYUinFWZMG/QHbVHT+QygJd2dZ0RRGNpORw1JeR7EzDZRAYGQdQJrsTfkTRHbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765070; c=relaxed/simple;
-	bh=cPH2X/EKDGvwSaOx3L3DzosLcgItYPjx2exYJdR17VM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=llIz059jf4jwZRLn5RfZgxZ41nM51LVeiqvMFrUQ4KyEsDVLXgJybMnz2rFf0cMyaxiaW7T15fmMbnqsOQWXVaJ1Z5dfCHkpt5yU28L/zJzDLH6S0d5kf1qeiOQ0rLvvRRmrKMpYJkdw+TeqGEhmwVOQl0X4gU0nJwYecGEr5wQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=myjIoRI1; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="myjIoRI1"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788765057; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=8NYiIdoA0clTQtdI5G5CycyM+YaApfB4aFiNuht58Cs=;
-	b=myjIoRI1mh/KNXuOlUnOF1hTMQA4Ey1eosSFYCrX/fnXjR+la1ZKOwkItyUXyf81VP34m+j3yTlVcOIi4ciIXCqZ/Qn1VXN8fYtfJgbY0p+TJFMrGdRwW+rXdkMsYnX9WEupr9yC1GAQciMyV83UaKgr1wS741hR7948/NtdIBI=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R421e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XAQvWM0_1788765054;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAQvWM0_1788765054 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 07 Sep 2026 15:10:55 +0800
-Message-ID: <78b338da-d700-4457-aab4-8b051343c981@linux.alibaba.com>
-Date: Mon, 7 Sep 2026 15:10:53 +0800
+	s=arc-20240116; t=1788765072; c=relaxed/simple;
+	bh=stKdDENq4FBrWsQ2w2yXCmKAWsJ/eyYa+AVK9g6EpcE=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=A/TFKn1USHuzFjtiiuuWyKirysq/NreW2pReP5VHXcGl//ySCoMae3xxX+ei3umhZXLVANmJGnEFZqytieJ3/R06qT8qQ/QVNcfaSthYBPPEpw/11fOBqkrM2m7I3h2R0yXkSl9eAFSzNR2AMytDwaQQjnMa9aoXlDA6NNV4ajM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 4a6542e4aa8b11f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:13e6a1e4-e9d8-44ae-a833-fd8965984f6b,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:9a3d817c95918b6f2dfeba7d3983ecc5,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|136|850|865|898,TC:nil,Content:0|15|50|9
+	9,EDM:-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,O
+	SI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 4a6542e4aa8b11f19a56ed5b684f684d-20260907
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 730491310; Mon, 07 Sep 2026 15:11:05 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Wolfram Sang <wsa@kernel.org>,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] i2c: atr: fix dangling adapter pointer on add failure
+Date: Mon,  7 Sep 2026 15:11:02 +0800
+Message-Id: <20260907071102.1080840-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260806073545.2071006-1-gonglinkai@kylinos.cn>
+References: <20260806073545.2071006-1-gonglinkai@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm: thp: restore SHRINKER_NONSLAB on the deferred
- split shrinker
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, "Liam R . Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>,
- Nhat Pham <nphamcs@gmail.com>, Chengming Zhou <chengming.zhou@linux.dev>,
- Kairui Song <kasong@tencent.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260904033503.4067283-1-qinyuntan@linux.alibaba.com>
- <20260904033503.4067283-2-qinyuntan@linux.alibaba.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260904033503.4067283-2-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+i2c_atr_add_adapter() stores atr->adapter[chan_id] before
+i2c_add_adapter() so that the I2C bus notifier can match child clients
+during registration. On failure the channel is freed but the slot was
+left pointing at freed memory, which can lead to use-after-free in
+i2c_atr_del_adapter() / cleanup and also block reuse with -EEXIST.
 
+Clear the slot on the i2c_add_adapter() error path before freeing chan.
 
-On 9/4/26 11:35 AM, Qinyun Tan wrote:
-> On a system booted with cgroup.memory=nokmem, the deferred split
-> shrinker is quietly demoted to a non-memcg-aware one.  As a result,
-> partially unmapped THPs are only split under global reclaim; memcg
-> (limit-induced) reclaim never splits them, so a cgroup under memory
-> pressure keeps its underused THPs intact.
-> 
-> This is a regression from commit fafaeceb89a5 ("mm: switch deferred
-> split shrinker to list_lru"), which re-registered the shrinker without
-> SHRINKER_NONSLAB.  The shrinker had carried this flag since commit
-> 0a432dcbeb32 ("mm: shrinker: make shrinker not depend on memcg kmem")
-> precisely so it would keep working with kmem accounting disabled.
-> Without the flag, shrinker_memcg_alloc() fails with -ENOSYS under
-> nokmem and the shrinker loses its memcg awareness.
-> 
-> This was noticed by Michal during review of the patch "mm/list_lru:
-> don't copy stale shrinker id from non-memcg-aware shrinkers" [1].
-> 
-> Restore the flag.
-> 
-> [1] https://lore.kernel.org/lkml/697713c4-0857-485b-aba7-c74f37a3c8b4@linux.alibaba.com/
-> 
-> Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-> Suggested-by: Michal Koutný <mkoutny@suse.com>
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
+Fixes: a076a860acae ("media: i2c: add I2C Address Translator (ATR) support")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+v2:
+- NULL the slot before the error print (Andy)
 
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+ drivers/i2c/i2c-atr.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/i2c/i2c-atr.c b/drivers/i2c/i2c-atr.c
+index e6d2af659d81..ca29633dcd62 100644
+--- a/drivers/i2c/i2c-atr.c
++++ b/drivers/i2c/i2c-atr.c
+@@ -855,6 +855,7 @@ int i2c_atr_add_adapter(struct i2c_atr *atr, struct i2c_atr_adap_desc *desc)
+ 
+ 	ret = i2c_add_adapter(&chan->adap);
+ 	if (ret) {
++		atr->adapter[chan_id] = NULL;
+ 		dev_err(dev, "failed to add atr-adapter %u (error=%d)\n",
+ 			chan_id, ret);
+ 		goto err_free_alias_pool;
+-- 
+2.25.1
