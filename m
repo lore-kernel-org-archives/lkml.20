@@ -1,36 +1,33 @@
-Received: from mta0.migadu.com (out-132.mta0.migadu.com [91.218.175.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16A5D382374
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:38:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.132
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 75D03382374
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788759493; cv=none; b=qlFGx+fastEA/gNB+D2z4bXCDn9ErWx5AFAzWb1k/WLnyPHtK4Vo7o1Q2Cf36Gi6W503CZ0tUbFQgUcWw66WwNSLpOoqFRTtkR6CtIw/e5MlgxoE22q1v685IJBx0/RMZ6o4IZw31YchuX1Hum+JHijOXNEfIZ3pBCbwEV9QA8c=
+	t=1788759524; cv=none; b=TUrV0kXjXcetL4SOrnHf+7YS/QGNJ34dFWaXPqVzm86wERj2z7V3pOMLzhKtJo9oV7dD+QtXbnYSDvr9t9uF3LjZ91JP9DawzctGLT6Bo0Cu2alGw6qcxHPaHaukXTirkHglJWzdkaKCr+87zTkKaDkin3Js8KIFM+bEserbewY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788759493; c=relaxed/simple;
-	bh=74/oe6rBOJwZLfV0DTAGZu1Xixz00uAR28nQ9xy/CJo=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=A3WPDIoeiQAPdND/v/uK2GBeSHpn44BmOs12rYAHVuz5Twdeh+xOq0CRgiRqtE7ve0AWwK9HoiHZcFfONAPfmfb9tqTzY30o+g+3AEyfVJoiRUFwdiHgUtob05nn1fHlGPcDH0qbShkWAukPJ+HfXlqTbiwszQ8akSytAMUf3No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YGwNPJya; arc=none smtp.client-ip=91.218.175.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788759524; c=relaxed/simple;
+	bh=MkB23r4IshMaLslpYaUeiocUPY8Zusw8p75PzrXbS64=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BTMYbg7Jr3y74r+BzuCRtY4/FXBByHB1u8bFjgFTUh6ZVZrUYAIZzA6tdt3/LoD1eofQGqjjLSqsmRRwo+RhISv9RBDr2sKTUmfF1wB0jIivbOv/iTtYEgtK8snOwDxpbvBLbk8qVULK7pgQc6oah70lCW7aE8UJxM228qIs10Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xe1VRFld; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YGwNPJya"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=74/oe6rBOJwZLfV0DTAGZu1Xixz00uAR28nQ9xy/CJo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788759488; v=1; x=1789364288;
- b=YGwNPJyaWFZKmF58gngpp8oB+VW8DTrC2O7vpyW9reFALde57LhEvLw3MUet2n+/nJjbj++E
- ZsgvGzrqRWfmvCiggSm1L8ZTsciUEz7pG+7VlBGa+9dSM8+fjWoTQY5BQKfk51/j2aYfH3vfe9L
- kkKnq+V15s1+OUio9QdLmMso=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6b32810261b4e1a4;
-	Mon, 07 Sep 2026 05:37:58 +0000
-X-Mizu-Trace-ID: 6b32810261b4e1a4
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <73236c69-bd81-45e1-8195-59775a34475a@linux.dev>
-Date: Mon, 7 Sep 2026 13:37:55 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xe1VRFld"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 79AE81477;
+	Sun,  6 Sep 2026 22:38:36 -0700 (PDT)
+Received: from [10.164.19.55] (unknown [10.164.19.55])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9A0B73F7B4;
+	Sun,  6 Sep 2026 22:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788759520; bh=MkB23r4IshMaLslpYaUeiocUPY8Zusw8p75PzrXbS64=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Xe1VRFldIAz//b+Qnx8IF7QSBg1x6cwQvY0Uf0DmMQJs5x0znk3lcV/ibVWVlT+ZS
+	 lKBdaP3DKAY+W+Wji3qSZQLUsdxuEb6gWeOd0RBML5tOuNhr8VhKw/xBfPkepnTt9N
+	 fHJd92x/O/d4hd/3te19hExLk6a19mtAr/4/pleo=
+Message-ID: <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
+Date: Mon, 7 Sep 2026 11:08:30 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,74 +35,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, andrealmeid@igalia.com, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>,
- stable@vger.kernel.org
-Subject: Re: [PATCH] ovl: clean up dir on casefold mismatch
-To: linux-unionfs@vger.kernel.org, miklos@szeredi.hu, amir73il@gmail.com
-References: <20260907045517.1347518-1-cui.tao@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <20260907045517.1347518-1-cui.tao@linux.dev>
+Subject: Re: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
+ softleaf offset
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com,
+ liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+ lance.yang@linux.dev, baolin.wang@linux.alibaba.com,
+ shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
+ youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, anshuman.khandual@arm.com
+References: <20260901054358.4049095-1-dev.jain@arm.com>
+ <20260901054358.4049095-6-dev.jain@arm.com>
+ <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
 
-在 2026/9/7 12:55, Tao Cui 写道:
-> From: Tao Cui <cuitao@kylinos.cn>
+On 05/09/26 4:12 pm, Barry Song wrote:
+> On Tue, Sep 1, 2026 at 1:44 PM Dev Jain <dev.jain@arm.com> wrote:
+>>
+>> In preparation for adding a helper to set softleaf ptes in one go,
+>> generalize the swap entry helpers shifting the swap offset by delta,
+>> for softleaves.
+>>
+>> Note that the soft-dirty bit, exclusive bit and uffd bit preservation
+>> will still work for non-swap softleaves, since a softleaf entry is
+>> constructed out of a type and offset, and those bits are ahead of
+>> the soft-dirty, exclusive and uffd bits.
+>>
+>> For example, for a migration entry, pte_swp_exclusive() will return
+>> false, as the exclusivity is encoded in the type itself
+>> (SOFTLEAF_MIGRATION_READ_EXCLUSIVE).
 > 
-> In ovl_create_real(), the S_IFDIR case checks after a successful
-> ovl_do_mkdir() that the new directory inherited the expected casefold
-> flag.  On mismatch, err is set to -EINVAL but the directory that was
-> just created in the workdir or in the upper layer is left behind.
+> I don't quite understand why you mention this. Is anyone calling
+> `pte_swp_exclusive()` on a migration entry? Shouldn't it only be called
+> when `softleaf_is_swap()` is true?
+
+You are right. I just wanted to emphasize the second paragraph - that the
+pte_move_swp_offset will also work for softleaf entries. But I think
+the third para confuses more, I'll drop it.
+
 > 
-> The mismatch is reachable: ofs->casefold is fixed at mount time, but
-> the casefold flag of the index dir can diverge.  With index=on, a
-> pre-existing "index" directory with +F is accepted at mount, and every
-> temp mkdir for an index entry inside it fails the check and leaks one
-> directory.  Measured on an ext4 casefold upper: 100 directory renames
-> left 100 "#nnnn" entries in the index dir, one per failed mkdir,
-> growing without bound.
+>>
+>> Signed-off-by: Dev Jain <dev.jain@arm.com>
 > 
-> Clean up the created directory with ovl_cleanup_locked() before
-> returning the error.  All callers of ovl_create_real() arrive with the
-> parent inode locked (via start_creating()), so the locked variant must
-> be used; ovl_cleanup() would deadlock on inode_lock().
+> Reviewed-by: Barry Song <baohua@kernel.org>
+
+Thanks.
+
+
 > 
-> Fixes: dfc7da402ccc9 ("ovl: Check for casefold consistency when creating new dentries")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-> ---
->  fs/overlayfs/dir.c | 1 +
->  1 file changed, 1 insertion(+)
+>> ---
+>>  mm/internal.h | 29 +++++++++++++++--------------
+>>  mm/memory.c   |  4 ++--
+>>  2 files changed, 17 insertions(+), 16 deletions(-)
+>>
+> [...]
+>>
+>>  /**
+>> @@ -523,7 +524,7 @@ static inline pte_t pte_next_swp_offset(pte_t pte)
+>>   */
+>>  static inline int swap_pte_batch(pte_t *start_ptep, int max_nr, pte_t pte)
+>>  {
 > 
-> diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-> index 7beb0af26498..4e451bbd8f97 100644
-> --- a/fs/overlayfs/dir.c
-> +++ b/fs/overlayfs/dir.c
-> @@ -188,6 +188,7 @@ struct dentry *ovl_create_real(struct ovl_fs *ofs, struct dentry *parent,
->  			if (!err && ofs->casefold != ovl_dentry_casefolded(newdentry)) {
->  				pr_warn_ratelimited("wrong inherited casefold (%pd2)\n",
->  						    newdentry);
-> +				ovl_cleanup_locked(ofs, dir, newdentry);
->  				err = -EINVAL;
->  			}
->  			break;
+> We might find a user for this in the future, in which case we might
+> want to rename `swap_pte_batch()` to `swap_softleaf_batch()`?
 
-Sashiko pointed out that the casefold check can crash on a negative
-dentry (https://sashiko.dev/#/patchset/20260907045517.1347518-1-cui.tao%40linux.dev):
+That is what is being done here:
+https://lore.kernel.org/all/20260813-migrate-rmap-batch-v2-1-3c5424c555c7@amd.com/
 
-ovl_dentry_casefolded() evaluates IS_CASEFOLDED(d_inode()), which is a
-plain dereference, so a negative dentry would crash before we even get
-to the WARN_ON(!newdentry->d_inode) check below.  And if it somehow
-survived that, ovl_cleanup_locked() would rmdir a negative dentry.
+I don't have a strong opinion, I can also generalize this right now.
 
-The NULL deref itself is pre-existing (dfc7da402ccc9), but the cleanup
-call makes it worse, so I'll fix the ordering in v2:
 
-+			if (!err && d_is_positive(newdentry) &&
-+			    ofs->casefold != ovl_dentry_casefolded(newdentry)) {
-
-Negative dentries stay on the existing WARN_ON path.
-
+> 
+>> -       pte_t expected_pte = pte_next_swp_offset(pte);
+>> +       pte_t expected_pte = pte_next_softleaf_offset(pte);
+> 
+> Best Regards
+> Barry
 
