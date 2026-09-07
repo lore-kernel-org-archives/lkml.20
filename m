@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985C34F4741;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EAC4F473D;
 	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790456; cv=none; b=MT3Yd0HHvGepu6MdhlZBljVrlE8Tjua0s3Lda9qfmsMM+6ahg1E2u4bI0zu5It1Ylza1hReX7WqaqYPg6ABLV8s3d1UJL2nt+4FVC+GnIucDYtdXUf0h5JU3qIXbypQSlnVqRFo9OBfSQ6UWvC+B9DpxC5xRdXLIdZc/8a9zh0E=
+	t=1788790456; cv=none; b=AqVzTTGtINueSJWVOx2ErDy/4n1UIFduC1+dr7CT9KSvPeBCRf2Hd1I8v1BTp/964SOwDAmoNU4+qJ7dljb8wI+dMTAY3s2I1M/89ElMFH189cxGYHt1ulcy7WN7boBfMrCwk5OCttxd7ldVIq/UE0H0pmqv4WamnANdhL6y3jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788790456; c=relaxed/simple;
-	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BWsvYCpEpfmUxDHUOsbCXZnIYh3EenjaD/x9g/KO6rr3XtKFX9Tv/BRq4cwPIMYrnQJ+MAqzOlcqsijaLcVawDkFLSywImG016DVxUfJWuYfr95DslwcMD05IqbJp6Wd6LSkrhCn5PQ+IGIRkgQMS/4O8+c6k/4gw7xZc0zquvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rr58TWjM; arc=none smtp.client-ip=10.30.226.201
+	bh=3qZ+J/XmDBuE3g4C3PLRcoFV1/MtG72DbEfHckRlKRE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=nBSytaNVS+lOfrAWFPR+qnxA+SMrkaHflP9bS4WJKc18NmJDcScMgGmijLmFuAD4XTu1veTGNtLj696d7eNg/LnBm8WhR5zIEdb49fQ+yDgQfvGyDiGY2u4h5lOJxHIXXVN5RguTTjwJhyMSbmGcXHZJvlOoJIpfiE4AFyOlaM8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PY9YQuUl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rr58TWjM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EA673C2BCFA;
-	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PY9YQuUl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 26EF8C2BD00;
+	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788790456;
-	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=Rr58TWjMVe+P2pY9jidCowTTYxQBFO8VSsJky9yv/Tl5UuulSgYESfY7QiulrJ3j/
-	 gOxxKtfFlYzTBRMFMtn6FOJShlvrTIGUXrwvbT3KjZX876AgjMmQNvGIIVPWzox/zd
-	 TTctrpMobaTc7rVTfohhgtEeDDToDC1e7xd4e49eNv69zCsO52Rq9sasVm2LBBjC62
-	 WckQlbp+Ot1mjfm5IoXtciokIQawc/PirjEUKFvoWMMRbj/LEzJ9YrnMmEZ1BmZkyL
-	 eeJSlaJjJBK0NCO8cbjobDkcy02f69otykUvSSyxMLyYorRkkJK03Ql+pRb4qigIWl
-	 mJUifSibh/b0g==
+	bh=3qZ+J/XmDBuE3g4C3PLRcoFV1/MtG72DbEfHckRlKRE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PY9YQuUl0JEvQsH06pWJ5djXDIS7k8alKP14IKFu2PX9Cg65bKAXi9N2EauV78sjm
+	 fKNyim5ltsFnqtWiVj7n5nWp3m8H6K5xsia0AxtL8SP/KDq/AA4S4NCZ6GUQ8dMSRT
+	 ZU3YERh3OUIgJuWfkRHMnskWOEnFSNzVrjDorfYYLMLOU1Kr9sn/MrkDZoK83myFKh
+	 H87noRjSfH+xuLY3DKIF5o9yQbDdEaE//4fxHK32tz3naR6EfyX6/AxrlKRZoL2sGh
+	 v7ZzBjmqhmsuZBBDW8EJeaFBf9sghNZQDD+6yJo+ZTw5TD4WadvjOMum2PXVopcilf
+	 pqNdJfUhAPGNA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C204CC79F99;
-	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C5FCC79FA1;
+	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
 From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Subject: [PATCH v2 0/3] arm64: dts: rockchip: Add FriendlyElec NanoPi R28S
-Date: Mon, 07 Sep 2026 22:13:54 +0800
-Message-Id: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
+Date: Mon, 07 Sep 2026 22:13:57 +0800
+Subject: [PATCH v2 3/3] arm64: dts: rockchip: Add devicetree for the
+ FriendlyElec NanoPi R28S
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU07hgquuIdhgTBITaBkphAN6
- d2luHb5kvff30CIHQncsg2YVifOTzvgKYN2aKYnKdftDKjR6lLnirEQtcwSmJpRERokvHbW2Bz
- 2zczUu/fRu9c/luXxojakSDIGJ8Hz5zhcTfL+tVejtOpt0eWXokRbNtXMPvjpPBLUMcYv9b06Y
- rwAAAA=
-X-Change-ID: 20260905-r28s-upstream-e212e27d6165
+Message-Id: <20260907-r28s-upstream-v2-3-21ab570fc91c@proton.me>
+References: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
+In-Reply-To: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
@@ -52,13 +51,13 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
  =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2794;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4981;
  i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx5x7bFa+woUbApXbLNuU94kVaD381VvSaSt7dlMakVs
- /7N/J7VUcrCIMbFICumyCK7qTpSaFX0zCIWqeMwc1iZQIYwcHEKwETKvzD8z+ngy/h3aQK3qujx
- umh1VcNjc3crHphRbbmzYRbDJ02mDEaGH145tVeF41u+ry5YVfmy4ec6hhWr591KDQv6IyGZeug
- OLwA=
+ bh=vRo4+B4gjkutm/cZvKKHGafiCT5eYr3P07OBq0OyB9w=;
+ b=kA0DAAoWFccN7oSCbgcByyZiAGqexraibOYY+Y6i1iAZz7luTWTNt+JmOeUg1+wOX8RPii5g/
+ oh1BAAWCgAdFiEEHbJ7WRKqW5lyBBrHFccN7oSCbgcFAmqexrYACgkQFccN7oSCbgd63gEAuDfl
+ NDZYcE80hetV82lOLYQaPjRSWs3TcKr/xu3gWDkA/jVUush8jT+HYKI6BmdfKHtEOokzS6jT2UN
+ SFTe57B8I
 X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
  fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
 X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
@@ -66,66 +65,196 @@ X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
 X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
 Reply-To: HystericalDragons@proton.me
 
+From: 安容 <HystericalDragons@proton.me>
+
 The NanoPi R28S is a dual gigabit Ethernet router board based on the
-Rockchip RK3528 SoC:
+Rockchip RK3528 SoC, designed and developed by FriendlyElec. It shares
+most of its design with the NanoPi Zero2, so it builds on the common
+rk3528-nanopi.dtsi.
 
-  https://wiki.friendlyelec.com/wiki/index.php/NanoPi_R28S
+Specification:
+- Rockchip RK3528
+- 1GB RAM
+- eMMC socket (optional)
+- MicroSD slot
+- 1x 1000Base-T (GMAC1, Realtek RTL8211F)
+- 1x 1000Base-T (PCIe, Realtek RTL8111H)
+- AICSemi AIC8800D80 SDIO WiFi
+- 3x LEDs (SYS, LAN, WAN)
+- 1x USB 2.0 Type-C, peripheral only, shared with the 5V power input
+- User and MaskROM buttons
+- Haoyu HYM8563 RTC
+- 1x USB Type-C debug UART (onboard WCH CH340E)
 
-It is closely related to the already supported NanoPi Zero2, sharing
-most of its power tree and peripheral routing. Patch 2 therefore moves
-the common parts into rk3528-nanopi.dtsi, and patch 3 adds the board on
-top of it. The split leaves the NanoPi Zero2 dtb unchanged; I verified
-this by decompiling the dtb before and after the split and comparing
-them with the phandle numbering normalised.
-
-The devicetree was derived from the vendor tree:
-
-  https://github.com/friendlyarm/kernel-rockchip/commit/ee640c5344b13a0a317436e2357df01af8268ce7
-
-but with many changes to make it suitable for mainline.
-
-Tested on a metal-case unit without the optional onboard eMMC: boots
-from microSD, both Ethernet ports link up at 1000 Mbps, the HYM8563 RTC
-registers, and all three LEDs are functional. The USB Type-C connector
-registers as a DWC3 UDC in peripheral mode; gadget enumeration against
-a USB host was not completed, because that connector is also the 5V
-input and a PC port cannot power the board.
-
-Two things I did not do, because my hardware cannot verify them:
-
-- The AICSemi AIC8800D80 WiFi chip on sdio0 has no upstream driver, so
-  only the SDIO controller is described.
-- The eMMC is described as HS200 rather than the vendor's HS400 with
-  enhanced strobe, since the board at hand has an unpopulated eMMC
-  footprint and the faster modes could not be verified.
-
+Assisted-by: LLM
+Signed-off-by: 安容 <HystericalDragons@proton.me>
 ---
-Changes in v2:
-- Split the parts shared with the NanoPi Zero2 into a new
-  rk3528-nanopi.dtsi (new patch 2). The NanoPi Zero2 dtb is unchanged.
-- Name the pinctrl labels after the nets in the schematic: usr_btn,
-  led1, led2, led_sys, pwr_wf and pcie_eth_perstb.
-- Rename the button node to button-user and its label to "USER".
-- Link to v1: https://patch.msgid.link/20260905-r28s-upstream-v1-0-f68d5389269a@proton.me
-
----
-安容 (3):
-      dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
-      arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
-      arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
-
- .../devicetree/bindings/arm/rockchip.yaml          |   5 +
  arch/arm64/boot/dts/rockchip/Makefile              |   1 +
- .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 142 +++++++++++
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 271 +-------------------
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 279 +++++++++++++++++++++
- 5 files changed, 428 insertions(+), 270 deletions(-)
----
-base-commit: 32e0f64640d558a0f5410ac5cdd8ebf371c5e6a6
-change-id: 20260905-r28s-upstream-e212e27d6165
+ .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 142 +++++++++++++++++++++
+ 2 files changed, 143 insertions(+)
 
-Best regards,
---  
-安容 <HystericalDragons@proton.me>
+diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/rockchip/Makefile
+index b677914cd3..51a9889088 100644
+--- a/arch/arm64/boot/dts/rockchip/Makefile
++++ b/arch/arm64/boot/dts/rockchip/Makefile
+@@ -94,6 +94,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399-vicharak-vaaman.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3399pro-rock-pi-n10.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-armsom-sige1.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-hinlink-h28k.dtb
++dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-r28s.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-nanopi-zero2.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-radxa-e20c.dtb
+ dtb-$(CONFIG_ARCH_ROCKCHIP) += rk3528-rock-2a.dtb
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+new file mode 100644
+index 0000000000..b9e9f5af4e
+--- /dev/null
++++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts
+@@ -0,0 +1,142 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2022 Rockchip Electronics Co., Ltd.
++ * Copyright (c) 2026 FriendlyElec Computer Tech. Co., Ltd.
++ * Copyright (c) 2026 安容 <HystericalDragons@proton.me>
++ */
++
++/dts-v1/;
++
++#include <dt-bindings/leds/common.h>
++#include "rk3528-nanopi.dtsi"
++
++/ {
++	model = "FriendlyElec NanoPi R28S";
++	compatible = "friendlyarm,nanopi-r28s", "rockchip,rk3528";
++
++	aliases {
++		mmc2 = &sdio0;
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-names = "default";
++		pinctrl-0 = <&usr_btn>;
++
++		button-user {
++			debounce-interval = <50>;
++			gpios = <&gpio4 RK_PB2 GPIO_ACTIVE_LOW>;
++			label = "USER";
++			linux,code = <KEY_RESTART>;
++			wakeup-source;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		pinctrl-names = "default";
++		pinctrl-0 = <&led1>, <&led2>, <&led_sys>;
++
++		led-lan {
++			color = <LED_COLOR_ID_GREEN>;
++			default-state = "off";
++			function = LED_FUNCTION_LAN;
++			gpios = <&gpio4 RK_PB3 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "netdev";
++		};
++
++		led-sys {
++			color = <LED_COLOR_ID_RED>;
++			default-state = "on";
++			function = LED_FUNCTION_HEARTBEAT;
++			gpios = <&gpio4 RK_PB0 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++
++		led-wan {
++			color = <LED_COLOR_ID_GREEN>;
++			default-state = "off";
++			function = LED_FUNCTION_WAN;
++			gpios = <&gpio4 RK_PB1 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "netdev";
++		};
++	};
++
++	sdio_pwrseq: sdio-pwrseq {
++		compatible = "mmc-pwrseq-simple";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pwr_wf>;
++		post-power-on-delay-ms = <100>;
++		reset-gpios = <&gpio1 RK_PC2 GPIO_ACTIVE_LOW>;
++	};
++};
++
++&combphy {
++	status = "okay";
++};
++
++&pcie {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pcie_eth_perstb>;
++	reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_HIGH>;
++	vpcie3v3-supply = <&vcc_3v3>;
++	status = "okay";
++};
++
++&pinctrl {
++	gpio-keys {
++		usr_btn: usr-btn {
++			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
++		};
++	};
++
++	leds {
++		led1: led1 {
++			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		led2: led2 {
++			rockchip,pins = <4 RK_PB3 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		led_sys: led-sys {
++			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	pcie {
++		pcie_eth_perstb: pcie-eth-perstb {
++			rockchip,pins = <4 RK_PC0 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
++	wifi {
++		pwr_wf: pwr-wf {
++			rockchip,pins = <1 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++};
++
++&sdio0 {
++	bus-width = <4>;
++	cap-sd-highspeed;
++	cap-sdio-irq;
++	keep-power-in-suspend;
++	mmc-pwrseq = <&sdio_pwrseq>;
++	non-removable;
++	sd-uhs-sdr104;
++	vqmmc-supply = <&vcc_1v8>;
++	status = "okay";
++};
++
++&uart2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart2m1_xfer>, <&uart2m1_ctsn>, <&uart2m1_rtsn>;
++	uart-has-rtscts;
++	status = "okay";
++};
++
++&usb_host0_xhci {
++	/* Type-C port, shared with the 5V power input */
++	dr_mode = "peripheral";
++};
+
+-- 
+2.55.0
 
 
