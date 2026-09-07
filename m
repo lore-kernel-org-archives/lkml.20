@@ -1,84 +1,102 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00FE135CB95;
-	Mon,  7 Sep 2026 11:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F0B436BEA;
+	Mon,  7 Sep 2026 11:47:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781612; cv=none; b=DrCq8unlMMnO1s17NfCu9BtyeKcDhPAI4o8evOT4TETP9y03guso3EUctFioWVEnDzabLdjX9z21Lcw2vcMbui4s1cjelARvBuMyM2qRUU26F7a1ONAaBfX9hMu3vgYjwZ9/2O1HLYfCRaDqKAiF7nYG+ij7nhuxBUu96iXeWh4=
+	t=1788781631; cv=none; b=uwrEav22UCaI5n20qk2pMMwE5HwYFIm+I6swKVoT8TRdnm3XP38G+dc0JWwbf8VehatSI9WE1wyJF6y+EcV5n2BKl9eNQhTA5r3Zi2jKsUF9mP3FQATopYr1ZFBPV81aMukEagDkGgVSL6Y1jNRmBA2ctoBMORu+ITZZ2fxZRLs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781612; c=relaxed/simple;
-	bh=7ZLTjDEEtC6zkMgDu91plBy4nX8z3Tjj1H5vamyi2mc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FXlhgxN+DxZrRUbOgyaoUSn8vyBZGllhib1ypCMRuUlrPOF/oIjt4ulU/Ba5ftjE3r8dxVye0qm4VAJ0FC/XcRFR2fFKTbFONfOxmVhryT/263ZVO/fNM9S0qdACqhXjST7w9jG+RIBtl0t5EgpD9JOUBQmI9jTFJLIpAcFByKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Qi35WIgG; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788781631; c=relaxed/simple;
+	bh=t7zfQYsesefqvJ7HSJmkoBA515XbmR5tcBI3bJrJXaI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=EyivWwPgE6jq8S0VpdU0CHpJGwldTiYNNOFrSzk+c5GI4YAhPff16Rd+4oF7nuTFTyRjZCLazt2n82uSvDD+/wELC3czBvXPYXoxQ5hJnspJb4QXxa9unTnvIU384MO6hHi+sagWuM/lSVU9gP46fxlgXEb8BXjIMmAbUY+P3To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iFTDFwQs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Qi35WIgG"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 439314E41565;
-	Mon,  7 Sep 2026 11:46:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 17AA460383;
-	Mon,  7 Sep 2026 11:46:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E5D0411C79C68;
-	Mon,  7 Sep 2026 13:46:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788781608; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=G/2HjxRQLVx4ZIzd+9uQPx/YxtgBjjNF2hoUfh2eYWI=;
-	b=Qi35WIgGFkYfNOA1MoQiPmFgq1xHgqBj4Xo7MGjEOC8AdWELyANs5M6LXLU02RKnc1XIe0
-	+g7n+yJjb4FsZsTnTf0rXyRNqGtWgL+UPYPePBSfB40pE+i7q9E2XIdd2LE0IFhcxVHh7e
-	NQXv3egZ1ofjN4N9DlhiEN0H1g5bKd1RFQdTrwWf8SOoiQhVIuwiHvIU93gwNxcL+q+7nD
-	UHWlaUdk1xTqL1n27Vf27w+BwmMaeWXpiZVq3hwv77z45b3b5o9VTgT86masdCH0dUcMvF
-	p6y7cOm9kBosqi2AvOd6RumrkqZM1fjQazpEmGsyxAUfcC3vyqbwwGBcAUgWNg==
-Message-ID: <ed05c706-8370-43cc-ae04-b479a28de9d1@bootlin.com>
-Date: Mon, 7 Sep 2026 13:46:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iFTDFwQs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5FB1F00A3D;
+	Mon,  7 Sep 2026 11:47:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788781630;
+	bh=DVB6LVe97eZNFBERy+A154kH+m53kcC25g88DpohPr0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iFTDFwQsQbJl/5TzD0+XECiLo7850iz9UBtGyreADq2cKdAzQmn2QqtxS3u1Jsbru
+	 T7ADD1ZpbJmdIp7K0/sQEMjDrSdqnoDAQvpe/jbHJyuwN9JTn1Phst5EN6d5L8Q2Qp
+	 84J3i5PcTd8KZybNAkQcxe+193DshRNB6Nzaub8mc8QXpc+b1S4VVijj8v6s+zdXgE
+	 P3aWWuOLB0vAo3Dcdt8D3/ydht8W/Ye2fCFSjAPcE68AjKezyE2JoA1REXC3F2kf4H
+	 vdW7FvGO1UADE5HJspSSbOcKjYme76WJEiXGNuaEHBL+ONTHBDwIr0PfPvFC+Bi7xA
+	 9yeaCKJytc78Q==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3XoZ-00000005k3D-2akC;
+	Mon, 07 Sep 2026 11:47:07 +0000
+Date: Mon, 07 Sep 2026 12:47:07 +0100
+Message-ID: <86ecf5472c.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Kohei Enju <enju.kohei@fujitsu.com>
+Cc: Steven Price <steven.price@arm.com>,
+	kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	James Morse <james.morse@arm.com>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Alexandru Elisei <alexandru.elisei@arm.com>,
+	Christoffer Dall <christoffer.dall@arm.com>,
+	Fuad Tabba <tabba@google.com>,
+	linux-coco@lists.linux.dev,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Gavin Shan <gshan@redhat.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Alper Gun <alpergun@google.com>,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Emi Kisanuki <fj0570is@fujitsu.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	WeiLin.Chang@arm.com,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>
+Subject: Re: [PATCH v16 22/45] KVM: arm64: CCA: Handle RMI_EXIT_RIPAS_CHANGE
+In-Reply-To: <ap6YrZiCdS6FI83p@FCCLS0092175.localdomain>
+References: <20260803134403.80630-1-steven.price@arm.com>
+	<20260803134403.80630-23-steven.price@arm.com>
+	<ap49Orng5-oehc6J@FCCLS0092175.localdomain>
+	<86fqzl4biu.wl-maz@kernel.org>
+	<ap6YrZiCdS6FI83p@FCCLS0092175.localdomain>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 3/5] net: stmmac: eic7700: Use common RGMII
- delay handling
-To: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, Chen Wang <chen.wang@linux.dev>,
- Inochi Amaoto <inochiama@gmail.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, sophgo@lists.linux.dev
-References: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
- <20260907-dwmac-ultrarisc-v2-3-9a39bf8db313@ultrarisc.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260907-dwmac-ultrarisc-v2-3-9a39bf8db313@ultrarisc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: enju.kohei@fujitsu.com, steven.price@arm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, catalin.marinas@arm.com, will@kernel.org, james.morse@arm.com, oliver.upton@linux.dev, suzuki.poulose@arm.com, yuzenghui@huawei.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, joey.gouly@arm.com, alexandru.elisei@arm.com, christoffer.dall@arm.com, tabba@google.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, gshan@redhat.com, sdonthineni@nvidia.com, alpergun@google.com, aneesh.kumar@kernel.org, fj0570is@fujitsu.com, vannapurve@google.com, WeiLin.Chang@arm.com, lpieralisi@kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi,
+On Mon, 07 Sep 2026 12:12:36 +0100,
+Kohei Enju <enju.kohei@fujitsu.com> wrote:
 
-On 9/7/26 09:46, Jia Wang wrote:
-> Describe the EIC7700 inherent TX delay through the common stmmac
-> platform data and let stmmac_pltfr_probe() adjust the PHY interface
-> mode.
-> 
-> Keep the existing programmable TX and RX delay configuration in the
-> EIC7700 glue driver.
-> 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> Is there any ongoing work to address this that you are aware of? This
+> seems like a fairly broad topic that may require a separate discussion.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+I don't think anyone is working on this yet.
 
-Maxime
+But I guess that making it clear that this needs to be sorted *before*
+we merge the KVM CCA support should get things (and people) in motion.
 
+Thanks,
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
