@@ -1,47 +1,40 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B77150C2AA;
-	Mon,  7 Sep 2026 15:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6293950AC00;
+	Mon,  7 Sep 2026 15:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795138; cv=none; b=ZkUtUpAH0d+qKQ9VSRcHNUdIzECtfgEzqgwHdFwqJQjNfnzSFhc++uJhPtv4bsUsFmp7XUsMazz9vDD/d1kKEbuedixgv8VX8HfII1tWeHU3hjx7voFzTQgSjsT70Bplnv4jveBnlxDE3voIPPnx4p14hamvDNekw9pYeQWIlr4=
+	t=1788795164; cv=none; b=hralr9LvoBrJVZ8UqlTS0FwM0TnbpM8PKki3Waj+PhHHJx/i7f3z+ohqka4Rpq2M6PsjAfqZu1bMyANyvpEX+C+ICqqRGyPMqZhfvNIaOuaU2J5JZDdu7y+8a2JrlaglT/hrIBTHn70y2YxSlARRd05/iBjB8GxI2HOqM5AVosQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795138; c=relaxed/simple;
-	bh=drC6FXUT8sD00Zc/eQa38tjuPOCL2PtR/zc6tWq5MmI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bbwCGj3WBwPUbOK0KK+mjF/idS+k8q10AiDzewk9B9pI9t7flsrTgmUO/dLQ/7LOmeHzAh8JbjgZXr3CDMzYnKRlrL/4TGicCzHoBsPOtS5qRTS27R61+Hbt/1qAasypipmmCfNpO2r3HpK/0zGFWRK6D4yLHkxnMSd7zGTseZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: samuel@sholland.org
-X-PTX-Original-Recipient: linux-sunxi@lists.linux.dev
-X-PTX-Original-Recipient: o.schinagl@ultimaker.com
-X-PTX-Original-Recipient: broonie@linaro.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: linux-spi@vger.kernel.org
-X-PTX-Original-Recipient: jernej.skrabec@gmail.com
-X-PTX-Original-Recipient: mr.nuke.me@gmail.com
-X-PTX-Original-Recipient: mkl@pengutronix.de
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: jre@pengutronix.de
-X-PTX-Original-Recipient: mripard@kernel.org
-X-PTX-Original-Recipient: wens@kernel.org
-X-PTX-Original-Recipient: broonie@kernel.org
-X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 68275202012;
-	Mon, 07 Sep 2026 17:32:04 +0200 (CEST)
-Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac])
-	by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
-	(envelope-from <jre@pengutronix.de>)
-	id 1x3bKG-000Ym1-12;
-	Mon, 07 Sep 2026 17:32:04 +0200
-From: Jonas Rebmann <jre@pengutronix.de>
-Date: Mon, 07 Sep 2026 17:31:44 +0200
-Subject: [PATCH v2 5/6] spi: spi-sun4i: sun4i_spi_transfer_one(): add error
- handling at clock setup
+	s=arc-20240116; t=1788795164; c=relaxed/simple;
+	bh=lNdE5hQwxbC8zNqyjDPCQ1ygIeNWiWlq0JUn43dlXO4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MExPFomRuxvSyAAuXkjtwG7xCUD5p2H5jjQMvhrDdfAWN3s8pYp/8HCym+E6aDCx9SXS/rmuqieJ0rhp+UpaDStsKaG9tB6nNGioO8PNcZgzU5CqmfP4rv9aWmfzyeJKlftMFD77FFOkFo2hcliGys8+/c4TZpxxrJh3+98v1JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hVWjyu/s; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hVWjyu/s"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 6AE251A1A3D;
+	Mon,  7 Sep 2026 15:32:39 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3E78960383;
+	Mon,  7 Sep 2026 15:32:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6008C11C7AF32;
+	Mon,  7 Sep 2026 17:32:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788795154; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=BXlHvKIz0fjUJbOXiKgTHnFk1X4b670PHeIObA3iq8g=;
+	b=hVWjyu/sz/rPY9Z/nzdhawhlnZMM8F+SJT1QAM9ZD4Z5OvetniZVfRf0WpJXhlBYOxleV9
+	7JxHi55JuGpjyh9cfIWhef2dPZ+cAr3/ysuWdp4yU4Tdmfh+gyoYQSzY+RLpuNStZAYSYt
+	DOlxFifN5CTQ4ns/yvbAiGwcwEfcQy+jVXts71ihUWOHHCC8sk3F0n1LT+4D3tSsAprmIZ
+	vOyYPHKnSGe+Kwvdkr5QZZ4sTQVJSge81y3UiZmqlWxLwKXfzaEgA5CCxDg3qJIKrBUrdn
+	ZUYzD0XnzJZ8O0YWBYFj8/yUVZKpWRGSFTr922Zxe5FIqvqLW+InLmf2DV8Lnw==
+From: "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+Date: Mon, 07 Sep 2026 17:32:22 +0200
+Subject: [PATCH 6.1.y] vxlan: use pskb_network_may_pull() for transmit path
+ header pulls
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,64 +43,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-spi-sun4i-fixes-v2-5-7e805662b9bd@pengutronix.de>
-References: <20260907-spi-sun4i-fixes-v2-0-7e805662b9bd@pengutronix.de>
-In-Reply-To: <20260907-spi-sun4i-fixes-v2-0-7e805662b9bd@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
- Alexandru Gagniuc <mr.nuke.me@gmail.com>, 
- Olliver Schinagl <o.schinagl@ultimaker.com>
-Cc: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Mark Brown <broonie@linaro.org>, kernel@pengutronix.de, 
- Marc Kleine-Budde <mkl@pengutronix.de>, Jonas Rebmann <jre@pengutronix.de>
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1118; i=jre@pengutronix.de;
- h=from:subject:message-id; bh=drC6FXUT8sD00Zc/eQa38tjuPOCL2PtR/zc6tWq5MmI=;
- b=owGbwMvMwCV2ZcYT3onnbjcwnlZLYsiad+PzyQP37gb1VZ4u0Lyy/E+6WceXXZWtH9bdyPsiN
- cFU5N5Npo5SFgYxLgZZMUWWWDU5BSFj/+tmlXaxMHNYmUCGMHBxCsBEZLQZ/pdv/HCpto53K2e4
- zdn5xkG1udVqbxavORwV/It72e2qzMsM/8wyJ1285Hpd+f4eEU5ZvR1mmgcmuSamNOy/d+x4PPe
- pRj4A
-X-Developer-Key: i=jre@pengutronix.de; a=openpgp;
- fpr=0B7B750D5D3CD21B3B130DE8B61515E135CD49B5
+Message-Id: <20260907-cve-2026-74474-v1-1-58df9a9a245b@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMBCE4Vcpc3bLJsQs+iriwcStrocqiRal9
+ N1N9fgNzD+jajGt2Hczik5W7T42uE2HfD2NFyU7N8Ozj7xjoTwprSAJQQLxIC6JjyltGe30KDr
+ Y+xc8IPau/+D4n+sr3TQ/1xiW5Qte/EgeeQAAAA==
+X-Change-ID: 20260907-cve-2026-74474-0f71b726bb50
+To: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, David Stevens <dlstevens@us.ibm.com>, 
+ Cong Wang <amwang@redhat.com>, Nikolay Aleksandrov <razor@blackwall.org>, 
+ Ido Schimmel <idosch@nvidia.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+ Sasha Levin <sashal@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Miguel Gazquez (Schneider Electric)" <miguel.gazquez@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788795149; l=2651;
+ i=miguel.gazquez@bootlin.com; s=20250708; h=from:subject:message-id;
+ bh=x/q2y/HZZWyP2kOBq/jhuWIWKRT40N3cmfcN10dlvfs=;
+ b=8R1uYMMkDUDyJ55vqMIpKXuRNNXtGjtc4p7cmKSBpIA6TkXzJBWf3AdBlVufi/ZOCRrnj/9u+
+ DB65kJiXsz9CgHPPcq7gTV15kDSZ9Q9bWf7MFbFkRM56qeqKBEgvlEP
+X-Developer-Key: i=miguel.gazquez@bootlin.com; a=ed25519;
+ pk=k/2KI9jkmayaF0ghZ8QYUH9Wm/kFHDhl8QoZ0RHbr4w=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Bail out if clk_get_rate() or clk_set_rate() fail during
-sun4i_spi_transfer_one(). This might happen if the clock isn't known yet
-or fails to set the requested rate.
+From: Eric Dumazet <edumazet@google.com>
 
-This also ensures that mclk_rate is nonzero and can be safely divided by
-in a future commit.
+[ Upstream commit b9553558b48db54ac9273e6b98d7263ef5c1a329 ]
 
-Signed-off-by: Jonas Rebmann <jre@pengutronix.de>
+In vxlan_xmit(), arp_reduce(), and vxlan_mdb_entry_skb_get(), pskb_may_pull() was
+being called to verify the availability of network layer headers (ARP, IPv6/ND,
+IP/IPv6 MDB keys).
+
+However, during transmit skb->data points to the MAC header, so skb_network_offset(skb)
+is ETH_HLEN (14 bytes). Using pskb_may_pull(skb, len) only checks len bytes from skb->data
+rather than skb_network_offset(skb) + len, which can leave part of the network header
+in non-linear frags.
+
+Replace these remaining pskb_may_pull() calls with pskb_network_may_pull() to properly
+account for the MAC header offset.
+
+Fixes: e4f67addf158 ("add DOVE extensions for VXLAN")
+Fixes: f564f45c4518 ("vxlan: add ipv6 proxy support")
+Fixes: 0f83e69f44bf ("vxlan: Add MDB data path support")
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Cc: stable@vger.kernel.org
+Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
+Link: https://patch.msgid.link/20260723144249.759100-6-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 ---
- drivers/spi/spi-sun4i.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ drivers/net/vxlan/vxlan_core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-sun4i.c b/drivers/spi/spi-sun4i.c
-index ea8be0170fbf..94e1c7bbd632 100644
---- a/drivers/spi/spi-sun4i.c
-+++ b/drivers/spi/spi-sun4i.c
-@@ -279,9 +279,17 @@ static int sun4i_spi_transfer_one(struct spi_controller *host,
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 245c4c705045..9684a3ab081b 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -1904,7 +1904,7 @@ static int arp_reduce(struct net_device *dev, struct sk_buff *skb, __be32 vni)
+ 	if (dev->flags & IFF_NOARP)
+ 		goto out;
  
- 	/* Ensure that we have a parent clock fast enough */
- 	mclk_rate = clk_get_rate(sspi->mclk);
-+	if (!mclk_rate)
-+		return -EINVAL;
-+
- 	if (mclk_rate < (2 * tfr->speed_hz)) {
--		clk_set_rate(sspi->mclk, 2 * tfr->speed_hz);
-+		ret = clk_set_rate(sspi->mclk, 2 * tfr->speed_hz);
-+		if (ret)
-+			return ret;
-+
- 		mclk_rate = clk_get_rate(sspi->mclk);
-+		if (!mclk_rate)
-+			return -EINVAL;
+-	if (!pskb_may_pull(skb, arp_hdr_len(dev))) {
++	if (!pskb_network_may_pull(skb, arp_hdr_len(dev))) {
+ 		dev->stats.tx_dropped++;
+ 		goto out;
  	}
+@@ -2865,8 +2865,8 @@ static netdev_tx_t vxlan_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			return arp_reduce(dev, skb, vni);
+ #if IS_ENABLED(CONFIG_IPV6)
+ 		else if (ntohs(eth->h_proto) == ETH_P_IPV6 &&
+-			 pskb_may_pull(skb, sizeof(struct ipv6hdr) +
+-					    sizeof(struct nd_msg)) &&
++			 pskb_network_may_pull(skb, sizeof(struct ipv6hdr) +
++						    sizeof(struct nd_msg)) &&
+ 			 ipv6_hdr(skb)->nexthdr == IPPROTO_ICMPV6) {
+ 			struct nd_msg *m = (struct nd_msg *)(ipv6_hdr(skb) + 1);
  
- 	/*
 
--- 
-2.55.0.123.gf60db8d575
+---
+base-commit: cf82dcca96346600c7068cf3f841335f9fa08f54
+change-id: 20260907-cve-2026-74474-0f71b726bb50
+
+Best regards,
+--  
+Miguel Gazquez (Schneider Electric) <miguel.gazquez@bootlin.com>
 
