@@ -1,110 +1,127 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D95B5221E7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B04C29BD91;
+	Mon,  7 Sep 2026 18:48:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806727; cv=none; b=CTv2CfeRo9du8Sh/jBP/0CiAf3/7F0EM/ZM0AtadNsyY4yJBuq4nHGmheEd5lGAj8iFfjhjlV/pvOvUGMOcQ21Jo4nY8fs6faqPy5P1cKBfwMoGgpcYiieUotKED9CttYq3uu0SeuAiEMlXQPxr3CoWcmspCYz3eQlZ/l2e8E0U=
+	t=1788806918; cv=none; b=dyKojTLOAXqnPxQ4TyCG4HIn13LqMegY5B4jc26Cn0xDygKonDsAAA18X08EZYlfHz6OgOg6yB8UMvnn0jYKif9/ay+kr/G3eaLLNtXb7swD6rBBlVUEEOL4oWFx/I/McUXAQq2bUUt7AwMVYQ+cLNaT0uc7Fs/0KXwtImuu8Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806727; c=relaxed/simple;
-	bh=MEIl3cnZEx9wSqrzI6g+3M1l8s9u76zrSgaouWKJgqI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OI9RcLP4g+2Y0QKkx66FIQWzDnLNnCJjO263mt7ARpJmtHjN7GMm/TJHnW1LnXkcTZV98v0PQq8KdarmuoJk3h9g3Lc8KZ2ix3AhjFdHSW46sx4d8Eo3kAJbSvdZPuu8wbzsRRu4chn7KWhqaC9kYJvU1ZQtFvA3GXhkL85U+2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=DrKiMHsj; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788806918; c=relaxed/simple;
+	bh=htrCXtnZ0GWiFORxvT949iCj6jaJ/Y5cRXIq52cexSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kZoZUx6Lq4z+bkp2pZIaNYgdr3n2MBYVtvwmMUNnp+wZuy/ZzXRAAodaLjPflMu56ko4IGVuCXfB+Yi+kkMOfk/c32KErXuJcHtGpayVUhqy/Fe5u8ch+k15vOkd6FbsHZerkQeewQ62azCIwt0fAQpOJ1HrymxH3DWeOTWPW+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DPJfKAC5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DrKiMHsj"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92f0b5ed131so463030485a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788806714; x=1789411514; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sjn+XNWiK56tmINhkcWxojIKugJpXGM2NaDQl0J3MLw=;
-        b=DrKiMHsjfM6Ur90m88K44F1686GiY3B/MM/xRptcDGiIykU3kMzDqsM63HzjR+fPWH
-         QkashlcnM31jBXdXgzOIot26qjbrrTCJ2J0+4KnTdU0whfR/4KFswcEMUm+p/LcozLH1
-         oROU8HwaacOEkpT0xOp+UUU58Ok6w/i3MTaVXD4fA2wrpuLrtrfjX+iaKtjoIsxxNMre
-         S4YdKxy+Z1HRjeN7kxOzBB7Xpc/gnV7t1zuVwaaNUfxuOKX98qjH8ab/9VJlNFdd13YY
-         x7aQHjVY3zwxa+2MtRD7p33gMOhzGRHcReNw0GLbe1tkl9iJmCR9fQ1V1asU4zp4YNMW
-         Pumg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788806714; x=1789411514;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sjn+XNWiK56tmINhkcWxojIKugJpXGM2NaDQl0J3MLw=;
-        b=mOrQCc6ica9Mt0jGc7y9LkIWmtA+pIdqyVq6Jzi2z1Dq/F2WL9FM5KGCXqSGpSN5g9
-         R5YTphXFP2dmWQ7ij2coSEvKY9dFFY4gzb3iXfQLPrgNntRZLCBL9CDkeVH32btJVpcB
-         1t/KeGbiT3QE+TqBX6dmlXOjhCpPRSbPfeDiv7kb32pKcGznzNbX8oYNAdkRhc8EeZ2s
-         Qv2wYOBXPQBXJmmZFkOsrNnJ7DCx5Nr8omCXZbA/KVBQ3IjrbvhzSz3AxKSVwMDPLn3R
-         1Cx7AzD2LuuoIo557okB37Th/tgs6LXIOeOzcHX/uMD52Wbo6he+MNNeOZQnpcG2MEZu
-         3tFg==
-X-Gm-Message-State: AFuF++kzQ/VDkULR+CO38OdYPYbJPekNF0X0pP6CPYUtM+HBwvajJOc5
-	Xai5kMQZsy/1vyKg6oNq2zeVjfsb667mNtfXAE9jtmSVyvZ4oy+Jvt6dsygg0nUPqIfGLkENQSp
-	sKTM6
-X-Gm-Gg: AYBFou1zhUB2gjQyrrLTXssgKtWFY1tk6rtK5pPn87nePAlcb6TYhqcWuaYZVRlSzeN
-	8gcqobMIITsDwSIPjlA8hD4ZbIR8ApTO8OYCIZdfQ7/uJGlOhohF2NNa3azxq7XPOI4CfnojeM2
-	qt4/FWvv3pX70G4yK3iDdS7Lhl9JRr6lxCJOWq4DqmH7Q7419uzgL5EG+QBaGI+jey/cFNiqx2L
-	aPNYW+R0Ig4q4YhC03c/OY97yVxaBc1h4MU/sBKyuvNfK/rTFF/5630d8xk0I3kdWTJSLXDvwbd
-	TzHeY6MBhTa+hALgc0ijVoHMWqNyNGCmRrJEmV9+TxEVekQpHZh8aTETzrSpoOuZV1u9pcSImeN
-	FWYmj9s8maQxYP7tfxjkTTNXXxBOAKekLgQjUjYW5AxlCQNf8ZmAMXDWPWxBlm8Uf+FR5/69YzE
-	mhnIqDG+2GKvttJRkHnJ9e1c8Dt4gTXzvcPX79hYodwTi/HvfiOVb9BK+yabCI65bjL9euf/C3P
-	iCo7OnlpcQtAyQFtMQkwZh0fJ+fEPDbOdpzhjXXDRakXeovm4aIlcwm
-X-Received: by 2002:a05:620a:690e:b0:939:6de8:43de with SMTP id af79cd13be357-939804e9754mr2480105785a.50.1788806714194;
-        Mon, 07 Sep 2026 11:45:14 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9f151esm943101985a.6.2026.09.07.11.45.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:45:13 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x3eLB-0000000BMS0-0MGY;
-	Mon, 07 Sep 2026 15:45:13 -0300
-Date: Mon, 7 Sep 2026 15:45:13 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Mostafa Saleh <smostafa@google.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, jpb@kernel.org,
-	will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
-	nicolinc@nvidia.com, praan@google.com
-Subject: Re: [PATCH] iommu/arm-smmu-v3-sva: Relax ASID requirements
-Message-ID: <20260907184513.GA2543240@ziepe.ca>
-References: <20260907154928.4012151-1-smostafa@google.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DPJfKAC5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C04361F00A3D;
+	Mon,  7 Sep 2026 18:48:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788806908;
+	bh=WUGlg6nOt6cJk2JXuG7+Y1oHcwtL6rVa38JzQRjXjb4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DPJfKAC54z+2fIAyhpi+B0+4tKrar9hzLyzCNC5W3JRSnKLB/TGOnAuXu6UsMju9D
+	 scw9614mOdVO18NHpD1JfNfDcmAzTsA4nMsqzuh3w4SBpmCnGyiE1gAxUuuqVra7Bp
+	 CMN5jj3eNI0tTq7iragP6tGT/ErozLCh6v/z6P/AkfdGWHjB5b2oV1NvepG0Hl4EhS
+	 XVPsSnXknmzVBejQcH+iNMmmxWJNB4xb9E6P7jMmEhFe9cd8uazUy272Rxrvh3jpKr
+	 9siHWm3tTl/+8gsvgGN3O9M0Ta/9e2ga4VZLvCuWs7FjjLL+1uTjEr0eAWh94Fia1V
+	 bP1zhuBa+Xk6Q==
+Date: Mon, 7 Sep 2026 19:48:24 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>, Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>, Vishal Verma
+ <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>, Ira Weiny
+ <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
+ linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] cxl/events: Return IRQ_NONE when no event is pending
+Message-ID: <20260907194824.615e47ff@jic23-huawei>
+In-Reply-To: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+References: <20260906155705.13252-1-shaikhkamal2012@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907154928.4012151-1-smostafa@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 03:49:28PM +0000, Mostafa Saleh wrote:
-> arm_smmu_sva_supported() have some residual checks for ASID from the
-> original commit d744f9e6c222 ("iommu/arm-smmu-v3: Check for SVA features")
-> 
-> As DVM was used for TLB invalidation and the ASID of the domain was shared
-> with the CPU process.
-> 
-> However, the commit
-> d38c28dbefee ("iommu/arm-smmu-v3: Put the SVA mmu notifier in the smmu_domain")
-> removed that support.
-> 
-> So matching the SMMU ASID space to the CPU is unnecessary and can be
-> relaxed.
-> 
-> Remove the CPU ASID related code, and update the print for the SMMUv3.
+On Sun,  6 Sep 2026 21:27:05 +0530
+Shaikh Kamaluddin <shaikhkamal2012@gmail.com> wrote:
 
-It is OK, but maybe this could also be but under an if
-ARM_SMMU_FEAT_BTM?  That is never enabled and is a placeholder to for
-eventual BTM support.
+> CXL event interrupts may share an MSI/MSI-X vector with other event
+> logs or device features. Consequently, cxl_event_thread() is registered
+> with IRQF_SHARED and must determine whether an interrupt belongs to the
+> event-log facility.
+> 
+> The handler masks the Device Event Status register to the event logs
+> supported by the driver. However, when no supported status bit is set,
+> it exits the processing loop and still returns IRQ_HANDLED.
+> 
+> Track whether at least one supported event status bit was observed.
+> Return IRQ_NONE when there was no event to service, while continuing to
+> return IRQ_HANDLED after processing one or more event logs.
 
-Once we get the last part of the invs code the BTM support can come
-back in.
+What is the practical result of this change?  
+I think it will only affect the spurious interrupt detection so
+to me it looks like a cleanup rather than a fix.  Is there
+any path by which we actually lose interrupts as a result of this?
 
-Jasson
+> 
+> Fixes: a49aa8141b65 ("cxl/mem: Wire up event interrupts")
+> 
+
+No blank lines in tag blocks.  There are a number of tools that rely
+on there not being any and as such there are also scripts that run
+on various upstream trees that will send us annoying emails if this
+blank line is still here!  I'm not sure why this mistake in patch
+formatting is so common as there are plenty of docs without the
+blank lines!
+
+> Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+
+A suggestion for an alternative implementation below.
+
+> ---
+>  drivers/cxl/pci.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cxl/pci.c b/drivers/cxl/pci.c
+> index c7c91e8dc51d..8b560cae91f2 100644
+> --- a/drivers/cxl/pci.c
+> +++ b/drivers/cxl/pci.c
+> @@ -515,6 +515,7 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  	struct cxl_dev_id *dev_id = id;
+>  	struct cxl_dev_state *cxlds = dev_id->cxlds;
+>  	struct cxl_memdev_state *mds = to_cxl_memdev_state(cxlds);
+> +	bool handled = false;
+>  	u32 status;
+>  
+>  	do {
+> @@ -527,11 +528,13 @@ static irqreturn_t cxl_event_thread(int irq, void *id)
+>  		status &= CXLDEV_EVENT_STATUS_ALL;
+>  		if (!status)
+
+			return IRQ_NONE;
+
+And don't need the other changes.
+
+>  			break;
+> +
+> +		handled = true;
+>  		cxl_mem_get_event_records(mds, status);
+>  		cond_resched();
+>  	} while (status);
+>  
+> -	return IRQ_HANDLED;
+> +	return handled ? IRQ_HANDLED : IRQ_NONE;
+>  }
+>  
+>  static int cxl_event_req_irq(struct cxl_dev_state *cxlds, u8 setting)
+> 
+> base-commit: 7098e9cd98a05c0c5de2fae0c2465f9d966fdd07
+> prerequisite-patch-id: 92e40cd60a697020faac475dcc77ba63b33434ea
+> prerequisite-patch-id: 10027ad5d9aed85806047f807b3a76273b6c4a77
+
