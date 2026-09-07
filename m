@@ -1,85 +1,47 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FEC45D5D5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B6D3C5DD4;
+	Mon,  7 Sep 2026 09:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774785; cv=none; b=C1vrLZd0yTCXIFTR8VuCWblS3IIuPY9CbzlBTBKx5fxzenLTN9nsjghtkmC6pbughpqVpA1E59OHYiZ5zZ2zX+ofasnGNmej/A7pr+emnPNpsDdapoksMWN+AEUd/hmwc+6KGvLebHYHQUmkmotGqwVc50bX4Tph64isMkbfgrA=
+	t=1788774828; cv=none; b=ZVRLglpaaJ63iLp4guZloNxvxW9uRw2wp0orsTcafim3amu7B8SMU2KOx+YLfbXSiyAJ54TveWWTmM3QAsy7h5Ihy3z8JKyudJeAOuV4llDkDEOA5OANCbTXKeyGgmpudBIAWpxz+xU6flQrxWEw7Ag/hTxgevDKAg8DZTwcEtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774785; c=relaxed/simple;
-	bh=VC49h8ZegE8EDAYzBjHU86INCtNc6N2v+b3rWM+kMUo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JXwsSSbuEIVJDlh+LZsCUePUVcUsrOiCicT9fF9KykxoWn2O3408UseWdpROyME6TtCloBbUfBu1AR/iZ3z/ws7x5WHmqlhqVGsp+WR9D/biYmyblVmxVei3lws4jhb7PgACDOSeuFqd+0MJQ/LI1HOAYTBmIB4mcE1oMBCy9LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nn3vVA6l; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788774828; c=relaxed/simple;
+	bh=UxNHWxv1lAarQTLq2idNJ5bq3LxFHRqO1kuxGq1Hocs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NDh7bB9BavU5C0WMesgVrzDHEkxHi0gat8LaZabAEw9OkucDHdfg5tG4Er/TZhxF0TuQEric2tMSydMVDfjQIW61TWC/wPjXjAbc/xBo7Iq5Xz4OKtU4rqkuzTnfmgCnVJDNsr4ZTtHBr5lp5xyeSkZ47FCy7By7KmhaR/cDL9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z56s0K8Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nn3vVA6l"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d9b60c652aso39642105ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:53:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788774783; x=1789379583; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YKjeRKSD1bBWDP9OGyk/DwMBtDEMpgCRWvQIa8t+vA4=;
-        b=Nn3vVA6loxKspMKMnaVi1u3Cm5G9a7xF1g2AwFmuAFlxG+Yaj+lc4tK7TMRnOq8ab/
-         JUX/A8c2AO9BV/7u3VB3SQ2dMXG39BR8akIDLiWr49uYi6fWUrM25uy59PdVYPnq4tk6
-         oMuC5+96B57QmOaXMgujOoQJw+ISQcwdKzydagYHjGSuZhg1jHhUMMFFQQrIIUMWD9Mw
-         KGPKkDhGFaUIM0jCsmrcET9fJ2e4cjlZGWgXvvC8PvpIRm8PzvRbPwAeNFo0cr8LSkcs
-         u9Hsr36NKlb/nR2IoE/xLmAhD/H3o2tLjQ4pT7PqnE7WRDOJTHKrjDUHZLnDBd/t18iz
-         285w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788774783; x=1789379583;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YKjeRKSD1bBWDP9OGyk/DwMBtDEMpgCRWvQIa8t+vA4=;
-        b=A2hmdwSzPVHNJkPxv89t5OcucQrZl8ZdxUIWDPGzIcCeFuQ9UdBIuwo4mqL/XORFnZ
-         Xso/y8CiWRS0CgJiJB1RDv1e+R1VYQon//KIbk67VjkFx206yaqaNX/8vBJnzsp8JRQg
-         BB/DckSm9tGjVnKeXs7AmvJVpzYQCLlPa62IZO4NWZtUe3fQ0CI27sElcDPJsLaFXy5T
-         c4qjflijGuAR2z1BXnc4vXyVdVVXw7dCnqY7KnhS7KzxwT7wUP3JFjULX1Jjh8Rmsa63
-         o4nc2AKhUz0FwKGzyER5rnsOc6JAW9H4WQCB6qKi3vWP1zc+lGD5s1NI+7gqM92ttWOM
-         XR2Q==
-X-Forwarded-Encrypted: i=1; AKwUvByggFtDSfr3BYOxK/bA0Pvh8uSHWuAOoERhCdwB/AhKpU1rXeAKr4y7pJuaBshSh5ZruaJIhWeSw/oXg1Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMwkx8Lfq7LUCFy/Q5tnhSpW/8huW+DLyXw1Z4RXqM8P0G4d91
-	g2mX1lyrfvA2qC/aQJ2bGjDYpx4egjfaYs5Lz0Szn6mmmLTSDmxR+zyW
-X-Gm-Gg: AYBFou3fqYOXd/M8bLLCTx5Z4VO8joXXDs9Zi4VTxWAO7bgGQRbt6atck4GE6gFY0Hh
-	lGp7ra/5x3rUbuHmKqiUFrq6X1gfIyElmAYR3Zen+Hkt47iLxcdAHWLB46W9+3Oqidrqp69Xeob
-	S1NJH46zBCIAwVx3TglCoEkZKPUCSXIiM9P83GtgCh1y+o2Y8UTzr6xSQ6ZYHghlxp7kZl5hGTX
-	SFZWMgnQfmCWpVrXmCF+Ca/4A55Gt2AepQbEKGjgh/kkbZHZGlyAAOrk05ikiFtEYPVwIp5Ega0
-	qIzMo/HrtZbnwCL4H2r7fpJ1/jdRIbfgwFJXMbF8v8AFQieXuyLHkhKA0p/T7hUovlkZHxt81L9
-	8OtPK+oWPP/t2gjuMOMwyVPnJQVCbOeznKoFna/20LsRKMB4CIOxvGNZnj8PAnYxcAU3BBAZ4dp
-	u52RJ7Leln7Gxh59f+WWsTcvYyHiOXBjvEGc/jrlhsn9Y3/WLT9Ygj8SHmF5H5dx4VUPQD19Zi/
-	/ljWzAoyntssQ==
-X-Received: by 2002:a17:90b:17cf:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39b26216cf7mr32517925a91.23.1788774782797;
-        Mon, 07 Sep 2026 02:53:02 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm18924258c88.8.2026.09.07.02.52.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:53:02 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z56s0K8Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCAB1F00A3A;
+	Mon,  7 Sep 2026 09:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788774826;
+	bh=q/COAdYlU0pd0l5RbIN0tn1G/83IKZjnvQXUajavTxg=;
+	h=From:To:Cc:Subject:Date;
+	b=Z56s0K8ZoMBUmqgpQEmLfzcwD26KsOTmwWjY45aBofAofQxKmNszGVWBfOH4vn2Mc
+	 H6tGIDCy43fIGxbWYEnz8Gg4g1uNr0YA8DcbU+95/jmsLnY4OW/2zYOypDG9KS6GqL
+	 GajdYL8TYmP+KF3U4R7i6+qLT7Cf5kFpqPWSfo9KwfKov80gkR+MDS/gB2kt4QZJM3
+	 ikeZTWaQKmPdliryOyeOJvHPIaDw5YzTe8/lhRWiCbCm9mJUSN6QO14NT3AA3J/LRr
+	 ASNHBL6W1T6dIOgj4gsR4DmLukRlXV+ftLCq/oo4H/yvMejG3SwLXJA0ugDPlMwMjW
+	 pev+xpoSeYkJQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3W2q-00000000Y1s-2sh6;
+	Mon, 07 Sep 2026 11:53:44 +0200
+From: Johan Hovold <johan@kernel.org>
+To: David Lin <dtwlin@gmail.com>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH nf-next v2 3/3] selftests: netfilter: fix typo "adress" in comment
-Date: Mon,  7 Sep 2026 15:22:41 +0530
-Message-ID: <20260907095241.24441-4-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907095241.24441-1-hemanth.selam@gmail.com>
-References: <20260907095241.24441-1-hemanth.selam@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH v2] staging: greybus: uart: fix racy TIOCMIWAIT implementation
+Date: Mon,  7 Sep 2026 11:53:05 +0200
+Message-ID: <20260907095305.130762-1-johan@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,34 +50,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix a typo in comments, found with scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt. Only touches comments, no code
-changes.
+Check the wakeup condition after adding the task to the waitqueue and
+updating the task state to avoid missing a racing modem status update or
+disconnect.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Store the old icount on entry and do not update it in the completion
+handler to avoid missing events or reporting spurious ones (due to modem
+status changes before TIOCMIWAIT was called).
+
+Fixes: e68453ed28c5 ("greybus: uart-gb: now builds, more framework added")
+Cc: stable@vger.kernel.org	# 4.9
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
 
-Notes:
-    v2: designate the patch to nf-next and use a subject prefix naming the
-    component, as maintainer-netdev.rst asks; v1 went out with a bare
-    [PATCH] and a "net:" prefix. Rebased onto nf-next, diff unchanged.
-    
-    v1: https://lore.kernel.org/all/20260907064239.39910-1-hemanth.selam@gmail.com/
+Changes in v2
+ - store old icount on entry only
 
- tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh b/tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh
-index c63d840ead61..f63b7f12b36a 100755
---- a/tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh
-+++ b/tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh
-@@ -171,7 +171,7 @@ table inet filter {
- }
- EOF
+ drivers/staging/greybus/uart.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
+index 24b4dab069c3..d47f00751e7a 100644
+--- a/drivers/staging/greybus/uart.c
++++ b/drivers/staging/greybus/uart.c
+@@ -53,7 +53,6 @@ struct gb_tty {
+ 	spinlock_t read_lock;
+ 	spinlock_t write_lock;
+ 	struct async_icount iocount;
+-	struct async_icount oldcount;
+ 	wait_queue_head_t wioctl;
+ 	struct mutex mutex;
+ 	u8 ctrlin;	/* input control lines */
+@@ -643,11 +642,16 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 	if (!(arg & (TIOCM_DSR | TIOCM_RI | TIOCM_CD)))
+ 		return -EINVAL;
  
--# make sure NAT core rewrites adress of icmp error if nat is used according to
-+# make sure NAT core rewrites address of icmp error if nat is used according to
- # conntrack nat information (icmp error will be directed at nsrouter1 address,
- # but it needs to be routed to nsclient1 address).
- ip netns exec "$nsrouter1" nft -f - <<EOF
+-	do {
++	spin_lock_irq(&gb_tty->read_lock);
++	old = gb_tty->iocount;
++	spin_unlock_irq(&gb_tty->read_lock);
++
++	add_wait_queue(&gb_tty->wioctl, &wait);
++	for (;;) {
++		set_current_state(TASK_INTERRUPTIBLE);
++
+ 		spin_lock_irq(&gb_tty->read_lock);
+-		old = gb_tty->oldcount;
+ 		new = gb_tty->iocount;
+-		gb_tty->oldcount = new;
+ 		spin_unlock_irq(&gb_tty->read_lock);
+ 
+ 		if ((arg & TIOCM_DSR) && (old.dsr != new.dsr))
+@@ -657,18 +661,20 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
+ 		if ((arg & TIOCM_RI) && (old.rng != new.rng))
+ 			break;
+ 
+-		add_wait_queue(&gb_tty->wioctl, &wait);
+-		set_current_state(TASK_INTERRUPTIBLE);
+-		schedule();
+-		remove_wait_queue(&gb_tty->wioctl, &wait);
+ 		if (gb_tty->disconnected) {
+-			if (arg & TIOCM_CD)
+-				break;
+ 			retval = -ENODEV;
+-		} else if (signal_pending(current)) {
++			break;
++		}
++
++		schedule();
++
++		if (signal_pending(current)) {
+ 			retval = -ERESTARTSYS;
++			break;
+ 		}
+-	} while (!retval);
++	}
++	__set_current_state(TASK_RUNNING);
++	remove_wait_queue(&gb_tty->wioctl, &wait);
+ 
+ 	return retval;
+ }
+-- 
+2.55.0
+
