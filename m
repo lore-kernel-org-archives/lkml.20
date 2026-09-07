@@ -1,114 +1,127 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79A9C20468E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B711418A6DB;
+	Mon,  7 Sep 2026 06:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763627; cv=none; b=duf8JXAj6ebIy087+jKcRZG5wqGpUkKQXJj2mxVyhZy8RQ6nbPbuhAKhMFhQEA0JkH3xkeXcvyPdefh6tGvxydO/3r8fK6urSGxV4Tj3+bEhYfux/xWu/TaIeUWbGlRjz7pFelgHErZ/P3cX7mcDZf1oj+aegafMOh9MVqfEaE8=
+	t=1788763627; cv=none; b=A0yxYyNrj2FMN1n2ByciasKG4d+uAJAi8QJ8cYDobYk7l4ME44RaKC3nOnZpfSsp7R8/m7H9OjyTYcIo30CnYbKtrpdA021xjlWALkDGyC77a7Q2l7FtS9wKljwcyBKdWuusdalTLq6DkzMKPHr+ga3FrBcSMCqlu7Z85VrvFtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788763627; c=relaxed/simple;
-	bh=nAFKql0oYalhMtG0Z/6U6w3xfdFDxloFZ333DF3UyTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Y0ZWUWjgsP5EAjsrm2z7ySR0YfaHXF5K+tw7IMBuRgttvL5XtC1ItyXzdxxl0+pYjJfU5Fef6IjB7gsRHUp4AVntBfqzUI497P8dGdKH52Bh+jG7ok02Tr6alWa2QGOoqce/dJ9qSAlafNFJcoJ9mHxTfyp6rAltNOX72/ns6GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RYZdUljV; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=tca7PimGU09et+8+jXclurn63CWS7YzQd6TXIaQcIxU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+u8Kr7D7GOYouBPwRm7AT6sj0c4R9g/X9t8r6LzHPUrFM7Jrp/Jguua9bKrJgiSFvjlxw8tJjYB62sYC0GHakg62QwntONsBlWdZctF3Qz8H4+PK0vvFhuzjyMLIxoW5U8N6Q2A+vzk/rwPxLVnoBtRE4ZlrrzrgmBDn+y1q3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwGAS30i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RYZdUljV"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A23E41A1A1C;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwGAS30i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FB91F00A3A;
 	Mon,  7 Sep 2026 06:47:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7697360383;
-	Mon,  7 Sep 2026 06:47:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5ECB611C7A5CF;
-	Mon,  7 Sep 2026 08:46:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788763617; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HWPMtMWhcXorVt57C0tqso846aldoS3WtOo20ekbe+o=;
-	b=RYZdUljV87WZtP6CLrsuWMn5+aLSPXBHifpEoxkPm0+rIEkpPqgpMDWtiitzQ/lWIG5JZq
-	pC1lZ4vOZxheox5F46NkkhHMMHPEfua4ZAkCtBXgGctia+4XtjQicEboTZ3JE/kuFewXCp
-	l3hGMSy+ASB7PrhK6hJIuAJxMSd099J6m+FYZ86CJj1WEV+4JoOxuLaAGWQPbrJ/5V7Xs4
-	C7JjhbN9CZISucmXYsc6EzzoZZ0I3CK/YC9eckqOs1oR+6tzmUPMiCYzYf2qQE2/vNwABS
-	WAflskW+5c+JPGRTjJHh/JJCF6baFYSbrsFXff7vsKyV9cXzKh6ZDhU5hbYcwg==
-Date: Mon, 7 Sep 2026 08:46:53 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Qingshuang Fu <fuqingshuang@kylinos.cn>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, Andy
- Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] irqdomain: Set IRQ_DOMAIN_FLAG_DESTROY_GC in
- __irq_domain_instantiate()
-Message-ID: <20260907084653.490bfd62@bootlin.com>
-In-Reply-To: <20260907024046.28845-2-fuqingshuang@kylinos.cn>
-References: <20260907024046.28845-1-fuqingshuang@kylinos.cn>
-	<20260907024046.28845-2-fuqingshuang@kylinos.cn>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788763626;
+	bh=7Q8SgKaQsoBb0PUNIYstKJgTZKAX/kgSRpOfyb6gKNI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cwGAS30i87YTb7mbKD73RynW5ZpmCpbArvIX+3K4KCdmIgqNjLsLRnY+h35gRz+ci
+	 oxbuz7G8jerfdbP92HQAslqFFEeJxZTRmXUCCJ8gYF/J8lZFESvuJNUxZJB3lGPtox
+	 y+ap7SBqGlZ764UyGLnNFgpTOjrrjAkvFFG80wV2LTCzlFrLeqALk+Eu8Pg03X7bpz
+	 LJWzTo/C/OYiSuZcCdJ9xzWO+8woXoO/v6PeckuZQUxMZs+e0yQhl6B7kqXEtkNpT8
+	 qOpbYp8kT+kR15XDvleIPnFRDByd/WHrYQpngwBk57p0idj+6rBx9ztlayPrgXSR4m
+	 FXH5bk+NmcxgA==
+Date: Mon, 7 Sep 2026 09:46:59 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
+	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
+	x86@kernel.org, linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
+ lookup_address_in_pgd_attr()
+Message-ID: <ap5d422O7U0q6rAn@kernel.org>
+References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
+ <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
+ <20260905044253.GA3816371@ax162>
+ <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
+ <20260906181247.GA1148584@ax162>
+ <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
+ <ap3EgrZJILehwIQK@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap3EgrZJILehwIQK@kernel.org>
 
-Hi Qingshuang,
+On Sun, Sep 06, 2026 at 10:52:41PM +0300, Mike Rapoport wrote:
+> On Sun, Sep 06, 2026 at 12:12:54PM -0700, Dave Hansen wrote:
+> > On 9/6/26 11:12, Nathan Chancellor wrote:
+> > > On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
+> > >> On 9/4/26 21:42, Nathan Chancellor wrote:
+> > >>> I just bisected the following warning on a couple of my test machines to
+> > >>> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
+> > >>> lookup_address_in_pgd_attr()") in next-20260904.
+> > >> ...
+> > >>> If there is any information I can provide to help debug this, I am happy
+> > >>> to provide it.
+> > >>
+> > >> Well, the thing you bisected to is the patch that fixes the warning. The
+> > > 
+> > > Hmmm, I don't see a warning prior to this patch though. Do you mean that
+> > > this patch is just revealing the bad behavior that you mention below?
+> > 
+> > Yeah, "fixes" was a bad word to use.
+> > 
+> > The W^X detection has been broken for a while. The patch you bisected to
+> > fixes the W^X detection. It doesn't actually cause the issue.
+> > 
+> > >> actual issue comes from:
+> > >>
+> > >>         if (pages == &its_pages)
+> > >>                 set_memory_x((unsigned long)page, 1);
+> > >>
+> > >> which its_alloc() does on an execmem allocation. Any chance you could
+> > >> get the output of:
+> > >>
+> > >> 	/sys/kernel/debug/page_tables/current_kernel
+> > >>
+> > >> for the page that page that it's complaining about? I'm curious if this
+> > >> is temporary or permanent.
+> > > 
+> > > Sure. For
+> > > 
+> > >    CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
+> > > 
+> > > I think it is this line if I understand correctly?
+> > > 
+> > >   0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
+> > 
+> > Yeah, that does seems to show it getting fixed up. Thanks! That means
+> > that the warning (at least in early boot) is essentially a false
+> > positive. The problem is that there's module-load-time patching too and
+> > that is much later and is arguably an actual problem.
+> > 
+> > Oh, and thinking about it a bit more... This warning came from
+> > alternatives patching which is too early for normal text_poke(), thus
+> > the existence of text_poke_early().
+> 
+> But text_poke_early is a memcpy :)
+> 
+> The warning at core text patching is completely spurious because anyway the
+> entire kernel text is mapped as RWX at that point.
+> 
+> This one should be fixed as with the patch below. As for the modules,
+> text_poke()ing sounds like the way to move forward and ...
 
-On Mon,  7 Sep 2026 10:40:44 +0800
-Qingshuang Fu <fuqingshuang@kylinos.cn> wrote:
+For modules everything should just work, the memory is RW until
+its_fini_mod() that resets to to ROX, so there are no RWX violations.
 
-> When a driver uses irq_domain_instantiate() with dgc_info to create
-> generic irq chips, IRQ_DOMAIN_FLAG_DESTROY_GC is required so that
-> irq_domain_remove() can clean up those generic chips.
-> 
-> All existing in-tree callers manually set this flag today, but this
-> pattern is error-prone. A future new caller forgetting to set the flag
-> would leave generic chips allocated by irq_domain_alloc_generic_chips()
-> leaked on domain removal.
-> 
-> Set IRQ_DOMAIN_FLAG_DESTROY_GC right after
-> irq_domain_alloc_generic_chips() succeeds inside
-> __irq_domain_instantiate().  This makes automatic cleanup the default
-> for all users that provide dgc_info via irq_domain_instantiate().
-> 
-> This is the correct location for the flag because:
-> 
->   - irq_domain_instantiate() is a high-level wrapper which internally
->     allocates the generic chips, so it should also take responsibility
->     for arranging their cleanup.
-> 
->   - Setting the flag in irq_domain_alloc_generic_chips() would affect
->     legacy callers like __irq_alloc_domain_generic_chips(), some of
->     which have custom cleanup paths that manually free the generic
->     chips (e.g. gpio-tb10x does kfree(domain->gc) before
->     irq_domain_remove()), leading to use-after-free.
-> 
-> Signed-off-by: Qingshuang Fu <fuqingshuang@kylinos.cn>
-> ---
->  kernel/irq/irqdomain.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
-> index 57c819da30c2..4fdcb6df5306 100644
-> --- a/kernel/irq/irqdomain.c
-> +++ b/kernel/irq/irqdomain.c
-> @@ -344,6 +344,7 @@ static struct irq_domain *__irq_domain_instantiate(const struct irq_domain_info
->  		err = irq_domain_alloc_generic_chips(domain, info->dgc_info);
->  		if (err)
->  			goto err_domain_free;
-> +		domain->flags |= IRQ_DOMAIN_FLAG_DESTROY_GC;
->  	}
->  
->  	if (info->init) {
+Looking at the code after morning coffee rather than near midnight helps :)
 
-LGTM.
-
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-
-Best regards,
-Hervé
+-- 
+Sincerely yours,
+Mike.
