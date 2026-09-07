@@ -1,158 +1,127 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C22E40EB81;
-	Mon,  7 Sep 2026 08:33:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245F6372B5A;
+	Mon,  7 Sep 2026 08:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770034; cv=none; b=bns/eSiS6cs1UFasEo0glrT7/MHVGseDzI+56ONlF363a6ffPwDL0IDTF5tJgQIyv48oITyhYUuX3hO4uRqf4e47xwlClcPoQZ5oSLZLACGgKbWnJZXqq8Q9CLpDADmVkf5f1K8zBeo/LC4CGKbBeIyKaHJqbRnTwBm2wUxeFds=
+	t=1788770046; cv=none; b=QZmOzdDFNpdfYBPIy6EXALQkhouC7YXtREqgHaxfbdtxYj5grZDm5dGco1KuswfC6v/lBJ0NR60scItbSNfZHuEK8xDk3ttojdCW0MMYGVZapmAVK2zl9p3JKAhTw3l6j4FJxkgV/hy5mqsXJZh+Gxr2kpoiqx2QUfKCrTZtoLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770034; c=relaxed/simple;
-	bh=AEeZZ08E0aNVjJ6wdlxXUBdl9cuLVhx4VU0BgGnkyUk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NHtvrLtAcx3x1RfjAXb0uVkWeINC4ZCuFO0KwAvtYmJC248nNjICNPB97DIUPZiwY+AB5ALEGi6Ny0HIqjpii4yKc+kT4F1RXnI2KzRLpKSTfuEIgS5djcAIJbiKXNYbgrXdqd5wmyTee/bzDW0EqKOPr7oyzB3j9bBNuO6cJUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YEoltXTa; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788770046; c=relaxed/simple;
+	bh=f4Eh8j+aicc36sTqrruJPfxf8U+uVXTYH753QNh5Jk8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mwMNwSVn21mFoGxTocQC2EUI5VKQB2AJNneozQU0WUYnNax97/Un6c4c2e3z0tRSZSrVBFZihKnSQFowpBvwpjwSGRutIu4gcFIYtiRzggJ8BeEBJrsXgyRqBtwZZk+99U65CEbulf0fiH3pBKKdrjTQFRGJP+Eehzb9Od1K+Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqRtpCWz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YEoltXTa"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6877VkRK3605798;
-	Mon, 7 Sep 2026 08:33:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=ZoiwGS
-	2pFKgVA+y83afWzWIUjIMjemxrI5kdbzIGBwU=; b=YEoltXTakyaqbdaCghG6Qz
-	XYbuww2JR2B9RF9sJw3XA4Fpf82h8zMPsFlXaN1bSGG6jm63KWcv81gflsCBqlh8
-	flFraSZalPnoIkPyMuya6NqK5/ECH9PQnGnvYjOPKGjjEcU/tNOHShUXB0cwx3PC
-	P4O73umagVKkqRDPvfhGAGrS39Pov6BtQ/fvjJTotzp91+UzgZtqCa9XrnDv6yKg
-	52ZJsDeNuaAuZ8Y58vGGRt5405emjln5LIfeMTh9jB5zAqQExMLFhoPBF0uScIIw
-	SKZqAMPYLbpywxKvDYp0mTJ6OcyZ4HEuFzLmL19d1aQOQet70BtNKpZwvjd4AmkQ
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqjqh0t-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 08:33:39 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6878QGc9032087;
-	Mon, 7 Sep 2026 08:33:38 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03y4m8v-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 08:33:38 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6878XaU342926560
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 08:33:36 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A6E5720040;
-	Mon,  7 Sep 2026 08:33:36 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EF0B92004B;
-	Mon,  7 Sep 2026 08:33:34 +0000 (GMT)
-Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  7 Sep 2026 08:33:34 +0000 (GMT)
-Date: Mon, 7 Sep 2026 14:03:32 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: nhuquynh@tutamail.com
-Cc: Maddy <maddy@linux.ibm.com>, Npiggin <npiggin@gmail.com>,
-        Mpe <mpe@ellerman.id.au>, Chleroy <chleroy@kernel.org>,
-        Linuxppc Dev <linuxppc-dev@lists.ozlabs.org>,
-        Kvm <kvm@vger.kernel.org>, Linux Kernel <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
-Message-ID: <ap523IteSsBqzsVw@dhcp-9-123-3-18.bl1-in.ibm.com>
-References: <P0S7RHx--F-9@tutamail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqRtpCWz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BF71F00A3A;
+	Mon,  7 Sep 2026 08:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788770044;
+	bh=aj2fTBPRMRI4QvNUMLLitE9EHTQ3lV6EX+JE4r0Xs6A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HqRtpCWzln4WPkzy2XN5DPCjzjvAqsPkIcNJ1X7TWR/IThha8hhQRqIKWw39Ueu/z
+	 ugE0UZ9vy+74H9gEM5/5YVIKRQtHrzNq5J6pRrx7/41aTf30deM/jphmGIYbzHRv0K
+	 bkV3TfAlO6Ox8rFQ7odI90OltuSEz83HWVMqleNdKmmraxAvbUFOQVHOlaeSc6UDrh
+	 gBlOOBygexmrOvYQ4tWC1892OJBea+b3AQ4VmaLGknMIhlxlCMshT6GiwIfRHiqM0G
+	 UN2y9pgw1/1zh6AAPF/2O1GZjEeKglK6g0GSQBGGLKB6n+fmJ7SwBuRJ0bTbJy+cPU
+	 ZKhxhSTyOx6vg==
+Message-ID: <58e186c1-d199-40ec-a165-2d3e4f36c623@kernel.org>
+Date: Mon, 7 Sep 2026 10:33:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <P0S7RHx--F-9@tutamail.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: jDOeV9YhtMSYIT991h2GzNG7SyLAOB5u
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX25ktg2jaxZ9L
- XC8whGm6ReEfA+ZsvlSba9PeZAh7VP8qixMIK9gO/fE9VSELvriHVSZOnQL46awxtW1DiAq9gUJ
- 5fYyW4mzQN29Cf/pCMejd8Gp+A0ZwQ8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX6grXX7B4QKhl
- gE++grhwxbz86+zGOI0nFdw4hWuvU/J+L4QHoEsKRisJ0unVRChZ5gc1cJRWCJyRmYt9nIHLEdQ
- bPHqznQ7hF7goCWGJ+ENFGGu7CLVnRSsCabhGBirj2QZeAyp4/RorneMnKNy7opwCHESHc/pJdk
- bD8E0/qRSQUXdYehB5swQial0dXmf4Acnav7gdDMOO+rIVQZzyoBZUfnJ+1IPJ5E6GN/YA3nALQ
- ARwd0lwh9IUlSXVeKdBnuWS0ogNvpJXvqnapwZ5VD+qz5kGRdBDgemU346ril0vawjHH1QnCpyY
- /pZqoJvvNfT1wIShyseCf+z3b4MUj2HP7PBzOQsNb7pSDnNL3fIF9Aft99KLM3NBiAUlcJPxF3r
- o24enzbszODyJw20DDN7buIS4kBjreqK/magcGaX5SIuPW6+eXqZ+a+OihQG+bLuv9nMpsNhi5o
- 9yHgFWgTRXmdwf3nnBw==
-X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6a9e76e3 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=8nJEP1OIZ-IA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=opkI-JdcAAAA:8 a=R09e3Zh0702w9eNjLlgA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=Ww8VKtPN2Pdc02dhIGwG:22
-X-Proofpoint-GUID: LavG8GBNDPuCOmI0Cv9KOaWXrzPsy3Fc
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1011
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070092
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+ Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
+ <20260907-arcane-sassy-fennec-afc02a@quoll>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260907-arcane-sassy-fennec-afc02a@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 03:26:56PM +0200, nhuquynh@tutamail.com wrote:
-> From 80fd05e6d156d5a90d4908f2498bf6cc7acbdefd Mon Sep 17 00:00:00 2001
-> From: Bui Nguyen Nhu Quynh <nhuquynh@tutamail.com>
-> Date: Tue, 1 Sep 2026 19:39:49 +0700
-> Subject: [PATCH] KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
+On 07/09/2026 10:30, Krzysztof Kozlowski wrote:
+> On Thu, Sep 03, 2026 at 12:58:52PM +0530, Harendra Gautam wrote:
+>>
+>> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
+> 
+> Why do your commits have leading blank line? I mean, really, how is it
+> possible to create such commit?
+> 
+> Additionally, way you send your work is making this unnecessarily
+> difficult for us. Look, does this work?
+> 
+> 	b4 diff '20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com'
+> 
+> ? No, it does not:
 > 
 
-This should not be in the patch description.
+And now I checked... and you did not even use b4 to send v3 and v4. I
+mean, really... why? All internal guides, all external presentations
+EVERYWHERE we say this is expected and even almost a must for bigger work.
 
-> The kvmppc_gsm_refresh_info() function incorrectly checks for the
-> presence of the fill_info callback instead of refresh_info.
-> 
-> This can lead to:
-> - NULL pointer dereference if refresh_info is NULL but fill_info is present
-> - EINVAL return if refresh_info is present but fill_info is NULL
-> 
-> Fix this by checking the correct callback.
-> 
-> Fixes: 6ccbbc33f06ad ("KVM: PPC: Add helper library for Guest State Buffers")
-> Signed-off-by: Bui Nguyen Nhu Quynh <nhuquynh@tutamail.com>
-> ---
-> arch/powerpc/kvm/guest-state-buffer.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/powerpc/kvm/guest-state-buffer.c b/arch/powerpc/kvm/guest-state-buffer.c
-> index 42843eca6727..aeb586ba4523 100644
-> --- a/arch/powerpc/kvm/guest-state-buffer.c
-> +++ b/arch/powerpc/kvm/guest-state-buffer.c
-> @@ -598,7 +598,7 @@ EXPORT_SYMBOL_GPL(kvmppc_gsm_fill_info);
-> int kvmppc_gsm_refresh_info(struct kvmppc_gs_msg *gsm,
->     struct kvmppc_gs_buff *gsb)
-> {
-> -	if (!gsm->ops->fill_info)
-> +	if (!gsm->ops->refresh_info)
-> return -EINVAL;
->  
-> return gsm->ops->refresh_info(gsm, gsb);
-> -- 
-> 2.54.0
-
-
-This patch does not apply
-
-# git apply 20260901_nhuquynh_kvm_ppc_fix_callback_check_in_kvmppc_gsm_refresh_info.mbx --check --verbose
-error: corrupt patch at 20260901_nhuquynh_kvm_ppc_fix_callback_check_in_kvmppc_gsm_refresh_info.mbx:30
-
-
-The change itself is fine, but please fix the above issues and send a
-v2. Refer the documentation in case something is not clear -
-https://www.kernel.org/doc/html/latest/process/submitting-patches.html
-
-Thanks,
-Gautam
+Best regards,
+Krzysztof
