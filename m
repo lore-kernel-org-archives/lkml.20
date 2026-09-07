@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C07490BE0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:37:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7EC46DFF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:37:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799067; cv=none; b=VCSdr8//TA4vvHIlDCEiOaxYr9jfKhkqOX/TAoFyNHAAdIItmPHyj9+qPsd7tfI2ERiXHhFqKpvphg5gcFJ+MkgC3/VLLD25XAjFjkbR3DijmS2RMhl31HPfUt5H3Kert4Hr1PpWV9pqbPEczjU4xpqLNrjUQagaQyTMQXai65w=
+	t=1788799068; cv=none; b=fKKXahEIR+ciZbv+FCSCFoNBlLGisJxURH62fJXEFD76d2dBxvqs7q95t766cuIstak2M36+5LZcTK9T08RVlIEElxShcIeNGEX6CS5KYJJhb+aXu/vFGtfLieUPbNV1FpdTiPB6XjRK4SJQpSUdtcKHcGhKskcPOEVyiB2iCfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799067; c=relaxed/simple;
-	bh=SHiaRDgAbRogSCrDgqQFHN5EjCO5q58zZZmwYQDZJFY=;
+	s=arc-20240116; t=1788799068; c=relaxed/simple;
+	bh=Wyg1eN4jUdiTv0KZSQpmP1+a7E8NW+RZZqVlC/RfMl0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CAyMm0GGlLuq7HREdZK4iTkqA9cshc+LHwGiBuNPwgBR9YkSm5IvIxkGHT9xn9DN2gAYkqMwJLFgAoerhNPKmlCKCMKErr0X1ewVHa4Kr0yubn9Hg5wD1JH1o7zmPK6ZmoI7UylcTDDaivUO+6cx4fTFgZWFBF4MqCFqFF47DOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kj9ZlutW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UCPbglSXKwMFoHd/YAlCfr57V/AF23PZaLLQwgyOOA3kKAlxCWYKLNlqFqDpDchj7R3fbnZm70d89P6VG2m+RmyUHn26wes4RMCZhmuCJ4ncyM+8d+NJE67EaJd5dqnepgSETalXKJgGIbGdsYGaki97mXQDd1L3AATLE4PCwbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OllL8Lp0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kj9ZlutW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31BB61F00A3D;
-	Mon,  7 Sep 2026 16:37:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OllL8Lp0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EFFE1F00A3F;
+	Mon,  7 Sep 2026 16:37:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799063;
-	bh=YqRz7kh9GA65pE9byU4+133n1tljEOvpx8kOxD8+E2s=;
+	s=k20260515; t=1788799066;
+	bh=6dpWxBNfInUaNyuOgfIBwdLimXQZBIeRnLQ9BgIWjOg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kj9ZlutWEW+hsUIPXmKg+enJK5UF3ivS1PX6eBAbwSJLQxjWFIrG6T+cZYCJdEipJ
-	 pApIwfPKHrWIXuVU4ioqDqg5BpZaeOpulEoiUwtw/wYHIyY5cYvzpWI8Y/JVNgNgYf
-	 c3Y2gI7w0QT/tUyiI0UcIBbOSR7zZvz8w4cFdTZLngGb3sqpZEJt4dl14DtrKTSJIX
-	 xNsejXmNUprfgbdQTUnNdyI9Wzg7wZ4T/b4R6EocHKmCiwbpMO9rnJ9kpi7hYonKm6
-	 cme+a2sIz9PRgnNMVv3dv3a/3+9S2bJ15P3akcE61aILDqj+YCYgVNnLHyizFr/Ys7
-	 PQiaKlG8AvYow==
+	b=OllL8Lp00Z8nr/h17b8SYnuzFy/hSbyCf+Tvwy7p8L64bUGwMcN1nd6DGRDIN8fGd
+	 lWzugKZ5CfdasfuwMRAZ4X9N3lClg+/7LBF5/p/hNytQOm3Vz4We/rmTvM3Iu4PCYB
+	 H2dMwLJk55RtPvHCi2AUwjDzslaFvZrbSkIqGZBTJPQfmhoM/HLlkcZkHaZoMq2Yo3
+	 lEIN43ThUvvn57i2gwSxBuGjYPXcHMyzxCZ6cEnzA4acvaVkXHp78mV1kAPMLgzcta
+	 D7C3U9bEQJwqskOVZ+iclXqumAGaVnnGaPg8OuU06FZL3Swsv0O5vBvj+c51/grdLi
+	 kFU3ux3+qnSXA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -39,9 +39,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Herbert Xu <herbert@gondor.apana.org.au>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH v2 01/14] selftests/arm64: Remove big-endian support
-Date: Mon,  7 Sep 2026 17:37:12 +0100
-Message-ID: <20260907163726.17104-2-will@kernel.org>
+Subject: [PATCH v2 02/14] arm64: bpf: Remove big-endian support from the JIT compiler
+Date: Mon,  7 Sep 2026 17:37:13 +0100
+Message-ID: <20260907163726.17104-3-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907163726.17104-1-will@kernel.org>
 References: <20260907163726.17104-1-will@kernel.org>
@@ -53,11 +53,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Big-endian support on arm64 depends on BROKEN, so the arm64 selftests do
-not need to worry about testing this configuration any more.
-
-Remove the 128-bit byte-swapping helper from the fp-ptrace test and the
-big-endian definition of RSEQ_SIG_DATA from the rseq test.
+Big-endian support on arm64 depends on BROKEN. In preparation for
+removing the dead code altogether, remove the big-endian-specific
+support from the arm64 BPF JIT backend.
 
 Acked-by: Catalin Marinas <catalin.marinas@arm.com>
 Acked-by: Arnd Bergmann <arnd@arndb.de>
@@ -65,63 +63,42 @@ Acked-by: Marc Zyngier <maz@kernel.org>
 Acked-by: Eric Biggers <ebiggers@kernel.org>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- tools/testing/selftests/arm64/fp/fp-ptrace.c | 19 +------------------
- tools/testing/selftests/rseq/rseq-arm64.h    |  5 -----
- 2 files changed, 1 insertion(+), 23 deletions(-)
+ arch/arm64/net/bpf_jit_comp.c | 11 -----------
+ 1 file changed, 11 deletions(-)
 
-diff --git a/tools/testing/selftests/arm64/fp/fp-ptrace.c b/tools/testing/selftests/arm64/fp/fp-ptrace.c
-index b435837c8c0e..9b184d78f4fd 100644
---- a/tools/testing/selftests/arm64/fp/fp-ptrace.c
-+++ b/tools/testing/selftests/arm64/fp/fp-ptrace.c
-@@ -115,23 +115,6 @@ static void handle_alarm(int sig, siginfo_t *info, void *context)
- 	got_alarm = true;
- }
- 
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index c18e005a41db..a5634428fdd5 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -1439,13 +1439,8 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
+ 	case BPF_ALU | BPF_END | BPF_FROM_LE:
+ 	case BPF_ALU | BPF_END | BPF_FROM_BE:
+ 	case BPF_ALU64 | BPF_END | BPF_FROM_LE:
 -#ifdef CONFIG_CPU_BIG_ENDIAN
--static __uint128_t arm64_cpu_to_le128(__uint128_t x)
--{
--	u64 a = swab64(x);
--	u64 b = swab64(x >> 64);
--
--	return ((__uint128_t)a << 64) | b;
--}
--#else
--static __uint128_t arm64_cpu_to_le128(__uint128_t x)
--{
--	return x;
--}
+-		if (BPF_CLASS(code) == BPF_ALU && BPF_SRC(code) == BPF_FROM_BE)
+-			goto emit_bswap_uxt;
+-#else /* !CONFIG_CPU_BIG_ENDIAN */
+ 		if (BPF_CLASS(code) == BPF_ALU && BPF_SRC(code) == BPF_FROM_LE)
+ 			goto emit_bswap_uxt;
 -#endif
--
--#define arm64_le128_to_cpu(x) arm64_cpu_to_le128(x)
--
- static bool sve_supported(void)
+ 		switch (imm) {
+ 		case 16:
+ 			emit(A64_REV16(is64, dst, dst), ctx);
+@@ -2559,15 +2554,9 @@ static void clear_garbage(struct jit_ctx *ctx, int reg, int effective_bytes)
  {
- 	return getauxval(AT_HWCAP) & HWCAP_SVE;
-@@ -932,7 +915,7 @@ static void fpsimd_to_sve(__uint128_t *v, char *z, int vl)
- 
- 	for (i = 0; i < __SVE_NUM_ZREGS; i++) {
- 		p = (__uint128_t *)&z[__SVE_ZREG_OFFSET(vq, i)];
--		*p = arm64_cpu_to_le128(v[i]);
-+		*p = v[i];
+ 	if (effective_bytes) {
+ 		int garbage_bits = 64 - 8 * effective_bytes;
+-#ifdef CONFIG_CPU_BIG_ENDIAN
+-		/* garbage bits are at the right end */
+-		emit(A64_LSR(1, reg, reg, garbage_bits), ctx);
+-		emit(A64_LSL(1, reg, reg, garbage_bits), ctx);
+-#else
+ 		/* garbage bits are at the left end */
+ 		emit(A64_LSL(1, reg, reg, garbage_bits), ctx);
+ 		emit(A64_LSR(1, reg, reg, garbage_bits), ctx);
+-#endif
  	}
  }
- 
-diff --git a/tools/testing/selftests/rseq/rseq-arm64.h b/tools/testing/selftests/rseq/rseq-arm64.h
-index 21e1626a7235..f9fecf941bf2 100644
---- a/tools/testing/selftests/rseq/rseq-arm64.h
-+++ b/tools/testing/selftests/rseq/rseq-arm64.h
-@@ -12,12 +12,7 @@
-  * matches code endianness.
-  */
- #define RSEQ_SIG_CODE	0xd428bc00	/* BRK #0x45E0.  */
--
--#ifdef __AARCH64EB__
--#define RSEQ_SIG_DATA	0x00bc28d4	/* BRK #0x45E0.  */
--#else
- #define RSEQ_SIG_DATA	RSEQ_SIG_CODE
--#endif
- 
- #define RSEQ_SIG	RSEQ_SIG_DATA
  
 -- 
 2.55.0.979.g7e5102b832-goog
