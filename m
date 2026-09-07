@@ -1,85 +1,74 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059073F8ED8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A9C3FC5AE
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:33:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762831; cv=none; b=mfTkr5dxiJf73Jmj1Q42eDS74R2nCocaT7bEs6D2tEozpEQlUbbfeH32jF5SeJRdKC9vSpCwBHHh9tyglnWOK/JSmwbBTPPnA6PS3x9esdc59DNYJekxpV7yWfd7HmfLESUcJ21WbXDnOI46U4yk38bii8MDGS1DcC0zzDxnVQw=
+	t=1788762831; cv=none; b=AwyZlRz4QCfqn/kwCXlw7KXxmBhfjFjJtz9VETdBPvkKZ1Id8Vao3/jUh0cm1sWyQENJQ2AHE00tK6VlxEM2KICWB88VdJujOKFlBn8Z2Nh2ybqFSBKsTTw5XvhqFTOQ4mv4WSxi0EiTrdM1HA+RQeykn82DrnOkLxJu/XpGU8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788762831; c=relaxed/simple;
-	bh=BmYQPN10Q5Qej5Y2o5u95UhxGgPeZTLRfAYiB3F9Bdg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hzdqkdh0HFfm6kE8phbJuqBtZ3Z4q71jacg0DAd/3w4QOsR6cJbS7R9giCnWps1fE9WiLYaWLtV+rQ92RZF/Pj3E7hQUeXrYr1bEd+XpFVu5UHlyAbMrbCzA03c2orM5yKsfutdblrmtd07xkeF/rvIFlO1wxMzLu5usXa0B9GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WLXENe+7; arc=none smtp.client-ip=74.125.227.134
+	bh=EupwhBBA0XKHCYmRNKSbJlq9cupLkfPTP3S7D6QZ2DQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OjUygGA4ltoO64TxoKZl9H/a+dhEOBEHUxKZSopr4WgxN3aGRtLhDLtQebTYPIWZla4vyH9lZ8th1eF2AFegrZSJqGDQ4R/+OmrQlzvq63V52Xw4rDDNgKNurlMeJSOWq4QGJn7MLzkBLHobwE9+33OQWX/1nahGUdCE/TZXxYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nZIfiRLB; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WLXENe+7"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1992317a91.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nZIfiRLB"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so2885486a91.2
         for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:33:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1788762829; x=1789367629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BmYQPN10Q5Qej5Y2o5u95UhxGgPeZTLRfAYiB3F9Bdg=;
-        b=WLXENe+79sa5y1Us40dM4RfGRsqSIBTcn9+tVyfNIiVQLdVdK/nFwd46JQemhtWMnY
-         athu/vgaKh+B/RgnY1sjkx0bHT3eCk4AD6+GfdW9ZiLBARuCsG38SPj/mIOqLMTfdZo3
-         o7vpEuUfRizO3awOSiHqa9M1hC0Lr7blGd2FN+OI3N4CgJUZfMvu4zUQg0TZqhNdg8ZV
-         BfLsoGE42XL8gvm4lENexcdqPk7ilhOQVHIx+YsmhIFTd/El5h6Qu2u1KbMl/5R6rlDh
-         srwZT7Ly60BE6qvUn9MHLdgstpfDxcvWgzBfbgiPhBWaedmIMkTkia+92GfQpRr6t+jz
-         fEew==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kLzy/P7iaMHDyU2RTvFBICZbCqw+7JdGE4URD73Sj1U=;
+        b=nZIfiRLBhxeLPmXfq7g6Es+Jx25Q7KVZmbCHU+i2wUvORJsmkuWVaYavnOCBAxtBYy
+         fnOLsjhIF3KvImyZhxK0FWOWxJYnOlfUSjNYw32xEOZPmZipf1a7kDVZYVlIpmK8uUX1
+         5SW7QGVLVthfLVg1oQcUu5h4AA72uFpkQnuh3n5VVr92ru71Bmfcb3c1t+wt9SVScDtj
+         76FPR+BmdxYDRPS2nFQO8JGQuOyZAVPP6Hu14ghjOBp87rj4jnTA9tWuzibW9SRSZboC
+         YNx7r0nfMSC5usqiliTNXD+Jq0voqjN9dYhCuo/M2vD2XOKLx0t4w+SWl/bIMKPOkIN0
+         AjCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788762829; x=1789367629;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BmYQPN10Q5Qej5Y2o5u95UhxGgPeZTLRfAYiB3F9Bdg=;
-        b=CNNNlyMPQj4ax89oBdeuHiTlQfy9ewkwHmasu10fUo05BiFDtx0jAkIQechn3LBjBc
-         VlXLxxk790QTYszSrLeBZg4QVLZQubMu0/u8kIFHJZizsy0Il7/+K+hRMQSAkdaa8JZS
-         SF54ebOaIM7QHJNcExT3kLs5kzl44aULh09HDzeNwdqQ09Rj+ca/neOVwAK8CaHYHzaY
-         z3bzkA4p7UZStygVmrSggjn/M7b1rQTkMhITzbcrkl0Fs755wDYZw0RNCMHR7VyOSa1a
-         k80IxZBvwsxslqgzzgEAcZlP79o/SWInJrbRR/WqUHWAviD5CrI7vKQyLCo9DSOMgkCo
-         32Eg==
-X-Forwarded-Encrypted: i=1; AKwUvBwronn2e9q3JH23uFESl9XMCNn7KsMpjuQNG/y2shCz3Mzjook4tjuM8JBRqrrkP5Qx9vk1otTIoEkByyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnYdWAppu5gVzm58on+kojwKLqdEm82jJJv4U5dyF5G7PpnQDo
-	1UWSUg6VimBZfa6yni1aaqAEexRhK8I/13E9RWATBoRVmB9lp5a2mXBe
-X-Gm-Gg: AYBFou3Tne1C+5iRPmYyZv0J/7/oxqja58mF6NEZgw7wXdA/7V/5N9YU+UtqcXCFDM/
-	hRTGmugrB1DT3m9c2xiojgqWWOlrLAsIcBc8nEt+fAtce25JJCCbYTZCxkGY9a9ISu9pQYEvQYD
-	W1b+7ZAn9RWuWN6fDbJOipbddbiXkZdd2LF/s9c5CeDjN3Zwai5I8Z+vSb0VPiAumVaJTDanYAn
-	o6O086ffEGMQbXGKSh1ZhWkGENdHJugh26sqVgsLAmkdkbYI1RB6PUUqkyTgfdqxRZ7wnyRvCji
-	UfeLLitRO9fe781Kc70buC9Y9ftellIfUJv1fpe617k3xHLDgIGwriDXGd5iy4jnwwZpBUvk9Vc
-	beJ3buuHJ4xtL18SQNLeFBCrtJDYypMx4VbL5GtV1AlZf73m7hKzyihRLkjvZPkj7DE19oSSWGY
-	Kszx5GvkljhgUGilE6YbEgeTjyYdHrE+WvcE+lFojoq7V1RqBp5KcHEBU2dDUW56G0FcDsTUm3x
-	BtvvhFd3mFNuL+GUrYzqXYcZq8=
-X-Received: by 2002:a17:90b:544b:b0:398:c8ef:3644 with SMTP id 98e67ed59e1d1-39b26203e7amr30545447a91.15.1788762829170;
-        Sun, 06 Sep 2026 23:33:49 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm25400204a91.17.2026.09.06.23.33.45
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kLzy/P7iaMHDyU2RTvFBICZbCqw+7JdGE4URD73Sj1U=;
+        b=eio8jkfuID9m3d4HsKeShOX5mO6ue0Ig+14NkYQvNy8huTyD0J6aEF3J+wPF5MF0tM
+         s09MN2haQvCl2gbpfAmvkzEYJbdwdQjCUOI6OPUfg82mdekdPcvtOlfGnvx6mcqefEFh
+         wF2l2v+IpaFigmPPvZjiM9JClDPPDu09oPENiw9DYbB2yUjcQslvz4xRpcPyTtp7UimV
+         M7Xe/2wqdHCYxJgqvbmHVaFJJSqeRNi4AliZ6r+pddUVf/Kp+rZpg4psrkgFRlInmSz4
+         i+ELVwmn50GyIjA2JEyktH+IGZdwWLfeaisXPQEgqoRht2xeMRbgBVmdLl7Q/UHJlk2p
+         njhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByikatKcRBi4HoiOgYpvUvLvrB3ZLHiS0YGQLxP1AXi+3LgemLCNH+mQB8yYHDuKWgwx650+PK7+7nkBCQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1KvYl+x7rvp7UZr9KbwG55QedfTScuMClo6FXAfq19l0p/Bdn
+	Hrs9Pl7C2ynLhCycTv129bWd6oNh/OFkWuxFk+JZGrcHyMjnc8nCNwv5
+X-Gm-Gg: AYBFou2N0XtE+RV5xstfs0grpW7kh5X2WCyEztKX1ysbj9gm/kn1Sd8snREAVldGcAL
+	/F8QToRBcTuF+N65Sm96Ra5lsEPduu+PU0JQnHqaAWWTRmjbROQDFLTosII9aHMm7S1kmC0gN33
+	Njoo2ukse7w5nl0N0i1yE04s35106RtTEaVk69c8JZzbgpqtKlsOYkh/3zCerydrdewHzYU0MFg
+	JHn1hHjTD/f6X0tVX0Iaj4mz3x9eFg1wSi5WGCgGg1vASi6+c6OgIBLgcF0Kr5pw+oBxZBD+jok
+	3V/aK4uDTavDT56MaEZKdLvjUNdenRuxPRJC2bFodcDbknv2J/dIPN23Q6lOAgm3RMPW0MOjrfA
+	YQiPJnwIFlw28iO2sgUl0v+PXTXF5X3ei7iR9ShQXW8Lx0TNdSSpPUMOqbshVjVd8tkPiQCdhc5
+	t6uUyFIrisg3ZWBImoHaXY5BeinqBLHSf8bBulC+kPCCcGYENBoimZPsBGF52X+UJzt5m/6CGHl
+	UuaH5tJrZIANQ==
+X-Received: by 2002:a17:90b:5287:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-39b25eeeef9mr33408081a91.0.1788762828715;
+        Sun, 06 Sep 2026 23:33:48 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm17093204c88.8.2026.09.06.23.33.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sun, 06 Sep 2026 23:33:48 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: Chao Yu <chao@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Michal Simek <michal.simek@amd.com>
+Cc: dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH 13/14] f2fs: allow large folio support to writeable files
-Date: Mon,  7 Sep 2026 14:33:41 +0800
-Message-ID: <20260907063342.2300274-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACOAw_ybFr8thjmy3ayzB0u+1f5vSFnR8km67J4bkOE7czSyYw@mail.gmail.com>
-References: <CACOAw_ybFr8thjmy3ayzB0u+1f5vSFnR8km67J4bkOE7czSyYw@mail.gmail.com>
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH] dmaengine: fix typos in comments
+Date: Mon,  7 Sep 2026 12:03:43 +0530
+Message-ID: <20260907063343.22255-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,27 +77,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 10:44:46 -0700, Daeho Jeong wrote:
-> In F2FS, newly created files almost always start with inline_data
-> (`FI_INLINE_DATA`).
-> Because f2fs_has_inline_data() is true during f2fs_new_inode() / f2fs_iget(),
-> mapping_set_large_folios is skipped.
-> When the file later expands and is converted to regular blocks in
-> f2fs_convert_inline_inode(),
-> `f2fs_mapping_set_large_folio()` is NEVER called.
-> As a result, almost NO newly created file will ever use Large Folios
-> during its lifetime.
-> Fix: Call `f2fs_mapping_set_large_folio(inode)` inside
-> `f2fs_convert_inline_inode()` once
-> inline data is converted. Also consider using the standard
-> `mapping_set_large_folios(mapping)`
-> helper instead of `mapping_set_folio_min_order(mapping, 0)`.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-I'm concerned that calling mapping_set_large_folios() here would
-violate the specification for enabling large folios on a file, because
-we would be enabling large folios on an active inode. Please take a
-look at the comment of mapping_set_large_folios() in
-include/linux/pagemap.h.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/dma/bcm-sba-raid.c        | 8 ++++----
+ drivers/dma/ppc4xx/xor.h          | 2 +-
+ drivers/dma/xilinx/xilinx_dpdma.c | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-Thanks,
-Nanzhe
+diff --git a/drivers/dma/bcm-sba-raid.c b/drivers/dma/bcm-sba-raid.c
+index 0de03611252e..485fcde390dd 100644
+--- a/drivers/dma/bcm-sba-raid.c
++++ b/drivers/dma/bcm-sba-raid.c
+@@ -734,7 +734,7 @@ sba_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t src,
+ 	struct sba_device *sba = to_sba_device(dchan);
+ 	struct sba_request *first = NULL, *req;
+ 
+-	/* Create chained requests where each request is upto hw_buf_size */
++	/* Create chained requests where each request is up to hw_buf_size */
+ 	while (len) {
+ 		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+ 
+@@ -877,7 +877,7 @@ sba_prep_dma_xor(struct dma_chan *dchan, dma_addr_t dst, dma_addr_t *src,
+ 	if (unlikely(src_cnt > sba->max_xor_srcs))
+ 		return NULL;
+ 
+-	/* Create chained requests where each request is upto hw_buf_size */
++	/* Create chained requests where each request is up to hw_buf_size */
+ 	while (len) {
+ 		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+ 
+@@ -1356,7 +1356,7 @@ sba_prep_dma_pq(struct dma_chan *dchan, dma_addr_t *dst, dma_addr_t *src,
+ 	if (!(flags & DMA_PREP_PQ_DISABLE_Q))
+ 		dst_q = &dst[1];
+ 
+-	/* Create chained requests where each request is upto hw_buf_size */
++	/* Create chained requests where each request is up to hw_buf_size */
+ 	while (len) {
+ 		req_len = (len < sba->hw_buf_size) ? len : sba->hw_buf_size;
+ 
+@@ -1626,7 +1626,7 @@ static int sba_probe(struct platform_device *pdev)
+ 	sba->dev = &pdev->dev;
+ 	platform_set_drvdata(pdev, sba);
+ 
+-	/* Number of mailbox channels should be atleast 1 */
++	/* Number of mailbox channels should be at least 1 */
+ 	ret = of_count_phandle_with_args(pdev->dev.of_node,
+ 					 "mboxes", "#mbox-cells");
+ 	if (ret <= 0)
+diff --git a/drivers/dma/ppc4xx/xor.h b/drivers/dma/ppc4xx/xor.h
+index da1230df2817..0931e18cd0d3 100644
+--- a/drivers/dma/ppc4xx/xor.h
++++ b/drivers/dma/ppc4xx/xor.h
+@@ -12,7 +12,7 @@
+ 
+ #include <linux/types.h>
+ 
+-/* Number of XOR engines available on the contoller */
++/* Number of XOR engines available on the controller */
+ #define XOR_ENGINES_NUM		1
+ 
+ /* Number of operands supported in the h/w */
+diff --git a/drivers/dma/xilinx/xilinx_dpdma.c b/drivers/dma/xilinx/xilinx_dpdma.c
+index d9a3542c4531..bcc188e70441 100644
+--- a/drivers/dma/xilinx/xilinx_dpdma.c
++++ b/drivers/dma/xilinx/xilinx_dpdma.c
+@@ -1032,7 +1032,7 @@ static int xilinx_dpdma_chan_wait_no_ostand(struct xilinx_dpdma_chan *chan)
+ {
+ 	int ret;
+ 
+-	/* Wait for a no outstanding transaction interrupt upto 50msec */
++	/* Wait for a no outstanding transaction interrupt up to 50msec */
+ 	ret = wait_event_interruptible_timeout(chan->wait_to_stop,
+ 					       !xilinx_dpdma_chan_ostand(chan),
+ 					       msecs_to_jiffies(50));
+-- 
+2.48.1
+
