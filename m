@@ -1,47 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B304A5C49
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB99483BF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781134; cv=none; b=D02uLBNqvbsovytGtUl3VjXR/gCiWmlxkJEXdDwUgkjs5FcXjxYHoJZJ7nDla7a71bQP+KDTZXuDPmZWncebxX44WCY4eRHrf9nED1MBeDFP5V1/GWPO2qHqxqTeEduqIH171buC98jVL9M4GKUKjwW+C0PrWFfbB1whEXIU9bM=
+	t=1788781137; cv=none; b=Dg6p0yDE42dYY0P+aIy6jHYKqEstQtgAIpm0utUNSJRi6jT5NvANzfKF9/8vMPjGFcUTBDe9uTmWXREL2mKNiHd3LG8pYk7tTRwXO/4p81AIZc7CIu88gcOH3BrScgT0d2rK/+4GLy57gq+hhZunDsQwy0i8aZBpG7eEMpIvTdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781134; c=relaxed/simple;
-	bh=4rulRz/ACvzdMV65PymqWxPemkbqAcLLi8c99C7xCYs=;
+	s=arc-20240116; t=1788781137; c=relaxed/simple;
+	bh=Nzi/FqImYPqXJEs6LFrx+Ut98+MzVTc2UR4XsymYE1A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=if9VpLp5aQGOVAxP9f0Dstm0N7MZSnxsC2MjufvtyEk3TgBjTXlxATmfLgdJDpFiTAPjF2tp5cbjFrm4/j53711FGExDobwXI8+Pb4dPeW2hgsRtHWouLvgYoWmJWPj8WNfIqx7UyEN+fxnhSo/YgWiHFA4F9t+d0BdNJe8hdlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JhN0uDR3; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=dCS1NrmG9nT7hyDbudLrh9H3eD3RiftQ9LG8U2EzZajNbm83D913+qEAgmr0pi0s/NC1EZEX7KdU7gVsXm3SHcKEuWx/G+INUeU1hyWnkWaBSsqpu3rnVk/wxtETRb37Ga7qPn2iPx8JYBrIYBYYQ15R2VQWxnLH319T1CKOqxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ED3w4k/o; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JhN0uDR3"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ED3w4k/o"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788781131;
+	s=mimecast20190719; t=1788781135;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=fPG3JCWqVjH93XC+uYutRtQ5wp+gmwXzPifpp4N5UQY=;
-	b=JhN0uDR3IhLOlWU+uDWVAj4/mtXrC00B7Eknn3771gBkBr/SiVKJpNz4oD2tk1MWnc81zs
-	nGkjkd00fA4HNvRDHungdljbA4FlCneELLuKeMHSXZw0eAFKPnR/c32gXAGV3OQ6MGQHlG
-	wUwn8ASxjZhC+132jcn3Og3c5MmwRm8=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+	bh=LDbA/tBSiTsaFEYItL2PrPsX/0bFDHesm+RDDbpSdww=;
+	b=ED3w4k/obAAl7xlqnXf39pfUfl9c3QL32x9z6IAyhpCD33lEE9roZ5QVYxyq5HMzXR0FOG
+	epoliCoG2nj0GBjaHqES+QA6hFIOSQvSV5yrcPDfxKhNDVnYssQKoMVhMaoWE4wqydZlkU
+	ySuIYf7Q2rXRHn7fdv+dfiqLMYdEAkM=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-474-oAm3Z8qOPM-i-l067vioqA-1; Mon,
- 07 Sep 2026 07:38:48 -0400
-X-MC-Unique: oAm3Z8qOPM-i-l067vioqA-1
-X-Mimecast-MFC-AGG-ID: oAm3Z8qOPM-i-l067vioqA_1788781126
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-1-ft0pyjulOKOv4D0kkoa0Rg-1; Mon,
+ 07 Sep 2026 07:38:53 -0400
+X-MC-Unique: ft0pyjulOKOv4D0kkoa0Rg-1
+X-Mimecast-MFC-AGG-ID: ft0pyjulOKOv4D0kkoa0Rg_1788781132
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A116F19540DB;
-	Mon,  7 Sep 2026 11:38:46 +0000 (UTC)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E8AE819560B6;
+	Mon,  7 Sep 2026 11:38:51 +0000 (UTC)
 Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8901130001A2;
-	Mon,  7 Sep 2026 11:38:43 +0000 (UTC)
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 335D11955F0E;
+	Mon,  7 Sep 2026 11:38:47 +0000 (UTC)
 From: David Howells <dhowells@redhat.com>
 To: netdev@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -53,10 +53,13 @@ Cc: David Howells <dhowells@redhat.com>,
 	Simon Horman <horms@kernel.org>,
 	linux-afs@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v9 11/14] afs: Fix creation of RxGK CM channel token to have right size
-Date: Mon,  7 Sep 2026 12:37:38 +0100
-Message-ID: <20260907113743.1453210-12-dhowells@redhat.com>
+	Jeffrey Altman <jaltman@auristor.com>,
+	Jarkko Sakkinen <jarkko@kernel.org>,
+	keyrings@vger.kernel.org,
+	stable@kernel.org
+Subject: [PATCH net v9 12/14] afs: Fix lack of setting call->server when doing FS.InlineBulkStatus
+Date: Mon,  7 Sep 2026 12:37:39 +0100
+Message-ID: <20260907113743.1453210-13-dhowells@redhat.com>
 In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
 References: <20260907113743.1453210-1-dhowells@redhat.com>
 Precedence: bulk
@@ -66,37 +69,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Fix afs_create_yfs_cm_token() so that it calculates the token size
-correctly, remembering to add in the 4 bytes of the level.
+Fix afs_make_op_call to set call->server.  This will prevent
+afs_done_fs_inline_bulk_status() from oopsing if the server does not
+support the FS.InlineBulkStatus RPC due to call->server not being set.
 
-Fixes: d98c317fd9aa ("afs: Use rxgk RESPONSE to pass token for callback channel")
+Note that this requires afs_make_op_call() to be moved so that it can use
+afs_use_server(); the server is un-used by afs_free_server().
+
+Fixes: e49c7b2f6de7 ("afs: Build an abstraction around an "operation" concept")
 Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Jeffrey Altman <jaltman@auristor.com>
 cc: Eric Dumazet <edumazet@google.com>
 cc: "David S. Miller" <davem@davemloft.net>
 cc: Jakub Kicinski <kuba@kernel.org>
 cc: Paolo Abeni <pabeni@redhat.com>
 cc: Simon Horman <horms@kernel.org>
+cc: Jarkko Sakkinen <jarkko@kernel.org>
 cc: linux-afs@lists.infradead.org
-cc: stable@vger.kernel.org
+cc: keyrings@vger.kernel.org
+cc: stable@kernel.org
 ---
- fs/afs/cm_security.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/afs/internal.h          | 33 +++++++++++++++++----------------
+ include/trace/events/afs.h |  1 +
+ 2 files changed, 18 insertions(+), 16 deletions(-)
 
-diff --git a/fs/afs/cm_security.c b/fs/afs/cm_security.c
-index 103168c70dd4..5eeeef761cf3 100644
---- a/fs/afs/cm_security.c
-+++ b/fs/afs/cm_security.c
-@@ -235,7 +235,7 @@ static int afs_create_yfs_cm_token(struct sk_buff *challenge,
- 	 *	struct RXGK_AuthName	identities<>;
- 	 * };
- 	 */
--	toksize = keysize + 8 + 4 + 4 + 8 + xdr_len_object(authsize);
-+	toksize = keysize + 4 + 8 + 4 + 4 + 8 + xdr_len_object(authsize);
+diff --git a/fs/afs/internal.h b/fs/afs/internal.h
+index 290873bac89b..65a0866cd8b8 100644
+--- a/fs/afs/internal.h
++++ b/fs/afs/internal.h
+@@ -1416,22 +1416,6 @@ static inline void afs_see_call(struct afs_call *call, enum afs_call_trace why)
+ 		       __builtin_return_address(0));
+ }
  
- 	offset = 0;
- 	encsize = crypto_krb5_how_much_buffer(token_krb5, KRB5_ENCRYPT_MODE, toksize, &offset);
+-static inline void afs_make_op_call(struct afs_operation *op, struct afs_call *call,
+-				    gfp_t gfp)
+-{
+-	struct afs_addr_list *alist = op->estate->addresses;
+-
+-	op->call	= afs_get_call(call, afs_call_trace_get);
+-	op->type	= call->type;
+-	call->op	= op;
+-	call->key	= op->key;
+-	call->intr	= !(op->flags & AFS_OPERATION_UNINTR);
+-	call->peer	= rxrpc_kernel_get_peer(alist->addrs[op->addr_index].peer);
+-	call->service_id = op->server->service_id;
+-	afs_make_call(call, gfp);
+-	afs_put_call(call);
+-}
+-
+ static inline void afs_extract_begin(struct afs_call *call, void *buf, size_t size)
+ {
+ 	call->iov_len = size;
+@@ -1763,6 +1747,23 @@ static inline struct inode *AFS_VNODE_TO_I(struct afs_vnode *vnode)
+ 	return &vnode->netfs.inode;
+ }
+ 
++static inline void afs_make_op_call(struct afs_operation *op, struct afs_call *call,
++				    gfp_t gfp)
++{
++	struct afs_addr_list *alist = op->estate->addresses;
++
++	op->call	= afs_get_call(call, afs_call_trace_get);
++	op->type	= call->type;
++	call->op	= op;
++	call->server	= afs_use_server(op->server, false, afs_server_trace_use_call);
++	call->key	= op->key;
++	call->intr	= !(op->flags & AFS_OPERATION_UNINTR);
++	call->peer	= rxrpc_kernel_get_peer(alist->addrs[op->addr_index].peer);
++	call->service_id = op->server->service_id;
++	afs_make_call(call, gfp);
++	afs_put_call(call);
++}
++
+ /*
+  * Note that a dentry got changed.  We need to set d_fsdata to the data version
+  * number derived from the result of the operation.  It doesn't matter if
+diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
+index 1b3c48b5591d..04b0bb682b81 100644
+--- a/include/trace/events/afs.h
++++ b/include/trace/events/afs.h
+@@ -148,6 +148,7 @@ enum yfs_cm_operation {
+ 	EM(afs_server_trace_unuse_slist_isort,	"UNU isort") \
+ 	EM(afs_server_trace_update,		"UPDATE   ") \
+ 	EM(afs_server_trace_use_by_uuid,	"USE uuid ") \
++	EM(afs_server_trace_use_call,		"USE call ") \
+ 	EM(afs_server_trace_use_cm_call,	"USE cm-cl") \
+ 	EM(afs_server_trace_use_get_caps,	"USE gcaps") \
+ 	EM(afs_server_trace_use_give_up_cb,	"USE gvupc") \
 
