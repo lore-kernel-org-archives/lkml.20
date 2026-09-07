@@ -1,78 +1,49 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15BC40A956
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967483F44E4;
+	Mon,  7 Sep 2026 20:00:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811169; cv=none; b=HqSPY6I3cIHWwjHBoeLNkAtdmIimHHvNeehI8KrX1GY+He2luhYfrVs7Lj4vdDZp91xhJ/ALSZ76ljxNISzTuf1LNGCeimO+J8lI8d2NregYgK1LAgMgQmTG7A+cZ2Asi87bmehECtFA5fX0MD/zfaPs4NaEzNSdUMDVXH2xGVQ=
+	t=1788811223; cv=none; b=g1Nte5fvaROyaPkDlUR/RnT0n6CI1wHxX85nZ6u7FnXOOQTrKGKYZCRbAnjiHc2aozpl2r7em3ZXoawgfhv3CriVLexMGmpRieSys9/492ToImY5TcpZE+IG5BXDsd8mBbmQ3J5enmi4uPWPw1F1OrN5GBl2q78dlFcMH0FzVoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811169; c=relaxed/simple;
-	bh=wQRPeTV+5FiLTxMGarwCwCbNlevB4Kf7DjKdr9Oovgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=drPeVreCkJ3pchbt0vx346K5juZfLYKMjJp5nIwmYw0DLsd7gdCsZiDVhpetr4Ohe/MSOR0PdMD+biFC8WF27HOHGiwjiV0Cx7owqgZFH6QxeBG162w45iNWJvMqsT4ivXHGnMFtrtLxiRyQ6EUIT/LLgWNGW02UvH+MmHXYEAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AI4xIdM0; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788811223; c=relaxed/simple;
+	bh=dgxsJopgTj5wBot0SXP5pQPNNnJcDf4YEHZSuLZHtcg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XMmc67iR1BA525XXs/5Qv5TA0gyRBFgjVjOncT84VSRw9XQbTC+7jl0OlnDDxMy3T3szaKS4CIYHydYmdzXJE+tlqxMCpBotfYWyeKN3gFEF2CAeE89SAK4QPZRIu0FfoF6ygWC7PYRyal/H3VSLScMz43KqaQmSWC7nMgGJLq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOsxdECu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AI4xIdM0"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d91518a63fso27574355ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:59:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788811167; x=1789415967; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ykn8R+5bxXefN33Ze9iKBwEjjXnMgUuxZmUBRl5EBxg=;
-        b=AI4xIdM0j9JRxqwGvBwSj42T9yJfq2gGSTeC0GtNDmS9VWeUS+AottAkY7EnllV5Km
-         p+fJuGHUWpzTnTmeusZExhgICJ5vI7agNyhxewXwBFQAbiUSXEDn0oXOcUdeZQlPpAHJ
-         NGVDPHgR0J4DtrCzbCPA3S4coJdPAWyFYQlXgd2JVXCiv2oPfWHB720GXgOvy+kJXSwU
-         IkO3AhJuZT8wr+qZAFcXn+gBbacGyVKs8vALoIid3aSGZB1CiIsNiP4Znflyu37Z1gk3
-         7j5myQcJhPWoxxtk+yECs0tNVmtqeFYYT9zQu0x5y0kN1VFXYlANDBr6PaDKY0pIVkFo
-         EwQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788811167; x=1789415967;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ykn8R+5bxXefN33Ze9iKBwEjjXnMgUuxZmUBRl5EBxg=;
-        b=YcSAL6B1eSRu2NyZtuwsl+cPevbMksxCANjKr06H3GiDNA2H3nONeCvT2aJ716SXht
-         LHR4J82ViIK61Sm90lWwzqKhRVbudUlpfjkdCdQeo8+9Mu1XeZ9Cu9WjHiTkOLN61Bsm
-         SqDE+5c/CnBR+bdXlLKoy0L7izyEuHImcWBfmEF+FtV+bCCfQubGIVQmxTc9JW4zsirw
-         Yux9AsPh/tFwnexXcfHUAXtIz3VlQLMRO/8HjacdbNPq6a0Exzju95RD52YDjON9Vtzy
-         Qb3ojhStsq0GImLxSkQQ6tsBxitnpifHX6x8WWcKdIplBK46xTBl7SOjaT1nh3gi7Xiv
-         w7qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzS/LZCVYiARtVwSnOu1jARHC4n6sULb2njTowAQSaZs+dpAr+RF1G1rTieOevWCDxe/TR6E4H7YHyg5Qk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1s4wU/aL4n6HyRWHe3agSIoj/wvTbJvFxQbtjOZ4j0BzHVn6e
-	VLayzQlFOA3a+au2nKmGaB6UNoNEjaJCqjxz3KODA1vcMZ8MjiMTeGCEBh7rgQ==
-X-Gm-Gg: AYBFou10zBviSjuZ10q3M9QZG1i4pJVcdKIxIK75KLHjN+JAqa8wBVDeW/gDtENU5Xq
-	+CZrShNRJuMVoquxgKTS9dV+k7iYKpMqxmXNA3d6fWHwFQ+u6C9NFKfQnl9lD0/L1epfyAS+Oom
-	0sdEbBtHYGAqZH0O7MQdgD+My72+bpBAQP8BuzsuC4rrKslzkOU02bBfQl3T9uY/urIkN+6b/HT
-	f5O7xpu1Ua0yam0Brl5D+l4YKe0zr3blP2ILizmOalL/r1g1p96I/TZoBo+gyp1AQ+yBWEzuqrM
-	HCt8TSeqE0tn5TxvxwWPMQtTevaqZ7jRkPOK7GNi7Pk1PY8bLHcJ3QW9gbiUc7rBix0pm/OfPHO
-	RaZSydrMo//LH5Xasp8d+jkYkmkgb2EDkrU15fJmSITaxACTTlz0ms6ZvA+K9ejULTfZZLyqQvx
-	LgSgL6//9gkE2pMIw3e93Y66GV6p8ilPbjT10z7oLfqz4a8NTURaGYPv7Ca7ouoZuRH5uE3fP5T
-	Tll1O+nyVglIz7Wo/JEcqY1QkfBNmt40iqFmBQBLreDdOcj5DeygfcP5dr524bIGFI7pryrLX7P
-	B7Uig3y5Sj6AuRtHXZpi4vgEonIXIEwZcRgFjA==
-X-Received: by 2002:a17:90b:33c1:b0:398:9bd1:3214 with SMTP id 98e67ed59e1d1-39b262dfa81mr34312237a91.21.1788811167343;
-        Mon, 07 Sep 2026 12:59:27 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b58187a9fsm3683932a91.3.2026.09.07.12.59.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 12:59:26 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] ARM: dts: BCM5301X: AC87U: specify switch
-Date: Mon,  7 Sep 2026 12:59:24 -0700
-Message-ID: <20260907195924.29510-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOsxdECu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAA71F00A3D;
+	Mon,  7 Sep 2026 20:00:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788811222;
+	bh=1SFDvVYmxlrLLWD8mX9hRNEALJYTpyJAIxl0gRU/Myo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=EOsxdECuGUvN/Ez5FFHxQ3RuXntKy7xCtJxxQlH/NtzGs5Fw++7P0yBaUDXpAi6gz
+	 b90XdCJxw+QMyKABi7y71WuYDwbVGZ45uWOo9zgVseByqRE8PE4zE6+XSA3R3uW8GF
+	 pK+MXfVJxI26xUqzc6A+sKfRAM+8/4Yck8O1fPjByJIRhQn077/3SB/CVqRAOydCzt
+	 Y5Mv5qRicGCj5sI8s6FXSDtolnjSX4Tl6vmiXljH0gZilVCTyBNv1jGX5ZB0qndgrB
+	 ifkmKZS+1R/VfNDu+6vdeK4Cp9VmLf4t85MDdGPVgvVAYYAdUS+wiQWJMohBj/vRAj
+	 X2AggbH1H5sdQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/4] cifs: Scripted clean up fs/smb/client/fscache.h
+Date: Mon,  7 Sep 2026 16:00:16 -0400
+Message-ID: <20260907200018.326904-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907200018.326904-1-sashal@kernel.org>
+References: <2026090303-fiddling-giant-6389@gregkh>
+ <20260907200018.326904-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,75 +52,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add labels to clarify which port is what.
-    
-Also set WAN MAC from nvram, which is offset by 1. Set in dts to avoid
-having to handle this in userspace.
+From: David Howells <dhowells@redhat.com>
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+[ Upstream commit bc3de356aae666de5d8b5131545be87cf7754431 ]
+
+Remove externs, correct argument names and reformat declarations.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 730d0bb19507 ("smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- v2: reword.
- .../dts/broadcom/bcm4709-asus-rt-ac87u.dts    | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
+ fs/smb/client/fscache.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-index 59400217f8c3..2fed02ebb1d7 100644
---- a/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm4709-asus-rt-ac87u.dts
-@@ -26,6 +26,9 @@ memory@0 {
- 	};
+diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
+index 1f2ea9f5cc9a8..4c2e269a268ed 100644
+--- a/fs/smb/client/fscache.h
++++ b/fs/smb/client/fscache.h
+@@ -38,12 +38,12 @@ struct cifs_fscache_inode_coherency_data {
+ /*
+  * fscache.c
+  */
+-extern int cifs_fscache_get_super_cookie(struct cifs_tcon *);
+-extern void cifs_fscache_release_super_cookie(struct cifs_tcon *);
++int cifs_fscache_get_super_cookie(struct cifs_tcon *tcon);
++void cifs_fscache_release_super_cookie(struct cifs_tcon *tcon);
  
- 	nvram@1c080000 {
-+		compatible = "brcm,nvram";
-+		reg = <0x1c080000 0x180000>;
-+
- 		et1macaddr: et1macaddr {
- 			#nvmem-cell-cells = <1>;
- 		};
-@@ -77,6 +80,43 @@ &usb3_phy {
- 	status = "okay";
- };
+-extern void cifs_fscache_get_inode_cookie(struct inode *inode);
+-extern void cifs_fscache_release_inode_cookie(struct inode *);
+-extern void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
++void cifs_fscache_get_inode_cookie(struct inode *inode);
++void cifs_fscache_release_inode_cookie(struct inode *inode);
++void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
  
-+&srab {
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			label = "wan";
-+
-+			nvmem-cells = <&et1macaddr 1>;
-+			nvmem-cell-names = "mac-address";
-+		};
-+
-+		port@1 {
-+			label = "lan1";
-+		};
-+
-+		port@2 {
-+			label = "lan2";
-+		};
-+
-+		port@3 {
-+			label = "lan3";
-+		};
-+
-+		port@5 {
-+			status = "disabled";
-+		};
-+
-+		port@7 {
-+			label = "cpu";
-+		};
-+
-+		port@8 {
-+			status = "disabled";
-+		};
-+	};
-+};
-+
- &nandcs {
- 	partitions {
- 		compatible = "fixed-partitions";
+ static inline
+ void cifs_fscache_fill_coherency(struct inode *inode,
 -- 
-2.55.0
+2.53.0
 
