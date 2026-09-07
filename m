@@ -1,121 +1,145 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA6C445ADA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6DD4525A9E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:55:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818105; cv=none; b=isi+SgooXdXrIWwvPFwjTEQtbfjnidZMJLu9PFc9jfiKF2NGblG0nUVV44u88a/vjRP36rDzFPP9j5c46Tv2JfJAhXy3HcTGlEUQQVr5aTp4n9MpqYQbo1tP39FI3zQS8Ph7iWhnBaQtPqZJ6o73HExygBs7tCWkL2ZWUoY+J8A=
+	t=1788818108; cv=none; b=cLiY2Rqh8sF3JIRUMGfDU0+w1+PDKNFN4phLiN8fQu1PJsIlXbVEyvdJufcdVqesi8ygvizKzNuXQ5+xPAvNFY089iKF6fdNQMQEqjtO1cfJ2ZK6Bj4sTdu8XW6aCpnkHzCt94kpECWyG+58TFduLEOMBRfxiDvLauRz8maYbK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788818105; c=relaxed/simple;
-	bh=5QSvUUBEwul0t3wOfYWCRctJgwUlnqFBztayCoeh9K4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=evHGI9kx6CqmV0E0NIHzKuldO29ORoShB18GJqu3hpqHMTC7h9cqWXdM8ej3WSmI89hY/wlm9S0VfN0gHmyzbh8LPrGkhqtcegPwSrN56PAQ1JJOnSK3QDgXRi1VSfoZbD5TN5yJnOSQYu3zZbuKOO3gK10cmvqNaeVH+8x8xP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ghWEb/Xn; arc=none smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788818108; c=relaxed/simple;
+	bh=Rp87txIj1Itj2htGVKkLuIFznvABC1xejs5EuVShP/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ImsaEvJxxluPTq0uWEUdYf75El182j7uY8zsi9HOFLj63ElIpxDsgt09v0JTFkSExehBSEMSF4olsOy/l+KTgnOLLXeRpjuuYjZfoe9Xd3u50Xu0rTxvrdrcDUBIf2ZnN4MPKB8zfcaNx/SaggaVp2PbM2NlyfHtzj5KTxLwuuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W3gkbr78; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ghWEb/Xn"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-867a943b149so59828127b3.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788818089; x=1789422889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Kb2gmiVIlb5vlxpKkwwNuzRtWNaOFk2YDHgZ7G5RM8s=;
-        b=ghWEb/XnNyy4QmDPJ6GZIOY2NBsnV8RtAhU7Y3YaeS+VYJjDZyvQh6LE2C+50My4g9
-         +yXdJphB2Sd2yolBWiyE6e6h7gDNhCjTrPhoppjhQOUDoEnRzIe2bokaeDnDv2tLvIvu
-         AIQIQor6M4n/ikeOgcIDVCPlhJq61TvzWtsYGf9Z2HFvkiOlu53dkIhto9bF0aVxK2W2
-         wSZi1qJFlUIpX7lM/rAV4JM6odFIQktAV+g4KkvqIrZxrQbDHvu9I9HsQ5FeqPgVeU0W
-         hatk3X/z/J05tREj04viygGS+rgnX+c0IOFASyhpJAhkNLcKq+wH/0VHMzjUHDyIaaWO
-         GQBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788818089; x=1789422889;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Kb2gmiVIlb5vlxpKkwwNuzRtWNaOFk2YDHgZ7G5RM8s=;
-        b=TLAznckWB8lWgZcG+cn0L9pcnbh4gVqeISGeIraPzSjKy3Ob0oKSe6CUQ6U488r4BH
-         Yr+FyrLEe+2YUYji20IP1b6fG4wdTcByua2LHnKFfU6KRo+l0JXJ0OeTg7RdUTUXWaan
-         DbnDhGgQwrahRiJI3yY6iPxpJXiPXFrcOWK/jKp0ZvhpvbZrtCZSuy/Cjj1Jy4/e3LTd
-         7bJ2emUuNq/yfDXmb9FU9Jt8OZwQgBIHzbQOCASFM2ovFVqFYWu7EDfv/NPLv7+zBABj
-         LBJgd/cPjX6aKXzKZFle5X6INV/NVUXODUMlDpD90SqOsFnsLSbKxD/ic8Bigw+IpVF3
-         Mtlw==
-X-Forwarded-Encrypted: i=1; AKwUvBw632cLxzWM8nTra32syyZ9Tsih5BKLqAsNF2WVLUXnrBORkIG5Hi4z1c6RJWbXqVNSNNWK0huJeT/ovww=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpOpjA15DcNkknBgxR1d55tjVvQZRnvirChYkvSfTRpiexZnWS
-	+hzxOHB77Z/BmTYVohVpsoduf59wKeYIpwuX5gkjoOS1V23HbGYus4xr
-X-Gm-Gg: AYBFou04p2K4UwS/CzFF5okyiCs6ux/eO6MY0tcwEHFCCprD+R0adPhfsVliHgWsz2j
-	a1WkXuSnPx3FXKpXkYa4R0jCjqKGhiZBDjN8/QQ01gNpcbXVMpEXViNRE1UhZ59ytV/Fyp0wsx9
-	OtZu6HOX3u2zcTeD+mXx4a1Nruc1Jh8FDETa0AQLYczViPJ6WahNALhkrQjtLCJJceX2/5Vk2VP
-	Rxsc8hE6DI+HqhBsQgN1cK3FHhRRgYiMmoCZxyZEdlVTrtnVmyfTP+J6oLQIwtb/Bx0lQAbT2Ph
-	7MM3Ek6JDFzKtL1VEfGFWhFekoNjzd9Ai8D63W/K79nYBuGZ/bg8xutnsLQDg+4D3ODBU4uKwxn
-	CM4AZYzmJbUYjgLcOB7VA7i8kYXkCqRI8bkCzjCTe+UOyDy4hSWd9iUo5YeQpwlo8J0OK1idh29
-	MItu/ioLZckj1cPU5YnqRf7IYVxAXbC/ft6UZ+vh2p+OoaBEr0ZSFCXMOtoF4dcGe3uzEKhQ12F
-	cU77sX/lyijEJl1xA==
-X-Received: by 2002:a05:690c:4adb:b0:873:5bd1:98c3 with SMTP id 00721157ae682-8735bd1a0damr49302177b3.53.1788818089522;
-        Mon, 07 Sep 2026 14:54:49 -0700 (PDT)
-Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-871439bcb5bsm78484247b3.3.2026.09.07.14.54.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:54:49 -0700 (PDT)
-From: Yury Norov <yury.norov@gmail.com>
-X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Raju Rangoju <Raju.Rangoju@amd.com>,
-	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	linux-usb@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 9/9] MAINTAINERS: co-maintain linkmode.h under BITMAP
-Date: Mon,  7 Sep 2026 17:54:38 -0400
-Message-ID: <20260907215439.409858-10-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907215439.409858-1-ynorov@nvidia.com>
-References: <20260907215439.409858-1-ynorov@nvidia.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W3gkbr78"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788818105;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=U5vbt3dDTcq0wdPHap0JtL9B1dVtnkBH7soBmqKWLIw=;
+	b=W3gkbr78+o5zSjzwdZmKze/Lx12LDtBdJ5DghhHLlhKOwkSMdRqsMuRNGzfezvuU7iBdW6
+	tmlim+BJ+JWCEhtdqd2R6ACAk6Sc+BFZPT4ewg2XfgKat+NBcqmOc/zWB7iBWJoQMiZ8wO
+	q73lb+VKGOAX197N7HqIGeSHdNC3N/k=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-139-Ut24lLeFO0a40zf8pdXsKw-1; Mon,
+ 07 Sep 2026 17:55:02 -0400
+X-MC-Unique: Ut24lLeFO0a40zf8pdXsKw-1
+X-Mimecast-MFC-AGG-ID: Ut24lLeFO0a40zf8pdXsKw_1788818101
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 92C831800EC7;
+	Mon,  7 Sep 2026 21:55:00 +0000 (UTC)
+Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 8E52D1800257;
+	Mon,  7 Sep 2026 21:54:42 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon,  7 Sep 2026 23:55:00 +0200 (CEST)
+Date: Mon, 7 Sep 2026 23:54:41 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
+	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org,
+	linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
+	ljs@kernel.org, sj@kernel.org, rientjes@google.com,
+	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev, tony.luck@intel.com,
+	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
+	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
+	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
+	babu.moger@amd.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
+ for_each_*_rculock
+Message-ID: <ap8yoW37GY17pHYS@redhat.com>
+References: <20260907081334.1152889-1-ye.liu@linux.dev>
+ <20260907081334.1152889-6-ye.liu@linux.dev>
+ <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
+ <ap76-0-hN6CAcYXX@redhat.com>
+ <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-The file is largely a wrapper around bitmap.h. List it under BITMAP
-section for co-maintenance.
+On 09/07, Gregory Price wrote:
+>
+> On Mon, Sep 07, 2026 at 07:57:15PM +0200, Oleg Nesterov wrote:
+> > On 09/07, Gregory Price wrote:
+> > >
+> > > On Mon, Sep 07, 2026 at 04:13:31PM +0800, Ye Liu wrote:
+> > > > --- a/kernel/hung_task.c
+> > > > +++ b/kernel/hung_task.c
+> > > > @@ -315,13 +315,12 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+> > > >  		return;
+> > > >
+> > > >  	this_round_count = 0;
+> > > > -	rcu_read_lock();
+> > > > -	for_each_process_thread(g, t) {
+> > > > +	for_each_process_thread_rculock(g, t) {
+> > > >  		if (!max_count--)
+> > > > -			goto unlock;
+> > > > +			goto out;
+> > > ... snip ...
+> > > > - unlock:
+> > > > -	rcu_read_unlock();
+> > > > -
+> > > > +out:
+> > > >  	if (!this_round_count)
+> > > >  		return;
+> > > >
+> > >
+> > > The sunken rcu_read_lock()/unlock() + scoped_guard usage makes this goto
+> > > at a minimum very confusing, if not actually broken.
+> >
+> > I am afraid I misunderstood you concerns...
+> >
+>
+> This might be my - admittedly shallow - understanding of scoped_guard,
+> but does scoped guard handle goto correctly?
 
-Signed-off-by: Yury Norov <ynorov@nvidia.com>
----
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+Yes, it does,
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..b78f0bccff54 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4646,6 +4646,7 @@ F:	include/linux/cpumask.h
- F:	include/linux/cpumask_types.h
- F:	include/linux/find.h
- F:	include/linux/hw_bitfield.h
-+F:	include/linux/linkmode.h
- F:	include/linux/nodemask.h
- F:	include/linux/nodemask_types.h
- F:	include/uapi/linux/bits.h
--- 
-2.53.0
+> and why it's generally discouraged to mix cleanup.h and goto.
+
+Hmm, why? I didn't know...
+
+Oleg.
 
