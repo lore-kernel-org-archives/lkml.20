@@ -1,116 +1,67 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504AB3B6BFF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:13:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8177B448B93;
+	Mon,  7 Sep 2026 09:14:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772412; cv=none; b=a9Rjx5NsQKTvrpGNuEyyrtFlJmDKJCdm85ip64ofeMpZ82iZq2BoYXWuLqSkTEZfXu/feavCMFttR9AWkM5PIkd42NRui0tb99iUEyxKIN+sohEr57h4HuL07G+2f4Q9obT55wFcE4tyoKUJSE977X8OUBB9hC0drwL6tPlTBeE=
+	t=1788772447; cv=none; b=V3nZqVnX2fRAkvgagAAWrEuPSzGmoO18wSv7zCDesbtazmN5AaHtFGPa0H+DP0YH/E17KuD7X6cR2p7sAi5BPZ2O9fjyNXrOyrlyr/3ElVmPgt6bEcVAUYy03MrM9QHNfJXnIboHnkwkDhHYVssO7kfxI8PyPex3NA9krtyUYWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772412; c=relaxed/simple;
-	bh=23vdQzYtZV8vW+3JNuTwhWvUB7OWUSnQZqEbN5wYa/I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mKWCMcXou3oCw07WQvemmrJh7QM0BB7dyKuiemvnEDv7p7Hl/1ZKg4qGRyeJv7rQ0oxM/sieydFlFXQ/gMOg3k9MhpYIBYviXxIqJQhdtFLrVQaHdfdHr69eZFGyt3ghkEQNNTkFKNUeymyGNfn4j0P3YXaCufoyxNsUXVAsEek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X4Rc8+c/; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788772447; c=relaxed/simple;
+	bh=M7lrh72WBldL7IR+woYjHiS82BYGU6gyBU7lXx4XiDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pOQxiviDum8y7kvRhRxRNHmntaa88pLLkw95vQnWfuIJ/f/+Dj5qt7YXoLJrqLnwAEVMdHkmGKzOLkLHMGBYtAmkHASLDaCN4XvBTyPRZtkPOkotGNQZVnR7DDdErgZOT5TKP+FMer2dgnF1kxNK3XhW/JWv01Yha+c+wzc5oI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjnODmGv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X4Rc8+c/"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6e954afbdso20701165ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:13:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788772410; x=1789377210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IvirkPfsWD4DlpS6+sPZXfcCYJfTwJWd1ALRxv3wOTg=;
-        b=X4Rc8+c/tfdvQUutICMI+zYNUk0vgh55Sow0yqzccqfMZt9IodpQ8J7eOFh31oOU7m
-         xhdPZzuhMu9VEcIlwPb/D6tQQDk5nHg8N4RJtAv9e5v53aIv31F+yGWIoVs8lHaPqPMB
-         qBPMDnO/KW8xjPM7bTIHkJCpIjbhyt0knmSNWuXoqVcD7EvqFiiyibr8rwV/JGmE03mu
-         X0ptmhDlpmu1A9f1jZpEB3AdhsKevpw1JmHJRy9HKEs8G1CWfvYu7oNJaRHb1EvljFnt
-         qZHf5AzfXChB7SSyx32W4SkzyRmvR0frBRIlLqkLm9dJAspiu+gxdTVohn/+qKorvDH8
-         4xvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772410; x=1789377210;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IvirkPfsWD4DlpS6+sPZXfcCYJfTwJWd1ALRxv3wOTg=;
-        b=fX0UQqRM3fSXTH+Rpf27V8/mnSD46hOsNN5qvbdtvhlK+zfhmXUfJcVQHULlWODocQ
-         9i4CdViYOPUXgb3pPNDG7Gf3rWoqPnD1/2sPtOzARtV8+7MqepPf127WOm0ArzFhHFHy
-         uaa4+TIQCOou145HgJyWcCJteEi1BK40/pN44/R0+jT+JAKk2uxfU3QUlYI2RFaOL+f3
-         hrSMu/4zgCRyp52Y+ppcL8P0pdlSNAHeEbHckluZ7m4wRfvGsZQkr/GWS37zlzF74NIq
-         xGCZx+OyKEcKw1+RiIK/8jCih8G1ZV3qtNICX43Yn9RyU29EZ4tZ64cwKFkttJuhRSPZ
-         S0MA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtqWRNAfD52CJ/fW4SIuhHZ3oLaCf9Fjd6RKV6+/qB34OSkG8sogOs/C3rdjtsgOogmLhAN/LwlKampIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nu3axwyvVkmBboz3dXr96oL/cCork81tHVeAmUK7tSh5QR0c47
-	HrPmXtqPzH+hT378RGANdFFIxinvlKHiWuw0ARo1yzdCNGvU64yiLXK6
-X-Gm-Gg: AYBFou0YcLHmU5nADoJLeB04koZlow8ivLnnZrqNOMdzURU5rCaxrmH1zZ0kPJUCSSo
-	GgiLPl4tdU0613f9Cl32fsP6tO1LG4totsxX17qiSSdoSiTpjgy4A7VjKEv7PLNvXVvhUJaAeoa
-	xWADg4mugvHzWHVoUXMGvcHfxgSZ7Qzpv0Yp7gU7+bzFWMlRr1tFsq30BAsAQbrjIhTtYdc7P6X
-	d2ANia6J26OpMMkJX/my5yy+wdAdazj/EWQOyqCeM1/R4QDuS3vvrm05vbNml9WhN37OF18iRko
-	pLklTDvJw0gRAwzncKnbTRwuVCy7IdgtZeIjAj+mdonQYnVEHfO4U7AfRXawQqSLyiYmxL9qrmr
-	w8uMWm2ckT3nYUwcRQd6Wu39GEJoXXndzaES7msPYHisPcakKwvnrUtAOJhiXHFACWgkqNBw+TC
-	CQ17UezBw9h7Q/7VymUZZn0Tk6RaG7+/R7KRz59BhZsuZr+/ijn7NXSYBOywCe7Q6OpiSoMFGzt
-	ONvyK+g/FRpKw==
-X-Received: by 2002:a17:903:1844:b0:2da:ef81:37e7 with SMTP id d9443c01a7336-2db126b1bcfmr349354735ad.21.1788772410345;
-        Mon, 07 Sep 2026 02:13:30 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befe870sm29061828eec.30.2026.09.07.02.13.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:13:29 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>
-Cc: Joe Perches <joe@perches.com>,
-	Colin Ian King <colin.i.king@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] scripts/spelling.txt: keep British spelling for "initalise"
-Date: Mon,  7 Sep 2026 14:43:24 +0530
-Message-ID: <20260907091324.32211-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjnODmGv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90EB21F00A3D;
+	Mon,  7 Sep 2026 09:14:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788772445;
+	bh=92S6a0o4SCOGgg77JenRODeNS6f6fFk6zfyz3/qTRkg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VjnODmGvWXZ2wHE3rjrXt4+9Ef3tzmEe0X7zaLtlhU6CU0lMnnoKqWQgj8yiVLZG7
+	 9yC6Aq6L8f2gZ3aCpVrqaLitfIZ0sV24VOa1WOU8Hm7+X6ow0K9Ew12FCqI4uH/Ase
+	 ix4Gb2l/5ByWYCPKmBWI/elF/FKOFPoOZM5Yr0yDt/3Oh4ybqzKU03avq3BfBfTupo
+	 KVeZ8hBzaBzAMnOB9dnhCJuM+Jypsh6KcCQ35MfiPmE1C7jww6FU1kDIQGUyMoQ+RQ
+	 fb5nJr+SzZ4cv+HJqx2X5vSwLOEKibkIqns2GbfqitlQfHq5+Fuxp9IHhBMcEdayB0
+	 65N54SiZi/LQg==
+Date: Mon, 7 Sep 2026 11:14:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 1/4] dt-bindings: vendor-prefixes: Add soce
+Message-ID: <20260907-airborne-delicate-chipmunk-d1a5c5@quoll>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-1-fb0587cb466b@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-devel-vstrassheim-soce-dsa-ml-v2-1-fb0587cb466b@linutronix.de>
 
-These are the only two entries in the file that map a British spelling
-to an American one:
+On Thu, Sep 03, 2026 at 08:10:58PM +0200, Vasilij Strassheim wrote:
+> Document binding for System-On-Chip Engineering, S.L.
+> 
+> Link: https://soc-e.com/
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> ---
+>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-  initalised||initialized
-  initalise||initialize
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-doc-guide/checkpatch.rst asks that British and American spellings be
-left alone, so correcting the missing "i" should not also change the
-variety of English.  Following checkpatch here silently rewrites
-"initalised" to "initialized" in files that otherwise use British
-forms; arch/arm64 alone has 58 uses of "initialised" against 132 of
-"initialized", so both are clearly in use.
+Best regards,
+Krzysztof
 
-Map them to the British forms instead, so the misspelling is still
-caught while the spelling variety is left to the author.
-
-Suggested-by: Randy Dunlap <rdunlap@infradead.org>
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- scripts/spelling.txt | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/scripts/spelling.txt b/scripts/spelling.txt
-index 3372873cd7bb..9ec2529bc584 100644
---- a/scripts/spelling.txt
-+++ b/scripts/spelling.txt
-@@ -872,8 +872,8 @@ infromation||information
- ingore||ignore
- inheritence||inheritance
- inital||initial
--initalised||initialized
--initalise||initialize
-+initalised||initialised
-+initalise||initialise
- initalized||initialized
- initalize||initialize
- initation||initiation
