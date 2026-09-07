@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF6693EC807;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5C33AE6FB;
 	Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799695; cv=none; b=XlhSnWZP/H8/jV9m6mUAkz8isqlRdmcQSGHrVB/bb75d3G1TkhfRVbr9922teUcHKtR3w2thR47+w8v0CYcJOMbu35N6lnGVDSlGCDzYgUnaOHrUnSk9mCspKsieAxF4UBYy186FWWbJ4mXhW+mRUmkytlfCVThQOAd5cZfAjoc=
+	t=1788799695; cv=none; b=qgcmhSW/qwDj0gAKDQZEfM1Lkx0iVv736faChVthcCv6viJbD/s+4c/WXPfkeIDrDICKSOu9DpuwHr6kEPnODlVuiWi7GYcWX55i6RNN9j6NFnBMGCpT8l405pMGPLXOOp5PbbTWA/b3vf9arLXMvWx8vuaTlS/4cD0pzjBms4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788799695; c=relaxed/simple;
-	bh=WxqT1yF3M6tgWWKnYg9hdR2pSdYcRFC589aOlzkEKCo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qD1RdtX3OBauyRDgc8AMdMzdhRSpZZAkkqqj7/pPSVoia8fMM/JjFmyUhdq4QTyKJ0aMu6df5l3WE1anMBDu6VyBq5PrNghfCl96HCKfj5dT0G+0tObg3wJ6XJZVvRqexbY/OZUO5eDS64cihu770LGz1GlhojprugdrsYptMJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLmhoWjx; arc=none smtp.client-ip=10.30.226.201
+	bh=ugf+3s9PSyGAiuRrMcsfXDjILNpU++jjwzu5JJ9giJ8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=NIbyiJu1h/DeXMN//5hDyQRQCzousrnbvm2fAqi/tpQ7COl+ddt3lm1JFhBLmmsoN+TqkG6lNGF2CyOVjpPNUsGed3phmppDd2trxFTHh38b5e7CH4FWBk5vPmNT8UyEJrxwst2IzFqOav4dD5R4fcCgT0OwC9h9pGQDYOlrEnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCXN2QAe; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLmhoWjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62E34C2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCXN2QAe"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4EB02C2BCC7;
 	Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788799695;
-	bh=WxqT1yF3M6tgWWKnYg9hdR2pSdYcRFC589aOlzkEKCo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=GLmhoWjxwhNm5JQ1ezCbtiJaIrtLZo2Kg7WS91JNU4wuyw9/mfFna74o4ACU877Kj
-	 nbTzDZv+M0xR3UeUMM4WNNtLDzCbO9tbdmvhSz9oCLySJzk1K+ytj4hDy83aWoBOiG
-	 BLZdA4S6hGjKDvD86SyT59KvbAdaGrxrVZrQi5UgnrklNsUah4S17QqEOs80deO+II
-	 O5IIK3uJabEXMREzHhNeMdNMh6soQnQ9nSmDe/Nt6lkvxIqqE4joPbtnM1RbXUgGLB
-	 gop9CisYmZQNve8eYRa4dTRfsb/St9R5E4s/nxheleKAY5sHEU8yFjFrJMkgK4l5nk
-	 Sug5eN/00n6Aw==
+	bh=ugf+3s9PSyGAiuRrMcsfXDjILNpU++jjwzu5JJ9giJ8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=mCXN2QAeH0qjPksLPGX5Sd8iHxXfjvSJRxd1ISUNWifwnPguwXvkXl6QbDKdDRZ7F
+	 FycIffpGIFKcxr00LwyM2KZtNUZZybn+DiXP0zzFAKoOs7coYSuyV3u7LwdsaxbUPu
+	 bVVhLTk218fT+pKP4vYlwdtWMUMSo71ByYRmPmIUGiT/8a8iSKEiSSx+i5qPM//IVh
+	 m8LyvKUkjhkjOHthoJ6YtomjxgbLOFRyy7EivO77F3/t/NUHB9EHrXdjtVISUA5twH
+	 wn8EE06bFkDLXCgZb2yVt02GsxyBcgEQ2i3j3HWjxqksvICbBmvfIeE80s/zs+15GC
+	 T5fSJDDUo4uCQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D38BC79FA1;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FB26C79F99;
 	Mon,  7 Sep 2026 16:48:15 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Tue, 08 Sep 2026 00:47:48 +0800
-Subject: [PATCH v2 1/9] rust: sizes: add SZ_4G constant
+Subject: [PATCH v2 0/9] drm/tyr: add VM and BO ioctl support
+Date: Tue, 08 Sep 2026 00:47:47 +0800
+Message-Id: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,10 +39,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-tyr-ioctls-v2-1-88bea777df67@kylinos.cn>
-References: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
-In-Reply-To: <20260908-tyr-ioctls-v2-0-88bea777df67@kylinos.cn>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALPqnmoC/03MQQrDIBCF4auEWdcyughpV71HySLq2AwNWlSkE
+ rx7baDQ5f/gfTskikwJrsMOkQonDr6HOg1g1sU/SLDtDQrViBeUItcoOJi8JeEkkkNrtFtG6Id
+ XJMfvA7vPvVdOOcR62EV+1x+j/pkiBQpCZ7WbtJU43Z51Yx/S2XiYW2sfnoRSEqUAAAA=
+X-Change-ID: 20260901-tyr-ioctls-f10ef0dcbfa6
 To: rust-for-linux@vger.kernel.org
 Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
@@ -60,11 +61,11 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
  Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788799692; l=1664;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788799692; l=2330;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=so+WuqU/pYd8/dKzBVqpgAsW0XebT6xqiODTucEx6fs=;
- b=w3XcLqR1VQevN3qWcQai1GYtPQNLzv+aBbIvX1piwpdczwbSyazqpxKHZg94TivRfbzcvqI1m
- qgIWbCsMq4qCZW9sotv5Hu+943CQnyirsVV6qvpcZoE6vXbrJ4Cb0t2
+ bh=ugf+3s9PSyGAiuRrMcsfXDjILNpU++jjwzu5JJ9giJ8=;
+ b=ZORc0oMwW5l3N9ppq/jrr9PENAwfIkL5qA+VfygKJi+UlDdBIzYqYtuMxE/JT6moDx0PZvFco
+ ld1n0m+H8x2Ckk3gfwq9rUCzc5HpBK9X+Slchoo7nftAcQTpie/H7z0
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
@@ -72,53 +73,61 @@ X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
 X-Original-From: Ke Sun <sunke@kylinos.cn>
 Reply-To: sunke@kylinos.cn
 
-From: Alvin Sun <alvin.sun@linux.dev>
+Add the VM and BO ioctls to the Tyr driver, aligning its userspace
+interface with panthor. The series is based on Danilo's `drm-file`
+series on `drm-rust-next`, and uses the existing IdPool and xarray
+abstractions for per-file VM management.
 
-SZ_4G is used by the Tyr driver when splitting the GPU VA range into
-user and kernel regions.
+The panthor IGT tests pass on an RK3588S device.
 
-Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Reviewed-by: Gary Guo <gary@garyguo.net>
+A branch with the full series and all prerequisites applied is
+available at:
+https://gitlab.freedesktop.org/alvinsun039/linux.git tyr-ioctls
+
+Signed-off-by: Ke Sun <sunke@kylinos.cn>
+Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/64
 ---
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/sizes.rs            | 12 ++++++++++++
- 2 files changed, 13 insertions(+)
+Changes in v2:
+- Fold the VM pool into vm.rs and cap it at 32 VMs per file (Deborah).
+- Add VmOwner so a VM is killed exactly once on drop, regardless of
+  remaining references (Daniel).
+- Replace the VmSpec enum with new_for_fw()/new_for_user()
+  constructors (Daniel).
+- Parse VM_BIND op types via VmBindOpType and use the kernel
+  Atomic<bool> for the unusable flag (Daniel).
+- Use PAGE_SIZE for the dummy object size (Daniel).
+- Rename BoData::create_flags() to flags() (Daniel).
+- Report VA-split failures with dev_err! at the caller (Deborah).
+- Link to v1: https://lore.kernel.org/r/20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 4b31aa7f432f5..9bbe1538d7c7c 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -115,6 +115,7 @@ const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN = ARCH_SLAB_MINALIGN;
- const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN = ARCH_KMALLOC_MINALIGN;
- const size_t RUST_CONST_HELPER_PAGE_SIZE = PAGE_SIZE;
- const size_t RUST_CONST_HELPER_GENLMSG_DEFAULT_SIZE = GENLMSG_DEFAULT_SIZE;
-+const unsigned long long RUST_CONST_HELPER_SZ_4G = SZ_4G;
- const gfp_t RUST_CONST_HELPER_GFP_ATOMIC = GFP_ATOMIC;
- const gfp_t RUST_CONST_HELPER_GFP_KERNEL = GFP_KERNEL;
- const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT = GFP_KERNEL_ACCOUNT;
-diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
-index 521b2b38bfe77..b236573f0792e 100644
---- a/rust/kernel/sizes.rs
-+++ b/rust/kernel/sizes.rs
-@@ -132,3 +132,15 @@ impl SizeConstants for $first {
- }
- 
- define_sizes!(u32, u64, usize);
-+
-+/// Large size constants (≥ 4 GiB).
-+///
-+/// Only implemented for `u64`.
-+pub trait LargeSizeConstants {
-+    /// `0x1_0000_0000`.
-+    const SZ_4G: Self;
-+}
-+
-+impl LargeSizeConstants for u64 {
-+    const SZ_4G: Self = bindings::SZ_4G;
-+}
+---
+Alvin Sun (9):
+      rust: sizes: add SZ_4G constant
+      rust: mm: add `task_size` helper
+      rust: sync: arc: relax `ForeignOwnable` for `Arc<T>`
+      drm/tyr: add per-file VM pool
+      drm/tyr: add user and MCU VM specifications
+      drm/tyr: add BO creation and lookup helpers
+      drm/tyr: refactor new_dummy_object to use new_object
+      drm/tyr: add VM-related ioctls
+      drm/tyr: add BO-related ioctls
 
+ drivers/gpu/drm/tyr/driver.rs   |  14 +-
+ drivers/gpu/drm/tyr/file.rs     | 378 ++++++++++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/tyr/fw.rs       |  37 ++--
+ drivers/gpu/drm/tyr/gem.rs      |  41 ++++-
+ drivers/gpu/drm/tyr/vm.rs       | 378 ++++++++++++++++++++++++++++++++++++++--
+ rust/bindings/bindings_helper.h |   1 +
+ rust/kernel/mm.rs               |   7 +
+ rust/kernel/sizes.rs            |  12 ++
+ rust/kernel/sync/arc.rs         |  12 +-
+ 9 files changed, 819 insertions(+), 61 deletions(-)
+---
+base-commit: 3ac51829f95368876dcfbfbb42823ca0cd6e6f56
+change-id: 20260901-tyr-ioctls-f10ef0dcbfa6
+
+Best regards,
 -- 
-2.43.0
+Ke Sun <sunke@kylinos.cn>
 
 
