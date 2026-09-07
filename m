@@ -1,188 +1,112 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B2144233939
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:12:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549E0448393
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:12:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772375; cv=none; b=CaR37KU4eLzUZ2q+FuLP7hqPObH/kejqORPC/8gpgt3CZ4Ulpa0hAhFRKWuV/y8kUCOwt1gi1eQ2g9Ynds/EatMKVVtgCHpRuqYCAfuMgaumXv4Er8y+fzyHQ2EqcQPiZYWpqSqk/yPyN+1wg+Yfc5bvFDflUlVAAPRuo2P8M5g=
+	t=1788772379; cv=none; b=gLxajs83YBjWDzErC9kUXRZoOTN0u+pWmlm8wumR9HlP81C8nGACI1CT2Q7hcLanbE2R+gc0Ty4F2sc/I/zXURioSasYuxPIHoE+PPgTxWLxHe4oCgRNhXJL6VcbsOaJPYsrv9/4Fq6KeUGVMOfrtJ4hHZMk/RTW5lMfRpa6RXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772375; c=relaxed/simple;
-	bh=xNzQIWKCtWQx9BvtJkARbD3SnPKoaTr+qsEbwFKZu7I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gGnvOXKfXY+9nkwBdfbUnfsyJ7k6PPAEGEO1Chq/MX77BNj9AbU2KlcFNoMi7apuBXBG2/8AHz9xybjse/UP3ut0QUVNcAMORF6brvpNHHz/vmBUAqI56XTYUQF5TRHQy4O/Q5cxo1sT0eZbQqgV+nKlJAiNN2j2snWgJgK7KoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=n69aa6Gq; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788772379; c=relaxed/simple;
+	bh=XvQtuQBIqVT6YauqvGvh+z0ZvixSJt29gwUp76mkmj8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KCF6x6vNCNUHd/Q9gUSF4tON99cxKIWIChjT+GAFdgWhOWuan7r+5HN1iaWDqNRdJoScJQdORD/Rk3O8iDkzdxI5xzMQH/f9Fa11ZJKxLspTyy/hX+K8HCQWZJGlL97ztsfR9BL+ISEky06SFap2s2hCnkmzK/7pY2YATe+17fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kmF6k/vw; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="n69aa6Gq"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EC98C1477;
-	Mon,  7 Sep 2026 02:12:45 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 47A403F7B4;
-	Mon,  7 Sep 2026 02:12:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788772369; bh=xNzQIWKCtWQx9BvtJkARbD3SnPKoaTr+qsEbwFKZu7I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=n69aa6Gq9h2AXejw1H0OMLJncluZeNDSc45O5MVqiMUcreOrcliEQohSFQyfe3Lhl
-	 hm99XNBJVIy88H2By2LNUM1M08qYKvNaYb5u+/dFW4PuvHC3NZ63euYYD3gqc8R05W
-	 1Q/maFWaEyjUK+/mXtiuXLsAifjEIg65+1foOYRk=
-Message-ID: <dd850141-ea85-4d94-9793-393f24a2fdc2@arm.com>
-Date: Mon, 7 Sep 2026 10:12:45 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kmF6k/vw"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d7200b2e15so34380355ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:12:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788772374; x=1789377174; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r5ZUfqeYp04pNo/Q4XLiHt5Wl2L6OXnuVp96rMiPgCo=;
+        b=kmF6k/vwoDR7LBBiWcv+japgU49apLNUr89hHvy/5Zg0uytvAN3nZBQOYIE5lSVgmA
+         3YzZJprzyM/+TWJJ6iFGMPcm9QpckatxT2Tu10JyRPtETmLsel/+P074icuTSOcV1n2N
+         rjz8+oAWUdAHQ4ZuK7M9WhQDuUvhldiOX1MAQZxMgrz0grhH/L0Zk1ds1GqmWWjkXBvg
+         RQvJZUCelLrvKKYKtTCjTKQ/acOtV+GafIbmQnJv1+T0cHDzW66g0V7LlcZqfRJXYMi6
+         EaxQmnaABoo4JouIfwqch3XmJToa2mPTJeV+PuB5zHJNTe8LedQq09OozUZTlw0vgD3A
+         L8YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788772374; x=1789377174;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r5ZUfqeYp04pNo/Q4XLiHt5Wl2L6OXnuVp96rMiPgCo=;
+        b=Vdm6PxrsxvTe1RQqAszL/sR2v8kg2SYeLmmRWmuLv88HhY7Pp+v+aBinCh7EwhjZSb
+         JFKLlaHgqME+2oKtC7fwUsU6Fg/jrz9JdraKsoPa8WBMZYYM9BCGbDzagjHD2/4zGYu2
+         GTLlGqPqbkdP6l0vLGvQFLPc5DK6D2qzabJbcqCd/3JqxXIRfnBn7msCLdE8X3oHCvNE
+         yChddaueNpswy1Lmsmd1ezIFZ1BNwJotvPtRY3x5LrGyWiJUGumpb2lB8onH37ZhpAcb
+         Htp9GJ6xkVPlg8OrNGOeXzakE6Vl+5mtWtx+eUIF/Dam4V886M2/dfYFZ/xgt9W16SKz
+         baow==
+X-Forwarded-Encrypted: i=1; AKwUvByVykL/SXt8zSgyA5yuyTrX7aIw8b4/L6KBdBgxVAng+u3CGZl68yYuWD0ywsp2N8doCFbwI1rs6WvkRYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mp9m1HK96/kvDd88gjpzDVNcL5OxTzfIxtb7bZqWpoxIeUCGr+
+	J6oFQh1jriS3geJYIww1HR9q78BBatt33VtmdfZfy6PRBzeIsQsKNmLD
+X-Gm-Gg: AYBFou1lXQ/SPxnc7mnJZ7KFq5+Zwk++lrmdOdIZ4HyuFfCGPmhEoncWJLbb6bhD/kN
+	gYrCcyw2dNgxOZe4nT7r36VWL1GUU2ylusRNRO4iBAVWuX7i/x8ftOp03UfbWNkYC/c9fecl+iu
+	7TIK49/TwK1JwNQAglck8Xza0eIaLZozrf6GannHT4AINbYXbUXMRH9uuP2ySW0UEe/9l6V8xK4
+	ghdl6Io3TULx/G3UnQXpwmkCcOdDmcAFd8XaUdrMM3Q9bWunNwYgTfUq5TUvPtYtGnVDbjuDtvn
+	3ShKCInLglE+2Vh2LxHxirqDo5BLY3TixOzITGeeyc1Jk1+7JbpGkbVtLB9o4nTHfD3CuopvTJb
+	Y7F64QgkV8+YkjRJCq/NE9FS3XvrO7s8Y3R8ZTBi1IiymbtwYpcZfa4KkZRPWB35s9v08j0tUKr
+	5LIcDy6WukzCOweB9/neBUHthQUU0Zk38Juk+I69Jszl1aYDZa4T/xi+jGimIVQdSCzddDMrL2U
+	7zW/pl4gPHjSA==
+X-Received: by 2002:a17:90a:d00e:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-39b262409e5mr34469498a91.25.1788772374311;
+        Mon, 07 Sep 2026 02:12:54 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333959d5f69sm25086123eec.0.2026.09.07.02.12.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:12:53 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] docs: arm64: Fix typo "initalised" in booting.rst
+Date: Mon,  7 Sep 2026 14:42:48 +0530
+Message-ID: <20260907091248.31415-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: arm64: Trap guest MPAM accesses whenever MPAM is
- implemented
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>
-Cc: James Morse <james.morse@arm.com>, Xi Ruoyao <xry111@xry111.site>,
- Mark Rutland <mark.rutland@arm.com>, Joey Gouly <joey.gouly@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu
- <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Gavin Shan <gshan@redhat.com>, Fuad Tabba <tabba@google.com>,
- linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260903160819.831518-1-fuad.tabba@linux.dev>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260903160819.831518-1-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Fuad,
+Correct the misspelling "initalised" in the arm64 booting document.
 
-On 03/09/2026 17:08, Fuad Tabba wrote:
-> finalise_el2_state() clears the EL2 MPAM traps whenever the ID registers
-> advertise MPAM, but KVM sets them only when ARM64_MPAM is set, which
-> also requires MPAMEN. Without EL3 the enable is EL2's own and nothing
-> sets it, so the cap stays off and a guest reaches the MPAM registers
-> while ID_AA64PFR0_EL1.MPAM reads 0 for it.
+v1 changed it to "initialized", which quietly moved the file from
+British to American spelling.  Randy Dunlap pointed out that
+doc-guide/checkpatch.rst asks that both spellings be left alone, so
+this uses "initialised" and only fixes the missing "i".
 
-Good spot.
+checkpatch.pl suggested "initialized" because scripts/spelling.txt maps
+these two entries to the American form; that is addressed separately.
 
-> 
-> Gate the traps on the ID registers alone. MPAMEN is not a term in any
-> MPAM accessor, so they take effect without it. finalise_el2_state
-> already wrote MPAM2_EL2 under the same condition, so MPAM3_EL3.TRAPLOWER
-> is clear wherever the cap is set, and arm64.nompam still clears it.
-> 
-> Fixes: 31ff96c38ea3 ("KVM: arm64: Fix missing traps of guest accesses to the MPAM registers")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> Found this while working on the other MPAM thread [1].
-> 
-> [1] https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
-> 
->  arch/arm64/include/asm/cpufeature.h     |  5 +++++
->  arch/arm64/kernel/cpufeature.c          | 13 +++++++++++++
->  arch/arm64/kvm/hyp/include/hyp/switch.h |  4 ++--
->  arch/arm64/tools/cpucaps                |  1 +
->  4 files changed, 21 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufeature.h
-> index 7404a6e83a930..8863ae99596bc 100644
-> --- a/arch/arm64/include/asm/cpufeature.h
-> +++ b/arch/arm64/include/asm/cpufeature.h
-> @@ -873,6 +873,11 @@ static __always_inline bool system_supports_mpam_hcr(void)
->  	return alternative_has_cap_unlikely(ARM64_MPAM_HCR);
->  }
->  
-> +static __always_inline bool system_supports_mpam_sysregs(void)
-> +{
-> +	return alternative_has_cap_unlikely(ARM64_MPAM_SYSREGS);
-> +}
+Only the documentation text changes.
 
-The sashiko comments reminded me about the possibility of mismatched systems. I see two cases to
-consider here. One is if the firmware doesn't touch the MPAM system registers and leaves
-MPAM3_EL3.TRAPLOWER set to 1. In which case the user is required to add arm64.nompam to the cmdline
-as the MPAM registers can't be accessed from EL2. The second is if the f/w clears
-MPAM3_EL3.TRAPLOWER, in which case arm64.nompam can't be used without making MPAM1_EL1 etc, shared
-between guests. Perhaps for these mismatched systems we need to unconditionally enable the EL2 traps
-for the cpus that support MPAM and not advertise any support for MPAM. Furthermore, if we, before
-kvm gets involved, unconditionally enable the EL2 traps on systems where MPAM can't be enabled then
-I'm not sure that we need to distinguish system_supports_mpam_sysregs() and system_supports_mpam()
-in the kvm code. What do you think? Does that fit in with the pattern of how cpu features are
-generally handled?
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ Documentation/arch/arm64/booting.rst | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks,
-
-Ben
-
-
-> +
->  static inline bool system_supports_pmuv3(void)
->  {
->  	return cpus_have_final_cap(ARM64_HAS_PMUV3);
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 17b83a2518a8f..36a27692e5cf7 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -2501,6 +2501,13 @@ test_has_mpam(const struct arm64_cpu_capabilities *entry, int scope)
->  	return (read_sysreg_s(SYS_MPAM1_EL1) & MPAM1_EL1_MPAMEN);
->  }
->  
-> +static bool
-> +test_has_mpam_sysregs(const struct arm64_cpu_capabilities *entry, int __unused)
-> +{
-> +	/* The registers exist whether or not firmware enabled MPAM. */
-> +	return detect_ftr_has_mpam();
-> +}
-> +
->  static void
->  cpu_enable_mpam(const struct arm64_cpu_capabilities *entry)
->  {
-> @@ -3116,6 +3123,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
->  		.matches = test_has_mpam,
->  		.cpu_enable = cpu_enable_mpam,
->  	},
-> +	{
-> +		.desc = "Memory Partitioning And Monitoring system registers",
-> +		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-> +		.capability = ARM64_MPAM_SYSREGS,
-> +		.matches = test_has_mpam_sysregs,
-> +	},
->  	{
->  		.desc = "Memory Partitioning And Monitoring Virtualisation",
->  		.type = ARM64_CPUCAP_SYSTEM_FEATURE,
-> diff --git a/arch/arm64/kvm/hyp/include/hyp/switch.h b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> index 1ce7130e25490..8941335724f6b 100644
-> --- a/arch/arm64/kvm/hyp/include/hyp/switch.h
-> +++ b/arch/arm64/kvm/hyp/include/hyp/switch.h
-> @@ -298,7 +298,7 @@ static inline void  __activate_traps_mpam(struct kvm_vcpu *vcpu)
->  	u64 clr = MPAM2_EL2_EnMPAMSM;
->  	u64 set = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1;
->  
-> -	if (!system_supports_mpam())
-> +	if (!system_supports_mpam_sysregs())
->  		return;
->  
->  	/* trap guest access to MPAMIDR_EL1 */
-> @@ -317,7 +317,7 @@ static inline void __deactivate_traps_mpam(void)
->  	u64 clr = MPAM2_EL2_TRAPMPAM0EL1 | MPAM2_EL2_TRAPMPAM1EL1 | MPAM2_EL2_TIDR;
->  	u64 set = MPAM2_EL2_EnMPAMSM;
->  
-> -	if (!system_supports_mpam())
-> +	if (!system_supports_mpam_sysregs())
->  		return;
->  
->  	sysreg_clear_set_s(SYS_MPAM2_EL2, clr, set);
-> diff --git a/arch/arm64/tools/cpucaps b/arch/arm64/tools/cpucaps
-> index 2775ba3359cfe..aa5be51385f68 100644
-> --- a/arch/arm64/tools/cpucaps
-> +++ b/arch/arm64/tools/cpucaps
-> @@ -78,6 +78,7 @@ KVM_PROTECTED_MODE
->  MISMATCHED_CACHE_TYPE
->  MPAM
->  MPAM_HCR
-> +MPAM_SYSREGS
->  MTE
->  MTE_ASYMM
->  MTE_FAR
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-
+diff --git a/Documentation/arch/arm64/booting.rst b/Documentation/arch/arm64/booting.rst
+index 13ef311dace8..891fd22f7229 100644
+--- a/Documentation/arch/arm64/booting.rst
++++ b/Documentation/arch/arm64/booting.rst
+@@ -588,7 +588,7 @@ following manner:
+ 
+ - CPUs with a "spin-table" enable-method must have a 'cpu-release-addr'
+   property in their cpu node.  This property identifies a
+-  naturally-aligned 64-bit zero-initalised memory location.
++  naturally-aligned 64-bit zero-initialised memory location.
+ 
+   These CPUs should spin outside of the kernel in a reserved area of
+   memory (communicated to the kernel by a /memreserve/ region in the
