@@ -1,324 +1,173 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AE64BB5DE;
-	Mon,  7 Sep 2026 12:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 338C93F4DDD;
+	Mon,  7 Sep 2026 12:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785288; cv=none; b=OqCaVpGVx89Jx+4pAqZuLeRJEOj50C0yjTdEXwPkRv3c6fN83mRqMcNFIaGtZ3iwP5xz8yk5ufB3x/0dsHJpM3hp6DNAKuVmujSMocuuhGoEsjW/Fg4VyHDDe0KzmQ2vTMJXL/jch84TEm5iLCEEYf6SwRo8ZvdWmPBSO5aCXdU=
+	t=1788785363; cv=none; b=FZm3AeIgNS4fEILMsfdxKW/wvLc8ZcwbOeEvd36dTrwyPOta+vF5vGDgAZ0fTvMxFbRdTQx12L9DqOOGWi2m956myd61w/zti6XkyLK7YzQk83kj3gyWPmqnzOYL48BqDZu3OhUl6nnU0EHzSxRMx/Hiq/HLl8tp1GM96wdQ26U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785288; c=relaxed/simple;
-	bh=sTw5mmlt6nn709ufsy3u6CM2xjzUUX5x9TNB20MZmFk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hrmnmb6dk7ni0NPZoSPAQJ+QMMV3S44zeiCOiipx8fNbo/jhOryTobt59jkAFIZ1Dd7jMuhLrvEjtwodglPCPCOisdZj1rMcRjfKK3Y7qo6sM/soKufC3yb7qWYQMyPrK7xT5Km3NZNPmPGM3bKHUK/uEP2PH7EhkZZd7+jQX9s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=PZioovUY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=eqOcBLaN; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1788785363; c=relaxed/simple;
+	bh=l3Ra/VA5NlSvYubVz6j/otyq4/BCFwDBT3L4LH12i3I=;
+	h=Message-ID:Date:MIME-Version:CC:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=jAW0Brx15V+oLbRxrSBJ5htNjv//M2MiwDDwmdXNgvC8KFMIFYcPMMMT+DxBd2iLT9Ipsbver8iOzFBCw2MK9UPdvH11W2V/nNrpiBeMLFFdTzcRSzgDETs/45azTQn9i7bTNdg9611279jtKe/seAkzRZC23tScArTu1AgVwc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=HUFrUJJG; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="PZioovUY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="eqOcBLaN"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 3D6DE140004E;
-	Mon,  7 Sep 2026 08:48:05 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Mon, 07 Sep 2026 08:48:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788785285;
-	 x=1788871685; bh=Ic+M/eg1yFnMbercSBLfQBWYDDrGnU0DUj2/eFExi2c=; b=
-	PZioovUYQ+GsBY18YwtPLkLdVa+OaqNXqfBREaUCnaVaZM5h5ruAVf2VTc/wfW+g
-	kvgrlEhv1WgOFuGzlI/oR96e/RhGom1i5j2asGN0ArmdmM4sMx/dVpVYvdccQ/nG
-	xBfm+wpIPMv8Sroytk/+BXHQc4ZmDTxu1IHsZGCg/vmz2mpDrgWWsU/52VjyeRps
-	3WbouPlGs4jwLDflTmUnfUf0lUTLRKJ7w4IUcXTqJMi3I7tIQ4WCtBHDoImeE48j
-	Ls/nJG15hDJsV3O7slY92J6la5JT2pgAnzvj1zsejObDPRNgApQAcZUkrHonX+mQ
-	grmvwLLLLrvxL4+QRoTYZg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788785285; x=
-	1788871685; bh=Ic+M/eg1yFnMbercSBLfQBWYDDrGnU0DUj2/eFExi2c=; b=e
-	qOcBLaN6Z5V5kNnyYCHxLbKGafX9VdJKs1NoIY9Sq0KTmT6oVSSWWeFIoTHADHoc
-	HT4eykY/YyGErT7yn/BGN5UKKpybphUFQv51+stTqfE7/Q4LvKSnxl3PiACwfLo3
-	s7KTL3Hfbl5gZBcxKyg7f6ymtowD/grDZacNzz4MH07UYvguq1Tw7vk15CDg1PLc
-	Lq3db6F00m6Lw4WFR+jH7gQdXsWJJDQAN2mY3V4nFhfmBZgpBtR1NWRP1LDDiUCZ
-	nwt4Z2RjOcSg7eO86vhOJ4UQKI284cZm/E+mW7QRZzrXIAwowLnYKfm6lk/BiXza
-	2NeS9a90NTPcGKEAvZKpw==
-X-ME-Sender: <xms:hbKeatkB9As3vkHub8pCjr50CqxWJ9KXKtDXCaknB1BxXAY0ixO8ng>
-    <xme:hbKealamZarT8IR3QwWPoiALGQU9To0mtsESMXkwzRgxuFsBe8B0QC977mCCroBSs
-    nedqS5waRNaPRZP8z7K9Fb4OVG9uR9YMGPorjJYb34RySbK2mUCbzMQ>
-X-ME-Received: <xmr:hbKeaoFPpz9g8hSTpz38F6azjlkokWTfO43ToQiiyzvF5G2sVBcu9dNp1zM6HcTR3V3oSVB5ibAm9eQ5bXU5RX8JnxUQj_U>
-X-ME-Proxy-Cause: dmFkZTFlWnRzE/nO08MUvXUw+jm7MOI5FRBgN/06urbObTfasVnk1SjT+FfcdKOAw+MqAM
-    d+6s+IyFOkYb/EQq7BBAQJJSyrIEHC32bS9vWQrr2zC5y+RHoyzEP0b4nIrNYAZNWSKK2D
-    pd2PjEKMMQX1saJrfGP1d44QwCLkmpsUpsuPWXGogxXe04PO9UbF9ZycyWnnW+5vjBujSa
-    NeNq657K+1Na5tH1OVpSSo1RNouPIiQK8IdJwP+/yiDofe2QRCj2aWLjwtWubfUzmXvUf1
-    eTSFFeLEUCVFg+U09u1Gs/QsU2FRKzYZfF3S/kQsmtULw5uR2ypjv/n1wKHmAagVTV/8V6
-    727sZRQNiMZVAnzDxaeaCLxc0q322xfgQOVoRmz71Nq81eML0M5GvonSQk0/Vda1YRBlUW
-    SHVQumJv+Xz9I6L5g8BcMAiVvLjIiHxqKoP3z9TECgwJaxLfgYwqq1qVyTuOmvzA1/K6JI
-    pXssZkSWl3Zxv64Dp2J3/IY0jvS10UH1mMavhpb/yn+rXZJELSvVeWK4hl4ENW6JpsC00T
-    QRQ+ZiEPpAvMoMnuM0SXHhLv3R0s7ic4V2j+mLc7srpWWfRnp8grmdOCTvmXPh2M25FLgb
-    ct8p7IQCvZoGHoTeCfdkHdEMgqyRZLo0wyKAC1pA7B2zmRp3kdIljr3mN17A
-X-ME-Proxy: <xmx:hbKeakbBC8XL2eNAtLUmHwnCIPDB2uV0-kwfyRbBRK6RxfLot-xM7w>
-    <xmx:hbKeaswGTLJN8847BtHttRI5A1CLsdJ1KBqn4OUVZkO5p05gf47EJw>
-    <xmx:hbKeamSkjD1iodpOVSeEDA5xEnP_iIrezGWf-RomiXfm5xEeiad06A>
-    <xmx:hbKeapI_hGiL2AjZrQWb-kUopRPKWYzK-4MD4WymDCL2HSf1E9o30w>
-    <xmx:hbKearxuOEqU0tMzAFhWzmKKeW5hJy6xXLwXN-7Cx_taAhOKZ1Gkyq5R>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 08:48:04 -0400 (EDT)
-Date: Mon, 7 Sep 2026 14:48:03 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [PATCH v6 10/11] media: rcar-csi2: Add full streams support
-Message-ID: <20260907124803.GI3497753@ragnatech.se>
-References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
- <20260617-rcar-streams-v6-10-1260eb72dff7@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="HUFrUJJG"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gyQHYq6I80t/nlzkF/8Sj+KfcMcshEtpIFfJ5ePHhyo=;
+	b=HUFrUJJGE6ZvJzgw25EitUVOxPkOVrNUpDeqBe+H8xKesiB6HUJGVaH/QXlDT71uIElaxaE0p
+	Woxm9VOCNHNNV1MIgJ885j6hVMq9SUwQSVRv4XcokUlZ/2Z7f7/H6XVhG+Qx+iPRJyFvwmSIo4N
+	RQULdNFgDcKkTi6H9sU2+aA=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hdmn172Z2zpSvB;
+	Mon,  7 Sep 2026 20:37:41 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id D240D4057F;
+	Mon,  7 Sep 2026 20:49:11 +0800 (CST)
+Received: from [10.67.120.192] (10.67.120.192) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 7 Sep 2026 20:49:10 +0800
+Message-ID: <bfc0de5b-9574-4376-a968-2ea9ea1f06b0@huawei.com>
+Date: Mon, 7 Sep 2026 20:49:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260617-rcar-streams-v6-10-1260eb72dff7@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+CC: <shaojijie@huawei.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-net-drivers@amd.com>,
+	<linux-kselftest@vger.kernel.org>, <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH v2 1/6] net: fix typos in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>, "David S . Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Andrew Lunn
+	<andrew@lunn.ch>, Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
+	<manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman
+	<horms@kernel.org>, Edward Cree <ecree.xilinx@gmail.com>, Shuah Khan
+	<shuah@kernel.org>
+References: <20260907044635.7141-1-hemanth.selam@gmail.com>
+ <20260907044635.7141-2-hemanth.selam@gmail.com>
+From: Jijie Shao <shaojijie@huawei.com>
+In-Reply-To: <20260907044635.7141-2-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
-Hi Tomi,
 
-Thanks for your patch.
+on 2026/9/7 12:46, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-On 2026-06-17 14:55:03 +0300, Tomi Valkeinen wrote:
-> Add the missing pieces to enable full streams support:
-> 
-> - Add set_routing
-> - Drop the explicit uses of a single stream, and instead use the streams
->   mask
-> - Track enabled sink streams so that in rcsi2_irq_thread() we can
->   disable and enable all currently enabled streams
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+For the hns and hns3 driver parts, the changes look good to me. Thanks,
+Reviewed-by: Jijie Shao <shaojijie@huawei.com>
 
 > ---
->  drivers/media/platform/renesas/rcar-csi2.c | 95 ++++++++++++++++++++----------
->  1 file changed, 64 insertions(+), 31 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
-> index 8cd38b4cbc7f..34899e5409da 100644
-> --- a/drivers/media/platform/renesas/rcar-csi2.c
-> +++ b/drivers/media/platform/renesas/rcar-csi2.c
-> @@ -702,6 +702,17 @@ static const struct rcar_csi2_format rcar_csi2_formats[] = {
->  	},
->  };
->  
-> +static const struct v4l2_mbus_framefmt rcar_csi2_default_fmt = {
-> +	.width		= 1920,
-> +	.height		= 1080,
-> +	.code		= MEDIA_BUS_FMT_RGB888_1X24,
-> +	.colorspace	= V4L2_COLORSPACE_SRGB,
-> +	.field		= V4L2_FIELD_NONE,
-> +	.ycbcr_enc	= V4L2_YCBCR_ENC_DEFAULT,
-> +	.quantization	= V4L2_QUANTIZATION_DEFAULT,
-> +	.xfer_func	= V4L2_XFER_FUNC_DEFAULT,
-> +};
-> +
->  static const struct rcar_csi2_format *rcsi2_code_to_fmt(unsigned int code)
->  {
->  	unsigned int i;
-> @@ -773,7 +784,7 @@ struct rcar_csi2 {
->  
->  	int channel_vc[4];
->  
-> -	int stream_count;
-> +	u64 enabled_sink_streams_mask;
->  
->  	bool cphy;
->  	unsigned short lanes;
-> @@ -1883,29 +1894,32 @@ static int rcsi2_enable_streams(struct v4l2_subdev *sd,
->  				u64 source_streams_mask)
->  {
->  	struct rcar_csi2 *priv = sd_to_csi2(sd);
-> -	int ret = 0;
-> -
-> -	if (source_streams_mask != 1)
-> -		return -EINVAL;
-> +	u64 sink_streams;
-> +	int ret;
->  
->  	if (!priv->remote)
->  		return -ENODEV;
->  
-> -	if (priv->stream_count == 0) {
-> +	if (!priv->enabled_sink_streams_mask) {
->  		ret = rcsi2_start(priv, state);
->  		if (ret)
->  			return ret;
->  	}
->  
-> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
-> +						       source_pad,
-> +						       RCAR_CSI2_SINK,
-> +						       &source_streams_mask);
-> +
->  	ret = v4l2_subdev_enable_streams(priv->remote, priv->remote_pad,
-> -					 BIT_ULL(0));
-> +					 sink_streams);
->  	if (ret) {
-> -		if (priv->stream_count == 0)
-> +		if (!priv->enabled_sink_streams_mask)
->  			rcsi2_stop(priv);
->  		return ret;
->  	}
->  
-> -	priv->stream_count += 1;
-> +	priv->enabled_sink_streams_mask |= sink_streams;
->  
->  	return ret;
->  }
-> @@ -1915,23 +1929,26 @@ static int rcsi2_disable_streams(struct v4l2_subdev *sd,
->  				 u32 source_pad, u64 source_streams_mask)
->  {
->  	struct rcar_csi2 *priv = sd_to_csi2(sd);
-> +	u64 sink_streams;
->  	int ret;
->  
-> -	if (source_streams_mask != 1)
-> -		return -EINVAL;
-> -
->  	if (!priv->remote)
->  		return -ENODEV;
->  
-> -	if (priv->stream_count == 1)
-> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
-> +						       source_pad,
-> +						       RCAR_CSI2_SINK,
-> +						       &source_streams_mask);
-> +
-> +	if (priv->enabled_sink_streams_mask == sink_streams)
->  		rcsi2_stop(priv);
->  
->  	ret = v4l2_subdev_disable_streams(priv->remote, priv->remote_pad,
-> -					  BIT_ULL(0));
-> +					  sink_streams);
->  	if (ret)
->  		return ret;
->  
-> -	priv->stream_count -= 1;
-> +	priv->enabled_sink_streams_mask &= ~sink_streams;
->  
->  	return 0;
->  }
-> @@ -1966,6 +1983,34 @@ static int rcsi2_set_pad_format(struct v4l2_subdev *sd,
->  	return 0;
->  }
->  
-> +static int rcsi2_set_routing(struct v4l2_subdev *sd,
-> +			     struct v4l2_subdev_state *state,
-> +			     enum v4l2_subdev_format_whence which,
-> +			     struct v4l2_subdev_krouting *routing)
-> +{
-> +	struct rcar_csi2 *priv = sd_to_csi2(sd);
-> +	int ret;
-> +
-> +	if (priv->info->use_isp) {
-> +		ret = v4l2_subdev_routing_validate(sd, routing,
-> +						   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1);
-> +	} else {
-> +		ret = v4l2_subdev_routing_validate(sd, routing,
-> +						   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1 |
-> +						   V4L2_SUBDEV_ROUTING_NO_SOURCE_MULTIPLEXING);
-> +	}
-> +
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = v4l2_subdev_set_routing_with_fmt(sd, state, routing,
-> +					       &rcar_csi2_default_fmt);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
->  static int rcsi2_get_frame_desc_fallback(struct v4l2_subdev *sd,
->  					 unsigned int pad,
->  					 struct v4l2_mbus_frame_desc *fd)
-> @@ -2045,6 +2090,7 @@ static const struct v4l2_subdev_pad_ops rcar_csi2_pad_ops = {
->  	.set_fmt = rcsi2_set_pad_format,
->  	.get_fmt = v4l2_subdev_get_fmt,
->  
-> +	.set_routing = rcsi2_set_routing,
->  	.get_frame_desc = rcsi2_get_frame_desc,
->  };
->  
-> @@ -2065,17 +2111,6 @@ static int rcsi2_init_state(struct v4l2_subdev *sd,
->  		},
->  	};
->  
-> -	static const struct v4l2_mbus_framefmt rcar_csi2_default_fmt = {
-> -		.width		= 1920,
-> -		.height		= 1080,
-> -		.code		= MEDIA_BUS_FMT_RGB888_1X24,
-> -		.colorspace	= V4L2_COLORSPACE_SRGB,
-> -		.field		= V4L2_FIELD_NONE,
-> -		.ycbcr_enc	= V4L2_YCBCR_ENC_DEFAULT,
-> -		.quantization	= V4L2_QUANTIZATION_DEFAULT,
-> -		.xfer_func	= V4L2_XFER_FUNC_DEFAULT,
-> -	};
-> -
->  	static const struct v4l2_subdev_krouting routing = {
->  		.num_routes = ARRAY_SIZE(routes),
->  		.routes = routes,
-> @@ -2120,13 +2155,13 @@ static irqreturn_t rcsi2_irq_thread(int irq, void *data)
->  
->  	state = v4l2_subdev_lock_and_get_active_state(&priv->subdev);
->  
-> -	if (priv->stream_count == 0)
-> +	if (!priv->enabled_sink_streams_mask)
->  		goto out;
->  
->  	rcsi2_stop(priv);
->  
->  	ret = v4l2_subdev_disable_streams(priv->remote, priv->remote_pad,
-> -					  BIT_ULL(0));
-> +					  priv->enabled_sink_streams_mask);
->  	if (ret) {
->  		dev_warn(priv->dev,
->  			 "Error recovery: failed to disable streams: %d\n",
-> @@ -2145,7 +2180,7 @@ static irqreturn_t rcsi2_irq_thread(int irq, void *data)
->  	}
->  
->  	ret = v4l2_subdev_enable_streams(priv->remote, priv->remote_pad,
-> -					 BIT_ULL(0));
-> +					 priv->enabled_sink_streams_mask);
->  	if (ret) {
->  		dev_warn(priv->dev,
->  			 "Error recovery: failed to start streams: %d\n",
-> @@ -2748,8 +2783,6 @@ static int rcsi2_probe(struct platform_device *pdev)
->  
->  	priv->dev = &pdev->dev;
->  
-> -	priv->stream_count = 0;
-> -
->  	ret = rcsi2_probe_resources(priv, pdev);
->  	if (ret) {
->  		dev_err(priv->dev, "Failed to get resources\n");
-> 
-> -- 
-> 2.43.0
-> 
+>   drivers/net/dsa/bcm_sf2_cfp.c                          |  2 +-
+>   drivers/net/dsa/microchip/ksz_dcb.c                    |  2 +-
 
--- 
-Kind Regards,
-Niklas Söderlund
+...
+
+>   		pause_aneg_en:1,
+> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
+> index 91391a49fcea..a59fd280a045 100644
+> --- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
+> +++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c
+> @@ -591,7 +591,7 @@ static int hns_mac_config_sds_loopback(struct hns_mac_cb *mac_cb, bool en)
+>   #define HILINK_ACCESS_SEL_CFG		0x40008
+>   			/* hilink4 & hilink3 use the same xge training and
+>   			 * xge u adaptor. There is a hilink access sel cfg
+> -			 * register to select which one to be configed
+> +			 * register to select which one to be configured
+>   			 */
+>   			if ((!HNS_DSAF_IS_DEBUG(mac_cb->dsaf_dev)) &&
+>   			    (mac_cb->mac_id <= 3))
+> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
+> index 5013beb4d282..408d36d85fb1 100644
+> --- a/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
+> +++ b/drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c
+> @@ -139,7 +139,7 @@ static void hns_ppe_set_vlan_strip(struct hns_ppe_cb *ppe_cb, int en)
+>   }
+>   
+>   /**
+> - * hns_ppe_checksum_hw - set ppe checksum caculate
+> + * hns_ppe_checksum_hw - set ppe checksum calculate
+>    * @ppe_cb: ppe device
+>    * @value: value
+>    */
+> diff --git a/drivers/net/ethernet/hisilicon/hns/hns_enet.c b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+> index e905f10b894e..d819d2bb3450 100644
+> --- a/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+> +++ b/drivers/net/ethernet/hisilicon/hns/hns_enet.c
+> @@ -1230,7 +1230,7 @@ static void hns_nic_update_stats(struct net_device *netdev)
+>   	h->dev->ops->update_stats(h, &netdev->stats);
+>   }
+>   
+> -/* set mac addr if it is configed. or leave it to the AE driver */
+> +/* set mac addr if it is configured. or leave it to the AE driver */
+>   static void hns_init_mac_addr(struct net_device *ndev)
+>   {
+>   	struct hns_nic_priv *priv = netdev_priv(ndev);
+> @@ -2317,7 +2317,7 @@ static int hns_nic_dev_probe(struct platform_device *pdev)
+>   		ret = device_property_read_u32(dev, "port-id", &port_id);
+>   		if (ret)
+>   			goto out_read_prop_fail;
+> -		/* for old dts, we need to caculate the port offset */
+> +		/* for old dts, we need to calculate the port offset */
+>   		port_id = port_id < HNS_SRV_OFFSET ? port_id + HNS_DEBUG_OFFSET
+>   			: port_id - HNS_SRV_OFFSET;
+>   	}
+> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+> index e6af939c1c19..bf35f55f5b8f 100644
+> --- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+> @@ -10527,7 +10527,7 @@ static int hclge_get_link_diagnosis_info(struct hnae3_handle *handle,
+>   }
+>   
+>   /* After disable sriov, VF still has some config and info need clean,
+> - * which configed by PF.
+> + * which configured by PF.
+>    */
+>   static void hclge_clear_vport_vf_info(struct hclge_vport *vport, int vfid)
+>   {
+> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
+> index 00c3f2548bf6..bf533b8f46ae 100644
+> --- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
+> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c
+> @@ -35,7 +35,7 @@ enum hclge_shaper_level {
+>    * IR(Mbps) = -------------------------  *  CLOCK(1000Mbps)
+>    *		Tick * (2 ^ IR_s)
+>    *
+> - * @return: 0: calculate sucessful, negative: fail
+> + * @return: 0: calculate successful, negative: fail
+>    */
+>   static int hclge_shaper_para_calc(u32 ir, u8 shaper_level,
+>   				  struct hclge_shaper_ir_para *ir_para,
+> diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
+> index 063a692c2b41..5d14d29b0296 100644
+> --- a/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
+> +++ b/drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c
+> @@ -1880,7 +1880,7 @@ static void hclgevf_reset_service_task(struct hclgevf_dev *hdev)
+>   		 * from PF as cmdq would be in unreliable state i.e. mailbox
+>   		 * communication between PF and VF would be broken.
+>   		 *
+> -		 * if we are never geting into pending state it means either:
+> +		 * if we are never getting into pending state it means either:
+>   		 * 1. PF is not receiving our request which could be due to IMP
+>   		 *    reset
+>   		 * 2. PF is screwed
+
+...
+
