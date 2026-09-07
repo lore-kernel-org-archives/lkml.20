@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6A1013F104F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:50:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A18703ED3BA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753046; cv=none; b=NZ0JOcLXn/TbBnCxVzu42OCFRIT7kKnviSNFuJ4atNIv+uB7QugMBfQqtQa9m3lymz7DoxwoQVO8+Vfg5iEjy42/Lzm/WNSQjEiuKwqdKwLd+ZEUUBp7DhjhN4cvZC8KxVoO4H+rzH34nCdaW0KYKoHYUkc5OCVkWJVxdXd938w=
+	t=1788753051; cv=none; b=qoZhu8+pTJlTc+QpPQCGNVoEUl90sphZfl5HJfGzZRSxxb/gRGLTC8k1DzjiEbJ3JGz6DMGd6Z87+wMCNUnwfKZ3X1/BYAGkSvXCjL6h7XZFdPfDSXh53Jp+cquXenwFYVsIx1CBfcztEjTWbDnmPeMwB4qHVerySHr6iAzgVIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753046; c=relaxed/simple;
-	bh=3yn6gSsOXRoyaBz1CARO0jyrfcLMBCzmt7csYw/Fkvk=;
+	s=arc-20240116; t=1788753051; c=relaxed/simple;
+	bh=mxuT7trp1ApTgSVX4oHgcsRIN1m6b9BgozIHOrKR1EA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QP+xN8urV70j90nu43w47WJvU0WMZb3gkOMq09d1cefPqqVRgoW8Oq6UQT7n1WSjgIQglTh7rM1XCxXzbte3mbZuQZuukjeVDowz3VGL6vpIuJORBfC9Eeqbsq1PhMw5GIGEsOt1D3rre0RY/it+h49YuPB/uJygedAmhptjyz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LW2jt5b0; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=JCxNCx6xFUYPRXVCzYu4mGyU/ozGCJfewOPAsMu89X/hX63r2+W5kfwsXJF4imZO+QzpaX2LVWAsUk9B6D/1B5hTZu0Ozj869obJmVOclliyFAtbNbO7M9/5bFgYcLeYqxO/RjSttXv10jtsbyeYuqpErvWfd9n3pYptKCKHt14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FY/dl/yz; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LW2jt5b0"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FY/dl/yz"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 945811516;
-	Sun,  6 Sep 2026 20:50:34 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 397EC1477;
+	Sun,  6 Sep 2026 20:50:42 -0700 (PDT)
 Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 89B773F7B4;
-	Sun,  6 Sep 2026 20:50:37 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2FA7E3F7B4;
+	Sun,  6 Sep 2026 20:50:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788753038; bh=3yn6gSsOXRoyaBz1CARO0jyrfcLMBCzmt7csYw/Fkvk=;
+	t=1788753045; bh=mxuT7trp1ApTgSVX4oHgcsRIN1m6b9BgozIHOrKR1EA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LW2jt5b0BLThiRONOynNfF1FBuy3s6vy0IP2y1G8Ho9rA3Rexh4127PHoDgS9FR98
-	 ZDfgStQaqGpdqFi3z28eNV4z53rIyzJ5VwrpgP/WMoKM3iCdUA0Gjq3CKdnnc0WvyA
-	 DOD/Cgke+1nc0Oi/K3jQrqX5CVCODcbUyP+HNuEs=
+	b=FY/dl/yzk9KpGi6X+UbeUc4pMhX7cBqWiiGAe7E7rqPNhPI2JJmNjvO4oJOoANJwi
+	 e4/vDeO1cADKeq983cahV1Vwor9bXY8kPPJOPael7133LRm23AJ2le9iagrrKEuS4P
+	 J7Rt3c7sXHcfdFyA34V4X+bqRHvRLaq+iDaMtY14=
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
@@ -39,11 +39,10 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
 	Mike Rapoport <rppt@kernel.org>,
 	Linu Cherian <linu.cherian@arm.com>,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Subject: [PATCH V2 01/14] mm: Add read-write accessors for vm_page_prot
-Date: Mon,  7 Sep 2026 09:20:16 +0530
-Message-ID: <20260907035030.2839978-2-anshuman.khandual@arm.com>
+	linux-mm@kvack.org
+Subject: [PATCH V2 03/14] arm64/mm: Route all pgtable writes via ptval_set()
+Date: Mon,  7 Sep 2026 09:20:18 +0530
+Message-ID: <20260907035030.2839978-4-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907035030.2839978-1-anshuman.khandual@arm.com>
 References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
@@ -55,117 +54,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently vma->vm_page_prot is safely read from and written to, without any
-locks with READ_ONCE() and WRITE_ONCE(). But with introduction of D128 page
-tables on arm64 platform, vm_page_prot grows to 128 bits which can't safely
-be handled with READ_ONCE() and WRITE_ONCE().
+Currently ptval_set() is defined as WRITE_ONCE() but this will change for
+D128 pgtable builds, for which WRITE_ONCE() is not sufficient for single
+copy atomicity.
 
-Add read and write accessors for vm_page_prot like pgprot_[read|write]()
-which any platform can override when required, although still defaulting as
-READ_ONCE() and WRITE_ONCE(), thus preserving the functionality for others.
+In future this infrastructure can be used for D128 to maintain single copy
+atomicity semantics with inline asm blocks.
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: linux-mm@kvack.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- include/linux/pgtable.h | 14 ++++++++++++++
- mm/huge_memory.c        |  4 ++--
- mm/memory.c             |  2 +-
- mm/migrate.c            |  2 +-
- mm/mmap.c               |  2 +-
- 5 files changed, 19 insertions(+), 5 deletions(-)
+ arch/arm64/include/asm/pgtable.h | 11 ++++++-----
+ arch/arm64/mm/mmu.c              |  4 ++--
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index e3c8ab96941c..0df57a5c19ef 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -524,6 +524,20 @@ static inline pgd_t pgdp_get(pgd_t *pgdp)
+diff --git a/arch/arm64/include/asm/pgtable.h b/arch/arm64/include/asm/pgtable.h
+index f764132ca34e..692669ea2d29 100644
+--- a/arch/arm64/include/asm/pgtable.h
++++ b/arch/arm64/include/asm/pgtable.h
+@@ -85,6 +85,7 @@ static inline void arch_leave_lazy_mmu_mode(void)
  }
- #endif
  
-+#ifndef pgprot_read
-+static inline pgprot_t pgprot_read(pgprot_t *prot)
-+{
-+	return READ_ONCE(*prot);
-+}
-+#endif
-+
-+#ifndef pgprot_write
-+static inline void pgprot_write(pgprot_t *prot, pgprot_t val)
-+{
-+	WRITE_ONCE(*prot, val);
-+}
-+#endif
-+
- #ifndef __HAVE_ARCH_PTEP_TEST_AND_CLEAR_YOUNG
- static inline bool ptep_test_and_clear_young(struct vm_area_struct *vma,
- 		unsigned long address, pte_t *ptep)
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ced400f72d43..33753bffead4 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -3391,7 +3391,7 @@ static void __split_huge_pmd_locked(struct vm_area_struct *vma, pmd_t *pmd,
- 	} else {
- 		pte_t entry;
+ #define ptval_get(x)		READ_ONCE(x)
++#define ptval_set(x, val)	WRITE_ONCE(x, val)
  
--		entry = mk_pte(page, READ_ONCE(vma->vm_page_prot));
-+		entry = mk_pte(page, pgprot_read(&vma->vm_page_prot));
- 		if (write)
- 			entry = pte_mkwrite(entry, vma);
- 		if (!young)
-@@ -5103,7 +5103,7 @@ void remove_migration_pmd(struct page_vma_mapped_walk *pvmw, struct folio *folio
+ #define pmdp_get pmdp_get
+ static inline pmd_t pmdp_get(pmd_t *pmdp)
+@@ -386,7 +387,7 @@ static inline pte_t pte_clear_uffd(pte_t pte)
  
- 	entry = softleaf_from_pmd(*pvmw->pmd);
- 	folio_get(folio);
--	pmde = folio_mk_pmd(folio, READ_ONCE(vma->vm_page_prot));
-+	pmde = folio_mk_pmd(folio, pgprot_read(&vma->vm_page_prot));
+ static inline void __set_pte_nosync(pte_t *ptep, pte_t pte)
+ {
+-	WRITE_ONCE(*ptep, pte);
++	ptval_set(*ptep, pte);
+ }
  
- 	if (pmd_swp_soft_dirty(*pvmw->pmd))
- 		pmde = pmd_mksoft_dirty(pmde);
-diff --git a/mm/memory.c b/mm/memory.c
-index aa6b2fc770fc..fcea6098efb2 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -939,7 +939,7 @@ static void restore_exclusive_pte(struct vm_area_struct *vma,
- 
- 	VM_WARN_ON_FOLIO(!folio_test_locked(folio), folio);
- 
--	pte = pte_mkold(mk_pte(page, READ_ONCE(vma->vm_page_prot)));
-+	pte = pte_mkold(mk_pte(page, pgprot_read(&vma->vm_page_prot)));
- 	if (pte_swp_soft_dirty(orig_pte))
- 		pte = pte_mksoft_dirty(pte);
- 
-diff --git a/mm/migrate.c b/mm/migrate.c
-index 15b45832bcfa..579152cce502 100644
---- a/mm/migrate.c
-+++ b/mm/migrate.c
-@@ -387,7 +387,7 @@ static bool remove_migration_pte(struct folio *folio,
- 
- 		folio_get(folio);
- 		new = folio_page(folio, idx);
--		pte = mk_pte(new, READ_ONCE(vma->vm_page_prot));
-+		pte = mk_pte(new, pgprot_read(&vma->vm_page_prot));
- 		if (!softleaf_is_migration_young(entry))
- 			pte = pte_mkold(pte);
- 		if (folio_test_dirty(folio) && softleaf_is_migration_dirty(entry))
-diff --git a/mm/mmap.c b/mm/mmap.c
-index 4bf26b0f1e6e..729bc244b317 100644
---- a/mm/mmap.c
-+++ b/mm/mmap.c
-@@ -89,7 +89,7 @@ void vma_set_page_prot(struct vm_area_struct *vma)
- 		vm_page_prot = vma_pgprot_modify(vm_page_prot, vma_flags);
+ static inline void __set_pte_complete(pte_t pte)
+@@ -809,7 +810,7 @@ static inline void set_pmd(pmd_t *pmdp, pmd_t pmd)
  	}
- 	/* remove_protection_ptes reads vma->vm_page_prot without mmap_lock */
--	WRITE_ONCE(vma->vm_page_prot, vm_page_prot);
-+	pgprot_write(&vma->vm_page_prot, vm_page_prot);
+ #endif /* __PAGETABLE_PMD_FOLDED */
+ 
+-	WRITE_ONCE(*pmdp, pmd);
++	ptval_set(*pmdp, pmd);
+ 
+ 	if (pmd_valid(pmd))
+ 		queue_pte_barriers();
+@@ -871,7 +872,7 @@ static inline void set_pud(pud_t *pudp, pud_t pud)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*pudp, pud);
++	ptval_set(*pudp, pud);
+ 
+ 	if (pud_valid(pud))
+ 		queue_pte_barriers();
+@@ -950,7 +951,7 @@ static inline void set_p4d(p4d_t *p4dp, p4d_t p4d)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*p4dp, p4d);
++	ptval_set(*p4dp, p4d);
+ 	queue_pte_barriers();
  }
  
- /*
+@@ -1075,7 +1076,7 @@ static inline void set_pgd(pgd_t *pgdp, pgd_t pgd)
+ 		return;
+ 	}
+ 
+-	WRITE_ONCE(*pgdp, pgd);
++	ptval_set(*pgdp, pgd);
+ 	queue_pte_barriers();
+ }
+ 
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 46ff9a92e73a..44af53dc9ba8 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -75,7 +75,7 @@ void noinstr set_swapper_pgd(pgd_t *pgdp, pgd_t pgd)
+ 	 * writable in the kernel mapping.
+ 	 */
+ 	if (rodata_is_rw) {
+-		WRITE_ONCE(*pgdp, pgd);
++		ptval_set(*pgdp, pgd);
+ 		dsb(ishst);
+ 		isb();
+ 		return;
+@@ -83,7 +83,7 @@ void noinstr set_swapper_pgd(pgd_t *pgdp, pgd_t pgd)
+ 
+ 	spin_lock(&swapper_pgdir_lock);
+ 	fixmap_pgdp = pgd_set_fixmap(__pa_symbol(pgdp));
+-	WRITE_ONCE(*fixmap_pgdp, pgd);
++	ptval_set(*fixmap_pgdp, pgd);
+ 	/*
+ 	 * We need dsb(ishst) here to ensure the page-table-walker sees
+ 	 * our new entry before set_p?d() returns. The fixmap's
 -- 
 2.43.0
 
