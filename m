@@ -1,62 +1,64 @@
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C015D4756C4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13EFB45D19F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782457; cv=none; b=MiGw8wI9y6+Oqqp8t2wD0IKPeSF/bA2ZwdFDOCapDXiRrB2LjpCfncuBHS+kaz8CPhHxTsY/BJgV72aS6xABaSes+cD4gp/Fl9JfhIpScGVmlCE1etITbpeTNVqw0xjBK23JiIF+QoFpdDB/ktdaWbvMdNWYH6TNHalQKMY7Ncs=
+	t=1788782465; cv=none; b=gDgOJTnINM9J7H16neCatoLCVLWVFPdm5XTs7j0stZ2FpX7sb60AyF0SIOEpLnotlqojo7PBKQxbl8egSRLuetfdXrlO8RKGM12CZP8pY/bKidZhMAkZ4meYd85YlekH069PDKnwJRgK1UulGdJ7SF+6ASKnnZYGBJV6kevW9MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782457; c=relaxed/simple;
-	bh=h+Kh8E3B9cClVtp2kBnxMFwcb6cfCI06S4hH9JR3j0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BZHCxybIh3lndMkPIvkqR7h4xtRcFviF1LfDQztn70coCE3609XQA+RhMV3epWmedJhE/FGW2fJRR5iINTZF3tH06C2PnRy14dEBPev8rJpM5FcmEeGt5z2kQdC93w/AK1cg84UwiY3yIABC7VtbQX3JSZGdRyr4fA8k4Qa+Eek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qa9hLRnH; arc=none smtp.client-ip=209.85.210.47
+	s=arc-20240116; t=1788782465; c=relaxed/simple;
+	bh=pXIKNBJZ7VpWZJHYVm5d/JqZ2uDmSW/zMvrAvNFtAkI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iEdsU6gnIYb2+8mcaMibf/wXGLpgNpDsTtU+xuOeUfgK69+vtzAaCF/Lr/1AhKhFlUEp1wtH/9u6Kn0LgyW+umg3TpohQ9TQWi1BXBU7pWvwFS6Ok0B4YOCVNOw76ezi/txv9zNOG3B3N06mXTr9Rg4jWH5PLut2Iv4ndTwXdiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FjXhYYma; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qa9hLRnH"
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7f4ea388ba6so3322155a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:00:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FjXhYYma"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d91ff7d9acso29000925ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782454; x=1789387254; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jE91T1YbcHjh2wKlRe2CKmWmk4DasShLxHNl5T/s+ds=;
-        b=qa9hLRnH8KTotU++6Abntr/U7PtE4EUsLnC8qBLzzETBcFszxpWYBGxA8es1dQWNlk
-         fOEx9XpkG3SY/0hb2qHXLIejfkNYWkSYZQD7ioK+ZyzBK4Qw5KFklDBmrtBu/VWIs6oy
-         4OOKrzESANPFa/cLHQZuD+3u7pq+ouUtrikpLISY+KP0VM1E0gDhPxzO0p5rBe6pLzx5
-         I919vVd5pPOS56tRuK2L9IKqKKeifo7BKWDCrhW9OsXf08XFGaek5UrOOzJ6QFyHG7Jn
-         MUG2oSgxghfypy+6jiWS5GgECPGYf59bmbHtnwgVv7FNGf8Hb3Fzl5tajL7SsZaA6Dxg
-         TSvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782454; x=1789387254;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788782463; x=1789387263; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jE91T1YbcHjh2wKlRe2CKmWmk4DasShLxHNl5T/s+ds=;
-        b=meRRZoOG7HTXXWMwP6aa6HGwkuAoWMUMREiXJHn87IRVUiaymVprbr5APC829TrzeI
-         A6OYiqGYXc/Xjark2mecTh+7HDcA7A+8ksSid9hhlpyZ+ZxBU1yswohhOuH7D9MU4QyV
-         q6qGXq/EG2JfU9gUgroWjxfB2UrLVscS1rQ04dqTHJdI3aA/NZqz0j0gjss4f3ea1f6J
-         M0l70SxTGii7ZtlTbdgwU87eKIN+2Y1jJX16nSNW4aZBrQUV47xO973bqtnjLsUjK5eL
-         g7meIkJH9w4MgDvAgAaYUnpnrenkfCo8LO9948Jk5tx+pX8mlqpGGHgxuAt7poIBTHMD
-         xnOg==
-X-Forwarded-Encrypted: i=1; AKwUvByUMMBLi7KLhm5t4Hg/0rn5sTm0WQDNlq6NpOQGZQInYb6C6hqUikvIIXpmIxARTsFn8ktiItphLftpvWg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kopFfgyGM8quBrbaraJx+C92YtOi73iT+/6AnSvchbJfav5t7+
-	56RaBWOhnBA/D+Odqp/4EYYC/rQfXG7MBPCpAjiKyOg25FSQy6hbYQ7d
-X-Gm-Gg: AYBFou2aJ55zylNrSugZKq5e3q1n8pjtyH5BX0L50VbbF/h+IXRHWLoWLTGFhmBRLAY
-	1T89J+y9hdTwiYu+n+l8QNWUWmgbwOhmY/L0OphBe6PznivRs2BAuJyppASeLk7Ec1O4G0zuQrS
-	VmlZj50d5lf4uw50LN7JjGHMn5PxZhXyMV7xp4C12nq9964JuAzLtCHST87zMK+4YxhU0HVez91
-	rXrfD/yVMaqjXQV+JNTKYlOiBrTWwGI7TzkOa9yS8xnqBscf4FrpvMFl8mW79axa0KlSN57HXnX
-	Y1ulZiDMgdG7/UqrdHMMVeb6BYlNOjfSyktt2vO8ChbwJtiyMKgCzgQ2Q0+ciRus2tENjYvH0wf
-	3uvf1USt6dNpeLS7TCUyxB7cZja+odNgQfD5uEDutfs8bn9eY5ceAp1TGsavSA09iOxKAKmVIH8
-	4tKCz//k4IOjXOODxbvit7cJ+w+0XQJd07wTblfDqqZ3c9GFocbmgVifRsrmW8uyatRdYoZ3xih
-	k7YTbElVD1FPQ==
-X-Received: by 2002:a05:6830:4424:b0:7fa:5c49:5243 with SMTP id 46e09a7af769-7fa5c4954c8mr12688858a34.28.1788782454447;
-        Mon, 07 Sep 2026 05:00:54 -0700 (PDT)
+        bh=CjnURsU06dXJhEmQk8UgpVeNwhEKlwAdFOshlqNlRoY=;
+        b=FjXhYYmaEauGGLqYWyyOJ4/1TC8ANJ74Q6/9Nj71oEAfnQSQ30dnWvkZjY+AfGgN/X
+         GVkwV7JSgmUdMLSbloQ5YCnjkxV3M7QOceat8zEoHXxL1dWbaiEGcCMHEXmgKWLU7Gvj
+         ThBbirWM4mRg6IibmJC77Ei3CVlRAiQ023ZDyk9Salpi2uhKjiBkXgc0LL3hSA979aO7
+         y44od5gCv39+fodKg7VIdSVbnKgV/ZsxUwA0xPGTWvHd3qEicirEmRI7jwyf+VNFw9K1
+         bTsRz0qnE7Ai24oH3GaTeE+RsTygeF2XX9eCH+KrKq8YdMhdKbXuyirTLwZvGqOMO9dN
+         62Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788782463; x=1789387263;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CjnURsU06dXJhEmQk8UgpVeNwhEKlwAdFOshlqNlRoY=;
+        b=JpfUnNh261MjwrczmRx9r/3mh0e5H7sWtb09TgDoxjnnabEM1sIsIojsauIGOyB7wS
+         VtAs9WhWYSXQ+03TbbJ2rkG7YmJa44UdmWdB5svbE2Gx9OlEth2c8syUgd+97POuH+1Q
+         p94vxqumuiYZ+8mwRJ1ovJs6shBpg60cZf8ntzIUO4B9Ov+341GeYUcSIaWKN6Du3VEP
+         QrP4YraZfSKFVXexigL7XSq0RKvnfnsHZBrhHhwmIyNe9ScHQb7dF9hx4Js1Fg4ljrY0
+         xFrU4FBbWyQLkWIJq0vXbMw2IvY2SrNmeqOS2IRzYDU3+pkjpCsdRlqtqrvfjH1813gO
+         TPxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVMHhODXROk3pLQz4EHjyvUz4IoyCUYsvnrk6v/SfOgUPKa8fy4UL2Qt+77RalyAQrtoJJvwLhRrpOl24=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDocHVLO7Q2R/t8Pm5t7w66Bo51kW7GqtGxmHpBFNKdGHCzlnk
+	IVvVaL84W+Rylt9OeQvWkIsZe8GEDNRWeT1ClH4tUGjkcRbplpanWBq/
+X-Gm-Gg: AYBFou2Bx/QiVw+dsEjRvooXY3H3Gp1t3eX+utGS2/iX3692Dq8ms9snGG1sZqzPYKy
+	VWgF9NcHiF+uL0pHk4xbsx3BdRVsEUpTPrxV7hfWStEO4VAnA2MEmKuZS8xh986oztP5GGVwnHi
+	PBLYKw5y/JHo6VDavIQ38HS9zzhyQjLo96r5broS0Pcfxj7emX/SLDvDqIKIwwfXudc59AyNWiQ
+	kMbhFNK1boeA8WLDYF81qRS9MAANxBx0AFzmVWV0oh0cDv/GgnqBYCiTiFDvp2Dy8HtOmOWArb7
+	yVsUVB6nlgJ5FHAK8lJHmHiBOQDmZbVjSatu+cN0ZZs3qgoADPkduwQaqrFkxzMaJ4rf8HOnvoF
+	C29l2XtG6Ajo4ug5/jTT9eOOY3408kA2BZBwWsZAxlJfxqTw9AvVlCxY6uAV/qVCdsnreXxQB7T
+	3IKsLWLZXwbM0NStvoR7y3hyXdo/xh36nJbj0nxhHEtvKNIeEMRU6XEHeQdIVf83iJ2ore4Qh9N
+	8rNFPH3mAzMrA==
+X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr35003952a91.1.1788782463059;
+        Mon, 07 Sep 2026 05:01:03 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm31244462eec.1.2026.09.07.05.00.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm31244462eec.1.2026.09.07.05.00.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:00:54 -0700 (PDT)
+        Mon, 07 Sep 2026 05:01:02 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Alexei Starovoitov <ast@kernel.org>,
 	Daniel Borkmann <daniel@iogearbox.net>,
@@ -87,10 +89,12 @@ Cc: bpf@vger.kernel.org,
 	linuxppc-dev@lists.ozlabs.org,
 	linux-kselftest@vger.kernel.org,
 	sparclinux@vger.kernel.org
-Subject: [PATCH bpf-next v3 0/7] bpf: fix typos and repeated words in comments
-Date: Mon,  7 Sep 2026 17:30:36 +0530
-Message-ID: <20260907120043.36894-1-hemanth.selam@gmail.com>
+Subject: [PATCH bpf-next v3 1/7] ARM: net: fix typo "arithmatic" in comment
+Date: Mon,  7 Sep 2026 17:30:37 +0530
+Message-ID: <20260907120043.36894-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260907120043.36894-1-hemanth.selam@gmail.com>
+References: <20260907120043.36894-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,46 +103,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix misspellings and repeated words in comments across the BPF
-code, found with scripts/checkpatch.pl using the misspelling list
-in scripts/spelling.txt.  Comments only, no code changes.
+Correct "arithmatic" to "Arithmetic", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches comments,
+no code changes.
 
-Changes since v2:
- - rebased onto bpf-next; v2 was based on mainline, which is what
-   the BPF CI reported a conflict against
- - dropped the kernel/bpf/stream.c hunk: the comment holding
-   "accomodate" has since been rewritten upstream and the typo is
-   gone, so there is nothing left to fix there
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ arch/arm/net/bpf_jit_32.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes since v1:
- - use the selftests/bpf: and libbpf: subject prefixes that the
-   rest of those directories use, as the BPF CI suggested
-
-Hemanth Selam (7):
-  ARM: net: fix typo "arithmatic" in comment
-  bpf: fix typos in comments
-  powerpc: net: fix typo "upto" in comments
-  selftests/bpf: fix typos in comments
-  sparc: net: fix typo "evalute" in comment
-  libbpf: Fix typos in comments
-  selftests/bpf: fix repeated words in comments
-
- arch/arm/net/bpf_jit_32.c                                    | 2 +-
- arch/powerpc/net/bpf_jit_comp32.c                            | 2 +-
- arch/powerpc/net/bpf_jit_comp64.c                            | 4 ++--
- arch/sparc/net/bpf_jit_asm_32.S                              | 2 +-
- include/linux/filter.h                                       | 4 ++--
- kernel/bpf/reuseport_array.c                                 | 2 +-
- tools/lib/bpf/btf.c                                          | 4 ++--
- tools/lib/bpf/usdt.c                                         | 2 +-
- tools/testing/selftests/bpf/libarena/src/asan.bpf.c          | 2 +-
- tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c       | 2 +-
- tools/testing/selftests/bpf/prog_tests/task_local_data.h     | 2 +-
- tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c | 2 +-
- tools/testing/selftests/bpf/progs/iters.c                    | 2 +-
- tools/testing/selftests/bpf/progs/verifier_var_off.c         | 2 +-
- 14 files changed, 17 insertions(+), 17 deletions(-)
-
+diff --git a/arch/arm/net/bpf_jit_32.c b/arch/arm/net/bpf_jit_32.c
+index 9ede81afbc50..b1c21c014c9c 100644
+--- a/arch/arm/net/bpf_jit_32.c
++++ b/arch/arm/net/bpf_jit_32.c
+@@ -1346,7 +1346,7 @@ static inline void emit_ldsx_r(const s8 dst[], const s8 src,
+ 	arm_bpf_put_reg64(dst, rd, ctx);
+ }
+ 
+-/* Arithmatic Operation */
++/* Arithmetic Operation */
+ static inline void emit_ar_r(const u8 rd, const u8 rt, const u8 rm,
+ 			     const u8 rn, struct jit_ctx *ctx, u8 op,
+ 			     bool is_jmp64) {
 -- 
 2.48.1
 
