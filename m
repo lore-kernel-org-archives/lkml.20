@@ -1,67 +1,55 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-27.mta1.migadu.com [95.215.58.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE3740B0EC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D96391E4E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764494; cv=none; b=Tf7Qiu5JWVDy6q3p1oVEoc/AG3SjKhSg344XHHaNFIfkzPuPVOYtVPjUyC5WVsMm0Xxz2oTRTv6Euzstc1rRJejDHpE3S6y7ONXQYOy4bLybwNnw7noKHeVGKhQ/whPSOws0B0EIgjFr2H6DPQL28up1NmG2mff9f1I5KCSRmcI=
+	t=1788764505; cv=none; b=H3MAOIt9V1gSP1Wzbft3dfQvZirPmQkBddR0QTzYQ3h1+L6nwM9PrFJXb3np5lcx/eHGvmXAH9IOTgnWGrNB6pBXkiFZLC5wdqi64OhIqZnOiwcGT6ANX6Fiq4pAK17lY4uvKLadSl/pEft2BEpZ4nA7aRcak0WYrmiI3CwLWjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764494; c=relaxed/simple;
-	bh=zrmMfOpFgo5lsSFH9n0iqP6ZjbtyDeS4CYQdIBFaPEg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mAmgOrqlMOK+9MGRSqy2J0qMSnUkdknjsS/DmMLI+md22+I0l7APAkQSaCIr9N5mR+6AYDv40EnjVUz8hwIgoJVatWBnfrMEstx28brTwneF0MrNNm5TVCo71pyzQFdAIxNsDByNQ6dyKvNkmh0B+J93tW3g6aQfYMRg+jxeAts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tWgMKxGw; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788764505; c=relaxed/simple;
+	bh=U/axjWQAfQSFNwOk+gQLgXnGQvfOgoP7MHtzfv1LyiQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ZwljBPxLGh8/M7AGpGtPHWGjsz13za2TL19DYdaV0Iyhx7+ieKnQFfNVR2hGEwrN8mxKz8F4loiEkHVxtz2gIwJvmZ1t9KVItFEVpl74uailRPq1GaQ9D3Qj1p5wGVeDk3pt9hiwuvTijciXRIilZ1+zqEkM5YKeJMYLaaw9hcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WGMKie+k; arc=none smtp.client-ip=95.215.58.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tWgMKxGw"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68741bZv3104714;
-	Mon, 7 Sep 2026 07:01:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=v8di2ReL4fJeqRZ238VxsSIj62HayuEaxotlyw13M
-	Fs=; b=tWgMKxGwsFiXBU9Z4K4mRIJdS0ntDSHxn5k1qrPz5fhyFY2eBxGbbOw9v
-	EQ3n3EMSzyUKB/UqH3vyTU1h9yaNbt5LzB4by9/ywtmXWbNFJ1YzEIZoV5erreH0
-	Hjr22QCy5sCOk5B0aO9vv/TtgSO4e5Kf7MaDTvQ36oV9LRSDkSZgsOTWyomN+Wa+
-	egn9TJdyT14APIgd3bx6LEX61XtGLO34DRxrH64E/yo+1Fs0Wlf7O88AazLYx5Cn
-	BiTQiOEg2bIE3DGyhz63XNyJ3YjXK2U7uel7S2DpIYLH/3RnDR9HUF/06nKO8YcO
-	gDYap0WF0Ta9/s9+o3H9dFHn/4vFQ==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqjq2wu-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 07:01:14 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6876uFJI016207;
-	Mon, 7 Sep 2026 07:01:13 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gh03y47vj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 07:01:13 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 687719IX35062144
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 07:01:09 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C0F3D2004B;
-	Mon,  7 Sep 2026 07:01:09 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D207D2004F;
-	Mon,  7 Sep 2026 07:01:03 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.61.246.56])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  7 Sep 2026 07:01:03 +0000 (GMT)
-From: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org
-Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        chleroy@kernel.org, mkchauras@linux.ibm.com, mkchauras@gmail.com,
-        sshegde@linux.ibm.com, ruanjinjie@huawei.com, ritesh.list@gmail.com,
-        riteshh@linux.ibm.com, venkat88@linux.ibm.com,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH] powerpc/interrupt: Use early_radix_enabled() in NMI real-mode guard
-Date: Mon,  7 Sep 2026 12:30:58 +0530
-Message-ID: <20260907070058.26338-1-venkat88@linux.ibm.com>
-X-Mailer: git-send-email 2.45.2
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WGMKie+k"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U/axjWQAfQSFNwOk+gQLgXnGQvfOgoP7MHtzfv1LyiQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788764498; v=1; x=1789369298;
+ b=WGMKie+k9l0m1QyQdxO2azYFgoj8SFmFgBdU0oZioZ6vybLS2TXoEZktugpuEn6L5bof695P
+ 0bPT1V0dTTa09Fujr/E2StjZF2M7u0b3DTLPJiYg1rlrthNoH3UsiwRcjn0jcNhjQdmI6cTNqlO
+ jZGOKmHPyJwD10igHXTEa2AE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d54cb9ebe02a4a1c;
+	Mon, 07 Sep 2026 07:01:38 +0000
+X-Mizu-Trace-ID: d54cb9ebe02a4a1c
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Fuad Tabba <tabba@google.com>
+Subject: [PATCH v2 13/17] KVM: arm64: Pend a protected guest's SError with HCR_EL2.VSE only
+Date: Mon,  7 Sep 2026 07:59:58 +0100
+Message-Id: <20260907070002.3333525-14-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260907070002.3333525-1-fuad.tabba@linux.dev>
+References: <20260907070002.3333525-1-fuad.tabba@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,82 +57,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: 2Fps_JePDCXjmmOstfv-_lAJwGP-2RU-
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfXybpmLHr7Bqck
- EPjaj+0efPArnyXtHAAA20mwXMtMNdluPFbNY6GUqwbXkg8OgTbtRBp4rQd30rbJD2i4hYT8qvt
- qh4Eblg9zXjExiTfc1+6C1bijEYxtYY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3NCBTYWx0ZWRfX8CFmN7ZS5Ya0
- gj7ZwCjXZ9RcgtiPRENxb2K7pa1BEFhMOyHNHbGVKkv5/8+7/tpKucyitAHABgd53H3qiCqus6b
- vMbcGy4nM5CkTKazAQU5nz8AkQg9r/2V30pB/qHWMH8b1WQ258M/fzjC4V4w4Q7LEA6I9qLaOZh
- 8UrZIcYh/hE9f8RAE5suzUNjpdp93SfEBKNZu8U+GzuJ1Ixr97a82foaUzpZEyd9/r2u31UPB8t
- rFpc7DMyvDknLq8XMgp4l2T8j8D7pNkbAhyL4w1no4nHexzTDATPjq/6D0JElK/nzK3MgswGI4Q
- 6rUAOQCM+xlGB6HQLckcCG4VZ0wv4Q/PGsnBnkk/Ir+gRdaoYmWaQPVWIeHRvjl+g94+r/dddrV
- R42pZkQtWrVSc3EKaolo6Dv9aIXQZUWv0plAgQFxq/WXEtK9bq0UY71Clf9wYH4fFiy3fGgW9QC
- fmpWEuOgsfuGqwhxfXw==
-X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6a9e613a cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=VnNF1IyMAAAA:8 a=gZpiDA7bhwe5fsxDx_8A:9
-X-Proofpoint-GUID: MWdhOWnnSkoJLfRMe_OTuiHmUgXA5o60
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070074
 
-radix_enabled() uses a jump label which is only valid after
-mmu_feature_keys_init() is called. Before that point, on a pSeries
-hash guest, early_check_vec5() clears MMU_FTR_TYPE_RADIX in
-cur_cpu_spec->mmu_features but the jump label has not yet been patched,
-so radix_enabled() incorrectly returns true.
+kvm_inject_serror_esr() emulates the exception entry when
+serror_is_masked() reads PSTATE.A clear, but the host has no view of a
+protected guest's PSTATE.A, and an emulated entry never reaches the
+guest: the SError is lost. Set VSE instead and let the guest's own
+PSTATE.A mask it.
 
-Replace radix_enabled() with early_radix_enabled() which does a plain
-bitmask check against cur_cpu_spec->mmu_features and is correct at all
-times, including before jump label initialization.
-
-Add the missing #include <asm/mmu.h> since early_radix_enabled() is
-declared there.
-
-Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 ---
- arch/powerpc/include/asm/interrupt.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ arch/arm64/kvm/inject_fault.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
-index 1b45a49e9bed..36a654e780f7 100644
---- a/arch/powerpc/include/asm/interrupt.h
-+++ b/arch/powerpc/include/asm/interrupt.h
-@@ -71,6 +71,7 @@
- 
- #include <asm/kprobes.h>
- #include <asm/runlatch.h>
-+#include <asm/mmu.h>
- 
- #ifdef CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
- /*
-@@ -290,7 +291,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
- 		state = irqentry_nmi_enter(regs);			\
- 	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
- 		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
--		   !radix_enabled()) {					\
-+		   !early_radix_enabled()) {				\
- 		/* no nmi_entry for a pseries hash guest		\
- 		 * taking a real mode exception */			\
- 	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
-@@ -307,7 +308,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
- 		irqentry_nmi_exit(regs, state);				\
- 	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
- 		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
--		   !radix_enabled()) {					\
-+		   !early_radix_enabled()) {				\
- 		/* no nmi_exit for a pseries hash guest			\
- 		 * taking a real mode exception */			\
- 	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
+diff --git a/arch/arm64/kvm/inject_fault.c b/arch/arm64/kvm/inject_fault.c
+index d6c4fc16f8795..b88098a7e756c 100644
+--- a/arch/arm64/kvm/inject_fault.c
++++ b/arch/arm64/kvm/inject_fault.c
+@@ -378,8 +378,11 @@ int kvm_inject_serror_esr(struct kvm_vcpu *vcpu, u64 esr)
+ 	 *
+ 	 * As we're emulating the SError injection we need to explicitly populate
+ 	 * ESR_ELx.EC because hardware will not do it on our behalf.
++	 *
++	 * The host does not see a protected guest's PSTATE.A: leave the
++	 * vSError to HCR_EL2.VSE below, which the guest masks itself.
+ 	 */
+-	if (!serror_is_masked(vcpu)) {
++	if (!vcpu_is_protected(vcpu) && !serror_is_masked(vcpu)) {
+ 		pend_serror_exception(vcpu);
+ 		esr |= FIELD_PREP(ESR_ELx_EC_MASK, ESR_ELx_EC_SERROR) | ESR_ELx_IL;
+ 		vcpu_write_sys_reg(vcpu, esr, exception_esr_elx(vcpu));
 -- 
-2.45.2
+2.39.5
 
