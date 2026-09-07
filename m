@@ -1,95 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21BA46F497;
-	Mon,  7 Sep 2026 15:10:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 949B74FC8FD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793834; cv=none; b=I/WsXiGBjuf4WI5DGkGpVbNWOKDnpsu3fckNgKcBItXwZidZ1bjG8faXIgp4H/YeLGM3rafwzP1Ko+GNwNwE5TspmneiWJr9XtmGm/jYUwU1+GEFZfZ/8l/FJ8ePiKCzx8iF8VJgWQNzPbYusDHCUZq2TO89ArYChVwhYAJwDSI=
+	t=1788793916; cv=none; b=lm9tBN4WIEa6Y5Zb58IZ5OlqFtgARGk5OZICFJyjyifx9OrhAuQ8mXTAsaL2c4dyWRrtqwyWE26k66k1u+fa5PMaaYsTjT+GbWc7Ww+50O3qxuRorCq4AUl0m1keo88upHjRubUWqzAmO2e44vp/sAA65tUT1vcli9uNBMSWnxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793834; c=relaxed/simple;
-	bh=jZTYCuc/zGOWywEer6WeipUwb3+idhqCGirKdSSSBBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oIq6wZCT5KyihkMr+5sBvKfqY7/PwuSeif5t5fryxwM2cSOs5mwJ1z3G2HnezJSdnXL0OQWSM8skU/0AfCZ0KCgx9fPcfuSC6n2ZiwRoMu+qF4gnS81cXW+aQF+Rn4C5lm46fokD+tgseAJYveI25QEb0NbdyF7wH0pDmSnsMq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjyPZ0g5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788793916; c=relaxed/simple;
+	bh=nSSUhkg2+GYxqN+mkRCYxS29gRUsOc4/8D4olAlF0CE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UAV1UJ2MUr3EMAbV1oM1ZzsQ4Jkd/A8UsuaCNToxaeAZGeIE7RT1Y75ck12VwxRj/q1CSZQ+TKglxBE5/gpMD95Iue2dii8XG6QmF9I2VRNODbnz3ilZyxaCkGJOIAgqgSEXydnZy/xOOAvEce92xxC27UOhWqLR3kP3d/zf7fE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GbtOsBio; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjyPZ0g5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5691F00A3A;
-	Mon,  7 Sep 2026 15:10:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788793832;
-	bh=3/lY7BMUQRA3BwXQVg4y30v+bJtMtwGIf1Byd8uw+Lc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HjyPZ0g5VwDFHKcHoisuyxai6D8X7699fjABNrfDfJES+Zpsw+DAc5YJd1jQHlchC
-	 n0/Ku+PwqPhtf4kWLiCD1wlm7aiw5HkOAaoLvv0Pol3HftIOW116xRDD4tCqFDhtHj
-	 MEVp8bIOL+n5drOD/1Y7G3ica5ZFyl6E9dOrQHHYjo3OM2lo5YJztssxfRaBYACz9Q
-	 N2fwx1uUZD42VzzKzbhjt8RvWTOaNDemhcWUiWJnPkfGNN+n7goe0QHTEOHSHw10+J
-	 8CzIW2grDUAWjkpf4HhdgUhhLK+baEhqieNV9YEZNXbD7sg2slFwXCkywOU0N4K8Kz
-	 ohqz95GUeXZEQ==
-Date: Mon, 7 Sep 2026 16:10:28 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alexey Charkov <alchark@flipper.net>
-Cc: Chris Morgan <macromorgan@hotmail.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, Lee Jones <lee@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v8 0/2] Add support for the TI BQ25792 battery charger
- (regulator part)
-Message-ID: <7c9d0cfb-361c-424c-9e12-0fb35930576e@sirena.org.uk>
-References: <20260727-bq25792-v8-0-c1c70473bbe7@flipper.net>
- <CAKTNdwF5yW4YFFmsvDFVY+Q+89Uo=YS79nb4qYrT4WyKOszyvw@mail.gmail.com>
- <CAKTNdwGC=AZ9jmD71tz6JqCWk-00QLWCYb9wiG6RRQ0bO=mC4Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GbtOsBio"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B54B61476;
+	Mon,  7 Sep 2026 08:11:49 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2CF313F7B4;
+	Mon,  7 Sep 2026 08:11:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788793913; bh=nSSUhkg2+GYxqN+mkRCYxS29gRUsOc4/8D4olAlF0CE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=GbtOsBioJyZxF0GfsnSnGzJxwvF5IxvF1mYvzCCF2x0SPzAfq/TQzqgfKjFH6y/L8
+	 HOLnEKYPQhxQDwdg0JQ5NAFB8UuJ4qhfzwbilXq4RpnnRilS1B5vzWdr7U43zzubzM
+	 cG+HWxDVec5RkOP/CapDZFTYRmi4ZggkwHKTtkJ0=
+Message-ID: <e6b84240-0e62-4899-ac6b-5935c86c15f7@arm.com>
+Date: Mon, 7 Sep 2026 16:11:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5wR5LnJErPNKsZA5"
-Content-Disposition: inline
-In-Reply-To: <CAKTNdwGC=AZ9jmD71tz6JqCWk-00QLWCYb9wiG6RRQ0bO=mC4Q@mail.gmail.com>
-X-Cookie: Who's on first?
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] MAINTAINERS: Add mpam.rst to the MPAM DRIVER entry
+To: Fuad Tabba <fuad.tabba@linux.dev>, James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>,
+ Fenghua Yu <fenghuay@nvidia.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Fuad Tabba <tabba@google.com>
+References: <20260903182300.2706684-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260903182300.2706684-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+Hi Fuad,
 
---5wR5LnJErPNKsZA5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 03/09/2026 19:23, Fuad Tabba wrote:
+> Documentation/arch/arm64/mpam.rst is not listed under MPAM DRIVER, so
+> get_maintainer.pl names neither MPAM maintainer on a patch to it.
 
-On Mon, Sep 07, 2026 at 05:49:55PM +0400, Alexey Charkov wrote:
+I'm ok with this if others think it makes sense.
 
-> Gentle ping :) This still applies cleanly to -next, so I'd appreciate
-> it if this could be applied.
+> 
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> ---
+> 
+> Notes:
+>     Found this while putting together the recipient list for [1]:
+>     get_maintainer.pl names neither MPAM maintainer on a patch to mpam.rst.
+>     
+>     arch/arm64/kernel/mpam.c, arch/arm64/include/asm/mpam.h and
+>     drivers/acpi/arm64/mpam.c aren't in this entry either, but that
+>     didn't look as clear cut, so I've left them out. Happy to respin
+>     with them added.
 
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
+I think these can stay as is.
 
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
+Thanks,
 
---5wR5LnJErPNKsZA5
-Content-Type: application/pgp-signature; name="signature.asc"
+Ben
+>     
+>     [1] https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
+> 
+>  MAINTAINERS | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index fc320b373656f..20a6e70df83c8 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -18438,6 +18438,7 @@ M:	Ben Horgan <ben.horgan@arm.com>
+>  R:	Reinette Chatre <reinette.chatre@intel.com>
+>  R:	Fenghua Yu <fenghuay@nvidia.com>
+>  S:	Maintained
+> +F:	Documentation/arch/arm64/mpam.rst
+>  F:	drivers/resctrl/mpam_*
+>  F:	drivers/resctrl/test_mpam_*
+>  F:	include/linux/arm_mpam.h
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqe0+MACgkQJNaLcl1U
-h9AmiQf+JL0tMoApD+wVKd3OyVs6YsoPtgWZYFJtFVlnHx1PFcFIfH8spWuxhGm2
-MIdF2O5hvKDkWAr8cAjy9jUlY87JNkE+IsGVP+cfIllQjHi1EFJKmbXUVA+vMZkY
-w7r8nWYfltNxMvzggTpkJP+vCkb05M6VX/OFxdm6QMU5lT1nqw4hnWEzXxjiqQ6e
-YyiRmdoNZxGJyNS6AcCWTcKRGZoRE1L+/fCAtH9wv4DZwnEkBfLMjJrf6dwKaXrz
-pQFRDKv/ZYlbdtywh59CRlRQqb7LHnzKrCTBb1H07PYJ9zgIb0R044xlixyRF6oW
-8y7bmN0VHEeh43mRliSJ/1YypMptGQ==
-=Vo8Y
------END PGP SIGNATURE-----
-
---5wR5LnJErPNKsZA5--
