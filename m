@@ -1,138 +1,195 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EFE3B14CC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 515BF2C0261
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788819740; cv=none; b=qQxqpWaapvdKdg8K9gJpNyOZIa+gPkhOLANYd0Jkdr/kYk2ponflHf5X69skcnGTYToCZ/A/GRlUBe7s4BIy5JCeTTziqFANsQfX2J6ZUcUt1JhovZ+0mVUqpjnMG5M4ZXCcP20uZ/JH4uB95t0UFnhH6GJzhZX9ekX9j6Xd2QY=
+	t=1788819823; cv=none; b=IsT3wUSRvn6RWGhYy/NWfwkpOr+yi0kVPOsTzgl1Q3iA54pxVauv8WmXtB3YFmlbosBlLyKc7OtN9M95ULPoxe2z8xw8+8JNPiRvpi1bMh102AHFfLEZJL7F0+mmWLeBSxi77gFgky++c6ljuk2ulHHvLk8SKOV82qymxPSY5g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788819740; c=relaxed/simple;
-	bh=DkPnN0LBKMtrFx+X0M2ExaQxqAiphMY+jUqO2hdebNA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FNPbhyqCxjy2cqanAf1Ht0hdSDtumM5PwNmfz1ShGn1D0tfGV5sFQe3YD55on+q6LpTHn6aiQb8sWZxeVl3CzVql/bqw2kIof7RR3Jqejy9A2rfPYudXAjDGYRoloAbOHD4ANOaRcf0Vbr1eER21gA9VlzeyDaZlLvbiy5sMuzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Lp0IK5LP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CBhRtjWF; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788819823; c=relaxed/simple;
+	bh=8Y7JZ/9KeV+f5YzC1zDml+qR+atE8hzkYH3mXgwAZLI=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=VI87kKwP5ZEVxciS+UiwLGc6uqdR2C0S8biuO0O4sjojBknR5TzegIRaFST3Eppmy60f6NFP4pl1fugqo75RdlYEpvm/vVIQvFmbh2N5NNI/cyQeA/rH2M7fMgQqr2vXfPnyN6AkkrvRv3D4uw5m+5nR79MqoqDzy+UjpwU25vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--elver.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ukL8U+I6; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--elver.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Lp0IK5LP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CBhRtjWF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788819737;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=doPvstU0jM+pOnprTuHLt3cRtMawGYtbfNsIMqB0F1s=;
-	b=Lp0IK5LPF0SAXWljyYIgJETY4Zj29VXFLbXzoc0/K7ZKtqe3OGpktWNTyNu7zNmr/D+QoQ
-	SA7BgGgaasjbVHayg6kWRfPkwUfHOUF/bMPOOBRLblqLk5lmWGEFirTGUjJsljTzD3i8yU
-	8WWZTjUKG0iBNtKWw/1O5bT7WN1aKFI=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-635-X2_uL2VDMrKAd0HZ1LwD_Q-1; Mon, 07 Sep 2026 18:22:16 -0400
-X-MC-Unique: X2_uL2VDMrKAd0HZ1LwD_Q-1
-X-Mimecast-MFC-AGG-ID: X2_uL2VDMrKAd0HZ1LwD_Q_1788819735
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49991beee7aso36782655e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:22:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ukL8U+I6"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-495689bfcc8so26653315e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:23:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788819735; x=1789424535; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=doPvstU0jM+pOnprTuHLt3cRtMawGYtbfNsIMqB0F1s=;
-        b=CBhRtjWFcz2nRsO5CDk7DDviVJ2vuW0jXF4TLOk6KsuQPNgMrgAZbkX5LLsvFiXLYh
-         RV1IR5LZYGvafe5DW8dKhL+kYMvdCx9eqD7kw2RbXfitMSYvYmonZPiUBptR/Z6a47d9
-         3pNyn8XM3Z1Yw9dfoWjKyd2JpeqtrgRFRBf9mtvVJn8Fx1aUfHKLvDLlPYzgYTVQYiS4
-         GZp9e6ctzr36DKJQ9DdlJc9Q9vlHJPRQWHcwOuKJ0AMXOu8wNbWPSmvX9zxwMwLaFzmo
-         Vm+xTuiriASQHR/uCMfPJcshmstfLXs3X9jzvHZvdAKzllG3PGeHE03sEDUzx43SGNof
-         /wKg==
+        d=google.com; s=20251104; t=1788819819; x=1789424619; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zCQLPwejd9kneAE29OCqj++bBUuNyPXeUmci722Ghtw=;
+        b=ukL8U+I60IU3XshPrhcTojuwYqiJ67+SeTvIstWmo7enwRPyVcEwOTGXBvwOw3IewB
+         mnzyDN3/Fu1LhrYL3teAgCGHTqOnQKRtSTozZUzMrbj7QMZz6bjqeQz/5fWkOhBui2QW
+         VDdB/DNZtvbESHE0Z/gJGZ/QAqnRwCSIK8Ue2axW3vNizBE2Dy+3E414yk6cFczA6ZjT
+         c37TAKv9MwWS2lVPGehvfI387/bpeCowBdCIrVSUn1t/EcvISavlDFpcj6OYGorIZVQu
+         IcvtIIw9oPb+en4w7LbYlHL3IsMSOuNLmFTqnNiJ9A937Z22DgTwxFIhMyQqCkT0Q7f1
+         82xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788819735; x=1789424535;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788819819; x=1789424619;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=doPvstU0jM+pOnprTuHLt3cRtMawGYtbfNsIMqB0F1s=;
-        b=DGmwBPSQwmfm2nAEbGZF94wTzfRBdOSmxUNXTyQJuCoKJqjasgD3vo63ezNX49HWGJ
-         N9rKEgcOheNUJflqsdU97DhIdS3Gqd/BDjdsdyRa5JWryycHLCUN8BQqQb6udwr/fvfl
-         AVhqaEzR9DN9yzoJ+J1cCj2dFwnJf1OdT1p32yK4l8vE8FIYAjDTcmewLx5v2c2Ql+al
-         0fLGuR+3+L9BbAYJM4gt8PavwbHjOi52Kcg4BgBdm15Y/NVtG1OQ9p1+yCy29PypgEMS
-         tah5KZmrx3kTZ+uXS0R7ZKV8Hsf4Y/9sJAszI0fk0wH1pp4nFmgJ6DqtvvnX1+6v9LZG
-         lwyQ==
-X-Forwarded-Encrypted: i=1; AKwUvByr56kxhngRBN+yoLzj8Nq0Kfcp//PrOFjmqHsmP2nJ/ZenAHXByQXJN98GQu43coT443uJiDrhtu+hR6o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nKrY+llZqT4MnfVtypl0DuvgvSKtNHuP+faaAk45sJ7PePuw6X
-	NsiZO1Q7YS5x4k0+38ucMpwnHuYRFMdsK8Nspphiiq3KqfMA9zdnSegBr0tJUYa3yzC7cSVt47b
-	qUGceH6e5T6c/Y7/TyJvwUzy70A6e3KeKmpl6oeUIYQBUz5Wn5yUlTa+ivMhGJ6XKCg==
-X-Gm-Gg: AYBFou3tSWnueFa4y1l6dPcwSs81J/26kfRwfF/VSv9H5QR6cwJrKyfD8NFQl9YCtUP
-	7QzKa7P6Dm21CujXfw3lPXQg+kzWuDjf2lPqb/9oHjTf9NzTnG112HohaeDluCMmdH4n9R+d4XP
-	r36WFVwcL5EGvxHsVjBg+m18WWZAvAS9sVDflL1yR1f9Sy++zcvaBbXSyisEnuiCNCcBcyse70z
-	sgWpIabGOg5PYHsauEY9w/A8rFpg6T+Bp3P6ScTQt4XcsbnIsPFh00+ThLfgQCLx11suSsp/Un0
-	GIbIcpae3rDi7q2n/am7H7IMGDvNGvRC/+cTkHxrGWFIspKiIKHL9TiqA2Wbgzs/3qk=
-X-Received: by 2002:a05:600c:8715:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-49d17d4b01dmr47086985e9.1.1788819734854;
-        Mon, 07 Sep 2026 15:22:14 -0700 (PDT)
-X-Received: by 2002:a05:600c:8715:b0:49d:17d4:aff2 with SMTP id 5b1f17b1804b1-49d17d4b01dmr47086385e9.1.1788819734435;
-        Mon, 07 Sep 2026 15:22:14 -0700 (PDT)
-Received: from redhat.com ([187.15.128.144])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm24030241f8f.20.2026.09.07.15.22.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 15:22:13 -0700 (PDT)
-Date: Mon, 7 Sep 2026 18:22:09 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>,
-	Halil Pasic <pasic@linux.ibm.com>,
-	Eric Farman <farman@linux.ibm.com>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Vadim Pasternak <vadimp@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	virtualization@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-s390@vger.kernel.org, kvm@vger.kernel.org,
-	linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] virtio_input: stop callbacks before unregistering
- input device
-Message-ID: <20260907182153-mutt-send-email-mst@kernel.org>
-References: <20260905152059.89560-1-kmehltretter@gmail.com>
- <20260905152059.89560-3-kmehltretter@gmail.com>
- <20260907174559-mutt-send-email-mst@kernel.org>
- <ap82pFlX8enNG0gZ@gmail.com>
+        bh=zCQLPwejd9kneAE29OCqj++bBUuNyPXeUmci722Ghtw=;
+        b=RgFTx1mGf8sHPy3+Mo459Xf+NGPji7xVZutMDDpdwFYo65WQzh+ZWEFKvAAfna8PJ5
+         Z5L9peZSC0t2KeFRcYTH52PLJLF394GE7/61j6dPVu1ef7ZXuF3HHUZTqDpycxdYPHMB
+         5aalkiIVwzl2SocgrL4s/8Ti51KNK2WfVxOZmPAklKNEnjgnblFwNWqx97Yck5V6tRJz
+         6cRKo6YOONqffkWVksVVH2GurrvHlD234ca8Rhyy5AigPKBrvN6/Gni0oNvDUetsnb8f
+         9AnS2U5GV9DLpjV1MgtdIUZiaq5kgGwYDdnAwxSDUspTClsLeh1qt8rkQtFpAJKR5r3G
+         AQ1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzlswWpwnX/HuS9304hPID+Go4Ab2aKNYPJDkDT2zWW+6SpbGOJbMneodwowi5QI49JpURLHQS4HwDVFAM=@vger.kernel.org
+X-Gm-Message-State: AFuF++me9NMLqOOn6Vuo2O0YQLyBPV2uwirNk9jHP5zwLjJYFB0LcZ7w
+	vfyacZL6QLjxfyNKBN9qT82ue4oqaDGP2r1Ca4mx1vA5RKUVQHQ8L6lplq+KlW6A8+31DhIdA88
+	jMA==
+X-Received: from wmbhh15.prod.google.com ([2002:a05:600c:530f:b0:49c:cf3b:c30f])
+ (user=elver job=prod-delivery.src-stubby-dispatcher) by 2002:a05:600c:4f83:b0:49d:91:274
+ with SMTP id 5b1f17b1804b1-49d00910374mr172516735e9.10.1788819819179; Mon, 07
+ Sep 2026 15:23:39 -0700 (PDT)
+Date: Mon,  7 Sep 2026 22:21:26 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap82pFlX8enNG0gZ@gmail.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.1003.g10538fe699-goog
+Message-ID: <20260907222242.3361174-2-elver@google.com>
+Subject: [PATCH v2] rxrpc: Fix use-after-free in rxrpc_destroy_all_peers()
+From: Marco Elver <elver@google.com>
+To: elver@google.com
+Cc: David Howells <dhowells@redhat.com>, Marc Dionne <marc.dionne@auristor.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	linux-afs@lists.infradead.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
+	syzkaller-bugs@googlegroups.com, 
+	syzbot+c876adfab6362679008c@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 08, 2026 at 12:15:14AM +0200, Karl Mehltretter wrote:
-> On Mon, Sep 07, 2026 at 05:46:07PM +0100, Michael S. Tsirkin wrote:
-> > > Assisted-by: LLM
-> > 
-> > which llm and which agent?
-> > 
-> 
-> Claude Code and OpenAI Codex, each with their current models.
-> 
-> I switch between them and let one do review, the other
-> helps with implementation.
-> 
-> "Assisted-by: LLM" is the form Documentation/process/coding-assistants.rst
-> gives now.
-> 
-> Thanks,
-> Karl
+During network namespace teardown, rxrpc_destroy_all_peers() iterates over
+the rxnet->peer_hash table to print leaked peers without holding
+rxnet->peer_hash_lock. If concurrent activity or asynchronous teardown
+drops the last reference to a peer, __rxrpc_put_peer() unlinks the peer
+from rxnet->peer_hash and frees it via kfree_rcu(). Without locking,
+traversal can follow an unlinked peer or race with RCU reclamation,
+triggering a KASAN slab-use-after-free.
 
-really? not what i see. in which version?
+BUG: KASAN: slab-use-after-free in rxrpc_destroy_all_peers+0xcc/0x150
+net/rxrpc/peer_object.c:461
+Read of size 8 at addr ffff88811089e420 by task kworker/u8:1/13
+Call Trace:
+ <TASK>
+ rxrpc_destroy_all_peers+0xcc/0x150 net/rxrpc/peer_object.c:461
+ rxrpc_exit_net+0x7f/0xc0 net/rxrpc/net_ns.c:114
+ ops_exit_list net/core/net_namespace.c:199 [inline]
+ ops_undo_list+0x43d/0x8d0 net/core/net_namespace.c:252
+ cleanup_net+0x572/0x810 net/core/net_namespace.c:702
+ process_one_work kernel/workqueue.c:3322 [inline]
+ process_scheduled_works+0xa8e/0x14e0 kernel/workqueue.c:3405
+ worker_thread+0x92d/0xe10 kernel/workqueue.c:3486
+ kthread+0x388/0x470 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+To fix the slab-use-after-free, acquire rxnet->peer_hash_lock with
+spin_lock_bh() while iterating over rxnet->peer_hash in
+rxrpc_destroy_all_peers().
+
+Additionally, split netns teardown by implementing .pre_exit in
+rxrpc_net_ops to clean up calls, connections, and keepalive work. This
+ensures in-flight references are released before cleanup_net() executes
+its intermediate synchronize_rcu(), so that peer and local endpoint leak
+checks in rxrpc_exit_net() run only after deferred RCU releases complete,
+avoiding spurious leak warnings.
+
+Fixes: 17226f124038 ("rxrpc: Fix leak of rxrpc_peer objects")
+Reported-by: syzbot+c876adfab6362679008c@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c876adfab6362679008c
+Link: https://syzkaller.appspot.com/ai_job?id=7fecbeb2-cd9b-4ca2-8149-48663e20b153
+Signed-off-by: Marco Elver <elver@google.com>
+---
+v2:
+* Split teardown and use .pre_exit instead of rcu_barrier() (Eric).
+---
+ net/rxrpc/net_ns.c      | 23 +++++++++++++++--------
+ net/rxrpc/peer_object.c |  8 ++++++++
+ 2 files changed, 23 insertions(+), 8 deletions(-)
+
+diff --git a/net/rxrpc/net_ns.c b/net/rxrpc/net_ns.c
+index 9a9834145e81..169116735366 100644
+--- a/net/rxrpc/net_ns.c
++++ b/net/rxrpc/net_ns.c
+@@ -97,10 +97,7 @@ static __net_init int rxrpc_init_net(struct net *net)
+ 	return ret;
+ }
+ 
+-/*
+- * Clean up a per-network namespace record.
+- */
+-static __net_exit void rxrpc_exit_net(struct net *net)
++static __net_exit void rxrpc_pre_exit_net(struct net *net)
+ {
+ 	struct rxrpc_net *rxnet = rxrpc_net(net);
+ 
+@@ -111,14 +108,24 @@ static __net_exit void rxrpc_exit_net(struct net *net)
+ 	timer_delete_sync(&rxnet->peer_keepalive_timer);
+ 	rxrpc_destroy_all_calls(rxnet);
+ 	rxrpc_destroy_all_connections(rxnet);
++}
++
++/*
++ * Clean up a per-network namespace record.
++ */
++static __net_exit void rxrpc_exit_net(struct net *net)
++{
++	struct rxrpc_net *rxnet = rxrpc_net(net);
++
+ 	rxrpc_destroy_all_peers(rxnet);
+ 	rxrpc_destroy_all_locals(rxnet);
+ 	proc_remove(rxnet->proc_net);
+ }
+ 
+ struct pernet_operations rxrpc_net_ops = {
+-	.init	= rxrpc_init_net,
+-	.exit	= rxrpc_exit_net,
+-	.id	= &rxrpc_net_id,
+-	.size	= sizeof(struct rxrpc_net),
++	.init		= rxrpc_init_net,
++	.pre_exit	= rxrpc_pre_exit_net,
++	.exit		= rxrpc_exit_net,
++	.id		= &rxrpc_net_id,
++	.size		= sizeof(struct rxrpc_net),
+ };
+diff --git a/net/rxrpc/peer_object.c b/net/rxrpc/peer_object.c
+index fa9a406e1168..faa2983638b2 100644
+--- a/net/rxrpc/peer_object.c
++++ b/net/rxrpc/peer_object.c
+@@ -454,6 +454,12 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
+ 	struct rxrpc_peer *peer;
+ 	int i;
+ 
++	/*
++	 * Prevent use-after-free if a peer is concurrently unlinked from the
++	 * hash table and freed via RCU during iteration.
++	 */
++	spin_lock_bh(&rxnet->peer_hash_lock);
++
+ 	for (i = 0; i < HASH_SIZE(rxnet->peer_hash); i++) {
+ 		if (hlist_empty(&rxnet->peer_hash[i]))
+ 			continue;
+@@ -465,6 +471,8 @@ void rxrpc_destroy_all_peers(struct rxrpc_net *rxnet)
+ 			       &peer->srx.transport);
+ 		}
+ 	}
++
++	spin_unlock_bh(&rxnet->peer_hash_lock);
+ }
+ 
+ /**
+-- 
+2.55.0.1003.g10538fe699-goog
 
