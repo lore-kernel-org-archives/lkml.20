@@ -1,189 +1,131 @@
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012012.outbound.protection.outlook.com [40.93.195.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5CE479886;
-	Mon,  7 Sep 2026 10:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.35
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778528; cv=none; b=jRh6uZLFu9IB+f0+ezqglKW5Hi2ShMNCAGsQd2tXI1KlgxuQ4pXt5X3R+cvCFrs0KBp8OsJiGox5HidM8y0UC1xXZakLBzqDoRk6Vq3VZayBu2VGMAiopsxOUd8AmvUdqDP9QPhDFX9Pux1tg637eh8PctydjS7J+XXShvOSNNU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778528; c=relaxed/simple;
-	bh=Hb5yzSlRTI8HDlYvKMUtaP489fAvwXAQ+ZlCpNxyp/s=;
-	h=Message-ID:In-Reply-To:References:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type; b=cNxKUjbsN8sIVAXWFavDGtdjP3rprjq8cd9NOEwXNfet7E/59CY6oaaCjM1Yz/yTZjN7Qi4dne2ull19up2qZmI7pWGqXoEv1j2i4Bo2JZDHLZ/c+8dGlcec3coDIlOzdJbXkDoVXzonrGz1mLYAvzo8WaGH3BlgBYzH+RZcphc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hdkVx4jj5z8Xrrb;
-	Mon, 07 Sep 2026 18:55:21 +0800 (CST)
-Received: from xaxapp05.zte.com.cn ([10.99.98.109])
-	by mse-fl1.zte.com.cn with SMTP id 687AtETb003212;
-	Mon, 7 Sep 2026 18:55:14 +0800 (+08)
-	(envelope-from hu.shengming@zte.com.cn)
-Received: from mapi (xaxapp05[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Mon, 7 Sep 2026 18:55:17 +0800 (CST)
-X-Zmail-TransId: 2afc6a9e9815098-e7c3b
-X-Mailer: Zmail v1.0
-Message-ID: <20260907185517424rOcCTgNPmgf1i0mLqlxWN@zte.com.cn>
-In-Reply-To: <f0b59964-081c-4547-8251-3e3134c4942f@oss.qualcomm.com>
-References: 2026090215474182681fN7LLOSpqIc3s3OqJaW@zte.com.cn,f0b59964-081c-4547-8251-3e3134c4942f@oss.qualcomm.com
-Date: Mon, 7 Sep 2026 18:55:17 +0800 (CST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C039D47140C;
+	Mon,  7 Sep 2026 10:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788778530; cv=fail; b=BFDLM6p6LKyGKIdtEeiPt4qTr08o/L4iEZ+B7VZYbmi+l2RmCGtHG97FBe1PTIc/NPmt+J2YRCmvEuajhXhqk8mI86cIkTeqURx8NgKX8aDmeA/A18a/XByLbaL3HpEjThDxZPFCinsm26Y96TmdVHWpKVx6PuQqCG27m/6JPUM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788778530; c=relaxed/simple;
+	bh=S3aGe//LMSNtPpaPH9dpLSDXpAhNC9H44v19lT0okpw=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PRZ9w6/lQ+8deTs6CqrOTGQlcxYQeJteVxsy3s2BOnvKD2f+bN3xqjP+WRjwI1P3JWwWH3WCUsWRguksyESg/cKCYDONwYjnkkCWUHDBqtZKwvX28kouio0YxFZzxEnykWJM4f79FtDVSD0td6WXlLlUlCxefa/f6naLRaYspCU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GSAxAKmi; arc=fail smtp.client-ip=40.93.195.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GSAxAKmi"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ri3XJwOsiTpFX0AAIWr6SFxdOPku7m0XgOtbZJ9FpnN97wDCn0S3dIJ87gD2Z3hmuWXzr7dujp+nle3ZZLFR7fNka4bXXzFeQLQOPvuEGU4n6iqIgve4YWxIkydV+g9LJvqtP00TAp4bCOAiaq5GLP/0nqSUXC6tG/XYGt22nzeiIAHOMlhu58EmMVPol1GnIC6ixWCVldXIkra5o9U31WB4tALHe0SsXJLFhgmcn87dfaOWCrf5CeW7e85gZNYvsXPZ6JdzpuTvHQDCyaWgpc0ICbD14KGCTpBramQ20eBe78RDkFZ2VQHvVesrJM/AbpZx6TgvEqOLM6ZY8alHTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fg7JVlc589RhxHRB/Dv2DtS/8PJnckCq10So4ZPe7RQ=;
+ b=tcusFcqKK/BKT7WP+KOWkL5Ib06cMavag6OUgM8r7XWZZsX9XBzmPePf9dvy9y08uCy20GddXMWiSo4eldCrf75AgsxJKUt5DN8fHq86z74DFCKmnTQfnMjTI2gVKW/fDLkZLI2l4XWm/tJZI7wwoJRovrIqMCv61VMIaIj3yiRDQPiX4N1HQ/8oYq71mvOmOGyRkwoe7WRRD+5RxO99EHAKCHadbL9XCF8mlnGN7y4mO/xNsNNWyEkzd3mYJ4zuqaTJOXeTK8EbbVwFDr/PePM9uICRat7d/zYByX12m23rz8EeXI6j7ksWXisNCGcA4GN04UBImn+1BWztrMwXmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fg7JVlc589RhxHRB/Dv2DtS/8PJnckCq10So4ZPe7RQ=;
+ b=GSAxAKmit/52cg5cmKUXdJMyMpoMXYtkgWSAV30HD8wGSDIb9BeDhhJYaAkHI/a6nOodYWEI/frfvKmxh2gQkyTSTVWRXzs12WNXH3NRYR/G7ZJxXK1YsPAGT6or32KtyrlZB3lykfF658AvAH57SALecD+gFDwIaP1JnIOqtgM=
+Received: from MW4P223CA0022.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::27)
+ by PH7PR12MB7793.namprd12.prod.outlook.com (2603:10b6:510:270::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Mon, 7 Sep
+ 2026 10:55:20 +0000
+Received: from MW1PEPF0001615D.namprd21.prod.outlook.com
+ (2603:10b6:303:80:cafe::7b) by MW4P223CA0022.outlook.office365.com
+ (2603:10b6:303:80::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 10:55:20 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW1PEPF0001615D.mail.protection.outlook.com (10.167.249.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.0 via Frontend Transport; Mon, 7 Sep 2026 10:55:19 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 05:55:02 -0500
+Received: from xhddevverma40x.xilinx.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46
+ via Frontend Transport; Mon, 7 Sep 2026 05:55:00 -0500
+From: Devendra K Verma <devverma@amd.com>
+To: <mani@kernel.org>, <vkoul@kernel.org>, <frank.li@kernel.org>,
+	<den@valinux.co.jp>
+CC: <dmaengine@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>, <devverma@amd.com>
+Subject: [PATCH v1 2/2] dmaengine: dw-edma: IP name corrected under its struct
+Date: Mon, 7 Sep 2026 16:24:53 +0530
+Message-ID: <20260907105453.1940646-3-devverma@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260907105453.1940646-1-devverma@amd.com>
+References: <20260907105453.1940646-1-devverma@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-From: <hu.shengming@zte.com.cn>
-To: <zhongqiu.han@oss.qualcomm.com>
-Cc: <rafael@kernel.org>, <viresh.kumar@linaro.org>, <linux-pm@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <luo.haiyang@zte.com.cn>,
-        <zhang.run@zte.com.cn>, <zhongqiu.han@oss.qualcomm.com>
-Subject: =?UTF-8?B?UmU6IFtQQVRDSF0gY3B1ZnJlcTogY29uc2VydmF0aXZlOiBJZ25vcmUgaWRsZSBwZXJpb2RzIHdoZW4gYSBwb2xpY3kgQ1BVIGlzIGJ1c3k=?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 687AtETb003212
-X-TLS: YES
-X-ENVELOPE-SENDER: hu.shengming@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Mon, 07 Sep 2026 18:55:21 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6A9E9819.001/4hdkVx4jj5z8Xrrb
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615D:EE_|PH7PR12MB7793:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86b2510a-dc46-45cd-b8ad-08df0cce8261
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|10067099003|22082099003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	SjNX3RoUnQ21AhqMslZHuZEyVyCFsxDIIreOMmohsW+xOLEtnLl5CxlF1qxgQIZ8uzY6q9LYeBVGur27ELHhNP1ZKouukuV80PQbb0uFtgCFg3HDUA8sZeBQ8zdrRh2eyZFYK0cbaGWQ6DbFTz7mq7qH7/q0nSq0OxO7+Ip/g7Jm0HZ98Nhgbi5AI4JLms0AMVhn6jRmuNAdfaRPsV1SWdmUcH8XTbv1A5rT2d9BY8wfdwL9VqDBq0ChAoI+GgJ8bSwmhx5dDPu/nmCN3NaO3fyIjIDibC108abtWlNXlfmQ1oEOmnW5CmbJwCKrb5WSTaiIfAgVuXOlJT4oy4hydp1YWtqTR4NRJ/x84E7sLSnRRlzs0ta0xSB0hNObLYLbkmhgIXki3TSbRmP7JOK+Yc7HqlfvioJPCtA+7bQ8K9N4weW2wD+7GWJstHHmXXQt5vNiacPtbfgFOogITiXJ6XfapphmcNefWsfj7xZMPFkAJDaf+o/gnvjhBYYjTHO+A+VZ/bEhVw0Mmttipx3Spk+vGLs1cqS8SmSq/0VwemfeoYZB/1qJ9ccLn409jcry7F694RH5zKvjIapNqFqZv4k252UnHa+3jGnGweDjPlpUXExiNlqB0HN2O93KnS1JGuav5zrWW5MrqQYm7EfB3XT1Mk/AOERR3YR66y+iLl1/vcfqbN6rpuKcVJ5HVntBpb5gr/p+fn7jd55f5zH7YA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dV/ma4aPrXTrULCCqfz+y/dyQUJ52C+dlVmaDb4wBq1152QOI9hABHgB91bWmtTjN9ZwgtqK0tF9HLChXpASK7ZP1BKkvFHe5aDB1b65eArYV9JbaU5W5BusUgo9DUvc2pOye3zasEd/ACQMEBmg+Cul1kf+AZDQml41siHi/HKqInQSaVV+Bt4jYJyPuhYEQ9Rzmqj7qjd1z6ucOkrZsptnIp69tDUW5/q8cx9+VzdZPw0h5XxeQDR5JH4JmWh7cIO9ViYXWdUK+L9UzyH7g4J/c9hYjKT7vb8SPv+IzGl/l2Ptm5m3xClt2JVpZde5/5nqCJynCfXobDtH0Il/QFVxB/dtEujpfLzLLitKfEFnGpw0O+UhqRTHPqSWDpPajLwr9SbRF/C79X0AMeRz7r8nNyNpeRXZAGE/ASbBiLrOwXdUIGorFPO8sTQHE5GO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 10:55:19.8831
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86b2510a-dc46-45cd-b8ad-08df0cce8261
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF0001615D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7793
 
-Zhongqiu wrote:
-> Hi Shengming,
-> Thanks for the patch.
+For 'xilinx_cpm6_dma_data' struct which is CPM6 IP, the comment
+under this struct has typo and mentiones 'MDB' registers when
+it shall be 'CPM6' regisers.
 
-Hi Zhongqiu,
-Thanks for the review!
+Signed-off-by: Devendra K Verma <devverma@amd.com>
+---
+ drivers/dma/dw-edma/dw-edma-pcie.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> On 9/2/2026 3:47 PM, hu.shengming@zte.com.cn wrote:
-> > From: Shengming Hu <hu.shengming@zte.com.cn>
-> > 
-> > For a shared cpufreq policy, dbs_update() derives the load from the
-> > highest utilization among its CPUs, but it also records deferred idle
-> > periods from any CPU whose idle time exceeds two sampling intervals.
-> > 
-> > This lets a single update report both a high load (from a busy CPU)
-> > and several deferred idle periods (from an idle sibling). Since
-> > conservative applies the deferred down steps before the up step
-> > triggered by the high load, the down steps can outweigh the single
-> > up step.
-> > 
-> > The issue reproduces on a policy shared by CPUs 2 and 3: a CPU-bound
-> > SCHED_EXT task keeps CPU 2 at 100% utilization while CPU 3 stays
-> > idle. On this system SCHED_EXT generates update-util callbacks less
-> > frequently than CFS, so DBS updates are sparse, tracing shows:
-> > 
-> >   load=100 idle_periods=7 interval=59 ms
-> >   load=100 idle_periods=4 interval=39 ms
-> >   load=100 idle_periods=2 interval=19 ms
-> >   load=100 idle_periods=7 interval=59 ms
-> > 
-> > With the default 5% step and a 2.6 GHz ceiling, conservative first
-> > removes seven 130 MHz steps and then adds only one. Repeating this
-> > sequence keeps the policy near 530 MHz despite CPU 2 being fully busy.
-> > 
-> > Only retain deferred idle periods when every CPU in the policy meets
-> > the long-idle condition. This keeps the existing behavior for
-> > single-CPU and fully idle shared policies, while preventing an idle
-> > sibling from downscaling a policy that contains a busy CPU.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 00bfe05889e9 ("cpufreq: conservative: Decrease frequency faster for deferred updates")
-> > Reviewed-by: Luo Haiyang <luo.haiyang@zte.com.cn>
-> > Reviewed-by: Run Zhang <zhang.run@zte.com.cn>
-> > Signed-off-by: Shengming Hu <hu.shengming@zte.com.cn>
-> > ---
-> >   drivers/cpufreq/cpufreq_governor.c | 5 ++++-
-> >   1 file changed, 4 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/cpufreq/cpufreq_governor.c b/drivers/cpufreq/cpufreq_governor.c
-> > index 710d93ec89b5..64eb6b5f08a4 100644
-> > --- a/drivers/cpufreq/cpufreq_governor.c
-> > +++ b/drivers/cpufreq/cpufreq_governor.c
-> > @@ -126,6 +126,7 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
-> >       unsigned int ignore_nice = dbs_data->ignore_nice_load;
-> >       unsigned int max_load = 0, idle_periods = UINT_MAX;
-> >       unsigned int sampling_rate, io_busy, j;
-> > +    bool all_cpus_idle = true;
-> >       u64 cur_nice;
-> > 
-> >       /*
-> > @@ -233,13 +234,15 @@ unsigned int dbs_update(struct cpufreq_policy *policy)
-> > 
-> >               if (periods < idle_periods)
-> >                   idle_periods = periods;
-> > +        } else {
-> > +            all_cpus_idle = false;
-> 
-> The problem is real, but I don't think this condition is the right one.
-> idle_time > 2 * sampling_rate tells us how many sampling periods were
-> deferred for that CPU, so its negation means "this CPU was sampled on
-> time", not "this CPU is busy".
-> 
-> Since all_cpus_idle is per-policy, one such CPU is enough to discard the
-> deferred periods for the whole policy, and in a shared policy it is
-> possible. That effectively disables the optimization from 00bfe05889e9
-> for shared policies, which is the opposite of what we want for power.
+diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+index 006dea7d6322..762a693ab55b 100644
+--- a/drivers/dma/dw-edma/dw-edma-pcie.c
++++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+@@ -146,7 +146,7 @@ static const struct dw_edma_pcie_data xilinx_mdb_data = {
+ };
+ 
+ static const struct dw_edma_pcie_data xilinx_cpm6_dma_data = {
+-	/* MDB registers location */
++	/* CPM6 registers location */
+ 	.rg.bar				= BAR_0,
+ 	.rg.off				= SZ_4K,	/*  4 Kbytes */
+ 	.rg.sz				= SZ_8K,	/*  8 Kbytes */
+-- 
+2.43.0
 
-Agreed that not meeting the long-idle condition does not necessarily
-mean that the CPU was busy. The condition is based on accumulated idle
-time, so it is not a reliable indication of whether that CPU should
-prevent deferred downscaling.
-
-> What matters is whether the CPU was busy over the sample, that is,
-> whether the skipped sampling periods would have led to a frequency
-> reduction at all. It seems more appropriate to key that off the load
-> measured over the sample (kept separate from the possibly inherited one)
-> against up_threshold, so an idle-but-punctually-sampled sibling does not
-
-Thanks for the suggestion. I agree that the load actually measured over
-the current sample should be kept separate from the load that may inherit
-prev_load. However, I don't think up_threshold is the appropriate
-boundary for deciding whether deferred down steps should be applied.
-
-For example, suppose CPU A has been idle for several sampling periods
-while CPU B has a sustained load of 75%, with up_threshold at 80 and
-down_threshold at 20. The policy is then in conservative's hold region,
-so the load itself would trigger neither an increase nor a decrease.
-If deferred downscaling is gated only by up_threshold, CPU B would
-not block it, so CPU A's deferred idle periods could still reduce
-the policy frequency.
-
-I think deferred down steps should instead be applied only when the
-maximum load actually measured across the policy is below
-down_threshold. To keep this independent of the load returned by
-dbs_update(), which may inherit prev_load, we could record the maximum
-measured load separately in struct policy_dbs_info, for example as
-max_sample_load.
-
-The conservative governor could then gate the deferred reductions with
-something like:
-
-    if (policy_dbs->max_sample_load < cs_tuners->down_threshold &&
-        policy_dbs->idle_periods < UINT_MAX) {
-        ...
-    }
-
-This preserves deferred downscaling when the measured policy load is
-below down_threshold, while avoiding deferred reductions when any CPU
-is in either the hold or upscale region.
-
-> May I know could you comment and try this patch on your scenario?  Once 
-> everyone agrees I can send this formally:
-
-I'll rework the patch along these lines, keeping the measured load
-separate from the inherited load and using down_threshold for the
-deferred-downscale condition. 
-
-I'll send a v2, with a Suggested-by tag for your suggestion.
-
---
-With Best Regards,
-Shengming
