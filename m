@@ -1,182 +1,154 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazolkn19013082.outbound.protection.outlook.com [52.103.14.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F18377ABB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:21:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.14.82
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794470; cv=fail; b=srP+imaPpVwzcD7kVs9iZiVAQF4IL8Izyr3XPmjo9gR45C2ge+0qlQrpb4oYboGr8DieRAIoEK3yUGuhYubZzjgPF0TT/0Sk0gKW9voRj6gGAPPD3j2D0XDQ6NJXQnHFPHwU0KBPBUJbpTaq8ap/qaUcER03V/2KboBqX9U1nYI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794470; c=relaxed/simple;
-	bh=x1skAIYGekzrMLRHgxd5Yj5goli+b76ZmKQUhUrkCp0=;
-	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=LV1x+1cchKrLviL84DKDE+rAEjCGYIcX/w32RvxONnrVcYyiUxby9H5rryHJBTvQVV6BSemlX1oJlMeRTbQkBdRysX8TVxyKB735ZUEf7j91TFrxFizxC0bhD3s502AMR5+ZEundVR02831acCtLG4ZniJDWPIw8F/kv9myE1e8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=b31XxE1N; arc=fail smtp.client-ip=52.103.14.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D0F4EE853
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788794478; cv=none; b=hCfSC1UqDZt1vdZBBIA18RcyPVU9iaoQuNyRzVqTUAoomRGjEBvSADaoc0N/wn2fQwDsq1Ea69VTNKIo9DB9F+DKn2a0QUoj6sLpY0oYnt0yh7VLIz2QijpLZ/7XWKEkqMvhddPLetXMY0eNxjC0PmrGZns8uYRNPz8+b1tT4RI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788794478; c=relaxed/simple;
+	bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qt2KLvOBKv9FMCB7naTRYl2RU3jyDikhlkRLA1t/T2SwIWbB4zGWVy/x4IwEEVNnkVQKE4j4WNAwazQaNjPt4b6cDLjpS/uWkO8eBtYXCky4zThEZog4mGVHrDMegtFNcPzcZX1KUjfedCNNdyKOApgNSPMW7FIbY//oUUz93r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TW5UwvgY; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="b31XxE1N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U5vz+ndVFrK8P4A/c4TyDURhc5mCwZC/kI8tJDIKXQFCj2kGWjQnyUfDJleAdK/OHca0WdDnj213w7Fb17UaaRPHMn5Ok6gmx5uIJWqHAlQkBMaJkkNKFDjTDtmf8CHzVGm7n1veGMrfVtllnWGy03ZBQMsKNnFw+xuwAt8zjaBDWEzsv59iF4/s10LABTzNLYyZ4T8cDJcgJmbGTPh7Wj+qvpVgwoN2+t92XbgP4FV8NvpEn9qR6DvqX9dCKKnJSegwKjVbzwhDvbPN6KIMiVSFpk3pSvvf94lMzaewhFE8U9ipHjq1U0S1s6YV7ncWdXEOlyQrnF57GlNUTdAA5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
- b=SWf3KhhXWNvDFrzNpbFG5rva3ThjkO/Y5RAD09RFpNzYw0p9TTlxbOI7HY1wu0svg2ImyH5TfrKxgkMAmQMCi3OvgsdmR84Je7Pd6Io5jRwLUDeakq18QVGF9mWG9EZrI9m5CmpVna5miq25kdXmWdqarNnjLKtez4Ma1h6i3zFrvMVcy5THbpnp49xfQkfvJWCVO99uXisQp7xsRjtmCibF+1szDqxj6heK6ozrrVt9oaqdT73wSn4Nj6vZBWbziMuGL56RBK6nuQBVhJqCiVQ24OHrgD39Xhv/onkj+lo4oUmrycIjskTGPPbz/XA1TWrPTVnZpUmTAaSveRdeow==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RjWpL3z1ExwwzVr8x5jZLQ8FBkoH1OHa3IKQre/V+EI=;
- b=b31XxE1NV1ojfz5/qVcQitZZ4e1i+MBczlh2KESeDIobNu+Ja0bPb/IltZqS/MZcs80A4HmJUI3QYd8HllEDnqwFCFH7kxUmW95WAoDxW4Q6G26qMPglQEsN0dFMmSyFtd+RIRbx6RKg5sLPlgEYcVJUQxTV71eu5TUsD/rgpGM1tTJRJCKG3IKFKRmOGGsOCfc+jt0T9PqckV2vuknTxq+0NPZo2J8zvCZVbhjKNkyiCuEfFXPuabOjIJY7vQGxy7o9navynkOTcRfY/rhVxL5+dJwAs5lgpVkxXUEsS07sAptHDNQMu9DY9iurppJvpOzKAmKwhoQFnvYtp1oIhQ==
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com (2603:10d6:103:180::10)
- by CPUPR80MB429769.lamprd80.prod.outlook.com (2603:10d6:103:3ae::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 15:21:04 +0000
-Received: from CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d]) by CPUPR80MB6583.lamprd80.prod.outlook.com
- ([fe80::26cd:a90b:7748:403d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 15:21:04 +0000
-From: Danilo Machado <danilomachado2002@hotmail.com>
-To: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
-	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
-	"linux@leemhuis.info" <linux@leemhuis.info>
-Subject: Re: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-Thread-Topic: [BUG REPORT] AMD Radeon R9 380 (Tonga) - HDMI no signal after
- suspend / regression tracking update
-Thread-Index: AQHdPtw9Ub0bdlVoJkOLBrcx72wrOA==
-Date: Mon, 7 Sep 2026 15:21:04 +0000
-Message-ID:
- <CPUPR80MB65833B1554155D4CCF024CF2A3B22@CPUPR80MB6583.lamprd80.prod.outlook.com>
-Accept-Language: pt-BR, en-US
-Content-Language: pt-BR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CPUPR80MB6583:EE_|CPUPR80MB429769:EE_
-x-ms-office365-filtering-correlation-id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
-x-microsoft-antispam:
- BCL:0;ARA:14566002|25031999004|21061999006|41001999006|8062599012|8060799015|24121999003|19110799012|24021099003|25010399006|22091999003|55001999006|31061999003|15080799012|15030799006|51005399006|5062599005|4295299021|440099028|3412199025|4302099013|102099032|1602099012|40105399003|2607281247196008|10035399007;
-x-microsoft-antispam-message-info:
- =?iso-8859-1?Q?+rGcMLpkcrB5spUdI99dFGHfpZnRoEtQVktuCVRQsUqsFRPq2h9UzClGb6?=
- =?iso-8859-1?Q?ZMaNgH4wO1UUcb2MQbJagxR1jl9DFL4wz87y3duspRvE84NZoe1eaMoxfg?=
- =?iso-8859-1?Q?w0uISVXcKrjkRSfbdrM0TJJP483gkT/8DsD8VdxJ+yMPQZSXVTWoGne/GW?=
- =?iso-8859-1?Q?PgBiLNAbwlpCAnoDsjjRZvBNOGY6HeUU9FW6mcOuzwLkL/eTx3Frr1gAAM?=
- =?iso-8859-1?Q?BjICzZOaOYrIHJF/xxjamNYEDYgdgksGcFYYljIdc8CTUREMpVubH4Z5zw?=
- =?iso-8859-1?Q?mGd61WjIQ8ROfjOcTxpleDFNGIPmtsmOAJVLGezZznB666/yAArgUDPdba?=
- =?iso-8859-1?Q?R1jnIgRWvfxnLYMRbvQWKnqn+N839JmoW+t1T3HffhA25Gf5PLrmDvM5ni?=
- =?iso-8859-1?Q?Mo/8RFdi6Oy8nmKsVEZrXndVb1+8XCw6rt/OqCjlHgNKvs5i3CoK3WaZV5?=
- =?iso-8859-1?Q?6vm3926cHd3FtVlABztNCLAucDeaWdfNdrcKEgijmAZa9doIjFuF8FLNI1?=
- =?iso-8859-1?Q?lNyTr4YXB4v4CHeYf9PuUfmjqUIGcr6c4SkHZPkmEGvTq/6A/E4cmU3FxY?=
- =?iso-8859-1?Q?PfeS5+Xd4PPXFmMbjmNX0yOwmilT8Zi3iTf2yq9SuqyJVCcE6mKVtC9fwI?=
- =?iso-8859-1?Q?wmLU8QsP8jN6hBgztKm+qcpkgwjxu5vYcuX8jxScfsIAbxrPIJ76dyV1kQ?=
- =?iso-8859-1?Q?6UBgf6aegvUSOYxV93v8TH8PqgZi8sXShAfN6TSRTkZeD0VCzaLhLt2Q+o?=
- =?iso-8859-1?Q?LPJOzq87MoBsSQIZ9CTSjDUAjowFcemwcYn/VkP5Aw9kJiKPqpawK2NC/r?=
- =?iso-8859-1?Q?UMCvAw8MnByVLbWazQplc0dFcWkfGr22umNLuIvpJXmlpLBzIW/XfKY9fE?=
- =?iso-8859-1?Q?SXngt2LzrjYBTmme2dYawt34dFxf8Ga+5xXUDyEN9MWDAX3V6hsBNiPfR2?=
- =?iso-8859-1?Q?ZLm7qFIyNIks63lYm6B7xxSD+6HkhWm0KENiwVAqAtknmZnDFtQDlufFvz?=
- =?iso-8859-1?Q?vaoZxDAWzcLCfA8DZhQ8PH3XUofXqr5NINTG15nT1sTXAwniPNFDNXXjxy?=
- =?iso-8859-1?Q?YKp6CkpuqPSfQDcJq9ShRSKBGqMpUXJG4TOJW2u/vIB1bVku4U2VJbJu/4?=
- =?iso-8859-1?Q?98r2PmGnIlHvrvjWNOgoCgZ+1ZoUFQFqQcbW0qIHuyKLXaRQ84gdrcCGJJ?=
- =?iso-8859-1?Q?ysd2HhCX8x7diQmlL2Yy+Ja2nM8waLL7ysJeAZC3829/qbAaDVM3s97+km?=
- =?iso-8859-1?Q?+69cUpjHhnK9PSNBtuUHT1fVbrjyNr09kelBKSSVU=3D?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?0WIuRoJoh/ylNCsD+cezshwDT2W1Nsp3k/yQ8TZ819tr83w872594TT6as?=
- =?iso-8859-1?Q?gD9nE1jrGZ+I0IA8nE9GETJ6JeHsf8Ws0+Ss67aks0fR+qHQSAbE7kmLfC?=
- =?iso-8859-1?Q?y4JorUOdNmOALpP3Lt6G1FKQQxcT/YJF3/cI0rJlYzbn+NYb9nYLYrJas1?=
- =?iso-8859-1?Q?6WHw1MxN3G0KDpHtOEXrME8iPL5qU4gWhsM4h1rp1A/e0DLQqfXNxu7m9s?=
- =?iso-8859-1?Q?lOnd+V8gCH+oVKweHyKLiyIrqkxrJdf6GraCrihRT6428GV10U9x70c8xf?=
- =?iso-8859-1?Q?74+T8rjDCIZkpz9eyLkAZMnvfhVujzmlt8XswEVWoBEHTesLMrdFqjYHA1?=
- =?iso-8859-1?Q?rv0hmXOOle92HJB6+hq7JXdQQ7ZfXboqUu2DNoMU2Wz/jrQOLSIruW2W+h?=
- =?iso-8859-1?Q?Ja0j2z9ZS9aK/+javeXT9XNSaVDaMwbEmxQU8NJZ8MlOT5Zy21yYHl+waF?=
- =?iso-8859-1?Q?W16Qx35ZcmBQtIARSH9fD8GQy9fW5n+5NRkIhhxWIIeRHcAmTJEcL0xQ/k?=
- =?iso-8859-1?Q?M1AoYhlNf/JjkKtAqRByHllufLERWTrjll6jzRqxQnzPzIxK6itaf8I0DU?=
- =?iso-8859-1?Q?+GfXRe2DNuwaGxva5Me6hxXvEW6YwujjO/Borz6UzpVJA+VzqXtHsnYiOs?=
- =?iso-8859-1?Q?auAP/bomsBswevoX2ETR6RdXo+KMY5RwMT44UhlaZaJL+kBYD2HjHiY9tI?=
- =?iso-8859-1?Q?WceBkbu3yJGsDkP06v4QYTA60CVkCWLMV0rK3UKBP0mW/eTRJ6i1vyP9+Y?=
- =?iso-8859-1?Q?7M83/o1rKwmGogS00O6/fmsGW1jXf2SgHLWwr33vEfJhlVABCxxt7W6S7a?=
- =?iso-8859-1?Q?B4UH6+7rwLNmqnZNxtmaEJNNLxSOGAyphYC5S1T04BYTBDmF5K/Imc30gz?=
- =?iso-8859-1?Q?UWmBLa8MzkrVTKQFpZE4Zu3U56ln9A+2USbTrJXm4TgISO4McD+Tr4cL/2?=
- =?iso-8859-1?Q?gjeI4fxRpghtw7cuem7UBwy9sWEIFE2wh3XkMSRUHWfjC5DJ+eQpKYXee+?=
- =?iso-8859-1?Q?cf+c/JvkPSEXVz+eTiCoGHBUNfZTY066frahpUMaWFaZGESZCz+IGbWVex?=
- =?iso-8859-1?Q?Eb0dbpXAk79zbPFLtHOHMsFkmWG1gsgFuzxgK4nX5W0ro3nFfUkB6QdSO3?=
- =?iso-8859-1?Q?vEGxK62nmMjiC2fmWuYfrjqgI3OZPGsxd+2VOCKNbKY4E9Sy6IrtEkhOOB?=
- =?iso-8859-1?Q?piUWZ4qd+LW8p8/+sm3/xm0VO9pbM/9R7RBf8oWy2whBGuKxauhoRRbgNa?=
- =?iso-8859-1?Q?NgDx+r6yqaiEM6E0Jiu0E9s2UEakRlJCsolFNB+Tdz13LP1jE3egNcXAZB?=
- =?iso-8859-1?Q?IWIB54rPQmfNBc2S3iiUJMYouEtYaZaDLy5pwK18Sy2qLo2ZIQM2U0/Zwp?=
- =?iso-8859-1?Q?+uRYkvUUajl4EYWFXUvCs6me0kKvdGlHF6VIWeNZDZuQz5GBraOiGBlFk7?=
- =?iso-8859-1?Q?ePePdq8DBQJh03x+5iKXZ3mbYSUb0l9NX5ewSJ4xBuZ6dYr3XAuZq+T5y5?=
- =?iso-8859-1?Q?X87xWHtOcRODROaS/dnSwIreQZ6IAPT9kXlit+zDvCOg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TW5UwvgY"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso34978345e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:21:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788794475; x=1789399275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+        b=TW5UwvgYd+Z348/MHCluzx9vWPmvDNgx4x6AbxBsWhekm1fWz+2pAJi3B5LfRIX9t+
+         9WwnWxIJpefDD8b3o+1R53IMplrjBCjlr2g3R7A79yHUbMnPusTe9z2VSfvHctolgAJK
+         JcC0G4SEskUIBG/HRBwXnjpssbMtKxmXM94vT/Lg9cDLglCP4ItN5KE6GMsRMzm8pJ95
+         2grcrZVMKTS0ck6kI8XaI5fHAQILxZlwbAfR/FEhzlkCCHEVT9kFB88zL0Aab2RQZS0M
+         +R43XbWo15LUv8/EeQdtg013BBYKPNGv4ecYMy4kR7knTXqDOboWG4DQJy7kqAX+Ymbe
+         x8Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788794475; x=1789399275;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+        b=sbznO4Cp+lmzpBKIPBm1UBaGVaHYLrK0tC/B1Kln/nh4jJc+t1ROUW0Xw5VM00GW7r
+         hGkE058DNXoFhrXaU0d6JnEDO5El7Nn1kFDdinnKE6Qjb4xkIxVgOgoXORWZ/7zgI8JO
+         nXjezXxKEqTMsJrT4iUj7FIKGJEucnrsWHyp3WkhwMMF4csDuRpCXHwHPqFxQqaLsVWD
+         L6Fuufye1nohJBNV4chxXJ2aRNXzT0pyAi5z8AumlfSt5lPm+m5+bqZzVqPKeDcpZrtO
+         LCU5SXxxoxuvJLsmZz3+z3hVvp1z4hWHgsHFRdjEUTLylorxvy+wjEepRy4qDhvl7DxC
+         aQ4w==
+X-Forwarded-Encrypted: i=1; AKwUvBx4NP7bP7mXHGALEJRqtTx6E2fqQMHAa9vyOtwzhuIVM0HNHO1OIVdAbBV7CrtXO07pFUSu/+/xDmGa2Us=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqqw/45ihWmkZIuR8ESgGNUteAVhIxbOEUR0bYSEUa6HLg4QB8
+	dBSd7sI9vDrAjr8Tp0HwP3LN01iaXxn7EWnZXHplZiCh4AP6q9j8pk7b
+X-Gm-Gg: AYBFou1WNV7+BGfdEM7d4Fsx6uF2GEsIL5dsDfiUt3wLymlOK8/Hhf7pnJPtgvVap86
+	GAAbE/ZAmgKQ6gDxfW6GAvKB7jo6kQiCtUs58UY7TPC9JmYSMtZ9MJAZGPpSPcyQ40qG4saj0PO
+	Uh9uvdBu+Fxa001FENQzC4BjSxGnfMjqy/gslUDluHV1t1Yq89Vc41rJBkR7K60PMmuRbTyDuh9
+	QgSv9Ty7cs+QMouP+0enosgzKxhvCs9ak400XB1QTlAEz4VMrZiTTKsL1n0TjAYeHoZK74TVVCX
+	/32T9jTSL5gi1CGcvqiKqUi0aIrFV10oq+gxdM96x/bnkHI80JhGVYf52+tE35ySwSEZnjIGQ/t
+	F0x1U4bdif7JHKzfQy2mSAoQt263btg1ExuewsojrkuR86pcYWWYndJfldJuHMMSQP7eUGqmdxo
+	62oTC7dxOrqhoIu+rsEKH/kFJU8/CdSWnc/IuIdvWZ/V41wjZOJrLfLf/K6pY+mC7Ww1JtC+nU8
+	PGhd6U5xEwnDkMmP5WnarV+/UYifINK0zwXjumPNA==
+X-Received: by 2002:a05:600c:3f08:b0:49c:fa20:cc04 with SMTP id 5b1f17b1804b1-49cfa20cd10mr195270575e9.27.1788794474776;
+        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm695732295e9.15.2026.09.07.08.21.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
+Date: Mon,  7 Sep 2026 18:21:10 +0300
+Message-ID: <20260907152110.4934-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260905030114.21de1faf@jic23-huawei>
+References: <20260905030114.21de1faf@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-665fe.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CPUPR80MB6583.lamprd80.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb67ec1a-81b5-4c89-a678-08df0cf3a223
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 15:21:04.6289
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPUPR80MB429769
+Content-Transfer-Encoding: quoted-printable
 
-#regzbot back in-progress=0A=
-#regzbot monitor https://bugs.launchpad.net/ubuntu/+source/linux/+bug/21423=
-89=0A=
-#regzbot monitor https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=
-=0A=
-=0A=
-Hi Thorsten, Alex, and Linux Kernel Maintainers,=0A=
-=0A=
-I am writing to update the status of this regression after checking the Reg=
-zbot tracking dashboard:=0A=
-https://linux-regtracking.leemhuis.info/regzbot/regression/lore/CAOnW2VTGBP=
-=3DMMWM=3DW41uPDLrzTVHM1sw8P1myvftnNk0vEMMFw@mail.gmail.com/=0A=
-=0A=
-The dashboard currently lists this issue as "fizzled out / resolved: inconc=
-lusive", but I want to clarify that this bug is ACTIVE, UNRESOLVED, and act=
-ively tracked. The lack of recent email activity on LKML was due to ongoing=
- technical data collection on Launchpad and GitLab while awaiting upstream =
-feedback.=0A=
-=0A=
-Current Status & Verification:=0A=
-=0A=
-1. Launchpad Report (#2142389):=0A=
-   - Status: Confirmed (assigned to maintainer Timo Aaltonen).=0A=
-   - Heat/Users: 220 Bug Heat points with 44+ explicitly confirmed affected=
- users across various AMD architectures (Tonga R9 380, Polaris RX 400/500, =
-and recent Vega APUs).=0A=
-   - Link: https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142389=0A=
-=0A=
-2. Freedesktop GitLab Issue (#5123):=0A=
-   - Status: Open.=0A=
-   - Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5123=0A=
-=0A=
-3. Technical Summary:=0A=
-   - I have executed 3 full git bisect routines on hardware testbenches, is=
-olating the regression behavior between kernel transitions.=0A=
-   - Recent user reports confirm the same black screen / no EDID handshake =
-failure upon resume and DPMS display wake-up across multiple Linux distribu=
-tions (Ubuntu, Fedora, Void Linux) and kernel versions (up to kernel 7.0).=
-=0A=
-=0A=
-Please re-open and maintain active tracking for this regression on Regzbot.=
- I remain available to test candidate patches, kernel builds, or debug flag=
-s on physical hardware.=0A=
-=0A=
-Best regards,=0A=
-Danilo Machado=
+On Sat, Sep 5, 2026 at 5:01 AM, Jonathan Cameron wrote:=0D
+>On Thu, 3 Sep 2026 22:03:55 +0300=0D
+>Andy Shevchenko <andriy.shevchenko@intel.com> wrote:=0D
+>=0D
+>> On Thu, Sep 03, 2026 at 06:16:27PM +0300, Flaviu Nistor wrote:=0D
+>> > On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote: =3D20=0D
+>>=3D20=0D
+>> ...=0D
+>>=3D20=0D
+>> > Since the iio core exposes in sysfs the in_volatagex_label=0D
+>> > for all channels, there are 3 situations: =3D20=0D
+>>=3D20=0D
+>> > 3. The channel is not defined in the dts (in_voltagex_label is still v=
+i=3D=0D
+sible=0D
+>> > in the sysfs), and reading the label will cause "(null)\n" to be print=
+e=3D=0D
+>d in=0D
+>> > the console (as indicated also by Sashiko boot), since the default "" =
+v=3D=0D
+>alue=0D
+>> > is not assigned during device_for_each_child_node_scoped(). I think th=
+i=3D=0D
+>s is=0D
+>> > not an issue since is just the way sysfs_emit() handles an NULL string=
+.=3D=0D
+> =3D20=0D
+>>=3D20=0D
+>> Is this current state of affairs?=0D
+>>=3D20=0D
+>> If so, the patch must not change that =3DE2=3D80=3D94 it's an ABI now an=
+d (null=3D=0D
+>) is valid=0D
+>> response from the user space point of view.=0D
+>>=3D20=0D
+>> > What would you prefer? Any further suggestions? =3D20=0D
+>>=3D20=0D
+>Unfortunately we never defined what should happen this way explicitly.=0D
+>In practice assumption is that this is a corner case we probably won't=0D
+>see. People don't tend to want to label just one random pin, they tend=0D
+>to label the lot. =3D20=0D
+>=0D
+>So go with whatever is most common in other drivers,=0D
+>=0D
+=0D
+Hello, I took some time and went through all of the drivers that use read_l=
+abel()=0D
+to get the most common solution. Most of the drivers only use datasheet_nam=
+e and only=0D
+a few actually get the label (if present) from the device tree during probe=
+.=0D
+I now have the best solution (from my point of view), which covers all (3) =
+cases. If=0D
+the label string is present in the device tree it will be use and printed i=
+n the console=0D
+in user space. If label not present or channel is not defined at all in the=
+ dts, the=0D
+datasheet_name will be used similar to most drivers. I will send a v3.=0D
+=0D
+PS: many thanks for everybody for pushing for a better solution.=0D
+=0D
+Best regards,=0D
+Flaviu=0D
+=0D
+>Jonathan=
