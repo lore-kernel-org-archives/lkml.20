@@ -1,167 +1,296 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50D754756DD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F2B476CC0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:48:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781724; cv=none; b=SkNrxbMYDwt+WtEVgD9c956SFr0JutLJTUdeDqILEbsmuM+KoY6fPnqsGpfiOq67ggBNQHxwbZDOTiYBrlXhfCaVYUXoYBqEqhErLf9kqe+hv5kNzeJZaV/fM9luLN5W3CcnsZLKfO4DpWgODiBfZFMlZ2iMg9P//JL6eoQipuc=
+	t=1788781727; cv=none; b=DBk1K2ESg8617tp9IMrWyx8uyinzzqU4veDbZtMiA/WvbDqK/8/5biIawHYS+HzH196vj3vmSAZMcUizd81im6dAzSSpPAed3JaOgmkAxAWP65LA7oKc5sOckNCX1aXfIDZHj6nns07OwFzekRT4yDu21rcyaDXAxTpxYT+OGUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781724; c=relaxed/simple;
-	bh=DsHrNP/7VjhM++iNFYItZM6mtvnTP91HMNeJCieE/bc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TOOvjS5+FKY9fxOUqocTvl/qIIzyp4YDKQ/DXRK43DLRVcNqlLA9ZswUk2SW5Bw/vrgRX5SLTHreX5+H6B10SOWiFmWVEYvjEUQyMO5VeIpTGAIPNR1S85q1eddqiyQbw0Eohf/obKW108Qia4IZbwFowfixBYLWSebrNoNXs8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FoDrpI8e; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1788781727; c=relaxed/simple;
+	bh=EYHGDuY/7hvpfW4eDU8EDahgpsMxNsch9s/CE/PMwyQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E8Gp3aEcm2R41yA00yW1wUlMbCuoFN9+aHciwS5qLI9Ctc5l3qjAxKlXWXcQ7fzAiZRC5aKWrPjPTr9qu4s/GEsT+MfxQoffk86SdMAvk4ZRHdBw3Vaz+rUXFX1J2/agjzTdCe3KmBUetymrYCaseiyQyLAvz18AXx/vgqgTy5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e64EjK6L; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FoDrpI8e"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so814705e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:48:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e64EjK6L"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-484362f5c4aso4379183f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:48:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788781720; x=1789386520; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sCcumiqt++ngk8+8ZsfaJMliyV3ADBkSY4R1nZtHDbI=;
-        b=FoDrpI8ebOPonjxnc04BXC8wULSLyf2eqV91rM53BVvHBS9wtZMK635I5GGA0O3gin
-         WeaGI7EUbXqV7t6wMLRwZ5O88PM8uThehvQ8h56nMHg057LQOqerxyvbm9SxH0mBOFNz
-         3AhDIxdBfGFWDcBR1+AB87WCk7A4LQ/lB72skDoVbuOBqOcpdXcIVwIR4GS6m28Rn+Z/
-         QiMz7zO5ajiL+UmV8rtF9s1JSs3qmBLuoSWee/rGW70xRu3d0rWAqOBI4V1/7Ig3f4Ql
-         QZvtTxbRpUmV5IeF6viwqa2KwjNuxmkSQQMxZmr1rdDXhqpXM2A3vRaEm42zvKbm0JgO
-         qf2g==
+        d=gmail.com; s=20251104; t=1788781723; x=1789386523; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PhC/KwLBMWoVgw8QkCQIMpUgTErQIz1QxqNm1GMMGpk=;
+        b=e64EjK6LFTPonUbXIq6+EWwOsUMtO9CzJdPLoFUqJdyZ11kmfytpG6lOwxZyeIjcWg
+         KpTz4Ozwrwv7jfCfBt81Ns5AoN/QsL9/Bql2Fq4/ps2I9tm0/E2DoSfjlFRq3/z78azy
+         v5Cyy2pHiYuVBsm+n9wXm9UZ0zute00p9newzXuLLbZleYUKsu62375PaajRLV4Q9kRU
+         fcCED1cqcCuCaHYf7Qogg7FfOhQ504Bzro4P3kwwatK5tubfIT98ynfW6cjCBLxx+PMc
+         Z4STpqs/qk54R9DEl5z+xvaT8lrDfDrmtR+pF4cuo8r8fn6HyiScGlfB/RCYrWLTDP46
+         wdHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781720; x=1789386520;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sCcumiqt++ngk8+8ZsfaJMliyV3ADBkSY4R1nZtHDbI=;
-        b=ZP+Dtm9+OIWtomK845Xfje2D3NQlN5rRmxUBvNXKBiUvBfiGLcahx+ar1CsNsASiaD
-         8DUCQgSY0rFXQQ9IcHEdOONVbnymAIVtN+OaXkqa9VOd++0CN8DLDqal+LXPIrOtfk4S
-         Kc4kADp7mH0zC/6HYhhApfpzxDZjSJtJZ1rDtriQUjRcLjLHsC26JM6UOaPOMewJ6KHu
-         tGOEXqZ7WXZ2aIDUbwWUza3j8mezIlVlr2S8j7XPC+l0Lz63Hw1hHUyTlItec7ADXS4d
-         jxSnwAUq8JgO+9E5ndNGDDpAJJz+YU0WXyIosoABKpZGjPW29isiOr2Rdypvle+QoLk2
-         xFLg==
-X-Forwarded-Encrypted: i=1; AKwUvBy5XdhQFYqIyRpQfHiJEj9L3VYxlPtSViIxu16ngfRXhwP9naImUP3sda4isLQxci1ZN4OIsxMEPRkYH+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kj+NI7t82qxfwY8Jppag3cB3eAfBOabJpDkdqa4I52VQCNXC/P
-	YLtqlPLOesxZnTAhmRGaesHExLT71/2+XThMzEZ1zUWP4IFXBu+jSJ2O
-X-Gm-Gg: AYBFou3O74oTxqQAOttdJgoerktz/BsWf+LzA3qcVGi/kDfBkglpL61Uh0uf+6GXZjj
-	klU+a10PeZ2vS8khgKHozwZBetVt7z92rWM8cEHp4bY92IVFzrOaUi6myvYBiH+MREAlgdcuQOk
-	F2/ZYLeQrxVyv84FurqSEX3i8kGiSyACfW5gXR1pi0WaX4Uhk7dJ3oy7vNCIdxN7XCag1OAaFmY
-	b7X5WYe11prjbsdboSu2cHoTQfaKcfxPzSKlZImvozcDAYHHeljERknjmKH5yTyubYFFZycT7a4
-	ccli+ysWmgVFIzLm5Egg8qDg8qziMcYfiXAM4uavLirobDawqG6IFiKD1c6QrNVsX3uOUDrIcVG
-	4pcPX0oMfsE2LRUuVO3mBSzOo3OAr4XjrvvGfw9m1LBku/0fgX8k4cSSUaSYfqo0Rul50sB//EV
-	QfKVYamxRi+usdmJazIMMq37ArqfBhynITQq5+r6/9RaWsfkj4qA==
-X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr132422645e9.1.1788781720257;
-        Mon, 07 Sep 2026 04:48:40 -0700 (PDT)
-Received: from skbuf ([2a02:2f04:d006:ef01:8e86:58dc:206e:83a0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm823780485e9.0.2026.09.07.04.48.38
+        d=1e100.net; s=20251104; t=1788781723; x=1789386523;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PhC/KwLBMWoVgw8QkCQIMpUgTErQIz1QxqNm1GMMGpk=;
+        b=jhRmHx+WPuNIgMQNojETDgzLchPsk+xyDCBvKOMFAwxv5Pb9FLh5e1tp7LS0e22dvp
+         SSEIqwbWzx4OvlC1O03WP7iA1nEQF1D2ZrCkyTgzTkJChVw0tFJDCA5gc42R1rhptKkQ
+         6Ee/jPZtoJJEw8iOUfSMUUPW/Lvfzcd+MJfqiGCwbF/In2E+hfmcttzd3zR6fO7IHHVf
+         qGKsetNwcfoTGDyXzMz0ljg2m90hbwooc3yF/5f7CaBYp2QxrGyGMQOeI+TvQNIu7L1k
+         whNgRr579egyEiIZdDe4gO8b//DuM2GViupCDt+P1Nw1dqf4goQGexcCgzIR1u7iAeof
+         GTjA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8ifJeGWXPn/sDurlKR+2hGrRVCL3FV7CClzz5hbXML7jBQzuY+d1XEPDIiQbqhPLJE0KxHzw9wPkYKpk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lkcu7lyJqP9o7lOUdHek0UP2DW6soGM6TCOLeZQLRrFz5w151X
+	SEuiJu6SvDxaxHlyOfbAMRmR0UJYGq2eDXyIb6AeYZqTTI9aLlLDlgo9
+X-Gm-Gg: AYBFou2M9mI0Y8fLjulDQYfE3UmJC3eT3WUyl5u6Kl84QCHuW0oldaQlUeMf2ckK3jv
+	XfB+yUfTlaR2/n1GtSOnNSIk6xquqUDzfgjgPblv046po3wG36lLDHprdRVgofdYIOj1r2VWwj3
+	mDioo5QdU3Y1gx1sXAv1bgCa9W+LUbgRNQkAcem4W2sX8+9ie2AH7zCbD/Pwq8UUgVSe6n7N12u
+	v4AaJKY57sO2puVYd9mg4PgqoN1mei7Uuv7gCzSMzObAQQRz3ZBy+RYfk3rSS/2qL2lz4qJdTEp
+	bOCiVA5d7Vad/Up8qCBzSxrjBes/2ikOYVL+U5OkrSezoQvfJRXHvXLkyHNu9r6gSFTYdsVkD1k
+	1kBvDEL2slNxRhjmJoCDUA5pARLAp++eo9M06cZfreE8ru0O+rX8L6s7nTjZb7RVrq5w6P1Imjw
+	Ix1vsGuO69n2+HN9GxKlC4vJOCbDGKt9HrE7mJ49vbxoDgVfVjibulwHIyLTSknKTKxTa7VOGAp
+	bqsdZe4uGMQbjI=
+X-Received: by 2002:a05:6000:29c9:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-4858709b390mr37290205f8f.28.1788781722968;
+        Mon, 07 Sep 2026 04:48:42 -0700 (PDT)
+Received: from [127.0.1.1] ([2001:4bb8:178:2f30:d3da:48f5:116c:5642])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c5bc5sm29597421f8f.24.2026.09.07.04.48.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:48:39 -0700 (PDT)
-Date: Mon, 7 Sep 2026 14:48:37 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 3/4] phy: core: Add phy bulk data helper functions
-Message-ID: <20260907114837.2y55l7dfqqrgcka2@skbuf>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260904083709.425893-4-inochiama@gmail.com>
+        Mon, 07 Sep 2026 04:48:42 -0700 (PDT)
+From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Subject: [PATCH v9 0/4] iio: light: add support for veml6031x00 ALS series
+Date: Mon, 07 Sep 2026 13:48:38 +0200
+Message-Id: <20260907-veml6031x00-v9-0-8c93a6c66a4d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904083709.425893-4-inochiama@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAJaknmoC/2XPwW6EIBDG8VfZcK7NMOAAPfU9mh5Ah12SdW20M
+ dtsfPeiabOix4/k9yfzECMPiUfxdnqIgac0pv6Wh3s5iebib2euUpu3QEAtJbhq4u5KoOQdoPL
+ eaVKtB9JeZPE1cEz3tfbxmfcljd/98LPGJ7m8/nWQis4kK6i0j9EThsixfT93Pl1fm74TS2fCf
+ 0tQS1VaXKwB1Xgi6eXBqo1FXVqVLTpJNYELGOq91RurZGl1tkw6mtg2rOzh3/ppLZjS1qsFayg
+ GRRr2ljZWYmkpW8MciXXD6A7WbK0trVnuDdAyRARu497ap3Wwu9dmWytsgo4oyfqtnef5F1+Sz
+ 5tKAgAA
+To: Jonathan Cameron <jic23@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
+ Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788781720; l=9764;
+ i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
+ bh=EYHGDuY/7hvpfW4eDU8EDahgpsMxNsch9s/CE/PMwyQ=;
+ b=a3cBu1S6rrNfRlgLYZ0M3Ph3CvBnPIwHEh1y+H+H6T+AJRWkuTYye5jArTJM7rqjZi6vcCeD4
+ lja3ovnnCpGBpH1bAVJ2AXoQFOZJ3uqaome1zAVzBqdYG8tZ9+j7L1n
+X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
+ pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
 
-On Fri, Sep 04, 2026 at 04:37:07PM +0800, Inochi Amaoto wrote:
-> +static inline int phy_bulk_get_all(struct device *dev,
-> +				   struct phy_bulk_data **phys)
-> +{
-> +	if (phys)
-> +		*phys = NULL;
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static inline int of_phy_bulk_get_all(struct device_node *np,
-> +				      struct phy_bulk_data **phys)
-> +{
-> +	if (phys)
-> +		*phys = NULL;
-> +
-> +	return -EOPNOTSUPP;
-> +}
+These ambient light sensors with I2C interface provide two light
+channels (ALS and IR), high/low threshold alarms with configurable
+persistence, and a data ready signal.
 
-Why do the stub definitions of *_get_all() return an error?
-I would expect these to have optional semantics, i.e. 0 PHYs are not an
-error to the consumer.
+The devices covered by this driver have the same resolution, and they
+share most of their functionality. These are the differences between
+them (note that the x belongs to their names, and it is not a wildcard):
 
-For reference, I am comparing with clk_bulk_get_all() which returns 0.
+ - Device ID: accessible via two 8-bit registers, different values for
+   veml6031x00/veml6031x01 and veml60311x00/veml60311x01.
+ - I2C address: same grouping, 0x29 and 0x10 I2C addresses.
+ - AEC qualification: AEC-Q100 for veml6031x00/veml60311x00 and
+   AEC-Q101 for veml6031x01/veml60311x01.
 
-> +
-> +static inline void phy_bulk_put(struct device *dev, unsigned int num_phys,
-> +				struct phy_bulk_data *phys)
-> +{
-> +	if (!phys)
-> +		return;
-> +
-> +	while (num_phys--)
-> +		phys[num_phys].phy = NULL;
-> +}
-> +
-> +static inline void of_phy_bulk_put(unsigned int num_phys,
-> +				   struct phy_bulk_data *phys)
-> +{
-> +	if (!phys)
-> +		return;
-> +
-> +	while (num_phys--)
-> +		phys[num_phys].phy = NULL;
-> +}
-> +
-> +static inline void phy_bulk_put_all(struct device *dev, unsigned int num_phys,
-> +				    struct phy_bulk_data *phys)
-> +{
-> +	phy_bulk_put(dev, num_phys, phys);
-> +}
-> +
-> +static inline void of_phy_bulk_put_all(unsigned int num_phys,
-> +				       struct phy_bulk_data *phys)
-> +{
-> +	of_phy_bulk_put(num_phys, phys);
-> +}
-> +
-> +static inline int phy_bulk_check_disabled(unsigned int num_phys,
-> +					  struct phy_bulk_data *phys)
-> +{
-> +	if (!phys)
-> +		return 0;
-> +
-> +	for (unsigned int i = 0; i < num_phys; i++)
-> +		if (phys[i].phy)
-> +			return -EOPNOTSUPP;
+The alarms and the data ready signals share the interrupt pin, and an
+interrupt status register must be accessed to identify the source. Such
+multiplexing is not new in IIO, and I have followed existing examples
+for it. The persistence setting (own attribute) to trigger the alarms
+uses the pattern that has already been used for the veml6030.
 
-For consistency with the individual API, I believe this should be
--ENOSYS (not that I know why we would be using this error code).
+The device configuration is in general documented in the datasheet and
+the application note. There is an exception, though: the activation of
+the "active force" mode that is required for the data ready signal must
+be carried out in two steps even though the affected bits are located in
+the same register: first ALS_AF (active force mode enable) must be set,
+and then ALS_TRIG (active force trigger setting) must be enabled. I have
+added a brief commentary in the code to explain this behavior, which has
+been confirmed by the manufacturer.
 
-> +
-> +	return 0;
-> +}
+The datasheet specifies the scale and integration time for the ALS channel.
+Although both settings also affect the measured IR value, no transfer
+function, accuracy, or calibration is specified for converting the IR
+output into a physical quantity. The IR channel is therefore intended only
+as a qualitative indication of the infrared content of the incident light,
+rather than as a precision measurement channel. Consequently, the driver
+does not expose scale or integration time as IR-channel attributes.
 
-Can you update Documentation/driver-api/phy/phy.rst with some terse
-references to the bulk API and its intended use? Not much, just say
-what it's for (like multi-lane protocols, and why some operations are
-missing: phy_validate(), phy_set_mode_ext() etc). I guess they are
-missing because currently they have no user, which is OK, but the rest
-of the world should be on the same page w.r.t. the future of this API.
+The only functionality that has not been implemented yet is the x0.66
+gain (and its x0.165 counterpart when PD_DIV=1), which makes the gts
+helpers less usable due to the conversions required. It is indeed an
+uncommon gain to use (there are x0.5 and x0.125 gains) with no known
+use-case at the moment that justifies making adjustments to the gts
+helpers or adding artificial conversions to make it work.
 
-Thanks!
+This driver has been tested with the four supported devices separately
+as well as in pairs where the I2C addresses don't overlap.
+
+To: Jonathan Cameron <jic23@kernel.org>
+To: Lars-Peter Clausen <lars@metafoo.de>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: David Lechner <dlechner@baylibre.com>
+To: Nuno Sá <nuno.sa@analog.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Jonathan Cameron <Jonathan.Cameron@huawei.com>
+Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
+Changes in v9:
+- [4/4] Register the IRQ after the triggered buffer to fix the devres
+  tear down sequence.
+- [4/4] Check for interrupt_users == 0 before decrementing.
+- Link to v8: https://lore.kernel.org/r/20260901-veml6031x00-v8-0-532cb4f2168a@gmail.com
+
+Changes in v8:
+- [2/4] declare *dev = regmap_get_device() instead of calling it in
+  dev_warn().
+- [4/4] split regmap writable ranges to avoid holes (reserved registers).
+- [4/4] Use is_power_of_2() and ilog2() instead of hweight8() and ffs().
+- [4/4] Minor modifications suggested by Andy Shevchenko (direct return
+  of devm_add_action_or_reset(), unsigned where required, split regval
+  assignment).
+
+- Link to v7: https://lore.kernel.org/r/20260818-veml6031x00-v7-0-2b0de0f20edf@gmail.com
+
+Changes in v7:
+- [2..4/4] Refactor probe() (extract IIO device initialization, more
+  logical initialization order).
+- [2/4] Drop pm_runtime_get_noresume() and pm_runtime_put_autosuspend()
+  in the probe function and let the core handle it.
+- [2/4] Rephrase unknwon ID info message.
+- [2/4] Rephrase Commit message to make it independent of [3..4/4]
+- [2/4] Trailing comma after last channel in iio_chan_spec.
+- [2/4] Return -ENODATA if i2c_get_match_data() fails.
+- [2/4] Use logical splits and local variables to make lines shorter.
+- [2..4/4] Use regmap_assign_bits() instead of regmap_update_bits() where
+  it makes sense.
+- [4/4] Use pm_runtime_put_sync()
+- [4/4] Explicitly include <linux/lockdep.h> for lockdep_assert_held().
+- [4/4] Use helpers to refactor code without adding goto jumps within
+  scoped guards.
+- [4/4] Drop own trigger assignment.
+- Link to v6: https://lore.kernel.org/r/20260812-veml6031x00-v6-0-7eef6e4ce290@gmail.com
+
+Changes in v6:
+- [1/4] Fix dt-binding title.
+- [2/4] Update headers as indicated by Andy and Uwe.
+- [2/4] Macro to get selector from gain registers.
+- [2/4] Use pm_runtime_get_noresume() (no devres).
+- [2/4] Drop <linux/mod_devicetable.h>
+- [2/4] Use regmap_update_bits() to set power state.
+- [3/4] Add scan info for the non-irq variant.
+- [3/4] Fix lock acquisition (direct mode and then scale_lock).
+- [3/4] Zero-initialize scan buffer.
+- [4/4] Store timestamp before calling iio_trigger_poll_nested().
+- [4/4] Move mutex_init and regfield_init before setup_irq().
+- [4/4] Add lockdep_assert_held() to veml6031x00_interrupt().
+- [4/4] Avoid register read if a spurious interrupt arrives when the
+  device is powered down.
+- Link to v5: https://lore.kernel.org/r/20260807-veml6031x00-v5-0-e60876fb3640@gmail.com
+
+Changes in v5:
+- [2/4] Explicit inclusion of some missing used headers.
+- [2/4] Define CONF0 as volatile to account for AF_TRIG (reset by
+  hardware).
+- [2/4] Drop integration time and scale for IR channel.
+- [2/4] Use unsigned int instead of int where no negative values are
+  possible.
+- [2/4] Write a helper to update the gain and use it where needed.
+- [2/4] Move i2c_get_match() closer to the data allocation.
+- [2/4] Move iio dev initialization out of the runtime pm region.
+- [2/4] Lower log level for unknown ID part.
+- [2/4] Redefine gains as _INT_MILLI.
+- [2/4] Drop pointer to the device in the private structure.
+- [2/4] Fix some coding-style issues.
+- [4/4] Add second iio_chan_spec to avoid exposing dead sysfs attributes if no
+  irq is available.
+- [4/4] Refactor goto calls in functions with guard().
+- [3/4] Use IIO_DECLARE_BUFFER_WITH_TS() instead of a custom structure.
+- [4/4] Use format instead of deprecated sign for the scan type.
+- Link to v4: https://lore.kernel.org/r/20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com
+
+Changes in v4:
+- [1/4] Entry in alphabetical order for MAINTAINERS.
+- [2/4] Fix style for device ID tables.
+- [2/4] Add missing header mod_devicetable.h and move iio/sysfs.h to
+  [4/4] for the persistence attribute.
+- [2/4] Move IIO_DEV_ACQUIRE_DIRECT_MODE to [3/4] where buffers are
+  added.
+- [3/4] Use test_bit() to check the active scan mask.
+- [2/4] Add mutex for operations on scattered register fields.
+- [2/4] Add shutdown action after turning the device on.
+- Link to v3: https://lore.kernel.org/r/20260524-veml6031x00-v3-0-29165609b2b5@gmail.com
+
+Changes in v3:
+- Move veml6030 fixes to a separate patch stack.
+- Use C99 initializers for i2c_device_id.
+- Split driver code into multiple patches to ease its review.
+- Rework locking to get rid of atomic increment/decrement ops.
+- Fix error paths in pm_runtime operations.
+- Use IIO_DEV_ACQUIRE_DIRECT_MODE for single read/write ops.
+- Link to v2: https://lore.kernel.org/r/20260513-veml6031x00-v2-0-4703ca661a1d@gmail.com
+
+Changes in v2:
+- Add commit to fix bug in veml6030.c (channel type when pushing
+  events) and remove dead code.
+- Use gts helpers to simplify operations.
+- Drop unused gain_idx.
+- Build INT_MASK as an OR operation of the involved bits.
+- Format arrays to follow the desired standard for IIO.
+- Directly return function result as the last operation within another
+  function instead of 'ret = x; if (ret) return ret; return 0;'.
+- Fix some spacing (double space, tab for alignemnt in info struct).
+- Use sizeof() for __le16 reg instead of 2.
+- Return an error if the part ID could not be read.
+- Spell out sd -> shutdown.
+- Use devm_mutex_init() instead of mutex_init().
+- Avoid using conditional guard, use claim/release instead.
+- Access integration times from the global array to get and set the
+  integration time instead of using a switch.
+- Simplify read of available periods (persistence).
+- Drop IRQF_TRIGGER_FALLING in the threaded irq request.
+- Add regmap ranges.
+- Link to v1: https://lore.kernel.org/r/20241126-veml6031x00-v1-0-4affa62bfefd@gmail.com
+
+---
+Javier Carrasco (4):
+      dt-bindings: iio: light: veml6030: add veml6031x00 ALS series
+      iio: light: add support for veml6031x00 ALS series
+      iio: light: veml6031x00: add support for triggered buffers
+      iio: light: veml6031x00: add support for events and trigger
+
+ .../bindings/iio/light/vishay,veml6030.yaml        |   13 +-
+ MAINTAINERS                                        |    6 +
+ drivers/iio/light/Kconfig                          |   14 +
+ drivers/iio/light/Makefile                         |    1 +
+ drivers/iio/light/veml6031x00.c                    | 1374 ++++++++++++++++++++
+ 5 files changed, 1407 insertions(+), 1 deletion(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20241109-veml6031x00-aa9463da064a
+
+Best regards,
+-- 
+Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
