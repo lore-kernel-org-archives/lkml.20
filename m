@@ -1,64 +1,64 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6F4448393
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E67448BA3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770518; cv=none; b=kga6qV9thUMvZnwhFbUlf86HOysTCPjpA2amut/iaQAVdPL7bqmp6Mkq5dyb4qsrNGZbfKlmvLmxHijGLz7XP+Q7Ew6qfHEm4tsXxrcPw4iCK7Opf20Rb/4uul3hg57FSNOV5L0Nei2tQ0/ayZ43fwra533sYam2gr9IDlW1KdI=
+	t=1788770520; cv=none; b=WGJdE3ww69zmCYVUYEcCnfGEL2gd/Rlzi31x+KYDa7Yd9bP2YsR7qmPumuDowyG7GSqWH26niT0W3DVP0YCKgu1OJYyiVoNBhzCB86vDA2uYHb5yQmoZRka7lgJL5Ev0R+v/kPnt5s9Hag59PUkeZ3XGKAkMOij4ncM9uasjb2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770518; c=relaxed/simple;
-	bh=1Q8spIejnM4aGTTfmyL4NK5XSVAAY4GV1tixC+PV06A=;
+	s=arc-20240116; t=1788770520; c=relaxed/simple;
+	bh=ZTmmndy7/AcjbfShhrBZFEsnXBPekn0HGXjSLaxXqJQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=tyq8K9VIJJZdQFCUrchbNFrw8Abb2eolbIQdArJsDuuaLIkjdfswcZUd/HTR9ApFsAOlaaOO3WpASNCAF//KONLkPbwl4lXdnSPx6IfKM8pkiBCik9SdBdxEBoJnj/BJGgsUa1m/ucGBnuCWrUqtsifQthHVBN51yyv/AemTkH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cx09ho72; arc=none smtp.client-ip=209.85.221.54
+	 MIME-Version; b=Ph4savWCErgAE2wmrznXm0bAOxtqmgALZETbHAYyfRb7bl2SEkw6v6PHTjl7oCnaPK/tkWJzbM2yPnixooeMh6OiRCGYQs+BqGssB62cOtd9fVbMLUnOLXpa/A3cNOOItaum9++0q9dQVhbIspmure9EBMX31YFcZLsRmYiFlIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TQDJs4WU; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cx09ho72"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-485850cf499so2023551f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:41:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TQDJs4WU"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48586861639so2403725f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:41:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788770514; x=1789375314; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788770516; x=1789375316; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6oF/RHZsuGRU+WdOikxDPvBXvsmcgSMqlQfNLaHuEiM=;
-        b=Cx09ho72iiMvtYIRR/4OekbHd0aUxrBzw5ueuJbuzFazBLC8CCOozHdgbynR9Cm1bB
-         rOlCidBoYMLw9fFSFNdkQphFoLdqjJNrINwlAohwohPWZpa4Kv6rGgaeD6TjXUFWPGFe
-         XfdIdG6n5QyMXqH9GFT+7gqAqr2Kbv7WOX0osE9LZzBP/ATFwZBk4/qUE0pNXcEmOnZ0
-         07SD+U3ouJ8UrqYLxr96qHMlPuHF8AF8nSccE+UnY7LklB6x6s2LxRYIdXSpuwh1q7/5
-         FpCrp1HdfS7ZbjUYIXa+lgIu+yli9qVJHfFeo6cbp2depvBMVOk7tNBla8gF9qMhHYn9
-         ytcw==
+        bh=tH/kRPPDD2gV1vMx/S94hLYP+9/dPU1ymPrzNYM8wtg=;
+        b=TQDJs4WUSr5+TPt3zpY5rOWZpcV5bM935d68lM1XOHz5qNX3W3eXESHHiwUemH/KSB
+         TcmTeNYMCSty8pzGKl2Txbt/Wb/sY5r8hCUzLcepg94OEW4MJtO3Ln229n1BZMEFT6y4
+         DGwZ6F4gcxIiJelOgb/Pbx5aHZGgzbHjkyqCcWC7ZUw/A4c+wVO+ae7ouesJrj+fDjTX
+         dm5F3uRzcEvf9ENTvj9u4qcicI0L6W9eKjBK/Qiv5//ECUFrMgrQl488qGhcdPY97TJF
+         8va9td9AyjIBMQchuV2T7eyqMCu4K+kn+aISMzUznexW5b4P3dN7IMn/+JFpufachwuC
+         RGCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770514; x=1789375314;
+        d=1e100.net; s=20251104; t=1788770516; x=1789375316;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6oF/RHZsuGRU+WdOikxDPvBXvsmcgSMqlQfNLaHuEiM=;
-        b=QehsPgeoF9IFlYOxrE14ss3FLLf6PcJpldT+Pj9IcbBvNpc6MkxWVsuKZYipNzuRof
-         EeqsnNYErV2Wekne9cXV4YEqdPcTpVX60vLzSIvhYNSsahZSZfiAR1IMxNOkNKNkMcGh
-         XEaQZrAjEuZEadjQO/ippV3YeWlYMaPKjlWcpPHPWdZkXVehJnnrbfA3yRfZIOCq/6Q4
-         WFre+zAfNYgQ6lPDCD6MSJkX4fK1F1hJegMiemYEuOxChdEQxhA3ybFL9VcQXLHHm+Fc
-         3JjYkajD0CV5ox5aEPeOFUYPBKPeUE9+fqYsDvMQe6IZ/7PaRZKglu6+/KYe32e5pLfG
-         6mcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdNLKfuiDN3qcJy7xxFCXirGhp3htc752uvBp524Bn5AKUZtNxjsg2GVEV7wOZqJM/jMD8OTf0vzB9lvM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mvkmvX66gW4Vq2iVMn1mgpKVTz9X51pEJS1oueJLlKHm1JUmnK
-	Nl7gX7rX7o/FhZ91eU5EuCG8cOwqOM7O82rduFCVA1S3Qamy9Gycfz3aSiU+GEmC
-X-Gm-Gg: AYBFou1cp32cZLw1Vb3Eiw8ZOCi20JlzmJxcjkdEAGbpVnf7BShv8jNRkQ3yuYPq81B
-	fMGhQE+Aj8Rx2GjoxUhRZSpP41eHrJcUFXL9Tltt08Ey1SN5ycEtbOkMmWcKCYtjDhk70/S5gZX
-	Rt6WtEhF+Yd+0Kd/It2jNcJft1xs35haqdQzZyG5NCSwdbWLYN76hBFjCBUKVi2nSwZS7M5v2kQ
-	yE0+NrwassmCWwulQQpuwTbKr0pzXqbtsBuvfh/im8FJhKB9hRVPuo8Oet1/k24wmB+Jgvq9F64
-	9Dtb+SNzTkNFZv5u62NYoB+gnCzJGEUkmqC1Eo79VT2kgeGS5LD97NSpR5P6uZ0brqFB23AOzpC
-	ndV4YU9+axkF8JEKjKy63lVpdBmMTHs51mnkASPejb0QMmI66EJy84HQqedtlF8z77m4uqJV/PC
-	70549Mjmu4769pMpE7QZMEplRJcpIZJjNXKZG/ypn7AuMCMj7JYBJnBbpVv2ZEZq1NYw2CS8gIf
-	Eom7e+Glc2nxwC/ZaS9AXxDPd64AAeGetZ/Pcnz0LoGpoxpmtd0IBuJ
-X-Received: by 2002:a05:6000:2311:b0:484:42d5:e6d5 with SMTP id ffacd0b85a97d-48587094b12mr22290563f8f.11.1788770514133;
-        Mon, 07 Sep 2026 01:41:54 -0700 (PDT)
+        bh=tH/kRPPDD2gV1vMx/S94hLYP+9/dPU1ymPrzNYM8wtg=;
+        b=lKApyoKUYMzTwSCFMAAHsiXTjtWwEOTeEdlTdsSE8v+AmLOBalmm3obrkyrmhVFclg
+         3zRnK3zDwsgGzR8LVqoEz/0BElt9APcXRRqTCrHuYvNgAL0Gok+1DkoetTQAtqNizJ4o
+         eiWM4+HI7YLf+1I5unBPKIC/bGZPhu7kMjVMXE8Cx4ywNt1yIUmOPiz4Q1CA1usPP0wo
+         sK3h70HUaS8va6XbAeKa4hXWQXLp/GEe6/N58hxSLTg9Jdip05OvhJ8XJMar0W7q7wGf
+         DNuDOhEUCrhj/cTjjzMSedbQOCUQ14apbhkCARQZ9VaD4y5EOdhlWRDCwfvwbIwpL091
+         xQPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyjvyl0wfl0Mx0YnBYYghHgas//rHJg25KjsiAf8Lq5Kqx9i7Oq5Bp/VVwIVkJ7SkUb1N4xE/d6VdiZ0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJUXwPvh8bswJPtoSVNpXJ8f0yJi9quRNF4TDz3Ir+4Z63CK36
+	hd86GI/OJK+IaPvF1NqK81QbutoM7U3ITLnZAqEmRfzigDLNI4nZm8Bl
+X-Gm-Gg: AYBFou0q9Oj3AkFnREiwuXFOERzcKpMmWj9Uy5c/+NDR+LEQVfjBZIBuFM6Xic1cvDh
+	DE3tqUKV0Tgff5awQ7hWN9MhRPOPrYr3tk7NNDi2NAg0QGWOuCbThp0AFJr16FDruWP15Mjy0jl
+	grWcBHftWNpB6eY/brvWablZv5SRdJWmEDRmtMnGhZOCMT60XkkzcLgnn22FQlEEKSTl+5lh3Rf
+	7G44vH026IP0A3tGLinedCTniIAt0b+5b+a4hocLtSiMTgVn4ZdsDACC6qvFJ7PgsJpilLGVxtq
+	d9IWT3iRkNRue9GDrYr2VOdfomRRRRgQJ7rBI4xCoIE6AuKaVOEOJLMG+ljlB/Cn7y8oY2KJQTY
+	gYzKQ6wD/3QrgBlgLfvAUg+AkXQ5cCy8kZStXuviiAiVanhDLsTLHcJvIWaYNHjXiW9BY9F+qkx
+	l8EPwEAWfZFQwdZksyvqyahW5qxC9LbGMQRFMshksfA+pipZ/If0B0SDKHXaK8DhJ8a2eEVAFVq
+	AqZm4l4ujCWiec0GUeB7Kt58vhre0p7opDjrzgnWslG0w==
+X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-4857e5171femr23993264f8f.11.1788770516418;
+        Mon, 07 Sep 2026 01:41:56 -0700 (PDT)
 Received: from snowdrop.snailnet.com (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm27883762f8f.30.2026.09.07.01.41.53
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm27883762f8f.30.2026.09.07.01.41.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:41:53 -0700 (PDT)
+        Mon, 07 Sep 2026 01:41:56 -0700 (PDT)
 From: David Laight <david.laight.linux@gmail.com>
 To: Waiman Long <longman@redhat.com>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -70,9 +70,9 @@ To: Waiman Long <longman@redhat.com>,
 	Yafang Shao <laoar.shao@gmail.com>,
 	Steven Rostedt <rostedt@goodmis.org>
 Cc: David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH v4 next 4/9] locking/osq_lock: Delete 'fast path' code from osq_unlock()
-Date: Mon,  7 Sep 2026 09:41:28 +0100
-Message-Id: <20260907084133.3696-5-david.laight.linux@gmail.com>
+Subject: [PATCH v4 next 7/9] locking/osq: Use 'unsigned int' for next/prev/tail
+Date: Mon,  7 Sep 2026 09:41:31 +0100
+Message-Id: <20260907084133.3696-8-david.laight.linux@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260907084133.3696-1-david.laight.linux@gmail.com>
 References: <20260907084133.3696-1-david.laight.linux@gmail.com>
@@ -84,237 +84,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The 'fast path' code in osq_unlock() is pretty much exactly the same as
-the first pass of the loop in osq_wait_next() except that it doesn't
-have the optimisation to avoid the locked RMW when not the tail of
-the list.
-So just call osq_wait_next().
-
-Move the assignment next->prev_cpu = old_cpu into osq_wait_next()
-as it is always the next line.
-Rename osq_wait_next() to osq_unlink_from_next() since that is what is does.
-
-Change osq_wait_next() to use atomic_cmpxchg_release() (not _acquire)
-on lock->tail.
-This is what osq_unlock() did and seems right to me.
-
-Add an smp_wmb() before the 'prev->next = next' assignment when cancelling
-a lock. The previous 'next->prev = prev' assignment lets the 'prev' cpu
-complete an unlocking sequence and do its 'next->prev = prev' assignment
-first - corrupting the list.
+Consistently use 'unsigned int' for all the 'offset by 1' cpu numbers.
+This makes the code only use one set of xchg primitives.
+The unsigned type gives marginally better code inside per_cpu_ptr().
 
 Signed-off-by: David Laight <david.laight.linux@gmail.com>
 ---
- kernel/locking/osq_lock.c | 140 ++++++++++++++++++++------------------
- 1 file changed, 73 insertions(+), 67 deletions(-)
+ include/linux/osq_lock.h  |  8 ++++----
+ kernel/locking/osq_lock.c | 31 +++++++++++++++----------------
+ 2 files changed, 19 insertions(+), 20 deletions(-)
 
+diff --git a/include/linux/osq_lock.h b/include/linux/osq_lock.h
+index ea8fb31379e3..9e637e265189 100644
+--- a/include/linux/osq_lock.h
++++ b/include/linux/osq_lock.h
+@@ -12,17 +12,17 @@ struct optimistic_spin_queue {
+ 	 * Stores an encoded value of the CPU # of the tail node in the queue.
+ 	 * If the queue is empty, then it's set to OSQ_UNLOCKED_VAL.
+ 	 */
+-	atomic_t tail;
++	unsigned int tail;
+ };
+ 
+ #define OSQ_UNLOCKED_VAL (0)
+ 
+ /* Init macro and function. */
+-#define OSQ_LOCK_UNLOCKED { ATOMIC_INIT(OSQ_UNLOCKED_VAL) }
++#define OSQ_LOCK_UNLOCKED { OSQ_UNLOCKED_VAL }
+ 
+ static inline void osq_lock_init(struct optimistic_spin_queue *lock)
+ {
+-	atomic_set(&lock->tail, OSQ_UNLOCKED_VAL);
++	WRITE_ONCE(lock->tail, OSQ_UNLOCKED_VAL);
+ }
+ 
+ extern bool osq_lock(struct optimistic_spin_queue *lock);
+@@ -30,7 +30,7 @@ extern void osq_unlock(struct optimistic_spin_queue *lock);
+ 
+ static inline bool osq_is_locked(struct optimistic_spin_queue *lock)
+ {
+-	return atomic_read(&lock->tail) != OSQ_UNLOCKED_VAL;
++	return READ_ONCE(lock->tail) != OSQ_UNLOCKED_VAL;
+ }
+ 
+ #endif
 diff --git a/kernel/locking/osq_lock.c b/kernel/locking/osq_lock.c
-index 23f00c670507..f39f77c3a07d 100644
+index 0f68ee017b54..144eb446c867 100644
 --- a/kernel/locking/osq_lock.c
 +++ b/kernel/locking/osq_lock.c
-@@ -57,52 +57,67 @@ static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
+@@ -34,8 +34,8 @@
+  */
+ 
+ struct optimistic_spin_node {
+-	int next; /* CPU number offset by 1, 0 if no next */
+-	int prev; /* CPU number offset by 1, 0 if lock held */
++	unsigned int next; /* CPU number offset by 1, 0 if no next */
++	unsigned int prev; /* CPU number offset by 1, 0 if lock held */
+ } __aligned(8);
+ 
+ static DEFINE_PER_CPU(struct optimistic_spin_node, osq_node);
+@@ -44,16 +44,15 @@ static DEFINE_PER_CPU(struct optimistic_spin_node, osq_node);
+  * We use the value 0 to represent "no CPU", thus the encoded value
+  * will be the CPU number incremented by 1.
+  */
+-static inline int encode_cpu(int cpu_nr)
++static inline unsigned int encode_cpu(unsigned int cpu_nr)
+ {
+ 	return cpu_nr + 1;
+ }
+ 
+-static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
++static inline struct optimistic_spin_node *
++decode_cpu(unsigned int encoded_cpu_val)
+ {
+-	int cpu_nr = encoded_cpu_val - 1;
+-
+-	return per_cpu_ptr(&osq_node, cpu_nr);
++	return per_cpu_ptr(&osq_node, encoded_cpu_val - 1);
  }
  
  /*
-- * Get a stable @node->next pointer, either for unlock() or unqueue() purposes.
-- * Can return NULL in case we were the last queued and we updated @lock instead.
-+ * Unlink the current cpu's node from the lock's node->prev list.
-  *
-- * If osq_lock() is being cancelled there must be a previous node
-- * and 'old_cpu' is its CPU #.
-- * For osq_unlock() there is never a previous node and old_cpu is
-- * set to OSQ_UNLOCKED_VAL.
-+ * More specifically atomically write its node->prev over the link that
-+ * currently points to node.
-+ * This is either:
-+ *    lock->tail = node->prev
-+ * or:
-+ *    node->next->prev = node->prev
-+ * The first is a simple cmpxchg(), the second is protected against
-+ * node->next trying to unlink itself (after need_resched() is set) by using
-+ * an xchg() on node->next that sets it to NULL.
-+ *
-+ * When a lock request is being cancelled the caller needs 'next' to
-+ * set node->prev->next = next.
+@@ -72,17 +71,17 @@ static inline struct optimistic_spin_node *decode_cpu(int encoded_cpu_val)
+  * When a lock request is being cancelled the caller needs 'next' to
+  * set node->prev->next = next.
   */
- static inline struct optimistic_spin_node *
--osq_wait_next(struct optimistic_spin_queue *lock,
--	      struct optimistic_spin_node *node,
--	      int old_cpu)
-+osq_unlink_from_next(struct optimistic_spin_queue *lock, int prev)
+-static inline int
+-osq_unlink_from_next(struct optimistic_spin_queue *lock, int prev)
++static inline unsigned int
++osq_unlink_from_next(struct optimistic_spin_queue *lock, unsigned int prev)
  {
- 	int curr = encode_cpu(smp_processor_id());
-+	struct optimistic_spin_node *node, *next;
+-	int curr = encode_cpu(smp_processor_id());
++	unsigned int curr = encode_cpu(smp_processor_id());
+ 	struct optimistic_spin_node *node;
+-	int next;
++	unsigned int next;
  
  	for (;;) {
--		if (atomic_read(&lock->tail) == curr &&
--		    atomic_cmpxchg_acquire(&lock->tail, curr, old_cpu) == curr) {
-+		int tail = atomic_read(&lock->tail);
-+		if (curr == tail &&
-+		    atomic_try_cmpxchg_release(&lock->tail, &tail, prev)) {
+-		int tail = atomic_read(&lock->tail);
++		unsigned int tail = READ_ONCE(lock->tail);
+ 		if (curr == tail &&
+-		    atomic_try_cmpxchg_release(&lock->tail, &tail, prev)) {
++		    try_cmpxchg_release(&lock->tail, &tail, prev)) {
  			/*
--			 * We were the last queued, we moved @lock back. @prev
--			 * will now observe @lock and will complete its
--			 * unlock()/unqueue().
-+			 * We were the last queued, lock->tail now references
-+			 * prev (or is 0 if the list is now empty).
-+			 * If prev was spinning in this loop it can continue.
- 			 */
- 			return NULL;
- 		}
- 
-+		node = this_cpu_ptr(&osq_node);
-+
- 		/*
--		 * We must xchg() the @node->next value, because if we were to
--		 * leave it in, a concurrent unlock()/unqueue() from
--		 * @node->next might complete Step-A and think its @prev is
--		 * still valid.
-+		 * We must xchg() the @node->next value to ensure that a
-+		 * concurrent unqueue() from @node->next will find an invalid
-+		 * @prev value (node_next->prev->next != node_next).
- 		 *
--		 * If the concurrent unlock()/unqueue() wins the race, we'll
--		 * wait for either @lock to point to us, through its Step-B, or
--		 * wait for a new @node->next from its Step-C.
-+		 * If @node->next is already NULL then we need to wait until
-+		 * the concurrent unqueue completes.
- 		 */
- 		if (node->next) {
--			struct optimistic_spin_node *next;
--
- 			next = xchg(&node->next, NULL);
- 			if (next)
--				return next;
-+				break;
- 		}
- 
- 		cpu_relax();
- 	}
-+
-+	/*
-+	 * When called from osq_unlock() prev is zero and this hands
-+	 * over the lock ownership.
-+	 * When called while unqueueing in osq_lock() this completes the
-+	 * backwards link, the forwards link is done by the caller.
-+	 */
-+	WRITE_ONCE(next->prev, prev);
-+
-+	return next;
- }
- 
+ 			 * We were the last queued, lock->tail now references
+ 			 * prev (or is 0 if the list is now empty).
+@@ -127,8 +126,8 @@ osq_unlink_from_next(struct optimistic_spin_queue *lock, int prev)
  bool osq_lock(struct optimistic_spin_queue *lock)
-@@ -130,7 +145,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 	/*
- 	 * osq_lock()			unqueue
- 	 *
--	 * node->prev = prev		osq_wait_next()
-+	 * node->prev = prev		osq_unlink_from_next()
- 	 * WMB				MB
- 	 * prev->next = node		next->prev = prev // unqueue-C
- 	 *
-@@ -160,8 +175,6 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 				     vcpu_is_preempted(VAL - 1));
- 
- 	/*
--	 * Step - A
--	 *
- 	 * Loop until either node->prev is zero (lock acquired) or we
- 	 * atomically change prev->next from node to NULL (stopping prev
- 	 * handing on the lock).
-@@ -191,59 +204,52 @@ bool osq_lock(struct optimistic_spin_queue *lock)
- 
- 	/*
- 	 * If 'prev' tries to remove itself from the list before we write
--	 * a new value to prev->next it will spin in osq_wait_next().
-+	 * a new value to prev->next it will spin in osq_unlink_from_next().
-+	 * This means we can no longer be given the lock and always
-+	 * return false.
- 	 */
- 
--	/* Invalidate prev_cpu matching osq_unlock() */
-+	/*
-+	 * Invalidate prev matching osq_unlock().
-+	 * This isn't necessary but ensures that both unlocked and fast-path
-+	 * locked nodes (where the initial xchg() returned 0) have prev set
-+	 * to zero.
-+	 * If nothing else it lets the lock chain be followed from lock->tail
-+	 * whch may help diagnostics.
-+	 */
- 	node->prev = 0;
- 
- 	/*
--	 * Step - B -- stabilize @next
--	 *
--	 * Similar to unlock(), wait for @node->next or move @lock from @node
--	 * back to @prev.
-+	 * Now that the linkage to prev cannot change underneath us
-+	 * remove ourselves from the node->prev list.
-+	 * This does:
-+	 * (node->next ? node->next->prev : lock->tail) = node->prev
- 	 */
--
--	next = osq_wait_next(lock, node, prev);
--	if (!next)
--		return false;
-+	next = osq_unlink_from_next(lock, prev);
- 
- 	/*
--	 * Step - C -- unlink
--	 *
--	 * @prev is stable because its still waiting for a new @prev->next
--	 * pointer, @next is stable because our @node->next pointer is NULL and
--	 * it will wait in Step-A.
-+	 * Finally mend the node->next list that was 'broken' to
-+	 * stop node->prev trying to unlink from us.
-+	 * If next is NULL then lock->tail is prev_ptr and another node
-+	 * can be added - so we must not re-write the NULL.
- 	 */
--
--	WRITE_ONCE(next->prev, prev);
--	WRITE_ONCE(prev_ptr->next, next);
-+	if (next) {
-+		/*
-+		 * This must happen after the write to node->next->prev.
-+		 * If swapped then prev could unlink itself before our
-+		 * write to node->next->prev and the the wrong value would
-+		 * end up in node->next->prev.
-+		 * Probably can't actually happen due to re-ordering of writes,
-+		 * but could happen without a compiler barrier.
-+		 */
-+		smp_wmb();
-+		WRITE_ONCE(prev_ptr->next, next);
-+	}
- 
- 	return false;
- }
- 
- void osq_unlock(struct optimistic_spin_queue *lock)
  {
--	struct optimistic_spin_node *node, *next;
+ 	struct optimistic_spin_node *node, *prev_ptr;
 -	int curr = encode_cpu(smp_processor_id());
--
--	/*
--	 * Fast path for the uncontended case.
--	 */
--	if (atomic_try_cmpxchg_release(&lock->tail, &curr, OSQ_UNLOCKED_VAL))
--		return;
--
--	/*
--	 * Second most likely case.
--	 */
--	node = this_cpu_ptr(&osq_node);
--	next = xchg(&node->next, NULL);
--	if (next) {
--		WRITE_ONCE(next->prev, 0);
--		return;
--	}
--
--	next = osq_wait_next(lock, node, OSQ_UNLOCKED_VAL);
--	if (next)
--		WRITE_ONCE(next->prev, 0);
-+	osq_unlink_from_next(lock, OSQ_UNLOCKED_VAL);
- }
+-	int next, prev;
++	unsigned int curr = encode_cpu(smp_processor_id());
++	unsigned int next, prev;
+ 
+ 	/*
+ 	 * We need both ACQUIRE (pairs with corresponding RELEASE in
+@@ -136,7 +135,7 @@ bool osq_lock(struct optimistic_spin_queue *lock)
+ 	 * the node fields we just initialised) semantics when updating
+ 	 * the lock tail.
+ 	 */
+-	prev = atomic_xchg(&lock->tail, curr);
++	prev = xchg(&lock->tail, curr);
+ 	if (prev == OSQ_UNLOCKED_VAL)
+ 		return true;
+ 
 -- 
 2.39.5
 
