@@ -1,143 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF6B50AC29;
-	Mon,  7 Sep 2026 15:42:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71E1501F28
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795744; cv=none; b=M1KMZp4DgoKUc+yom0DLdEDVS61QywXl/Dw13UmIkIFBdbIssrAdlDp1nMHSTEgWMtpokoJG9bKJcnSZsFX/VfiX7uC6w+E0LgihGWhop7bLLO8TZXqybyAYmLqp0nQjg7wVZmAefgos/y6vmlTeg5zI2ikbExQQg9awI4LSARk=
+	t=1788795755; cv=none; b=E5098kLfpioUFnvDFQ/v1wzTYo6ZDicu0Gu1ze/QcHsbwVzqf4wjoGpOuKf0fEKPbWmSIO+OIYAEY7pCmowDBRbxZ5Wnc8bUjoDiY3jsTSXdrawL6HNdcLYg47Ig2GtSnGNoxRfNUZPccrvHTlOWMn2P3ULvcEgYwYFSQrdvDio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795744; c=relaxed/simple;
-	bh=EAoP2yIeWj1hYQxcqz8Y/CQISICWDBxBMKOQNVZiFMI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hp291496FURG2GBiJRvhjjzIHXEJeBSdWUf1vg6vSnHBHdHWqFF0vSWPiQof0lcTMtPtjmRnO5pG1dOCbXF8uwd2fz9dPC6EyWwufokcu31GE6cEp3AALhfWmW9o4/Dxv7gjbdm1+8yBSUIgLqZ87HWsCymhkNP8vZ2lRoV5CuI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P72Lc+Gp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788795755; c=relaxed/simple;
+	bh=+OOqmbaWCc+bj0drcgwfudfjBi7gFVexonNebA007r0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AlR22U1r3k+0aePCTDi9dj+Hm19dzdWJq6EvkZOeIpaqgyR1SgL1OAX9/ytMPRFJlAb502DyLLeNYanSkyTVIqow/WbLUzya0fQcX2SGzqVgBc3NrUT2VzRMrhWY4RSgXnZvfoYh8f+clj+k+Qv0k7sMJ1WukC4xDzjaBkfJ7a8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=OHh6cLfU; arc=none smtp.client-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P72Lc+Gp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E985F1F00A3A;
-	Mon,  7 Sep 2026 15:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788795739;
-	bh=khvVj+XX/OG3UCUrUcO0F7VGVKQi2Jwd0FC7frDCC5E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=P72Lc+Gpx5Rz3Z2oNW2bQ3V3jV6ta/7tW63kF3TL280HTWddbHCdtqTAhT4nGK9U4
-	 pYJEjiP+K6gN1Rn9q2AIRnN04ktCIHB3gqMPoynLVzrNKv9yGTiIq0Nw4kltkHMasn
-	 W/u9GyL2kmxNTRwy3ISlFgCj/CPvUyX98sr7qi3wdrBv0BTYiORsQjBU0UwMuYrlrP
-	 K083Yw5U52cuuhyIePKNHX4yhFjtGe3rV13LyN0mToHfL9tI6nYuIpPsL/975bDTyq
-	 0DrbZhYHSe+9mmZn0Pv/jPfkcBuYE2tYfRD2V1pHlZsQnducYmncL1eFjt8GObOEgX
-	 uKMdRwpBat5MQ==
-Message-ID: <6eb272c0-0cfa-4354-a92b-4fc270e3b1fc@kernel.org>
-Date: Mon, 7 Sep 2026 17:42:11 +0200
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="OHh6cLfU"
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-9399daa3d43so127966685a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:42:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1788795750; x=1789400550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UsM2t2muwC2t6tub3Lkt0Nmc2lGDELjoRCFL/zUluw0=;
+        b=OHh6cLfUBXht4i/yTxJ8QVpNKRpmq3vB2cm8gaXJDVjqQiMk1V+VKm//a63+1U5F8x
+         6o2S84OITcyyR4uDp5YfeqOYpI1pthyt0GYYiKNVqTfa9ODK0afQ+1udUrf1lFTKwIoK
+         z6CyG2QqgAHt8RQpNIyuGbcsehNevowuddsU0u9YsmJaI0FEb1TOXjPteOxSqTXDY7VO
+         2vwCrg8075AW711KL6okd1MZVVr932lxqy4IzbSBXEW3iuofms5sVqOa/l+2uuDPVmZ6
+         2sGVpEJULONs7jzuHWSHAaArwL0l8dj5AKO6YBbxjfuKPqYxp4VFq/PfhrSFqocrxzBV
+         XPqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788795750; x=1789400550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UsM2t2muwC2t6tub3Lkt0Nmc2lGDELjoRCFL/zUluw0=;
+        b=NdtrNeJyUOw1GlaPa14hOoshjCQ97tsrDILAN93DGc4mBd7GOqFpwy1L1IVQ1LLb1A
+         nmvbZNmCUYILRj67DFiNhqCb4q0zDKLDqGh1U6GtUzz9gULZRj0rfmXqrzBe8bN+S4y/
+         5cjZmMuK9Grte2sqTiBfhqQvKyOyHgd1eYBlpGxB1+b3JPRWzCti2/IHYN/Tcwvi/81B
+         +k7Mo6twSGuXn9WMBSm9fE7WKjQaTAsaRcZIbybHGn1lFmQsX1MqflRnlKoxRhL8akoE
+         nfSPYla5QRDDJ02dv3wC0hKt0iFdZWV9UvSjuQEEGlnYZWTtMsB+ZpIYGE1pzsfdIsT1
+         sgNA==
+X-Forwarded-Encrypted: i=1; AKwUvBysTamlQA/madlO4Jz9RjGwNATM+iB5/HG6nrOodJ/pCMr8/FbQ+KXENnuRMyBi3V05+5U7DXZVzTC3Dqc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVPBm7OExAbBTiNq+OXP5iyONEJsg5Nk7TVTDER3URNJ4xh8KW
+	s4qK6PeowGI6XpdenijL5M1lYpGmlv9YXmXkj7xx04VLaX8XIgiMZy4eCXTH8W/1/BI=
+X-Gm-Gg: AYBFou2n1erOVOJE92V+sYQYaxQLsXPR/S19lHqV+dGfxthdM02qX1tdyUkq4t4uFJ3
+	uxG+QG0c4+lAAWcYDzEY1kB0WCPySiJ7hRapPGDfjaoCPaOmqlm7mTvkWyEamFClA2dL8of2u23
+	JiGfjw641tP3Q3aAmg7s9bOoJnYZAJdBbGjdZtT446HMUvBM58zDjq311u0n9+0idL2O1mNQtr3
+	OfNz5GVvRcFAW78foKsNJV2nByExuEKjB+tnyKXbbLD3w9uWIwOV6fsEVjb52pG121DigztH6z0
+	uwa1VXn5xFXavWrPBA2mAApCpFBeNsZ8+W002sSUb/E/XN8olQHqXg8TWed+Po/Ps4GBAn2iEDx
+	KOPladbkm44x8JauSdZgRGuLxbrd8z1x9+CTAnxuzeYsYt3On3LAqIvqhUDwUEZxsMqcmu24r7J
+	rLSKGRyXJkRWWg9KEVCWrJuaEayzLTv3tVMxfmQMiXFZb1HQSHbZybMCn2fcprxzbugjBKA22xz
+	/z/hk7sxNRFp5bfHwtbEoTLfa+P2NNahVW0COOheoFr
+X-Received: by 2002:a05:620a:aa14:b0:939:6c2a:24fd with SMTP id af79cd13be357-9398031b73emr2041569285a.9.1788795745703;
+        Mon, 07 Sep 2026 08:42:25 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040646d64sm95118286d6.14.2026.09.07.08.42.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 08:42:25 -0700 (PDT)
+Date: Mon, 7 Sep 2026 11:42:22 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: Oleg Nesterov <oleg@redhat.com>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Marco Elver <elver@google.com>, Ye Liu <liuye@kylinos.cn>, 
+	Tejun Heo <tj@kernel.org>, Christian Brauner <brauner@kernel.org>, 
+	Bart Van Assche <bvanassche@acm.org>, Yi Tao <escape@linux.alibaba.com>, 
+	Michal Hocko <mhocko@suse.com>, paulmck@kernel.org, mingo@redhat.com, rostedt@goodmis.org, 
+	jpoimboe@kernel.org, mic@digikod.net, tglx@kernel.org, akpm@linux-foundation.org, 
+	david@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com, rafael@kernel.org, 
+	gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org, rientjes@google.com, 
+	shakeel.butt@linux.dev, xu.xin16@zte.com.cn, chengming.zhou@linux.dev, will@kernel.org, 
+	boqun@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org, 
+	joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com, juri.lelli@redhat.com, 
+	vincent.guittot@linaro.org, tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org, 
+	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, pavel@kernel.org, 
+	lance.yang@linux.dev, mhiramat@kernel.org, pmladek@suse.com, longman@redhat.com, 
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
+	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
+	kprateek.nayak@amd.com, mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com, 
+	babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] sched: introduce for_each_process_rculock and
+ for_each_thread_rculock
+Message-ID: <ap7bPSbO7UvFSwPf@gourry-fedora-PF4VCD3F>
+References: <20260907081334.1152889-1-ye.liu@linux.dev>
+ <20260907081334.1152889-2-ye.liu@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] mm/page-flags: Define HWPoison test-and-change
- helpers unconditionally
-To: Kaitao Cheng <kaitao.cheng@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka
- <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Dan Williams <djbw@kernel.org>, Vishal Verma <vishal.l.verma@intel.com>,
- Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>, Ira Weiny <iweiny@kernel.org>
-Cc: Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- nvdimm@lists.linux.dev, linux-kernel@vger.kernel.org,
- Kaitao Cheng <chengkaitao@kylinos.cn>
-References: <20260903053535.17611-1-kaitao.cheng@linux.dev>
- <20260903053535.17611-2-kaitao.cheng@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260903053535.17611-2-kaitao.cheng@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907081334.1152889-2-ye.liu@linux.dev>
 
-On 9/3/26 07:35, Kaitao Cheng wrote:
-> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+On Mon, Sep 07, 2026 at 04:13:27PM +0800, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
 > 
-> Page flag helpers for configuration-dependent flags provide false or no-op
-> variants so that their users can be independent of the configuration.
+> Introduce for_each_process_rculock(), for_each_thread_rculock() and
+> for_each_process_thread_rculock() macros that acquire the RCU read
+> lock before the iteration starts and release it when the loop is left,
+> so that the RCU read-side critical section is scoped to the loop body
+> instead of an externally managed rcu_read_lock()/rcu_read_unlock()
+> pair.
 > 
-> The HWPoison helpers do not fully follow this pattern. When
-> CONFIG_MEMORY_FAILURE is enabled, PAGEFLAG() and TESTSCFLAG() provide the
-> regular, test-and-set, and test-and-clear operations. When it is disabled,
-> only PAGEFLAG_FALSE() is instantiated, leaving TestSetPageHWPoison() and
-> TestClearPageHWPoison() undefined.
-> 
-> Use TESTSCFLAG_FALSE() to provide the missing accessors when memory failure
-> handling is disabled. Both accessors return false, which is consistent with
-> HWPoison state being unavailable, and makes the accessor interface
-> consistent across configurations.
-> 
-> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
-> ---
->  include/linux/page-flags.h | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/include/linux/page-flags.h b/include/linux/page-flags.h
-> index 7a863572adce..a2315ab1dd3a 100644
-> --- a/include/linux/page-flags.h
-> +++ b/include/linux/page-flags.h
-> @@ -656,6 +656,7 @@ TESTSCFLAG(HWPoison, hwpoison, PF_ANY)
->  #define __PG_HWPOISON (1UL << PG_hwpoison)
->  #else
->  PAGEFLAG_FALSE(HWPoison, hwpoison)
-> +TESTSCFLAG_FALSE(HWPoison, hwpoison)
->  #define __PG_HWPOISON 0
->  #endif
->  
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> Acked-by: Michal Hocko <mhocko@suse.com>
 
-Can we just squash this patch into #2 please?
+Lorenzo already picked up the nits, this is really nice otherwise.
 
--- 
-Cheers,
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-David
