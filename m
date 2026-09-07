@@ -1,265 +1,183 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F431F9BD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53CB31F9BD;
+	Mon,  7 Sep 2026 21:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788817065; cv=none; b=qmwirSxRQ2VN0LKkL9Z2sS6nvRXq8xctmQYtV3eaGNrfOqSndVDRb1qluKvGBRD7gdGAFp/BPvtCq2HQwl8JD7NhtFZHUqDMvXTGCiCNuVX+M2vu58f47Nss8S6NohEXzjAzyjUzC6ds2s3Wm1Lyt0l4xMowT6JGktRR9ntpKbk=
+	t=1788817239; cv=none; b=lGtR3eozJJl7M4f3c6vCTfpyMftpqgJvMXOK5rKNxH/t/LJZPK9eKZ6mEv6r/kWkjixjq8HXUcNsse26373IemCV3x1Fblc+8o3KqMD4n3lwIhCssQVTQzIgSa4bqKxLIAxhP/ebXEu+VnylAIghVKzZHfClztUoYCYM3f7ntyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788817065; c=relaxed/simple;
-	bh=NYAddQT1zylz0fu0N8qSjao/dzUyNUqVQvfYZNLeK1g=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=n6ztwrG1p2WTygOkZMqL6wjFXu35cGNjJ4H1zqanQz4ZsIhT7yv2ryeFQZLS2eoZx9PoFkjMnNgw2/ThqT6qnV+zknJgdVgjOEKZEf+r9+obmtNywOoO18+cexaJ+eOePdO09UgmINORhavXbdxFhGsmYWPkU5DjR6ADbccDTos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a6NpMmLS; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788817239; c=relaxed/simple;
+	bh=N4Uz0ecTRxtYY9AqWhOuaeJddDh4lOAZJ+pt9mp3Kwk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZhMnWAdkGCa0AuuAqD27oJln+UDPZqdsStPse0nrDElNvMdiCRSWmgnL7IMAASCYomrKRuM11gFBC+LYrfZzkK5+Hj37cEcNpEEIPRUqpe6dCIx5K94V4cjWR4DzsxilMYrBUTiDHhQ1g3v/W8+udO7IAErc3KHjDPEJMwBQeOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=awtRz/dR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a6NpMmLS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788817063; x=1820353063;
-  h=date:from:to:cc:subject:message-id;
-  bh=NYAddQT1zylz0fu0N8qSjao/dzUyNUqVQvfYZNLeK1g=;
-  b=a6NpMmLSfWJVG9OX2Ba643fet9q0InW03YiQH8CM8PACP0NSFh2yOtuu
-   ni6HsX1xWiX6jlPHreyaSo753H1M8S7SfJyZultIsdamCjit7lX5DFNQq
-   Ix2EuIOrZ200IRiVybu7NW0e41vuYSRFG12SBNc57M5G/NPA/FYwKKW73
-   N069sLY8LnP4VyC0Swd2Ut2I+bD+hbb+RIC9IgyUoRqFof1B804gW4e3J
-   opeyGLs5VvkYRiFxmHkVd6+w6LLNzjp6b/NY+nnkBwGhzT0hp04gZ5PXg
-   jm11/wPRKOZeXjwP/siS1DJw8Rub1fH2u2DBj8FxeGSDdwfRtEnYERlo7
-   g==;
-X-CSE-ConnectionGUID: Owwl0RgYTOq0KZYbeqgErA==
-X-CSE-MsgGUID: v9yAF1AbT3WbNoIrk2RVDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89342029"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="89342029"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 14:37:43 -0700
-X-CSE-ConnectionGUID: g9XHYvzXSPiWbzEuum0waQ==
-X-CSE-MsgGUID: AL89tHLTS1GUENxGSUiDrw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="267122469"
-Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
-  by fmviesa010.fm.intel.com with ESMTP; 07 Sep 2026 14:37:40 -0700
-Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3h21-000000001L7-3pw1;
-	Mon, 07 Sep 2026 21:37:37 +0000
-Date: Tue, 08 Sep 2026 05:36:46 +0800
-From: kernel test robot <lkp@intel.com>
-To: "GUO Ren (XuanTie)" <guoren@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- x86@kernel.org, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Anup Patel <anup@brainfault.org>
-Subject: [tip:irq/drivers 6/22]
- drivers/media/platform/mediatek/vpu/mtk_vpu.h:63:2: error: redeclaration of
- enumerator 'IPI_MAX'
-Message-ID: <202609080548.LJVHAwpC-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="awtRz/dR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E870F1F00A3A;
+	Mon,  7 Sep 2026 21:40:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788817237;
+	bh=8L6EPABepaaEWzQlwcJ+3VhVi3KudyXVVMmPe4QGKfM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=awtRz/dRwQBO+ZUnIc+DgRzgZGFcJTEmWHs7kAsR4XNCmb9Fci7by9l/3yQa/U41a
+	 siho2efoUcM+xwRTghdR3r4MMOo3uxr/rCbqgoZSn1j4eaDy/9n11wx+umFSrZ/o+/
+	 hso7fPOsBi1uUu0fe41eiGH9KH3ci1bFgVtOg2YKRzKvpCYAPcuIeSuA3wLP7xR/mS
+	 w6+bfiefT/SKEDPrfDOZqfm6IcccVTtpKjBEYWsq6PkmsgbnMA3/Uack/eECrbSMP/
+	 tfwe9GFsXx7pA8My5133lUMkNfRsmezYiaNMbArHIDQ5IPCnFov8Kp/1R85T5aGURF
+	 K96ESUuIC4cMw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>, Sangwoo Han <sangwoo.han@nearthlab.com>
+Cc: jim2101024@gmail.com, florian.fainelli@broadcom.com,
+ lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ bhelgaas@google.com, bcm-kernel-feedback-list@broadcom.com,
+ robh@kernel.org, linux-pci@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Inochi
+ Amaoto <inochiama@gmail.com>
+Subject: Re: [PATCH] PCI: brcmstb: Reserve only the MSI vectors that are
+ handed out
+In-Reply-To: <20260907163452.GA2526539@bhelgaas>
+References: <20260907163452.GA2526539@bhelgaas>
+Date: Mon, 07 Sep 2026 23:40:34 +0200
+Message-ID: <87cxuo3fl9.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Hi GUO,
+On Mon, Sep 07 2026 at 11:34, Bjorn Helgaas wrote:
+> [+cc Thomas, Inochi for MSI expertise]
+>
+> I want to revive this thread because I think there's a real problem
+> here, and we should solve it for all the PCI controller drivers.
+>
+> There's nothing brcm-specific about the bitmap alloc/free except the
+> size of the msi->used bitmap, so I don't want to copy/paste this sort
+> of fix in all the affected drivers.
+>
+> I'd also like to avoid the extra align_mask and
+> bitmap_find_next_zero_area() followed by manual bitmap_set().
+> bitmap_find_free_region() already takes care of the alignment and
+> setting the allocated bits.
+>
+> The MSI Multiple Message Enable situation of enabling more vectors in
+> the device than the driver wants is generic to all devices that
+> advertise Multiple Message Capable, and I don't think we should have
+> to deal with this in every host controller driver.
 
-FYI, the error/warning was bisected to this commit, please ignore it if it's irrelevant.
+Correct.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
-head:   0c65a1331928d0207c385f03fb5eba0cfecce0e6
-commit: 1ae91dc397eb1dbc0f4fc6b96f2481cbc02fe0f9 [6/22] riscv: smp: Move enum ipi_message_type to asm/smp.h
-config: riscv-randconfig-r111-20260908 (https://download.01.org/0day-ci/archive/20260908/202609080548.LJVHAwpC-lkp@intel.com/config)
-compiler: riscv32-linux-gcc (GCC) 8.5.0
-sparse: v0.6.5-rc1
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080548.LJVHAwpC-lkp@intel.com/reproduce)
+> If a driver requests 3 vectors, we have to enable 4 because MSI only
+> supports power-of-two number of vectors.  This tells the device it is
+> allowed to use all 4 vectors, and I think the PCI MSI core should
+> assume they all *will* be used instead of relying on the driver's
+> claim that it will only use 3.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609080548.LJVHAwpC-lkp@intel.com/
+That's not really a good idea because e.g. the irq affinity stuff relies
+on the accurate number of interrupts the driver requested with the
+minvec/maxvec range. We can't magically spread more interrupts than the
+driver is able/willing to handle.
 
-All errors (new ones prefixed by >>):
+But we can fix that without changing the consumer side (device drivers)
+visible behaviour and handle it solely in the core code.
 
-   In file included from drivers/media/platform/mediatek/mdp/mtk_mdp_core.c:23:
->> drivers/media/platform/mediatek/vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from include/linux/lockdep.h:14,
-                    from include/linux/mutex.h:17,
-                    from include/linux/notifier.h:14,
-                    from include/linux/clk.h:14,
-                    from drivers/media/platform/mediatek/mdp/mtk_mdp_core.c:8:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
---
-   In file included from drivers/media/platform/mediatek/vcodec/common/../decoder/../common/mtk_vcodec_fw.h:9,
-                    from drivers/media/platform/mediatek/vcodec/common/../decoder/../common/mtk_vcodec_fw_priv.h:6,
-                    from drivers/media/platform/mediatek/vcodec/common/../decoder/mtk_vcodec_dec_drv.h:14,
-                    from drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_intr.c:10:
->> drivers/media/platform/mediatek/vcodec/common/../decoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from include/linux/interrupt_rc.h:17,
-                    from include/linux/spinlock.h:60,
-                    from include/linux/wait.h:9,
-                    from drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_intr.c:8:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
---
-   In file included from drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/mtk_vcodec_fw.h:9,
-                    from drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/mtk_vcodec_fw_priv.h:6,
-                    from drivers/media/platform/mediatek/vcodec/encoder/venc/../mtk_vcodec_enc_drv.h:12,
-                    from drivers/media/platform/mediatek/vcodec/encoder/venc/venc_vp8_if.c:12:
->> drivers/media/platform/mediatek/vcodec/encoder/venc/../../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from include/linux/alloc_tag.h:14,
-                    from include/linux/percpu.h:5,
-                    from include/linux/context_tracking_state.h:5,
-                    from include/linux/hardirq.h:5,
-                    from include/linux/interrupt.h:11,
-                    from drivers/media/platform/mediatek/vcodec/encoder/venc/venc_vp8_if.c:8:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
---
-   In file included from drivers/media/platform/mediatek/vcodec/encoder/../common/mtk_vcodec_fw.h:9,
-                    from drivers/media/platform/mediatek/vcodec/encoder/../common/mtk_vcodec_fw_priv.h:6,
-                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc_drv.h:12,
-                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.h:14,
-                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c:13:
->> drivers/media/platform/mediatek/vcodec/encoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from arch/riscv/include/asm/mmiowb.h:12,
-                    from arch/riscv/include/asm/mmio.h:16,
-                    from arch/riscv/include/asm/clint.h:10,
-                    from arch/riscv/include/asm/timex.h:15,
-                    from include/linux/timex.h:67,
-                    from include/linux/time32.h:13,
-                    from include/linux/time.h:60,
-                    from include/linux/videodev2.h:59,
-                    from include/media/v4l2-event.h:16,
-                    from drivers/media/platform/mediatek/vcodec/encoder/mtk_vcodec_enc.c:8:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
---
-   In file included from drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/mtk_vcodec_fw.h:9,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/mtk_vcodec_fw_priv.h:6,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../mtk_vcodec_dec_drv.h:14,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../mtk_vcodec_dec.h:14,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/../vdec_drv_if.h:11,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_if.c:10:
->> drivers/media/platform/mediatek/vcodec/decoder/vdec/../../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from arch/riscv/include/asm/mmiowb.h:12,
-                    from arch/riscv/include/asm/mmio.h:16,
-                    from arch/riscv/include/asm/clint.h:10,
-                    from arch/riscv/include/asm/timex.h:15,
-                    from include/linux/timex.h:67,
-                    from include/linux/time32.h:13,
-                    from include/linux/time.h:60,
-                    from include/linux/stat.h:19,
-                    from include/linux/module.h:13,
-                    from drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_if.c:7:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
---
-   In file included from drivers/media/platform/mediatek/vcodec/decoder/../common/mtk_vcodec_fw.h:9,
-                    from drivers/media/platform/mediatek/vcodec/decoder/../common/mtk_vcodec_fw_priv.h:6,
-                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.h:14,
-                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec.h:14,
-                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c:24:
->> drivers/media/platform/mediatek/vcodec/decoder/../common/../../vpu/mtk_vpu.h:63:2: error: redeclaration of enumerator 'IPI_MAX'
-     IPI_MAX,
-     ^~~~~~~
-   In file included from include/linux/smp.h:119,
-                    from include/linux/interrupt_rc.h:17,
-                    from include/linux/spinlock.h:60,
-                    from include/linux/mmzone.h:8,
-                    from include/linux/gfp.h:7,
-                    from include/linux/slab.h:17,
-                    from drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c:9:
-   arch/riscv/include/asm/smp.h:27:2: note: previous definition of 'IPI_MAX' was here
-     IPI_MAX
-     ^~~~~~~
+ 1) MSI interrupts are special because they have msi_desc::nvec_used >
+    1, so the allocation and the free path can take care of the power of
+    two requirement. That just allocates more resources than the driver
+    wants but they are just memory.
 
+ 2) All MSI parent domain implementations should be able to handle
+    domain_ops::free() with nr_irqs > 1. That's something which can be
+    trivialy audited.
 
-vim +/IPI_MAX +63 drivers/media/platform/mediatek/vpu/mtk_vpu.h
+    I really have no memories why the bulk remove function iterates the
+    interrupts one by one instead of doing in one go, but this is also
+    used by non MSI domains, which might have issues with a bulk remove.
 
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  11  
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  12  /**
-0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  13   * DOC: VPU
-0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  14   *
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  15   * VPU (video processor unit) is a tiny processor controlling video hardware
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  16   * related to video codec, scaling and color format converting.
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  17   * VPU interfaces with other blocks by share memory and interrupt.
-0f02beec61875e9 drivers/media/platform/mtk-vpu/mtk_vpu.h      Hans Verkuil   2021-03-11  18   */
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  19  
-bfb1b99802ef160 drivers/media/platform/mediatek/vpu/mtk_vpu.h Arnd Bergmann  2024-02-24  20  typedef void (*ipi_handler_t) (void *data,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  21  			       unsigned int len,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  22  			       void *priv);
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  23  
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  24  /**
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  25   * enum ipi_id - the id of inter-processor interrupt
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  26   *
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  27   * @IPI_VPU_INIT:	 The interrupt from vpu is to notfiy kernel
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  28   *			 VPU initialization completed.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  29   *			 IPI_VPU_INIT is sent from VPU when firmware is
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  30   *			 loaded. AP doesn't need to send IPI_VPU_INIT
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  31   *			 command to VPU.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  32   *			 For other IPI below, AP should send the request
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  33   *			 to VPU to trigger the interrupt.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  34   * @IPI_VDEC_H264:	 The interrupt from vpu is to notify kernel to
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  35   *			 handle H264 vidoe decoder job, and vice versa.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  36   *			 Decode output format is always MT21 no matter what
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  37   *			 the input format is.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  38   * @IPI_VDEC_VP8:	 The interrupt from is to notify kernel to
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  39   *			 handle VP8 video decoder job, and vice versa.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  40   *			 Decode output format is always MT21 no matter what
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  41   *			 the input format is.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  42   * @IPI_VDEC_VP9:	 The interrupt from vpu is to notify kernel to
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  43   *			 handle VP9 video decoder job, and vice versa.
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  44   *			 Decode output format is always MT21 no matter what
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  45   *			 the input format is.
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  46   * @IPI_VENC_H264:	 The interrupt from vpu is to notify kernel to
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  47   *			 handle H264 video encoder job, and vice versa.
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  48   * @IPI_VENC_VP8:	 The interrupt fro vpu is to notify kernel to
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  49   *			 handle VP8 video encoder job,, and vice versa.
-737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  50   * @IPI_MDP:		 The interrupt from vpu is to notify kernel to
-737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  51   *			 handle MDP (Media Data Path) job, and vice versa.
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  52   * @IPI_MAX:		 The maximum IPI number
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  53   */
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  54  
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  55  enum ipi_id {
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  56  	IPI_VPU_INIT = 0,
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  57  	IPI_VDEC_H264,
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  58  	IPI_VDEC_VP8,
-e2818a59f7ca42e drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-09-02  59  	IPI_VDEC_VP9,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  60  	IPI_VENC_H264,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  61  	IPI_VENC_VP8,
-737ea6cfd226312 drivers/media/platform/mtk-vpu/mtk_vpu.h      Minghsiu Tsai  2016-09-08  62  	IPI_MDP,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03 @63  	IPI_MAX,
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  64  };
-3003a180ef6b946 drivers/media/platform/mtk-vpu/mtk_vpu.h      Andrew-CT Chen 2016-05-03  65  
+    If we establish that all MSI parent domain implementations can
+    handle the free() callback with nr_irqs > 1, then
+    irq_domain_free_irqs_hierarchy can check whether
+    IRQ_DOMAIN_FLAG_MSI_PARENT is set in the domain_flags and avoid the
+    loop for that case.
+    
+Something like the completely untested below.
 
-:::::: The code at line 63 was first introduced by commit
-:::::: 3003a180ef6b9462f3cccc2a89884ef2332d2a1c [media] VPU: mediatek: support Mediatek VPU
+Thanks,
 
-:::::: TO: Andrew-CT Chen <andrew-ct.chen@mediatek.com>
-:::::: CC: Mauro Carvalho Chehab <mchehab@s-opensource.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+        tglx
+---
+diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+index 4fdcb6df5306..b3f6cc6ae2ce 100644
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -1611,6 +1611,13 @@ static void irq_domain_free_irqs_hierarchy(struct irq_domain *domain,
+ 	if (!domain->ops->free)
+ 		return;
+ 
++	/* CHECKME: Are all MSI parent domains capable ? */
++	if (domain->flags & IRQ_DOMAIN_FLAG_MSI_PARENT) {
++		if (irq_domain_get_irq_data(domain, irq_base))
++			domain->ops->free(domain, irq_base, nr_irqs);
++		return;
++	}
++
+ 	for (i = 0; i < nr_irqs; i++) {
+ 		if (irq_domain_get_irq_data(domain, irq_base + i))
+ 			domain->ops->free(domain, irq_base + i, 1);
+diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
+index fb5f372215bf..2835b09899ea 100644
+--- a/kernel/irq/msi.c
++++ b/kernel/irq/msi.c
+@@ -1333,20 +1333,28 @@ static int __msi_domain_alloc_irqs(struct device *dev, struct irq_domain *domain
+ 
+ 		ops->set_desc(&arg, desc);
+ 
+-		virq = __irq_domain_alloc_irqs(domain, -1, desc->nvec_used,
++		/* Make sure a MULTI-MSI allocation is power of two */
++		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
++
++		virq = __irq_domain_alloc_irqs(domain, -1, nvec_aligned,
+ 					       dev_to_node(dev), &arg, false,
+ 					       desc->affinity);
+ 		if (virq < 0)
+ 			return msi_handle_pci_fail(domain, desc, allocated);
+ 
+-		for (i = 0; i < desc->nvec_used; i++) {
++		for (i = 0; i < nvec_aligned; i++) {
+ 			irq_set_msi_desc_off(virq, i, desc);
+ 			irq_debugfs_copy_devname(virq + i, dev);
+ 			ret = msi_init_virq(domain, virq + i, vflags);
+ 			if (ret)
+ 				return ret;
+ 		}
++
+ 		if (info->flags & MSI_FLAG_DEV_SYSFS) {
++			/*
++			 * This only exposes desc->nvec_used and ignores the
++			 * overallocated MULTI-MSI ones.
++			 */
+ 			ret = msi_sysfs_populate_desc(dev, desc);
+ 			if (ret)
+ 				return ret;
+@@ -1610,13 +1618,15 @@ static void __msi_domain_free_irqs(struct device *dev, struct irq_domain *domain
+ 			continue;
+ 
+ 		/* Make sure all interrupts are deactivated */
+-		for (i = 0; i < desc->nvec_used; i++) {
++		unsigned int nvec_aligned = roundup_pow_of_two(desc->nvec_used);
++
++		for (i = 0; i < nvec_aligned; i++) {
+ 			irqd = irq_domain_get_irq_data(domain, desc->irq + i);
+ 			if (irqd && irqd_is_activated(irqd))
+ 				irq_domain_deactivate_irq(irqd);
+ 		}
+ 
+-		irq_domain_free_irqs(desc->irq, desc->nvec_used);
++		irq_domain_free_irqs(desc->irq, nvec_aligned);
+ 		if (info->flags & MSI_FLAG_DEV_SYSFS)
+ 			msi_sysfs_remove_desc(dev, desc);
+ 		desc->irq = 0;
