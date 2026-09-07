@@ -1,51 +1,63 @@
-Received: from smtp-8fac.mail.infomaniak.ch (smtp-8fac.mail.infomaniak.ch [83.166.143.172])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8525B4503EE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:25:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A04C456DF0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:25:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776723; cv=none; b=LvNDCGMj48rLhQTyg0vvtTNTBShvzKEaiOE418Z6GhtorsxvgepritHm1YW7iZPTi31qS7QWhJcYCFwC32qIHzxVYQr+Vn8AU0gJ6YjHa8Yn0072E5PLKH+cOIXFoE3AnPvX5fHw9RbZow+pfoQbI66sX/02zvXOvGLuGyHHc5A=
+	t=1788776754; cv=none; b=KwfmxJj9zk/Ob4EaJRcvenEcdxMs+JS83qRy++FB9qP9CeGsF/VGViEgZ88cw+RPr55Uc7+KazmBSq5F1sdA7+m6wgzIYfx0RuSmWHqtJFXBoZ3eQ7HxKmoJL6FH61RT3/3caMpSq9OFntg+j5DWUCFgJEJyfJfHPG+1lsFcMB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776723; c=relaxed/simple;
-	bh=EYaA2+3vzNXwp0/BodU+MNNQ0HZs349vD2R3fgbqOhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uq6EW1e7LyTfUBs+FGB57CyAVp18MeFK8In9IRCe4bcZ5rowXw7BmkUK4xnoKv2mC01IasInyC1Uy4IUpD4gZpp7e42BtCWw+6Zp6nc8oobKqssqz+vi9Q3H55gT49vO9KL00BFN4XK0YH8RccMujWSE6XdzKWVqUxRBoZp1Sv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=cVKDzep1; arc=none smtp.client-ip=83.166.143.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
+	s=arc-20240116; t=1788776754; c=relaxed/simple;
+	bh=glsVYnwXgtsoc6JUftaSL2xYONgR6g83rYaqFdODRGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pE3h5GSF80eO67yaA48AlPtrwgbBMCwWO9fyuy+F/4LCnAnlV5ddgaCBB5cblHvYzeuaYS4I/nQmK6I2dqYK/KeEVSVoEGfQ2/0cz9A9hzzODVRo//D4OodP8bpYLftz2GSn2ERyZpr4JhHmuUKHxJQyoV+ukzQqmQZZaVeeqZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dI8EBuLG; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="cVKDzep1"
-Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdjRC3wlHzqkK;
-	Mon,  7 Sep 2026 12:07:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
-	s=20250113; t=1788775623;
-	bh=dBHS/oDA3Bq/MnKWT+8QzHHpzChtVCq42IiwJ53rpN0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cVKDzep1CyQTvdc/Ii2VjkiffniujobOY2OpYIPLpohena7oY7zcrBlAtZkozWUqC
-	 flu1y0agAqOipngBYSClHrYRKCrxxEYrlnClbCDLfg18qROmxz+oDqEKGeTXndSZE7
-	 PC5QRQDMALZpT2GaSWNeDYWZcZEwkm/b+JrTQ7RvhR0L7LgUGD4wbHrbqivdTc6DXm
-	 aX6xShermTR1s5Lx16SfFssR8PIu1detKLzOp5y6dzwsSuA3jf8q5JI9wqsb5nO8VP
-	 dOvdrkn69gQR9ZbqIjAiSosE30DhPJsZlxCLpt3woG7a2S1YFhdnuOvHRG1e4ryjEt
-	 3NlEBy5czrtMw==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hdjRB6NnrzYx7;
-	Mon,  7 Sep 2026 12:07:02 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] drm/amd/display: send the 3D_Ext_Data byte for top-and-bottom too
-Date: Mon,  7 Sep 2026 12:06:25 +0200
-Message-ID: <20260907100626.54465-3-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
-References: <20260907100626.54465-1-adrian.betschart@cinemaone.ch>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dI8EBuLG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788776752;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eUsPqY4JoWBmBYE8mM47Nm5hiu9mOUL44Al480RJ508=;
+	b=dI8EBuLG04Bc7Glju9cO5nxqFXhp1gGoxQDwO1Fx33tPlQ50u/h4VHcMLEi7ck1mW/RE6V
+	VA4UK4ULaNGl4SbTmP6P9TU1nAWMenMILz9yrlrMDjnj6lmwuUHrz8A8QLna30oQ/vBvgF
+	KLjfwBT1eLUJjttPRy+wwU1OiUXeIm4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-459-fwPJY9RwPk279ISgaAc-VQ-1; Mon,
+ 07 Sep 2026 06:25:48 -0400
+X-MC-Unique: fwPJY9RwPk279ISgaAc-VQ-1
+X-Mimecast-MFC-AGG-ID: fwPJY9RwPk279ISgaAc-VQ_1788776746
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1BC62180255C;
+	Mon,  7 Sep 2026 10:25:46 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 854141800577;
+	Mon,  7 Sep 2026 10:25:40 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Mihail Antsev <mihail.antcev@gmail.com>,
+	=?UTF-8?q?Jos=C3=A9=20Mar=C3=ADa=20Mart=C3=ADn?= <jmmartinf@hotmail.com>,
+	Leif Skunberg <diamondback@cohunt.app>,
+	Samuele Angioli <samuele.angioli@inspect.it>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Kees Cook <kees@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH v2 0/2] media: i2c: cvs: Add Lattice device quirk for VID:0x2ac1 PID:0x20d1 and resolve image upside down issue
+Date: Mon,  7 Sep 2026 18:25:02 +0800
+Message-ID: <20260907102504.60512-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,37 +65,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-HDMI 1.4b only requires the 3D_Ext_Data byte for the side-by-side
-(half) structure, and the vendor infoframe for top-and-bottom is
-built with a 5-byte payload accordingly. At least one sink family
-ignores a top-and-bottom VSIF without the sixth byte: a JVC DLA-RS4100
-(D-ILA, "ILAFPJ--X214A") stays in 2D on the 5-byte frame and engages
-its 3D mode the moment the byte is present. Amlogic sources send the
-6-byte form for top-and-bottom, which is why the same projector works
-with them.
+This patch series adds a Lattice device quirk for VID:0x2ac1 PID:0x20d1 to
+allow intel_cvs to configure the device properly and enable the camera.
+It also adds a sensor rotation quirk for Dell XPS 14 (Dell 14 Premium) DA14250
+to resolve the image upside down issue.
 
-Send the extra byte, zero, for top-and-bottom as well. Sinks that do
-not need it ignore a zero 3D_Ext_Data field.
+Changes in v2:
+- Add a sensor rotation quirk for Dell XPS 14 (Dell 14 Premium) DA14250
+  to resolve the image upside down issue.
 
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
----
- drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c | 1 +
- 1 file changed, 1 insertion(+)
+Kate Hsuan (2):
+  media: i2c: cvs: Add Lattice device quirk for VID:0x2ac1 PID:0x20d1
+  media: ipu-bridge: Add sensor rotation quirk for Dell XPS 14 (Dell 14
+    Premium) DA14250
 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 13478b8bd..3e41b33ea 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -574,6 +574,7 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 			case TIMING_3D_FORMAT_TOP_AND_BOTTOM:
- 			case TIMING_3D_FORMAT_TB_SW_PACKED:
- 				info_packet->sb[5] = (0x6 << 4);
-+				length = 6;
- 				break;
- 
- 			default:
+ drivers/media/i2c/cvs/core.c         | 7 +++++++
+ drivers/media/pci/intel/ipu-bridge.c | 7 +++++++
+ 2 files changed, 14 insertions(+)
+
 -- 
-2.43.0
+2.55.0
 
