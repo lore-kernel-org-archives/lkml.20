@@ -1,136 +1,155 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-pj2-f3.google.com (mail-pj2-f3.google.com [74.125.227.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F436478870
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:04:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9242E4B3384
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786308; cv=none; b=Vfa7/4zpEAcYsucIlpTDuu8FEGgP+rjmch/BBvQGzGfiuTaCmA6Vv5nUzAJAdc9+D8upP3u5+OA8ooYqIby/p5hkGPcEMDxIt0NLerArpc+3xHuqvoFGnFZ+YXpxZpnaYk9D1zwLuE+JWbAIChhUKRUncE7PsZGeX4pg7zWcorc=
+	t=1788786400; cv=none; b=kqzqqs8ePWP+VK0+Sf7HEM30stiQ9puiboUMxkkAx+nChlJj02s9haF5npg96foETfF93zeZdn+dHREKS45uPmVoK+yMAg/+gXn66qYB25WtEVL8gHO3BJcO7ePKewJQ4jGH3gvZesMuNWvIGanHiTmaE7Mmt4AGZFpIt+OQhKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786308; c=relaxed/simple;
-	bh=1n3O55QHCNOEOkhOkb+CI0DxB0s2gPnAibl0K8I5Qow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KeOZqkLcJU/fSSGWKWg4w2yCroGqJo3EkObKElhyXe854uz0RT555PpITPCBHwycmi8aUBImVGQl+dS8VW9+mUAIpYLRUyyA2kAYTLC2fQ8jF/j7jNqw1Goyqe9ZxV0bQmUUqRgIU+vRXdak5nD/3/e0gLuFtngcBpdP2NOv7kE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VP41IBsl; arc=none smtp.client-ip=74.125.225.140
+	s=arc-20240116; t=1788786400; c=relaxed/simple;
+	bh=KVlall24y0p+qSno+YoVUQqAPfLtfndwd2+UzHAoFPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=glsZKXCypDOQmv8ql+mYQBMzIwDYEFC6KdIsUqne/Z9TZWloZMY6S8/th3nh/DRbWShKqcZ27Mx22xBlckbPuxfznHNLWtCcB92YrJHz4jIkuxhbZiCYIW2G5TcoJU3lKAHCgw6rvgSTeX6WgLx25fI+DbvazJwJ6I0YjX86ZDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H3qWyb9H; arc=none smtp.client-ip=74.125.227.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VP41IBsl"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1a5b5eso720565e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:04:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H3qWyb9H"
+Received: by mail-pj2-f3.google.com with SMTP id 98e67ed59e1d1-3859292bb51so165313a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:06:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788786288; x=1789391088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ozz1uZ9Dd3kKM267cb2w1ezLL6vpOE5QOnfezxsq4H8=;
-        b=VP41IBslo1nwd9iUU1mej3PYvUpjS70PK5FGTyJZZjF9uxZFg6gPZM11b7PMNPkBHJ
-         dpHeOIfPlBiJ00pRn87VtuPkWzNMer3YCvANYxJEYKSWbg0xRs6Cd0R1w2yh3U4O9NiO
-         EsIzZc2Ur7wCh3D5mdZrIarIh8AeBja3WdP+CdKGFg0EUNlC0nzx1EuwDwQa3XMi0lJ9
-         49YD9dhGSviBA8/M1m0QtmVmf2muIUQQU561b9rKs1RSUGTnC27+JVZA97WYWH1HUqLz
-         19/MJbI0tnFh7o7H9zQkLnoblwQjTQhkmfVMv+1GQrHAIyeuzhOXGmzSB9Jd5d0yd4Ts
-         p1DA==
+        d=gmail.com; s=20251104; t=1788786394; x=1789391194; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=riOSU4dH10zq3tO5Dx537AG40XCcFzKoLCwwWkJ2TP8=;
+        b=H3qWyb9HYdUXJ65laXKBATV1baqz1RgE7zo0b3nN9AwTcM5Bt7qRTW9J36gxaYzzNV
+         GELDpAAL3tt4ZvdmFhSzX2zvdFGCasxYHrj6SbjdJRL6Dwr1LCiYj4DBXrTH6yOHWkKI
+         Awa5OTOnpMG/iCsflOls/EnjN5bVePxtYOIoCOCuSpQ/GvRJb4+yuTuSO67ay+//8VG/
+         6Po5xHLKnq/4TvsEDO0m+KLup5Ct02olWGNMcavO1zXLzjnPvVJz7N9SQ/f+pQafDB7R
+         //y2yGMAkZpwiEXwLp0jF448C80y3JcjHGbTinlWEHkUjjZUNkTc3GqbKcKPo1z9cBAm
+         8XgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788786288; x=1789391088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ozz1uZ9Dd3kKM267cb2w1ezLL6vpOE5QOnfezxsq4H8=;
-        b=cSOIzmfO9Esm+Ctvx3TKN7wwIfu4L9GFWshRoVZh/spNnP+IehbWAyRhexJE4NbG0d
-         g6oZIM4+sWGgSDuauUMhXRmFoNgIf8F1dZyt2A6Vcnoj8OUKKIfluJsVQbV+wLT9ca+I
-         RmHVgmClBp5T5NyEpSV6AIbfA5+e/9t1CJ8UrV6veQJWgH7iygmF1o7spZ5jH8Dbd9t5
-         q2NyG4+APLcpJ3cUMoL7XTmfbaPLZxF5Z3Hc1BPqv3s+w70ZiL/og7BnGPfblDB6KC9b
-         31q7jBRRdlZv++O8D6mkgVB0GcFIA1BAYupzrWocdfSPgEFPv4XTkUdskYnS0PWNN8A2
-         Tndg==
-X-Forwarded-Encrypted: i=1; AKwUvBzwDfgq1lJy2arbm8Y+7ukVbKpkL1E47BijTYg31GvQPRgIB1mxD2qWDjcE7w6fqTiFAtWI472xvsN3RBY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhQ0Jp+AL5yCLcvmivR+IwAd+6axy4ndhngeEf7f8llAuX5Fol
-	6jcgKlnDNt65V6+v508Wh4NxiTt+2sEqC9Yi97pH1VanWlFu94wgldfv
-X-Gm-Gg: AYBFou1fmTyVfEBbm5Mqbrs3FldQgGSf/Nvrf91G1lA2SrKb2eOerEj/1mInpCtK4M+
-	oZg51PhTSs01p6NlflSYHqjL7gzLuYaBf9oChjoUbx1OlMo8E3piYlMMIyDLe5AqExfLVrKx6xA
-	Ye3Lou7n93iipk8AnZdZXoNIlTap+TEXteuRjXSPexM7jhaeaMX/3gSsRYDIE8L9ENS3BWpH+NI
-	GCxLI2fNoSxL3/WfAgs1OT+Xv2lA5vY3Og8ggZrr0yZYzN4D09eoy5M/pmVEv1CDBKbBiq1qxDh
-	ugkWsREZvyOCeCM6rE/SSP1mOui3VcoTBgRHQ53EUhoydx7g16GvYKEuvU9vxDfT20VqJp/p50r
-	hP59RJYHMgocWrSQ+2duYYByLCobUe+ksUh7ftvV6wrl7KmmXAPAVOiGAnxoJ8qRE26jyna0oCH
-	lkzIf/pB5oeFwtJhfDbRJ+WpjP2Uv867kolO57Q0fQcG4hqgt4FG0=
-X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr129690105e9.2.1788786288114;
-        Mon, 07 Sep 2026 06:04:48 -0700 (PDT)
-Received: from skbuf ([2a02:2f04:d006:ef01:8e86:58dc:206e:83a0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm280376825e9.11.2026.09.07.06.04.46
+        d=1e100.net; s=20251104; t=1788786394; x=1789391194;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=riOSU4dH10zq3tO5Dx537AG40XCcFzKoLCwwWkJ2TP8=;
+        b=Bihj2iiMuTL7sweDX9FEOLHJNSiePfkNsIrWcQ0GhfsEQifLLf39jJGgZ6PsLmrimy
+         o7IBG4mSzRDXbE912R7jjaGS0cldQQruRcJDaSLI7vwBp6I3yf/tJqZ/865d/SBXs7NM
+         QPU3S6YEtTTEMYcLwni8naUQGbQIH5dF3NTHAD8c4uojhvqFyZLKDFuUOFNcOpFpRN2G
+         V1PCC9q7wC2Ix8VSsIjJlS9WoyhlEa2hdWH/bEcvmFbL0LAH9+ndG1Eqvb06Wz0ReIRz
+         PVHtjv5/ASimk70xZ6RJpjHscqlrcVGEvbf8Eq72FJ7tM4kJZn1CguSHQPKSFuEOxeS/
+         Rl/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzZUwM3C5uk9shRCI8gVe5N35b2w7je061ICnANxGbVlMF57n5oR+Mo7TAt2J/hlgN3ZGUgs8XpUbxJPh8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9+rJiKeAEKOF6918ZHN+wU+8ae9lXavPqAZfBe651lf4S59OE
+	my/GwvWQnkATqX6Mcf+OARZbsi5o+mrRHM6MBgDtWLH7ymMRk+VcTow=
+X-Gm-Gg: AYBFou0v23GsrLBABFrJVxDR5f7/uVvE0WVdyFq5nFneQF1W8XyeUg/jtx2wHCJ0FAB
+	+TwuIcMWn3YY1o7UkTD/bXOt/3L292F4UuE3hdbVyaGWSvHFWlTsxxaz9CvF6GJ/7gAY+hVa8Id
+	wjyhHjDUWf2U9n+e1qtkRBNb7YsBfF/8Rk6u6drjXN6GBtkomwa2k8lrD5LyNi2KgtH4Q6W8Vur
+	RvZqhNvPkJgYGUDPp/V84fZD1r3XP0IWF6L+MMsmMPwLnJONx9m9SNrUm36wVW5UgluUfwN6e/H
+	iCmD51xfqTYO9N1mwBs3Wv/KcWwoKGYwWnRTAWdKpi1OeJ2Pi0m121w4xlBtQNdJXtYtgFvEz9n
+	Cm/OmnXoTWPgc35OLgrzij0eANJhlCuvFpgEeLkXUu2Q/GuyO6lF/6dTP7Ox81OlIO7WxICgloE
+	5+vtXpI8aWOfQT05m9gXPRqwzR8cOwoW/dQGcbQwaABfVSEPJr9Yo2dnXJK/nfpPymVPr2cGg1P
+	1QHFOZgmZKwTTkrGnipgln31bI=
+X-Received: by 2002:a17:90b:4b83:b0:398:9bd3:d6d2 with SMTP id 98e67ed59e1d1-39b8bec8c1fmr661379a91.12.1788786394289;
+        Mon, 07 Sep 2026 06:06:34 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm26742398a91.0.2026.09.07.06.06.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:04:46 -0700 (PDT)
-Date: Mon, 7 Sep 2026 16:04:44 +0300
-From: Vladimir Oltean <olteanv@gmail.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
-Message-ID: <20260907130444.zwuiczzhlk6yalpi@skbuf>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260907102849.w7yn43x6m3f2rnuj@skbuf>
- <ap6fcP7Oct109dkY@inochi.infowork>
- <20260907115712.dg5pw4ajvrtdipey@skbuf>
- <ap6ngAxlztCAFSH0@inochi.infowork>
- <20260907121653.4ajpkjt2i5opmwzc@skbuf>
+        Mon, 07 Sep 2026 06:06:33 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Xu Kuohai <xukuohai@huaweicloud.com>,
+	Yonghong Song <yonghong.song@linux.dev>
+Cc: bpf@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH bpf v3 0/2] bpf, arm64: fix the exception callback's frame pointer
+Date: Mon,  7 Sep 2026 22:06:22 +0900
+Message-ID: <20260907130624.611942-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907121653.4ajpkjt2i5opmwzc@skbuf>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 03:16:53PM +0300, Vladimir Oltean wrote:
-> On Mon, Sep 07, 2026 at 08:05:57PM +0800, Inochi Amaoto wrote:
-> > On Mon, Sep 07, 2026 at 02:57:12PM +0300, Vladimir Oltean wrote:
-> > > On Mon, Sep 07, 2026 at 07:29:49PM +0800, Inochi Amaoto wrote:
-> > > > Yes, I have one for it. This is the spacemit pcie driver.
-> > > > https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
-> > > > 
-> > > > But it only uses a few of these helpers. So should I remove all the
-> > > > things that are not directly used, and let others add these if they
-> > > > need?
-> > > 
-> > > How many functions would go away, and how difficult would they be to
-> > > reconstruct, if we only were to add them on an "as-needed" basis?
-> > > 
-> > > If the answer is "many", I suppose you could also leave a note in
-> > > phy.rst that links to v2 and mentions unimplemented functions because
-> > > they lack a user.
-> > > 
-> > 
-> > In fact I think it is happy. This PCIe driver only use three APIs:
-> > - devm_of_phy_bulk_get_all
-> > - phy_bulk_init
-> > - phy_bulk_exit
-> > 
-> > So most of them will be removed as only a few are on the path.
-> > I will follow you suggestion. Thanks.
-> > 
-> > Regards,
-> > Inochi
-> 
-> I think you should call phy_bulk_power_on()/phy_bulk_power_off() as
-> well from the PCI controller driver, even if the PHY provider driver
-> doesn't (currently) implement them. The Generic PHY API is about
-> offering some degree of mutual consumer<->provider intercompatibility,
-> not just a pretentious indirect function call k1_pcie_init() ->
-> k1_pcie_phy_init().
-> 
-> So those 2 functions should also make it to your v3 patch set.
-> 
-> BTW, do you need a stable tag to be provided by linux-phy, to continue
-> your work on PCI in this development cycle? You should mention this in
-> your cover letter, because it does require a bit of maintainer
-> preparation beforehand.
+The arm64 JIT does not set BPF_REG_FP in the prologue of an exception
+callback, so the callback runs with whatever x25 held when bpf_throw()
+was called. A callback that materializes the register, for instance to
+pass the address of a local variable to a helper, then works on the
+frame of the subprogram that threw.
 
-Since we were talking about drivers/ata/libahci_platform.c on the other
-patch - you could consider also converting this to the PHY bulk API and
-this would give you some more coverage so that you don't remove unused
-functions from your submission.
+Patch 1 sets ctx->fp_used on that path, the same fix commit b114fcee766d
+("bpf, arm64: Fix fp initialization for exception boundary") made for
+the exception boundary. Patch 2 adds a selftest that reaches the case.
+
+Tested on aarch64 under QEMU with vmtest.sh, on the base below. Without
+patch 1 the new test panics the kernel, because the address handed to
+the helper lands on the helper's own saved return address:
+
+  pc : 0x1234
+  lr : 0x1234
+  Call trace:
+   0x1234 (P)
+   bpf_test_run+0x188/0x3e0
+   bpf_prog_test_run_skb+0x47c/0x998
+   __sys_bpf+0xbdc/0xdd8
+  Kernel panic - not syncing: Oops: Fatal exception in interrupt
+
+0x1234 is the value the callback reads, so the helper wrote it over its
+own return address. With patch 1 applied the whole group passes:
+
+  #117/11  exceptions/exception_throw_subprog_stack_cb:OK
+  #117     exceptions:OK
+  Summary: 1/118 PASSED, 0 SKIPPED, 0/0 FAILED
+
+Not tested on other architectures.
+
+v1: https://lore.kernel.org/bpf/20260904070210.4163193-1-donggeunyoo.kernel@gmail.com/
+v2: https://lore.kernel.org/bpf/20260907054235.473103-1-donggeunyoo.kernel@gmail.com/
+
+v2 -> v3:
+ - patch 2: use the standard multi-line comment style
+ - patch 1: no change, added the Acked-by
+
+Nothing compiled changed, so the numbers above are still v2's.
+
+v1 -> v2:
+ - rebase onto bpf/master; CI could not apply v1
+ - spell the three new declarations u64 rather than __u64, to match the
+   rest of progs/exceptions.c
+ - no change to patch 1
+
+Donggeun Yoo (2):
+  bpf, arm64: set up the frame pointer for the exception callback
+  selftests/bpf: cover the exception callback using its own BPF stack
+
+ arch/arm64/net/bpf_jit_comp.c                 |  2 ++
+ .../selftests/bpf/prog_tests/exceptions.c     |  1 +
+ .../testing/selftests/bpf/progs/exceptions.c  | 30 +++++++++++++++++++
+ 3 files changed, 33 insertions(+)
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.53.0
+
