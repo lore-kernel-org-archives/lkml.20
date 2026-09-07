@@ -1,120 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5F8D4CB8CA;
-	Mon,  7 Sep 2026 14:14:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790483; cv=none; b=HL37NjqEKrNXB4+QBabFTP6FzaA7sc/noVMBMv4jfwUHrPstxsIizWBQxWb0aafm0qtg7/oMoSx2rwify958otWSnvTLo+4moXg4cWLgfvuzI5f3rXDnS20F65s81jn1gdyLDz9OiggNhz/U9z1ydy88UP3m8QjhIgQZNh6XJpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790483; c=relaxed/simple;
-	bh=yvb3TKII5RqnvWR4KKPwM6Pa0eGdrgURYd2q830BwGg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=npN6Qc211+Db9jgufvOGMPH9NugBn7h7ZuNPbmxY40MgiRlXhhbeCMZ1Eo9USTCJ57oLtNnwVfxsyplWHX7ERuUXNxnc4ZCDlyYIeC7MmRK+YyfDy2Z1qJSGORhWYF/6O255SST+f8dekGSriyCjwLkTo6uXyRLxNtH2LeQN+F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NhoyMxVX; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6BD33BBD7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:17:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788790629; cv=pass; b=YfWbZixOG5SYRi30Rc+LXWgDvM7legHMVVEQrSg7w2JLciPAUgwLOf9Qtz69kUWHko/f2iPvDfNISqLU4PVo9PQGEQGsv26ktiR+OeWYr/h+52kmL3qVdgDWlB3JkIzsLamJNH7berHnbdAVFq69faKpWzQ/T6PggO2usf2N85w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788790629; c=relaxed/simple;
+	bh=r9qKwV0zAtN+2SVkQpm8iG2hqEmHFrMaHaQiAf5LRMI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cRIDiIn2NtcMVzH5qZFub/LUIKTmLScLFSVyeQnwf27lLdGhIBKK7wEPcBEmRi2+0bIS0fw0O4ey8QM+Lf9WBfcOjn+p/dEJk/KTvJ5ePeex1K265PPRJzrsmeOefF+hFjNZiu6+bGn/4LdlKH2eDofvvqDJzn6UMbIsr6xF4bg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=kY7UBq1E; arc=pass smtp.client-ip=209.85.208.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NhoyMxVX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E13F91F00A3A;
-	Mon,  7 Sep 2026 14:14:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788790481;
-	bh=vSaY8hFogQ8XMCarbwj5OucKl8VFySrfC7cRQOJejcs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NhoyMxVXLvulJLaKclIWhey+zgZ3IDzhbkoezViwyf/Uj/o2j2rj5/DAnppDI556c
-	 RtNPIYDrUsFyY/9uH3cimmT0KElBGmbB8AVwypDnqQLonLQu+mwlhnZ3a3NAECgOfg
-	 1D39BRQRZ5XQofKPUoAIjIYrdWjbf1QPtmef6KMEZplUV0meDYbA5jOnhye1HgAcwl
-	 N/xK+z16UrOabUYhTrqi6r3KofzuzKLqLrymAtOrPvYv9IWjaKTXgA0Qt7ue4q3uip
-	 KoW8J315Vdl/a36GJCkPTqpZhN6ByI5J+3N7Yyux3QEeRuy62GRcVZclr4dnLoo09w
-	 zlF9rtE5IBO6w==
-Date: Mon, 7 Sep 2026 15:14:34 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Marc Zyngier <maz@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Shuah Khan <shuah@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	Fuad Tabba <fuad.tabba@linux.dev>, Peter Maydell <peter.maydell@linaro.org>, 
-	Leonardo Bras <leo.bras@arm.com>, Wei-Lin Chang <weilin.chang@arm.com>, 
-	Yao Yuan <yaoyuan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org, 
-	kvmarm@lists.linux.dev, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 03/14] KVM: arm64: Manage GCS access and registers
- for guests
-Message-ID: <ap7GPxGs3nhT70sS@gremlin>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org>
- <20260901-arm64-gcs-v20-3-f31750bdfadb@kernel.org>
- <apmfx08vccSd2MXw@gremlin>
- <d2659ac3-2f00-4fc4-8f9e-0585691a4ba2@sirena.org.uk>
- <apqA_SuoA6-TyHsS@gremlin>
- <apszJZ17KUvd6BJ7@sirena.co.uk>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="kY7UBq1E"
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39f20d19895so25031081fa.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:17:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788790625; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a2ADV6h1cUuvhLEGlFQlFpafbT5rn7YZEcLy5pROplaD6XO85vCQwgg8r3Wai29y/G
+         njk4AVjHIqz9cJTuEtd+dFTORCVsFF9FZY7x2V6jsj0JrIRGM9rsxuhD6svn1EqWUieq
+         aIQMwka+Jk5yPPoC10LuLvlAp34L5AE7EhxYSDzGCUUwNqyrhY0F/Fq05dgfHLdSHMlM
+         7wpOZD0FBhoRLVDfhmwD+h1xjLCX0Dlrv0c4QWIcyZfAue4IBAaTMJwl5EfW9GDfip+m
+         +4guTlg/aFtbApT1Awqir/aQ6QfvgK4Tlj0/YLiyRLXgLQNlZgIwhzoOPDSHrnkqmiIj
+         vj6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
+        fh=Y5JnC7DD8HGPBPxSoTWIfKbk7xTwiwYmM9790a2hOSA=;
+        b=VP6oVjcLfZ7f9owMhATFcdauW67gtaBZHtAc2JMBZjNCcCpTl0Yxxqv2kFKCRHhwTz
+         LYh62s8/03z04IQnp0oiPEjWCsz0CVsIpfTqju4tnAeqBRLlHO1xEFUo7H4oCg7pr21L
+         OkgYVn2j2/bjxeObb1OIA9HYcfQi9GPloygCw8hagcmL+VWtCWc62jnQRqJHR//2oVFm
+         0dekOqp0GGevRdV0+EslQ7tA1iELVLS4RLgXl/XnHE1/fTe6i7in+lOmHghqKk+FKiOY
+         QbeMw/oQ8yez9Vp9oBT+A/HRx16fvusteb12Ela1VguyjU8ArQediHrlasolHmlKFJth
+         mvqA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788790625; x=1789395425; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
+        b=kY7UBq1EB/j5MOJXO+63sSKGBKtvZfYjD8cWggylmec7OZ+HvHj4+NiXvhlMQLNibr
+         AfFpYoe+n6War0K+6lmkIJgAKujfdo9cY0S1sp3pwkxyRZTEEuh62sBnfD+lOFWwjXt8
+         APR9oo1mbn7WkPozSbAnxVGu5KkqmjOhU1kVOo47egQN8LPX/o2wTmFQ7qyeE9Q1GMYJ
+         3AsDanjMElX+NEPMNf9qZzq0U7ccF/yUMDGQRTm8KD41K8VhVyO10Bl8Xvz8CA6/D7M1
+         X7RP9vNImq0lWPj6Q2Lne6R3tPGfYECGDth8PFx+iIvUeTxcpRDQET+WydCyR2f3HHgt
+         DSVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788790625; x=1789395425;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
+        b=WCn1jwY7Kb13bRfYZnb6Abh9gDUV38lJ5ZNc3NlBOBko9GmEdZNKKiGaT8qWAXfHvb
+         3OVgKHFe1jEPPZ0uskkriTYPdi7NSMxgtZlJqeM7w6DQCf1DNA2vBLxWcYULfKSfDrBL
+         i1dYbkvjt1vEOAywJszWcmbV1H/TBdxmIhEacaWo8cW6itQqRqjsXyWFfcN6MfhqXVKN
+         KvLrn/htAGtdNPjAt4SnTcL1bXHAvW/AkxJH58YaZw1SU89ybPfigZmi+Po2NV5LwS6z
+         bQ3dXVIfejccFuPgInxR8WALKCRehIqVFrwr6EO/CLwtBLbq2UJqkPcpA+VtBk1GcfPO
+         iftw==
+X-Forwarded-Encrypted: i=1; AKwUvBxvodKp63wwLrwkt38LTJtfsT0ZUdGWjdogvXVovQVXq5YAWD4Q7mrEZwIH0wSW/SAdbi+FK+yT2iC9s7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++leUeEVxw+/0Qz/7DR+1he3Cna/WevJZmm6xBeY7uaYQ73YDzlk
+	NSzQ4u2FdR3bNn973HzRDVLwOxFVz6VgkDhShpTxqdrlS7RY/6UvodiBfAGfnhVipOm2Ozsny7C
+	WMzggl8/PCMLpsbxu7/XB0v902I93m9DqLEQQde3MhTQ=
+X-Gm-Gg: AYBFou38sFkHde4iPcyP0DMSvx3oNV0qQwAypgjc66ZEAYavaoyKFtDBt2WhZQNsOKl
+	LHKEr4AnyZDt7TF8mLn1QQAxNA/TFdPTQg2s09sBTjnUqX0nUkxDO8VwJuaKQ8md1C02hldgVUD
+	piZP/7PnJU9ZYwENEbD9lohsD1E7aW80Zl909Ghg8WhclIdHNevHrqT57bs7+l4+tAZmoQwm3kS
+	OoEHKDxR1AItio+zdo06Xrg/fQT0EFwvuT6x3+KSjXrSL39v+qkO2rIb2zm3evdoLvm4HndqgbD
+	VDv9FU5UguXLD5Ln1rbFzWmQQWFc+B9FJWw6+6GbufPrlOl63+CuiL3y9GE6bVep6cZczvEQXD8
+	=
+X-Received: by 2002:a05:651c:a114:20b0:3a3:749e:31a2 with SMTP id
+ 38308e7fff4ca-3a3749e3344mr14616981fa.22.1788790624930; Mon, 07 Sep 2026
+ 07:17:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apszJZ17KUvd6BJ7@sirena.co.uk>
+References: <cover.1788775605.git.zihanx@nebusec.ai> <d1b0d3a224167afa0ee61db0c9f778a2d12ff9b6.1788775605.git.zihanx@nebusec.ai>
+ <CANn89iJjUL9LJPipeCZKq3F=Rjhq-gdCKwnuW0pkvvpS_ai7UQ@mail.gmail.com>
+In-Reply-To: <CANn89iJjUL9LJPipeCZKq3F=Rjhq-gdCKwnuW0pkvvpS_ai7UQ@mail.gmail.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 22:16:52 +0800
+X-Gm-Features: AcwNN1U7aD2O-kbEJ_AiTgXWSyU09QYOnbLUYfF4yEMau5bpeNc0TtL7e78gZZI
+Message-ID: <CAANe3eTxK3btTfTA9M0UVxJ3FOavnv3jgd3MUjLPoDNJMicg=A@mail.gmail.com>
+Subject: Re: [PATCH net 1/1] inet_diag: cap bytecode filter complexity
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, David Ahern <dsahern@kernel.org>, Kees Cook <kees@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Vega <vega@nebusec.ai>, 
+	Luxing Yin <root@tr0jan.top>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 10:07:49PM +0100, Mark Brown wrote:
-> On Fri, Sep 04, 2026 at 09:54:51AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > On Thu, Sep 03, 2026 at 09:41:26PM +0100, Mark Brown wrote:
+On Mon, Sep 7, 2026 at 10:11=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
+wrote:
 >
-> > > originally written the code without expressing this dependency but on a
-> > > previous version Marc asked for this nesting as an optimisation.  Since
-> > > it's about optimisastion adding checks that don't otherwise exist on the
-> > > restore path would doubtless get the similar complaints.  Exactly the
-> > > same concerns were raised on v19.
+> On Mon, Sep 7, 2026 at 3:53=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote=
+:
+> >
+> > inet_diag dumps run request-supplied bytecode through inet_diag_bc_sk()
+> > while walking TCP, UDP and MPTCP hash buckets under their bucket locks.
+> > The auditor currently accepts an arbitrarily long program, so a dump
+> > can spend unbounded time in that locked section.
+> >
+> > That fact is already present at the git epoch: tcpdiag_bc_audit() had
+> > no op cap, and tcpdiag_dump() ran the bytecode under the listener and
+> > ehash locks. Later inet_diag extraction only moved the same code.
+> >
+> > ss(8) filters only need a handful of compare/host/mark operations.
+> > Reject programs with more than 64 ops in inet_diag_bc_audit() so TCP,
+> > UDP and MPTCP dumps share the same limit. 64 is a policy cap above a
+> > normal ss(8) filter, not a lock-hold budget.
+> >
+> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Co-developed-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Luxing Yin <root@tr0jan.top>
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> > ---
+> >  net/ipv4/inet_diag.c | 10 ++++++++++
+> >  1 file changed, 10 insertions(+)
+> >
+> > diff --git a/net/ipv4/inet_diag.c b/net/ipv4/inet_diag.c
+> > index 34b77aa87d0a4..1ca528cd3e72b 100644
+> > --- a/net/ipv4/inet_diag.c
+> > +++ b/net/ipv4/inet_diag.c
+> > @@ -725,6 +725,12 @@ static bool valid_cgroupcond(const struct inet_dia=
+g_bc_op *op, int len,
+> >  }
+> >  #endif
+> >
+> > +/* ss(8) filters only need a handful of compare/host/mark ops.
+> > + * Bound the program so dump walks cannot run an arbitrarily long
+> > + * bytecode sequence under the socket hash bucket locks.
+> > + */
+> > +#define INET_DIAG_BC_MAX_OPS 64
 >
-> > Could you implement the nesting the same in the cases where there is a bare
-> > ctx_has_gcs() as an alternative?
+> This is unacceptable.
 >
-> > So then it'd always be tcrx -> s1pie -> gcs everywhere and that'd resolve things
-> > also and make things symmetric.
+> I am tempted to say that any hash bucket with more than 1000 sockets
+> in it is a problem, not only for inet_diag.
 >
-> > You could also I think express the dependency if it makes sense to.
->
-> Clearly we *can*, it's a question of what'd be acceptable - it'd result
-> in the compiler emitting a bunch of extra alternatives and conditionals
-> in the context switch path.
+> Since there is no soft lockup, this really looks like an attempt by AI
+> to break legitimate Linux uses.
+> (Or slow down as your prior versions did)
 
-Right. And that's presumably a rather _sensitive_ bit of code.
+Thanks for the feedback.
 
->
-> > > We could do checking of the ID registers at vCPU creation so we could
-> > > avoid worrying about them in the fast path but there was also feedback
-> > > about not doing that.  One idea I had was to generate feature
->
-> > Could you possibly check in sanitise_id_aa64pfr1_el1(), something like:
->
-> Sanitising the writes is a bit tricky since multiple ID registers are
-> involved, TCRX and S1PIE are in ID_AA64MMFR3_EL1 while GCS is in
-> ID_AA64PFR1_EL1 so you'd create an ordering constraint for userspace,
-> and you'd also have to handle the case where TCR2 or S1PIE are turned
-> off with GCS already enabled.  It feels like a bunch of complication,
-> especially if you start applying the same approach with other features.
+We will drop this series.
 
-Yeah, you're right, it is a bit of a nightmare and feels like it could get
-a bit combinatorial.
-
->
-> If we're going to validate the ID registers it feels safer to check at
-> the point where we finalise the ID registers and refuse to start the
-> vCPU if there's an unsupportable configuration, that would mean the
-> check would only need to be done in one place and userspace wouldn't
-> trip over any ordering requirements with how it updates registers.  Only
-> userspaces that set architecturally invalid configurations should see an
-> error.  We could also handle things by fixing up the configuration at
-> the same point, disabling features that are missing their dependencies,
-> that's a bit more friendly in the short term but could lead to trouble
-> later on as it means we hide issues in userspace.
->
-> I think the best thing overall would be to leave the runtime paths as
-> they are and refuse to run with an architecturally invalid setup, that
-> would avoid bloating the fast path.
-
-Ack, it'd be nice to not have to worry about that.
-
-Presumably we definitely want an oops on a GCS violation in general?
-
---
-Cheers, Lorenzo
+Best regards,
+Zihan
