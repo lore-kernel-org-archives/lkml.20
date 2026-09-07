@@ -1,360 +1,139 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B866146983B;
-	Mon,  7 Sep 2026 10:38:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C08B44CF52
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:38:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777495; cv=none; b=qnPMlyCJOLSivvlfcaV8mScF9JocjVRiU6mrxNa0ulKnEo1OBO/6NeJdhg3d6agA6SqD4gpimjtMtxCON0av66vTl5R1E+wOzkudQEj1ueek2fxsjhTTdTtbFmnoVR0ouMlWFw6NOrGTEDukEcdk9wygfx2OzY6g6w+ONQoX2Ew=
+	t=1788777527; cv=none; b=G7H51YAxkPOZkIfjE6nGFaHPaQSa49Ooprh6fQT/I0RwPZe8UaBcTE/DH5/LREveSnglDln9K/e8hnKMYjRVsLqKIZSwHWBjrv+4meO1VjNo1raF3BQKwRYP9VvmHoYGK4j7MRRebN8d2E9XMchw3dTSd9+6bTBMwMThrnTtUwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777495; c=relaxed/simple;
-	bh=6NZOHra8lTsFun8t90P8HBwi7g86kXWmYX99yHStxLA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=LcAKZ2qDpZNwDp6fwD+6Dyr1IvTqFjC6SbXOyYdcsDJyip1WAQYGCn3NXEiTyMclxurfvIzUMdoW+sDThfFq65wH64TuZaDdUCsxYqBeiczR3OB8B9k3mqVYyfchbVM9tfmB/9ic6VITT5E0uYB/BW7KhP97W1PPSwTW66ivfMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Kk9scPP/; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1788777527; c=relaxed/simple;
+	bh=20LrBTk7+xHKrR1eeJdTqXRkQeM8O5I2RAnmQi7GLEw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B0ak3nT7sqwbHNrU6xq6FDl0aJdHN9IGOksSIYWffryN94aYXSSAsU9WYTb4VV4P069YuvaWrAitZ+otomTSv24SBdxPYKJem/hl06QQC/TD3cHPGkuwG3t6caAF9KfPUAMQh4n4s2yNdKfcb7b83Q1KWadYQt2EteVzU3Yf16M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MrY+zChE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y5mDQLQN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Kk9scPP/"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=oTUGssR/3r0/0f908oP42rFSS/z7JA3CnVkfo5DPhZA=; b=Kk9scPP/hJfrzZO+OrcmurbVIB
-	P77F0bzJyDALFQt1qhezO1HRqYktXP4SYcyazy+6vj02luGcxHoa7tLKBOnf3cXrbKyDDH0iGyeMR
-	uaAvN0f1+FdMgaKenRhnHGGl7lROJJAWxuim+u5SXUsJKswVbOEUfPmS/977M3jSw72DHiQwoih0I
-	iMtmpe5/3Dl1zkD5BdtFWHxCNmXWOVqFZyMn5yQAZ3HMsT5WRHl43xgge5pu4cGPEpIcAphTRrEby
-	LuoUBqAKRfRXiPai5uf4QWwzkiGEJNHDSTyZRW4o1FiHsoEK86HUcnGnjOXmEBSsA5CCNH8ZopbfB
-	y+bXZ2eQ==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x3Wja-00FzHa-LC; Mon, 07 Sep 2026 12:37:54 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,  Chen Linxuan <me@black-desk.cn>,
-  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
- <skhan@linuxfoundation.org>,  fuse-devel@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,  Matt
- Harvey <mharvey@jumptrading.com>,  kernel-dev@igalia.com
-Subject: Re: [RFC PATCH v3 1/8] Documentation: fuse: add document on caches
- being used by FUSE
-In-Reply-To: <CAOQ4uxiZL3yVxys8ZE-NdAvhG3qFqpPjM5gW_r2csLFBW1y6QA@mail.gmail.com>
-	(Amir Goldstein's message of "Sat, 5 Sep 2026 23:04:01 +0200")
-References: <20260904103920.4471-1-luis@igalia.com>
-	<20260904103920.4471-2-luis@igalia.com>
-	<CAOQ4uxiZL3yVxys8ZE-NdAvhG3qFqpPjM5gW_r2csLFBW1y6QA@mail.gmail.com>
-Date: Mon, 07 Sep 2026 11:38:41 +0100
-Message-ID: <87tso1firy.fsf@wotan.olymp>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MrY+zChE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y5mDQLQN"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6879bnFQ3618662
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 10:38:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=20LrBTk7+xHKrR1eeJdTqXRk
+	QeM8O5I2RAnmQi7GLEw=; b=MrY+zChEQQm6qp+doFuSD5i4lPkXLV1rvUDW5aH5
+	rlgfO72gukLe06Uu8jwT2Z7WUObGCbRR8q+fOleBCteaQj8pEWheGLvWGcg12OfY
+	PT2RKNCF0Bc8BE98HfJA8z7ysb4N/pqzLB7GXsujDk/Mi6DkiV7hFA7IHlAMsO+C
+	/6xZdYXF/YfREQEdyPLZpYeFZfRM4e6PKEgRGhPeaUIrfKTwTcV0EjgGvJsGh9Ps
+	i/uETnId/zeMUZ+KmbZjmqsSDe8HgYvpPmcmTPROPABIFdCBz0hiDSd4hhQSAgYU
+	r3RaWb/G4DMSZsyjdhhEZ9/eU2RHUItfck52mZv7MPdVQg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfygnmm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:38:44 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5fc4c7e9so323153085a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:38:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788777524; x=1789382324; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=20LrBTk7+xHKrR1eeJdTqXRkQeM8O5I2RAnmQi7GLEw=;
+        b=Y5mDQLQN6+nPMpCXVGRBFVDONlu+HnJhYaNNCSwFG+SdbqMvLtrPPl7z0VGJcC5T7x
+         3d8EQJVnhBMpMouykS55qGXB2ERn1mRJ3BbKCSCOEJCJ0IybKT3cwg+UzvC55NiD9BUJ
+         OA1W0+9ffKdQ54TWY+PRCxpEvqzpo9hVg8FVWI6y2vYTJJUkp9S1ZOVhknBbZkUvHiZZ
+         NB+fcxt/im5qpczX5nTcJqkw30Cjn+b5/ym0PY0iNi9ppwul7WpHDul7sdOOT88WgpD6
+         oS1F1QXJgBwxpAQOdd3fpTxZ/0Q92nBHM9l7ZwzTWithYzph6UdNxJM6WdQxHET60Jov
+         BzfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788777524; x=1789382324;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=20LrBTk7+xHKrR1eeJdTqXRkQeM8O5I2RAnmQi7GLEw=;
+        b=Cox27/Wdk/Y+1ReA8vp/RMv3XqK1xPVONplBG7M6zQVglbBieTDey7s7rQv5VGoQo2
+         CD6Iwhy8JA983d3PvGora9GwR4EjG/bz35CAAK4Ji/CRR7kJ+JQ+Y4eb7MWmAdhhrWl8
+         Cuuu+0z5mEKzVDay3h/MMHQp/EMdc9j+kzxNani9fQL12zRMFafxbrFOwuGFrnJdeORt
+         +PoxYrOJTdowmCI+0mf+lB3O+gGiCkstzRIGiC/gY4sIjEXQRZQD529F56dqIRXcpsfn
+         H6goLJmMZZZJ7VmDE9OhD2+qSv7dSUNq1wjAhPeS4S3udkBO5BfdVasYYae9w4TkgZtr
+         0xmA==
+X-Forwarded-Encrypted: i=1; AKwUvBzjclCAyEJpSSlUEQk/OPBJC6DALLrIjTPVDvSRDlV8NqFHZAUqNclEy8/UhDq3XAqoDANjDvKAOSf8on0=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0htdyXH9gGATTrWtYASL+w4rAnak4krFVpEIxsCKU5/X8+MBN
+	FFD/rf+RFQmQgPgSWN7g1hYtMzspBCIEdpuFznJXyx1xi3L+B0PXdqT4tkY7Y2HimPs2Q0tyJiw
+	9aGMRUj0WF0yt6scHPBVQCP5eop8ujnX3GMpQIJUlZg2sIDgalzvl5GkWb1Hc0kIVBRM=
+X-Gm-Gg: AYBFou05B/P1J/GWyCSU7gDUK71SWahAbSYvrREUadqqVdy/anL5zmk5f6QPpyg+jjp
+	RV5QDJbi0XVQ3VS6Ycmias80RwtAuSzuiN4dseGPgS+VfG8kNfMhdGJQFce6I4uK4xYvtsenO8l
+	AK7tYTPH1icVcRjG+zX2CtEiTVty8uHA9up5/mKA0r4YuNi/f2zfQXVIvSG7h9S7e7cYAd1B5pt
+	m0Pe3lso9ZejxETIxz5GRWglNpd9z6OGJcIjLFWpTDxDSQ57cpevlmqKuLZRzLvqALV6gdNBSqV
+	PelK/97L8U0Q4x1ZjvGxwp5QMbAqHfXgKSJLxge9i/IpN6DC9O28woQXZ13nUCAbHgbnY55aA5h
+	w24Uc57EvM309Jw==
+X-Received: by 2002:a05:620a:aa1b:b0:937:675e:2903 with SMTP id af79cd13be357-939804018c5mr2091272085a.14.1788777523665;
+        Mon, 07 Sep 2026 03:38:43 -0700 (PDT)
+X-Received: by 2002:a05:620a:aa1b:b0:937:675e:2903 with SMTP id af79cd13be357-939804018c5mr2091268385a.14.1788777523097;
+        Mon, 07 Sep 2026 03:38:43 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5941cb6sm1280275e9.4.2026.09.07.03.38.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 03:38:41 -0700 (PDT)
+Date: Mon, 7 Sep 2026 13:38:39 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: clock: qcom: document the Nord DPRX
+ Clock Controller
+Message-ID: <jzc45x7mqbcxon227yv6bthbx5l7uicz7susv5kqxbaoammqf5@lr5cxiqrkrfa>
+References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+ <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: i3Ty-6EwSr8pWr_u1ogwaAsTAvUJ5E86
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDExNiBTYWx0ZWRfXz1C1EdUm8mTk
+ lI+mLk5Phs7W4QrtvKgJcyop1X0w7u/18tcpBeIVAV7RNQ7k4tC1kwbnLfNjCStonLfep3cVt72
+ TuZkz3bmivKR30QLkThA8+NiNOgcH/9hq3vS/xkOLiZ+XHEnyPbkgn3lYXDlu7ZlXJRdbZLUfZO
+ DgCkyzXx6AOw68BH6HvyK4NvYWGDvlZsHrrlyWQogewT4PKNKEB249XIjWZjsZ3r7rB9V3Tsi5u
+ VgUbIR/LnsfuoZ6l4Ux/6JF6Ni0LannrmQ+UPit+BdDv6AEpMp7hnt1lDKqNFoVAys5ZNlTNO4v
+ mkoFdMh4FQVCzL0EAPhhNzYsp7nj8/wX99un03i29kJ0/Uz+tBob6+ow82DWqiTAOVOomSP2Wgu
+ JUu3vY+ZbEi5p2G04y1oWXNQnrZzOSS8ut3i4059JcIsrkdcJ0nyviXDOQFZThuMjI9admzjUzq
+ QDC3lgm4qBYGZcW396A==
+X-Proofpoint-GUID: i3Ty-6EwSr8pWr_u1ogwaAsTAvUJ5E86
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDExNiBTYWx0ZWRfX7o2ZBfgJ8D0d
+ KDRn7N0Z07JEIlIER4o4jxIo7yHewbYciyqoi89HJBKcN48B+TxuwpxXTVnwfH+FVPhkmj4A8D8
+ 2sp8Af86vaFpvPOal9+FyTIY8bbHMwU=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9e9434 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=JYGUOujTUg0PU0TV5iIA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070116
 
-Hi Amir,
+On 26-09-07 13:56:14, Taniya Das wrote:
+> Add bindings documentation for the Nord DisplayPort Receiver (DPRX) Clock Controller.
 
-On Sat, Sep 05 2026, Amir Goldstein wrote:
-
-> On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> =
-wrote:
->>
->> This new file aims at documenting the caches that are used by FUSE.  At
->> the moment only symlink, attributes, ACLs and readdir caches are describ=
-ed.
->>
->> Signed-off-by: Luis Henriques <luis@igalia.com>
->> ---
->>  .../filesystems/fuse/fuse-caches.rst          | 158 ++++++++++++++++++
->>  1 file changed, 158 insertions(+)
->>  create mode 100644 Documentation/filesystems/fuse/fuse-caches.rst
->>
->> diff --git a/Documentation/filesystems/fuse/fuse-caches.rst b/Documentat=
-ion/filesystems/fuse/fuse-caches.rst
->> new file mode 100644
->> index 000000000000..e9f60355d7ff
->> --- /dev/null
->> +++ b/Documentation/filesystems/fuse/fuse-caches.rst
->> @@ -0,0 +1,158 @@
->> +.. SPDX-License-Identifier: GPL-2.0
->> +
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +FUSE Caches
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +Introduction
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +This document summarises the different types of caches used in FUSE. Fo=
-r each
->> +cache type, it documents the rules to insert data into it. It also docu=
-ments the
->> +rules for validating and invalidating data in the cache.
->> +
->> +symlink caching
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +Whenever there's a link resolution request for a FUSE filesystem, the V=
-FS will
->> +call into ``fuse_get_link()``, the ``->get_link()`` inode operation. Th=
-is
->> +function will then send a ``FUSE_READLINK`` request to the user-space F=
-USE
->> +server.
->> +
->> +The server can ask the kernel to cache all link resolutions by setting =
-the
->> +``FUSE_CACHE_SYMLINKS`` flag during the ``FUSE_INIT`` negotiation. If t=
-his flag
->> +is set, when the VFS calls into the ``->get_link()`` operation, FUSE wi=
-ll
->> +immediately call ``__page_get_link()``. The first time this is done for=
- a
->> +specific inode, it will result in sending the ``FUSE_READLINK`` request=
- to
->> +user-space. But the result returned from this request will then be adde=
-d into
->> +the page-cache. The next time this link needs to be resolved, it will u=
-se the
->> +link resolution already cached, and will only fallback to user-space if=
- the
->> +folio isn't up-to-date.
->> +
->> +Attributes caching
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +Inode attributes may be obtained from user-space by different FUSE oper=
-ations.
->> +For example, ``FUSE_LOOKUP``, ``FUSE_GETATTR``, and also several other
->> +operations that create file system objects (e.g. ``FUSE_MKDIR``). These
->> +attributes obtained from user-space are cached by the kernel. They have,
->> +however, a timeout associated and once it expires, they are invalidated=
-. The
->> +next time the attributes are needed, a request (``FUSE_GETATTR``) will =
-be sent
->> +to the FUSE server.
->> +
->> +The ``FUSE_GETATTR`` request can be sent to user-space in three differe=
-nt
->> +scenarios:
->> +
->> +#. if the attributes for the inode aren't yet available in the kernel;
->> +#. if they are not valid any more (timed-out, or have been invalidated)=
-, or
->> +#. if there is an explicit request for forcing the request to be sent (=
-for
->> +   example, by using the ``AT_STATX_FORCE_SYNC`` flag in ``statx``).
->> +
->> +Regarding the attributes invalidation, they may happen in several occas=
-ions:
->> +
->> +- Upon user-space request for invalidation:
->> +
->> +  - A ``FUSE_NOTIFY_INVAL_INODE`` will invalidate ``STATX_BASIC_STATS``;
->> +  - ``FUSE_NOTIFY_DELETE`` and ``FUSE_NOTIFY_INVAL_ENTRY`` invalidate
->> +    ``FUSE_STATX_MODDIR``.
->> +
->
-> OK from here...
->
->> +- When setting (or removing) an ACL on an inode ``STATX_CTIME`` is inva=
-lidated;
->> +  if the ``FUSE_POSIX_ACL`` flag was set by the FUSE server,
->> +  ``STATX_BASIC_STATS`` will also be invalidated.
->> +- On a ``->rename()`` operation, both the old and the new entities will=
- have
->> +  it's ctime invalidated (``STATX_CTIME``). Also, the directories for b=
-oth the
->> +  old and the new entities will also have their attributes invalidated
->> +  (``FUSE_STATX_MODDIR``)
->> +- When creating or deleting a new file system object (``->link()/->unli=
-nk()``,
->> +  ``->symlink()``, ``->mkdir()/->rmdir()``, ``->tmpfile()``, or
->> +  ``->atomic_open()``), the directory where the object is created/delet=
-ed will
->> +  have it's attributes invalidated (``FUSE_STATX_MODDIR``).
->> +- If a ``->link()`` operation is interrupted by a signal (``EINTR``) th=
-e inode
->> +  being linked will have it's attributes invalidated (``STATX_BASIC_STA=
-TS``).
->> +- When doing a readdir (``->iterate_shared()`` operation) and the direc=
-tory
->> +  contents is not cached, ``STATX_ATIME`` attributes will be invalidate=
-d.
->> +- When doing a symlink resolution (by sending a ``FUSE_READLINK`` reque=
-st)
->> +  ``STATX_ATIME`` will be invalidated.
->> +- When doing a ``->flush()`` (i.e. sending a ``FUSE_FLUSH`` request) and
->> +  writeback cache is enabled, ``STATX_BLOCKS`` will be invalidated.
->> +- When truncating a file on open using ``O_TRUNC`` open flag (and the F=
-USE
->> +  server has set ``FUSE_ATOMIC_O_TRUNC`` during ``FUSE_INIT``), then
->> +  ``FUSE_STATX_MODSIZE`` will be invalidated.
->> +- When setting attributes in an inode (``->setattr()``) and there's a s=
-ignal
->> +  that interrupts the operation (``EINTR``), then ``STATX_BASIC_STATS``=
- will be
->> +  invalidated.
->> +- When data is read from a file, ``STATX_ATIME`` will be invalidated (u=
-nless the
->> +  file system is read-only).
->> +- When data is written info a file, ``FUSE_STATX_MODSIZE`` is invalidat=
-ed.
->
-> ... till here - to me it feels like TMI
-> I don't think it helps to keep a description of the code in a text file
-> There is very little hope in getting them to stay in sync and very little
-> point to begin with. This list is not complete even now (e.g. fallocate)
-> nor should it be complete IMO.
-> If one wants to know what operations invalidate which attrs one can grep
-> for fuse_invalidate_attr_mask().
-> I think it is more important for the doc to explain the principles behind=
- the
-> attribute mask and give some examples. Something like:
-
-OK, I see what you mean -- keeping this document in lockstep with any code
-changes would likely be impossible.  I appreciate the suggestions below
-(thanks a lot!).  I integrate them in the next revision.
-
-Cheers,
---=20
-Lu=C3=ADs
-
-
->
-> FUSE uses fine-grained invalidation masks rather than invalidating all
-> attributes at once.
-> The principle is that each operation only invalidates the specific
-> attributes that the operation
-> could have changed on the server. The masks used are:
->
-> STATX_ATIME - after reads and readlink, since the server may update acces=
-s time
-> STATX_CTIME - after xattr changes (including ACL set/remove) and rename
-> STATX_BLOCKS - after a successful flush with writeback cache, since
-> the server's block count may differ from the local one
-> FUSE_STATX_MODIFY (STATX_MTIME | STATX_CTIME | STATX_BLOCKS) - after
-> writeback completion (without writeback cache), since the server may
-> have updated modification metadata
-> FUSE_STATX_MODSIZE (FUSE_STATX_MODIFY | STATX_SIZE) - after writes,
-> truncate-on-open, and fallocate, since the server's size and
-> modification metadata may have changed
-> FUSE_STATX_MODDIR (FUSE_STATX_MODSIZE | STATX_NLINK) - after directory
-> modifications (create, unlink, mkdir, rmdir, rename), since the server
-> may have updated the directory's size, timestamps, and link count
-> STATX_BASIC_STATS - as a full invalidation, used for server-initiated
-> invalidation (FUSE_NOTIFY_INVAL_INODE), interrupted setattr, and
-> interrupted link
-> The full set of invalidation points can be found by searching for
-> fuse_invalidate_attr_mask() in the FUSE source.
->
->
->> +
->> +ACL caching
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +FUSE has allowed the usage of POSIX Access Control Lists (ACLs) for a l=
-ong time,
->> +as they can be set and accessed simply as extended attributes. However,=
- it was
->> +only with the introduction of the ``FUSE_POSIX_ACL`` flag that ACLs sta=
-rted to
->> +be fully supported. Without this flag being set during the ``FUSE_INIT``
->> +negotiation, ACLs can still be set, but the VFS won't use them for perf=
-orming
->> +permission checks - that would be the user-space server's responsibilit=
-y.
->> +
->> +Also, without setting ``FUSE_POSIX_ACL``, ACLs will not be cached by th=
-e kernel.
->> +In this case, new inodes ``i_acl`` and ``i_default_acl`` fields will be=
- set to
->> +``ACL_DONT_CACHE``.
->> +
->> +On the other hand, if the ``FUSE_POSIX_ACL`` flag is set then, when an =
-inode ACL
->> +is accessed, VFS will first check if it's already cached. If it is not,=
- FUSE
->> +``->get_acl()`` operation (``fuse_get_acl()``) is called, which will ev=
-entually
->> +send a user-space request. Future accesses to this inode ACL will use t=
-he cached
->> +data.
->> +
->> +Setting an ACL in an inode will also result in sending a request to the=
- FUSE
->> +server for setting it. But this operation won't immediately cache the A=
-CL -- it
->> +will only be cached after it is accessed again and requested from user-=
-space.
->> +
->> +On the other hand, ACLs will be removed from the cache in the following
->> +situations:
->> +
->> +- When setting an ACL in an inode (and the ``FUSE_POSIX_ACL`` flag is s=
-et),
->> +  previously cached ACLs for this inode will be invalidated.
->> +- When invalidating an inode through the ``FUSE_NOTIFY_INVAL_INODE`` op=
-eration.
->> +- When ``->d_revalidate()`` is called for a dentry that requires a look=
-up (e.g.
->> +  it has expired) and that lookup operation is successful.
->> +- When the VFS needs to check access rights for an inode (by calling
->> +  ``->permission()``), attributes may need to be refreshed. If that hap=
-pens, any
->
-> Isn't this a private case which is already covered by the last item?
->
->> +  cached ACLs for that inode will be invalidated.
->> +- After setting an inode attribute (i.e. operation ``FUSE_SETATTR`` is =
-sent to
->> +  user-space), the user-space server may have also updated the ACLs. Th=
-us, any
->> +  cached ACLs for this inode are also invalidated.
->> +- While processing ``FUSE_READDIRPLUS`` and an already existing dentry =
-needs to
->> +  be updated.
->
-> I think that both ->d_revalidate() and readdirplus could be generalized
-> to something like "Whenever attributes are refreshed from the server"
->
-> Because those specific cases are not related to ACL specifically,
-> they are related to attribute cache and to the unwritten dentry cache.
->
-> Again, the idea is to write a doc that explains the principles and is less
-> likely to get out of sync with the code.
->
-> It's fine to list d_revalidate and READDIRPLUS as examples to the
-> category, but as a comprehensive list of use caes, I think this is wrong.
->
->> +- In general, when there is the need to send a ``FUSE_STATX`` or
->> +  ``FUSE_GETATTR`` to user-space (e.g. when attributes expired).
->> +
->> +readdir caching
->> +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->> +
->> +When opening a directory a ``FUSE_OPENDIR`` will be sent to the FUSE se=
-rver, and
->> +server will be responsible for setting the open flags related with cach=
-ing,
->> +namely ``FOPEN_KEEP_CACHE`` and ``FOPEN_CACHE_DIR``.
->> +
->> +If neither flags are set by the user-space FUSE server, then every ``re=
-addir``
->> +will result in a ``FUSE_READDIR`` (or ``FUSE_READDIRPLUS``) request bei=
-ng sent.
->> +If ``FOPEN_CACHE_DIR`` is set by the server, then the result of a ``rea=
-ddir``
->> +will be cached by the kernel and reused for the current open. If
->> +``FOPEN_KEEP_CACHE`` is also set, the cache will be kept and reused in =
-the
->> +future, when the directory is open again for reading.
->
-> AFAIK this is not what KEEP_CACHE means.
-> It means keeping the cache from the past opens for this open.
-> IIRC I gave the exact same comment in v2.
->
-> Thanks,
-> Amir.
+Wrap this line around, please.
