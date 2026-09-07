@@ -1,49 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763553A3E88;
-	Mon,  7 Sep 2026 07:43:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE4B356766;
+	Mon,  7 Sep 2026 07:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767001; cv=none; b=RH0B+fix6/eNXTCC4+9BoSY1ALVS438bDvivi0EZ4iojCR6pGamYYkvflnKDLXKf9wlgjIMAzDuNKEOUwo1hJndk+fd5q/LkqXGL0tu6CKZaeg6xGH1dw++7ADpobXGH6dBcPqncHPVg/gOpRvKX5CdDNZNjlgpJcOPZju+ajrg=
+	t=1788767016; cv=none; b=UOpvDgXUlv9riorlbhcsWH+91zGtFpBSr3+vXNLRRksKJRFqm/wghnmbOXTQQ96zWWhOLp3IYz5aNuqpNQUqRfGp0NETj0UNB6aSH7TtsEvgETlh0RElpV8utNmiDAe25I9+j1MBAjOqgdJaoKxDBmjYhjmWjZf6X8617v2qKug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767001; c=relaxed/simple;
-	bh=gE26fmAVmlGPrHZNY+Mz82jfGvwSpLVDxURtnfKB2Ug=;
+	s=arc-20240116; t=1788767016; c=relaxed/simple;
+	bh=73N7HaWOUvi6JeCbvZyrIKBy85Hn4IFBjMhnzDo2vMY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lXrJcSmYEP5LdWBsnXtH+0qB4fB0x/TFlxLXfZwpwzC1n8AM/tIXq3WPlN3tA1pVCtvIB5zWIRiycgSeggHSZI8B82VBAWkuWvbALHp7UnkGAIA4kuDWJDeFbWH1dIyLUCOzG02AwDtyswkP/MKSwQRah0bw1+uZTcQTAPvcDUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AeQB8rer; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rvxujp/bCi4eR0d0uNUKdfc9zfogguIjFLmA5euJnTHyqS7CBpHbl8aYbo5S71CkrldbjheWb3z4y/aaw8Jr2w1JUIsD0Xr6GazsEszrVY6UB5iywG6Yj3a3bqRNT4m6E6CIDtmRp7rvgPdYfSt0fc0jDdnTfj2C5erv+UUG2lI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+SF3Vf8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AeQB8rer"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B81E1F00A3A;
-	Mon,  7 Sep 2026 07:43:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+SF3Vf8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736B71F00A3A;
+	Mon,  7 Sep 2026 07:43:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788767000;
-	bh=Zr7A1tEkdrp6PUTPuyC3f4qOvrO1WN8HeZNd7b+EEUc=;
+	s=k20260515; t=1788767014;
+	bh=2U0LJa2+6NGYuS6YPV73PvwnOOrnGHIqZijxTc6txuI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AeQB8rer4btJEQehOGOZQzkGmqSKHoF1A2AQ0KWb7GqXcwXkzwQhi2qQFlycyFhH4
-	 m4QX7T5IY5HfTPSgfCYUIH8hH/mbaWVBR7qPeDd3iFP5z1AscBuF9OlaQfgoD9mla0
-	 AWWaeS8EPGVER4XHkmflz/OIUvRXXF7EosYS+CjfbQpJbl2G2+t2DGW/6mxHxpeSyq
-	 1cWbjl6gZ7vNGqW4O9VgVktFugiG7/UKkczJmD3b669H+L7dnhMkMKu+F0hzWN1zTK
-	 JFg+Qu+hLKR3c+woX0+CaNJnBnxjghNENqUYreylOl/EsQEbqmzqoeuWQVWuJippc8
-	 LUNWhoHyZOoBA==
-Date: Mon, 7 Sep 2026 07:43:16 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Alex Elder <elder@riscstar.com>, Haylen Chu <heylenay@4d2.org>,
-	Aurelien Jarno <aurelien@aurel32.net>, stable@vger.kernel.org,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] clk: spacemit: k3: add CPU PLL rate tables
-Message-ID: <20260907074316-GKC2330@kernel.org>
-References: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
+	b=b+SF3Vf86nNpzU2W5TO6XWzNuHH58klFKzIhjAWiy83h3bcOJRNJM6EtszA1GfHal
+	 3kJTEEz4CxizL98R8RK5nLLfiaZnAs2o0mlwGlB9KIgpzUT1qFYYY62DUHxDdfxack
+	 uI985PKfaByayo7fKTBOtyPf7U88ssTb+CXWggvPQQu+wWL4SxB5dOAoA1miWi2JZJ
+	 o2kx28+TbgTinqnOYrp1D5bV+jnDJAKZQMWSY7/eMTnDP0TFXwKEi+wdql0EqptzNQ
+	 mmiIHbIa/tTr4uGrzf6jXUt0eEffXi2XFMf6RacdH892NbSWMvOTEk4pUr3U/f+m9m
+	 3YYeeAuT68yrg==
+Date: Mon, 7 Sep 2026 09:43:30 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vincent Jardin <vjardin@free.fr>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] dt-bindings: hwmon: ti,tmp401: add
+ #thermal-sensor-cells
+Message-ID: <20260907-subtle-able-cicada-67535a@quoll>
+References: <20260902-for-upstream-dt-tmp401-vcc-tsc-v3-1-49c484d2f08b@free.fr>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,24 +44,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
+In-Reply-To: <20260902-for-upstream-dt-tmp401-vcc-tsc-v3-1-49c484d2f08b@free.fr>
 
-On 09:54 Mon 07 Sep     , Troy Mitchell wrote:
-> The K3 CPU PLL rate tables currently describe only one rate per PLL,
-> although the hardware supports a wider range.
+On Wed, Sep 02, 2026 at 03:54:00AM +0200, Vincent Jardin wrote:
+> Since commit
+
+Stray blank line. It's one sentence "commit foo....".
+
+>   a3b61ba2558e ("hwmon: (tmp401) register with thermal subsystem")
+> the driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
+> devm_thermal_of_zone_register() for every temperature channel and the
+> device can be referenced as a thermal sensor.
 > 
-> PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
-> support rates from 1.05 to 2 GHz. Populate the tables with every
-> supported rate in 50 MHz steps.
-> 
-> Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
-> Cc: stable@vger.kernel.org # 7.0+
-> Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
-> Tested-by: Aurelien Jarno <aurelien@aurel32.net>
-> Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
-> Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+> Signed-off-by: Vincent Jardin <vjardin@free.fr>
 
-Reviewed-by: Yixun Lan <dlan@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-Yixun Lan (dlan)
+Best regards,
+Krzysztof
+
