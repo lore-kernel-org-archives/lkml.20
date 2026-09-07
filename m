@@ -1,402 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D26037C0F8;
-	Mon,  7 Sep 2026 17:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906EC47CA99
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801576; cv=none; b=eRKufq/i0yMqs6tfoB66MHAM9MyIXhkH4IVcz9ZtsRsEAtd1RfkAtYL173olOMUzZo8HDYhol+/PEoRvcRJSrOqGeq/XNKXZ9rLlTZWm5Kpgsfij0fVsMxgb90HtJHNfU2f8003QK8nncw3tN9ksbrPkfa1uMun3kjmRTKGSKRI=
+	t=1788801580; cv=none; b=VSsElBaOBdTYgQbp3Epbj6X5LW58L+dRvyoLnVC6divWsOJ6bT5bS0E96whtIarBn5/yU3wca1/a9+hXwP1zEQ/kDSle6RQuC7DIrcK5HNncU98P1M/KxTYQaeuC0ZnODCSAP54xXZA47JqvXH3u3GqpxHfp0mpo9hi8BszZvss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801576; c=relaxed/simple;
-	bh=Y73lIijvcuSBUGcNzBJHvaGH20aPg4bzo8/CYyV5PE0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CkE1KrsQoXQKx4bJOZf+82+5sP47ed/LuHC5JythsDocYSM4NJtRQ0hGLQVgFEWQ9SD8Sq+Ywh3VfleDuSuDdPdJAh6yHfY/zKF4qLUStTXTRThJK3r3F3euAgR6/2xNgsplkcLn8G4pXkgQOx1W23tk9i+cK9+VnySa8PT39Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdcpXP+b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788801580; c=relaxed/simple;
+	bh=kqGezF/Wfqj/foPPQmc78QGbp5j69FCz61dTL1wNtA8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=ge7nvu9IbrHJ9cGnGTao6EAun8/QHUxsAir62s+ICRQUdFwqEsUzIdV0hcFG/5zJhlf5dH7VvPcfaZFs6D+yMMcEGp/4aLXDUWvCGOeXLm2enGp6W1YQ/xC3ppvupK+Ufm6L3fhZ6I945DNcIEKoOG81X7ufD2MtMGXj8SQslfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--sebastianene.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JJ/1zd8b; arc=none smtp.client-ip=209.85.221.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sebastianene.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdcpXP+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE4341F00A3A;
-	Mon,  7 Sep 2026 17:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788801574;
-	bh=56yH2hwXm8sg7FdNo7mHIbyUGuEHV1cDz92wT471HWI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PdcpXP+bxy+2PxoT/M5h3I6DxPT5kT97x7/CbbBW3DaBpzBxOj+JTTEH5cEfBZYiC
-	 5Hw0BjueZwNfz3huIJDu7c+tBLHOiGTKIhm43BTTEalENWypNdKLIU93mm/gnnveYx
-	 8UiGfbx0MgAUN47wKGsvCDy6MYyrDmtED/22GPgsLwJZDT/BAzBhkllMtVfWTuUrRC
-	 Vadl2bkftyecI9q6f7pQAzbJQfuaMN5PFYmOZjXPxPI0f5iEu++VYFrCEGGrThVIO3
-	 As+IqngWhal/u6r9/jm6IQ48rxD+lGIJ5RPUhXAc5ksYmVDnymKuiXwr3r1QHaxvAj
-	 nut9oRNPUGupQ==
-Date: Mon, 7 Sep 2026 18:19:29 +0100
-From: Conor Dooley <conor@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Lee Jones <lee@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v10 1/2] dt-bindings: mfd: x-powers: Add AC200
-Message-ID: <20260907-huddling-sprain-33272820a361@spud>
-References: <20260906-submit-ac200-mfd-v10-0-f522e8dc2bd4@gmail.com>
- <20260906-submit-ac200-mfd-v10-1-f522e8dc2bd4@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JJ/1zd8b"
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-482f41ca436so3123637f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:19:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788801577; x=1789406377; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BDhNx6T7nc+YilNr/gP5RkiGsPYaJuQR8YZHHWYGhrY=;
+        b=JJ/1zd8b1oEO/h1ASp3v1q48BjRR1bjkFzw722cLKVmadnmcGLFYxX3uWXZXfaaTJz
+         VugSigW4zYG4Ph0T2Oxh+aEKFXol8+mtCRyGxiJTctXjT+RdbPY4TLaPDXdwvP/Aa92r
+         CrnCBVZBrlfXBdJ9tRDsqcCOsCiswE3qAuPf0xDza6TQcAKrM/n+E6UC4Mf6LkUkLkPd
+         UHZgZk5CRQ2DgmouOaiNq8qw5xUyxVc3biIpQAvQ6IWpymS369vnwF06rCgf6fEJCO9a
+         GnFIUQsetilERwvIadm0bYFx4n/Z89f3o7BGp1naN2c5Qi1nZ5mg+jUx5lLtfCKTMh9b
+         AW2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788801577; x=1789406377;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BDhNx6T7nc+YilNr/gP5RkiGsPYaJuQR8YZHHWYGhrY=;
+        b=gDN3EsoQ/E8Okt1YOs995Oxk0cIAeuEH243q3Fd4KWlYBJ3QFZCLbKURCdbyuLqwKj
+         0+zftIpoYPnwRaw7tTNYbuiCki8gqGZzVfk0nU9aoH2bk9PQdLoJjewvOPQLPSVjboCl
+         anrR3xomNRy+ZPyosiZ4ggB7KaPaaCmtT2XeVLo/852oBZ8nUjzdgYHceMTdOoQzA0n1
+         81KiI9ZXkfeYZtz9t+uWrWosCyTzfRhxQPkBMtRRsbv9xH1mEVdpPq4CpJgEIBMqoPSd
+         ro1zgcuUxyLKLqF+4Dy4RNInqN6W7zM/Kfi/tgfg6Ols0nKRTMhXLefvuzhCFS4dR6Jn
+         dY0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzCazqH1yIWcRmNsheI1Ba6/HxNj2QfYVpSFnOEXRvuC0n8U5ke3lqYG2GHcbh1+EPZCmyZeImSXUPduzs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTS3mciAElvfIDbekfkJkdDjyZxjtvCn8bw73fVpuU40r4ZVcN
+	6sKzrYH6c02OL9lnjH6DoBK0g5QaBzhog5j6l+pX6XskfpvmGkZyrq5plcBZrXHloDv/icOqPdm
+	kuV/fndh48LVZBxatbyvhZnmnSMTUxA==
+X-Received: from wrqe18.prod.google.com ([2002:a5d:6d12:0:b0:484:3a05:4b1])
+ (user=sebastianene job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:4304:b0:484:3311:3702 with SMTP id ffacd0b85a97d-485872db94cmr27152632f8f.25.1788801576435;
+ Mon, 07 Sep 2026 10:19:36 -0700 (PDT)
+Date: Mon,  7 Sep 2026 17:19:22 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="r/LbfgsBnCNRr1Lf"
-Content-Disposition: inline
-In-Reply-To: <20260906-submit-ac200-mfd-v10-1-f522e8dc2bd4@gmail.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+Message-ID: <20260907171930.4037166-1-sebastianene@google.com>
+Subject: [PATCH v9 0/7] KVM: arm64: Forward FFA_NOTIFICATION* calls to TrustZone
+From: Sebastian Ene <sebastianene@google.com>
+To: catalin.marinas@arm.com, maz@kernel.org, oupton@kernel.org, 
+	fuad.tabba@linux.dev, will@kernel.org
+Cc: joey.gouly@arm.com, korneld@google.com, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	android-kvm@google.com, mrigendra.chaubey@gmail.com, perlarsen@google.com, 
+	sebastianene@google.com, suzuki.poulose@arm.com, vdonnefort@google.com, 
+	yuzenghui@huawei.com
+Content-Type: text/plain; charset="UTF-8"
 
---r/LbfgsBnCNRr1Lf
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Remove the FFA_NOTIFICATION* calls from the blocklist used by the pKVM
+FF-A proxy. This restriction was preventing the use of asynchronous
+signaling mechanisms defined by the Arm FF-A specification to
+communicate with the secure services.
+While these calls are markes as optional, there is no reason why the
+hypervisor proxy would block them because:
 
-On Sun, Sep 06, 2026 at 04:30:46PM -0600, James Hilliard wrote:
-> The AC200 is an I2C-controlled mixed-signal companion IC containing
-> audio, video, RTC and Fast Ethernet PHY functions.
->=20
-> Describe the parent device and its shared input clock together with the
-> audio codec and TV encoder child nodes. Keep their analog supplies on the
-> function consumers and describe the TV encoder display graph and optional
-> bandgap calibration cell.
->=20
-> Add the shared interrupt-controller properties and interrupt numbers used
-> by the TV encoder. The Ethernet PHY is represented by a PHY package on its
-> MDIO bus, with a phandle back to this device for access to the package
-> control registers, so it does not require an MFD child node.
->=20
-> Keep the INTB connection and TV encoder interrupt optional, including when
-> the TV encoder is enabled. Cable detection status is readable over I2C
-> without an interrupt. If a TV encoder interrupt is described, require the
-> parent interrupt domain and its upstream connection. Include examples
-> with and without INTB connected.
->=20
-> The input clock must run at 24 or 27 MHz when the Ethernet PHY is used,
-> matching the rates encoded by its documented clock selector.
+1. Host is the Sole Non-Secure Endpoint: The Host operates as the
+   only Non-Secure VM ID (VM ID 0) recognized by the Secure World.
+   Because all forwarded notifications are inherently attributed to
+   the Host by the SPMC, there is no risk of VM ID spoofing
+   originating from the Normal World.
 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+2. No Memory Pointers or Addresses: The FFA_NOTIFICATION_* ABIs
+   operate strictly via register-based parameters, passing only
+   VM IDs, VCPU IDs, flags, and bitmaps. Because these calls do
+   not contain memory addresses, offsets, or pointers, forwarding
+   them doesn't pose a risk of memory-based confused deputy attack
+   (e.g., tricking the SPMC into overwriting protected memory).
 
-This should have been dropped when you merged the patches.
-Not sure why you sent v10 without waiting for a reply from me on the v9.
+The pKVM proxy behaves as a relayer and it doesn't currently have its
+own FF-A ID(only the host has the ID 0). The behavior of the setup
+flow is covered by the spec in the: '10.9 Notification support without
+a Hypervisor'.
 
-Thanks,
-Conor.
+While at it, enforce the MBZ/SBZ fields defined by the spec to prevent
+odd behavior when a new version starts making use of the reserved
+registers.
 
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
->  .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 231 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   8 +
->  include/dt-bindings/mfd/x-powers,ac200.h           |  13 ++
->  3 files changed, 252 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml b/=
-Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> new file mode 100644
-> index 000000000000..0f2e6922fc4f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> @@ -0,0 +1,231 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/x-powers,ac200.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: X-Powers AC200 mixed-signal IC
-> +
-> +maintainers:
-> +  - James Hilliard <james.hilliard1@gmail.com>
-> +  - Jernej Skrabec <jernej.skrabec@gmail.com>
-> +
-> +description:
-> +  The AC200 is a mixed-signal companion IC containing audio, video, RTC =
-and
-> +  Fast Ethernet PHY functions. Its control registers are accessed over I=
-2C.
-> +
-> +properties:
-> +  compatible:
-> +    const: x-powers,ac200
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      AC200 input clock. When using the Ethernet PHY, its configured rat=
-e must
-> +      be 24 or 27 MHz, matching the rates encoded by the documented EPHY=
- clock
-> +      selector.
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      The shared open-drain INTB output for the TV encoder, Ethernet PHY=
- and
-> +      RTC interrupts. Omit when INTB is not connected.
-> +
-> +  interrupt-controller: true
-> +
-> +  '#interrupt-cells':
-> +    const: 1
-> +    description:
-> +      The interrupt number, as defined in
-> +      include/dt-bindings/mfd/x-powers,ac200.h.
-> +
-> +  codec:
-> +    type: object
-> +    $ref: /schemas/sound/dai-common.yaml#
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      compatible:
-> +        const: x-powers,ac200-codec
-> +
-> +      '#sound-dai-cells':
-> +        const: 0
-> +
-> +      ac-ldoin-supply:
-> +        description: The 3.3 V supply for the audio codec LDO input.
-> +
-> +    required:
-> +      - compatible
-> +      - '#sound-dai-cells'
-> +      - ac-ldoin-supply
-> +
-> +  tv-encoder:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      compatible:
-> +        const: x-powers,ac200-tve
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +        description:
-> +          Cable detection interrupt routed through the AC200 interrupt
-> +          controller. Omit when INTB is not connected. Cable detection s=
-tatus
-> +          can also be read over I2C without an interrupt.
-> +
-> +      tv-vcc-supply:
-> +        description: The 3.3 V supply for the composite-video DAC.
-> +
-> +      nvmem-cells:
-> +        maxItems: 1
-> +
-> +      nvmem-cell-names:
-> +        items:
-> +          - const: bandgap
-> +
-> +      ports:
-> +        $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +        properties:
-> +          port@0:
-> +            $ref: /schemas/graph.yaml#/properties/port
-> +            description: Input from the display pipeline, carrying CCIR6=
-56.
-> +
-> +          port@1:
-> +            $ref: /schemas/graph.yaml#/properties/port
-> +            description: Output to the composite-video connector.
-> +
-> +        required:
-> +          - port@0
-> +          - port@1
-> +
-> +    required:
-> +      - compatible
-> +      - tv-vcc-supply
-> +      - ports
-> +
-> +    dependencies:
-> +      nvmem-cells: [ nvmem-cell-names ]
-> +      nvmem-cell-names: [ nvmem-cells ]
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        tv-encoder:
-> +          anyOf:
-> +            - required: [ interrupts ]
-> +            - required: [ interrupts-extended ]
-> +      required:
-> +        - tv-encoder
-> +    then:
-> +      required:
-> +        - interrupts
-> +        - interrupt-controller
-> +        - '#interrupt-cells'
-> +
-> +dependencies:
-> +  interrupt-controller: [ '#interrupt-cells', interrupts ]
-> +  '#interrupt-cells': [ interrupt-controller ]
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    #include <dt-bindings/mfd/x-powers,ac200.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        mixed-signal@10 {
-> +            compatible =3D "x-powers,ac200";
-> +            reg =3D <0x10>;
-> +            clocks =3D <&pwm 5>;
-> +            interrupt-parent =3D <&pio>;
-> +            interrupts =3D <1 20 IRQ_TYPE_LEVEL_LOW>;
-> +            interrupt-controller;
-> +            #interrupt-cells =3D <1>;
-> +
-> +            codec {
-> +                compatible =3D "x-powers,ac200-codec";
-> +                #sound-dai-cells =3D <0>;
-> +                ac-ldoin-supply =3D <&reg_aldo2>;
-> +            };
-> +
-> +            tv-encoder {
-> +                compatible =3D "x-powers,ac200-tve";
-> +                interrupts =3D <AC200_IRQ_TVE>;
-> +                tv-vcc-supply =3D <&reg_aldo2>;
-> +
-> +                ports {
-> +                    #address-cells =3D <1>;
-> +                    #size-cells =3D <0>;
-> +
-> +                    port@0 {
-> +                        reg =3D <0>;
-> +
-> +                        tve_in: endpoint {
-> +                            remote-endpoint =3D <&tcon_out_tve>;
-> +                        };
-> +                    };
-> +
-> +                    port@1 {
-> +                        reg =3D <1>;
-> +
-> +                        tve_out: endpoint {
-> +                            remote-endpoint =3D <&composite_in>;
-> +                        };
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        mixed-signal@10 {
-> +            compatible =3D "x-powers,ac200";
-> +            reg =3D <0x10>;
-> +            clocks =3D <&pwm 5>;
-> +            /* INTB is not connected. */
-> +
-> +            tv-encoder {
-> +                compatible =3D "x-powers,ac200-tve";
-> +                tv-vcc-supply =3D <&reg_aldo2>;
-> +
-> +                ports {
-> +                    #address-cells =3D <1>;
-> +                    #size-cells =3D <0>;
-> +
-> +                    port@0 {
-> +                        reg =3D <0>;
-> +
-> +                        endpoint {
-> +                            remote-endpoint =3D <&tcon_out_tve>;
-> +                        };
-> +                    };
-> +
-> +                    port@1 {
-> +                        reg =3D <1>;
-> +
-> +                        endpoint {
-> +                            remote-endpoint =3D <&composite_in>;
-> +                        };
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3a19da74d00c..1b1dd57cc419 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29504,6 +29504,14 @@ F:	drivers/net/wwan/
->  F:	include/linux/wwan.h
->  F:	include/uapi/linux/wwan.h
-> =20
-> +X-POWERS AC200 DRIVERS
-> +M:	Jernej Skrabec <jernej.skrabec@gmail.com>
-> +M:	James Hilliard <james.hilliard1@gmail.com>
-> +L:	linux-sunxi@lists.linux.dev
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> +F:	include/dt-bindings/mfd/x-powers,ac200.h
-> +
->  X-POWERS AXP288 PMIC DRIVERS
->  M:	Hans de Goede <hansg@kernel.org>
->  S:	Maintained
-> diff --git a/include/dt-bindings/mfd/x-powers,ac200.h b/include/dt-bindin=
-gs/mfd/x-powers,ac200.h
-> new file mode 100644
-> index 000000000000..cc59e2ab4912
-> --- /dev/null
-> +++ b/include/dt-bindings/mfd/x-powers,ac200.h
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Interrupt numbers of the X-Powers AC200 interrupt controller.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_MFD_X_POWERS_AC200_H
-> +#define _DT_BINDINGS_MFD_X_POWERS_AC200_H
-> +
-> +#define AC200_IRQ_TVE			0
-> +#define AC200_IRQ_EPHY			1
-> +#define AC200_IRQ_RTC			2
-> +
-> +#endif /* _DT_BINDINGS_MFD_X_POWERS_AC200_H */
->=20
-> --=20
-> 2.53.0
->=20
+---
+v9:
+- rebased on 7.3-rc2
+- no other changes
 
---r/LbfgsBnCNRr1Lf
-Content-Type: application/pgp-signature; name=signature.asc
+v8:
+- rebased on 7.2-rc3
+- no other changes
 
------BEGIN PGP SIGNATURE-----
+Changes in v7:
+- rebased on 7.2-rc1
+- collected the Ack from Will
+- check for major version as well when doing the SBZ/MBZ enforcement
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7yIQAKCRB4tDGHoIJi
-0tYsAP0aVNqD8wj/uzcQ1MNe6bgqGYESX0DYYvuinrWSF/GyzgEA6whkLmHjGLxn
-TDr6nZ6Ln3hfyohiItzkgLGksh1I5Qw=
-=7ay5
------END PGP SIGNATURE-----
+Changes in v6:
+- applied Will's feedback and re-ordered the patch series so that we
+  apply the MBZ enforcement at the end of the series
+- update ffa_check_unused_args_sbz so that we take into account the FF-A
+  version because the spec changed the list of unused parameter registers
+  for 64-bit SMCs from v1.1 to v1.2
 
---r/LbfgsBnCNRr1Lf--
+Changes in v5:
+- handle 32-bit smc variants correctly when doing the MBZ enforcement
+- add check for FFA_FEATURES
+- handle missing FFA_FN64_NOTIFICATION_INFO_GET
+- collected the Review tags from Vincent, thank you 
+
+Changes in v4:
+- previous series(v3) had serious issues with the patch number and it
+  appeared like it used a mixed bag from v2 as well. Resend this to
+  restore the correct order of the patches.
+- fix strict check in ffa_check_unused_args_sbz and make it "<= 17"
+- check the receiver endpoint Id in
+  FFA_NOTIFICATION_BIND/FFA_NOTIFICATION_UNBIND instead of the sender
+- use hyp_smccc_1_2_smc all along 
+- check the receiver endpoit Id when doing FFA_NOTIFICATION_GET  
+
+Changes in v3:
+- applied Will's suggestion to use the introduced method
+  ffa_check_unused_args_sbz for existing calls and added a new
+patch in the beggining of the series to do this.
+- merged the handling of
+  FFA_NOTIFICATION_BITMAP_CREATE/FFA_NOTIFICATION_BITMAP_DESTROY into
+one patch as Vincent suggested and create one handler for both.
+
+Changes in v2:
+- enforce the MBZ/SBZ fields
+- split the calls into separate patches
+- rebase on 7.1-rc7
+
+v8:
+https://lore.kernel.org/all/20260729121306.1519473-2-sebastianene@google.com/
+v7:
+https://lore.kernel.org/all/20260629093558.2425257-1-sebastianene@google.com/
+v6:
+https://lore.kernel.org/all/20260626074545.433234-1-sebastianene@google.com/
+v5:
+https://lore.kernel.org/all/20260623115354.632361-1-sebastianene@google.com/
+v4:
+https://lore.kernel.org/all/20260616154149.2763214-1-sebastianene@google.com/
+v3:
+https://lore.kernel.org/all/20260616105417.2578670-1-sebastianene@google.com/
+v2:
+https://lore.kernel.org/all/20260608165549.1479409-1-sebastianene@google.com/
+v1:
+https://lore.kernel.org/all/20260501114447.2389222-2-sebastianene@google.com/
+
+Sebastian Ene (7):
+  KVM: arm64: Forward FFA_NOTIFICATION_BITMAP calls to Trustzone
+  KVM: arm64: Support FFA_NOTIFICATION_BIND in host handler
+  KVM: arm64: Support FFA_NOTIFICATION_UNBIND in host handler
+  KVM: arm64: Support FFA_NOTIFICATION_SET in host handler
+  KVM: arm64: Support FFA_NOTIFICATION_GET in host handler
+  KVM: arm64: Support FFA_NOTIFICATION_INFO_GET in host handler
+  KVM: arm64: Enforce strict SBZ checks in the FF-A proxy
+
+ arch/arm64/kvm/hyp/nvhe/ffa.c | 220 ++++++++++++++++++++++++++++++++--
+ 1 file changed, 212 insertions(+), 8 deletions(-)
+
+-- 
+2.55.0.979.g7e5102b832-goog
+
