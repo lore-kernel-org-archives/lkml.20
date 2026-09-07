@@ -1,120 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F63A3845B0;
-	Mon,  7 Sep 2026 17:00:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A400513542
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:01:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800440; cv=none; b=fhbn53qItya1ROUISrL/jTyxqbXHE3yg5+B2Ih5qPwNTt94i/Inezxg2SGIh6Z3Y9/EVIeGhzROV5NgdBHqP3xasjrFCFK/TKonBcF0OI5vQVCX3468D/Iw0X+ujJI5jrbKLBpe9rO9o5F8ogIBujByIFHDAQxA9BVM48htnkxo=
+	t=1788800461; cv=none; b=l8HyOWOcihJc6OH8ZGNLNTeuzWUe+KSpPIMScaxl8klg6OqflV1iOOQq14Bq4AZx8HgM022sBy5vFXejPuV76pQLas1YN5R99nOTPJcRSqmS2iPUNlYXj8bt8VVIag1wM46+DHo8xsV/5pqfsZKG/MctzMOsLMaXZhrprJdaYl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800440; c=relaxed/simple;
-	bh=m9OTxUblo/rWHMuB1YFJhuOgcTdadlE3eLNL0WVAvmc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pokyyTLjdIzPzVHrwmWDSY+9p99MgtL+Bgkl1ypXV3uDEb72jbA5SFJYpsved1FLWLSfqI1TA7LBM1/IuHKAFsBH9jzDZ7C5coOOJvwTK/ZzgwMcs+246zZ7IMc6rszjGz1HY8SPx4xJqrAQezYkkoy4IMw5vP29lTX8k23JLdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hYolw952; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788800461; c=relaxed/simple;
+	bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BbTW5jz0KzGQwkCubqlKJq/h24Yjb1wDyPkkpsxPE5o1UShbVU2BH3YIu9gaTqx5USqNNKJuwy8dn6AMd2JhbPVwUIzfqFFX46ikE+AoCE4IylpVrbMbQ61QPHam8Ig9ZUYtdYlV8zeOj3traU20YMa7Y2dOvVTsepd9O0oOqhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UwvlIAt2; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hYolw952"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E991F00A3A;
-	Mon,  7 Sep 2026 17:00:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788800439;
-	bh=3jNN8pG7nsJKvuu9ANRbCsQdps+qC9dqn17QiKiem+c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hYolw9520Za9hO3EyvE0zBizB6ALcYPXUMQG0dlkdLyTwx/nKg0X0deEkyz0fRoRH
-	 DKa4FpGqmH6OWN6PPPhA3WfT5Edf75IPlH6gPyoXMPhmxQMtvo5SaDatWsBydJ+YgR
-	 zeDYPULoOyabLj99zjZjGHtBatBhFDjZOiMo9OexutSaz+KTuhUwouau6GxaGZ9vQ0
-	 JoIIdQ9RDMWnfOhBeHrYTXCPnf2xFYNJSJdDmfVCK7//Zz/fEpBtyoaKunt5z0QoPr
-	 82XnNX7g0Q5NaoreGpIGIRanvsx1PKBgEjo8ioQ40lkoTj7wNprNdVUWxCzhzOmKDz
-	 PT+xQNVVkTqMQ==
-Message-ID: <2732913d-dbee-4726-aaad-c7c60b6c62fb@kernel.org>
-Date: Mon, 7 Sep 2026 19:00:31 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UwvlIAt2"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843af75de5so318980f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:00:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788800458; x=1789405258; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+        b=UwvlIAt2raJo0Oizqa3H8KpKv67cL1qNwF5y68FJowcTB80uZLn58emObQqjvuwUNt
+         7sfUxhozDleG8Io7RLvN0CEYFeTBpblx0ll4EiNlFkGRYy9Z6vZE7Lrt+Dj+INo5U3cx
+         zSyPFcGqeFH+FNTau8cdoTR79UsG/LIBZ68w9XcYhV9fGLRO/LSOJ1NaCBcN8Sj/zVq7
+         6vu0V2SWL0coQoshhQGZ6qSWs28ePlvEEBbbpGcLK7nHg80H+sdHAtcF5kXHIO+sJDKy
+         QDX5I+2nKufXphd94RwLdUDTT+ChrEQIqYoNJUSKBAm3nc1jbdySYlYKm+QC+DuuQjpT
+         4Hcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788800458; x=1789405258;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=b9wNFsVYc4DD9fP/QpAUbtXDUtyBSUYWk5c82ne4oBY=;
+        b=XzmDKeCYl8OfTZTVzd5ZxaLVBcUpyAK+/kxQBlVt12X1DlkN975E+wi7TBlNo+sqjw
+         kRdF531F51vxRJW6u9SOQe99+821W9ftLhM2DcQQ2gl+UyNS2S6nax604CZbn2IAjO1I
+         tqf2EFvSQ0yiGhZQFP13zldAiz922hNEpcspg+RHAy2r0DasHc8aV5p7dgRYHkQsFxW7
+         UrGvqw7MwHTdBqE1eifgxAjnU4xB8QEtwnlLENkVqg/X3TO/vrOxhmPJuiBR/ab1Eg1z
+         JbYhdk1JsaFaBcnPxMDTY3DV4qcF8sW9HGRSjA7eBWq0ICmJJpW94niyrFceWmsTKkSs
+         kdWw==
+X-Forwarded-Encrypted: i=1; AKwUvBznmyhax8FsXqXz0Lz5imwYEcgvxJ/LM+3OTfDaqvRfFPHPEx0dIMCZ0tQuqges8w++OBEGHIsdYF4zCgU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6phOd9iE6qgh2ARKAiiWpopWQALb7Cu4eqM+mxMzWh4P55Jkv
+	Ha7TkFgOw0CnWq/j+wu8GrjccDSFi7Wk1ImTk/iJC5/wZ5L5QkOTcIxm
+X-Gm-Gg: AYBFou19950vSav75/CBfu1gPc9G6tmrxucf6akjc6tm+eowAwgONinpQkKx6TD4erT
+	2UGEzWZbMQ6fW1zLw52j7czIFHFAdhChjn+Vv2xb/h70pQGyxjYiSUOuvu+M+uXGQiOgslhWLg+
+	Roc34XSewg0s0m4l3Wsb6X/Ht+c8P6xmmBDEnd2TmP5Qqb1YAe5GYVdIkxHbj8efDUFTr1pWkbl
+	Xg4+tGQNY6u1f2N0cKMZSUIIb0AOXD6Qeb98krCnmrv7iiokbKjGS7RgJt+tQk3S4uBitSCslEk
+	svMfjzwQgNxF3YwKkJkCqKrmhgP8dZBSA+NjkxUATGiodr+SUbJNRMDr1x1D19w7uTcw+BRilex
+	uls6TP9A9UrlLjw2nog4dhyyYF0R3l6jczs5J4fmbclM9pMSwv3r4fdy1GLdr+K2MMKoZBLxAB4
+	ShUY3zmLB5DxPzfMKQjEVg/3PRwnf3eZQ2pjPbprPAej5CUFtp0xxnklzKW5mF4NsdsUQLLy6HM
+	Psc3etxqCneqYgvfqtk2NGJQpgQeRT6X2tRjU7LIpSOyK6UmSlJBsKkydsH43ZkO0cvWQ==
+X-Received: by 2002:a05:6000:144e:b0:485:8ad5:dbbb with SMTP id ffacd0b85a97d-485907f1861mr15214169f8f.4.1788800458183;
+        Mon, 07 Sep 2026 10:00:58 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B8822007B3AD9A87B9E27CB.dsl.pool.telekom.hu. [2001:4c4e:1b88:2200:7b3a:d9a8:7b9e:27cb])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm28566070f8f.8.2026.09.07.10.00.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 10:00:57 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Amin Gattout <amin.gattout@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	kernel@collabora.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: synopsys: hdmirx: Remove redundant dev_err_probe()
+Date: Mon,  7 Sep 2026 19:00:26 +0200
+Message-ID: <20260907160000.hdmirx-amin-rb-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
+References: <20260907-snps_hdmirx-v1-1-760dccc4664c@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-To: Zi Yan <ziy@nvidia.com>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Cedric Le Goater <clg@redhat.com>,
- Saravanan D <saravanand@crusoe.ai>, stable@vger.kernel.org
-References: <20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org>
- <DL08J4JGJ4UK.2G92WO0NK8XU3@nvidia.com> <apEzvfGgsvbc3vBI@gremlin>
- <dc52dd1d-f62d-4278-ab4d-95746383fd50@kernel.org> <ap7i1vLkfZj4rbNM@gremlin>
- <4743f22a-c24f-4f93-80f5-3260f29bd410@kernel.org> <ap7mZ1Ktd_rRRrdX@gremlin>
- <DL98S34F6I6L.12UZGOT6NF1J6@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <DL98S34F6I6L.12UZGOT6NF1J6@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 18:58, Zi Yan wrote:
-> On Mon Sep 7, 2026 at 12:30 PM EDT, Lorenzo Stoakes (ARM) wrote:
->> On Mon, Sep 07, 2026 at 06:19:30PM +0200, David Hildenbrand (Arm) wrote:
-> 
-> Probably worth putting it in the process documentation. Always resend if
-> a patch has any change.
+Hi Amin,
 
-For things like fixes for spelling mistakes I don't really mind. So "always" is
-a strong word :)
+Checked against 7.2-rc7: devm_request_threaded_irq() goes through
+devm_request_result(), which already does
+dev_err_probe(dev, rc, "request_irq(%u) ...") on failure, so the message
+in the driver was a duplicate.
 
-But yes, such stuff will be documented in the future.
+Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
 
--- 
-Cheers,
+For Dmitry: this does not overlap with my pending hdmirx audio series
+(v4, [1]); the hunks are far enough apart that either can go in first.
 
-David
+[1] https://lore.kernel.org/all/20260721064115.64809-1-royalnet026@gmail.com/
+
+Thanks,
+Igor
