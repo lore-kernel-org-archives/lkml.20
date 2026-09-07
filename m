@@ -1,174 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B481A681B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:33:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B711A681B;
+	Mon,  7 Sep 2026 21:34:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788816822; cv=none; b=suQQEryMNBZ8aHzDSb906437LLChwjpML2y4eZ5/c5c/jvH+MKXMUwRKvd9PzxSy8kuI1aegWvchXm4yQFDxdU0D9iyiwKejMTbu5RV+tv/NzU1YwP5a4jtH/BspdUjtoq0E5veODeLtRTXINH/QZea7SWNVt1yW23Sqvxdmo2c=
+	t=1788816875; cv=none; b=tbNsSkPJT+6BOqcpfKPcP5JzzYi5WPDi+nNKPZfSXvRlbYMY3/VnftbNGCu7uQ36r2WJ/i3yrDJMyUJeu/sY4sIdoTZiAOqUcJ/AbfT7ZWRhFnAFLWki5D1YhTuk+cVYAPBFKrNKOitOBan4iaqWjl4c1XDDVIDKDBKS0k15MwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788816822; c=relaxed/simple;
-	bh=U9NNV9TQzVYO4DdsqZt1E6CrBOsMOvqRgWqKW3d54aM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tmuQPLNajSfT1eAroW99cPa0uzdHoMbhuqEGZz5aa9MsL9rjdsnHQRDBpgIPMVgebTc9/+vO7u5Tpzl4mBgDjOGKgqRUZa+jqkf6oTpKSfFAJ6w3AU+b1qgH8/MTLkZadTIuW2U5kaSzc3kU45n+akU3mEtZkPTn0GKTbhoBBmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOVRiolU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788816875; c=relaxed/simple;
+	bh=vm2McZkHqaANVqUSfuCQ1ACPPaLD7b8TIB/iVn8Q+Ls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DM2lR6Q4EP6UCRYiYEqHNYQNKMJYtSJPEqrkij75g6V/9JK2vKjtdGR8IOErUR5pPcu4UXGcoU6FXdS5ylB3f1RCskJYTUE9+sO4A6N+ycdMdKzFCg50WSptZr+ySdzdOiL7PvFXjKDIGXQOzlm8fgC0k/9WNFwdA7v1mOpfoZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kAtD7Ww7; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOVRiolU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1541F00A3F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:33:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788816821;
-	bh=glAq2A+LGqvZtGRjj6Vu76wV2nQ2vOLPDIiLnUABgOs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lOVRiolUuJdBzdns21YNoLq99TXgsNsteg1DQ5906S5QpffjdDRQocBGaW+h7tWqH
-	 IxCKdHubpL1oWVBW+C/a/JqhLHWGkMs/IUmx6GfhacRf1Q8mffLkeSGxtIp2oGFbid
-	 hk1A4/1zdoUWVltg+bEURpJWWI35evHxTMltztyVVB4fuiFPUodfTVLQNn6/RzDG4E
-	 dCKtEJEogMo2GRnip7ZBUKOeymrOctOFaGHYoR5t9jGQVbxJgBeBCB+Lkr3E2csErH
-	 wf8kE3+qBr+ZpVTS0xfU+fQ7UeuFIBwN1bZos7RuU9UA9wlJwJv3OaPqUudWm851fU
-	 +PyAleap8Hhig==
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90cd4631090so51591056d6.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:33:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw0VTU+Ui9MbIr0mfcC9wYB53nOKG3TLC5f4YA1pGrNRk8FOetH2De/4fmA7qDX7Lm4Yy/SIOSjArq7nQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljq8EB3yQUj2YHjEdRdq18ncITfC2ryoobaWG5mPzkJ3GpkQfl
-	FboGavkhO49aQq8JTeLD9U1pD+ovHLwky20FVXc9LDwOPb+QfQ2pOwKa/UACiCN+9fBcsGV8dl3
-	C0l18MLVkfbK5uP5m1ntRZ75JaCK8BZQ=
-X-Received: by 2002:a05:6214:1c0c:b0:8ef:1c10:65fa with SMTP id
- 6a1803df08f44-9103458aa2amr276801976d6.8.1788816820552; Mon, 07 Sep 2026
- 14:33:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kAtD7Ww7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788816873; x=1820352873;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vm2McZkHqaANVqUSfuCQ1ACPPaLD7b8TIB/iVn8Q+Ls=;
+  b=kAtD7Ww7zzrI1eWEzWDNN+0l3mQQVfDX1dfHoW/Zkj84zTkjdFXOqNmb
+   gvNMwNZp2ON+M7jvVjvhP/D/uUR7vnZWPoCpBoAeTrts2MWnTnilz+JNP
+   hKD50UlJLnh9MOvxQoOXWWiTKwMHAPE1tqYdgBIAyYe52euN3CYMiSEvK
+   Sje++/G2dNxfnfmKGM3LBPzsnOWu6LfkTibrzVJ1eMJuD8tou3BN2b3WB
+   EnxGuiz02qOvJ2WCo76DWnfuhQYgcdOWuTtdmoP6v00bwk7pvIjoxP6YI
+   lTWykfraV8kugz+yL52ofL6OVl9OGdcnJAWDuspXIThAi1dz2t6XFrWOV
+   g==;
+X-CSE-ConnectionGUID: exKeijBKSSW2zqSRQ80sBw==
+X-CSE-MsgGUID: wFTv1MR8TjGvTEbA1tNPjA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="106732943"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="106732943"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 14:34:32 -0700
+X-CSE-ConnectionGUID: gXsGUaejTeiVdLQQWiFsfQ==
+X-CSE-MsgGUID: rQR0vMokQgKZrvUuLshzwQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="271326046"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.80])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 14:34:29 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 90A7611FA3A;
+	Tue, 08 Sep 2026 00:34:30 +0300 (EEST)
+Date: Tue, 8 Sep 2026 00:34:30 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	Linux PM <linux-pm@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Peixin Xie <peixin.xie@linux.spacemit.com>,
+	Lukas Wunner <lukas@wunner.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Linux PCI <linux-pci@vger.kernel.org>,
+	Bjorn Helgaas <helgaas@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v3 0/4] ACPI: scan: Adjust power management
+ initialization and PCI devices handling
+Message-ID: <ap8t5qhuEll-Xx4N@kekkonen.localdomain>
+References: <6044499.DvuYhMxLoT@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901054358.4049095-1-dev.jain@arm.com> <20260901054358.4049095-6-dev.jain@arm.com>
- <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com> <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
-In-Reply-To: <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 8 Sep 2026 05:33:27 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
-X-Gm-Features: AcwNN1W7wBndyQG2UgjXdfAU5SOq--TgDgMkAQm3YP67ZZN3rfn6CHCdxQXyE8c
-Message-ID: <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
-Subject: Re: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
- softleaf offset
-To: Dev Jain <dev.jain@arm.com>
-Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com, 
-	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
-	lance.yang@linux.dev, baolin.wang@linux.alibaba.com, 
-	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
-	youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de, 
-	ryan.roberts@arm.com, anshuman.khandual@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6044499.DvuYhMxLoT@rafael.j.wysocki>
 
-On Mon, Sep 7, 2026 at 1:38=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
->
->
->
-> On 05/09/26 4:12 pm, Barry Song wrote:
-> > On Tue, Sep 1, 2026 at 1:44=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrot=
-e:
-> >>
-> >> In preparation for adding a helper to set softleaf ptes in one go,
-> >> generalize the swap entry helpers shifting the swap offset by delta,
-> >> for softleaves.
-> >>
-> >> Note that the soft-dirty bit, exclusive bit and uffd bit preservation
-> >> will still work for non-swap softleaves, since a softleaf entry is
-> >> constructed out of a type and offset, and those bits are ahead of
-> >> the soft-dirty, exclusive and uffd bits.
-> >>
-> >> For example, for a migration entry, pte_swp_exclusive() will return
-> >> false, as the exclusivity is encoded in the type itself
-> >> (SOFTLEAF_MIGRATION_READ_EXCLUSIVE).
-> >
-> > I don't quite understand why you mention this. Is anyone calling
-> > `pte_swp_exclusive()` on a migration entry? Shouldn't it only be called
-> > when `softleaf_is_swap()` is true?
->
-> You are right. I just wanted to emphasize the second paragraph - that the
-> pte_move_swp_offset will also work for softleaf entries. But I think
-> the third para confuses more, I'll drop it.
+Hi Rafael,
 
-I would rather interpret this as meaning that
-`pte_move_softleaf_offset` will also work for swap softleafs,
-since `pte_move_softleaf_offset` will call some pure-swap
-functions=EF=BC=9F
+Thanks for the set.
 
-Would it be possible to use `if (softleaf_is_swap())` for
-these cases to make the intent clearer? or we can
-keep both pte_move_softleaf_offset and pte_move_swap_offset?
+On Thu, Sep 03, 2026 at 06:57:09PM +0200, Rafael J. Wysocki wrote:
+> Hi All,
+> 
+> This is an update of
+> 
+> https://lore.kernel.org/linux-acpi/5144065.31r3eYUQgx@rafael.j.wysocki/
 
-As `pte_move_softleaf_offset()` is getting a bit weird now,
-a generic softleaf function has a lot of swap-specific code in it:
+Tested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
-static inline pte_t pte_move_softleaf_offset(pte_t pte, long delta)
-{
-        const softleaf_t entry =3D softleaf_from_pte(pte);
-        pte_t new =3D __swp_entry_to_pte(__swp_entry(swp_type(entry),
-                                                   (swp_offset(entry)
-+ delta)));
-
-        if (pte_swp_soft_dirty(pte))
-                new =3D pte_swp_mksoft_dirty(new);
-        if (pte_swp_exclusive(pte))
-                new =3D pte_swp_mkexclusive(new);
-        if (pte_swp_uffd(pte))
-                new =3D pte_swp_mkuffd(new);
-
-        return new;
-}
-
-Am I missing something here?
-
->
-> >
-> >>
-> >> Signed-off-by: Dev Jain <dev.jain@arm.com>
-> >
-> > Reviewed-by: Barry Song <baohua@kernel.org>
->
-> Thanks.
->
->
-> >
-> >> ---
-> >>  mm/internal.h | 29 +++++++++++++++--------------
-> >>  mm/memory.c   |  4 ++--
-> >>  2 files changed, 17 insertions(+), 16 deletions(-)
-> >>
-> > [...]
-> >>
-> >>  /**
-> >> @@ -523,7 +524,7 @@ static inline pte_t pte_next_swp_offset(pte_t pte)
-> >>   */
-> >>  static inline int swap_pte_batch(pte_t *start_ptep, int max_nr, pte_t=
- pte)
-> >>  {
-> >
-> > We might find a user for this in the future, in which case we might
-> > want to rename `swap_pte_batch()` to `swap_softleaf_batch()`?
->
-> That is what is being done here:
-> https://lore.kernel.org/all/20260813-migrate-rmap-batch-v2-1-3c5424c555c7=
-@amd.com/
->
-> I don't have a strong opinion, I can also generalize this right now.
-
-I don't know how you and Shivank are collaborating,
-since you're both changing the same thing at the same time :-)
-
-Hopefully, we can get one of yours into mm-new first,
-and the other one can find a way to resolve the conflicts.
-
->
->
-> >
-> >> -       pte_t expected_pte =3D pte_next_swp_offset(pte);
-> >> +       pte_t expected_pte =3D pte_next_softleaf_offset(pte);
-> >
-
-Best Regards
-Barry
+-- 
+Sakari Ailus
