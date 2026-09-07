@@ -1,153 +1,195 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6363D46EC61
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701D8486BBA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:58:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778693; cv=none; b=oS/kJE5OIsNgioe4pIjz1eGzmiHbOwzLeSMUCAXMHN3mwZQXbx5gUzrUyDSjXCCVg061tUdnu8RKwPey+TS9jtaIXAGcxERvt4920+JwjJjesMfod3uEXsCVmJYUKLqanN8T/NuZBFosXbWayLcUxDikd1GhPgA0DKO+uIPbjvs=
+	t=1788778696; cv=none; b=jYVVyIL4aYkYp4atEULENjOjGaCwoApcMA5/uE4xJCvAJLV55i/WO5KTfiJkAm5xh/uCwPU3zEaHt/vtXym+b9PLRKa4pyHMWGeH16QYHxBZptIyPEom0TSljlcmGKIBtlYt0FO7Gih03yQ3IEBFwHVLTq88EM6kxzOXbVVTCsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778693; c=relaxed/simple;
-	bh=226zFTrt61gC5bUJe6htzJbBh6DTMpofqMeezkvIwVg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WcVW6AY7XAddtF/miF8LMdy+ItCyTQYEH63IxcMd7yE6mtZBtYHaqlAAGvysMtmgcnTBOLKIq/arc9FE4q6hqdfYjcbUbOW4I3d7ABLJxPoAqMrgoSm+egcvrdaOzZ6dfVwWgzI8NCx4wXVfOtFeS84vac3fMTPX+vwDfAYbw7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dkvbUMDt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GprQ5nRQ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788778696; c=relaxed/simple;
+	bh=nvRqfcTNrhKWsgYEYqserFC6aFy/Ypxd/ECdksDw0KQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uA3ln2a0kyFfuEI34UsNRluJwh+DCrtdWPpfQP6JLhQorXrzA+M+PgO364ccw44v0q8HiQwpvKSx5XbiO7pYoqqNJkauyYtc/pTWHiNq7ZiLFy9Vi+nV2aE4+OEhV35gB18P4mlr7Ul6OpVNAX4ADRDe3mS00AmTpzzxDE/BhsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ImEf6mle; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dkvbUMDt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GprQ5nRQ"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Anbc33777980
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 10:58:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rlgWTU4l5TU2Z3+onQ2BGvvK
-	P4C66DgncaDRweKJZts=; b=dkvbUMDt9tIZsDKDnW/qumgRf0QCoKn5DITnjLmh
-	09vpx1rYA6zQJtZew/7pgFSenXB/eCXeg6CNmQBsaURlD0X549nMthQPOWaVkRwR
-	clG0iVrhlcekgF2caXDAI3A1nipprDRsu9UaMTkpOHTVWN/r/4suIF+E/OjxFHw8
-	QZCH4vfnAUlU3aW9rcVs81J/P/FLmquBkGRldolZ4VJg6IVOq2BAaobr7FG975zG
-	i5zajboEKOrLseTmU42I6pXdkQHGPQcPcBPYm1V5Qa6/1aFvSN4AZc+4wJIVU2Zy
-	v1dvJzE/XKGO0aWY7t7Lq5yHKO4SksM6X9N7N5gkdBkWSw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfygqwu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:58:11 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93494cce712so616055685a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:58:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ImEf6mle"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so3114543a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:58:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788778691; x=1789383491; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rlgWTU4l5TU2Z3+onQ2BGvvKP4C66DgncaDRweKJZts=;
-        b=GprQ5nRQWl0kq61gpkpZiRJFz7cbahjbRSnDS9VCKXD3mRKZM8Z2a0ADsRqgVuPnbl
-         Bne3Shr4MLO0Hl1XtLYaUTkMPnfh/UPHq/msL4LPrZWtDNGCS+86teb6JHguyBJJBQQ7
-         FNr32RTiRZImgvqTu49Q13GbH7GyKANJMzMSio84xZSArwmAfxEo2zMKtF8ttruRWqMJ
-         ei738JA6YOXHuxoKRnN0MHfBZbr74MjPe+l6dAWBJM7SHNYLwx13X5w45TD1MlXD6GFM
-         7wWqyYGESGOOJWoxZniv3b8n8P4nr6Hfn5pEfaknL92bMmT+u034kgBD3jQ6WxTXsabN
-         nX9Q==
+        d=chromium.org; s=google; t=1788778695; x=1789383495; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y1AN/04P+M2MfSUIh9oyME08cOW6o5tz/4VT3PS1ydI=;
+        b=ImEf6mleRfoRs7G7Qp9RzPadxnMuARp5ySbJs+LfCs+Yeao1WVPXUMyHRqq16mJY4M
+         TSIkg+AQQ5iBXQDAlt0QIr6m6xijElJonvMrUaZOVjDD7LEvgtfjDOG6/hwug20yVJnf
+         rY+ehCPIbtwRlAUYzs+vYvwMfOSU+QB1S4qD8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788778691; x=1789383491;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rlgWTU4l5TU2Z3+onQ2BGvvKP4C66DgncaDRweKJZts=;
-        b=fxf2QgtRaI1fpWUhZPkc/meCYWPb/bHRj63od+CdwODngtUjV2DxMrLOTjBxg8XrLF
-         0qQG+ZjKU2W9wwgGfY4p1tQKVwtn0lZRF1Uu+rYvnve8ka+3B4uh8AlRe1gB/N8KHY2E
-         jIIqpjQ6sGRgottIMEotcz5/vdmSey1AYJM+yz/Jx+Sj9+4jaC/pC1CZeNqBZpX+gQW2
-         WVo29M62YEgJX6l/8MY21ij0HbfCTkp7zCO8J/Otc4yZPNEl24OYi/fxNG6qeotcKFZE
-         zI6UXE/2cSkbyK7TprGQ4DjTvSa7sa1GQ7sMqOXB4gm35SKKt9T3LbA5rTHr6owQSGDt
-         gJPg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaZ0t83f6xAXzRaXlTiVHyBfvM9oBhhSbNIMYDr0GypKF5mM/XngZ0SkPf5jgUt8P/9wLp2M+mQWSToK4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mkyZZW/Bwku5yKvlE75K/ibFO79NRCZ+1nx7dBFKvEOxHCqxL0
-	Ytdx8zWXwWm0GNWT1+QZRRLG4+fEFM5kvcnIrp7TbsnQdMFOq6slqAdyHCFoO+FYsFMvgap9FfC
-	nojq9/sCMjONLHXSW8kvxta7eZq8XtAcn10ZA7WaKX7JbwN5Ep8W1DTTS36zaylXSBKM=
-X-Gm-Gg: AYBFou1pXTqBIDCf2TvGAsomlH/EoBaUMfjozIbSoRVtbPcsUfUPOx45IbjblQ9dsq1
-	nssiUYAc8sxKmSvure9CdK/yJvNGseOLe2PwHBBrTuNXFfhGJtwXxZYIsOWLcluGi/e5GS+k2Jj
-	onzUgK/Uaa7iE0g0ySwIFSJrxTFUIA/MB0IiJ/hQhJEHCi+x/yBZxZKVk1oRFnyyg+c2BqwxUNg
-	ow90UgLiqb/kuybM+fOBBvRLiDdLuj0A+pvuUsUNr4QxKp7Jn3BUsl/PuLmc9+Laq2z563GVLpK
-	+Pl3bJx4bauB1IaqgDG0dBfHFJzfQ22c6gBowwZiEW3YzM8YrW4NkXyUPdUEh3+bEmI+3M6aOi1
-	iYpqQNzAujF9OIA==
-X-Received: by 2002:a05:620a:a495:b0:936:883d:89c6 with SMTP id af79cd13be357-9398043579bmr1824664385a.28.1788778690491;
-        Mon, 07 Sep 2026 03:58:10 -0700 (PDT)
-X-Received: by 2002:a05:620a:a495:b0:936:883d:89c6 with SMTP id af79cd13be357-9398043579bmr1824659485a.28.1788778689899;
-        Mon, 07 Sep 2026 03:58:09 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0656e7bbsm200216825e9.10.2026.09.07.03.58.07
+        d=1e100.net; s=20251104; t=1788778695; x=1789383495;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y1AN/04P+M2MfSUIh9oyME08cOW6o5tz/4VT3PS1ydI=;
+        b=BhdiHv0SnOiFtlvcmA4AjgdeJiFJVCIqtq5Q2sVai5rYaUVzOh3jHcR6pva4fJL9LH
+         xEREkf5RQugPY3LuZxCfcp/4Y4W9/bMGN89ZSFqXq7qoAEUcTr7brOjC7Z5/JT8rkFkd
+         A/NAzAQ2BHy8UmV3nuPMKb7PA5n4yH3KIS9xz3i2NSknobyMq9+OH2VfJIF1P3EiiXlY
+         JdNRaerUcDu0MnZ8/Q2TE3mhcEYYH2zUzL0H5bk13SOibkHfcmVaEk3wnbGWyoNLGJFl
+         WFlQ1y00FdgzOlNhUfsjzmaRC01eQNatKUdfEOj90dwnF1yZeTfWhWp60rawc43YMM+B
+         JmtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzw6Mihty5aoTzHh7IbhK3ZJdkxr/83oBDb35ouL8LtDqHeo9v4EjqRgF2HqCQ64HmW5Oolh9REx7vokrY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmLJXLalJAg0sFBlGJJ5i94cjuPXj01ofJm382Utw5Rj5PujE0
+	nWm29t1KaLuXlRmxb7UZ2x1C5NnmNlAFataoUG8FuDYeQ7PB/7lD/Y/6eVaFkepc1g==
+X-Gm-Gg: AYBFou3vpLnuxIfS36fXTxeZDMbo9F8irAK9Dz+Y+s6L2AzrD4cK7sUAIVxsshY5po+
+	UZDZPhk/Hj8wup06IO8LkU9yJ9+7zpjouF6Jn32pS+8cfXsjS8xpoi0lGlsHzxo77OoYC7YXzO2
+	X7akuehTeudnNO7nUM4n28B0GKdaYqJRAzeSC8JQFWamTHz7w19e8NE9IUY7O0+IG8mp1+rH2lL
+	GJOLLaVurQfvhtvPMgSpYviCi8EzRq0xgoobAptEUR5R1hp6AYDwLqQSyqn4EPT10cTCezAdBwd
+	4Ts8odVZgklRMcVjA40mPgLDDURCzoMVnl5fXcT6JK4F4DiX3rmYX58CMMgJsIYmUabaCgjDa0t
+	uWCp92obh3vCs7Z8TQ1p5A25HpK1z4eAN162wa7/UPgk72UTrBdt/RYu3f7xhK4/Ai41ReRArlc
+	IUanXFwC0b4sutw+Czr/3Zqk0A06mEfGe6cpkK3jDfusOXyahQs5JA4DL930oLy5ekI9h2cheiW
+	yDViQZ9I8WOUQ1Dfaw57wO909h8g0OXFy+HHfhJTr2+8jS2zjgXzjFcRDKRKuk=
+X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr33380803a91.3.1788778694774;
+        Mon, 07 Sep 2026 03:58:14 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:7fc7:d8d5:4877:bc3f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b51eb40e6sm10343714a91.16.2026.09.07.03.58.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:58:08 -0700 (PDT)
-Date: Mon, 7 Sep 2026 13:58:06 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: david@ixit.cz
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Henrik Rydberg <rydberg@bitmath.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Petr Hodina <petr.hodina@protonmail.com>, linux-input@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v7 4/4] arm64: dts: qcom: sdm845-google: Add STM FTS
- touchscreen support
-Message-ID: <bif2vhuzfskrniqvp4acoxfjvpyypr533ulwpvo3f7pwkcods3@wa47jbyowcpr>
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
- <20260907-stmfts5-v7-4-4a53381cd038@ixit.cz>
+        Mon, 07 Sep 2026 03:58:14 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Minchan Kim <minchan@kernel.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH 2/2] zsmalloc: remove old object read API
+Date: Mon,  7 Sep 2026 19:57:29 +0900
+Message-ID: <20260907105739.1793316-3-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+In-Reply-To: <20260907105739.1793316-1-senozhatsky@chromium.org>
+References: <20260907105739.1793316-1-senozhatsky@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-stmfts5-v7-4-4a53381cd038@ixit.cz>
-X-Proofpoint-ORIG-GUID: U0bbHjmjR0rLgGyRj3dgyAlGXvf0blni
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEyMCBTYWx0ZWRfXzZxRAUAFCHMp
- nxmQ8kmnP3NLCapIKkY0JYoXp5/SsiphmXIpPOdqAbY8EGCLRBooBsNtPeNYMunRnobeXfhIB4X
- E1fJbEZNy+e+arROthD6o0GoEujTs1BTZrv/AznsldGmLh4uDR0bL4mvhgNGAMyKUte0PqvF+Eg
- w0cwWIiuc3YlNI2DnSOcH8/mzj5CCsLixFC01QroVKZXEgi4yInf+uLW80ZgmBfknK1rHP5hM8v
- weDCLk8oa6gM12JKUPnku853ay5tTAzxn4HiHit9h7VgIOB+u9ULPUcliY+qBL7uuVS3NC3fdVJ
- +RCVV/0xqXIpNEtPd9/+DQHotk01iqRbt48DJtCFTwOSHxHwqGUwVGzgMNTW+RObFWX056fYnRy
- 3oCu90lhD2fJL89kY5/VycmvjUJ4M5IeUDodMPyGEik/Efg3Pgf3su1L2NVFlLIK3gZTvQmpr43
- 8eow3fwl/hYwxWTF+ww==
-X-Proofpoint-GUID: U0bbHjmjR0rLgGyRj3dgyAlGXvf0blni
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEyMCBTYWx0ZWRfXzyX6/3GbAka1
- NY2RCLKLIBKwDrOmMskCUaBbbbiOCqcQKWz9Zwu13K/Z+Gu0lrPaeZitz6gA9+nGL0RMT84l1hl
- uVp5jlk1qQxqltBqF0IuY9p7ROVPFT0=
-X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9e98c3 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=sfOm8-O8AAAA:8 a=EUspDBNiAAAA:8 a=edXKPL0xb2b_iQIxsCMA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22 a=TvTJqdcANYtsRzA46cdi:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070120
+Content-Transfer-Encoding: 8bit
 
-On 26-09-07 12:50:22, David Heidelberg via B4 Relay wrote:
-> From: Petr Hodina <petr.hodina@protonmail.com>
-> 
-> Basic touchscreen connected to second i2c bus.
-> 
-> Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Co-developed-by: David Heidelberg <david@ixit.cz>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
+There are no users left of the old API, all have switched to
+SG-list object read API.  Remove it.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+---
+ include/linux/zsmalloc.h |  4 ---
+ mm/zsmalloc.c            | 77 ----------------------------------------
+ 2 files changed, 81 deletions(-)
+
+diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
+index 478410c880b1..5b7298a5026b 100644
+--- a/include/linux/zsmalloc.h
++++ b/include/linux/zsmalloc.h
+@@ -40,10 +40,6 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size);
+ 
+ void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
+ 
+-void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
+-			size_t mem_len, void *local_copy);
+-void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
+-		     size_t mem_len, void *handle_mem);
+ void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
+ 			  struct scatterlist *sg, size_t mem_len);
+ void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle);
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index 825022a7a328..11be37c43171 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -1134,83 +1134,6 @@ unsigned long zs_get_total_pages(struct zs_pool *pool)
+ }
+ EXPORT_SYMBOL_GPL(zs_get_total_pages);
+ 
+-void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
+-			size_t mem_len, void *local_copy)
+-{
+-	struct zspage *zspage;
+-	struct zpdesc *zpdesc;
+-	unsigned long obj, off;
+-	unsigned int obj_idx;
+-	struct size_class *class;
+-	void *addr;
+-
+-	/* Guarantee we can get zspage from handle safely */
+-	read_lock(&pool->lock);
+-	obj = handle_to_obj(handle);
+-	obj_to_location(obj, &zpdesc, &obj_idx);
+-	zspage = get_zspage(zpdesc);
+-
+-	/* Make sure migration doesn't move any pages in this zspage */
+-	zspage_read_lock(zspage);
+-	read_unlock(&pool->lock);
+-
+-	class = zspage_class(pool, zspage);
+-	off = offset_in_page(class->size * obj_idx);
+-
+-	if (!ZsHugePage(zspage))
+-		off += ZS_HANDLE_SIZE;
+-
+-	if (off + mem_len <= PAGE_SIZE) {
+-		/* this object is contained entirely within a page */
+-		addr = kmap_local_zpdesc(zpdesc);
+-		addr += off;
+-	} else {
+-		size_t sizes[2];
+-
+-		/* this object spans two pages */
+-		sizes[0] = PAGE_SIZE - off;
+-		sizes[1] = mem_len - sizes[0];
+-		addr = local_copy;
+-
+-		memcpy_from_page(addr, zpdesc_page(zpdesc),
+-				 off, sizes[0]);
+-		zpdesc = get_next_zpdesc(zpdesc);
+-		memcpy_from_page(addr + sizes[0],
+-				 zpdesc_page(zpdesc),
+-				 0, sizes[1]);
+-	}
+-
+-	return addr;
+-}
+-EXPORT_SYMBOL_GPL(zs_obj_read_begin);
+-
+-void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
+-		     size_t mem_len, void *handle_mem)
+-{
+-	struct zspage *zspage;
+-	struct zpdesc *zpdesc;
+-	unsigned long obj, off;
+-	unsigned int obj_idx;
+-	struct size_class *class;
+-
+-	obj = handle_to_obj(handle);
+-	obj_to_location(obj, &zpdesc, &obj_idx);
+-	zspage = get_zspage(zpdesc);
+-	class = zspage_class(pool, zspage);
+-	off = offset_in_page(class->size * obj_idx);
+-
+-	if (!ZsHugePage(zspage))
+-		off += ZS_HANDLE_SIZE;
+-
+-	if (off + mem_len <= PAGE_SIZE) {
+-		handle_mem -= off;
+-		kunmap_local(handle_mem);
+-	}
+-
+-	zspage_read_unlock(zspage);
+-}
+-EXPORT_SYMBOL_GPL(zs_obj_read_end);
+-
+ void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
+ 			  struct scatterlist *sg, size_t mem_len)
+ {
+-- 
+2.55.0.979.g7e5102b832-goog
+
