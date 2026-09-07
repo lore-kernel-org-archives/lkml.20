@@ -1,91 +1,36 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA004C9560
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:41:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F26023C4F3;
+	Mon,  7 Sep 2026 13:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788788492; cv=none; b=n+kSJavreHgQ6+jMDJt2QeGV9qsYWrrJWRP0mF4vVB4t2lxItsP0wjoYUthvQ/8blEkX45OOLKdNmdW2EriY0YctHzGuZ0TIfWtcUW6FSN2PHWzz1w7/NmLQ4+aNbf7dIZjg5kvLJMSOV/Ytm1uOXXvR8hbv1EPYORjvlxOciLE=
+	t=1788788521; cv=none; b=FE6k0jPHO/kV6g358wsSUGddFbuYFFyc+DwODCk2OWV8oUkCHUCGDn1eUYh27pcfp3wV/LXaXBrEGo12Eb3Aet5Pt6KHrFbEsui2k1wcXug5g9e2bWk6GNYTMAPTl3CQJ84NvZZZ1e1DqrrNY+8fw/g5U8r+p9Geo1L48wBtt20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788788492; c=relaxed/simple;
-	bh=reyY/SSEkR1hnlm27/oBWU/HkTc3wy99JVkrYnF7+Ro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hm+uQfySc5ZqJIywGqWHz0+FHk5noqHY8iLyg1Kg3HOCAENk8mYciP5IXWbtBjLa7lJayES6lXQeWlt0Ow9wDHAac6FilZq0f/OQXyz1lYNmUGT54sQDr1twX4HXMA/Y/VFlP9uJ+MQ7LmCRO62qtozzTMiO12qqX3ACi2lr/m8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=exG3ufYi; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="exG3ufYi"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48589798dbbso2939117f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:41:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788788489; x=1789393289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JdqenWViU/7DdrPY02Ze4qYR4l7SaizSPWmzY+qOqso=;
-        b=exG3ufYiFIIwXt3jURMEzeZgTYsK3Z65iqYzEr/rVOfHMDC9OI94A0jy2eS7nW4ONi
-         gQ0m595vzrD+Up4219Dzd57XMet9jOPTaf2m3f1RvBHMcM/ZXZ/5rzdxYNoH4etFMdrR
-         nNPSJ73W4CBV7Q1N7PxgCEItLctTeeWJCMnNBxEf0JkaSZsoebjodE8RiD8bhkLlFWCS
-         NS+Um/pr0gZY+w+hxCx87bmFey1wq0kzErJn4dc19P1h7BvaC2HF30FJxwJR1LFJ8h4R
-         3Sf9iLMXHvHC8uZlin49cJIVLWcBGDE+339DQyCmkfgTdfxldD3FfJ7j57uukBVCKwCr
-         /0pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788788489; x=1789393289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JdqenWViU/7DdrPY02Ze4qYR4l7SaizSPWmzY+qOqso=;
-        b=lGJ9aILHxxfASyz4vsHcgnJ6ZYdjbPg1/X3N5P+7/+dqHoPh9Amd36HVHlPyRFJzaz
-         diAq9qZVvDet1G90PSRgEsC06FR9w+760ZHi/YdFyfW0ycxgqSRsJjNf+gMxN+MPJrVk
-         7C/7707AtLzzuZj5CCOXrRXKtCebipT8RZe92Pcew8vvC7HpObUWX+CbkCXO2Io4awDR
-         /zYZg9Xyh69q3WlbOG7U7oC3qi/8lEk3jlOkpfMIC3I4jcQwrsOaGzrWkREtCAvMNjtF
-         sNc1Y4wLg0aMMs6eIawurMcGNCF3OVk4JzQiCvd5XKs/ZiuIqZEXX0S5WUurebv/pZfJ
-         Zlsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTPOneXbTbj0timcwCcAGsaMyPRZmBZjyRA7T++BYzoX7hFdZC0UD6y20WDTI89e+hLD/gO06ZcYrR3wo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYbJyzUpVqzakBsqkdqAPEAgHf9SMkvkEgGngS/ck8U1ozm7ZO
-	Q2/0zGV+qzp18mCVv4NhG6KPN5mSOrHzGNVZ4fcB/NH90zeDOkFYQ5Wa
-X-Gm-Gg: AYBFou00he+rVh/0Pu8H+4yPEtWtt6M+k8WntIslK14/Agb1eZZiGMVL359QE1sx0OU
-	mCFm46mtXPXA1IrbtZgzJeiZmJEJhMFgm9k/1LQj61s3gL+FvgTKu2t9IkcUDH0NjBBbdeTAyk8
-	J1ZMfxyBaNG4p7T2t3kSSCZGKCs+GJDE1D11yot2LJ8Ixjh1AUswvY31AToeeKS4gA6vteFDcwq
-	DO+xZTkORyV122LbGxUBY4jY1EcAVI9/RYVKYqbdg28oEyol21Y4FTwLRj5HpwUEsVOY7KQDAyT
-	61YdXGrr41TF7CDZf5XiFutjjsJOD35lqHLJ0TDl/7XSXW1nOYkgwWYQlgVwk9/QtYy+YvY8njw
-	DdyCNGF5O6DWBH4XTtpflz6df9EIxkP8pOPYBJI549DpKJ+bhG2q3rlLpKkpEttJrOmJSaACrDA
-	/BmsfhR2M7+O5kXQGoujXahV/5G4ZGANaOHNuwhD0nZjLHhvgRBN4gcYGsBit8PWCb+eIKPDLoP
-	Q==
-X-Received: by 2002:a05:6000:41d3:b0:485:8e90:bf55 with SMTP id ffacd0b85a97d-4858e90c0a6mr18822569f8f.47.1788788488633;
-        Mon, 07 Sep 2026 06:41:28 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm28655087f8f.4.2026.09.07.06.41.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:41:28 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: david@kernel.org
-Cc: akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	bpf@vger.kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	tasos.papagiannnis@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk
-Subject: Re: [PATCH bpf-next v4 1/7] mm: Add copy_remote_mm_str()
-Date: Mon,  7 Sep 2026 16:41:01 +0300
-Message-ID: <20260907134101.424017-1-tasos.papagiannnis@gmail.com>
+	s=arc-20240116; t=1788788521; c=relaxed/simple;
+	bh=k2rKP7HwoQdmY5JKGHPxTdOnhTrrrC8ZlJgg1gEffT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DAxg7ak20BAqYFor9k1E4sh2Y7P62UTBmXeSU6Xc0evhEgxaeWoIRVj1I6m7A1P9+l/GqooxriN/SPK3t83/6TrLqzAL7QHa/7/igNsNknBZZ24y1D9Gc+dd3R4iZKEXpP0KorfyQtVl09IE6YIqpyp4o6uGGTkQ6a1182CrhiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC031F00A3A;
+	Mon,  7 Sep 2026 13:41:57 +0000 (UTC)
+From: Greg Ungerer <gerg@linux-m68k.org>
+To: linux-m68k@lists.linux-m68k.org
+Cc: linux-kernel@vger.kernel.org,
+	arnd@kernel.org,
+	wei.fang@nxp.com,
+	frank.li@nxp.com,
+	shenwei.wang@nxp.com,
+	imx@lists.linux.dev,
+	netdev@vger.kernel.org,
+	nico@fluxnic.net,
+	linux-can@vger.kernel.org,
+	linux-spi@vger.kernel.org,
+	olteanv@gmail.com,
+	Greg Ungerer <gerg@linux-m68k.org>
+Subject: [PATCHv3 0/3] m68k: coldfire: fix non-standard readX()/writeX() functions
+Date: Mon,  7 Sep 2026 23:37:08 +1000
+Message-ID: <20260907134037.1855408-1-gerg@linux-m68k.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <0e4edfd3-0c82-42e0-ad09-19ff8b8d1511@kernel.org>
-References: <0e4edfd3-0c82-42e0-ad09-19ff8b8d1511@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,42 +39,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> We have this check in copy_remote_vm_str(). Why are we performing the check now
-> twice?
+This collection of patches is aimed at fixing the non-standard ColdFire
+set of readX()/writeX() IO access functions. Instead switching to using the
+asm-generic definitions in include/asm-generic/io.h. The difficulty comes
+in trying not to break any drivers with this change.
 
-> It should either go only into __copy_remote_mm_str(), or if there a reason to
-> have it before get_task_mm(), it should go into copy_remote_mm_str(). Same
-> applies to the memory.c case.
+The implementation of the readX()/writeX() family of IO access functions
+is non-standard on ColdFire platforms. They either return big-endian (that
+is native endian) data, or on platforms with PCI bus support check the
+supplied address and return either big or little endian data based on that
+check. This is non-standard, they are expected to always return
+little-endian byte ordered data. Unfortunately this behavior also means
+that ioreadX()/iowroteX() and their big-endian counter parts
+ioreadXbe()/iowriteXbe() are currently broken because they are implemented
+using the readX()/writeX() functions.
 
-Yes, this makes sense. I will fix that.
+Patches 1 and 2 in this series are specific net driver changes that can be
+applied independently of the final ColdFire readX()/writeX() change.
 
-> What's more annoying is that both implementations of copy_remote_vm_str() are
-> identical, and both implementations of copy_remote_mm_str() are nearly identical
-> (just dropping the gup_flags for nommu). I'd like to avoid duplicating code for
-> nommu.
+Patch 3 is the actual switch to ColdFire building using asm-generic
+readX()/writeX(), but also contains three driver fixes that are not easily
+handled independently.
 
-> If we could export __copy_remote_vm_str(mm, addr, buf, len, gup_flags) for both
-> cases, we could instead provide a single implementation for copy_remote_vm_str()
-> and copy_remote_mm_str() e.g., in mm.h? (I'd prefer somewhere else, but we don't
-> seem to have a good git for memory.c + nommu.c shared stuff)
+Note that I don't have access to all supported hardware needed to fully
+test all these changes. I have tested what I have, a bunch of the standard
+Freescale ColdFire eval boards, and inspected generated code for differences.
 
-Another idea can be:
-mm/memory.c: MMU implementation of __copy_remote_mm_str()
-mm/nommu.c: NOMMU implementation of __copy_remote_mm_str()
-mm/internal.h: declaration of __copy_remote_mm_str()
-include/linux/mm.h: declaration of copy_remote_mm_str() and  copy_remote_vm_str()
-mm/util.c: shared implementation for copy_remote_mm_str() and copy_remote_vm_str()
+Note that the v1 and v2 versions of this series carried a change to the
+sdhci-esdhc-mcf.c driver that is now in mainline - so dropped from this
+current v3 series.
 
-This allows us to remove the duplicate code. Does this sound reasonable?
+The v2 series moved from an RFC to a patch series. There was only minor
+changes overall to address comments. Changes include formatting, separating
+out the mcf5441x regmap in spi-fsl-dspi.c (patch 3) and reordering the
+quirks in flexcan-core.c (patch 3).
 
-> Now, that's also not completely nice, as I don't want us to EXPORT
-> __copy_remote_vm_str() ... given that these functions are "#ifdef
-> CONFIG_BPF_SYSCALL" could we EXPORT_SYMBOL_FOR_MODULES?
+This v3 series has no new code changes. It is sent with an expanded CC
+list in the hope of getting the net driver changes (patches 1 and 2)
+picked up so the final readl/writel fix (patch 3) that depends on them
+can be applied.
 
-Now copy_remote_vm_str() is EXPORT_SYMBOL_GPL. In this series, we use
-copy_remote_mm_str() without the need to export that. Why do we need to
-consider exporting __copy_remote_vm_str()?
+Signed-off-by: Greg Ungerer <gerg@linux-m68k.org>
+---
+ arch/m68k/include/asm/io_no.h             |   68 -------
+ drivers/dma/mcf-edma-main.c               |   14 -
+ drivers/net/can/flexcan/flexcan-core.c    |    1 
+ drivers/net/ethernet/freescale/fec.h      |   15 +
+ drivers/net/ethernet/freescale/fec_main.c |  257 +++++++++++++++---------------
+ drivers/net/ethernet/freescale/fec_ptp.c  |   78 ++++-----
+ drivers/net/ethernet/smsc/smc91x.h        |   12 -
+ drivers/spi/spi-fsl-dspi.c                |   14 +
+ 8 files changed, 218 insertions(+), 241 deletions(-)
 
---
-Thanks,
--Anastasios
+
