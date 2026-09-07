@@ -1,116 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B349477E4B;
-	Mon,  7 Sep 2026 11:47:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C9C748BD5B;
+	Mon,  7 Sep 2026 11:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781653; cv=none; b=II/h5w/CRRhoqLs0m5dKpO5KSYGWg1iSYEMA2GbRiV2dxL8B76xtmAvIA3PHOE2BSzncJ/+ZcTQY/3aeMAUV5A0AYeC4xgNLaafTtIQHrr7n0AwNNJmmn/TXLhD5DROUGvhlkTKOAlOc17vhkySuxSR6kjA7jFLmHgKYGDPLjRc=
+	t=1788781654; cv=none; b=Gi+pCusVNGHE1dpofPShtFz+npPcBrGDtHxhZeDcvL24vxgSUbn/rsxcM9nxf6hHZ/y4CLQbnVJC4GVrQXRxjetZyZ9KxT50ca1P/SttLQuCTC8d9QbSmBGep+vlKhVI4/A9tJz+KFHdWWapBid2Il40U0htC9XRwOTxhzgWjHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781653; c=relaxed/simple;
-	bh=0EIJ4HYVThTh+p3S6so/hC23zxFr6DskgzASeLOPoX8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hfxh71OdKdh3f/fK1AoG1hBNqsiZ/J4CgHTs5xWuVrvA61oehv+vchuk+QvbFvS9/rGhAGVIaLKvtGOsBcYEfkRM47AlqMhUlqU/NAk4262IQKhwguHSClOW7hYvGywIY4FncOYqkAa/UAgrseX6/GciWGak2DIg8JXyu6WAj3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4HQVbNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788781654; c=relaxed/simple;
+	bh=UUff/xA4eU7KQrelA4EjBKSqhHbedHfBVekTwnMXHvA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kBNdz6FIvTHA13ZuZgqAisA22izrD48bVRIWdCc5lV/e7gB1FR7U3gjJQmCXLyg3Ot8UEzFtt1O546Sz+Ba/hvo5OrWU1Mt8w7n5PxOfhg/shJo9DR/vKxjcE8e7nNC73SNBfTT/pZCNnW7DUeVhQ7SQCNHSAeFVCzaNdOHbe6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUikZs7E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4HQVbNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD7211F00A3E;
-	Mon,  7 Sep 2026 11:47:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUikZs7E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FF301F00ACA;
+	Mon,  7 Sep 2026 11:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781651;
-	bh=WAfJw8rlDGFV693RqXxEhHyrkGOz+/nxPst/tGc5IDk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K4HQVbNITmdLrWTPYstHL1ppZVvLW1xIAtP6plAGta2iU2+YP6b/NBRC6KAIM+qS0
-	 1vlGfi9fcFBF17GKoZqPUwSJLJ5hM34ur4aAbNOioSf192So8R0wImQw/R7AJGAF2N
-	 pCeWs5g5b+91bAuq6A1mDAsZ8QrEw+bO9zTQXiUaiZT4JUuSQxddyaDkHemDT3m2bd
-	 TPugwJ4XwSllwkNP1Kd7OyW7ulhTeQ78Ru49cszmGks+RPTYKj+/rL2cADtDVgFGLc
-	 8M13V3Qghn2BHWhQxBBX/7qsIqlUJZh7GwhgHCbLf2hwHsayxStONew1cyQlxXRnHk
-	 ZB7BUnoi0v7QQ==
-Message-ID: <519ef70a-679c-455f-ba5f-3841730873a4@kernel.org>
-Date: Mon, 7 Sep 2026 13:47:27 +0200
+	s=k20260515; t=1788781652;
+	bh=uIiz1ATeWoRVkHjqQ6HXI7SmHJMgwmcJypw6if+o3I8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kUikZs7EWHs0Jez/6Xj/AbHjMZwbIOX9jwU6tYbURourFITewgyjbUc62KmwxJAG4
+	 vl9d92w5cNfqBdmdUDixs2tC4N6oRSqtDH8/IDtdl4jhA3/QRbZQMvaEBn8sYIgty+
+	 NM+voayBLh0wjt4Xnp+9VtS3GC5pXVDhdB91I768tnQHxzvf9dQVQgnDy5h512NKQG
+	 ApHYZ4caGoQ3NDY+Z9/qUdOHtz1wDz/YBQwGyqfTchYuMdVfAcQDcb9IzdJILs8MMc
+	 XvJ3gt0ENgdWOKyK+1FJtnRQYrvRGN1rj9S3JvBOkkcXFLhFWy6pWXrTWeGcoe/Cg6
+	 UF9WmcjaECwuQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/5] cifs: SMB1 split: Create smb1proto.h for SMB1 declarations
+Date: Mon,  7 Sep 2026 07:47:25 -0400
+Message-ID: <20260907114727.2870618-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907114727.2870618-1-sashal@kernel.org>
+References: <2026090302-bronco-shame-0d3f@gregkh>
+ <20260907114727.2870618-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND] selftests/mm: Exit on invalid command-line options
-To: Tianyi Chen <hi@tychen.cc>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Shuah Khan <shuah@kernel.org>, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
- Joel Savitz <jsavitz@redhat.com>
-References: <ZTYJZT7Q8UU4.KPP9BUAAJVQO1@mailcore-89d674988-v7w7p>
- <20260906135444.749144-1-hi@tychen.cc>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260906135444.749144-1-hi@tychen.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/6/26 15:54, Tianyi Chen wrote:
-> getopts reports unknown options and missing option arguments, but
-> run_vmtests.sh ignores its error result and continues running tests.
-> For example, passing -z or omitting the argument to -t can run the
-> default test selection instead of rejecting the command.
-> 
-> Exit with failure when getopts reports an error, before any tests or
-> their setup run. Keep the diagnostic provided by getopts.
-> 
-> Verified that -z, -t and -t mmap -z exit with status 1, while -h still
-> exits with status 0. The mmap category's three test programs pass in
-> a VM running the kernel built from the same source tree.
+From: David Howells <dhowells@redhat.com>
 
-I wonder whether we also bail out on wrong/missing categories?
+[ Upstream commit 86c666506ea2c42649879eeac7f29e7bedef2f23 ]
 
-It's also interesting that we do the /proc/sys/kernel/yama/ptrace_scope stuff
-even when not actually running the memfd_secret test.
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 6343c1da5619 ("smb: client: fix OOB read/write from unvalidated DataOffset in coalesce_t2()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/cifsglob.h  |  2 --
+ fs/smb/client/cifsproto.h | 11 +----------
+ fs/smb/client/smb1proto.h | 38 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 39 insertions(+), 12 deletions(-)
+ create mode 100644 fs/smb/client/smb1proto.h
 
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index 38b4053d97919..f9819b80a3f2b 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -2110,8 +2110,6 @@ extern mempool_t cifs_io_subrequest_pool;
+ 
+ /* Operations for different SMB versions */
+ #ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
+-extern struct smb_version_operations smb1_operations;
+-extern struct smb_version_values smb1_values;
+ extern struct smb_version_operations smb20_operations;
+ extern struct smb_version_values smb20_values;
+ #endif /* CIFS_ALLOW_INSECURE_LEGACY */
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index 4d6283ebd7393..c810371f229a4 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -14,6 +14,7 @@
+ #ifdef CONFIG_CIFS_DFS_UPCALL
+ #include "dfs_cache.h"
+ #endif
++#include "smb1proto.h"
+ 
+ struct statfs;
+ struct smb_rqst;
+@@ -430,16 +431,6 @@ extern int CIFSSMBSetFileSize(const unsigned int xid, struct cifs_tcon *tcon,
+ 			      struct cifsFileInfo *cfile, __u64 size,
+ 			      bool set_allocation);
+ 
+-struct cifs_unix_set_info_args {
+-	__u64	ctime;
+-	__u64	atime;
+-	__u64	mtime;
+-	__u64	mode;
+-	kuid_t	uid;
+-	kgid_t	gid;
+-	dev_t	device;
+-};
+-
+ extern int CIFSSMBUnixSetFileInfo(const unsigned int xid,
+ 				  struct cifs_tcon *tcon,
+ 				  const struct cifs_unix_set_info_args *args,
+diff --git a/fs/smb/client/smb1proto.h b/fs/smb/client/smb1proto.h
+new file mode 100644
+index 0000000000000..a73213f6a2aa1
+--- /dev/null
++++ b/fs/smb/client/smb1proto.h
+@@ -0,0 +1,38 @@
++/* SPDX-License-Identifier: LGPL-2.1 */
++/*
++ *
++ *   Copyright (c) International Business Machines  Corp., 2002,2008
++ *   Author(s): Steve French (sfrench@us.ibm.com)
++ *
++ */
++#ifndef _SMB1PROTO_H
++#define _SMB1PROTO_H
++
++struct cifs_unix_set_info_args {
++	__u64	ctime;
++	__u64	atime;
++	__u64	mtime;
++	__u64	mode;
++	kuid_t	uid;
++	kgid_t	gid;
++	dev_t	device;
++};
++
++#ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
++
++/*
++ * cifssmb.c
++ */
++
++/*
++ * smb1ops.c
++ */
++extern struct smb_version_operations smb1_operations;
++extern struct smb_version_values smb1_values;
++
++/*
++ * smb1transport.c
++ */
++
++#endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
++#endif /* _SMB1PROTO_H */
 -- 
-Cheers,
+2.53.0
 
-David
