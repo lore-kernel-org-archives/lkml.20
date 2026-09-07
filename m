@@ -1,98 +1,116 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E5C583B8921;
-	Mon,  7 Sep 2026 10:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBF7412264;
+	Mon,  7 Sep 2026 10:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777887; cv=none; b=hjfarYgXxIA5S3iAA4HU8bw8B75rq39G8VZS5kHDSOF7tl2o09E9o9akwsCZh0taPj5viHoxXMju5zWHdqm6IR18vLsKuNWIhC+xMbUiuAjXOIe6pms+5+zoX8T146JSmbPWIh3aWOkufRVWz1JsKpP9STS7nqhoP51RZNz/jOw=
+	t=1788777911; cv=none; b=AH68RysJkuf0hnFBnWPBxkF5rtmqqdDRbmyvwKJ5+AHoq58n+RBecc297yrdvXYKAPHU0JmIRjD8PKJY0jDAuAzk7ZBw7xdjT7Ej1Laq9dPMYtCp1ibsukHFMy6StuAhzpHIiGbNo8bnJLVVcG2GjE/EL0dEGqiirbK5lqi83pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777887; c=relaxed/simple;
-	bh=2hwh2AcBgKyWd0n5XC16XKeNe6QdOcojhz3vll/P+iI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RYPBwobxhMYbeAaTNZQ/od/FITfm5tae+4fJb8wZ9S17T+vh/J1eV7DPKvewymWwfKSQVJScRO58zAuDZg5PMOIFfM2GJTRDeNnrBTvWuIbsOLIu971E6xbWdB97c6eVapHQc+pLFl+g7Lytcu9mvCa8Q/voh0ANMRD+2UhXrc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JQfwqAP8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788777911; c=relaxed/simple;
+	bh=GgOqK2ftxVGqo5F5dGaYAFOyQu2ErjRl67FkwxVrs0M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RCD2MMxgH8YpctuKrxQ8wBz3xhWsxpYh5mBKOZPq+rc1tl8+XYPmybJy+TzZJgecVRmIUG6jWWijiaUFwAyKMfyblek0kIK9rL3eVwUYzKu3fNPbn2grsps/e3pVb5qwJl2x43BgE3lvmf/M1f8uMdF6glgypiOCBrLvPzJp89s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=RI6Izzk8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=gV42Ai7+; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JQfwqAP8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 00AA21476;
-	Mon,  7 Sep 2026 03:44:41 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 06AD63F7B4;
-	Mon,  7 Sep 2026 03:44:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788777884; bh=2hwh2AcBgKyWd0n5XC16XKeNe6QdOcojhz3vll/P+iI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JQfwqAP8b+aHItcwXjywNmynrYpqGvxro0RgNz57f9+y/bIZ2Ko+vYNdYo3Ndng7T
-	 2j045Ab8wyG23buFPl6o1j15B3heUSVyXPKJEKJ7MjPnh/ylqobglIId2D/zwxSsTb
-	 Mw0GJnuIWISSUrV9By5+UfFGN5KgyE8TUoDDF4JY=
-Message-ID: <a82061f1-bb23-403f-b772-d5adf7acb871@arm.com>
-Date: Mon, 7 Sep 2026 11:44:41 +0100
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="RI6Izzk8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="gV42Ai7+"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 0DEB17A0125;
+	Mon,  7 Sep 2026 06:45:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-05.internal (MEProxy); Mon, 07 Sep 2026 06:45:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1788777908; x=1788864308; bh=+RrwGJfL3J
+	uxaUg5J53rktsg4suPz5veslg2CafSxYM=; b=RI6Izzk8a8VYevx/T7wNgrK0Gv
+	Mqm4P6KqDhbC+PamIdAnw8DbwJIfzUOj3trxOvgnzFLJk981dnPN+0+kwiUoQtGl
+	igfMZZ/o3vYnnKRlEBGje/wBKb2MfJJIhzrGdtQralJ5J5SKQxsiTqr6sdV7QLb7
+	QBrptEzumJpx5LZB6ABoJHKZYLiht72mwTk53x33QxWsx58uzA3iU2wHUMEZCGD1
+	Ger+VqEIOyMSqI3hJTCu6QmjcpdKZAeqvh+06tKz+WwwtICNz2pYWzDJfpMRII8e
+	0p0EjdUncqC2sqjXcGvi9D+TCzr8TxFu8DQXrvZE4heAGY9PBC6s6m5cE9bw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788777908; x=1788864308; bh=+RrwGJfL3JuxaUg5J53rktsg4suPz5veslg
+	2CafSxYM=; b=gV42Ai7+rTLZJ5Ae08Ut6m4kCu5iwp6ay7muN9b4Jtk2AHd2k/B
+	OsacfRUG6H7aRwWTtrkRbbS15oZ5ddLWALDZcFF+nIRYeYFk9huZJxuvSCcU5tzn
+	fCSqFsjeZcFt4pQlX1Wsuk+UdZo9/ESLYSvUq3V/S7ggpJYm0ZQ62vxHUd+S1mVn
+	dFy88RdvdosyVfuZrfp2RWN1HsebtIL9z9S55zQ4YVMVEryClXfAIPWsrJaamBI6
+	NSqMqeK1dsXmZ+FOvP6YFBN54N209cyK5j4PSJFKibythKWzT/sdVF8RHeFzyF5M
+	Fl4aflVBobLNLN/eiqRoJNKGaiGikXXCqyw==
+X-ME-Sender: <xms:tJWeakDlcaPHZcZdvYyo3YjSVNdNngmH6lN2Q9tpQ9jvleSgBOknaw>
+    <xme:tJWeakyi7iQuia03Lnz0LZgxw76e4i4ulnMj8XAsxgvDfzSG_V8aUk_c3pq25RAMu
+    sJENICowxc6Q7j5fuPU8fcmBd7i0qAR5AkBLGcEbojv3pJj9Q8cO_8>
+X-ME-Received: <xmr:tJWeag6myZxgU6Ly4-lKvv36Ybkh6_Px38GNx_g9VaJEYpXfhPEx2qYTin9120TCVGhf6LkDY5cg6ClsnaxtoA5qvihWa9kxbCQ>
+X-ME-Proxy-Cause: dmFkZTEpZ37bV4WAbkr9w4Sjl1i+LGHCK0Z5tw4Ea6D9Stl38OBgl43DDxBEw2rl4fcZbG
+    HXqcdNArxZlhomcadAqdQKJfIjkOBSn1fPIRagr4/tpbZtNDxT6tEobXOqmKW1S+MX43Hv
+    vmud5whkkkEPpT807XSIPSoyN/NlVUzVXepHgf4EyV5Gjo3CzoYVNrL0j9jxJtUIfju3IO
+    6M3qtEB8S1Zz0OVDLyBrV/Wi+Q1YXS1czzm5+1JL5BH+faLFNWI4vPqjzAWZCh9eaj1O7P
+    yQViG8ITIkMV+ytiviEt1DOuJ0nOnYiUxttDTFqqRozLuu3eCCLc/mBpQJP+bCuz4hGTa1
+    27WAdTFhSItm4Mp9cmiQV3iRfbzlUxSqOP1C3Sk1t4v2sVE7Jzq76N4qXee3rc6RoYeXAH
+    MBH6DiiOsG3tpGfbF1bPmNo5WUQOStVo02gnbnTK+LWCh1dD16hio1F6r8WUvuCtNh2Su5
+    CYGpXxgxYpl/D/gwC5WhQz7xIsGCj76BHCUd/ydW25+V65CF5o7ldqjieWz4NhVk6c+vCH
+    5cB615ht3Byb1mbUxvn4dZPrE1dDl+fgLvgIaHpEJAOoI2QTu4eP+ixQ/S9l5NK0Sxotlm
+    9h7KPBVimfM9Rwk0SzuNo0Ut4plwgzXYBY+8vpYrMFGqr8v82aQAIH8D0mXw
+X-ME-Proxy: <xmx:tJWeatwa2RybXBWUDvxZrCDiZNmJIbZzpx16Bcns5GDk210ezQbzmQ>
+    <xmx:tJWeascyLbFdZ45Ay2VpeuhcHdibjaLg8fMhnWqq8crlIcgRZZAg6A>
+    <xmx:tJWeaqDTgirLdwnxQ3s4zbukNzuYtP2UjRgLiIbl7FH7OBwy9Vzugg>
+    <xmx:tJWeao4Up0PkgeqZv-YkQVuZRiG9_NheT807ib665Sa2c3Vg_F6sQA>
+    <xmx:tJWearN8eNZ6BsTjmBS9CCeAOuPQcCkXu4ZXuhKT5JBW-BhfEq0gpiQo>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 06:45:07 -0400 (EDT)
+Date: Mon, 7 Sep 2026 12:45:05 +0200
+From: Janne Grunau <j@jannau.net>
+To: Sven Peter <sven@kernel.org>
+Cc: Neal Gompa <neal@gompa.dev>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>, asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Paul Cristian <p4ulcristian@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 0/3] phy: apple: atc: Prepare USB3-via-4 tunneling
+Message-ID: <20260907104505.GB2760037@robin.jannau.net>
+References: <20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/3] x86,fs/resctrl,arm_mpam: Factor MBA parse-time
- conversion to be per-arch
-To: Borislav Petkov <bp@alien8.de>,
- Reinette Chatre <reinette.chatre@intel.com>
-Cc: x86@kernel.org, james.morse@arm.com, fenghuay@nvidia.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- tglx@linutronix.de, mingo@redhat.com, dave.hansen@linux.intel.com,
- hpa@zytor.com, corbet@lwn.net, linux-doc@vger.kernel.org, dave.martin@arm.com
-References: <20260709093111.367851-1-ben.horgan@arm.com>
- <165e7636-d7e9-4d16-aad1-657b4a9698d0@intel.com>
- <b0a7035e-7ffe-4e22-a4ae-a177640234b8@intel.com>
- <20260904033751.GCapo9D5ZZXWuQkIpc@fat_crate.local>
- <20260904173615.GOapsBjyiT7uXHd-Qc@fat_crate.local>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20260904173615.GOapsBjyiT7uXHd-Qc@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260821-b4-atcphy-usb4-v1-0-45c0b741e0c0@kernel.org>
 
-Hi Boris, Reinette,
-
-On 04/09/2026 18:36, Borislav Petkov wrote:
-> On Thu, Sep 03, 2026 at 08:37:51PM -0700, Borislav Petkov wrote:
->> Lemme have a look.
+On Fri, Aug 21, 2026 at 03:50:26PM +0200, Sven Peter wrote:
+> Hi,
 > 
-> Sashiko has comments:
+> This short series first fixes an oversight that prevents USB2 from
+> working when DP AltMode with 4 lanes is used. Then it adds the required
+> sequence to point dwc3's PIPE interface to the USB4 Native Host
+> Interface which I plan to submit soon to support USB3-via-USB4 tunnels.
 > 
-> https://sashiko.dev/#/patchset/20260709093111.367851-1-ben.horgan%40arm.com
+> Best,
 > 
-> Please address them: if valid, fix them, if not, explain why they don't need
-> to be fixed.
+> Sven
 > 
-> Thx.
+> Signed-off-by: Sven Peter <sven@kernel.org>
+> ---
+> Sven Peter (3):
+>       phy: apple: atc: Support DUMMY PIPEHANDLER state in configure_pipehandler
+>       phy: apple: atc: Factor out the PIPE mux sequence
+>       phy: apple: atc: Implement the USB4 pipehandler state
 > 
+>  drivers/phy/apple/atc.c | 91 ++++++++++++++++++++++++++++++++-----------------
+>  1 file changed, 59 insertions(+), 32 deletions(-)
 
-Regarding the first Sashiko comment.
+Whole series
 
-The documentation change in patch 3 includes the sentence:
+Reviewed-by: Janne Grunau <j@jannau.net>
 
-"
-The allocated bandwidth percentage is rounded up to the next control step available on the
-hardware.
-"
-
-Sashiko rightly objects to the "rounded up". For MPAM systems this can be up or down and we test in
-test_mpam_resctrl.c:test_percent_to_max_rounding() that it isn't too biased to rounding one way or
-the other.
-
-How about replacing "rounded up" with "rounded up or down" so that the sentence becomes:
-
-"
-The allocated bandwidth percentage is rounded up or down to the next control step available on the
-hardware.
-"
-
-What do you think? Should I respin the series with this alteration?
-
-
-Thanks,
-
-Ben
+Janne
