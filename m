@@ -1,146 +1,335 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59DF93A6B67
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2292045561F;
+	Mon,  7 Sep 2026 10:44:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777845; cv=none; b=kwiO59PkvVu/Go0YV3+3KIuRnFReGOQl7yGvbNrqycEsZzTfRn6VXt0V/j3Kv/t7UrgPxQJIH++zWWCk4xc5VYpW9gusvHrq8MEc3UvwyzpmhCjXJ3zkHcUfrGDiLw/8b+aGnB93lEnGu7YOfJxP+7m97nwJ7rh4YCiGZmvADL8=
+	t=1788777865; cv=none; b=BiAiVKUEjTuiklw+LERTXIPtD25Kw7AmaTmbPqSL5PhV/xELMaxmUkkeQR+n6/XxaEBZF96CVTcfn4i4DXHHSA3s/VfLL5s73IeF0fw832Usb4avNgCEpp3R9jb2L63rrRVcpGoYN3HPgyMTSncDATNajlTONl2ti+FHbltB4qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777845; c=relaxed/simple;
-	bh=aHyQT7885+Ubcx9vuZlaQP4s+nOfTsfJSjKYZBHLk0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tJOpjHN3O5CbUa/bD6c7Ytg56XbWer7uL+/whQ0liVrL4MEAEEgTZ9fPrkbWM18mf76VKrFecNQNYWvth6j7NTtDgdA0gtdTONMWJgIRKl1UdBNOwMM1+oSb5S1LsWo02Ks+QZOw5eSahg+tbs6JfPQSlu8YLiauT+yrFJbkRhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jyEDiM2n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BDu3KivE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788777865; c=relaxed/simple;
+	bh=HfUjNdqwF8k05W8k8ECuUMgIMjwA8JbbF+FafzXP4TU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=c7fvaNtv05C3+Xp0fuu36hAEtjIi5ZjcOheGPH0axDBAgxNTw/zSQwJviYJDislNAK6oAKgt+COaBrTd1ilebCjiYfUNoxiCK6rvAvXRO6UJmEBMswkULl9LMeGsuI8/0VONKFcPoEifi3g89lGi7uoZxj3m76Znrg7OAzAF6uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=RxK9PcPY; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jyEDiM2n";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BDu3KivE"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6879bhGp057474
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 10:44:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=r66zeNZE0qmZ3omHwDj+6n3Q
-	SfEmIbTPv0IAPejLvkU=; b=jyEDiM2nm3hXYBcePtO4wBjfgDVYCwLLGmjJMP8U
-	NK4BYcuNVfYoNtEdPlRAWVf4nGhDS/KzUHsvb49XlhnbkBtCPQLghkWzT3LhdV0T
-	RM3nfwUJOKR2HsmguvQ4YgqsDnDiUMVBNUj6JHIMyKVARCOfLEUn5k3S+QM5EnyR
-	HGij/cMCPYSRC+Tohauo7xPZgM8LIw3lHtp1H8nT5qzpqJ0+jZL/9cw6O7BxA7H0
-	+mXNCkcb8PRqNburm5UucGpETqiTAub/71wzIWy5/Qzx24Y60B1zCsbjRDGeAN9p
-	CGUCxv7xNSlqgFBb6fz5a1glOPR34Zeu7qm9EY2bp0xcNA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqgdv2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:44:03 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9396e0515dcso174913985a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:44:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788777843; x=1789382643; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r66zeNZE0qmZ3omHwDj+6n3QSfEmIbTPv0IAPejLvkU=;
-        b=BDu3KivEZ3AcasDXQ8WNjo2CMbd/x8GUfklszTYyoegDpK1z5fLzouR9YoD8xuxsHM
-         mvOAUHTcV+sETbi5YL+73nIVxja7yf0PF52pZWbIJDu7dJM0a/TF9E5X+fkaK4UAdLdd
-         R4k550fiitj3pJdZNBQg/NQJAn2mldL0tpculkW9jWVleegfuZEmyWCUasaUigw28PJU
-         c6b3bM8zcRNrIvZIKHgGMbajCHmBc7RNyh9nj6+8wxH9eFmGqTs/n0MlGzqeRnTGcQMF
-         DS9SS3Vd13FVS0o10DBW2kZgJzsk8YUkCqNiScxDM4S4AYShVaymO1HfEJdUmVZBzJDM
-         JO1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788777843; x=1789382643;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r66zeNZE0qmZ3omHwDj+6n3QSfEmIbTPv0IAPejLvkU=;
-        b=Q9pi+eyUmDmMFWfhCZ7hP6dL8fOBmzHNbWlp/vGjsEZ2ykHL7HpqengIb48cwFfNLw
-         vMHWLs6lFMIXVao98xuUMJ6T9zocg9fY75BGiD4749LPi3qcp8Z3NHfthJFYHc/nkHUt
-         /EeqR2sra+8fUkWFmwhODh0vx8Iyga7w0MbtaNYbq02IhDVx/1sd8EyleiTP4qSoUc1f
-         RqC67abX8x3upxjs169labKlLcJxEQGDrGNFjunhoQj7YWjd1USM8LDfwug02IT4uK3Y
-         F4GBARIOp0j4V5lg1b3EMKf8OZkGX8AL5MPDviVBVqm2Kg0Csm16iPD4j9+8znG20VjI
-         +hVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjTknDAJQbscICQEMNHWnvtFUXY1RWQ23GAb3lEu5SIx9HFd2VPiO7V3Iqo0BbuvH7fFz4fLERcGEm/YE=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8ckqcur6HnlfG56EwQ0v3fUj+Kh/o2U6zR2DENtIdrANA+EYm
-	sO2M2CvlVhseoAank6f8W/dec992LbwwF/xawQ24/ZoQZ+kqTVpDHNlgycCTMiC6cdfKB0nr3so
-	rVnig4YWZ1Z3oT2HwAnKX0UZBBizfSnnSVixeiijLnuBjJzcj3y2Yw6WRoLo3d+zMyDI=
-X-Gm-Gg: AYBFou2j6AS/bzcuXTgDLN3kl74JnWDZ5eUHTXORvkyyBlJQggZ9QXAPZhc1O6o/GSH
-	9O3uNp5f2VGiiyxkQBETKz6KNYErSKuQzZfOEHnRlM0DvlwMJWD/S3uS2bPZJRjC1XkuKDUXGhL
-	ZJaeAfOk2UDuOUqM9VBIuF9QUZNaYr5H408MVu+1/enML2FhAKLu8r9psxHESYXrHwKRKyJWWbS
-	3YLKoHmIEzcyXqK8PWiK3Ixpm4ggBYLlwguoeDkDaXCZYanbk4tG+CmNKgIYodSXssq1wz9Y+zC
-	6HfqsdQ0RIDQvjvGaNxmblODbxrZE8Mt9YuMUpFD5bE4RR7VSEioyD7fBoKg5/GJmJZXD3PjHPD
-	8+fLauPHRkioZCA==
-X-Received: by 2002:a05:620a:370a:b0:939:15e:1a5 with SMTP id af79cd13be357-93980528e01mr2383688985a.35.1788777842607;
-        Mon, 07 Sep 2026 03:44:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:370a:b0:939:15e:1a5 with SMTP id af79cd13be357-93980528e01mr2383685485a.35.1788777842080;
-        Mon, 07 Sep 2026 03:44:02 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0656e7bbsm199282865e9.10.2026.09.07.03.44.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:44:01 -0700 (PDT)
-Date: Mon, 7 Sep 2026 13:43:59 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/3] clk: qcom: dprxcc: Add Nord DPRX clock controller
- support
-Message-ID: <kg7vrzt5ucpooujgovl7je2riiry64u3hfl4l3y5qs5rw4ggoa@nwagyecpv7ca>
-References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
- <20260907-nords_dprx-v1-3-d472af3f01b1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="RxK9PcPY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=pBCg7u49xpfBsWBvFB9jk6E2nhJPT8YcUxlHzKNM8WM=; b=RxK9PcPYkOrTuOM7DTVueJYSLt
+	FJANQJZNPFqnzcVCY3ecpmaakRjFGhlLVw0dK2a0GQwdSglGG+w6glu+SedKwqRxNJyS+qLKVI+i5
+	HjDaSaCjZQLns2bQOsQWROXxLy5vKufZPYE+WUolGOWiC4jOLpcEHPS2ATCQnjE8EGiv54jHgRhUA
+	oKs5YIao02R0PhnkjTDwNExrpIcsDgI7IczuYBU9tYYBFit++5HtvtEMH5BNKQBqWXdwo9I42IPh6
+	l9axhfsspxE6TASh00U2yfiXM4GpDoI2EsMjQDuFGD5dGAkSxAJbohhsQ1GDZq+3n34lJamMp9KXF
+	LSzVcHow==;
+Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x3Wpg-00FzOb-Dm; Mon, 07 Sep 2026 12:44:12 +0200
+From: Luis Henriques <luis@igalia.com>
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>,  Chen Linxuan <me@black-desk.cn>,
+  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
+ <skhan@linuxfoundation.org>,  fuse-devel@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,  Matt
+ Harvey <mharvey@jumptrading.com>,  kernel-dev@igalia.com
+Subject: Re: [RFC PATCH v3 4/8] selftests/fuse: factor-out test fixture
+ setup/teardown
+In-Reply-To: <CAOQ4uxgR8v6H=8fHMmLjChsuXUn8560nzda55t8pCNA1ocvg_A@mail.gmail.com>
+	(Amir Goldstein's message of "Sat, 5 Sep 2026 14:45:08 +0200")
+References: <20260904103920.4471-1-luis@igalia.com>
+	<20260904103920.4471-5-luis@igalia.com>
+	<CAOQ4uxgR8v6H=8fHMmLjChsuXUn8560nzda55t8pCNA1ocvg_A@mail.gmail.com>
+Date: Mon, 07 Sep 2026 11:44:59 +0100
+Message-ID: <87pkypfihg.fsf@wotan.olymp>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907-nords_dprx-v1-3-d472af3f01b1@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDExNyBTYWx0ZWRfX6j1j9w6SZpDx
- OHwW+K4QO5h7DXKBEeaCaQBTCuzGwJGXygRNE+XVSWHHuuwsVoeezYlOkRywpnhU+1tJlIke9tG
- hPMFifUTmD4JycVYVZXD4/AEWWA+/11n5sQIRXvBKyL8UNUg8xFIrmXtaBKvzc/1iqYOjByXWdO
- DuWj9UAHO7fNDXcQJdSNeau0qSnumM+59Od5QSuNXpo6lNr3+cibXMaucI5uf7Sq8g4c3FwwDs9
- Jd3odlAoKEydb8gzjOw1EYjNmbVbX4+PlBTUXlxOmJgG/0VTLaZicJPbP34Wt9d5eQyZIcsgxKR
- RT5jFh3SZsOogkJIpjlOZUc9ZB4hbIeVaKlid1mM7YoZDsZyZQvpsA2aYXNu2h9WqsCT0N2ePyi
- s7e94QOyqEuHXSRVVwxFC04WjGb9zJGelcVk7z41vSHkDglBPUD1EhCLaVi94Bp7zYi2rCy0J9a
- ybm/marS4GqkRc1c6aQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDExNyBTYWx0ZWRfXyqV8LwyYsCt9
- vtwsaIGfBi319klP1Ozy9fO/cwDqVuU0RauziB3wKtnQR2ZIZKQ+BEfW3KhUFi+X1PY/UNl30if
- jevMeU2Bgzg1wzZhNAmicvRgUj2f3W8=
-X-Proofpoint-ORIG-GUID: aErvZlnzIWtxggsSeIGYFC4SUop_5cxf
-X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9e9573 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=2d2XUzBh9Lae0zXQoI4A:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: aErvZlnzIWtxggsSeIGYFC4SUop_5cxf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070117
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26-09-07 13:56:15, Taniya Das wrote:
-> Add support for the DisplayPort Receiver (DPRX) clock controllers on
-> Nord devices. There are two identical DPRX clock controller
-> instances (DPRX0 and DPRX1), each providing clocks for the DPRX core,
-> audio, AHB and video memory paths, along with core PLLs.
-> 
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+On Sat, Sep 05 2026, Amir Goldstein wrote:
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> =
+wrote:
+>>
+>> In order to reduce new tests setup/teardown code duplication, factor-out
+>> these functions from the existing acl_cache test into a new fuse_common.c
+>> file that can be reused in other tests.
+>>
+>> Signed-off-by: Luis Henriques <luis@igalia.com>
+>> ---
+>>  .../selftests/filesystems/fuse/Makefile       |  8 ++-
+>>  .../filesystems/fuse/fuse_acl_cache_test.c    | 62 +++----------------
+>>  .../selftests/filesystems/fuse/fuse_common.c  | 60 ++++++++++++++++++
+>>  .../selftests/filesystems/fuse/fuse_common.h  | 25 ++++++++
+>>  4 files changed, 100 insertions(+), 55 deletions(-)
+>>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common=
+.c
+>>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_common=
+.h
+>>
+>> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/t=
+esting/selftests/filesystems/fuse/Makefile
+>> index a3ee9b3a2f5d..7744f796eb06 100644
+>> --- a/tools/testing/selftests/filesystems/fuse/Makefile
+>> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
+>> @@ -21,8 +21,12 @@ ifeq ($(VAR_LDLIBS),)
+>>  VAR_LDLIBS :=3D -lfuse3 -pthread
+>>  endif
+>>
+>> +CFLAGS +=3D $(VAR_CFLAGS)
+>> +LDLIBS +=3D $(VAR_LDLIBS)
+>> +
+>>  $(OUTPUT)/fuse_mnt: CFLAGS +=3D $(VAR_CFLAGS)
+>>  $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
+>>
+>> -$(OUTPUT)/fuse_acl_cache_test: CFLAGS +=3D $(VAR_CFLAGS)
+>> -$(OUTPUT)/fuse_acl_cache_test: LDLIBS +=3D $(VAR_LDLIBS)
+>> +$(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
+>> +
+>> +EXTRA_CLEAN :=3D fuse_common.o
+>> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_tes=
+t.c b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+>> index 2411a6e285f1..12cbf9753d03 100644
+>> --- a/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+>> +++ b/tools/testing/selftests/filesystems/fuse/fuse_acl_cache_test.c
+>> @@ -33,23 +33,15 @@
+>>   */
+>>
+>>  #define _GNU_SOURCE
+>> -#include <errno.h>
+>>  #include <fcntl.h>
+>>  #include <linux/limits.h>
+>> -#include <pthread.h>
+>>  #include <stdint.h>
+>> -#include <stdio.h>
+>> -#include <stdlib.h>
+>> -#include <string.h>
+>> -#include <sys/stat.h>
+>>  #include <sys/xattr.h>
+>> -#include <unistd.h>
+>> -
+>> -#define FUSE_USE_VERSION 31
+>> -#include <fuse_lowlevel.h>
+>>
+>>  #include "kselftest_harness.h"
+>>
+>> +#include "fuse_common.h"
+>> +
+>>  /* ---- ACL binary encoding -------------------------------------------=
+----- */
+>>  /*
+>>   * POSIX ACL v2 xattr format (little-endian):
+>> @@ -176,69 +168,33 @@ static const struct fuse_lowlevel_ops fs_ops =3D {
+>>         .getxattr =3D fs_getxattr,
+>>  };
+>>
+>> -/* ---- Daemon thread -------------------------------------------------=
+------ */
+>> -
+>> -static void *run_daemon(void *arg)
+>> -{
+>> -       fuse_session_loop((struct fuse_session *)arg);
+>> -       return NULL;
+>> -}
+>> -
+>>  /* ---- kselftest harness ---------------------------------------------=
+------ */
+>>
+>>  FIXTURE(acl_cache) {
+>>         struct fuse_session *se;
+>> -       char                 mountpoint[PATH_MAX];
+>> +       char                 mountpoint[MOUNTPOINT_SZ];
+>>         char                 file_path[PATH_MAX];
+>>         pthread_t            thread;
+>>  };
+>
+> Nice!
+> I think it would be even nicer to have struct fuse_common_ctx
+> with the common members embedded in the per test state,
+> but I'll let you decide if you want to do that or not.
+
+Thanks for the suggestion.  It may make sense indeed to have that common
+struct, although it would probably only include the spinlock and a bool
+for enabling/disabling the cache.  I'll have a closer look and see if it
+makes sense.
+
+Cheers,
+--=20
+Lu=C3=ADs
+
+>
+> Thanks,
+> Amir.
+>
+>>
+>>  FIXTURE_SETUP(acl_cache)
+>>  {
+>> -       char *fuse_argv[] =3D { "fuse_acl_cache_test", NULL };
+>> -       struct fuse_args args =3D FUSE_ARGS_INIT(1, fuse_argv);
+>> +       char err[MAX_ERR_MSG];
+>>
+>> -       g_ds.acl            =3D acl_a;
+>> -       g_ds.acl_size       =3D sizeof(acl_a);
+>> +       g_ds.acl =3D acl_a;
+>> +       g_ds.acl_size =3D sizeof(acl_a);
+>>         g_ds.getxattr_count =3D 0;
+>>
+>> -       strcpy(self->mountpoint, "/tmp/acl_cache_test_XXXXXX");
+>> -       if (!mkdtemp(self->mountpoint))
+>> -               SKIP(return, "mkdtemp: %s", strerror(errno));
+>> +       if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread=
+, err))
+>> +               SKIP(return, err);
+>>
+>>         snprintf(self->file_path, sizeof(self->file_path),
+>>                  "%s/" FILE_NAME, self->mountpoint);
+>> -
+>> -       self->se =3D fuse_session_new(&args, &fs_ops, sizeof(fs_ops), NU=
+LL);
+>> -       if (!self->se) {
+>> -               rmdir(self->mountpoint);
+>> -               SKIP(return, "fuse_session_new failed");
+>> -       }
+>> -
+>> -       if (fuse_session_mount(self->se, self->mountpoint)) {
+>> -               fuse_session_destroy(self->se);
+>> -               rmdir(self->mountpoint);
+>> -               SKIP(return, "fuse_session_mount failed "
+>> -                            "(missing fusermount3 or insufficient privi=
+leges)");
+>> -       }
+>> -
+>> -       if (pthread_create(&self->thread, NULL, run_daemon, self->se)) {
+>> -               fuse_session_unmount(self->se);
+>> -               fuse_session_destroy(self->se);
+>> -               rmdir(self->mountpoint);
+>> -               SKIP(return, "pthread_create: %s", strerror(errno));
+>> -       }
+>> -
+>> -       fuse_opt_free_args(&args);
+>>  }
+>>
+>>  FIXTURE_TEARDOWN(acl_cache)
+>>  {
+>> -       fuse_session_exit(self->se);
+>> -       fuse_session_unmount(self->se);
+>> -       pthread_join(self->thread, NULL);
+>> -       fuse_session_destroy(self->se);
+>> -       rmdir(self->mountpoint);
+>> +       fs_teardown(self->se, self->thread, self->mountpoint);
+>>  }
+>>
+>>  static int do_force_statx(const char *path)
+>> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.c b/to=
+ols/testing/selftests/filesystems/fuse/fuse_common.c
+>> new file mode 100644
+>> index 000000000000..3a91cac25b81
+>> --- /dev/null
+>> +++ b/tools/testing/selftests/filesystems/fuse/fuse_common.c
+>> @@ -0,0 +1,60 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +
+>> +#include "fuse_common.h"
+>> +
+>> +static void *run_daemon(void *arg)
+>> +{
+>> +       fuse_session_loop((struct fuse_session *)arg);
+>> +       return NULL;
+>> +}
+>> +
+>> +int fs_setup(struct fuse_session **se, char *mountpoint,
+>> +            const struct fuse_lowlevel_ops *fs_ops,
+>> +            pthread_t *thread, char *err)
+>> +{
+>> +       char *fuse_argv[] =3D { "fuse_test", NULL };
+>> +       struct fuse_args args =3D FUSE_ARGS_INIT(1, fuse_argv);
+>> +
+>> +       strcpy(mountpoint, MOUNTPOINT_TEMPLATE);
+>> +       if (!mkdtemp(mountpoint)) {
+>> +               snprintf(err, MAX_ERR_MSG, "mkdtemp: %s", strerror(errno=
+));
+>> +               return -1;
+>> +       }
+>> +
+>> +       *se =3D fuse_session_new(&args, fs_ops, sizeof(*fs_ops), NULL);
+>> +       if (!*se) {
+>> +               rmdir(mountpoint);
+>> +               snprintf(err, MAX_ERR_MSG, "fuse_session_new failed");
+>> +               return -1;
+>> +       }
+>> +
+>> +       if (fuse_session_mount(*se, mountpoint)) {
+>> +               fuse_session_destroy(*se);
+>> +               rmdir(mountpoint);
+>> +               snprintf(err, MAX_ERR_MSG, "fuse_session_mount failed "
+>> +                       "(missing fusermount3 or insufficient privileges=
+)");
+>> +               return -1;
+>> +       }
+>> +
+>> +       if (pthread_create(thread, NULL, run_daemon, *se)) {
+>> +               fuse_session_unmount(*se);
+>> +               fuse_session_destroy(*se);
+>> +               rmdir(mountpoint);
+>> +               snprintf(err, MAX_ERR_MSG, "pthread_create: %s", strerro=
+r(errno));
+>> +               return -1;
+>> +       }
+>> +
+>> +       fuse_opt_free_args(&args);
+>> +
+>> +       return 0;
+>> +}
+>> +
+>> +void fs_teardown(struct fuse_session *se, pthread_t thread, char *mount=
+point)
+>> +{
+>> +       fuse_session_exit(se);
+>> +       fuse_session_unmount(se);
+>> +       pthread_join(thread, NULL);
+>> +       fuse_session_destroy(se);
+>> +       rmdir(mountpoint);
+>> +}
+>> +
+>> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_common.h b/to=
+ols/testing/selftests/filesystems/fuse/fuse_common.h
+>> new file mode 100644
+>> index 000000000000..77d5eb58550d
+>> --- /dev/null
+>> +++ b/tools/testing/selftests/filesystems/fuse/fuse_common.h
+>> @@ -0,0 +1,25 @@
+>> +#ifndef __SELFTEST_FUSE_COMMON_H__
+>> +#define __SELFTEST_FUSE_COMMON_H__
+>> +
+>> +#define _GNU_SOURCE
+>> +#include <errno.h>
+>> +#include <pthread.h>
+>> +#include <stdio.h>
+>> +#include <stdlib.h>
+>> +#include <string.h>
+>> +#include <unistd.h>
+>> +
+>> +#define FUSE_USE_VERSION 31
+>> +#include <fuse_lowlevel.h>
+>> +
+>> +#define MAX_ERR_MSG 256
+>> +
+>> +#define MOUNTPOINT_TEMPLATE "/tmp/fuse_test_XXXXXX"
+>> +#define MOUNTPOINT_SZ 64
+>> +
+>> +int fs_setup(struct fuse_session **se, char *mountpoint,
+>> +            const struct fuse_lowlevel_ops *fs_ops,
+>> +            pthread_t *thread, char *err);
+>> +void fs_teardown(struct fuse_session *se, pthread_t thread, char *mount=
+point);
+>> +
+>> +#endif /* __SELFTEST_FUSE_COMMON_H__ */
+
