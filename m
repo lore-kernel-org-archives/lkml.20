@@ -1,175 +1,208 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77973EDE6E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F265735BDC7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:20:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812385; cv=none; b=qonRhIuiJv7ly6Z0WhED+inAvnOZmXV5xecIg3x9gr/Nzxz9Vlif3wCK2NbBpClsBcbhmGqlHh8Qa33tsiwG37FvKlhY5DLOFvBjJOqzMiZ0GKoFFp8Nw0Tzb9X1pqQ5Qo74IMiqyUPAKnvZDQgYKTt5b0nh2U/51B4C59w8IDo=
+	t=1788812428; cv=none; b=LIb+hnfmfxpL8NZHuZ06dtDplHrnW/PhLkuwig0lceeGaLGqqfUZO0PxMKZxFiMSxdOZ9Y+Kfvg5UQGuU/O+nkbmzpxmWFTapvrm5Ziad3NsmgZlQa7tYJf+7zTyka8PXP4HuEwYJ/lIaOoi0mRQ91LemEu2MmAB02OqovfvQhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812385; c=relaxed/simple;
-	bh=ibfSzuvEqAX4vqhVzf0MhyB9RVT64f5Zvs5HA/q3DxI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NCJG7LuEFyaXEo3svxdFRRYzMdk/9fTHU+wzUnwxUIv/hkVnJ/kxI+p1VRQv6PY6vcL6xQAWSLx9d+5xeIWtaTnq1LNk5k0YFI+LNiJhswqlXZieUa6c2gMWVVN3fA4lTLg/iHlREzO8jT5jt/dM3Ql5wUtWwa5IrH0rm2e+Tr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OEdGhvpw; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788812428; c=relaxed/simple;
+	bh=7CrZNHHkxIkuOJo45Q3XSFmINtwFQy/yCbxiey+tcdU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MFvs7I8hvd7nwobh+F3vLMw9ThSUZyzaDUw/DCj4z06yInftOk20OCQIRQA4/SWsfQ96HM+wbKxLxGPkNPp54z2/SWK7pnXQk7fgNqG9QCIxP8i36FuHZajCbar2U5tjwi29kiod2971GTXfFOXaiTWzA6cjSpCzsVvtKxeVR6s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=mTIroMZ9; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=5YpBJbDq; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OEdGhvpw"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2db3305f94fso26070595ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:19:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="mTIroMZ9";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="5YpBJbDq"
+Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687IYESk2944957
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 16:20:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=e/8X
+	t8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=; b=mTIroMZ9VSQDHSfFIKun
+	wnxVGlayuUoRMfa7SKWG+pYEFE21IfX/KHvFXmC68aG0rOzp3w3cn44nE/ZY96i1
+	8PsrLwDQYHPFzVXbkVxA811BR51/iUq05Vw9w0sohqNWOzcDUt/u+B19GSUplmUN
+	4LK7BhXcOReIj5ElzSsJumDc9eUI5cXWQ9PIZxjLLEJ+RfMWVB4drLz/byeLneGS
+	gANXnJlFsCU87BtXnYyO6BcxQ3iP/YEK5rfqVzvMDXZDntPBP80xwR4SSelIsS8j
+	mup+R4E+lvT8u91utx+f3a7/kJy7DTuRj6cNB39WeIgC6fMRRUjlY6LdyoETKCkF
+	7g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4ghepk5ejf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 16:20:23 -0400 (EDT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52fc3bff8bdso69168281cf.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788812383; x=1789417183; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XqM7CNcQIe0bZF2r0IXx9E1bi6r31mjO2/QDFutoPOg=;
-        b=OEdGhvpwwtWyTvG4DRd2e/4cuMe1a5sMjOVqLLGRJWDe4Y6/ERT7ooEWpNRBeH43r2
-         +DsaQSj6ZyZ5vrIxFkOTsZa1QF9hQdVdfGgX5/NtUE/eOfKnaHl2tDAM1SUVF8xnI9TN
-         nDBxYEoDXg38ldHXROAz4ZdRiUkIg5Y9/0XcKw8BYF5lI5MCYT+c89F+rIV4l5i9zh/7
-         kcF7dttrfS/2cYuqoClbSCDo+4PtOSQrs1liijwugSThQpz0gZ704HqTcl2oJr3o7L17
-         m8pLVX9oCXIsPjx5G1LLnGY9Xuj26K3b9Yp4sZWVzFTpFRABlmYkfdrJW7HYMxAx8S62
-         LaBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788812383; x=1789417183;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=columbia.edu; s=lionmail; t=1788812423; x=1789417223; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XqM7CNcQIe0bZF2r0IXx9E1bi6r31mjO2/QDFutoPOg=;
-        b=tIUFB5Fj6PNqTK0Y4Q8p91xOhPvvOlDySzJq5HBcrrtpQPE8BubQgw9rEghvkEaUZB
-         st9Y0a0tjLc2YE7FuRrmWzwA8j90UxmkLT7gCR3bgkpAaSTnP0tkPTGn3dDTd37tuMbS
-         u1rGvD0IBCX0fXiMqnhRBC9pnAUBBWedo5dchx798vD075F8LU24AsQWBXYa/eYBhMzd
-         T9KrPmtFg/Uha+13+mxNPUHPt9CNsK0Vs0NKGwPpbxvmEcJB6IwSdfbLB1mFuBGJdite
-         2dn33T3cwiCi5Hse9gy+sF89oXPKdSu6KLVUjUqJ4EA5Yb2wqizkhsBlgzoaIRRUr8GY
-         VXLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlRjE5ynOUpnbxsMzxy9JQ0ffDUVCc7/HqY97jXzhCN4bldSt4nHpW5V9GOA6lx65B419TzPe1zzEQq4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHzxIPSoAPYlu2E5/t8OLEYdAofcoiHEg/EZO7WdgHPh3VyTBK
-	2Q0Eck6BYFtD5lCsXnrHNPCiNw6F+nxxIQmgOtYvH2ROdrRdd5gtuvrAmjDIFw==
-X-Gm-Gg: AYBFou2YsLQyfw7A5m1ijk1hh0K1dBlR14b3dH2g662BS+aEAEkikL/ry2s6N8aFH5y
-	/ApKbeslfFtmysSIeetA2jYK7kOzNNLw4XSwNyBPd3+6lK7BAgQNr2iFgYxx85nKbPVhYtE/XFJ
-	qzyD7zSGRX6ILA55Rmto9lCXjKIle3y1ZdqlyGvRUq7ek7kRGtwUTOJTvbb+Zk7m8idZTrvMYNn
-	la6zvFFahnYRiXTCSU7VECHK4+MuMTGjzkxlj6eXpjQWyQwBEiUGFmdyVPHXlMNavVXfZluTZj7
-	C6o/iBFXb2jiZYaeTsJNhA+pzlEL/ifDPuEf9oAt1lBFaNRJRqbSYqPRItq50nvhMv/Mj5HpZCA
-	G3cGMIOpCs66lDSR3PVGeuJVUOjBC2IlMQ961EHdu+g+72C3y18cC6FVwch7EyAGbeS+LCqwtVu
-	cxZOFkuBRn2KTo1IhSGmqs+nOeaRT8zjKsUcYksKrmmcqHYefJK2F+AAOPhqDc+cBl2mhS8rxjU
-	rrTZxDOzG/U7lgaWKJjoG4hn5ORTCjgeZfJ+N+ex8uSl3srHbf5EmlrwLb7fg+cQ/eSje3uRWfz
-	iQraPK+wV2cDSXDXzMertdOWdS+aE7cAD7JEgA==
-X-Received: by 2002:a17:90b:1d4f:b0:398:9be5:b417 with SMTP id 98e67ed59e1d1-39b26221eb1mr36621766a91.18.1788812383036;
-        Mon, 07 Sep 2026 13:19:43 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm22082690a91.11.2026.09.07.13.19.41
+        bh=e/8Xt8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=;
+        b=5YpBJbDqi2sF0Q7c27P9G1LZuER82OjJg8+2hh1DXlcQ4EwnmQw4ujtElBzni9tU6F
+         I9IwuvwymW3xjySKqJvij5jhS/FiXhg2qVwOsnOGifUxKjKfm6sUzdrLamRmhLZp7vk5
+         zo8iQXPN94t2vkJPyPt2S/4KnrpFOcfkHZkXMCapypRWRhEpyFDkKpvwgZ6HLb6JgiXv
+         ecP3FwMvDgxw/T2blK/QhTaG1yBcJqZ/ISyk3uF98J8EREg5fszLNw7JYzkZvejMIfUr
+         Lv9vvcb6GsITzdRe2tQrZkbyc9YTPOeqe6NXLxPbDrGsX5OhY3ZzsCesubHnH1MmbOqo
+         85+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788812423; x=1789417223;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=e/8Xt8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=;
+        b=Bf2WihxgkIuI3r2Acq9iMBBIOiox4Vsz3IMzSA2BqwjEwVF7lPSSeANMpBnp0ULqLW
+         xBO31T682sk8jodYb0JyMxI82V65NN302YJEceXb20wa5axT+9RvPnNR4Udcekg4iA2C
+         YE1tuX/nSUo2dUFvOL+fAH9z+F5ifYzvBw7UJybv7Ac5ZDfgU+iNw4JMohS8V2E2u579
+         vr+C4q8JnqFJyGr0pV1qS/WoYwZSg7zfq0P+ohM3SY1Fzdv4iJErUXNCFRt8GUtUyAF8
+         eOV/+nBwR0mm6fRquaT64THKNmF2d+Kgm8+fEFPM8lCUU/Tmhro9xdjpXjiBEUdvCEdx
+         CQYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYSyhKndEOa7gbaUL2+4DwgOyyGba9kUWBcNOX6yqL7QWSajqAGO7uNenBGHriHgaeRgL8idtRMTTZusg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4GYx+ZbEseqBpKpFZGc5nKaKW7UQSKlhKAWkoZc/XRKFYJS/b
+	Wp812hGdbrRwY7oXj3+GCoAfUjAQWiZr/+V7BJBbaIWWSestsjrAXbQuqjR1tqi2KJPtUSjVqvB
+	7jFbtc6KgVzW2Syj+F9+abbtaSZ3tXbTx9+A4CX1uY06+VLg8rKef3r6P1sq2pA==
+X-Gm-Gg: AYBFou1cBjK+bgDtKDnsE1l9NQkkDvYluU/MkwMkvyahyENcjZaS695cvy/cL9Z+oTU
+	ZrDTxFwEXA6aOjcPpN80hff+vLb2XRpXGcVloIlIM8hi6xUGl1Cb6MtI5bRLhsiCgR28nH+17mQ
+	bYXglJEEqvVEzm4y4obSsAixkMerYqZIRX7HX+qgT2fcZ/iiP8RycJOKQv3h33ZbWoK3D4Y0fTS
+	xuT52/FDXRMQOZDc8OCrBAFVr6x4xGFzG0Q+XMijY4oYLxDZVOjfIYrW5pJnQ6bT9H6EqhJ6qLn
+	7x0z3MiTUU7tGnKyoM6JBI7Z4cBdcszAgDjcsqz5Ftqm4YO0Er3RtDuHKxsbv4OrvezTs0T440t
+	dDOgKh9mGB/4KPvzzSqnO7OJHmCHA81/AW0o+buNdKNE=
+X-Received: by 2002:a05:622a:2483:b0:517:580c:bcd3 with SMTP id d75a77b69052e-5305484e5bbmr272939021cf.19.1788812422949;
+        Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
+X-Received: by 2002:a05:622a:2483:b0:517:580c:bcd3 with SMTP id d75a77b69052e-5305484e5bbmr272938451cf.19.1788812422567;
+        Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
+Received: from [127.0.1.1] (nat-128-59-176-3.net.columbia.edu. [128.59.176.3])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305413ce9dsm95062351cf.11.2026.09.07.13.20.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:19:42 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-leds@vger.kernel.org
-Cc: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] leds: is31fl32xx: Use fwnode/device property APIs
-Date: Mon,  7 Sep 2026 13:19:40 -0700
-Message-ID: <20260907201940.40524-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Mon, 07 Sep 2026 16:19:55 -0400
+Subject: [PATCH v2 1/7] btrfs: tests: rename process_page_range() to
+ process_folio_range()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-btrfs-folio-conversions-v2-1-b5fe79f7607b@columbia.edu>
+References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+In-Reply-To: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
+        Qu Wenruo <wqu@suse.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788812420; l=2514;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=7CrZNHHkxIkuOJo45Q3XSFmINtwFQy/yCbxiey+tcdU=;
+ b=lUibCyWOXiDPqjCmfOUjNQsuqs5O9ACYkEL544lHBSuJaExgYa0Sz++VVb27Q5qzJgNoTUVlh
+ IXovoCjp9O7CV2jA/QkcycZcHLCSu/8ZjlPyeK/mSt289NbyizFJkbB
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Authority-Analysis: v=2.4 cv=Wc48rUhX c=1 sm=1 tr=0 ts=6a9f1c87 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=92j1mJcILCjWExuphHMrQw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
+ a=iox4zFpeAAAA:8 a=VvYWPSha7RrLN2mrkrMA:9 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22 a=WzC6qhA0u3u7Ye7llzcV:22
+X-Proofpoint-ORIG-GUID: RVP2LW-dJpJ8WNPe8pg4ykXp0LFUhmNW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfXwttQD+Q4yTqZ
+ iifkh4YNBOtmSzaev6ifZ8UKw/7mNrwxyLE+Y8tKJSV3OWpqSC1GClxanMfqcDO2IydBzGZLK98
+ J24vGNo0lbMD8TsihJyHloGieoP5i6IznlZvioaCsxf2typoy+Jc
+X-Proofpoint-GUID: RVP2LW-dJpJ8WNPe8pg4ykXp0LFUhmNW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfX+ngBYKwY73xO
+ scK2W5hdXg4wCPoTmYolIVt/OPKUv9q0RKysL8UhF/7PaSW150wSg1VU8iZbt6NV3LDzSC4lc3J
+ 5ppNqRsWDVX8obHyNG66uKYywFbuLC2IDc0AVkYnKWLHyJPTXylc8FoZEOhoiZqy+/JO/0ysrrc
+ uBe5vopD9dGengLbG6cnCa9+5vh75crMyA+avLARjEqDSnoGTDnza/6SH9ijQB5KaHhwgn0+PQh
+ Mk4dJ23aYA89xTBDTghgoWsNGtda7zD6d2LRMKFm+aDPJd2heLVrWk3Jza/dkGNBBnETnFwxdul
+ +F47fFpdRYbre2ZRzQ5j2bhavZZwdnpVh/O+ZBWQ4VsWg4aISIqG2wP/wtTLEvEiXUK/WLJN4KZ
+ pu/Uq9viiBvJUwksIlo7wafuSf70lqFPksrvcxvBu5X82xLed1y3RcmHhrywqZgqzboMdV40MFA
+ rSO8vCYO4yVseZWXyfA==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
+ lowpriorityscore=10 bulkscore=10 suspectscore=0 clxscore=1015 adultscore=0
+ impostorscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070224
 
-Convert the DT-specific helpers in is31fl32xx_parse_dt() and
-is31fl32xx_parse_child_dt() to their fwnode/device equivalents.
-Behaviour is unchanged for device tree: device_property_read_bool(),
-device_for_each_child_node_scoped() and device_get_child_node_count()
-operate on the same nodes and keep the skip of unavailable children.
+It already operates on folios. No functional change.
 
-Use the %pfwP format specifier in error messages, as child is now a
-struct fwnode_handle and %pOF would misread it as a device_node.
-
-Assisted-by: opencode:deepseek-v4-flash-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- drivers/leds/leds-is31fl32xx.c | 20 ++++++++++----------
+ fs/btrfs/tests/extent-io-tests.c | 20 ++++++++++----------
  1 file changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/leds/leds-is31fl32xx.c b/drivers/leds/leds-is31fl32xx.c
-index 6c8d6b833260..285085d27453 100644
---- a/drivers/leds/leds-is31fl32xx.c
-+++ b/drivers/leds/leds-is31fl32xx.c
-@@ -378,23 +378,23 @@ static int is31fl32xx_init_regs(struct is31fl32xx_priv *priv)
- }
+diff --git a/fs/btrfs/tests/extent-io-tests.c b/fs/btrfs/tests/extent-io-tests.c
+index 23459cd4e503..6eb55bfb2bd4 100644
+--- a/fs/btrfs/tests/extent-io-tests.c
++++ b/fs/btrfs/tests/extent-io-tests.c
+@@ -18,8 +18,8 @@
+ #define PROCESS_RELEASE		(1U << 1)
+ #define PROCESS_TEST_LOCKED	(1U << 2)
  
- static int is31fl32xx_parse_child_dt(const struct device *dev,
--				     const struct device_node *child,
-+				     const struct fwnode_handle *child,
- 				     struct is31fl32xx_led_data *led_data)
+-static noinline int process_page_range(struct inode *inode, u64 start, u64 end,
+-				       unsigned long flags)
++static noinline int process_folio_range(struct inode *inode, u64 start, u64 end,
++					unsigned long flags)
  {
- 	struct led_classdev *cdev = &led_data->cdev;
- 	int ret = 0;
- 	u32 reg;
- 
--	ret = of_property_read_u32(child, "reg", &reg);
-+	ret = fwnode_property_read_u32(child, "reg", &reg);
- 	if (ret || reg < 1 || reg > led_data->priv->cdef->channels) {
- 		dev_err(dev,
--			"Child node %pOF does not have a valid reg property\n",
-+			"Child node %pfwP does not have a valid reg property\n",
- 			child);
- 		return -EINVAL;
+ 	int ret;
+ 	struct folio_batch fbatch;
+@@ -221,8 +221,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
+ 				test_start, max_bytes - 1, start, end);
+ 		goto out_bits;
  	}
- 	led_data->channel = reg;
- 
--	of_property_read_u32(child, "led-max-microamp", &led_data->max_microamp);
-+	fwnode_property_read_u32(child, "led-max-microamp", &led_data->max_microamp);
- 
- 	cdev->brightness_set_blocking = is31fl32xx_brightness_set;
- 
-@@ -422,7 +422,7 @@ static int is31fl32xx_parse_dt(struct device *dev,
- 	int ret = 0;
- 
- 	if ((cdef->output_frequency_setting_reg != IS31FL32XX_REG_NONE) &&
--	    of_property_read_bool(dev_of_node(dev), "issi,22khz-pwm")) {
-+	    device_property_read_bool(dev, "issi,22khz-pwm")) {
- 
- 		ret = is31fl32xx_write(priv, cdef->output_frequency_setting_reg,
- 				       IS31FL32XX_PWM_FREQUENCY_22KHZ);
-@@ -433,7 +433,7 @@ static int is31fl32xx_parse_dt(struct device *dev,
- 		}
+-	if (process_page_range(inode, start, end,
+-			       PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
++	if (process_folio_range(inode, start, end,
++				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
+ 		test_err("there were unlocked pages in the range");
+ 		goto out_bits;
  	}
- 
--	for_each_available_child_of_node_scoped(dev_of_node(dev), child) {
-+	device_for_each_child_node_scoped(dev, child) {
- 		struct led_init_data init_data = {};
- 		struct is31fl32xx_led_data *led_data =
- 			&priv->leds[priv->num_leds];
-@@ -451,17 +451,17 @@ static int is31fl32xx_parse_dt(struct device *dev,
- 							  led_data->channel);
- 		if (other_led_data) {
- 			dev_err(dev,
--				"Node %pOF 'reg' conflicts with another LED\n",
-+				"Node %pfwP 'reg' conflicts with another LED\n",
- 				child);
- 			return -EINVAL;
- 		}
- 
--		init_data.fwnode = of_fwnode_handle(child);
-+		init_data.fwnode = child;
- 
- 		ret = devm_led_classdev_register_ext(dev, &led_data->cdev,
- 						     &init_data);
- 		if (ret) {
--			dev_err(dev, "Failed to register LED for %pOF: %d\n",
-+			dev_err(dev, "Failed to register LED for %pfwP: %d\n",
- 				child, ret);
- 			return ret;
- 		}
-@@ -576,7 +576,7 @@ static int is31fl32xx_probe(struct i2c_client *client)
- 
- 	cdef = device_get_match_data(dev);
- 
--	count = of_get_available_child_count(dev_of_node(dev));
-+	count = device_get_child_node_count(dev);
- 	if (!count)
- 		return -EINVAL;
- 
+@@ -276,8 +276,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
+ 			 test_start, total_dirty - 1, start, end);
+ 		goto out_bits;
+ 	}
+-	if (process_page_range(inode, start, end,
+-			       PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
++	if (process_folio_range(inode, start, end,
++				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
+ 		test_err("pages in range were not all locked");
+ 		goto out_bits;
+ 	}
+@@ -317,8 +317,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
+ 			 test_start, test_start + PAGE_SIZE - 1, start, end);
+ 		goto out_bits;
+ 	}
+-	if (process_page_range(inode, start, end, PROCESS_TEST_LOCKED |
+-			       PROCESS_UNLOCK)) {
++	if (process_folio_range(inode, start, end, PROCESS_TEST_LOCKED |
++				PROCESS_UNLOCK)) {
+ 		test_err("pages in range were not all locked");
+ 		goto out_bits;
+ 	}
+@@ -330,8 +330,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
+ out:
+ 	if (locked_page)
+ 		put_page(locked_page);
+-	process_page_range(inode, 0, total_dirty - 1,
+-			   PROCESS_UNLOCK | PROCESS_RELEASE);
++	process_folio_range(inode, 0, total_dirty - 1,
++			    PROCESS_UNLOCK | PROCESS_RELEASE);
+ 	iput(inode);
+ out_root_info:
+ 	btrfs_free_dummy_root(root);
+
 -- 
-2.55.0
+2.39.5
 
