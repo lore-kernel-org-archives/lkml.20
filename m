@@ -1,324 +1,210 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D26372058;
-	Mon,  7 Sep 2026 06:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4C138D3EB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761113; cv=none; b=HFMNa9N2ymYhrw94PkKm8f3gnXwYN++HQM6v406O7Fq/1cYIvJAQW2Kdlt1g5plkDiWz1uNVAs1r5QC14vubNURLsh2uoQnMcXEGZ6E9klB9AFklpx5SAaSPMiYkScuovjZKc5hDz/1BANMCoUog3a48y5RBuwk2TTHX+44nZ3s=
+	t=1788761114; cv=none; b=tXwQlKZ3cEVZ9Ag5/g1yvsAKaGh/pskRsuFbx5VTH0doj4TWsoRJUxR4edxF3GoXFGquBL220SX+RAhmLfdClIY0DmeNtJ2hvknoEPkWq0q91ZjHc0bcHC8Rf8wIp+0tFYbbk5gFfpZYHOedNpTbdZ8PEnDfbD7ihpjX8YmerZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761113; c=relaxed/simple;
-	bh=9orKWGEZ9lUfHOz13R0MuutwxAutMIr1x5Q16KvOFUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uv94JWmr5ryk7r2Q73I8PbYBzPzD5pSe3/rr5hIxPyNeSTT4B8pGzssf3cWRUyzSLp8mWfw+E/yeMSLeOXxKPspSY1UiL+SRAZ+ogeNEdAJLBo1q5k2fkBQkcpWCJwvS+tNbn/qCzKELLUiKLu3KRyeNWATG3SdFIh4pFd37XLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=uLuJh3xm; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788761114; c=relaxed/simple;
+	bh=PeVF7rfbc1vL6HV1/pZH3WhjqloYpkjKYKlN73g3pcs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PxJoJp2p8jtTqUhPDO49d791otWDg2cCOAx7nMnh84raVzlJWOvbBkFdN5JkiILMIYpi0Q+eTQaQF3sNwhQLhuVebLe+SVCFEhUIyAZ+SyN0zGDY0oIwXW6HWjrOeCviqhONQrHfYIuRt9QCxZTjysZp5D28xNEazfwHnKB/6Fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XljyG4bv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cRg5bEFo; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="uLuJh3xm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:
-	Content-ID:Content-Description:In-Reply-To:References;
-	bh=OjJ0lPhuwDWz0mKBuGHCQwKRNSMrXhJq6rQPeivDlJA=; b=uLuJh3xmld+g5DnD/lguXv+MmA
-	DQGM+RLAEeyzf0mPXY6HuyN2Yrf9nDASl7ytJJFluOGvAvLOLQuEJxhljz1xUI3g1Z0rrbKSHD3Ht
-	Dz+cROgn+FbHF58bUyEdMXE9SNFf/CcNgRijVJSZ9+9/QnxhWRnX/2iABNucnbzYzZh6SisSwvcqO
-	hAQzwVF4dsEtYy92hwZmbxs5YAlZ3DKiuPcVUv7BoqZdcKkpYk+TtKU66qWSk9rYOEk/54jZyiFVm
-	vVJdQQwg8GbU4ZyLjzI7qQHd2BW0nkLn2WWDO+u32wF6k3HAh/Fuc2oVHR0QeZ4MLfVQqssSszZOU
-	iwgrn1LA==;
-Received: from [50.53.43.113] (helo=bombadil.infradead.org)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3STc-00000005zMf-3PBa;
-	Mon, 07 Sep 2026 06:05:09 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: linux-kernel@vger.kernel.org
-Cc: Randy Dunlap <rdunlap@infradead.org>,
-	Miklos Szeredi <miklos@szeredi.hu>,
-	Bernd Schubert <bernd@bsbernd.com>,
-	Joanne Koong <joannelkoong@gmail.com>,
-	fuse-devel@lists.linux.dev
-Subject: [PATCH] fuse: repair lots of uapi kernel-doc
-Date: Sun,  6 Sep 2026 23:05:07 -0700
-Message-ID: <20260907060507.2582993-1-rdunlap@infradead.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XljyG4bv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cRg5bEFo"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873kpxE4041576
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 06:05:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=; b=XljyG4bv8BYyhBtW
+	PsorMgjRIWQaRYAFt8JkxlwJdm6L5qmLNFW8+Q435hGiBIV0g+If09I/0xO+i/zD
+	UvNOprL/EKCAbhWoQfYITAukKi7cwfi4pJT5lfILLr6HOVPodM3eG5ieO/Z+r6KR
+	vysH5MBzf5MrZOyiD0jmkglXdxgeV1dGk2V5CLJ2WeBCWztNhuyHg1/eS81YkByx
+	cd7Wk2ZxcIfmdWAL9Gal6/J1wr1veZIVLn9O2WHyQ5YjaBj+v1SMAKFqQh649Fsh
+	sTJ6mSuBXbPawHU6r1Yz0ZdTDS8eY3+xaietlQQtlKH2+2LtlUceh0iLNPQtfxwv
+	DiordQ==
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd5qmu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:05:12 +0000 (GMT)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28d9206f8so1436968b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:05:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788761111; x=1789365911; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=;
+        b=cRg5bEFoBbi5jr8Ym5mPO4rSt4+UQ9zhZiukU0y4nKLeSvpKZwRVLev1QuPlEE+t+m
+         jtmffjAa61QQ0KMQ4X6D7y2jPxAEFXq+GydcDmcM4eY+fitUFy249+I1PmCjaZ8KrBYS
+         9NmYOksAINeAIpcjSDaQKKYnwpZ5p/sZJzfQyH8kJF5peGXu1g03yOfO4aGgu9wRHnmW
+         YQafsJ9Fe5upHdwKoGIJTVhS4XDaUuTGm7dNaK5/AQKpY6IQbosTJe/UhrMTZvn0UNrS
+         yQn2cE5lqYX29XstosOWE5vWsYLKWg/VPQnYAFdyV8R5irTTl7lWBXuHq7eF3rmMarGF
+         VgDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788761111; x=1789365911;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fkyS4nCwMvydVoM0dGZ5wVM6t+b0Z+k7G6cMlo0p/XY=;
+        b=Oa9F5vZoQAaCebmIC3lg+vMCbGmeeUWz7ykNZmlug51b1/HAR3wKJ2mzc1fD0M7Hwk
+         B8rVvNkX3RmSjFZoGWOhnY+2Xhhw4cCd1FXUdArE1Irguf/ZpFTc7HevenVpgTaTmniI
+         hP72NmpAqt5O3SqBvAJzUk+38KVuC8Eob2af3WxuW+VKO74newkn1AXR/8RsMRccBIb2
+         Ky3yuDNJuaxcDQKL8oeodfzVEw45X4Tg45PDrP77yrSCW859GkOt63CfTfwecUGVLHmd
+         LpuT9VTu5PYIxrx+74frB8OsfPzt7Ca1yniL+O78kKpo9tKiuQ7aWP0AtHkIRymqEoRm
+         SmUA==
+X-Forwarded-Encrypted: i=1; AKwUvByN032bwaZI3SUJkSjagVcdl7oc+IsaqUp5tNP9KBxeJnxdV5nECAH8ipbmb+jrRkvr9TLxkdvyqGW+aqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++ksMsh5wprWtHkODnxMwZdV+K4TdgS15cGqef3r7VyJAsKP8G1Q
+	kapCDGafKRFPLzl9Fn/anXT3iW43d7+aFVh9YHh7UH/SydwEGKVnmMluaIKx7zuBrFYtupw7Jvr
+	qQT/fUiIsovjJUtcA+2XrAlqHPSiIg7mfLrLBFCk9lRql1drKaKjYqqAxONvqg8dBl1M=
+X-Gm-Gg: AYBFou2RG+neuvyE/yhuvcPfrXCb3lUFqpG8xgjJtKu24f0mxytGj6Hg7IX3O5+ptaR
+	eJb/3NGzvZrev73UWLZzP4lm1wZOHqlHjf4qRrhj+FqrRdMENK6or0rDbedOMQxl+iqFU+lU0u6
+	OuZQ7bUarOzSdC1yEF/eqhvrbIEvMcL5hI95tUfx9S6G9YH9+iYhaJTVrmraQbYbQ/kQovJV1l0
+	5I5KZp21jieWKgeYx65c88bhO/yTd/DdLAq+bOtAMMvdPXqsafBEDYjYNn+GMf7yEujGblFgUPj
+	ZvCGbfJ3qnGbNiEJLEXezVSgTNLxbGhbyEHdPNGn4aJGxuGNXNENGV+RwbXtayYOGZchkEm9AFn
+	wnUEYoE2L/G7znios2uD42UDnfbJ0UuzkAg==
+X-Received: by 2002:a05:6820:4c86:b0:6b7:8396:f3d9 with SMTP id 006d021491bc7-6b78396f8c4mr8986138eaf.59.1788761111362;
+        Sun, 06 Sep 2026 23:05:11 -0700 (PDT)
+X-Received: by 2002:a05:6820:4c86:b0:6b7:8396:f3d9 with SMTP id 006d021491bc7-6b78396f8c4mr8986121eaf.59.1788761110920;
+        Sun, 06 Sep 2026 23:05:10 -0700 (PDT)
+Received: from [10.217.219.15] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm22142550c88.0.2026.09.06.23.05.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 23:05:10 -0700 (PDT)
+Message-ID: <6c9f2a00-281f-4400-94b1-55034ca9d472@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 11:35:03 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/3] i2c: qcom-geni: Add bus recovery support for FIFO
+ mode
+To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
+        Aniket Randive <aniket.randive@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
+        Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
+References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
+ <20260826-i2c_bus_recovery-v1-2-203f0ec76f84@oss.qualcomm.com>
+ <990a4ab8-bd03-415c-ae95-008cee7740df@oss.qualcomm.com>
+Content-Language: en-US
+From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
+In-Reply-To: <990a4ab8-bd03-415c-ae95-008cee7740df@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: 08-TAGccZioYT5LR5O8PyuW4bys3vzsv
+X-Proofpoint-ORIG-GUID: 08-TAGccZioYT5LR5O8PyuW4bys3vzsv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfX5HBqQfm+ySeO
+ ehZWLMF6wHGPuQqCn6U2Y1uEafPGvc2/RLw/xG8J59QVEDOjmYna/Jc5IZxV9QOQOCzQ8oFx6z7
+ fOFSsEqZQPV/XUaKwU3pmaAdjSKSi2E=
+X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9e5418 cx=c_pps
+ a=WJcna6AvsNCxL/DJwPP1KA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=feSLNv-d2_yk1Zcgl2UA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Y9Zt4tPzoBS9L09Snn2:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2MyBTYWx0ZWRfXxTGK1xViNqGa
+ SHh6yw6lgKSe1dyeFLywsQLA4x+1qCc/+0JrlaSriPQE4hOz7/BcyPn28n387+EEnUD963s9UdB
+ t/ZnDUT4mlwQWAf//o0gYv5DbEV/43+0Xm+TRdEi68YSW6Y/ELY4/DBmXQ83b2bNNJLoHzaY92d
+ 9QqAyfqLytfGlGuGmL+SGpYRfViBRK4EbnJ7DygD3M7pgIdypKF3EnSwAdM4yeFE6UR2VWc1nOC
+ hZUV12DSNXRtEC8STSxyvsIN7B7NEiatLso4Z7fKAAv5Q6S6MOK3ZuUwqWIC27lzfOvydCzKl+P
+ 03YTL1ogsEP+bt0NULGu3zzfi0UT8OQ5LhrmjBQnkQwy2/UVdhsL+ZIwfsH36AtE/a3V8Dem6yF
+ Ty2Aqv/WBbhx0FB4hOmnLpppxzLx98xxSIsCyhdch6piZUsKgQYtPIEAPje0NbOgQgbbK/pFEJQ
+ cKHu01CGJ9PDcI2Q7JA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070063
 
-Fix all (24) kernel-doc warnings in <uapi/linux/fuse.h>:
-- modify some instances to use common C comment style instead of
-  kernel-doc
-- convert a few instances to use kernel-doc format
 
-The warnings are all of this form (list is truncated for brevity):
 
-Warning: include/uapi/linux/fuse.h:370 This comment starts with '/**', but isn't a kernel-doc comment.
- * Bitmasks for fuse_setattr_in.valid
-Warning: include/uapi/linux/fuse.h:386 This comment starts with '/**', but isn't a kernel-doc comment.
- * Flags returned by the OPEN request
-Warning: include/uapi/linux/fuse.h:414 This comment starts with '/**', but isn't a kernel-doc comment.
- * INIT request/reply flags
-Warning: include/uapi/linux/fuse.h:526 This comment starts with '/**', but isn't a kernel-doc comment.
- * CUSE INIT request/reply flags
-Warning: include/uapi/linux/fuse.h:630 This comment starts with '/**', but isn't a kernel-doc comment.
- * extension type
-Warning: include/uapi/linux/fuse.h:1307 This comment starts with '/**', but isn't a kernel-doc comment.
- * Header for all fuse-io-uring requests
-Warning: include/uapi/linux/fuse.h:1320 This comment starts with '/**', but isn't a kernel-doc comment.
- * sqe commands to the kernel
+On 9/3/2026 9:47 PM, Jyothi Kumar Seerapu wrote:
+> 
+> 
+> On 8/26/2026 3:21 PM, Aniket Randive wrote:
 
-Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
----
-Cc: Miklos Szeredi <miklos@szeredi.hu>
-Cc: Bernd Schubert <bernd@bsbernd.com>
-Cc: Joanne Koong <joannelkoong@gmail.com>
-Cc: fuse-devel@lists.linux.dev
+[...]
 
- include/uapi/linux/fuse.h |   82 +++++++++++++++++++++---------------
- 1 file changed, 50 insertions(+), 32 deletions(-)
+>> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
+>> i2c-qcom-geni.c
+>> index 658636c1ee0e..9fa1a8ac400c 100644
+>> --- a/drivers/i2c/busses/i2c-qcom-geni.c
+>> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
+>> @@ -138,6 +138,7 @@ struct geni_i2c_dev {
+>>       u32 num_msgs;
+>>       struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
+>>       const struct geni_i2c_desc *dev_data;
+>> +    struct i2c_bus_recovery_info rinfo;
+I could not find this structure being utilized in generic way for gpi 
+mode. So is this specific to non gpi mode ?>>   };
+>>   struct geni_i2c_err_log {
+>> @@ -956,6 +957,90 @@ static int geni_i2c_fifo_xfer(struct geni_i2c_dev 
+>> *gi2c,
+>>       return num;
+>>   }
 
---- linux-next-20260904.orig/include/uapi/linux/fuse.h
-+++ linux-next-20260904/include/uapi/linux/fuse.h
-@@ -367,7 +367,7 @@ struct fuse_file_lock {
- 	uint32_t	pid; /* tgid */
- };
- 
--/**
-+/*
-  * Bitmasks for fuse_setattr_in.valid
-  */
- #define FATTR_MODE	(1 << 0)
-@@ -383,7 +383,7 @@ struct fuse_file_lock {
- #define FATTR_CTIME	(1 << 10)
- #define FATTR_KILL_SUIDGID	(1 << 11)
- 
--/**
-+/*
-  * Flags returned by the OPEN request
-  *
-  * FOPEN_DIRECT_IO: bypass page cache for this open file
-@@ -411,7 +411,7 @@ struct fuse_file_lock {
- #define FOPEN_PASSTHROUGH	(1 << 7)
- #define FOPEN_IO_URING_ZERO_COPY (1 << 8)
- 
--/**
-+/*
-  * INIT request/reply flags
-  *
-  * FUSE_ASYNC_READ: asynchronous read requests
-@@ -523,30 +523,30 @@ struct fuse_file_lock {
- #define FUSE_HAS_IO_URING_BUFPOOL (1ULL << 43)
- #define FUSE_HAS_SYNCFS		(1ULL << 44)
- 
--/**
-+/*
-  * CUSE INIT request/reply flags
-  *
-  * CUSE_UNRESTRICTED_IOCTL:  use unrestricted ioctl
-  */
- #define CUSE_UNRESTRICTED_IOCTL	(1 << 0)
- 
--/**
-+/*
-  * Release flags
-  */
- #define FUSE_RELEASE_FLUSH	(1 << 0)
- #define FUSE_RELEASE_FLOCK_UNLOCK	(1 << 1)
- 
--/**
-+/*
-  * Getattr flags
-  */
- #define FUSE_GETATTR_FH		(1 << 0)
- 
--/**
-+/*
-  * Lock flags
-  */
- #define FUSE_LK_FLOCK		(1 << 0)
- 
--/**
-+/*
-  * WRITE flags
-  *
-  * FUSE_WRITE_CACHE: delayed write from page cache, file handle is guessed
-@@ -560,12 +560,12 @@ struct fuse_file_lock {
- /* Obsolete alias; this flag implies killing suid/sgid only. */
- #define FUSE_WRITE_KILL_PRIV	FUSE_WRITE_KILL_SUIDGID
- 
--/**
-+/*
-  * Read flags
-  */
- #define FUSE_READ_LOCKOWNER	(1 << 1)
- 
--/**
-+/*
-  * Ioctl flags
-  *
-  * FUSE_IOCTL_COMPAT: 32bit compat ioctl on 64bit machine
-@@ -586,21 +586,21 @@ struct fuse_file_lock {
- 
- #define FUSE_IOCTL_MAX_IOV	256
- 
--/**
-+/*
-  * Poll flags
-  *
-  * FUSE_POLL_SCHEDULE_NOTIFY: request poll notify
-  */
- #define FUSE_POLL_SCHEDULE_NOTIFY (1 << 0)
- 
--/**
-+/*
-  * Fsync flags
-  *
-  * FUSE_FSYNC_FDATASYNC: Sync data only, not metadata
-  */
- #define FUSE_FSYNC_FDATASYNC	(1 << 0)
- 
--/**
-+/*
-  * fuse_attr flags
-  *
-  * FUSE_ATTR_SUBMOUNT: Object is a submount root
-@@ -609,28 +609,28 @@ struct fuse_file_lock {
- #define FUSE_ATTR_SUBMOUNT      (1 << 0)
- #define FUSE_ATTR_DAX		(1 << 1)
- 
--/**
-+/*
-  * Open flags
-  * FUSE_OPEN_KILL_SUIDGID: Kill suid and sgid if executable
-  */
- #define FUSE_OPEN_KILL_SUIDGID	(1 << 0)
- 
--/**
-+/*
-  * setxattr flags
-  * FUSE_SETXATTR_ACL_KILL_SGID: Clear SGID when system.posix_acl_access is set
-  */
- #define FUSE_SETXATTR_ACL_KILL_SGID	(1 << 0)
- 
--/**
-+/*
-  * notify_inval_entry flags
-  * FUSE_EXPIRE_ONLY
-  */
- #define FUSE_EXPIRE_ONLY		(1 << 0)
- 
- /**
-- * extension type
-- * FUSE_MAX_NR_SECCTX: maximum value of &fuse_secctx_header.nr_secctx
-- * FUSE_EXT_GROUPS: &fuse_supp_groups extension
-+ * enum fuse_ext_type - extension type
-+ * @FUSE_MAX_NR_SECCTX: maximum value of &fuse_secctx_header.nr_secctx
-+ * @FUSE_EXT_GROUPS: &fuse_supp_groups extension
-  */
- enum fuse_ext_type {
- 	/* Types 0..31 are reserved for fuse_secctx_header */
-@@ -1036,14 +1036,14 @@ struct fuse_fallocate_in {
- };
- 
- /**
-- * FUSE request unique ID flag
-+ * define FUSE_UNIQUE_RESEND - FUSE request unique ID flag
-  *
-  * Indicates whether this is a resend request. The receiver should handle this
-  * request accordingly.
-  */
- #define FUSE_UNIQUE_RESEND (1ULL << 63)
- 
--/**
-+/*
-  * This value will be set by the kernel to
-  * (struct fuse_in_header).{uid,gid} fields in
-  * case when:
-@@ -1273,12 +1273,12 @@ struct fuse_supp_groups {
- };
- 
- /**
-- * Size of the ring buffer header
-+ * define FUSE_URING_IN_OUT_HEADER_SZ - Size of the ring buffer header
-  */
- #define FUSE_URING_IN_OUT_HEADER_SZ 128
- #define FUSE_URING_OP_IN_OUT_SZ 128
- 
--/**
-+/*
-  * fuse_uring_ent_in_out flags
-  *
-  * FUSE_URING_ENT_ZERO_COPY: Set if the ent's payload is zero-copied
-@@ -1305,34 +1305,52 @@ struct fuse_uring_ent_in_out {
- };
- 
- /**
-- * Header for all fuse-io-uring requests
-+ * struct fuse_uring_req_header - Header for all fuse-io-uring requests
-  */
- struct fuse_uring_req_header {
--	/* struct fuse_in_header / struct fuse_out_header */
-+	/**
-+	 * @in_out: struct fuse_in_header / struct fuse_out_header
-+	 */
- 	char in_out[FUSE_URING_IN_OUT_HEADER_SZ];
- 
--	/* per op code header */
-+	/**
-+	 * @op_in: per op code header
-+	 */
- 	char op_in[FUSE_URING_OP_IN_OUT_SZ];
- 
-+	/**
-+	 * @ring_ent_in_out: TBD
-+	 */
- 	struct fuse_uring_ent_in_out ring_ent_in_out;
- };
- 
- /**
-- * sqe commands to the kernel
-+ * enum fuse_uring_cmd - sqe commands to the kernel
-  */
- enum fuse_uring_cmd {
-+	/** @FUSE_IO_URING_CMD_INVALID: invalid command value */
- 	FUSE_IO_URING_CMD_INVALID = 0,
- 
--	/* register the request buffer and fetch a fuse request */
-+	/**
-+	 * @FUSE_IO_URING_CMD_REGISTER: register the request buffer and
-+	 * fetch a fuse request
-+	 */
- 	FUSE_IO_URING_CMD_REGISTER = 1,
- 
--	/* commit fuse request result and fetch next request */
-+	/**
-+	 * @FUSE_IO_URING_CMD_COMMIT_AND_FETCH: commit fuse request result
-+	 * and fetch next request
-+	 */
- 	FUSE_IO_URING_CMD_COMMIT_AND_FETCH = 2,
- 
--	/* add a queue */
-+	/**
-+	 * @FUSE_IO_URING_CMD_ADD_QUEUE: add a queue
-+	 */
- 	FUSE_IO_URING_CMD_ADD_QUEUE = 3,
- 
--	/* add a bufpool to a queue */
-+	/**
-+	 * @FUSE_IO_URING_CMD_ADD_BUFPOOL: add a bufpool to a queue
-+	 */
- 	FUSE_IO_URING_CMD_ADD_BUFPOOL = 4,
- };
- 
-@@ -1344,7 +1362,7 @@ enum fuse_uring_cmd {
-  */
- #define FUSE_URING_ZERO_COPY		(1 << 0)
- 
--/**
-+/*
-  * In the 80B command area of the SQE.
-  */
- struct fuse_uring_cmd_req {
+[...]
+
+>> +
+>>   static int geni_i2c_xfer(struct i2c_adapter *adap,
+>>                struct i2c_msg msgs[],
+>>                int num)
+>> @@ -981,6 +1066,25 @@ static int geni_i2c_xfer(struct i2c_adapter *adap,
+>>       else
+>>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
+>> +    if (!gi2c->gpi_mode &&
+>> +        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
+Could not see similar call after gpi_xfer failure which invokes recovery 
+mode. Thinking if design can be symmetrical here for both the modes.>> 
++        /*
+>> +         * Only attempt recovery if SDA is stuck low. -EPROTO and
+>> +         * -ETIMEDOUT indicate bus errors where the target may be
+>> +         * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
+>> +         * bus indicates a stuck target, not a real arbitration loss.
+>> +         * GPI DMA mode extends this trigger separately.
+>> +         */
+
+[...]
+
+>> @@ -1188,6 +1292,11 @@ static int geni_i2c_probe(struct 
+>> platform_device *pdev)
+>>       if (ret < 0)
+>>           return ret;
+
+one  line Comment here how gpi mode handles ?
+I would suggest to keep geni_i2c_recover_bus() as common for both.
+Review how we can invoke this in generic way for any mode.
+else geni_i2c_recover_bus() should  have _fifo.
+
+>> +    if (!gi2c->gpi_mode) {
+>> +        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
+>> +        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
+>> +    }
+
+
+> In geni_i2c_xfer(), geni_i2c_recover_bus() is invoked directly, then why 
+> do we need this ?> +
+>>       ret = i2c_add_adapter(&gi2c->adap);
+>>       if (ret)
+>>           return dev_err_probe(dev, ret, "Error adding i2c adapter\n");
+>>
+> 
+
