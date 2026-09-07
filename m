@@ -1,205 +1,169 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8504C9573;
-	Mon,  7 Sep 2026 12:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785628; cv=none; b=lEMzdNZTE2bGl2bkMYXcO4bek//LKn6p5IlTkGjOWPHk59taW8MFmRb+SfPnI/1we4W3ohkvwrH6kB8kTjpzl/lPyvcMdI4HdrcYGykNCNK7maLw7e0ncyxw/uDleZ49cCnhPPFfOK9n9BR71fTwKifoXY/R3FBGFvrxIZy/vy0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785628; c=relaxed/simple;
-	bh=BhzhedHHdNxatNvJGivPoSjPbFnEFtmEC0H81/CTw+k=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N240SiHsHlF7grtC3KhhwsJN7GL43Gw1w7Mf70AgJmet0oF3lY/43w8xVkuPWcFbPtpRVP4rQ8y1PAU8G5XYAOgq0cmUK5G1fkwWxFUFywbBLFsS9G6ZfI5Q7JT7RzzZVY2t5Wal4mtnjjF1rM9GZ7NHc2MR9jVWA0ymNazICB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gR4Oea8z; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB04C957B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:53:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785627; cv=pass; b=b5nSL3YMs2w0u3CaJZGV9+Oet5bBlWNItHKieRIYL3e5UCezcaiNdmcSMXbEzCDu11XLr4tnjz73202BJrH1U946dkDtiLApD2TLYqAaLB/hVGgXd1p8NDiY8F23HaBqu0nKlf+w4tb/h8XoKUCNVqw/++bTjZrkMCnmiyfQ4DM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785627; c=relaxed/simple;
+	bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TUnkM44XlGZBo2UUjhVJxz4eYnqg/lRPf1KN6h9cjtBtoRzle4vyA+uz8ASJ7ldkL3gLYnkhIjHv8zNEnWYyTrc54kjSkBB9dV7jOMnzm3g+HxOxob+zmPWGeuc3Z0NU8eGmwTPwLRDaTDQU0Sc6tLMXpfrc2SzcIKey6mpT6Ys=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=NqoItOLI; arc=pass smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gR4Oea8z"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=MWYcbaLX2p2UByqhrLVYGoAeGhCajPS1DD+9MAEVZJI=;
-	b=gR4Oea8zK/29aJ7RLHno9CLpbS4RZ5sZw5cTFB2WKWnzxU8xtNxJ2Vh7v1HG5zIZSPs1xEehl
-	Xnka2BWgYoSzlwkTab3Mx1Kn8mGPYxZT91iczi4tA+JzWBxS4EWmLjnuDOuoM8o2ii+tfUIM5Qd
-	oy3VxnFoymLznncxBOoBxy8=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hdmtp0hYSzcb4j;
-	Mon,  7 Sep 2026 20:42:42 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 302D7203B8;
-	Mon,  7 Sep 2026 20:53:37 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 7 Sep
- 2026 20:53:35 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
-	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <kees@kernel.org>,
-	<ruanjinjie@huawei.com>, <thuth@redhat.com>, <jic23@kernel.org>,
-	<tan.shaopeng@jp.fujitsu.com>, <zengheng4@huawei.com>, <james.morse@arm.com>,
-	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
-	<sourabhjain@linux.ibm.com>, <robh@kernel.org>, <coxu@redhat.com>,
-	<tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
-	<djbw@kernel.org>, <seanjc@google.com>, <liaoyuanhong@vivo.com>,
-	<vishal.l.verma@intel.com>, <fuqiang.wang@easystack.cn>, <makb@juniper.net>,
-	<piliu@redhat.com>, <ebiggers@kernel.org>, <jbouron@amazon.com>,
-	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
-	<bgwin@google.com>, <takahiro.akashi@linaro.org>, <palmer@rivosinc.com>,
-	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
-	<linuxppc-dev@lists.ozlabs.org>, <kexec@lists.infradead.org>,
-	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>
-Subject: [PATCH v4 09/12] elf: Introduce elf64_phdr_size() helper
-Date: Mon, 7 Sep 2026 20:54:01 +0800
-Message-ID: <20260907125404.922123-10-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907125404.922123-1-ruanjinjie@huawei.com>
-References: <20260907125404.922123-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="NqoItOLI"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c86945164so37647411fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:53:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788785622; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iml9V3OKj3fZXZs/XdrD61ficCoYEKkEBZlNqy5i4AZeOMRSCjx8ffCwtz60wFE4Z9
+         S0pWfqCxxubwtIShNzvVLHMzIxNe1I3PrdZy2EYQsWjJkq9wwihKexMBLu8mTUX6o/Gb
+         T4gGZWh+bqDRewZ+LwBTDPMEneG2JLu2xF5ADugLQMXA0djUGH9NipnBqIlYHcEJMYHx
+         9jwol/22hX75xh/y/rfCbIGM/tWuLkzn941qMgrE1iQlr/IzlyCLPS04lOVidM9vitgW
+         g+xuBX8Vl74doj1qiWmOxaE4qrFJ2+UIal98UtTMVRxwRZY9DZC/EPmRPMkC8M/6t0H2
+         ttEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        fh=s2lpDLbKG/HfKEoSzEI3jMT+XPy8rdYjlyBBcqUw3/M=;
+        b=XLeurDPT2OGVDMzkgXHs0xWnQ9Nd8/j7MDZZvhARH+CtaK7gR32AWI5tw73j2RgcXd
+         C/WrLhTood2RGp4mlnQm4Yi8S98r6RqfHH0I17O4cnXv+3GV51Wip9XZ5Ex/VceGeNsZ
+         gV28IEl0o8bsOsNfdJ0dJMDSXwCu3gOmiW3rVCZ7JWR63fbZ1vckZdzTBtKqVZXGYA5H
+         Ig+vWmkkaErjUIDQHjIT4MxoH0Nd7JPfneQvVYLjuB7SuDC7n99ly2Ukc8NesqO8jQ50
+         /TeE1pjryVnJum5OCBqsrXADQw/cs2TCEfF3rWytTBRMgk3+voyRevvGi7+BSzHZaETD
+         FrVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788785622; x=1789390422; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        b=NqoItOLI8buUm+bCoGln8l5ILJ/2SDZCzo1+5vgty37NfsLiT4e2OyJy4T8Egp969w
+         gSvsNbm3y2i14vuIBI16yT5VA0oIYZ3qhkUI2o4+XaXWrtgp1tGDXy3fa8cOmrWPOEDU
+         T6KIInPhioD28NMk8rupt6ymDxP/0p6A8cDXlkVAv79k63cjy/KlNfoJeuLNVexr+G/E
+         nEBVbMvRuM8efxEJ2/LI8FQFdVdF7U4JXqSe/ueGbq8lPXXnDeTjTErFAHpcIw/vYk3J
+         ZVBmCxNbkL8wSTTGmFBYc6phmTWFqh3cIHBwFf1gMN8kwoYZihA1Koqzm6KFWmyRlLZW
+         s/qA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788785622; x=1789390422;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8m9GX5w5lxT8loUdxPM+WgOlnMcCdSnplV5yJYmeSSs=;
+        b=KuvUnUeaouC3O5e8BMnZVaqMKGDM8Gl0cDoFFLMkTdDTp4LJLRpWei9NuH+RmPZKx1
+         llOP8j/JfKMk+2vkMkWi0iN5UtXW/0wVN4KxbMF65bB7d7OgmrivlsKosGzEwMcei8XB
+         z1d4G89gORDGW5K4gfsQ34nscyBxB/0TU0gXD2NZ2ZcLCCvjGcSEz0vL0noNLEQFMwCB
+         bDjJivzhb2JcCeEw05fX/Y/n3I9jmpPgJeInilQsdvGRaS9VI5D8TJp22CObjTpNrSK8
+         p34h6VkD/zJqdHVNkjMwRZsnOl6VXByApfWklvSwXCsNuTNhIpUPBSgoUwCGFBO4sGYv
+         t57g==
+X-Forwarded-Encrypted: i=1; AKwUvByW3ppEIlbrJfJuHJMCRMu+4O+cwKjFdOeTt2Bi7FOxN7TzEP5p13DV2pTehNXcjPnJM9C1pUt1rzSSm7k=@vger.kernel.org
+X-Gm-Message-State: AFuF++llP71pTS1HIKw7Qj8m9jYRMqUxgafLhfwD39If1gpSF4XDFL5y
+	E+ro/LHHEuy+YstIlEMw56Q6egdWMKlFJskGp+fuZGlyVf7+7qiRnzXKPvgaNqh2ohjuqzM4XZo
+	e5B1BxFSs5mTuj1wrGUnP/CrmA5D2IBSniy6UtQghvGw=
+X-Gm-Gg: AYBFou0YrCgRhO9KJmCtH1i1dxm9Ssv9f/g3oUaT7u+2tIQ0mAc633Px/rx36XAki4I
+	49Qzy/Bpl6eLJUz6SMV5gs4UGFJnez5rt1xfkjqxvlzcq5xnAi86iLD1sDITy7kUFnsDQCWoUwp
+	zGOh34Nsqv0GxmknevgUPQh4yr7wsGuBeOqhltNbO5VVarJdT8kfsy7tfnL1GrUU+vyKxUPxcB6
+	ri9CDWTr26ABHVXk3II0D1w/EnYnxipjhKKHBbNxvF9LqHsC1nTY96PXc5AnkQZ2lldCgFNwNgr
+	Zv0Ut6flxfm+os/cq8K4tGTicA2perVxghLQsSZrK0BArC2Z3MHzoeBGUCSA7Y/8yZ5Av/lkWtS
+	+
+X-Received: by 2002:a05:651c:43cc:20b0:39c:8124:93b3 with SMTP id
+ 38308e7fff4ca-3a371ba9af3mr18512751fa.9.1788785622569; Mon, 07 Sep 2026
+ 05:53:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+References: <cover.1788765185.git.zihanx@nebusec.ai> <ef4076c94466ea4b147653e2b7f933778f245437.1788765185.git.zihanx@nebusec.ai>
+ <20260907121830.GA647811@shredder>
+In-Reply-To: <20260907121830.GA647811@shredder>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 20:53:30 +0800
+X-Gm-Features: AcwNN1Uk3i8a39rPmzWaebzH5pBKLNcdaTlZf_kVKmdapl2vlm677TXmYyaCLb4
+Message-ID: <CAANe3eSV3JYqzjnEE+vVmTJdC4oUZh8v=9vy==1xE9H9+YkLEg@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/1] ipmr: account multicast table and route memory
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: netdev@vger.kernel.org, David Ahern <dsahern@kernel.org>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Benjamin Thery <benjamin.thery@bull.net>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a common helper to compute the total size of an ELF64 header
-(Ehdr + program headers) from the number of program headers.
-Replace open-coded calculations in powerpc, x86, vmcore,
-and crash_core.
+On Mon, Sep 7, 2026 at 8:18=E2=80=AFPM Ido Schimmel <idosch@nvidia.com> wro=
+te:
+>
+> On Mon, Sep 07, 2026 at 08:10:56AM +0000, Zihan Xi wrote:
+> > A netadmin in a user+net namespace can create many IPv6 multicast
+> > routing tables with MRT6_TABLE. Each unseen id allocates an mr_table,
+> > links it into mr6_tables, and leaves it until netns teardown. Those
+> > objects were not charged to memcg, so the host unreclaimable slab
+> > grows with the table count.
+>
+> This reads like an IPv6-only fix, but it also applies to IPv4.
+> mr_table_alloc() is used by both families. Please reword this paragraph
+> to reflect that.
 
-On ppc64, struct elfhdr maps to elf64_hdr, so the powerpc change
-is a pure cleanup.
+Will do. v4 rewords this for both IPv4 and IPv6, since mr_table_alloc()
+is shared.
+>
+> >
+> > Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
+> > IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
+> > handling of IP addresses, routes and alternate interface names.
+>
+> The bots might complain that this doesn't cover unresolved cache entries
+> that are allocated from softIRQ context. This is correct, but: 1. They
+> expire after 10 seconds. 2. Bound by the socket's receive queue. See
+> commit 0079ad8e8dc3 ("ipmr: remove hard code cache_resolve_queue_len
+> limit"). Worth mentioning in the commit message.
 
-No functional change intended.
+Agreed, will mention that in the commit message.
+>
+> >
+> > The first unaccounted IPv6 heap table appeared in commit 4e16880cb422
+> > ("netns: ip6mr: dynamically allocates vif6_table"), which replaced a
+> > static vif6_table[] with kcalloc(..., GFP_KERNEL). Commit
+> > 6bd521433942 ("ipv6: ip6mr: move mroute data into seperate structure")
+> > only wrapped that already-heap state into mr6_table. Commit
+> > d1db275dd3f6 ("ipv6: ip6mr: support multiple tables") only expanded
+> > the table count from 1 to N. IPv6 MFC entries were already unaccounted
+> > from commit 7bc570c8b4f7 ("[IPV6] MROUTE: Support multicast
+> > forwarding."); IPv4 ip_mrt_cache is older still.
+> >
+> > Fixes: 4e16880cb422 ("netns: ip6mr: dynamically allocates vif6_table")
+>
+> I think it makes more sense to blame the commits that allowed user space
+> to create these tables:
+>
+> Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
+> Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
+>
+> Your reproducer depends on it. And dropping / rewording the last
+> paragraph.
 
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>
-Cc: Dave Young <ruirui.yang@linux.dev>
-Cc: Kees Cook <kees@kernel.org>
-Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/powerpc/kexec/crash.c                 | 2 +-
- arch/powerpc/platforms/powernv/opal-core.c | 3 +--
- arch/x86/kernel/crash.c                    | 3 +--
- fs/proc/vmcore.c                           | 6 ++----
- include/linux/elf.h                        | 4 ++++
- kernel/crash_core.c                        | 2 +-
- 6 files changed, 10 insertions(+), 10 deletions(-)
+Will switch Fixes: to these two commits and drop that paragraph.
+>
+> Please wait 24h before posting another version:
+>
+> https://docs.kernel.org/next/process/maintainer-netdev.html
 
-diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-index 775895f31037..fc0105c7af4c 100644
---- a/arch/powerpc/kexec/crash.c
-+++ b/arch/powerpc/kexec/crash.c
-@@ -478,7 +478,7 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
- 	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		phdr_cnt += CONFIG_CRASH_MAX_MEMORY_RANGES;
- 
--	return sizeof(struct elfhdr) + (phdr_cnt * sizeof(Elf64_Phdr));
-+	return elf64_phdr_size(phdr_cnt);
- }
- 
- /**
-diff --git a/arch/powerpc/platforms/powernv/opal-core.c b/arch/powerpc/platforms/powernv/opal-core.c
-index 32662d30d70f..fc0aad61504b 100644
---- a/arch/powerpc/platforms/powernv/opal-core.c
-+++ b/arch/powerpc/platforms/powernv/opal-core.c
-@@ -309,8 +309,7 @@ static int __init create_opalcore(void)
- 	char *bufp;
- 
- 	/* Get size of header & CPU notes for OPAL core */
--	hdr_size = (sizeof(Elf64_Ehdr) +
--		    ((oc_conf->ptload_cnt + 1) * sizeof(Elf64_Phdr)));
-+	hdr_size = elf64_phdr_size(oc_conf->ptload_cnt + 1);
- 	cpu_notes_size = ((oc_conf->num_cpus * (CRASH_CORE_NOTE_HEAD_BYTES +
- 			  CRASH_CORE_NOTE_NAME_BYTES +
- 			  CRASH_CORE_NOTE_DESC_BYTES)) +
-diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-index d6430a593778..e164749c5c1d 100644
---- a/arch/x86/kernel/crash.c
-+++ b/arch/x86/kernel/crash.c
-@@ -374,8 +374,7 @@ int crash_load_segments(struct kimage *image)
- 		pnum += 2 + CONFIG_NR_CPUS_DEFAULT;
- 
- 	if (pnum < (unsigned long)PN_XNUM) {
--		kbuf.memsz = pnum * sizeof(Elf64_Phdr);
--		kbuf.memsz += sizeof(Elf64_Ehdr);
-+		kbuf.memsz = elf64_phdr_size(pnum);
- 
- 		image->elfcorehdr_index = image->nr_segments;
- 
-diff --git a/fs/proc/vmcore.c b/fs/proc/vmcore.c
-index 44d15436439f..ff324969d798 100644
---- a/fs/proc/vmcore.c
-+++ b/fs/proc/vmcore.c
-@@ -1238,8 +1238,7 @@ static int __init parse_crash_elf64_headers(void)
- 	}
- 
- 	/* Read in all elf headers. */
--	elfcorebuf_sz_orig = sizeof(Elf64_Ehdr) +
--				ehdr.e_phnum * sizeof(Elf64_Phdr);
-+	elfcorebuf_sz_orig = elf64_phdr_size(ehdr.e_phnum);
- 	elfcorebuf_sz = elfcorebuf_sz_orig;
- 	elfcorebuf = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
- 					      get_order(elfcorebuf_sz_orig));
-@@ -1605,8 +1604,7 @@ static int vmcore_add_device_ram_elf64(struct list_head *list, size_t count)
- 	}
- 
- 	/* elfcorebuf_sz must always cover full pages. */
--	new_size = sizeof(Elf64_Ehdr) +
--		   (ehdr->e_phnum + count) * sizeof(Elf64_Phdr);
-+	new_size = elf64_phdr_size(ehdr->e_phnum + count);
- 	new_size = roundup(new_size, PAGE_SIZE);
- 
- 	/*
-diff --git a/include/linux/elf.h b/include/linux/elf.h
-index 5c402788da19..400f58a13d92 100644
---- a/include/linux/elf.h
-+++ b/include/linux/elf.h
-@@ -109,4 +109,8 @@ static inline int arch_elf_adjust_prot(int prot,
- }
- #endif
- 
-+static inline unsigned long elf64_phdr_size(unsigned long phdr_cnt)
-+{
-+	return phdr_cnt * sizeof(Elf64_Phdr) + sizeof(Elf64_Ehdr);
-+}
- #endif /* _LINUX_ELF_H */
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index 39feb39b53be..b57a81f38ef4 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -193,7 +193,7 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
- 	 */
- 
- 	nr_phdr++;
--	elf_sz = sizeof(Elf64_Ehdr) + nr_phdr * sizeof(Elf64_Phdr);
-+	elf_sz = elf64_phdr_size(nr_phdr);
- 	elf_sz = ALIGN(elf_sz, ELF_CORE_HEADER_ALIGN);
- 
- 	buf = vzalloc(elf_sz);
--- 
-2.34.1
+Will wait 24h before sending v4.
 
+Thanks,
+Zihan Xi
+>
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Vega <vega@nebusec.ai>
+> > Assisted-by: LLM
+> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
