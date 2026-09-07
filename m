@@ -1,209 +1,156 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC404418E6
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769589; cv=none; b=HVctm6U5WfeqihZ8wsdFydyuW1oFS49FNXBZJWEH3UEi0XG0jFX4U+NsHho72hPuShAWv0ZYHsYI4ymS6IRkkkRjfGXMBELU8q7ZzpoYOwxyw+Q/6RwR0y0o8fbi+LB7/59HadciNkryc4QfYq9XnTU/B5bWnax9NfkCKFMmLos=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769589; c=relaxed/simple;
-	bh=N4FyLsi/vnMLGsG8W594EiPMPZHDtd5RYGzvBPKBmGo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PoaP7BLYiLFRMLtXUltWvHxMC9SmkDAVqA0rZH9Op9fahkLLn0TMwyLrEHhOtjEQH0gi1ZrcLIRbVLbo7qShorZAS7eJMDqwECGt5a4O6+ymUzQ/3ci9GdfkCondToHykaaLDjka1Myr5NTAJGh0yBtfS1jRrY81pHefVBjvOVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NgeBV6o/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ePC6lyzd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CAAF44212E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:26:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788769590; cv=pass; b=Hks0ruMeBSmnK5aSSUunK4yMm+H+hW7FLuIntiEfPARv8QN35v024v3yOuPGdGKuETREdTjMyVDzOC9p8WiP65iJOS+8CVLwvP+stvT5B/m4AY0CS+sD32TIjGMmv1vjUApSxniDF41vm6tj73Dph+in8sZd5ZU+mdgnf3PcHF4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788769590; c=relaxed/simple;
+	bh=ipB2854ozcHKVg6XH2YQAsN4u0CkKe6GvPHBMmTx7DU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B35QjI8I1DnjECfRsO+hWDbSUbbYI57gi2Nn4QnV739QktfTSSkomVUi6hrDeGyWCVd2AP1U0pCYlKBbzBtkkR06I+8boqddXQ/f8SgSLWL8CAv4xikrD3JA439vraYOa0b3GudqMi0IBZdL2OjGEW8FSjOAAfO3LEyitlp8kFg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2xdKXpd; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NgeBV6o/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ePC6lyzd"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68787fsf3411754
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 08:26:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zMeRUk9VWt/DciSMuhzLmvU5L+tx6RdOIZmcnWooAHk=; b=NgeBV6o/6DHKy5T0
-	FpsJc1ZoVj5N1/8Blyq1RqstfbhD1djgWis6RJNxwuXsBxlyywDXGDN/uHTCQrl4
-	/5qTO/DvER3k6D9omp253eDTc248v8HBn3VBH30JWjHsVdSRDt33/aDTXcjlJ32U
-	Jm76ytFhwY1dec8zN06boMF/zWTOhkpTR1Nim8vYvXx50wyqemrv9/ABDbLCgmDH
-	fmp0X+URwnItHby+qmbbNIEt6ZxA43iJOlJYUrBREbSONNm6Ys/2ebPCewfyNO1A
-	nIOmdY77jFctGNuoqnOtx3RwPnTOugrXes3/Z8adtagHYbCQGfnGu4KOPiqzHGDf
-	L3Eiew==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfyg2bq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:26:26 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1b8088202so3050070a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:26:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2xdKXpd"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66dbce0b639so1947053d50.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:26:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788769588; cv=none;
+        d=google.com; s=arc-20260327;
+        b=N9FG9IyuilVmhPJaST1853U2fx3Gnip5zBil1Q7IpSZLg48F0NFwWcUDwTNnYbrLop
+         7Ej6gEUKmlePZS30clk4SNc6A2/oHGWw/xK12l9Z+ry+1uL43JUFL3MexYib8zEV4uzd
+         5FzqzBqKXmtk2nxX8MrMYolQrisSshh/5es4QE9DrHdxDeJAx29qXZzSGNe2l21azj/d
+         meaHXS4pITKCea9tdLL2Et4qP1E7ijkOKoK1ztbEoAzGLzr9hKy9iy5msmkSxl26OA01
+         90cTtPs/DL/c3Dv/4Mz9/8uP7JA3kg1TDkH1VbPI02yd/t3Kq1df9b0xr/E84FlT9lo/
+         hrqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=j1TT4cxdSvOqJImR2JyQc+W0dHNOPWNC4ptEp9ACmzM=;
+        fh=0yj3J+h46/6UfRGbfayAi4OVYNA08DkM5gmLDWkwovs=;
+        b=O5hsL14/UGZvWnsXag1WRQm6bLs7qcb0ZEyIKiGfUTcsj3C52MNVrhERd5dmgvDeKW
+         gBw1IeN2UhEw9p2lo/lbacDBFKoMSzfOoPZVoahayf0L3nwmWCVEvBA3fhZo8soIDu9w
+         zhle01eVRRc2s5UcaDz+e5vn+G/dgSJ8L1E4X6YgL3IuvO9lFzEA2QqB2anlMA24HTI3
+         kYgN2YnwdZ5GseT6QcWAxfY0PfJZyz0evkGm3Qu72YP8sYww1GbtRxoC2+GX5QdA0pxD
+         h5KLYWoV3kq5YUYpTr8WlOTSnt2+ARjLO6hi3oicZ23z7WyVANle5+CxO8DM7snUVNXs
+         X8VQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788769586; x=1789374386; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zMeRUk9VWt/DciSMuhzLmvU5L+tx6RdOIZmcnWooAHk=;
-        b=ePC6lyzdIHoScsF85FS16O/3xa2eh4+cD9keOUZrDiZRZF8zLRrbE+vZv1Jv1hdd5j
-         WyJvxXnqdYpT4HHH/QaZogXaBVHXwp7YlJtfWtXYU2YGXtAb4mSDbYVw6La9GXEVQY4e
-         dgSGteAjr+mqNMPnxXQoQyiTuALYTFqlYNkja+A6FajdP3mNTY/pfa9e5j1PzZPPe6zW
-         TObilDVtKX1y1g7Qg809k7J8z/oYIgiAesV9srDPBGfVGvv9lDNE5qqGXx+vewEetCp0
-         ovvO+hF7bLeWbuTBeq0AST0ER0jCrLJlXsXP9p60DvyfduJwqJCx2q9Uj2FWF1/7CGVu
-         V7Qg==
+        d=gmail.com; s=20251104; t=1788769588; x=1789374388; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j1TT4cxdSvOqJImR2JyQc+W0dHNOPWNC4ptEp9ACmzM=;
+        b=e2xdKXpd9hik78bTtsiqCa2H9U7AvFW+OBD3cltEM2r+W2ck9bJ21wmdA79QP+HBcN
+         5OIM6WOIOk9vM2ODk4CwVVBeOW64bFuvEYDw2n1n9aqNIGsxRfGyb+zYom+d7vwSJfS6
+         zw8ZpSTLF5uo6EP/2gsqMX3vuxKC/yfn0GOV/ANZgay2mpy7TJ8XLPQVTQWEEMS2RYxP
+         mowTZjCNAxMgoCsL1iLqeLYL71PSejoxNFCie36/7XdH5w1xxCbK+7Kyh9hin5TrftLg
+         9T+AU1EaWgooKY9uHWWpFwyT5LWRT7tqvSWtARpE2eEl0Tj7eAl4a5lDndYV5dsd6t1g
+         NI6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769586; x=1789374386;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788769588; x=1789374388;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zMeRUk9VWt/DciSMuhzLmvU5L+tx6RdOIZmcnWooAHk=;
-        b=Vq2dPiAX41+jwptLK4LlmKx/x+jvcP9ICYkpVZJaH0AvyPnjpSTK1FZHC91wwXC54t
-         UJACaZ9e6xrkM5ODY09nhsuDjI40iIlsqy3pQ1d7553gK638Vvs6vLVcang8J/isk+zy
-         NHp26jz+WX+hZVu/LQYxdvmcP4ExzE5B6ogpwPMyuQ9Am7z5BxubUR8l2YEDmVQomBtB
-         141mkMYbonvy49ve3HhEUfrCZ43Qg11asI3Wpb402cGElE3lJ28GopTP9nzjFjvYG0ue
-         hMJmtonBsp+9MoeEiu8R6h9zt/mbNfekawLOJ/AXF7Cd4WyNDw3Z/gysNe122BK8mWKn
-         MvyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxcFc/DEqmuTPchd0hfzXGu9XPHs901W5I0qDvi/VglSWKHS2ISOvwIdf+BB9a/jQj6+/5+Yt6gnH0s/vk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nivlNGQxjvK1+dwvMXFiJMj3v4JRiqgCf207woYp4GBNup6Vni
-	n1lYBLZYkyrnvtvCAKTdvpNQYfs0S+7qJIwFkEwpSJhh/B5LARS4ARF86lpes5d55nRbUp/NCZ7
-	sGrroGs71kE+DJelyn0Fx2pCc5XRbNKpZfDLr1+jojvS1wvnx9ygzAC60fjXHknmnZoM=
-X-Gm-Gg: AYBFou3SG1WAHVQjtlS4M4s9pEgy+jkQ6sm77iNg4c9SFceP59q7aoI9p8jRkfJ/b0W
-	eqNm+U6YJMpPEIx0o06/UU5V7uXprVClD0TfVRPen2O0mz+kthJhfnO7GFpzRM4PioT2+2jhBwq
-	bzh+QGrb1RqX4Cb/MZn272hZPkrTOoNZ5Y/JIjYqvodgovKCNRTDc0/u/qkQ/cCIlO4rre9QWTd
-	nAaIQG+6dKwoP0jbFZI3Yvdmx6gejRc1xbmuAzfKKxr91LBllb6ZromXiOOO/PLoiJXRYKMNCQi
-	Ug5RYyikiVcWD8oLebXq0GIWFsWJVzjanfe6MsGIWXFzWrFWJn0catvocWHmVMRUCftDsCxX2GF
-	koD2QbuQ0p5c/cQKrY7+ikrjk
-X-Received: by 2002:a17:90b:510c:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39b262e27a9mr35780836a91.24.1788769585583;
-        Mon, 07 Sep 2026 01:26:25 -0700 (PDT)
-X-Received: by 2002:a17:90b:510c:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39b262e27a9mr35780759a91.24.1788769585067;
-        Mon, 07 Sep 2026 01:26:25 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33808be8fb2sm3423284eec.14.2026.09.07.01.26.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:26:24 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 13:56:13 +0530
-Subject: [PATCH 1/3] clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL
- width
+        bh=j1TT4cxdSvOqJImR2JyQc+W0dHNOPWNC4ptEp9ACmzM=;
+        b=Jwz3p13XSIA4iLaTA+Pd+KPlpmMIYAHeunyCnntm8Jdg3KjHNeZlzLf0HVInhhDbta
+         YoFKs8jngPlGIOI4la/zRIXm0hiQ/GjtjrBpV4BLg6ydKSCnOL5I+J/QwqritVsNjYgD
+         Sh779qRlIMi5jKQM/j4qFP0pXctLGjNUTTIqGNj4yGi2A0lhjoJi7CGLhjlHEFBkaVYE
+         Qdn6pXQLijSibJAde4Pq+19FY8WM1yoK8Ncqqi1rTrj7EGwOH1JG1xYsChUNkzorLRBX
+         oOE1sasiIRtKStiTR+pZ/6HUs0U4T6kuXWQIBy1WD501z2QkY5d1HucZZxBf4Se3vOMw
+         AQYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwJx8fzlZAwlQvzoTb0pf1JhIcVwAZ2LvzxbjwAig/bya/WQbbTKDm59UGZKARI4Q98Ok2N3kVzt7BvyAo=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbXYZ4wvNpJB+xIeGP0g0POSZIxuG5h9TvTB9vgQ6E7vW+0sUY
+	QzXpH8iFp2u4jjTPiRg8gMJ2cJOSZU6ldthjJ5Xne/yvUQTvuVxmRDAs52p7CnnkRJB14/jZjY4
+	V8lkJvMuvkBCLbuyqn4aTVnEn+K0MNzw=
+X-Gm-Gg: AYBFou3uGEDhmI9/rwvWI+yrRd8IglTyRtpwTnMvIRxPE6H4WHJB8VSNwr9jAbYFFWp
+	ZeioQkUyoWRV3/T0wjypZ2/SKnQgVQ/yLTpvV6lnHqgeSir4H7DlDo1ee/5H2ptnnEb5ry6Yut8
+	uhqRBIZwy6PEXhImHggHpHeOdbHrk6vpcw0H3wRyNdWX4ZV0hbjvn3x0D/FeDIFfn4+Hc4fc/C2
+	MLJzJ4Mg47qJD9bPezpTcNQ2H+Qc6XsUX2eNRakqkPDFj8jATIYsD8fI8oMKwIr36lJiWkmxI8w
+	YY0LBtPOfoZDjAu6BozIl1sx62qsnZt7rpA6OO49KFdt
+X-Received: by 2002:a05:690e:1381:b0:66f:d093:c206 with SMTP id
+ 956f58d0204a3-66fd093c2bdmr1628991d50.17.1788769588341; Mon, 07 Sep 2026
+ 01:26:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
-References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
-In-Reply-To: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Proofpoint-ORIG-GUID: tCS-cIE3UvjxglnA5nf8AKBl0FWUDOXA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MSBTYWx0ZWRfXyczr5ZLPwctA
- +px3juWgF3NJnvSALjWal9WLm5fUKKBGC91gW07nlioz5rclX26+41Xf893JpSPop7fdsmbob0f
- U7t50dJ+2Z7ODKGkRYW0czDRsVnt2O6AZEBlvWdvG5qhGzMCMB1NNFCWfT/YgVlbB4wua9xtoaM
- OrYYDdSvgdKIrvxFyWSef7CrRKmlvha2kZNCq8YgDEfM99B8GLyUDjzxBXkJBk4LWxJKwsS6YxC
- /pxEORrDnPI7RSIdqCh1ca4jFEbvm6+MO0yFqh3kgq7vCPW5PnRnQbfQFjl9rU14dazGsm1IDVO
- 6NFAc/LZEsjFtVotjj0e/OUcYAOuCquYaXsiWyUBv0YgaWRcYFHjZjD+rpZZxXh6K3FF/gEZQfo
- fpGKzN2XLO9zk2IR3qzmvWW2eKoUrk5kfyV+7I+YjpV2BNl2aAjcqvcu8t+WLBrvtSVlJFBiaEf
- 0MM0QhvNchbsSC+z+Jw==
-X-Proofpoint-GUID: tCS-cIE3UvjxglnA5nf8AKBl0FWUDOXA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MSBTYWx0ZWRfXyQqoAkNqjUPV
- wqpLcRM7/4VSAoTxGrTVhIDls0NljFh0kBSBUAmd075XC5M49SgNGCRcPRGQtfL5tKPOymKdWHm
- 8v7baR4auHXMr82Yp3gYuZAcQBYjzZM=
-X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9e7532 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=iX_rjOfq5r2Sv1zA3QwA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
- a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070091
+References: <20260907062427.11910-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260907062427.11910-1-hemanth.selam@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Mon, 7 Sep 2026 17:26:10 +0900
+X-Gm-Features: AcwNN1WG1Jj532-ZoTPWGvuaNMs2YmLY0fK-SGK5p_IrGQI1YE8Zkqlj9v1k3Mo
+Message-ID: <CAKFNMok3MaD+fRcG6VbBRND3gZa+APt_jV63KtQzXzpX6vdCCw@mail.gmail.com>
+Subject: Re: [PATCH] nilfs2: fix typos in comments
+To: Viacheslav Dubeyko <slava@dubeyko.com>, Hemanth Selam <hemanth.selam@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On some PLLs the PLL_ALPHA_VAL register has been increased to 28 bits to
-carry the fractional word at a finer resolution, for example the
-ZONDA_OLE instances on the Qualcomm Nord DPRX. The alpha-PLL core,
-however, derives the ALPHA_VAL width solely from the register-map layout
-and can only express 16 or 40 bits, so it programs and reads back the
-28-bit configuration at the wrong scale on both the set_rate/slew and
-recalc_rate paths, making the PLL lock to and report the wrong rate.
+On Mon, Sep 7, 2026 at 3:24=E2=80=AFPM Hemanth Selam wrote:
+>
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
 
-Add a way to identify the wider register: an optional alpha_width field
-in struct clk_alpha_pll that, when non-zero, supersedes the
-register-derived width. This feeds pll_alpha_width(), so the recalc_rate
-and round_rate math scale the fractional word correctly, and the Zonda
-set_rate L-adjust MSB check is derived from the active width instead of
-a hardcoded BIT(15). PLLs that leave the field zero retain the previous
-behaviour.
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- drivers/clk/qcom/clk-alpha-pll.c | 7 ++++---
- drivers/clk/qcom/clk-alpha-pll.h | 3 +++
- 2 files changed, 7 insertions(+), 3 deletions(-)
+Hemanth Selam, thank you for the patch.
 
-diff --git a/drivers/clk/qcom/clk-alpha-pll.c b/drivers/clk/qcom/clk-alpha-pll.c
-index 60173b076cc5f16bb55343a1d1136eb07f3c050f..981f973da02f379832fdc0cded3f2b4cae5879e4 100644
---- a/drivers/clk/qcom/clk-alpha-pll.c
-+++ b/drivers/clk/qcom/clk-alpha-pll.c
-@@ -382,8 +382,9 @@ EXPORT_SYMBOL_GPL(clk_alpha_pll_regs);
- #define ZONDA_PLL_FREQ_LOCK_DET	BIT(29)
- 
- #define pll_alpha_width(p)					\
--		((PLL_ALPHA_VAL_U(p) - PLL_ALPHA_VAL(p) == 4) ?	\
--				 ALPHA_REG_BITWIDTH : ALPHA_REG_16BIT_WIDTH)
-+		((p)->alpha_width ? (p)->alpha_width :		\
-+		 ((PLL_ALPHA_VAL_U(p) - PLL_ALPHA_VAL(p) == 4) ?	\
-+				 ALPHA_REG_BITWIDTH : ALPHA_REG_16BIT_WIDTH))
- 
- #define pll_has_64bit_config(p)	((PLL_CONFIG_CTL_U(p) - PLL_CONFIG_CTL(p)) == 4)
- 
-@@ -2290,7 +2291,7 @@ static int clk_zonda_pll_set_rate(struct clk_hw *hw, unsigned long rate,
- 	if (ret < 0)
- 		return ret;
- 
--	if (a & PLL_ALPHA_MSB)
-+	if (a & BIT(alpha_width - 1))
- 		zonda_pll_adjust_l_val(rate, prate, &l);
- 
- 	regmap_write(pll->clkr.regmap, PLL_ALPHA_VAL(pll), a);
-diff --git a/drivers/clk/qcom/clk-alpha-pll.h b/drivers/clk/qcom/clk-alpha-pll.h
-index 3a2157bebc52cd15f55381a068953f21be18f6bb..ab3b4f4fc7501df0fa3f59d741d64646383e4cfd 100644
---- a/drivers/clk/qcom/clk-alpha-pll.h
-+++ b/drivers/clk/qcom/clk-alpha-pll.h
-@@ -86,6 +86,8 @@ struct pll_vco {
-  * struct clk_alpha_pll - phase locked loop (PLL)
-  * @offset: base address of registers
-  * @regs: alpha pll register map (see @clk_alpha_pll_regs)
-+ * @alpha_width: optional override of the ALPHA_VAL width in bits;
-+ *		 0 means derive the width from @regs
-  * @config: array of pll settings
-  * @vco_table: array of VCO settings
-  * @num_vco: number of VCO settings in @vco_table
-@@ -95,6 +97,7 @@ struct pll_vco {
- struct clk_alpha_pll {
- 	u32 offset;
- 	const u8 *regs;
-+	u32 alpha_width;
- 
- 	const struct alpha_pll_config *config;
- 	const struct pll_vco *vco_table;
+Viacheslav, could you please add this to the queue for the next cycle as we=
+ll?
 
--- 
-2.34.1
+Thanks,
+Ryusuke Konishi
 
+>  fs/nilfs2/sufile.c | 2 +-
+>  fs/nilfs2/super.c  | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+> index eceedca02697..6918be6fce2e 100644
+> --- a/fs/nilfs2/sufile.c
+> +++ b/fs/nilfs2/sufile.c
+> @@ -1050,7 +1050,7 @@ ssize_t nilfs_sufile_set_suinfo(struct inode *sufil=
+e, void *buf,
+>   * len:                number of Bytes to trim from start
+>   * minlen:     minimum extent length in Bytes
+>   *
+> - * Decription: nilfs_sufile_trim_fs goes through all segments containing=
+ bytes
+> + * Description: nilfs_sufile_trim_fs goes through all segments containin=
+g bytes
+>   * from start to start+len. start is rounded up to the next block bounda=
+ry
+>   * and start+len is rounded down. For each clean segment blkdev_issue_di=
+scard
+>   * function is invoked.
+> diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
+> index 893a504cb80c..65f44ff6779e 100644
+> --- a/fs/nilfs2/super.c
+> +++ b/fs/nilfs2/super.c
+> @@ -654,7 +654,7 @@ static int nilfs_statfs(struct dentry *dentry, struct=
+ kstatfs *buf)
+>                         /*
+>                          * If nilfs_palloc_count_max_entries() returns
+>                          * -ERANGE error code then we simply treat
+> -                        * curent inodes count as maximum possible and
+> +                        * current inodes count as maximum possible and
+>                          * zero as free inodes value.
+>                          */
+>                         nmaxinodes =3D atomic64_read(&root->inodes_count)=
+;
+> --
+> 2.48.1
+>
