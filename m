@@ -1,60 +1,87 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93E1472542
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:16:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05E24D90D4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:16:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786966; cv=none; b=dk8MN1FJZfr93xDIjvGY5w+P5IrAa+q2JYC6bTQEcY93v15NroerIEoZdd1doGzD11LoIdn6BXdg9K1O9EnofiW7ACdgcIdQgwue9B3K1HvZKKV/NbPrSNubapnwuOdsK36okHV6YvI4UKtBHfVWv/HahKIRAhGmxmi/tGfiMHg=
+	t=1788787005; cv=none; b=kuFfDCzaDOUuMY/CQFfpeWPba55xBlOsJWRU2sEHyDgDTcKsP3XDRMws6hLuvu2gkkCgnabUU3C2Y3WV4CtzOs+goBfjtscjsDkAB7qaFfJWD6il9noYJkonSEpCKv7irIQdXKLlAFsVdjlVg+T8mpXykQ6SDTdt6L21mus0Qxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786966; c=relaxed/simple;
-	bh=Ev2XWwud0NMchVn7W7A/yUPBKsff4ekNAD1Zq3hdm4Q=;
+	s=arc-20240116; t=1788787005; c=relaxed/simple;
+	bh=G2v8Z4In0XdRAS7INMiDLN8saFBbHThX8C3LzAr0q6c=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g/ellwOokgzFjhz37XadcSPQF+dG6fcNwNxzuqzBEEHx6TVJxZ64GuBQb+iDhjWzW/feGssWvm7Mpx0iBcbvaGiRALe+eJ4k0bZRqIEYBN6Wyj5ppHQbaH2vxbk/KpEP557Mc1mwDU0i0JeIM5hSz/8aSVCjmcp3MQsaSfhSx8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DMzCv+Hp; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	 In-Reply-To:Content-Type; b=aVoLeuen1vrRtrSMCHB9EJ/C5IyHNYtJlflVWPiO7r22Mn5alXUOzh22n6nzyDOJVRxL+CisjJ6+khHN2P/EA1GQ7Xil4K2WcBQFHhvWM46HjdcRYDof9OyIJ3KMzv8GEkC3Yo/xCp6Yw1c1mECkyi855u3YvFZduRVBKshxOTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Qi+be6Fj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FvwkLlGP; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DMzCv+Hp"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687B1jSZ1785414;
-	Mon, 7 Sep 2026 13:15:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=/TSTbS
-	tenYNmkwzCBdUyEcXtY08ZuCRAcrpLdm4VEyo=; b=DMzCv+HpwRBeJpqhDoT6it
-	Fn0eRgR8rou/3ugAEwl3/4WYTC3g+vbAKovO1ul1JhHbO56BZbKcRGKe6q+XigdK
-	aUzCAjNVB3a7ltBZWlrZC4IBYHv8pOmElbuHJhwOsO05W95TqZEU3uFD4Ug1JeDv
-	06KS9FskVrItUuG91ZfoeBx1vvGijDNIxw+CQJ3/NO0Mc6GnrJfGh4tkqp7ILnTx
-	vdoEwvBW52AUFi2/Mrg0jvtAjB/sR5uYdZxZZwgO/ki4s6GT+fW/DutZts+/ue1j
-	msYrk6PMYLTAKqk1KLIXdb2LcTzAEXTbI3TyWgcCtBgAnVOfv9/2U4hdbhde7zCA
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3rwcs-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 13:15:29 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 687DBHwK005937;
-	Mon, 7 Sep 2026 13:15:28 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdq68f8-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 13:15:28 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (smtpav01.dal12v.mail.ibm.com [10.241.53.100])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 687DFS7B54919454
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 13:15:28 GMT
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6213558058;
-	Mon,  7 Sep 2026 13:15:28 +0000 (GMT)
-Received: from smtpav01.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1C17B58057;
-	Mon,  7 Sep 2026 13:15:25 +0000 (GMT)
-Received: from [9.61.43.34] (unknown [9.61.43.34])
-	by smtpav01.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  7 Sep 2026 13:15:24 +0000 (GMT)
-Message-ID: <84112f53-5c05-46ca-97d0-550565fb941c@linux.ibm.com>
-Date: Mon, 7 Sep 2026 18:45:22 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Qi+be6Fj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FvwkLlGP"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AmmEt809866
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 13:16:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i/JbXDPZNdiTi4gFT/05j7G8PAlG6bXM/OV5ZMst29U=; b=Qi+be6FjJUIG70fb
+	i8n9PVOwpcdyzyQHqqPWVv3O9greCJcXmPMxIdfG+ksR8LHCmjZj36HM08ylYBW5
+	lF1r43md/0MPRSyDeGKFRhJkeipurAGK2bLrEN/GU8wuQKdbW3brEyw7vPlpav5l
+	4Gc5XHZc+8Wfd1uEali5tnAN/AnUyYbrWryvjCYETJhcPFQ8ujjR+ugccGO++lpW
+	3+W/QNI4xmegDrTlsvrAZqgw2ScLoYCDz+7hnYaaMKMZQfHuhV9UqKCGml81tMsb
+	GoBHOFNBFgZli0l2buLvHCXUh2D9C3bZRLYqTKds6JJPHZupKRo4K1wqXoAfq6zF
+	NkK2dQ==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghrua9hnt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:16:40 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97ca6578487so2739405241.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:16:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788787000; x=1789391800; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i/JbXDPZNdiTi4gFT/05j7G8PAlG6bXM/OV5ZMst29U=;
+        b=FvwkLlGPKKUdh4BuN6xln6n1vbkegNHNkLAguDc9DSDiLa0rqSrG+4UnL+5xlonCAe
+         lRRavq7Rd/ceoNIAtheW83s4FzDbrfM+B8y4lQ2Q8IcfTS6ye2RA97KVVLnEIRUYN+nA
+         gXUCCAw29xhCvltrHvbrUt5R0qPAa7yEI2b8NXdUQAsAzvPuo5AQW0Ah7aOiO/X35pAB
+         ii1A4sNKd/eAA/PkxjxXxCvBG6jaaB0wY3UpKW71xOSr7YQuvcNxZWx8/LLarNWTGZfP
+         RKDQxa1b8s+fXFZwPdVjXTw/owPt7WxWr30/SLACXCTJ+8aFWssAhVur6tSyhiuKxNUu
+         UIyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788787000; x=1789391800;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i/JbXDPZNdiTi4gFT/05j7G8PAlG6bXM/OV5ZMst29U=;
+        b=hB5m/VMi4ZvOSRFqvuAGT3bNfdkzVRkTDf7xHqO66S/1XuOl37u5yDPg1DZaxNcgdn
+         RBks7mEU3DeVn+HZqLiDltKv5q0XDXGcI23OtwHBlLixmNSQaRGz2B14+Pym2jFIxv3U
+         Y/AdY7V5UJlTdODQx6NKQwUIgI5kBGiMLIvFqfVBkTjQlrnITp5ad6RA/4eK6AQOZJWB
+         5SVagVEU6+vdcHgfPkd3SRINL3fP7WKjoNi6NU0yqLRylM/JIvG8TPdFVYHTERmHQGX/
+         ZTlyvlfwTDtRrHzx8xuE/Vsy2ZvpB0vbCpEc6LkDXdXIuLNRCYteTGbfRofTk+EMZgvk
+         O3cg==
+X-Forwarded-Encrypted: i=1; AKwUvBwDtjfai28DMUwnax6D6kBAPRp+WMIPgSDDafTjj25phd5uiiKqSp6wYahxbeXNi4TPZ8XVVWN6D21QCvA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBAjMPc7LQUYcCgjZTQR41yYmDkYRxcDipHNFVhiv9Nqy87dQE
+	GePjDH3Pds2qyjmiT81e+L4jbK2WapWnHL4LCOSUbiQCFRcAGDUWf5eibrg6bU0t6mj9ucHSGFZ
+	mVYtHryIkJ3WHyUwuJ3keKCzRcYYdTsQfb3755Y2vUfQPpneoaBc/ah53R1iH9IrN4i0=
+X-Gm-Gg: AYBFou2H67ludwskrjv/A79KIayxX/05YcFpQsU+t4EpLeAD7erxP7D3LzdL3nK26nM
+	eypL8H8oXE3GKjA9FZmLcIDGcoKdsi8JptsWue/jUX4wcVWHrDUzzziu6gUlM8mwhfO3koPliCe
+	kUkjqOHU2SdDslQKHfv5dZ2pRmZWB501NqDWSk/gmq9Pk32YFyT44LHglo/BYoFtpljwCIwSHxw
+	cnSj8aXsoGMON+2jvR522DrqvomBFPwEQ4Y7Mf7inETXSTHGJ0M0hfpcSRwJImv6k2OmdlZYloe
+	iROQUn/UtZ+oOq+hX/JJIzLHyrARVRriuWf69a5I7pHIoeQIiPJuTFzR/zrEp+BYf8g2LTz8XXS
+	pR7ECXePimaIBuEQwoOEeK6FG5Ds=
+X-Received: by 2002:a05:6102:560c:b0:786:aae:aefc with SMTP id ada2fe7eead31-78a4aa9d9dcmr9477262137.13.1788786999890;
+        Mon, 07 Sep 2026 06:16:39 -0700 (PDT)
+X-Received: by 2002:a05:6102:560c:b0:786:aae:aefc with SMTP id ada2fe7eead31-78a4aa9d9dcmr9477009137.13.1788786994613;
+        Mon, 07 Sep 2026 06:16:34 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id a640c23a62f3a-c28e9eb4d38sm176729966b.41.2026.09.07.06.16.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 06:16:33 -0700 (PDT)
+Message-ID: <abaa945c-9af7-43fd-9f2f-ba20eec2a9bc@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:16:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,251 +89,88 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvme-multipath: add fail_io_now sysfs attribute to fail
- queued I/O
-To: Krishna Iyer <kiyer@crusoe.ai>, kbusch@kernel.org, axboe@kernel.dk,
-        hch@lst.de, sagi@grimberg.me
-Cc: linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
-        sj@kernel.org, saravanand@crusoe.ai
-References: <20260904032605.65758-1-kiyer@crusoe.ai>
+Subject: Re: [PATCH v2 08/11] ASoC: SDCA: make find_sdca_control_reset()
+ return void
+To: Charles Keepax <ckeepax@opensource.cirrus.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Takashi Iwai <tiwai@suse.com>,
+        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
+ <289d5485-44fa-4d74-8f69-7adc1507ac9e@linux.dev>
+ <ap62OoErmU6lU+9l@opensource.cirrus.com>
 Content-Language: en-US
-From: Nilay Shroff <nilay@linux.ibm.com>
-In-Reply-To: <20260904032605.65758-1-kiyer@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <ap62OoErmU6lU+9l@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: -bPbKPZ8cYf-JRgV45mmzLgyg_w4bRzT
-X-Proofpoint-GUID: -bPbKPZ8cYf-JRgV45mmzLgyg_w4bRzT
-X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9eb8f1 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=i89cb_tVjrOSbL2ZDJYA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX/nxdTPEzqAqo
- CcJkBd97I0lszyQsW1XiGE/2rzFBobmcrRZ6IODzIKYVa4hgzzti4hKVFUkY01jTPzBcnrAtsLc
- T/c/37Hg8g65KoF5Mj/DnC0NkQFFjSz0uP0ae4+Vy1lkKt9fJE4t22Qnoz5WErXEZO8CdBEyF3Y
- SRpjBFoUcAiM8IsOqQry38iRgmROtapsEJAppKQquW2snjECbt1RX/CyjXQC2sYNrMByjNi+DJD
- raeYm4veIJeq9Loq8LRdYEqzehMvniQG5THGLzCbpXz3/eLTk5SThawUCHUlTi05NKligU5FmBt
- vG8SFxa3SPMSU/uNr+YezXtUTN537GljIbQkAMRdkJcoSwcIIxaTXIhUK2GfTUBUQISY5b1aEC3
- 8PCszz4klnqiMsw6xSprKXwq7sovnZ4hm4okuWZCGufsMMBhdVe+Ty6hwoGaLzloXXWYJqtQ55R
- 7rIBaAgtCq1asHbSGkw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX6dwgYqdtMByv
- oBWXj8FKpQNyQC0DS1CNZVsfgxbquxBdvizutXrCTgfOHEvFW0QiC7cSwA8dLxTuJQC3EDAYVO7
- d2Br+Uwg3VtKaOI3j5V+glABBKLJ3YE=
+X-Proofpoint-ORIG-GUID: 40nb1IQNS8h-r2FNx3aTAQYsizQcj_qL
+X-Authority-Analysis: v=2.4 cv=U+aiy+ru c=1 sm=1 tr=0 ts=6a9eb938 cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=w1d2syhTAAAA:8 a=zomqoF8P1_g83G_DeI8A:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-GUID: 40nb1IQNS8h-r2FNx3aTAQYsizQcj_qL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NiBTYWx0ZWRfX0aa3Dx0/0p0t
+ 7lIlkXAJluaxjDvMLC+DmLCQnPfMcY6PotNSlecjliG5Hy6hChZIDN57oM00y6huVMH2uXQIpMH
+ xFx7xpLfOt4QAs4eUpE+3QoWr2LUqzg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NiBTYWx0ZWRfX8Np8nTqb9ULD
+ Fvi2vAdUGglnIzesSQMdQhqEXn4JH0Hu2izoCviBHZXm9Fbt7YP/51amIf4Rt8hHOGMwd0Leo/F
+ 15UVXVggr2Bjykexbs8lM9TW1tx52My6McVf3FJPs3puZLaaXSVpGKdj7FPVYUqscYHKOrs2AVD
+ ZLXETbQR9x+4xavCh8uL6G0TJiF/dIywnAnmdSJGs1TaZ3h/WOjH5rnKwFeXcMSttik4lZ2dd+6
+ nzXW1OMQRvf0xt7WNAWQjvYlXKH9VK6uitrv9mPncNZFUYXxOc8kkMhYcOLhsUAEqqbCq//cmnV
+ a1MYgA3Tc62PZhiI+1mpjEKvZmUQmC4yevduKdF5ZVs9RIXju1e9vx7pI86HcheWD7b3c5pzi/k
+ uHqsKwQfpPQZlgeCWExiASk7y9oHKC6ZltoHeHWl6631v5odMfVC5ilOJjMuD2xUe2ncIHN4S/E
+ i/VeUR0LkGtvY98dd8A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
- clxscore=1011 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070144
+ phishscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070146
 
-On 9/4/26 8:56 AM, Krishna Iyer wrote:
-> When all paths to a multipath namespace are down, I/O is held on the
-> head requeue list until a path returns. With ctrl_loss_tmo=-1 the
-> controllers reconnect forever, so during a long fabric outage the I/O
-> is held indefinitely and any process waiting on it sleeps in D state
-> until the fabric heals or the host is rebooted. We hit this on
-> virtualization hosts, where a SIGKILLed VM process cannot exit because
-> it is still draining I/O to an unreachable NVMe/TCP target.
+On 9/7/26 2:03 PM, Charles Keepax wrote:
+> On Mon, Sep 07, 2026 at 01:32:30PM +0200, Pierre-Louis Bossart wrote:
+>> On 9/7/26 10:37, Srinivas Kandagatla wrote:
+>>> find_sdca_control_reset() only ever returns 0 -- it just sets
+>>> control->has_reset / control->reset for the framework-known
+>>> (entity type, control selector) mappings.  The int return + caller
+>>> error check in find_sdca_entity_control() are dead code.
+>>>
+>>> Convert to void and drop the check.  No functional change.
+>>>
+>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>>
+>> That looks also unrelated to DT stuff, not sure it belongs here as patch
+>> 08/11
+>>
+>> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
 > 
-> There is currently no way to fail this I/O without tearing something
-> down. Deleting the controller (or letting ctrl_loss_tmo expire) works
-> but takes every namespace on the controller with it and requires a
-> manual reconnect afterwards. fast_io_fail_tmo only arms on the
-> RESETTING -> CONNECTING transition, so it cannot be set once the
-> outage has started. delayed_removal_secs only matters after all
-> controllers are gone, which never happens with ctrl_loss_tmo=-1.
-> dm-multipath has had "dmsetup message <dev> 0 fail_if_no_path" for
-> this for decades; nvme multipath has no equivalent.
-> 
-> Add a fail_io_now attribute on the ns-head disk. Writing a true value
-> sets NVME_NSHEAD_FAIL_IO_NOW, synchronizes SRCU so submitters see it,
-> and kicks the requeue work. nvme_available_path() treats the flag as
-> no path available, so the existing bio_io_error() branch fails the
-> parked and any newly arriving I/O, for that namespace only. Controller
-> state is not touched: reconnect attempts continue and other namespaces
-> on the controller keep queueing. The flag is cleared in
-> nvme_mpath_set_live() when a path comes back, like
-> NVME_CTRL_FAILFAST_EXPIRED.
-> 
-> Locking, SRCU usage and sysfs visibility follow the neighboring
-> delayed_removal_secs attribute; input parsing follows
-> io_passthru_err_log_enabled (kstrtobool, shows on/off). Validated on
-> real hardware with a 6.17 backport of this change.
-> 
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
-> ---
-> Testing notes: the 6.17 backport was exercised on a virtualization
-> host with a two-path NVMe/TCP namespace connected with
-> ctrl_loss_tmo=-1. With both target portals firewalled off and a
-> SIGKILLed VM process stuck in D state on the parked I/O, the process
-> stayed unreapable for over six minutes; delayed_removal_secs=60,
-> armed before the outage, never triggered since the controllers were
-> CONNECTING throughout. Writing fail_io_now released the process in
-> about two seconds, the reconnect loop was undisturbed, and once the
-> firewall was removed the paths came back live and the attribute read
-> back off on its own. A namespace on a second subsystem kept the
-> default queueing behavior throughout. This posting is compile-tested
-> (including W=1) on nvme-next.
-> 
->   drivers/nvme/host/multipath.c | 62 +++++++++++++++++++++++++++++++++++
->   drivers/nvme/host/nvme.h      |  2 ++
->   drivers/nvme/host/sysfs.c     |  4 ++-
->   3 files changed, 67 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
-> index fc6800a9f7f9..a026bdfb9d7f 100644
-> --- a/drivers/nvme/host/multipath.c
-> +++ b/drivers/nvme/host/multipath.c
-> @@ -482,6 +482,15 @@ static bool nvme_available_path(struct nvme_ns_head *head)
->   	if (!test_bit(NVME_NSHEAD_DISK_LIVE, &head->flags))
->   		return false;
->   
-> +	/*
-> +	 * The user requested any I/O queued or arriving while no path is
-> +	 * usable to be failed immediately (e.g. to release I/O held for a
-> +	 * fabric that retries reconnection indefinitely). The flag is
-> +	 * cleared when a path becomes live again.
-> +	 */
-> +	if (test_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags))
-> +		return false;
-> +
-Does the intention here is to force I/O to fail irrespective of the
-controller state, or the intention here's to fail I/O only when no
-usable path exist? If it's latter then I believe this is not the right
-place to enforce this policy as since this check makes nvme_available_path()
-return false unconditionally when NVME_NSHEAD_FAIL_IO_NOW is set, without
-considering whether a usable path exists.
+> Agree lets pull these two patches out and submit seperately as we
+> can merge them both happily today.
+>
 
->   	list_for_each_entry_srcu(ns, &head->list, siblings,
->   				 srcu_read_lock_held(&head->srcu)) {
->   		if (test_bit(NVME_CTRL_FAILFAST_EXPIRED, &ns->ctrl->flags))
-> @@ -780,6 +789,12 @@ static void nvme_mpath_set_live(struct nvme_ns *ns)
->   	if (!head->disk)
->   		return;
->   
-> +	/*
-> +	 * A path is usable again, restore the default queue-if-no-path
-> +	 * behavior in case fail_io_now was set during a fabric outage.
-> +	 */
-> +	clear_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
-> +
->   	/*
->   	 * test_and_set_bit() is used because it is protecting against two nvme
->   	 * paths simultaneously calling device_add_disk() on the same namespace
-> @@ -1168,6 +1183,53 @@ static ssize_t delayed_removal_secs_store(struct device *dev,
->   
->   DEVICE_ATTR_RW(delayed_removal_secs);
->   
-> +static ssize_t fail_io_now_show(struct device *dev,
-> +		struct device_attribute *attr, char *buf)
-> +{
-> +	struct gendisk *disk = dev_to_disk(dev);
-> +	struct nvme_ns_head *head = disk->private_data;
-> +
-> +	return sysfs_emit(buf, test_bit(NVME_NSHEAD_FAIL_IO_NOW,
-> +			&head->flags) ? "on\n" : "off\n");
-> +}
-> +
-> +static ssize_t fail_io_now_store(struct device *dev,
-> +		struct device_attribute *attr, const char *buf, size_t count)
-> +{
-> +	struct gendisk *disk = dev_to_disk(dev);
-> +	struct nvme_ns_head *head = disk->private_data;
-> +	bool enable;
-> +	int ret;
-> +
-> +	ret = kstrtobool(buf, &enable);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	mutex_lock(&head->subsys->lock);
-> +	if (enable)
-> +		set_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
-> +	else
-> +		clear_bit(NVME_NSHEAD_FAIL_IO_NOW, &head->flags);
-> +	mutex_unlock(&head->subsys->lock);
-> +
-> +	/*
-> +	 * Ensure that update to NVME_NSHEAD_FAIL_IO_NOW is seen
-> +	 * by its reader.
-> +	 */
-> +	synchronize_srcu(&head->srcu);
-> +
-> +	/*
-> +	 * Kick the requeue list so already-queued I/O re-evaluates path
-> +	 * availability and fails immediately.
-> +	 */
-> +	if (enable)
-> +		kblockd_schedule_work(&head->requeue_work);
-> +
-> +	return count;
-> +}
-> +
-> +DEVICE_ATTR_RW(fail_io_now);
-> +
->   static int nvme_lookup_ana_group_desc(struct nvme_ctrl *ctrl,
->   		struct nvme_ana_group_desc *desc, void *data)
->   {
-> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-> index eeabc72863d8..ca93a8934123 100644
-> --- a/drivers/nvme/host/nvme.h
-> +++ b/drivers/nvme/host/nvme.h
-> @@ -566,6 +566,7 @@ struct nvme_ns_head {
->   	unsigned int		delayed_removal_secs;
->   #define NVME_NSHEAD_DISK_LIVE		0
->   #define NVME_NSHEAD_QUEUE_IF_NO_PATH	1
-> +#define NVME_NSHEAD_FAIL_IO_NOW		2
->   	struct nvme_ns __rcu	*current_path[];
->   #endif
->   };
-> @@ -1067,6 +1068,7 @@ extern struct device_attribute dev_attr_ana_state;
->   extern struct device_attribute dev_attr_queue_depth;
->   extern struct device_attribute dev_attr_numa_nodes;
->   extern struct device_attribute dev_attr_delayed_removal_secs;
-> +extern struct device_attribute dev_attr_fail_io_now;
->   extern struct device_attribute subsys_attr_iopolicy;
->   
->   static inline bool nvme_disk_is_ns_head(struct gendisk *disk)
-> diff --git a/drivers/nvme/host/sysfs.c b/drivers/nvme/host/sysfs.c
-> index 93513c17ad5f..c154cc78c290 100644
-> --- a/drivers/nvme/host/sysfs.c
-> +++ b/drivers/nvme/host/sysfs.c
-> @@ -261,6 +261,7 @@ static struct attribute *nvme_ns_attrs[] = {
->   	&dev_attr_queue_depth.attr,
->   	&dev_attr_numa_nodes.attr,
->   	&dev_attr_delayed_removal_secs.attr,
-> +	&dev_attr_fail_io_now.attr,
->   #endif
->   	&dev_attr_io_passthru_err_log_enabled.attr,
->   	NULL,
-> @@ -297,7 +298,8 @@ static umode_t nvme_ns_attrs_are_visible(struct kobject *kobj,
->   		if (nvme_disk_is_ns_head(dev_to_disk(dev)))
->   			return 0;
->   	}
-> -	if (a == &dev_attr_delayed_removal_secs.attr) {
-> +	if (a == &dev_attr_delayed_removal_secs.attr ||
-> +	    a == &dev_attr_fail_io_now.attr) {
+Thanks Charles, Sure let me send them out separately.
 
-This attribute should be only exposed for fabric controller.
-It looks this is being exported for non-fabric controller
-as well. Moreover, I like attribute fail_if_no_path better
-than fail_io_now, since it describes the actual policy being
-enabled: when no usable path exists, fail I/O instead of
-queueing it.
+> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
->   		struct gendisk *disk = dev_to_disk(dev);
->   
->   		if (!nvme_disk_is_ns_head(disk))
+--srini
 > 
-> base-commit: 011e0880d366be065d273c22ad1638934748d3e0
-
-This patch appears to be based off older kernel branch. Please
-rebase it against the nvme-7.3 branch.
-
-Thanks,
---Nilay
+> Thanks,
+> Charles
 
