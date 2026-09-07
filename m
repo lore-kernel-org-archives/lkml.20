@@ -1,131 +1,291 @@
-Received: from mail-24422.protonmail.ch (mail-24422.protonmail.ch [109.224.244.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63E150AC00
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:44:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC223CF1FD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:46:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795846; cv=none; b=e5LI+cNHn4GNM1+F6ZzLTeDXzRq33kWEcQrRgjQnxJ3THdy6EyxrO5Qsc5qM6Elx2AFVWVY7fsueQBm9uSKVNIwjG+wMn7iyewJ6BOf6/ReHnqK77aeRyQYQrbKiz/vuMfq4JmsfZ8TCIStHrf6ExSIsuNVwIkkXeVwdUi+J/Fs=
+	t=1788796014; cv=none; b=UVkLLFX9xSyN8U1HSbS/Cc7TbQ96YHpfBanDhg5nS9rHTD5Pa/FATkeRi/IuJ+OHTxw1j7bGMIWMCfq4CYFWrn8pGAJ/dzSS+keyVK/9Mvi8dcLM5zzDrkAIAoIEwqwqU+09UPyK41fUJyolrIFi0+TOZvmg1GsgvZ8aCmGUIy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795846; c=relaxed/simple;
-	bh=/FZgfDnGoX+ire10E4Wl1AsaNQpBCMc+mcsKWPqtva8=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AFCrMnB8dMbK9FTF6AyHUCqgW/MOZBefHVqeDalxfmG0iHcSDhB0ZRQmnWyfc1cmDrFPwniD7SKmUo8LBHXKXZ8t6quNNsokvZQ08fDeVyghXRY2AhlpFSCSyxzoKO3Fr646Xof39DWlZDqEyRsaCyNrOt4xc9e9BMILElqH92M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=feldt.systems; spf=pass smtp.mailfrom=feldt.systems; dkim=pass (2048-bit key) header.d=feldt.systems header.i=@feldt.systems header.b=eHm0Yb2t; arc=none smtp.client-ip=109.224.244.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=feldt.systems
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=feldt.systems
+	s=arc-20240116; t=1788796014; c=relaxed/simple;
+	bh=+p2wxhGX5nM0ZplC1iTxNQsIkNWZxeDpFxjC2VLhC2U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JchaCFw96gLLpxJ/T+gVmfVUB6hDqhWmBzolV7JpuDptw2JrB+znj3oG3U7DYPkllrL3jefTWcv4K8m3eyUpVbgC9YceoBGufL0uMQABTmmaoEBsmxg8HVZOm6fnzeEHlKJbNYAFvrKNUMH4tQ/H1xRzxGNApxgeEU6tQvQkUFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pNnDW100; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=feldt.systems header.i=@feldt.systems header.b="eHm0Yb2t"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=feldt.systems;
-	s=protonmail2; t=1788795832; x=1789055032;
-	bh=pkR0D31rVu/YiZFmAIFnyb6QlSompEq74ZW7OV+Buog=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=eHm0Yb2tXkhaq1Hi6N88Jp0UhGxnSj2elmLEjvoPvAnllGYcDqH2TUJx36X34mlwy
-	 iFotdLlZ2U9BkDs8kckgvcZaAvhBZeMC55BwCy9wwK2bZvKZbY2pJILN4XO2ikGcJ7
-	 /qME0UbcGiz93AJov3MaTBaMHxLxPDKdpQu/5pgxzk/04VllByj0t4c02Wz+5XDkfD
-	 QxC47pNUvUZgPvrOiHCzoftEKdZ6Q8hfbrRCA0bMOtDMdx3w+F5cnU3ryc1/8C6QDr
-	 A/p1WF1pd/BxE/Ilht/o9CBUDJqp+ZcFf1lhnW3lpRCuVkS1W0hmkMW+SL02mrF2Iy
-	 Z/B5URMOuVxaw==
-Date: Mon, 07 Sep 2026 15:43:45 +0000
-To: tj@kernel.org
-From: Noah Feldt <noah@feldt.systems>
-Cc: carnil@debian.org, cgroups@vger.kernel.org, dschatzberg@meta.com, hannes@cmpxchg.org, linux-kernel@vger.kernel.org, mkoutny@suse.com, peterz@infradead.org, stable@vger.kernel.org, Noah Feldt <noah@feldt.systems>
-Subject: Re: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
-Message-ID: <20260907154324.91918-1-noah@feldt.systems>
-Feedback-ID: 113045274:user:proton
-X-Pm-Message-ID: ba06ed4c0107d1cb5ab091803c083e11ed334b3d
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pNnDW100"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so31029095e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:46:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788796010; x=1789400810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9NIT1FwG6Cf62/avBGQMVMZG3cECtHFx23mol9pUcno=;
+        b=pNnDW100kEg1If1sHAERsxI4dZsAnTFQVtYxnT7QAQLLXwsPTlubgyPyI3lmvj2Dey
+         zysKoC/of3N1f/rrWiRGpGrNqcJlVMl0wAfisAtY6o9PASiUpfz+FahOYiNUpvlGhkEG
+         bbWVrJJLKaRuF85KBqCx1qV0yqGoQcCd0vBiauHy5R4wk9W66h1IhWOC+metXBeEu+zC
+         QOfhXS5v3g2kgU2KzO79Hb4x1KeHrd9k372qp28GuVMuhKxEYbHU8M1/YglkrrkMFXbl
+         T7y9bNG480lzcTM251C4UVkZABmIh673xrJq9dodI4jYUTi17eJU+zfpUiQM1z50Xx0R
+         IEAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788796010; x=1789400810;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:from:references:cc:to:subject:reply-to
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9NIT1FwG6Cf62/avBGQMVMZG3cECtHFx23mol9pUcno=;
+        b=an+Bfqvt7XTJCK5JFlKxLaW/5w9S+vLTl3hC6ElZrQGb4EYpXxk5WwKHttFb0aIW6Q
+         +IZoHH03nlJoF+mJyc8cZaR+duheevujtbHSC0SPSvBN64Dr2ui0JNME+gJXwQoQQx52
+         6HghfyoiYd6lc2MCy0+Bn/dfRYJnYs/pRHO0H3mm2iyKYSSuWzzPZo8B+hVd093nDf1k
+         2T2P32qN7edZS16fLKIpT0cWH+MEQhHTESO+eHC4Ghn193A+fNJ8yplJZlwSOX1/gQAo
+         X07K4w8dmh+EcuT0f+t/V3/ti3vWftzfG4SQOe7dFeONxAZ4nxLVm0ZwewdIjWsvBZ78
+         R12w==
+X-Forwarded-Encrypted: i=1; AKwUvBxSoJ5WE9A+Ip9n9J/MHn7B+Ifzo3MR2wB7Hr3xOTeHQ0kOOa9jgur1ppz5xwmladPDgMs6rNRKO3ZvzD4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK9di4oqBoDjvf+UEv47Vr3OUV1f6g9wue5TaNTHNTIIap4UAG
+	vXHlnopjXL31N7F9aJvS64QRZuDhembKou9eSV04KYr8n/UCZu2KC4YZhyyB2IQDUSU=
+X-Gm-Gg: AYBFou20BM4/teerkQ5A0u2aMT1/J8uCXyZmvZIxAdwQeU5GuLy/LEw8Ih3Nr9mvpBj
+	5+StMFYIhEfo05L8HJ5Zye8bDK/FsuRGdOZN/s9vgTdVuf3soRXNkMnkr1QRm7PnNf6Giytijos
+	zqHhfO8uFuKjHn4mUYyHIOfn/kTY/CZVcxyfj0CwbFOFEYj1s/OMinai1fxQPV5cKOsu3q/Ykwz
+	UCmfYF4zUr4vA2o9yCWWzs6xhhZGZyxJ8rNXLgEOzKmgx/3BaIDr5ZIZbm3em3Kuinjwi+5SOUK
+	y8U861AVqtfcigTo8dL9HMRD8I7NzG1fdm7Bfk2GgZTnhPMln1brRpq6W6+BjjBNpu8y+8ybJJD
+	VU7UttkUGDqJ1x1oTDhBGi/S0HNAiFaWuGOF0wmvH7kuJoslidi+/dJZcBKJggorwOgc3grx/qt
+	MD1qxvxp68v5lAnTTv0VPu33CNXeSULT8sada8Ad8yIi/4o8amEZpSCoUn6nDOqw8yo+yujRhIF
+	nH9j4o9Eyv/JxjpWVXfLsOo9gSq9Fi0teX2TbQorfw=
+X-Received: by 2002:a05:600c:46d1:b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49cf820c992mr246008895e9.6.1788796010330;
+        Mon, 07 Sep 2026 08:46:50 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:74d7:9035:e283:b480? ([2a01:e0a:106d:1080:74d7:9035:e283:b480])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf772692dsm379629685e9.10.2026.09.07.08.46.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 08:46:49 -0700 (PDT)
+Message-ID: <e04b2fc0-710c-4cd3-8f38-e528d57b4487@linaro.org>
+Date: Mon, 7 Sep 2026 17:46:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha256; boundary="------dbd54100772eff0bbd62aef01cb43fd7b87c958a643f8695175bb7b3b4cd37cc"; charset=utf-8
+User-Agent: Mozilla Thunderbird
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH] PCI: qcom: Honor IOMMU provider's #iommu-cells in
+ qcom_pcie_config_sid_1_9_0()
+To: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ mani@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org,
+ robh@kernel.org, bhelgaas@google.com
+Cc: linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Loic Poulain <loic.poulain@oss.qualcomm.com>
+References: <20260907143349.317495-1-mani@kernel.org>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260907143349.317495-1-mani@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------dbd54100772eff0bbd62aef01cb43fd7b87c958a643f8695175bb7b3b4cd37cc
-Content-Type: multipart/mixed;
- boundary=dc970138a169a5fda25c477f7c7829e7fcd8bc377702300cb4a26856e571
-From: Noah Feldt <noah@feldt.systems>
-To: tj@kernel.org
-Cc: carnil@debian.org,
-	cgroups@vger.kernel.org,
-	dschatzberg@meta.com,
-	hannes@cmpxchg.org,
-	linux-kernel@vger.kernel.org,
-	mkoutny@suse.com,
-	peterz@infradead.org,
-	stable@vger.kernel.org,
-	Noah Feldt <noah@feldt.systems>
-Subject: Re: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
-Date: Mon,  7 Sep 2026 17:43:24 +0200
-Message-ID: <20260907154324.91918-1-noah@feldt.systems>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <aphyG4kapy2MBcnH@slm.duckdns.org>
-References: <20260902161653.1051794-1-mkoutny@suse.com> <aphyG4kapy2MBcnH@slm.duckdns.org>
-MIME-Version: 1.0
-
---dc970138a169a5fda25c477f7c7829e7fcd8bc377702300cb4a26856e571
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-Content-Disposition: inline
-
-On Wed, Sep 02, 2026 at 08:59:39AM -1000, Tejun Heo wrote:
-> How about something like the following? It's more in line with other skips
-> and the resulting behavior should remain the same as before:
->
-> --- a/kernel/cgroup/cgroup.c
-> +++ b/kernel/cgroup/cgroup.c
-> @@ -5228,6 +5229,21 @@
-> +	if (it->task_pos && it->cur_tasks_head == &it->cur_cset->dying_tasks) {
-> +		task = list_entry(it->task_pos, struct task_struct, cg_list);
-> +		if (!atomic_read(&task->signal->live))
-> +			css_task_iter_advance(it);
+On 9/7/26 16:33, Manivannan Sadhasivam wrote:
+> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> 
+> qcom_pcie_config_sid_1_9_0() reads the "iommu-map" property as an array
+> of fixed four-word {rid-base, phandle, sid, rid-len} entries to program
+> the BDF to SID translation table. But that layout only holds for an
+> IOMMU with '#iommu-cells = <1>'. The PCIe SMMUs on these SoCs use
+> '#iommu-cells = <2>' (SID and mask), so per the pci-iommu binding each
+> entry is really five cells long.
+> 
+> This used to work only because the DTs were themselves broken. They
+> described iommu-map with four-cell entries that omitted the SID mask,
+> which of_map_id() tolerated via its of_check_bad_map() fallback, and the
+> four-word parsing coincidentally matched that malformed shape.
+> 
+> Since commit ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps") the
+> OF core parses such maps correctly, so the device trees were converted
+> to proper five-cell entries, e.g. commit c41749e9554d ("arm64: dts:
+> qcom: sm8250: Fix the PCIe iommu-map entries"). With five-cell entries
+> the fixed four-word stride slips by one cell for each entry after the
+> first, so qcom_pcie_config_sid_1_9_0() reads the endpoint mapping's RID
+> from the preceding entry's length cell and its SID from the phandle cell.
+> As the RID is the hash key, the endpoint's real RID is never programmed
+> into the BDF to SID table. Its DMA then hashes to an unprogrammed slot,
+> gets tagged with SID 0 and the SMMU faults like below on QCS8300:
+> 
+>    arm-smmu 15200000.iommu: Unhandled context fault: fsr=0x402, iova=0xffa00000, cbfrsynra=0x0, cb=1
+> 
+> To fix this, walk the map with a stride of 3 + '#iommu-cells' of the
+> referenced IOMMU and take the SID from the first specifier cell, which is
+> all the BDF to SID table needs. Validate the layout instead of trusting
+> the array size. Also, preserve the legacy behavior of the old DTs by
+> detecting the same pattern that of_check_bad_map() recognizes and
+> falling back to a stride of four.
+> 
+> Fixes: 4c9398822106 ("PCI: qcom: Add support for configuring BDF to SID mapping for SM8250")
+> Reported-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> ---
+>   drivers/pci/controller/dwc/pcie-qcom.c | 90 ++++++++++++++++++--------
+>   1 file changed, 64 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+> index b58a607b713f..42cbeef083ca 100644
+> --- a/drivers/pci/controller/dwc/pcie-qcom.c
+> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
+> @@ -1143,50 +1143,90 @@ static void qcom_pcie_deinit_2_7_0(struct qcom_pcie *pcie)
+>   
+>   static int qcom_pcie_config_sid_1_9_0(struct qcom_pcie *pcie)
+>   {
+> -	/* iommu map structure */
+> -	struct {
+> -		u32 bdf;
+> -		u32 phandle;
+> -		u32 smmu_sid;
+> -		u32 smmu_sid_len;
+> -	} *map;
+>   	void __iomem *bdf_to_sid_base = pcie->parf + PARF_BDF_TO_SID_TABLE_N;
+>   	struct device *dev = pcie->pci->dev;
+> +	struct device_node *iommu_np;
+>   	u8 qcom_pcie_crc8_table[CRC8_TABLE_SIZE];
+> -	int i, nr_map, size = 0;
+> -	u32 smmu_sid_base;
+> +	const __be32 *map;
+> +	u32 iommu_cells, entry_cells, phandle, smmu_sid_base;
+> +	int i, nr_cells, nr_map, size = 0;
+>   	u32 val;
+>   
+> -	of_get_property(dev->of_node, "iommu-map", &size);
+> -	if (!size)
+> +	map = of_get_property(dev->of_node, "iommu-map", &size);
+> +	if (!map || !size)
+>   		return 0;
+>   
+> +	if (size % sizeof(*map)) {
+> +		dev_err(dev, "Malformed iommu-map property\n");
+> +		return -EINVAL;
 > +	}
+> +	nr_cells = size / sizeof(*map);
+> +
+> +	/*
+> +	 * Each iommu-map entry is: rid-base (1 cell), phandle (1 cell),
+> +	 * IOMMU specifier (#iommu-cells cells), length (1 cell). Read
+> +	 * #iommu-cells from the IOMMU provider referenced by the first
+> +	 * entry to compute the per-entry stride.
+> +	 */
+> +	phandle = be32_to_cpu(map[1]);
+> +	iommu_np = of_find_node_by_phandle(phandle);
+> +	if (!iommu_np) {
+> +		dev_err(dev, "Failed to find IOMMU node in iommu-map\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	if (of_property_read_u32(iommu_np, "#iommu-cells", &iommu_cells))
+> +		iommu_cells = 1;
+> +	of_node_put(iommu_np);
+> +
+> +	entry_cells = 3 + iommu_cells;
+> +
+> +	/*
+> +	 * Retain backward compatibility with DTs that describe iommu-map
+> +	 * with 4-cell entries against an IOMMU declaring #iommu-cells = 2,
+> +	 * matching the fallback in drivers/of/base.c::of_check_bad_map().
+> +	 */
+> +	if (iommu_cells == 2 && !(nr_cells % 4)) {
+> +		bool legacy = true;
+> +
+> +		for (i = 0; i < nr_cells; i += 4) {
+> +			if (be32_to_cpu(map[i + 1]) != phandle ||
+> +			    be32_to_cpu(map[i + 3]) != 1) {
+> +				legacy = false;
+> +				break;
+> +			}
+> +		}
+> +
+> +		if (legacy) {
+> +			dev_warn_once(dev, "iommu-map has 1-cell entries targeting 2-cell #iommu-cells, treating as 1-cell output\n");
+> +			entry_cells = 4;
+> +		}
+> +	}
+> +
+> +	if (nr_cells % entry_cells) {
+> +		dev_err(dev, "Malformed iommu-map property\n");
+> +		return -EINVAL;
+> +	}
+> +	nr_map = nr_cells / entry_cells;
+> +
+>   	/* Enable BDF to SID translation by disabling bypass mode (default) */
+>   	val = readl(pcie->parf + PARF_BDF_TO_SID_CFG);
+>   	val &= ~BDF_TO_SID_BYPASS;
+>   	writel(val, pcie->parf + PARF_BDF_TO_SID_CFG);
+>   
+> -	map = kzalloc(size, GFP_KERNEL);
+> -	if (!map)
+> -		return -ENOMEM;
+> -
+> -	of_property_read_u32_array(dev->of_node, "iommu-map", (u32 *)map,
+> -				   size / sizeof(u32));
+> -
+> -	nr_map = size / (sizeof(*map));
+> -
+>   	crc8_populate_msb(qcom_pcie_crc8_table, QCOM_PCIE_CRC8_POLYNOMIAL);
+>   
+>   	/* Registers need to be zero out first */
+>   	memset_io(bdf_to_sid_base, 0, CRC8_TABLE_SIZE * sizeof(u32));
+>   
+>   	/* Extract the SMMU SID base from the first entry of iommu-map */
+> -	smmu_sid_base = map[0].smmu_sid;
+> +	smmu_sid_base = be32_to_cpu(map[2]);
+>   
+>   	/* Look for an available entry to hold the mapping */
+>   	for (i = 0; i < nr_map; i++) {
+> -		__be16 bdf_be = cpu_to_be16(map[i].bdf);
+> -		u32 val;
+> +		u32 bdf = be32_to_cpu(map[i * entry_cells]);
+> +		u32 sid = be32_to_cpu(map[i * entry_cells + 2]);
+> +		__be16 bdf_be = cpu_to_be16(bdf);
+>   		u8 hash;
+>   
+>   		hash = crc8(qcom_pcie_crc8_table, (u8 *)&bdf_be, sizeof(bdf_be), 0);
+> @@ -1208,12 +1248,10 @@ static int qcom_pcie_config_sid_1_9_0(struct qcom_pcie *pcie)
+>   		}
+>   
+>   		/* BDF [31:16] | SID [15:8] | NEXT [7:0] */
+> -		val = map[i].bdf << 16 | (map[i].smmu_sid - smmu_sid_base) << 8 | 0;
+> +		val = bdf << 16 | (sid - smmu_sid_base) << 8 | 0;
+>   		writel(val, bdf_to_sid_base + hash * sizeof(u32));
+>   	}
+>   
+> -	kfree(map);
+> -
+>   	return 0;
+>   }
+>   
 
-I tested this change and the crash did not happen anymore with the second
-PoC I sent.
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
 
 Thanks,
-Noah
-
---dc970138a169a5fda25c477f7c7829e7fcd8bc377702300cb4a26856e571
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="publickey - noah@feldt.systems -
- 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
-Content-Type: application/pgp-keys; filename="publickey - noah@feldt.systems
- - 0x9B02BBB4.asc"; name="publickey - noah@feldt.systems - 0x9B02BBB4.asc"
-
-LS0tLS1CRUdJTiBQR1AgUFVCTElDIEtFWSBCTE9DSy0tLS0tCkNvbW1lbnQ6IGh0dHBzOi8vZ29w
-ZW5wZ3Aub3JnClZlcnNpb246IEdvcGVuUEdQIDIuMTAuMAoKeGpNRVpuV2ZveFlKS3dZQkJBSGFS
-dzhCQVFkQWpjOWlieHJoOExkN2E3YjdBM1hXUnZSdGt6V2cwcEZUaUpDTgoza3J1ZnM3TkoyNXZZ
-V2hBWm1Wc1pIUXVjM2x6ZEdWdGN5QThibTloYUVCbVpXeGtkQzV6ZVhOMFpXMXpQc0tNCkJCQVdD
-Z0ErQllKbWRaK2pCQXNKQndnSmtFQlN1OWFxLzJDcUF4VUlDZ1FXQUFJQkFoa0JBcHNEQWg0QkZp
-RUUKbXdLN3RGM0s0QUt5ZXdZWVFGSzcxcXIvWUtvQUFFSjdBUURaRlZLOGpTa3FDSk9oS1NsTVp6
-T01Ibk4vQjhyYwpHZzlXei9UdW1lejVwQUQvV2l6V2xGem4xT3NibzBzV0U3L25FLzRMaXRKS2k0
-bjlObUVGczRob01BVE9PQVJtCmRaK2pFZ29yQmdFRUFaZFZBUVVCQVFkQTc4U0JLZkc1Ymd6SjQw
-bVZxTmNGUnhqc0lTT0ovVW4rZU1TaC83MkQKVUVJREFRZ0h3bmdFR0JZS0FDb0ZnbVoxbjZNSmtF
-QlN1OWFxLzJDcUFwc01GaUVFbXdLN3RGM0s0QUt5ZXdZWQpRRks3MXFyL1lLb0FBTWJHQVA0anZ3
-YlBacnFSY3dzRk5VdWI3aSthSFVTY2pwQTJIazFUdTBKTG5HWTlMQUVBCjRBOGQrWGNsdEVhUEtp
-Vi9sbzh2RFdPaFBBQVBhbTFuQi8wQWhlenh1UTA9Cj1jQkVoCi0tLS0tRU5EIFBHUCBQVUJMSUMg
-S0VZIEJMT0NLLS0tLS0=
---dc970138a169a5fda25c477f7c7829e7fcd8bc377702300cb4a26856e571--
-
---------dbd54100772eff0bbd62aef01cb43fd7b87c958a643f8695175bb7b3b4cd37cc
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: ProtonMail
-
-wqsEARYIAF0Fgmqe268JEEBSu9aq/2CqNRQAAAAAABwAEHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcme/3NRsY21mPDC//7NeCXIuFiEEmwK7tF3K4AKy
-ewYYQFK71qr/YKoAAJBsAP0YmhyeD0Z8ayca+d/HTzh64SzpYVy+SHMw4NgY
-j7FifgEAn1+GGegrKm6a60b6WFOZ2bs3GcqWu39YMWKXDWTedAc=
-=oh2O
------END PGP SIGNATURE-----
-
-
---------dbd54100772eff0bbd62aef01cb43fd7b87c958a643f8695175bb7b3b4cd37cc--
-
+Neil
