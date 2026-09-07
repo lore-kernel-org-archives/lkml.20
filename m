@@ -1,108 +1,156 @@
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B873BB66B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D1B243E071
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:52:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774770; cv=none; b=RzKskKPf4THC/opZexUpdfhOJIH+jj244z97NfbMwry5WY+B/XIykHpQB+kpqqh/gFko5HRa8XGO6nleeJQSsk3MZFlGx+Q3g9hzujWwOqYZlbziTZ2q9+yK59rEU3gRlOHNxl9/mD1629dXGMjHZinVHdyKqYUf/1o1LVAkzD0=
+	t=1788774771; cv=none; b=Ok5uvT4MlzLQHCfTsI7V2athTFynblkpaSZ70VuF7tijyuI10eDSFzJdGq35KidLiFdHkrC/tM5an3D1OigfYuzkgJtHjgS+sBp53WUXdB5f1PzVzjBL0p+rVbyspHHK8yuO3C+05vEnyQ+Z1XFyKWFYlyoMRY0DvqbtKWPlfoQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774770; c=relaxed/simple;
-	bh=cqlFSrgeVcyAu1DwjM5N2nW2E2ZNBwopzV3zyer3On4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KpbngPtov79LJwsm9vCn6IPsoWgo7Dnm/ZD3mkI5h5hXfiL1Z8cVD3Kq068VnbUReqqWLx5YxiheKSzJFsg51rGjn47FNYkGKmyQmLEJiby4lb470dRbN9yfxbFlzrb+Z1iiZzMsXvu6NtAmPz0nKqM9OB6uQV46Ul/AnlSCkpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bjLwZjxq; arc=none smtp.client-ip=209.85.215.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788774771; c=relaxed/simple;
+	bh=RAk4/+0VANubwExV/eikqowXjMZXGsN/RmDQCnJKXPk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lm4KplRXWlnligPMXtJx5FgJOYnarJmnQ1vYLLoCkI+TEIjseQa9by0WMl8NMOXciMXlQQpra39jAA1VIiOTFzxCahoqhZ2iq0fvKr36lg+sjh2D4l7w55+5oXFNlWg1/CQ62UqqvlwB0+N0af0F0xwvuC/5IyHGebG0UmltBds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YGVMiND5; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bjLwZjxq"
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2643106a12.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YGVMiND5"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3781932f8f.1
         for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788774768; x=1789379568; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iLGaza3s6F5rgIQf4Pq3PulD1HjtmOc+h6lAEkmWtfU=;
-        b=bjLwZjxqs6MoH7uIcpsGHtDVI9kXVStsDfRBRRognSb1JCxLQh1n+wyNUtlKNwyVSa
-         1idNSCcz7PUMJARA9h2KsWv/MBgaEFd/+dysIFEPTwPya9ALc8Gsvd/96xSUyvJ0zhxF
-         254x1gKhTc9mLrUsS637Wwwpi5P+ZF9MNZX1nByvRUMX3kzi2nuZABbGGoArtAnZQlTT
-         SXwY2sW0z53WVUkgky+Qb2JSLa01zfegGOCo8Zu9x0uKxiZGp2lcwBU5ZNRv8WjgLzX2
-         2s3YT4mKFyZq9nPpcGe51v+MJa9x8+EJmpf9Cn8nbMGv82qIXBYOWZxQ89fbHYiBTq5S
-         jIKg==
+        d=google.com; s=20251104; t=1788774768; x=1789379568; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kqgfejYSVwSnwDj4+nn08kyPi4IgtneNSDWgXEMZ2iw=;
+        b=YGVMiND5rLtrUXZ7ueuCq9Fp+v6MHTN5z15qGkWiXvrEd3fG/O9Lefx0WW5gXl4w+c
+         RCK81Ejrs6DPThrdgKRvsgg0Qla9y9hSc/UpQzGdpP82kniEMpezKkSY6SMoephlg0Hm
+         llKbwlfSMG17cHKi2IrEo4cdHL78ZT85Rn5EC7I4WLa+Dsi82/KewmqyXsna+lm/QVsU
+         rGi2KHegb2emWxuO2b9mN0HmEiLqFqbSNfkckBwcz6EyHZXcu7nmweQIOSwsNwjRdiG0
+         /0RiOhoABpKaNh+DfaalaJEfMQalYAhb6ecNgQJHUnesQvuZEHHXrLp5+9garkXv2m4Q
+         o/EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788774768; x=1789379568;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iLGaza3s6F5rgIQf4Pq3PulD1HjtmOc+h6lAEkmWtfU=;
-        b=A4Afqw2YNGLS0dlJJj1Jd7GXBw+y+H8l6U63xz+iJcLVx4sCXCFuDINnbfPIadLNld
-         8tC+qNpq8oqApTR9132rAbQDebPPTlhI2xvnOMq8zu84/nC714fF05/OGgLYVLThoyx+
-         LNHbl+7tD/ttvh/F2x6Ub/f40Leix1sdFKy1LBfnA7F5PzOWePEbiikNPdGq9Nyj93iB
-         nN7IKSAAzQ0u/mbhUdKDiEu+mRBFTxVBIP4zNKZV+oMmDdwinbWhQbWxO0y7fgdZilDW
-         LW8ZfSMmyWEp2pFaA/YcAWxFqq6FjAclNf5I2+RqNphGth8CSFP3pFIqmJMAbbnAqv/w
-         CSKw==
-X-Forwarded-Encrypted: i=1; AKwUvBytpRgQA1TN2mWluRRdrQJn1M0XUZ92CZT2cq/SWm4Hshjygbpx6BcpX2VK/2m0gwimgY3Bq70X5Sflv4o=@vger.kernel.org
-X-Gm-Message-State: AFuF++lg6j/AFu9ra68o5gILLczZvrgHdr/n5cw1blb8fJP4WS6ZWw7u
-	VqXHz+ylPKAkB7hg6b62iH3VMeuKWT/55a3CqAcy+ZYIiihtL3Azw4lU
-X-Gm-Gg: AYBFou2PEsppXyBBod/3cR72jVB8WeLw1VDNNh5dLRsKha7JgqopPvPRTrLYjOCYxd0
-	cs0W3efPh8D6wuXFW4NMScKN0jVbk7rML8UvscOxg4ynr68FSC1K6bV44x+ekirxILNOr+aWFX5
-	H3epnCFLxSN49zVWm3noL8xoU1L9Uy8d4mKqNByO5D2CFBm4Nfzc4ytNhec2eMpwNgJrQ7UaXcc
-	o8Ro7oCNlKF8M7vrBIAAofcLqG5MHpX8Pg4z71+AQx7/cmPJJxEd7MQsQP02VNRX6KacvHLw/dV
-	WMkzAxaeDeKoocHfwDSyD5ev7nJ7NvSoKoYKxNWwDNEnhGlYa+VYxDH0V64u0jvxg2xTR+NKoLc
-	GJ+hcVBfUvZyUR7uRjHfoQkHujslnWC3oOzZ9CdRKTnamt/Z84GA1KS5h8l+JZtAtDHZCQMzQuQ
-	XLXHTy64Uj+X/4M4R7R3SenUQHM9Fs2NCWDQc9MhbW0CSLrcvlxBBz0j5fMFDlhiwdX99oWvG+P
-	Rc87NpgEVqNAYA+EMqNfqv1
-X-Received: by 2002:a17:90b:1d52:b0:398:dcef:c040 with SMTP id 98e67ed59e1d1-39b26242a20mr34261880a91.19.1788774768453;
-        Mon, 07 Sep 2026 02:52:48 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm18924258c88.8.2026.09.07.02.52.44
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kqgfejYSVwSnwDj4+nn08kyPi4IgtneNSDWgXEMZ2iw=;
+        b=hQFMGk1d4l3cydcteOPMmXTNHDPwH5UojlOFOZu0uErwaW/g53LvjMXxu5UVIyOhQy
+         ln9c8gi0XHpIuhyPk91UCeKDBFTEVdhC+fVbOwOa5Tfbv70me8A1wgnPbBfe9wejKju0
+         8f1B+qv6aH8b9hlMjzq68nSrH11pKQ/Ce0cWGLK99rPQydzk9vR9ZZpZLmmlhbY5LiyH
+         Fh31O2UKMgQ8v6hPWRA73MaI0Cwi6x8MK2v4n7tvfao9NlShVS4xn8j7vrYeV6dFu/nt
+         uhfcbSqRTs+6hTXDyUFV7fttseHh+BWJ74w7q262TPL9/CJtS0k31cDVF0uerRwJO/5z
+         6/9g==
+X-Forwarded-Encrypted: i=1; AKwUvByNbX/xKCDDa2Pv5VA3Vg1j9nucdDdf6opk6hrAo+A0xvvicbbYepgKe2LzHJFbeUwWnc9UxbXdFEH5bQQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltbtWT/LGzk9WSVZ9nxAvyrXhS8ufcDE84ChONp3sJrZKMvUcp
+	VerL1LRCEmv7M/oFz+saYnOdCG3/NnHtvmASaZb5LfftjrCyYU7K48A5zAFWK1wQKA==
+X-Gm-Gg: AYBFou2oCoPQ3uzho9VpzKmtn/wzpFn91QXJX0jl9HJhnDol1DJRn3wMHVp0R3BfxGb
+	I1gjVBBxnqCt9KPwS0AjtF+liZy37Rb4yqJzalpG+A2XFZKr+Tk9ySEkp03BFDQ9Q3zPYJwnecg
+	wflWe242b2/YdYfbpZleURiwp/aBhWx+Yt9oLQt7f2Mk3t9Iu8r0g5TbzYCk1UlOPZIxe46IeIM
+	ICxu1/SCDqnsJ50/NEmS3cCuyLPPtmFD4DidfPZyeFKz6unCC9Xj46YPck9wJcnKQlotxkP7GK7
+	HvmjZfRLg0jO44HtqZBxrPdXjOvAHQc8zLRVEaoi6WmSYpxaVfFULbqXPvfGCo/iOzuaYp6DzvW
+	T/rChFzkSRilMqHBJTOUFDZ6rKwoBhC+Uacuw+cieIRgdzVm8MpWaDOnbh7D2HsJVBGHOXI5EsO
+	yL2Iu+YsGAeE4NGEnXdFXNkvqf5lN8Oh9fozkiLisYzoIjyAX+4uZseWdarlCMYN0BrqwFrmy1v
+	t+CcC/Mc4GmW5l8FjWkSQGV8/XdXoE6
+X-Received: by 2002:a05:6000:4b1d:b0:485:8c16:a32a with SMTP id ffacd0b85a97d-4858c16a5a7mr19950748f8f.31.1788774767486;
+        Mon, 07 Sep 2026 02:52:47 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bf3f0sm30012615f8f.33.2026.09.07.02.52.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:52:48 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH nf-next v2 0/3] netfilter: fix typos in comments
-Date: Mon,  7 Sep 2026 15:22:38 +0530
-Message-ID: <20260907095241.24441-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        Mon, 07 Sep 2026 02:52:46 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:52:43 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 03/10] set_memory.h: Introduce
+ can_set_direct_map_range()
+Message-ID: <ap6Ja02S5IDqWRHC@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-4-vdonnefort@google.com>
+ <ap3BVr5hHwA499gu@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap3BVr5hHwA499gu@kernel.org>
 
-Three comment typos under netfilter, split one per component.  Found with scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Comments only, no code
-changes.
+On Sun, Sep 06, 2026 at 10:39:02PM +0300, Mike Rapoport wrote:
+> On Wed, Sep 02, 2026 at 11:47:05AM +0100, Vincent Donnefort wrote:
+> > While can_set_direct_map() tells whether the direct map can be modified
+> > globally, can_set_direct_map_range() checks if a specific range can be
+> > modified. e.g. if mapped at PTE-level.
+> 
+> set_direct_map are going to have number of pages parameter soon:
+> 
+> https://lore.kernel.org/all/20260903-execmem-set-vm-perms-v0-2-v3-1-949b64a9f755@kernel.org
+> 
+> so this check can be a part of arm64::set_direct_map
 
-v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
-maintainer-netdev.rst asks, v2 designates the patches to a tree, and
-each subject now names the component it touches instead of "net:".  The
-series is rebased onto that tree; the diff is unchanged.
+ack.
 
-v1: https://lore.kernel.org/all/20260907064239.39910-1-hemanth.selam@gmail.com/
+> 
+> I wouldn't expose can_set_direct_map_range() as a public API and rely on
+> the callers to "Do The Right Thing".
+
+ack.
+
+Thanks for having a look at the series.
+
+-- 
+Vincent
 
 
-Hemanth Selam (3):
-  netfilter: arp_tables: fix typo "alignement" in comment
-  netfilter: ipset: fix typo "artifical" in comment
-  selftests: netfilter: fix typo "adress" in comment
-
- net/ipv4/netfilter/arp_tables.c                                 | 2 +-
- net/netfilter/ipset/ip_set_core.c                               | 2 +-
- tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
+>   
+> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> > 
+> > diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
+> > index 3030d9245f5a..88175c3fa751 100644
+> > --- a/include/linux/set_memory.h
+> > +++ b/include/linux/set_memory.h
+> > @@ -44,6 +44,12 @@ static inline bool kernel_page_present(struct page *page)
+> >  {
+> >  	return true;
+> >  }
+> > +
+> > +static inline bool can_set_direct_map_range(struct page *page,
+> > +					    unsigned long nr_pages)
+> > +{
+> > +	return false;
+> > +}
+> >  #else /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+> >  /*
+> >   * Some architectures, e.g. ARM64 can disable direct map modifications at
+> > @@ -56,6 +62,14 @@ static inline bool can_set_direct_map(void)
+> >  }
+> >  #define can_set_direct_map can_set_direct_map
+> >  #endif
+> > +
+> > +#ifndef can_set_direct_map_range
+> > +static inline bool can_set_direct_map_range(struct page *page, unsigned long nr_pages)
+> > +{
+> > +	return can_set_direct_map();
+> > +}
+> > +#define can_set_direct_map_range can_set_direct_map_range
+> > +#endif
+> >  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+> >  
+> >  #ifdef CONFIG_X86_64
+> > -- 
+> > 2.55.0.970.g62bdec98f9-goog
+> > 
+> 
+> -- 
+> Sincerely yours,
+> Mike.
