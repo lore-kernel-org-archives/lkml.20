@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-99.mta0.migadu.com [91.218.175.99])
+Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E66C848C8CD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA86479886
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780750; cv=none; b=NsL3AH+OhAPhT76/UpBZPw3qdyxb0+GjOAc0GQk1lwFIbcsXLTUQ1bFLFn2oMK4LbiWrG9r28TLFVELjY22YYLMu8DLbdtzyOM0Cwk4YZn/hvr8yqaKxlfFdJ+rlP4ZFpIam51fY1nIZfr9ghuNNtvGz4rB96qn3WNqN42rcD5w=
+	t=1788780756; cv=none; b=eDoOIiDVXN8AdhVV6t1IzjhxSGBSKftRFXQgJTNGnOlPaf4IU/5ytmux5t7UkIcEV0Q7S59xeDTwZskM6j4nssH608Z2YfFifVzVcKKrjQoZqx25xcyd490JprVU56SaWC4vG7zVajHsz90ZmSY9eSldf+ipDlWcz3mXsfd9Nas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780750; c=relaxed/simple;
-	bh=n7XLZLvFH8fFq/iBcJ5zwauMK8eNcIP1h1M8aTfDUdU=;
+	s=arc-20240116; t=1788780756; c=relaxed/simple;
+	bh=rvLCnfgy6I04fD8/CycKcJZ6RfCiOFO7BcEMS03VEHM=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=sWSrjTqW8kWxvG69AV0CBCi1deo/gYicFfAhUec9GNVdocFVHsNCOrhHbmDi7uVkI1MyHodu+IdmoQ2Ipvc2u4o7vJ1oNbCx1XcVKgjk1Bvxs/yssyDp2sdQc9PM6usXDQ2wYTNRb0+KgY2VOt6LYZ4Jo12ucPN2Te7HzkphtRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Qj0/R4AP; arc=none smtp.client-ip=91.218.175.99
+	 In-Reply-To:Content-Type; b=uUDzFUnWR18HLsdtQFLHuCmFUdjL6kDsRj/8NgJA7paJH4cnE1oxayt9BNUXcgyS4cMh3PcGSaArnhNP5BELDl1txQJdIzghmvj4nnuDj/AcC2cwYgHIiFz8A+7pnyUJGf8OTetpJXh3tOKeTbNlV20N/zdiWD3IJOMbI7d8RmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tcPSf29m; arc=none smtp.client-ip=91.218.175.109
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Qj0/R4AP"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tcPSf29m"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=n7XLZLvFH8fFq/iBcJ5zwauMK8eNcIP1h1M8aTfDUdU=;
+DKIM-Signature: a=rsa-sha256; bh=rvLCnfgy6I04fD8/CycKcJZ6RfCiOFO7BcEMS03VEHM=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788780745; v=1; x=1789385545;
- b=Qj0/R4APLkZgB5f51N9IzsowIwks+APsfqDZ0rKeNp0gCov5g9M0GAus4kxzmkD/MwNnz34q
- JXAjTxAxiFu88AXbe2AkzVGr2dhkzCygVBwJU8S0zKWwGENQo5XWEtrNbvj4p/X0ZMPmV845CtL
- q6tfqHwM4Vf2fi1K7gM3+jUs=
+ t=1788780752; v=1; x=1789385552;
+ b=tcPSf29mmTjAxfZIn6VxMPkF6UBu78cksWQXtKIjfe9KY4B1wS5nil7JTUxvHY92N4+ayF2Q
+ yWmmFvvY8B1jJinyf7q8t7gwglaJt0y7SDGJXY+GzvJ5Lt6UUs38OlyqDqngL+jsQU85nSWVsNb
+ Au93SzfZpUzJeMUZDcENl6yQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 72705e4ad1561e59;
-	Mon, 07 Sep 2026 11:32:25 +0000
-X-Mizu-Trace-ID: 72705e4ad1561e59
+Received: by smtp.migadu.com with ESMTPS id c698de2c7da5b2c6;
+	Mon, 07 Sep 2026 11:32:32 +0000
+X-Mizu-Trace-ID: c698de2c7da5b2c6
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <45905eff-fd40-420f-b2fd-7aa487aa4807@linux.dev>
-Date: Mon, 7 Sep 2026 13:32:24 +0200
+Message-ID: <289d5485-44fa-4d74-8f69-7adc1507ac9e@linux.dev>
+Date: Mon, 7 Sep 2026 13:32:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,8 +39,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Subject: Re: [PATCH v2 07/11] ASoC: SDCA: register
- SDCA_FUNCTION_TYPE_SIMPLE_JACK in class function driver
+Subject: Re: [PATCH v2 08/11] ASoC: SDCA: make find_sdca_control_reset()
+ return void
 To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
  Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
  Charles Keepax <ckeepax@opensource.cirrus.com>
@@ -55,64 +55,64 @@ Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-8-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260907083727.733705-8-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/7/26 10:37, Srinivas Kandagatla wrote:
-> Add SDCA_FUNCTION_TYPE_SIMPLE_JACK to the class function driver's
-> auxiliary id table so a SimpleJack auxdev is bound and enumerated as
-> an ASoC component.  Wire set_jack for this function type so the machine
-> driver can register an ASoC jack against it.
+> find_sdca_control_reset() only ever returns 0 -- it just sets
+> control->has_reset / control->reset for the framework-known
+> (entity type, control selector) mappings.  The int return + caller
+> error check in find_sdca_entity_control() are dead code.
+> 
+> Convert to void and drop the check.  No functional change.
 > 
 > Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-This should be submitted separately, there's no dependency on DT stuff?
+That looks also unrelated to DT stuff, not sure it belongs here as patch
+08/11
 
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
 
 > ---
->  sound/soc/sdca/sdca_class_function.c | 5 +++++
->  sound/soc/sdca/sdca_functions.c      | 2 ++
->  2 files changed, 7 insertions(+)
+>  sound/soc/sdca/sdca_functions.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
 > 
-> diff --git a/sound/soc/sdca/sdca_class_function.c b/sound/soc/sdca/sdca_class_function.c
-> index ab043e23878e..713a34d5954a 100644
-> --- a/sound/soc/sdca/sdca_class_function.c
-> +++ b/sound/soc/sdca/sdca_class_function.c
-> @@ -408,6 +408,7 @@ static int class_function_probe(struct auxiliary_device *auxdev,
->  	switch (drv->function->desc->type) {
->  	case SDCA_FUNCTION_TYPE_UAJ:
->  	case SDCA_FUNCTION_TYPE_RJ:
-> +	case SDCA_FUNCTION_TYPE_SIMPLE_JACK:
->  		cmp_drv->set_jack = class_function_set_jack;
->  		break;
->  	default:
-> @@ -593,6 +594,10 @@ static const struct auxiliary_device_id class_function_id_table[] = {
->  		.name = "snd_soc_sdca." SDCA_FUNCTION_TYPE_RJ_NAME,
->  		.driver_data = SDCA_FUNCTION_TYPE_RJ,
->  	},
-> +	{
-> +		.name = "snd_soc_sdca." SDCA_FUNCTION_TYPE_SIMPLE_NAME,
-> +		.driver_data = SDCA_FUNCTION_TYPE_SIMPLE_JACK,
-> +	},
->  	{},
->  };
->  MODULE_DEVICE_TABLE(auxiliary, class_function_id_table);
 > diff --git a/sound/soc/sdca/sdca_functions.c b/sound/soc/sdca/sdca_functions.c
-> index 47dedb62c24c..25f95575c731 100644
+> index 25f95575c731..68a50552f4e4 100644
 > --- a/sound/soc/sdca/sdca_functions.c
 > +++ b/sound/soc/sdca/sdca_functions.c
-> @@ -79,6 +79,8 @@ static const char *get_sdca_function_name(u32 function_type)
->  		return SDCA_FUNCTION_TYPE_SPEAKER_MIC_NAME;
->  	case SDCA_FUNCTION_TYPE_RJ:
->  		return SDCA_FUNCTION_TYPE_RJ_NAME;
-> +	case SDCA_FUNCTION_TYPE_SIMPLE_JACK:
-> +		return SDCA_FUNCTION_TYPE_SIMPLE_NAME;
->  	case SDCA_FUNCTION_TYPE_COMPANION_AMP:
->  		return SDCA_FUNCTION_TYPE_COMPANION_AMP_NAME;
->  	case SDCA_FUNCTION_TYPE_IMP_DEF:
+> @@ -922,8 +922,8 @@ static int find_sdca_control_value(struct device *dev, struct sdca_entity *entit
+>  	return 0;
+>  }
+>  
+> -static int find_sdca_control_reset(const struct sdca_entity *entity,
+> -				   struct sdca_control *control)
+> +static void find_sdca_control_reset(const struct sdca_entity *entity,
+> +				    struct sdca_control *control)
+>  {
+>  	switch (SDCA_CTL_TYPE(entity->type, control->sel)) {
+>  	case SDCA_CTL_TYPE_S(FU, AGC):
+> @@ -950,8 +950,6 @@ static int find_sdca_control_reset(const struct sdca_entity *entity,
+>  	default:
+>  		break;
+>  	}
+> -
+> -	return 0;
+>  }
+>  
+>  static int find_sdca_entity_control(struct device *dev, struct sdca_entity *entity,
+> @@ -1032,9 +1030,7 @@ static int find_sdca_entity_control(struct device *dev, struct sdca_entity *enti
+>  
+>  	control->is_volatile = find_sdca_control_volatile(entity, control);
+>  
+> -	ret = find_sdca_control_reset(entity, control);
+> -	if (ret)
+> -		return ret;
+> +	find_sdca_control_reset(entity, control);
+>  
+>  	ret = find_sdca_control_range(dev, control_node, &control->range);
+>  	if (ret) {
 
