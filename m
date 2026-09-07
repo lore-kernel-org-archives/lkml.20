@@ -1,87 +1,93 @@
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC4D3F4827
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B3943F4A2
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818081; cv=none; b=fcLgNkqPs63RFrGkka7iYZop2uc5WbiUYjWiIgCEw0tgrHinycrBS4YwS0PqcNw3aoRYd6o2z8di89/ELJXFOT/2iENnM20EdWxMhjIQ+6TdLE/AXOsn/5PPA205MdKCLrsM1AQsRuN7hiOw1HtXbRP8DDGQ4kCAR3xY79j/4Sw=
+	t=1788818086; cv=none; b=fedVxajmv7tzCQDg5Yl+V/cv5ODk1tZJYYSQb54MvRLVOVJODJ8p7zOB339nCmD5XyJ53QU6BQSaKi7mG8vrhwDiE0PLYFr8wzZtbD3V6JKCMyXe7rqroIS3bNQmT2y7qmAkxhLk9ivqCJkYWvJUrKpda7ghcWNQtswZn6QGfp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788818081; c=relaxed/simple;
-	bh=ATzllCN+dDw5CaRunDgFMLiOohABpMDjBm9gAA2JbL4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=txpMYPeEbnQlMSceOQMC6X7GbZDk2uXkJHwIPVzhakScQCa7AU5+H8IGjHp4tVM0BYhAiD2coVsIm1+zDPgb3Di9pfK0AxF4wCg8VEHh4uBy6CV8X87PvuwOAkLQ5HEnBvLJFVO/cVABGdA/+2IbtdKK/cvf7So9pS/unKMpO0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=kRu5icKf; arc=none smtp.client-ip=185.125.188.122
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1788818086; c=relaxed/simple;
+	bh=6gD9cPa3rk6w/IUG4LaLFS0hBqCw0Ni+w/H83jcmfzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jXSkhr7uCJX0p6XGq/9ZvQoSnHbtbI543ijG9FCTXiM8GWG52aFHf8EUFCvepYMwCXLcqzU+wuxHiT/JV89T3jh1m70Q88R7ZueQD0TBjiZkfiBr007lBMBIz+MbwogzHJEbyM64V9GxzF3v6H4OvlbYcYOfgVsXd9CWa1kKWdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIWTHAT9; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="kRu5icKf"
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4149D3F322
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788818074;
-	bh=fRpckaKOwl0Kgs7K/gM2OB7RO7urUAj94CqnshB8/I4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
-	b=kRu5icKfUEUcmvwaKio7cmGGXWebNI9AbOdiVcfdEc3UeR4Hvbq/QCmhfLjI5J3Y1
-	 7BhNDcg4dLCwQzoIVntelMxGictKU1hIg2ouclc1olE3y168lrQPy78R8faOl7kB00
-	 y9MIS8bM6prt+jJBpChPHCQBDA3XzyIM2KefFXmXJcoUQ+xvIDf/3smoyEDItINtxT
-	 DEjecywl0Y7ijg0gi59NlebztCgnbEP9RF6QhnDx7M/fvLhnKm+zsfatzIEhuuXshi
-	 xh2dTgg5tPmA3/7tOb/be78LMtGonA+UKSDSJCLV+s+5UCjgPAEBQJ+iZit5d0kN24
-	 mDTr9bwUs0c/aPOyTFj3CfRvAZd/scZbW6OT/w3qccAgiRo0FtrOtyAF11Oa0Pmrlq
-	 Q+1rPhoKxmePEZPSt1p4MuiQ987Rj0hcP391N3DITApRl83kJs0kb9EseUWFbkyDhC
-	 3unbhfNJsPmfOoNR/mlQDvmc3xdCdnIjZ/IksvMRAQyRDpd3xbPK8IWEOpUBK3wQ14
-	 As0NXAWoc7Ic+DwqLokvCsr8Jop8NI2yUK4IVgFyh069MW5P4WvRsQXIO2RcC2V5PJ
-	 VBkzNbhV/lvX0ERDXWzWYYfIUpU5x59anBAdn1jTbUfG2mHuUjDvIkGpDfpuKUpTjt
-	 aCmfwM/rneWl3aRbec9rhkjI=
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-853a9c4c99eso30576727b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788818073; x=1789422873;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIWTHAT9"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-7dbcb505578so37689677b3.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788818083; x=1789422883; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fRpckaKOwl0Kgs7K/gM2OB7RO7urUAj94CqnshB8/I4=;
-        b=A2/ZpBkofwyA58oWf1UiseeohiWUy68iwabLhSRCthK6I+jfTf5WGD04Qs1GE5lroU
-         VV2U8dZ52MvmH42bwoaaQxqRdI918N4swSQe41v3EvVgQTGLskCQ/Q8/anaXGKrmflBS
-         z12Csh0uNb+I86AgjXCF3oMPvO1W0KkOBwnzrTvwTiHfJbSnxrG+21FtH8aGvXzaTqAQ
-         ZeMar5J9jgLVVJSH0PwtbaVNJT5mbSBVo/uBdtr8rrh3O/05sp96xsFq06kcvsAHCThE
-         cK74oAvxHIak6WrpMUtMYyT5LLeb4nNPoX4LbXs2/QpRmvkWtpuiFnEm2EOLko5scRbC
-         0Xlw==
-X-Forwarded-Encrypted: i=1; AKwUvBx5DBFeWUlk3Gw4KWBwZcCL3HpJ2lz3oyblp9gfqN9oV3YYHPM2Ca0YRBTDGn8X+Kz8LrFwfrIuO3kH+nI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcGb7V0Bb1Fxe3sS1Ezgu4yAGbVgw4Nr6LLW5F9Jo70eD9ZMeZ
-	RziBdBYTdOqZL/EbU4aPfzRw/pX4F/IAPILAbWxiSQgIMPNCICQyUmGrzbM5oDgVU1cmxujNUar
-	bbdDOWvwaCdQUq4b1/xjK2i/UvybBgTG9Yxfetyve9jE36AAXbGpkGNPXirvy05ypLV3tR/pIyo
-	oJOxvFsg==
-X-Gm-Gg: AYBFou3eTuO2d0ymIDsMi/IOcTOsV0G9/VxbuN6xMxfoQSDh9wY89QiEpKFcx6ZyOLD
-	EUHT4bANtXrs+/d0Io4d3pHUQRNg8vNfjZuaIy6C5ASzasfTPsmA/raOh53naohuJEjtf08g4qC
-	NKJY2wTcxCNIjTabYswHfVN+8gtxerufWDR5olnh8ypjzSshzA6HH+RAcyIxXrNWDtyHO3vcCqM
-	jTv6Dc/UCNQdvrWZk39C1IRRNeSchxkZO9oRTL/ZkwubrCWRHJPK+3T7Ktq9AF7tWvmGicQg2Of
-	F7+z/XHJ46cDrm8uk5E8AsVqy4O3zhPdxEJqso54CFF3imtdmnNIgzum3PFniGWtSn7iXEFupxq
-	DiMl6q3NNP2kOa7mdrJk9KFibJN6vtHpmrGQv7KzTPg==
-X-Received: by 2002:a05:690e:2581:b0:66f:8797:8721 with SMTP id 956f58d0204a3-66fb591c4b0mr6436218d50.10.1788818072950;
-        Mon, 07 Sep 2026 14:54:32 -0700 (PDT)
-X-Received: by 2002:a05:690e:2581:b0:66f:8797:8721 with SMTP id 956f58d0204a3-66fb591c4b0mr6436205d50.10.1788818072556;
-        Mon, 07 Sep 2026 14:54:32 -0700 (PDT)
-Received: from Q58-sff ([2a00:5884:1118:0:ed91:74de:df2:6b36])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm8977708d50.2.2026.09.07.14.54.29
+        bh=pUuTL8RKq8zctKFBGR36Xkq0F1NHQ5YoR0hZaul99pw=;
+        b=qIWTHAT9quXqA0t6iOtNO/cWrRcxjeYDvz09E+AkWcxyxnjPeDjjAYX78vwb5lm3ed
+         8Jq6R2tRFlC0+brur2FptO9TJ4RYZxlh0tXE240RPv0oIRRDZ6kIc3wCWbNSd36cwts4
+         cGBX9t39xKhAa08SIDlg7kqyrbHFGKFlb3gu8RUOEKxvTv7umHvATMb6yCp50fQ2fVu/
+         s136vjKD8FxjBwYh0YiP4jIGtwc5dcZLoyC6oZ2d5miiiZEtjnV6q9VPZZa0+R/diJQe
+         WCZKrIZiN1CQXJB50VNU6NxPzc2LW58HahHyF7zntN4TzdACIAwoWOqnDBTonFyqjqML
+         0rjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788818083; x=1789422883;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pUuTL8RKq8zctKFBGR36Xkq0F1NHQ5YoR0hZaul99pw=;
+        b=hxgFvMPa+mcL+k5VLgIKexm4Dn5JTyj7SDbntPqDYm+24Gpd2CePRhL5uXEEH7WV9e
+         cpDNb+V1lw9xtQLGkshhXQgh/pRsVeTHy/gWzABlA0KGPzTBPPWt8lVucolgzVCM10ko
+         fWh+H2aUpUDbQ77zxr9AD8Fr4S082F+swQ0R7unuzUdAa43o+q5IvTDwxwMDi8zi2fTm
+         O0BwMBfjIOmPfIr01uftAZG/GN3PEGsFYUIRNkFvBqlvgmSb50RqPRgIuGzgCJFMqGhF
+         4Y212WJOkttCPWgQENYX3wKNRLd+Idhtvm9VTijYqgghyyH8jPScjaLEKD+c7WPgsMS5
+         ilYA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCwQz/z9xzja8y6Bfoi+U5iEeTRxhNoOPYR4RfIER9GZnYebAg/3+rLkXlqjf9TaxI/u+E+4gqrWYAgns=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1kfOX5N0GxYFvKKC3gWN1KyNL4fSlespBGbG3rGaIWhkztBdM
+	EGG7xkbnPQ9Aq4kC2/I3rT7b7PjhAd+nsNbfL4vYZjcBzkeGrvcoNG5y
+X-Gm-Gg: AYBFou0dQj8M2e+tc3nKWnvXZ9ETBcDwFM50BHBndZHfQTc5YK8Q+xmI3HVpM+XNd83
+	/LnFEX+1gy8a+S1PKkVnGDg+l9b5mK5sTXAn5XZW6S6xO84D7KauCJ3Hev8g+KKRNzssTAT2ZJ3
+	RJFdfzbW/SMppfW2sAPg5RhZ69haAOg3LHl2wkAnjeXq+TkZnCYwHSIl3AK6oHdgdOvGDa3YAKp
+	J39Wngr8qOFv2eLrVGjxxi0cd42A4F03mv8NoiHnRTdIhVIdpsB3l1cncCyoZU1QB60QBAdJaFT
+	bCEtNUuLYoc7i9kcFDIoIx/3ajbkUprJ1kgdu2amoDR3ZHa3kA4vlLOkMN9KiJrZ7wLT3q3qH4D
+	vuEhK2V/bIVxXpPEB/Qjf3dJS8GJt7hEuPoZ07Z+5GQ0HX/alF17zlJAVi9PQXfaU1rcWSG8pgC
+	65+S3GANHAVAyLLoacIYDN/YxCEYn7dR7WPVuIJ8iK6FfhkFT6hUZMlzIQJtj8PESUBDRPMUPkv
+	DPoFymcWO+Y0cz0yA==
+X-Received: by 2002:a05:690c:7685:b0:873:5bb2:6c08 with SMTP id 00721157ae682-8735bb26eb3mr43482417b3.50.1788818083523;
+        Mon, 07 Sep 2026 14:54:43 -0700 (PDT)
+Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149315162sm78079637b3.12.2026.09.07.14.54.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:54:31 -0700 (PDT)
-From: Thibault Ferrante <thibault.ferrante@canonical.com>
-To: linuxppc-dev@lists.ozlabs.org,
-	maddy@linux.ibm.com
-Cc: mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	shuah@kernel.org,
-	chleroy@kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] selftests/powerpc/tm: Fix tcheck() reading uninitialised CR value
-Date: Mon,  7 Sep 2026 23:54:20 +0200
-Message-ID: <20260907215420.1258678-1-thibault.ferrante@canonical.com>
-X-Mailer: git-send-email 2.55.0
+        Mon, 07 Sep 2026 14:54:43 -0700 (PDT)
+From: Yury Norov <yury.norov@gmail.com>
+X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Raju Rangoju <Raju.Rangoju@amd.com>,
+	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org,
+	linux-usb@vger.kernel.org
+Cc: Yury Norov <ynorov@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 2/9] linkmode: make linkmode_and() return boolean
+Date: Mon,  7 Sep 2026 17:54:31 -0400
+Message-ID: <20260907215439.409858-3-ynorov@nvidia.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907215439.409858-1-ynorov@nvidia.com>
+References: <20260907215439.409858-1-ynorov@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,51 +96,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tcheck() is used to check the current transaction state (active,
-suspended, doomed) via the "tcheck" instruction, which writes its
-result into CR field 0. The inline asm declared a GPR output operand
-for this result but never actually moved the CR into it.
+bitmap_and() returns true if the resulting bitmap is not empty.
+Propagate that return value through linkmode_and() so callers can use
+it where applicable.
 
-Every caller (tcheck_doomed(), tcheck_active(), tcheck_suspended(),
-tcheck_transactional()) has effectively been testing bits of an unrelated,
-arbitrary register value since this helper was introduced.
-The "& 4" mask discards the TDOOMED and TS_lsb (suspended) bits before
-they ever reach the callers, so tcheck_doomed() and tcheck_suspended()
-can never return true, and tcheck_transactional() degrades to being
-equivalent to tcheck_active().
-
-Fix tcheck() to actually move CR into the output register with mfcr,
-and widen the mask from "& 4" to "& 0xf" so the full CR0 nibble
-(TDOOMED | TS_msb | TS_lsb | reserved) is preserved for the callers.
-
-This bug has been present since tcheck() was introduced.
-
-Link: https://bugs.launchpad.net/bugs/2107442
-Fixes: 8e03bd4e70b6 ("selftests/powerpc: Add TM tcheck helpers in C")
-Signed-off-by: Thibault Ferrante <thibault.ferrante@canonical.com>
+Signed-off-by: Yury Norov <ynorov@nvidia.com>
 ---
- tools/testing/selftests/powerpc/tm/tm.h | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ include/linux/linkmode.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/powerpc/tm/tm.h b/tools/testing/selftests/powerpc/tm/tm.h
-index c03c6e778876..6024ce4ba6ff 100644
---- a/tools/testing/selftests/powerpc/tm/tm.h
-+++ b/tools/testing/selftests/powerpc/tm/tm.h
-@@ -105,8 +105,12 @@ static inline bool failure_is_nesting(void)
- static inline int tcheck(void)
- {
- 	long cr;
--	asm volatile ("tcheck 0" : "=r"(cr) : : "cr0");
--	return (cr >> 28) & 4;
-+	asm volatile("tcheck 0;"
-+		     "mfcr %0;"
-+		     : "=r"(cr)
-+		     :
-+		     : "cr0");
-+	return (cr >> 28) & 0xf;
+diff --git a/include/linux/linkmode.h b/include/linux/linkmode.h
+index 3b9de09871f6..c08632c10c3d 100644
+--- a/include/linux/linkmode.h
++++ b/include/linux/linkmode.h
+@@ -20,10 +20,10 @@ static inline void linkmode_copy(unsigned long *dst, const unsigned long *src)
+ 	bitmap_copy(dst, src, __ETHTOOL_LINK_MODE_MASK_NBITS);
  }
  
- static inline bool tcheck_doomed(void)
+-static inline void linkmode_and(unsigned long *dst, const unsigned long *a,
++static inline bool linkmode_and(unsigned long *dst, const unsigned long *a,
+ 				const unsigned long *b)
+ {
+-	bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
++	return bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
+ }
+ 
+ static inline void linkmode_or(unsigned long *dst, const unsigned long *a,
 -- 
-2.55.0
+2.53.0
 
