@@ -1,266 +1,288 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5292ED16D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 01:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CF82192F4;
+	Mon,  7 Sep 2026 01:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.194.254.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788746136; cv=none; b=Ljb8SSRLUZl5l40vfxDtpb/4ZYlvcFJjbUdodvx3s8pUtIAy/EKKGDJ1kAz1J+k/nHPSN5bjlLIQ705m/KDI4U9Y8zRaRJkZH8J4YlL96PTsi8qzmPmnsdeC8Lr/PeiZxWGPAew2H+D2D7k3UgwoX7LzCmYqwaChS9GTt+Bv84o=
+	t=1788746173; cv=none; b=OCPsknmG94l9EnV8j7Q+Un4XgH/mmyhsoDXy/6lgQ0YKRmYCybWRmALj7CK2tPybIWJbTc8gNkSt1DvO9QmQb1XmpvjfVsRqyGfSC6Q2ATrJCnf5SNoto/lg7PwqOMfeEFQg/QhRe2D4S/J6M3hZ3DNlEKEU7aTh8nW5I/GM23Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788746136; c=relaxed/simple;
-	bh=5ghn7nxvgfAiAWaBixedr2h12wQs1M4XKcGJABNW0/o=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=AKdxzEC460MciLYcBKV32fCqcLSCmeQeohAZtEUTfGKv3cnZzxluqC8G+Ej+82fqsYl09bjyctWhFLjdD5hPDM4zEsqs0bcptWXhuwKW2b200xO5AnKexahr3Mt7rz6f6pJMNCGGbMP+jLuGO2k526fYKoDLFfilgJSWGyVMUn8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6b1b7b6ac7fso901597eaf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 18:55:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788746133; x=1789350933;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kbZ2OnDIqN2FzfMGx2pAG1gARfawZnOqcaUIj2YUYrA=;
-        b=ApUoABTsU/KxALdU8NpXVLHqNI5aSvgrBwcn9BuE7QUDLmm1RgzwTzocKRa+erogJe
-         HePVWWOr0AvBU48w+9lHaMskdm1sz6jynZSkLj/9Qwcw6b5t4nBlg0g1eMDtpnBjffPa
-         +FnDwBEqYRha9QWuef2Oe5ml893bqR9uyj9xa2E90r567IM/1HPo+B9Tnw4KZUplmOW8
-         iNzcppU1cr2epDgPI12FbjjpgRA052XzphnuZ3zVxqhlhGyaDLvvB4Vm9CoTg+dV1DZh
-         nAvIgqC1QNAe9/Ckf9yDElqLUeVap0IpAk6PnJ3SYoaY1aoKoTmP38ePU4OWoQVMak2E
-         Ba1g==
-X-Forwarded-Encrypted: i=1; AKwUvByVNpQotmS99zqqLjtu8O6/VolbKnYxpyfQIbcf4P99nGjTacY7am0FRa84TrkDNVBHAv46LT51MNrnJ+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++laQz4f3CQojQL54DSwJlaDmb3dYAxT2X75ZDKDqU963ysM2JSY
-	nAqHFxL8IVReGlxwVHHuM2bAXsoPjEZK6rqcureQtxeQ4Ypf67eWLyagH0mwqd1Q9RW0PwxjZVF
-	uOt7KhoyXfyxCGXgS/fkLqCRBOIiPaGcZHGdhCRXEpeh0+lOMTaC46GpoEeU=
+	s=arc-20240116; t=1788746173; c=relaxed/simple;
+	bh=Qc6lK3RIhSKzuQqq+9rWy6XPcwNZph92qOZUJh8z6SI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lfPXotDr2XQeZq/1eSg4sMLTK4zZrIoU8fOnpobh14gqDEDu3zKVPPD9TysLzJeDh5ylLreOzYikkeNg7gXWye8YOp2BWwAn6/ymmc2seTnlWNlmKuFEB2q0IkJ26tq7YeZQZJ+zco6qMGvNbA5f9iuq8tBmnYWB/GYGMhFznFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=WkFFGP5+; arc=none smtp.client-ip=18.194.254.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="WkFFGP5+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788746090;
+	bh=IPtN5otttm8uil3Pm83fRkoi35EfLqOcxkeTULa2NrM=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=WkFFGP5+5Ka3L/6+SE+K/I6gzenTIjKtagSTZBnL9cc6SiV46FlF+oweemLsizRtx
+	 k5vegornIsCf4JjL472rTwaeDlPFxhAGLxhQnl3kYWmjLoNJ38+sN1Oyl6FOqf/aEB
+	 VKg9cnJj142BqCbmejqSfSc2pD73hVJbmKbo2qgA=
+X-QQ-mid: zesmtpgz8t1788746083t1fd75327
+X-QQ-Originating-IP: aHLWYYlqyO/Fe+lGWgrck0bWLMNe6dlveIicawt9dWA=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 09:54:38 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 5020581304440402209
+EX-QQ-RecipientCnt: 20
+From: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Date: Mon, 07 Sep 2026 09:54:36 +0800
+Subject: [PATCH v5] clk: spacemit: k3: add CPU PLL rate tables
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1501:b0:6b7:83c5:fdea with SMTP id
- 006d021491bc7-6b783c60367mr11036533eaf.43.1788746133211; Sun, 06 Sep 2026
- 18:55:33 -0700 (PDT)
-Date: Sun, 06 Sep 2026 18:55:33 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e1995.a5e650b3.26d8a.0024.GAE@google.com>
-Subject: [syzbot] [jffs2?] possible deadlock in jffs2_xattr_delete_inode
-From: syzbot <syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com>
-To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, richard@nod.at, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-k3-pll5-pll8-1800mhz-v5-1-5cc96d716b0a@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOy27DIBAF0F+JWJdoeBnoqv9RdTHGUNP6JeNYe
+ cj/XpOqahZhM9KVZs6dG0l+jj6R18ONzH6NKY7DHtTLgbgWh09PY7NnwoFXYIDTb0GnrlN5GMo
+ MQN9eqTPMaIWAVkqyn06zD/F8Z98/fnM61V/eLdnKG21Myzhf7r0ry3t/FfJ5xcooUBSolakq5
+ wV/6+JwOh/ThM73cTm6sSe5a+UPGoOCximjiHUIigFqq4uaeNAEK2hi15QA34DVpmKqqMl/zYI
+ oaDL/FjA01tVSN/aptm3bD7zes1e9AQAA
+X-Change-ID: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Inochi Amaoto <inochiama@outlook.com>, Alex Elder <elder@riscstar.com>, 
+ Haylen Chu <heylenay@4d2.org>
+Cc: Aurelien Jarno <aurelien@aurel32.net>, stable@vger.kernel.org, 
+ Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ linux-clk@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10338;
+ i=troy.mitchell@linux.spacemit.com; h=from:subject:message-id;
+ bh=Qc6lK3RIhSKzuQqq+9rWy6XPcwNZph92qOZUJh8z6SI=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFnzJGO3bv0z8X6Tbn7R3BuehY8Z5bQl/sosEQsuUL55k
+ c9L5rxWRykLgxgXg6yYIkv3A55tBT5RtgUChb4wc1iZQIYwcHEKwEQS9zL89+ustpdS75k52XqR
+ Y5D/5nkXZGQVfe++nnTlVFDH/KXeMgz/9P8fv2q1R0lEyXGXXNbf7Is3F7iZ8nTnPa1+FSmTfXs
+ fCwA=
+X-Developer-Key: i=troy.mitchell@linux.spacemit.com; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Mutteg8H72qDmgHgr61YGLIXtlHBgGRtp6GYyRqKRS+Q1MI2eGWtCICp
+	MMBTHjLjvXYj8xGNStI2z76/ZcVyftbhdD2KSbKbnDrdClpa2BGCK6I/3mBvmiu35rBv4wS
+	dcbFhc71akMhWDlgV4zcnGX3h7VvtD17au0AzrTgCVpEdUt/xhORbI5XLqpKSXPOmHjWMjc
+	dHJtqsXev19VLOOuFjMNzwcaaMlrRLnYU1JDPpo1ydhnPKSFlGhgGGoW7dCB3b/9SGuOhO5
+	M1NrwD5Ul7d7dSQ6t5HdsZb56ocMp6qUsUXO/KCuH7M14kbJGlt/qYsuwZqiLY9nqXwvVnO
+	OBca06q+zL7/7NwjyfI4+rEExVT1GYYQiNv0ExILcaNplh4v+ChtMjFSJxkGL0E+/P3aCNd
+	iU3aSuLXoALnr7MtgS0HXz7MD6tleurbAf0rcIFS/k8038jcbPfEyzJwAVcxIrcDgX/jbLe
+	3LV2Ccm7oUmsq9FQNlVQ1x2CVPVQqNj8lyNiMBv5CBiJUt2ZGIxLGqF5rohPGuBbMIEREht
+	bKwh33tqCcKVoGsX5P5fhS5GR8ckeZtgj7Op6bHJJCzYh9GPfcZBQwbyRl7DEIWCnmEC/p9
+	/adIGJrWzzdCG8MAJV/+aewgUMSZGF0LH9skdz0y4J/9JEGCTKr8mWYP3xLuLIUtzQA+int
+	Msics16oGU18zR6FfFYJHbWLdP6JoS9yx497ZlLcz6YTW8MJjLa9owJin5Xno77RhJtFz/1
+	jzWkGnAZP94oQnXPERT/B+HztiTvN2+Znts5qKj5Vs5mpp8vw6oPk+nUQvWtDKPMnGzltDh
+	g/n6X9jL29C7m0Y5PBtdOQbWbJuINLzWVNhRTXUCHC1G5UfiP1wxttJh79+21uulZz19ZnJ
+	q1H90Iy6Ix5gEqsJ49NZZDctNTHfo7p0+5/89LLhxSMmWL9wEy0s2TlRn7lqMmL+0T0kuVB
+	OulMv1Da90A8FHuVk0kFzt08gRZKxLthVNB42PzhzfrUo8uG9nI2mkjQhrRhL7N7NUvMpPY
+	GBv5efhdbDhON4qnPAoeB3JtjPf2HYkp7MW2pM/bLt+cgltVsSGz6yvuV9Jqxm0/+EZyH1e
+	WBnx+Tv+yKX
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hello,
+The K3 CPU PLL rate tables currently describe only one rate per PLL,
+although the hardware supports a wider range.
 
-syzbot found the following issue on:
+PLL3 and PLL4 support rates from 1.05 to 2.4 GHz, while PLL5 and PLL8
+support rates from 1.05 to 2 GHz. Populate the tables with every
+supported rate in 50 MHz steps.
 
-HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11d190f9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
+Fixes: e371a77255b8 ("clk: spacemit: k3: add the clock tree")
+Cc: stable@vger.kernel.org # 7.0+
+Reviewed-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Tested-by: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+---
+The corresponding U-Boot changes are available at:
 
-Unfortunately, I don't have any reproducer for this issue yet.
+- Add the CPU PLL rate tables:
+  https://github.com/spacemit-com/uboot-2022.10/commit/787b5cf44c8dbc99db886d5522c0c9cd5a96ffd6
+- Correct the 1.10 GHz and 2.15 GHz table entries:
+  https://github.com/spacemit-com/uboot-2022.10/commit/16a775c20e9efb54ca55352215e76eb3f12e6cf0
+---
+Changes in v5:
+- Add a Fixes tag for the commit introducing the K3 clock tree.
+- Sort the PLL3, PLL4, PLL5 and PLL8 rate tables in ascending order.
+- Remove the comments requiring the firmware default to be first.
+- Add Aurelien Jarno's Reviewed-by and Tested-by trailers and
+  Anirudh Srinivasan's Tested-by trailer.
+- Link to v4: https://patch.msgid.link/20260903-k3-pll5-pll8-1800mhz-v4-1-afafd9cb47d9@linux.spacemit.com
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-940de590.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/f3f674f98efb/vmlinux-940de590.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/132222426e71/bzImage-940de590.xz
+Changes in v4:
+- Expand the update to every supported PLL3, PLL4, PLL5 and PLL8 rate.
+- Drop Aurelien Jarno's Reviewed-by and Tested-by trailers because the
+  patch scope has expanded.
+- Add U-Boot references for the complete tables and corrected entries.
+- Link to v3: https://patch.msgid.link/20260831-k3-pll5-pll8-1800mhz-v3-1-530ed0978615@linux.spacemit.com
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com
+Changes in v3:
+- Mark the change for stable kernels starting with v7.0.
+- Add Aurelien Jarno's Reviewed-by and Tested-by trailers.
+- Rebase onto v7.3-rc1.
+- Link to v2: https://patch.msgid.link/20260810-k3-pll5-pll8-1800mhz-v2-1-aabff510a797@linux.spacemit.com
 
-======================================================
-WARNING: possible circular locking dependency detected
-syzkaller #0 Not tainted
-------------------------------------------------------
-kswapd0/111 is trying to acquire lock:
-ffff8880266529d8 (&c->xattr_sem){++++}-{4:4}, at: jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+Changes in v2:
+- Drop "clk: spacemit: re-enable PLLs after init"; the PLL init issue
+  will be handled in a separate series.
+- Send the K3 PLL5 and PLL8 1.8 GHz rate-table update as a standalone
+  patch.
+- Clarify that 1.8 GHz is nominal and 2 GHz is an overclocking rate.
+- Link to v1: https://patch.msgid.link/20260804-k3-pll5-pll8-1800mhz-v1-0-a3a75866ce32@linux.spacemit.com
 
-but task is already holding lock:
-ffffffff8efc8ce0 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney+clk@redhat.com>
+To: Jerome Brunet <jbrunet+clk@baylibre.com>
+To: Yixun Lan <dlan@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-clk@vger.kernel.org
+Cc: linux-riscv@lists.infradead.org
+Cc: spacemit@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+---
+ drivers/clk/spacemit/ccu-k3.c | 92 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
-which lock already depends on the new lock.
-
-
-the existing dependency chain (in reverse order) is:
-
--> #1 (fs_reclaim){+.+.}-{0:0}:
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
-       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
-       might_alloc include/linux/sched/mm.h:316 [inline]
-       slab_pre_alloc_hook mm/slub.c:4636 [inline]
-       slab_alloc_node mm/slub.c:4974 [inline]
-       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:5010
-       jffs2_alloc_xattr_datum+0x1c/0xe0 fs/jffs2/malloc.c:264
-       create_xattr_datum fs/jffs2/xattr.c:363 [inline]
-       do_jffs2_setxattr+0x6f0/0x1610 fs/jffs2/xattr.c:1175
-       __vfs_setxattr+0x175/0x1e0 fs/xattr.c:223
-       __vfs_setxattr_noperm+0x127/0x660 fs/xattr.c:257
-       __vfs_setxattr_locked+0x127/0x2b0 fs/xattr.c:318
-       vfs_setxattr+0x14a/0x390 fs/xattr.c:344
-       ovl_do_setxattr fs/overlayfs/overlayfs.h:324 [inline]
-       ovl_setxattr fs/overlayfs/overlayfs.h:336 [inline]
-       ovl_make_workdir fs/overlayfs/super.c:724 [inline]
-       ovl_get_workdir fs/overlayfs/super.c:836 [inline]
-       ovl_fill_super_creds fs/overlayfs/super.c:1449 [inline]
-       ovl_fill_super+0x1320/0x5ea0 fs/overlayfs/super.c:1561
-       vfs_get_super fs/super.c:1405 [inline]
-       get_tree_nodev+0xdd/0x190 fs/super.c:1424
-       vfs_get_tree+0x92/0x320 fs/super.c:1947
-       fc_mount fs/namespace.c:1198 [inline]
-       do_new_mount_fc fs/namespace.c:3772 [inline]
-       do_new_mount fs/namespace.c:3848 [inline]
-       path_mount+0x7d0/0x24c0 fs/namespace.c:4168
-       do_mount fs/namespace.c:4181 [inline]
-       __do_sys_mount fs/namespace.c:4397 [inline]
-       __se_sys_mount fs/namespace.c:4374 [inline]
-       __ia32_sys_mount+0x292/0x310 fs/namespace.c:4374
-       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
-       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
-       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
-       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-
--> #0 (&c->xattr_sem){++++}-{4:4}:
-       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
-       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
-       validate_chain kernel/locking/lockdep.c:3924 [inline]
-       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
-       lock_acquire kernel/locking/lockdep.c:5908 [inline]
-       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
-       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
-       jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
-       jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
-       evict+0x3c2/0xad0 fs/inode.c:822
-       iput_final fs/inode.c:2015 [inline]
-       iput.part.0+0x989/0x1050 fs/inode.c:2064
-       iput+0x35/0x40 fs/inode.c:2030
-       dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
-       dentry_kill+0x25d/0xc20 fs/dcache.c:826
-       finish_dput fs/dcache.c:1001 [inline]
-       dput.part.0+0xd7/0x240 fs/dcache.c:1042
-       dput+0x1f/0x30 fs/dcache.c:1037
-       ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:217
-       destroy_inode+0xcb/0x1c0 fs/inode.c:387
-       evict+0x599/0xad0 fs/inode.c:846
-       iput_final fs/inode.c:2015 [inline]
-       iput.part.0+0x989/0x1050 fs/inode.c:2064
-       iput+0x35/0x40 fs/inode.c:2030
-       dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
-       dentry_kill+0x25d/0xc20 fs/dcache.c:826
-       shrink_kill fs/dcache.c:1275 [inline]
-       shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1292
-       prune_dcache_sb+0xea/0x150 fs/dcache.c:1374
-       super_cache_scan+0x361/0x5c0 fs/super.c:238
-       do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
-       shrink_slab_memcg mm/shrinker.c:560 [inline]
-       shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
-       shrink_one+0x398/0x850 mm/vmscan.c:5119
-       shrink_many mm/vmscan.c:5180 [inline]
-       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
-       shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
-       kswapd_shrink_node mm/vmscan.c:7101 [inline]
-       balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
-       kswapd+0x556/0xb50 mm/vmscan.c:7555
-       kthread+0x373/0x450 kernel/kthread.c:436
-       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
-       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-other info that might help us debug this:
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(fs_reclaim);
-                               lock(&c->xattr_sem);
-                               lock(fs_reclaim);
-  lock(&c->xattr_sem);
-
- *** DEADLOCK ***
-
-locks held by kswapd0/111: 2, last CPU#2:
- #0: ffffffff8efc8ce0 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
- #1: ffff888025eec0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_trylock_shared fs/super.c:688 [inline]
- #1: ffff888025eec0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_cache_scan+0x9b/0x5c0 fs/super.c:213
-
-stack backtrace:
-CPU: 2 UID: 0 PID: 111 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
- check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
- check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
- check_prevs_add kernel/locking/lockdep.c:3300 [inline]
- validate_chain kernel/locking/lockdep.c:3924 [inline]
- __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
- lock_acquire kernel/locking/lockdep.c:5908 [inline]
- lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
- down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
- jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
- jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
- evict+0x3c2/0xad0 fs/inode.c:822
- iput_final fs/inode.c:2015 [inline]
- iput.part.0+0x989/0x1050 fs/inode.c:2064
- iput+0x35/0x40 fs/inode.c:2030
- dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
- dentry_kill+0x25d/0xc20 fs/dcache.c:826
- finish_dput fs/dcache.c:1001 [inline]
- dput.part.0+0xd7/0x240 fs/dcache.c:1042
- dput+0x1f/0x30 fs/dcache.c:1037
- ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:217
- destroy_inode+0xcb/0x1c0 fs/inode.c:387
- evict+0x599/0xad0 fs/inode.c:846
- iput_final fs/inode.c:2015 [inline]
- iput.part.0+0x989/0x1050 fs/inode.c:2064
- iput+0x35/0x40 fs/inode.c:2030
- dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
- dentry_kill+0x25d/0xc20 fs/dcache.c:826
- shrink_kill fs/dcache.c:1275 [inline]
- shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1292
- prune_dcache_sb+0xea/0x150 fs/dcache.c:1374
- super_cache_scan+0x361/0x5c0 fs/super.c:238
- do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
- shrink_slab_memcg mm/shrinker.c:560 [inline]
- shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
- shrink_one+0x398/0x850 mm/vmscan.c:5119
- shrink_many mm/vmscan.c:5180 [inline]
- lru_gen_shrink_node mm/vmscan.c:5258 [inline]
- shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
- kswapd_shrink_node mm/vmscan.c:7101 [inline]
- balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
- kswapd+0x556/0xb50 mm/vmscan.c:7555
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
+diff --git a/drivers/clk/spacemit/ccu-k3.c b/drivers/clk/spacemit/ccu-k3.c
+index 92b930d5ff30..39df15c8a3e6 100644
+--- a/drivers/clk/spacemit/ccu-k3.c
++++ b/drivers/clk/spacemit/ccu-k3.c
+@@ -30,14 +30,87 @@ static const struct ccu_pll_rate_tbl pll2_rate_tbl[] = {
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll3_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
++	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
++	CCU_PLLA_RATE(2050000000UL, 0x0b2a2d55, 0x00005500, 0xa0558686),
++	CCU_PLLA_RATE(2100000000UL, 0x0b2b3000, 0x00000000, 0xa0558787),
++	CCU_PLLA_RATE(2150000000UL, 0x0b2c32aa, 0x0000ab00, 0xa0558787),
+ 	CCU_PLLA_RATE(2200000000UL, 0x0b2d3555, 0x00005500, 0xa0558787),
++	CCU_PLLA_RATE(2250000000UL, 0x0b2e3800, 0x00000000, 0xa0558888),
++	CCU_PLLA_RATE(2300000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0558888),
++	CCU_PLLA_RATE(2350000000UL, 0x0b303d55, 0x00005500, 0xa0558888),
++	CCU_PLLA_RATE(2400000000UL, 0x0b320000, 0x00000000, 0xa0558989),
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll4_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
++	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
++	CCU_PLLA_RATE(2050000000UL, 0x0b2a2d55, 0x00005500, 0xa0558686),
++	CCU_PLLA_RATE(2100000000UL, 0x0b2b3000, 0x00000000, 0xa0558787),
++	CCU_PLLA_RATE(2150000000UL, 0x0b2c32aa, 0x0000ab00, 0xa0558787),
+ 	CCU_PLLA_RATE(2200000000UL, 0x0b2d3555, 0x00005500, 0xa0558787),
++	CCU_PLLA_RATE(2250000000UL, 0x0b2e3800, 0x00000000, 0xa0558888),
++	CCU_PLLA_RATE(2300000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0558888),
++	CCU_PLLA_RATE(2350000000UL, 0x0b303d55, 0x00005500, 0xa0558888),
++	CCU_PLLA_RATE(2400000000UL, 0x0b320000, 0x00000000, 0xa0558989),
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll5_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
+@@ -50,6 +123,25 @@ static const struct ccu_pll_rate_tbl pll7_rate_tbl[] = {
+ };
+ 
+ static const struct ccu_pll_rate_tbl pll8_rate_tbl[] = {
++	CCU_PLLA_RATE(1050000000UL, 0x0b2b3000, 0x00000000, 0xa0458080),
++	CCU_PLLA_RATE(1100000000UL, 0x0b2d3555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1150000000UL, 0x0b2f3aaa, 0x0000ab00, 0xa0458181),
++	CCU_PLLA_RATE(1200000000UL, 0x0b320000, 0x00000000, 0xa0458181),
++	CCU_PLLA_RATE(1250000000UL, 0x0b340555, 0x00005500, 0xa0458181),
++	CCU_PLLA_RATE(1300000000UL, 0x0b360aaa, 0x0000ab00, 0xa0458282),
++	CCU_PLLA_RATE(1350000000UL, 0x0b381000, 0x00000000, 0xa0458282),
++	CCU_PLLA_RATE(1400000000UL, 0x0b3a1555, 0x00005500, 0xa0458282),
++	CCU_PLLA_RATE(1450000000UL, 0x0b3c1aaa, 0x0000ab00, 0xa0458383),
++	CCU_PLLA_RATE(1500000000UL, 0x0b3e2000, 0x00000000, 0xa0458383),
++	CCU_PLLA_RATE(1550000000UL, 0x0b402555, 0x00005500, 0xa0458383),
++	CCU_PLLA_RATE(1600000000UL, 0x0b422aaa, 0x0000ab00, 0xa0458484),
++	CCU_PLLA_RATE(1650000000UL, 0x0b443000, 0x00000000, 0xa0458484),
++	CCU_PLLA_RATE(1700000000UL, 0x0b463555, 0x00005500, 0xa0458484),
++	CCU_PLLA_RATE(1750000000UL, 0x0b483aaa, 0x0000ab00, 0xa0458585),
++	CCU_PLLA_RATE(1800000000UL, 0x0b4b0000, 0x00000000, 0xa0458585),
++	CCU_PLLA_RATE(1850000000UL, 0x0b4d0555, 0x00005500, 0xa0458585),
++	CCU_PLLA_RATE(1900000000UL, 0x0b4f0aaa, 0x0000ab00, 0xa0458686),
++	CCU_PLLA_RATE(1950000000UL, 0x0b511000, 0x00000000, 0xa0458686),
+ 	CCU_PLLA_RATE(2000000000UL, 0x0b292aaa, 0x0000ab00, 0xa0558686),
+ };
+ 
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260802-k3-pll5-pll8-1800mhz-c81875a0a944
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
