@@ -1,105 +1,76 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out28-76.mail.aliyun.com (out28-76.mail.aliyun.com [115.124.28.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E1F46F497
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:56:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6A1A46EC67;
+	Mon,  7 Sep 2026 14:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793002; cv=none; b=rrU8ffxDtd0F3naQzRLh5TAjFXc/souSB1MJF1qJAu/v+NV9yudM5GhRadvGtnJrrL5wid84KbBfDluZ2lg98OYxzYo8/vwUxXUF+d/uVsZiWYFip7/O8eHZ4J5vyhopmTnl+g9qHnHjynxVbstKybAuTjmzrItuzhb/7b/gPSU=
+	t=1788793012; cv=none; b=KIzy4KBDPsW4TzRHqsdHftm0k4E2bFGydIHdri4dBmLOpdErDEN8Qap7UKrGSsZj8yC3pFg+ljzJ9ag0vmktFm48VBJbP6pRHc2b45MTdfF+e2ScStXRbRK+Fi+MJC5iuH8AyIliOboO1ZC0H+pXFbFCYgSo6CCykaN6fcvLnG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793002; c=relaxed/simple;
-	bh=+J14SNkIJcgl5o5mcOmI50R/KCvTRGedgzOnLKvHaJ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kpLaIULRScphQzTtBbvTtZHOdSK0/e1+y/M+vZWUh2gd8o/QdqRjiAfouXVdLc4HUYY/hUFSLFm/6YBDaAFvoAmEGTCh9xgYH5Eu8rOz4S2A8WcWnbRiZCy+7mVGTeC9918tYg4jivKmFnlE725HMTOSAPirQ9g3I8B9l+QmDRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgjuLR3R; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788793012; c=relaxed/simple;
+	bh=B5AhgFZJrJky9o/z+Sor1elQ152RBxtXTY0aZNtcfyM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SQ+b+b6SKmXro2NQNYADKr0jDXjam6JHKG3feoo3TLhjJThqkANA00+dBLMGw6HQ56ya9FlHBeL0zLDfU6leL90hu8FSNoXGJNkZYhcwjYzH11slCMoX/A77rRzTHtFhmIQvEaluHR0+EA/RNasJeBpeetJisHrCp0Ek7WpBI0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=UuH+MsB8; arc=none smtp.client-ip=115.124.28.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgjuLR3R"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so43406215e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:56:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788792999; x=1789397799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g48hwSF5lt99YYul2mb7fuDrefFoNQOf9CLbuEcDZMg=;
-        b=fgjuLR3Rca3kO4RlH/vo4Hb/mEb/LPfmGQ8KHUN8IHeQin5ry34aTwMnCXjP8zqAwM
-         iFssGqEepIpzvQA9N49/UqwuNGVfbXVNlrrGsnpw6NOujwjBv9zUIKux7WTSFr2KfbiQ
-         LcdLUfBrqiwF3mNFnQckkzaDSzV2wsXSylcVvkmbW2I0o4QP9qeR7wanX8Nz+cWVfGID
-         Jhfz1rNYHQYlVGPqDk9Fpr37pd5xilBAZkl78dZWZ5ij2RRZjZElVzzLZ3p2FXa3bJhl
-         0STBKQTpOQZ7D4z7snpn6LJd1Q9nZxmhDjKuKh16Wdd3B61xS9OXdHjjAk9dU2gEfU1l
-         dDLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788792999; x=1789397799;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g48hwSF5lt99YYul2mb7fuDrefFoNQOf9CLbuEcDZMg=;
-        b=OeScppW59cxfCY5BE97eJSWpYbzFjz/flcQogpfgOD6cIawP60ZR/ZDB7oBWVPqf3v
-         58rA1anAVvYovJURuOBwYobMnFEO/iP7Pbx6foGqk26zyki+Qwh/lClsT3GTjbDbPEVn
-         OKz+P5qfqmLLuXNbySweeg1Bo4EAmyLU1m7YAGHZRtnumYeGTlBpmf1/PdMT+rmx+iHJ
-         irZqsoYgzR1fM+ygwqWCUECsUqernDj+7ztJaitSt97OdESy2rnIwNqgb6Jm20Xvuw2r
-         uO3GIM0zzdxQCikvLD272rfhAlABpExJO0NfYReZGWm4lG8IvYa7H+Di7sIhLx25nAks
-         B4yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx5Hqjhi5o+aAz9M+uVnKP6nWzSdeajulE1fpa8+X6dYwwOVc5/729EUUcl5HkqihfJFBpFYCFUegBtjjU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLYCpQxLYwBr0T1cqgW4QseYUFUyflUPLBFjvPdeBqE0sL+2L4
-	T9qqE3A0YP2i4uyAQWeizJnEYW/Tl5G75rrbhwg+/Yh1QGTSUdAfNZPi
-X-Gm-Gg: AYBFou0qJXp6Qj1D6aS2SSmdlf2sK2tJ7ctKj1Y1ORS88L1maePHFtSJrV+1y2bLqdt
-	7UjOTtEY6xLU60DR7oL58iRmRXKPTK/qQeqOMSdzXEKyMXPYG0wiu8M/clOnrGRYaZgliw9s8j+
-	OOHnt6Ubce2XrSoXbLtRzs627F6ISUhTrg/5dLscQWZjob/2yZagOv4JXdxU0gCka29yfKUOKlH
-	ZqJfDM7lJvldDGaEFMA7oUpbbaX2ZCn9DWtsgi/Rbz0hANU+AeuPDlCBG/zW2fbgLNN/QXKwfLc
-	YFsC00MI7eR7zz7ksDvKGYBuUkQ3Q2C6GLASmHtd65T0j78j4x6FTpYhcv6cdjkZEpPTTiGeNck
-	FH/08IDu8gVKqdIZFgVh2nPC8TAU+Bp+apRuvJHlIyFB02fsuU5iN+YaXfWTX7FDINVj5nW0R1F
-	trjekEvK8exSCWBGqFGP6Eui5q0y+xOsSsLT/YY05x4uCbhhIkblcz0FYaglp3rAd5wcXB2gJCu
-	iM3u9EVWQpoXrrOftRPlZEgy8iWkEuCnsJQ58fAe41WuE3izJfcVXELYlAmAxjeCjkHiawPuKLB
-	J4tZh2ZgJ5ifXq9eZ8NCTMnhjS1xXeadZX6JAIqz08QzzyBJF7fjt/am/x/THQNoUdA6QOYszB+
-	N+bFcu8BwAG52EO+WQHnQjefaitSClXqKW6X5JBPh3kbkRljElyAycHauKW7CKo7NxIby+Q==
-X-Received: by 2002:a05:600c:1914:b0:49c:ff23:a6d5 with SMTP id 5b1f17b1804b1-49cff23a70bmr191567445e9.0.1788792999098;
-        Mon, 07 Sep 2026 07:56:39 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm316801845e9.0.2026.09.07.07.56.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 07:56:38 -0700 (PDT)
-Date: Mon, 7 Sep 2026 16:56:37 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- <linux-iio@vger.kernel.org>, <linux@analog.com>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] iio: accel: adxl367: resolve interrupt mapping before
- device setup
-Message-ID: <20260907165637.0000348b@gmail.com>
-In-Reply-To: <20260907082313.3054-1-antoniu.miclaus@analog.com>
-References: <20260907082313.3054-1-antoniu.miclaus@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="UuH+MsB8"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1788793006; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=Xmc3O0bDMU1F4U4G79tAnX7c+Hqo20CPku12y9F8Am4=;
+	b=UuH+MsB8IEnukJ9OsTnbvSpVGVoK3PAVofq3flIc8lZSbY2pmKaP1kHF5cQimrYJhb1LCOgyQapAysUNfM9v0CF1cSIAnpnJij9zmqfgm+WDucG4HA8k9gA7OtR+iLJG/3Awv0xiyxEhvuobPU19jG6MGDTOztf1gTiddwEHh/Y=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09551325|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0027107-0.000389232-0.9969;FP=11587885547167279795|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033022149254;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.j7vgRqm_1788793004;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.j7vgRqm_1788793004 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 07 Sep 2026 22:56:45 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: Robin van der Gracht <robin@protonic.nl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Oliver Hartkopp <socketcan@hartkopp.net>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: kernel@pengutronix.de,
+	linux-can@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH 0/2] can: j1939: tighten TP receive-path checks
+Date: Mon,  7 Sep 2026 22:56:37 +0800
+Message-ID: <20260907145640.1106170-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 7 Sep 2026 11:23:13 +0300
-Antoniu Miclaus <antoniu.miclaus@analog.com> wrote:
+j1939_xtp_rx_rts_session_new() allocates the receive buffer based on
+the message size from RTS dat[1..2], but then overwrites pkt.total
+with dat[3] even when they disagree.  A sender can set dat[3] smaller
+so the session completes after fewer packets than the buffer was sized
+for, delivering a short message to userspace.  With dat[3]=0 the
+session just hangs until timeout.
 
-> adxl367_set_int_map_reg() uses fwnode_irq_get_byname(), which can return
-> -EPROBE_DEFER. Running it after adxl367_setup() made every deferred probe
-> repeat the reset and power the device up needlessly.
-> 
-> Move it ahead of the regulator enable and reset; the lookup only reads
-> firmware properties, so a deferral now returns before any hardware access.
-> 
-> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> ---
+eb96c58907922546 ("can: j1939: transport: j1939_session_fresh_new():
+initialize receive buffer") addressed a related symptom by zeroing the
+receive buffer, but the root cause -- blindly trusting dat[3] -- is
+still there.
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Patch 1 aborts the session when dat[3] doesn't match.
+Patch 2 adds a pkt.rx check in the EOMA handler for unicast receive
+sessions (BAM completes via the final flag in j1939_xtp_rx_dat_one,
+not through EOMA).
+
+Liu Chao (2):
+  can: j1939: reject TP RTS with wrong packet count
+  can: j1939: check received packet count before completing session
+
+ net/can/j1939/transport.c | 37 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
 -- 
-Kind regards,
-Joshua Crofts
+2.50.1
+
