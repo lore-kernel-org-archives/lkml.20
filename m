@@ -1,263 +1,163 @@
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C63F4D2EC2;
-	Mon,  7 Sep 2026 14:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.145
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792310; cv=none; b=UybcVCljzUSInL+PuYnPFWnwPiEtNNDIlXz0TpiuOLNXdkSUiROnPs3Lz3NTtLNo1dpCqS66/vw4cyfKhzHVD2wMRSBUpmC/9MZmEkhrHC3iv/BMRSEYqohTAb1w1lPFnZvTHBW5cZLyRTkga2hJiUhmBxsbAbsVuoNVQ7zNhQo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792310; c=relaxed/simple;
-	bh=f4uOChoUDuDluW1I+3irdTBU2DPl8H6042S/SUDz4ts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D7SFXmxeZM6ZZngEZrXCodXoLy+ZgJY330PEPqAXj94u+Nyjv1DVwCzXbOZjCqLbZZT98rlRrFnBWgPX9UP0Jz/rWNYuN876RPEDX2hqOh/jKxYXkA/dxKeg9ABEu5iEOktG4m4fX/fo2RK9Lr23VnGycwcKPd5FeSV5Gz/EPZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=l+6opFTa; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=glaBP5//; arc=none smtp.client-ip=103.168.172.145
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B21B3C0A07
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788792351; cv=pass; b=ilwaQFK7WQASYu9TH3HZbfnGy96RrDn6IITP5Et8h13L914jqwyeQH/K0g2+8WA4r4pa9acFxfP7d5Vo8bqwhU3LCRR3MF1EfJp5UaVGyxhff6irYaaUG1jC5X1i7GYY58/u0Znc6vmjeno/KTlSYBRQrgp2C/rl/7sSzF171DA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788792351; c=relaxed/simple;
+	bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iNPuJ7WQ+bsNonQsepAjkzad/CnFw68JDHPHD0qCVO/egA//GAxiTRWCExvv63uPPsn9dGqPlDQo/SiGQz+agAP6BQ6w33l4d356Eu71K7IHTymB1+PAnzjcpkWaOLsNKOCrNQDCplR48hnP9XytvekzuAvPLveV06AYCsbxOv8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HsCmWEf4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GSh0rt5V; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="l+6opFTa";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="glaBP5//"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfout.phl.internal (Postfix) with ESMTP id 2D860EC026E;
-	Mon,  7 Sep 2026 10:45:07 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Mon, 07 Sep 2026 10:45:07 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788792307;
-	 x=1788878707; bh=xozu++OwezfL4/XTOoolRf1cgWpl3NdyI4S3MfU2F0w=; b=
-	l+6opFTag4SLjTta4JnaXKGx3kY3VTeHwp4Sl1D0Q5uY+zniV2ZJiDMfiyGwT56j
-	YHIYh2CUUa5z70VLUMDSQZ4Sw8eXe32P8pEBjeCfeff5SwknESOM7SUJIpKlB/c5
-	RPjqaJl2DpDZsTCyKEIfzyncU7Hc1nCsbFjusSZVuakMSk5+sCZ0etOZ9F9Rmj2n
-	lO1BgbcLhAmykQGj29dW5vLdqAMZER/1NxE/y2uYx3Q+bmGTcv51KY7BvNqXgNYr
-	N93zP3Dbg6xr5f922xgXhCUpj4rKL5QKiPCL6yETS1Cr2lrqGzVm7OzfhCLmf4i8
-	L2RctUmK4/S2kdUyaS47WA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788792307; x=
-	1788878707; bh=xozu++OwezfL4/XTOoolRf1cgWpl3NdyI4S3MfU2F0w=; b=g
-	laBP5//rZ6rC5o1Z2fO90W9l4U5LRgAAqPAKsJyJ3L7PXw+MhKZzMgp/j/d+sQkT
-	PgwwsOI6959j0DPPi99HJe5e5pw+jIamY6thJX5Nxu4FMktt7VpxNuEwbRG11JbK
-	scVxqm+FHR5wjKXbX0qsLfiraD4IULSiju2UmE5RAN8t7cR/lHqVuYuUI8UmAW0W
-	uX7HcrVqkRCBoQ109dyAe96cpMbuGSSkUgVnA5CzNDczFKVORuBlapyPVCgZwTVc
-	tkZNREoPw7IQC5r8q8l8yJqdeGY3FaPgVZ9Je0vNo7Qg7BODmEhOVhTwSpKq//N+
-	+/WEzRkAmAEk0cPAUTxsg==
-X-ME-Sender: <xms:8s2eamj0_xj94TJmeMBSanuoxm3Jp9tbsWINhRKTdpCyhmo6j0QP7w>
-    <xme:8s2eajlnPJJZ2RwTxgSKt9B3NIs9MSE327s5KmqriG5PIyVDG1VKSsYGS1GkvYWqW
-    GY8y1pvUFf8aEDtfyNcjuiFa5s6A2zmkAC6ojtfGbmUOKOt3n5k1Yk>
-X-ME-Received: <xmr:8s2eaihip5IKW92PtIfytWW5MU1YJkcTpdRSnpCy_soKCh0yjbPm-aVY4YhzThajh7h0O3EAh8FjHcpKrnU5pY04gtAIESc>
-X-ME-Proxy-Cause: dmFkZTEtNXSf6aDslJDEF0SPE7pZC3nKoOhYu0ZZeCnKsmaPMBY+sMwlKr6S4buL6kUFn+
-    Z+bntRpDGfPLZ8XEDimjukwX8e6e6xl82EDJ5MsaOeKFQhQwvIjePZQ52OnzCvh/oLKKAz
-    uhRR9ISC+EeZvNnLDewp2kU9TEJore0g/XZU7U6DJO1hXeR8EIQbSm7rWHHXkV+T6hvC6y
-    KWxwjmyRW/9ie7RPdoEtaXePGEH02Rdt/1tBwshIkRVK1V4GO5U/ShZbL6dNPbx74a10fm
-    THzYNt3JvgvUk58uT/E9CqXmtI47xg1981ncKr57+9nEEHVZ7HhkygppAVIx7jPW4NVYH/
-    urOXbDx87Efr87buDh8UfLoUCjPNuYteWWN9Lq5YhGkHNO6A5BByqEdcNs9eL9t8Mb5HPT
-    HnGXPGNIMfzDWKnR3KneG7E40BCXSkZsxpiY5OJbHP41tOC2+gMtX0MP/6BcH43tC+NetB
-    rPQ+YvPEZ5LHyvgVtT8cD6KMjSzGcxJYfHkiAR/XohVqK70+etWnS1q5n1FB8KDMsyZrcz
-    YWR+m4CliXdJ4E7lxhvmsUKcBZOQw5WYT557nd28E2ZtvIoWERhEcqCJgxucdE51LwRwpo
-    RY6FBvw84KGL1IVtqYE2dM7wmRlm44hF9gHWakSdtGbRoKItXVcxxdy20ZCw
-X-ME-Proxy: <xmx:8s2eamG8yTA_5ffvNa9F3RnEjsdyoIVU4CFqSXM1jiKcJ78fAUi5Fw>
-    <xmx:8s2eakszrih9ta8cCpPZgDistY-38eNQ1gtnZlfUHMTaCIBBGp_5UQ>
-    <xmx:8s2eanewZwAU3Qnd0w2ISJGgFOuzjQrG3JZH6jBtiXdmLB9kjQ_VCw>
-    <xmx:8s2eaql1Jch-1YKxVB3gKyNF1Pdh2XJWbEKTE1l4k6lzbUQBC5_oCQ>
-    <xmx:882eaj8d3ggiMtHWHo11Y5VovjdVmwICmNWwxtgLt_vYZQyqo6j2uZF6>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 10:45:05 -0400 (EDT)
-Date: Mon, 7 Sep 2026 16:45:03 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Subject: Re: [PATCH v6 08/11] media: rcar-isp: Call get_frame_desc to find
- out VC & DT
-Message-ID: <20260907144503.GK3497753@ragnatech.se>
-References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
- <20260617-rcar-streams-v6-8-1260eb72dff7@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HsCmWEf4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GSh0rt5V"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687DeHHY3607031
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 14:45:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=4KaEx79l/Qo9EXLcB4JmwpQu
+	z9/m4i42cFxTh0FVROg=; b=HsCmWEf4i7abXHZFCxX36UJ/9JBW+WwyXSLb/io4
+	h6c3l0meFY4K2wrqAPYwPDPhN0liIYKcNmOIacP64rf0ANUhS8t/RGECdChJkO/f
+	E1lR9F5KZ3anF9NnpI1PbFk00h25NRbBu3KZTXIKZviecOxgLcFrNryH7X/QY3X4
+	QN15qgqVLNttQIjclPIyjVyA2hXMv882k4GG9Tb2kr4VaTdk0K3zQvE4yj2cLKCX
+	hkqFT6NfIbbDP/8Dq1V7DI5lVb/kOVLU69oTr5RRxzqpOUd7CXfpPR9HeYGcUhcD
+	J03VdSEIX3y+UdzFXHcSlzwGdq575M4hfwBJ4LPdu05Q8g==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghfxku5ed-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:45:48 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-86e8abd719aso60637467b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:45:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788792348; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oc8cp5TDt7OYrWPH4Q9Jhgqwwmv5Id1yOxS0EH5ax/P67vOvb4RT56FMIBGkVvG+ah
+         s/Yzyk6lPIP1QXHUKdDkVS2pVHGKTPIbTTeFQ/c0UR5m+Ii9MksFpZ03XB+fQgKLBZwe
+         wN8x/xl09M6IpOtriRd1IksPDIYM4sRDZ8dPLwH+9dR+oSFoXRMhoEAY+NHlah59+qSO
+         /5fo+TtM2x2Zid2GjrzYVaA6pB9ZwQOR5vRLLbcuLjZxhwcjFM+06nUHL0AptNK57Y9/
+         VryQTXCElF/H8WY9aMm0mApieipH2neQQM718Og4uvfx6Ev788Bcj0ZM02IjS94K4hns
+         DqXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        fh=PAKUh9vvSCH4xbgQMcE1aASj9ZablUY2Cqfe/5BIVCs=;
+        b=kRhNUmbPe8e08az/2JVLcPM2p/IlIsgfttIAF/Vhhsd+JbMlRcN3v+f29YQDObwYXf
+         ojiu6nljpcaYLUsRVMhXzPUlvxCSZQYK8sHt+O1sSvd9oxdNG4Hoc6Wf1xDxP7MM5mTE
+         nzUmjJ1jp3mHPtiibUiek5F13A0DLMem+9BVVrMBazIgsNYvQWombxWOSK1M6KDnW3Jd
+         KMSVN98OWjyN4OT84tQAOGW+0yUvPKy6St10aIygmglWvPDnHx95Q6TwJQC9dPWAR+yP
+         xM+KTImj4evplfciSouI3MyXSMZphyonsdEb2he6vQUuuEaqVO5y3/WEPnXsx00bRdFX
+         xVuQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788792348; x=1789397148; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        b=GSh0rt5VSadtGpqLmWn9waEjl3l+Moq2hiUmtJ2fMRaEDk4HTb5vG7gn9L0MBfR1Jy
+         P2NdTlSDbuHnkxz7aKPhdWrMEC5JQm2QlKgvAb0+Uhl8iLLL5Av2saTe/Z8Z0+0+ggKt
+         GJEMIMHKOUUisvIHhvtN0F3F6vTMoYO27MpLFF8oBPDIorHqAaqVZXsdwYAU3QYL91q2
+         fqro1rTpujo9JXvSedM5Hzs17/x/f3vuRCpBsbAnSA3u3u/1h5b3ICICNFEws5aH3TkU
+         MxVIfPjgXEVeypkmKJ5IY+1k+WdSxY8DIp00nKC3RJVdYJaaHWw6Uf4KdwqiU/M79G6B
+         LGQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788792348; x=1789397148;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        b=hYiKM/dqpPttiz8NiObi7XDvPe6swhVq8oXrah+YkYpKtT1AkNeFnwqorm2aNRB1dP
+         fSQpB/k7G4bzJAcC4WzELcFR2jCvzFR5KUs7+8R+jVU3BEJghkq/vVCLv3uDqCHgqQE5
+         EiO5FE/xRiKWMz4dE3q9LtK9EiAqdMUzC6GZfVlxnLM2hg2XxHfetCTDRzpXDE7dQRFq
+         /3r4n1/sCNNlZ0asq/zmVmE+7iu7tMQMYjda9reNa4t25ZZDAxOzTzPy/N85Uj6JsbXR
+         ynxDL/y4hg3uIxpOUJHZnoByoO/rU2y1rbRwpCF9sbB0BeaSV5c4xubAzLpN3h8bTbiC
+         kEwQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNrmwQs/Qw4X8EEUCP6KMJjKiDtWBxncULPPwHR0TN9iXvj1/znK2KtYyKKrI5dDiGta129ue5di0s88I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVDLyR2FuRApMeGasbnxLVA4VuLQBu77K0Vfasut2DNwRxIAlC
+	XdZMsqMK0W3SAYVKf4XHcn6vH7dhrULNeR4rnk1L57go97SnoGgQl5NFOWN/k9YJLWnBi/5FDxt
+	sA/IlHrRLEaRPgCVTuyZ/xjbiz/HNVPqJMxUcMNaYpIsnjEXEP7IzL27cDGmmEGE8Opwn1Rxf0o
+	qlQrEoH7+CYQ0N3Xo8fAt0M7+gVxG5TjkF3p9iQX4hVw==
+X-Gm-Gg: AYBFou2GRobPbdVDkD+tmb5Z2DoCUZQ4L92CEGXcqbzfYaQzwWRNKAzuRPe2t6Jf6Fl
+	3lo/4mirW22eAtWwcaHHQy8Tq1GclySRlSi+u9yFng5bYLD+snNEQp3gHyawjkw4docTeadjKGP
+	UkQnGXQk/Q+Wz2qqR3OTi1razW82qavFqBRz0zAvn3HA+L/TVd4FaVuYzYcQ==
+X-Received: by 2002:a05:690e:450c:20b0:66f:bc17:4f18 with SMTP id 956f58d0204a3-66fbc1754c3mr3690246d50.30.1788792348449;
+        Mon, 07 Sep 2026 07:45:48 -0700 (PDT)
+X-Received: by 2002:a05:690e:450c:20b0:66f:bc17:4f18 with SMTP id
+ 956f58d0204a3-66fbc1754c3mr3690226d50.30.1788792348076; Mon, 07 Sep 2026
+ 07:45:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260617-rcar-streams-v6-8-1260eb72dff7@ideasonboard.com>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
+ <20260907-arcane-sassy-fennec-afc02a@quoll> <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
+ <934b1e87-3ebe-4a6c-a925-6b3993cdcec7@kernel.org>
+In-Reply-To: <934b1e87-3ebe-4a6c-a925-6b3993cdcec7@kernel.org>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 20:15:36 +0530
+X-Gm-Features: AcwNN1X7F4Saf6Z-HB7nxKe8O53d3EFKPM70E0Ja_RmgPGm_qltV-8Gse5aESAI
+Message-ID: <CAC-tS8BY_th+qa2DogXSZofkX8KaPJfL6iphX5_TX37NXMA5AA@mail.gmail.com>
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE2MyBTYWx0ZWRfX29Vz+KH62Lk6
+ e/LeCMlJCt/T73wsAtOeAorUUQ316iCsT7qo5z2M3n2XoAw+Y8hRQYobthn0Cquskasooh5dkZn
+ vupfCD0GDrT4xZiRg7vabaBri2pCdzuHZvdZbmxputZHE1U9ad20thd5uy4tMJeYj0bGRnFPgXh
+ xivECSRRUIz85RxnIqfbKagh9FX2sVUjkh9SVYBau3bIyH4c2qfxnTQf5CQxAPgpbep3lA5yiSG
+ wYDL26whN2gu9QFkA+xnrtziaROm1pVZFwVWNwf07RsBroc+76lQm3juutdxkF0fFSKoWyIOQI6
+ EvLrUJC1w+kCfcp4KbWLhlLj31zNZVdytO/am98YnOmIaaGe7T5OSvwAWdckmn8fQAhnRSkBZb0
+ +lkxXczL9H3FDQuRbUT0ZTMx11zexgGE27S3p5o3iw7st45wig22GHsxPs9YPuCd2TZd0OjDy4t
+ 6I7jAQTR7fAGpy5Hk8A==
+X-Proofpoint-GUID: MBvSWE1XznODXDAsQXTWiPHfa-z4y5wj
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE2MyBTYWx0ZWRfX12q+Kb8I7NAm
+ c1xUJDccgBPsZBiYKe1AOrdp8ofHHFaGG8sXeTEqod6KSYx63EK+2G7QKRoP0oCSmCsoNyzKXQF
+ VDyoZMcxYOPbeGf865+NSoPmPMyYiNI=
+X-Authority-Analysis: v=2.4 cv=daOwG3Xe c=1 sm=1 tr=0 ts=6a9ece1d cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=emP4cCs2JGfxw6IAegoA:9 a=QEXdDO2ut3YA:10
+ a=WgItmB6HBUc_1uVUp3mg:22
+X-Proofpoint-ORIG-GUID: MBvSWE1XznODXDAsQXTWiPHfa-z4y5wj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_04,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070163
 
-Hi Tomi,
-
-Thanks for your patch.
-
-On 2026-06-17 14:55:01 +0300, Tomi Valkeinen wrote:
-> Call get_frame_desc to find out VC & DT, instead of hardcoding the VC
-> routing and deducing the DT based on the mbus format.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-
-> ---
->  drivers/media/platform/renesas/rcar-isp/csisp.c | 110 ++++++++++++++++--------
->  1 file changed, 74 insertions(+), 36 deletions(-)
-> 
-> diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> index 8ac45516aa39..42ee6c19801a 100644
-> --- a/drivers/media/platform/renesas/rcar-isp/csisp.c
-> +++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
-> @@ -42,6 +42,9 @@
->  #define ISPCS_DT_CODE03_EN0				BIT(7)
->  #define ISPCS_DT_CODE03_DT0(dt)				((dt) & 0x3f)
->  
-> +/* ISP has 12 channels, of which channels 4 to 11 are connected to VINs */
-> +#define ISPCS_NUM_CHANNELS	12
-> +
->  struct rcar_isp_format {
->  	u32 code;
->  	unsigned int datatype;
-> @@ -225,31 +228,82 @@ static void risp_power_off(struct rcar_isp *isp)
->  	pm_runtime_put(isp->dev);
->  }
->  
-> -static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
-> +static int risp_configure_routing(struct rcar_isp *isp,
-> +				  struct v4l2_subdev_state *state)
->  {
-> -	const struct v4l2_subdev_route *route;
-> -	const struct v4l2_mbus_framefmt *fmt;
-> -	const struct rcar_isp_format *format;
-> -	unsigned int vc;
-> -	u32 sel_csi = 0;
-> +	struct v4l2_mbus_frame_desc source_fd;
-> +	struct v4l2_subdev_route *route;
->  	int ret;
->  
-> -	if (state->routing.num_routes != 1)
-> -		return -EINVAL;
-> +	ret = v4l2_subdev_call(isp->remote, pad, get_frame_desc,
-> +			       isp->remote_pad, &source_fd);
-> +	if (ret)
-> +		return ret;
->  
-> -	route = &state->routing.routes[0];
-> +	/* Clear the channel registers */
-> +	for (unsigned int ch = 0; ch < ISPCS_NUM_CHANNELS; ++ch) {
-> +		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), 0);
-> +		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch), 0);
-> +	}
->  
-> -	fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
-> -					   route->sink_stream);
-> -	if (!fmt)
-> -		return -EINVAL;
-> +	for_each_active_route(&state->routing, route) {
-> +		struct v4l2_mbus_frame_desc_entry *source_entry = NULL;
-> +		const struct rcar_isp_format *format;
-> +		const struct v4l2_mbus_framefmt *fmt;
-> +		unsigned int i;
-> +		u8 vc, dt, ch;
-> +		u32 v;
-> +
-> +		for (i = 0; i < source_fd.num_entries; i++) {
-> +			if (source_fd.entry[i].stream == route->sink_stream) {
-> +				source_entry = &source_fd.entry[i];
-> +				break;
-> +			}
-> +		}
-> +
-> +		if (!source_entry) {
-> +			dev_err(isp->dev,
-> +				"Failed to find source frame desc entry for stream\n");
-> +			return -EPIPE;
-> +		}
-> +
-> +		vc = source_entry->bus.csi2.vc;
-> +		dt = source_entry->bus.csi2.dt;
-> +		/* Channels 4 - 11 go to VIN */
-> +		ch = route->source_pad - 1 + 4;
-> +
-> +		fmt = v4l2_subdev_state_get_format(state, route->sink_pad,
-> +						   route->sink_stream);
-> +		if (!fmt)
-> +			return -EINVAL;
-> +
-> +		format = risp_code_to_fmt(fmt->code);
-> +		if (!format) {
-> +			dev_err(isp->dev, "Unsupported bus format\n");
-> +			return -EINVAL;
-> +		}
-> +
-> +		/* VC Filtering */
-> +		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), BIT(vc));
->  
-> -	format = risp_code_to_fmt(fmt->code);
-> -	if (!format) {
-> -		dev_err(isp->dev, "Unsupported bus format\n");
-> -		return -EINVAL;
-> +		/* DT Filtering */
-> +		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch),
-> +			      ISPCS_DT_CODE03_EN0 | ISPCS_DT_CODE03_DT0(dt));
-> +
-> +		/* Proc mode */
-> +		v = risp_read_cs(isp, ISPPROCMODE_DT_REG(dt));
-> +		v |= ISPPROCMODE_DT_PROC_MODE_VCn(vc, format->procmode);
-> +		risp_write_cs(isp, ISPPROCMODE_DT_REG(dt), v);
->  	}
->  
-> +	return 0;
-> +}
-> +
-> +static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
-> +{
-> +	u32 sel_csi = 0;
-> +	int ret;
-> +
->  	ret = risp_power_on(isp);
->  	if (ret) {
->  		dev_err(isp->dev, "Failed to power on ISP\n");
-> @@ -263,25 +317,9 @@ static int risp_start(struct rcar_isp *isp, struct v4l2_subdev_state *state)
->  	risp_write_cs(isp, ISPINPUTSEL0_REG,
->  		      risp_read_cs(isp, ISPINPUTSEL0_REG) | sel_csi);
->  
-> -	/* Configure Channel Selector. */
-> -	for (vc = 0; vc < 4; vc++) {
-> -		u8 ch = vc + 4;
-> -		u8 dt = format->datatype;
-> -
-> -		risp_write_cs(isp, ISPCS_FILTER_ID_CH_REG(ch), BIT(vc));
-> -		risp_write_cs(isp, ISPCS_DT_CODE03_CH_REG(ch),
-> -			      ISPCS_DT_CODE03_EN3 | ISPCS_DT_CODE03_DT3(dt) |
-> -			      ISPCS_DT_CODE03_EN2 | ISPCS_DT_CODE03_DT2(dt) |
-> -			      ISPCS_DT_CODE03_EN1 | ISPCS_DT_CODE03_DT1(dt) |
-> -			      ISPCS_DT_CODE03_EN0 | ISPCS_DT_CODE03_DT0(dt));
-> -	}
-> -
-> -	/* Setup processing method. */
-> -	risp_write_cs(isp, ISPPROCMODE_DT_REG(format->datatype),
-> -		      ISPPROCMODE_DT_PROC_MODE_VCn(3, format->procmode) |
-> -		      ISPPROCMODE_DT_PROC_MODE_VCn(2, format->procmode) |
-> -		      ISPPROCMODE_DT_PROC_MODE_VCn(1, format->procmode) |
-> -		      ISPPROCMODE_DT_PROC_MODE_VCn(0, format->procmode));
-> +	ret = risp_configure_routing(isp, state);
-> +	if (ret)
-> +		return ret;
->  
->  	/* Start ISP. */
->  	risp_write_cs(isp, ISPSTART_REG, ISPSTART_START);
-> 
-> -- 
-> 2.43.0
-> 
-
--- 
-Kind Regards,
-Niklas Söderlund
+> > the binding intentionally allows subsets for future SoCs or board
+> > configurations where not all interfaces are wired up.
+>
+> If the board does not need to enable them, then driver should simply not
+> do that. The clocks are still there, so the clocks are required.
+>
+Understood. I have already raised version 5 using b4, Kindly review
+version 5. I will address this comment in the next version along with
+other comments.
+-Harendra
