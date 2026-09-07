@@ -1,421 +1,212 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE443AFAEF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775472; cv=pass; b=gARNBn5LvbNxPwQPs93sFJL/oHXm6SF+4NZWMl8vU7w7Wj/BKK1CeWAkvpzoBHSBS/Wb9sNMBEFjFsVCY5pkOLkarWXkfba7X18ua0LWimSNztp2Dou6r1m3mxnbWoDvTGjEG5TOCo1vdVfpthKoFTTR6MdxcmbS167qDZ9r6wk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775472; c=relaxed/simple;
-	bh=t0gmqSsELkYeAdkrHCvcJgihVwo4xcwTdmB7LfyN9pE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pbe6q7dykriw8oK5ClXgbKULPHjGdV883pXKIz9ghkJVKkPC7BDFXtzF1kr72yQ17OiMZDcTMhmL3FMd6ItY8ncqdr7aMyTV1IRhivmUZxuj/CkaWpBTGlbNatrtS9e35jxDCUTzUpqJ2Xa8CmDx54GGL+Ldnz54H8WRPgB6PDg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=ZPK76V/v; arc=pass smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D43440A0A
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788775599; cv=none; b=d5FgrSEMzksIBWUSclO70Ah3N9YxJ10mEJsoW/JO+DWVM8vbfSPU3Wym2FJg1sifv8PnNBf0qSgMMhv8FuM64GKCLRuLYVKE8F3563tkFpEe0rGC0mBScx+6glF4esrc5tX1vIv3m/zZa1ZUFK4WUE6PCKmUEUGDjrgPreQ67iQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788775599; c=relaxed/simple;
+	bh=cfZlsUNL1tYXf3StIFp8xyHHzkshbzsXgfZAOQaTPHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i8Zrqbu6p6cH6Iip8XiiP4pWyua7eK/n6vMx0zaPgaClKDG72EsifBi+ey+fO1PfZ9bt6hIsisIfVm2kXSQ6kbQzoJr4IwicC0sHCppv+1lrdR0JHQblQYayFInOE4kC1XJzcoss4rxr5rynHLvODPNIHk0Gf3NYftoGqNDTR0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=EsWx4Qy7; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="ZPK76V/v"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2055573c8cso407346966b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:04:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788775468; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Yl85leTHIhCcSYRK7kEQYI7RptDT0A3eUEw1jNUtoKwTr2IgXUPJnLtwDeH6VGdoLK
-         3A96p4cbnCLoHGxDOeAOwcJZ7vWFkgkP+mt8H65sw8H9EPAW99eXtMFwKXzFl/P6zsRj
-         sLq9V/YMPVmkpBPKhM2nkDXIHzmICXC1fyjrC8B2eT6KWmx2LBxkFxOLQPgM9lWqLSPU
-         CmVPnZQ8VbvpOhwOX33sYjZColvBI79ugLdprKmd6FplyBigCbwNLVehRVyoRWElZKnl
-         qSnXjxcVquGiUg8c89IAA/arkeEEtOJuk+W26npV+XEKn3ikFMS6kzCUCVu9+RiYMENj
-         EmUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Zz1BLCyCTXn7C+FlfZxMgF1zGe1NobuOstWz2dxBIQs=;
-        fh=RPia/wY8GXLqQQMQBSOKOl8ubzMlT++WCf4q9ddHL90=;
-        b=QfEshNerHjpRiXTlAp9q9aqJCL1crpqfh101dVG1SIDelL+/w/HGZgSclcpk/QAJOY
-         h+C8NIprMVKczLXZRDaXDevEb5NK/bb69+PzYp69Xs21u1CJevd7Sh6q+UkHr9lrEXm3
-         1rzhnEbaCsfGMruwRspSlWZcaHAaMY3BTXDE7/O2u3sSUXewLHyth3TQtqQa9H8GY23L
-         WglXBmwH9T3UTDeCIrjFnMSNnbUE4A78pBI0XSr+NI8TPugXkP4jv+Hx2bM7yBMZr9+d
-         SYADkefg50JCv/zR9PUVuvaFf3cMXNYrQ2t+wG2iF9BUL8n+ekns+du9JzeJHf2DEpYx
-         xOEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mihalicyn.com; s=mihalicyn; t=1788775468; x=1789380268; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zz1BLCyCTXn7C+FlfZxMgF1zGe1NobuOstWz2dxBIQs=;
-        b=ZPK76V/vYPl2HTeiYiMf32JhzmSUIthhElSBmoQc1pa5UFXrw1KFjUVroMqp1oH9Cu
-         Q60UK2Oi3gzsvMVopMlsLol1CZjcMdoI7uL7eEWUIig+mLYXGdRw1wKobHBEhto63fl8
-         zs5ZauUT3H+pfn68GpPzta6xouc+XCMHFkerQ=
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="EsWx4Qy7"
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EA8333F28F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:06:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1788775593;
+	bh=dRV5mMHnpzRbNcgwfhh0JIyTTCV6Vk7ZoBlXJcHwHHk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=EsWx4Qy7wLOIpR+FOd1YtEeCeqv2cICHe0YuX/q5Met9vFX/E2H0WQI8dCqdMoWqg
+	 izUzfZ6I9j4DGTlLh7Bze2SENnnGhT089ABN3g12J4eFZJxBq/T0Exr3GiiaYC1mep
+	 th8I6jHgVTHUWFcWSp0xKhQjQA+uLoNepCT2k+48ZYgPuoozjG0RPb+2pRJ0vfm7l2
+	 V1U1kLww1ZxC/1mBWZFrJXnDsso1y8ZMgb/WnCEOjU62CEXFe8/lvlGhOtS6gyKkmO
+	 gHr/Hy7PV8SoAN2+S54SryVG1cUcQD0CEoq7WzxLAuN29reB5NACcXOFgqQAdTCvCB
+	 djH7r8IFWjf5WYm4fqx4YgdBKuS4hh/BeGEraja2IXgb1OqF6Nt05uHXkjCvp0AvOJ
+	 T0AMIuHYgI6oQ46wNgW+497EHZaDBq8ANpvxk5BokOy4sphc6kQGqJKgSf3YDJzhKR
+	 NOh1m7M1rxhubcz3upYoZKKAOwMzG5QPp5UZJ9/HItN1pI8oV9c3L+srKpDu/TdDRc
+	 MYko0zdlbnsARwCKvrwk4CwTLN3b97AfGK7d5w/Cee1mRB6ruSsDu50vDyKweIcRsz
+	 T2CNnNoS3OJpKm5kHpjj653eIx3jKs6dpUZj9LInsj0l8Gvu5v5Xra7FWmf4RXc4KN
+	 uqlNbGmjcmJsURhK3Rx4AWyQ=
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-4858f06e142so1477803f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:06:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775468; x=1789380268;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Zz1BLCyCTXn7C+FlfZxMgF1zGe1NobuOstWz2dxBIQs=;
-        b=s5Smv383+bDFEhiyeSX4/oyH8aYOSVItEydAtnn4aJffMuaMYLV4TpjmuzBmyfV5k9
-         H4P8/sq1ZyY0/dkdmeEBG0RqWekBQqTe7r/WhtNnoO3rrDO7tlgUSLXI1PAHRDw1OOYI
-         ozn0akHLeFhmDTLbAXUsTuKe7UTLA3qjGWveTlOOkxt3MZofHSKy0S/xqXhTT75FJ0eJ
-         jGa7GuSgzWXrv3ew3QMaBsA5FfKFdWVau+CjUFhZqB4NjUJYqioyQsVQCtLTL0hF8jqZ
-         juSXReH21m28QeCyFgeNpZMRN1745me5tuM05Bw2RyA4diOk4NkwkkToFxdUmTl8e0+X
-         OrjA==
-X-Forwarded-Encrypted: i=1; AKwUvBwtA4dkz5fV7FG8mFwwXy7jq6voxuMst90ZuYEM7uov8Z+w3+XyErWAhCeLYOMA3CA4DC2O9Cwf0yvZkGA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lubJzMZ7Ho3mZPNCSMgkT93wJ5f07ODLmKkeqie/6vum5mF8/z
-	Zz0Gbc4xGJpaYYvdamQ/3B8WMg381j+WPAbmYhmGbdMsO+wwE78b64nAAPjdivgb1t7noIJMeup
-	VtPIekIOc1QeRb2PQ4TMl0McmRlWTeaqoIVjsU/LnhA==
-X-Gm-Gg: AYBFou2CjyOO/kOLILIEJAxRFd8wtW5AGWMKx4Ef/9fbGua41fZ3OCkjv760OSyiO5S
-	tgGGH+IAOIuxlDx7wzLV9o2tSdWepWFWvqulFjEBl7pPVR2p2nNUZbYnTYB7YuPI5aEJvKz/iWA
-	5MltDXkPAU2qaspeWxAm0woWgJNmgVh/eu8A++J8vJr2qx9D41qEFL8KcIgBrduvrFn8TQWzDld
-	oGQ7FdYuT1qLCh3N4kMfD46T7Ewv1eAGplaUylORVek4aT+BX7sgnYlovyONGPfyksx78bgBpXm
-	jDOBmRC1Bs/7MO1aJLy2X/AwcrUDJL9HOz8MSEilrIk1DjUwftaFoASpPXvZPb0nkCLBi5V720s
-	=
-X-Received: by 2002:a17:907:7243:b0:c26:1649:47b4 with SMTP id
- a640c23a62f3a-c2616495644mr674091266b.42.1788775468318; Mon, 07 Sep 2026
- 03:04:28 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788775593; x=1789380393;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dRV5mMHnpzRbNcgwfhh0JIyTTCV6Vk7ZoBlXJcHwHHk=;
+        b=c+VNQg8ov1sPN3rVDlCb/8FS+1YYv2EqoeH6uHnarWXjPN7TqTN6WZfEQy6qN2tnfm
+         Q5yg7d7s06NGLsETWv+dI8HNk1D2ZAMIbCVni50uRy0z19udyzZiZ4y6ThhWyFTkQdHe
+         3lkyeDeQkBdnwI1KcAJImmuHmULpDM6qewdasr/sGrp3nqFKZNnCdqcQmC+ZfWmwU8HZ
+         V5tDhwNDAVZSKu265q3Kf0wUdVLyP2AVDVp7DbKo180kx0dcdoxKC7maojpVo7m15saD
+         g2NKwuxU07JOe8Rvb1fWpgR+4l9FsD2x3YJxjtI7KpwnNxuCQENeNKwxNX6Ur/C4kt42
+         O6Lg==
+X-Forwarded-Encrypted: i=1; AKwUvByUJP9bpIoDkXJ4uFJrmwsqc4xqr8UCBGr0D8TBEcWzLl9P2zMqP7sXlwso5+Qt3D8KWjwd0lOr9+BNGAY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7qK11N0m+NYGHXnvshXMkaFyerklr6ir0ahOm3iD42vwVrQ1h
+	7uh1Mwuwshog8G0r/7+TzY39uwP7BYxUqxKLGZZ37U+uMheOyYQyvhMJjyjGu67aZ2S60D6tgEP
+	5WjymKRD0cMo5FVopRFN9kwQ/XMzPU9VZDjRWvQqGCfv2wjl/WjS2avIgmVUNkOiNLum2M9O1rv
+	76TUlcCw==
+X-Gm-Gg: AYBFou33zxv+oMUOEmyPaEMQX4nokqcKU25HjGcvg4rYofnB8X5NomyVYEBrj0bKKAZ
+	0M7ROjWJrcQNDiVT59T3b51m+Q9hE0CTsHWwhRFIS5L+LU/yZJmcufAEaENDbTn96Ri9a2mh6Mo
+	IXp0YG5jVBQvRxBzR5Docb3YZe7vjml8Yelb458Cvyz+rsYp4WbI9fSbpBLrLmB1y73FwsfDtWA
+	lCiz1OIgXuBTVIrtiTLZyIHY3FWRbCYn1hPVg3uE10wk6cRVhB1bkAebu7MANhmTAy1xNnH9pun
+	DkCH5exRagPorgzGL73OHQiklg2WrPcx0rIBnsPxBkpH4lLXxqY3+9+T0fDYugrfBgi8Cp8Fg24
+	5V2/R/VaLnU65ayusmIvKXsFU98gcEN731fwQtLphMPTikf+ZwelifUeFOdkOG06HFkmm8w==
+X-Received: by 2002:a05:6000:388:b0:485:8c75:48fb with SMTP id ffacd0b85a97d-4858c75598cmr17163976f8f.50.1788775593455;
+        Mon, 07 Sep 2026 03:06:33 -0700 (PDT)
+X-Received: by 2002:a05:6000:388:b0:485:8c75:48fb with SMTP id ffacd0b85a97d-4858c75598cmr17163935f8f.50.1788775592991;
+        Mon, 07 Sep 2026 03:06:32 -0700 (PDT)
+Received: from localhost (93-40-94-241.ip38.fastwebnet.it. [93.40.94.241])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm27574871f8f.1.2026.09.07.03.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 03:06:32 -0700 (PDT)
+From: Alessio Faina <alessio.faina@canonical.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3] selftests/net: skip srv6_end_dt[4/6]_l3vpn_test.sh if vrftable not available
+Date: Mon,  7 Sep 2026 12:06:31 +0200
+Message-ID: <20260907100631.1923148-1-alessio.faina@canonical.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org> <20260831-work-unix-passpidfd-v1-4-70cbfda0c7ba@kernel.org>
-In-Reply-To: <20260831-work-unix-passpidfd-v1-4-70cbfda0c7ba@kernel.org>
-From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
-Date: Mon, 7 Sep 2026 12:04:16 +0200
-X-Gm-Features: AcwNN1U53obUY6edk7tmo2gorb4aQGmQvzBhetE_1I4r8D7MXt3o-Z0oL-9LgKg
-Message-ID: <CAJqdLrqZOCdioD47OvrW2GtJ+Mi7=a-PSErmJ21ujqQSNUViCA@mail.gmail.com>
-Subject: Re: [PATCH 04/10] selftests/net: SO_PASSPIDFD_THREAD
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
-<brauner@kernel.org>:
->
-> Extend the af_unix scm_pidfd selftest with SO_PASSPIDFD_THREAD tests.
->
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+In case iproute2 is older than version 5.11.0, released ~Feb 23, 2021,
+the vrftable support is not available and the tests
+contained in the following 2 test files
+ - srv6_end_dt4_l3vpn_test.sh
+ - srv6_end_dt6_l3vpn_test.sh
+are failing in some kernel backports.
+This is the result of one of those tests in an unsupported environment:
 
-LGTM
+ ##########################################################################
+ TEST SECTION: SRv6 VPN connectivity test among hosts in the same tenant
+ ##########################################################################
 
-Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
+    TEST: Hosts connectivity: hs-t100-1 -> hs-t100-2 (tenant 100)    [FAIL]
 
-> ---
->  tools/testing/selftests/net/af_unix/Makefile    |   2 +
->  tools/testing/selftests/net/af_unix/scm_pidfd.c | 269 ++++++++++++++++++++++++
->  2 files changed, 271 insertions(+)
->
-> diff --git a/tools/testing/selftests/net/af_unix/Makefile b/tools/testing/selftests/net/af_unix/Makefile
-> index a66f10fb0c23..45b841758f1b 100644
-> --- a/tools/testing/selftests/net/af_unix/Makefile
-> +++ b/tools/testing/selftests/net/af_unix/Makefile
-> @@ -23,6 +23,8 @@ TEST_GEN_FILES := scm_rights_denial_lsm.bpf.o
->  include ../../lib.mk
->  include ../bpf.mk
->
-> +$(OUTPUT)/scm_pidfd: CFLAGS += -pthread
-> +
->  $(OUTPUT)/scm_rights_denial_lsm: $(BPFOBJ)
->  $(OUTPUT)/scm_rights_denial_lsm: CFLAGS += -I$(SCRATCH_DIR)/include
->  $(OUTPUT)/scm_rights_denial_lsm: LDLIBS += -lelf -lz
-> diff --git a/tools/testing/selftests/net/af_unix/scm_pidfd.c b/tools/testing/selftests/net/af_unix/scm_pidfd.c
-> index 2c18b92a2603..019c48e1cdcd 100644
-> --- a/tools/testing/selftests/net/af_unix/scm_pidfd.c
-> +++ b/tools/testing/selftests/net/af_unix/scm_pidfd.c
-> @@ -10,6 +10,7 @@
->  #include <unistd.h>
->  #include <string.h>
->  #include <errno.h>
-> +#include <pthread.h>
->  #include <sys/un.h>
->  #include <sys/signal.h>
->  #include <sys/types.h>
-> @@ -27,6 +28,10 @@
->  #define SCM_PIDFD 0x04
->  #endif
->
-> +#ifndef SO_PASSPIDFD_THREAD
-> +#define SO_PASSPIDFD_THREAD 86
-> +#endif
-> +
->  #define CHILD_EXIT_CODE_OK 123
->
->  static void child_die()
-> @@ -553,4 +558,268 @@ TEST_F(scm_pidfd, test)
->         close(pfd);
->  }
->
-> +struct thread_ids {
-> +       pid_t pid;
-> +       pid_t tid;
-> +};
-> +
-> +static void *send_ids_thread(void *arg)
-> +{
-> +       int fd = *(int *)arg;
-> +       struct thread_ids ids = {
-> +               .pid = getpid(),
-> +               .tid = gettid(),
-> +       };
-> +       char sync;
-> +
-> +       if (send(fd, &ids, sizeof(ids), 0) != sizeof(ids))
-> +               return (void *)1;
-> +
-> +       /* stay alive until the receiver has looked at our pidfd */
-> +       if (read(fd, &sync, 1) != 1)
-> +               return (void *)1;
-> +
-> +       return NULL;
-> +}
-> +
-> +static void *send_ids_creds_thread(void *arg)
-> +{
-> +       int fd = *(int *)arg;
-> +       struct thread_ids ids = {
-> +               .pid = getpid(),
-> +               .tid = gettid(),
-> +       };
-> +       struct ucred ucred = {
-> +               .pid = getpid(),
-> +               .uid = getuid(),
-> +               .gid = getgid(),
-> +       };
-> +       char control[CMSG_SPACE(sizeof(ucred))] = { 0 };
-> +       struct iovec iov;
-> +       struct msghdr msg = { 0 };
-> +       struct cmsghdr *cmsg;
-> +       char sync;
-> +
-> +       iov.iov_base = &ids;
-> +       iov.iov_len = sizeof(ids);
-> +
-> +       msg.msg_iov = &iov;
-> +       msg.msg_iovlen = 1;
-> +       msg.msg_control = control;
-> +       msg.msg_controllen = sizeof(control);
-> +
-> +       cmsg = CMSG_FIRSTHDR(&msg);
-> +       cmsg->cmsg_level = SOL_SOCKET;
-> +       cmsg->cmsg_type = SCM_CREDENTIALS;
-> +       cmsg->cmsg_len = CMSG_LEN(sizeof(ucred));
-> +       memcpy(CMSG_DATA(cmsg), &ucred, sizeof(ucred));
-> +
-> +       if (sendmsg(fd, &msg, 0) != sizeof(ids))
-> +               return (void *)1;
-> +
-> +       if (read(fd, &sync, 1) != 1)
-> +               return (void *)1;
-> +
-> +       return NULL;
-> +}
-> +
-> +static void thread_client(int fd, int syncfd, void *(*sender)(void *))
-> +{
-> +       pthread_t thread;
-> +       void *ret;
-> +       char sync;
-> +
-> +       /* wait until the receiver enabled SO_PASSPIDFD */
-> +       if (read(syncfd, &sync, 1) != 1)
-> +               child_die();
-> +
-> +       if (pthread_create(&thread, NULL, sender, &fd))
-> +               child_die();
-> +
-> +       if (pthread_join(thread, &ret) || ret)
-> +               child_die();
-> +
-> +       exit(0);
-> +}
-> +
-> +static int recv_pidfd(int fd, struct thread_ids *ids)
-> +{
-> +       char control[CMSG_SPACE(sizeof(int))] = { 0 };
-> +       struct iovec iov;
-> +       struct msghdr msg = { 0 };
-> +       struct cmsghdr *cmsg;
-> +       int pidfd = -1;
-> +
-> +       iov.iov_base = ids;
-> +       iov.iov_len = sizeof(*ids);
-> +
-> +       msg.msg_iov = &iov;
-> +       msg.msg_iovlen = 1;
-> +       msg.msg_control = control;
-> +       msg.msg_controllen = sizeof(control);
-> +
-> +       if (recvmsg(fd, &msg, 0) != sizeof(*ids)) {
-> +               log_err("recvmsg");
-> +               return -1;
-> +       }
-> +
-> +       if (msg.msg_flags & (MSG_TRUNC | MSG_CTRUNC)) {
-> +               log_err("recvmsg: truncated");
-> +               return -1;
-> +       }
-> +
-> +       for (cmsg = CMSG_FIRSTHDR(&msg); cmsg != NULL;
-> +            cmsg = CMSG_NXTHDR(&msg, cmsg)) {
-> +               if (cmsg->cmsg_level == SOL_SOCKET &&
-> +                   cmsg->cmsg_type == SCM_PIDFD)
-> +                       memcpy(&pidfd, CMSG_DATA(cmsg), sizeof(pidfd));
-> +       }
-> +
-> +       return pidfd;
-> +}
-> +
-> +static int thread_pidfd_flow(void *(*sender)(void *), int optname,
-> +                            struct thread_ids *ids, struct pidfd_info *info)
-> +{
-> +       int sk[2];
-> +       int syncpipe[2];
-> +       int pidfd;
-> +       int child_status = 0;
-> +       pid_t child;
-> +
-> +       if (socketpair(AF_UNIX, SOCK_STREAM, 0, sk))
-> +               return -1;
-> +
-> +       if (pipe(syncpipe))
-> +               return -1;
-> +
-> +       child = fork();
-> +       if (child < 0)
-> +               return -1;
-> +
-> +       if (child == 0) {
-> +               close(sk[0]);
-> +               close(syncpipe[1]);
-> +               thread_client(sk[1], syncpipe[0], sender);
-> +       }
-> +       close(sk[1]);
-> +       close(syncpipe[0]);
-> +
-> +       int on = 1;
-> +
-> +       if (setsockopt(sk[0], SOL_SOCKET, optname, &on, sizeof(on))) {
-> +               log_err("Failed to set pidfd passing option");
-> +               return -1;
-> +       }
-> +
-> +       if (write(syncpipe[1], "1", 1) != 1)
-> +               return -1;
-> +       close(syncpipe[1]);
-> +
-> +       pidfd = recv_pidfd(sk[0], ids);
-> +       if (pidfd < 0)
-> +               return -1;
-> +
-> +       info->mask = PIDFD_INFO_PID;
-> +       if (ioctl(pidfd, PIDFD_GET_INFO, info)) {
-> +               log_err("ioctl(PIDFD_GET_INFO)");
-> +               close(pidfd);
-> +               return -1;
-> +       }
-> +       close(pidfd);
-> +
-> +       /* release the sending thread */
-> +       if (write(sk[0], "x", 1) != 1)
-> +               return -1;
-> +       close(sk[0]);
-> +
-> +       waitpid(child, &child_status, 0);
-> +       if (!WIFEXITED(child_status) || WEXITSTATUS(child_status))
-> +               return -1;
-> +
-> +       return 0;
-> +}
-> +
-> +static int sockopt_set(int fd, int optname, int val)
-> +{
-> +       return setsockopt(fd, SOL_SOCKET, optname, &val, sizeof(val));
-> +}
-> +
-> +static int sockopt_get(int fd, int optname)
-> +{
-> +       socklen_t len = sizeof(int);
-> +       int val = -1;
-> +
-> +       if (getsockopt(fd, SOL_SOCKET, optname, &val, &len))
-> +               return -1;
-> +
-> +       return val;
-> +}
-> +
-> +TEST(scm_pidfd_setsockopt_values)
-> +{
-> +       int sk[2];
-> +
-> +       ASSERT_EQ(0, socketpair(AF_UNIX, SOCK_STREAM, 0, sk));
-> +
-> +       ASSERT_EQ(0, sockopt_set(sk[0], SO_PASSPIDFD_THREAD, 1));
-> +       ASSERT_EQ(1, sockopt_get(sk[0], SO_PASSPIDFD_THREAD));
-> +       ASSERT_EQ(0, sockopt_get(sk[0], SO_PASSPIDFD));
-> +
-> +       /* The option set last wins. */
-> +       ASSERT_EQ(0, sockopt_set(sk[0], SO_PASSPIDFD, 1));
-> +       ASSERT_EQ(1, sockopt_get(sk[0], SO_PASSPIDFD));
-> +       ASSERT_EQ(0, sockopt_get(sk[0], SO_PASSPIDFD_THREAD));
-> +
-> +       ASSERT_EQ(0, sockopt_set(sk[0], SO_PASSPIDFD_THREAD, 1));
-> +       ASSERT_EQ(1, sockopt_get(sk[0], SO_PASSPIDFD_THREAD));
-> +       ASSERT_EQ(0, sockopt_get(sk[0], SO_PASSPIDFD));
-> +
-> +       /* Disabling one option leaves the other alone. */
-> +       ASSERT_EQ(0, sockopt_set(sk[0], SO_PASSPIDFD, 0));
-> +       ASSERT_EQ(1, sockopt_get(sk[0], SO_PASSPIDFD_THREAD));
-> +       ASSERT_EQ(0, sockopt_set(sk[0], SO_PASSPIDFD_THREAD, 0));
-> +       ASSERT_EQ(0, sockopt_get(sk[0], SO_PASSPIDFD));
-> +       ASSERT_EQ(0, sockopt_get(sk[0], SO_PASSPIDFD_THREAD));
-> +
-> +       close(sk[0]);
-> +       close(sk[1]);
-> +}
-> +
-> +TEST(scm_pidfd_thread)
-> +{
-> +       struct thread_ids ids;
-> +       struct pidfd_info info;
-> +
-> +       ASSERT_EQ(0, thread_pidfd_flow(send_ids_thread, SO_PASSPIDFD_THREAD,
-> +                                      &ids, &info));
-> +       ASSERT_NE(ids.pid, ids.tid);
-> +       EXPECT_EQ(ids.tid, info.pid);
-> +       EXPECT_EQ(ids.pid, info.tgid);
-> +}
-> +
-> +TEST(scm_pidfd_thread_group)
-> +{
-> +       struct thread_ids ids;
-> +       struct pidfd_info info;
-> +
-> +       ASSERT_EQ(0, thread_pidfd_flow(send_ids_thread, SO_PASSPIDFD,
-> +                                      &ids, &info));
-> +       ASSERT_NE(ids.pid, ids.tid);
-> +       EXPECT_EQ(ids.pid, info.pid);
-> +       EXPECT_EQ(ids.pid, info.tgid);
-> +}
-> +
-> +TEST(scm_pidfd_thread_creds)
-> +{
-> +       struct thread_ids ids;
-> +       struct pidfd_info info;
-> +
-> +       ASSERT_EQ(0, thread_pidfd_flow(send_ids_creds_thread, SO_PASSPIDFD_THREAD,
-> +                                      &ids, &info));
-> +       ASSERT_NE(ids.pid, ids.tid);
-> +       EXPECT_EQ(ids.tid, info.pid);
-> +       EXPECT_EQ(ids.pid, info.tgid);
-> +}
-> +
->  TEST_HARNESS_MAIN
->
-> --
-> 2.53.0
->
+    TEST: Hosts connectivity: hs-t100-2 -> hs-t100-1 (tenant 100)    [FAIL]
+
+    TEST: Hosts connectivity: hs-t200-3 -> hs-t200-4 (tenant 200)    [FAIL]
+
+    TEST: Hosts connectivity: hs-t200-4 -> hs-t200-3 (tenant 200)    [FAIL]
+
+The test installs a route with the vrftable feature; if this feature is
+not available, the approach taken is to skip the test rather than
+failing it.
+
+Signed-off-by: Alessio Faina <alessio.faina@canonical.com>
+---
+v3: - Fix Commit message and mail subject
+v2: https://patchwork.kernel.org/project/netdevbpf/patch/20260903103545.1325276-1-alessio.faina@canonical.com/
+    - remove dx[4/6] tests
+    - test if vrftable is available in the installed iproute2
+      application
+v1: https://patchwork.kernel.org/project/netdevbpf/patch/20260824091537.2305107-1-alessio.faina@canonical.com/
+    - initial approach by testing DT[4/6] and DX[4/6]
+    - test if DT4/DT6 are available in iproute2
+
+ ./tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh  | 21 +++++++++++++++++++
+ ./tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh  | 21 +++++++++++++++++++
+ 2 files changed, 42 insertions(+)
+
+diff --git a/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh b/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
+index a649dba3cb77..037e5fe1da2a 100755
+--- a/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
++++ b/tools/testing/selftests/net/srv6_end_dt4_l3vpn_test.sh
+@@ -469,12 +469,33 @@ if [ ! -x "$(command -v ip)" ]; then
+ 	exit $ksft_skip
+ fi
+ 
++test_vrftable_supp_or_ksft_skip()
++{
++	local nsname
++
++	setup_ns nsname
++	ip netns exec "${nsname}" sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
++	ip -netns "${nsname}" link add vrf-100 type vrf table 100
++	ip -netns "${nsname}" link set vrf-100 up
++
++	if ! ip -netns "${nsname}" -6 route add fc00::1/128 \
++			encap seg6local action End.DT4 vrftable 100 dev vrf-100 2>/dev/null; then
++		cleanup_ns "${nsname}"
++		echo "SKIP: SRv6 End.DT4 vrftable not supported"
++		exit "${ksft_skip}"
++	fi
++
++	cleanup_ns "${nsname}"
++}
++
+ modprobe vrf &>/dev/null
+ if [ ! -e /proc/sys/net/vrf/strict_mode ]; then
+         echo "SKIP: vrf sysctl does not exist"
+         exit $ksft_skip
+ fi
+ 
++test_vrftable_supp_or_ksft_skip
++
+ cleanup &>/dev/null
+ 
+ setup
+diff --git a/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh b/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
+index e408406d8489..9a29e0d6c912 100755
+--- a/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
++++ b/tools/testing/selftests/net/srv6_end_dt6_l3vpn_test.sh
+@@ -479,12 +479,33 @@ if [ ! -x "$(command -v ip)" ]; then
+ 	exit $ksft_skip
+ fi
+ 
++test_vrftable_supp_or_ksft_skip()
++{
++	local nsname
++
++	setup_ns nsname
++	ip netns exec "${nsname}" sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
++	ip -netns "${nsname}" link add vrf-100 type vrf table 100
++	ip -netns "${nsname}" link set vrf-100 up
++
++	if ! ip -netns "${nsname}" -6 route add fc00::1/128 \
++			encap seg6local action End.DT6 vrftable 100 dev vrf-100 2>/dev/null; then
++		cleanup_ns "${nsname}"
++		echo "SKIP: SRv6 End.DT6 vrftable not supported"
++		exit "${ksft_skip}"
++	fi
++
++	cleanup_ns "${nsname}"
++}
++
+ modprobe vrf &>/dev/null
+ if [ ! -e /proc/sys/net/vrf/strict_mode ]; then
+         echo "SKIP: vrf sysctl does not exist"
+         exit $ksft_skip
+ fi
+ 
++test_vrftable_supp_or_ksft_skip
++
+ cleanup &>/dev/null
+ 
+ setup
+-- 
+2.43.0
+
