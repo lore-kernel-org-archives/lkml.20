@@ -1,205 +1,186 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-36.ptr.blmpb.com (va-2-36.ptr.blmpb.com [209.127.231.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219BD4D8D9B;
-	Mon,  7 Sep 2026 13:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787047; cv=fail; b=kg1T+ELeeQ7OiR21GyGFkU2c9Iv2rWv0ZTFhe9uiYiiP9GkCVv0ziA4MRrInoAcrfRH3V5C/XeTXgKAOHUEmTBgIe9R3r4EQSt4EgOO7gWZ37DYSCHu7IjuI8tYcnMkNnYz4Inl7hJ5F2nWPaZsNsBbC8u44An6EecPRuhnop+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787047; c=relaxed/simple;
-	bh=dNmLH8DeZVJ+iCsH+2IagOnd/OnyjVEoCG7moFE0VAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CfGwt2KiEanzGPwhqSkyQmh0f5rUk6OzM1pybw5aCDQ9g2W1bHUn8eijJiD2qGklmoCgFuGFN8IcQScbWSCl7FV8PiikXNgjXcmDQtUoO//QJImQfjPYDelWxD6tqjmKC2uiyuJSE8TlvwcQRVhaI05INzFs7/aiBGhYSErtLf4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=BXXcQoav; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=YjMJ9VuE; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4829D47B432
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:17:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.36
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788787051; cv=none; b=ZTezJK9GeNEQpD2JxzF+Vryk1zQQdlA9GPixjeKZwyUCX5PApfwqv0HoWKdVeJfdsCd1wVFow56TCQjBlMjU0lFXEM1+07kICeICBmLmVlxSWMO8w1aTCNTA0JEzbJF69S5bflSFI26wvFClOCboRoVF26R/57crEed5dZXH+Rc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788787051; c=relaxed/simple;
+	bh=yQD+qTOHxM6Tkpx31cCx9rs4vJQbozGXPz411G/NNMg=;
+	h=Cc:Subject:Date:References:To:From:Message-Id:Content-Type:
+	 Mime-Version:In-Reply-To; b=oo+vLrvgx5/Tcr+0frxqBPgPcIsWVnjgIIX9zfJvqOdXDlK3NfB5OcSTvg8LfcEHyQhahgO9O+Ajmze3PXzhpefe8PTOLd6BcKeSxfvMFaQhAO6Y0neL8+Y5FIlKl45npI/vYxkn0/RZMDQ23V7NV8pehngHPd1Dxz8co7omi3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=b7BCS4CY; arc=none smtp.client-ip=209.127.231.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="BXXcQoav";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="YjMJ9VuE"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873fvZ51040447;
-	Mon, 7 Sep 2026 08:17:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=rfUlNwA4jWtDMjmX7r
-	8vsKvqTFu1pyBErKKzjKh+y6E=; b=BXXcQoavAV/a4h/L/D7piu2LNN52CEpBUy
-	nr+JgASM39otQ1J03gJ9vFHtxAna8dSTNLsSsjUmE+YhrENCrNq2fdoKBFbvpYky
-	pS4PoPohdmixygc11nP3LLuITCd9XNqckEdR2mTMC53pmj5ABNe4xVhQgtnWJRoX
-	nR6lDBaFC4hyi5hy75v18pYwTKYSVy4zDXvbtV+A0fUeyMa7fLTST9RMguXeJHP2
-	16DHkqxKocVybbrm/E3NJt7VW3BFEsc3uIl9TMAkX6XUIZP0MHrLBL+MeGqTBUB9
-	gQeeO40vi32PZEMhSUvRHBaNm29UKhPBYw8kO1/H+g5Bx8WCqMng==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azhn15011001.outbound.protection.outlook.com [52.102.149.1])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gggfwj32u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 08:17:02 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JmedZuB9rAccm/J3H6vKeMV5/OLf0sk1bak49jQdqR8UhraDNn79cnyPR7vD4J2A63Y6eSNe3d4KXe79VNJnTM+Pwt0KvD0smWYiPbQmjqmveGgODvs+EH4OieFz6p53oNLf0JYx5vcsxYyNTuPm2NN1et7muDCcvJTs9komhtG81afSVIHjDH5MFzOcaJBQfTm/p1YjTThgrDcl2lJ68O7vFTLJMiEpefnU0G6D+EZ8+hoBjw0Mb8EZ7jYXa54khMLPF54GJwc0sC5A/PvgVH0tp04gy5bxFo63DE7ARWv/vtnJQymYBz/2eVQY2YbcbHq+CsY6Qbzblc5GjQL6/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfUlNwA4jWtDMjmX7r8vsKvqTFu1pyBErKKzjKh+y6E=;
- b=cgDf89szN+Gh+6mxoCZEJoMe2O8k94OgfbOuElIkl6a5Wht4jgxUEA+THBMVeHfsSCy2zPuG2eYNIpGQqTttVExEmw3jVjNO65qho+O6r83WZlZM2ItnW/EnDRWtBivCWj37k+uE7UONe1PEHK9bsBlssGF+ne0GZmtJEmibOXnvcWt4W4+FH/f/YiX0lkIP5MPhBuRXjG9pWL/NET0rDBb92BjD34mHq1zScVMGKUFgmMiLltN3e9SCin/a4Dkkr4flBi7IOhrC0EvV+aq48k7yijuncm3o+5gr954/BAsAUcQPyIAAkOQHwDnhcumDGXY6orBJCFIG2QqR642uhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=catcrafts.net
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rfUlNwA4jWtDMjmX7r8vsKvqTFu1pyBErKKzjKh+y6E=;
- b=YjMJ9VuEUgVBtNjSBQMwUVAqyfRsQ9F6IJBD+qLf8sFvMdsSFnqOKdhWIsltXKrkx4kixudGOx996cTVeafywZ/hAE3+l/oR3scSdnbnCO8kWKCQwL3XDvPmCqHOGsDORKpNJJOyp8F+DUnbAWDAXlFT5VKqs+JwkF2F1qL6IQE=
-Received: from MW4PR03CA0011.namprd03.prod.outlook.com (2603:10b6:303:8f::16)
- by CC6PR19MB668824.namprd19.prod.outlook.com (2603:10b6:170:207::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 13:16:57 +0000
-Received: from BY1PEPF0002696B.namprd05.prod.outlook.com
- (2603:10b6:303:8f:cafe::85) by MW4PR03CA0011.outlook.office365.com
- (2603:10b6:303:8f::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Mon, 7
- Sep 2026 13:16:56 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BY1PEPF0002696B.mail.protection.outlook.com (10.167.244.155) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
- via Frontend Transport; Mon, 7 Sep 2026 13:16:56 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 9A440406545;
-	Mon,  7 Sep 2026 13:16:54 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 877E5820247;
-	Mon,  7 Sep 2026 13:16:54 +0000 (UTC)
-Date: Mon, 7 Sep 2026 14:16:53 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        Takashi Iwai <tiwai@suse.com>,
-        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
-        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/11] ASoC: SDCA: add populate_function hw_op for DT
- function data
-Message-ID: <ap65RazbqWZfjRpd@opensource.cirrus.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-6-srinivas.kandagatla@oss.qualcomm.com>
- <8403dfc5-858f-4212-ad13-7c00b3f7ee63@linux.dev>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="b7BCS4CY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1788787039; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=paxgRnqRRQ5ClGyRNJIpWS/UEGCwA35sFQ+eOrhG0G4=;
+ b=b7BCS4CYV32u3+7M3iBxs+XuWxwRyvmuysrZRarM5M+zawUTJLgRPPN64XJTst68bb2DBc
+ EvMSaAVal40YwUUorvgl+lK5eF3jp8cV0YEEZjaJe3Fcid7xhJqaTXimnSrncUFx7Ein6v
+ snNWyMGxzyA4MoWu0WtikyG29EjL9e0Eu/3n25qdoZiIzvsBpUSQas6yCQZLveOUyMuGX7
+ nHDH7Kq86ZFV4g0fY851VbHaXxYCezQ3aRq2AAP/FSGlp/w/8kDXHrQ+XHyHznvy0w56A8
+ 9wcg9RhEZ6/qQNgk2GyKk1K+ECOJRcAlpFdZGVsAqjgcs8YHzeGd3k0Mcxq81w==
+Cc: "Yufan Dou" <douyufan@picoheart.com>, 
+	"Sunil V L" <sunilvl@ventanamicro.com>, 
+	"Rafael J . Wysocki" <rafael@kernel.org>, "Len Brown" <lenb@kernel.org>, 
+	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
+	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
+	<linux-acpi@vger.kernel.org>, <linux-riscv@lists.infradead.org>, 
+	<linux-kernel@vger.kernel.org>, <yang.yicong@picoheart.com>, 
+	<yuchao.46@picoheart.com>, <geshijian@picoheart.com>
+Subject: Re: [PATCH] ACPI: RISC-V: CPPC: Implement cpc_read_ffh_fb_ctrs()
+Date: Mon, 7 Sep 2026 21:17:14 +0800
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+User-Agent: Mozilla Thunderbird
+Received: from [172.16.155.39] ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Mon, 07 Sep 2026 21:17:16 +0800
+References: <20260902083450.2348-1-douyufan@picoheart.com> <d48e5c92-f666-44e0-8375-9772d95065b5@hisilicon.com>
+Content-Language: en-US
+To: "Jie Zhan" <zhanjie9@hisilicon.com>
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+Message-Id: <37731989-e1f1-4dc9-944d-2544ce8e9302@picoheart.com>
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8403dfc5-858f-4212-ad13-7c00b3f7ee63@linux.dev>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0002696B:EE_|CC6PR19MB668824:EE_
-X-MS-Office365-Filtering-Correlation-Id: d006e2ae-6790-4393-5d66-08df0ce24a9b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|34020700016|23010399003|7416014|376014|61400799027|36860700016|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|4143699003|16102099003|12100799066;
-X-Microsoft-Antispam-Message-Info:
-	9J7xBGpLewbpZSqPCgX+mJfxS95MesK8FCWacsUCTt8g3Z74dR3lw9lZlRKGHzbYMSz5fXMhhTS6HBz43/cqrv2THL9+piKq3AKieorMCMEWwrHLsfL+0ebASO9I2ldbJVOGoDobZmIMTikImx53WjZVhVd+TVrs/Vc77nrplsT+RCHruvtUfHaZewdW+fyaV4heufZL6UtQ4ZyqjumNDLdI0FuxN7CmiLZqOkAhYNP+afJa6zvWPgNBoFIIkqMCMzRjGI1AN+r/iCugmjAKx0g7R/jBJg3zOa446b5jhQ1UPKtt8qYEr+sQQP3e3L73rXiG+Rt0XWihm482fzvuHfDuZ0tJ9n1Jqkt3yOFf3J9rnI0seozXY/ecy9UbvtsmuYhkx0QrDSUivi15bIZEkHQmRl9QLsVQ7Xsf4YD9ePThSESNTQyYEn3vJrkyHQEAFwQ/s1CFM6Sp8wjf6glVatgv+ujbAxwS/FXWFqvHreMKTO+SPYUcio26pfvj/gPKXwg3fQbTNCOyyG58G92reJTt+DXContSdi148g+Gq9VaRzs5FcXh8zr5BHiC1093SSzcJVT+ZO+yqngnYCbqy2B4XqKZK6f73SsQEZTquGCFLECfEaxs32U1Die+i996R53ozR9/Tkq2LKVm890OgBrAqFCxMDIVw35lzCXdcg4XDvHSoGwrU2OXh1HHd4Z0wapaLRctcrc8x5sAi/RqIA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(34020700016)(23010399003)(7416014)(376014)(61400799027)(36860700016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(16102099003)(12100799066);DIR:OUT;SFP:1501;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SeCQwYv08pBpzCd5a82x3wZTfjtGhFKxUDKxvGX8VBiRhoRK8bXDaTh/lh1++Lkm16fy5INIvGe0TttLCA7FDbkFyv38lEGM27Cbe20XLm/TFEyJc5OYg2a/bbScJwqyXdPFg4Ba044IEvL0kH48acECumHylOCM+cSycBvWaKCXptHiPDYLiW0aMSWENStw4xkV83Y3mS3EmnRxQ8VOf1ql/v9k7bQwVRvB1rejhXFvqGTUkR8UPcrhIkCPU+CGdPWpQYrYW45zfvlKHXSgL6HHVb4mzWpIq6MzxN795HQtLecvwjo0quAJOnwgkGbuZaGaW4hp6hGTgl/T/fEas+J+khhVDkV+IemIJQvDIWUs0N+5PBFX5XhiX6IAxH4sJrBRw5+xOdNJ5h4zqX8y+06ZuCMx7no1pjZmqKPTbsBPBYu7EdbsN+yJgISUaeep
-X-Exchange-RoutingPolicyChecked:
-	JfR0wqEI0AZXSqm6QCm3Kj2RnDCasBbpcsP2KlMQ5bUWKcQojNGYVBHtkNPZFh1lYLd1SBSqaDnO8b4+6vKXeSycT/l5kciPF8JylKlhD2a/1OCOBcmS+2Euv+qB1hr3EuFQYUU1ngbmvF+0/5MfI0srZdV+177hEvVY5CscYyQkyXoGwrpevRpnPiryn17Z/5u3fI8aw2j+GMAKp/OQtZ3ylLbEFif7revR9MQ42Xget+GnOngjS3EcoU1DCX5tPCB0x/c1/S4wKultlxgscRaLkLdDE2xcBnTlydQenaSh58Xp7lecbNASqIUc1tOIlhU2eFSHrO5x7RNHlrGXVg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 13:16:56.0512
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d006e2ae-6790-4393-5d66-08df0ce24a9b
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BY1PEPF0002696B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR19MB668824
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NSBTYWx0ZWRfX9SlaEXdAI84Z
- ViWMTT2qk9HnYIRdrQ7zn8sbTIKwIC70tUxYboHSibYg4Ycv7Whc60Vg0edlipjp170W7xwQac/
- DcvadHjR9aj0OJRvRvcVKgwxiRE97ZA=
-X-Proofpoint-ORIG-GUID: Ws2sMbhCtDtbP1q3jwNnmBcwmP9aSDBx
-X-Proofpoint-GUID: Ws2sMbhCtDtbP1q3jwNnmBcwmP9aSDBx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NSBTYWx0ZWRfX3s4bBppNQT5K
- QfIngTpFynF7ncqb08NfbkNABvQsgBqOQbrBIbc9daeDVRAWV/pctjRGevVwqa6JN+tzEULnUu+
- GxO44D2dyZuMg2F8PK/juy5EuBYA9610sy9vYLF9y1Wc1yMfuj5LAm/3ilRHQG5dgtWTb9jTO66
- yESPKzTxeTA0ielVWP+N0DodO/S1fTBeEMWCnlvJ5sUFQmTAvfyobVQj1D2D4V/Qy6BQ+eM9AD2
- f8/NDMAF6aa/xvTJx3U4YeYOwCR68xklG7RWHze/bbtUCModB67ejimkIh/+E559emt16NrT9Ce
- jKh9hHWgBDmMYxLnBU/gxC2mYtutlDqKTHpX7kgcC0Udggh4WpIWGPWM/Wn31HVKMyNH8A/wFjj
- q/xP83XYaCoOzNstNKKKcAjvv3jCyj5izFFYyR5zZdTH9NJKMsFqUQmR68EWYyOMmwUQRdP1tQf
- 9yfXZw0tMLyG6b5yyGA==
-X-Authority-Analysis: v=2.4 cv=fK4JG5ae c=1 sm=1 tr=0 ts=6a9eb94e cx=c_pps
- a=N2BrI/clB5LUZLLH+1P39A==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=38RZNepb8yr8UG9RvGYA:9 a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
- a=jZz-an6Pvt0H8_Yc_ROU:22 a=VlVynqX4KLlZR1Cn4-IV:22
-X-Proofpoint-Spam-Reason: safe
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+In-Reply-To: <d48e5c92-f666-44e0-8375-9772d95065b5@hisilicon.com>
+X-Lms-Return-Path: <lba+26a9eb95d+fe384e+vger.kernel.org+yang.yicong@picoheart.com>
 
-On Mon, Sep 07, 2026 at 01:28:42PM +0200, Pierre-Louis Bossart wrote:
-> On 9/7/26 10:37, Srinivas Kandagatla wrote:
-> > sdca_parse_function() walks a firmware node, but on DT there is no
-> > DisCo node -- sdca_lookup_functions() is a no-op and the SDCA
-> > function descriptors come with a NULL fwnode.
+On 9/7/26 7:29 PM, Jie Zhan wrote:
 > 
-> It'd be good to have a link to an example set of DT properties for SDCA.
-> The way the functions were organized in ACPI is based on a DT-inspired
-> _DSD mechanism to have nested blocks.
-
-There was one in the last chain discussing this, let me know if
-you can't find it and I will try to dig it out my inbox.
-
-> edit: After reaching the last patch I realized there are no such
-> properties. The main problem is how to deal with board-specific
-> initialization data, the suggestion to encode all the tables in C seems
-> limited to me.
-
-Yeah unfortunately the DT maintainers seem to have put a hard
-NAK on putting SDCA properties in DT (again see previous chain
-for the discussion), so we are basically left with the choices
-of C tables as in the patch chain or using software nodes. Both
-will end up with the same issue of drivers eventually being
-fully of little quirks to tweak the tables to match the current
-hardware.
-
-Using software nodes is possibly more "correct" and would
-let us re-use the parsing, but will end up significantly more
-verbose. I am not sure I have a strong opinion one way or the
-other, apart from putting things actually in the DT would be
-the clearly best option.
-
-> > Add a populate_function hw_op that the class function driver falls
-> > back to when @function->desc->node is NULL: it fills the caller-owned
-> > sdca_function_data (entities, clusters, init_table, delays) from the
-> > codec's static tables, matching by function type.  Leave
-> > @function->desc alone -- the framework owns the per-instance
-> > descriptor, so devices with more than one function of the same type
-> > keep their per-instance SoundWire address.
 > 
-> I wasn't able to understand that last sentence - and I don't remember
-> seeing a case with different functions of the same type. It's permitted
-> by the spec but it'd be fun to manage...
+> On 9/2/2026 4:34 PM, Yufan Dou wrote:
+>> On RISC-V, each cpc_read_ffh() for a CSR-type FFH register sends a
+>> separate IPI to the target hart via smp_call_function_single().
+>> cppc_get_perf_ctrs() therefore samples the delivered and reference
+>> counters in two separate IPIs, at two different instants. The skew
+>> between the two sampling points distorts the delivered/reference
+>> ratio and thus the frequency reported by cpufreq.
+>>
+>> Implement the cpc_read_ffh_fb_ctrs() hook to read both CSR counters
+>> back-to-back in a single IPI, which narrows the sampling window to a
+>> few instructions and halves the number of cross-CPU calls. This
+>> improves the accuracy of the reported frequency in the same way as
+>> the arm64 implementation of the hook, which reads both AMU counters
+>> in a single counters_read_on_cpu() call.
+>>
+>> SBI-type FFH registers still fall back to individual reads, since
+>> pairing them would not reduce the number of SBI calls on the target
+>> hart.
+>>
+>> Testing was performed while CPU1 was kept busy with:
+>>
+>>   # stress-ng --cpu 1 --taskset 1
+>>
+>> On a CPU with cpuinfo_max_freq of 3000000 kHz:
+>>
+>> Before:
+>>
+>>   Maximum observed cpuinfo_cur_freq: 3201369 kHz
+>>   Maximum observed error:            +201369 kHz (+6.71%)
+>>
+>> After:
+>>
+>>   Maximum observed cpuinfo_cur_freq: 3009646 kHz
+>>   Maximum observed error:              +9646 kHz (+0.32%)
+>>
+>> The maximum observed error is reduced by 95.2%.
+> Glad to see that works for RISC-V as well.
+>>
+>> Signed-off-by: Yufan Dou <douyufan@picoheart.com>
+>> ---
+>>  drivers/acpi/riscv/cppc.c | 47 +++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 47 insertions(+)
+>>
+>> diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+>> index 42c1a9052470..2ca98fa69e9a 100644
+>> --- a/drivers/acpi/riscv/cppc.c
+>> +++ b/drivers/acpi/riscv/cppc.c
+>> @@ -85,6 +85,20 @@ static void cppc_ffh_csr_write(void *write_data)
+>>  	data->ret.error = -EINVAL;
+>>  }
+>>  
+>> +struct sbi_cppc_fb_ctrs_data {
+>> +	struct sbi_cppc_data first;
+>> +	struct sbi_cppc_data second;
+>> +};
+>> +
+>> +static void cppc_ffh_csr_read_fb_ctrs(void *read_data)
+>> +{
+>> +	struct sbi_cppc_fb_ctrs_data *data = read_data;
+>> +
+>> +	cppc_ffh_csr_read(&data->first);
+>> +	if (!data->first.ret.error)
+>> +		cppc_ffh_csr_read(&data->second);
+>> +}
+>> +
+>>  /*
+>>   * Refer to drivers/acpi/cppc_acpi.c for the description of the functions
+>>   * below.
+>> @@ -125,6 +139,39 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+>>  	return -EINVAL;
+>>  }
+>>  
+>> +int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
+>> +			 struct cpc_reg *reg2, u64 *val2)
+>> +{
+>> +	struct sbi_cppc_fb_ctrs_data data;
+>> +	int ret;
+>> +
+>> +	if (WARN_ON_ONCE(irqs_disabled()))
+>> +		return -EPERM;
+> AFAICS, this may cause CPPC FIE to constantly fail to read counters because
+> FIE runs in hardirq context.
 
-We have some systems that are starting to do that :-)
+I suppose it's mainly due to the smp_call_function_single() cannot work
+with irqs_disabled().
 
-Thanks,
-Charles
+seems we need to do the similar handling like arm64's
+counters_read_on_cpu() - read the counters locally when irqs_disabled()
+if local cpu is the target cpu.
+
+so is cpc_read_ffh() of riscv. but I suppose this should be a fix of below
+commit, as it were in the kthread for FIE...
+997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
+
+> 
+> Any test on CPPC FIE?
+>> +
+>> +	/* Only CSR counters can be paired within a single IPI. */
+>> +	if (FFH_CPPC_TYPE(reg1->address) != FFH_CPPC_CSR ||
+>> +	    FFH_CPPC_TYPE(reg2->address) != FFH_CPPC_CSR)
+>> +		return -EOPNOTSUPP;
+>> +
+>> +	data.first.reg = FFH_CPPC_CSR_NUM(reg1->address);
+>> +	data.second.reg = FFH_CPPC_CSR_NUM(reg2->address);
+>> +
+>> +	ret = smp_call_function_single(cpu, cppc_ffh_csr_read_fb_ctrs,
+>> +				       &data, 1);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	if (data.first.ret.error)
+>> +		return data.first.ret.error;
+>> +	if (data.second.ret.error)
+>> +		return data.second.ret.error;
+>> +
+>> +	*val1 = data.first.ret.value;
+>> +	*val2 = data.second.ret.value;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>>  int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+>>  {
+>>  	struct sbi_cppc_data data;
+>>
+>> base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
