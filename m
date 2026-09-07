@@ -1,128 +1,161 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88CD3AFAEF;
-	Mon,  7 Sep 2026 09:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8271D455615;
+	Mon,  7 Sep 2026 09:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775172; cv=none; b=tncGCjvNeZg2gD5nuGkcnoELcBYAgGencD3yROuGboSvkFU5jo5QUsygpI9kUXVDfVJDrMNxn6Tr9HULNb4G0g4s8tj1Bu3TS7lgnjlNCwD5Amr2tv/5lLZGplu7sE18NWdXeiacNE/DOR+2RzNT6+dahlIK9JZX2+y+dUzOzQ4=
+	t=1788775201; cv=none; b=ALaBqFj70N5dt3rbHoWITMBmwxP2OqtR8tNYDsWsGZf/nZanwJGZuTOl6h15OEKGi8vx2xdgisn8Opxgu7H6Hp7EwMxbKauhiY/4a28wJFtyaAF6dbc9qSjEmiLquUyL4WiDD+gms64ihdd58/X4SYUx8QcnK867HmheFIdw76A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775172; c=relaxed/simple;
-	bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDdsGE8rHRk/Nb3jpTOBcfBBF9bksCq/unGM348DZmt67dHUebVOXK7LdmkXJXvn7qjz+OY5XaFKnKOo7roecXo8MCYkVLwSRbsm6gtorIO1hINpSNB05j3O8Du8r5Zj6YDAILsGadYkEQAjoHOT1O7uljymoOnucPKYOBatbxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=RBCObkqe; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788775201; c=relaxed/simple;
+	bh=KmMaMXcfwTD1uw/ZX1oD+IzGdx2wwUgc5E+inECDMNc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m4zHqRTiaDrAtGtJg9z6JmveXxnCDkLM6ytyMYXc4SsoUCOhnRu4ShC1uu2iWlxD7p6H33qdh077hvyJ1hnCPvtVl0xnG42ikh/VIcPjEaJH81halzl6/UvSjw5HYAyTNjZYqcDfqSZKOmpHQwQDthV3uDIaHD6mWCnzjNoei6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cm5PZxv9; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RBCObkqe"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE937C45;
-	Mon,  7 Sep 2026 11:57:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788775073;
-	bh=8MJKxxoccE8R0yQTP0Xn0yEz2tqNsX4Ml0v7HyjBe/0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RBCObkqevtvA6PD8XPgIjA+Iw5TAy3OzJlnKh7XeMYZXAH9sMNdXQKjDhFhrGCdVf
-	 o9p5o+z1VwCKp4JaESH0yDvzuDsTba9jgOZiKbLNW1QJnqyX8T3nu8EXd/ONdC3uKY
-	 rEbtykvpq3Y9V6Ap+LgBfIwZSVWj6d/YX0jpHxj0=
-Date: Mon, 7 Sep 2026 12:59:26 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-Message-ID: <20260907095926.GA1672293@killaraus.ideasonboard.com>
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
- <20260702212423.GA3662157@killaraus.ideasonboard.com>
- <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cm5PZxv9"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F3AC1476;
+	Mon,  7 Sep 2026 02:59:55 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0A13F3F7B4;
+	Mon,  7 Sep 2026 02:59:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788775198; bh=KmMaMXcfwTD1uw/ZX1oD+IzGdx2wwUgc5E+inECDMNc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=cm5PZxv990H8BGNP0OfTXDtvAW1KHxnnVcsm99FIKeGdMRdSLBSP347xtDstvUzDJ
+	 Pfaxm+qhl52HzmCTBD89wlMedknLopfALCJCcyfQbp6DrR9p4k5/i2gg5xP6GzeuXh
+	 3bWP9JjSoacdERjSw9HgrOkyiBXd3rkjfNsLCloI=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
+Date: Mon,  7 Sep 2026 10:59:34 +0100
+Message-ID: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 11:56:01AM +0300, Tomi Valkeinen wrote:
-> On 03/07/2026 00:24, Laurent Pinchart wrote:
-> > On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
-> >> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
-> >> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
-> >> crtc, when enabling the crtc.
-> >>
-> >> With DSC (added in upcoming patch) in the pipeline, between the DU and
-> >> the DSI, the above call path is broken as the crtc tries to call
-> >> rcar_mipi_dsi_pclk_enable() on the DSC.
-> >>
-> >> To solve this problem, make sure we store the DSI bridge to the
-> >> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
-> >> (which can be DCS), by checking the bridge's bridge->type.
-> >>
-> >> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-> >> ---
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
-> >>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
-> >>   2 files changed, 17 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> index db2088529b48..ac85838ab3b8 100644
-> >> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
-> >> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
-> >>   				drm_bridge_get(bridge);
-> >>   
-> >>   		if (output == RCAR_DU_OUTPUT_DSI0 ||
-> >> -		    output == RCAR_DU_OUTPUT_DSI1)
-> >> +		    output == RCAR_DU_OUTPUT_DSI1) {
-> >> +			struct drm_bridge *dsi_bridge;
-> >> +
-> >> +			/*
-> >> +			 * When we have a DSC block between the DU and the DSI,
-> >> +			 * the "bridge" points to the DSC. Detect the DSC by looking
-> >> +			 * at the bridge type, and skip the DSC if the bridge is not
-> >> +			 * the DSI bridge.
-> >> +			 */
-> >> +
-> >> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-> >> +						     bridge :
-> >> +						     bridge->next_bridge;
-> > 
-> > The indentation looks weird.
-> > 
-> > 			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
-> > 				   ? bridge : bridge->next_bridge;
-> 
-> That looks even weirder, you are associating = and ? there. What about:
-> 
-> dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-> 	     bridge : bridge->next_bridge;
+This series adds the generic firmware layer for talking to the Realm
+Management Monitor (RMM), as specified by the RMM v2.0-bet3
+specification[1]. It is the first part of the Arm CCA host support that
+was previously posted as part of the larger KVM series.
 
-I like my version better :-)
+The split allows this RMM support to be used as a base for other work,
+including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
+ without depending on the KVM Realm support that will follow as separate
+ series. (See more on that below)
+
+The series adds:
+
+ * The RMI SMC definitions and direct-call wrappers.
+
+ * RMM discovery and version checks during firmware init.
+
+ * RMM host configuration, including the host page size.
+
+ * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
+   can complete across multiple SMC calls while requesting or returning
+   memory to the host.
+
+ * Verification that granule tracking is available at fine granularity.
+   Fine-grained tracking allows each granule in the system to be tracked
+   independently, which is required before individual granules can be
+   delegated. A future series will add support for dynamically supplying
+   memory to the RMM for this tracking.
+
+ * Support for fully firmware-managed systems, where the Granule Protection
+   Tables for memory regions are allocated and managed by firmware. RMM v2.0
+   also allows dynamic GPT creation on demand; support for that will be added
+   in a later series.
+
+ * Wrappers for the RMI commands that are used for managing the "Realm VM"
+   lifecycle. This is added in to make it easier for the on-going KVM support
+   to evolve in parallel pieces.
+
+If the platform firmware cannot manage the granule tracking or the GPTs, we
+bail out and deactivate the RMM, reclaiming any memory that we have donated.
+
+The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
+the RMM to complete an operation over several SMC calls while requesting
+or returning memory to the host. This allows interrupts to be handled in
+the middle of an operation and lets the RMM dynamically allocate memory
+for internal tracking purposes. For example, RMI_REC_CREATE no longer
+needs auxiliary granules to be provided up front, and can instead
+request memory during the operation.
+
+This series applies on v7.3-rc1 and a branch is available at [2]. The KVM
+CCA support that builds on this series is available at [3] as an integration
+branch. The KVM support depends on guest-memfd-in-place conversion support v12
+from Ackerley [4], we plan to split that into parts, which apply cleanly on
+v7.3-rcx without any dependency and is in progress. This will be made available
+as soon as it is ready. Until then [3] shows how this base series enables KVM
+CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
+
+[1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
+[2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
+[3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
+[4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
+[5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+[6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git cca/kvm-v17
+
+Known issues: RMMv2.0
+ * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
+  (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
+  may not be satisfiable by the host. Arm is aware of this defect and a spec fix
+  is in progress.
+
+
+Steven Price (7):
+  firmware: arm_rmm: Add SMC definitions for calling the RMM
+  firmware: arm_rmm: Check for RMI support at init
+  firmware: arm_rmm: Configure the RMM with the host's page size
+  firmware: arm_rmm: Add support for SRO
+  firmware: arm_rmm: Activate the RMM
+  firmware: arm_rmm: Ensure the RMM has GPT entries for memory
+  firmware: arm_rmm: Add wrappers for Realm related RMI commands
+
+ arch/arm64/Kconfig                |   1 +
+ arch/arm64/kernel/cpufeature.c    |   1 +
+ drivers/firmware/Kconfig          |   1 +
+ drivers/firmware/Makefile         |   1 +
+ drivers/firmware/arm_rmm/Kconfig  |  26 +
+ drivers/firmware/arm_rmm/Makefile |   2 +
+ drivers/firmware/arm_rmm/rmi.c    | 819 ++++++++++++++++++++++++++++++
+ include/linux/arm-rmi-cmds.h      | 678 +++++++++++++++++++++++++
+ include/linux/arm-smccc-rmi.h     | 494 ++++++++++++++++++
+ 9 files changed, 2023 insertions(+)
+ create mode 100644 drivers/firmware/arm_rmm/Kconfig
+ create mode 100644 drivers/firmware/arm_rmm/Makefile
+ create mode 100644 drivers/firmware/arm_rmm/rmi.c
+ create mode 100644 include/linux/arm-rmi-cmds.h
+ create mode 100644 include/linux/arm-smccc-rmi.h
 
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
