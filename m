@@ -1,102 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FC0347CC8F;
-	Mon,  7 Sep 2026 11:43:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F0946D548
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:44:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781432; cv=none; b=DpCJNp96QtnSBtHs33kYhAY/rgsJn4hVMjpIW3wqpCkZjnJYuKmsyCrHWrxX1Nlr8MlKzEcKjdokshMW+NT1/9yZwEBKdIC58vOzAFVVKpMjiZnLXlUohzonb08pqyXa9WxYXb6dStfN9T8ktcKxvJmqiBsAOZobPwuLSVZGUG8=
+	t=1788781502; cv=none; b=a5BHVlmL6ripB1PbLQZTRRE/4gpTmVkIgF+jPplURYuu1M7oi0bm4cR6ZaIzpmI/7Q59Xbt+7z/40QMSlSkXa1dDL6WkFaWjBhm6WwKSlnLRaHwoxt/gCcvMgaLAuFg8KLuYd6wW15ZxKhziHWo2fjTpL0APke4NWG9v5REErqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781432; c=relaxed/simple;
-	bh=n/dT9uVSEzsQT6bua/x3pmqORG2+HA600we7UenJ8JI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DeGLJ1sZNZyyl25WlM3obxXTitgA+MMKtZYQ7ZWf2ywCPcNa1o5K4oCzVoiXWeRGvNrII7RUp/dkHp6BTtBG3O9ycv/a76vRkUPZeeJOyeuI1JZUgYqeTnaxSqwkTDOIUl9OLFMxL0qLOgnq9mGEtNG6YlS6v1Ca+wajAUxOrVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Br1wiFFK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788781502; c=relaxed/simple;
+	bh=gHf/JWbywMGHSP7KYgxxxlxij+cmqOc3AHmFechyKSI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XARmlsXJiGH2wMF5sq7FurFw1Iakfh9JuKAJVxMcv9v7crZJ3lExNmVj09zBRMt5uYQ/FDe10XqqLsHOTDkOjUMBnvUHf54A/c0sh/Su3DE4FCKT4qgkaRF5YfDX6FhjgLCX71ZjpOZ7jCeYrJ3lYjWfgmgWPQhvhlgFcOVMg0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jwwvMAHM; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Br1wiFFK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 613611F00A3A;
-	Mon,  7 Sep 2026 11:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781430;
-	bh=8G8kMUtb7xhTALdjrDj16wG0Dlmvzs8Q3IGvtEfDbkM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Br1wiFFKfiTOhhBdGLScqVwQvrR1oqcgBBHuE/fqoUywsm/H9lzxiCFvNnMLOaqa0
-	 xWBToJ93V1bt4QY5BBkOs26F0a2vrxbPcG1j8Tq3q+3H0tgY2BYIWXxk5l1FFfVbou
-	 hqQpm3saIBgUkWl8uu+v7040I0j+WzonLTuot+gGD3kNwZ+9+MCpVJdz9zm0OWtE2c
-	 IOAYdrllaM2KS0RhYZTK+y1bLvyiRaTys0MBhysDGiyOmCepEL3maKCLGNol3s5NWG
-	 3zL0HSoou4zuYPP0mGq6JpaM0U1IHIKoHCfPzjV/M5abDZmLEA1gp+HKA1I7NcFNhM
-	 KFApLY9vnOn3A==
-Date: Mon, 7 Sep 2026 13:43:45 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Karl Mehltretter <kmehltretter@googlemail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Gregory Price <gourry@gourry.net>, 
-	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-next@vger.kernel.org
-Subject: Re: [PATCH] syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard
-Message-ID: <3c2w33rfeuvxeqovfjl5bardu26whjl75r5fy6uamrwn5ntzsk@6yar3ledwnnu>
-References: <20260813062039.14567-1-kmehltretter@gmail.com>
- <rvsksbxeput4impcquq3kjxg6pv3ixovpk5or2mgtuifsu65fh@wuoukaeelovg>
- <CACzUYvRVi+XW2piwsBE1Lhe1Pg7Z_mNvFq2HX+da8RDpzTXxQw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jwwvMAHM"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 820451A1A30;
+	Mon,  7 Sep 2026 11:44:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 45E7960383;
+	Mon,  7 Sep 2026 11:44:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33BE511C7A21B;
+	Mon,  7 Sep 2026 13:44:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788781495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=YCLIOUymlLprrYxagyBjJIlkYmWYFOeOtwfW4d/Bvuc=;
+	b=jwwvMAHMbW0KwTwMLkiwiHquYsfmGZlErwev0Y67QZ8/BUfWsSENihLREiXf5OyVCTP295
+	W9Ed0zUoeciAAtkIH9APZwEcXnQYve3PpY/4M6wQ6cuCjSmGJ0npSXGM2hRltwzLArf+nK
+	7feLSgSPgDasIP99OszE4rI43+fwgTPQWpn/O+ZOORFGdm49mv4FpKzJQwgTNnB5yDpRdA
+	Y3QB1v+KRM2W63BAU7XO2UiQIhI08sppZqbPg049VU5IHdO1wtV0UIw6uqqZjxccpx0NzW
+	CA6W+ZFQgHm0/B8RadyQEzdWZ53ADr53zRTFryyPGljPJG8hDSd3BAyeF4iYXQ==
+Message-ID: <1a8b585f-495b-435b-bd36-72c68bbc3600@bootlin.com>
+Date: Mon, 7 Sep 2026 13:44:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xxtegaxnvux65pig"
-Content-Disposition: inline
-In-Reply-To: <CACzUYvRVi+XW2piwsBE1Lhe1Pg7Z_mNvFq2HX+da8RDpzTXxQw@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 1/5] net: stmmac: Add common internal RGMII
+ delay handling
+To: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Chen Wang <chen.wang@linux.dev>,
+ Inochi Amaoto <inochiama@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, sophgo@lists.linux.dev
+References: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
+ <20260907-dwmac-ultrarisc-v2-1-9a39bf8db313@ultrarisc.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260907-dwmac-ultrarisc-v2-1-9a39bf8db313@ultrarisc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hi,
 
---xxtegaxnvux65pig
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/7/26 09:46, Jia Wang wrote:
+> Some DWMAC integrations add fixed RGMII clock delays internally.
+> Glue drivers need to account for these delays before passing the
+> interface mode to the PHY.
+> 
+> Add TX and RX delay capability flags to the common platform data.
+> Apply phy_fix_phy_mode_for_mac_delays() in stmmac_pltfr_probe() when
+> either capability is present.
+> 
+> This lets glue drivers describe the MAC capabilities without
+> duplicating the interface-mode validation and conversion.
+> 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 11 +++++++++++
+>  include/linux/stmmac.h                                |  2 ++
+>  2 files changed, 13 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 6128ed1bd521..93b9af203a18 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/of.h>
+>  #include <linux/of_net.h>
+>  #include <linux/of_mdio.h>
+> +#include <linux/phy.h>
+>  
+>  #include "stmmac.h"
+>  #include "stmmac_platform.h"
+> @@ -847,6 +848,16 @@ int stmmac_pltfr_probe(struct platform_device *pdev,
+>  		       struct plat_stmmacenet_data *plat,
+>  		       struct stmmac_resources *res)
+>  {
+> +	if (plat->has_internal_tx_delay || plat->has_internal_rx_delay) {
+> +		plat->phy_interface =
+> +			phy_fix_phy_mode_for_mac_delays(plat->phy_interface,
+> +							plat->has_internal_tx_delay,
+> +							plat->has_internal_rx_delay);
+> +		if (plat->phy_interface == PHY_INTERFACE_MODE_NA)
+> +			return dev_err_probe(&pdev->dev, -EINVAL,
+> +					     "unsupported phy interface mode\n");
+> +	}
+> +
 
-On Mon, Sep 07, 2026 at 01:17:02PM +0200, Karl Mehltretter wrote:
-> Am Mo., 7. Sept. 2026 um 12:37 Uhr schrieb Joel Granados
-> <joel.granados@kernel.org>:
-> > I don't see this in 7.3-rc2. Did we miss pushing this in? At the moment
-> > I see that syscall_user_dispatch.c is still using CONFIG_PROC_SYSCTL
-> > which is never defined anywhere.
-> >
-> > Two questions:
-> >
-> > 1. Did I miss anything. Is this not supposed to be upstreamed at the
-> >    end?
->=20
-> I already sent an updated v2 rebased on mainline with an adjusted
-> commit message:
->=20
-> https://lore.kernel.org/r/20260822072325.51994-1-kmehltretter@gmail.com/
+Seems good, the default values should be false hence this condition won't be taken,
 
-I still have the same question. I don't see it upstream. Why is it not
-there? Is it going to be pushed as a fix by someone? or is it still
-looking for a way upstream?
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Best
+Maxime
 
-
---xxtegaxnvux65pig
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqeo3AACgkQupfNUreW
-QU/2+Qv9F640H39s7NBMfifN6V6ERkHKEpIXf/pRYPO+gtTytkRgdetImmyTM2dp
-EUn1uTEN3GeSq65hsZMDbwxwbapDSNfriHCYedd6RYT+wQrF0Or7g1r020oUJD+0
-Hf5eS8HHweO+GM8um9OVRqvWOJ75204JIGP9bKDoqeLg/S6fsAyRhsAIy1dvcgku
-poEBg5GA0MyoKQ9wePl4u4lOWaYOzHzB4tD5bsu/UolLH+esTFtWOvezOdyQPkL+
-K3cioBl4nOUXW0ICmI3l+zvCU7DRbt8r3x+7QyaAK24lLMamNC3tTWNHG04kSGP/
-IjQVWHuqnOWKZ0j9X+MeGB0yF1GS5jUCd9FVQ42kVM5et6mnYxMaHf/q87SvCmg2
-cGLQquQZFq2Go7QlMRfPegRFvhNlsx61a0AKa0NoafCMwVb7OoBWqAJeUtcU9dqN
-O/ymAArh52dgv8jcF5q7iODdTgNpnhxM4EPcF/HCdOkt2bnPKPf8+VtOrohJQeAy
-EbBcH/Q8
-=UrPv
------END PGP SIGNATURE-----
-
---xxtegaxnvux65pig--
