@@ -1,55 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E60046EC84;
-	Mon,  7 Sep 2026 16:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB57503BC3;
+	Mon,  7 Sep 2026 16:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798467; cv=none; b=TjkiXUkpwadOrvzACv6yPUuKP3j6ZmRnQ+MPptrOvuWIgqWQEARVacStr6AO+jBEs7fvlmTq5+nrfIOf0Hw2oKKkxVRcMLfY8exydXCqS1TXct83z7YW7CBR0M4x4AGluqPpjwvzukfsPDcXsID7tO90e2f0qHnM3SQkr/nAqgc=
+	t=1788798514; cv=none; b=E7Bvbt/+z3raXwJ3SwMz57ttHD3UxIjDNOU3TaU9n1dfJPHrACCKKe1zkbKV0DkEIpcdDzeL9vD2xRoQkfi8LLGymCG0i+JNUZS1foTFBU7yZEGfhaKQPulyoY2Fq2p+CPZjpAThzkmw0KGrn9PgPjcX8WDU+BOAC+rFQfuQTiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798467; c=relaxed/simple;
-	bh=wVPrgc3LVTVB2QGWwCj2HNN0YVbM1ncERRgatcOX06w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zuq6+P1aftd9omPXLtuEdkPz5dXZm3iGOgIqEL/wuxFoVfC7M3JcVJcAUptHgFbu0kHulhZRPmGjv4r2td9uAtEBFTkSqx6EKr08/E3iFoOljRw/QtFn4QTTW09SX6pkPUl45KMAs52nw8cUSuYq5v6owPyeCiDiqmnhi9Vw2MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pAw3ElS9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788798514; c=relaxed/simple;
+	bh=SgykCNQtDc/+Ij6tSBwu7t4+5/GaewaqS/8NPFi2cMY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=tBzOTX62ObLuw7nn1w00xKs7BLn96wNoUmGAnbhgR/qmHzF6Fqxg8p7B2Ln3eS4NZauK3QdRR8u05qD/SJYsl5DuMWB1dfhcBaKqc2vlDO6DF/lgnPPWpr23UM6UEz4/qpYghrF0t/mFriIrtuPuEMA9KLf43pHbyHorZ+SYW24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Row8ZZm4; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pAw3ElS9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439B51F00A3A;
-	Mon,  7 Sep 2026 16:27:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788798466;
-	bh=Ch3EI2AJaULOgXSA64F5drUFMjF9ZEXJGFO29bMebA4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=pAw3ElS9cRnI21lEFoFuG/uieT8fWBbmATSn6WVoHEe3Ece6uOS5pab21VsAEVwkq
-	 avMYfn7Ap3PWS+ZqHxG3Fe84MI+Rb4cOwwN3ikk49lQkYOFdZVsDFWjMEMa/gYnXDx
-	 5+zGUNcG6qe9zd4ykpyrm+2q2fE+Pf3C/rl8IpQU=
-Date: Mon, 7 Sep 2026 18:25:57 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Dalvin-Ehinoma Noah Aiguobas <fliegbert2@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
-Subject: Re: [PATCH v4 0/2] staging: rtl8723bs: Changing two struct members
-Message-ID: <2026090747-uneasy-version-2d09@gregkh>
-References: <20260715171634.1550-1-fliegbert2@gmail.com>
- <20260902150542.2746-1-fliegbert2@gmail.com>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Row8ZZm4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788798507; x=1789057707;
+	bh=6OjgMIJj50VZV8va4rj3JqbmUwbnL6ihDuaNaKIdDGM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Row8ZZm4EMCgSAPpLNtG1bytykN33OhMyfiluR3nSXDgOrNnkMIqV+yMMgCIwrIyL
+	 3AEnk3fh29zlTQZplNgniOovNCdgcya4QMkVcF4NKrIM/V3Dq4G2lTQuw7jRpJKkiF
+	 Ogs5Bq6Dry15q/jyYvRW/vVoTP8l1UFEtZhmWSyitVLSLQkqF2+sF4nb4livVDz/ZW
+	 DZibD5A0X7PT7kSmct7NVrv4j+JWfQbGOwOkjgJYcsORF576hi6X5674ULD92OP2by
+	 z7PydcwUMa6EGu7ht91Mj+oU9VycsicCS8o3nl3TepAdcqGr+zQkPFrqfxRSncRjmj
+	 GeMjdeZgMINUw==
+X-Pm-Submission-Id: 4hdsvF42Mqz1DF7F
+From: Esben Haabendal <esben@geanix.com>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>
+Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
+ <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
+  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
+ <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
+ =?utf-8?Q?S=C3=A1?=
+ <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
+ Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
+ Muellner" <christoph.muellner@theobroma-systems.com>,
+  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
+  <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for
+ struct mma8452_data
+In-Reply-To: <20260907171452.00004fc8@gmail.com>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+	<20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
+	<31YOKVM7iz6GWh9N-mvnk5VHc2P93CchlAdIr-K7hhDqvjulK8wced5UYHkLEn3czBuvn73NN5NdM4YellB4rQ==@protonmail.internalid>
+	<20260907171452.00004fc8@gmail.com>
+Date: Mon, 07 Sep 2026 18:28:24 +0200
+Message-ID: <87ik4h81qv.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902150542.2746-1-fliegbert2@gmail.com>
+Content-Type: text/plain
 
-On Wed, Sep 02, 2026 at 03:05:40PM +0000, Dalvin-Ehinoma Noah Aiguobas wrote:
-> This patch changes two members of the struct adapter.
-> Two additional patches ar made to fix some checkpatch warnings.
-> 
-> Changes in v4:
-> - Rebased against staging-testing
+"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
 
-Can you rebase again please?
+> On Mon, 07 Sep 2026 16:51:01 +0200
+> Esben Haabendal <esben@geanix.com> wrote:
+>
+>> The struct mma8452_data is central for this driver, and it makes sense to
+>> have a description of the fields in it to make it easier to work with the
+>> driver.
+>>
+>> Signed-off-by: Esben Haabendal <esben@geanix.com>
+>> ---
+>>  drivers/iio/accel/mma8452.c | 16 ++++++++++++++++
+>>  1 file changed, 16 insertions(+)
+>>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index c6af68d2a297..2c1b97b77bc1 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+>> @@ -104,6 +104,22 @@
+>>
+>>  #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
+>>
+>> +/**
+>> + * struct mma8452_data - IIO device private data structure
+>> + * @client:			the I2C client object
+>> + * @lock:			mutex for synchronziation of register
+>> + *				read-modify-write and holding chip in STANDBY
+>> + *				mode while writing to registers
+>
+> Perhaps add the word sequences after read-modify-write (that
+> could be a personal preference though)?
 
-thanks,
+Added for next version.
 
-greg k-h
+>> + * @orientation:		mounting matrix, flipped axis etc
+>
+> Missing period in etc., but that's a small enough nit :)
+
+Also added :)
+
+>> + * @chip_info:			chip specific data
+>> + * @vdd_reg:			reference to VDD regulator
+>> + * @vddio_reg:			reference to VDDIO regulator
+>> + * @buffer:			triggered buffer
+>> + * @sleep_val:			time in ms to sleep while waiting for drdy
+>> + * @ctrl_reg1:			CTRL_REG1 register shadow value
+>> + * @data_cfg:			DATA_CFG register shadow value
+>> + * @open_drain:			true for irq pin in open-drain mode
+>> + */
+>>  struct mma8452_data {
+>>  	struct i2c_client *client;
+>>  	struct mutex lock;
+>>
+>
+> Either way, with those added in a new version or fixed up
+> by Jonathan,
+>
+> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+
+Thanks.
+
+/Esben
