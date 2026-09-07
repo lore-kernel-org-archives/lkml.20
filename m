@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AF451FCB1
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09557521226
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799391; cv=none; b=p/EtCRwyoOtjaWb1NuM/8lg+aT8OSH0XuBM0IUDaSIq8I0LK8iF6ymgi1xvYDLQF9sU6f+1YXwD4QkPg+PHiecExbY7+F+GFdqhZt8GRuKShBb1jLSdpGJFSSLXjLuQdJocDror4QLhPXYotBA/cgQ2jpTngQOwSktGQ7WwTmyQ=
+	t=1788799395; cv=none; b=gwmWq0fhKcPSMUL0uGXVYPeS7MmgPbFj52ZM0sRaa5SLVX8pyinQSQQbuc4/2W1QGjVeun1j1qHl74TzlcrCu9Q8aV4DY5SkHTl3F/gLN0sOEDcs8uB5fEsVcunmrXGpYD6dPECOppeILvtzneEbCLbLx88thWKfMnD2xJa2dlE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799391; c=relaxed/simple;
-	bh=2xoBQrYiLQhwyzzjlC/Rrs4JE7nEyMXez28Fj2eF4ag=;
+	s=arc-20240116; t=1788799395; c=relaxed/simple;
+	bh=uLgf45738HTyKOGxONf2L12nrejh1+P0hDijSifdIKA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IiX8DpAjtVIvHltMT1V1NgAdqOTdm2bEmdgVs/183t4XkfheKnF14bzYzefSznFzBl4cbNwzs590+lmcUpS5TtbpcQpP+LNoQ89Ggzk38d/YYiMCWveqa9P2XU70zjkksLL45k1jHHx5/J68lgD3kRaPnJ69rQQBCsp8gnrOsgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n7Tw5X7w; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UkzWI81qMxob+wJEL/pyGbzwF4RMQutCgyh0HtWjOKdDH40Shg2+mZjX/s/BaPiQ1NPcsBgXjk0XJhnmQ2viCR8M5ZmmH4+Bw/cZ00eTGIKqIfKhgCK0ppYLyfc3oi+/2zHqnOaaKwPqhy6Lcyz5Yj8rwynBi2k4WAiyAQTS4WI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CocsL0/a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7Tw5X7w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C05A1F00A3D;
-	Mon,  7 Sep 2026 16:43:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CocsL0/a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1832E1F00A3F;
+	Mon,  7 Sep 2026 16:43:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799390;
-	bh=Fp1WUkxnhvJ5IR2eKQ3SMHt49du3trxxPvYQkmiNNK8=;
+	s=k20260515; t=1788799393;
+	bh=VHSmidgSt8AbjYT2raXqIZZYXGrQJOWrMI3DNUPT/To=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=n7Tw5X7wmPClS1PfidWlMSSGzwE56Vyb+K07OW9TKFGgJ/1QxvCFZoKgfDEo4IsKp
-	 uPIWzntXgAWLL4aYjmXCXMiCzDQ9zEN+mQWDVqzPIqoYMhnVduceRNdLEq5GbWglKm
-	 3wYOGEQcyfNEC0iyBdCqh3WErPszKpUEgaW/42wJmPP7KbFvHFB/k8kuRoAaYQyExa
-	 BsJekbPdn/amcdakWif/SD0mswbdTyZxn7YKG1MzCx/dMhvX6zof29YelMhynlQ+Yf
-	 jADdEkNMyKYC+WvGrt/bNz9WDlU8EM78l7YYkczXS4yQqEbsizmeYBNCrP6+T1obHs
-	 Gqwi/u4rn4gtw==
+	b=CocsL0/aIfzLSNLpwpHRNrvHm73Fw4AxTaKa1B5XmrTYXs2CzVdSXLcHcOp+COqUY
+	 29ibwMG4DS8UME1PQwp8zvZv/2x+NtEiqr0oEn0CpLBYqjXjvlcDvQRGZUp+ofcGYf
+	 3VjlMrzyLNTmvw5JYTd6XM1ylg5FA1vlDmYxlB9x9et/IjlI5thJhC/5INjTfElgmn
+	 c7++bVGH+cQfjkEmRAOPFFn478E4rlNbDyNRVFtVSAAtq5Cj9o+6ThvZu3SN5aAAkx
+	 BqwSOoqJOq2sNHFJ/kZn6TWGgFep2pJrbeUxslZxvN/quGadOAcC5RPW6VLZalg2A0
+	 53aV0tlsCEEow==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 03/21] arm64: stackprotector: Temporarily disable per-task stackprotector
-Date: Mon,  7 Sep 2026 17:42:28 +0100
-Message-ID: <20260907164247.17223-4-will@kernel.org>
+Subject: [PATCH 04/21] arm64: bpf: Add support for generating reads of TPIDRRO_EL0
+Date: Mon,  7 Sep 2026 17:42:29 +0100
+Message-ID: <20260907164247.17223-5-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,28 +56,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Per-task stackprotector relies on telling the compiler about the system
-register used to hold a pointer to the current task. As we're about to
-change that around, temporarily disable per-task stackprotector for now.
+In preparation for storing 'current' in TPIDRRO_EL0, add support for the
+instruction encoding of "MRS Rt, TPIDRRO_EL0" to the BPF JIT.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/include/asm/insn.h | 1 +
+ arch/arm64/net/bpf_jit.h      | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b5a51b0ef944..b8270b301809 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2455,6 +2455,7 @@ config CC_HAVE_STACKPROTECTOR_SYSREG
- config STACKPROTECTOR_PER_TASK
- 	def_bool y
- 	depends on STACKPROTECTOR && CC_HAVE_STACKPROTECTOR_SYSREG
-+	depends on BROKEN
+diff --git a/arch/arm64/include/asm/insn.h b/arch/arm64/include/asm/insn.h
+index 1ce75a442638..0e739740513d 100644
+--- a/arch/arm64/include/asm/insn.h
++++ b/arch/arm64/include/asm/insn.h
+@@ -136,6 +136,7 @@ enum aarch64_insn_special_register {
+ };
  
- config UNWIND_PATCH_PAC_INTO_SCS
- 	bool "Enable shadow call stack dynamically using code patching"
+ enum aarch64_insn_system_register {
++	AARCH64_INSN_SYSREG_TPIDRRO_EL0	= 0x5e83,
+ 	AARCH64_INSN_SYSREG_TPIDR_EL1	= 0x4684,
+ 	AARCH64_INSN_SYSREG_TPIDR_EL2	= 0x6682,
+ 	AARCH64_INSN_SYSREG_SP_EL0	= 0x4208,
+diff --git a/arch/arm64/net/bpf_jit.h b/arch/arm64/net/bpf_jit.h
+index b2fe6e6dcf44..df469a005373 100644
+--- a/arch/arm64/net/bpf_jit.h
++++ b/arch/arm64/net/bpf_jit.h
+@@ -331,6 +331,8 @@
+ 	aarch64_insn_gen_adr(0, offset, Rd, AARCH64_INSN_ADR_TYPE_ADR)
+ 
+ /* MRS */
++#define A64_MRS_TPIDRRO_EL0(Rt) \
++	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDRRO_EL0)
+ #define A64_MRS_TPIDR_EL1(Rt) \
+ 	aarch64_insn_gen_mrs(Rt, AARCH64_INSN_SYSREG_TPIDR_EL1)
+ #define A64_MRS_TPIDR_EL2(Rt) \
 -- 
 2.55.0.979.g7e5102b832-goog
 
