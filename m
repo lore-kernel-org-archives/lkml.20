@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A535852379A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D8A5237A7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799415; cv=none; b=QCbOMUCmw2xJR9t7lT4ZSEF1aGujRZjDOiWVLr/A5bVLYoZhYR/HjoI9QNtZOp7sxGYcoADYv1RdsYt5fTRYIGjrs3AChB31PwDkdsSE+MxuCzUnZrvBtc5XYYdIQ9SnmstOTqlIAbcXg8Vuv1MNwsHmfoEKK/rXhcFW/RW3jVk=
+	t=1788799419; cv=none; b=YMD9aZRWJdQH4GhDhdoLSoirw+OK84to0Q1s/AKsY1XSfsNh6CSWLCl3hSJ/HX5bVzyCluyiW0i3P1cD9H1+SiC46eJ/gxS9q7Cirhzc4CQF6MfGG3UKThgZlUDVKrnYd5cCei8Y11e9QcXYYQLZPFw+Ydmh2TrPa43ZhUP1pn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799415; c=relaxed/simple;
-	bh=2N8nd0cXwCV/jR6atgLgpj5ztGUmsdU3ASEQ9NE3Cz4=;
+	s=arc-20240116; t=1788799419; c=relaxed/simple;
+	bh=gTlx6is6XrvyjPhpwA9V1ozLMB+EJsZwN2tebLKC/H8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UmDe3uTZwCKBG0gBZmfcQmuT/j2W9oyQBERg65I02xWz6WRVqOdh3NxdC0Mfcv5mn4RJszy25t7iG+uUZaV/sthbRRSt/ecaLYOGkmSGE9jZuvF1rJo2wxhMUcAWa99ffgQRyXO98Ywiitgx0Eyb2Ry9qZmxUPVVJhfSWjJKAwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJsakp3J; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=iD+kbFny1g4+umQOeE4oEoF3ix2XpigLxhwGRuqc3rO3FlyF9PRv+C19Udb53Gu6ddwjawnyzGOjOL4Yw3SPIrtkJ9hHlG5rw+Tjvmhd9BfYBEaPttP8NKfHXhRPLTNEigJo34PoUW1idr9Aa1BH57wR+ruihemjUGQ2camuvXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dpz8P5fl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJsakp3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F611F00A3D;
-	Mon,  7 Sep 2026 16:43:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dpz8P5fl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D06851F00A3E;
+	Mon,  7 Sep 2026 16:43:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799414;
-	bh=78u6/cdiAajizC2UEtK9pSOndLspTzAq4idBXXZU6iQ=;
+	s=k20260515; t=1788799417;
+	bh=n+K80nAxXhSm5NIt4T8l1ArolcUXrF2HTgu45U32pCw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MJsakp3JTE0E9NczC3mLozwnQ0uVL1bPPUP2vjMxZibarZfLiFuYhqPs4NrVg/cEr
-	 ZMXR4MSgUSHA3OGEQVuspvdCkYPzfUCxSRhAUW09zshoGf1Qw//jWoUJKPJxydtYcM
-	 UizMQsblDGEYIqHVpR6XBIejHMZ6fb/AN57TrVYK7sja5F7Ev15q/mE+mGhfFasjN4
-	 YcC4S/IYNc13MhGGgOFLphaqqqdDZEv5VvM6KSTHRu8VuryTSgh7z5M5wQNOgT1PqR
-	 XaJQcjgDVS/jJSeZTRCzOjHxOMYrrlXehtwRFkPTbi+QRiCmnd0llS4N4ASqlb9i/t
-	 XbyydTKPPaV5w==
+	b=Dpz8P5flXB+f/mwxgnYVOmBx3XGJ4U0LMXVV6eh377oHMDt3NQEZHqh3xMpVKJFqU
+	 7ke0Vf52rXfj34OteLR6GA/ECF+K9jB5o1NzSwM3lCRsb05RwZkXbeDN0RfRSzdqZp
+	 D/vznvXSkPJe3edlXmBm2omlgTele7/zVMKnMo0lZCGFdThsZQe9SgcaaOUXS5bqT3
+	 L+Qn0iHFlfUdLLpTHvPbav4gutLllDuIhlaoB9ROZy+GamkVzSOgh9lvEtamSIuXv2
+	 sjN67/YA33G/e0TT1SwarAWb9U8WNAQ/8njsj7pPj1cB1gdIgeyfkq4OOVUQE9WjSR
+	 TgdujM6Q7XTew==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 10/21] arm64: percpu: Specialise set_my_cpu_offset() for the primary CPU
-Date: Mon,  7 Sep 2026 17:42:35 +0100
-Message-ID: <20260907164247.17223-11-will@kernel.org>
+Subject: [PATCH 11/21] arm64: percpu: Annotate __kern_my_cpu_offset() as '__always_inline'
+Date: Mon,  7 Sep 2026 17:42:36 +0100
+Message-ID: <20260907164247.17223-12-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,64 +56,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-set_my_cpu_offset() is only called from smp_prepare_boot_cpu() which
-runs once on the primary CPU and before alternatives have been applied.
-
-Rework the function so that it operates only on the boot CPU offset,
-drop the unused alternative code sequence and internalise it into smp.c
-alongside its only caller.
+Allow the use of per-cpu variables from noinstr functions by marking
+__kern_my_cpu_offset() as '__always_inline'. This will later be relied
+upon to detect stack overflow of the overflow stack from noinstr C code.
 
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/include/asm/percpu.h | 8 --------
- arch/arm64/kernel/smp.c         | 8 +++++++-
- 2 files changed, 7 insertions(+), 9 deletions(-)
+ arch/arm64/include/asm/percpu.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-index b57b2bb00967..3dc7291b16e9 100644
+index 3dc7291b16e9..cb9ae8a1ae87 100644
 --- a/arch/arm64/include/asm/percpu.h
 +++ b/arch/arm64/include/asm/percpu.h
-@@ -12,14 +12,6 @@
- #include <asm/stack_pointer.h>
- #include <asm/sysreg.h>
- 
--static inline void set_my_cpu_offset(unsigned long off)
--{
--	asm volatile(ALTERNATIVE("msr tpidr_el1, %0",
--				 "msr tpidr_el2, %0",
--				 ARM64_HAS_VIRT_HOST_EXTN)
--			:: "r" (off) : "memory");
--}
--
- static inline unsigned long __hyp_my_cpu_offset(void)
- {
- 	/*
-diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index a61dc3016a11..702dee8d0db5 100644
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -446,6 +446,12 @@ void __init smp_cpus_done(unsigned int max_cpus)
- 	mark_linear_text_alias_ro();
+@@ -21,7 +21,7 @@ static inline unsigned long __hyp_my_cpu_offset(void)
+ 	return read_sysreg(tpidr_el2);
  }
  
-+static void __init set_boot_cpu_offset(void)
-+{
-+	asm volatile("msr tpidr_el1, %0"
-+			:: "r" (per_cpu_offset(0)) : "memory");
-+}
-+
- void __init smp_prepare_boot_cpu(void)
+-static inline unsigned long __kern_my_cpu_offset(void)
++static __always_inline unsigned long __kern_my_cpu_offset(void)
  {
- 	/*
-@@ -453,7 +459,7 @@ void __init smp_prepare_boot_cpu(void)
- 	 * setup_per_cpu_areas(), and CPU0's boot time per-cpu area will be
- 	 * freed shortly, so we must move over to the runtime per-cpu area.
- 	 */
--	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
-+	set_boot_cpu_offset();
+ 	unsigned long off;
  
- 	cpuinfo_store_boot_cpu();
- 	setup_boot_cpu_features();
 -- 
 2.55.0.979.g7e5102b832-goog
 
