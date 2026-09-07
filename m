@@ -1,134 +1,65 @@
-Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C764242D6B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.87.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995CEB67E;
+	Mon,  7 Sep 2026 04:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788754176; cv=none; b=OMTtoS1D6aYxgFeCEtbZJyfW3opv5Jq7z4jmvKkcIZIOdKm3Ai3pfyIw+BcTCIKbdnPacdKuvbFtHkTfB+FKnbjhv1bO28cSg65isDEWeZWQNm2P6OYjd9NDuQtUEbrMD5QonahJ+B1ErE7qElTpOUrPdNnirPgI5LNnr2cSPww=
+	t=1788754224; cv=none; b=lqvyCWJzjcTk7fOeaXIy+u+4m8H+dBnCDTcRV8q0+u9LL+O7JWw4cuFPNSLxZkNWB1qq+UZpcfMsRM5uTcam9pXtaIy7kF4px5wnZwOTbPd8tJvbxs48y4TwHKF8nJmZysSCN4RmJLBCbLdv0xnleEgidncfRbm9Nc6fUkbjY48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788754176; c=relaxed/simple;
-	bh=Cm9nZ83Xceub8x5er6oxomrvqroj+WcHkr0Pl1N+LWA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sDhP3gWaeIe5fnf06GrcdFr7y7D2T+BQu0Nc6LBWftKB19YPoAGu4mfFQmgrTpdaUNR/teeMf+D2XWvFDewPzCpcaDbFKIbo08mrLki7zAIe3/+87Iy9mPWBkiXStTtc73MN2tqIZtfkpJk0vtq6CpIxsZz79Aftgr26dZ0VIco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.87.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hdY2c52rHzBFKhq;
-	Mon,  7 Sep 2026 11:48:40 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.20;
- Mon, 7 Sep 2026 11:51:55 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<stone.xulei@xfusion.com>, <chenjialong@xfusion.com>, shechenglong
-	<shechenglong@xfusion.com>
-Subject: [PATCH] drm/client: fix restore of partially initialized client
-Date: Mon, 7 Sep 2026 11:51:47 +0800
-Message-ID: <20260907035147.1339-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
+	s=arc-20240116; t=1788754224; c=relaxed/simple;
+	bh=iP4mM2J6RG2aB1XUQ7Ikmkmaim9vKFMrPHCjTgcOxvQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V478TSvKCbycX0YwBy2DFtabjGrxnH/XbWSHSwrfO7cNOiO+leLnjLgtfPaKvofQLqzGhlmYGL1cIfTOzrYWPlJ+ifNhtQykow6u4P9815y8XRKZQIv9xkel0vp7j9myfx5vLwy+CmRytJ+D+fvPkbZyEiUF88I1Dvg3HzwZ9dA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AI0DVKpB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AI0DVKpB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDBF31F00A3A;
+	Mon,  7 Sep 2026 04:10:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788754223;
+	bh=oawDi3cB8hNQAallMLaU5Y8TpOHafpMZGhAABxBsIu4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AI0DVKpB5Iipteid2+7/C0ko1EGl3wsQYH/dY7gSqPgLwj53ilY9HTGVPuV1/rx8W
+	 iLtI8JVF6P1gF2vggYGynaI8Qtbv+5dTZzgBA5aiSACPhkxe8kYp0iXCziE9vptHMA
+	 xzY4ShrIoaa70IEXwnK4PVwQhVJ0IQrUgHVBaSIMGvloAnRyj0uXsgW/NU4smLZe5t
+	 W0uhChJAKCNfBwLd3jBzoJUpDovrteUigFvlTW4K8wW4HoymOu5FCMcgrLHWlmCcf+
+	 184WYjAjwILKWkjReCRWex1XzoE776gWaqr085ZnCJI1XLJe6FfIZOKjraOPcbkFwJ
+	 MqqAmN6+CqmgA==
+Date: Mon, 7 Sep 2026 04:10:19 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>,
+	=?utf-8?Q?=C5=81ukasz?= Bartosik <ukaszb@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>, linux-kernel@vger.kernel.org,
+	chrome-platform@lists.linux.dev
+Subject: Re: [PATCH 1/2] platform/chrome: fix typos in comments
+Message-ID: <ap45K0sYkr0OoxYe@google.com>
+References: <20260904110900.20435-1-hemanth.selam@gmail.com>
+ <20260904110900.20435-2-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03045.xfusion.com (10.32.131.99) To
- wuxpheds03048.xfusion.com (10.32.143.30)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904110900.20435-2-hemanth.selam@gmail.com>
 
-I got a null-ptr-deref report when closing a DRM file descriptor:
+On Fri, Sep 04, 2026 at 04:38:57PM +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+> 
+> [...]
 
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
-__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+Applied to
 
-Call Trace:
-drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
-drm_client_modeset_commit_locked+0x56/0x160 [drm]
-drm_client_modeset_commit+0x21/0x40 [drm]
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
+    https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
 
-The warning is followed by a NULL pointer dereference:
+[1/2] platform/chrome: fix typos in comments
+      commit: 2d23d5e9cb468baf6e4fa78d0dd7e8555759385d
 
-BUG: kernel NULL pointer dereference, address: 0000000000000008
-
-RIP:
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
-[drm_kms_helper]
-
-Call Trace:
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
-__fput+0xdc/0x2b0
-__x64_sys_close+0x39/0x80
-do_syscall_64+0x8d/0x460
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
-drm_client_register() adds the DRM client to the device client list
-before invoking the initial hotplug callback. If the hotplug callback
-fails, the client remains registered.
-
-For the fbdev client, a failure during drm_fb_helper_initial_config()
-causes the partially initialized fbdev helper to be cleaned up.
-drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
-
-The fbdev client therefore remains registered even though there is no
-fully initialized framebuffer device.
-
-Later, when userspace closes the DRM file descriptor, drm_release()
-can invoke the restore callbacks of registered DRM clients:
-
-drm_release()
-drm_client_dev_restore()
-drm_fbdev_client_restore()
-drm_fb_helper_restore_fbdev_mode_unlocked()
-
-drm_fbdev_client_restore() currently restores the fbdev state
-unconditionally. For a partially initialized fbdev client this can
-submit an incomplete modeset state and subsequently access fbdev
-state which has not been initialized, resulting in the warning and
-NULL pointer dereference above.
-
-drm_fbdev_client_unregister() already uses fb_helper->info to
-distinguish a fully probed framebuffer device from a partially
-initialized client.
-
-Use the same condition in drm_fbdev_client_restore() and skip restore
-if no framebuffer device has been successfully initialized.
-
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
----
- drivers/gpu/drm/clients/drm_fbdev_client.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-index 91d196a397cf..1c16bc1084c4 100644
---- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-@@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
- 
-+	/*
-+	 * The client is registered before the initial fbdev probe.
-+	 * If probing failed, the client remains registered but there
-+	 * is no valid fbdev framebuffer to restore.
-+	 */
-+	if (!fb_helper->info || !fb_helper->fb)
-+		return 0;
-+
- 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
- 
- 	return 0;
--- 
-2.33.0
-
+Thanks!
