@@ -1,100 +1,73 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4455E126C02
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:24:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F603659FB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788755065; cv=none; b=gfx5vz1XHmiHGytll/cI7QoTH4XVuM3goUc/ZHDLwwUqDibSTuivvx5St/53bvDLhkbt7L6D4M2+BLO4V16nvCTKAhFGk8QyQRJEh5zEutCDrp+a36cHTnCnuOgU24mUbVNszkuAkgdN5OSg9mTUcnuS7K+s8yxEtSrB/D1urzY=
+	t=1788755067; cv=none; b=uDKmMtVqTa30zNGQ5hGDcma0pK3xc2hJP7/jrEIb5YZiV54Ryu9EXsA6oRg0PRbCcg09CcfCVy9W46iqwn8HwkB0jTiDo1Ep7RjOjknNIltcRaLxnUv1tMUI/4J8ZMiS2G4+QMFpAjljC2Q+6gi0U1aemYLEWIHVkDs5d2HaIjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788755065; c=relaxed/simple;
-	bh=b8397s6rxrFw8Jh0i+WpcqO3/9x3XxXO+xcruOWEfqo=;
+	s=arc-20240116; t=1788755067; c=relaxed/simple;
+	bh=lJDUxyPdhayx0ExZBf2syu+HfHSr7EA6KEMr71C44Y0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=poEhwbH66F1tiAzX7A/dgfi2AhQToym0dFWBnwkYFb7hQVDKDzfKtG44rNkqQ2MDLHl5LLyUdZXe8NQ8tmSItWbODZDXWlPyOgwR3Drs0VpaQsh4O6yZ1GTFav57ir6PNSgN/HKWzRTDm+gh2T15Ao6TqSXbnvapgZLBfL6EoXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TKWMMp1Q; arc=none smtp.client-ip=209.85.214.182
+	 MIME-Version; b=ADnbz4EuryldimLD+jHQR86W1etMYdL9H//IvBAVzZb4grwacEYxbcu180uKsl4ULXAtvp6b5ANgA/GPiP5I6V5XI3AmbNvQ0wLed2PmXvEcNqJ0jbK5eq9kKL9pzdXjL5dTVDYfrMU/65Ui5rkSFFKZhJNE7LjafIZQthpHzrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YBd1QUZo; arc=none smtp.client-ip=209.85.215.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TKWMMp1Q"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d94c868ea5so31453165ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:24:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YBd1QUZo"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc1c9879395so2081661a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:24:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788755064; x=1789359864; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788755065; x=1789359865; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9gOfzXZ7OX3db6K93hBUSUQSq3Ddcb5aXbz13zQbpzY=;
-        b=TKWMMp1Q9eWMUT3S15TdGyFylUmmq6TtWeL0F8OyVzTAt+EpsGBINcyy0FDN4TIZef
-         Whe1O2RhPwMzw9kFu+m8hKvJkAh22Y9BuoH21kcxBozVO45ftw2pTInwWWCOtntpumU8
-         CRKB3y5VuO6Y/i7yOwmxkPe5yAjv94+t8pfqPrNq4JJRjMBDP+gZJXmp4FuAToa4xX32
-         526uvbbhs+baYS2Biu1HyzwDHutJxAsIYE6dcBjI4z9cp3ZTtOw56x+A160c52k5kBiZ
-         3yFX6KObrN+8GUZ15wxktTUnzYeXNAtyRThEpW968/2CdNC+lD4mkMDnuF9aPhYxKBXC
-         eYoA==
+        bh=oJBeYuV5iB0P/zCTwardR507uSWbJkSOyEux2XLgUg0=;
+        b=YBd1QUZojHmDvsTmSucJeJotD6pKeR/hzNShXP26uVItUyhAajHtO2jgDpOmXnD8OW
+         ZesD8iZRzTpfRHAvLE53TKHY2JkvOj5WEbqSs3T70LvJf+l2G3brZcvy+PEZThn68LNG
+         lSKOB9JtSmqnop7DdYjXCUte++xlch8F9GvgkblIvy0OMRJ9ZcmpsiQLZ4sAi4khirpn
+         thAsLI5T0HmhCXcvEmOjRT9sBLYn5x07MRhNTKatx02tFsG0FAWMYvu30aqU6Lp2FLJP
+         MRp+nkuf/vUatSSldJ/V69i20MmSuqsQA/fQRRG8E6P9x9MAR7guod4ZmN/EFXEnSJQY
+         8HtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788755064; x=1789359864;
+        d=1e100.net; s=20251104; t=1788755065; x=1789359865;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9gOfzXZ7OX3db6K93hBUSUQSq3Ddcb5aXbz13zQbpzY=;
-        b=P8luokPwpuWkS/n+RP0XhLQxh2QEeHRAN14QM+SoOM0e5XtZPRQKFEBMc9MokNBF0f
-         WkZvyQhMyAVnNE3tzSQvznHq7SUdByOUn6IbjKfe/ZTMK7XeoH5YLjCmGAOnBjnDGsU4
-         ZfFcOtO+jkJbssiV1zvyo9eCqNF6A8c5AYbynVRQX4SLv7rmOjapZHgCaNnPuGqxOMbG
-         ERzGe8lV62xzXfqaFjlURVufGf9dEfFVAtdFLmX/YYnxKDrzodzmm6d7Ybk3wZjhIH11
-         1HS7p6sfXEr3j/IbOKnlcppQBMQfyiP10HgqVQlXlpWRj8v6fLP182O1ZGRB/D7fPF0j
-         i+fA==
-X-Gm-Message-State: AFuF++l0iJ1P3Vq3X2EKT1UqILqZrYskUunYveihghPCsCvdbuxMSfVo
-	8Drk+JDxF1ixjjz1ckTSYgMRyq/rVMUcNpstC17wJ239vTYWnXGD9F5n
-X-Gm-Gg: AYBFou0zqI8gpxyY0/BZrORW3WXOXJmBYdnPpc/xPT1VXr7/ggATI/LcIEWJCu3ErDg
-	Pb9ihdOjq2ay20oKFuApRy2D6UheyHwBkNHL3U6J1rrReyB/2WS0E6UJLoZscS748HVTEkuQw8a
-	mhQrn2SOI/IUxeB73nkWaIIZEASd9pYbtkYiLghgxTpQWjlmZMbpitSjowULR/B3EWhUFQI6nsK
-	pXH2/N1EIxfPhiBPnhF+m8P3pJcqGEheuo6a8OJRbbiLDbC91IOIwpr4fmGFuWLO0rRmVpF6oQO
-	C47KRorKCZXNGfwYC3j1AljFc4K3dS5D3Err1HZpOtNNuOpg00qHLun0czklJ4AZ96OhL3KoSbW
-	StHbP8NrxDfQJgE03h8+jomyJhobbEmcvrqqxn2JG+794nweTvC7Y+EXr6oc9XTfYsMRb9uf4+R
-	mnPoIhXMmsWFdbUJYIrqiEj3k4VSbPGeahXVc0YQZ3rOQUO4r+u93hor9G4nNLqVEnmQURYhd1l
-	UxtZ5vg/QJy7g==
-X-Received: by 2002:a17:90b:3b46:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-39b2620a2ecmr30060909a91.17.1788755063559;
-        Sun, 06 Sep 2026 21:24:23 -0700 (PDT)
+        bh=oJBeYuV5iB0P/zCTwardR507uSWbJkSOyEux2XLgUg0=;
+        b=RCGiKspq/dvQ6bBowxMrrUEFVee3OUvUB26msL5jow60ox1eQgLs2p0M9n9rhy1uEo
+         B3wZXzKM0o02HiiuiWCqZA3Irhkmy3HgMIltjfo//rBqJ2pn8QpxJV8Zfc3jQt9o3DWr
+         VFICCk5WYt+WKIqxOs9cxLHFQZVrHd+PPIADzL9QJ+EWAQ1lIVytX++34zZag1Ic44vV
+         FhcJ3dYGKxSXlsssIxt4I75og6v7wXyguSQB4vPLLWDERS3cEIipdYkCWFlvassFwiaP
+         xxBr546xfYKKF7B0YwfLHlAeiBHxIvXU0meaG2sVmVKHCnPv7c23IGgoernv0q/Uj0r7
+         7BVQ==
+X-Gm-Message-State: AFuF++nBugo4JAWkr9DqEDcqvPwFLNESTLPBpWH/Eh3OoJxQbmEPFBK2
+	s0TRpi5Mpucj64dN/SvLJF4M9MIZ+DDzwKG261Ovs1J/GFuHBzXTztGK0ohNZ7KLhtE=
+X-Gm-Gg: AYBFou3W8opvLW/x2JyYWJtyAfGbg99tL1h2QkS+lgXE5dJ2QT6OddOY+FzwqbVP0OO
+	WCUSRBdUoVFQrH4a6Q5YJuB8JgQKejSsBnxRMcqwoQN9aNdieohLhj5G3ZnNmiZvwJfRMYLoRRO
+	4oK7C1PZ46zmGGHtU8+Y3/rG23ijP5Qqwq143CZYo4f3TR56k22Pp3rHwCnpmrBDkC2ppkyfp88
+	krN2REjRvmHreflRj5+M6Lu5WFAB4rUEFprjnzU1fDwmkwuKVBpW5I2KwxSAkaUPZYjHeTVAW5G
+	Lifn0TkXRPPQZH8hKJcEoUziHNxFr7BQiGnGl2RSK6+Ie8N2UIpANBXN7wWncGVmFbGWDRsUh2N
+	5pEXee6/p3Hxpvg9pQRX55W78Pb5QQ/364Ba2QB83l2qAythbHZV2EaEp4QV2ZXqDO1R/ieGjcl
+	ErIWqxzB/y9pbVWZkNtXgsiCDcRbEQoe6AagAiIcx5qJ1ezOZWvibCsGmNJ5sXbUiXnoO1u7hKI
+	gPaaxicBdAtow==
+X-Received: by 2002:a05:6a20:c896:b0:3cc:917f:f302 with SMTP id adf61e73a8af0-3da39f6054emr30322461637.9.1788755065532;
+        Sun, 06 Sep 2026 21:24:25 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm22629643eec.17.2026.09.06.21.24.15
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3342af0bc08sm22629643eec.17.2026.09.06.21.24.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:24:23 -0700 (PDT)
+        Sun, 06 Sep 2026 21:24:25 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Anil Gurumurthy <anil.gurumurthy@qlogic.com>,
-	Sudarsana Kalluru <sudarsana.kalluru@qlogic.com>,
-	Oliver Neukum <oliver@neukum.org>,
-	Ali Akcaagac <aliakc@web.de>,
-	Jamie Lenehan <lenehan@twibble.org>,
-	Hannes Reinecke <hare@suse.de>,
-	Satish Kharat <satishkh@cisco.com>,
-	Sesidhar Baddela <sebaddel@cisco.com>,
-	Karan Tilak Kumar <kartilak@cisco.com>,
-	Don Brace <don.brace@microchip.com>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Paul Ely <paul.ely@broadcom.com>,
-	Kashyap Desai <kashyap.desai@broadcom.com>,
-	Sumit Saxena <sumit.saxena@broadcom.com>,
-	Shivasharan S <shivasharan.srikanteshwara@broadcom.com>,
-	Chandrakanth patil <chandrakanth.patil@broadcom.com>,
-	Sathya Prakash <sathya.prakash@broadcom.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	Doug Gilbert <dgilbert@interlog.com>,
-	Narsimhulu Musini <nmusini@cisco.com>,
-	Matthew Wilcox <willy@infradead.org>
+To: Jan Kara <jack@suse.cz>
 Cc: linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	storagedev@microchip.com,
-	megaraidlinux.pdl@broadcom.com,
-	MPT-FusionLinux.pdl@broadcom.com
-Subject: Re: [PATCH 2/2] scsi: fix repeated words in comments
-Date: Mon,  7 Sep 2026 09:54:01 +0530
-Message-ID: <20260907042402.12893-5-hemanth.selam@gmail.com>
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH] isofs: fix repeated word 'in' in comment
+Date: Mon,  7 Sep 2026 09:54:02 +0530
+Message-ID: <20260907042402.12893-6-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260904121449.24178-3-hemanth.selam@gmail.com>
-References: <20260904121449.24178-3-hemanth.selam@gmail.com>
+In-Reply-To: <20260904123914.583-1-hemanth.selam@gmail.com>
+References: <20260904123914.583-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,25 +76,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Please drop this patch.  Three of the changes in it are wrong, and I only
-found that out after posting.
+Please drop this patch, it is wrong.
 
-  drivers/scsi/dc395x.c
-    "but we'll fill them in in case something else needs them"
-    "fill them in" and "in case" are separate; the sentence is correct as
-    it stands.
+  "the subsequent blocks are going to come in in short order"
 
-  drivers/scsi/aic94xx/aic94xx_scb.c
-    "if no device is connected to the LED, is is dimmed (off)"
-    This is not a doubled "is", it is a misspelt "it is".  Deleting one
-    word leaves "is dimmed" with no subject.
+"come in" is the verb and "in short order" is the adverbial that follows
+it.  Both words belong there and the comment reads correctly as it is.
 
-  drivers/scsi/sg.c
-    "but is is possible that the app intended SG_DXFER_TO_DEV"
-    Same thing: it should read "but it is possible".
-
-I was matching doubled words mechanically without reading the sentence
-around them.  Sorry for the noise.
-
-If a corrected patch for the aic94xx and sg wording would be welcome I am
-happy to send one, but I will not resend unless you ask for it.
+I matched the doubled word without reading the sentence.  Sorry for the
+noise.
