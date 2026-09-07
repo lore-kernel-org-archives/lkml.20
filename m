@@ -1,416 +1,127 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012013.outbound.protection.outlook.com [40.93.195.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C7DB46DFE7;
-	Mon,  7 Sep 2026 10:54:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778503; cv=none; b=T4sK+u5PUsEdzE9IuYqL0b5s4F2P4cPTP+VvM834axdkneGM1hJreiQYXhmcEcjt+kgfGKcs7U+BtJEsYEENtToPZ676Hq86iT9YVpqM1Xvu8b8RworK9zYTSNsUWC5j35AtqJkR1knkQq5KQkhnvclzQ6fd5URWhZ7Yi6PTZyA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778503; c=relaxed/simple;
-	bh=MDeq+ysxyod3D1VpGQ+eDp9LfyHeDn9wPDHxTJ0lMVM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=jGD9xQyS3HCjGzeZ8k8/0p4ohNJe0LdEM8WbZbPdrXhRqfjO2LEgO1l0oVzoBu5GzjNdNXD2IG2iVovmHshTfZzU2FlBlkQ2rNLViKBJwvf3isBRCSSBQoSJBZboBuJ5pmIoXV8vZe1zj152IKGAQ5QrpGvYI3O62sQaIjMJ3AE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=Idv2XM9b; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FE13379ECD;
+	Mon,  7 Sep 2026 10:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788778507; cv=fail; b=TP1qc5IhCfeNBT476pudCfT24MkHlHVHJuL82jaaU+QckTdAkpbr8CN5r8yVQfkSWe4O0Wq0U9hatAvdGpz9UFdq7/dD2Gw2t09JNZaoGGP8nRJPXFpTpc4c+2oAIt0TdpMz6ui1Cb0Qer6X3B5bGok+uqfYrddWiE29h74eskc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788778507; c=relaxed/simple;
+	bh=akzFmqHCYEC9nSZ0KG/ZI4pK5AwLD+qqpTs+YnA6TD8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=BDKLxQ7KwVj599vEv0zmdycg9LnyTcMeYzrGtlznEz80N1/T9k9YWfyHEMx7nxxZ8x4elyuULJTbsquknl3OJty2Ttp5Or0q+8v1isxqtynUVdTFB6itbQw6bNOt/ziucr2sAcn1nt9Nke7ULL2j4qrhqG5+pDXnxt5T5b5N75Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vhvUuHD5; arc=fail smtp.client-ip=40.93.195.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="Idv2XM9b"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=B5HTZtb5iOjzytlKmQkikeIuBYLkBdHws6qM+u8yKO4=; b=Idv2XM9bj9WTti7gLf4XfOfsc7
-	wF4UrOyy2qy94EknT1MDfz1lIJQwAgaAAY1k2cLMtAECqId2AypL0TcGD1NVSARgIeGTu4U7Pbr4t
-	80uji4OkghNzew6dvSK3infB/PVM1bXgPU7UNoS2HzRk5KSG4D+FMosBsGFI5gRdByNBbk0FyrbH8
-	7Tm7JDtw61MCgoVG/1j0JmoOxNBClcEEbpA0aUKEqHUyaHG3TUP29XWbIdbgp0BXcrBrXAEBVDDXb
-	0A6dzOaGHlrPxnhyNFFJMqDKbpdJqDTQabOhoh5/Ahx2qIg0o6LRS2OLtYffs+ZZD8j7CfHAxwyJ0
-	Jxxz4VRg==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x3Wzv-00FzcM-Pj; Mon, 07 Sep 2026 12:54:47 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,  Chen Linxuan <me@black-desk.cn>,
-  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
- <skhan@linuxfoundation.org>,  fuse-devel@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,  Matt
- Harvey <mharvey@jumptrading.com>,  kernel-dev@igalia.com
-Subject: Re: [RFC PATCH v3 8/8] selftests/fuse: add fuse readdir caching test
-In-Reply-To: <CAOQ4uxh+rKuR39ruJO6PxoUCCdP_U0M=ecn-dayv+7-jKgrDNg@mail.gmail.com>
-	(Amir Goldstein's message of "Sat, 5 Sep 2026 16:11:43 +0200")
-References: <20260904103920.4471-1-luis@igalia.com>
-	<20260904103920.4471-9-luis@igalia.com>
-	<CAOQ4uxh+rKuR39ruJO6PxoUCCdP_U0M=ecn-dayv+7-jKgrDNg@mail.gmail.com>
-Date: Mon, 07 Sep 2026 11:55:34 +0100
-Message-ID: <87h5k1fhzt.fsf@wotan.olymp>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vhvUuHD5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nw3tRJdE1jIVJxP2ZSn/agOunAOqi+l410U6CKAJrXQl0RVdfkmh5CsqMI836ESz6A9he+kL9rbQiXXsSwnAsE9yLShM3ykzf3Nn3DgUYxaBBK0VK0h0g3pRwIHSlLhqPuCdE+aYVKM0CHIcxabD/EeXqn6Ioh9b/aQgUEdAt8bB2cXY4vrPRd1RtP+ELvyE+AJCIU8EII0f2lC6K48lqqbbW90A7a47bZ9uUWzH3CO4cJkUxQvZshvc2eot1OGXvTSiQE51jCOczOfu0DqeJD3XCU9eEyUgPwlvRvk/P+re8PGBL9PSq0hzrujecgjb85Yp4mnfm/xuS8Ngb5JBNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qNvTjb2HCtn3FIpM5TQ9yhwLNwFgAjGDSrpSKBAwJZ8=;
+ b=bq5UhbRHkP3SD+ZN4YcyCNSn9BWfSgFStkzMgwIJzn0i5LY0LZC3TPuwOjF2PsZW6Qa6Q6g/draun6AHp0JDdIm1vTWR6rcZp4yHzF6XiD+AK+Ga+bWki2fCKkv1Zs4sDNEHCqrfzvv2R2igYk4VvGc7mampRYu8oDZMmZzrAPHw9e23/XcMrhRmi9c8/zsxSLqe2raOGeBReswjJLBUa2sY+lIKpvc1uFqM7ivkPdl5yWOmHxfWnTsIkrpxMLGY4T/AT9u/zlvEpqD9glZuZ0PQmBuRnP6OeMipl0paSmXFIpRiE1KhKF79rE4GYtcVuJWkzZzbrQnXDGXyzAhzKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qNvTjb2HCtn3FIpM5TQ9yhwLNwFgAjGDSrpSKBAwJZ8=;
+ b=vhvUuHD5JaXlDnBg9Rna8zxUis2MPhblBbjj7LiCDmXSfsbX8NYfC6qEQX6Iq06aREzVmN83TCfJiDBgGyOlItNtMa04M/T6g3wMzh68xSLpjey9Rkd5TPMc7umSCvU0y4m7saEYviRTZ6NQn4bYiaAscHeBEw21rkg4y1iz0BQ=
+Received: from MW4PR03CA0019.namprd03.prod.outlook.com (2603:10b6:303:8f::24)
+ by MW3PR12MB4442.namprd12.prod.outlook.com (2603:10b6:303:55::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 10:54:58 +0000
+Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
+ (2603:10b6:303:8f:cafe::9d) by MW4PR03CA0019.outlook.office365.com
+ (2603:10b6:303:8f::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Mon, 7
+ Sep 2026 10:54:58 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.1 via Frontend Transport; Mon, 7 Sep 2026 10:54:58 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 05:54:57 -0500
+Received: from xhddevverma40x.xilinx.com (10.180.168.240) by
+ satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46
+ via Frontend Transport; Mon, 7 Sep 2026 05:54:54 -0500
+From: Devendra K Verma <devverma@amd.com>
+To: <mani@kernel.org>, <vkoul@kernel.org>, <frank.li@kernel.org>,
+	<den@valinux.co.jp>
+CC: <dmaengine@vger.kernel.org>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <michal.simek@amd.com>, <devverma@amd.com>
+Subject: [PATCH v1 0/2] Macro Ordering and Typo Correction
+Date: Mon, 7 Sep 2026 16:24:51 +0530
+Message-ID: <20260907105453.1940646-1-devverma@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|MW3PR12MB4442:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67d23bf6-633e-4a5c-4c1a-08df0cce75be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|13003099007|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ekiEwyPhEHlRPixVERovw+0KgWxwrju40xSytr9Mg3gb8pNwVEJf9NOpJ4HfGx253C1oS6UwAOBj9KktkE8sxcet1ro4ZC3+ilKfEFdmlBAEIWQoLYIo1N4v6zcAffNwR2i+tLK6E0nZs2vYiG29/mII61URPoz6RlWJB9Dfcqo0AaQM5QRDitbT6sOpRpyCebWFoOwSZ4Dj0OWA4qyZ8VylJFWkKv/mESidQJxrRZgc4jrdR37hO3IOWfzQwPWrrPmWke34FspDOfA1WHuWLz5ZsnrJiJhaYh9X1YSx19Tso48jlkrmN8zQqY04U6Z2C6ZV5iYLXz8ku+YrMig3UWtIgjDmpNyNz21d5hQD6ZsbzdQjFgAWIcq7G1Z06k/LH9bqbdWj+q5DCORVXV6ua++5yAQpyj+xNb/aGqmhau/paZjoTroVz9t6/hBGFKMWiGWVeYGUPmRwueZFYnztvmw7FEXj9RL3uBb5M15CpKcwDiwFCDWobziDaNR0Ls/VaoUKc/2cjKtCky2UbjfBvgZde8bqqpovN0K6DMdBzgGsmGvz4Ok9/n5T/w0HLm3kspVFSotARU7zRLa+VvJl+81iUlppYIqKWQxT/xFXoayd/nN2mlTGEsAVyX5/zA9SeOPyZfqbYVpMvRjb6hGW4MIqvrYydP2kpNcd+8wlN4g=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	JtHo6NMLD7c7gVVQ5JNCZ4kReHDimwMD3K1cp6K7Eme9DuQIAKmJ8RpgqQggcNOArBEkInM3DbBdS49jaWnO2+X7ZfGONdJZ1bqOm8tpjEx/Kf6cAuxwWuGkonVFCmKc44r9sl/P1n7dCEFW/e/rjuQP8XZ2auHpY8IaDz/toNnAMdVrj3uCzkiZUk9fOaBsaMI+Y26qNDeJYR1nOJsmOb6b/gopymJc13/aBun1wEF2koBd2ha5WeHcEhoXHOjAuII21K+FNnr18gTQ4nA4IVo24CAggY/Ip6fbjdnIgO2NDdQQd5Dw3NaxG2wA+3QXgJmxsK5NjMbssgikmoULoepWw2CvrwkgSa6BtudUboulNfKJXRd0bedxsSbNqnO95yVhIckCO/vI5weYQjMRKDHiEet9zyWBCDaNh9zrcjvaf1qbofSKHnsUovPRm9ig
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 10:54:58.6759
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67d23bf6-633e-4a5c-4c1a-08df0cce75be
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF0001615B.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4442
 
-On Sat, Sep 05 2026, Amir Goldstein wrote:
+These are minor and cosmetic changes.
 
-> On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> =
-wrote:
->>
->> This new test will check the caching behaviour using combinations of two
->> opendir flags: FOPEN_KEEP_CACHE and FOPEN_CACHE_DIR.
->>
->> Signed-off-by: Luis Henriques <luis@igalia.com>
->> ---
->>  .../selftests/filesystems/fuse/.gitignore     |   1 +
->>  .../selftests/filesystems/fuse/Makefile       |   2 +
->>  .../fuse/fuse_readdir_cache_test.c            | 274 ++++++++++++++++++
->>  3 files changed, 277 insertions(+)
->>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_readdi=
-r_cache_test.c
->>
->> diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools=
-/testing/selftests/filesystems/fuse/.gitignore
->> index ebfe7133d811..ffa356f23e8c 100644
->> --- a/tools/testing/selftests/filesystems/fuse/.gitignore
->> +++ b/tools/testing/selftests/filesystems/fuse/.gitignore
->> @@ -4,3 +4,4 @@ fusectl_test
->>  write_extend_eof_test
->>  fuse_acl_cache_test
->>  fuse_symlink_cache_test
->> +fuse_readdir_cache_test
->> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/t=
-esting/selftests/filesystems/fuse/Makefile
->> index 3a5a557dde7a..570ced181168 100644
->> --- a/tools/testing/selftests/filesystems/fuse/Makefile
->> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
->> @@ -6,6 +6,7 @@ TEST_GEN_PROGS :=3D fusectl_test
->>  TEST_GEN_PROGS +=3D write_extend_eof_test
->>  TEST_GEN_PROGS +=3D fuse_acl_cache_test
->>  TEST_GEN_PROGS +=3D fuse_symlink_cache_test
->> +TEST_GEN_PROGS +=3D fuse_readdir_cache_test
->>  TEST_GEN_FILES :=3D fuse_mnt
->>
->>  include ../../lib.mk
->> @@ -30,5 +31,6 @@ $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
->>
->>  $(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
->>  $(OUTPUT)/fuse_symlink_cache_test: fuse_common.c fuse_symlink_cache_tes=
-t.c
->> +$(OUTPUT)/fuse_readdir_cache_test: fuse_common.c fuse_readdir_cache_tes=
-t.c
->>
->>  EXTRA_CLEAN :=3D fuse_common.o
->> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache=
-_test.c b/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache_test.c
->> new file mode 100644
->> index 000000000000..7c49cc6a23e3
->> --- /dev/null
->> +++ b/tools/testing/selftests/filesystems/fuse/fuse_readdir_cache_test.c
->> @@ -0,0 +1,274 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Simple filesystem to test FUSE readdir cache
->> + *
->> + * It will simply perform readdir operations on a directory checking ho=
-w many
->> + * times a request is sent to user-space using all the possible caching
->> + * combination setting (FOPEN_KEEP_CACHE and FOPEN_CACHE_DIR flags).
->> + */
->> +
->> +#include <stdio.h>
->> +#include <limits.h>
->> +#include <dirent.h>
->> +
->> +#include "kselftest_harness.h"
->> +
->> +#include "fuse_common.h"
->> +
->> +#define DIRNAME "mydir"
->> +#define FILENAME "myfile"
->> +
->> +#define DIR_INO 42
->> +#define FILE_INO 43
->> +#define DOT_INO 40
->> +#define DOTDOT_INO 41
->> +
->> +#define TIMEOUT        86400.0f
->> +
->> +struct test_state {
->> +       pthread_mutex_t lock;
->> +       bool cache_readdir;
->> +       bool keep_cache;
->> +       int readdir_counter;
->> +} test_state =3D {
->> +       .lock =3D PTHREAD_MUTEX_INITIALIZER,
->> +};
->> +
->> +static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *na=
-me)
->> +{
->> +       struct fuse_entry_param e =3D {};
->> +
->> +       if (parent !=3D FUSE_ROOT_ID || strcmp(name, DIRNAME) !=3D 0)
->> +               fuse_reply_err(req, ENOENT);
->
-> Again: allergic to non matching {} and can just return here no need
-> for all this nesting
+o If the macros declaring the bit positions of a register
+  are in order then it provides a good view. Corrected
+  the ordering for once such register.
+o Corrected the typo under the IP related data struct to
+  have the correct name under respective IP structs.
 
-ACK.
+Previous reviewed-by tags were part of the following
+review:
 
->> +       else {
->> +               if (!strcmp(name, DIRNAME)) {
->
-> This condition is already guaranteed when we get here
+https://lore.kernel.org/all/aoW7vxy2lpXEbmRq@SMW015318/
+https://lore.kernel.org/all/dx5jvko7ygrqugzkt3k74l3d7lk7iauikmxrzuhvn2b4bdv5ub@s2l6zl3alx3z/#t
 
-*sigh*
-Yeah, likely leftover code from the symlink cache test I used as base.
+Devendra K Verma (2):
+  dmaengine: dw-edma: Macro order as per reg bit position
+  dmaengine: dw-edma: IP name corrected under its struct
 
->> +                       e.ino =3D DIR_INO;
->> +                       e.attr.st_mode =3D S_IFDIR | 0755;
->> +                       e.attr.st_nlink =3D 1;
->> +               } else {
->> +                       e.ino =3D FUSE_ROOT_ID;
->> +                       e.attr.st_mode =3D S_IFDIR | 0755;
->> +                       e.attr.st_nlink =3D 2;
->> +               }
->> +               e.attr.st_mtime =3D time(NULL);
->> +               e.attr_timeout =3D TIMEOUT;
->> +               e.entry_timeout =3D TIMEOUT;
->> +               fuse_reply_entry(req, &e);
->> +       }
->> +}
->> +
->> +static int fill_stat(fuse_ino_t ino, struct stat *st)
->> +{
->> +       int ret =3D 0;
->> +
->> +       st->st_ino =3D ino;
->> +       st->st_mtime =3D time(NULL);
->
-> Doesn't this need to be a const value?
-> to make sure that it does not change from here to lookup time?
+ drivers/dma/dw-edma/dw-edma-pcie.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Good point.  That value should probably be kept in the test state
-structure.
-
-Cheers,
---=20
-Lu=C3=ADs
-
-> Thanks,
-> Amir.
->
->> +
->> +       switch (ino) {
->> +       case FUSE_ROOT_ID:
->> +               st->st_mode =3D S_IFDIR | 0755;
->> +               st->st_nlink =3D 2;
->> +               break;
->> +       case DOT_INO:
->> +       case DOTDOT_INO:
->> +       case DIR_INO:
->> +               st->st_mode =3D S_IFDIR | 0755;
->> +               st->st_nlink =3D 1;
->> +               break;
->> +       case FILE_INO:
->> +               st->st_mode =3D S_IFREG | 0444;
->> +               st->st_nlink =3D 1;
->> +               break;
->> +       default:
->> +               ret =3D -1;
->> +               break;
->> +       }
->> +
->> +       return ret;
->> +}
->> +
->> +static void fs_getattr(fuse_req_t req, fuse_ino_t ino,
->> +                      struct fuse_file_info *fi)
->> +{
->> +       struct stat st =3D {};
->> +
->> +       if (fill_stat(ino, &st) < 0)
->> +               fuse_reply_err(req, ENOENT);
->> +       else
->> +               fuse_reply_attr(req, &st, TIMEOUT);
->> +}
->> +
->> +static void fs_opendir(fuse_req_t req, fuse_ino_t ino,
->> +                      struct fuse_file_info *fi)
->> +{
->> +       pthread_mutex_lock(&test_state.lock);
->> +       fi->keep_cache =3D test_state.keep_cache;
->> +       fi->cache_readdir =3D test_state.cache_readdir;
->> +       pthread_mutex_unlock(&test_state.lock);
->> +       fuse_reply_open(req, fi);
->> +}
->> +
->> +static void fs_readdir(fuse_req_t req, fuse_ino_t ino, size_t size,
->> +                      off_t offset, struct fuse_file_info *fi)
->> +{
->> +       struct stat st =3D {};
->> +       char buf[1024];
->> +       char *pbuf;
->> +       size_t rem =3D size;
->> +       size_t sz;
->> +       int nextoff =3D 0;
->> +
->> +       if (ino !=3D DIR_INO) {
->> +               fuse_reply_err(req, ENOTDIR);
->> +               return;
->> +       }
->> +       if (offset) {
->> +               fuse_reply_buf(req, NULL, 0);
->> +               return;
->> +       }
->> +       pbuf =3D buf;
->> +       fill_stat(DOT_INO, &st);
->> +       sz =3D fuse_add_direntry(req, pbuf, rem, ".", &st, nextoff++);
->> +       rem -=3D sz;
->> +       pbuf +=3D sz;
->> +       fill_stat(DOTDOT_INO, &st);
->> +       sz =3D fuse_add_direntry(req, pbuf, rem, "..", &st, nextoff++);
->> +       rem -=3D sz;
->> +       pbuf +=3D sz;
->> +       fill_stat(FILE_INO, &st);
->> +       sz =3D fuse_add_direntry(req, pbuf, rem, FILENAME, &st, nextoff+=
-+);
->> +       rem -=3D sz;
->> +
->> +       fuse_reply_buf(req, buf, size - rem);
->> +
->> +       pthread_mutex_lock(&test_state.lock);
->> +       test_state.readdir_counter++;
->> +       pthread_mutex_unlock(&test_state.lock);
->> +}
->> +
->> +static const struct fuse_lowlevel_ops fs_ops =3D {
->> +       .lookup         =3D fs_lookup,
->> +       .getattr        =3D fs_getattr,
->> +       .opendir        =3D fs_opendir,
->> +       .readdir        =3D fs_readdir,
->> +};
->> +
->> +FIXTURE(readdir_cache)
->> +{
->> +       struct fuse_session *se;
->> +       char mountpoint[MOUNTPOINT_SZ];
->> +       pthread_t thread;
->> +};
->> +
->> +FIXTURE_VARIANT(readdir_cache)
->> +{
->> +       bool cache_readdir;
->> +       bool keep_cache;
->> +};
->> +FIXTURE_VARIANT_ADD(readdir_cache, nocache)
->> +{
->> +       .cache_readdir =3D false,
->> +       .keep_cache =3D false,
->> +};
->> +FIXTURE_VARIANT_ADD(readdir_cache, cache_readdir)
->> +{
->> +       .cache_readdir =3D true,
->> +       .keep_cache =3D false,
->> +};
->> +FIXTURE_VARIANT_ADD(readdir_cache, keep_cache)
->> +{
->> +       .cache_readdir =3D false,
->> +       .keep_cache =3D true,
->> +};
->> +FIXTURE_VARIANT_ADD(readdir_cache, cache)
->> +{
->> +       .cache_readdir =3D true,
->> +       .keep_cache =3D true,
->> +};
->> +
->> +FIXTURE_SETUP(readdir_cache)
->> +{
->> +       char err[MAX_ERR_MSG];
->> +
->> +       pthread_mutex_lock(&test_state.lock);
->> +       test_state.readdir_counter =3D 0;
->> +       test_state.cache_readdir =3D variant->cache_readdir;
->> +       test_state.keep_cache =3D variant->keep_cache;
->> +       pthread_mutex_unlock(&test_state.lock);
->> +
->> +       if (fs_setup(&self->se, self->mountpoint, &fs_ops, &self->thread=
-, err))
->> +               SKIP(return, err);
->> +}
->> +
->> +FIXTURE_TEARDOWN(readdir_cache)
->> +{
->> +       fs_teardown(self->se, self->thread, self->mountpoint);
->> +}
->> +
->> +TEST_F(readdir_cache, test_readdir_cache)
->> +{
->> +       struct dirent *dentry;
->> +       DIR *dir;
->> +       char pathname[PATH_MAX];
->> +       int total_counter, rewind_counter;
->> +       int dentrycount;
->> +
->> +       sprintf(pathname, "%s/%s", self->mountpoint, DIRNAME);
->> +
->> +       dir =3D opendir(pathname);
->> +       if (dir =3D=3D NULL)
->> +               TH_LOG("opendir(): %s", strerror(errno));
->> +       ASSERT_NE(dir, NULL);
->> +
->> +       errno =3D 0;
->> +       dentrycount =3D 0;
->> +       while ((dentry =3D readdir(dir)))
->> +               dentrycount++;
->> +       ASSERT_EQ(errno, 0);
->> +       ASSERT_EQ(dentrycount, 3);
->> +
->> +       rewinddir(dir);
->> +       errno =3D 0;
->> +       dentrycount =3D 0;
->> +       while ((dentry =3D readdir(dir)))
->> +               dentrycount++;
->> +       ASSERT_EQ(errno, 0);
->> +       ASSERT_EQ(dentrycount, 3);
->> +
->> +       ASSERT_EQ(closedir(dir), 0);
->> +
->> +       pthread_mutex_lock(&test_state.lock);
->> +       rewind_counter =3D test_state.readdir_counter;
->> +       pthread_mutex_unlock(&test_state.lock);
->> +
->> +       dir =3D opendir(pathname);
->> +       if (dir =3D=3D NULL)
->> +               TH_LOG("opendir(): %s", strerror(errno));
->> +       ASSERT_NE(dir, NULL);
->> +
->> +       errno =3D 0;
->> +       dentrycount =3D 0;
->> +       while ((dentry =3D readdir(dir)))
->> +               dentrycount++;
->> +       ASSERT_EQ(errno, 0);
->> +       ASSERT_EQ(dentrycount, 3);
->> +
->> +       ASSERT_EQ(closedir(dir), 0);
->> +
->> +       pthread_mutex_lock(&test_state.lock);
->> +       total_counter =3D test_state.readdir_counter;
->> +       pthread_mutex_unlock(&test_state.lock);
->> +
->> +       if (!variant->cache_readdir) {
->> +               ASSERT_EQ(rewind_counter, 2);
->> +               ASSERT_EQ(total_counter, 3);
->> +       } else if (!variant->keep_cache) {
->> +               ASSERT_EQ(rewind_counter, 1);
->> +               ASSERT_EQ(total_counter, 2);
->> +       } else {
->> +               ASSERT_EQ(rewind_counter, 1);
->> +               ASSERT_EQ(total_counter, 1);
->> +       }
->> +}
->> +
->> +TEST_HARNESS_MAIN
+-- 
+2.43.0
 
