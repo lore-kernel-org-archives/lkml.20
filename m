@@ -1,196 +1,186 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010057.outbound.protection.outlook.com [40.93.198.57])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F70B415F3C;
-	Mon,  7 Sep 2026 07:25:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765948; cv=fail; b=mUKq7p3Qos5qLv9uMuQxkPatLzEB8CSbaVg6tZhi+OQZOkaHT2OGl0xEnX+azmPXB9ZAfW/BElfmzrZbbwo/5hgq+W59fPfRKnr4npdadmPu8eKmiQvuVz/WLd6FnSDpQaPwGufBTg7jAW31cUZ1QOrY/dlb3nfpHnqARE9v+Ao=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765948; c=relaxed/simple;
-	bh=yukzV0l0ZMwqNLaEq60fyFmbcjXdCl8xNnL0q0m7xp4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=L6U5DgXg6LqTeRKVfnCSEfqvhfi2dS/HT+6MLxDrgey0MAo296iiLWqZ90s3gbaTThsX2TIiO1XxqOdvUoX8q2EtX2ijlYA9DRWgjW0sXzZ4JRM32pHgYKZQKfofdQE3vUeBGzNW5RRk9FcnLEknvktfXn4mjtH+4hQdlPXCLwk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=xg64y+bn; arc=fail smtp.client-ip=40.93.198.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA5A415F3C;
+	Mon,  7 Sep 2026 07:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788765953; cv=none; b=OPDe3ip5/3y7LCpVADeliV7838NuYxBulcw94IC32LW7w8MXXhHRTyN+nddROxHibbtcqyra4p9u50FOwdvv79mBmmrpETiAcV7mIYderR1SgGV8VbMeNHcRbx53C5tTEi3ugL/fUQjWBfgdpoRXHvruldXrqLp1M74KGP0nIZY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788765953; c=relaxed/simple;
+	bh=Jy9Iw90kh+au488Ng6jqbL88lnq6u7beofZcis2Qm8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pAYuxbu6WoEh2NUz+oykbfUuaoZ5FKFUwQNoc0MElVCbP3up85QYd69+pYuTMZX/2Ms0GZ/3AobzDACApLPQkF2xe+4jGT0OhXEY/9hjtrPrLBgLif8Cn+FjWgAVUaRfV5GDWutfH7I5t0TRD2q5UqOUJmFsHqemaGj8Yvg9Ul0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEoSQcwf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="xg64y+bn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wq5opcUtF733NaEZEoJ3CuiXReQlxn4eB1OhfgqMWPbgWp5XTFnzjz0JMHXDY8N+Ybja4IsQafju0Zdw4TOUJqP2CvIKZw0i6QH0YN28woOdalq+16aCJ4sFtmTnvtzWocviISLHDGpVeX0ipRTfA8LoMdZz057qh/OVrDuGa7yCZEyXJNia3n67Ky8CSM+QgzhY8Paa8cAe48jqqOB6+4FbaJ9hOIBUPiloNOWUpiXaNKOKxAvbJlfzXbXVpwmA6vPStKuvQw7Ma1R1vWUtyyROmyrOe4BV6tkWKZiBTIW7Io5nk9eNLhAPadbP7eDqnjcDsJk1/EJgiPp5ANdRng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZJZiJRDldMAZS2uz1ngzE1FHNtPDhjb+6i7g5ZUTCHk=;
- b=guWwR6fgmApgTK8UmA02e6ikbI9S0LwMRGddRWVfhkwzFNngzb9eF1+xNV4cacTR3/GaGlODARb1sKGb7pjIMoy1bhETLh7F75X7OY9NU3BxxLdlZbVqv3KL8R6GVq7yo2qBE/RwR2uuxFZEHoYE0FyMDL8jGHdLKJ6dVT2HIVxwBGlCAsSu+zsuCAEtz6/mSwMx5d/Arqilb0jszlV6CKP9Wxqm40OZNFwnbOTawxIprI4c+UJ9lgpYZBxW0x5EeWbNR/chWcA9CfhHZhw9Hw1FgM4W/HRgtKPC6F3b71J3I6oVJ2/0gYC598HN8JCgC+oVwI2v06YkoN28pBCrAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZJZiJRDldMAZS2uz1ngzE1FHNtPDhjb+6i7g5ZUTCHk=;
- b=xg64y+bnq4PJAWeJkcLTJOGl36gczuuvmZszhjYGMhME060+98a57wqBIoD9J82cE02w958wUwWykJmrEuFYBgJ+rITgBwpBfkYflIjFfWEKR+R12AEJuCJ9gIE9P1MkIzDxwDmkl36Uoxggxl0rAoKIgZVHM01Iw6podrw28NA=
-Received: from IA1P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::11)
- by DSVPR12MB931903.namprd12.prod.outlook.com (2603:10b6:8:4fd::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 07:25:44 +0000
-Received: from BN3PEPF00022BBC.namprd04.prod.outlook.com
- (2603:10b6:208:464:cafe::6c) by IA1P220CA0022.outlook.office365.com
- (2603:10b6:208:464::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 07:25:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF00022BBC.mail.protection.outlook.com (10.167.248.118) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 07:25:43 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
- 2026 02:25:38 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Mon, 7 Sep 2026 07:25:00 +0000
-Subject: [PATCH v3 4/4] KVM: selftests: Drop unused sysfs NUMA helpers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEoSQcwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1DC1F00A3A;
+	Mon,  7 Sep 2026 07:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788765951;
+	bh=XysbZdZdrKGKW3RKspZ9TPmk0cHmu+YozeDs0r6a+84=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AEoSQcwfvWAOgdnAVhrgItjVrOklvMfCAI7uFfux2CTIpOaSbDGP3ap+LpOmufSlz
+	 IRDjRGDeTYmvphl27PDlMG3y77cG5ztdZHhQzfPJx98NHZJ4ODapOPjdPdIXQX5pDJ
+	 7aAaRiCBN8vO0sMWKkML9IAlOx94JcbklDmAUjjIUG06jpdRFKGjknccOCHJrn37J9
+	 xd1RnUC4j/CDy/zP88CdswNKraJWkc+vvPcYlcpI3Ln2YgJES1XE9pAffAfm5bdnLE
+	 8htghaa5Jy6qtqIoGFNzwLmXZ180QB7p+Z8zJtJnhLOW6O9JS0t63lgcw8PWj4fV18
+	 ku9r3ecV/liBw==
+Message-ID: <6ba5218f-9646-421b-9bf9-efe28f1a5880@kernel.org>
+Date: Mon, 7 Sep 2026 09:25:44 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260907-gmem-selftests-fix-v3-4-7a4be5c1cc8a@amd.com>
-References: <20260907-gmem-selftests-fix-v3-0-7a4be5c1cc8a@amd.com>
-In-Reply-To: <20260907-gmem-selftests-fix-v3-0-7a4be5c1cc8a@amd.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, Shuah Khan
-	<shuah@kernel.org>, Jim Mattson <jmattson@google.com>, Peter Shier
-	<pshier@google.com>, Ricardo Koller <ricarkol@google.com>, Ackerley Tng
-	<ackerleytng@google.com>
-CC: <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788765924; l=2084;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=yukzV0l0ZMwqNLaEq60fyFmbcjXdCl8xNnL0q0m7xp4=;
- b=nk5q12Ni6eisGWNZhKA13XPJiYJXfvvROhNcHXxC9RBPVfNwRMCvGbLJ7w7aup1FwfFiGQeQC
- 5nWRaF1DMFvDKk4je8wrd3Cc9VC0RhYLBqnkJxf4LJB/9RHtgBKLKcK
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BBC:EE_|DSVPR12MB931903:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b9346fe-a9cd-439f-f0f3-08df0cb13a5b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|11063799006|56012099006|6133799003|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	2q9gVvxOWXuR6nm903yTH0sCwemWUf+7c6I/s7OKOMS7jHf96G9cd4oJf5UNtl6yxMOzZsiiroOPKE3BthvvbiE3fLYCgw9bwOrQwSNvD9JGUSjYj+KL38q9uv1T3MLSOXuq+dhyCYJHM13BsFyFH+ZazlCfZuaEfTUxLae2bS71WEraIwPONgXrOVL8f0k/3uQBnsmDPS53X1zYpW1nUtfoQzlJ4OG1fL0/tt15IqtQhXbt7LbZPKlUVF9vpG8/J60Rc3GawLMbNWIGuuXnfAVF+y7RJfuyiEjq5CSYNOvbYESYt6MfdNaXDw68P3EbgRH0rnWmjKMBid8Wx0Et4qhaq1/gfq804k0Q0wnUFDxUuRDd8cVN0WLYfXKVgESTSyWh4qX9BKQZ9uRn2bnnxunCteDll6g47fjofd0hhtoZ74QtmYER1bN3ZxZdBmDH/JjWtxoNcR5TEHH4EKZ3s/Cci2QJJwTFv5vq658+WDSEKmiehgMrKNiLN63auQNiqQ5DvvVgjT/EjUCTW/cICVLF4ENOGmeS3D3oy5IXcTNwnxIRh7Wq44GTsC6b8sRIZxdORPNzw04e+AJAb1huS6DIP9Nth/eCpar1I8xIAEQG+5JkoyO2/RhKRqIKOqJ26TlTOR3CyTzsWNJLlMW+Ck9920wv4PrFTtABrxnyX9V2//MAfQEn9z00QlJhsQ9U
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Rp9K5Gk5WufHxeAmMvrCZcJQUARhSiyYA3maFMNAceH7Fzdpo3IsdP5PusqJQhrbQrvGLKWw+vMVTac+5pzZdY5ri1AzNPvnIjzQzN4eQCItR6MvjfeYQ9QqSpJdMklP5+rQG7ZZV2RcHfGEjiZQdV+JmGhGRY5Y7UuI4JMUaF0PKHJfE1V12uNzAVlpiusAO8/cQBPCNeQKZi6J4cXupcLe/q/KfiKx2pRnJTvGrtsZmgDbfhtYI/mnhwQY0AGhIRbaT7L3V4hXE0KQ0Xp1hqGmh2NhE6SG0Kl2I2SKOMBVRcSWzy2tGUP1L26LODOO+2PhxhDgTY7Urm/aVArMPnvAk9CQ9b/CpZCzaoylUrmjqStP8hI5SQp6KNdFCUy7LBbUWsE6LyyRKKoC6cIskFQuBq0dOH7ECJIOEyjVFLJAkSGj6rfy0dOaVbavoGiw
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 07:25:43.7322
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b9346fe-a9cd-439f-f0f3-08df0cb13a5b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BBC.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB931903
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
+To: =?UTF-8?B?5Ya357qi5p6X?= <lenghonglin@axera-tech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?5pe25b+X5oiQ?=
+ <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "soc@lists.linux.dev" <soc@lists.linux.dev>,
+ "hlleng233@gmail.com" <hlleng233@gmail.com>
+References: <2113d03615a9265b42a4d69a5a9020ef3-9-26kernel.org@sslemail.net>
+ <20260903-impossible-normal-termite-b7f9b8@quoll>
+ <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-No users of get_max_numa_node(), is_numa_available(), or
-is_multi_numa_node_system() remain.  Remove the helpers and the now
-unused dirent.h include.
+On 07/09/2026 09:12, 冷红林 wrote:
+> On 9/3/2026 8:39 PM, Krzysztof Kozlowski wrote:
+>> On Tue, Sep 01, 2026 at 05:19:28PM +0800, Leng Honglin wrote:
+>>> Add the Axera Semiconductor vendor prefix for devicetree bindings.
+>>>
+>>> For more information, visit the official Axera Semiconductor website:
+>>> Chinese site: https://www.axera-tech.com/
+>>> English site: https://www.axera-tech.com/en
+>>>
+>>> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>>>  1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> index 396044f368e7..1dbafe682724 100644
+>>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> @@ -219,6 +219,8 @@ patternProperties:
+>>>      description: Shanghai Awinic Technology Co., Ltd.
+>>>    "^axentia,.*":
+>>>      description: Axentia Technologies AB
+>>> +  "^axera,.*":
+>>
+>> So how did you implement own comment?
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Hi Krzysztof,
+> 
+> I sincerely apologize for the confusion. In my previous reply, I did
+> promise to change the prefix to "axera-tech" to align with our domain
+> name. I should have explained my change of mind in the v2 patch notes.
+> 
+> When I started making the changes internally for v2, I realized that
+> our existing BSPs, bootloaders, and a large amount of downstream
+> codebase already heavily rely on the "axera,*" prefix for compatible
+> strings. Changing it to "axera-tech" now would cause massive breakage
+> and compatibility issues across our existing ecosystem.
 
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
- tools/testing/selftests/kvm/include/numaif.h | 52 ----------------------------
- 1 file changed, 52 deletions(-)
+Did this existing downstream codebase receive DT maintainers ack or review?
 
-diff --git a/tools/testing/selftests/kvm/include/numaif.h b/tools/testing/selftests/kvm/include/numaif.h
-index 0945500c6322..c3884017ebb8 100644
---- a/tools/testing/selftests/kvm/include/numaif.h
-+++ b/tools/testing/selftests/kvm/include/numaif.h
-@@ -4,8 +4,6 @@
- #ifndef SELFTEST_KVM_NUMAIF_H
- #define SELFTEST_KVM_NUMAIF_H
- 
--#include <dirent.h>
--
- #include <linux/bitmap.h>
- #include <linux/mempolicy.h>
- 
-@@ -73,54 +71,4 @@ static inline int kvm_get_next_numa_node(unsigned long nodemask, int from)
- 	return to;
- }
- 
--static inline int get_max_numa_node(void)
--{
--	struct dirent *de;
--	int max_node = 0;
--	DIR *d;
--
--	/*
--	 * Assume there's a single node if the kernel doesn't support NUMA,
--	 * or if no nodes are found.
--	 */
--	d = opendir("/sys/devices/system/node");
--	if (!d)
--		return 0;
--
--	while ((de = readdir(d)) != NULL) {
--		int node_id;
--		char *endptr;
--
--		if (strncmp(de->d_name, "node", 4) != 0)
--			continue;
--
--		node_id = strtol(de->d_name + 4, &endptr, 10);
--		if (*endptr != '\0')
--			continue;
--
--		if (node_id > max_node)
--			max_node = node_id;
--	}
--	closedir(d);
--
--	return max_node;
--}
--
--static bool is_numa_available(void)
--{
--	/*
--	 * Probe for NUMA by doing a dummy get_mempolicy().  If the syscall
--	 * fails with ENOSYS, then the kernel was built without NUMA support.
--	 * if the syscall fails with EPERM, then the process/user lacks the
--	 * necessary capabilities (CAP_SYS_NICE).
--	 */
--	return !get_mempolicy(NULL, NULL, 0, NULL, 0) ||
--		(errno != ENOSYS && errno != EPERM);
--}
--
--static inline bool is_multi_numa_node_system(void)
--{
--	return is_numa_available() && get_max_numa_node() >= 1;
--}
--
- #endif /* SELFTEST_KVM_NUMAIF_H */
+I checked and it seems it is first time you ask:
+https://lore.kernel.org/all/?q=dfn%3Avendor-prefixes.yaml+axera
 
--- 
-2.43.0
+Whatever you have downstream is Axera's fault. You should have come
+earlier. Otherwise everyone will produce whatever stuff (including total
+junk) in downstream and then say that it is an effort to align to
+upstream. And I saw this argument more than once.
 
+
+> 
+> Because of this historical legacy, I looked for similar cases in the
+> upstream bindings and noticed that there are accepted precedents where
+> the prefix reflects the core brand rather than the full domain (for
+> example, "^cix,.*" for cixtech.com).
+
+Indeed cix should use cixtech.
+
+
+> 
+> Would it be acceptable to keep "axera" as the prefix to preserve
+> compatibility with our existing deployed systems, even though our
+> domain is axera-tech.com?
+> 
+> If this is strictly not allowed, we will have to figure out a
+> migration path internally, but preserving "axera" would be highly
+> preferable for our ecosystem. I am very sorry again for not clarifying
+> this earlier.
+
+Axera is fine, I don't see conflicts with other possible vendors, but
+the problem is that if I agree now, next months someone will use this as
+an argument for their patchset that "cix" and "axera" were allowed, so
+they also deserve exception because they never cared to ask upstream
+before. So obviously based on your earlier reason, of using past mistake
+or exception, I should not really agree on that one. Therefore fine by
+me, but please get an Ack from different DT maintainer.
+
+
+
+Best regards,
+Krzysztof
