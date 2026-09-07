@@ -1,187 +1,148 @@
-Received: from mta0.migadu.com (out-76.mta0.migadu.com [91.218.175.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D5447FAE0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780744; cv=none; b=tNcDvlkWTr8CYv0EweO+PPlI/28LNOqqXLgS96whIFWylxNWi8sCCiLh3ohCvcragayr/OC4cjw7Fm7aqNH6WnW/sBLQJBUYV0Lc28AhXFUM0uyjdMr21w1OQJvwLmx5Y5EfyZX7EkBaTiTVvLN+dTfzAbQRaBAGVKVwJSFDTFo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780744; c=relaxed/simple;
-	bh=RtOjr2fYYcnqkVc4b9IcH2n1K5+OqQfEjWTPTdlM2S4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=BDgTVTR6xoY4E00H/1HnPhJ5OlDyPcfXB62SWaPaK6vE+eCOYT2KD94jvcLeJs9r4AWaE1W6tu4GIZKMeDEI+gV6o5QZzkRQSWeRnTYjKrB6Fnt2SNSV40vtyQU+u7mVluVndDKMwxbdfjHWB+aL0pGenbqAg/nJyb/GPnLCAjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XRkZleIW; arc=none smtp.client-ip=91.218.175.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A331481674;
+	Mon,  7 Sep 2026 11:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788780745; cv=fail; b=KZ+f5aJrUoCOUf87/kZ5wd6EiUtxpsYVMtmZCoG2RkSk7LC7hI+xbuzFVPLifkvabTekZCHoiPUsA9gnAB9QTOcKyH5uTku3nadKYdj2bzDjdbmea9in4HsSytZSSVjxnRaq3IW+JTiEV7aKqd5QbGtxm3G7y0/BvvVc7YxH7W4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788780745; c=relaxed/simple;
+	bh=FPQbvxROkdXH1FMsg8gY99/kQFYL6yCDlKkPVYR91LI=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TfWhzz4Fx+3lhobR4/DyvoFtMh3Xk9lCitOYHLCrxk9X/Zj1yiQazi3fwLQZaoZnQokhFFhtEeJsqcajsQPpBsIIWlIaKV2Toe7mckqSueuQx1xOcgGCuVgbh1t6sOwZ94N1KKcrxg43vMXirrvYnHdyXVqGB+JpJe8CpQdfR4M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=h5xu0ZEX; arc=fail smtp.client-ip=52.101.46.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XRkZleIW"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RtOjr2fYYcnqkVc4b9IcH2n1K5+OqQfEjWTPTdlM2S4=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788780740; v=1; x=1789385540;
- b=XRkZleIWhQs/fvTphZNENjcxQvKHyEat4YNTYtNu9ZAuwswbJB6uUv5gAFDBRsDrknIh2AKe
- +ySNAmMJTgm2BWc3HNs1I1xzVjYVctGjy6zeV+5sQ7VHR8lWWO3KWrr5DoumOmZ4yq++jCdJu9b
- /c34b4RfZkB837PKPvnc7WPc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c5c907cfa801a1f1;
-	Mon, 07 Sep 2026 11:32:20 +0000
-X-Mizu-Trace-ID: c5c907cfa801a1f1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <603a67c1-dcc6-469f-9420-5ffbf55000bf@linux.dev>
-Date: Mon, 7 Sep 2026 13:29:18 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="h5xu0ZEX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dwKp3vjPqRqUbIaNIQ7Krt9EHJ33eYdS9VOXCIKWLUua9n3B+0k60kBkVFArPsoRnJm8sQDhMSl4duL6qDr6YBV9vHApZgpxa4VqrDEUCaSxx0UQoMezq3PIrPoyRDB5hRLcrp5ozWom1zEm8VzPydp7pB5jd2/Nu7DidFVTNVGrDQv0zYM1c3fqN6D9W4Kk3KNGFuGOw54GPwOWKe8ndgRxwQLXZZMAUfd2QFaRhDj+j7rYFU0tHl0ZGKbKv6Gs7W5dNFjw93WwLYjm2UKdyyVFcbmDrtkuVOZAcCG4OsgYGwM8+zT92Ucm3vLxkpcTnxxx2IKF5ZhroHOlIv+38g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2e5EyPRo73WMezFsxiICx3IAQfV2xhcxyBK3Axhf5L8=;
+ b=M5Ki0sjCunMiwjcW2J4tZGvuEMww6+/lBbRC2p3pVTMGUbkzWWxIY1woq67B0h/tlm20huLhfXrldZEdWi20LJmkirF/xbsTGuW6K3zrWfsGHn/T1IKhbId/aoJUjQlwTO1JS6sclCTUy0hEojePpavxw5jsXl7k7aJOdo6x/ZNzjRWoh5noSU29npkiX0mm7kLoyhuc5CDuYA5OT0UXvni4QfsRKJDNfQyUayUlQYLbGYFKbxdtBnmCyq5bl5wAEWgkjAMzk6VwKWd9SumpnjqvQ8LpSOgj4K0jGNk2h/QQND3ZlSJdsnmcGEH7Zui/Zga5OxxW7Lt5f8itod0xDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2e5EyPRo73WMezFsxiICx3IAQfV2xhcxyBK3Axhf5L8=;
+ b=h5xu0ZEXtBByAM9DcQe8ypZfT45hjx7ezGe9e9+djdTkq8fELCdvH21RGyCP84vim8FzuQHs+f+MPrepH3c8LgW6JGoBcD/CTNGHmqK43whD3qcyuxzang0MSU3NfxZig65zdhi03me3EHm+gw7XZkHoyOO+z6tFCttSRTwpBTJ7fly0iHfw+S8uYjgl6WRz6mPcJGmbhH/gW4caYXLkKaVb9JwcgCrB3TTr2zYDKvDiryk7CeqmGRdeSEaoMd0XcVIksuS+JyxdddGak24YHCzqvFM+QvSCroJcm/h16/1WrcC1ouqFYA5QGz4HTB42L6ifkLxTPRVacrgstQOwdA==
+Received: from BN9PR03CA0442.namprd03.prod.outlook.com (2603:10b6:408:113::27)
+ by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 11:32:21 +0000
+Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
+ (2603:10b6:408:113:cafe::68) by BN9PR03CA0442.outlook.office365.com
+ (2603:10b6:408:113::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 11:32:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 11:32:19 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 04:32:02 -0700
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Mon, 7 Sep 2026 04:31:58 -0700
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Prathamesh Shete <pshete@nvidia.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Manikanta
+ Maddireddy" <mmaddireddy@nvidia.com>
+Subject: [PATCH v1 2/2] arm64: tegra: Add PCIe wake GPIO for Jetson Orin NX/Nano
+Date: Mon, 7 Sep 2026 17:01:34 +0530
+Message-ID: <20260907113134.2543273-3-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+References: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Subject: Re: [PATCH v2 04/11] ASoC: SDCA: add hw_ops with hw_init hook
-To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Bard Liao <yung-chuan.liao@linux.intel.com>, Jaroslav Kysela
- <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
- Maciej Strozek <mstrozek@opensource.cirrus.com>,
- Takashi Iwai <tiwai@suse.com>, Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
- Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
- patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-5-srinivas.kandagatla@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260907083727.733705-5-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|MN2PR12MB4286:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9d3bf73-7e0d-4356-6d7a-08df0cd3ad55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	fWmrfIypnUXijqIff9SazBgMEghfYcax2uKSmff34Yn8WEMwXoOOiDsAO5HFiCmNA1GmqZ0GrtxYTpjmmqoYdzFBMIStg5rbAN8U3L130khrtZyQzGhymzORw0jWKzKMBGSwd0GSjJ1/4VVKVnKtGFL/aoS7Gg+GzwokFD/HZZPYExSb8r4f84eGie2hzbTWCpOVC5vf9ZeD9oc4hP7MVgrpT86v4Ijx3LJnt01ObIZyQxh1Wd2QUbLCOVcKQjvh3/URqZflv0+LJJ2TujRkGrCzYVITaXYZz3PF6va7MYNUjGnJlEqrfegl4idR5yk2cp3kigps+TJLanv6bELDbLxc5Ht2ZilxkQ6A3GN+QPw8ky5BhXCzPSKRsE3btaVDNJL/WKWMhK/XPJNGsSwBv1shTC/+IfRm4lZzxRpf942GJw2mZ1c44ZSjEnyKLE75KhatqveanOfHzwZGXS8CJYDgoMgM+vpKRNmx9EGH3RlKp/UEeouBh3C8wcf8pTmSUIsRaoOf9WUZhfq4suuAS6fjaXyGeeGda/ypodtCTKKDvlipDHOv25tip619KksN1xH8tAifE+W2aWUJunR5hSrm65RGnVsk4rh/3keVPSG3wmzTXt8tnVNesjIDVs+W7wW+EkbafSTbgecE0nuLF748dzrn2wwrwSAEQnLTsEb/Z8KpNdVleAUmljLIGpvFsZJHCTskynVDQlCzRjhjYg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	W0m9D93VrEs7sGDXBuc9Ja4adc3tAdiF4dHa5CXkQjTr8dJtg6nbOjI7gpV1W8g2wrD+00jIsslYqx5BH2oj+39nV51SVT4ZSxloJ5RWs0jmT0elvPhDSsKQYA3MLDsvPHc7uKw7qNzuICNGmY+m9ySNJDASY01xHrNMRJGqwyaQrEe9DF7lT2jFbKoqZol7LJHGQrpqlYu7fhUU4RA4byQmEe5HYpXIkwBd7wxJ+7yY6YSOBae+CtwKIH6uD0qHzitW6glTTbplvhBmxwpYJQ/NxjfFofJ5hb4XDhZ5DCyp1ErQcKFVIhwQMQ6+8Rszu2qrB4jFuNZw1BSMQ22W8Fm6IsZBRMf6067GZeoreGQEde8GVWYu/t9MIB+ItJgFknRdxFDKhC3U67FEd55IduxDTvKVV+LoM6Tmx1/qf4uW9rb/0n1dONhP51v4y5KB
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 11:32:19.3707
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9d3bf73-7e0d-4356-6d7a-08df0cd3ad55
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FC0.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
 
-On 9/7/26 10:37, Srinivas Kandagatla wrote:
-> Add struct sdca_class_hw_ops with a hw_init callback that runs from
-> sdca_class_probe() before the class regmap is created.  Codec drivers
-> use it to enable supplies, toggle reset GPIOs and program initial
-> vendor register state.
+The C8 PCIe controller on the P3768 carrier has WAKE# wired to main
+GPIO L.2.
 
-It'd be good to clarify when this hw_init() is supposed to run. Probe
-and hardware being available are usually two different things. I think
-this relies on a behavior at the device level where the function
-subdevices are only created after SoundWire device enumeration.
+Describe the signal on the root port so PCIe devices can use it as a
+wake source, enabling wake-on-LAN support.
 
-Also the 'hw_init' naming could be confusing, this is used in many codec
-drivers to track if the hardware has previously been initialized.
+Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+---
+ .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi     | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> sdca_class_probe() gains an optional const struct sdca_class_hw_ops *
-> argument (NULL for pure-generic SDCA parts) and stashes it on
-> sdca_class_drv for later use.
-> 
-> No functional change for the built-in class_sdw_driver, which passes
-> NULL.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> ---
->  include/sound/sdca_class.h  | 17 ++++++++++++++++-
->  sound/soc/sdca/sdca_class.c | 15 +++++++++++++--
->  2 files changed, 29 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/sound/sdca_class.h b/include/sound/sdca_class.h
-> index c6063f22be7a..3342937d09fd 100644
-> --- a/include/sound/sdca_class.h
-> +++ b/include/sound/sdca_class.h
-> @@ -20,6 +20,17 @@ struct regmap;
->  struct sdw_slave;
->  struct sdca_function_data;
->  
-> +/**
-> + * struct sdca_class_hw_ops - optional codec hardware callbacks
-> + * @hw_init: enable supplies, toggle reset, etc.  Runs from sdca_class_probe()
-> + *           before the class regmap is created and before the slave is
-> + *           ATTACHED; callers needing bus I/O must sdw_slave_wait_for_init()
-> + *           first.
-> + */
-> +struct sdca_class_hw_ops {
-> +	int (*hw_init)(struct sdw_slave *slave);
-> +};
-> +
->  struct sdca_class_drv {
->  	struct device *dev;
->  	struct regmap *dev_regmap;
-> @@ -27,6 +38,8 @@ struct sdca_class_drv {
->  
->  	struct sdca_interrupt_info *irq_info;
->  
-> +	const struct sdca_class_hw_ops *hw_ops;
-> +
->  	struct mutex regmap_lock;
->  	/* Serialise function initialisations */
->  	struct mutex init_lock;
-> @@ -35,7 +48,9 @@ struct sdca_class_drv {
->  
->  /* Library helpers used by codec-specific SDCA SoundWire drivers. */
->  int sdca_class_read_prop(struct sdw_slave *sdw);
-> -int sdca_class_probe(struct sdw_slave *sdw, struct sdca_class_drv *drv);
-> +int sdca_class_probe(struct sdw_slave *sdw,
-> +		     struct sdca_class_drv *drv,
-> +		     const struct sdca_class_hw_ops *hw_ops);
->  void sdca_class_remove(struct sdca_class_drv *drv);
->  
->  /*
-> diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
-> index b952fa6eb802..374de7d9e0b5 100644
-> --- a/sound/soc/sdca/sdca_class.c
-> +++ b/sound/soc/sdca/sdca_class.c
-> @@ -153,6 +153,8 @@ static void class_boot_work(struct work_struct *work)
->   *       allocation and sets its own dev_set_drvdata() -- the framework
->   *       does not touch drvdata.  Typically embedded in the codec's own
->   *       priv struct so codec drivers can keep per-slave state.
-> + * @hw_ops: optional device-specific hw_ops (may be NULL for pure-generic
-> + *          SDCA parts that need no quirks)
->   *
->   * Codec-specific SoundWire drivers call this from their .probe after
->   * allocating a struct sdca_class_drv (usually embedded in their own
-> @@ -160,7 +162,9 @@ static void class_boot_work(struct work_struct *work)
->   * sdca_class_drv fields, sets up the class regmap, and queues the
->   * deferred boot work.
->   */
-> -int sdca_class_probe(struct sdw_slave *sdw, struct sdca_class_drv *drv)
-> +int sdca_class_probe(struct sdw_slave *sdw,
-> +		     struct sdca_class_drv *drv,
-> +		     const struct sdca_class_hw_ops *hw_ops)
->  {
->  	struct device *dev = &sdw->dev;
->  	struct regmap_config *dev_config;
-> @@ -178,9 +182,16 @@ int sdca_class_probe(struct sdw_slave *sdw, struct sdca_class_drv *drv)
->  
->  	drv->dev = dev;
->  	drv->sdw = sdw;
-> +	drv->hw_ops = hw_ops;
->  	mutex_init(&drv->regmap_lock);
->  	mutex_init(&drv->init_lock);
->  
-> +	if (hw_ops && hw_ops->hw_init) {
-> +		ret = hw_ops->hw_init(sdw);
-> +		if (ret)
-> +			return dev_err_probe(dev, ret, "hw_init failed\n");
-> +	}
-> +
-
-nit-pick: should the INIT_WORK be moved higher before this hw_init()? It
-has nothing to do with regmap and we'd lose the requirement that
-hw_init() be run before regmap inits.
-
->  	INIT_WORK(&drv->boot_work, class_boot_work);
->  
->  	dev_config->lock_arg = &drv->regmap_lock;
-> @@ -222,7 +233,7 @@ static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id
->  
->  	dev_set_drvdata(&sdw->dev, drv);
->  
-> -	return sdca_class_probe(sdw, drv);
-> +	return sdca_class_probe(sdw, drv, NULL);
->  }
->  
->  /**
+diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi b/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
+index 41821354bbda..2af32613b16c 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
+@@ -163,6 +163,16 @@ pcie@140a0000 {
+ 
+ 			vddio-pex-ctl-supply = <&vdd_1v8_ao>;
+ 			vpcie3v3-supply = <&vdd_3v3_pcie>;
++
++			pci@0,0 {
++				reg = <0x0000 0 0 0 0>;
++				device_type = "pci";
++				#address-cells = <3>;
++				#size-cells = <2>;
++				ranges;
++
++				wake-gpios = <&gpio TEGRA234_MAIN_GPIO(L, 2) GPIO_ACTIVE_LOW>;
++			};
+ 		};
+ 
+ 		/* C1 - M.2 Key-E */
+-- 
+2.34.1
 
