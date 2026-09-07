@@ -1,43 +1,129 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D49F8437858
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786496; cv=none; b=Q+tgc/NiZzA9dzbRSPT8skhqMQs4VNAFtnmaWsxslI0sKzcYTS/R0jGMVopQ7NOWLDjieWJOSnhod1yk823gVXfmi6jhUej3OdYDX3teQmuuDSkswq0thegJK8kTao/nlOdJcBohgboFtRXMYvgymx60lik/Xo/CZF3o/duLjPk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786496; c=relaxed/simple;
-	bh=aNlaJJliE3SM+WfAUu6wE2ZMUr6urGrHTlopOCg7cBE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hJkd2V7iSnbD35zEUT3dd1i5WZYXf4iu3kGLDNRA7JOVRUsdsTdb6QuO2QdWov8cWe7AMOFt/kElLqYyCEXbexNp72trkNhwsdPO3oFhfzYA8Yig0KuTHzzBUnwQd/OkI7lqLhU9vxuo2DzlSpe27ClhxNgHqDhORCj/KybDRY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p200300f6af085a0015db8e28914752a6.dip0.t-ipconnect.de [IPv6:2003:f6:af08:5a00:15db:8e28:9147:52a6])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 3DE67209FF5;
-	Mon,  7 Sep 2026 15:08:04 +0200 (CEST)
-Date: Mon, 7 Sep 2026 15:08:03 +0200
-From: =?utf-8?B?SsO2cmcgUsO2ZGVs?= <joro@8bytes.org>
-To: Daasaradhi Mannava <daasaradhimannava@gmail.com>
-Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, will@kernel.org, 
-	robin.murphy@arm.com, iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MAINTAINERS: Drop the nonexistent vsi-iommu.h file entry
-Message-ID: <ap63JGL5_CZB_T5v@8bytes.org>
-References: <20260905154900.1272-1-daasaradhimannava@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5444854FE;
+	Mon,  7 Sep 2026 13:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788786556; cv=none; b=ezipBxRKvSi80eLRTUaSt31QKgFcH+LDX9+O6ccjcVpMV+I9Tef6aknmTFrYSgJQPRHYeGHkXdO9DqwBrj8tBjwJ/KKl9mJhkB/77Lw+j+Fa3L7ubBX+bzeONKfC2n+bHllyINWxkyKYyjQ7z+SnbZ9/8/81GgrFigVqjFuR6oE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788786556; c=relaxed/simple;
+	bh=LUUN6hor9kB1vGW9ORLacT7hasUnGUVa0oXa/BtcYiM=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=B9cibVwfZ/c1J1AogZtAnk4qM+ip2bLk8h2cpzxolFsd1GcC8Rv4XHQkEwdzoAy9CHLlQyXd1tJNc9ILsd+ldlZziXvd8zI4WofkgVqoDnRzjLpA4dCZm0oStiF66DcG2zSCDT7LVXBrG9IN16XRZSOggre+llWNTQ4famm/bQo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=WJsU5ZLP; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=WJsU5ZLP; arc=none smtp.client-ip=45.249.212.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="WJsU5ZLP";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="WJsU5ZLP"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=up4/oktyfAdON3km3wdZWwjp1/r+vQu8s3QiiQB06UU=;
+	b=WJsU5ZLPqqnObamEl+eDb1OQLn8fzTm2lS+jqZvsjkBOcZoPNvOCq137VskBlGKfkXIRHLxz0
+	r3TIwLJgnYKX+hhXcyhYsMrcfZw4l3uKg5x5sTenzOpFogQlp8Dx4ywI3SARgUR1LDQ5r9Wjz1F
+	GJzxQD5oYk6LTh2w3OIGcw8=
+Received: from canpmsgout05.his.huawei.com (unknown [172.19.92.145])
+	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4hdn6c2zcSz1BG0j;
+	Mon,  7 Sep 2026 20:52:56 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=up4/oktyfAdON3km3wdZWwjp1/r+vQu8s3QiiQB06UU=;
+	b=WJsU5ZLPqqnObamEl+eDb1OQLn8fzTm2lS+jqZvsjkBOcZoPNvOCq137VskBlGKfkXIRHLxz0
+	r3TIwLJgnYKX+hhXcyhYsMrcfZw4l3uKg5x5sTenzOpFogQlp8Dx4ywI3SARgUR1LDQ5r9Wjz1F
+	GJzxQD5oYk6LTh2w3OIGcw8=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hdmtM1GBsz12LG0;
+	Mon,  7 Sep 2026 20:42:19 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 78E5A203B8;
+	Mon,  7 Sep 2026 20:53:32 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 7 Sep
+ 2026 20:53:30 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
+	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <pasha.tatashin@soleen.com>,
+	<pratyush@kernel.org>, <ruirui.yang@linux.dev>, <kees@kernel.org>,
+	<ruanjinjie@huawei.com>, <thuth@redhat.com>, <jic23@kernel.org>,
+	<tan.shaopeng@jp.fujitsu.com>, <zengheng4@huawei.com>, <james.morse@arm.com>,
+	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
+	<sourabhjain@linux.ibm.com>, <robh@kernel.org>, <coxu@redhat.com>,
+	<tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
+	<djbw@kernel.org>, <seanjc@google.com>, <liaoyuanhong@vivo.com>,
+	<vishal.l.verma@intel.com>, <fuqiang.wang@easystack.cn>, <makb@juniper.net>,
+	<piliu@redhat.com>, <ebiggers@kernel.org>, <jbouron@amazon.com>,
+	<mclapinski@google.com>, <me@linux.beauty>, <graf@amazon.com>,
+	<bgwin@google.com>, <takahiro.akashi@linaro.org>, <palmer@rivosinc.com>,
+	<x86@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <kexec@lists.infradead.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-mm@kvack.org>
+Subject: [PATCH v4 06/12] LoongArch: kexec_file: Fix elf_headers memory leak in retry loop
+Date: Mon, 7 Sep 2026 20:53:58 +0800
+Message-ID: <20260907125404.922123-7-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907125404.922123-1-ruanjinjie@huawei.com>
+References: <20260907125404.922123-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905154900.1272-1-daasaradhimannava@gmail.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Sat, Sep 05, 2026 at 03:49:00PM +0000, Daasaradhi Mannava wrote:
-> Assisted-by: LLM
-> Signed-off-by: Daasaradhi Mannava <daasaradhimannava@gmail.com>
+If load_other_segments() fails after image->elf_headers is assigned,
+the memory lifecycle is safely managed by the global kimage object
+and will be freed in arch_kimage_file_post_load_cleanup().
 
-Queued for -rc, thanks.
+However, during a retry loop in efi_kexec_load(), a subsequent iteration
+will allocate a new buffer and overwrite image->elf_headers. This
+permanently leaks the stale memory from the previous iteration before
+the global cleanup can track it.
+
+Fix this by explicitly freeing the stale `image->elf_headers` buffer
+before assigning the newly allocated headers.
+
+Cc: Huacai Chen <chenhuacai@kernel.org>
+Cc: WANG Xuerui <kernel@xen0n.name>
+Cc: Youling Tang <tangyouling@kylinos.cn>
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
+Cc: Kees Cook <kees@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
+Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/loongarch/kernel/machine_kexec_file.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
+index 62a5be102065..3beb6977ecc6 100644
+--- a/arch/loongarch/kernel/machine_kexec_file.c
++++ b/arch/loongarch/kernel/machine_kexec_file.c
+@@ -166,6 +166,10 @@ int load_other_segments(struct kimage *image,
+ 			vfree(headers);
+ 			goto out_err;
+ 		}
++
++		if (unlikely(image->elf_headers))
++			vfree(image->elf_headers);
++
+ 		image->elf_headers = headers;
+ 		image->elf_load_addr = kbuf.mem;
+ 		image->elf_headers_sz = headers_sz;
+-- 
+2.34.1
+
