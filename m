@@ -1,71 +1,90 @@
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com [209.85.161.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76717424D46
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:05:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5A3431484;
+	Mon,  7 Sep 2026 08:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768304; cv=none; b=KYRCPsC2slw9vb51yPWz8RLM1fd3cNZOlqj4qjnLGavu/21XloREwMA8T3vZe1ZtqgxUbVwdBtykDYzisfGWox2CnY6tnx0/3VSUf5YjIJZf4fiaI96WwWJ961QNLfLVQXm6oUcULq/dlzGyaj2nmHONcEAh+1tqma7Qk0qymT0=
+	t=1788768336; cv=none; b=ftTKNXUdp4TZRQkMgCUbJHfWiXVO0Dt1W62Ljoog+MTjib42C3HZpnEcO3y8gQKRPBL3cRjhShXAZ2B+uV1lGrJaOWnptY7nGTdlqkXGCIj4TAZmCpy+6iFREosflnXwG/zqKGSDY0GRvypEN3M9BQZHCuHFboeRdl04ctAgbwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768304; c=relaxed/simple;
-	bh=mQqVxaRU0Mk+a5y8C5Y0tkfuj09s4eKT5quIU+Vqtww=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=Z8ky9B7lbDv/Zfbry7ah1cj7AfolUj9f7+x4MEinEgHD40LECrPCXnBhTzXhDX0rIlqovDjQZDzR/itAOy5LCIjcqmm7EBAXnPwCjdmDzlspwldUPgQeKXmhyj9qcuWgRXyHl5Q6/kQrjKETaVklcJviZWHb8e2JUzsXH+eGVQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b0e7370be1so4318974eaf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:05:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788768302; x=1789373102;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=qF+FuN5yVCgVbYMbmgfyZ/6fBRni4ZKLu6CaHCwCG6E=;
-        b=VQ4gSfBvZAVOfQhQxo4veRpjsmN+fkQioBFG3dU79LroZr5jVA1oQAK3Iyolno9ktk
-         +4sR5qmM9nBZW3nEMgMw9hUtbVcQp3fwaqdLEUuQS/tMIKEvsm0C/A7Q5TSJv6svZyG4
-         iEKpAjtcL6Jp7HxaEWa5tFjYcSd7EfkMToH598gEOG7SUetudzDKUVmBm+T5DdZ0tMtJ
-         jMsOAjfQrycJoddHRMqcgSnW/oN5PZbrZ8ClJZq0AUViutRo8HqnikD3QOrNUAxC9Nur
-         HTkopOgrEvDqk9NKSv1cEufdkQDsuopQZa7kMVJzXJqTcW9L0MgHDRbBTRGKB8h/DRnt
-         SlHw==
-X-Gm-Message-State: AFuF++k9lpGFcQ3KXfwxh7DQtBG9lhKflw+SehiZgUtA25pliAgPSF9U
-	cutlNaue45hvZmK5zrmMVR+MIBMRnUg4ff4+TczztcVQUTrCOqN3TJtL8IEKeluDs+9NBU8n50c
-	FsSzjCHdDfhta1CDgU9HYbUzGHG6TAdUMfokMaJHd1aqwn5rzw+/u5I0n/CE=
+	s=arc-20240116; t=1788768336; c=relaxed/simple;
+	bh=aPs8vOeOkDwA+cdOHEggTr5cgfZ4hBDA0b/o2U+3pmY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GX0bOT7Y2ghJtpN3CtpGo42VnVJmlTwSm5xGvHoc+0RJ8h5d4/0gH9f7ER32qyVgiwCSehjR8Dj9qO37P2+lWKLXpAfVwF3D2KiVnqX+61wNC4egvFuxzXWVuD4IIw7EGwappnMFsnZ/qpVNtmyae9bOkLB0hQrQcpzOPbwIf2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdOFqkHG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdOFqkHG"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 144241F00A3D;
+	Mon,  7 Sep 2026 08:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788768334;
+	bh=KFc3Q3n3ot5F3E+SE4+u2bsbzV+Be3EJmOfLOxeBnys=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hdOFqkHGZtPx7BkOVcOTWt2Sl/nVdIQdVdxgmt1zB3lahFF4JDXllC2ynvYn4zw9Q
+	 mjZmE/3kUbjazBQVc/GLRIAFMP6+OfZUx/MjpMwRFk+NYXd5wvM8+Ch8jdIqDAQiwh
+	 Z8FRN0dAmcrFQveHk47pxbL0CJkOiFTESGSDZ/lOvRyuluONHQbkAZxK5A7fZPtdGP
+	 YYdkkVSDi/lR05qKLUvdWvJP60vIOSbOUpi8yquGlQER3Q+EIGb48shl4VotcKBvCD
+	 Ppy4/I8gbTD0EtD4Do4aDPKACYFeLRyh6Ixuam871cP5tTN0wSTlum9eUCSLnOl4yH
+	 s3gaYdjNxuajg==
+Date: Mon, 7 Sep 2026 10:05:31 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-pwm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: fix typos in comments
+Message-ID: <ap5v7IBBmroh4VZC@monoceros>
+References: <20260907062659.15500-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e914:0:b0:6b5:ec2f:3565 with SMTP id
- 006d021491bc7-6b5ec2f36bfmr10658445eaf.22.1788768302142; Mon, 07 Sep 2026
- 01:05:02 -0700 (PDT)
-Date: Mon, 07 Sep 2026 01:05:02 -0700
-In-Reply-To: <OSZPR01MB9313A6EAB14EA1A8E9C61EEBB2B22@OSZPR01MB9313.jpnprd01.prod.outlook.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e702e.87c06881.102b7.000c.GAE@google.com>
-Subject: Re: [syzbot] WARNING in usb_composite_setup_continue
-From: syzbot <syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	tkdkei@outlook.jp
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="llupe44bve4w4fvk"
+Content-Disposition: inline
+In-Reply-To: <20260907062659.15500-1-hemanth.selam@gmail.com>
+
+
+--llupe44bve4w4fvk
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: fix typos in comments
+MIME-Version: 1.0
 
 Hello,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+On Mon, Sep 07, 2026 at 11:56:58AM +0530, Hemanth Selam wrote:
+> Fix typos in comments, reported by scripts/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Only touches comments, no code
+> changes.
+>=20
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-Reported-by: syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com
-Tested-by: syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com
+Thanks, applied to
 
-Tested on:
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
 
-commit:         edc15184 usb: typec: hd3ss3220: Add support for supply..
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=13d63125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ec55b50193b453ea
-dashboard link: https://syzkaller.appspot.com/bug?extid=a83a5a1ba9ff57935171
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=13a64a15580000
+Best regards
+Uwe
 
-Note: testing is done by a robot and is best-effort only.
+--llupe44bve4w4fvk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqecEkACgkQj4D7WH0S
+/k4KKgf/QTm2WVRrQALfoV9JLBdZorixC3WKwq5wW134IKXEizGfPMsfhkdNdJ3H
+4gniCrvqedM1DLXGJD9AODV1zOYY7GOlnOxuieAScC4pfUebusv1B6r3CQWjYVwD
+FkfTprdCUmHs8/NumPSyfzZ27JdSSa4gR0P66ZwdM1SJmfksFHLK5PDbRmQ2iEgs
+u4eO9VNm4Il4wnbXGNTaPrCGknyJIdaMUZ2ghpC2GuEBg0REtDTpwErufGqk+3d3
+Ufus4k+8X08wR2x7lPPG3hyt8C+r2JYeJ04xqiWNbnfjTJbfjFn/bqOiDFMwjMP3
+0ATm0Fro1uwkd1vZ5ApMoAltUXBqgg==
+=0rB7
+-----END PGP SIGNATURE-----
+
+--llupe44bve4w4fvk--
