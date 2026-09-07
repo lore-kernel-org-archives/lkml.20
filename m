@@ -1,155 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46BA84477F3;
-	Mon,  7 Sep 2026 12:27:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9D546F482
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784041; cv=none; b=itPOInjcJFq/fdwcsNa6+mkrfxv8cE+SKatnogNXgAOLdxIHwVPgLU0gsVsloLD0ia8nlN3c61HhH0JvIozFOtJgpX4NNM/hVXje/k4Bm5TmHoVQlnKiDPjwWRmWK2B+TPQlp9VDZV9kHJZDXvVt+wCH1E0d1ZVyNvsltmP58u0=
+	t=1788784049; cv=none; b=t4y4Ko6qjyJMloWMIm9UITo37YeOQZ/+dUXeFoTBsBS1U+4tZVPbJnWLNLdUawnelhF06rukR2do8/IpFZ0zDPXolGIxrtDveIZ9iWlsGaFzjf4PzIhYnBqC3aChdQb4C06Nh9+l2AmnEWxriThYFzU97kr0jXS6tZLaGMNnYOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784041; c=relaxed/simple;
-	bh=4KhMUWrVeTM3TUi3xbt6hV73HS/X/W7s3ec217rpnDo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HQqIJGFICdQQWygMiK/HHKzQWKETk6kdHoVBHN3TEru+ZWJ/tZ3kp8w97+wUJ8/zzH07YTLe/jtAszo0G+lW6Ji0igyeXKuqUT2UL7z8fckYJauhfJsIPg2rbwFMyVChl2miieqJ788PtARIbkB19Hgay0stdH2f0hD+knroI98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hBJkmeHo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788784049; c=relaxed/simple;
+	bh=1NHzeHZoMnU25BV6rQbk//q78rlK+Vlft55l/u+2GnI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=DYn3vsgKKe122HFCiQDifz+iFVxGbMEN1iZmTMhkj0oVX1Z3t4m5iv7VmT/jKd3eMv2Ujt4nd5gP+EvZtWRlkHasnvJIOf2Ot/DDZye4hJqSeYV1/j617uSTWND1SnwfqQ3QNhG2YOLIIQ8+v0w/SHY81IL7HYi682nCTUySc8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NlMnuaDp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hBJkmeHo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8107A1F00A3A;
-	Mon,  7 Sep 2026 12:27:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NlMnuaDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 287281F00A3D;
+	Mon,  7 Sep 2026 12:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784039;
-	bh=FON6q6qStRwddcTjTo4OO7kzte1WdlEtk70KYE6DEZc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hBJkmeHoo3adk3zkUC7eYlw8h/TJyFQC7PnBfhei3eMbML+nMpxFUdoab8vEGHrC8
-	 qv1TOSO6hpNr8vp5zd2I50DVcVBN2gbGEAaCVwtfnjCLuQaAOdZeOlXR/p7+Z4JKeP
-	 9TN2uOi8STQr/J/OHftEHtUR0UvWj+6PFSAan524lD3d6akZQ7EehNCueclrUrGHOR
-	 8ejbl/+TwuNme7llFf+Fy/j3D1/HZyvT3e7tKvC0GorCTf0v4LFtXuURtE7JiUbqv4
-	 nlEE6828TnKP1RT6mAXgU/uOPKyk9IkmccHdH3cVzbR9hDg5I7E6j9AKneb4a6l/SN
-	 0ymItKMeX+E/w==
-Date: Mon, 7 Sep 2026 13:27:03 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Tony Luck <tony.luck@intel.com>, 
-	Reinette Chatre <reinette.chatre@intel.com>, x86@kernel.org, Christian Brauner <brauner@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, 
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, "David Hildenbrand (arm)" <david@kernel.org>, 
-	Alexey Dobriyan <adobriyan@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Ye Liu <liuye@kylinos.cn>, 
-	Michal Hocko <mhocko@suse.com>, peterz@infradead.org, paulmck@kernel.org, mingo@redhat.com, 
-	rostedt@goodmis.org, jpoimboe@kernel.org, mic@digikod.net, tglx@kernel.org, 
-	linmiaohe@huawei.com, nao.horiguchi@gmail.com, rafael@kernel.org, gnoack3000@gmail.com, 
-	sj@kernel.org, rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn, 
-	chengming.zhou@linux.dev, will@kernel.org, boqun@kernel.org, frederic@kernel.org, 
-	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com, 
-	juri.lelli@redhat.com, vincent.guittot@linaro.org, paul@paul-moore.com, 
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org, lance.yang@linux.dev, 
-	mhiramat@kernel.org, pmladek@suse.com, longman@redhat.com, 
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com, 
-	babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 6/8] fs: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap6tk14FFBAYaQNe@gremlin>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-7-ye.liu@linux.dev>
+	s=k20260515; t=1788784047;
+	bh=0qSu3OjHkaTRHcKbbYxOQ0XFipAs4gqfp4Le2yb3N+o=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=NlMnuaDpx9mQ7xUql5LFmTLtlCbk1zFcmUd21F2yijqWQNyIwHrdrAGFBNn+SPkpw
+	 XWuD+PRFfjjrty+zlTW9y6iRD+U4z6Tg4xPh29WmO8x0ERtd/zVSkQgvzKdxu6bh5H
+	 T9KHniNuXZnu5jwYhZcEZvle4UJHhTU+FpxEFbPOGUtS9G5x1uKAPlKYd9p6zQUh/4
+	 5uzX7xcl2OdLcINzB0RPtgak7+JNclfmhq2SNby37CbNb6vvbzYo6tbNw035auucQw
+	 W/vrTYfJyMEPlQ4TWzoGVHRM8DFQV6hd4AxNyi+FO71OGwQmLXo8woh69UaK8OrW6Z
+	 M02izj9RJQ4hA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Frederic Weisbecker <frederic@kernel.org>, Christian
+ Brauner <brauner@kernel.org>, Peter Zijlstra <peterz@infradead.org>, John
+ Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>, Alexander
+ Viro <viro@zeniv.linux.org.uk>, "Eric W. Biederman"
+ <ebiederm@xmission.com>
+Subject: Re: [patch V2 8/8] posix-timers: Handle exit in do_exit() completely
+In-Reply-To: <ap2XdXRXRG0ABl5n@redhat.com>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185840.033154049@kernel.org> <ap2XdXRXRG0ABl5n@redhat.com>
+Date: Mon, 07 Sep 2026 14:27:24 +0200
+Message-ID: <87tso12qmr.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907081334.1152889-7-ye.liu@linux.dev>
+Content-Type: text/plain
 
-On Mon, Sep 07, 2026 at 04:13:32PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
->
-> Replace the manual rcu_read_lock()/rcu_read_unlock() pairs combined
-> with for_each_process() and for_each_process_thread() loops in fs/
-> with the for_each_*_rculock() macros, which scope the RCU read lock
-> to the loop body via scoped_guard(rcu).
->
-> No functional change.
->
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
+On Sun, Sep 06 2026 at 18:40, Oleg Nesterov wrote:
 
-LGTM so:
+> I am still trying to understand this patch, one question for now.
+>
+> On 09/05, Thomas Gleixner wrote:
+>>
+>> +void posix_cpu_timers_exit_task(void)
+>>  {
+>> -	cleanup_timers(&tsk->posix_cputimers);
+>> +	posix_cpu_timers_exit_work();
+>> +
+>> +	guard(spinlock_irq)(&current->sighand->siglock);
+>> +	cleanup_timers(&current->posix_cputimers);
+>>  }
+>
+> So it calls posix_cpu_timers_exit_work()
+>
+>> +static inline void posix_cpu_timers_exit_work(void)
+>> +{
+>> +	/*
+>> +	 * current->flags has PF_EXITING set so this can be done lockless and
+>> +	 * with interrupts enabled as PF_EXITING prevents the interrupt from
+>> +	 * scheduling the work.
+>> +	 */
+>> +	if (current->posix_cputimers_work.scheduled)
+>> +		task_work_cancel(current, &current->posix_cputimers_work.work);
+>
+> ... which does not clear ->scheduled
+>
+>>  void posixtimer_exec(void)
+>>  {
+>> -	scoped_guard(spinlock_irq, &current->sighand->siglock)
+>> -		posix_cpu_timers_exit(current);
+>> -
+>> +	posix_cpu_timers_exit_task();
+>
+> ... and this looks obviously wrong for posixtimer_exec() ?
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Yes.
 
-> ---
-> Changes in v2:
->   - Rename *_rcu to *_rculock
->  fs/proc/base.c        | 4 +---
->  fs/resctrl/rdtgroup.c | 8 ++------
->  2 files changed, 3 insertions(+), 9 deletions(-)
->
-> diff --git a/fs/proc/base.c b/fs/proc/base.c
-> index 6a39de424f62..3de4f4557e4c 100644
-> --- a/fs/proc/base.c
-> +++ b/fs/proc/base.c
-> @@ -1160,8 +1160,7 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
->  	if (mm) {
->  		struct task_struct *p;
->
-> -		rcu_read_lock();
-> -		for_each_process(p) {
-> +		for_each_process_rculock(p) {
->  			if (same_thread_group(task, p))
->  				continue;
->
-> @@ -1177,7 +1176,6 @@ static int __set_oom_adj(struct file *file, int oom_adj, bool legacy)
->  			}
->  			task_unlock(p);
->  		}
-> -		rcu_read_unlock();
->  		mmdrop(mm);
->  	}
->  err_unlock:
-> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
-> index 5dcbb0a964e8..b14df8b23f1a 100644
-> --- a/fs/resctrl/rdtgroup.c
-> +++ b/fs/resctrl/rdtgroup.c
-> @@ -709,14 +709,12 @@ int rdtgroup_tasks_assigned(struct rdtgroup *r)
->
->  	lockdep_assert_held(&rdtgroup_mutex);
->
-> -	rcu_read_lock();
-> -	for_each_process_thread(p, t) {
-> +	for_each_process_thread_rculock(p, t) {
->  		if (is_closid_match(t, r) || is_rmid_match(t, r)) {
->  			ret = 1;
->  			break;
->  		}
->  	}
-> -	rcu_read_unlock();
->
->  	return ret;
->  }
-> @@ -826,15 +824,13 @@ static void show_rdt_tasks(struct rdtgroup *r, struct seq_file *s)
->  	struct task_struct *p, *t;
->  	pid_t pid;
->
-> -	rcu_read_lock();
-> -	for_each_process_thread(p, t) {
-> +	for_each_process_thread_rculock(p, t) {
->  		if (is_closid_match(t, r) || is_rmid_match(t, r)) {
->  			pid = task_pid_vnr(t);
->  			if (pid)
->  				seq_printf(s, "%d\n", pid);
->  		}
->  	}
-> -	rcu_read_unlock();
->  }
->
->  static int rdtgroup_tasks_show(struct kernfs_open_file *of,
-> --
-> 2.25.1
->
+Thanks,
 
---
-Cheers, Lorenzo
+        tglx
+---
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -1270,6 +1270,9 @@ static void posix_cpu_timers_work(struct callback_head *work)
+ 
+ static inline void posix_cpu_timers_exit_work(void)
+ {
++	/* Canceling the work is only valid for exit() but not for exec() */
++	if (!(current->flags & PF_EXITING))
++		return;
+ 	/*
+ 	 * current->flags has PF_EXITING set so this can be done lockless and
+ 	 * with interrupts enabled as PF_EXITING prevents the interrupt from
+
+
