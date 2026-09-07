@@ -1,68 +1,103 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862CA3932F7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A12233941;
+	Mon,  7 Sep 2026 03:57:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753338; cv=none; b=deAIYFAg8PzZn/blO3YhVmjpWxLJhxG7OMLqWY9v/bfguCfPms78WTBhwwKOBDxx5nmxhlIIlf62PWpzMMYAh36o1dbU2SHLq09j4IRbDJmjWjSUma+MyJ01U1elg45NFO+h+vqwBZTMMRpAViqIDgczPgukypWXno8NYudIfrM=
+	t=1788753457; cv=none; b=Llk2J8KOHOk/ckuvUVEf4LzT7KlL+Z59yNV1m6KW5RjIOTFXU9ZsA2cZ0qfua9Nsgq4A/Oil0UYOiSIoOrwBO3T7nAeQeplOg6/HO+qQuSAm+2OeVRG29wsPIv0LBOl64AEQfVS5BMABcGOpMPXBh8rPQvpVzIlrLO67hG6vTcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753338; c=relaxed/simple;
-	bh=TXMX3gZ2Ry3+JMhvNVK1jEM9EGZYzDPdqIYV7qXcLF8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=VBzCN/aYJ7jFlMhl7kkY25cUUPExkthEMaZukueP3QtftW/7Irf1oRNS+dKF+v/8ZRzE0Bf3j612R2Csi6URyyZI5M5vh1tbYT472jl520j+bMaXsfduV7Z9c2Q93+gnOa2yels5WaOWr7IsQ7m+nZPfuYfN7MMH06BeNiddwk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ab4ca7ce3fso3368197b6e.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:55:36 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788753335; x=1789358135;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=TXMX3gZ2Ry3+JMhvNVK1jEM9EGZYzDPdqIYV7qXcLF8=;
-        b=MVGEomIhqNKYtf9T5+NnuLbY6WY4YZiinn/oWDx0QqqoF2EwqUeTRk8SzYiSDAQnqE
-         ITRF2fmdWbihYPgNFRO5J1xG5fgNuRslB8Yv7VAcIh7/E8h4xNAOJhaWycb7ldxODZbg
-         eu5gHsixFMnqANv9c+KUOK3I2wFk0BcLeuiQqoG+C63lvOlHYgREu6cmjFqFqwluAok3
-         8gXoWBUS37vg3Fs0D9SYQuSRRCe63Bzwqx97EE/3XCyWGmSdJahWFYbLVa8zwozwMm+d
-         87j9Ku6iidVW4hM84y7i5W7lps0N/wsnfjyczqFx82WWy7Ub7t2DQoWhB5OkPjTPocvf
-         RTgg==
-X-Gm-Message-State: AFuF++nFFqNBpLys/SQMK/zsXGqUmKQiHQ8+lFOTaR2kRN5k3LFm8upF
-	SgmTX1vu7myorKFlrL+tvHgQxqB4Wb/Mk4c4RZN2W42h4eTe/IMMCtFJ4UvUSbc6dvdgum9LZ4C
-	iPosiowOqm6ngJpixkbrtGNEApf0Q8EHxBQJzwNxZu93lDxCbCP5ur0V1Llg=
+	s=arc-20240116; t=1788753457; c=relaxed/simple;
+	bh=kma4mUAUDJmF+5dZ2LHY4giyuPzc4s8G1E3+nVIDEEQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sF7X4e97xCJV7SeP6iHurgxaGZh6AAq1vN8fH8BjM+FlbHDYwR2f8Jw0jyqjgBOs1x2zhPF01bWDzBKHalnyyJfRmV+LM0NE6svteLJSAL0WQiI0LwvARWiGwBs6nVZS4Lz7IDkpOvHz5lEXBIG7PXwoIia2Eel87gNecPSrPvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 3fb16b22aa7011f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:028ed24d-e7ae-4af2-bbec-f663971b1293,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:ffde442494582dbbf79986379ca5ccd3,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3fb16b22aa7011f19a56ed5b684f684d-20260907
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 326362453; Mon, 07 Sep 2026 11:57:30 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ntfs: use fatal_signal_pending() for fallocate interruption checks
+Date: Mon,  7 Sep 2026 11:57:26 +0800
+Message-Id: <20260907035726.37123-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1890:b0:6b1:c40d:635c with SMTP id
- 006d021491bc7-6b6fb8d5a72mr13295114eaf.15.1788753335524; Sun, 06 Sep 2026
- 20:55:35 -0700 (PDT)
-Date: Sun, 06 Sep 2026 20:55:35 -0700
-In-Reply-To: <6a82eac5.dbb3a75c.20434b.0055.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e35b7.a5e650b3.26d8a.0026.GAE@google.com>
-Subject: Forwarded: [syzbot test] WARNING in usb_composite_setup_continue
-From: syzbot <syzbot+a83a5a1ba9ff57935171@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+The fallocate implementation uses signal checks to let a long allocation
+loop abort early.  However, signal_pending() also returns true for
+TIF_NOTIFY_SIGNAL, which io_uring uses to deliver task_work completions
+to the submitting task.
 
-***
+generic/616 is an io_uring fsx soak test that issues fsx-style
+read/write requests through io_uring and calls fallocate() directly in
+between.  A pending io_uring task_work notification can therefore make
+signal_pending() true inside ntfs_attr_fallocate() even though no real
+signal was delivered.
 
-Subject: [syzbot test] WARNING in usb_composite_setup_continue
-Author: tkdkei@outlook.jp
+That caused the previous signal-interruption patch to return -EINTR for
+an io_uring notification, which fsx treats as a fatal failure.  Switch
+both checks to fatal_signal_pending() so only fatal signals interrupt
+the allocation loop.  A real fatal signal still returns -EINTR, and any
+other error still takes precedence.
 
-Hello,
+Fixes: 4dc8f4ee2d46 ("ntfs: handle signal interruption in fallocate")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+ fs/ntfs/attrib.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-The baseline test stopped first at WARNING in __fsg_is_set. Please test the attached f_mass_storage patch so we can determine whether the original WARNING in usb_composite_setup_continue still reproduces on the current USB testing branch.
+diff --git a/fs/ntfs/attrib.c b/fs/ntfs/attrib.c
+index 848a0d338b89..5f761a3b29f4 100644
+--- a/fs/ntfs/attrib.c
++++ b/fs/ntfs/attrib.c
+@@ -5708,7 +5708,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ 						goto out;
+ 				}
+ 
+-				if (signal_pending(current))
++				if (fatal_signal_pending(current))
+ 					goto signal_out;
+ 
+ 				vcn += alloc_cnt;
+@@ -5729,7 +5729,7 @@ int ntfs_attr_fallocate(struct ntfs_inode *ni, loff_t start, loff_t byte_len, bo
+ 					    try_alloc_cnt, &balloc, false, false);
+ 		up_write(&ni->runlist.lock);
+ 		mutex_unlock(&ni->mrec_lock);
+-		if (err || signal_pending(current))
++		if (err || fatal_signal_pending(current))
+ 			goto signal_out;
+ 
+ 		vcn += alloc_cnt;
+-- 
+2.25.1
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-
-Thanks,
-Keisuke Tsukuda
