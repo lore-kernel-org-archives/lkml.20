@@ -1,64 +1,64 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6657A4279E3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:58:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95D2230264
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767937; cv=none; b=pGTSd8MTrQloEUQhm0tZvN5/J+ioP7GbzOydeHEn4yQJpvKddfRnwhOhi3YwZ6ZfmPd2fPYjn+KRq9hdGwXzRRVSkFa/GlVmCYAlWfBNckbj2RVPQCaHlCs5xbChdHawLo9IQ64nV0hU+uTdsMYsElJJJTIURxmttLPbpwAh4fs=
+	t=1788767944; cv=none; b=g1glxr1IEJ9Kf96TeVj2aox3DlA/tgSSPzQjV0EeTv5kmKYbWSlYyqURjM6gFA7P7kE9iBY9hbuoK4qIhq/0BJp0RyWM8zj4MYBIhHHyvpdouoXcyEizcXhDZm62UP051AQq/+SUUY6b9TRHs92xjqahZMaKzrG1vEBDu5i/09c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767937; c=relaxed/simple;
-	bh=y+BKA/RD4U8D0pkVHR30bN2c+9yOk5iGeepHr0HLGn4=;
+	s=arc-20240116; t=1788767944; c=relaxed/simple;
+	bh=YCbEy7LvZ4zvg5lCpybvZOkKAZyBBdYj0Er77Bwz/GU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f8AMX7iJKg90U37LvPNi2vTrsLF8jXGFVxHSgWF9D8LT3YzPl/tu4HswfDYstf94WN0XOsiPSxf+tPAhM21BU4KSYY94hhr+QE5BhIoB8A9gt1lqFIgBik5DrOHekpA3q+SWz7HecGNSU/6hNpbvWW/a7w43V/dvA7g0CMOlckY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i/bOgsdq; arc=none smtp.client-ip=209.85.214.169
+	 MIME-Version; b=bIbcqogUL7OI34Nl512PWBl4ieGs9E+U4dKCEGdm1BnkeNAUC9+BageNzmH8hrAyx1B+/ymfNYyuqsq2BnBWwMZinJj3sBxJkTG5Sc96TanHgz74uL7tECpp5UtYfmvWBW6KQJPS9vpgbaXeAKzgNWddTs47DSiBGQpTwJ32vDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YMfJaW3x; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i/bOgsdq"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d8f265cbe6so23814175ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:58:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YMfJaW3x"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d94c868ea5so32931715ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:59:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788767935; x=1789372735; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788767938; x=1789372738; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KuHltOQMtvIyLbH/3yCpfQv67OgWo+va2cml6EO5eig=;
-        b=i/bOgsdqUnJPDVyhp+B8Er/UUqw3aAaPqy/Mhp8NjZllVUcyQu0q9wJlqS2ecdz7/D
-         xPEQ+m2aXsEDR3twb9ZPr7f7TZl5J6THBp9s77X4gFYApSAcwucVWFbgsesAUhLYzMy4
-         KWfTHXBZwAWfgI2vM2ADgv2Vua7JkJ3bC3zTkCGGr2+GIqHA3mM0aDWE+QJ4x297XZXF
-         2xt38x00Q3Ya1ihZz4inxVXFd1J56bfoAkVBLtzIax0X2eIT5dqxuTZp8e1/wUInAxli
-         xHoxiTJFGWx/efVcSUZpTJ088K8juqn5rS+Rb66ickN5N5QroCu0hBRrajfMmi0Pmb7s
-         RSzA==
+        bh=KWQbirqnoJrko/xoiAbUUJU+D4b2sHL+OPlLYee7Yc4=;
+        b=YMfJaW3xPWojgT0rx1bnlGosexhl8K0YxO0WFAi+mOEfpFNqcE2XD0SD7bH/uJVUtj
+         StEuviRmP9ZGCgzO/0qtOtY/k6yqgS60GFyShfHRi1y6fn9sYchxWSpVddkXbqqC/rLQ
+         ta0fM03WCSya4glJTHaSQhfH+VUgRQ+n/1bgLwe4gUkatk1tQ+xpy5o5Ij5yGEbw4E1F
+         yxLMnice7htvdOwbiNEcdrOyj+Ij+kRwX+U5bkUmvu+nRE+xF4JZ6vWtyQXMUr40HexE
+         RJxNIV2XTn5PWTGCVJM+3slxy9TGFLe3PZytYBrpSzFsuD4rFpHpwlmWnClgs3a0ODms
+         +UEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767935; x=1789372735;
+        d=1e100.net; s=20251104; t=1788767938; x=1789372738;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KuHltOQMtvIyLbH/3yCpfQv67OgWo+va2cml6EO5eig=;
-        b=PHCn8ikzMBMbfOalitynId/h8FTs9K9yEwmAnqx4Hwr266NqkElo8GBXiivaDHyvt9
-         tQJL7Zqbg3kb/HWQROjbw7eOeACK8/ewnZjLrCj2yMiaXZoWOXnTwFy/Zqn933osADF8
-         z7+y7HtqW3OxgIAD5I97RZnYE5yPLN+afFg//PvtqD6/6GrT+iuBQF7aUB7KmQ0vETe+
-         jtWEy0bKuNmBYII0qQ4K9cW4aONAtPsEvJWgTci+aH5o+OxA1QBJXAfslclt5YboOlkv
-         Zv0QD5+7Y9UlLNpGTZkjfxdnwoac6nWWWdTd/bCrdIO+cx7lStTXZwtuhcVyfZZcvBen
-         4uuw==
-X-Forwarded-Encrypted: i=1; AKwUvBy3Bmss27QjAInUDGI4hObsguGiWx/92W1KxVONTzTHoDq5jr6vzaetLIPo61Sl4DtwnH3YtuH3quSwHRg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nzu5bBYH4pgLcxhofFR8qgOzIDCHS85OJHKxH1zuYJCYSUzWn8
-	Ap0UedSRoMoOJmhRYtU6Yml6h4VQqg2LY/LjNe2On4CGvPF2z3VTpXs6
-X-Gm-Gg: AYBFou108xRguE4nxr7HwFL9czp8DK250ZET067EPRysl7rffu073awgpiriD0LDzhv
-	3/ZWwnWnsWkASlPy6AE/lUNuIUnsXcHjLAOE5XOf3obRW608UaYq5NN8z+QqDCCs8E5DW/rZDId
-	DGQFhu/lLf0rxcKhpwfM7uqfhQ3bN7HRA337KKMdu3tI3M7zsvJ6DQjXmc/NGB3QHt/ycfmhXhC
-	wMck8gS/gIrclQ5bXEDuMlS7uzB7SqF3ODm5b6J0gXOEgSSCDHcb8ovOkuyt2/8RapcmgM2OAQm
-	uSrVCs3eAmUHXAhDAE+I/9JDtSMhVacKuZQMIc95bI23ZHtO1JLUPXaRh1mHOWP+Of2AIDTDcyS
-	uCQNhw2w7z3Yk4L9ginaD3KQhCAUXcAEZ4mY9R42GguHJAzgwmGGBvReKHL1tD3nzJIBbKPhgJ6
-	lTdW7IpK+e7rbzSX8o1d0fynDSIJrQrc20vTPJOsfKT5PBBoOBhonZ3FImllK3oG55K6dW5MXyr
-	0jRgqg=
-X-Received: by 2002:a17:902:b114:b0:2d9:1dee:43e3 with SMTP id d9443c01a7336-2db12757f17mr202313705ad.18.1788767934067;
-        Mon, 07 Sep 2026 00:58:54 -0700 (PDT)
+        bh=KWQbirqnoJrko/xoiAbUUJU+D4b2sHL+OPlLYee7Yc4=;
+        b=gxuBkrszWlGT/AcqzcYax7Pql6G7yhCSPz9tUX2bVdPAIvVpfsd3CMHummpjPNMDO0
+         +JtpC8Z6LSqVSBtBW7V16xm7Whyh1zvMWVU95vRHjWM0sVt64gnaD8xPixCEriyZ3n2A
+         W231NCOBzzH66tW2sD2M/MFB+56+ntmGR1Q8u64hR7L1lrXifS4u5Gu01DJdIvTorL+6
+         eM8TRAQ/P1d1gqAgtig8tEOjbAglCsO+jjmL+OXRooUWPKGav3gCIgoEoFwL99KKYtQy
+         WgRDX9E24/zNlIALMYchdwyBN/Kj346vk7vnmMBGd9uoBdXL668FvbvKmFLtHc82s6qL
+         bU5Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxYOK+xH5HeauWu2N5bp4zBT1QtJgtjdAvcFOlS6YUb4EG2xUF0NvOh5Q0zyoU4lIWGGNFcAGHbLZMBwUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD1qaOvnhG3VdBiE5upV983Dq92nXTME8qUg4sMD3NJ4ju/36O
+	JMWUd++TBMtPmHVul1KxB4Jgr/JE+3qclvafrAhClMzPOW2PX+n9NdWD
+X-Gm-Gg: AYBFou3Y8jBItZfhsqllbtgHU9pIXl46Jc0aQMuKD+TV2UW/Rg6fvycsvk15Z5Y6ZX3
+	pfY13DlpB5tePrtCpvazml9+N7aGPn6aYKQwVNY5/HgcYbyyfvdAMfmreKgbihs+sUMtjRy9DcZ
+	P7vUOzAs495G4oRYaor+BBqWdZx+qVo2GBdSNPCy7a/XfIlJgxOgfJLXRdqYxfCq5dluYB5vZhv
+	gKazRetJUc+i4SFd/6Xl6+00etMx0hPsmcIcWeLUf625GUjN0LrQVDBUXAxICW9vZwbWRS4prlQ
+	yQIeCaAA4dCcqsE3nzUupnrOGWBeTgrjTBtV9miWOESmLCIDH1WLr8HuuYTZwvcaCNdU2bP463K
+	LwH5UMXirZ6GT5YzvbGc5HXb4gr+t39EzGA+R1Zvi47KsnLh415L4pWVBGVZkAmsVbxQ9hn80uA
+	N5rtYxVLe60c2jikY30nRlEcFE5FouxLyVuYIUTf9bXT1NixXxmBjM4iKU2ULlxaffr6Wf5losY
+	gCMH4o=
+X-Received: by 2002:a17:903:13c8:b0:2db:56da:6a0e with SMTP id d9443c01a7336-2db56da6ea1mr65563755ad.9.1788767937845;
+        Mon, 07 Sep 2026 00:58:57 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.58.50
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.58.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 00:58:53 -0700 (PDT)
+        Mon, 07 Sep 2026 00:58:57 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
 To: paulmck@kernel.org,
@@ -69,9 +69,9 @@ Cc: rostedt@goodmis.org,
 	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH 03/13] srcutree: Add reader-free fastpath to synchronize_srcu_atomic()
-Date: Mon,  7 Sep 2026 15:58:19 +0800
-Message-ID: <20260907075829.2073224-4-kunwu.chan@linux.dev>
+Subject: [PATCH 04/13] rcutorture: Add atomic-SRCU support to torture.sh
+Date: Mon,  7 Sep 2026 15:58:20 +0800
+Message-ID: <20260907075829.2073224-5-kunwu.chan@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907075829.2073224-1-kunwu.chan@linux.dev>
 References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
@@ -85,93 +85,92 @@ Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <kunwu.chan@gmail.com>
 
-synchronize_srcu_atomic() is restricted to srcu_read_lock_atomic() and
-srcu_read_unlock_atomic(), whose read-side critical sections disable
-preemption.  In the common case where there are no readers at all, the
-grace period therefore need not do the index flip.  Add a fastpath
-that sums both ranks of the per-CPU ->srcu_ctrs[] counters and, if the
-lock counts match the unlock counts on both ranks, ends the grace
-period immediately, skipping the srcu_advance_state() scans, mirroring
-the similar Tiny SRCU fastpath.
+Add the --do-atomic-srcu argument to torture.sh, which runs the
+SRCU-N, SRCU-P, and SRCU-T scenarios, thus covering both Tree SRCU
+(SRCU-N and SRCU-P) and Tiny SRCU (SRCU-T), with
+rcutorture.reader_flavor=0x10 appended to the boot parameters so
+that it takes precedence over each scenario's own reader-flavor
+setting.  This exercises srcu_read_lock_atomic(),
+srcu_read_unlock_atomic(), and synchronize_srcu_atomic().
 
-Correctness requires the counter-sum proof to follow the grace-period
-anchor written by srcu_gp_start(); placing it before the anchor could
-let this grace period miss a pre-existing reader and return without
-waiting for it.  The smp_mb() between the unlock and lock sums pairs
-with the smp_mb() in __srcu_read_lock().  The grace period is ended
-manually under ->lock and ->srcu_atomic_gp_flag.
+As with other torture.sh tests, the --do-kcsan argument runs a
+KCSAN+PROVE_LOCKING variant of this test.
 
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- kernel/rcu/srcutree.c | 48 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ .../selftests/rcutorture/bin/torture.sh       | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
-index 7dd705eec573..533607de5728 100644
---- a/kernel/rcu/srcutree.c
-+++ b/kernel/rcu/srcutree.c
-@@ -2113,6 +2113,8 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- {
- 	unsigned long srcu_state;
- 	struct srcu_usage *sup = ssp->srcu_sup;
-+	unsigned long rdm0, rdm1;
-+	unsigned long unlocks0, unlocks1;
+diff --git a/tools/testing/selftests/rcutorture/bin/torture.sh b/tools/testing/selftests/rcutorture/bin/torture.sh
+index f0083891ee81..8885812d866a 100755
+--- a/tools/testing/selftests/rcutorture/bin/torture.sh
++++ b/tools/testing/selftests/rcutorture/bin/torture.sh
+@@ -68,6 +68,7 @@ do_clocksourcewd="${ifnotaarch64}"
+ do_rt=yes
+ do_rcutasksflavors="${ifnotaarch64}" # FIXME: Back to "yes" when SMP=n auto-avoided
+ do_srcu_lockdep=yes
++do_atomic_srcu=no
+ do_rcu_rust=no
  
- 	// Initialize.	Either init_srcu_struct() was invoked or
- 	// DEFINE_SRCU() or similar was used.  Therefore, no allocation
-@@ -2149,6 +2151,52 @@ void synchronize_srcu_atomic(struct srcu_struct *ssp)
- 	srcu_gp_start(ssp);
- 	raw_spin_unlock_irq_rcu_node(sup);
+ # doyesno - Helper function for yes/no arguments
+@@ -103,6 +104,7 @@ usage () {
+ 	echo "       --do-rcu-rust / --do-no-rcu-rust / --no-rcu-rust"
+ 	echo "       --do-scftorture / --do-no-scftorture / --no-scftorture"
+ 	echo "       --do-srcu-lockdep / --do-no-srcu-lockdep / --no-srcu-lockdep"
++	echo "       --do-atomic-srcu / --do-no-atomic-srcu / --no-atomic-srcu"
+ 	echo "       --duration [ <minutes> | <hours>h | <days>d ]"
+ 	echo "       --guest-cpu-limit N"
+ 	echo "       --kcsan-kmake-arg kernel-make-arguments"
+@@ -148,6 +150,7 @@ do
+ 		do_kcsan=yes
+ 		do_clocksourcewd="${ifnotaarch64}"
+ 		do_srcu_lockdep=yes
++		do_atomic_srcu=yes
+ 		;;
+ 	--do-allmodconfig|--do-no-allmodconfig|--no-allmodconfig)
+ 		do_allmodconfig=`doyesno "$1" --do-allmodconfig`
+@@ -183,6 +186,7 @@ do
+ 		do_kcsan=no
+ 		do_clocksourcewd=no
+ 		do_srcu_lockdep=no
++		do_atomic_srcu=no
+ 		;;
+ 	--do-normal|--do-norm|--do-no-normal|--do-no-norm|--no-normal|--no-norm)
+ 		do_normal=`doyesno "$1" --do-normal`
+@@ -212,6 +216,9 @@ do
+ 	--do-srcu-lockdep|--do-no-srcu-lockdep|--no-srcu-lockdep)
+ 		do_srcu_lockdep=`doyesno "$1" --do-srcu-lockdep`
+ 		;;
++	--do-atomic-srcu|--do-no-atomic-srcu|--no-atomic-srcu)
++		do_atomic_srcu=`doyesno "$1" --do-atomic-srcu`
++		;;
+ 	--duration)
+ 		checkarg --duration "(minutes)" $# "$2" '^[0-9][0-9]*\(m\|h\|d\|\)$' '^error'
+ 		mult=1
+@@ -497,6 +504,23 @@ then
+ 	torture_set "rcutorture" tools/testing/selftests/rcutorture/bin/kvm.sh --allcpus --duration "$duration_rcutorture" --configs "$configs_rcutorture" --trust-make
+ fi
  
-+	//
-+	// Fastpath:  If there are no readers at all, neither grace-period
-+	// scan need wait, so both can be satisfied at once without doing
-+	// the index flip.  The counter-sum proof is the same as that of
-+	// srcu_readers_active_idx_check(), but spanning both indices.
-+	// Atomic SRCU guarantees that all readers are of
-+	// SRCU_READ_FLAVOR_ATOMIC, so the SLOWGP check never triggers and
-+	// the ->srcu_reader_flavor masks returned by
-+	// srcu_readers_unlock_idx() are unused.
-+	//
-+	// This proof must follow the grace-period anchor written by the
-+	// srcu_gp_start() above, never precede it.  With the anchor first,
-+	// a reader whose lock increment is missed by the sums below cannot
-+	// have incremented its lock counter before the anchor, and therefore
-+	// cannot be a pre-existing reader of this grace period.  Placing the
-+	// proof before the anchor would let this grace period miss a
-+	// pre-existing reader and return without waiting for it.
-+	//
-+	// The smp_mb() pairs with the smp_mb() in __srcu_read_lock()
-+	// (store-buffering pattern), which guarantees that a lock is always
-+	// counted if the corresponding unlock is counted, the same
-+	// memory-ordering guarantee as is provided by
-+	// srcu_readers_active_idx_check().
-+	//
-+	unlocks0 = srcu_readers_unlock_idx(ssp, 0, &rdm0);
-+	unlocks1 = srcu_readers_unlock_idx(ssp, 1, &rdm1);
-+	smp_mb(); /* A */
-+	if (srcu_readers_lock_idx(ssp, 0, false, unlocks0) &&
-+	    srcu_readers_lock_idx(ssp, 1, false, unlocks1)) {
-+		// No readers, so end this grace period manually, skipping
-+		// the index flip.  Advancing the sequence number via
-+		// rcu_seq_start() in srcu_gp_start() above and rcu_seq_end()
-+		// below keeps get_state_synchronize_srcu() and
-+		// poll_state_synchronize_srcu() working, all under ->lock
-+		// and ->srcu_atomic_gp_flag, which excludes concurrent
-+		// sequence-number updates.
-+		raw_spin_lock_irq_rcu_node(sup);
-+		rcu_seq_end(&sup->srcu_gp_seq);
-+		raw_spin_unlock_irq_rcu_node(sup);
-+		WARN_ON_ONCE(!poll_state_synchronize_srcu(ssp, srcu_state));
-+		atomic_set_release(&sup->srcu_atomic_gp_flag, 0);
-+		preempt_enable();
-+		non_block_end();
-+		return;
-+	}
++# Test atomic SRCU across Tree SRCU (SRCU-N and SRCU-P) and Tiny SRCU
++# (SRCU-T).  The reader flavor selects srcu_read_lock_atomic() and
++# synchronize_srcu_atomic().  Tiny SRCU requires SMP=n, which aarch64
++# does not support.
++if test "$do_atomic_srcu" = "yes"
++then
++	torture_bootargs="rcutorture.reader_flavor=0x10"
++	configs_atomic_srcu="SRCU-N SRCU-P"
++	if test "$ifnotaarch64" = yes
++	then
++		configs_atomic_srcu="$configs_atomic_srcu SRCU-T"
++	fi
++	torture_set "atomic-srcu" tools/testing/selftests/rcutorture/bin/kvm.sh \
++		--allcpus --duration "$duration_rcutorture" \
++		--configs "$configs_atomic_srcu" --trust-make
++fi
 +
- 	// Wait for it to complete, helping it along.
- 	while (!poll_state_synchronize_srcu(ssp, srcu_state)) {
- 		cpu_relax();
+ if test "$do_locktorture" = "yes"
+ then
+ 	torture_bootargs="torture.disable_onoff_at_boot"
 -- 
 2.43.0
 
