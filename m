@@ -1,77 +1,142 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A913A254C;
-	Mon,  7 Sep 2026 18:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF12235DA47
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788807426; cv=none; b=Nrb1Bgpk2Q2tJBtTEYpFhK9AF/c8PNIez1ugequInUD9OjwnqgSK+8951KXb8b07Pkq1G0s98Ke1RoF8W7S7zmP7okXd0AiQltS0T4KAKVcmR4Vt+A1C6nNG1+F9rhO1xLPb5kK9TrgcYBjFteiRrg+dj6c/kpyA3FOCcJxYcgs=
+	t=1788807502; cv=none; b=qvlmXifysebJDtsnOiGXtAhJiSzn2IcBj1hZ/K425bns/tiBfliN3lGQMbARsAy8x2wX+KkoaY0XGg8yFEWgZ1KtuES9pHHruCLHE5QrWJvVq9WX+w7LHvTwy55QMPVdPYibJ3KxeWZki5c/onC8lhwctw9urJ0CcOjuSTiMyYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788807426; c=relaxed/simple;
-	bh=yUbDhVJszfsuJ8wED5O42ImI8IY8bIMOaw/b+/NOwxc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L4QkR8mhKB0vgBxSiFLvhXSSYBs02q0qY4LtwqRPALtH6kO/yqD8tjJtWjWNp1LLtyFOsYn0SWI9hOiyR0VhaeLW6NE5vUaPLPpWbo2mP+OJed00+c6EY4BFehkspxAMWKmEE1cdI8Zz6yIo9ZbdkPUZdSlUP5xWnky2HllSbTU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=pWGOO6qe; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788807502; c=relaxed/simple;
+	bh=zzYO/XunMoMFOVCtlY1UeUm4OpE+IxjGPw7rtT4TFkg=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=SmiSfzDkWLo7s+ppUgGPxcnZ03uZ0Jkzr4n3IyFsv7AoY8yDeT0jeqg55teUDweNa3Qnfo+P/0M2v4adgGOK6ieZLJNeSVjtW/RotN7Lr/CRo7MyH/b0HW9AW7nzSX1apSTFEZJf4auzFyr6haxLlXlxE7ufD92t+i9HiCm8r+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kZdioRrx; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="pWGOO6qe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Iero7y6MF946V8B6Q2ByJCfiNWDFBRPzga56lAEBewI=; b=pWGOO6qerkyvSlOhntGXoGROoh
-	7ZVY7F8v8U8FUwEs2D+Kg65+bfpVMZDZu1Pud8A9tfNb4mhh1Ckq5udPG3B9ZuBpNHMp0TDa6PRbV
-	soD00xMc+dUKiKC4KVSh8A5gPBah5YpEmfBNU7TS48tVEijqFw5mguEv8u5oAaTILCyM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3eWW-003bR3-Kj; Mon, 07 Sep 2026 20:56:56 +0200
-Date: Mon, 7 Sep 2026 20:56:56 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-Message-ID: <85b4b052-e97c-40b8-b434-de1b6e3af1b5@lunn.ch>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
- <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
- <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kZdioRrx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788807500; x=1820343500;
+  h=date:from:to:cc:subject:message-id;
+  bh=zzYO/XunMoMFOVCtlY1UeUm4OpE+IxjGPw7rtT4TFkg=;
+  b=kZdioRrxREpOY/0D2mGF50/hg7EFbeHRgE0kj1xCjuhI62KlN7gF907+
+   tAFIe3nSRRdyiaHViM9N4uJNDwYkAalKNjrEXAkDvZCPSmtMhXWo55kQ2
+   8CJMZaYXB+VrNI6uZQPAl+nikoPlspXimNpXoY3R8tvbMZ/pyuolee+pO
+   BH3QeAUYCbkLV2L/VX/8+YlRt2AI+UUMNlIrExEhFK8OyullWMbs+3nYn
+   7bPwU9d8xJC8AfnGi4ubgR0pVFUzx5NXpbzqy96TLqVlRekK/1oz/1+2r
+   NF/vKLGFqozoGwgjT1Ww9QuJ83tkWYljKbkpOuhcLYPNVhb7LRJj6xpos
+   w==;
+X-CSE-ConnectionGUID: 3A1v7KJRRT2fGqnZMrZtSA==
+X-CSE-MsgGUID: h8rgoOMWQnS2wDX1XDI6hA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="88145595"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="88145595"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 11:58:19 -0700
+X-CSE-ConnectionGUID: /OJEFyfHSFG5OsBWRslHgg==
+X-CSE-MsgGUID: 0UzyVNM4Q4WtbCZFXSi/lw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="295670640"
+Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
+  by fmviesa001.fm.intel.com with ESMTP; 07 Sep 2026 11:58:18 -0700
+Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3eXn-000000001FX-2kNh;
+	Mon, 07 Sep 2026 18:58:15 +0000
+Date: Tue, 08 Sep 2026 02:57:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: "x86-ml" <x86@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Subject: [tip:irq:drivers] BUILD SUCCESS
+ 13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515
+Message-ID: <202609080245.yXPJorg2-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
 
-> > ethernet-ports
-> > 
-> > > +    patternProperties:
-> > > +      '^(ethernet-)?port@[0-9a-f]+$':
-> > 
-> > ethernet-port
-> > 
-> 
-> Is there a reason for such a restriction?
-> The pattern intentionally follows the generic DSA binding in dsa.yaml,
+tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git irq/drivers
+branch HEAD: 13ca1c0b7d8a3ab1e59cb3e780c1dd7441e22515  arm64: dts: qcom: purwa: Drop the Hamoa workaround for PDC
 
-You need to be careful with the DSA binding. It is old, and uses some
-things which are not considered best practices today. But they cannot
-be removed because of backwards compatibility.
+elapsed time: 4512m
 
-	Andrew
+configs tested: 65
+configs skipped: 0
+
+The following configs have been built successfully.
+More configs may be tested in the coming days.
+
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    clang-24
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    clang-24
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    clang-24
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    clang-20
+nios2         allnoconfig    clang-24
+nios2         allnoconfig    gcc-11.5.0
+openrisc     allmodconfig    clang-20
+openrisc      allnoconfig    clang-24
+openrisc      allnoconfig    gcc-16.1.0
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc        allnoconfig    gcc-16.1.0
+parisc       allyesconfig    clang-17
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+powerpc       allnoconfig    gcc-16.1.0
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv         allnoconfig    gcc-16.1.0
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-17
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh            allnoconfig    gcc-16.1.0
+sh           allyesconfig    clang-17
+sparc         allnoconfig    clang-24
+sparc         allnoconfig    gcc-16.1.0
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa        allnoconfig    gcc-16.1.0
+xtensa       allyesconfig    clang-20
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
