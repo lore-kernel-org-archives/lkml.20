@@ -1,219 +1,118 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010052.outbound.protection.outlook.com [52.101.46.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F76737B3F9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761429; cv=none; b=hrQMrrDqFNjGtonRmAh9QPebIQhxrzGSiQywHINLsLFdO8zu2HxEkpQOK4mAGEF6MqTnrQFeVfspuEHZtlbP3aDR8kFP6aKy3h7eU94RPQn0Ux00i6kKZ8YTULuHBcQgskmHYA6UvN3rLrs7uEkSSMBsndIkeAzQnbHcr+u5hlM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761429; c=relaxed/simple;
-	bh=uKvph3KqsqlNSygkxaDcCyhZG/MLEECkqBgY3R9Y7J4=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=FnwL0deTkWZ5uFfhz4GzUf8hytfsYgnv/WOGyeFPwq3psxWRYIcBAubEY4KxpGI3w5pWz4gCeiQdbLjrEEnxY11Uszv4csDSv/cZEvE5CRVTGPAga9g1/zWusk10HpVJYnftkoF+qas5nvQtosvhhd/8dSNRt8ueGcgsz6T3ioE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l00060uw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b3sSLzaW; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB9C2512C8;
+	Mon,  7 Sep 2026 06:11:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788761461; cv=fail; b=PfZIuRrgf5m2z641pBwvRUvsjcLIdXZI9ZmQCUo9byhCbOZBlkwYuChsm7K7EsYxPVPpH23zxFr0VIsHqMcVrMyk/bzc6yNH/MQpbljvDORKfm4uAKGilrCteQyADKlDu2q/U6qMeLn+EPTPNSeS5ckzZh7O8jk3l9z8lNCj9/M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788761461; c=relaxed/simple;
+	bh=ghP37LM/uP+412tuzi4Dl7xqXWdxunAZdbVrWBD2SrU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DJhzNKDd7lNwH3z3tNOYR0qtuGt3u50IGXoZinVxwoALqo1/Fcn8bZnWi3pb1pxAYBDHqHGJUmFCRcwnVOhXcyqXZdKVjVXKrfj8AN0z3fVnDfNw//6Ahve5DTCbz26OCadzFo9MtCNBpYTlq2j2k9HrbvT5ZoVKjppXJA9CXtM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=PCFGUYTD; arc=fail smtp.client-ip=52.101.46.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l00060uw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b3sSLzaW"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873kpXJ2219064
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 06:10:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0GwZTL/Tw3KjZE00/XVK1Lv54tHmA9eHgESSYMxmbQ8=; b=l00060uw5ekunLHl
-	nU7YLFXfWbUtk5HhYXGStmy2vk7mdIyYF1DbFCGi1oRt7Hzm43n4Bk7taDZC9ks3
-	dbJzY0bo6//RYJgtG9KOai0wJ2unDL06FWVOLAstDs9OFO0VIF4Oig/6jELSbdVu
-	gNBIOLztbGP30rDmVD1YSvf8awrU49J30rmeCrJlxxKmr7J3+E3eFQUsK/fKGTDQ
-	9FFX3IsJA5QP5iYpkCiz/0guZ0rhPtaETo1l44V/lN3W6TPWUQgCjsPv3ck3sDO7
-	53sCooFtbXPKoMBf7vz7SX8v0UwfE99jcaWpu5sddOqJp+EH+LAg2Nr9GP70BNZN
-	8CHf7g==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggcca53vw-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:10:27 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1a439db36so3295067a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:10:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788761427; x=1789366227; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0GwZTL/Tw3KjZE00/XVK1Lv54tHmA9eHgESSYMxmbQ8=;
-        b=b3sSLzaWDxSzJ47xx5XeMedR6pBPygADAKP+n2ublmn0800riorf9pcJXER0nm1na4
-         iNeqjynvnV8mSy9bC9w8ZR3TpOwR5eMHuDsf/O0zn2QQQO55PgLz7CxGxUGHN8L6RBOT
-         e1n194AP/3ehXCzfRjHHeGrrypl+/REsWTjUHjjRj0lckuMgugdpw/wKNazf0RWYJjPC
-         icfKWa6s0dPBuSfyLfg54lGzZ4wWLktNh2SHlgyM9iW3SXEUIEnbpQzm++b4quU9uD82
-         Ki7/jNWubW65jZL+9KuwzkdIfFq40A69Xry5e1dT5v8eH032Z9fIL0UpViRR2Hw8d4QD
-         LxaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788761427; x=1789366227;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:from:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0GwZTL/Tw3KjZE00/XVK1Lv54tHmA9eHgESSYMxmbQ8=;
-        b=mWYIwaUj55cqNofyzPVo8f2XyJXjo1D0twL8MfMHrXyC9vAQ6uolYfwUC8n48oy0DU
-         qQFS6Ydl0FI1xU6AIUJXNFlhewKmW31fY9Q50eAWgMbZhG4lL6I/Jabq3Cds82fqYbO+
-         oeJU5LHsCQyuuaiRGfhCiTHdv6X7fmH4oyoIfSYw/eg7gQee/UUy2QmWBIELaiVgVdiJ
-         2NvFAbfDUatieREDqc4SYclDPilkdgkzb316RkHI/T24S5WbiRmYK32+RB8Rwd6NrurM
-         ZfjuzfAcQ4BDWwZvDzT6OTxCJs5XCxRUQ1UwD81n5f553QMrjyjUr46ewitQgKrojg1g
-         w6Xw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/Z37dQAdA638lTqfmsnT5BbZ2t3j9Vhr4OrAYncYsvkMoQKk32GZGGhRCzG03jKjZdNJ3M04wM5lQS0k=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/C0FN6/fyJItA5aa56TLBJGu0rYDgfQyhz6XKPrDp40l9ubw9
-	Q04l8YrMf6Wczx5P19WuRMJ9z0wEr7beORM0z+Uheoz1b4LG9R02jANxO+yPEe9g+t4hbJQp9H/
-	KhHYu1h1ZUJjmmIHlGKqYdsT6eV0Gpxvm69TViyMLFuqLwMjx1yeWuFysAQeZiVVXxwJk3ePROJ
-	4=
-X-Gm-Gg: AYBFou2XKJWMqv2VknpVbRWN/se93oE8OAN8UO2ScxLudUmnkPfBkh39RH+5lQcWyCl
-	1SUtgD4NuvZIAQTv4fSww6ssVxQkJ1nIOvyECIwmC2uT8mHkI3XK/bOFMY/wBTXACPPLJtQvRYg
-	yx+OxggwHADbLWBDRCltaOlYBNIPW4nET0C2NaM9jb2NG+NQgwT9h1EVoEK6jJgy6Fwf3EJ7KYQ
-	FbOI7c5xK9nz9fXmb5fRclWhSYvrG6OTESXEvuXSstdr2Jc+ZBs6nG9BxFxoXvJIopYTgNGOOhr
-	dmOBzaXM6vhiQ2yYvtBem317zm1h7xsXRkO26VjsUipwOHrGS8AzlB5MSLoWthHRcK8d7o3GhKe
-	UlBcZ8YL2TUQmStZnp0DnvxpNFOqnB3h31A==
-X-Received: by 2002:a05:6a20:e607:b0:3d3:ae51:181e with SMTP id adf61e73a8af0-3da3a16ab56mr32340405637.26.1788761426842;
-        Sun, 06 Sep 2026 23:10:26 -0700 (PDT)
-X-Received: by 2002:a05:6a20:e607:b0:3d3:ae51:181e with SMTP id adf61e73a8af0-3da3a16ab56mr32340353637.26.1788761426368;
-        Sun, 06 Sep 2026 23:10:26 -0700 (PDT)
-Received: from [10.217.219.15] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333959d5f69sm23683829eec.0.2026.09.06.23.10.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 23:10:26 -0700 (PDT)
-Message-ID: <c2bea75f-786b-4bf7-bc15-0509609663cc@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 11:40:20 +0530
+	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="PCFGUYTD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wlwce6byimiYKA7ws8PylAk3A0W5eO7AuQQ8utKQQwml/NUIqzeU5Czp3i63fP4XYTuDUxEmvRSdD0QpMHxySrnf7DALaAXovo5RtjkhgQFbOGgKLtLbqFVUcqZ2Y8dwRfeiSiAzmkgySJ386KDsRbRj0x0xpBnoJxndcXjl6DJJ7ZF8eoNFx79LjeN9f0LRmrXIVlNe/rsa2uIiZdXUEzfmNoUviLqhjp4iBhBvsUqiyLt/v+PzARVE+p/mw6KHbn1WPuvotESKDajv423DEElbtTo7fjxWoS5krAJtLZaO8ALgGNU/cOxmjJIubC4FtGdE+dpP+Ld3b8XYMP9jyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PIGz7hkh1JLUWmN8+M5d948EhmjRlHePmb+QrUM2OXo=;
+ b=f+CgPQSUv4fnbomptfT+18uUWdbtIVDCt9KnzmVMLbIWMucjkyhMAdB+mZM40VB4Y+GtPRhRzSEdWo4o/acGzEJvTN4cDpe18Kh7z6/NU/41WYcXUL24m6/Wrvk3Ri5HH1OYXJPqUSJv0zqRLjBiMj+XkY4MrVrCnFx+Eb0rqoLp0jooMlNEkRguQi3wgCrF1VM7EKyrKruIr7MBExr7toL8v6lxxDRkmjnnGkHu2vE0ljdHLyyUCnzWswt0NFwbRbqtMyRBxQqdFBQeBdHGBxDfFgl6zWvAH+ShZtBbn1RTudp3UTTi6s63RaFgXwIvY6Xzdk4vgSWLIvBY1zi+ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
+ pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
+ not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PIGz7hkh1JLUWmN8+M5d948EhmjRlHePmb+QrUM2OXo=;
+ b=PCFGUYTD+pdAIUc+ZlrepynhgpGPfq4eEcfPIW5c/U1LLqa70e10Z2YZzkyk+2a5v/Z3D4993OPDaFxKI4Ycri5NB7bvQHEtQPZtRbVODE1ZBf1IbKKpyotB2t7p5vEFm6FCIj24re+8feBHDv5Ch9txI9Vc0gcK+X5i5LHjihAuQxesYkL2TyWpF7exJM+UMasq/9+8hkqTIrfY6uYxEBGPcviibZFgV61GEB4pohlAdnJ7jJFvzphkfVuTncDqFkoR8Ja59ibLogRuZDAc+EPAXqLp5Xft0zhPpVPWShQ+xumQhZt2yDy+eqApiGFlGxYTDnzdu9bsFpSUPenUNw==
+Received: from SN7PR04CA0003.namprd04.prod.outlook.com (2603:10b6:806:f2::8)
+ by BL1PPF71FD9CFFF.namprd22.prod.outlook.com (2603:10b6:20f:fc04::f31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 06:10:58 +0000
+Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
+ (2603:10b6:806:f2:cafe::4d) by SN7PR04CA0003.outlook.office365.com
+ (2603:10b6:806:f2::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 06:10:57 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
+ smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
+Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
+ not designate 165.85.157.49 as permitted sender)
+ receiver=protection.outlook.com; client-ip=165.85.157.49;
+ helo=atlrelay1.compute.ge-healthcare.net;
+Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
+ SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 06:10:57 +0000
+Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
+	by builder1.fihel.lab.ge-healthcare.net (Postfix) with SMTP id 25E00E4DB;
+	Mon,  7 Sep 2026 09:10:55 +0300 (EEST)
+Date: Mon, 7 Sep 2026 09:10:54 +0300
+From: Ian Ray <ian.ray@gehealthcare.com>
+To: budcomfort <budcomfort@pm.me>
+Cc: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jikos@kernel.org" <jikos@kernel.org>,
+	"bentiss@kernel.org" <bentiss@kernel.org>,
+	"buingoc67@gmail.com" <buingoc67@gmail.com>
+Subject: Re: Dell Latitude 7220: eGalax P80H84 0eef:c003 factory passive
+ stylus not detected
+Message-ID: <ap5VbrllY_qDf_Y2@zeus>
+References: <62t8PiydnEWbOsSM0byy1IRKtFwxg7nfDZUtsgbE_1liuwRpKtyKZYsYwOe52IZ--zdy1QJg11p8u13QajhgH25DexN-Fx71z5TSlcLE6Mw=@pm.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] i2c: qcom-geni: Add bus recovery support for FIFO
- mode
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-To: Jyothi Kumar Seerapu <jyothi.seerapu@oss.qualcomm.com>,
-        Aniket Randive <aniket.randive@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
- <20260826-i2c_bus_recovery-v1-2-203f0ec76f84@oss.qualcomm.com>
- <990a4ab8-bd03-415c-ae95-008cee7740df@oss.qualcomm.com>
- <6c9f2a00-281f-4400-94b1-55034ca9d472@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <6c9f2a00-281f-4400-94b1-55034ca9d472@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: mHp-ltFzdPXRrs6eRt0ZURCZEZRjswhi
-X-Authority-Analysis: v=2.4 cv=EJo2FVZC c=1 sm=1 tr=0 ts=6a9e5553 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=b-BypBxLjBlfuzumYdYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: mHp-ltFzdPXRrs6eRt0ZURCZEZRjswhi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2NCBTYWx0ZWRfX08WWBHIF+WaE
- TtzoKQIP4c8W7PVrAnigxX7XuW/iWpfObP6z1fwjvfgHNIRmIU5zAEa7mgiANDMfkSOcMrdW5J3
- K13VaJiDiCWBEfAl7AQwrtkRzdScJx0c12lTtnXKGOK+MQKxXbBZr0YECO2fg6vB2CSFHhgPvW9
- rQJLx8JOaqnz9+KgPsrxpJPnJReHZDc47lJwnbOYQbTxCXPNxGc3xSGlQWOPkkARjOeZkMsPtP/
- DkALRLaPk913IMpe0RYru/dnV+DNPSz49RL5tIF3YxRTxZTHj48NvNv+F4ZkEY6Sv9kEci76BtW
- 1pN42dUfTjJCHueaK5nL4jEZZN+cvv7Qoa647Pdx60WPzxAx3GXipIXIEQ9Km1gTZskmy2MaRLw
- yC7MvfcdUVT46RIJ9o3jjEUMmQunI72uCyGHFkBfDGIWwbMhzNk8OsraYDbyPlUzUwQ+ap/EFl4
- FdvuwneMjvCgDP2lMiw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2NCBTYWx0ZWRfX2KHHvyHU7SGx
- iJ8IxqtHBSkdSAtG3Ua7HTV/W5y5INu6kSkN5zI36dd/eB+5BlaCsYp1FWYq9mnws6cxzBF6T0W
- GJW5QgvDlF33MQFGTTdvwFleWwqeBPE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 impostorscore=0 lowpriorityscore=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070064
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62t8PiydnEWbOsSM0byy1IRKtFwxg7nfDZUtsgbE_1liuwRpKtyKZYsYwOe52IZ--zdy1QJg11p8u13QajhgH25DexN-Fx71z5TSlcLE6Mw=@pm.me>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|BL1PPF71FD9CFFF:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7541ac12-c8d4-4a5e-ea0d-08df0ca6c887
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	ijeH0skEWzmrCG8kNEwP0Pf6Fb7ohXvKkRAtUaD/Ik2Dhb0Dw4BzPWyEyoCmSF1sLXhf1Ie6bd9wHLnCFNXyfOoUNMVo+JaBvohFVFvrclxXjjZmayimpBINLKZt9YXNf6SbsM9Ozv2Ff8T63+ckFUDu+F19wDGKaWq7BGboRyauvg5EXc0wLbyOXWP6vxQP7+9fCawNKHVqM30x4rDAqWQHX0Wl0tD5mK5mGr2C3jrW3fZ567CxRG2WeshnsL7ebqLbq+bTlcUD6TK09EYritUmrB+oUcgJ+d8txUvYocjALFsyoAzozLMpElEadwWT+PUl/wZjXBS8JHvPlSdRblbgxr4oRNer0SyBJN+stAZoax89GcFLSz/ajzzbTp1ZVc68iKwPbcp5dW8g22Yr6y3t8hiJr7Y65gWWGE7ripnYhLz2IRE5qnWn/4plNHMYbuNP+7nnaF9OAG85n/HOp7ovKiHByGvdkI9apRGquMAUKuhU4s/DcdH5G9g3kV3e1lCNmmmNPjmEwqP8pqC4poiINM1uPj9iWIaimO9f5GrIf5x5/kJWUaTdpWXbSIZEGb5NwZhYbUf+gQljm5x+pjkU/WQ8esu8WtvrCXtDHUb0qnLzB+YieJiE5tRGIesZdGkMrdLNS8CZirpgCcxHnrU4cAxCeeuuoTsRMHze33gzRNTO6kSmo3BXU9fDDI5UxdTC2G8nMWDNymnECyHczg==
+X-Forefront-Antispam-Report:
+	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XG+SifmIKPn7/V9Ry98QBN655eV/fHTAwJJdjtwtndxoIGmeO9H1BQT+7l/emUbGVNMMdpHm/0IJZFzpVzrWcBLmSJc4cpC0t2Yim+MUoW9+S8WHAU0XKNd2URBCNUhGZX0UDmjKoBAl8NjOJtHx8NoqTa0/SXmQqbONlGQtxoAjWQFEy3oRC1Yq5O5GX9KE9KjOq6orixfrluaeXAKOg9VA0p1b7f4bSGGGPy1YMMFs4DDLZXnmtFmVjn2/480UBLeGcDTlcWnYmYmaKmwStvGuuiX4c7gawRp1pnPEjVn4zD9MxoW/N27HASqk64pAbjAjs6yFIhtmMJr1ymt9VS5H2/Y+odYXj/yCx/62zto+MmAINA2/1hGUpeKbl36tAmtwiCWy4TkytP88HLL3je/IaZLVvidFsdXL4VgcnJKqoqFEorwYeM051uFUd5iF
+X-OriginatorOrg: gehealthcare.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 06:10:57.5685
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7541ac12-c8d4-4a5e-ea0d-08df0ca6c887
+X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SN1PEPF000397AF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PPF71FD9CFFF
 
+On Fri, Sep 04, 2026 at 01:53:54PM +0000, budcomfort wrote:
+> Hello,
+> 
+> I'm trying to determine whether support for the eGalax P80H84 0eef:c003 used in the Dell Latitude 7220 Rugged Extreme is a known issue or is currently being worked on.
+> ...
 
+Hello there,
 
-On 9/7/2026 11:35 AM, Mukesh Savaliya wrote:
-> 
-> 
-> On 9/3/2026 9:47 PM, Jyothi Kumar Seerapu wrote:
->>
->>
->> On 8/26/2026 3:21 PM, Aniket Randive wrote:
-> 
-> [...]
-> 
->>> diff --git a/drivers/i2c/busses/i2c-qcom-geni.c b/drivers/i2c/busses/ 
->>> i2c-qcom-geni.c
->>> index 658636c1ee0e..9fa1a8ac400c 100644
->>> --- a/drivers/i2c/busses/i2c-qcom-geni.c
->>> +++ b/drivers/i2c/busses/i2c-qcom-geni.c
->>> @@ -138,6 +138,7 @@ struct geni_i2c_dev {
->>>       u32 num_msgs;
->>>       struct geni_i2c_gpi_multi_desc_xfer i2c_multi_desc_config;
->>>       const struct geni_i2c_desc *dev_data;
->>> +    struct i2c_bus_recovery_info rinfo;
-> I could not find this structure being utilized in generic way for gpi 
-> mode. So is this specific to non gpi mode ?>>   };
->>>   struct geni_i2c_err_log {
->>> @@ -956,6 +957,90 @@ static int geni_i2c_fifo_xfer(struct 
->>> geni_i2c_dev *gi2c,
->>>       return num;
->>>   }
-> 
-> [...]
-> 
->>> +
->>>   static int geni_i2c_xfer(struct i2c_adapter *adap,
->>>                struct i2c_msg msgs[],
->>>                int num)
->>> @@ -981,6 +1066,25 @@ static int geni_i2c_xfer(struct i2c_adapter *adap,
->>>       else
->>>           ret = geni_i2c_fifo_xfer(gi2c, msgs, num);
->>> +    if (!gi2c->gpi_mode &&
->>> +        (ret == -EPROTO || ret == -ETIMEDOUT || ret == -EAGAIN)) {
-> Could not see similar call after gpi_xfer failure which invokes recovery 
-> mode. Thinking if design can be symmetrical here for both the modes.>> 
-> +        /*
->>> +         * Only attempt recovery if SDA is stuck low. -EPROTO and
->>> +         * -ETIMEDOUT indicate bus errors where the target may be
->>> +         * holding SDA low. ARB_LOST (-EAGAIN) on a single-controller
->>> +         * bus indicates a stuck target, not a real arbitration loss.
->>> +         * GPI DMA mode extends this trigger separately.
->>> +         */
-> 
-> [...]
-> 
->>> @@ -1188,6 +1292,11 @@ static int geni_i2c_probe(struct 
->>> platform_device *pdev)
->>>       if (ret < 0)
->>>           return ret;
-> 
-> one  line Comment here how gpi mode handles ?
-> I would suggest to keep geni_i2c_recover_bus() as common for both.
-> Review how we can invoke this in generic way for any mode.
-> else geni_i2c_recover_bus() should  have _fifo.
-> 
-Sorry, please ignore this comment, as i could see patch#3 is handling 
-same way.
+Sorry, this is not something I am working on.
 
->>> +    if (!gi2c->gpi_mode) {
->>> +        gi2c->rinfo.recover_bus = geni_i2c_recover_bus;
->>> +        gi2c->adap.bus_recovery_info = &gi2c->rinfo;
->>> +    }
-> 
-> 
->> In geni_i2c_xfer(), geni_i2c_recover_bus() is invoked directly, then 
->> why do we need this ?> +
->>>       ret = i2c_add_adapter(&gi2c->adap);
->>>       if (ret)
->>>           return dev_err_probe(dev, ret, "Error adding i2c adapter\n");
->>>
->>
-> 
-
+Blue skies,
+Ian
