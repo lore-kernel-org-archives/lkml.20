@@ -1,121 +1,134 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6045388880
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788747610; cv=pass; b=IqO0a8kBuaayin5S+EcDFZdb+KoFOkax3ZlnJoD32xtY8NTEJzRGEtOC4Kr0K4sPdwHHGmLZSSyvSRa8MbEe1CJc6Eco2oT5plHxNGclQax1MwdUvYdntI/Rp+VjUq82skNl9PhWJZkMwctFlkqhHSc0yeTmSlc/96NzBVj5RYo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788747610; c=relaxed/simple;
-	bh=yjZIwk2F/FS+WxKDAZj/VzO4DcfE/wopEMvNXvjZ3KI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=al1pzRWysZBNeUM0DdBFiyIqg1H1Rw2U3N5CE6si/iZN6smQWnHw4tgS+5Mw/t923zjvKKxT3qqhmzR2nQLav4nFaFebGuoeMaxIxEHePX8HJ31B+0yaalyusD8cnDLeTbE9uUUVonONXvI7KnkUtyEfJkNbXXzXgrc9RjAuhYk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dwc9eEyI; arc=pass smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC8412D7DFE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:20:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788747637; cv=none; b=ShdviufdpgeXT/ZoY7FtkfL3XN513bKjGdH7zDSvbJshkOTeoZQmfPEHOjtfAO66+RcS7kA4kZ0iqANVyX2M2tTJIYmFhI0OVmG+r7ve5yebtgfuM4Pff+FRIxIyeuoweThWJYnpe3skJNxU9NtphY6i2mn1IIOUqhRz53UBhIw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788747637; c=relaxed/simple;
+	bh=bgN0piWLoCmGGP6Vi0GPl7wrpZyOkEoBokqSqjUPb8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aqaDFJJvF2hj2lNATsNfpyalqmxt6kRDUrtx7OHV+46K7VHqSWn56b5wcCZhR00BhZi1oG7zBz8Y9e/femO6ATCXuEaX7HXHXtvlUq4HLQ2pyjPcs9vD+3d3M2LdhSvBl28fkG0aeYDN34PyOaJ9Zf3nWpsg1GQj2+OlYJ1+CAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSHEV3xR; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dwc9eEyI"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-84e27035206so2709315b3a.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 19:20:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788747608; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FTwZPJpr6FozeeBRnYurHiPQvsVm3aJOcBLfYdjpkPlQ63BeOubMxEcRb0Kzc8r5AQ
-         ywq3YCdSjTVRNbzPa5n8EAAm5k46CxNwlB+D+S1dFUKs/yjJUejD14fK5vzvnwuJQdaT
-         a4oNgk00j7aOqpdNgUfarkVWhIHyHYB8gbu0kjRY8a553j9mbGEFAGamtDE5QqTYwcfO
-         dMbx+B5sNn1Q8FuVRLTYaqaGnpXtQFzqhFqEPaaDANcj4eVsGGh2G6nZ5aFwndFtwDbn
-         kw2Bj5+FUGbOGSgAaZ4E59MEaKtJhpp9OmQZIeud95pyZ3d4B+9q1fbzDe3ZjzN6YpgM
-         wpIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yjZIwk2F/FS+WxKDAZj/VzO4DcfE/wopEMvNXvjZ3KI=;
-        fh=Fc/richnYsc4Si8s000TjtEnDbR1h4kuAK7TmL9A/ak=;
-        b=CoH8/lZH1cRhHP1whRDwhaScV6cx5i0diXmpYa5fWPlh2Eqe1vAY/XUL6v3l289auF
-         rH7JxzexKLDYkxFFezxhKxw4q0OmetS4EMe2wzfULSaOxfvFivs/9tAkM0kuVVrWz8RK
-         11qNQXcNanwVlcnlotR7Bjdjf3iwdUEF+29mi0aJdMBie78vmWFQJYCguPoRUhgRXd34
-         HrAzNHYTKt/GERmMMcDRZCQFUA+XP1KgarxR2rjo47yAIrg2yswwT1bKPBAecs2KtQUr
-         +aADcMo/xJEQ6ouwjagVmB5KCMi1y2+StLHyZcq0JtFc18Gv/IoD2wnVWqZiufYmTm4Q
-         eevQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSHEV3xR"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cf452def93so33701415ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 19:20:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788747608; x=1789352408; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yjZIwk2F/FS+WxKDAZj/VzO4DcfE/wopEMvNXvjZ3KI=;
-        b=dwc9eEyI2D3sRwDz1DbghK9iJkDXxoI7VEqWBhwLHBg466tnpEsu+QHn5up5UmmOYk
-         98BZgTPahQzu0oklg9uIPpU/Jcnn22fnjX9UbgAiewHKBrXu4exwEr+37kz3HOL81KTj
-         LukWkGntxlFPPBTE+QmHkrmDOtYEbSejo7urSBYstIPEh1KTaBgjqynqZIqdI4WXJCKu
-         W7eRo9QbBWuShiNXSr9nkKVwRcyUZpStmYtpfeVtFaEUIqRg6Q/ggXpPOjkqpgjGNKKa
-         b/aQ54MoUOaRRPwBtvf+3ZEDsrBmPpeNxDNHCm/uNDqJDr6Fv/cJbBNzkcS2Xc0blqoQ
-         ohtg==
+        d=gmail.com; s=20251104; t=1788747635; x=1789352435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2xQbczVfHV6CF15MNixvVfDaRPmdmf2gjFgOoATcDvo=;
+        b=iSHEV3xR727BaCbS1Ix1IzLZ/NpCHbUKnT+4YdcQjdbeccxodgI1cfgyoKOe6poD15
+         JYh/PC4NTmsmzLXDM2Cg6u5HAdkpxfr696rtS/67vzwbPePlvohYIrgEXJcgpPFwii4Y
+         fniARn7XkCOqwMa55RMAoKATkCxb7opXfUf9XGAL4EFTvMTU2uan7GDHzmKPWWxB4GJy
+         FaNZ8JbgdvPTnSunSjopKa8BxMb2S0wGwH7NzMBi9h54lsTfI+D+dVwylINafmRK1QOv
+         bnUaND+lhR3flSz+mCTwbwARmpCcl7M3PAK3xrw2Pyg8jugwP4ccFmeLXFBuZREpDng0
+         dEgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788747608; x=1789352408;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yjZIwk2F/FS+WxKDAZj/VzO4DcfE/wopEMvNXvjZ3KI=;
-        b=G9lb2ICsJhNvFVH9Ui+eXKeZ0Smo8KwvW9b7gK3V9/1EfCduIWD87HVxm7JoD+7gCd
-         aCLaqFqXChaatqS3G+V8+v5uBf7QyFRKl/S552c/Pgu1ekIxDa2JzRyqVrtr8gZLWoB9
-         eAA8VU3iPun109Yv3Ag0xr6loJB6i8Wma4i6eVimWpc0IXEnAMZuxRmeLjOGcBZduVDL
-         j3vmNonbuug60ecXlnafPFztdZkGCqAt/mmdswmgiLgdFPsByEtC+fr2d0rOQSDTcjGM
-         MEoBSNa3GUrMZzGo3rHXyuXiWUQw9e1s+5lbcOgSCEwXeNPqll6WMoMG82V4x13h3Js9
-         qt/g==
-X-Forwarded-Encrypted: i=1; AKwUvBxHwmU5xvpVZRki49K3QVebOtMpbXld3d05ZBAHuDZoQZKfNiMhzFnUBhI73JNaSAonGj30GiFnyLtpp+4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt9MCQ7hUyOYfb2z4dUq1pk4Ys4THu4GGWVEJh+mTuryKUBlhc
-	ZPWCxeqsKKemtNpdpSMX/ACFWUZEntwg16PXEI+J10g3vKMnvCZvOwd2PhFpi+IZMhguGww9Rua
-	oYxE9FyuzcS4XMeQ+7X4wJjDbsfBxpxw=
-X-Gm-Gg: AYBFou0qqC4SJqWFIKozI27MEItpekFbdNNxGa9b4slOTydBoP1qkFdx1GkYr2ht+Fu
-	4zrTE1rBdOE39LTZF6X9i7v74D+F8tJivKIKEZp9ezy5nQasderYpvFCBJngYJp8CMJ7X6Uhzyl
-	JhGPIiJRjF/8syYzI47oilfMSuoV4wpzLeCk3tK6sD1a0Z1mkzGrVFs7gqg6DvGxxcrx/Bj8Lr4
-	sjZ7y1XI36IDVSKxQfJz+4YKomjnjtHydK22xbR4vj6WDBqA5lxOqgT93xmMfeKqGjjINkfVDUM
-	BN0qP6hRft9yPPFBuf0Ue1QriJ6Ff9VQb4yYkKvm3ZCPYE7YvtmlSAY8jejQALHUgzH1qEiDhva
-	IjXuBS0RBB2ZR3Y3xARbbm7TPtdnI8xHBOzDFUN5CcsKWJMq80DZFt8AX
-X-Received: by 2002:a05:6a20:914f:b0:3b4:7e2d:a3c2 with SMTP id
- adf61e73a8af0-3da3a03e965mr30021035637.18.1788747608151; Sun, 06 Sep 2026
- 19:20:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788747635; x=1789352435;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2xQbczVfHV6CF15MNixvVfDaRPmdmf2gjFgOoATcDvo=;
+        b=F/5EPM/X3S8Zf+XPyt1IS2gPY2Egbz4XlwDJKfr8OcwyWAxmdQzFus+z2fE42tf0g2
+         2Ww68GYT/7gHqqltjq+rq6noJNR4ubfi/vdm2GoXwWO3b5plY28y+Yv/uyzfRQs3f1rA
+         MlvUxOxpi4qF6puabDyKiZs30K2tqNKcNmxY36QT8Y/8pwb+tCP7699HzlUhMO+vLyQr
+         s2iMS1OioMOLtBJ7IDxqsA5NzqVs1d6HjxOUw2YHhhvFgxRuVvpk+DpMiWtPMm2AjOl1
+         ayzJk9F0iFnhYWsmAm1H6JQDLepCCTEkHyZhZpdi61xCY/bA0UrKACHFAYM+PSgwSyIT
+         8x9A==
+X-Forwarded-Encrypted: i=1; AKwUvByMPzxObCAa0LkqOzTzYJpXQ/cfDo6J7bQlyztd1kLyMDPAEFZ+fBNiMMnNwiUntMOPrj8Vz8L/017C9Cg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgVrBATCJsC3gyQ6Drl2adTDmoIMRt1RPDciGd12iDqeEYX9I9
+	1xdVtzdhDK+YkYh+9d+Glik7UIyAov3lRFH3JAu5fiU6/WdjV8QnX6AdE5gxCA==
+X-Gm-Gg: AYBFou1N2GuRXiHDSKoHYO65uvgsrBu6QPWGopuviMaapm5ww1i/xX/AQv7cRkqysp2
+	A5xs1bPJfEZbASG2NmXguWYCM61HE/VDI9KtA/a/UbUdK0TmE6/w5/34FSh3ne0iOlT5Z6AeK5u
+	0kjtEj0hQa/LRvx+1WWeLOPKQwrwextmzYTNeTpJNEEVFoHm+H+uB3CUb0bzWzHcnV6fWrdPrFj
+	NPyb89rkvDGr1NSG/M30w2c5mjGxDUZ0YgQH3KNHHDzOTNDY1KCWWU2g9umgk6Q5JwgZFb7UilR
+	I8F+tMDS1/9yyrVYhT7z+BDT2eEWWfbZBZPiBcNNUhaJ0+q4UeYNDREes7xMe/TebNZDNFEmkYx
+	nMYfJ6MjXQsQF65rYT3fkGPi9DRCIZy30OUfeK5PtA2fylJmAUbbfrAMfvAInWsxtzFfhsr6t0b
+	QZ5+suJeGBDoSp2GB7jyfv8MgJV3gARYPT8a8sCLzt8UkmkdjNmJOHWJy41XAcwqjCaB6bUJ1Ut
+	iynpdnrPNu5ZMwNRzKCWwlIWg==
+X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr28808592a91.1.1788747635211;
+        Sun, 06 Sep 2026 19:20:35 -0700 (PDT)
+Received: from [192.168.2.166] (104.194.78.75.16clouds.com. [104.194.78.75])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm15214284c88.8.2026.09.06.19.20.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 19:20:34 -0700 (PDT)
+Message-ID: <2f56d8ab-9542-4d53-9e6e-158435d29b67@gmail.com>
+Date: Mon, 7 Sep 2026 10:20:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903092430.354186-1-phucduc.bui@gmail.com>
- <GV2PR04MB117394049F412AAAC59FE93FE88B62@GV2PR04MB11739.eurprd04.prod.outlook.com>
- <CAABR9nFD1+GJiWdyxiuGVRzKjpCUfu3TQHYOLnOym3hHzOM2tg@mail.gmail.com>
- <GV2PR04MB1173931CA07AEAB48339FF71588B52@GV2PR04MB11739.eurprd04.prod.outlook.com>
- <CAABR9nFi06-7=uHmOBFGZv1eUYCskv8WspOdUxbDuQ6vMk68Dg@mail.gmail.com> <d12608a5-468a-44ca-9442-07f2eee4e335@lunn.ch>
-In-Reply-To: <d12608a5-468a-44ca-9442-07f2eee4e335@lunn.ch>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 7 Sep 2026 09:19:56 +0700
-X-Gm-Features: AcwNN1UlYoV4Zt-Ge1izy88cCImOs4q6AUtidKnj8n02ugjYmxdqp8X_pG3V4ag
-Message-ID: <CAABR9nHuSC3jkfuvN0hUU2spfeDfSRDmkVqsvWdwHyyQOsZe1A@mail.gmail.com>
-Subject: Re: [PATCH net-next v2] net: fec: Propagate PTP initialization errors
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Wei Fang <wei.fang@nxp.com>, Frank Li <frank.li@nxp.com>, 
-	Shenwei Wang <shenwei.wang@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"davem@davemloft.net" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Anson Huang <Anson.Huang@nxp.com>, 
-	Stephen Boyd <swboyd@chromium.org>, "imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RESEND PATCH v2] docs/zh_CN: sync page_table_check.rst
+ translation
+To: Ye Liu <ye.liu@linux.dev>, Alex Shi <alexs@kernel.org>,
+ Yanteng Si <si.yanteng@linux.dev>, Jonathan Corbet <corbet@lwn.net>
+Cc: Ye Liu <liuye@kylinos.cn>, Dongliang Mu <dzm91@hust.edu.cn>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260819025535.2967566-1-ye.liu@linux.dev>
+From: Alex Shi <seakeel@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260819025535.2967566-1-ye.liu@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
 
-Thank you for your feedback.
 
-> > Second, the current implementation can silently ignore -EPROBE_DEFER and
-> > continue probing instead of deferring.
->
-> This is a stronger reason. You should mention it in the commit message
-> as part of your justification for net, rather than net-next.
->
+On 2026/8/19 10:55, Ye Liu wrote:
+> From: Ye Liu<liuye@kylinos.cn>
+> 
+> Update the translation of page_table_check.rst to reflect changes in
+> the English original, including the clarification on corruption
+> detection and the new paragraph about userfaultfd wr-protect
+> verification.
+> 
+> Update the translation through commit 8430557fc584
+> ("mm/page_table_check: support userfault wr-protect entries")
+> 
+> Signed-off-by: Ye Liu<liuye@kylinos.cn>
+> ---
+> v2:
+>   - Update the commit message.
+> 
+>   .../translations/zh_CN/mm/page_table_check.rst         | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/translations/zh_CN/mm/page_table_check.rst b/Documentation/translations/zh_CN/mm/page_table_check.rst
+> index dc34570dceff..7ba5a39db487 100644
+> --- a/Documentation/translations/zh_CN/mm/page_table_check.rst
+> +++ b/Documentation/translations/zh_CN/mm/page_table_check.rst
+> @@ -21,9 +21,13 @@
+>   当新的页面可以从用户空间访问时，页表检查通过将它们的页表项（PTEs PMD等）添加到页表中来执行额外
+>   的验证。
+>   
+> -在检测到损坏的情况下，内核会被崩溃。页表检查有一个小的性能和内存开销。因此，它在默认情况下是禁用
+> -的，但是在额外的加固超过性能成本的系统上，可以选择启用。另外，由于页表检查是同步的，它可以帮助调
+> -试双映射内存损坏问题，在错误的映射发生时崩溃内核，而不是在内存损坏错误发生后内核崩溃。
+> +在检测到大多数类型的损坏时，内核会崩溃。页表检查有一个小的性能和内存开销。因此，它在默认情况下是
+> +禁用的，但是在额外的加固超过性能成本的系统上，可以选择启用。另外，由于页表检查是同步的，它可以帮
+> +助调试双映射内存损坏问题，在错误的映射发生时崩溃内核，而不是在内存损坏错误发生后内核崩溃。
 
-I will add this point to the commit message.
+This translation sounds too AI-generated and doesn't flow naturally in 
+Chinese. Please revise it carefully
 
-Best regards,
-Phuc
+> +
+> +页表检查还可用于对各种标志进行页表项检查，在检测到非法的标志组合时输出警告。目前，userfaultfd 是
+> +唯一的使用者，用于对 wr-protect 位与任何可写标志进行一致性检查。在这种情况下，非法的标志组合不会
+> +立即直接导致数据损坏，但会使只读数据变为可写，从而在后续修改页面内容时导致损坏。
+>   
+>   双重映射检测逻辑
+>   ================
+> -- 2.25.1
+> 
+
