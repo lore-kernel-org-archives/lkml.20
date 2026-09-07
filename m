@@ -1,119 +1,137 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319534CB8AA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787311; cv=pass; b=Jr1kIpTL5FUJg1JXwaZbK5SFINgKlk4dYr8GqkYm/taBlUecFdkkufT2c5rjxHGE8topdMWTNxuxe/TuLK9UrJrEmSdL4MxOV8xlUqSEijLkH2BOrk6hBPhOfSaeS1PONO7MU6Jpac4ppH4fcSsTYiCO7LPGRwnuOaEo2p4gTEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787311; c=relaxed/simple;
-	bh=CHUkEQtNUff9f43STraSTOkBZzhBtKghb6R0F9+EaY4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nN/Wh31dY3sHo3GzIaU5qzIGaVCWaT31bgf2Lsdk1l68/VFTWTebgHyOLZkhQgvENnD9AKMSK6I+MOTcGsST4zymMDtxpIdq6IyDUGfEycKa0wavRvECrDKiahqx4bhHUrcmG2bf6f+q/wyk5Uw1etpiw4iwBU39eslzTdakwkU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=jtbUGUUa; arc=pass smtp.client-ip=209.85.160.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995DF37BE93
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:22:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788787336; cv=none; b=idjb6mdPNt79/WDppGhCNUomHDlFGAkO1UMBgTpQl4Et5/622S2z1Nz4+CwExaQGPRonzD5uFO25Ke4gR3w+In2dM/3nczepmlD2WnQ6Mc8fosqWoDlvd4kM1sjUuAEnZpw/cKAeWCptC2nxfMzjgcp2TQq53hblepUueLd/eQ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788787336; c=relaxed/simple;
+	bh=NU+eZSzEsrnjCal8oIlsrDjpb9U7xXSSdQQ4LiKYAH0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qUnnPZ5yLA2q/oykONbDGujhc1MtS/yKEsyQ5gFpvhPA7TDZCP/feHTp6Ie45SgEoD43+7oVm+1sfbUG8csol+IKsrb437uNASvAc4QoxohjL7L5pIwVBk/mhQMT/WNjqAuaprAVg0ExLzj6MNcVt+Apjnf25lU6n9Rcrg0EA/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgcB92mg; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="jtbUGUUa"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-43b7e186a0cso1768877fac.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:21:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788787305; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MRwiyvLEEJIflZGJl0a4A+DgyoLzbIiWhzinMJ9UpLeUNEQ+0FaFvKKQPc7yjvjnfO
-         4lsP+NC2/0JgsNrLxcLGPbUO27l/QnzxyXbe7MmP0W+3Ip5N77JyfQmTItsg8BCKLYUv
-         8tChc3RkFepbIoSTzyoe5dK9/FvxH+EpJ8SfB632ra/5woEwlWiUTeco+YT1pwwiROS/
-         Na9aNUIuJgICfriqzgzLZfBut0gcLrmaH4XoR5Af9iys7x3ZUWbbWTAJsm0F1NPmoeYE
-         1AB0uz/OU+3wEJCStJi8/L2jpT9ilfi/isxh/r90KdWhW5si2SJ4MCjIcbpbDnYo+0Z1
-         9O9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
-        fh=ZalwygbmG5veqVd8qJSPJbQp1lwc0p4oq5mSwz3GbLo=;
-        b=Nqn3ykh8MQZZy0g3jyLd+WvBIwJmR1n5Y5lsRDdy/wU1SqO7aBmuE/kB1ZB9zOuVYb
-         KuyQb+xVkARkdQlk0UUQAAacDsKRnJ8nGEhSBDvyC2J8/jYJIdS/5GmU7XBAH1jqovrS
-         UFvs23h5453Df5Rj6I2HJFNdHztpxj68D8r4+3zILR8Qdsevi0/ROHOio5ULZhpht6iT
-         pRvYj/SBNikyXE1YwpFBIgrVpaT6Nxja2gK7ENlHU9k04WK9iqT4Aj7/nAHV120fC09T
-         THxRIxGXpOkU6ofls2+8s0qX73P21WXIP7rDqVv6Pm2si/lRu9HYchFp5G3oOOg9d6PP
-         qjvQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgcB92mg"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49557167508so43129535e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:22:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788787305; x=1789392105; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
-        b=jtbUGUUaZC5ow/po8qHVo8OL2XYXgT6i1+9BYK5eIdamcKvb+ugHpEXjo0KskF00T0
-         g3VqNMpVs7sWAImV6+vQ+F2UfXUP52Z4wGBYdSOEujiNKDuZVXnfKzn9ytl6xOG3w7PE
-         O9BHdnZCePbA0FQxgAVuIEHNGlEFtesyAAv7V2Ng1KYAUeq9MLUiWxIN8g+JOst6ffWZ
-         jbh4ryFBiFGfILc4B6OThu3sIHv+mn/nWNb0PrLrxD5VfPNIq1j08kJMpItIIn83AJ4C
-         TwPE83pX6eXr2WMs6h5nW3d8yID8qQsaqnq7+OwCcRyvRRLbLEyVVFmKTNXrSMJDCfQQ
-         Oj9g==
+        d=gmail.com; s=20251104; t=1788787328; x=1789392128; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ViElzflaszjSFY7ZUxClX7Wwc/oOQXR/RJoA4DtKYyY=;
+        b=AgcB92mgA37QBT/VVE3DrDsyCQEwtDJmJfx3JGvZKtlAvrdgtC/n4/3B1DcMRcp6pr
+         31XtfxJf5GdwxvYCz30v1p6wV+N4r49FS/SO4qudxE2RzTqF5KpPwyK+HFIQIThLYVat
+         S/eU2zHTbuzFe9U4sS9/9mcYvI4/bsiRKalfRTOZsSQ7eNfggHwU8aAce9Itt9g8gT4C
+         W82owuPSa+qt4C5K7qdC0uUXnw8KLOSRBXs9fOwar/vp1HLqZS/8P+I7d4/jGfIx9Y38
+         D+MkazK/EegK5ri8NZEx8IvtmiIhJMAcPvjqWIUMJxgnwo+5CsMHBiW6C6VTarWOtzMs
+         YF9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787305; x=1789392105;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sDVpkGpPT9f+QkSpaGU/N7GberUiTv3c8xueZiAFOlI=;
-        b=YLRvVcpGV/eFA2Azr8gpbl4+MwfrKlmPk6h3KvIs3rDUTVtmLhMbkXxFyx6WmB+kKe
-         2TzSV3zbC7cwx48DRJsIyHuFII3GAssnD0u8tOtV92ksjkB0GzUcPcsHeLNE1G/9QrEt
-         hARYA6Wgc8Oph9jIiiiNcPjFpvYOMA7DVOHzYbZVGDDFCCDeJxLxAPAg4DhY7bjrsDUk
-         p4pVNEBQ7VxWhGmoNJKCj/kZIp0qr7hZ6cWYgUJGHvqaoRTMy1kdi+VXRp1aSeI6GMIS
-         vbXtXUjwODKc1iqq+SHJCA9P7Vdmae2Tfc3WQBi561UaMilSmRdRm1tgOeAUY3G3dIe1
-         66UA==
-X-Forwarded-Encrypted: i=1; AKwUvByAZ0xiBZ9IyeEMEFWDQ32z/WbZqo/9AmCUUWpsXOD/t7infuGGGw/pSd5YhBVuxFFNa1MAfW/ZtIVxyQs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ko2GKtjbKprZQK0TgTHoIDlZ/sgAsVlQC8Dqf4v95M1zo1XmWO
-	r7jtBjKlVT1vXip3G+zmjYy3YpLETJd/TFAsp5ze0fu1J/kj3NWi3sQ51vpSq8VoH2GzI3Bx6pc
-	40d9EHE6dv2Oa+wN4qcB7Duo0WEWRjQhN3Kl8/mQcvknJyWU0h3+e0u8=
-X-Gm-Gg: AYBFou1cbE0+tWvEWqehLpBt1ZbmGKt2aJn4qsG1WC64xxejlA3lTjdyqdY9FrWYsjs
-	NvTv4VZOSBUJu/mamGJXB2L9XMhRPb2x4FrufKCAe/kBf5Cfpw6I5Hu2H38yRomS+UOi2HRiyWC
-	Ja26ucsFnjw3GjE2hUn+KuG4jN/f4j3YsRNUVMYK3cS42BX3m7B5CAWLkfOp1RLSgi2Uok+eoQf
-	yKUd1cLf5GVavLPmzCZ8EceN9pdXscxk1zn/a+MhYT12sMZcVrW6arsyIwTKSUWWmJu3bOTmK5U
-	Vysy41jZC9GsvE75TDvjMp4hzRrbqPuECtuN4lukDrkr6yqVcreIZXj8DfVHSYLdQiZQi78gXB0
-	FCCn39T6Sq8RGsCLHDBpxNwY5tX/b9ymag6uArBYQ05gNSbXyAXfkMctm8TYq
-X-Received: by 2002:a05:687c:408e:b0:475:a112:1272 with SMTP id
- 586e51a60fabf-475a1124b00mr10850018fac.31.1788787305186; Mon, 07 Sep 2026
- 06:21:45 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788787328; x=1789392128;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ViElzflaszjSFY7ZUxClX7Wwc/oOQXR/RJoA4DtKYyY=;
+        b=Jc+ybtKjXvQHPU9EyqNkrLWKTh/Hm/0NYpolRYYtMJ2T3Ij1hicscy+O/vr132ZDuq
+         MpuATsnQPRcGNv0oYxJSgKbXuXLq8O0A5CcdLYxJMQEDu+MzOw2fTG7lgpc6PwIoMh/E
+         sKlR4xj5PZkNNw1dopiq4h6vLkTAGDfyYBTm5pnTCnBMxNHCpgit6lF4brm1EU61xnFz
+         JrdSm3z6/mLgM87olgD6LKYOfX6CpLGDQs+N/GywEdI9yugFh9C+9/Di+6A5nQaBkD0A
+         sCfWp/zD1r+lWq5OHNIB/Wi3GYO5cLArUZiLsCoPG/MvywtC8HLxWUGV49u7OF4gQsLz
+         3iAA==
+X-Forwarded-Encrypted: i=1; AKwUvBweilGhb8OwUF0io9wAdSP8d/MJBq4/4LCpIP5ya1ZSQGcAhHiZZ4UtLuU9hkRJuBwQSof6qCX0rtuzyRM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lC9bJ9UfGtr5tVgsXdn/EvJklo+x80oh7wwmrVpVLNxVikA0yT
+	J0tCY4VzFZvrl56QXAXZBb3LpgRgnWdViDkyvzl5cTz62axSkSJ5mZUU
+X-Gm-Gg: AYBFou0tnNV8c5l7JaE4FSnpZsFKY1FQ8T9S/ZxWZT+oVBIMFs4tVA5f0WPwcVP/O/G
+	7Aa3NK8TyrLqTA9ValytFFlZ5dxDCHsi/Fkz0flQMx85bRxbapF/dtvlXbTIq8f7oxV9TEXmL65
+	jOAbej66pLMubRqIb+aXyYKTP29OWS4l/AgJmC5niP8W1X1TUlu2+pKEQk6aJXDnWYslOrWPas8
+	atRqcf/zk9K1A2AqmceKiuEGdBRB1Y4O1832cBZXFx/0te+/Zeb0l2bx52bpQSRWgCplUYOy2qY
+	5b9ozbEI5r+Yp1RhbA7lcLFO/EkW1AKvb8DreAabt4xnWJH0oTORUAFKRNtC4ii1qvFmoC2DHLA
+	aJ565iX/MGnIGVAPd03Z56aNi+Lx3qq/3Z0WhQHDCVkZXbQQz4gBDjv+/wivS7bPO+/O2s2wzWt
+	J/bKiuvfnBj9fS++05djCZ9UKBPn0foeQWdw7FNkdc02jQlklfTGxiPg+DNtFfNeel40xP60W5S
+	6avKKP2FkPToSDl+l2LvsUEqukuwZFlc1HoIMohAVqNn84JgPsTo8spIq7ToKaMVcC0MPwZebkF
+	ua98GU2P13FvmW52TkFtJG2lrWQkPvRk9TXGyPjuYi1UWSgiFL0Ufje94YGsj6s6ovQUhaNej+s
+	0mKeJdgs+8X+4eu437A==
+X-Received: by 2002:a05:600c:3f12:b0:49c:c8de:96a9 with SMTP id 5b1f17b1804b1-49cf7fdd2dfmr448928055e9.2.1788787327897;
+        Mon, 07 Sep 2026 06:22:07 -0700 (PDT)
+Received: from Ubuntu.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm27458397f8f.8.2026.09.07.06.22.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 06:22:07 -0700 (PDT)
+From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+To: Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: kernel test robot <lkp@intel.com>,
+	oe-kbuild-all@lists.linux.dev,
+	ocfs2-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Linux Memory Management List <linux-mm@kvack.org>
+Subject: [PATCH] ocfs2: remove unnecessary ret variable in ocfs2_calc_xattr_init()
+Date: Mon,  7 Sep 2026 15:22:00 +0200
+Message-ID: <20260907132202.48834-1-krystianmkaniewski@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <202609040247.8B3lmoqX-lkp@intel.com>
+References: <202609040247.8B3lmoqX-lkp@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
- <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com> <6c47f4e0-bcd3-4349-b8d6-a3889e08370d@mailbox.org>
-In-Reply-To: <6c47f4e0-bcd3-4349-b8d6-a3889e08370d@mailbox.org>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 7 Sep 2026 14:21:29 +0100
-X-Gm-Features: AcwNN1Vp8fXipQwCEjEj0y3FUJRvMgZ_G3DM3P8aQK-4PYEHw2tOLnsqDspjVww
-Message-ID: <CAPY8ntCwUjFQcobRYbgo1G-nuO1Sug3i8Krjau1AnD4Nszvc+Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply support
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Shashank Maurya <shashank.maurya@oss.qualcomm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Shashank and Marek
+Commit bd7c05fb4a47 ("ocfs2: fix circular locking dependency in
+ocfs2_init_acl()") removed the only code that could change ret in
+ocfs2_calc_xattr_init(). The variable is now always zero, so remove it
+and return zero directly.
 
-On Mon, 7 Sept 2026 at 07:12, Marek Vasut <marek.vasut@mailbox.org> wrote:
->
-> On 9/7/26 7:46 AM, Shashank Maurya wrote:
-> > The Raspberry Pi 7" touchscreen panel V2 MCU requires an external power
-> > rail to be enabled before any I2C register access is attempted. Use
-> > devm_regulator_get() to obtain the vcc supply and enable it at the
-> > start of probe.
-> Which power rail is this ?
+This fixes the reported Coccinelle warning without changing behavior.
 
-It'll be the 3.3V rail on the FFC which is used for the MCU, touch
-controller, and LCD controller.
-The separate 5V supply on the V2 panels is only used for the backlight.
+Fixes: bd7c05fb4a47 ("ocfs2: fix circular locking dependency in ocfs2_init_acl()")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202609040247.8B3lmoqX-lkp@intel.com/
+Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+---
+ fs/ocfs2/xattr.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-  Dave
+diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
+index 35bcbb0ff607..ab3b645983c9 100644
+--- a/fs/ocfs2/xattr.c
++++ b/fs/ocfs2/xattr.c
+@@ -640,7 +640,6 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
+ 			  int *want_clusters, int *xattr_credits,
+ 			  int *want_meta, struct ocfs2_acl_state *acl_state)
+ {
+-	int ret = 0;
+ 	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
+ 	int s_size = 0, a_size = 0, acl_len = 0, new_clusters;
+ 
+@@ -662,7 +661,7 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
+ 	}
+ 
+ 	if (!(s_size + a_size))
+-		return ret;
++		return 0;
+ 
+ 	/*
+ 	 * The max space of security xattr taken inline is
+@@ -729,7 +728,7 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
+ 		}
+ 	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int ocfs2_xattr_extend_allocation(struct inode *inode,
+
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+-- 
+2.53.0
+
