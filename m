@@ -1,149 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDD9492520
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C2394F30F3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789944; cv=none; b=W6GPPzdCmfMrURQsAOOoMk3JSDiv5GpsNYDKKyfpf05sI0arULID/kUotn4IFvCFbPSdcaXCCORaY7W1lQ+hIWy4vLwXZHUuDcNjRKiGBndtzAHP+rAJLCDDn6qgGvU4GXs6eXt+eVkknc+SMcXH+HiGpQFlfxQ6fEpka8ywpv4=
+	t=1788789999; cv=none; b=LgaYhGSt17A5FxDc5NJ5YPnnwY/wI9o4t2Gg5Jx91L7a45XqW8cPTVKTqch9uv7P4TAzOFRXW8vSR4TgE1QNQnylM/rbUgTz3a3XH5UcNvTQXHdZV090po5K1JR08VSFr5EX07/RfsGu0DX6gQXOkGbLb2FLqtfpYEH5jerlRfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789944; c=relaxed/simple;
-	bh=wnXSaGKIkgNw5FXdj1eClPdWMhPCH5UarkCydfrn1kw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rnji4FAPmkN7P9AAb1WFqueF6H1idx0Y1YGkprSR7IcscpF/J0Jh1HNg7qe7VBviSPNcbx2h1IGI4PVqGfUEcFNiH5p5r01ufeP6z7uDg9R2HalkV0yayPurDtVXyKC9huzhrc/J/3ay1TwpHTTfb3kLt0/Wou7806PdEavfhtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jyoR6vUa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789999; c=relaxed/simple;
+	bh=kAiALmTWnf8x9SsADiUwVb4eDhzSyPp2/E69JaKJyug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E8iD4RIi0IKjaY0+lVdDSI03tkvBsvom7VxHi+grXp2/U8heXwpQNXjcjl1re3Q4n96vgDVQBvSNDJLxVkYv1W0JW187o6doC2Awcz9Jq6nxkcT7Lz6SGGt6OhKzsZRQM6oeNVweWJW8/kyU5l5Uaiu4rRt5l6PwvDy+lIsXTiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Fowv+iyf; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jyoR6vUa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818A01F0155C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:05:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789942;
-	bh=J8wgTvZrkyOjbsQqIGG8z/GcZBW64PcNCuag9I7xU18=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=jyoR6vUapKR5jhLivfmjBARU8B+F+OcyChINsEiyQcmcncqmoFh4nR/WY1xMB4qbW
-	 SZ6/c1u/JlA4H5CX7f7mlQ5R5r6FFJHSnxuNy68TOL7Exjt9L/8POCTmlIZek5NDf/
-	 vSQEPBTauZHGg2dpZN0RAsf8QHru/GLRGxXYBNPhH557FULtQLKshtNyFaJ1TLf/FR
-	 VGO2DtvomYcv02EDInTSZEUOULBvYtXC+eZfgGqXpn1gPpLf/be4t5h3x0JZUmfEJH
-	 j+M5kMyrlnOjjNbLDdri8qTidxOrlcEQQvkPs8w7ifuMeVCQ/Hmb/aPT2UlzUZZvC8
-	 CXYUXx3AtE5dA==
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a082b3671fso4314135a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:05:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwcBIPgBZIVl/ZKvaVzmIHz9OJD4uby6skqHTfvB1ULLL6tjNlCZRgIrF/XbJ36axWL2ByKHPlsq397CnQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4F8x/VSlwZAsXYTKBdn9Sw/wSO4uBRvw0r2f2JI64SGs+cOEz
-	kF3DxG11hgbLncPhX9yqhgk4WrqZ2j3Zn2pQ3FQEYaC43GxC++kIA4n+q4pa7R7ZJm/JGJ9KN1r
-	F2hotymkoDhL376FiQJe38r+vPGYmQKc=
-X-Received: by 2002:a05:6402:44db:b0:6a6:7fa6:f0ac with SMTP id
- 4fb4d7f45d1cf-6a7e8f9e843mr12416286a12.22.1788789941040; Mon, 07 Sep 2026
- 07:05:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Fowv+iyf"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482e257a23aso2529236f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:06:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788789994; x=1789394794; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hnVIlm2nSumk0PrCQmB9sy4lQ8aJwTihVNma9sBp9rQ=;
+        b=Fowv+iyfr+KORHEl5atNl+7aAwsXvqtBTsM6zUgXJucKvDkMEVGUkhGuNvV6A0GKrq
+         2TOLgDaQOOYq8Pa9yvJW9ela5KfpxlYYVdQ0iZSVr0+NFOSPzoMhyueP2IVRuHQAaC1L
+         L71LrPhPKXdowjiGoPy8mVD08JcmohltxtUprlvQ+XuQNIPkK4IggtPxtjpCS1bEJkS+
+         lyjAkHNM74Li+F/ScdA1u2GvyL/hPxMqyr4WDjLeHgK6nIRJOwuhavu+zxS7tC3aNDBh
+         dnKffwS0AVynB5j/qhgiWaDINiq6K1munQ+tuO9cP+oUimRz37xhuVBbhyH31ufm7+bl
+         zOtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788789994; x=1789394794;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hnVIlm2nSumk0PrCQmB9sy4lQ8aJwTihVNma9sBp9rQ=;
+        b=J5WX8N5rxzhLC5bLG0rnUtzk/I+4ZWX14gN424OWxy2SWOqWxcugzNeiyyKkzXobHM
+         0yBL3/kgk9J3sPT2+iHBYA/6kr9c9gen5slyA2JCsuIDD2C3sJPT8lYebc5h0L4nNN3C
+         1u1SaTXAqnAY68LMyiG+jR0VqutZ6ZrsFBwuwkQ7Vi34lk6sICyk4RZZrzb+lcCuClKN
+         dmMetxaurjlgMN2IgOYtCjt42FkWP1xR7TGVkrjHxVP0wIghnwryK1+ZSvtu1KiP7LG+
+         BZ9hp5iXwoMfyo3lUvF31YndnlClG59TynrjCOhvXI0ectkIyfxU8EmQ1h/FtT0KiPZY
+         XWuw==
+X-Forwarded-Encrypted: i=1; AKwUvBz1QAdDQPRkQDp47aHEF6RNsmAjMxCzQPqwqdPCMM0zqdJ/Ep7iAIYM4i1DMhP9Y/4vs/wArhKPjt7yKMU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5LCRquhbbxI9T5ZNPocivTjE44yGg7kFZAAbuGUlavLpYRkjx
+	ArOx54WRLRokIkCDvABndiNU898eV6s2XXXOnUWF0JzhgUFb1GGSMbkUtrBe2H2YWjU=
+X-Gm-Gg: AYBFou24vXZ2a5w+j/F6nj+nkq5zBjzlfIKcXlXi9GCyOrzkcnbLBUKOFftpLTBbF+h
+	8YWHPtpIn44Gk7ZoJ7JWAGg6eoQalSKLt5g9SpoMYQPZLob4nvkyBCNOz8oIbErgciYbDmx/H0J
+	6gdw8sZ5FO+YVRPM2ouWSUKRJKTtWHSyIXG1bRUYTvbJbwu64vRFClO5EdjytQF7wdn+JzuTmlx
+	kEy4YUm1ubMIgBZMPkbHX4g7Vo7VcoX+5YbcD8y9LddBmlPyv0P+4rsNFIhGE73Uv9hUVh0iTtf
+	cogA5t3cyNGuZJGNItzs+S+UOQEf/azVbt+JESRBjyBHHNCdJTnbZtgXhuiIxBnwAF57QB2t2oS
+	QE2u1PLTzzq3jyTCgdXO3yangj+EM9YxdJEbL7Z8NA+ZSrn03/APLR4C72oNq+96cgOG0BjzgP4
+	MzuRsrEBkavW5bNyz94Og7W1e/qCMSpd5IU8QsLLeDdKZhSiPt5LhFcR5V6nsTc08=
+X-Received: by 2002:a05:6000:4014:b0:485:8a46:b3cf with SMTP id ffacd0b85a97d-4858a46b5fcmr20890181f8f.55.1788789994173;
+        Mon, 07 Sep 2026 07:06:34 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48591eb3d3bsm16866649f8f.0.2026.09.07.07.06.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 07:06:33 -0700 (PDT)
+Date: Mon, 7 Sep 2026 16:06:31 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Zhe Liu <liuzhe1@kylinos.cn>
+Cc: bsegall@google.com, cgroups@vger.kernel.org, corbet@lwn.net, 
+	dietmar.eggemann@arm.com, hannes@cmpxchg.org, juri.lelli@redhat.com, 
+	kprateek.nayak@amd.com, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, mgorman@suse.de, mingo@redhat.com, peterz@infradead.org, 
+	rostedt@goodmis.org, skhan@linuxfoundation.org, tj@kernel.org, 
+	vincent.guittot@linaro.org, vschneid@redhat.com, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] sched/fair: Remove the write-order dependency
+ between cpu.max and cpu.max.burst
+Message-ID: <ap69-MoOmAJifgjG@localhost.localdomain>
+References: <aobnZEh1hfIBhswD@localhost.localdomain>
+ <20260904062013.504236-1-liuzhe1@kylinos.cn>
+ <20260904062013.504236-2-liuzhe1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907125404.922123-1-ruanjinjie@huawei.com> <20260907125404.922123-6-ruanjinjie@huawei.com>
-In-Reply-To: <20260907125404.922123-6-ruanjinjie@huawei.com>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Mon, 7 Sep 2026 22:05:34 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H7qjJ7BPnJ2KoQZSyMUvX_6i9H=EfdadXnmXtNiiB4ROA@mail.gmail.com>
-X-Gm-Features: AcwNN1WbqzVfALnNIkIUg_l9MiYgRfsYFTxDDEyu_aV6t47lWMUK_7ZDBokn7zg
-Message-ID: <CAAhV-H7qjJ7BPnJ2KoQZSyMUvX_6i9H=EfdadXnmXtNiiB4ROA@mail.gmail.com>
-Subject: Re: [PATCH v4 05/12] LoongArch: kexec_file: Fix CMA page leaks in
- segment placement retry loops
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com, 
-	chleroy@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org, 
-	baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com, 
-	pratyush@kernel.org, ruirui.yang@linux.dev, kees@kernel.org, thuth@redhat.com, 
-	jic23@kernel.org, tan.shaopeng@jp.fujitsu.com, zengheng4@huawei.com, 
-	james.morse@arm.com, ardb@kernel.org, leitao@debian.org, yeoreum.yun@arm.com, 
-	sourabhjain@linux.ibm.com, robh@kernel.org, coxu@redhat.com, 
-	tangyouling@kylinos.cn, hbathini@linux.ibm.com, adityag@linux.ibm.com, 
-	djbw@kernel.org, seanjc@google.com, liaoyuanhong@vivo.com, 
-	vishal.l.verma@intel.com, fuqiang.wang@easystack.cn, makb@juniper.net, 
-	piliu@redhat.com, ebiggers@kernel.org, jbouron@amazon.com, 
-	mclapinski@google.com, me@linux.beauty, graf@amazon.com, bgwin@google.com, 
-	takahiro.akashi@linaro.org, palmer@rivosinc.com, x86@kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	loongarch@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, 
-	kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5sahav5mzexczfrn"
+Content-Disposition: inline
+In-Reply-To: <20260904062013.504236-2-liuzhe1@kylinos.cn>
+
+
+--5sahav5mzexczfrn
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 1/3] sched/fair: Remove the write-order dependency
+ between cpu.max and cpu.max.burst
+MIME-Version: 1.0
 
-Hi, Jinjie,
-
-On Mon, Sep 7, 2026 at 8:53=E2=80=AFPM Jinjie Ruan <ruanjinjie@huawei.com> =
-wrote:
->
-> During kexec image placement retry loops, any midway failure causes
-> the loader to truncate `image->nr_segments` back to its initial state
-> to purge the failed segments.
->
-> However, this truncation introduces a memory leak. The CMA pages
-> allocated via kexec_add_buffer() during the failed attempt are tracked
-> in the `image->segment_cma` array. Because the subsequent cleanup paths
-> only iterate up to the truncated `nr_segments` boundary, these allocated
-> CMA pages outside the new boundary are permanently leaked.
->
-> Fix this by explicitly releasing the associated CMA buffers in
-> the failure paths before `image->nr_segments` is reduced.
-I'm not sure but does the elf version have similar problems as the efi vers=
-ion?
-
-Huacai
-
->
-> Cc: Huacai Chen <chenhuacai@kernel.org>
-> Cc: WANG Xuerui <kernel@xen0n.name>
-> Cc: Youling Tang <tangyouling@kylinos.cn>
-> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
-> Cc: Kees Cook <kees@kernel.org>
+On Fri, Sep 04, 2026 at 02:20:11PM +0800, Zhe Liu <liuzhe1@kylinos.cn> wrot=
+e:
+> Keep the configured burst independent of the current quota and cap it
+> when CFS refills runtime. This allows quota and burst updates in either
+> order.
+>=20
+> Fixes: f4183717b370 ("sched/fair: Introduce the burstable CFS controller")
+>=20
 > Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%=
-40huawei.com
-> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+The change makes sense to me and it should've been like that from the
+beginning. OTOH, it may break someone's setup, so I'd take it but revert
+it should regressions be reported. Hence, I wouldn't mark it for stable.=20
+
+
+> Signed-off-by: Zhe Liu <liuzhe1@kylinos.cn>
 > ---
->  arch/loongarch/kernel/kexec_efi.c          | 1 +
->  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
->  2 files changed, 6 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/ke=
-xec_efi.c
-> index 5ee78ebb1546..15fd797ff3de 100644
-> --- a/arch/loongarch/kernel/kexec_efi.c
-> +++ b/arch/loongarch/kernel/kexec_efi.c
-> @@ -86,6 +86,7 @@ static void *efi_kexec_load(struct kimage *image,
->                  * We couldn't find space for the other segments; erase t=
-he
->                  * kernel segment and try the next available hole.
->                  */
-> +               kexec_free_segment_cma(image, kernel_segment_number);
->                 image->nr_segments -=3D 1;
->                 kbuf.buf_min =3D kernel_segment->mem + kernel_segment->me=
-msz;
->                 kbuf.mem =3D KEXEC_BUF_MEM_UNKNOWN;
-> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/=
-kernel/machine_kexec_file.c
-> index 5412aa9f3568..62a5be102065 100644
-> --- a/arch/loongarch/kernel/machine_kexec_file.c
-> +++ b/arch/loongarch/kernel/machine_kexec_file.c
-> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
->         return 0;
->
->  out_err:
-> -       image->nr_segments =3D orig_segments;
-> +       while (image->nr_segments > orig_segments) {
-> +               kexec_free_segment_cma(image, image->nr_segments - 1);
-> +               image->nr_segments--;
-> +       }
-> +
->         kfree(modified_cmdline);
->         return ret;
->  }
-> --
-> 2.34.1
->
+>  kernel/sched/core.c | 3 +--
+>  kernel/sched/fair.c | 3 ++-
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+> index f78275192036..5269b8cfcf7f 100644
+> --- a/kernel/sched/core.c
+> +++ b/kernel/sched/core.c
+> @@ -10159,8 +10159,7 @@ static int tg_set_bandwidth(struct task_group *tg,
+>  	if (quota_us !=3D RUNTIME_INF && quota_us > max_bw_runtime_us)
+>  		return -EINVAL;
+> =20
+> -	if (quota_us !=3D RUNTIME_INF && (burst_us > quota_us ||
+> -					burst_us + quota_us > max_bw_runtime_us))
+> +	if (burst_us > max_bw_runtime_us)
+>  		return -EINVAL;
+
+I notice this'd be relaxed rather like:
+
+	if (burst_us > max_bw_runtime_us / 2)
+		return -EINVAL;
+
+I don't see in the current code that these BW_SHIFT'd calculations were
+relevant for burst.
+(Sashiko mentions overflows of the addition but I think it's confused
+MAX_BW and UULONG_MAX or more precisely (UULONG_MAX / NSEC_PER_USEC),)
+so even your version should still be safe.
+
+(Without that stable annotation above.)
+
+Reviewed-by: Michal Koutn=FD <mkoutny@suse.com>
+
+--5sahav5mzexczfrn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCap7E4hsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgafAEA/lDIyfoaL+fSg3OpnbzT
+kKX5pkBVfO+FBzeCudKKlY0A/jVSRzj8PL3weJy/l9NmUY9jh/ilifk5nRv6Z0tK
+K/cK
+=kYvk
+-----END PGP SIGNATURE-----
+
+--5sahav5mzexczfrn--
