@@ -1,134 +1,190 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB723909A2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:28:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68238456DE2
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776888; cv=none; b=BVbiQfIjJ3vZGDo4oMwpI/4/CEB6ef3sETbu0GvfggUxpQaNledNf3JrABAk3LEnEzmo4FtaxZuRzP9+o0bLeYA0U/kzEsWE48v00gJFkHYC6L1EGwisGJKsWookdGaC0zoujqm9i+dSImmgtRBMYt0KiiOMo1tZGl1TPrCBaDU=
+	t=1788776895; cv=none; b=g1TQHrxE3pySnI74pdcNlttQ124oKnrDfQh+ERQLXeXCnx9gM/zur7Ct14/8bS8bbb6Qh0lOqCkjW8/9Xql8WrYf4hFCi4PEbIXkdvTCtv2bGgVOEYc9eb1Aih+tTggywLUGrD351NxURaD65FLB7j4J/6Djw0t82+7WYO9jP94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776888; c=relaxed/simple;
-	bh=wE0FAqphOt0/OrEtapZkV6hZqCZe/8Fjgb/ta4y8Me0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RSnfjCJ3uR0iJg9qZdr+Hhhu4cy4gI6IEsxb2uEt4RsTd26Y4PqPHQy9afo/0AUdBzdyGRE/PyC+9OSaAYEeqX9OcjpVOvYY3919wdhfO+7wTF/JwqOdwIsD7H0idi3nq309pS3/sv9z9QU1GkBX1X4GdWFC0gG6cVdqTsHsoMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=mcY5I/Uf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Z5izyY1C; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1788776895; c=relaxed/simple;
+	bh=QNABwq8y/rpjyYrMChWDaMxtxVD9keFqxXBvr4Y6598=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pE90bSN+rfvmFxvXtQpROnRA9/bDSlimnsQDABNZimAOs/3fdbzC/UR/DrC7o7SQ3mLnOW8gWFXKkxGOMAm/ty+1kOMDoUFM5BOILeAwuc4UbZ/VZ4ZNsohfI7YtQ91qXB7DHXHp0maquVVRScy8eO8VxkTK7yf6ZmSy6g/mixc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=ttcy87EE; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="mcY5I/Uf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Z5izyY1C"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.phl.internal (Postfix) with ESMTP id 64559EC00BC;
-	Mon,  7 Sep 2026 06:28:05 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 07 Sep 2026 06:28:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1788776885; x=
-	1788863285; bh=f59EBJC/4ov46ZCcEJDi2RPpWdMP2hCDD0qZyQ2pkiU=; b=m
-	cY5I/UfwYFSeAQHuzewFLmqdpoFEUWE8AUwUXGpyIWk3U/X3jOecLARtpOHj+gSQ
-	NjmfDNVWPu/oznccqL/+5Xh9hN4CIZF52ofRgi+/jNxZrCweIIR9bL2wO2anieT1
-	vZh+WY6asXA9up7/4v1K7Qp91tmpg7Wp9UC0xHXiFGsJAsIsIumsq7e2C5t20xF6
-	RdmHvJ1gwbdQ2aEepyn894x1TYolXxrzIjhTbCrEurH9RniO1MSQX4Ba29vaoqH3
-	kmj9+Wnp1GoL1szROGPkUVHMfdHlv2SpmugHniWz1Zpxi0thtWQF3T9K4YwWFzqV
-	5o9TyCSavp4zCpuQymPhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788776885; x=1788863285; bh=f59EBJC/4ov46ZCcEJDi2RPpWdMP2hCDD0q
-	ZyQ2pkiU=; b=Z5izyY1C0skqDUJfbFnOn+ebPFhIIBFXExxRMGpZWzZfY4Ah5ss
-	c8Vlcfymfnhds3zbdOU77p2m1SL9uFfG13kdYR/ccWDOzE9oHwJH35I3I/pacsWz
-	SgHU2777P6nP+9JNoe8gs8QI3sF1osgFxf8d9cqWrVJARkiKO6y2K/dSJ9k1QUIs
-	t5KEPCzVQfyMFypOaT48rlUmOkHr5hjcxhljb6lv6MNUC+A/Fo+n2EvP9HPfHS8E
-	+O+QCu7VSDR7AK7thqactXV3IkEOjQx5aASS7ivMPcN/O821zzJy0UYL34EOkrAa
-	hLRwfV9XwMu1XhExJ7265QZ/LMjCbtZmJjg==
-X-ME-Sender: <xms:tJGeaoU68yoKoEKdNauhVIokwD-QzoIvT8BQpYex709Cnp5m2TuHRA>
-    <xme:tJGeaqMjX2b_OmRAMpgjktF0t30Bq7KPQ8kXdBU4efxdWZOHoDxQiiM0T5Sb5Dm24
-    1geywWZnjZVkkFsxvGvX3s5PJQMv0AVudIftIdMpz5qDoMKWbcQ7po>
-X-ME-Received: <xmr:tJGeajwwAxT4V_izDNGfW5MaQWjScU3SeMhZ01oJQyQ5ajJQP_soJQOdT4w>
-X-ME-Proxy-Cause: dmFkZTEajUuK27hQfEZdWhLtkuQZ3pAPRpnx/tbUwrc/v9QlT7g/7Gy66eqONUzN+j0KBI
-    l9/1HIG3BYS2JhiizAePa8ggrFALJu6WrIq5DugLEZ9a7i9lU6Kcy4CsTHxBKoJHFgVZtg
-    EoJWTuvYf8HjIhz+N5A9ZZVcXSMS39pLs0Z+g+gnz4US2YclD1wx2uEzQd25YzHXGVhmkH
-    1Z/lkmjVpPq44tqalmrZoouDSgm7HOL47Iw2w8Qen0V0rRjW95Xn+RtTBdFs1xc+q7hZPg
-    PbWznKtKwvBgZZzoz/0Nn7E7Ph6ChFZkxWNQ7tTQ0sC9kxSKpIFubwJAqwhcS7cSQT+rP7
-    ZsvtxuqnS2jfe4UAfb4iqVGGXIAQOV2RKkydq+mrzLybVQMeYKEIFHHnK5FbFzu1O7vDr7
-    OFDILwOpljnp2cc0K8Cp1GyfjtVTwUWsz0edZAXiRr6AOjHVEEygfNrHq4DcJYfAu6Ms2N
-    H4d5G5GfjQGebOoh6Io3B9H4EFlxevLH5OrQIqRZjD1sCByP77ekxKA74pEbNrWLhQhND5
-    cH0rjs+I5KQT7Ue0GQCRGIHm5hTYSfgWf7dWfF3JCIlKsqw0meMCjnLDVKzQnnjR/s7veI
-    5rwIRyyh98hRpgiOmvsczZH5JC1Ij6mAm+VfSBKE0Tdv/9pJZoKuexWMkUFw
-X-ME-Proxy: <xmx:tJGeavg9KbQZkPJPU2BVND8jY_ugtwEzD8E6HxozUhK3-lXN7-t0_w>
-    <xmx:tJGeaqTqw_2psIBP3Yjtji3iJzooW-NGeMx_zgi_j0sRtdpEHVztXQ>
-    <xmx:tJGeasPA-XuufJD9MhXSGFAkTn3ew630p-QOCOTZWU_wJs2uih16Vg>
-    <xmx:tJGeavGPKAUScomINHIH-7FyDsSbFs0jSHNC38I1Q96FYHf14Ezkuw>
-    <xmx:tZGeat52CSqtoFjqX435ryj37GF0Yj6NJHFpPpruDQj2B3-FA-KFMUC4>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 06:28:04 -0400 (EDT)
-Date: Mon, 7 Sep 2026 11:28:03 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>
-Subject: Re: [PATCH 00/12] mm/collapse: separate a collapse from its callers
-Message-ID: <ap6RNHS_ve88ijLo@thinkstation>
-References: <cover.1788533997.git.kas@kernel.org>
- <20260905172342.72be31534af21871f8b13f47@linux-foundation.org>
+	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="ttcy87EE"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c15e592da74so406864866b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:28:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ursulin.net; s=google; t=1788776892; x=1789381692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ABEcogDwsawzeRdmBozIgKVzjqJVU/2yTKqGiwVKefE=;
+        b=ttcy87EEXirnGN1jx4Q9fXXfJ8QhZhKz5bfadKytn6R2nh5C7nCrLyWmK70EaitsO0
+         5f2CcMGR4g3X2cDDljhiMSQJvHYkuOk7N2pr6TRQFEJ7JGn200hfPmP6jYXlHUZqZ13s
+         t/BMw4Z0V00mwEDP7nqqgr13yi2HaidAkpq/eku9aTP20IGFjuLKBubpYMuGfjGY+48Z
+         WXsNdIXCv4cA7MEt5s9VVruCEpTAEGAh51b/TmH0dZrJ2D4QktGo1menUPs6OEtr/MGy
+         xLyY7L01DYL/MxAUiwhlEeVh4UTyrSTmNTmxDOKev+IiWWoksBaHB35PfcjE0bgnUuQR
+         89PA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788776892; x=1789381692;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ABEcogDwsawzeRdmBozIgKVzjqJVU/2yTKqGiwVKefE=;
+        b=CmUBg6p6KeS36/peLNkk2OWAQciRKjUH1iJSuR00q2G26Or+UZJTcF+4DPnFzcSTl9
+         qaRZErEFgWeof//Q4pE09m+0goFed2Um1HSQmKbs27hbAmdY5upEhSD5eNoacmGx56Hu
+         gY7z5WG9gr2I5Oa3+ODplzjbEd6mFplyqkPK96UytTzSeLrh9YLkidLmWS4vKLkj+Pbp
+         0ussHsBCTweL6v2cMsCP5HjdSsCBrSHuj8hcGvpDdK+Ycj2JN6HHu/m3iT+Yi97DQt0h
+         m7NXueXoBQ9JFfPIINhxke1eF3FWJRNlqVQYkxLD5KuICy8nORnpdxYuKek3J0EL+2Z2
+         6xjw==
+X-Forwarded-Encrypted: i=1; AKwUvByW1XXzuoJh1noTNatQJ8QqgOWosgCdn6BHbfTxq5UwgTGg1Vit/Jn8aUCcShNZE2s7jiFBh3sHF2p3OSA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0CNc7JRDs1HJGx6RYuMn9i86iyM6/xECMrk1ixAMJNRsb5t/h
+	cxo9dQoJPuKWZNVmH+DyW4Pt4jk+078A/XwAk0Rgl2whQCMD+o9wRgDTlxQPYcfAPe4=
+X-Gm-Gg: AYBFou0T/AQZxd1WJP4lQb5XUqwdqgQd5CDxe22aMgahFn5uUR1J2Ksfwc1SQTf4UJh
+	KsLNUbacWk71BXA9p09UFmuVpw38vzaJGS5RiXgkeKZyVylxXdadhI+FE3iW0qY4ojFhLApS6pG
+	4o9IvXfsHwzNEAjcpU43TkPUi00DTmCkzpKsCSMcxRNWJG9XrxQ3wWK1Wl1u8/AgDlfHbEzLyfu
+	T9aYvpcSFSFv+Y35mV4Vn//1qt0U2NT9jDPAcm7n+rlhrbRVzxEbztZNKbKyHxOaNpO9EWJx+AN
+	ME1K1ESjPF1DSWq43FYHGnJMt8NsqUZU2bxKg6I66GmcNGMmp2pgQZN0Gf6RByBxCV43AS4N2Cm
+	OLFvkl+2RCYieDlYF7U1WQc0q0UuBam30P1flRvq8zsrNAhPDR0IQZCzdxXBZDHttIHjcQ8mw+r
+	2ybYeijJqe+DBOjnRxj7EHecLo5sjUZflDVB0iJEAcRlio0oO/a//7T5+NUitaxTMI5CagrwsNi
+	suDD2wuHk/dU38=
+X-Received: by 2002:a17:907:d11:b0:c24:e1e9:69c with SMTP id a640c23a62f3a-c260c3f93a7mr886509866b.0.1788776891620;
+        Mon, 07 Sep 2026 03:28:11 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d53c37csm439345766b.32.2026.09.07.03.28.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 03:28:11 -0700 (PDT)
+Message-ID: <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+Date: Mon, 7 Sep 2026 11:28:10 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905172342.72be31534af21871f8b13f47@linux-foundation.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: phasta@kernel.org, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 05, 2026 at 05:23:42PM -0700, Andrew Morton wrote:
-> > Behaviour
-> > =========
-> > 
-> > Nothing here changes what gets collapsed.  Three things a reader should
-> > not have to find in the diff:
-> > 
-> >  - Patch 5: khugepaged fills its policy once per scan pass, so the
-> >    max_ptes_* limits and the defrag setting behind the allocation mask are
-> >    sampled once per pass rather than once per table.  A table scanned early
-> >    in a pass and one scanned late are then judged alike, where before a
-> >    knob written mid-pass split them.
-> > 
-> >  - Patch 8: mm_khugepaged_scan_pmd fires before mm_collapse_huge_page
-> >    rather than after it, the scan having returned before the collapse
-> >    runs.  Its status field already reads SCAN_SUCCEED for an accepted
-> >    table, so nothing changes there; what the collapse then made of the
-> >    table is mm_collapse_huge_page's to report, per order.
-> > 
-> >  - Patch 10: which orders a table is scanned for is sampled once per VMA
-> >    rather than once per table.  It cannot widen what a collapse does --
-> >    the order is tested again under the lock the collapse retakes.
+
+On 07/09/2026 10:42, Philipp Stanner wrote:
+> On Mon, 2026-09-07 at 10:15 +0100, Tvrtko Ursulin wrote:
+>>
+>>
+>> On 04/09/2026 20:06, Philipp Stanner wrote:
+>>
+>> 8><
+>>
+>>> If you can think of a stupid and simple solution, shoot. The only thing
+>>> I can think of is moving the string into the dma_fence, as a hard copy
+>>> :)
+>>>
+>>>
+>>> In the mean time, my proposal is to keep aiming for removing
+>>> sched_fence->ops->release and fixing pvr and amdgpu.
+>>
+>> Fixing the drivers sounds like an obvious thing to try indeed. Along the
+>> same lines as it was done for xe and panthor. It is an already
+>> established and well understood approach so shouldn't be controversial.
+>> After that we can discuss in leisurely pace if something better is
+>> possible in the scheduler core.
+>>
+>> I understand its amdxdna, nouveau, and msm. Was it attempted so far? Is
+>> it significantly more complicated than it was for panthor and xe?
 > 
-> So is *any* functional change expected with this series?
+> How did the others fix that?
 
-No.
+Combination of kfree_rcu, synchronize_rcu and storing the name in an 
+object protected by those:
 
-The three items here are so nobody has to find them in the diff, and
-calling them behaviour changes is a stretch: a sysfs knob written
-mid-pass takes effect on the next pass instead of the next table, and a
-tracepoint fires a few lines earlier with the same arguments.
+6bd90e700b42 ("drm/xe: Make dma-fences compliant with the safe access 
+rules")
+299bc6d50b1b ("drm/xe/guc: Keep scheduler timeline name alive")
+efe24898485c ("drm/panthor: fix for dma-fence safe access rules")
 
+Not too complicated on the overall. Simply ensure RCU grace period 
+between signaling the hw fence and freeing the ops, scheduler, name, all 
+that it is in the externally accessible dereference chain.
 
-> I'm reluctant to merge an unreviewed v1, but this comes close!  I'll
-> sit on it for a week or less, see what people say.  Please poke me
-> if/when you think it's good for mm-new.
+> If we look at nouveau:
+> 
+> static void
+> nouveau_sched_fini(struct nouveau_sched *sched)
+> {
+>   struct drm_gpu_scheduler *drm_sched = &sched->base;
+>   struct drm_sched_entity *entity = &sched->entity;
+> 
+>   wait_event(sched->job.wq, nouveau_sched_job_list_empty(sched));
+> 
+>   drm_sched_entity_fini(entity);
+>   drm_sched_fini(drm_sched);
+> 
+>   /* Destroy workqueue after scheduler tear down, otherwise it might still
+>   * be in use.
+>   */
+>   if (sched->wq)
+>   destroy_workqueue(sched->wq);
+> }
+> 
+> 
+> We see that it
+>     1. stops accepting jobs from userspace (not visible here)
+>     2. waits until all hardware fences in this ring are signaled
+>     3. only then tears down drm_sched
 
-Zi and Baolin have already provided enough feedback to justify v2.
+I cannot do a very deep dive into nouveau at the moment. I see fence 
+itself is already freed with kfree_rcu so that's good. What is reachable 
+via the timeline name callback:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+	struct nouveau_fence *fence = to_nouveau_fence(f);
+	struct nouveau_fence_chan *fctx = nouveau_fctx(fence);
+
+	return !fctx->dead ? fctx->name : "dead channel";
+
+Fence is presumably the fence so channel. Chagning to kfree_rcu in 
+nouveau_fence_context_put() there might be enough for that one.
+
+For the scheduler (nouveau_sched_destroy()) the same, kfree_rcu.
+
+That makes scheduler timeline name vfunc safe:
+
+static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+{
+	struct drm_sched_fence *fence = to_drm_sched_fence(f);
+	return (const char *)fence->sched->name;
+
+sched is then RCU protected. sched->name is already static so not a concern.
+
+As you say nouveau_sched_fini() only tears down the scheduler after 
+fences have been signaled it seems adding two new kfree_rcu make is safe.
+
+Regards,
+
+Tvrtko
+
