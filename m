@@ -1,159 +1,156 @@
-Received: from smtp-bc0e.mail.infomaniak.ch (smtp-bc0e.mail.infomaniak.ch [45.157.188.14])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB0C413230
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D28E3B5847
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:31:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777033; cv=none; b=RIylT6pF3XSKbZA8b4+oAOAS95vLJhugygwMIYr156w9RuZkb9MrwzEBXTVSHoX+yAUQ7yXYOcgAr6hxdaDvYHUomFh4vwXvrPQZIBN5MqJLsiDnEgDMpCQd72jrVNJgWGue1xEY+2fmp+Fknk7KadEjLt5DEZpbwvl2Qhk1QOs=
+	t=1788777063; cv=none; b=u+jjD9a20reVkCZQ5qHi7CSmKldR8ecYIbK6h/EaI6rNg16RU9wTq07MPcIHpz6ZiGxwm73aCnDgJlp1C+bCa5GC74QfOtdxwpCKs9CywG36O20I1q9mGXXEzmPnA1Lb+Xc5OvCcwyvsj9ebALnA/VSBlfkKHZWU+sSlMzydk0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777033; c=relaxed/simple;
-	bh=19coJIylWvxz6gMx5zXstzR5ZZbvm8zgO20K0pyaTfM=;
+	s=arc-20240116; t=1788777063; c=relaxed/simple;
+	bh=TmrWz6bOPjP96DJHHe05YDQ1Unf2iuG6IEzup5sn/bY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=toQGbsf5IV0wygDoFgFae/VcAzuUehD4NmKtU3NuFEniEJ3TneA3x3n4mSd21JbVfFzFhrUf6xos3gdMdlkShrX8nSOeOv/a0EGUASdcB0j9R0tc50hq6CALsYa0IYwcuAJhIW5akhbvbwt/0532OHK6lQvhoy+tgr7SGtRCeRw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=PgZAPsFe; arc=none smtp.client-ip=45.157.188.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=NSV+WHxnVhI8aMSOkh44xXmUT5JivbuqvF3gk/417HGW0DL5zg2Gnv50Q5iazeiejZglFmEUuQGEvCXzHVacTA1Mv/KsZvYuoHIJ/zu6vsOfvHz8Qv4sa3gQPNub2ecTRxSlapRbNh/E812NoJ0R0MdQJBLa7Hj7f2aVQ0+tgcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MkpvtxPk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cGQmOK6u; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="PgZAPsFe"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdj9F3GZrzb5H;
-	Mon,  7 Sep 2026 11:54:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1788774897;
-	bh=RZ454quDtwdBAAiqCxnXu5jqwnyWsyz8+Os7/oS/vwc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=PgZAPsFegumoigbYo2RzPJ3pDpFl54758utDK2nc+EgH3l6n52pQSDt8D8Y7Dh8ZP
-	 VaWbUwzDUGa5bDLFW0VZRu6myBGlwaSm3sJcXdoQQqEwfoPQHMSmWFO2FvTNu97cTu
-	 1S/K5quwCNT4rS8Tz05Gq6f4KrJKLS6CT9FqTRTY=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hdj9D3KsZzVMq;
-	Mon,  7 Sep 2026 11:54:56 +0200 (CEST)
-Date: Mon, 7 Sep 2026 11:54:52 +0200
-From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
-To: Norbert Szetei <norbert@doyensec.com>
-Cc: =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] landlock: Fix use-after-free of the source's parent
- directory
-Message-ID: <20260907.tuwieD4ohnei@digikod.net>
-References: <E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MkpvtxPk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cGQmOK6u"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6879bjKW3618224
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 10:30:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=8MKYzD38ejq+QfCLrmAsGoMh
+	9k2OMHUy0zDkIWzsaUI=; b=MkpvtxPkSNLm0L6xLv7oq8exFlMxuY55+z81JB4F
+	YUNTYHSYkLaOENAyDw2RdHmKCGldRwY2efXjXPAEZk7aZ8myLk4bAOfw5X2lBtC8
+	s5Bl6HJH6nuG/YA5RLdJ5lHz7UCMCZaTneXLTzPTgDv7wkzRsdtzj5uRXVXgWag7
+	SL+NJMTPKrWJ/K/QcGhUDrVbaGsKVHEw50bh/2HQAHg3mWr6V8699HoaVymUDZRB
+	6g2wlAh6CbVCDJC5t87swBIdkXUj3jWN8lKHFfCDErUz/KkH6u9ZEWzj9GYAxIMT
+	W4oZ5XLk2r9SJ2bkPYmRgRBzlOg5WMFpD/CFkY4ED/5Zzw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfygmrv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:30:59 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93909014c85so557045985a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:30:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788777058; x=1789381858; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8MKYzD38ejq+QfCLrmAsGoMh9k2OMHUy0zDkIWzsaUI=;
+        b=cGQmOK6uKD+ecuq9btDIqTX8gQ+3Pdo7u2YKjiqSrFflYbkOclep4JVfn6a+W8sNJR
+         nzyekZuAMGLz79ZGfUatolrBoajEbDst2ohDN97HssqvY/AzhbmVJIKi3GO5wOALZuNR
+         tX/yULnMJ7XTK9eAuj0AGYcELRRX4T0c0a67/FKH9d4p7Wl8l9EznoXCBVptD2pgPnm0
+         V8mCNMB6y3lQ1gVQYbqMom79T7WPP+PW3ms0c8JRAaQrnGkVkYvLFZRDG0fFMGppbxmt
+         NxaYcyegTf8UG4iL8OMAe4egs6MOfa7kbmPZpNwJ4O7IXiZGP+BphgeDUa+kYzwOCA2p
+         A04w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788777058; x=1789381858;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8MKYzD38ejq+QfCLrmAsGoMh9k2OMHUy0zDkIWzsaUI=;
+        b=OaaGRK8R2uVI9TUO1sQjDOl3lCT26S3shgZ7oZUXSMfV7VkRwDOSv6W/c3ci9bbuMx
+         zWKNLBoFHLC6qvYb0mVK3uNjiiKoNXFAenvt0NDpTaaX7rMEGRiVy9yt8tileh668HE9
+         8yNac5RRlFizsdNnTI5JXF8mt7Qg5G1OQmW4ApfpR3igyjgLgTol9Ap1ZFvsvy8DJBWG
+         gEs1L4l0gQngkuzhJHvyretDVBLOxtwYG2vO57dFAP3aImkGATb8RXT+O/ImsFIw5bJZ
+         gC/UO7QTTpIYgX5f2Lq8THnJZBEa9oYkyIRMRrzw/U6SHyC2eFtavFxU6IHlDH4Q+f5d
+         E5uA==
+X-Forwarded-Encrypted: i=1; AKwUvBym69/UcrjeFSIrIoAon+DLiCS5QOaUN132mIX0KhPoWgH/fPXByvrXDu7zUIZa7sbojF3Kflj7fCHsv10=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/F1EMGaDpA/8kY3ZOnOhz2OD9srqFer8xjQdjGlhKIlYIcpfh
+	IJK6Fp+9lKDAfA0/TKpsU79zGyIVXSl+mw0akS02pRBvnNVh2j+aM/G7r6UilYLP9F3+u40krfA
+	Sbjcu6Qp9W9DvSh+lnY4nsSW5/SLghv5r/U/EqLBKiIBxKkqjJLz6hB5r134YyM34gj4=
+X-Gm-Gg: AYBFou0FZpDIzqEKBnG0Mg27N6lMsKUrFJGreQX9GFweJ+XJs+rtKrOP02wFan9qG26
+	J9kUDaDjhWTnvCbeIAQpLXCUVOLg/PL/NoovyLYoBgo3fAnzVAvhA63/+bMSnOTBPRZoaD/JXbG
+	xCjLiYV0E6aBOCPHCiHdFVSBcY78u4UmzbYZCmOnTvhtXenMehc6HHktf+xbVKyPMfcOwWl0gxz
+	aDeESljrM3bx+sl1anCSkhl0wHHk6PcGIa5wS8BgzJkSC0l+8q1cc9QQWhidHNwFNi84AHpknOh
+	wyRfhflSfVYGd1SkZOtU3nYgoBORIS3RXSTgWUVSZKBBJoecWkPtpyBHef4WRe5NKKOzW8qpXcW
+	zdgtipyL8IUE+
+X-Received: by 2002:a05:620a:1b8a:b0:939:ac74:1bbf with SMTP id af79cd13be357-939ac741dfdmr430147585a.4.1788777057589;
+        Mon, 07 Sep 2026 03:30:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b8a:b0:939:ac74:1bbf with SMTP id af79cd13be357-939ac741dfdmr430141385a.4.1788777057034;
+        Mon, 07 Sep 2026 03:30:57 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75cd8d0sm278699115e9.2.2026.09.07.03.30.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 03:30:55 -0700 (PDT)
+Date: Mon, 7 Sep 2026 13:30:53 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL
+ width
+Message-ID: <r6qvtedkounw2yvbzopjeoqqvz3shlffzmrmizobokfgpkkblj@p5fpetc65kv6>
+References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+ <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com>
-X-Infomaniak-Routing: alpha
+In-Reply-To: <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: vpDaYm0kmH6-PGZf0QFew81A-xZs2fAz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDExNCBTYWx0ZWRfX4HMu570AP/1t
+ QR75ukX022xQlri6W7FTXhoPRj/YHfWx+hKayStLmNmfU4x0ffc1HLAo9e90bAJRz7ifzTNaDhs
+ 4JGdrMOCpU549YJq+lwxgvz4Trw6k4Lzm1oJhEX+OfXuRIQo2hmh6ll4AJ4LLbnX6PmQKRJMDcp
+ F+wgWMBt2B02IgQbPloC2vjSJ//9D0TAWaPitFpfQhgwOOWj4deh30TSli0MyCO5jh+XMaiASP1
+ 2p0c6QCVwmbyeqoU2SI/HXuszsRd6n2c6tM1leWoXy7KZ6UO4XSpszhXYJtQ+x7co3jjhaDQTMZ
+ f8k2WlYnidIn7RpBVZ2HY+IYJg+hu3Hs07fbApaYAlkKUUAg+EpEWDeNr5A66QxN8Xib/BQk6Gd
+ 05BFws877Wc053Q1wWX2I53meaN61TZuxZ5G7cwa5kob4LdXl2dMi3qFt+fcYxzAyLqhANRWBzq
+ 6DmcwBzUIXf/WGd5sYQ==
+X-Proofpoint-GUID: vpDaYm0kmH6-PGZf0QFew81A-xZs2fAz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDExNCBTYWx0ZWRfX3a5b8cspfKs0
+ LMwMBrbWzoufSz66yes0DsRA5mG5jv4ohpkahrbmYW5y45FbS1lJTcHuKbqiRCLmiry1pzRvdno
+ tManoRV+n077VZiL3hsyIkgnAUIFYoU=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9e9263 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=q38Eq4LkVyZCF8x0k14A:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070114
 
-Thanks! I'll fix a few minor comment issues but otherwise the patch
-looks good (i.e. no need to send a v2).
-
-On Sat, Aug 22, 2026 at 02:29:00PM +0200, Norbert Szetei wrote:
-> current_check_refer_path() reads old_dentry->d_parent without holding a
-> reference nor a lock on it, and then dereferences it in
-> collect_domain_accesses() and in the audit record.
+On 26-09-07 13:56:13, Taniya Das wrote:
+> On some PLLs the PLL_ALPHA_VAL register has been increased to 28 bits to
+> carry the fractional word at a finer resolution, for example the
+> ZONDA_OLE instances on the Qualcomm Nord DPRX. The alpha-PLL core,
+> however, derives the ALPHA_VAL width solely from the register-map layout
+> and can only express 16 or 40 bits, so it programs and reads back the
+> 28-bit configuration at the wrong scale on both the set_rate/slew and
+> recalc_rate paths, making the PLL lock to and report the wrong rate.
 > 
-> A reference on a child does not pin its parent: __d_move() reassigns
-> dentry->d_parent and drops the reference the child held on its former
-> parent.  hook_path_rename() is not affected because the rename path calls
-> lock_rename() before the hook, so the source cannot be reparented under
-> it.  hook_path_link() has no such protection: do_linkat() holds a
-
-It's filename_linkat().
-
-> reference on the source dentry but neither locks nor references its
-> parent, so a concurrent rename(2) can reparent the source while
-> security_path_link() runs, and the former parent can then be removed and
-> freed while the hook walks it.
+> Add a way to identify the wider register: an optional alpha_width field
+> in struct clk_alpha_pll that, when non-zero, supersedes the
+> register-derived width. This feeds pll_alpha_width(), so the recalc_rate
+> and round_rate math scale the fractional word correctly, and the Zonda
+> set_rate L-adjust MSB check is derived from the active width instead of
+> a hardcoded BIT(15). PLLs that leave the field zero retain the previous
+> behaviour.
 > 
-> Any process able to sandbox itself with LANDLOCK_ACCESS_FS_REFER can
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-In fact it's any FS handling.
-
-> trigger this with a linkat(2) loop racing rename(2) and rmdir(2):
-> 
->   BUG: KASAN: slab-use-after-free in collect_domain_accesses+0x278/0x290
->   Read of size 4 at addr ffff888160bd53f4 by task llrepro2/549
->    collect_domain_accesses+0x278/0x290
->    current_check_refer_path+0x952/0x1120
->    security_path_link+0x1be/0x320
->    filename_linkat+0x342/0x6d0
->    __x64_sys_linkat+0xfa/0x150
->   Freed by task 562:
->    kmem_cache_free+0x139/0x4c0
->    i_callback+0x4b/0x80
->    rcu_core+0x7dc/0x10a0
-> 
-> Take a reference on the parent with dget_parent(), and release it once
-> the hierarchy walk and the audit record are done.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
-> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-> ---
->  security/landlock/fs.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
-> 
-> diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-> index 30aa6ce13590..200c83372bbe 100644
-> --- a/security/landlock/fs.c
-> +++ b/security/landlock/fs.c
-> @@ -1298,11 +1298,12 @@ static int current_check_refer_path(struct dentry *const old_dentry,
->  	/*
->  	 * old_dentry may be the root of the common mount point and
->  	 * !IS_ROOT(old_dentry) at the same time (e.g. with open_tree() and
-> -	 * OPEN_TREE_CLONE).  We do not need to call dget(old_parent) because
-> -	 * we keep a reference to old_dentry.
-> +	 * OPEN_TREE_CLONE).  Pins the parent in both cases: a reference on
-
-I'll describe both references cases.
-
-> +	 * old_dentry does not pin its parent, which may then be freed after a
-> +	 * concurrent rename(2).
->  	 */
-> -	old_parent = (old_dentry == mnt_dir.dentry) ? old_dentry :
-> -						      old_dentry->d_parent;
-> +	old_parent = (old_dentry == mnt_dir.dentry) ? dget(old_dentry) :
-> +						      dget_parent(old_dentry);
->  
->  	/* new_dir->dentry is equal to new_dentry->d_parent */
->  	allow_parent1 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
-> @@ -1311,8 +1312,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
->  	allow_parent2 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
->  						new_dir->dentry,
->  						&layer_masks_parent2);
-> -	if (allow_parent1 && allow_parent2)
-> +	if (allow_parent1 && allow_parent2) {
-> +		dput(old_parent);
->  		return 0;
-> +	}
->  
->  	/*
->  	 * To be able to compare source and destination domain access rights,
-> @@ -1324,8 +1327,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
->  		    subject->domain, &mnt_dir, access_request_parent1,
->  		    &layer_masks_parent1, &request1, old_dentry,
->  		    access_request_parent2, &layer_masks_parent2, &request2,
-> -		    exchange ? new_dentry : NULL))
-> +		    exchange ? new_dentry : NULL)) {
-> +		dput(old_parent);
->  		return 0;
-> +	}
->  
->  	if (request1.access) {
->  		request1.audit.u.path.dentry = old_parent;
-> @@ -1335,6 +1340,7 @@ static int current_check_refer_path(struct dentry *const old_dentry,
->  		request2.audit.u.path.dentry = new_dir->dentry;
->  		landlock_log_denial(subject, &request2);
->  	}
-> +	dput(old_parent);
->  
->  	/*
->  	 * This prioritizes EACCES over EXDEV for all actions, including
-> -- 
-> 2.55.0
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
