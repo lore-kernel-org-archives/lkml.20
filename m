@@ -1,93 +1,104 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB163AE194;
-	Mon,  7 Sep 2026 06:31:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C1E830C179
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:31:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762674; cv=none; b=b9ZmUBE9IaoRp3/tve9uouRBU9D6p96VFRRlufXLcjHHuzR+8KroZdHyOMEOTJa0zcRkf1h2k9Yky5VAZmvNYtZHCgcpP8gIS1Y8ucKmOQJy1T1sehtD6df4jY8o58RJ0Ts0mvg00dLyhxZlAgemlvkLQHr//frCnOQCIwdQW5s=
+	t=1788762683; cv=none; b=NpeadlabmF+8jBG27YTNZeHdtEwfWq71s5/xW9sOkHxci91eHmXFTCKAp3j7O4Focs3bcRdqVRfkHQ6RqVLf0qQdIAldFYTOcJzDA5uJFYuCfI9gbzaSxkjmy0Ezs9l1f7GapHDbn1+x0r8ZxygU+B5KMOtRb0E0FfeUSFkyed4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762674; c=relaxed/simple;
-	bh=oPI5dlqcbplDbVLpYxfwS1vk1MKfBLp2yvJkz6prFSw=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tx0ZUGksADyZ8NRdgDY525zqImTBFJtP2y14NHDaPlMwWSKStS9UL+nwFCb5kOSdw9fRXqLxrVIM29girUyfmA27rbw5LsaoJkSysDi7V8JQc8bKlQvyJwcIZ6P+FWbQggXUpiLTa4D8NPWxFrB/sfLD3nLORE0SNhhRyAS02VA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=AY7UuHC5; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788762683; c=relaxed/simple;
+	bh=nbqcYtO9Lklo7s3PrhiXadrEIwtOhmem+2QzHg3gK/4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PgDQN4n+vr04o2wr7VZTGWZaREErerWOxOKS/CMyiZEJsMqZ7LvTPVBBQPR8+Tzd057y0w5Pdodldum62gy1dyt7QfdTbyHpbsEORMDESzsJGxZMXmov/odxOhz11+cQzkA2HJshiV6cMUbKaEIPQ+7FPjI71DJzyiUU+Auc9u8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hq+RHQu7; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="AY7UuHC5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=oPI5dlqcbplDbVLpYxfwS1vk1MKfBLp2yvJkz6prFSw=;
-	t=1788762670; x=1789972270; b=AY7UuHC5/asf4vI/UHKyJhKE04Zwy4dwqRBK7lFlOWR23wQ
-	eiSezzNSz3yrAKerJygKANasaMDc23TjRvG5LT8IeXsjhfwZiY520k+cogjj/RDTTdImOsNyvsig3
-	BswXP8dvmh2gb18RDIZ54/Og/mOxmbBs+2rym1q+KW/wRy+9+o6bY7BDY5tuR1q+xkdeGaLNXk33q
-	j42YiX+TCYXj+b284j9i3OgAbftLQHkWOx+EK6PPva+FgnEfqDSyoCZBU/AdSW+cdf1+XUK7knerp
-	b7FT1Nmmk8ee8OFroRMr+y+5J7/pwsv2twGQAQe4vgu7Q+ZjBjD52Lk7OhytbYkA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x3Sse-00000004Jzo-36An;
-	Mon, 07 Sep 2026 08:31:01 +0200
-Message-ID: <60a8acf1adc0d2acc5c558c4cc791d01421f6b92.camel@sipsolutions.net>
-Subject: Re: [PATCH wireless v2 1/3] wifi: iwlwifi: pcie: don't infer CSME
- presence from a failed read
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Navon John Lukose <navonjohnlukose@gmail.com>, 
-	linux-wireless@vger.kernel.org, Miri Korenblit
-	 <miriam.rachel.korenblit@intel.com>
-Cc: Bjorn Helgaas <helgaas@kernel.org>, Emmanuel Grumbach	
- <emmanuel.grumbach@intel.com>, Nika Krasnova <nika@nikableh.moe>, Mark
- Pearson	 <mpearson-lenovo@squebb.ca>, linux-pci@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hq+RHQu7"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso2250104a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:31:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788762676; x=1789367476; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Dq0SpKsLNqUdhZGKulcWkvLVKywODwI8oaC6/cTsqsk=;
+        b=Hq+RHQu7B6/Xpwf/2cTdUvKf5f3p8dM5e1vJxdpYzeUsaYX6oTGO5vR40QqgkZB4dC
+         2CrBhv7ryAli0mzAIDrZQtelzvzIijlVjxf4t00uDBiDUrNSUgAmCOCQw2RXmotX9T0F
+         Wp9dG2BZAD6X0dItEpJ8RdbxuxKxtUwnA1S8AVucrJNX58x5gY8f233A0lOdkHTZXeLO
+         TB4E/wETsw7CpN6aWGdrFCo7dXu8UhOBgV6vBjaNOWnFZWXSnVMdJYP8VL/WXZBz6cRa
+         ExGBG5WONPjRxlqSIWbfBPjprdMG781yDgkPm8ztKVluTKV4mXv5+rIQPdnitZncbK84
+         qlfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788762676; x=1789367476;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dq0SpKsLNqUdhZGKulcWkvLVKywODwI8oaC6/cTsqsk=;
+        b=P9Kg5WGWJ84fmr6qhijQBtfzWiSoGehNYGcZ2qf12Ca867ak3SSUpKxrANgCUTOuMQ
+         FXtTSVt9BbKeGD7gBbB8sQY50vUcrs/T6V+dQQK4vsD11HvUGwkRC89gMgEB4CqyCfjF
+         LF0tt1aKQJOfEwZbwf0kCNOpQPsRZep63AwtORhfpGWmATY6HhEoGtIl81AMW/SjGfKr
+         W8D1wREHjH+DlwnSpOQGPETB4vvF098RopWi3HJIAldjdV4amkqaumUtl0G+P80hdEpc
+         EwWlqlv3D+/QX2J3Sp8wpKMqftZZYPPA3dxc5Nx+aE5fBKYLGODSc6xqG8ZYRzH+q5GM
+         6YSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxZLyW8waDeG94asghuk1W/1lJHADOwD+qcXwNOiFN13+PEJmfHwQsJkzt8bprjlyJeZPJfDJ0fo0gb8N4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvvtnfzRbLgIhE+thks4vUseohE1KrVerX3qQ7bKGXEQHly4QP
+	/rhCDQ7MYNXMALTDx1eA5K4EsmgivdfhvLxxg7kO+3QFh3Q27AraiYC1
+X-Gm-Gg: AYBFou0x8WrAhWgtKmLjObtlGiE0AdZ89/ZMmUG9UhoMBmyQr+RVY1pn6dQdsy4S3nn
+	doi/G40NIkIsxNeiiqxLdUFLsgiaLg4JuHRfztJS+/JcKKAdnSIhSMBrO8+G9gdaNWP+ofEwA3Q
+	hzes+qgFplAmdLHIVFvs/2c7PGi1QJE15dHTdoeaeiFytrqw0GCMyocSEaB4PhtFF9np7gT8QWZ
+	eP8hYq3FZFrsqhV79gS+TFi6gl28l3tR859wac121X+AQ6E8ED9PnLLXjKgYsag1VGVwsu9Pyb5
+	UiziMgeIhGWCuSnZSHLXLDEOm91PBZEOMDjc85KI74wFsVHed3JpKEPz31Y90Kw7pF+NAmi6JrV
+	6MQv7QoxaRGadfM2pfXkaWk+tNepVuLShu1EE8K2yKdmScX4VwVGJ3u5xVukGXwedmfszqg01ev
+	ymCDYMB0Ewi5h/BSgMgCsj4vJg0Fn4Uf048b8/AmYuhO37UTm/ZT7qvpbsHzq5yK311YLzHjKTW
+	1MXtzUEJk5OAImCWHX/BtDI
+X-Received: by 2002:a17:90b:2552:b0:398:e6b6:acc1 with SMTP id 98e67ed59e1d1-39b262728cdmr32640824a91.15.1788762676486;
+        Sun, 06 Sep 2026 23:31:16 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm28325245eec.1.2026.09.06.23.31.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:31:16 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Richard Weinberger <richard@nod.at>,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Date: Mon, 07 Sep 2026 08:30:59 +0200
-In-Reply-To: <20260906230022.148733-1-navonjohnlukose@gmail.com> (sfid-20260907_010041_495523_B0CD5EA1)
-References: <20260831130332.323549-1-navonjohnlukose@gmail.com>
-	 <20260831130332.323549-2-navonjohnlukose@gmail.com>
-	 <20260901154828.GA1879052@bhelgaas> <20260901161736.GA1883420@bhelgaas>
-	 <1a2c11d47b27dfd8a246300ac158d25cef5abf35.camel@sipsolutions.net>
-	 <20260906230022.148733-1-navonjohnlukose@gmail.com>
-	 (sfid-20260907_010041_495523_B0CD5EA1)
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+Subject: [PATCH] mtd: ubi: fix typo "occured" in comment
+Date: Mon,  7 Sep 2026 12:01:11 +0530
+Message-ID: <20260907063111.19769-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Transfer-Encoding: 8bit
 
-On Mon, 2026-09-07 at 04:30 +0530, Navon John Lukose wrote:
-> On Tue, 2026-09-01 at 19:02 +0200, Johannes Berg wrote:
-> > I believe the hardware itself never generates ~0, so yes, it probably
-> > should use that.
->=20
-> I'll switch the tests this series adds to PCI_POSSIBLE_ERROR(); drv.c and
-> trans.c already include linux/pci.h. There's no non-PCI transport to
-> worry about: Kconfig depends on PCI, and iwl_trans_ops went away in
-> 0d91a2bfc3dc.
->=20
-> I'd be more careful with the helper itself. iwl_trans_pcie_read_mem() and
-> its _no_grab variant run it over dwords they're copying out of SRAM, and
-> ~0 is a value the driver writes as data (FW_CTXT_INVALID fills unused
-> binding and quota slots). iwl_dump_ini_dbgi_sram_iter() is the sharp
-> case: it gives up on a single hit, so one all-ones dword fails a whole
-> region. I haven't seen it happen, it's just what the value means.
-> Widening the helper and taking the SRAM paths off it would work, but
-> that's more churn than belongs here. Your call.
->=20
-> Separately, the test at the top of iwl_pcie_irq_handler() (rx.c:1948)
-> looks unreachable: inta has just been masked with at most
-> CSR_INI_SET_MASK (0xBA00008F). I'd move it above the mask, unless you'd
-> rather drop it. I'll send that and the PCI_POSSIBLE_ERROR() conversions
-> separately.
->=20
+Correct "occured" to "occurred", reported by scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Only touches comments, no
+code changes.
 
-I'm not your remote prompt engineer, so as far as I'm concerned this
-thread ends here.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/mtd/ubi/wl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-johannes
+diff --git a/drivers/mtd/ubi/wl.c b/drivers/mtd/ubi/wl.c
+index 5a0db928a90e..44237de52250 100644
+--- a/drivers/mtd/ubi/wl.c
++++ b/drivers/mtd/ubi/wl.c
+@@ -1486,7 +1486,7 @@ static bool scrub_possible(struct ubi_device *ubi, struct ubi_wl_entry *e)
+  * @pnum: the physical eraseblock to schedule
+  * @force: don't read the block, assume bitflips happened and take action.
+  *
+- * This function reads the given eraseblock and checks if bitflips occured.
++ * This function reads the given eraseblock and checks if bitflips occurred.
+  * In case of bitflips, the eraseblock is scheduled for scrubbing.
+  * If scrubbing is forced with @force, the eraseblock is not read,
+  * but scheduled for scrubbing right away.
+-- 
+2.48.1
+
