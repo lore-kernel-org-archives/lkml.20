@@ -1,96 +1,200 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BC4471CF0;
-	Mon,  7 Sep 2026 13:55:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B04EE877
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:55:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789357; cv=none; b=LlybeWIYnn80Ehk2vz2cfVdM7yap8dRNQLUuFoGBHxRbQWCGimD49Ynrsc74Uz5MWyaGVsz+gIa8rtEmp5HCM33WE40hs1WKk54ven7zUhdM1oT2h0McvZAq426+ELiy2xMkFcwmT7o5N5FXNDN8Imcgdbxl4pR6yrI1nbRWeK0=
+	t=1788789361; cv=none; b=o9xEsQtjAVV7qpczDe3Gh1D3bfp0gfpDcgvJXCdJ6qtF9YiFx8xRt9OFVbX/KIbSN79BFwwWZ6WF0VyN8+t8TDAR7DYprQAKSuQQ4nfIJQpoD1V6aJ0z73YpSVNngqhNGIDvWjt3lXQIk2ift9XJfGUUqPN0qjCsPDZfNkbz/tY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789357; c=relaxed/simple;
-	bh=uJ9yLiPjkV7mqJYi/e/sLIQfI5MzeKtKqTaBRnPdZII=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D7Ihie9yAdJ8P55m7YqxVaKK8HWMNepO5Cvjxzqdhh3M55zfTK4GsHeqcfci5GIHoeEfpRCSv0+9FHeNj32jgfqclVneguhndBakz4htQEEyY2rKANTYwVrK+hORH2Z+HHvjpcYylGEaCrwvTsjvqpydOPQihON+m07IsI2OhbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ivka8e92; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789361; c=relaxed/simple;
+	bh=OnJ7HC00/rddbJsQSNNRG2i/15vqOfuKoPk7IGJ5hHc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pauBeYFEvDaMHFg8jD65BcEjcn51V+WQ3fd0z0flHIJCUIvZ98jTuu9ERG0ZaISwPQ25Eoqbs2Ya4il19UWyo9d1iMriRl01KHB8sWEifez6GaqRH1cd92Ecbffvfe0hTbJqBvtpC9aZcZHToDiRVO2+zmxGe3AS/rY0uS2BugY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI8ftB0Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ivka8e92"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADE11F00A3D;
-	Mon,  7 Sep 2026 13:55:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI8ftB0Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5841F00A3A;
+	Mon,  7 Sep 2026 13:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789356;
-	bh=QX2gRrWLh0XG2Wnzu/p5Y1nX85VR2Z84CbvCZIU2k4s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ivka8e92obxVMpDR7ZEUoeDhvXqG3e0ojPCbeS/dG+aa3Y3rbtISKis/kmhPKuPH1
-	 Yw3qhpozWs8XL9INijAninTqdqeB9qzyKA5f8rY6z/uRRbkEPjL6FPYp3mPsT7ofN2
-	 7+4jfvEx5JZcliiczaVbBDZ9hgRMiwyCj6UApHCzgtur3QOAccZfVLesvAbJqjAO3x
-	 aJSKaGW5icuy6uzIFw4ZUHr2S0XWa1pQCG/L8Ae3cl2yi+uANnJwkzb9++JSQQoXn7
-	 M9rxz9PfmWNPjAgx4YTOvg10blOhuq7p15daryHYxdAP29pVZ+RR6ZwdrAwcNEmUt8
-	 8uVUeB9kxbEhQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3ZpB-00000000erQ-2hV3;
-	Mon, 07 Sep 2026 15:55:53 +0200
+	s=k20260515; t=1788789359;
+	bh=EZB4SZnhJn7B8NJkES4V3S9ML1xc3yKh26KW0DCPkAI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gI8ftB0YMB5vFgdTJ/VqSy11B4Hgym+5tR+cWMB1A5tmkqCbZ/XV45UeEkAae5CQp
+	 ThqtR5Ty7VZZyVLE+VWPHUJ06pm2305BGgyL5gsuJo79cG+78PL8Nn2/Kq0BFXEbtx
+	 ZCnozSOxaLCXytDG5G4qd0K+rIk7GVTlL/GtgC8NlNJOnijP94SSajKkEqwDWvBzxT
+	 DyB8P/UTClwDwgCX8ReGWUGXZQCKn3zJ7wvxVf4QulqIGQDxC3I4+DnWtAeUmZQpOB
+	 qVTZNLTV8kDg8HIQV09OZ7gOxF1epLwiTS1PLIVCJKHKh3lWeYBZnPb1G4u4arAAkw
+	 GfbSDawgyVYKA==
+Message-ID: <f44181bb-ff82-4537-b2eb-fcbde304d7eb@kernel.org>
 Date: Mon, 7 Sep 2026 15:55:53 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Jakov Novak <jakovnovak30@gmail.com>, linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
-	Ulf Hansson <ulfh@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	syzbot+1ee4f3b9228e35f14677@syzkaller.appspotmail.com,
-	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: Re: [PATCH] mmc: vub300: fix sleeping function call from invalid
- context in vub300_inactivity_timer_expired
-Message-ID: <ap7CaVj82BJZgjf6@hovoldconsulting.com>
-References: <20260816153809.7067-1-jakovnovak30@gmail.com>
- <aoLCr8JEYaYxcJcQ@hovoldconsulting.com>
- <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMuHMdU_Rx4ZGi9SsNxKUDyYmV-GbD8rD9NMVzYginBMXdZDMg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] mm/huge_memory: dequeue the deferred split after
+ the split freeze
+To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
+ ljs@kernel.org, hannes@cmpxchg.org, usama.arif@linux.dev
+Cc: lance.yang@linux.dev, ziy@nvidia.com, kasong@tencent.com,
+ hughd@google.com, baolin.wang@linux.alibaba.com, baohua@kernel.org,
+ liam@infradead.org, nico.pache@linux.dev, dev.jain@arm.com,
+ ryan.roberts@arm.com, balbirs@nvidia.com, kas@kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260831091514.1879786-1-kirill@shutemov.name>
+ <20260831091514.1879786-3-kirill@shutemov.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260831091514.1879786-3-kirill@shutemov.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Geert,
-
-On Mon, Sep 07, 2026 at 02:17:45PM +0200, Geert Uytterhoeven wrote:
-> Hi Johan,
+On 8/31/26 11:15, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 > 
-> On Mon, 17 Aug 2026 at 10:13, Johan Hovold <johan@kernel.org> wrote:
-> > On Sun, Aug 16, 2026 at 05:38:09PM +0200, Jakov Novak wrote:
-> > >  Currently, the function vub300_inactivity_timer_expired, which gets
-> > >  called in a softirq context, calls a sleeping function in the following
-> > >  call chain:
-> > >
-> > >  vub300_inactivity_timer_expired -> kref_put -> vub300_delete ->
-> > >  mmc_free_host -> cancel_delayed_work_sync -> __cancel_work_sync ->
-> > >  might_sleep -> BUG
-> > >
-> > >  Fix this by replacing kref_put(&vub300->kref, vub300_delete) with
-> > >  vub300_queue_dead_work(vub300), which does the same thing, but in a
-> > >  workqueue context.
-> > >
-> > > Fixes: 88095e7b473a ("mmc: Add new VUB300 USB-to-SD/SDIO/MMC driver")
-> >
-> > This isn't the commit that introduced the issue. The blocking call in
-> > mmc_free_host() was added by commit 1036f69e2513 ("mmc: core: Cancel
-> > delayed work before releasing host") in 2023.
-> >
-> > I didn't look at this in any detail, but having that call in
-> > mmc_free_host() (e.g. rather than in mmc_remove_host()) looks wrong so
-> > perhaps the fix really lies in MMC core.
+> __folio_freeze_and_split_unmapped() takes the deferred split list_lru lock
+> across the freeze. It is only there to stop deferred_split_scan() from
+> touching the folio under split.
 > 
-> mmc_remove_host() can only be called after a sucessful probe, while
-> commit 1036f69e2513 fixed an issue where the last probe step failed
-> with -EPROBE_DEFER.
+> With deferred_split_isolate() fixed, the workaround can be dropped.
+> 
+> Unqueue the folio after folio_ref_freeze(), the way
+> __folio_migrate_mapping() does: folio_unqueue_deferred_split() needs a
+> zero refcount and a memcg still set, and both hold there.
+> 
+> If the split is called from deferred_split_scan(), the unqueue is a
+> no-op -- the folio is already removed from the list. But
+> PG_partially_mapped is still set, so it has to be cleared here or
+> MTHP_STAT_NR_ANON_PARTIALLY_MAPPED never comes back down.
+> 
+> Assisted-by: Claude-Code:claude-opus-5
+> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/huge_memory.c | 44 +++++++++++++-------------------------------
+>  1 file changed, 13 insertions(+), 31 deletions(-)
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 6281ed993243..c84e8cbc986d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -3931,41 +3931,27 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+>  	struct folio *end_folio = folio_next(folio);
+>  	struct folio *new_folio, *next;
+>  	int old_order = folio_order(folio);
+> -	struct list_lru_one *lru;
+> -	bool dequeue_deferred;
+>  	int ret = 0;
+>  
+>  	VM_WARN_ON_ONCE(!mapping && end);
+> -	/*
+> -	 * If this folio can be on the deferred split queue, lock out
+> -	 * the shrinker before freezing the ref. If the shrinker sees
+> -	 * a 0-ref folio, it assumes it beat folio_put() to the list
+> -	 * lock and must clean up the LRU state - the same dequeue we
+> -	 * will do below as part of the split.
+> -	 */
+> -	dequeue_deferred = folio_test_anon(folio) && old_order > 1;
+> -	if (dequeue_deferred) {
+> -		struct mem_cgroup *memcg;
+>  
+> -		rcu_read_lock();
+> -		memcg = folio_memcg(folio);
+> -		lru = list_lru_lock(&deferred_split_lru,
+> -				    folio_nid(folio), &memcg);
+> -	}
 
-Sure, but should you be scheduling rescan work before all resources have
-been set up and the host has been registered?
+Nice cleanup.
 
-Johan
+>  	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
+>  		struct swap_cluster_info *ci = NULL;
+>  		struct lruvec *lruvec;
+>  
+> -		if (dequeue_deferred) {
+> -			__list_lru_del(&deferred_split_lru, lru,
+> -				       &folio->_deferred_list, folio_nid(folio));
+> -			if (folio_test_partially_mapped(folio)) {
+> -				folio_clear_partially_mapped(folio);
+> -				mod_mthp_stat(old_order,
+> -					MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+> -			}
+> -			list_lru_unlock(lru);
+> -			rcu_read_unlock();
+> +		/* Take off the deferred split queue while frozen and memcg set */
+> +		folio_unqueue_deferred_split(folio);
+> +
+> +		/*
+> +		 * deferred_split_scan() takes the folio off the queue before it
+> +		 * splits it, so the unqueue above finds an empty list and
+> +		 * leaves PG_partially_mapped set.
+> +		 * Clear it here: the flag does not survive the split.
+> +		 */
+> +		if (folio_test_partially_mapped(folio)) {
+> +			folio_clear_partially_mapped(folio);
+> +			mod_mthp_stat(old_order,
+> +				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+>  		}
+
+In general,
+
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+
+But I do wonder whether this sequence (that also
+__folio_unqueue_deferred_split()) performs would deserve a small local helper in
+mm/huge_memory.c
+
+Could be done as a separate cleanup.
+
+-- 
+Cheers,
+
+David
