@@ -1,110 +1,134 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 301D251FCC8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C7E51FCD1
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:57:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803847; cv=none; b=SzmedVcPvFZBSh4FkoXHhtSwSJBbSUtr1mQtDe15tpM/oqhxggVvFX5foaiLCvzAPyQhvLYFM2LODQH3rnmbYC1qudLnZrwYRbUS+CgKL1bQXmuH7eLR74NyHOFVnNa4rJNfHbdwM9fcK55PeSXpfJRFy/9Id3i27WrkqwpuxJU=
+	t=1788803860; cv=none; b=oCf/UqL7MQJIan4omCoY94KnGumWO14LZcXx5j/JlfPIv82hbvheVz41mG++JVgGckjZmmD1cvzW2jqB6zm8TQ61viH0Ge4B8PDP8QhRuK9MzETaOBmN6qo1c+nbwXxIQNXk+G7NQPLEeWzzqP+USEBJ4Fi11SqtaMeVRa4VP0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803847; c=relaxed/simple;
-	bh=p4kBBPJEh7M7Hh3+LMzNRxux2nzwikxQglLPsFbl0Z8=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=bmbQ8VjDS9AfqfVtlEQPcgEUOUNS/OskNLMtMPDOpI2hm2AYUkQyhjmQ0kbF01cc74RJzDdVERmHmPGHjTypZMIggeqY6VqgyAWVrQx0VDp4B8ZR94I1UcaE/kEM4rFQJu8bUPSkP+fuZDmcTiA/8vdB5YNJrV+1WBaEznCvpsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7e6b59d85dcso6847359a34.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:57:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788803845; x=1789408645;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=q1thYKT71sMTsyiOqZTOT9885C0AwCOip12nNxtpG5g=;
-        b=mPtR3kEcyNBtxsQg9SS09zZjfs6T5D17y1oTtAHSra+SO6g6Leyg/+G2GK/8WsZvaW
-         9lbpBOi6pNOu/5NE4a5HlbrKl74Ckjfa+vCkjmOkCZY/5lHOpWMnxrUJE3d4yuio4lC8
-         WT5nmteOGPeA1LxlwXevy43CIslwxOFfpRRwJmEiDIYIAflGc5isp6tnt0GK4KKe/oCw
-         6wYukRtIXR+4W1Yvx1lHcIWJmgsoThaJiDiw5VSGGOjjyvCA8WbSDkvPI+wQ9aAZ+qR2
-         4qoQB64RBBWCRaWZqKQDi/1Equ+CFxdXeXliixs2s0ZCNIcx7LhDOeLhHLk956b03ml5
-         wfCg==
-X-Gm-Message-State: AFuF++mOjJ8sUm4Wo5hLnwjGb5+ffD1iGZK44Vp13m1fiyzM4myQupK1
-	Q13xLsdmCue6PsHZJA453c8zecz+AEE8TY1jfhL7UELuLnemfeA7UmgWjJgJgR8BxM7WemYEvyj
-	pya6FSE0dBIsvc+6rgD/VUQnPR++/gu4QqPMMEmC5EYT0ES4GoF2c7QkTffw=
+	s=arc-20240116; t=1788803860; c=relaxed/simple;
+	bh=7j1GuZlr4DkZd3tFGTmsdUmo9C7PnISCitw4kPz9VIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lWvYCYgMXnrWGkuvJCwCocYi8KMb4OF37IXVVinjFmJtzusMme2HDvlVmCVD3ewm/lF+G526uvm+yao42IWxuP8lJwAaAmpyYYXVfBhlOswkjPUAN54LH0iC29O0oBIIEu4nyG73igK0ZCpTiv1b84krROI09ArkYJ1CSeuILJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eA9SIVvc; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eA9SIVvc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788803857;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PBB+Ha5hfEwnTM3XMtEUMJZL5woFR7RP7WxRg6VNgHk=;
+	b=eA9SIVvcwUwN/IMgAUfAn6PPs8HXxhKrC7EDc1fOYTQKZaUmTILFb23gJWK9jG0eVkovhG
+	MTXCteAfw1nrdwgiYf/fPdjG7uv2GKS5UjV5iYQtY2jOG2BxhAcMdO2v+5ExaViXSfoL9M
+	VD3E35Ymvrhb8p9EQg0ayz6NFAia86g=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-599-LOu-IESzNa-TentWVwO3qQ-1; Mon,
+ 07 Sep 2026 13:57:34 -0400
+X-MC-Unique: LOu-IESzNa-TentWVwO3qQ-1
+X-Mimecast-MFC-AGG-ID: LOu-IESzNa-TentWVwO3qQ_1788803853
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EC8E71954B12;
+	Mon,  7 Sep 2026 17:57:32 +0000 (UTC)
+Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 779F3180059E;
+	Mon,  7 Sep 2026 17:57:16 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon,  7 Sep 2026 19:57:32 +0200 (CEST)
+Date: Mon, 7 Sep 2026 19:57:15 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Gregory Price <gourry@gourry.net>
+Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
+	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org,
+	linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
+	ljs@kernel.org, sj@kernel.org, rientjes@google.com,
+	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev, tony.luck@intel.com,
+	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
+	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
+	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
+	babu.moger@amd.com, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
+ for_each_*_rculock
+Message-ID: <ap76-0-hN6CAcYXX@redhat.com>
+References: <20260907081334.1152889-1-ye.liu@linux.dev>
+ <20260907081334.1152889-6-ye.liu@linux.dev>
+ <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:209:b0:6b1:858:28a9 with SMTP id
- 006d021491bc7-6b6fafd7c7bmr14863495eaf.9.1788803845128; Mon, 07 Sep 2026
- 10:57:25 -0700 (PDT)
-Date: Mon, 07 Sep 2026 10:57:25 -0700
-In-Reply-To: <6a9dc9e7.87c06881.102b7.0007.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9efb05.f81106d8.4d30e.0002.GAE@google.com>
-Subject: Re: [syzbot] [trace?] WARNING in ring_buffer_map_get_reader (3)
-From: syzbot <syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	mathieu.desnoyers@efficios.com, mhiramat@kernel.org, rostedt@goodmis.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-syzbot has found a reproducer for the following issue on:
+On 09/07, Gregory Price wrote:
+>
+> On Mon, Sep 07, 2026 at 04:13:31PM +0800, Ye Liu wrote:
+> > --- a/kernel/hung_task.c
+> > +++ b/kernel/hung_task.c
+> > @@ -315,13 +315,12 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
+> >  		return;
+> >
+> >  	this_round_count = 0;
+> > -	rcu_read_lock();
+> > -	for_each_process_thread(g, t) {
+> > +	for_each_process_thread_rculock(g, t) {
+> >  		if (!max_count--)
+> > -			goto unlock;
+> > +			goto out;
+> ... snip ...
+> > - unlock:
+> > -	rcu_read_unlock();
+> > -
+> > +out:
+> >  	if (!this_round_count)
+> >  		return;
+> >
+>
+> The sunken rcu_read_lock()/unlock() + scoped_guard usage makes this goto
+> at a minimum very confusing, if not actually broken.
 
-HEAD commit:    df2908090cda Linux 7.3-rc2
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1216caf9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=de3d7f9bcc9212f3fae1
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1616caf9580000
+I am afraid I misunderstood you concerns...
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+de3d7f9bcc9212f3fae1@syzkaller.appspotmail.com
+This patch renames the "unlock:" label to "out:", and to me this makes sense.
 
-Ring buffer [0] commit overrun lost 3 events at timestamp:71798603963
-------------[ cut here ]------------
-!reader
-WARNING: kernel/trace/ring_buffer.c:7998 at ring_buffer_map_get_reader+0x5f3/0x930 kernel/trace/ring_buffer.c:7998, CPU#1: syz-executor388/6024
-Modules linked in:
-CPU: 1 UID: 0 PID: 6024 Comm: syz-executor388 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:ring_buffer_map_get_reader+0x5f3/0x930 kernel/trace/ring_buffer.c:7998
-Code: ff 48 89 df e8 be 22 fe ff 48 89 c5 e8 a6 88 fb ff 48 85 ed 0f 85 9f fc ff ff 4c 8b 74 24 58 4c 8b 7c 24 60 e8 8e 88 fb ff 90 <0f> 0b 90 e8 85 88 fb ff 49 8d bf d0 01 00 00 48 b8 00 00 00 00 00
-RSP: 0018:ffffc90003977d98 EFLAGS: 00010093
-RAX: 0000000000000000 RBX: ffff88801c0e5000 RCX: 0000000000000001
-RDX: ffff8880333d4b00 RSI: ffffffff82108882 RDI: ffff8880333d4b00
-RBP: 0000000000000000 R08: 0000000000000007 R09: 0000000000000000
-R10: 0000000000000000 R11: ffff88801c0e50b0 R12: ffff88801c0e50b8
-R13: dffffc0000000000 R14: ffff88801c0e5198 R15: ffff88801c0ab800
-FS:  00007f337024b6c0(0000) GS:ffff8880d5c5d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000559c2c45caa0 CR3: 000000003dec3000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- tracing_buffers_ioctl+0x2e6/0x3d0 kernel/trace/trace.c:7381
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f3370a8136b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f337024b130 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007f337024bcdc RCX: 00007f3370a8136b
-RDX: 0000000000000000 RSI: 0000000000005220 RDI: 0000000000000004
-RBP: 0000000000000021 R08: 0000000000000000 R09: 00007f337024b6c0
-R10: 0000000000000008 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000000 R14: 00007ffc1cde9710 R15: 00007ffc1cde97f8
- </TASK>
+Unfortunately for_each_process_thread() and the new helper can't use "break".
 
+Oleg.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
