@@ -1,92 +1,68 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31BA4EE877
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 339722D24B7;
+	Mon,  7 Sep 2026 13:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787911; cv=none; b=cI6mWF+o+m/q/Ueb6LC9QbmIXL5e59lvRhXy1HKmhW+HSxhgW5Gdzz465+mYSclIPZ1M6HIrpO3REysrMszLESSMtIWKBy4Nd1Zk25FfEVue7AkQSg7shIcT4h2mzC5gSabNmbvbFUBb+qxZUQlQr4HNmZufSqdcmwDVAxRmXmw=
+	t=1788787932; cv=none; b=CkoX8z8t4jEy2MgerDHlTIdimw/5KI8cvHjl/M1y7T9FgsxwgE8GlWWJ2UlFAcyMmxeU+2XoL2ZC70cywvPtOuc7y5+6Xl6bM1yySjW/rht9KIAFOzVZIHhXnWHHdk4Efwp2JYXlJzRRS2qATsEQtwCQiGI8lEP4BebItXeuw2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787911; c=relaxed/simple;
-	bh=vSD2AYUqreAplwWCoXjMl8VsUBh+Ur5feTbvL7P08Rk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=INdl4jNg50qBy0HbUos0dfGoOeCalJAfIXObphqDXKJ4I51m8FkpheW9Wt/SR4JFvZ/83FpepI9KVIiWHvCtD2jVB6YxV3p682D382SWvu6+gUVUpxS7lpA5i1hWYbbdY/ifIXyZujj1it39ctywLEISb78ekyOusXxEpALwvdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=KQxmBaSu; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1788787932; c=relaxed/simple;
+	bh=LNgLVh2LEyFp+dxb/P6eP5bhbpkGuM2YBO7SGAPxfM0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=OsKqBuLzAQPUx0HmAvltK2IeCTj54ugSRz45Z6DDtIfjNSooJYCu+yfvNesckd60g/K2YH1nERGIrq+7O6T2VseJ4P3KUdR7bkNWP+06g6yug+TxryGicBTQAdIs7TgXIVnCld5jx2cTYUrf9477r5YCMp2WWAbklTWa+OwIfUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0bOJ3Hz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="KQxmBaSu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1788787909;
- bh=VxFACcZSg9jdFJMF6rmUZ+dSf6/n4Bae3xVZCZ/pLgY=;
- b=KQxmBaSut3APOHniqWhuMNcJZ9NNk6yRteGP/uxGD1u5vhM8aWJY3uTqHvkm78ak31cnwMAms
- ZCUiDWeQh9slZjzXgsqLIM2A1M0wCeKtAXaQG77tNjVKuIleBhenluwlxqWrVcM1jOb4h/34Aan
- 89uJ6LV6V6c027i8UpGLzsg2kybyioTRObvyEHuLO5xqhsggQrPKjdKuiOXodI472DADRUkl1Pg
- x3zjXRrNAitJd30UhmTZz+cEVY9F7g3mU3L+1fUW84YisN1D6YrvjwlQp5PEp6roatwJHsZ2fAM
- Ytl10C3Ng0+pHne5hiLqtLOFGjr2+LJ7mMsa8SDILJww==
-X-Forward-Email-ID: 6a9ebcb816171017b32bae93
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0bOJ3Hz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD581F00A3A;
+	Mon,  7 Sep 2026 13:32:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788787930;
+	bh=jwSHrTCT673iDqk1OZB0BpbsW42n919ohX4bCR7DJGg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Q0bOJ3Hz2J0IDwPJq+HS9oEw+u7m18d8cyjSSm80x5kFWaOe7wG7hlne5ezo1kX02
+	 z9h0UeG1FpaWsa3nlPD0FBSkR9dpE3GIABolpRS1cGuK1w1Bej8hKr/nZl8dDHZBB+
+	 UA/aTuttYlDXlbIEPql+OrYKAEuH1AF0kzQz6KHMRaqAhxhFTb70X44ubpRtk6LB59
+	 s9wKCCTp2ozlmM0/1FAkxzHfqSYNvjFpcmNf90Iqi9sLnr8Qz97kImdbuh01TEf08g
+	 GeTwgCzhIK/9dYaWphMiV/S3Bpv0JLICiLJBa7IEwrj9GARQM6vSYnmFT1q4RHwJPr
+	 HniLgnhCDoAIw==
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>, Junjie Cao <junjie.cao@intel.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Marco Carvalho <marcocarvalho.web@gmail.com>, stable@vger.kernel.org
+In-Reply-To: <20260824031419.316315-1-junjie.cao@intel.com>
+References: <20260824031419.316315-1-junjie.cao@intel.com>
+Subject: Re: [PATCH] HID: quirks: add ALWAYS_POLL quirk for SDINNOVATION
+ gaming keyboard
+Message-Id: <178878792895.118170.7245212292320678316.b4-ty@b4>
+Date: Mon, 07 Sep 2026 15:32:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Mon, 07 Sep 2026 09:31:34 -0400
-Message-Id: <DL94DYGNRZC8.18LI4590FX0S3@ubuntu.com>
-Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v2 02/22] usb: typec: Represent USB4 on the Type-C bus
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Sven Peter" <sven@kernel.org>, "Heikki Krogerus"
- <heikki.krogerus@linux.intel.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas
- Noever" <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
- "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>
-X-Mailer: aerc 0.21.0
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
-> USB4 technically isn't alternate mode and entered using the EUDO and has
-> no SVID or Discover Modes Response. We can still represent it like an
-> altmode on the Type-C bus though by adding a mode kind. Exclude the USB4
-> modes from any SVID-specific operations and driver binding, but allow
-> consumers to observe their state through notifications.
->
-> Like for other altmodes, expose the USB4 mode to sysfs: Add a mode_kind
-> to be able to differentiate and then expose the EUDO, make the USB4
-> active state read-only since we only represent firmware-negotiated USB4
-> modes and omit anything that only applies to SVID-specific altmodes.
->
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
-> Hope it's fine to add you as the contact for the sysfs documentation,
-> happy to add myself otherwise though.
-> ---
->  Documentation/ABI/testing/sysfs-bus-typec | 36 ++++++++++++++
->  drivers/usb/typec/bus.c                   | 67 ++++++++++++++++++++-----
->  drivers/usb/typec/class.c                 | 83 +++++++++++++++++++++++++=
-++----
->  drivers/usb/typec/mode_selection.c        |  6 ++-
->  include/linux/usb/typec.h                 | 20 +++++++-
->  include/linux/usb/typec_altmode.h         | 10 +++-
->  6 files changed, 193 insertions(+), 29 deletions(-)
->
+On Mon, 24 Aug 2026 11:14:19 +0800, Junjie Cao wrote:
+> The SDINNOVATION gaming keyboard (USB ID 36ae:feab) stops reporting
+> input events after its RGB lighting mode is switched about twice.
+> Disabling USB autosuspend and unbinding the other HID interfaces make
+> no difference; the issue does not occur on Windows.
+> 
+> HID_QUIRK_ALWAYS_POLL alone resolves it, verified on 7.1.8 via
+> usbhid.quirks=0x36ae:0xfeab:0x400.
+> 
+> [...]
 
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+Applied to https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git (for-7.3/upstream-fixes), thanks!
+
+[1/1] HID: quirks: add ALWAYS_POLL quirk for SDINNOVATION gaming keyboard
+      https://git.kernel.org/hid/hid/c/cdb669a3b8f8
+
+Cheers,
+-- 
+Benjamin Tissoires <bentiss@kernel.org>
+
