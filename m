@@ -1,213 +1,198 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m19731103.qiye.163.com (mail-m19731103.qiye.163.com [220.197.31.103])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3C05013B2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F2E3D45FE;
+	Mon,  7 Sep 2026 15:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793326; cv=none; b=j6DNJ88QTTta3avoGche1zpU49MLwOQUBTQgpP8nMbWB0AExUcroiH41TKPeBvnbzKAeeldKeYrbDEwuoDHAVFSRdgy/Tk91kTLW9ryGbdkWcF5YjGMcpeFniEbfSLg1V4gK9oBDnqG4A/Wg6DI06QGlrY41LdSt/t6k/RwQCDs=
+	t=1788793362; cv=none; b=omOFNHs2He3ae8SdtMHeQsWCA5BRwQxksktzrTSwq3EDFRsL6Y85LJJT60dEdjXayRqT5p02OGE1JtAbAHP2TqCRrznPETlT+3X1DuF0LM5ZlLb+NOSQeVUcZ6cUYzdl3LQ/inlhYAaWrG27zjjAdd+y0582xRuW4VupsffecV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793326; c=relaxed/simple;
-	bh=lE4DoCX54IzHb9OGuqjtUGY0/Idn5+TuMdUQxkrjXI0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hSed0x9yYPaIeoQly2+P/o20MAEr/jB3JOA9rAIoxBxW7C7gH1JRnL2UgH86Dm/81QQUdaR6ZqPQysTyWQHHPtPd/MkrEd6IuL1AL7yvuUMl8s5wkPEF33+EfzTDizTO4nhkCrLjk2lSEDQ9qgfHbPyfRKY2UiP14zHK+ls61KU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=u6C40K/A; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1788793362; c=relaxed/simple;
+	bh=xepX4PUsgkDDbKc0PvY0XC7sgnNrO0hEw2c95kkysQc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H8vnBPpLqHq78d1A+Vj68MrF2St1XOZlgJ4YLatyEGrUeeLSpSNky6zcFFv77mrHqPM3HEzcuqb65tcmUR3DTtyAtEAs4AuSiHnAfrigXd0uD38gjBjgAp5di7Yp1aIUJ8v6FiakvIaxT0udiAF0/gAC6HDVMrYj6ePyFIbbrI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deepseek.com; spf=pass smtp.mailfrom=deepseek.com; dkim=pass (1024-bit key) header.d=deepseek.com header.i=@deepseek.com header.b=B/YC1o04; arc=none smtp.client-ip=220.197.31.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deepseek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepseek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="u6C40K/A"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-495590dde14so52688975e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788793322; x=1789398122; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9RcLvsK/2UZ/1TkMot9jvTvWpZC1OV1SBC2asu5tlgE=;
-        b=u6C40K/AoJfOc0UJKHfKdH4eNeTn/xYZw7rKMR8ohuLczdIwf8/HWgY0tQ4OM0+nbt
-         6tgSns0EyX4evNav474AplIHNVMa12gNt8gUK7EXKHQ379kDbjqJ1RUO4dsDfDawWzFc
-         MUitEE3l8nWzEMxA3wniYEFRIu62GR2L6XJhHFL68x2ves+2LA9Aid94ezf4zPsLYeYT
-         /gnngSbNNurWHhq0uHMpE1afjMtuWcUVQMkcWqkgTt5sL5E8gkT5m0ZdQQf67fx6+WTP
-         sESsA3ir//DP5P7uFDIF7DR4Y2PaqA8wk/wTxiaIkZR2jZTgYvG+5/S47G6B+O/tS2z5
-         okhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788793322; x=1789398122;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9RcLvsK/2UZ/1TkMot9jvTvWpZC1OV1SBC2asu5tlgE=;
-        b=CfNCQ1FttADqL3dVzxNlt0xEEMOGIk5Tki+HNP8yfVwSKtXgEmDoppmv34GiXfrGTm
-         pdLF/njfFEXuOd+nfEc7TKH+nLvscHCoBlvmdpi+iPn0mHdc8DqNLxjaWfZZW/C3Gyys
-         7crUdYSf5fmlGE4eooD64ZWmX7odrYBAsnitfsEsJq2IKxJvYulMNvSI8KGxcaMX98dY
-         a73J/OZ2aRbUGyQxWyp8rX0YtWOhuguJlpZ8DVudzHLOuhVQYmM13wLwp6y3QMUf/2N7
-         VyCdakWDM1E6nfb0Vl135/Pu22AWumG9hkqLRhyE/Xa8wicLB8p3/Pk4kXGYXZtP9F3e
-         ibsQ==
-X-Forwarded-Encrypted: i=1; AKwUvBye8bWJKfkwnR0qVXoctqk69oTDncDLj8pv10Ha4cLVf1r3yo9yFUNnwilOevo4OIwUZYBsChxqpabEEBQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nmhyU0pzPDYdoejpGdSFUob3Int/B+ADicwXu56pqJNyuAMBFY
-	qeWNGqrx7PzD0cgSDZ+9CTd/3twcl/aVR294AM6LXASKmfB02dciwL54KlgS8TtJLzs=
-X-Gm-Gg: AYBFou3OpT/mVE48IM+v8Aid5OI7b2GSb4tapZWDsQ/lXolT0TCSQJyB+l2vQgkjl9T
-	panPCUWm7M7cAMXdN5TgMMDwx5OPRarLBghXKl4Hn0iL9bABVtkQ2wyV66X05ZbnlIICZmOuuzT
-	xS5oOqGAEadhfhO38vGGG/pwS+KQ4PlVVKmh3P2JIGBffLX+U0/PCIM5tRR9tUw/lkGelhPzQAK
-	bliXD2bajdKpfKjIqqIV+EsYdHxaSeJw8L9m04pKlDTG+eslpc3CZoduMYLl0nCxE0+TnaTHBAP
-	Dr36yI9t92x5AFDmgoXtTIuppt7yCmm+hRMqU17xY03oWUD8L1aGmAs/O+ZgRMlyUJFq06gQCsy
-	Y16glLysVrqOTvVF4yS54pjgE/zNxTTLwv5+3/DDHRxG3ZjKkM+Uf8nDmSpw8cJ8ACYiv/wRVW0
-	V6UurIkhu46+XHEkazcj85uPuQRQfAf3KigbpI8u2t3KioLW45NXn0CQD0UgpSrCw7kLoh+Sx91
-	w9OBOFgzjSQhhe9ZHCNN4x/PCvFf/KYD83X9Xum
-X-Received: by 2002:a05:600c:4e51:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49cff8db5demr394817815e9.11.1788793322389;
-        Mon, 07 Sep 2026 08:02:02 -0700 (PDT)
-Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm262992705e9.14.2026.09.07.08.02.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:02:02 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 07 Sep 2026 19:01:45 +0400
-Subject: [PATCH 5/5] power: supply: bq257xx: Parse battery info before
- registering power supply
+	dkim=pass (1024-bit key) header.d=deepseek.com header.i=@deepseek.com header.b="B/YC1o04"
+Received: from hg-fd0407-cpu-vm1-037085 (unknown [159.138.123.140])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4cd3dc5e9;
+	Mon, 7 Sep 2026 20:40:03 +0800 (GMT+08:00)
+From: Tao Yi <escape@deepseek.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>
+Cc: linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v1] mm: memcg: skip frozen folios in page_cgroup_ino()
+Date: Mon,  7 Sep 2026 12:40:00 +0000
+Message-ID: <20260907124001.1544655-1-escape@deepseek.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-bq257xx-init-v1-5-1a08b29e1a68@flipper.net>
-References: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
-In-Reply-To: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
-To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
- Chris Morgan <macromorgan@hotmail.com>, Pavel Machek <pavel@ucw.cz>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4653; i=alchark@flipper.net;
- h=from:subject:message-id; bh=lE4DoCX54IzHb9OGuqjtUGY0/Idn5+TuMdUQxkrjXI0=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNu3gn5r68dXzYz7dcrQITrplMiVg29dl/wfTKzSwtY
- a0yWSeOdExkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkY6xjpGDFycAjDV9yMYGa4m7EnwXfSQq3K6bMVdyU7XHeFN10wvfTmxsrNquZDC4fMMfwWvPb3
- 6wsfCrjO85+IUrm0fzvP9fMXtWOow9ZNlhIloMzsA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa07be1fde309dakunmf5d73b6726c9b2
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUhJVkxMQkwdHx0ZGB5MQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKTkJVSkhDVUpJSFVKT0tZV1kWGg8SFR0UWUFZS1VLVU
+	tVS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=B/YC1o04V0UdNUcHS58/Yw63wjPuwQuOdIvQOvU7dKrt/7c9k8FNgiB0jkhPtFBPikjIrd1drYdH1zuYou5F5nys0UKMMKK5FrRvHMLonH045txDG2rm7tNeeFJuOxLbRvX8uL/7IWKZJGO03PcoYNpIPlnLEqMzK4WNBOfp6zc=; s=default; c=relaxed/relaxed; d=deepseek.com; v=1;
+	bh=GaQ5YtuWhqR6EHDoYWKfff2DgSHnW3S6WvgJatwu8eI=;
+	h=date:mime-version:subject:message-id:from;
 
-Switch to a dev-based battery get/put interface to parse battery info
-before registering the power supply, so that nobody tries to access the
-power supply until we finish programming the device parameters.
+folio->_nr_pages overlays the memcg_data field of the first tail page.
+When a large folio is split, __split_folio_to_order() clears PageTail
+before copying the original folio's memcg_data to the new folio.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+That leaves a window where a lockless PFN walker can resolve the former
+tail as an independent folio while its memcg_data still contains
+_nr_pages. For example, the first tail of an order-4 folio contains
+0x10. page_cgroup_ino(), which is documented to be callable without a
+page reference and is used by /proc/kpagecgroup, can interpret that
+value as a pointer.
+
+This caused the following crash on 7.0.0-29-generic while a process
+was reading /proc/kpagecgroup. On that kernel, page_cgroup_ino()
+interpreted the value as a mem_cgroup pointer; page_cgroup_ino+0x4c is
+the inlined css_is_online() check, RAX contains the stale memcg_data
+value 0x10, and CR2 is RAX + 0x4c. On current kernels the value would
+be interpreted as an obj_cgroup pointer instead, but it is invalid in
+either case:
+
+[870611.552359] BUG: kernel NULL pointer dereference, address: 000000000000005c
+[870611.553709] #PF: supervisor read access in kernel mode
+[870611.554704] #PF: error_code(0x0000) - not-present page
+[870611.555676] PGD 2ce74eb067 P4D 0
+[870611.556330] Oops: Oops: 0000 [#1] SMP NOPTI
+[870611.557131] CPU: 2 UID: 0 PID: 646187 Comm: grep Kdump: loaded Tainted: G        W  OE K     7.0.0-29-generic #29-Ubuntu PREEMPT(lazy)
+[870611.559161] Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE, [K]=LIVEPATCH
+[870611.560427] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.17.0-debian-1.17.0-1ubuntu1 04/01/2014
+[870611.562203] RIP: 0010:page_cgroup_ino+0x4c/0xc0
+[870611.563061] Code: 53 38 48 89 d3 83 e3 01 75 73 48 89 d0 48 83 e0 f8 83 e2 02 74 0f 48 8b 40 10 eb 09 66 90 48 8b 80 b8 00 00 00 48 85 c0 74 14 <f6> 40 4c 02 74 ee 48 8b 00 48 8b 80 00 01 00 00 48 8b 58 60 e8 7b
+[870611.566161] RSP: 0018:ff837258046afbe8 EFLAGS: 00010202
+[870611.567146] RAX: 0000000000000010 RBX: 0000000000000000 RCX: 0000000000000000
+[870611.568305] RDX: 0000000000000000 RSI: 0000000000000000 RDI: fffbbc7280d84040
+[870611.569443] RBP: ff837258046afbf0 R08: ff3110e00bc9f500 R09: 0000000000000000
+[870611.570567] R10: 0000000000000000 R11: 0000000000000000 R12: 00005f6b27ac3808
+[870611.571704] R13: 0000000004036101 R14: 0000000000018000 R15: 00005f6b27abb000
+[870611.572806] FS:  00007cec6f8bdb80(0000) GS:ff311118762ff000(0000) knlGS:0000000000000000
+[870611.574025] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[870611.574948] CR2: 000000000000005c CR3: 0000000361776004 CR4: 0000000000771ef0
+[870611.576069] DR0: 00005e7136461088 DR1: 000060e18f7c22c8 DR2: 000060e18f7c22d0
+[870611.577171] DR3: 000060e18f7c22d8 DR6: 00000000ffff0ff0 DR7: 0000000000000600
+[870611.578292] PKRU: 55555554
+[870611.578791] Call Trace:
+[870611.579249]  <TASK>
+[870611.579689]  kpage_read.isra.0+0xe3/0x110
+[870611.580345]  kpagecgroup_read+0x1c/0x30
+[870611.580980]  proc_reg_read+0x31/0xd0
+[870611.581595]  vfs_read+0xbf/0x3a0
+[870611.582172]  ? proc_reg_read+0x31/0xd0
+[870611.582814]  ? vfs_read+0xbf/0x3a0
+[870611.583398]  ? proc_reg_read+0x31/0xd0
+[870611.584046]  ksys_read+0x71/0xf0
+[870611.584602]  __x64_sys_read+0x19/0x30
+[870611.585238]  x64_sys_call+0x1ff1/0x2390
+[870611.585905]  do_syscall_64+0x105/0x5a0
+[870611.586529]  ? page_cgroup_ino+0x65/0xc0
+[870611.587197]  ? kpage_read.isra.0+0x7b/0x110
+[870611.587901]  ? kpagecgroup_read+0x1c/0x30
+[870611.588554]  ? proc_reg_read+0x31/0xd0
+[870611.589189]  ? vfs_read+0xbf/0x3a0
+[870611.589782]  ? flush_tlb_func+0xa3/0x370
+[870611.590423]  ? __pfx_flush_tlb_func+0x10/0x10
+[870611.591149]  ? __flush_smp_call_function_queue+0xa1/0x4b0
+[870611.592013]  ? arch_exit_to_user_mode_prepare.isra.0+0xd/0x100
+[870611.592987]  ? irqentry_exit+0x97/0x6f0
+[870611.593727]  ? __irq_exit_rcu+0x45/0x120
+[870611.594464]  ? generic_smp_call_function_single_interrupt+0x13/0x20
+[870611.595595]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[870611.596509] RIP: 0033:0x7cec6f9cc3ce
+[870611.597250] Code: c0 e9 b6 fe ff ff 50 48 8d 3d 6e 08 0b 00 e8 69 01 02 00 66 0f 1f 84 00 00 00 00 00 64 8b 04 25 18 00 00 00 85 c0 75 14 0f 05 <48> 3d 00 f0 ff ff 77 5a c3 66 0f 1f 84 00 00 00 00 00 48 83 ec 28
+[870611.600473] RSP: 002b:00007ffc12394718 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
+[870611.601834] RAX: ffffffffffffffda RBX: 0000000000018000 RCX: 00007cec6f9cc3ce
+[870611.603102] RDX: 0000000000018000 RSI: 00005f6b27abb000 RDI: 0000000000000003
+[870611.604328] RBP: 00005f6b27abb000 R08: 00005f6b27ad3000 R09: 00005f6b27aba1d0
+[870611.605497] R10: 00005f6b27ad3000 R11: 0000000000000246 R12: 00007ffc123947f0
+[870611.606774] R13: 0000000000000003 R14: 0000000000000000 R15: 0000000000000003
+[870611.608041]  </TASK>
+
+After-split folios have frozen refcounts while their metadata is being
+initialized. Therefore, skip folios with a zero refcount before reading
+memcg_data. The acquire load pairs with the release store in
+folio_ref_unfreeze(), ensuring a nonzero refcount also makes the newly
+initialized memcg_data visible. This prevents page_cgroup_ino() from
+dereferencing the transient _nr_pages value during a split.
+
+Fixes: fa23a338de93 ("mm: separate folio_split_memcg_refs() from split_page_memcg()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tao Yi <escape@deepseek.com>
 ---
- drivers/power/supply/bq257xx_charger.c | 50 ++++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 21 deletions(-)
+ include/linux/page_ref.h |  5 +++++
+ mm/memcontrol.c          | 14 +++++++++++++-
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
-index 8a645859460b..6faa1055b3ee 100644
---- a/drivers/power/supply/bq257xx_charger.c
-+++ b/drivers/power/supply/bq257xx_charger.c
-@@ -1165,38 +1165,38 @@ static const struct bq257xx_chip_info bq25792_chip_info = {
- /**
-  * bq257xx_parse_dt() - Parse the device tree for required properties
-  * @pdata: driver platform data
-- * @psy_cfg: power supply config data
-  * @dev: device struct
-  *
-  * Read the device tree to identify the minimum system voltage, the
-  * maximum charge current, the maximum charge voltage, and the maximum
-- * input current.
-+ * input current. Deliberately keyed off @dev rather than the charger power
-+ * supply, so that it can run before the supply is registered.
-  *
-  * Return: Returns 0 on success or error code on error.
-  */
--static int bq257xx_parse_dt(struct bq257xx_chg *pdata,
--		struct power_supply_config *psy_cfg, struct device *dev)
-+static int bq257xx_parse_dt(struct bq257xx_chg *pdata, struct device *dev)
+diff --git a/include/linux/page_ref.h b/include/linux/page_ref.h
+index 9f5c75d06f76..401330307bc5 100644
+--- a/include/linux/page_ref.h
++++ b/include/linux/page_ref.h
+@@ -107,6 +107,11 @@ static inline int folio_ref_count(const struct folio *folio)
+ 	return page_ref_count(&folio->page);
+ }
+ 
++static inline int folio_ref_count_acquire(const struct folio *folio)
++{
++	return atomic_read_acquire(&folio->_refcount);
++}
++
+ static inline int page_count(const struct page *page)
  {
- 	struct power_supply_battery_info *bat_info;
- 	int ret;
- 
--	ret = power_supply_get_battery_info(pdata->charger,
--					    &bat_info);
-+	ret = power_supply_get_battery_info_from_dev(dev, &bat_info);
- 	if (ret)
- 		return dev_err_probe(dev, ret,
- 				     "Unable to get battery info\n");
- 
- 	if ((bat_info->voltage_min_design_uv <= 0) ||
- 	    (bat_info->constant_charge_voltage_max_uv <= 0) ||
--	    (bat_info->constant_charge_current_max_ua <= 0))
-+	    (bat_info->constant_charge_current_max_ua <= 0)) {
-+		power_supply_put_battery_info_from_dev(dev, bat_info);
- 		return dev_err_probe(dev, -EINVAL,
- 				     "Required bat info missing or invalid\n");
-+	}
- 
- 	pdata->vsys_min = bat_info->voltage_min_design_uv;
- 	pdata->vbat_max = bat_info->constant_charge_voltage_max_uv;
- 	pdata->ichg_max = bat_info->constant_charge_current_max_ua;
- 
--	power_supply_put_battery_info(pdata->charger, bat_info);
-+	power_supply_put_battery_info_from_dev(dev, bat_info);
- 
- 	ret = device_property_read_u32(dev,
- 				       "input-current-limit-microamp",
-@@ -1212,9 +1212,14 @@ static int bq257xx_parse_dt(struct bq257xx_chg *pdata,
-  * @pdev: platform device
-  *
-  * Probe the charger device, allocate driver data structure, select the
-- * appropriate chip-specific function pointers, register the power supply,
-- * parse device tree properties for battery limits, initialize hardware,
-- * and set up the interrupt handler if available.
-+ * appropriate chip-specific function pointers, parse device tree properties
-+ * for battery limits, initialize hardware, register the power supply, and set
-+ * up the interrupt handler if available.
-+ *
-+ * The power supply is registered only once the hardware is up, because
-+ * registering it lets the core call ->external_power_changed() at any time. A
-+ * probe failure after that point would have devres free @pdata while such a
-+ * callback is still running on it.
-  *
-  * Return: Returns 0 on success or error code on failure.
+ 	return folio_ref_count(page_folio(page));
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index 1271d390b617..2971e5e0ece1 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -358,17 +358,29 @@ struct cgroup_subsys_state *get_mem_cgroup_css_from_folio(struct folio *folio)
   */
-@@ -1247,6 +1252,14 @@ static int bq257xx_charger_probe(struct platform_device *pdev)
+ ino_t page_cgroup_ino(struct page *page)
+ {
++	struct folio *folio;
+ 	struct mem_cgroup *memcg;
+ 	unsigned long ino = 0;
  
- 	platform_set_drvdata(pdev, pdata);
- 
-+	ret = bq257xx_parse_dt(pdata, dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = pdata->chip->bq257xx_hw_init(pdata);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Cannot initialize the charger\n");
-+
- 	psy_cfg.drv_data = pdata;
- 	psy_cfg.fwnode = dev_fwnode(dev);
- 
-@@ -1257,16 +1270,11 @@ static int bq257xx_charger_probe(struct platform_device *pdev)
- 		return dev_err_probe(dev, PTR_ERR(pdata->charger),
- 				     "Power supply register charger failed\n");
- 
--	ret = bq257xx_parse_dt(pdata, &psy_cfg, dev);
--	if (ret)
--		return ret;
--
--	ret = pdata->chip->bq257xx_hw_init(pdata);
--	if (ret)
--		return dev_err_probe(dev, ret, "Cannot initialize the charger\n");
--
--	platform_set_drvdata(pdev, pdata);
--
+ 	rcu_read_lock();
+ 	/* page_folio() is racy here, but the entire function is racy anyway */
+-	memcg = folio_memcg_check(page_folio(page));
++	folio = page_folio(page);
 +	/*
-+	 * Requested after the supply is registered so that devres tears it down
-+	 * first, quiescing the interrupt before the supply it reports on goes
-+	 * away.
++	 * After-split folios remain frozen until their metadata, including
++	 * memcg_data, has been initialized.  The acquire load pairs with the
++	 * release store in folio_ref_unfreeze() and makes that metadata
++	 * visible to this caller.
 +	 */
- 	if (bq->client->irq) {
- 		ret = devm_request_threaded_irq(dev, bq->client->irq, NULL,
- 						bq257xx_irq_handler_thread,
-
++	if (!folio_ref_count_acquire(folio))
++		goto unlock;
++
++	memcg = folio_memcg_check(folio);
+ 
+ 	while (memcg && !css_is_online(&memcg->css))
+ 		memcg = parent_mem_cgroup(memcg);
+ 	if (memcg)
+ 		ino = cgroup_ino(memcg->css.cgroup);
++unlock:
+ 	rcu_read_unlock();
+ 	return ino;
+ }
 -- 
-2.54.0
+2.53.0
 
