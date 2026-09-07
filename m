@@ -1,179 +1,161 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010069.outbound.protection.outlook.com [52.101.56.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFF06211A09
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:24:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788740685; cv=fail; b=gyNZv6cwqCjvMcQzdtmHGTeBarH27pD9yu5P7sUBjjneAwE5T79oE++B5wCJz/koBgMmqtu0ibiFrD75bNQjY03QCyrfNN58h3HB3VZhden5U9nEsdQTtaIfKcVwAPu9dC+ZiQrgpxqJxUTtUFYTD/shGV+qfBdeIm7VMuQLbUI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788740685; c=relaxed/simple;
-	bh=3f3Gt6dlxgx9g7pnbo3/8XtDWcbSbur2R24gZMWiVJ0=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=ExVxV6UVsVKZKGu4oP1QYPI5jutA5QpXcPpCVxDVqcSCT4rRJ9nOe1eAIYHOqBQB/aFdl8J/lU+dpEGhbhfbaqo/8w8E9E6iBhI/yi6VFSHr6cwdQtSO1yEWVliC9fqjUfT+RnmRmLW6jbJ8L0ZjUdHOwGpvDd7aqle2EZRv2Xg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nrvblbGv; arc=fail smtp.client-ip=52.101.56.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4C84CCDEC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788740922; cv=none; b=Lbm9oPsP0hZtuU02rwr6Vw9H/11jjVR09FI1kumo3C/j5rlZEz5cyrGI6WtYOxkSvQNjRs3jGEeRN5PZPou82o7eXW8kk4SGk8zIxVwe8QkPVoIQt3Gkwk81eXEdcOJ4vdklBO0PtlTEecmorktH0F0nPH5AQAlbl4QR/RqQsug=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788740922; c=relaxed/simple;
+	bh=BXf3BxKM1Ry24+Btv4DKMA3IKOzmPZEdfw4Dh5Jj9Ss=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
+	 References:In-Reply-To; b=RIBD5xpus3hY1RBUbCZiz7jLNlRz+aNBj2T9sFWrozm2cN1irTGkW+KgzUy1PdXbtptNhysP1EbuPngDbi9ZqyMOUu+/i6hutps1NNbbku1YIoA8mBu3DganLKuHi2YGxgdJnS8OQ4G5wJGWKG8o1YsGQWNkGhQWXKMIpWxxDBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dzpENCZH; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nrvblbGv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IwP3zfzoTCdXq2WKv/4VVyx5I3wRc+JVW0wtHHOrQ0KgvtZqvCI+Ft0PTNHhaYPtiYUoi+kqni1hqKeQmfFqRcyFYVtDQVO04EFwgIVSb1WMbT/TjhDxBpOKMj4EsRNmuZkB2Voa7A2gPvl0zUw1817wAUmpNbIb/Ss1/41CAf1s7Hvi1R7zmnvDH8xhaNdnb15N1TrPiJfasUk8IYCZd4zm9VKsjWhnNxDYDm5T9o2PMQzb1uC+lowwmbPYhyir2+craBYEknwuC/cn8+1LMBwefSSSEEJjHuTZoYxwTiCZ2Z+iUYsyGA8ZXbY2TAKKMFF/5nqIl8esRro0WYZB/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F1zN7phipSwsEGfDDd89CiOc0jT74WB86ANrhTAahQs=;
- b=LZHSC+ATzoItVWYHqXDC8piqoNLGBvi3OpQOsfrNkkRGjssUtKUc3rfAJNsIv9dkR6SS6dOUS2wKbEW8Cq4FN5hkrgJfTNs0NQYbiRtRfJcMTyR+cIingwXO6WRRf1rRRm43FdpuCsaj8QbF/fN27Z/2ImXtORXBolVOL8mdfXL5MxCX+jmGxQl0ixIRwkLfVE6nw8EXBBDmQoQOFxLmma8z3masifbJZyzmTN2HWHkJsUbVu1ZwdoXBw9cCjVbXdtd/mbM38gKF5IEc11v2ZLs5qgHZljFbA//OI9vo4FtIl5/QNHg1W0OAEiCnUKWoEMEz5jMTZLD5Ux/DUAb5zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F1zN7phipSwsEGfDDd89CiOc0jT74WB86ANrhTAahQs=;
- b=nrvblbGvmKkuX/p8CWZe4yhI5eow0vIruvypWo8pnQa6erMG8x0pS0nvfuBM8DZj3bDdAJyCqaK/5xyYxbyUIqn/+ux0l2JuPtDWvVVW7djN8rpKuj9fqcQktrwXPwbSMNeRTbm6UXbaZP9KNnLN1V6XbiFM0RPJHrdT3XXaj2WUk7ND1cm3bZU4l2+uTmh9nSK5TxRHMSGt2JtyxW1+pQz5HwdEa96RaDyoX6gQ0CZ1809PMNhEw8AoZIMFD0IfOflC05Yf0d7O0ALue/12pUOr1sjP13NvnBGFQaVG22qil0Ip/QyzwsoXFS5wPmfGT5Xd73QOWgGX+dJBvdN35A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by PH0PR12MB8174.namprd12.prod.outlook.com (2603:10b6:510:298::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 00:24:38 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
- 00:24:38 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 09:24:35 +0900
-Message-Id: <DL8NNDZQDPC7.22UD0A6TQWJ3Z@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
- "Will Pierce" <wpierce@nvidia.com>
-Subject: Re: [PATCH v3 06/14] gpu: nova-core: add the GIN interrupt tree and
- allocate its vectors
-References: <20260903031514.1515905-1-jhubbard@nvidia.com>
- <20260903031514.1515905-7-jhubbard@nvidia.com>
- <DL7FN5S6RSRI.JDTB3MREKFVA@nvidia.com>
- <8ad883c4-378c-4cec-8f45-a38c97d0c494@nvidia.com>
-In-Reply-To: <8ad883c4-378c-4cec-8f45-a38c97d0c494@nvidia.com>
-X-ClientProxiedBy: OS3P286CA0105.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1a4::8) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dzpENCZH"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4859245e493so1073921f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:28:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788740919; x=1789345719; darn=vger.kernel.org;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MgZHADWpXS9kOhNwmKYW4eHLUxKCVK4/x85xToQp0Vk=;
+        b=dzpENCZHJ5jw/OAKRJsO92TqW0KakA+mpqvWTQnbwjfqiBxgGxs9xU9g4XGYfvawxT
+         ejnTFbFmvtswqmo+nNXCbb9vYNHY5FAqVaRAVqherd1mEIWGIDdwaKoMPfXR+/8DNR7L
+         G+E+uxVYJ/fXAnUCfbye+kdnPG6kbjQl5txsa4sRv9bEll8x3aWzOwv0G45dkHg0YpCS
+         JiuCi8vxa2sJ6MgeQeK5LonMXmm6K8pVSGoXlddWwKXhTwVFuPxq6gcGEgeqEhgtIuja
+         0DgmwUTahtM7NOqOiRDoAsQZeKDvje+A5SuuqgA+N6VtoZKjrcRkZU4DM4DV2H930CD5
+         wAOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788740919; x=1789345719;
+        h=in-reply-to:references:subject:cc:to:from:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MgZHADWpXS9kOhNwmKYW4eHLUxKCVK4/x85xToQp0Vk=;
+        b=dL0H83QHZajXXjmlqpr0knC9i4Npaj92oNrKDoY1vgWcqFhfJ2rGkCK8WBJ17yd1dq
+         pJ8obOfNOR3ZGlOGNlt6Gmo99CctghtMEeIInEFc2xCOPnrjqL6v8YUTd2KXcQ9oH7Qy
+         6nQSfZh6JMClokwo2ZizvZbgTL0QuLaOsOyUrRsJYzFUglB6DiuIDEJz/ope4J5eZU3Y
+         KkbhlSpKhPLRCuoSHuhgAztNgaUxjNsDcWNYHwDusV7ZDZLWkXle8nvHfZep1xs/McEw
+         DHcTCwLzsQJJKTkV2aCuOyF0o0sEwrgjkVrllBYnHSVEqcenLw/Kpyz4e5gb0tf4zm08
+         B9kA==
+X-Forwarded-Encrypted: i=1; AKwUvByaVUbNbrHjGx3S7hZ6qCK8pVsWiHm9zTGbAx05qgd2o1Suwe6Sx5YJK6L0DIoEfDOddpNQPGkuEVxjqc0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS2SLc0E4i95Vfa1tqT1I+HY77lxhj3p7XVMoi/dtnKbn5QUOd
+	MCsMwp/KHhvrg9FFpYfcwzlS9z/Dm3fwtZ+2Xek9vjqW6Iyb9Ijdo/DYJBqGFt7mtqU=
+X-Gm-Gg: AYBFou0P6cZ1KE3gPzgO/q7VruJHanEc5su4r0Zju3hyesA+XeydqaIexpXRWEjrk/l
+	4F8JZDj8G5fP7zhPlZ+HgcbU7o3jYve9cAFVXMwHlUI4IJjQMEKk684x1vBDX3xToi+4tl4o8af
+	URsY3QU/rLR2P7AGxaWpC/95s//AZhpZXy39spVdQo9nWpt6UVDKW9oBUQMv/LIsCvMZHeFY5vO
+	OVkRe04/UBu9PNrg5LldJB0K6eZRS4FGcH+TjynDEpVbclo2ZH0h7H4Eli7VVqTBvIIFUwdpdhC
+	YS0ePxyXtUzFnVXosToYJp9BfSuCthrcBTBxxBiBjvskZ7wnJhUkAS/3EaAWWUzch5X5kCQoOwz
+	MyWsTYX2OljIyhtm2H7KABNQI0n/t2s6U8I+sB0RLboO5r533KAk8r5xHk/8vEcieIkDb9ZzVpM
+	Z3IVppmCcM1y8yX++IjC+jwaeBVcz5exNllVNu3cUhj0ZNoHfMTLra5aBSVL7o88QX8eAVI3kWR
+	M08r5y+ZWqyj2eXl8O+FsQFrFNsNywhDMplbYZoxpx9hlAazIkzmEQsVDHL
+X-Received: by 2002:a05:6000:4710:b0:485:8a47:5b83 with SMTP id ffacd0b85a97d-4858a475c60mr16910358f8f.32.1788740918931;
+        Sun, 06 Sep 2026 17:28:38 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858bc74298sm21639306f8f.6.2026.09.06.17.28.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 17:28:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|PH0PR12MB8174:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7833f83-4e9e-4653-5201-08df0c7666ed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|10070799003|23010399003|366016|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ZLvY5IZMME96r80IjP0rwjbRPbk6du9yPxytzEnCzjaBe8QLElnOnTafUKVl4JY2kFHd88n7UOo8PTExXUX1sDw4vLoNy1+UUmLrgcpiJpvBtgSmnCk3AjLsTxxeybk2Pfpye9LHSaMp9nbhokOIXKo3zFOOPmCenMKrLzIialntGe3rryVuhPr2ZA06buleRh7k+kkhPPgqHcBjY5R7psRSEOJs7EmBIEFcJvcxYS+Vl+o9HulOyxFKgbq+DotFGL+MMg07GcA0BRMrOaNB8WGEq+9uADVi9UwfApRqPBkFTH5mNJplbotGiK7h7GxT2sQQshkYG8HmfdU3p7zIHbzhFQTmqGHPiy/Bm43kXXnluAqwc0iYz4jO7BJzOpG0MJeFb3nNTYanihLWuu/zW5T+bxtJS6COKh/cyFUXKnDTFWmsIeSLdPj0uznDPmSRIaQGbkPLx1Lis80QNrsZ4V5Yir1cvDVd9jOlevdSo/v1jJ/16dtYvW+pYHWFP1hRl4/Q1csE+RKsScZ6SU2Mni0K5fLNeMXtlH92nSLn0cop1zGqhPWqg0T3kOFPyIVwh7bDtxaDL5/qIs50fyhowWHXpfHhEM3511vNhJ8olB8vJtNAO0LdG10XzWFyo6RJf8J9zlCV4pffFOSSp/xJrBHn1yiCcOUzz1x6m8RiN6M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(10070799003)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M0p2ZGMydnlrazBlSGhRZmx2U05xSTl2YVllMDNOYSswUDcyWGV6NmpzMXFm?=
- =?utf-8?B?Z2s3bkhzQjJweDRKR0VNcDBSRmtpTWtkdnF0VSs4bXQyRFgvZjhtSnJCVm80?=
- =?utf-8?B?R1JzNW9wc3M3VHVETVJRb2Z6dVFYU1ZhNGZyVzc4aWRoR3dlRTZFVDExUEpT?=
- =?utf-8?B?am5vNVVlNnEyMTB6WTdha0VrMmxwQmUrNVBSL3dWY09iRGowYVBiZTVIUHhL?=
- =?utf-8?B?TGNWTXBSeDFtWWNUT1BRb05BMUVjalNkL3lPUENYQUpqZUFyUGplWFhmdHFi?=
- =?utf-8?B?S3JhQkxXS3hXNVJZVWl4b2pVR2JGby8rWklyRGl5SlhXQ3dtMHpQU2piOExx?=
- =?utf-8?B?eURwUDduZWNJVW1MNEx1NzV2emtLVTgzWTJaTHFYK1FudzRXYjNsQWdLZENB?=
- =?utf-8?B?OXVDVlBRVnZ4eXFRWGszMXNKa0dvbXlBdWVnbE5sVFhKTkpoMU96dXZYOTRU?=
- =?utf-8?B?Q1VWaHMxa20vaFp6ZW1PVFpwYWNhMzRSMEtEc0JmcFNqOVAxa0FZSUd4N1Nx?=
- =?utf-8?B?ajlxOW1zdVkwUlRXT05VY1hJcXhIRzhyT2ltVUdlQzVtcDI2WHNvSGVJR1ZF?=
- =?utf-8?B?a1pVUk5oalJSaklaK0VySUxVOUF1NnNkNmdLK0xVUXZYQ3hJaVlzT2E0WFE1?=
- =?utf-8?B?OFNPMStXdDBzS2o3dFRNbDM5ZnlzT3N0YytkbDBjQ0d0bkZZeFlnTFhWblVK?=
- =?utf-8?B?NmpmNmtMejZSVDhaem1wS2JEMWttM0JTQnEwOHFNd29SaXBuNHk5aU4wRmsw?=
- =?utf-8?B?a1pPeEYrUk04ZW84MXRYakU4N3c4M1NsRGt2dG9HdmExS1dmbEZSMStXLzJ6?=
- =?utf-8?B?bi9LMmhUUTZqcThmUVhSeHRnOExlT0hZd1dpTTEzM3Y2ZjRCbU1OTG9FbGRi?=
- =?utf-8?B?V3pUMzJFYTgyU3dpUlVrZ05DenNYZXVlUjFib2Iyb1RSNGJKcUl2YXJKQkph?=
- =?utf-8?B?YkExdERQbW1nM3IwZHZ4Vlc5bmtkTkpvbkQwSjdZVE1sZjA1MDlDU1Vpcm52?=
- =?utf-8?B?NXBzdzFIR0NTMmZoQk4wVjduRXpKbTZvcmJPMFRJK0VQM3ZZdUdwd09relZO?=
- =?utf-8?B?WnlIYU1oZVU1TVVudEEvQ2tKSHZEb1VHNW92ZUZvL0FBU1FRdEVLYTRJdEF3?=
- =?utf-8?B?bm5jVzZmdml6aUN2VlUzMS9DNHFxOFp0bkJDWWNxL05EdVBpM1VuT0ZZb29Z?=
- =?utf-8?B?Qm5DRmlSOWd5azBXSlFjUlNZaE1mTG56YTVWaXM1QnRjQ1VHMEY5Z3JTd3R5?=
- =?utf-8?B?dlVRYSsraU1Ld1lRb3VsZUIrV1hRY1haWmgvUjkveDFuOWpZRnJldmVzOWda?=
- =?utf-8?B?SnRMQ1R6YmlYRnBMNDBXK2NmZ3U2Y3FiSWtiL1ZyOWlQbmIxWjV0UW5EOStE?=
- =?utf-8?B?Z1M5YW16eEVnOUNSTk4xNTBxT2pzc1RudFA5cDMrSmF0M2Z0MktUejVJejhV?=
- =?utf-8?B?ZlpkSkNNNkdVUVRseGRSb0NBeWdRcWJXSnBzTW1keFRyNWlZODZOK3ljRE45?=
- =?utf-8?B?c0svZ2F4YnNsa09tWms1MUZhcnllK20vZmF5b09GTzNvODdCVWpKSTkwZS9P?=
- =?utf-8?B?UWo1cTR3V3d5ZUd1UnVvZkpQMGtvTWdIU1UzNjlvSVc0ZDRjOHhaVUxKd2xR?=
- =?utf-8?B?RmZqcmtFVEdMNHhhamxDSEVmYTRqL3ZtV3BxZU1qTjBJTDVHU1VUMlhUMExk?=
- =?utf-8?B?UzY4c01qVmwveGtiSUxUcG5jWE9naW1zRlBKeWJiRWpMVWd4MW15bENuWDdU?=
- =?utf-8?B?RFl4L1gyM0svNUVrLzJ1YUlKeWo5ak8rRGVqTk9VcW51NS82dlZEWk5rT1pq?=
- =?utf-8?B?NFdaZHlWNzJnQ2ROOWw3UDVqVldmUEdhYWp6YnpybkhDanE2VkFVRzd2ZEh3?=
- =?utf-8?B?aEJaQmFRT3NXMFNPSytHRFVwV3hxNEZHUGY1a3hQclFqemdVTDJwWnlvZTQw?=
- =?utf-8?B?V2krdjV2MUJLV2tlb1JzNHRmRWxJV09iTHZEaVFCbTBwczA4Tno2Um91Zmpr?=
- =?utf-8?B?ckZIZkJ4cUViTmFhMlNMNU13REZnOVJmQzlhTGZJUyszREJ2KzRVaU83QmU5?=
- =?utf-8?B?eEhULzYrVUlmeHhKSjZlbmtWN1gwWFFrU2drdUpCdzdqenFaaVBWa2c0M1Vr?=
- =?utf-8?B?OUFkQWZ6c05tUlhzNGovMEg1RHoxMTdFYlkzU1ZZMzVSUUEwSHYvK3JKYVY5?=
- =?utf-8?B?bk83Y0IvWUdhSmxLV2JrNDNwL1ErVzFJUDFHT2VQcC9uSDFsZDRqQkw0b2dy?=
- =?utf-8?B?RkJCOU5ndHllMXJiUlRIQkpKWk1CSzlUYTNZc3A2bE8rOWxIWlVQNGUvZmlj?=
- =?utf-8?B?eGFCeEpvWWhOU2duaEkreVp4R2ZrQVZCZ2R6anVPdVczR2JZSXc3U3lhT2xr?=
- =?utf-8?Q?TAelB+AlZqM9F576ZJhuqVB5xHYIVy6ZkgnFG4xMBFbmS?=
-X-MS-Exchange-AntiSpam-MessageData-1: JazuV9x3DLF+aA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7833f83-4e9e-4653-5201-08df0c7666ed
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 00:24:38.4917
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LK5VtfAYu2c42qXM4wrn8uoegmFXR/yBXuAc15SmGy9WEWMAoYMbCa/Ftg/LvY371WsdtHjGG5ig5lCj7mE2eA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8174
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 01:28:36 +0100
+Message-Id: <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Thomas Turner" <tturner@lineageos.org>, <semen.protsenko@linaro.org>,
+ <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+ <peter.griffin@linaro.org>
+Cc: <alim.akhtar@samsung.com>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <thomas_turner@talktalk.net>
+Subject: Re: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to
+ Exynos850
+X-Mailer: aerc 0.21.0
+References: <20260905170914.1640-1-tturner@lineageos.org>
+ <20260905170914.1640-3-tturner@lineageos.org>
+In-Reply-To: <20260905170914.1640-3-tturner@lineageos.org>
 
-On Mon Sep 7, 2026 at 8:10 AM JST, John Hubbard wrote:
-> On 9/5/26 6:55 AM, Alexandre Courbot wrote:
->> On Thu Sep 3, 2026 at 12:15 PM JST, John Hubbard wrote:
->> <...>
->>> +impl SubtreeVectors<'_> {
->>> +    /// Returns the interrupt type these vectors were allocated as.
->>> +    pub(crate) fn msi_type(&self) -> MsiType {
->>> +        self.msi_type
->>> +    }
->>=20
->> This method is not needed. It is only used by sub-modules, which can
->> access the private `msi_type` directly.
->>=20
->
-> Hi Alex,
->
-> Thanks for all these reviews! In addition to applying fixes for each item=
-,
-> I'm also doing the following for the upcoming v4 spin:
->
-> a) Rebasing onto Gary's IO projections, and taking full advantage of them=
-.
->
-> b) Fixing up all comment prose.
->
-> c) Using a type system instead of returning a bare u32 for some of the
-> interrupt status reading and clearing.
->
-> I'm keeping it up to date, including testing, so it's ready whenever
-> you get tired of looking at v3. :)
+On Sat Sep 5, 2026 at 6:09 PM BST, Thomas Turner wrote:
+> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
+> for temperature throttling, DVFS, power domains, governor support,
 
-Still on it, and I'll send some more comments for v3 today. Let's
-include them before respinning.
+One of the sensors exposed via ACPM is "linked" to the GPU/G3D as far as
+I know. The driver part was sent already and three sensors work there
+(two cpu clusters and GPU).
 
-Thanks!
+I've never tested yet the DVFS of G3D via ACPM. Maybe it is worth a try
+on A21s. But it should work the same way as clusters clocks.
+
+> boosting and voltage control. Once PMIC is properly implemented, support
+> will hopefully increase. However, the panfrost driver probes, the
+> Mali-G52 GPU initializes and the core clock is set-up.
+>
+> Testing for this patch was done on a device not currently supported by
+> linux, the Galaxy A21s. After enabling this node for that device
+> locally, I was able to test and confirm basic GPU functionality. As of
+> now, this patch has no users which have tested GPU capabilities and so
+> the node has been set to "disabled".
+>
+> Here are some logs I pulled:
+>
+> panfrost 11500000.gpu: clock rate =3D 377000000
+> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,0000=
+0400
+> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x=
+00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+> panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
+> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+>
+> OpenGL core profile vendor: Mesa
+> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
+> OpenGL core profile shading language version: 1.40
+> OpenGL compatibility profile vendor: Mesa
+> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
+> OpenGL compatibility profile shading language version: 1.40
+> OpenGL ES profile vendor: Mesa
+> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
+> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+>
+> Signed-off-by: Thomas Turner <tturner@lineageos.org>
+
+So, I've got A21s and installed pmOS to test all that.
+My logs are slightly different but graphics is definitely alive:
+[    0.200787] [drm] Initialized simpledrm 1.0.0 for fa000000.framebuffer o=
+n minor 0
+[    0.215130] Console: switching to colour frame buffer device 90x100
+[    0.225540] simple-framebuffer fa000000.framebuffer: [drm] fb0: simpledr=
+mdrmfb frame buffer device
+[    0.226134] panfrost 11500000.gpu: clock rate =3D 377000000
+[    0.230960] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x=
+0 status 0x0
+[    0.230981] panfrost 11500000.gpu: features: 00000000,00000df7, issues: =
+00000000,00000400
+[    0.230991] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x0000=
+0000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+[    0.231002] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
+[    0.232329] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+[    0.232726] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 1
+
+Also, when this is applied with status=3D"okay" on Winlink board then
+panfrost itself seems to be alive and drm initialises despite missing
+regulator as indicated in my other email in v2 of this series, hence:
+
+Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
+
+Thanks for working on this.
+Best regareds,
+Alexey
