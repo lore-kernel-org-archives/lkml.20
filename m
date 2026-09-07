@@ -1,102 +1,122 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040F436D9E0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:45:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560D3783AD;
+	Mon,  7 Sep 2026 04:46:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756352; cv=none; b=ALMSWMBHwomBY1oYkHYARUT3u4jRVL6f1Sgv7U7MgiJc1goJyzgOSAQNma4RgjkPwG8LnecbuRt88FgNl24NQnuxbHQPZrqM33MZC7G6CaEQdICMyffc5T68zDxpiCOPzAHpe439HWxB6zapKWKeMmipc6W6Mclcyw80rm8K3Ok=
+	t=1788756364; cv=none; b=NL+FQ+Dxe0XaUjfDfhMjm1GXnlFPaShNG08qiAc1L1hSlZLKMtMD/1dGt+J8DAK+vSH4Hi5r+ts2eqixBCBs+j2lbd5Xfubipf4qAD6E59fSHrjeqv4RVUrch9dwe5sK8x9CTXrXGfQXLLlI2v7VBfr5OpyA2yHqcsoAT7IJssY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756352; c=relaxed/simple;
-	bh=o7CbGYsOIDmcanU8fUfnUx3eOhhddfQxRpFPLq1F7Kg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=a1hp0dlaEh63WuhX9n0tuPdG9ok5jVfJjAAXcqnnI1PxsT0ef4QrFuE2UHrIuPNThBx9J0iq8BE2BoFgXlp37695ybv8G00hUzjyEILULFyxhZ7m7MyAe9lENETMsLXX+5OhSftz9ORIoDi7ImdT6Aq5Rjh5z181+Fb1BSxGV6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XD9NSTxB; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788756364; c=relaxed/simple;
+	bh=MvbHHEL5/a5EqTe+dAnJ+mIvKAY5vNH6ijYKQPM4nCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O26aZYeiZliaELG02UV22tQOlQrwFLVeLep6w1L/VCMePyR8lU1rY3122TGErry/246AgXoT3QhiQd0iqDORgkwzXjQlEiSxFBI0DCAewEyYrrO4h6eTfIhBhnP1lQ8gg+eSzfEDkRO4u8ddd10zwCjgpWI1XdhEDf7xfipgD3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jqmvuIBL; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XD9NSTxB"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38759bcd877so3097799a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:45:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756350; x=1789361150; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=D5L23rxTi9KX1MKDBMSVdzl0h+OzIwSK7RKLIboLG0w=;
-        b=XD9NSTxBY4/cnkdJUnDz8x7omMSnP5X3VA9zpaKDxY7LuFezIeUySSTYWAnmP+o7mg
-         OQXL2QZYUe0aER3BZvDVAVPpC/hcu8HjSc2BU8gEss2FTuauNxxac5IkUdGKAmYQfiN3
-         ESaw1EuXmwYXHSq3MtmhOf+g92GbeEH7zlvi3UxR1KkPkeAZdIJ4CZmQuGFAf6/vvRtx
-         rjenA8OS4Q1+C2kJOmV+DIbY0i0fzpdIbc2s2wiM3Smp6EGbsrW75I3QLwjKbEK74+y4
-         bAoXthv4kNZLb0pLxFBqCm+X0PZP6JPWKBbP3K673zdVsePhRX0Xi8cJH08Qxfsoo+iG
-         VMUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756350; x=1789361150;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=D5L23rxTi9KX1MKDBMSVdzl0h+OzIwSK7RKLIboLG0w=;
-        b=T9mHj1zz/mvMZggsaTkELCy65yfaCQI/i43zZLK7fpp3sAxusxBV14li3FsHfTBsFG
-         iKmieEKM/JiqhYrIIC+3hvqHNYqwjHXqXd+cmfh0E+oAr9g5FBBAX2/OX7BNzK/UbWjI
-         ksd0g7yb/Y6Z+U06gcJ3rzj/iPEO3CfBDkKvMkuyUwvfj80sKGod3BriOcCphFJHqPJD
-         asayj5Dbr3GJPQsjpeEKnlL9wZlGJPDT1oWNU53ujeEsW7uL1ZGFVa5nH9m31Ji12wlB
-         45K4aZaM9nzdnhZQ+uNmuxcrRlbGPsq9UjUSq+2/0jrTbu8XBh/Bu1l93iXG4iKdSvRj
-         4eLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzhV63wVdg6IZLPaGNOoVBF2jmdC5bfel/xUDhQaXLSKtbCprifNAAoZcnK8QovkhLGvrLTMX+vG0tdDZw=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7n3SrhMa9WnbF2llu9x8Y19qRlY6HFB7xchg2FxhVlLGrgD9a
-	LvoAPOxfVjyJ/FbaMd0mGUS0Yub/f6COv00wlk+6B3q8KnKzyWkKM7j+p1ffaHjzODg=
-X-Gm-Gg: AYBFou1PUk4PSR67CY1ncIYvSRAlbmLPGSAJMLUnxL8x8YQ9eYdNtLcO9+NZbHGT7XJ
-	DJwFT4KyTEYm3Pu+YEwP5mdeGPjv221DGw6dO+fs8DDsJPHajVopz93JlcQDOS9kw69ksKO7Lpi
-	LCQrzz3aVozL/+TqSYhg5hqlZCNOWddgEi8AmstQVXjIO8ePlG2lEls8eoU/qltOAftXtMwU44T
-	NQEMd3T1U0NoVvotJZZVmheZryUxixqZXfamj12t0GNzK10RfmXPna3m1ZypfP7EvWRMhPkFP9h
-	VMhEvuYMJSwMSf6mVhwCaxXDko0Ll/JbmdLPiggcR6lqZhZAhkYHgck+/OVN9eD3SpFlEvqu6iY
-	iuzH6f3iTZkbLAv3jDtKdd8C5lvSMbHSj7JVcggIoGeznGz6n4V9BcPDfK02ldU1W2aQJp94NZn
-	Kv3zgNZ3xFdXSgOEG1O/GSocAmPH8+fqMwh4cwBrX3trs0OTslOZWMT/03uVUJpZN1ToQFJRAo7
-	q8L/oJv0y5u/Q==
-X-Received: by 2002:a17:90b:2b4e:b0:38c:a59b:5189 with SMTP id 98e67ed59e1d1-39b261d0d8emr32120271a91.15.1788756350296;
-        Sun, 06 Sep 2026 21:45:50 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm25491660eec.24.2026.09.06.21.45.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:45:49 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Greg Ungerer <gerg@linux-m68k.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] m68k: coldfire: fix typos in reset.c comment
-Date: Mon,  7 Sep 2026 10:15:45 +0530
-Message-ID: <20260907044545.6187-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jqmvuIBL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788756363; x=1820292363;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=MvbHHEL5/a5EqTe+dAnJ+mIvKAY5vNH6ijYKQPM4nCI=;
+  b=jqmvuIBLomBJA3BWZ3QucWWOslJ3Vf13V/vXmhQAjwlqSfa7dtJgtzbN
+   bmyp5z8RkrMa09L3Uslyr5XSo3sdhRSq/+bgziHI68hmfqyxBrm4JHR8s
+   zeOEW1kMi5agFlZ9Afx8zR2dPJ1AfPSE0jqBm7q3O4jkD1o2lFg7P0wuC
+   hC33WssDXgQ97eNkv7p6m4dpXOQPGo9hrYtBsmLFC6APFX4U/U1noKC5v
+   IBsxzAUhdS3p0nAjrn83E5g5ru2dGK4ePGE5TZmuTKoKnfAaPennBIYNZ
+   CrQXgKriIRi80pbUOeAaBscIBjHRd2TMZLecfA3VcUGXN8ISdlz5bFPKO
+   A==;
+X-CSE-ConnectionGUID: WdIXD8VBSdqG9PifLKUoag==
+X-CSE-MsgGUID: 2qwucMzAQg2fQoqMFGAyyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="93022620"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="93022620"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:46:02 -0700
+X-CSE-ConnectionGUID: 6Svu84RsS9W24VILoF1UaQ==
+X-CSE-MsgGUID: 7Pmz5ViORtuzSLnZnlMKgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="274406097"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.182])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:45:56 -0700
+Date: Mon, 7 Sep 2026 07:45:53 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH v6 08/13] gpio: regmap: support write_data_after_dir
+ and girq
+Message-ID: <ap5BgWtHMAxl28wF@ashevche-desk.local>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
+ <apqxwRgi-uVKkOpr@ashevche-desk.local>
+ <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Correct "reseting" to "resetting" and "ColdFure" to "ColdFire".
+On Mon, Sep 07, 2026 at 12:20:03PM +0800, zl020895 wrote:
 
-v1 fixed only "reseting", which checkpatch had flagged, and left
-"ColdFure" two words earlier untouched.  Josh Juran spotted it.
+> > Are you going to fix this HW in the next version of the SoC?
+> No — Ambarella does not use write_data_after_dir. It only preserves the
+> existing ARM PL061 quirk already documented in gpio-pl061 (data writes
+> ignored while the pin is still an input). Only pl061_arm sets the flag.
 
-Only touches a comment, no code changes.
+Ah, this is a good news!
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- arch/m68k/coldfire/reset.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In any case when documenting that flag, please also mention that any new HW
+should not use it as it's considered buggy (glitches during direction change
+are guaranteed).
 
-diff --git a/arch/m68k/coldfire/reset.c b/arch/m68k/coldfire/reset.c
-index 6e5f8ab39f32..079c92593eff 100644
---- a/arch/m68k/coldfire/reset.c
-+++ b/arch/m68k/coldfire/reset.c
-@@ -16,7 +16,7 @@
- #include <asm/mcfsim.h>
- 
- /*
-- *	There are 2 common methods amongst the ColdFure parts for reseting
-+ *	There are 2 common methods amongst the ColdFire parts for resetting
-  *	the CPU. But there are couple of exceptions, the 5272 and the 547x
-  *	have something completely special to them, and we let their specific
-  *	subarch code handle them.
+> I will also make the first gpio_regmap_set() conditional so the quirk
+> path writes once after direction_output, not twice.
+
+I see that original pl061 actually writes twice. TBH I don't know the best
+effort here and if it's really required to do so. Probably others have
+better ideas...
+
+> > This needs to be in a separate update. Also we need to understand why
+> > it is required.
+> OK, girq will be a separate patch. PL061 keeps a custom chained
+> irqchip (not regmap-irq); gpio_regmap today only takes irq_domain or
+> regmap_irq_chip, so we passed girq to keep the usual gpio_irq_chip +
+> gpiochip_add flow. Open to using a caller-created irq_domain instead if
+> you prefer.
+
+If there is a chained IRQ, look how PMIC drivers usually do similar setups.
+First what comes to my mind is drivers/mfd/intel_soc_pmic_bxtwc.c.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
