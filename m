@@ -1,112 +1,135 @@
-Received: from mta1.migadu.com (out-108.mta1.migadu.com [95.215.58.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428C93947B5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:20:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 548863947B5;
+	Mon,  7 Sep 2026 21:21:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788816037; cv=none; b=GD2TJBgrf+MvDr6hOexRhYCdnj39OP4/FHpkiaTxNxC/WHfdePCeMWHO03A5CUimujgTEB3MUowY0VCWpbXVZoHkxCD0qSLI6L9WfbFQUM/zaIGD4mx0gqzZytEC2SjTkczpEgqoqMsKpntYG4IlB9iTS3/hp7CaheUvuKbRRlo=
+	t=1788816065; cv=none; b=QQ0f1pwYfu+oKl6EY7E0LSXRex2ESC8sT/7+qhVmRBnSTb0yD8BNELxhzK04Xdu6npA8H82A7/76ugsC9FbSpOIRXemUGfxuU0ni5tkgWIthBO9hOYTJMii5+DtzJZthJKZTV3L4Mr6Pb3FY2+skQ6Z7ta7vzO4Ep/0Sb1qkEPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788816037; c=relaxed/simple;
-	bh=YQJDeQ6/mKDBvukG5aoMANHfDYazHYAMwfzJ7ZbLcLs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=hBupkKbq0o1bfxpm1+hS0H8KViD9FYynoyz8a18tz3lwt1SVeVSSYj8clBgM3C6NdvbuNP+Zhp07BpDvoXowdsMBU7DIrsqLSwZDH7aHO+/eosSQaae1HpEqeUEsPc+nT5BXHEa+HXVstBAEV+E5VUdZhOHfahISdjbqiRLOby0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0y7m+N8; arc=none smtp.client-ip=95.215.58.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788816065; c=relaxed/simple;
+	bh=V9yGKxsKBkzGlAC/hxr45uH1WKzdDVp5+NrxU6z4lgk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LuwajmAGruoS9eCjJyHiLO3NpMlqtqsJ4ZC4fKhdhzEbZGQErJuDrYT3ZKfEYPiP8pW0eLFug0LGiptJLZE7+U3LVLfMuVJT2CJxlg8o66IEkBwWszMWoSKr38cncwxwzXgim9I6hYRC07/+L2v1zgV6ER1/j+guUHb2QdyBtBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUQkhQ1k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0y7m+N8"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YQJDeQ6/mKDBvukG5aoMANHfDYazHYAMwfzJ7ZbLcLs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788816029; v=1; x=1789420829;
- b=F0y7m+N8ajV65riNmYrxw035/AQpeRDJGoYtfH28Ea3XA/xPwxOx4qAUrRkBmnKC55BMjJAB
- 5EqbLkQfziCBFTPxTOPShrDdDfh/wz5JXWmXiXksIMFwAPpUr8+jg8S9pL8l30ZxwzKvitKO0uh
- kgEDtOiAzrmY2f89Q8Dvgqnk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8f82e7bcff9f2353;
-	Mon, 07 Sep 2026 21:20:29 +0000
-X-Mizu-Trace-ID: 8f82e7bcff9f2353
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <27376486-9cab-4d42-8ed7-36e13231dd91@linux.dev>
-Date: Mon, 7 Sep 2026 14:20:26 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUQkhQ1k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983371F00A3A;
+	Mon,  7 Sep 2026 21:21:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788816063;
+	bh=zZDIy90AzlSJ3HlZ3+CMlS3Mw3yleXCGFSv0h6VAF+o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OUQkhQ1kaTnohHzsTD/U1pPnsHjT6rvQ3f/w6+onI/QqztgFCl862h/l1jvdiRwGO
+	 HIwWitHkFqgczyVPMD14Z+QtwsTHkhMqqUbxZTmikC1VuKKNoy3nLeJiy+uXwLQwAa
+	 3DyDfdWZJ9XyTZcRuPQWBYlVsHaY4C1EaxMfbiU/HCmWOu/ESFkhPpzuO5oj4jRwBa
+	 igDRSTQq9ByM7IJeQb/Z6uV/dua/ndO2LtrY3DLY6qLqPKTWA3IWuaxix+chZH6P/j
+	 2xfJyD0IgfjTwSV8NwnwlgyvrVcA5eYt6cDfWsmzbOKNh51XjwM91R7pkpZu9pwQXM
+	 er8pZGGr3aTXg==
+From: SJ Park <sj@kernel.org>
+To: Ye Liu <ye.liu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Marco Elver <elver@google.com>,
+	Ye Liu <liuye@kylinos.cn>,
+	Tejun Heo <tj@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Yi Tao <escape@linux.alibaba.com>,
+	paulmck@kernel.org,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	jpoimboe@kernel.org,
+	mic@digikod.net,
+	tglx@kernel.org,
+	akpm@linux-foundation.org,
+	david@kernel.org,
+	linmiaohe@huawei.com,
+	nao.horiguchi@gmail.com,
+	rafael@kernel.org,
+	gnoack3000@gmail.com,
+	ljs@kernel.org,
+	rientjes@google.com,
+	shakeel.butt@linux.dev,
+	xu.xin16@zte.com.cn,
+	chengming.zhou@linux.dev,
+	will@kernel.org,
+	boqun@kernel.org,
+	frederic@kernel.org,
+	neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com,
+	josh@joshtriplett.org,
+	urezki@gmail.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org,
+	tony.luck@intel.com,
+	reinette.chatre@intel.com,
+	x86@kernel.org,
+	paul@paul-moore.com,
+	jmorris@namei.org,
+	serge@hallyn.com,
+	pavel@kernel.org,
+	lance.yang@linux.dev,
+	mhiramat@kernel.org,
+	pmladek@suse.com,
+	longman@redhat.com,
+	mathieu.desnoyers@efficios.com,
+	jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev,
+	dietmar.eggemann@arm.com,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	mark.rutland@arm.com,
+	Dave.Martin@arm.com,
+	james.morse@arm.com,
+	babu.moger@amd.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rcu@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-security-module@vger.kernel.org
+Subject: Re: [PATCH v2 1/8] sched: introduce for_each_process_rculock and for_each_thread_rculock
+Date: Mon,  7 Sep 2026 14:20:53 -0700
+Message-ID: <20260907212054.88063-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907081334.1152889-2-ye.liu@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] RDMA/rxe: Use validated num_sge in local buffer
-To: Nicolas Morey <nmorey@suse.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Tristan Madani <tristmd@gmail.com>,
- "open list:SOFT-ROCE DRIVER (rxe)" <linux-rdma@vger.kernel.org>,
- open list <linux-kernel@vger.kernel.org>,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-References: <20260907161550.716670-1-nmorey@suse.com>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260907161550.716670-1-nmorey@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-在 2026/9/7 9:15, Nicolas Morey 写道:
-> For both SRQ and non-SRQ receive paths, the WQE is copied into a local
-> buffer to provide a kernel-owned, validated copy. While calculating the
-> memcpy size from the validated num_sge prevents overflow during the
-> copy, memcpy() itself still copies num_sge from shared memory.
+On Mon,  7 Sep 2026 16:13:27 +0800 Ye Liu <ye.liu@linux.dev> wrote:
+
+> From: Ye Liu <liuye@kylinos.cn>
 > 
-> A concurrent userspace modification before or during memcpy() leaves
-> an unvalidated num_sge in the local buffer, leading to potential
-> out-of-bounds reads in rxe_resp_check_length() and copy_data().
+> Introduce for_each_process_rculock(), for_each_thread_rculock() and
+> for_each_process_thread_rculock() macros that acquire the RCU read
+> lock before the iteration starts and release it when the loop is left,
+> so that the RCU read-side critical section is scoped to the loop body
+> instead of an externally managed rcu_read_lock()/rcu_read_unlock()
+> pair.
+
+Looks good to me.
+
 > 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
+> Acked-by: Michal Hocko <mhocko@suse.com>
 
-Hi Nicolas,
+Assuming Lorenzo's indentation change requests are accepted,
 
-Thanks for the patch. The logic makes total sense to prevent the TOCTOU 
-race condition after memcpy.
+Reviewed-by: SJ Park <sj@kernel.org>
 
-Just out of curiosity, do you happen to have a reproducer or a POC 
-script that demonstrates this race in practice?
 
-It would be great to know if this can be reliably reproduced or 
-integrated into testing setups (like rdma-core tests, or 
-tools/testing/selftests/rdma) to catch similar double-read issues in the 
-future.
+Thanks,
+SJ
 
-Thanks a lot for your effort.
-
-Zhu Yanjun
-
-> Explicitly assign the validated num_sge to the local buffer after the
-> copy to prevent this race.
-> 
-> Fixes: 22b8fbded65b ("RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe")
-> Fixes: d6ab440240a0 ("RDMA/rxe: Copy WQE to local buffer in non-SRQ receive path")
-> Signed-off-by: Nicolas Morey <nmorey@suse.com>
-> ---
->   drivers/infiniband/sw/rxe/rxe_resp.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
-> index 02b16e2b49b8..cd51042857d6 100644
-> --- a/drivers/infiniband/sw/rxe/rxe_resp.c
-> +++ b/drivers/infiniband/sw/rxe/rxe_resp.c
-> @@ -288,6 +288,7 @@ static enum resp_states get_srq_wqe(struct rxe_qp *qp)
->   	}
->   	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
->   	memcpy(&qp->resp.srq_wqe, wqe, size);
-> +	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
->   
->   	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
->   	queue_advance_consumer(q, QUEUE_TYPE_FROM_CLIENT);
-> @@ -328,6 +329,7 @@ static enum resp_states rxe_get_recv_wqe(struct rxe_qp *qp)
->   	}
->   	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
->   	memcpy(&qp->resp.srq_wqe, wqe, size);
-> +	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
->   
->   	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
->   	return RESPST_CHK_LENGTH;
-
+[...]
