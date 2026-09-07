@@ -1,158 +1,266 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012064.outbound.protection.outlook.com [52.101.53.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165E1511189
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06857375F6C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.64
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788809996; cv=pass; b=Gtje0Toqw1fLVgA0WwbuFSlt8IZdtfvweVMvD25CDwWpwt+ImoNX3mey1PgQQ7uR0HSl86uESJLGHId1AZ5BB/dS2zlLxjr7qVHK3OmAFFPRg6KseAP7ShytXtF8ExJ0vRnpHcYuCCdADb/tSGDpWvJ8n2BTpKGJuEv+FcpL8AA=
+	t=1788810022; cv=fail; b=fvaHrCwKl1yeKGEwmuCZ1Sz/8DSls6HCOGHiR0J86vMM/SDDZ7pzNUBHVcAyqU6LEALFpvSm/58MGh4J+GMZxBH88que3HKywaWgeJ3poxfEJNWalJa5QVLlu2fTQL8CwkSIPT2oxVL+03xSnCALt6m1uCetXJYI99iYZ/qRb2I=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788809996; c=relaxed/simple;
-	bh=gfb1OFy6HnketlAtt5XqTvEazZ7wrq8ZI6YrMsSum2g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ACo2AbgEVbIPj2ai3x3STeuIcTHXi2v2z9wWcA4VeNJn/HKohvwwUMc32nIWyTdV11WU7jOk3Nxzy8RbYkNBaJ4AHe6+VFjeh8ts89hzc88Oyu2EUr1HO5bDlv7y6vlUGd4y87yCfaNAzExfjsyo5iPjgWfamen8Q5lQqzGLaik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ppLTYMGu; arc=pass smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788810022; c=relaxed/simple;
+	bh=5v6N5iW9+7BvlQqh9zUPl8jyi++4aAqsbNopz7KSUUw=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=HaPk4pJsbNSk8ckHLxE35mXjJVtGCfrTXmqgJgiu/wzesGpl1G2iX0WzWhNKxBu0kFB5GsUjUKdalPc+Wg2gi9/X0zn4lFeD3ItZcxev9R4IsSts6+8SMuIsoZ4JqqlEz8mCPNJyZhYLLor5SVFeb4brUYUn7QdLe8Sl8B6JSbo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=hD5aIU/l; arc=fail smtp.client-ip=52.101.53.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ppLTYMGu"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4859245e493so1807013f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:39:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788809993; cv=none;
-        d=google.com; s=arc-20260327;
-        b=F2ZkTRq/eYn1Q5/rJb9Nv9AdKOfIBYbAbZiO7VT63u9k+HBze5BUG++SFGe8dgXX0k
-         hus5nTCGK/5LTcHggOf7835Ocn5D70v5ztZQmXpw1H6yA1ZxqQb02vHQGLATwCnklJ8N
-         6A+pYgNou+HXZR2xv3zLjo7gHSsumpmAdkxNDoYjL+dMcR0IUcYX42uso5exzwgxtI9b
-         9PS1GbEt6I5fH7JeGvLmIJ0cC2d3W7Y+IIhiT13X0czD/0XSUMEQl17OTD487jUeXUUz
-         8xxGDjq6CvUFlcigJV6e5jY9foHmaL6q+5zhlAO3E50yp00ld2V3knNwezKtQnJJDTjs
-         HRiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UbTECHpg/c3ZKvu0s3KVwXXekuTGLp53kt2aih8Xec4=;
-        fh=9mT6kM5y0LRHiGlT8TzQStLEnFN63y1Y9q2Wkkw6iIM=;
-        b=CiECp1R2bEcRZ+/TvfDtDNPFQpsrp5xeFfsSRGDi3LiP3j3mss5tSAvu1+pihBpEyO
-         uT39OaoHj6mINl71FUcNaTJMoOaWG7QYCZGT3FLcMo80YCl5m3tczQPuqpmJZqUZ9010
-         0luQTSk+5hYbLWGYF+mCRJSQqhigMqtMPr5DAPEsXlt8CdeX9X5b5IAXy/iwywY2l5jG
-         UY26p0Fv1S0eQ7aoUEVLr/cGHkataBhDc/Tv0iv1KdgB/qxNz62ckWw4Q3Zxwnj7HyqQ
-         nLCPZ+4tO83dKCf9rxEHWoUhsZx0V61kJzoQw1LxDVLhjopePXYYdc4vUhv9wzqvkWLI
-         l3zQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788809993; x=1789414793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UbTECHpg/c3ZKvu0s3KVwXXekuTGLp53kt2aih8Xec4=;
-        b=ppLTYMGu2vSdw0/65kAKro4AL1aOex0UDW/GtT4vRTKXPAH4lFCzFhLEKjre1vJO9N
-         zn9CdtoHfF+eJMyM4cIhjoQG0klhZWCSt0E938vF17zVjHcSx30fBLFSp+EpaFqevFZW
-         7X5UjSf22/CcOsAmxyEnVxq75NJR3A7awvZPJ4nlDVpkGHAe4hQmmuOxXFBipVHDPuqK
-         NJte8q/uP5b9KhLA7SJUvc9IgokZyhXgcsuS7eVSvLUxIsSFGAhwPwYwMG+Ryp9YTOcl
-         tar/3MhjurwOtcou22/8mTkOusDJ7phk3YINcWQUf4I6QnqC02xXvwLwA3+qXcUWxBbo
-         W9IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788809993; x=1789414793;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UbTECHpg/c3ZKvu0s3KVwXXekuTGLp53kt2aih8Xec4=;
-        b=caJZ64lc4KoY9hdcRNdFyjwM4BjgA1ZJ1gRBB/z/33Sri+BHY89Tqe3YfiOc3+eAG6
-         e4ZeGf+kcnNpU5TkE7agOJ9oWNMQFwnJZSe8qeHo/srFDsMaRfC6jld3nA1Zc1Rwtr6V
-         bAyeWNydkwQPg8uorJsmrLFhQSaGOMVVOme1SvPxWVVY6RwnwRxqiM/74J/jIrMvmwlu
-         GqlYEVLGxEsY3YSjtE6zEhHiIFxaf1G6129mMUmQSsqAzvzI52k6DasYGp3q5oIS3kFd
-         vchKRIkujob9ziWLZ/2ZG7Nc6ZL9+cEuylC5NPKQlntrL6ozBiZ2BR6F8ATy0fuxEJe/
-         92ew==
-X-Forwarded-Encrypted: i=1; AKwUvByFIF778yR7stU8Lbgu7YNufg5y5OTs1cpSTPdC+sBZBMIJwbRmzSa1u79CEHflCq0PSvDQo6QrCTfDRTQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0+j7VFz+YibP4ft3oEtGWysAF673xF1v9vAIwChlsN2zXNwiu
-	EAuFZYO1hkLZ7h7aTdbfZuivZh5GjboiPr2WInQSbhg1vQB3kTETj9RHzKYIRuotNU18XDugn/6
-	xrhVwbguvdZuM21gFTesPzCPJrQoFHtE=
-X-Gm-Gg: AYBFou16J+/eK3LxsuyEvzkI1cGwfjX3PDAr4CY7njwWgy1q/8sqOKxHvCPSWBbSx7v
-	pPl1XSq//GguOo1yXXxOZWnffkVeICVCCZGFsGEbnwdN7E9QXpi503elmktFTR8vF2d6ZvGzZ2k
-	ZzJyQ1JxTwUJq9AVx8RDETVkX3t3NtPZU/nlLulyRBjJRboqn5kgXOhzIknMqTgljUZo9V8Z2og
-	Xmht5ekMBlz/QslQ4szYaXPUban/SdZHybhKPt+n9cMv6HtaxAinCPO+EGSUk7+MgcYVYozAVYP
-	qsJY0u30g1S3HHEs116bM8VBiLitzFuOL8r2kMs9QXD74rMPUTRgB9ndGIVEQHQuQG1NuW9FRyf
-	mr1xPZZON5nwtrtjW+KFSFuSH9cf9g+wj
-X-Received: by 2002:a5d:6f08:0:b0:485:8a47:5b8e with SMTP id
- ffacd0b85a97d-4858a475d4cmr24045312f8f.43.1788809993301; Mon, 07 Sep 2026
- 12:39:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="hD5aIU/l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=GyPIrnxp3GqbQmc8GiLKlGKpMO5lCvjnwDArJ35Bm4UZ1QjMuH4L/PS9c/gDZbcs7u+jcobVRKzLJgBuqh0Gw6Agh0SrrUaeGwxZv8E0FJy9lR4PtRXswS+wziie08vr/LaWPTnmsNCArJUigj/uyYUgXOXUT+fpgWfGa/JSOf9er/WeNcSleSTakCNP/Rlr6iia+90K3fnCD1ClLgUINXM4XGAbsU7qjny4oloARhrPkQR9fGwqkLBghWkf5sar5axb9+rNin23h/OEmCvp9tlYg5XO1dGlq969Vr97ebFuPoPUm0lEBq20xWUP4YGMcpgo5aYtGOiDvzKVZMrGPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wdU7bkSCScN2wCEEga1PGy2gf88Z+4+QrkkYu4Dhk3k=;
+ b=PVIfjsaNkgbw51YaeLalndp3Zv5RTA8obyC/STLj9W+kTuN+NtC6PUdEU5HKQlwTBpn8OoqDC73HRdjLWC9Ki7yUfBVYUzySxU7GPxYzseZ0eKqNQdQJVMgjqtsOSWp0+UpNhRPAFNiUitoW46S6KLO+TiPBPhdwqZf6/lYrLhEg4nzyD5R717R9oGNItpU49ssMM6ZdmkIukZM9etmmcC3lkqba3aeNJRpvc99B0bWtUVs8KU95bFU2ulaAwJw+IXh6Xb7HmL6VbjaW7LzsJQZIuEb2leJfp5uxP+JzRIv9RzBQfOwtxNp2e+AwLE7Xs0N6kDo724oEuBP6yH1c4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wdU7bkSCScN2wCEEga1PGy2gf88Z+4+QrkkYu4Dhk3k=;
+ b=hD5aIU/l/WG3domrSf6+TNTIhVuTmdx3O38RSxynIhG0VO3W5i11T0FkA2uReWo8n5blqeF7uj3kn2+srhSPQegafoBMifWg+i8ibVdQwo10NPtrU6hWDZhPa4nNMyWdMWKihvebechlcIAz8CfRUr+ovqla/efgYyrnljDrxj/zwkxcr0jmUh+psqFnXXPiXtr7RkebMM60yWOXI2TnS0NsMnr2o4D7d9EDk19QayyjmG6QScNdJD2DKRgokLFKioaFM0lxtfT4VJoTF1PY4K5uT7EAk56dke9uiX+YUSsP9B7b/t+/GQDUQ/bF4UsVxmMWhD22soqr2ZjjhAcsPw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CY8PR12MB7315.namprd12.prod.outlook.com (2603:10b6:930:51::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 19:40:16 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 19:40:16 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 15:40:14 -0400
+Message-Id: <DL9C887ZO3AG.956ZEVFA3OHV@nvidia.com>
+Subject: Re: [PATCH 05/12] mm/collapse: state what a collapse may do in the
+ policy
+Cc: "Andrew Morton" <akpm@linux-foundation.org>, "David Hildenbrand"
+ <david@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance Yang"
+ <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>
+To: "Kiryl Shutsemau" <kirill@shutemov.name>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <cover.1788533997.git.kas@kernel.org>
+ <b01681c3cc945a7f7c3c7ca1de502f7cc0e93fe8.1788533997.git.kas@kernel.org>
+ <DL71DSES00K6.5JMVM0IJLPHP@nvidia.com> <ap6Wa6h_4HznOzSx@thinkstation>
+In-Reply-To: <ap6Wa6h_4HznOzSx@thinkstation>
+X-ClientProxiedBy: YQBPR0101CA0317.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6c::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-rzn1-miic-fix-array-v3-0-3f7dccffaf5a@reliablecontrols.com>
- <20260902-rzn1-miic-fix-array-v3-2-3f7dccffaf5a@reliablecontrols.com>
-In-Reply-To: <20260902-rzn1-miic-fix-array-v3-2-3f7dccffaf5a@reliablecontrols.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Mon, 7 Sep 2026 20:39:27 +0100
-X-Gm-Features: AcwNN1WqIPfZI7d2ltyP8smilE59YQ5lZz8X2iBCgOL-jJlaLFlqC46GZV_NYfo
-Message-ID: <CA+V-a8tOLKxFEKF+yZ0Asf_KYb=_hrFuJagkdzHPxZ_zf3MNRw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] net: pcs: rzn1-miic: Verify port number from dtb
-To: khendry@reliablecontrols.com
-Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, 
-	Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CY8PR12MB7315:EE_
+X-MS-Office365-Filtering-Correlation-Id: d59e1f6b-2541-4a23-bade-08df0d17d7d0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	cILYqhAflN4MbnYPtiQUkR9WapzalzCrgpXkfXXkV2mwVvcZYnoVkysXJRa8NHetTy+2J2xiKVCAqTMxDxyxzT7jW+Tmt2Db5U/TtndPankDvPMfadg34k9G9hjpHcXx+zgXAZj4JNS8Gliuzz0iYcSGtyb9E+ScYaWLxFqBaJ/4tfX4EMgBi24eVI4mg8xtGxBIzfar2bk7FtGG/7nEQHf4AimXIqiCx/9jGcLKX6bbRYZi18/fCr648cakVMIhMUanKv8pJ9g3Gnbn95AZUUHTLroAamPdDS37xghtI38F4HeiemS9kt4vdI9IdgfJE5/6XySykBN9uWAQhlhPTIBk9RmWktYEJtQx8F/CAYAYNYQbLuEQ848eP4bH3lSlX0AIVmB000C+SlxuKzpdHKV8WJPmdqlI7UeT9ULVO/zhpLGYNJOK2L16pXgFbiOfkaSZTpyWCvCXvSu1RYGc8WVBI5PK2DA2058CpRYGGlAeQJ9DGNxPPuOn7NO8jYr0abUb9/yInC4UxU8YpXQfjDSOQ2JXdHJKmYUXhyS/rT0Tr/nczwCjnMl3ZfC1hPR49nse91lr2otKYV0DYr6H6HU+vcvWveaBATVd847mI+muVOvTcl60g5VN08Gts1QILFjolmWHl3VjSjjIp1mktdUfDIZVEN6e+ZRgUD/t98I=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cDhnM1pNZnJLdHZTZElaQVpoelpkN1JXNlU4cXNzYngzNVBZcGZaM2FWT3Mx?=
+ =?utf-8?B?QWRmVnRvc0tpVGdaR0RXTXFoc1NiMG9xaWxZdmY0elhmY2hPMzExK1piSUtN?=
+ =?utf-8?B?dWhRNFdZa0Fod3k0T2ErOGhLakpLUldIbEdiOG5XYWJoQmxKY0ZVSHg3cVF2?=
+ =?utf-8?B?S0lhQjV0aWZLWTYyZnU3TWRjU0k0UlJZbUxUMVBKc1ZBQ2w0bHdPSEphcThF?=
+ =?utf-8?B?M2Jad1dVK1hDTmVrZE1oMHVLNFBCRURmSlNDRzFrNTU4Vk1CRUNkOHA0c2g2?=
+ =?utf-8?B?UHNHUWVQdHpGQk1TNUF1Z1FJaE8vNXl1RUpGM05OaTFwU283WHh3UjBtZW82?=
+ =?utf-8?B?ckhjWjNnY1ErQjdDSGxjUjd4V25wQ0VQeTNSN0RSMkI0UHRZTFY2MWpvVmNv?=
+ =?utf-8?B?cDZsNFJDUEdqTHp4bk83bnlEZ3FoTjQzVlNZOFRtNk10aTJLWlM1QVFLRUN2?=
+ =?utf-8?B?R3dYUFoyUGR5bHIrZ09lK3pFTUVZSGJFc3NGWVlwdDZLSDNiT05OamxHTzN0?=
+ =?utf-8?B?VlNQQitGZmRka0htOEFvN2xlcXQxSkF5dWhrQ3ZvZzNqTGFteE5MZ0FqTXBu?=
+ =?utf-8?B?OTFvajY0QW9SUHAzUzF2QWRzbDA3NGV6bFNPeWhBbkt2RWQxQmtiM2NjSkxK?=
+ =?utf-8?B?cENvV2lzQVlWOVgrWVZSWm1zcThQYUVneVA0bGg1azNOOGQvN0JzRlZaNHFm?=
+ =?utf-8?B?Y0JtV3BCNlF1VGQzc09HdXJ4c2czMHg1ZVZSMUFTL2czTjhLdDZjamliM0Nt?=
+ =?utf-8?B?NittS1hkRjJmRFo5a2NMZk9tYnBlcExGNlpOdGlVRmx6UVN3d1BnVnJiVTJT?=
+ =?utf-8?B?ZWNxVVJoWUNnMC9ZK3E3QUVIS1p0NWQ2SjlaV21UM005aldsV2d1aDBwbUtG?=
+ =?utf-8?B?QnlwcUxZQ0c2eUpHblJEclhyMVE3dWtmRWFVTnFzUTlTd3oxSXU3RE5peVdt?=
+ =?utf-8?B?amFwZy9tOWlJN3daNkhkK21rbVc2T0ZvWGJPTnJDdXNYN09sMzZSMUFjbk9i?=
+ =?utf-8?B?eE1ZZmx6YUdoM3N5WFVuRW11VHZOU0lmWUZ5bnhOY1FaV2FDbTJvR2liQjBr?=
+ =?utf-8?B?Wlo3SitJaTVMY09KeTlRSFRYRjJhN01Dc2VHajM2WW5ZSzc5a0xONmlKMFVX?=
+ =?utf-8?B?Z2JCajBkV05WOXhFQ3lmTjNjTjVPR1E5WkxVV3FmdktJN21qaUFCUms3WjVn?=
+ =?utf-8?B?WWdLRXRPMDdoYnl1U1JlYitBb2xVMkdhMmdFTzlJZFNTc3pSbTZRenZjNzdQ?=
+ =?utf-8?B?YzR4cVdXVGpiSGk1WU5qRFpLRmFVK2c0M1JqZWtnK1NLWVRhSW94aE1wVmxH?=
+ =?utf-8?B?U2czaElueGIrWjU1RW5mMEd2WjFyck0wWDdmNzFMTWNFVElMdGcvNytXOEQr?=
+ =?utf-8?B?OFV6S1RZQVo2ZnF0MElXb1hCK0dVRE5MdDlmUDVmcEhNWThHT3JFdG9SaGw5?=
+ =?utf-8?B?KzF5aCt5T0kzNHBMUUhQd3BWYXZrTm9tSUQ2Uy9VUWNCV21hOWtPeGJzbGVr?=
+ =?utf-8?B?TTdQTWtuVTdPc2UzVnQvZUFTQjhEMmNvK3E0NlJxWWduQU1ITEI2OXRYalJ2?=
+ =?utf-8?B?Ri92RUFWWEZaU01MN0xtWklkMG5XZElsY3B2cUpoZGtFbDBSMUxxeEd1UmhM?=
+ =?utf-8?B?UmE4Qm4wMkR5RTc5TDNhVHUzcUZwTEtsYWU0eitXQlNQSEtLRm42V2M1azJX?=
+ =?utf-8?B?blZZa2x4ZGN2dGFEcGFsWE1iRUw5MHdqakU2RjE1Y0xseEM3VXQ1QldpNTBh?=
+ =?utf-8?B?a1VDWEIvZXJXTmtxeXZlZ0NCN2FlVmRRdGhLK3JnYll4dUJwTVZHOTZsR0lB?=
+ =?utf-8?B?OElCcDd2TVUwY05mUjllNitsaFY1M0EzeEJONVEwMHdwT3lOMFBySEtlQm81?=
+ =?utf-8?B?TS9oNzJNT2VIWU04LzdtM2h2aGV4SWdOOTNDYUhZclBKekM0UU5jMjBmUXFx?=
+ =?utf-8?B?WGdmak5EWUlTcUpheHIwYjB3VVQrMiswaEIyRG0xQ2F5R2o3Q0lEOVhqQmJB?=
+ =?utf-8?B?bzZVVExlb1FNNXpkOGNNZEVZL1R6WUFBMWpxR2NVRk1udUJNVC8ramk2Wlhq?=
+ =?utf-8?B?eCtDd1N0eGlRd3VLYlJnRHRYZGRYbStGNlBBYVZ3TWFISllXZ2pkQmtQUFdO?=
+ =?utf-8?B?MzY5UkV0cExzZGNDb2FPVU1uNDlDWWNhbjFYU05hb0NDMXc0U0hkS1NaYUdi?=
+ =?utf-8?B?cVhuQlVPTWhpTzA4aXZ0UjdqQVEzUUdNdEZ1ZHpCeEVjWm5jWjEvdkpUQmZ0?=
+ =?utf-8?B?TU9EZk83TWhUcWdmVU9DM2ROamVEZmNEbnFnTDFZa0pqNSthSzdxeTNwYkdu?=
+ =?utf-8?Q?m9PgnVqf5NThXLj9ni?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d59e1f6b-2541-4a23-bade-08df0d17d7d0
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 19:40:16.6922
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GOxE2hnzgMDbZyXX/MwoWJKfToWGaXecfMTPI2tITt9zVaxcEsNXh/IUWGVp1vF6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7315
 
-Hi Kyle,
+On Mon Sep 7, 2026 at 6:49 AM EDT, Kiryl Shutsemau wrote:
+> On Fri, Sep 04, 2026 at 10:44:58PM -0400, Zi Yan wrote:
+>> On Fri Sep 4, 2026 at 11:10 AM EDT, Kiryl Shutsemau wrote:
+>> > From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+>> >
+>> > Tests scattered through the collapse path decide what a collapse is
+>> > allowed to do by asking whether khugepaged started it.  Between them t=
+hey
+>> > settle:
+>> >
+>> >  - which VMAs are eligible, and how hard to try for a folio;
+>> >  - how many empty, swapped-out or shared PTEs a window may contain, an=
+d
+>> >    whether a sub-PMD window is held to a stricter rule than a PMD;
+>> >  - whether a range has to look used, and whether a MADV_FREE'd page is
+>> >    left alone;
+>> >  - whether the PMD is mapped as part of the request, and whether dirty
+>> >    pages are worth writing back and retrying.
+>> >
+>> > None of those is a fact about khugepaged.  Each is something the calle=
+r
+>> > decided before asking, and the collapse code should not have to look u=
+p
+>> > who called to find out.
+>> >
+>> > Add struct collapse_policy for the caller to fill: khugepaged from its
+>> > own settings, MADV_COLLAPSE from the fact that a user asked explicitly=
+.
+>> > Every test becomes a read of a field, and cc->is_khugepaged goes, havi=
+ng
+>> > no reader left.
+>> >
+>> > khugepaged fills the policy once per scan pass, MADV_COLLAPSE once per
+>> > call.  That is the one change in behaviour.  The max_ptes_* limits and=
+ the
+>> > defrag setting behind the allocation mask are sampled once per pass ra=
+ther
+>> > than on every table.  A table scanned early in a pass and one scanned =
+late
+>> > are then judged alike.
+>> >
+>> > collapse_file() also drops a NULL check on the collapse_control.  It h=
+as
+>> > one call site, reached only from collapse_single_pmd(), which derefere=
+nces
+>> > cc unconditionally, so the check was already dead.
+>> >
+>> > Assisted-by: Claude-Code:claude-opus-5
+>> > Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>> > ---
+>> >  mm/collapse.h   |  40 ++++++++++++++++-
+>> >  mm/khugepaged.c | 114 ++++++++++++++++++++++++++---------------------=
+-
+>> >  2 files changed, 102 insertions(+), 52 deletions(-)
+>> >
+>> > diff --git a/mm/collapse.h b/mm/collapse.h
+>> > index 1c40229b9554..05282eed9a35 100644
+>> > --- a/mm/collapse.h
+>> > +++ b/mm/collapse.h
+>> > @@ -48,8 +48,46 @@ enum scan_result {
+>> >  	SCAN_PAGE_DIRTY_OR_WRITEBACK,
+>> >  };
+>> > =20
+>> > +/* What a collapse is allowed to do, decided by the caller that asks =
+for it */
+>> > +struct collapse_policy {
+>> > +	/* Limits, stated per PMD; HPAGE_PMD_NR means "no limit" */
+>> > +	unsigned int max_ptes_none;
+>> > +	unsigned int max_ptes_swap;
+>> > +	unsigned int max_ptes_shared;
+>> > +
+>> > +	/*
+>> > +	 * Hold a sub-PMD window to a stricter rule than a PMD: no swapped-o=
+ut
+>> > +	 * and no shared PTEs at all, and max_ptes_none as
+>> > +	 * collapse_max_ptes_none() scales it.
+>> > +	 */
+>> > +	bool strict_sub_pmd;
+>> > +
+>> > +	/*
+>> > +	 * Collapse only where it looks worth doing: require some sign the
+>> > +	 * range is in use, and leave clean lazyfree folios for reclaim rath=
+er
+>> > +	 * than collapsing them into a folio that is not lazyfree.
+>> > +	 */
+>> > +	bool skip_lazyfree;
+>> > +	bool require_referenced;
+>> > +
+>> > +	/*
+>> > +	 * Finish the job rather than leaving it half done for a fault to pi=
+ck
+>> > +	 * up: map the PMD over a file collapse before returning, and write
+>> > +	 * dirty pages back and retry once instead of refusing them.  Both c=
+ost
+>> > +	 * latency the caller has to be willing to pay.
+>> > +	 */
+>> > +	bool install_pmd;
+>> > +	bool writeback_dirty;
+>> > +
+>> > +	/* How hard to try for a destination folio */
+>> > +	gfp_t gfp;
+>> > +
+>> > +	/* Which VMAs are eligible, as thp_vma_allowable_orders() spells it =
+*/
+>> > +	enum tva_type tva_type;
+>> > +};
+>> > +
+>> >  struct collapse_control {
+>> > -	bool is_khugepaged;
+>> > +	struct collapse_policy policy;
+>>=20
+>> Can it be made const since it seems to be read-only?
+>
+> Not as a member: khugepaged fills it once per pass from the sysfs knobs,
+> so there is no constant object to point at. And madvise has to
+> initialize it somehow after cc is allocated.
+>
+> It could become a const pointer to a struct the caller owns, but that
+> adds a lifetime to track for a struct that is written in one place and
+> read everywhere else.  I would rather keep it embedded.
 
-Thank you for the patch.
+Got it. Thanks for the explanation.
 
-On Wed, Sep 2, 2026 at 7:55=E2=80=AFPM Kyle Hendry via B4 Relay
-<devnull+khendry.reliablecontrols.com@kernel.org> wrote:
->
-> From: Kyle Hendry <khendry@reliablecontrols.com>
->
-> Add check to make sure port number is in range before writing
-> to dt_val array
->
-> Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-> ---
->  drivers/net/pcs/pcs-rzn1-miic.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-m=
-iic.c
-> index c50b65d064fa..3ee40eb9d545 100644
-> --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> @@ -692,6 +692,12 @@ static int miic_parse_dt(struct miic *miic, u32 *mod=
-e_cfg)
->                 if (of_property_read_u32(conv, "reg", &port))
->                         continue;
->
-> +               if (port < miic->of_data->miic_port_start || port > miic-=
->of_data->miic_port_max) {
-> +                       dev_err(miic->dev, "Port number out of range: %d\=
-n", port);
-> +                       kfree(dt_val);
-> +                       return -EINVAL;
-> +               }
-> +
-Query to maintainers, what policy should be followed? Since the
-dtbinding check complains if the port is out of range should the code
-also check it?
+--=20
+Best Regards,
+Yan, Zi
 
-For the patch,
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-
-Cheers,
-Prabhakar
-
->                 if (of_property_read_u32(conv, "renesas,miic-input", &con=
-f))
->                         continue;
->
->
-> --
-> 2.43.0
->
->
->
