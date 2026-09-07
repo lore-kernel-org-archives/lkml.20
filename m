@@ -1,109 +1,137 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53304FDE51
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8ADC94C6811;
+	Mon,  7 Sep 2026 13:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787639; cv=none; b=DD3HTnMgiFLA3LQRgCx3T/K36JH2NlZ1Ajh4nBufqRo6MMhbmVG/YSs6PT2ShCLigwDGXhTGzZ+woILS7jVidFh6R+wRuhJoH/rJ3TFZtfxXO/pHvo6IpHIIdN5YTHLq90D6Sy3WJIhdUmPiSqSLBB1y/nLIXAF4FPDq8XrC494=
+	t=1788787737; cv=none; b=cTl7TdhjsCa4CaMs5vR7nU2i/y1wTvYcc8ifXpaGEcAY8NMX1PZbterfBWEkNntmg57DMqfW18Mf4RgmUjvVW2QdSBythelTs8myEtQxXQxZ7+mbnwXkPQQ7VQUnx6YmkKAClqwkzjT8j7zKqQ6+DKL0JRTsj7lgcDEGai5y3cI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787639; c=relaxed/simple;
-	bh=BfSa8Qa4HHA9XdtDni3WI6484fC1X2X/LXoDqzeOHac=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=LDejR2+6JgFoNtaGYGtAUaD7K8diD9cA9Mnp6xg8bWoJL8+KPryJJPb3ZboD8I31vTXFUuPqwk+1nKWYlo3eez7QOSmnmVWZJJ6KaY103d/baq4wZ0SoztfDi/87loZOTpE8rFPqiVD+CNod9/ysBXBJwcoo7Tmd/7nRGNlBmKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=SLHkxs4N; arc=none smtp.client-ip=121.127.44.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1788787737; c=relaxed/simple;
+	bh=Q43zjFngUH4CVRm0yM8HzVAnPDiw5923YGyUdTIL2X8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y8sIYRa04BG+r0YasISF83TtOIpPA261kZ2vk7IiCrtVT3ZRXRnVK3iAHh1snt51Ibr0R8dwxNsO62XjjDz27t+mRku2V6CdCIMOs83GKDUK6MoI3LczpZwafWOkWeyFyEKJTKX5GDhqlv54Xpx5SJqh2ozc5Q+sGOqrgt6zTXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iDqy+gXd; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="SLHkxs4N"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1788787629;
- bh=y7VvGigwn27AdfNBSG1mKimtn1nQapTyJ3WDolaxsys=;
- b=SLHkxs4NlzrmlyfZ2WpbSBRvHgFQxrXhaDrbuE5q6jnKx/xZlm2hlzutAYFKlMiTCehLNx+AE
- 1zzh3UI2LAQc7xSVNDDzsSBUSKAdWHuyGFCVoKRxlFccKBLIubxW9Y35K0H/XnTW+Oc5rg8pt2k
- LusVPcJnhPtINoYJsIZ2z9LUgkaLyoz3WAwy0A0Irf0MLkXV5feD//lx5UCjFA2MvfpJCRAN790
- a6AFrbdAFw0/ZO9ApJCQvi7qy0f8BlEzHLA7s+vJOe57hZK6NSf+3fxEEx9NkUDlGvVXHzPDKm+
- OV/84Z7Kvqzm8n1WscaszCrww9OSYt9AIDYG7qkD7APA==
-X-Forward-Email-ID: 6a9ebbaa16171017b32ba5b2
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 121.127.44.73
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iDqy+gXd"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B49641476;
+	Mon,  7 Sep 2026 06:28:47 -0700 (PDT)
+Received: from [10.0.152.207] (unknown [10.0.152.207])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 893583F7D8;
+	Mon,  7 Sep 2026 06:28:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788787731; bh=Q43zjFngUH4CVRm0yM8HzVAnPDiw5923YGyUdTIL2X8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=iDqy+gXdsbWjQJPd91C1nM1zZ+xgWeS11WliE9Osu1N/a3Fjgd/2p2Xx/8MhgRZLR
+	 ucE++QR5nAlr8Qq4g07e9u7HQKvsSBNE2oaru/6qRuQM+o3PTaTePwbVhyW9QXlP4A
+	 f0nPXWjg8bGVTYGo8ofymc0I7B9rALdmwVs+EelI=
+Message-ID: <d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
+Date: Mon, 7 Sep 2026 14:28:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Mon, 07 Sep 2026 09:27:04 -0400
-Message-Id: <DL94AI9QUZEG.LE27ALKI8UIX@ubuntu.com>
-Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v2 01/22] usb: typec: Add alternate mode state notifiers
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Sven Peter" <sven@kernel.org>, "Heikki Krogerus"
- <heikki.krogerus@linux.intel.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas
- Noever" <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
- "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>
-X-Mailer: aerc 0.21.0
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
+ double-indirection issue
+To: paulmck@kernel.org, Chunfeng Yun <chunfeng.yun@mediatek.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rostedt@goodmis.org
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
-> The Apple Silicon USB4/Thunderbolt driver needs to be made aware of
-> cable details and whenever USB4 or Thunderbolt is entered. The cable
-> details are already available as part of the typec subsystem but there
-> is no way to get a notification on typec_altmode_update_active() so
-> far.
->
-> Add a blocking notifier chain to each alternate mode and call it
-> whenever the mode is activated or deactivated right next to the already
-> existing sysfs and kobject_uevent notifications. Replay activations when =
-a
-> notifier is registered.
->
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/usb/typec/bus.h   |  6 +++++
->  drivers/usb/typec/class.c | 59 +++++++++++++++++++++++++++++++++++++++++=
-++++++
->  include/linux/usb/typec.h | 16 +++++++++++++
->  3 files changed, 81 insertions(+)
->
-> diff --git a/drivers/usb/typec/bus.h b/drivers/usb/typec/bus.h
-> index 7df5deb1dd3a..4dc60c48c91e 100644
-> --- a/drivers/usb/typec/bus.h
-> +++ b/drivers/usb/typec/bus.h
-> @@ -3,6 +3,8 @@
->  #ifndef __USB_TYPEC_ALTMODE_H__
->  #define __USB_TYPEC_ALTMODE_H__
-> =20
-> +#include <linux/mutex.h>
-> +#include <linux/notifier.h>
->  #include <linux/usb/typec_altmode.h>
-> =20
->  struct typec_mux;
-> @@ -23,6 +25,10 @@ struct altmode {
-> =20
->  	struct altmode			*partner;
->  	struct altmode			*plug[2];
-> +
-> +	/* Serializes active state changes and notifier registration. */
-> +	struct mutex			state_lock;
-> +	struct blocking_notifier_head	state_notifier;
->  };
-> =20
-space/tab formatting
+On 9/4/26 00:59, Paul E. McKenney wrote:
+> This is more bug report than patch, but this patch does suppress the
+> splat, so there is that.  ;-)
+> 
+> Kernels built with either KASAN or KCSAN produce this splat:
+> 
+
+I see it on kernel w/o KASAN or KCSAN. IIUC, this is new check introduced
+by b5cc230af5e5 ("tracing: Warn when an event dereferences a pointer in TP_printk()")
+so adding Steven :)
+
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] ------------[ cut here ]------------
+> [    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
+> [    0.000000] Modules linked in:
+> [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
+> [    0.000000] Hardware name: linux,dummy-virt (DT)
+> [    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> [    0.000000] pc : test_double_dereference+0x144/0x14c
+> [    0.000000] lr : test_double_dereference+0x144/0x14c
+> [    0.000000] sp : ffffc80aa7633bf0
+> [    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
+> [    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
+> [    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
+> [    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
+> [    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
+> [    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
+> [    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
+> [    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
+> [    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
+> [    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
+> [    0.000000] Call trace:
+> [    0.000000]  test_double_dereference+0x144/0x14c (P)
+> [    0.000000]  trace_event_raw_init+0x37c/0x5d8
+> [    0.000000]  event_init+0x34/0xc0
+> [    0.000000]  trace_event_init+0xec/0x588
+> [    0.000000]  trace_init+0x24/0x6e0
+> [    0.000000]  start_kernel+0x4a0/0x8ec
+> [    0.000000]  __primary_switched+0x88/0x90
+> [    0.000000] irq event stamp: 0
+> [    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
+> [    0.000000] ---[ end trace 0000000000000000 ]---
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
+> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
+> 
+> Apparently, the code should instead create another entry in
+> TP_STRUCT__entry(), and do the double-indirection TP_fast_assign() instead
+> of TP_printk().  But simply removing the offending double indirection
+> in TP_printk() gets this splat out of the way of other debugging.
+> 
+
+Indeed, splat has gone after applying the patch.
+
+Thanks
+Vladimir
+
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>
+> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Cc: <linux-usb@vger.kernel.org>
+> Cc: <linux-arm-kernel@lists.infradead.org>
+> Cc: <linux-mediatek@lists.infradead.org>
+> 
+> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
+> index 89870175d63561..7c414e196d5871 100644
+> --- a/drivers/usb/mtu3/mtu3_trace.h
+> +++ b/drivers/usb/mtu3/mtu3_trace.h
+> @@ -236,11 +236,11 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
+>  		__entry->direction = mep->is_in;
+>  		__entry->gpd_ring = &mep->gpd_ring;
+>  	),
+> -	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
+> +	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p flags %c:%c%c%c:%c",
+>  		__get_str(name), usb_ep_type_string(__entry->type),
+>  		__entry->maxp, __entry->slot,
+>  		__entry->mult, __entry->maxburst,
+> -		__entry->gpd_ring, &__entry->gpd_ring->dma,
+> +		__entry->gpd_ring,
+>  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
+>  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
+>  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
+> 
+
