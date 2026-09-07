@@ -1,107 +1,107 @@
-Received: from mail-pj2-f5.google.com (mail-pj2-f5.google.com [74.125.227.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF513F1058
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D827233941;
+	Mon,  7 Sep 2026 03:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753111; cv=none; b=Dy/0r5xmJXtXXFQy909EioQwHQGG9kWSXvLB46c+UYFcFosDmtHIjrNCOOESZZ5DohzZYlIBt1eTkZKpFqsW2wrOPkIMCc08/gqyTIuk8whrxFizs39z0ZqRNGQKxTXHVCNNTRvJ8CugeeVwenCGBWPwXOo9wQ6UluU3c3z+btU=
+	t=1788753128; cv=none; b=Wr7PKohcsIeKlRj5PiNIHbsF3dS3GDr8fv5zN7VQYVOYVbI+iYyCSlGB2B4dtWodhlREfEdzCtwBq51kTfYlu155fB/nHw6rKa4HAmZEvmoUpFwKPMM4JNaev1m+cXTioEyBx21FlSoq86jJ/RGw4bQfIBM6xEEHzNQjbjx6smo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753111; c=relaxed/simple;
-	bh=34AoH/Y6BEowfqAYgIkUCUrtzEJre6JVBRjDqttQayM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZosvEAa6G33euxXDMHPMNEAsMI0IVY3Y5yg8UmYK/zs3Hsl+Pao+dU53X3ucS498z8fSVUIymLazz1vuxcqjypyFvHzus5Ncu2ksHFlkKY08IMQBCyS+H9cMpEySGMrGXO+quVtC7Zj07mMBB3KkXK0RkwF0BwZ843kMeMYTSyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oiFAUXFS; arc=none smtp.client-ip=74.125.227.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oiFAUXFS"
-Received: by mail-pj2-f5.google.com with SMTP id 98e67ed59e1d1-3965683e9e9so1863852a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788753107; x=1789357907; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1JnA2gu7/i1xFuuiE6p9ox85cIr8aNojoYOj8kCahsw=;
-        b=oiFAUXFSHALrAOyczILFktNHMMNnnsfwXD+ktEr922kY2UFU4e4wVqs/QPG812Q5VF
-         KzjE5hJjktyOwLqdwVQASQF4Z4KKbKbAqtg3dNA0eLOpFQpUJv+NbRbyWzPbP0gB6NTX
-         ZZ7ZC61q3CGzqH9J4udL4r7/QjJ7O0Pd02v2M0EPEZ0voYdAoqQqmipqCTPRdyJ/X886
-         0S4iCeY0YPZMZbY3fQnMrG0q7Bqw3bahe14KLuYllrJ/gteiFVr4PBAWTt29GLBRZEuJ
-         VdopWpqec2bDa0Glj9Dce3sAH7NCpL008hnrQEguPyPDQQYZ95NFGG/3HUmCwoTiAPHb
-         IAcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788753107; x=1789357907;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1JnA2gu7/i1xFuuiE6p9ox85cIr8aNojoYOj8kCahsw=;
-        b=Pz9VMnaBl45DLg4F2XCp2u4hznC0mWH1hYHISjhDOuU81sU9B0eYBq7yrl867/76bZ
-         0zQIiE9MjzdbMQQ8ZRaL2aZDGoN+QUPhog2vuJzoWVRD23JYhZ76Py0+9TS8gEwIQCpw
-         0EnSGeAsaFib222G6/Ung8iMw/G9+kfILKF0kiMfl9CJ9D8OOSdXCrbpWD6RJQtAt3cX
-         M0zahAlwWYCeURk+77uhgNhGAFhDY+JTe3aGJ4fquaRT/0ZmpZtORJbQSBots03jPkcQ
-         8BWpf0Ggs6ETv+qoldS11CKxUBB5DeCUfe6yy0/EAuxGIhUf/KbL/3IhYBrOtltOiOMa
-         CS3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByj+GQYoj0r1z90emokHUUe17OaLZXhd6PdeJAEH2/ZBXAaeF63uNA+uOLsV9dAZ/UTj8+5myLcBIZpzJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPXB/kFjbllznrf6/Vs+/5cC0si+Hlb+RqYh2wqTp//8yIe5Hz
-	/9rC2FYr+XXaL0ZQx9tlmfT8AaQ7zpXOfBh3J8IcUIFVB37P/DTz5gp2
-X-Gm-Gg: AYBFou1OPtHCsOzg5TMZ7JyBiqujdjCqID1cJnEjiezTE9jGtysr9Gaq68oVohOiOQ6
-	CarrTdW14bolMwXH4+hTBqOPhn1Mqecp6+PzpGZQTUFCjTqCrTAFwvPHNu792ENWLkiMIGzfSuu
-	uQMBzOd5JdHfJB0EuCpvezinSr8BcVIh7AE+YTTRLrB5eBXW+rvuMBgMOGVJcnlvaQGgr8h0oJf
-	TC85ZaKuAMqPAVmm4VI16E/jpVpr8A7WjtZE/31+4yUK4Skt/hbm1pSoODOdJrFPjIJx0a5S2Yw
-	QGvFR1cEsTKIfcl72UCL05Er3sdQrvcPzgoXi+0hm4yiWcUJFUeBwcMDeXD8xt8G6aVBZ4sENiS
-	wj/8ZBHrZC2zQaIaPYaT1Ib8mcLfr3K5tyHYPQbdveEWlO+kYufU3sL8B79U+EiR61L+DoGlu5A
-	iVPpIeL1cnPjcv2ag/qoTlvccDte5tj/KzQvOvaWNiXCGUzVSHkDyjTjQRkigHpANdAq5ogKg+2
-	dyaOnpGz6GZRFnbLmveZilLMw==
-X-Received: by 2002:a05:6a21:48a:b0:3d3:b00b:50fc with SMTP id adf61e73a8af0-3da3a19faa1mr31235533637.28.1788753107306;
-        Sun, 06 Sep 2026 20:51:47 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc46b4cd51esm2194121a12.2.2026.09.06.20.51.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 20:51:46 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Chao Yu <chao@kernel.org>
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH 03/14] f2fs: support regular file buffered writes
-Date: Mon,  7 Sep 2026 11:51:39 +0800
-Message-ID: <20260907035139.2183535-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
-References: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
+	s=arc-20240116; t=1788753128; c=relaxed/simple;
+	bh=wGSTXigwVwcAOEJJhYoMO/3F5N2F/BJka8qWh42ZYeE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gz3oDJN404vLyqaUk/hUvPvbwNURJxldvx6inYiGaCMXpwVyoEom47tFWQDI6+DnRg3HuQH1PorvNSrMIxDXrv4qRTakRk3/aAKbRZq3HGbt+UnbEcPO6ZoLS8IC8+Rw/zXGfbXUtN56oHovcJ9vC3s21pCy8SKbuK1i1uORWhY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: zesmtpsz3t1788753058t17ca1ebb
+X-QQ-Originating-IP: XwaUVt+mxKOKC49mM0WRnuelpEAlllUgFupYt9pMvJ4=
+Received: from localhost ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 11:50:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 7604924112529991838
+EX-QQ-RecipientCnt: 10
+Date: Mon, 7 Sep 2026 11:50:55 +0800
+From: Yibo Dong <dong100@mucse.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, yaojun@mucse.com
+Subject: Re: [PATCH net-next v10 1/5] net: rnpgbe: Add interrupt handling
+Message-ID: <5FB2D06B15EBF2CB+20260907035055.GA323862@nic-Precision-5820-Tower>
+References: <20260831073608.401988-1-dong100@mucse.com>
+ <F44E6669E6C9E7C4+20260831073608.401988-2-dong100@mucse.com>
+ <20260904145410.67b6877f@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904145410.67b6877f@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: Nr5N425iK0yrAR3JqgNfVjPklW3DNZoONLOCfEH6DeAfRV74Nj8H1wV3
+	+yWqQj94FsoaIZJQKLxaPDhe8W1rFG2ArqCIQsJ6xeTw721seErWno4Lnpzi9CkN7qMfpWr
+	6nlBP+68joqlbn2leKirWmEPRIxKXk732mYzGPSfJSVN1BTfWRWaJMg1YTwKGx3kjU2IiDA
+	aX+izBNdwIOXAaxpb8kO4rzjla/RXLTuOOhR+GOizfSX15Y61w4DigKXzih5luyD/7bcXUW
+	mdZzhB95Zu7SA2u2j+njPdQTu9nyQMK7oASbS8jqknduKqI3+WSj7qjvIM5J8U6BBehoUja
+	bdJoDseld+Yx7PbHzidmnvD42ksLiDl1LWteZKvFDceFPmqgsPTM9nWGKY6imYIVyLk2GKV
+	Yve43xbiZ6JxvjQzHjE06F0eRYNxaPdhgqQNJ2j49Xau4NXhTuHkXGL+wtx6r178l9Ky9NT
+	J6d1yoIDmQ+zuSm8qPotMjClW7/5dMiGrbKTFECj9k/4A8xs5NfklwcJNg/AhFIvVW5coWa
+	i/QCGuZb6fQEUGDrkVPv4XqGFblssJwR9pH8BIl+neL7UzhAb3s/usnAtjPPtKr48ItdbmX
+	NomZr/KZgjp4rmgbpRWV21HA4DsGWaNwEIb4XU4lUsNyGew1+MsFjq7TFjJotY/qhVz3CZ+
+	pccRF50tcpxuaudx7D9id9igiNJBdho7DicZ9XhmFSn70YplYTE8n2moULlPVUp0vZLod4l
+	16n+W1k2NtGQWGk9BFkn5fgD8UAOaJCEKwzJVClLvioSijToGraqCT+XbVFbVbjXpT5Jn0n
+	Ipu03F8Ojr74CgzjHZ/jlUk3ZW6hq3T89mc9uXx11LhMUuEj4075x9FQ9/sj58fiuiCOPaj
+	FFx0PHeMfEcowSQsP1zJOzzQmNJIwWW32ALZRurdhWHZoGgqhy2PyBPgIvYsjpcYVURd6u6
+	keI/K29NkpTIk7m6m1PkXyKaTlig6Z+CX0znLzjrc/NbONcDfHVfD18jDWpYvaS7iOVnD8X
+	0MHihbIu5aJeX5vSEBxBj7Q6E3V3r3m3JRHCNORQ==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 27 Aug 2026 16:56:53 +0800, Chao Yu wrote:
-> It detaches from fault injection, why we need to change to use
-> __filemap_get_folio()?
+Hi, Jakub:
+On Fri, Sep 04, 2026 at 02:54:10PM -0700, Jakub Kicinski wrote:
+> On Mon, 31 Aug 2026 15:36:04 +0800 Dong Yibo wrote:
+> > +/**
+> > + * rnpgbe_int_single - MSI-X single-vector/MSI interrupt handler
+> > + * @irq: interrupt number
+> > + * @data: private data
+> > + *
+> > + * Return: IRQ_HANDLED
+> > + **/
+> > +static irqreturn_t rnpgbe_int_single(int irq, void *data)
+> > +{
+> > +	struct mucse *mucse = (struct mucse *)data;
+> > +	struct mucse_q_vector *q_vector;
+> > +
+> > +	queue_work(system_percpu_wq, &mucse->mbx_work);
+> > +
+> > +	if (test_bit(__MUCSE_DOWN, &mucse->state))
+> > +		return IRQ_HANDLED;
+> > +
+> > +	q_vector = mucse->q_vector[0];
+> > +	rnpgbe_irq_disable_queues(q_vector);
+> > +	napi_schedule_irqoff(&q_vector->napi);
+> > +
+> > +	return IRQ_HANDLED;
+> > +}
+> 
+> It's not reasonable to have a single IRQ handle datapath and also
+> unconditionally queue a mbox work item. Just require at least 2 IRQs.
+> 
 
-Thanks. I missed that.
+The hardware supports only one MSI vector, and it does not provide a
+reliable interrupt-cause register to distinguish mailbox events from
+Tx/Rx events on a shared vector.
+I will remove the shared MSI/single-vector MSI-X path and require at
+least two MSI-X vectors instead. Vector 0 will be dedicated to mailbox
+events, while the remaining vectors will be used for the data path.
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-@@ f2fs_write_begin()
- 	fgp |= fgf_set_order(len);
--	folio = __filemap_get_folio(mapping, index, fgp,
--				    mapping_gfp_mask(mapping));
-+	folio = f2fs_filemap_get_folio(mapping, index, fgp,
-+				       mapping_gfp_mask(mapping));
+Thanks for the feedback.
 
-Could you take a look?
-
--- 
-Nanzhe Zhao
