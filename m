@@ -1,122 +1,107 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12CA651E43B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:07:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC233AF666;
+	Mon,  7 Sep 2026 17:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800834; cv=none; b=QJKj3tPtyEhlfDzudPgQDEIGh+pfziG33+qLSJymkQDOtz5Jd3bLVK45n/pOv/BfOhWAX8wmvxhqcPA6DP9/E0UDLVbGoxZ3PBPL/2d1XuJTTJTgKIto1metKf7FQ/YmEuFMW4jyV6siujFnbvT2cz7CMPTCvUm/DnJz40t1naY=
+	t=1788800883; cv=none; b=SHxuC0eSIYQyqu/095wtEjAMU3LV/jBSo0OUANjulHeVbjBm88X60yicciXigjiirEzP8+ToEKvNojwU5jzb7oQX820YleJE9V8ijBR7Vx4DcqpV/k/h61Pfkzah4FIFSohXlDbKXjQMoiXferfrRCG1cPsmJPV0/MDVoUCQVXs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800834; c=relaxed/simple;
-	bh=hF56qCTi739DT8nr2jvT+BipglmVctIpYXsJfZQZh8Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tj6+THh2R/BY1o/I41+R5h6e8N7SssHUvQthRszyz3nFV/xPjmA7IpfibZXkR0ccofg8dS+Udq4/+uQrv/n7XLpz1Mp65JMnVofuwEX+q5AJaKyWrigD3j9yM2elFb5bT3g2ZvtXT1UAY2/BMInQJVNJtGijYl/fvCDM4OLLah0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KlDeTZIn; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788800883; c=relaxed/simple;
+	bh=oFMzoHc6wsn0F9CSxGcMSq2JdF3BliB7CLDIKejfMBo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=giiLjSXgKbLcRn928v6MRMqYqsf4j+YCnuZYRjF3VgZMQH3bXig3c0NS9kp/1DWnSwrk3rRSwmUAqBC7jyS0WHnEKLazJvAQBMlGRhptdYnTMqAPetn3s6CNTEM8h57cOwXPGzIF0BJ8sUP0sMstlEzL6eEgaBfvyOTS7uCWfFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WTzWqTdy; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KlDeTZIn"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso32180505e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 10:07:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788800830; x=1789405630; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hF56qCTi739DT8nr2jvT+BipglmVctIpYXsJfZQZh8Y=;
-        b=KlDeTZInmXjx0/cNo5crrqemQ4lLhw/W/OB2hDD4QeSL/gnNNuH9Ykd38YellQT0cC
-         mXqhSfU9Uhz8TxggOtWEtRphS2FrLzIe5KsNaogzlg41NMFjqtUT697ipFXCE35T6AM8
-         t4Y60S3HXDGKSL+6wNh/n9B2VPpdeYsrxg2cadTVlQv00AM5l68JXMEJh1VMNTrqb9ms
-         YUtsuW6h+GGRqH0ahspEb+7gNLhdgOBKeb+YlyIMajeLb0iRRp+r+Rm1j8irjWJS/wsA
-         +1wMAUGGqaK9+r9TZ4lZ4fvTyN3m87ZvKdW/hHDKlRWd0+GpSuBWVMwyKCg3gUnwo7zw
-         m42g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788800830; x=1789405630;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hF56qCTi739DT8nr2jvT+BipglmVctIpYXsJfZQZh8Y=;
-        b=ULcqKiEFExT5zmmdKEl8zouJg3CPJid5t8zYz1YyhgORJBoWEWq8h/dFXRMfzjUVIw
-         djCVtbMNVaIOVWH7qne/eAmMqmDNCXnrouIknRWBTitNemx5C2EsBGNrdkjJXdpEn6ZW
-         x4dxzlZ6CEntFMWV6mNgYj/8oiHnhE8sFCuUQIEZ+ug6SWeJTuARMZkXzheaDrMJ+zOF
-         riFlUWjKYhgs/lZ7T0mnIR02QGUFRxI44EMDTWwu2s/C5vWRyGZ4t5RkSf5Vp+br8Zz8
-         os5RdJ/x3Bszj8vEnCzyPGVW+7wP3QfPgdRD6HztK7ZAYmsy4gFgE1ec8ZoE8n5vjX5U
-         gg5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwmYn1SFynR0PLeEHkYgkovYcAclOdZV7tx0KHOP6nBuBfz1C+6yGJkPLRR6qYPwq5vypiS4i1UGy8++Xs=@vger.kernel.org
-X-Gm-Message-State: AFuF++njP0Q2pcg5pdA+9u7qlPoNExHTXscwqA9aVub5VAL6rHULpEbL
-	XeBOdmzittDw+4H6r6OMs4ulzQ8//XjTA8mmqDXkXFTjMp7y79Xt2XpftsWOBQAtsBA=
-X-Gm-Gg: AYBFou1duYsedzeN0UvcEZcSHc1ZPLFNFVIaUiTz0b7udzmqLl+VdEtlKlJc5OUrlE4
-	XhMyW6PtMkhHG3VJYwHxegTs/Zr/EMUETH0OARRtG2keCPDXL9Aas4v8Wgfz6jxvyXXAOdiJWbd
-	Rx76yM1v94cSu8sSdKhwsUyDRi3WZGuXt9EA6Hn6KBIBz6whT5U2GWxulvqYGF7MMiYd5pDdunW
-	PflrPVfHQZClEDnfz7f5h8nGqM6T9ibTSBSWM0mpXS/D3hxon5X5CSwAWXVjCNkBDu8Vx8NZwsM
-	kAKMpCUtRUxlAdaTg1mKFqSzrZFPWG+ovcj4wwzSx7o2swyglt9WzZTVAy0nVO7o0RYQzSxd91V
-	ZAGttwPOEo0G83FjhtoGK1+pvAhThLAb5eyT29w/G0mmMgatSiXXih0+iy2IdMNOGKi7rCudIjn
-	DsX8706JnNjDvs2KrYIMOje6xDjBGxMJd4ZsEnT09234uf8kxaRjkI/TJHhne/KeQ=
-X-Received: by 2002:a05:600c:3b99:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49cf81fb72amr256160685e9.1.1788800829897;
-        Mon, 07 Sep 2026 10:07:09 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d15918fb3sm25060275e9.0.2026.09.07.10.07.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 10:07:09 -0700 (PDT)
-Date: Mon, 7 Sep 2026 19:07:07 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: Dan Schatzberg <dschatzberg@meta.com>, 
-	Peter Zijlstra <peterz@infradead.org>, stable@vger.kernel.org, Noah Elias Feldt <N.Feldt@mittwald.de>, 
-	Salvatore Bonaccorso <carnil@debian.org>, Johannes Weiner <hannes@cmpxchg.org>
-Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
- refcount
-Message-ID: <ap7u0VaI7JVAIq7K@localhost.localdomain>
-References: <20260907170345.45316-1-mkoutny@suse.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WTzWqTdy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=tUA4k8R2t1QpHAGgeyT0ZKIm7T5VVZVvcJldkkde15c=; b=WTzWqTdywnsEwqjXCxEQTDsw2S
+	S0GF02yWDOz/17M8o03Ohp0ZWpez/vaC4WRDHIdPsxPCPdCQt9y9sgjFNgtTaPektuda40Bf5/FfF
+	6sdeMfTnS2nI6S1Nxp9uVKKD1PZgbhUkOKYqN3glIn/acrrSjFRXe8982InOs9xpKId6JlAOt7Sfs
+	dpzwPxjregJkSAwu5TP3UbfgCzvkL/rBvbv7NSS13WwGu8L0PSGw+Y9qkLc2dA0vfKcN0GU0ryFSj
+	pkAKlDUUxC+Z5nV5MoCF6w3E4iUf32YHRZOyWT0VEhvjaQdZjfuVCMt5hL7B7O3dL3sYmuh/+MX6k
+	mj/33REA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3cp0-00000007RIP-364Z;
+	Mon, 07 Sep 2026 17:07:54 +0000
+Message-ID: <c2f439ac-ca0e-4532-b649-c32c4e474436@infradead.org>
+Date: Mon, 7 Sep 2026 10:07:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jtnc6cwmahlcj6p2"
-Content-Disposition: inline
-In-Reply-To: <20260907170345.45316-1-mkoutny@suse.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] Documentation/networking: fix repeated words in
+ comments
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
+References: <20260907064528.6602-1-hemanth.selam@gmail.com>
+ <20260907064528.6602-3-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260907064528.6602-3-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
---jtnc6cwmahlcj6p2
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
- refcount
-MIME-Version: 1.0
 
-On Mon, Sep 07, 2026 at 07:03:44PM +0200, Michal Koutn=FD <mkoutny@suse.com=
-> wrote:
-> cgroup_task_release() is not synced via css_set_lock hence the race
-> possibility. (I'm not 100% convinced about this LLM-assisted
-> interleaving, multiple css_task_iter_next() calls may be involved with
-> css_set_lock released.)
+On 9/6/26 11:45 PM, Hemanth Selam wrote:
+> Drop words accidentally written twice, reported by checkpatch.pl as a
+> possible repeated word.  Only touches comments, no code changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-This paragraph should be editted out too because of
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-> Changes from v1 (https://lore.kernel.org/r/20260902161653.1051794-1-mkout=
-ny@suse.com)
-> - add css_set_lock release to sequence diagram
+> ---
+>  Documentation/networking/device_drivers/ethernet/intel/i40e.rst | 2 +-
+>  Documentation/networking/device_drivers/ethernet/intel/iavf.rst | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/networking/device_drivers/ethernet/intel/i40e.rst b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
+> index 53d9d5829d69..e01f0adda3f6 100644
+> --- a/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
+> +++ b/Documentation/networking/device_drivers/ethernet/intel/i40e.rst
+> @@ -692,7 +692,7 @@ queues: for each tc, <num queues>@<offset> (e.g. queues 16@0 16@16 assigns
+>  16 queues to tc0 at offset 0 and 16 queues to tc1 at offset 16. Max total
+>  number of queues for all tcs is 64 or number of cores, whichever is lower.)
+>  
+> -hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new new hardware
+> +hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new hardware
+>  offload mode in mqprio that makes full use of the mqprio options, the
+>  TCs, the queue configurations, and the QoS parameters.
+>  
+> diff --git a/Documentation/networking/device_drivers/ethernet/intel/iavf.rst b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
+> index eb926c3bd4cd..5840569917f5 100644
+> --- a/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
+> +++ b/Documentation/networking/device_drivers/ethernet/intel/iavf.rst
+> @@ -171,7 +171,7 @@ queues: for each tc, <num queues>@<offset> (e.g. queues 16@0 16@16 assigns
+>  16 queues to tc0 at offset 0 and 16 queues to tc1 at offset 16. Max total
+>  number of queues for all tcs is 64 or number of cores, whichever is lower.)
+>  
+> -hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new new hardware
+> +hw 1 mode channel: ‘channel’ with ‘hw’ set to 1 is a new hardware
+>  offload mode in mqprio that makes full use of the mqprio options, the
+>  TCs, the queue configurations, and the QoS parameters.
+>  
 
-(Sorry for multi-messaging.)
-
-Michal
-
---jtnc6cwmahlcj6p2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCap7vNxsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AhioQEAmJhHHhGjIo7Om5IAREUA
-o0BeFqPGwj+N8w9xPavgGs0BAJ2+iIXGFwdVXInVdS+Qs/Dz2jNb/b3impZkCl5P
-p/MF
-=DHgd
------END PGP SIGNATURE-----
-
---jtnc6cwmahlcj6p2--
+-- 
+~Randy
