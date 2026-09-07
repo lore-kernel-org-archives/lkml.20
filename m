@@ -1,159 +1,243 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013076.outbound.protection.outlook.com [52.103.35.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D953B8124
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 19:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788807987; cv=none; b=cFuu35etYIfBe3uiQttOL2Jimg9el4Khn1mGsAcVbcTdnUS9MlISRfNZUAqg2w8PxaPT5aUIEId4xhNJQG/z/tc88wgl2z0VaX1oSe5IQTyVeasfNUk7uPKyw8Kx2d2U+ECS6Rukn52KklnMMJHt4RDSrmstHvQc851t0wP6HM8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788807987; c=relaxed/simple;
-	bh=mluAk5/UqByeXBGZD17+nPzIfHLNJbieybfivLfNjIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IxCcsDomvS0uHNQVTnc4Sz2dFYjdPjXXn+jZ8t0iCib+rzx4rw44pTkCmcT5S/HCDUyOUK7y1hLgmnNFK8e2Uyv9lS/7YiLNSjyVySqNfauaepBqIs8cIid201YP8v0+eQrN/0vplJ2BqNtwLiODLl44ERJrTVeK68mS/qLWQvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HN28/w02; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F8A393DD3;
+	Mon,  7 Sep 2026 19:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788808049; cv=fail; b=C/flVT/vd2AA48l2FqM6q/IvKKFgNouFnSMZh9Gwhgt+eEZakCqtlDpQtrXRjM7GN3yw6VTs8aVpg/eocXiPosYsuxin35Mfxkqt4WmgOnv6RCGGZWYham5tcUl6Hrv8iQD0/Eh121VQu37al0EnOAQcoJ7a6SEChcRwSIf0M0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788808049; c=relaxed/simple;
+	bh=3bueHxKUPyqBK21ioWv5Go1P/vM8RBpQy7l1OHV5jAA=;
+	h=Message-ID:Date:To:Cc:References:Subject:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mX93fB1M4dMyEfCoE4cz49R2x66lz+wxK0dEHXLH+gmPPGgV4J8KePNpecuHSq+IjXsXccgJliOj4DMQqG+Z8zo8xIRt+vMwjhxJlbesE5zDby/wspLRgTFkMTXhmwDkxLTVWhkC3wnPY1Dda5XLqYOmGyCxkUu5eOT5CAhK9T4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=fUBjkz25; arc=fail smtp.client-ip=52.103.35.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HN28/w02"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso57999295e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:06:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788807984; x=1789412784; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fNV/PaJl+7hbfGUtqotiisfuRbsQmDVNj+CEuEcj11g=;
-        b=HN28/w023d543QMHIfXV4uxdrMn0aIy3PWLF4hZbICgvkG8r30E2fT/pcY/j6Ama+t
-         O0HlVTNe5HkundSFS5gEXFRIfnVSAnl4RIFcHaidbyQImEyCicQA+K4Uu9GN4bajnthN
-         RGUUpAptXs5gonbTZ5ivZiShaVLuTWiyW+ofV15DCPIXrHiVuPQ67JNMiFNgTmoaJCx6
-         OYiN/dkueSHUTnpodcTsA+jxKRNGPU5crrw0AgXynofv5z9i4TJ4dvWhXI+eBPcmUBBK
-         wQSZ0vBnK+3Caq9FBWVt4+Lab1Ae9JO6aYn5oghT8nA+tS1icSgRDoa/tmIBYfSjSRM9
-         kY3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788807984; x=1789412784;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fNV/PaJl+7hbfGUtqotiisfuRbsQmDVNj+CEuEcj11g=;
-        b=mdMT9wKtK1ZLKLkSqKUNbSD7no0f6ub3rzPDVi8USKax5CAdvWvKGQa5X/eFDLaJQw
-         O54ywwZm+iLsK12cT/wTJHvdSVt24OFsJ6199BDGGlAKJCeEuYhZhqYIgNaqeppnEEup
-         9pKSNmkqA9J34ALFXzc05v++s52fqzo8L86buPG/iTsAzX5OVr40G18KKtLlvWGPD5eT
-         i+q+pLRJijQ6Rkj8QQ0e3GXmmyPw+RRkkqPBTqlJvC2zBa2Pfxu6fyvG3FlQlwEqcB7+
-         DXb6CK66PfXgKXzlsPkNGzE8ae3GfNY3Yrfl31kNdMFJnf9CGgIwSAYFD7MzRhALy0G4
-         EOZw==
-X-Forwarded-Encrypted: i=1; AKwUvBxCjPs86iOoS+Re3TpMC5/BUezAzer8QsglSaFbnvj4lmUVzkg9gfMKV4cCdCjJPb9CERe0bPPJctiQbos=@vger.kernel.org
-X-Gm-Message-State: AFuF++l66IGmwDFgIRTO85uUPuvdmrp0/+GHsVrqfd4rlS85kt2hWGJ0
-	Yvj78rwpC9Ht7WhHrEGUGcyJJWKEwErUYJZpNi6P+tcfuSOKvk2ch+Bp
-X-Gm-Gg: AYBFou3iWpGosHYc3RweO/kiOpPoDMC0PJ5le4c3rzWeQIjM5McxVcbNSADuYiF0AYh
-	Qrlq6MskWZpTydfeCDDmDPw7K14Q1/HT5ohDbD6CqBYReIMsfMdIBycUmCwIPU5k7OaFfiwoREp
-	0vR36jwL/Lp8NaiL3y5yC8ajPLlwULCN4sIJhAfICQ65I3zEqShgEYLFrfIHl328huaoiOfUqqP
-	33eTmQRE5QVyMMDYAeZ7ZL7nNUy6DUVdY6GmdeDVxVbq527Af//trFURJfPU/dqoQCMgfosn3ku
-	4e9hZtAxv9aynnXlEusMgvuj1vxcS3Desrvk1mDTOuJwMuTQ1FCEHMBYB+0rpc9Lxc/LP8Ep5kH
-	oGYeYN3b+329DarxBSBwcDCMOXXt0Y/JbFNyKKw/KkpVFBgloxYhayPIOZ0h65eS+3W45/63ZTz
-	cmD21f/TD3TrTWS7Ex6ruWNwXPGJYdNWPZ7YtsCv214Sf0tiVPA6CxVmoh3g==
-X-Received: by 2002:a05:600c:4e4c:b0:499:621a:2ec2 with SMTP id 5b1f17b1804b1-49cf8206e4dmr255845505e9.3.1788807983653;
-        Mon, 07 Sep 2026 12:06:23 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm328296815e9.6.2026.09.07.12.06.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 12:06:23 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: netdev@vger.kernel.org
-Cc: oneukum@suse.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Subject: [PATCH] usbnet: fix smp_processor_id() use in preemptible context
-Date: Mon,  7 Sep 2026 22:05:25 +0300
-Message-ID: <20260907190606.662033-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <6e0dbfed-cadd-4274-8165-886725413d0f@suse.com>
-References: <6e0dbfed-cadd-4274-8165-886725413d0f@suse.com>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="fUBjkz25"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Z6MW2E1zKgHWxnA1zI8zwJ9aHRf7gktyCat/kl6RF2qw6dNKYR+YRvH/YkoDjpRfrTVKpYRtd5OcalUkZP6DfCTWLqPHEfCIjrka/E+2+bCZvi+J1nWM8Ygb9k7UYdNLqMl6hmhMoz/L+T/fx3iWFtjvdC82y5vkbjVvAd606uDYFhMl5VcxkYC7W8F6MHXxCAl4mNpC8HKj1lCspzLLT3BdggO0FNuUKl45o794ezb880MQyl1IfSVYm9cfHfmccyA6VCicx9P5KYULckkKZeJRQcMEEBxTz6k2OQWznJywNL9rX35/O7rpH+lbMLjltmMRShLbPitasIFO1oCNCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R7rze9LDBuVtInd9L/OBuGnEdd+Pl2HpL8riNDFfi54=;
+ b=Gx6YSFZVt38DxBi6E6Pq0v3TsXtFRH/d436l+wWptRfLEWrGb0Tp/FK8QR/mSmOePUBisdNZdGVhFCAtJlk/Wz4aiedrJFPTSQT+cvsqj2vD5n11dYY2J0PBufiFTnL552ULzzwfzYyht9vB7KoMQt9cUNhuvwqRbJ6mE3vLyGzVk77CqcLsqxysE3GRxTq+6uwMxGWVW+guSA9fYt96kAAPk59ffEhozcZckI62aLXZlcZrXYpIy9h2erHOXyg4i6feVVEAFmvJvqPL0A/LcxJswyZDDjPehauzq42GN6WVgfsJ2PbckfjAAEZoRql9dbpQja2wJ1xGhJdub+2H/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R7rze9LDBuVtInd9L/OBuGnEdd+Pl2HpL8riNDFfi54=;
+ b=fUBjkz256dd8AP3BHGejLmZsQg3TL4ylloDwizyu/jbY1kqtNVtrr5eK0DiP3HokL88MGbcdgJeT2TsuFj+NA+962GQaeamKapuy/JsYhypoqxG49OEcz6/PjRaTFOrv6Wo3rwasR/Nl+hFvOvQRDGMd5DnJn56aZESqNbw1xTmZycPbXqRea/pNovStyrpWSKyGKWoSb5Ag8ji453ZzmwD0XX5UT0xI5gBkyaMDpOBV2//6soFJ9OqKLiQKyEnPBmEWmLr/HTIATLK9HgSCQMjg2yCwuGn/fZ8djkyRYqacB7pXcIaEG1oq9KPcrTJyX6j9oSD9RbU/NEtSnXRFXQ==
+Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:2dc::14)
+ by PAXP189MB1926.EURP189.PROD.OUTLOOK.COM (2603:10a6:102:28f::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.14; Mon, 7 Sep
+ 2026 19:07:24 +0000
+Received: from VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ ([fe80::5271:c467:5d5f:ede6]) by VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ ([fe80::5271:c467:5d5f:ede6%3]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 19:07:24 +0000
+Message-ID:
+ <VI0P189MB36879B75BAD80D203B6390C8E3B22@VI0P189MB3687.EURP189.PROD.OUTLOOK.COM>
+Date: Mon, 7 Sep 2026 21:07:23 +0200
+User-Agent: Mozilla Thunderbird
+To: hal.feng@starfivetech.com
+Cc: aou@eecs.berkeley.edu, conor@kernel.org, devicetree@vger.kernel.org,
+ emil.renner.berthing@canonical.com, krzk+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, p.zabel@pengutronix.de, palmer@dabbelt.com,
+ pjw@kernel.org, robh@kernel.org, ukleinek@kernel.org
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@hotmail.com>
+In-Reply-To: <20260810030714.48100-1-hal.feng@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS4P190CA0054.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:656::18) To VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:800:2dc::14)
+X-Microsoft-Original-Message-ID:
+ <a0a19356-e99f-44cf-bb7c-fd84a516f5b4@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI0P189MB3687:EE_|PAXP189MB1926:EE_
+X-MS-Office365-Filtering-Correlation-Id: a04528d1-5142-4f74-03ac-08df0d13400e
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|24021099003|15080799012|23021999003|5072599009|6090799003|41001999006|4140399003|8060799015|19110799012|25010399006|40105399003|52005399003|12091999003|1602099012|10035399007|2607281247196008|260806224601699006|4302099013|440099028|3412199025;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aWR3eDlmdzg1L0hFUHZJMTdJRFJjZ096OTF0MXk3SVowU3VMUWplQ015SFFB?=
+ =?utf-8?B?QzlqNWVSeHN1RUpSM1lIVXdBcCtvMWNKdkJtYW1XdXdYQW9ZbzUrNHErdTdW?=
+ =?utf-8?B?aUt3bTBRSjFvQnpWNkpTaDRUSXFJTkdNT21ZSkpiSDJNQkVUQ1A4clJqTUVL?=
+ =?utf-8?B?VkJyak84TXNReVUxRVdEQmVpNGE0Y29xWGdVOUxGVCtERloyU0tZbnFmV3lX?=
+ =?utf-8?B?K2ZIdnNlUGNqaWt4bUNKTkJXQmVCU2RoK1BuK0lkMGlBK2xNTHR0OXJqWS9B?=
+ =?utf-8?B?c1lyVVpUbDBrS01kV1lMbFZrb2Z2bk5uVEpjWnhsc2VlM1R6UHl5b2x0OHJI?=
+ =?utf-8?B?SjU0M3UxVXdVMHRtb0F3Q3A3LzlBQnlmZzRKVmd4cnFaY09MNjlUTXVOcGpr?=
+ =?utf-8?B?cGszeEdvZVhwcnhaNXNXdVk3UUJsM3BjeVR5RXlwbi9pSWtTN05scXhMS2xi?=
+ =?utf-8?B?QWg0ZDRFSXBVNVBCTG5rMlVodXIySVAwMHVTTUNzY0hTc3RiTWx4UFZoMzV5?=
+ =?utf-8?B?N2FJTy9wWnVPSGdOVURxSHhoQUNHMHhpZmRuWXpmenljaW0wbHdLdjdSK0xq?=
+ =?utf-8?B?RlE2bmNyNG4zcW9ER29sUVVOTzQwL3RsTTNRdGtvQ3JSNm52MGIwU3YwU280?=
+ =?utf-8?B?TFlIU0hrZkFIU0plOG1EdzN0OWFvWUVPMWNHYVQ2ZnNQTEorTDJtVGd0K0Rk?=
+ =?utf-8?B?SU12VllOcjBVZzNXTGRYd2xwOG5uWHZxazNPMWRYN1RVMGo4QTdFNHlQbUk5?=
+ =?utf-8?B?ZHVPM210ZEczeEVvaDIyZ3Z4OEs4eHZELzZnY3hrb0RWRU41aWhhNDhLTG4x?=
+ =?utf-8?B?bmhIQnhuS3VENTh5V0dHVDUvVWJjQjVpc1B6ckVieTUxN1NZS3VoN2JxSi9T?=
+ =?utf-8?B?ZFk4aStJaExoQnppYVpYdjFxem9oUXNQNmF5MmZsYXlVWmJGazkyZk5sUkpG?=
+ =?utf-8?B?c0ZMWk1abzU2QnlWVzhiRlNtVmFDVzNHN1lDdnVGb2k2YVVub0hkelF5YTlB?=
+ =?utf-8?B?akFIdnlzZlZPN0JINGhUdDFyL09iU3c2c2pkM0M5RmxRRUdXWnFuajg0bVYz?=
+ =?utf-8?B?dzE4MUZ5bWlvTkJEY0dFb3U5enpEaGpsQ3BvcEdZNGRHQU5PRVpHY29reTA4?=
+ =?utf-8?B?YThMNytFY1pONXNYcU5CSEJZV3FMck5rSVY3a1RRVnkrY3cxQ1dTTStBUmw0?=
+ =?utf-8?B?cnNlL0xKT1FQaW11OUdySEZYQWFHZUZvdTY5MW8zZWxvZXMzK1J0WHpxSXFN?=
+ =?utf-8?B?a1ZnOVIwcjBvOTFKbWIyQmw3OGFBSXM2Z2puRFhIRnZYZWd6c1JrWGcxMVZr?=
+ =?utf-8?B?NU53WHlUV0V2N3NZU1NrREs1MTFwSXVyNjFHdXo1bFQ5N3RZOGFWY2lTSUpt?=
+ =?utf-8?B?ZUplcnA2aERTNzY3dSsyYW0rWnNjdHlxS2loZzJoYjRNY3hiemV1NzFnVElF?=
+ =?utf-8?B?WmU4dGZtSVozTEdRN2dDOGR4d2R0OUVnRTBqNVl0ZWFDNDh3TDlaUlV1N0Vn?=
+ =?utf-8?B?TnFtSDgyUGZ4L3JkMmo4blFDWXdUVHhYMFloRTZrSGkyRzZTNCt4NDh2RjZU?=
+ =?utf-8?Q?lQYHHPsmsIDHBZFE6EMoFWBlI=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dHlxUmFKTkt1V0RyRzNuZWlITFRXR29MMVFiYnA4Y1hxeUdkZktPQXdHWWtL?=
+ =?utf-8?B?N0RJYzBhWVJCWUpsVndOcEtIU0tocGh6dm5kUnhkK05sM1dNMlgzNmRoY2k5?=
+ =?utf-8?B?Q0tNUTdFMk5EWC80TlRsU1k2OC85S0R6TGRlS0Zlb1cxMW02R0RBc1RLUFB5?=
+ =?utf-8?B?QS9jdmltclZFbUsyMVdIdW4zK2RHTmJGZFVJZDBPaFFlRFlENWRTNXdEZWJm?=
+ =?utf-8?B?eGk3bXhLakQwcEJTMzQraXdzUjI4UEZJQ1p3UnZEUVd5UWNETm1BQmFRcysw?=
+ =?utf-8?B?VjhJZGM5Qjgzd1VGamxiMjNhUEZ2SGRSMG80NWcvZ0pOdVZNV0Zsc0lYSGVo?=
+ =?utf-8?B?ZGQzbDNZVmlnVFJyY2RWNFBLTFFlN0wrYnRCOEVHU3NzTzZXVTlTVHNUWDA0?=
+ =?utf-8?B?RnVOOVJpU21oUDhxZjkvUkx5dGVmeitPalZ2cndFd3pwZmhDMGk2ZkpFTGc4?=
+ =?utf-8?B?VnIrdDZMQ21SNThoekswc2JEc3VWZFAra1lySzdWMktzN1czcytqODNxUEVB?=
+ =?utf-8?B?aVZXaTRoYXhFaDlTd1JhSXk2Z3JoVDc1WkVOWXlYWUFCZ2VHRC9IbXVXd1pz?=
+ =?utf-8?B?WkNrMUJLVngyRWJpTW1pVTExSDhnSG9GQ0VoOTdSVnNBTHZtd3l3UEFiZlpR?=
+ =?utf-8?B?QWplTzMzRG54dGh3Zm9EVGxJejVHUzJkTlBnc0Y4VFF1V0ZnYTFHM2JMckZm?=
+ =?utf-8?B?K3c3amwwczJITFZpbVRYbGI1dWNYbWhmZGZKMFNGVkJCUGxFcERvSG0yK1ln?=
+ =?utf-8?B?OU1PbUVYQ3ZzQ0VSRmR5emkyQ1BUUUJaZkJiZEN2SXJ0YVFzcVRuaVgydEt3?=
+ =?utf-8?B?bmdYYk80eThISXh6c2c0T21pcStPYWZaZXpubk5xWUordllPMEV4QUR2NTQ0?=
+ =?utf-8?B?d2pYdGEwYlNhS1BEMmpZSnRsWHl6TzNUMW9vSlQxMnJZWUNod1hoMjJ1UUlm?=
+ =?utf-8?B?TFhOWUVycTRLNHlOWmUvVzFPYzA2SnRXR1crdHpkMFhjQnNudWJPZ2M5NlZP?=
+ =?utf-8?B?Mk1xdzFCOVRXejdyMGcvdkRFSkhsUkw4QXdTVFYyYmwrNFZuUUt4M1FHTm4r?=
+ =?utf-8?B?cXBQYkM4UkNPVnNVdGtib01JNVZmTVp0NGwrYk81a3BLQ2d4SmRzd3VncmtY?=
+ =?utf-8?B?RXluK1ZrVFNacE5sT0dqMSt1RlV2czJRc2ZneUt2eWpMNlN3R3JmVDlhWTZx?=
+ =?utf-8?B?SFE1QUtsR3pXMVl4N2RtVThhQ1pDS0xVK3Y1MWZlcWFOQmQyUk52cUdweG9K?=
+ =?utf-8?B?YVlVQVdXOE1TMjJqekpmaGlWeGlPV1NWVGRFQTBXb2ROazlxQlBTTlhsRENl?=
+ =?utf-8?B?WHNTZi9lZUlwbjRtZWhROVQwd3VXQzFhMlR0VUpROEZPbUxkY3dqcVB0Mk9s?=
+ =?utf-8?B?MGRJSGg5Mm14WTgzN0JZemxxSmc5Nkx4ekN6dXZtVVJKVlJzaEE5aEtydXUx?=
+ =?utf-8?B?cXZzMENnOVZuaGUyL254dzZDYWlSYXhvUWZhQ3pOdnhlTlhsTEZPMlBURW1r?=
+ =?utf-8?B?bzYwbmowVitQbld1K0R1YXlxZjFrYTRNcjAwNmFHaW9wb0hma201THcrZVo2?=
+ =?utf-8?B?YTV3Ukk3YWxjOUdWbnlTRDNvaHJFWFZLWEw3bzV2UGZIUGpoTnBTVGhEbGFU?=
+ =?utf-8?B?cHNUS25LaVJiMDNPVmhrenNkcGdQYm1zTEM1QTNCeUFIM1ZpTWVNQTVBMnh1?=
+ =?utf-8?B?OVd3czZjSkw1OWI1Q0dpZ0xOaTkwbkJrV1EvK3FFaEliMFUxUnF2NFJBM2Fl?=
+ =?utf-8?B?U1gvdXdXN1pnTWpVZlFya0VraXpId0VUWi9rb0J3RDE1WGtJcDZGZ1Y5NGt2?=
+ =?utf-8?B?cDJ3Y1BURDIybnF6WmVjS1NCYnhkeFdDMUFhZ1dycENPSGd5S0sxVlREcUVI?=
+ =?utf-8?Q?0DBCjAMH/AMcs?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-b25a6.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: a04528d1-5142-4f74-03ac-08df0d13400e
+X-MS-Exchange-CrossTenant-AuthSource: VI0P189MB3687.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 19:07:24.3450
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXP189MB1926
 
-usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
-disabling preemption, which triggers a BUG when running with PREEMPT_FULL:
+Hello Hal,
 
-  BUG: using smp_processor_id() in preemptible code in tx_complete
+Thanks for picking up this series, I've tested it on my fml13v01 board 
+in the framework 13 chassis. Seeing the pwms split out into seperate 
+nodes is how I envisioned this driver too.
 
-Fix by disabling preemption around the this_cpu_ptr() call and the
-per-CPU statistics update.
+Now to figure out how to get the pwm backlight driver to work nicely 
+with an inverted pwm.
 
-Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
-Reported-by: syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
-v3: Use preempt_disable()/preempt_enable() instead of
-    local_irq_save()/restore() as suggested by Oliver Neukum.
- drivers/net/usb/usbnet.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index a19ecf718f36..f1e5bc8bf932 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -325,8 +325,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
-  */
- void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- {
--	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
--	unsigned long flags;
-+	struct pcpu_sw_netstats *stats64;
- 	int	status;
- 
- 	if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
-@@ -338,10 +337,13 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- 	if (skb->protocol == 0)
- 		skb->protocol = eth_type_trans(skb, dev->net);
- 
--	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-+	preempt_disable();
-+	stats64 = this_cpu_ptr(dev->net->tstats);
-+	u64_stats_update_begin(&stats64->syncp);
- 	u64_stats_inc(&stats64->rx_packets);
- 	u64_stats_add(&stats64->rx_bytes, skb->len);
--	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+	u64_stats_update_end(&stats64->syncp);
-+	preempt_enable();
- 
- 	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
- 		  skb->len + sizeof(struct ethhdr), skb->protocol);
-@@ -1298,13 +1300,15 @@ static void tx_complete(struct urb *urb)
- 	struct usbnet		*dev = entry->dev;
- 
- 	if (urb->status == 0) {
--		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
--		unsigned long flags;
-+		struct pcpu_sw_netstats *stats64;
- 
--		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-+		preempt_disable();
-+		stats64 = this_cpu_ptr(dev->net->tstats);
-+		u64_stats_update_begin(&stats64->syncp);
- 		u64_stats_add(&stats64->tx_packets, entry->packets);
- 		u64_stats_add(&stats64->tx_bytes, entry->length);
--		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+		u64_stats_update_end(&stats64->syncp);
-+		preempt_enable();
- 	} else {
- 		dev->net->stats.tx_errors++;
- 
--- 
-2.55.0
+kind regards,
+Maud
+
+> Add OpenCores PTC PWM driver which is used in StarFive
+> JH7100/JH7110/JHB100 SoC.
+> 
+> I will maintain this pwm module in place of William.
+> 
+> Changes since v21:
+> - Allow non-zero duty cycles shorter than one clock tick to round down to
+>   zero.
+> - Drop the .free() callback to preserve the PWM hardware state after
+>   pwm_put().
+> - Update the comment.
+> 
+> Changes since v20:
+> - Fix 0% duty cycle support.
+> 
+> Changes since v19:
+> - Drop the oneOf construct in dt-bindings.
+> - Address Sashiko AI review comments for the OpenCores PWM driver.
+>   In ocores_pwm_apply(), handling disable requests first, then calculating
+>   and validating period/duty for enable requests before taking a runtime
+>   PM reference or touching the hardware registers.
+> 
+> Changes since v18:
+> - Address Sashiko AI review comments for the OpenCores PWM driver.
+> - Fix runtime PM usage count handling on probe, error paths, PWM release
+>   and driver teardown.
+> - Reject period or duty cycle values below the hardware minimum.
+> - Restore PWM registers across system sleep resume.
+> - Return the real error from devm_pwmchip_alloc().
+> - Preserve bootloader-configured PWM state during probe and keep runtime
+>   PM active if the PWM is already enabled.
+> - Use synchronous runtime PM put before possible teardown.
+> 
+> Changes since v17:
+> - Simplify the code. Make it more readable.
+> - Restructure the driver to register the pwm chip for one pwm channel,
+>   because each OpenCores PTC IP core only supports one PWM channel.
+>   Drop starfive compatibles.
+>   Add patches to fix the dt-bindings and device tree.
+> - Support runtime pm and system sleep pm.
+> - Disable the pwm module and reset the pwm counter before updating the
+>   period and duty cycle.
+> - Improve the descriptions.
+> - Update the dt-bindings maintainer to Hal Feng.
+> 
+> History:
+> v21: https://lore.kernel.org/all/20260701074442.7714-1-hal.feng@starfivetech.com/
+> v20: https://lore.kernel.org/all/20260629063601.63917-1-hal.feng@starfivetech.com/
+> v19: https://lore.kernel.org/all/20260615155759.129210-1-hal.feng@starfivetech.com/
+> v18: https://lore.kernel.org/all/20260515054723.25024-1-hal.feng@starfivetech.com/
+> v17: https://lore.kernel.org/all/20250106103540.10079-1-william.qiu@starfivetech.com/
+> 
+> Hal Feng (3):
+>   dt-bindings: pwm: opencores: Update compatibles, examples and
+>     maintainers
+>   riscv: dts: starfive: Correct pwm nodes
+>   pwm: Add OpenCores PTC PWM driver
+> 
+>  .../bindings/pwm/opencores,pwm.yaml           |   6 +-
+>  MAINTAINERS                                   |   6 +
+>  .../boot/dts/starfive/jh7100-common.dtsi      |  28 +-
+>  arch/riscv/boot/dts/starfive/jh7100.dtsi      |  67 +++-
+>  .../boot/dts/starfive/jh7110-common.dtsi      |  27 +-
+>  .../boot/dts/starfive/jh7110-milkv-mars.dts   |   6 +-
+>  .../dts/starfive/jh7110-milkv-marscm.dtsi     |   6 +-
+>  .../dts/starfive/jh7110-pine64-star64.dts     |   6 +-
+>  .../jh7110-starfive-visionfive-2-lite.dtsi    |   6 +-
+>  .../jh7110-starfive-visionfive-2.dtsi         |   6 +-
+>  arch/riscv/boot/dts/starfive/jh7110.dtsi      |  67 +++-
+>  drivers/pwm/Kconfig                           |  12 +
+>  drivers/pwm/Makefile                          |   1 +
+>  drivers/pwm/pwm-ocores.c                      | 298 ++++++++++++++++++
+>  14 files changed, 518 insertions(+), 24 deletions(-)
+>  create mode 100644 drivers/pwm/pwm-ocores.c
+> 
+> 
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> -- 
+> 2.43.2
 
