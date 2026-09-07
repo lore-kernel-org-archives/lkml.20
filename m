@@ -1,109 +1,95 @@
-Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E724EE863
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B183CCA02
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:57:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789404; cv=none; b=BHW3TRJkgTy2T0aqDvCzSeazxdIi8GbA/5U28K++oDWCKFmk5MhaXK8hUGpiFSVeOPhqO1G3Fr9CYLZctLbo/rc3fPHK53RNdOiXft9R5JbkW/i/NZsEG2Y228ysy7ePnMfhBQuewqom1oWU8m/N3UuIGkHwa9uIaTJlSYX6lBI=
+	t=1788789454; cv=none; b=AEBo8k/P8V0g93njggTEGo1xzytrh7qia+0wEj9Qdbysi9BZgTazu731fmKJz7hA9Im4Xz8OOPc9Dw74OXsAzSUT1G5CVA8FUXR9q4S3EOiGSPjh9E0v5pkabtwI/5igxY3JdowUFMpKlHNax0hq2Zp87WsIdzcpiIoorM0AktQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789404; c=relaxed/simple;
-	bh=ku9/UBu99vSafYGo9adeFr1f9lBsBT9crq+anMw3VDM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uUE1RCkyjKvRpHAUj8XrhsIirBzsju5QUdMJWKB32poFGTGCBnpdiCSShcGipRLANmUjqgt5y6erYrcN0DutETV5B+tfXPS/om02JwaEtKwBxZ7pwc+sck7Hu0hhLqpqiBwEXtXRbtDSdn3/awblMNXNAoYhOJqxG2NlfCF4c+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=coNMpP0i; arc=none smtp.client-ip=95.215.58.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="coNMpP0i"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ku9/UBu99vSafYGo9adeFr1f9lBsBT9crq+anMw3VDM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788789395; v=1; x=1789394195;
- b=coNMpP0iL2skrqQ1eElLFpIaIfj4nan1asy2MqeBQqjHyQntRGLGREgjuUcP2kwsYpwmlfYP
- FR2gBqzzSkfhYiwMzXojMGBm1VK1QCFvvzrRqVru3QzS0Twcr3aPTMR1xAtwPuq8RyOdJCeC78z
- 0XLv58ituWXzHhwBDMlcj9lo=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 66dd265d53de2e57;
-	Mon, 07 Sep 2026 13:56:35 +0000
-X-Mizu-Trace-ID: 66dd265d53de2e57
-X-Migadu-Flow: FLOW_OUT
-From: Zenghui Yu <zenghui.yu@linux.dev>
-To: linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	shuah@kernel.org,
-	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-Subject: [PATCH] selftests/mm: fix size truncation in pagemap_ioctl test
-Date: Mon,  7 Sep 2026 21:56:13 +0800
-Message-ID: <20260907135613.68692-1-zenghui.yu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788789454; c=relaxed/simple;
+	bh=+PIa7RCCl8olkBEYaYco1dViLKWTa01hHSp6B5FTSfQ=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=liztJGevoCi/IehrZ8k3juDCKZgTCZALjrBH2MslVvQfPrm4ZLPUDB64XgKDzphcqDL+ZXn85/Dxs2GzHv5gICj18BizGPJEzjbTyM9raLPsyVIppHBlo2Uv1TlpVFqewJPwklxVWuLcSFp3WVY52dajl7gZKHnptF+Q9J7aSRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9e0e71e05so6456782a34.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:57:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788789451; x=1789394251;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WkHLWemjua9M8JGz/wKd8Lu3ngZhrUdH9vDay4I5ST4=;
+        b=gQM5HlI1zqQTBeFd/p8zrDpsjbOiQAw3pmJIKlPnqBb1hF5CNtDr5qcX9jyjTo2Y5b
+         W7qqdVIJAbMx+bt7gp+evhkq4HwPG+cz3sIvm4okKwNlkEtigXUKUqCk5U5gHpvcMMHh
+         xCmSR6yX/xeVvOfa0KJqqNTVs+Nf+u0ZjzOI8stmNc9l8/e1tAN8Bf1AhFTMSYs3+abY
+         VwvcDM55Q56PQPcBLQmRnhoh6dMD1igf2sXZLHNrX5zETqsP6yNb9eBVc4l401clvyiW
+         yRUVZfzpLxqaR4LEDchWkBv1a6dQNDFpVwbnV+uHl4ghde8GtBLJMmkQdPnF66dprOsJ
+         W1rw==
+X-Gm-Message-State: AFuF++kbq64n+7QT4cnlkNojjAUJV6Iidvm0Mu8By3yTonEJc9qJrUU4
+	YaTmTptPXDAgAHAI9tCNPdW4k3QrNYCs1bouv2xTnDLLqU8I2s3y/p5K88U/kDJUj0PZ/nS7I1a
+	tWWrjThWRli83qiDjuaX80vFLp/GmfmMfnJhKPN0cDsolgRGzyIzBFtlm9WE=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:190b:b0:6b7:83c5:fdf1 with SMTP id
+ 006d021491bc7-6b783c6039amr11440113eaf.50.1788789451526; Mon, 07 Sep 2026
+ 06:57:31 -0700 (PDT)
+Date: Mon, 07 Sep 2026 06:57:31 -0700
+In-Reply-To: <6a6d375e.2d659fcc.1d46f5.01a4.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ec2cb.2bb5a69c.24b23c.0001.GAE@google.com>
+Subject: Forwarded: Re: test patch
+From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-On arm64 with 64K base pages, the huge page size is 512 MiB, and
-hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
-exceeds the range of the int size parameters of gethugepage(),
-wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
-makes gethugepage() allocate a too small buffer, while the callers keep
-operating on the original 5 GiB range, resulting in spurious failures or
-SIGSEGV.
+***
 
-Change those size parameters to size_t.
+Subject: Re: test patch
+Author: syedtayyabfarooq08@gmail.com
 
-Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
-Assisted-by: GLM-5.3 OpenCode
-Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
----
- tools/testing/selftests/mm/pagemap_ioctl.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+#syz test
 
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index eadc7159ca5b..48cbea3a33c9 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -44,7 +44,7 @@ const char *progname;
- 
- #define LEN(region)	((region.end - region.start)/page_size)
- 
--static long pagemap_ioctl(void *start, int len, void *vec, int vec_len, int flag,
-+static long pagemap_ioctl(void *start, size_t len, void *vec, int vec_len, int flag,
- 			  int max_pages, long required_mask, long anyof_mask, long excluded_mask,
- 			  long return_mask)
- {
-@@ -152,7 +152,7 @@ int wp_free(void *addr, long size)
- 	return 0;
+--- a/drivers/usb/usbip/usbip_event.c
++++ b/drivers/usb/usbip/usbip_event.c
+@@ -105,6,11 @@ int usbip_start_eh(struct usbip_device *ud)
  }
- 
--int wp_addr_range(void *addr, int size)
-+int wp_addr_range(void *addr, size_t size)
- {
- 	if (pagemap_ioctl(addr, size, NULL, 0,
- 			  PM_SCAN_WP_MATCHING | PM_SCAN_CHECK_WPASYNC,
-@@ -787,7 +787,7 @@ int base_tests(char *prefix, char *mem, unsigned long long mem_size, int skip)
- 	return 0;
- }
- 
--void *gethugepage(int map_size)
-+void *gethugepage(size_t map_size)
- {
- 	int ret;
- 	char *map;
--- 
-2.53.0
+ EXPORT_SYMBOL_GPL(usbip_start_eh);
 
++#define WORK_QUEUE_NAME "usbip_event"
++
++static struct workqueue_struct *usbip_queue;
++static DECLARE_WORK(usbip_work, event_handler);
++
+ void usbip_stop_eh(struct usbip_device *ud)
+ {
+ 	unsigned long pending = ud->event & ~USBIP_EH_BYE;
+@@ -115,16 +120,12 @@ void usbip_stop_eh(struct usbip_device *ud)
+ 	if (pending)
+ 		usbip_dbg_eh("usbip_eh waiting completion %lx\n", pending);
+
+-	wait_event_interruptible(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
++	wait_event(ud->eh_waitq, !(ud->event & ~USBIP_EH_BYE));
++	flush_workqueue(usbip_queue);
+ 	usbip_dbg_eh("usbip_eh has stopped\n");
+ }
+ EXPORT_SYMBOL_GPL(usbip_stop_eh);
+
+-#define WORK_QUEUE_NAME "usbip_event"
+-
+-static struct workqueue_struct *usbip_queue;
+-static DECLARE_WORK(usbip_work, event_handler);
+-
+ int usbip_init_eh(void)
+ {
+ 	usbip_queue = create_singlethread_workqueue(WORK_QUEUE_NAME);
