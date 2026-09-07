@@ -1,272 +1,108 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E9935B136
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772548; cv=pass; b=jkDBMiHCyX4Q4iKZOOHYU7kM4mYqQvBqTQeTm3tMxtZnJgl3uyCfvyOm5gvORdoi+Iq0NoZhGijC6mYGbmSMMvubj/21QoycTsCxYeypPwhOQe7Iil49Cbpfs8lrLJagC4kpIfY8OXIhauHK7afcH2vgbsqArx9ZIVrkiX7DC6k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772548; c=relaxed/simple;
-	bh=/MFAR0BJv6ArlHZpPXeSNyeaqeMeT7jTuH2BnlBnyXk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sruXyEeQtmuD62SzusdJrztpOvT5C8+iUfdU+siLe8AJx2SDwQCFatqgueNKu+a1WAn986Nf60LTlYRx703ADGC5cDJybxVqtVHal4sKe/xFYjZ/ISRXwHAYxWf82UHjhWCfDDgRjUxwFSPrTt1S3ii/M12WUG6YvJrf2kCdm/I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TH7jGVMB; arc=pass smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90382448B84
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788772551; cv=none; b=uH1CRd/YKt6WSuXzO3EmIhjwHtBElNYMz+OTkYSGRV6NmPN1/CHRp9p52nZv0i7hm2Vm/weNeGUgWHcrR1VYHvrghrWntTQf++nyWsYA67WqTAkxU/FI2P85CUGPjE6Kt0fQr1sQyveamm+UnAPV+dRgtfB5mNtxMArL4py6s6Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788772551; c=relaxed/simple;
+	bh=cotydOU2axbEAFuLHXGRT6+++/RL9NtHBZWqpZiF0S8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VXiAYwIs8T0kDw3hkLmUmUAR1/M18Yrf4mAvevGGbM/WTPyvWseOaTxWOrvzdbGKqpo+MiggUQm/eF8O8lCWUb88F0ae2pjsPMnqQuvsj+VMKEoEdis7IkLnP9iNgdrpfKv5Jne3VbfcOudeYGfYsuQR9GX3uIWdug9wj55o3Wc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bpD+JyIe; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TH7jGVMB"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495437bb891so22326265e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:15:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788772545; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QZk/48lCzDpK6vbHKYyafRWdC0IL3SdlJ95Coh9OGgnh4jn+6am75/b+cNyyRX1eOH
-         Effzara2NgasiLJfG9/5Dr4fc35N0cxrc2STHlrFchRH9jvewRT3Z4+Y8ItDf/Rl5U6Q
-         tVHwZkFMp1B0MTVDZHK67wFY9rxI/OR1gqtKag64nYt0NS3pVjn9nLUbVzIPw+Y5dHFl
-         jKu4Tvo4YBgBhBVDgkX8y2MzNWcUUPWgTxBGw0gUzFotzNU4+Z3TQNACN+1MURpEsUyA
-         zXs7B9KbCH8JefMPZseSNEBbW+FLYjtFnDs2jmZK/QVJ5wxGo1We9qXMv6W8Th5TFoSw
-         qK5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
-        fh=rYZCTAxNHX5+p5yWYhpNfL1ujUxM4iSEOWXfdNx2ZAo=;
-        b=NtSHIP+v/cig1YRryVZefcmC79D3flE1U1i6cEAVP0mT+3/499OoGyjeCwiZ6y9JNr
-         QdmPTnoopuQZl1I7o91XN4yO8hOGGVJAgJ1rlF7TBTxkrfpuE1xkWnLI4rT/0o7Um7Iv
-         GFUGOTzYY/cvJos7XFayIbSuFtnS/KXN6FijZWe225ZiwvkrGS4HEV8EOInddT97FYAC
-         pfPocSj/sNewSPfrVFgTTyQNYwdg/M0mVTNrzPEjm3tYulnun2Kziu2uyu5kg2JZheiP
-         q3l5ZBktz7gG/mwCZlLhXWERb5q6c6gQosjSLaKXO6PdrlRvBpkiHze5gU8hatTv/mxM
-         cL5A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bpD+JyIe"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d94c868ea5so33508045ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:15:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788772545; x=1789377345; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
-        b=TH7jGVMBfVEBqqmD96sLxgcZtmUJAaBWW8o2vCGuCPQ/NNpbOo2vn6VOFbvWwY5zGc
-         TkSILWRxmONb2eJu9QWoAEko03PB9hlAmV3acyoulUjwZRW1w+/Q7PCDmZrsIxA6JbY3
-         xsZYZobypMX4OM+eTNNoAwdhqjCQDye8OCr+2ZLIM47yJTXnleAQAiHWO11VvKqr5LxW
-         Sf1Hv0tU68lHfAJOOyy8p9+Uno9cDIXL+VFb4LQxWIPc8SUBOIe552L4rQ6c2h9QOdaH
-         ON+c2CEUZf6Szsf+15K+PkUZVa1+9kfPpwHVMg1Dx5jO0it9gWtQ8BQM0DF1TLelEWAO
-         4SZA==
+        d=gmail.com; s=20251104; t=1788772550; x=1789377350; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LVqwmOb1crWhYfKndwh2XaY160aqcbjm7eUeqdfFhfA=;
+        b=bpD+JyIej6dLDHyhQa69xv7USWeifnij2XlK7lLfJXGKQ3UFBxr8+f9t7bpaE+4/dk
+         DWMa5ePUnJhJelBwyA24VXiF8xgHxNaMmfT0Nx1i4uOconvAjmFzRQeWbhiKQyPbcjVA
+         0+FQDs4mA050D4x4jCS3ZxHz9R3k6gmsT7gsOthL62/D6BovT5hbDDoCKCows/Ge82Xt
+         5SpNKrdEh2XbHZl9cJjVLoKmwl4mxv0KupLYPJm4l0SqSqeHynrWnU4+4FZYHgco1ex0
+         k/suJApnJv8ZWwWQP2JC0oRZgU8rs8dPw+tCtT2AqeyErs6Y1Llt6rFrSfr6RhP7NUKV
+         w15g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772545; x=1789377345;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
-        b=n1wL4SH5vTIUn6YXB+CYcUAJxukLOuaBPYnbhQ99omMFQx6pE0AI2Ejt26PPwf6m9E
-         OabRE2t9B5m6guWrzXEcea18jx5r7w/bYfDsyvMb0N0LHs86AJ1XbXJutP+lycfJqSMe
-         u/EO272coCed8UI04ZJcyM1K46GPzCg+cGrmeGMF6r5g4SKgP4C9iKAWtphRhzwWYgYZ
-         LRTOAkNcNT2Zp/lzb1DiPXmHeyuZZf8TRuQQs81ieY8pyQJw/W8ZYYr1SBGycVWfD0Is
-         OsVFm3vGXGt3d7qtrmeO5Ua15+7b5dPYddrirjFeqYFtoeyrCj3LrWZh4Ph7xuqBp7QA
-         4C2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzCUvlchW7Mlea/iwSX4s3NyJEXxez86S57FksN6E+f0zJl3kyH5Hl0oTs1zj6e35O3B1vWQzL0ikqZVgY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLrjnGSOqpkK1Fu9jwNZFtSIrqygqCrcPtgBqMbq9HaZchJZnF
-	u3eOhnwnS+/mr+L21tt/Qk0ENw46x5boOfh4BeQIirWPsEHG6zjMO1KIpJ4LuTZhD2TXIvJvNrX
-	uk1GOoXc3iTFZc8hKCPo3uCHYPfPdpCedIwBJ/wgH9w==
-X-Gm-Gg: AYBFou38FiFMmju2qRbKeFZK4Goj3sSUNaMJoUgfQIGTOo1b09exuQhDY/I+mVU93Cp
-	XkcAes2tL236dgytx0Iy8rAAbZ4FHXczpF5ds4gxlmbFARDycMZecFIP0Ltr22enT+Qkb2Ez5XT
-	MpxMfmYVH8HmDHD8x8oRvQ1eqskWudToadNt6bBaAgm/++v33FGmcaxNRS/JpBNZK4mp8XGOQ0o
-	Jsax4DV3eRLa+5nZ+W/3CSFf+Tne5ftcbVgz5+Hz0h0ctNfw82lxPu5MPm71BpjSp9Toz5MqSNQ
-	n612Dmohw7DInAQv555G5CwXJ3tpvTWsj6ksqqafX+2YKQa0O6NXSj1zUVR6O4POcYi/tdx6GQn
-	A4OvODqpDbgGqjCMYwvDx6IENtEhMHcz7mk/E+bHAaA==
-X-Received: by 2002:a05:600c:4684:b0:49c:f13e:e4e with SMTP id
- 5b1f17b1804b1-49cf8906323mr208303745e9.11.1788772544807; Mon, 07 Sep 2026
- 02:15:44 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788772550; x=1789377350;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LVqwmOb1crWhYfKndwh2XaY160aqcbjm7eUeqdfFhfA=;
+        b=RCUaQ9KkajtfkP/8lV6TxHfk23ThW+jTI0TWNwGGiW2fwM8v9HV8Ry5c42SqoxUyNU
+         c7SfRXWjphAVd30eyioApfifVscP6Q5pAij8Txg3HNSCxWLouUU2c/Q9gcQV0C2+1Ktb
+         Z951FT2ja+7HoVkkHLx5C/a72IQ1u+qOYgttQmtMHzunp10Va+bl92sjXtjSwFOosz/B
+         AxaaOU2M0bk/CyUd9RG7mxeT+WXOext1m9FQ+x0Oj2DgFqqshl8BcX584Kdow8Gtzfoq
+         ++2RgXmGRvDDyu1SXIn6KUu+zJ65pz59WGSaowP81lYT+KgiF3ylEzXtOl28CR406aVE
+         rqTg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfL+7Fk1zQ+6GgAO3YxYY1E6N4M0bv2gwshCMQIqnWF9Xx2kHdW9k+0Oe3ZhGEQM3GaxG1jv6n+kLI9Ow=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/ttKM2CBPXqbHhyT2XwrlVK2XxJDEQO6XhnBBFp1t6h1QCChN
+	ycXswrxN1qX2kKQg8BDitKLJpc6HYezpmX0jv35dJwJEgBQwkGsWY/qw
+X-Gm-Gg: AYBFou1aRn7yqYDI+5cq0bFKt9sop0NhYnyW5V2a1k8RufpscRM/qsrygUGLqSxco0T
+	P0LHimGGT0MOvzLE8i09LJ1LRb5hcOK9Bcbaxlt5iiV4kfoPv3p7UKsrSeUqjum4fx3T7oKXM0K
+	cRdzd3cnpsYDlIuxN3FoYzwCwohPdwPIRNRZJj7v/eJwLkrbh0rK3HZXwimnEf8AYNIaU2VAthY
+	AGe3UOUe6pBNv3SxWfpVa6SKDwYp7dO/ObN8/tGurIUHJ5TPEBXex0P1/nDniD2Wzqp5GCo6vZi
+	HkvYoXIc+mLMiBRfcvSeh6o6z0/XwkxECV4wg8FO5CHUr07SaPx3zvMkvffqGRWR/EgBvC2kCgI
+	9+dBr2xAwqwqfBmyzTAdr/CiRDu8Y786MY0BFPothjl7END04DCzjIkk84xy02jxjAVkL1xd8eA
+	QLJEuUujYj/VdE240P3vMP+auUfnIHpY1JBbpM4A1CA+eTPzayEik2wBHkM1xzeHjWY126Xr4L/
+	lqDfzcuhwdZfonYtZoqs8XE
+X-Received: by 2002:a17:902:6ac3:b0:2ca:6c8:abd8 with SMTP id d9443c01a7336-2db127cde0fmr248183705ad.12.1788772549877;
+        Mon, 07 Sep 2026 02:15:49 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm40959657eec.16.2026.09.07.02.15.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:15:49 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Josh Juran <jjuran@gmail.com>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Greg Ungerer <gerg@linux-m68k.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	linux-kernel@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org
+Subject: Re: [PATCH] m68k: coldfire: fix typo "reseting" in comment
+Date: Mon,  7 Sep 2026 14:45:44 +0530
+Message-ID: <20260907091544.36558-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <C901AA86-8D21-4E1E-A2E5-A6D99CDBD705@gmail.com>
+References: <20260904112336.38497-1-hemanth.selam@gmail.com> <9051ED9E-9257-41E8-B979-DB7716F516CC@gmail.com> <e038c283a0ee7a3932f3e3bfaed188280ff7188f.camel@physik.fu-berlin.de> <C901AA86-8D21-4E1E-A2E5-A6D99CDBD705@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907044801.9088-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260907044801.9088-1-hemanth.selam@gmail.com>
-From: Daniel Vacek <neelx@suse.com>
-Date: Mon, 7 Sep 2026 11:15:33 +0200
-X-Gm-Features: AcwNN1VCQupOgh9v5Ck-I1vwV5juTsOZYec2g8PyYUOdbCxqp4AhMc_-LjRurbw
-Message-ID: <CAPjX3FfQ4X4Bd-1-_Q3h4azLM98vnJLfZ8TvduPK6zf=y==Z2g@mail.gmail.com>
-Subject: Re: [PATCH v2] btrfs: fix typos and repeated words in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 7 Sept 2026 at 06:54, Hemanth Selam <hemanth.selam@gmail.com> wrote:
-> Fix misspellings and repeated words in comments, found with
-> scripts/checkpatch.pl and codespell.  Only touches comments, no code
-> changes.
->
-> Changes since v1:
->  - the typo and repeated-word patches are folded into one, as they only
->    touch comments
->  - rebased onto btrfs for-next
->  - picked up the further typos codespell found, which David Sterba
->    listed: Temporarilly, Checksume, coresponding, caclulated, wheather
->    and cannnot ("commited" in block-group.h was already fixed by v1)
->
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  fs/btrfs/block-group.h          | 2 +-
->  fs/btrfs/extent-io-tree.c       | 2 +-
->  fs/btrfs/fs.c                   | 2 +-
->  fs/btrfs/raid56.c               | 8 ++++----
->  fs/btrfs/send.c                 | 2 +-
->  fs/btrfs/transaction.h          | 2 +-
->  fs/btrfs/tree-checker.c         | 2 +-
->  include/uapi/linux/btrfs_tree.h | 4 ++--
->  8 files changed, 12 insertions(+), 12 deletions(-)
->
-> diff --git a/fs/btrfs/block-group.h b/fs/btrfs/block-group.h
-> index 69d56864d4ba..b349f94cf929 100644
-> --- a/fs/btrfs/block-group.h
-> +++ b/fs/btrfs/block-group.h
-> @@ -135,7 +135,7 @@ struct btrfs_block_group {
->         u64 global_root_id;
->         u64 remap_bytes;
->         u32 identity_remap_count;
-> -       /* The last commited identity_remap_count value of this block group. */
-> +       /* The last committed identity_remap_count value of this block group. */
->         u32 last_identity_remap_count;
->         /*
->          * The last committed used bytes of this block group, if the above @used
-> diff --git a/fs/btrfs/extent-io-tree.c b/fs/btrfs/extent-io-tree.c
-> index d6df11f6088c..992b8b42bdb4 100644
-> --- a/fs/btrfs/extent-io-tree.c
-> +++ b/fs/btrfs/extent-io-tree.c
-> @@ -751,7 +751,7 @@ int btrfs_clear_extent_bit_changeset(struct extent_io_tree *tree, u64 start, u64
->                                 btrfs_split_delalloc_extent(tree->inode, state, start);
->
->                         /*
-> -                        * Temporarilly ajdust this state's range to match the
-> +                        * Temporarily ajdust this state's range to match the
->                          * range for which we are clearing bits.
->                          */
->                         state->start = start;
-> diff --git a/fs/btrfs/fs.c b/fs/btrfs/fs.c
-> index de160d29dde8..75a1217727a7 100644
-> --- a/fs/btrfs/fs.c
-> +++ b/fs/btrfs/fs.c
-> @@ -79,7 +79,7 @@ void btrfs_csum_init(struct btrfs_csum_ctx *ctx, u16 csum_type)
->                 blake2b_init(&ctx->blake2b, 32);
->                 break;
->         default:
-> -               /* Checksume type is validated at mount time. */
-> +               /* Checksum type is validated at mount time. */
->                 BUG();
->         }
->  }
-> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
-> index a5d0ef09d92a..4f702dbf581b 100644
-> --- a/fs/btrfs/raid56.c
-> +++ b/fs/btrfs/raid56.c
-> @@ -953,7 +953,7 @@ static void rbio_orig_end_io(struct btrfs_raid_bio *rbio, blk_status_t status)
->
->         /*
->          * Clear the data bitmap, as the rbio may be cached for later usage.
-> -        * do this before before unlock_stripe() so there will be no new bio
-> +        * do this before unlock_stripe() so there will be no new bio
->          * for this bio.
+On Sun, Sep 06, 2026 at 02:46:04AM -0400, Josh Juran wrote:
+> What about the human reviewing its output?  Or am I misunderstanding
+> the meaning of "Signed-off-by"?
 
-The sentence should start with a capital. Perhaps it would also fit
-into two lines?
+You are not misunderstanding it.  My Signed-off-by certifies the DCO,
+but sending the patch also means I am answerable for what is in it, and
+on this one I did not look hard enough.
 
->          */
->         bitmap_clear(&rbio->dbitmap, 0, rbio->stripe_nsectors);
-> @@ -988,7 +988,7 @@ static void rbio_orig_end_io(struct btrfs_raid_bio *rbio, blk_status_t status)
->   * as possible, and only use stripe_sectors as fallback.
->   *
->   * Return NULL if bio_list_only is set but the specified sector has no
-> - * coresponding bio.
-> + * corresponding bio.
->   */
->  static phys_addr_t *sector_paddrs_in_rbio(struct btrfs_raid_bio *rbio,
->                                           int stripe_nr, int sector_nr,
-> @@ -1451,7 +1451,7 @@ static int rmw_assemble_write_bios(struct btrfs_raid_bio *rbio,
->         ASSERT(bitmap_weight(&rbio->dbitmap, rbio->stripe_nsectors));
->
->         /*
-> -        * Reset errors, as we may have errors inherited from from degraded
-> +        * Reset errors, as we may have errors inherited from degraded
->          * write.
+The patch came out of a mechanical sweep: checkpatch.pl flags words
+listed in scripts/spelling.txt, "reseting" is in that list and
+"ColdFure" is not, so nothing pointed at it.  That explains why the
+tool stopped there.  It does not explain why I did not, because the two
+words are on the same line and reading the comment was my job.
 
-This can fit on one line.
+You caught it, and the v2 fixes both words; Greg has since applied it.
 
---nX
+The wider lesson I am taking from this is that a large series does not
+get to be reviewed in bulk.  Each patch has to be read on its own, in
+context, before it goes out, and that is what I will be doing for the
+rest of this work.
 
->          */
->         bitmap_clear(rbio->error_bitmap, 0, rbio->nr_sectors);
-> @@ -2632,7 +2632,7 @@ static int alloc_rbio_essential_pages(struct btrfs_raid_bio *rbio)
->         return 0;
->  }
->
-> -/* Return true if the content of the step matches the caclulated one. */
-> +/* Return true if the content of the step matches the calculated one. */
->  static bool verify_one_parity_step(struct btrfs_raid_bio *rbio,
->                                    void *pointers[], unsigned int sector_nr,
->                                    unsigned int step_nr)
-> diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
-> index 5c59b9abedcd..c523bf950c89 100644
-> --- a/fs/btrfs/send.c
-> +++ b/fs/btrfs/send.c
-> @@ -7023,7 +7023,7 @@ static int changed_extent(struct send_ctx *sctx,
->          * get modified or replaced with a new one). Note that deduplication
->          * updates the inode item, but it only changes the iversion (sequence
->          * field in the inode item) of the inode, so if a file is deduplicated
-> -        * the same amount of times in both the parent and send snapshots, its
-> +        * the same number of times in both the parent and send snapshots, its
->          * iversion becomes the same in both snapshots, whence the inode item is
->          * the same on both snapshots.
->          */
-> diff --git a/fs/btrfs/transaction.h b/fs/btrfs/transaction.h
-> index 3a57f227b5ed..89153cd22596 100644
-> --- a/fs/btrfs/transaction.h
-> +++ b/fs/btrfs/transaction.h
-> @@ -288,7 +288,7 @@ do {                                                                                \
->   * Call btrfs_abort_transaction() as early as possible when an error condition
->   * is detected, that way the exact stack trace is reported for some errors.
->   *
-> - * Error number must be negative as it encodes wheather it's the first abort.
-> + * Error number must be negative as it encodes whether it's the first abort.
->   */
->  #define btrfs_abort_transaction(trans, error)          \
->  do {                                                           \
-> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
-> index 401fd40ec7b2..b8ca9980e1dd 100644
-> --- a/fs/btrfs/tree-checker.c
-> +++ b/fs/btrfs/tree-checker.c
-> @@ -228,7 +228,7 @@ static bool can_have_extent_data(struct extent_buffer *leaf,
->         }
->
->         /*
-> -        * The rest are special files, e.g. block/FIFO files, which cannnot
-> +        * The rest are special files, e.g. block/FIFO files, which cannot
->          * have any file extent.
->          */
->         return false;
-> diff --git a/include/uapi/linux/btrfs_tree.h b/include/uapi/linux/btrfs_tree.h
-> index b6ccaf848e4b..47ee52859b45 100644
-> --- a/include/uapi/linux/btrfs_tree.h
-> +++ b/include/uapi/linux/btrfs_tree.h
-> @@ -230,7 +230,7 @@
->   *
->   * Stored as an inline ref rather to avoid wasting space on a separate item on
->   * top of the existing extent item. However, unlike the other inline refs,
-> - * there is one one owner ref per extent rather than one per extent.
-> + * there is one owner ref per extent rather than one per extent.
->   *
->   * Because of this, it goes at the front of the list of inline refs, and thus
->   * must have a lower type value than any other inline ref type (to satisfy the
-> @@ -243,7 +243,7 @@
->  #define BTRFS_EXTENT_DATA_REF_KEY      178
->
->  /*
-> - * Obsolete key. Defintion removed in 6.6, value may be reused in the future.
-> + * Obsolete key. Definition removed in 6.6, value may be reused in the future.
->   *
->   * #define BTRFS_EXTENT_REF_V0_KEY     180
->   */
->
+Thanks for pushing on it rather than letting it through.
+
+Hemanth
