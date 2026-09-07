@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8945221E8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A535852379A
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799412; cv=none; b=rJ/XGb4trjrzzlj9iQHZHmOVRs7T/VoNNEowVgbR7caL10UI+CBFyFgmYzazT4k6S2w4JxgvMjnsXXGtYysyD1T1rBcXhTAmFj/WToz50lUj0zqzmuDsfXaUmwHFw+rY1S0ucYxFsDSKKFsSDA0Jg0sVUppFF3XYY3UDC51I7gg=
+	t=1788799415; cv=none; b=QCbOMUCmw2xJR9t7lT4ZSEF1aGujRZjDOiWVLr/A5bVLYoZhYR/HjoI9QNtZOp7sxGYcoADYv1RdsYt5fTRYIGjrs3AChB31PwDkdsSE+MxuCzUnZrvBtc5XYYdIQ9SnmstOTqlIAbcXg8Vuv1MNwsHmfoEKK/rXhcFW/RW3jVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799412; c=relaxed/simple;
-	bh=6RQZewVhm6Oiv8hNrNgoANtVVMSOgPWcOO8HlIfY+RM=;
+	s=arc-20240116; t=1788799415; c=relaxed/simple;
+	bh=2N8nd0cXwCV/jR6atgLgpj5ztGUmsdU3ASEQ9NE3Cz4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K3yZ7rjK1eJG6EFGpLTaw+5bK282D9pEIKTBPNexc2k27ds1WPFUBYMWvckQCveEzrL2DjWy995q9RvojY98uY9GbvozYHOasfKwLlnoOLQEbGHiKbEcmFf6E8ffk3Hj+I/l0yovE9mY6Up1RiSyaQCrLdsESCdREy8cRZydnjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NTWw5g9E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UmDe3uTZwCKBG0gBZmfcQmuT/j2W9oyQBERg65I02xWz6WRVqOdh3NxdC0Mfcv5mn4RJszy25t7iG+uUZaV/sthbRRSt/ecaLYOGkmSGE9jZuvF1rJo2wxhMUcAWa99ffgQRyXO98Ywiitgx0Eyb2Ry9qZmxUPVVJhfSWjJKAwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJsakp3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NTWw5g9E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12ECB1F00A3A;
-	Mon,  7 Sep 2026 16:43:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJsakp3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71F611F00A3D;
+	Mon,  7 Sep 2026 16:43:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799410;
-	bh=33ikSkJFX7Vey/KunqKuY1Z4p4KTCUzmgh5gA1LOfSM=;
+	s=k20260515; t=1788799414;
+	bh=78u6/cdiAajizC2UEtK9pSOndLspTzAq4idBXXZU6iQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NTWw5g9EYJc4qx5bnJPDjgft6wRNu+H5aoJU2ti+7HObaCaoC+7/h4BrXra3BA0tL
-	 IGPDCHxwjGtg6yc1AnPO5SxXZCewBIU7aPPnHJ6WoRp49HQyOO7QBUui3geNafL4ht
-	 5Qqcma/fvoVwt3ipbTrTz7QpMmQZey0QO0dPRDxigxBw8mVBwz1y0Uzt8OGaOECGXY
-	 nsdJtu7rPtzl2udDSFux6/TdsN7FgFwlIcXl191lBPX7J8I2JgqrwfKwmxAN14BKxn
-	 uvrP7n9a9k/Uz1/ATlMWSHXCjHSmIZ/LcyAOmUFpD8dt8Ln5U/EOMErPWOHaNO12Ir
-	 L7VoAuUET005w==
+	b=MJsakp3JTE0E9NczC3mLozwnQ0uVL1bPPUP2vjMxZibarZfLiFuYhqPs4NrVg/cEr
+	 ZMXR4MSgUSHA3OGEQVuspvdCkYPzfUCxSRhAUW09zshoGf1Qw//jWoUJKPJxydtYcM
+	 UizMQsblDGEYIqHVpR6XBIejHMZ6fb/AN57TrVYK7sja5F7Ev15q/mE+mGhfFasjN4
+	 YcC4S/IYNc13MhGGgOFLphaqqqdDZEv5VvM6KSTHRu8VuryTSgh7z5M5wQNOgT1PqR
+	 XaJQcjgDVS/jJSeZTRCzOjHxOMYrrlXehtwRFkPTbi+QRiCmnd0llS4N4ASqlb9i/t
+	 XbyydTKPPaV5w==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 09/21] arm64: stackprotector: Re-enable per-task stackprotector
-Date: Mon,  7 Sep 2026 17:42:34 +0100
-Message-ID: <20260907164247.17223-10-will@kernel.org>
+Subject: [PATCH 10/21] arm64: percpu: Specialise set_my_cpu_offset() for the primary CPU
+Date: Mon,  7 Sep 2026 17:42:35 +0100
+Message-ID: <20260907164247.17223-11-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,51 +56,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Now that 'current' resides in TPIDRRO_EL0, update the per-task
-stackprotector compiler invocation to use the new register.
+set_my_cpu_offset() is only called from smp_prepare_boot_cpu() which
+runs once on the primary CPU and before alternatives have been applied.
 
-Note that this requires a very recent build of clang [1], as (unlike
-GCC), it historically rejected all registers other than SP_EL0.
+Rework the function so that it operates only on the boot CPU offset,
+drop the unused alternative code sequence and internalise it into smp.c
+alongside its only caller.
 
-Cc: Mark Rutland <mark.rutland@arm.com>
-Link: https://github.com/llvm/llvm-project/pull/188054 [1]
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/Kconfig  | 3 +--
- arch/arm64/Makefile | 2 +-
- 2 files changed, 2 insertions(+), 3 deletions(-)
+ arch/arm64/include/asm/percpu.h | 8 --------
+ arch/arm64/kernel/smp.c         | 8 +++++++-
+ 2 files changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b8270b301809..020fcaf36b1b 100644
---- a/arch/arm64/Kconfig
-+++ b/arch/arm64/Kconfig
-@@ -2450,12 +2450,11 @@ config RANDOMIZE_MODULE_REGION_FULL
- 	  exhaustion, modules might be able to fall back to a larger 2GB area.
+diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
+index b57b2bb00967..3dc7291b16e9 100644
+--- a/arch/arm64/include/asm/percpu.h
++++ b/arch/arm64/include/asm/percpu.h
+@@ -12,14 +12,6 @@
+ #include <asm/stack_pointer.h>
+ #include <asm/sysreg.h>
  
- config CC_HAVE_STACKPROTECTOR_SYSREG
--	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=sp_el0 -mstack-protector-guard-offset=0)
-+	def_bool $(cc-option,-mstack-protector-guard=sysreg -mstack-protector-guard-reg=tpidrro_el0 -mstack-protector-guard-offset=0)
+-static inline void set_my_cpu_offset(unsigned long off)
+-{
+-	asm volatile(ALTERNATIVE("msr tpidr_el1, %0",
+-				 "msr tpidr_el2, %0",
+-				 ARM64_HAS_VIRT_HOST_EXTN)
+-			:: "r" (off) : "memory");
+-}
+-
+ static inline unsigned long __hyp_my_cpu_offset(void)
+ {
+ 	/*
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+index a61dc3016a11..702dee8d0db5 100644
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -446,6 +446,12 @@ void __init smp_cpus_done(unsigned int max_cpus)
+ 	mark_linear_text_alias_ro();
+ }
  
- config STACKPROTECTOR_PER_TASK
- 	def_bool y
- 	depends on STACKPROTECTOR && CC_HAVE_STACKPROTECTOR_SYSREG
--	depends on BROKEN
++static void __init set_boot_cpu_offset(void)
++{
++	asm volatile("msr tpidr_el1, %0"
++			:: "r" (per_cpu_offset(0)) : "memory");
++}
++
+ void __init smp_prepare_boot_cpu(void)
+ {
+ 	/*
+@@ -453,7 +459,7 @@ void __init smp_prepare_boot_cpu(void)
+ 	 * setup_per_cpu_areas(), and CPU0's boot time per-cpu area will be
+ 	 * freed shortly, so we must move over to the runtime per-cpu area.
+ 	 */
+-	set_my_cpu_offset(per_cpu_offset(smp_processor_id()));
++	set_boot_cpu_offset();
  
- config UNWIND_PATCH_PAC_INTO_SCS
- 	bool "Enable shadow call stack dynamically using code patching"
-diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index 6b005c8fef70..a293ab67818f 100644
---- a/arch/arm64/Makefile
-+++ b/arch/arm64/Makefile
-@@ -72,7 +72,7 @@ ifeq ($(CONFIG_STACKPROTECTOR_PER_TASK),y)
- prepare: stack_protector_prepare
- stack_protector_prepare: prepare0
- 	$(eval KBUILD_CFLAGS += -mstack-protector-guard=sysreg		  \
--				-mstack-protector-guard-reg=sp_el0	  \
-+				-mstack-protector-guard-reg=tpidrro_el0	  \
- 				-mstack-protector-guard-offset=$(shell	  \
- 			awk '{if ($$2 == "TSK_STACK_CANARY") print $$3;}' \
- 				$(objtree)/include/generated/asm-offsets.h))
+ 	cpuinfo_store_boot_cpu();
+ 	setup_boot_cpu_features();
 -- 
 2.55.0.979.g7e5102b832-goog
 
