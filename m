@@ -1,920 +1,358 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 637845237B5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:34:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDB3530DF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813258; cv=none; b=Kx6ca0LoIuczoloAICTN2b8kc/Nn3QcxL0qeXu7LtmKS4F20zZbE/J64BzQqy5re3XfevqSdUUK6uhv35WQaLX/4ofC1nb8+z1liFbvlIjptj7WnOC1q6jAt6Gvk/5wX8LkAGTaa3abVI6X9mhoXkh9CqNs5SJPbFssr7/TCqrU=
+	t=1788813271; cv=none; b=pCIWy8optjy0fJtsCK4AJGUDFx75ECA7A3pg4ujjRqiSEo/u6uUx7Ed/aNPSYznt2gKr/r6O7yPhFeB1egmiqSqqVgRjQKqywfGZfIvOXDFgmDo9xMzdYt4sSjEo4WGnEhvG4h38kgyGEaAQOZRqEHd70ECUmd63YRZNvQQ+1nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813258; c=relaxed/simple;
-	bh=MnJEj0B8CcYBACLAw3JsCqugpkGMobiamsNHgKngBxQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dkFX+yZG+H+JtyVGjqi6UQ2mcUJpr1iy2woLdMHkb6CJhI25uIwK82oOZiX7s+y+KdrXUvEzab6u0TP6aoQLQVxc4+9LfNYVKBU1bQUZZUdf9CdDC3zFa2SOE79b/WRFQVjkD+zj0RdkRUJTv+BnsHhU2ej0bElkPWOkjk8mNrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtyStryj; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788813271; c=relaxed/simple;
+	bh=FQBKNG1LQN+Or7ubGtjxhGSxqu1NLRi2ZcAg1jgnpUg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RA1XXeFxPdPKWEgOfRs6wPgbOymkhGqR+UVpo/ahWXe+vMf5QUiu6hMBkGdL5meyZ7vn9eI8IHuJ0liAnib45P8J1two2ymo9F1jOcTVD6Fn794zC6lEx5AYUyBDzZJ7b3YsFQ5sZo5J4FqppX+5nyzlsAK0arMcgwNR40L1XM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OoC2xGnw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G+u0tUHX; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtyStryj"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48436251906so4454163f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:34:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OoC2xGnw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G+u0tUHX"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HaZqP1109733
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:34:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=; b=OoC2xGnwIVw6+/zZ
+	YxCdpugcl1dqQF7oeAl0Woy+xsNAbcrpS3How7xgwvFlmMivmSDKD1m4A8p6gFaw
+	lmbqNMzvXFJ+UysU+cBoneggQhjbTZqatOqXVxFcL9aa72vQKZSZFgwFFgp8W225
+	qKQ9EyIvr7H3jXCxqLsYWSAMi1T+MizyceS9FcrFVSKtdIiENX8idaa43/JZA7GC
+	X+ABngcgEW5MkJhrzyK2K4AWyCCMefZIkS/X7c1700R/IUL3P/tI/5szjMnxFkIC
+	ct7roYKVwtSpD+OUbhF4fe2YBPgPmXQjYTcnLUWG8MmqCOY1GIOzvpCNq75l28+C
+	cKJGPQ==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqj9u5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:34:24 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2db22383e8fso40387415ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:34:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788813251; x=1789418051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1788813263; x=1789418063; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mWk40ktaGFYc0a5WN0YPWh/YYHzjM0DGHQ579TPtQxI=;
-        b=KtyStryjRXlIXpAUMfjwHjPp6sO9faozSCVYX96SmGPRfRyCkqWsnv+xe+V0I27F6q
-         o0TG3SyBb8YrBZjpZBEmIWQjL4USJoAFCmQVMipfmdTo1tjOsdPmFBTDHhmGt4c+4RXn
-         1V8Ya5Hr/euVgiaqXre7Yyf6Wbcmye1gz8HiC5+iyFMVSRmCNsjAeB95GXSMgZ8bEVAc
-         Gf0AaBMwOE8dvQKsmwHX7IF9bj4w1VOrUewl+6Qp0qohU3siMsZmmV5WflWjuRrXx4Pu
-         TBnL3y31Iptc68JJcr4kEaQ+DBKCvydWxWCC2vqSGHjJq8xH95uzTxIpr+D4z0waSNGK
-         t+uQ==
+        bh=tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=;
+        b=G+u0tUHXHB2yPT7hkdqvLOgH9IjLDnGbJ0oWvFmX/MJg0/MU/erCHwppJOLz+B/IHl
+         uxaWDZzDaSZk9utDQoZwuI5ar1xtoUHo7mOejggMpy2JYu/8mW/RSNehzMP7EHXF0XEg
+         ovj6342iZH+IQyqyMvk1Wb6ZqQSzENx+VSBI9etuPvhwo3ZOEDf67yFyPMcwlFbJeGen
+         hLdldVwPkERXHer+hHQ9a5tWXtXepTyEBcS1bcn2eW7z97GjFWWopmGtncf5qe5HZKVT
+         PhIAoMZhqOxWrE9kCtgJqfIJmkz/AwtS0UXuvrJTIyLL9YUzijvgOoFa4VKvwN68v4y+
+         /8FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813251; x=1789418051;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mWk40ktaGFYc0a5WN0YPWh/YYHzjM0DGHQ579TPtQxI=;
-        b=fRI7TAx8hfWH63LXxsQBOWCalhBAEPC2Rq+w74K4Z0MnLK6A7yhZ2H6RFdPvveFlql
-         DN3rdIHXwSGwzdvstGdSiKt1YlgBJ8V4EFbDsM+pIPkA97XCIKKpL7JLWNTReiOGjOPD
-         1wBtA3nkb6/10RTTyvdkNd1EDIQLCrjW8LbLVLKMJEkTnslKTUQ4SQKEGoRBe5PbNC38
-         A4b0UJ7SL9vnOulYMXItYzOfnGaxfdokoYC0aasR4t4QpPAHqGk7VbcRlLUpbRI1d+g1
-         Jc4vJFIRdOaW1MprSFI2NjLQRlsA/Zz6HsHzChtQZp2jpiAqPJ9P750LYxlUjB6w6kaV
-         +KZw==
-X-Forwarded-Encrypted: i=1; AKwUvByO5nxvCIZMUHK7dxhca0a6ewZmivU1pipi6aRifIkGPWTy891y9yLwSUIV+bkHvpAqbj2YCo1LroBRxKs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0LfyN9UhbYcmT4h8rQp2su2w6NlYteB0DqnTWTecBH8aNaHVJ
-	r+r8Ut+QAmWFeUP/BgBnXkkILkYCInVgwcMx9oWssuWp7gRAyezZavre
-X-Gm-Gg: AYBFou0DVirz1JTzrkgXp7HiFR2J7918wXxPHVNeZtFWlHyYwnM7D2ZptMX1g9IhasE
-	a3vaY7ouQK/r8P7ga+lczhGQ7/iL2dM2LW9ZqOBv4K7f+oydgcdXbfqDZoPxiagrXjTsPqJEa6I
-	3qWVblMTsktRcW/SBfHeAxJWP6TQQPrQHNDS7R8jtBJ4e5rtBqOAzmkFTmJjDsVMTBolP+Pq/1o
-	TD4GJ6v1ctRDCSPbu98RFYDyJBGAB4CyFEjeNR/zU2Ee0A/E5UK/Od0iVKwQWLIrz9qvjn1rk3c
-	G0BrlP1bj1n0RuI+Duv3jVfKhmv+tuDSdxWl+MxEtWxN6yVC4rP/DfImZNrDaM94l/voBDIutqI
-	GwRgHSptnLkR6jw44hVTdtmt360v56mJ6XVQ1sVC5gTegTrHgEfrnDQSGEHzAxnJ0tTIDQX8RJG
-	z5u5MWJb/HtDBSFZe022rOudOPyj0aT9v0BhI0vnuhTFvv0mKXDwJkcNNrRyczdKppuBUHz3iM
-X-Received: by 2002:a05:6000:4b11:b0:485:8313:9f47 with SMTP id ffacd0b85a97d-48587055d09mr53237162f8f.10.1788813251455;
-        Mon, 07 Sep 2026 13:34:11 -0700 (PDT)
-Received: from antoniarch ([78.212.37.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm25959116f8f.9.2026.09.07.13.34.10
+        d=1e100.net; s=20251104; t=1788813263; x=1789418063;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=;
+        b=RAlruVtF3jA6lm8T83/032DH2deauClF+Qp6MQbzNpCpiAhSpVcXKUDR/36+aTVc9e
+         KYhPrmK3X5oUNV9HA5TE97YgOVdlH6DTTgXQDoViMvX6MgRDvtbhcq/dX7NjkHKHSfjt
+         1TmkJGTvI4KdY9jUjIsrKibp3NaHahDt7G0Y3aUoEx6qHGzznWScL0KyA3wu9t/ps4u1
+         pcxZNt8Lin2i+1rqBtjFuXExn5lz+/8MjZ6KOBMeXq/ytW/jHhf8ripThV38JzUTwsdk
+         etI9AWuHn92U0g8v5yR8GYbqDyTMor5Q1/yqAqU9FfUmneuCQ1dWxkmbNsT+nlTailhC
+         nnuw==
+X-Gm-Message-State: AFuF++kzTvD+Y5Y2UY6fVlmkUbhBHb0Pt/gHc2Fu5EtxJw72YJuvoUUB
+	su9eTKQHWhYvbZx02BchJ7jlExjpZLVpi9I0dX3bti3e5kLa6KOREmK5Dy8xMuzuUZVHSV5EoC8
+	kN1Jm3+tDGHY7KAWOrdNxAH1+5+NrYF5qhlATp9v/4241dmNIwMLG6WZmC73mzpJikQ==
+X-Gm-Gg: AYBFou2HKXPAv2eujQE9++WTs2HWepnqBdhHHY4zHdyBxEOAnCz9GOBbAGJaTkMwk8g
+	5uDKQzdWKof4IwOBQEHGw56xAJ+K4Klo5IAYG7OgPpPchuAAvh5KWcrm7z2n21lalTCaV+I7Dc1
+	qvOZN78zoeTDQ5juD+CTDkppDZ13LIqeD3O3xprTe2vOupYHrAWDwmKVw038g4MNDl8j2CFatjs
+	xOEm3Et17c/ha0YZXNfhPpe1OWQrqTnYounWyQu935Hzi4uUwDEd0IIO+Iq0k9kflWq40RxZNGH
+	zVC4ZiwAXPevRHneGr3HkCbINF4IRreVvE+hJJ9spMROEN6fa814qsrZAprEQR9b0swDYzsAHz8
+	xS/U8U98VBKMQUGLREbjgW7MSQ480e8wnT+lciyenONFS8jDF15yRbvu1W/58lpQERKX2tkHpbn
+	1ITgToTHb55Mx4kc20xyQ2LQ==
+X-Received: by 2002:a17:902:c951:b0:2d9:2b1b:878a with SMTP id d9443c01a7336-2dafaf60ec2mr291623945ad.10.1788813263338;
+        Mon, 07 Sep 2026 13:34:23 -0700 (PDT)
+X-Received: by 2002:a17:902:c951:b0:2d9:2b1b:878a with SMTP id d9443c01a7336-2dafaf60ec2mr291623525ad.10.1788813262835;
+        Mon, 07 Sep 2026 13:34:22 -0700 (PDT)
+Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm47841297eec.16.2026.09.07.13.34.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:34:10 -0700 (PDT)
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: alexandre.belloni@bootlin.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v6 6/9] rtc: abx80x: use regmap instead of I2C specific API
-Date: Mon,  7 Sep 2026 22:32:13 +0200
-Message-ID: <20260907203216.53192-7-apokusinski01@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907203216.53192-1-apokusinski01@gmail.com>
-References: <20260907203216.53192-1-apokusinski01@gmail.com>
+        Mon, 07 Sep 2026 13:34:22 -0700 (PDT)
+From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+Date: Tue, 08 Sep 2026 01:59:27 +0530
+Subject: [PATCH wireless-next 18/18] wifi: mac80211: Add mac80211 support
+ to handle NL80211_CMD_GET_SMD_CTX
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-smd-v1-18-65ad4ab30fbd@oss.qualcomm.com>
+References: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
+In-Reply-To: <20260908-smd-v1-0-65ad4ab30fbd@oss.qualcomm.com>
+To: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        linux-wireless@vger.kernel.org,
+        Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX4dNvSSs28eV/
+ zDLT4VDRNpHuK8lm0oL3f0mhAyINfwYxB11fnsVOTqwtdL53qGBh+KQq7ktestmraAtb283kNGQ
+ nSW7w0k0X5c1katapiTsGC4zxoMuPin95t9riDLyuFHL9kFlkUPtFRypfNi1u5PgN26TmxmIq3r
+ 4Aied+mjdIoqwrH6orprLfpcIKgDI/WosXhhU37rKbFupXj0tt7GzFi89Z7HeAlIopsUdyF51rF
+ 8Ul6tOcNiDfZSoitfJ4B4C9wd6mS7KGOxuUjHKzq1Y8OoiwgCEB7vxdCmZ4OW9z796DGE3U2n2R
+ qMqleGfh9oOVMqMY1gbhE6KvEvuVs4hUPko7ABm5Ge95g9vNWYo19NVhBLCGHUmyaoWh0U7tiJu
+ fCjMgJvs4vLD4ejMKhC7VG0xdvheNhD/qQ5n2sOCib1Mt29QcV7tdzmuXLia4wQTY9o2ls2emk9
+ +TmNbX+zLeMSiWerv0A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNiBTYWx0ZWRfX8bm0n90YyiEr
+ iJkEq7thfQ/HrfgSsUNBDcU3ri7aGMPl/r70wZ20TKrCG3sFG/1+/aA778NPZo5jYrYjD5zYWiO
+ Dvm4rnAV7nacPq+2IFPK+XCOMTMLN5A=
+X-Proofpoint-ORIG-GUID: ZohPbF-A7ksPzwRaRh3Q23A6G3XXte_0
+X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9f1fd0 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=c93CP5vvwBK-QZUl55wA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22
+X-Proofpoint-GUID: ZohPbF-A7ksPzwRaRh3Q23A6G3XXte_0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_05,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1011
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070226
 
-Rework the driver so that it uses regmap_* functions for communication
-with the device instead of the i2c_smbus_* API. This way the support for
-ABX81X RTCs which use SPI can be added later.
+cfg80211 supports NL80211_CMD_GET_SMD_CTX from userspace on the current
+AP MLD to collect the station's context on the target AP MLD's behalf;
+this context is used by the target AP MLD to program its TX and RX
+queues to support seamless roaming of the non-AP MLD.
 
-Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
+Implement the get_smd_ctx cfg80211_op in mac80211 to invoke the driver
+to collect the requested station context. Because context collection is
+asynchronous, the driver signals completion later via
+ieee80211_get_smd_ctx_done(), which packs the collected context into
+NL80211_CMD_SMD_CTX_EVENT and delivers it to userspace as a multicast
+event.
+
+Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- drivers/rtc/Kconfig      |   1 +
- drivers/rtc/rtc-abx80x.c | 393 +++++++++++++++++++++------------------
- 2 files changed, 213 insertions(+), 181 deletions(-)
+ include/net/mac80211.h    | 23 +++++++++++++++++++++++
+ net/mac80211/cfg.c        | 34 ++++++++++++++++++++++++++++++++++
+ net/mac80211/driver-ops.h | 24 ++++++++++++++++++++++++
+ net/mac80211/sta_info.c   |  6 ++++++
+ net/mac80211/trace.h      | 27 +++++++++++++++++++++++++++
+ 5 files changed, 114 insertions(+)
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 01def8231873..4d14bcba616e 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -215,6 +215,7 @@ config RTC_DRV_ABEOZ9
- config RTC_DRV_ABX80X
- 	tristate "Abracon ABx80x"
- 	select WATCHDOG_CORE if WATCHDOG
-+	select REGMAP_I2C
- 	help
- 	  If you say yes here you get support for Abracon AB080X and AB180X
- 	  families of ultra-low-power  battery- and capacitor-backed real-time
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 529f63e024f8..7b8e6546ccff 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -17,6 +17,7 @@
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-+#include <linux/regmap.h>
- #include <linux/rtc.h>
- #include <linux/watchdog.h>
- 
-@@ -132,53 +133,55 @@ static struct abx80x_cap abx80x_caps[] = {
- 
- struct abx80x_priv {
- 	struct rtc_device *rtc;
--	struct i2c_client *client;
-+	struct regmap *regmap;
- 	struct watchdog_device wdog;
- 	struct mutex lock;
- 	int irq;
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index e0e13f0ed31f..f16112e41594 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -2528,6 +2528,21 @@ enum ieee80211_sta_state {
+ 	IEEE80211_STA_AUTHORIZED,
  };
  
--static int abx80x_write_config_key(struct i2c_client *client, u8 key)
-+static int abx80x_write_config_key(struct device *dev, u8 key)
- {
--	if (i2c_smbus_write_byte_data(client, ABX8XX_REG_CFG_KEY, key) < 0) {
--		dev_err(&client->dev, "Unable to write configuration key\n");
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
++/**
++ * ieee80211_get_smd_ctx_done - Deliver async get_smd_ctx result to nl80211
++ * @vif: virtual interface
++ * @sta_addr: non-AP MLD address the context was collected for
++ * @st_info: SMD BSS Transition Info (@st_info or @st_info->ctx may be NULL to
++ *	indicate failure). @st_info is owned by the driver.
++ *
++ * Called by the driver after the %NL80211_CMD_GET_SMD_CTX context collection
++ * is complete. mac80211 forwards the result to cfg80211 which finds the pending
++ * nl80211 request and sends reply to userspace.
++ */
++void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
++				const u8 *sta_addr,
++				struct cfg80211_smd_transition_info *st_info);
 +
-+	if (regmap_write(priv->regmap, ABX8XX_REG_CFG_KEY, key) < 0) {
-+		dev_err(dev, "Unable to write configuration key\n");
- 		return -EIO;
- 	}
+ /**
+  * enum ieee80211_sta_rx_bandwidth - station RX bandwidth
+  * @IEEE80211_STA_RX_BW_20: station can only receive 20 MHz
+@@ -4782,6 +4797,11 @@ enum ieee80211_sta_smd_state {
+  *	The callback can sleep.
+  * @set_smd_ctx: Set the UHR SMD context for the non-AP MLD. This is used on
+  *	the target AP MLD side to program dynamic context.
++ * @get_smd_ctx: Get the UHR SMD context for the non-AP MLD. This is used in
++ *	the current AP MLD side on behalf of the target AP MLD to collect
++ *	dynamic context, when the non-AP MLD sends ST Execute frame directly
++ *	to the target. Since the response is asynchronous, the drivers that
++ *	implement this should not store reference to @sta.
+  */
+ struct ieee80211_ops {
+ 	void (*tx)(struct ieee80211_hw *hw,
+@@ -5191,6 +5211,9 @@ struct ieee80211_ops {
+ 	int (*set_smd_ctx)(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
+ 			   struct ieee80211_sta *sta,
+ 			   struct cfg80211_smd_transition_info *st_info);
++	int (*get_smd_ctx)(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
++			   struct ieee80211_sta *sta,
++			   enum nl80211_smd_ctx_type type);
+ };
  
+ /**
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 268d5f42293a..a33ce96a4752 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -6104,6 +6104,39 @@ static int ieee80211_set_smd_ctx(struct wiphy *wiphy, struct wireless_dev *wdev,
+ 	return drv_set_smd_ctx(local, sdata, &sta->sta, st_info);
+ }
+ 
++static int ieee80211_get_smd_ctx(struct wiphy *wiphy, struct wireless_dev *wdev,
++				 const u8 *addr,
++				 enum nl80211_smd_ctx_type type)
++{
++	struct ieee80211_local *local = wiphy_priv(wiphy);
++	struct ieee80211_sub_if_data *sdata;
++	struct sta_info *sta;
++
++	lockdep_assert_wiphy(wiphy);
++
++	sdata = IEEE80211_WDEV_TO_SUB_IF(wdev);
++
++	if (sdata->vif.type != NL80211_IFTYPE_AP &&
++	    sdata->vif.type != NL80211_IFTYPE_AP_VLAN)
++		return -EOPNOTSUPP;
++
++	sta = sta_info_get_bss(sdata, addr);
++	if (!sta || !sta->sta.smd_params.smd_sta)
++		return -EINVAL;
++
++	return drv_get_smd_ctx(local, sdata, &sta->sta, type);
++}
++
++void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
++				const u8 *sta_addr,
++				struct cfg80211_smd_transition_info *st_info)
++{
++	struct ieee80211_sub_if_data *sdata = vif_to_sdata(vif);
++
++	cfg80211_get_smd_ctx_done(&sdata->wdev, sta_addr, st_info);
++}
++EXPORT_SYMBOL(ieee80211_get_smd_ctx_done);
++
+ const struct cfg80211_ops mac80211_config_ops = {
+ 	.add_virtual_intf = ieee80211_add_iface,
+ 	.del_virtual_intf = ieee80211_del_iface,
+@@ -6223,4 +6256,5 @@ const struct cfg80211_ops mac80211_config_ops = {
+ 	.nan_set_local_sched = ieee80211_set_local_nan_sched,
+ 	.nan_set_peer_sched = ieee80211_set_peer_nan_sched,
+ 	.set_smd_ctx = ieee80211_set_smd_ctx,
++	.get_smd_ctx = ieee80211_get_smd_ctx,
+ };
+diff --git a/net/mac80211/driver-ops.h b/net/mac80211/driver-ops.h
+index e764dd394de2..0339ff71cd4a 100644
+--- a/net/mac80211/driver-ops.h
++++ b/net/mac80211/driver-ops.h
+@@ -1844,4 +1844,28 @@ static inline int drv_set_smd_ctx(struct ieee80211_local *local,
+ 	return ret;
+ }
+ 
++static inline int drv_get_smd_ctx(struct ieee80211_local *local,
++				  struct ieee80211_sub_if_data *sdata,
++				  struct ieee80211_sta *sta,
++				  enum nl80211_smd_ctx_type type)
++{
++	int ret;
++
++	if (!sdata || !local->ops->get_smd_ctx)
++		return -EOPNOTSUPP;
++
++	sdata = get_bss_sdata(sdata);
++
++	lockdep_assert_wiphy(local->hw.wiphy);
++
++	if (!check_sdata_in_driver(sdata))
++		return -EIO;
++
++	trace_drv_get_smd_ctx(local, sdata, sta, type);
++	ret = local->ops->get_smd_ctx(&local->hw, &sdata->vif, sta, type);
++	trace_drv_return_int(local, ret);
++
++	return ret;
++}
++
+ #endif /* __MAC80211_DRIVER_OPS */
+diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
+index 5aa6f5b481e3..9ea0a8791289 100644
+--- a/net/mac80211/sta_info.c
++++ b/net/mac80211/sta_info.c
+@@ -1312,6 +1312,7 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
+ {
+ 	struct ieee80211_local *local;
+ 	struct ieee80211_sub_if_data *sdata;
++	struct wireless_dev *wdev;
+ 	int ret, i;
+ 
+ 	might_sleep();
+@@ -1321,6 +1322,7 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
+ 
+ 	local = sta->local;
+ 	sdata = sta->sdata;
++	wdev = &sdata->wdev;
+ 
+ 	lockdep_assert_wiphy(local->hw.wiphy);
+ 
+@@ -1390,6 +1392,10 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
+ 	    rcu_access_pointer(sdata->u.vlan.sta) == sta)
+ 		RCU_INIT_POINTER(sdata->u.vlan.sta, NULL);
+ 
++	if (sdata->vif.type == NL80211_IFTYPE_AP ||
++	    sdata->vif.type == NL80211_IFTYPE_AP_VLAN)
++		cfg80211_free_pending_smd_ctx_req(wdev, sta->addr);
++
  	return 0;
  }
  
--static int abx80x_is_rc_mode(struct i2c_client *client)
-+static int abx80x_is_rc_mode(struct device *dev)
- {
--	int flags = 0;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
-+	unsigned int flags = 0;
-+	int err;
- 
--	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
--	if (flags < 0) {
--		dev_err(&client->dev,
--			"Failed to read autocalibration attribute\n");
--		return flags;
-+	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
-+	if (err < 0) {
-+		dev_err(dev, "Failed to read autocalibration attribute\n");
-+		return err;
- 	}
- 
- 	return (flags & ABX8XX_OSS_OMODE) ? 1 : 0;
- }
- 
--static int abx80x_enable_trickle_charger(struct i2c_client *client,
--					 u8 trickle_cfg)
-+static int abx80x_enable_trickle_charger(struct device *dev, u8 trickle_cfg)
- {
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	int err;
- 
- 	/*
- 	 * Write the configuration key register to enable access to the Trickle
- 	 * register
- 	 */
--	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_MISC) < 0)
-+	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_MISC) < 0)
- 		return -EIO;
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_TRICKLE,
--					ABX8XX_TRICKLE_CHARGE_ENABLE |
--					trickle_cfg);
-+	err = regmap_write(priv->regmap, ABX8XX_REG_TRICKLE,
-+			   ABX8XX_TRICKLE_CHARGE_ENABLE | trickle_cfg);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write trickle register\n");
-+		dev_err(dev, "Unable to write trickle register\n");
- 		return -EIO;
- 	}
- 
-@@ -187,19 +190,20 @@ static int abx80x_enable_trickle_charger(struct i2c_client *client,
- 
- static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- {
--	struct i2c_client *client = to_i2c_client(dev);
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	unsigned char buf[8];
--	int err, flags, rc_mode = 0;
-+	unsigned int flags;
-+	int err, rc_mode = 0;
- 
- 	/* Read the Oscillator Failure only in XT mode */
--	rc_mode = abx80x_is_rc_mode(client);
-+	rc_mode = abx80x_is_rc_mode(dev);
- 	if (rc_mode < 0)
- 		return rc_mode;
- 
- 	if (!rc_mode) {
--		flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
--		if (flags < 0)
--			return flags;
-+		err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
-+		if (err < 0)
-+			return err;
- 
- 		if (flags & ABX8XX_OSS_OF) {
- 			dev_err(dev, "Oscillator failure, data is invalid.\n");
-@@ -207,10 +211,9 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 		}
- 	}
- 
--	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_HTH,
--					    sizeof(buf), buf);
-+	err = regmap_bulk_read(priv->regmap, ABX8XX_REG_HTH, buf, sizeof(buf));
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to read date\n");
-+		dev_err(dev, "Unable to read date\n");
- 		return -EIO;
- 	}
- 
-@@ -227,10 +230,10 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 
- static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	unsigned char buf[8];
--	int err, flags;
-+	unsigned int flags;
-+	int err;
- 
- 	if (tm->tm_year < 100)
- 		return -EINVAL;
-@@ -246,22 +249,22 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- 
- 	guard(mutex)(&priv->lock);
- 
--	err = i2c_smbus_write_i2c_block_data(client, ABX8XX_REG_HTH,
--					     sizeof(buf), buf);
-+	err = regmap_bulk_write(priv->regmap, ABX8XX_REG_HTH, buf,
-+				sizeof(buf));
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write to date registers\n");
-+		dev_err(dev, "Unable to write to date registers\n");
- 		return -EIO;
- 	}
- 
- 	/* Clear the OF bit of Oscillator Status Register */
--	flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSS);
--	if (flags < 0)
--		return flags;
-+	err = regmap_read(priv->regmap, ABX8XX_REG_OSS, &flags);
-+	if (err < 0)
-+		return err;
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSS,
--					flags & ~ABX8XX_OSS_OF);
-+	err = regmap_write(priv->regmap, ABX8XX_REG_OSS,
-+			   flags & ~ABX8XX_OSS_OF);
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write oscillator status register\n");
-+		dev_err(dev, "Unable to write oscillator status register\n");
- 		return err;
- 	}
- 
-@@ -270,16 +273,16 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- 
- static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- {
--	struct i2c_client *client = dev_id;
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
-+	struct device *dev = dev_id;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	struct rtc_device *rtc = priv->rtc;
--	unsigned int status_flags_clear;
--	int status;
-+	unsigned int status, status_flags_clear;
-+	int err;
- 
- 	guard(mutex)(&priv->lock);
- 
--	status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
--	if (status < 0)
-+	err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
-+	if (err < 0)
- 		return IRQ_NONE;
- 
- 	if (status & ABX8XX_STATUS_AF)
-@@ -290,13 +293,13 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- 	 * reset kicks in.
- 	 */
- 	if (status & ABX8XX_STATUS_WDT)
--		dev_alert(&client->dev, "watchdog timeout interrupt.\n");
-+		dev_alert(dev, "watchdog timeout interrupt.\n");
- 
- 	status_flags_clear = status & (ABX8XX_STATUS_AF | ABX8XX_STATUS_WDT);
- 
- 	if (status_flags_clear) {
--		i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
--					  ~status_flags_clear);
-+		regmap_write(priv->regmap, ABX8XX_REG_STATUS,
-+			     ~status_flags_clear);
- 		return IRQ_HANDLED;
- 	}
- 
-@@ -305,25 +308,24 @@ static irqreturn_t abx80x_handle_irq(int irq, void *dev_id)
- 
- static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	unsigned char buf[7];
- 
--	int irq_mask, err;
-+	unsigned int irq_mask;
-+	int err;
- 
- 	if (priv->irq <= 0)
- 		return -EINVAL;
- 
--	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
--					    sizeof(buf), buf);
--	if (err < 0)
-+	err = regmap_bulk_read(priv->regmap, ABX8XX_REG_ASC, buf, sizeof(buf));
-+	if (err)
- 		return err;
- 	if (err < ARRAY_SIZE(buf))
- 		return -EIO;
- 
--	irq_mask = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
--	if (irq_mask < 0)
--		return irq_mask;
-+	err = regmap_read(priv->regmap, ABX8XX_REG_IRQ, &irq_mask);
-+	if (err < 0)
-+		return err;
- 
- 	t->time.tm_sec = bcd2bin(buf[0] & 0x7F);
- 	t->time.tm_min = bcd2bin(buf[1] & 0x7F);
-@@ -340,8 +342,7 @@ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
- 
- static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	u8 alarm[6];
- 	int err;
- 
-@@ -357,17 +358,16 @@ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
- 
- 	guard(mutex)(&priv->lock);
- 
--	err = i2c_smbus_write_i2c_block_data(client, ABX8XX_REG_AHTH,
--					     sizeof(alarm), alarm);
-+	err = regmap_bulk_write(priv->regmap, ABX8XX_REG_AHTH,
-+				alarm, sizeof(alarm));
- 	if (err < 0) {
--		dev_err(&client->dev, "Unable to write alarm registers\n");
-+		dev_err(dev, "Unable to write alarm registers\n");
- 		return -EIO;
- 	}
- 
- 	if (t->enabled) {
--		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
--						(ABX8XX_IRQ_IM_1_4 |
--						 ABX8XX_IRQ_AIE));
-+		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
-+				   ABX8XX_IRQ_IM_1_4 | ABX8XX_IRQ_AIE);
- 		if (err)
- 			return err;
- 	}
-@@ -378,9 +378,9 @@ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
- static int abx80x_rtc_set_autocalibration(struct device *dev,
- 					  int autocalibration)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
--	int retval, flags = 0;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
-+	unsigned int flags = 0;
-+	int retval;
- 
- 	if ((autocalibration != 0) && (autocalibration != 1024) &&
- 	    (autocalibration != 512)) {
-@@ -390,9 +390,9 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
- 
- 	guard(mutex)(&priv->lock);
- 
--	flags = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
--	if (flags < 0)
--		return flags;
-+	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
-+	if (retval < 0)
-+		return retval;
- 
- 	if (autocalibration == 0) {
- 		flags &= ~(ABX8XX_OSC_ACAL_512 | ABX8XX_OSC_ACAL_1024);
-@@ -406,22 +406,23 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
- 	}
- 
- 	/* Unlock write access to Oscillator Control Register */
--	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
-+	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	retval = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
-+	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
- 
- 	return retval;
- }
- 
- static int abx80x_rtc_get_autocalibration(struct device *dev)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	int flags = 0, autocalibration;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
-+	unsigned int flags = 0;
-+	int autocalibration, err;
- 
--	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
--	if (flags < 0)
--		return flags;
-+	err = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
-+	if (err < 0)
-+		return err;
- 
- 	if (flags & ABX8XX_OSC_ACAL_512)
- 		autocalibration = 512;
-@@ -472,9 +473,9 @@ static ssize_t oscillator_store(struct device *dev,
- 				struct device_attribute *attr,
- 				const char *buf, size_t count)
- {
--	struct i2c_client *client = to_i2c_client(dev->parent);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
--	int retval, flags, rc_mode = 0;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev->parent);
-+	int retval, rc_mode = 0;
-+	unsigned int flags;
- 
- 	if (strncmp(buf, "rc", 2) == 0) {
- 		rc_mode = 1;
-@@ -487,9 +488,9 @@ static ssize_t oscillator_store(struct device *dev,
- 
- 	guard(mutex)(&priv->lock);
- 
--	flags =  i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
--	if (flags < 0)
--		return flags;
-+	retval = regmap_read(priv->regmap, ABX8XX_REG_OSC, &flags);
-+	if (retval < 0)
-+		return retval;
- 
- 	if (rc_mode == 0)
- 		flags &= ~(ABX8XX_OSC_OSEL);
-@@ -497,10 +498,10 @@ static ssize_t oscillator_store(struct device *dev,
- 		flags |= (ABX8XX_OSC_OSEL);
- 
- 	/* Unlock write access on Oscillator Control register */
--	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
-+	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	retval = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC, flags);
-+	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
- 	if (retval < 0) {
- 		dev_err(dev, "Failed to write Oscillator Control register\n");
- 		return retval;
-@@ -513,9 +514,8 @@ static ssize_t oscillator_show(struct device *dev,
- 			       struct device_attribute *attr, char *buf)
- {
- 	int rc_mode = 0;
--	struct i2c_client *client = to_i2c_client(dev->parent);
- 
--	rc_mode = abx80x_is_rc_mode(client);
-+	rc_mode = abx80x_is_rc_mode(dev->parent);
- 
- 	if (rc_mode < 0) {
- 		dev_err(dev, "Failed to read RTC oscillator selection\n");
-@@ -543,33 +543,31 @@ static const struct attribute_group rtc_calib_attr_group = {
- 
- static int abx80x_alarm_irq_enable(struct device *dev, unsigned int enabled)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
- 	int err;
- 
- 	guard(mutex)(&priv->lock);
- 
- 	if (enabled)
--		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
--						(ABX8XX_IRQ_IM_1_4 |
--						 ABX8XX_IRQ_AIE));
-+		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
-+				   ABX8XX_IRQ_IM_1_4 | ABX8XX_IRQ_AIE);
- 	else
--		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
--						ABX8XX_IRQ_IM_1_4);
-+		err = regmap_write(priv->regmap, ABX8XX_REG_IRQ,
-+				   ABX8XX_IRQ_IM_1_4);
- 	return err;
- }
- 
- static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
- {
--	struct i2c_client *client = to_i2c_client(dev);
--	struct abx80x_priv *priv = i2c_get_clientdata(client);
--	int status, tmp;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
-+	unsigned int status;
-+	int err, tmp;
- 
- 	switch (cmd) {
- 	case RTC_VL_READ:
--		status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
--		if (status < 0)
--			return status;
-+		err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
-+		if (err < 0)
-+			return err;
- 
- 		tmp = status & ABX8XX_STATUS_BLF ? RTC_VL_BACKUP_LOW : 0;
- 
-@@ -577,16 +575,15 @@ static int abx80x_ioctl(struct device *dev, unsigned int cmd, unsigned long arg)
- 
- 	case RTC_VL_CLR:
- 		scoped_guard(mutex, &priv->lock) {
--			status = i2c_smbus_read_byte_data(client, ABX8XX_REG_STATUS);
--			if (status < 0)
--				return status;
-+			err = regmap_read(priv->regmap, ABX8XX_REG_STATUS, &status);
-+			if (err < 0)
-+				return err;
- 
- 			status &= ~ABX8XX_STATUS_BLF;
- 
--			tmp = i2c_smbus_write_byte_data(client, ABX8XX_REG_STATUS,
--							status);
--			if (tmp < 0)
--				return tmp;
-+			err = regmap_write(priv->regmap, ABX8XX_REG_STATUS, status);
-+			if (err < 0)
-+				return err;
- 		}
- 
- 		return 0;
-@@ -605,9 +602,9 @@ static const struct rtc_class_ops abx80x_rtc_ops = {
- 	.ioctl		= abx80x_ioctl,
- };
- 
--static int abx80x_dt_trickle_cfg(struct i2c_client *client)
-+static int abx80x_dt_trickle_cfg(struct device *dev)
- {
--	struct device_node *np = client->dev.of_node;
-+	struct device_node *np = dev->of_node;
- 	const char *diode;
- 	int trickle_cfg = 0;
- 	int i, ret;
-@@ -622,7 +619,7 @@ static int abx80x_dt_trickle_cfg(struct i2c_client *client)
- 	} else if (!strcmp(diode, "schottky")) {
- 		trickle_cfg |= ABX8XX_TRICKLE_SCHOTTKY_DIODE;
- 	} else {
--		dev_dbg(&client->dev, "Invalid tc-diode value: %s\n", diode);
-+		dev_dbg(dev, "Invalid tc-diode value: %s\n", diode);
- 		return -EINVAL;
- 	}
- 
-@@ -635,7 +632,7 @@ static int abx80x_dt_trickle_cfg(struct i2c_client *client)
- 			break;
- 
- 	if (i == sizeof(trickle_resistors)) {
--		dev_dbg(&client->dev, "Invalid tc-resistor value: %u\n", tmp);
-+		dev_dbg(dev, "Invalid tc-resistor value: %u\n", tmp);
- 		return -EINVAL;
- 	}
- 
-@@ -662,7 +659,7 @@ static int __abx80x_wdog_set_timeout(struct watchdog_device *wdog,
- 	 * Writing any timeout to the WDT register resets the watchdog timer.
- 	 * Writing 0 disables it.
- 	 */
--	return i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_WDT, val);
-+	return regmap_write(priv->regmap, ABX8XX_REG_WDT, val);
- }
- 
- static int abx80x_wdog_set_timeout(struct watchdog_device *wdog,
-@@ -707,9 +704,11 @@ static const struct watchdog_ops abx80x_wdog_ops = {
- 	.set_timeout = abx80x_wdog_set_timeout,
- };
- 
--static int abx80x_setup_watchdog(struct abx80x_priv *priv)
-+static int abx80x_setup_watchdog(struct device *dev)
- {
--	priv->wdog.parent = &priv->client->dev;
-+	struct abx80x_priv *priv = dev_get_drvdata(dev);
+diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
+index 7aba79e441cf..38ad5076232d 100644
+--- a/net/mac80211/trace.h
++++ b/net/mac80211/trace.h
+@@ -3487,6 +3487,33 @@ TRACE_EVENT(drv_set_smd_ctx,
+ 	)
+ );
+ 
++TRACE_EVENT(drv_get_smd_ctx,
++	TP_PROTO(struct ieee80211_local *local,
++		 struct ieee80211_sub_if_data *sdata,
++		 struct ieee80211_sta *sta,
++		 enum nl80211_smd_ctx_type type),
 +
-+	priv->wdog.parent = dev;
- 	priv->wdog.ops = &abx80x_wdog_ops;
- 	priv->wdog.info = &abx80x_wdog_info;
- 	priv->wdog.min_timeout = 1;
-@@ -718,10 +717,10 @@ static int abx80x_setup_watchdog(struct abx80x_priv *priv)
- 
- 	watchdog_set_drvdata(&priv->wdog, priv);
- 
--	return devm_watchdog_register_device(&priv->client->dev, &priv->wdog);
-+	return devm_watchdog_register_device(dev, &priv->wdog);
- }
- #else
--static int abx80x_setup_watchdog(struct abx80x_priv *priv)
-+static int abx80x_setup_watchdog(struct device *dev)
- {
- 	return 0;
- }
-@@ -733,33 +732,29 @@ static int abx80x_nvmem_xfer(struct abx80x_priv *priv, unsigned int offset,
- 	int ret;
- 
- 	while (bytes) {
--		u8 extram, reg, len, lower, upper;
-+		u8 reg, len, lower, upper;
- 
- 		lower = FIELD_GET(NVMEM_ADDR_LOWER, offset);
- 		upper = FIELD_GET(NVMEM_ADDR_UPPER, offset);
--		extram = FIELD_PREP(ABX8XX_EXTRAM_XADS, upper);
- 		reg = ABX8XX_SRAM_BASE + lower;
- 		len = min(lower + bytes, (size_t)ABX8XX_SRAM_WIN_SIZE) - lower;
- 		len = min_t(u8, len, I2C_SMBUS_BLOCK_MAX);
- 
- 		guard(mutex)(&priv->lock);
- 
--		ret = i2c_smbus_write_byte_data(priv->client, ABX8XX_REG_EXTRAM,
--						extram);
-+		ret = regmap_update_bits(priv->regmap, ABX8XX_REG_EXTRAM,
-+					 ABX8XX_EXTRAM_XADS, upper);
- 		if (ret)
- 			return ret;
- 
- 		if (write) {
--			ret = i2c_smbus_write_i2c_block_data(priv->client, reg,
--							     len, val);
-+			ret = regmap_bulk_write(priv->regmap, reg, val, len);
- 			if (ret)
- 				return ret;
- 		} else {
--			ret = i2c_smbus_read_i2c_block_data(priv->client, reg,
--							    len, val);
--			if (ret <= 0)
--				return ret ? ret : -EIO;
--			len = ret;
-+			ret = regmap_bulk_read(priv->regmap, reg, val, len);
-+			if (ret)
-+				return ret;
- 		}
- 
- 		offset += len;
-@@ -795,6 +790,38 @@ static int abx80x_setup_nvmem(struct abx80x_priv *priv)
- 	return devm_rtc_nvmem_register(priv->rtc, &config);
- }
- 
-+static const struct regmap_range abx80x_no_read_ranges[] = {
-+	regmap_reg_range(0x1e, 0x1e),
-+	regmap_reg_range(0x22, 0x25),
-+	regmap_reg_range(0x31, 0x3e),
-+};
++	TP_ARGS(local, sdata, sta, type),
 +
-+static const struct regmap_range abx80x_no_write_ranges[] = {
-+	regmap_reg_range(0x1e, 0x1e),
-+	regmap_reg_range(0x22, 0x25),
-+	regmap_reg_range(ABX8XX_REG_ID0, ABX8XX_REG_ID0 + 6),
-+	regmap_reg_range(0x31, 0x3e),
-+};
++	TP_STRUCT__entry(
++		LOCAL_ENTRY
++		VIF_ENTRY
++		STA_ENTRY
++		__field(u8, st_type)
++	),
 +
-+static const struct regmap_access_table abx80x_read_table = {
-+	.no_ranges = abx80x_no_read_ranges,
-+	.n_no_ranges = ARRAY_SIZE(abx80x_no_read_ranges),
-+};
++	TP_fast_assign(
++		LOCAL_ASSIGN;
++		VIF_ASSIGN;
++		STA_ASSIGN;
++		__entry->st_type = type;
++	),
 +
-+static const struct regmap_access_table abx80x_write_table = {
-+	.no_ranges = abx80x_no_write_ranges,
-+	.n_no_ranges = ARRAY_SIZE(abx80x_no_write_ranges),
-+};
++	TP_printk(LOCAL_PR_FMT VIF_PR_FMT STA_PR_FMT ", ST type=%u",
++		  LOCAL_PR_ARG, VIF_PR_ARG, STA_PR_ARG, __entry->st_type
++	)
++);
 +
-+static const struct regmap_config abx80x_regmap_config_i2c = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = ABX8XX_SRAM_BASE + ABX8XX_SRAM_WIN_SIZE - 1,
-+
-+	.rd_table = &abx80x_read_table,
-+	.wr_table = &abx80x_write_table,
-+};
-+
- static const struct i2c_device_id abx80x_id[] = {
- 	{ .name = "abx80x", .driver_data = ABX80X },
- 	{ .name = "ab0801", .driver_data = AB0801 },
-@@ -812,9 +839,11 @@ MODULE_DEVICE_TABLE(i2c, abx80x_id);
+ #endif /* !__MAC80211_DRIVER_TRACE || TRACE_HEADER_MULTI_READ */
  
- static int abx80x_probe(struct i2c_client *client)
- {
-+	struct regmap *regmap;
- 	struct device_node *np = client->dev.of_node;
- 	struct abx80x_priv *priv;
--	int i, data, err, trickle_cfg = -EINVAL;
-+	int i, err, trickle_cfg = -EINVAL;
-+	unsigned int data;
- 	char buf[7];
- 	unsigned int part = (uintptr_t)i2c_get_match_data(client);
- 	unsigned int partnumber;
-@@ -826,8 +855,30 @@ static int abx80x_probe(struct i2c_client *client)
- 	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
- 		return -ENODEV;
- 
--	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ID0,
--					    sizeof(buf), buf);
-+	regmap = devm_regmap_init_i2c(client, &abx80x_regmap_config_i2c);
-+	if (IS_ERR(regmap)) {
-+		dev_err(&client->dev, "Unable to allocate regmap\n");
-+		return PTR_ERR(regmap);
-+	}
-+
-+	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
-+	if (priv == NULL)
-+		return -ENOMEM;
-+
-+	priv->rtc = devm_rtc_allocate_device(&client->dev);
-+	if (IS_ERR(priv->rtc))
-+		return PTR_ERR(priv->rtc);
-+
-+	priv->rtc->ops = &abx80x_rtc_ops;
-+	priv->irq = client->irq;
-+	priv->regmap = regmap;
-+	err = devm_mutex_init(&client->dev, &priv->lock);
-+	if (err)
-+		return err;
-+
-+	dev_set_drvdata(&client->dev, priv);
-+
-+	err = regmap_bulk_read(regmap, ABX8XX_REG_ID0, buf, sizeof(buf));
- 	if (err < 0) {
- 		dev_err(&client->dev, "Unable to read partnumber\n");
- 		return -EIO;
-@@ -842,16 +893,14 @@ static int abx80x_probe(struct i2c_client *client)
- 	dev_info(&client->dev, "model %04x, revision %u.%u, lot %x, wafer %x, uid %x\n",
- 		 partnumber, majrev, minrev, lot, wafer, uid);
- 
--	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_CTRL1);
--	if (data < 0) {
-+	err = regmap_read(regmap, ABX8XX_REG_CTRL1, &data);
-+	if (err < 0) {
- 		dev_err(&client->dev, "Unable to read control register\n");
- 		return -EIO;
- 	}
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CTRL1,
--					((data & ~(ABX8XX_CTRL_12_24 |
--						   ABX8XX_CTRL_ARST)) |
--					 ABX8XX_CTRL_WRITE));
-+	err = regmap_write(regmap, ABX8XX_REG_CTRL1,
-+			   (data & ~(ABX8XX_CTRL_12_24 | ABX8XX_CTRL_ARST)) | ABX8XX_CTRL_WRITE);
- 	if (err < 0) {
- 		dev_err(&client->dev, "Unable to write control register\n");
- 		return -EIO;
-@@ -865,15 +914,15 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * register is set. RV-1805-C3 datasheet indicates that
- 		 * the bit should be cleared in section 11h - Control2.
- 		 */
--		data = i2c_smbus_read_byte_data(client, ABX8XX_REG_CTRL2);
--		if (data < 0) {
-+		err = regmap_read(regmap, ABX8XX_REG_CTRL2, &data);
-+		if (err < 0) {
- 			dev_err(&client->dev,
- 				"Unable to read control2 register\n");
- 			return -EIO;
- 		}
- 
--		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CTRL2,
--						data & ~ABX8XX_CTRL2_RSVD);
-+		err = regmap_write(regmap, ABX8XX_REG_CTRL2,
-+				   data & ~ABX8XX_CTRL2_RSVD);
- 		if (err < 0) {
- 			dev_err(&client->dev,
- 				"Unable to write control2 register\n");
-@@ -885,8 +934,8 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * 10pin package and the EXTI input is not present.
- 		 * Disable it to avoid leakage.
- 		 */
--		data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OUT_CTRL);
--		if (data < 0) {
-+		err = regmap_read(regmap, ABX8XX_REG_OUT_CTRL, &data);
-+		if (err < 0) {
- 			dev_err(&client->dev,
- 				"Unable to read output control register\n");
- 			return -EIO;
-@@ -896,11 +945,11 @@ static int abx80x_probe(struct i2c_client *client)
- 		 * Write the configuration key register to enable access to
- 		 * the config2 register
- 		 */
--		if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_MISC) < 0)
-+		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
- 			return -EIO;
- 
--		err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OUT_CTRL,
--						data | ABX8XX_OUT_CTRL_EXDS);
-+		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
-+				   data | ABX8XX_OUT_CTRL_EXDS);
- 		if (err < 0) {
- 			dev_err(&client->dev,
- 				"Unable to write output control register\n");
-@@ -928,38 +977,20 @@ static int abx80x_probe(struct i2c_client *client)
- 	}
- 
- 	if (np && abx80x_caps[part].has_tc)
--		trickle_cfg = abx80x_dt_trickle_cfg(client);
-+		trickle_cfg = abx80x_dt_trickle_cfg(&client->dev);
- 
- 	if (trickle_cfg > 0) {
- 		dev_info(&client->dev, "Enabling trickle charger: %02x\n",
- 			 trickle_cfg);
--		abx80x_enable_trickle_charger(client, trickle_cfg);
-+		abx80x_enable_trickle_charger(&client->dev, trickle_cfg);
- 	}
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_CD_TIMER_CTL,
--					BIT(2));
--	if (err)
--		return err;
--
--	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
--	if (priv == NULL)
--		return -ENOMEM;
--
--	priv->rtc = devm_rtc_allocate_device(&client->dev);
--	if (IS_ERR(priv->rtc))
--		return PTR_ERR(priv->rtc);
--
--	priv->rtc->ops = &abx80x_rtc_ops;
--	priv->client = client;
--	priv->irq = client->irq;
--	err = devm_mutex_init(&client->dev, &priv->lock);
-+	err = regmap_write(regmap, ABX8XX_REG_CD_TIMER_CTL, BIT(2));
- 	if (err)
- 		return err;
- 
--	i2c_set_clientdata(client, priv);
--
- 	if (abx80x_caps[part].has_wdog) {
--		err = abx80x_setup_watchdog(priv);
-+		err = abx80x_setup_watchdog(&client->dev);
- 		if (err)
- 			return err;
- 	}
-@@ -969,24 +1000,24 @@ static int abx80x_probe(struct i2c_client *client)
- 		return err;
- 
- 	/* Disable unused interrupts */
--	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
--	if (data < 0) {
-+	err = regmap_read(regmap, ABX8XX_REG_IRQ, &data);
-+	if (err < 0) {
- 		dev_err(&client->dev, "Unable to read irq register\n");
- 		return -EIO;
- 	}
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_IRQ,
--					data & ~(ABX8XX_IRQ_EX1E |
--						 ABX8XX_IRQ_EX2E |
--						 ABX8XX_IRQ_TIE |
--						 ABX8XX_IRQ_BLIE));
-+	err = regmap_write(regmap, ABX8XX_REG_IRQ,
-+			   data & ~(ABX8XX_IRQ_EX1E |
-+				    ABX8XX_IRQ_EX2E |
-+				    ABX8XX_IRQ_TIE |
-+				    ABX8XX_IRQ_BLIE));
- 	if (err < 0) {
- 		dev_err(&client->dev, "Unable to write irq register\n");
- 		return -EIO;
- 	}
- 
--	data = i2c_smbus_read_byte_data(client, ABX8XX_REG_OSC);
--	if (data < 0) {
-+	err = regmap_read(regmap, ABX8XX_REG_OSC, &data);
-+	if (err < 0) {
- 		dev_err(&client->dev, "Unable to read Oscillator Control register\n");
- 		return -EIO;
- 	}
-@@ -995,9 +1026,9 @@ static int abx80x_probe(struct i2c_client *client)
- 	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
- 		return -EIO;
- 
--	err = i2c_smbus_write_byte_data(client, ABX8XX_REG_OSC,
--					data & ~(ABX8XX_OSC_ACIE |
--						 ABX8XX_OSC_OFIE));
-+	err = regmap_write(regmap, ABX8XX_REG_OSC,
-+			   data & ~(ABX8XX_OSC_ACIE |
-+				    ABX8XX_OSC_OFIE));
- 	if (err < 0) {
- 		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
- 		return -EIO;
-@@ -1009,7 +1040,7 @@ static int abx80x_probe(struct i2c_client *client)
- 						abx80x_handle_irq,
- 						IRQF_SHARED | IRQF_ONESHOT,
- 						"abx8xx",
--						client);
-+						&client->dev);
- 		if (err) {
- 			dev_err(&client->dev, "unable to request IRQ, alarms disabled\n");
- 			priv->irq = 0;
+ #undef TRACE_INCLUDE_PATH
+
 -- 
-2.55.0
+2.34.1
 
