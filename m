@@ -1,143 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB294908D5;
-	Mon,  7 Sep 2026 11:30:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090AE4A1DE9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780624; cv=none; b=DmYIP7srep3R8Fj0L6VK48IZqIJvDjtf3hgAfitSUHwOQ2q5Zy1iTYhPRi7EOBYgnyoT5SwsUxK6sLX1LiFWvs40w2GW4DFaGoORG+0kOTJUnRZEVvs+MxKBo1BPAMlmtkQiTEjYEo1jJTL5TlZt5kVu2ziu0y+TOggyJrKk6ow=
+	t=1788780638; cv=none; b=h/KuB2m/XtP01JA8e5KWUw08y4IBl1zDAiFZrAggCiLa+He3iYK8tsFYX5FfHLjq+yIgzfjwKoFPLxJ4VeM/jgh11AW8rGIqoJJqltyF+93u+y8X42eoOQAXh/5M1Z13LEDqYazU7DWmgmbcDnrQqxMb/Du6bb29Xfokla3YCOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780624; c=relaxed/simple;
-	bh=fjPgW8McPvP1BSff//bHn6tp652LjyKmoz43tNtwYRo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uQAXYn89+QAMvrJDJf+ur+QM4oRYDozI1N3bo4SNbfHepjLpwmikd68Dx75EWT6rjoz+4Tkp/Ckb60DIIERnfwMe6znoMl29/tzxLqmxFvWSE7t4A2/79+2IYL6zVd51cJqODZJjmIgDcq0wduaZ9tQJrdr0n3l1DOD1FvBKXMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0be+PQn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788780638; c=relaxed/simple;
+	bh=/iI+mVhYoHECHLm26/9Lw+yRsz2hiZVTsKnS/mTkwSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uzYdz3WCAubLux2PeaktVed/BeQqYbZOdw88fJJv2D2EfZTlOxG7u8AsPeg3CDgSz42j6oHr7pLO7206Tuxv3qpgDtNO/2CO5M3oi0xjxf8n4pE5Wl8NI6znLp0lT/qUGKqUTZGGAHJkvd0QSmHACLjytsX98y6wkWHMi4i3PZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUidBtKy; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0be+PQn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24E5F1F00A3A;
-	Mon,  7 Sep 2026 11:30:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788780619;
-	bh=1Df9Vs2CsLw1K3pBOS28/RnLUuS1VBAgN7vqlEKdpBU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=D0be+PQnzcjaosyF+C2OgofVECAhlkIznofOYF2lXaw7UWLmROnusM8RC/F15P8YI
-	 /XcfgqV8RqudIXVBRYFXDzM5BGBuPMZZeT2tzlmZP840yDtx4VKqKAxvWo1ieldneE
-	 2K90uN/I0meOvnPlvsq3qAuYV9DJS2Yxfnqjw+Rn/1Hz5dxvSFGbf2aMVzU4pKuzV3
-	 vg7Pefe7ZBLfub/+b/BHOg2CGrk4CIEAL9NbKjA0Io4zzDsrQePpkLJYwR1+5elO87
-	 QDruieoxO/+Qvr7hYjvIVwDRS3wTwDccVbD7prhdJwsO7Bv51WKBfn6pp7IGC84ojh
-	 gE5Xn5zC8uqXg==
-Message-ID: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
-Date: Mon, 7 Sep 2026 13:30:07 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUidBtKy"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso28352475e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:30:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788780635; x=1789385435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I8GJQHaCPI4Y6feIxiZlfcO4FEuwsVfypUZYbsmpk7k=;
+        b=rUidBtKy/CaF/WrsZyGghT5tGLXVaNIMmlNwCJpJK4+DiI6vuvqVs3a5cmcm0zQ6NQ
+         +L6aYy10SfODNojlgXzi6Mc5jBU5WQNKcaSEvSSuGuF7ko8jMuo6fNTC9PFFcKp0mZPb
+         W4MyBRHpwMhl09EeFakuOAzJezazN0T3YFWNVKUfZisyDg/sSDr+HWDNhMswbK3cyIOG
+         llFhQ8GYXJZuO5gP4TmWlZApc4N6DXTbzPo+ltGEQuq0hGiFwzQXYMzfDaWqohsCLoJ4
+         nMN1iy2NHGlo9pveuHcVETUP2Q2Sn37q9KCt2LrFhpyL00v9gB0fYveKv5vQvkUu3sMz
+         E1dQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788780635; x=1789385435;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=I8GJQHaCPI4Y6feIxiZlfcO4FEuwsVfypUZYbsmpk7k=;
+        b=GsAYbJh9dQb8isRqTZ0pbhB4lSDiZh9ISei81gEwPYMEyJmZxw2aAd+ni+tY11lQ31
+         rIzI/TUgtZgYhZlKAvZVsHvZRmtVlwRjKCQQMqlw+GnRIEBxRzbG4jEmdJJemBhtXQm4
+         EdstopSGqUA/1VwwATACBclza1X6P7X0lvKIU6vFNEL9QKScddZ3ugAWe2MDK/Un62ee
+         fp9MAmKAysqkFYiwb2kLJn5DH5FPApnod8jngKLsKLp8W/gVBCy4/YstVy8EzoZhPy7r
+         GeA/bqXl0YNMYHCZYu3Ydr3+Cn3EJBQw2yeJq8j9ohSM5xnLngow+e8LHlfYLrgxxkLJ
+         FnhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByntxzD7Lg2ait2R0EtkeOAAxLTnNbIzZyeI9DUd4i9PVxfs8dylgTFz+TSRPbfBQuNFT1s6178uJQBndI=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9qJON3FkNI7eyOWCZaH83Z59DxBXL4YQ+2eVG1HWGFYdZ5lRe
+	54TvJfgEdk1JMw8U2/GID7zOv12Jiy0vzQGDA85+uX/xr2AKnXn5Vc5H/SM+81gi0ZXfKw==
+X-Gm-Gg: AYBFou1xWPi0dGfaHT0I+56PcXrX6ZpitpDkN6hyUf6dH8CQth8a9zysC0t04KiTwI5
+	1OROZCjnI51uyQTPa9Ui7GutKHLvmW/W6q8pJ+thq5siPlBG8YRSdGz8SBpei8ykCfAg3QTc6w2
+	CUhShOAPiGEmrE15iXCjErTPebIhlezdTAnPBSwyqnWRq/eqiVB+IF2fh23f2Od7bhrg/6lIg5Z
+	C44ucE3a4hTqFiM9cRzYxtlsAldprA6GPdHH+tixpaxrbjw40zlcVvMdWnM1VRSxW8YXs9WcArM
+	tZ4pClado9d1+6U9KUgzl3Xg7zegPGkr9qBRFmbMjhd3XL0NKPMXagPoLUpHmyVezgOc288OAmF
+	khqQe4ZF/sDNEGNNBxU/g04YQV+TmDgJ5t4WK5+2UwrzvFGvzTbcPU+HZ/7JBkU15xQRmn1GJT+
+	cZA85lXbxaXnkUfSEks2NVcs6EH5TJ1vnkqa7M0ioQgPvZCe4u9MTDp9aNRDSgk2LxxPdhQXmEj
+	GTrfdx6kRsOgOWX+kwRtHLq7zdXeUJh6ZyaqmWpWj7etapiQgOKleKGQIY=
+X-Received: by 2002:a05:600c:3b0e:b0:49c:fc6e:a3d5 with SMTP id 5b1f17b1804b1-49cfc6ea726mr183476145e9.20.1788780634912;
+        Mon, 07 Sep 2026 04:30:34 -0700 (PDT)
+Received: from sergio-82n7.fritz.box (host27-7-217-213.cgnat.broadband.ehiweb.it. [213.217.7.27])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm821879915e9.0.2026.09.07.04.30.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:30:34 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: [PATCH] hwmon: (yogafan) Update reference database and contributors for new models
+Date: Mon,  7 Sep 2026 13:30:29 +0200
+Message-ID: <20260907113029.1532654-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Path forward for Virtualized Swap?
-To: Nhat Pham <nphamcs@gmail.com>, Kairui Song <kasong@tencent.com>
-Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- YoungJun Park <youngjun.park@lge.com>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, =?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?=
- <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>,
- Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>,
- Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>,
- Meta kernel team <kernel-team@meta.com>,
- Linux Memory Management List <linux-mm@kvack.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- linux-doc@vger.kernel.org,
- "open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)"
- <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Kairui Song <ryncsn@gmail.com>, Joshua Hahn <joshua.hahnjy@gmail.com>
-References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/4/26 23:14, Nhat Pham wrote:
+Add documentation entries for the newly supported laptop models
+(Yoga 14cACN 2021, Yoga 740-15IML, and IdeaPad 3 15ALC6 Ub) in the
+master reference database table, and include the new contributor.
 
-Hi,
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
+---
+ Documentation/hwmon/yogafan.rst | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-> To Kairui, Johannes, Yosry, Chris, David, Andrew, and other (z)swap folks -
-> I need some help here.
-
-I'll mostly ignore swap-related stuff because (a) -EBUSY and (b) we have quite
-some swap experts around :)
-
-Reading below, I do wonder if the swap subsystem needs some more coordination
-and collaboration?
-
-For example, maybe having bi-weekly/monthly meetings to get everybody aligned
-and uptodate could be something reasonable?
-
-This approach has proven fairly helpful in areas where (1) multiple companies
-are involved (2) many concurrent development is happening, and (3) people have
-different priorities and requirements.
-
-Is there already something like that to organize development? Should we get
-started with that?
-
+diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
+index 9ff5db5dc..5c21c50b7 100644
+--- a/Documentation/hwmon/yogafan.rst
++++ b/Documentation/hwmon/yogafan.rst
+@@ -87,6 +87,9 @@ immediately to ensure the user knows the fan has stopped.
+ 
+  MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
+  ----------------------------------------------------------------------------------------------------
++ 82N7           | Yoga 14cACN 2021   | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 81TD           | Yoga 740-15IML     | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6 Ub| 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+  82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+  80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+  83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+@@ -159,6 +162,7 @@ Contributors & DSDT Providers:
+ - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
+ - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
+ - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
++- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
+ - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
+ - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
+ - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
 -- 
-Cheers,
+2.55.0
 
-David
