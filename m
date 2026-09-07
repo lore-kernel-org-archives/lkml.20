@@ -1,177 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4454441619;
-	Mon,  7 Sep 2026 10:37:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA6340E8C1;
+	Mon,  7 Sep 2026 10:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777432; cv=none; b=kR2SNzzKI/FgmmoKw9QREoZ6KSi80wTUU+A3k+mASwW111NdgJt52b8nfK2in7HccIxAt/OhMcdagHrgVCXHix8TS+UO2hzisrjuK4q7IElbR3ncOa59y1tdKzKBlWjisVTTwFIbBcMV8HEZBQ2W3RV5+MP0BPVSwRa2Uv0jeg4=
+	t=1788777456; cv=none; b=XXVRJAY7eC7yQ4ioccCRxVBWEUY5ya2VT2CLzsfZk8f9FQtvn8aFRA0/oFbyQY3XlP0UGi0ViI2yVYJg5yG2ZlAaif2vOYZW16xwK34eIKVWiF9XIUxUiVqo/dwzQ222CfMW8GmfoUuc0bcSoF0ScW7WLXNWfzS++OYJPAgt+Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777432; c=relaxed/simple;
-	bh=46nYrYnJykDFPs7U5HfbzgYezgCMlDwK7ZpRjXxnBCA=;
+	s=arc-20240116; t=1788777456; c=relaxed/simple;
+	bh=nC01GbWkcbqOJAQ7WmLxzXZy/Px4NgVP70yydgECWQU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KxXmzvyfhKI1EwlbHzQfkq92l/DA7sTaptC75EG6MinRiie9F3PC8kXTM9KcIPAph67e1m0c6bUMIgWs9TbP3tNA6xX7djqh9B83d5Fw26NVrXIYP12E7OGnPKFmk2zG4mo/FSh94rJBTl2gpjsOXuTTBlBCAN/GBQDwhF2qe7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A3u8x6ke; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uwYLi5p/n1NAdl2t50DBVu2UmhPt8qeMJyZGtUOUgb8/5wXRL0f8OhN3Ka5yzq/USNYMbE3Bl8BcdekuoK4HRU7zrUiENAp7AGmtGJio6fNQaqpWhmw1BULgigukGo2eIljoneqGRbXGAqGEaSZS5Q62czcyNbXTARfpeJpZrTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=wUtN1Gj/; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ryygnn8u; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A3u8x6ke"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDBCC1F00A3A;
-	Mon,  7 Sep 2026 10:37:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788777430;
-	bh=1ay/TaukY/LyaVP7DBcuF1uWpTQzsI+J3Bq6x+EimT0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A3u8x6keI4v25E4vtBZVtD0H3+5k550B50BsTtvbaR5/p7rBZ0KVpCtJNKEzJZIuk
-	 spNhOqRc4GDWIEIKAMi47ne8APPtDSID83h5Sd/bLHCvgDeJecP4+wrj9f+fOcHP5f
-	 7lBTnSC2HvQvQsQQFbSG5vDVslDlWYkgNWR8Zkj/H4NLs+Bz8G0Q/mL5sY1GGLn3CO
-	 yKE1NmiD6pMCb33uBRJYi/cZgBSHZjcJDZOQ4H73mdObUj9gnX4y8AHDtybm5Pd6gw
-	 EXOhcLWuWH2ZAp/QLPZ5o1Piib2ZTl+K7nxpN7IB8016b3uSpHUkwV4QYa3QNgzcAQ
-	 eTTsho6kKUoKw==
-Date: Mon, 7 Sep 2026 12:37:05 +0200
-From: Joel Granados <joel.granados@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Gregory Price <gourry@gourry.net>, 
-	Peter Zijlstra <peterz@infradead.org>, Andy Lutomirski <luto@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Oleg Nesterov <oleg@redhat.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Mark Brown <broonie@kernel.org>, 
-	Stephen Rothwell <sfr@canb.auug.org.au>, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-next@vger.kernel.org
-Subject: Re: [PATCH] syscall_user_dispatch: Use CONFIG_SYSCTL for sysctl guard
-Message-ID: <rvsksbxeput4impcquq3kjxg6pv3ixovpk5or2mgtuifsu65fh@wuoukaeelovg>
-References: <20260813062039.14567-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="wUtN1Gj/";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ryygnn8u"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id AD3F01D00125;
+	Mon,  7 Sep 2026 06:37:33 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Mon, 07 Sep 2026 06:37:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788777453;
+	 x=1788863853; bh=QHECxCxsMSHy2+f0P3KbC00s373RUUJzdC1ylW0/MXs=; b=
+	wUtN1Gj/Hr8K+wtof/ts6eQQ1hOWIjXXAUx0aTaLKMyujkRydKyi8TucjgTekHAc
+	pk+T1VJpBZ7mu1fLqWD4CLSI98p2SfhiSzGV4ZtFi5AoDyaYlewIn51RWhmEniyh
+	ulBZiZd3op1YhXQBnnMfVrnoOHlWFViaLXpfPa8udQJKL2hu1Ajb8J7ugMBM/aF8
+	WXswYtnnZ2DpyC1nyrhMfpWbkk5EVG2kupG+miJSH3zRUk1oRx66IhJzyOZTRjgE
+	WekTr5RCKB/N78EcImsPYCNkTQXPnGNsr2RC2w5ALkpvWkduEc+yVm6fWlPbjfeg
+	J/J1gaHTjAG3oczC1UhdFQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788777453; x=
+	1788863853; bh=QHECxCxsMSHy2+f0P3KbC00s373RUUJzdC1ylW0/MXs=; b=R
+	yygnn8uFu/VHuy8fOGzjQSw/LH3iWZbGjL3YqRrzvI6lx9/XR609u1SxiGdEXbut
+	eTpN8g8JLwj2Q+OWdYe9eVVp/jj/aqGjQE+gZSFcjOHYZu98xbXixKO8cYzM32T3
+	p7UcLj9TGecm5I6bxkVJs79FfiHtdsbeCNf46QnM4FSxHXmtPzKxj4O0/KwVvoNh
+	E+CUvgWlJ8UI+q5nMBg3VKxekTPgChRQ6lMv//12gAaDtIC0FZOWDDZTHHnG94uN
+	fQQu76RNwzx0C3M1WQA5HXOrYbOrCPN+hb7i6Vio7ImS3MYiqk6CEnKg7JQm2dYR
+	/BD9nOGLR9jr5muavTGLA==
+X-ME-Sender: <xms:7ZOeaqNQHbbgHd3T9_GltbmdFQb0n5dlxH1VJ41Drheh76Uilch8ZQ>
+    <xme:7ZOealiu_Qh1tDnVa9Fi-ma11Knx0r7qIN6ZpT605z7FqnohrwzFnM29DJHV0RmE1
+    cLZKTyNOEz7iD5ZFTlI_ZbNO05jMDmFUMsICbRfiy2DAIZW_XjhnQuQ>
+X-ME-Received: <xmr:7ZOealuEbDvFJotJH5pbp4EHjF9TQrxKJKPywsYzhuc_1WGVnu0cUTTwvuaEdnl0_EVh8Xo4pt3e5i9U9CQvBAPT__Dy4xM>
+X-ME-Proxy-Cause: dmFkZTFRifovugG/Mk8kz9VBjjBhciiK9ZZH/xj+dIoFAqGF4KkkmjO2NIX9TYzN6/20c2
+    wLUprgT5t9RDKgd3PVxR3DYmSddRAkuIZuxlg5iUPDpqUyoFzPUB2HgFMSaGVKkAabcN1u
+    Pl5VsBRemP0VrnzNPc00r3jHkESsysOVNnzTQwD74YdGEmwawQPFvAN+8fyYpqWfZXU76W
+    7MN/Mk0mA1ZT7oAhg29gdrWX1Q7YBRaCKKF6ZRsbUJ9ukJxi7uJyHybdO7dmkiWbhPJTLk
+    hojJ6Km03b5S+uWNFRGzmoIdN2xxCkDr2L3wmy/J5FtkdPIbbdqAb0ayu+40STZ8r70VIU
+    YJ/LCPi/IOQFvyGfDhLV3Fefw+sNX3vV9bE79UiplVna+uPlTlyJL3FiHUrfqjxGqXZrxH
+    z3DO0AGgx0TADSe+sHYHgKJQkbJxErUhTfa+jzQYMkvsSJoLr+icBqhRdTbkiOaw6Cul9c
+    wM6zxlzd5OF7udf3LIzboD/x+gw97GlxhSIrN/YAy52q07GXSkcX12rmbASyJEciS9ANU3
+    4uBzyR4jtTn7WFdeRHa6uxCLx1IrnN9ELsIqz8yLVF8m4Freg8poDxzBlteDVd3cZGYoKr
+    rdetUlpAeEUk77EAsWaHvFS/5ZjAUzOmP8ThmD6zmjCFXgXLIGvpdSHvYE4Q
+X-ME-Proxy: <xmx:7ZOeahged-raDFeafOke-hXtr1eQUXPGwXNpmE_lpPP2xqdp5Yd0wA>
+    <xmx:7ZOeajY4_8Nw3dg4cIuawoJIRj11zzVw9XHsLMF5u_Hc542D69FIew>
+    <xmx:7ZOeaobq9T5V98KyqeYyzS6iM8RNls--QxH6IBSZjAqwqK9uxE-vzQ>
+    <xmx:7ZOeagyosbqnh5yUnW2c47NvnSu-t8qelAZdCgNF-lMORTXmBjZ9Ww>
+    <xmx:7ZOean5Sec7Xq6KlsaZ1tujDYPDw6V1l-5JxB1-q9zte6Krp_59scNss>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 06:37:32 -0400 (EDT)
+Date: Mon, 7 Sep 2026 12:37:25 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [PATCH v6 01/11] media: rcar-vin: Fix comment related to stride
+ handling
+Message-ID: <20260907103725.GC3497753@ragnatech.se>
+References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+ <20260617-rcar-streams-v6-1-1260eb72dff7@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m5nzjk7zgbmhn6w6"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260813062039.14567-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617-rcar-streams-v6-1-1260eb72dff7@ideasonboard.com>
 
+Hi Tomi,
 
---m5nzjk7zgbmhn6w6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thanks for your patch.
 
-On Thu, Aug 13, 2026 at 08:20:39AM +0200, Karl Mehltretter wrote:
-> sysctl-next removes CONFIG_PROC_SYSCTL because it mirrors CONFIG_SYSCTL.
-> When combined with the syscall user dispatch sysctl in linux-next, the
-> stale guard prevents registration of kernel.syscall_user_dispatch.
->=20
-> syscall_user_dispatch_allowed defaults to true. SUD therefore remains
-> available, but administrators cannot disable new activations.
->=20
-> Use CONFIG_SYSCTL for the guard and documentation.
->=20
-> Fixes: 5b6e32ba7b59 ("syscall_user_dispatch: Add kernel.syscall_user_disp=
-atch sysctl")
-> Assisted-by: Codex:gpt-5.6-sol
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+On 2026-06-17 14:54:54 +0300, Tomi Valkeinen wrote:
+> The comment says the stride has to be aligned to 16 bytes, but it should
+> be 16 pixels, as VNIS_REG register is in pixels.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Fixes: 40c6da8a9c0f ("media: renesas: vin: Fix RAW8 (again)")
+
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
 > ---
-> The conflicting sysctl-next commit is currently:
->=20
->   8d75c338f0bc ("sysctl: remove CONFIG_PROC_SYSCTL, it just mirrors CONFI=
-G_SYSCTL")
->=20
-> This is a cross-tree integration fix intended for the tip tree. It has
-> no functional effect in tip/master, but restores the sysctl when
-> combined with sysctl-next.
->=20
-> Verified in linux-next with an x86_64 object build using
-> CONFIG_SYSCALL_USER_DISPATCH=3Dy and CONFIG_SYSCTL=3Dy.
->=20
->  Documentation/admin-guide/sysctl/kernel.rst | 2 +-
->  kernel/entry/syscall_user_dispatch.c        | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/=
-admin-guide/sysctl/kernel.rst
-> index b6328cd0f43e9..ffea61d448ebb 100644
-> --- a/Documentation/admin-guide/sysctl/kernel.rst
-> +++ b/Documentation/admin-guide/sysctl/kernel.rst
-> @@ -1416,7 +1416,7 @@ Controls whether userspace may arm Syscall User Dis=
-patch via
->    =3D=3D  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> =20
->  Only present when the kernel is built with ``CONFIG_SYSCALL_USER_DISPATC=
-H``
-> -and ``CONFIG_PROC_SYSCTL``.
-> +and ``CONFIG_SYSCTL``.
-> =20
-> =20
->  sysctl_writes_strict
-> diff --git a/kernel/entry/syscall_user_dispatch.c b/kernel/entry/syscall_=
-user_dispatch.c
-> index 2002c7aae4358..59c861866941d 100644
-> --- a/kernel/entry/syscall_user_dispatch.c
-> +++ b/kernel/entry/syscall_user_dispatch.c
-> @@ -178,7 +178,7 @@ int syscall_user_dispatch_set_config(struct task_stru=
-ct *task, unsigned long siz
->  					      (char __user *)(uintptr_t)cfg.selector);
->  }
-> =20
-> -#ifdef CONFIG_PROC_SYSCTL
-> +#ifdef CONFIG_SYSCTL
->  static const struct ctl_table syscall_user_dispatch_sysctls[] =3D {
->  	{
->  		.procname	=3D "syscall_user_dispatch",
-> @@ -195,4 +195,4 @@ static int __init syscall_user_dispatch_sysctl_init(v=
-oid)
->  	return 0;
->  }
->  late_initcall(syscall_user_dispatch_sysctl_init);
-> -#endif /* CONFIG_PROC_SYSCTL */
-> +#endif /* CONFIG_SYSCTL */
->=20
-> base-commit: 98292902c7108717c4f4bea7226520b336f9a8bc
-> --=20
-> 2.53.0
+>  drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> index f9af9177e02f..d6c69c674d57 100644
+> --- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> +++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
+> @@ -678,7 +678,7 @@ void rvin_crop_scale_comp(struct rvin_dev *vin)
+>  
+>  	/*
+>  	 * VNIS_REG has four lowest bits always 0, i.e. the stride has to be
+> -	 * aligned to 16 bytes. This is done in rvin_format_bytesperline().
+> +	 * aligned to 16 pixels. This is done in rvin_format_bytesperline().
+>  	 */
+>  
+>  	fmt = rvin_format_from_pixel(vin, vin->format.pixelformat);
+> 
+> -- 
+> 2.43.0
+> 
 
-I don't see this in 7.3-rc2. Did we miss pushing this in? At the moment
-I see that syscall_user_dispatch.c is still using CONFIG_PROC_SYSCTL
-which is never defined anywhere.
-
-Two questions:=20
-
-1. Did I miss anything. Is this not supposed to be upstreamed at the
-   end?
-
-2. Anyone opposed to me sending this upstream?
-
-Best
-
-
-
-
-
-
-
-
-
-
-
-
-
---m5nzjk7zgbmhn6w6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCgAdFiEErkcJVyXmMSXOyyeQupfNUreWQU8FAmqek8kACgkQupfNUreW
-QU8zHQv/SZEAqeTo8WbywGd+WkiXgkg+bI5hSmGkUyoxe+Y6ZXufW7CtExJOFYhA
-ds4z9bdT3XbsAq4P5NAALy35uUWxtEwxOJu5O0kmz7stxVOiopFHt6+50lFkYVZF
-1gI3yfI/BbMyFMLBD2oCQOJHDuHkKCPx5Ev+VIZbInxRwOH9/gZTr8jDtW3aI4tB
-Gwq5LmP2NvaGuj1LEdemKxAl74kQEQEGKb7jV8iF9RK2WFvhN7b9/Qw3O147M/7J
-Id3xqVuozeI5sy3IRMCD9XzSrYMEgi39JMzB0xefslOJpbWMCcTWeMk0he9GKnbi
-1T0fTF7gEj6XcicAHWRf3uN1e2LN0wY2QnBtOfKVN1HKfIimtN5kQkCRbJ0OgDSA
-NUyoKXph+rxO/DNIZAsyUdyJNrrnQIenyTVs/L2C9Yptyf0e6HoHyn9nSGNRoBPK
-JjbjG6RFn9CO7mGGYwOl08T8BeISglPn6QGPQwrQUAt2mS/oEJH+qLKhwr2/tHRp
-6F66U/vq
-=6/h7
------END PGP SIGNATURE-----
-
---m5nzjk7zgbmhn6w6--
+-- 
+Kind Regards,
+Niklas Söderlund
