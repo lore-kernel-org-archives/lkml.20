@@ -1,129 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1FDF40E8FC;
-	Mon,  7 Sep 2026 07:09:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764995; cv=none; b=sGG/Io3lvZUvAoRv2Oi8DWlOl77gQB8f/5mylLsHz/GI0nS1wVSmfhC7Ysx8rqeRml7AJ9Mnl5Xbv0ZhqET9aWt19tni7w9ziWDX6LLiv9Tv/+EkESfPsHygTRLTjeU5y7i3wk5aXBhLc2nMgwiuHWeUV5HYpqCm4QbGCARKAiA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764995; c=relaxed/simple;
-	bh=xRv0yymnjwitdV9Khqc1HgJpM1o/w1yAPvX0vmkcCLo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AXJu/a/pQNrCMPbmebboAaSdbfqeuzBAt+656Ogn8N6L+y1mEB9W+Lxq6EGXEwEX0W7EbYSV9TCuTVeM1LA90o2xrHAsYwWSOyWTmaKdeNRQKDea6eV7EuNKQ+VnwnM/gfRGKkT6GniOIZk1IC68tDv/rdHA+xPslX3SSGhn2gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxjAUwUz; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BA5C40A956
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788765002; cv=pass; b=Pf1NrDsk3qA01+skyMlMO7Kc60JMWuuZvu0Zxpcui3RQEc+EUWiV3TDU6cZNEgpbwMpRbfMx+91oAmN+o6KzptRuk1bXOqLMmsbLXNrJUIiF4LqXOemuT+ybqp5a1lryjSXKyXJClM1ccmsAoeurSSGQDHUMvTqX0nc9KyBMyQI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788765002; c=relaxed/simple;
+	bh=bY8T7KF0qJSw0FCfp2fmHHR9P2/vJUU2JRlv2EGdr60=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IMqKUSE7iysHwtELSqpsgeBRBIRlFoCjr3X+YwjdR7nluVvrZucU9zgGatkHW76mjN8W1hCd/Ad7hOeWWv+GwuJ5doZg3cZq6HtcamzM43GJWNrgU8l/hjEslhUxL1VW1Sx2bFjUu3E2eZ3iGRdEgng9DJ2nSHjz3ILZxBGTqtc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DNDwjwAb; arc=pass smtp.client-ip=209.85.160.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxjAUwUz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8471F00A3A;
-	Mon,  7 Sep 2026 07:09:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788764993;
-	bh=DdUelvmgoyEAXsH5zro9D9ZlVtQbk8k0j49hBCM/FTQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OxjAUwUz3fpgR/Falh3g4saPaR+nIthQiere4epivGSlRrL9zNUdkw2Vj6cBEXnEX
-	 k4kWkXyLR3S2hBMCTvHHKT/9bz7daDgzmO82mN0t0xgUHznSJq3WFy8DAG7/N7dr5W
-	 wwRBOvXIrxF6DBL3VSvB/5RJ5DC0nfa9+p1q7/9XZYNClNLKIARERwa4MIRemBz1XQ
-	 adPArRmHxr6yYvUjTxMASzRVDUgB3VU0cTTV8flMk+vY7WWHQUyyyS+KkpYojdUUyJ
-	 xfCXpZBFav3F0lw78zIFaBq+XmWCBWvrg81xQoUElF/6x8gJWse/vaORSGQynjMPiW
-	 pd3G08kQ6tgAA==
-Message-ID: <16106ae2-e3c8-4ecc-86ee-e9e09fc362ec@kernel.org>
-Date: Mon, 7 Sep 2026 09:09:47 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DNDwjwAb"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-52f83889a93so36179881cf.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:10:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788765000; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UMzeFpFgd+vUlYt9IMp5+oEbFBeKOxqJV492LOFZemHHsd7FohlVPTO516u7TGPf/p
+         50yMyLOWmzhJ0OUmJ9zYPzD4TCIaerMJhvU+//OwI6b/bHlPxMjeWvcwhXexfn1xW0J/
+         5cHIqRywrvU5F3YrRVaaJnp/6U8Ss2zfbnDrVLzAqeamf10g1xu7nmv1UUJnNFO+y1LC
+         jTGoNgT/6xKGEHyzUFfy/o2Erc2RO5AaijlR0q0iS6WCHLUlTs7pIPv9mUcmOZmwrqo3
+         swj2O02u2/rsuiAJ1woFKIWfI+ivhNVe++C1WeMYflrD4JDSJcdQSuqOQFX6qdEYfNaX
+         MB3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=bY8T7KF0qJSw0FCfp2fmHHR9P2/vJUU2JRlv2EGdr60=;
+        fh=xyFQJFEsYdVUceFmdPR2rGqSVdvGv8othV1SG3nxZ+c=;
+        b=ndoREIdeAX1FMI7+mldfbvTn9McVEUEstmDV/TfepgFe6SwgRoIRJ7YyyDg2890eyP
+         Fev0CkmRB8IToVUSJlU30S6LBvAls5vAEoufHpIdJK8ER4axd8o6skfocx59TtOcMxUk
+         VE1gN5lDKv4HtRDjZczlAmpd3zDBiM11Je1SKIZMO10kyMKDbDtUV98Z8EZuAb+snhCQ
+         mF5n7JxGVOTtOHzFJe8izHBhRIuJsyBFvY9h0SH2y80Tnq5WQn2Osdkk0WJHXa+V/zM1
+         AaGBfIRAGwsPDQr/IRiRy+0wi5PwXRJ/1HbWnV3UyT5OJx84+6oeQwcHAC8Y/rcBGBaf
+         WLOA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788765000; x=1789369800; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bY8T7KF0qJSw0FCfp2fmHHR9P2/vJUU2JRlv2EGdr60=;
+        b=DNDwjwAbwLxb/vjqZoJ6266SI9OFz+CRF20kRsRaVJQF1iCzpn8hwIZOEdh5VxTZFm
+         ue2qn5tjAgvNzIU5F2Tl+JsqdGB56h/wwC536s3/ZAf8++l17XanvmPxS5xttFqpnAYL
+         FXScekSslo0iG7S03As+qjFZgLjY5YNAgYRQsiKi1ATQuka7TktN/3BcmwsKodS3fnMx
+         DqeiaIIGei+5KOcvV7E7SEPPFPcsTchO7kXhI7DeOJmWO3tNqIv9IHa6UhXF9UeerPC3
+         nHkXebvBvxJl+4sN5kw60OfI02aCZvsHc4eXW7Vi04ALTrk6PsVOKCF7C+s7pQ7D0xZ4
+         kinQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788765000; x=1789369800;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bY8T7KF0qJSw0FCfp2fmHHR9P2/vJUU2JRlv2EGdr60=;
+        b=l3+2J4r9yVh5f5X9tKNiTjfL+Xvl+/PQjBkplgc20p+cEXzKz82M0DniV/03iW1nSm
+         S3w46xhmyMfLrsPbP/54L7uqVbZH5pCyPW/TG2GKWZELVKVWKICWd3Gj5cm3IebsaxRp
+         /VG3J6Xg/W/6lr8wSYAArsJsQztIHD5D+nZBzneBcX9/ZKMC7Bg8K5bbcMhJYr1YCrwd
+         AwZ4Gqpg1yK3ktg4pKH+7BDnNg9TfU3uYjkfPCcE3Z1oibG5kvDEJOXcx0t67XT156rm
+         G5O/7eNeN6mgFGkRW6jLvv56f6BU+PPx4f3DHOPHZZ59S28OHG4joeopXfy4LiaiLild
+         oXSw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGSRAj700cwod6BzCOL76Owt7s1wDXjhIoWhdOwxfGPM7jsMnHDeGWfojUQDHzAqic6t1DJIE4+ZX3RL8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHiNXz0aFHBU6LxYIfCWUS49+LCgmmdx2jJzbqUEo69FTOOM1k
+	3z+z+4qePuL+bLNbLwPHw9DJSQ1z8h9Yy8c6NtcABYJCyTaeB2W0v9sP0UIue3H2irisSW+yoTv
+	7X1YluFyLNxMWSaGod8CVPVmXqC8UyLpRNdacpIQVcbE9IJcPX70G1c185ps=
+X-Gm-Gg: AYBFou0IDDNWZRPFgI7GmzflKg8eNlTcRNY+afy/jkWRaDakbEdfWxzSLw8+V62fHnm
+	GPUoAf5JNk7ZgeQJSPTaWwGa2KJ0sU6TsJAzyVCeTCzQOv97RvAp5Ep7MY4Sv/8g24hmeXvMl8W
+	SQGUD1wXHUvNB/V8XBWr5wmxm13WzfhI4kPYU3y441aHE85Vaotc61A512J2DAvtuFrSfEKjkJJ
+	0NWHvYyZAygDuRw6WUOmm9Chh/BlnDtdYKuAWPLjiFig3/wb8GBuDdwylpaNtWw88EBDZsJGXQv
+	PTTf3aBCsSEiJspS8QCFgkh7Nk7Bq7UN8Ir0I0lfEC06MkubAwcmmWUK1EvoJzpPJxTTcq58ycH
+	wf4ZdbJ/SSoXKIGlplnIT70gUQPKT+7T8D61Rbe0386hnuA+Zawo/LwZLMsOfJpXTkwjx
+X-Received: by 2002:a05:622a:1f98:b0:530:31c8:a302 with SMTP id
+ d75a77b69052e-5305495da66mr256081741cf.23.1788764999462; Mon, 07 Sep 2026
+ 00:09:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] power: reset: add missing space in error message
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- Sebastian Reichel <sre@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
- Purism Kernel Team <kernel@puri.sm>, Santosh Shilimkar <ssantosh@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260907063947.34852-1-hemanth.selam@gmail.com>
- <20260907063947.34852-3-hemanth.selam@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260907063947.34852-3-hemanth.selam@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1788248601.git.zihanx@nebusec.ai> <db1f34ca8461c7b0dc5ec504ea1b99c24b909e34.1788248601.git.zihanx@nebusec.ai>
+In-Reply-To: <db1f34ca8461c7b0dc5ec504ea1b99c24b909e34.1788248601.git.zihanx@nebusec.ai>
+From: Eric Dumazet <edumazet@google.com>
+Date: Mon, 7 Sep 2026 09:09:47 +0200
+X-Gm-Features: AcwNN1UdIl3PlzbDUGiFbT4WHqVNX_a67HKQKn1qGUPRwr6NlLZpE3hbS-2nlZ4
+Message-ID: <CANn89iKzChGpDLsJ6iKRsMvHKdW6r_9xvkQv9g6bTy_-Pt8xOw@mail.gmail.com>
+Subject: Re: [PATCH net v2 2/2] mptcp: diag: bound listener bucket lock hold
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mptcp@lists.linux.dev, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Matthieu Baerts <matttbe@kernel.org>, Mat Martineau <martineau@kernel.org>, 
+	Geliang Tang <geliang@kernel.org>, Guillaume Nault <gnault@redhat.com>, Florian Westphal <fw@strlen.de>, 
+	stable@vger.kernel.org, Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/09/2026 08:39, Hemanth Selam wrote:
-> The two string literals are concatenated, so the message prints "has to
-> contain atleast one entry".  Add the missing space.
-> 
-> checkpatch.pl misses this one: neither literal is misspelled on its
-> own, the fault only appears once they are joined.
-> 
-> Only the message text changes, no code changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/power/reset/keystone-reset.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/power/reset/keystone-reset.c b/drivers/power/reset/keystone-reset.c
-> index 3c44cd6cee0a..dbf2e4274dc6 100644
-> --- a/drivers/power/reset/keystone-reset.c
-> +++ b/drivers/power/reset/keystone-reset.c
-> @@ -112,7 +112,7 @@ static int rsctrl_probe(struct platform_device *pdev)
->  	for (i = 0; i < WDT_MUX_NUMBER; i++) {
->  		ret = of_property_read_u32_index(np, "ti,wdt-list", i, &val);
->  		if (ret == -EOVERFLOW && !i) {
-> -			dev_err(dev, "ti,wdt-list property has to contain at"
-> +			dev_err(dev, "ti,wdt-list property has to contain at "
->  				"least one entry\n");
+On Tue, Sep 1, 2026 at 2:54=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote:
+>
+> MPTCP listener diag dumping reuses sk_diag_dump(), which executes
+> inet_diag_bc_sk() before filling the netlink reply. The listener walk in
+> mptcp_diag_dump_listeners() currently performs that work while holding th=
+e
+> listener bucket lock.
+>
+> The time spent under the listener bucket lock can therefore grow with the
+> number of sockets visited and with per-socket dump work. The resume state
+> also requires later batches to revisit the bucket prefix.
+>
+> Fix this by collecting only referenced listener sockets while holding the
+> bucket lock. After dropping it, re-check the listener properties, obtain
+> the parent MPTCP socket reference, and call sk_diag_dump(). Keep a
+> referenced cursor so later batches resume after the previous listener
+> instead of rescanning the bucket head. Validate a cursor against the
+> current listener bucket and TCP_LISTEN state before resuming from it.
+> After dropping the lock, read icsk_ulp_data with rcu_dereference().
+>
+> Fixes: 4fa39b701ce9 ("mptcp: listen diag dump support")
+> Cc: stable@vger.kernel.org
+> Reported-by: Vega <vega@nebusec.ai>
+> Assisted-by: Codex:gpt-5.4
+> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 
-Instead, string should not be wrapped.
+pw-bot: rejected
 
-You need to improve your interactions/prompts with your AI slop tool, so
-it will follow Linux kernel coding style.
+Please limit the complexity of filters.
 
-Best regards,
-Krzysztof
+Anyone needing complex filters will implement them in user space.
