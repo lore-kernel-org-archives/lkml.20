@@ -1,79 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFAE3E0C7B;
-	Mon,  7 Sep 2026 02:20:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E8A13790B;
+	Mon,  7 Sep 2026 02:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788747638; cv=none; b=Z4+XMQXcKcm06rNyRL25FD98LHhRttTcPCfraMFvtE7AYnnyENxCQvCkLQ0CUToHKJrvcyOM1rukJblTEbRYQqZXIjFSzw+dIeZZo/XWmtyIwhgNyJCRZB+wfIvNe55mVd2PrM758a9N4mEBp9UY5sI0dSVmouy6fjz7wKHjSFU=
+	t=1788747642; cv=none; b=LJwEfPbcyqNQPCpPFevpXsaz1h1UsDVqq/s06WlQofrDgDjsB37VJDzyIhQUqoKNR3ok7ESZInauT+czcBPtkSAhWv6VrxWgPCLzCaOyVGFYCoT4KTyL8olHo55+mWZ8oWMbWi+rrbS07SwavpxkSI74u5AQcSxz5vhXa667mg0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788747638; c=relaxed/simple;
-	bh=X7IV/skmANaPTytsl4mXb+50drqcAchlz5L4lYMD+eA=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=K20cTkogVkK/y1yIrRJUjmEkNZ2FmCn1BuoFWVr9nENMmOKQ8LHpVk7FD8Ka9Zi2cLwyDpqkl3SYjtP+t6tmI+YZAIjH0rW7WZntwApCYAW/ZwhHQBnU0uNjmZGJD0GBfvXGmhIjzH0xC2n/XeieSs++kup8U3aC7G1xdsOX6ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnEunOFY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788747642; c=relaxed/simple;
+	bh=hSKy8Fhim6gOjn+u8OKIe0rp7G+0D3nfuAmvvbax7kU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Qjm1FK4YjYqI3WMVU0C7lMAPPlL48hwSMWTj1N4Y3NDlKjd0HHyf3D8sx8qj8MC6b4TZ5O0s0dG0GxcfMQfSGRC3EKkyP7QXxddjSGAipc/IJZ1ZxO3FOP7oOHOL79NZMINE1OreAh/MCNwGZAcxrIkB5jMti52yk9OByXbLkos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DCoxQXF9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnEunOFY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 190491F00A3A;
-	Mon,  7 Sep 2026 02:20:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DCoxQXF9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 624451F00A3A;
+	Mon,  7 Sep 2026 02:20:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788747636;
-	bh=7J98PMeNTJ9iq9dARIKAaoUELhEmaK5KBEp2RtaApuc=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=AnEunOFYnG8NKHCIxvyuCqEhLMggaMMvcla7zItERhLO4FPNzz2EuApK3MNd9mF/H
-	 tPbt44aChCcpTu3Te74a8rbhR+BVK9X8vBqn8lHfL7YLcR3zt60hE/k7eehI4f6ZF0
-	 BQJxZC64HyOWHAxkHV0egejx4Z2zQJx8yMR1Ah1H0av/NTh8oiPu1+SwSIGExvAguV
-	 gAvOZP7GiUpc6BSn9jeUuvrwZ05mtPgsk1/lfbPXOVwJKRxvp9Iv9sTYCKYjtBRgUH
-	 VTVU2Frpm/bvLM4Kx3TMj0NeAHbr94f8UKpo9VApm1dNaw8Mk4yNl34soQAVFYhLyf
-	 biOIqDUQfhFbA==
-Message-ID: <d2e1b8bd-f575-4f83-a64e-2afef5f1ce2c@kernel.org>
-Date: Mon, 7 Sep 2026 02:20:33 +0000
+	s=k20260515; t=1788747641;
+	bh=HV/tFkxWGTXlhJ0ISNKA8q4/L9JDlzze0Q4zK1q9mN4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DCoxQXF92jSYPa1pzCANJiVdWOM+2ixwyWvqHqNmBxl/OnoxVF1KvNnUxufHf4lQC
+	 wwWgkAyXjSr9BjOjtwDQ8yQ/yZfoaqtDI1bzSXi6CItvddp++vhl8td6rihuz0rmJL
+	 Cx8xz70BM1i07lCczLKfpPDJMTKF5t8SpvQPgpQIW4DdspdzcYrYcUZjcJ4emMNNzw
+	 /eVapFbglDEV3rQmGmMXTX2iGe4zDqwSsYmxOAR+OroPpnonDPFilAahl9SD5YCeRe
+	 ve6XxTj0SdHBSXo6QaBwsV1wCpZnKuHx1RIspGUrNLziaccOJJFIio9N78z2V8YZV3
+	 q5haVmZpujGyQ==
+Date: Mon, 7 Sep 2026 03:20:36 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Salah Triki <salah.triki@gmail.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ linux@analog.com, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: adis16400: Check return value of spi_setup()
+Message-ID: <20260907032036.15a115fe@jic23-huawei>
+In-Reply-To: <apl3pwAZezUgEs0e@ashevche-desk.local>
+References: <20260903122733.67109-1-salah.triki@gmail.com>
+	<apl3pwAZezUgEs0e@ashevche-desk.local>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, Daeho Jeong <daehojeong@google.com>,
- stable@vger.kernel.org, Wenjie Qi <qiwenjie@xiaomi.com>
-Subject: Re: [f2fs-dev] [PATCH] mkfs.f2fs: enforce alias_filename to match
- device name
-To: Daeho Jeong <daeho43@gmail.com>, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, kernel-team@android.com
-References: <20260826181121.3825702-1-daeho43@gmail.com>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20260826181121.3825702-1-daeho43@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 8/26/26 18:11, Daeho Jeong wrote:
-> From: Daeho Jeong <daehojeong@google.com>
-> 
-> The kernel expects the device alias file in the root directory to match
-> the device basename (strrchr(path, '/') + 1) to identify the target device
-> both during mount in f2fs_restore_device_alias() and during reserve in
-> f2fs_ioc_reserve_dev_alias().
-> 
-> If a custom alias filename that differs from the device name is used,
-> the kernel fails to match the alias file at mount time (leaving
-> FDEV(i).has_alias unset and allowing pinned files to allocate in that
-> range) and subsequently fails to reserve the device range when requested.
-> 
-> Enforce that if an alias filename is specified, it must match the device
-> name. Also allow specifying just '-c <device>@' as a shorthand so users
-> do not have to redundantly type the device basename twice.
+On Thu, 3 Sep 2026 16:35:35 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-Do we need to add a sanity check in kernel side as well, show warning info
-if device name doesn't match device alias file name?
-
+> On Thu, Sep 03, 2026 at 01:27:33PM +0100, Salah Triki wrote:
+> > In adis16400_initial_setup(), the return value of spi_setup() was ignored.
+> > If SPI configuration fails, the driver would proceed with the
+> > initialization anyway, leading to undefined behavior or silent failures
+> > during device setup.
+> > 
+> > Check the return value of spi_setup() and return the error code immediately
+> > if it fails.  
 > 
-> Reported-by: Wenjie Qi <qiwenjie@xiaomi.com>
-> Fixes: 8cc4e257ec20 ("mkfs.f2fs: add device aliasing feature")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daeho Jeong <daehojeong@google.com>
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
 
-Reviewed-by: Chao Yu <chao@kernel.org>
+I assume in practice this never fails, so treating this as hardening
+rather than an urgent fix.  Applied to the testing branch of iio.git
 
 Thanks,
+
+Jonathan
+
