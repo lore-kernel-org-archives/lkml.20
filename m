@@ -1,279 +1,322 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mta1.migadu.com (out-250.mta1.migadu.com [95.215.58.250])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B7A3F12EF
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:09:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93833F12EF
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.250
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768546; cv=none; b=MSIPAXAbUvNC7JlS+XGeEWWfIVxK3qMcn/hzAqvR1ywPs/9O3BhADaUBTwL1N7HOyegdZaKzsuYi7mOOWX1n33XUylMzupD3HUfCEy9Avgn9ty7ofk0JGID+JsRvNFW+Us726fg4XS/fVSG1gzeilmo+vm8d/AYRg5OBL1AqSNs=
+	t=1788768553; cv=none; b=SIK3U1jMJwwNOt3O7rH6oOJZBZmbbeZ9sBocQy7iGPbm46anfbd9JtxNQBmAgB9Tsy82wzafzAkHg0xC3fqz4L2gQHTKCNTxchlrUQaKtLLWoQX6qTpWUBPlpuhO+w8Um3qRNeCHXlnrMHVNqCK4XpAbU2XUhULogt0njg7mezM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768546; c=relaxed/simple;
-	bh=rPz0xDbTD8p93bPYQVOUv/fwKoXoM0jlUbzg+c/kUYI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fPRyVc91v5gqQAqR7c1rZib1mflRKJkYGzUV5L6G/xC3mz2Thuta3DfDLybC+bUfiEmJ064oTJu/gLvbwCet5W760MNazwX2DEFA965vwUlsLy3B5gEL08mthEBPmFk/W9oh8c1H1qoIKdo6MsRizR6LJ2W3b1hbPZGDNfA7Tl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b2QJLDaW; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788768553; c=relaxed/simple;
+	bh=8tQZIIqvG/6r+thQ5+8ZiHJ5p6+8/rFiEvfA+pAlwU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ObKXFsvw2ABTLvDB+ItMgjtw8GsfbT+GGqV/bWNZFM2ebgJs7xlOd62hSlcICTXSNOPklyUpt6lxDtiq5h2xNx5LfBRcDqP2pRJReQKeDq62WV93qSZVEZ71TqbDaYGAl3cY5CWEJdr2SUT4lPnVVbk9hSqQENEK4lsoehyko8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org; spf=pass smtp.mailfrom=wyuan.org; dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b=W3bBa6sY; arc=none smtp.client-ip=95.215.58.250
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wyuan.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wyuan.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b2QJLDaW"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d9201076b3so36965545ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:09:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788768542; x=1789373342; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yeQPHr3k4W49mwlDeTXOdB54qRtzTpZiMlZNmTvTcKk=;
-        b=b2QJLDaWtOwAeCdAyQq+EXIKcHu1+G7XBDuUcNpbJj9UnGf2VdW4t75KDjVC4m6weT
-         0QcZ9EeihuBVuic0TxRogjsVH0ZP2P3On63qa2dyJZD6i5F95Nnxv11+1YDEYlgfAyzJ
-         IZ1zopuHAjG9JWSfVi9gD8alfGKIlQgePj3N9+zjs13kAx4dAVS/S61YUvIbqvB4ymb4
-         1t/DQulFbzDcykGaXhc01c2USCOPkUHYcTD9w/1Ak8sKqlGJn103e7QXv8EAugAn2dNV
-         GFo4djWo19MEaA7t03wIzUwNJBhLxg+lzbbWP9H77IduYn9DRXVF3K4QX3m5lfKc++5t
-         Yd4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788768542; x=1789373342;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yeQPHr3k4W49mwlDeTXOdB54qRtzTpZiMlZNmTvTcKk=;
-        b=fLWg8tjmzAiuIEjQ+XN9dL58dwlOuZT4SoBAo0r3vA7cQis2T8kJvo0CVu696V3izD
-         FgSkElbrvz5uZ+yJCL1RLNkXapDiHA9Mk6+O5Si+A9wNB4L5wdi+oVZToIbRXVnW0H/4
-         v+fPPpVL7JVMQKtztXSBeB1gymTarvQ77sWjmydugTUsfPSHQBnB5Lws4RXMBOlvzj+D
-         l6X2kLuNphwSTn7IkTpZzp6NhTslMCcnnbI6psnolAB6sp+5yhgfZOXJqTze01ER5gH4
-         W2GKDYxub8kiXiB6DBkSQ8VVDIygRcUTwWy9BBxm2YBKikvA1u/bzXhZuyNewy2jfyBY
-         Jf2A==
-X-Forwarded-Encrypted: i=1; AKwUvBzB3dHOJZX2XrD1PYPlw8Z6xQnQ/H63InMqJxkePxbQqif4GH52JxgTj+i+427491jbEMF2mzqbmpcmYic=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1TS9l1xpy0awt5hytysWPrkZUBEAuDZkqtXFh176Zu1CJYMug
-	/+0oiJ38Fu4onkORhdUNaeyutN0sHoMPm0Nh0rMwK09pwFTSlhJKRGaH
-X-Gm-Gg: AYBFou2tJ9vRHO3dvYpRy0Rg92+KGS1xlBbWrJf2Uk/Xgd2/FddooDcVt7EaZO/RiHP
-	105wct2qTUqUMRZYNeb/jtO5Pvq1AtE0IFsvb6iqfKWb+9n4NrZKXhcWP2XLaye3BoP7Ed3/Cih
-	qDVjS7YRKwSFWYFOrWTxUicV1jsT+MitdFVnSQwz5KxQHsHzclyPnYrYKnRqa7bAT7QwcbKFlev
-	npVRu5ps/81PSX/qYdjTZAjwx8FJrbJu9kkc3wfBVRU3UL2OwoyBMtqY/1FamfGYbPEC3paNYcn
-	DzJBg6p9Mn64jV54dw3HgErgo5wFkMQghReDlyTwvPyCRxtYt8AYPcHHlOl3teGBd+kgnjoj8L5
-	jyWxBXe5tv4pKUPLjbyxaNIazu7mNSOHpagBntSzuvkPWEitjmLZtOW8Y1g5nla2x0ltneQbffQ
-	tkAs/zPn2hgQ7euQLRwMjF7iLiT7CL7U2J1vrhH4GLNOad6qLNcTc1/MKNyrhu7BZIndjJOnsYV
-	ft66R6Scp68HDdQxyGf8jU2CKvbWFZ/C7syI51epg9XOtgxcLy9X41riE/Z20n84w==
-X-Received: by 2002:a17:903:4683:b0:2cf:c543:2c7e with SMTP id d9443c01a7336-2db125a16fdmr355053065ad.10.1788768541992;
-        Mon, 07 Sep 2026 01:09:01 -0700 (PDT)
-Received: from cs00-MS-7C09.. (2001-b400-e332-0a85-7dbb-93aa-5d32-f5d9.emome-ip6.hinet.net. [2001:b400:e332:a85:7dbb:93aa:5d32:f5d9])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae36adsm40617015ad.76.2026.09.07.01.08.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:09:00 -0700 (PDT)
-From: hsyemail2@gmail.com
-X-Google-Original-From: syhuang3@nuvoton.com
-To: Guenter Roeck <linux@roeck-us.net>,
-	linux-hwmon@vger.kernel.org
-Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Jean Delvare <jdelvare@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: [PATCH v1] hwmon: (lm75) Add support for Nuvoton NCT7715
-Date: Mon,  7 Sep 2026 16:08:30 +0800
-Message-ID: <20260907080831.11281-1-syhuang3@nuvoton.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=wyuan.org header.i=@wyuan.org header.b="W3bBa6sY"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=8tQZIIqvG/6r+thQ5+8ZiHJ5p6+8/rFiEvfA+pAlwU0=;
+ c=simple/simple; d=wyuan.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788768546; v=1; x=1789373346;
+ b=W3bBa6sYQ7EnQnNZjISCV7oV2kCjgejNHYMCBmPWPoZAlzMPsHYiK4RO1Hw/DGmxRaoMiqi7
+ 8ll2k48YlxE5gFpEBfqOKp6/UeyjGAz1wmKuyMAYHERvpZYE80vqtSByFuJUrHb7A3Mv1IcjQqF
+ Axh4cfEuvO/C2xkGHZr/Z7YFTYGd8g7ToZ9xV66eOe9CFxWj1Cfy7DRGlBFEUfJPIRjYs1htpDC
+ YlcPuhPmIhR13L6UZiQF0LNQWdKwkXXrqioQ00yniU5QX3RDAavDyNMez8twqF2Qo/t83Y1TiZ/
+ GvNB4ePaIQqBUxzbBNWOuATqPb9WjcCRUf8Dke1ey6snA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3ca03628c687e3be;
+	Mon, 07 Sep 2026 08:08:56 +0000
+X-Mizu-Trace-ID: 3ca03628c687e3be
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 7 Sep 2026 16:08:50 +0800
+From: Weijie Yuan <wy@wyuan.org>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Alex Shi <alexs@kernel.org>,
+	Dongliang Mu <dzm91@hust.edu.cn>, Yanteng Si <si.yanteng@linux.dev>,
+	Hu Haowen <srcres258@furdevs.cn>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: Subject: [RFC] docs/zh_TW: defining a maintainable scope for the
+ Traditional Chinese translation
+Message-ID: <ap5xEtMdwXS8Pvcf@wyuan.org>
+References: <CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com>
 
-From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+On Sun, Sep 06, 2026 at 04:21:24AM +0800, 葉宸佑 wrote:
+> Hi all,
+> 
+> Now that zh_TW has maintainers again, the next question is what we can
+> credibly promise to keep current.  The tree holds 97 files, and a survey
+> of them says: not all of them.  I would rather narrow the scope openly
+> than leave readers to find out which pages lie to them.
 
-The Nuvoton NCT7715 is compatible with the LM75 temperature and
-limit register layout, but its 16-bit configuration register is
-transmitted most-significant byte first. Add support for the NCT7715,
-including byte-swapped SMBus accesses for its configuration register.
+Yes.
 
-Handle its conversion-rate field and shutdown bit separately, since
-their bit positions differ from the standard LM75 layout.
+> This follows on from Jon's question in the contact-block cleanup thread
+> [1], where I said the wider question of what to do with the stale
+> translations deserved its own discussion.
 
-Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
----
- .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
- Documentation/hwmon/lm75.rst                  |  6 ++
- drivers/hwmon/lm75.c                          | 57 ++++++++++++++++++-
- 3 files changed, 62 insertions(+), 2 deletions(-)
+In general, my personal preference is to completely eliminate this mess,
+then reorganize the structure and align the English one.
 
-diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-index b48bf3fd721f..832a8c5d83e9 100644
---- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
-+++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
-@@ -31,6 +31,7 @@ properties:
-       - nxp,p3t1750
-       - nxp,p3t1755
-       - nxp,pct2075
-+      - nuvoton,nct7715
-       - st,stds75
-       - st,stlm75
-       - microchip,tcn75
-diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
-index ca46754e028b..fac0b8f29ddc 100644
---- a/Documentation/hwmon/lm75.rst
-+++ b/Documentation/hwmon/lm75.rst
-@@ -150,6 +150,12 @@ Supported chips:
- 
-                https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
- 
-+  * Nuvoton NCT7715
-+
-+    Prefix: 'nct7715'
-+
-+    Addresses scanned: none
-+
- Author: Frodo Looijaard <frodol@dds.nl>
- 
- Description
-diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-index 2d2d752aeac9..0b55f6b7c68d 100644
---- a/drivers/hwmon/lm75.c
-+++ b/drivers/hwmon/lm75.c
-@@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- 	max6626,
- 	max31725,
- 	mcp980x,
-+	nct7715,
- 	p3t1750,
- 	p3t1755,
- 	pct2075,
-@@ -107,6 +108,15 @@ static const unsigned short normal_i2c[] = { 0x48, 0x49, 0x4a, 0x4b, 0x4c,
- #define LM75_REG_MAX		0x03
- #define PCT2075_REG_IDLE	0x04
- 
-+#define NCT7715_CONFIG_RESOLUTION_12_BIT	GENMASK(14, 13)
-+#define NCT7715_CONFIG_SHUTDOWN			BIT(8)
-+#define NCT7715_CONFIG_CONVERSION_RATE_MASK	GENMASK(7, 6)
-+#define NCT7715_CONFIG_EXTENDED_MODE		BIT(4)
-+#define NCT7715_CONFIG_RATE_0_25HZ		0
-+#define NCT7715_CONFIG_RATE_1HZ			BIT(6)
-+#define NCT7715_CONFIG_RATE_4HZ			BIT(7)
-+#define NCT7715_CONFIG_RATE_8HZ			GENMASK(7, 6)
-+
- struct lm75_data {
- 	const char *label;
- 	struct regmap			*regmap;
-@@ -122,6 +132,10 @@ struct lm75_data {
- /*-----------------------------------------------------------------------*/
- 
- static const u8 lm75_sample_set_masks[] = { 0 << 5, 1 << 5, 2 << 5, 3 << 5 };
-+static const u16 nct7715_sample_set_masks[] = {
-+	NCT7715_CONFIG_RATE_8HZ, NCT7715_CONFIG_RATE_4HZ,
-+	NCT7715_CONFIG_RATE_1HZ, NCT7715_CONFIG_RATE_0_25HZ
-+};
- 
- #define LM75_ALERT_POLARITY_HIGH_8_BIT	(BIT(2))
- #define LM75_ALERT_POLARITY_HIGH_16_BIT	(BIT(2) << 8)
-@@ -259,6 +273,15 @@ static const struct lm75_params device_params[] = {
- 		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
- 		.resolutions = (u8 []) {9, 10, 11, 12 },
- 	},
-+	[nct7715] = {
-+		.config_reg_16bits = true,
-+		.set_mask = NCT7715_CONFIG_RESOLUTION_12_BIT,
-+		.clr_mask = NCT7715_CONFIG_EXTENDED_MODE,
-+		.default_resolution = 12,
-+		.default_sample_time = 250,
-+		.num_sample_times = 4,
-+		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
-+	},
- 	[tmp100] = {
- 		.set_mask = 3 << 5,	/* 12-bit mode */
- 		.clr_mask = 1 << 7,	/* not one-shot mode */
-@@ -354,6 +377,11 @@ static inline long lm75_reg_to_mc(s16 temp, u8 resolution)
- static inline int lm75_write_config(struct lm75_data *data, u16 set_mask,
- 				    u16 clr_mask)
- {
-+	if (data->kind == nct7715)
-+		return regmap_update_bits(data->regmap, LM75_REG_CONF,
-+					  clr_mask | set_mask | NCT7715_CONFIG_SHUTDOWN,
-+					  set_mask);
-+
- 	return regmap_update_bits(data->regmap, LM75_REG_CONF,
- 				  clr_mask | set_mask | LM75_SHUTDOWN, set_mask);
- }
-@@ -486,6 +514,13 @@ static int lm75_update_interval(struct device *dev, long val)
- 		if (data->params->resolutions)
- 			data->resolution = data->params->resolutions[index];
- 		break;
-+	case nct7715:
-+		err = lm75_write_config(data, nct7715_sample_set_masks[index],
-+					NCT7715_CONFIG_CONVERSION_RATE_MASK);
-+		if (err)
-+			return err;
-+		data->sample_time = data->params->sample_times[index];
-+		break;
- 	case tmp112:
- 	case as6200:
- 		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
-@@ -609,6 +644,8 @@ static int lm75_i2c_reg_read(void *context, unsigned int reg, unsigned int *val)
- 	if (reg == LM75_REG_CONF) {
- 		if (!data->params->config_reg_16bits)
- 			ret = i2c_smbus_read_byte_data(client, LM75_REG_CONF);
-+		else if (data->kind == nct7715)
-+			ret = i2c_smbus_read_word_swapped(client, LM75_REG_CONF);
- 		else
- 			ret = i2c_smbus_read_word_data(client, LM75_REG_CONF);
- 	} else {
-@@ -628,8 +665,11 @@ static int lm75_i2c_reg_write(void *context, unsigned int reg, unsigned int val)
- 	if (reg == PCT2075_REG_IDLE ||
- 	    (reg == LM75_REG_CONF && !data->params->config_reg_16bits))
- 		return i2c_smbus_write_byte_data(client, reg, val);
--	else if (reg == LM75_REG_CONF)
-+	else if (reg == LM75_REG_CONF) {
-+		if (data->kind == nct7715)
-+			return i2c_smbus_write_word_swapped(client, reg, val);
- 		return i2c_smbus_write_word_data(client, reg, val);
-+	}
- 	return i2c_smbus_write_word_swapped(client, reg, val);
- }
- 
-@@ -848,6 +888,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
- 	{ .name = "max31725", .driver_data = max31725 },
- 	{ .name = "max31726", .driver_data = max31725 },
- 	{ .name = "mcp980x", .driver_data = mcp980x },
-+	{ .name = "nct7715", .driver_data = nct7715 },
- 	{ .name = "p3t1750", .driver_data = p3t1750 },
- 	{ .name = "p3t1755", .driver_data = p3t1755 },
- 	{ .name = "pct2075", .driver_data = pct2075 },
-@@ -972,6 +1013,10 @@ static const struct of_device_id lm75_of_match[] = {
- 		.compatible = "nxp,pct2075",
- 		.data = (void *)pct2075
- 	},
-+	{
-+		.compatible = "nuvoton,nct7715",
-+		.data = (void *)nct7715
-+	},
- 	{
- 		.compatible = "st,stds75",
- 		.data = (void *)stds75
-@@ -1129,13 +1174,21 @@ static int lm75_suspend(struct device *dev)
- {
- 	struct lm75_data *data = dev_get_drvdata(dev);
- 
--	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, LM75_SHUTDOWN);
-+	if (data->kind == nct7715)
-+		return regmap_update_bits(data->regmap, LM75_REG_CONF,
-+					  NCT7715_CONFIG_SHUTDOWN,
-+					  NCT7715_CONFIG_SHUTDOWN);
-+	return regmap_update_bits(data->regmap, LM75_REG_CONF,
-+				  LM75_SHUTDOWN, LM75_SHUTDOWN);
- }
- 
- static int lm75_resume(struct device *dev)
- {
- 	struct lm75_data *data = dev_get_drvdata(dev);
- 
-+	if (data->kind == nct7715)
-+		return regmap_update_bits(data->regmap, LM75_REG_CONF,
-+					  NCT7715_CONFIG_SHUTDOWN, 0);
- 	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, 0);
- }
- 
--- 
-2.43.0
+> 2. Translations whose original moved out from under them
+> ========================================================
+> 
+> This is the part that worries me most, because it is invisible to a
+> reader and to most tooling: the translation looks fine, but the English
+> document it mirrors has been relocated, so nobody working on the English
+> side has any reason to look at us.
+> 
+>   ==================================  =========================================
+>   zh_TW file                          English original now lives at
+>   ==================================  =========================================
+>   admin-guide/security-bugs.rst       process/security-bugs.rst
+>   process/magic-number.rst            staging/magic-number.rst
+>   dev-tools/gdb-kernel-debugging.rst  process/debugging/gdb-kernel-debugging.rst
+>   arch/arm/Booting                    arch/arm/booting.rst
+>   ==================================  =========================================
+> 
+> The moves upstream were:
+> 
+>   2023-03-05  Documentation/security-bugs: move from admin-guide/ to process/
+>   2024-06-24  Docs: Move magic-number from process to staging
+>   2024-12-09  Documentation: move dev-tools debugging files to
+> process/debugging/
+> 
+> All three translations still sit in the old location, and all three are
+> still linked from a zh_TW index, so a reader is pointed at a file that
+> mirrors a document which has since been filed somewhere else.
+> 
+> Two more translate content that was restructured rather than moved:
+> 
+>   - IRQ.txt renders an old version of core-api/irq/index.rst.  That file
+>     is now a twelve-line toctree; the prose it translates lives in
+>     core-api/irq/concepts.rst.
+>   - io_ordering.txt is in the same position relative to
+>     driver-api/io_ordering.rst.
+> 
+> Six files carry no :Original: field at all, so
+> tools/docs/checktransupdate.py cannot tell what they mirror and skips
+> them silently:
+> 
+>   index.rst, arch/index.rst, disclaimer-zh_TW.rst,
+>   dev-tools/sparse.rst, admin-guide/clearing-warn-once.rst,
+>   admin-guide/cpu-load.rst
+> 
+> There is a second reason this matters.  Where the :Original: marker is
+> missing, checktransupdate.py falls back to comparing author dates, which
+> means any mechanical tree-wide pass over the translations resets the
+> apparent baseline: after such a pass the tool reports those files as up
+> to date, because the translation is newer than every English change.  I
+> ran into this while preparing this survey -- measured on top of my own
+> pending contact-block cleanup, which touches most of the tree, the
+> number of stale files drops from 51 to 2.  None of that staleness went
+> away; it just stopped being visible.  A tree without :Original: fields
+> cannot be measured reliably at all.
+> 
+> Whatever else we decide, I would like to fix these two classes first:
+> move the misplaced files so they mirror the current English layout, and
+> give every translation an :Original: field.  That is what makes the rest
+> of the tree checkable at all.
 
+
+My idea is: If the current translation quality is acceptable and it's
+not troublesome to move it, I think we can just move it. On the
+contrary, if the translation is significantly behind, there is no need
+to go through all the trouble, just delete them.
+
+Quoting Dongliang:
+
+| But for the current situation of zh_TW, re-translation may be more
+| efficient. -- Dongliang <45167b0a-4c60-43a4-9c3d-b8ddcbb8679c@hust.edu.cn>
+
+
+
+> 3. How far behind the rest is
+> =============================
+> 
+> Using tools/docs/checktransupdate.py over all 87 .rst files:
+> 
+>   ============================  =====
+>   Upstream commits not applied  Files
+>   ============================  =====
+>   1-3                              30
+>   4-9                              13
+>   10-19                             7
+>   20 or more                        1
+>   ============================  =====
+> 
+> 51 files are behind, by 245 commits in total.  The other 36 are level
+> with their originals only because those originals have not changed
+> either; nobody is actively keeping any of them current.
+> 
+> The process/ series currently on the list accounts for 66 of those 245
+> commits and brings all of process/ to zero.
+
+Yup, let's do this part later.
+
+And after process/, I'd like to do that part "Working with the
+development community".
+
+> Excluding it, the worst remaining cases are:
+> 
+>   ===================================  ==============
+>   File                                 Commits behind
+>   ===================================  ==============
+>   admin-guide/mm/damon/usage.rst                   33
+>   filesystems/index.rst                            17
+>   arch/arm64/elf_hwcaps.rst                        13
+>   admin-guide/index.rst                            12
+>   dev-tools/index.rst                              11
+>   admin-guide/mm/damon/lru_sort.rst                10
+>   ===================================  ==============
+
+Tricky?
+
+> 4. Documents no reader can reach
+> ================================
+> 
+> 18 files are not referenced from any toctree.  Sphinx still renders them,
+> but nothing links to them, so they are unreachable unless you already
+> know the URL:
+> 
+>   - nine pre-RST files kept in the old plain-text format: IRQ.txt,
+>     io_ordering.txt, arch/arm/Booting, arch/arm/kernel_user_helpers.txt,
+>     arch/arm64/{booting,legacy_instructions,memory,silicon-errata,
+>     tagged-pointers}.txt
+>   - filesystems/ (5 files, one of which is a tenth plain-text file,
+>     sysfs.txt) and cpu-freq/ (4 files), which have index.rst files of
+>     their own that the top-level zh_TW index never links to
+> 
+> disclaimer-zh_TW.rst is also outside the toctree, but deliberately so:
+> it is marked :orphan: because it is included rather than linked.  It is
+> not counted above.
+
+So I would like to restate my point again: Completely reorganizing these
+structures is obviously much more convenient than handling them one by
+one.
+
+> 5. Per-area summary
+> ===================
+> 
+>   ==============  =====  ===========  ======  ==============
+>   Area            Files  Unreachable  Behind  Commits behind
+>   ==============  =====  ===========  ======  ==============
+>   process            27            0      14              66
+>   arch               28            7      12              35
+>   admin-guide        23            0      15              99
+>   dev-tools           6            0       5              16
+>   filesystems         5            5       3              21
+>   cpu-freq            4            4       1               1
+>   top level           4            2       1               7
+>   ==============  =====  ===========  ======  ==============
+> 
+> Within those, admin-guide/mm/damon (5 files) accounts for 55 of
+> admin-guide's 99, and arch/arm64 (10 files) for 23 of arch's 35.
+> 
+> 6. Proposal
+> ===========
+> 
+> I would rather do one area properly than all of them badly, so I propose
+> we start narrow and grow the supported set as people show up.
+
+True. True.
+
+> 
+> Step 1, now: process/ becomes the supported set.
+> 
+>   27 files, no unreachable documents, and the pending series already
+>   brings it to zero commits behind.  It is also what a Taiwanese reader
+>   starting kernel work reads first.  Committing to keep this current is a
+>   promise we can keep today.
+> 
+>   As part of this, fix the structural problems in section 2: relocate the
+>   misplaced translations and add the missing :Original: fields, so
+>   checktransupdate covers the whole tree.
+
+Yes.
+
+> 
+> Step 2, next: the 70 files outside process/ are marked as not currently
+> maintained.
+> 
+>   That is most of the tree, so to be explicit about what it means: the
+>   files stay where they are and readers can still find them, but each one
+>   says plainly that it is not kept in sync and points at the English
+>   original.
+> 
+>   Rather than inventing a mechanism, reuse the one the tree has: a short
+>   notice included at the top of the file, the way disclaimer-zh_TW.rst is
+>   included today.  If people would rather leave the files untouched, the
+>   same information could live in the index instead.
+
+I'm fine with both. However, the former might be clearer and more
+understandable for the readers. If it is only included in the index,
+some readers might not bother to look at it.
+
+> 
+>   Areas would move out of this set as they find someone to look after
+>   them, rather than being promised anything up front.
+> 
+> Step 3, to decide here: the nine unreachable plain-text files.
+> 
+>   They are unreachable, they use a format the rest of the tree left
+>   behind years ago, and two of them describe content that no longer
+>   exists upstream in that shape.  I lean towards removing them: nothing
+>   links to them, so no reader loses anything.
+
+Agreed, let's remove them.
+
+> 
+>   filesystems/sysfs.txt is in the same old format but is reachable from
+>   filesystems/index.rst, so I have left it out of this step.
+> 
+> Open question: filesystems/ and cpu-freq/ (9 files) are unreachable only
+> because the top-level index never links them.  We can link them and mark
+> them unmaintained, or drop them.  I lean towards linking, since the
+> translations themselves are not in bad shape.
+
+Fine. That's OK.
+
+> 
+> 7. What I am not proposing
+> ==========================
+> 
+> I am not proposing to touch zh_CN, and I am not proposing to remove
+> anything a reader can currently reach, apart from the nine plain-text
+> files in step 3.  I am also not asking anyone to review Chinese text; the
+> decisions here are about scope, not translation quality.
+
+;-o  ;-)
+
+> Sequencing: the two pending zh_TW series should land first, so this
+> discussion is not competing with them.  What I would like out of this
+> thread is
+
+> agreement on the shape 
+
+So ditto:
+
+If the current translation quality is acceptable and it's not
+troublesome to move it, I think we can just move it. On the contrary, if
+the translation is significantly behind, there is no need to go through
+all the trouble, just delete them.
+
+But hey, this is just my personal opinion.
+
+> after which I will send the relocations, the :Original: fixes, and the notices as separate series.
+
+Sure.
+
+Thanks.
