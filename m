@@ -1,196 +1,137 @@
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A5943B3D5
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0CF739280C;
+	Mon,  7 Sep 2026 11:54:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781992; cv=none; b=nhL+FNVGwE8JU/SQUiB36t/jmfaQiiZA+Dk1QhXQPPWMRhmcdAXrNjUAtfczZIam6SzGH7xsRtfw+YvYjNqG56lQ5E1GqV2xIqTmQMff0avrnT18QLMAdNoUN7iQbF3kkImCvux2Iim5uYMKt5PH5pcrBAVifF6nXLLq4oHgROE=
+	t=1788782085; cv=none; b=Gtgvy77G38MkDD+NF/QpPESZWSqKoxtBSTvZ6ulRw4vA1P+kbGjxBw9NL5/9PnSKB7e3bW23es1RxS0RZKBf7fpvxqwreUK6Cb3+wSWuSRebvWSs9/0OY9JVAGQG93BWVuity0W4PZPSM1N089UfxCHwPGxGkkEaK0u3tVHnbmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781992; c=relaxed/simple;
-	bh=rxEU3M+a5Gd8sSO72qvi3r2pFItJJoXEWbGtZJh154s=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lfNsoF1MnfLdKMFm0CmM1A0JyM0AcKHKOmHUNj3buDCVmHKhSb0zpLD+b5+RqTu9b00ON0wb6Y2FDdxSCvLBzSa74Ua9CCTKmI8jXz3NfdYNUfCX6PIcytk8GViXT2JuxJue82QX7HvOooB7a+UT3M8VE+8yDNZGgK8TSCwAxp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=AIbo9WB7; arc=none smtp.client-ip=83.166.143.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
+	s=arc-20240116; t=1788782085; c=relaxed/simple;
+	bh=53KcBrkFsMMtIwM6/KsvB28KUfU9olumCJ+Q/BCCcQA=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qcJ8ddCPzQSJo9CVHuFTOuBuXLdH8YYv8IxKMIHG5DdMZ1mLLmF23NFEkzp60qattilybPNeF3sDtQVJ5+N4Vicrca6G2QSnKz6/og8CbS3cYrGV65zQYN26gbAUh1yLc6K2El0cDVldiD0g88r654Ov1d+2P8oHL71zkvN56qk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=solvOZpZ; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="AIbo9WB7"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdlnc11H4z4D9;
-	Mon,  7 Sep 2026 13:53:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
-	s=20250113; t=1788781987;
-	bh=Xe6YwvkBOT9oiuGVuKp1br5sQHMUpB0fae8Da3Ql9Gw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=AIbo9WB7H1jtN2Q92nW0FHSg74YWWyHJWx63yYSuTVrKr2i9V/fIZr/HMzdaMtz2w
-	 LGd7ycgsZIkubXdx8ImM858qDrwFzpLhGIfSbBW355v7raTKCZkkuvd+PH0PhtIV4l
-	 zvc+gHv9Q1O1CR6eNGkGe92bnDoaaw5+//r/Q/XiDdOlvJ+TdOo71CZKbyaHN57biR
-	 yUr+2ISyB/pgdCbrSpn4vCc+wHnpcrd0ZyuzdQu/W622coyIhGjgF6dcJepvbwVisa
-	 1z75FaLU6HyFkVY6GFLuf7kcOqpwVBjTt1he+sCt5DRQ7V8mVMJX8AhmsZ+aexd+vd
-	 uGl6uO69LlCPQ==
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hdlnb1THpz224;
-	Mon,  7 Sep 2026 13:53:07 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] drm/amd/display: size frame-packed streams by the doubled timing
-Date: Mon,  7 Sep 2026 13:52:29 +0200
-Message-ID: <20260907115229.64477-4-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
-References: <20260907115229.64477-1-adrian.betschart@cinemaone.ch>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="solvOZpZ"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hdlqL6lsJzMlDL;
+	Mon, 07 Sep 2026 13:54:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788782078; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=53KcBrkFsMMtIwM6/KsvB28KUfU9olumCJ+Q/BCCcQA=;
+	b=solvOZpZHFXg1d68wbpZP7//okzTnJWvlqlgBhGxtweZj74ZCEFsCJkwrztegEvQhQtq0F
+	A7ahXptFgwWkXPzSRv3g4O7UXhK5mL+RGZ5f4bQiK5xgKHGFX+Mh3FIKZ32tA1YF4kVtxZ
+	0wFp69IFMtPedBmCej58qCncct2z0oCTDb+SF+RvFkmI5bSw4Q3aLzZt3QlU5FHB0dcQAa
+	o20KQgHdJ2LtMnAhn9TwWvPdy2Cp9sF6rCUYoAgx9PZjqEaXjFrit4tf5+lulv0TZ/JxdN
+	Y7Geq6Y24kK8rTbxkY6ltNYAt5Qe8UQtcI4TI+kEpX0wN8iUnFd76j/5GjeuiA==
+Message-ID: <0ac0d9192cf234911e28341cee48bdeb789b4577.camel@mailbox.org>
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
+	phasta@kernel.org, "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, 
+	tursulin@ursulin.net, matthew.brost@intel.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ 	stable@vger.kernel.org
+Date: Mon, 07 Sep 2026 13:54:33 +0200
+In-Reply-To: <05bd9329-1982-44bb-9d8e-bc2f8b345cb6@amd.com>
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+	 <20260904080618.2098450-2-malhyuk97@gmail.com>
+	 <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+	 <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+	 <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+	 <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+	 <05bd9329-1982-44bb-9d8e-bc2f8b345cb6@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+X-MBO-RS-ID: dc6fa35c1beff9ad349
+X-MBO-RS-META: afk96yxhqhquifxxbhpifjc9tipfgfet
 
-A frame-packed 3D mode scans out both views and the active space
-between them in one frame, so the CRTC is 2205 lines tall for a
-1080p mode. The stream scaling code took the source height from
-mode->vdisplay (1080) against the 2205-line addressable destination;
-with aspect scaling that keeps 1080 lines and centres them, so the
-first view is stretched across both eye windows and the second view
-is never shown. The plane viewport check clipped planes to
-crtc_vdisplay for the same reason.
+On Mon, 2026-09-07 at 13:42 +0200, Christian K=C3=B6nig wrote:
+> Well no, before patch "035219a760ed dma-buf: dma-fence: Fix potential
+> NULL pointer dereference" everything worked correctly as long as the
+> driver waited for an RCU grace period before tearing down the
+> scheduler.
 
-Use drm_mode_get_hv_timing(), which returns the doubled height for
-stereo modes and the plain display size otherwise, in both places.
+035219a760ed literally fixed a race condition for weakly ordered
+platforms, so I wouldn't say that "everything worked correctly" :)
 
-Measured on a Radeon RX 7600 with a frame-packed 1920x1080p24 mode:
-before, a row-coded 2205-line test frame showed rows of the first
-view in both eyes; after, each eye receives its own view.
+>=20
 
-The plane KUnit tests mocked only the CRTC-adjusted size; set the mode size
-they now derive it from as well.
+[=E2=80=A6]
 
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 11 ++++++++---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c | 13 +++++++++----
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c  | 12 ++++++++++++
- 3 files changed, 29 insertions(+), 7 deletions(-)
+> >=20
+> >=20
+> > Correct me if I'm wrong, but it seems we have not found an alternative
+> > solution that can work yet?
+>=20
+> I think we did. The problem was introduced with patch 035219a760ed
+> and I think we should fix it there as well.
+>=20
+> We just need to start checking for both the ops and signaled status
+> in the dma_fence framework.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index aa3f47632..2d35060d7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1418,9 +1418,14 @@ void amdgpu_dm_update_stream_scaling_settings(struct drm_device *dev,
- 	if (!mode)
- 		return;
- 
--	/* Full screen scaling by default */
--	src.width = mode->hdisplay;
--	src.height = mode->vdisplay;
-+	/*
-+	 * Full screen scaling by default. A frame-packed 3D mode scans out the
-+	 * doubled timing, so the source size is the CRTC size, not vdisplay:
-+	 * with 1080 lines against a 2205-line destination the aspect fit would
-+	 * keep 1080 lines and centre them, putting the first view across both
-+	 * eye windows and none of the second.
-+	 */
-+	drm_mode_get_hv_timing(mode, &src.width, &src.height);
- 	dst.width = stream->timing.h_addressable;
- 	dst.height = stream->timing.v_addressable;
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 0a5a73472..8db656ef8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1407,16 +1407,21 @@ int amdgpu_dm_plane_helper_check_state(struct drm_plane_state *state,
- 		if (state->plane->type != DRM_PLANE_TYPE_CURSOR) {
- 			int viewport_width = state->crtc_w;
- 			int viewport_height = state->crtc_h;
-+			int mode_hdisplay, mode_vdisplay;
-+
-+			/* frame-packed 3D scans out the doubled timing */
-+			drm_mode_get_hv_timing(&new_crtc_state->mode,
-+					       &mode_hdisplay, &mode_vdisplay);
- 
- 			if (state->crtc_x < 0)
- 				viewport_width += state->crtc_x;
--			else if (state->crtc_x + state->crtc_w > new_crtc_state->mode.crtc_hdisplay)
--				viewport_width = new_crtc_state->mode.crtc_hdisplay - state->crtc_x;
-+			else if (state->crtc_x + state->crtc_w > mode_hdisplay)
-+				viewport_width = mode_hdisplay - state->crtc_x;
- 
- 			if (state->crtc_y < 0)
- 				viewport_height += state->crtc_y;
--			else if (state->crtc_y + state->crtc_h > new_crtc_state->mode.crtc_vdisplay)
--				viewport_height = new_crtc_state->mode.crtc_vdisplay - state->crtc_y;
-+			else if (state->crtc_y + state->crtc_h > mode_vdisplay)
-+				viewport_height = mode_vdisplay - state->crtc_y;
- 
- 			if (viewport_width < 0 || viewport_height < 0) {
- 				DRM_DEBUG_ATOMIC("Plane completely outside of screen\n");
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 1b39f41c8..80a952d47 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -642,6 +642,8 @@ static void dm_test_helper_check_state_viewport_reject(struct kunit *test)
- 	state->crtc_y = 0;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 100;
-+	new_crtc_state->mode.vdisplay = 100;
- 	new_crtc_state->mode.crtc_hdisplay = 100;
- 	new_crtc_state->mode.crtc_vdisplay = 100;
- 
-@@ -2286,6 +2288,8 @@ static void dm_test_helper_check_state_small_viewport_width(struct kunit *test)
- 	state->crtc_y = 0;
- 	state->crtc_w = 10;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
- 
-@@ -2327,6 +2331,8 @@ static void dm_test_helper_check_state_small_viewport_height(struct kunit *test)
- 	state->crtc_y = -95;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
- 
-@@ -2369,6 +2375,8 @@ static void dm_test_helper_check_state_bottom_clipped_height(struct kunit *test)
- 	state->crtc_y = 95;
- 	state->crtc_w = 100;
- 	state->crtc_h = 100;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 100;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 100;
- 
-@@ -2429,6 +2437,8 @@ static void dm_test_helper_check_state_scaling_caps(struct kunit *test)
- 	state->crtc_w = 200;
- 	state->crtc_h = 200;
- 	new_crtc_state->crtc = crtc;
-+	new_crtc_state->mode.hdisplay = 1920;
-+	new_crtc_state->mode.vdisplay = 1080;
- 	new_crtc_state->mode.crtc_hdisplay = 1920;
- 	new_crtc_state->mode.crtc_vdisplay = 1080;
- 
-@@ -2738,6 +2748,8 @@ static struct amdgpu_device *dm_test_init_atomic_check_state(struct kunit *test,
- 
- 	(*new_crtc_state)->crtc = crtc;
- 	(*new_crtc_state)->enable = true;
-+	(*new_crtc_state)->mode.hdisplay = 1920;
-+	(*new_crtc_state)->mode.vdisplay = 1080;
- 	(*new_crtc_state)->mode.crtc_hdisplay = 1920;
- 	(*new_crtc_state)->mode.crtc_vdisplay = 1080;
- 
--- 
-2.43.0
+Agreed, we should address the problem there.
 
+But see my other answer to Tvrtko. I think if the decoupling point is
+the signaled bit anyways, we can and should stop setting ops to NULL in
+the first place.
+
+Because now we'd have two decoupling points.
+
+
+> > > >=20
+> >=20
+> > I hope that wasn't me because that again looks very racy.
+>=20
+> Why? Tvrtko added the RCU protection for that.
+
+RCU does not address ordering between signaled bit and ops pointer.
+
+> > I think that there is no way around using the spinlock. As I have
+> > pointed out many times, the fact that the signaled-bit is set with lock
+> > protection and read without it is fundamentally broken :(
+>=20
+> As far as I can see the RCU approach works just fine, the problem is
+> only that we dropped the check for the signaled bit from the common
+> framework and didn't considered that scheduler fence and a few other
+> weren't changed to not have a release callback yet.
+>=20
+> > > > IOW, we keep the solution presented here (removing ops->release for
+> > > > finished-fence) and the few drivers that check whether a fence is
+> > > > their
+> > > > own first do a locked dma_fence_is_signaled() check?
+> > >=20
+> > > Works for me as well, but as I said I would rather like to keep it
+> > > simple and stupid for backporting.
+> >=20
+> > If you can think of a stupid and simple solution, shoot. The only thing
+> > I can think of is moving the string into the dma_fence, as a hard copy
+> > :)
+>=20
+> See attached. It doesn't fully solve the problem, but it gives us the
+> status again we had after Tvrtko's RCU protection work.
+>=20
+
+Patch 0001 seems to reintroduce the race condition. No one guarantees
+that the CPU will load the signaled flag before the ops.
+
+P.
