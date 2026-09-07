@@ -1,109 +1,88 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E674F41D223
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345C242255C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767725; cv=none; b=VozB0O+FjJ/yprhpgjqQuaesmUBwNKR7zYXjz2qdb/MJbnuvrBNMR/Feb1tCqCgTKrlofejf8cKyvFH4hmKyCUiJVc5cRwxMj8lwuX7SVcrEVvDTHTOPt27MKt6OPVjt0Y/k17iFefIWsFwJXbACEvB6tFqPhr9/jhxEiLErFJg=
+	t=1788767727; cv=none; b=SivCLz9j7wmnquz2S0Xz6SFd19Il+4yUHhjrJZ7uIywJNIy+PccQFWIgKMf3CFtpsgAYofetyWmHhzdSMCQNcu+qwfCq0z6y/3yrqlxR8zWcFTCJPI7hYPU3vPavfjWIGlVpifptB9O1QEUe4/bAA41iKnm/Q/v0nbfEKH/0TLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767725; c=relaxed/simple;
-	bh=7GdhpKrgZ2WB4RU0gYhIS81qEJYA+jbVIyxXa68rOZY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ddv8Vt5mtHcCNm1i/dvUarfOvXddA9u9fWUAUxum7DPVKp4EIcFoXii3Hrr3gRJpLsHk6PADdre2RvMu1dX8GCT17HazSj8+3lIqPB7DNF8OC4UPh/zHitvQ52R/kp9lgh8JIoXwmWMtx36/T1qh4h2+fsKRJ5v5Tv5aQYKa474=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0Dwve84e; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=i9NwL8uO; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0Dwve84e";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="i9NwL8uO"
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788767716;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7GdhpKrgZ2WB4RU0gYhIS81qEJYA+jbVIyxXa68rOZY=;
-	b=0Dwve84eEPMxBlBnhHCpf/WsTrg4Uzl5SCti+J7F7HsxU/HJZOXvn2FxmGQrms/xkLujKa
-	DJW+MsrRLCwbuL37PRfmfFU22Uab/f4mgDX7FRSl8MxD4NfxAZ9DmQUCE84FKnhvvJjoR3
-	FJTbDamWFQTtVgspeUm59HVWtxA2Xru9RVKbdVrj9VUVmTYUzwTWBPK6G0xAgp82LGANGx
-	FgFDLn/6Mx7G32xgO5Plhg3TGbHi3goJZIbahLssF6S2F1Knxmx9V1jEQs7oT27CxtR2fM
-	6Rkd+RFNFxXtcXmUh2I//nx5Ae1HXAcW2ZavEI+as6qwF09StAn5gA/UEV6nNg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788767716;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7GdhpKrgZ2WB4RU0gYhIS81qEJYA+jbVIyxXa68rOZY=;
-	b=i9NwL8uONjeXoYrJ62HsZB4Pel2xJyrbZDyxR1d+UQkfGyXTpLjkUaNaZzXy0VGTNa/KnB
-	/Xmgg19hr2toKkBQ==
-To: Alexandre =?utf-8?Q?Boissi=C3=A8re?=
- <edu.alexandre.boissiere@gmail.com>, pmladek@suse.com
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: Question about desc_push_tail in Linux printk ringbuffer
-In-Reply-To: <CAFiazsFb8TZUKp8oEx=4jkEHm9oLHn8M=c2ksBC1SbeF-zmM7g@mail.gmail.com>
-References: <CAFiazsFb8TZUKp8oEx=4jkEHm9oLHn8M=c2ksBC1SbeF-zmM7g@mail.gmail.com>
-Date: Mon, 07 Sep 2026 10:01:15 +0206
-Message-ID: <874ig17axo.fsf@jogness.linutronix.de>
+	s=arc-20240116; t=1788767727; c=relaxed/simple;
+	bh=XUaOlxEc1FSYFT4Ig9pUVr01TVvVuMS06YFan4DaeMs=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=W1dDN3UqhTQXUrBbHIshzdNFucgtAGBtKNiJ02uLWbkfHDTVoco0eGhOY4TDsxKYhRMcr1F31w19hBBBI46TQUkCYo4DA8D0w6JCsR16Je3MgePA0KHkoMSjgJ1RGIHmLzUIQRSccdRkjjbOFf3AfDaWglhBFu50Dy3Aglu4y1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-46a4168b520so2753546fac.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:55:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788767725; x=1789372525;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5NVQcWlGB2bacqzylDvCwbGfwOruHFyt0arz1s7/Oic=;
+        b=cberhD8Y1iv+LSOBcq5rPnM7a4/OGCZwkusuiX82CQVAYo7n2iVFyguLRZRZDe0i40
+         mHFjjS3mAnbkoLTR3Xow8KdpJ80fRnMuMAa/OFRByVNCvQ+pRUjwdOQUdJB+0npQGAu1
+         QG1p0gM+bdZxliMTtzK1PO2wvgQeNvgFSeR99AAVxmy7ideq26ivRgFh4iyGycqUeVoD
+         QmDafbAN/MMMucxlKBq4DhPkCqKvjMTS30cvIYmt74vkmzv9Ar/nfCrTYkGdwZRSUOkb
+         gMi/giIleX13k+Az6zwgl/h316kbVor96ESzyC2LJzvVaEO5l/Hh1qa3+fy8OmnXKVze
+         xgzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxqbjHVtHRNwzIlMYpzjIROdEZlVcIiIeTTqXvyS/KEHmRq4tf5xrQDr3GwdyLnLbcuJvpUiqQSLTe7NGU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0ZEMA6CVSW2s1aF/Krua22tDg/NzEAyOuEDL6G76zQKxF9TqZ
+	22gOdFwmbRZRhOgwQTwIBRkkUhdZPU82UZyYkEv5F4bI24fYl9cLZMKZmkM9XFrHd6CqkUacmCa
+	gOQO0zYD5UbTyET+5fj6H87JGRMUoxv3xJuJgZ9wTXwaZ85rcSq9pb4za8wU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6820:6ae7:b0:6b6:71f7:ecbe with SMTP id
+ 006d021491bc7-6b6fdfb58dfmr20835916eaf.18.1788767725199; Mon, 07 Sep 2026
+ 00:55:25 -0700 (PDT)
+Date: Mon, 07 Sep 2026 00:55:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9e6ded.a5e650b3.26d8a.0027.GAE@google.com>
+Subject: [syzbot] bpf-next build error (8)
+From: syzbot <syzbot+99f4a690c25e0ae4253b@syzkaller.appspotmail.com>
+To: ast@kernel.org, daniel@iogearbox.net, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Alexandre,
+Hello,
 
-On 2026-09-05, Alexandre Boissi=C3=A8re <edu.alexandre.boissiere@gmail.com>=
- wrote:
-> I have recently been trying to understand how the Linux printk ring
-> buffer works.
->
-> However, despite it being heavily commented, I cannot understand the
-> logic behind the condition in the desc_miss case at the beginning of
-> the desc_push_tail method (lines 716-719 in commit b6cf8b3, lines
-> 801-804 in the latest commit bf56987c).
+syzbot found the following issue on:
 
-We originally did not have this special case. Petr discovered the
-need. You can read our dialogue when we realized we needed this.
+HEAD commit:    1b7415bf70be Merge git://git.kernel.org/pub/scm/linux/kern..
+git tree:       bpf-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=16d03125580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6a478687d4734a32
+dashboard link: https://syzkaller.appspot.com/bug?extid=99f4a690c25e0ae4253b
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-https://lore.kernel.org/lkml/20190709090609.shx7j2mst7wlkbqm@pathway.suse.cz
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+99f4a690c25e0ae4253b@syzkaller.appspotmail.com
 
-It is the comments related to "two-wraps-old".
+mv: cannot stat 'arch/x86/include/generated/asm/.tmp_cpufeaturemasks.h': No such file or directory
 
-> From what the comment says, it is meant to guard against another
-> writer currently reserving the descriptor. My understanding is that
-> this can only happen if there are concurrent calls to desc_reserve.
->
-> I have been trying to figure out a scenario that would make this
-> condition evaluate to true, but to no avail.
->
-> The difficulty I am facing is that desc_push_tail is called with the
-> value of the current tail (or the new head one wrap backwards), so for
-> this condition to hold, the ID of the desired descriptor would need to
-> be two wraps behind the new head?
->
-> However, given the way the ringbuffer works, and if there is another
-> writer, it should either contain the value of the tail if the other
-> writer has done the head CAS in desc_reserve but hasn't reached the
-> state_var CAS before the return statement; or the value of the tail
-> one wrap forward (which is equal to the new head) if the other writer
-> has finished both CAS.
->
-> None of these two cases yield a descriptor ID that is two wraps behind
-> the new head, hence my inquiry about this topic.
->
-> Is there a scenario that would make this condition evaluate to true
-> that I am missing?
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-In Petr's follow-up message he goes through a scenario:
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-https://lore.kernel.org/lkml/20190709115814.5nykd6yroae7wmxw@pathway.suse.cz
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Please follow-up with a question if it is still not clear.
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-John
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
