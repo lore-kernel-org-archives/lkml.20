@@ -1,73 +1,48 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076483F104D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:49:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D80D3F1046
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:50:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788752996; cv=none; b=JfMNDZ9hSP9L6HVIy4AXae2DBqWx9n/i9uhcfK0ZtSTo06e+7C+jUQZCo+mRS8WEKnEQmtF9xtu+RXJfFEAphat5p7XlJuJL5HhD+LLaPVkBBZx3GyY7o3PPp1ZQ87u7A4kA9fC7wu3V5X5Lv+hfeRwBAXK8QmWMvsRrWIslcvs=
+	t=1788753044; cv=none; b=OFRCrBgrCu0rJbOYnmXGJtUkLZfDDYzaHHnFFk8UN4L6PTHan3bDX3oZMNDT5npFPSBUskk+tFb7hCvxhhsgSYnzQgnnmGsVIWkoxT+IJRhuPB2KIyTg1qjbWnZqQkOvyZXV87yzhG/0HYJd477LCGci+cS+HdGqu88D+kjYCNw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788752996; c=relaxed/simple;
-	bh=nSW4NsKwkvH7BmiQJChN9fC/TyPeSFa/im/kFV67DP0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GjEIDl/KlIm648IwV2GYySCGvHKUrHFh+rKPpqybVqtH6ePbLPpmghkXmHOdhoIfZfxZ07ChGMWd0cFZb/UMrerN00q2+GAFDAB5BVJxmdl2HTesJiYlXu+DKxGp0C0/7078Q3rdDhW19ulPX9eQZw91fp9sRzX4OM14cZDRSIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q9aQCCcF; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788753044; c=relaxed/simple;
+	bh=m7UMdM2SRbuccPembWy84uOyw6JbSLr0s0XQ/MQsJgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jb8EQRiY8+2ShkxSVV6+TcrnAGF+zcIZOmnn14CjVryLo5K4dMPFw2a7B/d0ajGzE/L6Vu+pzbp6KVmv3IAtAKReFySmoSXDcpbUuvZ3JeSXgOYRZXj+ItQ6KBB1K+hqeg/E+ZyxEVIdGUXIjJBTxoQagyORwt+YNbYZaHV5gFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=J0YxXEd2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9aQCCcF"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6d28aa26cso17629825ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788752994; x=1789357794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C7q+VNGVNrcoYTCPMYgbT4Asobyd71i+FBLenDRfuM4=;
-        b=Q9aQCCcFGlPwmuB8fhNa3mHslByZ0vPEnA2fsxx3YI2lCW4rK2ZC+iNUkorBsi3y03
-         iAXc4Vy1p6Y8vZTeEkmP76U2fHHdSboHduUNVQvYGOGz9YbmU+npfSQks/z2+1cdzBpF
-         NUJFTCjdRd61TdFpoCPhY1GptVu2SB9H2Up6FXCwdHQV61P7BaOT/u+3gOo94c7BUg+D
-         u1E9sGpC4IhufRK/Di0axjGrK7Hu9tRua0pGm+1d41U4xRSjnWE+vA5+YYt32R152IRu
-         YAHnhRFnM0xwLNqQ3oeQHFl3VxJI1zxQdeN52fX9Sy7NvGZnjN5H30YFWtf+Tli+yB7Q
-         c5eg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788752994; x=1789357794;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C7q+VNGVNrcoYTCPMYgbT4Asobyd71i+FBLenDRfuM4=;
-        b=H5cHsLZNiW1BB2aCpOBmJZx13gt7QmlYvcv14KfFXxox/j919dMsHW5Y6X5nutvuFr
-         wduAb9rSj/5SYZkrkgNtTYB87biFtTfzLlhQgTQjK5pNhsskWx6LTEBs9JfmmUady684
-         sEwyqq6x9OSccH3D3EksQRMHOTClamBDNnSN/ny6Mm8r6RidXXdWeUltcZ2FGUGPYZRB
-         lcf287br4RZAPIjU6MvX59Al/5CWPcXLfwZGUHGaA2RdX/BEb6tV+p+6yi/O7wOjdK0C
-         up0iwrMQLgrKko5nyQENtRhJ5rqS/AEIlz7MKyg6cfHWTDdgpHkevL8fb651f3MJq8fu
-         5VhA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXE5b3bHrMgGIawtdBM+/6kQZCiSYJ8oflYZePk3GhP/jaRAe3tB9pL2+EPtX/jCiE9Gjsx/eh1/t/OzQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kD0KIHZxv4WwKQpzQPNFBA0ZTZCF2r2n1eGQaA/8O+GEcV8EPO
-	7hgQCYwhO6y7k9PEZyeTIHSUH7eD3qXB3rqdbNUpkf1YjvVLR/+hsdM=
-X-Gm-Gg: AYBFou1reZsCM735i1tb0bkNKP55vHTyihpDyEBAHJaJ5JuyuqbcXcKaGZC/CfyZ2K8
-	aUEktZauu3oj3bizqNRUaxwG5iROrR2EipVVP/8K/snCqz+xC8fbktKKxMZWW7ISlbyOdIBi+we
-	bxODUHwyRGWKVYWJW40pQS5OgrsUPuTg70J29WdqrJaZ6La/THiPF1jO2e7mPZP1md8mpNKkvdg
-	10NhvOQWbHBYyM2EiNCEmhpCTcvXQyHEgc5YDdExqWCvTGECbii2C/tJ8OQ/4yO2gJ9VVvenvbp
-	siICcyYaW2tB0chvu3+8EUoUBGoNrze6LIkYqEw3rFr+tUoMTOCW64OTpmELpw5MW2DmXu1Ov5e
-	ePX+SADaGOcvhi2YLriyIRtGphJkKdm5dEYm3Nse5uqtZWNJwy9GhXzuMXuqfNKc6OTgM2YCd0O
-	OxhhAlUBjk5FxmVO2audMXv7hXnffGmFYMn8XFkd/zg/Fj7kz6NAqTQnupYpZ2zQe9aIog9rQ7V
-	zc0pZUZsz8X3GRn
-X-Received: by 2002:a17:902:e952:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2db12754d9emr307628815ad.16.1788752994021;
-        Sun, 06 Sep 2026 20:49:54 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae8af3sm37437475ad.80.2026.09.06.20.49.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 20:49:53 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="J0YxXEd2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BEF071477;
+	Sun,  6 Sep 2026 20:50:30 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B4EA53F7B4;
+	Sun,  6 Sep 2026 20:50:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788753034; bh=m7UMdM2SRbuccPembWy84uOyw6JbSLr0s0XQ/MQsJgc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=J0YxXEd2rh401zmKMFaHqWeQhT9IrOjzwOPmcTMhD40rPbL5S54cllUwidhQ+bqVC
+	 mkLkt+LJP9SL6nNU6YbNfunVLFQAHZqLw4GXFcOCeZyBiLwQdNUWD6TcINPpwRLkvf
+	 mC9EV1rhngUh/D2OwClLeh+ABZbAsP88fYcUP4K0=
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Linu Cherian <linu.cherian@arm.com>,
 	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] tracing: hist: free the field rejected for a bad modifier
-Date: Mon,  7 Sep 2026 12:49:48 +0900
-Message-ID: <20260907034948.240387-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	linux-mm@kvack.org
+Subject: [PATCH V2 00/14] arm64/mm: Enable 128 bit page table entries
+Date: Mon,  7 Sep 2026 09:20:15 +0530
+Message-ID: <20260907035030.2839978-1-anshuman.khandual@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,85 +51,165 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Writing a hist trigger whose value or variable carries a modifier that is
-not allowed there leaks the fields that were built for it.
+FEAT_D128 is a new arm architecture feature adding support for VMSAv9-128
+translation system. FEAT_D128 is an optional feature from ARMV9.3 onwards.
+arm64 platforms with FEAT_D128 enabled will now have two different memory
+translation systems i.e VMSAv8-64 and VMSAv9-128.
 
-__create_val_field() takes the field from parse_expr() and stores it in
-hist_data->fields[] only after the modifier checks have run:
+FEAT_D128 adds 128 bit page table entries, thus supporting larger physical
+and virtual address range while also expanding available room for more MMU
+feature bits for both HW and SW usage.
 
-	hist_field = parse_expr(hist_data, file, field_str, flags, var_name,
-				&n_subexprs);
-	...
-	if (hist_field->flags & HIST_FIELD_FL_VAR) {
-		if (hist_field->flags & (...))
-			goto err;
-	} else {
-		if (hist_field->flags & (...))
-			goto err;
-	}
+A new config option ARM64_D128 is being added thus enabling users to chose
+between aforementioned memory translations regimes VMSAv8-64 (aka D64) and
+VMSAv9-128 (aka D128) during the build time. If the ARM64_D128 built kernel
+does not detect FEAT_D128 feature on the hardware, then it gets stuck with
+with a new reason code CPU_STUCK_REASON_NO_D128. So ARM64_D128 built kernel
+cannot fallback to D64 translation regime on unsupported HW. Besides config
+ARM64_D128 is only available with CONFIG_EXPERT.
 
-	hist_data->fields[val_idx] = hist_field;
+ARM64_[VA|PA]_BITS combinations for respective CONFIG_ARM64_XXK_PAGES are
+now supported both on VMSAv8-64 and VMSAv9-128 memory translation regimes.
+Although FEAT_D128 provided 52 bit VA and PA space along with skip levels
+are not supported currently.
 
-Both checks jump past that store, and the err label returns without
-freeing anything. The error unwinds to create_hist_data(), which calls
-destroy_hist_data() -> destroy_hist_fields(), and that reaches a field
-only by walking fields[]. A field that never got there is unreachable.
+Basic page table geometry has also been changed with VMSAv9-128, as there
+are fewer entries per level as compared to VMSAv8-64. Please refer to the
+following table for various leaf entry sizes including the cont entries.
 
-commit e0213434fe3e ("tracing: Do not let histogram values have some
-modifiers") set ret to -EINVAL and fell through to the store, which left
-the field owned by fields[] and freed along with the rest of hist_data.
-Splitting the check into a value case and a variable case replaced that
-fall-through with a goto that skips it.
+------------------------------------------------
+|           |       D64      |       D128      |
+------------------------------------------------
+| PAGE_SIZE |   PMD  |  PUD  |   PMD  |   PUD  |
+-----------------------------|-----------------|
+|     4K    |    2M  |  1G   |    1M  |  256M  |
+|    16K    |   32M  | 64G   |   16M  |   16G  |
+|    64K    |  512M  |  4T   |  256M  |    1T  |
+------------------------------------------------
 
-With CONFIG_DEBUG_KMEMLEAK, 200 writes of
+--------------------------------------------------------------------
+|           |            D64           |             D128          |
+--------------------------------------------------------------------
+| PAGE_SIZE |   CONT_PTE  |  CONT_PMD  |   CONT_PTE  |   CONT_PMD  |
+--------------------------|------------|-------------|--------------
+|     4K    |     64K     |     32M    |     64K     |      16M    |
+|    16K    |      2M     |      1G    |      1M     |     256M    |
+|    64K    |      2M     |     16G    |      1M     |      16G    |
+--------------------------------------------------------------------
 
-  # echo 'hist:keys=prev_pid:vals=next_pid.log2' > \
-	 events/sched/sched_switch/trigger
+Besides arm64 kernel features such as KVM and UNMAP_KERNEL_AT_EL0 are not
+supported currently. This series applies on v7.3-rc1 after applying these
+two following patch series posted earlier.
 
-each correctly rejected with -EINVAL, leave 332 unreferenced objects
-(63744 bytes) reported at create_hist_field(); 200 install and remove
-cycles of a valid trigger leave none. A '.log2' field is two
-allocations, since create_hist_field() puts the plain field in
-operands[0] of the log2 field, and both are reported.
+- arm64 standardized printing for pgtable entries [1]
+- READ_ONCE() to pxdp_get() conversion series [2]
 
-Use destroy_hist_field() rather than __destroy_hist_field() so that
-operands[0] is freed as well. It returns early for HIST_FIELD_FL_VAR_REF,
-which is what an operand owned by hist_data->var_refs[] needs; the
-rejected field itself is never a var ref, because a var ref never carries
-a modifier flag.
+There are no apparent problems while running MM kselftests with and without
+CONFIG_ARM64_D128 being enabled on various pgtable geometry configurations.
 
-Fixes: e30fbc618e97 ("tracing/histograms: Allow variables to have some modifiers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Tested under QEMU x86_64 on 1fc5a74b108f, both kernels built from the
-same config:
+[1] https://lore.kernel.org/linux-arm-kernel/20260901065454.1906343-1-anshuman.khandual@arm.com/
+[2] https://lore.kernel.org/linux-arm-kernel/20260903060657.2717457-1-anshuman.khandual@arm.com/
 
-  vals=next_pid.log2, 200 writes   332 objects / 63744 bytes -> 0
-  x=next_pid.log2,    200 writes   471 objects / 61544 bytes -> 0
-  valid trigger, 200 install/remove  0 -> 0
+Changes in V2:
 
-All 400 writes are still rejected with -EINVAL after the change. A
-CONFIG_KASAN build reports nothing on the same runs. tools/testing/
-selftests/ftrace trigger tests are unchanged: 32 pass, 3 fail, 2
-unresolved before and after, with the failures also present on an
-unpatched kernel.
+- Rebased on v7.3-rc1
+- Enabled KASAN on D128 - dropped !KASAN dependency from CONFIG_ARM64_D128
+- Split out pgtable printf standardization into a separate series
+- Split out READ_ONCE() conversion into separate series
+- Added d128.config for testing ARM64_D128 enabled kernels in CI environment
 
- kernel/trace/trace_events_hist.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in V1:
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 963e0d6b61fd..b65d79d6e132 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -4331,6 +4331,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
- 	return ret;
-  err:
- 	hist_err(file->tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
-+	destroy_hist_field(hist_field, 0);
- 	return -EINVAL;
- }
- 
+https://lore.kernel.org/all/20260729122452.3797443-1-anshuman.khandual@arm.com/
+
+- Rebased on v7.2-rc5
+- Pulled in new standardized pgtable entry print patch
+- Added standardized pgtable entry print on arm64 platform
+- Added KASAN related pgdp_get() changes missing earlier
+- Renamed pxxval_get/set() as ptval_get/set()
+- Renamed ptval_cmpxchg_relaxed() and ptval_xchg_relaxed()
+- Renamed tlbi_args_t as tlbi_arg_t per Ryan
+- Split final D128 enablement patch into four separate ones
+- Updated all commit messages as required
+
+Changes in RFC V2:
+
+https://lore.kernel.org/all/20260513044547.4128549-1-anshuman.khandual@arm.com/
+
+- Dropped some patches that were merged upstream and rebased on v7.1-rc3
+- Updated commit message for the 5-level fixmap change per David
+- Moved pxdval_t definition inside generic page table header
+- Dropped _once from pgprot_read/write() per Mike
+- Updated ARM64_CONT_[PTE|PMD]_SHIFT both for 16K and 64K base pages
+- Renamed __PRIpte as __PRIpxx per David
+- Added abstraction for tlbi_op
+- Adopted TLBIP implementation to recent TLB flush changes
+- Moved back all helpers back from arch/arm64/mm/mmu.c into the header
+- Moved arm64 pgtable header READ_ONCE() replacements later in the series
+- Renamed all ptdesc_ instances as pxxval_ instead
+- Updated all commit messages as required and suggested
+- Restored print format in __print_bad_page_map_pgtable() per Usama
+
+Changes in RFC V1:
+
+https://lore.kernel.org/linux-arm-kernel/20260224051153.3150613-2-anshuman.khandual@arm.com/
+
+Cc: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Will Deacon <will@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Linu Cherian <linu.cherian@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-mm@kvack.org
+
+Anshuman Khandual (12):
+  mm: Add read-write accessors for vm_page_prot
+  arm64/mm: Route all pgtable reads via ptval_get()
+  arm64/mm: Route all pgtable writes via ptval_set()
+  arm64/mm: Route all pgtable atomics to central helpers
+  arm64/mm: Override read-write accessors for vm_page_prot
+  arm64/mm: Enable fixmap with 5 level page table
+  arm64/mm: Enable pgtable geometry for FEAT_D128
+  arm64/mm: Enable pgtable descriptor for FEAT_D128
+  arm64/mm: Enable 128 bit translation
+  arm64/mm: Relax KASAN shadow alignment for FEAT_D128
+  arm64/mm: Make ARM64_D128 selectable
+  arm64/configs: Add d128.config
+
+Linu Cherian (2):
+  arm64/mm: Add an abstraction level for tlbi_op
+  arm64/mm: Enable TLBIP instruction based TLB flush
+
+ arch/arm64/Kconfig                     |  50 ++++++++-
+ arch/arm64/Makefile                    |   4 +
+ arch/arm64/configs/d128.config         |   6 ++
+ arch/arm64/include/asm/assembler.h     |   4 +-
+ arch/arm64/include/asm/el2_setup.h     |   9 ++
+ arch/arm64/include/asm/pgtable-hwdef.h | 137 ++++++++++++++++++++++++
+ arch/arm64/include/asm/pgtable-prot.h  |  20 +++-
+ arch/arm64/include/asm/pgtable-types.h |   4 +
+ arch/arm64/include/asm/pgtable.h       | 142 +++++++++++++++++++++----
+ arch/arm64/include/asm/smp.h           |   1 +
+ arch/arm64/include/asm/tlbflush.h      | 138 ++++++++++++++++--------
+ arch/arm64/kernel/head.S               |  12 +++
+ arch/arm64/mm/fault.c                  |   2 +-
+ arch/arm64/mm/fixmap.c                 |  18 +++-
+ arch/arm64/mm/kasan_init.c             |   4 +-
+ arch/arm64/mm/mmu.c                    |   4 +-
+ arch/arm64/mm/proc.S                   |  25 ++++-
+ include/linux/pgtable.h                |  14 +++
+ mm/huge_memory.c                       |   4 +-
+ mm/memory.c                            |   2 +-
+ mm/migrate.c                           |   2 +-
+ mm/mmap.c                              |   2 +-
+ 22 files changed, 520 insertions(+), 84 deletions(-)
+ create mode 100644 arch/arm64/configs/d128.config
+
 -- 
-2.53.0
+2.43.0
 
