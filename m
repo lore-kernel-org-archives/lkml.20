@@ -1,184 +1,149 @@
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8844C0424
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC31B47143E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787279; cv=none; b=Oxqkgk3bf/HL91VyKOfhFmRVUemuqMzmR1mGdOMqGHPCyqpu5p+cUtQDaQY+a0+KflLqFHbn/JqVXjaWGIRQgZwMDiZIUgluu2i1GcTiyFvIO7flYJI9cGkMjsP1o946MF+1W60yGrBdKN2WA6DszR5KToYDrO4upWSgLYZRBRw=
+	t=1788787305; cv=none; b=KjOKncPEHMOUVq/FoiW46Dd8HOXtEGopZH00B408ZLkQ4zm7pEpoy86RFkcxVpL8lxFXMzKHtQgGBLuXvG4gB8gn++h/3Rn1E/V62tWqyeLm/ZzEinngUEK/sv9+HJYv9qKDEas2AiwHX9ImX3HbkC5VCdObrgjT0Y1NujVe8Nk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787279; c=relaxed/simple;
-	bh=83XvBbKJyKRwzi5hwxmiTZIyKAph+RzH+y7aNyQjjG4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=tte0jlp69Gw5mJ4kONF3Ad57lZgWD5bacM8ILGYWgbQlF/cM0JioKE26SRonNd6ekaW17lRFLP1HcVGflSolWkZQqDK+pP3dZ7shKIKdiwv61eIxcUBOk/ZgYk1iVU4bJ5uY4qLkUQEZOqw3cntVaoPNVBqkLxIeAV924ZKj9LM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DaXLoPW5; arc=none smtp.client-ip=209.85.221.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	s=arc-20240116; t=1788787305; c=relaxed/simple;
+	bh=T1GH6hItrh3S2bTGYxMz3vhBOz0FujXzWdtsg4c5ifg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lNPkNlpW1jDnnsjq/3s0S0bUYQOer0+KD1aFTXpmOL42C9xAbQOxF49lmlpFr4bmGMkzmryBJtKDtM8q29DxjsprNUMCzTRHAoB5sjOg3gdfwYZE5bHxByMbGBi/7GkuQ01cjvHRvJMMnYWkGZ8uUPgX9euo+ENKmuig8eo+z2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RtK5B++0; arc=none smtp.client-ip=74.125.231.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DaXLoPW5"
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48584d903ddso1096815f8f.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:21:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RtK5B++0"
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-7f9cc0e524aso978588a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:21:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788787273; x=1789392073; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uh0S6eZu/cyygSj5aUM0MA8p8dLPdOnIzaP9eMnKI0s=;
-        b=DaXLoPW5rp0h+q3fGeUfMZs3XSxaerhSowGY7atQsPstJ74rjC1tcd2Y6VuSEZSZ8r
-         attONSGdjO+OUO6kPCt191UdCmM1u1xh88Ylh2orbVcwUymILYwUg7+3ou/40WeX+Ikf
-         4fEbWmDqAxhb/XaVQUTBHXJxLCQN2I9wp3MXJXkyom3iI6rNE/oqGVCspuc1uBy+YEQQ
-         PPqCAMeCigJ+8zxfu2vvnwxGoaG61JOiVqjiXfMXg2UHtWoi7iF9FLDvQE6CECAJqBTX
-         9NtdIFRRRvj5dPm1K1IoS8bbTjPZVvLL+h4ADPTqYYhbZC03hV779t+5G9PPQq8eivfy
-         NzXA==
+        d=gmail.com; s=20251104; t=1788787298; x=1789392098; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
+        b=RtK5B++0oE1HuOhYXf4gzgj8BsCro4V6Xj/h3QKp4ZORZsksRt+6lqMFIHqpSjtvo/
+         YD8OHYwhUppB/qp+gAbFcdaqJNDSXdUDfsHgQj1zz5fOndzoHPKdUCefaS3n8SHVB9aH
+         /Ea3c+pyCXFhKaqui4sLTNZdAC1x7r9h5VOb+ctqGY82CLpbewpcX4IGb1Nm8ArKN9tT
+         pRYTR0wfc5qoerDQu7kGnazuugDc6GfLi3k2LRxloQdsZwzh0USFdoCT3iEU5meUDQkl
+         uPSvaw9PyBe01tFy4P974Tg5SdCl/BqVwS9oORg0NKhTxffL5ypzRnnDT0aueZz1lyku
+         Dswg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787273; x=1789392073;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788787298; x=1789392098;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Uh0S6eZu/cyygSj5aUM0MA8p8dLPdOnIzaP9eMnKI0s=;
-        b=ZiaHSjL70hoFxwmRnIZvT+0GGYzxh/rBYmrFIh/nPes0/fbl4rx0ZMEGpdz5UJ5OtE
-         bcQvCBANtL0kvzuayIB+VmWjZjjAdG4BBgDT9CdJkv2li+FDy2Xe1qPrWvuuznnpEna7
-         hvzm2nxIZYpj/ljO4hSf8XGgtsP2qFqHygkdbGA45S2KGi0Ykm3s8B4aY3OYF7D7/jNF
-         BeVX6PmmtgWjREi8+tPZlQu87r0RoBamtLmDGCiKR4fJPv5AQMNt9YSO2oacnCsrdL9o
-         8QjTv7uqs3MAohDw0UfUVvPkTyu+OdUxVweGH6fJdT5kCtJpLave/Q2tIig2mLNiTGeZ
-         Rjsw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEAxx37XKXKumzxq1G07XGls1Csl42KW94DcNJZ1+4+TcNVIns0gdntWdHp0hwcUUjQj8FOh89+CCDqsM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJp2NcFSIO+zW+xuJ+ab54wVJMadY68oQPvv5ZQrb2ClsQseAG
-	0S+Qie0d1MCF2Fls1DgdS9EwoVTzoK7lc8MzAvPA6NKTstPv6PS6sqQ1mx5291qpMvxmFcjFxnS
-	5LL4/DhNng69OKzySuA==
-X-Received: from wrxo16.prod.google.com ([2002:a05:6000:110:b0:481:5a0f:19b5])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:41d7:b0:485:8c16:5efd with SMTP id ffacd0b85a97d-4858c16611emr18132049f8f.55.1788787272868;
- Mon, 07 Sep 2026 06:21:12 -0700 (PDT)
-Date: Mon, 7 Sep 2026 13:21:11 +0000
-In-Reply-To: <87cxur5ux4.ffs@fw13>
+        bh=QSUCkb2IsxXPufzfD2+/6w1ZlHPJoyK0t/kGTCdaAqA=;
+        b=jLmdJ2FFrA9Bcrw8jzEHydc23U1N+Bs5XVxhdWb7SON92xdx7vy68W4qX97nHLPriL
+         4/3J9cLuAbjxd1+tj23vOkhw4ATW/k6nZgT80oGi41UiT9QKC4CaI+HnwGtb0qzUotxO
+         RK0EOJP2iZcQGonr913SWzG9fIrcPmeSuiNZuoVHGC35xcJvIsyFowYuGvpVhXFp/ove
+         7k3HfqeMckIQDRo4P/gMuOKGI3yr1tKo6jzKgcaQnkePfk353+tyEf5MDod/BkJpF9Ha
+         hJjbUw6rg7kvAMNsNLZdyPQJ2xDEWaN3VhGp0wFxdzaI5xT2Bb80ofmaVHeB0U1DKFfP
+         410Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxxvpNlF/xWDNJA8KqHA8Je+UgZBrzjUhdnR3/oWVDdl8EoqQF+rYaJkjFOrNyjJ6FHQQVj0Woyb5dc+tU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDh46ZoMFczKIMbBuwHTOWMzoQcdAzm8jfQV+nKF5OSbF2u5z2
+	FrDhRiJO5u/UXqCcRSjFdV7DJhKJY4GhdgBMlHHtoDFfoUfb0lpvTvKa6A6c48QJsnA=
+X-Gm-Gg: AYBFou23wRItTD5IQ/dBrNu6nNHCD1sTuFzO+u+Gzf6Vz8eOpZwsLP9vvCnncpWfIOa
+	3iNjUeM106PfrrMr0MZxEx5RMEoXABqF4OHD1sJHdmPON7DKPefRSorecWNTnPsna5D9ah+D2+k
+	SaHnvAS/0Rw6yy0SMX6G1JnXgwNWlifX4TSTk4/3vtT7CseBpFEapWobNdfO6FJLMGPj8xNGqbd
+	EAilmc3ibLh8ZrQkDCSgkd86hvroyTM7UBzesI7mMK7uVhRr8y5wTbwezBeWD1TsYON7zAgEISf
+	Sy3lxjztFUNMBk/SB4ueIU1f9dN/aHfToa6J70m8P/hXTD8AmeRFAdstPDB+n5GfTIJf0QSAeg5
+	Kr93d6VjA2+sj8Ws3tLozdtaJLR67V7HD7hnfxi/AaRBHWelSjiUA4GPcbDfQA2HTj6H3JrnO0x
+	DztC1m9OhUcoS73AaTp71YrLKC/zMG32xFhwIznBD3+oSJHIcBeq15e8eWobsVHBDsT1X3fPAl6
+	/SLEQzXkNn1Xjs7jWV+rC5bYzUmbRgDrrOTr39r
+X-Received: by 2002:a05:6820:2004:b0:6b9:2d62:960c with SMTP id 006d021491bc7-6b92d629902mr6339050eaf.68.1788787298260;
+        Mon, 07 Sep 2026 06:21:38 -0700 (PDT)
+Received: from HXDQXTDYHN.bytedance.net ([139.177.225.231])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bbf1feesm28284062eec.26.2026.09.07.06.21.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 07 Sep 2026 06:21:37 -0700 (PDT)
+From: Jinmeng Zhou <jinmengzhou22@gmail.com>
+X-Google-Original-From: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+To: Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Wupeng Ma <mawupeng1@huawei.com>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Jinmeng Zhou <zhoujinmeng@bytedance.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm/hugetlb: fix subpool minimum reservation rollback
+Date: Mon,  7 Sep 2026 21:20:55 +0800
+Message-Id: <20260907132055.26696-1-zhoujinmeng@bytedance.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831-sys-futex-wake-time-slice-v1-1-814bb95cc339@google.com>
- <87ld9ha8wu.ffs@fw13> <aprNcgTON1V7Tr1W@shell.ilvokhin.com> <87cxur5ux4.ffs@fw13>
-Message-ID: <ap66R7QTdVyMqcG9@google.com>
-Subject: Re: [PATCH] rseq: defer time slice extension yield for sys_futex_wakey
-From: Alice Ryhl <aliceryhl@google.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Dmitry Ilvokhin <d@ilvokhin.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Dmitry Vyukov <dvyukov@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05, 2026 at 10:01:59PM +0200, Thomas Gleixner wrote:
-> On Fri, Sep 04 2026 at 13:53, Dmitry Ilvokhin wrote:
-> > On Fri, Sep 04, 2026 at 07:21:37AM +0200, Thomas Gleixner wrote:
-> >> On Mon, Aug 31 2026 at 12:57, Alice Ryhl wrote:
-> >> > Thus, update rseq_syscall_enter_work() for sys_futex_wake() so that it
-> >> > does not reschedule during syscall entry. The thread will yield the CPU
-> >> > on the syscall exit path instead.
-> >> 
-> >> That's undermining the design and takes control away from the scheduler.
-> >> 
-> >> It granted a short extension with well defined semantics and then you
-> >> special case futex_wake() which can take arbitrary time to complete.
-> >
-> > Thomas, do you think the problem is worth solving, though?
-> 
-> Eventually :)
-> 
-> > Currently, it seems like the rseq time slice extension is a good fit for
-> > userspace spinlocks implementation, but userspace adaptive mutexes don't
-> > fit quite as well.
-> 
-> Correct. The main incentive for time slice extensions are user space
-> spinlocks. The DB folks wanted to have a way to disable preemption from
-> user space forever exactly for that problem and after twenty years of
-> horrible hacks we finally have something workable.
-> 
-> I'm not surprised that you want to exploit that for your use case, but
-> that's not a good fit.
-> 
-> > One can argue that adopting the rseq time slice extension for adaptive
-> > mutexes can never make things worse. The extension allows the lock to be
-> > released, so other threads are free to grab it. The only problem is a
-> > potentially delayed waiter, but this can happen now anyway, even without
-> > the time slice extension applied. That said, it doesn't mean we can't do
-> > better here.
-> >
-> > One option that I can think of is a best-effort
-> > rseq_slice_yield_wake(uaddr) that is allowed to fail with a userspace
-> > falling back to futex_wake() in case of a failure.
-> >
-> > rseq_slice_yield_wake(uaddr) could look like this:
-> >
-> > - Works only for private futexes with nr=1.
-> >
-> > - Bails out early on a contended hb->lock.
-> >
-> > - Limits the hb->chain walk time by the same time slice extension, that
-> >   is already set.
-> 
-> Once hb->lock is held preemption is disabled except for RT enabled
-> kernels. And no, we are not going to add a cond_resched() into that code
-> right at the point where we are trying to get rid of this ill defined
-> insanity alltogether.
-> 
-> > This way the scheduler is still very much in control and in case of the
-> > success, scheduler might pick a better task, since the waiter is now
-> > available to run.
-> 
-> That depends on your POV. The scheduler already granted some leeway and
-> now your special case wants some more which is pretty much guaranteed to
-> exceed the grant.
-> 
-> And special casing X is a slippery slope because everyone has an
-> argument why their Y and Z use cases are equally important and need an
-> exemption too. You can figure out where that ends up ...
-> 
-> The real question is whether you have exhausted all possibilities to
-> solve the underlying user space problem. Alice mumbled something vague
-> about double linked lists, but that's handwaving at best.
-> 
-> What is the actual problem you are trying to solve?
+When a reservation request is partially covered by a subpool minimum and
+the remaining global reservation fails, the error path first calls
+hugepage_subpool_put_pages() for the subpool-backed portion. It removes the
+failed global portion from used_hpages only afterwards.
 
-Basically in Tokio we have a bunch of critical regions that look like
-this:
+hugepage_subpool_put_pages() uses used_hpages to decide whether rsv_hpages
+should be restored. Since used_hpages still includes the global portion, it
+can remain at or above min_hpages and prevent that restoration. It then
+reports the subpool reservation as releasable, causing
+hugetlb_acct_memory() to incorrectly decrement h->resv_huge_pages.
 
-	mutex_lock();
-	list_add_tail(&my_list, new_item);
-	mutex_unlock();
+This was reproduced with four 2 MB huge pages and a hugetlbfs mount with
+size=10M,min_size=8M. After a successful three-page reservation, a two-page
+reservation which needed one subpool page and one global page failed with
+-ENOMEM. HugePages_Rsvd incorrectly dropped from four to three even though
+the subpool minimum was still four pages.
 
-and this:
+Roll back the failed global portion from used_hpages first, so that
+hugepage_subpool_put_pages() evaluates the minimum reservation against the
+current usage and returns the correct global adjustment.
 
-	mutex_lock();
-	next_job = list_first_entry(&my_list);
-	list_del(&next_job);
-	mutex_unlock();
+Fixes: a833a693a490 ("mm: hugetlb: fix incorrect fallback for subpool")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jinmeng Zhou <zhoujinmeng@bytedance.com>
+---
+ mm/hugetlb.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-except in Rust.
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 785772845795..3e3cda181e72 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -6808,15 +6808,6 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 
+ out_put_pages:
+ 	spool_resv = chg - gbl_reserve;
+-	if (spool_resv) {
+-		/* put sub pool's reservation back, chg - gbl_reserve */
+-		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
+-		/*
+-		 * subpool's reserved pages can not be put back due to race,
+-		 * return to hstate.
+-		 */
+-		hugetlb_acct_memory(h, -gbl_resv);
+-	}
+ 	/* Restore used_hpages for pages that failed global reservation */
+ 	if (gbl_reserve && spool) {
+ 		unsigned long flags;
+@@ -6826,6 +6817,15 @@ long hugetlb_reserve_pages(struct inode *inode,
+ 			spool->used_hpages -= gbl_reserve;
+ 		unlock_or_release_subpool(spool, flags);
+ 	}
++	if (spool_resv) {
++		/* put sub pool's reservation back, chg - gbl_reserve */
++		gbl_resv = hugepage_subpool_put_pages(spool, spool_resv);
++		/*
++		 * subpool's reserved pages can not be put back due to race,
++		 * return to hstate.
++		 */
++		hugetlb_acct_memory(h, -gbl_resv);
++	}
+ out_uncharge_cgroup:
+ 	hugetlb_cgroup_uncharge_cgroup_rsvd(hstate_index(h),
+ 					    chg * pages_per_huge_page(h), h_cg);
+-- 
+2.39.5
 
-People are reporting bugs to me saying that this particular list in
-Tokio is causing significant contention for real-world workloads in
-production. The context here is backend/web servers.
-
-Thus, I am looking at various solutions to improving contention here.
-
-I saw an article on LWN about this new time slice feature for rseq and
-thought that I definitely do not want to get preempted during these
-short critical regions, so applying rseq to them seems like an obviously
-good idea.
-
-I tried using them and realized that the interaction between rseq and
-futexes is not ideal because of when cond_resched() is called. Hence
-this patch.
-
-
-I don't have real-world data on whether this would actually solve their
-problem because, well, I'm pretty sure the servers do not have a recent
-enough Linux kernel to use this feature. But just from a theoretical
-perspective, to me, this seems like the "obvious" behavior you want for
-a futex-based mutex if the critical region is short.
-
-Alice
