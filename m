@@ -1,71 +1,71 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76BF84562BA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC583C5DD4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774838; cv=none; b=hTcM8DiyW54hCOX5psR4p8120OuN6QE4hJr69R3MLvDEjPVunMIoz6J2bvAUlR3u4N9CmH/aKDDleB3o08HYDqtap40OgVDfx429p188mksVKTb2fxn409hgMfBFIlWuT3Tghmabkgvmn0vvagO7Xki1ilVg3F6FP8azBNrxdYE=
+	t=1788774840; cv=none; b=AgrVzVAViZmMLwGUHJGxqzAcsxeDXqjc29hr9oSvk22J1XBWMS+06cigO1hS/Gyb6cabRkE3utIVaXNf7mKpASjmfctRA3vDPbJsaYdnOhSF+AYDnMz33QJL+bM1egyDmFxYYBR4rPpWiMkF0CUhhadyvOQH7F8hTPuH+b0TVq8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774838; c=relaxed/simple;
-	bh=3KBZPwEVmn7lOCShsk6B4qQEIG7pdHl5Dd4E72KTwb4=;
+	s=arc-20240116; t=1788774840; c=relaxed/simple;
+	bh=eeIpykqHn3v97v6Vn5NBMhwy/4B4kc+s5oigMCXgBFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XmXljSta4l6Ky9In+SOpu45YHJF78mkiaHJvtT7GrbiAmO9sWykfHZNao7v4XLWdsg2Cnzya41Nlej+IWWxzjnkbGoYmi64mERcGZjDwdCNfTP2h0jEt7HcpCKJkOdVYFJMnu/OUg/YQJADcisvcDW8XCrzvjg3K/c+bHDzsYX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b4jQ4scO; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=d2fJyNKunFy5xxPO/G5QxBps14qDHdQ/z00OzxzxlY/w8VPNddgk2n58gzw6CiKaiIWpHtrzOdHHyveZ5DZSGHo+7blaUryoD0aSo8sJf7JRtvTRKUcoT+6kxQIFgMEST6xy7s1rbFIjmk6QqWRbMf0AWogjVCpvVzn8hPz6DXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0RuOw1Z; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b4jQ4scO"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cace91f112so27459685ad.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:53:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0RuOw1Z"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a5aad413so2453512a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:53:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788774837; x=1789379637; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788774839; x=1789379639; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=szavzFK0KF8Wr+Vhy6Y3uk6vMkGm7SAWG9oD4RgC4H8=;
-        b=b4jQ4scOfMX1jM2MWw4vs+PaTaU4xowYpxrXcFpGFFTMwHw2Pns/VLBtg3loQYa1JY
-         8g1j7NuBsgyjGAwowARP7nOqvXo5tpn+bRLXXTgQcKZX6WKexUNlSYSp6B5Ax71UC9iF
-         FAsHLT44LiheWhTBNaEEI1a+/+XFM/U6TogT0fTZbLLxkVK5d62X5QbxqdOn5JytMFCr
-         wkWn3LntuwJM6BhzazXDd1TVCM9FgHxBG1NRpz50dVvu2jxiy/yYSWBW1+JKuSIUTadB
-         2HhGgfVKPAIn9JZeEmsi9BNXCjM9to65P5+Vi9Cql5qHuy3ZpjIylMSY/X8RF78wEWPZ
-         NQRw==
+        bh=NvhoiELaoR7kd2vY205ko6ySCRXz4bZekivzye23j6I=;
+        b=H0RuOw1ZFHgxbb/w9fEZBiBOdB4eOcpf1z/HCrUJ19j2GoD03iUa4gqY4y5Bbo4HwQ
+         SlwLELBXKoJZR7/npOoI0dhhdkNRv0oLeWj/Sk9Ipnp4tTce+WESUR6wCFHNbrAAURDT
+         9L4eXF9HAw+KZ+qZs3TlTaHkszeMec0BujEeNco9arYoLOZAhkML+ijN7tfwUsO8Rf9x
+         DkuQ+x5OY40slfKnJjKpfSg+XBeK/9fIviwoitJ9RJg1D58UAlLP9r6qlQX95N3/MUtj
+         2poIGmguXB/ce86dO8BlTQA0pwOd/5ij2/Nq/P06rYKQ1omjNmo/5ht8TcsrPy79Tdkd
+         j8Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788774837; x=1789379637;
+        d=1e100.net; s=20251104; t=1788774839; x=1789379639;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=szavzFK0KF8Wr+Vhy6Y3uk6vMkGm7SAWG9oD4RgC4H8=;
-        b=SDNlqXdAqywDiW2FAcaD+WPZszPIW82+kr1LuqkUgefHC0yEXoLuj/JJh5QDh2EBMT
-         J7KxWjFeL+4KU5+TvBPJGj2CV+bcjuPabXRJ5O2JoQ3/y1M8IcAhit+ezslX51gNarPr
-         FDOMHHbnZfziyc2zJPS7Gup5fj0HfbHAlOnZfxvd9qocXYhIC5oSYt/KayKoGE1KUmyx
-         PGpC4Miu+k8VTi/PEDHAFUa58Vdxkv2lqWGIwUVY2eK7jfsMQCUPmaFsQLZNoFCamNBW
-         POpXlstXH5DhLFAoCowo0p+bwIBuz6UY5ngctQqLIdvAbPtt8jWZLLNaMyHFoI/YXXVz
-         d+2A==
-X-Forwarded-Encrypted: i=1; AKwUvBwzTH7fvsMi8bJl8gMx6dFqQdmrt1Z4AGY6JRH83oKNVAK0ywD81GpeewV4pm6zOemYhfg3Qri0c8iFMNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kY86j1gp8YW5do+E1QStBZ2Ck/7wUN2mIBxGHsDZWqu6h7zUKt
-	hYU9tkG1FLtUb+i9Y/EGU6toY4LPSf9jDjRukaguXZ1FOiX/oGCsBy9X3vQFNQCFA5Y=
-X-Gm-Gg: AYBFou2DfBKYuHA/y6v1FWsGuOPdfOj7IIa5e1MOO0glUh/No/LEBe88WXTSqvQqj01
-	6JWAE6Pp02KO46YUH21mMxjndFAWJveX9EKNhy1PTnUv8hHQ3tN5kf1wHAouzAx9uU2VINC7aiN
-	SyrTYALbXnTcRy26lxWlGjHJ/FCkDMXJsd7m4f7iRd+Z1Lg7GdLOpAMwn6r7LOKAwOcW7gzq36Z
-	YsJbPZtr4WObEhjy7kf71pbTfhZ5fGX5GeLSGZ8grU0rm2J0Z8/+cEKLShthar/K2MdgsADVBzG
-	O+TdUHRdwRRVcyGGdVL/kwBccH8ZhZ2HnIIvIMsc9FyOkBIGOFhc4buBwPFrg2iRLZ4fs6eDaca
-	EmfYf7HRzT47rQKpcJKhfWQWiVgE6DIgCZLO4nggQvR6m/BrQy8eRa8wSBsvYRXrvnmVZqsTixx
-	C0puaJGmtek79gxEboaHdR6+OsnThSA41Ga6w8YOR/34Ga2VrGpf4kS+iSn5STXNvwaYx95FPZt
-	3KLj8aOZliT/Q==
-X-Received: by 2002:a17:903:3247:b0:2d7:2edd:d140 with SMTP id d9443c01a7336-2db1232e1cemr317858645ad.3.1788774836680;
-        Mon, 07 Sep 2026 02:53:56 -0700 (PDT)
+        bh=NvhoiELaoR7kd2vY205ko6ySCRXz4bZekivzye23j6I=;
+        b=KC7P3uh8lcFp0vDxVvzuVCseUkjVd1slDXpXS+f59mznGtdSU6nhLjO3XZTxkPK6YL
+         +2AILPqdXpwpeGS8NwyqplGJMivTIhsc1j/zhUGBrVaEdJwkIJ3X3UX3K25mWmNk88sa
+         +filK5OpPHLNsqur61pu35hDZ6ExkzD9qQqsoiH4WxH09U0t1M9UkjZTj9GQkRYaP3DG
+         Fw1ik0fXdX/hVAVWMzBTkGO2HiHkCGDVmWRBiCxmy/PkGV2sMZZwHDiFmbkYoSoUPnfc
+         Xng2HpWB+WkhwfL1u8uR7xdsmY5gQhfBOm8Cpr7R2cgz/mFHvk+kW44P/WfCCqaKBiUW
+         Kz5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwYa2LTrSGSvwFITi2tkVJfWBlrLdMARHwbzqEy8p60phPeFEvjJaXGbH41zOCWzFTfqU0cGPpv6YKFeTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++koX1TeeMOFxfOuBXrEB/jRFMOBnlAAyZiRz7XTUvhLpXZrsD5O
+	qk5VawR4zCcsJTy02+Tb3IAKNnttz7G07Gu1DIJ7axdIOOuMN85XFzAoUdjFqs+jbJs=
+X-Gm-Gg: AYBFou2DUR4TiF7jRuZoNp6iQOPhdpWrBbaQngtZITlFnG4mSR7E2pOj30XQYDXoqCx
+	JPNygtdJ9GGGcWXMKTGbk9hO8J9XC24TEHZVDwr3b47QrthslhEQZYTErSSzdOVrb5mHaw/jtdW
+	qtsU4gk15bm5sOy48avAYx8dkyw8TzoWb/qos//TlhYuKFigB+ahSUv8Op+1+wJm9T4PUwuWUmL
+	RB77FsbFhHawhze75IWbjOAPIsqLSYygXjMQa4Ntj9PJimuG2CtyFkGyOpdWjtIQJxSV26k0adt
+	rANPWwOMV50RIhYTX8MAIXTQtZ+Q1wH4LgyCJP6/+Pe8WJTQmVgRQnoQQKFgjQaEFp6I5xZEscC
+	DDxTR6iwJ6EM6yq9G8mNekJsM3WGgrtoWenXIKO1AVkDKvTDg79uylp+DFTzoOmRUOmH5v+Mu0j
+	MYtw0ia88eP8rWFxo0KOBmco9w/DmKrMjQsHLegBEqN6o3CH2HNzmmuOm+mq8bjvBOTNKJAqHHw
+	qMmrUF/Z5bVjg==
+X-Received: by 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr35242453a91.19.1788774838738;
+        Mon, 07 Sep 2026 02:53:58 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm30377066eec.21.2026.09.07.02.53.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm30377066eec.21.2026.09.07.02.53.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:53:56 -0700 (PDT)
+        Mon, 07 Sep 2026 02:53:58 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next v2 2/4] uapi: wireless: fix typos in comments
-Date: Mon,  7 Sep 2026 15:23:46 +0530
-Message-ID: <20260907095348.26094-3-hemanth.selam@gmail.com>
+Subject: [PATCH wireless-next v2 3/4] wifi: mac80211: fix typo "capabilties" in comment
+Date: Mon,  7 Sep 2026 15:23:47 +0530
+Message-ID: <20260907095348.26094-4-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260907095348.26094-1-hemanth.selam@gmail.com>
 References: <20260907095348.26094-1-hemanth.selam@gmail.com>
@@ -77,7 +77,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, found with scripts/checkpatch.pl using the
+Fix a typo in comments, found with scripts/checkpatch.pl using the
 misspelling list in scripts/spelling.txt. Only touches comments, no code
 changes.
 
@@ -92,37 +92,19 @@ Notes:
     
     v1: https://lore.kernel.org/all/20260907061417.33729-1-hemanth.selam@gmail.com/
 
- include/uapi/linux/wireless.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/mac80211/cfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/uapi/linux/wireless.h b/include/uapi/linux/wireless.h
-index 3c2ad5fae17f..28ae6bb0d5e3 100644
---- a/include/uapi/linux/wireless.h
-+++ b/include/uapi/linux/wireless.h
-@@ -301,7 +301,7 @@
- #define SIOCSIWPOWER	0x8B2C		/* set Power Management settings */
- #define SIOCGIWPOWER	0x8B2D		/* get Power Management settings */
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 23f4f9ec86d0..0ce7a7ab769c 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -2870,7 +2870,7 @@ static int ieee80211_change_station(struct wiphy *wiphy,
+ 		}
+ 	}
  
--/* WPA : Generic IEEE 802.11 informatiom element (e.g., for WPA/RSN/WMM).
-+/* WPA : Generic IEEE 802.11 information element (e.g., for WPA/RSN/WMM).
-  * This ioctl uses struct iw_point and data buffer that includes IE id and len
-  * fields. More than one IE may be included in the request. Setting the generic
-  * IE to empty buffer (len=0) removes the generic IE from the driver. Drivers
-@@ -681,7 +681,7 @@ struct iw_param {
-   __s32		value;		/* The value of the parameter itself */
-   __u8		fixed;		/* Hardware should not use auto select */
-   __u8		disabled;	/* Disable the feature */
--  __u16		flags;		/* Various specifc flags (if any) */
-+  __u16		flags;		/* Various specific flags (if any) */
- };
- 
- /*
-@@ -1083,7 +1083,7 @@ struct iw_event {
- 	union iwreq_data	u;		/* IOCTL fixed payload */
- };
- 
--/* Size of the Event prefix (including padding and alignement junk) */
-+/* Size of the Event prefix (including padding and alignment junk) */
- #define IW_EV_LCP_LEN	(sizeof(struct iw_event) - sizeof(union iwreq_data))
- /* Size of the various events */
- #define IW_EV_CHAR_LEN	(IW_EV_LCP_LEN + IFNAMSIZ)
+-	/* NAN capabilties should not change */
++	/* NAN capabilities should not change */
+ 	if (statype == CFG80211_STA_NAN_DATA &&
+ 	    sta->deflink.pub->ht_cap.ht_supported &&
+ 	    (params->link_sta_params.ht_capa ||
