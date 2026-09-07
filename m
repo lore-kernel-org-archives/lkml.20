@@ -1,39 +1,63 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED4035893
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED0A2BDC1C;
+	Mon,  7 Sep 2026 03:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788750080; cv=none; b=Me/C2/9KgFouaGSSIMisPYhyvaJ6FI5NMQkICN6WAsx5nBGVDeC2iieRg3LYrno8Tyi8134sSclDrVs/xrYC9snifOfqYE99Q2W8w3+KHektg5exAtNyYCT7maYFEu0c7u5g/HvoSKTBytKRRBX92z0F4jNQmUhCSgGW68ulZI8=
+	t=1788750120; cv=none; b=hXnH8XFz+/mvzIbtwi3EQUwAnwuadCVa1oJMo0hO8JXfTDEkU2VOS+yIT4ZYuaHfBHwaGsUCK4naOXiepy9FAsQiOVFjNhJfTrQ/eTJ1XAJpgruitl+hdKFkCzJu1AV62PKwUd81J8EzUP7A5bylUmEPxOJEo8UGqXG0NCt4h5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788750080; c=relaxed/simple;
-	bh=x3Ut6I17OxA2cMeZp4Hr8Nzxzp+mZJJGT5+Ndm3N9kk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XpmauFaVJ59xQjiPeOMwfBJOJTSqiweLd+yzNf7KBzIE9xFX1VwCQem3LI4azD6qQZvvO+skA4K4A9c86fXwhT1HRZWTIJXhYpOPykWq0mcO4QYpiZP9fx/gN15672r6/rJMc9QlwA0AOfZOMtkLa9DodZ4yebCNooouEMXlENg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=jk4+S8gc; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788750120; c=relaxed/simple;
+	bh=UEPUoGcF7oa68YMn4/8BDr/OhI1xYmdiu/yKbf/bFjY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ETHEE3PrFYhqgnVdJDnfcKM53xaK83kNaX3DNoNevisXwhjCaS5twPn0+c37n+baGciOsBfNCl9hUZkeD4d3oNqcqWMGqRsIGXFRTkyyhSjM6xRd1OYounRmMGRKf05dOWaTB/MZZ+L2xcRFmvLnmYf+xwWJziyZQtRKYv7MNyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=avnDvDgc; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="jk4+S8gc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=lB
-	dpVxiV8qt8reu3ODDOYW/NrjSf2HK6BDFTo6I8Mu0=; b=jk4+S8gcYpUgwW1sBK
-	BcZnZUUrXxAYlraIguZV66Xxvrxyl5jTIjU2iwCW8+vnZ0fb1U3f7UuLJrRLxssX
-	ypEjOymPJ1myOXs6meZfSAUfpfW8sndot9SWXDIPgSH49UZq5AxxnwPASXvjGmn8
-	8JVFZvg9A/secmRKBDLCgdbmU=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wC34gLeKJ5qxSd7BA--.57496S2;
-	Mon, 07 Sep 2026 11:00:48 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v3] ntfs: fix error handling in ntfs_extent_inode_open and propagate errors
-Date: Mon,  7 Sep 2026 11:00:43 +0800
-Message-ID: <20260907030044.3649349-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="avnDvDgc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788750118; x=1820286118;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=UEPUoGcF7oa68YMn4/8BDr/OhI1xYmdiu/yKbf/bFjY=;
+  b=avnDvDgcAKmjZtqu8wS83/3Jpu7rNgZWsnwy7qvZH99EamBaDDm1BXJu
+   xzu9kIEpASTmDsHTkhTGEpZkZDRLfEWmjKABDf9nSVbEQ3w9/LKZPn37k
+   qQAm6JqDPNTcx3VS9xyiql0hcbQTK83gVq7s99iJIL+cHSv4YnK0Mm3OX
+   DXU0USBPe2uNmoTtC/qo/3/KphafGns1ceJyozzwEw/oJ6sisgHFEw/cB
+   sQ8F0+cebVOz7IerAFnRmMbooFhvZCR3B1qwVgoyMxIViEDhV5menU4WM
+   A1VrOotu6XLEQvS0Hra85zXJ8vU8rMR717pNhZ31J+XRCJTCBPYERAtJM
+   Q==;
+X-CSE-ConnectionGUID: XzbtBq6hSbuA1CefD9hVHQ==
+X-CSE-MsgGUID: f5APEwIjRYCSs9g6PGZkUg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="76705997"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="76705997"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 20:01:57 -0700
+X-CSE-ConnectionGUID: NylP5cS6T6Ko0qgXvfppIg==
+X-CSE-MsgGUID: xRTjAO1qRTyw7bmZbf8XDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="268847217"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 20:01:54 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: David Ahern <dsahern@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v4] net: dropreason: add SKB_DROP_REASON_IP_TTL_EXCEEDED
+Date: Mon,  7 Sep 2026 11:01:33 +0800
+Message-ID: <20260907030133.482834-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,135 +65,127 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC34gLeKJ5qxSd7BA--.57496S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuryfKF4UZFWxWry7ZFWfGrg_yoWrZr48pF
-	sruw1xtw43Jry7KrWvyr4q9F1akF4xKrW7Gw1DJwn7A3Z8t340vF1jvr109rnayrZ5J34F
-	qr4jka17ua47ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnhL8UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QCET2qeKOA+QQAA3h
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+The forwarding paths report an expired TTL or hop limit as
+SKB_DROP_REASON_IP_INHDR, the reason otherwise used for a header that is
+malformed (ip_input.c, exthdrs.c, br_netfilter). Nothing else in the drop
+path separates the two: IPSTATS_MIB_INHDRERRORS covers both, and the TTL
+check runs before NF_INET_FORWARD, so netfilter tracing stops at
+PREROUTING and never sees the drop.
 
-ntfs_extent_inode_open() has two issues:
+The Fedora bug linked below shows how that reads in practice. The
+reporter took kfree_skb(reason=IP_INHDR, loc=ip_forward) to mean the
+software header checksum check had failed, and worked through RX checksum
+offload, tc csum actions and both libvirt firewall backends before the
+drops turned out to be replies arriving with TTL 1. ip_forward() never
+verifies the header checksum; that runs earlier, in ip_rcv_core(), and
+reports IP_CSUM.
 
-1. When map_mft_record() fails or a stale extent reference is found,
-   it returns the non-NULL 'ni' pointer instead of an error, causing
-   the caller to treat the failure as success.
+TTL expiry is not a corner case -- every traceroute through a Linux
+router goes through too_many_hops.
 
-2. For allocation failures, it returns NULL, losing information about
-   what actually went wrong (-ENOMEM).
+The three loopback hop limit checks in exthdrs.c drop with no reason at
+all; give them the new one.
 
-Fix both by converting the function to return ERR_PTR() on error, and
-update the single caller (ntfs_inode_attach_all_extents) to check with
-IS_ERR() and propagate the actual error code with PTR_ERR().
+IPSTATS_MIB_INHDRERRORS stays as it is: RFC 1213 counts time-to-live
+exceeded under ipInHdrErrors. The drop reason has no such constraint.
 
-Fixes: af0db57d4293 ("ntfs: update inode operations")
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2517131
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Reviewed-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
 ---
-Changes in v3:
-- Return -EIO for stale extent MFT references.
-- Call ntfs_destroy_ext_inode(ni) before returning ERR_PTR(-ENOMEM) on the
-  kvzalloc() failure path, instead of overwriting ni first (Namjae Jeon)
-- Drop the now unused err_out label
-- Use ERR_CAST() instead of ERR_PTR(PTR_ERR())
+v4: kernel-doc says "<= 1" instead of "hit zero" (Jiayuan Chen)
+v3: https://lore.kernel.org/netdev/20260904030112.450920-1-junjie.cao@intel.com/
+v2: https://lore.kernel.org/netdev/20260901020613.417495-1-junjie.cao@intel.com/
+v1: https://lore.kernel.org/netdev/20260825073906.336072-1-junjie.cao@intel.com/
+ include/net/dropreason-core.h | 6 ++++++
+ net/ipv4/ip_forward.c         | 2 +-
+ net/ipv6/exthdrs.c            | 6 +++---
+ net/ipv6/ip6_output.c         | 2 +-
+ 4 files changed, 11 insertions(+), 5 deletions(-)
 
-Changes in v2:
-- Convert ntfs_extent_inode_open() to return ERR_PTR() and update
-  ntfs_inode_attach_all_extents() to use IS_ERR()/PTR_ERR()
-
- fs/ntfs/inode.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
-
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 5aedc045f65a..cf914e1ab0b7 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -2904,8 +2904,7 @@ int __ntfs_write_inode(struct inode *vi, int sync)
-  * abort if deprotection or checks fail.
-  *
-  * Finally attach the ntfs inode to its base inode @base_ni and return a
-- * pointer to the ntfs_inode structure on success or NULL on error, with errno
-- * set to the error code.
-+ * pointer to the ntfs_inode structure on success or ERR_PTR() on error.
-  *
-  * Note, extent inodes are never closed directly. They are automatically
-  * disposed off by the closing of the base inode.
-@@ -2921,7 +2920,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 	struct super_block *sb;
+diff --git a/include/net/dropreason-core.h b/include/net/dropreason-core.h
+index 2f312d1f67d6..3d6aec203c3f 100644
+--- a/include/net/dropreason-core.h
++++ b/include/net/dropreason-core.h
+@@ -128,6 +128,7 @@
+ 	FN(PSP_INPUT)			\
+ 	FN(PSP_OUTPUT)			\
+ 	FN(RECURSION_LIMIT)		\
++	FN(IP_TTL_EXCEEDED)		\
+ 	FNe(MAX)
  
- 	if (!base_ni)
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 
- 	sb = base_ni->vol->sb;
- 	ntfs_debug("Opening extent inode %llu (base mft record %llu).\n",
-@@ -2940,7 +2939,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 			if (IS_ERR(ni_mrec)) {
- 				ntfs_error(sb, "failed to map mft record for %llu",
- 						ni->mft_no);
--				goto out;
-+				return ERR_CAST(ni_mrec);
- 			}
- 			/* Verify the sequence number if given. */
- 			seq_no = MSEQNO_LE(mref);
-@@ -2949,7 +2948,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 				ntfs_error(sb, "Found stale extent mft reference mft=%llu",
- 						ni->mft_no);
- 				unmap_mft_record(ni);
--				goto out;
-+				return ERR_PTR(-EIO);
- 			}
- 			unmap_mft_record(ni);
- 			goto out;
-@@ -2958,7 +2957,7 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 	/* Wasn't there, we need to load the extent inode. */
- 	ni = ntfs_new_extent_inode(base_ni->vol->sb, mft_no);
- 	if (!ni)
--		goto out;
-+		return ERR_PTR(-ENOMEM);
- 
- 	ni->seq_no = (u16)MSEQNO_LE(mref);
- 	ni->nr_extents = -1;
-@@ -2968,8 +2967,10 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- 		i = (base_ni->nr_extents + 4) * sizeof(struct ntfs_inode *);
- 
- 		extent_nis = kvzalloc(i, GFP_NOFS);
--		if (!extent_nis)
--			goto err_out;
-+		if (!extent_nis) {
-+			ntfs_destroy_ext_inode(ni);
-+			return ERR_PTR(-ENOMEM);
-+		}
- 		if (base_ni->nr_extents) {
- 			memcpy(extent_nis, base_ni->ext.extent_ntfs_inos,
- 					i - 4 * sizeof(struct ntfs_inode *));
-@@ -2982,10 +2983,6 @@ static struct ntfs_inode *ntfs_extent_inode_open(struct ntfs_inode *base_ni,
- out:
- 	ntfs_debug("\n");
- 	return ni;
--err_out:
--	ntfs_destroy_ext_inode(ni);
--	ni = NULL;
--	goto out;
- }
- 
- /*
-@@ -3023,9 +3020,12 @@ int ntfs_inode_attach_all_extents(struct ntfs_inode *ni)
- 	while ((u8 *)ale < ni->attr_list + ni->attr_list_size) {
- 		if (ni->mft_no != MREF_LE(ale->mft_reference) &&
- 				prev_attached != MREF_LE(ale->mft_reference)) {
--			if (!ntfs_extent_inode_open(ni, ale->mft_reference)) {
-+			struct ntfs_inode *ext_ni;
-+
-+			ext_ni = ntfs_extent_inode_open(ni, ale->mft_reference);
-+			if (IS_ERR(ext_ni)) {
- 				ntfs_debug("Couldn't attach extent inode.\n");
--				return -1;
-+				return PTR_ERR(ext_ni);
- 			}
- 			prev_attached = MREF_LE(ale->mft_reference);
+ /**
+@@ -606,6 +607,11 @@ enum skb_drop_reason {
+ 	SKB_DROP_REASON_PSP_OUTPUT,
+ 	/** @SKB_DROP_REASON_RECURSION_LIMIT: Dead loop on virtual device. */
+ 	SKB_DROP_REASON_RECURSION_LIMIT,
++	/**
++	 * @SKB_DROP_REASON_IP_TTL_EXCEEDED: IPv4 TTL or IPv6 hop limit <= 1
++	 * (see IPSTATS_MIB_INHDRERRORS)
++	 */
++	SKB_DROP_REASON_IP_TTL_EXCEEDED,
+ 	/**
+ 	 * @SKB_DROP_REASON_MAX: the maximum of core drop reasons, which
+ 	 * shouldn't be used as a real 'reason' - only for tracing code gen
+diff --git a/net/ipv4/ip_forward.c b/net/ipv4/ip_forward.c
+index 8b65f12583eb..b242561d37e7 100644
+--- a/net/ipv4/ip_forward.c
++++ b/net/ipv4/ip_forward.c
+@@ -174,7 +174,7 @@ int ip_forward(struct sk_buff *skb)
+ 	/* Tell the sender its packet died... */
+ 	__IP_INC_STATS(net, IPSTATS_MIB_INHDRERRORS);
+ 	icmp_send(skb, ICMP_TIME_EXCEEDED, ICMP_EXC_TTL, 0);
+-	SKB_DR_SET(reason, IP_INHDR);
++	SKB_DR_SET(reason, IP_TTL_EXCEEDED);
+ drop:
+ 	kfree_skb_reason(skb, reason);
+ 	return NET_RX_DROP;
+diff --git a/net/ipv6/exthdrs.c b/net/ipv6/exthdrs.c
+index 09a4552f7f08..55391e2e5612 100644
+--- a/net/ipv6/exthdrs.c
++++ b/net/ipv6/exthdrs.c
+@@ -464,7 +464,7 @@ static int ipv6_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
+ 				    ICMPV6_EXC_HOPLIMIT, 0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
  		}
+ 		ipv6_hdr(skb)->hop_limit--;
+@@ -623,7 +623,7 @@ static int ipv6_rpl_srh_rcv(struct sk_buff *skb, struct inet6_dev *idev)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED,
+ 				    ICMPV6_EXC_HOPLIMIT, 0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
+ 		}
+ 		ipv6_hdr(skb)->hop_limit--;
+@@ -815,7 +815,7 @@ static int ipv6_rthdr_rcv(struct sk_buff *skb)
+ 			__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 			icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT,
+ 				    0);
+-			kfree_skb(skb);
++			kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 			return -1;
+ 		}
+ 		ipv6_hdr(skb)->hop_limit--;
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 96ee3de55f93..ddaba0aebcb1 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -577,7 +577,7 @@ int ip6_forward(struct sk_buff *skb)
+ 		icmpv6_send(skb, ICMPV6_TIME_EXCEED, ICMPV6_EXC_HOPLIMIT, 0);
+ 		__IP6_INC_STATS(net, idev, IPSTATS_MIB_INHDRERRORS);
+ 
+-		kfree_skb_reason(skb, SKB_DROP_REASON_IP_INHDR);
++		kfree_skb_reason(skb, SKB_DROP_REASON_IP_TTL_EXCEEDED);
+ 		return -ETIMEDOUT;
+ 	}
+ 
 -- 
-2.51.0
+2.43.0
 
