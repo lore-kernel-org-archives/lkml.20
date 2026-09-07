@@ -1,88 +1,119 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 345C242255C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:55:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24238424D59;
+	Mon,  7 Sep 2026 07:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767727; cv=none; b=SivCLz9j7wmnquz2S0Xz6SFd19Il+4yUHhjrJZ7uIywJNIy+PccQFWIgKMf3CFtpsgAYofetyWmHhzdSMCQNcu+qwfCq0z6y/3yrqlxR8zWcFTCJPI7hYPU3vPavfjWIGlVpifptB9O1QEUe4/bAA41iKnm/Q/v0nbfEKH/0TLQ=
+	t=1788767730; cv=none; b=STRsectX4EWmSSzLJJlD7VS0+TNzocHk3OZVzXWySUij0fLk3o7sYlHU373Z4ahoauzuZR1uWP5CaUYdbk+rRJOJ6Qv+kfE18G1a59rf4EsT2LEOalHGE3JqXgHrVUGq5nQTidfdGy+7T9EvmbMzyooKo4m5Se9be5TYqTXCuFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767727; c=relaxed/simple;
-	bh=XUaOlxEc1FSYFT4Ig9pUVr01TVvVuMS06YFan4DaeMs=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=W1dDN3UqhTQXUrBbHIshzdNFucgtAGBtKNiJ02uLWbkfHDTVoco0eGhOY4TDsxKYhRMcr1F31w19hBBBI46TQUkCYo4DA8D0w6JCsR16Je3MgePA0KHkoMSjgJ1RGIHmLzUIQRSccdRkjjbOFf3AfDaWglhBFu50Dy3Aglu4y1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-46a4168b520so2753546fac.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:55:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767725; x=1789372525;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5NVQcWlGB2bacqzylDvCwbGfwOruHFyt0arz1s7/Oic=;
-        b=cberhD8Y1iv+LSOBcq5rPnM7a4/OGCZwkusuiX82CQVAYo7n2iVFyguLRZRZDe0i40
-         mHFjjS3mAnbkoLTR3Xow8KdpJ80fRnMuMAa/OFRByVNCvQ+pRUjwdOQUdJB+0npQGAu1
-         QG1p0gM+bdZxliMTtzK1PO2wvgQeNvgFSeR99AAVxmy7ideq26ivRgFh4iyGycqUeVoD
-         QmDafbAN/MMMucxlKBq4DhPkCqKvjMTS30cvIYmt74vkmzv9Ar/nfCrTYkGdwZRSUOkb
-         gMi/giIleX13k+Az6zwgl/h316kbVor96ESzyC2LJzvVaEO5l/Hh1qa3+fy8OmnXKVze
-         xgzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxqbjHVtHRNwzIlMYpzjIROdEZlVcIiIeTTqXvyS/KEHmRq4tf5xrQDr3GwdyLnLbcuJvpUiqQSLTe7NGU=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0ZEMA6CVSW2s1aF/Krua22tDg/NzEAyOuEDL6G76zQKxF9TqZ
-	22gOdFwmbRZRhOgwQTwIBRkkUhdZPU82UZyYkEv5F4bI24fYl9cLZMKZmkM9XFrHd6CqkUacmCa
-	gOQO0zYD5UbTyET+5fj6H87JGRMUoxv3xJuJgZ9wTXwaZ85rcSq9pb4za8wU=
+	s=arc-20240116; t=1788767730; c=relaxed/simple;
+	bh=fuSWLEFBTzJgPkHaWZrg6BhQcGsJg4w0tE9ijo9r/4A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g9YwNZKs1y2tN10PLCy2lS+Morc/GpwLwpZMNkF/GzRNTcwyslRGDAfAfwcDshujYoPR1b8T3SXzBBxJX6FNNWTfmVd3hEemQiru7uJoRjbVu+14lwtJZiWSuWh+Cm+MzWiC10dQhpPC46XIL1IZAhzkOHTWYfaueV/DJGJRHCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=W3O4e7p+; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="W3O4e7p+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788767729; x=1820303729;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=fuSWLEFBTzJgPkHaWZrg6BhQcGsJg4w0tE9ijo9r/4A=;
+  b=W3O4e7p+T5Lij089ZWJw915d8ONTXuozffCRU4Tku5PmmMHbdA71sN0/
+   afo6IWj/qgLa/hk7FqQS5nycEYU7oRIuWE8qF2ex7V84wLCMKxXKCNs4x
+   ptl0CKWCpggRs5ASV6XvJ83acKKewfrUbX/gSMW/5lYb4Of2t52fFlBkf
+   E7TeCsrQKI4hAmx27bJww8HLfDT5DT2juscNyHW2o02/9nFd/Q7G0dZGz
+   2f1/20O/mvqLi1TLKoq5li4Q+brTQuMdx2FebHWK+mbVj/dI522ZylBZp
+   EGoCIiHt5y2wDl6WzlcAKW3vEAjyvnPG2m96uU3Qe29XROp/ezBVVjV00
+   Q==;
+X-CSE-ConnectionGUID: mJm4X/PaTZSC1s5wfsBZFg==
+X-CSE-MsgGUID: uV22pYfYQVWeJkfZhJFPmA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="92866219"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="92866219"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 00:55:28 -0700
+X-CSE-ConnectionGUID: xsUhN4GTSia0ierEx9vdew==
+X-CSE-MsgGUID: 5ClV+JO2TCK2+n/MwSNskA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="274153509"
+Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 00:55:24 -0700
+Message-ID: <8d20d04a-3503-42d5-8aa0-90b96aca2fe4@linux.intel.com>
+Date: Mon, 7 Sep 2026 15:55:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:6ae7:b0:6b6:71f7:ecbe with SMTP id
- 006d021491bc7-6b6fdfb58dfmr20835916eaf.18.1788767725199; Mon, 07 Sep 2026
- 00:55:25 -0700 (PDT)
-Date: Mon, 07 Sep 2026 00:55:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9e6ded.a5e650b3.26d8a.0027.GAE@google.com>
-Subject: [syzbot] bpf-next build error (8)
-From: syzbot <syzbot+99f4a690c25e0ae4253b@syzkaller.appspotmail.com>
-To: ast@kernel.org, daniel@iogearbox.net, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/4] virt: tdx-guest: Use a variable to store the Quote
+ buffer size
+To: Peter Fang <peter.fang@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe
+ <rick.p.edgecombe@intel.com>,
+ Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+ linux-coco@lists.linux.dev, kvm@vger.kernel.org,
+ Xiaoyao Li <xiaoyao.li@intel.com>
+References: <20260729122939.1340412-1-peter.fang@intel.com>
+ <20260729122939.1340412-4-peter.fang@intel.com>
+ <75441677-635e-4a2b-8e11-f5e70a1433a5@linux.intel.com>
+ <appp3yiDbYsekIzP@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <appp3yiDbYsekIzP@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hello,
+On 9/4/2026 2:49 PM, Peter Fang wrote:
+> On Thu, Sep 03, 2026 at 05:17:02PM +0800, Binbin Wu wrote:
+>> On 7/29/2026 8:29 PM, Peter Fang wrote:
+>>> In preparation for dynamic Quote buffer sizes, replace the fixed size
+>>> constant with a variable.
+>>>
+>>> The size is currently a constant sprinkled across several places. Store
+>>> it in a variable and have all the users read it from there.
+>>>
+>>> Signed-off-by: Peter Fang <peter.fang@intel.com>
+>>
+>> Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+> 
+> Thanks Binbin!
+> 
+>>
+>>> @@ -191,8 +191,9 @@ struct tdx_quote_buf {
+>>>  	u8 data[];
+>>>  };
+>>>  
+>>> -/* Quote data buffer */
+>>> +/* Quote data buffer and length */
+>>>  static void *quote_data;
+>>> +static size_t quote_data_len;
+>>
+>> Nit:
+>> The existing code is using "quote_data", it's natural to follow the style.
+>> I personally feel the var names are a bit ambiguous on whether it's the full
+>> quote buffer or just the data part.
+> 
+> Yeah I agree... How about I change it to:
+> 
+>   static struct tdx_quote_buf *quote_buf;
+> 
+> This way it's explicitly typed, and should work better with functions
+> like alloc_quote_buf() and free_quote_buf()?
 
-syzbot found the following issue on:
+tdx_report_new_locked() already uses the name 'quote_buf' as a local var. :(
+Maybe the local var can be dropped, but tdx_hcall_get_quote() takes a "u8 *"
+pointer, which will require a type cast.
 
-HEAD commit:    1b7415bf70be Merge git://git.kernel.org/pub/scm/linux/kern..
-git tree:       bpf-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=16d03125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6a478687d4734a32
-dashboard link: https://syzkaller.appspot.com/bug?extid=99f4a690c25e0ae4253b
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Anyway, this is a nit and it could be addressed in a separately if needed.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+99f4a690c25e0ae4253b@syzkaller.appspotmail.com
-
-mv: cannot stat 'arch/x86/include/generated/asm/.tmp_cpufeaturemasks.h': No such file or directory
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
