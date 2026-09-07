@@ -1,501 +1,197 @@
-Received: from mail-m15591.qiye.163.com (mail-m15591.qiye.163.com [101.71.155.91])
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011017.outbound.protection.outlook.com [52.101.57.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A99242D6B;
-	Mon,  7 Sep 2026 04:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.91
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788754046; cv=none; b=Dw8GWL27g7+cRG8JCQoSnuJIVLcgqLdn6Le8D663E1mwwg6t73gEQMoITxfcyhAGTuA0tp5GqJhk1PuQP03FhB3Q/fP8XLSivH2UuyfJI9efXQiYTelnL8Dctm/yt3jE4dY3HmjCXzGR0Fyu5kS8LvnRN67aDC6MM/K5nKLkjxE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788754046; c=relaxed/simple;
-	bh=Hp/TVnngd0ideMo3/AxTaqJNr/1tLCoXkOW0AKp72hM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ygpd3D+qQsqNy9J4b+vMuiMmJPWdynSlqHbYFIAJ27oN9BF3xs15g8HnGK9oz4AUWkllVQ3LfBpL3BApcnAtkR/ezWhjkqtQh+T6aVIWsvFm+t+b3tw8mKTh0hAYEJv1/5j/EmsbFcpDHuf/QbvulESKbYPRzdrIDFYZO2RFlGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=XTf4ceYG; arc=none smtp.client-ip=101.71.155.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2012C242D6B;
+	Mon,  7 Sep 2026 04:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788754080; cv=fail; b=WY4pWV0nGKR8SVWICYj/kR0mGIZtUQCL5SjakwV66y4uH/6AUQpBWxyTM+FmuC/00G5mB4o24qVgqmWvm2qKqCbppvaW6Hqf+AcHX255658kXb6DtR+j1tQeWH2vQ94/Tvs8bP/ReJTtOjlEdUHH2/HTgfQ+j9kzVUxlGkkO8O8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788754080; c=relaxed/simple;
+	bh=cGvcRsNCEZMHGbE4svlfRK0SnzwQCGyVMTksgwzlEHU=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cuFnnnOH3XFFMgTNVrj2mvGJMc/0cR8I3BEx6LDKFxXS6rYceWr/PPwPU9rUDNVmUHEUoHhqyVK8/5evnm7AqfegCupNjzg/ooso1KuJv8NDakpcegfp6YnbvK6ER4TdHjimMBOyTi/vpERE1lf/3Y7Qa0k+lB4/P6oUmjcbFgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ir+NyU+P; arc=fail smtp.client-ip=52.101.57.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="XTf4ceYG"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4cc106c1d;
-	Mon, 7 Sep 2026 11:51:52 +0800 (GMT+08:00)
-Message-ID: <15741677-7f2c-4190-b77f-a496643593c6@rock-chips.com>
-Date: Mon, 7 Sep 2026 11:51:50 +0800
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ir+NyU+P"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jl0MvVl+irIreBIb9BOauP+jAozNh6dNapqiIzIjVRAQtamkVikmvm2iHZXr8kuu/IZlrz3eiWWDqx/v4bWsLsauX8OloZm8j80uf3Ib89Y9PKcgYAYeuKdd3dA0KeHyLUBPMWSxxgpXqSzoVP+XMXPzIiVV3ksijs4liTkR0wK6zwvgDqOv7c8iskeQ1ga1sxjti6UdO7iroEzmhYzDnHCjR9nOyvWzGaBzZV8VLkG7KHRVV/5066+t8sSVJnhKtirrU8+GDQESkxpE03rGTUiVo6M+ed3WldFvC/SOOqIp4v6SS4BI+gF5lQkH7FNcBVfs/fJRo/zQHDHBSMwmwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FixH4jhD47mlarX0tpsnXZp0i9GU1+Q4lsG4bzF6aNY=;
+ b=mEaO3Ro/W9qaD/IKMfHn1LHoeGjEhplsWZTYJvPIAL/rt6itXL4VL035UH9/XTCUGcySLDYw93dHoC867n373PWNQF6BpO+OUSY7zhlsBYmQS9B1b4aFj+PNWfzv4bAvbAiI/0cEEUaVzvzNwBaRSDqWxBlaXU6S/ecYG+uqfzDxo+3tT51xrLKjTrhQ6MTmdobS2aBCgt20wqWa9qfXpZ2diP0w/Nwoz2bY5TpM/n3Cr1YGYuvIA2gPZSjawHYlrsN83YgvfoV3o7AzebZ4+59N8cUO3aljZALhTmKAEZKKJHvhlb5Pcm2aaP+auI8PpEGcpU+jLQmtiUfGREWJ9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FixH4jhD47mlarX0tpsnXZp0i9GU1+Q4lsG4bzF6aNY=;
+ b=Ir+NyU+P+F4gIZeT8IQYHVk6GS6kR7/pN0zrGyj0N7z0fPANhzNrGQYqyzx7r+6vogIVbc6u/kD/nTBq0UHekT1NANhDz48iNnJ3r0ZEbe+iZY09oC11a/eDkZOQrGRi+ME2v9o7r7/NNHWdXl/DlHQGFjAAEKUmIUv2RP7J/RGekWp32SiYvB37CKDfWeLGuAf5Pv9YIS/cWrB+FAjM2WrNRadBIctoL6YPcCNbR/VRATiHWR+ehHXW6/eGRBtqtN6bxCb+jvAl0boop2rk9IY8YVBhO/b2q/QSx0h/n8dq1MVLoCTbEQ4I+d0KA/x5rBdLEs+1honnJXlqrXXKQg==
+Received: from SJ2P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:a03:5db::14)
+ by DS4PR12MB9611.namprd12.prod.outlook.com (2603:10b6:8:277::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 04:07:53 +0000
+Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
+ (2603:10b6:a03:5db:cafe::55) by SJ2P221CA0004.outlook.office365.com
+ (2603:10b6:a03:5db::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 04:07:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 04:07:53 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Sun, 6 Sep
+ 2026 21:07:41 -0700
+Received: from drhqmail203.nvidia.com (10.126.190.182) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Sun, 6 Sep 2026 21:07:41 -0700
+Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.126.190.182)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
+ Transport; Sun, 6 Sep 2026 21:07:38 -0700
+Date: Sun, 6 Sep 2026 21:07:35 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+CC: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, "Joerg
+ Roedel" <joro@8bytes.org>, Jason Gunthorpe <jgg@nvidia.com>, "Pranjal
+ Shrivastava" <praan@google.com>, Mostafa Saleh <smostafa@google.com>,
+	"Thierry Reding" <thierry.reding@kernel.org>, Krishna Reddy
+	<vdumpa@nvidia.com>, Jonathan Hunter <jonathanh@nvidia.com>, Breno Leitao
+	<leitao@debian.org>, Kyle McMartin <jkkm@meta.com>, Usama Arif
+	<usama.arif@linux.dev>, <kernel-team@meta.com>,
+	<linux-arm-kernel@lists.infradead.org>, <iommu@lists.linux.dev>,
+	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 1/2] iommu/arm-smmu-v3: Add a cmdq_entries module
+ parameter
+Message-ID: <ap44h0CSuwm173NO@nvidia.com>
+References: <20260902121724.3494954-1-kas@kernel.org>
+ <20260902121724.3494954-2-kas@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/19] drm/bridge: starfive: Add JH7110 HDMI controller
- driver
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Andy Yan <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132735eucas1p2c898afe4a4c6e957a7b9eedff321a6dc@eucas1p2.samsung.com>
- <20260904-jh7110-clean-send-v3-14-484f9ae72715@samsung.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260904-jh7110-clean-send-v3-14-484f9ae72715@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa079fe6d2b03a7kunm1578719f367f00
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSU0aVk9NTk4fHh4dQkkdSlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=XTf4ceYGuRf+Bea49mCirc4h09mur540oJnaxi7YtW22DeczQ/QS9Pu2+imyL5HE9X0Sni7hMr7LW88iqEnQBZBnrHflPfgVXhYoN2NjnhgPdp75SSK0Ru0ZydU9SF4zB8+2HhQErRYytmTazOix9GaPiCEcRV8gY1n+6Unb/d0=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=sNftk6dAOj9MP5wzHtcUwGMPv4F8HHzi/b6fKcXGrKA=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260902121724.3494954-2-kas@kernel.org>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|DS4PR12MB9611:EE_
+X-MS-Office365-Filtering-Correlation-Id: b42698db-8e8f-4cc2-b686-08df0c959731
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|1800799024|376014|10067099003|3023799007|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	mFU7wjGgzRI1cnffVcG9qpsHGFACrYWu8+rijlj4YQQ4LbO8t5TwN8NyHqtNT6GTd8/WaTFV5dwuAiiYHURoPObrxurXeHa28jC9aquaF5yeEzFkPYjPp8DlkB0SdYD68g/8CkLbNTDF5gLA8c+Z72qXePObqz5S2mfHF7cXpwuseq4C+SjxWKQBQd8bARDCpbK2FzqQbttQ3jIS5IqeXthX6pTxGq0tPU9r/oZ7tgY3cgD5EvbC2fEfN8Qw2o+WGl5/FUw+EMMvkL1UGnJgohpdUdOoInOYfjNCy1BGI5OVMsqYGNHCIU6523Ou8sgYn3Sc8eJ+B4Y5RtqZ3R090pHvE/Crx3KsEwVm3B52qf1DnCatzBy0/3FS/BuZcGXCJfQqXLHr/IMPaHXwTVIfS6SZDA0EhpaeG7d+QqRAtaTDqEQCj2wK3oPN17ZUavWobZ7pzIA7Hs0mX2AQGO8kHZrBZnry37QFN2Zf1RvMw/f2ns+MMfbNwXmUPZr9npCYfwyDjg/GlUTEVLmlu0f/Ekbzirxjfyc53k3EpByQTcZklx+WRGpmOhffyLoQOzOwTIhMtHXyWpBbjA2ws4F8CykUL6RBg9vyRLZ65rD4PSIM7EhsJAJd5oz04lfzVk1znKHT4OauLUZE1ItjdfMgC93RSB/5CZayUalC7DTBuObziZoix34gc8J/drayhAYqSqupf6cA7/qfpo4jAROJOQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(1800799024)(376014)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	eOyYzVghoExKprLyE19S+5xwN5IP4cl6z0+YaHCoNCZFz5GH+VNR8dbJ9gyDroN/HlySKXOjulycXQdWEuKCsYEDXPqdhRUFt+2Cg1GePktU+AAsUr0fU3BHO149jnH0754CHfU7NjzuUMjyh0THUW5SV3jwY+GCCc8EiRY0H+BmzNsCiPS2qVB2+xYibGakKWXhIfdaJsT2KqLzNUZlbBIjxxSs2Hz5PAo+1SHmhlFKmJ+F8luC689PR4x1qC1LGBEkj9eUdr5OwZok8ItRLUGQ7QrAAHtEkIVA9i5zN/T0g/zG0ZHf++zQiJeM+l8Vy7R9KBeFgx1irvh23z1UYF6odDFOJfC0DcUtbP+zGu/Y4NOVsgLPxAwdymVOmEkYhDP3WXKszwgDlsv5riM57Y+7R/wMsiJzIia3VQYKTfjtDsxbxFzmwBXKU19E/Z0k
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 04:07:53.5565
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b42698db-8e8f-4cc2-b686-08df0c959731
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9611
 
-Hello Michal,
+Hi,
 
-On 9/4/2026 9:27 PM, Michal Wilczynski wrote:
-> Add the HDMI controller (bridge) driver for the StarFive JH7110.
-> 
-> This driver binds to the starfive,jh7110-inno-hdmi-controller node.
-> It gets its shared regmap from its parent and its register access,
-> module and bus clocks from voutcrg. It consumes the pixel clock and the
-> PHY from its hdmi_phy sibling.
-> 
-> The driver calls the generic inno_hdmi_probe function and passes the
-> shared regmap to it, registering as a DRM bridge. The .enable hook is
-> responsible for setting the PHY's pixel clock rate via clk_set_rate()
-> and powering on the PHY via phy_power_on().
-> 
-> The DC8200 has two panels, each exposing a DP and a DPI interface, and a
-> mux in the video output system controller picks which of them drives the
-> HDMI transmitter. Program that mux from the port graph rather than
-> relying on whatever the bootloader left behind, taking the panel from the
-> remote port number and the interface from the remote endpoint number.
-> 
-> The generic driver holds the clock it looks up as the register access
-> clock enabled for its lifetime, and derives the DDC divider from that
-> clock's rate, so point it at the system clock. Naming the pixel clock
-> there instead would keep the PHY pre-PLL powered from probe onwards and
-> size the divider from the wrong rate.
-> 
-> The PHY can only generate the discrete set of pixel clocks described by
-> its pre-PLL table, so .mode_valid rejects any mode clk_round_rate()
-> cannot satisfy. Without it such a mode would be advertised to userspace
-> and the modeset would appear to succeed while the display stayed blank.
-> 
-> .enable returns early when the rate is unsupported or the PHY fails to
-> power on, so track whether the pixel clock was actually enabled and let
-> .disable tear down only what was brought up, otherwise the clock
-> refcount underflows.
-> 
-> The clocks and the reset are torn down through devm rather than from
-> .remove, so that they outlive the bridge that inno_hdmi_probe() adds with
-> devm_drm_bridge_add(). Releasing them in .remove runs before devres
-> unwinds and would leave the bridge registered with its clocks already
-> gated.
-> 
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  drivers/gpu/drm/bridge/Kconfig            |  11 ++
->  drivers/gpu/drm/bridge/Makefile           |   1 +
->  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c | 318 ++++++++++++++++++++++++++++++
->  3 files changed, 330 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-> index 4a57d49b4c6d3ab4b965228835b372d191647197..75b1cf6727d5a32310dcf9fe5734d95e14eea8fe 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -359,6 +359,17 @@ config DRM_SOLOMON_SSD2825
->  	  Say M here if you want to support this hardware as a module.
->  	  The module will be named "ssd2825".
+I think there can be some small cosmetic changes. I gave it a try, and
+it looks overall cleaner to me. Hope you would agree.
+
+On Wed, Sep 02, 2026 at 01:17:23PM +0100, Kiryl Shutsemau (Meta) wrote:
+> +/**
+> + * arm_smmu_queue_max_n_shift() - pick the log2 depth of a queue
+> + * @hw_shift: log2 depth the hardware allows, capped for natural alignment
+
+We can drop "capped for natural alignment" -- evtq/priq don't cap.
+
+> + * @ent_sz_shift: log2 of the queue entry size in bytes
+> + * @want: number of entries asked for, or zero to use @hw_shift
+
+Instead, rename to:
+
+@ceiling: default max_n_shift ceiling of the queue
+@ent_sz_shift: log2 of the queue entry size in bytes
+@new_ceiling: new ceiling to override; use the default if 0
+
+> + * @want is rounded down to a power of two. It never sizes a queue below one
+> + * page, because coherent DMA is page granular: a shallower queue occupies the
+> + * same memory as one that fills the page, and arm_smmu_init_one_queue() stops
+> + * shrinking at a page too.
+> + */
+> +static u32 arm_smmu_queue_max_n_shift(u32 hw_shift, u32 ent_sz_shift, u32 want)
+> +{
+> +	u32 page_shift = PAGE_SHIFT - ent_sz_shift;
+
+And let's call it "floor". It fits the comments and commit message.
+
+> +
+> +	if (!want)
+> +		return hw_shift;
+> +
+> +	return min(hw_shift, max(ilog2(want), page_shift));
+> +}
+> +
+> +/*
+> + * Command queues are also allocated by the Tegra241 CMDQV for its VCMDQs, which
+> + * need the same depth decision.
+> + */
+> +u32 arm_smmu_cmdq_max_n_shift(u32 hw_shift)
+> +{
+> +	return arm_smmu_queue_max_n_shift(hw_shift, CMDQ_ENT_SZ_SHIFT,
+> +					  cmdq_entries);
+> +}
+
+Here, move in the natural alignment cap.
+
+u32 arm_smmu_cmdq_max_n_shift(u32 ceiling)
+{
+	/* Capped to ensure natural alignment */
+	ceiling = min_t(u32, CMDQ_MAX_SZ_SHIFT, ceiling);
+
+	return arm_smmu_queue_max_n_shift(
+		ceiling, CMDQ_ENT_SZ_SHIFT,
+		cmdq_max_entries ? ilog2(cmdq_max_entries) : 0);
+}
+  
+> @@ -662,8 +663,8 @@ static int tegra241_vcmdq_alloc_smmu_cmdq(struct tegra241_vcmdq *vcmdq)
 >  
-> +config DRM_STARFIVE_JH7110_INNO_HDMI
-> +	tristate "Starfive JH7110 Innosilicon HDMI bridge"
-> +	depends on OF
-> +	depends on ARCH_STARFIVE || COMPILE_TEST
-> +	select DRM_INNO_HDMI
-> +	help
-> +	  Enable support for the StarFive JH7110 specific implementation
-> +	  of the Innosilicon HDMI controller.
-> +	  This driver acts as a glue layer between the JH7110 HDMI subsystem
-> +	  parent driver and the generic Innosilicon HDMI bridge driver.
-> +
->  config DRM_THINE_THC63LVD1024
->  	tristate "Thine THC63LVD1024 LVDS decoder bridge"
->  	depends on OF
-> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-> index 15cc821d85b7ea6f3cdc313f3e521b028de567d7..5d843f4ad7ed50b28cb75286c5e22789d91a0836 100644
-> --- a/drivers/gpu/drm/bridge/Makefile
-> +++ b/drivers/gpu/drm/bridge/Makefile
-> @@ -30,6 +30,7 @@ obj-$(CONFIG_DRM_SIL_SII8620) += sil-sii8620.o
->  obj-$(CONFIG_DRM_SII902X) += sii902x.o
->  obj-$(CONFIG_DRM_SII9234) += sii9234.o
->  obj-$(CONFIG_DRM_SIMPLE_BRIDGE) += simple-bridge.o
-> +obj-$(CONFIG_DRM_STARFIVE_JH7110_INNO_HDMI) += jh7110-inno-hdmi.o
->  obj-$(CONFIG_DRM_SOLOMON_SSD2825) += ssd2825.o
->  obj-$(CONFIG_DRM_THEAD_TH1520_DW_HDMI) += th1520-dw-hdmi.o
->  obj-$(CONFIG_DRM_THINE_THC63LVD1024) += thc63lvd1024.o
-> diff --git a/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..b0bf6abaa55fb452a90021586faf5f220c150968
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
-> @@ -0,0 +1,318 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) StarFive Technology Co., Ltd.
-> + * Copyright (c) 2025 Samsung Electronics Co., Ltd.
-> + * Author: Michal Wilczynski <m.wilczynski@samsung.com>
-> + *
-> + * HDMI controller (bridge) driver for the StarFive JH7110 HDMI subsystem.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_graph.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +
-> +#include <drm/bridge/inno_hdmi.h>
-> +#include <drm/drm_modes.h>
-> +
-> +/* dom_vout_syscon: HDMI pixel data mapping */
-> +#define VOUT_SYSCFG_4			0x4
-> +#define VOUT_HDMI_DP_BIT_DEPTH		BIT(25)
-> +#define VOUT_HDMI_DP_YUV_MODE		GENMASK(27, 26)
-> +#define VOUT_HDMI_DP_YUV_MODE_RGB	3
-> +#define VOUT_HDMI_DPI_BIT_DEPTH		GENMASK(29, 28)
-> +#define VOUT_HDMI_DPI_BIT_DEPTH_8BIT	0
-> +#define VOUT_HDMI_DPI_DP_SEL		BIT(30)
-> +
-> +/* u2_display_panel_mux feeds HDMI_Ctrl, see the block diagram in 5.1 */
-> +#define VOUT_SYSCFG_8			0x8
-> +#define VOUT_HDMI_PANEL_SEL		BIT(4)
-> +
-> +enum stf_hdmi_ctrl_clocks { CLK_SYS = 0, CLK_M, CLK_B, CLK_PCLK, CLK_CTRL_NUM };
-> +
-> +struct stf_inno_hdmi_controller {
-> +	struct device *dev;
-> +	struct clk_bulk_data clks[CLK_CTRL_NUM];
-> +	struct reset_control *tx_rst;
-> +	struct phy *phy;
-> +	bool enabled;
-> +};
-> +
-> +static enum drm_mode_status
-> +inno_hdmi_starfive_mode_valid(struct device *dev,
-> +			      const struct drm_display_mode *mode)
-> +{
-> +	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
-> +	unsigned long pixelclk = mode->clock * 1000;
-> +	long rounded;
-> +
-> +	/*
-> +	 * The PHY can only generate the discrete set of pixel clocks described
-> +	 * by its pre-PLL table, and clk_round_rate() fails for anything else.
-> +	 * Reject those modes here: without this the modeset would appear to
-> +	 * succeed while the PHY never produces a signal.
-> +	 */
-> +	rounded = clk_round_rate(ctrl->clks[CLK_PCLK].clk, pixelclk);
-> +	if (rounded < 0 || rounded != pixelclk)
-> +		return MODE_NOCLOCK;
-> +
+>  	/* Cap queue size to SMMU's IDR1.CMDQS and ensure natural alignment */
+>  	regval = readl_relaxed(smmu->base + ARM_SMMU_IDR1);
+> -	q->llq.max_n_shift =
+> -		min_t(u32, CMDQ_MAX_SZ_SHIFT, FIELD_GET(IDR1_CMDQS, regval));
+> +	hw_shift = min_t(u32, CMDQ_MAX_SZ_SHIFT, FIELD_GET(IDR1_CMDQS, regval));
+> +	q->llq.max_n_shift = arm_smmu_cmdq_max_n_shift(hw_shift);
 
-Using "if (rounded != pixelclk)" would be ok.
+Then, we can just use FIELD_GET() at the two call sites:
 
-> +	return MODE_OK;
-> +}
-> +
-> +static void inno_hdmi_starfive_enable(struct device *dev,
-> +				      struct drm_display_mode *mode)
-> +{
-> +	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	/*
-> +	 * 1. Set the pixel clock rate. This calls the PHY driver's .set_rate op.
-> +	 */
-> +	ret = clk_set_rate(ctrl->clks[CLK_PCLK].clk, mode->clock * 1000);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to set pclk rate %d: %d\n",
-> +			mode->clock * 1000, ret);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * 2. Enable the pixel clock. This calls the PHY driver's .prepare op.
-> +	 */
-> +	ret = clk_prepare_enable(ctrl->clks[CLK_PCLK].clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable pclk: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * 3. Power on the PHY. This calls the PHY driver's .power_on op,
-> +	 * which configures the Post-PLL and analog blocks.
-> +	 */
-> +	ret = phy_power_on(ctrl->phy);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on PHY: %d\n", ret);
-> +		clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
-> +		return;
-> +	}
-> +
-> +	ctrl->enabled = true;
-> +}
-> +
-> +static void inno_hdmi_starfive_disable(struct device *dev)
-> +{
-> +	struct stf_inno_hdmi_controller *ctrl = dev_get_drvdata(dev);
-> +
-> +	/*
-> +	 * .enable bails out early if the pixel clock rate is unsupported or
-> +	 * the PHY fails to power on, leaving pclk and the PHY untouched.
-> +	 * Only tear down what was actually brought up, otherwise the clock
-> +	 * refcount underflows.
-> +	 */
-> +	if (!ctrl->enabled)
-> +		return;
-> +
-> +	phy_power_off(ctrl->phy);
-> +	clk_disable_unprepare(ctrl->clks[CLK_PCLK].clk);
-> +	ctrl->enabled = false;
-> +}
-> +
-> +/*
-> + * The DC8200 has two panels, each exposing a DP and a DPI interface, and a mux
-> + * in dom_vout_syscon picks which of them drives the HDMI transmitter. Derive
-> + * the mux setting from the port graph: the remote port number selects the
-> + * DC8200 panel, and the remote endpoint number the interface on that panel
-> + * (0 for DPI, 1 for DP). Both drive 8-bit RGB, the only format this driver
-> + * currently produces.
-> + */
-> +static int stf_inno_hdmi_setup_mux(struct device *dev)
-> +{
-> +	struct device_node *ep, *remote;
+	smmu->cmdq.q.llq.max_n_shift =
+		arm_smmu_cmdq_max_n_shift(FIELD_GET(IDR1_CMDQS, reg));
 
-Using "struct device_node *ep __free(device_node)" can help you simplify
-the processing of resource release.
-
-> +	struct of_endpoint endpoint;
-> +	struct regmap *syscon;
-> +	u32 mask, val;
-> +	int ret;
-> +
-> +	syscon = syscon_regmap_lookup_by_phandle(dev->of_node,
-> +						 "starfive,vout-syscon");
-> +	if (IS_ERR(syscon))
-> +		return dev_err_probe(dev, PTR_ERR(syscon),
-> +				     "Failed to get vout syscon\n");
-> +
-> +	ep = of_graph_get_endpoint_by_regs(dev->of_node, 0, -1);
-> +	if (!ep)
-> +		return dev_err_probe(dev, -ENODEV, "No input endpoint\n");
-> +
-> +	remote = of_graph_get_remote_endpoint(ep);
-> +	of_node_put(ep);
-> +	if (!remote)
-> +		return dev_err_probe(dev, -ENODEV,
-> +				     "Input endpoint is not connected\n");
-> +
-> +	ret = of_graph_parse_endpoint(remote, &endpoint);
-> +	of_node_put(remote);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to parse the remote endpoint\n");
-> +
-> +	if (endpoint.port > 1 || endpoint.id > 1)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Unsupported DC8200 output %u/%u\n",
-> +				     endpoint.port, endpoint.id);
-> +
-> +	/* Data mapping: 8-bit RGB on whichever interface is in use. */
-> +	mask = VOUT_HDMI_DPI_DP_SEL | VOUT_HDMI_DP_BIT_DEPTH |
-> +	       VOUT_HDMI_DP_YUV_MODE | VOUT_HDMI_DPI_BIT_DEPTH;
-> +	val = FIELD_PREP(VOUT_HDMI_DPI_DP_SEL, endpoint.id) |
-> +	      FIELD_PREP(VOUT_HDMI_DP_YUV_MODE, VOUT_HDMI_DP_YUV_MODE_RGB) |
-> +	      FIELD_PREP(VOUT_HDMI_DPI_BIT_DEPTH, VOUT_HDMI_DPI_BIT_DEPTH_8BIT);
-> +
-> +	ret = regmap_update_bits(syscon, VOUT_SYSCFG_4, mask, val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Which DC8200 panel drives the HDMI transmitter. */
-> +	return regmap_update_bits(syscon, VOUT_SYSCFG_8, VOUT_HDMI_PANEL_SEL,
-> +				  FIELD_PREP(VOUT_HDMI_PANEL_SEL,
-> +					     endpoint.port));
-> +}
-> +
-> +static void stf_inno_hdmi_clk_disable(void *data)
-> +{
-> +	struct stf_inno_hdmi_controller *ctrl = data;
-> +
-> +	clk_bulk_disable_unprepare(CLK_CTRL_NUM - 1, ctrl->clks);
-> +}
-> +
-> +static void stf_inno_hdmi_rst_assert(void *data)
-> +{
-> +	reset_control_assert(data);
-> +}
-> +
-> +static int starfive_inno_hdmi_controller_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev = &pdev->dev;
-> +	struct device *parent = dev->parent;
-> +	struct stf_inno_hdmi_controller *ctrl;
-> +	const struct inno_hdmi_plat_data *plat_data;
-> +	struct regmap *regmap;
-> +	struct inno_hdmi *inno;
-> +	int ret;
-> +
-> +	ctrl = devm_kzalloc(dev, sizeof(*ctrl), GFP_KERNEL);
-> +	if (!ctrl)
-> +		return -ENOMEM;
-> +
-> +	ctrl->dev = dev;
-> +	platform_set_drvdata(pdev, ctrl);
-> +
-> +	/* Get the shared regmap from the parent */
-> +	regmap = dev_get_regmap(parent, NULL);
-> +	if (!regmap) {
-> +		dev_err(dev, "Failed to get parent regmap\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	ctrl->phy = devm_phy_get(dev, NULL);
-> +	if (IS_ERR(ctrl->phy))
-> +		return dev_err_probe(dev, PTR_ERR(ctrl->phy), "Failed to get PHY\n");
-> +
-> +	ctrl->tx_rst = devm_reset_control_get_exclusive(dev, NULL);
-> +	if (IS_ERR(ctrl->tx_rst))
-> +		return dev_err_probe(dev, PTR_ERR(ctrl->tx_rst), "failed to get tx reset\n");
-> +
-> +	/* Populate the clock names this controller *consumes* */
-> +	ctrl->clks[CLK_SYS].id = "pclk";
-> +	ctrl->clks[CLK_M].id = "mclk";
-> +	ctrl->clks[CLK_B].id = "bclk";
-> +	ctrl->clks[CLK_PCLK].id = "pixel"; /* Generated by the PHY */
-> +
-> +	ret = devm_clk_bulk_get(dev, CLK_CTRL_NUM, ctrl->clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Unable to get controller clocks\n");
-> +
-> +	/*
-> +	 * Tear the clocks and the reset down through devm, so that they outlive
-> +	 * everything registered after them. The bridge is added with
-> +	 * devm_drm_bridge_add(), and unwinding in the wrong order would leave it
-> +	 * registered while its clocks are already gated.
-> +	 *
-> +	 * The pixel clock is enabled on demand during modeset.
-> +	 */
-> +	ret = clk_bulk_prepare_enable(CLK_CTRL_NUM - 1, ctrl->clks);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_clk_disable, ctrl);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = reset_control_deassert(ctrl->tx_rst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_rst_assert,
-> +				       ctrl->tx_rst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = stf_inno_hdmi_setup_mux(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	plat_data = of_device_get_match_data(dev);
-> +
-> +	/* Hand off to the generic library to create the bridge. */
-> +	inno = inno_hdmi_probe(pdev, plat_data);
-> +	if (IS_ERR(inno))
-> +		return PTR_ERR(inno);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * This table is now only used for the generic .mode_valid check.
-> + * The real validation happens in the PHY driver's .round_rate.
-> + */
-> +static struct inno_hdmi_phy_config stf_hdmi_phy_configs[] = {
-> +	{ 297000000, 0x00, 0x00 },
-> +	{ ~0UL, 0x00, 0x00 }, /* Sentinel */
-> +};
-> +
-> +static const struct inno_hdmi_plat_ops stf_inno_hdmi_plat_ops = {
-> +	.enable = inno_hdmi_starfive_enable,
-> +	.disable = inno_hdmi_starfive_disable,
-> +	.mode_valid = inno_hdmi_starfive_mode_valid,
-> +};
-> +
-> +static const struct inno_hdmi_plat_data stf_inno_hdmi_plat_data = {
-> +	.ops = &stf_inno_hdmi_plat_ops,
-> +	.phy_configs = stf_hdmi_phy_configs,
-> +	.default_phy_config = &stf_hdmi_phy_configs[0],
-> +};
-> +
-> +static const struct of_device_id starfive_hdmi_controller_dt_ids[] = {
-> +	{ .compatible = "starfive,jh7110-inno-hdmi-controller",
-> +	  .data = &stf_inno_hdmi_plat_data },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, starfive_hdmi_controller_dt_ids);
-> +
-> +struct platform_driver starfive_inno_hdmi_controller_driver = {
-> +	.probe = starfive_inno_hdmi_controller_probe,
-> +	.driver = {
-> +		.name = "starfive-inno-hdmi-controller",
-> +		.of_match_table = starfive_hdmi_controller_dt_ids,
-> +	},
-> +};
-> +module_platform_driver(starfive_inno_hdmi_controller_driver);
-> +
-> +MODULE_AUTHOR("Michal Wilczynski <m.wilczynski@samsung.com>");
-> +MODULE_DESCRIPTION("StarFive INNO HDMI Controller Driver");
-> +MODULE_LICENSE("GPL");
-> 
-
--- 
-Best, 
-Chaoyi
+Thanks
+Nicolin
