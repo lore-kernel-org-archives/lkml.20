@@ -1,200 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-177.mta1.migadu.com [95.215.58.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3B04EE877
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:55:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E724EE863
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:56:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789361; cv=none; b=o9xEsQtjAVV7qpczDe3Gh1D3bfp0gfpDcgvJXCdJ6qtF9YiFx8xRt9OFVbX/KIbSN79BFwwWZ6WF0VyN8+t8TDAR7DYprQAKSuQQ4nfIJQpoD1V6aJ0z73YpSVNngqhNGIDvWjt3lXQIk2ift9XJfGUUqPN0qjCsPDZfNkbz/tY=
+	t=1788789404; cv=none; b=BHW3TRJkgTy2T0aqDvCzSeazxdIi8GbA/5U28K++oDWCKFmk5MhaXK8hUGpiFSVeOPhqO1G3Fr9CYLZctLbo/rc3fPHK53RNdOiXft9R5JbkW/i/NZsEG2Y228ysy7ePnMfhBQuewqom1oWU8m/N3UuIGkHwa9uIaTJlSYX6lBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789361; c=relaxed/simple;
-	bh=OnJ7HC00/rddbJsQSNNRG2i/15vqOfuKoPk7IGJ5hHc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pauBeYFEvDaMHFg8jD65BcEjcn51V+WQ3fd0z0flHIJCUIvZ98jTuu9ERG0ZaISwPQ25Eoqbs2Ya4il19UWyo9d1iMriRl01KHB8sWEifez6GaqRH1cd92Ecbffvfe0hTbJqBvtpC9aZcZHToDiRVO2+zmxGe3AS/rY0uS2BugY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI8ftB0Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789404; c=relaxed/simple;
+	bh=ku9/UBu99vSafYGo9adeFr1f9lBsBT9crq+anMw3VDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uUE1RCkyjKvRpHAUj8XrhsIirBzsju5QUdMJWKB32poFGTGCBnpdiCSShcGipRLANmUjqgt5y6erYrcN0DutETV5B+tfXPS/om02JwaEtKwBxZ7pwc+sck7Hu0hhLqpqiBwEXtXRbtDSdn3/awblMNXNAoYhOJqxG2NlfCF4c+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=coNMpP0i; arc=none smtp.client-ip=95.215.58.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI8ftB0Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5841F00A3A;
-	Mon,  7 Sep 2026 13:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789359;
-	bh=EZB4SZnhJn7B8NJkES4V3S9ML1xc3yKh26KW0DCPkAI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gI8ftB0YMB5vFgdTJ/VqSy11B4Hgym+5tR+cWMB1A5tmkqCbZ/XV45UeEkAae5CQp
-	 ThqtR5Ty7VZZyVLE+VWPHUJ06pm2305BGgyL5gsuJo79cG+78PL8Nn2/Kq0BFXEbtx
-	 ZCnozSOxaLCXytDG5G4qd0K+rIk7GVTlL/GtgC8NlNJOnijP94SSajKkEqwDWvBzxT
-	 DyB8P/UTClwDwgCX8ReGWUGXZQCKn3zJ7wvxVf4QulqIGQDxC3I4+DnWtAeUmZQpOB
-	 qVTZNLTV8kDg8HIQV09OZ7gOxF1epLwiTS1PLIVCJKHKh3lWeYBZnPb1G4u4arAAkw
-	 GfbSDawgyVYKA==
-Message-ID: <f44181bb-ff82-4537-b2eb-fcbde304d7eb@kernel.org>
-Date: Mon, 7 Sep 2026 15:55:53 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="coNMpP0i"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ku9/UBu99vSafYGo9adeFr1f9lBsBT9crq+anMw3VDM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788789395; v=1; x=1789394195;
+ b=coNMpP0iL2skrqQ1eElLFpIaIfj4nan1asy2MqeBQqjHyQntRGLGREgjuUcP2kwsYpwmlfYP
+ FR2gBqzzSkfhYiwMzXojMGBm1VK1QCFvvzrRqVru3QzS0Twcr3aPTMR1xAtwPuq8RyOdJCeC78z
+ 0XLv58ituWXzHhwBDMlcj9lo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66dd265d53de2e57;
+	Mon, 07 Sep 2026 13:56:35 +0000
+X-Mizu-Trace-ID: 66dd265d53de2e57
+X-Migadu-Flow: FLOW_OUT
+From: Zenghui Yu <zenghui.yu@linux.dev>
+To: linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: akpm@linux-foundation.org,
+	david@kernel.org,
+	ljs@kernel.org,
+	liam@infradead.org,
+	vbabka@kernel.org,
+	rppt@kernel.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	shuah@kernel.org,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH] selftests/mm: fix size truncation in pagemap_ioctl test
+Date: Mon,  7 Sep 2026 21:56:13 +0800
+Message-ID: <20260907135613.68692-1-zenghui.yu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] mm/huge_memory: dequeue the deferred split after
- the split freeze
-To: Kiryl Shutsemau <kirill@shutemov.name>, akpm@linux-foundation.org,
- ljs@kernel.org, hannes@cmpxchg.org, usama.arif@linux.dev
-Cc: lance.yang@linux.dev, ziy@nvidia.com, kasong@tencent.com,
- hughd@google.com, baolin.wang@linux.alibaba.com, baohua@kernel.org,
- liam@infradead.org, nico.pache@linux.dev, dev.jain@arm.com,
- ryan.roberts@arm.com, balbirs@nvidia.com, kas@kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260831091514.1879786-1-kirill@shutemov.name>
- <20260831091514.1879786-3-kirill@shutemov.name>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260831091514.1879786-3-kirill@shutemov.name>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 8/31/26 11:15, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> __folio_freeze_and_split_unmapped() takes the deferred split list_lru lock
-> across the freeze. It is only there to stop deferred_split_scan() from
-> touching the folio under split.
-> 
-> With deferred_split_isolate() fixed, the workaround can be dropped.
-> 
-> Unqueue the folio after folio_ref_freeze(), the way
-> __folio_migrate_mapping() does: folio_unqueue_deferred_split() needs a
-> zero refcount and a memcg still set, and both hold there.
-> 
-> If the split is called from deferred_split_scan(), the unqueue is a
-> no-op -- the folio is already removed from the list. But
-> PG_partially_mapped is still set, so it has to be cleared here or
-> MTHP_STAT_NR_ANON_PARTIALLY_MAPPED never comes back down.
-> 
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
->  mm/huge_memory.c | 44 +++++++++++++-------------------------------
->  1 file changed, 13 insertions(+), 31 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 6281ed993243..c84e8cbc986d 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -3931,41 +3931,27 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
->  	struct folio *end_folio = folio_next(folio);
->  	struct folio *new_folio, *next;
->  	int old_order = folio_order(folio);
-> -	struct list_lru_one *lru;
-> -	bool dequeue_deferred;
->  	int ret = 0;
->  
->  	VM_WARN_ON_ONCE(!mapping && end);
-> -	/*
-> -	 * If this folio can be on the deferred split queue, lock out
-> -	 * the shrinker before freezing the ref. If the shrinker sees
-> -	 * a 0-ref folio, it assumes it beat folio_put() to the list
-> -	 * lock and must clean up the LRU state - the same dequeue we
-> -	 * will do below as part of the split.
-> -	 */
-> -	dequeue_deferred = folio_test_anon(folio) && old_order > 1;
-> -	if (dequeue_deferred) {
-> -		struct mem_cgroup *memcg;
->  
-> -		rcu_read_lock();
-> -		memcg = folio_memcg(folio);
-> -		lru = list_lru_lock(&deferred_split_lru,
-> -				    folio_nid(folio), &memcg);
-> -	}
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
 
-Nice cleanup.
+On arm64 with 64K base pages, the huge page size is 512 MiB, and
+hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
+exceeds the range of the int size parameters of gethugepage(),
+wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
+makes gethugepage() allocate a too small buffer, while the callers keep
+operating on the original 5 GiB range, resulting in spurious failures or
+SIGSEGV.
 
->  	if (folio_ref_freeze(folio, folio_cache_ref_count(folio) + 1)) {
->  		struct swap_cluster_info *ci = NULL;
->  		struct lruvec *lruvec;
->  
-> -		if (dequeue_deferred) {
-> -			__list_lru_del(&deferred_split_lru, lru,
-> -				       &folio->_deferred_list, folio_nid(folio));
-> -			if (folio_test_partially_mapped(folio)) {
-> -				folio_clear_partially_mapped(folio);
-> -				mod_mthp_stat(old_order,
-> -					MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
-> -			}
-> -			list_lru_unlock(lru);
-> -			rcu_read_unlock();
-> +		/* Take off the deferred split queue while frozen and memcg set */
-> +		folio_unqueue_deferred_split(folio);
-> +
-> +		/*
-> +		 * deferred_split_scan() takes the folio off the queue before it
-> +		 * splits it, so the unqueue above finds an empty list and
-> +		 * leaves PG_partially_mapped set.
-> +		 * Clear it here: the flag does not survive the split.
-> +		 */
-> +		if (folio_test_partially_mapped(folio)) {
-> +			folio_clear_partially_mapped(folio);
-> +			mod_mthp_stat(old_order,
-> +				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
->  		}
+Change those size parameters to size_t.
 
-In general,
+Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
+Assisted-by: GLM-5.3 OpenCode
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+---
+ tools/testing/selftests/mm/pagemap_ioctl.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
-But I do wonder whether this sequence (that also
-__folio_unqueue_deferred_split()) performs would deserve a small local helper in
-mm/huge_memory.c
-
-Could be done as a separate cleanup.
-
+diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
+index eadc7159ca5b..48cbea3a33c9 100644
+--- a/tools/testing/selftests/mm/pagemap_ioctl.c
++++ b/tools/testing/selftests/mm/pagemap_ioctl.c
+@@ -44,7 +44,7 @@ const char *progname;
+ 
+ #define LEN(region)	((region.end - region.start)/page_size)
+ 
+-static long pagemap_ioctl(void *start, int len, void *vec, int vec_len, int flag,
++static long pagemap_ioctl(void *start, size_t len, void *vec, int vec_len, int flag,
+ 			  int max_pages, long required_mask, long anyof_mask, long excluded_mask,
+ 			  long return_mask)
+ {
+@@ -152,7 +152,7 @@ int wp_free(void *addr, long size)
+ 	return 0;
+ }
+ 
+-int wp_addr_range(void *addr, int size)
++int wp_addr_range(void *addr, size_t size)
+ {
+ 	if (pagemap_ioctl(addr, size, NULL, 0,
+ 			  PM_SCAN_WP_MATCHING | PM_SCAN_CHECK_WPASYNC,
+@@ -787,7 +787,7 @@ int base_tests(char *prefix, char *mem, unsigned long long mem_size, int skip)
+ 	return 0;
+ }
+ 
+-void *gethugepage(int map_size)
++void *gethugepage(size_t map_size)
+ {
+ 	int ret;
+ 	char *map;
 -- 
-Cheers,
+2.53.0
 
-David
