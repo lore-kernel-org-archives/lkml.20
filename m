@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAD6478E5F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:28:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94DA947A875
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:28:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780512; cv=none; b=qaFK2N1tujJC0yAOVuW8rUXkFpDCOu1yEaxt6hya5EhS40LsxuXIIidGCOgwwZsLF/Vy+9B8LIz4HYAlIh4kJ6GdaWICpKKWnDe8bo8SSH3omEMLJp3ygPxYZ4OjHWMPkDSXFhQTcCmZv3NN+WBHYg+g/UVHWpgx9QcbFY1C7HY=
+	t=1788780515; cv=none; b=t3QbyHDwFp7DjtAmAoIIg2Y9jgVx5BUu1/8ksVfj9ROkXoMS0xKsnOYJeiS5GLrqZMqiCayhRjQNPTRYU1LgcgLdY3wZ72GTKnd7Lgt8AHVZQGMh0jbuQlAVG2mxhiNkQQdUdcL5lvhUrTlwNW3lPT+uEeZZsuxPNhvXFg28Pus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780512; c=relaxed/simple;
-	bh=/zUZOuY4dD2SaTqPRCbXni1NC8QJPYbJvXVdgiO3Eug=;
+	s=arc-20240116; t=1788780515; c=relaxed/simple;
+	bh=R3FaNQrlNb86xfalGaX8Aw8wDMwPPadvb26T0rMm/AI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RFyg8LIOdS+boSvpgyDYd3pfAe+Ok//XpNWnMF7u2VGK0j1qWJ2NTXwXRi3WkU2zIrx4yWa6UKxqz3dB4aJ8AepSj1lGK02WornUiVjp2b6+tHnU9x3DK+oJLRZQ1CzUfwER2Bts/SYs2UYBU2DR5WdlyT4IXJlFBQ8uQOzPfRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YKKO3la/; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=Jj39x92A8F6A6mIpfUAB7jSuNEj7ihBDgjm5X63YHtJ1hn3dBWwHMZ1CoWfGryfRuI71mT4v7qtxolxWw0MFCWyiY+zN+mybk50pVLbnpzFgsQHgDLSuBiW3zShctfSzSZoYlCYflzHTYimJPRUnYI9m70MAqrUc+RGwL3W6FxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=uQPL3XjT; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YKKO3la/"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="uQPL3XjT"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E01EEE4E;
-	Mon,  7 Sep 2026 13:26:50 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D3741104A;
+	Mon,  7 Sep 2026 13:26:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788780411;
-	bh=/zUZOuY4dD2SaTqPRCbXni1NC8QJPYbJvXVdgiO3Eug=;
+	s=mail; t=1788780412;
+	bh=R3FaNQrlNb86xfalGaX8Aw8wDMwPPadvb26T0rMm/AI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YKKO3la/g2ZFdq9DBNKpv0as7t0twGm2YqAck2C6bioUYBHsWeUozWFAvedYiRi5W
-	 X7mhjeUrlBy1H+mVZzfhlLU5KrX3wTb5QpDowgqY4FlV8pOlSwGT+h6sGZnBpqyPY6
-	 08DgVbHGaeIFkA+gfLCR+m5BfJz9/e0MdPDXmtMs=
+	b=uQPL3XjTQpqPIV6uKyJwv6pHSTDhbscPdhh+MCu7owy/NKVeHdkg7tWT6GrJyenV3
+	 C/rico9EU1+gJQw3mRbMdZ6rmRk56XYfEMdeyoix9BZAmkYmSxr43U3NZVYnZgd3B2
+	 LIsWn0g1QYFabYNtn9NM5GdjFho9jYvTdzoFCi1A=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 07 Sep 2026 14:27:58 +0300
-Subject: [PATCH v4 03/13] drm/bridge: tc358762: Improve LCDCTRL defines
+Date: Mon, 07 Sep 2026 14:27:59 +0300
+Subject: [PATCH v4 04/13] drm/bridge: tc358762: Configure SYSCTRL first
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-tc358762-fixes-v4-3-e3fc3ab5cd83@ideasonboard.com>
+Message-Id: <20260907-tc358762-fixes-v4-4-e3fc3ab5cd83@ideasonboard.com>
 References: <20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com>
 In-Reply-To: <20260907-tc358762-fixes-v4-0-e3fc3ab5cd83@ideasonboard.com>
 To: Marek Vasut <marex@denx.de>, Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -51,96 +51,66 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Dave Stevenson <dave.stevenson@raspberrypi.com>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3005;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1636;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=/zUZOuY4dD2SaTqPRCbXni1NC8QJPYbJvXVdgiO3Eug=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnp/SjKoz/+Fg5L2o/pNMagg1rVyF7f6jHC95M
- rN9XQNlxoKJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6f0gAKCRD6PaqMvJYe
- 9bUwD/9hQM4kjr5Hq46WkQgNlNmVdukFILA3cJM3ddfv6FBxJVXWb5DFujT/ubaVoaymr3ugAEd
- //C5rcRkWGDne3WUE+S4p8uRZ5Rt5BjhwBaDWIXjC8dfCOy1MgsoYrQS594tiFjse1Qqf97BiHo
- jQ3nc6x6SrgFwLXQ1rgk2ezRrg/AqQqxkdvf1ri5/6EQNjWIeQDj4Za/ekBeVm4z5eWTUQcfH+C
- RjXY0TIf8sOQGkZIFp+ZIFbISJZj8CQc6iIqey2+Sr4Edo2FNJwXbsfCm1909TmvXKG+PmFaLWQ
- gglqNJK6TPwcGi4cXFbUrvxMtE3vnFD567rO7VS61H1BMsaFy3pU76Kft5ROS4EFbyfRjH+ahel
- 2d5aGvoiUL9nO68NqpMh++A9Hwb2Er4rclaGSW/DbfShDiYt13lFXxYQoWf9hvIdWIQ28P9k3ER
- iU/NRlI/En3fb0b/qERtajVf+YJeChW5jR0dA/x2rrozY+Ztb6Wq2uCDiUUjO+PaC6iTCGkuEP/
- AK/npIj6ATyLY1aovRZQjmxeJutPmkOql5FEjXY05wMua8QMysW6qKKt/ZoZYNA8f0h9p3341WP
- 6anzzXyfcoPNVfm9FiiBdgsTgzt3Vo0ZbaHTaTQXexcGweSsgI8VSp06s9O449RSUKS5lZBT8VE
- lXtioP+PaxU4+FQ==
+ bh=R3FaNQrlNb86xfalGaX8Aw8wDMwPPadvb26T0rMm/AI=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnp/SS1/qBvMsSFVmdKQChMYxG3RdU3MK9glCP
+ r9nSmbMOheJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6f0gAKCRD6PaqMvJYe
+ 9c4VD/4s0qpc/X1zfHeiNyvXpNa6mynQnLMjs2OneAJVzZ2WTZiLJYppykYUHq4CQKmG17Ycuk5
+ Qay7REzz1BX3/nkwUiUfsMOG+llzDYasNlTQAsGiK7RkyfFo4NoivXzhf2R0nB8IHULNemeys5z
+ hR9f65XgXsd0UjuEDA5LhH43hVIHJjfSeEyfJb7ZDzZzZwM73MErAKZNuCMYg2LOYxvr2bMjGYL
+ i9Iq4cevHBCZ2V5ph1bQBpIuvgvnXy01pvKAH3xtYivRr5Rt6NUOIU02REqG6aIg9wIl9ZU6qRP
+ wsZNKvPiyspo7xKftZTFzvKGvSfvtRaAOSi9H1VjBZelpfjSC+Zqr/rhmeW+mn5Sl3mR1l4J02Z
+ bvU+MBMHVtPv3z70dEctkpI7cQvNJ27aLzTMdWgAIYP3+5skFlNGrnSC4kf7S8w7/9Odvuz06Xi
+ 62DtMqNG2gr0byaFNuE8UqqiapSpI3FBZeJ/VTNrs0K7seUR+Z9pKJxURy5zBEaCPp1Vw5lHPx6
+ +f+gLpwR4RcdTPOOi0Sc6SJKhp6Qg8WSBc/48ifZEDNTUFkDYd8EFoAYin/o6QOf4BmZ/KGiQDW
+ j9OgWqqTTlV6GxK47I4HG7XIOgctqr1papBbDkeCmR/LL5/4fRw+1winpg1kEtpWjAkrXMWYRFh
+ RVHI3YhbyylHYRg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-LCDCTRL fields are quite wrong in the driver. Fix the field defines.
+SYSCTRL affects the DPI output and the clock tree, but we configure it
+late, when the DPI output is already enabled and clocks are running.
 
-A few notes about the wrong fields:
-
-LCDCTRL_VSDELAY(1) actually sets LCDCTRL_DCLK_POL
-LCDCTRL_UNK6 | LCDCTRL_VTGEN actually set LCDCTRL_PXLFORM_RGB888
-LCDCTRL_RGB888 actually sets LCDCTRL_DPI_EN
-
-The total still resulted in a working display even if the defines were
-quite wrong.
+Move the SYSCTRL configuration to the beginning, before anything is
+enabled.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- drivers/gpu/drm/bridge/tc358762.c | 33 ++++++++++++++++++++-------------
- 1 file changed, 20 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/bridge/tc358762.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
-index 5630cead7cd8..fcd741f5765d 100644
+index fcd741f5765d..eb6e6ad5b6a1 100644
 --- a/drivers/gpu/drm/bridge/tc358762.c
 +++ b/drivers/gpu/drm/bridge/tc358762.c
-@@ -46,17 +46,22 @@
- #define DSI_LANEENABLE_L0EN	BIT(1)
- #define DSI_LANEENABLE_L1EN	BIT(2)
+@@ -134,6 +134,13 @@ static int tc358762_init(struct tc358762 *ctx)
+ {
+ 	u32 lcdctrl;
  
--/* LCDC/DPI Host Registers, based on guesswork that this matches TC358764 */
-+/* LCDC/DPI Registers */
- #define LCDCTRL			0x0420 /* Video Path Control */
- #define LCDCTRL_MSF		BIT(0) /* Magic square in RGB666 */
--#define LCDCTRL_VTGEN		BIT(4)/* Use chip clock for timing */
--#define LCDCTRL_UNK6		BIT(6) /* Unknown */
--#define LCDCTRL_EVTMODE		BIT(5) /* Event mode */
--#define LCDCTRL_RGB888		BIT(8) /* RGB888 mode */
--#define LCDCTRL_HSPOL		BIT(17) /* Polarity of HSYNC signal */
--#define LCDCTRL_DEPOL		BIT(18) /* Polarity of DE signal */
--#define LCDCTRL_VSPOL		BIT(19) /* Polarity of VSYNC signal */
--#define LCDCTRL_VSDELAY(v)	(((v) & 0xfff) << 20) /* VSYNC delay */
-+#define LCDCTRL_VTGEN		BIT(1) /* Use chip clock for timing */
-+#define LCDCTRL_PXLFORM		GENMASK_U32(6, 4)
-+#define LCDCTRL_PXLFORM_RGB666		0	/* x:R:G:B 6:8:8:8 */
-+#define LCDCTRL_PXLFORM_RGB666_24	1	/* x:R:x:G:x:B 2:6:2:6:2:6 */
-+#define LCDCTRL_PXLFORM_RGB565		2	/* x:R:G:B 8:5:6:5 */
-+#define LCDCTRL_PXLFORM_RGB565_1	3	/* x:R:x:G:x:B 3:5:2:6:3:5 */
-+#define LCDCTRL_PXLFORM_RGB565_2	4	/* x:R:x:G:x:B:x 2:5:3:6:2:5:1 */
-+#define LCDCTRL_PXLFORM_RGB888		5	/* R:G:B 8:8:8 */
-+#define LCDCTRL_DPI_EN		BIT(8)
-+#define LCDCTRL_HSYNC_POL	BIT(17) /* Polarity of HSYNC signal */
-+#define LCDCTRL_DE_POL		BIT(18) /* Polarity of DE signal */
-+#define LCDCTRL_VSYNC_POL	BIT(19) /* Polarity of VSYNC signal */
-+#define LCDCTRL_DCLK_POL	BIT(20) /* Polarity of pixel clock */
- 
- /* SPI Master Registers */
- #define SPICMR			0x0450
-@@ -139,14 +144,16 @@ static int tc358762_init(struct tc358762 *ctx)
- 
- 	tc358762_write(ctx, SPICMR, 0x00);
- 
--	lcdctrl = LCDCTRL_VSDELAY(1) | LCDCTRL_RGB888 |
--		  LCDCTRL_UNK6 | LCDCTRL_VTGEN;
-+	lcdctrl = FIELD_PREP(LCDCTRL_PXLFORM, LCDCTRL_PXLFORM_RGB888) |
-+		  LCDCTRL_DPI_EN;
++	tc358762_write(ctx, SYSCTRL,
++		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
++		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
 +
-+	lcdctrl |= LCDCTRL_DCLK_POL;
- 
- 	if (ctx->mode.flags & DRM_MODE_FLAG_NHSYNC)
--		lcdctrl |= LCDCTRL_HSPOL;
-+		lcdctrl |= LCDCTRL_HSYNC_POL;
- 
- 	if (ctx->mode.flags & DRM_MODE_FLAG_NVSYNC)
--		lcdctrl |= LCDCTRL_VSPOL;
-+		lcdctrl |= LCDCTRL_VSYNC_POL;
++	msleep(100);
++
+ 	tc358762_write(ctx, DSI_LANEENABLE,
+ 		       DSI_LANEENABLE_L0EN | DSI_LANEENABLE_CLEN);
+ 	tc358762_write(ctx, PPI_D0S_CLRSIPOCOUNT, 5);
+@@ -157,13 +164,6 @@ static int tc358762_init(struct tc358762 *ctx)
  
  	tc358762_write(ctx, LCDCTRL, lcdctrl);
+ 
+-	tc358762_write(ctx, SYSCTRL,
+-		       FIELD_PREP(SYSCTRL_DPIDATA_IO_MASK, SYSCTRL_DPIDATA_IO_4MA) |
+-		       FIELD_PREP(SYSCTRL_DPISTB_IO_MASK, SYSCTRL_DPISTB_IO_4MA) |
+-		       FIELD_PREP(SYSCTRL_PCLKDIV_MASK, SYSCTRL_PCLKDIV_DIV_3));
+-
+-	msleep(100);
+-
+ 	tc358762_write(ctx, PPI_STARTPPI, PPI_STARTPPI_STARTPPI);
+ 	tc358762_write(ctx, DSI_STARTDSI, DSI_STARTDSI_STARTDSI);
  
 
 -- 
