@@ -1,149 +1,129 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373604734FA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65958473C9D;
+	Mon,  7 Sep 2026 11:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779125; cv=none; b=nN0718t9pFTSfJn0AzfHaYLh+xpmfrKJx2Px+k96lyGJz/pwa2UukSUxr0Q/zpBS2u/gktbStE5+HS0Um65KQOlMq/Gp2OtcQb8TkD25YGtIN9mCTJgtj6YwTQ/5/e5HX3/lZ9bCAv8c4tHG9obkpvOedWzBIrThreqaEWMGl4g=
+	t=1788779133; cv=none; b=lQ8RAlZM2/G2tPtV+7/SEucm8sEqUk5JCjmhM+iCVPUizCp98QNGL04DlnAyKrk76qdNtnerjJ7W90QqMGSPRHE4FIeIzyZrT7g1iik+jdeTmUx38dA4gNcx2o9PPfZTeM3EKvr69BILeeAuRJbIKKr2cGx+BHJa8y4+EOMrY0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779125; c=relaxed/simple;
-	bh=zqXmbd2Z50wJl0hBIofHZ5M98CDm1cup+pJ6kyw+sNY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=UUek+Ru4aXrcXruTfX3FSbkEkcWoudZnHtj+T0y3T0GXnzAHIhqtNaFBONGQFjI8yxP6k2qXi54PIGGvFTqWguK0CD+632Y2DdIXVjNDMgFA9Rf6GncaqPanndsJA4iwMTcDtJFZVMvntwW5pISrNEPXdaKL/pO8s5fNWMqlaAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZU1pLrNm; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788779133; c=relaxed/simple;
+	bh=bxSnFx7BSKtGJ8Ahnkmwr18K2E77ghQWFDTSjmPlswg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cw4gYQ213VLvMe6nYZVWZwF9WcaCnkNeHdxhG8qyruC/Mw/06C+w14bSWZVMoDp+5ktVaF3AwFmzQWrJSP/RTvqWL9umb3aRH1rEiu3Y+f2A3oC0RkLS58Xx0oq3GwxVL/MYprnmPLh5mWTpsxndU2JyquYewpF33pJbTWuKCRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRKNfjaP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZU1pLrNm"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260907110521euoutp02e3dcc500b0f5b202ef543bdb9a9ad68e~TBSIpSdvx1014010140euoutp02u
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:05:21 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260907110521euoutp02e3dcc500b0f5b202ef543bdb9a9ad68e~TBSIpSdvx1014010140euoutp02u
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788779121;
-	bh=cdiHqfP066vD1Eme2p0UfDhpDV63v+NMGx+7TiqjvH4=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=ZU1pLrNmQtu2fdBgeTKgZ3z0T+DgIKLXmUWcUc9fU+XMzqvwSUnVEoi1XDJ4oTDrG
-	 HOS3gEyx6c4hv7w2W/vOGGUEm/Khow2RhaLjXAVvuJYr5a9x1ZhEfG3Jx56Bx2hC0j
-	 oacx2+DsPSOqWQsvRTQMGZe0gWSbRZkgFQ9yFxQo=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260907110521eucas1p2b210f0e3af19462cd56aaf34a8236055~TBSIZXzKe2716927169eucas1p20;
-	Mon,  7 Sep 2026 11:05:21 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260907110520eusmtip17567050ca784110fbe7d68f6cd8f16ef~TBSIFRM0h1147811478eusmtip1g;
-	Mon,  7 Sep 2026 11:05:20 +0000 (GMT)
-Message-ID: <ff20483d-c701-4cdb-8db8-15aa79bc32cf@samsung.com>
-Date: Mon, 7 Sep 2026 13:05:20 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRKNfjaP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1866D1F00A3D;
+	Mon,  7 Sep 2026 11:05:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788779132;
+	bh=9w+yezYlK7U311raSgrzFh4bSQ3Pq/lnodM4AqaFq8M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lRKNfjaP0TSM+C6Z51ZvaSdSJSuU3udU6ZtvHKuaZh1LmhTJFmwc9czlT6e+bHddE
+	 nOKNS811YQISDkiheK+jJZz2Dp6kUnWWYdwu+r+jQ7WLDEVYvxF8QP6mvRn3AirpMZ
+	 LwBi2j2XJte1cMRpVvZZy9OuMhNVsLnnKbUCQ8xkEWR4fxYQ1NKTaBJhCpAlhoUe13
+	 ZQ0oEcGzZCgqKe8tlGZX2pI+57IhkXQuPdU+I/K5A4PYpoQLcIUdCQfpWB97CmznYI
+	 h0/CFESMTVAiWzH2mJAkcXuNAQqLNm2swTnZb1uJVyBetZVKPbTWnSwmkgtaxfH3v5
+	 MS4xOroj2zC0g==
+Message-ID: <f798b003-4661-4cb9-8a3e-7579d0595904@kernel.org>
+Date: Mon, 7 Sep 2026 12:05:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the
- allocation fails
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Sean Anderson
-	<sean.anderson@linux.dev>, Steven Rostedt <rostedt@goodmis.org>,
-	iommu@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260907110521eucas1p2b210f0e3af19462cd56aaf34a8236055
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260905071928eucas1p1c5690e441968982d4acd9ea1c43b02e5
-X-EPHeader: CA
-X-CMS-RootMailID: 20260905071928eucas1p1c5690e441968982d4acd9ea1c43b02e5
-References: <CGME20260905071928eucas1p1c5690e441968982d4acd9ea1c43b02e5@eucas1p1.samsung.com>
-	<20260905071919.30784-1-donggeunyoo.kernel@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
+ CAMSS
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
+ Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+ <iIEI9RqdlqSAwrBGxsv48s_r9QoTRP_IPoifu8PCol261xGqyCULXGQaaMYndhNAFA7YAzraXTr-UzZhguWz3g==@protonmail.internalid>
+ <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
+ <3e619085-3311-4acd-9493-e849875563d7@kernel.org>
+ <HMhSsbIuGgGqeuA5WMqtACmlFgoNgQBLsfBFZfnuCmLfXfbUtwOV1sM1eDF762HX1aTqREbCfWm72IeQWTAUvA==@protonmail.internalid>
+ <9ebc94f1-3ed8-4a21-a84e-ccd46f044927@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <9ebc94f1-3ed8-4a21-a84e-ccd46f044927@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 05.09.2026 09:19, Donggeun Yoo wrote:
-> dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() and
-> debug_dma_alloc_coherent() without checking whether the allocation
-> succeeded. No backend writes it on failure: dma_direct_alloc(),
-> iommu_dma_alloc() and the dma_map_ops instances assign it only on the
-> path that returns a buffer. Callers usually pass an uninitialized
-> automatic variable, so with the tracepoint enabled a failed allocation
-> records whatever the stack held, next to the virt_addr=(null) that marks
-> the record as an error.
->
-> The device coherent pool path is the same: a non-zero return from
-> dma_alloc_from_dev_coherent() means the request was handled, not that it
-> succeeded, so cpu_addr is NULL and dma_handle untouched once the pool
-> runs out.
->
-> Split both sites on cpu_addr, as dma_alloc_pages() and
-> dma_alloc_noncontiguous() do further down the file, and pass 0 for the
-> failure case like the two error paths already in this function.
->
-> Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
-> Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> ---
-> Compile-tested only, with CONFIG_DMA_API_DEBUG=y and CONFIG_TRACEPOINTS=y
-> so that both changed calls are built. The claim that no backend writes
-> *dma_handle on failure was checked against dma_direct_alloc() and its
-> helpers, iommu_dma_alloc(), iommu_dma_alloc_remap() and every in-tree
-> dma_map_ops .alloc implementation.
->
->  kernel/dma/mapping.c | 20 +++++++++++++++-----
->  1 file changed, 15 insertions(+), 5 deletions(-)
->
-> diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-> index bf2651a70b7c..098cd57e1157 100644
-> --- a/kernel/dma/mapping.c
-> +++ b/kernel/dma/mapping.c
-> @@ -656,8 +656,12 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
->  		attrs |= __DMA_ATTR_ALLOC_CC_SHARED;
->  
->  	if (dma_alloc_from_dev_coherent(dev, size, dma_handle, &cpu_addr)) {
-> -		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
-> -				DMA_BIDIRECTIONAL, flag, attrs);
-> +		if (cpu_addr)
-> +			trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
-> +					DMA_BIDIRECTIONAL, flag, attrs);
-> +		else
-> +			trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL,
-> +					flag, attrs);
-Frankly speaking I would prefer to fix this in include/trace/events/dma.h with
-__entry->dma_addr = virt_addr ? dma_addr : 0;
+On 07/09/2026 11:42, Nihal Kumar Gupta wrote:
+>>> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
+>>> Glymur uses only the new PHY API via standalone phy@ child nodes,
+>>> so per-CSIPHY clocks, interrupts and supplies are absent here.
+>> What's up with the commit log here ? There is no legacy CSIPHY in this.. ?
+>>
+> Right, Glymur has none — that's the point. X1E80100 supports both;
+> camss_detect_legacy_phy() picks the path at runtime by checking if
+> the remote endpoint is a phy@ node. Glymur is new-path only, hence
+> a dedicated binding without those legacy properties.
 
+Yes OK I see.
 
->  		return cpu_addr;
->  	}
->  
-> @@ -676,9 +680,15 @@ void *dma_alloc_attrs(struct device *dev, size_t size, dma_addr_t *dma_handle,
->  		return NULL;
->  	}
->  
-> -	trace_dma_alloc(dev, cpu_addr, *dma_handle, size, DMA_BIDIRECTIONAL,
-> -			flag, attrs);
-> -	debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr, attrs);
-> +	if (cpu_addr) {
-> +		trace_dma_alloc(dev, cpu_addr, *dma_handle, size,
-> +				DMA_BIDIRECTIONAL, flag, attrs);
-> +		debug_dma_alloc_coherent(dev, size, *dma_handle, cpu_addr,
-> +					 attrs);
-> +	} else {
-> +		trace_dma_alloc(dev, NULL, 0, size, DMA_BIDIRECTIONAL, flag,
-> +				attrs);
-> +	}
-Here You remove the debug_dma_alloc call for the failed case. Right, it
-is a noop now for the allocation failure, but it might be extended with
-some kind of debugging in the future, so I prefer to keep the current
-code here.
->  	return cpu_addr;
->  }
->  EXPORT_SYMBOL(dma_alloc_attrs);
+Do you really need to mention Hamoa here ? I'd just drop that from the 
+commit log.
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Describe Glymur - Hamoa is irrelevant to this file.
 
+---
+bod
