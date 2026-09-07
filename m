@@ -1,73 +1,228 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD09319D8AC;
-	Mon,  7 Sep 2026 22:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2319826AF4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:25:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788819863; cv=none; b=Ma6IyTwpiFNikjaHiMaWqSIwOYMHrL5/ZqPR7uiPI3ErjqUklsILFa7ZqkLw3OIy3s+KorOUvN3xoCWA3Cgx9/hMR3rrz+8go+z0OcrduES3TcPIjvrqZUKEB4GtUeguF2jOlvfsA2UMrinwaaSCkx5nm+rvZIIlVbRo70f7Mqo=
+	t=1788819951; cv=none; b=EhYJ0OHB2YHFECtfLiz4xMgeTtnoNor//Vtn5Y7544qUiwGF+WSAcyfMrwHpO2qJyY6qq2K3ALpyWYov3zL9kRWTsiPLykZDLCe6QNmIC5Y+xcPjcRBiIddIhlF3kV81RmocWb9WGDPTiUAXPSpjSdU+z15ay81G0c2j+cX19YM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788819863; c=relaxed/simple;
-	bh=Ji4Kvu7LpQqhECYZ1pmgrD7b9aAuvcEK2ZryUdGXyQE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ws3v4V1/o6XCnUhPaBEq7d2KeTw5GkCLSIitkVv+jKN+2oEE79KuYKi4vcolMc82SDNCvowJpWXJiUvgOJUKp5PaN4Ib1yyf2NRuqS7yS6oBr95qX3fQFl7I1WCeOm97dQw8F5/qZZmanVvDRA3Pu5CLkUOTJPij9qwDSdYBqBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jWbFJ4K7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788819951; c=relaxed/simple;
+	bh=n3D7ZA7tkZ34E7YU+SP+fSBY+j1Hn81BCAIxM2KVTtg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKeVEZcJhrAHxjV9I0ndH3gixOrGlQ24GvB8b+e+C3OmF71p2RAVB+KFTmWDmLiiZQMTkJhfE3y5C3XZDS0uOBIAcPH7T3B0KKfWYYMHTngkYDxxmUMkX7VdLJpZpYww9MA1id96ebp82LbxotRB4k8M920v79MIIFAYsmO1pQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JiJrQx1W; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jWbFJ4K7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 315A11F00A3A;
-	Mon,  7 Sep 2026 22:24:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788819861;
-	bh=Ji4Kvu7LpQqhECYZ1pmgrD7b9aAuvcEK2ZryUdGXyQE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=jWbFJ4K7m6sh97A0VyTs+bdWzlhd15mB1KnG6i9jInZw/uY1abiISWLt7fsSjdlR4
-	 c+hLE3XzZHRZID4X84TFLpkV6hoBCSPsapuzEJW5ZagNAs2Dr7mFdtRQPm1SKixdb2
-	 4/d8zwybENmG3Fg4vVcSI4F+qSXousnmwa5RmHnTona09JHTCsCUOlkYPuEq3mlkvk
-	 gsp9iCW2nRQZtFr0HEuwZu+WRugX/IsPhcOKwDnvfqWPkq4BSFFi4phfhGFUDiVIJC
-	 Kt85rAMfVomYOfvfvr+Sv8B4eeyxzNqHfpD8bO65uQD2CxjXhZD4kdaQgvRSVU6t2c
-	 FD7Wv0NCGu11w==
-Date: Mon, 7 Sep 2026 23:24:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <linux@weissschuh.net>
-Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, Thomas
- Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Will Deacon <will@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Yushan Wang <wangyushan12@huawei.com>, Jijie Shao
- <shaojijie@huawei.com>, Khuong Dinh <khuong@os.amperecomputing.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman
- <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, "Christophe
- Leroy (CS GROUP)" <chleroy@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, linux-edac@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-perf-users@vger.kernel.org, linux-cxl@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- driver-core@lists.linux.dev
-Subject: Re: [PATCH v2 2/3] drivers: perf: Use __DEVICE_ATTR() macro to
- initialize dev_ext_attribute
-Message-ID: <20260907232416.4b0fb386@jic23-huawei>
-In-Reply-To: <20260907-sysfs-const-attr-dev_ext_attr-v2-2-bf53afe57071@weissschuh.net>
-References: <20260907-sysfs-const-attr-dev_ext_attr-v2-0-bf53afe57071@weissschuh.net>
-	<20260907-sysfs-const-attr-dev_ext_attr-v2-2-bf53afe57071@weissschuh.net>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JiJrQx1W"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=n3D7ZA7tkZ34E7YU+SP+fSBY+j1Hn81BCAIxM2KVTtg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788819946; v=1; x=1789424746;
+ b=JiJrQx1Wn03XqaxV61tR2RMV+2purJgh0XYdIc1qNcGktCbmZNKXg9sNnYetIfGM/H+/vF8n
+ NEtkT0mq1pwXyWaX6Cl+Ss2sogVVbD6V9Dy2Rpxx/1thsj8XPh+m50JLUKeA5OTMo2BnLjo60tG
+ KiXM6tk8As9vNQXUoFJ/FWtQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ed8fd13ac114cfd0;
+	Mon, 07 Sep 2026 22:25:45 +0000
+X-Mizu-Trace-ID: ed8fd13ac114cfd0
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 7 Sep 2026 15:25:44 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: hannes@cmpxchg.org, mhocko@kernel.org, roman.gushchin@linux.dev, 
+	muchun.song@linux.dev, akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	dev@lankhorst.se, mripard@kernel.org, nat@pixelcluster.dev, tj@kernel.org, 
+	mkoutny@suse.com, osalvador@suse.de, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, kernel-team@meta.com
+Subject: Re: [PATCH v5 3/7] mm/page_counter: introduce per-page_counter stock
+Message-ID: <ap845AEpX0ceqCjr@linux.dev>
+References: <20260831163752.2193337-1-joshua.hahnjy@gmail.com>
+ <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831163752.2193337-4-joshua.hahnjy@gmail.com>
 
-On Mon, 07 Sep 2026 07:45:02 +0200
-Thomas Wei=C3=9Fschuh <linux@weissschuh.net> wrote:
+On Mon, Aug 31, 2026 at 09:37:47AM -0700, Joshua Hahn wrote:
+> In order to avoid expensive hierarchy walks on every memcg charge and
+> limit check, memcontrol uses per-cpu stocks (memcg_stock_pcp) to cache
+> pre-charged pages and introduce a fast path to try_charge_memcg.
+> 
+> However, there are a few quirks with the current implementation that
+> can be improved upon.
+> 
+> First, each memcg_stock_pcp can only cache the charges of 7 memcgs
+> (NR_MEMCG_STOCK). When an 8th memcg wants to cache its charge on a CPU,
+> a victim memcg is chosen among the 7 cached memcgs and is evicted,
+> losing all cached charges.
+> 
+> Second, stock draining is per-CPU rather than per-memcg. That is,
+> when a memcg is under pressure and must retrieve all cached charges,
+> it iterates through every CPU and drains the stock charges of all
+> present memcgs. This means that one under-pressure memcg evicts the
+> caches of all co-cpu-resident memcg stock caches.
+> 
+> Finally, stock is tightly coupled with memcg, so adding new
+> page_counters to memcg is an unscalable operation where only one counter
+> gets to use the fastpath.
+> 
+> We can address all of these concerns by pushing stock caches down to the
+> page_counter level, and making each counter responsible for its own
+> charge.
+> 
+> Introduce struct page_counter_stock along with its allocation, free, and
+> per-CPU drain helpers.
+> 
+> No functional change intended.
+> 
+> Suggested-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+> ---
+>  include/linux/page_counter.h | 16 +++++++
+>  mm/page_counter.c            | 90 ++++++++++++++++++++++++++++++++++++
+>  2 files changed, 106 insertions(+)
+> 
+> diff --git a/include/linux/page_counter.h b/include/linux/page_counter.h
+> index 89a083f16fbf7..c1fe331f34e7e 100644
+> --- a/include/linux/page_counter.h
+> +++ b/include/linux/page_counter.h
+> @@ -5,8 +5,11 @@
+>  #include <linux/atomic.h>
+>  #include <linux/cache.h>
+>  #include <linux/limits.h>
+> +#include <linux/workqueue_types.h>
+>  #include <asm/page.h>
+>  
+> +struct page_counter_stock;
+> +
+>  struct page_counter {
+>  	/*
+>  	 * Make sure 'usage' does not share cacheline with any other field in
+> @@ -41,6 +44,13 @@ struct page_counter {
+>  	unsigned long high;
+>  	unsigned long max;
+>  	struct page_counter *parent;
+> +	struct page_counter_stock __percpu *stock;
+> +	unsigned long batch;
+> +
+> +	/* make sure the work_struct is separate from the read most fields */
+> +	CACHELINE_PADDING(_pad3_);
+> +
+> +	struct work_struct drain_work;
 
-> The upcoming constification of the device_show_*() callback
-> signatures requires the users to handle the transition automatically.
->=20
-> Switch to the __DEVICE_ATTR() macro which can do this.
->=20
-> Signed-off-by: Thomas Wei=C3=9Fschuh <linux@weissschuh.net>
+Introduce this field where you are going to use it.
 
-Acked-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> #for cxl_pmu
+>  } ____cacheline_internodealigned_in_smp;
+>  
+>  #if BITS_PER_LONG == 32
+> @@ -61,6 +71,8 @@ static inline void page_counter_init(struct page_counter *counter,
+>  	counter->parent = parent;
+>  	counter->protection_support = protection_support;
+>  	counter->track_failcnt = false;
+> +	counter->stock = NULL;
+> +	counter->batch = 0;
+>  }
+>  
+>  static inline unsigned long page_counter_read(struct page_counter *counter)
+> @@ -99,6 +111,10 @@ static inline void page_counter_reset_watermark(struct page_counter *counter)
+>  	counter->watermark = usage;
+>  }
+>  
+> +void page_counter_drain_cpu_stock(struct page_counter *counter, int cpu);
+> +void page_counter_alloc_stock(struct page_counter *counter, unsigned long batch);
+> +void page_counter_free_stock(struct page_counter *counter);
+> +
+>  #if IS_ENABLED(CONFIG_MEMCG) || IS_ENABLED(CONFIG_CGROUP_DMEM)
+>  void page_counter_calculate_protection(struct page_counter *root,
+>  				       struct page_counter *counter,
+> diff --git a/mm/page_counter.c b/mm/page_counter.c
+> index a934619cc7bf7..3f61eba695518 100644
+> --- a/mm/page_counter.c
+> +++ b/mm/page_counter.c
+> @@ -8,11 +8,18 @@
+>  #include <linux/page_counter.h>
+>  #include <linux/atomic.h>
+>  #include <linux/kernel.h>
+> +#include <linux/percpu.h>
+>  #include <linux/string.h>
+>  #include <linux/sched.h>
+> +#include <linux/spinlock.h>
+>  #include <linux/bug.h>
+>  #include <asm/page.h>
+>  
+> +struct page_counter_stock {
+> +	raw_spinlock_t lock;
+
+Please explain why you need raw_spinlock_t?
+
+> +	unsigned long nr_pages;
+> +};
+> +
+>  static bool track_protection(struct page_counter *c)
+>  {
+>  	return c->protection_support;
+> @@ -295,6 +302,89 @@ int page_counter_memparse(const char *buf, const char *max,
+>  	return 0;
+>  }
+>  
+> +/**
+> + * page_counter_drain_cpu_stock - release @cpu's cached charges
+> + * @counter: counter whose stock to drain
+> + * @cpu: CPU whose stock is drained
+> + */
+> +void page_counter_drain_cpu_stock(struct page_counter *counter, int cpu)
+> +{
+> +	struct page_counter_stock __percpu *stock = READ_ONCE(counter->stock);
+> +	struct page_counter_stock *pcp_stock;
+> +	unsigned long nr_pages;
+> +	unsigned long flags;
+> +
+> +	if (!stock)
+> +		return;
+> +
+> +	pcp_stock = per_cpu_ptr(stock, cpu);
+> +	raw_spin_lock_irqsave(&pcp_stock->lock, flags);
+> +	nr_pages = pcp_stock->nr_pages;
+> +	pcp_stock->nr_pages = 0;
+> +	raw_spin_unlock_irqrestore(&pcp_stock->lock, flags);
+> +
+> +	if (nr_pages)
+> +		page_counter_uncharge(counter, nr_pages);
+> +}
+> +
+> +/**
+> + * page_counter_alloc_stock - allocate the percpu stock for a page_counter
+> + * @counter: counter to allocate percpu stock for
+> + * @batch: maximum number of pages a CPU may cache
+> + *
+> + * Failure to allocate is not fatal; @counter falls back to hierarchy charges.
+> + * The caller must not (un)charge @counter concurrently with this call, and this
+> + * must not be called twice on the same counter. A concurrent drain is fine
+> + * since the stock is published with a release store the drain paths pair with.
+> + *
+> + * Context: Process context. May sleep, the percpu alloc uses GFP_KERNEL.
+> + */
+> +void page_counter_alloc_stock(struct page_counter *counter, unsigned long batch)
+> +{
+> +	struct page_counter_stock __percpu *stock;
+> +	int cpu;
+> +
+> +	if (WARN_ON_ONCE(counter->stock))
+> +		return;
+> +
+> +	stock = alloc_percpu_gfp(struct page_counter_stock, GFP_KERNEL_ACCOUNT);
+
+Let's add gfp param to the function and use that here. Also if you want to use
+__GFP_ACCOUNT then you should use set_active_memcg() at the caller, so you don't
+charge the one creating the memcg but the parent similar to what
+mem_cgroup_css_alloc() does.
+
