@@ -1,63 +1,65 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A453AC0D0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:28:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69683AE194
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762518; cv=none; b=A1f/IEejoJNgeXp3klzsrSct8XxCC2nxTAPD40la/I11V7KNPZ8wHTVeWU2B8rJhwYAFRnwT6MhchsksbkPArJSDpN73BE1T9bwlXsPqgC5P43UotcTGSMv36YrqMlOj+5ysiJ3UtjBrvq4Rx6RIkfXfa7WdHbU0E7UgRciE/fg=
+	t=1788762522; cv=none; b=pdUyk2lIGWtfwzPscLfsQndbogBCymB4Tv37U79XZc3jM2LVTkJ2y7LhifJA3qjXQfasLVMOrWLhZOQVhLRwUksTNh8RlRZa5ztLO0vxCDRtOylphPhV/G0AjYqug7n5aSlAxhh86yNtYCmuBNBHibhMrGwy+nXwdklHDCgGRtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762518; c=relaxed/simple;
-	bh=wxSQkLXWCWxEaJjBH3HhApPLUhg00iXXhz/BrXspzl8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=feL4dKVJvThmFpjN7coOknzE+4iPtbAuYss40Xcf2DHfobSEwUjUsXhWS9yeA0WwUEFqzEH2wgvcuJxAwShZoqxAau59UsBAgBcszzeqJP+lKBfXE7InUEoWrP5Bf+NTwe9iquddDVYTidZvImq0zRIIbZ3KM5QIbotk13qKuII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lFAa3T0R; arc=none smtp.client-ip=209.85.216.52
+	s=arc-20240116; t=1788762522; c=relaxed/simple;
+	bh=HQVLVPzjRG5hh8fZIGmX/p3UNdpvdNQwjepL5vkjQ24=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=h2RGmMisDxxOjmzMeUMvMVrGihoc48iV2sSKhK4BnskGlg8FWXmAZLb9RGN7Mi+b6OtsQMNnJTrjF7bk34crU5wSj2rm+WLAmq23zYyH7ePwynXWNlbsOfjstZ8zKNzQSU1RQ+zMZpkBhq7RbwNhMgVvfFkQ0ZXfOI4zeMRlk38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwrocECK; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lFAa3T0R"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso3463831a91.3
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:28:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwrocECK"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-39647184c73so3809167a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762515; x=1789367315; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sHzKvLnlyGdxYzhKnuxr5occ0k1Zs9EilK19Jh2gzJc=;
-        b=lFAa3T0RNosWdYgoWiUqanm3eqKHXhSAXi3+/UmXFqPsANDhYaeMb8L5rK3zkGSV4z
-         msvvuO+BGeHHFRp4BmMKNk/bWq+aGvk8Zwd2xPqDwcz2aXzD7aUBAAUU2Il/ochtMNlm
-         GsK8MMA0KHHAngIwA4zESCT3ISQbVc+muWp/E5Qe7ksTGW4x6guCtisWEnNTl8vlkfcY
-         Q9kTMrhmLp5cQzJE51IAvoe20As1DyOK4H+Uy9Go297/Aa1C+1xgrkBhWM9cz2KG4J+E
-         +8Pg8WXNze5pIziHl05s1u1x0BSittGzUtpOGiwQqs/bH+BXU4bqkXWiJNWACpHXHBpn
-         7lLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762515; x=1789367315;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788762518; x=1789367318; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sHzKvLnlyGdxYzhKnuxr5occ0k1Zs9EilK19Jh2gzJc=;
-        b=SQ2BxETIacJdn3QXCy79ti6gbCFXatnkZzEHVA5x55en3PpGoebj++bbtWZTnpU7W1
-         FfiS2xEJt/c5+t7oEpaIAVUtUyXMwZUKOhYkwv+suyJQ//3lHBGhbdy5ckXHEVBH/ojd
-         8EfPad5yDQbdwD0DwSQFsFZwzyudlp5BnRsD4zrEp8Xu5oKgcq3svOPgUeSZATxNE0nC
-         ymh3RwbKlpaRSLxQV9w+Fqcvl0GFQdPqVg7MgG7GiWE5+klu3IMKfOw98k4zDlwf3wzW
-         lOADspM+156+7R2T9RLwA3K/E1+bouwzqUJM+xfamimWAZmvyPO2c6/2665X0/qwdeex
-         8+Pg==
-X-Forwarded-Encrypted: i=1; AKwUvBwPgxIsXRosFQBbkUhjufGMos7A97KwRLorIvm7KuI0zQjK4yoi6RR1woWAUTSfeUHIFLK0ceqJowWyI78=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMTgzkUfj5OhTEgfdTXMvOiCzxyUvf3DPtqlmNC0nS59JebQti
-	hdDqK3hiG42Fg5D2R6f6Dka1wfs0QoXbLGV+QSqAZf35+hUAYf9v0jk4whc+CgDW7dm++g==
-X-Gm-Gg: AYBFou3soq/5v/VOWulVbqng9NrrNzK3Ajjq7EaajyL9d57+sfctS88ZF6n6uOuitvR
-	tXt2h+qwE4UgS/osiZamqp9DFSIUv3AZcUkPk75Oepum/Oc9YxYbHwsJ5+aeepl5GcghLDA1lv5
-	+jBeJYfBwy3Z0NO3d5nUrwbdTJUweXNmSxaHluE3t0Zpt18rITXk9C2dBNcVTjXhXJW0vOrRrCK
-	4jzpiYbLgW8yVtvn3vI8VLnXFkMsq4m7LcarfuBqhPXPKzEb28u8CU68knIjESXCn1N4k+Ih3SD
-	YDhkeA4uOJ4HV+wPl+wgS2P/Kcirmi519CRDEhxWOHbkVW8ExXYQTQYybBt2PeqvFLkGIecBk1B
-	YLrKvaQCYXjyQZrH1XvxmpuqUitSFtzKdc8TiViAyxws3AS1MpwgVoqgv0qd2kvnTCHdn61UMdr
-	tKbbsVg5yUIFiC6uQHuxGiHYul0RuKfMLpYj7k89PMq+XwoM5t+wBPRBJidFP7DV45KRsvEOykh
-	oNLSwuY5a0WFT69zWBWR4n+2UXkNOSda4zmj9M747nFKvcb5nnZZ5L7b4WckEEGe0fqqqj3kBHk
-	yoSkb2s=
-X-Received: by 2002:a17:90b:17cf:b0:398:9be8:ea6a with SMTP id 98e67ed59e1d1-39b26216cf7mr31265813a91.23.1788762514754;
-        Sun, 06 Sep 2026 23:28:34 -0700 (PDT)
+        bh=M1wSKmw/x+Nhq5u1uQ+7oGEZmPqsD7MFhh/OKQ0EiNE=;
+        b=RwrocECK6AEI5KhukKMsJQCOLIy9i1qVT7yV9iYiUpxeg3xQhhEGodkJ7Yw8Mp6q14
+         CzMOm6253xf0zLwIUAhHIy9rX9n4AsC8hY8LmIail2CCwU5LkWCmATG9enClviPymLjb
+         VElL718wfIcogc4u8XH6tfbN4dRGwxAd0v5UadYglREbGEcmeP9qw3/fivdnJ9vqctEG
+         rwjL3rLMRxDGidXib13Fgkwc8zNEWTqIoKxB2eoIGGeJVEOoGFDJTi1aEWsA21Olx61E
+         1oRVvZLO4z5xF6fraLmQ6SyxNDJTsfTPBG9vQ8O70xoHuoaHp6w2OdzZwRzV3erX9mBy
+         0uZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788762518; x=1789367318;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M1wSKmw/x+Nhq5u1uQ+7oGEZmPqsD7MFhh/OKQ0EiNE=;
+        b=VzqPjJ8MhaDbexItlCo8mSPld+55PAMO3TeHyxP14I8KidshzqdLB0zVHGyUuvOK4D
+         6SUxqAtrXKx66fDlqRF62ewVd0PwjxwDNBFsbq6NL0QNTSTlRh3Z2OGdLza+e6JLrn7L
+         DwqamOqUn/PkaAw7SuSd9LJIdJGd8HKR/Ysjt8zu+YzMgK3iopiH1xautfYl1j9DMV/4
+         x7N+oQe3ve7+xatcqUEhsOOtBejoR4xW02lKZar9IAk/EArycC+u/ZAgdJfk/D8SCBLf
+         bApooxdPEMWnggkTlanTv0d6kT4+XmRKPWY3NU63plWWnyP1uj9IAUOY0sSSshdqv3/q
+         Y3RA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTQplooHU8OhIOdDzQK+4wiS5e6gqf+j45KmmiOsazwZEkN/SbZerUF1GvBCm5ACPY5LmMZym3HJXKaQw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKSbl0vfkv1LaaMQb1teSOPUVU0jkZ4N96MiBh+Kg10td8xdIM
+	+XQTCK9unMro+LQCzvI5KIX/02xn6eq1N54yzmtsLjtuKoAE9lZaUynKMabTUnhwOIwPbg==
+X-Gm-Gg: AYBFou1zHrzQ4geTJ0BvkgpZGueRJBzFkz3nS0jtBn80PHi02LjOKhp6/iN/T9egjh9
+	07KiUlCpf2Zx2H6ngKplq/HaA4YCHwnkGIJDJFKSBZn5ciYORtzP0YiYKPU3om8fwrm9mQhxtPI
+	AP7giTUYMBIG8V8e5qKQ968uSC7Iq13RnRk+5ZtyuNCNpfqZ23l7vHEngtpezj0cE0qwGjUIvAa
+	qKalYy5irgpuxuTMsYxOpNRYoMO/FslmZaaPXmRKGzrYfRn1Ml5EsovClmjXklTbxta+E7gu+6a
+	O80ULE+m3g+eekAyVUnNX/6VaN7qndM09+Hv2hI+OvpEaqfq9havYTsU9xloPc0LzNl8w9ZneHL
+	6b3MeY9SeQVgDJgaze+PPhI0lhSIFMU2ByplP7RsnVetCWuuS/dkGssDs02IZTKSVX+SYUrY46t
+	MExas59gpzKuOE+d5h58UnMy+6ZosYbptv4GKTu45Km7wh8NQ9EOqdWYu7XdKyY53J3eik8Y1tX
+	c7jXVuMSsxQgLToH1KRD7U7ooncfUxSiPoeV5O79yThQO8RVrFNO0nHNKMdMelminG6DxcL/USE
+	wLg2O14=
+X-Received: by 2002:a17:90b:2ccd:b0:398:baa7:4c2f with SMTP id 98e67ed59e1d1-39b27c442f8mr16725731a91.5.1788762517830;
+        Sun, 06 Sep 2026 23:28:37 -0700 (PDT)
 Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm18978042a91.0.2026.09.06.23.28.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm18978042a91.0.2026.09.06.23.28.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:28:34 -0700 (PDT)
+        Sun, 06 Sep 2026 23:28:37 -0700 (PDT)
 From: Wei Jie Law <98lawweijie@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -66,10 +68,12 @@ Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] media: uvcvideo: Fix two bugs on the control change event path
-Date: Mon,  7 Sep 2026 14:28:16 +0800
-Message-ID: <20260907062819.2519878-1-98lawweijie@gmail.com>
+Subject: [PATCH 1/2] media: uvcvideo: Fix NULL deref on events for uninitialized controls
+Date: Mon,  7 Sep 2026 14:28:17 +0800
+Message-ID: <20260907062819.2519878-2-98lawweijie@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260907062819.2519878-1-98lawweijie@gmail.com>
+References: <20260907062819.2519878-1-98lawweijie@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,26 +82,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two bugs on the UVC control change event path, both from e5225c820c05,
-both in mainline and 6.12.y.
+A null-ptr-deref exists in v6.12.105 and upstream. KASAN crash log:
 
-1/2 oopses on an event for an uninitialized XU control.  2/2 leaks heap
-past the status buffer to userspace.  They are independent.
+  KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+  Workqueue: events uvc_ctrl_status_event_work
+  RIP: 0010:uvc_ctrl_status_event+0x105/0x280
+   uvc_ctrl_status_event_work+0x82/0x240
+   process_one_work+0x66f/0x10b0
 
-2/2 reports zero for a mapping that does not fit, as the compound case
-already does.  Staging bValue into a zeroed buffer would give a truthful
-value instead, if you prefer that.  6.12.y needs the same guard around
-mapping->get().
+XU controls are initialized lazily, on the first UVCIOC_CTRL_MAP or
+UVCIOC_CTRL_QUERY.  Until then ctrl->info is all zeroes, so
+info.mappings is not a valid list head, list_empty() returns false, and
+uvc_ctrl_status_event() walks it from a NULL next pointer.
 
-Wei Jie Law (2):
-  media: uvcvideo: Fix NULL deref on events for uninitialized controls
-  media: uvcvideo: Fix out-of-bounds read in uvc_ctrl_status_event()
+Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
+Assisted-by: Claude:claude-opus-5
+---
+ drivers/media/usb/uvc/uvc_ctrl.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
- drivers/media/usb/uvc/uvc_ctrl.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
-
-
-base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index 3ca108b83f1d..21802f9b1b61 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -2209,7 +2209,12 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
+ 	struct uvc_device *dev = chain->dev;
+ 	struct uvc_ctrl_work *w = &dev->async_ctrl;
+ 
+-	if (list_empty(&ctrl->info.mappings))
++	/*
++	 * An uninitialized control has a zeroed info struct, so its
++	 * mappings list head is not a list: list_empty() returns false
++	 * and the walk dereferences NULL.
++	 */
++	if (!ctrl->initialized || list_empty(&ctrl->info.mappings))
+ 		return false;
+ 
+ 	w->data = data;
 -- 
 2.43.0
 
