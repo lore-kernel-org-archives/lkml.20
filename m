@@ -1,148 +1,268 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-235.mta1.migadu.com [95.215.58.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A331481674;
-	Mon,  7 Sep 2026 11:32:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.31
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780745; cv=fail; b=KZ+f5aJrUoCOUf87/kZ5wd6EiUtxpsYVMtmZCoG2RkSk7LC7hI+xbuzFVPLifkvabTekZCHoiPUsA9gnAB9QTOcKyH5uTku3nadKYdj2bzDjdbmea9in4HsSytZSSVjxnRaq3IW+JTiEV7aKqd5QbGtxm3G7y0/BvvVc7YxH7W4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780745; c=relaxed/simple;
-	bh=FPQbvxROkdXH1FMsg8gY99/kQFYL6yCDlKkPVYR91LI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TfWhzz4Fx+3lhobR4/DyvoFtMh3Xk9lCitOYHLCrxk9X/Zj1yiQazi3fwLQZaoZnQokhFFhtEeJsqcajsQPpBsIIWlIaKV2Toe7mckqSueuQx1xOcgGCuVgbh1t6sOwZ94N1KKcrxg43vMXirrvYnHdyXVqGB+JpJe8CpQdfR4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=h5xu0ZEX; arc=fail smtp.client-ip=52.101.46.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FD8483BF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.235
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788780747; cv=none; b=TwAREORk/HuYfsoRaGoowgcNbytsjumKQRA3Z9sNHHwtvABumNbWVG9i/7tnsE9fDHt/qNUatIQ+lnz2xC5aOyY8+s++0omGktgP8pfgApY1ifSz0YarfMA/V6KR2L9xgzdwmC7ksp3/k8JYJumnQPAyBqFR73bMi0rKIz/zUJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788780747; c=relaxed/simple;
+	bh=Hz8ljkeaHoi/srntJZ5bqPlWtx4b46jV1nqKuoUSS/Y=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=SqBo538Lvab4Tuc9MRlThA0XGCEVAUeBP7SBp1J7xIHGyVTB75opDLbVNSp6m8ZzPBonCCYsbcsL5tzZ90U+w8/2/0VspihW3Pp+nNUYTxa56zBVxrHtWWqFqhqYEJlRpK+p2kV2hkTuuujNhJ+wFNZzrtTaRp1cfGC+HH9uw34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=SXvbCLyC; arc=none smtp.client-ip=95.215.58.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="h5xu0ZEX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dwKp3vjPqRqUbIaNIQ7Krt9EHJ33eYdS9VOXCIKWLUua9n3B+0k60kBkVFArPsoRnJm8sQDhMSl4duL6qDr6YBV9vHApZgpxa4VqrDEUCaSxx0UQoMezq3PIrPoyRDB5hRLcrp5ozWom1zEm8VzPydp7pB5jd2/Nu7DidFVTNVGrDQv0zYM1c3fqN6D9W4Kk3KNGFuGOw54GPwOWKe8ndgRxwQLXZZMAUfd2QFaRhDj+j7rYFU0tHl0ZGKbKv6Gs7W5dNFjw93WwLYjm2UKdyyVFcbmDrtkuVOZAcCG4OsgYGwM8+zT92Ucm3vLxkpcTnxxx2IKF5ZhroHOlIv+38g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2e5EyPRo73WMezFsxiICx3IAQfV2xhcxyBK3Axhf5L8=;
- b=M5Ki0sjCunMiwjcW2J4tZGvuEMww6+/lBbRC2p3pVTMGUbkzWWxIY1woq67B0h/tlm20huLhfXrldZEdWi20LJmkirF/xbsTGuW6K3zrWfsGHn/T1IKhbId/aoJUjQlwTO1JS6sclCTUy0hEojePpavxw5jsXl7k7aJOdo6x/ZNzjRWoh5noSU29npkiX0mm7kLoyhuc5CDuYA5OT0UXvni4QfsRKJDNfQyUayUlQYLbGYFKbxdtBnmCyq5bl5wAEWgkjAMzk6VwKWd9SumpnjqvQ8LpSOgj4K0jGNk2h/QQND3ZlSJdsnmcGEH7Zui/Zga5OxxW7Lt5f8itod0xDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2e5EyPRo73WMezFsxiICx3IAQfV2xhcxyBK3Axhf5L8=;
- b=h5xu0ZEXtBByAM9DcQe8ypZfT45hjx7ezGe9e9+djdTkq8fELCdvH21RGyCP84vim8FzuQHs+f+MPrepH3c8LgW6JGoBcD/CTNGHmqK43whD3qcyuxzang0MSU3NfxZig65zdhi03me3EHm+gw7XZkHoyOO+z6tFCttSRTwpBTJ7fly0iHfw+S8uYjgl6WRz6mPcJGmbhH/gW4caYXLkKaVb9JwcgCrB3TTr2zYDKvDiryk7CeqmGRdeSEaoMd0XcVIksuS+JyxdddGak24YHCzqvFM+QvSCroJcm/h16/1WrcC1ouqFYA5QGz4HTB42L6ifkLxTPRVacrgstQOwdA==
-Received: from BN9PR03CA0442.namprd03.prod.outlook.com (2603:10b6:408:113::27)
- by MN2PR12MB4286.namprd12.prod.outlook.com (2603:10b6:208:199::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 11:32:21 +0000
-Received: from BN2PEPF00004FC0.namprd04.prod.outlook.com
- (2603:10b6:408:113:cafe::68) by BN9PR03CA0442.outlook.office365.com
- (2603:10b6:408:113::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 11:32:21 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN2PEPF00004FC0.mail.protection.outlook.com (10.167.243.186) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 11:32:19 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
- 2026 04:32:02 -0700
-Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 04:31:58 -0700
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
-	<jonathanh@nvidia.com>, Prathamesh Shete <pshete@nvidia.com>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-tegra@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Manikanta
- Maddireddy" <mmaddireddy@nvidia.com>
-Subject: [PATCH v1 2/2] arm64: tegra: Add PCIe wake GPIO for Jetson Orin NX/Nano
-Date: Mon, 7 Sep 2026 17:01:34 +0530
-Message-ID: <20260907113134.2543273-3-mmaddireddy@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
-References: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="SXvbCLyC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Hz8ljkeaHoi/srntJZ5bqPlWtx4b46jV1nqKuoUSS/Y=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788780742; v=1; x=1789385542;
+ b=SXvbCLyChFZ3UxNg5lMw54RD3t2ZnpWX3CqsHgGjl6XzNh1AelKBlZGbM/qWG/Ic028pd0x6
+ PwODOSdv3JF3rcWvm9jap/JyuVljxufo9GV/cx8hgDXAzKnKSYHxAYsVWDfuGCQJBGnUBdKNO5O
+ 5pIpID3CWlpAnUF9flMZJdm0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bad45750a42e1d03;
+	Mon, 07 Sep 2026 11:32:22 +0000
+X-Mizu-Trace-ID: bad45750a42e1d03
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <836db10c-8d0e-4882-b0be-3add5069566b@linux.dev>
+Date: Mon, 7 Sep 2026 13:31:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC0:EE_|MN2PR12MB4286:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9d3bf73-7e0d-4356-6d7a-08df0cd3ad55
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	fWmrfIypnUXijqIff9SazBgMEghfYcax2uKSmff34Yn8WEMwXoOOiDsAO5HFiCmNA1GmqZ0GrtxYTpjmmqoYdzFBMIStg5rbAN8U3L130khrtZyQzGhymzORw0jWKzKMBGSwd0GSjJ1/4VVKVnKtGFL/aoS7Gg+GzwokFD/HZZPYExSb8r4f84eGie2hzbTWCpOVC5vf9ZeD9oc4hP7MVgrpT86v4Ijx3LJnt01ObIZyQxh1Wd2QUbLCOVcKQjvh3/URqZflv0+LJJ2TujRkGrCzYVITaXYZz3PF6va7MYNUjGnJlEqrfegl4idR5yk2cp3kigps+TJLanv6bELDbLxc5Ht2ZilxkQ6A3GN+QPw8ky5BhXCzPSKRsE3btaVDNJL/WKWMhK/XPJNGsSwBv1shTC/+IfRm4lZzxRpf942GJw2mZ1c44ZSjEnyKLE75KhatqveanOfHzwZGXS8CJYDgoMgM+vpKRNmx9EGH3RlKp/UEeouBh3C8wcf8pTmSUIsRaoOf9WUZhfq4suuAS6fjaXyGeeGda/ypodtCTKKDvlipDHOv25tip619KksN1xH8tAifE+W2aWUJunR5hSrm65RGnVsk4rh/3keVPSG3wmzTXt8tnVNesjIDVs+W7wW+EkbafSTbgecE0nuLF748dzrn2wwrwSAEQnLTsEb/Z8KpNdVleAUmljLIGpvFsZJHCTskynVDQlCzRjhjYg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	W0m9D93VrEs7sGDXBuc9Ja4adc3tAdiF4dHa5CXkQjTr8dJtg6nbOjI7gpV1W8g2wrD+00jIsslYqx5BH2oj+39nV51SVT4ZSxloJ5RWs0jmT0elvPhDSsKQYA3MLDsvPHc7uKw7qNzuICNGmY+m9ySNJDASY01xHrNMRJGqwyaQrEe9DF7lT2jFbKoqZol7LJHGQrpqlYu7fhUU4RA4byQmEe5HYpXIkwBd7wxJ+7yY6YSOBae+CtwKIH6uD0qHzitW6glTTbplvhBmxwpYJQ/NxjfFofJ5hb4XDhZ5DCyp1ErQcKFVIhwQMQ6+8Rszu2qrB4jFuNZw1BSMQ22W8Fm6IsZBRMf6067GZeoreGQEde8GVWYu/t9MIB+ItJgFknRdxFDKhC3U67FEd55IduxDTvKVV+LoM6Tmx1/qf4uW9rb/0n1dONhP51v4y5KB
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 11:32:19.3707
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9d3bf73-7e0d-4356-6d7a-08df0cd3ad55
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF00004FC0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4286
+User-Agent: Mozilla Thunderbird
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Subject: Re: [PATCH v2 03/11] ASoC: SDCA: expose class SoundWire
+ probe/remove/read_prop as library
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>, Jaroslav Kysela
+ <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maciej Strozek <mstrozek@opensource.cirrus.com>,
+ Takashi Iwai <tiwai@suse.com>, Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+ Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+ patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-4-srinivas.kandagatla@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260907083727.733705-4-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The C8 PCIe controller on the P3768 carrier has WAKE# wired to main
-GPIO L.2.
+On 9/7/26 10:37, Srinivas Kandagatla wrote:
+> Split the internal class_sdw_probe/class_sdw_remove/class_read_prop
+> functions into caller-friendly library helpers:
+> 
+>   sdca_class_read_prop(sdw)
+>   sdca_class_probe(sdw, drv)
+>   sdca_class_remove(drv)
+> 
+> The class_sdw_probe/class_sdw_remove callbacks of the built-in
+> class_sdw_driver are now thin wrappers that allocate a bare
+> sdca_class_drv, stash it in drvdata, and defer to the exported
+> helpers.
+> 
+> The exported sdca_class_probe() takes a caller-owned struct
+> sdca_class_drv * so codec-specific SoundWire drivers can embed the
+> class state in their own priv struct, own dev_set_drvdata() themselves,
+> and avoid a second allocation.  No functional change for the built-in
+> driver.
+> 
+> This lays the groundwork for codec-specific SDCA SoundWire drivers
+> that want to compose the class-side probe with their own quirks; the
+> next patches add the hw_ops mechanism on top.
 
-Describe the signal on the root port so PCIe devices can use it as a
-wake source, enabling wake-on-LAN support.
+I am not sure I fully understand what you mean by "compose the
+class-side probe with their own quirks".
 
-Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
----
- .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi     | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+The existing SDCA mechanism is that there's a top-level SoundWire
+device, whose driver creates auxiliary subdevices for each function. We
+currently probe drivers for those function devices based on naming. So
+how would the 'composing' work then?
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi b/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
-index 41821354bbda..2af32613b16c 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi
-@@ -163,6 +163,16 @@ pcie@140a0000 {
- 
- 			vddio-pex-ctl-supply = <&vdd_1v8_ao>;
- 			vpcie3v3-supply = <&vdd_3v3_pcie>;
-+
-+			pci@0,0 {
-+				reg = <0x0000 0 0 0 0>;
-+				device_type = "pci";
-+				#address-cells = <3>;
-+				#size-cells = <2>;
-+				ranges;
-+
-+				wake-gpios = <&gpio TEGRA234_MAIN_GPIO(L, 2) GPIO_ACTIVE_LOW>;
-+			};
- 		};
- 
- 		/* C1 - M.2 Key-E */
--- 
-2.34.1
+I guess part of the confusion is also the recurring 'codec specific'
+term used in several patch, but we are talking about functions which are
+subsets of a codec, no? maybe use hardware specific.
+
+Note that if you need customization to the base class mechanism, there's
+another option that's currently in use in the other OS that shall not be
+named. Codec providers are not allowed to change the class drivers,
+which are owned and distributed as part of the base OS. Codec vendors
+can however provide extension drivers. The premise was that the sound
+would be 'acceptable' with class drivers, and the extensions would
+unlock the secret sauce algorithms for the best audio quality. If we are
+talking about 'composing class-side probe with quirks', it'd be good to
+clarify the rationale and objectives...
+
+edit: I think the idea is really to use the class function drivers as
+is, but with the function data provided to and used by the subdevice
+driver probe. But the hw_init doesn't seem required to me, you already
+have the .status callback that can be used to perform device-level
+initializations.
+
+
+
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  include/sound/sdca_class.h  |  5 +++
+>  sound/soc/sdca/sdca_class.c | 75 +++++++++++++++++++++++++++++++------
+>  2 files changed, 69 insertions(+), 11 deletions(-)
+> 
+> diff --git a/include/sound/sdca_class.h b/include/sound/sdca_class.h
+> index 15a180385202..c6063f22be7a 100644
+> --- a/include/sound/sdca_class.h
+> +++ b/include/sound/sdca_class.h
+> @@ -33,6 +33,11 @@ struct sdca_class_drv {
+>  	struct work_struct boot_work;
+>  };
+>  
+> +/* Library helpers used by codec-specific SDCA SoundWire drivers. */
+> +int sdca_class_read_prop(struct sdw_slave *sdw);
+> +int sdca_class_probe(struct sdw_slave *sdw, struct sdca_class_drv *drv);
+> +void sdca_class_remove(struct sdca_class_drv *drv);
+> +
+>  /*
+>   * PM helpers.  Codec drivers embed sdca_class_drv in their own priv,
+>   * own dev_set_drvdata(), and compose these into their own dev_pm_ops:
+> diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
+> index 88a29116a334..b952fa6eb802 100644
+> --- a/sound/soc/sdca/sdca_class.c
+> +++ b/sound/soc/sdca/sdca_class.c
+> @@ -24,7 +24,15 @@
+>  
+>  #define CLASS_SDW_ATTACH_TIMEOUT_MS	5000
+>  
+> -static int class_read_prop(struct sdw_slave *sdw)
+> +/**
+> + * sdca_class_read_prop - fill SDCA-common SoundWire slave properties
+> + * @sdw: SoundWire slave
+> + *
+> + * Exported so codec-specific SoundWire drivers can invoke the SDCA
+> + * common property setup from their own sdw_slave_ops.read_prop, and
+> + * then apply codec-specific overrides inline.
+> + */
+> +int sdca_class_read_prop(struct sdw_slave *sdw)
+>  {
+>  	struct sdw_slave_prop *prop = &sdw->prop;
+>  
+> @@ -36,9 +44,10 @@ static int class_read_prop(struct sdw_slave *sdw)
+>  
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_read_prop, "SND_SOC_SDCA_CLASS");
+>  
+>  static const struct sdw_slave_ops class_sdw_ops = {
+> -	.read_prop	= class_read_prop,
+> +	.read_prop	= sdca_class_read_prop,
+>  };
+>  
+>  static void class_regmap_lock(void *data)
+> @@ -136,18 +145,31 @@ static void class_boot_work(struct work_struct *work)
+>  	pm_runtime_put_sync(drv->dev);
+>  }
+>  
+> -static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id)
+> +/**
+> + * sdca_class_probe - SDCA class SoundWire slave probe helper
+> + * @sdw: SoundWire slave
+> + * @drv: caller-allocated sdca_class_drv storage.  The caller (a codec
+> + *       driver, or the built-in class_sdw_driver in this file) owns the
+> + *       allocation and sets its own dev_set_drvdata() -- the framework
+> + *       does not touch drvdata.  Typically embedded in the codec's own
+> + *       priv struct so codec drivers can keep per-slave state.
+> + *
+> + * Codec-specific SoundWire drivers call this from their .probe after
+> + * allocating a struct sdca_class_drv (usually embedded in their own
+> + * priv) and setting drvdata to their priv.  The framework fills in the
+> + * sdca_class_drv fields, sets up the class regmap, and queues the
+> + * deferred boot work.
+> + */
+> +int sdca_class_probe(struct sdw_slave *sdw, struct sdca_class_drv *drv)
+>  {
+>  	struct device *dev = &sdw->dev;
+>  	struct regmap_config *dev_config;
+> -	struct sdca_class_drv *drv;
+>  	int ret;
+>  
+>  	sdca_lookup_swft(sdw);
+>  
+> -	drv = devm_kzalloc(dev, sizeof(*drv), GFP_KERNEL);
+>  	if (!drv)
+> -		return -ENOMEM;
+> +		return -EINVAL;
+>  
+>  	dev_config = devm_kmemdup(dev, &class_dev_regmap_config,
+>  				  sizeof(*dev_config), GFP_KERNEL);
+> @@ -159,8 +181,6 @@ static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id
+>  	mutex_init(&drv->regmap_lock);
+>  	mutex_init(&drv->init_lock);
+>  
+> -	dev_set_drvdata(drv->dev, drv);
+> -
+>  	INIT_WORK(&drv->boot_work, class_boot_work);
+>  
+>  	dev_config->lock_arg = &drv->regmap_lock;
+> @@ -185,14 +205,47 @@ static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id
+>  
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_probe, "SND_SOC_SDCA_CLASS");
+>  
+> -static void class_sdw_remove(struct sdw_slave *sdw)
+> +static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_device_id *id)
+>  {
+> -	struct device *dev = &sdw->dev;
+> -	struct sdca_class_drv *drv = dev_get_drvdata(dev);
+> +	struct sdca_class_drv *drv;
+>  
+> +	/*
+> +	 * Pure-generic SDCA parts: no codec priv to embed, so allocate a
+> +	 * bare sdca_class_drv here and stash it in drvdata for the
+> +	 * built-in PM ops to fetch.
+> +	 */
+> +	drv = devm_kzalloc(&sdw->dev, sizeof(*drv), GFP_KERNEL);
+> +	if (!drv)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(&sdw->dev, drv);
+> +
+> +	return sdca_class_probe(sdw, drv);
+> +}
+> +
+> +/**
+> + * sdca_class_remove - SDCA class SoundWire slave remove helper
+> + * @drv: caller-owned sdca_class_drv (the one handed to sdca_class_probe()).
+> + *
+> + * Cancels the deferred boot work so devres can safely free @drv and the
+> + * embedding codec priv without racing class_boot_work.  Codec-specific
+> + * SoundWire drivers that call sdca_class_probe() must call this from
+> + * their .remove with the same drv pointer they passed to probe.
+> + */
+> +void sdca_class_remove(struct sdca_class_drv *drv)
+> +{
+>  	cancel_work_sync(&drv->boot_work);
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_remove, "SND_SOC_SDCA_CLASS");
+> +
+> +static void class_sdw_remove(struct sdw_slave *sdw)
+> +{
+> +	struct sdca_class_drv *drv = dev_get_drvdata(&sdw->dev);
+> +
+> +	sdca_class_remove(drv);
+> +}
+>  
+>  /**
+>   * sdca_class_system_suspend - SDCA class system suspend helper
 
