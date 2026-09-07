@@ -1,431 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF51440641;
-	Mon,  7 Sep 2026 08:50:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE122440A35
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771036; cv=none; b=nGIcjxVFTFyuq25Z6GnWZoUs8l+kRVcLjHx+yqXMMyNks0ECtbaKedMJqxWkppJ/jEW4TliIrflEEZD98tE1bJVTU74jWXkfMCzT31zuzcigUOekN8k+fJFuczeIQw8QIr0YxQz2z/agSjqOw+xqTC7XZvVHH2eAHJ/0yqUDMT8=
+	t=1788771046; cv=none; b=B6/bODXoX752YxN72dAoj+qwP9EUsfxaztTcFBvXh+muQMNKYFKeH/MXjIsXV+/Uoba33rIMALSSv6TTdmpTJ3Lf9gUdklGTvSJAzMmrWydclNhiqNzJ1Ae3rVcwmydqQyACRlmzqLhp8EreRrTThfCNv6GPqUu4qMDnHZaH0yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771036; c=relaxed/simple;
-	bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jjj/umi1IZveA8MtUGaeBxkQi/OfDQERVCknzf/3xaTY+EiyDK4JgDwbhBxeyuy2afmTT2tN8HumRJCvfJEPdPFFvCWBFufgqyyOrRdy8D3Mhgz8etJ/yJRj8XradkfEPH4A7B8Mj5TnIc2ZrHjussDGk+uGf6OJ6oSNgovemqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSd2i6z6; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788771046; c=relaxed/simple;
+	bh=xmCTnONORML0xzQsXGPQJSnXopDASGXDpFKTtpfRy+I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=ZwYNRZ4Y6zP1V7zbPZ+476AXLOt53+zQdfgfxb4M48QryDo4WbMRJx33b1kGpmFVtKTrwFaN/ETQvyWsoJBm+fpmHNpy2hJp+nzR68GPQF3bvEwgV1dWvaDz8NiR2Kl1Txwq4LPVwmINwoECVSm3qKwWtmlcHU1s7RtCSptWiZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=qnDUqXXA; arc=none smtp.client-ip=203.254.224.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSd2i6z6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788771033; x=1820307033;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
-  b=VSd2i6z68KRju+EFSXFIxU967BKZsOQR7ZfFeIOmrgBr8OmUMZAH8Bwr
-   sGBHgkn9VwCDF4YCCNVT2wvRrZ3H9vhi5tj+4zKN3IpQhVyXA6dsYyACN
-   +D5WV8+Ij9e1kZGAEPptvBB13yDPrFxDbyf9EZU6Uvk+I3Q8iFQmPEyEu
-   auHoz+OdntpOkiAKS32quzCO6cNHW7anIGZF9XcOUy6mvGufuPRe0wQu1
-   curmBfsL63oENUjz+bTLbTpkruL1s96ngRBJtjfVpLLbfUinyE5Ljvi1Q
-   Rf4XjU8sAAh+kKnw6z1+5RatuaRVaP0Dw7jcqapssvJ3ng+2EwPir1uHF
-   A==;
-X-CSE-ConnectionGUID: eVbW/coBQ8+t/ophymC/5g==
-X-CSE-MsgGUID: BZjyFVJST1iOaj4fHFOB0Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="106687439"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="106687439"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:29 -0700
-X-CSE-ConnectionGUID: afj1dpsUS5yI6e6y65DQrQ==
-X-CSE-MsgGUID: qYsDKwwWREC7OOrmas5P2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="266303711"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:27 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0A08611F944;
-	Mon, 07 Sep 2026 11:50:29 +0300 (EEST)
-Date: Mon, 7 Sep 2026 11:50:28 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap561H8xYJvjZsRa@kekkonen.localdomain>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="qnDUqXXA"
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260907085041epoutp03492ffeb9d573db9112865390d79dfb6e~S-cjg8h9a1183111831epoutp03t
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:50:41 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260907085041epoutp03492ffeb9d573db9112865390d79dfb6e~S-cjg8h9a1183111831epoutp03t
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788771041;
+	bh=RFjqqtuQMHlIRw585Wn4nrpGsc9yhalulq9+ydGLu7Y=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=qnDUqXXADXQcaLnqfevPguIb1R/9rdh7a226I89ZUI3hHpgxUCG2wo9o+lGSmbG2l
+	 /pDaDBj/tFVhMDTP6x+tWpLO4iP3FFw6Xc5Jm2Xe7paNwEE75MKVhkmtkf5IKFNrtd
+	 D0lKe9QAmIu1SoPrA4oj3bjby4xpLTv5GvM7cu7k=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20260907085040epcas5p11e00318dbcf56c67ee11afd79369faa9~S-ci_hk3f3212532125epcas5p1g;
+	Mon,  7 Sep 2026 08:50:40 +0000 (GMT)
+Received: from epcas5p2.samsung.com (unknown [182.195.38.90]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hdgl346Sgz6B9mH; Mon,  7 Sep
+	2026 08:50:39 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260907085039epcas5p24c419437ae9644adc78521646b2f1728~S-chhk3rU1189311893epcas5p2O;
+	Mon,  7 Sep 2026 08:50:39 +0000 (GMT)
+Received: from [107.122.5.126] (unknown [107.122.5.126]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260907085036epsmtip189981f862ba2d77168178876da8696a5~S-ce6VyDH2067720677epsmtip1s;
+	Mon,  7 Sep 2026 08:50:36 +0000 (GMT)
+Message-ID: <792517c1-9970-44f2-8eff-2a87895cc37c@samsung.com>
+Date: Mon, 7 Sep 2026 14:20:35 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ap5n7OyZrI0KzzN-@zed>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
+To: Krzysztof Kozlowski <krzk@kernel.org>, peter.griffin@linaro.org,
+	alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
+	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com
+Content-Language: en-US
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+In-Reply-To: <5629de34-1a63-40bf-8375-64be9a69eea2@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260907085039epcas5p24c419437ae9644adc78521646b2f1728
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260903071318epcas5p4b804edb84554847c576d1d034b814d7a
+References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
+	<CGME20260903071318epcas5p4b804edb84554847c576d1d034b814d7a@epcas5p4.samsung.com>
+	<20260903071250.3421499-3-selvarasu.g@samsung.com>
+	<ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
+	<e4bafeea-4548-41ef-b5e2-98ade2864e74@samsung.com>
+	<5629de34-1a63-40bf-8375-64be9a69eea2@kernel.org>
 
-Hi Jacopo,
 
-On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
-> > > +}
-> > > +
-> > > +static inline u32 mira016_nsec_to_lines(struct mira016 *mira016, u32 nsec)
-> > > +{
-> > > +	return nsec / (mira016_trow_psec(mira016) / HZ_PER_KHZ);
-> > > +}
-> > > +
-> > > +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
-> > > +{
-> > > +	/*
-> > > +	 * Pixel rate is calculate as the row duration divided by the total line
-> > > +	 * length.
-> > > +	 *
-> > > +	 * pixel time (psec) = t_row(psec) / h_tot
-> > > +	 * pixel rate (mbps) = 10^12 / pixel_time
-> > > +	 *		     = 10^12 * h_tot / t_row
-> > > +	 *		     = h_tot * 10^6 / t_row * 10^6 to avoid overflows
-> > > +	 */
-> > > +	u32 trow_psec = mira016_trow_psec(mira016);
-> > > +
-> > > +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
-> >
-> > Can this overflow?
-> >
-> 
-> I don't think so. I chose to multiply by 10^6 two times before and after
-> the division to avoid overflows.
-> 
-> Should I re-consider something ?
+On 9/7/2026 12:37 PM, Krzysztof Kozlowski wrote:
+> On 07/09/2026 08:04, Selvarasu Ganesan wrote:
+>> On 9/5/2026 12:52 PM, Krzysztof Kozlowski wrote:
+>>> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
+>>>> The Samsung Exynos8855 USB glue is not separate from the Synopsys DWC3
+>>>> core, using a flattened model where the DWC3 controller is directly
+>>>> addressable rather than nested as a child node of a glue layer.
+>>>>
+>>>> Describe the Exynos USB block as a single node, referencing the split
+>>>> out Synopsys DWC3 core properties via snps,dwc3-common.yaml. The new
+>>>> binding follows the same approach as qcom,snps-dwc3.
+>>>>
+>>>> A generic fallback compatible "samsung,snps-dwc3" is introduced to
+>>>> describe this binding, selected by the validator based on the presence
+>>>> of the fallback string in the compatible list. Future Exynos SoCs
+>>> This is AI slop text. Over longish useless sentence describing diff
+>>> without actual information WHY.
+>>>
+>>> Don't send AI generated slop messages.
+>> Sorry for the misleading info on this commit message. We were trying to
+>> explain why a separate flattened representation is being introduced with
+>> using generic fallback string, and follow the style of some other DWC3
+>> flattened refactors (like the Qualcomm :
+>> https://lore.kernel.org/all/20250414-dwc3-refactor-v7-2-f015b358722d@oss.qualcomm.com)
+>> to justify the separate binding, but it became too long. We'll simplify
+>> it and keep only the technical reasoning.
+> Flattened node is the right approach, so just say this is the first
+> Samsung Exynos binding using flattened node.
 
-It was a question. :-) If it can't then it's fine as-is.
 
-> 
-> 
-> > > +}
-> > > +
-> > > +static inline u32 mira016_calc_min_vblank(struct mira016 *mira016, u32 y_tot)
-> > > +{
-> > > +	/*
-> > > +	 * See 3.15.2 Frame Rate, equation 4.
-> > > +	 *
-> > > +	 * TODO: The minimum frame duration has to be expanded if embedded data
-> > > +	 * are used.
-> > > +	 */
-> > > +	u32 trow_nsec = mira016_trow_psec(mira016) / HZ_PER_KHZ;
-> > > +	u32 min_duration_nsec =  trow_nsec * (y_tot + 35) + 50 * HZ_PER_KHZ;
-> >
-> > What are 35 and 50 here?
-> >
-> 
-> No idea, the sensor datasheet doesn't describe those values
+Thanks for your update.
+We will update the commit message as follows and post a new patch set.
+And We are assuming that all other points including the clock count and 
+the generic fallback compatible (samsung,snps-dwc3) are fine.
 
-Ok.
 
-There's also an extra whitespace there.
+dt-bindings: usb: Introduce samsung,snps-dwc3
 
-...
+Add the Samsung Exynos8855 DWC3 binding using a flattened node
+representation, where the DWC3 controller is directly
+addressable rather than nested as a child node of a glue layer.
 
-> > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> > > +{
-> > > +	struct mira016 *mira016 =
-> > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
-> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > +	struct v4l2_subdev_state *state;
-> > > +	struct v4l2_rect *crop;
-> > > +	int ret = 0;
-> > > +
-> > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
-> > > +	crop = v4l2_subdev_state_get_crop(state, 0);
-> > > +
-> > > +	if (ctrl->id == V4L2_CID_VBLANK) {
-> > > +		s32 exposure_max = crop->height + ctrl->val
-> > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
-> > > +		s32 exposure_def = min(exposure_max,
-> > > +				       mira016->exposure->val);
-> > > +
-> > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
-> > > +					       mira016->exposure->minimum,
-> > > +					       exposure_max,
-> > > +					       mira016->exposure->step,
-> > > +					       exposure_def);
-> > > +		if (ret)
-> > > +			return ret;
-> > > +	}
-> > > +
-> > > +	if (!pm_runtime_get_if_in_use(&client->dev))
-> > > +		return 0;
-> > > +
-> > > +	switch (ctrl->id) {
-> > > +	case V4L2_CID_EXPOSURE:
-> > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
-> > > +		break;
-> > > +	case V4L2_CID_VBLANK:
-> > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
-> > > +		break;
-> >
-> > Is hblank part of the register lists?
-> >
-> 
-> These sensors (there will hopefully be more supported by this driver)
-> do not have a real horizontal blanking.
-> 
-> Their line length is expressed by a time base multipled by a line
-> length which doesn't directly depend on the pixel width but rather on
-> the ADC and PHY timings.
-> 
-> You could expand the line duration by increasing the time base, but I
-> wouldn't go there and use VBLANK only to control the frame duration.
-> 
-> As you can see the HBLANK control is registered with  fixed value of
-> 0.
+This is the first Samsung Exynos binding using the flattened
+representation. The existing samsung,exynos-dwc3 binding describes the
+parent and child representation used by existing Exynos SoCs, which can
+be migrated to the flattened model.
 
-How does control frame rate then? If HBLANK is zero, the frame rate is
-undefined, isn't it?
+Use the samsung,snps-dwc3 fallback compatible for Samsung Exynos SoCs
+sharing the same flattened model can be added by extending the
+compatible enum with per SoC clock and property constraints.
 
-> > > +static int mira016_init_controls(struct mira016 *mira016)
-> > > +{
-> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > +	struct v4l2_fwnode_device_properties props;
-> > > +	struct v4l2_ctrl_handler *ctrl_hdlr;
-> > > +	struct v4l2_ctrl *link_freq;
-> > > +	struct v4l2_ctrl *hblank;
-> > > +	u32 min_exposure_lines;
-> > > +	u32 def_exposure;
-> > > +	u32 min_vblank;
-> > > +	u32 def_vblank;
-> > > +	u32 pixel_rate;
-> > > +	int ret;
-> > > +
-> > > +	ctrl_hdlr = &mira016->ctrl_handler;
-> > > +	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
-> > > +
-> > > +	/* By default, PIXEL_RATE is read only */
-> > > +	pixel_rate = mira016_calc_prate(mira016, MIRA016_PIXEL_ARRAY_WIDTH);
-> > > +	mira016->prate = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
-> > > +					   pixel_rate, pixel_rate, 1,
-> > > +					   pixel_rate);
-> > > +
-> > > +	def_vblank = mira016_nsec_to_lines(mira016,
-> > > +					   MIRA016_DEFAULT_DURATION_NSEC);
-> > > +	def_vblank -= MIRA016_PIXEL_ARRAY_HEIGHT;
-> > > +
-> > > +	min_vblank = mira016_calc_min_vblank(mira016,
-> > > +					     MIRA016_PIXEL_ARRAY_HEIGHT);
-> > > +	mira016->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > +					    V4L2_CID_VBLANK, min_vblank,
-> > > +					    MIRA016_MAX_VBLANK, 1,
-> > > +					    def_vblank);
-> > > +
-> > > +	/* Fixed 0 horizontal blanking. */
-> > > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, 0,
-> > > +				   0, 1, 0);
-> > > +
-> > > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-> > > +					   0, 0, &mira016_link_freqs[0]);
-> > > +
-> > > +	min_exposure_lines = mira016_nsec_to_lines(mira016,
-> > > +						   mira016->timings.min_exposure_time);
-> > > +	def_exposure = mira016_nsec_to_lines(mira016,
-> > > +					     MIRA016_EXPOSURE_DEF_NSEC);
-> > > +	mira016->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > +					      V4L2_CID_EXPOSURE,
-> > > +					      min_exposure_lines,
-> > > +					      MIRA016_MAX_EXPOSURE, 1,
-> > > +					      def_exposure);
-> > > +
-> > > +	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > +					  V4L2_CID_ANALOGUE_GAIN,
-> > > +					  1, 1, 1, 1);
-> > > +
-> > > +	/*
-> > > +	 * Changing VFLIP requires re-programming the top point, hence we
-> > > +	 * program flips along with the ROI windows at enable_streams time. As
-> > > +	 * we grab the flip controls there, there's no need to handle the two
-> > > +	 * controls while streaming.
-> > > +	 */
-> > > +	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
-> > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> > > +
-> > > +	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
-> > > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
-> > > +
-> > > +	v4l2_fwnode_device_parse(&client->dev, &props);
-> >
-> > v4l2_fwnode_device_parse() can return an error and I'd check for it. I'd
-> > however do that before initialising the control handler as it simplifies
-> > error handling.
-> 
-> Interesting idea. I still see most drivers calling
-> v4l2_fwnode_device_parse() and v4l2_ctrl_new_fwnode_properties() in
-> sequence at the end of the controls initialization, but doing the
-> parsing at the beginning of the function is certainly a good idea.
-
-Yes, the ones you've been looking at are old drivers. :-)
-
-> > > +		{ 16, 21 }, { 17, 26 }, { 18, 29 }, { 19, 30 }, { 20, 15 },
-> > > +		{ 21, 23 }, { 22, 27 }, { 23, 13 }, { 24, 22 }, { 25, 11 },
-> > > +		{ 26, 5 }, { 27, 18 }, { 28, 25 }, { 29, 12 },
-> > > +		{ 30, 6 }, { 31, 3 }, { 32, 1 }
-> > > +	};
-> > > +
-> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_n_lut); ++i) {
-> > > +		if (pll_n_lut[i].n != pll_n)
-> > > +			continue;
-> > > +
-> > > +		return pll_n_lut[i].pll_n;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +static u8 mira016_m_to_pll_m(u32 pll_m)
-> > > +{
-> > > +	/* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
-> > > +	static const struct pll_m_div {
-> > > +		u8 m_min;
-> > > +		u8 m_max;
-> > > +		u8 pll_m_min;
-> > > +		u8 pll_m_max;
-> > > +	} pll_m_lut[] = {
-> > > +		{ 16, 31, 224, 239 }, { 32, 63, 192, 233 },
-> > > +		{ 64, 127, 128, 191 }, { 128, 255, 0, 127 },
-> > > +	};
-> > > +
-> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
-> > > +		const struct pll_m_div *p = &pll_m_lut[i];
-> > > +
-> > > +		if (pll_m > p->m_max)
-> > > +			continue;
-> > > +
-> > > +		return p->pll_m_min + pll_m - p->m_min;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> > > +
-> > > +static void mira016_pll_calc(struct mira016 *mira016)
-> >
-> > It's nice to have a PLL calculator for this. Thank you! :-)
-> >
-> 
-> I also considered using the CCS PLL calculator, but this PLL is so
-> simple it felt like an overkill
-
-If the CCS PLL calculator fits for the job, I'd just use it. If it does a
-little more, it's possible to use the same value for minimum and maximum
-for the relevant parameters.
-
-> > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
-> > > +{
-> > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > > +	};
-> > > +
-> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> >
-> > Don't mask error codes! Just return the error code returned by
-> > v4l2_fwnode_endpoint_alloc_parse().
-> >
-> 
-> With PTR_ERR() I presume
-
-v4l2_fwnode_endpoint_alloc_parse() returns an integer.
-
-> > > +static int mira016_probe(struct i2c_client *client)
-> > > +{
-> > > +	struct device *dev = &client->dev;
-> > > +	struct mira016 *mira016;
-> > > +	int ret;
-> > > +
-> > > +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
-> > > +	if (!mira016)
-> > > +		return -ENOMEM;
-> > > +
-> > > +	mira016->dev = &client->dev;
-> > > +
-> > > +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
-> > > +
-> > > +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
-> > > +	if (IS_ERR(mira016->regmap))
-> > > +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
-> > > +				     "failed to initialize CCI\n");
-> > > +
-> > > +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> > > +	if (IS_ERR(mira016->xclk))
-> > > +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
-> > > +				     "failed to get xclk\n");
-> > > +
-> > > +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
-> > > +	if (mira016_validate_xclk_freq(mira016)) {
-> > > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
-> > > +			mira016->xclk_freq);
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	ret = mira016_get_regulators(mira016);
-> > > +	if (ret)
-> > > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> > > +
-> > > +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-> > > +						      GPIOD_OUT_HIGH);
-> > > +	if (IS_ERR(mira016->reset_gpio))
-> > > +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
-> > > +				     "failed to get reset gpio\n");
-> > > +
-> > > +	ret = mira016_parse_endpoint(dev, mira016);
-> > > +	if (ret)
-> > > +		return ret;
-> >
-> > Parsing the endpoint should be done as soon as you can before acquiring
-> > resources related to power management, for instance. -EPROBE_DEFER may well
-> > be returned in some cases.
-> >
-> 
-> I can probably do that even before calling v4l2_i2c_subdev_init()
-
-Sounds good.
-
-> > > +static void mira016_remove(struct i2c_client *client)
-> > > +{
-> > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> > > +	struct mira016 *mira016 = to_mira016(sd);
-> > > +
-> > > +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
-> > > +
-> > > +	v4l2_async_unregister_subdev(sd);
-> > > +	v4l2_subdev_cleanup(&mira016->sd);
-> > > +	media_entity_cleanup(&sd->entity);
-> > > +
-> > > +	pm_runtime_disable(&client->dev);
-> > > +	if (!pm_runtime_status_suspended(&client->dev))
-> > > +		mira016_power_off(&client->dev);
-> > > +	pm_runtime_set_suspended(&client->dev);
-> >
-> > pm_runtime_dont_use_autosuspend()?
-> >
-> 
-> Ack
-> 
-> Thanks for the review!
-
-You're welcome! :-)
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks,
+Selva
+>
+>
+> Best regards,
+> Krzysztof
