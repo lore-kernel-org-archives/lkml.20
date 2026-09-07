@@ -1,80 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1BD441630
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:56:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78BEC411693;
+	Mon,  7 Sep 2026 08:57:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771411; cv=none; b=G69pSe4KufawMfdwwte45fz52rjy4cQJE3W3qd64OXhbsgDP6wbM1/gRdA5DdYfheVGQggrdZrcj3ihsGxNVm71XFMiGg/d36cSXVO2+/qagLtv97tPJTvPeJ9wzv9PGfmVHmaWf8MOVfph+Dj4ZVpeNI6wu2mz9ZeaEKm9aJyc=
+	t=1788771441; cv=none; b=acJMJV3jgd/4APxmbf1O0MNVGNY4ey2hABd0tVQ7aSct9Hp5o3+Uw9raLx4Nl4T7Gcu+ab2xXvZBqQth+hY4wRO+Z46bPILOttYTI7uwblEFCGE03kX/GzohVcTl3HL4tPI0SM3LVqaFJOk/FcIsH36ONiRs87kydwpwGxDJvng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771411; c=relaxed/simple;
-	bh=76OMI6WRLkvF3huS5s8aBnc2/15bNq4jh32jVZlnBtQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AJF6cIZyAFHKyMpi0HE2IarczPaefKohezSdFXq1gANyb1hQdKR3YKvg/jxDiKSBdUcmOrpYQDt2FJdHQGXmO2yLRT14muKKt5TOixEcX8rE6jIFxaqHj2+TMTnhHMt0tSquFleJvUXkDPWEpalZ2pQd25JgJLZ89kZyq2IUZUU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MvheHASs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788771441; c=relaxed/simple;
+	bh=LmpNtm7UKcqpqfBlpXstB9HQ6K8r676WP44Et/ZufDI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=b7IIhtGSLGZHs6kONNuJfoqGdSrLbTHIV1lTv0x07XYT/Lqak6Xr/27YLK6Ue7thmxaST64n0ZCD8CmO5cKBqODqNHUeGJhgHTZ6s9zqDSWTUu0FZjbtKT/wPfvNcczvpx0mkUdlq6koLHbQhmFb5sI8OklzH98+1MexIOFTa4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dHqj+Zb2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MvheHASs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D52E1F00A3A;
-	Mon,  7 Sep 2026 08:56:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dHqj+Zb2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034561F00A3A;
+	Mon,  7 Sep 2026 08:57:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788771410;
-	bh=N6bWIpFfXhqGihNnzoE3exOZDCPPpubbizpznVgNBKk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MvheHASsRLl5BGpuNyuoniZlretbpywNtzuA3qmGwLnux9kgn5bWsMIoGp/Cn2/Ut
-	 ZHoehtzgHDUyW7dlL1CmuYGToBEBlhThscOcYYJzDv4+kwQdY7CuG0aDcbheZsxCDn
-	 lKQl2yXhf2kk+gJwgMOfV+S4N9h+VNaab9saVXwxEd2vF7jB2IKl1IPz+1vwNqbYnL
-	 vVvIo3C3TTIVC5agFcs+vDIwc3q24TyTt3EBG6vQ0EtMSNgqrSpzuVOzKm/bBxYifD
-	 J0a8AUYR7Fq4DigmXmMx1ZC6TK2RjXVHcoRz2ku1ROq6zBD2jVqjVyXPvuw4SmOev+
-	 WdmxLDM5uRHbw==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3V9k-00000005fG9-1bGF;
-	Mon, 07 Sep 2026 08:56:48 +0000
-Date: Mon, 07 Sep 2026 09:56:48 +0100
-Message-ID: <86ik4h4ey7.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Cc: tglx@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] irqchip/gic-v3: Add Altera SoCFPGA Agilex5 GIC600 DMA32 erratum workaround
-In-Reply-To: <fc927e43892b86200e157fa303b0d1dd344caffd.1788751033.git.adrian.ho.yin.ng@altera.com>
-References: <fc927e43892b86200e157fa303b0d1dd344caffd.1788751033.git.adrian.ho.yin.ng@altera.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788771439;
+	bh=AMPM1yZHFzG6EjCvtkpbe8MOIkMaHAfMvIR2rnpmnj4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dHqj+Zb2MdJPMi8/84owM3B/yAt995hHE7xSLXucrHYa5Zry6ir0GbW4jQ+V3ccNx
+	 PGKsuQJvh0uv715A39YqibiAclKYa/YPe52LYY5BQTVbjFMjW0qhZ0KDzsTZsApzvD
+	 A4+D8sfi3TQ8BRmxH3n6LReBf7yl8Uu94DHVt29HpAcTPYDHj498O6pYfXeOx3eEHI
+	 v55dHO9sEwmdKTQzsGDnALgYGSTKVI2PC0zxskrmQ15vTAxilhjdBC6Kd+O0AUQVWt
+	 q96UWj88Xeo2pylPsBNpNNc7lPhYZs1kurBVLTSVILSowtm071fj34dXLjDFpXYVZO
+	 73mVqczxILYIw==
+Date: Mon, 7 Sep 2026 10:57:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: arm: amlogic: add Xiaomi Mi Box 4
+Message-ID: <20260907-cryptic-macho-pronghorn-b6ac16@quoll>
+References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+ <20260903-mibox4-dt-v3-1-1a8e395d923c@stu.hqu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: adrian.ho.yin.ng@altera.com, tglx@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-mibox4-dt-v3-1-1a8e395d923c@stu.hqu.edu.cn>
 
-On Mon, 07 Sep 2026 09:22:59 +0100,
-Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com> wrote:
+On Thu, Sep 03, 2026 at 06:18:45PM +0800, YuChia-Kan wrote:
+> Add the Xiaomi Mi Box 4 (MDZ-21-AA), based on the Amlogic S905L
+> SoC, to the list of supported Amlogic boards.
 > 
-> Agilex5 integrates GIC600 with an ACE-lite interface limited to a 32-bit
-> address bus, so the ITS can only access the first 4 GB of physical address
-> space. Register intel,socfpga-agilex5 on the existing
-> dma_32bit_impaired_platforms list so ITS allocations use GFP_DMA32.
-> 
-> The workaround is guarded by ALTERA_ERRATUM_AGILEX5_2_1_23, which is
-> selected by ARCH_INTEL_SOCFPGA as all Agilex5 devices are affected.
-> 
-> This limitation is documented as Agilex 5 ES Device Errata 2.1.23 (825514).
-> 
-> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+> ---
+>  Documentation/devicetree/bindings/arm/amlogic.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Reviewed-by: Marc Zyngier <maz@kernel.org>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-	M.
+Best regards,
+Krzysztof
 
--- 
-Without deviation from the norm, progress is not possible.
