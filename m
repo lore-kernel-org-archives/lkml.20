@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B3B51D52E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7488E5221E4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799402; cv=none; b=W2ilawIvVTZWS/HYZk0jjHT/2C2Jspsb8W2hjdRGdp0Fe21moBDubmrafRIDd3xeniQRCtPQZDSdSUKhWQTOLzfVPjco3hQ15QqhZegSbaRap1XVj8JYayYPbGt3d4owIaV7ryG96CGyhyzyvw4/J1Dl1gOSgU4fCqSqjdIOllI=
+	t=1788799405; cv=none; b=WzA5eRthiz4op9L8SQmBGoLZDfUmNm/D5Go/ytoFYkwjkVD1iiSKXiuRvIr5CUe1suMW1Mf3wkb6lrPk6NZ1oD4S2slWUXrZCqncMcrM34UBvpVYuG72RAE45ln8n/Dml79lTtYd12W2hTE5wAdK5Y2LZlf0iJb5+inek2QKccQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799402; c=relaxed/simple;
-	bh=gNq7ukmIJoPQSwBs3CsGHXVFqnWNHjdd6O7GHvTPPSQ=;
+	s=arc-20240116; t=1788799405; c=relaxed/simple;
+	bh=HLCshW8xxv6VsiacUYB6HYqss6+4m80cl5CLJJhEEoM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=omleJAGrcB5zuar0jKT+PVcY8KZnvcmmAWDM35ZAmGb0vspWrNij5wg2m7jB09gqlRErNhiVKLCROLrnmRNh9L2YkZdMdjVJtIKcocOGsTr6ZN6H+5IAh+tgblSwMV9NS1MgHh7MQSWAdLO99Yb8mIQKQIehUHvGOemsbD3IK4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fmwb7lee; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VkU4vMTgwkWrqX1DwwPf3xlRPDZdi/MFiDil39UsocFnZA+8noxDMzdrELodZTaBy0A3Jdx+KFyuYczqOHb5sdwSxQsp0IfvAdgegawIWZ4US81+RBS/+oV7ZJ6DWhV0vN6awQfzyE2BtgA2OJV7tNTQBQ09Kwcwmr47rLzFyDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CQjhS6Sh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fmwb7lee"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2C11F00A3D;
-	Mon,  7 Sep 2026 16:43:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CQjhS6Sh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4AB1F00A3A;
+	Mon,  7 Sep 2026 16:43:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799400;
-	bh=1kY9llO1ddjYj+PbsySZjCHX+aU5qaY+2/JhMLmZtdY=;
+	s=k20260515; t=1788799404;
+	bh=4ETxX+Ovhc6XcQfH1JJJPmgYMOVMu2SBJPq49n1St2c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fmwb7lee5WbO4U7cz3lQLeX4aTrw177xHsxzKx9CiQ9CaU9yOTUKl80xS8XEyqnJE
-	 YS/LQdzwaA803OR+oXGwEhq1IWATzGJoW4kBa/PBE4z+3jtDO13pZNNjTV9egg2bPJ
-	 17XsMpPwvuYkDrLHx3Y3eqg7a3NVHl3xN7CFQ1wIFm1M9awklUNO0yfReaHbAD7uTB
-	 O4Jc/1jucGjKgFpm2afN3+IpKDyqYCTy0CZienk/WJalK9COEXAc5ILYjZeSHSs3Kz
-	 c1HxAAtzPxpvDotNSzHdG6BGSgXgM1c7oJ2Edw1YbEXVuxPWRhe33qIA2PAYSCQzQw
-	 ZQglS+Avxbg0Q==
+	b=CQjhS6Sh5LSuVnGsWrDayRTZgrnPSjn/2w2PspnGGYU3yy8jYWr/hPpLTJIWqbeeY
+	 hfUqIVnGK2+URINnFL9/KY7CqBv/xbZJ9UEHqoowMEuiIDJSaJCpItwGvC6AefkS1Q
+	 sDxWiP8Y6kuHvD9HF+wCF9XNDjUXG+9B0gL4uQZothEMg/0npy6quZk7wEFsXZJKuR
+	 LfCCKrYX2cKijc3EhIih9HZ9nD3BaKmdYlhkoTkgc5M7IT9ZKMaTrY/TXEuxkIaZEK
+	 KA6SNzMyZeJIyqmAUWaJbpk5rDVwBsATbTc/CkqoXPeK7Em3cLjXr86OoBlSC6YWWS
+	 mvZlROZs55LqA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 06/21] arm64: Store 'current' in TPIDRRO_EL0 instead of SP_EL0
-Date: Mon,  7 Sep 2026 17:42:31 +0100
-Message-ID: <20260907164247.17223-7-will@kernel.org>
+Subject: [PATCH 07/21] selftests/bpf: arm64: Use TPIDRRO_EL0 instead of SP_EL0 for 'current'
+Date: Mon,  7 Sep 2026 17:42:32 +0100
+Message-ID: <20260907164247.17223-8-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,183 +56,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-To make SP_EL0 available to point at the per-cpu kernel overflow stack,
-we must relocate 'current' elsewhere. With TPIDRRO_EL0 now restored late
-in the return-to-user path, we can otherwise use it to hold 'current'
-and update the various accessors accordingly.
-
-Move 'current' from SP_EL0 to TPIDRRO_EL0.
+The current task pointer now lives in TPIDRRO_EL0 instead of SP_EL0, so
+update the bpf selftests with the new register allocation.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/include/asm/assembler.h |  2 +-
- arch/arm64/include/asm/current.h   |  6 +++---
- arch/arm64/kernel/entry.S          | 20 ++++++++++----------
- arch/arm64/kernel/head.S           |  2 +-
- arch/arm64/kernel/process.c        |  5 +++--
- arch/arm64/net/bpf_jit_comp.c      |  4 ++--
- 6 files changed, 20 insertions(+), 19 deletions(-)
+ tools/testing/selftests/bpf/progs/verifier_jit_inline.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/include/asm/assembler.h b/arch/arm64/include/asm/assembler.h
-index 0b58b550e8dc..fd1ae5337935 100644
---- a/arch/arm64/include/asm/assembler.h
-+++ b/arch/arm64/include/asm/assembler.h
-@@ -587,7 +587,7 @@ alternative_else_nop_endif
-  * Return the current task_struct.
-  */
- 	.macro	get_current_task, rd
--	mrs	\rd, sp_el0
-+	mrs	\rd, tpidrro_el0
- 	.endm
- 
- /*
-diff --git a/arch/arm64/include/asm/current.h b/arch/arm64/include/asm/current.h
-index c92912eaf186..8c7efac05394 100644
---- a/arch/arm64/include/asm/current.h
-+++ b/arch/arm64/include/asm/current.h
-@@ -14,11 +14,11 @@ struct task_struct;
-  */
- static __always_inline struct task_struct *get_current(void)
- {
--	unsigned long sp_el0;
-+	unsigned long tpidrro_el0;
- 
--	asm ("mrs %0, sp_el0" : "=r" (sp_el0));
-+	asm ("mrs %0, tpidrro_el0" : "=r" (tpidrro_el0));
- 
--	return (struct task_struct *)sp_el0;
-+	return (struct task_struct *)tpidrro_el0;
- }
- 
- #define current get_current()
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index b5d8277f608a..a45be0a837c8 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -81,9 +81,9 @@
- 	/* Stash the original SP (minus PT_REGS_SIZE) in tpidr_el0. */
- 	msr	tpidr_el0, x0
- 
--	/* Recover the original x0 value and stash it in tpidrro_el0 */
-+	/* Recover the original x0 value and stash it in sp_el0 */
- 	sub	x0, sp, x0
--	msr	tpidrro_el0, x0
-+	msr	sp_el0, x0
- 
- 	/* Switch to the overflow stack */
- 	adr_this_cpu sp, overflow_stack + OVERFLOW_STACK_SIZE, x0
-@@ -99,7 +99,7 @@
- 
- 	/* We were already on the overflow stack. Restore sp/x0 and carry on. */
- 	sub	sp, sp, x0
--	mrs	x0, tpidrro_el0
-+	mrs	x0, sp_el0
- 	b	el\el\ht\()_\regsize\()_\label
- 	.endif
- .org .Lventry_start\@ + 128	// Did we overflow the ventry slot?
-@@ -226,7 +226,7 @@ alternative_cb_end
- 	clear_gp_regs
- 	mrs	x21, sp_el0
- 	ldr_this_cpu	tsk, __entry_task, x20
--	msr	sp_el0, tsk
-+	msr	tpidrro_el0, tsk
- 
- 	/*
- 	 * Ensure MDSCR_EL1.SS is clear, since we can unmask debug exceptions
-@@ -548,7 +548,7 @@ SYM_CODE_START_LOCAL(__bad_stack)
- 	 */
- 
- 	/* Restore the original x0 value */
--	mrs	x0, tpidrro_el0
-+	mrs	x0, sp_el0
- 
- 	/*
- 	 * Store the original GPRs to the new stack. The orginal SP (minus
-@@ -843,7 +843,7 @@ SYM_FUNC_START(cpu_switch_to)
- 	ldp	x29, x9, [x8], #16
- 	ldr	lr, [x8]
- 	mov	sp, x9
--	msr	sp_el0, x1
-+	msr	tpidrro_el0, x1
- 	ptrauth_keys_install_kernel x1, x8, x9, x10
- 	scs_save x0
- 	scs_load_current
-@@ -1031,11 +1031,11 @@ SYM_CODE_START(__sdei_asm_handler)
- 
- 	/*
- 	 * We may have interrupted userspace, or a guest, or exit-from or
--	 * return-to either of these. We can't trust sp_el0, restore it.
-+	 * return-to either of these. We can't trust tpidrro_el0, restore it.
- 	 */
--	mrs	x28, sp_el0
-+	mrs	x28, tpidrro_el0
- 	ldr_this_cpu	dst=x0, sym=__entry_task, tmp=x1
--	msr	sp_el0, x0
-+	msr	tpidrro_el0, x0
- 
- 	/* If we interrupted the kernel point to the previous stack/frame. */
- 	and     x0, x3, #0xc
-@@ -1051,7 +1051,7 @@ SYM_CODE_START(__sdei_asm_handler)
- 	mov	x1, x19
- 	bl	__sdei_handler
- 
--	msr	sp_el0, x28
-+	msr	tpidrro_el0, x28
- 	/* restore regs >x17 that we clobbered */
- 	mov	x4, x19         // keep x4 for __sdei_asm_exit_trampoline
- 	ldp	x28, x29, [x4, #SDEI_EVENT_INTREGS + 16 * 14]
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index 87a822e5c4ca..c33551ee6572 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -193,7 +193,7 @@ SYM_CODE_END(preserve_boot_args)
- 	 * for consistency with user tasks and kthreads.
- 	 */
- 	.macro	init_cpu_task tsk, tmp1, tmp2
--	msr	sp_el0, \tsk
-+	msr	tpidrro_el0, \tsk
- 
- 	ldr	\tmp1, [\tsk, #TSK_STACK]
- 	add	sp, \tmp1, #THREAD_SIZE
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index bfdc12166895..79a19be88ced 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -551,8 +551,9 @@ static void ssbs_thread_switch(struct task_struct *next)
- }
- 
- /*
-- * We store our current task in sp_el0, which is clobbered by userspace. Keep a
-- * shadow copy so that we can restore this upon entry from userspace.
-+ * We store our current task in tpidrro_el0, which is clobbered when returning
-+ * to userspace. Keep a shadow copy so that we can restore this upon entry from
-+ * userspace.
-  *
-  * This is *only* for exception entry from EL0, and is not valid until we
-  * __switch_to() a user task.
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index c18e005a41db..51d853b92443 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -1694,7 +1694,7 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
- 		if (insn->src_reg == 0 && insn->imm == BPF_FUNC_get_smp_processor_id) {
- 			cpu_offset = offsetof(struct thread_info, cpu);
- 
--			emit(A64_MRS_SP_EL0(tmp), ctx);
-+			emit(A64_MRS_TPIDRRO_EL0(tmp), ctx);
- 			if (is_lsi_offset(cpu_offset, 2)) {
- 				emit(A64_LDR32I(r0, tmp, cpu_offset), ctx);
- 			} else {
-@@ -1707,7 +1707,7 @@ static int build_insn(const struct bpf_verifier_env *env, const struct bpf_insn
- 		/* Implement helper call to bpf_get_current_task/_btf() inline */
- 		if (insn->src_reg == 0 && (insn->imm == BPF_FUNC_get_current_task ||
- 					   insn->imm == BPF_FUNC_get_current_task_btf)) {
--			emit(A64_MRS_SP_EL0(r0), ctx);
-+			emit(A64_MRS_TPIDRRO_EL0(r0), ctx);
- 			break;
- 		}
- 
+diff --git a/tools/testing/selftests/bpf/progs/verifier_jit_inline.c b/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
+index 02e562f56f9d..a3d6c095acc3 100644
+--- a/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
++++ b/tools/testing/selftests/bpf/progs/verifier_jit_inline.c
+@@ -9,7 +9,7 @@ __success __retval(0)
+ __arch_x86_64
+ __jited("	addq	%gs:{{.*}}, %rax")
+ __arch_arm64
+-__jited("	mrs	x8, SP_EL0")
++__jited("	mrs	x8, TPIDRRO_EL0")
+ __arch_riscv64
+ __jited("	mv	a5, tp")
+ __arch_loongarch
 -- 
 2.55.0.979.g7e5102b832-goog
 
