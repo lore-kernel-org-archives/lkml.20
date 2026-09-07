@@ -1,119 +1,174 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8878B346E55
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788816668; cv=pass; b=BzUZALtS5VqEiDBdgrzVCtZvFAU4z6kX/NwDe1Bd2g+vusCaXhwu/05hPDdKcILhzyY0VUS5TlQxON5Ma6MTA93J+o7MrtSvXBmTDNJbX7yDWTuZvw6meL5ZLbr0ySvJt/tGLpXPl1iSg1JUchHRMug5eMZHBs2bIuL45k0yLdI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788816668; c=relaxed/simple;
-	bh=KCfQ/o2jQIWmDhYUMFPoTF8OvDrs5HT3JWRI8Lf7DuY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4B481A681B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788816822; cv=none; b=suQQEryMNBZ8aHzDSb906437LLChwjpML2y4eZ5/c5c/jvH+MKXMUwRKvd9PzxSy8kuI1aegWvchXm4yQFDxdU0D9iyiwKejMTbu5RV+tv/NzU1YwP5a4jtH/BspdUjtoq0E5veODeLtRTXINH/QZea7SWNVt1yW23Sqvxdmo2c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788816822; c=relaxed/simple;
+	bh=U9NNV9TQzVYO4DdsqZt1E6CrBOsMOvqRgWqKW3d54aM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SsHCG6WaJ3UnsR2+fQ85TSENiWd8XpBGNJyLjmYG9lL24GDREEjj+swEH79RqSD+vF4tqSll2YT6Ex4BfCbqWCn9J3yiOJJgcq2u+UXxAMqoEWBp2QOi1oImnoqJnhYuSwn2QH4VALvkK/91DMo5inHK4fYC8cVC7vkL/5zQu+c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LpO6jbpx; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 To:Cc:Content-Type; b=tmuQPLNajSfT1eAroW99cPa0uzdHoMbhuqEGZz5aa9MsL9rjdsnHQRDBpgIPMVgebTc9/+vO7u5Tpzl4mBgDjOGKgqRUZa+jqkf6oTpKSfFAJ6w3AU+b1qgH8/MTLkZadTIuW2U5kaSzc3kU45n+akU3mEtZkPTn0GKTbhoBBmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lOVRiolU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LpO6jbpx"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so166545ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:31:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788816667; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OQ0k5kEtvBJK+Sh8T4L3NJ3tZbW1pjhTWtqc9UHxwn7HmbTz+zFxU//VHTZyVWShn/
-         fbBnSIvtbJQk7lKljvJkYwPj6Rj67nFo7/2cvLSFjr691+fBVwZeE6bSBLJHphcfsXoq
-         EwY+nguBq1McKNPXtqDV53kT4eYSpZpprfLVzVGBLVlQb2ibB5jKtNKWX5EeUbAe9HeS
-         jEI47Jdpiy9u4cuYmIKOXP7IEzqaeY1Vci8UYOGaM9zxrW1UTPsHUJgPgjKyplgUXCkw
-         iBv+/QurdMxTUoWsyBfTHMLcFhujL0c+AqiCczUv7P5Mu9G8A5VnZY5aW/6ZiesVS/NS
-         9LjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tMhB9/vf0+R2BNCntM8XD0je4RadngbF12KBKt2v40A=;
-        fh=i0dK5Tc8klOJtmjCs6JEZaWVMmegQfoHUqj3NQk4oa0=;
-        b=OUhxaZ/vHu2tAIIOC/WcrUmk+8uKy5F3rnU6ys0UpJHJqAyFz5pSatMKLfsmS37GUf
-         2VFwWSYdJS3Ne607qb2/zSYftATt/AVzUSOISwg+DqYQvfto8ygV61H7AhdFE/QTodta
-         kn5jDM9ChzOpkSfdVuTd75jM/k4pWX7/hH0GfQkfAS/q+zGJp8ZBkjTPZjiWhmIxahhX
-         q74YtCzR2juf9G3BGSJeYfMTsRE6g/z9I2/rsO/nHOxiIa39HPS3EPbKrpoRFkkf8PmX
-         4bhbefAmjbbqB7sZAyMWDAGl6Ejixtg9ZeQ7guEsW2Hm0jbs8wEK++7y+KHtpBC6Z/vT
-         IfIQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788816667; x=1789421467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tMhB9/vf0+R2BNCntM8XD0je4RadngbF12KBKt2v40A=;
-        b=LpO6jbpxb3ysZVqrwaUfXpmMZYK1kfFL1IzhoqFQKV+7qo2D0g59Rj4NGEUBGR4Bjn
-         o59ZnX+94vIJDVHSMqDmytGOj0xYdYJ1PKRuc2ToFoG6I24s7W8555Yc1Vn5q2brPGNQ
-         Y4nq9jDHovsHc78Q0jlQgrVaDAHBMQ7f0HagVf36TxOrIg6P8w7G2SbyLDNnaPnKHxhX
-         lS6mSu0nSKouwGqTXj+RzQ1StYyjxoCykJPv07ICO4TJ+5d4xmfZYfHg3A/V/3J2fpqL
-         4sMQrcoBJgvSRCoD+BaEmVaWQgVe2Lj9dCNBVlJbR2VWASCrHZaDnMkwMVJBx7OFOoWH
-         5EgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788816667; x=1789421467;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tMhB9/vf0+R2BNCntM8XD0je4RadngbF12KBKt2v40A=;
-        b=d8Vaj/47ZQHypYlZsDwFtUVvoUo71Y0OzbAGWMUmIQLPxbQK99mqsBc6VfCXDYC+mc
-         mV4ukX4Tur43zpH3Rdo/nQtZU6/uQXI44j91uaB9zCKCcIVmzxQPYtAqbsCIR9+OxHhX
-         PM5maIt1gp+tAl+hAM94ljibfSLItPeGd46w5AHshkiZS6eXrBe0CyD1fmRNUG9n8Sn8
-         ebFfgeeDrkrUE1Y4JZRoX1we+bRlq5kJq0xgQTEeLfd1i8Vcp/C4+oOQjq0jkpgwm7/n
-         586rz7LpsAhMaUd6kWg1eUZUPY+Mfvqn+ti4z4xa3/sJ6X38PPS8JXsmOh9VWT2nSGfn
-         dCQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwN511pWAz7xqaUawsiUDIyenlRJRULndUfrt6m4v8ujMMw1/sNKP4KAfBkO3tO3nWWcribSg609j6gcwo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7c5TziA9AJ7e+4Rga662O1fVHtSJ/lftlyJCVSU6WcQu/gT5K
-	NQxSvwSo7rEM49yLzVJH9SjsAwiia4X9rNu3BZRW/q2OT+lB7YdbUA6NDIp/6wb6ar5iSNARVz9
-	O+nFWXPRZmwMZKhITxa2k59W4RgYsmQ1coBFCNvr0
-X-Gm-Gg: AYBFou2m6SRt/YoY9W7dYfBghG0G3BVtn/HBVCB72ymjSmOLkt2C5NXa0bgtlqNgC/f
-	/yXczmRSNVCt+ClTNNpF/VNe3L7MGn32bPHf0i0tTZXByf/hfg6UhsTOzyg65nyn76H4LVfcaRe
-	xgu4ngG6bOmTNe8iNl9Mc31g0fiqVqnZXDkxnZGsMmJXk8P0lSvF0yjfn0lO3aKpRg+pqcL4+8a
-	l15SmVs+Pq0aESE2K1x6VgE69tQ/b2HxfD7GTEA4tNn++XWWRT+wz/l57AFXStCdFbonvdpnckQ
-	KMzf/xoRdKux1g5jNV0pQ4NCwi9jMNbSZdkbDKsnsP4QKqqe59Ivx7w4SF1/FGNe80oYBHUzd78
-	my9e9eKtAHgK9DpgtN4cwdVhD2tFTZNU7ev5J2Wca
-X-Received: by 2002:a17:903:1968:b0:2d5:db38:8013 with SMTP id
- d9443c01a7336-2db290965e6mr11954785ad.18.1788816666098; Mon, 07 Sep 2026
- 14:31:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lOVRiolU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E1541F00A3F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:33:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788816821;
+	bh=glAq2A+LGqvZtGRjj6Vu76wV2nQ2vOLPDIiLnUABgOs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=lOVRiolUuJdBzdns21YNoLq99TXgsNsteg1DQ5906S5QpffjdDRQocBGaW+h7tWqH
+	 IxCKdHubpL1oWVBW+C/a/JqhLHWGkMs/IUmx6GfhacRf1Q8mffLkeSGxtIp2oGFbid
+	 hk1A4/1zdoUWVltg+bEURpJWWI35evHxTMltztyVVB4fuiFPUodfTVLQNn6/RzDG4E
+	 dCKtEJEogMo2GRnip7ZBUKOeymrOctOFaGHYoR5t9jGQVbxJgBeBCB+Lkr3E2csErH
+	 wf8kE3+qBr+ZpVTS0xfU+fQ7UeuFIBwN1bZos7RuU9UA9wlJwJv3OaPqUudWm851fU
+	 +PyAleap8Hhig==
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-90cd4631090so51591056d6.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:33:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw0VTU+Ui9MbIr0mfcC9wYB53nOKG3TLC5f4YA1pGrNRk8FOetH2De/4fmA7qDX7Lm4Yy/SIOSjArq7nQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljq8EB3yQUj2YHjEdRdq18ncITfC2ryoobaWG5mPzkJ3GpkQfl
+	FboGavkhO49aQq8JTeLD9U1pD+ovHLwky20FVXc9LDwOPb+QfQ2pOwKa/UACiCN+9fBcsGV8dl3
+	C0l18MLVkfbK5uP5m1ntRZ75JaCK8BZQ=
+X-Received: by 2002:a05:6214:1c0c:b0:8ef:1c10:65fa with SMTP id
+ 6a1803df08f44-9103458aa2amr276801976d6.8.1788816820552; Mon, 07 Sep 2026
+ 14:33:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <f5e8166a-88be-46c5-8939-1e5227ffe4c2@app.fastmail.com> <CAG48ez3AYt=dYMYLEEhkrzO740wNsD1_3zZbKqo7MXThqEA+Zg@mail.gmail.com>
-In-Reply-To: <CAG48ez3AYt=dYMYLEEhkrzO740wNsD1_3zZbKqo7MXThqEA+Zg@mail.gmail.com>
-From: Jann Horn <jannh@google.com>
-Date: Mon, 7 Sep 2026 23:30:28 +0200
-X-Gm-Features: AcwNN1W46hwdEyXvSweES1CZaIcz1YKihPPLWsHsVoGKqpFlrMy2I4FtskUerj0
-Message-ID: <CAG48ez1n=BKDVJB2j-bcSLe_AwWsFkhOwpomaJpqPWaqzQemLQ@mail.gmail.com>
-Subject: Re: deadlock from exec_update_lock and reading procfs
-To: Benjamin Peterson <benjamin@locrian.net>, regressions@lists.linux.dev
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
-	Arjan van de Ven <arjan@linux.intel.com>, "Eric W. Biederman" <ebiederm@xmission.com>, Jake Edge <jake@lwn.net>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+References: <20260901054358.4049095-1-dev.jain@arm.com> <20260901054358.4049095-6-dev.jain@arm.com>
+ <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com> <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
+In-Reply-To: <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 8 Sep 2026 05:33:27 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
+X-Gm-Features: AcwNN1W7wBndyQG2UgjXdfAU5SOq--TgDgMkAQm3YP67ZZN3rfn6CHCdxQXyE8c
+Message-ID: <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
+Subject: Re: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
+ softleaf offset
+To: Dev Jain <dev.jain@arm.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com, 
+	liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com, 
+	lance.yang@linux.dev, baolin.wang@linux.alibaba.com, 
+	shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev, 
+	youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de, 
+	ryan.roberts@arm.com, anshuman.khandual@arm.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 2, 2026 at 8:04=E2=80=AFPM Jann Horn <jannh@google.com> wrote:
-> On Tue, Sep 1, 2026 at 4:50=E2=80=AFPM Benjamin Peterson <benjamin@locria=
-n.net> wrote:
-> > After receiving a kernel with 6650527444da ("proc: protect ptrace_may_a=
-ccess() with exec_update_lock (part 1)"), we encountered a new deadlock in =
-a FUSE server. The FUSE server reads /proc/PID/stat in the file flush callb=
-ack, where PID is the pid of flushing process. This can deadlock in exec_up=
-date_lock acquisition when the flushing process is closing O_CLOEXEC files.
+On Mon, Sep 7, 2026 at 1:38=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrote:
 >
-> Ugh, sorry about that.
 >
-> #regzbot ^introduced:  6650527444da
+>
+> On 05/09/26 4:12 pm, Barry Song wrote:
+> > On Tue, Sep 1, 2026 at 1:44=E2=80=AFPM Dev Jain <dev.jain@arm.com> wrot=
+e:
+> >>
+> >> In preparation for adding a helper to set softleaf ptes in one go,
+> >> generalize the swap entry helpers shifting the swap offset by delta,
+> >> for softleaves.
+> >>
+> >> Note that the soft-dirty bit, exclusive bit and uffd bit preservation
+> >> will still work for non-swap softleaves, since a softleaf entry is
+> >> constructed out of a type and offset, and those bits are ahead of
+> >> the soft-dirty, exclusive and uffd bits.
+> >>
+> >> For example, for a migration entry, pte_swp_exclusive() will return
+> >> false, as the exclusivity is encoded in the type itself
+> >> (SOFTLEAF_MIGRATION_READ_EXCLUSIVE).
+> >
+> > I don't quite understand why you mention this. Is anyone calling
+> > `pte_swp_exclusive()` on a migration entry? Shouldn't it only be called
+> > when `softleaf_is_swap()` is true?
+>
+> You are right. I just wanted to emphasize the second paragraph - that the
+> pte_move_swp_offset will also work for softleaf entries. But I think
+> the third para confuses more, I'll drop it.
 
-This should resolve the issue:
-https://lore.kernel.org/r/20260907-cloexec-before-exec-update-lock-v1-1-801=
-8c201a7df@google.com
+I would rather interpret this as meaning that
+`pte_move_softleaf_offset` will also work for swap softleafs,
+since `pte_move_softleaf_offset` will call some pure-swap
+functions=EF=BC=9F
 
-If you can easily test the fix on an affected system, it would be nice
-if you could give feedback about whether the fix works for you on that
-thread.
+Would it be possible to use `if (softleaf_is_swap())` for
+these cases to make the intent clearer? or we can
+keep both pte_move_softleaf_offset and pte_move_swap_offset?
+
+As `pte_move_softleaf_offset()` is getting a bit weird now,
+a generic softleaf function has a lot of swap-specific code in it:
+
+static inline pte_t pte_move_softleaf_offset(pte_t pte, long delta)
+{
+        const softleaf_t entry =3D softleaf_from_pte(pte);
+        pte_t new =3D __swp_entry_to_pte(__swp_entry(swp_type(entry),
+                                                   (swp_offset(entry)
++ delta)));
+
+        if (pte_swp_soft_dirty(pte))
+                new =3D pte_swp_mksoft_dirty(new);
+        if (pte_swp_exclusive(pte))
+                new =3D pte_swp_mkexclusive(new);
+        if (pte_swp_uffd(pte))
+                new =3D pte_swp_mkuffd(new);
+
+        return new;
+}
+
+Am I missing something here?
+
+>
+> >
+> >>
+> >> Signed-off-by: Dev Jain <dev.jain@arm.com>
+> >
+> > Reviewed-by: Barry Song <baohua@kernel.org>
+>
+> Thanks.
+>
+>
+> >
+> >> ---
+> >>  mm/internal.h | 29 +++++++++++++++--------------
+> >>  mm/memory.c   |  4 ++--
+> >>  2 files changed, 17 insertions(+), 16 deletions(-)
+> >>
+> > [...]
+> >>
+> >>  /**
+> >> @@ -523,7 +524,7 @@ static inline pte_t pte_next_swp_offset(pte_t pte)
+> >>   */
+> >>  static inline int swap_pte_batch(pte_t *start_ptep, int max_nr, pte_t=
+ pte)
+> >>  {
+> >
+> > We might find a user for this in the future, in which case we might
+> > want to rename `swap_pte_batch()` to `swap_softleaf_batch()`?
+>
+> That is what is being done here:
+> https://lore.kernel.org/all/20260813-migrate-rmap-batch-v2-1-3c5424c555c7=
+@amd.com/
+>
+> I don't have a strong opinion, I can also generalize this right now.
+
+I don't know how you and Shivank are collaborating,
+since you're both changing the same thing at the same time :-)
+
+Hopefully, we can get one of yours into mm-new first,
+and the other one can find a way to resolve the conflicts.
+
+>
+>
+> >
+> >> -       pte_t expected_pte =3D pte_next_swp_offset(pte);
+> >> +       pte_t expected_pte =3D pte_next_softleaf_offset(pte);
+> >
+
+Best Regards
+Barry
