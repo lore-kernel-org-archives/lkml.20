@@ -1,88 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DD319B5A3;
-	Mon,  7 Sep 2026 22:13:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B49F2512C8;
+	Mon,  7 Sep 2026 22:14:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788819220; cv=none; b=q7gis3eGqylwA5grdjAKjsbvbZ/1GJzSeQvRa32FZwM07wz5CLp7VuKah6QAjqGRnIRRldPhyJOMpcpvQ9mSmqvCKkdBYqu+kq0D+Mkl3jKOrb9KKZPSL0OkIi3f5ole3M+/+wz10uHEahiMmDRffxx0WTE91FPe7y07eyGhy9I=
+	t=1788819288; cv=none; b=da2whEqzEu59gzjo2qVhbcsc2LOacZqoGODMJ19HULATX0RUnPvIJ0bzs76v4gEvzvy/3x7K+Ff0oGwQ2z8LohSHQd6TxBSS0DVj1rjJrFHygSc//ynidCzcmlHeR/mtQHi1lZcFq3aC4ILufH51OolHKKQ5PF5WAdy1T2EAxlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788819220; c=relaxed/simple;
-	bh=+qe6ytbyTQ4oj4VE0v+4RxMRunN6UnQmesYUuA3wVqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AKCMxJl91h9huI/MEardvOxoSo7bmVWLtpPjrcgSZdS7Nz25ZtWw3YuBE+TOmUENabUSENipCybvKXeNleOeeq7RYGFgwRqrzwJ1FTURN6SaAJZ9gDTqKGzh+A9nTgRr4tLxI1zR3c4HkiZmGQQdNiNfKYWaxn61p2OjLuSE//s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QEB6pn6R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788819288; c=relaxed/simple;
+	bh=tHA8DvT+ZGAoZ+88//8DktoapK98E0GNZ/0yTO5Hbtc=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=eAIqTCnpA3aHtOGWmD5C25rE5qzfOkMouVAUDU/H5rI752aalaFyf87YPAgtc/S3z7jFNuFXNm8lKG8CCVlRrWe+a6/ccpPkp0SN3R4oh5lR6g9xBCL4YWyJKQNjTG4vJUd0/55D01Lz/mQmdkW69Zmn68yzWa218blQJPvYxXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBGMCLZM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QEB6pn6R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33EA31F00A3A;
-	Mon,  7 Sep 2026 22:13:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBGMCLZM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D9D1F00A3A;
+	Mon,  7 Sep 2026 22:14:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788819218;
-	bh=ZgKjfsHtYgTqWKaNbFLCtnc8X3K6sKxBe2W0c8nQIqg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QEB6pn6R+9hLn9X+eMFooE3mUeIcWRiOKERE1noHKZ8Otcb5UVOcEx91RLYcetOJ4
-	 Ar4FWFZ+9YEDLqsNCJ6CXj4eUT29uongnPVU6Muw8DxABAGSclbXCiWroDT1tw8krS
-	 +NTSRBna/XbEc2pXEc0Ul+DR2umQYSypy8iOgYC6J/wNsvqk/K086/w8aK5pgOftg0
-	 sIgeYOUFBg4beFgQ7l8yj+BLn5c34jTxRh45CdlThPYPBMqrtg6Sma7jXMnY4UaGub
-	 1moMJUJ9bGpaanDtIFKwuimyJDtzAhb5VjhERampXIDK6Rsr0YYLEnWweTh8JKqjnD
-	 KRj7cGW4O89pw==
-Date: Mon, 7 Sep 2026 15:13:34 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Marco Elver <elver@google.com>
-Cc: linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com,
-	Jan Kara <jack@suse.cz>,
-	Timothy Day <timday@thelustrecollective.com>,
-	linux-ext4@vger.kernel.org, Theodore Tso <tytso@mit.edu>,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] once_lite: Simplify condition handling and fix context
- analysis
-Message-ID: <20260907221334.GA1619741@ax162>
-References: <20260903101843.3462767-1-elver@google.com>
+	s=k20260515; t=1788819287;
+	bh=lWgXCcsB9CqG+/eI2m8zz0LJWHEJ6/DG+py2Q4e8IE0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nBGMCLZMn3JaCVqXK4ZBLAPY24CcGO6T1Vq7Ey8t24Cyec3ru3VSaVd8eIXC7iFhG
+	 2+RBB61bKEj/UNSkEoHDSbMQWvni3En8lsn84w3dshY4vuERLGG3M/qnSvILz7wq2d
+	 oEqXDblMLqvi/LAuqZglrwKJo5Qas8HFRvOqRyJiFzqZlW673kKaQpWVEdI9+9Y8vD
+	 kHX4V9Ij3CMAjg80lX7Z+LBONDjN80jw2sjZmoWFbFCi1f8v1+R/nFqr2yWoGectAK
+	 Pk8PrhVkVOnCGd9k1TVzk4ui475gdjaih+r7DvBOay2BN15EuSDCQ1ZeCgyKX18Vtx
+	 i2LgNdmFess5w==
+Date: Mon, 7 Sep 2026 23:14:44 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org
+Cc: Nicolas Pitre <nico@fluxnic.net>, Borislav Betkov <bp@alien8.de>, Ingo
+ Molnar <mingo@redhat.com>, Thomas Gleinxer <tglx@linutronix.de>, Dave
+ Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Andrew Morton
+ <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
+ rodrigo.alencar@analog.com
+Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
+Message-ID: <20260907231444.7fa2d116@jic23-huawei>
+In-Reply-To: <20260901175101.1e059ac8@jic23-huawei>
+References: <20260803094702.3852-1-david.laight.linux@gmail.com>
+	<11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
+	<20260803163955.627bdd3f@pumpkin>
+	<20260823233536.30b984ed@jic23-huawei>
+	<20260901175101.1e059ac8@jic23-huawei>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903101843.3462767-1-elver@google.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 10:16:38AM +0000, Marco Elver wrote:
-> When WARN_ON_ONCE() wraps a conditional lock acquisition (such as
-> down_write_trylock()) on architectures relying on DO_ONCE_LITE_IF()
-> (e.g. arm), Clang's context analysis (Thread Safety Analysis) failed
-> with a false positive:
-> 
->   fs/ext2/xattr.c:825:6: error: rw_semaphore 'EXT2_I().xattr_sem' is not held on every path through here [-Werror,-Wthread-safety-analysis]
->     825 |         if (WARN_ON_ONCE(!down_write_trylock(&EXT2_I(inode)->xattr_sem)))
->         |             ^
-> 
-> This happens because DO_ONCE_LITE_IF() branches on __ONCE_LITE_IF()'s
-> return value (__ret_once), creating an intermediate branch merge point
-> where the lock may or may not be held depending on whether the once-flag
-> (__already_done) was already set. Because the merge branch condition is
-> __ret_once rather than the trylock predicate (__ret_do_once), Clang
-> cannot reconcile the lockset at the branch merge points.
-> 
-> Fix it by refactoring __ONCE_LITE_IF() into an unconditional
-> __ONCE_LITE() primitive and redefining __ONCE_LITE_IF(condition) as:
-> 
->   (unlikely(condition) && __ONCE_LITE())
-> 
-> This simplifies the implementation, short-circuits evaluation so that
-> __ONCE_LITE() is not called when the condition is false, and ensures
-> that DO_ONCE_LITE_IF() only enters __ONCE_LITE() when __ret_do_once is
-> true.
-> 
-> Reported-by: Nathan Chancellor <nathan@kernel.org>
-> Link: https://lore.kernel.org/all/20260903072759.GA1750084@ax162/
-> Signed-off-by: Marco Elver <elver@google.com>
+On Tue, 1 Sep 2026 17:51:01 +0100
+Jonathan Cameron <jic23@kernel.org> wrote:
 
-Thanks, this fixes that warning for me across all my builds.
+> On Sun, 23 Aug 2026 23:35:36 +0100
+> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+> 
+> > On Mon, 3 Aug 2026 16:39:55 +0100
+> > David Laight <david.laight.linux@gmail.com> wrote:
+> >   
+> > > On Mon, 3 Aug 2026 10:49:40 -0400 (EDT)
+> > > Nicolas Pitre <nico@fluxnic.net> wrote:
+> > >     
+> > > > On Mon, 3 Aug 2026, David Laight wrote:
+> > > >       
+> > > > > The x86 instruction set only supports 32bit signed immediate values
+> > > > > for add/sub.
+> > > > > Replace the "ir" constraint with "er" to avoid build errors.
+> > > > > 
+> > > > > Found by a patch that added used mul_u64_add_u64_div_u64() to
+> > > > > do a rounding divide by 2^32 (perhaps not the best way to do this).
+> > > > > 
+> > > > > A quick grep only found one other affected file.        
+> > > > 
+> > > > Would be a good idea adding those cases to the test module.      
+> > > 
+> > > They fail to compile so it isn't a big deal.
+> > >     
+> > David, thanks for sorting this (and all for reviewing)
+> > 
+> > Seems like everyone is happy.  What route is this taking upstream?
+> > 
+> > I held Rodrigo's driver to avoid the build breakage and would like to
+> > get it queued up early in next cycle.  So not that urgent but nice
+> > to be able to tick it off the list!
+> >   
+> 
+> Given I have a driver queued up behind this, shall I just take it through
+> the drivers/iio tree?
+> 
+> I can do an immutable branch just in case anyone else needs it this cycle.
+> 
 
-Tested-by: Nathan Chancellor <nathan@kernel.org> # build
+I went ahead and picked these up on
+https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git ib-iio-x86-asm-fix-7.3
+and merged that into the main IIO branch. I want to give plenty of time in next
+for the driver that was relying on them.
 
--- 
-Cheers,
-Nathan
+Currently this is all in my testing branch but I'll push that out as a non rebasing
+(ideally) branch a bit later in the week.
+
+Thanks
+
+Jonathan
+
+> Jonathan
+> 
+> 
+> > Thanks,
+> > 
+> > Jonathan
+> >   
+> > > 	David
+> > >     
+> > > > 
+> > > > 
+> > > > Nicolas      
+> > >     
+> >   
+> 
+> 
+
