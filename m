@@ -1,63 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081603403EF;
-	Mon,  7 Sep 2026 17:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972713403EF;
+	Mon,  7 Sep 2026 17:43:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803017; cv=none; b=skvyBE5PV3qEvET90oal9ZM49NT4XhiWTXLBHqPMsmElYw+g4OGqUZkl9vaYjd/gVUBzML9Fgt7dQv+wridy4L3wfolhRjqpNrxIiv78tP4JcMG7qU2AxRbPVdIx+TCxB5UEqgmlEw+qsvI3jZiZRijxVcy6PQtyo9p+xOh5be8=
+	t=1788803026; cv=none; b=IqeiZWxQkvm23g9zIdacAuTtmUjjVJCZdVctKGSpjAxZRrnmsiWrbAC1KO1MolBEgh4hwM98X/M/gk4QPnScjdGbsWf9wuIDCJahm4y6uLcxovdcEkdYwPUgpyxrjP2PvJZwlwmo3tT8C/gz+R9mA4FjEtKPMLFGBMjffpUNwC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803017; c=relaxed/simple;
-	bh=c9wea5u61gvkufaCVarKmYlCo4MD5BWy0b4FTwdn5Mw=;
-	h=Subject:From:In-Reply-To:References:Message-Id:Date:To:Cc; b=jmQfKzdYQqHJMLHIMyzE6jz5UksrM2Uwc1O4gjCYNvBnlQMJJabtNZxKoQenSetuzSc7jl3l1613zGkt5gdE+J/YSpgTKW5PpYcAi0/YXwsqH8jrZGTpC3GAOXbAD8eJOKaSiLABdMEi0fI5T8mB5Bx0/Yoj1JOuyKYld/SLrfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdmK8uvC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788803026; c=relaxed/simple;
+	bh=JCuP5iwAbN1KVWFm0TUsonZQHuDpasz45FD7jELXQe0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=es3tl5USYSCjPkoLBxYuv+Vp4Dx22iK5pB0pC4icbo/7dmMgYtrlNDD5lW9UpLaovTzNBcnpzTqForO3hQklcNl1CXmyUqpR/v7wf1doGMX+3pPpcuhpVQJdM394NrDowJ/s5OS2i15ODJuK7xwZUqSrRah5kbyJMDJYbibfIpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZxswswL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdmK8uvC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B94F51F00A3A;
-	Mon,  7 Sep 2026 17:43:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZxswswL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98131F00A3A;
+	Mon,  7 Sep 2026 17:43:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788803015;
-	bh=ZmgWGQU4/wfOiSxF6ur0Yu3gGAmZbocA2sIo0L/6oEg=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=YdmK8uvCWxaTSZwr/2/TG9cFjPpXZN0s7WOuZm9Qdhgq9vNWKQ8COhgAl0/+EXjhZ
-	 6Lgp7RA33zdMHYD4ZEOxMTtKEpVXOj7rwFw8EnvbZ8GqFJ7uz0gQ4IW+dQBG691NiU
-	 BOyXcyJySAAGippgzkk0IqBxnsdf7zQ9bZG0yIaKWdjpuypVl/s6ZbpLkwW5Fp84B5
-	 lWo+kHJAZgwRjaaCbVhtlx06dCxojhZ7V/nsooARx0aWyEn0hKtRE7w2+4Hn2+Ibtp
-	 ZjxgxyA+xnz3kaMABnALHI/e8JN0/Pm6WKQ9l/t7xSxBkz5cRFPmYBHtqfFsPXt7Pf
-	 XOfUzIjsCLzcw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19B2939E8A46;
-	Mon,  7 Sep 2026 17:42:36 +0000 (UTC)
-Subject: Re: [GIT PULL] perf-tools fixes for v7.3-rc3
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20260907172557.3679541-1-namhyung@kernel.org>
-References: <20260907172557.3679541-1-namhyung@kernel.org>
-X-PR-Tracked-List-Id: <linux-perf-users.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20260907172557.3679541-1-namhyung@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools.git tags/perf-tools-fixes-for-v7.3-2026-09-07
-X-PR-Tracked-Commit-Id: aadea57f532882d8bab444646863c7ef8a778ff1
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 28924df2a08f440c73991b83028032c901de2ae4
-Message-Id: <178880295459.3100560.6284398277670215220.pr-tracker-bot@kernel.org>
-Date: Mon, 07 Sep 2026 17:42:34 +0000
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Arnaldo Carvalho de Melo <acme@kernel.org>, Ian Rogers <irogers@google.com>, James Clark <james.clark@linaro.org>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, LKML <linux-kernel@vger.kernel.org>, linux-perf-users@vger.kernel.org
+	s=k20260515; t=1788803025;
+	bh=icUnZOhRCh6jXI4eaxDCpDQrM4ohx6YfoZJErlEzabY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SZxswswLdFwzA1ope4PgsXvXqIZSObU2mgTxmKWD/Gmp1P90Lby9+8F6+rcfFJWkj
+	 ZFXpC7yUxkjw+NqPU7JUTqqEbnOFnbPvugD8BYk7i3BGdb5hB/XkSfL11p33yiJzF0
+	 4rF3okuYzzLFiMpNNdXupIjCOe9SaXm1xQWe2cb6pDOZDdZNWIR7AaCwfiyjpdb0zZ
+	 DkCJR/0F+M55i1JSZ5Ng36icOjip6p0a9FHrGvi0FkxhAc7OcwxzijxSzKL0orM3jl
+	 q2kk6+VrS4vvas6k6i3qdaSX1cW5MXOt2JlpGK9EeQ+QtFTJcgl3eUluv8suCVgFOr
+	 +IbDzPy5cC72w==
+Date: Mon, 7 Sep 2026 18:43:40 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
+Message-ID: <20260907-tassel-bargraph-836b6f41fc43@spud>
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+ <20260904-colonial-wimp-b37c27657664@spud>
+ <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l+BsWOi6/ltuqzg/"
+Content-Disposition: inline
+In-Reply-To: <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
 
-The pull request you sent on Mon,  7 Sep 2026 10:25:57 -0700:
+--l+BsWOi6/ltuqzg/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools.git tags/perf-tools-fixes-for-v7.3-2026-09-07
+On Fri, Sep 04, 2026 at 06:24:04PM +0200, Marek Vasut wrote:
+> On 9/4/26 5:32 PM, Conor Dooley wrote:
+>=20
+> Hello Conor,
+>=20
+> [...]
+>=20
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - reg-names
+> > > +  - clocks
+> > > +  - interrupts
+> > > +  - phys
+> > > +  - phy-names
+> > > +  - power-domains
+> > > +  - resets
+> > > +
+> > > +unevaluatedProperties: false
+> >=20
+> > I said this elsewhere today, but this binding has lots of "distasteful"
+> > properties for things that should be determined from the compatible
+>=20
+> Which properties would those be ? (it seems
+> reg/clocks/interrupts/phys/power-domains/resets really need to be there as
+> separate properties, but maybe I am missing the point?)
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/28924df2a08f440c73991b83028032c901de2ae4
+All the quirk properties is what I am talking about here. There's about
+50 of them and I don't know if a single one should actually exist.
 
-Thank you!
+> > , so I
+> > would appreciate it if you could use additionalProperties: false here
+> > cite the ones you need to use explicitly.
+>=20
+> May I ask, what exactly is the rule of thumb for additionalProperties:fal=
+se
+> and unevaluatedProperties:false ? I seem to struggle with picking the rig=
+ht
+> one for a while now.
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+I would say, if all properties being imported apply to you device, use
+unevaluated. If only some do, and there are some that will be
+problematic or confusing if used, then additionalProperties: false and
+citing the good ones explicit is clearer for users and prevents the bad
+combos.
+
+>=20
+> > Sounds like dr_mode: true and
+> > maximum-speed: true are all you'd need?
+> Ah, I think this also answers my previous question a bit. And, as for
+> limiting the properties that are really needed -- this pulls in the common
+> DWC3 USB IP core properties, which all do apply to the DWC3 core. They mi=
+ght
+> not be used on current hardware, but they are still valid for the DWC3 co=
+re
+> (IP).
+
+--l+BsWOi6/ltuqzg/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap73zAAKCRB4tDGHoIJi
+0pRzAP9n+Hs4lKXTWOlC5IvXgMmAURFKmKMNBSNfQLljYt9DNwD8CZYGxm79twVN
+jHExhMMyd2u/59PLFdTLRCT9WDghLgA=
+=whhB
+-----END PGP SIGNATURE-----
+
+--l+BsWOi6/ltuqzg/--
