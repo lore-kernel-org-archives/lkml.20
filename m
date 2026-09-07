@@ -1,100 +1,77 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB45F472F74
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874FB483BE3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782493; cv=none; b=Z5bDGXoSIS04zTORQ/0qe8+ylyu2jnrW77sTvuyPTAq6Pjp56A7FnbTLWcbnlPGtQRuYzEM3XwfE+I4mNnwWzIu18Q1pYBjrsj/Oj9RlY9YccSanRdetHiBUOAhMfJ5MIaYb4RHpjwt7TVMQqCIMZiP54Annbfi7EgRIagyYvUQ=
+	t=1788782494; cv=none; b=nRzt7F5xdCq26GFOVAMUbvAHC+Ai+2uj8a7SnLYX+h2d0GRRfdbtvTlgy0thHntfI4p/wFLFzuPy0SZB2NbvT5gatJJuZB6gue9pQccmJejCx47lTYXNCCBg4g18Gv4zYCPOWxavBr5Fu6sGWvY153NywL5efPEG2Ffel3cZcxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782493; c=relaxed/simple;
-	bh=7dtk/PimTN1tTIbaXYo8FFQym9q4FLwW3xCtKGUgfWQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rKmPTs+Xo/duIg7skyLdngEFcdqXLc+N18RTXhF80LLYAlnHtCtwM4PrXIX++2tM6/SChh6wD++umbebVyi2/pCcQXaAGSdyxbCs+SMNjnNPRIK5oYnXqRaVEYVyasEHlKBkd75mSjhKDDUavrLuJ53gfS9hO4yUKuLoostOT0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p/PhiJ0P; arc=none smtp.client-ip=209.85.210.46
+	s=arc-20240116; t=1788782494; c=relaxed/simple;
+	bh=CrlhUJHxSyS7QTCXqZCtb5+kT27E/1q8+f1+oITtvvk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C2pFCR8M0hSZpbTUlzSrSA5x6eazuqoGZb6tncWwb1OZUGkQLVpkk1mM93WEBfv9Tygqd2D9hwfEkfQfELL1lETQJyUeUuzOfiBa/JsfTaxdZ303pFGGayaWddDXwuvSpYYxPOlTsJL1yZi74nm+z16zFbIloJGCFeiC/zT0Ex8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RrFcZrD8; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p/PhiJ0P"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f3ece23165so2810680a34.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RrFcZrD8"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8520161fdb9so3672976b3a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782491; x=1789387291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rfDPZXNcg+Nl7/Ylu6hp6siIi0FsvzwquJx1kpnnIKw=;
-        b=p/PhiJ0PBYt2wgMwniYO4MT996Zl45VIDXDn2PYDpLtIS0xe+eQ4HNYg61LkkTVClY
-         fyuTnd2T7K/pQ4DjXFI81gBBycruasppeTkiDOaiUds+bYZP6SI8Fm+oCo5yjllJ6iWG
-         ampiRSsc/LSJnDU9VFFw/kGDsCk3xJ4wU3JHaWhrkGeY2PvYht/jyTfZcOENcPasttlD
-         bnoX3m1itnamMgSXck43tJpAoIGCSCZM1fnUz96QmQJjwKp6E1iy+QE7yQdEwngTo4Qu
-         PS4XQLHxQ8Y9AXvT7VEtvfs1tk/74riQxAnKmljJByowNb84fB7iRktv4gGhfY3grnQi
-         gQgA==
+        d=gmail.com; s=20251104; t=1788782492; x=1789387292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fGYY8R1XstP8r1J3lVI69+hhzGANnc2NV65GGslrhcI=;
+        b=RrFcZrD8xsDPiRD6TavQjh34WzIa/Z4o3TI0KLV7iaPIIf98yFxHA2WOKCypkQ9Ivq
+         E5P2cd2TgqpfOFPvalE0a/OGTZLIiG2QPh5ESCTs1+oZYwDIavZ2zau0m+vRlVL5uZqT
+         UKjcomTy1b2FkPLqg49cyJo9QeDZBeMFsMdgP9q7LsB9NDrCIo3EbsMaqZkrW+8ZyqdC
+         QnxJJDuCK1hbUhUqsVh/OyJC+evGDSw+BSWYddyIOzvhKBSvMCLYZpDm4d0ejbSAxy5/
+         y2YR5KlQC0UOC30kugsrgUOEwUfkjx9jw6f+JoeZb9baQpYjfBqj2OYmAbQZSLEli6dB
+         O3CA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782491; x=1789387291;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rfDPZXNcg+Nl7/Ylu6hp6siIi0FsvzwquJx1kpnnIKw=;
-        b=YljnT+O1XG5mHzQ2j9HElPrwT/yGZfhKW2Pw7LCYhX9xoYd4uCNXslw5ZjKBrmDaHt
-         cygj6vRDdDRxJ2OlwGHfdS47Rtpz3HyE0nfQ7iBvHitUe5lfNw3H8zNmMh4GWPgtzL+/
-         1IsOKwgoEp0VJt+7TyFrYnkfycyaFRVfuduYXy8DM7aRyemV70dx1qvZZXDCUy9+Wo2H
-         /EzPNCTG7Xh0ljxBUCV+fSLZpSoTh7cStYLxnuEhy8Iv1PzBQro9l7W4TS1k2VdW0yYr
-         nQir+0hHYztCdlZnPXsFpbOexWg5k9A/JHvUjwtrc683od8eOHGvHvznhLiI5iEQ8nUt
-         a08w==
-X-Forwarded-Encrypted: i=1; AKwUvBzPXvGaJL7nq955CIvpMLpK7MXmYeoLICdW29Pql7vGE9gI2V8qsdkDx5PHrY3+JOSVSZCTO1zwar5Jeac=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIgRty2RF9aTr+cZ0Y2fDqeoUkFLBIcJKtOfwDW/cwZESdUEug
-	wwD4Z85avB40tM8R0uoCo+sZD+8XM37+PmSo1zwtIu9ogyeXwVGbehpp
-X-Gm-Gg: AYBFou06TCDhZOlujitwhUeJRIxrUr2/SoNNvcJ5Oiwa1OWlVn7rqZ26ACZO0SQliTP
-	oRTMZ5ov0+lFSOyMPVFfTxgfCuZcSV6Mzmk1KEY5pGBBs6f38gVjt7oDGQu9gayxr9jV2KvjEEE
-	+nzhdlkX4xYQ+aHpI8InzytBCuZbOc8Tc3yYJWrdoOA1BHXXrpqTZDc7WbQ9AXhNjhIpvatThVb
-	4biwhQMngEltUTLSXRJkvsYYXJE0uO9KznG1K03QR1p3wxU9y1R5lJGb2WohHs0GhviEGzTxaMs
-	oNL0S6/dwfsZHkrY/Em/0LmZ/DJmDkZ9VwTQg13G0/DxfC/iBItPCU7um8ftbVNn8frqw8g7hx6
-	Nrb24KFrRSzYroH9i/D/wbZMVq4Ckq0b+4kMrmSLWBhba0CcEqlnZqW95kSn/FcsY672TqCZGbj
-	4TBZ36KfX9Um9uH7998rbxm8+QWJmD5qs80BqCbK+GoTXy2AEoBt/6e6BOuklGLrDJpG6fkUQpI
-	L0JIf4yUWo8yQ==
-X-Received: by 2002:a05:6820:6ae7:b0:6aa:d13c:a709 with SMTP id 006d021491bc7-6b6fe2aeaf0mr12073907eaf.31.1788782490438;
-        Mon, 07 Sep 2026 05:01:30 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm31244462eec.1.2026.09.07.05.01.22
+        d=1e100.net; s=20251104; t=1788782492; x=1789387292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fGYY8R1XstP8r1J3lVI69+hhzGANnc2NV65GGslrhcI=;
+        b=WGXcTQqLgEHE7XSMUWh+Sg9A0RA1MDv+xj2QGZ2Q94tFSoFCsCEUnDosrhP5/5yvRG
+         c5wCMUZHOn/Rh5+kjaNy7UO1RzPbEoV9KShHzgAJD4qT6Q8l6k8C3ednMoHKIuDG+2By
+         YTTO5c+8ovKYoBobW6FP3RLXADbWlX8QAz0eDHdY1wV6aJ2Q/nAVoBXlvETLjTvXj8aq
+         uQQvOlgGhImTecUqnk+ayj0JP+qo5DuoVp9SNCivtwezPyVFh/V8pTBhzLXQvDlk+HLF
+         ldwa6BQ+VoNOGJWgog2wng/IbO0e3xeQ85LgluMCJE2mp4XQbsKaz5rHAgGY+5KHrR1c
+         v+fA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBsx+k5YzHJ3Q/BIXVkcN259zaZoJUJAdFTKORZbK74J3qpIwcFATgdFTiqMuXHwCNHAkgdRWi7kgM/HI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kI55PlVP0nG6lFeyf0XeNgQ76QPJF82NlwjSlZTefbu3X+Pknj
+	smqfJP9FC8uyT4Nr1nfRTi2j5ytKRIVKL2CnzxFZskElnttsDal29kw=
+X-Gm-Gg: AYBFou18jowZUGuv7upD67VTjy5Y/qhTLkKvZb99S5AdZdzeo6YCIk9uwwHXzyOGFNH
+	LFQ6CmQSKjd9Ry9SgPQBSzsSsHdTyJJwkMhheq+YhlNNsMKC9m7zZdzZZpZVNzsJxhZwq4hiXhH
+	jmXAKMd5aECJFAcKye/GyXp5fYGwtUXZDWsTcpuxt6J1fS8FuOma/jgQGJIz9ioK+bzP0E3yA0g
+	LxMYo97qBLpShT5IZI7fACZFCvnDsQc9G7dMPDwUVmtqvvtvbjO9M5bYYC3UYu+mUtQUf8jYHCz
+	0pAZobf7StUpWcSklwmS2DHfIR8foTaYQXZf1/4CiuN79hhOZ7CZDmw3l71uMwytuFz3iNgYjHy
+	UmktHUmj6XE4JbsM7VUTo/lkS0PFCfIvuRhYtmflgrCNVknKdaXItwFVZ5FgmIvcYFZVpbJggfn
+	4CAoMQHUKUteQfvMWdbtiA5PuLb3NwuunK6nZ8PWKTkUFmKxaAyXZ7fDL2zP5uT2bHaw/rQ55/V
+	Dn8N5PuEI15wJeb
+X-Received: by 2002:a05:6a00:ac8b:b0:85f:2f32:7a53 with SMTP id d2e1a72fcca58-8616c546f9dmr33820834b3a.17.1788782491666;
+        Mon, 07 Sep 2026 05:01:31 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153f417f2sm4148847b3a.58.2026.09.07.05.01.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:01:30 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Russell King <linux@armlinux.org.uk>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        Mon, 07 Sep 2026 05:01:31 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Sean Anderson <sean.anderson@linux.dev>,
+	iommu@lists.linux.dev,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kselftest@vger.kernel.org,
-	sparclinux@vger.kernel.org
-Subject: [PATCH bpf-next v3 4/7] selftests/bpf: fix typos in comments
-Date: Mon,  7 Sep 2026 17:30:40 +0530
-Message-ID: <20260907120043.36894-5-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907120043.36894-1-hemanth.selam@gmail.com>
-References: <20260907120043.36894-1-hemanth.selam@gmail.com>
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH v2] dma-mapping: don't trace the DMA address when the allocation fails
+Date: Mon,  7 Sep 2026 21:01:24 +0900
+Message-ID: <20260907120124.603373-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -103,74 +80,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+dma_alloc_attrs() passes *dma_handle to trace_dma_alloc() without
+checking whether the allocation succeeded. No backend writes it on
+failure: dma_direct_alloc(), iommu_dma_alloc() and the dma_map_ops
+instances assign it only on the path that returns a buffer. Callers
+usually pass an uninitialized automatic variable, so a failed allocation
+records whatever the stack held, next to the virt_addr=(null) that marks
+the record as an error:
 
-The subject prefix changed since v1, from "selftests: bpf:" to
-"selftests/bpf:", to match the rest of the history in this directory.
+ dma_alloc: dmatrace dir=BIDIRECTIONAL dma_addr=deadbeefdeadbeef
+ size=1099511627776 virt_addr=0000000000000000
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The device coherent pool path reaches the same call: a non-zero return
+from dma_alloc_from_dev_coherent() means the request was handled, not
+that it succeeded, so cpu_addr is NULL and dma_handle is untouched once
+the pool runs out.
+
+For an allocation event a NULL virt_addr already means the request
+failed, so the address field carries nothing. Report 0 for it in the
+event class rather than at each call site, which covers dma_alloc_pages()
+and dma_alloc_sgt_err() as well.
+
+Fixes: 038eb433dc14 ("dma-mapping: add tracing for dma-mapping API calls")
+Fixes: 68b6dbf1f441 ("dma-mapping: trace more error paths")
+Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c       | 2 +-
- tools/testing/selftests/bpf/prog_tests/task_local_data.h     | 2 +-
- tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c | 2 +-
- tools/testing/selftests/bpf/progs/verifier_var_off.c         | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+v2:
+- report 0 in the event class instead of splitting the two call sites,
+  as suggested by Marek. kernel/dma/mapping.c is untouched now, so
+  debug_dma_alloc_coherent() keeps being called for a failed allocation
+  and decides for itself what to do with it.
+- tested on x86_64 rather than compile-tested only.
+v1: https://lore.kernel.org/linux-iommu/20260905071919.30784-1-donggeunyoo.kernel@gmail.com/
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c b/tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c
-index 1b25d5c5f8fb..8b96fb861368 100644
---- a/tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c
-+++ b/tools/testing/selftests/bpf/prog_tests/lwt_seg6local.c
-@@ -13,7 +13,7 @@
-  * IPv6 header with a Segment Routing Header, with segments :
-  *	fd00::1 -> fd00::2 -> fd00::3 -> fd00::4
-  *
-- * 3 fd00::/16 IPv6 addresses are binded to seg6local End.BPF actions :
-+ * 3 fd00::/16 IPv6 addresses are bound to seg6local End.BPF actions :
-  * - fd00::1 : add a TLV, change the flags and apply a End.X action to fc42::1
-  * - fd00::2 : remove the TLV, change the flags, add a tag
-  * - fd00::3 : apply an End.T action to fd00::4, through routing table 117
-diff --git a/tools/testing/selftests/bpf/prog_tests/task_local_data.h b/tools/testing/selftests/bpf/prog_tests/task_local_data.h
-index 8ae4fb2027f7..9f2971fc7cd5 100644
---- a/tools/testing/selftests/bpf/prog_tests/task_local_data.h
-+++ b/tools/testing/selftests/bpf/prog_tests/task_local_data.h
-@@ -243,7 +243,7 @@ static tld_key_t __tld_create_key(const char *name, size_t size, bool dyn_data)
- 		}
- 
- 		/*
--		 * TLD_DEFINE_KEY() is given memory upto a page while at most
-+		 * TLD_DEFINE_KEY() is given memory up to a page while at most
- 		 * TLD_DYN_DATA_SIZE is allocated for tld_create_key()
- 		 */
- 		if (dyn_data) {
-diff --git a/tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c b/tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c
-index 624078abf3de..d7e30ee576c9 100644
---- a/tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c
-+++ b/tools/testing/selftests/bpf/progs/freplace_unreliable_prog.c
-@@ -7,7 +7,7 @@
- 
- SEC("freplace/btf_unreliable_kprobe")
- /* context type is what BPF verifier expects for kprobe context, but target
-- * program has `stuct whatever *ctx` argument, so freplace operation will be
-+ * program has `struct whatever *ctx` argument, so freplace operation will be
-  * rejected with the following message:
-  *
-  * arg0 replace_btf_unreliable_kprobe(struct pt_regs *) doesn't match btf_unreliable_kprobe(struct whatever *)
-diff --git a/tools/testing/selftests/bpf/progs/verifier_var_off.c b/tools/testing/selftests/bpf/progs/verifier_var_off.c
-index a63e33675091..227dea0da3a0 100644
---- a/tools/testing/selftests/bpf/progs/verifier_var_off.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_var_off.c
-@@ -225,7 +225,7 @@ __naked void stack_write_priv_vs_unpriv(void)
- }
- 
- /* Similar to the previous test, but this time also perform a read from the
-- * address written to with a variable offet. The read is allowed, showing that,
-+ * address written to with a variable offset. The read is allowed, showing that,
-  * after a variable-offset write, a privileged program can read the slots that
-  * were in the range of that write (even if the verifier doesn't actually know if
-  * the slot being read was really written to or not.
+Tested with a module that puts a known value in the caller's handle and
+then asks for 1 TiB from a 32-bit capable device, with the dma_alloc
+event enabled. Before, the record carries the caller's stale value; after,
+it carries 0:
+
+ -dma_addr=deadbeefdeadbeef size=1099511627776 virt_addr=0000000000000000
+ +dma_addr=0 size=1099511627776 virt_addr=0000000000000000
+
+A PAGE_SIZE request from the same device, as a control, reports its real
+address on both kernels, matching the handle the caller got back.
+
+This changes what the record contains, not what the caller does:
+*dma_handle is still read to build the tracepoint arguments, since those
+are evaluated before the static branch.
+
+ include/trace/events/dma.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/trace/events/dma.h b/include/trace/events/dma.h
+index 9df02c1511de..b06d8f99922d 100644
+--- a/include/trace/events/dma.h
++++ b/include/trace/events/dma.h
+@@ -134,7 +134,7 @@ DECLARE_EVENT_CLASS(dma_alloc_class,
+ 	TP_fast_assign(
+ 		__assign_str(device);
+ 		__entry->virt_addr = virt_addr;
+-		__entry->dma_addr = dma_addr;
++		__entry->dma_addr = virt_addr ? dma_addr : 0;
+ 		__entry->size = size;
+ 		__entry->flags = flags;
+ 		__entry->dir = dir;
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
-2.48.1
+2.53.0
 
