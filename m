@@ -1,294 +1,186 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012027.outbound.protection.outlook.com [40.93.195.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8274CA798
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:59:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786002; cv=none; b=PTQ/jIVx1ElZ1GJa/Ss3zATae1NUUv7ZGT0lgwHOzPaVbiWtgcPCuTuXS7So2qH3x4Ri4ELfNPpMwmpjNjT25XcjhW9sbo2i3oAjroW33ULvt64J103QPxJmHDeN4/YhAaxgcmTQ/bDZFDmBR5M/ZKMJUZzvj6ugnomP2cc9tDQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786002; c=relaxed/simple;
-	bh=MsqzCNMXKgqeUkLsZ9coMgcq3LkVtrXXQE4c14xpLRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hDi6VLbXwXxcGd/ND4YbEW1zpySVLjDIpcnkP3wpl4LorO4FCqj471l0Ie0SSuS4rUKAXcClbTgYMUB06juOSgTOinUivSQHbOEzWPqSVTXBj4q4k5uRogI51ZET1EUdr6l1BEoa2kEONLWakSd250pt4dy/4f0rGLB4A1m9qlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsvfzIpD; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B854CB8D9;
+	Mon,  7 Sep 2026 13:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788786014; cv=fail; b=sYX0Viri+aGjgeSWJx1nfUjClWJnFjoT4LHSBFF/boZAyLx+RPhg1HNqCCTh5ZzczQDGzOfhDdCredKJAfhqQAcNvidPGCa3n5ThJ50JRa4Db1Gg+lkeJfT7A2cNGq++W5+5H6rmwejVcvO0kw/+QMOH9cZ/P6yrzp4gkqdXELA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788786014; c=relaxed/simple;
+	bh=80PjoCpON2fiOG2RSx6yyzJaFQdLFzstt/+1lYEdDto=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dufF9qb9/voWjXSRYM05qXFQxrU0q6XbXpNcZ2HWk9vRJkT5NQ08xOPjjvOdQenaK8bxAARrCcf7zJK1T6IGcRnsdpNpJeGKWIiuiTQd6kwA6qIU3GU5t6y0JCQMwv2jyE3d44VEWHavez86vC0n6elNJVaQUnNzjw3SPhQ/hVU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ywrcvw9A; arc=fail smtp.client-ip=40.93.195.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsvfzIpD"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so28241815e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788785989; x=1789390789; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Fedd1Lk8v7XqLnYfi6ACsWWe1EX73jfitPVMPywY8zQ=;
-        b=EsvfzIpDk1Gg9gKQ3ZOoXw3mDHedpnFH68K1g2JEzvuenU5jWodHUgfrCXWAEaVorU
-         CQHxb6dOnuVXeHohrRXqzSjtn9CNiuCfyhejsTyE9ni2cQsGhoLg1T730cFBIBW4hdW8
-         Gc43SSPhQQndZMVwULTWP47r6KEXUddCgWR6EQqdy9sv+50Nvz9AEllRUXQQEsKgbmSa
-         sjt5Tn0yO6Jbo//Tmg5SXyTp3y+Y1gr1dscH99VF+EeDSUDrF/Dp2Z2QJlZG68xDphfy
-         M8Eurth/LM5OETfLN0nfjHtyE98chFhUkcIO4ZL7J/cFJuWtgVQTYu+NNMm0iUlLDWo1
-         4v9g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788785989; x=1789390789;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Fedd1Lk8v7XqLnYfi6ACsWWe1EX73jfitPVMPywY8zQ=;
-        b=q6bFFrBAdjlxs5YEyQoLuvyA/enYABjwAgVHiqQ4jVG9TOKbBuEsqZuB3DVTgZacMp
-         5ESpko1CGLzcIvOEkoTtguyanUkIkbnjzgkyhLy7heIICcqQtBIMoNDjsFVZzMMzUxCD
-         VKPUnTqEI22KUXxwj7mDFTgSC6M/j9tVVPl1S1JyLQVM9fLkFvKXThSm1sXNPRnHiU02
-         8HIOO3PGw/eA977bNhniWI29H8LuDv0iysLjlWdmDyBXkAfGHDNCho3aMQuEvmguc3je
-         +kfK+f/gpyi78Ll98B66mpR2lVV8edMdZQd0REo3ZZVPDR7yJSknckvNxM/W09umBvn6
-         iY5A==
-X-Forwarded-Encrypted: i=1; AKwUvBzHJVYU382yhU0D5Gq+lMdR4GChkAX0Oo+bnZUqGesG/p5kHKEikF4IVQO7nFds/pCly6XNwaUyDzQpogg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQ8Nj0Buq31JbuMtHgy8GjZxUUrNLFS/rj9DERtUNth0fcy1FI
-	+OEnOHsHS99KEHo5jkmRQYVI7UDJyxUqB7ENR2Y6MrUBRoTgHliLO5s3
-X-Gm-Gg: AYBFou0CIjeoeWSq+2aVztu70dUxzrZLVbJk7QE9xTyZgqzkf0+PCJP4x5FmEZmOMoQ
-	r6nk+096IcoM41dLyFRN3v89wgX5Z5c5OyG6wr1w7J4u5GsZ/TFIocH9zFXEKpQVGzcUWmkX1Px
-	68gCTB3J1CRPDue+HZPZfmBA2WDMlC31G4JCoO069M03/CVI3YeMaT2OPVCf8SeQR5ndqYmsX/u
-	U42X66IA0DLsW1/9iZoIa0XUgudOy4GaeQRwFYrFeDDOt1ELLNgr8OvD7gQBGd+KgjpkDwwXRtc
-	jALxyvhwzE38I77xdXKwntPRpYw/e8ZCOYJlMN9rzLieEsae5c08rlzFJYcv2onl8Dg+3zbD1E1
-	HinNIDTRFXxOnrw+B0GwvQNgx7iNvILd8qM4QNJ57JLk6s1KyWhvu6Jt/c7tVP1QQ/IVBqr8KC8
-	fC/2wP5UQ4eSllz07H9HM/t8+rwmI3Xy4IS4EmvsX65xcD2vQeEcVBREhn/S2j+rTegHl91SvAs
-	2Py6OUUphGk2eOjtrXRYBgRiQ==
-X-Received: by 2002:a05:600c:c162:b0:49d:16dc:e721 with SMTP id 5b1f17b1804b1-49d16dce7aamr16981995e9.24.1788785988330;
-        Mon, 07 Sep 2026 05:59:48 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm306405115e9.6.2026.09.07.05.59.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:59:47 -0700 (PDT)
-Date: Mon, 7 Sep 2026 13:59:46 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: Petr Mladek <pmladek@suse.com>, <bcrl@kvack.org>,
- <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
- <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <libaokun@linux.alibaba.com>,
- <ojaswin@linux.ibm.com>, <ritesh.list@gmail.com>, <yi.zhang@huawei.com>,
- <sforshee@kernel.org>, <akpm@linux-foundation.org>, <rostedt@goodmis.org>,
- <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
- <senozhatsky@chromium.org>, <kees@kernel.org>, <tglx@kernel.org>,
- <linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
- <linux-kernel@vger.kernel.org>, <linux-ext4@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>
-Subject: Re: [PATCH v3 0/8] Convert barrier pairs to acquire/release for
- better performance
-Message-ID: <20260907135946.2541aa7e@pumpkin>
-In-Reply-To: <75aeca50-74bf-4888-9dc8-7ac3c5af32ca@huawei.com>
-References: <20260902074805.398540-1-ruanjinjie@huawei.com>
-	<apq5iLOF8lAQ_ZVU@pathway.suse.cz>
-	<75aeca50-74bf-4888-9dc8-7ac3c5af32ca@huawei.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ywrcvw9A"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uBTNoGuNBBRRYKR8HHQ0XLcwK40EmcbC55qF6a+97r47p/mwCCm/s/DPvnz1Jfe1UpeT5QYuE8gAuK3DJ9YQOY+VblQ81x1ze6sRYyuxJ/AzpTVIopem27B8wQwhz9QVuMv+u6BrO0Y8YXlCoRupU1i6e0bF4R4RJU7YgrKxzQxkbMGN9f8ozD/od3AOXGqKYlxUrhgPVD4om6zckvtgR2pm/XZw5hWr4dh2Am4n5TJ5zIOQDcYu7fiBUtb1SyR6Tao25sVJTZEZusJu2ckyX5G9CNO7pbEXYh5Krd9kZhluht3N4W8dwe5RzlZPwj0u//oOhyVJJ4omz7qMPf7knA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vnovx7YMejF0hMnUnFvJQGSugmklUXC5W0e4B4GSRsg=;
+ b=PhB0dHgjPSLUlxYpqU8Iz+IqNwABr3kTrl+yIrK7J8DfXPO+4L+FC0yR6jQBk/3jQKn5MwLol/CdiQTjk82NCVku0ctswGWBQdaFVl8OZpcx2pHwY2G2J9T+GZs4FF/9yfb7+BFtVratGLSArRLyTsb5UmPz1pjdsbjujxrIC5xgriao+weG7JsCeWctv28suXFEksiCJ6lVnfXP6GsEuOj1hvoU3EG3/47KYQmlj6fkUYOoU1ODQzizZx4ML33tmzA6wteyIJdFq4gIFqGMbxFDdZN+qsvGmg+o1AB+hFxH3Zb3kg0Cyxnof1Yfvq8BOwczRtKs/HJUY5uczAaeMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vnovx7YMejF0hMnUnFvJQGSugmklUXC5W0e4B4GSRsg=;
+ b=ywrcvw9A9YqS4mn5yy6YtjTasGQ9a02sy51l4vLbOIcgO9xCpjJuVLYshVksWYvKuzTuxEDTdSuKh2pQonsII/dEvBDfjvZkMqRvjot+OM9/t7QOVDTLY+rQ305qHRn7EhI0rAESC6SZwH0NAJQ3HTabHz6TBJ1GIkGMnfSEcy4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY8PR12MB8364.namprd12.prod.outlook.com (2603:10b6:930:7f::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 12:59:58 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 7 Sep 2026
+ 12:59:58 +0000
+Message-ID: <fa12360b-2ccf-41c4-a158-84e34835c0e9@amd.com>
+Date: Mon, 7 Sep 2026 14:59:54 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: phasta@kernel.org, Tvrtko Ursulin <tursulin@ursulin.net>,
+ "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, matthew.brost@intel.com,
+ dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ mdaenzer@redhat.com, alessio.belle@imgtec.com, luigi.santivetti@imgtec.com,
+ stable@vger.kernel.org
+References: <20260904080618.2098450-1-malhyuk97@gmail.com>
+ <20260904080618.2098450-2-malhyuk97@gmail.com>
+ <f25f2a91-b72e-4392-ab53-c11ef60e0fe0@amd.com>
+ <ee27d37269f609192cdfd7a217d9731d7dca04c8.camel@mailbox.org>
+ <a41a35b8-c78b-4c18-af11-26374918f222@amd.com>
+ <7e4497506bb051fd1c25ed54f88a8036084e779c.camel@mailbox.org>
+ <81e51d72-d608-46d0-a986-390ecd6f468a@ursulin.net>
+ <d3d2ae0ae55fb07780f643de9517f3668484575a.camel@mailbox.org>
+ <47464619-890d-484f-986b-9a6c06cd89b0@ursulin.net>
+ <c3434f0a80318390d183a3a2f8f8fb3ae71c9906.camel@mailbox.org>
+ <2aa58eb8-a33f-45b9-8ee0-518d72160f41@ursulin.net>
+ <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <206df2dad0c68b8c25862c74c0a8399940044af2.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BL1PR13CA0359.namprd13.prod.outlook.com
+ (2603:10b6:208:2c6::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY8PR12MB8364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4baf578b-24c7-4622-6f1f-08df0cdfebe9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	3ztaOm/TCPL7BVwAWwnOin1XAPlhhn7ExdTDdI6CzDjBfeg2SxqcouMZKs6eW6Iv0o+7M6DgoMw5sJHmRhrIbLogvk37k1t+5CMlAeUYiSt5bZl19qDlPhxXp1RPo5LQ2lxkjeSqRdAValSd3H7vZTd05ThakTHDkpPGJGHWN8UgNxvVsT8uV1gRg6LoAALP8wTGiSiWvJGYGIPs32BWXHlO99womGWjRdB6/cFzJosNMA61nnih2IuYr3YmbPYxL1R+oqrhNt1nTytRWczJ/ylx+9XYQArAfoBHp5YqmWud2HwB6/IEoKuIE30KfBfvpt4vsDbl/F8Z0k6PP2Tpk3w4f8NvHivkSa410ENMXKUEBxsGpD4V51ykImNccJR+QiP20oGy4wi9U4PVSQAqtRRf4PBqwIJFQ8gscn0V0foiDAR92eVlbJ0eBRYdsW1sgQogZdyqN+0ILVgeEen6L4JMTCZGOQSJLgDfUbg/1FzfVXPfATUNw0vfDuvJs3Obsw0gCs9rfzI4r/syGoM6AdZW+KowMxSlKi+U7aNKFhR/hg5oLhMvdni+1YjxNXBgpi5xPE/R4GsOIE1r8wH4+FeippA/iPe722ldTu4Gf0oSz25oyuwMb1JFEGNd5NhMikNzLnr+VsHDEFCvUdvIuKFk/mJSSsiNnNFTRCIo/VU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejBQbnVRSC9maG1zYm1zUit5MW91eVpRam1nVWd3MzV2RnFvbVdTYy9qQkI3?=
+ =?utf-8?B?UFc4MElTaTRFc2FBbktLLzhUc2N2Qm03aUZoMCtsVFovOTh3a3EzYkFZcElo?=
+ =?utf-8?B?Um0xQnh5Yy9oZ3hiSWVzMCtMWEttRE9OR2RsdkVMNmRKRCswRGdiN0s2TjA4?=
+ =?utf-8?B?ZUIwRUkycGtsTGR5c3BUSC9UaDlURFY1TGJjRDAwdWkxSDlvUWdpTC9BdFZX?=
+ =?utf-8?B?MGFPWEcyY0xLNXJGMDM4RjFSOWR3anU3Y3hIcXk1aXB4QjBwbHN0Vi92cW5Y?=
+ =?utf-8?B?YWUrY1A3TlErNm1yUGZHSTRYMWNqOW0yalpnRjBIaXZCN1paMERvQ3UxSW1T?=
+ =?utf-8?B?eC9hMjkyaUxjZ3oxT1lEQUE3d1g4MHhYa0hBUk1lTmFpZ0NyWDk4Nis0N3ox?=
+ =?utf-8?B?OFV3aW1VcTZKdlYxSGo0ZUJmRXdDV0p4NUVyK2lRTEtMTG4yaG9VcmI3Vkxn?=
+ =?utf-8?B?eEYwb0VqRlJ2M05OMkpvUCszMDU0ZVpNZUNzWm1sRjFJTk9qOVAxL2ttb3Nr?=
+ =?utf-8?B?UTRBL3huYVg1UkdPN2xBSE93M0o4NXNIWDc5VTUxSVRybG1Lb0RteUJDVXNr?=
+ =?utf-8?B?VnIyY09pSjlZZG1telBoRHJQRjRQVlZkT2IrQVF2WWlVMjJwODVkemRvN0tG?=
+ =?utf-8?B?RGVUUk83d2p0Z1drVDhnaFdzaTBWd0wzL05GN25mQklWSDc4aW1aMC9KQzY4?=
+ =?utf-8?B?N1pTRzVUd2s1WEIveno5Z2xTRStja1ZKWDNwVXNIWGRHMy9kVmt4STV3dG5t?=
+ =?utf-8?B?TEhCMHlGWkdxUDJDQTZMTm8vbDM2VkFlbWVBYXlQZWRQNFJWSkNsMGZWOXF3?=
+ =?utf-8?B?aG43elFwMGp6UW1mYkhUUDhrWmJnZmVmdUZSSXBjK2JONlR3SWF3aHB0bWwx?=
+ =?utf-8?B?cnVMTFJmc3RnOXcxUW45UG5pd1RKd2tYbUhQakYvVzkrRUMrY0I4UVA4RUp1?=
+ =?utf-8?B?emdnaU1XOWN5MEVxdDV5VlEwRGVqTkIwajB0NHlEbmpzNDhlODloUlNmYUhT?=
+ =?utf-8?B?alozVmhpUkpyUjhOdUhDZWJ5YWZSSFltNGVWOFI2TDkzeThFZU53R1dWMXpS?=
+ =?utf-8?B?dGxuaUU0SDlnbTM4M05SanMvKzMxNjZ0SFFqZnhRRm9lT0lZS0ZDMjBsSXhk?=
+ =?utf-8?B?T1p6aklPcTR1RjQrTkZTQktSOWI4OUg4WUh4dW80MFdYd2RaZXVpNXBKU21j?=
+ =?utf-8?B?NVd0S2hiNUZZclgvaCtaOFlCTmIwN2NXNUZ2a1dpQS9NaFFKMGRKNlZzcHdP?=
+ =?utf-8?B?M2c1bjBlSjREbktDKzNpNC9JNWgvdlNVVHBaNjlTWWN6QnBUdnFHY3dmZ0tz?=
+ =?utf-8?B?UjExd2E0Q3hKNnU0RkpLWWxrNnJubzAxOVVscmhGbVVxT0pDSkpqWG5HN1lk?=
+ =?utf-8?B?R2V0bDIxcUJ4bmQ2T3dTWUVFV2NXbGRVcHRTRE9haU9iYm9LbDRtOTliZUYv?=
+ =?utf-8?B?NUdUaVBBUDBnSDQwNEE0N3JtU3FjYmRoMzh4eGVGRFhNbmpiMUlGYjFTdkpB?=
+ =?utf-8?B?YjVzd1AvMFIyOWRMdU12eks5dkcxOWp1UEUzQ2gvV3cyL1poSjNHQW52SjY0?=
+ =?utf-8?B?cmZqWHdoMUZ5SkYvRG8yTlVqME5BazdCZ2cvSDZCTU4zQXdIZjJNdXc4QXgw?=
+ =?utf-8?B?NkpkdEErSU0zU2pQTEFPc0t4SktKOFVhRXZrSU1hZ1hkVS9LWWpCcUwxTTJI?=
+ =?utf-8?B?QmE5bjBGb3hkSUZFS2hkUjh5Tm5jbjd1N1Y5RFlJaVJ5RGxlUE1tWXVyRW5z?=
+ =?utf-8?B?MkQxQUJHNUx1TXVPYk5iY1Q0R2Z3SlZJQnd4ZnkvQ3o3TWdadWR0UGpTd3BO?=
+ =?utf-8?B?dS9sTWUyNDNTcFNINFY5TlNKa2JZQjlXZUJvVDk1b2ZyWFA3TFk3N3NKYXFL?=
+ =?utf-8?B?K0wwM05TRlZadVdiNmk3TzVtcW1jNWNoSmFRK2VSc2daS1pxQkxPekN3NVR2?=
+ =?utf-8?B?UWF6ZGQyV3N0VzU4dXo5VnRrUzZETldBNDAxQ0NkUlZtc3ZjaGltdTZuSFQ2?=
+ =?utf-8?B?ZForYlFPeE9TMFNkRE4zR1FRbG8yMGtzNFNMZml5OHR0SlJ0TmlLM1d5WDh3?=
+ =?utf-8?B?amI4ZzJHSmN4aFM0bnliWFUyRFNCSzdwZThEUzY1M3ZLNENJSEVRQ1RtcytF?=
+ =?utf-8?B?Wlg1WGtzZWdpV2kyM0MxeStwdlA4V0gvTitpSVIxOGdEM3RINlhHUElMMVVw?=
+ =?utf-8?B?b3dBTDV3djhZQnFwbFlzWStsZlVOenNNUmRJYzhSdXNZVFVjREJsZHFEc2xM?=
+ =?utf-8?B?WXZqSm1rdnVhSzBWNmJackY3YlhTZkxhd2JubEdFaDRLYW1EeFFQVk1uZXJn?=
+ =?utf-8?Q?StcOhPrCPFMDBXBaPO?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4baf578b-24c7-4622-6f1f-08df0cdfebe9
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 12:59:58.7252
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1Hy7ENH1PvM2+uEOIDOGNdYPBkvUJy6e5nBnvvdHkZZrC44DUduXIIfC6+U93KXM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8364
 
-On Mon, 7 Sep 2026 19:29:06 +0800
-Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+On 9/7/26 13:15, Philipp Stanner wrote:
+> On Mon, 2026-09-07 at 12:06 +0100, Tvrtko Ursulin wrote:
+>> On 07/09/2026 11:47, Philipp Stanner wrote:
+> 
+> […]
+> 
+>>>
+>>> So I maintain the position that we only get it right by having the
+>>> signaled-bit be the decoupling point.
+>>>
+>>> Or am I missing something?
+>>
+>> The driver fixes you asked about and I listed work(ed) in the context of 
+>> 506aa8b02a8d ("dma-fence: Add safe access helpers and document the 
+>> rules"). In that "world" it would have been safe. Did 035219a760ed 
+>> ("dma-buf: dma-fence: Fix potential NULL pointer dereference") break 
+>> those fixes a bit?
+> 
+> I think we all agree that 035219a760ed should not have been implemented
+> in that way because it does not work for drivers that provide a ops-
+>> release / ops->wait.
+> 
+> So I think the only thing we can do right now is add the signaled-check
+> back (like Christian suggested) and ensure correct memory ordering –
+> since we also cannot use the spinlock consistently, as that can still
+> be extern…
 
-> =E5=9C=A8 2026/9/4 20:28, Petr Mladek =E5=86=99=E9=81=93:
-> > Adding Risc-V list into Cc.
-> >=20
-> > On Wed 2026-09-02 15:47:57, Jinjie Ruan wrote: =20
-> >> Hi,
-> >>
-> >> This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
-> >> smp_store_release()/smp_load_acquire() across various subsystems.
-> >>
-> >> Background
-> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>
-> >> Many architectures support load acquire and store release instructions
-> >> which can replace explicit memory barriers and save cycles. As noted
-> >> in the ARM architecture reference [1]:
-> >>
-> >>   "Weaker ordering requirements that are imposed by Load-Acquire and
-> >>    Store-Release instructions allow for micro-architectural
-> >>    optimizations, which could reduce some of the performance impacts
-> >>    that are otherwise imposed by an explicit memory barrier.
-> >>
-> >>    If the ordering requirement is satisfied using either a Load-Acquire
-> >>    or Store-Release, then it would be preferable to use these
-> >>    instructions instead of a DMB."
-> >>
-> >> On arm64, a typical seqcount [2] read loop requires 13 cycles with DMB
-> >> barriers. Replacing the read barrier with smp_load_acquire() reduces
-> >> this to 8 cycles on an Ampere Altra. =20
-> >=20
-> > I wonder if this is true on all other architectures:
-> >=20
-> >   + It seems that Arm gets the gain because the instruction
-> >     does both load/store + barrier. It helps even when
-> >     the barrier is full.
-> >=20
-> >   + Some other architectures need two instructions. One for the
-> >     load/store and the other for the barrier. But the barrier
-> >     is weaker, it synchronizes just reads or just writes.
-> >=20
-> > For example, I see the following in riscv/include/asm/barrier.h:
-> >=20
-> > <paste riscv/include/asm/barrier.h>
-> > #define smp_mb()	RISCV_FENCE(rw, rw)
-> > #define smp_rmb()	RISCV_FENCE(r, r)
-> > #define smp_wmb()	RISCV_FENCE(w, w)
-> >=20
-> > #define smp_store_release(p, v)						\
-> > do {									\
-> > 	RISCV_FENCE(rw, w);						\
-> > 	WRITE_ONCE(*p, v);						\
-> > } while (0)
-> >=20
-> > #define smp_load_acquire(p)						\
-> > ({									\
-> > 	typeof(*p) ___p1 =3D READ_ONCE(*p);				\
-> > 	RISCV_FENCE(r, rw);						\
-> > 	___p1;								\
-> > })
-> > </paste riscv/include/asm/barrier.h>
-> >=20
-> > I wonder whether:
-> >=20
-> >   + RISCV_FENCE(r, r) is faster than RISCV_FENCE(r, rw)
-> >   + RISCV_FENCE(w, w) is faster than RISCV_FENCE(rw, w)
-> >=20
-> > so it might cause performance regression there... =20
->=20
-> Hi Petr,
->=20
-> Thanks for the detailed analysis. You're right that on some
-> architectures the acquire/release variants use a slightly heavier
-> fence than the plain smp_wmb()/smp_rmb() pair. The full picture by
-> architecture:
->=20
->   arm64:    Improvement   (DMB ISHST/ISHLD + STR/LDR =E2=86=92 STLR/LDAR)
->   x86:      Neutral       (both are compiler barriers)
->   s390:     Neutral       (both are compiler barriers)
->   ppc64:    Neutral       (both use lwsync)
->   loongarch: Slightly heavier fence (DBAR(o_w_w) =E2=86=92 DBAR(orw_w),
->                            DBAR(or_r_) =E2=86=92 DBAR(or_rw))
->   riscv:    Slightly heavier fence (fence w,w =E2=86=92 fence rw,w,
->                            fence r,r =E2=86=92 fence r,rw)
->=20
-> So on Loongarch and Riscv, there may be a slight performance regression.
+I think the memory ordering isn't really a problem.
 
-Is that a bug in the riscv definitions?
-Nothing in the commit messages seems to indicate why the stronger barriers
-are used.
-The original commit 8d235b17 was done to avoid the rw,rw barrier in the
-generic code (which might since have been relaxed).
+See if the ops pointer or the signaled bit is loaded first doesn't matter if you check both.
 
-David
+You only need to make sure that the ops pointer is loaded once cause that one is used multiple times, but that is already the case by using rcu_dereference().
 
->=20
-> Regards,
-> Jinjie
->=20
-> >=20
-> > Best Regards,
-> > Petr
-> >  =20
-> >> We also observed significant barrier overhead while profiling Unxibench
-> >> syscall test on arm64: a single getuid() call is ~8ns slower than on
-> >> a comparable x86 system, with the dominant cost in map_id_up()'s smp_r=
-mb(),
-> >> which is a DMB ISHLD on arm64. Converting it to smp_load_acquire() all=
-ows
-> >> the use of LDAR, eliminating the measurable overhead.
-> >>
-> >> This motivated a broader search for existing barrier pairs that can
-> >> be converted to the lighter acquire/release semantics.
-> >>
-> >> Changes
-> >> =3D=3D=3D=3D=3D=3D=3D
-> >>
-> >> Each patch in this series targets a specific barrier pair where the
-> >> publish/subscribe pattern is already present:
-> >>
-> >> - Writers populate data, then publish a flag/count/pointer via
-> >>   smp_store_release()
-> >>
-> >> - Readers load the flag/count/pointer via smp_load_acquire(), then
-> >>   consume the data
-> >>
-> >> This preserves the existing memory ordering guarantees while allowing
-> >> architectures with native acquire/release instructions (e.g. arm64's
-> >> STLR/LDAR) to avoid the cost of full one-way barriers (DMB ISHST/ISHLD=
-).
-> >> On architectures without native support, the generated code is
-> >> generally no worse than the explicit barrier pair.
-> >>
-> >> The conversions are mechanical and no functional change is intended.
-> >>
-> >> Testing (Kunpeng HIP09 arm64 server)
-> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> >>
-> >> 1. UNIXBENCH syscall
-> >> 	Baseline: 715.27
-> >> 	Patched:  718.83
-> >> 	Improvement: +0.50%
-> >>
-> >> 2. fs/aio (fio + null_blk, 4 jobs):
-> >> 	Baseline: 1441k IOPS, 86.46us
-> >> 	Patched:  1452k IOPS, 85.80us
-> >> 	Improvement: ~0.8%
-> >>
-> >> Both improvements are consistent across runs and align with the
-> >> expected savings from replacing DMB with LDAR/STLR on arm64.
-> >>
-> >> [1]: https://support.arm.com/documentation/102336/0100/Load-Acquire-an=
-d-Store-Release-instructions
-> >> [2]: https://github.com/torvalds/linux/commit/d0dd066a0fa26d55c19ace9e=
-89dedd9504c5bcba
-> >>
-> >> Changes in v3:
-> >> - Add Reviewed-by.
-> >> - Split out network patch set as Kuniyuki suggested.
-> >> - Link to v2: https://lore.kernel.org/all/20260901024234.135119-1-ruan=
-jinjie@huawei.com/
-> >>
-> >> Changes in v2:
-> >> - Fix pre-existing issue for ext4 and 8021q [3].
-> >> - Fix missing copy_mnt_idmap() udapte [3].
-> >> - Drop nacked isotp patch.
-> >> - Add test data.
-> >> - Add Reviewed-by and update fs patch as Jan suggested.
-> >>
-> >> [3]: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinji=
-e%40huawei.com
-> >>
-> >> Jinjie Ruan (8):
-> >>   user_namespace: Use acquire/release for nr_extents synchronization
-> >>   lib/vsprintf: Use acquire/release for ptr_key publication
-> >>   fs: aio: Use acquire/release for ring->tail publication
-> >>   fs: Use acquire/release for fdtable resize synchronization
-> >>   pidfs: Use test_bit_acquire() for attr flag tests
-> >>   super: Use acquire for SB_BORN check in super_cache_count()
-> >>   ext4: Fix out-of-bounds read in ext4_get_group_info()
-> >>   ext4: Convert group-count barrier protocol to acquire/release
-> >>
-> >>  fs/aio.c                | 10 ++++------
-> >>  fs/ext4/balloc.c        |  2 +-
-> >>  fs/ext4/ext4.h          | 10 +++-------
-> >>  fs/ext4/mballoc.c       |  6 ++----
-> >>  fs/ext4/resize.c        | 19 +++++++++++--------
-> >>  fs/file.c               | 10 ++++------
-> >>  fs/mnt_idmapping.c      |  5 ++---
-> >>  fs/pidfs.c              |  6 ++----
-> >>  fs/super.c              |  6 ++----
-> >>  kernel/user_namespace.c | 24 +++++++++++++-----------
-> >>  lib/vsprintf.c          | 11 ++++-------
-> >>  11 files changed, 48 insertions(+), 61 deletions(-)
-> >>
-> >> --=20
-> >> 2.34.1 =20
->=20
->=20
+Or what exactly is your concern?
+
+Thanks,
+Christian.
+
+> 
+> 
+> P.
 
