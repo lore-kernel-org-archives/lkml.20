@@ -1,281 +1,272 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E7B35B136;
-	Mon,  7 Sep 2026 09:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772538; cv=none; b=gVlKQ9vrlHOBbIpumE1D7EfdnGA03qjdNQcvJ48Ye/9acm7w+A7bm/9HrkeIGpgAGHq1Yp9ArNwIXbDTF/EXfQS1CjrSPqmvAhLvlnctLkTMg47PNJjfMOF9EF8DWKOyW3ry5V26xYvz5z6B8mDKECSuCQJ4CBjjMGBOTGf+EH4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772538; c=relaxed/simple;
-	bh=JrhI1pwfP5E7pM/lrcbDACaZ5BelzgMgrifuwTDGV9U=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=IXhkYekE/KPRsSe1AQ+PIfKP5OqiWaD0B4JupvcUnlrRL5GVufC8sKejTQMuNEbkiJSXGuADhcarl+02+B5XoMY2IkEpvlS0+EPiqv0nA/eu0VmFwYKKdBLSo20JBb8qZGtciqN3QADr+7vRcnDdGAqjEBwXG00OFVwLVgvHmiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=jV05nrkB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=7OBjapsh; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3E9935B136
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788772548; cv=pass; b=jkDBMiHCyX4Q4iKZOOHYU7kM4mYqQvBqTQeTm3tMxtZnJgl3uyCfvyOm5gvORdoi+Iq0NoZhGijC6mYGbmSMMvubj/21QoycTsCxYeypPwhOQe7Iil49Cbpfs8lrLJagC4kpIfY8OXIhauHK7afcH2vgbsqArx9ZIVrkiX7DC6k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788772548; c=relaxed/simple;
+	bh=/MFAR0BJv6ArlHZpPXeSNyeaqeMeT7jTuH2BnlBnyXk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sruXyEeQtmuD62SzusdJrztpOvT5C8+iUfdU+siLe8AJx2SDwQCFatqgueNKu+a1WAn986Nf60LTlYRx703ADGC5cDJybxVqtVHal4sKe/xFYjZ/ISRXwHAYxWf82UHjhWCfDDgRjUxwFSPrTt1S3ii/M12WUG6YvJrf2kCdm/I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=TH7jGVMB; arc=pass smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="jV05nrkB";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="7OBjapsh"
-Date: Mon, 07 Sep 2026 09:15:31 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788772534;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oO9nRGpDhYZlMnMKD8svHE0MFR5a0GKjMcBKoppBhww=;
-	b=jV05nrkBafELDtt3WXVaN7WEaynHEcOFchW593CklL0PjYzrr14gbr/E9Ua1Nxqq2ihx+Q
-	/grU1x7s/nRw6DVhdo4y/q1T78zq8NtmJuvboItPYyuShI/P4WzDAnToDwkjLG7MOMp+lj
-	R7jFBo9LU7krrjtcuW9CuUF8MW8jUAe4eBbuvaMIogyjpv+6Q0gT4C2VnwSpSNBP53KZDn
-	YYo9beb/juHdUKdd7aZWB3O02iVcJSYSvzoEgBfLNZaQ/sdWBVpwUv6VdNhVXeovKSwMap
-	2v8CuaAo1Qex4MFprjZ3f2/asznGwRCh75TH+Cg2Wu0lUHBZUgL7p2AX4UufRA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788772534;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=oO9nRGpDhYZlMnMKD8svHE0MFR5a0GKjMcBKoppBhww=;
-	b=7OBjapsh6H6CQobK1vPhBG/mznTXsUtmyPoKlnxxIYyc4LLGMWH3q8MJC9zVwQfw08R2v1
-	BqVjBObKrdPivNBw==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: timers/urgent] tick/broadcast: Plug clockevents replacement race
-Cc: zhukaiqian@xiaomi.com, Thomas Gleixner <tglx@linutronix.de>,
- Thomas Gleixner <tglx@kernel.org>, Bradley Morgan <brads@mainlining.org>,
- liushugao@xiaomi.com, stable@vger.kernel.org, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <87cymdsu0r.ffs@tglx>
-References: <87cymdsu0r.ffs@tglx>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="TH7jGVMB"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-495437bb891so22326265e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:15:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788772545; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QZk/48lCzDpK6vbHKYyafRWdC0IL3SdlJ95Coh9OGgnh4jn+6am75/b+cNyyRX1eOH
+         Effzara2NgasiLJfG9/5Dr4fc35N0cxrc2STHlrFchRH9jvewRT3Z4+Y8ItDf/Rl5U6Q
+         tVHwZkFMp1B0MTVDZHK67wFY9rxI/OR1gqtKag64nYt0NS3pVjn9nLUbVzIPw+Y5dHFl
+         jKu4Tvo4YBgBhBVDgkX8y2MzNWcUUPWgTxBGw0gUzFotzNU4+Z3TQNACN+1MURpEsUyA
+         zXs7B9KbCH8JefMPZseSNEBbW+FLYjtFnDs2jmZK/QVJ5wxGo1We9qXMv6W8Th5TFoSw
+         qK5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
+        fh=rYZCTAxNHX5+p5yWYhpNfL1ujUxM4iSEOWXfdNx2ZAo=;
+        b=NtSHIP+v/cig1YRryVZefcmC79D3flE1U1i6cEAVP0mT+3/499OoGyjeCwiZ6y9JNr
+         QdmPTnoopuQZl1I7o91XN4yO8hOGGVJAgJ1rlF7TBTxkrfpuE1xkWnLI4rT/0o7Um7Iv
+         GFUGOTzYY/cvJos7XFayIbSuFtnS/KXN6FijZWe225ZiwvkrGS4HEV8EOInddT97FYAC
+         pfPocSj/sNewSPfrVFgTTyQNYwdg/M0mVTNrzPEjm3tYulnun2Kziu2uyu5kg2JZheiP
+         q3l5ZBktz7gG/mwCZlLhXWERb5q6c6gQosjSLaKXO6PdrlRvBpkiHze5gU8hatTv/mxM
+         cL5A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788772545; x=1789377345; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
+        b=TH7jGVMBfVEBqqmD96sLxgcZtmUJAaBWW8o2vCGuCPQ/NNpbOo2vn6VOFbvWwY5zGc
+         TkSILWRxmONb2eJu9QWoAEko03PB9hlAmV3acyoulUjwZRW1w+/Q7PCDmZrsIxA6JbY3
+         xsZYZobypMX4OM+eTNNoAwdhqjCQDye8OCr+2ZLIM47yJTXnleAQAiHWO11VvKqr5LxW
+         Sf1Hv0tU68lHfAJOOyy8p9+Uno9cDIXL+VFb4LQxWIPc8SUBOIe552L4rQ6c2h9QOdaH
+         ON+c2CEUZf6Szsf+15K+PkUZVa1+9kfPpwHVMg1Dx5jO0it9gWtQ8BQM0DF1TLelEWAO
+         4SZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788772545; x=1789377345;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SA0y0CQLIYLkfiY5R3TFU63deex74/QQ9+749Dn8ny0=;
+        b=n1wL4SH5vTIUn6YXB+CYcUAJxukLOuaBPYnbhQ99omMFQx6pE0AI2Ejt26PPwf6m9E
+         OabRE2t9B5m6guWrzXEcea18jx5r7w/bYfDsyvMb0N0LHs86AJ1XbXJutP+lycfJqSMe
+         u/EO272coCed8UI04ZJcyM1K46GPzCg+cGrmeGMF6r5g4SKgP4C9iKAWtphRhzwWYgYZ
+         LRTOAkNcNT2Zp/lzb1DiPXmHeyuZZf8TRuQQs81ieY8pyQJw/W8ZYYr1SBGycVWfD0Is
+         OsVFm3vGXGt3d7qtrmeO5Ua15+7b5dPYddrirjFeqYFtoeyrCj3LrWZh4Ph7xuqBp7QA
+         4C2A==
+X-Forwarded-Encrypted: i=1; AKwUvBzCUvlchW7Mlea/iwSX4s3NyJEXxez86S57FksN6E+f0zJl3kyH5Hl0oTs1zj6e35O3B1vWQzL0ikqZVgY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLrjnGSOqpkK1Fu9jwNZFtSIrqygqCrcPtgBqMbq9HaZchJZnF
+	u3eOhnwnS+/mr+L21tt/Qk0ENw46x5boOfh4BeQIirWPsEHG6zjMO1KIpJ4LuTZhD2TXIvJvNrX
+	uk1GOoXc3iTFZc8hKCPo3uCHYPfPdpCedIwBJ/wgH9w==
+X-Gm-Gg: AYBFou38FiFMmju2qRbKeFZK4Goj3sSUNaMJoUgfQIGTOo1b09exuQhDY/I+mVU93Cp
+	XkcAes2tL236dgytx0Iy8rAAbZ4FHXczpF5ds4gxlmbFARDycMZecFIP0Ltr22enT+Qkb2Ez5XT
+	MpxMfmYVH8HmDHD8x8oRvQ1eqskWudToadNt6bBaAgm/++v33FGmcaxNRS/JpBNZK4mp8XGOQ0o
+	Jsax4DV3eRLa+5nZ+W/3CSFf+Tne5ftcbVgz5+Hz0h0ctNfw82lxPu5MPm71BpjSp9Toz5MqSNQ
+	n612Dmohw7DInAQv555G5CwXJ3tpvTWsj6ksqqafX+2YKQa0O6NXSj1zUVR6O4POcYi/tdx6GQn
+	A4OvODqpDbgGqjCMYwvDx6IENtEhMHcz7mk/E+bHAaA==
+X-Received: by 2002:a05:600c:4684:b0:49c:f13e:e4e with SMTP id
+ 5b1f17b1804b1-49cf8906323mr208303745e9.11.1788772544807; Mon, 07 Sep 2026
+ 02:15:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178877253200.623050.1090783884992407003.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+References: <20260907044801.9088-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260907044801.9088-1-hemanth.selam@gmail.com>
+From: Daniel Vacek <neelx@suse.com>
+Date: Mon, 7 Sep 2026 11:15:33 +0200
+X-Gm-Features: AcwNN1VCQupOgh9v5Ck-I1vwV5juTsOZYec2g8PyYUOdbCxqp4AhMc_-LjRurbw
+Message-ID: <CAPjX3FfQ4X4Bd-1-_Q3h4azLM98vnJLfZ8TvduPK6zf=y==Z2g@mail.gmail.com>
+Subject: Re: [PATCH v2] btrfs: fix typos and repeated words in comments
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The following commit has been merged into the timers/urgent branch of tip:
+On Mon, 7 Sept 2026 at 06:54, Hemanth Selam <hemanth.selam@gmail.com> wrote:
+> Fix misspellings and repeated words in comments, found with
+> scripts/checkpatch.pl and codespell.  Only touches comments, no code
+> changes.
+>
+> Changes since v1:
+>  - the typo and repeated-word patches are folded into one, as they only
+>    touch comments
+>  - rebased onto btrfs for-next
+>  - picked up the further typos codespell found, which David Sterba
+>    listed: Temporarilly, Checksume, coresponding, caclulated, wheather
+>    and cannnot ("commited" in block-group.h was already fixed by v1)
+>
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+> ---
+>  fs/btrfs/block-group.h          | 2 +-
+>  fs/btrfs/extent-io-tree.c       | 2 +-
+>  fs/btrfs/fs.c                   | 2 +-
+>  fs/btrfs/raid56.c               | 8 ++++----
+>  fs/btrfs/send.c                 | 2 +-
+>  fs/btrfs/transaction.h          | 2 +-
+>  fs/btrfs/tree-checker.c         | 2 +-
+>  include/uapi/linux/btrfs_tree.h | 4 ++--
+>  8 files changed, 12 insertions(+), 12 deletions(-)
+>
+> diff --git a/fs/btrfs/block-group.h b/fs/btrfs/block-group.h
+> index 69d56864d4ba..b349f94cf929 100644
+> --- a/fs/btrfs/block-group.h
+> +++ b/fs/btrfs/block-group.h
+> @@ -135,7 +135,7 @@ struct btrfs_block_group {
+>         u64 global_root_id;
+>         u64 remap_bytes;
+>         u32 identity_remap_count;
+> -       /* The last commited identity_remap_count value of this block group. */
+> +       /* The last committed identity_remap_count value of this block group. */
+>         u32 last_identity_remap_count;
+>         /*
+>          * The last committed used bytes of this block group, if the above @used
+> diff --git a/fs/btrfs/extent-io-tree.c b/fs/btrfs/extent-io-tree.c
+> index d6df11f6088c..992b8b42bdb4 100644
+> --- a/fs/btrfs/extent-io-tree.c
+> +++ b/fs/btrfs/extent-io-tree.c
+> @@ -751,7 +751,7 @@ int btrfs_clear_extent_bit_changeset(struct extent_io_tree *tree, u64 start, u64
+>                                 btrfs_split_delalloc_extent(tree->inode, state, start);
+>
+>                         /*
+> -                        * Temporarilly ajdust this state's range to match the
+> +                        * Temporarily ajdust this state's range to match the
+>                          * range for which we are clearing bits.
+>                          */
+>                         state->start = start;
+> diff --git a/fs/btrfs/fs.c b/fs/btrfs/fs.c
+> index de160d29dde8..75a1217727a7 100644
+> --- a/fs/btrfs/fs.c
+> +++ b/fs/btrfs/fs.c
+> @@ -79,7 +79,7 @@ void btrfs_csum_init(struct btrfs_csum_ctx *ctx, u16 csum_type)
+>                 blake2b_init(&ctx->blake2b, 32);
+>                 break;
+>         default:
+> -               /* Checksume type is validated at mount time. */
+> +               /* Checksum type is validated at mount time. */
+>                 BUG();
+>         }
+>  }
+> diff --git a/fs/btrfs/raid56.c b/fs/btrfs/raid56.c
+> index a5d0ef09d92a..4f702dbf581b 100644
+> --- a/fs/btrfs/raid56.c
+> +++ b/fs/btrfs/raid56.c
+> @@ -953,7 +953,7 @@ static void rbio_orig_end_io(struct btrfs_raid_bio *rbio, blk_status_t status)
+>
+>         /*
+>          * Clear the data bitmap, as the rbio may be cached for later usage.
+> -        * do this before before unlock_stripe() so there will be no new bio
+> +        * do this before unlock_stripe() so there will be no new bio
+>          * for this bio.
 
-Commit-ID:     113a9796effe3376d2ec5aabcca1fef4fef4cd62
-Gitweb:        https://git.kernel.org/tip/113a9796effe3376d2ec5aabcca1fef4fef=
-4cd62
-Author:        Thomas Gleixner <tglx@linutronix.de>
-AuthorDate:    Mon, 12 Aug 2024 16:19:48 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 07 Sep 2026 11:10:20 +02:00
+The sentence should start with a capital. Perhaps it would also fit
+into two lines?
 
-tick/broadcast: Plug clockevents replacement race
+>          */
+>         bitmap_clear(&rbio->dbitmap, 0, rbio->stripe_nsectors);
+> @@ -988,7 +988,7 @@ static void rbio_orig_end_io(struct btrfs_raid_bio *rbio, blk_status_t status)
+>   * as possible, and only use stripe_sectors as fallback.
+>   *
+>   * Return NULL if bio_list_only is set but the specified sector has no
+> - * coresponding bio.
+> + * corresponding bio.
+>   */
+>  static phys_addr_t *sector_paddrs_in_rbio(struct btrfs_raid_bio *rbio,
+>                                           int stripe_nr, int sector_nr,
+> @@ -1451,7 +1451,7 @@ static int rmw_assemble_write_bios(struct btrfs_raid_bio *rbio,
+>         ASSERT(bitmap_weight(&rbio->dbitmap, rbio->stripe_nsectors));
+>
+>         /*
+> -        * Reset errors, as we may have errors inherited from from degraded
+> +        * Reset errors, as we may have errors inherited from degraded
+>          * write.
 
-=E6=9C=B1=E6=81=BA=E4=B9=BE reported and decoded the following race condition=
- when a broadcast
-device is replaced:
+This can fit on one line.
 
-CPUA					CPUB
- __tick_broadcast_oneshot_control()
-   bc =3D tick_broadcast_device.evtdev;
-					tick_install_broadcast_device(dev)
-        				clockevents_exchange_device(cur, dev)
-					   shutdown(cur);
-					   detach(cur);
-					   cur->handler =3D noop;
-					   tick_broadcast_device.evtdev =3D dev;
+--nX
 
-  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
-
-If the original broadcast device has a restricted interrupt affinity mask
-and the last CPU in that mask goes offline then the BUG() in
-tick_cleanup_dead_cpu() triggers because the clockevent device is not in
-detached state.
-
-The reason for this is that tick_install_broadcast_device() is not
-serialized vs. tick broadcast operations.
-
-The obvious cure is to serialize tick_install_broadcast_device() with
-tick_broadcast_lock against a concurrent tick broadcast operation.
-
-That requires to split clockevents_exchange_device() into two parts, one
-which does the exchange, shutdown and detach operation and the other which
-drops the module reference count. This is required because the module
-reference cannot be dropped while holding tick_broadcast_lock.
-
-Let clockevents_exchange_device() do both operations as before, but let the
-broadcast device code take the two step approach and do the device
-exchange under tick_broadcast_lock and drop the module reference count
-after releasing it.
-
-Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
-Reported-by: =E6=9C=B1=E6=81=BA=E4=B9=BE <zhukaiqian@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Tested-by: =E5=88=98=E6=9C=AF=E9=AB=98 <liushugao@xiaomi.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
----
- kernel/time/clockevents.c    | 33 +++++++++++++++++++-------------
- kernel/time/tick-broadcast.c | 36 +++++++++++++++++++++--------------
- kernel/time/tick-internal.h  |  2 ++-
- 3 files changed, 44 insertions(+), 27 deletions(-)
-
-diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
-index 0014d16..62ad7c0 100644
---- a/kernel/time/clockevents.c
-+++ b/kernel/time/clockevents.c
-@@ -615,34 +615,41 @@ void clockevents_handle_noop(struct clock_event_device =
-*dev)
- {
- }
-=20
--/**
-- * clockevents_exchange_device - release and request clock devices
-- * @old:	device to release (can be NULL)
-- * @new:	device to request (can be NULL)
-- *
-- * Called from various tick functions with clockevents_lock held and
-- * interrupts disabled.
-- */
--void clockevents_exchange_device(struct clock_event_device *old,
--				 struct clock_event_device *new)
-+void __clockevents_exchange_device(struct clock_event_device *old,
-+				   struct clock_event_device *new)
- {
- 	/*
- 	 * Caller releases a clock event device. We queue it into the
- 	 * released list and do a notify add later.
- 	 */
- 	if (old) {
--		module_put(old->owner);
- 		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
- 		list_move(&old->list, &clockevents_released);
- 	}
-=20
- 	if (new) {
--		BUG_ON(!clockevent_state_detached(new));
-+		WARN_ON(!clockevent_state_detached(new));
- 		clockevents_shutdown(new);
- 	}
- }
-=20
- /**
-+ * clockevents_exchange_device - release and request clock devices
-+ * @old:	device to release (can be NULL)
-+ * @new:	device to request (can be NULL)
-+ *
-+ * Called from various tick functions with clockevents_lock held and
-+ * interrupts disabled.
-+ */
-+void clockevents_exchange_device(struct clock_event_device *old,
-+				 struct clock_event_device *new)
-+{
-+	__clockevents_exchange_device(old, new);
-+	if (old)
-+		module_put(old->owner);
-+}
-+
-+/**
-  * clockevents_suspend - suspend clock devices
-  */
- void clockevents_suspend(void)
-@@ -699,7 +706,7 @@ void tick_offline_cpu(unsigned int cpu)
- 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
- 		    cpumask_weight(dev->cpumask) =3D=3D 1 &&
- 		    !tick_is_broadcast_device(dev)) {
--			BUG_ON(!clockevent_state_detached(dev));
-+			WARN_ON(!clockevent_state_detached(dev));
- 			list_del(&dev->list);
- 		}
- 	}
-diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
-index 115e0bf..bda3d23 100644
---- a/kernel/time/tick-broadcast.c
-+++ b/kernel/time/tick-broadcast.c
-@@ -165,23 +165,31 @@ static bool tick_set_oneshot_wakeup_device(struct clock=
-_event_device *newdev,
-  */
- void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
- {
--	struct clock_event_device *cur =3D tick_broadcast_device.evtdev;
-+	struct clock_event_device *cur;
-=20
--	if (tick_set_oneshot_wakeup_device(dev, cpu))
--		return;
-+	scoped_guard(raw_spinlock_irqsave, &tick_broadcast_lock) {
-=20
--	if (!tick_check_broadcast_device(cur, dev))
--		return;
-+		if (tick_set_oneshot_wakeup_device(dev, cpu))
-+			return;
-=20
--	if (!try_module_get(dev->owner))
--		return;
-+		cur =3D tick_broadcast_device.evtdev;
-+		if (!tick_check_broadcast_device(cur, dev))
-+			return;
-=20
--	clockevents_exchange_device(cur, dev);
-+		if (!try_module_get(dev->owner))
-+			return;
-+
-+		__clockevents_exchange_device(cur, dev);
-+		if (cur)
-+			cur->event_handler =3D clockevents_handle_noop;
-+		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
-+		if (!cpumask_empty(tick_broadcast_mask))
-+			tick_broadcast_start_periodic(dev);
-+	}
-+
-+	/* Module release must be outside of the lock */
- 	if (cur)
--		cur->event_handler =3D clockevents_handle_noop;
--	tick_broadcast_device.evtdev =3D dev;
--	if (!cpumask_empty(tick_broadcast_mask))
--		tick_broadcast_start_periodic(dev);
-+		module_put(cur->owner);
-=20
- 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
- 		return;
-@@ -1218,7 +1226,7 @@ int tick_broadcast_oneshot_active(void)
-  */
- bool tick_broadcast_oneshot_available(void)
- {
--	struct clock_event_device *bc =3D tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc =3D READ_ONCE(tick_broadcast_device.evtdev);
-=20
- 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
- }
-@@ -1226,7 +1234,7 @@ bool tick_broadcast_oneshot_available(void)
- #else
- int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
- {
--	struct clock_event_device *bc =3D tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc =3D READ_ONCE(tick_broadcast_device.evtdev);
-=20
- 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
- 		return -EBUSY;
-diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
-index 182974c..65680db 100644
---- a/kernel/time/tick-internal.h
-+++ b/kernel/time/tick-internal.h
-@@ -55,6 +55,8 @@ static inline void clockevent_set_state(struct clock_event_=
-device *dev,
- }
-=20
- extern void clockevents_shutdown(struct clock_event_device *dev);
-+extern void __clockevents_exchange_device(struct clock_event_device *old,
-+					  struct clock_event_device *new);
- extern void clockevents_exchange_device(struct clock_event_device *old,
- 					struct clock_event_device *new);
- extern void clockevents_switch_state(struct clock_event_device *dev,
+>          */
+>         bitmap_clear(rbio->error_bitmap, 0, rbio->nr_sectors);
+> @@ -2632,7 +2632,7 @@ static int alloc_rbio_essential_pages(struct btrfs_raid_bio *rbio)
+>         return 0;
+>  }
+>
+> -/* Return true if the content of the step matches the caclulated one. */
+> +/* Return true if the content of the step matches the calculated one. */
+>  static bool verify_one_parity_step(struct btrfs_raid_bio *rbio,
+>                                    void *pointers[], unsigned int sector_nr,
+>                                    unsigned int step_nr)
+> diff --git a/fs/btrfs/send.c b/fs/btrfs/send.c
+> index 5c59b9abedcd..c523bf950c89 100644
+> --- a/fs/btrfs/send.c
+> +++ b/fs/btrfs/send.c
+> @@ -7023,7 +7023,7 @@ static int changed_extent(struct send_ctx *sctx,
+>          * get modified or replaced with a new one). Note that deduplication
+>          * updates the inode item, but it only changes the iversion (sequence
+>          * field in the inode item) of the inode, so if a file is deduplicated
+> -        * the same amount of times in both the parent and send snapshots, its
+> +        * the same number of times in both the parent and send snapshots, its
+>          * iversion becomes the same in both snapshots, whence the inode item is
+>          * the same on both snapshots.
+>          */
+> diff --git a/fs/btrfs/transaction.h b/fs/btrfs/transaction.h
+> index 3a57f227b5ed..89153cd22596 100644
+> --- a/fs/btrfs/transaction.h
+> +++ b/fs/btrfs/transaction.h
+> @@ -288,7 +288,7 @@ do {                                                                                \
+>   * Call btrfs_abort_transaction() as early as possible when an error condition
+>   * is detected, that way the exact stack trace is reported for some errors.
+>   *
+> - * Error number must be negative as it encodes wheather it's the first abort.
+> + * Error number must be negative as it encodes whether it's the first abort.
+>   */
+>  #define btrfs_abort_transaction(trans, error)          \
+>  do {                                                           \
+> diff --git a/fs/btrfs/tree-checker.c b/fs/btrfs/tree-checker.c
+> index 401fd40ec7b2..b8ca9980e1dd 100644
+> --- a/fs/btrfs/tree-checker.c
+> +++ b/fs/btrfs/tree-checker.c
+> @@ -228,7 +228,7 @@ static bool can_have_extent_data(struct extent_buffer *leaf,
+>         }
+>
+>         /*
+> -        * The rest are special files, e.g. block/FIFO files, which cannnot
+> +        * The rest are special files, e.g. block/FIFO files, which cannot
+>          * have any file extent.
+>          */
+>         return false;
+> diff --git a/include/uapi/linux/btrfs_tree.h b/include/uapi/linux/btrfs_tree.h
+> index b6ccaf848e4b..47ee52859b45 100644
+> --- a/include/uapi/linux/btrfs_tree.h
+> +++ b/include/uapi/linux/btrfs_tree.h
+> @@ -230,7 +230,7 @@
+>   *
+>   * Stored as an inline ref rather to avoid wasting space on a separate item on
+>   * top of the existing extent item. However, unlike the other inline refs,
+> - * there is one one owner ref per extent rather than one per extent.
+> + * there is one owner ref per extent rather than one per extent.
+>   *
+>   * Because of this, it goes at the front of the list of inline refs, and thus
+>   * must have a lower type value than any other inline ref type (to satisfy the
+> @@ -243,7 +243,7 @@
+>  #define BTRFS_EXTENT_DATA_REF_KEY      178
+>
+>  /*
+> - * Obsolete key. Defintion removed in 6.6, value may be reused in the future.
+> + * Obsolete key. Definition removed in 6.6, value may be reused in the future.
+>   *
+>   * #define BTRFS_EXTENT_REF_V0_KEY     180
+>   */
+>
