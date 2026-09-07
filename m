@@ -1,331 +1,255 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazolkn19013087.outbound.protection.outlook.com [52.103.43.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027E42D949F;
-	Mon,  7 Sep 2026 03:24:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751450; cv=none; b=HARQAW/0sfKXHTWtUFCGuIvkHYEYwtTtf4MAExX3DztHn+3Iq7FksaWVm3AfM9JKevdTJnqwGaBgbRX4VP4hMEE92l6nvW0vBWktOH+rbNWV4oQRzmxZ2tAwpDrXNjBVfxCUU/du1kf8ElOjWNCn4wAHtG5RLPbBLG8Sa+9X3+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751450; c=relaxed/simple;
-	bh=+3qeet1gjH+Lyp5L/bYg2ta9Sk6uQvhZlImteiB/d5w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KTtqlWDzXiRyGLVoGd7/IaltDFnjN0/Nu3syD/DLgcH9CMLi7jCyyrtyDuKy2sExClIvbHotQBrSVXfzQTH08ndyuHdQKq29VKM7uOVcfP3sZJKiC4j1z+foFBKAHzAa/fb1NCQziV3o/yOY6K12IXyAtUQ+sA987DnUOGyeb1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qFklfuIz; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909AA35893;
+	Mon,  7 Sep 2026 03:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.87
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788751495; cv=fail; b=HeKEyryB1kqWn9EBHGtGxupKsiEJJVPwg/DPoNccnpkkbmqGHTOxY7Cnzkd0PJbOf8UnxRjXLOG+TuEONmhEajjUzfLqK0MzntHYj4MY3iMcEJLRdZC/CrmDkWykN7cPWW5DOZKBzTMjvE/+qv8FA6Xv8rBGf1HAaXtLKAb3nwM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788751495; c=relaxed/simple;
+	bh=EWxwGvF6U9ht/+aOxo3OZc8dAFeyLW9Re5YTgdnJSj4=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=H9pjRJcfvKjnpHj15y1mynEO92Pe8C0ceHY0rR+zQP7DF4K1Rpksi/bHLmgOgG+tx6FRRlMs0BdLn8CVmXUFt32qpIeO9pZtvxLf1VaID22QW9sdmKi6pUvsULKDVE/2gI6hMdfSi7EkHDDAjpxluU+/7GaTW4U1njGukWan4kY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=u8+ksZr5; arc=fail smtp.client-ip=52.103.43.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qFklfuIz"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6870VVR9319839;
-	Mon, 7 Sep 2026 03:23:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xgBjMM
-	jxtCv55t7GMT2w+mlDGqrwgg7Z4rq7MwlBzjI=; b=qFklfuIz0Lq2xUNoZyDnH/
-	EwGHd3Mne3jJE7shMq7WsMIwSryd65iz6aF6KXILoZzqYG1TWi1/Qr5iHqkG/CiF
-	fiuo4TnG/MfljRQIhVQzAsoFuuRlxcfIGeMzN/+1ikLOI7pWVrlXPgHKEow/0bcc
-	3eHjO9nRL+EOqy+ZU5P6bfowzDLzJJeRDtkUpccecvTrhZBppPjIaXwZGqM/T92B
-	P+5/NwyPo7O5aXsCCwW65IOIRMCNDvupqlGvJqA3bP/3rMbm+lU0xV3KCq8yNXmc
-	bWJbqTtoCceGQzHAfE9z10rF+U8CslLfbDZjv24UQVfzlGsOOsZ/ESWGWJ+2bppg
-	==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbf3p9wd-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 03:23:35 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6873BSWo020221;
-	Mon, 7 Sep 2026 03:23:34 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4ggwdq3swf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 03:23:34 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6873NUw847251788
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 7 Sep 2026 03:23:30 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B3B3F2004E;
-	Mon,  7 Sep 2026 03:23:30 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 5FB0B20043;
-	Mon,  7 Sep 2026 03:23:20 +0000 (GMT)
-Received: from [9.124.222.214] (unknown [9.124.222.214])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  7 Sep 2026 03:23:20 +0000 (GMT)
-Message-ID: <7d88a3c4-a7e4-4814-9e29-84955b69a5b3@linux.ibm.com>
-Date: Mon, 7 Sep 2026 08:53:19 +0530
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="u8+ksZr5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LvKA5qlUKzQYjNpXfzdEIWzK7s1Nu+QvnRTgilDQANMrbOZyaXsZBxws2UZTP5HxO9uxUzmXAAWFsb8uNFUKXAXSKUZwXqMWPePTP3RciBgz/yZNB25YMkdg0Fszn6mHji4hJk2EtxIlhT0ia0FI+CGz2U3MSoyAwNtOayia9vcXotWO8MI2IfdRDzSQG6gZ3eDE0cNx27xqXbVup1tLEBLtaJsULgMSWi4QAqQYrqWaloLEoSiS1gd2oq8yXwo30Sa1y/sdDexQKIN6HOwzIkl5df7o2Zf37yW1aup6MCFSE9G4yylpnTnr4og9jehCBrbML7Xq6TYrjpPHMBaG3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DyEBVzQu2JDQD6rEvM7+5Wj53JQQCA+dcYM+zw8z3JM=;
+ b=sZNOtJCd+FAnkNSz2ElNQPZ5SvXChf7ykXc19JE0RH2F3yilKZD5/DCSCM0IEDvJMtC0ARzkTI9pPQPiCcwiJWJLIslAdM+2wZ8X3yHBXwKTiuotPFyWM0wuJIcb+k6MnoVKTT18RmX1csNRsPsE9DL5/clZg9rkWfKerFUilRR03inqZjpFMn8E0MDE1Hw1u3wsgQXI+COowO/J/ct6GjLkBcmTFHwRkpZkGrmqGSz33OAi6U6xUkswk8zeD5lABORYp0o+wh4WbRpYFyGeX5Acox7dkZcE2OR4Hh/rXWD0lWm3tOi5PKhD5wXdsi2rwynwixf3XE4HShd45brLKA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DyEBVzQu2JDQD6rEvM7+5Wj53JQQCA+dcYM+zw8z3JM=;
+ b=u8+ksZr5xZm0qgf90eHQWlBvYwBfpUzwEsCEdTriqnSEH54ZVTIslF0a2VFTKSENAAvuTSVCWJXsMf1PLj0YMf1r/ramhzdyLpGrT5nJKvxTqPxfKG3DFKR/9f13JQ+FDpEqT7P5ANZjLnxMzGNxuOVsZObXDCmJS3tfunDCQOwebyDVmDMgpNP1st830eAjDG6KQnyuT+F24y2mMZ27tf5Dga8dNYkr1nWpxbGFW+sjEWmKZ1z0ntJm5zLiQGvzkwNv3NzvctxHeJTR0zSBFGDx7JSrw1AekmfWHIyRm1kEAzk68sqg0K/jtiviZwDEJczBcG1IP9Jwp7FH47KGXw==
+Received: from SE3PR04MB8922.apcprd04.prod.outlook.com (2603:1096:101:2e9::7)
+ by SEYPR04MB5737.apcprd04.prod.outlook.com (2603:1096:101:8b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 03:24:44 +0000
+Received: from SE3PR04MB8922.apcprd04.prod.outlook.com
+ ([fe80::3450:f139:5238:8f58]) by SE3PR04MB8922.apcprd04.prod.outlook.com
+ ([fe80::3450:f139:5238:8f58%5]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 03:24:44 +0000
+Message-ID:
+ <SE3PR04MB8922F1703F8C7BB59265AAF1F3B22@SE3PR04MB8922.apcprd04.prod.outlook.com>
+Date: Mon, 7 Sep 2026 11:24:37 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] iommu/riscv: create a auxiliary device for HPM
+To: Zong Li <zong.li@sifive.com>, tomasz.jeznach@linux.dev, joro@8bytes.org,
+ will@kernel.org, robin.murphy@arm.com, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, mark.rutland@arm.com,
+ andrew.jones@oss.qualcomm.com, guoren@kernel.org,
+ david.laight.linux@gmail.com, zhangzhanpeng.jasper@bytedance.com,
+ yang.yicong@picoheart.com, iommu@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org
+Cc: Chen Pei <cp0613@linux.alibaba.com>,
+ Fangyu Yu <fangyu.yu@linux.alibaba.com>,
+ Samuel Holland <samuel.holland@sifive.com>
+References: <20260904092136.113321-1-zong.li@sifive.com>
+ <20260904092136.113321-3-zong.li@sifive.com>
+Content-Language: en-US
+From: "Nutty.Liu" <nutty.liu@hotmail.com>
+In-Reply-To: <20260904092136.113321-3-zong.li@sifive.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI3PR03CA0004.apcprd03.prod.outlook.com
+ (2603:1096:4:297::11) To SE3PR04MB8922.apcprd04.prod.outlook.com
+ (2603:1096:101:2e9::7)
+X-Microsoft-Original-Message-ID:
+ <9c040154-be80-47a6-bcfe-88827024a53e@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 08/13] sched/core: Push current task from non
- preferred CPU
-To: Yury Norov <ynorov@nvidia.com>, yury.norov@gmail.com
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        kprateek.nayak@amd.com, iii@linux.ibm.com, corbet@lwn.net,
-        meted@linux.ibm.com, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-References: <20260903063240.268775-1-sshegde@linux.ibm.com>
- <20260903063240.268775-9-sshegde@linux.ibm.com> <aptiJP_8SWwZWju6@yury>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <aptiJP_8SWwZWju6@yury>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: zrImal1Nzg-DsaD9VLSbOR3qG45-w3L7
-X-Proofpoint-GUID: eKDAiZnKn75BVPjYCjFa1DFEf3DEf1YJ
-X-Authority-Analysis: v=2.4 cv=DbEnbPtW c=1 sm=1 tr=0 ts=6a9e2e38 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=ZHGiqxHou45PFmVM3NkA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDAyOSBTYWx0ZWRfX918BeP/941HV
- GN93u7H7YYJglb2YIF3loIaieSVK9HPqEkZmNJT/iy+C4ehOpzeg01BvS6QBXYdqfCLL54zXZdU
- EKj/W86I6pcf81K2Wpvsk3ULoWSnUIQulll2w5l3sdQyePOHRCDyXuYy9rByxx1SUUf2klzsSRB
- Ohpm9mKcePmQEZw/P9mBOpPzKkxxn0vSsvDxUEmf9O7pOcfoME6JyUGtPTItJIdBc+UbtTDVA6y
- uu0tyN/yVy8IQ7wHRI+Nk+ygLGrjS4kXJsdkvj0yeD7fngWj3FdJROUJhGOiSxwxppw5gmWm5R5
- lInGVIvLm1e/+9XMLrvuIC5a1vM+Eta5uB6ZUEh0AfD14RoRBqD7DJWySo3f1beX9FYtg48iaUc
- BBxPeyAdvFXDZIpzV8lW5uB0/QpFO+rsphzYzqWr99F4qHdX6FxbwkdcipKG+dg3tQOmY76G2Y9
- VkSLIk7JCiXDs/EgRXg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDAyOSBTYWx0ZWRfX36zLO75rAIrY
- xxMJa/fxWIHv9FF/xx0G8ktbj9lNqjA9ILAoJbnm9qJ32lrFSxhNxPGzg/28J43G9gT+teV2fnU
- m6JAYCSpyJPlCsz6tSCIEEPUal0yIzo=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-06_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 adultscore=0 spamscore=0
- clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070029
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SE3PR04MB8922:EE_|SEYPR04MB5737:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2a17076-5aff-46f8-e55f-08df0c8f8f46
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|19110799012|8060799015|23021999003|15080799012|22091999003|24121999003|19101099003|55001999006|41001999006|4140399003|6090799003|25010399006|5072599009|52005399003|40105399003|2607281247196008|12091999003|3412199025|440099028;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?OUxwZzVGSk85VTAxM0ZtRmRMdG45d3JjWURlU2FkejJ0cFR2WkRma0ZDdkhv?=
+ =?utf-8?B?T0ZpN1ZnTHdIZEU3Tm1sSTN2L05qR0VtU3pybnI2bzMwSHIrclhnNWZoT2x2?=
+ =?utf-8?B?aE5Bdlo1aWk1aldzRmYzbU8zVEdNaTRWNFZ2a3FGbC9QMWZRTGVGNnBYeHdw?=
+ =?utf-8?B?dzdpQ1loek9zUGpzWTZZUTcwM0RSK3BTY2lPWERNek5Tam5jWG5SeWNsZm9i?=
+ =?utf-8?B?am1ybm1WL0tRaG1UeWVzbDBSengrN2xhMWljaEREZGxOR3piUzJPRVFnUUtn?=
+ =?utf-8?B?TlNDbXRHV1RCY3hFY2xsRGYra0w5STh1MmhPSVpOSDJVdDdhR2lkSGcyeUgz?=
+ =?utf-8?B?NDJWU2RNVHBTdHMrbmR1YUJKYW1lSHJ5TVpOSjYxa0dBYTZsbWtRMUFxSkN5?=
+ =?utf-8?B?cVp4bk1ZbnJoRDlhUkpPTk1hWllER0FjbjBua1U1RXJnOXhCV21HSmY5dGE4?=
+ =?utf-8?B?OVN2ZkFVcW5Md25DMmxoQ0ZURnFSS01tNEtEUlRMQ2paNzZHZ0FaVlVobWJJ?=
+ =?utf-8?B?dXNleStQUGVPcXlqeklFd25NNEE1QjNRNWNnbFlIeXUvQ1I1NTQvM05iVnJC?=
+ =?utf-8?B?MlV5aDdDNUV3dy82WEZ2Z3kyWFpyOFh4UlN1K3pCZENBeWhnbmdXcys4MU1k?=
+ =?utf-8?B?aVl6Vk95K1NpN1Rnak5raDdTVEpIaWdTUU8xSDhYWTJnSG5vM1IwN2RmTXNO?=
+ =?utf-8?B?bVcwUk9nWHY0WERaM1dWcGFwM2Q0MWd0NW5QNHBSaUlhaUFBbXo2aVN5SGlE?=
+ =?utf-8?B?dmQ1WmFISUVjanhqK0ZaalZIS08xWW5ET1UwZWttWGczWXM0YmFGUEc1QXNy?=
+ =?utf-8?B?VE12am9aVlRRZWVrb0VCSkRJb2ozNWtxcDlBVmludG5zOVlXa2lOTTdSQ1Fh?=
+ =?utf-8?B?d21GdUZiU0tJQmMzbEx2NWtkWHRRY01JMnFkSG1QVTVHQnNyTXJzSG00TjI0?=
+ =?utf-8?B?RFhsMFladjZRS3VsTW9EVzU4M0lHcG9WeEJaSlF2M3dsNjhVRDgzbndLZVJT?=
+ =?utf-8?B?N3U0MlYzT3c0V1RnS0RFVENoYytHbTg5WHdkUnZaUnU5VDhWRDk0SExEVzJ2?=
+ =?utf-8?B?SFhmWCtVVXlBMlpzM1VqcThtTjlOWURCbWRnRWVOY1JMWk9HVHNHSTlFL1VB?=
+ =?utf-8?B?MTBDS1BVdjdMdVdtRk15d3hmTGJ4eVJzZ2k1ZXZlcDFMVEUra2p3eVlhcEJX?=
+ =?utf-8?B?cUo5ZUZSMEpCQ2hZNDdGWGs1SlR2OHU2Z09hU2IzT2ZqVnN6SmltMVBjaWJQ?=
+ =?utf-8?B?U0ZMUG5aclg2TkliNE94WFJJQ0h3MEFlTnU3bzRPdDVlajk3N25kU2Eydk04?=
+ =?utf-8?B?QXBVN1Roc1hYNllSQXMwN21SeUFrbnVmWVN2MEE5aUl4cFQ1UEFTT3Zzb0hS?=
+ =?utf-8?B?SWlZK1M0QktpOVh1ZTF5YXZlTC9icTJkdGhMSnllMkt1blBYWit6eGJnRXhm?=
+ =?utf-8?B?clZ4ZlpvZisrN3JUYnY2by91RDVNNDc2VS9TVFRVM3NTRC9aRzBhY3hJK0Qx?=
+ =?utf-8?Q?D+db8K4FNtuz72E7Iiae+IzD8n6?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?aGxIS21EeVk0MjdCM1AraFNLK05RVmh0bURISHQ3ejRUbTU3TXN0eFdRNThx?=
+ =?utf-8?B?RlAvaHh0V0c2cHpSTjFtV05pODV5aGNkVEhXQXZ1WFlXZUVQRUxTc1lkMEdq?=
+ =?utf-8?B?ZVprQzZrY2pwbkZpQnJxc3dCcExlTlVmcjNjbzlQVHNYWG1uc0hFLzBXUm5s?=
+ =?utf-8?B?K2ZYeHFLK2QwNEI0amtoZ3k3UWdkc0EwOGxqUHZubVlmOFNKd2swN2Vkc2tV?=
+ =?utf-8?B?ZWVOY1RSNjF5UFZUbHhkS2NFZU5QbXNIUTc1SUZvc2xTeWZiMEFrVnI1QjJ3?=
+ =?utf-8?B?alpVZkZHNHI4VXFMbmNuWTlaN0xmOUZSRTI5ZHJZaTZrbzZwb3NQcmQ3MVd5?=
+ =?utf-8?B?YmpUMmV5T0oxSjYzdm1qc1ExNUJGSUJjcHNUcVlwNEdOUkovd1hKUlBqQ0JK?=
+ =?utf-8?B?TnU0NWJpS2doWkZNMHVzN0FDUUt4ZUNjaE40TWlNSDhnS0dLeGtrdElyNEhF?=
+ =?utf-8?B?WStDZzdIMGdBWEhNYWl0Q29ZSlduYmZlK2ZxL3NOQU9PTzhNak11QU9DTExZ?=
+ =?utf-8?B?N3haSUJKSm5VUWtIVC9pRjdSNjdONy9vTXNwWU5JVm83bEdSNHRhc3JDTnp2?=
+ =?utf-8?B?SFZKblYyTm9NVVgvVTB2dnZYTjNQWXppUU9tL29FeVFnZ25DNW1wQjR0RER3?=
+ =?utf-8?B?Y1ViK2w3ZnhHeHo1ZklCYXVhcS9DR255ajFDT3VCTGRRMlpycnhDcFJjQUQr?=
+ =?utf-8?B?eENweXRwM1E5TStPTGRjbDdpTEphMXJlR1dzaHdmWkoyVXZFZUJwaHFldVRX?=
+ =?utf-8?B?TVpobk10VEE5RmdXdFExTTFycUtpR3lpTGZsMlJEcGNyYzJWMjFJQm13UW54?=
+ =?utf-8?B?aFllNDI3ekhuN3IvQzBscDN2MmN4RGVzZWZYY29QTk03RlJxYnFueG9MV2NI?=
+ =?utf-8?B?U2QzTW01WXJNUC9NWENVNGVTNkFRQkFqRGtiR2pWRWJ1aDNNTllGTDVaZFBL?=
+ =?utf-8?B?bzI4YllZbk9CNDJ3ZFdudzMrSTZRVE55V1N4UDhuV3FwdmdqdHltQU5LQk01?=
+ =?utf-8?B?Q0xrd2VVdWk2eC9jcDZMRXFqczF2TkZxRm90cjJueDJtaFVZNlpMdzVSWk9z?=
+ =?utf-8?B?V0xwU1lCelFjb3BLMGRPVFRicFNVaTY5K292SDljSllzS25nRG9GbEJaektG?=
+ =?utf-8?B?d29zM054VFp4U3Nwb25aSWRxWTFTdjhZc3FmSXoycDhMQUtiWWYySFo5UVBz?=
+ =?utf-8?B?R1AzM1YreXhwUDB6UnJFWGtublZFcWlZbE9UZzA3b0lBd0FqbmVXR2Iwd1JF?=
+ =?utf-8?B?LzlWLzJIR1owalMza1pzSTg1YlNLYkJiUFUrMFgraGZOUHo1SWc2WDJMWlpJ?=
+ =?utf-8?B?WEZRR3U4eFF0TDZVMEhFTmtYajlyQUh2UU5BVEVGZGFhekVIUWpIMFBCMURE?=
+ =?utf-8?B?V2xMa0IxMGJFSzFhbUpYYnR4WW9vYm42SWJMMFBnQW9Ua0ErWDFPa1JJUWVx?=
+ =?utf-8?B?Y1ZmSkZWNDJid3ZjcnA3blJLOEFza25ndWxIK1ozd2tFTXhkWnhvV0t0a1Jt?=
+ =?utf-8?B?K3JWZ0FKbE1jKzJPVHozTFg2VlRkL2RFY0U3UWNxSjFBeWI5bTgwSC9jLzJC?=
+ =?utf-8?B?YzRwcFIvcjhqZm5rRGhoblk1SmczUGFoK3VHVTl0UnBrVENUbFpoUEl2Qzdt?=
+ =?utf-8?B?NnBJcHI4dkNBdWlZZHNjTzZTTngwV0Q1bmc1aGtJZTNDMHlrTlkwaXV0S0xp?=
+ =?utf-8?B?cnFwN3YzSDdHeFdQWkt1Z0dGUU0walAva3d4N1V2ZS9taTkyUCtuWTIrQW0v?=
+ =?utf-8?B?a1dSY3ZnajJzenBnam5oZG9IN3RZL2psWERNUXByYUx3ZGVGUm9TNlptZktL?=
+ =?utf-8?B?Rm1UZ0dwQnpYMUxxU2JLOUlka2hvSE8rRjNQSDc1bzl4VWNYV1BwMy9sVzNo?=
+ =?utf-8?Q?/bRfjbXwjvFPC?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-c3e7a.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2a17076-5aff-46f8-e55f-08df0c8f8f46
+X-MS-Exchange-CrossTenant-AuthSource: SE3PR04MB8922.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:24:44.4285
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR04MB5737
 
-Hi Yury, thanks for taking a look.
 
-On 9/5/26 5:58 AM, Yury Norov wrote:
-> On Thu, Sep 03, 2026 at 12:02:35PM +0530, Shrikanth Hegde wrote:
->> Actively push out the current running task on a non-preferred CPU. Since
->> the task is currently running, a stopper thread must be queued to push the
->> task out. However, if the task is pinned only to non-preferred CPUs,
->> it will continue running there. This helps to maintain userspace
->> affinities, unlike CPU hotplug or isolated cpusets.
->>
->> Though the code is similar to __balance_push_cpu_stop and quite close to
->> push_cpu_stop, it is kept separate as it provides a cleaner
->> implementation specifically for CONFIG_PREFERRED_CPU.
->>
->> Add the push_task_work_done flag to protect the work buffer.
->>
->> For now, only the currently running task is pushed out. This keeps the code
->> simpler. In the future, an optimization may be added to move all queued
->> tasks on the runqueue.
->>
->> This works only for the FAIR scheduling class.
->>
->> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
->> ---
->>   kernel/sched/core.c  | 81 ++++++++++++++++++++++++++++++++++++++++++++
->>   kernel/sched/sched.h |  8 +++++
->>   2 files changed, 89 insertions(+)
->>
->> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
->> index b4ef2e92d786..35e7eedad104 100644
->> --- a/kernel/sched/core.c
->> +++ b/kernel/sched/core.c
->> @@ -5808,6 +5808,9 @@ void sched_tick(void)
->>   	unsigned long hw_pressure;
->>   	u64 resched_latency;
->>   
->> +	if (!cpu_preferred(cpu))
->> +		sched_push_current_non_preferred_cpu(rq);
->> +
->>   	if (housekeeping_cpu(cpu, HK_TYPE_KERNEL_NOISE))
->>   		arch_scale_freq_tick();
->>   
->> @@ -11202,3 +11205,81 @@ void sched_change_end(struct sched_change_ctx *ctx)
->>   		p->sched_class->prio_changed(rq, p, ctx->prio);
->>   	}
->>   }
->> +
->> +#ifdef CONFIG_PREFERRED_CPU
->> +static DEFINE_PER_CPU(struct cpu_stop_work, npc_push_task_work);
->> +
->> +static int sched_non_preferred_cpu_push_stop(void *arg)
->> +{
->> +	struct task_struct *p = arg;
->> +	struct rq *rq = this_rq();
->> +	struct rq_flags rf;
->> +	int cpu;
->> +
->> +	if (cpu_preferred(rq->cpu)) {
->> +		scoped_guard(rq_lock_irqsave, rq)
->> +			rq->push_task_work_done = false;
->> +		put_task_struct(p);
->> +		return 0;
->> +	}
->> +
->> +	raw_spin_lock_irq(&p->pi_lock);
->> +
->> +	/* This could take rq lock. So call it before rq lock is taken */
->> +	cpu = select_fallback_rq(rq->cpu, p);
->> +	rq_lock(rq, &rf);
-> 
-> If select_fallback_rq() grabs the lock, then when it releases the
-> lock, there's a window for race between the other process and the
-> subsequent rq_lock(). Or I misunderstand it?
-> 
-
-select_fallback_rq taking lock is for any state change that needs to happen
-such as fallback to possible CPUs etc.
-
-Most of the time it won't grab the rq lock. Even if the task got pulled by load balancer
-before grabbing the lock, Below (task_rq(p) == rq) will catch that, and it bails out.
-
-So it is safe.
-
->> +	rq->push_task_work_done = false;
->> +	update_rq_clock(rq);
->> +
->> +	context_unsafe_alias(rq);
->> +
->> +	if (task_rq(p) == rq && task_on_rq_queued(p) &&
->> +	    !is_migration_disabled(p))
->> +		rq = __migrate_task(rq, &rf, p, cpu);
->> +
->> +	rq_unlock(rq, &rf);
->> +	raw_spin_unlock_irq(&p->pi_lock);
->> +	put_task_struct(p);
->> +
->> +	return 0;
->> +}
->> +
->> +/*
->> + * Push the current task running on non-preferred CPU(npc).
->> + * Using this non preferred CPU will lead to more contention
->> + * in the host. So it is better not to use this CPU.
->> + *
->> + * Since task is running, call a stopper to push the task out. This is
->> + * similar to how task moves during hotplug. In select_fallback_rq a
->> + * preferred CPU will be chosen and henceforth task shouldn't come back to
->> + * this CPU again.
->> + *
->> + * Works for FAIR class only.
->> + *
->> + * If task is affined only on non-preferred CPUs, no point in moving it out.
->> + */
->> +void sched_push_current_non_preferred_cpu(struct rq *rq)
->> +{
->> +	struct task_struct *push_task = rq->curr;
->> +
->> +	scoped_guard(rq_lock, rq) {
->> +		/* Push the task if its explicit affinity allows */
->> +		if (!task_can_sched_on_preferred(rq->cpu, push_task))
->> +			return;
->> +
->> +		/* There is already a stopper thread. Don't race with it. */
->> +		if (rq->push_task_work_done)
->> +			return;
->> +
->> +		if (is_migration_disabled(push_task))
->> +			return;
->> +
->> +		rq->push_task_work_done = true;
->> +	}
->> +
->> +	/* sched_tick runs with interrupts disabled. */
->> +	get_task_struct(push_task);
->> +	stop_one_cpu_nowait(rq->cpu, sched_non_preferred_cpu_push_stop,
->> +			    push_task, this_cpu_ptr(&npc_push_task_work));
->> +}
->> +#endif
->> diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
->> index 6c3ad70e58b8..678e44134acf 100644
->> --- a/kernel/sched/sched.h
->> +++ b/kernel/sched/sched.h
->> @@ -1298,6 +1298,8 @@ struct rq {
->>   
->>   	struct list_head cfs_tasks;
->>   
->> +	bool			push_task_work_done;
->> +
-> 
-> It should be protected with CONFIG_PREFERRED_CPU. Also, the name
-> doesn't look correct. You set the variable to 'true' even before
-> calling the stopper. Maybe need_push_to_npc, or similar?
+On 9/4/2026 5:21 PM, Zong Li wrote:
+> Create an auxiliary device for HPM when the IOMMU supports a
+> hardware performance monitor.
 >
+> Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+> Tested-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+> Reviewed-by: Guo Ren <guoren@kernel.org>
+> Reviewed-by: Yicong Yang <yang.yicong@picoheart.com>
+> Suggested-by: Samuel Holland <samuel.holland@sifive.com>
+> Signed-off-by: Zong Li <zong.li@sifive.com>
+Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 
-ok. npc_push_work_pending is probably a better one? 
-> Why did you place it between cfs_tasks and avg_rt? If no specific
-> reason, maybe place it next to CONFIG_PARAVIRT-guarded fields.
-> 
-
-I don't see a common empty space there. I could increase the size.
-
-> What about pahole?
-
-I did check pahole on powerpc which has 128 byte cachelines.
-
-	int                        online;               /*  4524     4 */
-	struct list_head           cfs_tasks;            /*  4528    16 */
-
-	/* XXX 64 bytes hole, try to pack */
-
-It was empty space. Now, that i check 64 byte cachelines it may not be the
-optimal one.
-
-I do see, a couple common places for both 64 abd 126 byte cacheline. I believe those
-are better places. It won't increase the size or cause any existing fields to
-misalign. It also makes sense to guard it again CONFIG_PREFERRED_CPU. I had not
-done to avoid ifdefs. But it is used only under it. So i think that makes sense too.
-
-1.
-
-	struct balance_callback *  balance_callback;     /*  3608     8 */
-	unsigned char              nohz_idle_balance;    /*  3616     1 */
-	unsigned char              idle_balance;         /*  3617     1 */
-
-	/* XXX 6 bytes hole, try to pack */
-	long unsigned int          misfit_task_load;     /*  3624     8 */
-
-
-2.
-	unsigned int               ttwu_count;           /*  5276     4 */
-	unsigned int               ttwu_local;           /*  5280     4 */
-
-	/* XXX 4 bytes hole, try to pack */
-
-	struct cpuidle_state *     idle_state;           /*  5288     8 */
-
-
-I will pick one after little bit of probing. My preference so far is first one.> 
->>   	struct sched_avg	avg_rt;
->>   	struct sched_avg	avg_dl;
->>   #ifdef CONFIG_HAVE_SCHED_AVG_IRQ
->> @@ -4280,4 +4282,10 @@ DEFINE_CLASS_IS_UNCONDITIONAL(sched_change)
->>   
->>   #include "ext/ext.h"
->>   
->> +#ifdef CONFIG_PREFERRED_CPU
->> +void sched_push_current_non_preferred_cpu(struct rq *rq);
->> +#else	/* !CONFIG_PREFERRED_CPU */
->> +static inline void sched_push_current_non_preferred_cpu(struct rq *rq) { }
->> +#endif
->> +
->>   #endif /* _KERNEL_SCHED_SCHED_H */
->> -- 
->> 2.52.0
-
+Thanks,
+Nutty
+> ---
+>   drivers/iommu/riscv/Kconfig |  1 +
+>   drivers/iommu/riscv/iommu.c | 37 +++++++++++++++++++++++++++++++++++++
+>   2 files changed, 38 insertions(+)
+>
+> diff --git a/drivers/iommu/riscv/Kconfig b/drivers/iommu/riscv/Kconfig
+> index b86e5ab94183..8025bf0fb67f 100644
+> --- a/drivers/iommu/riscv/Kconfig
+> +++ b/drivers/iommu/riscv/Kconfig
+> @@ -10,6 +10,7 @@ config RISCV_IOMMU
+>   	select GENERIC_PT
+>   	select IOMMU_PT
+>   	select IOMMU_PT_RISCV64
+> +	select AUXILIARY_BUS
+>   	help
+>   	  Support for implementations of the RISC-V IOMMU architecture that
+>   	  complements the RISC-V MMU capabilities, providing similar address
+> diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
+> index cec3ddd7ab10..7f619971bb70 100644
+> --- a/drivers/iommu/riscv/iommu.c
+> +++ b/drivers/iommu/riscv/iommu.c
+> @@ -14,6 +14,7 @@
+>   
+>   #include <linux/acpi.h>
+>   #include <linux/acpi_rimt.h>
+> +#include <linux/auxiliary_bus.h>
+>   #include <linux/compiler.h>
+>   #include <linux/crash_dump.h>
+>   #include <linux/init.h>
+> @@ -48,6 +49,9 @@
+>   static DEFINE_IDA(riscv_iommu_pscids);
+>   #define RISCV_IOMMU_MAX_PSCID		(BIT(20) - 1)
+>   
+> +/* IOMMU PMU auxiliary device id allocation namespace. */
+> +static DEFINE_IDA(riscv_iommu_pmu_ida);
+> +
+>   /* Device resource-managed allocations */
+>   struct riscv_iommu_devres {
+>   	void *addr;
+> @@ -565,6 +569,36 @@ static irqreturn_t riscv_iommu_fltq_process(int irq, void *data)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +/*
+> + * IOMMU Hardware performance monitor
+> + */
+> +static void riscv_iommu_pmu_id_free(void *data)
+> +{
+> +	ida_free(&riscv_iommu_pmu_ida, (unsigned long)data);
+> +}
+> +
+> +static int riscv_iommu_hpm_enable(struct riscv_iommu_device *iommu)
+> +{
+> +	struct auxiliary_device *auxdev;
+> +	int id, ret;
+> +
+> +	id = ida_alloc(&riscv_iommu_pmu_ida, GFP_KERNEL);
+> +	if (id < 0)
+> +		return id;
+> +
+> +	ret = devm_add_action_or_reset(iommu->dev, riscv_iommu_pmu_id_free,
+> +				       (void *)(unsigned long)id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	auxdev = __devm_auxiliary_device_create(iommu->dev, "riscv-iommu",
+> +						"pmu", iommu, id);
+> +	if (!auxdev)
+> +		return -ENODEV;
+> +
+> +	return 0;
+> +}
+> +
+>   /* Lookup and initialize device context info structure. */
+>   static struct riscv_iommu_dc *riscv_iommu_get_dc(struct riscv_iommu_device *iommu,
+>   						 unsigned int devid)
+> @@ -1613,6 +1647,9 @@ int riscv_iommu_init(struct riscv_iommu_device *iommu)
+>   		goto err_remove_sysfs;
+>   	}
+>   
+> +	if (iommu->caps & RISCV_IOMMU_CAPABILITIES_HPM)
+> +		riscv_iommu_hpm_enable(iommu);
+> +
+>   	return 0;
+>   
+>   err_remove_sysfs:
