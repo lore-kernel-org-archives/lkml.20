@@ -1,136 +1,77 @@
-Received: from mailrelay-egress16.pub.mailoutpod3-cph3.one.com (mailrelay-egress16.pub.mailoutpod3-cph3.one.com [46.30.212.3])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FEB501F4E
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.212.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F973AEF35;
+	Mon,  7 Sep 2026 17:23:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801656; cv=none; b=T5qGEjvcpA6HUd2c9njqBO16ncHzlp/ju/K+d5OcMLdV3bupg2ynTozjdgOewYkL+X52igu+c1h/rKmtY8qWU2ZFtVUVPYHS0nUgWibDwuxz0gFdycOyalOs7QSwghv3P8eUIGRFi/7iLw4Vmd4lc2kIUQFvlc0mAuw9dbEVggU=
+	t=1788801783; cv=none; b=s0012/U4i/2DLvdfy1rqG4T1EKxclJyjd4nP9u61Dvu9peXGgrIzatkFIgxbUpTz+SVtym3UvrkW9SqkjeJyu9a2JUSs3F6LdfwnpxhxmoqY1/dSGRIN3lCfFImz6/IlwvkWsrmQ0Xh9iwUUCbQFEoFEuKWC1PMcYwNr7S0H9Dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801656; c=relaxed/simple;
-	bh=3nTEFFutEHpB2+1O678dGGnisQRT4iuoBriSb3BiG3s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=boHWvn1rYRmHHCuZdxuQxy9KlHYVrewieSIPR0iLTxNrvwdWjinu5XWOXf98Q0FMNpFPRI+DA0TZWZCJJzIAet10eYcyBhpCrQYz8OI9cf/2yc6/KTnRfITdbi5VPx/2kJL7KnFfsR90OiQayN8uZieIY9nKTQ+TxZc8aNPUUqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com; spf=none smtp.mailfrom=embetrix.com; dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=gw/YVvym; dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b=04y/wQjg; arc=none smtp.client-ip=46.30.212.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embetrix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=embetrix.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="gw/YVvym";
-	dkim=permerror (0-bit key) header.d=embetrix.com header.i=@embetrix.com header.b="04y/wQjg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788801582; x=1789406382;
-	d=embetrix.com; s=rsa2;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 from;
-	bh=nTcsBJLmFu8dYMLn+V9Q/4af4M3A3nE5vl3NtUhRMU8=;
-	b=gw/YVvymdZ8+gZgNXCdhQtu+WXCdmrmUxyezOalZKMUkQGQtmqA9Aew61pQ2Xjxq7k81BN6nDVQaR
-	 6fKQup7jrHw9Fejai4Nu1cjEpJIE3I/61ePSCDF4wmiq0RvlqePRM5zsCTIFTHw+RgNWv2kUrzOaiz
-	 vx8P71gPKyChS+PzJQwiKNMo3IaUawOyfwgUs3HRUUJN3tQCGeu90FtfCt6dHgpyL2GWUu9JAf47Il
-	 S4L9gH2bh8gqs+zYCxxJUmzrSYRlZ0nz1HTVHIYsizuouh9QgvYfQo7TrmIdLtL2y/00PLkObzNl4B
-	 CSNY7pWgnM7lceHzaMNFPORz7xkmZ9w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788801582; x=1789406382;
-	d=embetrix.com; s=ed2;
-	h=content-transfer-encoding:mime-version:message-id:date:subject:cc:to:from:
-	 from;
-	bh=nTcsBJLmFu8dYMLn+V9Q/4af4M3A3nE5vl3NtUhRMU8=;
-	b=04y/wQjg+9nLAx6LFS8sICVNa00JQBh2H0BEDhfXjZth+CgoJJQBAs5A0Rb0HN2fSxDKi3UILgK++
-	 kR6r3lFBA==
-X-HalOne-ID: 4eb452ed-aae0-11f1-9c77-f14abb5dfc6c
-Received: from xps-13.fritz.box (dynamic-2a02-3102-8c10-1ae0-2993-9966-0174-5d77.310.pool.telefonica.de [2a02:3102:8c10:1ae0:2993:9966:174:5d77])
-	by mailrelay1.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
-	id 4eb452ed-aae0-11f1-9c77-f14abb5dfc6c;
-	Mon, 07 Sep 2026 17:19:41 +0000 (UTC)
-From: Ayoub Zaki <ayoub.zaki@embetrix.com>
-To: mpatocka@redhat.com,
-	snitzer@kernel.org,
-	agk@redhat.com,
-	bmarzins@redhat.com
-Cc: dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	corbet@lwn.net,
-	linux-doc@vger.kernel.org,
-	Ayoub Zaki <ayoub.zaki@embetrix.com>
-Subject: [PATCH] dm-verity: add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
-Date: Mon,  7 Sep 2026 19:19:38 +0200
-Message-ID: <20260907171939.355472-1-ayoub.zaki@embetrix.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788801783; c=relaxed/simple;
+	bh=Arv9t87aDfZviQmkGYJRxKLs9nEJj7a0Gkqk0YVPb6U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HWk4dnXvI1Ijp37gs1ztjbHR7vbR0PHWKwU2T+WfQvSXwhY7Hg8jThNkHW8bd9siFFifp7PWhbUK/948+0ev+J8tHfQ+dSo0CatSneQp0P6amArbKouvwoFIL5NZJC+sroTUrPO6oQF7GO+NEzLyR5Bl+5uYC13baM2wE7OrtJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x3d3W-000000004Ls-3Jk7;
+	Mon, 07 Sep 2026 17:22:54 +0000
+Date: Mon, 7 Sep 2026 18:22:48 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: "Jan Havran (Advantech Czech)" <havran.jan@email.cz>
+Cc: Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@google.com>,
+	"David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net 0/3] net: dsa: lantiq_gswip: SGMII/2500BASE-X and
+ flow-control fixes
+Message-ID: <ap7yeykTFK0nNbzz@makrotopia.org>
+References: <20260907134818.16670-1-havran.jan@email.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907134818.16670-1-havran.jan@email.cz>
 
-Add DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE Kconfig option.  When enabled,
-dm-verity always requires a valid root hash signature: require_signatures
-defaults to true and can no longer be cleared on the command line.  When
-disabled, the existing require_signatures module parameter controls
-enforcement.
+On Mon, Sep 07, 2026 at 03:48:15PM +0200, Jan Havran (Advantech Czech) wrote:
+> This series fixes three issues in the lantiq_gswip / mxl-gsw1xx DSA driver
+> found while bringing up a MaxLinear GSW145 over SGMII on a Marvell
+> Armada 7040 board, with the switch CPU port running 2500BASE-X and the
+> user ports at 1000BASE-T.
+> 
+> Patch 1 reorders the SerDes NCO clock-rate setup ahead of the SGMII shell
+> reset. Without it, only the rate the switch was left at by the straps or
+> the boot loader links up; the other rate comes up but forwards no traffic.
+> 
+> Patch 2 adds the missing SPEED_2500 case to gswip_port_set_speed(); without
+> it the CPU port was forced to 10 Mbps at 2.5G link-up.
+> 
+> Patch 3 corrects the GSWIP_MDIO_PHY_FCONTX_EN field value (a typo present
+> since the original vrx200 driver).
+> 
+> Tested on GSW145 hardware only. The register values are backed by the
+> public GSW145 data sheet and by the driver's own field encoding; the
+> xRX200/xRX300 data sheets are not public.
+> 
+> Jan Havran (Advantech Czech) (3):
+>   net: dsa: mxl-gsw1xx: set SerDes NCO rate before SGMII reset
+>   net: dsa: lantiq_gswip: handle SPEED_2500 in gswip_port_set_speed()
+>   net: dsa: lantiq_gswip: fix GSWIP_MDIO_PHY_FCONTX_EN value
 
-Signed-off-by: Ayoub Zaki <ayoub.zaki@embetrix.com>
----
- Documentation/admin-guide/device-mapper/verity.rst |  5 +++++
- drivers/md/Kconfig                                 | 14 ++++++++++++++
- drivers/md/dm-verity-verify-sig.c                  |  4 ++--
- 3 files changed, 21 insertions(+), 2 deletions(-)
+Thank you for taking care of this on a board which allows you to actually
+test it -- on the reference platform I had to develop the driver with the
+SerDes interface of the switch is hard-wired to an MxL86111 PHY, hence I
+could never test 2500Base-X mode.
 
-diff --git a/Documentation/admin-guide/device-mapper/verity.rst b/Documentation/admin-guide/device-mapper/verity.rst
-index eb9475d7e196..bb48c001aeac 100644
---- a/Documentation/admin-guide/device-mapper/verity.rst
-+++ b/Documentation/admin-guide/device-mapper/verity.rst
-@@ -163,6 +163,11 @@ root_hash_sig_key_desc <key_description>
-     also gain new certificates at run time if they are signed by a certificate
-     already in the secondary trusted keyring.
- 
-+    Whether a signature is required for every dm-verity device is controlled by
-+    the dm_verity.require_signatures parameter which defaults to off. Setting
-+    DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE makes it default to on in which case it
-+    can no longer be turned off.
-+
- try_verify_in_tasklet
-     If verity hashes are in cache and the IO size does not exceed the limit,
-     verify data blocks in bottom half instead of workqueue. This option can
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index df27c7d066d2..59098d1f4534 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -610,6 +610,20 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_PLATFORM_KEYRING
- 
- 	  If unsure, say N.
- 
-+config DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE
-+	bool "Require dm-verity root hash signature verification"
-+	depends on DM_VERITY_VERIFY_ROOTHASH_SIG
-+	help
-+	  Reject dm-verity devices that are created without a valid root hash
-+	  signature.  Without this, whether a signature is required is decided
-+	  at boot time by the dm_verity.require_signatures parameter which
-+	  defaults to off.
-+
-+	  Enabling this makes that parameter default to on and it can then no
-+	  longer be turned off.
-+
-+	  If unsure, say N.
-+
- config DM_VERITY_FEC
- 	bool "Verity forward error correction support"
- 	depends on DM_VERITY
-diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
-index b2b55c41e2cb..aadcf5e4a47c 100644
---- a/drivers/md/dm-verity-verify-sig.c
-+++ b/drivers/md/dm-verity-verify-sig.c
-@@ -21,8 +21,8 @@ static bool dm_verity_keyring_unsealed __ro_after_init;
- module_param_named(keyring_unsealed, dm_verity_keyring_unsealed, bool, 0444);
- MODULE_PARM_DESC(keyring_unsealed, "Leave the dm-verity keyring unsealed");
- 
--static bool require_signatures;
--module_param(require_signatures, bool, 0444);
-+static bool require_signatures = IS_ENABLED(CONFIG_DM_VERITY_VERIFY_ROOTHASH_SIG_FORCE);
-+module_param(require_signatures, bool_enable_only, 0444);
- MODULE_PARM_DESC(require_signatures,
- 		"Verify the roothash of dm-verity hash tree");
- 
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.43.0
-
+Whole series
+Reviewed-by: Daniel Golle <daniel@makrotopia.org>
