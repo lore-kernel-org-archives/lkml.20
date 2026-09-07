@@ -1,203 +1,394 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DCF3890EE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760172; cv=none; b=nUTPdM60NWnNrf/SQo90F3cLOOH7T9kfrVY2Q46tW0oViuckEIn0z1wHo/HZDJpfkuirXtY61jp2g9wKIDtuKNfHwPgBTqmkSvUEIaHPa8b8ePK1Qey8lXqgi+mh+HKXGIosfb3ln724aP8wJTrnx692G+SJXxzathUk4CPZpBc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760172; c=relaxed/simple;
-	bh=qkLLrYO1wm0V5K+u4TzItu4MYjDG4vaouixDH+rGCj4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JJzXHL/jCZTh+aNz0trBrvnxcieQZNeaWObufQ4epjJx9Fjq6nnoHM0xn6MRVviuUeYTXmqOUksfnQT5KDWrgZ0oP9Jq9AQiOeFDzgYPwz1h42yhesHB5MvztB4zLAjtMnXLNgXr2oAJl+16aGyChN1YVzN8rj95djHnN2zWBPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mUIazvvx; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A8937F326
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788760333; cv=pass; b=H5pxJJK+WESeT8D/MjgMycb225yKYGcLwIQFk8GDlSQjEZz3UD1/HFThK9VWksKj/7h8ZlaEQIi6HeVDApV9/Z8OVo3RCMu3JbjDxp/5Ubcst9eccqy27QkxV9CIE2cer6dPd7OoGOGBLR3aiBdXeYfnHpRQerFjWuUMEttrGoQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788760333; c=relaxed/simple;
+	bh=1pczd9iQAVdymvinAesH7TumAS+oq97GEzwubK4CWRU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lLuDvj5+hpserLIiTBNVuBEXeHKbyQEKZpzEajLftzN/+FAPGEuVenEuSCUOCoXujq2VhEzkqsHkOiO78nr0o8BvpVz16EyHkH8B/ZpmlxKY6JrxR1aBB9Gh9Aam9pa46Cn3xHVQ0pU58uFac05b2DKEnLvM9ZoHRDlvxEGZ/zQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fj+KQqJ+; arc=pass smtp.client-ip=209.85.218.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mUIazvvx"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso2792878b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:49:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fj+KQqJ+"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c263110a8cdso171122766b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:52:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788760329; cv=none;
+        d=google.com; s=arc-20260327;
+        b=byXVAVhL8xD9CEz0ikQVFT1faECbljYkD0EXsxFVCWH2Q0ghcNmnZWlcMf5ucfEmyJ
+         okp4kDCttS6htRKu+nDOMiOWsNbyE/nibpfsstTowLAH7VYi9ab8wOqzhQFqz6L6YsIs
+         TeU68+KCGQy/XgsTbV3qN4J84ZfUpJFhPrprmLVQCbbI1CjHtnN4KBX16QOPFXxw4Bf6
+         tX8DMF43Q5X11k51EfR8SHNDAD5MCfOh+5I6/u1oJIjAdESSk4D/8ZVL8tRCbRZfXJ7q
+         93J147cIXGUTU9W76bSe6lqZOw6cKHhUVbNm6WhF//81OGWRHilZyFzBKlouzGu5ieXN
+         CSoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=22/BwaP7SAKujHOUUdDC0Bxv5gFqHg9CGNaAxSy6VvU=;
+        fh=EHGsoX7d9egdtIq/RS1OUy1mRV4VQe+mKN+SMLjk+dM=;
+        b=mJJ4m8OfQKLE78e5tPsw4usxS2l3aLJwm4Vsi1MA3FcMOv4AZxxu2faqyJizJU76D5
+         PDgdf0jlzz3asmC6LKYrG0ZgAXIhSczjd+8gaVJrdz7wq4HCZFiQtQAoWzvOcpdzPgbv
+         bW07FJ5v63b0OEIPYJQqLO9iq/lTesNEhElIX4JP5hrud364lohqJ/a40UW/QP5P2xGT
+         +NFW9L4528eAyGZxtXQ+X8ff3IupdYfDGm3N7MZ8GYO5AuELgIJP3jAhSNDOsqrGSJwG
+         WHrZ17R952sa4kNxOtBdgRfBtaKr+CA9OSf3dKokK+crDnURp4ackqGFGCkjeoramNu5
+         QSBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788760170; x=1789364970; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z7EX7mOM/qiOwQlbURkZ/luFmBbIsDaxMuwCLWOzuHM=;
-        b=mUIazvvxTU0+WyKTSxJ/11DP4Fceun/YsoWrbeZL8NKh9VKe2heZfOV4R71tQIlpme
-         /+oE1nBBatg71h5L2TyjHdZDgzyxbg5wct5X43FfVBJIJQ7dVFk9L6jqoRLiQwzxLSgP
-         7ER3zgalm2Tipo1XqndcdN+sdDW/9em80FJ/V4gq1jOKOI5ujrsmLIo2axFRwgspSdFD
-         TtpzwNBUW5biUEH07FgZ9h2R6/rptU46JtRL8XjphXTKBdTn630keu+cO0AwkUV16ug9
-         YJGS0nIDEoBxZ34+jU4JfK2eYHJ2urPsf25vxcjAtegtwSmnDJDSzSdER2V0EnbC5qcF
-         b74g==
+        d=gmail.com; s=20251104; t=1788760329; x=1789365129; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=22/BwaP7SAKujHOUUdDC0Bxv5gFqHg9CGNaAxSy6VvU=;
+        b=Fj+KQqJ+yoJbcMJytqm9aKgL3OfWC9mkQcG2eI5Uf736LZT0VXgUeh+mt0WU3TBGUR
+         pPeqySK8akCXaRALKrvaPXx9S5tdyst5CyFdfKzsfktzSuNV9w11Zt3jtfPCwGIElvWE
+         vl382jp8q05uB2ATYxfLFXRnnUUX1kztH83cUPW42GLOaep19MZXuHhHNSIHrhljdv3s
+         P4LdvItUPqugk/Xn6W65GglqGcmLwfHVPoSWpEg7obNx6mwt5+2oPnaarr7DEMzQb0IU
+         ZF9MEofwTc0mBZCmnNwOQ3U4kuDt0Ai6f8a1uqy6gevvLwrQ4goVaCIKyrUPQXbiTzWL
+         eQ+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788760170; x=1789364970;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z7EX7mOM/qiOwQlbURkZ/luFmBbIsDaxMuwCLWOzuHM=;
-        b=CPaZHjB6IKJGsj+jElQPpxNbyvXstAJw6gcTYqRgZaJP9oZAj5qCkatf5MgUPDz1Ju
-         xulmnvaNSvgggRC1KKydUHlwv7SxVd616gAe/pKq/LKrzV3wkVqy/7eMk9jqqhQl06nu
-         VjIxaqRtYaVEvT2ZyYm1qP3i827Kmg6DsooaAYvZzhEt3s/lj34syddg0hEIFLeG50sH
-         Pw0No2IRMUBxORkapxiIPmSCt/M1BBs0qK7AeAMQbDe1hglmYKpWMyk7qGXttGr7LNZy
-         lmyKjM7A5AsoKgK20S/6/ql3VrBBBdHKaJXaZ77gKWFrT15ZoC4DUfzYyniMtF+1UQqb
-         OUZg==
-X-Forwarded-Encrypted: i=1; AKwUvBwcR3+lCwe2uZugKxjsT7IiS4NaYZ+6uSWiVR973iVe0I0XZ/hH5Vaspuqq/Mi99odOeFHGA6C6GZSgMqQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mI3tnOkX0IJy6vxEjYSw0eiAKv0UUdWOaO17gfZSIedCdrxcJv
-	ut1jQskRt0Qld17OQeouLkAEnTa9hiSgvMkyT2vEyaYkAzP8fHBlE6KqYHL1gw4LVWEweA==
-X-Gm-Gg: AYBFou3N4CyoKwzT7EPBIsiMNZMsaU+0QIosFyEjDHn/IrTLaU6VWYdHN1yvm/DAQf8
-	+Bij1jxBhq4LtnukIIZU1xF6EUsIeR4t+J+wW84gtZ1HVdfFI96NlXqHqneVeEp2LIMjOnEBNsz
-	qoJ6Bi5HClB1NqdOu6NfClzOVIOtYtrtGsrJobZbpnx9HWyK+cOHi22c5NC2nm/SjAaa0pZMvOU
-	QfZDbDcMJePSJ7NOvvZL/YQdtOx2ys6AMeOehzUFlHfqjYXEx7O2X+K7taGxyP/2KtpU6lFx77N
-	1eR92GFdqvEVVrCIOCQMVwTfMJTkFUCZvVdUSg/qgZxMNNWKQIT9hwf9Rt+/YSx9oKWY1cslfbx
-	MJCZIk4/0i+PFL71FD6+RJ9jd8cv+miaib/2hmUA7RNMCvPw/peRDaYhHlq0jziPBQX39HO7ppP
-	la3gfD8g6U5VuZ5KPzNFzMSYIxT5v40g0Q4eI2kZE1VjqZAaMVOtUvbybfAAdEN82Jefia+9Tf+
-	5boCdlbipDf8AM=
-X-Received: by 2002:a05:6a00:f94:b0:857:72f8:dca6 with SMTP id d2e1a72fcca58-8619c87fcb5mr15788416b3a.12.1788760170262;
-        Sun, 06 Sep 2026 22:49:30 -0700 (PDT)
-Received: from [192.168.2.166] (104.194.78.75.16clouds.com. [104.194.78.75])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8614f873cb6sm3783716b3a.1.2026.09.06.22.49.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 22:49:28 -0700 (PDT)
-Message-ID: <6932a51e-0b88-4db6-8e01-a6472d8e0968@gmail.com>
-Date: Mon, 7 Sep 2026 13:49:21 +0800
+        d=1e100.net; s=20251104; t=1788760329; x=1789365129;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=22/BwaP7SAKujHOUUdDC0Bxv5gFqHg9CGNaAxSy6VvU=;
+        b=AxQGmtzTWiA47enK5sQhyRdWnFIDlZDuhIxzcyxbFvjc76iS9iNsnTCtaRcWdlgUrU
+         BtwUbblIk09A476l8vako8aDtfxkQG+7fvGUm5mhCllxa85PnaIrhNiylZj5uqN6y3Bx
+         lcWjhIE+2WTXZW5HqsWPAf5wU0VIj+i6dgPn5OgF38nQPzuTWW3A/YNj1H9VhqutqG9m
+         7ee1X/o+aNofs/iqvyVtMXDhSzPdmuLLhBohizvblaCpKTTrs5IEchS7GuTOpye/gAlf
+         ZLBB+68+9egckGKgRNWU7sQye/LNwn0mjpdSlHGrVqyJcHaqqenTQweocWY4WguqIiqN
+         MhJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgj/sxPKO/Ysonowr+TuDa+gpFYx97QC18Zml8YZPYl/MB3FBSrVYZFfiskQ+DOKlyiSxMPoPH/1crfVU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBI0uyE87cgmEFyV424pQ7jdXH55pMRpKqv/dESp6pL4OAKtJh
+	6kvo36pusSpdQdlnR/iwZbgCUCQmyYVROMhqhAtUiWydh1sBq1GzQ1seaKBv1yqV8tOCCcFzooo
+	9VdhigBZo6BxmB2sTW0QVNgESfuwxdjk=
+X-Gm-Gg: AYBFou0uMVH5h1pz12jAGJRzBQFLG+n9R0I4rWlMzjPadNCCzhkyIeUkizpOp76ln7F
+	bjOI3kVWkvyYY0kvGWISFaEPhnuxirBnXFCCz1Jac5p9OoIctdK4aEBUP32+GzzvK8kmenyelqR
+	pfwAlWCtkbFALVqmis5b5hX1ErVw377us/nFZO2GCmQaCsdvRkpxQIk3fExuZVqKosxQV5k9lUj
+	EfbWcEoGfT924RmUim12VVWkm1fh0XR5Bw9HqAvJ8/4kcu5a5mI5CUTvHGX+jQehlivsF0ftq96
+	fVAc6LMoGCS0zVB/O2CUbSMMMV+tiuFqtnBnbIvHIWsM5ZSxBjt+6PkC0iXQWMouRLFGZ1/EJFH
+	gDQ==
+X-Received: by 2002:a17:907:728f:b0:c26:19e3:e97a with SMTP id
+ a640c23a62f3a-c2619e3ee84mr674879666b.26.1788760328843; Sun, 06 Sep 2026
+ 22:52:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] docs/zh_CN: Add configurable error injection
- translation
-To: cuishuang <imcusg@gmail.com>, alexs@kernel.org, si.yanteng@linux.dev
-Cc: dzm91@hust.edu.cn, corbet@lwn.net, skhan@linuxfoundation.org,
- wangyuli@aosc.io, kezijie@leap-io-kernel.com, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260722123240.22979-1-imcusg@gmail.com>
-From: Alex Shi <seakeel@gmail.com>
-Content-Language: en-US
-In-Reply-To: <20260722123240.22979-1-imcusg@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+In-Reply-To: <CAKEwX=MP=zuTnLT=coS_EpXe2KwXq=79yBnsEGXwcZZsW3S=Yw@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Mon, 7 Sep 2026 13:51:31 +0800
+X-Gm-Features: AcwNN1U_INQMn02v6mP531xYYMhuEgJLkzDwyU8CUqGybSQz-mJYL5CYBAKGTU4
+Message-ID: <CAMgjq7AHRzBsbmGOx0s=TQFBwcn=DEU1naR443sO6x+pJd6hAg@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Chris Li <chrisl@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Yosry Ahmed <yosry@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sat, Sep 5, 2026 at 5:14=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wrote:
+>
+> To Kairui, Johannes, Yosry, Chris, David, Andrew, and other (z)swap folks=
+ -
+> I need some help here.
 
+Hello Nhat,
 
-On 2026/7/22 20:32, cuishuang wrote:
-> From: Cui Shuang<imcusg@gmail.com>
-> 
-> Translate Documentation/block/error-injection.rst into Chinese and add
-> it to the Chinese block documentation index.
-> 
-> Update the translation through commit e8dcf2d142bd
-> ("block: add configurable error injection").
-> 
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Cui Shuang<imcusg@gmail.com>
-> ---
-> v2->v3:
->    - Add the missing Assisted-by trailer to the commit message.
->    - Use "Cui Shuang" consistently as the contributor name.
-> 
-> v1->v2:
->    - Resend via authenticated SMTP after the original message was only
->      partially delivered and did not reach the linux-doc archive.
-> 
->   .../zh_CN/block/error-injection.rst           | 63 +++++++++++++++++++
->   .../translations/zh_CN/block/index.rst        |  1 +
->   2 files changed, 64 insertions(+)
->   create mode 100644 Documentation/translations/zh_CN/block/error-injection.rst
-> 
-> diff --git a/Documentation/translations/zh_CN/block/error-injection.rst b/Documentation/translations/zh_CN/block/error-injection.rst
-> new file mode 100644
-> index 000000000000..63aac2fb38f8
-> --- /dev/null
-> +++ b/Documentation/translations/zh_CN/block/error-injection.rst
-> @@ -0,0 +1,63 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +.. include:: ../disclaimer-zh_CN.rst
-> +
-> +:Original: Documentation/block/error-injection.rst
-> +
-> +:翻译:
-> +
-> + Cui Shuang<imcusg@gmail.com>
-> +
-> +==============
-> +可配置错误注入
-> +==============
-> +
-> +概述
-> +----
-> +
-> +可配置错误注入允许针对块设备的扇区范围注入特定的块层状态码。错误可以无条件
-> +注入，也可以按给定概率注入。
-> +
-> +要使用可配置错误注入，必须启用 ``CONFIG_BLK_ERROR_INJECTION``。
-> +
-> +唯一的接口是 ``error_injection`` debugfs 文件，每个已注册的 gendisk 都会
-> +创建该文件。写入此文件用于创建或删除规则，读取则返回当前错误注入点的列表。
+>
+> I'd like to ask for a decision, or failing that, the specific thing that
+> would get us to one. I'd much rather work against a concrete objection th=
+an
+> keep respinning into silence.
+>
+> Quick recap: today a swapped-out page holds a disk slot even when the dat=
+a
+> never reaches disk, like zswap or zero-filled pages. My patch series
+> (latest version at [10]) puts a virtual entry in the page table instead a=
+nd
+> resolves the backing separately, so zswap stops reserving disk it never
+> uses and can work on machines with no storage swap space at all.
+>
+> I've been working on this since April 2025, going through 10 revisions (6
+> on the original design ([1] through [6]) and 4 on the swap-table-based
+> rewrite ([7] through [10])). I also gave a talk on it at LPC [11].
 
-"读取则返回当前错误注入点的列表", could you polish this word? make it more nature 
-in Chinese.> +
-> +选项
-> +----
-> +
-> +以下选项指定操作：
-> +
-> +===================	=======================================================
-> +add			添加一条新规则
-> +removeall		删除所有现有规则
-> +===================	=======================================================
-> +
-> +以下选项指定 ``add`` 操作的规则详情：
-> +
-> +===================	=======================================================
-> +op=<string>		此规则适用的块层操作。它使用每个 ``REQ_OP_XYZ``
-> +			操作中的 ``XYZ``，例如 ``READ``、``WRITE`` 或
-> +			``DISCARD``。必填。
-> +status=<string>		要返回的状态。它使用每个 ``BLK_STS_XYZ`` 状态码
+Thanks for the hard work! And I mean that. Upstream work at this scale
+does take a long time and it isn't a reflection on the series: the swap
+cache optimization idea also took me over 2 years and changed direction
+multiple times and split multiple times before it landed as
+the swap table series, and the readahead unification part is
+still in flight after nearly 3 years. It's frustrating and I don't think
+anyone enjoys it. I mentioned this once with a longer history:
 
-Incorrect indent. take care the alignment.
+https://lore.kernel.org/linux-mm/CAMgjq7CF9RgnZCAS-+Gv0LAvkzzHk4jiok+_6-KOF=
+w-o+s8E_g@mail.gmail.com/
 
-Thanks
-Alex
+There is also a quote from LSF/MM/BPF saying it's for improvements to
+"find their way into the mainline kernel and Linux distributions in the
+next 24-48 months.", suffering souls everywhere :P
 
-> +			中的 ``XYZ``，例如 ``IOERR`` 或 ``MEDIUM``。必填。
-> +start=<number>		此规则适用的第一个块层扇区。可选，默认为 0。
-> +nr_sectors=<number>	此规则适用的扇区数。可选，默认覆盖设备的剩余部分。
-> +chance=<number>		仅以 ``1/chance`` 的概率返回失败。可选，默认为 1
-> +			（总是失败）。
-> +===================	=======================================================
-> +
-> +示例
-> +----
-> +
-> +对 ``/dev/nvme0n1`` 扇区 0 的读取，每 10 次中有一次返回
-> +``BLK_STS_IOERR``：
-> +
-> +	$ echo 'add,op=READ,start=0,status=IOERR,chance=10' > /sys/kernel/debug/block/nvme0n1/error_injection
-> +
-> +对 ``/dev/nvme0n1`` 的每次写入都返回 ``BLK_STS_MEDIUM``：
-> +
-> +	$ echo 'add,op=WRITE,start=0,status=MEDIUM' > /sys/kernel/debug/block/nvme0n1/error_injection
-> +
-> +删除 ``/dev/nvme0n1`` 的所有规则：
-> +
-> +	$ echo 'removeall' > /sys/kernel/debug/block/nvme0n1/error_injection
-> diff --git a/Documentation/translations/zh_CN/block/index.rst b/Documentation/translations/zh_CN/block/index.rst
-> index f2ae5096ed68..4877432cc4ff 100644
-> --- a/Documentation/translations/zh_CN/block/index.rst
-> +++ b/Documentation/translations/zh_CN/block/index.rst
-> @@ -18,6 +18,7 @@ Block
->   
->      blk-mq
->      data-integrity
-> +   error-injection
->   
->   TODOList:
->   * bfq-iosched
-> -- 2.50.1 (Apple Git-155)
-> 
+>
+> Throughout the process, I've been very receptive to reviewers - including
+> parties whose use cases are very different from my own, like zram users a=
+nd
+> the ghost-swapfile-style deployments that want zswap with no backing disk
+> at all - and the current design reflects that:
+>
+> * Kairui asked that this be optional, not a replacement [12]. It is now:
+>   vswap is opt-in behind the vswap=3D cmdline parameter, and with vswap=
+=3Doff
+>   the existing swap paths aren't touched at all.
+>
+> * Kairui also pointed out that if I kept shrinking the metadata I'd "end =
+up
+>   reimplementing the swap table format" [12]. I took that feedback, and
+>   reworked the entire series on top of swap table.
+>
+> * Per Chris' requests, I've figured out ways to minimize memory overhead
+>   [13]. On a zswap-only setup there's almost 0 overhead now, because the
+>   vtable is merged with zswap's xarray rather than sitting on top of it.
+>   The indirection is paid for by the tree we delete.
+>
+> * Johannes pointed out that a physical cluster backing only vswap entries
+>   still had to allocate a memcg_table, which was an overhead regression
+>   against my older design on the zswap writeback case [14] (since a swap
+>   entry occupies multiple levels). I've also fixed this.
+>
+> * I've spent a lot of time chasing regressions on setups we don't even ru=
+n
+>   at Meta - zram in particular [6]. And if anyone's still worried after a=
+ll
+>   that, vswap=3Doff keeps the old swap code available.
 
+Acknowledged, specifically reworking the whole series on top of swap
+table, the memcg table fix, and chasing zram regressions you don't even
+run were all real work on cases that don't benefit your fleet. Thank
+you!
+
+Roughly 80% of my own time also goes to things that don't run on my
+fleet either. Desktop and Android (I do use them though), lowend and even
+32bits. Upstream covers every usage case as the baseline and it's tiring,
+I know what it costs. :)
+
+> Numbers are in the v4 cover letter [10]. In terms of performance, vswap i=
+s
+> on par or better than baseline on zswap across memhog, usemem and kernel
+> build, and vswap=3Doff tracks baseline within noise. I've even included a=
+n
+> A/B experiment on a real production workload (Instagram/django): throughp=
+ut
+> on par, latency slightly better, and the swapfile footprint for every zsw=
+ap
+> user on the host goes away.
+>
+> Now, on xswap. Baoquan's working on a series [15] that covers some of the
+> same ground, and the VM_SPARSE cluster_info idea in it is genuinely good.
+
+My read is that xswap and vswap differ mostly in the interface, and that
+both could sit on VM_SPARSE for cluster/metadata management.
+Simpler and faster. There are some other issues though, see below.
+
+> I've been reviewing that lineage since July [16] and I'd like whatever
+> lands to end up with the best parts of both. From my perspective the
+> differences are:
+>
+> 1. Userspace knobs. xswap asks the admin for a size (a percent of RAM) pl=
+us
+>    a per-device limit to tune afterwards. I'm not aware of any use case
+>    that needs those, and I don't think users have a good way to answer th=
+e
+>    question anyway - sizing swap for compressed memory depends on memory
+>    size, workload, and compression ratio all at once. That's precisely th=
+e
+>    provisioning problem vswap exists to remove. The kernel should be as
+>    transparent and dynamic as possible here, and not add knobs unless
+>    there's a use case for them.
+
+I asked Baoquan the same thing, see the "Why not make both args
+optional" part:
+
+https://lore.kernel.org/linux-mm/apaw_XmqnEcY8sv7@MiWiFi-R3L-srv/
+
+Where I've ended up is that unbounded growth is a real concern. On a
+host with no memcg limit (root cgroup, and most desktop and embedded
+setups), an unlimited pool means usage can keep growing, with no
+admin visible ceiling at all. I'm not attached to xswap's percent of RAM
+knob specifically, but I do think some kind of bound makes sense.
+
+> 2. Writeback support. Writeback is core functionality for zswap, not an
+>    add-on, and a design needs to account for it from the start. This came
+>    up before, in the discussion around Chris' ghost swapfile RFC [17]: fo=
+r
+>    a solution here to be acceptable, it has to work with the primary
+>    usecase and support disk writeback. Without it, whatever zswap won't
+>    take (incompressible pages especially) has nowhere to go, and cold
+>    compressed data can never leave RAM.
+
+Agreed completely, and I think this one is settled: whatever lands
+has to support disk writeback in the end. Baoquan mentioned that
+what he sent is just a foundation though. I know talking is cheap
+but still, could it be combined with the writeback support from the
+other side? Or am I missing anything here?
+
+> 3. Cgroup charging behavior. vswap/xswap shouldn't be charged against the
+>    swap usage counter. It's fundamentally a different resource from
+>    physical swapfile space, and memory.swap.* should read 0 when nothing =
+is
+>    on disk [18]. I made the longer argument for this in [19].
+
+I personally don't have a strong opinion on this. But I think this
+needs an explicit decision from the group rather than being
+inherited from whichever series merges first. Skipping the charge
+when a device has a special flag isn't hard to do if the code
+abstraction is done well, so this is more of a design decision
+than a technical problem.
+
+> 4. Data structure (xarray vs sparse vmalloc array). Even with xarray, vsw=
+ap
+>    is already on par with or beating baseline. I like the sparse array
+>    idea, but why are we landing an optimization before the feature itself=
+,
+>    without any A/B data showing the difference matters?
+
+This is where I'd push back a little. To be clear, my concern isn't the
+size of the win, it's that VM_SPARSE isn't purely an optimization. It
+changes the cluster/metadata layout and avoids RCU conventions,
+could help avoid some future sleep while atomic limitations and
+it's tangled with the initial size issue too. So bolting it on afterwards
+could mean rewriting the parts of vswap that touch it and could be
+costly some conflict in ideas. That's why I'd rather we agree on
+it now, not that it has to land first.
+
+Using VM_SPARSE does outsmart my earlier xarray suggestion :) There
+is an interesting early benchmark from Baoquan, VM_SPARSE wasn't there
+yet, but with it we can use clusters natively in the same way. It shows
+about 20% latency cut and 10% throughput gain, which seems a major
+improvement, and that's serial performance, not even mentioning
+scalability yet:
+https://lore.kernel.org/linux-mm/20260707073215.72183-1-baoquan.he@linux.de=
+v/
+
+And it matters more than most micro-optimizations: under heavy
+pressure many workloads spend less than half of system time in
+compression itself, the rest is mm/swap. Swap has had a terrible
+reputation for good reasons, and even with zswap/zram users
+have been scared of the performance.
+
+After the recent refactor and optimization we already noticed many
+users can now run much heavier workloads using compressed memory only
+or fast storages, which is a real breakthrough. Every chunk of
+overhead we remove there unblocks another class of user from using
+compressed memory as a "secondary memory".
+
+>
+> One thing I do want to be clear about: I'm glad other people care about
+> this problem. Chris' ghost swapfile and Baoquan's xswap are both going
+> after the same set of problems, and that's a good sign. It means this is
+> real and shared, not something only Meta runs into.
+>
+> What's been harder is the shape of the engagement. Alternatives keep
+> getting posted and pushed that don't cover all the requirements, while th=
+is
+> series sits without review. I don't think I'm owed anyone's interest in t=
+he
+> problems I care about. But I do think working code, with benchmarks and
+> production exposure behind it, deserves a fair hearing next to in-progres=
+s
+> proposals.
+
+I'm sorry it has felt that way, and I don't want to hand wave it. For
+what it's worth, I did review it, and I did think it could be merged
+with some adjustments:
+
+https://lore.kernel.org/linux-mm/CAMgjq7D4XsAD4NGDL7FC2kaYAQAP8PDJdn4bpzGZw=
+XYtjEpJ6w@mail.gmail.com/#t
+
+We were also discussing the limitation of the global cluster cache in
+that thread, so I paused my other work for a while and posted the swap
+queue series first. That one is orthogonal on purpose, and helps both
+swap tier and vswap, it reduces the overhead enough to cancel out
+the layering cost due to missing caching for either:
+https://lore.kernel.org/linux-mm/20260829-swap-pcp-priq-v2-resend-0-68d3d92=
+5578c@gmail.com/
+(this is V2, V1 is earlier - thanks to Lian for keeping this going!)
+
+Then xswap appeared with the VM_SPARSE idea and exploring it seems
+necessary because getting the cluster foundation right affects
+everything built above where it went. Not because the vswap series
+wasn't worth reviewing.
+
+> So what I'm asking for: I'd like us to converge rather than keep two seri=
+es
+> in flight. My preference is that we land vswap first, then build Baoquan'=
+s
+> sparse array on top of it as an optimization. That gets the feature in, a=
+nd
+> by then we'd have the A/B data to show whether the sparse array actually
+> beats the xarray.
+>
+> If you think that's the wrong order, I'd genuinely like to understand why=
+ -
+> after 17 months and 10 revisions I still don't have a clear picture of th=
+e
+> objection.
+
+I fully agree we must converge. At the moment I don't think one can
+can settle that alone as there are several of us reviewing both. I'll try
+to be more concrete about what I think has to be agreed first.
+
+The two interfaces aren't equivalent, xswap has its limitations, but a
+couple of xswap's properties look genuinely better to me. Runtime
+on/off rather than a boot parameter is better, more flexibility and
+doesn't conflict with what vswap is trying to do. Some other of these
+differences involve design decisions rather than just surface knobs,
+and those are the parts we're stuck with once they ship.
+
+So a few current interface difference of vswap and xswap I've noticed are:
+
+ - default size: somehow also tangled with VM_SPARSE, which
+needs an initial virtual value. It's super cheap if not zero cost
+(the only cost is occupying some vmalloc area, which is fine
+I guess?). But we still have to pick a number, could be large
+enough to satisfy everyone?
+ - boot vs runtime toggle: I believe a runtime toggle is better. It
+can still be tuned on boot via cmdline, but it offers the extra
+ability to turn it on without modifying a base VM boot image or
+kernel.
+ - growth / limits: as talked above.
+ - charging semantics
+ - there could be other longterm design decisions on top of these as
+we talked in above.
+
+Once these settle, I think the picture will be clean. Your writeback
+logic and swap table integration are solid, while Baoquan's VM_SPARSE,
+previous preparation with swap ops give us a structural foundation. A
+clean long-term architecture means getting the core structure right,
+let's try not treating this as a race between series.
