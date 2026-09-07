@@ -1,155 +1,154 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1965035CB95
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774263; cv=pass; b=SkkdQp7lX7XzmgrPCrTIr7mL5je4YIjK4d5e533ADLTtIZ4Iz8jf5HSEv1oMN1eKGmEZ9j8UnHPQeRIceoZioj6xKILiWuWCYFBQTpdBo7icU0dAiFXZ7CsTprSXKyFitrTIUDKIZ7SRTHOCBTzq7DBgB5Wn8SehU8xbTAh+Mwg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774263; c=relaxed/simple;
-	bh=MI41XlQsowXvuVw3HoU1qvNe19RJs6EkCkyiQjsEXzU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=F9wuPBvl8/z7n9OgF7z4KVgFzC9EtCimrGZ9JbYGKGAlUwIh14qIC7GCMufsZCAP+DPvMUkvV4SY99xPSHSOhsMaEiOmECSMcQn0g3TKJuPso9tCAjxjJvs3MWUd8zCk+s60U++xbNMfn6Gm32nOtPiYC8wwW1IDoj0lF/gJl8Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=JSgew2yL; arc=pass smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3104A41A909;
+	Mon,  7 Sep 2026 09:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788774270; cv=none; b=jRlZJ6cL2Kt78S6+fdFAJEu/WyyLpcvwYqJJGFRdWfUT2zKLsEuswCeFtkyAxE4vFAwSBxci2M6Wn9E53GsSMEgFYqBkvSncKQtsFfBw/WgK8cEVvahWdByePdhsXZ3Bs8GZbELSHSkDqhDYy2W4kck9ISSaqV5JhNy/oMrPHm8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788774270; c=relaxed/simple;
+	bh=k+ZbtP+OlC9jgri1bEIickt96W2TjrZ516/39mX5lmc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JNLl3+YUbnuzlRNZL9xHLc8Oyj21csdher0Ck5wfw+2jfSAzIztGXAj1nFqkaIloJAAnp3AlnXhJVcVkEMDBm3WZ6sZA17+he6x+P7eao1nymnGO4jvKxj+oEPaIa8ODRsroUoIKeFyEpBUu1jXH58DI3aJVDJAGt6IEofMx7UA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=hliok3A/; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="JSgew2yL"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so3409749a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:44:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788774261; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S1hO2x+C8fZPexFmJFn8wtpOoAMGl92hck8p0CPuC1HSULZFunPXaDYBnIXVQMcM6S
-         4FCJyFsFDswpyz2fdbQH4FBtV6y0KkfZXQZPaS36jdtACT9MILJ99uQZSUWZFUH7TCgQ
-         6fAL5KZxrW4SnYnZO6fC0ZUd+CrtBdd291tD7ROHxVrsErhDu+/a8nCMaB58Hn4aI60h
-         +7phjF6FOqzXosFcPaC80Lkk2Es8HZpOGMu0+o1fTmFoxE3AvDCYlj5OiApLqz88/7Cn
-         xeJc52BMVAyctEmGlqaPeF4DyYwvVDlsT+3goC7RFZvDm90FeuKAhsutBQU2Dpjlgyjh
-         Splw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
-        fh=wqff/Je7fdGgQOMk6/BGNMJPDAGtRGdN3rr0nPiZkdo=;
-        b=gYp23wr9TQc2ZiVxD16T/JJazZhWShWgHOT2Z1c2JL+xmXSFh1ME2AGLKfnwU3UUUw
-         zlXM5SwYe2hu/Js4sNDPExPMQIUoFg8HCOeVr59Z6RkzJuHV+6aUoiK2CTji1h/Br5p3
-         Yf9/TbjphIWebiM9CbAHA/HV5r9kcKUa3GbSa2avNMVBPMWWHYaBqM+Zo8xcq43O5e/7
-         A2E+yjINJUT8RzHtnwGr5DNhMySX0X3vMSm2QdLF+je1xuD4GRELrWPrZeSCasGONWcl
-         p5ySb2Lxxmlx/X9qavniJMxXsdsKQziT11qE4TU7OypKW03nZDsggGaGk6hmsGkjBiuh
-         UhhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788774261; x=1789379061; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
-        b=JSgew2yLj7u0lUxFwIByIy/i5ID1FC62+yxMZCCC5f1MUYVbFWrp2HMyrsCmQD8TeG
-         VNUECPVeNGPbmBqO+/zMM7N4KgSYBLlx+r72WTK42uttdOK57CSYGOwDOYFvapQt9x10
-         JjdjZGW/cp5yAjovVfa66XdG/pf4+Y2F7Bp6I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788774261; x=1789379061;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=g/xnlyu8PQCnxo+4HJ8JoFUVnIyWkmOXZV+LXEWh1vw=;
-        b=Y/Z7UPcA9sVM8bxK0qDx8PqhUHLtA64HjmfWjVLWeIUOz2cwBYFQkt7cX0WOQ9lnTu
-         MRDpaCxUicldFFye51oZEVLwAz/SGv21ht+YxvQdC8s2g6gJpHXUoIAa+XDKwMwcXrUP
-         GoPiywnMuTKR5hUhgjxa6/Zwlj7fVnbsmxO4jBYsDGykr+Ap6gB1yhPrfUwCa4oQ+qpQ
-         ILLol58chLEwTKgJCrNcefBgoH0AuJeDM4CQF/PaSu2eApzdrUUnl5T8IqYjO0jKKAwc
-         Dbt1/dOe3bkgyqwjzUO9//LcAxNLl1vvVwldGVJsA66PfgR/l+JXquFjBwJV+FFw1I+X
-         OEFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzo6TvgK6quKnTPFKhkvzCMR55rKtF7yb4KPoj9foFsNjC80LmX+h2Mricq2PEvIw/76v5/xOq81MsHMyU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kL/7pRUhEuEuoJ1YfO5BLUD5aNRHBDi03papgy2pNcgexKvIeh
-	hbfmVZNST5Puirw9xekMY11yE0Pw/bWIHa85iLGN9YXoL3CRNgPVk8sLkCUl7xsJiLPzZYuKDoK
-	oxM7F4l13FnOoCti7KzcrrvG5MAh2zg5SyJwbIPfu
-X-Gm-Gg: AYBFou2y93KLTyvi4FWf2w8ARN+e22oSkIlN/KxbuJ5tQhQd9SjzcIBa+jODLIdxRHP
-	Yn9Ql0+Nzm7C7uPOZNGNh1YRaZOSaoRvGqxsH5T2ticcRn2DWCT9urYn7HDJS/WArHB8m3+Y9O7
-	gydyjGOjQFMpfuxaA6MrUP4eObcgdMYGVmj9NH/cOFR+vnxcBUoI4El7zpM6NaO56bcNeWWsN8g
-	Lu5LHKGpeEPrD98Y9xyDJmErPelPhIxBxP8lOf31IIulDtczlvHMNug1WhoXZFjc9Jw34SO+Wwz
-	ZxoOLLfE0d5+QcF9qiPQDT5ueZIiyYsPHNwih0yuHI6qsdkDBotDVV71CzD5zLDj0RXF1jOwbw=
-	=
-X-Received: by 2002:a17:90b:5106:b0:37f:c22a:c188 with SMTP id
- 98e67ed59e1d1-39b260feb03mr32280186a91.4.1788774261208; Mon, 07 Sep 2026
- 02:44:21 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="hliok3A/"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CAE491477;
+	Mon,  7 Sep 2026 02:44:23 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 666C43FA7A;
+	Mon,  7 Sep 2026 02:44:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788774267; bh=k+ZbtP+OlC9jgri1bEIickt96W2TjrZ516/39mX5lmc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hliok3A/1oLgq1cUQeqFw4ouqt6gFxERSEv+duovcn7ndNW67WrVU2ZVW4y3HCu12
+	 TIRCroRL/WvdPaWaeoF6OFmOTwD2bT3j599LB0XVzVmVEHtUAVD7KzC5Q+Z4SahYff
+	 Rhw4/znkYP56Q/5oQHa6y+/FpbvKNHd79KgJSeq4=
+Message-ID: <966b103e-dc9e-479a-ba6c-e8e6727e1bd7@arm.com>
+Date: Mon, 7 Sep 2026 10:44:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904234401.2339633-1-jthies@google.com>
-In-Reply-To: <20260904234401.2339633-1-jthies@google.com>
-From: Andrei Kuchynski <akuchynski@chromium.org>
-Date: Mon, 7 Sep 2026 11:44:10 +0200
-X-Gm-Features: AcwNN1WMY3fqhnicN71CEKCWOY9vaZG4m4eQH1V9NiV1awWwS6rAM01YuF7ygVM
-Message-ID: <CAMMMRMd-7=hzAiMASAkgUxxG50+sNQQUQN2=dNOS_THVjDmxxw@mail.gmail.com>
-Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array index
-To: Jameson Thies <jthies@google.com>
-Cc: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bleung@chromium.org, gregkh@linuxfoundation.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: mpam: Document when to set arm64.nompam
+To: Fuad Tabba <fuad.tabba@linux.dev>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, James Morse <james.morse@arm.com>,
+ Xi Ruoyao <xry111@xry111.site>, Marc Zyngier <maz@kernel.org>,
+ Bradley Morgan <brads@mainlining.org>, Fuad Tabba <tabba@google.com>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904103131.627392-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260904103131.627392-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 5, 2026 at 1:44=E2=80=AFAM Jameson Thies <jthies@google.com> wr=
-ote:
->
-> The UCSI displayport driver indexes the connector's port altmode array
-> with the GET_CURRENT_CAM response after checking it is not 0xff. The
-> port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
-> returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
-> not equal to 0xff, the kernel may crash with an array index OOB error.
->
-> Update the UCSI displayport driver to verify the current cam is less
-> than UCSI_MAX_ALTMODES before accessing the port altmode array.
->
-> Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mode"=
-)
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jameson Thies <jthies@google.com>
+Hi Fuad,
 
-Reviewed-by: Andrei Kuchynski <akuchynski@chromium.org>
-
+On 04/09/2026 11:31, Fuad Tabba wrote:
+> arm64.nompam skips the MPAM2_EL2 and MPAMHCR_EL2 writes in
+> finalise_el2_state and leaves the ARM64_MPAM cpucap unset. Where EL3
+> firmware has cleared MPAM3_EL3.TRAPLOWER, the EL2 trap controls are
+> left unwritten, at reset values that are UNKNOWN, and KVM still hides
+> MPAM from the guest but no longer enables the traps that stop a guest
+> from using it. KVM never saves or restores MPAM0_EL1 and MPAM1_EL1, so
+> what one guest writes reaches the next guest and the host. Nor can the
+> kernel make the EL2 writes unconditionally: they trap to EL3 on the
+> firmware the option exists for, and TRAPLOWER cannot be read below EL3.
+> 
+> Say so in mpam.rst, and add the rule and a pointer to the
+> kernel-parameters entry.
+> 
+> Suggested-by: Ben Horgan <ben.horgan@arm.com>
+> Link: https://lore.kernel.org/all/CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com/
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 > ---
-> Changes in v2:
->  - removed 0xff alt mode assignement when GET_CURRENT_CAM returns an erro=
-r.
->  - return -EINVAL when alt mode index above UCSI_MAX_ALTMODES is returned=
-.
->
->  drivers/usb/typec/ucsi/displayport.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucs=
-i/displayport.c
-> index 7067f2561b84..572da7bbd29c 100644
-> --- a/drivers/usb/typec/ucsi/displayport.c
-> +++ b/drivers/usb/typec/ucsi/displayport.c
-> @@ -71,11 +71,14 @@ static int ucsi_displayport_enter(struct typec_altmod=
-e *alt, u32 *vdo)
->         if (ret < 0) {
->                 if (ucsi->version > 0x0100)
->                         goto err_unlock;
-> -               cur =3D 0xff;
->         }
->
->         if (cur !=3D 0xff) {
-> -               ret =3D dp->con->port_altmode[cur] =3D=3D alt ? 0 : -EBUS=
-Y;
-> +               if (cur < UCSI_MAX_ALTMODES)
-> +                       ret =3D dp->con->port_altmode[cur] =3D=3D alt ? 0=
- : -EBUSY;
-> +               else
-> +                       ret =3D -EINVAL;
+> 
+> Notes:
+>     Changes since v1, the first three from Ben Horgan's review:
+>      - Put arm64.nompam under a new "Command line parameters" section.
+>      - Separate MPAM3_EL3.MPAMEN from TRAPLOWER, which v1 conflated.
+>      - Add that KVM does not save or restore MPAM0_EL1 and MPAM1_EL1.
+>      - Drop "No functional change intended." from the commit message.
+>     
+>     Bradley Morgan's Reviewed-by on v1 is not carried over: both
+>     paragraphs, the section heading and the commit message changed.
+>     
+>     v1: https://lore.kernel.org/all/20260903084809.2027326-1-fuad.tabba@linux.dev/
+> 
+>  .../admin-guide/kernel-parameters.txt         |  3 ++-
+>  Documentation/arch/arm64/mpam.rst             | 25 +++++++++++++++++++
+>  2 files changed, 27 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd24..e6d543de3cde5 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -575,7 +575,8 @@ Kernel parameters
+>  			Set instructions support
+>  
+>  	arm64.nompam	[ARM64] Unconditionally disable Memory Partitioning And
+> -			Monitoring support
+> +			Monitoring support. Only for a machine that does not
+> +			boot without it. See Documentation/arch/arm64/mpam.rst
+>  
+>  	arm64.nomte	[ARM64] Unconditionally disable Memory Tagging Extension
+>  			support
+> diff --git a/Documentation/arch/arm64/mpam.rst b/Documentation/arch/arm64/mpam.rst
+> index 67fe515ed501c..e66b1359d1282 100644
+> --- a/Documentation/arch/arm64/mpam.rst
+> +++ b/Documentation/arch/arm64/mpam.rst
+> @@ -87,6 +87,31 @@ The supported features are:
+>    MBWU monitors can be exposed to the user after support for more monitoring
+>    scopes is added to resctrl.
+>  
+> +Command line parameters
+> +=======================
 > +
->                 goto err_unlock;
->         }
->
->
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-> --
-> 2.55.0.979.g7e5102b832-goog
->
+> +arm64.nompam
+> +------------
+> +Firmware controls MPAM through two bits of MPAM3_EL3. MPAMEN enables
+> +it: while set, the PARTID and PMG in the MPAMn_ELx registers label the
+> +CPU's memory requests. TRAPLOWER, which resets to 1, traps accesses to
+> +the MPAM system registers from the lower exception levels to EL3.
+> +Firmware must clear it, or handle the trap and emulate MPAM as disabled.
+> +Where it does neither, the CPUs still advertise MPAM in the ID registers,
+> +the kernel's MPAM register accesses trap to EL3, and the boot fails.
+> +``arm64.nompam`` exists for that firmware: it makes the kernel treat the
+> +CPUs as not implementing MPAM, so no MPAM system register is accessed.
+> +Set it only on a machine that does not boot without it.
+> +
+> +It is not a way to turn MPAM off. Where firmware has cleared TRAPLOWER,
+> +the option leaves the trap controls in MPAM2_EL2 and MPAMHCR_EL2
+> +unwritten, and their reset values are UNKNOWN. KVM still hides MPAM from
+> +guests but no longer enables the traps that stop a guest from using it,
+> +so a guest may be able to read and write MPAM0_EL1 and MPAM1_EL1. KVM
+
+As you are listing registers, MPAMSM_EL1 can go here too.
+
+Generally, I think this documentation change looks good now but holding off on a tag for the moment
+in case anything comes up from your MPAM trapping change [1].
+
+[1] https://lore.kernel.org/linux-arm-kernel/20260903160819.831518-1-fuad.tabba@linux.dev/
+
+Thanks,
+
+Ben
+
+> +does not save or restore them, so what one guest writes is still there
+> +when the next guest runs on that CPU, and when the host does. With MPAMEN
+> +set, EL0 and EL1 requests then carry that PARTID and PMG.
+> +
+>  Reporting Bugs
+>  ==============
+>  If you are not seeing the counters or controls you expect please share the
+
