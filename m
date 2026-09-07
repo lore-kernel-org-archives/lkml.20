@@ -1,328 +1,237 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2BE52379B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799998; cv=none; b=AoAZY4UjeVDr70cLVerBwXUBN//sblkHjKkMOrimydQJhHWmuLUgM04Di8ASn/jOLReK8TWymSjpZNpZIFDp4QQynxcQ11ROopUSpxkcn8DVIj0SjxG+s3pFDpW8VHlTKz8xksmGg1ZJtV0OG8dUhWwRjP6T/U+j5r2G3uWYh/g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799998; c=relaxed/simple;
-	bh=nSBS+rlhEpu4GtYBRlDxNT0IMhKXrWZBlDW7Ai/0My4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m1wBnHCfOOFM2TYqnkdTXEtp2vu3lYgDajt9kkfZXzJpji2VMzLa8AWeOqgmV9H2W489/HY0CJQowGW3KyF8JRdmMGp46GYfPEFu7vHulgrb+cAxCWX6P/VNuaPwFAjZN/6yF3eEybDVlluRWCODTy7fZO+JsLbyueGDrfw4LII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gvLU/83Q; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104B451A741
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788800039; cv=pass; b=XWC4Q599Oo+xEEYIfFF3UdJaJbTnT0BNY4Fl981bpaUZEjECr8C7/84q7t5tc/0oNlyADQuzCHidxGaLRquBmgjCa4hdQGq1sUU78KuCzEKlxBE6tHJbfxaeltSSRIwq+DGQb/e4H+F9Dq+QPYCuXCy8NBPmSNE1LKVCOznHFIY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788800039; c=relaxed/simple;
+	bh=7nZvXQAXFpGDq6OvBtcrjZaQ3gxcarFF2OJUmuf6SHc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S52C6h4vJNwuoBBF0OVWf0tNg549gh1fzPg/2QyRy4hRAt5Yn1ND+Rv/se3AeJWJi/jzITpO80P3xqcOb2/HcSKy58LVhiliHAF00F89VQpTzyNzAk1MSsMS44nm3BEOO99ejYvl7bt6J9YzZ0pqO5PjWY0FPAcan2reDxvKg8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZOEcfTft; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gvLU/83Q"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so12834195e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:53:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZOEcfTft"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-530411c7ee1so368561cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:53:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788800036; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FzpjWFhfb1zFYNkYByFDEKYfdAqXabcG9SOVuE6DEYhy4LZaUczBe/MUS/LRX8xezU
+         GA81N2W4poiD7TmmpKri3UPMQv/vjSNbKBC0Ch4ZUXy77omsYVWyGZRcn6MBFnBpme3v
+         E7boneCEIbKYtjjzIZHhnhQFhwB8yPfWgw9jjxjKvk5TfWYIUo94qDViNAW2FF6QRO/p
+         qtYIvtjqoXUN9WOkHcUdjjhUjN2nrd4dXLXF6ArZF5L83buZziM6JcqpLGMjZuB3ZHIe
+         dv4AdW5o7d9bL4JPb6V6a+r9s72IQ2abv0Ay8mVmM8vgibj4OTJ5mOJ39AWaavTdgS+L
+         oS6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WOgo3zFXzbtiQDjz57z5HXaLiQwAncd9HG4Gw1Bp/lg=;
+        fh=3BTINp65D7u9Dt8DDM/RMqgk/K4h0c7XHA8DKxOGUWc=;
+        b=ed8nyUWpKwZXizH7w31gi1xkkk5lizHKPpHwHPRJ2KYr0jId+jDSSgGRzHFdNmI+BL
+         ORo/Kh62BDyyJRB0ilXhwsfRmVaQZ8kjPFEm+b47C8x115yW+MDLZgOzZBKLf1mrC4Pa
+         S0E0nzy7cR7UmD8v0Trhu+ohKRbOk0SW1zSXZa6mZkcCMxto0fDF2HgyCenRFqB37KMs
+         EthcNSezhj1l6aWmrNoqdv3j8R79G4olbejn7paQDIZzmqQl5tZlkluKvBErhWHS//vh
+         Q4KUbcsIxxWh88cNKxZB6Jernir0A+1p1Svk0td5W1Ku/qAfIwNPqozGA3Bnwx9wLqNe
+         jCtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788799994; x=1789404794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
-        b=gvLU/83QWw+BBDbY7MKMk3tCFSXW3BMFl5bWQjLrzb3eSbsX7CgvOuqkuT3+icxm2R
-         bPBdMwcZkuj4gFm1mrvSDOiMzTWzL5430Oh1BK8VtAfdYHNEJRwXft5FMeiEnbgFyVus
-         ACImVqzqwnZwmVwrNm4rTCFRpWpun0bb3inLerxAAKGQO4ho3Zvk+NdEnPseRa1qMSjq
-         n4vb65ahHimcjBmrRV/yEstLuePXTqRYuxGSJsm2reSg5a4W5sNXt4o7zfCiArqDg4Ss
-         iiWOklDQaaOhMIu21mehblND5bzrbiC6vJ+INHYWYALeS5eYI3F9bOa6DFPGIknoEsZi
-         WcxA==
+        d=google.com; s=20251104; t=1788800036; x=1789404836; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WOgo3zFXzbtiQDjz57z5HXaLiQwAncd9HG4Gw1Bp/lg=;
+        b=ZOEcfTftJhzBn8TSOkOKtoVoBUfs0xbVZP9wHIME5s8DaKMIumqZANXdTWAZZQG4bO
+         PsjF2/5Q7dfdSw5e/4doJHeaSAcrrwzHm5okWijPOCxUqMYTFuITP+L3zhdL7LBMLzBT
+         Jt+SHOoAutj1CLKQTV1FN0mPF2EGxDqFcsLwjlFwQHiJXiI0RuPd1xWARyOCutR3amvc
+         sQxz5M40LQ87mSFr29zXtVACvT1zPuvn5cV0my4RhbsT0V7tcqvEyDMudV1T+uNnLK+a
+         Py2kZwd1qLLizUDEbVxEWP3v9J2sunX74cBomy/fdJ0WlRZ+GPuOIbhrioUU/SARwrl5
+         i5kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788799994; x=1789404794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
-        b=ioHfPzxxVqhsldDA9yuUB+vsMF3Z7JEA9W/XZ7URtTGUnwyqwh2nfJB7Ll66W0V2xh
-         JQklW6dIrzWVoF0HM3+GlJWXJK/4fNxQI2nF/tq75lwahNelPKFdWBbjbkd1f46aI8kC
-         G2N10BtDEJtdKIiTKM2XmHaTcu08JcAtfElrns8xt7AVUa6cALF1+q7MZ74UJfuVGtSg
-         ljqBL/0LGZBcUkBchnjLohbIGqZ2QejgtS71bSoJfp9sFEiy9GYI9hCpyKHDfzpkq0tv
-         wEGmT4HLmNLzaU6DORgCwNzsKY61MkpQhouagBPsMmOg1I4U577L5O9ZrejBBpbGZ5yV
-         +iDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzjmEOspSsUTYYs8IV7yebLDMYNeIFfcDpmc4wkxYDAfp/g5MVpLlNLTUUd3NllZwVv9vcv8I+eMfzKvxs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKSZTfIv9OykNegZRA/l4vgfEaeR1n2MgkImf/1bDxANo9MNXV
-	KBG7RVuBBkOk0zgVNvnzWv7kBaU3G9qEcL3N7N93OscefjVkO133Gklq
-X-Gm-Gg: AYBFou3Eq8pFy7cf3oYV/VF65npiOel04X/ruCdNADdprEBx5hWRMaERZKxqux+6gcB
-	51aSXADvxcgVjIlRv5H0UHXQZmIobdYg/vEfL4NkE/hteEA8iaNt8tEcGQMscisdiVBJm9bT72l
-	uXvDcZYVMjpTALOWzumJPnQY/NW4WVKuHWJIdGbGMISN57vkrzVgpldRubGraTmrJ1vUC0M/Db/
-	bkOKK8ub57FBrBxESRZNH/CIW1PSJkIidD8rdaNNnwyDFUD3xTDzUe0X1DeET5+H8BFB2uSCKC5
-	EHmshji/G7MhHmbYGS86EzHa+sWWlfbcY84uzIBMTTJd6zXlWLOMRPIZKD+/3VS02QvQmD716yW
-	egCCysJdsbVEjGjP1n+1MzdDNOfYtm/Dp1c57XQvyUUqoCDLUrga/WW0PR+Tpk0S6LKuhMaqOeA
-	BryjugwEP3Fy67HnEe+BxVuKYd8c7TiBNOSyWoamkKT5qYlflZwr9Q4KhZMjbeYNXG6liwNfrI4
-	5oiKhY1h9uK
-X-Received: by 2002:a05:600d:650c:20b0:49c:fc6c:be08 with SMTP id 5b1f17b1804b1-49cfc6cc026mr166941545e9.31.1788799994171;
-        Mon, 07 Sep 2026 09:53:14 -0700 (PDT)
-Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm233022415e9.13.2026.09.07.09.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:53:13 -0700 (PDT)
-From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
-To: bpf@vger.kernel.org
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	david@kernel.org,
-	akpm@linux-foundation.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	brauner@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	kpsingh@kernel.org,
-	ljs@kernel.org,
-	matt@bobrowski.net,
-	memxor@gmail.com,
-	song@kernel.org,
-	sun.jian.kdev@gmail.com,
-	tasos.papagiannnis@gmail.com,
-	utilityemal77@gmail.com,
-	viro@zeniv.linux.org.uk
-Subject: [PATCH bpf-next v5 7/7] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
-Date: Mon,  7 Sep 2026 19:52:20 +0300
-Message-ID: <20260907165220.52431-8-tasos.papagiannnis@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
-References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
+        d=1e100.net; s=20251104; t=1788800036; x=1789404836;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WOgo3zFXzbtiQDjz57z5HXaLiQwAncd9HG4Gw1Bp/lg=;
+        b=kLwv40OM844UR4LOGoVtJJ46M6jJQxigvnhu+UqHSr7So71RBtK8jvetxi3JrAZm50
+         /Y5ZwRFxd6RVbVC8uM/FF4fzV3WyDAl2IT8PXmZfL+ts/pkDMY60UbmW1CSPD0BH3U5D
+         vFKu/ixYKei8ni9TB4T0mHFkW8guoJfhBASBeiW/gfME4ScM/yuqVRT7QAfrQ9MtaeQU
+         rxUVkcwISBFfeyvWvG9S1N1sW7mfQY2iRBNlJrOQQZs056qGhg9XgvzLBVgmXRpvncIC
+         eI+ofpB9xjfBQOOWyThGYKXolvazfqtIAofs99cmWvxhXWc01i2ndecfr7jqnZa1Ylth
+         802A==
+X-Forwarded-Encrypted: i=1; AKwUvBxlUdW/fm52QB3F5iyXvJmQgNGDnZnPeaqh/oGtzdJEj3layjSudfEiyHXnQ+V44BhyKXPX/68ZH5BVje8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJcEGQ/wgTW8CVm0Sko3LlRKglLKlxUNXjA2BG60P0qgbjUbHa
+	sS/vMzctzwooynDiUgS0LhAuk47jd0wKHu8sFW3B0wqZguAXNjx/JMeW+5Aj5a7ZTaN1NlIN8ZD
+	9cuOzyNVfjq3hCiFVErZPmyVsLQGu6HFaW8XzHLZH
+X-Gm-Gg: AYBFou3EwwxY9oh1eaI3QNgav3CS0N/xq+RXbJAcWy3fDSRVJcY22W5+HG1wYgWqrdJ
+	Z1TLP4W6BJ/vZZCcZzrcF0/gVGHHeItTwqNhBfMXQQj6lKv+bmqn42yePTiqGsDy7B61cp6MUTF
+	+R5++YkuG7gXcmxjqlI3veUs4wEH+4Xdvc1N6+YADqi7vF90OljALbUHhNr7g3l8qAPBSH+IkH7
+	Gb8xsD3iDJPdThsjh1PxMuiLHISPK+NeGqpWZqzsRh8dhm5zJ3Mcsw8uSXrBNph2g8GNhpjZKMS
+	fBBfJdOxVkYw7T1dHM2fi/TszSZx//Ov0mFo/boMMVI=
+X-Received: by 2002:a05:622a:28e:b0:52f:8389:29e0 with SMTP id
+ d75a77b69052e-530920caba6mr3560401cf.0.1788800035234; Mon, 07 Sep 2026
+ 09:53:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
+ <20260901-rcu-pagetable-freeing-v1-12-5456a81c8212@kernel.org>
+ <apbUpMDJglS99_yK@thinkstation> <apbfzUwBQyxe3P9R@gremlin>
+ <apcH74QsR5I-DIbL@thinkstation> <apcJhtvnd45EkjJI@gremlin>
+In-Reply-To: <apcJhtvnd45EkjJI@gremlin>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 7 Sep 2026 09:53:43 -0700
+X-Gm-Features: AcwNN1WRGdFWOzxEbOcmfkztqDuQQAGpor7Xm60pdWlD2DjKNo1Y7S4S7DNXdgs
+Message-ID: <CAJuCfpH_v4YU+hsQDU_yQ4HZDf-2C6DuiJU5PGL+uVAsTwkZug@mail.gmail.com>
+Subject: Re: [PATCH 12/12] mm: change the contract for free_pgtables(), update docs
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Dinh Nguyen <dinguyen@kernel.org>, 
+	Simon Schuster <schuster.simon@siemens-energy.com>, Jonas Bonn <jonas@southpole.se>, 
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
+	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+	Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, Max Filippov <jcmvbkbc@gmail.com>, 
+	Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	"David S. Miller" <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>, 
+	Richard Henderson <richard.henderson@linaro.org>, Matt Turner <mattst88@gmail.com>, 
+	Magnus Lindholm <linmag7@gmail.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Richard Weinberger <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Thomas Gleixner <tglx@kernel.org>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, 
+	linux-hexagon@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+	linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sparclinux@vger.kernel.org, linux-alpha@vger.kernel.org, 
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	linux-s390@vger.kernel.org, linux-um@lists.infradead.org, 
+	Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a sleepable BPF LSM program attached to bprm_check_security to test
-bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() on CONFIG_MMU
-kernels.
+On Tue, Sep 1, 2026 at 10:25=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Tue, Sep 01, 2026 at 06:15:17PM +0100, Kiryl Shutsemau wrote:
+> > On Tue, Sep 01, 2026 at 03:31:26PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Tue, Sep 01, 2026 at 02:57:13PM +0100, Kiryl Shutsemau wrote:
+> > > > On Tue, Sep 01, 2026 at 12:01:32PM +0100, Lorenzo Stoakes (ARM) wro=
+te:
+> > > > > diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+> > > > > index b91b1a98029c..ff8ff3706485 100644
+> > > > > --- a/mm/pgtable-generic.c
+> > > > > +++ b/mm/pgtable-generic.c
+> > > > > @@ -386,9 +386,21 @@ pte_t *pte_offset_map_rw_nolock(struct mm_st=
+ruct *mm, pmd_t *pmd,
+> > > > >   * be read-only/read-write protected.
+> > > > >   *
+> > > > >   * Note that free_pgtables(), used after unmapping detached vmas=
+, or when
+> > > > > - * exiting the whole mm, does not take page table lock before fr=
+eeing a page
+> > > > > - * table, and may not use RCU at all: "outsiders" like khugepage=
+d should avoid
+> > > > > - * pte_offset_map() and co once the vma is detached from mm or m=
+m_users is zero.
+> > > > > + * exiting the whole mm, does not take the page table lock befor=
+e freeing a
+> > > > > + * table.
+> > > > > + *
+> > > > > + * However, the PMD entry is cleared first, and the table freed =
+only after
+> > > > > + * an RCU grace period, so a walker that mapped the table under
+> > > > > + * rcu_read_lock() stays safe, and the pmd_same() recheck in
+> > > > > + * pte_offset_map_lock() detects the teardown.
+> > > > > + *
+> > > > > + * Therefore it is safe for "outsiders" like khugepaged to use
+> > > > > + * pte_offset_map() and co. for VMAs that might be undergoing pa=
+ge table
+> > > > > + * teardown.
+> > > >
+> > > > Is it strictly true?
+> > > >
+> > > > free_pte_range() clears the pmd without taking the PTL, so the
+> > > > pmd_same() recheck in pte_offset_map_lock() can pass and the pmd ge=
+ts
+> > > > cleared right after.
+> > > >
+> > > > Readers are fine -- __pte_offset_map() holds rcu_read_lock() until
+> > > > pte_unmap(), so the table cannot go away.
+> > > >
+> > > > khugepaged is an odd example here. collapse_pte_mapped_thp() and
+> > > > retract_page_tables() don't rely on this recheck -- they take pmd_l=
+ock()
+> > > > plus the ptl and do their own pmd_same() under both.
+> > > >
+> > > > Can we say walks are safe and leave the write rule where it is?
+> > >
+> > > Hmm yeah, ah page tables, what a rabbit hole of horror :)
+> > >
+> > > I guess this is effectively a reflection of the 'write lock on write,=
+ RCU load
+> > > on read' pattern in RCU itself generally.
+> > >
+> > > So, maybe something like:
+> > >
+> > >  * Note that free_pgtables(), used after unampping detached vmas, or =
+when
+> > >  * exiting the whoel mm, does not take a page table lock before freei=
+ng a page
+> > >  * table.
+> > >  *
+> > >  * As page table freeing itself is RCU-safe, page table readers can s=
+afely run
+> > >  * concurrently with page table teardown. However, writers cannot, as=
+ without
+> > >  * a lock nothing prevents concurrent teardown.
+> > >  */
+> > >
+> > > Instead? What do you think?
+> >
+> > s/whoel/whole/
+>
+> Haha yup the inevitable typo...
 
-Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
-contiguous NUL-separated argument and environment data. Then use
-bpf_copy_from_user_mm_str() to read each argument and environment string
-separately, advancing the offset by the length returned from each call.
-
-Skip the test on !CONFIG_MMU. In that configuration, exec argument and
-environment strings remain in bprm->page[] until the binary loader
-transfers them to the new process stack, so they are not accessible
-through bprm->mm at the bprm_check_security hook.
-
-Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
----
- .../bpf/prog_tests/copy_from_user_bprm.c      |  72 ++++++++++
- .../selftests/bpf/progs/copy_from_user_bprm.c | 123 ++++++++++++++++++
- 2 files changed, 195 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
- create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-
-diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..b2325b193576
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
-@@ -0,0 +1,72 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <errno.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include <test_progs.h>
-+
-+#include "copy_from_user_bprm.skel.h"
-+
-+void test_copy_from_user_bprm(void)
-+{
-+	char arg0[] = "first";
-+	char arg1[] = "second-argument";
-+	char env0[] = "SOME_ENV=a";
-+	char env1[] = "OTHER_ENV=something";
-+	struct copy_from_user_bprm *skel;
-+	pid_t child;
-+	int status;
-+
-+	skel = copy_from_user_bprm__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "open_and_load"))
-+		return;
-+
-+	/*
-+	 * On !CONFIG_MMU, exec strings are held in bprm->page[] rather than
-+	 * being mapped in bprm->mm.
-+	 */
-+	if (!skel->kconfig->CONFIG_MMU) {
-+		printf("%s:SKIP: test requires CONFIG_MMU\n", __func__);
-+		test__skip();
-+		goto out;
-+	}
-+
-+	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
-+		goto out;
-+
-+	child = fork();
-+	if (!ASSERT_GE(child, 0, "fork"))
-+		goto out;
-+
-+	if (!child) {
-+		char *const argv[] = { arg0, arg1, NULL };
-+		char *const envp[] = { env0, env1, NULL };
-+
-+		skel->bss->monitored_pid = getpid();
-+		execve("/bin/true", argv, envp);
-+		_exit(errno);
-+	}
-+
-+	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
-+		goto out;
-+
-+	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
-+		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
-+
-+	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
-+	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
-+	ASSERT_EQ(skel->bss->data_len_match, 1, "data_len_match");
-+	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
-+	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
-+	ASSERT_EQ(skel->bss->str_arg0_ret, sizeof(arg0), "str_arg0_ret");
-+	ASSERT_EQ(skel->bss->str_arg1_ret, sizeof(arg1), "str_arg1_ret");
-+	ASSERT_EQ(skel->bss->str_env0_ret, sizeof(env0), "str_env0_ret");
-+	ASSERT_EQ(skel->bss->str_env1_ret, sizeof(env1), "str_env1_ret");
-+	ASSERT_EQ(skel->bss->data_match, 1, "data_match");
-+	ASSERT_EQ(skel->bss->str_args_match, 1, "str_args_match");
-+	ASSERT_EQ(skel->bss->str_envs_match, 1, "str_envs_match");
-+
-+out:
-+	copy_from_user_bprm__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-new file mode 100644
-index 000000000000..b334a157419e
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "vmlinux.h"
-+
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+#include <errno.h>
-+#include "bpf_misc.h"
-+
-+char _license[] SEC("license") = "GPL";
-+
-+static const char expected_data[] = "first\0second-argument\0"
-+				    "SOME_ENV=a\0OTHER_ENV=something";
-+static const char expected_arg0[] = "first";
-+static const char expected_arg1[] = "second-argument";
-+static const char expected_env0[] = "SOME_ENV=a";
-+static const char expected_env1[] = "OTHER_ENV=something";
-+
-+int monitored_pid;
-+int bprm_argc;
-+int bprm_envc;
-+int data_len_match;
-+int invalid_flags_ret;
-+int copy_ret;
-+int str_arg0_ret;
-+int str_arg1_ret;
-+int str_env0_ret;
-+int str_env1_ret;
-+int data_match;
-+int str_args_match;
-+int str_envs_match;
-+
-+extern bool CONFIG_MMU __kconfig __weak;
-+
-+extern int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
-+				 const void *unsafe_ptr__ign,
-+				 struct mm_struct *mm, u64 flags) __ksym;
-+
-+extern int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
-+				     const void *unsafe_ptr__ign,
-+				     struct mm_struct *mm, u64 flags) __ksym;
-+
-+SEC("lsm.s/bprm_check_security")
-+int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
-+{
-+	u32 pid = bpf_get_current_pid_tgid() >> 32;
-+	char data[sizeof(expected_data)] = {};
-+	struct mm_struct *mm;
-+	char arg0[32] = {};
-+	char arg1[32] = {};
-+	char env0[32] = {};
-+	char env1[32] = {};
-+	u64 offset = 0;
-+	u64 data_len;
-+
-+	if (!CONFIG_MMU)
-+		return 0;
-+
-+	if (pid != monitored_pid)
-+		return 0;
-+
-+	mm = bprm->mm;
-+	if (!mm)
-+		return 0;
-+
-+	bprm_argc = bprm->argc;
-+	bprm_envc = bprm->envc;
-+
-+	/* this is the total size of args and envs starting from bprm->p */
-+	data_len = bprm->exec - bprm->p;
-+	data_len_match = data_len == sizeof(expected_data);
-+
-+	invalid_flags_ret = bpf_copy_from_user_mm(data,
-+						  sizeof(data), (void *)bprm->p, mm, ~0ULL);
-+
-+	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p,
-+					 mm, 0);
-+	if (copy_ret)
-+		return 0;
-+
-+	data_match =
-+		!__builtin_memcmp(data, expected_data, sizeof(expected_data));
-+
-+	/* arg0 is at bprm->p */
-+	str_arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_arg0_ret != sizeof(expected_arg0))
-+		return 0;
-+	offset += str_arg0_ret;
-+
-+	/* arg1 is at bprm->p + sizeof(arg0) */
-+	str_arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_arg1_ret != sizeof(expected_arg1))
-+		return 0;
-+	offset += str_arg1_ret;
-+
-+	/* env0 is at bprm->p + sizeof(arg0) + sizeof(arg1) */
-+	str_env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_env0_ret != sizeof(expected_env0))
-+		return 0;
-+	offset += str_env0_ret;
-+
-+	/* env1 is at bprm->p + sizeof(arg0) + sizeof(arg1) + sizeof(env0) */
-+	str_env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1),
-+						 (void *)(bprm->p + offset),
-+						 mm, BPF_F_PAD_ZEROS);
-+	if (str_env1_ret != sizeof(expected_env1))
-+		return 0;
-+
-+	str_args_match =
-+		!__builtin_memcmp(arg0, expected_arg0, sizeof(expected_arg0)) &&
-+		!__builtin_memcmp(arg1, expected_arg1, sizeof(expected_arg1));
-+	str_envs_match =
-+		!__builtin_memcmp(env0, expected_env0, sizeof(expected_env0)) &&
-+		!__builtin_memcmp(env1, expected_env1, sizeof(expected_env1));
-+
-+	return data_match && str_args_match && str_envs_match ? -EPERM : 0;
-+}
--- 
-2.55.0
-
+Also s/unampping/unmapping please.
+>
+> >
+> > Otherwise, LGTM.
+>
+> Thanks! :)
+>
+> >
+> > --
+> >   Kiryl Shutsemau / Kirill A. Shutemov
+>
+> --
+> Cheers, Lorenzo
