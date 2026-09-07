@@ -1,139 +1,231 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F86C43F4C2;
-	Mon,  7 Sep 2026 08:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769435; cv=none; b=Q8l0QK7O5Y6XGSFfOUsIlchpQfPCcAEgWjh607Q3lJeGmLS7y1lh5njbIF6AsVuwysj4gxGrCLUSViNzQop9UbRP7m4cMm50L2WtdJWlHf8ubW8zaOdlFzw1WmjKXvwftRf7LllWixBlfMROBjAq6yHQaH9V0Fy7UUxKP1W6Feo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769435; c=relaxed/simple;
-	bh=5yJ8Y4RnVpPGLltjVO8cL2fBu2s7ocPsEot9SK9T8Fg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DmajgqqFkEUj+/CiY6eYEOHV3U4WFis79mxivEPwm6yLnkZqwkVWJlc0I7olpgNiyaAxHy9wvgHB7bnNJhlAQ2yHKcratX8yOekM65OXs/nnX82tfM/bF4LrB3yL4cQVyjLAUubBgjKIRI7c/4uVNf1Ec6iuGaIXycElHfCrAJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=NW7+67pH; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2780543C7B9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788769448; cv=pass; b=f76cPVCUlCV87WfcN0KqI5iWRSJsYgi1LOtktP3XXRIFwmr/mugtTRZvIjn/Sp9vmDBDzZyxtXIaFy6nsOx/tl6LlWz8S31r29LvqA5H/cF1vZQ7SgZeE3LZOXaRA6HtBies+rYO6AHa5EqVUt0WxX8WkP7QJM0r1sIVMtnn/h4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788769448; c=relaxed/simple;
+	bh=eW2heI0TSrLo005hXEi9RN2qzKnbcSMx1USmy+ENf4A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e2L/jH4FIXYKBPowKwz+ZkCl6qAFM4utyOj4zFMKltfWcXdbw+98PUQoSt+753mcAtWx4d42EAic+/E2bMe1i0NtM05plGJnCXtHB4ugzDG21asgi+e5LsunZ3rrNXS9PA0KFOFoaIBzFmoukM9guO8tzcnHiWTBN6Kk7T8wn84=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b=tnlVPgTS; arc=pass smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="NW7+67pH"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68779n6c3431817;
-	Mon, 7 Sep 2026 04:23:39 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=DKIM; bh=5fcUbGC5yh8IcKdVaWwN8l9PQHU
-	VkmKhG3L0Nsohrm0=; b=NW7+67pHZAMhcSYPWdTd9bfJS5JR3aCcWxmf0H355tf
-	5azA6vhWxptX/DNUfCiMJDFDWkmHBgRFHjBP9hNYUg0mJEncttKaCwfaUzFBTkH4
-	RQyTyzUI/h0JC8bIv/w1ogzUS/cAmtoo0R504c6U1K1E8DDhLhcKptDVPPGwnXwC
-	7GplKm0pWStkFicA6MWNbTrkkYaYucfVd0hdc5U616g4PRaPxMQNs420jHnsDFfS
-	W05NiJRrjsZQRNes7Gx/5bEOL77Y6+wpQOnuYcWOMaVKIFAid+PdgEBnryq3V65o
-	dgWa/aMMTvdHujKo4365g8wFZ0CWPIQhqb2jfpK9ZIw==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gh4dg40g3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 04:23:39 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6878NcAk052247
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 04:23:38 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 7 Sep
- 2026 04:23:38 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 7 Sep 2026 04:23:38 -0400
-Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.185])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6878NRPp003614;
-	Mon, 7 Sep 2026 04:23:30 -0400
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-        Antoniu Miclaus
-	<antoniu.miclaus@analog.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?=
-	<nuno.sa@analog.com>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, <linux-iio@vger.kernel.org>,
-        <linux@analog.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH] iio: accel: adxl367: resolve interrupt mapping before device setup
-Date: Mon, 7 Sep 2026 11:23:13 +0300
-Message-ID: <20260907082313.3054-1-antoniu.miclaus@analog.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=brainfault.org header.i=@brainfault.org header.b="tnlVPgTS"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482f9309813so2865922f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:24:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788769445; cv=none;
+        d=google.com; s=arc-20260327;
+        b=m/l7+BxC2XzSpKI5b4yCWVQyvJrbAI+27IOSYNEG53IdsbLGa2UBUZwsttM6/ltHr6
+         PvDls8Hbvr6EbPQsEBK0etV2NQWfxCOU16soOX0r1YszQ311/YjHh6BdJvNkuluRpdVQ
+         m/PLKk7MeJ62FNAxm0g3O8YfusSy+Eer3S+rQai86UtPsd+0zX9yjsAlMJD1vsU3d/t+
+         kZ/8UW4rd1vmxe79DvLVNMLW9KkHSTOuadzoHKaVtMnGMmWRi6b/vZxDHfsOJGMjSqq+
+         lFOfcDdFz0AETeH+k9QwpGiNmI3hyKzYvyGc3ISOUqnj4HioXOpHeNN2cBQ/5gkOrEv7
+         Mkpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=h6qiSySchwLDdn88HORNI+edfDP5k4+RIZ3ev8MYNCc=;
+        fh=xwiBxiNJR3MYs0Kk0S9PojdjjI5IRtrMKm1GU19oNZo=;
+        b=PAqed5VZy3neYsBE11y2ayjVc9UaRKF1QhOy0iNlmmX7OOAALw+ZqAOesJyPlgXg9q
+         7z6Ll3QYsM0FkZ4C/uNQowhQTZ1aPo7AkZ8eStxXhzj3OZdbz7D1IYFoTm3EWEjfWiDc
+         U8zE5ZFhZTea9Z5alhLKtgis55Ot7aPrunMmQ2GcRTptatsG9ZlW7hF5Bra28R255w+Z
+         6XPSvSDZSPstJYDDCZWbCmgfu32G+MTRjYsMQJX+4Jbeyy47b/s9zI4TodWZ8KKCTfXo
+         TuF93UBVadTb/WBzJEVObIxsivM9l7CF6u9gEd4iEiJM/cXbrQu9xVi2KyBTLGLelGzN
+         UmTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=brainfault.org; s=google; t=1788769445; x=1789374245; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=h6qiSySchwLDdn88HORNI+edfDP5k4+RIZ3ev8MYNCc=;
+        b=tnlVPgTSF8q/OgLN5frZT1u3+LYtgGYZyXDfZDcsLKYxbbF846W0zEJqK+9m8iI2vD
+         VY+QxmuPaRNblSsA2BCDpPTGwUqqASFzFlyE3q2bCrhqv5uRN07GoZqvL2v7CzuKHKFw
+         R8yWyVnp7Z4K3yvrD51gmwyb+VL8SOCeeWOFaTpuC854jUaqQ69F9032jsfIvKEty1ZX
+         h+DZmScN650MD4UO28guWOldK3bf6Vg0y2Mo0XpjCmmv6wu1hAQAuhPj6DIgAHWSGVtJ
+         LCHCqesXBXghjU0QVRuuko7s4IK6vlsOYkN+r5flmOIBFKCUzbsEuKkWtcLB3t0hki+7
+         Ir6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788769445; x=1789374245;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=h6qiSySchwLDdn88HORNI+edfDP5k4+RIZ3ev8MYNCc=;
+        b=iymUSnUAGlLD9iAhVJcYWdeAawmU0R2nzXaH0I24V9f3FkSi2OoZ6PIhsXkQzdz34w
+         5IJb5Crrb2aMKThTboUSZgcVmQl/mjqn1EIlO1C+GEbYbQRd8hgsNj0BHYVm22g+onZv
+         seWBqj9vsgSaprE+ADMoXYZirF8KI0m6+NzAZt9p2E5LnTxh9ORfBJpw0z1rtURRwx/I
+         7uYls77Ll1duxqSJpA9sucZjqyI27etnDJZqibk5K8yhUEq1kT5kO6t8x2bpTdIiagJD
+         b8kEMf5o5Eeb4WJ47nMBnXZ7FG/zS++cCQ+rLedMHkK6/n3Y9FXKXAcs+tbI6iJ+4Kni
+         ZnHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJgXInzb9MXLqVmrs3kstSidkQ81IvBDQzCumFczzn7kGprPRz8VsfMDoSGIFxKbmDyGXCke7XaKq+ZKw=@vger.kernel.org
+X-Gm-Message-State: AFuF++knd5+mJ/HtgwMAIikcxoAH+glP3bYqcSj+m7isKcVmwk9WRGWS
+	tHThPXiq3RM/6cwLhRRHV1/cRcbP6iX2Ln68m+RVBsU4ip4Zbcu5m+sibu0SO8oCzqccEdBLaiO
+	xsK/x2j2FmcHWVJJ1Y/vyFl/OfidQm315J0736A193A==
+X-Gm-Gg: AYBFou1N9TQ60L/9AwuNvoWIkHRtry31Dfon2eKWBG1BVttOHeNjnG8rRwkAcoN6ivf
+	pYNNj2HH0VzCRm+JUSBMxoJbMWGA6+1LEP8fpECNayzoACnKrAgyi2FP6DmzPvi4+d7xE7rPt6u
+	CGXTLjG7j6C8YfFEQzIeDZYzArT1/NKpgYXfoKzg5eMPqATDD9LS8D4RAfyVVWM1axX3SEQJUn1
+	8w1uzhokns6KtHI2j9XyYXZChfkwcHAecIE6SS0jxACzWrGt0EmWfm+SGbYzb+SFGcO/+hFmcgO
+	y7cV2z+2qs5svVccXGPvpkgyscBq7eFXv7OWgJyRXCYVsBGlW09+MLEHBehCtBtgqn6olDp+gMV
+	t8xQ3JsFdlzz3Xc1NId+Atn717Yq8bvj3b/uGwTGFx+Cx7wNvyfjKqQvIhaedUuQ=
+X-Received: by 2002:a05:6000:2f82:b0:485:8c16:5ef7 with SMTP id
+ ffacd0b85a97d-4858c166148mr18091871f8f.49.1788769445126; Mon, 07 Sep 2026
+ 01:24:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-ORIG-GUID: b3L9E3EnxZHa0Zgj_84gPympN19Rp0Sg
-X-Authority-Analysis: v=2.4 cv=f5N4wuyM c=1 sm=1 tr=0 ts=6a9e748b cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=cksQzrjOa0daint2JCUA:9
-X-Proofpoint-GUID: b3L9E3EnxZHa0Zgj_84gPympN19Rp0Sg
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfX2oX1nBSHjTx/
- JVL/0DH+LAUVZD/4UncRofFcA+QcLWr7PwdI3ki/hZhdE1pPy3mO7fGGx727etU+4P/tC+edZ3g
- NEsI1QeDPRMm97hjMKmlLjS7j5m4E6cfBmiwIbNtPoTcA+5jkPzF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfXzShU9Klrb0W3
- Kz4pDzScmVEi+77XbCpUIrMAGaQUuDiC9w1l2BWoKuXlY45vIAJBNJR6ngPaoNfna8vsGN/P2Qh
- qqDKp51/8kln7NbIgH9Qye+n7udU85c0nwdyhnaQ0HDKpARCrjDH+igvYELmjYPumkF8Jugb/Ep
- H1eNUgkskTvv9v++c7EAIz94WDPajBacqoYmKRygtsZ4TM4UAZGDpRFLxNr1/gRbwcw+Au/tTgK
- ylRAK0jv5zKWFVai9DktM7mNTi1CmxvOtKdpPUCtNVrwvUVwagoUFKGaryEmavTihNT9PTqU3Tf
- u8/5bDhGirtjBoZYEM8n4S6/kTd2Js2svSi6on0l3ArwqfeLz7MMmQ3EXVJy0+V4yj1+HAzTHYp
- frDC+2C9YAoquEIeeCO0mz4828rgs4EJHH8eYWs/mKHGIA1nIcaulmT+JQ9ZAbyqI47BknXfJRp
- qX3yDjTlKNHC1Tzo8Hw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070089
+References: <20260902164123.2546762-1-seanjc@google.com> <20260902164123.2546762-11-seanjc@google.com>
+In-Reply-To: <20260902164123.2546762-11-seanjc@google.com>
+From: Anup Patel <anup@brainfault.org>
+Date: Mon, 7 Sep 2026 13:53:53 +0530
+X-Gm-Features: AcwNN1UOItNX8Zqa8yZNak7eVCaaP3xVxuE0lRNcn1acCna6Fm_hGPjVZ5FCvUw
+Message-ID: <CAAhSdy1zxu0cGnvpZEq_mPYRj07m7a+TA_8f0-sa=Mu7xtXvjA@mail.gmail.com>
+Subject: Re: [PATCH v2 10/20] KVM: selftests: Add a wrapper API to allocate
+ multiple page table pages
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+	Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, Fuad Tabba <fuad.tabba@linux.dev>, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>, 
+	David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-adxl367_set_int_map_reg() uses fwnode_irq_get_byname(), which can return
--EPROBE_DEFER. Running it after adxl367_setup() made every deferred probe
-repeat the reset and power the device up needlessly.
+On Wed, Sep 2, 2026 at 10:11=E2=80=AFPM Sean Christopherson <seanjc@google.=
+com> wrote:
+>
+> Add vm_alloc_page_table_pages() and use it throughout arch code to replac=
+e
+> open coded equivalents.
+>
+> No functional change intended.
+>
+> Reviewed-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Move it ahead of the regulator enable and reset; the lookup only reads
-firmware properties, so a deferral now returns before any hardware access.
+LGTM.
 
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
----
- drivers/iio/accel/adxl367.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+For KVM RISC-V:
+Acked-by: Anup Patel <anup@brainfault.org>
 
-diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-index 9b47e66c49ea..026db73057c5 100644
---- a/drivers/iio/accel/adxl367.c
-+++ b/drivers/iio/accel/adxl367.c
-@@ -1493,6 +1493,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
- 	indio_dev->info = &adxl367_info;
- 	indio_dev->modes = INDIO_DIRECT_MODE;
- 
-+	ret = adxl367_set_int_map_reg(st, irq);
-+	if (ret < 0)
-+		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
-+	irq = ret;
-+
- 	ret = devm_regulator_bulk_get_enable(st->dev,
- 					     ARRAY_SIZE(regulator_names),
- 					     regulator_names);
-@@ -1520,11 +1525,6 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
- 	if (ret)
- 		return ret;
- 
--	ret = adxl367_set_int_map_reg(st, irq);
--	if (ret < 0)
--		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
--	irq = ret;
--
- 	ret = devm_request_threaded_irq(st->dev, irq, NULL,
- 					adxl367_irq_handler, IRQF_ONESHOT,
- 					indio_dev->name, indio_dev);
--- 
-2.43.0
+Regards,
+Anup
 
+
+> ---
+>  tools/testing/selftests/kvm/include/kvm_util.h    | 9 +++++++--
+>  tools/testing/selftests/kvm/lib/arm64/processor.c | 4 +---
+>  tools/testing/selftests/kvm/lib/riscv/processor.c | 4 +---
+>  tools/testing/selftests/kvm/lib/s390/processor.c  | 8 ++------
+>  4 files changed, 11 insertions(+), 14 deletions(-)
+>
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testi=
+ng/selftests/kvm/include/kvm_util.h
+> index d9d39a8894e2..c56f342b16fd 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -1013,10 +1013,15 @@ static inline gpa_t vm_phy_page_alloc(struct kvm_=
+vm *vm, gpa_t min_gpa,
+>         return vm_phy_pages_alloc(vm, 1, min_gpa, memslot);
+>  }
+>
+> +static inline gpa_t vm_alloc_page_table_pages(struct kvm_vm *vm, size_t =
+nr_pages)
+> +{
+> +       return vm_phy_pages_alloc(vm, nr_pages, KVM_GUEST_PAGE_TABLE_MIN_=
+PADDR,
+> +                                 vm->memslots[MEM_REGION_PT]);
+> +}
+> +
+>  static inline gpa_t vm_alloc_page_table(struct kvm_vm *vm)
+>  {
+> -       return vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -                                vm->memslots[MEM_REGION_PT]);
+> +       return vm_alloc_page_table_pages(vm, 1);
+>  }
+>
+>  /*
+> diff --git a/tools/testing/selftests/kvm/lib/arm64/processor.c b/tools/te=
+sting/selftests/kvm/lib/arm64/processor.c
+> index 01325bf4d36f..2dcaa2c4a038 100644
+> --- a/tools/testing/selftests/kvm/lib/arm64/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/arm64/processor.c
+> @@ -115,9 +115,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>         if (vm->mmu.pgd_created)
+>                 return;
+>
+> -       vm->mmu.pgd =3D vm_phy_pages_alloc(vm, nr_pages,
+> -                                        KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -                                        vm->memslots[MEM_REGION_PT]);
+> +       vm->mmu.pgd =3D vm_alloc_page_table_pages(vm, nr_pages);
+>         vm->mmu.pgd_created =3D true;
+>  }
+>
+> diff --git a/tools/testing/selftests/kvm/lib/riscv/processor.c b/tools/te=
+sting/selftests/kvm/lib/riscv/processor.c
+> index ded5429f3448..c175dcd14114 100644
+> --- a/tools/testing/selftests/kvm/lib/riscv/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/riscv/processor.c
+> @@ -69,9 +69,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>         if (vm->mmu.pgd_created)
+>                 return;
+>
+> -       vm->mmu.pgd =3D vm_phy_pages_alloc(vm, nr_pages,
+> -                                        KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -                                        vm->memslots[MEM_REGION_PT]);
+> +       vm->mmu.pgd =3D vm_alloc_page_table_pages(vm, nr_pages);
+>         vm->mmu.pgd_created =3D true;
+>  }
+>
+> diff --git a/tools/testing/selftests/kvm/lib/s390/processor.c b/tools/tes=
+ting/selftests/kvm/lib/s390/processor.c
+> index fb9dab92d4d1..33f49d743b5f 100644
+> --- a/tools/testing/selftests/kvm/lib/s390/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/s390/processor.c
+> @@ -20,9 +20,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>         if (vm->mmu.pgd_created)
+>                 return;
+>
+> -       gpa =3D vm_phy_pages_alloc(vm, PAGES_PER_REGION,
+> -                                  KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -                                  vm->memslots[MEM_REGION_PT]);
+> +       gpa =3D vm_alloc_page_table_pages(vm, PAGES_PER_REGION);
+>         memset(addr_gpa2hva(vm, gpa), 0xff, PAGES_PER_REGION * vm->page_s=
+ize);
+>
+>         vm->mmu.pgd =3D gpa;
+> @@ -38,9 +36,7 @@ static u64 virt_alloc_region(struct kvm_vm *vm, int ri)
+>  {
+>         u64 taddr;
+>
+> -       taddr =3D vm_phy_pages_alloc(vm,  ri < 4 ? PAGES_PER_REGION : 1,
+> -                                  KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -                                  vm->memslots[MEM_REGION_PT]);
+> +       taddr =3D vm_alloc_page_table_pages(vm, ri < 4 ? PAGES_PER_REGION=
+ : 1);
+>         memset(addr_gpa2hva(vm, taddr), 0xff, PAGES_PER_REGION * vm->page=
+_size);
+>
+>         return (taddr & REGION_ENTRY_ORIGIN)
+> --
+> 2.55.0.966.g6673acef38-goog
+>
