@@ -1,50 +1,99 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75EE84BCAA9;
-	Mon,  7 Sep 2026 12:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2364C8FF7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785549; cv=none; b=tG3/qb/bZFkvRUjimLY1JTNVjtdAfpOjUmagYU1R+DLD3N6rNQeN48HwrPtjf3yYd3f/jExg+pAL3Cpl9nRCOZGA3NbeG67grOLFmnPkweG8QVEf/apr/wEd2IEszz23eoHGT7Sn37NLwbTPpeYSym9xhrZQ1WrEiWxdc6uqnIs=
+	t=1788785553; cv=none; b=uN2ssgT0QxBd0/vzZd5KswTeU/IffC+3wEbN2qOXy3nokEMF7o1r2R9wTrTXZsEl2jIhLPm8b1ZI6FOXxLa200fxpZcXZDSoJlKSpiphr8WeNeg+wzsnJPO9A+qIYASHL2rizltPqN2RhBVIjHPtXSyQmiohEvvmUmPY4zMyyNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785549; c=relaxed/simple;
-	bh=x8b7N9jqfDk77DldP5fChz2gndYQavocBAogp1SVOLE=;
+	s=arc-20240116; t=1788785553; c=relaxed/simple;
+	bh=CgrQA9S1BOTEaFZVDiNZT9Jb/LSdMZymbY+ZFIFj53A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uftWreUEHDPRQoqcl2SdGwp0Cm7Os3c1leVgqPE4iYnABBJBLIYjXVVMrmqjIczQS/tThl4xS1HAv/S7LZZTRQ7hN3vW7rdJx7bpX92f9t9miOLBGEc8cCXtz92PMVBTPd0EbNlWGgADcen14xeq2aOiK94aDPTC64bKaP6vdI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=mfJAnWbd; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=MmfuZJWC8OF/BE1ibaeHi3KxbVA2OINTxIAtrOevwIf3g6ASe00+s7fBaA6wHAKMbKqmK18XHVe1NzpyyJ0bRghXxPK8KP9McXDCDkXJPgigKkGvFkSnCg6nlWeJ+S/Bohs9s7VjDdAVVmnxXi6Me36lnOrNDUNMJHezcXHcSzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=C7VVw9OR; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="mfJAnWbd"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ripSjHDdp3XrP9PDd5/ms7sEI5CQitY+Sd0KNfUlUvg=; b=mfJAnWbd01mYqQuT06W19DFHyM
-	7nUOhAl/0IERfO2ss1DRPwYzITrBYDj0TVgRqSw7T4IfTYFh69BilY1Wks2aGNyGtzfXj0PtkIcRX
-	iXMGcAb/Ln7Uezc94gkHHrvxFlU90Iqujwm67Mcpk9jpMonAe85fndZyj/DsOsPK24lM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3Ypc-003WG6-Pg; Mon, 07 Sep 2026 14:52:16 +0200
-Date: Mon, 7 Sep 2026 14:52:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Simon Horman <horms@kernel.org>,
-	Edward Cree <ecree.xilinx@gmail.com>, Shuah Khan <shuah@kernel.org>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-net-drivers@amd.com, linux-kselftest@vger.kernel.org,
-	linux-usb@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] net: fix typos in comments
-Message-ID: <8f289b56-0d4f-470f-a0ba-bdd6b4ee524f@lunn.ch>
-References: <20260907044635.7141-1-hemanth.selam@gmail.com>
- <20260907044635.7141-2-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="C7VVw9OR"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90cbff85fa9so43109956d6.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:52:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1788785550; x=1789390350; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iapkYXlIeb7+hecWmdI0rbQoSearWcjPGJwbmVo5xUM=;
+        b=C7VVw9OR78xtIgXhtLtczKpW4EF0aA0yXy1WqRIYMC2HWR3G4/dq127NCRw5K8PXOU
+         SSuCAN/apAiPzqiC5M+hHJGSnEGcZ9i51wbKlBGOqNHtvOMsFf6dX3h/i/F8kjbVkvEA
+         OdiGhsAs6rYsJFuQEPeBlpnKkN0fcqpuXM7F4rAomfhVm+630dZsdC4534MYwgg7pxzA
+         SlkzMNPsMjTEz56bbroQMeLOIquf1qxjW2pTKKDj4X2ooMQsY4rGi3rbvbqL8tiQ34kV
+         6zzltBjLrysazdo4BwANTCy+YJWCd0F0ziskXbUJaDFKE4mkC3kWDMh3gA6QrdUDw+vU
+         zDiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788785550; x=1789390350;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iapkYXlIeb7+hecWmdI0rbQoSearWcjPGJwbmVo5xUM=;
+        b=bK60wXy/P31VuiiGfJC8lbe6QC5SUyzI6bQK7mTEETuaOdKoZhFOhzwWLjRkLApXv7
+         nFYVyeWBsNa7ARXh5Lj6J6sDZ+FOTXaP1Ovg4GGRlXmv2i87oUaAQVufJZNHi/lre2lW
+         hmWKBE/vSC+7sQMA/gyS0rWDXo8BcA8y4LrJkonjQ2FcBDtZbAg3HUHdO67dGaOrpbls
+         O1L9cYXoER++RVo54dfULL5+FkKaIY9J6e/W94tYOe4oratkEqhNOJ4nsLYjcKb3Nwye
+         1gj5fVZiWLq7pvQaR39y9DE05y9mTAvKfEFB4s5m3b9F7XdEVsozY/DvsnoQ4ECru87v
+         74wg==
+X-Forwarded-Encrypted: i=1; AKwUvBw0EUVE0icSzZOf70NY3CoZsVLdrGBeM6Gb9Dk0sZEnc02/f/VaEwSHqYf6Ef4IQrMdeBJihP3bc55lg5A=@vger.kernel.org
+X-Gm-Message-State: AFuF++koXETgoPeYe1d1FuPcBESp6fHtnDmt+3a+TpVARyXY7aeHDtG2
+	IPbpenQEfrzSoguazVRpBcnR2wnm72cWdF6PHPba6Pghvr/il7aBXgacObchP6bvSlw=
+X-Gm-Gg: AYBFou1BYacBSQNhbeyvv7btGQJnBC0kZZ3thM+dpGvjkKz3pVsu1uD1pEcp4qs8AKU
+	OuWod6g9EA/5zkZ/kLy06By1S81u4zUDYEInAPLS7acovdADp5qdi8BfrNoKCMTrzQ3/ymKv8Om
+	k/hITtp3aifyDvcyH67vgQ52YxbF3zltpfqmhpupLtqEOyKgTDOVDvYPbArHW6pV+s3J7DsKQkY
+	/C5BMcqjAkiH24G/CJDBpXtrmNYr8GAW3XzdMmByOt8UeSLTzyRfwhNuQXI3muhMTDk6xF7spux
+	80thM3wUkN7ZuLR+cdfKBSNDvil3KD/VQHbdP2ndTJswfPHt5jpyMVjCOq37nbsvYnlfupJqUge
+	gJdyDyXE/TPTAUG2FOJ8QA9HmqaJRPiCTo26h6JaqKBIfKC1CPnANbmwdGFRXFkDYxeK8Sr2rFe
+	GhdkgJgiBrveFknwrdhJ2u/of+jJx2h+yAf15RYRnGuf2c3Ozl5gYwNCCovfRaS7rDhFe23hZU8
+	1c96zVTZMQNbNzw5+Z12mH/3PqFBvfPVKovZWGzeu2tqw==
+X-Received: by 2002:a05:6214:3d8b:b0:910:479a:f7a7 with SMTP id 6a1803df08f44-910479af8camr173644776d6.30.1788785550029;
+        Mon, 07 Sep 2026 05:52:30 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91048476220sm62621416d6.31.2026.09.07.05.52.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:52:29 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x3Ypo-0000000AfMt-2MmF;
+	Mon, 07 Sep 2026 09:52:28 -0300
+Date: Mon, 7 Sep 2026 09:52:28 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260907125228.GB667892@ziepe.ca>
+References: <yq5aecfdnv4i.fsf@kernel.org>
+ <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org>
+ <20260902121700.GC2890729@ziepe.ca>
+ <yq5aik4nztdt.fsf@kernel.org>
+ <yq5aecfbzjyk.fsf@kernel.org>
+ <20260902235609.GG2890729@ziepe.ca>
+ <yq5a8q5izxz4.fsf@kernel.org>
+ <20260903171704.GK2890729@ziepe.ca>
+ <yq5acxupjsy2.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,166 +102,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907044635.7141-2-hemanth.selam@gmail.com>
+In-Reply-To: <yq5acxupjsy2.fsf@kernel.org>
 
-On Mon, Sep 07, 2026 at 10:16:30AM +0530, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/net/dsa/bcm_sf2_cfp.c                          |  2 +-
->  drivers/net/dsa/microchip/ksz_dcb.c                    |  2 +-
->  drivers/net/dsa/realtek/rtl8366rb.c                    |  2 +-
->  drivers/net/dsa/sja1105/sja1105_tas.c                  |  2 +-
->  drivers/net/ethernet/3com/typhoon.h                    |  2 +-
->  drivers/net/ethernet/8390/ax88796.c                    |  2 +-
->  drivers/net/ethernet/airoha/airoha_eth.c               |  2 +-
->  drivers/net/ethernet/allwinner/sun4i-emac.c            |  2 +-
->  drivers/net/ethernet/amazon/ena/ena_eth_com.h          |  2 +-
->  drivers/net/ethernet/amd/xgbe/xgbe-dev.c               |  2 +-
->  drivers/net/ethernet/apm/xgene/xgene_enet_main.c       |  2 +-
->  drivers/net/ethernet/atheros/atl1c/atl1c_hw.h          |  2 +-
->  drivers/net/ethernet/atheros/atl1e/atl1e.h             |  2 +-
->  drivers/net/ethernet/atheros/atl1e/atl1e_hw.c          |  2 +-
->  drivers/net/ethernet/atheros/atl1e/atl1e_main.c        |  2 +-
->  drivers/net/ethernet/atheros/atlx/atl1.c               |  2 +-
->  drivers/net/ethernet/atheros/atlx/atl2.c               |  2 +-
->  drivers/net/ethernet/broadcom/bcm63xx_enet.c           |  2 +-
->  drivers/net/ethernet/broadcom/bcm63xx_enet.h           |  2 +-
->  drivers/net/ethernet/broadcom/bcmsysport.h             |  2 +-
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x.h            |  2 +-
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_dcb.c        |  4 ++--
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_hsi.h        |  2 +-
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_init_ops.h   |  2 +-
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c       |  8 ++++----
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c       |  2 +-
->  drivers/net/ethernet/broadcom/bnx2x/bnx2x_reg.h        |  4 ++--
->  drivers/net/ethernet/brocade/bna/bfa_ioc.c             |  4 ++--
->  drivers/net/ethernet/brocade/bna/bna_enet.c            |  4 ++--
->  drivers/net/ethernet/calxeda/xgmac.c                   |  2 +-
->  drivers/net/ethernet/cavium/liquidio/cn66xx_device.c   |  2 +-
->  drivers/net/ethernet/cavium/liquidio/lio_core.c        |  2 +-
->  drivers/net/ethernet/cavium/liquidio/octeon_config.h   |  4 ++--
->  drivers/net/ethernet/cavium/liquidio/octeon_iq.h       |  2 +-
->  drivers/net/ethernet/cavium/liquidio/octeon_main.h     |  2 +-
->  drivers/net/ethernet/cavium/liquidio/octeon_nic.h      |  2 +-
->  drivers/net/ethernet/cavium/liquidio/request_manager.c |  2 +-
->  drivers/net/ethernet/cavium/thunder/nic.h              |  2 +-
->  drivers/net/ethernet/cavium/thunder/nic_main.c         |  2 +-
->  drivers/net/ethernet/chelsio/cxgb3/sge.c               |  2 +-
->  drivers/net/ethernet/chelsio/cxgb4/cxgb4_dcb.c         |  2 +-
->  drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c     |  2 +-
->  drivers/net/ethernet/chelsio/cxgb4/t4_hw.c             |  2 +-
->  drivers/net/ethernet/chelsio/cxgb4vf/sge.c             |  2 +-
->  drivers/net/ethernet/cirrus/cs89x0.c                   |  4 ++--
->  drivers/net/ethernet/dec/tulip/de2104x.c               |  2 +-
->  drivers/net/ethernet/dec/tulip/interrupt.c             |  4 ++--
->  drivers/net/ethernet/dec/tulip/media.c                 |  2 +-
->  drivers/net/ethernet/dec/tulip/tulip.h                 |  4 ++--
->  drivers/net/ethernet/dec/tulip/winbond-840.c           |  2 +-
->  drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c       |  2 +-
->  drivers/net/ethernet/freescale/fman/fman_memac.c       |  2 +-
->  drivers/net/ethernet/freescale/gianfar.c               |  2 +-
->  drivers/net/ethernet/freescale/gianfar.h               |  2 +-
->  drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c     |  2 +-
->  drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c      |  2 +-
->  drivers/net/ethernet/hisilicon/hns/hns_enet.c          |  4 ++--
->  .../net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c    |  2 +-
->  drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c  |  2 +-
->  .../net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c  |  2 +-
->  drivers/net/ethernet/ibm/emac/emac.h                   |  2 +-
->  drivers/net/ethernet/ibm/emac/phy.h                    |  2 +-
->  drivers/net/ethernet/jme.h                             |  2 +-
->  drivers/net/ethernet/marvell/mvpp2/mvpp2.h             |  2 +-
->  drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c         |  8 ++++----
->  drivers/net/ethernet/marvell/octeontx2/af/npc.h        |  4 ++--
->  drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c    |  2 +-
->  drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c     |  2 +-
->  .../net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c    |  2 +-
->  drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c   |  2 +-
->  drivers/net/ethernet/marvell/pxa168_eth.c              |  4 ++--
->  drivers/net/ethernet/mellanox/mlx4/eq.c                |  2 +-
->  drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c |  2 +-
->  drivers/net/ethernet/mellanox/mlx5/core/lib/tout.c     |  2 +-
->  drivers/net/ethernet/mellanox/mlxsw/i2c.c              |  2 +-
->  drivers/net/ethernet/mellanox/mlxsw/reg.h              |  2 +-
->  drivers/net/ethernet/natsemi/sonic.h                   |  2 +-
->  drivers/net/ethernet/nvidia/forcedeth.c                |  4 ++--
->  drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c    |  2 +-
->  drivers/net/ethernet/qlogic/qed/qed_cxt.c              |  2 +-
->  drivers/net/ethernet/qlogic/qed/qed_dev.c              |  2 +-
->  drivers/net/ethernet/qlogic/qed/qed_mcp.h              |  2 +-
->  drivers/net/ethernet/qlogic/qlcnic/qlcnic.h            |  2 +-
->  drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c  |  4 ++--
->  drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c        |  2 +-
->  drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c       |  4 ++--
->  drivers/net/ethernet/qualcomm/emac/emac-mac.c          |  2 +-
->  drivers/net/ethernet/realtek/8139too.c                 |  2 +-
->  drivers/net/ethernet/realtek/rtase/rtase_main.c        |  2 +-
->  drivers/net/ethernet/seeq/sgiseeq.c                    |  2 +-
->  drivers/net/ethernet/sfc/falcon/falcon.c               |  2 +-
->  drivers/net/ethernet/sfc/mcdi_pcol.h                   |  8 ++++----
->  drivers/net/ethernet/sfc/siena/mcdi_pcol.h             |  6 +++---
->  drivers/net/ethernet/sfc/siena/ptp.c                   |  2 +-
->  drivers/net/ethernet/sgi/meth.h                        |  2 +-
->  drivers/net/ethernet/silan/sc92031.c                   |  6 +++---
->  drivers/net/ethernet/sis/sis900.c                      |  2 +-
->  drivers/net/ethernet/smsc/smsc9420.c                   |  2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c      |  2 +-
->  drivers/net/ethernet/sun/cassini.h                     |  2 +-
->  drivers/net/ethernet/synopsys/dwc-xlgmac-common.c      |  2 +-
->  drivers/net/ethernet/synopsys/dwc-xlgmac-hw.c          |  2 +-
->  drivers/net/ethernet/tehuti/tehuti.c                   |  8 ++++----
->  drivers/net/ethernet/ti/tlan.c                         |  2 +-
->  drivers/net/ethernet/toshiba/ps3_gelic_net.c           |  2 +-
->  drivers/net/ethernet/toshiba/ps3_gelic_net.h           |  2 +-
->  drivers/net/ethernet/toshiba/ps3_gelic_wireless.c      |  2 +-
->  drivers/net/ethernet/via/via-rhine.c                   |  2 +-
->  drivers/net/ethernet/via/via-velocity.c                | 10 +++++-----
->  drivers/net/fddi/skfp/cfm.c                            |  2 +-
->  drivers/net/fddi/skfp/ecm.c                            |  2 +-
->  drivers/net/fddi/skfp/fplustm.c                        |  4 ++--
->  drivers/net/fddi/skfp/h/hwmtm.h                        |  2 +-
->  drivers/net/fddi/skfp/h/sba.h                          |  2 +-
->  drivers/net/fddi/skfp/pcmplc.c                         |  2 +-
->  drivers/net/fddi/skfp/rmt.c                            |  2 +-
->  drivers/net/ipa/ipa_interrupt.h                        |  2 +-
->  drivers/net/phy/bcm87xx.c                              |  2 +-
->  drivers/net/phy/marvell.c                              |  2 +-
->  drivers/net/ppp/ppp_generic.c                          |  4 ++--
->  drivers/net/usb/ax88179_178a.c                         |  4 ++--
->  drivers/net/wan/slic_ds26522.c                         |  2 +-
->  drivers/s390/net/ctcm_main.c                           |  4 ++--
->  drivers/s390/net/qeth_core.h                           |  2 +-
->  include/net/inet_hashtables.h                          |  2 +-
->  include/net/sock.h                                     |  2 +-
->  net/ipv4/tcp.c                                         |  2 +-
->  net/ipv4/tcp_input.c                                   |  2 +-
->  net/ipv4/tcp_output.c                                  |  2 +-
->  net/ipv6/calipso.c                                     |  4 ++--
->  net/llc/llc_c_ac.c                                     |  2 +-
->  net/netlink/af_netlink.c                               |  2 +-
->  net/sctp/protocol.c                                    |  4 ++--
->  net/sctp/sm_make_chunk.c                               |  4 ++--
->  net/sctp/sm_sideeffect.c                               |  2 +-
->  net/sctp/transport.c                                   |  2 +-
->  net/sctp/ulpqueue.c                                    |  2 +-
->  samples/pktgen/README.rst                              |  2 +-
->  tools/testing/selftests/drivers/net/team/options.sh    |  2 +-
->  .../selftests/net/arp_ndisc_untracked_subnets.sh       |  4 ++--
->  tools/testing/selftests/net/forwarding/lib.sh          |  2 +-
->  tools/testing/selftests/net/ip_defrag.c                |  2 +-
->  142 files changed, 184 insertions(+), 184 deletions(-)
+On Mon, Sep 07, 2026 at 03:15:25PM +0530, Aneesh Kumar K.V wrote:
 
-It takes me a surprising amount of time to review each change. 184
-changes is too many to review at once. Please split this patch by
-vendor.
+> I looked into this, and it becomes fairly complicated. We can move all
+> vdev/TDI-related code to arm-smmu-realm-v3.c, but that would result in:
 
+I was going for the opposite, you'd move everything out of arm-smmu-v3
+and into the arm-cca-host and obtain the viommu through tsm_ops not
+through iommu_ops.
 
-    Andrew
+I guess I pointed to that in another email.
 
----
-pw-bot: cr
+The only thing arm-smmu-v3 should provide is a simple function to give
+the pdev phys and irq parameters. arm-cca-host calls that when it
+creates an viommu object.
+
+> 1. Adding more CCA-specific code to the SMMU driver.
+> 2. arm-cca-host continuing to own the TSM link setup (IDE).
+> 3. Adding callbacks from the device communication helpers back into
+>    arm-cca-host, since device communication still goes through DOE.
+> 4. Moving the device communication helpers to firmware/arm-rmm and adding
+>    something like:
+
+With the above change you don't need to do any of this.
+
+> The locking also becomes more complex. Unlocking a vdev can trigger a
+> stream key refresh, which is owned by arm-cca-host. Currently, the locking
+> is simpler, using pci_tsm_rwsem and pci_tsm_pf0::lock. With the SMMU driver
+> owning the vdev/TDI, we would have:
+
+You can't really avoid something, the vdev *IS* the TDI and the ops to
+effect it come in through the iommufd path. The ideal version is the
+tdi is never used outside the iommufd path so you don't need to mesh
+the locking quite as carefully.
+
+> - pci_tsm_rwsem protecting the lifetime and registration state of
+>   pdev->tsm.
+> - pci_tsm::tdi_lock protecting the function's pci_tdi pointer.
+
+Like here, why is there a pci_tdi linked to pci_tsm? Anything coming
+in outside the iommufd locking is very suspect.
+
+And the iommufd locking should spill over to the TSM, you should not
+be able to remove a tsm while a viommu object exists.
+
+Jason
