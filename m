@@ -1,347 +1,178 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA54043E9C3;
-	Mon,  7 Sep 2026 08:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769187; cv=none; b=NalOb/HUM8DmC8KC4BJuq5FR4CBDBHsoli0aYtKlk2n7lCYZFSq761uQjT2rK0SSKXYMa7RUfo7Uu11TruGh/IE8mYgtN+pQtn4f0HuhDzbIUULN4+QbKDqJVMMZ6lNV1A1m/PnA0KdFsIT7+d/Uov4T0HyKxGLCo97AZ0BD000=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769187; c=relaxed/simple;
-	bh=YMxvpBXXES/5Be1PM7mR4Ou5S+++GkRnpdpj19mAzVE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FPiF+eYvkhjUx/T11N/PDmExwqbl+X68ru40BjZH05KXbOklaIQ2dWRpM+eVvLc5cx0FCq8sIJye8ZZ9sQAY54PpoVXn2Lto9jpL61HllTw4e9Id2lw65DPTCBXRAEOSsw3st0WC7fWMv5CSsTctX9fMBEULtHXaKRqy6ViITsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UJuvfU9d; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010019.outbound.protection.outlook.com [52.101.228.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E59A43B489;
+	Mon,  7 Sep 2026 08:20:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788769208; cv=fail; b=gOZKRc2vZWYo1IqDw2Al+MVRTvPQT7TE1UyDWX/kvPwdXtB/tIl5lVSzN73MopxyEGpGsegPayamvCj+gFgi0zzzh9TS8mzLFb+mXru6BYiQokRRmhvGHKE2JoJf//uomIwpk96guwRmFty9ZWerZ1uFmL6O5Uk5pdRMcFBr3q8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788769208; c=relaxed/simple;
+	bh=6RAJ0gAueCDwmNaW/SxKV251hU4swg3jZKcjkEgjp+I=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EEELzgfDMXvTYZATQrT64JxWznrrBNqs1CjWBCFVB5vnbpR0XtdUV0zkMu3mniCfz8LhdtpAqyq9808ElQ0FFTTDyGjxPyigDSmOejcL5yOxuFv2Glhh7bT+DIallljshDNPiHgOysSlaneJPmGAblau2WCnlDkZ5I7FCyg8Ifs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=PUIj9GV1; arc=fail smtp.client-ip=52.101.228.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UJuvfU9d"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0557A1BCB;
-	Mon,  7 Sep 2026 01:19:39 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 28EFB3F7D8;
-	Mon,  7 Sep 2026 01:19:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788769182; bh=YMxvpBXXES/5Be1PM7mR4Ou5S+++GkRnpdpj19mAzVE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=UJuvfU9dmBPHjlicnGnG9INWQtct5wrTCoiuI0cPdx43hW8RJAqaNI2VbEWbTxqnw
-	 K+dKvgqNMLOMPc6i6cCyi7ICuVHIAdvEkoF7Z7KOlTzmoI5gUvsX11j518KUy1NXww
-	 /WUU1gIPqtvRbvMIoc6tI1Lz5AyxLz/n33OBsGy8=
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 07 Sep 2026 09:19:28 +0100
-Subject: [PATCH v5 3/3] kselftest: mm: introduce alloc_isolated_mem()
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="PUIj9GV1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fSYnauK7FF2NtRCrD1dkiZ9F7G77e0tKbOjrHZiv6swy7M6tY0mBLy/gX4jUiafRwbUZ4o/ZNEy2UO0YLunjd4EwqfaOEajetarZEdCnLZJyDNCfClHwLzb2/lRVOc4yTIoDeudShrqdhDGPjGVHduGIrhLTia0PB3jfNYPkkF6RqOqwSaYjyQcgCOeDz00w7McmDdKHJk8Bvk9E0S8yJgCU1VSXCObiXIKMAsYhC1h82MXCPdASgJQjyBpRfQv39pO4d9k8tQMQdedsYZOBcBELy0xLuylaHu+mBa4MRZeoHcRH12kp0O6/W1UDGhICKyz08INplRt9eO8gavEwTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=T/TrPMxMfsdB1KhQizaC0+zCdfSKSgU7HCZLBiGGE+4=;
+ b=HyeCPeMcW3kxZXbEDyDuwG6pj1Mc7EYG4qqV7a4pr8g56cm510pmPSLYtycssqacUFuXCPJp/25BcQjFFD7q3u2on1JMgyFUQ1nib5EBgIUCYFmiDErdC7SIDds5eQf+eIaYteCoZTAWycnXQ5UoQFmaBmT/8GYBQXmSfmIzzcnwdFCJQ2odA1IU4LBqhapW7ycDmnxThdcTuZPs6GJ42IckExZQXUDB0MbBoDcRKHRw48vKtt3JmnhZX6VLL7U908/EZB+30AAYrWfPWj/YEr3lEo0SSFqEhS16KkH+odY8wzS8UyN54daCowArZGEvb1OeeU4Rhk85GiwCVLvjDg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=T/TrPMxMfsdB1KhQizaC0+zCdfSKSgU7HCZLBiGGE+4=;
+ b=PUIj9GV1E6fUlhY+aVVlS6hioYATsMIscRy6ovpxHpfJM3tXGIrYVb+JtLDCTETgCW8RdLaK85dVDeSND5fwv3iCld9y6DTMbCoeh4U5kLPVRnGFly/C8/cndgQDmCwLtmTsjJCJordMBHjusyWNhUjCMFIgMhFcYWihUZvOEdI=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYWPR01MB11137.jpnprd01.prod.outlook.com (2603:1096:400:3f4::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 08:19:57 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 08:19:57 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
+	<biju.das.au@gmail.com>
+CC: Ulf Hansson <ulfh@kernel.org>, "linux-mmc@vger.kernel.org"
+	<linux-mmc@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for
+ CTL_SD_CARD_CLK_CTL register writes
+Thread-Topic: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for
+ CTL_SD_CARD_CLK_CTL register writes
+Thread-Index: AQHdMMfAfNE6w/AmCUKaMfvf8hhQWra8vN2AgAYjnwA=
+Date: Mon, 7 Sep 2026 08:19:57 +0000
+Message-ID:
+ <TY3PR01MB113465A077155B664C7B4502186B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+ <20260820171657.62815-11-biju.das.jz@bp.renesas.com>
+ <aplMNoRlIYbVZH5-@shikoro>
+In-Reply-To: <aplMNoRlIYbVZH5-@shikoro>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYWPR01MB11137:EE_
+x-ms-office365-filtering-correlation-id: 09a8ea94-b012-4812-88aa-08df0cb8cda2
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info:
+ /sYTRmJO4972orN4YXXX7OxyKRg4uOnKlJwsoBe+lNmj7WbVCWFrQKcQMuQerj3AKU9UOFWI2dZbLgYKitmf33wO7LjSFXH6Js91K7X5ARq6xn7auNqxPDZv8YD3QNYXfuadzIXfFRH8RH6ulxpzvl3lKnS1BANyp2+g8AkD97X9iwzX65LYmCcouWb0PhA1+MdUhxfDsUUNRhGGMnWX3KC5QFJTCqD409sTexzQ/q62JHbXuziHHC8mga7RR8GU28Xcnut91NyCZlKo7J5P64uDKEWAVrYHkVv0H9dDpYJ8KGqH9xLhh1ankfwpmPeDD4gzmd+q+9gat53pZ7h1WwQNsxzH3cUfLNcExInLKfT1o83buINQGHx96v3aFSJnkI9lCV5/NKjx8xv3lmLYGBR3IW3AkWGz2BVOvkdFflyMuY9SoDJcNm0ISAWBZqa3XPNSNiawR1nh3On964pav3BsjDmxwmoWeFHAtFR9GhEzvJgOvHjviEMK9HLkgCiM4T25Xca9BNYlsPy3ZDA2KmIHXMfqCZNa3dks5oT/J6eg9Lkrhdp4jZEYbHnu3lXDB+n/4eNSBXd2xx7zLCHvVw1ibzB67PN4CpFK2SmApAg2vD34sQNY3ZArOz50Vm8FUE02Ptk+BD8wcqlT+H5GbsyewhuswEuuHhlbhqfAZBeHbSo9rntq1+P8v5fvWlzsKVOZZ58qrmzCHjhgpXnyD/E/5/lamSRjQr7N4WrJ7os=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?w+S260Ai4f4QH9ErKLM0mH8xDre+wmNZeVWxHd3LFcCA3dBgwyUktxkd1JkM?=
+ =?us-ascii?Q?rNNF4UNMpj6iYQcFUrKJcjDaBedES/OqI986t5cXt48KZ86usFxXi4ZsgcHh?=
+ =?us-ascii?Q?BgSd0D2KwO/fCEAr95vsknA9aR5k7lbA6wznMucnNt0kJb9tP3LuAT+qBtlD?=
+ =?us-ascii?Q?LW66sOX2iyvNLSoWRmzZbRsNESelCzfMtsGCoEmo6ZwKzPgPFmnGzAWXGZ4a?=
+ =?us-ascii?Q?MGWMrh7bWd6Jz2Yyd2czeFqIfYGg8IXxYHxlfgQFl5AFUAUZ8V4naDTsERMg?=
+ =?us-ascii?Q?GwrSfplIIQRdMEbF/FzDNLLHy7cbQP6D9MCWqNpOqPr8D0gfF9oIsnyuLSVZ?=
+ =?us-ascii?Q?QdlXJ1Mw1v01VlaadKMTMecmDNhF/bjmkb9Tg/WplZUZI4kqWMLa+YGg9Qha?=
+ =?us-ascii?Q?lHLiq9N6oO+TBSc+vFSzzu5n9EcV4W+0RRmE5bBr0nbErdN7ub+U7mMt0t0m?=
+ =?us-ascii?Q?dRnfHjLJ4SiL4YcZPw8C8SBh2RjwbJF+3qM4g3WhogUsBbZWiO8YPE546UCn?=
+ =?us-ascii?Q?/qMLWjmQgLzxjeBVXeKOSX9eh/FcQYd1rJ5q0dkg+r61ftLnIhvRX6b6rCdW?=
+ =?us-ascii?Q?H74fDbVWerCh+FxkoEkdq+cNWspdzIOboHcSJD+xl3QE1OZ54Z/0g5ok7V/E?=
+ =?us-ascii?Q?TezRADOxuJMSYyePH0so2D00fl+h2aGhGxXdcXrUsM5wHjfyWQCnBuLbmz8q?=
+ =?us-ascii?Q?KE6onQlvhoIQl1ExXV5G5SB0oH9xgBkwBSviMuEjFVmvKdrlfrUvgvDP3tqi?=
+ =?us-ascii?Q?qirUcBc7qFjGGSU15fuxodMg+YuWBZpFgGSThzxLSz9ODbSkb5/MyQxNChCc?=
+ =?us-ascii?Q?Jk57BDjDU2gi1UnMN1S3h0psw/Xvox0RQXHMn2ekDp9xOJKboI/G4V7D28rN?=
+ =?us-ascii?Q?iC47M5yKoyzA3e7iJODA1E1Ntp5UEQe2HrAKGsMJEoMjXF2a8Q0n04Cw2Sks?=
+ =?us-ascii?Q?wE4DLNZpx1jXYzzW48mcXWmkGjKmKy8dQN1F+kksnNFEwr1du/K+ndsx2rSC?=
+ =?us-ascii?Q?WLofVqTjRJtoBbBw6E9Ycxnqzn5pg5xF727SidzkTeJMq0qzyKvDX2CZt3ku?=
+ =?us-ascii?Q?YCLEVwXF6uigD450wR0bD5bZyRMSsy/CV0AO/150/lc9Gyc3t+YOMCVinV4G?=
+ =?us-ascii?Q?RRfF0raAgMZGe4up/DPCWq+Ex3x74wwyeXiYv0t3kPufwS0+zgUSd8gUHiFA?=
+ =?us-ascii?Q?y9yEQOHhHMpKo2BfXGIGoNau17AhTSL7lNltNPQmTxdzaPwXDZywz/bn5HlM?=
+ =?us-ascii?Q?AYZiLByQx5gKmN6tzB0ASic/CFXaQ0D30jG3oiIcrFrKF4roVuWda7pZffKW?=
+ =?us-ascii?Q?y1hVktaDsFsVoVJvc92M1M4gJNkNwh3DdJKJjEpkw3yt9fHZk0XavmRrsTf1?=
+ =?us-ascii?Q?QAkq/Y0+CYf5wlAjFlXXooBdaj+1HJb6vg23xuovdrYo98TAZvLb6Sx9vVNF?=
+ =?us-ascii?Q?aNu8ZlkAsGH7hLPWYKeLdQjiq2sS3d/jHHg6ro9rDL1OybuDoq4YoPBo5h6m?=
+ =?us-ascii?Q?N2n78V7tbRPLgbwi8zpxWI6/feQw7HwyKTWmU0SuIMCZ2/z0/u25W9sN3j0n?=
+ =?us-ascii?Q?xQ+r+aY49aMWuRAahA9t3yx0nPNieOBzRjHMXalAJOJwzt+cHM5svNIyRHB5?=
+ =?us-ascii?Q?ZYwjzz6b99pnXmqgZb1GlndHIltiWVi8gFnylH11gXx8RZRzllFxgImAinMk?=
+ =?us-ascii?Q?zGKd1nXjoOyGH4wTgS/xEz0ZllSB2RTs+29M9UwptLtU8i2/TiOv8W1pqti2?=
+ =?us-ascii?Q?8iV2mVMrSQ=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-fix_split-v5-3-822b810458bc@arm.com>
-References: <20260907-fix_split-v5-0-822b810458bc@arm.com>
-In-Reply-To: <20260907-fix_split-v5-0-822b810458bc@arm.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- Kevin Brodsky <kevin.brodsky@arm.com>
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yeoreum Yun <yeoreum.yun@arm.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10091; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=YMxvpBXXES/5Be1PM7mR4Ou5S+++GkRnpdpj19mAzVE=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqnnOSBC1lHBxEGcvQkLeMnpFIofQkznfIuA16p
- cVk7ygMPoeJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCap5zkgAKCRBt1cPRWsUx
- M4KZC/9F3MiEPCRk2SO8QtTFyhFyRIiLkt4wNWwFynThNzpJuekgBxopKVyX57Fk88iI/i8UBWo
- MiXsVnrd+gJYt3cl9Gy02pLDS5NAYsTYaoCAn8ZFrB5Koe933x6+QMxY10aWQJfzC+XFtPL9TPZ
- Z7lzNFAFv+XadZ8fT8XW9zOnpW5W0bEw20Z4tDnQe4y18rhv9Rrap6yEz79e95oD8jGpjGbVXgx
- o9XSVgQttbAqX3LM7bEeTKcTxutOXGRdEpH8aFl57sHieF9YKM+mTNRS6x8V6TPujwGrCE8O7Zu
- 4Q+8agAoFWzRFhutmobC263m4poZILM6CnssK8bYQC1A/Oycdjv0zuQUZQpoIDHvmDc2TLfNsK+
- VCcHc/dkLRVFiIIktblQVlNUoMW+waxRkU0RVAYNvFIs2wiOrvIiXmzTmeRctGpUWacfRPyNy6L
- q6eIPzWUNiei3Ceig+JyfwhdLqds+ZTZRc7FtAR/TCuerdpVNhgP8JE1gr3kTyVz2dZyc=
-X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
- fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 09a8ea94-b012-4812-88aa-08df0cb8cda2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Sep 2026 08:19:57.2968
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: tThMizgJOHaW8SS8thW0E5pgYrSglfPd9o6Jyz+scHjYRWihBMCmRZttl2Z+YtJ+FD4xGos8fTnz9zsYQ8X1xmmi8CIA+Vod7Y4g+Hpp66U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB11137
 
-Some MM tests use memalign() to allocate memory. However, the resulting
-memory area may unexpectedly merge with an adjacent VMA, causing tests
-that inspect it through /proc/self/smaps to fail.
+Hi Wolfram,
 
-Eliminate this potential source of test flakiness by introducing
-alloc_isolated_mem(), which places guard regions before and after the
-allocated area to prevent unexpected VMA merging.
+Thanks for the feedback.
 
-Replace memalign() with this helper and use the helper in
-softdirty_supported() instead of mmap().
+> -----Original Message-----
+> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Sent: 03 September 2026 11:30
+> Subject: Re: [PATCH v24 10/15] mmc: renesas_sdhi: Add write32_hook for CT=
+L_SD_CARD_CLK_CTL register
+> writes
+>=20
+> On Thu, Aug 20, 2026 at 06:16:40PM +0100, Biju wrote:
+> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> >
+> > Add a write32_hook, analogous to the existing write16_hook, so that
+> > sd_ctrl_write32() can wait for the SD bus to become idle before
+> > certain 32-bit register writes.
+> >
+> > renesas_sdhi_write32_hook() checks whether the target register is
+> > CTL_SD_CARD_CLK_CTL and, if so, waits for TMIO_STAT_SCLKDIVEN via
+> > renesas_sdhi_wait_idle() before the write proceeds. Other registers
+> > are unaffected. As with write16_hook, the write is skipped if the hook
+> > returns a non-zero error.
+>=20
+> While technically correct, the commit message is totally not helpful beca=
+use it misses to say WHY the
+> change is needed. It only says WHAT is done but I can see that. G3L excee=
+ds the 16-bit width, this is why
+> we need to change the code here.=20
 
-Link: https://lore.kernel.org/all/apHDdRSr59mva3ey@lucifer/ [0]
-Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
----
- tools/testing/selftests/mm/pagemap_ioctl.c        | 18 +++---
- tools/testing/selftests/mm/soft-dirty.c           |  6 +-
- tools/testing/selftests/mm/split_huge_page_test.c |  8 +--
- tools/testing/selftests/mm/vm_util.c              | 67 +++++++++++++++++++++--
- tools/testing/selftests/mm/vm_util.h              |  2 +
- 5 files changed, 81 insertions(+), 20 deletions(-)
+Oops, I will add that info into commit message.
 
-diff --git a/tools/testing/selftests/mm/pagemap_ioctl.c b/tools/testing/selftests/mm/pagemap_ioctl.c
-index eadc7159ca5b..7ed5b8fb3b25 100644
---- a/tools/testing/selftests/mm/pagemap_ioctl.c
-+++ b/tools/testing/selftests/mm/pagemap_ioctl.c
-@@ -792,9 +792,9 @@ void *gethugepage(int map_size)
- 	int ret;
- 	char *map;
- 
--	map = memalign(hpage_size, map_size);
-+	map = alloc_isolated_mem(hpage_size, map_size);
- 	if (!map)
--		ksft_exit_fail_msg("memalign failed %d %s\n", errno, strerror(errno));
-+		ksft_exit_fail_msg("alloc_isolated_mem failed %d %s\n", errno, strerror(errno));
- 
- 	ret = madvise(map, map_size, MADV_HUGEPAGE);
- 	if (ret)
-@@ -856,7 +856,7 @@ int hpage_unit_tests(void)
- 
- 		/* 4. only middle page written */
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 		map = gethugepage(map_size);
- 		wp_init(map, map_size);
- 		wp_addr_range(map, map_size);
-@@ -871,7 +871,7 @@ int hpage_unit_tests(void)
- 				 "%s only middle page written\n", __func__);
- 
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 	} else {
- 		ksft_test_result_skip("%s all new huge page must be written\n", __func__);
- 		ksft_test_result_skip("%s all the huge page must not be written\n", __func__);
-@@ -898,7 +898,7 @@ int hpage_unit_tests(void)
- 				 vec[0].start == (uintptr_t)(map + map_size/2),
- 				 "%s clear first half of huge page\n", __func__);
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 	} else {
- 		ksft_test_result_skip("%s clear first half of huge page\n", __func__);
- 	}
-@@ -927,7 +927,7 @@ int hpage_unit_tests(void)
- 				 "%s clear first half of huge page with limited buffer\n",
- 				 __func__);
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 	} else {
- 		ksft_test_result_skip("%s clear first half of huge page with limited buffer\n",
- 				      __func__);
-@@ -955,7 +955,7 @@ int hpage_unit_tests(void)
- 		ksft_test_result(ret == 1 && LEN(vec[0]) == vec_size/2,
- 				 "%s clear second half huge page\n", __func__);
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 	} else {
- 		ksft_test_result_skip("%s clear second half huge page\n", __func__);
- 	}
-@@ -988,7 +988,7 @@ int hpage_unit_tests(void)
- 				 "%s get half huge page\n", __func__);
- 
- 		wp_free(map, map_size);
--		free(map);
-+		free_isolated_mem(map, map_size);
- 	} else {
- 		ksft_test_result_skip("%s get half huge page\n", __func__);
- 		ksft_test_result_skip("%s get half huge page\n", __func__);
-@@ -1702,7 +1702,7 @@ int main(int __attribute__((unused)) argc, char *argv[])
- 		wp_addr_range(map, hpage_size);
- 		base_tests("Huge page testing:", map, hpage_size, 0);
- 		wp_free(map, hpage_size);
--		free(map);
-+		free_isolated_mem(map, hpage_size);
- 	} else {
- 		base_tests("Huge page testing:", NULL, 0, 1);
- 	}
-diff --git a/tools/testing/selftests/mm/soft-dirty.c b/tools/testing/selftests/mm/soft-dirty.c
-index 5f278913c4d7..b6fad38c8bee 100644
---- a/tools/testing/selftests/mm/soft-dirty.c
-+++ b/tools/testing/selftests/mm/soft-dirty.c
-@@ -92,9 +92,9 @@ static void test_hugepage(int pagemap_fd, int pagesize)
- 	if (!hpage_len)
- 		ksft_exit_fail_msg("Reading PMD pagesize failed");
- 
--	map = memalign(hpage_len, hpage_len);
-+	map = alloc_isolated_mem(hpage_len, hpage_len);
- 	if (!map)
--		ksft_exit_fail_msg("memalign failed\n");
-+		ksft_exit_fail_msg("alloc_isolated_mem failed\n");
- 
- 	ret = madvise(map, hpage_len, MADV_HUGEPAGE);
- 	if (ret)
-@@ -130,7 +130,7 @@ static void test_hugepage(int pagemap_fd, int pagesize)
- 		ksft_test_result_skip("Test %s huge page allocation\n", __func__);
- 		ksft_test_result_skip("Test %s huge page dirty bit\n", __func__);
- 	}
--	free(map);
-+	free_isolated_mem(map, hpage_len);
- }
- 
- static void test_mprotect(int pagemap_fd, int pagesize, bool anon)
-diff --git a/tools/testing/selftests/mm/split_huge_page_test.c b/tools/testing/selftests/mm/split_huge_page_test.c
-index cba327f77873..7865b0bab011 100644
---- a/tools/testing/selftests/mm/split_huge_page_test.c
-+++ b/tools/testing/selftests/mm/split_huge_page_test.c
-@@ -153,7 +153,7 @@ static char *allocate_zero_filled_hugepage(size_t len)
- 	char *result;
- 	size_t i;
- 
--	result = memalign(pmd_pagesize, len);
-+	result = alloc_isolated_mem(pmd_pagesize, len);
- 	if (!result) {
- 		printf("Fail to allocate memory\n");
- 		exit(EXIT_FAILURE);
-@@ -219,7 +219,7 @@ static void split_pmd_zero_pages(void)
- 	one_page = allocate_zero_filled_hugepage(len);
- 	verify_rss_anon_split_huge_page_all_zeroes(one_page, nr_hpages, len);
- 	ksft_test_result_pass("Split zero filled huge pages successful\n");
--	free(one_page);
-+	free_isolated_mem(one_page, len);
- }
- 
- static void split_pmd_thp_to_order(int order)
-@@ -228,7 +228,7 @@ static void split_pmd_thp_to_order(int order)
- 	size_t len = 4 * pmd_pagesize;
- 	size_t i;
- 
--	one_page = memalign(pmd_pagesize, len);
-+	one_page = alloc_isolated_mem(pmd_pagesize, len);
- 	if (!one_page)
- 		ksft_exit_fail_msg("Fail to allocate memory: %s\n", strerror(errno));
- 
-@@ -262,7 +262,7 @@ static void split_pmd_thp_to_order(int order)
- 		ksft_exit_fail_msg("Still AnonHugePages not split\n");
- 
- 	ksft_test_result_pass("Split huge pages to order %d successful\n", order);
--	free(one_page);
-+	free_isolated_mem(one_page, len);
- }
- 
- static void split_pte_mapped_thp(void)
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index dc62ce84e143..159d627ae3b0 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -19,6 +19,11 @@
- #define KPAGEFLAGS_PATH "/proc/kpageflags"
- #define MAX_NR_ORDERS 20
- 
-+#define ALIGN(x, a)		(((x) + (a - 1)) & (~((a) - 1)))
-+#define ALIGN_PTR(p, a)		((typeof(p))ALIGN((unsigned long)(p), a))
-+#define IS_ALIGNED(x, a)	(((x) & ((typeof(x))(a) - 1)) == 0)
-+#define PTR_ALIGNED(p, a)	(IS_ALIGNED((unsigned long)(p), a))
-+
- unsigned int __page_size;
- unsigned int __page_shift;
- 
-@@ -514,6 +519,61 @@ int64_t allocate_transhuge(void *ptr, int pagemap_fd)
- 	return -1;
- }
- 
-+void *alloc_isolated_mem(size_t align, size_t size)
-+{
-+	char *ptr, *guard, *addr_align;
-+	size_t map_size, guard_size, page_size = psize();
-+	size_t padding;
-+
-+	if (__builtin_popcountll((unsigned long)align) > 1)
-+		return NULL;
-+
-+	align = (align > page_size) ? align : page_size;
-+	guard_size = page_size;
-+	size = ALIGN(size, page_size);
-+	map_size = size + align + guard_size;
-+
-+	ptr = mmap(NULL, map_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (ptr == MAP_FAILED)
-+		return NULL;
-+
-+	addr_align = PTR_ALIGNED(ptr, align) ? ptr + align : ALIGN_PTR(ptr, align);
-+	padding = addr_align - guard_size - ptr;
-+	if (padding) {
-+		munmap(ptr, padding);
-+		map_size -= padding;
-+		ptr += padding;
-+	}
-+
-+	guard = ptr;
-+	if (mprotect(guard, guard_size, PROT_NONE))
-+		goto err_out;
-+
-+	guard = addr_align + size;
-+	if (mprotect(guard, guard_size, PROT_NONE))
-+		goto err_out;
-+
-+	padding = (ptr + map_size) - (guard + guard_size);
-+	if (padding)
-+		munmap(guard + guard_size, padding);
-+
-+	return addr_align;
-+
-+err_out:
-+	munmap(ptr, map_size);
-+	return NULL;
-+}
-+
-+void free_isolated_mem(void *addr, size_t size)
-+{
-+	int guard_size, page_size = psize();
-+
-+	guard_size = page_size;
-+	munmap((char *)addr - guard_size,
-+	       guard_size * 2 + ALIGN(size, page_size));
-+}
-+
- int pageflags_get(unsigned long pfn, int kpageflags_fd, uint64_t *flags)
- {
- 	size_t count;
-@@ -618,13 +678,12 @@ bool softdirty_supported(void)
- 	const size_t pagesize = getpagesize();
- 
- 	/* New mappings are expected to be marked with VM_SOFTDIRTY (sd). */
--	addr = mmap(0, pagesize, PROT_READ | PROT_WRITE,
--		    MAP_ANONYMOUS | MAP_PRIVATE, 0, 0);
--	if (addr == MAP_FAILED)
-+	addr = alloc_isolated_mem(pagesize, pagesize);
-+	if (!addr)
- 		ksft_exit_fail_msg("mmap failed\n");
- 
- 	supported = check_vmflag(addr, "sd");
--	munmap(addr, pagesize);
-+	free_isolated_mem(addr, pagesize);
- 	return supported;
- }
- 
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index f19bd17817e5..ce1da9a55310 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -95,6 +95,8 @@ bool check_huge_anon(void *addr, size_t len, int nr_hpages, uint64_t hpage_size)
- bool check_huge_file(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- bool check_huge_shmem(void *addr, size_t len, int nr_hpages, uint64_t hpage_size);
- int64_t allocate_transhuge(void *ptr, int pagemap_fd);
-+void *alloc_isolated_mem(size_t align, size_t size);
-+void free_isolated_mem(void *addr, size_t size);
- int pageflags_get(unsigned long pfn, int kpageflags_fd, uint64_t *flags);
- int gather_folio_orders(char *vaddr_start, size_t len,
- 		int pagemap_fd, int kpageflags_fd, int orders[], int nr_orders);
+I know you use AI to assist with commit messages but please keep a
+> suspicious eye on the results.
+>=20
+> > +	host->write32_hook =3D renesas_sdhi_write32_hook;
+>=20
+> Have you checked that all SoCs handled by this driver support 32-bit acce=
+ss to this register?
 
--- 
-2.43.0
+Only RZ/G3L has bits more than 16-bits for SD_CLK_CTRL,
+This patch is a preparatory patch and has no impact on other SoCs.
+
+Cheers,
+Biju
 
