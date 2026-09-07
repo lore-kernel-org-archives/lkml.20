@@ -1,172 +1,133 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC1694503EE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776615; cv=pass; b=eO3Lj7TrnaXCCU8Okdi2JuUi/EZP4TxrJdrWa2VBLEcKsTebI1KXotYw+TgexVnZBko1VOKrZJz9Z3D1DfxWkhtpPYhxdgGTif130GnokXl8KEZLqd3COtlpar01W1QW3cL3UMp4D6ymryCIqM3wk78OmvH8DKvp5OitmJSp2mk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776615; c=relaxed/simple;
-	bh=yC+o3g+oHjdn9HHHsFJRYCeY6o9z2MeGqDdEyGkihsE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A/ieIfxOk29GbWSbs2zWBhHeycTRfbiJ16xZmrUEupqLh07Y78ws0xT+pjWskbeRErtUbDRCW/N8v0ddZANfkgYek4ol/J+fs7Dd8X0GFyCIeMFKQH87B3RU+yM1KmzgV/HM3jh5oiPZ68r5YHGjF7B+HR7WzBZQFYoKnuJsoTE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UycKmJFH; arc=pass smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F087B4477FA;
+	Mon,  7 Sep 2026 10:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788776634; cv=none; b=hF/mUp3ihyecsTrrSOmx+xQGSRNheh5USY8C33iMfcQRqll+fXzcQvx5zPsyQtrTQShQPIACagff/+3z5tSAN32/WmUwPf3XMb/eE4OqphyXN7aE576wScesA6oLYNapYhluut61uEfhQIoLgEVvBRg0EWWRLoFeht8uAiaTO4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788776634; c=relaxed/simple;
+	bh=qFJbJp9Uv4c+AIOE27dclvuDeZ9IhDKG4rxK4P7RsjE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Qv6TUVWsea2KAu+wuM10Gdb/bbtdHM5loSyO1aIA/aptMnyI0F8wxxHq9NVVswU+qQvdd+unN7pu277p0qgphq63U9T2VY4yD9tXRUhjc9Br3W5+ztI76Xh5aMp7XWFnbNsAcyUPZOeMEBHm2qaliPCDSDOETqU+19qRtAHza8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3K/wLkW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UycKmJFH"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4843e397f74so4293982f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:23:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788776612; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RJJl/DVX9tyt5neAdf7q2eGIWKQYVd+jorvvTydkh3KAiE4ei2GP5lncukSn0sIgM1
-         rx5Y3RSwt4E0xER5UptD2uNykDrMPssz2DaXuLhV6e8J2G+uwHojBp5EHimLWxv+z34o
-         KZQDuZ2QDPNMBa7iDyACBrOMqGz3iROPVGxpPV9k8h4HyUb9OP7DNE4fNFbh+EYGEvhW
-         EnBDFoL8AS6iGHPtABZv1h7ikif3BXEyb+BX/dQlo/+kjcF3rVGcFqWIt8dg3mjo7NvF
-         0Wb5Wwk+WTwFqMiTXhnmB3y2ZMZzZThOSuJRQP6zGxAqLUiMghK9/7+cqg+PqFfH0TPu
-         ifyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=99rrNQK9PYDQWtqeDcI+v8dFCF97V9GRd5/NAE170tM=;
-        fh=hhci/n+r1kHHmlB1YMVu17hDccVBnQKlhlMdQLlskbA=;
-        b=LSOSs97DxqjzhR8Ra+ZCHVi05wiEDjFT5aNlVO/LsGtk8ughrO7mcsm22r8KFrWwty
-         JRYsLvARPM8MI43muejf1p9s/MSe0OGzysfzHriuq9r5xkFy2/KtL+OFghaBA2jcvpuS
-         Aqc2EQ5edoiz7fuUZgjoQt7cwgMQLSmC5jZgSF/hUGVnlUdUSOoAjwZBWFN3NDine/xN
-         /UaYztrb9bpZGdl1bcRoWMz56P1c3bGk3if6vdLJQcCKhMoq2HBFLyGn6XOqgRyFmK09
-         Bnq3qvul61GuE/oUCdBG6xVtJzpR5PdzNnQIciTP3DNBgwokCGFoi2eAhu+Hoy5NspB3
-         MPhQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788776612; x=1789381412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=99rrNQK9PYDQWtqeDcI+v8dFCF97V9GRd5/NAE170tM=;
-        b=UycKmJFHwb1nUPNveAhgLUzk0YyIDU4d0eAncrjDxOlKGOap2CshkUNXpn7ZjhEAeH
-         k2HJlp6/180oGEYNynjScuLHI/PQYEIFnZWY8F4jqEcqZQSnOZ4u4QF5F9wtbMXBmoIM
-         YnN/QeiDmwuX7SEwmf06V9KOAeq9Y0dVRBMW+w6fvNTQoTom2act+P1fyuX+v0VDm4YS
-         ebjkIo6gPTWORFJPcxNITJDMrQniGz/MRGhYrRTxGlpFVrNx7iQljJQ2Te8/KO32fy1t
-         apTWdOGMC5dO3nq8UAoaHxFGt4eyzvIjoInjlC+Ras8vpk19rfVYfu6dJMmwcFjuE7v0
-         kCfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788776612; x=1789381412;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=99rrNQK9PYDQWtqeDcI+v8dFCF97V9GRd5/NAE170tM=;
-        b=IFjDrPLkVttjEGZN5zf1T0d7KHxOC3VyyTT6DrCYzDq5TX5uB12EO3lJzKu2lThwIz
-         CtoEti/iqDnU7TdqZNlhI8mbC5JxcK3Ar5yTHJkx04c96tcadjm1z5JcaA4hZH84oyWq
-         gemSJTpr5jhEKrliWsqXKPNchXDqVRF37Gr9wW2AvBJPXjaQR/theWxpwSTQ07XHfJDE
-         /akGSOO0ARiOGGNujQxCzLgvW8yV6aT3xVgv63a5Dhz9FrNYvUmhixi/D8nDmujW2Ck0
-         Y1VzA3tid1cb1zFczWpn9WyeCrV3FrUzYTrdULys1Aj74pT4cfvBBTc+qsBQ4uHPWXBQ
-         iqrg==
-X-Forwarded-Encrypted: i=1; AKwUvByO9sQ81Ae1+N2rYSrRDtPcjb5Xjzyzh+LLATYP+66vosf8HzoADbDxI7YF3/yfZjIvD1nW/0Qw0EIEqnw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwHskzkS+0ZqXsIhrdHxHD/7hIFrDDdWoPUc3S7r4jgmYRxb44
-	keTi0t0mNLBQ3/+T67ofSocizPbGyMsC6M0UfVQMFuAB/al49idYhr626qlcw6ro8SE3w2S0uKe
-	xcDk5T35+283mxEYz+0jzr4hRKEQqQnM=
-X-Gm-Gg: AYBFou3Djlj+0sh56yMixGv2NU7qaYLGTZhsAwLrYG4476/d29m4XzVirNtzHHmOq5k
-	qy2fisDy2f3Wfy3rn509hSQlgQcEgLcDABUwTJB0odFHFPKkgK57IGHL+p5Pc9UeyZcBVxGoDsl
-	ifJPrvOOsSwcwqjQLJQh6bCsVbhl/ELYztM/UjA9oVkQyWL8ddUgvkxYDlHvlm8mrgsTOdpKPYT
-	ZPmpUqQ7QrjM46WESAjRHaO4a0wIa/lk9bnA2rGWOwHQPrGOh6SJIw6cfvzA6uYBfulww1hbZle
-	S+bhmctqkOSs2iTX71W01jM99DA06yT9f95ZvVm+go+e8C3Dllb7duOsLMMe8fCTEvbHYvZ9Ubu
-	JDqc=
-X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id
- ffacd0b85a97d-4857e5171femr24476358f8f.11.1788776611775; Mon, 07 Sep 2026
- 03:23:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3K/wLkW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8631F00A3E;
+	Mon,  7 Sep 2026 10:23:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788776632;
+	bh=QBl4EA0xu6TPR7bo/qzVGPSEuODGi+VrBZaLJjj3jl8=;
+	h=From:Subject:Date:To:Cc;
+	b=W3K/wLkWX6CuLvlwKhn0U4ZI+2bfSag8owmRUSS2l3C9lstfTM1Sfn0T2ncJCgU6J
+	 S0EkLOlgCjZQBUiu3f+Lek67z0vBdvPdze/Xni/fOUSI72mlaW1NQyiuPg2/qJocav
+	 EWWl6qkc01U3JcOk8fowht2ZHXeZSgXZEmqoXYfGtTui6FIs8Zwcs8DFh8sdgHo+It
+	 1Wo9Q3wbcU99rGLPdrWqL/9QEx0FqTuk6yNTKuFuoEBW7Q7zq9ubdPnDdxVmutDYBT
+	 i3COGAB7YhhUwquaROAmQWRS3C0/o0Rtf+EAFOE17+/s0ogpHf72iK2IXEysqtlQeS
+	 wrvNlk1e3LGkQ==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Subject: [PATCH 00/13] s390/cio: replace page allocator calls with
+ k[mz]alloc()
+Date: Mon, 07 Sep 2026 13:23:41 +0300
+Message-Id: <20260907-s390-cio-ready-v1-0-ca7f39806234@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905134251.67210-1-hppiscas@163.com> <apwrUYd3VybxbAm7@nickhuang>
- <wg57x6u3fomukerbnfbmmxywoljyrlqlctytfnqdlhl74jvigg@t3aygzlhtpui>
-In-Reply-To: <wg57x6u3fomukerbnfbmmxywoljyrlqlctytfnqdlhl74jvigg@t3aygzlhtpui>
-From: Nick Huang <sef1548@gmail.com>
-Date: Mon, 7 Sep 2026 18:23:19 +0800
-X-Gm-Features: AcwNN1Vp_cuM5nShreT_zeNzhbqLHFyRtdBlAeKSiWtpbuJ0qpc92MV9cu7-sFI
-Message-ID: <CABZAGRFSqQh1AWF=bYO5xXQWDVHK+5NVgHt9=N8wcQY2ZuK4YQ@mail.gmail.com>
-Subject: Re: [PATCH] PCI: eswin: Publish the platform driver's OF alias
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: "hpp.iscas" <hppiscas@163.com>, Senchuan Zhang <zhangsenchuan@eswincomputing.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	Yu Ning <ningyu@eswincomputing.com>, Yanghui Ou <ouyanghui@eswincomputing.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSw7CMAwE0KtUXmOUD2paroJYJKlDwyJFNiBQ1
+ buTlOUbzcwKQpxJ4NytwPTOkpdSoQ8dxNmXG2GeqsEo06tRORQ7Kox5QSY/fVEP5GxKQ38yCer
+ owZTyZz+8XP+WV7hTfLaX1gheCAP7EucW7XRHixw1bNsP2whiIZEAAAA=
+X-Change-ID: 20260907-s390-cio-ready-18e73ff8642f
+To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Mike Rapoport <rppt@kernel.org>, 
+ Peter Oberparleiter <oberpar@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Vineeth Vijayan <vneethv@linux.ibm.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+X-Mailer: b4 0.17-dev
 
-Manivannan Sadhasivam <mani@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=885=
-=E6=97=A5=E9=80=B1=E5=85=AD =E4=B8=8B=E5=8D=8811:55=E5=AF=AB=E9=81=93=EF=BC=
-=9A
->
-> On Sat, Sep 05, 2026 at 02:46:41PM +0000, Nick Huang wrote:
-> > On Sat, Sep 05, 2026 at 09:42:51PM +0800, hpp.iscas wrote:
-> > > The ESWIN PCIe host controller is a platform driver matched through
-> > > eswin_pcie_of_match. PCIE_ESWIN is tristate, but the table is not
-> > > published for OF module autoloading.
-> > >
-> > > Publish this platform-device table. Do not change the RISC-V host
-> > > initialization sequence or PCI device matching.
-> > >
-> > > Fixes: b593c26d081a ("PCI: eswin: Add ESWIN PCIe Root Complex driver"=
-)
-> > > Signed-off-by: hpp.iscas <hppiscas@163.com>
-> > > ---
-> > >  drivers/pci/controller/dwc/pcie-eswin.c | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/drivers/pci/controller/dwc/pcie-eswin.c b/drivers/pci/co=
-ntroller/dwc/pcie-eswin.c
-> > > index ce8d64f..1bb4469 100644
-> > > --- a/drivers/pci/controller/dwc/pcie-eswin.c
-> > > +++ b/drivers/pci/controller/dwc/pcie-eswin.c
-> > > @@ -388,6 +388,7 @@ static const struct of_device_id eswin_pcie_of_ma=
-tch[] =3D {
-> > >     { .compatible =3D "eswin,eic7700-pcie", .data =3D &eswin_eic7700_=
-data },
-> > >     {}
-> > >  };
-> > > +MODULE_DEVICE_TABLE(of, eswin_pcie_of_match);
-> > >
-> > >  static struct platform_driver eswin_pcie_driver =3D {
-> > >     .probe =3D eswin_pcie_probe,
-> > >
-> > Hi hpp.iscas
-> >
-> > Since this driver uses `builtin_platform_driver(eswin_pcie_driver)`, it
-> > appears to be built-in only. In that case, `MODULE_DEVICE_TABLE()` seem=
-s
-> > unnecessary.
-> >
->
-> Nope. builtin_platform_driver() only prevents removing the driver once lo=
-aded.
-> Since the driver is defined as 'tristate' in Kconfig, it can still be loa=
-ded
-> dynamically. So MODULE_DEVICE_TABLE() would still be necessary for udev t=
-o
-> autoload the module based on modalias.
->
-> - Mani
->
-> --
-> =E0=AE=AE=E0=AE=A3=E0=AE=BF=E0=AE=B5=E0=AE=A3=E0=AF=8D=E0=AE=A3=E0=AE=A9=
-=E0=AF=8D =E0=AE=9A=E0=AE=A4=E0=AE=BE=E0=AE=9A=E0=AE=BF=E0=AE=B5=E0=AE=AE=
-=E0=AF=8D
-Hi Mani
+The saga continues :)
 
-Thanks for the clarification. I see that builtin_platform_driver() does not
-prevent the driver from being built and loaded as a module, so
-MODULE_DEVICE_TABLE() is still needed for module autoloading.
+This series covers CIO, QDIO, SCM and IDAL buffer allocations.
 
-However, since builtin_platform_driver() does not provide an unregister
-path, the module cannot be unloaded with rmmod. Is that intentional for
-this driver?
+This is a (small) part of larger work of replacing page allocator calls
+with kmalloc.
 
-Thanks,
-Nick
+My initial intention a few month ago was to remove ugly casts [1], but then
+willy pointed out that Linus objected to something like this [2] and it
+looks like more than a decade old technical debt.
+
+Largely, anything that doesn't need struct page (or a memdesc in the
+future) should just use kmalloc() or kvmalloc() to allocate memory.
+kmalloc() guarantees alignment, physical contiguity and working
+virt_to_phys() and beside nicer API that returns void * on alloc and
+doesn't require to know the allocation size on free, kmalloc() provides
+better debugging capabilities than page allocator.
+
+Another thing is that touching these allocation sites gives the reviewers
+opportunity to see if a PAGE_SIZE buffer is actually needed or maybe
+another size is appropriate.
+
+For larger allocations that don't need physically contiguous memory
+kvmalloc() can be a better option that __get_free_pages() because under
+memory pressure it's is easier to allocate several order-0 pages than a
+physically contiguous chunk with the same number of pages.
+
+And last, but not least, removing needless calls to page allocator should
+help with memdesc (aka project folio) conversion. There will be way less
+places to audit to see if the user was actually using struct page.
+
+The patches are grouped by buffer usage and ordered by file or
+subsystem. Related CHSC work areas and requests are kept together.
+
+While on it, use __free(kfree) for the SCM information buffer and local
+buffers in synchronous CHSC ioctl handlers. The CHSC cleanup is kept in
+a separate patch.
+
+Also in git:
+https://git.kernel.org/pub/scm/linux/kernel/git/rppt/linux.git gfp-to-kmalloc/s390-cio
+
+[1] https://lore.kernel.org/all/20251018093002.3660549-1-rppt@kernel.org/
+[2] https://lore.kernel.org/all/CA+55aFwp4iy4rtX2gE2WjBGFL=NxMVnoFeHqYa2j1dYOMMGqxg@mail.gmail.com/
+
+---
+Mike Rapoport (Microsoft) (13):
+      s390/chsc: Use kzalloc() for CUBs
+      s390/chsc: Use kzalloc() for the SEI work area
+      s390/chsc_sch: Use kzalloc() for CHSC requests
+      s390/chsc_sch: Use __free(kfree) for synchronous CHSC requests
+      s390/cio: Use kzalloc() for CHSC work areas
+      s390/cmf: Use kmalloc() for the CMB area
+      s390/idals: Use kmalloc() for IDAL data buffers
+      s390/qdio_main: Use kzalloc() for the IRQ structure
+      s390/qdio_main: Use kzalloc() for the QDR
+      s390/qdio_setup: Use kzalloc() for QDIO buffers
+      s390/qdio_setup: Use kzalloc() for the storage list
+      s390/qdio_setup: Use kzalloc() for the SSQD request
+      s390/scm: Use kmalloc() for SCM information
+
+ arch/s390/include/asm/idals.h   |   6 +-
+ drivers/s390/cio/chsc.c         |  20 +--
+ drivers/s390/cio/chsc_sch.c     | 300 ++++++++++++++--------------------------
+ drivers/s390/cio/cmf.c          |   8 +-
+ drivers/s390/cio/qdio.h         |   2 +-
+ drivers/s390/cio/qdio_main.c    |  19 +--
+ drivers/s390/cio/qdio_setup.c   |  14 +-
+ drivers/s390/cio/qdio_thinint.c |   2 +-
+ drivers/s390/cio/scm.c          |   7 +-
+ 9 files changed, 144 insertions(+), 234 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260907-s390-cio-ready-18e73ff8642f
+
+--
+Sincerely yours,
+Mike.
+
