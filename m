@@ -1,163 +1,109 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB99483BF7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0A847F768
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781137; cv=none; b=Dg6p0yDE42dYY0P+aIy6jHYKqEstQtgAIpm0utUNSJRi6jT5NvANzfKF9/8vMPjGFcUTBDe9uTmWXREL2mKNiHd3LG8pYk7tTRwXO/4p81AIZc7CIu88gcOH3BrScgT0d2rK/+4GLy57gq+hhZunDsQwy0i8aZBpG7eEMpIvTdc=
+	t=1788781138; cv=none; b=Yn3kZAm+xhxTqTMvVwhJ6EisqkB6Vwsjqrk24LENwCC2JO7LMaLC5S0FPM8ZN0t5H6xdo1yEYBkZU+G0HpS9Nr7Tb9LYZdmFgCs0Jsp0GGFihyojKhbpELstnQEcAecT9zDdQjC2IPa8N2uZ1IYUUn+1Hl553lWYmhAfegNM/fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781137; c=relaxed/simple;
-	bh=Nzi/FqImYPqXJEs6LFrx+Ut98+MzVTc2UR4XsymYE1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dCS1NrmG9nT7hyDbudLrh9H3eD3RiftQ9LG8U2EzZajNbm83D913+qEAgmr0pi0s/NC1EZEX7KdU7gVsXm3SHcKEuWx/G+INUeU1hyWnkWaBSsqpu3rnVk/wxtETRb37Ga7qPn2iPx8JYBrIYBYYQ15R2VQWxnLH319T1CKOqxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ED3w4k/o; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788781138; c=relaxed/simple;
+	bh=7pSMEByB7R4uwEx4lR7TNQm7S98V/dF0hA7MZYBm4H8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Gr5vxDw32inRtbQbonlNIztoO5TBHvjSPfOlfQYkoIlfHkCKZ+CNesQvqZha1YNOHgoCswdIwa+aLjdTkaUOfK1oKi9G0LtzZAlWtef1TZvPQ6Te2O/+3LtrGmV5fG+KMnxiZzh7UiuRRSwYcCTpcheBFLOD3XZb3ebAkSro/R8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=D5apak0v; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ED3w4k/o"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788781135;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LDbA/tBSiTsaFEYItL2PrPsX/0bFDHesm+RDDbpSdww=;
-	b=ED3w4k/obAAl7xlqnXf39pfUfl9c3QL32x9z6IAyhpCD33lEE9roZ5QVYxyq5HMzXR0FOG
-	epoliCoG2nj0GBjaHqES+QA6hFIOSQvSV5yrcPDfxKhNDVnYssQKoMVhMaoWE4wqydZlkU
-	ySuIYf7Q2rXRHn7fdv+dfiqLMYdEAkM=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-1-ft0pyjulOKOv4D0kkoa0Rg-1; Mon,
- 07 Sep 2026 07:38:53 -0400
-X-MC-Unique: ft0pyjulOKOv4D0kkoa0Rg-1
-X-Mimecast-MFC-AGG-ID: ft0pyjulOKOv4D0kkoa0Rg_1788781132
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E8AE819560B6;
-	Mon,  7 Sep 2026 11:38:51 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 335D11955F0E;
-	Mon,  7 Sep 2026 11:38:47 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: netdev@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jeffrey Altman <jaltman@auristor.com>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	keyrings@vger.kernel.org,
-	stable@kernel.org
-Subject: [PATCH net v9 12/14] afs: Fix lack of setting call->server when doing FS.InlineBulkStatus
-Date: Mon,  7 Sep 2026 12:37:39 +0100
-Message-ID: <20260907113743.1453210-13-dhowells@redhat.com>
-In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
-References: <20260907113743.1453210-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="D5apak0v"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d0726ccc2so12549575e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:38:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788781135; x=1789385935; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JTxWf7Z9THbI+LNbFW3uX14W5LzvtbTTU9b0mD+aQ5s=;
+        b=D5apak0vWBt2mSW5LrB0IjvQ8rYPxzo2Gd8GBTp7qwtCbCTtDjzWEPAkbqIrhEsGRs
+         exfS3GQQK9vrTxWQGPaL44stBDoH16b5GuYR6bThLiVwIK7xUhIx7ufkbZD2uDOen7ak
+         1yKeobsRxqP7UpWfLwG7fUknB6Ja4Kc0VWOkQiUH5Q547VUSov7F3B8hyIkx+1zKQrU9
+         Vt0SzWfPhWr5y1jwClX2WVeszlH8/IinQvu8/HmHwjwFdhIwyQmRRMsL+wM+nlEFQAHJ
+         MwMQXlvhYgNI6Yhn/bbbepFL5bVg8OOwlzZQcxHyzxGwLI1/J5Zryx+Z3/HRehIeEVaX
+         EP4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788781135; x=1789385935;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JTxWf7Z9THbI+LNbFW3uX14W5LzvtbTTU9b0mD+aQ5s=;
+        b=R99Nxr+eeHv/ygNiqnOy9VPF/xBEBKWWMs3+WcSLagRDlgZc3t9eSIiTZpd1fHrIbT
+         sGk/+8x+mGyrZk64fibE1Z6L541yHB2cDKWH78rAl5yfc5F7qqhLFtTInBuw9aHrS/AO
+         RsoP/axOoYByAHbRCqgtYf4R8/HJpm7BkmE7NA82azXBJCNoMrfCz3GTRbr94Mef5QgA
+         fFizOvwxcVIL6vT85a2bVAQilsBOWO2XDlcPLTNNp3X12Vo+Df+QpoLPayPPJo/qaQye
+         nOpHQhZTkmSrnNtRx5jOZYkYgSHFMnqtrHDqSi22z8ttY8P26RVo8/7Fr+v0vFE6xJEB
+         +zsw==
+X-Forwarded-Encrypted: i=1; AKwUvBxi401b61yVyZ9mZ9ekXNHAzeuZrZJeQiFiHpPnILR5cc8E78MnVdoLwQXfPPKvdxOcdovwuK4ulEyVxq8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyEEXO0SG1DwJVj5ctsWINd0hQEjxbZhDE6C5czSdW18JItLyG
+	K9Nr1OmWKgaYjCsPRbF+x6F2ucgl1Q1jgmh72zNf8fO9gFFjfVDne9XtQPOT2Il6TlM=
+X-Gm-Gg: AYBFou3KojtTV2DWs38RP5vXLLCtWQzBe75l8odkQEuOBmjxgO75hsAdvI5o6AifqQ1
+	faX5IIcX7rLM+Yp+RCTiAvhGoYTFMzDtx6te9JOTy9CSA/AiYZ0aFajRDLsV44ZhGfqJ3Wm18jm
+	SuBkSMIoHLlIEImb8CnHu1/r80CB1RyOqX1Hs9GotFoBsvuifq6Wmt3RDUhcq9PF3z09LRLmLja
+	8jgA9IYghFBZBcqd59J61fZ/xJRiS6Hef9VE3xubCjEK1OGjeJ3LxbXY9NCzXCf5xa622m9CYcq
+	edPpv1/xUwE3JAL/1Q3MdaEhOjNNfkLIZo0/cc7j4VVLQyx58SxfngonxUYqFRKsXC4VEbA/+kN
+	+Ayg1nCeeLY0TMmffY2nlpOnglJs/q0Np16naEZJZbKUYoEm6YtAtTGQNABvLlyLObyRaLII2wG
+	BWvt9CfF0yAqQIPPfYW4tqgP/dADqiPFnSZUXEUBBcQXrsx1oK9p60Yv+dgVH8yCtUhW4UTsOVy
+	oWat2OrW2W7/T34gt2x0ihWI1Q=
+X-Received: by 2002:a05:600c:3507:b0:499:a5c8:c6f3 with SMTP id 5b1f17b1804b1-49cf7fe6900mr417183625e9.3.1788781134823;
+        Mon, 07 Sep 2026 04:38:54 -0700 (PDT)
+Received: from ?IPV6:2001:a61:1340:dc01:654b:3cf0:59cd:498? ([2001:a61:1340:dc01:654b:3cf0:59cd:498])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm264862305e9.3.2026.09.07.04.38.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 04:38:54 -0700 (PDT)
+Message-ID: <6e0dbfed-cadd-4274-8165-886725413d0f@suse.com>
+Date: Mon, 7 Sep 2026 13:38:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v2] usbnet: fix smp_processor_id() use in preemptible
+ context
+To: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>,
+ netdev@vger.kernel.org
+Cc: oneukum@suse.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
+References: <20260903165456.498079-1-omermetekaya0@gmail.com>
+ <20260905224553.595766-1-omermetekaya0@gmail.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20260905224553.595766-1-omermetekaya0@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Fix afs_make_op_call to set call->server.  This will prevent
-afs_done_fs_inline_bulk_status() from oopsing if the server does not
-support the FS.InlineBulkStatus RPC due to call->server not being set.
 
-Note that this requires afs_make_op_call() to be moved so that it can use
-afs_use_server(); the server is un-used by afs_free_server().
 
-Fixes: e49c7b2f6de7 ("afs: Build an abstraction around an "operation" concept")
-Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeffrey Altman <jaltman@auristor.com>
-cc: Eric Dumazet <edumazet@google.com>
-cc: "David S. Miller" <davem@davemloft.net>
-cc: Jakub Kicinski <kuba@kernel.org>
-cc: Paolo Abeni <pabeni@redhat.com>
-cc: Simon Horman <horms@kernel.org>
-cc: Jarkko Sakkinen <jarkko@kernel.org>
-cc: linux-afs@lists.infradead.org
-cc: keyrings@vger.kernel.org
-cc: stable@kernel.org
----
- fs/afs/internal.h          | 33 +++++++++++++++++----------------
- include/trace/events/afs.h |  1 +
- 2 files changed, 18 insertions(+), 16 deletions(-)
+On 06.09.26 00:45, Ömer Mete Kaya wrote:
+> usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
+> disabling IRQs, which triggers a BUG when running with PREEMPT_FULL:
+> 
+>    BUG: using smp_processor_id() in preemptible code in tx_complete
+> 
+> Fix by saving IRQs first with local_irq_save(), then calling
+> this_cpu_ptr() and using the non-irqsave variants of u64_stats
+> update helpers, since IRQs are already disabled at that point.
 
-diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-index 290873bac89b..65a0866cd8b8 100644
---- a/fs/afs/internal.h
-+++ b/fs/afs/internal.h
-@@ -1416,22 +1416,6 @@ static inline void afs_see_call(struct afs_call *call, enum afs_call_trace why)
- 		       __builtin_return_address(0));
- }
- 
--static inline void afs_make_op_call(struct afs_operation *op, struct afs_call *call,
--				    gfp_t gfp)
--{
--	struct afs_addr_list *alist = op->estate->addresses;
--
--	op->call	= afs_get_call(call, afs_call_trace_get);
--	op->type	= call->type;
--	call->op	= op;
--	call->key	= op->key;
--	call->intr	= !(op->flags & AFS_OPERATION_UNINTR);
--	call->peer	= rxrpc_kernel_get_peer(alist->addrs[op->addr_index].peer);
--	call->service_id = op->server->service_id;
--	afs_make_call(call, gfp);
--	afs_put_call(call);
--}
--
- static inline void afs_extract_begin(struct afs_call *call, void *buf, size_t size)
- {
- 	call->iov_len = size;
-@@ -1763,6 +1747,23 @@ static inline struct inode *AFS_VNODE_TO_I(struct afs_vnode *vnode)
- 	return &vnode->netfs.inode;
- }
- 
-+static inline void afs_make_op_call(struct afs_operation *op, struct afs_call *call,
-+				    gfp_t gfp)
-+{
-+	struct afs_addr_list *alist = op->estate->addresses;
-+
-+	op->call	= afs_get_call(call, afs_call_trace_get);
-+	op->type	= call->type;
-+	call->op	= op;
-+	call->server	= afs_use_server(op->server, false, afs_server_trace_use_call);
-+	call->key	= op->key;
-+	call->intr	= !(op->flags & AFS_OPERATION_UNINTR);
-+	call->peer	= rxrpc_kernel_get_peer(alist->addrs[op->addr_index].peer);
-+	call->service_id = op->server->service_id;
-+	afs_make_call(call, gfp);
-+	afs_put_call(call);
-+}
-+
- /*
-  * Note that a dentry got changed.  We need to set d_fsdata to the data version
-  * number derived from the result of the operation.  It doesn't matter if
-diff --git a/include/trace/events/afs.h b/include/trace/events/afs.h
-index 1b3c48b5591d..04b0bb682b81 100644
---- a/include/trace/events/afs.h
-+++ b/include/trace/events/afs.h
-@@ -148,6 +148,7 @@ enum yfs_cm_operation {
- 	EM(afs_server_trace_unuse_slist_isort,	"UNU isort") \
- 	EM(afs_server_trace_update,		"UPDATE   ") \
- 	EM(afs_server_trace_use_by_uuid,	"USE uuid ") \
-+	EM(afs_server_trace_use_call,		"USE call ") \
- 	EM(afs_server_trace_use_cm_call,	"USE cm-cl") \
- 	EM(afs_server_trace_use_get_caps,	"USE gcaps") \
- 	EM(afs_server_trace_use_give_up_cb,	"USE gvupc") \
+Hi,
+
+thank you for the patch. However, if the problem is preemption,
+when not simply preempt_disable()/peempt_enable()?
+Why is it necessary to switch off interrupts?
+
+	Regards
+		Oliver
 
