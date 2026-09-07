@@ -1,230 +1,148 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7E347884C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:26:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA12478E5E;
+	Mon,  7 Sep 2026 11:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780412; cv=none; b=nWcOsbyj78/6rjdGfjDbM1OZ1bi3KajNxV7xf/R8Awjs3lzeM4Hv1D6874ZzdslHCGGR7omdTFSdKCyGdWnrKpr76ryxTHPEXH4u4gGskfmyFRDM+7TH9qPJK4tUCq/ciKTyzlO930XeVKIvzhwuj/YaHfxIZH+IPg78yp2fnas=
+	t=1788780416; cv=none; b=YYuAUXP0sjmW/D9pqP24IssYvbFytT2xkGcxQMYb4dS8X5lyRj4kA6Yz5histIWPc3OFwXVqhfqm8kuCz7q/mYmcxXN1/xAEb0/cF349FiWpT1nRwR+lgJUgM+YenpV3lD+o3WuZMn2xn+mL5zXBKBy7e+gct9byzDA62tQhDpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780412; c=relaxed/simple;
-	bh=tT7VHBhWW/0ENtiLY3CsIjS6UXJSVBBo9toNQ+Sp3xU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hiX3bFawiHRHEt2GXIoqfiN7R/Qb6bPRe1myMIY0KEom+glJv6bfr+chfjjTpFGTwDssIPjYEf5m5wbH6tDWGCMB1DFQ5om05Mrvntcbux7pjd0OEJLi0Ep3MVLQlrZO5ET92y1aEzm3GPCSMfEDcvfNbq5Kb3m5B5uZDEEEVKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdbOLJ1k; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788780416; c=relaxed/simple;
+	bh=b1/7jF3rM6chow1Mf0/Vho4WgWNjKULtTHiZPFcjS1Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=t/q7IjMYck/9XLHmvp2xYQ4qLjObJqYUwGqoK83uIZKiuCGrcxkqKXO+XG+65Lw6kIho/XtZKc3n08+iZAxl/yeNAiP+w61wSr9CimaEKhoq3Ai2xoOsNL1QP3A8ypKCiHJmvqhNdbG/Vi0NCWe34X+kfjpKazf9joX04Wvl1bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMPrakXa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdbOLJ1k"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so3252861a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:26:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788780410; x=1789385210; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z4ITEkWMTQ7J+Xoqp3nk8zHPj5XC/FSGr4Xf18I5rrE=;
-        b=NdbOLJ1k9kwgy3emGpJ3IXpC+icgmpKAhnWJCBdMisd/zYkSLcfQOylTpSJvPPB6nz
-         +EGYrNvPrjGAumppqOovKGp5EeGQuX/0X6lylLYFEV6apDxFkkHcGRzm0QHmA06qii5h
-         zNWv8wmsjF7w/9pIBuhwdAt1bsreeIPx4/hxmzD8lS4qTBS1iLfsz7olHaqSdwBpscpJ
-         2N+rDcBZ+CTIH+HKi3VnOFTbqgX6fpwl3VGXoVyAC5/rxwvXoOQmA4oh9oORLOWnuXY5
-         +m9PDFmLdLvQ2XAnAc+FigI7VfG8W+eSeIMmbQ0uScMlKjk+YrZNs4HLypF63ZLfssUg
-         OKdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788780410; x=1789385210;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z4ITEkWMTQ7J+Xoqp3nk8zHPj5XC/FSGr4Xf18I5rrE=;
-        b=sjdrcQhby4573X3xZ7/0hoB61914sz/+dyUJac+NtFEp2mPd4ia/ofQ2+CGrqcrgxs
-         P2UeMs13Xoyp6o9msyfx7U5RckGAkE2tUMmnkm8CQ+rJvxmt9Nyt6dZhBgSPtO1v9ag/
-         dx6RMOd0EeYKjYhEpv8e6Zg+I3eHx2Cg6T4B0zwFlexOKDUpP5ARKInrDsCd+sJh/uUq
-         S70eMvUvPZv8rs1jje7X/dgM5ffVkH02Pu0v6RbRAnJIF376VgHbBaDm8R+xXuv44V/J
-         wejUtejyt33iU+98CampFpY8bgemDjdyBWt8XFa3kxWlK7uwhtIdVSwRpaf5osTVW+aS
-         mowA==
-X-Forwarded-Encrypted: i=1; AKwUvBwn4vDfS7URFpKZCJlJ5pFWyF+haw84ZZRsE7+k4oDHry/ozPgZLw7Qnj9NyKke4zmA1eOkj2C8YYZijSQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmRUseLU4xvdaGz9KyJbdqyXRBkEacHp0Hh08AET4wYkXKa9Jn
-	ccQiQD7sdJ77kNp9EChiJTWvw9DXAO7sLC64E44qaBRDvft+y1OUc45m
-X-Gm-Gg: AYBFou3FJEDBJDx3ttHU/O6/DexpvFMjHMKddZaARl81VioOJTWn6gOMTla9/WuzgsX
-	K5w8cTRknLiIJ5doPeLx+yOkCMm/sVQJfr0+oaUBMdVjrBuyaghQ7aMti1LBEctDs5+NJi5y+CS
-	Q51mIYB4yV+k8M0Tq7EyaF8C8o8Fbt5ywhGkNNlm8Ej90qbKFqWydLBSWSLkYhGSnXHzTxx/Ope
-	h9lnbIWQHWOrmh/70E5PNgsKj2dKSiZXLMgWRqoQWUx/hVCkX2lZmUvCRp4vcp9Su9X/7iPWW1w
-	kRGDY23ZASrfsnIflbydwjP9uiSwFQEwV6qFpbhE5Aowse3mz38gkxLLn2sIwsnYt6biFbrnJtO
-	EmUW4pJG4Xe9nB3FNCjP3aTih8Qt98onu/6t02E26//LF/QO/5oeZmTPKPBGlBuwLG8OAbWmGjz
-	jXskYucsQ8yCJBO0DD5xLF56Vj9PicRQvlp72d
-X-Received: by 2002:a17:90b:1b44:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39b2613249fmr30388041a91.8.1788780409708;
-        Mon, 07 Sep 2026 04:26:49 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm26270444a91.11.2026.09.07.04.26.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:26:49 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Sherry Sun <sherry.sun@nxp.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alex Elder <elder@riscstar.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Randolph Lin <randolph@andestech.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: [PATCH v5 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
-Date: Mon,  7 Sep 2026 19:26:04 +0800
-Message-ID: <20260907112606.465778-6-inochiama@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907112606.465778-1-inochiama@gmail.com>
-References: <20260907112606.465778-1-inochiama@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMPrakXa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA8161F01558;
+	Mon,  7 Sep 2026 11:26:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788780414;
+	bh=tXd8LGopt741aXLt2J4qsw6qnF0oEX86K+sORJnTN9Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=oMPrakXa7lFBtJPd8E6U6u+WkG2T8Rjv+t1YdPBXrhvAHqm9AESM8/3sLqosXgFM2
+	 2vktZpKBT7fqybEdH9lOgQTti8+A1tdlfBtsnozKvP37MWpj7UffJmFjWh3a7u0kna
+	 WoaBvkD57o11RnOw/soSwsapEdSRchDy0PyiOYN5ewO4uj78dcuzPRPOrYOQYSEEMV
+	 t7nnHFeuBw/r6JH64OQed7+NOoVxzT/MnBifmWYrvwCrRvmLfAgBxtlUR2OEsZk1AN
+	 SUwzrIvLQFMOrlY1xtNQTf7YbEBYkmqh9Aojz2sHA45ly5x64Zb+TsL+/5gz/sWXHN
+	 IZOfluBBvxHaQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Frederic
+ Weisbecker <frederic@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, John Stultz <jstultz@google.com>,
+ Ingo Molnar <mingo@kernel.org>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <8733vmatsi.fsf@email.froward.int.ebiederm.org>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <8733vmatsi.fsf@email.froward.int.ebiederm.org>
+Date: Mon, 07 Sep 2026 13:26:50 +0200
+Message-ID: <87zext2tfp.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Add binding support for the PCIe controller on the SpacemiT K3 SoC.
-This controller is almost a standard Synopsys DesignWare PCIe IP,
-with some extra link and reset state control.
+On Sun, Sep 06 2026 at 17:39, Eric W. Biederman wrote:
+> Thomas Gleixner <tglx@kernel.org> writes:
+>> @@ -1019,6 +1029,21 @@ static inline bool legacy_queue(struct s
+>>  	return (sig < SIGRTMIN) && sigismember(&signals->signal, sig);
+>>  }
+>>  
+>> +/*
+>> + * When PF_EXITING is set the task is on the way out and has t::pending
+>> + * flushed already. Prevent queueing of PIDTYPE_PID signals as they would
+>> + * be leaked.
+>> + */
+>> +static inline bool task_can_queue_signal(struct task_struct *t, enum pid_type type)
+>> +{
+>> +	lockdep_assert_held(&t->sighand->siglock);
+>> +
+>> +	if (!(t->flags & PF_EXITING))
+>> +		return true;
+>> +
+>
+> I don't know if we care but I just noticed that this disallows
+> using tkill(..., SIGKILL) or tgkill(..., SIGKILL) to stop coredumps.
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- .../bindings/pci/spacemit,k1-pcie-host.yaml   | 50 ++++++++++++++++---
- 1 file changed, 43 insertions(+), 7 deletions(-)
+The thread running the coredump does not have PF_EXITING set:
 
-diff --git a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
-index c4c00b5fcdc0..54817d6fd9af 100644
---- a/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
-+++ b/Documentation/devicetree/bindings/pci/spacemit,k1-pcie-host.yaml
-@@ -14,26 +14,29 @@ description: >
-   PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
-   controller, and supports 256 MSIs.
- 
--allOf:
--  - $ref: /schemas/pci/snps,dw-pcie.yaml#
--
- properties:
-   compatible:
--    const: spacemit,k1-pcie
-+    enum:
-+      - spacemit,k1-pcie
-+      - spacemit,k3-pcie
- 
-   reg:
-+    minItems: 4
-     items:
-       - description: DesignWare PCIe registers
-       - description: ATU address space
-       - description: PCIe configuration space
-       - description: Link control registers
-+      - description: Data Bus Interface (DBI) shadow registers.
- 
-   reg-names:
-+    minItems: 4
-     items:
-       - const: dbi
-       - const: atu
-       - const: config
-       - const: link
-+      - const: dbi2
- 
-   clocks:
-     items:
-@@ -66,6 +69,8 @@ properties:
-   interrupt-names:
-     const: msi
- 
-+  msi-parent: true
-+
-   spacemit,apmu:
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     description:
-@@ -84,7 +89,8 @@ patternProperties:
- 
-     properties:
-       phys:
--        maxItems: 1
-+        minItems: 1
-+        maxItems: 6
- 
-       vpcie3v3-supply:
-         description:
-@@ -96,13 +102,43 @@ patternProperties:
- 
-     unevaluatedProperties: false
- 
-+allOf:
-+  - $ref: /schemas/pci/snps,dw-pcie.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: spacemit,k1-pcie
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 4
-+
-+        reg-names:
-+          maxItems: 4
-+
-+      patternProperties:
-+        '^pcie@':
-+          properties:
-+            phys:
-+              maxItems: 1
-+
-+      required:
-+        - interrupts
-+        - interrupt-names
-+    else:
-+      properties:
-+        reg:
-+          minItems: 5
-+
-+        reg-names:
-+          minItems: 5
-+
- required:
-   - clocks
-   - clock-names
-   - resets
-   - reset-names
--  - interrupts
--  - interrupt-names
-   - spacemit,apmu
- 
- unevaluatedProperties: false
--- 
-2.55.0
+get_signal()
+        ....
+        vfs_coredump()
+        ...
+        do_group_exit()
 
+The only interaction with coredumps of a task which reached do_exit() is
+via:
+
+        synchronize_group_exit()
+           coredump_task_exit()
+        ...
+        exit_signals() ; // sets PF_EXITING.
+
+coredump_task_exit() waits until the dumper thread finished, so even if
+tkill() is directed at a non-dumper thread which is stuck there in
+coredump_task_exit() the signal will be queued and complete_signal()
+will set signal->flags = SIGNAL_GROUP_EXIT and wake everyone up
+including the dumper thread.
+
+So the only case where this matters is when a task sets PF_EXITING
+_before_ the dumper starts:
+
+T1			T2
+                        do_exit()
+vfs_coredump()
+                          synchronize_group_exit()
+                            lock(sighand)
+                            tsk->flags |= PF_POSTCOREDUMP;
+                            core_state = signal->core_state;
+                            unlock(sighand);
+                            // core_state == NULL
+
+		          exit_signals() // Sets PF_EXITING
+  zap_threads()
+    lock(sighand)
+    // Observes T2->flags PF_POSTCOREDUMP
+    // and skips T2
+
+Now in current mainline a tkill(T2, SIGKILL) will queue the SIGKILL in
+T2->pending, but complete_signal() will not turn it into a group exit
+either because it is a PIDTYPE_PID signal when PF_EXITING is set:
+
+complete_signal()
+  // wants_signal() returns false because PF_EXITING is set
+  if (wants_signal(sig, p)) 
+      t = p;
+  else if ((type == PIDTYPE_PID) || thread_group_empty(p))
+      return;  // path taken because type == PIDTYPE_PID
+
+So it is queued for nothing and just sitting in T2->pending until
+flush_sigqueue() mops it up.
+
+That has been so since:
+
+  5fcd835bf8c2 ("signals: use __group_complete_signal() for the specific signals too")
+
+which was merged 18 years ago in the 2.6.26 merge window.
+
+Which means not queueing it in the first place has exactly the same
+outcome vs. SIGKILL.
+
+The only difference is that current mainline still reaches
+signalfd_notify() further down in __send_signal_locked(), while with the
+early exit it will not. Does it actually matter?
+
+If it matters we could simply force PIDTYPE_TGID for SIGKILL if type ==
+PIDTYPE_PID because complete_signal() converts SIGKILL into a group exit
+anyway.
+
+Thanks,
+
+        tglx
