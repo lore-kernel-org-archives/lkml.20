@@ -1,226 +1,112 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mta1.migadu.com (out-108.mta1.migadu.com [95.215.58.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE7823ACA4B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 428C93947B5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:20:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788815816; cv=none; b=gCPRxetAE5q9aLb/zNd6POM8f9QUJcdxRGUezNHH0ERY0FTt7C1YlwFYaBIvinNJAFflujq/xGhDAqN/x34YmEIDVgJKHhK64P1E2/wWvHT17klp8j8cz+QJERoWMyefczw6dwaZ/phHNa7Am1sR3H+7XbyTqFOgsVTFEJp0owY=
+	t=1788816037; cv=none; b=GD2TJBgrf+MvDr6hOexRhYCdnj39OP4/FHpkiaTxNxC/WHfdePCeMWHO03A5CUimujgTEB3MUowY0VCWpbXVZoHkxCD0qSLI6L9WfbFQUM/zaIGD4mx0gqzZytEC2SjTkczpEgqoqMsKpntYG4IlB9iTS3/hp7CaheUvuKbRRlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788815816; c=relaxed/simple;
-	bh=v8UxETDcOYCAUtgy/1OmH2aAtNRYgM8jA3Jh1iTeyZY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sAoRS2zQfpadedFOort7uMwgDt+FPR6DoZGTASa/Yoc4HrgrlFGuw64q4agFvtXrnyMrITU5t3TQAidaS7GzDDGyjy7x2Po9t4GSSYzXqn1m2LWbCaBeDK9skuruXaoleTCg64j795H82fzZHqvXJvvFWB3RjB+lRjHDEmkAap4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ODs8rmlv; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788816037; c=relaxed/simple;
+	bh=YQJDeQ6/mKDBvukG5aoMANHfDYazHYAMwfzJ7ZbLcLs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=hBupkKbq0o1bfxpm1+hS0H8KViD9FYynoyz8a18tz3lwt1SVeVSSYj8clBgM3C6NdvbuNP+Zhp07BpDvoXowdsMBU7DIrsqLSwZDH7aHO+/eosSQaae1HpEqeUEsPc+nT5BXHEa+HXVstBAEV+E5VUdZhOHfahISdjbqiRLOby0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=F0y7m+N8; arc=none smtp.client-ip=95.215.58.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ODs8rmlv"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so3452851e87.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:16:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788815813; x=1789420613; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=pHwke8rit8qBzK3OuQrOMc3AAUNWE9JY8EpurCwEM9M=;
-        b=ODs8rmlvUCMMZJo80esQSFE2jL6TbYIh1LKY9PziD5G5aPh/9K6CmYsdsiBKkrWPh/
-         Vm8vi5mx8G6HI4HXtQfVNRdfY1v/ZRhu0X+XhBPAFP/DpPVqrrzXIND1hdIas9S7VYvP
-         J3YAwScNpWBsw1SlpiwrjgqaskRr5PesEBfGY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788815813; x=1789420613;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=pHwke8rit8qBzK3OuQrOMc3AAUNWE9JY8EpurCwEM9M=;
-        b=YERSeO/eT67md/0rRgJebD413KCSihpgH/wxayW/3GowSdnWregzsI4WtGuymmC6Li
-         EjKrq7yvEiXkQprM59SVBjfEqzdlwMS0ow2AEgiiDjuQe3nWP389riVVjn7dmGu//MB1
-         Y0iqEzIkX7YSo49K7vAau4y86gTNY1rZ4DvqAseTUVphFL4DcxiYHjAZAfirougPT26u
-         LrTJ4o9pGxchhgncRDWxVu5pLXm8aE4h6Z3PZRQVMkrYKiArMOK0Zxul6eSqHsjj5ymV
-         fIZT4IM6D7VSm8B04fg8RCk9BU/5+Vm2wkye5VlBzMQ/XdQ0xWprZ6HaRDyWSW7l6CBN
-         /szA==
-X-Forwarded-Encrypted: i=1; AKwUvBx464YbTh0pFqvXMtjWDUa4Wf5lof/mU9JlSIPgWT11l+8j3oRq3IBvnwIyqzKbfEkRPeJFpZbFVg66Y4I=@vger.kernel.org
-X-Gm-Message-State: AFuF++mSMPVbyM/KjumNkMu2f+g4I4zFbPnExujc9OgSGNd3HwwxQk7X
-	S0WvhYQIFkjPz8aAtrGkigUa5o33uMzUCo/q2G9zOvIDcLwV2nOkQvQ76Ej9OnLBAg==
-X-Gm-Gg: AYBFou1s//b/zrrN4Ntocd1Vrhu0eW2mmoQxVnMC+nVwswFx+BleJEMsH2PkXn/55x/
-	r0wjTmTt+7lDcp74dQYDPOQfZxIIYKbP52RCyZXxGT9YwgfrmH1j69xieYxcdYj7RienogtELOz
-	5PMaLQQ6OQQktwG3ezPFp9i0wcQfxx+iIKFeI+aAEfzNiujnpIu00/ZuEfRFqT/jZ3QKabnYsUN
-	4FwEe3XvvMoAEY2KKUrLJdM7Rp4HMQMLrPwNMTIw4RrCF0HDTDvN3zRU4ECXQIZRlJbLuyNaYrE
-	0IlNp7ueSCVLfNF4A0L4urhO3A0pH0RQ+y+HG/M01czaFvi4r5BIK2eGJBv24zBvthWU6BXArFy
-	xBXBly2M64OfOxWPZ28/2UQUpgoi5XB5D5XApIIuPjEfdzXsu2R8cL8fGcLlEAb3zdNJZKSnIyu
-	68FDncj7PBAgHvVzbg5i5IyPgJbxNUJbpyXD7eJ5Wluqmeac9THf/q820sdMw5MTm8ZADdCfI4T
-	+4Pl3W3tw3RnKybwlNjh3DebtxCl57ukyG0zkg=
-X-Received: by 2002:a05:6512:3a8d:b0:5b6:7fa:e96b with SMTP id 2adb3069b0e04-5b616f075bdmr8335146e87.14.1788815812861;
-        Mon, 07 Sep 2026 14:16:52 -0700 (PDT)
-Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fbfacsm2548785e87.42.2026.09.07.14.16.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:16:50 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 07 Sep 2026 21:16:49 +0000
-Subject: [PATCH] media: uvcvideo: Automatically handle cameras with invalid
- uvc_version
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="F0y7m+N8"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=YQJDeQ6/mKDBvukG5aoMANHfDYazHYAMwfzJ7ZbLcLs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788816029; v=1; x=1789420829;
+ b=F0y7m+N8ajV65riNmYrxw035/AQpeRDJGoYtfH28Ea3XA/xPwxOx4qAUrRkBmnKC55BMjJAB
+ 5EqbLkQfziCBFTPxTOPShrDdDfh/wz5JXWmXiXksIMFwAPpUr8+jg8S9pL8l30ZxwzKvitKO0uh
+ kgEDtOiAzrmY2f89Q8Dvgqnk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8f82e7bcff9f2353;
+	Mon, 07 Sep 2026 21:20:29 +0000
+X-Mizu-Trace-ID: 8f82e7bcff9f2353
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <27376486-9cab-4d42-8ed7-36e13231dd91@linux.dev>
+Date: Mon, 7 Sep 2026 14:20:26 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-uvc-version-v1-1-34e45dfe04de@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAMApn2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwNz3dKyZN2y1CKQOt3E1JTUtGQTYwuT5FQloI6CotS0zAqwadGxtbU
- A5SvzE10AAAA=
-X-Change-ID: 20260907-uvc-version-aedefc4384ce
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/rxe: Use validated num_sge in local buffer
+To: Nicolas Morey <nmorey@suse.com>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Tristan Madani <tristmd@gmail.com>,
+ "open list:SOFT-ROCE DRIVER (rxe)" <linux-rdma@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+References: <20260907161550.716670-1-nmorey@suse.com>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260907161550.716670-1-nmorey@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Currently, the driver expects that cameras properly implement the spec
-version that they announce, and if they fail to do so, we do not continue
-probing the driver.
+在 2026/9/7 9:15, Nicolas Morey 写道:
+> For both SRQ and non-SRQ receive paths, the WQE is copied into a local
+> buffer to provide a kernel-owned, validated copy. While calculating the
+> memcpy size from the validated num_sge prevents overflow during the
+> copy, memcpy() itself still copies num_sge from shared memory.
+> 
+> A concurrent userspace modification before or during memcpy() leaves
+> an unvalidated num_sge in the local buffer, leading to potential
+> out-of-bounds reads in rxe_resp_check_length() and copy_data().
+> 
 
-To make drivers more fun, some vendors decided to announce that they are
-a UVC version that they are not. Until now, we handled those cameras via
-quirks.
+Hi Nicolas,
 
-Unfortunately, reality has shown us that there are more cameras out
-there with an invalid uvc_version than we initially predicted.
+Thanks for the patch. The logic makes total sense to prevent the TOCTOU 
+race condition after memcpy.
 
-This patch tries to handle these cameras with an identity crisis
-automatically. We still shame them in dmesg. But now they will work.
+Just out of curiosity, do you happen to have a reproducer or a POC 
+script that demonstrates this race in practice?
 
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
-Hi Edwin, could you please try if this patch alone (without the previous
-one) works for you?
+It would be great to know if this can be reliably reproduced or 
+integrated into testing setups (like rdma-core tests, or 
+tools/testing/selftests/rdma) to catch similar double-read issues in the 
+future.
 
-Could you share the dmesg output with it?
+Thanks a lot for your effort.
 
-Thanks!
----
- drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
- drivers/media/usb/uvc/uvc_video.c  | 23 ++++++++++++++++++-----
- 2 files changed, 25 insertions(+), 9 deletions(-)
+Zhu Yanjun
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index e289cc71ba98..ca75f8d1ec46 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
- 
- 	case UVC_VC_PROCESSING_UNIT:
- 		n = buflen >= 8 ? buffer[7] : 0;
--		p = dev->uvc_version >= 0x0110 ? 10 : 9;
--
--		if (buflen < p + n) {
-+		if (buflen < 9 + n) {
- 			uvc_dbg(dev, DESCR,
- 				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
- 				udev->devnum, alts->desc.bInterfaceNumber);
-@@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
- 		unit->processing.bControlSize = buffer[7];
- 		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
- 		memcpy(unit->processing.bmControls, &buffer[8], n);
--		if (dev->uvc_version >= 0x0110)
-+
-+		/*
-+		 * We are not using bmVideoStandards, so there is no need to
-+		 * warn the user if it is missing.
-+		 */
-+		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
- 			unit->processing.bmVideoStandards = buffer[9+n];
- 
- 		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index fc3536a4399f..58e1c1fa6af2 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
- 	}
- }
- 
-+#define UVC_VIDEO_CTRL_MIN_SIZE 26
-+
- static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
- {
- 	/*
-@@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
- 	 * on the protocol version.
- 	 */
- 	if (stream->dev->uvc_version < 0x0110)
--		return 26;
-+		return UVC_VIDEO_CTRL_MIN_SIZE;
- 	else if (stream->dev->uvc_version < 0x0150)
- 		return 34;
- 	else
-@@ -319,7 +321,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
- 		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
- 		ret = 0;
- 		goto out;
--	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
-+	} else if (query == UVC_GET_DEF && probe == 1 &&
-+		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
- 		/*
- 		 * Many cameras don't support the GET_DEF request on their
- 		 * video probe control. Warn once and return, the caller will
-@@ -330,7 +333,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
- 			"Enabling workaround.\n");
- 		ret = -EIO;
- 		goto out;
--	} else if (ret != size) {
-+	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
- 		dev_err(&stream->intf->dev,
- 			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
- 			uvc_query_name(query), probe ? "probe" : "commit",
-@@ -339,6 +342,12 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
- 		goto out;
- 	}
- 
-+	if (ret != size)
-+		dev_warn_once(&stream->intf->dev,
-+			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
-+			       uvc_query_name(query),
-+			       probe ? "probe" : "commit", ret, size);
-+
- 	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
- 	ctrl->bFormatIndex = data[2];
- 	ctrl->bFrameIndex = data[3];
-@@ -351,7 +360,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
- 	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
- 	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
- 
--	if (size >= 34) {
-+	if (ret >= 34) {
- 		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
- 		ctrl->bmFramingInfo = data[30];
- 		ctrl->bPreferedVersion = data[31];
-@@ -412,11 +421,15 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
- 	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
- 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
- 		size, uvc_timeout_param);
--	if (ret != size) {
-+	if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
- 		dev_err(&stream->intf->dev,
- 			"Failed to set UVC %s control : %d (exp. %u).\n",
- 			probe ? "probe" : "commit", ret, size);
- 		ret = -EIO;
-+	} else if (ret != size) {
-+		dev_warn_once(&stream->intf->dev,
-+			      "UVC non compliance: Set UVC %s control had a size of %d instead of %u.\n",
-+			       probe ? "probe" : "commit", ret, size);
- 	}
- 
- 	kfree(data);
-
----
-base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
-change-id: 20260907-uvc-version-aedefc4384ce
-
-Best regards,
--- 
-Ricardo Ribalda <ribalda@chromium.org>
+> Explicitly assign the validated num_sge to the local buffer after the
+> copy to prevent this race.
+> 
+> Fixes: 22b8fbded65b ("RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe")
+> Fixes: d6ab440240a0 ("RDMA/rxe: Copy WQE to local buffer in non-SRQ receive path")
+> Signed-off-by: Nicolas Morey <nmorey@suse.com>
+> ---
+>   drivers/infiniband/sw/rxe/rxe_resp.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/infiniband/sw/rxe/rxe_resp.c b/drivers/infiniband/sw/rxe/rxe_resp.c
+> index 02b16e2b49b8..cd51042857d6 100644
+> --- a/drivers/infiniband/sw/rxe/rxe_resp.c
+> +++ b/drivers/infiniband/sw/rxe/rxe_resp.c
+> @@ -288,6 +288,7 @@ static enum resp_states get_srq_wqe(struct rxe_qp *qp)
+>   	}
+>   	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
+>   	memcpy(&qp->resp.srq_wqe, wqe, size);
+> +	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
+>   
+>   	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
+>   	queue_advance_consumer(q, QUEUE_TYPE_FROM_CLIENT);
+> @@ -328,6 +329,7 @@ static enum resp_states rxe_get_recv_wqe(struct rxe_qp *qp)
+>   	}
+>   	size = sizeof(*wqe) + num_sge * sizeof(struct rxe_sge);
+>   	memcpy(&qp->resp.srq_wqe, wqe, size);
+> +	qp->resp.srq_wqe.wqe.dma.num_sge = num_sge;
+>   
+>   	qp->resp.wqe = &qp->resp.srq_wqe.wqe;
+>   	return RESPST_CHK_LENGTH;
 
