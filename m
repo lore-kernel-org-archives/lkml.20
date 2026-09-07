@@ -1,130 +1,169 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078A2403B13
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:51:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4964325701
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:51:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763871; cv=none; b=NA0La/mdWqoXqy+4OeQrWwtkwHjpCKAq4EyeQdmWTcaQApucGEmsQXMg2hN1jhENUNI+nl2iXNAU4GHCwv3QfxCQU9+q7Q1aw1QLYmuN7qdL6HpbAWKoA5uLsvP92n5+An7Ps1mhZJv2+vKKU9zGkQwUnndFOo1FZ1likAeqwb8=
+	t=1788763872; cv=none; b=b+/LeBWi30KYuT11c+noldcCyHBuA4Mtz4MMAsZrLC1GfyH5kkN1yLdSreJJOwBXanSiu5eMNhZxc1HKZg5CXs7v3X9Rec9krt1SRZnnxeacpxevwJoTmTndmKMClzEILwMT1+ypVDxn0wTMOA+IW5Kvn2LmGRvpCrEAdpMBsbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763871; c=relaxed/simple;
-	bh=ujTVo13mhtQSZM3dZ1D9Y4fVcKanGUzQzI+aiyx+F9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UAYo1m2e4E3VQbZSz2vLFnysWlZllI89HGjZBo5z8SsZZcZxbM7oY1FW53GbCdR00T6DnKAPbu72GoICR+PAkq5Eu9/VNyRTHgZ3ZU5BIbfv/XXD+DF1nfLXjoJdMbcjLCuAXTOk6Tx2VhEwaiOFLCe2e+U9rQnkOMXrtCcic98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uiv37xkO; arc=none smtp.client-ip=209.85.216.43
+	s=arc-20240116; t=1788763872; c=relaxed/simple;
+	bh=7fo7r52nEPlzNK+NJp+U1AWQPC7MthGN29osZqvPtBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RjC81zv0h912LNznmBGVQ+zGBkztAJCS47i1l4zJ7ioypwjdqMUfliNatOGy11d1mD7SxLW9MmxiOk0bS4GnUl2swG333y2zNbXa1Ecd6aV36pr/TrWCbrIzSmKMNfx+j6hJ4EygwNDHsDpXaz77Kz45eyrd8zmBnoXdBBdl1oU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T8Bk2JHo; arc=none smtp.client-ip=209.85.128.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uiv37xkO"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38511175ad3so2749654a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:51:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T8Bk2JHo"
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-85b293528a9so36493717b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:51:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763868; x=1789368668; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yPgV6ur+BwahojS5JHPO8OPhQae5Mb5F4foZ8st31o8=;
-        b=Uiv37xkOTuYB4niihzkiwal5/3fhViVNrXe54rNBSvAiEVyzy37eV5uf7fiCXhnn2Q
-         xeRnMS+k6+4/+sn7vtwltLRcITYKmFLPIYHEtwPcNh2h04FjeazbUkTkFEjucXu26KN4
-         6W/WgmSlANC+nKiBP2hPrT1mQlN9gCG1GkDalmNLszvZG8X5D6u5ytKwAcTfFhSzm/1H
-         jYN96zUO6/EDC53mtAmNCUmL4y04Dqy9LzXxHVoHBOjYBTv7Mdiyz/nNqEEB3OfJjNci
-         qq+RpHf9bMd3PGHeUqpFbXGUZ0MnEy3HzDHf/R3Xjz3jST/au1U0Q47T2BUYQR8fe6l/
-         P+Ww==
+        d=gmail.com; s=20251104; t=1788763869; x=1789368669; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=x6FgqnX2MNX4iTAsFR2V7ICidK9phwa3U3RsTiO1qRY=;
+        b=T8Bk2JHov1vdndWzDrszRgThM1JS5cJaHr37Sy3rKrJioqrWXX3JTUgvtuZ+SPZPxq
+         eLf5UCSDQ08w1DCWzHStREYDbBV+XiqXfWd9/MOc+R4rIUlv1tz7b6sgEzCEjeYKD9s4
+         nXDwhzXO1GtNXCx/yk4rsHw94+QMcJrkdJkJieKsbuztQTxTqiXMJ1iFqK8WOVht3Z9A
+         t66Ovdoxb9BqJ97aUYFtBXUf1TKEYQLMmlccKN5hJQKQt1L7OMVZSnNWcJujDzESJUaj
+         Eju8SGqSm9VTC8HtPNDovdQ6GCHVYNkjqc7dHKBQtZG8G/UN0h7Fr4AEXAsXqgeQz8lX
+         JJOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763868; x=1789368668;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yPgV6ur+BwahojS5JHPO8OPhQae5Mb5F4foZ8st31o8=;
-        b=ehrvV+0h4u4g8I6BrWPM57DiIl1+adaifUSkhaxrMyuydXAUxA+kn2UQ/mbc+gWw3Q
-         Z7RojsZijzJeXmsBDlzS7pbGAf9FvqBTjZxSBuVakGoRBdQ/mh057upGnnqZmd9SwFb0
-         wudkQTAzCt9+Yhpa4/TOAP6DYJ0AgMxXKS3uQD+MsIYhvbNQ2y/OagwA8WwytWpJwoXJ
-         z5oAdXHyuSbmXd1H53aKApDaqXEFRjkr5fPhffZ2zuHgNAhXlVNQRdL59wbZbLnWpgfP
-         w7HHAs0D0TH5csQFXEx+C3aU1yvfgCKyzF0KODtNsGUSkg7duHzxJZNVwcC/bZ/RkfTL
-         A0pg==
-X-Forwarded-Encrypted: i=1; AKwUvByAzYf0v3LzsDODmNYnDmwiR1eZbeEsFWKCWXCHSRf/JEh6PgQ35Kk6pwnCJ8LGpgAqJ4PU4e5M3dRTbPA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJr8Hb3IxXtVcGaC/ME8eEZJYX1XZQdwG8+BlyXIiaX2AX05JC
-	31jd4WPuRWxZYEuvDLmMMqTswfajpO8ySTcICy+LcXvmKpsSNZukbWPR
-X-Gm-Gg: AYBFou36CFsHoDsxmIdiRq2v1zXGc/8m0HrxCKxsjayDz4gsE+nElcobQWs81lBAh3a
-	LvlCC/zN5WmeEWzxJXybIsI0ZlAbhFfmz3jmAcIPJyJScjvSQVNpCQSxZpGqh4ig5Bgh6Ih+H4D
-	9CcGNDc1+Rj699fi84JfEgAN3vvS2Ahigaa/ZykmFsns5QXgHjuF7RnoJbWYq7gFWmzwiBkGCm5
-	ONle1PmfB1tf+KJi6Z0arRLFxiEBl8saRomnzv/vcL1yousk7BcmcrXzxY1N6Ju0V1+OHSHvUDp
-	qO9M+Eju+YwOcmKUQFj+aLgJGlOFS4amagFh3OZRGAyIdgDncKypEAwxuOOEBEX/e0e3rscSG+q
-	jJbATAqVN5rOEl9m/WNyx7CtvURcWp/eCqWT600PvrJ/aBod4TDkAsnvcDX3BcvCztIJp4yzXmG
-	uFm3qbOtUyQ77K0dumcFO0DuqEkX+w+mctjcWqobt+7H53/ztEBerJLs2R47jWNzUMEtjCRmRA1
-	UdDg3wCwzM1FA==
-X-Received: by 2002:a17:90b:4c4a:b0:398:bc52:825b with SMTP id 98e67ed59e1d1-39b2624c32amr29338566a91.21.1788763868106;
-        Sun, 06 Sep 2026 23:51:08 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338778fb926sm473120eec.31.2026.09.06.23.51.02
+        d=1e100.net; s=20251104; t=1788763869; x=1789368669;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x6FgqnX2MNX4iTAsFR2V7ICidK9phwa3U3RsTiO1qRY=;
+        b=FEuIWbVRYm5V71wAS9PMFvPcWBuVIvAA26IZNGklMRdbmtAPr1GFqwgvY+53ROy0Sw
+         j5wU7np1hcVjU1Geshv0ZfYMRmPmuSQdm/fO6CQHAbQ731Xyxo/MZXB9BCBC3pnG9tVe
+         7I2WgGVXUOekUXq3k91BiVX+nl0W3u3ghYJpW5TPL9tBWFnzCC6l4NSTDqcOyILvy2B2
+         r7dSWH+GDzbLvCa4Df4CNQMNHWZ+eQoyNyj326VdXZzDmU1mRHAnKBg5vgZ8c5C7GL5K
+         tHSIy6ktrVGYcSkb7BUixlYb5azRZs8dlQ0zAnd7hQPNKYBdYjmnK6lRIDaXfOkoLG/N
+         IsHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRjkToFa4UALZHHPO0o4ieulZNeOrUA03M/LYyZ470Asdmc9bgYZimVpMrjO3Xqycs0EH6Oxye0EKtkps=@vger.kernel.org
+X-Gm-Message-State: AFuF++kacw3RyLC87Z5RkjNpDjqSCdEdZx+E42dvb3Hbk1hPY0ESyjSk
+	YpPg/mOysMZlWPLtBAn/957zY1qP2aGNZQYpzffyFaVhMyvrxBd9Lpj6kmvR0C4FQYk=
+X-Gm-Gg: AYBFou2bgg+Rblxc0kdAQpNLq2xxVxw4NXP03iTI4jM0uQ6HhE4c0IAX+ooY9i6y7H+
+	YU06290GTE40BuwYBoNfErJprMQTRyPXXhAE/AFrxGdIUBpc1K2TqiXjiwvv2Rq5lWcdHsJ91tL
+	JWxy8nDXndZOMNQ94cXm081sA0MIWFYLmWu93HcZj/tqkDBqJ+zQz6V8nHyVfkokRenoVsi/S6p
+	k9wvRCGaXhLw9TZmyJf3YkgAhoms8ynmA2Zr1rSKOBYnVUR5qFlA3hfozTcDePXQAaCKopMXtCC
+	QBVwyFx1Ovf06asAwGp6PDbrIsxXJh3ZmQnjJsSAvFXucbHlN6q8htZpMwNHyzFkjmMEWo2mITw
+	XkZxILq26YYl4nikJEj3dl/w7W/3P9j5v4ZbxtWKuF34eYDzwUphRBfgUwjyFZv6Ueia0P2P/S1
+	xPFjILSbHLfBXWZntj6sXA9dilyZlrTDu2Ke6EbZt2jDV3
+X-Received: by 2002:a05:690e:191e:b0:66f:b0f7:5958 with SMTP id 956f58d0204a3-66fb6cb6334mr3919965d50.6.1788763869501;
+        Sun, 06 Sep 2026 23:51:09 -0700 (PDT)
+Received: from gmail.com ([2600:1700:5431:250::1e])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb7c7e8d7sm6845562d50.14.2026.09.06.23.51.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:51:07 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Selvin Xavier <selvin.xavier@broadcom.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Potnuri Bharat Teja <bharat@chelsio.com>,
-	Cheng Xu <chengyou@linux.alibaba.com>,
-	Kai Shen <kaishen@linux.alibaba.com>,
-	Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Michal Kalderon <mkalderon@marvell.com>,
-	Nelson Escobar <neescoba@cisco.com>,
-	Satish Kharat <satishkh@cisco.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Max Gurtovoy <mgurtovoy@nvidia.com>,
-	Bart Van Assche <bvanassche@acm.org>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	target-devel@vger.kernel.org
-Subject: [PATCH 2/2] RDMA: fix repeated words in comments
-Date: Mon,  7 Sep 2026 12:20:47 +0530
-Message-ID: <20260907065047.26773-3-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907065047.26773-1-hemanth.selam@gmail.com>
-References: <20260907065047.26773-1-hemanth.selam@gmail.com>
+        Sun, 06 Sep 2026 23:51:08 -0700 (PDT)
+Date: Sun, 6 Sep 2026 23:51:05 -0700
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: light: add AS7343 multi-spectral sensor driver
+Message-ID: <ap5e2c1g4dJFh2yJ@gmail.com>
+References: <cover.1788586814.git.marcus.yu.56@gmail.com>
+ <521c26094635bae6376d92f3cecf84c911d5a740.1788586814.git.marcus.yu.56@gmail.com>
+ <178865463956.3402141.11085158208427972814.b4-review@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178865463956.3402141.11085158208427972814.b4-review@b4>
 
-Drop words accidentally written twice, reported by checkpatch.pl as a
-possible repeated word.  Only touches comments, no code changes.
+Hi Jonathan,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/infiniband/core/iwcm.c        | 2 +-
- drivers/infiniband/ulp/srpt/ib_srpt.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Thanks for the thorough review. Just some clarifying comments in line. I
+should be able to send v2 over within a few business days.
 
-diff --git a/drivers/infiniband/core/iwcm.c b/drivers/infiniband/core/iwcm.c
-index 0b7246ec559e..4b05867dad89 100644
---- a/drivers/infiniband/core/iwcm.c
-+++ b/drivers/infiniband/core/iwcm.c
-@@ -936,7 +936,7 @@ static void cm_disconnect_handler(struct iwcm_id_private *cm_id_priv,
- /*
-  * CM_ID <-- IDLE
-  *
-- * If in the ESTBLISHED or CLOSING states, the QP will have have been
-+ * If in the ESTBLISHED or CLOSING states, the QP will have been
-  * moved by the provider to the ERR state. Disassociate the CM_ID from
-  * the QP,  move to IDLE, and remove the 'connected' reference.
-  *
-diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
-index 7197d95f2216..43c3ff1ad8e7 100644
---- a/drivers/infiniband/ulp/srpt/ib_srpt.c
-+++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
-@@ -1888,7 +1888,7 @@ static int srpt_create_ch_ib(struct srpt_rdma_ch *ch)
- 	 * We divide up our send queue size into half SEND WRs to send the
- 	 * completions, and half R/W contexts to actually do the RDMA
- 	 * READ/WRITE transfers.  Note that we need to allocate CQ slots for
--	 * both both, as RDMA contexts will also post completions for the
-+	 * both, as RDMA contexts will also post completions for the
- 	 * RDMA READ case.
- 	 */
- 	qp_init->cap.max_send_wr = min(sq_size / 2, attrs->max_qp_wr);
+On Sun, Sep 06, 2026 at 01:30:39AM +0100, Jonathan Cameron wrote:
+> > This patch adds a driver for the AMS AS7343 14-channel multi-spectral
+> > sensor with I2C interface.
+> > 
+> > The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
+> > via the IIO sysfs interface. Each channel's raw data is provided as a
+> > 16-bit little-endian unsigned integer.
+> > 
+> > Basic power management (suspend/resume) is supported. More complex
+> > features such as interrupt support and configurable gain/integration
+> > time will be added in future patches.
+> > 
+> > Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> Hi Chang Yu,
+> 
+> I've avoided too much duplication with Joshua's already pretty
+> thorough review so just a few additional comments inline.
+> 
+> 
+> > diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
+> > new file mode 100644
+> > index 000000000000..b620dd308380
+> > --- /dev/null
+> > +++ b/drivers/iio/light/as7343.c
+> 
+> ...
+> 
+> > +/* AS7343 register bit masks */
+> > +#define AS7343_ENABLE_PON BIT(0)
+> > +#define AS7343_ENABLE_SP_EN BIT(1)
+> > +#define AS7343_CFG0_REG_BANK BIT(4)
+> > +#define AS7343_CFG20_AUTO_SMUX GENMASK(6, 5)
+> > +#define AS7343_CONTROL_SW_RESET BIT(3)
+> > +#define AS7343_CFG1_AGAIN GENMASK(4, 0)
+> > +
+> > +/* AS7343 settings */
+> > +#define AS7343_INT_TIME 29 /* (29 + 1) * 2.87ms = 83.4ms */
+> 
+> Implement this as a function to do the maths and take the input in
+> usecs.  Then you can call that with 83400 as the parameter to set the
+> default value.  Why this default?
+> 
+Annoyingly for this sensor the integration time is calculated from two
+registers: (ATIME + 1) * (ASTEP + 1) * 2.78us. For simplicity, I'll use
+define for these two values in v2 instead of a math function.
+
+I'll adjust the default values. The defaults in v1 are just some random
+values chosen by me. In v2 I'll change them to the official recommended
+values in the datasheet (x256 gain and 50.1ms integration time). These
+are also the values used by adafruit in their arduino driver.
+(https://github.com/adafruit/Adafruit_AS7343/blob/main/Adafruit_AS7343.cpp)
+
+> 
+> ...
+> 
+> > +static const struct regmap_config as7343_regmap_config = {
+> > +	.name = "as7343",
+> > +	.reg_bits = 8,
+> > +	.val_bits = 8,
+> > +	.max_register = AS7343_REG_MAX,
+> > +	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
+> > +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
+> > +	.cache_type = REGCACHE_NONE,
+> 
+> It is a big enough register map that it may make sense to use
+> regcache and provide all the info on what is volatile etc.
+> 
+
+I'm debating whether this is worth it or not. All data registers
+are volatile. Plus ENABLE because we need power management.
+Potentially ASTEP, ATIME, CFG1 as well if we want configurable
+gain/integration test in the future. That leaves us with may be
+1 or 2 registers in the mapping that are not volatile. I'm leaning
+towards leaving this as REGCACHE_NONE for now. Let me know what you
+think.
+
+> -- 
+> Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+
+Best,
+Chang
