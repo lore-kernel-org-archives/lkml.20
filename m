@@ -1,167 +1,158 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021126.outbound.protection.outlook.com [52.101.125.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C65B3921C6
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790955; cv=none; b=hRy3vkbh4yP0SsYoJ8NyOIn5pvTWNQsT6OmmK/wOHbBiJUgu38CqIhvUmIjXvxVDKAz8xo4IONvvHMh0LJum/428BH+0s9xGYbGA5wY8OaaeMZ5iZQPCIHx9+kpGdQ9lVM4seHt0Lc+VUoP5lyw1h8yJIw2OYNFBwydyiRwZ3xE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790955; c=relaxed/simple;
-	bh=ETt+eXJwyTapb9YHrKVDAzaP4e3JtDlrePvD76FyjQM=;
-	h=From:Content-Type:Mime-Version:Subject:Message-Id:Date:Cc:To; b=QisZCcweCNkv4v+l5bTmvliz7IUI1qz0jCLPXyZYVI5AoNdA6aCzhVfDeFg8NmZsfePWGd12NCof/241PPo/uPd6GvupqIpUudFGh2P2TlQogjNN9lcxDwQxtg/NxT0QrFJsm/OMsaJSXa4ySZeKReXzt2ovtSs1T9IZ+oS9BcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com; spf=pass smtp.mailfrom=doyensec.com; dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b=gtAfAWnN; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doyensec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2257C369217
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.126
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788791086; cv=fail; b=NTKavqxvg5yU8aqGCWNKW3o0wvyE/LyfyjRzeWFyYjy3UWc5ZSMaK+jSkELMaW6AlY9vZtKSmtTppc40M1/MN/katEYNqaya1AnKZUN7GAN0Q98WtISrXZInNOm8nrTrz3JpU9+DocVXXsLxEZj/QGWQ2bv9Zx8B4zR2vTklOsU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788791086; c=relaxed/simple;
+	bh=aHg2EqpS2PX3p2Sb1vqaBeDbRTz9yKem8vvZ2g7bExQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=JMLALBB2njCTOx1K1DUoQBjO5SqzOIhhtsHXfQ1YxfGW9KFjMBoTihYzQRdfLLLBSDapxLO6jXSvh1Tsq8u8Q+w7SPzcxq80qOYP0aWxs7RCcFn2zfpsUcqwWDZQzKG9EsuI1QIlkYMqLR68dO9PW3zXawaKWqEUDhzMMPsDQto=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=nmyY3m4z; arc=fail smtp.client-ip=52.101.125.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b="gtAfAWnN"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c252e703fa3so546027966b.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:22:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=doyensec.com; s=google; t=1788790951; x=1789395751; darn=vger.kernel.org;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zrQGe/+l07Pnb5/py0yrxKfx5ESJVlaN3S8EQmXHeAw=;
-        b=gtAfAWnNWmNwvCQUC2ghJpgfgvvrXBqe+EApq5neWkQYfUI/iR7uSsWEoMu27ECKPT
-         qHSk1OXvNvo7aTRUYocYhcYQimBXgEnqrJVYiZ6RNcB6I2Pw5N0KzxEf0nqk/Yr8nYGa
-         J6YnJ2BUHC/LnEA3d51lW9FvuUATUWpqsMNJugW7McdVTI2hQe64TrtDOFyhPNunEPqw
-         UwQvUJGSCUyf3LWr1zCltI5OrnH9V7668fvtYO5s+X+IwtIGrRo0dRrMBra8yU2zZ92t
-         LbnX+ZaJMFH6emvf1TJJkW0DYHH7tOEfafygnQHaLVQthcuwxUx4vWT5T8oiYaBJnD5R
-         ENmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788790951; x=1789395751;
-        h=to:cc:date:message-id:subject:mime-version
-         :content-transfer-encoding:content-type:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zrQGe/+l07Pnb5/py0yrxKfx5ESJVlaN3S8EQmXHeAw=;
-        b=NUhfCkKWmJ7U6I/wyjsEYhfBsvrARK1+0JQ9m6EbQsdKsEM3YUW1fIV1BXI80gakFD
-         7+7U0xwmXBaQ+W2WQmdsJV9UlB32iWUNa/zn3dmzdK7cFlFR/yxWQISbE0rQlLHCv4Tn
-         79Ikwl3b8ZNTMHTYaoZrO/bekI8pranZsPZgQ06KbcYxuo+psv6Kp6GsCHklQw6eo76g
-         sPLDgcGASNCWqjSlSDFf/68kkVIFRKAiZgoa7XddViGFXaPgkZPo9UjgufD2TxMEhtzr
-         sOu+Y7K0qSrJdVBf2K/9SSqP7O85o9PcS86CDZvxIoi9hAAWSrQ8SbjeEUTS2bz0R2mG
-         AX4A==
-X-Gm-Message-State: AFuF++mCgSfD5LUdTfRPNvDwPkVsGKTuskmAiLXQZC9qUbpUuBLEKfjV
-	8QS7I2u61262Sucnpo98sHdCXQM7Oww0IatUS3K3SIJ+XNU9YcOVIf45ToZKC3NqJro=
-X-Gm-Gg: AYBFou28ByMLYAyctEEitm1+YxybIz9yL8VVCy7azh1rheAuKDQIYv/GDxh5xxp27bS
-	8/IU432cA+ecv1H4mGCrmiiG80INuqzO5wKAZlf5qbIqHaD29oBIeQ4s6XIA/GxxoAFVeKVGsIf
-	461HBDM6U/kMbJFBVHKn5ouKeuFTFsrcOjTqR8fOJCwTsBn/zuFzpUwY+mlKn6x6kCVkfl2Ge/v
-	ChbP2ACpkus+QtRbWBTpW8m+FnBWMG73gM6wheolAgq6hNU37oz2azlTzWiDotJkSJKzHH+IrdS
-	Moao7jUxfXe9HKsCqTFthu0KplYIjWljJVG+xHF4QvjTaCIuIvjIDxciYA3f8cFwtigDilbDoWW
-	gdw9e5XQEHiQZ8jKZ46Ol2dbpsG05sCL46zc97ZkXPlYtK0/AzuxzTlhdxvAQ2B++mQucPj2Js4
-	D7fNu6VtZBTBWfflzoRfjXUvLvZkdSlFFJzW6I1XzgcdXqEm03Wd5TNr2Fp/fpUpe7YRB4Yn5c2
-	h8LijC/Qp45g70mpoixyy/lq+YSlmdzcys5eLVgOMIjahCdjjHGYzKVrQ==
-X-Received: by 2002:a17:906:c116:b0:c26:1648:a063 with SMTP id a640c23a62f3a-c261648b68dmr769104166b.30.1788790951116;
-        Mon, 07 Sep 2026 07:22:31 -0700 (PDT)
-Received: from smtpclient.apple (80.49.147.201.ipv4.supernova.orange.pl. [80.49.147.201])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5375d9sm477623866b.30.2026.09.07.07.22.28
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 07 Sep 2026 07:22:29 -0700 (PDT)
-From: Norbert Szetei <norbert@doyensec.com>
-Content-Type: text/plain;
-	charset=us-ascii
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="nmyY3m4z"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YCofB8ZEwEeKwb315FKRRUvPfE6Ydsegzn0Jv0hBDQXlRHuWp419rKLIflmYdgG/q/UokfR2nYnkBqouuOqLthM3pGjE9qhMWS0b6uEkIpzHKuDlgQ6vIpVfmTbogocIoRf1Tz7T/k5JF8/UNpXpmxabHnlmvKTINe0Er+w6qSD8aFv+pd/8wRS7yn7fS/ARzGlPJXp8ArSoBVPsBj5OLHXxLYjrSg5D3s/YiyisyrBUhcgIfLABx38T2yVUt1M1NqOeUwZXYyfQ3ZURnEyy3i8yodPAOhs45P74pnvUqSVUzilH+XMr9dBcP6PVUX+lW38WgxCWuzzy6QdIyQZZbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u48ifcAFX7r1IhHbQVtkE2ZAEQgig2K2aCLc7LWFc0g=;
+ b=JD068S5JLH1Mn4pb3MT24khz/EC1L2euniPLTk+Ggd+n4xKTpmCoFo4Fd8NlFA4mB+9TimZQrYnxBmsWg9huWgraEIrCLoylHzUUZgX7AX4nDVmu0bAnqJdyZpmhwJBcKqZjpzQpTbmcMtU9JoVDbDi9boyHPPoG6xkZCJJB5aqmlxb+kn9xMxEJeL6izhHT3dtk0CMNrOtymMsqns2WiIK2laGlK9GZFOyQMj0kqIczYGrpCm3AIFkd/fs1QhihP0U+hq0Dt8nJae+OZcs7NAknZyAUsX+f+c4skSzSSMNHRJ5C86qA+GB3QTt+inCVK8QEBEte34m3Jz5envE8bQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u48ifcAFX7r1IhHbQVtkE2ZAEQgig2K2aCLc7LWFc0g=;
+ b=nmyY3m4z/Mb+5uOjNriArFVjuRY6qSzN4RTobKVQUNgH6f4ZNNuCH7CnhhuIoFrNo6jiHYesWZrCh+Ny2GbG7wW+Ma/YluZY5Z8NLmEj/FDHmXpnQ9durI5j0EdxutbUu7cJhrN0NxovR9Ayaif46jorCPyVCS4fCYthEwiHOVQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TY4P286MB7581.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:34e::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 14:24:42 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 14:24:42 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	fuyuanli <fuyuanli0722@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nicholas Bellinger <nab@linux-iscsi.org>,
+	Joey Zhang <joey.zhang@microchip.com>,
+	ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 00/11] NTB: ntb_transport: Miscellaneous fixes
+Date: Mon,  7 Sep 2026 23:24:18 +0900
+Message-ID: <20260907142429.951930-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0262.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::9) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.4\))
-Subject: [PATCH v2] nstree: check listing permission before taking a namespace
- reference
-Message-Id: <ABA32239-733B-438C-B95A-B13ED69FF0F3@doyensec.com>
-Date: Mon, 7 Sep 2026 16:22:17 +0200
-Cc: linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org,
- Bradley Morgan <brads@mainlining.org>
-To: Christian Brauner <brauner@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81.1.4)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TY4P286MB7581:EE_
+X-MS-Office365-Filtering-Correlation-Id: 27020510-32ad-4e1d-804f-08df0cebc21a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|10070799003|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	9gzFVYgH0NWAMjiNpWNm+aaLM6SodvV2QJY7escJi2UWy2ztQuCIRC9St9VpuAXxXzKHOth7n9WJ0uYS8sapkpJNWVgZ4dtA2Y07KoRgt2eQtKLTmr8D8gCaxfYz3LLzW3aQKTzUi3sBwq2roDsChAM8RfoVK4NGfuuBWUbzwTSpLHZnqsZ3KrJ4TUrA98Ximy8VKYmdn1aEmNqhwwyEHx6Tl1qy1f12LeUuxzaEiOCP2vEZoudXjCnJL5ebbe1QOKTQHzQRr2p3k5usQtpaC79RXLZyBONG2/J+3dxJt5mZIrTMNj+7U+tWjpRtencg7kq7SKkL2mwIB0Q4/rbRcZ5ZK00V1W1UdVQCiv/EDf7+QhFOcYK9INSs2lcNQoq4Hq4VnXIHhjN9PrCunIsrx5GMH1omorN3OL2xAEaOFaqvnxBCcj/oS101ugCKK4ck3ShZAzbkMSYIInEY+NeZTtBWJwpnboKwilt6Sa2DTZuTQo//IV7r8FCwC24aDRJLDxsrBx8KaZOt6QmG+RuAGXK+mePsi2+QBi2cKkW6stYUtd+qwjujZGW549ZYNPxzEv0g8I4YsGIbLO40VYXuQK95C7qr3zWbfXOhNJJhiP3h2G0dAe9QsitjIDd7XnO5
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(10070799003)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XYFl5pZSTzeA6Ll7FhUzlDF4GyUihQ/UQCDnzwbHrjYzG9WmziOYIS1bWFPk?=
+ =?us-ascii?Q?tgxvOxwkWng9zuS0zH3r1OLx3Y+RWCGC1Bmo+uE6PCk14QgCA5eE1WY79nfF?=
+ =?us-ascii?Q?EQMnccKXSqBQ2a6ZnV8VEwO0jFYxQ5INddON/+ibqhl1fRl80NdWB1AP5yeh?=
+ =?us-ascii?Q?nUuyEdzk+cv210RScLNXxk0H63xj+qkQay3bsz6uIjrS9fidbRdBD8kMsbZ+?=
+ =?us-ascii?Q?lfsPtfM70c0TRyyZyL4KhjBrkEu1QZ1hTpmFQfAu74ABNcVlm+VVbqjWAl/B?=
+ =?us-ascii?Q?Yg1YgwZ8N1UhaojWtbYJy113BOZlMOfLJP/t/ifiWw/ZusGB4Xeg+s9e20lU?=
+ =?us-ascii?Q?wNsYaME1QoB1VXP3lR8HmSAn1cUErLS0OcAxgwjW4zExKo6wVG/uyzEUANMg?=
+ =?us-ascii?Q?Ei9Y0SY4+hgFNz80c3BkU9ijA0YEA2eS3E04ytXAnaVTaEJ5yK9t1u0AwwIm?=
+ =?us-ascii?Q?8JC91ft6H0/OxuSpZwW18MBK5tYXwXqpVR4IgxE5MIooGDdoGuyVnWP6sysH?=
+ =?us-ascii?Q?yP+ZiL5c4pxZRsM1qNr1TcMVpiXQ4pDi+iHe+BrnvC1U3+nEfRRT3NFWj97a?=
+ =?us-ascii?Q?qybch2GdzrOQQFl7REVB9v5MBWDYaDJwpWS+Ptqzny4TcXyhzMsToA0yMbh3?=
+ =?us-ascii?Q?wGJUsu1QB3T+jwxGI1VoEydhjc21QSFpYlk7EXcB5N96Sj2CH4/z+vodJpdJ?=
+ =?us-ascii?Q?wKp8r+SP50cmQcwFHn77oqLCXPhNQZdyXTEu6DNOMNq0iTaQBaeZAdMuMCyu?=
+ =?us-ascii?Q?3o+mqZtKhFQ/KUSI3Kvdg1PU6F/rZ1RmsJl3hNFjqD1UkwBU+7oAuxO/armR?=
+ =?us-ascii?Q?r4TctJVVbJIjDxRAJI8/429AkoRBc/YPcmfm/OvqAk2LdNsfHcm6L7bhYypd?=
+ =?us-ascii?Q?D6pGGGR17fsFtT01MS0VDly2CRblrK+MZgLyk3DEA5+2tVfTdW/DngEecny7?=
+ =?us-ascii?Q?GbGNjnBZlnwQ/27JctWPip5m7sywY0UjviJNDhQOEzHtRS/nncHf6zT7TU3P?=
+ =?us-ascii?Q?SSHioVy61Mw1b1fJiKwCfxTlDkfKOfZsTtWze5Pv2QZ5krKJD6HwA8+6w1ge?=
+ =?us-ascii?Q?E97/sUY06I5sXZrmn4k7L8ul+Ldrkypxd+57OOJI6heizaA80XAIi5WO/9+e?=
+ =?us-ascii?Q?OrnnlgclIfxT2YbpqSziq5XxzexOAS5hOEXHr8znuqoVWbpPoD7YmgL+/uob?=
+ =?us-ascii?Q?5xJS4kWtci1nEjqMyc2K8XJOK4P+x1ynS2awAwpJGNkI8O+fRUawlKCLq0UT?=
+ =?us-ascii?Q?wrvtdzANXqFIp2bqDQ5LlQ8wNgSBKHlXuFn8cOY8VYft1BaTI4ZPqo6xWiUg?=
+ =?us-ascii?Q?OdcEYCA9EHEkupHlJPHmsz7TXsAeKl144cmng9nTPNJvkAqnARMFEt4de5Ir?=
+ =?us-ascii?Q?40OrUgMDfvon6XwzENE2jmmIES9ccXlpaP5P5o/mfWB2HWyt8PmfK4yoqAT5?=
+ =?us-ascii?Q?NhPNwWEpiuSw/N+ZlDf4R0BBZLTxxD5gTnZFLVMjpHsRUKx7wEth8AX+xrJ7?=
+ =?us-ascii?Q?oHVWJIAgbXaoolbklYS6vE0CsP5cfpCBBqAN2JoxJVF83gsdiFRX8YlN4w5p?=
+ =?us-ascii?Q?cgIEPsDTyeUWaQxexjbl3fJiDoumrbPmTR1ZuhcXrRvqetOHhNcsnciy5G2c?=
+ =?us-ascii?Q?9loGlAaPRgEkHMiqZUpJ/vB3Y9ccLRn7tUl4TMkdvsf2l8+cvHQh4qkjxmJv?=
+ =?us-ascii?Q?348htrSd4uwNMooV8Zb3jlbjPB+iqAKEEuXMG/FO5Aw5zVV0nGFWUJbwmIlx?=
+ =?us-ascii?Q?UQkwcE0Bg4nFA+7GzX1tQ+hzzsuw9HAEYnl/wuG9HQdawOpROhl5?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27020510-32ad-4e1d-804f-08df0cebc21a
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 14:24:42.4224
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2GeBkV+8NUREauZqGdS3bIW9t776KrWCj8E+NYCWk9e3s5zuD/I7SzkHjrlgLv/kGPFb50IcVnRb+oWD4D6kDA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P286MB7581
 
-legitimize_ns() takes a reference on the candidate namespace before
-may_list_ns() has decided whether the caller may see it. The
-__free(ns_put) cleanup on the denied path can drop the last reference to =
-a
-mount namespace while we still hold the rcu read lock, and put_mnt_ns()
-may sleep there. This is the same problem commit 2ec2aff3c8e2 ("ns: make
-sure reference are dropped outside of rcu lock") fixed for the =
-put_user()
-path. Neither ns_requested() nor may_list_ns() needs a reference, both
-only look at the namespace type and at the caller's own namespaces, so =
-do
-the checks first and take the reference last.
+Hi,
 
-Splat:
+This series attempts to fix miscellaneous issues in ntb_transport. Some
+of these were split from the direct TX/RX series v1 [1], as they stand
+on their own. Based on v7.3-rc1.
 
-  Voluntary context switch within RCU read-side critical section!
-  WARNING: kernel/rcu/tree_plugin.h:332 at =
-rcu_note_context_switch+0x238/0x2a0, CPU#5: a/3442
-  CPU: 5 UID: 1000 PID: 3442 Comm: a Not tainted 7.0.0-30-generic =
-#30-Ubuntu PREEMPT(lazy)
-  RIP: 0010:rcu_note_context_switch+0x238/0x2a0
-  Call Trace:
-   <TASK>
-   __schedule+0xcf/0x650
-   schedule+0x27/0x90
-   schedule_preempt_disabled+0x15/0x30
-   __mutex_lock.constprop.0+0x550/0xaf0
-   __mutex_lock_slowpath+0x13/0x20
-   mutex_lock+0x3b/0x50
-   exp_funnel_lock+0xb2/0x260
-   synchronize_rcu_expedited+0xe7/0x220
-   namespace_unlock+0x26a/0x320
-   put_mnt_ns+0xd3/0x120
-   mntns_put+0xe/0x20
-   do_listns+0x13e/0x560
-   __do_sys_listns+0x126/0x2d0
-   __x64_sys_listns+0x20/0x30
-   x64_sys_call+0x2366/0x2390
-   do_syscall_64+0x105/0x5a0
-   entry_SYSCALL_64_after_hwframe+0x76/0x7e
-   </TASK>
+[1] https://lore.kernel.org/r/20260810165136.2292436-1-den@valinux.co.jp/
+    (The v2 of [1] will be based off of this series to avoid conflicts.)
 
-Fixes: 76b6f5dfb3fd ("nstree: add listns()")
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
----
-v2: include the splat in the description, no code changes.
-v1: =
-https://lore.kernel.org/all/34C54FF6-AA8F-4124-9B40-C68EADB26D99@doyensec.=
-com/
+Best regards,
+Koichiro
 
- kernel/nstree.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/nstree.c b/kernel/nstree.c
-index 6d12e5900ac0..831f279d174a 100644
---- a/kernel/nstree.c
-+++ b/kernel/nstree.c
-@@ -533,19 +533,13 @@ DEFINE_FREE(ns_put, struct ns_common *, if =
-(!IS_ERR_OR_NULL(_T)) ns_put(_T))
- static inline struct ns_common *__must_check legitimize_ns(const struct =
-klistns *kls,
- 							   struct =
-ns_common *candidate)
- {
--	struct ns_common *ns __free(ns_put) =3D NULL;
--
- 	if (!ns_requested(kls, candidate))
- 		return NULL;
-=20
--	ns =3D ns_get_unless_inactive(candidate);
--	if (!ns)
--		return NULL;
--
--	if (!may_list_ns(kls, ns))
-+	if (!may_list_ns(kls, candidate))
- 		return NULL;
-=20
--	return no_free_ptr(ns);
-+	return ns_get_unless_inactive(candidate);
- }
-=20
- static ssize_t do_listns_userns(struct klistns *kls)
---=20
-2.55.0
+Koichiro Den (11):
+  NTB: ntb_transport: Remove the device debugfs directory
+  NTB: ntb_transport: Start TX offload thread after queue setup
+  NTB: ntb_transport: Prepare remote RX info accesses for MW teardown
+  NTB: ntb_transport: Clear QP pointers when freeing an MW
+  NTB: ntb_transport: Avoid deadlock when cancelling link work
+  NTB: ntb_transport: Publish link state after QP setup
+  NTB: ntb_transport: Clear link state before QP cleanup
+  NTB: ntb_transport: Abort link setup on QP MW allocation failure
+  NTB: ntb_transport: Stop QP work before freeing a queue
+  NTB: ntb_transport: Stop RX tasklet scheduling before freeing a queue
+  NTB: ntb_transport: Drain RX tasklets during link cleanup
+
+ drivers/ntb/ntb_transport.c | 190 ++++++++++++++++++++++++------------
+ 1 file changed, 128 insertions(+), 62 deletions(-)
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.51.0
 
