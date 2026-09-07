@@ -1,184 +1,150 @@
-Received: from mail-pz2-f0.google.com (mail-pz2-f0.google.com [74.125.228.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E332F43E488
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909E5456292
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775970; cv=none; b=nXaYCeIZlXfl/LGWx/qKWXXz7p8wLk3VoVANpll3YncT6EXkjLW9ERb6ZGoVxL/LRG7z8XtMXiyO4hRcmhiFuevuMeaYPkJMP7rMRnGnnAqWo6sPpmGYZLwlTJ6dgDUKNkyJNbznkyzZELHhs05aHgk8wu9jzEK3m4TYyW/LBq0=
+	t=1788776125; cv=none; b=lTkr1ejKyrQx8huws7zBJdrSvwU0JUWU9dAL00ng48HcIyN31Ot9xG6cJpHnsqtcv1LI2wtaARYAPjUalWxlhgo00VlfjPKX/k6xdTZzRD3T8wt2XhFNb7CxeUgGuyfrhniB55RFQofjZpYE/0B9tiZov/6radNxaKdzcdUgBdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775970; c=relaxed/simple;
-	bh=OUmhA2H05xyVmpdgyoC1sh5X5yzm/jtOq2yGwHl9G6M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DMy5L1laFdkPNKWCpH1ixfpArPZIrCPcU3P7PfTyJBcnRQAtnHvC7szTuorxQew2BkPJC4cVUBcusovZ4sTj1xqAAa5XBiDXgyim//OeqWm2SGvhguv6Sy5plLt5gXrIWEmpsZxTjZM4JD1noiuwFU8k2wBFCYnZbQO3vHg/UHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qtxWbx8w; arc=none smtp.client-ip=74.125.228.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788776125; c=relaxed/simple;
+	bh=V1i2BlnEahg2JQVO7eGvk4+itxVbEnp06vCwoaBgSBA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LEqvmUCjurGupL0LIqAOjCxvvyEtEnwwExv2Cgv6TBx2+r9zrBJong9O/6p7127XDD4VNcj8tUS9q4g93p/weTAgT6UxzLzXqgDOwIp6NQmJ+HdDn1whhbnY2lVQMM9XcYrS/cyepzRst4GfkSR7F5Req3pQ0dBiLPQ2aQn+Oyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0MKkuWy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qtxWbx8w"
-Received: by mail-pz2-f0.google.com with SMTP id 41be03b00d2f7-cb01d87597cso227952a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:12:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788775968; x=1789380768; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YYit+0M3Anf+oK4LLlIn10R8RMC5TUMRVTb/lweoMsw=;
-        b=qtxWbx8wHvn9t+Z+KGGRv0+n66dcA2sDkBCedDYfHmeQQUdwF1IdOHIy1NvlHa9HVc
-         aQhuSfx1jJxGgrLnzOwqIivLGMtEHxNnWexTG4OSPF9fTp2sKXJ2bwCXqwmduWPlmyGD
-         wVlH+PaD8/qCNzoQY9wei8ba8yrHg6DrJQvasW2ajfGEyLyqQG3YpzvwavBJK3u9uMZg
-         OQ4pX0GJU9JfAZK7vgxySxH9Qoa387nMzG5+AsrP4Ng0W+4pmMqIcMnxIVd80PxSAvxc
-         oKEQtUYF2FXAr6UsnEqOsl0ysWA6XXN41U7cAbIQFKOEIkqTNm/OmLtIyILkSvDDyOgS
-         A02A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775968; x=1789380768;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YYit+0M3Anf+oK4LLlIn10R8RMC5TUMRVTb/lweoMsw=;
-        b=PS029KndAQcAyDoiOj+YBCTgIgqeEAYaF3v7dkQDRKWdlIhWuQlmkhU7QtBh7+ra6b
-         IuG1Tk9pRXPZgL5wMpwOwG+veBUpijcT1a3+zgP31Q/v541mU4gmOTAYXXDTeWfaPgTW
-         cTcf8SK8XJZCon+T6l8DM7lzHRvADQMIUfR+65Op/kAdKzEZ9yUpWJSNDBIifBQ0nUOB
-         5kvPn4+R3/PcL+02f0djsdTz2t+Hx+9jGB7wjsnjPsULGKgmJWK5Bdh3D/hUIiUfGkIX
-         aqJdSLTa4RdCCqZrJvnm9CJhBzlp7kr4p37CPM/zUVb3NlBfpbHM+ljXVS5Ha4fIwCmV
-         DeZw==
-X-Forwarded-Encrypted: i=1; AKwUvBy8Fun8jPQOHFkPX1oonfATjtw/9859KhlR0rrvLPA+TJBC1Rhq1b3ivVWyVCREpLmuw+QPZYV8S+nccNw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKTV1btux+M8eNSdSPTWdA/7MeAATvR1HwEzTCyz34v6JkUzTY
-	j13w7RegX+ylq3Ytxnv6FjXCUBkogKkyQjPYMx3jDIRbytUsI3cW+/CsNFY3e3D9eQW9Pw==
-X-Gm-Gg: AYBFou20sKyh3a8Z4IP6/gRQ0UyDMLJJXAFw8VqNtLnMQvA4+6XzfgNdONgwlFhzWQa
-	cVTH85J5I0pOmkbyBhO1wmFcCXo7aBjWGq4CtYL3Byit7FxJwIgRVWc2/AmRAPDpoZBv5t3CUNL
-	3hIoUg4RULSLN2HuZq/QP7GJ1EgRgTJy0D2jzt8FhWW8IQn0O4Euu7sN3xHu42Tet0hUuqeTFk6
-	yAQYbN+v5y/rNDZgZarmVGYruSB+cfhy/Pqau3lKGhYJbOPLi6W3GX7/zhDlnkKi12mcxLbojgX
-	5BaV89/BHtWS7waNWNVgcLrpPpVvto595zeCuGH+NxcLb/pjVHBdpBburzeHfkfWO4G3yemIKqY
-	ox6w03SoBvMXVDa9E1UQWSkG5cTjRZ7xsQeC/AsQCLSDiO5G+uFKv2TeqvAH9zfTAbbljMDsg61
-	H5iMfFuGehLjf1aGgkeCl6hcVC6dcwX9zQp5OZ4LOAHzgQBiudFid9QTpz3hqj8/O3mmKZL5fV7
-	8XLEhQiJECgXylgdi6otNf5MWfR1uTJ7qO3
-X-Received: by 2002:a05:6a00:4408:b0:857:72f8:dca7 with SMTP id d2e1a72fcca58-8669b422078mr12409b3a.13.1788775967843;
-        Mon, 07 Sep 2026 03:12:47 -0700 (PDT)
-Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615273da5fsm4112935b3a.26.2026.09.07.03.12.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:12:46 -0700 (PDT)
-From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
-X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
-To: Daeho Jeong <daeho43@gmail.com>
-Cc: Chao Yu <chao@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	Barry Song <baohua@kernel.org>,
-	Juan Yescas <jyescas@google.com>,
-	Pengfei Li <lipengfei28@xiaomi.com>,
-	Dev Jain <Dev.Jain@arm.com>,
-	linux-kernel@vger.kernel.org,
-	David Hildenbrand <David.Hildenbrand@arm.com>,
-	Bo Zhang <zhangbo56@xiaomi.com>,
-	Kalesh Singh <kaleshsingh@google.com>,
-	Jaegeuk Kim <jaegeuk@kernel.org>,
-	Ryan Roberts <Ryan.Roberts@arm.com>
-Subject: Re: [f2fs-dev] [PATCH 05/14] f2fs: support large folio writeback
-Date: Mon,  7 Sep 2026 18:12:38 +0800
-Message-ID: <20260907101238.2475724-1-zhaonanzhe@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CACOAw_yjqS5DDUxQdiqbQZLdXW-fQzHmVPHf32bdBhwth=kLOw@mail.gmail.com>
-References: <CACOAw_yjqS5DDUxQdiqbQZLdXW-fQzHmVPHf32bdBhwth=kLOw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0MKkuWy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4C791F00A3D;
+	Mon,  7 Sep 2026 10:15:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788776124;
+	bh=uXoDu1tMF/m4jQEGiGmHY63F0xkg8Ul6v/JOuBvCagg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B0MKkuWyAkIty6BdiG/6Kws82Fw5TEuiwUGYU7WLDG67Fi6ZW4Dct4XfJ1soZCiMA
+	 8UFaLk1hrxEEpmdoTpZajrzDVw2gowNTWygqZDuL8b4y94K8/8sW5s15WVhTEKpApd
+	 BHzxDDWgXgGagpAlcgbA/zABdwF4t+rBeudPPfq25qB6Ve3jt5fptun+ET8wGxUqyo
+	 +tRwrMpjEBFlTTXEDfVb/S3tHTUJr/Gu6mFn54gCaQ0sEI7rFlFdz/3jxdFTkQDsU8
+	 L3YzVzuzkQYEbReNMP37b6z54NzkovspYwwqoG/LKxL9q0ku6V5xHqZDICeNjpcZQ3
+	 +vS+vVbQX7ZQg==
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 518AA198003A;
+	Mon,  7 Sep 2026 06:15:17 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Mon, 07 Sep 2026 06:15:21 -0400
+X-ME-Sender: <xms:tI6eaioxSVOks1MJoD6R-S_Vh_AtHsMa35N6mp_0-Nbr1_L4V7hHuA>
+    <xme:tI6eaju2Uv4uRwrT7B_E-oBjRS0NXseU9bAxuhla93TUHsh2Q70mDAYPpq3gr--8H
+    xU0xzRXA3rghZMlqMNHqCg8w4er7jzW60mGawgK87L8BVzGLaAN9mVm0g>
+X-ME-Received: <xmr:tI6ealS9cLRZ7cAiIsdk7xpwxZmm7tIDccAHHNesU6QwHDJAjJxDo-1jq1U>
+X-ME-Proxy-Cause: dmFkZTFHFolurtLcJyg80wlpE3jE4As5ICevdsLw9Idtn5zhcahGdYV1d6mfesOnz7ojPM
+    ytzhTab1V2GhnoGE1Cftep3BcFeYyX0YlfP4RU7WEC00zqBSEAY10lwR8q6VVL9j0Ys8no
+    MTD/QXRXQNWCXlfNmtO0jrqDD3wszlDmafHT9AkWEkfheH+x9Vt3njf8EcVlrHDWB+wA8O
+    uCS64qEvIb5A4F5wEyaUi/2/HjAZgeO5XE9Lw+CZifEc9aKV/igMWm8OrbrQFi/3xawyay
+    dTVpNMntCM+OHerB41uHPJUCUxZf3tDWrBg4NTgw7Rozr3TlWpXPuatzWCuvHtlzLREhjF
+    OsFMGvmM96qB2J7Q9z2eUYAFFGX4WapiC2NuJG5ILecaoUoq56hTapJ13PLvozI5SE6jL3
+    7bkcbSsG938Ex6mZcGX82xm0finLo4F8q+PZwOwHl3d0oiwj/7t5fJjmB7tOAed7L/lyL4
+    ZuRSWtiDAVa1MfXeDsBP/mA3nojlQTGCSFgb85XOQzWpN9IKCS8mi8KAcE9mvU36+gAASN
+    E0TB0QAhKRhb8cJVB1JunYAQR7k6Qtp9K2OLyJ7cTx6VcIk/yBeVWDXm0HFpzsozwVTs9h
+    Nouzqhdawo9IXzwzzIMJm6OX7PvNKVckNIMK2E38emiBsXOaT3ZKHQIPEi9A
+X-ME-Proxy: <xmx:tI6ealVV0iXKK03Xc7ufXYAeW2v6_7dmWl-3ZMZ6RYmc39tWo__Crw>
+    <xmx:tI6eaoDfHeUrKT2MYPHblQm8DFYXR-IwhbZb64EKZXq7GWVNmMVl2g>
+    <xmx:tI6eavEKunu_m2YZgeGcFMkyBfuRJFGnqMDB1UBBv5aKPG5aMuaadg>
+    <xmx:tI6eancfHl-JSXUfsjKZpilOvbQVDnQathOmNacC07Tu07tSVacG4Q>
+    <xmx:tI6eard_QJtbsu3JuT1U4Ms5tvRxRsSBhg40qhA-_xsEc2rW845NgIfV>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 06:15:16 -0400 (EDT)
+Date: Mon, 7 Sep 2026 11:15:15 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: akpm@linux-foundation.org, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Boris Burkov <boris@bur.io>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, Rik van Riel <riel@surriel.com>, 
+	Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Jann Horn <jannh@google.com>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	"Darrick J. Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>, 
+	Usama Arif <usama.arif@linux.dev>, Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [RFC PATCH 0/5] mm: sub-folio dirty tracking for PTE-mapped mmap
+ writes
+Message-ID: <ap6LFvuOuWf_BkGi@thinkstation>
+References: <20260903182943.662461-1-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903182943.662461-1-kirill@shutemov.name>
 
-On Thu, 27 Aug 2026 15:39:19 -0700, Daeho Jeong wrote:
-> If f2fs_write_single_data_folio() fails on subpage 1, jumping
-> to `out` unconditionally clears the dirty bitmap for the ENTIRE folio
-> (0 to folio_size),
-> and decrements the inode dirty pages.
->
-> The unwritten dirty subpages lose their dirty tracking and will be
-> discarded cleanly
-> under memory pressure, causing silent data loss.
->
-> Fix: Only clear dirty bits for successfully submitted subranges (`0,
-> pos`), and redirty
-> the folio if unwritten dirty subpages remain when an error occurs.
+On Thu, Sep 03, 2026 at 07:29:38PM +0100, Kiryl Shutsemau wrote:
+> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+> 
+> A store through a shared file mapping dirties the whole folio. With large
+> page cache folios that turns a 4K store into 2M of writeback: one dirty
+> bit per folio, and writeback has no way to know which part changed.
+> 
+> XFS already knows better. iomap tracks dirty state per block and
+> iomap_writeback_folio() submits only the dirty ranges, and the buffered
+> write path sets just the range it copied. Only the mmap path throws that
+> away, because iomap_dirty_folio() covers the whole folio.
+> 
+> Narrowing the dirtying at page_mkwrite() time does not work on its own:
+> set_pte_range() batch-maps a whole folio writable on the first shared
+> write fault, so the stores that follow never fault and never reach the
+> filesystem.
+> 
+> So harvest the hardware instead. folio_clear_dirty_for_io() already calls
+> folio_mkclean(), whose rmap walk reads pte_dirty() for every entry of the
+> folio and throws it away. Those bits are the only record of which parts
+> of a large folio were written through a mapping. Collect them there and
+> hand the filesystem the runs that were dirty, through a new
+> a_ops->dirty_folio_range().
 
-Thanks for the review. Agreed.
-My change hunk may like this:
+Boris pointed me to Matthew's proposal to remove ->dirty_folio:
 
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-@@ f2fs_write_single_data_folio():
--static int f2fs_write_single_data_folio(struct folio *folio, int *submitted,
-+static int f2fs_write_single_data_folio(struct folio *folio, int *submitted,
- 					struct writeback_control *wbc,
- 					enum iostat_type io_type,
--					u64 start, u64 end)
-+					u64 *pos, u64 len)
- {
- 	struct inode *inode = folio->mapping->host;
- 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
- 	bool atomic_commit = f2fs_is_atomic_file(inode) &&
- 					folio_test_f2fs_atomic(folio);
- 	struct inode *dn_inode = atomic_commit ?
- 					F2FS_I(inode)->cow_inode : inode;
--	u64 pos = folio_pos(folio);
--	pgoff_t start_idx = (start - pos) >> PAGE_SHIFT;
--	pgoff_t end_idx = (end - 1 - pos) >> PAGE_SHIFT;
-+	pgoff_t start_idx = (*pos - folio_pos(folio)) >> PAGE_SHIFT;
-+	pgoff_t end_idx = (*pos + len - 1 - folio_pos(folio)) >> PAGE_SHIFT;
- 	int local_submitted = 0;
- 	int err = 0;
-@@ IPU/OPU common write_done:
- 		err = f2fs_inplace_write_data(&fio);
- 		if (err) {
- 			if (fscrypt_inode_uses_fs_layer_crypto(inode))
- 				fscrypt_finalize_bounce_page(
- 						&fio.encrypted_page);
- 			goto rollback_no_dnode;
- 		}
+https://lore.kernel.org/all/aoyWln-Gt-yvZQkE@casper.infradead.org
 
- 		local_submitted++;
- 		set_inode_flag(inode, FI_UPDATE_WRITE);
--		continue;
-+		goto write_done;
- 	}
- ...
- 		f2fs_outplace_write_data(&dn, &fio);
- 		local_submitted++;
- 		set_inode_flag(inode, FI_APPEND_WRITE);
- 		trace_f2fs_do_write_data_page(folio, OPU);
- 		f2fs_put_dnode(&dn);
--		continue;
-+		goto write_done;
-+
-+write_done:
-+		*pos = (u64)(data_idx + 1) << PAGE_SHIFT;
-+		continue;
-@@ f2fs_write_cache_folios loop + out:
- 		while ((r_len = ffs_find_dirty_range(folio, &pos, end_pos))) {
--			err = f2fs_write_single_data_folio(folio, &submitted,
--					wbc, io_type, pos, pos + r_len);
-+			err = f2fs_write_single_data_folio(folio, &submitted,
-+					wbc, io_type, &pos, r_len);
- 			folio_submitted += submitted;
- 			if (err)
- 				goto out;
+I agree that the current ->dirty_folio() makes little sense and that
+dirtying the folio can be bundled into ->page_mkwrite(), as they are
+matched 1-to-1.
 
- 			nwritten += submitted;
--			pos += r_len;
- 		}
- ...
- out:
--		f2fs_ffs_clear_subrange_dirty(folio, 0, folio_size(folio));
--		inode_dec_dirty_pages(inode);
-+		if (f2fs_ffs_clear_subrange_dirty(folio, 0,
-+					(err ? pos : end_pos) - folio_pos))
-+			folio_redirty_for_writepage(wbc, folio);
-+		else
-+			inode_dec_dirty_pages(inode);
+My proposal makes the distinction between making the folio writable and
+making it dirty meaningful. ->page_mkwrite() allocates whatever is needed
+on the filesystem side to track dirty state and drive writeback for the
+*folio*, while ->dirty_folio_range() marks part of the folio dirty.
 
-Btw, I think the name f2fs_write_single_data_folio() is misleading now
-that it writes a dirty subrange of a large folio; would
-f2fs_write_folio_dirty_range() sound better?
+We can still drop ->dirty_folio(). A filesystem can provide
+->dirty_folio_range() if it wants fine-grained (sub-folio) dirty
+tracking.
 
-Thanks,
-Nanzhe
+A separate question is whether we want to avoid installing a writable PMD
+entry for filesystems that want fine-grained dirty tracking. I have a
+patch for this, but it deserves a separate discussion once we agree that we
+want this for PTE-mapped folios first.
+
+Any feedback?
+
+> All of this is about PTE-mapped folios. A PMD-mapped folio has a single
+> dirty bit for the 2M it maps, so there is nothing finer to harvest, and
+> it keeps writing back whole. Keeping shared write faults off PMDs is a
+> separate patch and not part of this posting.
+> 
+> On a 512M file in 2M folios on XFS, storing one byte per folio and
+> calling msync() wrote 512M before and writes 1M after, with identical
+> minor fault counts.
+> 
+> Not addressed here:
+> 
+>  - Dirty accounting stays folio-granular. A 4K store still counts as 2M
+>    against dirty_ratio and balance_dirty_pages().
+>  - iomap_page_mkwrite() still allocates blocks for the whole folio.
+>  - Filesystems without per-block dirty state see no change.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
