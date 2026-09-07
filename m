@@ -1,127 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B711418A6DB;
-	Mon,  7 Sep 2026 06:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987A437F321;
+	Mon,  7 Sep 2026 06:47:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763627; cv=none; b=A0yxYyNrj2FMN1n2ByciasKG4d+uAJAi8QJ8cYDobYk7l4ME44RaKC3nOnZpfSsp7R8/m7H9OjyTYcIo30CnYbKtrpdA021xjlWALkDGyC77a7Q2l7FtS9wKljwcyBKdWuusdalTLq6DkzMKPHr+ga3FrBcSMCqlu7Z85VrvFtc=
+	t=1788763645; cv=none; b=icKTAjkciIYjCvdPW//lcgEoN3fpdF0eKVHRJQ/6GGRhWPBhuVrbcw6BJhx9q8MjAyf2OBfustAYYtyk7a3M0qF65k8hZdxEPfwHNsF6EAbCt/+uW9LRbgZXjdJUPjxA0InbxoNVr/wmQ7ufIwRKMfwBcEQVmsyA9fXQwTrGnfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763627; c=relaxed/simple;
-	bh=tca7PimGU09et+8+jXclurn63CWS7YzQd6TXIaQcIxU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J+u8Kr7D7GOYouBPwRm7AT6sj0c4R9g/X9t8r6LzHPUrFM7Jrp/Jguua9bKrJgiSFvjlxw8tJjYB62sYC0GHakg62QwntONsBlWdZctF3Qz8H4+PK0vvFhuzjyMLIxoW5U8N6Q2A+vzk/rwPxLVnoBtRE4ZlrrzrgmBDn+y1q3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cwGAS30i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788763645; c=relaxed/simple;
+	bh=bJPiTTGsc3yenhYOT2Hyvlf3agRMGZCEMTqOhy1xAXw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=T85CMYRV9jEL71IkzVehLqYrgi+QRDZsSW4f4/8wMdVj0efVFxOIXmQWse+OBtZcJABQKXX9oHtxV/LEC0IwBf3p4/TVpKIH/eTbmxHbSdLkKa9ydF4WbUvT1BxwTGHr/Sn1bPBoEy9sd5GANgJG7L11YzuToKrONd/dwU3U/LA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TKqmwh5l; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cwGAS30i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0FB91F00A3A;
-	Mon,  7 Sep 2026 06:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788763626;
-	bh=7Q8SgKaQsoBb0PUNIYstKJgTZKAX/kgSRpOfyb6gKNI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cwGAS30i87YTb7mbKD73RynW5ZpmCpbArvIX+3K4KCdmIgqNjLsLRnY+h35gRz+ci
-	 oxbuz7G8jerfdbP92HQAslqFFEeJxZTRmXUCCJ8gYF/J8lZFESvuJNUxZJB3lGPtox
-	 y+ap7SBqGlZ764UyGLnNFgpTOjrrjAkvFFG80wV2LTCzlFrLeqALk+Eu8Pg03X7bpz
-	 LJWzTo/C/OYiSuZcCdJ9xzWO+8woXoO/v6PeckuZQUxMZs+e0yQhl6B7kqXEtkNpT8
-	 qOpbYp8kT+kR15XDvleIPnFRDByd/WHrYQpngwBk57p0idj+6rBx9ztlayPrgXSR4m
-	 FXH5bk+NmcxgA==
-Date: Mon, 7 Sep 2026 09:46:59 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Message-ID: <ap5d422O7U0q6rAn@kernel.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
- <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
- <20260906181247.GA1148584@ax162>
- <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
- <ap3EgrZJILehwIQK@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TKqmwh5l"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788763644; x=1820299644;
+  h=message-id:date:mime-version:subject:to:references:from:
+   in-reply-to:content-transfer-encoding;
+  bh=bJPiTTGsc3yenhYOT2Hyvlf3agRMGZCEMTqOhy1xAXw=;
+  b=TKqmwh5lyp3e1r/Ole0lt8Trqhjz7kBUj/FWorkhYbQADCB/0EUbAxrP
+   Regb3UXVzLMujaXfZJb2SsYKsV46cEa+Fzsu6Tx4roGGyn7Z+/IoN7LG/
+   fOtKfKu9mV5vO6E+c/p4zoEn6kGxcxHU0IZ13IwcTOwmzwwNQRbUygYHI
+   sbllKLbQ2v/zb2KJtItlk5vJS8uGDX/ZgfOcnx+c/WrVoU/aTMVs+nSVU
+   WPprH8BwKoQFBJJzoSATklHurIncaHOKX+Lvv9dJ0j4YlZsrDX7AagHXB
+   7cbcspgCP0Rnl2az1EmE1Ht9Vx9ZXJ+ibfcoJxyIQ5kKUFPhWJdqdXyvf
+   w==;
+X-CSE-ConnectionGUID: e7ofdeyDRAewH9A/Ck93bw==
+X-CSE-MsgGUID: 8uITsi9+Rhq8BgNQ/h6zrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="89007890"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="89007890"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 23:47:23 -0700
+X-CSE-ConnectionGUID: v0qGgyvMQwugywJZ/fRwfg==
+X-CSE-MsgGUID: hukM3fOPR2iMjxwuL+epjQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="268892816"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 23:47:20 -0700
+Message-ID: <3b4cee11-a3e7-4c31-bc5d-a992f00db0c3@linux.intel.com>
+Date: Mon, 7 Sep 2026 14:47:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap3EgrZJILehwIQK@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] perf test: Avoid call to missing cleanup function
+To: Ian Rogers <irogers@google.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Zide Chen <zide.chen@intel.com>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260904194954.1192154-1-irogers@google.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260904194954.1192154-1-irogers@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 06, 2026 at 10:52:41PM +0300, Mike Rapoport wrote:
-> On Sun, Sep 06, 2026 at 12:12:54PM -0700, Dave Hansen wrote:
-> > On 9/6/26 11:12, Nathan Chancellor wrote:
-> > > On Sun, Sep 06, 2026 at 07:50:26AM -0700, Dave Hansen wrote:
-> > >> On 9/4/26 21:42, Nathan Chancellor wrote:
-> > >>> I just bisected the following warning on a couple of my test machines to
-> > >>> commit 453e78594434 ("x86/mm/pat: Fix effective RW computation in
-> > >>> lookup_address_in_pgd_attr()") in next-20260904.
-> > >> ...
-> > >>> If there is any information I can provide to help debug this, I am happy
-> > >>> to provide it.
-> > >>
-> > >> Well, the thing you bisected to is the patch that fixes the warning. The
-> > > 
-> > > Hmmm, I don't see a warning prior to this patch though. Do you mean that
-> > > this patch is just revealing the bad behavior that you mention below?
-> > 
-> > Yeah, "fixes" was a bad word to use.
-> > 
-> > The W^X detection has been broken for a while. The patch you bisected to
-> > fixes the W^X detection. It doesn't actually cause the issue.
-> > 
-> > >> actual issue comes from:
-> > >>
-> > >>         if (pages == &its_pages)
-> > >>                 set_memory_x((unsigned long)page, 1);
-> > >>
-> > >> which its_alloc() does on an execmem allocation. Any chance you could
-> > >> get the output of:
-> > >>
-> > >> 	/sys/kernel/debug/page_tables/current_kernel
-> > >>
-> > >> for the page that page that it's complaining about? I'm curious if this
-> > >> is temporary or permanent.
-> > > 
-> > > Sure. For
-> > > 
-> > >    CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100e00
-> > > 
-> > > I think it is this line if I understand correctly?
-> > > 
-> > >   0xffffffffc0200000-0xffffffffc0400000           2M     ro         PSE     GLB x  pmd
-> > 
-> > Yeah, that does seems to show it getting fixed up. Thanks! That means
-> > that the warning (at least in early boot) is essentially a false
-> > positive. The problem is that there's module-load-time patching too and
-> > that is much later and is arguably an actual problem.
-> > 
-> > Oh, and thinking about it a bit more... This warning came from
-> > alternatives patching which is too early for normal text_poke(), thus
-> > the existence of text_poke_early().
-> 
-> But text_poke_early is a memcpy :)
-> 
-> The warning at core text patching is completely spurious because anyway the
-> entire kernel text is mapped as RWX at that point.
-> 
-> This one should be fixed as with the patch below. As for the modules,
-> text_poke()ing sounds like the way to move forward and ...
+LGTM. Thanks.
 
-For modules everything should just work, the memory is RW until
-its_fini_mod() that resets to to ROX, so there are no RWX violations.
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-Looking at the code after morning coffee rather than near midnight helps :)
-
--- 
-Sincerely yours,
-Mike.
+On 9/5/2026 3:49 AM, Ian Rogers wrote:
+> Cleanup function was removed by writing to /dev/null rather than
+> temporary files. The exit path still had a call.
+>
+> Fixes: 44f6b4402791 ("perf test: Fix hybrid testing of event fallback test")
+> Signed-off-by: Ian Rogers <irogers@google.com>
+> ---
+>  tools/perf/tests/shell/test_event_open_fallback.sh | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/tools/perf/tests/shell/test_event_open_fallback.sh b/tools/perf/tests/shell/test_event_open_fallback.sh
+> index 9420a7557c13..27d440a5355d 100755
+> --- a/tools/perf/tests/shell/test_event_open_fallback.sh
+> +++ b/tools/perf/tests/shell/test_event_open_fallback.sh
+> @@ -57,8 +57,6 @@ ret=0
+>  test_decrease_precise_ip		|| ret=$? ; count_result $ret ; ret=0
+>  test_decrease_precise_ip_complicated	|| ret=$? ; count_result $ret ; ret=0
+>  
+> -cleanup
+> -
+>  if [ ${err_cnt} -gt 0 ] ; then
+>  	exit 1
+>  fi
