@@ -1,136 +1,150 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F16937C931
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4354534A5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:50:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792626; cv=none; b=m0eJjdnyZxLiTWjL3XU5ttMuQ2QFLd8ugV7zeZ9tvC5gC25OYLI8VME7q2u9isoUK54xeh7A95mehrtinN8cDq3rPWjVFHGZzbG2tskp1FXHnW37s6sucNI4vWG/fAwVpZ4rGF2x6xZ2TOVlj5vK0QsEqX2c7/gBYGqJqZ50uCE=
+	t=1788792616; cv=none; b=S4Y2NdjtG31bS9tyan0gKK94LbBZHWgxAqgbouIJNkOj5ihCd4k1BDMR9ifbPZ88zGXhThn2mAa60NL+Bf+VelKJlMdA9+/dX2uoFWgHQabWsDrGMxlgqXwJUDEkT/Y7Q6S+2ylsAPXaS55GZaNiVIYLz+O8CSShAvcU3Cc7C3k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792626; c=relaxed/simple;
-	bh=NyENwqYiXjV7+pyzMIE+mVeG1/8VVB7bn3DU67F8TGE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jMOJb6ajXHWGrhgbIaPlyl891hEMZuHa7fLymgCwXbe5gSf+GCCcJYfsBR4XmAsJI2HtExvo1Fl77+/UC4s45tc6ReysO60Zwc2Hp5h72YBZ/OxI9to7Rnh51VmBILDgpe7thj/6mhxJfTXSWZikj4LrLYSb+pGJysSy+0YbjM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r1AGL/59; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788792616; c=relaxed/simple;
+	bh=qg0EgdC1JYpqPJvrqMKjHwBv5u7+1NBON6XbAclWwsQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AIvXh6vVqj5qAG+mz6GLHyjXM0QWXIWFbzlcOcuJuedWLcZMuPkhI12XQEf5kvvBuAJhLn/WttV2B3f+iwo1HAVAfU8PlWTcyliU7DjspFw2iWyN/xNsgpL+UNC2DNmJza3dmO0PZlAVMSain2JJGaOy0hhxYnohHp8In4yznFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBBZei8f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r1AGL/59"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482e067e908so3013610f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:50:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788792611; x=1789397411; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yxN3NGbWp4Z4cW1QqlGymMDSYp6HB/CZBR9XQu9IyDM=;
-        b=r1AGL/59pSAuWS/4zlG7UcNDCsCMkKPx0T0xi2+YdzGg2lIYRcZ60tHnExibHGtKcR
-         AVozaHXV9zBiBveBh3EVUDkDdYCHe+AwpvfzuBafBxcd/2vJzUrGU/WgghNH+lstcsaf
-         trjqUEoOaP7susV9apOydvid9DRg1H+sMtHmcvKIaESDXOb6Uqwew/5wh39pAWts/4N6
-         OD6fd9vO15474KkzQsX37QUkQei/TZ7dDBmhRyVNVX9FOy3BBfW8X6mbSAarhlaqrOfl
-         4bYRZdZcM3fryEG/6UfL+p46Rv7y9ZZ4WaW/jwAdft5JqI/m774mSA9Gj/pcbAqxbC2k
-         BN3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788792611; x=1789397411;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yxN3NGbWp4Z4cW1QqlGymMDSYp6HB/CZBR9XQu9IyDM=;
-        b=UE25vevr1pGqACC0kyWItHNMM4ZCGBs1G8pvMifbih3b1AZ8r4Sj/deSkYBoLaSy9u
-         GHMva4er4s/Gd7OoeieT9Eeve3cU5h7u640sXxbnFsRFxB4bwVo5q/MHyMGgyX/Zs4sj
-         DcPnoAjw9iVRSSFl6I5nc8js1bykGyPlgiv6jDzQn7GOKTo11R4we29r2mywK+ZchqzC
-         Cn//5mAvymdaAXfgn5IjkpO9te8R65Fsk88KesLtHYflwFlKoNwI+pQrBNZrh4gsQPRP
-         DuiY5CEQLWyMqvTCKtzW4gFfQzZ3v4rUmsKx+k9q6ELCXaCptMM5WefPlKsLux0hf7rT
-         f/sA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhxrc9crTGw5Agj+d139Dcf70ZQ9qZNqS6e6xQD4r5jk+q9m4GE+l9qiTwpZir3+4oaAdnkpG6VGuaZWo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA6zivNi7DjZ+T839eZQjbPPVNYu4h8m9cWM1OS0vUEQiydj/d
-	8qP0ent0bGy0545PzxTZKljHytnesp37OMUnhiY0m+FPFCYkX9R5eiqD
-X-Gm-Gg: AYBFou1xZFzy/pHGAiw9LIpoExu9KUy6TfLEP0GWpt4H7/zw0YtR+/YKQPDlWl1CBPi
-	AMLdjt2cdTtMA+CT4gg6r+3drZZVVqCWvagO3d/PbetuKUyK0/JF+MJVWImmzWti2z0KskMOT2+
-	oK+7/yRojyEl0gDD6sorGPNdAnJ9mpFLNh6Cd4uRE8J2sC0tvGmDaFX+h+UCUSlcwTgbJmDRoOg
-	0Okp7b+amA/G4ZJv1vLo9T1XsWeoY/AhAtwWwssOV6AHmIimQYeQ+GLo0WHo2HKfrAPwp/aXgK3
-	bAn3Oc/2bJxG09jhOrDHoNVsay4pqAJUiqjD3pBTJjdNuI5D8QsRQcbXC7I01p0GqyzkuLrIXYI
-	oDpgMMG+93+kjo9tt4OoWYe+qZis+WsWliHUfWRuDQpzWn01HKDPYQ3ZVqMawON9smYKoZbiOIv
-	jU4S+aGKUpdjYCoM2nzHHWJQ0fHx3pLIqFxUJkn6YVj5mnCx+8DKDGwP7aGGaeEWxatP2+/b8vV
-	/wTPLD+TI42kQlmk0BRZyTQPTKZW3Iutf1g2dUofU+kEer412ciYQfwBSHjaaoIrDWjp+doXdbV
-	QvaV3myKMiipsb4oeulAgGFUfEFiuCiFIz0vhaHydQp514HvOVoufvsn0I8cJmPs7H6uSx99PXC
-	QHv+pJwdu2szRJ1BJekXU7irZSt8eo69QZdtilPy4zZj4+8NJvbuPFDYIfzGyXvNESMeI3DY=
-X-Received: by 2002:a05:6000:1acf:b0:485:8a46:7062 with SMTP id ffacd0b85a97d-4858a467220mr21639400f8f.52.1788792610782;
-        Mon, 07 Sep 2026 07:50:10 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b7bfasm29695161f8f.29.2026.09.07.07.50.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 07:50:10 -0700 (PDT)
-Date: Mon, 7 Sep 2026 16:50:09 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Salah Triki <salah.triki@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: temperature: tsys02d: Fix state desynchronization
- on resolution write error
-Message-ID: <20260907165009.0000035c@gmail.com>
-In-Reply-To: <20260907085353.54477-1-salah.triki@gmail.com>
-References: <20260907085353.54477-1-salah.triki@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBBZei8f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F42B1F00A3A;
+	Mon,  7 Sep 2026 14:50:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788792608;
+	bh=0mIRzAim8Xm04hf6n5NB+NxEk+eE5bXm5v665dJOtpg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=oBBZei8fiHVJieUd7Lx21QpFtUu+KnLLeLIBYbntsp5gB1HSyOzJ2aCxPwQTrnzsR
+	 ZAV5ezYF7K8Svj2yPyUBGosD9SRvb0Pk+1Bi9o1dFVWx2Tv/7jSjX6oi0HUYKze38r
+	 ZkDapIB5ST8+zWkvJyYsQ1rbKV3Oh2LQJvhhfw4H+6HsGG5zQC0+FPDYOJBXL2FSk1
+	 dj6BTOsA7RqNsT0El6XVcv6nydL4/FdBaq9zC3Oc0FOe5VSIZEu2+qjJDRuhMI+fyC
+	 QMEJVhJUA/B5pP68gI7p3UQ4lFuzH1BYO9AcCR58lwusE8FgQzCK4yHGJmzAQfoGal
+	 M+e2/iEYEUDDw==
+Message-ID: <cc0fdb0e-ab6a-4095-b559-10e1d8a616d9@kernel.org>
+Date: Mon, 7 Sep 2026 16:50:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] mm/gup_test: safely calculate GUP batch size
+To: Sarthak Sharma <sarthak.sharma@arm.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260903115033.162218-1-sarthak.sharma@arm.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260903115033.162218-1-sarthak.sharma@arm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Mon,  7 Sep 2026 09:53:53 +0100
-Salah Triki <salah.triki@gmail.com> wrote:
-
-> In tsys02d_write_raw(), dev_data->res_index is updated before checking
-> the return value of ms_sensors_write_resolution(). If the hardware I2C
-> write operation fails, dev_data->res_index remains updated with the
-> new index despite the physical sensor remaining in its previous state.
+On 9/3/26 13:50, Sarthak Sharma wrote:
+> __gup_test_ioctl() calculates the end of a GUP batch using:
 > 
-> This leads to a state desynchronization where subsequent reads via
-> tsys02d_read_raw() return an incorrect sampling frequency.
+> next = addr + nr * PAGE_SIZE;
 > 
-> Fix this by performing the I2C write first and updating dev_data->res_index
-> only if ms_sensors_write_resolution() succeeds.
+> If nr is too large, it can cause next to overflow and wrap around.
+> If it wraps, the next > end check is bypassed and a large value
+> of nr is passed to the GUP call, even though the pages array was
+> allocated according to gup->size. This can lead to out of bounds writes.
 > 
-> Fixes: 53bf4d067d51 ("Add tsys02d meas-spec driver support")
-> Signed-off-by: Salah Triki <salah.triki@gmail.com>
-
-Was this found using an LLM or manually?
-
+> Also, when fewer than PAGE_SIZE bytes remain, the calculated batch
+> contains zero pages. The code still calls GUP functions with pages + i,
+> which can point past the allocated array.
+> 
+> Calculate nr by taking the minimum of the number of pages per call and
+> the pages remaining in the address range. Stop processing when no
+> pages remain and calculate the end of the batch using this bounded
+> value of nr.
+> 
+> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
+> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
 > ---
->  drivers/iio/temperature/tsys02d.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+> Sashiko reported the issue fixed by this patch while reviewing the patch
+> "mm/gup_test: report actual pinned bytes". That patch has been applied to
+> mm-new. Since the two fixes are independent, this revision contains
+> only the GUP batch size fix.
 > 
-> diff --git a/drivers/iio/temperature/tsys02d.c b/drivers/iio/temperature/tsys02d.c
-> index 3ef72347456e..f50426beacdd 100644
-> --- a/drivers/iio/temperature/tsys02d.c
-> +++ b/drivers/iio/temperature/tsys02d.c
-> @@ -73,8 +73,9 @@ static int tsys02d_write_raw(struct iio_dev *indio_dev,
->  		if (i < 0)
->  			return -EINVAL;
->  		mutex_lock(&dev_data->lock);
-> -		dev_data->res_index = i;
-
-+ blank line
-
->  		ret = ms_sensors_write_resolution(dev_data, i);
-> +		if (!ret)
-> +			dev_data->res_index = i;
-
-+ blank line
-
->  		mutex_unlock(&dev_data->lock);
+> Changes in v4:
+> - Simplify batch clamping logic as suggested by Kiryl
+> - Don't call GUP functions for an empty batch
+> - Drop the pinned byte reporting patch since it has been applied to mm-new
+> 
+> v3: https://lore.kernel.org/all/20260901083452.115365-1-sarthak.sharma@arm.com/
+> 
+>  mm/gup_test.c | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/gup_test.c b/mm/gup_test.c
+> index 185ba3bb8ed1..1b64e932c4c5 100644
+> --- a/mm/gup_test.c
+> +++ b/mm/gup_test.c
+> @@ -139,11 +139,12 @@ static int __gup_test_ioctl(unsigned int cmd,
+>  		if (nr != gup->nr_pages_per_call)
+>  			break;
 >  
->  		return ret;
+> +		nr = min_t(unsigned long, gup->nr_pages_per_call,
+> +			   (end - addr) / PAGE_SIZE);
+> +		if (!nr)
+> +			break;
 
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+Can !nr actually happen?
 
 -- 
-Kind regards,
-Joshua Crofts
+Cheers,
+
+David
