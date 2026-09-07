@@ -1,73 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243EF4582D4;
-	Mon,  7 Sep 2026 11:01:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778880; cv=none; b=GyR002Wf6Q5C+PLF5+3JIiaxDOKoPFgfNAsA9lORjOXuGBPLZo0jqn9uHh+o2Ez/0XgOmICgOUicSx7mXG8zi2x2D2N+WVLvPRWL/szoXjNepkq0wZunhiuJ6INkH1JHz62bff/cbrGegig4GKQuUqk6eNDxnoGasnCXsedVLmo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778880; c=relaxed/simple;
-	bh=b8YfcUL36uqFq2U/tdhOMgGM44rwal4ClWPpTfi9Iiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=RSeOJYQLLZxFMU6/NyAC1v23bL8tGYd7j4RzEMzcH21uTp1KJzcJUBbqm/Vv9bv6IEPXdS3/yyIYWejV3rzsJ1JgpKhvzU5GLPIoOjzqmsw/F28pynOLSurfwgl880t/pOoMi0qj8ZKAZzJXcuNwOxkIey1GnBAWQRhmn+skyZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOha6ZX/; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOha6ZX/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83191F00A3D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2489D46AA9C;
 	Mon,  7 Sep 2026 11:01:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788778878;
-	bh=sp9qiQNzXiFRsnt2+6Z96Sy8P9WIkNH2Mpu4wOE80Ds=;
-	h=Date:From:To:Cc:Subject;
-	b=oOha6ZX/+ezHgwWWuIX9TYAF8WPBrqxIdSn134f1XfjxP/X7OpRiqtnuBtIUl3nXA
-	 gpW0GdGOa9Z/cCZvhgmLkeEzlSgyJQsGl2wkhFe3zsVUhvC0JqIPcBFVZbBAfBaQNi
-	 Rpe8lyqqgPcLNLRILbs0X8G9F1hhgsUngEpW7v/XEX9zAWyKcNWYnFfDhWQHXHOfi0
-	 wHMCxOQl75X0XV/1MwUx3/8rpzieZtU4wugxOQORS2F355PQOS8ya9OASUQV4GZkU6
-	 5c2gA+jq6xFtNdORiIclX8GLP06oOkTI3yjB0hTkJurvNKsP//rUm+MbYaAL4dXfbp
-	 Ds8/iXddlI8rw==
-Date: Mon, 7 Sep 2026 12:01:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Marcel Holtmann <marcel@holtmann.org>,
-	Johan Hedberg <johan.hedberg@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
-Subject: Missing signoff in the bluetooth tree
-Message-ID: <ap6Ze-_ckuTFyCMH@sirena.org.uk>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788778881; cv=none; b=bi4wfMUAo+DXojCIFRwIHKyONMNi5nXpqniks9MJ0AVEf4y9H6HomjrkHResIMdCWaRD7hxWqIq2eP3jZvJ4uIGrhc86bTfq8zG6Nhhs4dadkm+TeR5pe9Z2BU09ThJbpCqH4cqY10n+IhpV73N/hk0meATs2fuHnyESa/W5Gjk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788778881; c=relaxed/simple;
+	bh=0HILOA9S6qfQr25g217vDM/WBy58yERkxKGLrjHyRBw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t0xG1EbOb4MGV3eo+GtNms3q986i1Q6SOmL7pdY122o34Ppgqm/pQlECYLQdavJdLFqJb1L/poBlLPvXyDE2Gp01UZY8WWTo4qopxRgf8q1RKLP5//5zN0km2/TC6IOBHErCaTC2ix+QhkqYbi0jsQxN80a94AzmbPxW0XtCjrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rHrdjI3Z; arc=none smtp.client-ip=115.124.30.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rHrdjI3Z"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788778876; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
+	bh=fOZgTIi+9CkjJIkHZ5qDJVF7Cb2c4YKm1mdHlDBaqAs=;
+	b=rHrdjI3ZXCI1hwddQCoiR8SzGXc1jwSkBJZriTIaSadr2V1fDgKvjgPMQRi4fPS7vy9Jn/Lc1bc9iIBzJYpF7CcQeldnFOqzMa3Wo/L+J6prSUkD619Cq5g8kMy2Qb+d66hlzdRMLTg7+BHZj3mTkAyuLfoK3QgU0HrWoGn3lSk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R501e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=21;SR=0;TI=SMTPD_---0XATsvzD_1788778872;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XATsvzD_1788778872 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 07 Sep 2026 19:01:14 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Usama Arif <usama.arif@linux.dev>,
+	Dave Chinner <david@fromorbit.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Xunlei Pang <xlpang@linux.alibaba.com>,
+	cgroups@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH v2 0/4] mm: restore per-memcg reclaim for NONSLAB shrinkers under nokmem
+Date: Mon,  7 Sep 2026 19:01:07 +0800
+Message-ID: <20260907110111.2286932-1-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0XBuCxOMWKPLFIG3"
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+With cgroup.memory=nokmem, the THP deferred split shrinker and the
+zswap shrinker are degraded in two ways.
 
---0XBuCxOMWKPLFIG3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+First, both shrinkers are missing the SHRINKER_NONSLAB flag, so
+shrinker_memcg_alloc() demotes them to non-memcg-aware shrinkers:
+limit-induced reclaim of a cgroup neither splits its partially
+unmapped THPs nor writes back its zswapped pages.  v1 of this series
+[1] restored the flag to fix that.
 
-Commits
+However, as Sashiko's review of v1 pointed out [2], the flag alone
+is not enough.  __list_lru_init() also collapses every list_lru into
+per-node lists under nokmem, so even with the flag restored, the
+objects of all cgroups share one list per node: the per-memcg
+shrinker bit is only set for whichever memcg happens to repopulate
+the empty list, so pressure in other cgroups may not even trigger
+the scan, and when it does, the scan walks everyone's objects.
 
-  755cf7adf8dd2 ("Bluetooth: btintel_pcie: unified decoder coredump format")
-  61f725843b509 ("Bluetooth: btintel_pcie: add MDBGC multi-buffer DBGC allocation")
+Before commit fafaeceb89a5 ("mm: switch deferred split shrinker to
+list_lru"), THP had fully per-memcg deferred split queues embedded
+in struct mem_cgroup, working independently of kmem accounting.
+nokmem only opts out of kernel slab accounting; THPs and zswapped
+pages are user memory and remain charged to their cgroups, so
+per-memcg reclaim is still what these shrinkers want.
 
-are missing a Signed-off-by from their committers
+This series keeps list_lrus backed by SHRINKER_NONSLAB shrinkers
+memcg aware under nokmem:
 
---0XBuCxOMWKPLFIG3
-Content-Type: application/pgp-signature; name="signature.asc"
+Patch 1 drops the kmemcg_id copy, which is only assigned when kmem
+accounting is enabled, and derives the list_lru xarray index from
+the memcg ID directly, so the index works independently of kmem
+accounting.  It also drops the nokmem early return from
+memcg_offline_kmem() so these lrus are reparented on offline.
 
------BEGIN PGP SIGNATURE-----
+Patch 2 keeps a list_lru memcg aware under nokmem when its backing
+shrinker is registered SHRINKER_NONSLAB.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqemXoACgkQJNaLcl1U
-h9Df4ggAgOEPYyBz/UJ+5726betmqo2o2MySo0nv24rd+AbysCoI7sawLWcd6+/c
-vdT/Q/1FrvkAQjF6KPXJySdKrooI5uVS2Jjq6Y6qugsO3XDrwUhSXglpO7Rrwqqq
-Uvb/Qd0gRoWOI5Uj1a3N+QGTtkDHTr6vk3g9+5lYx3utKYTbA1UMrurLXi3WUc5r
-z9r3aMlRLOLG1v0UDG1zNhQOwF52g/djRskzzFNmE+4PAtl1jCMCy2AC7VGbojqR
-xUSlsPzJR/EnMSHesYDkK0cmW6x+raWogz1Ow4rf5yyFjXzqPm1YxCzBuba2CFbj
-ZiKfshpv/BvCNqaxtJyd+pJ1YXKMrQ==
-=UVgE
------END PGP SIGNATURE-----
+Patches 3 and 4 restore/add SHRINKER_NONSLAB on the THP deferred
+split shrinker and the zswap shrinker, unchanged from v1.
 
---0XBuCxOMWKPLFIG3--
+The savings of nokmem are preserved: slab-backed lrus (e.g. the
+superblock dentry/inode lrus) still fall back to per-node lists, and
+the per-memcg lists are only allocated when a memcg actually holds
+such objects.
+
+[1] https://lore.kernel.org/lkml/20260904033503.4067283-1-qinyuntan@linux.alibaba.com/
+[2] https://sashiko.dev/#/patchset/20260904033503.4067283-1-qinyuntan@linux.alibaba.com
+
+Changes in v2:
+ - Keep the list_lrus behind the two shrinkers per-memcg under
+   nokmem, so the shrinker bits are set for the right memcgs and
+   scans stay scoped to the target cgroup's objects (patches 1-2,
+   new; addresses Sashiko's review of v1).
+ - Patches 3-4 unchanged from v1; collected the review tags.
+
+Qinyun Tan (4):
+  mm: memcontrol: drop kmemcg_id and use the memcg ID for list_lru
+    indexing
+  mm: list_lru: keep per-memcg lists with nokmem for NONSLAB-backed lrus
+  mm: thp: restore SHRINKER_NONSLAB on the deferred split shrinker
+  mm: zswap: mark the zswap shrinker SHRINKER_NONSLAB
+
+ include/linux/memcontrol.h |  8 +++++---
+ mm/huge_memory.c           |  3 ++-
+ mm/list_lru.c              | 14 ++++++++------
+ mm/memcontrol.c            |  6 ------
+ mm/zswap.c                 |  4 ++--
+ 5 files changed, 17 insertions(+), 18 deletions(-)
+
+-- 
+2.43.7
+
