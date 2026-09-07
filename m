@@ -1,225 +1,92 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D5C449B2B;
-	Mon,  7 Sep 2026 09:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F28448391;
+	Mon,  7 Sep 2026 09:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772225; cv=none; b=AGX5qMPG3lHQD944JKeaogEYCgInzKrcIC7sZ1K8jLuAYsehG1XFWhliU2S1Sc0BLfzkGSgAtx9l8pNG/ji/8Ns01C41Fvzw8u9NtkERnNxUqKbueyHNK7AYGabZLdYUpZ0EjpBmSClaGIRaXGoLy/VwUfbp/hBkNmw3mhUmLhI=
+	t=1788772258; cv=none; b=EBXXo27uDrdIYkj8efWBqMtJlRwz9A0lb9wYieF/FYW6svGFobZRZQHZcZdDrfJUSSHjOOAVPNRBfDh7JTOCfr2bcJVqhZRMNmmyxcOhlWNGy4uOoxeexc2q2KtijYyUQyYcFZHQWn4dZdAtcl3jFdn9/wppKep5t483GK58PC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772225; c=relaxed/simple;
-	bh=roVB1YyvOHDzourAJL+8yzY10KYNevFGzbF5hvxfCTs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XQXRssDEPgqywF95X0Kdvw/otuAxaFTePI4cxyzT9YDyFhuonyxIYNR13bV5hhQQtRjtRbqXeqX4hMS1INyFwLSBuVWJQ9PLaoNaNReqcEZ9fasoQcuo00+GDfV7ELkyfl6kHTEBYkTOZkT+D5+lgWzDo8Qglc0nC7avIKWJ0Yw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ck6fDWhm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788772258; c=relaxed/simple;
+	bh=kD88WPjO2q8Z0rvP+M+ld9b/ip/Dnp/7Qdyt/uY1O+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HKWYtno2KRTaMLvIVWU1kaXmIUlRyXLLRUB+e3sXbDNWvJgNPUWXdbNM8hi0E2aAw2lV3oPstkZPNgSt1S3jduLgHvuW+9d7kjjH1lcbZr7cAzTd66/avlKTMNV3Y4KqojDu2u+bTqEb5qpf5smMWGHvdIqDof2yUz3O3XbgBo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mixHjN6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ck6fDWhm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABD071F00A3A;
-	Mon,  7 Sep 2026 09:10:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mixHjN6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB0E1F00A3A;
+	Mon,  7 Sep 2026 09:10:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788772223;
-	bh=0PTXH8W20ZyoeViUs3nxicCtaP/fM9lwo8ORJUMduDI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ck6fDWhmbLP1YgsRsRuTXHe/4iAJ/igArbL6LZOygJxCWOmoM8zca1XGojZXMTg7w
-	 pAH0yLC3VYhWaILiQemRDd5ZZKrWRDBpTv6/po5aZ+W3lLonSZ3BjQJpgUWW4oX9E7
-	 7xlQg/X9YCou573+ejK8NgDQtggDVbsXBdDgiOwHAgTir+oYxG2W6bDnBlnhr3ecGD
-	 EK6N+o/5dRbqYY4dMiDNFXKl7vgFWWcuquI6dqggPqOmNffEFxgUKsDGfpSaPSmTii
-	 HB2OtAIziidum01Xmu3pz8+8WqxT26L9Z9/nrzq17aLSmiky6RHF/LZn7vxtx83P01
-	 BQZBSHmFVpJzw==
-From: Arnd Bergmann <arnd@kernel.org>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Kent Gibson <warthog618@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-kernel@vger.kernel.org,
-	linux-mips@vger.kernel.org,
-	linux-sh@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 2/2 v7] gpiolib: remove linux/gpio.h
-Date: Mon,  7 Sep 2026 11:09:56 +0200
-Message-ID: <20260907090956.2825703-3-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907090956.2825703-1-arnd@kernel.org>
-References: <20260907090956.2825703-1-arnd@kernel.org>
+	s=k20260515; t=1788772256;
+	bh=QunEK4bJDjHKRItDHtFYdP6VKrb5WXoolVwD0wMuE5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mixHjN6Ti1Yew2y+wZItCTtCjGFWJmoBTa4FMfaQV68ilRglzrAcZfwXLwQsyH5nV
+	 PAMyGsKZFeBTbcxcNgs4Q2iI0u+YoNa41pyHywl/yAZ+7wY7lIKgfLIIxXPsj+vo+G
+	 d3CstSY+v7qb5s7mV5bit/lAsBqsBN1HmlTofTR1c00VsJ+9OSDUmHEf7wOn4h9xN0
+	 8fAl1SkmdfdICwMeDIqEiiQ0eGyCQSmJukwWEibL2dIvMImzNFyjK0W/83Chl1ky38
+	 Ao30mguWPye4Gz5ZuJRDcTC9m9zYZvtiwsQ10hIiOLUuzVoIzV3WQ/ICYXwTvHXMU3
+	 nBOV59oflQFbg==
+Date: Mon, 7 Sep 2026 11:10:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 0/4] net: dsa: Add SoC-e DSA driver
+Message-ID: <20260907-resourceful-hissing-hummingbird-70cf8c@quoll>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Thu, Sep 03, 2026 at 08:10:57PM +0200, Vasilij Strassheim wrote:
+> Add support for SoC-e Ethernet switch IP cores synthesized for and
+> implemented in FPGAs.
+> 
+> The series introduces the SoC-e vendor prefix and device tree binding,
+> an EtherType-based SDSA tagger, and an initial DSA switch driver.
+> 
+> The driver uses a memory-mapped control interface. During probe, it
+> detects the core version and the licensed and implemented port counts,
+> and verifies that the synthesized core provides DSA support. Port
+> counts from 1 through 31 are supported.
+> 
+> The initial implementation supports Ethernet switching using MII, GMII,
+> RMII, and RGMII port interfaces. Offloading features are not
+> implemented.
+> 
+> External MDIO outputs are exposed as separate logical MDIO buses sharing
+> the integrated MDIO controller.
+> 
+> The driver was tested with a SoC-e MRS 25.01 IP core on a Xilinx ZynqMP
+> platform.
+> 
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> ---
+> Changes in v2:
+> - Correctly use net-next prefix
+> - Rework the binding into a single MMIO-based switch node
+> - Model hardware MDIO outputs as separate logical MDIO buses
+> - Detect the switch version, features, and port count from hardware
+> - Drop incomplete STP, bridge, and FDB offloading
+> - Derive phylink capabilities from each port's phy-mode
+> - Harden MDIO access and SDSA receive validation
+> - Address binding, naming, and coding style review comments
 
-After all other drivers have converted to linux/gpio/consumer.h
-or linux/gpio/legacy.h, remove the final leftover bits here.
+This is not specific enough. Every contributor can say that for every
+patch...
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- MAINTAINERS                                  |  1 -
- arch/mips/txx9/rbtx4927/setup.c              |  2 +-
- arch/sh/boards/mach-rsk/devices-rsk7203.c    |  2 +-
- drivers/gpio/TODO                            |  4 +---
- drivers/gpio/gpiolib-cdev.c                  |  2 +-
- drivers/gpio/gpiolib-legacy.c                |  3 +--
- drivers/gpio/gpiolib.c                       |  2 +-
- drivers/net/wireless/morsemicro/mm81x/hw.c   |  1 -
- drivers/net/wireless/morsemicro/mm81x/yaps.c |  1 -
- include/linux/gpio.h                         | 22 --------------------
- 10 files changed, 6 insertions(+), 34 deletions(-)
- delete mode 100644 include/linux/gpio.h
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..ee06d678cd59 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11255,7 +11255,6 @@ F:	Documentation/devicetree/bindings/gpio/
- F:	Documentation/driver-api/gpio/
- F:	drivers/gpio/
- F:	include/dt-bindings/gpio/
--F:	include/linux/gpio.h
- F:	include/linux/gpio/
- K:	(devm_)?gpio_(request|free|direction|get|set)
- K:	GPIOD_FLAGS_BIT_NONEXCLUSIVE
-diff --git a/arch/mips/txx9/rbtx4927/setup.c b/arch/mips/txx9/rbtx4927/setup.c
-index 223889c03186..fdbe2bd87979 100644
---- a/arch/mips/txx9/rbtx4927/setup.c
-+++ b/arch/mips/txx9/rbtx4927/setup.c
-@@ -48,7 +48,7 @@
- #include <linux/ioport.h>
- #include <linux/platform_device.h>
- #include <linux/delay.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/gpio/machine.h>
- #include <linux/leds.h>
- #include <asm/io.h>
-diff --git a/arch/sh/boards/mach-rsk/devices-rsk7203.c b/arch/sh/boards/mach-rsk/devices-rsk7203.c
-index e6b05d4588b7..eb56b57812bd 100644
---- a/arch/sh/boards/mach-rsk/devices-rsk7203.c
-+++ b/arch/sh/boards/mach-rsk/devices-rsk7203.c
-@@ -10,7 +10,7 @@
- #include <linux/interrupt.h>
- #include <linux/smsc911x.h>
- #include <linux/input.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/legacy.h>
- #include <linux/gpio_keys.h>
- #include <linux/leds.h>
- #include <asm/machvec.h>
-diff --git a/drivers/gpio/TODO b/drivers/gpio/TODO
-index 7ce80fde1f17..4fce4a7e4704 100644
---- a/drivers/gpio/TODO
-+++ b/drivers/gpio/TODO
-@@ -52,9 +52,7 @@ Work items:
-   base can be made dynamic (set to -1) if CONFIG_GPIO_SYSFS is disabled.
- 
- - When this work is complete (will require some of the items in the
--  following ongoing work as well) we can delete the old global
--  numberspace accessors from <linux/gpio.h> and eventually delete
--  <linux/gpio.h> altogether.
-+  following ongoing work as well) we can delete <linux/gpio/legacy.h>.
- 
- -------------------------------------------------------------------------------
- 
-diff --git a/drivers/gpio/gpiolib-cdev.c b/drivers/gpio/gpiolib-cdev.c
-index 9f3b628d5793..1c2c94387b77 100644
---- a/drivers/gpio/gpiolib-cdev.c
-+++ b/drivers/gpio/gpiolib-cdev.c
-@@ -11,7 +11,7 @@
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/file.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/gpio/driver.h>
- #include <linux/hte.h>
- #include <linux/interrupt.h>
-diff --git a/drivers/gpio/gpiolib-legacy.c b/drivers/gpio/gpiolib-legacy.c
-index ef3f2ef30cf2..33e5a45e720b 100644
---- a/drivers/gpio/gpiolib-legacy.c
-+++ b/drivers/gpio/gpiolib-legacy.c
-@@ -7,8 +7,7 @@
- 
- #include <linux/gpio/consumer.h>
- #include <linux/gpio/driver.h>
--
--#include <linux/gpio.h>
-+#include <linux/gpio/legacy.h>
- 
- #include "gpiolib.h"
- 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index ef8ccaf17c9c..c9c517488e0a 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -29,7 +29,7 @@
- #include <linux/string.h>
- #include <linux/string_choices.h>
- 
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/gpio/driver.h>
- #include <linux/gpio/machine.h>
- 
-diff --git a/drivers/net/wireless/morsemicro/mm81x/hw.c b/drivers/net/wireless/morsemicro/mm81x/hw.c
-index 9293f4094db1..e48eaf151faa 100644
---- a/drivers/net/wireless/morsemicro/mm81x/hw.c
-+++ b/drivers/net/wireless/morsemicro/mm81x/hw.c
-@@ -7,7 +7,6 @@
- #include <linux/stringify.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
--#include <linux/gpio.h>
- #include "hif.h"
- #include "mac.h"
- #include "bus.h"
-diff --git a/drivers/net/wireless/morsemicro/mm81x/yaps.c b/drivers/net/wireless/morsemicro/mm81x/yaps.c
-index e98a2a58726f..252116425bc3 100644
---- a/drivers/net/wireless/morsemicro/mm81x/yaps.c
-+++ b/drivers/net/wireless/morsemicro/mm81x/yaps.c
-@@ -2,7 +2,6 @@
- /*
-  * Copyright (c) 2017-2026 Morse Micro
-  */
--#include <linux/gpio.h>
- #include <linux/random.h>
- #include <linux/timer.h>
- #include <linux/bitops.h>
-diff --git a/include/linux/gpio.h b/include/linux/gpio.h
-deleted file mode 100644
-index b0d4942a65de..000000000000
---- a/include/linux/gpio.h
-+++ /dev/null
-@@ -1,22 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--/*
-- * NOTE: This header *must not* be included.
-- *
-- * If you're implementing a GPIO driver, only include <linux/gpio/driver.h>
-- * If you're implementing a GPIO consumer, only include <linux/gpio/consumer.h>
-- * If you're using the legacy interfaces, include <linux/gpio/legacy.h>
-- */
--
--#ifndef __LINUX_GPIO_H
--#define __LINUX_GPIO_H
--
--#include <linux/types.h>
--#ifdef CONFIG_GPIOLIB
--#include <linux/gpio/consumer.h>
--#endif
--
--#ifdef CONFIG_GPIOLIB_LEGACY
--#include <linux/gpio/legacy.h>
--#endif /* CONFIG_GPIOLIB_LEGACY */
--
--#endif /* __LINUX_GPIO_H */
--- 
-2.53.0
+Best regards,
+Krzysztof
 
