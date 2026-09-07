@@ -1,22 +1,22 @@
-Received: from mail-m4921.qiye.163.com (mail-m4921.qiye.163.com [45.254.49.21])
+Received: from mail-m3286.qiye.163.com (mail-m3286.qiye.163.com [220.197.32.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848EF3876C6;
-	Mon,  7 Sep 2026 08:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3726C367282;
+	Mon,  7 Sep 2026 08:32:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769927; cv=none; b=SCtLUD81RC90ZY8hMmfcFFwvPnaLS2yqPvMferTDh8AOxYEUw5SDrFVST94buu+XfhlYUVAMbu1JGmBhDZRs6IedDhTIr0Kmhtd6k9BuY56/qV+T3m7W6VfPTNujnaAM/dNRxB4ejLgsjPtdHqgnsQgKr8v+nCUQelxVzlY+aso=
+	t=1788769929; cv=none; b=YIfKwu8PaoNYnIft6pRaX5Pen72tH3GRFRYb/bhx3K3QCyhCvR3IYb5xccna0YVIW6O8TxPTa3ZH9rADxDstV/cbzYUQ2SETdeiqAXLPO+hZThFeQpIZHjh5NQSqgXIgGGJWyNFvfCa4YWBfxbR3WxskcFbW3jDkuQKwgf+ChKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769927; c=relaxed/simple;
-	bh=cbukvLNto1iH+j1A3hHZ6tVLeOhJEDGh6YsnO4xYEoQ=;
+	s=arc-20240116; t=1788769929; c=relaxed/simple;
+	bh=Pp+PRFIxqABc029aAxphoz6g7f3/i+91unebrhLWc7U=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=cAtam1t3be1IDYd3EVTTu7iHat995/q7rzk+H16BAHbc44XC6wSIsTaD7hltR+hl9ynN1ayb6LmHl9Iu2LKDulskw21vC/aV27Payiwe8EP7Vj7nfYYc/ObfBmIC+fY8Ngfu0lkD9tvY4jVsbCbvM3R9o8zC4Ghr7/H2DgkoIOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=45.254.49.21
+	 MIME-Version; b=my6Lkz7dJnbnRql0HSrzI8oocGpIzmOlRX7MSIPbhp4Tm7/b9zBzMEZ5Rf4bUHD3TyZQ6QSdzqsEBY0qLGGZpLQb4EzPYeHvqORxzNDyvpG0bcR70goVunj+zy6z/KJk/E2hGLZjE0WkamrOAnYkNrBj4eHRcjMSsnJe2/+A4Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=220.197.32.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1ec6fa0a6;
-	Mon, 7 Sep 2026 16:26:50 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 1ec6fa0a1;
+	Mon, 7 Sep 2026 16:26:47 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>,
@@ -36,9 +36,9 @@ Cc: David Hildenbrand <david@kernel.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v3 8/8] Documentation: page_owner: Document PID/TGID/COMM and cgroup filters
-Date: Mon,  7 Sep 2026 16:26:20 +0800
-Message-Id: <20260907082620.2083838-9-zhen.ni@easystack.cn>
+Subject: [PATCH v3 6/8] tools/mm: Add PID/TGID/COMM filtering support to page_owner_filter
+Date: Mon,  7 Sep 2026 16:26:18 +0800
+Message-Id: <20260907082620.2083838-7-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260907082620.2083838-1-zhen.ni@easystack.cn>
 References: <20260907082620.2083838-1-zhen.ni@easystack.cn>
@@ -49,17 +49,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa07afa2b300229kunm225d16da162d27
+X-HM-Tid: 0aa07afa20e50229kunm225d16da162d17
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSx9PVh9JHk9MQh5MGUxLGFYVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGUpLVk5JQ09CGUxNTR5LQlYVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Update page_owner.rst to document process and cgroup filtering
-support in page_owner_filter tool. Add usage examples for PID, TGID,
-COMM (with wildcard support), and cgroup filters along with their
-respective limits.
+Add command-line options for filtering by process ID (PID), thread group
+ID (TGID), and process name (COMM) to the page_owner_filter userspace tool.
+
+New options:
+  -p, --pid PID_LIST    : Process IDs (comma-separated, max 16)
+  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)
+  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)
+                         Supports wildcards: * ? [a-z]
+
+Usage examples:
+  page_owner_filter -p 1234,5678
+  page_owner_filter -c "python*"
+  page_owner_filter -n 0 -c kworker* -o output.txt
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
@@ -67,74 +76,245 @@ Changes in v3:
 - No change.
 
 Changes in v2:
-- Quote the wildcard pattern in the -c example.
+- Print error messages for empty -p/-t and -c arguments.
 
-v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-9-zhen.ni@easystack.cn/
-v2: https://lore.kernel.org/linux-mm/20260903041819.1776630-9-zhen.ni@easystack.cn/
+v1: https://lore.kernel.org/linux-mm/20260828031339.1270699-7-zhen.ni@easystack.cn/
+v2: https://lore.kernel.org/linux-mm/20260903041819.1776630-7-zhen.ni@easystack.cn/
 ---
- Documentation/mm/page_owner.rst | 25 ++++++++++++++++++++++++-
- 1 file changed, 24 insertions(+), 1 deletion(-)
+ tools/mm/page_owner_filter.c | 172 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 151 insertions(+), 21 deletions(-)
 
-diff --git a/Documentation/mm/page_owner.rst b/Documentation/mm/page_owner.rst
-index a6bd3fe6423a..493f38db0677 100644
---- a/Documentation/mm/page_owner.rst
-+++ b/Documentation/mm/page_owner.rst
-@@ -283,7 +283,7 @@ page_owner supports filtering output at the kernel level before reading,
- which reduces the amount of data that needs to be processed in userspace.
+diff --git a/tools/mm/page_owner_filter.c b/tools/mm/page_owner_filter.c
+index 1d1f0a38678a..516c2d109a6a 100644
+--- a/tools/mm/page_owner_filter.c
++++ b/tools/mm/page_owner_filter.c
+@@ -21,22 +21,24 @@
+ #include <signal.h>
  
- The page_owner_filter tool provides a convenient interface for this filtering
--capability. It supports two types of filters:
-+capability. It supports the following types of filters:
+ #define MAX_CMD_LEN	512
++#define TASK_COMM_LEN	16
  
- 1. **print_mode filter**: Control what information is printed for each page
- 	- ``stack``: Print full stack traces (default, compatible with existing usage)
-@@ -300,6 +300,16 @@ capability. It supports two types of filters:
- 	- Ranges: ``-n 0-3``
- 	- Mixed format: ``-n 0,2-3,5``
+ static void usage(const char *prog)
+ {
+ 	fprintf(stderr, "Usage: %s [OPTIONS]\n", prog);
+ 	fprintf(stderr, "\nOptions:\n");
+-	fprintf(stderr, "  -m, --mode MODE      : print_mode (stack, handle, or stack_handle)\n");
+-	fprintf(stderr, "  -n, --nid NID_LIST   : NUMA node IDs (comma-separated or ranges)\n");
+-	fprintf(stderr, "  -o, --output FILE    : output file (default: stdout)\n");
+-	fprintf(stderr, "  -h, --help           : show this help message\n");
++	fprintf(stderr, "  -m, --mode MODE       : print_mode (stack, handle, stack_handle)\n");
++	fprintf(stderr, "  -n, --nid NID_LIST    : NUMA nodes (comma-separated or ranges)\n");
++	fprintf(stderr, "  -p, --pid PID_LIST    : Process IDs (comma-separated, max 16)\n");
++	fprintf(stderr, "  -t, --tgid TGID_LIST  : Thread Group IDs (comma-separated, max 16)\n");
++	fprintf(stderr, "  -c, --comm COMM_LIST  : Process names (comma-separated, max 8)\n");
++	fprintf(stderr, "                          Supports wildcards: * ? [a-z]\n");
++	fprintf(stderr, "  -o, --output FILE     : output file (default: stdout)\n");
++	fprintf(stderr, "  -h, --help            : show this help message\n");
+ 	fprintf(stderr, "\nExamples:\n");
+-	fprintf(stderr, "  %s -m stack\n", prog);
+-	fprintf(stderr, "  %s -m handle\n", prog);
+-	fprintf(stderr, "  %s -m stack_handle\n", prog);
+-	fprintf(stderr, "  %s -m stack -o output.txt\n", prog);
+-	fprintf(stderr, "  %s -n 0,1,2\n", prog);
+-	fprintf(stderr, "  %s -m stack -n 0\n", prog);
++	fprintf(stderr, "  %s -m handle -o output.txt\n", prog);
++	fprintf(stderr, "  %s -n 0,1 -c bash\n", prog);
++	fprintf(stderr, "  %s -c \"python*\" -t 1\n", prog);
+ }
  
-+3. **Process filters**: Filter pages by process identifiers
-+	- Filter by process ID: ``-p PID_LIST`` (comma-separated, max 16)
-+	- Filter by thread group ID: ``-t TGID_LIST`` (comma-separated, max 16)
-+	- Filter by task command name: ``-c COMM_LIST`` (comma-separated, max 8)
-+	- Name matching supports wildcards: ``*``, ``?``, ``[a-z]``
+ static int validate_mode(const char *mode)
+@@ -132,6 +134,97 @@ static int validate_nid_list(const char *nid_list)
+ 	return 0;
+ }
+ 
++static int validate_pid_list(const char *pid_list)
++{
++	const char *p;
++	int count = 0;
 +
-+4. **Cgroup (memcg) filter**: Filter pages by memory cgroup
-+	- Filter by cgroup path: ``-g CGROUP``
-+	- Useful for containerized environments and multi-tenant systems
++	if (!pid_list || strlen(pid_list) == 0) {
++		fprintf(stderr, "Error: Empty pid/tgid list\n");
++		return -1;
++	}
 +
- Usage examples::
- 
- 	# Filter by print mode
-@@ -310,9 +320,19 @@ Usage examples::
- 	./page_owner_filter -n 0
- 	./page_owner_filter -n 0-3
- 
-+	# Filter by process
-+	./page_owner_filter -p 1234
-+	./page_owner_filter -t 1,2,3
-+	./page_owner_filter -c 'python*'
++	for (p = pid_list; *p; p++) {
++		if (*p == ',') {
++			count++;
++			continue;
++		}
++		if (!isdigit((unsigned char)*p)) {
++			fprintf(stderr,
++				"Error: Invalid character '%c' in pid_list (only digits allowed)\n",
++				*p);
++			return -1;
++		}
++	}
 +
-+	# Filter by cgroup
-+	./page_owner_filter -g system.slice
-+	./page_owner_filter -g kubepods/besteffort/pod123
++	if (++count > 16) {
++		fprintf(stderr, "Error: Too many PIDs (max 16)\n");
++		return -1;
++	}
 +
- 	# Combined filters
- 	./page_owner_filter -m stack -n 0,1,2
- 	./page_owner_filter -m handle -n 0,2-3
-+	./page_owner_filter -g user.slice -c bash -n 0
++	return 0;
++}
++
++static int validate_tgid_list(const char *tgid_list)
++{
++	return validate_pid_list(tgid_list);
++}
++
++static int validate_comm_list(const char *comm_list)
++{
++	const char *p;
++	const char *comm_start;
++	int count = 0;
++	int comm_len = 0;
++
++	if (!comm_list || strlen(comm_list) == 0) {
++		fprintf(stderr, "Error: Empty comm list\n");
++		return -1;
++	}
++
++	comm_start = comm_list;
++	for (p = comm_list; *p; p++) {
++		if (*p == ',') {
++			/* Check COMM length before separator */
++			if (comm_len == 0) {
++				fprintf(stderr, "Error: Empty COMM in list\n");
++				return -1;
++			}
++			if (comm_len >= TASK_COMM_LEN) {
++				fprintf(stderr,
++					"Error: COMM too long (max %d chars)\n",
++					TASK_COMM_LEN - 1);
++				fprintf(stderr, "  Near: %.15s...\n", comm_start);
++				return -1;
++			}
++			count++;
++			comm_len = 0;
++			comm_start = p + 1;
++			continue;
++		}
++		comm_len++;
++	}
++
++	/* Check last COMM */
++	if (comm_len == 0) {
++		fprintf(stderr, "Error: Empty COMM at end of list\n");
++		return -1;
++	}
++	if (comm_len >= TASK_COMM_LEN) {
++		fprintf(stderr, "Error: COMM too long (max %d chars)\n",
++			TASK_COMM_LEN - 1);
++		fprintf(stderr, "  Near: %.15s...\n", comm_start);
++		return -1;
++	}
++
++	if (++count > 8) {
++		fprintf(stderr, "Error: Too many COMMs (max 8)\n");
++		return -1;
++	}
++
++	return 0;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	const char *output_file = NULL;
+@@ -148,6 +241,9 @@ int main(int argc, char *argv[])
+ 	static struct option long_options[] = {
+ 		{"mode",	required_argument, 0, 'm'},
+ 		{"nid",		required_argument, 0, 'n'},
++		{"pid",		required_argument, 0, 'p'},
++		{"tgid",	required_argument, 0, 't'},
++		{"comm",	required_argument, 0, 'c'},
+ 		{"output",	required_argument, 0, 'o'},
+ 		{"help",	no_argument,	   0, 'h'},
+ 		{0, 0, 0, 0}
+@@ -174,7 +270,7 @@ int main(int argc, char *argv[])
+ 		return 1;
+ 	}
  
- 	# Save to file
- 	./page_owner_filter -m handle -o filtered_output.txt
-@@ -323,6 +343,9 @@ reduce output size by ~66% (84MB vs 244MB) and improve read performance by ~4.4x
- compared to full stack output.
+-	while ((opt = getopt_long(argc, argv, "m:n:o:h", long_options, NULL)) != -1) {
++	while ((opt = getopt_long(argc, argv, "m:n:p:t:c:o:h", long_options, NULL)) != -1) {
+ 		int len;
  
- The NUMA node filter is useful for NUMA-aware memory allocation analysis and debugging.
-+Process filters help isolate memory allocations for specific processes or tasks.
-+The cgroup filter is essential for containerized environments where you need to
-+analyze memory usage per container or service.
+ 		switch (opt) {
+@@ -206,6 +302,48 @@ int main(int argc, char *argv[])
+ 			cmd_len += len;
+ 			break;
+ 		}
++		case 'p': {
++			const char *pid_list = optarg;
++
++			if (validate_pid_list(pid_list) < 0)
++				return 1;
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%spid=%s", cmd_len > 0 ? " " : "", pid_list);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
++			}
++			cmd_len += len;
++			break;
++		}
++		case 't': {
++			const char *tgid_list = optarg;
++
++			if (validate_tgid_list(tgid_list) < 0)
++				return 1;
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%stgid=%s", cmd_len > 0 ? " " : "", tgid_list);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
++			}
++			cmd_len += len;
++			break;
++		}
++		case 'c': {
++			const char *comm_list = optarg;
++
++			if (validate_comm_list(comm_list) < 0)
++				return 1;
++			len = snprintf(filter_cmd + cmd_len, MAX_CMD_LEN - cmd_len,
++				       "%scomm=%s", cmd_len > 0 ? " " : "", comm_list);
++			if (len < 0 || cmd_len + len >= MAX_CMD_LEN) {
++				fprintf(stderr, "Error: Command too long\n");
++				return 1;
++			}
++			cmd_len += len;
++			break;
++		}
+ 		case 'o':
+ 			output_file = optarg;
+ 			break;
+@@ -220,7 +358,7 @@ int main(int argc, char *argv[])
  
- Behind the scenes, page_owner_filter opens /sys/kernel/debug/page_owner and
- writes filter commands before reading the filtered output. The filtering uses
+ 	/* At least one filter must be specified */
+ 	if (cmd_len == 0) {
+-		fprintf(stderr, "Error: At least one filter (-m or -n) must be specified\n\n");
++		fprintf(stderr, "Error: At least one filter must be specified\n\n");
+ 		usage(argv[0]);
+ 		return 1;
+ 	}
+@@ -255,15 +393,7 @@ int main(int argc, char *argv[])
+ 	ret = write(fd, filter_cmd, strlen(filter_cmd));
+ 
+ 	if (ret < 0) {
+-		if (errno == EINVAL) {
+-			fprintf(stderr, "Error: Kernel rejected the filter command.\n");
+-			fprintf(stderr, "Possible causes:\n");
+-			fprintf(stderr, "  - Kernel does not support per-fd filtering\n");
+-			fprintf(stderr, "  - NUMA node has no memory\n");
+-			fprintf(stderr, "  - Unknown reason\n");
+-		} else {
+-			perror("write filter command");
+-		}
++		perror("write filter command");
+ 		goto out;
+ 	}
+ 
 -- 
 2.20.1
 
