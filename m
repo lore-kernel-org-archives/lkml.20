@@ -1,143 +1,139 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44A0435EF3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F86C43F4C2;
+	Mon,  7 Sep 2026 08:23:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769430; cv=none; b=LZEJqwvbmwbxzFY6X8tmS+WDLcZ9H+RJ/i1eYkLvwVogIWGWC8gRlrzk6gMc8/RQ8z7Y9spjcQoBUaHAaIzPYsFN6x0YCvVvL+iQHqoljRtVqA2opALNi2eAPqrLAIbCQ0sU07S7Zkv9ZWOLXn62BshcIIkpMiKL2y9ALHlQ1/8=
+	t=1788769435; cv=none; b=Q8l0QK7O5Y6XGSFfOUsIlchpQfPCcAEgWjh607Q3lJeGmLS7y1lh5njbIF6AsVuwysj4gxGrCLUSViNzQop9UbRP7m4cMm50L2WtdJWlHf8ubW8zaOdlFzw1WmjKXvwftRf7LllWixBlfMROBjAq6yHQaH9V0Fy7UUxKP1W6Feo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769430; c=relaxed/simple;
-	bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K0KNwmwd8u4S8Rphg1yBxdZsV4lMXzEfnxYcEAosKmEZRtw+OIxICBFlNHBaiFpJDp36maKE/bfAjaPgC9TngkFEZbNn/jna3gTafvrrveo4ZctGwzXANjoh9LtWnaEvPGwJ32+qEtnpFCEmS61lf/nq94lZ9CVGFHw5fzAf30c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=jSlQjCUU; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788769435; c=relaxed/simple;
+	bh=5yJ8Y4RnVpPGLltjVO8cL2fBu2s7ocPsEot9SK9T8Fg=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=DmajgqqFkEUj+/CiY6eYEOHV3U4WFis79mxivEPwm6yLnkZqwkVWJlc0I7olpgNiyaAxHy9wvgHB7bnNJhlAQ2yHKcratX8yOekM65OXs/nnX82tfM/bF4LrB3yL4cQVyjLAUubBgjKIRI7c/4uVNf1Ec6iuGaIXycElHfCrAJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=NW7+67pH; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="jSlQjCUU"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so12737715e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788769427; x=1789374227; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
-        b=jSlQjCUU8NaKB9qSeaTa8q2TcqNyVNCrH5YlPuPk+DVIxHacKi5p6my2jigEtg5oIi
-         9wK784TvLkbMNjSAntxrTLBgyrju0g47xM51ay4Tjpblbrt2f+ohxXEu8GyD7hvQq/Km
-         moG50Y+Mq1xJXGgOdgCyzuKcsZXuBNlsxIEyziqceVo1mnSm/xHAQVshhiDHK9cDqqqF
-         l7yMQz5PDsdkdt7uVESFiRElzKDLjBPSy+MvNh9MA8tIDpRSZGdIbTrRnqpzdrMG+MBy
-         Au7hifIfCvAk0cz0fzCADnRQl9C+KRNwmGSJ8fum+EvTYs2R0+ZmWboDBLG+5YyqgDmk
-         8nOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769427; x=1789374227;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=toPH+1ZArk/DDhOFULiU+peDd7xkrEZ/LBY2wlar/aY=;
-        b=oXwAp2v528fIv7CFyv+zbfZYARC+jzYdaLExjQNmJtGl8iemRsPhB568fZilnqvlKI
-         BBPB7sP2E41kMVSqaKzdx0dactViDH2HHJqxQ7eMDydI+GQMTQ1XT8PjTKpjfL8vQZaU
-         cuTHNYHr4IcSFJgOaIBacnYjYFfTrMqfdAYHf/PbjjSb53rSPH/yK+VpwYNFiqFyZi2Y
-         7BT1BaHgcLGu4pX7/onNw+OtGKEqWQDJHm/8f1jG+o0OWm3vaZEg/I/g0NL/O8VgelDp
-         MS3rhPY25RnL+KUl+ZgRZsTHMSEb3fUGSoKXjQ+bvKGHW/AEXIzFWBJhioy3LPG668yd
-         rBmA==
-X-Forwarded-Encrypted: i=1; AKwUvBxljhUxAJ7AYYGhWK9LfiVgxFV5IdiSXco+wT8GfTZnYdWlqF/XemFiOzAuC/XKDmeThT+2c0sb1ILbITg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvi6PGcUJuoTwuDLJtvcq7OnlIwcJSYsPFhYD1jVi9jgIuII7S
-	xVriTxx+IjvNQ2t5Y0/Yc4nulwfnbTJDtoGTqqpR1f27bzanz5DwjuiGjSBkIXiwVPE=
-X-Gm-Gg: AYBFou0v5nS82eC4NvtIdk8/2nLIpM0dzQejjKJOhlYa0Cx7CXenwa6ysagiVJy0Qlf
-	aOXXKZWnpYGJs8PdB9KflWp2/WUAxPSfR48GZJ5QD43FXJaok0WfFa+N89Ny18S3X9PfjHpmAPu
-	acNuhoaAdBaF2GIhKQf3crFRfRXE0Mv5zQUiTJjHbl97NRLBF17GrNfTvljSkw11GwEuZhZ9zN2
-	4qnsyptjFUPoap1sCiC9ZyT09FoU3iWEnkiyyyep34T1l93/FUS4LI2ej1FUYqZuUdhwtzdln7B
-	39scyJ2VVZC4ysKhawVSRCemUKFnvoMFlQxc8B4vi/VjQGlUqkak1R/EySG9r0XM6IjZMjrOjPE
-	H4qGa/TVkJHXBgEPK7CzDd7o7HcJTjzQ1Jl1af5gG0ubK1k6Xo244pz9YiYFUPkzEBDJAL1uvte
-	WFqIEeD5WWmlFCbZfT8RO5kjOjaACl3LFWn91HP6s+bxRWakMFcUrqoKPFVJRzjlXdlh4XubFay
-	bB+KB9I5y3YIeh6vXm6daHRlrK9xW+qWwnF21iF7TFcOUr9xitHLD2hpGpAnw==
-X-Received: by 2002:a05:600c:348e:b0:49d:622:df25 with SMTP id 5b1f17b1804b1-49d0622dff1mr104970285e9.1.1788769427009;
-        Mon, 07 Sep 2026 01:23:47 -0700 (PDT)
-Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-485883953cfsm22327326f8f.13.2026.09.07.01.23.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:23:46 -0700 (PDT)
-Date: Mon, 7 Sep 2026 10:23:45 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v3 11/19] soc: starfive: Add jh7110-hdmi-subsystem driver
-Message-ID: <ap50F4QOw7jbcvI6@monoceros>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132729eucas1p1bd78eb90feaf90b6265c13fc7bf43ada@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-11-484f9ae72715@samsung.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="NW7+67pH"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68779n6c3431817;
+	Mon, 7 Sep 2026 04:23:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=5fcUbGC5yh8IcKdVaWwN8l9PQHU
+	VkmKhG3L0Nsohrm0=; b=NW7+67pHZAMhcSYPWdTd9bfJS5JR3aCcWxmf0H355tf
+	5azA6vhWxptX/DNUfCiMJDFDWkmHBgRFHjBP9hNYUg0mJEncttKaCwfaUzFBTkH4
+	RQyTyzUI/h0JC8bIv/w1ogzUS/cAmtoo0R504c6U1K1E8DDhLhcKptDVPPGwnXwC
+	7GplKm0pWStkFicA6MWNbTrkkYaYucfVd0hdc5U616g4PRaPxMQNs420jHnsDFfS
+	W05NiJRrjsZQRNes7Gx/5bEOL77Y6+wpQOnuYcWOMaVKIFAid+PdgEBnryq3V65o
+	dgWa/aMMTvdHujKo4365g8wFZ0CWPIQhqb2jfpK9ZIw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gh4dg40g3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 07 Sep 2026 04:23:39 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6878NcAk052247
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 7 Sep 2026 04:23:38 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 7 Sep
+ 2026 04:23:38 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Mon, 7 Sep 2026 04:23:38 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.185])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6878NRPp003614;
+	Mon, 7 Sep 2026 04:23:30 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>,
+        Antoniu Miclaus
+	<antoniu.miclaus@analog.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Michael Hennerich <Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, <linux-iio@vger.kernel.org>,
+        <linux@analog.com>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH] iio: accel: adxl367: resolve interrupt mapping before device setup
+Date: Mon, 7 Sep 2026 11:23:13 +0300
+Message-ID: <20260907082313.3054-1-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dohx7bkeczkqrdqr"
-Content-Disposition: inline
-In-Reply-To: <20260904-jh7110-clean-send-v3-11-484f9ae72715@samsung.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-ORIG-GUID: b3L9E3EnxZHa0Zgj_84gPympN19Rp0Sg
+X-Authority-Analysis: v=2.4 cv=f5N4wuyM c=1 sm=1 tr=0 ts=6a9e748b cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8 a=cksQzrjOa0daint2JCUA:9
+X-Proofpoint-GUID: b3L9E3EnxZHa0Zgj_84gPympN19Rp0Sg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfX2oX1nBSHjTx/
+ JVL/0DH+LAUVZD/4UncRofFcA+QcLWr7PwdI3ki/hZhdE1pPy3mO7fGGx727etU+4P/tC+edZ3g
+ NEsI1QeDPRMm97hjMKmlLjS7j5m4E6cfBmiwIbNtPoTcA+5jkPzF
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfXzShU9Klrb0W3
+ Kz4pDzScmVEi+77XbCpUIrMAGaQUuDiC9w1l2BWoKuXlY45vIAJBNJR6ngPaoNfna8vsGN/P2Qh
+ qqDKp51/8kln7NbIgH9Qye+n7udU85c0nwdyhnaQ0HDKpARCrjDH+igvYELmjYPumkF8Jugb/Ep
+ H1eNUgkskTvv9v++c7EAIz94WDPajBacqoYmKRygtsZ4TM4UAZGDpRFLxNr1/gRbwcw+Au/tTgK
+ ylRAK0jv5zKWFVai9DktM7mNTi1CmxvOtKdpPUCtNVrwvUVwagoUFKGaryEmavTihNT9PTqU3Tf
+ u8/5bDhGirtjBoZYEM8n4S6/kTd2Js2svSi6on0l3ArwqfeLz7MMmQ3EXVJy0+V4yj1+HAzTHYp
+ frDC+2C9YAoquEIeeCO0mz4828rgs4EJHH8eYWs/mKHGIA1nIcaulmT+JQ9ZAbyqI47BknXfJRp
+ qX3yDjTlKNHC1Tzo8Hw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070089
 
+adxl367_set_int_map_reg() uses fwnode_irq_get_byname(), which can return
+-EPROBE_DEFER. Running it after adxl367_setup() made every deferred probe
+repeat the reset and power the device up needlessly.
 
---dohx7bkeczkqrdqr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v3 11/19] soc: starfive: Add jh7110-hdmi-subsystem driver
-MIME-Version: 1.0
+Move it ahead of the regulator enable and reset; the lookup only reads
+firmware properties, so a deferral now returns before any hardware access.
 
-Hello Michael,
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+---
+ drivers/iio/accel/adxl367.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-On Fri, Sep 04, 2026 at 03:27:12PM +0200, Michal Wilczynski wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+index 9b47e66c49ea..026db73057c5 100644
+--- a/drivers/iio/accel/adxl367.c
++++ b/drivers/iio/accel/adxl367.c
+@@ -1493,6 +1493,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+ 	indio_dev->info = &adxl367_info;
+ 	indio_dev->modes = INDIO_DIRECT_MODE;
+ 
++	ret = adxl367_set_int_map_reg(st, irq);
++	if (ret < 0)
++		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
++	irq = ret;
++
+ 	ret = devm_regulator_bulk_get_enable(st->dev,
+ 					     ARRAY_SIZE(regulator_names),
+ 					     regulator_names);
+@@ -1520,11 +1525,6 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = adxl367_set_int_map_reg(st, irq);
+-	if (ret < 0)
+-		return dev_err_probe(st->dev, ret, "Failed to get interrupt\n");
+-	irq = ret;
+-
+ 	ret = devm_request_threaded_irq(st->dev, irq, NULL,
+ 					adxl367_irq_handler, IRQF_ONESHOT,
+ 					indio_dev->name, indio_dev);
+-- 
+2.43.0
 
-Please don't add includes for <linux/mod_devicetable.h> as it introduces
-many unneeded build dependencies. Either rely on
-<linux/platform_device.h> providing of_device_id (IMHO preferred), or
-include <linux/device-id/of.h> directly.
-
-The same applies to two more patches in this series.
-
-Best regards
-Uwe
-
---dohx7bkeczkqrdqr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedI8ACgkQj4D7WH0S
-/k4SQAf+JxaOkTt0KXEdMeiFgnBOg/VvLQ2tgwyYbYV25ymCW6f+E/Oz3WAI4IDD
-S5sDwYSMfEN2g+u3IdIzE3kZhVEAdkv+iyA6MExPzaVz9qaS/A5RwGIGRO8EtmbY
-OnW/GTowIQWQH8Fs2w7pe+ITRAhjl+9OOwdM2Y5h4x+EZD4CUz4apRozxIz62mu0
-rv5S6v/JdJiz/WNpikSdNzKKIKdq56RUI2KHXKfjqnvCkAHwAVnPfgCH+HNcpJSX
-wljKv3FOemKlAJV4uNgIjZs2QqmcGZbZ0acdyNWZ++YujYR8wLjOkQ0loi8lNg/x
-i6GGu8ylq1Jcpp7HF98D268WTb+1Fg==
-=jV7I
------END PGP SIGNATURE-----
-
---dohx7bkeczkqrdqr--
