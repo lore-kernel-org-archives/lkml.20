@@ -1,143 +1,170 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E42673C4172
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D569438493
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:44:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788821083; cv=none; b=TxFxRhRQxU6k/kT9Rf8WdNyZUEUyhNHRtzOvumyeJEw2XzHdr1BQRH7YbDTjG3AiGDlAFZjnaYg0j6cdrGnx3thIrCnCfIEXAyyV7NS5//lCXkh18dPPLjuOtXXFF0WWr+T1ya+KMSweTkfriYuuEYmkCjNr01lvaOJIXRYycQI=
+	t=1788821087; cv=none; b=tMtNfDZjEhdUL+6VOqfzH6hTmacVPDeMVklioDO6JDm4S6GuqgcyP18d+mzzwv78wRyCSFQ2Vg3FyvOvaZzBZwv4ki7xJSKcfPAJTzudxpQygZsQpg5YVjtG0Iu3eAn1bVaRx9DYNp6h1l1brCNB+goTcMCZBCVNXpG0wcvicgQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788821083; c=relaxed/simple;
-	bh=J8kU2kAxNOmmnwSc84F95Ok5dyfh/t/PEHhe+MDnpN8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EPnD7vn/rKXr1kdshifEAAHyflilnEaHdU4x6O0UVzb3yh4tvPlPdWzPxSANcy8ExozwKAfJUlQ3jS88x5hzaHUxTdJvrw3rUnurB4y3SkK8YKtySLTjzn5Go9Tdl3InFtP1OZeyX03vl/ibxnDhFzKJekb71rwtYmiPlHKqM0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XuE2nmQa; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788821087; c=relaxed/simple;
+	bh=eJT1th8vkf3NL7hYeCL6NFDeQmEhQFBe5CV1EY/c4+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iMQHeKoDXJVTyf8GTuYlv/wm+LHZKakIo/wqO6+eqouomOX1N9l2Yuzw09uhkjycLHC86YF3kpYzkkVGXNzntA8wE77AVXcxy+MH0Iil6G7Grx4U0S460xoca63F9FAe1hkDwzu84lWQ/xg0VAGL8VnWjzBihF59J0xn/IgpoGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hoaet9sp; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XuE2nmQa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788821081;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b1TxJUQX49cLbWEB/ivNKBx96Wq16OEvm5/00tKxapE=;
-	b=XuE2nmQa5e8UffNDsJhoaMT/OrX9tn6U48pd9UoxJj0qfbbJ7FGHeeC3Wo55pGXfZ6c/wZ
-	4NzSdg3tzoZ1z0q2ocD/fcpBwNOudcEK3UZZzkJe/CSmQFsR6UnbYLIR/rFiynQptk34U4
-	thCfTCr00aILxT5887VRgQ6kFMRsdK8=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-639-rhwnyy5rO7WukC_7-0AUog-1; Mon,
- 07 Sep 2026 18:44:39 -0400
-X-MC-Unique: rhwnyy5rO7WukC_7-0AUog-1
-X-Mimecast-MFC-AGG-ID: rhwnyy5rO7WukC_7-0AUog_1788821078
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4E1A21800656;
-	Mon,  7 Sep 2026 22:44:38 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D48F11956042;
-	Mon,  7 Sep 2026 22:44:20 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue,  8 Sep 2026 00:44:37 +0200 (CEST)
-Date: Tue, 8 Sep 2026 00:44:19 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Gregory Price <gourry@gourry.net>
-Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org,
-	linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
-	ljs@kernel.org, sj@kernel.org, rientjes@google.com,
-	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
-	babu.moger@amd.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap8-QwC3JLDCQdcL@redhat.com>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
- <ap76-0-hN6CAcYXX@redhat.com>
- <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
- <ap8yoW37GY17pHYS@redhat.com>
- <ap83lNf0bUXX4ZS8@gourry-fedora-PF4VCD3F>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hoaet9sp"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1c3c90074so3276580a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:44:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788821086; x=1789425886; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BUv0mkJ7cMAUQ8w3WWyZh0341NHHmgqap051/du2GZE=;
+        b=Hoaet9spe8LMsPZ88gk6X+JJfLjHhE8DK2MNshpbRpOeFDr4u84zHPW797ow0IP5vN
+         EhzDKqNk1kj70sakgUkmBW5RFzuy9Dxuhq9QGABrDVe7BmtI/kp2heIWmjPVyKCs+LFf
+         6DYIzP2uX2mWjINIX8HVhg09xEfXlmwgJGcEI3NdH4TXCEY3NWcek1xHxuTe2XT8yPO7
+         Vyc68qGQPaybQRVV4HMPz3GldCJRTJJhzBqwp/PNgdMHj+SBEdygof/rqRwaMcZO1ezP
+         GLTS/MmnLmSLOLmCkr1c6JGUcHWJan663j3EEKfNrR2q1RJw+XT8W/PEo3FfhFgNF41U
+         vBEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788821086; x=1789425886;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BUv0mkJ7cMAUQ8w3WWyZh0341NHHmgqap051/du2GZE=;
+        b=HYdD7WN48pLVcf23x8UdovE4/rgTeKJbAyHUyOdN0C+zFoEWBKxs9Q8IpdYv4a3kUc
+         54pPUUkEP4QKQPfNRjOUCJu7qBwjT9qzQB67ctxH0dDGhhvlWKSwX5tt88QWOiEPc2HI
+         5/dJWbC3pY/io1IdKwTjWvdDg8LjgiYIJ5DwsE6klo6bHROER8mfuEz6SXf1BgNdKDBs
+         uKna7F3RqqHnDn7PXFDxcbcLRfG64K1+cfxiD14HyV7+EWDhuHZ8fcj+/SVjriqa8N6u
+         zkjxL006wByJmeA7OtCrjjiVFPYh+PdfDqXC/E5SyrqUUiozYDnm2VBr3IBpcJLUQMjj
+         DW1A==
+X-Forwarded-Encrypted: i=1; AKwUvByZVJAUN9cmNGfhH3GBDJ0t+xddwu9TlmW+BzAMaW0xRIvn5mp8cidGeNX8sn5vXUDltFylzxWg3rorj20=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZOapb1yAhZhFgOjJVE/+ITCuGA2lCaIdb4Vm4YOTsgiiMmhYi
+	JE+AetXPMV/+TU8R6flJCLFu4bTGb3vyNSQE2acASiUsFRwDeoeWw7H/
+X-Gm-Gg: AYBFou07cjZBYJv6iezanxe3Kq/kMooMLW0h8dCK7Q3Pl7XzZUdy0nsakD6TB3X9dYJ
+	UrpYrMbUxGy2ooGHfGNSvMRVTxKgnGY+wD3EetNvOemzHgOACMeZkc2+YDqpmguelLUqV4nCUiB
+	AhNf/Wd+xPupVrrAi0Nz2xeTdg2T1lqHzwSV0QKOe4gmdIkVBmEM6Mh63BRvGJqs40sJqluyIUQ
+	jN9gbxMSHhhABKSvGJARxWve1XFvXtui5isfyP91Flh9kgpk8isTM2oRiOb9frrwNrKZmPi6rX6
+	5hxFyAfUC9DLFbiPM3ZL1gKlfz6Izh1pV5E+m160YkeHCyuntGnRZYdE164VEFrZhKV+eHyhn2X
+	VZjG8//1yGi382VcLym94fxR44NN1IkNs7OUXRa6wuSDw3NLeDmWnUi21LggZWydM9l1dL0+TlA
+	0/nF0IDEOYuwf3h5KlMv20w0GGxBCKeAExAHK8xfvbJoh2eN1MJzaoBw==
+X-Received: by 2002:a05:6a21:6f06:b0:3c4:3321:4fe9 with SMTP id adf61e73a8af0-3da39f4293fmr37866696637.7.1788821085747;
+        Mon, 07 Sep 2026 15:44:45 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455485c25sm4526555a12.26.2026.09.07.15.44.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 15:44:44 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: erazor_de@users.sourceforge.net,
+	jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH] HID: roccat: fully initialize device before publishing to devices[]
+Date: Mon,  7 Sep 2026 16:44:26 -0600
+Message-ID: <20260907224426.159104-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <6a9ccae4.37659fcc.e790.0006.GAE@google.com>
+References: <6a9ccae4.37659fcc.e790.0006.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap83lNf0bUXX4ZS8@gourry-fedora-PF4VCD3F>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Transfer-Encoding: 8bit
 
-On 09/07, Gregory Price wrote:
->
-> On Mon, Sep 07, 2026 at 11:54:41PM +0200, Oleg Nesterov wrote:
-> > >
-> > > This might be my - admittedly shallow - understanding of scoped_guard,
-> > > but does scoped guard handle goto correctly?
-> >
-> > Yes, it does,
-> >
-> > > and why it's generally discouraged to mix cleanup.h and goto.
-> >
-> > Hmm, why? I didn't know...
-> >
->
-> one of the reasons to use cleanup.h it is to eliminate the "goto
-> for exit cleanup" mechanism in the first place (says so in the first
-> paragraph of cleanup.h).
->
-> Later in the header is explicit says don't mix:
->
->  * Lastly, given that the benefit of cleanup helpers is removal of
->  * "goto", and that the "goto" statement can jump between scopes, the
->  * expectation is that usage of "goto" and cleanup helpers is never
->  * mixed in the same function. I.e. for a given routine, convert all
->  * resources that need a "goto" cleanup to scope-based cleanup, or
->  * convert none of them.
->
-> This particular patch only does a partial conversion - so it's a
-> bit of an anti-pattern.
+roccat_connect() published the new device into the global devices[]
+array, then released devices_lock, before initializing readers_lock,
+cbuf_lock, the wait queue, the readers list, or setting hid/exist/
+cbuf_end/report_size on the device.
 
-Ah, thanks, now I see what you meant.
+Since devices[] is checked (under devices_lock) by roccat_open() to
+decide whether a device is available to open, a concurrent open()
+racing against roccat_connect() could look up the device, then lock
+readers_lock before mutex_init() has run on it, or read device->hid
+while it is still NULL from kzalloc, once devices_lock is released
+but before the remaining fields are set.
 
-Perhaps in this sense this particular change is "anti-pattern", even
-if "goto out" jumps out of the scope...
+Move all initialization of the device's own private state ahead of
+the point where it is inserted into devices[], so the object is fully
+constructed before it becomes visible to any other reader.
 
-To me the code looks better with this change, but of course this is
-subjective.
+Reported-by: syzbot+9f7405999979761b6cfc@syzkaller.appspotmail.com
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+ drivers/hid/hid-roccat.c | 29 ++++++++++++-----------------
+ 1 file changed, 12 insertions(+), 17 deletions(-)
 
-Oleg.
+diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
+index d6fff53d4ee7..53358297e96c 100644
+--- a/drivers/hid/hid-roccat.c
++++ b/drivers/hid/hid-roccat.c
+@@ -307,26 +307,32 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
+ 	if (!device)
+ 		return -ENOMEM;
+ 
+-	mutex_lock(&devices_lock);
++	init_waitqueue_head(&device->wait);
++	INIT_LIST_HEAD(&device->readers);
++	mutex_init(&device->readers_lock);
++	mutex_init(&device->cbuf_lock);
++	device->hid = hid;
++	device->exist = 1;
++	device->cbuf_end = 0;
++	device->report_size = report_size;
+ 
++	mutex_lock(&devices_lock);
+ 	for (minor = 0; minor < ROCCAT_MAX_DEVICES; ++minor) {
+ 		if (devices[minor])
+ 			continue;
+ 		break;
+ 	}
+-
+-	if (minor < ROCCAT_MAX_DEVICES) {
+-		devices[minor] = device;
+-	} else {
++	if (minor >= ROCCAT_MAX_DEVICES) {
+ 		mutex_unlock(&devices_lock);
+ 		kfree(device);
+ 		return -EINVAL;
+ 	}
++	device->minor = minor;
++	devices[minor] = device;
+ 
+ 	device->dev = device_create(klass, &hid->dev,
+ 			MKDEV(roccat_major, minor), NULL,
+ 			"%s%s%d", "roccat", hid->driver->name, minor);
+-
+ 	if (IS_ERR(device->dev)) {
+ 		devices[minor] = NULL;
+ 		mutex_unlock(&devices_lock);
+@@ -334,19 +340,8 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
+ 		kfree(device);
+ 		return temp;
+ 	}
+-
+ 	mutex_unlock(&devices_lock);
+ 
+-	init_waitqueue_head(&device->wait);
+-	INIT_LIST_HEAD(&device->readers);
+-	mutex_init(&device->readers_lock);
+-	mutex_init(&device->cbuf_lock);
+-	device->minor = minor;
+-	device->hid = hid;
+-	device->exist = 1;
+-	device->cbuf_end = 0;
+-	device->report_size = report_size;
+-
+ 	return minor;
+ }
+ EXPORT_SYMBOL_GPL(roccat_connect);
+-- 
+2.55.0
 
