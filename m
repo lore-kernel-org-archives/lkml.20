@@ -1,64 +1,64 @@
 Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACAA41DEF7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:58:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E2A424D5A
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767931; cv=none; b=lRlxLGWqmRxLR6te4drsxfFxFHXVX5baxuFVIWpUo5Zs4DjwfT5jYHwp1wnJT0N8q6NSMUwKl/CMagD/RLcFq1WMenx8pChxVpMiJ9uNqCKg84FiyjXLgl6EiBbUuaPtAw2SzYHhR2XWCkhZS4eRcrsJOG5XN9OKzcjunOIjVfA=
+	t=1788767933; cv=none; b=HqPJ9GJJiKJbwFj7zOG4mfWHy4nS2wHV7Rq3ltCphI43giBB809/uZHYn9QPJpUDuwolRZPfEbGicr1qEG8AfyISjIAMZoNM1nD7eue03JTF94km/M2BI2S/hpnd61oVbyc+x7N7Oni+EnbjPfExQImAnF4DhFvT5X8avOwpNn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767931; c=relaxed/simple;
-	bh=TCCpXwnmodeVmKo1E6y7S918XFzRwDxpNrXxJ9AKFVc=;
+	s=arc-20240116; t=1788767933; c=relaxed/simple;
+	bh=mxf0oO1tznDF9cRWAuZoopNyrJAvMa4wUwk5Nu5DUh4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QKelLs9A5ngp4MtJkaSeAT/65IsOF8wbqrYuTJ+TnH3dJO6fYoG53PnTf88oW17le/9TaSsEnoCOyFqT4NmRFeLNuIv4K0IkAloId9WK6TP4FvJwVBX3jcrdoAWUbCvJ/LTVLuz5agJ+6YGnNdNyUsjmxuNPsa4t4x4VyLfOHYk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SG1bOGsB; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=MywZ+Vc2oM6thj8fC/SSc4FDzc7xSTjtWTywwSTQls+6XRQ5uTk36u6CQoocDbKx/e3oCshl3tP7doxClmyArfQLIhZmmP6CH8Z43b9+y7yJAtkkIVgBqPVV64sli3XlfRBP90MK7vIRNaFOuMgsuCD7PG8CRKxtwQ8pKgfXpwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cvySR5mV; arc=none smtp.client-ip=209.85.214.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SG1bOGsB"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6d28aa26cso18961335ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:58:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cvySR5mV"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d71ae3455aso48059835ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:58:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788767927; x=1789372727; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788767931; x=1789372731; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kkKaVITt+/rz08+YgC0jvTu5c22naN5LQ082iYcixrU=;
-        b=SG1bOGsBqe8CnfPDXvaR6Qj4r+mDvEJoZMa9O2M+gLVJ7ZY2308DAh0NvCM4ntJMW/
-         j1ugl2zMkmizJtVEr4fQQZNRUaqikpEFbYIvsG9X+rZt94v6ZZBATyNFfhsKcmgvK7H6
-         yBGOHkrIENzwALIheKqd0lsRh6pmnXLonLqARhh8UoXgb28NODO/rLYOrBTXqV2uF2wl
-         j7CXxx6bB7ME2nVGDegZCdbpcsF0Q+l1tgmZ2aLoLfrB9uDPCvTUJun/9KoZjHJngbfD
-         Xbf9E9o0L3VimHI3Y/MHJcwhTuzCHli++grhfDm2OE8D6+IO4sK23who2PQF4eVce3AK
-         m1KA==
+        bh=CwNQOTYYKAxRvINgOc7TCo5ZbK+NqIUlV7D1RviVpA8=;
+        b=cvySR5mVV8FYAZO5T9LNWMbF5aaQryYNU1ItvVjm4lTFJdrgGV50wqQPKJaCcSD9Xm
+         /vyPIKgDCOwleXmxOmASHaHjo15kn6F6JI/kGz6onn5HNe6PqGheS/SbVml38897wp4B
+         nklQzg59EmY4PmYRZNvsSzja5pH8FqOcay4F68hPgnFCqcnNxEP9xW45TQ05aqdni2z0
+         Hg4dNPge9JW2oX5YWH8cizLfgcoBTKCN3zk6IaoOD5p4VyhmVAB18Z0EiJhw9kmyTpDn
+         BkjZOhnDf1HAYpUb4B//U/rZsdiCwBb7Gy6qOOmI1j+F5J1teJBOZtS8dqxnjfKrlYMX
+         P0uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788767927; x=1789372727;
+        d=1e100.net; s=20251104; t=1788767931; x=1789372731;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kkKaVITt+/rz08+YgC0jvTu5c22naN5LQ082iYcixrU=;
-        b=X/Zpb5z19YeoG2e0PpU4gP8qCR+AGSk8Cj8/N+qNcBvpLlRVnkhZvpZwdK4M+n070E
-         35RTP7zF1is/OvCAmBgZu2kvSx4Pi3T3OZkI8sEe9gwNEXQGKzCNQEtpcaPIlYAU3Yse
-         2ibApcf6zJXfqKYMSOgp764ybyaA5x/h+3mikIKmvcSs9a86jElVD7O9xwOMB/aaYOqB
-         PI+oo1Dewsr45gLh5N4UDKTwqETFLea8ntji4A76a4jU7XpnU1f8NPzHYwTf+xR8VQOl
-         i9TrETXRmaZq65fgFTVZ1sF/7ufBZPc1tivyE+C4ro1si1audEh379eneFiLCNyOMLRT
-         RRDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4nIIjiRvgRyf2Uj30mF29mJTL6wL1wqsd4eaQ8GfBU8oUSGeXMWhjTf1byN3G5msMzUFbemCA27cRHaI=@vger.kernel.org
-X-Gm-Message-State: AFuF++llLw3rf1ciZOi71MW6MRmxibrAP3n1y+Fgi1ap8++OyzMDrtwq
-	4WU3SLALMzLLb0TPTWkwzLbFTVrooAqS59KkPI0/ySYjlfQyV797sq4p
-X-Gm-Gg: AYBFou200TcEPgGzJzsjBxpTspZnc2rjCGp57oL4aXaS163tXK/8wLY4bL4Ns6QwU9d
-	6wXFTylc0FIx6wQxe1WSInP3j9SLSD/KFloD1KEaLVp1dzoKPgDp7HExNoIC1oiKzpBiREIUJzb
-	ClHcYKAtgPOsWFsKmKhwtR5QTnb5kSuBmVG6VXlAnC9esXTm60Mwa/jA2GbHb/HPiy9077QYnhE
-	qZO0CQ+8zSjXGxOvygE4Dvlm6FNoY3Q1bo+w7kSo1knwtFcaKkB3fFVCvITB5G0uowPs+cqc2v+
-	7rh4j90MKsjkw3TuZMEkEsvyeJDbTFvbDsnFXUtV2tm1+QjoIJ1dvYtpWbWTbqxEpOhpdYMsH9x
-	keL5zE5As0yTNAWppymyZzpEapLCiCzcRQvGL/L4q2U7BQWRVU34TcZL2ELlXmA6xN8bQkq3zzF
-	sN6gpu00HakdnDERY0G+sylctiw4wLM8tDhGrK3LdqWD6BdGqd/jr0vzewX/aiJnRpo8ChGRZRx
-	eRTZhgw
-X-Received: by 2002:a17:903:2383:b0:2d8:d4ce:9f35 with SMTP id d9443c01a7336-2db12757af4mr288425665ad.19.1788767926938;
-        Mon, 07 Sep 2026 00:58:46 -0700 (PDT)
+        bh=CwNQOTYYKAxRvINgOc7TCo5ZbK+NqIUlV7D1RviVpA8=;
+        b=eQ5jq58ZykX7JMgEFylj4E9GqjnXCO4ZjOOthDYsJxjKm2FFtMF8djviW+2JUqoXtg
+         Sy7YwdrlJUHzFEybVKu2dVzKMOoKqLqiZkpa4VPBhzv2I4ieJYqziO5/G9urcLmcqBuP
+         E82mD3jGMLJjTlMYLPbUqEsyAK7bwAsGren9SGmq3aLKfvEVSZbzwiH8LCC5SJhc7aYx
+         6IWQkIpAEw9xA94X0B37DrYr4SCSDI4osRoxEbePuPSjDdKPk1uMFmz6cxyffiPbHwnW
+         yPu7/Rk/hZNvub7zTKPF9VycXOWYB2/Cb/2D93Na0P52kfhtJhDqVM8/7ClHkxLMkMgn
+         q6Gw==
+X-Forwarded-Encrypted: i=1; AKwUvByhLZId8ByC6gKxi9M12R6NxAQ744NE/ZMTPUsO3BGwymKdWcRPDjAqyHdJwWZy0RTDtH50hex2HvAohVc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/Wi7coR2YJNXDhlO0+OX3npWCju7dGErEIvK9Mfh7HKYdQWGP
+	e9PbOF0l7p/X7sUT8R4NCjV7zeB5UweGuwf+p+b0HNOVuTzosPHixDQp
+X-Gm-Gg: AYBFou1C/DEmTQahatrsotyKQQcldJCWojj1Ie04s1fL3HDOBiK7DFmbkd536BkHJS8
+	TG0K7ziL0xRku72q11Y7U3k33Ddc8Vz31aInGFhxo/ToDpjaWa8bg8eLh39d4zK5dgh2I4P2Yii
+	ACJalcWf4gMTa+TAnvlsoPnG0hPVUQCeXgNlh0xXXOqI5yDKOGwPkSJCG0rkDn2ASwyE3SCyqqH
+	pDxEv2qh3QsFG3PBjvxsSEuYN5X4A76TWsCI7bLsLMkdjRGzPcvqvzqE/eLk4PRI49lmwidpf1F
+	9PDTm8UYynAUMkhNcW9ZrT/6XeBtc7/BqCqzVP0KL7lh2cXLlzl1gpuC9+3YUMEUVaILjZ+UQ3X
+	9PYPjHcLtt78uu561iBxApEZJepntk2KG4c7HCGnc1dwjkbH/b89Gdm3tCXlXaWqDc27/rneMxo
+	+ZbrflKRHUl/mfZ2B4lInmoVK05jtmK5r64lXrXYeyQLPC9w2BzWIhVrsM9PnbHFIISekvmVdWe
+	kC5Y9E=
+X-Received: by 2002:a17:903:3c27:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2db125cd34bmr317335215ad.1.1788767930431;
+        Mon, 07 Sep 2026 00:58:50 -0700 (PDT)
 Received: from kernel.tail6741c6.ts.net ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.58.42
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae7637sm40945595ad.79.2026.09.07.00.58.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 00:58:46 -0700 (PDT)
+        Mon, 07 Sep 2026 00:58:50 -0700 (PDT)
 From: Kunwu Chan <kunwu.chan@gmail.com>
 X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
 To: paulmck@kernel.org,
@@ -69,9 +69,9 @@ Cc: rostedt@goodmis.org,
 	rcu@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kunwu Chan <kunwu.chan@gmail.com>
-Subject: [PATCH 01/13] litmus: Add SRCU fastpath anchor-before-scan test
-Date: Mon,  7 Sep 2026 15:58:17 +0800
-Message-ID: <20260907075829.2073224-2-kunwu.chan@linux.dev>
+Subject: [PATCH 02/13] litmus: Add SRCU fastpath scan-before-anchor test
+Date: Mon,  7 Sep 2026 15:58:18 +0800
+Message-ID: <20260907075829.2073224-3-kunwu.chan@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907075829.2073224-1-kunwu.chan@linux.dev>
 References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
@@ -85,67 +85,90 @@ Content-Transfer-Encoding: 8bit
 
 From: Kunwu Chan <kunwu.chan@gmail.com>
 
-synchronize_srcu_atomic() may end its grace period immediately when
-its scan of the per-CPU lock counters finds no readers.  Correctness
-requires the grace-period anchor written by srcu_gp_start() to precede
-the smp_mb() ordering the lock scan.  This ordering ensures that any
-reader whose lock increment is missed by the scan cannot have
-incremented its lock counter before the grace-period anchor, and
-therefore cannot be a pre-existing reader of this grace period.
+If the synchronize_srcu_atomic() fastpath instead places its lock scan
+before the grace-period anchor, the scan can miss a reader whose
+increment was already visible before the anchor.  That reader already
+existed when the grace period started, so completing the grace period
+without waiting for it would violate the SRCU grace-period guarantee.
 
-This litmus test models the key ordering between the grace-period
-anchor and the lock counter scan, where "seq" models the
-grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
-->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
-smp_mb() and the lock scan.  P1 models the reader-side counter
-increment, with the smp_mb() of __srcu_read_lock() following the
-increment.  P2 models an observer that sees the reader's increment
-before seeing the anchor.
+This litmus test models the reversed ordering, with the lock scan placed
+before the grace-period anchor.  "seq" models the grace-period anchor in
+->srcu_gp_seq and "ctr" models the per-CPU ->srcu_ctrs[].srcu_locks
+counter.  P0 scans the lock counter before writing the anchor, with an
+smp_mb() between them.  P1 models the reader-side counter increment,
+with the smp_mb() of __srcu_read_lock() following the increment.  P2
+models an observer that sees the reader's increment before seeing the
+anchor.
 
-The outcome is forbidden by LKMM, and herd7 reports "Never".  See
-SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
-which permits this outcome.
+The same outcome is allowed with this ordering, and herd7 reports
+"Sometimes".  The litmus-tests README is also updated to describe both
+SRCU fastpath tests.
 
 Tested with herd7 7.58 using linux-kernel.cfg.
 
 Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 ---
- .../SRCU-fastpath-anchor-before-scan.litmus   | 56 +++++++++++++++++++
- 1 file changed, 56 insertions(+)
- create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
+ tools/memory-model/litmus-tests/README        | 16 ++++++
+ .../SRCU-fastpath-scan-before-anchor.litmus   | 53 +++++++++++++++++++
+ 2 files changed, 69 insertions(+)
+ create mode 100644 tools/memory-model/litmus-tests/SRCU-fastpath-scan-before-anchor.litmus
 
-diff --git a/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus b/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
+diff --git a/tools/memory-model/litmus-tests/README b/tools/memory-model/litmus-tests/README
+index d311a0ff1ae6..449747c6db9e 100644
+--- a/tools/memory-model/litmus-tests/README
++++ b/tools/memory-model/litmus-tests/README
+@@ -137,6 +137,22 @@ S+fencewmbonceonce+poacquireonce.litmus
+ 	Can a smp_wmb(), instead of a release, and an acquire order
+ 	a prior store against a subsequent store?
+ 
++SRCU-fastpath-anchor-before-scan.litmus
++	This models the synchronize_srcu_atomic() fastpath with the
++	grace-period anchor ordered before the lock-counter scan.  This
++	ordering prevents readers that existed before the grace period
++	from being missed by the scan.  See
++	SRCU-fastpath-scan-before-anchor.litmus for the reversed
++	ordering.
++
++SRCU-fastpath-scan-before-anchor.litmus
++	This models the synchronize_srcu_atomic() fastpath with the
++	lock-counter scan ordered before the grace-period anchor.  This
++	permits the scan to miss readers that existed before the grace
++	period, violating the SRCU grace-period guarantee.  See
++	SRCU-fastpath-anchor-before-scan.litmus for the opposite
++	ordering.
++
+ WRC+poonceonces+Once.litmus
+ WRC+pooncerelease+fencermbonceonce+Once.litmus
+ 	These two are members of an extension of the MP litmus-test
+diff --git a/tools/memory-model/litmus-tests/SRCU-fastpath-scan-before-anchor.litmus b/tools/memory-model/litmus-tests/SRCU-fastpath-scan-before-anchor.litmus
 new file mode 100644
-index 000000000000..8200a75e15ef
+index 000000000000..931a41014de7
 --- /dev/null
-+++ b/tools/memory-model/litmus-tests/SRCU-fastpath-anchor-before-scan.litmus
-@@ -0,0 +1,56 @@
-+C SRCU-fastpath-anchor-before-scan
++++ b/tools/memory-model/litmus-tests/SRCU-fastpath-scan-before-anchor.litmus
+@@ -0,0 +1,53 @@
++C SRCU-fastpath-scan-before-anchor
 +
 +(*
-+ * Result: Never
++ * Result: Sometimes
 + *
-+ * The synchronize_srcu_atomic() fastpath may end its grace period
-+ * immediately when its scan of the per-CPU lock counters finds no
-+ * readers.  Correctness requires the grace-period anchor written by
-+ * srcu_gp_start() to precede the smp_mb() ordering the lock scan.
-+ * This ordering ensures that any reader whose lock increment is missed
-+ * by the scan cannot have incremented its lock counter before the
-+ * grace-period anchor, and therefore cannot be a pre-existing reader
-+ * of this grace period.
++ * If the synchronize_srcu_atomic() fastpath instead places its lock
++ * scan before the grace-period anchor, the scan can miss a reader whose
++ * increment was already visible before the anchor.  That reader already
++ * existed when the grace period started, so completing the grace period
++ * without waiting for it would violate the SRCU grace-period guarantee.
 + *
-+ * This litmus test models the key ordering between the grace-period
-+ * anchor and the lock counter scan, where "seq" models the
-+ * grace-period anchor in ->srcu_gp_seq and "ctr" models the per-CPU
-+ * ->srcu_ctrs[].srcu_locks counter.  P0 writes the anchor before the
-+ * smp_mb() and the lock scan.  P1 models the reader-side counter
-+ * increment, with the smp_mb() of __srcu_read_lock() following the
-+ * increment.  P2 models an observer that sees the reader's increment
-+ * before seeing the anchor.
++ * This litmus test models the reversed ordering, with the lock scan
++ * placed before the grace-period anchor.  "seq" models the grace-period
++ * anchor in ->srcu_gp_seq and "ctr" models the per-CPU
++ * ->srcu_ctrs[].srcu_locks counter.  P0 scans the lock counter before
++ * writing the anchor, with an smp_mb() between them.  P1 models the
++ * reader-side counter increment, with the smp_mb() of __srcu_read_lock()
++ * following the increment.  P2 models an observer that sees the reader's
++ * increment before seeing the anchor.
 + *
-+ * The outcome is forbidden by LKMM, and herd7 reports "Never".  See
-+ * SRCU-fastpath-scan-before-anchor.litmus for the reversed ordering,
-+ * which permits this outcome.
++ * The same outcome is allowed with this ordering, and herd7 reports
++ * "Sometimes".  See SRCU-fastpath-anchor-before-scan.litmus for the
++ * opposite ordering, which forbids this outcome.
 + *)
 +
 +{}
@@ -154,9 +177,9 @@ index 000000000000..8200a75e15ef
 +{
 +	int r2;
 +
-+	WRITE_ONCE(*seq, 1);
-+	smp_mb();
 +	r2 = READ_ONCE(*ctr);
++	smp_mb();
++	WRITE_ONCE(*seq, 1);
 +}
 +
 +P1(int *ctr)
