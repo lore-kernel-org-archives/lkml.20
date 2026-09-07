@@ -1,131 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972713403EF;
-	Mon,  7 Sep 2026 17:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2EA851FCBB;
+	Mon,  7 Sep 2026 17:43:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803026; cv=none; b=IqeiZWxQkvm23g9zIdacAuTtmUjjVJCZdVctKGSpjAxZRrnmsiWrbAC1KO1MolBEgh4hwM98X/M/gk4QPnScjdGbsWf9wuIDCJahm4y6uLcxovdcEkdYwPUgpyxrjP2PvJZwlwmo3tT8C/gz+R9mA4FjEtKPMLFGBMjffpUNwC4=
+	t=1788803040; cv=none; b=rtqGPeNYHzpYwkqcgYg2txBc2TLcastglhRkmSyUpPR4HAqWlN443E4tF7clUi5zlQMn2GvF1euSHk0T+a7P6F4tBHFO/7fK7XavyPHrjwATA6WpTEq9Q2GGqOx+VMCoEycmyJd9PooeYb0EX/2Bb5wS8QmzuyyVr6gS4P/mZj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803026; c=relaxed/simple;
-	bh=JCuP5iwAbN1KVWFm0TUsonZQHuDpasz45FD7jELXQe0=;
+	s=arc-20240116; t=1788803040; c=relaxed/simple;
+	bh=RrZu78JtYcG/qoOZeEqnWYf/XPk9OKGQE+i4k2jsvM4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=es3tl5USYSCjPkoLBxYuv+Vp4Dx22iK5pB0pC4icbo/7dmMgYtrlNDD5lW9UpLaovTzNBcnpzTqForO3hQklcNl1CXmyUqpR/v7wf1doGMX+3pPpcuhpVQJdM394NrDowJ/s5OS2i15ODJuK7xwZUqSrRah5kbyJMDJYbibfIpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZxswswL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RIO7NHdA1UpyggD58fkeREyIGxO9AJiJA8UqlELoddna1BAqwa1wRI0nI2SIof6pPtX3hjPTadVbdgo+mRIZFwIuxaO1mji9XvYdm/0KTLySeFKFh1sMW1w8MpEKFtvBfprhDeAtR1p44Imb912QW9W0E+VV8QH6n4CI7e7b+xw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vx/NhQSt; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZxswswL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98131F00A3A;
-	Mon,  7 Sep 2026 17:43:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788803025;
-	bh=icUnZOhRCh6jXI4eaxDCpDQrM4ohx6YfoZJErlEzabY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SZxswswLdFwzA1ope4PgsXvXqIZSObU2mgTxmKWD/Gmp1P90Lby9+8F6+rcfFJWkj
-	 ZFXpC7yUxkjw+NqPU7JUTqqEbnOFnbPvugD8BYk7i3BGdb5hB/XkSfL11p33yiJzF0
-	 4rF3okuYzzLFiMpNNdXupIjCOe9SaXm1xQWe2cb6pDOZDdZNWIR7AaCwfiyjpdb0zZ
-	 DkCJR/0F+M55i1JSZ5Ng36icOjip6p0a9FHrGvi0FkxhAc7OcwxzijxSzKL0orM3jl
-	 q2kk6+VrS4vvas6k6i3qdaSX1cW5MXOt2JlpGK9EeQ+QtFTJcgl3eUluv8suCVgFOr
-	 +IbDzPy5cC72w==
-Date: Mon, 7 Sep 2026 18:43:40 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-Message-ID: <20260907-tassel-bargraph-836b6f41fc43@spud>
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
- <20260904-colonial-wimp-b37c27657664@spud>
- <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vx/NhQSt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788803038; x=1820339038;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=RrZu78JtYcG/qoOZeEqnWYf/XPk9OKGQE+i4k2jsvM4=;
+  b=Vx/NhQSt0Wf0HM2+XgfhYEtjviQgwSgBYTY2A0GMUB05UwCXrsZf5oUA
+   cQbii1NtPWYgyYvikIuUI6unwN+5VV5foUBOUQksUdochbVulu/vPL7Iz
+   Qv2+S4yk+XcGXxzShjyKL+eh3grfZh3+qSS6rWkj5MT4G3JmzZ9dULTLI
+   FmkyMxtq+3PHD7fnYLPCk9O/twd8TgVWg4/mtaJA0oAqphl0OOzgC0hG7
+   qhZi3768B4KuzQ+5lIki+3Gw2TZEFvdR7S37a6KpUm+S2/9edqiCl9qAd
+   H/vpqJyqHyG+rBgRCKlBRSZuBf+zjRexShjgUdNKrRpcXe0jtSKqE4dqw
+   Q==;
+X-CSE-ConnectionGUID: BwefiwgkRxiHolNsbA0wsA==
+X-CSE-MsgGUID: 1layvQoGQm6ZnIghCkhBiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100729550"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="100729550"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 10:43:57 -0700
+X-CSE-ConnectionGUID: GUjS52WpS6qtzgGuDQfvIA==
+X-CSE-MsgGUID: KyXBB8v/SMKARz6OFCyLEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="267510655"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 07 Sep 2026 10:43:55 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id D156499; Mon, 07 Sep 2026 19:43:53 +0200 (CEST)
+Date: Mon, 7 Sep 2026 19:43:53 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Jameson Thies <jthies@google.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bleung@chromium.org, gregkh@linuxfoundation.org,
+	akuchynski@chromium.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] usb: typec: ucsi: displayport: Fix OOB altmode array
+ index
+Message-ID: <ap732UoS0zqjg_9r@black.igk.intel.com>
+References: <20260904234401.2339633-1-jthies@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l+BsWOi6/ltuqzg/"
-Content-Disposition: inline
-In-Reply-To: <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
-
---l+BsWOi6/ltuqzg/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260904234401.2339633-1-jthies@google.com>
 
-On Fri, Sep 04, 2026 at 06:24:04PM +0200, Marek Vasut wrote:
-> On 9/4/26 5:32 PM, Conor Dooley wrote:
->=20
-> Hello Conor,
->=20
-> [...]
->=20
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - reg-names
-> > > +  - clocks
-> > > +  - interrupts
-> > > +  - phys
-> > > +  - phy-names
-> > > +  - power-domains
-> > > +  - resets
-> > > +
-> > > +unevaluatedProperties: false
-> >=20
-> > I said this elsewhere today, but this binding has lots of "distasteful"
-> > properties for things that should be determined from the compatible
->=20
-> Which properties would those be ? (it seems
-> reg/clocks/interrupts/phys/power-domains/resets really need to be there as
-> separate properties, but maybe I am missing the point?)
+On Fri, Sep 04, 2026 at 11:44:01PM +0000, Jameson Thies wrote:
+> The UCSI displayport driver indexes the connector's port altmode array
+> with the GET_CURRENT_CAM response after checking it is not 0xff. The
+> port altmode array is UCSI_MAX_ALTMODES elements long. If the PPM
+> returns an invalid GET_CURRENT_CAM response above UCSI_MAX_ALTMODES and
+> not equal to 0xff, the kernel may crash with an array index OOB error.
+> 
+> Update the UCSI displayport driver to verify the current cam is less
+> than UCSI_MAX_ALTMODES before accessing the port altmode array.
+> 
+> Fixes: af8622f6a585 ("usb: typec: ucsi: Support for DisplayPort alt mode")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jameson Thies <jthies@google.com>
 
-All the quirk properties is what I am talking about here. There's about
-50 of them and I don't know if a single one should actually exist.
+Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
 
-> > , so I
-> > would appreciate it if you could use additionalProperties: false here
-> > cite the ones you need to use explicitly.
->=20
-> May I ask, what exactly is the rule of thumb for additionalProperties:fal=
-se
-> and unevaluatedProperties:false ? I seem to struggle with picking the rig=
-ht
-> one for a while now.
+> ---
+> Changes in v2:
+>  - removed 0xff alt mode assignement when GET_CURRENT_CAM returns an error.
+>  - return -EINVAL when alt mode index above UCSI_MAX_ALTMODES is returned.
+> 
+>  drivers/usb/typec/ucsi/displayport.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucsi/displayport.c
+> index 7067f2561b84..572da7bbd29c 100644
+> --- a/drivers/usb/typec/ucsi/displayport.c
+> +++ b/drivers/usb/typec/ucsi/displayport.c
+> @@ -71,11 +71,14 @@ static int ucsi_displayport_enter(struct typec_altmode *alt, u32 *vdo)
+>  	if (ret < 0) {
+>  		if (ucsi->version > 0x0100)
+>  			goto err_unlock;
+> -		cur = 0xff;
+>  	}
+>  
+>  	if (cur != 0xff) {
+> -		ret = dp->con->port_altmode[cur] == alt ? 0 : -EBUSY;
+> +		if (cur < UCSI_MAX_ALTMODES)
+> +			ret = dp->con->port_altmode[cur] == alt ? 0 : -EBUSY;
+> +		else
+> +			ret = -EINVAL;
+> +
+>  		goto err_unlock;
+>  	}
+>  
+> 
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> -- 
+> 2.55.0.979.g7e5102b832-goog
 
-I would say, if all properties being imported apply to you device, use
-unevaluated. If only some do, and there are some that will be
-problematic or confusing if used, then additionalProperties: false and
-citing the good ones explicit is clearer for users and prevents the bad
-combos.
-
->=20
-> > Sounds like dr_mode: true and
-> > maximum-speed: true are all you'd need?
-> Ah, I think this also answers my previous question a bit. And, as for
-> limiting the properties that are really needed -- this pulls in the common
-> DWC3 USB IP core properties, which all do apply to the DWC3 core. They mi=
-ght
-> not be used on current hardware, but they are still valid for the DWC3 co=
-re
-> (IP).
-
---l+BsWOi6/ltuqzg/
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap73zAAKCRB4tDGHoIJi
-0pRzAP9n+Hs4lKXTWOlC5IvXgMmAURFKmKMNBSNfQLljYt9DNwD8CZYGxm79twVN
-jHExhMMyd2u/59PLFdTLRCT9WDghLgA=
-=whhB
------END PGP SIGNATURE-----
-
---l+BsWOi6/ltuqzg/--
+-- 
+heikki
