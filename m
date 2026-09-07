@@ -1,88 +1,85 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F265735BDC7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE803F4858
 	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812428; cv=none; b=LIb+hnfmfxpL8NZHuZ06dtDplHrnW/PhLkuwig0lceeGaLGqqfUZO0PxMKZxFiMSxdOZ9Y+Kfvg5UQGuU/O+nkbmzpxmWFTapvrm5Ziad3NsmgZlQa7tYJf+7zTyka8PXP4HuEwYJ/lIaOoi0mRQ91LemEu2MmAB02OqovfvQhk=
+	t=1788812431; cv=none; b=bFh7z2IEQq1HqXv2oaypoQdCuVf4MGmwxUzUVICdyYYRUYac6oiFJpoMj419o1SJJqlQOfdhWOg5uYeYotXvldh086jWFbEc/tXya0W2Awr0khO31VIx47dOpD4MFfc/87YYYPZhHOamJbEy5AWpidlykdlII6c0k5oQlKi42Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788812428; c=relaxed/simple;
-	bh=7CrZNHHkxIkuOJo45Q3XSFmINtwFQy/yCbxiey+tcdU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MFvs7I8hvd7nwobh+F3vLMw9ThSUZyzaDUw/DCj4z06yInftOk20OCQIRQA4/SWsfQ96HM+wbKxLxGPkNPp54z2/SWK7pnXQk7fgNqG9QCIxP8i36FuHZajCbar2U5tjwi29kiod2971GTXfFOXaiTWzA6cjSpCzsVvtKxeVR6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=mTIroMZ9; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=5YpBJbDq; arc=none smtp.client-ip=148.163.139.74
+	s=arc-20240116; t=1788812431; c=relaxed/simple;
+	bh=JibSQGdAEYY3mJm8Xkps8m6r7Q0UFNwNv9ID7AtRvVU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c0YeW0h6Q9L4cR8kOlskZwvciPRJ06WTLTtxJPPFoaJucLgemh5bCNZuVKmtRCjMslraWcQZ/P9mQTLv7Gg5wmfLX9KuhbO+MWq0PRikuSOXSVQR56IBdTUc/K8b2Z3UxI67d7W5Hrkb4VeqhA18Wfy8XtjJ+OpXKAKMYNC9ag0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=K9prNAHN; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=NERSi3s0; arc=none smtp.client-ip=148.163.135.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="mTIroMZ9";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="5YpBJbDq"
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687IYESk2944957
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="K9prNAHN";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="NERSi3s0"
+Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Ic2Mh2536486
 	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 16:20:23 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=e/8X
-	t8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=; b=mTIroMZ9VSQDHSfFIKun
-	wnxVGlayuUoRMfa7SKWG+pYEFE21IfX/KHvFXmC68aG0rOzp3w3cn44nE/ZY96i1
-	8PsrLwDQYHPFzVXbkVxA811BR51/iUq05Vw9w0sohqNWOzcDUt/u+B19GSUplmUN
-	4LK7BhXcOReIj5ElzSsJumDc9eUI5cXWQ9PIZxjLLEJ+RfMWVB4drLz/byeLneGS
-	gANXnJlFsCU87BtXnYyO6BcxQ3iP/YEK5rfqVzvMDXZDntPBP80xwR4SSelIsS8j
-	mup+R4E+lvT8u91utx+f3a7/kJy7DTuRj6cNB39WeIgC6fMRRUjlY6LdyoETKCkF
-	7g==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4ghepk5ejf-1
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=QiGtUshKZxylmfjVR4DIvzvifN
+	mZrFAeh+Ui6UZX1lU=; b=K9prNAHNtrZnkjJMLA+8HU3Q+5fjLNfYujvWL99tdG
+	gPmP/V3Jy2aWvHgBIXIkxYpUw1uB+YC8eT2FqmW6I+8J2IXz1O3zzDpdEnoZyviT
+	TTfvRL1yqMfBq2F92L/2z9BRucX0aHi4q17Qgx4nyGqRydsVkDMB0PABBXu+38/l
+	+CrKZ8v2iE0/izEG9J1Se1MWZ/n+2PB62msWOe5gPhRHzkB4QdhimcLPp8ltZsFg
+	BRlTS/wt5q9acON/MBoHOJZ4C4nDSYyJm7zWFro6/nLC/zpTD6Hgrepg0pwYRsSq
+	lqcfBOZcd+3UUQ4vr7qhrgcD8K9A7bqx05ARtWLUTnTg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4ghbg3ed1p-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
 	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 16:20:23 -0400 (EDT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52fc3bff8bdso69168281cf.3
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9102f07f2fdso82626206d6.0
         for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:20:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788812423; x=1789417223; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=e/8Xt8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=;
-        b=5YpBJbDqi2sF0Q7c27P9G1LZuER82OjJg8+2hh1DXlcQ4EwnmQw4ujtElBzni9tU6F
-         I9IwuvwymW3xjySKqJvij5jhS/FiXhg2qVwOsnOGifUxKjKfm6sUzdrLamRmhLZp7vk5
-         zo8iQXPN94t2vkJPyPt2S/4KnrpFOcfkHZkXMCapypRWRhEpyFDkKpvwgZ6HLb6JgiXv
-         ecP3FwMvDgxw/T2blK/QhTaG1yBcJqZ/ISyk3uF98J8EREg5fszLNw7JYzkZvejMIfUr
-         Lv9vvcb6GsITzdRe2tQrZkbyc9YTPOeqe6NXLxPbDrGsX5OhY3ZzsCesubHnH1MmbOqo
-         85+Q==
+        d=columbia.edu; s=lionmail; t=1788812422; x=1789417222; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=QiGtUshKZxylmfjVR4DIvzvifNmZrFAeh+Ui6UZX1lU=;
+        b=NERSi3s0X1T1WRAoVI3PWSe/yd7SiZB1y7No3JDvgEuWvX3y2sP8SR19Q6dA0djeYn
+         gLtyfeM3/JXw5zBEQgSTDri6Z6ZYhbJQszzPJtUmhPXKKd6Jz3VgWmfboBZRLjym1wPU
+         EYfZ3YJq0uR+MfxlZBJGr4QgeKrgfb0jh8JP+YPi8Y3VRyybUk5qhLjq8JYRbu6qkiyd
+         nn2kndi/64yz9mGcgRZ136BvHsZ5jXBeam9Lja5Ml9MDe84JrJDWekxQEI/ugD5A+8r8
+         K8W8wVt4i+8+ARPsAReG221IDnbRVnLKOEXCr/MiV/3p7BGWPUTYUrsA3JT21bzHWAoO
+         f5Rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788812423; x=1789417223;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=e/8Xt8rVJr6lIvOnjb1t9hnUD7gb2SHMXo5XIPyUSv4=;
-        b=Bf2WihxgkIuI3r2Acq9iMBBIOiox4Vsz3IMzSA2BqwjEwVF7lPSSeANMpBnp0ULqLW
-         xBO31T682sk8jodYb0JyMxI82V65NN302YJEceXb20wa5axT+9RvPnNR4Udcekg4iA2C
-         YE1tuX/nSUo2dUFvOL+fAH9z+F5ifYzvBw7UJybv7Ac5ZDfgU+iNw4JMohS8V2E2u579
-         vr+C4q8JnqFJyGr0pV1qS/WoYwZSg7zfq0P+ohM3SY1Fzdv4iJErUXNCFRt8GUtUyAF8
-         eOV/+nBwR0mm6fRquaT64THKNmF2d+Kgm8+fEFPM8lCUU/Tmhro9xdjpXjiBEUdvCEdx
-         CQYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYSyhKndEOa7gbaUL2+4DwgOyyGba9kUWBcNOX6yqL7QWSajqAGO7uNenBGHriHgaeRgL8idtRMTTZusg=@vger.kernel.org
-X-Gm-Message-State: AFuF++n4GYx+ZbEseqBpKpFZGc5nKaKW7UQSKlhKAWkoZc/XRKFYJS/b
-	Wp812hGdbrRwY7oXj3+GCoAfUjAQWiZr/+V7BJBbaIWWSestsjrAXbQuqjR1tqi2KJPtUSjVqvB
-	7jFbtc6KgVzW2Syj+F9+abbtaSZ3tXbTx9+A4CX1uY06+VLg8rKef3r6P1sq2pA==
-X-Gm-Gg: AYBFou1cBjK+bgDtKDnsE1l9NQkkDvYluU/MkwMkvyahyENcjZaS695cvy/cL9Z+oTU
-	ZrDTxFwEXA6aOjcPpN80hff+vLb2XRpXGcVloIlIM8hi6xUGl1Cb6MtI5bRLhsiCgR28nH+17mQ
-	bYXglJEEqvVEzm4y4obSsAixkMerYqZIRX7HX+qgT2fcZ/iiP8RycJOKQv3h33ZbWoK3D4Y0fTS
-	xuT52/FDXRMQOZDc8OCrBAFVr6x4xGFzG0Q+XMijY4oYLxDZVOjfIYrW5pJnQ6bT9H6EqhJ6qLn
-	7x0z3MiTUU7tGnKyoM6JBI7Z4cBdcszAgDjcsqz5Ftqm4YO0Er3RtDuHKxsbv4OrvezTs0T440t
-	dDOgKh9mGB/4KPvzzSqnO7OJHmCHA81/AW0o+buNdKNE=
-X-Received: by 2002:a05:622a:2483:b0:517:580c:bcd3 with SMTP id d75a77b69052e-5305484e5bbmr272939021cf.19.1788812422949;
+        d=1e100.net; s=20251104; t=1788812422; x=1789417222;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QiGtUshKZxylmfjVR4DIvzvifNmZrFAeh+Ui6UZX1lU=;
+        b=YKWsf6osA1TxuOaAzN9HYv9N1ckq8iFeTlw1Rq2n0l/2ivmr6nNyo44868A2AcT2xF
+         N26ElFyDcQgwziAscVZNK2arlOrqdDDrR5laU0uCquoqJ9sjKd2s32UWgq6v4W3vfVj3
+         z9IiugwpSzdWIwCyxxfna3zeTrWMgbvYKkSlwwg9dpGNSzAwObWdH32Vd2VkWuKSGFkf
+         q06OElpWF0hjwi/74lr2cBpMgBSQVVk0fwEqWV3ezHU2zB61qy2ofQH1AHbZQsVUARYn
+         s27XkywV1/WgQg5nwlO+kemyguUcwc2uapLeEaI8JQ6vecdt27ksO5SQsXnik4ZLHWn+
+         VtlA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3+DyDLrpGOxUIjiydO38OTtXwUiIX1nGu0sQTZ8QlSofpcY2OJBhvaLE7dWRiTECZWq5HRASPILyZi0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++luY87rD2XUZbwisMQQAOqRx9gz7buVhVEeDfS17uwZ8VZ5wMbe
+	mZkHa3GJKyQPpivAt2gltSXQ0aPmX83YKP6IBugQKQR7Uh3xINVQ+ZJn/rYwetrAw+P/4bUV11s
+	0KZ/JoiWptS5QBdaQ8/5GyH/E9u/YGFEoaJtZAnWrDLDhycPXLb6ebePsrEQ9SA==
+X-Gm-Gg: AYBFou3To8m2EZDGzFBYshV/ZEHj4q2dde+nLz+a0GaOMKUDyhs3KFdo+RLq7Dr9t7r
+	iTQIRQ4xVbuwwyNe1Xin4zKXBmr/bm4ps7mi2YW6KxCmD1IZ6erTEvpZvuO0O8oNz0YXGrP0S4b
+	DQgFgPJ0msZ/JBK++R4+SwQ+qRq7ln2CNrUPD57ZxA5oFVBozuOq2z+BqVceoHp/Oda30ERM7D+
+	n2XvobmJE77HH1jcfymNHm50CRgsrn4AgDu6BCA9HIeKjxIoYf1uYJ+RMsD8WTKJk0FQTiyWQq+
+	PHaFOVbExH7dFQQgZNmN9q5NE9bRYFSks2sXP627AL6FuScFw7j+YLWIX12yCs6H7iu0EqcFnCR
+	pN/BRV3BNIJj3vA8eRsjcGrCtX3eNlKrGME+sgXqKUVE=
+X-Received: by 2002:ac8:5fd4:0:b0:530:4773:113c with SMTP id d75a77b69052e-530477313e5mr235126311cf.26.1788812422361;
         Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
-X-Received: by 2002:a05:622a:2483:b0:517:580c:bcd3 with SMTP id d75a77b69052e-5305484e5bbmr272938451cf.19.1788812422567;
-        Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
+X-Received: by 2002:ac8:5fd4:0:b0:530:4773:113c with SMTP id d75a77b69052e-530477313e5mr235125891cf.26.1788812421885;
+        Mon, 07 Sep 2026 13:20:21 -0700 (PDT)
 Received: from [127.0.1.1] (nat-128-59-176-3.net.columbia.edu. [128.59.176.3])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305413ce9dsm95062351cf.11.2026.09.07.13.20.22
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305413ce9dsm95062351cf.11.2026.09.07.13.20.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:20:22 -0700 (PDT)
+        Mon, 07 Sep 2026 13:20:21 -0700 (PDT)
 From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 07 Sep 2026 16:19:55 -0400
-Subject: [PATCH v2 1/7] btrfs: tests: rename process_page_range() to
- process_folio_range()
+Subject: [PATCH v2 0/7] btrfs: convert some struct page users to folios
+Date: Mon, 07 Sep 2026 16:19:54 -0400
+Message-Id: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,118 +88,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-btrfs-folio-conversions-v2-1-b5fe79f7607b@columbia.edu>
-References: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
-In-Reply-To: <20260907-btrfs-folio-conversions-v2-0-b5fe79f7607b@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAGocn2oC/3WNyw6CMBBFf4V0bU1BHsLK/zAs2mEqY5CaDjQaw
+ r9LMS5dnuTecxbB6AlZNMkiPAZicuMG2SER0OvxhpK6jUWmslLVqpBm8paldQM5CW4M6OOFZV7
+ VhQJIrQYttvfTo6XXbr62X+bZ3BGmqIuLnnhy/r2nQxp3v0r5txJSqeT5lJu6q4wqbXEBN8wPQ
+ /qI3SzadV0/JjF+09MAAAA=
+X-Change-ID: 20260905-btrfs-folio-conversions-47950cc1faca
 To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>,
         Qu Wenruo <wqu@suse.com>
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
         linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
         Tal Zussman <tz2294@columbia.edu>
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788812420; l=2514;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788812420; l=1970;
  i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=7CrZNHHkxIkuOJo45Q3XSFmINtwFQy/yCbxiey+tcdU=;
- b=lUibCyWOXiDPqjCmfOUjNQsuqs5O9ACYkEL544lHBSuJaExgYa0Sz++VVb27Q5qzJgNoTUVlh
- IXovoCjp9O7CV2jA/QkcycZcHLCSu/8ZjlPyeK/mSt289NbyizFJkbB
+ bh=JibSQGdAEYY3mJm8Xkps8m6r7Q0UFNwNv9ID7AtRvVU=;
+ b=8osdwXZDjj6YE5G9b482rUbacFI0PDcoPP6GGCobKDiiYr/Tzmc6OEboHZZYwGReopZAK0BY+
+ /y91BEgM3RaB+J9NrQ8ABTr1XxO0MUHLHzAEFGQ9e7afqmW7cnG5Xf1
 X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
  pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Authority-Analysis: v=2.4 cv=Wc48rUhX c=1 sm=1 tr=0 ts=6a9f1c87 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=92j1mJcILCjWExuphHMrQw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfXxYkEwWdPm8nb
+ 4OLbKTmGcZlZLnoaf9/NdJ5yebu9NszXSYc0uPkyOUR49Jt+983qRqBtvwZuVOS2RtkcSiy243B
+ UA87jFjw+odLiyBm3ysOG45VyIsD0d4ROtilRa8KXmWz2CTD05Be
+X-Proofpoint-ORIG-GUID: uEX7imNeOtlSuvxjIyxllsMfJYOT5KAl
+X-Authority-Analysis: v=2.4 cv=DewnbPtW c=1 sm=1 tr=0 ts=6a9f1c87 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=92j1mJcILCjWExuphHMrQw==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=iox4zFpeAAAA:8 a=VvYWPSha7RrLN2mrkrMA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=WzC6qhA0u3u7Ye7llzcV:22
-X-Proofpoint-ORIG-GUID: RVP2LW-dJpJ8WNPe8pg4ykXp0LFUhmNW
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfXwttQD+Q4yTqZ
- iifkh4YNBOtmSzaev6ifZ8UKw/7mNrwxyLE+Y8tKJSV3OWpqSC1GClxanMfqcDO2IydBzGZLK98
- J24vGNo0lbMD8TsihJyHloGieoP5i6IznlZvioaCsxf2typoy+Jc
-X-Proofpoint-GUID: RVP2LW-dJpJ8WNPe8pg4ykXp0LFUhmNW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfX+ngBYKwY73xO
- scK2W5hdXg4wCPoTmYolIVt/OPKUv9q0RKysL8UhF/7PaSW150wSg1VU8iZbt6NV3LDzSC4lc3J
- 5ppNqRsWDVX8obHyNG66uKYywFbuLC2IDc0AVkYnKWLHyJPTXylc8FoZEOhoiZqy+/JO/0ysrrc
- uBe5vopD9dGengLbG6cnCa9+5vh75crMyA+avLARjEqDSnoGTDnza/6SH9ijQB5KaHhwgn0+PQh
- Mk4dJ23aYA89xTBDTghgoWsNGtda7zD6d2LRMKFm+aDPJd2heLVrWk3Jza/dkGNBBnETnFwxdul
- +F47fFpdRYbre2ZRzQ5j2bhavZZwdnpVh/O+ZBWQ4VsWg4aISIqG2wP/wtTLEvEiXUK/WLJN4KZ
- pu/Uq9viiBvJUwksIlo7wafuSf70lqFPksrvcxvBu5X82xLed1y3RcmHhrywqZgqzboMdV40MFA
- rSO8vCYO4yVseZWXyfA==
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
+ a=bC-a23v3AAAA:8 a=O0ZaTJuHp4YmI9DrRTEA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIyNCBTYWx0ZWRfXwQWrnqF65cj6
+ NfccGdTwRc7g9b1eh47gaPZL5EUtkKYVMO/Ia1AIx0L9v3XuakevDV6XLhtTGVMUqqPqye/Rw6S
+ lZxw9kCZg8jIZX4uSycebPP2ohH63+3qXe1SFEQYdpZ5f8ytvXimh3uB4dq0I/1//p918XIyTm9
+ 66y7RDLJgtNcBkgYZYYPleYv2JxFkp/R/pPtJzfvgJKo4ldw9yrZXTwjA8t5j1JW5OvV+3zmS14
+ 79gZmqzwG0WJilPyxpm5QconPIMJjeTlV5TU6wNxihwfWetmNoQ24OHmmgCmz8dgbH63c32Bxzy
+ ErPoT6iBwZLoVcZPHjLEs2wPYAsvs/THboebREL+RKDlk6q0GQPmhtFCRAWTJh8T5Xnia+YmqFF
+ R1R8NiFUXLPNwzMGuU7GKmwk+SIohIh7yGvMiRXJPnmK1wnGyb9A/4SxM5R4oxM3zo8gqHhGhyZ
+ 1unG+lxtQrfwigdKq2w==
+X-Proofpoint-GUID: uEX7imNeOtlSuvxjIyxllsMfJYOT5KAl
 X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
  signatures=596817
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- lowpriorityscore=10 bulkscore=10 suspectscore=0 clxscore=1015 adultscore=0
- impostorscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070224
+ spamscore=0 phishscore=0 bulkscore=10 malwarescore=0 lowpriorityscore=10
+ suspectscore=0 clxscore=1015 impostorscore=10 adultscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070224
 
-It already operates on folios. No functional change.
+This series converts three areas of btrfs that still use struct page:
 
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+1. The extent-io tests. test_find_delalloc() uses the page APIs, and the
+   extent buffer memory checks assume one page per folio.
+
+2. Compression. btrfs_compr_pool_scan() walks the folio pool as struct
+   page, the last use of page->lru in btrfs, and the heuristic sampler
+   is the last caller of find_get_page().
+
+3. Super block reads. btrfs_read_disk_super() and the zoned super block
+   log comparison are the last page cache lookups by page in btrfs.
+
+Tested with KASAN, lockdep, DEBUG_VM and the btrfs selftests enabled.
+xfstests' compress group under compress=zstd and the btrfs group both
+pass.
+
 ---
- fs/btrfs/tests/extent-io-tests.c | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+Changes in v2:
+- Add tags (Thanks Qu!)
+- Patch 2: Assert that test_find_delalloc()'s folios are order-0, per Qu
+- Drop the v1 free space cache patches (8-10), per Qu. The v1 space
+  cache will be removed instead
+- Link to v1: https://patch.msgid.link/20260906-btrfs-folio-conversions-v1-0-834b9d7b06f5@columbia.edu
 
-diff --git a/fs/btrfs/tests/extent-io-tests.c b/fs/btrfs/tests/extent-io-tests.c
-index 23459cd4e503..6eb55bfb2bd4 100644
---- a/fs/btrfs/tests/extent-io-tests.c
-+++ b/fs/btrfs/tests/extent-io-tests.c
-@@ -18,8 +18,8 @@
- #define PROCESS_RELEASE		(1U << 1)
- #define PROCESS_TEST_LOCKED	(1U << 2)
- 
--static noinline int process_page_range(struct inode *inode, u64 start, u64 end,
--				       unsigned long flags)
-+static noinline int process_folio_range(struct inode *inode, u64 start, u64 end,
-+					unsigned long flags)
- {
- 	int ret;
- 	struct folio_batch fbatch;
-@@ -221,8 +221,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
- 				test_start, max_bytes - 1, start, end);
- 		goto out_bits;
- 	}
--	if (process_page_range(inode, start, end,
--			       PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
-+	if (process_folio_range(inode, start, end,
-+				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
- 		test_err("there were unlocked pages in the range");
- 		goto out_bits;
- 	}
-@@ -276,8 +276,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
- 			 test_start, total_dirty - 1, start, end);
- 		goto out_bits;
- 	}
--	if (process_page_range(inode, start, end,
--			       PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
-+	if (process_folio_range(inode, start, end,
-+				PROCESS_TEST_LOCKED | PROCESS_UNLOCK)) {
- 		test_err("pages in range were not all locked");
- 		goto out_bits;
- 	}
-@@ -317,8 +317,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
- 			 test_start, test_start + PAGE_SIZE - 1, start, end);
- 		goto out_bits;
- 	}
--	if (process_page_range(inode, start, end, PROCESS_TEST_LOCKED |
--			       PROCESS_UNLOCK)) {
-+	if (process_folio_range(inode, start, end, PROCESS_TEST_LOCKED |
-+				PROCESS_UNLOCK)) {
- 		test_err("pages in range were not all locked");
- 		goto out_bits;
- 	}
-@@ -330,8 +330,8 @@ static int test_find_delalloc(u32 sectorsize, u32 nodesize)
- out:
- 	if (locked_page)
- 		put_page(locked_page);
--	process_page_range(inode, 0, total_dirty - 1,
--			   PROCESS_UNLOCK | PROCESS_RELEASE);
-+	process_folio_range(inode, 0, total_dirty - 1,
-+			    PROCESS_UNLOCK | PROCESS_RELEASE);
- 	iput(inode);
- out_root_info:
- 	btrfs_free_dummy_root(root);
+---
+Tal Zussman (7):
+      btrfs: tests: rename process_page_range() to process_folio_range()
+      btrfs: tests: convert test_find_delalloc() to use folios
+      btrfs: tests: use eb folio helpers in extent buffer memory checks
+      btrfs: convert btrfs_compr_pool_scan() to use folios
+      btrfs: convert heuristic_collect_sample() to use folios
+      btrfs: fix stale function references in compression comments
+      btrfs: use folios for reading super blocks from the block device
 
--- 
-2.39.5
+ fs/btrfs/compression.c           |  20 +++---
+ fs/btrfs/tests/extent-io-tests.c | 131 +++++++++++++++++++++------------------
+ fs/btrfs/volumes.c               |  16 +++--
+ fs/btrfs/zoned.c                 |  12 ++--
+ 4 files changed, 93 insertions(+), 86 deletions(-)
+---
+base-commit: 69b26c13e520480d1869171e2c2b8a59f0c857ec
+change-id: 20260905-btrfs-folio-conversions-47950cc1faca
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
