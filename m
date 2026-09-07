@@ -1,115 +1,294 @@
-Received: from flow-a3-smtp.messagingengine.com (flow-a3-smtp.messagingengine.com [103.168.172.138])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6498B47279F;
-	Mon,  7 Sep 2026 12:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.138
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8274CA798
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785997; cv=none; b=R2fMsqYlF6VgTQOm+6xk1WKxLgTcrHUNJOCPqg42/X5RDHlRRAr+62AYNjv/XAMGV3xbOvLYm+3zE5u8G87Xq7iBpAnW5Qf+bP4p/LOj8I45mszdc7EkCAfrxkHARiZfPY+WY+eimvxDsNIvr7PLq4smtC/fVef6Icv9sdlrm9I=
+	t=1788786002; cv=none; b=PTQ/jIVx1ElZ1GJa/Ss3zATae1NUUv7ZGT0lgwHOzPaVbiWtgcPCuTuXS7So2qH3x4Ri4ELfNPpMwmpjNjT25XcjhW9sbo2i3oAjroW33ULvt64J103QPxJmHDeN4/YhAaxgcmTQ/bDZFDmBR5M/ZKMJUZzvj6ugnomP2cc9tDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785997; c=relaxed/simple;
-	bh=MkvOaW8wkaxVsp7+9WEl+B97dZNt1FDF4HFuRtuNW6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z4bz5H84Zlo8KFmJBDnm+kICtd9kqD1Tr8MYtUtl1ccYwHviZpZNny4rDwM4TE1watX6LB7VT2cKDLVjpkY+BwTaT13METNRRHtlGdbEFR9maZOcdL+aeX8djJ1jOL0AxRaV5LhailttLnSxcHuxk3VCcpLDCFvSHq9YCrXSFaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bG1F3G79; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IayrZM0F; arc=none smtp.client-ip=103.168.172.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	s=arc-20240116; t=1788786002; c=relaxed/simple;
+	bh=MsqzCNMXKgqeUkLsZ9coMgcq3LkVtrXXQE4c14xpLRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hDi6VLbXwXxcGd/ND4YbEW1zpySVLjDIpcnkP3wpl4LorO4FCqj471l0Ie0SSuS4rUKAXcClbTgYMUB06juOSgTOinUivSQHbOEzWPqSVTXBj4q4k5uRogI51ZET1EUdr6l1BEoa2kEONLWakSd250pt4dy/4f0rGLB4A1m9qlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EsvfzIpD; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bG1F3G79";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IayrZM0F"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailflow.phl.internal (Postfix) with ESMTP id 633F41380054;
-	Mon,  7 Sep 2026 08:59:46 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 07 Sep 2026 08:59:46 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1788785986; x=
-	1788793186; bh=lYDGB/RXWunUBHizdGiMziv4O2zhbYW2jWaEbKuOHsI=; b=b
-	G1F3G79iC03Ct6JwvcO+c5TCzquytWTPpldQGzzb3BrMw3yKtHS03Y49D3tCbhhE
-	yhBa95NKaEoz9uAijnkv1y/zgutADJBIg8iBi+EBLjaQqYRzGVhWegX5L8QdxqPE
-	5NhrT1sxjgSyHujPJdg+mJpJs4GYODMgNaenjrRFL0c+XdM/MBXrWG9+Mvlx9Pmp
-	OoObvnqUD1h38zBA6gjYLeRqwGQHQrbiHvFJjHmpwYHE/DaeMwcAdoFZ/iLPP4IN
-	uRFQc6L2zX3w6DFK2DxjAD8F5/jOs1QEiQ8rdGt3a6vbiHmKhp6hWw/Jh+fRiQZX
-	Id9NzriDuk4ES9VUGSLqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788785986; x=1788793186; bh=lYDGB/RXWunUBHizdGiMziv4O2zhbYW2jWa
-	EbKuOHsI=; b=IayrZM0FqNCpp7HFPd7Ovd70efH1vXDuTyb4BuTqXMndLQVFYiO
-	Rm43PEw5vcxHL8byV6kOe4FZF8b2ZL/Bu/Pxk/ZFx2Z854UkGanu+YebEQ6y5NFX
-	/6oCrEhl9qIf69LVNABM4Z8NnI657ihA8pvyKJrJISUtxi2mmkd3fMK+JWG+ajGZ
-	3k+YVD3VxuAzrYEwVCFgmMBnZTCwypwrPRbwUI18P6ANHY00k+kyagOH9uFDrcBu
-	pcXcAo+Br7LjIghJGgOL3SVfEgbJKNbXVc8V43kZwHD1kW5fWFAkJTXwjW926MFv
-	o+NWxrlWOqi2K/TbrYXt7bM8ExAgUpwNF8w==
-X-ME-Sender: <xms:QbWeatZoN5cL5KI_BtpTGntigHz0Ugcb6QzkLKV6fcYkLbbhtv7-yw>
-    <xme:QbWeatashrvgTrojrqEtRF96HwS50lAJl4nrXP2BEAl98FEQUKZ1mnnKaMC48exYl
-    SbnMMLQRGIKAN5z49gZsHZWD90GIvCcSLhhttd0dMP50d7R_zTJ5bMl>
-X-ME-Received: <xmr:QbWeapruxHftV97YXljez7WSiuCOEM_KXSC9n9N4JHpWzHQjS-tsU7zex0I>
-X-ME-Proxy-Cause: dmFkZTE/RyyJEHpH/xeKsN4XNBiUmGFM48RXSJCmmPUQ993cXAA4f4cCG2jBf4pg29mZZH
-    T0r5B8dg0Dgu/wTg3OkNeKKPGFjIPrnT+MxaTt+8JtQRA42zTbyuy6nvryU5phm5fb7if/
-    z4Wbe/ItURKbRrCxTBW72oofYLTVqcjT+80q6k9+Mq+e2HmMOB7x7rGOcl+QvJIGaHfcn6
-    bVTQrWtvCBDnpBojICyjPD/5jOkMukeqbAaxJ8Wicr9D+j+A0z1NtJx39x4bQFcjxdrDIJ
-    YU1+rDhx99mj0WMR+3CjWZPMSKi3uW9hcvcF6FVFP+f/sCGSJy8pp4S0me+2cvoQSw44ky
-    KZMB7bjnQkGZmvAr928a4dgg0aB2Bp/gcycSjNt7fDIMjbomTTe0f26+r67PDOeOL8bR5e
-    PFPwiapu00b1fFRij9so+5V+/TLFms3zeeWD5ln9qxQX7UvD+joArJiZ4wwm29xa2JUHT6
-    q9eeZqsygeA42u0Y+ogLcjyAos13BOO8I8JADXNpIMJy5WYMu3T3pDbzDtupDuoO/NFZ0E
-    6A0t8bzPVeuLuW85BMr49/F5OazgMuHDrN8QMptNFdvfcZBMGUgClGmKC/KU6dHpsy5EPr
-    joPL+Y8gAC4Y9wOGnaFkpCO3C3XPjvoNy1yaVVSezyY3ZwayIZYc4OS4HS0Q
-X-ME-Proxy: <xmx:QbWeailDfJP8gGeUlK9_5ekuwXlnmH-Gie1kPnAicPACaBy5pojlhg>
-    <xmx:QbWearWK0qk44MiQJ1sRqt49J60_pHycK9_DnalTR6-1v5ZiwIT3bQ>
-    <xmx:QbWeapQ7OAETFED8c77bY9SX04yprCcbrQL_Z6AO_Tbn-3sQ0eYpJQ>
-    <xmx:QbWeaoloQZT4G3otJX8A33K7IjAuRjlkK0avTjegMoErcCXgS5lfPg>
-    <xmx:QrWeaj4fqco_THgKMBs-0rzUYSbsMisBGtFVVJ5uiDL4x77Ik8ZHK3Yb>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 7 Sep 2026 08:59:44 -0400 (EDT)
-Date: Mon, 7 Sep 2026 13:59:43 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, nico.pache@linux.dev, 
-	baolin.wang@linux.alibaba.com, baohua@kernel.org, dev.jain@arm.com, hughd@google.com, 
-	lance.yang@linux.dev, liam@infradead.org, mhocko@suse.com, rppt@kernel.org, 
-	ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com, usama.arif@linux.dev, 
-	vbabka@kernel.org, ziy@nvidia.com, usama.anjum@arm.com, agordeev@linux.ibm.com, 
-	linux-mm@kvack.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/19] selftests/mm: add folio-order check for address
- ranges
-Message-ID: <ap60vvh09oqrQZ_T@thinkstation>
-References: <20260815015901.1236937-1-kirill@shutemov.name>
- <20260815015901.1236937-9-kirill@shutemov.name>
- <aoQxLVg3IsTuA9NE@lucifer>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EsvfzIpD"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so28241815e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:59:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788785989; x=1789390789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Fedd1Lk8v7XqLnYfi6ACsWWe1EX73jfitPVMPywY8zQ=;
+        b=EsvfzIpDk1Gg9gKQ3ZOoXw3mDHedpnFH68K1g2JEzvuenU5jWodHUgfrCXWAEaVorU
+         CQHxb6dOnuVXeHohrRXqzSjtn9CNiuCfyhejsTyE9ni2cQsGhoLg1T730cFBIBW4hdW8
+         Gc43SSPhQQndZMVwULTWP47r6KEXUddCgWR6EQqdy9sv+50Nvz9AEllRUXQQEsKgbmSa
+         sjt5Tn0yO6Jbo//Tmg5SXyTp3y+Y1gr1dscH99VF+EeDSUDrF/Dp2Z2QJlZG68xDphfy
+         M8Eurth/LM5OETfLN0nfjHtyE98chFhUkcIO4ZL7J/cFJuWtgVQTYu+NNMm0iUlLDWo1
+         4v9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788785989; x=1789390789;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fedd1Lk8v7XqLnYfi6ACsWWe1EX73jfitPVMPywY8zQ=;
+        b=q6bFFrBAdjlxs5YEyQoLuvyA/enYABjwAgVHiqQ4jVG9TOKbBuEsqZuB3DVTgZacMp
+         5ESpko1CGLzcIvOEkoTtguyanUkIkbnjzgkyhLy7heIICcqQtBIMoNDjsFVZzMMzUxCD
+         VKPUnTqEI22KUXxwj7mDFTgSC6M/j9tVVPl1S1JyLQVM9fLkFvKXThSm1sXNPRnHiU02
+         8HIOO3PGw/eA977bNhniWI29H8LuDv0iysLjlWdmDyBXkAfGHDNCho3aMQuEvmguc3je
+         +kfK+f/gpyi78Ll98B66mpR2lVV8edMdZQd0REo3ZZVPDR7yJSknckvNxM/W09umBvn6
+         iY5A==
+X-Forwarded-Encrypted: i=1; AKwUvBzHJVYU382yhU0D5Gq+lMdR4GChkAX0Oo+bnZUqGesG/p5kHKEikF4IVQO7nFds/pCly6XNwaUyDzQpogg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nQ8Nj0Buq31JbuMtHgy8GjZxUUrNLFS/rj9DERtUNth0fcy1FI
+	+OEnOHsHS99KEHo5jkmRQYVI7UDJyxUqB7ENR2Y6MrUBRoTgHliLO5s3
+X-Gm-Gg: AYBFou0CIjeoeWSq+2aVztu70dUxzrZLVbJk7QE9xTyZgqzkf0+PCJP4x5FmEZmOMoQ
+	r6nk+096IcoM41dLyFRN3v89wgX5Z5c5OyG6wr1w7J4u5GsZ/TFIocH9zFXEKpQVGzcUWmkX1Px
+	68gCTB3J1CRPDue+HZPZfmBA2WDMlC31G4JCoO069M03/CVI3YeMaT2OPVCf8SeQR5ndqYmsX/u
+	U42X66IA0DLsW1/9iZoIa0XUgudOy4GaeQRwFYrFeDDOt1ELLNgr8OvD7gQBGd+KgjpkDwwXRtc
+	jALxyvhwzE38I77xdXKwntPRpYw/e8ZCOYJlMN9rzLieEsae5c08rlzFJYcv2onl8Dg+3zbD1E1
+	HinNIDTRFXxOnrw+B0GwvQNgx7iNvILd8qM4QNJ57JLk6s1KyWhvu6Jt/c7tVP1QQ/IVBqr8KC8
+	fC/2wP5UQ4eSllz07H9HM/t8+rwmI3Xy4IS4EmvsX65xcD2vQeEcVBREhn/S2j+rTegHl91SvAs
+	2Py6OUUphGk2eOjtrXRYBgRiQ==
+X-Received: by 2002:a05:600c:c162:b0:49d:16dc:e721 with SMTP id 5b1f17b1804b1-49d16dce7aamr16981995e9.24.1788785988330;
+        Mon, 07 Sep 2026 05:59:48 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm306405115e9.6.2026.09.07.05.59.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:59:47 -0700 (PDT)
+Date: Mon, 7 Sep 2026 13:59:46 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: Petr Mladek <pmladek@suse.com>, <bcrl@kvack.org>,
+ <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+ <tytso@mit.edu>, <adilger.kernel@dilger.ca>, <libaokun@linux.alibaba.com>,
+ <ojaswin@linux.ibm.com>, <ritesh.list@gmail.com>, <yi.zhang@huawei.com>,
+ <sforshee@kernel.org>, <akpm@linux-foundation.org>, <rostedt@goodmis.org>,
+ <andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+ <senozhatsky@chromium.org>, <kees@kernel.org>, <tglx@kernel.org>,
+ <linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
+ <linux-kernel@vger.kernel.org>, <linux-ext4@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH v3 0/8] Convert barrier pairs to acquire/release for
+ better performance
+Message-ID: <20260907135946.2541aa7e@pumpkin>
+In-Reply-To: <75aeca50-74bf-4888-9dc8-7ac3c5af32ca@huawei.com>
+References: <20260902074805.398540-1-ruanjinjie@huawei.com>
+	<apq5iLOF8lAQ_ZVU@pathway.suse.cz>
+	<75aeca50-74bf-4888-9dc8-7ac3c5af32ca@huawei.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoQxLVg3IsTuA9NE@lucifer>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Aug 18, 2026 at 11:25:27AM +0100, Lorenzo Stoakes (ARM) wrote:
-> > +bool is_range_backed_by_folio_orders(char *start, size_t len, int order,
-> 
-> is_range_mthp_backed() seems a lot clearer?
-> 
+On Mon, 7 Sep 2026 19:29:06 +0800
+Jinjie Ruan <ruanjinjie@huawei.com> wrote:
 
-I would rather keep the order in the name.
+> =E5=9C=A8 2026/9/4 20:28, Petr Mladek =E5=86=99=E9=81=93:
+> > Adding Risc-V list into Cc.
+> >=20
+> > On Wed 2026-09-02 15:47:57, Jinjie Ruan wrote: =20
+> >> Hi,
+> >>
+> >> This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
+> >> smp_store_release()/smp_load_acquire() across various subsystems.
+> >>
+> >> Background
+> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>
+> >> Many architectures support load acquire and store release instructions
+> >> which can replace explicit memory barriers and save cycles. As noted
+> >> in the ARM architecture reference [1]:
+> >>
+> >>   "Weaker ordering requirements that are imposed by Load-Acquire and
+> >>    Store-Release instructions allow for micro-architectural
+> >>    optimizations, which could reduce some of the performance impacts
+> >>    that are otherwise imposed by an explicit memory barrier.
+> >>
+> >>    If the ordering requirement is satisfied using either a Load-Acquire
+> >>    or Store-Release, then it would be preferable to use these
+> >>    instructions instead of a DMB."
+> >>
+> >> On arm64, a typical seqcount [2] read loop requires 13 cycles with DMB
+> >> barriers. Replacing the read barrier with smp_load_acquire() reduces
+> >> this to 8 cycles on an Ampere Altra. =20
+> >=20
+> > I wonder if this is true on all other architectures:
+> >=20
+> >   + It seems that Arm gets the gain because the instruction
+> >     does both load/store + barrier. It helps even when
+> >     the barrier is full.
+> >=20
+> >   + Some other architectures need two instructions. One for the
+> >     load/store and the other for the barrier. But the barrier
+> >     is weaker, it synchronizes just reads or just writes.
+> >=20
+> > For example, I see the following in riscv/include/asm/barrier.h:
+> >=20
+> > <paste riscv/include/asm/barrier.h>
+> > #define smp_mb()	RISCV_FENCE(rw, rw)
+> > #define smp_rmb()	RISCV_FENCE(r, r)
+> > #define smp_wmb()	RISCV_FENCE(w, w)
+> >=20
+> > #define smp_store_release(p, v)						\
+> > do {									\
+> > 	RISCV_FENCE(rw, w);						\
+> > 	WRITE_ONCE(*p, v);						\
+> > } while (0)
+> >=20
+> > #define smp_load_acquire(p)						\
+> > ({									\
+> > 	typeof(*p) ___p1 =3D READ_ONCE(*p);				\
+> > 	RISCV_FENCE(r, rw);						\
+> > 	___p1;								\
+> > })
+> > </paste riscv/include/asm/barrier.h>
+> >=20
+> > I wonder whether:
+> >=20
+> >   + RISCV_FENCE(r, r) is faster than RISCV_FENCE(r, rw)
+> >   + RISCV_FENCE(w, w) is faster than RISCV_FENCE(rw, w)
+> >=20
+> > so it might cause performance regression there... =20
+>=20
+> Hi Petr,
+>=20
+> Thanks for the detailed analysis. You're right that on some
+> architectures the acquire/release variants use a slightly heavier
+> fence than the plain smp_wmb()/smp_rmb() pair. The full picture by
+> architecture:
+>=20
+>   arm64:    Improvement   (DMB ISHST/ISHLD + STR/LDR =E2=86=92 STLR/LDAR)
+>   x86:      Neutral       (both are compiler barriers)
+>   s390:     Neutral       (both are compiler barriers)
+>   ppc64:    Neutral       (both use lwsync)
+>   loongarch: Slightly heavier fence (DBAR(o_w_w) =E2=86=92 DBAR(orw_w),
+>                            DBAR(or_r_) =E2=86=92 DBAR(or_rw))
+>   riscv:    Slightly heavier fence (fence w,w =E2=86=92 fence rw,w,
+>                            fence r,r =E2=86=92 fence r,rw)
+>=20
+> So on Loongarch and Riscv, there may be a slight performance regression.
 
-The helper checks that the range is backed by folios of exactly the
-order the caller names, and the mTHP cases call it three times per check
-at three different orders to tell them apart -- reporting an order-7
-folio as order-6 is a bug.
+Is that a bug in the riscv definitions?
+Nothing in the commit messages seems to indicate why the stronger barriers
+are used.
+The original commit 8d235b17 was done to avoid the rw,rw barrier in the
+generic code (which might since have been relaxed).
 
-It is also called with order 0, which is not an mTHP.
+David
 
-Going with is_range_backed_by_order() in v5.
+>=20
+> Regards,
+> Jinjie
+>=20
+> >=20
+> > Best Regards,
+> > Petr
+> >  =20
+> >> We also observed significant barrier overhead while profiling Unxibench
+> >> syscall test on arm64: a single getuid() call is ~8ns slower than on
+> >> a comparable x86 system, with the dominant cost in map_id_up()'s smp_r=
+mb(),
+> >> which is a DMB ISHLD on arm64. Converting it to smp_load_acquire() all=
+ows
+> >> the use of LDAR, eliminating the measurable overhead.
+> >>
+> >> This motivated a broader search for existing barrier pairs that can
+> >> be converted to the lighter acquire/release semantics.
+> >>
+> >> Changes
+> >> =3D=3D=3D=3D=3D=3D=3D
+> >>
+> >> Each patch in this series targets a specific barrier pair where the
+> >> publish/subscribe pattern is already present:
+> >>
+> >> - Writers populate data, then publish a flag/count/pointer via
+> >>   smp_store_release()
+> >>
+> >> - Readers load the flag/count/pointer via smp_load_acquire(), then
+> >>   consume the data
+> >>
+> >> This preserves the existing memory ordering guarantees while allowing
+> >> architectures with native acquire/release instructions (e.g. arm64's
+> >> STLR/LDAR) to avoid the cost of full one-way barriers (DMB ISHST/ISHLD=
+).
+> >> On architectures without native support, the generated code is
+> >> generally no worse than the explicit barrier pair.
+> >>
+> >> The conversions are mechanical and no functional change is intended.
+> >>
+> >> Testing (Kunpeng HIP09 arm64 server)
+> >> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >>
+> >> 1. UNIXBENCH syscall
+> >> 	Baseline: 715.27
+> >> 	Patched:  718.83
+> >> 	Improvement: +0.50%
+> >>
+> >> 2. fs/aio (fio + null_blk, 4 jobs):
+> >> 	Baseline: 1441k IOPS, 86.46us
+> >> 	Patched:  1452k IOPS, 85.80us
+> >> 	Improvement: ~0.8%
+> >>
+> >> Both improvements are consistent across runs and align with the
+> >> expected savings from replacing DMB with LDAR/STLR on arm64.
+> >>
+> >> [1]: https://support.arm.com/documentation/102336/0100/Load-Acquire-an=
+d-Store-Release-instructions
+> >> [2]: https://github.com/torvalds/linux/commit/d0dd066a0fa26d55c19ace9e=
+89dedd9504c5bcba
+> >>
+> >> Changes in v3:
+> >> - Add Reviewed-by.
+> >> - Split out network patch set as Kuniyuki suggested.
+> >> - Link to v2: https://lore.kernel.org/all/20260901024234.135119-1-ruan=
+jinjie@huawei.com/
+> >>
+> >> Changes in v2:
+> >> - Fix pre-existing issue for ext4 and 8021q [3].
+> >> - Fix missing copy_mnt_idmap() udapte [3].
+> >> - Drop nacked isotp patch.
+> >> - Add test data.
+> >> - Add Reviewed-by and update fs patch as Jan suggested.
+> >>
+> >> [3]: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinji=
+e%40huawei.com
+> >>
+> >> Jinjie Ruan (8):
+> >>   user_namespace: Use acquire/release for nr_extents synchronization
+> >>   lib/vsprintf: Use acquire/release for ptr_key publication
+> >>   fs: aio: Use acquire/release for ring->tail publication
+> >>   fs: Use acquire/release for fdtable resize synchronization
+> >>   pidfs: Use test_bit_acquire() for attr flag tests
+> >>   super: Use acquire for SB_BORN check in super_cache_count()
+> >>   ext4: Fix out-of-bounds read in ext4_get_group_info()
+> >>   ext4: Convert group-count barrier protocol to acquire/release
+> >>
+> >>  fs/aio.c                | 10 ++++------
+> >>  fs/ext4/balloc.c        |  2 +-
+> >>  fs/ext4/ext4.h          | 10 +++-------
+> >>  fs/ext4/mballoc.c       |  6 ++----
+> >>  fs/ext4/resize.c        | 19 +++++++++++--------
+> >>  fs/file.c               | 10 ++++------
+> >>  fs/mnt_idmapping.c      |  5 ++---
+> >>  fs/pidfs.c              |  6 ++----
+> >>  fs/super.c              |  6 ++----
+> >>  kernel/user_namespace.c | 24 +++++++++++++-----------
+> >>  lib/vsprintf.c          | 11 ++++-------
+> >>  11 files changed, 48 insertions(+), 61 deletions(-)
+> >>
+> >> --=20
+> >> 2.34.1 =20
+>=20
+>=20
 
-Everything else here taken as suggested, and the comment made kdoc.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
