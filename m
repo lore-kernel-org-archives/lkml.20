@@ -1,47 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B6D3C5DD4;
-	Mon,  7 Sep 2026 09:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E503C5DD4
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774828; cv=none; b=ZVRLglpaaJ63iLp4guZloNxvxW9uRw2wp0orsTcafim3amu7B8SMU2KOx+YLfbXSiyAJ54TveWWTmM3QAsy7h5Ihy3z8JKyudJeAOuV4llDkDEOA5OANCbTXKeyGgmpudBIAWpxz+xU6flQrxWEw7Ag/hTxgevDKAg8DZTwcEtE=
+	t=1788774834; cv=none; b=N+V3uBPHr3ITz77xkSA62uhu3wYuQYqQtbon8B33msa/MYxLQHWNBB2JDmaCe+AOCRwOsBu+6b8/OovFR72z2W/BkQFX0UCMsouQvxYfjx+qZ7j0ehrgdbVo+wzWo0u1DMouJHY96olxnSUSbA4/YZrqLSF9FlxZegvbWUGSzaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774828; c=relaxed/simple;
-	bh=UxNHWxv1lAarQTLq2idNJ5bq3LxFHRqO1kuxGq1Hocs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NDh7bB9BavU5C0WMesgVrzDHEkxHi0gat8LaZabAEw9OkucDHdfg5tG4Er/TZhxF0TuQEric2tMSydMVDfjQIW61TWC/wPjXjAbc/xBo7Iq5Xz4OKtU4rqkuzTnfmgCnVJDNsr4ZTtHBr5lp5xyeSkZ47FCy7By7KmhaR/cDL9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z56s0K8Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788774834; c=relaxed/simple;
+	bh=tY5NnhQZpDSdyWxYoipDRZaMQLSvDSC3Hb6EbUbFWm0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y91a+nb2IWWyUH0XIvoLrWo5wYAieZ1k9mX5+SMLCQFbjAElgERVC+6KW76/B6PbeVcLR59rJXSCwYSCogxGLKz0qhVmcCQd2AZWjUrmMv3epHxwatbkH72Adxjwm9fySrOrXSbufy4cOh0LSNmBUqnHhuYfX41zBuBpZmakuRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpZakA6t; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z56s0K8Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBCAB1F00A3A;
-	Mon,  7 Sep 2026 09:53:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788774826;
-	bh=q/COAdYlU0pd0l5RbIN0tn1G/83IKZjnvQXUajavTxg=;
-	h=From:To:Cc:Subject:Date;
-	b=Z56s0K8ZoMBUmqgpQEmLfzcwD26KsOTmwWjY45aBofAofQxKmNszGVWBfOH4vn2Mc
-	 H6tGIDCy43fIGxbWYEnz8Gg4g1uNr0YA8DcbU+95/jmsLnY4OW/2zYOypDG9KS6GqL
-	 GajdYL8TYmP+KF3U4R7i6+qLT7Cf5kFpqPWSfo9KwfKov80gkR+MDS/gB2kt4QZJM3
-	 ikeZTWaQKmPdliryOyeOJvHPIaDw5YzTe8/lhRWiCbCm9mJUSN6QO14NT3AA3J/LRr
-	 ASNHBL6W1T6dIOgj4gsR4DmLukRlXV+ftLCq/oo4H/yvMejG3SwLXJA0ugDPlMwMjW
-	 pev+xpoSeYkJQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3W2q-00000000Y1s-2sh6;
-	Mon, 07 Sep 2026 11:53:44 +0200
-From: Johan Hovold <johan@kernel.org>
-To: David Lin <dtwlin@gmail.com>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] staging: greybus: uart: fix racy TIOCMIWAIT implementation
-Date: Mon,  7 Sep 2026 11:53:05 +0200
-Message-ID: <20260907095305.130762-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpZakA6t"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cbee846deecso4158468a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788774833; x=1789379633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pPL4aNtiXw+QNEKnkbqTe9V+ETGQlK0apxkr/mZWEXk=;
+        b=fpZakA6tcgYr12SoAsuZ5uc8558bWilSjaGa5FMJd/vfGB74NlctEdOI0oFqpk6ijK
+         GuyiPwCmAUpR+loLNT8eqmzuKNxK45MLGHA43I1msjfts9ihKiu3H5XSvMpXQ3QQp0Gr
+         +Gf0gdM5MshOPRPkkaknxcastbkxGaS+6e+RavwBTaI2+DtTHzGVreBQhbnQqSKGgQDB
+         fGcmDNDWsBwRp7s2RI/L9xirN9lmbDxsdl90I5nRO0m+RG27QWChyf2mQyXFszICmkHe
+         mPnUJ2cwj7KVaAW/L+EW+1OhRlgkXHSVm/JosEx+iPioTDTN6JmSVbznow5LxrC5NIPL
+         vgYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774833; x=1789379633;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pPL4aNtiXw+QNEKnkbqTe9V+ETGQlK0apxkr/mZWEXk=;
+        b=g2deUZpdHKZT8JgSQSBehEI5h3Z6GBg02ayD23agmbLZTpaKw1NknviCCuDf2HXCCp
+         BfxRT1B34ruIutpDWBYGJG28xC3wjAVaEWrRrBRFHY2xMTkRXB+wzUtxvsnEsKcTmIi3
+         votVzu1vWPMvUA9VDOUEz1n4elF2vMB77AVmBLORYXU6lhHYg22eajIg19ekPjBrTVzi
+         j//Gg0/0dZvGqGB/LzV35TZ+F1rsiSvWaasGzK6rI8Q33kvvwKHMYs+SQlukl+OFAUkG
+         aqobGm//Ac6B+/Fh4HGqwgO3WjgEysNtmk6KPTWK6tKEGyjGYkAcQ7cMLhYVEBHlRdCC
+         ltnA==
+X-Forwarded-Encrypted: i=1; AKwUvBw+4sFXfLmE0RDSOhejmPQDA/J8u6/Pn8sNn99wWGKg9XRXHuqY2NdfMNMskla/GmNQo/qp26iQpWAD9rg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mblFpm9J1BEwGotGDq9hHoERn0cTMHTLlTqlZw8o58/qN935+c
+	/tDrncyY47e/IIpx0KGs1FXnWY1uOSfoueBM7VWInfXTyT69+fINoL6JPZS4Eh0zzJY=
+X-Gm-Gg: AYBFou09a1Ab7iCqxr+TbK7OAPWIoL6w0dh2J6uiI9D4LGeNLpr0R9G0wne6rd7/wjb
+	381kiUcqZrj1GWxhHWecI+rBKDoBtN3IyNvXwmlXOu+URtBneWlgsn1+RS6ak2P78fvoLhRVe2c
+	0qc63VEvH8/3HkJfHE04k2JP5lmx1Loa9feNVdLKwJWOjAsghhfOeyl2aZz/3GP7hh9vVp+PUkG
+	K7zU3TvaqAiVodBx1gQ0IY/h1LRBIUaE1rHBnbQjKMw/bdquVQ6Ih/Wp3ZpPOatuy98SHyOZTp9
+	hdwCOcgUtJftjg0CcaiwBVM9VYAUj4tH2GSv+K3CCHUuGadtQm/tFUW9RptRXjV6BmxrRlzX5Pi
+	ZrlIYT2hjSdTnhVArvqahTBk5E2sooDAoSoPh+oXAd3gJz5nEWflp8ompWPBNd2vN01EwmW39VA
+	PBczK0VvI+NbJGDd1at8vdkhem8lZDVgNJtJGS2qsKqCnauu6xmQhtTCs5Nk/orj9kgFQFDnwCt
+	Be2U75e9/Soww==
+X-Received: by 2002:a05:6a20:cfa8:b0:3d0:7a2e:f827 with SMTP id adf61e73a8af0-3da3a0aaa67mr32108608637.16.1788774832692;
+        Mon, 07 Sep 2026 02:53:52 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm30377066eec.21.2026.09.07.02.53.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:53:52 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH wireless-next v2 0/4] wifi: fix typos in comments
+Date: Mon,  7 Sep 2026 15:23:44 +0530
+Message-ID: <20260907095348.26094-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,88 +73,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Check the wakeup condition after adding the task to the waitqueue and
-updating the task state to avoid missing a racing modem status update or
-disconnect.
+Comment typos under wireless, split per component.  Found with scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Comments only, no code
+changes.
 
-Store the old icount on entry and do not update it in the completion
-handler to avoid missing events or reporting spurious ones (due to modem
-status changes before TIOCMIWAIT was called).
+v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
+maintainer-netdev.rst asks, v2 designates the patches to a tree, and
+each subject now names the component it touches instead of "net:".  The
+series is rebased onto that tree; the diff is unchanged.
 
-Fixes: e68453ed28c5 ("greybus: uart-gb: now builds, more framework added")
-Cc: stable@vger.kernel.org	# 4.9
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
-
-Changes in v2
- - store old icount on entry only
+v1: https://lore.kernel.org/all/20260907061417.33729-1-hemanth.selam@gmail.com/
 
 
- drivers/staging/greybus/uart.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+Hemanth Selam (4):
+  wifi: nl80211: vendor-cmd: intel: fix typo "firwmare" in comment
+  uapi: wireless: fix typos in comments
+  wifi: mac80211: fix typo "capabilties" in comment
+  wifi: mac80211: fix repeated word 'used' in comment
 
-diff --git a/drivers/staging/greybus/uart.c b/drivers/staging/greybus/uart.c
-index 24b4dab069c3..d47f00751e7a 100644
---- a/drivers/staging/greybus/uart.c
-+++ b/drivers/staging/greybus/uart.c
-@@ -53,7 +53,6 @@ struct gb_tty {
- 	spinlock_t read_lock;
- 	spinlock_t write_lock;
- 	struct async_icount iocount;
--	struct async_icount oldcount;
- 	wait_queue_head_t wioctl;
- 	struct mutex mutex;
- 	u8 ctrlin;	/* input control lines */
-@@ -643,11 +642,16 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
- 	if (!(arg & (TIOCM_DSR | TIOCM_RI | TIOCM_CD)))
- 		return -EINVAL;
- 
--	do {
-+	spin_lock_irq(&gb_tty->read_lock);
-+	old = gb_tty->iocount;
-+	spin_unlock_irq(&gb_tty->read_lock);
-+
-+	add_wait_queue(&gb_tty->wioctl, &wait);
-+	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&gb_tty->read_lock);
--		old = gb_tty->oldcount;
- 		new = gb_tty->iocount;
--		gb_tty->oldcount = new;
- 		spin_unlock_irq(&gb_tty->read_lock);
- 
- 		if ((arg & TIOCM_DSR) && (old.dsr != new.dsr))
-@@ -657,18 +661,20 @@ static int wait_serial_change(struct gb_tty *gb_tty, unsigned long arg)
- 		if ((arg & TIOCM_RI) && (old.rng != new.rng))
- 			break;
- 
--		add_wait_queue(&gb_tty->wioctl, &wait);
--		set_current_state(TASK_INTERRUPTIBLE);
--		schedule();
--		remove_wait_queue(&gb_tty->wioctl, &wait);
- 		if (gb_tty->disconnected) {
--			if (arg & TIOCM_CD)
--				break;
- 			retval = -ENODEV;
--		} else if (signal_pending(current)) {
-+			break;
-+		}
-+
-+		schedule();
-+
-+		if (signal_pending(current)) {
- 			retval = -ERESTARTSYS;
-+			break;
- 		}
--	} while (!retval);
-+	}
-+	__set_current_state(TASK_RUNNING);
-+	remove_wait_queue(&gb_tty->wioctl, &wait);
- 
- 	return retval;
- }
--- 
-2.55.0
+ include/net/mac80211.h                 | 2 +-
+ include/uapi/linux/nl80211-vnd-intel.h | 2 +-
+ include/uapi/linux/wireless.h          | 6 +++---
+ net/mac80211/cfg.c                     | 2 +-
+ 4 files changed, 6 insertions(+), 6 deletions(-)
 
