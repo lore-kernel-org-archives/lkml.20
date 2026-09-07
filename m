@@ -1,135 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B583E075C;
-	Mon,  7 Sep 2026 07:07:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788764871; cv=none; b=D1uzDeAGFfwFvhpXV2XjuG7Le/zkXk8Wo2KgbFCKPNkGY6hpStQsH3uwnL5P9P6bJP9S2I+aGWYg5hM2sBNPKLvAq3VS1kbr2Tq6VZhXNgiJVS5Q9ItkKuR8X2oCpc5gTV380jxT28c3HItErYsgTjGuos3wGF2jADzBHsYi/i0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788764871; c=relaxed/simple;
-	bh=raRmbYomaD5xgMK+BgIIvu6pnnY0H8rRAImrUD22mQs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DDuY7Z1syOmjiSt8wWv0AmNo4oFL9yodFkYYkSVQnL3b4tpdmOl8ShNWEgcGpwvl9OXAORu+N9mDeZcpPfHHhpdKuhv9ivpzunjMV4bgm94RgHbaU1skdSMJZkKe1Op/Zqt2qpeZHNYg0mrd4GAPquTaiElNTHW6jsL9vI+/er0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lB9Cz9gu; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBDF40D590
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788764878; cv=pass; b=oG/19VtsxGe7Qv7LDV/ChbF1Ipf2X68vmK2DRCz+GXj1uaxQJK6LYsLcAt2z+lolfJ4NUqJmwDd9CZj07HO5MTU/wNzcHoDH6Wwp00Ukjv5ix5qKQAiyaSCYOpge4TQqyxH5DRz8jxBDS2SS3F3VmMxAvnwKBzKTPVC/94T+Vw0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788764878; c=relaxed/simple;
+	bh=Y2ur+9djzyvL32htqpN4jDktQyKA4StfEKcENrbnevU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IxgXiIIHSuN4OiZEq8eNNmZvpDOB9/wnUO5YC8M8KEdLTOn5BoYYTS5NOOnnZpmBPovwOdn2Q+emr4YV2HAcYif72WM+J/lCxLqISmn1vVsrM+wpRqEOdTwDGyGrfqJf6RXFCJYHxn/QEDvxOo1XKKtgoX2nyY/NZvup2R4hKLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T5WmuwoE; arc=pass smtp.client-ip=209.85.160.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lB9Cz9gu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BA271F00A3A;
-	Mon,  7 Sep 2026 07:07:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788764870;
-	bh=nZm+NCet44cJmJyjw8MBjxY0eNygQ9RfC21W5wcGYs4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lB9Cz9gutHpSn4dFQHsjd41+NuoHTO46cVTIUuMGJ04YLs9Poe2oGR/dc4rhmZX4q
-	 tJKDs/+ACu+0B4MxctEr71dmyQARwgzUcZj/FBiFmCLXgujlDANxRj7QkfTruf/uZQ
-	 1av6CCDuLlM/vcWHQmKlK0NbglENzPOyBvoKt4caB6KKxhqZVZxeAWhL9pt/ILG5wY
-	 fv9hE+z6WHEVR88GniUUC6wecXkSDhRAJmazb34Q3hFzltlu0kOtkiOFd2xhHiKV47
-	 eoeUJQgWTwmZHrM0hab9bhO7595Pb+yFftAFb6FWYTw59B6LxpNKHL5OHtoCsjp1EB
-	 3VwOcjhTLosLA==
-Message-ID: <5629de34-1a63-40bf-8375-64be9a69eea2@kernel.org>
-Date: Mon, 7 Sep 2026 09:07:39 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T5WmuwoE"
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-52ff7e275e0so33550831cf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:07:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788764876; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Z/qNtBrHlCLsvElOQtbejdS5d43ImDTW2+kD+xsdrlygGIryhtl51DKGOgCGjFWHuj
+         I7EHKSP2z+KyrSbOW8TfNz7MqtYAW4npd9JuSVSbZCQo/oBSZNeDPuHxViCLBiKnUttY
+         4ExV30Qv52R+VNSw/Oh3qwoYU39UoWN+IXb+U9WzL2DNE4d/zOiwlbOJL3HktZqVXn41
+         32woinean5wRzlqlMUZcuaNCeM4eo1t90eRpwyHqTxc9rKvB4j1WdYHiYi0a6WYCr47y
+         u/CL0p4RQZ48kUKjDGK/G7L1DkPLOsI7ErRm7v8c+FK4TKsXymNWhIPKH3sl9BpxcKZc
+         Al5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hqvu5zoZvKKDOuz/BamMJAjw8ii3eTJFwC7iUaWUsFM=;
+        fh=4Rl7QMNy04zXJENw+BrzM5pHumbEZWlYHuUVVuEy83I=;
+        b=JOVwMLs9jcGnwTqI3yJfnX4r9Y1k+A2mMCt+ic0TNlmHvI6r90cZIbzijksTd6FSJG
+         ziPDHgVIz+vmklBrNMc2xDk7fswvMQXgkRAB09XLWXmWPOl1Qhmqh9GzKmzuDGfdbu1m
+         ue4fqfRMFADl2EftERe0fDKC87wh0NKnqNeihHWH2OvWKwzfZm3YFlnZswiBzk3lXfxE
+         qcoq1HWefJNULCDDtUBuZvxTfLBc4v6sE3kO6TA297smz2cG9iRcjP+vDITHIcJJCwzS
+         uMq+RSF/sKgEGbVpy5s4jB5LxpH+iIcpcE7xWVilWWGvgcZEc59sj/IOtBAi2f6KTG0t
+         kpiA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788764876; x=1789369676; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hqvu5zoZvKKDOuz/BamMJAjw8ii3eTJFwC7iUaWUsFM=;
+        b=T5WmuwoE2Wmkif6ZHlr7z75zgfDcYmcQejKwGE+psT7vyXnOrEs9W5puKXDeat0PNp
+         fvicIfeALAW5jAcrtvsAomYPHv35SfUAQlCf7dTKVFkKEwLJoKgUkGgj2/iLsMUNEfBQ
+         RuINvu/5htOfsXNvzOKPPOB2ihCv4PFBS3lK2NE2z/SSSUiTqCs0EHA7PEA41Q0moMwU
+         Mz5wLGFmBJlZ0SK26WVihBEEkZG3RzoRwjMHB1DyVX/tn/NsiWI9HA7vaocARvMZ1828
+         pcTRCLmY9ooj4sYd1gKHcnS3J1BhHZZ2Of/1HoDE5XcfCSXDuuIxeGMpZZ8ma8iLFuRc
+         dhbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788764876; x=1789369676;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hqvu5zoZvKKDOuz/BamMJAjw8ii3eTJFwC7iUaWUsFM=;
+        b=V25ZxrfMc6wGoICb4Sv6Sh2bS+S33s7L0fZJblpmZdgrfYbyNLRzY6KfuAUrqEAB/6
+         BDjkGIBzg/zTH8wGez996HufQYnfzwABZuVOy8Rw5Nj5iUkZp6UhOs1MsxSo/KiKCIHB
+         Tb2GA4DuGPMpjsPQJ9DWmuOfVxKj7jBzT/Cvv6Wibo3PlowYHTE2CVJM1FZKEg+DTgmL
+         ZoUwQxtgjo9GYlHlmtUvWnCL/YSKpHZYteWxSdKrEmCCSVudLR9dVbuyaOt38qKOvYn9
+         uGJeVNqvoPdu0ShPcWFRoSvwwHBWmfgui9mHa09hu//7LTeZGol3X3cSn6Nvz9U7w87n
+         Btkw==
+X-Forwarded-Encrypted: i=1; AKwUvBydLdEhxfk1nuD6IJEL3aWph5yUNJdE4J1Q0gXMfoJcBoyoD/WS3VmbdsycHgKlSdI/dC+cc+0VTQtYkUY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlvBig2TB8saVyIWUfhVs+1D1h5aH8z+K9hkbKRiVWlCAIPhbR
+	JQ7G4vxbndEwI7VfegM/W0xgwdFG2Qn0eRA54TpelNix3zR2ZcaDugEZZAOOAzhnoEL+f0ZcQvT
+	+EaeDl1rF1rIWytOKiGJi3LiVls9W/i8VtVCRAP/L
+X-Gm-Gg: AYBFou1r6cg42cCx/8ta4Zn1a2uJ3/9kQyMZa0stL4hE0heu93ZVOPhNiZYlf3IF1lC
+	H5da+PfI0E3WoXfGMGWF8VUjfoBipxEAOSfcobMHwfcgFuxbnZmUs+0w+h7t0Y++WRgdC04lTXK
+	HHFiMeU0QXoiwptngtjr6xUya2tdFcxP3v+SghRFYALnq/nP6tRobHZW0dEdydO9LBgrL8Efjkw
+	Z7+31UVRK4uc5bS4Pb9QmiRBWd/vzZh5pRsyKAN3OEXm1Rd4tGFNZfCBBCXnvHEoOh2iZA0Z8EX
+	o/BSS50ZLoG1cS2M/iFM+LCw5rs8JZodezEdob4H6ESNgs0YPpUI7hry9pui9ccCuIk4RV4oqwb
+	46GXzrzaHddzmLTEPpJKOG3UcniUQBWrG/vmO3qg058G4hmtbD/wysb1dZA==
+X-Received: by 2002:a05:622a:48e:b0:530:42e4:f280 with SMTP id
+ d75a77b69052e-530549f0484mr242761321cf.41.1788764875411; Mon, 07 Sep 2026
+ 00:07:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>, peter.griffin@linaro.org,
- alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
- conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
- hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
- muhammed.ali@samsung.com, thiagu.r@samsung.com
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
- <CGME20260903071318epcas5p4b804edb84554847c576d1d034b814d7a@epcas5p4.samsung.com>
- <20260903071250.3421499-3-selvarasu.g@samsung.com>
- <ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
- <e4bafeea-4548-41ef-b5e2-98ade2864e74@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <e4bafeea-4548-41ef-b5e2-98ade2864e74@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <cover.1788668475.git.zihanx@nebusec.ai> <e8782427d0b3cd1854ab8d141eea224b53db55b9.1788668475.git.zihanx@nebusec.ai>
+In-Reply-To: <e8782427d0b3cd1854ab8d141eea224b53db55b9.1788668475.git.zihanx@nebusec.ai>
+From: Eric Dumazet <edumazet@google.com>
+Date: Mon, 7 Sep 2026 09:07:43 +0200
+X-Gm-Features: AcwNN1V6FVySmL5DFqzL_7zCey1PZNw_Qi_Gx6_T0FzTqcJVGcZG-fCSLd-LjtA
+Message-ID: <CANn89iKdX2-a+VhWa4CyDODSZByk=r5VRq38yQhLYBFRQ1Wy3A@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/1] udp: diag: bound bucket lock hold time
+To: Zihan Xi <zihanx@nebusec.ai>
+Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, Willem de Bruijn <willemb@google.com>, 
+	Pavel Emelyanov <xemul@parallels.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Vega <vega@nebusec.ai>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/09/2026 08:04, Selvarasu Ganesan wrote:
-> 
-> On 9/5/2026 12:52 PM, Krzysztof Kozlowski wrote:
->> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
->>> The Samsung Exynos8855 USB glue is not separate from the Synopsys DWC3
->>> core, using a flattened model where the DWC3 controller is directly
->>> addressable rather than nested as a child node of a glue layer.
->>>
->>> Describe the Exynos USB block as a single node, referencing the split
->>> out Synopsys DWC3 core properties via snps,dwc3-common.yaml. The new
->>> binding follows the same approach as qcom,snps-dwc3.
->>>
->>> A generic fallback compatible "samsung,snps-dwc3" is introduced to
->>> describe this binding, selected by the validator based on the presence
->>> of the fallback string in the compatible list. Future Exynos SoCs
->> This is AI slop text. Over longish useless sentence describing diff
->> without actual information WHY.
->>
->> Don't send AI generated slop messages.
-> 
-> Sorry for the misleading info on this commit message. We were trying to 
-> explain why a separate flattened representation is being introduced with 
-> using generic fallback string, and follow the style of some other DWC3 
-> flattened refactors (like the Qualcomm : 
-> https://lore.kernel.org/all/20250414-dwc3-refactor-v7-2-f015b358722d@oss.qualcomm.com) 
-> to justify the separate binding, but it became too long. We'll simplify 
-> it and keep only the technical reasoning.
+On Sun, Sep 6, 2026 at 12:35=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote:
+>
+> udp_diag_dump() currently keeps the UDP hash bucket spinlock held while
+> running the request's bytecode filter and filling a netlink response for
+> every socket in the bucket.  A large filter and a heavily populated bucke=
+t
+> can therefore keep bottom halves disabled for an attacker-scaled amount o=
+f
+> time.
+>
+> Collect at most SKARR_SZ matching sockets under the bucket lock, taking a
+> reference for each socket, then run the filter and fill the response afte=
+r
+> releasing the lock.  Resume with the existing (slot, s_num) dump state so
+> the next batch can skip already-walked sockets.  Leave bytecode filtering
+> until after unlock; unlike tcp_diag, a rejecting inet_diag bytecode progr=
+am
+> is the expensive part of this walk.
+>
+> Fixes: b6d640c2286d ("udp_diag: Implement the dump-all functionality")
+> Cc: stable@vger.kernel.org
+> Reported-by: Vega <vega@nebusec.ai>
+> Assisted-by: LLM
+> Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+> ---
+> changes in v2:
+>   - Drop the hash-list cursor, dump_done callback, extra module
+>     reference, and inet_diag core changes.  Dump state is only
+>     (slot, s_num), so the existing handler get/put around dump() is
+>     enough and udp_diag no longer manages its own module lifetime.
+>   - Batch at most SKARR_SZ matching sockets under the bucket lock
+>     like tcp_diag, and run bytecode filtering plus netlink fill after
+>     unlock.
+>   - v1 Link: https://lore.kernel.org/all/133b6aee9e2c908c9da37d5585b3d2cd=
+016906cd.1788187473.git.zihanx@nebusec.ai
 
-Flattened node is the right approach, so just say this is the first
-Samsung Exynos binding using flattened node.
+pw-bot: rejected
 
+Please limit the complexity of filters.
 
-Best regards,
-Krzysztof
+Anywone needing complex filters will implement them in user space.
