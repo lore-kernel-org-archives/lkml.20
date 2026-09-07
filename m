@@ -1,60 +1,154 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-85.mta0.migadu.com [91.218.175.85])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9967478;
-	Mon,  7 Sep 2026 01:42:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69B212B94
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 01:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.85
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788745361; cv=none; b=AhahQJmF9KyKASw3Y5a8NqmIVrx/eb7yJUMjeSQIoWyf4QinOUddQRYhVX49qgat9It5t7dxGNqVEFrWi5U9lpDvFwotz1fVg1JVWcYelKeQwBXOX+gMyPvyM1KHBMn5FiY+3lo27JTZJpsV7Wb9sfHbHBqU8pVweRQypfX6HFI=
+	t=1788745494; cv=none; b=kSN929lLvgAw5onCspnu033G5ERr4NrIyDyhGIAqNPw78H9KQNLK7Y4sQyTOG6Uh1V1ri0AJkKC18hQJzkqAr5MeuGISV2FIZsQ82WAVvJJ4ojIq8S1hQWUxuh7tbzWiZuMJzelauHhEgjDnZts1RdhnKgtDvtpWWzarNCVztw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788745361; c=relaxed/simple;
-	bh=rcKkLl0+HMemz7y0htxoayTeLNWt4yhwfwIZG+eNesg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bhI/6OPgjmXTI51s+/9W5CjCutSfAqUPU42Gfrlenm6jnEBWlpHPy7Jbj/7NbZ3iV1ZvMlbp040bH+ebngDnCE/3OIYP1d536JbgnT421h8zVTFMQseQY4MUXsd24qn4tDHe/p/ddkEJ5ukjM7gpS23iARkTobvuWQrOsQBXNL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5f102b56aa5d11f19a56ed5b684f684d-20260907
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:e72015f5-cc9e-4b78-935d-bf75381495c0,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:6d069ef7f174f2f2823559d39252c101,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|83|102|865|898,TC:nil,Content:0|15|50|99,EDM
-	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
-	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5f102b56aa5d11f19a56ed5b684f684d-20260907
-X-User: liuxixin@kylinos.cn
-Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuxixin@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 449294600; Mon, 07 Sep 2026 09:42:22 +0800
-From: Xixin Liu <liuxixin@kylinos.cn>
-To: sudeep.holla@kernel.org
-Cc: arm-scmi@vger.kernel.org, cristian.marussi@arm.com, linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, liuxixin@kylinos.cn, mturquette@baylibre.com, sboyd@kernel.org
-Subject: Re: [PATCH v2 0/5] firmware/clk: arm_scpi hardening (leak, OPP bounds, cpufreq)
-Date: Mon, 7 Sep 2026 09:35:00 +0800
-Message-ID: <reply-scpi-hardening-v2-thanks.20260907.liuxixin@kylinos.cn>
-In-Reply-To: <178852798387.330796.10489318614485340307.b4-ty@b4>
-References: <cover.v2.1785200642.git.liuxixin@kylinos.cn> <178852798387.330796.10489318614485340307.b4-ty@b4>
+	s=arc-20240116; t=1788745494; c=relaxed/simple;
+	bh=XMR5YJjRPObLoKxi0OzfqaRkyg3NKVdX/m6x9mGp2oc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L66FpUHLjQffzgdeenMbY19+nIwODW7i8diX83Veyj2kJ/qAw8IZAqoUyLRFWfJotR1ObgHWJwtPm9X3RC8bqwnvWFO20oP+H0SMp614cYSZB0FD6oMkHEys9jc8YkqnZHa0oxxNGj4KHgMI9tA1nub2jV0Xe0AYf9cNKiZt5Tg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZCwUwJdn; arc=none smtp.client-ip=91.218.175.85
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZCwUwJdn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XMR5YJjRPObLoKxi0OzfqaRkyg3NKVdX/m6x9mGp2oc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788745490; v=1; x=1789350290;
+ b=ZCwUwJdnQWZStcaR1trmencBxswFTSJP9SSHtDQ85LnJZyNu/A4+4jTNLdmgUIHqbaDDb+JB
+ LQudeadFJtMDgfTF6V0UwmXbodmzrtZ94bHIiO7J/kDN+fKED7jno1P5IJE9rmIMHXiHQdMxRy3
+ k3qmsR2+SEnDwKHBqxMKh+Q8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 8afd76475cebebba;
+	Mon, 07 Sep 2026 01:44:40 +0000
+X-Mizu-Trace-ID: 8afd76475cebebba
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <33a37382-28d0-420c-9254-431e1b7e6d6b@linux.dev>
+Date: Mon, 7 Sep 2026 09:44:35 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH v3 2/3] mm: workingset: use lruvec_page_state_local() to
+ count lru pages
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
+ David Hildenbrand <david@kernel.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Hui Zhu <zhuhui@kylinos.cn>, stable@vger.kernel.org
+References: <cover.1788514750.git.zhuhui@kylinos.cn>
+ <2ec3a7f73e85ee5f5739c9dc2e58e9a0e2091925.1788514750.git.zhuhui@kylinos.cn>
+ <20260905184229.8f7f30cf10638e7dc8224467@linux-foundation.org>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <20260905184229.8f7f30cf10638e7dc8224467@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: patches/scripts/send-local.py
 
-Hi Sudeep,
 
-Thanks for applying the series.
 
-Thanks,
-Xixin Liu
+> On Fri,  4 Sep 2026 17:45:55 +0800 "Hui Zhu" <hui.zhu@linux.dev> wrote:
+>
+>> From: Hui Zhu <zhuhui@kylinos.cn>
+>>
+>> Commit 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the
+>> number of lru pages") switched count_shadow_nodes() to lruvec_lru_size().
+>> With CONFIG_MEMCG enabled, lruvec_lru_size() reads mz->lru_zone_size,
+>> which only the classic LRU paths maintain.  MGLRU accounts its pages
+>> through __update_lru_size(), which skips that array, so with MGLRU on the
+>> four evictable LRU lists are always seen as empty.  The shadow node budget
+>> (pages >> 3) then collapses to slab plus unevictable pages, and the
+>> workingset shadow shrinker reclaims eviction tokens almost as fast as they
+>> are created, losing thrashing protection.
+>>
+>> lruvec_page_state_local() reads lruvec_stats->state_local instead, which
+>> both classic LRU and MGLRU maintain.  Switch back to it.  The reparenting
+>> race this re-exposes on cgroup v2 is closed by the follow-up patch that
+>> redirects dying-memcg stat updates for all hierarchies.
+> The follow-up patch is "mm: memcg: skip the RCU lock when the memcg is
+> not dying"?  But that's an optimization so I'm confused.
+
+Sorry for the confusion - the commit message still says "follow-up
+patch" because that was the position in v2.  In v3 the series was
+reordered as requested, so the patch that closes the race, "mm: memcg:
+redirect stats updates of dying memcgs for all hierarchies", is now
+patch 1 and comes before this one.  Patch 3 is indeed only an
+optimization.  v4 will reword this sentence to:
+
+The reparenting race this re-exposes on cgroup v2 is closed by the
+preceding patch that redirects dying-memcg stat updates for all
+hierarchies.
+
+> If we're re-exposing a race, the fix for that race should have the same
+> Fixes: and cc:stable as the commit which did the reexposure?
+
+Yes, and it does.  Patch 1 carries exactly the same tags as this
+patch:
+Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get the 
+number of lru pages")
+Cc: stable@vger.kernel.org
+Patch 3 has no tags because it only recovers the fast-path overhead
+that patch 1 adds; it fixes no bug by itself.
+
+> It isn't clear why any of these patches is cc:stable.  The overall
+> effect is a tiny performance improvement?  Very clear descriptions of
+> end-user effects are always helpful.
+The performance table in the cover letter measures the overhead that
+the patches themselves add to the stat update fast path, not the
+impact of the bug - sorry if that was misleading.
+
+The end-user effect of the bug is the loss of thrashing protection.
+Since 7404bd37cfbe, with MGLRU enabled count_shadow_nodes() sees the
+four evictable LRU lists as always empty, so the workingset shadow
+node budget collapses to slab plus unevictable pages: for a memcg
+holding 1 GiB of page cache and 64 MiB of slab the budget drops from
+~35k nodes to ~2k.  The shadow shrinker then reclaims eviction tokens
+almost as fast as they are created, so a refault finds a live page
+instead of a shadow entry and lru_gen_refault() cannot restore the
+workingset state of the refaulting page.  Hot file pages that should
+be protected are evicted again and re-read from disk.  In other words,
+workloads that refault page cache under memory pressure thrash, with
+visibly increased IO and latency.  This hits every memcg reclaim and,
+since the root memcg is iterated as well, global reclaim too.
+> So at this time I'll schedule the whole series for 7.4-rc1.  If there's
+> some reason why some/all of these should be backported then please lmk.
+>
+I would suggest backporting all three patches together to the trees
+that contain 7404bd37cfbe: it went into v7.1, so 7.1.y and 7.2.y
+carry the regression.  Taking patch 3 along with patches 1 and 2
+avoids leaving the ~0.6% fast-path overhead of patch 1 in the stable
+trees.
+
+So v4 will reword the reference in this patch's commit message ("the
+preceding patch" instead of "the follow-up patch").  No code changes.
+
+One question: should patch 3 ("mm: memcg: skip the RCU lock when the
+memcg is not dying") also carry the same
+
+   Fixes: 7404bd37cfbe ("mm: workingset: use lruvec_lru_size() to get 
+the number of lru pages")
+   Cc: stable@vger.kernel.org
+
+tags?  That would make the stable trees pick up the whole series
+together, but since patch 3 only recovers the overhead of patch 1 and
+fixes no bug by itself, a Fixes: tag on it may look odd.  Please let
+me know your preference.
+
+Best,
+Hui
+
 
