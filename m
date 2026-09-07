@@ -1,178 +1,379 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010036.outbound.protection.outlook.com [52.101.84.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68646455632;
-	Mon,  7 Sep 2026 10:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18FCA1DDC38
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775319; cv=fail; b=PGg+Kw6Og+yXyFnuRePvWSXA2BYBhuhMYyazlc8MRfm0C8tADoow7bxoFD3xD0P6zRAg8k8xPN1Fs4U8lz5Cbd09keLhL+CMn3lTFydL7QJleJJ+5bDo4QiCR5jXIistVdeTT+vmNNYDA+SZmM2N8zRbmpYdinr2UPQgbWRxDP8=
+	t=1788775379; cv=pass; b=ka6oFdTVuOsgHIoFo8mM37mE4aTDWfJya/2db38S24ysmMKe+IIGY50WwPG1KvBIIr66TVA0VFFQZ3B26qXS7egSKcjyNn+52wdrtpvXvMucM7UMYR80pqbS1hnTgdYE3GhVE34vL3BTqbyh7/yxoffKcOyoHs0MnSoN2jYm4pg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775319; c=relaxed/simple;
-	bh=hHkYG3qG9n1NT547Weof9YGSEnBjY7h4+RDhCDYv+40=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=UM4xvrYgbCV0ZoFM1nWTBipyzcZGevpTrP1F4u/JLHEHo1Wr3Ri2N2gOUUiuWkWD/IsH5JqMj9B+BLTRpgG0EKAYW/RweQsq3YyFNAz8vdwLBbRaFdL8QBEHHFGetHGcYe9LO89AJzhtoOrFMd7v+3XdSi2q6PRg69EOiXcyUx0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=inWu4NuV; arc=fail smtp.client-ip=52.101.84.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788775379; c=relaxed/simple;
+	bh=Agb1U5psKWFluwAHuOfTyImm6NSwIkYlNTBkyvN5v54=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rGqH7Wan7abfw+O4Pq4gkf+dyeibBnSlEyazmCTBiEEph1I5Y9Ejw43uRhM97m1dUlxvnpIcugD3VdsWMLzw+bPhCUregxaPlFIoC0K3wGDZ/9Q9XxyCHZ7HfA6GJGJjNar2e4mOmROp2Bwxdge+dLsbRse5kZHA2eHaeoy/vRU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com; spf=pass smtp.mailfrom=mihalicyn.com; dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b=J/oQ0zbe; arc=pass smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mihalicyn.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mihalicyn.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="inWu4NuV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RgTmFvm0TdwZdIl1Z2SiTp3FkEW/Kr1drXnYtCG3LNNwGobLxbpJpaASVIlrSV9pw3AKOaZ5VAWk3Gleujxb/cAHyPoO0wfYdpqUOuHaZqZroWjqIL2VirhI9y/qt1reMUO0zaIMAZGqiIsSxUvqwMUugyNu+qZvG181exh+BANptL73deFdeXLLOmw//tDoHxjAQ+x/ynXHwjF3+poCM5D+IfxfbjtrmhXN4CbU8MYZ+ggJv17F0s6NEnG1YgGWCpjlo/gn6+PBtfYVwaQjFk0TBhRxBM/Jqqt1D8UmxszAIKssJCwvzVsVSNHk8fliJExdpnNxA+hUc/3G7m1ldQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wUbWOUAy6bD0lNRovlxtkgTdrCGbpNu/vK6NAe2IZto=;
- b=Q71N5+fEsexhjq3Wo8iyJ3OwFXXAefXM3fvL+GrspYeRK+rg/FbFiModPjVSB8JY19hZeAg9p/4Vv5piySFql3FvaTe5mKF3BGEo8hAOd/sBEw8gzxwet+IZ3J6akNbQtjJx0njuu/jf8kzbe+hHv2RJkMcBRy1thSIYfr1gDFjBr78l2bz33t1zKuod/ahx64RLMkzdbtB3waz5s9aZltKu8VhxYKV6d4R1yL6XYlaTh3xYyfACUPiHJ9oRvBAwVIxcvKus57UaNYR60OrsjdWhp4n12LtcUay084yHoBOhMH2N078SizMhgFs4ushlFaf0KqblEfCk9F76uvIwnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wUbWOUAy6bD0lNRovlxtkgTdrCGbpNu/vK6NAe2IZto=;
- b=inWu4NuV/iaSz4ZEYrEK4avmFEQzZLd3LJWRhgae49ATC5nmTY///Vdm+0cIpHI4OOBgsAIKKyeGa+4dVRDpiMtKb3jIMeHB81xfJtgAt1HLP1XQ/B3pKNou27MFJRfXWFD0MGLptbRuEL1CleFb8mWMqcukY80Ew6ez8KqohrlY6MF3dsWMx8SoAPn0bElT61XLiipHmStIkZGpo2LX0RV90OZE3sZEp4SXeiiLDGawci958EqFNTztVtsTfvkm6w56TBI7GlwOtYra3VWwWCgKQy6cJvWwnWnP1c+Lv0Q2FzAN9VuRXm/5PayPmFm7c5SP9fK81beeQ2eMvPuHNQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
- by BR2PR04MB220822.eurprd04.prod.outlook.com (2603:10a6:2c8:6::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 10:01:55 +0000
-Received: from PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d]) by PAXPR04MB9422.eurprd04.prod.outlook.com
- ([fe80::54e:28bf:aa85:d25d%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
- 10:01:55 +0000
-Date: Mon, 7 Sep 2026 17:59:34 +0800
-From: Xu Yang <xu.yang_2@oss.nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: peter.chen@kernel.org, gregkh@linuxfoundation.org, 
-	alexander.shishkin@linux.intel.com, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, jun.li@nxp.com
-Subject: Re: [PATCH] usb: chipidea: otg: fix invalid role name print when no
- current role
-Message-ID: <nslurpl6ish3fekdvy2s2cepqw2l5ylg4q7sg335r6fnxjfl5q@imnxij7aqeob>
-References: <20260901060150.1667914-1-xu.yang_2@oss.nxp.com>
- <apcn76jpNlMfaSe_@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apcn76jpNlMfaSe_@SMW015318>
-X-ClientProxiedBy: MA5P287CA0101.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::15) To PAXPR04MB9422.eurprd04.prod.outlook.com
- (2603:10a6:102:2b4::21)
+	dkim=pass (1024-bit key) header.d=mihalicyn.com header.i=@mihalicyn.com header.b="J/oQ0zbe"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c262204cc80so292886166b.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:02:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788775375; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lHDx21sPJip8sGQuLIE8Gaem2vBl2KQZHi8fcEF80L0vQEMv/vNg9jcKhpmQLFRBBI
+         YuD94U+nPDxJCOyM0Dlo0dEXQg2465oS9bd63Yj7LuInaBvYZMMj21X9zKG1uFyxCjg9
+         8msdmS/1yxrIztREa3Qs4Wa8WduE9lY3kYz6IBHEgRH+eJoPIOB2JWB+SP0KQKjay9sb
+         S9o7wD+YdeuH8/xAqPI7ATRvQkJmx6Ur/qnROt9I+tfYJb2hXoxL+Tl+rjYoi7yFJdfv
+         ql9dLdmhzjJDBnuPMA1iD+oVbP4slMHf2VLQqLp6RqrSK6SSxpD7GU41qKG0f4judJFs
+         hdvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mYUAt3CoW8hcdk4x5wF7dW2bJUGkWCMPVdPRg2ig/X4=;
+        fh=vX3uk1hoNQvG9mXdyT52ENA4EWcFFSxAs3Mb4VFFNGo=;
+        b=Qx6b9sOJKzNQLGI5JBoOgLA0RLQS0Gt1HR//t3x29u8Ih+DgZw7Jcj8RO24K3zDbq7
+         LGMs2yzp7BM/akKsOyVDRQpN0HX0fZJ/lzQGi8VsJ2HZ5SFfxzXr4Hs650eWFa8+7eZu
+         ANdxhyEceKKyQydE8BXQnHOhalaV70hNwJW5na5V2eU8FcsmQsxHBJU4zRjF5uWGFJvD
+         Vsh/YPPCzG9AU8PGrjNp26xAOsg4KOek4xp4oJmu2i2JTsMNAh3+2hYEJ0ke+6IrzeG2
+         HUpUtyaLS9IlGjQVahmw7YOfcol5p2vTXW5hGJrZvKfcooU9a2yZPwVR5fBKlsuuNpA2
+         PwTQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mihalicyn.com; s=mihalicyn; t=1788775375; x=1789380175; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mYUAt3CoW8hcdk4x5wF7dW2bJUGkWCMPVdPRg2ig/X4=;
+        b=J/oQ0zbe6cvhl1dRG2znv7QMeeCxKvm1y5gI2xZDXVriD7XRjtVW+VbqNDz9Kq3yDD
+         UUe2kk4tE0FmxhelVEU/fOahN1lTu8Ckv6zbwgziX0o4u0HB97nyV+/r625PLeQi0eHj
+         IEvZ28zO+PR9ABq56J5QqSA7+9ew6jIwRHYpc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788775375; x=1789380175;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mYUAt3CoW8hcdk4x5wF7dW2bJUGkWCMPVdPRg2ig/X4=;
+        b=HWGnWZ872Kof7Ga/Gc/9EXxzet63eJqZxgf2O/AdywHvJjL7ATU1iW9k2cqeuoRFRU
+         04Y0XpKn35xzUjGISK0gQoSPDrHxCvuNuYXi0hpr8bHot00kD3xmIRAgIoEaz2oUjQiN
+         Smro7awEP70XA/zM2XCYD/Nmg6mR704WAOQgtTLy1bHxYhiieb4BuekAxCksS3GJyidU
+         FnIyUBmFnT2UFv7ABD2nf9N83+HJfabTnP6loVJS1yy/SX5WOBsbLW3tzyXEOVzAaKJk
+         vUWhuX/zeOyL4Q+8KEbwKQkr5q5UQqHepf9v6XMD/eDTnB9YZj5pRtxEJkWLnI+eS9Gs
+         Nr2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxceI6PCnVCEoq3P6ssABdqaf/q55CrYoj7h8h6VcN4Wwq1tWqwerCvlMEC/IleDbBtUx/jBjCLK+V86xo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mA/GA8Oz1WyIl9RUJvRlu0W5yhx39JdVZW8Gd6qiexg4XLKlUn
+	yPGSkM5I3iUqx9UBuP4tXNOR9upTfVtI9HUUDxoUSexOrYa307oFdzn1flQhOmOcUAkCfXs9IZn
+	X8BasuHBG9TjrweYd7/c2VoRgUATdR/D7cm1VzwQuPQ==
+X-Gm-Gg: AYBFou0V71oRcQwDKLHZm55GZkeccSQNTBvUonMTR0BXEJP/cUefqlb1dIL8rTVaido
+	Nn96SYybhTxn5YB/LgcrfZ/WUWeUafoiirbKP6TgJ+zQ5wkrV6GHNJVPhh/Ltmz8bGJuHYEJsv1
+	bkVOJVJycEjgxjphpkP2RsQ9Q3/SOupQAtvQZ9MKkCDv2B4fXw0bXRocH1NdPvggJ3R9nwGu5xb
+	baAfjAud8sa18Sk86/pi9YNKzaR61fMsLwEGUZsQuDsRMr74I/UgK876WJwXwzuNxwWHINCdO2Q
+	bZG0M4ar7/zbrlUrZClHi3IkfgGiSIm0kHD5Y36rWzkFc36f1PgQ9A1+goDp7ocyhocwn15Qfp0
+	=
+X-Received: by 2002:a17:906:6a06:b0:c27:420b:7c91 with SMTP id
+ a640c23a62f3a-c27420ba148mr324617266b.45.1788775375021; Mon, 07 Sep 2026
+ 03:02:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9422:EE_|BR2PR04MB220822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e659086-e27a-4c6f-9858-08df0cc70bfb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|19092799006|23010399003|1800799024|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sqYhWexV46v/tilu5yEJzEVt1arcPI7I68t/Z+mAdMrQPJavQKR9n6WiHHhY2d+h2plJ8fg6vMCV5jbfscbLdpQkGo2ENm9wryij2ffmGCURHAVaGRhuo0e2YTNaAw8WJszHb3YRzmrA7lHjRtBRmnnQIZCoHhJb8A6eoL2hXn94ZJpKy/TF2Usn4jRfHGdCchOrffkZWZVGCmqO+95aT/fxKJazBam3Fhrd0pK3KNpPoo2yENVGiHrOodVjleLlK98nCHyzxjIxa18sssN5+/bDPsYfdxa9jZLW4tWkHkcOu0jkQRsp5b3UZ8GdmUi7UszPTYU+rfZZKLVxILitGRnzJPY3j6c3fGslqKhW3Qb1MhQxiY625ntrCZHOFwNv/30lEpNC89H6I7ahwWys2x7kIlaTAwB0sxJpkMOJDkuDDuccMX4qE09OFM/28vlvnXPEXh+B4WXAcJSa+E5Vziij1U0IxIvoOq3Q9XDtWSN2BakPaeiPLpB1U6pz7SJDLhgddYw8JyVnIuPlhGdtGJYrXWCeCEjxxWN+R3nzpvu9ZYDmOy4yVHOKM9Qe+W80aNN/p6/UBHXk9+es+FbXGg0KAjwThT+bVSM411ANdkTupbMAYFGdghQnIxhd+6U2U3WZeCuIDDCKNLlQWOU2AUjXaVGvcdYNX1me6Tphfzo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9422.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(19092799006)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?2/sy4w2xdQfKpNz52cY+hOzzQDtObJlS6YHDZJXs4xwqXNbgPgxJlLgivcWu?=
- =?us-ascii?Q?78uZ7NNTZLeqrIHENH0+q1YDqQOSMrs4bmo//MwyW5oPaEcY51v16iuFyA1j?=
- =?us-ascii?Q?wkrHItZVpl2m1zPkaNadMjCbR8pmO6KPN+cXlOfzBpHjIHBL2KzLwKM/Wmlm?=
- =?us-ascii?Q?Q53Xy0v8QndzbqBeExI5eRZkm9HwCdZQGvrmPRA78bOq34wfgzkMGbSDozM5?=
- =?us-ascii?Q?oS9DEqGJFGTCbwCY9wNfTdRO9YnhgQeNdcFMv77xmcRImE35sJJTGZQPLuAC?=
- =?us-ascii?Q?CwUqJJ5cRSMdgQwW+56s7oiblwJypqkjOMB1tSjZkaQ4Al/CVp0nsGNZ31pu?=
- =?us-ascii?Q?vALYn3oNuq2ApjwhH8MOjR9x/BN4N5m2Dd/Bb0KKvRRnmotNkhW9p05KBZ0X?=
- =?us-ascii?Q?YoGlP3H2ziKEnfRCtpOvDYDiYrbVNNWJbC4Y61eFJxBqs4QY4RCN1daYmnt9?=
- =?us-ascii?Q?+LOloDvxQo4ZeK+zKWZbAlnuyahcO3LWM0M4cJHHG+p4vV4rSWS92S/RRSkd?=
- =?us-ascii?Q?W5W+PjqtQ1ooqbTQwhzat5Qc483oE3VxEv3GlmW11bpkBrsBOv426mMVLM+H?=
- =?us-ascii?Q?g0QWpuTmrbMieglZib6BchKDnjxtII4EL6npaD2mS5kFbQuvjIWs5HxChntz?=
- =?us-ascii?Q?mWA6c7hSNwg8r3OT+wXXdAZhGhdN+7dpMltoeXEprmhKJd3T/gxD+8QWm7tl?=
- =?us-ascii?Q?P7BM8fXch7oT4j/zkg3RSnm9eF/bi6vJXfPx9PYOLPkx0oDmCUuqqhbz1sLd?=
- =?us-ascii?Q?VfTEWL4O0/S8JmMOOrrmjNXSj8S1qFzryd7BW4iUVrH8/f6dpYgS2z9RvYHN?=
- =?us-ascii?Q?wHzEK64I5srPjlgoLQUHDsfRXF+srdMbvK+jBpRoZgHTdXKsMSrqBBDBaPEO?=
- =?us-ascii?Q?svl62k+gS4oaskkdDGPckMIbH9KuoRpnNNTGS83VfsiiI7UPBD8vCAdCI7GT?=
- =?us-ascii?Q?e02lj6ejwsuo7+kkShPkbkxKEXRVf0b5kZzEWuDnS4CKdTlAPFBko6rbNa2L?=
- =?us-ascii?Q?O+wgMu4N7AdaolEETjx8OKDCTLpU7pcynPuSQB3VTppoJ6OS0idBcrYDBUXX?=
- =?us-ascii?Q?YXDO1BZiQpSGPke6GhgBB18oj0qThEmCYN9nSCllFK1RJi20KFcB0HkxigUr?=
- =?us-ascii?Q?Df4mR3zQX4v0rnL/p/keKf5FkZ4hpQsloY9t9Cx864FeYENURzYfxJDeOQJd?=
- =?us-ascii?Q?vVO4vRhOEFEYrPBLqQNCEJDHQ2pMyvT12hFGYZkqVtsJ2h/5+hlkjm05DFZg?=
- =?us-ascii?Q?I0oBhH48LgJUX7Y+yABfmQw6lN9T/ebLaOAhG/Bg3VOV9yBo9yc5ahJJkYEe?=
- =?us-ascii?Q?MBm+ytx6Za77GtogC+p+J9JzsEIRQb/bhcKV3UBQ9TJAGScqD3VDJGVjmPqx?=
- =?us-ascii?Q?c+mJZk2MzQyPM6f8Oarat+LwujdXcv4kJ5kSs/9W5hj/TGN9dOnRhzlsVm4h?=
- =?us-ascii?Q?ZgTxlQ2ixOtWBGKemYVtCnZzi2KkX7XnHT84m/4MGb0xtJ8whvp1P+q+AJxj?=
- =?us-ascii?Q?DiTKHRbE+CmBRhSXAwGUJG9arRnfvuefpfClyJwBRe+aoUULoIatlRqA6Tna?=
- =?us-ascii?Q?T4+NR2Ylub+4vEKxzjOEJdYIvBAcVgLZe9BrdT/b7teB1fS/405EqD7Efw7B?=
- =?us-ascii?Q?+hwopAokDpxLp6bh5/tqB3cym7Jq/Nrz8T0AYdcbF945n87Ky/n0Q/6tGf+u?=
- =?us-ascii?Q?pLw8FUjGiwupEzwGQVOZ/0s8Uogo5DfSli5QtN2snblarHuOzHGNptnMwVfB?=
- =?us-ascii?Q?Q4dgegIX9Hxf0G01GgCkGPo5mqPRbDLG/P3wsCKVXpGWM0umcDvh?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e659086-e27a-4c6f-9858-08df0cc70bfb
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9422.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 10:01:55.2763
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tWL2FKiq31a1f0m9pWwLZjsNtrnMW7dL8yXWgqA8cGY4p5OzXXLgp8PNG3ax/HPzk2eDFTMgZ68FU1p0UI3mj8ob+pXDx4QqS1MKAlUmdWNgZKTAK/DA4iamXe8EH7LH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR2PR04MB220822
+References: <20260831-work-unix-passpidfd-v1-0-70cbfda0c7ba@kernel.org> <20260831-work-unix-passpidfd-v1-3-70cbfda0c7ba@kernel.org>
+In-Reply-To: <20260831-work-unix-passpidfd-v1-3-70cbfda0c7ba@kernel.org>
+From: Alexander Mikhalitsyn <alexander@mihalicyn.com>
+Date: Mon, 7 Sep 2026 12:02:43 +0200
+X-Gm-Features: AcwNN1WrhkNKsQbqXVbkhOZyJ1cNaX0dXsg8rTr7YIJ3nSA211pYR6RUAISIT_4
+Message-ID: <CAJqdLrrHfVs_53rZ3tnCA8+F=rH93hGi8H=COgzhSAovHp2btQ@mail.gmail.com>
+Subject: Re: [PATCH 03/10] net: add SO_PASSPIDFD_THREAD to get a
+ thread-specific SCM_PIDFD
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, Oleg Nesterov <oleg@redhat.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Willem de Bruijn <willemb@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 01, 2026 at 02:30:55PM -0500, Frank Li wrote:
-> On Tue, Sep 01, 2026 at 02:01:50PM +0800, Xu Yang wrote:
-> > From: Xu Yang <xu.yang_2@nxp.com>
-> >
-> > ci_handle_id_switch() prints the role transition via ci_role(ci)->name
-> > for the current role, but when ci->role is CI_ROLE_END (no role
-> > assigned yet), ci_role(ci) call BUG_ON() and return ci->roles[CI_ROLE_END]
-> > which is NULL, causing a NULL pointer dereference in the debug print.
-> 
-> This should be out of boundery access,
-> 
-> struct ci_role_driver           *roles[CI_ROLE_END];
-> 
-> ci->roles[CI_ROLE_END] to access next field,
->         enum ci_role                    role;
->         bool                            is_otg;
-> 
-> NULL should be "luck" value.
+Am Mo., 31. Aug. 2026 um 13:21 Uhr schrieb Christian Brauner
+<brauner@kernel.org>:
+>
+> Currently, SCM_PIDFD carries a pidfd for the thread-group leader. A
+> broker or the coredump server cannot learn the identity of the specific
+> thread that sent a given message. Now that both struct pids are recorded
+> a receiver can ask for the specific identity it needs.
+>
+> So add SO_PASSPIDFD_THREAD as a sibling of SO_PASSPIDFD. Either option
+> makes recvmsg() deliver an SCM_PIDFD. SO_PASSPIDFD sends a pidfd for the
+> thread-group leader and SO_PASSPIDFD_THREAD sends a pidfd for the
+> specific thread.
+>
+> The two options are mutually exclusive. Enabling one switches the other
+> off, so getsockopt() always reports which of the two is active.
+>
+> On SOCK_STREAM sockets recvmsg() only stops merging data at a thread
+> boundary when the receiver asked for a thread pidfd. For SO_PASSCRED and
+> SO_PASSPIDFD receivers all threads of one process remain a single
+> writer.
+>
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Yes, it's true.
+LGTM
 
-> 
-> >
-> > This can happen if ci_role_start() fails during a role switch, since
-> > ci_role_stop() has already set ci->role to CI_ROLE_END.
-> >
-> > Fix it by printing "none" instead of dereferencing ci_role(ci)->name
-> > when ci->role is CI_ROLE_END.
-> >
-> > Fixes: cbec6bd55a45 ("usb: chipidea: move otg related things to otg file")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
-> > ---
-> >  drivers/usb/chipidea/otg.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/usb/chipidea/otg.c b/drivers/usb/chipidea/otg.c
-> > index fecc7d7e2f0d..457417e81b78 100644
-> > --- a/drivers/usb/chipidea/otg.c
-> > +++ b/drivers/usb/chipidea/otg.c
-> > @@ -179,7 +179,8 @@ void ci_handle_id_switch(struct ci_hdrc *ci)
-> >  	role = ci_otg_role(ci);
-> >  	if (role != ci->role) {
-> >  		dev_dbg(ci->dev, "switching from %s to %s\n",
-> > -			ci_role(ci)->name, ci->roles[role]->name);
-> > +			ci->role == CI_ROLE_END ? "none" : ci_role(ci)->name,
-> > +			ci->roles[role]->name);
-> 
-> This is out of boundery check
-> 
-> 	ci->role >= CI_ROLE_END  or ci-role < CI_ROLE_END, and revert :
+Reviewed-by: Alexander Mikhalitsyn <aleksandr.mikhalitsyn@futurfusion.io>
 
-OK.
-
-Thanks,
-Xu Yang
+> ---
+>  arch/alpha/include/uapi/asm/socket.h  |  2 ++
+>  arch/mips/include/uapi/asm/socket.h   |  2 ++
+>  arch/parisc/include/uapi/asm/socket.h |  2 ++
+>  arch/sparc/include/uapi/asm/socket.h  |  2 ++
+>  include/net/sock.h                    | 10 +++++++++-
+>  include/uapi/asm-generic/socket.h     |  2 ++
+>  net/core/scm.c                        | 19 +++++++++++++------
+>  net/core/sock.c                       | 26 ++++++++++++++++++++++++--
+>  net/unix/af_unix.c                    | 11 ++++++++---
+>  9 files changed, 64 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+> index 946a5fad2691..bb3d534826bb 100644
+> --- a/arch/alpha/include/uapi/asm/socket.h
+> +++ b/arch/alpha/include/uapi/asm/socket.h
+> @@ -157,6 +157,8 @@
+>
+>  #define SO_RIGHTS_NOTRUNC      85
+>
+> +#define SO_PASSPIDFD_THREAD    86
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+> index f1641dde135f..269badcaa086 100644
+> --- a/arch/mips/include/uapi/asm/socket.h
+> +++ b/arch/mips/include/uapi/asm/socket.h
+> @@ -168,6 +168,8 @@
+>
+>  #define SO_RIGHTS_NOTRUNC      85
+>
+> +#define SO_PASSPIDFD_THREAD    86
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+> index f3a3815c7dc2..313aee10a52c 100644
+> --- a/arch/parisc/include/uapi/asm/socket.h
+> +++ b/arch/parisc/include/uapi/asm/socket.h
+> @@ -149,6 +149,8 @@
+>
+>  #define SO_RIGHTS_NOTRUNC      0x4053
+>
+> +#define SO_PASSPIDFD_THREAD    0x4054
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64
+> diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+> index 7907f3b1f0ee..bd3e69bcce7a 100644
+> --- a/arch/sparc/include/uapi/asm/socket.h
+> +++ b/arch/sparc/include/uapi/asm/socket.h
+> @@ -150,6 +150,8 @@
+>
+>  #define SO_RIGHTS_NOTRUNC        0x005e
+>
+> +#define SO_PASSPIDFD_THREAD      0x005f
+> +
+>  #if !defined(__KERNEL__)
+>
+>
+> diff --git a/include/net/sock.h b/include/net/sock.h
+> index 51185222aac2..fc09c92e8a83 100644
+> --- a/include/net/sock.h
+> +++ b/include/net/sock.h
+> @@ -356,6 +356,7 @@ struct sk_filter;
+>    *    @sk_scm_security: flagged by SO_PASSSEC to recv SCM_SECURITY
+>    *    @sk_scm_pidfd: flagged by SO_PASSPIDFD to recv SCM_PIDFD
+>    *    @sk_scm_rights: flagged by SO_PASSRIGHTS to recv SCM_RIGHTS
+> +  *    @sk_scm_pidfd_thread: flagged by SO_PASSPIDFD_THREAD to recv a thread SCM_PIDFD
+>    *    @sk_scm_unused: unused flags for scm_recv()
+>    *    @ns_tracker: tracker for netns reference
+>    *    @sk_user_frags: xarray of pages the user is holding a reference on.
+> @@ -562,7 +563,8 @@ struct sock {
+>                                 sk_scm_security : 1,
+>                                 sk_scm_pidfd : 1,
+>                                 sk_scm_rights : 1,
+> -                               sk_scm_unused : 4;
+> +                               sk_scm_pidfd_thread : 1,
+> +                               sk_scm_unused : 3;
+>                 };
+>         };
+>         u8                      sk_clockid;
+> @@ -2986,6 +2988,12 @@ static inline bool sk_is_stream_unix(const struct sock *sk)
+>         return sk_is_unix(sk) && sk->sk_type == SOCK_STREAM;
+>  }
+>
+> +/* SO_PASSPIDFD or SO_PASSPIDFD_THREAD asked for an SCM_PIDFD. */
+> +static inline bool sk_scm_pidfd_wanted(const struct sock *sk)
+> +{
+> +       return sk->sk_scm_pidfd || sk->sk_scm_pidfd_thread;
+> +}
+> +
+>  static inline bool sk_is_vsock(const struct sock *sk)
+>  {
+>         return sk->sk_family == AF_VSOCK;
+> diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+> index 84ea7b92936e..d1e5c6de146d 100644
+> --- a/include/uapi/asm-generic/socket.h
+> +++ b/include/uapi/asm-generic/socket.h
+> @@ -152,6 +152,8 @@
+>
+>  #define SO_RIGHTS_NOTRUNC      85
+>
+> +#define SO_PASSPIDFD_THREAD    86
+> +
+>  #if !defined(__KERNEL__)
+>
+>  #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+> diff --git a/net/core/scm.c b/net/core/scm.c
+> index 9b9e119c353a..d69768414af4 100644
+> --- a/net/core/scm.c
+> +++ b/net/core/scm.c
+> @@ -499,9 +499,13 @@ static bool scm_has_secdata(struct sock *sk)
+>  }
+>  #endif
+>
+> -static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
+> +static void scm_pidfd_recv(struct sock *sk, struct msghdr *msg,
+> +                          struct scm_cookie *scm)
+>  {
+> +       enum pid_type type = sk->sk_scm_pidfd_thread ? PIDTYPE_PID : PIDTYPE_TGID;
+> +       struct pid *pid = scm->pid[type];
+>         struct file *pidfd_file = NULL;
+> +       unsigned int flags = PIDFD_STALE;
+>         int len, pidfd;
+>
+>         /* put_cmsg() doesn't return an error if CMSG is truncated,
+> @@ -517,10 +521,13 @@ static void scm_pidfd_recv(struct msghdr *msg, struct scm_cookie *scm)
+>                 return;
+>         }
+>
+> -       if (!scm->pid[PIDTYPE_TGID])
+> +       if (!pid)
+>                 return;
+>
+> -       pidfd = pidfd_prepare(scm->pid[PIDTYPE_TGID], PIDFD_STALE, &pidfd_file);
+> +       if (type == PIDTYPE_PID)
+> +               flags |= PIDFD_THREAD;
+> +
+> +       pidfd = pidfd_prepare(pid, flags, &pidfd_file);
+>
+>         if (put_cmsg(msg, SOL_SOCKET, SCM_PIDFD, sizeof(int), &pidfd)) {
+>                 if (pidfd_file) {
+> @@ -539,7 +546,7 @@ static bool __scm_recv_common(struct sock *sk, struct msghdr *msg,
+>                               struct scm_cookie *scm, int flags)
+>  {
+>         if (!msg->msg_control) {
+> -               if (sk->sk_scm_credentials || sk->sk_scm_pidfd ||
+> +               if (sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk) ||
+>                     scm->fp || scm_has_secdata(sk))
+>                         msg->msg_flags |= MSG_CTRUNC;
+>
+> @@ -586,8 +593,8 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
+>                 scm_detach_fds(msg, scm, READ_ONCE(u->scm_rights_notrunc));
+>         }
+>
+> -       if (sock->sk->sk_scm_pidfd)
+> -               scm_pidfd_recv(msg, scm);
+> +       if (sk_scm_pidfd_wanted(sock->sk))
+> +               scm_pidfd_recv(sock->sk, msg, scm);
+>
+>         scm_destroy_cred(scm);
+>  }
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index 1ad41904db25..f9615b0de10e 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -1571,10 +1571,25 @@ int sk_setsockopt(struct sock *sk, int level, int optname,
+>                 break;
+>
+>         case SO_PASSPIDFD:
+> -               if (sk_is_unix(sk))
+> +               if (sk_is_unix(sk)) {
+> +                       /* Mutually exclusive with SO_PASSPIDFD_THREAD. */
+>                         sk->sk_scm_pidfd = valbool;
+> -               else
+> +                       if (valbool)
+> +                               sk->sk_scm_pidfd_thread = 0;
+> +               } else {
+> +                       ret = -EOPNOTSUPP;
+> +               }
+> +               break;
+> +
+> +       case SO_PASSPIDFD_THREAD:
+> +               if (sk_is_unix(sk)) {
+> +                       /* Mutually exclusive with SO_PASSPIDFD. */
+> +                       sk->sk_scm_pidfd_thread = valbool;
+> +                       if (valbool)
+> +                               sk->sk_scm_pidfd = 0;
+> +               } else {
+>                         ret = -EOPNOTSUPP;
+> +               }
+>                 break;
+>
+>         case SO_PASSRIGHTS:
+> @@ -1892,6 +1907,13 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
+>                 v.val = sk->sk_scm_pidfd;
+>                 break;
+>
+> +       case SO_PASSPIDFD_THREAD:
+> +               if (!sk_is_unix(sk))
+> +                       return -EOPNOTSUPP;
+> +
+> +               v.val = sk->sk_scm_pidfd_thread;
+> +               break;
+> +
+>         case SO_PASSRIGHTS:
+>                 if (!sk_is_unix(sk))
+>                         return -EOPNOTSUPP;
+> diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+> index 011af84e3626..468a9c479b87 100644
+> --- a/net/unix/af_unix.c
+> +++ b/net/unix/af_unix.c
+> @@ -803,7 +803,7 @@ static void copy_peercred(struct sock *sk, struct sock *peersk)
+>
+>  static bool unix_may_passcred(const struct sock *sk)
+>  {
+> -       return sk->sk_scm_credentials || sk->sk_scm_pidfd;
+> +       return sk->sk_scm_credentials || sk_scm_pidfd_wanted(sk);
+>  }
+>
+>  static int unix_listen(struct socket *sock, int backlog)
+> @@ -2048,9 +2048,14 @@ static int unix_maybe_add_creds(struct sk_buff *skb, const struct sock *sk,
+>         return 0;
+>  }
+>
+> -static bool unix_skb_scm_eq(struct sk_buff *skb,
+> +static bool unix_skb_scm_eq(const struct sock *sk, struct sk_buff *skb,
+>                             struct scm_cookie *scm)
+>  {
+> +       /* Only a thread pidfd receiver can tell threads of one process apart. */
+> +       if (sk->sk_scm_pidfd_thread &&
+> +           UNIXCB(skb).pid[PIDTYPE_PID] != scm->pid[PIDTYPE_PID])
+> +               return false;
+> +
+>         return UNIXCB(skb).pid[PIDTYPE_TGID] == scm->pid[PIDTYPE_TGID] &&
+>                uid_eq(UNIXCB(skb).uid, scm->creds.uid) &&
+>                gid_eq(UNIXCB(skb).gid, scm->creds.gid) &&
+> @@ -3029,7 +3034,7 @@ static int unix_stream_read_generic(struct unix_stream_read_state *state,
+>
+>                 if (check_creds) {
+>                         /* Never glue messages from different writers */
+> -                       if (!unix_skb_scm_eq(skb, &scm))
+> +                       if (!unix_skb_scm_eq(sk, skb, &scm))
+>                                 break;
+>                 } else if (unix_may_passcred(sk)) {
+>                         /* Copy credentials */
+>
+> --
+> 2.53.0
+>
