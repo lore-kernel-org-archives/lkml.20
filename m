@@ -1,122 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2919486E4D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1274F3CCFD2;
+	Mon,  7 Sep 2026 13:19:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787117; cv=none; b=fyIWnPpzJg0K1IrbaihxDnCvA11ZNxfrvMLpFROyrKQyMvwa5ERRC1s8OKDYJr0LTnVTPV6djwPRd6tp2ttNH8vuil/+2vI2RJHNvBd1s+AoonMWX7ENoJ4wZWS+xmR1SqPCbWZ1tWZHJrKVjo5+Iu3FccxP1iQmdKCSUtVx7N4=
+	t=1788787181; cv=none; b=hYLBh7UUUI8Ugru9UpKvVAsD+VtIe2gItFFozE79QWFjgqB+N8jlzywLMIJV12aq9oW1HMkKdREQ0pczzJISMnpXrEsHm+BH5memeGXreX/aR2Y6/zmn14LWoq55xPCZj9ltyd30FtNWSDzaObT/JNDqlvvMmmGaWNvwh1Csnqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787117; c=relaxed/simple;
-	bh=ZHT1nwRV+EF2Mm8bVfNXYmPeTXEgGItvBUgZF4Bfnrw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bCTEiTD64KfnnOabB69U6Da+ZUvNF/oG7bRihPAzAafV/HLSHVcEGmW2reFIGYvGTYg/FGpMJCsXqHg3SUuXroAaJF87TqbLBdTqHcNcgopIjuBV7x8yD9vDuU3fC4C2GSs4NXjDvc+guzpETBJ9eSppK3EYhhAiXA71ZbbEaeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y7CNazp9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788787181; c=relaxed/simple;
+	bh=LSo7jmJ24Scp6m3Zpm08iW2ip9POwOxwp/IhmpjiN2A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KW2kFFz16T9L5ncEIyUKUrpNspyJ6cd8gbA9X26fbBqSFqrIF3FH/Oy73i4CuvfO0A3q3x+C657dQ/E2qoDJp2s1gV3uGsKGgbtgtc8AIV3AbivcMAICIS1U2aTVQium4C0/c71a10VNhZCXFVzUZnG0/HK78KK2WRgpP0LtjaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SHnsGY+D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y7CNazp9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EFB71F00ADB
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SHnsGY+D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD79A1F00A3A;
+	Mon,  7 Sep 2026 13:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788787112;
-	bh=hEWmuW7cufMWV2/b01w8XaTQOw/m9I21NgDQfNHpcUA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Y7CNazp9aYy+PdY0qNLl0B7UHZGVyc8NYIl94q4rS75a7fb8BfHqZHqCpHGBY7ozT
-	 bpCYs8vIAFiWTPcNj/lChvaKSivlCaFedS6Ze+NtCFryS34HzgcrXFVtO2tOcXATXj
-	 aknvYJ11xVYV4y8yNd8VziMCP2T0lBncq/esm+x6+QSPmgy5nksNQSNEfaMp7IoRP9
-	 vYRpAABEdC4+WP2xtBFi4jX9ngfv44GbSba9HP9kVPFnxDWZslemR+Fl1L1buFOYDw
-	 tuhIDnqUDLUhOdvW78rdgfXZPJD3XBxfgdDBeEEUMsAOf4bwV2JQol8t2DBGFTlthI
-	 YPyUwMljIZjdg==
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a601ba6870so4927775a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:18:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByXxlQfibT7f05r7Hwrf4hFoWza/9rEVegjhMoZqxO6M7XEIbKtuN85A3KJZJETB9GHzsNcIEiBVDOH3II=@vger.kernel.org
-X-Gm-Message-State: AFuF++lMvTxWL/sESDIXIORRtMB7D1Om8FEy1MyCljNz5y3ELYuctHJg
-	sjnVzaEVA+Fr8debfxlftTaEIX2f4zGtKxwVO7lTd1D689Z7WTGT+zsbJ4Qm4og+8M1Ug8W1Dz/
-	bneiQiHo0KDyVS3JDn9BNC7a6FNzKUkg=
-X-Received: by 2002:a17:907:7294:b0:c26:19de:9139 with SMTP id
- a640c23a62f3a-c2619dea0f1mr784114966b.44.1788787111068; Mon, 07 Sep 2026
- 06:18:31 -0700 (PDT)
+	s=k20260515; t=1788787176;
+	bh=BUmwcbTHkYXmph0slZ3nwW7rclemNODX0V/5P30wQP8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SHnsGY+D7x5OPgXM4osNJUAlNld4XyLWPAXr7TIKuGlJczyGoDbvWLhEfiwMemNE6
+	 6d6TjSYITNXpzL20w+GdL1CRIKBo0LfL5jk9OBfwh+EQc48ZfxTcSs+JEbeGt2UAmq
+	 5kqsDjDNIrKSaJShHyGQ6DfG781+F2An5kM37CKS6fGkNblptGW9gaWulZbHgHhJTm
+	 HBhZe92EUVw/i5cDIgmn/5ECVcGo21pSO2iaPvDBeHSVHAXeRYBaH8KWZh89jpNkQp
+	 tWCQYnCtZi1dFpA8Z7CjMy9yYcXSCblelTIAvJuobpbJ25AOsMZo7xmTtaL4xCikFP
+	 hgPD56rR7wj+Q==
+Date: Mon, 7 Sep 2026 15:19:30 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: Baoli Zhang <baoli.zhang@linux.intel.com>
+Cc: "K. Y. Srinivasan" <kys@microsoft.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>, 
+	Long Li <longli@microsoft.com>, Jiri Kosina <jikos@kernel.org>, 
+	Michael Bommarito <michael.bommarito@gmail.com>, linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: hyperv: fix fortify write overflow in KUnit device
+ info tests
+Message-ID: <ap65ZxP8IIaJKMgQ@beelink>
+References: <20260907004619.2479833-1-baoli.zhang@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907130821.1726595-1-xialonglong2025@163.com>
-In-Reply-To: <20260907130821.1726595-1-xialonglong2025@163.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 7 Sep 2026 06:18:19 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
-X-Gm-Features: AcwNN1VW7ax0yb2yZAzS8soWDZl4_rah1ysY0avA1R2-TIGVjOCZmj9VVC6GuJ4
-Message-ID: <CAO9r8zMhs_DQGah6mRfh2=Q_9WU4tm7SsWWGguUt4h7mXiOFRg@mail.gmail.com>
-Subject: Re: [PATCH 1/1] mm/zswap: publish the initial pool with list_add_rcu()
-To: Longlong Xia <xialonglong2025@163.com>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev, 
-	akpm@linux-foundation.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Longlong Xia <xialonglong@kylinos.cn>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907004619.2479833-1-baoli.zhang@linux.intel.com>
 
-On Mon, Sep 7, 2026 at 6:09=E2=80=AFAM Longlong Xia <xialonglong2025@163.co=
-m> wrote:
->
-> From: Longlong Xia <xialonglong@kylinos.cn>
->
-> zswap_setup() publishes the pool on the zswap_pools list with a
-> plain list_add(), but the list is walked by concurrent RCU readers
-> holding nothing but rcu_read_lock() through zswap_total_pages(), e.g.
-> /proc/meminfo and the shrinker count path.
->
->     CPU 0 (writer)                          CPU 1 (reader)
->     --------------                          --------------
->     zswap_pool_create():
->       pool->zs_pool =3D zs_create_pool(); (1)
->     list_add() -> __list_add():
->       WRITE_ONCE(zswap_pools.next,
->           &pool->list);                (2)   zswap_total_pages():
->                                                 pool =3D READ_ONCE(     (=
-a)
->                                                     zswap_pools.next);
->                                                 zs_get_total_pages(   (b)
->                                                     pool->zs_pool);
->
-> If (2) becomes visible to CPU 1 before (1), CPU 1 finds the pool at
-> (a) but dereferences a wild pointer at (b). Publish the node with
-> list_add_rcu().
->
-> Fixes: 91cdcd8d624bf ("mm: zswap: optimize zswap pool size tracking")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Zcode:GLM-5.3
-> Signed-off-by: Longlong Xia <xialonglong@kylinos.cn>
+On Sep 07 2026, Baoli Zhang wrote:
+> allyesconfig fails to build:
+> 
+>   In function 'fortify_memset_chk',
+>       inlined from 'mousevsc_device_info_valid_descriptor':
+>   ./include/linux/fortify-string.h:430:25: error: call to
+>   '__write_overflow_field' declared with attribute warning: detected
+>   write beyond size of field (1st parameter); maybe use struct_group()?
+> 
+> Both tests place a report descriptor in bytes allocated past
+> struct synthhid_device_info, then memset() it, and derive its address
+> from the hid_descriptor member:
+> 
+>   report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> 
+> Because that expression is a member reference, the fortify checks bound
+> the write by sizeof(info->hid_descriptor). bLength is exactly that size
+> here, so the remaining room in the member is zero and every write is
+> flagged, even though the memory really came from the caller's
+> kunit_kzalloc(sizeof(*info) + N).
+> 
+> Compute the address from the start of info instead, mirroring the
+> desc_offset arithmetic that mousevsc_on_receive_device_info() itself
+> uses. Deriving from info gives the whole allocation as the object, so
+> the writes are no longer attributed to a single member. The result is
+> the same address: (u8 *)&info->hid_descriptor is by definition
+> (u8 *)info + offsetof(struct synthhid_device_info, hid_descriptor), so
+> test behaviour is unchanged.
+> 
+> sizeof(*info) deliberately is not used for this: hid_descriptor is
+> __packed while synthhid_device_info is not, so the struct may carry
+> trailing padding and the report would land at the wrong offset.
+> 
+> Fixes: 83df7b5fa6735 ("HID: hyperv: add KUnit coverage for device info bounds")
+> Signed-off-by: Baoli Zhang <baoli.zhang@linux.intel.com>
 
-Acked-by: Yosry Ahmed <yosry@kernel.org>
+Please always check is a patch is not already pending in linux-next or
+in mainline linux.
+
+d0ad81b2b5fe ("HID: hyperv: make pointer arithmetics understandable for
+FORTIFY_SOURCE") already fixes this very same issue.
+
+Cheers,
+Benjamin
 
 > ---
-> Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong=
-2025%40163.com
-
-This should probably be:
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260906133601.3563324-1-xialonglong20=
-25%40163.com
-
->
->  mm/zswap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 37f34e406c8e..cb5a0855fd2a 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1803,7 +1803,7 @@ static int zswap_setup(void)
->         pool =3D __zswap_pool_create_fallback();
->         if (pool) {
->                 pr_info("loaded using pool %s\n", pool->tfm_name);
-> -               list_add(&pool->list, &zswap_pools);
-> +               list_add_rcu(&pool->list, &zswap_pools);
->                 zswap_has_pool =3D true;
->                 static_branch_enable(&zswap_ever_enabled);
->         } else {
-> --
+>  drivers/hid/hid-hyperv.c | 23 +++++++++++++++++++++--
+>  1 file changed, 21 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/hid/hid-hyperv.c b/drivers/hid/hid-hyperv.c
+> index 6579bd19da13a..f1042b36d10b7 100644
+> --- a/drivers/hid/hid-hyperv.c
+> +++ b/drivers/hid/hid-hyperv.c
+> @@ -657,6 +657,25 @@ static struct mousevsc_dev *mousevsc_kunit_alloc_dev(struct kunit *test)
+>  	return input_dev;
+>  }
+>  
+> +/*
+> + * Address of the report descriptor that mousevsc_on_receive_device_info()
+> + * expects immediately after the HID descriptor.
+> + *
+> + * Computed from the start of @info, mirroring the desc_offset arithmetic in
+> + * mousevsc_on_receive_device_info(), rather than from &info->hid_descriptor.
+> + * The report lives in the extra bytes the caller allocated past the struct, so
+> + * deriving it from the member would leave the fortify checks bounding writes
+> + * by sizeof(info->hid_descriptor) and reject them. Note sizeof(*info) cannot
+> + * be used instead: hid_descriptor is packed while synthhid_device_info is not,
+> + * so the struct may carry trailing padding.
+> + */
+> +static u8 *mousevsc_kunit_report_desc(struct synthhid_device_info *info)
+> +{
+> +	return (u8 *)info +
+> +	       offsetof(struct synthhid_device_info, hid_descriptor) +
+> +	       info->hid_descriptor.bLength;
+> +}
+> +
+>  static void mousevsc_device_info_zero_blength(struct kunit *test)
+>  {
+>  	struct synthhid_device_info *info;
+> @@ -687,7 +706,7 @@ static void mousevsc_device_info_valid_descriptor(struct kunit *test)
+>  
+>  	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+>  	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(4);
+> -	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	report = mousevsc_kunit_report_desc(info);
+>  	memset(report, 0x42, 4);
+>  
+>  	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 4);
+> @@ -713,7 +732,7 @@ static void mousevsc_device_info_report_desc_oob(struct kunit *test)
+>  
+>  	info->hid_descriptor.bLength = sizeof(struct hid_descriptor);
+>  	info->hid_descriptor.rpt_desc.wDescriptorLength = cpu_to_le16(64);
+> -	report = ((u8 *)&info->hid_descriptor) + info->hid_descriptor.bLength;
+> +	report = mousevsc_kunit_report_desc(info);
+>  	memset(report, 0x42, 8);
+>  
+>  	mousevsc_on_receive_device_info(input_dev, info, sizeof(*info) + 8);
+> -- 
 > 2.43.0
->
+> 
+> 
