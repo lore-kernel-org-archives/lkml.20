@@ -1,117 +1,112 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8148483BC0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:06:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782769; cv=pass; b=fdwAldm6VDkKSOec27YR3Lvl/H0ZcdOOFUfqiua+q1CudPLFceyDZTUZLEx4siXttyUYB6OUYUcFSWVQEb4O882EYuxqcUEON/ds+7t6mA/21s1JIBnIPl7P+u43aN0BLjiC9lNbUNXkAeY+XhwrnNk1Qev4qehy29CESQ54moE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782769; c=relaxed/simple;
-	bh=HhprkWnzm5aZiGMD+GyLSsyNyk0pGLWTcDgmWY/eXjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CZXLUjVvBy1ILzSZbFEVRrvVRf363elqQWEe+me1GIlpxMiTvK7+xIMZp3h0qjnhpgHfE51npQMzYpqLspQBf/TYL1DZMxo8WqPgjmXEAAxY6+LNxs0WsmzM4ZGt9E68z67wFmiWppC9lfBdpuQpRfmUatOnt9GkbidDiDuvO38=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fxNT5QpY; arc=pass smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BFE483BD5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:06:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788782789; cv=none; b=jB+jXhtsUPntgGAqnUXywQf1VTyQYXpmCCjEcHkFKqNes7FpcApw8kV89rx1pymmxKzNtclwYUh1voZT6QsgDUiMhHBA9PzL0zRj5n1RE7dfbPNhIvS64wk5ZztEJ9xkVnjABH4qitCat3n5csU/Sl5QT7r9ydKbDfP/BdWWdsg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788782789; c=relaxed/simple;
+	bh=S9tHVz0KUWoQgg2OMR1yUXRyftZyF9ufT6cdmiqBYRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKWLNkfsAbRY3whS/FY6p75f1OucaefhkeaTDdwRy8s7mAS+PEwuErv72eSpAEjbFn9VpwmhcTOH/gd3e0AVBbya5jJNOXzk7Wn4pvW+CoIGhDQivpT4tmK+4HYgCelD6+oN8W/Aw0psGtvUuGHiv9Ou9yugFuINPB8cVECi93Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YaQ61reh; arc=none smtp.client-ip=209.85.215.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fxNT5QpY"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-851cbd64814so1254659b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:06:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788782767; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FcHcwHheZ82xxwqLH6fyAA07dYOveWgLmGSVNQ5GKyPBgznLPo8NvUrJB6o5wttE1X
-         y2y1Ttee/EABjbrO+Fo+90OwOZpdD4negEyIifX+4hjmA+e9CDENrdWk2EO/ENpxly/J
-         Rynh+BHsSwi3N3PVUUpUYDCpEj5JZxrDFN/JfkykDNiR5fVrqyMSQSC/7LFq7/lDDaTe
-         WHj7rkdNrODNCBIQrzv1thgm5J2bbnfatjDFLQisjE4irE5wQJ5AlNo72+RkkFZ/hHQN
-         zhy6Fb3PSix5X6iFWWZvpRjsIJDuYmkzy5Mh4yEx6dhE/Lt92w32DO/qMpqtbPQfpH8F
-         mvrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HhprkWnzm5aZiGMD+GyLSsyNyk0pGLWTcDgmWY/eXjY=;
-        fh=s2wUUS5AZ+413mfq+PvuxgqcnczkYP/DO5Szsf5fBts=;
-        b=UiwvDigfsMybrKY/1tzi+MUwijO/OlchDJxXsDhcQ7JcDkFqJsNmMnpvZ6alEudKBh
-         z3vfsnEJGk9jBNWT15wQ/Zq2oKK/vZ5mk6ZuJmAqDJLTuwvXz5xA3XpZUFvO/wJMMONT
-         +qdUN4GRqnfAm5y57v+iX69TxdXKJX6KeWql1aLU8vtqRMTwyhyD6eOOEbkQmQJXPHOK
-         AQs3E6/OJ5bMzVGg9iIIvDu6nTEW6kJ4x3C6nTxrItgmgSvhNj4N+faSvowdM931G6So
-         JwrYmEr4baB7aO/XZA/W5k/7u9Z7GvPiSuZ392T25s+qgqeohsvIq/ZXr0x3UKEU+0yw
-         9VGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YaQ61reh"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cbee846deecso4260333a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:06:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782767; x=1789387567; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788782787; x=1789387587; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=HhprkWnzm5aZiGMD+GyLSsyNyk0pGLWTcDgmWY/eXjY=;
-        b=fxNT5QpYexlIL22aDz3shdSqdSZS8CWn+2qNZe26Aqij3+N3Jg9X8Un+Ah0MhJUI4r
-         YePPyUHDxzoCgfycSH7FyGkT7X/VFK1bWLP2HO4k0CDGG4mHswDxmqbO6ips7h/0vKfj
-         2KiH7/nNn0hm+5ZEf9vzDheBsSN6epTSTToeI3MJ1C+onSCWBnkbV9VFCYOH9U1vM3tu
-         tF1iLs7pUR047s/9qzSbz1fZGU47T9x7G32MIxVSfy+DhATeNlElAAi1vOpP5zj0+0iS
-         AVXcyIRVgpYaagmQlxk2taQrEZkvMg3+mLkqn934TcVLMlqDbYiOGo4hooq3ac9oHT8T
-         P0Gw==
+        bh=jalcXwT2Yf1NbQPCnMUl/zDvl6z8nL40vYt7Jj9wsrg=;
+        b=YaQ61rehHsytr2H3reuwCfBAQiDwnzQj2byfOTxV/JKfo6TlckGSimkw2t+vHFFoAb
+         EvVeazF1oLGQNGvqB2pEy4P4WnXsGEAHWtZsrWyRdh2qmIH8DxRXI48Fz5gYgr5V3ctx
+         /JLBqMIOSON5w6MvVFB7UxiX1YWQQtlWBa+WwuGuBtcdaRyQDNi46P9gYCHpePsAU//S
+         Jj1T8DolWeRpcXte8ENc6AaO74YCSCKA2ebA8IYuoaV0Pw2+QoVhY5LrbYsjiJbRBiW6
+         Or6UOcNSnR/LfSYWtbIGcJCLV1BU6WnvYnNaQNLmB46srK1nIf/jA1zS25Sh+NMUvpCI
+         lxoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782767; x=1789387567;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788782787; x=1789387587;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HhprkWnzm5aZiGMD+GyLSsyNyk0pGLWTcDgmWY/eXjY=;
-        b=F2kwtA5EtEb6nuvfmgWHmNgz/CIrnKFkYUS8uABSt/hu5OB+Gz0Iawi5vwsET3SO5Y
-         GRI/nYv8oij0WH+UWgkLvEpwn0DJ9R6tDi1979WmVW0z6RJN3X08f+gSn53VyVUQQK90
-         4B+aoDlC91v9tYPfQ+FXnvHaP0vMovgX5+U+KxD6wT8eu5lRhbq4318iCAhWmpE6/vxM
-         BUz2uqYGLNmryaxbsBslGaNZEUEFMQpG3aPCFDfiKkBtECdNrkmX/ykB1KxSIpYIF//Y
-         OV9WZ78vKiqtKdYyV4aBcWhGvzX3sNz6sxQyHicRJNw4CFKda2T7jyZSaqGbQbJHxsdH
-         dUag==
-X-Forwarded-Encrypted: i=1; AKwUvBzzh2pS9MmgShqyx6NHSVZ3/UOjf+BUk4wrXKs2Ukz3g6euTf+yRjNjXMVnQGKjgu3xR1+0N3aP5TDWgNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVPklOia/PggKOttjkYE315dmSUfCcv3WVL97K9lHQFweohjt8
-	tFY/I4QTsSOAcovpUPSDWyFWQU3CmcTSHtkdR4kPeXiupe8awShrBMxtRXT26LBMl2HZjAGndaU
-	s5jUuqA8rSkJZ68N7O15VwjxeUbITTpo=
-X-Gm-Gg: AYBFou13sSNuWP9mhMZmuKeHiodLIV3DzgjfdAiVHBlkAAc8VwuSFchEhB9ghdf5MZA
-	/VgQ/MSv+LRzxwNiDWB2OcOoISzQLKh/ZuuQm3cRzkYMpStD9EyJByHU6nxW+Au582rqdIvRWYY
-	C5gvnDfCcZGZYN6Cey8Sggb+o4comYMMX6uq+XFTt+Sx5DU+QDo6l+8vcYIb/xQvSHBSXd/CBVe
-	sOGHpt8ka29VNfX40q9ZTX37wG9JiIdbBywCw3R6EiD7ya7+ez1m6cxfLpZp3DN7Xj9/4+DvRzd
-	kcD667659cz+ESR7PqbyHpcZFBrv+KvtEHTqi+vC/UOANEsta5iP9izyfog/vlL6DCxjh4xToQM
-	3sJbn7JSvNtDkSu+IEyOHv/pdlkfcoIfrr3jVWIdu1mqNAEIPbyOqqr2J
-X-Received: by 2002:a05:6a00:4c15:b0:848:46a0:3d74 with SMTP id
- d2e1a72fcca58-86169b6b588mr27969662b3a.9.1788782766620; Mon, 07 Sep 2026
- 05:06:06 -0700 (PDT)
+        bh=jalcXwT2Yf1NbQPCnMUl/zDvl6z8nL40vYt7Jj9wsrg=;
+        b=at3KZ1QSnmdKWEM0Cld1y/y/PjcOmpTz6JLVOCPWBJDpWPEDUygDBuPEAu64C6sDD9
+         RpkYrM2WhJzbcKaectzH0UnxQzun+ModewQdjzS4ndgu4sKcFDcUdhbI8Z+5GXjF/ue3
+         fRbv9DExTorqI2BkH2bk+ZiA4rEZ9d5AHYf24ugECHwZJSCJInP6iE88wyIvkpWZsteI
+         yAyWIueBGJIiLF+jK6bX33GC3q9Cesk8jqz7rvhQ6ru74dzZ0azqPfUi6Q5SPG1C8opI
+         tKtkD558EsAFpZzhAiSoPMBYzCmkjy3gNJLwrBSF0S7Si5xlV08xbT7afn09HAyukaaA
+         MedQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/EEctZ9JPds7GW0Uqi9COd23Grutnpi3IIrAymVG5YmhG5wE/mda77r07dl231dmVGV4GyuVigFgc7tY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJuLZvzbhdStCPoh8+PEWZYLccZ4QGDF4UKzKR7tvrM+jcQRrr
+	F84f0dkXk8E/2/gxw1EnZesSoK6dWxEqqyumhYUEhzXefFqg5YeKgQKh
+X-Gm-Gg: AYBFou35dP13BKRCc/AAVJmkzDxtwNXYxBeGeIY350NtLUPn+BDFShyzqgxYVvCCK3S
+	6kNYgSAfYx7R0GKKfRfnC5CcVSbB5pBePDdv8Dvk6Rzui+5luxFQZVwyqBF1//ptZT7tbKdyg/x
+	quoJIMBojk4ooGwZj2uQ91PmgFpLqyvsX9WRgRfAiMef87C3/SI6My+/TCYjH3rxZXKN/ZU1ako
+	M48UCqzGZPu1sgh7wAX1G62AW14wKNdrbOvKufVj3FP4ckolOh6+KxYAa/lTaz1xuwPaau+G0Zq
+	ukdpAM76wvEnbwkEPnu6jUaTfVfEuBlpjyUd/SrJzmwVS0xyZZUWiviv2KbOkt0Qq/jzTqsvBZ8
+	HmGHiRgSdjL3sRqe6epeIkDFPC5nLpTrqN+dJ/0zvj8Da8sTBxHGg6VzMeqvdfDHfuUrMJ7xTd/
+	rJ8RzRz4dTKgMLNs1QvhV0edL33yNviHKIVr/osLbjlVLgitL9DA1660g0WuM=
+X-Received: by 2002:a05:6a20:430f:b0:3d1:9166:5c68 with SMTP id adf61e73a8af0-3da39ee15fdmr29716602637.8.1788782787245;
+        Mon, 07 Sep 2026 05:06:27 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45a6abb12sm3818124a12.16.2026.09.07.05.06.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:06:26 -0700 (PDT)
+Date: Mon, 7 Sep 2026 20:05:57 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v2 0/4] phy: core: Add phy bulk helpers support
+Message-ID: <ap6ngAxlztCAFSH0@inochi.infowork>
+References: <20260904083709.425893-1-inochiama@gmail.com>
+ <20260907102849.w7yn43x6m3f2rnuj@skbuf>
+ <ap6fcP7Oct109dkY@inochi.infowork>
+ <20260907115712.dg5pw4ajvrtdipey@skbuf>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907034502.12619-1-phucduc.bui@gmail.com> <GV2PR04MB11739E45D1562C9063E05D77788B22@GV2PR04MB11739.eurprd04.prod.outlook.com>
-In-Reply-To: <GV2PR04MB11739E45D1562C9063E05D77788B22@GV2PR04MB11739.eurprd04.prod.outlook.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Mon, 7 Sep 2026 19:05:52 +0700
-X-Gm-Features: AcwNN1VgFt55b8C2DAXKx-uTJk3d_l7pJsW4Kx0oozTChu1fJXNM2fyLx2t5bvA
-Message-ID: <CAABR9nEHY+A3y52GmozKTQnot1RcCRZVV-Js5eyt7CQsb3JZjw@mail.gmail.com>
-Subject: Re: [PATCH net v4] net: fec: Propagate PTP initialization errors
-To: Wei Fang <wei.fang@nxp.com>
-Cc: Frank Li <frank.li@nxp.com>, Shenwei Wang <shenwei.wang@nxp.com>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Simon Horman <horms@kernel.org>, 
-	"davem@davemloft.net" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Richard Cochran <richardcochran@gmail.com>, Stephen Boyd <swboyd@chromium.org>, 
-	"imx@lists.linux.dev" <imx@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907115712.dg5pw4ajvrtdipey@skbuf>
 
-Hi Wei,
+On Mon, Sep 07, 2026 at 02:57:12PM +0300, Vladimir Oltean wrote:
+> On Mon, Sep 07, 2026 at 07:29:49PM +0800, Inochi Amaoto wrote:
+> > Yes, I have one for it. This is the spacemit pcie driver.
+> > https://lore.kernel.org/linux-pci/20260907112606.465778-1-inochiama@gmail.com/
+> > 
+> > But it only uses a few of these helpers. So should I remove all the
+> > things that are not directly used, and let others add these if they
+> > need?
+> 
+> How many functions would go away, and how difficult would they be to
+> reconstruct, if we only were to add them on an "as-needed" basis?
+> 
+> If the answer is "many", I suppose you could also leave a note in
+> phy.rst that links to v2 and mentions unimplemented functions because
+> they lack a user.
+> 
 
-Thanks for the review.
+In fact I think it is happy. This PCIe driver only use three APIs:
+- devm_of_phy_bulk_get_all
+- phy_bulk_init
+- phy_bulk_exit
 
-> This part is unrelated to PTP and inconsistent with the subject, it shoul=
-d be
-> added to a separate patch.
->
+So most of them will be removed as only a few are on the path.
+I will follow you suggestion. Thanks.
 
-I=E2=80=99ll split this out into a separate patch and send it shortly.
-
-Best regards,
-Phuc
+Regards,
+Inochi
