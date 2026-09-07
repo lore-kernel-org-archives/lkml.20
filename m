@@ -1,62 +1,117 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8942C46EF6A
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F09ED4FC8EA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:53:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792824; cv=none; b=jq5B3/eR/4Eh4jHgoWajsFIjcj7y8yKt6JLgIN9LnhHgNi8SNp+FT7k52fJcYEljxdDKe0XLje6g3TE0da7/IsRT8Cyg0v3h/rQkKyOkzataXFYesmYGdhzcS7rOoK6OaUGU5XxduLHUNoCw+SQNTzosL5QOoAOaxRqNF0r6Oz8=
+	t=1788792836; cv=none; b=X6Qra6wfztBhP8FpyyNBa0nbY7rQAoJrxd9LXHnAZmXvskyiFWyzw1/x3jt2BOW/Zt4AO6lXLPBZwP/WeuPOplsya3ZBkXtKc8YrC/3B+54OmqJhthtJKzq9uHfJBvOmQZJu9adIQqWD2PWz0twIC2MoNPlbb+LFdJ0eJC8lU98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792824; c=relaxed/simple;
-	bh=rOI4hkeCoOwgt12sklzFsfgNUdEln859/ig4LK/GS9k=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=qkaTnOhCfG798FK/dNeiYNve1GjMjgJgTETKhNFOA7ZDJXefJuKLzmdLt05bsvSeurtLBbxnvWUVQxzLcO+w1AYobPfFtfDZMFPYDa9JdGJeez/GrXWA5Qfo8vit1Qil9UkO880wTkSWzeiojtXDTTkjYzKWofbmeER2WI14QGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e9e2db9914so4814150a34.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:53:30 -0700 (PDT)
+	s=arc-20240116; t=1788792836; c=relaxed/simple;
+	bh=sdIE3SzF6L6ZxINNNbZ0jvBKaiRVFXn2tAGQNxf2W9Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FtTx0NA26Dl9MiLmfWVETBIRP3qDI8ILMhx1+NNDDgnfr9G81UT4vn+fEn0ba4qBxUmWBnLpEV7hY/LXLTYfigt0hfLa1NLbQRVnAK/PjaY0ksr/eBCCd+j67qm5EmXQS4mZtAMFqvCFpa08LK0skPNGUu26vCdJUQu/Gm2NTtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=qqGgidLW; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="qqGgidLW"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfe528e9so900856d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:53:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1788792807; x=1789397607; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UQ2fjOmOWADKjy9JVfCK9DXQhlrOJjV6jnCnErtXuu0=;
+        b=qqGgidLWDLI3rx5QV3+cok2OsjcRRciNAe8z/6vq1xz+l33ZXuxT01PJm3lWFuKDna
+         mrMMvq2ZcPp5smupfc77ShFrR+feE3IDgh7Sx2AJYT7LwxQFiL47IPL5vhH+IWxbwpWK
+         9UecyYEn5E0iPo6Ola9G/Y6n8m0JPhrCWshJW2+mdogUXqLyUOniX30qTy4Dt8jk2wVn
+         1yMbgKtTZIyFLpZXOb8AqGAh3RPQ+AZXZrU54t19D2yJdCdnymXidk5HxsX3BkqbMOyq
+         mvVzphQ0PWeO2Qwy53VjWtmTMPglXKsGCkbVFvU68NkdRW44i8KM0LAobvruh3kIsoic
+         QaDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788792807; x=1789397607;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=rOI4hkeCoOwgt12sklzFsfgNUdEln859/ig4LK/GS9k=;
-        b=GA6ttJyv7gzBOPde2xHgHCnZ1WoQef0O9bWnTVQLDFIGeLTf/Kllkby1oz5z6CbDSF
-         IJXdEfYHXTX4JpknptMS8qgk8ur9cq2EHj9Jq1dIpmmMPTE1TYf4nwyBMuQg1KQEa+aK
-         3qBOvBvpjEcncYIL7lwljbhOGpGo9PmU6mCQ12/dOAGNCfTR1z1g7wbfC2rBO0IYkwF8
-         xmi39NXRRQTzLOsCSAQeDrCnfFF1Jg2SG4DsKJL/HRNEMfOIbraANTZrNcm+4LLXNCPm
-         aGM2HivBP7VyCS1NN+QXku48HHLO6AVEH3gzans1yzJnvGmbW6GRtOOv9xyDA8xqfDhg
-         Z3MQ==
-X-Gm-Message-State: AFuF++lTrolpeL1j577oN5Ub3jZ//LcDberM8FP2NNCVEsKROybSmA54
-	dGaY/rQ2AH4PLboHVY4W77vUkNMqkgFtMTVWgXwO1U38DPphkbhGr+89tV6t+i8Rnke4Uumkesw
-	Eso2s3Wsq154LAkxyZ87rRN5qh/hoPfZgMkizqlFZA8mw+3e1KXpX4eSw5B4=
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UQ2fjOmOWADKjy9JVfCK9DXQhlrOJjV6jnCnErtXuu0=;
+        b=QDZ/qAThCKzVTkO4Vfu9o92SJX8wBmfgVJSj+K1GNmAk4dd0hSeoOy69KJkwDeUa8I
+         5uJxoTQtTlki1sOyVQaAH6kRpTmFNTROi7Jk/GI1FaKHiyUjVZunv6Rl44w7LbmcZ+vQ
+         0rCKFQIJJ+Vb/8lbagSm2DwYtYYXEDo/7LIZTTKDBK17XDMWKKaaUNmz/RniIQfFWV5p
+         c3Od6oNUzL8vGF+LbcG5t3KrACsK+J231f0Jm9iCiyOz58O6h12cDl1JW8HSxHywbZlG
+         ZUqm066QxjCpnbQfRUAgwkzA/YaNTfvmmLPv5lngZabNRihFyVGQhNfRQ2I43q4MIDrL
+         Weow==
+X-Forwarded-Encrypted: i=1; AKwUvBzIhRGLWEOC78J1Nh7gSP+L2AbcONi4C/+LjzR4bcWNCoYSmv3zrB2GCIwWemuXHVCb9A8RsYIPcVWrlbU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1cjpKh6DgP+0Bu3lyyv8plx7cSfPptVASDnv5tOR51mxVf2i9
+	zT3UkuSaZRxZKcKdMRWT4AuTQdvzeN63hKRmfym2/h1pdIngJBVqXKZsOVZLFhGvGTE=
+X-Gm-Gg: AYBFou3xMGV9v/CHziVZc/WiPE5911uH/JM51cdqTFteNVIrW9VGqYyOzf3Y1wHrwyq
+	k42ycW0lLuzI+XSgDYIv1VJVee5q2W97N7Kxej5fA8nKGnb+Jyb3TfChAMtKR/2kgmQ5kgKmlAa
+	AUo9Rr9/yj3HD5f3olPk0ikYfK4bSWcdqi6aU/2vGk2r/mspcccDajyzwfDElO9wFwkfdWQOFj0
+	Ye4L6jWpeWTSOY+w/sLMpQMjNnoSZgjvpJa0bs73bSYeWpe2LH+ujeD9wsL0VfpyU87tH5ok7OD
+	B1f2Uik3ssguMsk+9ypD/RxWHX4BrM+7tk0wtbJa50WVhRU2x6WWB14Uq1MhRIbKMe3x6wsXqOG
+	SlEhA+yG4vSSN6/ZkV0n/fYXXPYjxeU24o/Ocf1u5c10pJ2RvduFt0MPPshY4n0vloKiEdPxh0I
+	j6U2w8Vomq4zKn4L6ICZEXS4R4MAFwBVbQpf3WNBheBx3F5UqtFr/nLfrnErM8JjCcqsDFV0mbt
+	L8/Xrk45QUSdOCd9f1e2jHf4vrfOv+/z6xpnG/3DikmyajTvznoCHlK
+X-Received: by 2002:a05:6214:4001:b0:90e:940d:afe6 with SMTP id 6a1803df08f44-9106202083dmr14557396d6.15.1788792801917;
+        Mon, 07 Sep 2026 07:53:21 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406afe48sm93131566d6.43.2026.09.07.07.53.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 07:53:21 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:53:19 -0400
+From: Gregory Price <gourry@gourry.net>
+To: liuqiqi@kylinos.cn
+Cc: akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com, 
+	mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: page_alloc: add trace_mm_page_alloc to bulk
+ allocation path
+Message-ID: <ap7Pbm70m0pw_NqM@gourry-fedora-PF4VCD3F>
+References: <20260907120949.418450-1-liuqiqi@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f015:b0:6b6:8fb3:583e with SMTP id
- 006d021491bc7-6b68fb35acdmr10593778eaf.38.1788792806824; Mon, 07 Sep 2026
- 07:53:26 -0700 (PDT)
-Date: Mon, 07 Sep 2026 07:53:26 -0700
-In-Reply-To: <6a9443c1.a8e469d2.cbf3.5609.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9ecfe6.6e6c5f9e.240462.0002.GAE@google.com>
-Subject: Forwarded: cx231xx: reproduce USB direction warning on v7.3-rc2
-From: syzbot <syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907120949.418450-1-liuqiqi@kylinos.cn>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Mon, Sep 07, 2026 at 08:09:49PM +0800, liuqiqi@kylinos.cn wrote:
+> From: Qiqi Liu <liuqiqi@kylinos.cn>
+> 
+> The bulk allocation path in alloc_pages_bulk_noprof() does not fire
+> trace_mm_page_alloc for each allocated page, leaving bulk-allocated
+> pages invisible to ftrace, BPF, and perf. Only the fallback path via
+> __alloc_frozen_pages_noprof() is traced.
+> 
+> Add trace_mm_page_alloc() after set_page_refcounted() in the bulk loop
+> to match the standard allocation path. The tracepoint is gated by
+> static key, so there is no overhead when tracing is disabled.
+> 
+> Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
+> ---
+>  mm/page_alloc.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index 12fac9084c48..d17c21775cb2 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -5280,6 +5280,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
+>  
+>  		prep_new_page(page, 0, gfp, ALLOC_DEFAULT);
+>  		set_page_refcounted(page);
+> +		trace_mm_page_alloc(page, 0, gfp, ac.migratetype);
 
-***
+Sashiko asked whether we're also missing kmsan hook here as well:
 
-Subject: cx231xx: reproduce USB direction warning on v7.3-rc2
-Author: jcperdomo100@gmail.com
+	kmsan_alloc_page(page, 0, gfp);
 
-#syz test: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-df2908090cda368b01ff43709f51890076c56157
+Might be worth a quick look and just adding both in one go.
+
+~Gregory
+
