@@ -1,124 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A4512D63E5;
-	Mon,  7 Sep 2026 01:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B40E1714AA;
+	Mon,  7 Sep 2026 01:09:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742990; cv=none; b=NRZjuuzImWeFoPmFsMXLe55oo0sY2pkqPKdB3QB/uvxWSCpSWYRU3YwA9+b+s6Dxpdy6wteIR9aOMwctUylQUCkeun+VClW87UqkkdzbDJdlsuTL9KIwDA2QcRuwUmpIUsYdZar7qZ2nE28i6l3o73N797sz09E9CKenscdQj6g=
+	t=1788743381; cv=none; b=abqrvLA68uzXbkU2zbus/iJc82+3DXzwX8xuovexmZbYme7mTg/HnTvkeEcmHQmGSb77INPfDdJoGibSM6OGe0G3azvxe1kPUtsT5LQGsb/mRhD7Z1M23O1PgCt0TIypx0hAT8NNJ9FaKNIsenHdqUMRcNB4vnoSEUkwWW4Ty9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742990; c=relaxed/simple;
-	bh=htVJA7Xdst3DKhsQ+H7Z+xJVMBvtRmY2KDlGYxYd1K4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KhMu0pd71rKFcl1bBQEKaNAnZlHEFhY2jCGrLVlA4Kv5OIXSIlr4HcsW4M5ikg7LIHauzCapZMoKd8G623wwUq/UwqXNcLY0VhVrXjDs6HDiqJr4ewTqTmGwi39TJKXLI32eADekM/p/ETKULiHFnDFGmKpFlxM+pGa3y2924wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gW8yvW74; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788743381; c=relaxed/simple;
+	bh=iIpTN5b2N0XssK38X2TJy0NEhqrp8MgahtzizDZap20=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HaazzqjgtL+Yvmn4weT8E/rZAaEvBwuxMVRGR+uZWZcd/WTGO3UlbAnVisu1Fme6YJRswPMPtVNc5DCA6O0AswHe8u0eKIjlEbVgNsPprrRNOGlcWopnnR2tF+mlCYkPEEdbHkGYVaRtRbZ6yGgud7mH7o+2vaZWqkKyr1a0I2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ck/apwF6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gW8yvW74"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1BF1F00A3F;
-	Mon,  7 Sep 2026 01:03:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ck/apwF6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34921F00A3A;
+	Mon,  7 Sep 2026 01:09:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788742988;
-	bh=VAt75mmVa6Rv/fTMilrWmbij7UoDmnN2Izra4rU9t9Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gW8yvW74pgGwWjJvl9yBJVdPyJx31t6ZpGflcjsQ9AmMOZbK2WEGJu8IeiBTUYGr9
-	 3kz68aRWMPcVtMJgEgRB9Oo2cGk/NbTi7edURqpg45b72RJ2ivF7DVxqADzLl14Wm3
-	 TtbRHKZEkueXx70AetqDWdOQOIv7mYpy65aHb3Yza0VM3m14ADdehhlWqqpCd7em+i
-	 dMPkSov8wL5F4962wtFeiUZKrKe1K9P4rb7joOu2d4I9ArQQfv1ymcV+eHv9jlj5Vw
-	 q4cEFBlxyyFIjjudDfeWa4EZHjaqzgGcj9Drn6HcFNrHEVOHsIq5dicHtyE9DUuZD5
-	 C0S26b7GBJUKg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: David Howells <dhowells@redhat.com>,
-	Steve French <sfrench@samba.org>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Enzo Matsumiya <ematsumiya@suse.de>,
-	linux-cifs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/5] cifs: Scripted clean up fs/smb/client/smb2proto.h
-Date: Sun,  6 Sep 2026 21:03:01 -0400
-Message-ID: <20260907010302.1949559-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907010302.1949559-1-sashal@kernel.org>
-References: <2026090324-defraud-tremble-b3d8@gregkh>
- <20260907010302.1949559-1-sashal@kernel.org>
+	s=k20260515; t=1788743379;
+	bh=IPdLxEuyKna0csuR7jWKlIWbFwDNpYGlS2AZgesPbUU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ck/apwF6iq+LeVuhRZUdWUwxg96pITSAoHjnbwpTAtgxJi7hMCletZjOnNNTYHpp8
+	 ui9UFF2JRj9zlcHl12ZUEhcb4kGdKLu5s3kStS4IfRn9zg5kXKnuEMbmfSE7T5EW3+
+	 kK5HZUCFvcS1mEptj2wgbgTr33zD8J8e18EpTwn1SkZJWE5lgRmXjhjPKFnGxGxdSz
+	 lf8WS1yyQuWopbDPLAoWKxeOsVTtX/YhtoVVBIAZObWeV6oFSIagExg5yvw5Bcy7En
+	 hRWeSfLlC29rg1cuVyb1TScvzODzbpZ3on5B/064FnxSTSyseo8k9a2yrfN6zejDUF
+	 jgUJvSHz2pIWg==
+Date: Mon, 7 Sep 2026 02:09:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici <andrei.stancovici@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam
+ Beguin <liambeguin@gmail.com>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] iio: adc: ltc2497: add LTC2499 internal
+ temperature channel
+Message-ID: <20260907020810.3ff1713c@jic23-huawei>
+In-Reply-To: <20260902064415.132588-3-andrei.stancovici@analog.com>
+References: <20260902064415.132588-1-andrei.stancovici@analog.com>
+	<20260902064415.132588-3-andrei.stancovici@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: David Howells <dhowells@redhat.com>
+On Wed, 2 Sep 2026 09:44:11 +0300
+Andrei Stancovici <andrei.stancovici@analog.com> wrote:
 
-[ Upstream commit 1e009e3346db230787685a3989fd9c346fb412fb ]
+> The LTC2499 has an internal PTAT (proportional to absolute temperature)
+> sensor that is activated by a second I2C configuration byte (EN2 | IM).
+> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
+> standard IIO formula
+>=20
+> 	T[m=C2=B0C] =3D (raw + offset) * scale
+>=20
+> reconstructs the temperature.
 
-Remove externs, correct argument names and reformat declarations.
+Andy raised the point about too much description on the next patch and
+it definitely applies here as well. Think about what matters to those
+reading the patch. E.g. something like.
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Steve French <sfrench@samba.org>
-cc: Paulo Alcantara <pc@manguebit.org>
-cc: Enzo Matsumiya <ematsumiya@suse.de>
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-cc: linux-kernel@vger.kernel.org
-Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
-Signed-off-by: Steve French <stfrench@microsoft.com>
+"The LTC2499 includes a temperatures sensor. Expose the raw reading and
+appropriate scale and offset."
 
-For the stable backport, drop the original smb2proto.h cleanup because the
-stable header has gained and changed declarations that make the scripted
-rewrite conflict, while the target does not touch or depend on the header.
-Instead, carry only behavior-preserving context preparation in inode.c: use
-the type-safe kmalloc_obj() spelling and the existing local sbflags snapshot,
-and brace the adjacent else-if.  This allows both target hunks to apply
-cleanly without pre-applying the target's behavioral change.
 
-[ sashal: Reduced backport -- upstream 1e009e3346db touches 1 file(s), this
-  backport carries 1. Not backported here:
-  fs/smb/client/smb2proto.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+>=20
+> The PTAT sensor yields the absolute temperature as
+>=20
+> 	T(K) =3D DATAOUT24 * Vref / 1570		(Vref in volts)
+>=20
+> The raw value exported here is sign-extended and normalised to
+> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
+> milli-degree-Celsius convention
+>=20
+> 	scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
+> 	offset         =3D -273150 * 3140000 / Vref_uV
 
-[ sashal: Reduced backport -- upstream 1e009e3346db2 touches 1 file(s), this
-  backport carries 1. Not backported here:
-  fs/smb/client/smb2proto.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
+If this stuff belongs anywhere it is as comments where the maths is
+in the code. You have it it there, no point in repeating here.
 
-Stable-dep-of: b8e5dc4f95e5 ("smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/smb/client/inode.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+>=20
+> The scale and offset are derived from the reference voltage returned by
+> regulator_get_voltage(); its error is propagated as before, so a board
+> that fails to describe vref-supply gets a clear read error instead of a
+> silently wrong temperature. No board-specific reference value is assumed
+> in the driver.
+This bit is useful but focus on what matters a little more. Something like
+"As scale and offset depend on the reference voltage, if no regulator
+ is specified by firmware, reading them will return an error."
+I'd talk about why as well. e.g. "As this is a new feature simply failing
+probe is not a option."
+>=20
+> The single temperature channel is appended as the last entry of the
+> shared channel array and excluded via num_channels for parts without an
+> internal sensor, so the existing LTC2497 channel layout and device name
+> are unchanged.
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 88307e6b48006..f5b0596442bac 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -3187,7 +3187,7 @@ cifs_setattr_unix(struct dentry *direntry, struct iattr *attrs)
- 	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
- 		attrs->ia_valid &= ~ATTR_MODE;
- 
--	args = kmalloc(sizeof(*args), GFP_KERNEL);
-+	args = kmalloc_obj(*args);
- 	if (args == NULL) {
- 		rc = -ENOMEM;
- 		goto out;
-@@ -3380,9 +3380,9 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
- 				goto cifs_setattr_exit;
- 			}
- 		}
--	} else
--	if (!(cifs_sb->mnt_cifs_flags & CIFS_MOUNT_SET_UID))
-+	} else if (!(sbflags & CIFS_MOUNT_SET_UID)) {
- 		attrs->ia_valid &= ~(ATTR_UID | ATTR_GID);
-+	}
- 
- 	/* skip mode change if it's just for clearing setuid/setgid */
- 	if (attrs->ia_valid & (ATTR_KILL_SUID|ATTR_KILL_SGID))
--- 
-2.53.0
+Implementation detail this description shouldn't mention.
+
+>=20
+> The LTC2499 latches its converter configuration from the second command
+> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
+> selects the internal temperature sensor. Because a single-byte command,
+> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channel
+> select cannot pull the device back out of temperature mode: after a
+> temperature read every subsequent voltage read would keep returning the
+> PTAT result instead of the selected input. Temperature support is
+> therefore only correct if the voltage path also emits a second command
+> byte that re-selects an external input.
+
+What does this mean to the user? =20
+
+>=20
+> Send two-byte commands for all conversions on parts that have the sensor
+> (has_temp):
+>=20
+> 	temperature:	EN2 | IM
+> 	voltage:	EN2			(IM =3D 0 -> external input)
+>=20
+> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
+> the original single-byte channel select and are unchanged.
+
+I'd not bother talking about what happens for those that are unaffected
+(given it is the obvious answer of nothing!)
+
+>=20
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+> ---
+>  drivers/iio/adc/ltc2497-core.c | 58 +++++++++++++++++++++++++++++++---
+>  drivers/iio/adc/ltc2497.c      | 33 +++++++++++++++++++
+>  drivers/iio/adc/ltc2497.h      | 12 +++++++
+>  3 files changed, 99 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-cor=
+e.c
+> index 2dc5c7044269..6df9c72bd8cf 100644
+> --- a/drivers/iio/adc/ltc2497-core.c
+> +++ b/drivers/iio/adc/ltc2497-core.c
+> @@ -9,9 +9,11 @@
+
+...
+
+> diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
+> index c1668b5a351e..79c87bac05e1 100644
+> --- a/drivers/iio/adc/ltc2497.c
+> +++ b/drivers/iio/adc/ltc2497.c
+> @@ -84,6 +84,38 @@ static int ltc2497_result_and_measure(struct ltc2497co=
+re_driverdata *ddata,
+>  			return 0;
+>  	}
+> =20
+> +	/*
+> +	 * Parts with the internal PTAT sensor (LTC2499) latch their converter
+> +	 * configuration via a second command byte and only re-evaluate it when
+> +	 * that byte has EN2 set; a single byte, or a second byte with EN2 =3D =
+0,
+> +	 * means "keep previous".  A one-byte channel select therefore cannot p=
+ull
+> +	 * the device back out of temperature mode, so a voltage read after a
+> +	 * temperature read would keep returning the PTAT result.  Always drive=
+ the
+> +	 * second byte with EN2 set on these parts: IM =3D 1 for a temperature =
+read,
+> +	 * EN2 alone (IM =3D 0) to (re)select an external input.  FA =3D FB =3D=
+ 0 keeps
+> +	 * the power-on simultaneous 50/60Hz rejection, whose worst-case
+> +	 * conversion time the driver's wait already covers.
+
+Say why it is 'always' done.  Seems you could do it only when the configura=
+tion
+needs to change.  Thus if someone keeps reading a particular channel don't =
+send
+the second byte?  Fine to just say it is for simplicity.
+
+> +	 */
+> +	if (ddata->chip_info->has_temp) {
+> +		u8 cmd[2];
+> +
+> +		if (address =3D=3D LTC2497_TEMP_ADDR) {
+> +			cmd[0] =3D LTC2497_ENABLE | LTC2497_CONFIG_DEFAULT;
+> +			cmd[1] =3D LTC2499_EN2 | LTC2499_IM;
+> +		} else {
+> +			cmd[0] =3D LTC2497_ENABLE | address;
+> +			cmd[1] =3D LTC2499_EN2;
+> +		}
+> +
+> +		ret =3D i2c_master_send(st->client, cmd, sizeof(cmd));
+> +		if (ret < 0) {
+> +			dev_err(&st->client->dev, "i2c transfer failed: %pe\n",
+> +				ERR_PTR(ret));
+> +			return ret;
+> +		}
+> +		return 0;
+> +	}
+> +
+
 
