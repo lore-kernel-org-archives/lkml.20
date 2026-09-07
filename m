@@ -1,127 +1,84 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A807D435EEA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:07:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788775646; cv=pass; b=TpvxQhs8/zrWxeVVfqun44zPwa/Hp4bmDEVUVkyUSGd3j+/ubhGmhdyOvgzSMkmDAq4vM3G83QUchJJTLJgrBl7oCTPZMMaTYIfFv7G9j8WgKl3bQWT6IxR8At5rT2t8r0ypB+oKrKgB6p7teYLPrHM73xgM6qdyTqcKcMzb9xs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788775646; c=relaxed/simple;
-	bh=li9OHi/1KZ+MO1jLAtKSiKtJhswUzJtMKgd5bNPdvz0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gnW4Y89gbnTXZSTiOKbJfwT6HPy/kdpmfJGGuY3HAouM9Nqe/0v3/H21knVx1SzsS/9LsQaQonfAyzsRAM4qhKzUbHIWzDfG9KQbxlVxqCuOieSj/k3IxfgUb+sON1f0CK9rid7fmp6xrAemLnzzYIBcbQMD2KX4Ez1jNux3eFU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qua7TdDB; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBCB38B14C;
+	Mon,  7 Sep 2026 10:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788775668; cv=none; b=QrlJox8mMzIyfqsq0iDFvjPQ6+ZdnvQD2XxLPC4doCeaFsMoqaK3CAYhq5VmUq8EivBpHiDV9aJhjCxW9n3fqAawv+ZBlXektNdUZj6kvNml6hGd7r/TbAnFCbF11WFTyQmNPPz5iPmz/bhjDikKFHJ6m+I7qPWXrJzHJGEBcy8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788775668; c=relaxed/simple;
+	bh=53jZywzoNU/K25Xnc/tRtDjNw981PmXbT/AiIlE+dcw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mS8bkHu7Eq2WAcCypDQpPHHGGGGOXrDQAzYV/7oQh9vd/sKpqv2Xk/tCQeklPfmn3ReJFdFfJb6YVqeTbWCE55myQumXOX98r06L8q8uOOYv4ZHL2xInFSPj3Xz8Dxk7YWkj4/ZHUa0C4QdY7rBER9CpjsXAzmbn8tn5dTzo1yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L1rOfrNt; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qua7TdDB"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b159850b16so3302795e87.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:07:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788775641; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HCCopJdStW3ANRXfUmMfJjknuaVXdkUAVxaMiB7ai9z6bu+oMVcgGBTmO62kTuRPUW
-         fxU8XiHF4K0XBhumHy5aMx70diNtt3SYMv+yttxW7tKM1u9gE3aUHCpiJflrxj/tFPwh
-         IyBp4ZhxTTYq4D94ZMoASAO5ENgfEyegNu7fuGVxqfaZxMMMtxSms6GYl4Rz3DPqlcmx
-         2LxOh9rHREBesxe6MaN9aF1Usom6egkJlP1qJUEnbFKrome2jL7nR6rPAKRzsPOf2RpU
-         fKu7w/c7VxEIhhXVfUlmhAja8ltPKRX8Ul/0SmxzmkpfYe2PmBZvJIUaWJ/lUEH/Cwab
-         JWuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CToFehcXgP2N1u+eQHsGtY0ToS/tNrPHiiF///4RSho=;
-        fh=9DpvKhdggKN6Xyq7mKOfC0hUY0hlcWmLEuLtg6XaHYE=;
-        b=JD/EcMO0WZofOmtXFRn0Wy+ticRXFGYkp0w9DX522Y31lr5Ydu+VHeokz767n0KtUN
-         zTXNz/D/yp3etGsU35VwKCmjZOGBfsmp/aqNh25vJ1fSdzABayAEmghJCtQoQOn0PhHq
-         IizAVmZ5eQkMjXShr8sSzT9ve0+11Jrj6HrxattZdWkdQxVrBIliNw8iGnn3lzaRt0ye
-         v8714GGgak00j4bhAz4X+kIV84m6GIlmA4sZ9pFW07MmuZ28wn+zpcgijeAXTZScVkH5
-         ZIYF2qZjWJtZbN90rZG2U6106n6sa/u8v1uiJMuttOsJLEmtP6Fv+PZHsbrzomZOkLYp
-         RF6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788775641; x=1789380441; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CToFehcXgP2N1u+eQHsGtY0ToS/tNrPHiiF///4RSho=;
-        b=Qua7TdDBmLuJs1eFTUwNH56ekILqaBId2FXMFKyG80r/+4o1KB5Kk3fsccQwzxwpEg
-         FgeTiRhe4FJHuRDXFdmLqW73TtaVIdEc6XMMGdUUO/YVmHyGor67Ync33Dy00wXWuEpN
-         7LWTw/cCjDGKxJfMnxkbFCLxKWAGZyVvTiIC/r6KD2V3p9JMM0K2159R1nRCh8gfhcta
-         EoeDIaR5haLOorgzFKKJXxI+VMklU9vMv9sg60GKRUonPlrSm46KqvAs8C4hGGAO8X1V
-         MjDffJhUH8+GowZxbJlcBkO8m2hnyBcD9Ga+aztoCxkDmOPRG5A2pYJVH6F/tuwlujyI
-         N8kg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788775641; x=1789380441;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CToFehcXgP2N1u+eQHsGtY0ToS/tNrPHiiF///4RSho=;
-        b=FQ6GVnk2O7OL+JpnkR6CIPorkrDOEVhFjJI/GtU4jrbLTu4rmA8lP9pABbf+LUpATK
-         EGCombphvyPQYDKsmYZZesizMYSiDmVXdv5+KBtslcRX1L0TeACus6qO8K6xCQlBFth7
-         bWVOwb/swm+3alna9uIY4wNPlapMXO4CA5Ah3JgezjbTBah796kd5knP3+tzXbM+M/Ta
-         Oonlo7bAyclOwRs9b4kVn8ri7Qy9UIby6IDpodpXube4Y8v9JEOB46mj5wWcKGwgq9Kv
-         o12uaAQk4qduCelIniSEeSJ3QUMXrAhEGRqselpt7NXPNY8ozykMfNTbxkFLELkMpPtZ
-         Hydg==
-X-Forwarded-Encrypted: i=1; AKwUvBx7Shg/lO5kVEzuj98mS9UBb4ReYrhj09tYma3KfsNc6ujcqKdfqsmUhl9woZvuKNpy7+DVQMQBoE1n4Fw=@vger.kernel.org
-X-Gm-Message-State: AFuF++llwLNMxlc2Gp1hWvdyFh5XBmPb4uvj+ybjvSGtM5ihRuhi5lx8
-	t4VcAxpt0zHAjP3ivTgrhDWpSNGQlVv8b/rKWdtXU/pL9WnArdOlCoVyivpAxBT5WV2zYL0dNsh
-	lU5akljvWQmVWGF6u15M6OgR24gH93ylhWA==
-X-Gm-Gg: AYBFou0fOMf9iQruMFfOcWd6RgMCO51sXu5lnKcIYrcvwv964ZEz79qANDMdMh27kyY
-	Gd45N59HcAnAa5YE6VBTXeyxQ/KJ02HXZt/WQ5wUA8v2msULlSn9e/3xDv0SeLnea6SZSLIZP2q
-	6gnlHW6vTNUFZZfuDe9q1qSmNI+W1/QKL9u2K5yRH+cK9M0rs7fEVW1TF7KKmS7fqpCZkSM5h75
-	qVEMDhIPnbOvlD42PzGbPEjeLGsOybsNO2UcZH07DXw9O2E9yJMWVUhCLpjBnLmfihQz7j9EURP
-	Ku539iNiAsvfIDtNZTjY5wE5t9VBTuacz7ywuaANP2FA
-X-Received: by 2002:a05:6512:3a8d:b0:5b6:7fa:e96b with SMTP id
- 2adb3069b0e04-5b616f075bdmr7180946e87.14.1788775641072; Mon, 07 Sep 2026
- 03:07:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L1rOfrNt"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C7F5E1A1A35;
+	Mon,  7 Sep 2026 10:07:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 99E2B60383;
+	Mon,  7 Sep 2026 10:07:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 005A211C79353;
+	Mon,  7 Sep 2026 12:07:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788775661; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=I7j3oAHw/B4dCzxV/5pbXaPGc1Ezg57gKDg6dATeVHI=;
+	b=L1rOfrNt1fIzzzql6ZJUWRzVsw+uQNZiZb2NswJqPFqHWTLK/n6GYgvQhEQ1pwahFlRIVJ
+	9zFv990jC8KS5qrLgIiuS+NKlD9oLEdkrEvcjnyYxpdVAuzdf7eoMLC1y60YccxoXH3xlE
+	bfUU/rQlQHdLoTjmR4Q+0Hj8b8J8dG1Zhz//Cj1axhD08m6PnHj6ysLKxtb4iqU3i0geZd
+	bt0dsJtA+SDy9tE0wcavSyHIm8K5elFMcNiHyVDIW9QCrS4TYsgIB6/GQUxHG9Prk+NnZ3
+	OnpibYC7HrQ/SB9EKWieB71r8zya2afUqRjXcMAUMFXNO6O5n5Hu97NcXZxfew==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
+ <stefan@datenfreihafen.org>,  Andrew Lunn <andrew+netdev@lunn.ch>,  "David
+ S. Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>,
+  Jakub Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,
+  Simon Horman <horms@kernel.org>,  linux-wpan@vger.kernel.org,
+  netdev@vger.kernel.org,  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wpan-next v2 0/2] ieee802154: fix typos in comments
+In-Reply-To: <20260907095132.21244-1-hemanth.selam@gmail.com> (Hemanth Selam's
+	message of "Mon, 7 Sep 2026 15:21:30 +0530")
+References: <20260907095132.21244-1-hemanth.selam@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 07 Sep 2026 12:07:36 +0200
+Message-ID: <87pkypwf13.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907030044.3649349-1-liubaolin12138@163.com>
-In-Reply-To: <20260907030044.3649349-1-liubaolin12138@163.com>
-From: Hyunchul Lee <hyc.lee@gmail.com>
-Date: Mon, 7 Sep 2026 19:07:08 +0900
-X-Gm-Features: AcwNN1XT1dhp1-gThFirTpL8jAO-9ay29AKWExO5r7pkZClAHMltwKA7PIJI3Ns
-Message-ID: <CANFS6bZLth9iSJWt7B5QaBH-th8HxMXEWevO4vPjMnFw09YD1w@mail.gmail.com>
-Subject: Re: [PATCH v3] ntfs: fix error handling in ntfs_extent_inode_open and
- propagate errors
-To: Baolin Liu <liubaolin12138@163.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	Baolin Liu <liubaolin@kylinos.cn>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-2026=EB=85=84 9=EC=9B=94 7=EC=9D=BC (=EC=9B=94) =EC=98=A4=ED=9B=84 12:01, B=
-aolin Liu <liubaolin12138@163.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+On 07/09/2026 at 15:21:30 +0530, Hemanth Selam <hemanth.selam@gmail.com> wr=
+ote:
 
+> Two comment typos under 802.15.4, split per component.  Found with script=
+s/checkpatch.pl using the
+> misspelling list in scripts/spelling.txt.  Comments only, no code
+> changes.
 >
-> From: Baolin Liu <liubaolin@kylinos.cn>
->
-> ntfs_extent_inode_open() has two issues:
->
-> 1. When map_mft_record() fails or a stale extent reference is found,
->    it returns the non-NULL 'ni' pointer instead of an error, causing
->    the caller to treat the failure as success.
->
-> 2. For allocation failures, it returns NULL, losing information about
->    what actually went wrong (-ENOMEM).
->
-> Fix both by converting the function to return ERR_PTR() on error, and
-> update the single caller (ntfs_inode_attach_all_extents) to check with
-> IS_ERR() and propagate the actual error code with PTR_ERR().
->
-> Fixes: af0db57d4293 ("ntfs: update inode operations")
-> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+> v1 went out with a bare [PATCH] and a "net:" subject prefix.  As
+> maintainer-netdev.rst asks, v2 designates the patches to a tree, and
+> each subject now names the component it touches instead of "net:".  The
+> series is rebased onto that tree; the diff is unchanged.
 
-Looks good to me.
+I didn't ask for a split, we can abuse the prefix in that case.
 
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+You should not have dropped my R-by tag though, given the fact that the
+diff is strictly identical.
 
---
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+
+No need to resend again though.
+
 Thanks,
-Hyunchul
+Miqu=C3=A8l
