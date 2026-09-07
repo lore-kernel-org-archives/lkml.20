@@ -1,153 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E3D4921B7;
-	Mon,  7 Sep 2026 18:45:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D95B5221E7
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:45:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788806723; cv=none; b=lUYemSNjKebgMvLQAaa9jqi6B+Row/sIriixnUVyYsIuWGxcUuBF4SJqVueJhW5lryMTF8gz753oWBHkynNn1cA1bzi0cTtj8wV2iBk/wO7UTt2qQd6PJUx1EZoBtanzauXlIw0jxVO7N8qRrdqj+tmr2nFCJxg9EGENz97dmfY=
+	t=1788806727; cv=none; b=CTv2CfeRo9du8Sh/jBP/0CiAf3/7F0EM/ZM0AtadNsyY4yJBuq4nHGmheEd5lGAj8iFfjhjlV/pvOvUGMOcQ21Jo4nY8fs6faqPy5P1cKBfwMoGgpcYiieUotKED9CttYq3uu0SeuAiEMlXQPxr3CoWcmspCYz3eQlZ/l2e8E0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788806723; c=relaxed/simple;
-	bh=9NJgpOYOdQm4pw4vP48Tc2j2HUsgGIDWGi3W5M/VjSI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=m1Wv1YdkXgBWR6S3I14hCqXC9PqmCeothMRs1tGGOKCP69nqdNVRseHGd6kasgLJmagoab1N5ebi9JLgsGemY8KKI6s44RSZjNcFvb8Nrhk7/XbNm/RELAjnfLAl0g8WovrH0XGZWwmphySL13ul9xxsHgu4IsAapXxWwfC4lCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XtZ2xv69; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788806727; c=relaxed/simple;
+	bh=MEIl3cnZEx9wSqrzI6g+3M1l8s9u76zrSgaouWKJgqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OI9RcLP4g+2Y0QKkx66FIQWzDnLNnCJjO263mt7ARpJmtHjN7GMm/TJHnW1LnXkcTZV98v0PQq8KdarmuoJk3h9g3Lc8KZ2ix3AhjFdHSW46sx4d8Eo3kAJbSvdZPuu8wbzsRRu4chn7KWhqaC9kYJvU1ZQtFvA3GXhkL85U+2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=DrKiMHsj; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XtZ2xv69"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC6C1F00A3E;
-	Mon,  7 Sep 2026 18:45:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788806701;
-	bh=mV/a3PsZh7IcLP4sv99OQkPWwIBpdIi9GVTR2L9hKas=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XtZ2xv69oHMuvLOpFTbkL4wy8c8g7tyxgZXk3tImdKjFwPGtdd3cTywQ+JovPegBx
-	 WiWw3ErLsLs+70p6rsUFI/rX0tHoyaM2IVqHAq1LMKqXIoD5+7MyU6GXwpNQ6SJrLB
-	 ER2aKtRy2UVmx/oUAUsWB5V6u+vellPbDB2mR3WbHo1elSiu6/Y7AE0BafVkp6r2Y+
-	 ukHpSKxKgcNsW7UPPKXETKPCRgweQ3hIcYq/C8MMfX/j/kYk91fl2q6QokwBlE2PdY
-	 8nXYJfDuFVPPUWnEYfGHe+43KYrYwi/IVksvQhGEnmxOCriG5t68KbEtrzH6rQfF9/
-	 V1gTCA4+VJX3w==
-From: Leon Romanovsky <leon@kernel.org>
-To: Michael Margolin <mrgolin@amazon.com>,
-	Gal Pressman <gal.pressman@linux.dev>,
-	Yossi Leybovich <sleybo@amazon.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Shiraz Saleem <shiraz.saleem@intel.com>,
-	Steve Wise <larrystevenwise@gmail.com>,
-	Firas JahJah <firasj@amazon.com>
-Cc: linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rdma-next 2/2] RDMA/efa: Keep EQ resources alive while IRQ is registered
-Date: Mon,  7 Sep 2026 21:44:47 +0300
-Message-ID: <20260907-use-after-free-of-admin-queue-struct-v1-2-dd9d9267fbf4@nvidia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907-use-after-free-of-admin-queue-struct-v1-0-dd9d9267fbf4@nvidia.com>
-References: <20260907-use-after-free-of-admin-queue-struct-v1-0-dd9d9267fbf4@nvidia.com>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DrKiMHsj"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92f0b5ed131so463030485a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:45:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1788806714; x=1789411514; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=sjn+XNWiK56tmINhkcWxojIKugJpXGM2NaDQl0J3MLw=;
+        b=DrKiMHsjfM6Ur90m88K44F1686GiY3B/MM/xRptcDGiIykU3kMzDqsM63HzjR+fPWH
+         QkashlcnM31jBXdXgzOIot26qjbrrTCJ2J0+4KnTdU0whfR/4KFswcEMUm+p/LcozLH1
+         oROU8HwaacOEkpT0xOp+UUU58Ok6w/i3MTaVXD4fA2wrpuLrtrfjX+iaKtjoIsxxNMre
+         S4YdKxy+Z1HRjeN7kxOzBB7Xpc/gnV7t1zuVwaaNUfxuOKX98qjH8ab/9VJlNFdd13YY
+         x7aQHjVY3zwxa+2MtRD7p33gMOhzGRHcReNw0GLbe1tkl9iJmCR9fQ1V1asU4zp4YNMW
+         Pumg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788806714; x=1789411514;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sjn+XNWiK56tmINhkcWxojIKugJpXGM2NaDQl0J3MLw=;
+        b=mOrQCc6ica9Mt0jGc7y9LkIWmtA+pIdqyVq6Jzi2z1Dq/F2WL9FM5KGCXqSGpSN5g9
+         R5YTphXFP2dmWQ7ij2coSEvKY9dFFY4gzb3iXfQLPrgNntRZLCBL9CDkeVH32btJVpcB
+         1t/KeGbiT3QE+TqBX6dmlXOjhCpPRSbPfeDiv7kb32pKcGznzNbX8oYNAdkRhc8EeZ2s
+         Qv2wYOBXPQBXJmmZFkOsrNnJ7DCx5Nr8omCXZbA/KVBQ3IjrbvhzSz3AxKSVwMDPLn3R
+         1Cx7AzD2LuuoIo557okB37Th/tgs6LXIOeOzcHX/uMD52Wbo6he+MNNeOZQnpcG2MEZu
+         3tFg==
+X-Gm-Message-State: AFuF++kzQ/VDkULR+CO38OdYPYbJPekNF0X0pP6CPYUtM+HBwvajJOc5
+	Xai5kMQZsy/1vyKg6oNq2zeVjfsb667mNtfXAE9jtmSVyvZ4oy+Jvt6dsygg0nUPqIfGLkENQSp
+	sKTM6
+X-Gm-Gg: AYBFou1zhUB2gjQyrrLTXssgKtWFY1tk6rtK5pPn87nePAlcb6TYhqcWuaYZVRlSzeN
+	8gcqobMIITsDwSIPjlA8hD4ZbIR8ApTO8OYCIZdfQ7/uJGlOhohF2NNa3azxq7XPOI4CfnojeM2
+	qt4/FWvv3pX70G4yK3iDdS7Lhl9JRr6lxCJOWq4DqmH7Q7419uzgL5EG+QBaGI+jey/cFNiqx2L
+	aPNYW+R0Ig4q4YhC03c/OY97yVxaBc1h4MU/sBKyuvNfK/rTFF/5630d8xk0I3kdWTJSLXDvwbd
+	TzHeY6MBhTa+hALgc0ijVoHMWqNyNGCmRrJEmV9+TxEVekQpHZh8aTETzrSpoOuZV1u9pcSImeN
+	FWYmj9s8maQxYP7tfxjkTTNXXxBOAKekLgQjUjYW5AxlCQNf8ZmAMXDWPWxBlm8Uf+FR5/69YzE
+	mhnIqDG+2GKvttJRkHnJ9e1c8Dt4gTXzvcPX79hYodwTi/HvfiOVb9BK+yabCI65bjL9euf/C3P
+	iCo7OnlpcQtAyQFtMQkwZh0fJ+fEPDbOdpzhjXXDRakXeovm4aIlcwm
+X-Received: by 2002:a05:620a:690e:b0:939:6de8:43de with SMTP id af79cd13be357-939804e9754mr2480105785a.50.1788806714194;
+        Mon, 07 Sep 2026 11:45:14 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9f151esm943101985a.6.2026.09.07.11.45.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 11:45:13 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x3eLB-0000000BMS0-0MGY;
+	Mon, 07 Sep 2026 15:45:13 -0300
+Date: Mon, 7 Sep 2026 15:45:13 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Mostafa Saleh <smostafa@google.com>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, jpb@kernel.org,
+	will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
+	nicolinc@nvidia.com, praan@google.com
+Subject: Re: [PATCH] iommu/arm-smmu-v3-sva: Relax ASID requirements
+Message-ID: <20260907184513.GA2543240@ziepe.ca>
+References: <20260907154928.4012151-1-smostafa@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.15-dev-18f8f
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907154928.4012151-1-smostafa@google.com>
 
-From: Leon Romanovsky <leonro@nvidia.com>
+On Mon, Sep 07, 2026 at 03:49:28PM +0000, Mostafa Saleh wrote:
+> arm_smmu_sva_supported() have some residual checks for ASID from the
+> original commit d744f9e6c222 ("iommu/arm-smmu-v3: Check for SVA features")
+> 
+> As DVM was used for TLB invalidation and the ASID of the domain was shared
+> with the CPU process.
+> 
+> However, the commit
+> d38c28dbefee ("iommu/arm-smmu-v3: Put the SVA mmu notifier in the smmu_domain")
+> removed that support.
+> 
+> So matching the SMMU ASID space to the CPU is unnecessary and can be
+> relaxed.
+> 
+> Remove the CPU ASID related code, and update the print for the SMMUv3.
 
-The completion IRQ handler accesses the EQ state and DMA buffer. Its IRQ was
-registered before that state was initialized, while teardown released the
-buffer before free_irq() synchronized the handler.
+It is OK, but maybe this could also be but under an if
+ARM_SMMU_FEAT_BTM?  That is never enabled and is a placeholder to for
+eventual BTM support.
 
-Initialize the EQ without arming it, register the IRQ, and then arm it.
-Reverse the resource order during teardown by freeing the IRQ before
-destroying the EQ.
+Once we get the last part of the invs code the BTM support can come
+back in.
 
-Fixes: 2a152512a155 ("RDMA/efa: CQ notifications")
-Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
----
- drivers/infiniband/hw/efa/efa_com.c  |  3 +--
- drivers/infiniband/hw/efa/efa_com.h  |  1 +
- drivers/infiniband/hw/efa/efa_main.c | 18 ++++++++++--------
- 3 files changed, 12 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/infiniband/hw/efa/efa_com.c b/drivers/infiniband/hw/efa/efa_com.c
-index cb2d448db2d7..04c6d63c449e 100644
---- a/drivers/infiniband/hw/efa/efa_com.c
-+++ b/drivers/infiniband/hw/efa/efa_com.c
-@@ -1252,7 +1252,7 @@ static void efa_com_destroy_eq(struct efa_com_dev *edev,
- 				      err);
- }
- 
--static void efa_com_arm_eq(struct efa_com_dev *edev, struct efa_com_eq *eeq)
-+void efa_com_arm_eq(struct efa_com_dev *edev, struct efa_com_eq *eeq)
- {
- 	u32 val = 0;
- 
-@@ -1341,7 +1341,6 @@ int efa_com_eq_init(struct efa_com_dev *edev, struct efa_com_eq *eeq,
- 	eeq->phase = 1;
- 	eeq->depth = params.depth;
- 	eeq->cb = cb;
--	efa_com_arm_eq(edev, eeq);
- 
- 	return 0;
- 
-diff --git a/drivers/infiniband/hw/efa/efa_com.h b/drivers/infiniband/hw/efa/efa_com.h
-index 0341704d0921..98fb6a42a6cb 100644
---- a/drivers/infiniband/hw/efa/efa_com.h
-+++ b/drivers/infiniband/hw/efa/efa_com.h
-@@ -169,6 +169,7 @@ int efa_com_admin_init(struct efa_com_dev *edev,
- void efa_com_admin_destroy(struct efa_com_dev *edev);
- int efa_com_eq_init(struct efa_com_dev *edev, struct efa_com_eq *eeq,
- 		    efa_eqe_handler cb, u16 depth, u8 msix_vec);
-+void efa_com_arm_eq(struct efa_com_dev *edev, struct efa_com_eq *eeq);
- void efa_com_eq_destroy(struct efa_com_dev *edev, struct efa_com_eq *eeq);
- int efa_com_dev_reset(struct efa_com_dev *edev,
- 		      enum efa_regs_reset_reason_types reset_reason);
-diff --git a/drivers/infiniband/hw/efa/efa_main.c b/drivers/infiniband/hw/efa/efa_main.c
-index b1df9bb8fac2..753ed8430b69 100644
---- a/drivers/infiniband/hw/efa/efa_main.c
-+++ b/drivers/infiniband/hw/efa/efa_main.c
-@@ -302,28 +302,30 @@ static void efa_set_host_info(struct efa_dev *dev)
- 
- static void efa_destroy_eq(struct efa_dev *dev, struct efa_eq *eq)
- {
--	efa_com_eq_destroy(&dev->edev, &eq->eeq);
- 	efa_free_irq(dev, &eq->irq);
-+	efa_com_eq_destroy(&dev->edev, &eq->eeq);
- }
- 
- static int efa_create_eq(struct efa_dev *dev, struct efa_eq *eq, u32 msix_vec)
- {
- 	int err;
- 
--	efa_setup_comp_irq(dev, eq, msix_vec);
--	err = efa_request_irq(dev, &eq->irq);
-+	err = efa_com_eq_init(&dev->edev, &eq->eeq, efa_process_eqe,
-+			      dev->dev_attr.max_eq_depth, msix_vec);
- 	if (err)
- 		return err;
- 
--	err = efa_com_eq_init(&dev->edev, &eq->eeq, efa_process_eqe,
--			      dev->dev_attr.max_eq_depth, msix_vec);
-+	efa_setup_comp_irq(dev, eq, msix_vec);
-+	err = efa_request_irq(dev, &eq->irq);
- 	if (err)
--		goto err_free_comp_irq;
-+		goto err_destroy_eq;
-+
-+	efa_com_arm_eq(&dev->edev, &eq->eeq);
- 
- 	return 0;
- 
--err_free_comp_irq:
--	efa_free_irq(dev, &eq->irq);
-+err_destroy_eq:
-+	efa_com_eq_destroy(&dev->edev, &eq->eeq);
- 	return err;
- }
- 
-
--- 
-2.55.0
-
+Jasson
