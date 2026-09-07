@@ -1,64 +1,64 @@
-Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B3943F4A2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8396642A792
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818086; cv=none; b=fedVxajmv7tzCQDg5Yl+V/cv5ODk1tZJYYSQb54MvRLVOVJODJ8p7zOB339nCmD5XyJ53QU6BQSaKi7mG8vrhwDiE0PLYFr8wzZtbD3V6JKCMyXe7rqroIS3bNQmT2y7qmAkxhLk9ivqCJkYWvJUrKpda7ghcWNQtswZn6QGfp8=
+	t=1788818085; cv=none; b=QsoVWA2KXgawVICNC9/zCwoxrSVg+pM9uBehC0/9qs1xO646ZL5sqCM8HtiT3Y7552IdZ3/Bz7tqqkTk/DJkgY5OrDS7zRf5bTA+BET/LaTxxZjhB8xIb4EBx1g4eHim7LI5mxEOtBmeomF5LzTROYFTjj5ySGB6Gbvuk+IRXME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788818086; c=relaxed/simple;
-	bh=6gD9cPa3rk6w/IUG4LaLFS0hBqCw0Ni+w/H83jcmfzI=;
+	s=arc-20240116; t=1788818085; c=relaxed/simple;
+	bh=j0DDQjd0eZ3nMQsdZ3f1Pa74wovJjaApzFKCeaNg59s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jXSkhr7uCJX0p6XGq/9ZvQoSnHbtbI543ijG9FCTXiM8GWG52aFHf8EUFCvepYMwCXLcqzU+wuxHiT/JV89T3jh1m70Q88R7ZueQD0TBjiZkfiBr007lBMBIz+MbwogzHJEbyM64V9GxzF3v6H4OvlbYcYOfgVsXd9CWa1kKWdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qIWTHAT9; arc=none smtp.client-ip=209.85.128.178
+	 MIME-Version; b=UrJ40aH1NIVKlCaiGqQtu5OW24xjAiHF06Pwdtw7L9y3Uxf5WEhQ2knVKtV087eet+inb5XN2VVTrD/zuNwWRhSpyXUV5Peajb5TKyDmEcMO/SexJdByFhqydEbruU7c1LXSOpPUD84I/jO7dIvmRSv8smAe8ki0CHRFRUIwUJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fDIEO8uy; arc=none smtp.client-ip=209.85.128.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qIWTHAT9"
-Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-7dbcb505578so37689677b3.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fDIEO8uy"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8623b1e7cb2so17985397b3.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788818083; x=1789422883; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788818082; x=1789422882; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=pUuTL8RKq8zctKFBGR36Xkq0F1NHQ5YoR0hZaul99pw=;
-        b=qIWTHAT9quXqA0t6iOtNO/cWrRcxjeYDvz09E+AkWcxyxnjPeDjjAYX78vwb5lm3ed
-         8Jq6R2tRFlC0+brur2FptO9TJ4RYZxlh0tXE240RPv0oIRRDZ6kIc3wCWbNSd36cwts4
-         cGBX9t39xKhAa08SIDlg7kqyrbHFGKFlb3gu8RUOEKxvTv7umHvATMb6yCp50fQ2fVu/
-         s136vjKD8FxjBwYh0YiP4jIGtwc5dcZLoyC6oZ2d5miiiZEtjnV6q9VPZZa0+R/diJQe
-         WCZKrIZiN1CQXJB50VNU6NxPzc2LW58HahHyF7zntN4TzdACIAwoWOqnDBTonFyqjqML
-         0rjA==
+        bh=kt5vYk7oIJTAvWcYqFLR1526VYebZHALzcXyXv4GXys=;
+        b=fDIEO8uyl1O4l8QZ+Hw+z3DESPGvz399XC3yrX0UXNA2IMQpMuRDCKzCwK3qH2p8D5
+         hMRk06HzLlhGR/coF18S8S2NAj92p9EVOh6hT83WilXDafoS5HPEsqttFNTf3krFEOqQ
+         zY4cquifbyoUWyKmMD9adaGbXSpJP/KyLFELKoaqWeRR6lzZBX23zU0AW0kiLgpcl6wX
+         Uw8BT4krYyd8mYPzm5Hu8JDE1Sb9qMEHX+0jKZoQtfl+ZlONSA08tp0CG/D48PadTIAF
+         R3Lna6sIx+2pjTPUhPzvVbA+74ajzF0Z/57uhr2jhtqaMKOFcwk/pJNa1bHcR5Gu1LA9
+         7isw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788818083; x=1789422883;
+        d=1e100.net; s=20251104; t=1788818082; x=1789422882;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pUuTL8RKq8zctKFBGR36Xkq0F1NHQ5YoR0hZaul99pw=;
-        b=hxgFvMPa+mcL+k5VLgIKexm4Dn5JTyj7SDbntPqDYm+24Gpd2CePRhL5uXEEH7WV9e
-         cpDNb+V1lw9xtQLGkshhXQgh/pRsVeTHy/gWzABlA0KGPzTBPPWt8lVucolgzVCM10ko
-         fWh+H2aUpUDbQ77zxr9AD8Fr4S082F+swQ0R7unuzUdAa43o+q5IvTDwxwMDi8zi2fTm
-         O0BwMBfjIOmPfIr01uftAZG/GN3PEGsFYUIRNkFvBqlvgmSb50RqPRgIuGzgCJFMqGhF
-         4Y212WJOkttCPWgQENYX3wKNRLd+Idhtvm9VTijYqgghyyH8jPScjaLEKD+c7WPgsMS5
-         ilYA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCwQz/z9xzja8y6Bfoi+U5iEeTRxhNoOPYR4RfIER9GZnYebAg/3+rLkXlqjf9TaxI/u+E+4gqrWYAgns=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1kfOX5N0GxYFvKKC3gWN1KyNL4fSlespBGbG3rGaIWhkztBdM
-	EGG7xkbnPQ9Aq4kC2/I3rT7b7PjhAd+nsNbfL4vYZjcBzkeGrvcoNG5y
-X-Gm-Gg: AYBFou0dQj8M2e+tc3nKWnvXZ9ETBcDwFM50BHBndZHfQTc5YK8Q+xmI3HVpM+XNd83
-	/LnFEX+1gy8a+S1PKkVnGDg+l9b5mK5sTXAn5XZW6S6xO84D7KauCJ3Hev8g+KKRNzssTAT2ZJ3
-	RJFdfzbW/SMppfW2sAPg5RhZ69haAOg3LHl2wkAnjeXq+TkZnCYwHSIl3AK6oHdgdOvGDa3YAKp
-	J39Wngr8qOFv2eLrVGjxxi0cd42A4F03mv8NoiHnRTdIhVIdpsB3l1cncCyoZU1QB60QBAdJaFT
-	bCEtNUuLYoc7i9kcFDIoIx/3ajbkUprJ1kgdu2amoDR3ZHa3kA4vlLOkMN9KiJrZ7wLT3q3qH4D
-	vuEhK2V/bIVxXpPEB/Qjf3dJS8GJt7hEuPoZ07Z+5GQ0HX/alF17zlJAVi9PQXfaU1rcWSG8pgC
-	65+S3GANHAVAyLLoacIYDN/YxCEYn7dR7WPVuIJ8iK6FfhkFT6hUZMlzIQJtj8PESUBDRPMUPkv
-	DPoFymcWO+Y0cz0yA==
-X-Received: by 2002:a05:690c:7685:b0:873:5bb2:6c08 with SMTP id 00721157ae682-8735bb26eb3mr43482417b3.50.1788818083523;
-        Mon, 07 Sep 2026 14:54:43 -0700 (PDT)
+        bh=kt5vYk7oIJTAvWcYqFLR1526VYebZHALzcXyXv4GXys=;
+        b=SKnxgWqsyjuz1D8iBpKwHn8KCCbPbMr9/lecFNuqn0du84jEzkJPluyVlY3HcTub8d
+         PM4PxzGCn3IG+0tKrIHltvFy4G1rxEZ99dIbQr1S2FVhiphgjllcBanQ1BMAfZOh6dMN
+         WVTRqkzFZ8xHMr+g+BIODBvypms/jZVpXSDEbhaIHi2n9/CJwJPqSjQnw9rg/Xmyp+CU
+         Aedj25F4UZPIEYe5sWQvRtkt1dLxbE7D8I3TqFe1Ex5ZBfkVVwofLdooNSRUHaQuFbRW
+         3lq9YZJYVO9CWwNf6P1ZPRiBfGxT/IPvxnCKj2NZc2oW5zpvG8PsNrT9FmDb9irPWY7S
+         p8YA==
+X-Forwarded-Encrypted: i=1; AKwUvBx152f7LgkGxIdPDb/TclzpJYa7K0PWDyMXmXiaNDqvlw+VstuGR1l8ZUYnSUE078sTi0LWL/ghqmamNUk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH2pzBjnk3QWPQNQA0y7fwpg5Mot1dF9AIyZm5NlZZ47pljYeG
+	0qZIK9ZUS2s7QBGbqNJzjx3jWi1RrTHxkZkwCmeoNKaeZ0VZbN74kvc8
+X-Gm-Gg: AYBFou0Mcvc+gKaBCvgRXmEJSY1f3G6xu2WAD4tiU5z99pC4OLGoe3SOUbPpx1Hr1/k
+	0NIqgOtuVtVYj2Li4+ahxGjOEyBg3keUPZ+QQnGXjU7tXqH4zrk/hVXgPqL5JG9/bjUUz0tQfe3
+	4o0ZV+8j5ub8GrhazKGtmVelAvMGPWF17GYpHYTkAzzB5vBG4nPg/qTx5PCxvMUA3GfCSI2f5uD
+	UQd0yR1JKITEWYWD3eX3unJCkICBlb/txlEyp+1mVnu2fvd3Z4fqsRutq4WukgOoWvIL5gvW8l1
+	lFgslHDgjtlgmoETHpYu6/APmKGbvGha6hma++Lc6Y2+/xRdyVxsTUeB4hhQr9Ax8xvp72DYeZE
+	Ni5CPNnYX47ccapVzRv1tfN4U33Fc89dwOlZ5g5/ewb7vW1FUgPAHD6j3JOyKiwSG+vs6LbEGf2
+	UePiJ9LdPQ1s+MV4vkO0CpCLBswMwLo1arwPVQSYqmUJCDasgmqP/Jy7OvoVpikaEqbW9Eiyfwt
+	Zsxs+DOafTzL9Zp0A==
+X-Received: by 2002:a05:690c:4f02:b0:81e:eebb:8e4a with SMTP id 00721157ae682-87123521b7fmr78031777b3.12.1788818082551;
+        Mon, 07 Sep 2026 14:54:42 -0700 (PDT)
 Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-87149315162sm78079637b3.12.2026.09.07.14.54.43
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714bb0efc1sm77847347b3.45.2026.09.07.14.54.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:54:43 -0700 (PDT)
+        Mon, 07 Sep 2026 14:54:42 -0700 (PDT)
 From: Yury Norov <yury.norov@gmail.com>
 X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
 To: Andrew Lunn <andrew@lunn.ch>,
@@ -82,9 +82,9 @@ Cc: Yury Norov <ynorov@nvidia.com>,
 	Yury Norov <yury.norov@gmail.com>,
 	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
 	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 2/9] linkmode: make linkmode_and() return boolean
-Date: Mon,  7 Sep 2026 17:54:31 -0400
-Message-ID: <20260907215439.409858-3-ynorov@nvidia.com>
+Subject: [PATCH 1/9] bitmap: add bitmap_and_and() and bitmap_and_andnot()
+Date: Mon,  7 Sep 2026 17:54:30 -0400
+Message-ID: <20260907215439.409858-2-ynorov@nvidia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907215439.409858-1-ynorov@nvidia.com>
 References: <20260907215439.409858-1-ynorov@nvidia.com>
@@ -96,32 +96,248 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-bitmap_and() returns true if the resulting bitmap is not empty.
-Propagate that return value through linkmode_and() so callers can use
-it where applicable.
+Add bitmap_and_and() and bitmap_and_andnot() to combine three bitmaps
+in a single pass. Both helpers return whether the resulting bitmap is
+non-empty.
+
+Introduce BITMAP_OP() to share the word iteration with bitmap_and(),
+and add tests for small constants, multiword bitmaps, aliases, tail
+masking, empty results and zero-sized bitmaps.
 
 Signed-off-by: Yury Norov <ynorov@nvidia.com>
 ---
- include/linux/linkmode.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ include/linux/bitmap.h | 32 +++++++++++++++++
+ lib/bitmap.c           | 46 +++++++++++++++++++------
+ lib/test_bitmap.c      | 78 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 146 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/linkmode.h b/include/linux/linkmode.h
-index 3b9de09871f6..c08632c10c3d 100644
---- a/include/linux/linkmode.h
-+++ b/include/linux/linkmode.h
-@@ -20,10 +20,10 @@ static inline void linkmode_copy(unsigned long *dst, const unsigned long *src)
- 	bitmap_copy(dst, src, __ETHTOOL_LINK_MODE_MASK_NBITS);
+diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
+index 7df1573a409c..d524ef6b0300 100644
+--- a/include/linux/bitmap.h
++++ b/include/linux/bitmap.h
+@@ -44,6 +44,10 @@ struct device;
+  *  bitmap_fill(dst, nbits)                     *dst = ~0UL
+  *  bitmap_copy(dst, src, nbits)                *dst = *src
+  *  bitmap_and(dst, src1, src2, nbits)          *dst = *src1 & *src2
++ *  bitmap_and_and(dst, src1, src2, src3, nbits)
++ *                                               *dst = *src1 & *src2 & *src3
++ *  bitmap_and_andnot(dst, src1, src2, src3, nbits)
++ *                                               *dst = *src1 & *src2 & ~(*src3)
+  *  bitmap_or(dst, src1, src2, nbits)           *dst = *src1 | *src2
+  *  bitmap_weighted_or(dst, src1, src2, nbits)	*dst = *src1 | *src2. Returns Hamming Weight of dst
+  *  bitmap_weighted_xor(dst, src1, src2, nbits)	*dst = *src1 ^ *src2. Returns Hamming Weight of dst
+@@ -166,6 +170,12 @@ void bitmap_cut(unsigned long *dst, const unsigned long *src,
+ 		unsigned int first, unsigned int cut, unsigned int nbits);
+ bool __bitmap_and(unsigned long *dst, const unsigned long *bitmap1,
+ 		 const unsigned long *bitmap2, unsigned int nbits);
++bool __bitmap_and_and(unsigned long *dst, const unsigned long *bitmap1,
++		      const unsigned long *bitmap2,
++		      const unsigned long *bitmap3, unsigned int nbits);
++bool __bitmap_and_andnot(unsigned long *dst, const unsigned long *bitmap1,
++			 const unsigned long *bitmap2,
++			 const unsigned long *bitmap3, unsigned int nbits);
+ void __bitmap_or(unsigned long *dst, const unsigned long *bitmap1,
+ 		 const unsigned long *bitmap2, unsigned int nbits);
+ unsigned int __bitmap_weighted_or(unsigned long *dst, const unsigned long *bitmap1,
+@@ -337,6 +347,28 @@ bool bitmap_and(unsigned long *dst, const unsigned long *src1,
+ 	return __bitmap_and(dst, src1, src2, nbits);
  }
  
--static inline void linkmode_and(unsigned long *dst, const unsigned long *a,
-+static inline bool linkmode_and(unsigned long *dst, const unsigned long *a,
- 				const unsigned long *b)
++static __always_inline
++bool bitmap_and_and(unsigned long *dst, const unsigned long *src1,
++		    const unsigned long *src2, const unsigned long *src3,
++		    unsigned int nbits)
++{
++	if (small_const_nbits(nbits))
++		return (*dst = *src1 & *src2 & *src3 &
++			       BITMAP_LAST_WORD_MASK(nbits)) != 0;
++	return __bitmap_and_and(dst, src1, src2, src3, nbits);
++}
++
++static __always_inline
++bool bitmap_and_andnot(unsigned long *dst, const unsigned long *src1,
++		       const unsigned long *src2, const unsigned long *src3,
++		       unsigned int nbits)
++{
++	if (small_const_nbits(nbits))
++		return (*dst = *src1 & *src2 & ~(*src3) &
++			       BITMAP_LAST_WORD_MASK(nbits)) != 0;
++	return __bitmap_and_andnot(dst, src1, src2, src3, nbits);
++}
++
+ static __always_inline
+ void bitmap_or(unsigned long *dst, const unsigned long *src1,
+ 	       const unsigned long *src2, unsigned int nbits)
+diff --git a/lib/bitmap.c b/lib/bitmap.c
+index ed685127a107..85ce3cbaa9ab 100644
+--- a/lib/bitmap.c
++++ b/lib/bitmap.c
+@@ -34,6 +34,25 @@
+  * for the best explanations of this ordering.
+  */
+ 
++/*
++ * Common helper for bitmap operations.
++ * @FETCH: The expression that fetches and combines each word of the bitmaps
++ * @bits: The bitmap size in bits
++ */
++#define BITMAP_OP(FETCH, bits)							\
++({										\
++	unsigned long idx, val, sz = (bits), result = 0;			\
++										\
++	for (idx = 0; idx * BITS_PER_LONG < sz; idx++) {			\
++		val = (FETCH);							\
++		if (sz - idx * BITS_PER_LONG < BITS_PER_LONG)		\
++			val &= BITMAP_LAST_WORD_MASK(sz);			\
++		result |= (dst[idx] = val);					\
++	}									\
++										\
++	result != 0;								\
++})
++
+ bool __bitmap_equal(const unsigned long *bitmap1,
+ 		    const unsigned long *bitmap2, unsigned int bits)
  {
--	bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
-+	return bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
+@@ -230,19 +249,26 @@ EXPORT_SYMBOL(bitmap_cut);
+ bool __bitmap_and(unsigned long *dst, const unsigned long *bitmap1,
+ 				const unsigned long *bitmap2, unsigned int bits)
+ {
+-	unsigned int k;
+-	unsigned int lim = bits/BITS_PER_LONG;
+-	unsigned long result = 0;
+-
+-	for (k = 0; k < lim; k++)
+-		result |= (dst[k] = bitmap1[k] & bitmap2[k]);
+-	if (bits % BITS_PER_LONG)
+-		result |= (dst[k] = bitmap1[k] & bitmap2[k] &
+-			   BITMAP_LAST_WORD_MASK(bits));
+-	return result != 0;
++	return BITMAP_OP(bitmap1[idx] & bitmap2[idx], bits);
+ }
+ EXPORT_SYMBOL(__bitmap_and);
+ 
++bool __bitmap_and_and(unsigned long *dst, const unsigned long *bitmap1,
++		      const unsigned long *bitmap2,
++		      const unsigned long *bitmap3, unsigned int bits)
++{
++	return BITMAP_OP(bitmap1[idx] & bitmap2[idx] & bitmap3[idx], bits);
++}
++EXPORT_SYMBOL(__bitmap_and_and);
++
++bool __bitmap_and_andnot(unsigned long *dst, const unsigned long *bitmap1,
++			 const unsigned long *bitmap2,
++			 const unsigned long *bitmap3, unsigned int bits)
++{
++	return BITMAP_OP(bitmap1[idx] & bitmap2[idx] & ~bitmap3[idx], bits);
++}
++EXPORT_SYMBOL(__bitmap_and_andnot);
++
+ void __bitmap_or(unsigned long *dst, const unsigned long *bitmap1,
+ 				const unsigned long *bitmap2, unsigned int bits)
+ {
+diff --git a/lib/test_bitmap.c b/lib/test_bitmap.c
+index 56bd23059b26..fbc46ed960a4 100644
+--- a/lib/test_bitmap.c
++++ b/lib/test_bitmap.c
+@@ -193,6 +193,81 @@ static void __init test_zero_clear(void)
+ 	expect_eq_pbl("", bmap, 1024);
  }
  
- static inline void linkmode_or(unsigned long *dst, const unsigned long *a,
++static void __init test_bitmap_and(void)
++{
++	enum { nbits = BITS_PER_LONG + 13 };
++	DECLARE_BITMAP(src1, nbits);
++	DECLARE_BITMAP(src2, nbits);
++	DECLARE_BITMAP(src3, nbits);
++	DECLARE_BITMAP(dst, nbits);
++	DECLARE_BITMAP(expected, nbits);
++	unsigned long small_src1 = ~0UL;
++	unsigned long small_src2 = ~0UL;
++	unsigned long small_src3 = BIT(2);
++	unsigned long small_dst;
++	bool ret;
++
++	ret = bitmap_and_and(&small_dst, &small_src1, &small_src2,
++			     &small_src3, 4);
++	expect_eq_ulong(true, ret);
++	expect_eq_ulong(BIT(2), small_dst);
++
++	ret = bitmap_and_andnot(&small_dst, &small_src1, &small_src2,
++				&small_src3, 4);
++	expect_eq_ulong(true, ret);
++	expect_eq_ulong(GENMASK(3, 0) & ~BIT(2), small_dst);
++
++	bitmap_zero(src1, nbits);
++	bitmap_zero(src2, nbits);
++	bitmap_zero(src3, nbits);
++	bitmap_zero(expected, nbits);
++	__set_bit(1, src1);
++	__set_bit(2, src1);
++	__set_bit(BITS_PER_LONG + 1, src1);
++	__set_bit(BITS_PER_LONG + 12, src1);
++	__set_bit(BITS_PER_LONG + 13, src1);
++	__set_bit(1, src2);
++	__set_bit(BITS_PER_LONG + 1, src2);
++	__set_bit(BITS_PER_LONG + 12, src2);
++	__set_bit(BITS_PER_LONG + 13, src2);
++	__set_bit(BITS_PER_LONG + 1, src3);
++	__set_bit(1, expected);
++	__set_bit(BITS_PER_LONG + 1, expected);
++	__set_bit(BITS_PER_LONG + 12, expected);
++
++	ret = bitmap_and(dst, src1, src2, nbits);
++	expect_eq_ulong(true, ret);
++	expect_eq_bitmap(expected, dst, nbits);
++	expect_eq_ulong(BIT(1) | BIT(12), dst[1]);
++
++	bitmap_zero(expected, nbits);
++	__set_bit(BITS_PER_LONG + 1, expected);
++	ret = bitmap_and_and(dst, src1, src2, src3, nbits);
++	expect_eq_ulong(true, ret);
++	expect_eq_bitmap(expected, dst, nbits);
++	expect_eq_ulong(BIT(1), dst[1]);
++
++	bitmap_zero(expected, nbits);
++	__set_bit(1, expected);
++	__set_bit(2, expected);
++	__set_bit(BITS_PER_LONG + 12, expected);
++	ret = bitmap_andnot(dst, src1, src3, nbits);
++	expect_eq_ulong(true, ret);
++	expect_eq_bitmap(expected, dst, nbits);
++	expect_eq_ulong(BIT(12), dst[1]);
++
++	__clear_bit(2, expected);
++	ret = bitmap_and_andnot(src2, src1, src2, src3, nbits);
++	expect_eq_ulong(true, ret);
++	expect_eq_bitmap(expected, src2, nbits);
++	expect_eq_ulong(BIT(12), src2[1]);
++
++	bitmap_fill(src3, nbits);
++	ret = bitmap_and_andnot(src2, src1, src2, src3, nbits);
++	expect_eq_ulong(false, ret);
++	expect_eq_pbl("", src2, nbits);
++}
++
+ static void __init test_find_nth_bit(void)
+ {
+ 	unsigned long b, bit, cnt = 0;
+@@ -1533,6 +1608,8 @@ static void __init test_zero_nbits(void)
+ 	bitmap_zero(NULL, 0);
+ 
+ 	ret = bitmap_and(NULL, NULL, NULL, 0);
++	ret = bitmap_and_and(NULL, NULL, NULL, NULL, 0);
++	ret = bitmap_and_andnot(NULL, NULL, NULL, NULL, 0);
+ 	ret = bitmap_empty(NULL, 0);
+ 	ret = bitmap_equal(NULL, NULL, 0);
+ 	ret = bitmap_full(NULL, 0);
+@@ -1566,6 +1643,7 @@ static void __init test_zero_nbits(void)
+ static void __init selftest(void)
+ {
+ 	test_zero_clear();
++	test_bitmap_and();
+ 	test_fill_set();
+ 	test_copy();
+ 	test_bitmap_region();
 -- 
 2.53.0
 
