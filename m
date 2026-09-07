@@ -1,138 +1,146 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFC2450AC14
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:39:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF44350AC0C;
+	Mon,  7 Sep 2026 15:39:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795594; cv=none; b=CSbA4cT8jFdu3CGG3VmNQevrt6nPC2VcImJRHsHvUPG+GuEZA35lhtJmxNgb76xS0bSKIDJvKNIsSQjep2XMhDebZrjNPUgnjqEPMKgB4Ud5sZchnP1u+DyFc0xQAHPSaiEsYPKf5Mt3HVV2sEl9nYby3rwTbEfSWlY1CYnQVzE=
+	t=1788795600; cv=none; b=l6qNWfGGCYLj3KCj2Ynb/geBI8r9TMYpo9KOBdlsMeWihUQ+HZEPbiSAVVVJxd7IYXvfdC/YZMBDvtsLEjv/Ub63UhNShc0zH0pUa8t/+MCy8+uyeWWjoIbdXZPNchBNn8tzXKGudSb/V5j2S53IOOoD1GWBQjO5E3xpYfKNJyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795594; c=relaxed/simple;
-	bh=2iJPpKOoGy+/l4LMviPQoRKnjhDXm9qqPLLD9Cdfo1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bhKtUlLhPOZzwkU+Vyrsnv+8EH5itBmacLgVgDbWf+0hOQXZA08ICVkPkRI3PJ2zCRuUGItVfhbklTkxI/boMWN7b/G05aQsA8YDES0Ng56zL22XP9aQnjkz46KFq0AEv3Bz5FwF8cFrQ+wqqib7yOielexYIP5LmlEuwr2ofP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jpG5vmr8; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788795600; c=relaxed/simple;
+	bh=IPBkhQVHqxj0IfXD4Tzxx9fiJ4xFnHA/DZoHDEQrQYU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=livCQAhaiUPFH1M/FhKxaI7HvXheYQKkq6AxWmpLWuxipfrrm30wB5yaHzIGnMJelYCgksUiVOhLxq2LiYmYcUgiivGyLEbmkZgN+/lrr7w4rNCww8swnRy2s0U5KAy7SCntdyiGXf+y68Yw2pAdb3aHlAnwv9d4JbwfEl9RYvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h1cXh30Y; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpG5vmr8"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a0a87595so3223591a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:39:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788795592; x=1789400392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cBvlH6prRmF9is7rqvJqNTGgh3P2sJVPtfOXauJIgQo=;
-        b=jpG5vmr8RyoYuxxhINnbMRJJHBsO63kyrYnOzsysJq5pf+picb46U+vDQnLeiFI5Q0
-         z8cKzEtL07FuOToyRWjTluUjVnsbM85ailrYeRyXvaYY5goo6iQdJ9EVgSrkMf9imUCv
-         /amgMKsl7StJiBFFYAemNAABFUYby+6BIlkOZ5QSyJ8jIlXnvteO2WiRW2T+YTYIfM2l
-         nJy0pDEeZmIfiCC01SZlKa1e4yPP0alUN3NHcq/d+07g3E71Z8bTjqqqvpeNKgqkXmpx
-         7lZZXKMVfilt2gaxaM4BwUd4eTyurWJyS3oy0wUFWO0d+LAflUSS4rniA1rVLsVi3XnU
-         Jg8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788795592; x=1789400392;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cBvlH6prRmF9is7rqvJqNTGgh3P2sJVPtfOXauJIgQo=;
-        b=pEAYh0IvbdS2qtfVhy1dUuTkrI3Vj5VN1vUl84oPZ9z1oBc/tMW8ZCst3pszkq+IMp
-         WsogO6b1WpVW+FClXHH70iXH2OWIAY7wqqJ5d/nOQqx90Yo9JnPVqPh8hX1LyPn6qpgm
-         hQejm8zB/NpHBcVMxncRe5pPrQUGQocJi9yduRMzrj+tGRJYRe2b/ncFhrdj7FLNdM1Y
-         V8OS5w38HfEEsGyb9DSoUnjyYRYSxh+3FN/WoJWSxUhLtJO+AInL4B4+oEvdd94T8X3z
-         vTuTYUAxPpRLXykjFTOuvqFWJaLzmPLFrflTE3rRQ6BAKLUKk/Jjf8hneBFaOv7F8GmI
-         8Fbg==
-X-Forwarded-Encrypted: i=1; AKwUvBw6n9UVp2YNmrKODstcQo02fzJXqFbmGKVqdpev4HgIaxYUoUAS7Tjw8VVU+t/eSU89Cj9pHB5UJlCwKos=@vger.kernel.org
-X-Gm-Message-State: AFuF++mg8I9cqTqpncDaATnaL/jx3+757AB0lPcoYHZOTrci7muw/ttV
-	gtU8N8m24XQQzALzJ+0sgyltRKXkWwj9pl07fUJYkGb8tnzIktaAaM/m
-X-Gm-Gg: AYBFou0qIPlSzXmIHEDPOBguYWpwzS2xzPPu4SXjOV917jmWZBRDDkzGN5YLT7T9Jop
-	z5+wf/wyge3UjjqH1EAWMGforMIPQnu6HxFieXBRkwOB/HCI1Y+xnq5GS9Wcw5TVNgCVK7z8OSX
-	n3HUB+Od6UE1WjCLFWCkXo/a4fc3Wadh8mLj/IhwWHaF5CSwBJ3ujbX1pmiQGegw4e8BWHiqeKv
-	/4jieqr4o7JV0VFqvaVrkjmtFYZYnUPv/lHNywC119qmZvbzCbot+6CI4iz+C9glaRaAPwOiwVD
-	3OM8cgMuZLleof3ST5vH/nIarGGE2zOXMAzdK96KdHbOX09GdW+Cfn0fyCtRjH+075xaAYfV6YG
-	aH21swRHejMNTuAkLS7QSFc6QUWbi8alIGxeIPuroMOUnFI3aazI1GB6eTErVQD0weqxIY963Ka
-	zJIPZ45mCOOyqx0gZP/K7cpWdscq1sSUxUqmW1v6n6+eWEsdvlkV62i0dOOU/+
-X-Received: by 2002:a17:90a:1c96:b0:39b:66ee:a14 with SMTP id 98e67ed59e1d1-39b66ee3442mr7209213a91.25.1788795592309;
-        Mon, 07 Sep 2026 08:39:52 -0700 (PDT)
-Received: from server.lan ([150.230.217.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm21690121a91.9.2026.09.07.08.39.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:39:51 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v4 10/10] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Mon,  7 Sep 2026 23:37:13 +0800
-Message-ID: <20260907153713.2572547-12-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907153713.2572547-2-coiaprant@gmail.com>
-References: <20260907153713.2572547-2-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h1cXh30Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788795598; x=1820331598;
+  h=from:to:cc:subject:in-reply-to:references:date:
+   message-id:mime-version;
+  bh=IPBkhQVHqxj0IfXD4Tzxx9fiJ4xFnHA/DZoHDEQrQYU=;
+  b=h1cXh30Ysxe/xPQs4fbRdv8IDmLJDCmlOKA+I9t9F9gqt4/eZp4H4UC9
+   845UIZMoZOpMCw+ouAHGRmYaW6Hbs0GJizBi7cFqtDC2fQJOzb2BdvkQu
+   Lxdg0HoqIqgf4RbVZuGGecycdidqSZw5WoTeqsnz2cHwR/T5niOsswmOr
+   gxoNEk3kngzPkINE9XN9uuspZjDusPhghWfL7/sm5BmZgwyMlVvpRXKNH
+   JOtwiU2DCA38IFmjmLVG7KqFk8oMjHH8zVwg9P0sYPq1G4hE/3gaVbYsH
+   SCiCswg2TBsXULhK3zT7SkhtLzyZDCcCxiS4ge9Egar0dJsxy9SxJ2kIV
+   A==;
+X-CSE-ConnectionGUID: Gnei4LQ7Sguh60PK1LXjEQ==
+X-CSE-MsgGUID: AiRkgqPyROukMaoOk2gp+g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99858672"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="99858672"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 08:39:57 -0700
+X-CSE-ConnectionGUID: JAB5ITPsSXSuPV3/WL147A==
+X-CSE-MsgGUID: iQtiMoMfQ8eKammQ1m0YiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="276018594"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 08:39:53 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Albert Esteve <aesteve@redhat.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira
+ <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, Christian
+ =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Maxime Ripard
+ <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
+Subject: Re: [PATCH 3/3] drm/amd/display: drop INLINE_IFN_KUNIT
+In-Reply-To: <20260907-visibility-unification-v1-3-6a962e5b3351@redhat.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
+ <20260907-visibility-unification-v1-3-6a962e5b3351@redhat.com>
+Date: Mon, 07 Sep 2026 18:39:50 +0300
+Message-ID: <6f3ee86ab60ed16348dc0ac252ba27596829dc19@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+On Mon, 07 Sep 2026, Albert Esteve <aesteve@redhat.com> wrote:
+> This helper was originally static inline. INLINE_IFN_KUNIT only added
+> inline for KUnit builds, which dropped that hint from production.
+>
+> There is no equivalent in kunit/visibility.h, and tests do not need
+> one: they call the exported symbol from another translation unit.
+> Use an unconditional inline with VISIBLE_IF_KUNIT instead so
+> production stays static inline.
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+FWIW, using inline in a .c file is pointless in most cases, and the
+compiler usually does the right thing. It might inline at a better
+granularity than the manual one. (You could see what difference having
+the inline makes, if any.)
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+BR,
+Jani.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fc320b373656f..dda4d211b7db4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23738,6 +23738,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
+
+>
+> kernel-doc already strips inline, so the dedicated xform can go too.
+>
+> Signed-off-by: Albert Esteve <aesteve@redhat.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 2 +-
+>  drivers/gpu/drm/amd/display/dc/dm_helpers.h             | 7 -------
+>  tools/lib/python/kdoc/xforms_lists.py                   | 1 -
+>  3 files changed, 1 insertion(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> index e3f4ee6e8380..eea7e7dcfa30 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+> @@ -173,7 +173,7 @@ void amdgpu_dm_init_color_mod(void)
+>  }
+>  EXPORT_SYMBOL_IF_KUNIT(amdgpu_dm_init_color_mod);
+>  
+> -VISIBLE_IF_KUNIT INLINE_IFN_KUNIT
+> +VISIBLE_IF_KUNIT inline
+>  struct fixed31_32 amdgpu_dm_fixpt_from_s3132(__u64 x)
+>  {
+>  	struct fixed31_32 val;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dm_helpers.h b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+> index 6d7cdab1006f..cabcbc2599e6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dm_helpers.h
+> @@ -194,13 +194,6 @@ void dm_helpers_mccs_vcp_set(
+>  		struct dc_link *link,
+>  		struct dc_sink *sink);
+>  
+> -#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
+> -#define INLINE_IFN_KUNIT inline
+> -
+> -#else
+> -#define INLINE_IFN_KUNIT
+> -#endif
+> -
+>  bool dm_helpers_submit_i2c_over_aux(
+>  	struct ddc_service *ddc,
+>  	uint32_t address,
+> diff --git a/tools/lib/python/kdoc/xforms_lists.py b/tools/lib/python/kdoc/xforms_lists.py
+> index b49b81da74d9..cab4a49e4fc4 100644
+> --- a/tools/lib/python/kdoc/xforms_lists.py
+> +++ b/tools/lib/python/kdoc/xforms_lists.py
+> @@ -105,7 +105,6 @@ class CTransforms:
+>          (CMatch("__attribute_const__"), ""),
+>          (CMatch("__attribute__"), ""),
+>          (CMatch("VISIBLE_IF_KUNIT"), ""),
+> -        (CMatch("INLINE_IFN_KUNIT"), ""),
+>  
+>          #
+>          # HACK: this is similar to process_export() hack. It is meant to
+
 -- 
-2.47.3
-
+Jani Nikula, Intel
