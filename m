@@ -1,175 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013062.outbound.protection.outlook.com [40.107.159.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD98D38228A;
-	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799818; cv=none; b=I8zBmP6B/401/BS1ZvS6cQwd+RBj7KdvPMt0rmaS7NQo/0BZbad0u68XoqO7IpYEcyEqF7NaKj+f3j3VUgRB9tTxNiRJed1ZSa6Arbch0nJ32pNGTZ1Wg/78SQTaDgeYkghx/2Wgd+jE8aEK23cmXgw/61NByCRtdqVXuTcOqlA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799818; c=relaxed/simple;
-	bh=pus3OIMvtAdqCN5lzcybKiNDZT2pHkfTRO5wGwjEElE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KiOfQcFOREPILec14BmPpTeajzd0Q07kX44SBf6fPSh1gJgf090oySRHaJ6OK2QS0DaTMV4jRxb+tdTt05/w8Ia6Lq7ECtJCNkJEuhe8I7LaYMNi2Vt2LeCyNPhvbpTQPLbYCPNSpiWO399la08hhlxLwDhVI2nL0SXpuwBpmPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLRazJML; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF6D3B47CD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:50:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.62
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788799835; cv=fail; b=WI6lZ6KTHz0CkfopVlCYi6dqFrJ/6yn5uYhNc35veGQxVzAbHiqMH68PEESVD9g0Nk7qn4TsF89RnZrzIckRCf54vnFE/2DrobKa76tO4Nkq2LiyIUCTbKuQO1PCFb1A1YwUHveXEBiTVbXoI1ASGphxBWEUD8EmgJtbmJEyRl4=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788799835; c=relaxed/simple;
+	bh=vazuMQPESBtkTGvNq5oSA5XBfyEUc0PII8702CDFkjc=;
+	h=From:To:CC:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ZnH97oVqK8X+2/RVz95ayx9Vquo3H/+vWdvohJwunDnhydECbCJP2uZO9wx2MFbLdnkU1nbdW1ip6Pj00u2VHwohSmIOCkhN3FafZpM/iFBWR9B/OiWvlYIblrvLjdjI5fSDA4IXGyW0cknk0f5n5BB2krL8tly0U9K0AV6rAiU=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XSaTQMdz; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XSaTQMdz; arc=fail smtp.client-ip=40.107.159.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLRazJML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F00A3D;
-	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799817;
-	bh=QTFb/7AYKIYAJJpoTYlFHRzy0v+TkzM5XPwWHm7OcRE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XLRazJML7yVxacnO8lm1nOLPHjZv0NzBkvPqtmJ1Y/Q+4X/8vj37vxTjKeAanUhz6
-	 EPbeM2qkidzho26HsF/jPGwkzGKkN7ieKunIc8UZthcMgsKVfz3mSdiNDLjq0Bglb5
-	 su1cZzxyXM9iepayC8dD6d4U0bwjPtIpJDgxi6EzMvTx/2UNzMhCUXjBXMQVZX0YMo
-	 RU+49T+a4+2AowZJDQrk0Hjj8mKeIZ+fOX81erLawEMwIAkFG6JtnQHh5VwPDamb+U
-	 iaYz94lrWtDIx6/0/ItrbZfLo5jT7Gbgzg+t5p/vtovWCQp0Oyu1u10rNtnfpd7YLJ
-	 uPILftTgUhQhA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3cXv-00000005sFE-1cop;
-	Mon, 07 Sep 2026 16:50:15 +0000
-Date: Mon, 07 Sep 2026 17:50:14 +0100
-Message-ID: <86a4pt3t15.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Georgi Djakov <djakov@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rajendra Nayak
- <quic_rjendra@quicinc.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
-In-Reply-To: <0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
-References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
-	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
-	<apgeBNSiP01YfNcs@google.com>
-	<86ld9d4h4n.wl-maz@kernel.org>
-	<f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
-	<86jyox4fas.wl-maz@kernel.org>
-	<ca962589-3b6c-4e5d-a11e-b49cf20dc262@oss.qualcomm.com>
-	<86bja94234.wl-maz@kernel.org>
-	<0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XSaTQMdz";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XSaTQMdz"
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=hZT5dfYjouXBALDMiWhqCk8IrWnWI/eeqU+iGIw0djovbUL2iOJZA73p3YvkcSL4f05NMhTs49zISWmka3ReaI79dq0YoXj6BvjcrpWw/wqaUd9iYWzGqMHqePoZZRF3DvHHQx6tC9BaJcjEKOV9BXdD2Nqas822VZvi1DP2XldcyClntHspvfizfC8cataoFYYh2BQ9lsQ0Z4IVCW2VyOFPJhYCi2rFjOyaUdjs5VhUHqdmGVZ3N/fosL4ZyS02JZECFWmMIPi7WwPy6U1dM4dNNLZekI9OwIymqZCjTrBFJy3r+JNLh7vu0ioXuqkyFt0ozme50+hFpTflmMQu7g==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qdKe04+vNDlNrmwJc6CjCps1YJQkUrViWRjFFDGZun8=;
+ b=ahNTTOGJ2Z4ilndikVsrZMKHBmR0PgZnH1NN6JSkjoYztmUJlOghZ30SP/vP0Fn6J5C5SN0cmnNFzQsmrOBzbtP9vmnuKCcjZ/+TTB3SKbkICdVqaE1tbW//UArsVkbSY6x32z7uExNsqR3lKz88y7XMXI7scudbfygwdIJsYuTcLh7tBem3hk0ha4++lR5ynQTAb69HYWYrKT7bhUDTUlA7BIR+VyAMvExfffzUhJNkWeyNhmIP/Ju5Dx9Ruqwjhln3vVueQypLIVhxxBGOklbGAu7LmY6p7G74G0872dV5HNLvHhHO7FNVMxRUzH4XfVuORvqx0syjt5u42kCIUg==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qdKe04+vNDlNrmwJc6CjCps1YJQkUrViWRjFFDGZun8=;
+ b=XSaTQMdzUaAiuYSl0vlhgrnM2vWntXDljcjbQkeDvkMsg2etivSOiuIsGJqAboHfzk3tiUHZHDh3q1Qh3vb+n50b0LLMNmCK7IRgjR5Jo5VEVszk+UKC+L9JVHn+2pEEP1uiE7EuBatDpVI5Z6ItMNSFyei/NWUgCMSd8Dl6bTI=
+Received: from PA7P264CA0116.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:34c::7)
+ by DU0PR08MB9608.eurprd08.prod.outlook.com (2603:10a6:10:448::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Mon, 7 Sep 2026
+ 16:50:27 +0000
+Received: from MI3PEPF0000847E.eurprd02.prod.outlook.com
+ (2603:10a6:102:34c:cafe::1d) by PA7P264CA0116.outlook.office365.com
+ (2603:10a6:102:34c::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 16:50:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ MI3PEPF0000847E.mail.protection.outlook.com (10.167.240.165) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Mon, 7 Sep 2026 16:50:27 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CcILjVYwT722HmqrxHBUVpNC2r/3Ijiv6uISWAtScmmDaQpF/4AqPQztBa5dteEco4lVcwmmTmKTmyx2gJRO5vhCZSgmz2hh2u5I9pmWRI5lIIz9rgwzEfu6qAVV00cxuJApZNgCDX/TbBczQCugYF2RrbhHhFo9bjUWf1RKPIsQY7+PwUlYCvws+StY1zdoCzlhLwH4Ch++Y7dYX8wE8ruvyePpCMhndArLnTXXInapnUulARz2vh0NjDvKC1HnyXhUtUS1CK+3DM61aKUsJQNphKQRoSlKjIqJp+WXc7oMiP3L3OpKynEuwcIzSU+Po2JL/lHLj7dNEH8doNkvpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qdKe04+vNDlNrmwJc6CjCps1YJQkUrViWRjFFDGZun8=;
+ b=uEW/lDq2lCJmphpKzQm6x0I8B5jiMVfNII2WbgfByNCdx89pc3+ZO/kbndXQWZp7UMAW+DLg2V6NgYOU4qs9iH/UJlnqAGz3f4zyEbhV7OKnYGN7Fb/jm3uPQguz3wZNGl4E2Wd6B2bzShntrru0pL3R7+NO1djXoWtQGKjaKboPAWMdzreLl5o0qGV3WOUhQn9xdGy9dZ4ZMERKawMjgezAuBpwPqTX9mLNwyOd7pI1vORzFo8NS3anhWncrkjLkRIaL9M7pMEwDMz+6EunrssdMrO9mNBbJNitGY2KBxZieAPUIgLCUAXEJzUnQhvpFFMmgBbYx7PWloBV/SnmbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qdKe04+vNDlNrmwJc6CjCps1YJQkUrViWRjFFDGZun8=;
+ b=XSaTQMdzUaAiuYSl0vlhgrnM2vWntXDljcjbQkeDvkMsg2etivSOiuIsGJqAboHfzk3tiUHZHDh3q1Qh3vb+n50b0LLMNmCK7IRgjR5Jo5VEVszk+UKC+L9JVHn+2pEEP1uiE7EuBatDpVI5Z6ItMNSFyei/NWUgCMSd8Dl6bTI=
+Received: from PR2PR08MB4889.eurprd08.prod.outlook.com (2603:10a6:101:1d::23)
+ by GVXPR08MB11424.eurprd08.prod.outlook.com (2603:10a6:150:2e1::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Mon, 7 Sep 2026
+ 16:49:51 +0000
+Received: from PR2PR08MB4889.eurprd08.prod.outlook.com
+ ([fe80::8bda:5986:a1f1:cb7e]) by PR2PR08MB4889.eurprd08.prod.outlook.com
+ ([fe80::8bda:5986:a1f1:cb7e%4]) with mapi id 15.21.0382.007; Mon, 7 Sep 2026
+ 16:49:50 +0000
+From: Sascha Bischoff <Sascha.Bischoff@arm.com>
+To: "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+CC: nd <nd@arm.com>, "maz@kernel.org" <maz@kernel.org>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>, "tglx@kernel.org"
+	<tglx@kernel.org>, Catalin Marinas <Catalin.Marinas@arm.com>,
+	"will@kernel.org" <will@kernel.org>, Mark Rutland <Mark.Rutland@arm.com>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v2] irqchip/gic-v5: Preserve ICC_CR0_EL1 state
+Thread-Topic: [PATCH v2] irqchip/gic-v5: Preserve ICC_CR0_EL1 state
+Thread-Index: AQHdPujmqB9zMyF8YkuaTgwxXLvOXQ==
+Date: Mon, 7 Sep 2026 16:49:50 +0000
+Message-ID: <20260907164945.714545-1-sascha.bischoff@arm.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: git-send-email 2.34.1
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	PR2PR08MB4889:EE_|GVXPR08MB11424:EE_|MI3PEPF0000847E:EE_|DU0PR08MB9608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9eea6e59-8dc9-486b-b19a-08df0d001e7a
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|366016|23010399003|1800799024|376014|10067099003|6133799003|3023799007|18002099003|11063799006|56012099006|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ EzXwudB8pWvsKgmu3Nqb5cRsZIwrHZYOCiE1K5DTNbuVPVHOkO1kSTQwCKYI5aIOjygbGSKR+rBBI5lHRNY0QkOq0mkROQKNecAN2G4X05f/hjwGzW5lrZbKPROQI4hGgQxBtvdxQ9qWhl04bELuZY/XPyp59EbMKKiwf3NpswwMhsM8Ikfi5TGdhfzRtpzav/hCoxuOoQnJTg+8tEZ1wL1cOp6C4IvWEcJVzbrgu9Ji4oNuu+NN12mDHEylpUEarK4FQ9QoBB5qQubB5NpWbshJLMdrB4PaE5pm7K8hmDkcgqa2yxmK/gyCR0LwI88YAq1BORwpPVCW8JuxX5tPwLcNstLc65FrA5TaeXDMbbc4gAVVzV7NJmxXziv3VvLfvqjps5lEr61KVa/ba/QDX3rf7qOavSTeJESih+68spn4ZEhgcXYeq/wYK+t1hKxyuuVsMSvE6OnG1d7xxrR5SLOZ7dp53g004xysJrAwfMqTQYzHbTdyldZGSsmtcycuq9LC4t/vabLxpxbAZ5+C5jiJv0jhs8tYZGqdwPVm1Og6BBklAHjVZVy1iambUY0Elv7N/h7clwuFkpvXyVDqQHudD2mkIes2tBA5/2c6k46iKdkF91j83QKN03D86oGcTvVdU/ytik5tOXbJ6d0RdIQgw5ia29a4px8AvNMXSWkKuRa4l7ZaTtWzhmR3qCLXQ1n/9hiW7HoPFhoulYKW3emrTx+nnOtEoTTal6GjaVQ=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR2PR08MB4889.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(6133799003)(3023799007)(18002099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: konrad.dybcio@oss.qualcomm.com, raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked:
+ hmalb7RXnW+3hyup6k2859KLMeyQWnMA8mXgs7wJUq5qjITOoh4fhrPCI3RkpOYNCKCcTHLLIEZQfJmnX1N/cgvN1/YP30B/+NWFtncYseMU4pr2fyTlvnXQN/FKPG9hMz+ATmg4qpbN88tHu8DteEEdvFIY1S6bnoi2Bl/sSjKQLCgIl2nFHfE7paWqsRbNDx5i0u4vGC/nBnaQMts9+gcfzxZTBnV0gTNJuUhukI45HKNM4OmHxhZXyvY2GTIG4Kiz4wvpQ3FB7+1Qc7sUo8P+M108lA+fshUIxqvyVkzM/c1A7FcraJ+dLe9IYV6m8aZCL+lC9zgBvm+906yG8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR08MB11424
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ MI3PEPF0000847E.eurprd02.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	d76e0fb5-b28c-4f3c-437c-08df0d0008d0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|376014|36860700016|23010399003|1800799024|14060799003|82310400026|10067099003|6133799003|3023799007|56012099006|11063799006|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	RkV87bnbKdq8c7bqz8P539PBC3bJF4ra10BdZF8MQYyP1QN20s+IDg39N+yUSCLqFnVktWc1OdpI1oYFKduH40PcouQ1agnnfGkVv+xwy3p3SR0UDKDikV+paTZd7Vc5yTPTnAalpHL7DCPNzEmZ4IM3SUkiegQ24gwijEkyvO0NW4XMAPEHbpWXmUWnFmMQHl0uQbvPRxiDtmN7RGTDn+zE/ONcpjQU6aSaOHus3lloBu62VxLK8er/08o4x6fYIWZmZsQlAxnuvFddB+ZBinVneq+gQAX57VXlXqfOMTDibjHzfvNCNmo/uCVLoEJPxn0ARB38ZMvO7weNSGFbQUCKJ0n6707/vevCTaXZu+2dcWalmmgsZbyCmMEqXHMCAoKmi7yM5FLuByahcqYIJKiMeNtQy4c4wxTbGUgaPj3JIRL/ZdCcU+K7FvW6WghiPrDsZ+XMntDdOHJNoqygibERQuKXXYkm2STGPImtpckuWAIlFdt7TOX3FKEBumqkexoMyRgWnL+05oIyBpcJIDZiKBuEN1Fo+lPSrcRKgntIZuRT+EL5eOQBpsy/wxIK1Y5Sujsox2C4oozDPALgj+1cZQ7eREt9D0uvQ6xdAIEl2rWewTEJl5KKPXdPFmAzNSnD0msCgXAfX9Txk/amh4HceGtHpjkwCt1yn6/8nhU72c7bO2wrqD4SljCfHvTL4uTH1yA2Z3TpkznbxCLpjg==
+X-Forefront-Antispam-Report:
+	CIP:4.158.2.129;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:outbound-uk1.az.dlp.m.darktrace.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(35042699022)(376014)(36860700016)(23010399003)(1800799024)(14060799003)(82310400026)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pTlTIu0fZF7kZn1bJfm9xIUNw2feeY7blvjTmSb8ZeoNdNdXYrCOZ3mi2iZ7vyjeHBozKLUhnGWdIFdmdYEBPbWxbv2lahXSFdfvTYXdqQojfEeCSmnlYTIrRfeIY4msfqkqrGMaPWz2sQim6qhnLg6128F+0h9pkqbY3CPB1ZCUDR1hpfxyNP5kXckP7fpmHhPwAeQzzoTbBWmXxbPTCAtBRCjDhZfwZxtD5ozutXVARh3xPFAMZjztLhBrHMyxcpY3Od4nZFzo3IMHRMBf1A4Gq8PkyksDNqirkFrTkTthimZt5iZ4DifFTfZQuLRE9hI4xHmoUwd473Eld1m2G6DofofkcM+wPzNzERvB5FqD5uRwaZCEiKSSR0JHJK4+do2IIlKpWyOZL4zstP1RDLY69Q5f3lRCvSzQn0jeePLPzojnQitGtjqv0qTj8oOW
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 16:50:27.0803
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9eea6e59-8dc9-486b-b19a-08df0d001e7a
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[4.158.2.129];Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF0000847E.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR08MB9608
 
-On Mon, 07 Sep 2026 15:34:35 +0100,
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
-> 
-> On 9/7/26 3:34 PM, Marc Zyngier wrote:
-> > On Mon, 07 Sep 2026 14:20:26 +0100,
-> > Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>
-> >> On 9/7/26 10:49 AM, Marc Zyngier wrote:
-> >>> On Mon, 07 Sep 2026 09:18:38 +0100,
-> >>> Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
-> 
-> [...]
-> 
-> >>>> The current patch enable QoS for Hamoa SoC, which get programmed only during
-> >>>> driver probe. This shouldn't impact or cause any spurious resets once the 
-> >>>> device is booted up and probe is successful.
-> >>>
-> >>> And yet it absolutely does break things.
-> >>>
-> >>> With this patch applied, the box resets within 5GB of heavy network
-> >>> traffic, probably because some transaction get delayed, and a watchdog
-> >>> fires. With the patch reverted, the box keeps receiving packets, and
-> >>> everything is hunky dory (100GB+ so far).
-> >>>
-> >>> Which makes me think that the set of hardcoded parameters in this
-> >>> patch is not universal at all.
-> >>
-> >> They are, provided the configuration is for the right SoC..
-> > 
-> > Is x1e001de different from x1e80100? AFAIK, it is only a binned
-> > version of the same SoC. How do you explain the above regression?
-> 
-> I somehow skimmed over the fact you said it's on the devkit and not
-> on the mini-x mentioned before.
-> 
-> I pulled the Hamoa settings I could find, there are some updates but
-> none seem particularly related (maybe the PCIe one? I don't know how
-> the network card is connected), please give the attached patch a try.
+In addition to EN, ICC_CR0_EL1 contains other fields, such as LINK and
+LINK_IDLE. The driver only needs to modify EN, and must preserve the
+values of all other fields when enabling or disabling the CPU
+interface.
 
-I cherry-picked the Hamoa-specific patch, and gave it a go. Same
-result (hard reset while synchronising a bunch of files), but this
-time with a nice little message:
+Define the missing LINK and LINK_IDLE fields, and use read-modify-write
+accesses to update EN without affecting the rest of ICC_CR0_EL1.
 
-[  272.468031] nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
-[  272.468039] nvme nvme0: Does your device have a faulty power saving mode enabled?
-[  272.468039] nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off pcie_port_pm=off" and report a bug
+Fixes: 7ec80fb3f025 ("irqchip/gic-v5: Add GICv5 PPI support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/r/20260807121703.D4B7A1F00A3A@smtp.kernel.o=
+rg
+Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+---
+ arch/arm64/tools/sysreg      | 4 +++-
+ drivers/irqchip/irq-gic-v5.c | 6 ++++--
+ 2 files changed, 7 insertions(+), 3 deletions(-)
 
-indicating that PCIe has died.
-
-None of that happens without the QoS stuff.
-
-> If nothing else, please "bisect" the QoS additions until it stops
-> crashing. Although perhaps applying only some of the settings may
-> have its own set of dragons..
-
-That's not exactly encouraging, is it? And if the "recommended" set of
-tunables is not up to scratch, surely there should be a way to opt-out
-until someone figures out what's wrong. Something like this:
-
-diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
-index 3b445acefece7..3a4743c364dac 100644
---- a/drivers/interconnect/qcom/icc-rpmh.c
-+++ b/drivers/interconnect/qcom/icc-rpmh.c
-@@ -224,6 +224,9 @@ static int qcom_icc_rpmh_configure_qos(struct qcom_icc_provider *qp)
- 	return ret;
- }
- 
-+static bool enable_qos = true;
-+module_param(enable_qos, bool, 0660);
-+
- int qcom_icc_rpmh_probe(struct platform_device *pdev)
+diff --git a/arch/arm64/tools/sysreg b/arch/arm64/tools/sysreg
+index 94bf065c8ac7..e2d37ee221b8 100644
+--- a/arch/arm64/tools/sysreg
++++ b/arch/arm64/tools/sysreg
+@@ -3761,7 +3761,9 @@ Sysreg	ICC_CR0_EL1	3	1	12	0	1
+ Res0	63:39
+ Field	38	PID
+ Field	37:32	IPPT
+-Res0	31:1
++Res0	31:3
++Field	2	LINK_IDLE
++Field	1	LINK
+ Field	0	EN
+ EndSysreg
+=20
+diff --git a/drivers/irqchip/irq-gic-v5.c b/drivers/irqchip/irq-gic-v5.c
+index ac2d423b1723..5f2551cf077d 100644
+--- a/drivers/irqchip/irq-gic-v5.c
++++ b/drivers/irqchip/irq-gic-v5.c
+@@ -974,7 +974,8 @@ static void gicv5_cpu_disable_interrupts(void)
  {
- 	const struct qcom_icc_desc *desc;
-@@ -308,6 +311,11 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
- 		struct resource *res;
- 		void __iomem *base;
- 
-+		if (!enable_qos) {
-+			dev_info(dev, "Skipping QoS (command line)\n");
-+			goto skip_qos_config;
-+		}
-+
- 		/* Try parent's regmap first */
- 		qp->regmap = dev_get_regmap(dev->parent, NULL);
- 		if (!qp->regmap) {
-
-At least people stuck with Purwa or other abandonware (such as the
-devkit) would still have a usable machine.
-
-	M.
-
-
--- 
-Without deviation from the norm, progress is not possible.
+ 	u64 cr0;
+=20
+-	cr0 =3D FIELD_PREP(ICC_CR0_EL1_EN, 0);
++	cr0 =3D read_sysreg_s(SYS_ICC_CR0_EL1);
++	cr0 &=3D ~ICC_CR0_EL1_EN_MASK;
+ 	write_sysreg_s(cr0, SYS_ICC_CR0_EL1);
+ 	isb();
+ }
+@@ -991,7 +992,8 @@ static void gicv5_cpu_enable_interrupts(void)
+ 	pcr =3D FIELD_PREP(ICC_PCR_EL1_PRIORITY, GICV5_IRQ_PRI_MI);
+ 	write_sysreg_s(pcr, SYS_ICC_PCR_EL1);
+=20
+-	cr0 =3D FIELD_PREP(ICC_CR0_EL1_EN, 1);
++	cr0 =3D read_sysreg_s(SYS_ICC_CR0_EL1);
++	cr0 |=3D ICC_CR0_EL1_EN_MASK;
+ 	write_sysreg_s(cr0, SYS_ICC_CR0_EL1);
+ }
+=20
+--=20
+2.34.1
