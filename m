@@ -1,87 +1,65 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011047.outbound.protection.outlook.com [40.93.194.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D61368D67
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:14:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788758076; cv=none; b=eSkpM7wUV2TJE81Fb2R+iQQsZceWcnYD8RAkOGnXwjS6jk9BEZDuAwQnRDFxOFWivRWtG18/kf0+MZPBUUUGGD+x5CjiCeP7c5Cten0HQhhYFz/W4GM7B2pAf/1p/ir75XcO+Wr1JVtSN/5AHZGYICeYf48Pa6XgpEF9FSEz4ZY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788758076; c=relaxed/simple;
-	bh=3G/cmt5IDXWAN+ERb/IvB03Z9XYoO1EQh16xc/CmS1M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zpp48SLEBRyFomckGOPaUg44P4pczM+nCPqp/7BEvyGpyCqlZWfH9xWpKcJCY82tSaENSgZ78lEwmHBQp/x9vz4O9fD36EyW8w8ufr1mFaRMkdwSJXAzoGSg7vy7SHW8L6dsAC0wLJ5daCF+uu7n/f2fIuSOCmdIID7rZjsai9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Mwy+yUl2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PasHq5j/; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E4337106E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:16:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788758202; cv=fail; b=R6sAYP0/0N8enisoqaxDBQ514OA/bWENQ2xV45OTpz7KpPE3gqAVxYSnz3zYrfg3gd6Hv+btuo3YTl09ZGxaHXZBlxoriAyA5Lfzq88yIcn37d+ZizdP5vA+MVo/nRrMTl5j+Z6n9MnrJCkZuAqbg6d4zJI3fDzdGEUDEMJtlZY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788758202; c=relaxed/simple;
+	bh=T3j80cFIo94f6isnw2dwYUBgShKP52ZWl2+5CuOeStI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=du03F80vAwRhCScfLNdtVg6HlPUtTcejuMgZCMc6QUGtLnmJnxbkqJN4UJcP6W+gYezAkjBDxgQr0qH58G3Ji0skoEkP27HV382XYsx9yZFozSXo+Q3LxenOvdTSIrpLu6VmMrnmg0gw2cwkbwMXUyLAsSpS6WtR4GxzJUH+ZVk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=cslZ8/Ky; arc=fail smtp.client-ip=40.93.194.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Mwy+yUl2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PasHq5j/"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873l1HO2820009
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 05:14:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LLnYiOITNXR4UwC72EqlUUdHBM2uIZGN4ddMUc2bFDY=; b=Mwy+yUl2EODRvCLr
-	KbS8kHmLlasN+XK0R84coOfT5ytnlnppsv0Pe6hqUh97VzyfZWvytsqKwwsnGrVn
-	DATEOfVeAMV7/4+zMiyKyCdr+HkLVFOSOuoEleRLBADAUtK+cAOV1KCmgVKmBJis
-	NGK1z63mvUT+egzy3cBCYG42MUAc15WODybrOk2AzavdM15PlUgNc+mmDNr5NfeC
-	+4KQlmRMTigI+Y/D+mLHaYprroVEyclajmY5t9H75cudRCai/9igQXvy6wysM9gR
-	j1kFURbrC4dTyhCvdwBJcRoeR/dzrg0tHHP2cVgo3/pAGBfFBOf/xSps2jSFi39P
-	RcEUzA==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggadhn4et-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:14:32 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso4964376a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:14:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788758072; x=1789362872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LLnYiOITNXR4UwC72EqlUUdHBM2uIZGN4ddMUc2bFDY=;
-        b=PasHq5j/P0eTBI+zx/ddEFkicx8VQAR/wKt42RCo3CFJRo06LCVApwMuRrNvEDaLlS
-         MYbBAt2XZ+eKtMF+oNTwURhXTlvltW+fC2BP58PnuRd02WptFHurujlejkXdHoitwyqY
-         Vs2D+lvmTkjwxFA7hBg5zHhIGCvEdAZWGP9sPpA2e1DC7Q/WSDuyzybjpFQ/8ryMgKS7
-         oQOx7N0sFqSjMqu3/a3el/6w1haekmVispUYwutjUUHRQYY4o2LWKuDnETw4FZSXWmw6
-         beDGG846mV0FHLnHjMU9e2Xcxocwe1vRc9avZHmTKgMT6o5YpgKq6r+tL7s26xqYSX79
-         lAeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788758072; x=1789362872;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LLnYiOITNXR4UwC72EqlUUdHBM2uIZGN4ddMUc2bFDY=;
-        b=nQonF/qZWFVI4dhUImmNCqQ3iYFU0AtHTlNUzufcQRBTPsIZwcE6gpMDZWiBZ4abu4
-         cgSdfihUhXzWVqUQAc8jeuMs4n03iyY7YUutEO1HvwskSRjojHsJXvc8kkrHdhDKRxHm
-         PrldGj3ePJGJk+jDcASxaRo72CJywGEULZfSvuXtPzMiIGk761krDUTrABl0z3CoO6eb
-         Ef5qh51uVcq8tHhIOjwLwU8O3uQrO0u7cI8PQXGD5oJ7o2/LnyBF9FLBU7KvD4MDaiQ+
-         mT+dC+a/CniNvHUl3KDwLYf9XGmLCT4Miac13Lbu+L9s52FwKCt1KKTu2AL8sdY6Sxor
-         Fs/g==
-X-Forwarded-Encrypted: i=1; AKwUvByfc44bIiaZxjCEzunSIVgpYUAp0DLjEGMzljILZajY5QrR5toyVgAap1U6yZu+rlnvpghj8uK948rFdSo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVbjO/dcynJI9GYBh9KCq59tDmOD55PfNhArH0oQWyse/9MyJ2
-	xroJA2owmOQ6yF72Y8qFyd7UqvS2Vf8+PQ4vw3YIHQzpXE3chEs31SBj59EgiTdjdDz6Jkk4Vv2
-	GPI/r/T2IEixf/SdFAVcGxYRI53qmNqocbJ33HBPHN/6vKBcYyITd4d1i7Ao9j6JrkyY=
-X-Gm-Gg: AYBFou39IaAbS4kI+M5obxhLHgAO8t6y3EapLKMy4p64jYUn9cLZZWNb129f46Huz7/
-	jqZfPbnpzx4RNp4oBjm/0v/mgmHejVQ5lOXPGvXDHn0+omjdb5gjPx4mjRlqP0dckdpF214oLV9
-	nn8l2h8NM9lIyMzjiWS7P8PYf7fmfLu4/SQZvy5LlpYWWp3f629z5zLihoPx7ZJ+WNp/v8bCjRO
-	9vWDYFMZH5+1SxJvwQw/7DJJ68nyvID65nU9Fk5h6Y6Xyv1PT50P+rWV5PV4i7N/yZnjPSQIjR+
-	1bhgQll+GxR6bR9/3kHVbV+rhoo1p8we83c7GGzitkh+4KLghIEW6TW5tOdiM9BAJLSB9iRI7Xm
-	L+oe3ttJo8+mIdx2YZRR9ednWe/nb1C3HaA==
-X-Received: by 2002:a05:6a21:114c:b0:3d1:e510:9052 with SMTP id adf61e73a8af0-3da39ee2689mr32370827637.7.1788758072096;
-        Sun, 06 Sep 2026 22:14:32 -0700 (PDT)
-X-Received: by 2002:a05:6a21:114c:b0:3d1:e510:9052 with SMTP id adf61e73a8af0-3da39ee2689mr32370785637.7.1788758071745;
-        Sun, 06 Sep 2026 22:14:31 -0700 (PDT)
-Received: from [10.217.219.15] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm27645812eec.1.2026.09.06.22.14.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 22:14:31 -0700 (PDT)
-Message-ID: <fa7e7439-6f17-4dad-9c9b-6793ac7cfdf3@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 10:44:25 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="cslZ8/Ky"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=f1ge5A0ZFoQg+LrwgGOas6I11IKyRAJDcNYuii562hGON9bOA7fNaFwnSFpLbnv/rbdv9lb80h035FphtkdU2BOHR9LSSJss4BIffP+VM2kO1cnoLCnQIEDtSFaSInzy92Vl+qg7VHXMYkoWyFhLECmIkAuNzzy6tfv2Ia/wKI0VXhXc1DSwA8hEiXvp3YbZQvR1EEm/f8GoxVssTylX7h/JhEJJZLfR3/J9PT7r9r8g8WGRGuwBNMeL9jEy0o9/A/NI/EULALsud5uExWup4dqwxiqRp9bWOvZi4iyNlAc/kllZXlB72ba0Rd2iJwKw73Pv8aWHUp0dyRpg0ah9+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tJ7m4P1cB4/Z9XHqOkS/SvuMelPSWFeXATTX6n79OLw=;
+ b=UhnQkB6Rnj9fm1RXBQ656iKr2DjB3YVGe9R+r5Kk+u66qaX3f1bskYCoXZOInMwt0p+gz1RMllkoGjE0VytCjHj7cfGxs7KPQl4vzntDA8EGRXIRqq9Guy5IhpuH55HghGaZW2bq5Q6MFSVIlU+dT8xNQHSX/z/2ETxnu+aFn7rWHd8QlyGfq+6nAUmHEGFt86sF4l0BSuh4V2CquSl2M6iTrJ2fhUseyxFc3piOIIQ0lAhzVousRAI2AmrDsnE2H1w27lIrmxs61dR8by+tIu6BD42qzx2JCNIg5mDruixLU+y7Z9JuhSCpw0zpUAFdG3khnjQmUX2D+pvukPLs3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tJ7m4P1cB4/Z9XHqOkS/SvuMelPSWFeXATTX6n79OLw=;
+ b=cslZ8/Ky7aEVSjGjOM7U5TAvjlUAGgpP+yPuI3nbVMFyWrcfskZ+BwohZqKFkZAk+WWxFQwiEFQg2A655u5I5nRfziAyrH4tqpejiVS5Njc+QbgzkbqUFN9MI3fdWy1aHJuuiFeuTlHMU/du2ugIZomrRxak8di62OMU213PrxE=
+Received: from SJ0PR03CA0353.namprd03.prod.outlook.com (2603:10b6:a03:39c::28)
+ by SA1PR12MB8641.namprd12.prod.outlook.com (2603:10b6:806:388::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 05:16:37 +0000
+Received: from SJ1PEPF00002317.namprd03.prod.outlook.com
+ (2603:10b6:a03:39c:cafe::ac) by SJ0PR03CA0353.outlook.office365.com
+ (2603:10b6:a03:39c::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 05:16:37 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00002317.mail.protection.outlook.com (10.167.242.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 05:16:36 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 00:16:36 -0500
+Received: from [10.136.47.225] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 7 Sep 2026 00:16:33 -0500
+Message-ID: <765afc29-db88-4f70-9189-ab2532ad6439@amd.com>
+Date: Mon, 7 Sep 2026 10:46:27 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,107 +67,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/3] dmaengine: qcom: gpi: Add I2C bus recovery opcode
- support
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
-        Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20260826-i2c_bus_recovery-v1-0-203f0ec76f84@oss.qualcomm.com>
- <20260826-i2c_bus_recovery-v1-1-203f0ec76f84@oss.qualcomm.com>
+Subject: Re: [PATCH RESEND v4 0/3] x86/apic: Add support for additional AMD
+ EILVT registers
+To: "Naveen N Rao (AMD)" <naveen@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>
+CC: <linux-kernel@vger.kernel.org>, <x86@kernel.org>, Thomas Gleixner
+	<tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Manali Shukla
+	<manali.shukla@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, "H. Peter Anvin"
+	<hpa@zytor.com>
+References: <cover.1788425679.git.naveen@kernel.org>
 Content-Language: en-US
-From: Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>
-In-Reply-To: <20260826-i2c_bus_recovery-v1-1-203f0ec76f84@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Bharata B Rao <bharata@amd.com>
+In-Reply-To: <cover.1788425679.git.naveen@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: AAaNJG3LfeG8lwaOhZXXYa1BNWFlLXDq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA1MyBTYWx0ZWRfX5mm7X6AgWnVo
- G+mETB5erSwmXAUdZ/OgYtraS2GSnEXkb9DWXuJTa9muuQxowH3mLSDnnoCRIJtnlOmRW0GPgHY
- cV34xd+Xsf+IgoR+/XQ3V5MXwY9X98OykBIbhRSXJ7SlrqsyY8PDpRW4nHvchmRyjPaqHYrTebp
- TRjJAk+ZZB8Q/iYaywrNMoftH6aWGLAdUC6qQ/aBi8iDdRV1hjsTWDCpdB9ypjfreDbibHLVlb/
- F4pmv1Au3gENAS61uZ8wBD22Hc0blKVHAYIfDwrt+qgEQk0pFe50qu8Z0w8nTFagUGBmQLgU77B
- VCgcRgiVEsWTpSw5GArBTpztfNv4Y97efvlxLLf/T0NnGhmG5faxiYQBZFIH3vdYU+V2cFFeUvR
- PSXAecTWZqcLGH55KgPFRo8KKWHVFWwggo4clJvm+Rqsaue0wuasLVBd5oqyWlPhJ0G9D/Hoidn
- L5+JeUvkyLWXm3eiLMw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA1MyBTYWx0ZWRfXxySCgiPzhC96
- FeLcpF8lbNJ5OpbRtd6iKG1yFWtM0Qd0DhBSs1FniWHM2fGtPu8S0N8Quxl6e3tkGsKdyCy9VJO
- aldcybIPYGosVzlJ1ShDIVYZZxw9DHk=
-X-Authority-Analysis: v=2.4 cv=OceoyBTY c=1 sm=1 tr=0 ts=6a9e4838 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=fhPPmUa07wtAw6AntU8A:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-GUID: AAaNJG3LfeG8lwaOhZXXYa1BNWFlLXDq
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
- malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070053
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002317:EE_|SA1PR12MB8641:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9d19e9f7-c19b-4c10-51a2-08df0c9f30e4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|13003099007|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Dr+O/UpV+1aHgIc5Z6GPzWXgbd6+/8sogdx/i44RE4Znac/CvhHOXZ4KmOdcdIaqCzqiVWo5kgpJIHp1DNtgfyQIvkvRZMx0YP5rV8NYi0KC2RVxtKe7l3A/Zo553SCppAL3HrOipT/t1q5B4ay8UIqYfEbKaMyjRSigKRT0WHxBay+9o4xXOHCMtRRqpvO0wQFCjIZhMNHv7I9GVz+dTLRip5mhCWMOWGuQ0FFGu4et/KBg+Yk3YbdlRwWOlG/fuH9G929i3Z84UpSfNTEpBpQGINEi5CNye/bd7jgkMrr79F9lL9b83jqX8drqWcM86wSEaTTuqn9GnWZOcJw608xUXIjMFEjA/d5soDapBkvHm0zjZt9c6qH1fQDX44NduFHvAd4sDVqtKzXBf2xqXlJ6R/I5Xiu0mqApLpbQLha/nfYaGNnWHkt0KHRSbvIOS1uSpf579PF6gG9nG4Z5rElYwh4BTPC47AXt4NArjbFBqhGF/cjuHQHUsCfHsgXDypiQFALW+WmJR4l5utRu+JvQercymFKY6MMC6T86TvwVfJXvUCdnjkk8KltqxyNH2sl94hdcqOI8Suq4ZyZTF9lpLDzWPRC+E7cOeQJJkiKXaUfcMyxpEGDrak4cxdBTaffEkrA2uSg4SQCwLUsmqEqkGGGT3zsvkcSyh/gUzTCQFveJRJvxgYjzwxdBbQ65iQOFwL1liIRUEZRzLSDqKg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gNegXzjLcZ87VdmX3i3YmECdiiphj2xYqbDvrDhrsnPUlou5VoZqxCHNCneGc3vaixvIBU95HWyKpy3/286n4E53vEzoF20LoMzpXHViSVefBzivPlqM0xtFg8Y5AAAUOokN3oWLe78E36TbWL5SJC13LfpNKUNB5nF2XhPqIGGiZ2tvqeveOZfaAOG1U9fnDmXddH0g/fN0UXYARKSSqlFvO1bmjheT91hdmmLj3Y/udlE/fsZmb/2q1TgpFxCaaWiAwdYkxPj/uJ/9x2uHTrnjbH6pjTEh+ReNV5e2mEb2okEbGGotJDMi7ELbfGlfC7J0UYaFQFdroT7bfki8ZYNFgNOa/tt7lrHAioYNReJdl2ifh/qv0HZMM8Yc6GUO/LoRF179p+wuDyxT7OKlmOGz9f1OEb8kS13w146n3+g5bkr/UFpZBfdRvyHaepU1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 05:16:36.8207
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9d19e9f7-c19b-4c10-51a2-08df0c9f30e4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002317.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8641
 
-
-
-On 8/26/2026 3:21 PM, Aniket Randive wrote:
-> The I2C_BUS_CLEAR and I2C_STOP_ON_BUS GENI sequencer opcodes release a
-> stuck I2C bus, but the GPI DMA driver has no way to emit these
-> zero-payload control commands, so an I2C controller using GPI DMA
-> cannot recover the bus.
+On 03-Sep-26 2:58 PM, Naveen N Rao (AMD) wrote:
+> Add support for additional APIC EILVT registers being introduced in 
+> future AMD processors:
+> https://docs.amd.com/v/u/en-US/69205_1.00_AMD64_IBS_PUB)
 > 
-> Add I2C_BUS_CLEAR and I2C_STOP_ON_BUS to enum i2c_op so I2C drivers can
-> request them through gpi_i2c_config.op. Handle them in
-> gpi_create_i2c_tre() by emitting a CONFIG TRE (when set_config is set)
-> followed by a GO TRE with IEOT set and no DMA TRE, and reserve the
-> matching number of ring entries in gpi_prep_slave_sg().
-> 
+> This is a resend of v4, rebased on tip/master. Previous posting:
+> http://lore.kernel.org/r/cover.1784785046.git.naveen@kernel.org
 
-start with problem statement which is being fixed by the respective patch.
+This change is required by IBS memory profiler as well which is being posted as
+one of the hotness sources in pghot patchset
+(https://lore.kernel.org/linux-mm/20260728054356.291998-1-bharata@amd.com/)
 
-Rest of the message can be simplified as below - more you can add.
+Tested this series with pghot+ibs memory profiler.
 
-Allow GPI DMA clients to issue the GENI I2C_BUS_CLEAR and
-I2C_STOP_ON_BUS commands used for I2C bus recovery.
+For the series, Tested-by: Bharata B Rao <bharata@amd.com>
 
-Add the new opcodes to the GPI I2C interface and generate the
-corresponding CONFIG/GO TRE sequence without data DMA transfers.
-Adjust TRE reservation logic to account for these commands.
-
-> Signed-off-by: Aniket Randive <aniket.randive@oss.qualcomm.com>
-> ---
->   drivers/dma/qcom/gpi.c           | 30 ++++++++++++++++++++++++++++++
->   include/linux/dma/qcom-gpi-dma.h |  2 ++
->   2 files changed, 32 insertions(+)
-> 
-> diff --git a/drivers/dma/qcom/gpi.c b/drivers/dma/qcom/gpi.c
-
-[...]
-
-> @@ -1825,6 +1843,18 @@ gpi_prep_slave_sg(struct dma_chan *chan, struct scatterlist *sgl,
->   		nr_tre = 2;
->   	if (direction == DMA_DEV_TO_MEM) /* rx */
->   		nr_tre = 1;
-> +	/*
-> +	 * Recovery opcodes do not require DMA data TREs, only CONFIG
-> +	 * (for set_config) and GO TREs. Since gpi_prep_slave_sg() is
-> +	 * shared with SPI, verify the channel is I2C before accessing
-Not only SPI, its for all GENI protocols. Can say common function for 
-all protocols.
-
-May be once such conditions are rising, we need to think of better way 
-in design to handle such cases.
-> +	 * the configuration data.
-> +	 */
-> +	if (gchan->protocol == QCOM_GPI_I2C) {
-> +		struct gpi_i2c_config *i2c = gchan->config;
-> +
-> +		if (i2c->op == I2C_BUS_CLEAR || i2c->op == I2C_STOP_ON_BUS)
-> +			nr_tre = set_config ? 2 : 1;
-> +	}
->   
-
-[...]
-
+Regards,
+Bharata.
