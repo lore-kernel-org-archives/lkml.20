@@ -1,138 +1,121 @@
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADBEC3B14CC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 22:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9813A3B19BA;
+	Mon,  7 Sep 2026 22:28:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788820041; cv=none; b=rw5ytZ88Znx5GUGiSGkIRGHaxX9NPpURYUmtwVBIML90qD8wvEDe5E0h4UZpQo9jLXayFmhWzpaVY8C5Bczrq/f0+s3u1yfcPnZLrvHpVyulHfYa/vNmVuR62x1vAKY6VkIjeAKk0ceTDrsqdvExdy0qVD35xghqOSxIu+sFevs=
+	t=1788820089; cv=none; b=b8lWd85uUYuK1ZrCl/V03FFPhEd/VWb32ek3OXPaYSkf8mKLbIY1etCT00xoVcrLrDtMu0ChQBmAJSX1u1qNDZhldJBRBJdXMAj02UcSPF0T8EoMXohjVCAG/w4gxSK0jgnVf/MUHfQRUahR1sJBnFR5Mmued5gHkh3VIQWhHs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788820041; c=relaxed/simple;
-	bh=w089gXyEOCJY9gUZSUVwdihbdEuqGTphnzmTU3c5wIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aj8YFFAGt6jQCNZhbXYCvdggae9JIEEYNpLLiNMKoqmRQ1njCW4Xq1qh85sHm60xj+LU155FS+dJb2VAXgHmRSTYOxWd3EqI+bYD61hVEsqEtOmiEsNyJ9MsiNXfr9q8l+7XHBXIXiwKQhUbzYMWrt2UYDsjZ2F9QpVsTgK43YU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=gaVEiIr+; arc=none smtp.client-ip=209.85.160.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788820089; c=relaxed/simple;
+	bh=kFsP8flph4By5hSciAQBrkAJYYF2XHr8hl58A6t7uB8=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=rGobEJTWN5WuqIC8vqwfGWuGW3YeZLPNEOXUS8Tk05rwU9AICS4c2BxxpsAMloM67ga+rR9PLAsV3Eo9ldnO7jPmWWUHs36Vn48K4566tkJPWOMCSkHKhJWRqDLeHRZ0jMR0jc/EZB64KZCI7SYqMN+NwTuehS9PDdSF4aKpiJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c77j3gHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="gaVEiIr+"
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-51c2a449c57so48969201cf.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 15:27:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788820038; x=1789424838; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=voF+0uPdvqMWSZZsE3DB359nSHA2KdFl0fM0Svv/P2k=;
-        b=gaVEiIr+tWszuP7yIhlBLyyh6/EQoRUbXiocZyOvHCAyBAuFNw4GjNq+ApFupWmr+O
-         +tDD4hPSE0KEVpVFxDgs2hlVMnH1STJdy/eJU1jdZzOxgpd3KhkSPxtbMxAeux4ifkJj
-         dOgDQjsDRKYUGY83uMid7eSJa1jVyw8TBHH/DDUJC6VYhuPT7QNQmV+is1/w9MxWB06L
-         /vIil5JV+IF72ZbJZw8oKRphab6uPo5BZN6FIITg8v049OxKRawJ4GU2ukGXiu/xBflG
-         ehUOPG5JWTfgduNbsO32bN/kw2Jv9lVlhfbTfLG7myRDbuVZOHJn8mctdilaaubRODmi
-         GRXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788820038; x=1789424838;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=voF+0uPdvqMWSZZsE3DB359nSHA2KdFl0fM0Svv/P2k=;
-        b=imc3yiSThqJRHNMs+Ob1TqD6c20Qd+3YFkmElrOfzHoh7XDi/N5xJ8Up88P5ZrGbSn
-         A0kc/b0EZd0+OXFLYwlRF+hd/KVjiOZKiSRzx0YSNBqyOy/TGLtdcZyaAuJWsNid2doa
-         voXavW4x0yqED8JxnUbC6wu2aYrjup7aUL0Tc5s2mLpd45nIHlUgBLxkf/xNVr2R8KHR
-         CBQ0zHOHMVlouZV9BxH3Z/aBcnBTsCpUOpS+xZnFpLD0Cgf+kJVa7P9IhiVNUinYQ2iM
-         w7fLqwpbL6wsd5ev/X4hBMSabBmTkcc3cBKTIQVCJNMvFJ+TeNBSh2RqRfVsxJbgzL4x
-         wGCA==
-X-Forwarded-Encrypted: i=1; AKwUvBx24mFutx80SNzY5W7bofW65ShM1r6vZ+h3ZtYX+QaD2Z9D3E3jBvuKgH4D2XzPrbBuhSQaQMkP295otpw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mE8Q3yRMCJEsnWYg8oUcN4hdI/TZErHp0HjrAtIQ+EKWdGBwo6
-	TdMCA+WVEtBo7plHgkmqymkRw+f6lN98zgCOY4lZZFucQ0BqpsWVVYbpCt6Gh05AL0M=
-X-Gm-Gg: AYBFou1iz78MlvRDwsOMp1vp39xDUDv+KUTEI+ZcNIrM996vMFqGmW7qeWVPoks+GdU
-	Mt1q7LhNYDV+YugY47GBqVAztMsi1WnKYSHf5i/bSzlxbo+DqASFXDRCSw8CLXtrF92jk/6tChD
-	794GfgUjoXADK0LJxdR+KprWCMDumPWFffTQtUcblQulnx9jo/F8qf7XpRoBlVip99AhPznC2Lh
-	80rCz6rBdYKpFXelVPtqgDHQsn0W/4I7QS3ilkzgzIggeuvuzfvjmbZfRpSx0D72PYlbF+WYljo
-	v0y2p36E33NfWZ4gz9oWuf3hirjNFSA8BjwnWDJ6cPNh53E0W920wiz3424JGOfMgGNrpbZTcah
-	VTgXdyqYNygDT+Lgc/lviHu5nHZ4RPmEw7TQr9FuT7ca09rYuFrY4RjVjzesCLC+w9/ayeu7yCw
-	DHRyIG6fbrA3fkDPBStGDUGuUkjVG+YE2ZQaCQy7UBU10mQDx9Fp2XaFag8pKn5bY8yx4FBh0oC
-	9xwGlFmMBad4+k7/8NN0agF1B7oJBUlMFhQ2dwQsgOj
-X-Received: by 2002:ac8:594c:0:b0:52f:b1b6:a4aa with SMTP id d75a77b69052e-530547fb02fmr300586681cf.4.1788820038503;
-        Mon, 07 Sep 2026 15:27:18 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53080ce82aesm39676931cf.31.2026.09.07.15.27.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 15:27:18 -0700 (PDT)
-Date: Mon, 7 Sep 2026 18:27:14 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>, 
-	Peter Zijlstra <peterz@infradead.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Frederic Weisbecker <frederic@kernel.org>, Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Josh Triplett <josh@joshtriplett.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>, 
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org, linmiaohe@huawei.com, 
-	nao.horiguchi@gmail.com, gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org, 
-	rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn, 
-	chengming.zhou@linux.dev, tony.luck@intel.com, reinette.chatre@intel.com, x86@kernel.org, 
-	paul@paul-moore.com, jmorris@namei.org, serge@hallyn.com, pavel@kernel.org, 
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com, 
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com, qiang.zhang@linux.dev, 
-	dietmar.eggemann@arm.com, bsegall@google.com, mgorman@suse.de, vschneid@redhat.com, 
-	kprateek.nayak@amd.com, mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com, 
-	babu.moger@amd.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap83lNf0bUXX4ZS8@gourry-fedora-PF4VCD3F>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
- <ap76-0-hN6CAcYXX@redhat.com>
- <ap8mgnpE7D4TTrno@gourry-fedora-PF4VCD3F>
- <ap8yoW37GY17pHYS@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c77j3gHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D1061F00A3D;
+	Mon,  7 Sep 2026 22:28:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788820088;
+	bh=CrjVftsd1fDJTk3OIWY22Z3hvfMnt42igjADpNK0vfI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=c77j3gHGJEuQykImQKnfc9hUR+TEmlYCyI/SWgLWJ30uf1v5BJ0KbhjwaT73Ollqs
+	 kam3QhfGx5KvQBfkcnHRt7huZiXW/ROsYHqvsBB0pgVIHWv1U9sVIbLWOrdgTz7JB4
+	 E3CLG0wwr3GdzAyivM5Dfvmk3Amc0usM1JFndiqJZZd3lGcLKGWtQB5FpTVPAo58W7
+	 MJhR9yxRr/zwTFGOG53LkdcnrnhOuGP+N3GUjYsUDl86tr5l0u5oQTcu0NJvZalBvV
+	 CmG5k3jBf3KP++Pddt9bX0Dx6fONmVmDqlbCEr9oa7bwts4FE7WzzXWVJ/uubDRaAv
+	 PnkkbKDfdoMbw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, "Cc: Hyunwoo Kim"
+ <imv4bel@gmail.com>, Oleg Nesterov <oleg@redhat.com>, Christian Brauner
+ <brauner@kernel.org>, Peter Zijlstra <peterz@infradead.org>, John Stultz
+ <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>, Alexander Viro
+ <viro@zeniv.linux.org.uk>, "Eric W. Biederman" <ebiederm@xmission.com>,
+ stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+In-Reply-To: <ap8bUiYYwQT1nVg5@pavilion.home>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain> <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+Date: Tue, 08 Sep 2026 00:28:04 +0200
+Message-ID: <875x0g3de3.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap8yoW37GY17pHYS@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 11:54:41PM +0200, Oleg Nesterov wrote:
-> >
-> > This might be my - admittedly shallow - understanding of scoped_guard,
-> > but does scoped guard handle goto correctly?
-> 
-> Yes, it does,
-> 
-> > and why it's generally discouraged to mix cleanup.h and goto.
-> 
-> Hmm, why? I didn't know...
-> 
+On Mon, Sep 07 2026 at 22:15, Frederic Weisbecker wrote:
+> Le Mon, Sep 07, 2026 at 05:26:04PM +0200, Thomas Gleixner a =C3=A9crit :
+>> It's not obvious of course and might deserve a comment.
+>>=20
+>>       exit_signals()
+>>         lock(sighand)
+>>           old_leader->flags |=3D PF_EXITING;
+>>           head =3D remove_signals()
+>> #1      // RELEASE: PF_EXITING must become visible
+>>         unlock(sighand)
+>>         flush_list(head)
+>>=20
+>>      ...
+>>      posixtimer_exit()
+>>        posix_cpu_timers_exit_task()
+>>         lock(sighand)
+>>         ...
+>> #2      // RELEASE: The stores in flush_list() must become visible
+>>         //          They might be already in case of preemption
+>>         //	    or due a RELEASE operation in seccomp_filter_release()
+>>         unlock(sighand)
+>
+> That second step only appears at the end of the patchset, right? Otherwise
+> it's done on release_task(), which is after transfer_pid().
 
-one of the reasons to use cleanup.h it is to eliminate the "goto
-for exit cleanup" mechanism in the first place (says so in the first
-paragraph of cleanup.h).
+Cleaning up the enqueued posix CPU timers has nothing to do with the
+signals.
 
-Later in the header is explicit says don't mix:
- 
- * Lastly, given that the benefit of cleanup helpers is removal of
- * "goto", and that the "goto" statement can jump between scopes, the
- * expectation is that usage of "goto" and cleanup helpers is never
- * mixed in the same function. I.e. for a given routine, convert all
- * resources that need a "goto" cleanup to scope-based cleanup, or
- * convert none of them.
+>>     exit_notify()
+>>       lock(task_list_lock)
+>>       exit_state =3D EXIT_ZOMBIE;
+>> #3    // RELEASE: exit_state must become visible
 
-This particular patch only does a partial conversion - so it's a
-bit of an anti-pattern.
+In context of patch 1 alone, this RELEASE operation guarantees that the
+stores in flush_list() are visible.
 
-Reading up on scoped_guard a bit more it seems you're right it handles
-the issue to jump-out, but i can see why cleanup.h says "don't do that"
-because it's confusing to look at / hard to reason about.
+The new leader cannot proceed with swapping the TIDs _before_ it
+acquires task list lock and observes under task_list_lock
 
-~Gregory
+         old_leader->exit_state !=3D 0
+
+The TID swap cannot be reordered by the CPU _before_ task list lock is
+acquired and the exit_state is observed as non-zero.
+
+As the exit_notify() RELEASE made both the exit_state store and the
+preceeding flush_list() stores visible the third party must observe them
+correctly as well when it can observe the TID swap.
+
+It does not matter whether the RELEASE operation after flush_list() is
+spin_unlock(siglock) or any other RELEASE operation before and including
+the final one in exit_notify().
+
+Any of them will provide the guarantee because _all_ preceeding stores
+must be visible before the RELEASE operation is complete.=20
+
+No?
+
+Thanks,
+
+        tglx
+
+
+
+
+
+
+
+
