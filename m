@@ -1,86 +1,78 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDDE5111A9;
-	Mon,  7 Sep 2026 16:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4392517BC4;
+	Mon,  7 Sep 2026 16:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799303; cv=none; b=eb7b0KfVD4JhmirVbe7zDqnY79eJCV+ApI4yISHHPEP0c0wNqRZRCS7xIC8sEpVFfd4IvaV1gt43ajAESjhrfuNlGCYvpB7G1pfHh0poBLMeu0ClrYrzIbP20sCdflW26vCRAO9j7HrAY/SUtPS5EeYqvfPRS1ZdYkxLz2aOO2w=
+	t=1788799375; cv=none; b=X30uxAe9TANOyOmT/71Uf8iLpIFpf/gk9Z5I0jBaX5MPFmyjNB5kZ9LhgNbkFx8uHYrxHnzodJX9Ci+pPfZcuKYRT0NNXCNxbtieVywuFtXbDZGtQGeipg1VQGQQOoE2O6C2Zjm0tPRHHD3kbQoM3FsCTOhcpuqMJt3NR3KpqzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799303; c=relaxed/simple;
-	bh=ZjLOkSlLdR1jfLyWVz2vCCLaVWUaujxowOpu71YW9MI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ku/U4ui+DufUFag18rywD0iiTIFMJJ0u8KoqEkRA57nsNe79MvCI9H843gMG5Vh8Sz2uDDKzqnmwkwNoCTQlYIv0bgPuzEaSFaOdskvDbupqbkb55aiwRAHYqvdQk7+N6QoegD1uJTj2Ps8Hjqz+Ygzp3bOjA4hC/yWvouRZPa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeZrNCGs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788799375; c=relaxed/simple;
+	bh=fLxREjCW+hIAs+EEHTgczv9agQLNMAmRcCQotmOb0FA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=G52XJ1w0qVv307xmmAhlsd5F90+5aJTNZo232GoF6+SIF14x9BhajVa2Cjw+6CoG0geGt4I/cyJxNtIJPJHg8Gphrye0nmyrMLnYO8MVVLUyNx9BGv4Ll+XM2qo/lZRtSUsR2V6qNt/VWhaXo4DOkqMUihJlQBxks1MRTJokJ/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=m0uZl4VL; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeZrNCGs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CCE1F00A3A;
-	Mon,  7 Sep 2026 16:41:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799302;
-	bh=2o2i19ypzRp1zZlcTwsPkK6eNqVdjfCbynSxyeXYXvc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jeZrNCGs4WD65/u5voFDVJu2Ma65oDUNgRc93clYuDP6GSkDO2JtRtD2xncF6rOI2
-	 2f+OLlBmoWqRoayX9iKMhoc20b25cThk2jBb0mFWXneLqCuC/JOxRzaWbZxaNP8SLS
-	 9RzCNa1AVLdPFVE5wULRVgyAMqn8BqnXPzPi1xzLaM46f9g/uC3JH41cFZExF7CSeN
-	 ySRjyaJmg3l3UhFQM3zwMaWmasvYp9sGVi09quy7ghOxmFTcDDCoV36uR+Ycea6QGJ
-	 +YMFqmJ2PRvtm3nilju2fFUKWf9Hxf/VfAQQ1K7x+lOMHjH/cJST+XvjoMnWt0AErK
-	 z99k0CK0c7IbQ==
-From: SJ Park <sj@kernel.org>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	shuah@kernel.org,
-	akpm@linux-foundation.org,
-	ekffu200098@gmail.com
-Subject: Re: [PATCH] selftests/damon: stop kdamond on error exits of no-op commit test
-Date: Mon,  7 Sep 2026 09:41:34 -0700
-Message-ID: <20260907164135.97543-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907123455.67246-1-zenghui.yu@linux.dev>
-References: 
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="m0uZl4VL"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 037E5408FF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1788799370; bh=L7OW1ofSJOtG+PUDpHwGnt/QuaqtnCse4MytWP0ziPo=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=m0uZl4VLrH73x289PDgat/CifLFek797rrEjO6mtJozCJLhZsQhGP7Ung0os+pv2x
+	 Gm47dqOPd9wGB35XentyfKyMf/xwJDRjxFVlUQQ7S48isdQVJ9EYK9ztYHS1tjUB58
+	 dlEM6G97yu2IciA/zM85rnj6cQtLt75b5keqKRJqN81GSBJD61/zqBPDyb4Q0EFH2h
+	 m+supVUNc33rp51TEP3LZ3qsPhxgxlFxHl9P4xVVVkAeYUcOr7MolkaRFBikAIgHZl
+	 oW28/oiwtg3O1wEZ3aGDBSuXHfwtdprHCceFTTvJgnLtq4IqPTZ8kdNSIMXaXKEsnn
+	 1wP5iqtU/Av2w==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 037E5408FF;
+	Mon,  7 Sep 2026 16:42:49 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Shuah Khan
+ <skhan@linuxfoundation.org>
+Cc: Manuel Ebner <manuelebnerli@mailbox.org>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] fs: porting.rst: add bracket
+In-Reply-To: <20260902145428.704582-3-manuelebnerli@mailbox.org>
+References: <20260902145428.704582-3-manuelebnerli@mailbox.org>
+Date: Mon, 07 Sep 2026 10:42:49 -0600
+Message-ID: <87h5k1ovw6.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On Mon,  7 Sep 2026 20:34:55 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
+Manuel Ebner <manuelebnerli@mailbox.org> writes:
 
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> The sysfs_no_op_commit_break test starts a kdamond via sysfs, but its error
-> paths (e.g., drgn not installed) exit without stopping it.  The leaked
-> kdamond then makes subsequent tests, e.g. lru_sort.sh and reclaim.sh, skip
-> with "Another kdamond is running".
-> 
-> Wrap the post-start logic in try-finally so that kdamonds.stop() is
-> executed on every exit path.
+> Add missing '(' to function in prose.
+>
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
+>  Documentation/filesystems/porting.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+> index 60880eb0c..810657082 100644
+> --- a/Documentation/filesystems/porting.rst
+> +++ b/Documentation/filesystems/porting.rst
+> @@ -673,7 +673,7 @@ watch out, since that shortcut is no longer valid.
+>  they used to - they just take it exclusive.  However, ->lookup() may be
+>  called with parent locked shared.  Its instances must not
+>  
+> -	* use d_instantiate) and d_rehash() separately - use d_add() or
+> +	* use d_instantiate() and d_rehash() separately - use d_add() or
+>  	  d_splice_alias() instead.
+>  	* use d_rehash() alone - call d_add(new_dentry, NULL) instead.
+>  	* in the unlikely case when (read-only) access to filesystem
 
-Looks good to me, thank you for fixing this, Zenghui.
+Applied, thanks.
 
-> 
-> Fixes: 10725cd2b09a ("selftests/damon: test no-op commit broke DAMON status")
-> Assisted-by: GLM-5.3 OpenCode
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-This patch is applied to damon/next [1] tree.  If this patch is not added to
-mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
-to pick this.  So, no action from your side is needed for now.  If it seems I
-also forgot doing that or you cannot wait for my action, please feel free to
-directly ask that to Andrew.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
-
-[...]
+jon
