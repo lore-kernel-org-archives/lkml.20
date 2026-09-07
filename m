@@ -1,84 +1,65 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C5A64A3410
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9304C0433
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794346; cv=none; b=Dii7Gk26fdry8G2JeSQYzl8PR9Y1uSvkxZWBThiE4lcM87Y7K8nDRRem2L/a1BHPR2QX5hYv553K7uh7XnpXuv6q1GCWVFzZfrkcvejBrynh6DFdbyHDfgWc5/+/SmWut54o2ItUA4yg35NsMlpNbemrL3yQPEn47wic0BnoWoE=
+	t=1788794367; cv=none; b=PZ5QBrfSCdvmCkgHS3mhKKGhdw5wWbfad+O6lu/ZKmGFI4QdHBon3xNcwtlmKPz1GS1nBm64K2MxJKiN5rZjQH13MoT0Dug+rqLmTXX070IW+NHUduypCxu32PsrhJaFF8DMxDLpktsij8RDPYIc5gMGEvcjAVmD596+m71JLgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794346; c=relaxed/simple;
-	bh=M5J2lodRrUAmaH6dLAkP5KCyG2v+GNiSPgfQ3bSiU04=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jAsdh6zakLxXuJWSCNqOQ4U4XX9NQVNzG1G2PGcLeZeREqyP9jpagRYLSn2W56diMnrW6fr6iKgZmvAzxiP/ItQbM59CJ9BRCHxwVH6p814jfN6RZHJFwKWzNpf47hbZbWkxHJGVCPNQcjoM3lY89AIzN1W8sfF7ho/BpS6nxJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=uM/Pmvkq; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=Edo4fVWB; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1788794367; c=relaxed/simple;
+	bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=VOOatLvC2O4y2ABAlH0dNOir8HkergmeWHFNLCHsxpn7g/gMfYJ0CQbFW9KnD8xAsvyyiepoHVMK2gFOb17epmNINeRJ572if1pKVE8IfObAIWIxrgLpYgFh/QnlntFnIchS7maJ30PILyW3xtzT50JWhmfSNq2+Yc4mNe9M+lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WcjO6Pjr; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="uM/Pmvkq";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="Edo4fVWB"
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687EYgqY2301770
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 11:19:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps01; bh=fnG+7V+vVRFd32OZquqCYHb/ch
-	8E17atJPROlBwFa5s=; b=uM/Pmvkq3KJujx1DdospGbKHf5XCeOuDi32kUYQgRw
-	+/L1vlUl5eQvECuOWY5cmLd0V2RrQ49suDNr8Itj4G4/qwM4B0w+K2dufZEoDRPG
-	efjqtKyoYydN5aT9fXhAPx1mybU64lM7LNJHdLfu6SBDnz+/zFBH37mY9wPI5YTu
-	Ckl2ub5ZtGFAhkilTX5nEQUOdNJRl2J8FpQpRz4ExwAlofAppx8ows8EbhqRCP0u
-	lafLjHAe7aHLXazXrAZhFORM+pooMTuDyuMhBHSh3GoDfirFbzCxZ+ktII58+381
-	xPqjHMnwk2OUqyWCd20Hnaz5AneBcQr1QB9ROmmiGskg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4ghwvr8tvr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:19:04 -0400 (EDT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fb2a46cb5so85037501cf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:19:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WcjO6Pjr"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-484362f5c4aso4632624f8f.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:19:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788794343; x=1789399143; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fnG+7V+vVRFd32OZquqCYHb/ch8E17atJPROlBwFa5s=;
-        b=Edo4fVWBjP6sSqTiLmHGCQdHkYNeSkiX6IJl4+4+RAmLUWKc5qUkudIS0ANT7tEvXo
-         okCUxX/U7+FhYGabolUWz0iB7EgpYKI3ubb76PiBq/EIdMPGSaZOVOAa6tbJzzSqGJDK
-         ZILHvpMCVU/vKgfqK/NFvQPEVH8vIJrg5jXzM7Skg0XIccxC0Xtq/5gByzgjLO6/59pI
-         PVauaXchWaMCZIwVCKnp3tzrnU48L0XdIMrddM1bLeoacOskRgyySIZYj9jtPWUMlcwd
-         W5LWqL2ohMIdwatBHyW0q7xFzyr5C4WC1T3TWfxnKyk8qXGR5I2OFihhgP7PyiASreqY
-         3PSQ==
+        d=baylibre.com; s=google; t=1788794362; x=1789399162; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
+        b=WcjO6Pjr/Xe21JivKqhd7zW2Wev1CqRRTyYrs3KMr7rXsPgN/kyBafvkLkss6A/Tra
+         w3VSjhT3hIvPqhRPyH+52jDaCaIwmiUDn27ZfG1lPutE4HZcoBujAQVigRyDwpULWzs0
+         DBpTVYJEDRlosx7OBBWTuNxLqbssSjsYdCeMiuPK9imGgy1/jqJgPzX4CV8bOgye5QHK
+         VTLFqrL+bUaNXZDaQlOCPLcQ2lhkrHYialup0OuiGeb9m8dbVrQyYtH208OgQHhsSchI
+         fNAeXt59o43+/XyJPFfqmO2hDYKaBtAwMUWLzjQmSexMS90yKGAw/v9szxH1MaDN2Sfx
+         LuRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794343; x=1789399143;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=fnG+7V+vVRFd32OZquqCYHb/ch8E17atJPROlBwFa5s=;
-        b=WcAL/FylLzRMLb1P+DhT/1CQ8dbfjEy61LvTXAAn5dvN5NHgzT1JpuF7bguIFfzPL0
-         E6Lm6Vcnytl5yZmZYc/INAZA3R2dUu9Q0Ktsu7TAZeFybNz3caXX8tY47ew+c7Y97G0w
-         U/fg8p5kPa8khpvsDUY1DY9yHq4monsyherSorJ0DGAB+FcAdoSZg8jTPiiy+IPnVqle
-         KBum/X9WsuF0XbuKLRAJfDklgr5UTJT4mrEhT2z7/1EtU8mMzCgen4ynNle8LKr++VsB
-         n6Ip9CfSqTrcT7ZVmzhSyOoZcjHB61HcnKWLH/XcwiDa6sXPRFL7tQyeVvT/x/TsSgCL
-         ipew==
-X-Forwarded-Encrypted: i=1; AKwUvBytCm+t6fFlRQdam15tX+qOyteYOGcV11zsdlNaD3JsbUL1NqRMfECQ599KHUjn5HddmI7PXe43DmQavFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ntYbq4yLmckun7bGn2tK0Sna+UdJtfU7OW8NO6ja7X77/yjr/s
-	M81vYSdp7bH6B+QFcj2hY1ZzksCpVIBs/0x1hFyPDWxcvDGmypvMzQO+Kos0gB3299zIUjwgV/A
-	9TckcEMy68um89qtNKBz8KkEdEu5Xxe9GppDSn54ZTk7lYWM9rYr1POEy1/H9Pg==
-X-Gm-Gg: AYBFou0csPxLY5hpI/LTtVuzoQkfod5ofkYldXfJdB/hk7WK/7MUEounU4JriETPOu9
-	TlkxsNBDzRi30Opn4VWxljsDV6V3yPDidH8U9U4hPSUYRfmZtcwGRyuWcIwEXkeZOusMQ+Q8Buf
-	DkIQeZyHAmTwkZg2yNpwDITpOXbujzZpM9oqwBKfxk4OTVVAPXjduvUbnahHLZL/AQHu8aMmuVc
-	XPfJorKJK41pznW7VHpaXy48EFYG36yjNh2rnDp03y9ssXQZXrZGWdnpqWKojxDrRiGqhylwSYr
-	PMSdS0fUkQyn1uLLwny4/wtI9VYeJbxbmdMJmBJHTomp1wl4Wpgmu8oS3x3nTk/U2et+v4xwDzV
-	y9FDBD/HtJ07XCKSFcvly+Bq0ADoEoupm0ztSJKZJGNNFuA==
-X-Received: by 2002:a05:622a:352:b0:52f:b29d:1eef with SMTP id d75a77b69052e-530546be95amr271250171cf.7.1788794343028;
-        Mon, 07 Sep 2026 08:19:03 -0700 (PDT)
-X-Received: by 2002:a05:622a:352:b0:52f:b29d:1eef with SMTP id d75a77b69052e-530546be95amr271249281cf.7.1788794342484;
-        Mon, 07 Sep 2026 08:19:02 -0700 (PDT)
-Received: from [127.0.1.1] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53093295584sm1566981cf.13.2026.09.07.08.19.01
+        d=1e100.net; s=20251104; t=1788794362; x=1789399162;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
+        b=ecmgtV06AB+gw9HZC6vm8LnZ16K+3KG4ikLbE265Ow7c31D0pH34noGDi3NTskeQ82
+         iClwqzcq5XfqL2oonB0RqJ05GLJmVitsg6lM2uWh7f8QAtFtpezY5cc5xcqDx0ZqqguS
+         ufmYJuaBx7I5j2EQS2IQQPU2c3ef1YjQn8vHmky/HY1rovNk5RkV4AIhcNvGoDZxRVpg
+         RoZJ0hV4vpDCg+I2U8Vqxw8kN/cNY8usvDDUeJwEHXf2POdRNeiDpjPPSKvAU6P2T6pm
+         vhJp36uipjg73R7TywrUFKl086J0Xl70doqFZbH1MhCySM1dT4Hqf5CzIAlBtyeXxmmT
+         Wmkw==
+X-Forwarded-Encrypted: i=1; AKwUvBya5X5DpoP9l+OPUMKAfJtZT5xRvZOyaUY4SSdIjuh55haYG+jgqOsABp3MqGOjfftbUnFGOKLFsfYR6/Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++li9r0WMUf1BmTPSCT9XZqoe8+bdQ6buk5KTqvOmKBtoz3fTHsN
+	lH+pERDJEuCtOha2dzr2+v1vuWbmPvZVvf3sAZpeK0dY5Bha7lEk/Mq3EAoZjsJbvWA=
+X-Gm-Gg: AYBFou0bUfh0bHOl2FsQRhq48JaV1uj0rhqPC3/iiA2MsH9I3yKkxTQpRapI+vjqbw7
+	5FdmEG4iLqz2QMPsKhFL3L/sO8U5Gm+43bqB5/NltvHsb2A+NrRLY28bYzNYkthH4B3frKAOE6a
+	qg1p3Zbg9WVanTQDzxSg7/y6hEqQao9h/fsO75Edpw3dGqTDEAMusv1rSWpPvYFLaszQRF2y4Ym
+	v1slff86IGRb0Xg3Sz6xzxL7UBaKN+niXj1oDZ0Tn4htBaBu5a8RuFbWWCOIpti/pRn0RrQOLDl
+	7J2XOQ5uJ3K7UOLINHvJyq/Z/VELWUZDknda3O3ARrqMn6hqB4T778rFCwowmODP68U3yQfaS1i
+	xtCqRQXNQHIQM55QziX+XIylj/wMlG232Pz92gqDNkGKeY7w1tIGZAndbUm7glezo+O4MVZjuuP
+	pJeWicqIZjCGDeMSNda26IQ5tOY1WPFmzfAL5afX7kRP5Xnp3yv0HEs0g4I0oylea1hC+bVJj9B
+	UravO92+Vj8wpazp0sZcw==
+X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr393160235e9.6.1788794362159;
+        Mon, 07 Sep 2026 08:19:22 -0700 (PDT)
+Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm288040175e9.0.2026.09.07.08.19.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:19:01 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Mon, 07 Sep 2026 11:18:38 -0400
-Subject: [PATCH v2] isofs: convert the zisofs read path to use folios
+        Mon, 07 Sep 2026 08:19:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,261 +68,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-isofs-zisofs-folio-v2-1-c2e430abfcbc@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAM3VnmoC/32Nyw6CMBBFf4XM2hpasQRX/odh0cdUxiA1HSAq4
- d/lsXd1c5J775mAMREyXLIJEo7EFLsF1CED15jujoL8wqBypfMq14I4BhbfPUJsKYqzlVpJr6s
- CC1iGr4SB3tvprd6ZB/tA169Pa6Mh7mP6bNZRrr2/glEKKZxFo2VhyvIUri62w9OSOaIfoJ7n+
- QcdxUrMyQAAAA==
-X-Change-ID: 20260906-isofs-zisofs-folio-5b1621d694e4
-To: Jan Kara <jack@suse.cz>
-Cc: Matthew Wilcox <willy@infradead.org>, linux-fsdevel@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788794341; l=7400;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=M5J2lodRrUAmaH6dLAkP5KCyG2v+GNiSPgfQ3bSiU04=;
- b=CMfJnquzMiO+SFW6SANUuHfybzXgj3GwpqGGYgI133mtaxcZwwHH/gu6mTxwOo8fnIcMWC0iB
- Piiw2S9GMRKBI6lXHBXB8YP7w7Zn0/qaIYPDPmZ3Ka3meqMti11ddgg
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-ORIG-GUID: rmzZKsQ6oy332e83EKz6wE2IMRpqr9uq
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE2OSBTYWx0ZWRfXxGpDQA+voIYO
- JC+aEGdMzKEbFKVss0vRTUdrzFDtEzNk1rnZ8WCdLQPf+BIzWgXOIfwAfPA0Ki7mnutz53yRjKr
- KmK5G5k9CAJqvtDkbLGFnoEEOoHL+i4uwqja2EgJ9AvLPG5b1kjDkRYW9DkEVQbX10nw0Lj2Y9j
- AMmrdvNIzDPptF+S64QhqjAgqWTWiWnv1DD2eYOzAwg78G8/Ur8Irw2CqEnVG8/F6zIQoE2rPPF
- hw3LPdT/uWYZySpa96qAm2q+2g3bCVdTkemMB37OqEFyqY9LSLST3gvDQgOAL3ExmfyETW5PZQQ
- r3bT3OJ3wlMuCiwi5CYmbEyKsxlcDDXoSQa+P6jidoRQLZsO4w0eMEzcKuXRHjy3PU9pebPhw5C
- urLAK1PiNzIv9zoNjdRq2Ozfsq4mCam2p0/2sbbWAC5PfLhdzIenodWZZnSAUfz4ILpumfLHKmq
- uJ5T86qrnCSUfbLjRIw==
-X-Authority-Analysis: v=2.4 cv=RP2D2Yi+ c=1 sm=1 tr=0 ts=6a9ed5e8 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=VwQbUJbxAAAA:8 a=JfrnYn6hAAAA:8 a=bC-a23v3AAAA:8 a=PTHbhwen-nVrj_TBoDAA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=1CNFftbPRP8L7MoqJWF3:22
- a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: rmzZKsQ6oy332e83EKz6wE2IMRpqr9uq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE2OSBTYWx0ZWRfX8XR26oP7cnko
- CJTof6Hoy/8PzMe5aI7eARlL6mV20m2rytTelZESS+ZzsDxzj99K75QYFf+R16bELb2OKH/3Gly
- 7jFIFtYUVPaZWE/To//FViCn3HSVDzYPpFVCDbzh1qcMKHuIySQ4
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 adultscore=0 malwarescore=0 impostorscore=10
- bulkscore=10 spamscore=0 priorityscore=1501 phishscore=0 lowpriorityscore=10
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070169
+Subject: Re: [PATCH v4 2/4] pwm: meson: add the PWM count driver data
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org
+In-Reply-To: <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
+References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
+ <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
+Date: Mon, 07 Sep 2026 17:19:15 +0200
+Message-Id: <178879435514.2256446.12623877061277695056.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=748; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntX6M1dVwwpG2kkr876Epbt5jZrSl70Nlw4AG
+ HstsY/+0kyJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7V+gAKCRArRkmdfjHU
+ RbpRD/0ehx78POhhYnSt521wnujPrwLy1gEErNRrExkWhZysX4QDuXyJy2R8JOv9iSpxCyY6sHp
+ OStxUC59Z7yn8cTVgbQufMKwTpINIBqq5eXL8bQhdsmJEy+Pk1/3ww0GAVwSq5ZXHtMjsE0/7eV
+ AkW7ix5czGVHop96QPnKwjREam7sb0FcFaRGjR0hs1AAnQEl9DTq2+UFZCj1ikMy4Tz43KRS9qX
+ 1h+GdCJIlctY0Ge/7SF9+07et3J/2sH3lE8vQRMoPP7wQLB6dXuGbrbv3LYHmXIW55nZY4c/viA
+ e5eM4ibjmSZMZCeRZH7T8mDxi5aZTDC5KggxpX120TSlF/RpdsC0MXhtgxg5jA8HLusYvIWV/rm
+ BVTWqgIAxnOD2oZSKgE1THvUmZQ+tZ28aeVKEo+Ppv08GZva7gqjPTPTUeIzenyqwqaShfSAQSt
+ gsvvXrPntt6cLxx9mVFNvNrcEK7z0FVkpP6Eb6sJW3if8dSnHywjT0ORFxjzt2ppnmSPMM5oMKk
+ Su0Z/+5Gnc5ZeZY3CMt/hHdXJdRL4csf3nqLomgLjoJfIPBQLmB/xj8JEaO/So0odhbKv8K0x2n
+ 0u5N4D7tb2oUl/tf0At1LWLYbd6JgnKZ7nlfiL3OzD3xfYXgt7x8rmtMFDTO9rVbDdJuPI1Bsr4
+ /p2Q9nrsCVSI+sQ==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-Store folios in the array that zisofs_read_folio() passes to
-zisofs_fill_pages() and zisofs_uncompress_block(), use the folio APIs on
-them, and grab the folios with __filemap_get_folio() instead of
-grab_cache_page_nowait(). This removes six compound_head() calls, from
-page_offset(), the three SetPageUptodate() calls, unlock_page() and
-put_page(), and the last struct page usage in isofs.
+> Add .npwm fill the  existing entries, use it in probe, and switch the loop
+> in meson_pwm_init_clocks_meson8b() and meson_pwm_init_channels_s4() to
+> chip->npwm. No functional change.
+> 
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>
+> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
+> index 8c6bf3d49753..22cefc6d5dd0 100644
+> --- a/drivers/pwm/pwm-meson.c
+> +++ b/drivers/pwm/pwm-meson.c
+> @@ -113,6 +113,7 @@ struct meson_pwm_data {
+>  	int (*channels_init)(struct pwm_chip *chip);
 
-isofs only uses order-0 folios, so folio_size() is PAGE_SIZE and the
-logic is unchanged.
+The commit message has a small typo ("Add .npwm fill the  existing entries" has
+a double space.
 
-grab_cache_page_nowait() passed FGP_NOFS as well, but FGP_NOWAIT already
-prevents reclaim entirely, so leave it out, as FGP_NOFS is on its way
-out [1].
+beside that:
+Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 
-Change poffset to be unsigned int rather than just unsigned while at
-it.
-
-[1] https://lore.kernel.org/linux-mm/20260830041901.2668-9-willy@infradead.org/
-
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
-Changes in v2:
-- Pass the offset to kmap_local_folio() and use folio_size(), per Jan
-- Add a sentence in the commit message about how all folios here are
-  order-0 for now
-- Link to v1: https://patch.msgid.link/20260906-isofs-zisofs-folio-v1-1-cbea614a773f@columbia.edu
----
- fs/isofs/compress.c | 77 ++++++++++++++++++++++++++++++-----------------------
- 1 file changed, 43 insertions(+), 34 deletions(-)
-
-diff --git a/fs/isofs/compress.c b/fs/isofs/compress.c
-index f9869d62b850..2d23abaeb874 100644
---- a/fs/isofs/compress.c
-+++ b/fs/isofs/compress.c
-@@ -39,7 +39,7 @@ static DEFINE_MUTEX(zisofs_zlib_lock);
-  */
- static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 				      loff_t block_end, int pcount,
--				      struct page **pages, unsigned poffset,
-+				      struct folio **folios, unsigned int poffset,
- 				      int *errp)
- {
- 	unsigned int zisofs_block_shift = ISOFS_I(inode)->i_format_parm[1];
-@@ -66,11 +66,12 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 	if (block_size == 0) {
- 		for ( i = 0 ; i < pcount ; i++ ) {
- 			unsigned int off = i ? 0 : poffset;
-+			struct folio *folio = folios[i];
- 
--			if (!pages[i])
-+			if (!folio)
- 				continue;
--			memzero_page(pages[i], off, PAGE_SIZE - off);
--			SetPageUptodate(pages[i]);
-+			folio_zero_range(folio, off, folio_size(folio) - off);
-+			folio_mark_uptodate(folio);
- 		}
- 		return (((loff_t)pcount) << PAGE_SHIFT) - poffset;
- 	}
-@@ -119,11 +120,12 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 
- 	while (curpage < pcount && curbh < haveblocks &&
- 	       zerr != Z_STREAM_END) {
-+		struct folio *folio = folios[curpage];
-+
- 		if (!stream.avail_out) {
--			if (pages[curpage]) {
--				stream.next_out = kmap_local_page(pages[curpage])
--						+ poffset;
--				stream.avail_out = PAGE_SIZE - poffset;
-+			if (folio) {
-+				stream.next_out = kmap_local_folio(folio, poffset);
-+				stream.avail_out = folio_size(folio) - poffset;
- 				poffset = 0;
- 			} else {
- 				stream.next_out = (void *)&zisofs_sink_page;
-@@ -173,9 +175,9 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
- 
- 		if (!stream.avail_out) {
- 			/* This page completed */
--			if (pages[curpage]) {
--				flush_dcache_page(pages[curpage]);
--				SetPageUptodate(pages[curpage]);
-+			if (folio) {
-+				flush_dcache_folio(folio);
-+				folio_mark_uptodate(folio);
- 			}
- 			if (stream.next_out != (unsigned char *)zisofs_sink_page) {
- 				kunmap_local(stream.next_out);
-@@ -206,7 +208,7 @@ static loff_t zisofs_uncompress_block(struct inode *inode, loff_t block_start,
-  * fills in other pages if we have data for them.
-  */
- static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
--			     struct page **pages)
-+			     struct folio **folios)
- {
- 	loff_t start_off, end_off;
- 	loff_t block_start, block_end;
-@@ -221,14 +223,14 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
- 	int err;
- 	loff_t ret;
- 
--	BUG_ON(!pages[full_page]);
-+	BUG_ON(!folios[full_page]);
- 
- 	/*
- 	 * We want to read at least 'full_page' page. Because we have to
- 	 * uncompress the whole compression block anyway, fill the surrounding
- 	 * pages with the data we have anyway...
- 	 */
--	start_off = page_offset(pages[full_page]);
-+	start_off = folio_pos(folios[full_page]);
- 	end_off = min_t(loff_t, start_off + PAGE_SIZE, inode->i_size);
- 
- 	cstart_block = start_off >> zisofs_block_shift;
-@@ -267,9 +269,9 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
- 		}
- 		err = 0;
- 		ret = zisofs_uncompress_block(inode, block_start, block_end,
--					      pcount, pages, poffset, &err);
-+					      pcount, folios, poffset, &err);
- 		poffset += ret;
--		pages += poffset >> PAGE_SHIFT;
-+		folios += poffset >> PAGE_SHIFT;
- 		pcount -= poffset >> PAGE_SHIFT;
- 		full_page -= poffset >> PAGE_SHIFT;
- 		poffset &= ~PAGE_MASK;
-@@ -289,9 +291,11 @@ static int zisofs_fill_pages(struct inode *inode, int full_page, int pcount,
- 		cstart_block++;
- 	}
- 
--	if (poffset && *pages) {
--		memzero_page(*pages, poffset, PAGE_SIZE - poffset);
--		SetPageUptodate(*pages);
-+	if (poffset && *folios) {
-+		struct folio *folio = *folios;
-+
-+		folio_zero_range(folio, poffset, folio_size(folio) - poffset);
-+		folio_mark_uptodate(folio);
- 	}
- 	brelse(bh);
- 	return 0;
-@@ -312,7 +316,7 @@ static int zisofs_read_folio(struct file *file, struct folio *folio)
- 	unsigned int zisofs_pages_per_cblock =
- 		PAGE_SHIFT <= zisofs_block_shift ?
- 		(1 << (zisofs_block_shift - PAGE_SHIFT)) : 0;
--	struct page **pages;
-+	struct folio **folios;
- 	pgoff_t index = folio->index, end_index;
- 
- 	end_index = (inode->i_size + PAGE_SIZE - 1) >> PAGE_SHIFT;
-@@ -336,33 +340,38 @@ static int zisofs_read_folio(struct file *file, struct folio *folio)
- 		full_page = 0;
- 		pcount = 1;
- 	}
--	pages = kzalloc_objs(*pages,
--			     max_t(unsigned int, zisofs_pages_per_cblock, 1));
--	if (!pages) {
-+	folios = kzalloc_objs(*folios,
-+			      max_t(unsigned int, zisofs_pages_per_cblock, 1));
-+	if (!folios) {
- 		folio_unlock(folio);
- 		return -ENOMEM;
- 	}
--	pages[full_page] = &folio->page;
-+	folios[full_page] = folio;
- 
- 	for (i = 0; i < pcount; i++, index++) {
--		if (i != full_page)
--			pages[i] = grab_cache_page_nowait(mapping, index);
-+		if (i == full_page)
-+			continue;
-+		folios[i] = __filemap_get_folio(mapping, index,
-+				FGP_LOCK | FGP_CREAT | FGP_NOWAIT,
-+				mapping_gfp_mask(mapping));
-+		if (IS_ERR(folios[i]))
-+			folios[i] = NULL;
- 	}
- 
--	err = zisofs_fill_pages(inode, full_page, pcount, pages);
-+	err = zisofs_fill_pages(inode, full_page, pcount, folios);
- 
--	/* Release any residual pages, do not SetPageUptodate */
-+	/* Release any residual folios, do not mark them uptodate */
- 	for (i = 0; i < pcount; i++) {
--		if (pages[i]) {
--			flush_dcache_page(pages[i]);
--			unlock_page(pages[i]);
-+		if (folios[i]) {
-+			flush_dcache_folio(folios[i]);
-+			folio_unlock(folios[i]);
- 			if (i != full_page)
--				put_page(pages[i]);
-+				folio_put(folios[i]);
- 		}
--	}			
-+	}
- 
- 	/* At this point, err contains 0 or -EIO depending on the "critical" page */
--	kfree(pages);
-+	kfree(folios);
- 	return err;
- }
- 
-
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260906-isofs-zisofs-folio-5b1621d694e4
-
-Best regards,
---  
-Tal Zussman <tz2294@columbia.edu>
-
+-- 
+Alexandre Mergnat <amergnat@baylibre.com>
