@@ -1,298 +1,110 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 20CCD389453;
-	Mon,  7 Sep 2026 06:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D5825B082;
+	Mon,  7 Sep 2026 06:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761133; cv=none; b=tlnn2rl5s6MEVlJIWdU5q2zmoICwpj6jKsvgm4pDKGyqKoAKgMr112BftjNQPL5KAHyuhUFwsTDCjtRDXyhLwC0FvjErNphQGBem1P+QNpyras65Yu6/nuH7oXeiEmWLyg8+l3vbcoxA+Etc6OpA3Sn8ZzLlR/eaLTWnEU2Ihy4=
+	t=1788761252; cv=none; b=N0FTpaxj/QjEhzjj1HefiN6SGg9/zXyCgfCi9LsNEKeyAR4JVVJdS2v+aZa4ntU4UBT06eoI7/FDOlbIDhWakKBpnlLhv0Sbes7CuO/LHqkXPmX1VZnAchC9d77ML746ZFUSZue1BvaePxs68g4Rf6WMjvfax5CqyaMXlcatzcI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761133; c=relaxed/simple;
-	bh=hBPwP8hp9KnGpZiFqIkc4EiMciV273dLIcexWcmIMBU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=dVzEqB3W/K6gSaBVxaltCQ6O/bubrnVGs/SKaL22CpH96ZK991IeW7qiRUom0h7fbwsKTn4gOjgdGyaxhtlhP155x2EXMnJjQDCKMf8lupafDygTKu5z4QKcc40lR2o9m/gClCZiJEOikPXbcyw4Rm4dsnGRxF8APl2KvPHUJLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wAn0zwXVJ5q93T5AA--.14170S3;
-	Mon, 07 Sep 2026 14:05:12 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app4 (Coremail) with SMTP id zi_KCgDH+TAWVJ5qo3ygAw--.7687S2;
-	Mon, 07 Sep 2026 14:05:11 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: thomas.lendacky@amd.com,
-	john.allen@amd.com
-Cc: herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] crypto: ccp - Fix use-after-free in backlog cmd advancement
-Date: Mon,  7 Sep 2026 06:04:15 +0000
-Message-Id: <20260907060415.575656-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1788761252; c=relaxed/simple;
+	bh=VggLjcaH+IJ8mW2kJenmQn641aU6Q9MydbcLkKaQ5oI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ME6bXP2iUfgBNZbc5oJns1wi6qMMd+Rz8GvF6hgor1wPJcSk/pxNzmtpvb/uHdk/ayeOo11Wa9xS20YxHA7ibWAKMshn9r6nWQ6wq1coyEtcIOmc2/Z6JG496Z45wViWtjqvb4d89t6EU+k6/YpKe34Vzb314r9MmvfUa9pnGEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cnh3kFjK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cnh3kFjK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1188D1F00A3A;
+	Mon,  7 Sep 2026 06:07:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788761251;
+	bh=ryjhib6RuFmlHrMiGgymNVQOes/BcGtkk293O7vRIRI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Cnh3kFjKIbTyzvF9YKbxPHuK8mCjVtzp4wXPY/VzObWa+Jrm/GOGs95jeXR1GUDPi
+	 OnGcHwGp5fmAzHOD0XSgSACaz8fF6smnNrEJfwOwiBkMgHu0oKsd00Oj+cuypRyrSu
+	 L1N7CHGVYGh3sbCbxtLbvwkdX6Gl3X5vv0xshwpcZb0oVjYzeGqG6CJdvZf19C8g13
+	 1JJkZ56UuX1VclQ/kfXah1KpgSz4Ig6YrnDwnuHjFf76pPJIouemEUTxWC5BkLOdB8
+	 pHeA9roY4eTR/aJCQPAwc7xhBjdXh4XqqGz4/kTaMXR3zGv8Yt98jwEZWMZI9uOYGa
+	 fvhZICQZmqs0g==
+Message-ID: <4184a903-c19d-4821-bfee-a01dac16e9f5@kernel.org>
+Date: Mon, 7 Sep 2026 08:07:25 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zi_KCgDH+TAWVJ5qo3ygAw--.7687S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?50IpDgXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnXz+g1OQfMo27QHy5TwQyZy/t4PGctaocqOsNIP6GE/UUmFCxnK2Sp8FNgLAUIiRKKN7
-	iy/VYjujIOzmHLN18sIB5rM+H8XhqwExY4Cjs2QP
-X-Coremail-Antispam: 1Uk129KBj93XoW3Xw4UWr1xZFWDuFWDAr15WrX_yoW3Cryrpa
-	1rJry5trWvqr47G3y3Zw4UXryfXFsYva4DK3yxW3WFkw15tFWFgrWfGFWjya4UZFykuF17
-	JFW7uFy5Cr4IywcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: input: hid-over-i2c: allow reset GPIO
+To: fQwQf <fqwqf@fqwqf.xyz>, devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bentiss@kernel.org, jikos@kernel.org
+References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
+ <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-CCP_CMD_MAY_BACKLOG commands are removed from ccp->backlog by a
-queue kthread and advanced asynchronously by ccp_do_cmd_backlog().
-The promoted command is no longer on either command list.
+On 07/09/2026 07:43, fQwQf wrote:
+> The OF implementation of the HID-over-I2C driver already obtains an
+> optional reset GPIO and asserts it around power sequencing. Document the
+> property so device trees can describe that existing capability.
 
-During device removal, ccp*_destroy() stops the queue kthreads and
-flushes the lists, but does not wait for a promoted work on system_wq.
-That work can subsequently access the devm-allocated ccp_device after
-it has been released, and wake a queue kthread whose task_struct
-kthread_stop() has already released.
+Read original commit at least. It explained that property is NOT for DT
+and IS NOT accepted. You just ignored that outcome completely.
 
-Use a per-device workqueue for backlog advancement and destroy it after
-stopping all queue kthreads, so every promoted work has completed before
-the command lists are flushed. The queue kthreads are the only source
-of backlog works, so no new work can be queued once they are stopped.
-Individual cancellation is not possible because a promoted command is
-no longer reachable from either list.
+> 
+> Signed-off-by: fQwQf <fqwqf@fqwqf.xyz>
 
-Mark the device as halting before teardown. A draining backlog work
-then completes its command with -ENODEV instead of re-queuing it.
-Keep the halting check and the kthread wake under cmd_lock so teardown
-cannot stop the selected kthread between them.
+We do not take anonymous patches.
 
-This issue was found by an in-house static analysis tool.
 
-Fixes: 63b945091a07 ("crypto: ccp - CCP device driver and interface support")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/crypto/ccp/ccp-dev-v3.c | 19 +++++++++++++++++++
- drivers/crypto/ccp/ccp-dev-v5.c | 18 ++++++++++++++++++
- drivers/crypto/ccp/ccp-dev.c    | 33 ++++++++++++++++++++++++++++-----
- drivers/crypto/ccp/ccp-dev.h    |  4 ++++
- 4 files changed, 69 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/crypto/ccp/ccp-dev-v3.c b/drivers/crypto/ccp/ccp-dev-v3.c
-index fe69053b2394..b84ac117ea25 100644
---- a/drivers/crypto/ccp/ccp-dev-v3.c
-+++ b/drivers/crypto/ccp/ccp-dev-v3.c
-@@ -460,6 +460,14 @@ static int ccp_init(struct ccp_device *ccp)
- 		tasklet_init(&ccp->irq_tasklet, ccp_irq_bh,
- 			     (unsigned long)ccp);
- 
-+	ccp->backlog_wq = alloc_workqueue("%s-backlog", WQ_MEM_RECLAIM, 0,
-+					  ccp->name);
-+	if (!ccp->backlog_wq) {
-+		dev_err(dev, "unable to allocate backlog workqueue\n");
-+		ret = -ENOMEM;
-+		goto e_irq;
-+	}
-+
- 	dev_dbg(dev, "Starting threads...\n");
- 	/* Create a kthread for each queue */
- 	for (i = 0; i < ccp->cmd_q_count; i++) {
-@@ -501,10 +509,15 @@ static int ccp_init(struct ccp_device *ccp)
- 	ccp_unregister_rng(ccp);
- 
- e_kthread:
-+	ccp_halt_cmds(ccp);
-+
- 	for (i = 0; i < ccp->cmd_q_count; i++)
- 		if (ccp->cmd_q[i].kthread)
- 			kthread_stop(ccp->cmd_q[i].kthread);
- 
-+	destroy_workqueue(ccp->backlog_wq);
-+
-+e_irq:
- 	sp_free_ccp_irq(ccp->sp, ccp);
- 
- e_pool:
-@@ -520,6 +533,9 @@ static void ccp_destroy(struct ccp_device *ccp)
- 	struct ccp_cmd *cmd;
- 	unsigned int i;
- 
-+	/* Complete pending backlog cmds instead of executing them */
-+	ccp_halt_cmds(ccp);
-+
- 	/* Unregister the DMA engine */
- 	ccp_dmaengine_unregister(ccp);
- 
-@@ -546,6 +562,9 @@ static void ccp_destroy(struct ccp_device *ccp)
- 
- 	sp_free_ccp_irq(ccp->sp, ccp);
- 
-+	/* Drain promoted backlog commands before flushing the command lists. */
-+	destroy_workqueue(ccp->backlog_wq);
-+
- 	for (i = 0; i < ccp->cmd_q_count; i++)
- 		dma_pool_destroy(ccp->cmd_q[i].dma_pool);
- 
-diff --git a/drivers/crypto/ccp/ccp-dev-v5.c b/drivers/crypto/ccp/ccp-dev-v5.c
-index 7b73332d6aa1..307a408eff89 100644
---- a/drivers/crypto/ccp/ccp-dev-v5.c
-+++ b/drivers/crypto/ccp/ccp-dev-v5.c
-@@ -943,6 +943,14 @@ static int ccp5_init(struct ccp_device *ccp)
- 		ccp->cmd_q[i].sb_ctx = ccp_lsb_alloc(&ccp->cmd_q[i], 2);
- 	}
- 
-+	ccp->backlog_wq = alloc_workqueue("%s-backlog", WQ_MEM_RECLAIM, 0,
-+					  ccp->name);
-+	if (!ccp->backlog_wq) {
-+		dev_err(dev, "unable to allocate backlog workqueue\n");
-+		ret = -ENOMEM;
-+		goto e_irq;
-+	}
-+
- 	dev_dbg(dev, "Starting threads...\n");
- 	/* Create a kthread for each queue */
- 	for (i = 0; i < ccp->cmd_q_count; i++) {
-@@ -989,10 +997,14 @@ static int ccp5_init(struct ccp_device *ccp)
- 	ccp_unregister_rng(ccp);
- 
- e_kthread:
-+	ccp_halt_cmds(ccp);
-+
- 	for (i = 0; i < ccp->cmd_q_count; i++)
- 		if (ccp->cmd_q[i].kthread)
- 			kthread_stop(ccp->cmd_q[i].kthread);
- 
-+	destroy_workqueue(ccp->backlog_wq);
-+
- e_irq:
- 	sp_free_ccp_irq(ccp->sp, ccp);
- 
-@@ -1009,6 +1021,9 @@ static void ccp5_destroy(struct ccp_device *ccp)
- 	struct ccp_cmd *cmd;
- 	unsigned int i;
- 
-+	/* Complete pending backlog cmds instead of executing them */
-+	ccp_halt_cmds(ccp);
-+
- 	/* Unregister the DMA engine */
- 	ccp_dmaengine_unregister(ccp);
- 
-@@ -1047,6 +1062,9 @@ static void ccp5_destroy(struct ccp_device *ccp)
- 
- 	sp_free_ccp_irq(ccp->sp, ccp);
- 
-+	/* Drain promoted backlog commands before flushing the command lists. */
-+	destroy_workqueue(ccp->backlog_wq);
-+
- 	/* Flush the cmd and backlog queue */
- 	while (!list_empty(&ccp->cmd)) {
- 		/* Invoke the callback directly with an error code */
-diff --git a/drivers/crypto/ccp/ccp-dev.c b/drivers/crypto/ccp/ccp-dev.c
-index 246801912e1a..b8eeaf0c3c95 100644
---- a/drivers/crypto/ccp/ccp-dev.c
-+++ b/drivers/crypto/ccp/ccp-dev.c
-@@ -177,6 +177,15 @@ void ccp_del_device(struct ccp_device *ccp)
- 	write_unlock_irqrestore(&ccp_unit_lock, flags);
- }
- 
-+/* Mark the device halting so draining backlog works complete with -ENODEV. */
-+void ccp_halt_cmds(struct ccp_device *ccp)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&ccp->cmd_lock, flags);
-+	ccp->halting = true;
-+	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
-+}
- 
- 
- int ccp_register_rng(struct ccp_device *ccp)
-@@ -349,6 +358,20 @@ static void ccp_do_cmd_backlog(struct work_struct *work)
- 	unsigned long flags;
- 	unsigned int i;
- 
-+	spin_lock_irqsave(&ccp->cmd_lock, flags);
-+	if (ccp->halting) {
-+		spin_unlock_irqrestore(&ccp->cmd_lock, flags);
-+
-+		/* The device is being removed; the cmd can no longer be
-+		 * executed, so complete it with an error like the cmds
-+		 * still queued on the cmd and backlog lists
-+		 */
-+		cmd->callback(cmd->data, -ENODEV);
-+
-+		return;
-+	}
-+	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
-+
- 	cmd->callback(cmd->data, -EINPROGRESS);
- 
- 	spin_lock_irqsave(&ccp->cmd_lock, flags);
-@@ -364,11 +387,11 @@ static void ccp_do_cmd_backlog(struct work_struct *work)
- 		break;
- 	}
- 
--	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
--
--	/* If we found an idle queue, wake it up */
--	if (i < ccp->cmd_q_count)
-+	/* Keep this under cmd_lock so teardown cannot stop this kthread first. */
-+	if (!ccp->halting && i < ccp->cmd_q_count)
- 		wake_up_process(ccp->cmd_q[i].kthread);
-+
-+	spin_unlock_irqrestore(&ccp->cmd_lock, flags);
- }
- 
- static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
-@@ -410,7 +433,7 @@ static struct ccp_cmd *ccp_dequeue_cmd(struct ccp_cmd_queue *cmd_q)
- 
- 	if (backlog) {
- 		INIT_WORK(&backlog->work, ccp_do_cmd_backlog);
--		schedule_work(&backlog->work);
-+		queue_work(ccp->backlog_wq, &backlog->work);
- 	}
- 
- 	return cmd;
-diff --git a/drivers/crypto/ccp/ccp-dev.h b/drivers/crypto/ccp/ccp-dev.h
-index 83350e2d9821..91b303ec46a9 100644
---- a/drivers/crypto/ccp/ccp-dev.h
-+++ b/drivers/crypto/ccp/ccp-dev.h
-@@ -374,6 +374,9 @@ struct ccp_device {
- 	struct list_head cmd;
- 	struct list_head backlog;
- 
-+	struct workqueue_struct *backlog_wq;
-+	bool halting;
-+
- 	/* The command queues. These represent the queues available on the
- 	 * CCP that are available for processing cmds
- 	 */
-@@ -630,6 +633,7 @@ struct ccp5_desc {
- 
- void ccp_add_device(struct ccp_device *ccp);
- void ccp_del_device(struct ccp_device *ccp);
-+void ccp_halt_cmds(struct ccp_device *ccp);
- 
- extern void ccp_log_error(struct ccp_device *, unsigned int);
- 
-
+Best regards,
+Krzysztof
