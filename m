@@ -1,165 +1,166 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78C243AE199
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B41D3AE199;
+	Mon,  7 Sep 2026 06:36:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762938; cv=none; b=jucSrY7VZtgGh9RYQhiRRUvqyVTglcDrA+j/R+I2HNi2pqKwLI3j8cpb0RJWrDrqp9zaiWXpEt1zPh+QfOKlqDfYTwZzttvnYF3yy0vPIkDh9+uEhyPIU5okXGpdJS3kraDzmC6z8fAfvchx2ABQ3jaifpL0unT6xhq7D8hIr10=
+	t=1788762962; cv=none; b=fB/gk8A+OA6TP63olzh3XFxs8r01GDBNP6EvWLc23BVNk6OpnfiaWMkr+dwDJdIBaWGoUA8zrHTiDIZyBBCx8sQuAWNLpBuXtK86UqJx5ro9w+sLOg/SC/HNee+KQc8ihhjPfJAtiKEDWwew3RbcydYFRFrjpi6pk0Z1BkIXdpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762938; c=relaxed/simple;
-	bh=4Gfy17V7FzI7j7+uvkegy6iqdwRYBhYG7cqL/hxfzWw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hxqQlPBO2nYrKzPAYiLqFUSCY3R1UjPwWFtoXltar7dKtlLf1vY233iy7r+m9d4sDeKzhumctALLJjB4bA0uYh6J6zsE5f53lH1SdaUEmz7WfkFXOXIX6d8U2AjfsdMvNMLq0WNdIpi6snmfB2mDtV55rDqe0ilzdz+26b/o2po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YlNVUdav; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762962; c=relaxed/simple;
+	bh=mpk5OUehbNbX13Xb5bamR/Zu6Vh1HfAfNWLYjNiSiRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u7EGafEtyMVxjYF9L2+10Yv/7jYh63oci5++H1jluLuEDHRshIzCLjscNMlmunT66dQcdOR/9KYpbLYWJVgYL8XL1nKN8OQEicca/6lub7yzINe8OjpKNp67VrATpoSZlbQ2tyzzgy070oaR01tIxk26sRco30tvqiEcGu4cqCo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSHN7SMH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YlNVUdav"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2412571b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:35:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762937; x=1789367737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4J4rYjNQoetFmHhwvDThjrrPfLTRssIW7zzZbk53w90=;
-        b=YlNVUdavf/ePiDv61spsZ5Wx4nFqISGk88YzuA+U3EcUeeoyOESkREoNRm9IPURJ+c
-         Z6Zsj8v4Wdwv+/O+gvLddTmvFIp5VEfudBBB6ey3mZjtgez0WbTqpn90NJSRRab/HbbJ
-         9V331n2HOMgJpMi7DYdqOQpL5mAZ6x2xzccEVQMFGKaF6em+2V+wVQItKthbJz0bx1nl
-         WA0S+T52xeDgS/KKqdqSEPSaPe8i/UQLt1Mriw1gI8p2ogMYXJPcK6HM96/1jXK0iHpo
-         hPwmkaoFNbwqaX7RPpg7sbFeXHnY6yftip85xfjSmrjE+7vOBN8IxgGH8p49jjQGlT49
-         WbZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762937; x=1789367737;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4J4rYjNQoetFmHhwvDThjrrPfLTRssIW7zzZbk53w90=;
-        b=MFeG0Yw2yhShRUtqiqphlj7WZYj+5+mrY784Jf3IR4kXrgog4t+Qmrs/2CB4boCOag
-         A0w6bzjJx3ZrfqjF2dTsKOnUq24biXWCLqcmshORk6kavVDOe10q8DRlr7o23lzrDQSj
-         C6TpCQY2/WB8ZqMdWW4FafGWZyUHFBQ6O/MRMkHMTs6Vm3qxQLvjlm5xkQK27Ezounay
-         RGI0lD3/oq70rfk/CfXBK3BIIvc2/gaNHZCuzXSdbN0X+8Pibd24Fu4P3V0hX49xRyna
-         AydTehPkjyKSgInlCPr99FqdjeqlcLWXo3Ouc79CWQI3w8n7mkl8Zwc3qnqcjLuKT5ko
-         mgDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLiIC1Tp07mDd1l6CapWXZcWU34VlGlmWC1cb/5azVPFmuTj3OCFibuP6TbjUQSx2eOy48aBbfYyzn1gg=@vger.kernel.org
-X-Gm-Message-State: AFuF++maNmmmWGUyP8oDSKQWk9UWpycizgjdUSkAD6Pcxekvu3CKFaAv
-	1RiYLVCWLdBJz7PJJE/zmRaH146pMT7d4O/t7SJGfPdynOWnEmXR9PGi
-X-Gm-Gg: AYBFou2wdFtOz+ma9IlwtezWgijdq8tJyr/7MWTkYiSgpkPt7/jFH8XBTqIDoWo0wdA
-	kvWaOZ3N/fnE6Igh+YGwap0UYI0eTxvkcIPKh6tcHYgA6jvoux2wQJD1IOh6zMGnEMMQGbOpTIo
-	O+VxiMXVum8638pGkyyy6rFJsjPBDoWcllMyP5DGqaCah68E+qSRJnbsHprEP5dwfX7MfDo1+BU
-	Q6j3zsarbnIG3pdzD9QqgEMpdQraOeuJjsVCSa9e+1u4cyMfetC172FFTlXft7xykTDdh9FmAGX
-	baGReZCcdI7QV52Mqwzn5nwHF/WFOmSkzHFWo+k/xf7hZWZi8r+MGzuFuuKuqPBEbtt2yerKpES
-	Y7FV6mKdmqVG5HOWBg/OELiWHNy/RrzLUoWzDvOviXmMuFUszX7ZWl8jQyJT9Q1vVjA7u59jd1C
-	9MmgM0Q+JjDUDPgUeAXYklmpcERsAN4eE2gFgzhrLTuN/9/rhv21xCP2V0fgqbqUQlSdumShGWM
-	QeDT0GUaDRssg==
-X-Received: by 2002:a05:6a21:2983:b0:3d9:6f0:b42f with SMTP id adf61e73a8af0-3da39fd0822mr34557933637.17.1788762936771;
-        Sun, 06 Sep 2026 23:35:36 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa37dbdsm21319326eec.11.2026.09.06.23.35.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:35:36 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: xen-devel@lists.xenproject.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] xen: fix typos in comments
-Date: Mon,  7 Sep 2026 12:05:31 +0530
-Message-ID: <20260907063531.23981-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSHN7SMH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079421F00A3A;
+	Mon,  7 Sep 2026 06:35:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788762961;
+	bh=fvYKRdXxIGC3gy/lhw4VnS34/hd+ivtyb/2EWm1V8Cs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kSHN7SMHPq7Wpbhq6EU5r5WynaR3/sBBwSlL6DZ9U85zSoDb3zIwiO0Mmsa888Z4N
+	 fZQF1IUdtIHE7YKI7CpTSwOR5Q8R3/TmZOiOFo9ZOGzJul74TkqVla8sD0ws6E0xCE
+	 Re94OsrUP7YeD0qCb0Owo6DyQw7SAaq64K7gQ4ZY2cGu7QkBoDo0ct+uOIJeu/ACBk
+	 uBepBNND6vZlTtGxYDqQEajdcXx/U3D0wWUgw/e3lZ+QAe9i4jA21ohLc+NrUTnBgE
+	 o2v71tkKF4Frvekl/0A8eeUof//byOUIjIRQCP89w45Zhzuui2VmsaoYk4eUGGjiiz
+	 bPh/vkPH37g7g==
+Date: Mon, 7 Sep 2026 08:35:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: phy: airoha: Document support for
+ AN7583 USB PHY
+Message-ID: <20260907-auspicious-liberal-raccoon-bd7a81@quoll>
+References: <20260901123933.15388-1-ansuelsmth@gmail.com>
+ <20260901123933.15388-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901123933.15388-2-ansuelsmth@gmail.com>
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+On Tue, Sep 01, 2026 at 02:39:31PM +0200, Christian Marangi wrote:
+> Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
+> for the USB controller.
+> 
+> Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> always supported. The USB 3.0 mode is optional and depends on the Serdes
+> mode currently configured on the system for the relevant USB port.
+> 
+> To correctly calibrate, the USB 2.0 port require correct value in
+> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
+> selecting one of the 4 monitor clock for calibration (internal clock not
+> exposed to the system) but each port have only one of the 4 actually
+> connected in HW hence the correct value needs to be specified in DT
+> based on board and the physical port. Normally it's monitor clock 1 for
+> USB1 and monitor clock 2 for USB2.
+> 
+> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
+> property is required with the phandle pointing to the correct Serdes port
+> provided by the SCU node. Providing the phys property is optional if USB
+> 3.0 is not used.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> new file mode 100644
+> index 000000000000..f1a5d83e8968
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Airoha AN7583 SoC USB PHY
+> +
+> +maintainers:
+> +  - Christian Marangi <ansuelsmth@gmail.com>
+> +
+> +description: >
+> +  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
+> +
+> +  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
+> +  always supported. The USB 3.0 mode is optional and depends on the Serdes
+> +  mode currently configured on the system for the relevant USB port.
+> +
+> +  On Airoha AN7583 there is an unified PHY implementation where a single
+> +  PHY provide support for both the 2 USB 2.0 port and
+> +  optionally one 3.0 USB.
+> +
+> +properties:
+> +  compatible:
+> +    const: airoha,an7583-usb-phy
+> +
+> +  reg:
+> +    items:
+> +      - description: phy register
+> +      - description: ana register
+> +      - description: pma register
+> +      - description: dig register
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/scsi/xen-scsifront.c     | 2 +-
- drivers/xen/mcelog.c             | 2 +-
- include/xen/interface/platform.h | 4 ++--
- include/xen/interface/xen.h      | 2 +-
- include/xen/xenbus.h             | 2 +-
- 5 files changed, 6 insertions(+), 6 deletions(-)
+"registers"
 
-diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
-index 989bcaee42ca..f86a47056ea8 100644
---- a/drivers/scsi/xen-scsifront.c
-+++ b/drivers/scsi/xen-scsifront.c
-@@ -1076,7 +1076,7 @@ static void scsifront_do_lun_hotplug(struct vscsifrnt_info *info, int op)
- 
- 		/*
- 		 * Front device state path, used in sdev_configure called
--		 * on successfull scsi_add_device, and in sdev_destroy called
-+		 * on successful scsi_add_device, and in sdev_destroy called
- 		 * on remove of a device.
- 		 */
- 		snprintf(info->dev_state_path, sizeof(info->dev_state_path),
-diff --git a/drivers/xen/mcelog.c b/drivers/xen/mcelog.c
-index 32ab419bb503..f19cc7a67f36 100644
---- a/drivers/xen/mcelog.c
-+++ b/drivers/xen/mcelog.c
-@@ -1,6 +1,6 @@
- /******************************************************************************
-  * mcelog.c
-- * Driver for receiving and transferring machine check error infomation
-+ * Driver for receiving and transferring machine check error information
-  *
-  * Copyright (c) 2012 Intel Corporation
-  * Author: Liu, Jinsong <jinsong.liu@intel.com>
-diff --git a/include/xen/interface/platform.h b/include/xen/interface/platform.h
-index 79a443c65ea9..462e36392a9f 100644
---- a/include/xen/interface/platform.h
-+++ b/include/xen/interface/platform.h
-@@ -421,10 +421,10 @@ struct xenpf_pcpuinfo {
- 	/* IN */
- 	uint32_t xen_cpuid;
- 	/* OUT */
--	/* The maxium cpu_id that is present */
-+	/* The maximum cpu_id that is present */
- 	uint32_t max_present;
- #define XEN_PCPU_FLAGS_ONLINE   1
--	/* Correponding xen_cpuid is not present*/
-+	/* Corresponding xen_cpuid is not present*/
- #define XEN_PCPU_FLAGS_INVALID  2
- 	uint32_t flags;
- 	uint32_t apic_id;
-diff --git a/include/xen/interface/xen.h b/include/xen/interface/xen.h
-index 40c9793e9880..f9acb21875cf 100644
---- a/include/xen/interface/xen.h
-+++ b/include/xen/interface/xen.h
-@@ -94,7 +94,7 @@
- #define VIRQ_XENOPROF   7  /* V. XenOprofile interrupt: new sample available */
- #define VIRQ_CON_RING   8  /* G. (DOM0) Bytes received on console            */
- #define VIRQ_PCPU_STATE 9  /* G. (DOM0) PCPU state changed                   */
--#define VIRQ_MEM_EVENT  10 /* G. (DOM0) A memory event has occured           */
-+#define VIRQ_MEM_EVENT  10 /* G. (DOM0) A memory event has occurred           */
- #define VIRQ_XC_RESERVED 11 /* G. Reserved for XenClient                     */
- #define VIRQ_ENOMEM     12 /* G. (DOM0) Low on heap memory       */
- #define VIRQ_XENPMU     13  /* PMC interrupt                                 */
-diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-index 8ca15743af7f..6424c5cf8ef5 100644
---- a/include/xen/xenbus.h
-+++ b/include/xen/xenbus.h
-@@ -63,7 +63,7 @@ struct xenbus_watch
- 	unsigned int nr_pending;
- 
- 	/*
--	 * Called just before enqueing new event while a spinlock is held.
-+	 * Called just before enqueuing new event while a spinlock is held.
- 	 * The event will be discarded if this callback returns false.
- 	 */
- 	bool (*will_handle)(struct xenbus_watch *,
--- 
-2.48.1
+> +
+> +  reg-names:
+> +    items:
+> +      - const: phy
+> +      - const: ana
+> +      - const: pma
+> +      - const: dig
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +  usb3-phy:
+> +    type: object
+> +
+> +    properties:
+> +      phys:
+> +        items:
+> +          - description: phandle to Serdes PHY
+> +
+> +      '#phy-cells':
+> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
+> +          as defined in dt-bindings/phy/phy.h.
+> +        const: 1
+> +
+> +    required:
+> +      - phys
+> +      - '#phy-cells'
+> +
+> +    additionalProperties: false
+> +
+> +patternProperties:
+> +  '^usb2-phy@[0-9a-f]+$':
+
+You should not mix MMIO and non-MMIO children. Either children have
+distinctive addressing, or not. Not both.
+
+The other problem is that your children have no resources, so are not
+really distinctive children and should be folded in to the parent.
+
+I already asked that at v2, so let's finish with asking: drop the
+children.
+
+Best regards,
+Krzysztof
 
