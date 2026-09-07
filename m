@@ -1,182 +1,185 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75F43B47E3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:37:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC29030C16D;
+	Mon,  7 Sep 2026 15:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795438; cv=none; b=Jupa6xsftdklTO9ZDBFIpDN/l4Glm3iXbNnZ2OcLpP5nl8dNpclTLGwLvi5K1kxGYC5BMVoXzdw6TJjVejNnTEfbM4bzvYNLwy5aJPT1Ak4t1yUkM+97Y5eHxVsBxogZX22VAk8S17QTVbqSc4cO+Ts07+GoRvmYJ7GEXmBMK14=
+	t=1788795450; cv=none; b=JtI/p4zHrqAX+bsuHM+d3qjcRPE83UdGnRSP7lJo6TrBJY8opxESy9801gEpI775y97l71+zstJI/3GmimQrTOezKIf+P84qocOIqUQ7Bo+9tA78YpcHdZj9m8bGY5nqENEkkfThUo73s02Ugjc2DCPYXRvisQAUew3ASHm2TN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795438; c=relaxed/simple;
-	bh=OAARye3bqTwYbW4R9i8hEdUhoTwMnRP1LZaGR0XvoSQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FB1GqttCo/2I+oYpmW8v8oeQEn3QNTA8hLg3o/apMJ2W1ZYCsfJhJZXIhDF2PjfwD11cyERZ3RjZMNx7XJYywNIHt+8l5bmJanb3scMJ9FuGj/X+Yy9wJbcgU9dpIca/qxQnZf0yxhrbVa7OmtGGVxMsG7bKjiAps+Cqka7XfFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+3W+e1+; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788795450; c=relaxed/simple;
+	bh=8D/k82+jwR5ZvlIaXMjCXAygVNMBjGF6AuIgs4jrM30=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Tmn+fIM9JkpK2MibJ1+K5k4idZrY1fLbbim89U8MtVw1ChhMuhiNtA7fV1YZ7uY241Tf9ELsM9iaTH4hZv977mea4+I+NU+dU/NPWdvQNSmqdDsHcmN4Co/Mc+bSSNOSqGf6tNZ2FBbu2dgbUKPDCvoUfb09N1fLoMetB7v73xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BVhW6yPd; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=K6k+w/To; arc=none smtp.client-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+3W+e1+"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-495590dde14so53162935e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:37:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788795435; x=1789400235; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iwmjFU3bbTIZNihHLqre37XheLVH2NBtdBfRtXysiDA=;
-        b=H+3W+e1+PnV4Ek/4ourIs8vjKykypxxsIy+fIuoBHWdJwssJau679ZoottG9yPktym
-         GHCVCv1SgQcrzP3R5PkkEsZHaa0yo5aUYrZNVnLgEMAuO4YFdfYLO0DTojyYGaLXq4A/
-         olNh6gyLBdzaD0D9FFiyYWsqPdtvxFri3OPCNpzk2b0ez95iiUkxMC0l4oSCqQDx+bGl
-         GJn+08heUdNbm+f/ebqmN3T34hjzt0UHp+bFBHr4JfX/Fn7zdvVwE0VXU/i6wx0QhzmG
-         WSXM7cfm+zxPBhDNwp+R2nKt22CZPMpaYKNfbLTJol4aDJmogWNwGT0yQKLIwIE2SpN5
-         nwmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788795435; x=1789400235;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iwmjFU3bbTIZNihHLqre37XheLVH2NBtdBfRtXysiDA=;
-        b=JwJaXe8P3CH8KhVWVecEB8kwocA+XsFs2LXEiyiB8TjPpZqtFi1wFBqUCJZrSpnCIu
-         ik+m6IMz8OghvvFLNRIHXIdVad9ZXU11DEukgOlWsX18GqwknwzxtvJ9j9sxWL3pzIY0
-         x6QpP9kMHuXKQiT9DYORIqWxtbJ6mllQoqPRZOEhUXI0xMfJb1DhKZzQFNgWkUgoGAMF
-         P6NzfaTOHfQ/ZbiKHGpzrStV7NUl1+/WAh/HDaEQODlpsngclLrcZTsfMSGjJqn0yQ/X
-         2HQDuPcfe9DQppWBYXIIV2wTA0dYOAScsdLdcOi1NElcl9UZUU/Aq0tWCC+kY9ng2ZPA
-         2rLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxF9xFWpOAvGAObfH5P59afhLmokZjkI0hXQ0wClUMGYm8D77TM1L/iDUVomYai0V97aJQOe5dlFJGNHu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lehTA2LehINPF4vjow+AUFj489w7INguCDPavXHSPPaTQPkCTO
-	6c9Aq67eKfX3nc6sd3F08uA9IRbbIVY7zg3AW670jJg01dLF31iQMWhWS/g0RA==
-X-Gm-Gg: AYBFou24Z4wN+kFoNVfYXgwam+rwTXM/L1G6bNLYlBdX9sqfa8567lzzx807R1NnUhP
-	clYNtiP2yQmImN3qf/q892JBcJO852kryVGZqs7NKpdxVBIzfZpQis0ssO8+goLeAoMLlZ1BOZ/
-	uUZsA2livwD8RBWP0td2AT5Pvqaq6CCPw0DGWYnDmDbuT+P7Vn0lPQrtcfc/6BEhSA+/j2ZEt8K
-	LbIgWAHvGKLu4DJcsSnUmKLAmwnV7ZND+YewveUfaNap+00IrnpSZ/lyYUQ/3xeQG5eETlpH7iF
-	DqhILMeOq+9oXDLv4F/+3Rj+VghPoogdQAPcXSwLAX0o0B4KExiIkXjR3tvv6WI7TTGTegpdcKM
-	IzS/wDXQ5F8vx4ToT8yosyrShwSFmYb0gmb+CctUUkPB7x+YHXJhx7Jzv6OMXQ9L51oM1LOOqhC
-	6xcZ25xWEABgh0GUcq457CZAJqIQNNyfYpnOLPrSAapWGUgto3jAQThbDMyCmqcK9E4SmhbFoua
-	jD+fKEfsUkyuVV93M4CIwPPOnETloIMMgcSHOJ/dMyY4tiGIf6xXXSErGAvSA==
-X-Received: by 2002:a05:600c:8b11:b0:49c:edfe:d525 with SMTP id 5b1f17b1804b1-49cf82417f7mr549249705e9.10.1788795434804;
-        Mon, 07 Sep 2026 08:37:14 -0700 (PDT)
-Received: from [192.168.1.122] (cpc159313-cmbg20-2-0-cust161.5-4.cable.virginm.net. [82.0.78.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6158e9sm404982005e9.12.2026.09.07.08.37.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 08:37:14 -0700 (PDT)
-Message-ID: <2520c402-e54a-4451-ae2e-9ab9816c11ed@gmail.com>
-Date: Mon, 7 Sep 2026 16:37:12 +0100
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BVhW6yPd";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="K6k+w/To"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hdrmH5NMTzKmjC;
+	Mon, 07 Sep 2026 17:37:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788795439;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qEIbHyu+N1Q2A0abia4DMbUFCvULT/jhq8PP20+UuSQ=;
+	b=BVhW6yPdjt68ivCEQjjVxkgCuG4cGgd+wzzGB40xqA6qd1XYRNhyOMp/sG2LoPs83cf/Mq
+	wLTWLaXGSnLaMbGnRgjHYGEihLWLl6yvjTkS5P9qBx0WqbMyCg9mcgy4WCUp/hrCPcsZNN
+	XHXPPOLbqTsmjVE4cy5LrixiXIxnJSV9VpuMcBGHkdnp29TzOBy5odxk1mKZg3MfDLO7at
+	XW9TbVQ1WXwG0nkiYsr97vUmxZGuBYW8nmT1/eU8iy5GDSVYIz6n+dQwYYgncQ4qPj2iv+
+	ps2tQ8AIp9CLh8Gc5mhEfHa+n9MZlZK+OeYy7OELJJ5GxLU9VpVLhQ5pI0PRbw==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788795437;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qEIbHyu+N1Q2A0abia4DMbUFCvULT/jhq8PP20+UuSQ=;
+	b=K6k+w/Tol1TZDf5W+RVLsnscX3GW1DjnowypOXthWYKLeIrVBGy41WLP5+aezWEdPHB1dk
+	lVGeVMF7Psuksi2/Ob49dLZn3MUB3stndTB/CQ/HnJW8KrUlJPOY4qVyMV6Yr3esuIXkIS
+	HIbcVCIY0cWo9UcwJJ58vGTbS304uIVP+oAu7eKLr/yWqzTCQZzns6CZjat54rTBbcSZ61
+	nq/DjNFEQlmtVlK+FCchAH+skC4tPV+Obl+WpqY6CWWNcmyJbMx7Y4MxoralQ1CbCySyOF
+	SEbqkG2c/f+HxGh/XFlqOuEjYjOM4x9wzq7CpZWadnp2cfFK3006DfEugNrP6w==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Koichiro Den <den@valinux.co.jp>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] PCI: rcar-gen4: Add missing PM ops
+Date: Mon,  7 Sep 2026 17:36:40 +0200
+Message-ID: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] net: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew@lunn.ch>,
- Sudarsana Kalluru <skalluru@marvell.com>, Manish Chopra
- <manishc@marvell.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-net-drivers@amd.com, linux-kselftest@vger.kernel.org,
- linux-usb@vger.kernel.org
-References: <20260907044635.7141-1-hemanth.selam@gmail.com>
- <20260907044635.7141-2-hemanth.selam@gmail.com>
-Content-Language: en-GB
-From: Edward Cree <ecree.xilinx@gmail.com>
-In-Reply-To: <20260907044635.7141-2-hemanth.selam@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 9f1e02c9252aada81e2
+X-MBO-RS-META: ifu4aft7cqoki4jpfg3k35tc3sqjt5te
 
-On 07/09/2026 05:46, Hemanth Selam wrote:
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
-> 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
+and V4H, this is an always-on power domain which is not shut down in
+suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
+which is shut down during suspend, and the controller loses state,
+which prevents the PCIe from working after resume.
+
+Fix this by adding generic suspend/resume noirq ops for the controller,
+which tear the link down on suspend, and restart it on resume. Use the
+same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
+PCIe link on V4H and S4 too.
+
+Test case which demonstrates the problem on R-Car V4M:
+"
+$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
+$ echo s2idle > /sys/power/mem_sleep
+$ echo platform > /sys/power/pm_test
+$ echo mem > /sys/power/state
+$ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
+$ diff -Naru /tmp/pre /tmp/post
 ...
-> diff --git a/drivers/net/ethernet/sfc/mcdi_pcol.h b/drivers/net/ethernet/sfc/mcdi_pcol.h
+-00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
++00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
+                                          ^^^^^
+                                    Class 0604->00ff
+"
 
-mcdi_pcol.h (and the Siena version) are generated from firmware definitions,
- so any changes you make would be overwritten next time they are regenerated.
-I have forwarded these changes internally, so they should reach the firmware
- team.
+Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Koichiro Den <den@valinux.co.jp>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: - Add TB from Geert for RC mode
+    - Use pm_sleep_ptr()
+    - Call HOST suspend/resume ops only in case the controller is in RC mode
+---
+NOTE: Depends on series
+      https://lore.kernel.org/linux-pci/20260903205153.283553-1-marek.vasut+renesas@mailbox.org/
+---
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c | 26 +++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
-> index b9866e389e6d..b00e7c100566 100644
-> --- a/drivers/net/ethernet/sfc/mcdi_pcol.h
-> +++ b/drivers/net/ethernet/sfc/mcdi_pcol.h
-> @@ -5736,7 +5736,7 @@
->  /*            Enum values, see field(s): */
->  /*               MC_CMD_ETH_TECH/TECH */
->  /* Pause abilities to advertise during auto-negotiation. Valid when auto-
-> - * negotation is enabled and MC_CMD_SET_MAC_IN/FCTL is set to
-> + * negotiation is enabled and MC_CMD_SET_MAC_IN/FCTL is set to
->   * MC_CMD_FCNTL_AUTO. If auto-negotiation is disabled the driver must
->   * explicitly configure pause mode with MC_CMD_SET_MAC.
->   */
-> @@ -10173,7 +10173,7 @@
->   * configuration.
->   */
->  #define    MC_CMD_GET_FIXED_PORT_PROPERTIES_IN_LEN 4
-> -/* Handle to the port to from which to retreive properties */
-> +/* Handle to the port to from which to retrieve properties */
->  #define       MC_CMD_GET_FIXED_PORT_PROPERTIES_IN_PORT_HANDLE_OFST 0
->  #define       MC_CMD_GET_FIXED_PORT_PROPERTIES_IN_PORT_HANDLE_LEN 4
->  
-> @@ -13547,7 +13547,7 @@
->   * an ancestor of the current user (see MC_CMD_SET_VI_USER). Note that LL
->   * queues require this to be called after allocation but before initialisation
->   * of the queue. TLP options of a queue are fixed after queue is initialised,
-> - * with the values set to current global value or they can be overriden using
-> + * with the values set to current global value or they can be overridden using
->   * this command. At LL queue allocation, all overrides are cleared.
->   */
->  #define MC_CMD_SET_VI_TLP_PROCESSING 0xb1
-> @@ -21387,7 +21387,7 @@
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_ALL_MULTICAST 0x200 /* enum */
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_PROMISCUOUS 0x400 /* enum */
->  /* enum: Allows to set the TX packets' source MAC address to any arbitrary MAC
-> - * adress.
-> + * address.
->   */
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_MAC_SPOOFING_TX 0x800
->  /* enum: Privilege that allows a Function to change the MAC address configured
-> diff --git a/drivers/net/ethernet/sfc/siena/mcdi_pcol.h b/drivers/net/ethernet/sfc/siena/mcdi_pcol.h
-> index b81b0aa460d2..4d1da698c524 100644
-> --- a/drivers/net/ethernet/sfc/siena/mcdi_pcol.h
-> +++ b/drivers/net/ethernet/sfc/siena/mcdi_pcol.h
-> @@ -6861,7 +6861,7 @@
->  /***********************************/
->  /* MC_CMD_CLP
->   * Perform a CLP related operation, see SF-110495-PS for details of CLP
-> - * processing. This command has been extended to accomodate the requirements of
-> + * processing. This command has been extended to accommodate the requirements of
->   * different manufacturers which are to be found in SF-119187-TC, SF-119186-TC,
->   * SF-120509-TC and SF-117282-PS.
->   */
-> @@ -16293,7 +16293,7 @@
->  
->  /***********************************/
->  /* MC_CMD_GET_LICENSED_V3_FEATURE_STATES
-> - * Query the state of an one or more licensed features. (Note that the actual
-> + * Query the state of a one or more licensed features. (Note that the actual
+diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+index 5690dc32f47e0..7269e08284360 100644
+--- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
++++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+@@ -909,6 +909,28 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, bool enable
+ 	return 0;
+ }
+ 
++static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
++{
++	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
++	struct dw_pcie *dw = &rcar->dw;
++
++	if (dw->mode != DW_PCIE_RC_TYPE)
++		return 0;
++
++	return dw_pcie_suspend_noirq(dw);
++}
++
++static int rcar_gen4_pcie_resume_noirq(struct device *dev)
++{
++	struct rcar_gen4_pcie *rcar = dev_get_drvdata(dev);
++	struct dw_pcie *dw = &rcar->dw;
++
++	if (dw->mode != DW_PCIE_RC_TYPE)
++		return 0;
++
++	return dw_pcie_resume_noirq(dw);
++}
++
+ static struct rcar_gen4_pcie_drvdata drvdata_r8a779f0_pcie = {
+ 	.ltssm_control = r8a779f0_pcie_ltssm_control,
+ 	.mode = DW_PCIE_RC_TYPE,
+@@ -952,10 +974,14 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
+ 
++DEFINE_NOIRQ_DEV_PM_OPS(rcar_gen4_pcie_pm_ops,
++			rcar_gen4_pcie_suspend_noirq, rcar_gen4_pcie_resume_noirq);
++
+ static struct platform_driver rcar_gen4_pcie_driver = {
+ 	.driver = {
+ 		.name = "pcie-rcar-gen4",
+ 		.of_match_table = rcar_gen4_pcie_of_match,
++		.pm = pm_sleep_ptr(&rcar_gen4_pcie_pm_ops),
+ 		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+ 	},
+ 	.probe = rcar_gen4_pcie_probe,
+-- 
+2.53.0
 
-Neither this nor the original text makes grammatical sense; I think the article
- 'an' should be deleted entirely rather than replaced with 'a'.
-
->   * state may be invalidated by the MC_CMD_LICENSING_V3 OP_UPDATE_LICENSE
->   * operation or a reboot of the MC.) Used for V3 licensing (Medford)
->   */
-> @@ -16798,7 +16798,7 @@
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_ALL_MULTICAST 0x200 /* enum */
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_PROMISCUOUS 0x400 /* enum */
->  /* enum: Allows to set the TX packets' source MAC address to any arbitrary MAC
-> - * adress.
-> + * address.
->   */
->  #define          MC_CMD_PRIVILEGE_MASK_IN_GRP_MAC_SPOOFING_TX 0x800
->  /* enum: Privilege that allows a Function to change the MAC address configured
-The other sfc changes outside of pcol look fine.
--ed
