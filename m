@@ -1,163 +1,144 @@
-Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com [209.85.208.171])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F6BD33BBD7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790629; cv=pass; b=YfWbZixOG5SYRi30Rc+LXWgDvM7legHMVVEQrSg7w2JLciPAUgwLOf9Qtz69kUWHko/f2iPvDfNISqLU4PVo9PQGEQGsv26ktiR+OeWYr/h+52kmL3qVdgDWlB3JkIzsLamJNH7berHnbdAVFq69faKpWzQ/T6PggO2usf2N85w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790629; c=relaxed/simple;
-	bh=r9qKwV0zAtN+2SVkQpm8iG2hqEmHFrMaHaQiAf5LRMI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cRIDiIn2NtcMVzH5qZFub/LUIKTmLScLFSVyeQnwf27lLdGhIBKK7wEPcBEmRi2+0bIS0fw0O4ey8QM+Lf9WBfcOjn+p/dEJk/KTvJ5ePeex1K265PPRJzrsmeOefF+hFjNZiu6+bGn/4LdlKH2eDofvvqDJzn6UMbIsr6xF4bg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=kY7UBq1E; arc=pass smtp.client-ip=209.85.208.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCB76342532
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:17:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788790649; cv=none; b=c1bZlS4MRHJEzoSmzTzby/OfQyl6ljVGAmlvN9YQCEfYzJMWReTRME2tbVO4mBvBwwPGX0v8AmwtmXIu5SvyY2lm5J3kOTpAxmTbXoKApqyFPWHQLhGSjFsiYJlililIm1hCd/O3pYEZ4Ggcf70HLsev1+jBTc1+nrngqgbe3vE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788790649; c=relaxed/simple;
+	bh=GZwA/MKtBxY3W7mT2sPBR1+zgdTlkURScZ02+uOP0RM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rd3QZz/qYTctjTCqEgAq7yakmSeovUGwg6QPvPD6px4QWiG2h2svOehi95pj1qZ8EzuaEqyFwea/3TUcK5RkIFpktG2M1CWs2+9dxmKPh0QZiAyXjNJvy3Mm2OcPhMRORH4pNbzsy+qrKLm6SC9/sUm9yfGGfx398lPqOv7TE84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osSy7y8g; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="kY7UBq1E"
-Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39f20d19895so25031081fa.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:17:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788790625; cv=none;
-        d=google.com; s=arc-20260327;
-        b=a2ADV6h1cUuvhLEGlFQlFpafbT5rn7YZEcLy5pROplaD6XO85vCQwgg8r3Wai29y/G
-         njk4AVjHIqz9cJTuEtd+dFTORCVsFF9FZY7x2V6jsj0JrIRGM9rsxuhD6svn1EqWUieq
-         aIQMwka+Jk5yPPoC10LuLvlAp34L5AE7EhxYSDzGCUUwNqyrhY0F/Fq05dgfHLdSHMlM
-         7wpOZD0FBhoRLVDfhmwD+h1xjLCX0Dlrv0c4QWIcyZfAue4IBAaTMJwl5EfW9GDfip+m
-         +4guTlg/aFtbApT1Awqir/aQ6QfvgK4Tlj0/YLiyRLXgLQNlZgIwhzoOPDSHrnkqmiIj
-         vj6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
-        fh=Y5JnC7DD8HGPBPxSoTWIfKbk7xTwiwYmM9790a2hOSA=;
-        b=VP6oVjcLfZ7f9owMhATFcdauW67gtaBZHtAc2JMBZjNCcCpTl0Yxxqv2kFKCRHhwTz
-         LYh62s8/03z04IQnp0oiPEjWCsz0CVsIpfTqju4tnAeqBRLlHO1xEFUo7H4oCg7pr21L
-         OkgYVn2j2/bjxeObb1OIA9HYcfQi9GPloygCw8hagcmL+VWtCWc62jnQRqJHR//2oVFm
-         0dekOqp0GGevRdV0+EslQ7tA1iELVLS4RLgXl/XnHE1/fTe6i7in+lOmHghqKk+FKiOY
-         QbeMw/oQ8yez9Vp9oBT+A/HRx16fvusteb12Ela1VguyjU8ArQediHrlasolHmlKFJth
-         mvqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osSy7y8g"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso14761555e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:17:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788790625; x=1789395425; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
-        b=kY7UBq1EB/j5MOJXO+63sSKGBKtvZfYjD8cWggylmec7OZ+HvHj4+NiXvhlMQLNibr
-         AfFpYoe+n6War0K+6lmkIJgAKujfdo9cY0S1sp3pwkxyRZTEEuh62sBnfD+lOFWwjXt8
-         APR9oo1mbn7WkPozSbAnxVGu5KkqmjOhU1kVOo47egQN8LPX/o2wTmFQ7qyeE9Q1GMYJ
-         3AsDanjMElX+NEPMNf9qZzq0U7ccF/yUMDGQRTm8KD41K8VhVyO10Bl8Xvz8CA6/D7M1
-         X7RP9vNImq0lWPj6Q2Lne6R3tPGfYECGDth8PFx+iIvUeTxcpRDQET+WydCyR2f3HHgt
-         DSVA==
+        d=gmail.com; s=20251104; t=1788790646; x=1789395446; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vQtLGaBEb+xd41WLDmqvQf+F9Q3EMz9NEqhORQulUCo=;
+        b=osSy7y8gmz/N7beGGn39hDQPSWY5+bFtyExIZpDXzkwBRDbbgcMA1Mwad0rF7HWYLb
+         OxJ7plobHs/GQEQTFFKKHudnfN03Fj+Plc1HyXmbwPGSlXDucepsY9FBXxWZqQ7TxigU
+         6jrrv39IVmOKjRW73DJZAoO3qVnwhbnysNFKYnYlyPYfqAp3C2/mGSoN511sqRyRKMNc
+         Nm3/LlUNJuthqOqdjY/v1MR9uHvM93CGrnmk544iHrNb5vFkfjKg+TgfsVrYWejzhMMs
+         +RWZWAhfFvq8/ws25bP0riJPEhJzQRMBnv5MlnOh3ggXoaveX3y1Qw4kBb0aMFDvlDWg
+         cv1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788790625; x=1789395425;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V2WxJHHlkD8fUS255uW+8IwBMyK5/qJDdXTRBzJeCF8=;
-        b=WCn1jwY7Kb13bRfYZnb6Abh9gDUV38lJ5ZNc3NlBOBko9GmEdZNKKiGaT8qWAXfHvb
-         3OVgKHFe1jEPPZ0uskkriTYPdi7NSMxgtZlJqeM7w6DQCf1DNA2vBLxWcYULfKSfDrBL
-         i1dYbkvjt1vEOAywJszWcmbV1H/TBdxmIhEacaWo8cW6itQqRqjsXyWFfcN6MfhqXVKN
-         KvLrn/htAGtdNPjAt4SnTcL1bXHAvW/AkxJH58YaZw1SU89ybPfigZmi+Po2NV5LwS6z
-         bQ3dXVIfejccFuPgInxR8WALKCRehIqVFrwr6EO/CLwtBLbq2UJqkPcpA+VtBk1GcfPO
-         iftw==
-X-Forwarded-Encrypted: i=1; AKwUvBxvodKp63wwLrwkt38LTJtfsT0ZUdGWjdogvXVovQVXq5YAWD4Q7mrEZwIH0wSW/SAdbi+FK+yT2iC9s7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++leUeEVxw+/0Qz/7DR+1he3Cna/WevJZmm6xBeY7uaYQ73YDzlk
-	NSzQ4u2FdR3bNn973HzRDVLwOxFVz6VgkDhShpTxqdrlS7RY/6UvodiBfAGfnhVipOm2Ozsny7C
-	WMzggl8/PCMLpsbxu7/XB0v902I93m9DqLEQQde3MhTQ=
-X-Gm-Gg: AYBFou38sFkHde4iPcyP0DMSvx3oNV0qQwAypgjc66ZEAYavaoyKFtDBt2WhZQNsOKl
-	LHKEr4AnyZDt7TF8mLn1QQAxNA/TFdPTQg2s09sBTjnUqX0nUkxDO8VwJuaKQ8md1C02hldgVUD
-	piZP/7PnJU9ZYwENEbD9lohsD1E7aW80Zl909Ghg8WhclIdHNevHrqT57bs7+l4+tAZmoQwm3kS
-	OoEHKDxR1AItio+zdo06Xrg/fQT0EFwvuT6x3+KSjXrSL39v+qkO2rIb2zm3evdoLvm4HndqgbD
-	VDv9FU5UguXLD5Ln1rbFzWmQQWFc+B9FJWw6+6GbufPrlOl63+CuiL3y9GE6bVep6cZczvEQXD8
-	=
-X-Received: by 2002:a05:651c:a114:20b0:3a3:749e:31a2 with SMTP id
- 38308e7fff4ca-3a3749e3344mr14616981fa.22.1788790624930; Mon, 07 Sep 2026
- 07:17:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788790646; x=1789395446;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=vQtLGaBEb+xd41WLDmqvQf+F9Q3EMz9NEqhORQulUCo=;
+        b=tHTD6qisxTqT5haPSEIYGdLXOi7L9uH4vWA7aZPD/XRqHbCP0OsmLUtji87cUtJJQP
+         LvaIeisjE1GFUK/lTd0hsqzO40nS0ZNs6MBxGlQO/qUk34E8CkYqS6pgMbBWsvCqHpVk
+         nFScuC5jEiwOGGhnDthNiYykxEQe/4pbjK6syvhm01j/cwnrDlXFknqvcJXsT3qX2HWs
+         ArEsaLMkN9QCkQLA07pI1mfdS8ICDrOgGP7YAmhb6vyta1rB8jYoyZU25bqOYqduMFd3
+         nfQAonbcQYrxCkXnfXOJbiMtVsKpo1y7REieomRxJf5BLVdpcCDCxnaka01Dnz4XBpKa
+         gwHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8HBKTSDcqsevKraPqbxHo9gEDKT3GNv4sKF7L1JrUK+fO8Qnsw+flVCyPnw6Be73VKeoavRYECyNdsBM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kq+zZcHrE/31HhK4q694NKYfohOKIz4UxVCE3scmWz02of1WOO
+	g9ygyXQJKL/biKxAw5K/oN/CLm2tgG8p1PuIiDFv+Tw6jjFdcMB0d5ue
+X-Gm-Gg: AYBFou2UUS0p0rgldrX27ic1yR7LBwYGZca8mnW6T2ARQUqKnwdCLda/Y2RMNf8w1F0
+	cw7PVwcotkL5JYdGx72GQuYdHWWmzwaEG3BMCCSxfkeM4iaWajbRKlwQ6YxjJAbGRKUuJ+klqUT
+	gX9nbfHwVK6n2NfuFn7URMSNk3xgPSS1E33aHvrhtnOCJvWdL/NV3qHT4LyP98TZ4HGGzYjpZHb
+	qGN4/txIMBmFe6xiJ1elw23uZgVdA21zqrLAVlINgs5i+LiNuaJ5+eBN7D85qSxpwTOP9laJmfF
+	vWDOxNbpIH9nqd0kx+GOEh38LBVa2j2j0rgSdR2pLQ3iwAN1jK0QbJnuYrtY2s0c0TXuxU7RTIj
+	XP01GzCvHaJOKm09QyM0O3JhGKUMNNRTuL3BznfeQkLccH4xtoOTNcBeitd9w7LLTjjuuuV+q5v
+	URk1rrssNL89S5b/3w9UXXMvGla6MH+RH/obrnjfv22jm+7mTbMehHq3L/R2NnCXQbtQr4dj1rk
+	p+DSRt9tV3jeqlJe6fIPepDhiOlBY/DJbHNqt0PsYM58tgiXuxZwIO2viQeeWmGQUYa9J+HFg==
+X-Received: by 2002:a05:600c:1c29:b0:49d:15f8:2bdb with SMTP id 5b1f17b1804b1-49d15f82becmr22689355e9.7.1788790645027;
+        Mon, 07 Sep 2026 07:17:25 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbe5b252sm270473075e9.3.2026.09.07.07.17.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 07:17:24 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Date: Mon, 07 Sep 2026 16:17:20 +0200
+Subject: [PATCH v2] dt-bindings: wireless: ath12k: allow calibration
+ variant for WCN7850
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788775605.git.zihanx@nebusec.ai> <d1b0d3a224167afa0ee61db0c9f778a2d12ff9b6.1788775605.git.zihanx@nebusec.ai>
- <CANn89iJjUL9LJPipeCZKq3F=Rjhq-gdCKwnuW0pkvvpS_ai7UQ@mail.gmail.com>
-In-Reply-To: <CANn89iJjUL9LJPipeCZKq3F=Rjhq-gdCKwnuW0pkvvpS_ai7UQ@mail.gmail.com>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 22:16:52 +0800
-X-Gm-Features: AcwNN1U7aD2O-kbEJ_AiTgXWSyU09QYOnbLUYfF4yEMau5bpeNc0TtL7e78gZZI
-Message-ID: <CAANe3eTxK3btTfTA9M0UVxJ3FOavnv3jgd3MUjLPoDNJMicg=A@mail.gmail.com>
-Subject: Re: [PATCH net 1/1] inet_diag: cap bytecode filter complexity
-To: Eric Dumazet <edumazet@google.com>
-Cc: netdev@vger.kernel.org, "David S . Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, David Ahern <dsahern@kernel.org>, Kees Cook <kees@kernel.org>, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Vega <vega@nebusec.ai>, 
-	Luxing Yin <root@tr0jan.top>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-ath12k-calibration-variant-v2-1-1a9d6c47dade@toradex.com>
+X-B4-Tracking: v=1; b=H4sIAG/HnmoC/42NQQ7CIBBFr9LM2jGAUYwr72G6GGCwE7U1QEhN0
+ 7uLPYHL9/P/+wtkTsIZLt0CiatkmcYGZteBH2i8M0poDEaZk7JKI5VBmwd6eopLVFodKyWhsaC
+ z56OKNsZgPTTBO3GUeZPf+saD5DKlz/ZV9S/9S1s1agwHDoHIxTa4NgsFnvd+ekG/rusX6bvm0
+ 8YAAAA=
+To: Johannes Berg <johannes@sipsolutions.net>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
+Cc: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ Andrew LaMarche <andrewjlamarche@gmail.com>, linux-wireless@vger.kernel.org, 
+ devicetree@vger.kernel.org, ath12k@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-On Mon, Sep 7, 2026 at 10:11=E2=80=AFPM Eric Dumazet <edumazet@google.com> =
-wrote:
->
-> On Mon, Sep 7, 2026 at 3:53=E2=80=AFPM Zihan Xi <zihanx@nebusec.ai> wrote=
-:
-> >
-> > inet_diag dumps run request-supplied bytecode through inet_diag_bc_sk()
-> > while walking TCP, UDP and MPTCP hash buckets under their bucket locks.
-> > The auditor currently accepts an arbitrarily long program, so a dump
-> > can spend unbounded time in that locked section.
-> >
-> > That fact is already present at the git epoch: tcpdiag_bc_audit() had
-> > no op cap, and tcpdiag_dump() ran the bytecode under the listener and
-> > ehash locks. Later inet_diag extraction only moved the same code.
-> >
-> > ss(8) filters only need a handful of compare/host/mark operations.
-> > Reject programs with more than 64 ops in inet_diag_bc_audit() so TCP,
-> > UDP and MPTCP dumps share the same limit. 64 is a policy cap above a
-> > normal ss(8) filter, not a lock-hold budget.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: Vega <vega@nebusec.ai>
-> > Assisted-by: LLM
-> > Co-developed-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Luxing Yin <root@tr0jan.top>
-> > Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-> > ---
-> >  net/ipv4/inet_diag.c | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> >
-> > diff --git a/net/ipv4/inet_diag.c b/net/ipv4/inet_diag.c
-> > index 34b77aa87d0a4..1ca528cd3e72b 100644
-> > --- a/net/ipv4/inet_diag.c
-> > +++ b/net/ipv4/inet_diag.c
-> > @@ -725,6 +725,12 @@ static bool valid_cgroupcond(const struct inet_dia=
-g_bc_op *op, int len,
-> >  }
-> >  #endif
-> >
-> > +/* ss(8) filters only need a handful of compare/host/mark ops.
-> > + * Bound the program so dump walks cannot run an arbitrarily long
-> > + * bytecode sequence under the socket hash bucket locks.
-> > + */
-> > +#define INET_DIAG_BC_MAX_OPS 64
->
-> This is unacceptable.
->
-> I am tempted to say that any hash bucket with more than 1000 sockets
-> in it is a problem, not only for inet_diag.
->
-> Since there is no soft lockup, this really looks like an attempt by AI
-> to break legitimate Linux uses.
-> (Or slow down as your prior versions did)
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Thanks for the feedback.
+qcom,calibration-variant is the generic Qualcomm Wi-Fi DT property for
+selecting board-specific calibration data when the device identity alone
+is ambiguous.
 
-We will drop this series.
+Commit 06cca100ad08 ("wifi: ath12k: support calibration-variant from
+device tree") implemented support for this property in the ath12k
+driver.
+
+WCN7850 can be used in systems where the PCI device ID and machine
+compatible are identical across product variants, or across regions with
+different regulations. For regulatory changes, the hardware description
+does not change, but the vendor-provided calibration data can differ. In
+that case neither the PCI identity nor the machine compatible can
+identify the required data, so DT needs an explicit calibration variant.
+
+The ath10k, ath11k and ath12k WSI bindings already allow this generic
+property for the same class of board-data selection. Allow it for
+WCN7850 PCIe devices as well.
+
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+---
+Changes in v2:
+- Rebased
+- Updated commit message
+- Link to v1: https://lore.kernel.org/r/20260701-ath12k-calibration-variant-v1-1-d3eddaabf026@toradex.com
+---
+ Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
+index dc68dd59988f..cf3e1fd99c12 100644
+--- a/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath12k.yaml
+@@ -54,6 +54,12 @@ properties:
+   vddpcie1p8-supply:
+     description: VDD_PCIE_1P8 supply regulator handle
+ 
++  qcom,calibration-variant:
++    $ref: /schemas/types.yaml#/definitions/string
++    description:
++      String to uniquely identify variant of the calibration data for designs
++      with colliding bus and device ids
++
+ required:
+   - compatible
+   - reg
+
+---
+base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
+change-id: 20260701-ath12k-calibration-variant-b7850f7ffd7c
 
 Best regards,
-Zihan
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
