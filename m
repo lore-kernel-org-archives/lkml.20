@@ -1,193 +1,303 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A89463B94
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72731427FBE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786068; cv=none; b=LVxmD7LxQLkLRAqAVNkjFIs4hpoSUSOf8Xtd+3D0FJF+G0YWDKj1jMn9cGFlyBBD3jrlM6Hs1UE+yY8McjUdoEX3Fik9rekBtyzAyOqyDfsynShNeo/v+uLS78Hkp7Ee8B8bBxl3DUKspN3Yp7ISY3FzuNnXQTBArF0fU+C+HiY=
+	t=1788786075; cv=none; b=lR6/8ohTHd0/U0Xi/NxlqHHm5l0sstGunSx4+D7JW744FfIJiEDCxPv4BCLqS9bTr6swAl/RoYWuky3W+E8Hj2+LDJT/vOH677LqY1xWm4e+r5BDo9/Jo2B0g6xOrjDpz4BitJusNcLi0WdEcnIfmp1OoVKQ4IXxGxWYsn/T0qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786068; c=relaxed/simple;
-	bh=dxt0nRLMlCSOHXCt5GgWA+SbZAKlsIeSxAesz/KABiI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oTRYZA3UH1szX87GJ4D0EA5LcYYGNHf7eP31yIvZojm/Au0+htmixyyGEeRH6ekzkHGgtMM8caytkXhgRftzQPP1CEp+1IQV1qJpNTD9ZUGXpfxcenjfQtoWHed81FBJxDn3efPMMPNCnu3lstPXyp/ZgQmTV04iTsfAxw+SQLE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JeyDuyqh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VK9jB/4i; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788786075; c=relaxed/simple;
+	bh=5VmFGXO2THIC1ElKsZHCyDs0LOvF/2GZA7e4bXBxIwM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=i/hxCkNl3LYhDv5edfTuc43kQFxEqeLqH+2ZnxQvaWaRQ9NqB1GurYYOvfwd4EobwLjZHa/W0CpP+6ZyFTR8rHOer7oTtZro4chgWGUsUQ5/0xmAfPW7agtJSsbJFDWtO2IEjIE8OCTGoO4/zxUqiLayBJyHENbTON6txSoVkNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eMqVJpf2; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JeyDuyqh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VK9jB/4i"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnGtO3863138
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 13:00:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	5Zxd143ASUomJNNgHPeOAeQIGghuC3wI/sji5Dtl2sM=; b=JeyDuyqhPyOJhQNo
-	dwaVgIkG+yKlIXzw44icOX4UHs5HZFBeWgQVQ8b9S6rXB1dym/fL15+FLHl+hm+e
-	Ch9MzwqSRQNVphWaHMvcHlaynYiW3wIPsMCtbMQcbmxP2aah+G2U41aAqxvOT/e7
-	fVzOZ8RIFHpyL1o3FopcWrr70Szpg7np8EL9VE2w3zp24ZC7Vtgy+/iF2+QO8/9V
-	9Z92mipyt65jv3eRdkbY84hQFN9mfZHPYaBcQAi4o9/Qishd2kdIjAwcvsWpjfc/
-	PLVqCPtqGqo7amL5/WBHZjmBCS+D28FJiYMAlis2L9oIwk+3FqXEWtIlAsRJSyMU
-	6AV9UA==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghq66hwe6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:00:50 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-97bf8f3a38bso198540241.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:00:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eMqVJpf2"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-39682983a0fso3782948a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:01:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788786049; x=1789390849; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788786059; x=1789390859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5Zxd143ASUomJNNgHPeOAeQIGghuC3wI/sji5Dtl2sM=;
-        b=VK9jB/4i/B6LRZLWV8LG5PD/jJBQd1eZsMjCJ4WON33XL6XuA8c8JI25gyGf2h6pPb
-         MwwfbogZe1KlVERJBwy4yQdsZmFqLcaXHTL38TAkBWL7R8ruoFHxtNMTEIKTqqK4TqVi
-         ryKsO07sbAZ0gC6Mrqup/NiEDTf2WDHXFqvosJo8dMJqDLkZaa55KU1drFE0XiBZTDa0
-         /Sc3Va+of/2qUFG6hsXLnYMnG8iHeex3iCspM5t1vnz132p6ecru+Lc2kVwJapw14PQo
-         HsQHhXoBNWWiPeRucHT0ryciRUSkFdWPr/a8FqUTz5/0yOS6/vC2oEwTC6MaSQLsAz3D
-         ekZw==
+        bh=ki0AfBSXcv6Q8Gg3qCdHGcmsARPRfMTEXg0rBtuB2Ag=;
+        b=eMqVJpf2YoF0ecBO86VWd2NXOVwEmV2HS8M4bWQrLwWKkB/V/VMiYghItLjKgHILoH
+         pOlwVvRVeUII+oLp1eWz3brsUVHNRbrbHgt45BrzggIEqYSGYahDhrU3pC4A8qHZMJYu
+         f0y5V8YTgYOm3XCiFsqnYP0G2aAD+e8XhlnOiChObB+zW54XQGIIRu2R6L0RHKXpeS3C
+         8VfSVmUwOZjICDZ2ZGhQalj8stS7RuUp2yZa2FAwinefR5sWaWbE2H7CE8+G0HRCJ9B9
+         hD4KquE6vGF2vafghhjLOq8ugUlHjhImyKdDwuDHtFCUA6E5b/WQKfUw8C11UxLfwJMy
+         tXeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788786049; x=1789390849;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Zxd143ASUomJNNgHPeOAeQIGghuC3wI/sji5Dtl2sM=;
-        b=CEFecOfzE/2fq9/a8iYVfyIlA7mwkDoe9Wxkzh535ax9Wm62KwV8aAd8Fzgl6aVY2D
-         2Ay4X3AerWMQngKsxa3GkoetBvTfmpDtCnosGMZnwa1yLzfxNXxo/pXiMlPDdsbHBV9T
-         VT/HUcdzNHcnc50dkOW2STtVp65MthgN+xFx1thIqdV9Yo8w1rd6rlwZCe3mlwFaNmpN
-         zqP4h+vWmPxtTXnY4dlIM3iWTga5aZAX/0MGlUhuI3BMn8TTp9403b4hAKxmSeu/QH0K
-         o750CwsQakjzR3wX3XmKLYTk2enNDre89CO6h1e6qqyP7z6/gYmXmlJp31Qst1QL3coi
-         wFrA==
-X-Forwarded-Encrypted: i=1; AKwUvBxgzy0kjCyTDTZCYMDVLgoIOG6B1hjqaYc8JH5FIeooGvQkyUhY93M1MW2m0mHDgpBQ48vVnZJV3Wkcnls=@vger.kernel.org
-X-Gm-Message-State: AFuF++k3c/p96vmcUmJfbUl27Bvgvz+ZpuRpiNlUfadDreNsLNXWvrfJ
-	rybxRBPcZyXlELbRKx+8FZWhyMrfjunusnRgYdHUqJzQsiz0Tsl+WR+ENPQpg0QmvPPgFtC1f3Z
-	NZNdFH5Wm/mTrOpI16K0oCJqyQmfc9np5NswKa3/01fQTx8IQta6MFzZ9MMxErse4pqc=
-X-Gm-Gg: AYBFou2imvAVB2IwAwy3HQ3teOGTKvC8L8hRls02A/w0j3oyx/D1NF2fImjlytGBCJc
-	tuv5hyrDusj/m4krEbzxXBUKXRMqgQQx2AD7qjdogLzzbW/hIf0eg+wMYX2OyziGAFk0m4V0o9L
-	ODZ6jmMSmFEEswgiYRcDhJIkdvPhIaFls6pVJ4jgImJx62hd9mh+prVapsHPFP4fEGNiYKh9y/Q
-	d30Qhzi4B06A+XCcyr1SNgO8oeSjZT5ATKwxVtSahOCQ1OSmapA0Orq1a5g7T7TD4ZGKZBgfIkv
-	Fz9ExPRORvfQFQKwYIyE3YsCFH6eydozz2TvspsICJmfHVEVidC/4/pEWL0uHdajZ671zeolZcd
-	FSdwT8x/MBD/cx2Km9GmsMMs=
-X-Received: by 2002:a05:6102:8099:b0:76f:eaa2:6fa7 with SMTP id ada2fe7eead31-78a4a6d4adfmr7328434137.2.1788786049292;
-        Mon, 07 Sep 2026 06:00:49 -0700 (PDT)
-X-Received: by 2002:a05:6102:8099:b0:76f:eaa2:6fa7 with SMTP id ada2fe7eead31-78a4a6d4adfmr7328410137.2.1788786048792;
-        Mon, 07 Sep 2026 06:00:48 -0700 (PDT)
-Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff81c9b5sm198751205e9.4.2026.09.07.06.00.46
+        d=1e100.net; s=20251104; t=1788786059; x=1789390859;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ki0AfBSXcv6Q8Gg3qCdHGcmsARPRfMTEXg0rBtuB2Ag=;
+        b=Hwd8f9rAyU9ZhYf0RQMs06yi2vY1QpAqtcTCG0voRh6F8FiHZdzMK5AqDSIgS6ILFV
+         u16ErY3ePGXY5N9ba/dU3hLOCOewtMA7oHltIem9AVra9Y9nSpE4Lcz143vkdt5iE0jb
+         vVtoYIY7FN/1yJFqOjeRlVVojz0ZVOaLErMRSfDoKb109Y0kvcU4yz2hLhWYLpaTwkYY
+         8jGt7Ajz8k8f+j28U66uRE4Oy8Omla8uKPpwhv5v812PVBZTZmhp5XX9gAV6I2rPGMBf
+         ZZsip19b5ek7n2fRL2D+ZbfT4kEon7+PJTDZiwivJjz5z2B4L3EhkLf9pmHEA1rSe+cf
+         0XQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwpUYAG7xzVj8dRiGB74MWgo93bwiOgdzjDg04dmSUwk1iVHHQH6mmrBINd7kanqkBlQHeQKQfqQQ4l9xY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAilHCEVi8rsVD0c/MhmFAjWLlTLr7Q4ZLw2BZDuz6ysqYeLcG
+	fSLck40TxJvedI0kU/Cu6VlTVIKNhaP2RJtWN3enrqnJQG2ZWdiNRSav
+X-Gm-Gg: AYBFou3YD8NmI6eogHEHYoFghnqrmOxLvZlTn7bbIsxf7a3pg1lMViOUEI/bjSvbn5G
+	BOTKNjr5aJzuLmKL7Ix87EReLJ4r8b4+O7QOKlInG4VYlDqJES6/GOyBHZTY0M8eyixor7JlIpj
+	VwE1XsIYRJV7USQPpoAM+deTbk5NLZwJblv6RvaVJUvQiVWaxN4OnFr7eI5sADdQ2Xdlo4pnWOR
+	+f4bQUeI6Ox4AeMrlmMWjN6WiYQdkHsYeEiG4RMv7Iz11/ryJ2c/CioDBuHrqEzPfPn5DCQUnLa
+	cQxakqGLFhhGkk4R1T5vUqvKsiMKWyvVfq/qjYpU+K0GCnyMZIFwcqNx0UAf9XM6fPAzxwp0SrZ
+	ryAgdSRjcwI45MJKTi5xcefby0g5RgpI58+P243HV6+yBk4T1ak2JhXhkEYDohrkJOfxUmTgACb
+	WJI2mvXN9a76OVhIz/paKQc0Y4ExAoJ6U9B0tjNYe/przbUxgX8VfbxLOvidButdKiABKdqZqS4
+	tZPgHSzGojjChdWIg==
+X-Received: by 2002:a17:90b:538b:b0:392:e5b1:d833 with SMTP id 98e67ed59e1d1-39b261d5148mr33552829a91.13.1788786059283;
+        Mon, 07 Sep 2026 06:00:59 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62a54f6sm10916296a91.1.2026.09.07.06.00.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:00:47 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 15:00:21 +0200
-Subject: [PATCH v2 7/7] dt-bindings: display/msm: hdmi: Correct name of
- disallowed supplies
+        Mon, 07 Sep 2026 06:00:58 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+To: aliceryhl@google.com,
+	gregkh@linuxfoundation.org,
+	cmllamas@google.com
+Cc: arve@android.com,
+	tkjos@android.com,
+	christian@brauner.io,
+	surenb@google.com,
+	baohua@kernel.org,
+	zhanghongru06@gmail.com,
+	linux-kernel@vger.kernel.org,
+	Bo Zhang <zhangbo0325@gmail.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>
+Subject: [RFC PATCH v4 1/2] binder: switch alloc->mutex to spinlock for buffer metadata
+Date: Mon,  7 Sep 2026 21:00:27 +0800
+Message-Id: <20260907130028.807366-2-zhangbo0325@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907130028.807366-1-zhangbo0325@gmail.com>
+References: <20260907130028.807366-1-zhangbo0325@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-7-b097cf1eac77@oss.qualcomm.com>
-References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
-In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Archit Taneja <architt@codeaurora.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1120;
- i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=dxt0nRLMlCSOHXCt5GgWA+SbZAKlsIeSxAesz/KABiI=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqnrVp5cFMmNVGYy9ANhImIAHyKD5dGnRPUBeVP
- O1DuCsl5oaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCap61aQAKCRDBN2bmhouD
- 16++D/0bbkHFrM/DSB17DsFeQob3v757v8onIfgsK4xIpUIPtiULuD/AG8t0JcY8swQx5ckcrCm
- raqmFRD4zTdXnygkjlS+0MUr9+5zVTDvB1N58YdxWso47cdyTrA9XES4yWIHADmk4Yu/EobsWA8
- +Kg0jWeqjDVoifxxk2ra9XUq9p42HzDHADKOitroD3WMzx2hGpBsIpJdPWIWf66/k13GlWRCAhg
- eVThPzf9myJWdnmeODBJ+vJQrl4rpCMsKOBWcpa0HBQXCfw/hhRcIl7aayrAKJuefX01wDYuYvi
- ZbZxGOPIsbcoZKpgeLFOOtxOKal0cFCn+p+ikNF9GKmxjGENd6Q8MWgTaHVH+l6sMaq4FI/6FhT
- vpvhxZFAeE/sOAvCQnkJqHhCYtaF6fXFkuSRTO4eMyq1dMHWXxTQ9Lo1/UBINsi/YvHrniMsdv7
- fi3TFc/mxIm68i8ahUny1DvLamzdcNHpOUiCBpFVe50QKnT3nUEZt+Vwx6Qwsid+BfaSkY/X84e
- 3s2cQSFrXlc5/sjrmlNb/vbnvS3JM06B6+6e5/Ac0Z8zQuTIXdjZO6wuodgUGzrrOAksYJIoATo
- Ea4/8xYhjDsnO1tUaqOt+DmnKYLA/MIwvBs/N2t+ybpJZM0ZHumq1j0MzkiIpDokDx5UdGWrxUS
- /1ynteKFLOmJsyQ==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
- fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=QPhYgALL c=1 sm=1 tr=0 ts=6a9eb582 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=LSMMCDwwRte7x3nqQVUA:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-GUID: tSPf_XzcguKGAQsH6XreJf-A4lxmSHJJ
-X-Proofpoint-ORIG-GUID: tSPf_XzcguKGAQsH6XreJf-A4lxmSHJJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX3Gj8CVSNmu3K
- TLsxSEyWMkjHNoGSiBs7nwQlv42esoa2Xi02jDslp+2r8htDLBsUf7iDxIhdzQEd/ZV3ihZstoB
- AfTxpwFGOSLUIPw1XDGZjcvrP9/8Rew=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0MyBTYWx0ZWRfX6yn5UexT+cDU
- S7NQJhRoBcl2VLP5GyFABd21a9PlqbU/DNjaxSwgWKVtUt1SqVC0Py1BYOpHUuahawJGxBAqs4x
- Dp4kjG/J2SnfCfXIDjsmuUtGcHgfVhumTmQ9GR8R696Lv2NcXIc1/sX/HOCjXpaFVuTwV36SKXJ
- zC2bqfrUiGiTjkhy+YuVLxbi67tAdz1LjKU4RxFCJh3aaql1sV9D1sKnSbjtq+ToBXlzuLgdA4z
- 5BJrESG4zrShH38uRCIs1AjCdrLq2N2na/JorloNCoUuGxNOTbUNkH9bci+cddmdlYxKeqWHP0W
- 3fYiLOo7Z8FAyAKEo0bMLyb8KV6g5hel6OAKePEvY5RzH+TKG1JXZM/tQh+xXgCS8fqBxAEf8Aq
- hrAHkR5dBifAaEsKUSNIyT6BwX4BzgKSiuSmG5tv47rdmn5UFkfy4vA3j/oKzX5ZKx8IOaqwjuv
- DvAqZO1T4SOP3FbepBw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 spamscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070143
+Content-Transfer-Encoding: 8bit
 
-There are no properties in DTS or Linux drivers called
-"core-vcc-supplies" or "hdmi-mux-supplies", so the binding probably
-wanted "-supply" properties instead.
+The alloc->mutex is a highly contended lock on Android devices. When a
+low-priority task holds this mutex and sleeps, high-priority binder
+transactions are blocked, causing priority inversion and latency spikes.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Split the lock by converting alloc->mutex to a spinlock that only
+protects buffer metadata. This eliminates the sleeping and priority
+inversion on the hot path.
+
+Page installation and shrinker zap serialization is handled separately
+by a dedicated install_mutex introduced in the next patch.
+
+Performance (binderThroughputTest, SM8850, 2 workers, 10 runs):
+
+                    mutex               spinlock
+  throughput:    27k-59k iter/s       79k-84k iter/s
+  average:       0.031-0.068ms        0.022-0.023ms
+  P99:           0.088-0.148ms        0.050-0.062ms
+
+Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
 ---
- Documentation/devicetree/bindings/display/msm/hdmi.yaml | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/android/binder_alloc.c | 36 +++++++++++++++++-----------------
+ drivers/android/binder_alloc.h |  8 ++++----
+ 2 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/msm/hdmi.yaml b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-index dfec6c3480f3..02d27ccad024 100644
---- a/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-+++ b/Documentation/devicetree/bindings/display/msm/hdmi.yaml
-@@ -113,7 +113,7 @@ allOf:
-             - const: core
-             - const: master_iface
-             - const: slave_iface
--        core-vcc-supplies: false
-+        core-vcc-supply: false
+diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
+index e4488ad86a65..9775df3616aa 100644
+--- a/drivers/android/binder_alloc.c
++++ b/drivers/android/binder_alloc.c
+@@ -169,7 +169,7 @@ static struct binder_buffer *binder_alloc_prepare_to_free_locked(
+ struct binder_buffer *binder_alloc_prepare_to_free(struct binder_alloc *alloc,
+ 						   unsigned long user_ptr)
+ {
+-	guard(mutex)(&alloc->mutex);
++	guard(spinlock)(&alloc->lock);
+ 	return binder_alloc_prepare_to_free_locked(alloc, user_ptr);
+ }
  
-   - if:
-       properties:
-@@ -136,7 +136,7 @@ allOf:
-             - const: core
-             - const: alt_iface
-             - const: extp
--        hdmi-mux-supplies: false
-+        hdmi-mux-supply: false
+@@ -676,10 +676,10 @@ struct binder_buffer *binder_alloc_new_buf(struct binder_alloc *alloc,
+ 	if (!next)
+ 		return ERR_PTR(-ENOMEM);
  
-   - if:
-       properties:
-
+-	mutex_lock(&alloc->mutex);
++	spin_lock(&alloc->lock);
+ 	buffer = binder_alloc_new_buf_locked(alloc, next, size, is_async);
+ 	if (IS_ERR(buffer)) {
+-		mutex_unlock(&alloc->mutex);
++		spin_unlock(&alloc->lock);
+ 		goto out;
+ 	}
+ 
+@@ -687,7 +687,7 @@ struct binder_buffer *binder_alloc_new_buf(struct binder_alloc *alloc,
+ 	buffer->offsets_size = offsets_size;
+ 	buffer->extra_buffers_size = extra_buffers_size;
+ 	buffer->pid = current->tgid;
+-	mutex_unlock(&alloc->mutex);
++	spin_unlock(&alloc->lock);
+ 
+ 	ret = binder_install_buffer_pages(alloc, buffer, size);
+ 	if (ret) {
+@@ -872,9 +872,9 @@ void binder_alloc_free_buf(struct binder_alloc *alloc,
+ 		binder_alloc_clear_buf(alloc, buffer);
+ 		buffer->clear_on_free = false;
+ 	}
+-	mutex_lock(&alloc->mutex);
++	spin_lock(&alloc->lock);
+ 	binder_free_buf_locked(alloc, buffer);
+-	mutex_unlock(&alloc->mutex);
++	spin_unlock(&alloc->lock);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(binder_alloc_free_buf);
+ 
+@@ -967,7 +967,7 @@ void binder_alloc_deferred_release(struct binder_alloc *alloc)
+ 	struct binder_buffer *buffer;
+ 
+ 	buffers = 0;
+-	mutex_lock(&alloc->mutex);
++	spin_lock(&alloc->lock);
+ 	BUG_ON(alloc->mapped);
+ 
+ 	while ((n = rb_first(&alloc->allocated_buffers))) {
+@@ -1018,7 +1018,7 @@ void binder_alloc_deferred_release(struct binder_alloc *alloc)
+ 			page_count++;
+ 		}
+ 	}
+-	mutex_unlock(&alloc->mutex);
++	spin_unlock(&alloc->lock);
+ 	kvfree(alloc->pages);
+ 	if (alloc->mm)
+ 		mmdrop(alloc->mm);
+@@ -1043,7 +1043,7 @@ void binder_alloc_print_allocated(struct seq_file *m,
+ 	struct binder_buffer *buffer;
+ 	struct rb_node *n;
+ 
+-	guard(mutex)(&alloc->mutex);
++	guard(spinlock)(&alloc->lock);
+ 	for (n = rb_first(&alloc->allocated_buffers); n; n = rb_next(n)) {
+ 		buffer = rb_entry(n, struct binder_buffer, rb_node);
+ 		seq_printf(m, "  buffer %d: %lx size %zd:%zd:%zd %s\n",
+@@ -1069,7 +1069,7 @@ void binder_alloc_print_pages(struct seq_file *m,
+ 	int lru = 0;
+ 	int free = 0;
+ 
+-	mutex_lock(&alloc->mutex);
++	spin_lock(&alloc->lock);
+ 	/*
+ 	 * Make sure the binder_alloc is fully initialized, otherwise we might
+ 	 * read inconsistent state.
+@@ -1085,7 +1085,7 @@ void binder_alloc_print_pages(struct seq_file *m,
+ 				lru++;
+ 		}
+ 	}
+-	mutex_unlock(&alloc->mutex);
++	spin_unlock(&alloc->lock);
+ 	seq_printf(m, "  pages: %d:%d:%d\n", active, lru, free);
+ 	seq_printf(m, "  pages high watermark: %zu\n", alloc->pages_high);
+ }
+@@ -1101,7 +1101,7 @@ int binder_alloc_get_allocated_count(struct binder_alloc *alloc)
+ 	struct rb_node *n;
+ 	int count = 0;
+ 
+-	guard(mutex)(&alloc->mutex);
++	guard(spinlock)(&alloc->lock);
+ 	for (n = rb_first(&alloc->allocated_buffers); n != NULL; n = rb_next(n))
+ 		count++;
+ 	return count;
+@@ -1161,8 +1161,8 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
+ 		vma = vma_lookup(mm, page_addr);
+ 	}
+ 
+-	if (!mutex_trylock(&alloc->mutex))
+-		goto err_get_alloc_mutex_failed;
++	if (!spin_trylock(&alloc->lock))
++		goto err_get_alloc_lock_failed;
+ 
+ 	/*
+ 	 * Since a binder_alloc can only be mapped once, we ensure
+@@ -1180,6 +1180,7 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
+ 	trace_binder_unmap_kernel_end(alloc, index);
+ 
+ 	list_lru_isolate(lru, item);
++	spin_unlock(&alloc->lock);
+ 	spin_unlock(&lru->lock);
+ 
+ 	if (vma) {
+@@ -1190,7 +1191,6 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
+ 		trace_binder_unmap_user_end(alloc, index);
+ 	}
+ 
+-	mutex_unlock(&alloc->mutex);
+ 	if (mm_locked)
+ 		mmap_read_unlock(mm);
+ 	else
+@@ -1201,8 +1201,8 @@ enum lru_status binder_alloc_free_page(struct list_head *item,
+ 	return LRU_REMOVED_RETRY;
+ 
+ err_invalid_vma:
+-	mutex_unlock(&alloc->mutex);
+-err_get_alloc_mutex_failed:
++	spin_unlock(&alloc->lock);
++err_get_alloc_lock_failed:
+ 	if (mm_locked)
+ 		mmap_read_unlock(mm);
+ 	else
+@@ -1235,7 +1235,7 @@ VISIBLE_IF_KUNIT void __binder_alloc_init(struct binder_alloc *alloc,
+ 	alloc->pid = current->tgid;
+ 	alloc->mm = current->mm;
+ 	mmgrab(alloc->mm);
+-	mutex_init(&alloc->mutex);
++	spin_lock_init(&alloc->lock);
+ 	INIT_LIST_HEAD(&alloc->buffers);
+ 	alloc->freelist = freelist;
+ }
+diff --git a/drivers/android/binder_alloc.h b/drivers/android/binder_alloc.h
+index d6f1f6f2d00e..bea5a77bb6da 100644
+--- a/drivers/android/binder_alloc.h
++++ b/drivers/android/binder_alloc.h
+@@ -9,7 +9,7 @@
+ #include <linux/rbtree.h>
+ #include <linux/list.h>
+ #include <linux/mm.h>
+-#include <linux/rtmutex.h>
++#include <linux/spinlock.h>
+ #include <linux/vmalloc.h>
+ #include <linux/slab.h>
+ #include <linux/list_lru.h>
+@@ -80,7 +80,7 @@ static inline struct list_head *page_to_lru(struct page *p)
+ 
+ /**
+  * struct binder_alloc - per-binder proc state for binder allocator
+- * @mutex:              protects binder_alloc fields
++ * @lock:               protects binder_alloc fields
+  * @mm:                 copy of task->mm (invariant after open)
+  * @vm_start:           base of per-proc address space mapped via mmap
+  * @buffers:            list of all buffers for this proc
+@@ -105,7 +105,7 @@ static inline struct list_head *page_to_lru(struct page *p)
+  * struct binder_buffer objects used to track the user buffers
+  */
+ struct binder_alloc {
+-	struct mutex mutex;
++	spinlock_t lock;
+ 	struct mm_struct *mm;
+ 	unsigned long vm_start;
+ 	struct list_head buffers;
+@@ -156,7 +156,7 @@ void binder_alloc_print_pages(struct seq_file *m,
+ static inline size_t
+ binder_alloc_get_free_async_space(struct binder_alloc *alloc)
+ {
+-	guard(mutex)(&alloc->mutex);
++	guard(spinlock)(&alloc->lock);
+ 	return alloc->free_async_space;
+ }
+ 
 -- 
-2.53.0
+2.34.1
 
