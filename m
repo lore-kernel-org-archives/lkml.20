@@ -1,152 +1,153 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C9543935C;
-	Mon,  7 Sep 2026 08:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EC5439F83;
+	Mon,  7 Sep 2026 08:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768571; cv=none; b=HyMCedVLC2tUIRybGc5gbkYMJcuSS41gFIZpcV54nac8V+MXi6Bk0xqX74pRcsfq4JE+nr0/OhYJqZJ4Ql4Xh7a5e5f6S3JBqkaB8QTHaY8vF/nF0P9bf+ADJk+2eblb9TxiuzFF8aYzNJD13xWR2qcwiOuiRMyK3Hl+gW+Hllc=
+	t=1788768589; cv=none; b=UT3S9nmKSu6X3eiFr1+7Rh7WCbNswnOHXRsvwfx9pNYu4UhUf1HCtXLLQ/NwxkTeDVTxTAxnTSJG6MyvD4U+k5jtxsU3YkfQhKHspuyZg2oqMKSj4fN0PbC1OAHNszNKb0GgA/IaMkhCy5HY7pLk7/gR26/oGjHnr54njB3pCgU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768571; c=relaxed/simple;
-	bh=WfIdmfDObgfwwf02sJRuNe7sZCz+Uu0/ZlVs9pKYyZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qxIuR1Bo/0DqLw5gax6/QDSSvxaYWETsQeC3jGUZ5EpntDvwly4E/qGWBKTQEnolUX8Xf6vImxoHV4/5E1LIAx8/rzebyJlMf1h9FZsCaykmSTp4g7asssgrdPNQDs3RGEh+8QSc7sIg9rBNNEkQ8aufgoQUhAGUG0sakZpJIRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Jtfd/JJA; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=yB9JKPeJ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=1cDgkDw0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=B6KiCy5E; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788768589; c=relaxed/simple;
+	bh=wF6+qymTwJPnewxUAEEFkDt478Use89DXuefrbu8SL8=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e8mP/X4faOY3EGN7X6WtFzXia05WFxWtAxeZkyvenflLY+Tze2bNzRjtjTjNVS4fXj08tAUv64LlTqX7wMFva2ug8XHw4QKeyGn+U/CXkS9D6ZTt34pKNn37XcKG1NIFBVY1AYEF1XhMd6MUOPLL0KjAM3o2kWjQC/+aGje/+lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mo/LQXNz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Jtfd/JJA";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="yB9JKPeJ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="1cDgkDw0";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="B6KiCy5E"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 3782C21AF2;
-	Mon,  7 Sep 2026 08:09:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788768563; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
-	b=Jtfd/JJA8vzcNeBwMOnG0UhaLMHxNNkHmi7vwDggzOsL9oif2CUV5H0G7uGCyB6COuWJ5D
-	SUdYaJsmG+1igX7S2C+tli3C2QDjfCzhtKK0EJuq/KIn42/IhZ/g4v33hIWtCxHEjNXtD+
-	wxwFKkYLfs1kEf/hjDwa4K99oRj3Duo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788768563;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
-	b=yB9JKPeJ1JqyRN8abB13X2+FRoa2U+3CDrgUIY06KAgDmePn0poY/Eez245GQVBQ7K7kTX
-	PqNNSQ/6IBaSXGAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788768559; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
-	b=1cDgkDw06HhuSp/fqz/VmeMys12ywhzTtDVFA2mXdLiy6Vvp0P1J+dMZYMJZ2pZrrLmQcy
-	v53URvB2/P9tEjE7CpvAN72uO/PvKWAyQ0Un+VZMNhzVlKi+IoHzbBlGOqzFk2wrohLGYA
-	YLhTNGHPhcX9kPZnGgbAmGKi7BlI2Gc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788768559;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y4vUVmFFBovQf0DjtO33NPPdFIZMgNa/F1VoWVVo1yA=;
-	b=B6KiCy5Ey3OXeG9vHVySGLWyg8PfWqHEp3ywxJ2yOXJeT02Lq2/8/Myis6DbfIgdYXSRg1
-	Gh0eJF2MDg4hmmDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 18F381368D;
-	Mon,  7 Sep 2026 08:09:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id SCkQBi9xnmoxLQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 07 Sep 2026 08:09:19 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id A4CB5A13B2; Mon, 07 Sep 2026 10:09:14 +0200 (CEST)
-Date: Mon, 7 Sep 2026 10:09:14 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH] fsnotify: fix typo "anonynous" in comment
-Message-ID: <pvrjx6ekuelhlibuvz3wyrgmshn5ymyfixwh33ertklthvyv6i@bqkjt2vjh2ra>
-References: <20260904121146.22419-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mo/LQXNz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DFE1F00A3A;
+	Mon,  7 Sep 2026 08:09:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788768587;
+	bh=NnpuXAf41UshN+6j3AcVOLHgH7t17OZW010hfqbrXvg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mo/LQXNz89AwDUSTQ5BIC55Kat5eZVjHsvlWNvaFiZQ0ALYRa2KVGCiJoNlFR+ZEy
+	 1oZzAAkQ4W7j2+V3ExTroqzQUM2w5RC/UEdYUO7ROozhAPw/ZXstatZI125U0KeqKw
+	 OMJT+hiwfBcOyNuYlwgBGZFxd28KYBC1og9xJiuBsvdXs7yjXuOle8PyRoSV2LI57F
+	 nyKJTpGSct2pBIcOlzM66cLdrin1I1g03NWZELNm5cpuUu6uamCLGpa3x6RHbHoHXv
+	 XD2aK1NloOD7OH9gryp3sraU9Qb76INI0qJqLOaewHMtgmRfNK1AjD+bxfodnZ25IH
+	 oVI++h9i2J0VQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3UQD-00000005dyn-1Jw7;
+	Mon, 07 Sep 2026 08:09:45 +0000
+Date: Mon, 07 Sep 2026 09:09:44 +0100
+Message-ID: <86ld9d4h4n.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, Mostafa Saleh <smostafa@google.com>
+Cc: 	Georgi Djakov <djakov@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
+In-Reply-To: <apgeBNSiP01YfNcs@google.com>
+References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
+	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
+	<apgeBNSiP01YfNcs@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904121146.22419-1-hemanth.selam@gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TAGGED_RCPT(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Fri 04-09-26 17:41:45, Hemanth Selam wrote:
-> Correct "anonynous" to "anonymous", reported by scripts/checkpatch.pl using
-> the misspelling list in scripts/spelling.txt.  Only touches comments, no
-> code changes.
+On Wed, 02 Sep 2026 14:00:52 +0100,
+Mostafa Saleh <smostafa@google.com> wrote:
 > 
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-
-Thanks. I've added the patch to my tree.
-
-								Honza
-
-> ---
->  fs/notify/fanotify/fanotify_user.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> On Wed, May 27, 2026 at 05:37:10AM +0000, Raviteja Laggyshetty wrote:
+> > Enable QoS configuration for master ports with predefined priority
+> > and urgency forwarding.
+> > 
+> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
 > 
-> diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-> index a32c6634d592..63c9759fc3b0 100644
-> --- a/fs/notify/fanotify/fanotify_user.c
-> +++ b/fs/notify/fanotify/fanotify_user.c
-> @@ -1837,7 +1837,7 @@ static int fanotify_events_supported(struct fsnotify_group *group,
->  	/*
->  	 * mount and sb marks are not allowed on kernel internal pseudo fs,
->  	 * like pipe_mnt, because that would subscribe to events on all the
-> -	 * anonynous pipes in the system.
-> +	 * anonymous pipes in the system.
->  	 *
->  	 * SB_NOUSER covers all of the internal pseudo fs whose objects are not
->  	 * exposed to user's mount namespace, but there are other SB_KERNMOUNT
-> -- 
-> 2.48.1
+> Testing with Linus's tree, this patch broke my Lenovo IdeaCenter Mini X
+> booting, the board resets very early during boot.
+> I see that the last patch (device tree) is missing from the tree, I
+> included it, but that doesn't fix it, disabling the driver also
+> doesn't help. I can boot again by reverting this patch.
 > 
+> I have my own device tree as my device is Purwa based [1]
+> 
+> [1] https://lore.kernel.org/all/20260429141815.827157-1-smostafa@google.com/
+
+Same here. My Mini-X hard reboots after 2.45s in the kernel. Example
+from the serial console:
+
+<quote>
+[    2.280289] VFIO - User Level meta-driver version: 0.3
+[    2.286872] usbcore: registered new interface driver usb-storage
+[    2.307218] i2c_dev: i2c /dev entries driver
+[    2.316386] efifb: probing for efifb
+[    2.320065] efifb: framebuffer at 0xe4800000, using 8100k, total 8100k
+[    2.326768] efifb: mode is 1920x1080x32, linelength=7680, pages=1
+[    2.333026] efifb: scrolling: redraw
+[    2.336704] efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
+[    2.346518] Console: switching to colour frame buffer device 240x67
+[    2.356787] fb0: EFI VGA frame buffer device
+[    2.361793] clocksource: arch_mmio_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+[    2.372947] arch-timer-mmio 17800000.timer: mmio timer running at 19.20MHz (virt)
+[    2.380860] usbcore: registered new interface driver usbhid
+[    2.386577] usbhid: USB HID core driver
+[    2.391899] hw perfevents: enabled with armv8_pmuv3 PMU driver, 13 (0,80000fff) counters available
+[    2.403182] NET: Registered PF_INET6 protocol family
+[    2.408516] Segment Routing with IPv6
+[    2.412289] In-situ OAM (IOAM) with IPv6
+[    2.416326] NET: Registered PF_PACKET protocol family
+[    2.421533] 9pnet: Installing 9P2000 support
+[    2.425923] Key type dns_resolver registered
+[    2.430357] NET: Registered PF_VSOCK protocol family
+[    2.440369] registered taskstats version 1
+[    2.444633] Loading compiled-in X.509 certificates
+[    2.451480] Demotion targets for Node 0: null
+Format: Log Type - Time(microsec) - Message - Optional Info
+Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+S - QC_IMAGE_VERSION_STRING=BOOT.MXF.2.4-00541-HAMOA-1
+S - IMAGE_VARIANT_STRING=SocHamoaWP
+S - OEM_IMAGE_VERSION_STRING=ip-10-195-202-30
+S - Boot Interface: SPI
+S - Secure Boot: On
+S - Boot Config @ 0x221c8600 = 0x00000001
+S - JTAG ID @ 0x221c8744 = 0x002ad0e1
+S - OEM ID @ 0x221c8700 = 0x00000040
+S - Serial Number @ 0x221c8610 = 0x00000460d5171bbb
+S - Feature Config Row 0 @ 0x221c21e0 = 0x0000000000000000
+S - Feature Config Row 1 @ 0x221c21e8 = 0x0000000000000000
+S - Core 0 Frequency, 1363 MHz
+S - PBL Patch Ver: 0
+S - PBL freq: 600 MHZ
+S - Cluster: 0, Core: 0
+</quote>
+
+I'm also seeing spurious resets on my "X1E001DE Snapdragon Devkit for
+Windows" when doing large file transfers over the network (30GB+).
+With this patch reverted on top of 7.3-rc1, both machines are as solid
+as they were before it.
+
+It appears that the Surface Pro 12" is equally affected (IRC reports),
+so something is amiss with this particular patch.
+
+	M.
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Without deviation from the norm, progress is not possible.
