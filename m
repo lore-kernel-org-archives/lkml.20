@@ -1,37 +1,85 @@
-Received: from mail-m3282.qiye.163.com (mail-m3282.qiye.163.com [220.197.32.82])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C85D2ECE91;
-	Mon,  7 Sep 2026 05:59:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.82
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09082211A09
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760795; cv=none; b=uhVdAcmOE3CixcsJpMfo2g0i9COHR4NgR456XrQPwLQI0hu0X0oP72KTG5S/pssiLDkO7mErqRoJDaiWv/kFGuIIJV5p7deRVFlPvh4EYQSAFoxLnIr2jCd34D5w3xYRVQ5zgHF3NORwBSR/EHpB3H8hGW0wv6yF8t4SqcJYzNk=
+	t=1788760904; cv=none; b=gIkdfEMKcrks4nt+cM/bNoNryV9FIG5AffFu4dZf1bJ3Wk4ebRorvFKhW3Tm2NIzEyZH3PpclDb2rEJUIOPDunsyqcc92Yp+qfJfk6xcMSLRq19E46eMJgJFYeAMZ140NIZiAsppPzALlOno4CXTVEDvO4qTM3KCRaMemuafAvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760795; c=relaxed/simple;
-	bh=talLoTtij+UAkEmWW9J4GgHZ/+d8CSO0ec8BjSHv8F8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pcMnxCWI5USPYTDMj25qg/LfByj8MRQ7QwWRIqmc83+eRvEsapLHswK+jhiwgyy2+T9MtN5k1moAElgz3tiYkar3y5lPfQgLo1c5WS6Pv/R2xebxW9gMT2gYqOhe1aem9sCV+piIrOZYAmG70aeUXzysfSBc6NfpQuLY4ip6xAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com; spf=pass smtp.mailfrom=resnics.com; arc=none smtp.client-ip=220.197.32.82
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnics.com
-Received: from localhost.localdomain (unknown [115.204.15.233])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4cc44d0f6;
-	Mon, 7 Sep 2026 13:44:23 +0800 (GMT+08:00)
-From: Ruizhe Zhou <zhouruizhe@resnics.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Ruizhe Zhou <zhouruizhe@resnics.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Frank Li <Frank.li@oss.nxp.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] docs: dma-api: require checking DMA mask setup errors
-Date: Mon,  7 Sep 2026 13:44:00 +0800
-Message-Id: <20260907054400.1088151-1-zhouruizhe@resnics.com>
-X-Mailer: git-send-email 2.27.0
+	s=arc-20240116; t=1788760904; c=relaxed/simple;
+	bh=nb7e40O2vHkCkRzIEYHaNAAJYNdeSoerKZswLkgEi18=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VC4o7nrvddbKK206wBiWqWNvfgEFqFXbiVC6wGfZMWzImR72P+zmX3NkZ52b3ySmZJUnM7qL0EFF4EkprPNRSHz0KyjlQsx+AiyWKaKbSYIfXNXAT3R6NWnJuzeeWaLEfKNZy4Krv96nrUtC1gH1iZFl4oG9siMxM5W55XDmRXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1sSX41r; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1sSX41r"
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-4511f6a63edso526697fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788760902; x=1789365702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+        b=h1sSX41rKMV9vKkIZ1d/y31k6vLrwySgR2ZHIyyMPh+jyeRR2jaUA4Dw0S1YE8huDW
+         DGPdVm39mnxNfD31ZSwQu8foI3L3zobMsLx6WP8EQA3++lYe6UNqZplFPkYbYQ3hC75l
+         W9AmCnvtsq7qFxbO2lwZJjCFg2JjKByRx/L+iY2SfMmmRTONbWB9sC5mOKxvYGQnkfTy
+         0CKpebQNiCj9+9RdY6quqiin9YS4z0vpYNAtJGfU2btLDX8OjY1gE1Iqu8PMROB4aYWD
+         pb3INR/RlRLMRrIjWomGGjBYFQtb6xKVZuJBdA6ik3WKjUjaRmHLZDQuL8nnKPnp+NQq
+         YReQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788760902; x=1789365702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+        b=dbOzXhY82v83v3LsNW1/bX4F4Mr30CAM8kTPcUVYADUD5FnFAShMAWwKRL4XQKp5K4
+         7wj24W2xtsYtxwOczUEzeCEAGnbe+vgNsE63Yt1wntV8y+cgrkiVknbjIdehI+50Inxk
+         Po3gE9BFKlxpUc7EsnQ7ixoDcqI7HQqqYol52b8u25KBhVPCpld3ql9yMA7IiYkRFGEw
+         7nvrBIaQbu0+vyGZIxI3Ci3YsLRDSbAfRXilsjp64S+ee5hBROaAwM6VSWqSlCZSrsKA
+         baBTRPMIydstVryqFmbzBMYQTXqPv5lRBAgaBn2Ugvz8KfW+Acc8YU89H3WMYZ98cYmx
+         Qg+w==
+X-Forwarded-Encrypted: i=1; AKwUvByy5bqN7EAgzOo3QGc1QUmgv9xDRbUE4pLuaSQb4DGxL5pHaGlLfomVbwMAcC8nm9mIErWtAv831izIjzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lSVYldHnAXYOXNRGbdYxDSdnrplmNGjudSrJ2NiPduYB3sSi7g
+	yeENABRy32Nu2UJQnlWcjOIV+wIvFskG98ai0y2Jww02q2MgV0oo1bb7
+X-Gm-Gg: AYBFou0Kx0B4Q1IPdZ+m1WZ/RhZAmg866UkoGm5Rpz+9XS1MDrfLsQanbgdNy8sq0TD
+	64HDCOQ8O48LOoTin9WIWLH8OIofeV/pcHmHet+c9xokwhLU/Mek9GcUCkp9jZ45mgpo+IfNU8+
+	QgPNsUTbqdUEUVB7/CWBVHG7uXiNJufwb6jQhiNiReYCFtoGAs3/cvA6QIv5ZLLMNlbLz3V7PhW
+	ouJWYi5cqH211UcmkhIW9wd7g62wT67Q+O+gLcddt/OrLe8fwACtT4hR3BNLK/V0Pws4A0LVEJ5
+	U0YrMu79g1AkqhKLi8p8VlktANIug2UYqBp0GW8OU/tQuJeRr0BjT7c2GejvGEqWz+uAYkoDjYd
+	mpi+gGSlG9vKIdOc4KpjO4nt9GnzRdr1xNr55002FAGvBRLaoEgp0UW6jjfxWKyKx3RnknFkjF9
+	9xHPdy1vO024nCUPnDtJqO4zvraJFwP3k7apRJPaSDJLY82MSkhMGK4iLYncxYEg==
+X-Received: by 2002:a05:6870:8127:b0:465:27b7:4009 with SMTP id 586e51a60fabf-47550f20db6mr13400608fac.4.1788760901877;
+        Sun, 06 Sep 2026 23:01:41 -0700 (PDT)
+Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4755493580fsm9761726fac.13.2026.09.06.23.01.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:01:40 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+To: Nickolay Goppen <setotau@mainlining.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+Date: Mon,  7 Sep 2026 01:01:28 -0500
+Message-ID: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,116 +87,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa07a656e9c03ackunmc3184f181a2d46
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTx9CVklKSEpOSxhJTRhMTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSk5VSUtPVUpOVUlISFlXWRYaDxIVHRRZQVlPS0hVSk
-	tISk5MTlVKS0tVSkJLS1kG
 
-The DMA HOWTO says dma_set_mask_and_coherent() cannot fail for
-DMA_BIT_MASK(64), and more generally for masks wider than 32 bits. It
-consequently recommends calls to discard the check for return value.
+Hi Nickolay,
 
-The generic direct-DMA path does accept every mask of at least 32 bits,
-but that is not an API-wide success guarantee. Backend callbacks can
-reject wider masks: ibmebus_dma_supported() and
-xen_grant_dma_supported() accept only DMA_BIT_MASK(64), so a 40-bit mask
-fails.
+I sent a duplicate NT51021 driver on September 5th without finding
+yours from the 29th first. That was my mistake, and I have withdrawn
+mine. That's my bad, I'm new to kernel development :)
 
-Even DMA_BIT_MASK(64) can fail when DMA setup is unavailable or
-inconsistent. For example, dma_dummy_supported() rejects every mask.
-acpi_dma_configure_id() installs dma_dummy_ops and returns success when
-the DMA attribute is DEV_DMA_NOT_SUPPORTED. DMA configuration can
-therefore succeed while leaving the device with a backend that rejects
-every mask. The PowerPC legacy IOMMU backend also rejects a mask when
-no IOMMU table is available, and the default IOMMU path rejects
-conflicting dma_ops state.
+Since I had the hardware set up, I tested your series on the device I
+am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
+1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
+works.
 
-Failure is therefore not limited to an unsupported address width.
-Ignoring the return value could let a driver continue with an unusable
-DMA backend.
+Concretely, on that panel:
 
-At the same time, failure of a wider mask does not indicate that a
-narrower one can succeed. Clarify for DMA driver authors that they should
-select the mask matching the device's actual addressing capability, call
-the mask setter once, and treat an error as a DMA setup failure. Update
-the examples accordingly.
+  - your 10.1" register sequence, timings and mode_flags, unmodified,
+    bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
+  - it also works with my vendor's own sequence and timings under your
+    driver, at 62.5 Hz / 980 Mbps
+  - verified across a cold boot, display off and on cycles and a
+    suspend/resume, with the MIPI TX PLL reading back at the intended
+    rate each time
 
-Fixes: f7ae20f2fc4e ("docs: dma: correct dma_set_mask() sample code")
-Link: https://lore.kernel.org/all/AEEA1wBuK97oyrSN8q4l4KpK.3.1788520536000.Hmail.zhouruizhe@resnics.com/
-Signed-off-by: Ruizhe Zhou <zhouruizhe@resnics.com>
----
-This follows the discussion linked above about retaining the error check
-when removing narrower-mask fallbacks. Is there an invariant that makes
-these failure paths unreachable for drivers calling
-dma_set_mask_and_coherent(), or should the HOWTO retain the check as
-shown here? Feedback from DMA maintainers would be appreciated.
+So, for what it is worth on hardware you cannot test:
 
- Documentation/core-api/dma-api-howto.rst | 39 ++++++++++++------------
- 1 file changed, 20 insertions(+), 19 deletions(-)
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-diff --git a/Documentation/core-api/dma-api-howto.rst b/Documentation/core-api/dma-api-howto.rst
-index e97743ab0f26..a28be86666da 100644
---- a/Documentation/core-api/dma-api-howto.rst
-+++ b/Documentation/core-api/dma-api-howto.rst
-@@ -237,11 +237,11 @@ device struct of your device is embedded in the bus-specific device struct of
- your device.  For example, &pdev->dev is a pointer to the device struct of a
- PCI device (pdev is a pointer to the PCI device struct of your device).
+Two things I checked that might save you answering them later:
 
--These calls usually return zero to indicate your device can perform DMA
--properly on the machine given the address mask you provided, but they might
--return an error if the mask is too small to be supportable on the given
--system.  If it returns non-zero, your device cannot perform DMA properly on
--this platform, and attempting to do so will result in undefined behavior.
-+These calls return zero to indicate your device can perform DMA properly on
-+the machine given the address mask you provided.  They return an error if the
-+requested mask cannot be used with the device or if the device is not capable
-+of DMA.  If a call returns non-zero, your device cannot perform DMA properly
-+on this platform, and attempting to do so will result in undefined behavior.
- You must not use DMA on this device unless the dma_set_mask family of
- functions has returned success.
+  - The generic writes are right. Xiaomi's own panel dtsi uses dtype
+    0x29, and this panel accepts both generic and DCS short writes, so
+    nothing depends on the choice.
 
-@@ -264,23 +264,24 @@ The 24-bit addressing device would do something like this::
+  - prepare() never sending a set_display_on looked like an omission to
+    me at first, but the 0x01 software reset at the head of the init
+    restores it, and repeated off and on cycles pass. It may be worth a
+    comment, since unprepare() does send set_display_off and the
+    asymmetry invites the question.
 
- The standard 64-bit addressing device would do something like this::
+One question on the binding, which is as much about my patch as yours.
+Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+(dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
 
--	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64))
--
--dma_set_mask_and_coherent() never return fail when DMA_BIT_MASK(64). Typical
--error code like::
-+	if (dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64))) {
-+		dev_warn(dev, "mydev: No suitable DMA available\n");
-+		goto ignore_this_device;
-+	}
+    qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
 
--	/* Wrong code */
--	if (dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64)))
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32))
-+Failure to set a 32-bit or wider DMA mask must not be treated as an indication
-+that retrying a narrower mask can succeed.  Drivers must select the mask based
-+on the device's actual DMA addressing capability and treat failure to set that
-+mask as a DMA setup failure.  For example, a device supporting either 32-bit
-+or 64-bit addressing would do something like this::
+with no part number, and the register sequence in your driver matches
+that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+is inferred rather than read off the panel or a BOM, it may be worth
+saying so in the commit message, or naming the compatible after the
+board the way panel-novatek-nt36523.c does for
+xiaomi,elish-boe-nt36523.
 
--dma_set_mask_and_coherent() will never return failure when bigger than 32.
--So typical code like::
-+	u64 mask;
+I ask because my module has no identity I can establish at all. It
+answers no DSI read, DCS or generic, before or after sleep-out; the
+vendor kernel and bootloader name it only "BOE", chosen from two board
+ID straps; and its vendor-declared physical height is arithmetically
+impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+naming mine after the board, and would rather not accidentally imply it
+is or is not your part.
 
--	/* Recommended code */
--	if (support_64bit)
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
--	else
--		dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	mask = support_64bit ? DMA_BIT_MASK(64) : DMA_BIT_MASK(32);
-+	if (dma_set_mask_and_coherent(dev, mask)) {
-+		dev_warn(dev, "mydev: No suitable DMA available\n");
-+		goto ignore_this_device;
-+	}
+If it is useful, I have the Fire HD 10 panel ready as a variant on top
+of your series: two patches, binding and driver, adding
+amazon,suez-boe-nt51021. The only change it needs in your code is
+making mode_flags per variant. My vendor asks for sync-event video mode
+with a continuously running HS clock rather than burst, and your two
+panels keep exactly the flags they have now. Burst worked on my panel
+too, so this is about matching what the module is characterised for,
+not a fix.
 
- If the device only supports 32-bit addressing for descriptors in the
- coherent allocations, but supports full 64-bits for streaming mappings
+I will hold that until your v2, since Neil's renaming will touch every
+identifier it adds. Happy to test v2 on this hardware when you post it.
 
-base-commit: ab2704c2a884028fd12d455cf27a9585aefe2961
---
-2.27.0
+Thanks for doing this first.
+
+Ryan
