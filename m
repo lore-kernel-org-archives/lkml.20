@@ -1,142 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4688B41379E;
-	Mon,  7 Sep 2026 06:47:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EF9417366
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763671; cv=none; b=E3zL86X0RV4hR+jTVR8kn0FoOBcT2BLQJjBjOMrkxxnY/nFCVNi0yADZ7fWclVzg9ku0ymNXiCWnN4zw68Eisv8omrQvaytwKsOFYS1JvFv8ZEcOeQi24thhMPed4PUu0r3/BQz+6grOzKuqVKwLJ503yIk9q1ZiNizsK093E48=
+	t=1788763674; cv=none; b=UW0vP9TTdji2PCKadX/i2yl0EWNM584sA3uPISvbVb8EnJT+YrCbJgmJEGnF/X1rvfLmZ5Ome3Q2F3CbplSxNz1fbb/QNXH35iotpQfWsqH4+k+NWoSPIqIiPXJ7CHKj5EGMlIKhx/w+6BYlrm+5EI1iUIUMv9iCpSMArAINdNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763671; c=relaxed/simple;
-	bh=BNie282xU5eu890Ms/upZMZQO49kpQrhLK8FlGZdHrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nhOqnJVIBzRyEuVJYdM1u7SpTfgbFTdet4233OO1uri8Zh18JzpZy3dKWuNQLS4uVJ2HIUeU6XR3QnaD4LHAmN0zX/Hkzy/Y8VopanaEhgaD9H7KCSHn7jooJXnxPqg4dSFEUPdVhiqrLF3etc6+heXhTt8AegJshelvxftZA+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uu1cQqUn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788763674; c=relaxed/simple;
+	bh=p91ao2AKO1u40gx02a/XDSpFyO2CsKWUxeRtlMlap68=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I52erbhUfqQd7yGHSjZnbL8Ee+l1YlIiKyCgsd0K/AVgV7xTnnTbsU+17C48jwhhykpXGKG0Xnc6489//0VdkbgaeAtBChOw0A5RwpOYQurNuQ4trxgOqdGWNcpEderu0Bij3OMDQzMBA6gccKIxUloJyQ+RBoJ2FCblKwjEFuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kEjHzrbw; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uu1cQqUn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852DC1F00A3D;
-	Mon,  7 Sep 2026 06:47:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788763668;
-	bh=TKhJNQZ3kTdGLSdNxwitpgDe39MWhrreC+MxyA1vdgs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Uu1cQqUnIInzGmTWcEycZJ78Lzuli/xVHHI4VLpzTVIO2QTYr7HmVDnc8kQxYX1uE
-	 UCpJNNtPJhvfM8V1Y541K8MD0m89J87Z8sDeMSm0O6g1uI7zRcUDz98gwh0XiEcZHn
-	 Go3I0qRE82rJpIE3EPoJtoYGLIZ3heXp0r/J7BWUwofIq4IoltaEQcgkI9tWBJW6C5
-	 /rZxq+YlSOPXZwC/mwv7APpGwbg64m/BUtepuhZVqK3vjh9ZKWWr/wHx5/c16bKQuq
-	 Tymy7EK1Gzdd3MlaAl/9rwP0O7pg9ZHgaXfuiQoMvEpNvtpuUIzf7asQvMXCkEtRDA
-	 T4w9GnA3JOWbQ==
-Message-ID: <3f33d9f0-65c2-49b7-bb6d-2fe33f0d8fbe@kernel.org>
-Date: Mon, 7 Sep 2026 08:47:45 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kEjHzrbw"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2903216a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:47:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788763672; x=1789368472; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SIBBvWrmpup+w6AcHGzaJw3qF8lt2RTeR72Ssm270eo=;
+        b=kEjHzrbwtRg1hg4bzJm7knqJe2KFnNf1OSbeA8WSAnrjQM2zPStzHl92eMayZ67S2f
+         Rh3Qb/Cwmct/oY3uD10q1HnmJ4CIXqOTZqyf4nuPfpS0AL4ozel78IbL0krJo4eFKhGR
+         QT5VibDE5/FrGVkkHOgobYfuNQ4R8+vk5F+HNgP8mvDBg880XowBvwtu7uzvGzP188qn
+         zNCTOT2hqZSE2Lftix4aIHtVV+WxDT9oI1uKe9T7x54funPrKbh+50+pMZD8SnvUo/i3
+         dbCR//vBRDmMpMSaPvaWvkCTWpkaJxCqhJDUqjOOE7c69mjWG1kIqATi6JwhadcZ9OUA
+         xMIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788763672; x=1789368472;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SIBBvWrmpup+w6AcHGzaJw3qF8lt2RTeR72Ssm270eo=;
+        b=gNWt+ucx6ytCDgt52mz02AuzvBpkiS+jigWO/mdMI0O51kerbyqSt/towbCFbgZa9d
+         OidAeLSoUcrfJ3Isb1BhbXPRP38mcNmkUnhcKKvmnxLEmjtGMMrt1hZ22B6HyQ4i50v5
+         fIH3jR4Cv3WGMwaoABxPHv7zhB3OITEaqgbyI5ZiVKHGVfYTeOSKUItTUjltj3O0gqNZ
+         BGslTFSjxdt8BluYnhT4783NiSFb7mob2JsB6Jt9Obnc0udd5PBck9mUr7kUbOqL/Yfa
+         WJ6w39Ltw+VzBFnV+LfPOCPOOyZpvnjmO/TqrEpPkovFGPjq6GUHOIxyAPqWyr3+PWqj
+         JU0w==
+X-Forwarded-Encrypted: i=1; AKwUvByTghzER3dt+8Q3mJMgfk3jkuF1Fo1IQ4zFuwQcJqS0I1jCAtY1pm+bfvn8JghS4mXO8/tnmfn8Fvjx05g=@vger.kernel.org
+X-Gm-Message-State: AFuF++nKwNMrg2iXEONnk0AqrBJ7MCi5tPE1vNNRHjp4ym/6KUIP+7id
+	CSU+pmsjU9N410fSjNXtl1UlOvXC6SHpNGxtFGmRsInWLJ4pmFZ5EXfQhphkbQez
+X-Gm-Gg: AYBFou38IGgBndnDIVAvD47t6nWVWoP15R6vIwWbUzABCz88fED+bkHsRt/QmhqGY76
+	J0PQP1dAEU24FKAV7BKrtpWzz/5hdnwJgSbnyLYUYJGmCOehgcxXURF/k6FcnRurNI+tSs1ZySS
+	yyiZg4aEVfUxhhcww71ZnmjPUwYJaaB+2EX7aagFgjhkiViqHjDWUAPqx5G1+uP9aqTIHQuCidy
+	ntd8QWiBGzgIIfjBOqpsrt68L4gSJxCYdalA+iEFE+Ia7IR5QmYrYpOIHdYSvYpFoN5PW6NvFIM
+	AqAJGAwfIBATGh0dnQugV4vWu7TO8OZp8qspwdjGh9FKeNOsUAg1FhTr2D6sZ5ZYYbrJlHF5sbB
+	zuMVWnIEO3+Edh4lX40F3r3UrI80lHbsRqT4HqvhCPdU2/WzoGIQk4NFvFSUp0Pcf0hVk/KcBog
+	O5KV8W3MOneepSyQ04yRw0U12fD//7kwNhbmgB/fLMGn2kalgKdtHq69e+hrvXgjNBYggYkCpk/
+	E1bjNzEZGER8Q==
+X-Received: by 2002:a17:90a:d2c6:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39b260d2f07mr32517136a91.3.1788763672025;
+        Sun, 06 Sep 2026 23:47:52 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm24811158eec.9.2026.09.06.23.47.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:47:51 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>,
+	Eduardo Valentin <edubezval@gmail.com>,
+	Keerthy <j-keerthy@ti.com>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-acpi@vger.kernel.org
+Subject: [PATCH 3/5] tools/thermal: fix typo "binded" in comments
+Date: Mon,  7 Sep 2026 12:17:23 +0530
+Message-ID: <20260907064725.10686-4-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260907064725.10686-1-hemanth.selam@gmail.com>
+References: <20260907064725.10686-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] serial: revert guards in uart_wait_modem_status()
-To: Johan Hovold <johan@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260907064418.92953-1-johan@kernel.org>
- <20260907064418.92953-2-johan@kernel.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260907064418.92953-2-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 07. 09. 26, 8:44, Johan Hovold wrote:
-> Mixing scope-based and regular cleanup is discouraged and
-> uart_port_deref() used by uart_wait_modem_status() falls in the latter
-> category.
-> 
-> Revert the premature guard conversion in preparation for fixing a hangup
-> race.
+Correct "binded" to "bound", reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-It's not premature. Just convert uart_port_ref() to guards too. Gotos suck.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ tools/thermal/tmon/sysfs.c | 2 +-
+ tools/thermal/tmon/tmon.h  | 2 +-
+ tools/thermal/tmon/tui.c   | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-> Fixes: 56609c050051 ("serial: serial_core: use guard()s")
-> Cc: stable@vger.kernel.org	# 6.18
-> Cc: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->   drivers/tty/serial/serial_core.c | 13 +++++++------
->   1 file changed, 7 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-> index 95774b0f1484..1553bc6cbe7b 100644
-> --- a/drivers/tty/serial/serial_core.c
-> +++ b/drivers/tty/serial/serial_core.c
-> @@ -1213,15 +1213,16 @@ static int uart_wait_modem_status(struct uart_state *state, unsigned long arg)
->   	uport = uart_port_ref(state);
->   	if (!uport)
->   		return -EIO;
-> -	scoped_guard(uart_port_lock_irq, uport) {
-> -		memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-> -		uart_enable_ms(uport);
-> -	}
-> +	uart_port_lock_irq(uport);
-> +	memcpy(&cprev, &uport->icount, sizeof(struct uart_icount));
-> +	uart_enable_ms(uport);
-> +	uart_port_unlock_irq(uport);
->   
->   	add_wait_queue(&port->delta_msr_wait, &wait);
->   	for (;;) {
-> -		scoped_guard(uart_port_lock_irq, uport)
-> -			memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
-> +		uart_port_lock_irq(uport);
-> +		memcpy(&cnow, &uport->icount, sizeof(struct uart_icount));
-> +		uart_port_unlock_irq(uport);
->   
->   		set_current_state(TASK_INTERRUPTIBLE);
->   
-
-
+diff --git a/tools/thermal/tmon/sysfs.c b/tools/thermal/tmon/sysfs.c
+index cb1108bc9249..5d64aff12a86 100644
+--- a/tools/thermal/tmon/sysfs.c
++++ b/tools/thermal/tmon/sysfs.c
+@@ -225,7 +225,7 @@ static int find_tzone_cdev(struct dirent *nl, char *tz_name,
+ 				cdev_name, cdev_name_linked, cdev_id);
+ 			tzi->cdev_binding |= (1 << cdev_id);
+ 
+-			/* find the trip point in which the cdev is binded to
++			/* find the trip point in which the cdev is bound to
+ 			 * in this tzone
+ 			 */
+ 			snprintf(cdev_trip_name, sizeof(cdev_trip_name) - 1,
+diff --git a/tools/thermal/tmon/tmon.h b/tools/thermal/tmon/tmon.h
+index 44d16d778f04..f347efb47c96 100644
+--- a/tools/thermal/tmon/tmon.h
++++ b/tools/thermal/tmon/tmon.h
+@@ -77,7 +77,7 @@ struct tz_info {
+ 	char type[256]; /* e.g. acpitz */
+ 	int instance;
+ 	int passive; /* active zone has passive node to force passive mode */
+-	int nr_cdev; /* number of cooling device binded */
++	int nr_cdev; /* number of cooling device bound */
+ 	int nr_trip_pts;
+ 	struct trip_point tp[MAX_NR_TRIP];
+ 	unsigned long cdev_binding; /* bitmap for attached cdevs */
+diff --git a/tools/thermal/tmon/tui.c b/tools/thermal/tmon/tui.c
+index 7f5dd2b87f15..b982c1d77402 100644
+--- a/tools/thermal/tmon/tui.c
++++ b/tools/thermal/tmon/tui.c
+@@ -238,7 +238,7 @@ void show_cooling_device(void)
+ 				unsigned long trip_binding =
+ 					ptdata.tzi[i].trip_binding[cdev_inst];
+ 				int k = 0; /* per zone trip point id that
+-					    * binded to this cdev, one to
++					    * bound to this cdev, one to
+ 					    * many possible based on the
+ 					    * binding bitmask.
+ 					    */
 -- 
-js
-suse labs
+2.48.1
+
