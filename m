@@ -1,68 +1,87 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29BD0296BC8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658EC43C05F
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769065; cv=none; b=L4AfxDDthii7O7FNLMYpGBRm9p1P131lcEFKXhbHJ38RFZ5QZLNOvE4cXczUEhezMK4xyGyo56imJIlLvyTIKpeCRMEGrEBuO6YSJFrpIYBGqpoYfam/0DMQ/URKu1hyXhRtcOVg9nRkPjKY1agCIBxEQaU7Nf0N1YeGypHsEtU=
+	t=1788769170; cv=none; b=dJSPfVakxyXe6OsDyzCFcoJ1FmXVTq+qSbeThGJT/kZqj/cW1TTagZYI6f9MwmrEOuziBBtMdWgoBOXq/anZom0nPpDCJj+KR5wdSc8UzRy6GZZirxS98ynHayH3S2+XqA/68ffbFZIHWWuMB5mcKsz8ZwFZBvfDPUHEg1iYVVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769065; c=relaxed/simple;
-	bh=jFAWYKmVqe0Mh/SD/Y7hlGGG4XNWYE1a0HpQTiZyN3I=;
+	s=arc-20240116; t=1788769170; c=relaxed/simple;
+	bh=Cc7dj/sRhx7BFv/3UmS1z+1pGdS2VypC/st1bCdYeGA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=p5mGVa1fQvsbSJnUiNaHHrvIPPs89ODN5zWmlKLPzD3V5hl7GK3Ersq7FrMqA2kD+p0Pn8cBRpqfS+lJ033NKMviORQ+3L34FTLxllriaNmB3WlCxIyy4dwULy8Qec2BXB7BfNk7eeHbkR4mJ3a8aurwOhvYcLE/7jewkyoSPEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=DgxSzYmq; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=RC7xz2pKs3DjLHmBmz/uLrtZNzEhhvOQpSjmu9gWBGchogGXXmQ+r5u3tAoJPIgC8aUjN2+9Fd5MuWO9f+1BNpn6rhocuMvfga/WxsTNiZ64L/TMyG0+Vfz5HrYwXRWbj221qyRRqQ4XpGJwairXxafrIfOHOwih39FWrwv09hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RDS0Ibmp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ExZnwcH4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="DgxSzYmq"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843e9c5960so3252878f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:17:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RDS0Ibmp";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ExZnwcH4"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777fb72146300
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 08:19:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	dhN42oEPCAxcCBPQS4z3rBBRj3rpOiaQuFNeu+Dnbpo=; b=RDS0Ibmp91GyCd1r
+	INksPi7bdhi4Hd/CY84R+hzcyuQGil0Jxqg5NYeyC6B7eCWHd1wa08QriI0CwTWB
+	3hyV1sX0TbQ07wNDzphI9gc3QOVmgtwW0Po4EUZxem8wGQCViQoQfhdomzCkBhQt
+	+oVflQd9XEpt4die8hICjWwEcpyYafzXUWQsC6uwVcJe1A5srleAzbB0hmK3rhaC
+	mjHjZVYUXyAl1aZ52/Sv5WWop2n1fsQlF99ljAxNsZT07aYfowMthN4agKZUluBK
+	Ho4vn9e6+paYxucfp6vDXlWeMjCyNygqjvZed5+xiFDvBktyh/XZmrVOR4YEDYvD
+	+EowYQ==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggc8jdt3y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:19:27 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398d292eac1so7187563a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:19:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788769062; x=1789373862; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788769166; x=1789373966; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SpoPZ0fcd3JuJClRUUCxQoIFsxpcrKHbj5/qQhfrnoA=;
-        b=DgxSzYmq0osm/iHYnNMP1f9/uMVLPaPVWPb20EKfEk/mgFlLBpygD2bf9fTrQOHMkF
-         cwXgQWNX0YO47UbEBKy/xvUvPnM3ZUbi3aiD8pAl5xqRaz1wzoKEUminXhP++VTIfiW1
-         Ybe+QP0vn/NsvIKYUW1rpw+Y3pFw8OLrh7XWMzKx6+rb2TqR4MWttKTtehZ2P+ftE4cz
-         Pd+EAnATvNyd1tTo/GHpwPF1MlodOSYMMxz6X94oZfNwbOvQljXjv/Syfm3lVU/6RgdA
-         xXuKD6RgSPnrzypU20PzPQpMh2ZzAh/ETB9ocPeNtiaXvppGgzSzLhdVebhyIiouDcLT
-         8VkA==
+        bh=dhN42oEPCAxcCBPQS4z3rBBRj3rpOiaQuFNeu+Dnbpo=;
+        b=ExZnwcH43Jo/8jtzmMgvYvrQesxNcifoululqVaOUx+MVdd7anaV6bmTslvPNB6p9R
+         FnLvtYNnbxAJdFlO5JPYXxI+s6atkT1lUZrNOmJXqPygVEhAX9a9Rf2LELLUtERSiQga
+         EtBmdhXKMavmucxtfHHRzrdH/Ki0vCfCApc1oo8oTDM5uDWUvvngRuXM0CO6oD+gyycr
+         W375YudxHd3J6SdvHJGYTVJL9CFRD1Qora90KC31CKIZQGCLEriYw+oyQo6M0euW5EOI
+         w55s2KO9bvFMHhOoe25TI1MOOvMA7LxYbffNq+1gpCb+fDzlRRYBdOqP3tnafRDD9D8x
+         P3GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769062; x=1789373862;
+        d=1e100.net; s=20251104; t=1788769166; x=1789373966;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SpoPZ0fcd3JuJClRUUCxQoIFsxpcrKHbj5/qQhfrnoA=;
-        b=qXfPTaSSu1s8BbgrX6ItDygIiEaFEhAmb70rPyknQdZKv7MslGabJbfCKR495EJdKl
-         nJQWijISpozsqfLd1X40kvjCNRrox60yC08h6HwbGPLQaYz3G+0VdYTGpCsA8o+Upbuw
-         JWkbU/YDPz14+K4GdWbkuYm58iXvDRAA/WUehYK8/TicWfkZAZ3br+fi4hGrWeTuOtAj
-         LDRuksJd7GIE6xBincDw3nVrQP392EjwL1TvouT3IqfppxdP6lrdstqfGAgxK1Pa3qsh
-         X9vDDgvP2II7vs+4V03dIptxVQ4XfqQVmIp3rTBoBEDTyAUTH7QII5cbrIvBcSnSZRFJ
-         kOuA==
-X-Forwarded-Encrypted: i=1; AKwUvBwX32HDCJCHsiivUPdEdlX4PuR8z8+wLb6mSJUC0VNzcWWKPOH5QMEqGwH9O3MSnNLu+HpDmEYfGmIl+Pw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfqIs3uWVlwBHKDKyiDDMYUid8qazf7Ci8czR3aD5aHXE7tDOD
-	2jM4Ky2boevJFHpQsLXkMmo16cnB1heT54icrpXCQKKKKwzvsDUcZiXSSp3h73nkji8=
-X-Gm-Gg: AYBFou0wQs5WZkSDnrEeEzF91aBL5j2xJ6+pwBMjy25BItVUVsXFmyjFAj/9Ds29EOh
-	FFwAhkAMCbdN8s3XeF8oQM2r8tN9B/OY4cKafoS3bRfVmANF/VqDAa22gnMtcK0ZCSW/o4uCsfw
-	K1QQ2h1ttuGDcFIkZK6laGaG3LLnUb98FUU0UWGEP4ca8izodx83D/9LX89bv3mdzUwdPbMM4Ku
-	DxDPXv6DSIlEdzama5ETcjnpxPhKp2S5KZRSUt6JNMc8IstZiwiv0t6A7lT8jC2TKfR9G0xr/SK
-	Mze3dbddvgNcyZxMwfM1stQaYkuwXX7dw5zNyoJYb+YqXwIgKvNGHrFn9W2GSj+eGWAdQ1I2z++
-	B3+V6eIyh2G45VGWN27LAEJ5ddcsYdc3I8papvckFZMFyCMgxYR3VZ94c8atXn6BGxb76hcezri
-	G/qbOgII+lNbTAFUF9xxDBjesQQeGHaszxT+ZhT9ZiTgVToADuvuHStHVN5FZkWzRK0rLLirHh6
-	K2OUyA8dsmlrlQTu4TWpJngF7np+rgq
-X-Received: by 2002:a05:600c:34c2:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-49d10d6fdeemr36875255e9.1.1788769062392;
-        Mon, 07 Sep 2026 01:17:42 -0700 (PDT)
-Received: from ?IPV6:2a02:3033:28e:551d:9975:219f:1622:8b8d? ([2a02:3033:28e:551d:9975:219f:1622:8b8d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm802674335e9.0.2026.09.07.01.17.41
+        bh=dhN42oEPCAxcCBPQS4z3rBBRj3rpOiaQuFNeu+Dnbpo=;
+        b=pFbN5z0YMra0ytscn4533qDiBCkSJmXniFSJ5hiW5+Qq/Yo2yq3/WX/7jrGLbVrJrt
+         KrgKqPu1o3t0QxhVfT6lkQFQg+h/ZbtcU6f8wiPTT6jDYCAY+0iyCL83Wk9JHVu0dOw4
+         5DchRSz6PZ7DwjN0QQWGIqVIUz3/FeeZ0JCHJLvNwOGj4tnwceeV2mFHK4X+WFmUR/Xb
+         byA2VMPPLsKe481loC6XjbkI8nf4WeKf9T69QsAtdCwJVRn0QAOd6qwtcAgc67PVVos4
+         9BcmKSxfc+CWa4B2B/m7Bek94jaWmMc4rXDoObzeZX+XUw0uaPbyYq2sYWU9qsHaboxz
+         joaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwg2llj3KSS2DNYVIZYn799sC4iYL/4fMj3m/oXftfZiXTZdOPUQTxl9d3AzX3BEQV21DTE7SZezjZhDnU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ9d+o5IfO05XvTK/Oewso7rp4rv31babqzrB4cQoCfOL8sMiA
+	m/n+TjpaK0j2xuczLCE56VXwJYDZlhiO7XYIlwvir1v4RxfRthGw93J4kicjwYYltEEe2KPTMns
+	xVhF/uKI09sCHadjHbVRr1jgsf3N3z0PCPKO+M8zrQ0y311NjobUVQRYOjYn1KVJGSbs=
+X-Gm-Gg: AYBFou3Jatx7+2u7KOwk9ZAq7pRX4R/xfptXQkDYCAyy+VJayLQksxrOYAqO1+Mz9Qm
+	DU28VTrs6xO5FJoqZ9VyenOMDbZT7KjIKFfpA0c8yUA4CU4XEcG9iMhx7IeBarIyUMC4usTwQu6
+	MgILRhwvm4FBaJBqZIkWL4n8nIKceyEsP25WIKun/FGfnj8iLr498VlYv2TxChrJT7M5bz1cgqB
+	cBdb43uFkkl6GOT8RgGArqp8NwB/jrH2jfyqrf0p8Tg15VHdO0tmpE4MbKNJbw/B1IUxs/Qflpr
+	xb1O8SBFPwnWgyxiTAyfL6nIgRJA3bnV7LqGVl+vFA3uRufM78AMD+puVZDgg0cZ8bulQcZjq4H
+	phJrgrm8Ca1xIz7wOLmBQd2rRnTqWbuWOug+MhaHpgw==
+X-Received: by 2002:a17:90a:d00e:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-39b262409e5mr34110691a91.25.1788769166438;
+        Mon, 07 Sep 2026 01:19:26 -0700 (PDT)
+X-Received: by 2002:a17:90a:d00e:b0:399:221d:63c0 with SMTP id 98e67ed59e1d1-39b262409e5mr34110638a91.25.1788769165936;
+        Mon, 07 Sep 2026 01:19:25 -0700 (PDT)
+Received: from [10.217.217.129] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm23134424c88.0.2026.09.07.01.19.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 01:17:42 -0700 (PDT)
-Message-ID: <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
-Date: Mon, 7 Sep 2026 10:17:38 +0200
+        Mon, 07 Sep 2026 01:19:25 -0700 (PDT)
+Message-ID: <f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 13:48:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,26 +89,148 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-To: Johan Hovold <johan@kernel.org>, Oliver Neukum <oneukum@suse.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260907065501.101013-1-johan@kernel.org>
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS
+ configuration
+To: Marc Zyngier <maz@kernel.org>, Mostafa Saleh <smostafa@google.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
+ <20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
+ <apgeBNSiP01YfNcs@google.com> <86ld9d4h4n.wl-maz@kernel.org>
 Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <20260907065501.101013-1-johan@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+In-Reply-To: <86ld9d4h4n.wl-maz@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: HssERMWXoi0HbjvI4_4F8fiWfkWrw9Mc
+X-Proofpoint-ORIG-GUID: HssERMWXoi0HbjvI4_4F8fiWfkWrw9Mc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfXxqGHaIhEXhQL
+ MloKe1aDRLBPozJaIbBSe/4BTNRJXNj1258+iNyn7i3XkK+6qBjHqQYHlQnmZDl8Rg7sTME/ddu
+ X5Zd6hazFS8Sv681SpG0XgRQf184k663FACMJCKgNSS2Rx9HcAD6Uj6nsmKTBAlX4t1iuKPB+Uc
+ lZPo8MUpvsDf1Vi6JPJRetX4xMfgYwum4GhTlvKVRvmFZXqG40wHyW8g5ZHYV029WbYuzC8n7kQ
+ 4OQXt7TDvB+69dxdalBfA4y03iOKwPET0x005ssDrQePTPlvRo7trCA2GX40YFxzpSy4yJ0qPbo
+ FxeuKuXz6BPulGCk3khi3ifgaYdRIAtBcLjqLZMje0XMGJQKKc58eVIlRJB9hDRRgAa+6yxxv5M
+ +kLWO11JW9hkvWaae+6I+LUiCqfcdQdYZBSSZ3Ftb6Q23+7CB0iaPnSDVMtbqvCO3Y3peHBms4t
+ KLq9A4noHlEC3tp8mHA==
+X-Authority-Analysis: v=2.4 cv=DYgnbPtW c=1 sm=1 tr=0 ts=6a9e738f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=1XWaLZrsAAAA:8 a=EUspDBNiAAAA:8 a=Mjzv1QJRJk8zmdB66akA:9
+ a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4OSBTYWx0ZWRfXweU6CKW2lC19
+ gMRUeIAfCCWqbRdECO1R5Nz9UWxGbEh80h8wY7UtZSUKbnIpBmOabG3qDcnUTjuuW/5seazQ+uv
+ 8Kw43eAl0rRrMQ7VzyKfetoYUA0pqwQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 bulkscore=0 suspectscore=0 malwarescore=0
+ adultscore=0 lowpriorityscore=0 priorityscore=1501 impostorscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070089
 
-On 07.09.26 08:55, Johan Hovold wrote:
-> The wakeup condition needs to be checked after adding the task to the
-> waitqueue and updating the task state to avoid missing a racing modem
-> status update or disconnect.
 
-I am sorry, but in this case I have to ask:
-Isn't TIOCMIWAIT inherently racy against the hardware?
 
-	Regards
-		Oliver
+On 9/7/2026 1:39 PM, Marc Zyngier wrote:
+> On Wed, 02 Sep 2026 14:00:52 +0100,
+> Mostafa Saleh <smostafa@google.com> wrote:
+>>
+>> On Wed, May 27, 2026 at 05:37:10AM +0000, Raviteja Laggyshetty wrote:
+>>> Enable QoS configuration for master ports with predefined priority
+>>> and urgency forwarding.
+>>>
+>>> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+>>
+>> Testing with Linus's tree, this patch broke my Lenovo IdeaCenter Mini X
+>> booting, the board resets very early during boot.
+>> I see that the last patch (device tree) is missing from the tree, I
+>> included it, but that doesn't fix it, disabling the driver also
+>> doesn't help. I can boot again by reverting this patch.
+>>
+>> I have my own device tree as my device is Purwa based [1]
+>>
+>> [1] https://lore.kernel.org/all/20260429141815.827157-1-smostafa@google.com/
+> 
+> Same here. My Mini-X hard reboots after 2.45s in the kernel. Example
+> from the serial console:
+
+Is the Mini-X based on Purwa ? 
+
+> 
+> <quote>
+> [    2.280289] VFIO - User Level meta-driver version: 0.3
+> [    2.286872] usbcore: registered new interface driver usb-storage
+> [    2.307218] i2c_dev: i2c /dev entries driver
+> [    2.316386] efifb: probing for efifb
+> [    2.320065] efifb: framebuffer at 0xe4800000, using 8100k, total 8100k
+> [    2.326768] efifb: mode is 1920x1080x32, linelength=7680, pages=1
+> [    2.333026] efifb: scrolling: redraw
+> [    2.336704] efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
+> [    2.346518] Console: switching to colour frame buffer device 240x67
+> [    2.356787] fb0: EFI VGA frame buffer device
+> [    2.361793] clocksource: arch_mmio_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
+> [    2.372947] arch-timer-mmio 17800000.timer: mmio timer running at 19.20MHz (virt)
+> [    2.380860] usbcore: registered new interface driver usbhid
+> [    2.386577] usbhid: USB HID core driver
+> [    2.391899] hw perfevents: enabled with armv8_pmuv3 PMU driver, 13 (0,80000fff) counters available
+> [    2.403182] NET: Registered PF_INET6 protocol family
+> [    2.408516] Segment Routing with IPv6
+> [    2.412289] In-situ OAM (IOAM) with IPv6
+> [    2.416326] NET: Registered PF_PACKET protocol family
+> [    2.421533] 9pnet: Installing 9P2000 support
+> [    2.425923] Key type dns_resolver registered
+> [    2.430357] NET: Registered PF_VSOCK protocol family
+> [    2.440369] registered taskstats version 1
+> [    2.444633] Loading compiled-in X.509 certificates
+> [    2.451480] Demotion targets for Node 0: null
+> Format: Log Type - Time(microsec) - Message - Optional Info
+> Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
+> S - QC_IMAGE_VERSION_STRING=BOOT.MXF.2.4-00541-HAMOA-1
+> S - IMAGE_VARIANT_STRING=SocHamoaWP
+> S - OEM_IMAGE_VERSION_STRING=ip-10-195-202-30
+> S - Boot Interface: SPI
+> S - Secure Boot: On
+> S - Boot Config @ 0x221c8600 = 0x00000001
+> S - JTAG ID @ 0x221c8744 = 0x002ad0e1
+> S - OEM ID @ 0x221c8700 = 0x00000040
+> S - Serial Number @ 0x221c8610 = 0x00000460d5171bbb
+> S - Feature Config Row 0 @ 0x221c21e0 = 0x0000000000000000
+> S - Feature Config Row 1 @ 0x221c21e8 = 0x0000000000000000
+> S - Core 0 Frequency, 1363 MHz
+> S - PBL Patch Ver: 0
+> S - PBL freq: 600 MHZ
+> S - Cluster: 0, Core: 0
+> </quote>
+> 
+> I'm also seeing spurious resets on my "X1E001DE Snapdragon Devkit for
+> Windows" when doing large file transfers over the network (30GB+).
+> With this patch reverted on top of 7.3-rc1, both machines are as solid
+> as they were before it.
+>
+The current patch enable QoS for Hamoa SoC, which get programmed only during
+driver probe. This shouldn't impact or cause any spurious resets once the 
+device is booted up and probe is successful.
+ 
+
+> It appears that the Surface Pro 12" is equally affected (IRC reports),
+> so something is amiss with this particular patch.
+> 
+> 	M.
+> 
 
