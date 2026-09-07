@@ -1,64 +1,64 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0062B503BD7
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:50:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA254FECD5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788796257; cv=none; b=EiuDcj6kzZ6RcvvGrkFtGg7M0Rpjbwp09nywjOCbCOpEIk+fM5H1YZXfrgsrWiyRPKkxoi2EMBG7E/cyBnuw9194UK/19AC5ebNuSJUAMq5BW1O6wx+Mjy4CueKY7OsdJfF46ybO1T7DalCukF6GI1Y6EU6FYzL+pB0fUf20f+Q=
+	t=1788796261; cv=none; b=pI+mxM1r6xWXWGYzwkkZm0OSkhVWLpb+pHaLGpLgVboUpkok/nFNHhd6jOLGgJwa7+ryoioH8SliRI54E0rSwICXGSqgkAwryV0IY1kT1lFRAXwsiayAYoQxZuIWjnDwkFSsE64v5ze5ij5hm+iqobkqU8ki00NddDWiSpJcZwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788796257; c=relaxed/simple;
-	bh=/wFHNVYGcrOSVECo7JtvUSY2wUEfxq3JHU1raIZ47b0=;
+	s=arc-20240116; t=1788796261; c=relaxed/simple;
+	bh=DhiBgG7xnL08u0x0FTkYm6cczKwYmCOp1xitilaqnUM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rduF3iWyovDonqxV1S8vJ4Lqk5l2vOukYjs9clrxCuSYaUnMtaXFsrGtbRXHGaYlZGV1h/AVf2MMNJyUgxB4a96XC29inYGITq0Z1f9MAP93DKARsG0m1lybt4Bk++qqfLukgvmT9VcNid7ncGg8wqjX8/gvST+pi0BiWMkx9Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fgVH/cjq; arc=none smtp.client-ip=209.85.214.170
+	 MIME-Version; b=n0ols0Eqy2uqcduc3AyQ7fXJfAKJnYVA3CVeyRpPvWpPCLoKgRfhiCm5r3zGQalxpIWi87qz759wCQDO2dCIFyI+SR25PWC5A2g1Y+ZbMBjvZONat9Nj7TY78qqFFwotqmtvY6+QWvhKRoIWAoiTXot8IZHGUXZBE0reHkkEiQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LLl16i1H; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fgVH/cjq"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2db710396ffso1885785ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:50:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LLl16i1H"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d91ff7d9acso30577175ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:50:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788796255; x=1789401055; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788796258; x=1789401058; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=W8T4KrmsHv5t9brNBOkcCKbXSGpHZ29F5DJQ1O40Or0=;
-        b=fgVH/cjqTpWUoVI5intCy8fVhj3GzZqKqnitSB4Yjqt/sd30XBLZqj6na2Ir+7MmQ2
-         BLbw7v9ZjoGfsgHqqNdmQVQcseUKPoZyADhHdxghlYF063oDf6OZczGKWhQhkybAxJ02
-         iy/DIaIUk+3pWIXV2JpZVuSUDuxwaC05bgRN2gIj+9eeMS1yfL75eV6wEm88uYslEyfj
-         6a7lCsafpRHwqeYwV82QtWP9Qu6lA+tBGgIGAuMARYz84TM79CCxYL+8OEDhaRgRAbAk
-         DW9X2YhdkzdYjuBbkEgHHs/NVbnFoeIeuJhNhFM0T/mJlGUXXZ8gW0S9s1rSR7KgGBSi
-         dp2A==
+        bh=CEKj5eE4ZkqVaXrVpceSXQRZCzNc8P/mNmuBsDFjR7I=;
+        b=LLl16i1H7jds4lCauJc5qlUPdeYVj/+PycqL1V7Rwdnvn5owCzXfjyPGniQh+vazkR
+         +3GTsKQJjNKPbfNBSrzLjlhOeSOaJVd17g7+ekmP5LMMQGNpHy0dKyBSQ0+bYCDzF6fJ
+         MEQwrYAACFGs6QYHfeVS/qFYSOs5SnFC2fTSbHOcmT+1Hao8/VWdNwIPLovLrhtSvEln
+         NTclDu0wf27AQ+5Hs95/BPPZZzAWbHLn1B6frDGEhsbT0g1mLo0ZV9TlVsXPSdQV0c56
+         i0n9U40O+y9yJNUCUol3kZBp0g5wl4rwk+ypT85pHRxnYapuDumLcqeCVaqlYIXk1D/v
+         tSLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788796255; x=1789401055;
+        d=1e100.net; s=20251104; t=1788796258; x=1789401058;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W8T4KrmsHv5t9brNBOkcCKbXSGpHZ29F5DJQ1O40Or0=;
-        b=Jjp+dRo/9ork5XYeU/7uHTXjh7plpRL0eb+E02TCYlZzCU1znLaIRi4Z0Ey7Ea7X+K
-         lpj3o9rAXvXB9wzdlqaXtwDEz4Sq9BQLL3OsRnpImhBkKSOxZM7lWsUK8aKf0EJRh/Kh
-         KB7hp8itX83Vqpt8ul03HFBHfgjJOkZU6nYIWpB5jyBVov0WLMmcsiazmRxJIfCAC82W
-         BgTGBYgLoDERBwa56IrPJLDgzhh9y7qwyY01uNbqp4C6ypcAfnQB8Wo0nwaE5mdRXLbo
-         YRkXo74+MQRh84HOGZf5/7v0tKCJtROnrJocW08oXApfVKDkOgcvPrUK/JwvZYsc79wi
-         bFmw==
-X-Forwarded-Encrypted: i=1; AKwUvByacNAi0gQd8buULV96WMO0h6WUwFbUIKqicC0pWg2W8J9YJPV1GWt/JFL4oBn3NRR1AgbQxMmKum/lrnc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kGcHDLwrbvdByntzcp7iSGadAFQhArNGtHc7wIhDywcmB/eT8e
-	5A7DRHGuZ5hvbZzlJtpGDKSNGyvX1pyEoGCyF2Kx7oaQUs9RkL2viZU=
-X-Gm-Gg: AYBFou0XIF5A7S2Jv5bc7SWTla+edJc9NlQB9j/nl0fc6dDVGz3yu6XO9YmySeLbz1Y
-	C6sHS9Hhb4WqPKd/7NWT8xknhQPlGCE/F1dpp1JS4upFbKimCYx1Gi1z1FrERGpniaBgBqkzJ3y
-	7JrUZQIH55zs45c1WYzYSlA4FhNQXnn3tg5xmHAQxgRuN96cwNBOGE+o7e1oe3jvHsfTytsjkbh
-	s08yLzjJPvDqDYxeH2IHREOl/SUS02ZH9wEZo3yFaQivR6yTGmBbgSGTurt52O8T77ohD0EzrUV
-	roWgsM6Kg/sK7zFZPuRAAQDvvjOCXsVfi4WV2UXDNvIFD/5Kd3vyjF9Ej4AJqbhDGn351Sl5wWT
-	DKqv5ca8RtvYaHAgiMRAynuV14xqZ9sPqrI6wG8G5NkoHVLfpxDpSRY3NuK7qVJNKRZchadJdLm
-	DugN55YoL0cbDLR/SSP/9Sd0wargjMD1vCe6PqnnJhUt7AqqxTjuDOV5KPmntnrb5+pQVQSjNOg
-	c7jgv9nau+xsqVu
-X-Received: by 2002:a17:903:2ac6:b0:2d7:1858:1d96 with SMTP id d9443c01a7336-2dafaf5f50dmr277579735ad.7.1788796255098;
-        Mon, 07 Sep 2026 08:50:55 -0700 (PDT)
+        bh=CEKj5eE4ZkqVaXrVpceSXQRZCzNc8P/mNmuBsDFjR7I=;
+        b=Uf3WN9K+7oKNsDXxyEJFXvoyhkskcvg3pctoqxv8DSK8s2IyF1iKoxfvbCjIjuDsWu
+         Y9X/5N3JvGbU2vmaFufZzJWudfrefEoHAyiN0BVcZkWQy9SlKSoBP0PEyNSeRfxkEQ5Q
+         RvwZ6+5qg2x1at8+iaQzkbLV5Fl7usRm+RNP+i+12YfStScekvHjA9d6nQv70b09lKQm
+         rJ4FF5ha6NXVLIQT2rZ/U1Pw4HBIWfVn/z3OhQmy0cY9jJ20JIGsh53pWFs/9Lm2Hbes
+         myNsvusOEn5OPBZhrgeoq2nxCoMWa1aCUnI9/LyHNAHyPfOV62zTPtoMxaEVBPXvXBZ+
+         rSzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzPBE4tP/IGECacodpv/pAfNTrXj3TVCnoFWaMoC8OJumi7etFs2abOaVq7xpskzi8OxxZ1Hv0QIBm6sg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mfvmxSxknDwVRTMzcagIBamt3z8N1+rnNfnYVN0ufzb942UP6K
+	6avRBy0KQb7VpX+j1Nodadap5uG/1W3gV8i90knTPOV47c+jupon6lk=
+X-Gm-Gg: AYBFou2fz4D6hfIZAph4V33g33OfiHIEa0y70TnC7gcqm1cye1iOFK6cLeb0qB7LOTb
+	HsUzMyljNGIbr4k5J8Zebybjk9GNP55pL/0lQsNLLFNUVTg1VDpi1+DYa4ltqMOeWOQ9L0eTBb4
+	vg3zK6HND5IimmzIPEXPwjwzpOa/6689mPyRg+1nI7Rnd+ACNTIzWP0spZCs/uo3LjSqGmgzpxG
+	Onu7587MWil+6WoSqZ3o7oP2T2GDJk185SGgqM/Zn4lwaAHMMLNxFu81pEMyYwkI793KCktYia5
+	QjqE0vTNRjjqAr0brS+OrH1xv8qHpl/8rOnDZAjS8XeqdGwbA1nXauuzM5viVoKqtRlsiDvNSts
+	GcG5cqVcIgiFBwOs7x/3cTckTBWfwyIdoc3ewTDuqVUG6xZWjJxbdHT2HcHYrwyegeMpJgayQCa
+	mczeSQITOgh/cms/X4pkC6CNKPCOckqaOuDHXJ/UTDWt9+ZNtPDCrUc84yg3oe8wcmbvxob7WFY
+	+gmUCaLcSF6y4Yr
+X-Received: by 2002:a17:903:3c24:b0:2db:479a:5127 with SMTP id d9443c01a7336-2db479a55c8mr128165285ad.19.1788796258200;
+        Mon, 07 Sep 2026 08:50:58 -0700 (PDT)
 Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm47265405ad.63.2026.09.07.08.50.52
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149c3b80sm47265405ad.63.2026.09.07.08.50.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:50:54 -0700 (PDT)
+        Mon, 07 Sep 2026 08:50:57 -0700 (PDT)
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Masami Hiramatsu <mhiramat@kernel.org>,
@@ -67,9 +67,9 @@ Cc: linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	donggeunyoo.kernel@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] tracing: Fix memory corruption from the stacktrace modifier
-Date: Tue,  8 Sep 2026 00:50:44 +0900
-Message-ID: <20260907155045.692664-2-donggeunyoo.kernel@gmail.com>
+Subject: [PATCH 2/2] tracing: Fix memory corruption from a "STACKTRACE" histogram key
+Date: Tue,  8 Sep 2026 00:50:45 +0900
+Message-ID: <20260907155045.692664-3-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907155045.692664-1-donggeunyoo.kernel@gmail.com>
 References: <20260907155045.692664-1-donggeunyoo.kernel@gmail.com>
@@ -81,94 +81,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-parse_field() sets HIST_FIELD_FL_STACKTRACE from the ".stacktrace"
-modifier before it looks the field name up, and nothing afterwards
-checks that the name resolved to a field which holds a stacktrace.
-create_hist_field() picks HIST_FIELD_FN_STACK on the strength of the
-field pointer alone, which reads a __data_loc word from the record and
-follows its low 16 bits as an offset into the same record.
-event_hist_trigger() takes the first word there as an entry count and
-copies that many longs into a 31 entry array:
+"cpu", "CPU", "stacktrace" and "STACKTRACE" are generic fields, defined
+with an offset and a size of zero so that the filter code can match them
+by name. parse_field() maps them onto their common_* equivalents for
+backward compatibility, but unlike the common_* names it hands the
+placeholder back to the caller instead of NULL.
 
-	n_entries = *stack;
-	memcpy(entries, ++stack, n_entries * sizeof(unsigned long));
+create_hist_field() takes a non-NULL field as a promise that the record
+carries a stacktrace and picks HIST_FIELD_FN_STACK, so the __data_loc
+word is read from offset 0, that is from common_type, and its low 16
+bits are followed as an offset into the record. What is found there
+becomes the length of an unbounded memcpy. Pick an event whose id is
+small enough that the offset stays inside its own record and the length
+is a kernel text address:
 
-Neither end of that copy is bounded, and the count is whatever the event
-holds at the offset, so any field will do:
+  # cd /sys/kernel/tracing
+  # echo 'hist:keys=STACKTRACE' > events/ftrace/print/trigger
+  # echo hello > trace_marker
 
-  # cd /sys/kernel/tracing/events/sched/sched_process_fork
-  # echo 'hist:keys=parent_pid.stacktrace' > trigger
-  # (true)
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000008
-  RIP: 0010:rb_insert_color+0x18/0x130
-   timerqueue_linked_add+0x7e/0xd0
-   enqueue_hrtimer+0x39/0xb0
-   __hrtimer_run_queues+0x10f/0x1f0
+  Oops: general protection fault, probably for non-canonical address
+  RIP: 0010:rb_next+0x23/0x60
    </IRQ>
   RIP: 0010:memcpy+0xc/0x30
-   event_hist_trigger+0x165/0x690
+   event_hist_trigger+0x2e7/0x12c0
+  Kernel panic - not syncing: Fatal exception in interrupt
 
-The timer interrupt landed on the rbtree the copy had already run over.
-No debug options are needed for this; KASAN reports the same write as an
-out-of-bounds read of 13835058055416381440 bytes.
+Leave the field NULL, which is what the comment above the branch says
+the code does and what common_stacktrace already does. FILTER_CPU and
+FILTER_COMM are left alone, their create_hist_field() branches never
+look at the field.
 
-Documentation/trace/histogram.rst already states the rule, "must be a
-long[] type", so enforce it once the name has been resolved. Names which
-resolve to no field at all, "hitcount.stacktrace" and the common_*
-pseudo-fields, are refused for the same reason: they hold no stacktrace
-to read.
-
-Fixes: cc5fc8bfc961 ("tracing/histogram: Add stacktrace type")
+Fixes: 4b512860bdbd ("tracing: Rename stacktrace field to common_stacktrace")
 Cc: stable@vger.kernel.org
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
-This rejects triggers that used to be accepted. None of them could
-produce a usable histogram, the key was either whatever the memcpy()
-left behind or an unrelated value, so I took an error over silently
-reading the current stack instead.
+'hist:keys=STACKTRACE' now reads back as 'hist:keys=common_stacktrace'
+rather than 'hist:keys=STACKTRACE.stacktrace', since hist_field->field
+is what the print side keys off.
 
- kernel/trace/trace_events_hist.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ kernel/trace/trace_events_hist.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 963e0d6b61fd..620a74fc62e4 100644
+index 620a74fc62e4..eabe95419b97 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -2330,6 +2330,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
- 	struct ftrace_event_field *field = NULL;
- 	char *field_name, *modifier, *str;
- 	struct trace_array *tr = file->tr;
-+	bool stack_modifier = false;
- 
- 	modifier = str = kstrdup(field_str, GFP_KERNEL);
- 	if (!modifier)
-@@ -2352,9 +2353,10 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
- 			*flags |= HIST_FIELD_FL_EXECNAME;
- 		else if (strcmp(modifier, "syscall") == 0)
- 			*flags |= HIST_FIELD_FL_SYSCALL;
--		else if (strcmp(modifier, "stacktrace") == 0)
-+		else if (strcmp(modifier, "stacktrace") == 0) {
- 			*flags |= HIST_FIELD_FL_STACKTRACE;
--		else if (strcmp(modifier, "log2") == 0)
-+			stack_modifier = true;
-+		} else if (strcmp(modifier, "log2") == 0)
- 			*flags |= HIST_FIELD_FL_LOG2;
- 		else if (strcmp(modifier, "usecs") == 0)
- 			*flags |= HIST_FIELD_FL_TIMESTAMP_USECS;
-@@ -2425,6 +2427,12 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
- 			}
- 		}
- 	}
-+
-+	if (stack_modifier &&
-+	    (!field || field->filter_type != FILTER_STACKTRACE)) {
-+		hist_err(tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
-+		field = ERR_PTR(-EINVAL);
-+	}
-  out:
- 	kfree(str);
- 
+@@ -2417,6 +2417,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
+ 				*flags |= HIST_FIELD_FL_CPU;
+ 			} else if (field && field->filter_type == FILTER_STACKTRACE) {
+ 				*flags |= HIST_FIELD_FL_STACKTRACE;
++				field = NULL;
+ 			} else if (field && field->filter_type == FILTER_COMM) {
+ 				*flags |= HIST_FIELD_FL_COMM | HIST_FIELD_FL_STRING;
+ 			} else {
 -- 
 2.53.0
 
