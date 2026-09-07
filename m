@@ -1,110 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D5825B082;
-	Mon,  7 Sep 2026 06:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761252; cv=none; b=N0FTpaxj/QjEhzjj1HefiN6SGg9/zXyCgfCi9LsNEKeyAR4JVVJdS2v+aZa4ntU4UBT06eoI7/FDOlbIDhWakKBpnlLhv0Sbes7CuO/LHqkXPmX1VZnAchC9d77ML746ZFUSZue1BvaePxs68g4Rf6WMjvfax5CqyaMXlcatzcI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761252; c=relaxed/simple;
-	bh=VggLjcaH+IJ8mW2kJenmQn641aU6Q9MydbcLkKaQ5oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ME6bXP2iUfgBNZbc5oJns1wi6qMMd+Rz8GvF6hgor1wPJcSk/pxNzmtpvb/uHdk/ayeOo11Wa9xS20YxHA7ibWAKMshn9r6nWQ6wq1coyEtcIOmc2/Z6JG496Z45wViWtjqvb4d89t6EU+k6/YpKe34Vzb314r9MmvfUa9pnGEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cnh3kFjK; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A64D2576E
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788761314; cv=pass; b=quiShVQc3Gd9Us5XE82jrjjxxz11fV5D1GO6DgpkMpQKqMZLazWYKcQdNBbAP4Zoltj4qIzBlg6O08I/Z/9SS3PRCC16qFcjX/aF0409abkV1s0/WwrLDmsJWEH4AW4d+dzHzlHMdObkmNJG3QR/QRJ6qHRHazUc9q90pJjvmRk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788761314; c=relaxed/simple;
+	bh=D52xDxlcqI/RQ3ynxyqFDlEyKqGQSfoIzfbY99oQqZY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U2AnFjGWP/OnJo+OxyhlwkaIbFVXJUqymniEe6ZV5r7VzYIb/7QMkNi7JJtD5onKLM6bq2UAk0g++EcPz8kJ3GeW55pf6Y0uPrjd0xEgwy4g8oXo+YRO462Yn6V9+RjbOeWy06eWqzB0bY9RUnaZdshVcx1WljR5dYTOhHU0Qi0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oU8RxX+Z; arc=pass smtp.client-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cnh3kFjK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1188D1F00A3A;
-	Mon,  7 Sep 2026 06:07:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788761251;
-	bh=ryjhib6RuFmlHrMiGgymNVQOes/BcGtkk293O7vRIRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cnh3kFjKIbTyzvF9YKbxPHuK8mCjVtzp4wXPY/VzObWa+Jrm/GOGs95jeXR1GUDPi
-	 OnGcHwGp5fmAzHOD0XSgSACaz8fF6smnNrEJfwOwiBkMgHu0oKsd00Oj+cuypRyrSu
-	 L1N7CHGVYGh3sbCbxtLbvwkdX6Gl3X5vv0xshwpcZb0oVjYzeGqG6CJdvZf19C8g13
-	 1JJkZ56UuX1VclQ/kfXah1KpgSz4Ig6YrnDwnuHjFf76pPJIouemEUTxWC5BkLOdB8
-	 pHeA9roY4eTR/aJCQPAwc7xhBjdXh4XqqGz4/kTaMXR3zGv8Yt98jwEZWMZI9uOYGa
-	 fvhZICQZmqs0g==
-Message-ID: <4184a903-c19d-4821-bfee-a01dac16e9f5@kernel.org>
-Date: Mon, 7 Sep 2026 08:07:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oU8RxX+Z"
+Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-469d76ce704so2791031fac.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:08:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788761312; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aifh+w3PZUlKJONC47GUcQDh1Hp8pYBbNaCZpFzk6zV6f9KLeoMRXzPl7UasgMf3vj
+         ExMlA7o/44oTbIBl0/RXlO4P2weDEVeucJC3BKfJ2ltgvgtfL4ODBk7o7Oflss7jIpGm
+         Kq7S2ggt4uWllgmT49abtwT3j0TuXRjFSnrb14BywW1kgH+moV1/vqiSFemgXKUdeOKf
+         URSEQo35l03hCdYiZdCF4/3voqY4Jb2s1lMp2IqTqhoTznkDeJZbZ794r+LvolENKjdI
+         Vi8jmiChxEGLmJ4BUf/eXLnffW/RPUfLvH6Y9p/DT2kJg790hflLTRgiwlC28mPnOeUy
+         mheA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=D52xDxlcqI/RQ3ynxyqFDlEyKqGQSfoIzfbY99oQqZY=;
+        fh=uhSt7IyCvIAZaS8YV5fMG1gn0QONdTO6pPUOblicXFI=;
+        b=C6PZKrhzF8hURuXxOJ8te2+3GIwDGE/UEu4Ha05UO7ebQhk8s+oC8jkau0MVMtkA6a
+         ij9PJ1sbJTGwn87oku/aUC3Iy210C9Y3CEQYCcZklAKwjt+7s0LHshdZc1wgUqm+r/oo
+         BEJIzk618Oc3L62Bi+mKs8B16omDlEkc7sjirShiLhfPPRP20GNf/S1YSZ/smW0tjRRJ
+         neFh70MLRGSFZhOT9icnXqWvdIffPMaivUVAqtQlyuaGPQ7C+UVpjbuOMmFJFd1CTkWg
+         bl2RDi7OANjqbca5EYLCh1AdxcezL9dO4UfHvJJu4TqllMHTZ5T1VM13ltFQfOsCtBIV
+         eI1A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788761312; x=1789366112; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D52xDxlcqI/RQ3ynxyqFDlEyKqGQSfoIzfbY99oQqZY=;
+        b=oU8RxX+Z/79xcCIJo6uGLwYD6wz/miNCy3Rbzuvalaex7yJZt8O7+FM3J65AFO5r90
+         hYyi0z5ZEwyBGPiki7u3PIEJNOlJPUnojyVFVKJ8aFhB/KEYy6A5opmr9GCk1hxpx9oQ
+         3vND4kGra/xMI81dxqeAZq880XCXMOAvWXPMqHgM8fWVIxo1ZY5anuwGzq4wrMxUQW2+
+         6HZDjBgEJRPyNWqkYArxcFY0zQ8sO+dGgHtoZqajlKbUpUESZHWPCWK+lLtHEJ/8olci
+         3RghyLIJfXGbFK+bkZGK6pePjN31f0HruQ11XgkD5iyeWt/WcUC31uNQiCIMbyHYvmIs
+         C3/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788761312; x=1789366112;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=D52xDxlcqI/RQ3ynxyqFDlEyKqGQSfoIzfbY99oQqZY=;
+        b=Rg5zj0OuEUSFSN+ga1pfAZ3MxYcAoo1M7z/dKg2IhEnIDZpwZE1yNsPhOKn/Zljm3v
+         DIEeJ+O+IKKEH0auePL/jI4SGeNS8frfWC6+JjW7zURQXz+RtOY0yFWEDEzUeQzVxiXT
+         BgIytpvxhfknqK9WLNKBjbxrNH6mFLcuBJ6nr9moolgfhJT002FcRFV8blHG1DFSrLHs
+         6gTy4rEbnq1gbYgLwUjFABQ9go+nL6vH9Wrnbw3mp5kIpVNdiCVY948UsQE6R5qs5DAJ
+         aUoTPOzY8sFnof0SY5fymAQD0mTAhuFgXkRnw68vfSXAXv8cK2g9xjpwNDlrytdW70qs
+         4RUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzayfB/w8ivMd7G0UouV1ncXKpml+LSIbJbj9cJyHs4RsKWSe4e2mivHPoMAeJ1kdMd27NA3AJUdfAnabY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHkoOnw8fwScVLbBe4eo/qMb0wdYEUsGcWv6T5PILgykKK4GSW
+	4CBTVtQG2kl2f2RRVIYsTxVG8ginN+KWbXkikD+jHS74eyhxizEmiyPtdbX05/Fj2AfYEHbObC8
+	9WYyY9cQ/4l47bS9nRdtTNFfzrZAaQWI=
+X-Gm-Gg: AYBFou3IMpYi3kgUE9ornmHEijh57sDHpPk2yNFAtBQvUBPfa5NIU6cYdrT48HKrmGT
+	pSgrulCRNbtRMIegJS72yX6Ma4r91KtMifY+N1VWCpMzPCAm6c77fQivezVVnjmhuOoeS2MEzy0
+	lRNG+1QItQjdkDq6YhkVdIfp+4E0X+RhtHmYnrQqWAOSY6uYg3tlXjdb6+Cf0EXxM4vK0dmPWIM
+	EXJ3ARVl/NSzpQMyIMFRQbx/9xO5M7kbWAnPThGlyhmJPhkNEFZSJ5qAJNT08OjTZi9bbK8zRQ8
+	+XlHbbzoUt4+/0B2cYiqEfPE0EJ1UQf+41KxkDyl9ZIuVA==
+X-Received: by 2002:a05:6870:3210:b0:46a:6e07:28a1 with SMTP id
+ 586e51a60fabf-4755135293dmr15159931fac.12.1788761312125; Sun, 06 Sep 2026
+ 23:08:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: input: hid-over-i2c: allow reset GPIO
-To: fQwQf <fqwqf@fqwqf.xyz>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- bentiss@kernel.org, jikos@kernel.org
-References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
- <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260906114049.32912-1-abdelnasserhussein11@gmail.com>
+ <20260906114049.32912-3-abdelnasserhussein11@gmail.com> <20260906185025.6a0d1240@jic23-huawei>
+In-Reply-To: <20260906185025.6a0d1240@jic23-huawei>
+From: nasser <abdelnasserhussein11@gmail.com>
+Date: Mon, 7 Sep 2026 09:08:21 +0300
+X-Gm-Features: AcwNN1WnirY3cqNKZJJwKb645fYo2XIsR3KNHFtMCzd3d6BaT1y3Wiu5R7VGG9s
+Message-ID: <CANpqX3Y2njgY4KbJmfa5WgJ6_WpfeC1=xRwnj3LUUiZphMxFLw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] staging: iio: adc: ad7816: Use DMA-safe buffer for
+ SPI read
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: gregkh@linuxfoundation.org, nuno.sa@analog.com, 
+	Michael.Hennerich@analog.com, dlechner@baylibre.com, andy@kernel.org, 
+	linux@analog.com, linux-iio@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 07/09/2026 07:43, fQwQf wrote:
-> The OF implementation of the HID-over-I2C driver already obtains an
-> optional reset GPIO and asserts it around power sequencing. Document the
-> property so device trees can describe that existing capability.
+Hi Jonathan,
 
-Read original commit at least. It explained that property is NOT for DT
-and IS NOT accepted. You just ignored that outcome completely.
+Thanks a lot for the detailed explanation and for taking the time to
+explain the underlying architecture. I really appreciate the mentoring
+and the pointer to Wolfram Sang's talk; I will definitely watch it.
 
-> 
-> Signed-off-by: fQwQf <fqwqf@fqwqf.xyz>
+I will rewrite the commit message to properly explain the cache line
+sharing and VMAP_STACK issues, rather than implying stack memory is
+magically not cache-coherent. I will also fix the misleading "correct
+the sizeof" wording.
+I am preparing v5 with these updates and will send it shortly.
 
-We do not take anonymous patches.
-
-
-Best regards,
-Krzysztof
+Thanks,
+Abdelnasser
