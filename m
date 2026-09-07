@@ -1,115 +1,133 @@
-Received: from spam.axera-tech.com (unknown [114.118.28.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37E133C09ED;
-	Mon,  7 Sep 2026 07:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.118.28.34
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765273; cv=none; b=QxSVNUU4RmODozG8RuN+1sCto614Crf5ozKMj++JdnX07hC2QCHgaBIisqIif9kir2UnGa7yKYCaYTRu3CmM+JluvG+9tx/pt6MXgCOjwV0bKoh0p64tBxelMtiT8B4M9Cc7zFtsB/ud4+dSLMiWRoWAy8+3GAIgUH914vwU2Us=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765273; c=relaxed/simple;
-	bh=r4GdEdXAWRTbr5Iewq/QKfupUPG2bJOo4mtgloRYHxg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=KGnvvgOokp2zaxoZ6tt153Z5A9GyCbdumtsH3ITjClUa9Hqzq6ajloc66wtPnl+JqzfA76lSWfyAJyQgt7QBGoSqH/3f52+CyRSu3odGMbiK6Dj5QUgpaKV68bAc9YeMHq6+I111UTjMn2bW/GB10uNwxkiXlw7H3pRvI6succQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com; spf=pass smtp.mailfrom=axera-tech.com; arc=none smtp.client-ip=114.118.28.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axera-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axera-tech.com
-Received: from aixinexchange02.aixin-chip.com ([10.122.86.161])
-	by spam.axera-tech.com with ESMTPS id 6877COTs064972
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 15:12:24 +0800 (+08)
-	(envelope-from lenghonglin@axera-tech.com)
-Received: from aixinexchange01.aixin-chip.com (10.122.86.160) by
- aixinexchange02.aixin-chip.com (10.122.86.161) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.4; Mon, 7 Sep 2026 15:12:23 +0800
-Received: from aixinexchange01.aixin-chip.com ([fe80::a517:4f0b:339f:f50b]) by
- aixinexchange01.aixin-chip.com ([fe80::a517:4f0b:339f:f50b%3]) with mapi id
- 15.02.2562.017; Mon, 7 Sep 2026 15:12:23 +0800
-From: =?utf-8?B?5Ya357qi5p6X?= <lenghonglin@axera-tech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        =?utf-8?B?5pe25b+X5oiQ?=
-	<shizhicheng@axera-tech.com>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        "Will Deacon" <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-        Alexandre
- Belloni <alexandre.belloni@bootlin.com>,
-        Linus Walleij <linusw@kernel.org>, "Drew Fustini" <fustini@kernel.org>,
-        "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>,
-        "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>,
-        "soc@lists.linux.dev"
-	<soc@lists.linux.dev>,
-        "hlleng233@gmail.com" <hlleng233@gmail.com>
-Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
-Thread-Topic: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
-Thread-Index: AQHdOfMBrgCL5h+b0EiB4/O1QkfuCra8SGUAgAXuDYA=
-Date: Mon, 7 Sep 2026 07:12:23 +0000
-Message-ID: <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
-References: <2113d03615a9265b42a4d69a5a9020ef3-9-26kernel.org@sslemail.net>
- <20260903-impossible-normal-termite-b7f9b8@quoll>
-In-Reply-To: <20260903-impossible-normal-termite-b7f9b8@quoll>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D07FBE6682A4EC4FBB560494D9F3CF7C@axera-tech.com>
-Content-Transfer-Encoding: base64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B043C3D6CB0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 07:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788765356; cv=pass; b=U+m9ebBc8FpDYKaKFD7xffW1oQzfF4+SMZqP5pHjBNYCmEjBR9Eg7VV47AEUREfVTdbLwwCkIWrXLsk6IYNGtcgNWivKUgFK+od7Itq52iVb+gL0Xw1CMzBH0j4JBgkd07l3BgaQaw8SnE6CBGXQEllHl6QISUoAdrAwq15O2Nw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788765356; c=relaxed/simple;
+	bh=leHVZXld9eH9iZDPZ6fIXvSuhv4Lo3E5ocYgQ1ebU9M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=oEZQqU57+5fYK92LpXAOJ0aFML9lYDIwwaJjKjuEIRwcnAryLfX0DoRvz+PpVJ/oZZQkxU306ttpqg8APbJuHaOb3Gi/KjlSzboxJuWsjMqZwCkyu2meeRrV0TzLuK5EIblNAq0sFtqDUcQr/w9YiFC27U0MxJwItmLHyPg6CFU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=Lq1YwZgP; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="Lq1YwZgP"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1981228f8so26537101fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 00:15:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788765350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QlcaL/G93MWzGS7YYspf7/MrWEbKy4fJvN7djJ5bylvNwmokT0LIYtIp03escLAuHf
+         22QlhI0LAUOANQVzYpyg50JRxSgaEKqOMnjkSTbsbt0CmhNKKxQAJ4Gzqa5TFkUS6UdF
+         CH8wm68QhUUFmsk3f2/40cbhnqSNx4n+dMdZuCO+h7YtzaZ42i93y9IJk46pRWNHUAL0
+         oIilWOw7GPF53sPCfD5IqHSO3WEcQNRbhx+/Prgvv2dstMdNcsRIV71lwICxkrUN4LFE
+         Tte2U8mHnhJgJ/tJ7jCvvNo2dvF1lGVFpSPUIpwme8NrVr1sv8pWlDeltDICpIt8GgEB
+         XfBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
+        fh=Ihuvj3xp0qFIvBnHZKjOeUoMhtyYo4tbnkuMW3BqoJo=;
+        b=Cg3mHkNMtGOR55XGtF9IpSTC8q70l1l9d6ijDIhC4HYHLlKPpZolZRyf8wmdtfsJI8
+         P0fXs8ICxrTaCMNmWR5pB+RvagoFGTdiqXC1MdJicClk1PNgxCBXMcuXLXb/6+Dqg4r5
+         s00fbelsCOTbfj7071aacHe6vPdDgRmMOTH/d156uE4jRw/r9OD8W2TwVBkTtV7pHo3j
+         IKhvJkyCXfN6iVvkcN70HNLZ8i219Ufpyh4Ig288n6F8NGlpV+zmNoIoOgqYIGfFSri4
+         DJCSp+8Hk70KzNh76ThXxCv4QoEzSaf0qQ00yIRIEumN8ufjUj72gEsR5s72vhjGcYVN
+         JMJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1788765350; x=1789370150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
+        b=Lq1YwZgPqRf+7Pxl9disFZ14dqGl/QPk4Q92znevy1bB4ggHV+vi6ltGVKpRmbXSeY
+         Fz6I/psXx6S5j5exsaDwFrnRr65fPKk2efBueXG2RcEiQT4NZtQdhs/RsuTa3m70o1bw
+         H6vnT+hB1BCqedp6kAOjo4jEVz3PzJKynHawAZ6gCaqVnyUeX7DxbFseqFq2vkXH2NHm
+         avTL/6+q3Icf03UjmNMx6EIPZn/XmdoW+ysI1bpzh3l5PgWUKDvbBdDoTuJpImd2TxrX
+         JIexykIu2edhMbyLxJzM3O27zDY6wBqYCTbi76dRReRRMy2mvfsIvB+5IPgUwHLmGhtV
+         O28A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788765350; x=1789370150;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WWwKXGzFB/6B7wjEdxdxzEcQwrEfUSJ8Wvetx/HvB60=;
+        b=e19F45Z3sv2V9IdMBXbW46zijeRx71mvk13hX+N3pGj5Q9TzHemDZ/1wZQtEXrKH54
+         kqOrJT/W40E6cKIVg3H2wAEeCNjZamLLGlzl4uhxh8b/H0Ce8ZxRpuYW0Ub8LivzOcC/
+         BM61Kcly0GMqDf7r3cSk6iX4XUMdaqYULI5vEhji/cht5+WDCvB7h7i3ArwSregDHvpU
+         J29Iy7UNyv/XeYh/X6zc3vD9OQh3GC6SH3anF9plIJauTUW6T3ewoJVqE212ZXHrrd6A
+         IoL3giuhILnKiSCrEE29oDBY3cK79HIMfmK78xpsArQ9nu8zia9/2u78NOXarh/XsFXX
+         bZBg==
+X-Forwarded-Encrypted: i=1; AKwUvByb5H3GO72W7CX31FsGDbUMHBmxiPVmWlN7VrEOYpp6Xb5EHAwOosDmSQUZXYPXze8JejC+2o5tDb1+M4A=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8XgUjQMo9Bod1czKJaahvoSMr4fUFZryntCop+F/DADlKgOB/
+	MiB7ARFi3MQxmVFjeyzTgemT7edXYfg/u7zGpWjFP99Hzbh7X/bVatd68EyQL2VmU0DvV+tOiWd
+	7hF1kWp05vnySAY0BxgJGO34wLL0OdUtJfb4gfN4kkR8=
+X-Gm-Gg: AYBFou1/5cICObsg/Uw30U5Js/pt9DpjboYasAFLyeNvrcB02OjTGwi8jz/0qM0vdD/
+	DohPxYlujflyOMBLd7sI6imJfdksmJiARLGYBGmADDsR746Yt5czPquy4xk2SsKrdxCYrthC9OQ
+	jZGZIqOtYGihzVtDMZbhqZvbLNO25ChtDrDRfHcemaAtTjBSe0tOS6pfdGC/25hzTidGvOmXQ30
+	Exx7Lmv3vpCu43+RJAewZkMwZCpBqR+/3v2hUHvnL76opC5ShCoQVho7eCs+54zCD+4aa2+GaXa
+	vZ09cO4Z4m8LdZxXPdo7zyJxI1B/f+ssi5hWPbxxOn06R9p2tGpo7/q8EBRCbuKNo8TlnFKQjvY
+	=
+X-Received: by 2002:a2e:a98e:0:b0:3a3:2a41:c0c4 with SMTP id
+ 38308e7fff4ca-3a371bdb9ecmr21466191fa.14.1788765349741; Mon, 07 Sep 2026
+ 00:15:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-DKIM-Results: [10.122.86.161]; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:spam.axera-tech.com 6877COTs064972
+References: <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
+ <178875495405.219967.5594821749566554418@kernel.org> <CAANe3eRBOQud=bMgLnPbD_yUYUkJtT=GBqtY+GR0ZtU0_kbzhg@mail.gmail.com>
+ <CANn89iLn+Xi9cEphy3nR4bGnFCownrWa9rTZ=AnijArDFo2O7Q@mail.gmail.com>
+In-Reply-To: <CANn89iLn+Xi9cEphy3nR4bGnFCownrWa9rTZ=AnijArDFo2O7Q@mail.gmail.com>
+From: zihan xi <zihanx@nebusec.ai>
+Date: Mon, 7 Sep 2026 15:15:37 +0800
+X-Gm-Features: AcwNN1VAmgJsxlkj9OvW4LjLVIy_57TEsN_AWLvPrdkLDxAVfSNlHuWjRZ_THxg
+Message-ID: <CAANe3eR=sQeTRNuewiqo0ZFwS6fk=HtxvT6TMGhq8F5Pqdxovg@mail.gmail.com>
+Subject: Re: [PATCH net v2 1/2] tcp: diag: bound bucket lock hold in tcp_diag_dump()
+To: Eric Dumazet <edumazet@google.com>
+Cc: netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, mptcp@lists.linux.dev, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, 
+	kuniyu@google.com, matttbe@kernel.org, martineau@kernel.org, 
+	geliang@kernel.org, gnault@redhat.com, fw@strlen.de, stable@vger.kernel.org, 
+	vega@nebusec.ai
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-T24gOS8zLzIwMjYgODozOSBQTSwgS3J6eXN6dG9mIEtvemxvd3NraSB3cm90ZToNCj4gT24gVHVl
-LCBTZXAgMDEsIDIwMjYgYXQgMDU6MTk6MjhQTSArMDgwMCwgTGVuZyBIb25nbGluIHdyb3RlOg0K
-Pj4gQWRkIHRoZSBBeGVyYSBTZW1pY29uZHVjdG9yIHZlbmRvciBwcmVmaXggZm9yIGRldmljZXRy
-ZWUgYmluZGluZ3MuDQo+Pg0KPj4gRm9yIG1vcmUgaW5mb3JtYXRpb24sIHZpc2l0IHRoZSBvZmZp
-Y2lhbCBBeGVyYSBTZW1pY29uZHVjdG9yIHdlYnNpdGU6DQo+PiBDaGluZXNlIHNpdGU6IGh0dHBz
-Oi8vd3d3LmF4ZXJhLXRlY2guY29tLw0KPj4gRW5nbGlzaCBzaXRlOiBodHRwczovL3d3dy5heGVy
-YS10ZWNoLmNvbS9lbg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IExlbmcgSG9uZ2xpbiA8bGVuZ2hv
-bmdsaW5AYXhlcmEtdGVjaC5jb20+DQo+PiAtLS0NCj4+ICBEb2N1bWVudGF0aW9uL2RldmljZXRy
-ZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVzLnlhbWwgfCAyICsrDQo+PiAgMSBmaWxlIGNoYW5n
-ZWQsIDIgaW5zZXJ0aW9ucygrKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVzLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2Rl
-dmljZXRyZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVzLnlhbWwNCj4+IGluZGV4IDM5NjA0NGYz
-NjhlNy4uMWRiYWZlNjgyNzI0IDEwMDY0NA0KPj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL3ZlbmRvci1wcmVmaXhlcy55YW1sDQo+PiArKysgYi9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvdmVuZG9yLXByZWZpeGVzLnlhbWwNCj4+IEBAIC0yMTksNiAr
-MjE5LDggQEAgcGF0dGVyblByb3BlcnRpZXM6DQo+PiAgICAgIGRlc2NyaXB0aW9uOiBTaGFuZ2hh
-aSBBd2luaWMgVGVjaG5vbG9neSBDby4sIEx0ZC4NCj4+ICAgICJeYXhlbnRpYSwuKiI6DQo+PiAg
-ICAgIGRlc2NyaXB0aW9uOiBBeGVudGlhIFRlY2hub2xvZ2llcyBBQg0KPj4gKyAgIl5heGVyYSwu
-KiI6DQo+IA0KPiBTbyBob3cgZGlkIHlvdSBpbXBsZW1lbnQgb3duIGNvbW1lbnQ/DQo+IA0KPiBC
-ZXN0IHJlZ2FyZHMsDQo+IEtyenlzenRvZg0KDQpIaSBLcnp5c3p0b2YsDQoNCkkgc2luY2VyZWx5
-IGFwb2xvZ2l6ZSBmb3IgdGhlIGNvbmZ1c2lvbi4gSW4gbXkgcHJldmlvdXMgcmVwbHksIEkgZGlk
-DQpwcm9taXNlIHRvIGNoYW5nZSB0aGUgcHJlZml4IHRvICJheGVyYS10ZWNoIiB0byBhbGlnbiB3
-aXRoIG91ciBkb21haW4NCm5hbWUuIEkgc2hvdWxkIGhhdmUgZXhwbGFpbmVkIG15IGNoYW5nZSBv
-ZiBtaW5kIGluIHRoZSB2MiBwYXRjaCBub3Rlcy4NCg0KV2hlbiBJIHN0YXJ0ZWQgbWFraW5nIHRo
-ZSBjaGFuZ2VzIGludGVybmFsbHkgZm9yIHYyLCBJIHJlYWxpemVkIHRoYXQNCm91ciBleGlzdGlu
-ZyBCU1BzLCBib290bG9hZGVycywgYW5kIGEgbGFyZ2UgYW1vdW50IG9mIGRvd25zdHJlYW0NCmNv
-ZGViYXNlIGFscmVhZHkgaGVhdmlseSByZWx5IG9uIHRoZSAiYXhlcmEsKiIgcHJlZml4IGZvciBj
-b21wYXRpYmxlDQpzdHJpbmdzLiBDaGFuZ2luZyBpdCB0byAiYXhlcmEtdGVjaCIgbm93IHdvdWxk
-IGNhdXNlIG1hc3NpdmUgYnJlYWthZ2UNCmFuZCBjb21wYXRpYmlsaXR5IGlzc3VlcyBhY3Jvc3Mg
-b3VyIGV4aXN0aW5nIGVjb3N5c3RlbS4NCg0KQmVjYXVzZSBvZiB0aGlzIGhpc3RvcmljYWwgbGVn
-YWN5LCBJIGxvb2tlZCBmb3Igc2ltaWxhciBjYXNlcyBpbiB0aGUNCnVwc3RyZWFtIGJpbmRpbmdz
-IGFuZCBub3RpY2VkIHRoYXQgdGhlcmUgYXJlIGFjY2VwdGVkIHByZWNlZGVudHMgd2hlcmUNCnRo
-ZSBwcmVmaXggcmVmbGVjdHMgdGhlIGNvcmUgYnJhbmQgcmF0aGVyIHRoYW4gdGhlIGZ1bGwgZG9t
-YWluIChmb3INCmV4YW1wbGUsICJeY2l4LC4qIiBmb3IgY2l4dGVjaC5jb20pLg0KDQpXb3VsZCBp
-dCBiZSBhY2NlcHRhYmxlIHRvIGtlZXAgImF4ZXJhIiBhcyB0aGUgcHJlZml4IHRvIHByZXNlcnZl
-DQpjb21wYXRpYmlsaXR5IHdpdGggb3VyIGV4aXN0aW5nIGRlcGxveWVkIHN5c3RlbXMsIGV2ZW4g
-dGhvdWdoIG91cg0KZG9tYWluIGlzIGF4ZXJhLXRlY2guY29tPw0KDQpJZiB0aGlzIGlzIHN0cmlj
-dGx5IG5vdCBhbGxvd2VkLCB3ZSB3aWxsIGhhdmUgdG8gZmlndXJlIG91dCBhDQptaWdyYXRpb24g
-cGF0aCBpbnRlcm5hbGx5LCBidXQgcHJlc2VydmluZyAiYXhlcmEiIHdvdWxkIGJlIGhpZ2hseQ0K
-cHJlZmVyYWJsZSBmb3Igb3VyIGVjb3N5c3RlbS4gSSBhbSB2ZXJ5IHNvcnJ5IGFnYWluIGZvciBu
-b3QgY2xhcmlmeWluZw0KdGhpcyBlYXJsaWVyLg0KDQpCZXN0IHJlZ2FyZHMsDQpMZW5nDQo=
+On Mon, Sep 7, 2026 at 3:06=E2=80=AFPM Eric Dumazet <edumazet@google.com> w=
+rote:
+>
+> > - bind cursor UAF / dangling tb2: valid
+> > - unconditional sock_hold() on unpublished TIME_WAIT: valid
+> > - clearing s_num on cursor mismatch: valid
+> > - lockless cursor-membership checks: valid as a concern
+> > - commit message overstating bind/ehash fill-under-lock: valid
+> > - missing note that MPTCP needs the follow-up patch: valid as a
+> >   backport note
+> > - endless re-scan of the same bucket head: not valid as a
+> >   guaranteed livelock; duplicate output after a rejected cursor
+> >   is valid
+>
+> I just saw your patch today. This is absolutely insane.
+>
+> Please limit the complexity of a filter to something reasonable.
+> Absolutely no sane user is using a very complex filter.
+>
+> Same for UDP.
+
+Thanks for the feedback.
+
+We will drop the dump-cursor rewrite.
+
+A follow-up can cap inet_diag bytecode complexity in
+inet_diag_bc_audit() so TCP, UDP and MPTCP dumps share the same limit.
+
+Please let me know if that is the direction you want.
