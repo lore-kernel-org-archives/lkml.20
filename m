@@ -1,148 +1,176 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB683A05F2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6FB39B4AF
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:27:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788791194; cv=none; b=sdzIXXB5ydHRSRV88E3hh8V0UVkg6IdQmwkBzRMLNwpjwSmamebRBkVwiU1CcQKoDwX6q0ZCauzb6eOmGSjCM60rx9Hh56BTZkWZ6ZC0kFDVZGSnCyCNbE+JFsfocpBiOz18lQadmDKQMUp4ie35xLJ/lsO/iZ3W8/B0D6vZZsU=
+	t=1788791277; cv=none; b=tpp48naDsEglyyqjUY152FcROQ33OhYT9MtEVOqwnmpBGzfNG48FsyCUPuvULeRB0cEWnuoValQST0nr4kbaIS/RB6z2/1FnF4T0Co4NYDk3oqZTA3q/yGkEOTv0qFmuTIzDVotHjyaA5x59JcTY1JI8xrHcxlHZ/AsyCIfsmlw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788791194; c=relaxed/simple;
-	bh=6M6BqSu+AARyDk9/i3i6nT6PArwCznAtKG+pD5PVZUk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=agaXVS0QoZKoaHLSim0FO2xrPLbOom52+3UY+Ge59exPf0mNLFOgUqvVk6Eujr9y+i3JN0FPG+pBVUSu0On6Ymc84bnCHgMM/B+pnQrNmxT3M0075ZDIaRCkeveBCIjD8Bl2z6lGUJWkZDolDEArMIGsprH4nxTkgC54wT8KpeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=q6Dr4i0W; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788791277; c=relaxed/simple;
+	bh=pGRy+E82qR8jPuNhD4AJZnlqd9rOGEhFr+3llWnVY6o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pr7QkqU+BsNp4xdI4sKZUy9Llr7lw+68sqIRWM4msiKgfZbm74PpbnnmAUXhHgBwI7e7FX9rPPkh7oEmpKmK4S2V65uZOyl2eCrF0x/hThLKGPp2P2m0s+ToNT+MkodnD7Fft8HZ86Ffy/1rUemIXzbJjkIdXTgprZuxcSugMYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TectPzyv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="q6Dr4i0W"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso38692075e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:26:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788791190; x=1789395990; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4f0/64qaNZYvJEcWhejwJa+PLE1/Em7ct5SbUix/fW8=;
-        b=q6Dr4i0WkAjuFmycVhSSQRnVTczqfUrTQaeORur6Hd2bVgq9VoAdE6Wwx+qQABHvcH
-         yacqumiHa9NTfk2p6UIHl9ZhgciVNMQLYg6fwIkh1iAcLsdn4nEP2JV0f4rzLfEZxNAf
-         OM1sN0qTqoopKC7E7ab2G3lsoYl2oqr/v/l2GB0mfB5wOk/p/2YZlg9yKs+ZqrZJ0ogS
-         XmFEUg/33CGHFA5vSfZ4BQ7Er5wDZNJt12yYr/Hzd0bw5a3lcMZdIKiNZBLTkxaZSuoN
-         bbu1rjcC39MFGDDAIhtcPhoj4/iokqFcrXyLzhhKm97rTq99Hd8H9nW+bLRa77OyLgaY
-         OcQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788791190; x=1789395990;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4f0/64qaNZYvJEcWhejwJa+PLE1/Em7ct5SbUix/fW8=;
-        b=I6fpTbyBJbW0DiYfot44t9EjqBkbUy07xkvJOrUEDnzGErJF0owOPsbmqtDwr5wvUT
-         43VPYtndZ/X6Kp2/SsQbXYTV8yBz9m1bDANp/MQupUn/3f97FqBXph/hv5joO6v+NF/K
-         3BLPDF9nV4DXdRzytQYez9DAp48PnsJUYXgVQpeLQdOrS6C1/cp1fbi6m0Xw3aaTybxE
-         xrpJGgBH/+aEseEKxH027P155NpiFlIIRlMD88X+NBy7Nr2DxbGduZV8oh8WbEGHh+rw
-         j9XUtmU4NuphOuwaV+LnoLjaUzTGyihGqRJ2+b343TdgIj+jJBkGc2yYljjgBD2VxyN3
-         4M1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzAYmadRNHcJpuXQDFvXNNJfHHOK72MXyHM1LOsHuP21x4Fat6QDU29Kg2+iflLVBdDHL3LkcBSlpMapDo=@vger.kernel.org
-X-Gm-Message-State: AFuF++li7cUpuCofrKhxBBoOdjwJKxHQ9JE9JB9XJ9f0zrEb/tpQhsDN
-	rs0RIuY49psr34zLkfom56DAAIiigNmUXt4hnCmbhMCzTRn3I9GT8SfPg3+U+QYJliA=
-X-Gm-Gg: AYBFou1HM+JPwZOfhVSyaL+hflqXAzuZdlh3+7+rNbcL86v+PIxVXtYp6jNIKKyOoWT
-	f7ScXe6eZnxYqWHu/M97AUuqwxlt1IiMPrms9J/YxaVeieS39w4lSSwTTp2pCdfemOH0f7EyubF
-	Rx+URVCwndRM9srFlqOUaMC5CE9RHibdOL+h4Vk3yOsF5AT0kQPR6bIazz6+j6ueQvpLVs5KJjI
-	uStKTkYSI7T+AdbjNPXjzI9lwrWKa3Jp2RyU9EJkFXVt7hZQoE8UKsYEbznMbjMA6Jugwo0O+i3
-	rs6BwIwgZsAZjSvWXhoftO27RtyX4QLvykF9jEeDM6LyrqIXn2zrciSjLYO0RCCnDPAHyCemfP+
-	7pOu7+lFSvsbIJO4R1yEt5ecFs6vgsorSq+bR6N5HGSQ+g/uQw0t+VhfvOlBREFe1N2gJOH4bi5
-	Bg8gdgQUR5CaoBq7TTKA1DSgqU+ClkIheqMKln3CarQF+N8dTRKflGgr0wqWiwJI33GDlL2ayzz
-	2m8TUhHzhGeSADtmMc/OjCZPOuNSg4fO38Eu7d9Ubt09jY8joT+U5d/ZjXpZhSbZuXvTYjrkDEV
-	8VQ/UlqFPRLQKi2aMeXcRyHvkg==
-X-Received: by 2002:a05:600c:3b01:b0:49b:4d64:bbc4 with SMTP id 5b1f17b1804b1-49cf81f1592mr393945895e9.8.1788791190141;
-        Mon, 07 Sep 2026 07:26:30 -0700 (PDT)
-Received: from MYL150-3871.localdomain (80.151.89.79.rev.sfr.net. [79.89.151.80])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm414605655e9.6.2026.09.07.07.26.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 07:26:29 -0700 (PDT)
-From: Nicolas Thibert <nithibert@gmail.com>
-X-Google-Original-From: Nicolas Thibert <n.thibert@ext.mylight150.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nicolas Thibert <nithibert@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btusb: fix NXP IW610 composite device handling
-Date: Mon,  7 Sep 2026 16:26:04 +0200
-Message-Id: <20260907142604.1080571-1-n.thibert@ext.mylight150.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TectPzyv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 102D81F00A3A;
+	Mon,  7 Sep 2026 14:27:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788791275;
+	bh=L2LUyi3JasTalKXaDzwg8qu2XnDVZGCw0xs9cKv1TcE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=TectPzyvQ6KaDruD02EunnARhdyeFcyCcgR0mB5w/mMMuJgYIDGR8EUcfGJDotTl4
+	 goRR5661jo9SMB51F3ToVh3646QGVlKdTAi9vFGW6VuFzyeOrMs1plVFqpVs63PHNE
+	 jAm2jma2TATMCOIYXK/Q30IGd++zn5lkrsQA5CEBzum3P1oXRsTcxAa8ka6uNGJD7+
+	 2xq6mcnWfg7GgI2zefOyPSiztwtPRBA2cnb0ILaTqq2JfczSK/mIeqDixjLZiKEFW6
+	 kIqrmFqQTT5+NwsHLsRjL8qiE6nyU49r0rt+FOZ0/W9LRaLbRXra2NhOgi2Y6/i7zR
+	 A1ui23uWP0Y+A==
+Message-ID: <1d625a60-9473-4f48-a384-7d756ccb7135@kernel.org>
+Date: Mon, 7 Sep 2026 16:27:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] mm/memory_hotplug: panic due to race between compaction and
+ memory hot-unplug
+To: Yuan Liu <yuan1.liu@intel.com>, Oscar Salvador <osalvador@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Wei Yang <richard.weiyang@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Chen Yu <yu.c.chen@intel.com>, Jason Zeng <jason.zeng@intel.com>,
+ Vlastimil Babka <vbabka@kernel.org>
+References: <20260903095543.3752338-1-yuan1.liu@intel.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260903095543.3752338-1-yuan1.liu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Nicolas Thibert <nithibert@gmail.com>
+On 9/3/26 11:55, Yuan Liu wrote:
+> Hi all,
 
-The NXP IW610 module exposes itself as a composite USB device
-(0471:0215) with three interfaces: two real Bluetooth HCI interfaces
-(class 0xe0) and one vendor-specific WiFi interface (class 0xff) used
-by mwifiex-nxp.
+Hi!
 
-The composite device's whole USB descriptor reports class 0xe0/01/01
-(Bluetooth), so btusb_table's generic USB_DEVICE_INFO(0xe0, 0x01, 0x01)
-entry matches every interface, not just the two real HCI ones -- btusb
-ends up binding the WiFi interface too, and mwifiex-nxp never gets it.
+> 
+> While stress testing memory hotplug on a VM guest running an
+> unmodified vanilla mainline kernel (7.3.0-rc1, as reported by
+> uname -r), we hit a kernel panic in the guest when memory
+> hot-unplug runs concurrently with memory compaction.
+> 
+> The kernel was built from mainline at commit:
+> 
+>     cee9395acd80 ("Linux 7.3-rc1")
+> 
+> To be more specific, after a large virtio-mem hot-unplug, the guest
+> kernel takes a fatal page fault in suitable_migration_target(), called
+> from isolate_freepages() during compaction.
 
-Fix:
-1. In btusb_table (the table the USB core actually matches against),
-   explicitly ignore the WiFi interface via BTUSB_IGNORE, ahead of the
-   generic entry.
-2. In quirks_table, scope the existing BTUSB_MARVELL entry to the BT
-   interface class instead of matching the whole device by VID/PID
-   (harmless either way since quirks_table isn't consulted for initial
-   binding, but keep it correct).
+Sounds like a real problem we should tackle.
 
-Not upstream anywhere: checked NXP's own i.MX kernel fork
-(nxp-imx/linux-imx), no IW610 references in btusb.c on any branch --
-their reference designs wire this chip differently (WiFi over SDIO
-per their release notes), so they never hit this.
+> 
+> We are not sure whether this race is reachable under realistic
+> workloads or only under this synthetic stress test. Sharing it here
+> in case it is useful, and in case this is already a known issue.
+> Thanks.
+> 
+> 
+> Call trace (top to bottom)
+> ==========================
+> - RIP: suitable_migration_target+0x5/0x70
+>    isolate_freepages() <- compaction_alloc() <-
+>    migrate_pages() <- compact_zone() <- compact_node() <-
+>    sysctl_compaction_handler().
+> 
+> 
+> Why the race happens
+> ====================
+> CPU0 (compaction free-scanner)          CPU1 (virtio-mem hot-unplug)
+> ----                                    ----
+> page = pageblock_pfn_to_page()
+>    /* checks pass, section ONLINE */
+>    /* returns valid struct page* */
+> 
+>                                          offline_pages()
+>                                            /* section -> offline */
+>                                          __remove_pages()
+>                                            vmemmap_free()
+>                                            /* struct page UNMAPPED */
+> 
+> suitable_migration_target(page)
+>    PageBuddy(page)
+>      read page->page_type
+>      *** not-present fault -> panic ***
+> 
 
-Signed-off-by: Nicolas Thibert <nithibert@gmail.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM (Claude Sonnet 5, Anthropic)
----
- drivers/bluetooth/btusb.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+If it can be hit with virtio-mem, it can be hit with any other memory hotunplug
+code path (e.g., dimm, dax).
 
---- a/drivers/bluetooth/btusb.c
-+++ b/drivers/bluetooth/btusb.c
-@@ -71,6 +71,15 @@ static struct usb_driver btusb_driver;
- #define BTUSB_BROKEN_EXT_SCAN		BIT(29)
- 
- static const struct usb_device_id btusb_table[] = {
-+	/*
-+	 * NXP IW610 (0471:0215): the composite device reports Bluetooth
-+	 * class at the whole-device level, so the generic entry below
-+	 * would also match this WiFi vendor interface. Ignore it here
-+	 * first so mwifiex-nxp can bind it instead.
-+	 */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x0471, 0x0215, 0xff, 0xff, 0xff),
-+	  .driver_info = BTUSB_IGNORE },
-+
- 	/* Generic Bluetooth USB device */
- 	{ USB_DEVICE_INFO(0xe0, 0x01, 0x01) },
- 
-@@ -477,6 +486,14 @@ static const struct usb_device_id quirks
- 	{ USB_DEVICE(0x1286, 0x2046), .driver_info = BTUSB_MARVELL },
- 	{ USB_DEVICE(0x1286, 0x204e), .driver_info = BTUSB_MARVELL },
- 
-+	/*
-+	 * NXP IW610 BT interfaces (Marvell-lineage silicon, same quirk as
-+	 * the 0x1286 entries above). Scoped to the BT interface class,
-+	 * not just VID/PID -- see the btusb_table entry above.
-+	 */
-+	{ USB_DEVICE_AND_INTERFACE_INFO(0x0471, 0x0215, 0xe0, 0x01, 0x01),
-+	  .driver_info = BTUSB_MARVELL },
-+
- 	/* Intel Bluetooth devices */
- 	{ USB_DEVICE(0x8087, 0x0025), .driver_info = BTUSB_INTEL_COMBINED },
- 	{ USB_DEVICE(0x8087, 0x0026), .driver_info = BTUSB_INTEL_COMBINED },
---
-2.34.1
+It is known that pfn_to_online_page() is racy. We usually expect the race window
+to be extremely small. But for compaction the race window is much larger.
+
+We do have get_online_mems()/put_online_mems(), big its the big hammer.
+
+We once discussed using RCU to protect pfn_to_online_page(), but I suspect for
+comapction that's not actually helpful (again, large race window).
+
+We'd have to use the memory notifier or a dedicated callback to let memory
+offlining sync with compaction.
+
+That's where it gets tricky :)
+
+
+It would be sufficient to let MEM_OFFLINE wait until any previous compaction
+users would be done with the range. In that case, the sections would be offline,
+but the memmap and zone range would not have been adjusted yet.
+
+-- 
+Cheers,
+
+David
