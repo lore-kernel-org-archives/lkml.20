@@ -1,135 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4756B37475D;
-	Mon,  7 Sep 2026 09:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805C9448391;
+	Mon,  7 Sep 2026 09:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771784; cv=none; b=IfZK/djC6yyPntFP1MTQTnLUAmALCva6URWdHYuU0e3ofTLbs+IBUMuz0iiiMri/zXAFgu+h9MfXVwT5RfmmfdES+i91gpalUL1huyBdpfY+B4K2rEoyqc1PfxcJXwcjvRsHtHv7mp4afIQxnIx0uR4BspVh50FhQIJEEIlsWeA=
+	t=1788771788; cv=none; b=EZtwsB5HU8Ke9NwuCai5Z6mFjncvTWfPNEehIWk97pHMMjmGbg9cai7Rofn8QVqii2qXPB1ecpX1FDzIv/YO2gqiPSAMic0FWx74B+kehagSwAG2SkG1Ci0w+FOLvIfOVT1j/r617pCnPxT97+Jy5ieNru1ZeKEDnr/fIn11qMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771784; c=relaxed/simple;
-	bh=Go+bBQ61UsY2NImsKzf3YoYh/SoBrl4RgefHRiYG8RA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iDUcvJbzQV2cwTsu3gfLSMYcrQcZz+tXzTB7/f8rHAc980TBSYIDTAJbxPd69gDjniuK5+QwHK82ibsnr67g7/aQmo2pOyyR23PEiEo+EB9u9SQNfKHZiv3STKZhfQPfEzalMxjFIN2tGL1EeeG5fneVWU2xFbZ4Tkg91vRhUG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igNYO8RH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788771788; c=relaxed/simple;
+	bh=98wbZBa0cueKeX7rxI7zVGJ1KZaQ56QTJZuCcR8ZZK0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uppL4vg6luw33Iy8gQLjvEtKjsio0ErzBUFkHY1w2NuGyYK47UzOOXlHgTOmcb+z8E2YDxrsA++kRAoKlDRzlpAOcwMixHpEV9yxO/4GngokIaYErssmoAwPEW75N4znkTqbTGFqF6azWFltoJt/FDVwNCtq+vDHNGWYlytE2F8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cpRh0mK8; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igNYO8RH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4A11F00A3A;
-	Mon,  7 Sep 2026 09:03:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788771782;
-	bh=qPcPiAWfjggqcajS5JwGn0UOdsMyEDVI6NoXDi4xWv8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=igNYO8RH580c16Q0eiHMhb5A2oQYox4ljVElJLUkXFyZeLlOtnyqWagqlBbp2lieK
-	 4f2k0rZvzwmVqkMSn3Tr0TCDLzmVc3SeoS1s3DuZeQlEOk95WvGfiDuDjZKc7KaZhp
-	 8/zCYylYcVtWQLFWrX/HwJ8eibQDU/SgXrpUbRk8AIedg1ORoK34F/CTR+318f/WUi
-	 6SK1AhVP7F4AuveMJStqwkuNkalqVMV5rfImcydsYZcu1mhtJP8Fn7xuCZZ3dIKaPx
-	 gXUBmTXdUbwT6II4Sq18IGHEZ74D0UgS/c9KqMRotGk826OVcWpGcr8VtF656FkrMf
-	 y5D3sqMTqZbpw==
-Date: Mon, 7 Sep 2026 11:02:58 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Amber Kao <ite_pd@ite.com.tw>
-Cc: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>, 
-	Yaode Fang <Yaode.Fang@ite.com.tw>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
- support
-Message-ID: <20260907-bulky-adorable-agama-40ece9@quoll>
-References: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cpRh0mK8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788771786; x=1820307786;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=98wbZBa0cueKeX7rxI7zVGJ1KZaQ56QTJZuCcR8ZZK0=;
+  b=cpRh0mK8nMyWAaKhqzZCPMAhqqkIsmsavaMTb+f02inATkbNCWC3hLXh
+   qJeop1veKgXsgxiBj1agt8NDcBFNlff3eU7Kj6t3JAgBe8miKXwqMNuVZ
+   dYT5gKFGo+Kp71QPFgX3iNYleIqZcq1YSJkiIHiT5kF6f1DD+zKSNEFRK
+   Z62aGMnQ73mYcwStT86JmFLLbt5J62lQkDK7Ay4TucLnvBybrNTwjqLb6
+   qxgvdGDK7yJV5UnkQjem6+BRGdP1h9eMwG6+LVEy1ssXizsZp2Iow/50g
+   f+f0Xv0kavMD0Ee/rxyHh3GPNsnsJ78UA+IqzxZyZfwmKnw3Mich1Jvb7
+   Q==;
+X-CSE-ConnectionGUID: tRbtK+7sRJ+qrySJqxkzqg==
+X-CSE-MsgGUID: XtCI4r2UTYeL8fLtHFzZ7A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="92872962"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="92872962"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 02:03:05 -0700
+X-CSE-ConnectionGUID: TVe2MCW+QtG99Mcl8b8VKA==
+X-CSE-MsgGUID: XkAqN48+Q/a/TJ/wvaUqHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="272588583"
+Received: from jkrzyszt-mobl2.ger.corp.intel.com ([10.245.246.66])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 02:03:01 -0700
+From: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Andi Shyti <andi.shyti@linux.intel.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+	Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+	linux-kernel@vger.kernel.org,
+	Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Subject: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
+Date: Mon,  7 Sep 2026 10:59:18 +0200
+Message-ID: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 06:15:43PM +0800, Amber Kao wrote:
-> Add device tree binding documentation for the ITE IT527x series
-> (IT5271, IT5272, IT5273, and IT5274) I2C-based USB Type-C Power
-> Delivery (PD) controllers.
-> 
-> The series comprises four variants differing by port count and
-> Power Range support:
-> - IT5271: single-port, SPR (Standard Power Range)
-> - IT5272: two-port, SPR
-> - IT5273: single-port, EPR (Extended Power Range)
-> - IT5274: two-port, EPR
-> 
-> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
-> ---
-> The driver for this device family is shared with ITE IT8851/IT8853,
-> currently under review as a separate series:
-> https://patchwork.kernel.org/project/linux-usb/patch/20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw/
-> 
-> This binding is submitted independently so it can be reviewed on
+DRM CI consistently reports failing device reset attempts on Intel DG1
+discrete graphics adapters.  Manual reproduction attempts allowed to
+narrow down the scope of that problem to a specific revision of that
+hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+claimed by the device, i.e., flr and bus, suffer from that issue.
 
-No, it cannot be reviewed on its own, because splitting it means you
-have undocumented compatibles in the other patchset.
+Since consecutively failing device resets may lead to system hangs,
+disable both useless reset methods.  A respective CI test will then be
+skipped instead of aborting whole CI jobs.
 
-And if you do not, then there is no user for this binding.
+Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+---
+v2: Fix commit description wording (Andi)
+  - add Suggested-by: tag missing from v1,
+  - add collected Reviewed-by: tags.
 
+ drivers/pci/quirks.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-> its own; once the driver series lands, IT527x support will be
-> wired into it there.
-
-Then what is the point of this binding now?
-
-> ---
->  .../devicetree/bindings/usb/ite,it5271.yaml        | 176 +++++++++++++++++++++
->  MAINTAINERS                                        |   8 +
->  2 files changed, 184 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/ite,it5271.yaml b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
-> new file mode 100644
-> index 000000000000..29cd7add9bde
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
-> @@ -0,0 +1,176 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/ite,it5271.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ITE IT5271/IT5272/IT5273/IT5274 USB Type-C Power Delivery Controller
-> +
-> +maintainers:
-> +  - Amber Kao <amber.kao@ite.com.tw>
-> +
-> +description: |
-> +  The ITE IT527x series are I2C-based USB Type-C Power Delivery (PD)
-> +  controllers.
-> +  All variants support DFP/UFP/DRP roles, USB PD 3.1, Fast Role Swap,
-> +  USB4, and TBT3/TBT4 alternate modes.
-> +
-> +  The series comprises four ordering part numbers built on identical
-> +  silicon; port count and PD power range support are configured via
-> +  firmware/OTP rather than differing in the register interface itself:
-> +    - IT5271: single-port variant, SPR
-> +    - IT5272: two-port variant, SPR
-> +    - IT5273: single-port variant, EPR
-> +    - IT5274: two-port variant, EPR
-> +
-
-Why isn't this entire binding part of the other file?
-
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ite,it5271
-> +      - items:
-> +          - const: ite,it5272
-
-enum
-
-I finished actually here, becausr I still find reviewing outside of
-driver a waste of our time.
-
-Best regards,
-Krzysztof
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index de9bbccda21fd..e55475374c6fd 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
+  */
+ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
+ 
++/* Intel DG1 0x4905 may not recover from bus reset */
++DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
++
+ static void quirk_no_pm_reset(struct pci_dev *dev)
+ {
+ 	/*
+@@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
+  * AMD Neural Processing Unit 0x1502 0x17f0
+  * Intel 82579LM Gigabit Ethernet Controller 0x1502
+  * Intel 82579V Gigabit Ethernet Controller 0x1503
++ * Intel DG1 Discrete Graphics Adapter 0x4905
+  * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+  * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
+  */
+@@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
++DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
+ 
+-- 
+2.54.0
 
