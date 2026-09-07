@@ -1,172 +1,102 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF6E23F210B;
-	Mon,  7 Sep 2026 04:03:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753795; cv=pass; b=WroDEd/rInT3cABa2whnuzQXt2vWPPtzrbGS001vq/tQrm+PiHyj0s3Mcz7zgLrCOOGmBkehQ5xfWMfaiDUzoUmJVIftq83Cp6P+XeRypARUaVGZyVNAnJioLOlZEwXtLCUbMpddlJhYLQApJ8ypOFYhuRI8ZmXgaxDL8yDbfeo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753795; c=relaxed/simple;
-	bh=xZdWr5iB4U0Mel5njbzbHnomGSClIHf9G9kkOjT0NSU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OJo31VgVpUbRFmPzY3f85wOtHPUIVYkFJzZmsw5uEkkRo0SkIQcQcZhnNSF5VU69CokkhArGv4qx0dETfD6uk/0zfk7TbOWv4DnGGgnSWVI3LGPPJsTx2u9F0S6vScbwWnuW+stksphdaNqc+lVAuT8EQtGdl/TT8X7O0bv/Oi0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Hn4zdwaH; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1000124EA90;
+	Mon,  7 Sep 2026 04:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788753827; cv=none; b=IasxUeyJqASbQRV80xUpc1TtxU0EsOZihtbx/rdrJ5+LtT3fuwCGem1YCnwqHDSW9v2MmnFCoq4Q+7GTlEXLuJWVFoqN+bJlXYZLqyGweGEZHjdig2uM0g7cOvEoYK4FfglTAALMAzpyxNEq3JaHmyVNGVpcWv+Oi+OpwnLOuHc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788753827; c=relaxed/simple;
+	bh=qy+rrqoJuO1rVcHwSphbzs7pRftMwU1ZDnXzSpXQqY0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EEv+h1GSRZ/19+/GZ1xeXNz90E+u2T4aNDu8L/duHBiMtfupi+0POap7lRN9FX2FHHakJ5GMK1gN+dzW1zJvLRnXDAUpJTEzsfAjjQkh4Gl/C3KvVhxin+vDuCLSiXiKste1IPxwdjzZXbBpA/p1+tHabEo24yxXhGnXFys65Ok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpocj/J9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Hn4zdwaH"
-ARC-Seal: i=1; a=rsa-sha256; t=1788753687; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GmgJfMtf8nKDYhL/y5mV/4bNYFhWRjAXbiCOMeLj8n/V5CVYE3TJ1oQO588JLThSNoXs8na/h1QQiGlk8/+UkubO+Y3+TagcA/M+XKS5XW7e8UO+EERfGt+CFRN2cgOTfHGaa5y/Hz9HvV/t9Xv3/0qNiVqnzm2F0qso+Rrq5/M=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788753687; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=xZdWr5iB4U0Mel5njbzbHnomGSClIHf9G9kkOjT0NSU=; 
-	b=gAyw2KHgApq0A7LXr3MDWUoBoRD3N40pFBbuVqSAkqPwV1VVR9Xr3y+abWyMyCrQhojcvppSuAKn2nCMjObobYLjsZuvyDDAp33Rrz5a9uYDI9iw8go7ImHwUgMVN9VVsUxqVZfyEffdmk+U7q3ECJMMVzlnl1J9fe7yI6m7p1o=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788753687;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=xZdWr5iB4U0Mel5njbzbHnomGSClIHf9G9kkOjT0NSU=;
-	b=Hn4zdwaHpLWdVp/Ei3bXX/qZRio3cEAZQvfZfTg6B82Ac1UI9c3R+SjyuZhHWm2z
-	KjE2ZLockaaqR0Wnk+b9aMVd5YW9a9hYslb4deN4Ix282OVlt8E/hsSV3wOWwd/gm8a
-	L6VA92ctg9YQAWWbSTeYTN7GuHu2HGlslRl93ANnPGveRb0S7XEdVXdYkl4SPFtkHFP
-	1fLCF3VScGAQ4Y4U1IsnnxD2aofdFAkVyMDRymBcTphtpwQeoSh/9GGrlg9xR2wmYIF
-	XBVoHp3k3yRADdslVz22o36V7Taaln1IDrWJLknqDvDj84p4TZKtj9Gydz37ymyiWQ1
-	hPPMnogHww==
-Received: by mx.zohomail.com with SMTPS id 1788753684704244.47592390011243;
-	Sun, 6 Sep 2026 21:01:24 -0700 (PDT)
-Message-ID: <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
-Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Dominique Belhachemi <domibel@debian.org>
-Cc: Maud Spierings <maud_spierings@murena.io>, m.wilczynski@samsung.com, 
-	Laurent.pinchart@ideasonboard.com, airlied@gmail.com, alex@ghiti.fr, 
-	andrzej.hajda@intel.com, andy.yan@rock-chips.com, andyshrk@163.com, 
-	aou@eecs.berkeley.edu, bmasney@redhat.com, conor+dt@kernel.org,
- conor@kernel.org, 	devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 	hal.feng@starfivetech.com,
- heiko@sntech.de, hello@big-grey.co.uk, 	jernej.skrabec@gmail.com,
- jonas@kwiboo.se, kernel@esmil.dk, krzk+dt@kernel.org, 	lee@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	luca.ceresoli@bootlin.com, m.szyprowski@samsung.com, 
-	maarten.lankhorst@linux.intel.com, maudspierings@gocontroll.com, 
-	mfd@lists.linux.dev, mripard@kernel.org, mturquette@baylibre.com, 
-	neil.armstrong@linaro.org, p.zabel@pengutronix.de, palmer@dabbelt.com, 
-	pjw@kernel.org, rfoss@kernel.org, robh@kernel.org, sboyd@kernel.org,
- simona@ffwll.ch, 	tzimmermann@suse.de, vkoul@kernel.org
-Date: Mon, 07 Sep 2026 12:01:13 +0800
-In-Reply-To: <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
-References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
-	 <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
-	 <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
-	 <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
-	 <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
-	 <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
-	 <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpocj/J9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C8411F00A3A;
+	Mon,  7 Sep 2026 04:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788753825;
+	bh=+l2Ct03+eBT4GrlphGE1IIBrO/rNORAR4on5Wu4oVFs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mpocj/J9F6UxR7CMuFpvwzZ6wIsIr3/gHq7yR13J6tusH7w5HiMFZKj6T81H773yo
+	 f60ualVnI/D/mQT0shGwuBx4/BdIYQGzjRMzKvHTMDzY9XZedwtf9A80v/ElfunZPG
+	 9Fn7H889j/RFVYSlzEJB9xiWrmMCfmWlsqHQZo0etNPJ5anUaXyv+UqjC+9lDKkW5W
+	 kNf+OnTVQ+xsBNBullsvhlbNbe33jE+WbwDdcSG+Hu1Gmu4ydguBZzlQNbChfQxXxs
+	 kN5oQQjPWRZTP4F/Rk2e8YFtKYFaJ9Ompd4nfOWOxA8nr4/9clSyvaN63DCYozBmTP
+	 WEP2ngzbEMmPA==
+Message-ID: <e5600160-56da-4285-939c-6b5648264cec@kernel.org>
+Date: Mon, 7 Sep 2026 13:03:42 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: core: Validate MODE SENSE lengths in
+ scsi_cdl_enable()
+To: Alberto Carboneri <acarboneri@drivesec.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ "Martin K . Petersen" <mkp@kernel.org>
+Cc: Flavian Dei <fdei@drivesec.com>, Willy Tarreau <w@1wt.eu>,
+ Hannes Reinecke <hare@suse.de>, Niklas Cassel <niklas.cassel@wdc.com>,
+ "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260904135410.360314-1-acarboneri@drivesec.com>
+Content-Language: en-US
+From: Damien Le Moal <dlemoal@kernel.org>
+Organization: Western Digital Research
+In-Reply-To: <20260904135410.360314-1-acarboneri@drivesec.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-=E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 17:16 -0400=EF=BC=8CDominique Belhac=
-hemi=E5=86=99=E9=81=93=EF=BC=9A
-> On Sun, Sep 6, 2026 at 11:19=E2=80=AFAM Icenowy Zheng <uwu@icenowy.me> wr=
-ote:
-> >=20
-> > =E5=9C=A8 2026-09-06=E6=97=A5=E7=9A=84 16:59 +0200=EF=BC=8CMaud Spierin=
-gs=E5=86=99=E9=81=93=EF=BC=9A
-> > > On 9/6/26 07:39, Dominique Belhachemi wrote:
-> > > > On Sun, Aug 30, 2026 at 10:17=E2=80=AFAM Maud Spierings
-> > > > <maud_spierings@murena.io=C2=A0<mailto:maud_spierings@murena.io>>
-> > > > wrote:
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0 I was still having some glitching happening on t=
-he display,
-> > > > but
-> > > > I've
-> > > > =C2=A0=C2=A0=C2=A0 found the way to fix that, the question is what =
-is actually
-> > > > =C2=A0=C2=A0=C2=A0 happening here.
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0x29590020 <- 0x00000005
-> > > > =C2=A0=C2=A0=C2=A0 This one I have no idea, it is 0x00000009 with t=
-his patch
-> > > > series but
-> > > > =C2=A0=C2=A0=C2=A0 with the vendor kernel I get the value above. Wh=
-en I hook
-> > > > up my
-> > > > =C2=A0=C2=A0=C2=A0 external
-> > > > =C2=A0=C2=A0=C2=A0 display (regular 1440p) this becomes 0x0000000D =
-on the
-> > > > vendor
-> > > > kernel.
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0 But I can't find this register being written to =
-anywhere
-> > > > there?
-> > > >=20
-> > > >=20
-> > > > Maybe this needs to be swapped?
-> > > >=20
-> > > > drivers/gpu/drm/bridge/inno-hdmi.c
-> > > > =C2=A0=C2=A0 -#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
-> > > > =C2=A0=C2=A0 -#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
-> > > > =C2=A0=C2=A0 +#define v_HSYNC_POLARITY(n)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 2)
-> > > > =C2=A0=C2=A0 +#define v_VSYNC_POLARITY(n)=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ((n) << 3)
-> >=20
-> > Very weirdly, the original definition here matches current mainline
-> > inno-hdmi.c, but the changed definition matches JH7110 vendor
-> > inno_hdmi.h [1].
-> >=20
->=20
-> The vendor code is correct and matches the RK3128 TRM.
+On 9/4/26 22:54, Alberto Carboneri wrote:
+> scsi_cdl_enable() uses length fields returned by MODE SENSE to locate the
+> ATA feature mode page in a 64-byte stack buffer. A target can report a
+> total length shorter than its mode header and block descriptors. The
+> unsigned subtraction used for the MODE SELECT length can wrap, and the
+> separately computed buf_data can point beyond buf.
+> 
+> During automatic scan, enable is false, so the read-modify-write of
+> buf_data[4] can clear the low two bits of a target-selected out-of-bounds
+> stack byte. scsi_mode_select() can then copy up to 64 bytes from outside
+> the buffer into the outgoing MODE SELECT payload, disclosing stack contents
+> to the target.
+> 
+> This is reachable while scanning a USB storage device that identifies as
+> an ATA device and advertises CDL support. No filesystem mount or userspace
+> access to the block device is required.
+> 
+> On upstream commit cee9395acd80 ("Linux 7.3-rc1"), a build-specific,
+> one-vCPU QEMU/Raw Gadget proof using QEMU-only multi-UDC allocator
+> sampling executed a fixed proof command inside the guest and created a
+> UID-0-owned marker during automatic enumeration, with KASLR and NX
+> enabled.
+> 
+> The issue was independently found during security research at Drivesec
+> S.r.l.
+> 
+> Cap the available length to the buffer size. Validate and consume the mode
+> header and block descriptor lengths before using the page, and require the
+> five bytes needed to access the CDL field.
+> 
+> Fixes: 1b22cfb14142 ("scsi: core: Allow enabling and disabling command duration limits")
+> Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-scsi/20260717192313.93D791F000E9@smtp.kernel.org/
+> Link: https://lore.kernel.org/linux-scsi/20260717222931.AC4EE1F000E9@smtp.kernel.org/
+> Link: https://lore.kernel.org/linux-scsi/df13ec87ac9b28e3b0a2d9eb26477e276ff0278a.camel@HansenPartnership.com/
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Pimen Flavian Dei (Drivesec S.r.l.) <fdei@drivesec.com>
+> Signed-off-by: Pimen Flavian Dei (Drivesec S.r.l.) <fdei@drivesec.com>
+> Signed-off-by: Alberto Carboneri (Drivesec S.r.l.) <acarboneri@drivesec.com>
 
-Thanks for the tips on documentation, and I verified this.
+Looks good.
 
-It seems that Rockchip people made this always wrong, even with their
-pre-DRM display driver... [1]
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-BTW I checked the Innosilicon dGPU driver code, and its g3_ne_hdmi.h
-source file also contains the definition of BIT(3) as VSYNC. (It's
-quite weird that most logic of that driver is in some .o_shipped blob,
-but fortunately the g3 logic might be too new to be closed down)
-
-Thanks,
-Icenowy
-
-[1]
-https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video/roc=
-kchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
-
->=20
-> HDMI_reg08
-> =C2=A0=C2=A0=C2=A0 Bit=C2=A0 Attr=C2=A0 Reset=C2=A0 Description
-> =C2=A0=C2=A0=C2=A0 3=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=C2=A0=C2=
-=A0=C2=A0 vs_polarity=C2=A0=C2=A0 VSYNC polarity=C2=A0=C2=A0 1'b0: Negative
-> 1'b1: Positive
-> =C2=A0=C2=A0=C2=A0 2=C2=A0=C2=A0=C2=A0 RW=C2=A0=C2=A0=C2=A0 0x0=C2=A0=C2=
-=A0=C2=A0 hs_polarity=C2=A0=C2=A0 HSYNC polarity=C2=A0=C2=A0 1'b0: Negative
-> 1'b1: Positive
->=20
-> Nobody noticed this so far because in 720p/1080p both polarities are
-> positive, but Maud's 3:2 panel has differing H/V polarity.
->=20
-> Best
-> -Dominique
+-- 
+Damien Le Moal
+Western Digital Research
