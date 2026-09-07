@@ -1,94 +1,85 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2A648665D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB476489893
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781690; cv=none; b=cJaSacp2VcBcdJ5CJe4rEvqG0F8FrCDdV30jPpsac8wk25L5XX1cwt5PS5ErviBFIbcP0IZETPtyWL8hfXP2whGXQWZEXI3Qj56B22GuuX8iFULK+h2VHgBHfaU9A1uU6ADI1uISO4KAROCTm8tz5CE9klFpIsw0N02f1jmdZN8=
+	t=1788781696; cv=none; b=J7q3QC7BVJHKSp3Z8XK/LjPyqOXFoRzEsw6FUlfRGaMBQrKf5YmlKMAWqozD7ygrMnfFD/zXz9RGqSO7tGbxcbcl2fj7d6/ALHu/cQeSr+PC+cqrBHyowaf2+PyCEnX3E0sgYkgCNhglqdSOBzkK0qOLXp76wAbw21CMV75bPME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781690; c=relaxed/simple;
-	bh=TGbMSRctaX5jhPDgo8TGCoW6GnjLtJVIm7W+RZnDfS8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UqiAhAgDDROLTAbMWDZY2DcpYcQu6R5tzQqrazGAEBbRxkTappaKLkamY/HvrRCNEsRNawpY1HNkc9oeIkwGgk5Mx0q5yFWQtYMhlBaSrp5EhHBl1tQHNcYDpFB7cPB7pFRJ3OynKeGykLhLrRjH4OORjjFQ3VkEBNEsbzdRjE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qn2hFIXa; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788781696; c=relaxed/simple;
+	bh=XvhgKk55OlQI9HFk85ohFGQVC1+2fsP3rubx4lhEhD8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fnfdAU61l6wuoQGh0PIam3ggODIYSSIlrcH4wcrbxLqxOPgtv/sBU+PPCvbLs5RptYaSpKFD488MyJvO2lUwg83TgByp7yWJUnbLoPyu07sTGQ1L/5tYnBKXqOJPB7mapDct5V4zrIH8k8mqf6x5Gi5Vh5yVmF+IZrUVZS9+6Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SE0jBVwa; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qn2hFIXa"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d58efc7356so42889115ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:48:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788781688; x=1789386488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p29WlTfWVrQn534ptbrDbkRoo4ro4TG7QUYzDzPDAF0=;
-        b=qn2hFIXa8bvISMYq3rd6wsDe0EojK2Lx2mgFCLxv74iT+jNHd25JwSOe+aZMk0bab4
-         qWygx3wHjagV8KSJdYeS9VD+ncO0ZE6LbXacHXnmpZJV0bJMIpOeLbXzUuGyyCqmEK9M
-         lTWpd911ttElKEezzQ/cNa0ao8i2U6TeVJ5Mt81vBolA05SMZf+SwxIqWlDq2s8+zq9t
-         JCMnMesR+Xxmo5L1hNWBPWKT8pUpMMGNHd/YY8gWHnjn62Drf0Wwr7Tz8T9vOsdnCtkP
-         0E4ItbQRH5/XnRflpVd1PecmfZg33a00H4xCULc8R2eZG6PfAAwqYEdNc9D9OqXNmExU
-         VJHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781688; x=1789386488;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p29WlTfWVrQn534ptbrDbkRoo4ro4TG7QUYzDzPDAF0=;
-        b=kRsfCm3nEXCDixjhYXioYnTUcQHc6FEe1NHzWh7Z8x5bxqg+g8WeOQIgg+9lLWE4Gq
-         STaNUActpIl5GUuxkFV/xLxKUMs9M8hHHzPdZMDHcSqSAYHxgk9CzHZ+HUxr5ljX6nW9
-         C21JlaLmVWBGrwjCdDrKJpu8z0Ojps4x4xG4Tu3aQKtuzR3mWI8mx56vzWOxlyostje8
-         Yj29taNFtvaae/gqWCzwbEFGYguxGhf6WoH//r1RHKZX7bjfvfq72nhvUgSOE47Ud0AL
-         J2OvntxhbnpdgZb0bkdWMvVrNMCYx51yaOjBaNiNVR+cMrRdRIju849Gh7nm6Wh4o2Hs
-         vw0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByI3BcPl3PV61B5/Kxl6cOeWz+WziaJ8X0fjvRfWpnO1W14nz6FVDW6gAumABSaTqrRX6yLKE9dbemd2D0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mOTEiouCQu5oHdj9v2/wSLWtM2yxEksmsl2v2yCHl7CAM9tQc4
-	jSZ9b1rGaJIjh+IgJfACm7eeAaiwM5PIgwcXiYAmcRfljD36VfYPL5s5
-X-Gm-Gg: AYBFou3dNcgB2in6R19CEUpeVX5fu6352ZenmqgZtvNfi26RaboOM4hvKKIVw+v9wMK
-	XEbCxkAQP83cuk0DQq6R8gsLMsI4I09xWhhsMGuRpjyXNb7GU2Jhy16SFLVZCZXhv3hDOV2o3O7
-	JKdrsSXcGp8fLL+V/CpC1WwBXavtbAhkm8VQ/0G2nYgpftq1oJ9WTh6nv0mR1+smATXf9CVYv18
-	OLXv6jUT0f94MLKNm9BUbYyP6btKlyydv6K/6M9MTl1giRA1nXtRo07+cI7HP4oMz4JtWZ3+2RY
-	5mYQcSIOO9pAiLw3h8+U4LKJOgHZEt5vp8f2L7lf9NL2Eunbq/XTn1ykRMwsOV9JSucXuZ5Zk2N
-	DKKuQ3slABL3QpEqYebYS3GqfPM5HeaQz3mogy9wTw7bpMfNKgbtCgyGnDDZSkL7yP3i7HVZKQT
-	dXcPQTNd6wcqQksH9RKpooW/K7nzYV/cgV3NZgpOGhEC+IqZfTicM92PYiSWB5fTQWtuSuJSbI9
-	u5PDuMAl8Nzjjc=
-X-Received: by 2002:a17:903:2ca:b0:2d9:3850:2741 with SMTP id d9443c01a7336-2db12255f7bmr331441695ad.0.1788781688060;
-        Mon, 07 Sep 2026 04:48:08 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befe870sm30526079eec.30.2026.09.07.04.48.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:48:07 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: David Sterba <dsterba@suse.com>
-Cc: Daniel Vacek <neelx@suse.com>,
-	Chris Mason <mason@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] btrfs: reflow comments left awkward by the typo fixes
-Date: Mon,  7 Sep 2026 17:18:02 +0530
-Message-ID: <20260907114802.16143-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260907114153.39900-1-hemanth.selam@gmail.com>
-References: <20260907114153.39900-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SE0jBVwa"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 833AC1A1A30;
+	Mon,  7 Sep 2026 11:48:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 562CB60383;
+	Mon,  7 Sep 2026 11:48:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 86E5111C7A21B;
+	Mon,  7 Sep 2026 13:48:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788781691; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fGNYCWNaaifl4L31TWFkjKkylDh1BAcBuGtP8MSWGuA=;
+	b=SE0jBVwaSwgZ9CLxKn6rT0b0oMih3vYka7JkHUNfgCVej8o4ER01h0G+/P2N6IKbLGn2eM
+	CYe/ApGcc6IUBiYYiw2wiMhTHDQr1gEQz7Ea6Ze+hSc9henJmKpWMTilVAYXIIhjaecD6v
+	U3CNlXJ2cvf1/X5ItESGGMRPUr6fGVh22NH1Y7Y2kRq4oKHY2N3vjZPbWFM9hzMCT2awEk
+	CyMIaIWZ1SRJfDsG9BA96hqM8msweSOgmmGDwQr5gxbaUaE0o6o5EQ3t/I6V0adO7e7OQi
+	OK0XWk/ffi5R2aJ0f9P1Hu07dzG12wCeqozUDRMnSQTygMY0y33Jv6vOo06eRg==
+Message-ID: <ff98879d-4761-4343-89f8-060d81df39b0@bootlin.com>
+Date: Mon, 7 Sep 2026 13:48:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 5/5] net: stmmac: Add UltraRISC DP1000 GMAC
+ support
+To: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, Chen Wang <chen.wang@linux.dev>,
+ Inochi Amaoto <inochiama@gmail.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, sophgo@lists.linux.dev
+References: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
+ <20260907-dwmac-ultrarisc-v2-5-9a39bf8db313@ultrarisc.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260907-dwmac-ultrarisc-v2-5-9a39bf8db313@ultrarisc.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Please drop this patch.
+Hi,
 
-You had already answered the question it tries to address:
+On 9/7/26 09:46, Jia Wang wrote:
+> The UltraRISC DP1000 GMAC provides fixed internal delays on both TX and RX
+> RGMII clock paths.
+> 
+> Add a platform glue driver and describe both delay capabilities through
+> the common stmmac platform data. This lets the common RGMII delay handling
+> adjust the interface mode passed to the PHY and reject incompatible RGMII
+> modes.
+> 
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 
-  "Reformatting whole lines makes the typos harder to spot, so it's fine
-   to leave it like that and reformat at commit time eventually."
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-I sent it after reading Daniel's comments but before reading your reply
-to them, so I reflowed the two comments you had just said not to reflow.
-Entirely my fault, and easily avoided if I had read the whole thread
-first.  Sorry for the noise.
+Maxime
 
-The typo fixes already in for-next are unaffected.
