@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F0F85221EE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:12:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81225221EB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804737; cv=none; b=bF0vjxI1Ky6Wya2qw7HLhKjLvEkpTdj/5xYfJmNEPXDtzlVhQtmfDxcik7cwgChnmFcKdLZt+kFwJOvaW5e6iM/paFMC5CKY6uKYzbcVjJY7YUrlL4lAzs2c00picUzYK3DiOgR79Xxy/5us9nxxbJya/CqcY8CFUxQgsZ2SK94=
+	t=1788804736; cv=none; b=Y2goQsoYs1XHdEStVQj5v5dR2bdM/ZJw+5Led7MGnw9HIrSx0M/pcckB5ExRYJIpf/LVOEY2pBsMy8deydG37iAZTBi9eTx0KPn5jVkb2qZq3JuiwUig7g50eUSiHD3wL50nIbK2qeyA4ln/f0GB/kNPY3rHXZfAayQspWy3fJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804737; c=relaxed/simple;
-	bh=LirXvJJX0Y/6Fo5sXUix83AOPmuYDoroUD8pSAtNyj0=;
+	s=arc-20240116; t=1788804736; c=relaxed/simple;
+	bh=lL6Vy66//mizHQ21EPUREXRDQG7iywmhU/CjbOBZ3LA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=iVIaZt2v32sJiRLHZ0hrHWRo8/LzKL4NlbigeWXOk/aQqeFSpGNArLve4LWWR4HeFU6BMlmW+hsvDgvnPW+1Xjq6mzk2F2IkTImcg7pCQP3liKgXlPrQrP+BpU7JlTvJVQvsK9Q4mbty0jbp+PcVJ7ZxItVo66+2yI6N+k/Frh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QgOTHUlX; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ELO3mTQ/fzmQ5UM/lfAQpR6iZdKSSYSn6goD/ra3v7JJVbP6qjiAUdZ+lakHoWCWTyqbQuV+TNFRbHRFoue8CV26FdelFTBupwpRaVGfg/9Ul+e1/Mq7aJDZ+VCqVy9MBjIbctYs5a3covpU0EDM4xlRpcrKmKEkpa03XRy+eGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cxPLij5F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QgOTHUlX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E5796C2BD01;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cxPLij5F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F181C2BCFC;
 	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788804736;
-	bh=LirXvJJX0Y/6Fo5sXUix83AOPmuYDoroUD8pSAtNyj0=;
+	bh=lL6Vy66//mizHQ21EPUREXRDQG7iywmhU/CjbOBZ3LA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=QgOTHUlX0OwjqVlEVvoWBbOdTBNWxKz0jkjh5UA6t3TmSY4Z8Ai2LAFlhkpYxg+DV
-	 HbHktoBEk9AyN01vgsxxxxSxrwlwBCeH+iD864Rp+D302iNQlbLrbO9wat3JzlCQI3
-	 aMNMvf9fn2UbBj9dk3aLxexJU0Oj77+X25p/hmTLaH2OH2sejNV41V9eCWKQLiRe8w
-	 MOmaNj0VKRYmIecePX0jdCWXD/CrTOSsSH4PjLaO3lE7P2DqiCb4EjCfWEL/KkG8nT
-	 HjqK/ywP5OnoKptuX7lBN8QUdOgY71avmfHaZyz1lWUxsdAA1L/VIU0i1a9QL/nof0
-	 OFWVxhGw0Sq6w==
+	b=cxPLij5F446aQL09OYuirMUa+nQiRZcQ/QxbZzJGpgCSbtp4RDoBOqu1aLrYcwRhz
+	 oO8jDbZne2I8qKNoyEFtdldWhYkUY4cMNrI4Ij0ubpRkZyHLecY4LBOfQ8/DI1jqWh
+	 1eF0jc5Brb7M7rfDNOyC4PmTP5Z2uaMONt37eF/tIYav/9KhKPwVLUdwPd1rxuSWMR
+	 A5XIWnjnyhqZhllZVX19ngDOhZbA+YZ45u8HZ3LGeWGe5eQGnAwWjVpFMyxdchi5r9
+	 7MX3JpSopqiYr2YwQaIBbkmi1mwxOzaGB9OJfJZVh/wX+sb8NdV9TjGzhP0Mi4M4VX
+	 fQeXhy7IVyhMA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D1795C79F99;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 617F1C79FA0;
 	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Tue, 08 Sep 2026 02:12:17 +0800
-Subject: [PATCH v4 13/17] mm/huge_memory: move memcg switch into the file
- split helper
+Date: Tue, 08 Sep 2026 02:12:13 +0800
+Subject: [PATCH v4 09/17] mm/huge_memory: rename remap_page() to
+ remap_folio()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-swap-thp-cleanup-v4-13-b532a3f20e71@tencent.com>
+Message-Id: <20260908-swap-thp-cleanup-v4-9-b532a3f20e71@tencent.com>
 References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
 In-Reply-To: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
 To: linux-mm@kvack.org
@@ -61,11 +61,11 @@ Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
  Kairui Song <ryncsn@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804732; l=3655;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804732; l=3039;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=uIbn+TS0iIeP9vFYqPvx1IGgAoImfhKW84wopAEDXo4=;
- b=VZnf3gSCQZgZbn1iZTc2hUb/vK13UG9e9hi8wvd77ElBa98VWNojeQ7JlQMREeFcR8EnJ7om9
- /E6JMsBGRdlAc1zXWgKxvjQWVvdanDEgVWQVm4KHeLzleFEL4pTBT97
+ bh=gXNchtrvyqO8Qb07cTlfilEi09UxJOToevoBYCcR4jc=;
+ b=Syv9fnIAyYe2VN5RgwIMikCgkHNqhYmBPN/xGCM3eTwaLZlIRNd9uy6s1AzsmX9zn/y8DwVZk
+ A2mcE7n3AAtBpqw2Qy7GfSYb+1AbfHZcCuqKMpXmpa2Hj8hdMzF5r+g
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -75,116 +75,77 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-The xarray node allocations in __folio_freeze_split_file() need
-to be charged to the folio's memcg, so move the memcg switch from
-__folio_split() into the helper.
+remap_page() now only has one caller, __folio_freeze_split_anon(), so
+rename it to remap_folio() to match the sibling helper unmap_folio().
 
-The anon split helper and the after-split folio freeing perform no
-chargeable allocations, so no memcg handling is left in __folio_split().
-Rename its out_no_memcg label to out.
+Also add a VM_WARN_ON_FOLIO() documenting that remap_folio() is only
+ever called for anon folios: unmap_folio() currently leaves file
+folios unmapped after the split, so they need no remapping.
 
-Acked-by: Zi Yan <ziy@nvidia.com>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- mm/huge_memory.c | 36 +++++++++++++++++++-----------------
- 1 file changed, 19 insertions(+), 17 deletions(-)
+ mm/huge_memory.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 53614b875794..ccd48cd5f94b 100644
+index 7d7ce0726c19..c5279c0d0e59 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -4113,6 +4113,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	struct address_space *mapping = folio->mapping;
- 	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
-+	struct mem_cgroup *memcg, *old_memcg;
- 	struct folio *new_folio, *next;
- 	int nr_shmem_dropped = 0;
- 	unsigned int min_order;
-@@ -4125,9 +4126,18 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	if (new_order < min_order)
- 		return -EINVAL;
+@@ -3551,7 +3551,7 @@ static void unmap_folio(struct folio *folio)
+ 	/*
+ 	 * Anon pages need migration entries to preserve them, but file
+ 	 * pages can simply be left unmapped, then faulted back on demand.
+-	 * If that is ever changed (perhaps for mlock), update remap_page().
++	 * If that is ever changed (perhaps for mlock), update remap_folio().
+ 	 */
+ 	if (folio_test_anon(folio))
+ 		try_to_migrate(folio, ttu_flags);
+@@ -3636,10 +3636,17 @@ bool unmap_huge_pmd_locked(struct vm_area_struct *vma, unsigned long addr,
+ 	return __discard_anon_folio_pmd_locked(vma, addr, pmdp, folio);
+ }
+ 
+-static void remap_page(struct folio *folio, unsigned long nr, int flags)
++static void remap_folio(struct folio *folio, unsigned long nr, int flags)
+ {
+ 	int i = 0;
  
 +	/*
-+	 * Switch to folio's memcg as xarray node allocation can happen and
-+	 * needs to charge to it.
++	 * unmap_folio() installs migration entries only for anon folios,
++	 * so currently only anon folios need to be remapped. File folios
++	 * stay unmapped after the split and are faulted back on demand.
 +	 */
-+	memcg = get_mem_cgroup_from_folio(folio);
-+	old_memcg = set_active_memcg(memcg);
++	VM_WARN_ON_FOLIO(!folio_test_anon(folio), folio);
 +
- 	gfp = current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK);
--	if (!filemap_release_folio(folio, gfp))
--		return -EBUSY;
-+	if (!filemap_release_folio(folio, gfp)) {
-+		ret = -EBUSY;
-+		goto fail_free;
-+	}
+ 	for (;;) {
+ 		remove_migration_ptes(folio, folio, TTU_RMAP_LOCKED | flags);
+ 		i += folio_nr_pages(folio);
+@@ -3723,7 +3730,7 @@ static void __split_folio_to_order(struct folio *folio, int old_order,
+ 		 *
+ 		 * Note that for mapped sub-pages of an anonymous THP,
+ 		 * PG_anon_exclusive has been cleared in unmap_folio() and is stored in
+-		 * the migration entry instead from where remap_page() will restore it.
++		 * the migration entry instead from where remap_folio() will restore it.
+ 		 * We can still have PG_anon_exclusive set on effectively unmapped and
+ 		 * unreferenced sub-pages of an anonymous THP: we can simply drop
+ 		 * PG_anon_exclusive (-> PG_mappedtodisk) for these here.
+@@ -4064,7 +4071,7 @@ static int __folio_freeze_split_anon(struct folio *folio,
+ 	if (need_remap) {
+ 		if (!ret && !folio_is_device_private(folio))
+ 			ttu_flags = TTU_USE_SHARED_ZEROPAGE;
+-		remap_page(folio, 1 << old_order, ttu_flags);
++		remap_folio(folio, 1 << old_order, ttu_flags);
+ 	}
  
- 	mapping_set_update(&xas, mapping);
- 
-@@ -4263,6 +4273,9 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 */
- 	i_mmap_unlock_read(mapping);
- fail_free:
-+	/* Restore the previously active memcg */
-+	set_active_memcg(old_memcg);
-+	mem_cgroup_put(memcg);
- 	xas_destroy(&xas);
  	return ret;
- }
-@@ -4294,7 +4307,6 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- {
- 	struct folio *end_folio = folio_next(folio);
- 	bool is_anon = folio_test_anon(folio);
--	struct mem_cgroup *memcg, *old_memcg;
- 	int old_order = folio_order(folio);
- 	struct folio *new_folio, *next;
- 	int ret;
-@@ -4304,27 +4316,20 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 
- 	if (folio != page_folio(split_at) || folio != page_folio(lock_at)) {
- 		ret = -EINVAL;
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
- 	if (new_order >= old_order) {
- 		ret = -EINVAL;
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
- 	ret = folio_check_splittable(folio, new_order, split_type);
- 	if (ret) {
- 		VM_WARN_ONCE(ret == -EINVAL, "Tried to split an unsplittable folio");
--		goto out_no_memcg;
-+		goto out;
- 	}
- 
--	/*
--	 * switch to folio's memcg as xarray node allocation can happen and
--	 * needs to charge to it.
--	 */
--	memcg = get_mem_cgroup_from_folio(folio);
--	old_memcg = set_active_memcg(memcg);
--
- 	if (is_anon)
- 		ret = __folio_freeze_split_anon(folio, new_order, split_at,
- 						true, list, split_type);
-@@ -4351,10 +4356,7 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		free_folio_and_swap_cache(new_folio);
- 	}
- 
--	/* restore to caller's old_memcg */
--	set_active_memcg(old_memcg);
--	mem_cgroup_put(memcg);
--out_no_memcg:
-+out:
- 	if (is_pmd_order(old_order))
- 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
- 	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
+@@ -4186,7 +4193,7 @@ static int __folio_freeze_split_file(struct folio *folio,
+ fail:
+ 	/*
+ 	 * If we want to use try_to_migrate() on file in unmap_folio,
+-	 * remember to add remap_page() and adapt it.
++	 * remember to add remap_folio() and adapt it.
+ 	 */
+ 	xas_unlock_irq(xas);
+ 	if (nr_shmem_dropped)
 
 -- 
 2.55.0
