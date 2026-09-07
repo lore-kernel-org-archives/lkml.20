@@ -1,69 +1,67 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95CB43BDB4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:41:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB004336884
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:41:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781301; cv=none; b=D3xmezOKdd80DfUJxNQlYWMQlBC+1HyUyLjnPaP1RoZwqANgkHzXCQxNRKCcJkXBJY4XyAV+IWXCubikLG46DlXkrampoDumKFLwwdHXTMzQ92d0UjTALLWN+59v1X9GDTNuFxkFFwDK3kOWHO/3oKkRFhV/UkhAGohiBS+9dII=
+	t=1788781304; cv=none; b=Ro8rANUmBQbOpYdfeTZXm5TM1b3p3JoI2CdIYHr/W8WIMo0Smtm525z1M6dOFZjG4/NzQYzIAMgNeZbDqjPrXXhgEBWRlqnFmzzc8nMIAbJx7XzLjoLIBWp/8R0zExGSL/junGW3ebe6ZVTNTLlKqe/qmPw8TLJ2qAfiQ2ydVbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781301; c=relaxed/simple;
-	bh=b7Hmk4cNyp3rrqJdAEe17kwY+5NGv4bOQ4fm+78tCZw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uwmaUZ9HvElEda/PBdXbS39xbXyJ+JhF6EbMck08PuOd90VYmFEsCpjEBh9JK4FbdJ0pZpqhcg0LZjxJ19RLDEu8aO8I7i/lAsXZtGElGi/jBaELLoI+BYyx9RlPqWGL8Jn4Fz/kTiPfVjdu2dLNH9HuxxFPiYhel9SFq4s+uxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WhC0pmmq; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1788781304; c=relaxed/simple;
+	bh=zZDECq2bmY7+ZdpePaPahcwPBF0z8nZz5LFse5CLo8k=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c/wtJpS1muw+7sytCnrfyFWnINn5N3JNJ4VG0A4zQCd4+5Q6WnYO3Iw3maD/V+fD+TQzTI8paaXggjdgyQgzECI4OCrTS+nH6BTIhzf5wDHB0pS7JRrV5seiRC+nAZe8xHaly3HCf7FWXAtXAsY0jTMNE+bO5rEuFXTwDFvtAKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kQvkQc+Z; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WhC0pmmq"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f96c5b722so2367415f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:41:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kQvkQc+Z"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so41589455e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:41:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788781298; x=1789386098; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WQUBOPYyowxH3WcaM03g9fGKTEt+Ia5xxYG+47H3YdM=;
-        b=WhC0pmmqIDI2P741nJW8oAplTD0O9UXAfYUliLL8STcuEeFL0KzW5Ix6D6DkHtu+G/
-         +17IFPnAa3X3WMNsL5tc7P4zGH9USu2uGmyKce1TS8BXkKRxjquvyLpFw8KAveF1bopa
-         7zvHMjnYzsWCHEUu7WAnsjTV4D3P3WP27j5yLQwMENSSmUpSg98td4YOB74LHG1lyLmY
-         /Ifv+UsU1ZMyffSwV+Zj0bUU8gqiwJkZ4AU2q8Z0cD+8GKmJXEhbazTRK64jJqjoe7B1
-         dlFwOsIyj5bjV3JZomwj+JSi/DlTBQZeFVtsr6N1xrMEF6zcNqKZ2uNxU36mTCw86lit
-         wckw==
+        d=gmail.com; s=20251104; t=1788781300; x=1789386100; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FL1mL1XVE71/okiZ+ZMIYLV77/ov3lC/JuTKkmsqmjo=;
+        b=kQvkQc+ZBs2AM2ctdOkqdNcZQq9tKD0U6B83zyXKm6KdWswxGv93S3uejzNnr4GtNC
+         EWqGt4uJ+2ybAaCCS2mJBTsZhQW4+uRe1OjC1AZT76vmeapmbfHj5tZcRedeFp4/xGu9
+         D0e2lMZiDTYVNG+m0r2w20NOnSctx4mRXiU07SpqNjLQRGbT4FmukbGDPEHzsCBUKzVL
+         dM5Q9TSYDmvPLoY+r45+47wnsSwR/Zh7N9deIPmPNH/74Z/JD1cczaeYjYPH2pcwi9ng
+         Y5abxjS5wLWc2dLDqy9aULMWekrbNQsDXAULm101VhFclv4/i4x6g0/qCxK/PBjkb6OW
+         WYXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781298; x=1789386098;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WQUBOPYyowxH3WcaM03g9fGKTEt+Ia5xxYG+47H3YdM=;
-        b=shO4ZoMQbdJS5bpuhe0Sj2NSDxgOlujDIQ0xRTftV4Bu5MuHtSQEinsn1k06vPQhnS
-         Kw/DuvfkEDA/43lQmcACXVWiIE3q+C8fgJL2SWzES+5F5bneiMlT7d1eqN7peGLMRsdN
-         UBXtSyYqUYZC3Ugc3EGdnkqZfrU+xniTiTiuud4Mx1LuHY0AUuTiEd0lLqjajM5XerUO
-         nMOBkDwz3hwLQTxPKP16AIqTJfBCFUtPfO0HaCrpJEovchakeRKgKT8MK2Oob6x+bEVn
-         Nh4Fr+JNhZveqSdpjYcqiDLmw5PoMD5d+6BGmbNOwJr9Gfpy7AubHQDQ1+HZBFcuYjmw
-         9udQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBtQHYGLn75b7AO7R4Eq/fRBxqhdr9FeDVhe4kFFFG+m2nxnNtKP0+IE1w0/wkDKpFICjNrtKt08PQo4Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbziabBMmYxaW3Zrl/NcY8+IO72Z6778uZY/DstbuQmwCa8rPN
-	7LqxmUbPLeoCODRXBZase/zGb1Qc8o3KNvTdAbwaUtMZ3SKVOgUSZN7QmtRxfl5H
-X-Gm-Gg: AYBFou1zptkRQH/YM109tB0OsuIHOVoXdbG0cPmfyWDoLye5StszaCD9kBcPHbr9ea1
-	B1cFTCe/SCcxorsKzyTeMRELjEp3usz7JqCvO01R6+/rUwp3K5VZsUAuXTT5omHZpazTA1TcWPE
-	PeIsW4KolKGlKEkp3Qeb4RobCJyvikTFtD3Pno9io+TzO9XBwT7ljMrKSQRCStwGuKhdY85m0OZ
-	NE9B4IV5jyvC0ijHyxeMCM+jh7JY5uhSKV2AGjc/o6NsXwZ5jHw4dS8ZVHI58TZVzzxXh4taMyk
-	WsIZ3SRtNwCK2xPAwpTyjcPhLD6v3P5s5BEs3FRvgrmJAxIL5o6Yi95AhTiT2N8pFpE1hZnmDhW
-	gQ9RjX7JzGOkS014YMc7u84gcQYQXL27SKu63ogtGf2E1+w9qvqRpOexYXS20WCNteBbpsDUKk0
-	hyZaGhTq7LNeaiObzGqUSfmpKhYW+48n5sDRqnrdnW4f6xtouhgcXYAeyKDeakEJiOdiBulQPQc
-	6qGqKpMBCfkcCB90aaZWSaadFLNmOshfMDRdUP7K+lykw6YYi9huWRJBndSi0U=
-X-Received: by 2002:a05:6000:712:b0:485:8a47:5b9a with SMTP id ffacd0b85a97d-4858a475db8mr21110822f8f.55.1788781297779;
-        Mon, 07 Sep 2026 04:41:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788781300; x=1789386100;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FL1mL1XVE71/okiZ+ZMIYLV77/ov3lC/JuTKkmsqmjo=;
+        b=rj9kRHBqwmmx0kTgf4pNT+BUOcnfMulHaKsL/FTJR2rfZVlsFbae/gu8c2Lg1Rwk+T
+         qg+EvkvcDNueeKnJ2yTIkZZiaRfzUpRcsc5vu+gKcDQam9Hj/lhI7y7dGycAL6825HMV
+         23axUJLQHBduCVa6MaaeYppt+28eY8A6l47qwlamU99wqNsC25SCV59e9ltLh1NPvnQs
+         5DXVntmd4AsEWD1R7knc1Ivrz4EHpsWImEb2GwSF3ahMxP9SfWBgBteRTYNptwfNVLVM
+         or14jpLn7oqes+58TKxYQK5tFQrBj/UWBXTLlg8zh02OhmUaqCKsFAEa+1Q/xORUrKd0
+         YO6g==
+X-Forwarded-Encrypted: i=1; AKwUvBzqTh22k8BBE7Zxmh+VtrLEyhm0cLS6Tisek6g+uMV9HNQgePcOmjV6YX4LqKyce4lvd0GDKbpGd1KYUxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrkek7RYsecfgx9rSOmZb7iDfBkzox7otYYpemjRDNO7R0fXs7
+	FCge0p6FSLq0uOcOxUbNwBQW7v7dYIGl9MkSS25bmB5hsWz4RRVEK/Bg
+X-Gm-Gg: AYBFou3G73++eIvR1AERIznNHVOxJinCkp38c3xXvDz3ew9SGn6JNOL/46qv5r6HCmx
+	xVepjI2PnnpIpwWQOt1q7iOblygREV0QQ/04ubORDmOOjrWz+h+XYvB8qNiGXdZPLYoLrri5oWz
+	UxVqoeL2vT10SS0ktJ3aWD99zO4n0VTbhm0kKNgVsLP/pHLFPeSb+AopcS/95ewdFvjPZtj5gha
+	SlyDsMorAmBe1Z+XwfP5ddjlDWyUs0m3A3mt1JRvCZLS6gZ2y9peN4jWHmlQlTnQVzRl/vpYPJ9
+	eFlptXigHYJcYGIO6dn9UENpVDordwN5ucGJeFa20545UTdmrF9sb/4a3CUg1mW11eni01j/yK/
+	pNQgLrPI2uMOeHvtdnrIP6Gc/3u5QG7Czoyd91DL4WxTmOik7MP7+cZvh//QX9XlC5FxfqtCzKD
+	+2wRjkhZTJqTZN1AeYqMnmeGoj2wHyIOVtITw4DPfI6DS69APybgfTdMLfa9DJBe/TC396Cc23p
+	qEzTjsieBOrBAnz1r4gtqqNnCvBp+jKRtsvkiQBWYb8zmF+j7OS9w0Ul1lvzxk=
+X-Received: by 2002:a05:600c:474a:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf825d722mr202658655e9.10.1788781296694;
+        Mon, 07 Sep 2026 04:41:36 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm26763182f8f.3.2026.09.07.04.41.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm26763182f8f.3.2026.09.07.04.41.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:41:37 -0700 (PDT)
+        Mon, 07 Sep 2026 04:41:36 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Mon, 07 Sep 2026 13:41:30 +0200
-Subject: [PATCH 1/4] arm64: dts: freescale: imx8mp-verdin: Add NAU8822
- Bridge Tied Load
+Subject: [PATCH 0/4] arm64: dts: freescale: Add Verdin iMX8M Plus overlays
+Date: Mon, 07 Sep 2026 13:41:29 +0200
+Message-Id: <20260907-verdin-imx8mp-non-camera-overlays-ready-v1-0-ca0c63c2994f@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,9 +70,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-verdin-imx8mp-non-camera-overlays-ready-v1-1-ca0c63c2994f@toradex.com>
-References: <20260907-verdin-imx8mp-non-camera-overlays-ready-v1-0-ca0c63c2994f@toradex.com>
-In-Reply-To: <20260907-verdin-imx8mp-non-camera-overlays-ready-v1-0-ca0c63c2994f@toradex.com>
+X-B4-Tracking: v=1; b=H4sIAOminmoC/x2NQQqEMAwAvyI5G6h1EfUr4iG0cTewTSUFUcS/b
+ 9njMDBzQ2ETLjA3NxgfUiRrha5tIHxI34wSK4N3fnCT6/Fgi6Io6RzTjpoVAyU2wlzNl66CxhQ
+ vDNPwclsMvht7qLXdeJPzf1rW5/kBxWHdJXkAAAA=
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
@@ -85,71 +83,38 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.13.0
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+This series adds device tree overlays for the Toradex Verdin iMX8M Plus
+SoM. The overlays cover audio configuration, a display adapter, and DSI
+displays.
 
-Add a device tree overlay for configuring the NAU8822 loudspeaker
-outputs as a Bridge Tied Load (BTL) output on the Verdin Development
-Board.
+The series adds support for:
+- NAU8822 Bridge Tied Load configuration on the Verdin Development Board
+- DSI-to-HDMI adapter based on the Lontium LT8912B bridge
+- Toradex Capacitive Touch Display 7" and 10.1" DSI variants
 
-The overlay adds the codec property for the BTL-capable output
-configuration, where the two loudspeaker outputs are combined for higher
-output power.
+The Makefile entries build the standalone overlays as DTBOs and add
+ready-to-use composed DTBs for selected carrier board and accessory
+combinations.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                     |  4 ++++
- .../boot/dts/freescale/imx8mp-verdin-dev-nau8822-btl.dtso  | 14 ++++++++++++++
- 2 files changed, 18 insertions(+)
+Ernest Van Hoecke (4):
+      arm64: dts: freescale: imx8mp-verdin: Add NAU8822 Bridge Tied Load
+      arm64: dts: freescale: imx8mp-verdin: Add DSI to HDMI adapter overlay
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 10.1" DSI
+      arm64: dts: freescale: imx8mp-verdin: Add Toradex Capacitive Touch Display 7" DSI
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 984642146dd9..8c6fdeaf12af 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -728,6 +728,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw73xx-2x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw74xx.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw75xx-2x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw82xx-2x.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dev-nau8822-btl.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-ivy.dtb
-@@ -735,12 +736,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-zinnia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-ivy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-mallow.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-yavia.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-zinnia.dtb
- 
-+imx8mp-verdin-wifi-dev-nau8822-btl-dtbs := imx8mp-verdin-wifi-dev.dtb imx8mp-verdin-dev-nau8822-btl.dtbo
-+
- imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-dlvds-hdmi-channel0.dtbo
- imx8mp-evk-lvds0-imx-lvds-hdmi-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds0-imx-lvds-hdmi.dtbo
- imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0-dtbs += imx8mp-evk.dtb imx8mp-evk-lvds1-imx-dlvds-hdmi-channel0.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-nau8822-btl.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-nau8822-btl.dtso
-new file mode 100644
-index 000000000000..e94c60381c4e
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-dev-nau8822-btl.dtso
-@@ -0,0 +1,14 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Enable Bridge Tied Load (BTL) speaker mode on the Verdin Development Board,
-+ * combining the two loudspeaker outputs for higher output power.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+&nau8822_1a {
-+	nuvoton,spk-btl;
-+};
+ arch/arm64/boot/dts/freescale/Makefile             |  28 +++++
+ .../freescale/imx8mp-verdin-dev-nau8822-btl.dtso   |  14 +++
+ .../dts/freescale/imx8mp-verdin-dsi-to-hdmi.dtso   | 102 ++++++++++++++++
+ .../imx8mp-verdin-panel-cap-touch-10inch-dsi.dtso  | 132 ++++++++++++++++++++
+ .../imx8mp-verdin-panel-cap-touch-7inch-dsi.dtso   | 133 +++++++++++++++++++++
+ 5 files changed, 409 insertions(+)
+---
+base-commit: 26835cf70bbb6207214af55495ea8bed9ea96775
+change-id: 20260903-verdin-imx8mp-non-camera-overlays-ready-c9640fdc2183
 
+Best regards,
 -- 
-2.43.0
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
