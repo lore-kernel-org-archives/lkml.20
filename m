@@ -1,112 +1,164 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E51A3F1055
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0BE448392;
+	Mon,  7 Sep 2026 09:21:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772882; cv=none; b=OI7pkS/AwW9fUSSVm+s0+0RqwV9JoeanLNR3nRAWYUPCIlAqhJwlOfW6YD6RI9YZVAJfhawsdYJzKhgi2A5AQle4VHIovUlvCsXCWXw8R1lW8YRoBj28aJlRuprY67kun1ALrCpljTQHDN5cChMrrSsF/lzYyZdpmcHpZ57v3Ng=
+	t=1788772887; cv=none; b=Cswge3JUSl4/EuG02tDH7nOS2T4jWB9oVUNVRIz2hdGSYkE+J3P/EhauxOMxiwcxfTM5yn3h0nCoo0oR/tBqGjt8GXc7hpQLSa9Iep0Pd3CQWFvEM6tey8D8cfPBxmUS8UmNEuzBfJxbIAOeKqJvm/cQSQu/V2RcGO/gLngJ9mY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772882; c=relaxed/simple;
-	bh=K3qa1TQpTV87MVucLwzIVV0UEx/miaMiRTH3FpZpHp0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TdA+xI2K4vd9XGIkxYWdi6qmxzCnnezwrU/X+xAGJlwRVpIKsAqXB1vFWRemA6BTRZ+NDrqp+1hSQiquNtBJEoqau7r3xYs+TRRlt8TmSN95ZCk6t03+Bw/T6RlZOMxdyHj2FiVvU6VQq1z3OV4oREVRonszi6F9YPNgfse0rUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RbeQYAUz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788772887; c=relaxed/simple;
+	bh=dXlQ2Fg5i37mpPrZt9hpZ8bAbyBistuBZFQllpjQ9kg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E7tnu1Q9+dLapPtN7ghCS53UXCw5rS0NMxcRZqBLJr+0stvnKCzLc//VwdHWTpZ0AzzlfJEnL3/oTHQg3e+RH50zpPrI+5h/T2RuGZFWw6UjAMxycNWVdSDleCPRIZXqlBR2N7m1zmcfFLaXotq79eXHHvgYCRQ7pqnZpBX5qYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNKCpcky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RbeQYAUz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B11831477;
-	Mon,  7 Sep 2026 02:21:16 -0700 (PDT)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A1D23F7B4;
-	Mon,  7 Sep 2026 02:21:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788772880; bh=K3qa1TQpTV87MVucLwzIVV0UEx/miaMiRTH3FpZpHp0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=RbeQYAUzbez7TNp8A5/0RkvEliIZxxgAdj9VlLpVz4iVZ7H18gHIPHAdiMNPeuPtP
-	 W5m13FKdd1RMPSKKcYa+KeTGnpM9zsWaPn09+w+Knee6o25moTRWIpJy09PVG4itg2
-	 g0xuACDMLHDXL8tnv9HtIy6wXhhLfh0WWpaqapdo=
-Message-ID: <790b4d24-a9bf-4226-b929-1c4611cd8540@arm.com>
-Date: Mon, 7 Sep 2026 10:21:16 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNKCpcky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4F31F00A3A;
+	Mon,  7 Sep 2026 09:21:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788772885;
+	bh=vobIiljlcAsX0NjzOBm2HwqlV+hAVsEf4kXRt73ZKG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KNKCpcky6JKpBAF5KSqqVvOOIsP5V20tllovLPz+eBUBoHQwK1DQ8AXJFLxa7FL1a
+	 CAM/5hz6uBiO9S0Ee/EBQDpPD5bvNw4cw2zdMIZsuwKGQl2d8yTRHveOyL2nWpwZ5u
+	 xo/DWfv6wgx+y0WADn3/ACaTQ8+PYFL3Nss55YwvrbKbGlgVhUvLJhXYm8+gNu4o3k
+	 ocuzXXKouFnxuMkRaZoBXOEHcYd0FnfpRU2Uks5MJQ/jJNNmuskM7DNaM9h6t5v2Xz
+	 GKHtjOPOr8+k+xE31AaZ+Y12IkE1G63hHVoAurhtAkHxLTPdRgWDbD3+1zeC+97mdA
+	 Mq4lhqMYMVMzQ==
+Date: Mon, 7 Sep 2026 11:21:21 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+Message-ID: <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/5] fs/resctrl: Drop unnecessary parameter from
- resctrl_io_alloc_parse_line()
-To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
- james.morse@arm.com, Dave.Martin@arm.com, babu.moger@amd.com, bp@alien8.de,
- tglx@linutronix.de, dave.hansen@linux.intel.com
-Cc: x86@kernel.org, hpa@zytor.com, fustini@kernel.org, fenghuay@nvidia.com,
- peternewman@google.com, yu.c.chen@intel.com, linux-kernel@vger.kernel.org,
- patches@lists.linux.dev
-References: <cover.1788452481.git.reinette.chatre@intel.com>
- <4d050a1f7dc0b22bd8c4e6db1c2f2781e2bf929f.1788452481.git.reinette.chatre@intel.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <4d050a1f7dc0b22bd8c4e6db1c2f2781e2bf929f.1788452481.git.reinette.chatre@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
 
-Hi Reinette,
-
-On 03/09/2026 17:57, Reinette Chatre wrote:
-> resctrl_io_alloc_parse_line() only has one caller that determines the
-> resource via resctrl_schema::res and then passes a pointer to the resource
-> as well as struct resctrl_schema.
+On Thu, Sep 03, 2026 at 08:10:59PM +0200, Vasilij Strassheim wrote:
+> Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
 > 
-> Only pass pointer to struct resctrl_schema. resctrl_io_alloc_parse_line()
-> can determine the resource itself.
-
-Nit: Without taking into account that a resource is going to support multiple controls in the future
-this change feels a little under justified. Perhaps any extra line in the commit message is warranted.
-
-Regardless, this looks good to me.
-
-Reviewed-by: Ben Horgan <ben.horgan@arm.com>
-
-Thanks,
-
-Ben
-
+> The compatible identifies a register layout characterized by the core
+> and feature identification registers at the encoded offsets. The
+> concrete synthesis-time configuration is then autodetected from these
+> registers.
 > 
-> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
 > ---
-> Changes since RFC v2:
-> - Rework changelog.
-> ---
->  fs/resctrl/ctrlmondata.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
+>  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 161 +++++++++++++++++++++
+>  1 file changed, 161 insertions(+)
 > 
-> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
-> index 4562072b8ba6..69123b2a3274 100644
-> --- a/fs/resctrl/ctrlmondata.c
-> +++ b/fs/resctrl/ctrlmondata.c
-> @@ -955,11 +955,12 @@ int resctrl_io_alloc_cbm_show(struct kernfs_open_file *of, struct seq_file *seq,
->  	return ret;
->  }
->  
-> -static int resctrl_io_alloc_parse_line(char *line,  struct rdt_resource *r,
-> -				       struct resctrl_schema *s, u32 closid)
-> +static int resctrl_io_alloc_parse_line(char *line, struct resctrl_schema *s,
-> +				       u32 closid)
->  {
->  	enum resctrl_conf_type peer_type;
->  	unsigned long dom_id = ULONG_MAX;
-> +	struct rdt_resource *r = s->res;
->  	struct rdt_parse_data data;
->  	struct rdt_ctrl_domain *d;
->  	bool update_all = false;
-> @@ -1052,7 +1053,7 @@ ssize_t resctrl_io_alloc_cbm_write(struct kernfs_open_file *of, char *buf,
->  	io_alloc_closid = resctrl_io_alloc_closid(r);
->  
->  	rdt_staged_configs_clear();
-> -	ret = resctrl_io_alloc_parse_line(buf, r, s, io_alloc_closid);
-> +	ret = resctrl_io_alloc_parse_line(buf, s, io_alloc_closid);
->  	if (ret)
->  		goto out_clear_configs;
->  
+> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> new file mode 100644
+> index 000000000000..508e444e10da
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> @@ -0,0 +1,161 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: SoC-e ethernet switch IP core for FPGAs
+> +
+> +maintainers:
+> +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> +
+> +description:
+> +  SoC-e Ethernet switch IP cores are FPGA-based switches whose features
+> +  and number of ports are selected at synthesis time. Ports can connect
+> +  to CPUs, external PHYs, FPGA logic, or other switch cores. The
+> +  integrated MDIO controller provides multiple independently selectable
+> +  external outputs.
+> +
+> +$ref: dsa.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: soce,swip-00-04-0c-10
+> +    description:
+> +      Register layout with the core version register at offset 0x00 and
+> +      feature identification registers at offsets 0x04, 0x0c, and 0x10.
+> +      Switch instances using this register layout are autodetected from
+> +      these registers and use this compatible regardless of their
+> +      synthesis-time feature and port configuration.
+
+There is no traceable and documented version or model name?
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  mdios:
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      External MDIO buses provided by the integrated MDIO controller.
+> +      Each child bus selects one controller output.
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^mdio@[0-9a-f]+$':
+> +        $ref: /schemas/net/mdio.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 30
+> +            description:
+> +              MDIO controller output index, which must be lower than the
+> +              number of implemented switch ports.
+> +
+> +        required:
+> +          - reg
+> +
+> +    required:
+> +      - '#address-cells'
+> +      - '#size-cells'
+> +
+> +patternProperties:
+> +  '^(ethernet-)?ports$':
+
+ethernet-ports
+
+> +    patternProperties:
+> +      '^(ethernet-)?port@[0-9a-f]+$':
+
+ethernet-port
+
+> +        $ref: dsa-port.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            maximum: 30
+> +            description:
+> +              Switch port index. Supported switch configurations have
+> +              up to 31 ports, numbered from 0 through 30.
+
+Best regards,
+Krzysztof
 
