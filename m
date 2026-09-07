@@ -1,86 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 437DE34752F;
-	Mon,  7 Sep 2026 11:47:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60945336884;
+	Mon,  7 Sep 2026 11:47:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781632; cv=none; b=Eaxg3NwN/JA7OeogSnRw9sUVX45xmeZG/yCv2R3TwI/JmNOi8EUwqKRP7q4Y+BOQsIJNXJxRX4gf7FdEDDTUxObQZbJTI35cPLX/kckl92al3YgW1f717Cg5mo3k9KdDl0rMItlwLpfJSoLuA8hJcRvkgs/iPnyvi2TT0JgjCnU=
+	t=1788781640; cv=none; b=lstGOS+kji50ZcZs+gvZ29XlIQ1Hhd3wFbbwvmjxlVIZkbKu89gLGtI3nw0Pzb70wd24Ame/Djsvj5m9+Dx3xvbPz+KK6wS66+BkxqaP9bvYAGUYrbmnmM01w2uWfnw1fot/FisQrBq0Es0WzsKzENymv1Xi2sk8lbwVyGpbIds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781632; c=relaxed/simple;
-	bh=kTHD8aXOkJPGWuhiRXf5vbRHcdX1+9ZccklSQKrZSNU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BG5TfyOvKLR3Kn9Rh7ytWBLq+Y+URNOCS2OveVpPMsUC/UUq9znnXkgXz/PYVD9X9watZ8vFzHzaqTvl66t++8lsEi9MugArXAA71Kw1cvOd72UMAfQihndrTJxMXgjeq2J4s8z8Ktx2IfxbZ+F86xY3ie0zi85sSXZYLJ81ycw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8gDzlxB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788781640; c=relaxed/simple;
+	bh=9FIWGwMJkZ/9DvqJbtl3Fuu2cQQXTPiOcgSLmXLVNjw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IHDTWkIisgh1ZOjt+XKLeUqnE4Nw+X3aTcZJ0r7e3jn3AGENXWCo7420iufqMk3fNdvxdytRDSCjA9+N8cMkORwIR7BGwWYwpKMx/bT2Wq+rWdfNRd5t4JNHGChCH2Pavdn5CYyNukWSREoGYcVR9Vt0zwd7VjEpLzvnf+1Zr0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V00p2QJn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8gDzlxB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3BF01F00A3A;
-	Mon,  7 Sep 2026 11:47:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V00p2QJn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0062C1F00AC4;
+	Mon,  7 Sep 2026 11:47:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788781631;
-	bh=LNBJFrIZsAeWFxgWmTtDLoYL/yB9knk6yB5nM6P3GBQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=I8gDzlxBd1Fy+9lJod8z5J1uHaNQjRuCEjOAg3oHk2xqUZAkXhJENtN3g64364YZm
-	 HoGo2FP/3/2GkAMmTif53WPY6yQ41X56IWa1L0ilE0XsKgUAC45sNGylTLhUBBtQxo
-	 /upYgfmP1qRbyBXvlbU6oFJfKVve/PE5iI8MqpQKvCyD7H+vOH3JxeHl3rJDQ+9545
-	 8Kwa4ht7JjIOmYKQpDuUvisfnOjML7xXY+r61nxAWcfXgt2l8DUoqDpfUgeBK7JWCh
-	 xrY51N5HLfgpIFE7Bl1OIs8LJk+X2GMh6MdZsWJ97WIpmHyjLjwsz/FTVrCcIEH2k1
-	 FjdxMV/2RXzXg==
-Date: Mon, 7 Sep 2026 12:47:07 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Pengpeng Hou <hppiscas@163.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Seven Lee <wtli@nuvoton.com>,
-	linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/9] ASoC: nau8821: stop resume when cache sync fails
-Message-ID: <054a2f42-97b5-4ea8-ac63-449f593ba6a8@sirena.org.uk>
-References: <20260906034321.86080-2-hppiscas@163.com>
+	s=k20260515; t=1788781639;
+	bh=gwhPhcKtPCCeAsMUccSwVUZHKPYlpVmAopTKyEWCjgU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V00p2QJnEUFxCmrL8GHrqjz8yR0C6hkf8TvcKFXYHsO0a20lL8C5F7FRQclSay5qt
+	 EhgL/OFnJDPnDV1A8B6q1wKP6qLQn7T0R5LminiLi4oBvhENxS2JYjMseCgN0EwWd5
+	 qs/zs6RHlsRInZ3uYnliyDMYqQ04C8UcFQ+h4x9FErZmCKb5q1xOPJbPLXeOkwrVPV
+	 VhXc969JtmSeQzUzQAFOZxnKRSFu85eLGwA8PWv1abSguVdimv8ulcVZjOXnDG8qHo
+	 MsQko1cKQmmA4YIKrW07tqHZ5tw3yX4+5jkZByoItHJODgddbAQCp9G0MF35XlLVVj
+	 nQMLXr/Tpz/kA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/5] cifs: Scripted clean up fs/smb/client/fscache.h
+Date: Mon,  7 Sep 2026 07:47:11 -0400
+Message-ID: <20260907114714.2870258-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907114714.2870258-1-sashal@kernel.org>
+References: <2026090302-harddisk-sinless-6dc1@gregkh>
+ <20260907114714.2870258-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="N6qI5uOVmknfOxdx"
-Content-Disposition: inline
-In-Reply-To: <20260906034321.86080-2-hppiscas@163.com>
-X-Cookie: Who's on first?
+Content-Transfer-Encoding: 8bit
 
+From: David Howells <dhowells@redhat.com>
 
---N6qI5uOVmknfOxdx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+[ Upstream commit bc3de356aae666de5d8b5131545be87cf7754431 ]
 
-On Sun, Sep 06, 2026 at 11:43:13AM +0800, Pengpeng Hou wrote:
-> nau8821_resume() restores cached registers during component resume but
-> ignores a regcache_sync() failure and continues with IRQ enablement.
-> Those operations assume that the codec register state has already been
-> restored.
+Remove externs, correct argument names and reformat declarations.
 
-Something seems up with your mail, neither this nor the other series you
-posted at roughly the same time "ASoC: report additional component
-restore failures" ended up threaded together.
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+Stable-dep-of: 730d0bb19507 ("smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/smb/client/fscache.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-You might want to look at b4 to send the patches, especially it's web
-submission endpoint which avoids having to configure mail:
+diff --git a/fs/smb/client/fscache.h b/fs/smb/client/fscache.h
+index f06cb24f5f3cf..b6c94db5edb94 100644
+--- a/fs/smb/client/fscache.h
++++ b/fs/smb/client/fscache.h
+@@ -38,12 +38,12 @@ struct cifs_fscache_inode_coherency_data {
+ /*
+  * fscache.c
+  */
+-extern int cifs_fscache_get_super_cookie(struct cifs_tcon *);
+-extern void cifs_fscache_release_super_cookie(struct cifs_tcon *);
++int cifs_fscache_get_super_cookie(struct cifs_tcon *tcon);
++void cifs_fscache_release_super_cookie(struct cifs_tcon *tcon);
+ 
+-extern void cifs_fscache_get_inode_cookie(struct inode *inode);
+-extern void cifs_fscache_release_inode_cookie(struct inode *);
+-extern void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
++void cifs_fscache_get_inode_cookie(struct inode *inode);
++void cifs_fscache_release_inode_cookie(struct inode *inode);
++void cifs_fscache_unuse_inode_cookie(struct inode *inode, bool update);
+ 
+ static inline
+ void cifs_fscache_fill_coherency(struct inode *inode,
+-- 
+2.53.0
 
-   https://b4.docs.kernel.org/en/latest/contributor/overview.html
-
-
---N6qI5uOVmknfOxdx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqepDYACgkQJNaLcl1U
-h9CxIwf/X6UmbDIF8GHJnFJ8vXZv6U0kWdkATpbYNQ9PPJXzs4aOX951/lgv98Ju
-8hQFI5x98IrbV7TGdd2fnuzE5xvKCZuEV6Zmjfkrs3XUT21rL1bTcD10/yhaqGtP
-2E+nvj4XwpF9cQobTtAd5wMrCVRz+7ibksh/DXIn7XdTf00KJ60R1XipodRMomny
-+9lTQrCUvRFqTNUQtL5KqX31m0x8Hwm8+kSxxFTZR3WqhxL+5p+OFbfUrdjO9I2M
-Azzh8Q84Skipk+kxndHoYcj+xw+DzRMMZU0Wm5DjjDuP8P/jq6+GLwkeWrQDu6va
-8IlVGD4M/cvkQPRxHAfvnhxkAcryVA==
-=QfBs
------END PGP SIGNATURE-----
-
---N6qI5uOVmknfOxdx--
