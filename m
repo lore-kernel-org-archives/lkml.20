@@ -1,92 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDF14DA553;
-	Mon,  7 Sep 2026 13:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBA04E80AC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786218; cv=none; b=dClDJ7QTwVPuXIotl5GzvYwbQ2w2xy3DsWvz6b+m8J5T01hIGBb8NG1Ezhb19NooeCHD7V5NZWNI70UG+fQkoih3Z766PLFjQj9vWSXb/ds0yQkVFhcfoLkdiz7jrOrErHm0du9pfCeNkGTvD0N66xIy/ydRv20cM+oOVX3cdKI=
+	t=1788786218; cv=none; b=LAw1g2wVMG08JZ+xCYGc9tqWiwWt6wJlReV1RV31KmVJI+hf8wZ9EnX4v5CAbkujSGHwhVse69ysgJzV1FWPq9ol1/zc3jmlswbPGYcowomRmhXrU6zPOSrLXrgmaQQ3I5Kb4kdKv3/D2BBjX9kb2prqrlCAoPqkH2OSUb867gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788786218; c=relaxed/simple;
-	bh=aZycB+q4lhkgLqpM/RVeDq4AezvDott2SR3rLVIXbKU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E+zwIl0z6YSgLvKCr7uO5a5YX1g6CoNgf4eECzFD+NcrpwWtAyBIWVLrbbPUj8CLpygEH6vyUq+cSL/GXqfuQtMD9ZPhIRnD0OrZktD9syp0+vsjHF++mrqJIu00qYI8fUNMqZ/1nIFl8w8KQ44dxYbaR3z7Ooa+9Fx70x0JXv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ChrAGRGJ; arc=none smtp.client-ip=100.103.45.18
+	bh=ZUkxa32wVg+v+WofZ8nomK58s0iux4vXEaZNp8/xzTA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=g7iiOE/KfGA4Fb+Xv75orBYcX3cFTaZLNElAzzxgKwWcgCb41ze84qquzuywryOTL73I8NUt2xFr2IvwL41qvlhp9skB3C4hB4iVMbs3R0BY5DOtApylxkiyx1KT05i8sT03E6w1BDaG1911zi/5yS2YabzNruaQOewarBn/ayE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qWqCp9T5; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ChrAGRGJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13CE21F00A3A;
-	Mon,  7 Sep 2026 13:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788786212;
-	bh=nujNm33sdIJkFZUBSCWeyk+HkoPECKJeitf/M9wPKAY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ChrAGRGJX4qsZthP0t8Wm7ysO893ikg9bIajM1S2nkQTg1ZhhcfZ67C1DZA14HRA2
-	 +EShC/SCYpWSAdGGvSz4Bwno1SL852IZnEYQluQwxBKQgFDN2soFxZKZMAim+NaBNS
-	 YC4oUUsXJYXyI7Rrsc9DZA+unI8a9hZAJeFZiOaQLzJvTpZlI4PdY8FsyE3Ad5WiBg
-	 9DX2JnEVdMi2DHauBsSlZCiEVKxO/VXQdai7oCfMtYgqBJ6W4ICUDFQR65fVuH91CA
-	 6eJzqf/yVgdueB80d6zCwv+0b9gDwLYHpo0eTDXG0KWCp6i7bZtQcH7L2kaeYWMKQa
-	 e/+n1NZxXR/5g==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3Z0T-00000000d9b-3CPz;
-	Mon, 07 Sep 2026 15:03:29 +0200
-Date: Mon, 7 Sep 2026 15:03:29 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-Message-ID: <ap62IbbQti28M_SA@hovoldconsulting.com>
-References: <20260907065501.101013-1-johan@kernel.org>
- <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
- <ap56NTVMq8GlbjmR@hovoldconsulting.com>
- <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
- <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
- <bc055887-3029-4740-bec5-7e2fe4205992@suse.com>
- <ap6iJ6vkVIaxXFwn@hovoldconsulting.com>
- <f642f815-df4f-473b-aaa2-89153c08bc05@suse.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qWqCp9T5"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a384b5f7so1961898a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:03:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788786200; x=1789391000; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X94qvMDwd78sy0TddN+J3BHx1gatheoLmhmvtOWGjgM=;
+        b=qWqCp9T5mXY0x92F1VOSH/MIj+d/Ym7kwyuEOGhNjpqxZjLA+KE/lSiqBev47PykeF
+         0gtfliT3k5ysbaQ2l69iC7ZboeMus5Y0SibbRd6z4zD5AxOHtUpBOlBxGxjKwD1Q3/OD
+         ujFkqDTIj93Q+8cUnHYWuHtwEgc328H8Esd4ZQCOn2a+kGl3A/bSRljMGm8KNlDDObqd
+         XNr7lAEVXkGqkUe9WClcGcz5Myih7FzlRJzUYGLXcTJJqGVUtnINZiHlmv474kurIWDN
+         ECDaMCjdN0Htah5hFAF2XHo6yqs61tY1RHisY+RsGuI1chDZggpTfmbDhmWVLV5eQatD
+         ZxDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788786200; x=1789391000;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X94qvMDwd78sy0TddN+J3BHx1gatheoLmhmvtOWGjgM=;
+        b=b6TC2JTADFqZ9X3PCXdlb7sY8yNCRVfexTHPUcEg9YeCNa6ChVo2MzTcrakn0Fz7CT
+         iT6BycBIujxjWzmJvnY6zgO1ahosFzWz2pfzMs7DpSIunE+remd6MU604DX1B9furvbM
+         q9wCXslm3L/YHr1tf9nfe7sGh9Gqkym/tg06Ne7ahUN5kdUDMI1AjaznJMKmivuNTvG3
+         1kFKJe/GWzmpRrFHLFPFG6ztcj/7IbEFIPFM4X/2lMQENKv0UleCTfV+FaubE7IX0/da
+         JiHc7jxtYpdpKvwSnpDGPkGrjrMTknE9o8cA5rRg4zzBQYUpQBnlyPCtGcwEY6PNfTNb
+         /czQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1IgVjGQ0cg6Gi2KJ8dfSzD1EMPTl2obhlR1juBQ48Be1kLFgr9kAge0Dwqszzrg/5SMnboZDHXk71sLw=@vger.kernel.org
+X-Gm-Message-State: AFuF++myLraUphJacM+uIEX9EiGzJW1Y0ckuZ62yqRFdBHK/DyQ68QD6
+	vL1kHtY06Aj8ATkdtIILbWXULM4cxe2MsPoGiVJZOl9OyCGOWtUsFFtw
+X-Gm-Gg: AYBFou22JmAwQs5xBXAoQdKKq6Loh+YMLSK9uG15a/ce7tyyEM+H8fg9a2lqwOy9Guv
+	pR7MGXf2W/4gDUwK4vd7MV7JLVI2jnlqhQ6RHadsTdi4WVB8yPD+6xlGCdHNpolG6W9Crg1KHTU
+	FUTz/9zt8thySU1GkI2bmTqYcaxNz/hhJ33jwDiS4Je6fZgcdiBzZRC82Mdd44d0gE0liJxRWHm
+	2nHJlvIkJbpWbEvubcBK8C8SaUE9HQvtMT9BgSV9ieaAVdUiAfRN6xlfDZf08E3EbcizX4ESTM5
+	2Tx+xSBa/zmy/JkuFvGR0YOgA1ssgMcB2VKABCvafqzyJrbdBLDTPi36fOSKJ4mhRg7Eekl+Gjq
+	a07j9seGZNaWVZhLUkGUPbBzPjvTJspoNNeRjqrcTybGfor5g0HMXphskfJIL0Q0P5ie6e1zGMn
+	S1g28MstvP14z3PU3D7f0Mfe8z/jj8fb0AsVrAnM76+Qz1KhqR1kpgsN+nob4SBygY4sfp6Z7Rv
+	S64iTG7SJ9MZWqDjcWeEW53AuITB5i3ZFMC
+X-Received: by 2002:a17:90b:1343:b0:38e:9eb2:9d43 with SMTP id 98e67ed59e1d1-39b261b1bcfmr40426102a91.16.1788786199885;
+        Mon, 07 Sep 2026 06:03:19 -0700 (PDT)
+Received: from nzzhao-ThinkCentre-M760t.mioffice.cn ([43.224.245.179])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacba5sm28259693a91.12.2026.09.07.06.03.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 06:03:19 -0700 (PDT)
+From: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+X-Google-Original-From: Nanzhe Zhao <zhaonanzhe@xiaomi.com>
+To: Chao Yu <chao@kernel.org>
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	Barry Song <baohua@kernel.org>,
+	Juan Yescas <jyescas@google.com>,
+	Pengfei Li <lipengfei28@xiaomi.com>,
+	Dev Jain <Dev.Jain@arm.com>,
+	linux-kernel@vger.kernel.org,
+	David Hildenbrand <David.Hildenbrand@arm.com>,
+	Bo Zhang <zhangbo56@xiaomi.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Jaegeuk Kim <jaegeuk@kernel.org>,
+	Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH 03/14] f2fs: support regular file buffered writes
+Date: Mon,  7 Sep 2026 21:03:13 +0800
+Message-ID: <20260907130313.2626386-1-zhaonanzhe@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
+References: <83fe187e-e3e8-4328-bbbf-a6751873b9e0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f642f815-df4f-473b-aaa2-89153c08bc05@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 02:46:16PM +0200, Oliver Neukum wrote:
-> 
-> 
-> On 07.09.26 13:38, Johan Hovold wrote:
-> > On Mon, Sep 07, 2026 at 12:28:46PM +0200, Oliver Neukum wrote:
-> >>
-> >>
-> >> On 07.09.26 12:01, Johan Hovold wrote:
-> >>> On Mon, Sep 07, 2026 at 11:50:41AM +0200, Oliver Neukum wrote:
-> 
-> >> Yes, but user space can call TIOCGICOUNT multiple times in sequence
-> >> _without_ calling TIOCMIWAIT in between.
-> >> In that case the counters have to increase if a line changes, don't they?
-> >> For that to happen you need to handle a status change in the completion
-> >> handler.
-> > 
-> > Yes, the completion handler needs to handle the status change (i.e.
-> > compare new and previous status and increment the counters), but it
-> > shouldn't update any old *icount* structure.
-> 
-> We could do that and it would indeed be simpler.
-> 
-> But it would change the semantics so that past status changes
-> no longer show up in TIOCMIWAIT. Is that really a good idea?
+On Thu, 27 Aug 2026 16:56:53 +0800, Chao Yu wrote:
+> +	/* Wait for pending drops back to bias which indicates all bio have completed. */
+> +	while (READ_ONCE(ffs->read_pages_pending) != 1)
+> +		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
+>
+> Suspect there will be potential performance issue, as timeout interval
+> is large.
+>
+> Looks hacky.
 
-Yes, as the current behaviour is both non-standard and inconsistent.
+Thanks for the review.
 
-If you have multiple tasks waiting waiting on status change, then only
-one of them will detect it, for example.
+Maybe we can switch this to an event-driven wait instead:
 
-And if there are multiple changes (before or during TIOCMIWAIT) events
-may be lost too.
+--- a/fs/f2fs/data.c
++++ b/fs/f2fs/data.c
+@@ includes
+ 	#include <linux/fiemap.h>
++	#include <linux/wait_bit.h>	/* wait_var_event_io / wake_up_var */
+ 	#include <linux/iomap.h>
+@@ f2fs_submit_page_read_sync()
+-	/* Wait for pending drops back to bias which indicates all bio have completed. */
+-	while (READ_ONCE(ffs->read_pages_pending) != 1)
+-		f2fs_io_schedule_timeout(DEFAULT_SCHEDULE_TIMEOUT);
++	/* Wait until all bios have completed (pending drops back to our bias). */
++	wait_var_event_io(&ffs->read_pages_pending,
++			  READ_ONCE(ffs->read_pages_pending) == 1);
+@@ f2fs_finish_read_bio()
+ 			ffs->read_pages_pending -= nr_pages;
+ 			finished = !ffs->read_pages_pending;
+ 			spin_unlock_irqrestore(&ffs->state_lock, flags);
++
++			/* Wake f2fs_submit_page_read_sync() waiters (if any). */
++			wake_up_var(&ffs->read_pages_pending);
+ 		}
 
-Johan
+However, this requires an extra wake_up_var(&ffs->read_pages_pending)
+in f2fs_finish_read_bio(). I'm not sure whether adding an extra
+wake-up in the completion callback is a good practice - what do you
+think?
+
+Thanks,
+Nanzhe
