@@ -1,69 +1,69 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A29F375F6C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:02:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3C05013B2
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788793323; cv=none; b=LWP5affr2clwAmJiSvBg8q2ykg+I/+oG7nMfQOclnezLOLZpcP/n7u6JuDzJVMViqopkZSDYb50+3/jJO1XQADkKDbo+vg72WrUXgU4k6GU0w8H4aBGdhL/Clf6zqq1+NHmcFuLBtQlk1Y1w3lrvxHarzrbO/2pLo1yvb/nINyw=
+	t=1788793326; cv=none; b=j6DNJ88QTTta3avoGche1zpU49MLwOQUBTQgpP8nMbWB0AExUcroiH41TKPeBvnbzKAeeldKeYrbDEwuoDHAVFSRdgy/Tk91kTLW9ryGbdkWcF5YjGMcpeFniEbfSLg1V4gK9oBDnqG4A/Wg6DI06QGlrY41LdSt/t6k/RwQCDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788793323; c=relaxed/simple;
-	bh=/Lj1bzOltbe0TShD0ZkZdsIYxLxj5M1uJ4RcZYV70+g=;
+	s=arc-20240116; t=1788793326; c=relaxed/simple;
+	bh=lE4DoCX54IzHb9OGuqjtUGY0/Idn5+TuMdUQxkrjXI0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KFv2KIHIOt8DzZDgba45iYu0nr8dFv4XtNsr6qEHWaESZFFkV4DStEmvs2OjDnqfhVUG3bM5lgP925QWMcTgvJD1+D4hqbE2uHRK7A3L16DVi76H8Ck6RNI84oVQCQ6cDjPotsaIizI4Oy33h44QXvx4BjK9AI4GjVusEIsME8Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=aXZHTEed; arc=none smtp.client-ip=209.85.128.42
+	 In-Reply-To:To:Cc; b=hSed0x9yYPaIeoQly2+P/o20MAEr/jB3JOA9rAIoxBxW7C7gH1JRnL2UgH86Dm/81QQUdaR6ZqPQysTyWQHHPtPd/MkrEd6IuL1AL7yvuUMl8s5wkPEF33+EfzTDizTO4nhkCrLjk2lSEDQ9qgfHbPyfRKY2UiP14zHK+ls61KU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=u6C40K/A; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="aXZHTEed"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b965570d7so43257305e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:02:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="u6C40K/A"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-495590dde14so52688975e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:02:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788793320; x=1789398120; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1788793322; x=1789398122; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ELIdnmZ186QZy3GeHErz5sisEfjYu32lHLlVPnyugFw=;
-        b=aXZHTEed04Re1d8cB2ZCRcY75cIJ6nlxnqHHtxOoP7em1W6t8+cVAkx4ejrEn9KXee
-         jk2tkHOzbjyo1pjAeQv6gzlpBRst41UEsFonCcooRZ4YRy7mpazaTvv4HGfwCTY/fDh/
-         dNvW02SaYxQmlH9P5pE1Sepk3p19YlSYdiIRBhS/tbXPnXfXZFH9kMC8TAzqJ00pSB4Y
-         gGcytUzWkNNrYl5aQseY59hGmwhNWpJGUC5j773LqCiF4568Y7P8NKAv6WauvWxkJyu/
-         nwaGxPtr4G+PPoCX/C874FuoKqLw2cSii30uh+l261tD/wy3zeRna/jM23SF89UenG2K
-         k2Uw==
+        bh=9RcLvsK/2UZ/1TkMot9jvTvWpZC1OV1SBC2asu5tlgE=;
+        b=u6C40K/AoJfOc0UJKHfKdH4eNeTn/xYZw7rKMR8ohuLczdIwf8/HWgY0tQ4OM0+nbt
+         6tgSns0EyX4evNav474AplIHNVMa12gNt8gUK7EXKHQ379kDbjqJ1RUO4dsDfDawWzFc
+         MUitEE3l8nWzEMxA3wniYEFRIu62GR2L6XJhHFL68x2ves+2LA9Aid94ezf4zPsLYeYT
+         /gnngSbNNurWHhq0uHMpE1afjMtuWcUVQMkcWqkgTt5sL5E8gkT5m0ZdQQf67fx6+WTP
+         sESsA3ir//DP5P7uFDIF7DR4Y2PaqA8wk/wTxiaIkZR2jZTgYvG+5/S47G6B+O/tS2z5
+         okhw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788793320; x=1789398120;
+        d=1e100.net; s=20251104; t=1788793322; x=1789398122;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ELIdnmZ186QZy3GeHErz5sisEfjYu32lHLlVPnyugFw=;
-        b=QTg10egwS16pV0414vceQ6YVKrfVvNnO1kKSV1WyVlqj+ThgXlfxKZJWxeY4bD/jL1
-         MxwR3+IPng9+vxoVgsH5I7Oee5SHkz4DsFmEaCj6QrjrJC28fF8QHXpUw4PllMrqXTMQ
-         n6yrjCgT1juOupoEPyttW8RXJpTdZHA9fjtTAjnUgAyAGhvcMCzVG0kXTh6dLe2KGfdt
-         47pwhzpkEqY8ITJNDRsC0s2L6tXhrWb8BaE+enMrX9F4UI0QdhdL0Xz4SAELq3GhZXFO
-         1vL6ahmLHFfR1S5f9PKbzAfUWm748pIYx2UU64sGosHRuXQP6h+Y0PU/hdBx9ymFvheW
-         QtvQ==
-X-Forwarded-Encrypted: i=1; AKwUvByJPhO+jWPQ+L8aDVexjsd+jMN1sxlDQOaRFAoJC/Gv0Z8lhu4yzR2HNhLWzvqyFSdG2teJcU345z0v6KI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mr4rvuFFZ2BdTsxkaQENjG7sd2pPDeHR2wTxkUeN0NEHHt1pUV
-	g9Py51z4yqfz6C+amobct+sMyS6K5D5nAfrqgMsFTjhRcPA+dpySJG48WVkLj6Jw/oE=
-X-Gm-Gg: AYBFou1vClufjDuHgd78AFDTxlSyqjLLNbaaEo/K1SkSzzTHgTdOswax5K4BZiq5+5y
-	7Z0sVOY8rZeNW1PmdFEyqJJd63a/Q7AP6dme4QbyG9nyCx9IU/jwplTJYqMiGxEfhtKYl4ss5Y8
-	CS+pD5JTJs5FaPm8iYD86jM/DELb590JPnygRilpuUs7q02Y1HIt2UEr/tvr1OeA+pdTPfVv97b
-	PPYd27MKEsKKbFnnclpo7SuD13YkNDcO4DOo26lC1yQKZvjoYca9UAmetZpbi7rkbZRlOmWrgEo
-	3mdOzl4JmXBVhM/2K1PIfrgR+cNygQKPIEaH/9GiIHQyvkk62jvxFhmjz/Z05lY1O3yMH4S7iIu
-	SWLw5KP2Yd44STT+dPEr/X823wvZiZjAGGpXHDrwNpVU7Y5hjXA8hq5YsIcciROhhFLba5A1kLy
-	FMza9tNeSqw4tWcMZ3zBJYbZ8MIejdi5MNE1aBsS+7UP5LwSSCLje/azuO8NiwCb4KkNvUzoH7y
-	Ae4yyU6X3QU6CQp5wn+UVkxaffAXYOKj5TQ06bX
-X-Received: by 2002:a05:600c:34c9:b0:49c:f729:d757 with SMTP id 5b1f17b1804b1-49cf824f757mr233492835e9.11.1788793320085;
-        Mon, 07 Sep 2026 08:02:00 -0700 (PDT)
+        bh=9RcLvsK/2UZ/1TkMot9jvTvWpZC1OV1SBC2asu5tlgE=;
+        b=CfNCQ1FttADqL3dVzxNlt0xEEMOGIk5Tki+HNP8yfVwSKtXgEmDoppmv34GiXfrGTm
+         pdLF/njfFEXuOd+nfEc7TKH+nLvscHCoBlvmdpi+iPn0mHdc8DqNLxjaWfZZW/C3Gyys
+         7crUdYSf5fmlGE4eooD64ZWmX7odrYBAsnitfsEsJq2IKxJvYulMNvSI8KGxcaMX98dY
+         a73J/OZ2aRbUGyQxWyp8rX0YtWOhuguJlpZ8DVudzHLOuhVQYmM13wLwp6y3QMUf/2N7
+         VyCdakWDM1E6nfb0Vl135/Pu22AWumG9hkqLRhyE/Xa8wicLB8p3/Pk4kXGYXZtP9F3e
+         ibsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBye8bWJKfkwnR0qVXoctqk69oTDncDLj8pv10Ha4cLVf1r3yo9yFUNnwilOevo4OIwUZYBsChxqpabEEBQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmhyU0pzPDYdoejpGdSFUob3Int/B+ADicwXu56pqJNyuAMBFY
+	qeWNGqrx7PzD0cgSDZ+9CTd/3twcl/aVR294AM6LXASKmfB02dciwL54KlgS8TtJLzs=
+X-Gm-Gg: AYBFou3OpT/mVE48IM+v8Aid5OI7b2GSb4tapZWDsQ/lXolT0TCSQJyB+l2vQgkjl9T
+	panPCUWm7M7cAMXdN5TgMMDwx5OPRarLBghXKl4Hn0iL9bABVtkQ2wyV66X05ZbnlIICZmOuuzT
+	xS5oOqGAEadhfhO38vGGG/pwS+KQ4PlVVKmh3P2JIGBffLX+U0/PCIM5tRR9tUw/lkGelhPzQAK
+	bliXD2bajdKpfKjIqqIV+EsYdHxaSeJw8L9m04pKlDTG+eslpc3CZoduMYLl0nCxE0+TnaTHBAP
+	Dr36yI9t92x5AFDmgoXtTIuppt7yCmm+hRMqU17xY03oWUD8L1aGmAs/O+ZgRMlyUJFq06gQCsy
+	Y16glLysVrqOTvVF4yS54pjgE/zNxTTLwv5+3/DDHRxG3ZjKkM+Uf8nDmSpw8cJ8ACYiv/wRVW0
+	V6UurIkhu46+XHEkazcj85uPuQRQfAf3KigbpI8u2t3KioLW45NXn0CQD0UgpSrCw7kLoh+Sx91
+	w9OBOFgzjSQhhe9ZHCNN4x/PCvFf/KYD83X9Xum
+X-Received: by 2002:a05:600c:4e51:b0:49c:ff8d:b548 with SMTP id 5b1f17b1804b1-49cff8db5demr394817815e9.11.1788793322389;
+        Mon, 07 Sep 2026 08:02:02 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm262992705e9.14.2026.09.07.08.01.58
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cff8195ffsm262992705e9.14.2026.09.07.08.02.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:01:59 -0700 (PDT)
+        Mon, 07 Sep 2026 08:02:02 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 07 Sep 2026 19:01:44 +0400
-Subject: [PATCH 4/5] power: supply: bq257xx: Use psy directly instead of
- driver data
+Date: Mon, 07 Sep 2026 19:01:45 +0400
+Subject: [PATCH 5/5] power: supply: bq257xx: Parse battery info before
+ registering power supply
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-bq257xx-init-v1-4-1a08b29e1a68@flipper.net>
+Message-Id: <20260907-bq257xx-init-v1-5-1a08b29e1a68@flipper.net>
 References: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
 In-Reply-To: <20260907-bq257xx-init-v1-0-1a08b29e1a68@flipper.net>
 To: Sebastian Reichel <sre@kernel.org>, Lee Jones <lee@kernel.org>, 
@@ -83,38 +83,130 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
  linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Alexey Charkov <alchark@flipper.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=960; i=alchark@flipper.net;
- h=from:subject:message-id; bh=/Lj1bzOltbe0TShD0ZkZdsIYxLxj5M1uJ4RcZYV70+g=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNu3jn2Nc7fM5/J89eXTJh/uQb3y6U1bstmyLNc6lAv
- CvPokRuasdEFgYxLgZLMUWWud+W2E414pu1y8PjK8wcViaQIdIiDQxAwMLAl5uYV2qkY6Rnqm2o
- Z2ikY6xjxMDFKQBTXfaD4X/Otd6I3cs03FpXnbFWctA30jhQUXXT8bPfLdNHbLnJPjMY/kfXpvV
- pTfGojKh8YyLU0MB7O/nlPAW7rQaHbtr6Mq/yZQYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4653; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=lE4DoCX54IzHb9OGuqjtUGY0/Idn5+TuMdUQxkrjXI0=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNu3gn5r68dXzYz7dcrQITrplMiVg29dl/wfTKzSwtY
+ a0yWSeOdExkYRDjYrAUU2SZ+22J7VQjvlm7PDy+wsxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
+ hkY6xjpGDFycAjDV9yMYGa4m7EnwXfSQq3K6bMVdyU7XHeFN10wvfTmxsrNquZDC4fMMfwWvPb3
+ 6wsfCrjO85+IUrm0fzvP9fMXtWOow9ZNlhIloMzsA
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Improve consistency in the bq257xx_external_power_changed() function by
-using the psy pointer directly instead of dereferencing the driver data.
-This makes all power_supply_*() calls follow the same pattern instead of
-power_supply_am_i_supplied() standing out for no reason.
+Switch to a dev-based battery get/put interface to parse battery info
+before registering the power supply, so that nobody tries to access the
+power supply until we finish programming the device parameters.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- drivers/power/supply/bq257xx_charger.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/power/supply/bq257xx_charger.c | 50 ++++++++++++++++++++--------------
+ 1 file changed, 29 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/power/supply/bq257xx_charger.c b/drivers/power/supply/bq257xx_charger.c
-index 355c59f0bbfb..8a645859460b 100644
+index 8a645859460b..6faa1055b3ee 100644
 --- a/drivers/power/supply/bq257xx_charger.c
 +++ b/drivers/power/supply/bq257xx_charger.c
-@@ -1057,7 +1057,7 @@ static void bq257xx_external_power_changed(struct power_supply *psy)
+@@ -1165,38 +1165,38 @@ static const struct bq257xx_chip_info bq25792_chip_info = {
+ /**
+  * bq257xx_parse_dt() - Parse the device tree for required properties
+  * @pdata: driver platform data
+- * @psy_cfg: power supply config data
+  * @dev: device struct
+  *
+  * Read the device tree to identify the minimum system voltage, the
+  * maximum charge current, the maximum charge voltage, and the maximum
+- * input current.
++ * input current. Deliberately keyed off @dev rather than the charger power
++ * supply, so that it can run before the supply is registered.
+  *
+  * Return: Returns 0 on success or error code on error.
+  */
+-static int bq257xx_parse_dt(struct bq257xx_chg *pdata,
+-		struct power_supply_config *psy_cfg, struct device *dev)
++static int bq257xx_parse_dt(struct bq257xx_chg *pdata, struct device *dev)
+ {
+ 	struct power_supply_battery_info *bat_info;
+ 	int ret;
+ 
+-	ret = power_supply_get_battery_info(pdata->charger,
+-					    &bat_info);
++	ret = power_supply_get_battery_info_from_dev(dev, &bat_info);
  	if (ret)
- 		return;
+ 		return dev_err_probe(dev, ret,
+ 				     "Unable to get battery info\n");
  
--	pdata->supplied = power_supply_am_i_supplied(pdata->charger);
-+	pdata->supplied = power_supply_am_i_supplied(psy);
- 	if (pdata->supplied < 0)
- 		return;
+ 	if ((bat_info->voltage_min_design_uv <= 0) ||
+ 	    (bat_info->constant_charge_voltage_max_uv <= 0) ||
+-	    (bat_info->constant_charge_current_max_ua <= 0))
++	    (bat_info->constant_charge_current_max_ua <= 0)) {
++		power_supply_put_battery_info_from_dev(dev, bat_info);
+ 		return dev_err_probe(dev, -EINVAL,
+ 				     "Required bat info missing or invalid\n");
++	}
  
+ 	pdata->vsys_min = bat_info->voltage_min_design_uv;
+ 	pdata->vbat_max = bat_info->constant_charge_voltage_max_uv;
+ 	pdata->ichg_max = bat_info->constant_charge_current_max_ua;
+ 
+-	power_supply_put_battery_info(pdata->charger, bat_info);
++	power_supply_put_battery_info_from_dev(dev, bat_info);
+ 
+ 	ret = device_property_read_u32(dev,
+ 				       "input-current-limit-microamp",
+@@ -1212,9 +1212,14 @@ static int bq257xx_parse_dt(struct bq257xx_chg *pdata,
+  * @pdev: platform device
+  *
+  * Probe the charger device, allocate driver data structure, select the
+- * appropriate chip-specific function pointers, register the power supply,
+- * parse device tree properties for battery limits, initialize hardware,
+- * and set up the interrupt handler if available.
++ * appropriate chip-specific function pointers, parse device tree properties
++ * for battery limits, initialize hardware, register the power supply, and set
++ * up the interrupt handler if available.
++ *
++ * The power supply is registered only once the hardware is up, because
++ * registering it lets the core call ->external_power_changed() at any time. A
++ * probe failure after that point would have devres free @pdata while such a
++ * callback is still running on it.
+  *
+  * Return: Returns 0 on success or error code on failure.
+  */
+@@ -1247,6 +1252,14 @@ static int bq257xx_charger_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, pdata);
+ 
++	ret = bq257xx_parse_dt(pdata, dev);
++	if (ret)
++		return ret;
++
++	ret = pdata->chip->bq257xx_hw_init(pdata);
++	if (ret)
++		return dev_err_probe(dev, ret, "Cannot initialize the charger\n");
++
+ 	psy_cfg.drv_data = pdata;
+ 	psy_cfg.fwnode = dev_fwnode(dev);
+ 
+@@ -1257,16 +1270,11 @@ static int bq257xx_charger_probe(struct platform_device *pdev)
+ 		return dev_err_probe(dev, PTR_ERR(pdata->charger),
+ 				     "Power supply register charger failed\n");
+ 
+-	ret = bq257xx_parse_dt(pdata, &psy_cfg, dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = pdata->chip->bq257xx_hw_init(pdata);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Cannot initialize the charger\n");
+-
+-	platform_set_drvdata(pdev, pdata);
+-
++	/*
++	 * Requested after the supply is registered so that devres tears it down
++	 * first, quiescing the interrupt before the supply it reports on goes
++	 * away.
++	 */
+ 	if (bq->client->irq) {
+ 		ret = devm_request_threaded_irq(dev, bq->client->irq, NULL,
+ 						bq257xx_irq_handler_thread,
 
 -- 
 2.54.0
