@@ -1,187 +1,221 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C267F4483A8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:22:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A33B3803EB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.175
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772924; cv=pass; b=PlGm3J3828nCcABdmDYqE9SbZX65TW/billP7/wbXc4anYVZ2Rbf91cnUQIjJ+Ucsk1lRas9yoDnh2Yl82QtKorWjLW8bTe/gOdFeRI/7anZ/71Y9U9V3v4kIljHXrhZ6PozmzJxPBeaB067XUYI3B5PtwE2WqwP5FQ9GU8rYWE=
+	t=1788772951; cv=pass; b=blGpbfJFtW1JCp/UAnN9GjDW6oM81cGrYnPfZFcGjDxAM7uOZKTyB4r+wJjnc3EHh6mxpV3sg23pE3HDc7G1poBjN8kwCyM6dCsiRMwXw+bLKxzc0emUyEkzE/wMEFkr3z6giGx0EXBktFQ+FwbeCpLDgUpy2qi9C2ssiHXov4Q=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772924; c=relaxed/simple;
-	bh=jdC3YU8dHQs+R1DdVna6vLRwPjsbGknBcowKTw7Do2I=;
+	s=arc-20240116; t=1788772951; c=relaxed/simple;
+	bh=9pP2LBH2tRB2fSrm0jAQcOrNlQWLGQS+CkLe4y+uwzE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tqe6ZkFh5jS/BW65+LCwooGV9Tzmu2JvLr+Lv0bVh1qMRMm2cir/+GM21yVSlH78e1XwtH4esjdCRsJfeQJPh6ioWmcds9yMEuKh7LLH7NhgekYqU8uloY50Brmky7QMXzKA0bp2ERiv4OU557ipSwc4chWsv20Wld8Cay+PgZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c0i9whWa; arc=pass smtp.client-ip=209.85.128.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=FPWJ0lzYM7qCbWx/OCeBJY68hygTgYxxQMoF8XfPM8o0PEiA3Cu4uFbnFDybrFpiDtYonUv+kK0ztpMCvr1JujReMSk0euen3xBZ+ckyjm7Bf5CmbRWNqTvlra+e28jwMs8N5V42dC8fkOuew93GiBXhwEgz8lLwIb06EqXwIm0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=jC/PHI2r; arc=pass smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c0i9whWa"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-864cd11a932so39800177b3.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:22:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788772921; cv=none;
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="jC/PHI2r"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d560775ca2so22419615ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:22:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788772947; cv=none;
         d=google.com; s=arc-20260327;
-        b=s3+ob+1F+76yOQzdBYI7VlJQl+R3lf/ah7K1+6dIcv0l1egJxS2DXrY/4zB/IOFlNv
-         qhJ21Bv6gunGdgPLv7GBrVRKJkzByztHNQv3luWMNL71EUFC24l0nD2lizsNczaxI6V1
-         KWw1Sd37vKX03bshXhyqMO7ctNImFn2bBNny5Qb+XFPiPzVXmX4OsqW932M27Wqe/HLT
-         NqX+8p4nebl5N0MD0lSFqBXbNH3CtkabpFajW+Jsj3qHhdBWx2sXi/9UnT3l3ftAZvP0
-         7+l/L3v5dYOSeDrbV4iFrduji4v4LXlO5sRIdvEgrVqvVbBSP7uF4J26BHsLCUgo5jFi
-         LHEA==
+        b=pG+yjXkqQWgC32ePCHJAKM6B4QEyUmPDvllqJQ/dTjLbabd0WWogVmpNvWppdCkzV8
+         y45Vz5fjufKlt792ljuZkOpPn6/KaD3fu3L2dC2FaqXY0cvYrrfy6N/FWOJckMxun0O1
+         5/nOv0CF+87je20og0MtgZUogwVGJv6A6ohIm30e+if6aTCeVQuICn6HIFvKoqPDuVoR
+         R0EgOPGpTpVpae88hRtVO9AIJbgkhcNmmZt8rtl2lt7WopFHXnkM8KwMLIy8HgBRP5MD
+         fF9qb1HE4KUDtSG74e6ktDgDeAMq7KFEYzWiRLjaf4V71S8uztoCRQ5LdxBkorQvm7tG
+         3nIg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=J0t5MHJvx2iLkVwFpdNQYQKKsnnTlLCT8TZwcuf3lTs=;
-        fh=9Ud8Fu/g7aYWh4lYNsfjP7z/Iy0vxBIuSKBDS8kbfRE=;
-        b=rIAhw5WWPn352bpq+xbSh46eghC8PGezAtZJUD4TIo9Iw5ZJI0iZHBz50LvqtZ2hCO
-         MD22gky/HoLspJuCrrphyWIPKAu7isjKYigZuTlhSy2QtkY1ByWIH4VovVZkeXTxWStQ
-         qCmyI/qHv5uifIAhiqIKqQxgQ0uqotGYTRdt7luZhroYsiYOlSU+VaUegwDs/bVCu+Es
-         RBgX6UJqvuPsE86tdf67W52RkKyZJaQ5GOBxYwvnuP5TC+qlvz6vq4o0k9+4k9LNmu2l
-         AR0HOljBQPwsEMzC6A834wigRNeC60WXKGRPLP3W3rTnA4b7R5dVFzye/h9OX/5XUnP2
-         YDaw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dIdpvoo6ET3LdAMRgZeWItpBO23tAVsjAcGJm+O6jZE=;
+        fh=+bvtpGm++Vkxbt6hP0//aHCLHQIRpg8zMEgd9JQN5fw=;
+        b=mUTmFsJ/kXEnttshxQSERhA2ubSl35e2rlZqrrx2Eg8p6uRCgxvRU6wZg/xssZGez9
+         D8GjZbHnQbuvbx8yF+9P+plrVllHds3nZ24YXZByYmFHOx73MVPJ8DQ1DxY/1jXzGTX8
+         bYqN8lerMdjhPKhRERT3OourpuSFANeIrU5dxvvMjz793+kucdWlXSYMxvyLv1YKV0qn
+         IvYZGLmRdU66PKGXWmMcnfza4CJg7X6ZkIjaRniQM8hmekmFsz9rK+KO8JgEs5cwtLNE
+         IEuWgBCVdcbOaZ9egrHcc2Aj6mxsi87VCOQ2benlrVYDKZ1G09gvo4K34eGnO2Hz0jzW
+         vpqA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788772921; x=1789377721; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J0t5MHJvx2iLkVwFpdNQYQKKsnnTlLCT8TZwcuf3lTs=;
-        b=c0i9whWazaJQ3HCZjS/S03gbBX0v/e/P3Zu3HsA1Co31h88O5avmljerX+lSDzu967
-         9qSTP0/nVn3L/ExlmtFnZ0ysCvpNGRXr+vQdpmGboMUgdyFB4dRZXMieg2uZcar4owzL
-         DBaZ4QUsKKShnmKpgmBxnZ3F9r1JXHsuYpKqIt248fzmrbtZO39+BPe3hZLewgMbdsF6
-         qhFEwcYoX0pu1dC4gW8PLaEfM1+IcCeby+ErY/1CN3J+5yCXs/I/EyWQR76XZXYxZugO
-         ZZ2/dTKXEULwOTWyzAQNRf1EWVdRY/HfqLOa8O/SrHS24ClRPFdyPo1Gm5HsSbCrm4vv
-         6Wlw==
+        d=chromium.org; s=google; t=1788772947; x=1789377747; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dIdpvoo6ET3LdAMRgZeWItpBO23tAVsjAcGJm+O6jZE=;
+        b=jC/PHI2riJypuO8NVdbNerP0XWgRprHZGTvwZIihk8LTdB3keI9jti2BaG3VP5mKDe
+         +Jef7ErE76z4s8n27PjY9K/aoHso11aU+OBE6OLBrpHjyDj+Y3zXtL9Bkaerkjf2NxsY
+         tgujVxBymAO/luRvnkJ6HU6WHpumH7hjSo96E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772921; x=1789377721;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=J0t5MHJvx2iLkVwFpdNQYQKKsnnTlLCT8TZwcuf3lTs=;
-        b=N4e07tcv+g2PVhG/YQ86lK8gktkuAIOs1WtzmQ5HncXgRwI+2C8SR0VwOORS4zni59
-         sJMAWMaAzKbpjuh4h0LTwjZwEKWYuxVZQdUqPz4HrDYRjlgQB/clUiDvagl6yjRWoVzx
-         3hPvMjApwXtPPBYM/q/qZf8LYkTb3qx/hI2EXQTFbiR/oFturwin+oqwlll46LAgXR7k
-         oQl79uqJeYp5LAu1Qf3a6ALpjeNrF4uiJXp+EgvVx89MmCQrtpXk172YVBOL6GaVlQdg
-         02IOr7LSiwVJPGpTiiTRmK1kW5BuN6hhPAzco2dhjeGlFA19ri2p+LlOu/fU+qX6fFMr
-         P7Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFpdE2I2FAOFKgvTwIHqWCCqCv86IQxr3KTdX0h4HQ5pkpABdH+YJjpabLodIp0FpsOHDI814JE2Hh/aE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJaGMQP3p44XYRUXp5nie/T2rb5YAVLYZk0K5C0DQfK0IlgxiX
-	c+swkj2x2wplLI0mx0ACX5FVC6Ka8AY5RWFaWsDaVFzLDN0qVjL7kmHa9rJcUiU3kASEG57jD75
-	+w/b56im57Rq+6hE3YFV2jJIf2eaGICs=
-X-Gm-Gg: AYBFou20nQPt7mzBBLR2zOnoC8G84iqd4iG1bFG4V8cFn51QxjSqoCIHdxJJQya3A1B
-	OWoV/yhlkfWoBoL5dliK7gInhqhYARqEbVybl1xNTdoBGU6Hgbz7nVVLHZT7sNNdLDiRBavaX5C
-	htsoyHHrYtNRRqrbVY5lxGPZ0EpEUjMxMb3Ih4KMc6InhZVymn0VS6/t5TKpnDvvLN+7TP8zjuN
-	QUxYZTvuEf/2/dPb6L6+Gdb4aINpIK6/RvXixvnaNthEvnw53eibUpDJf32TfrqqBqibj6VmWDg
-	fts8zh6jfO6xwrrZM/3njhZZfPOJMiLY7KNdgkbV53XtwUfjWW7EJ6wZR2W5QpdVGn4hvkKfTTb
-	I
-X-Received: by 2002:a05:690c:a84:b0:7f0:38f7:6ca6 with SMTP id
- 00721157ae682-86e6d7905ccmr100098477b3.5.1788772921510; Mon, 07 Sep 2026
- 02:22:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788772947; x=1789377747;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dIdpvoo6ET3LdAMRgZeWItpBO23tAVsjAcGJm+O6jZE=;
+        b=tHYPFIpYwnj8raf0VftSez6rww5UZq2cdDxKGoXiV5nseVEDYJZFj3N/hBik8ZxoXH
+         aXBoxJqNT+jtKPCMkU8O9wIH31g3XePTSjk7GMGi2KcewwqcQNj0v8jCjjFjgE3pjuc7
+         uQbMT4wdx7y2/oI+vN5SE0aMTcKt42NCQaT1y//+Oll5aBuD4g5rua1MrOdckRpScwYT
+         IumCcAlN86+bfoNgXFjAIOPEsuI2StRUDhnSxJI39WsOgtJZU+/mPgtkQLE9ObHKeKMi
+         N9rIbwXIVrDZza1FAJrAxlOo7Ww/EbUfD6Mdek4dWwkgZrB9f/APvAoGd+D1mUwH4VNA
+         wMnw==
+X-Forwarded-Encrypted: i=1; AKwUvBwllDHhIN9WWx8VRGAd9lFTxEnKTMI7Njfb+mAG7Jo93eViezN06XKrV278x4UzUQfv0pTpdKAHy4n9ZWM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nxAAZRKCydZxuFmPeVX7mzJMH9g9MNy8ImyHZ/tHr+hk6jDvvT
+	uZigDsSPhj18Q7qmiHWz4j0ql+sLkacXF54YAPVf7ArZ0quil992XuUkbA+JlBmXO6DhDBdPkqv
+	qdPakeOU9LzKvNe5HZUI1qmtE3HPH9q8W+sRPEO/l
+X-Gm-Gg: AYBFou2ibwIBbEn6V7Hgsoq9s/UTWOGXr6cj9j2cmlgRbcwywc0q8XTkFlakQIMPPom
+	hinMxUWMJoepmMUWcqoQVqWsR+z3vxsT9H/x2yQjAY4c3LgF5vEwo8bq2cx3o1tdqO+2B4SJ06U
+	CqbMbkLZFiPsZXFU7R58Amp7wtNiLAfnnoqkTW7tqm5ucabYVz/Nj3WNpKfGsBGtej3CGn7xQZC
+	DT4rbxbVEl2NRbBTN/Ay771b7GCRcNUmV8gkEjVOI7uLEdOFxSsWKuKQn0FjDnbxTsrwJVWY6AF
+	A064zNPtoeG1r8vjIN/xT4jObDing+d+T1caevzApuY5Aw27q/YdvMQKpVclVgO8bKHGF+lSTzs
+	=
+X-Received: by 2002:a17:90b:3809:b0:396:4dfb:5890 with SMTP id
+ 98e67ed59e1d1-39b260d333amr33194124a91.2.1788772947395; Mon, 07 Sep 2026
+ 02:22:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907063531.23981-1-hemanth.selam@gmail.com>
-In-Reply-To: <20260907063531.23981-1-hemanth.selam@gmail.com>
-From: Frediano Ziglio <frediano.ziglio@gmail.com>
-Date: Mon, 7 Sep 2026 10:21:50 +0100
-X-Gm-Features: AcwNN1UZe9OK-phDYGL6Rp7bdzbs1SB4QayVK-l7Y6JKSNPJ-dx1Aq5zzRqdwzM
-Message-ID: <CAHt6W4erMMhNoqD+OjG+BmpWvZEcWLjoszFok_guwM2gANR14Q@mail.gmail.com>
-Subject: Re: [PATCH] xen: fix typos in comments
-To: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Juergen Gross <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K . Petersen" <mkp@kernel.org>, xen-devel@lists.xenproject.org, linux-scsi@vger.kernel.org, 
+References: <20260129131928.794768-1-akuchynski@chromium.org> <MW4PR00MB15018588F16E0D52D1DF923BBFB52@MW4PR00MB1501.namprd00.prod.outlook.com>
+In-Reply-To: <MW4PR00MB15018588F16E0D52D1DF923BBFB52@MW4PR00MB1501.namprd00.prod.outlook.com>
+From: Andrei Kuchynski <akuchynski@chromium.org>
+Date: Mon, 7 Sep 2026 11:22:16 +0200
+X-Gm-Features: AcwNN1XUAas48pVFC6R6vrCHxAVxzljD-4_1LSrSn5q2OojYadYh0KoAXibEGQg
+Message-ID: <CAMMMRMf=5SoF_UdkraUEZ=GdzpCxHONUw9wxJOAPCcWTG5QXLw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] platform/chrome: cros_ec_typec: Enforce
+ priority-based mode selection
+To: Shijia Zhang <codgician@outlook.com>
+Cc: Jameson Thies <jthies@google.com>, Benson Leung <bleung@chromium.org>, 
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>, 
+	Guenter Roeck <groeck@chromium.org>, chrome-platform@lists.linux.dev, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, 7 Sept 2026 at 07:36, Hemanth Selam <hemanth.selam@gmail.com> wrote:
+On Fri, Sep 4, 2026 at 1:50=E2=80=AFPM Shijia Zhang <codgician@outlook.com>=
+ wrote:
 >
-> Fix typos in comments, reported by scripts/checkpatch.pl using the
-> misspelling list in scripts/spelling.txt.  Only touches comments, no code
-> changes.
+> Hi Andrei,
+> I tested both posted patches on a Redrix Chromebook with an HP
+> Thunderbolt 4 Ultra 180W/280W G6 dock attached throughout boot. My
+> latest test uses NixOS linux_testing built from upstream Linux v7.2.3.
+> The Chrome EC reports AP-driven mode entry as enabled:
 >
-> Assisted-by: Cursor:claude-opus-5
-> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
-> ---
->  drivers/scsi/xen-scsifront.c     | 2 +-
->  drivers/xen/mcelog.c             | 2 +-
->  include/xen/interface/platform.h | 4 ++--
->  include/xen/interface/xen.h      | 2 +-
->  include/xen/xenbus.h             | 2 +-
->  5 files changed, 6 insertions(+), 6 deletions(-)
+>   /sys/class/chromeos/cros_ec/ap_mode_entry: yes
 >
-> diff --git a/drivers/scsi/xen-scsifront.c b/drivers/scsi/xen-scsifront.c
-> index 989bcaee42ca..f86a47056ea8 100644
-> --- a/drivers/scsi/xen-scsifront.c
-> +++ b/drivers/scsi/xen-scsifront.c
-> @@ -1076,7 +1076,7 @@ static void scsifront_do_lun_hotplug(struct vscsifrnt_info *info, int op)
+> I am testing this as a user with affected hardware and have limited
+> familiarity with the kernel's Type-C internals. The observations below
+> concern patch 1/2; I did not notice a separate problem with patch 2/2.
 >
->                 /*
->                  * Front device state path, used in sdev_configure called
-> -                * on successfull scsi_add_device, and in sdev_destroy called
-> +                * on successful scsi_add_device, and in sdev_destroy called
->                  * on remove of a device.
->                  */
->                 snprintf(info->dev_state_path, sizeof(info->dev_state_path),
-> diff --git a/drivers/xen/mcelog.c b/drivers/xen/mcelog.c
-> index 32ab419bb503..f19cc7a67f36 100644
-> --- a/drivers/xen/mcelog.c
-> +++ b/drivers/xen/mcelog.c
-> @@ -1,6 +1,6 @@
->  /******************************************************************************
->   * mcelog.c
-> - * Driver for receiving and transferring machine check error infomation
-> + * Driver for receiving and transferring machine check error information
->   *
->   * Copyright (c) 2012 Intel Corporation
->   * Author: Liu, Jinsong <jinsong.liu@intel.com>
-> diff --git a/include/xen/interface/platform.h b/include/xen/interface/platform.h
-> index 79a443c65ea9..462e36392a9f 100644
-> --- a/include/xen/interface/platform.h
-> +++ b/include/xen/interface/platform.h
-> @@ -421,10 +421,10 @@ struct xenpf_pcpuinfo {
->         /* IN */
->         uint32_t xen_cpuid;
->         /* OUT */
-> -       /* The maxium cpu_id that is present */
-> +       /* The maximum cpu_id that is present */
->         uint32_t max_present;
->  #define XEN_PCPU_FLAGS_ONLINE   1
-> -       /* Correponding xen_cpuid is not present*/
-> +       /* Corresponding xen_cpuid is not present*/
->  #define XEN_PCPU_FLAGS_INVALID  2
->         uint32_t flags;
->         uint32_t apic_id;
-> diff --git a/include/xen/interface/xen.h b/include/xen/interface/xen.h
-> index 40c9793e9880..f9acb21875cf 100644
-> --- a/include/xen/interface/xen.h
-> +++ b/include/xen/interface/xen.h
-> @@ -94,7 +94,7 @@
->  #define VIRQ_XENOPROF   7  /* V. XenOprofile interrupt: new sample available */
->  #define VIRQ_CON_RING   8  /* G. (DOM0) Bytes received on console            */
->  #define VIRQ_PCPU_STATE 9  /* G. (DOM0) PCPU state changed                   */
-> -#define VIRQ_MEM_EVENT  10 /* G. (DOM0) A memory event has occured           */
-> +#define VIRQ_MEM_EVENT  10 /* G. (DOM0) A memory event has occurred           */
->  #define VIRQ_XC_RESERVED 11 /* G. Reserved for XenClient                     */
->  #define VIRQ_ENOMEM     12 /* G. (DOM0) Low on heap memory       */
->  #define VIRQ_XENPMU     13  /* PMC interrupt                                 */
-> diff --git a/include/xen/xenbus.h b/include/xen/xenbus.h
-> index 8ca15743af7f..6424c5cf8ef5 100644
-> --- a/include/xen/xenbus.h
-> +++ b/include/xen/xenbus.h
-> @@ -63,7 +63,7 @@ struct xenbus_watch
->         unsigned int nr_pending;
+> 1. USB4 capability was not exposed
 >
->         /*
-> -        * Called just before enqueing new event while a spinlock is held.
-> +        * Called just before enqueuing new event while a spinlock is held.
->          * The event will be discarded if this callback returns false.
->          */
->         bool (*will_handle)(struct xenbus_watch *,
+> With the posted series alone, cros_ec_typec did not list USB4 in
+> /sys/class/typec/port1/usb_capability, so the new USB4 entry path was
+> not reached. The connector has a usb3-port reference. That referenced
+> USB3 port contains usb4-host-interface and usb4-port-number, while the
+> connector has no usb4-port reference.
+>
+> I checked upstream coreboot to understand the firmware topology. At
+> commit 42f142bd9fad2c9f47c4925845bac6fa686f68c7, the Chrome EC ACPI
+> generator looks for a USB port object with port type 4 when populating
+> the connector-level usb4-port reference:
+>
+>   <https://github.com/coreboot/coreboot/blob/42f142bd9fad2c9f47c4925845ba=
+c6fa686f68c7/src/ec/google/chromeec/ec_acpi.c#L46-L90>
+>
+> The generic connector writer can emit that reference when supplied:
+>
+>   <https://github.com/coreboot/coreboot/blob/42f142bd9fad2c9f47c4925845ba=
+c6fa686f68c7/src/acpi/acpigen_usb.c#L93-L102>
+>
+> However, I could not find a USB port type 4 object in that tree. The
+> Intel platform files instead put usb4-host-interface and
+> usb4-port-number on the xHCI SuperSpeed port. Alder Lake does so here:
+>
+>   <https://github.com/coreboot/coreboot/blob/42f142bd9fad2c9f47c4925845ba=
+c6fa686f68c7/src/soc/intel/alderlake/acpi/tcss_xhci.asl#L120-L186>
+>
+> I found the same pattern in the Tiger Lake, Meteor Lake, Panther Lake,
+> and Nova Lake platform files. Linux already consumes this mapping in
+> usb4_usb3_port_match():
+>
+>   <https://github.com/torvalds/linux/blob/v7.2/drivers/thunderbolt/usb4_p=
+ort.c#L95-L127>
+>   <https://learn.microsoft.com/en-us/windows-hardware/design/component-gu=
+idelines/usb4-acpi-requirements>
+>
+> To test whether this missing capability was the blocker, I made a
+> local diagnostic change that kept the connector-level usb4-port check
+> and also recognized the mapping on the referenced USB3 port. The
+> Type-C class then reported:
+>
+>   /sys/class/typec/port1/usb_capability: usb2 usb3 [usb4]
+>
+> 2. USB4 entry did not replace the existing mode
+>
+> After the diagnostic capability change allowed the posted USB4 path to
+> run, I observed a second problem. In one cold boot the EC mux initially
+> reported:
+>
+>   Port 1: USB=3D1 DP=3D1 TBT=3D0 USB4=3D0
+>
+> The cros_typec_enter_usb_mode(..., USB_MODE_USB4) call returned no
+> error, but the EC remained in the existing mode and no downstream USB4
+> router appeared. I also observed a boot where the EC reported USB4
+> while the AP-side mux state was not yet coherent, so treating that
+> reported USB4 state as a completed transition was not sufficient.
+>
+> To test whether the existing mode was the blocker, I locally requested
+> USB_MODE_USB3 to exit modes, waited for a later EC port update to report
+> DP/TBT/USB4 clear, and then requested USB_MODE_USB4. I advanced those
+> steps from the existing serialized port worker and used a bounded
+> timeout only to detect a missing transition.
+>
+> For this test I also registered the PD notifier before queuing the
+> initial port update, so a mode-change event generated during that update
+> could be observed.
+>
+> With the dock continuously attached, a later cold boot reached:
+>
+>   EC mux:                                  USB4=3D1, DP=3D0, TBT=3D0
+>   /sys/class/typec/port1-partner/usb_mode: usb2 usb3 [usb4]
+>   IOM port status:                         0x86000368
+>
+> The HP router appeared at 16.885 seconds, its retimer at 17.147
+> seconds, and boltd authorized a 40 Gb/s link in both directions. The
+> complete USB hub and 2.5 GbE topology also enumerated, and no
+> cros_ec_typec transition timeout occurred.
+>
+> Could you advise whether these observations match the intended behavior?
 
-Reviewed-by: Frediano Ziglio <freddy77@gmail.com>
+Hi Shijia,
 
-Frediano
+Thanks for running tests on the patch!
+
+>
+>   1. Is cros_ec_typec expected to obtain USB4 capability from the
+>      standard mapping on the referenced USB3 port, or is firmware
+>      expected to provide a connector-level usb4-port reference?
+
+I am unable to assist with this directly. A potential workaround would be
+altering the cros_typec_parse_port_props function:
+
+    //if (fwnode_property_present(fwnode, "usb4-port"))
+        cap->usb_capability |=3D USB_CAPABILITY_USB4;
+
+>   2. Does the USB4 entry path expect DP/TBT/USB4 to be inactive before
+>      requesting USB_MODE_USB4? If so, which layer is expected to exit
+>      the existing mode and wait for completion?
+>
+
+No, it doesn=E2=80=99t. The typecd daemon probably enables DP altmode.
+To test mode_selection, stop the service first:
+
+# stop typecd
+
+Thanks,
+Andrei
