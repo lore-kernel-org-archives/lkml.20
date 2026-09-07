@@ -1,78 +1,84 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C5E44BCB8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:02:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC5C44C65C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782524; cv=none; b=okVEC9QjWqjk01hGXLn8LdAY/h+7s/Q72VOAyAkhNHEg9euPlttSAEZ+XxqrbK14vGj4CpxLLVR8HkMt5ABD6vdd7suZ6xUf4qLXmYFkToHSCY2BIQHgG/1oQ8oSQ05lk009XaWqYjxU3AJknfER+6nV21s8+9I6x8KxELDmLRw=
+	t=1788782618; cv=none; b=Y1QM+H68iUSUUPA7cwgXuCKgXxd8Av9UWJF5a77iyxZIosjSdPhR9uEtuLAMW3yoLm9A7fiImDdU5vPxgdRA4D8/TRPDa6PYVUR48JJtMeBqlNbcLFYqVbEMFWiIXEsg26U3X8DurJv4dq+ZbIYyxpuXtfpxFCZwKOPyxfPMVkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782524; c=relaxed/simple;
-	bh=e+LcscX4l8bSIJhRp6pj21O+RxjEFrIGAmY61xbEojg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NnxxKbJIiOI+T5sdoIJG7iRaIwPZ/4UZkbK5p7txevXuS9d3ffm31ElO4OmtMTa5vF2XavGFzB6HLG3bci/DkuVbN2llOKs7TI4jJBxONtAP9F9iqmKEHLK5Fy95wlzSd+B9BjKKlAeLynQG7Aq9cB+wF8j/bydyW9WweUFE6b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bvdCMj5h; arc=none smtp.client-ip=209.85.216.42
+	s=arc-20240116; t=1788782618; c=relaxed/simple;
+	bh=MOQwV5fgdf+8j7ZOVMqEoztvTTu2JKxSmB9ceKguCDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XZcvvnqn4bGUfByJaU8PuenOFtJRgw+0VvP9N/uqVOieAHQvTHz2aXIvk9L6U/bfQYadzrPJGgdnpWlRQsFaPUeMq57E44MHotvGSkcOf1fY13NJnac37h+cRmYx4tw/1rg8MzwMPTtxLE9PEwFkzW5drzG+92Fg2uxF6xJuh6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J1DqIKab; arc=none smtp.client-ip=209.85.214.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bvdCMj5h"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so2780155a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:02:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J1DqIKab"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d944747d41so36491335ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:03:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788782523; x=1789387323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DWeanejvZj9bixBLqbHSIOUPluNyoy6AbNIxqL5gJ7A=;
-        b=bvdCMj5ho3+J4yrk1YCw1vP4VDJSNx/XSxEOa2jN+rpxzdklCFIwvzq95L1KWgNNK+
-         VDW/kDCKjm2KRLpexdRkYkLTkxJoCZ4VIzztI97excSB4dYpenCTkpKAiQGxR7m5tCXR
-         aLko0mFNXwSii7trpxil9P9xV6JI3L8TYb5hQUf+dX/cGMSR7i8rHxXnFfk6IDgWnnwH
-         OdrqG9vUC9ENBHRNT5Gg0V00b4eIybUubPfFXyg5+z4+3EEWLU1+Ofx5sjqCYNelZ/9z
-         yzHRKREDjc1MeEgJ2GFh65bzH/vMV61jA+CdDPMPs3hQS4qNgbauwg8DJWYZeeUgtMsl
-         drbg==
+        d=gmail.com; s=20251104; t=1788782617; x=1789387417; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1DjLmqmU48ErFE5Dn+s01Gf2tFCVAmNdh86WaQ5BH/U=;
+        b=J1DqIKabLDbxFZlfF7jOfXzX3Wz9CFcXOuhzQIqoNuCOgGyYIRkfcCOS8s8M3771Xu
+         SbMlJBDnkkWdXmgOpUjSMgwpS2CFyx3mDDBTovs+mWvvyNGjoMeov8oWh9GpktKLfndf
+         xEpCBmZKAJ5jNL2vsRMTfpoLJ9jKalS8xWCLa/T0/e8JbEzWDg+9wIaAWWADW5T0soH3
+         JPVACLKrjpF5UygeHnPIXufmLeYUKrsAVG/lde80LuKXlbT8g3NDVuSyDwtrd1m6PsWc
+         zogQJbO9i0zsGMomVK9gWqnd7IzsvL4kyaPudpvmG9CZTZrmJfVkW0xX2MDDgQZdDp+L
+         av8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782523; x=1789387323;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DWeanejvZj9bixBLqbHSIOUPluNyoy6AbNIxqL5gJ7A=;
-        b=A948Bt223sIxjOe3ZadWAGFHQLVHoMuIvDYmPyA77fBxKwvb8vbUoRSrD7CLUoP97C
-         gMyIygytOm7Ei2D+l+po2dAy1xO72+dv4aGyL3GfiN8e6teUX+ZOkFdfmT7zvpGN3n/1
-         xtNMbvwOsDj2hm/3IiF66X0hxCprYlh6jUjxZ17eTpEReFLwAcF0lLlLjcCHKddP0NJj
-         9QAa19ahLmJZaSY6DtEu1vX8TNVWaW9kMA+8T/iBxYYWGUA/j8FHhRtukqP5jBQnGZ3J
-         7BAkMgNVNVk3BpUeRcv7/qaMJzbuSv5+hzFRY9FSvkp1aGiRvqdne4/6ofRiF6OTfZiR
-         66VQ==
-X-Forwarded-Encrypted: i=1; AKwUvByC8WWwhy2Vbqkqp4ObkrogK75RSuzV/XjU4FwG14aLp5snJUdUawqmTfMcccbPtjG8FQaUbLO5WdFasV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAPYG0Hu6lNgOF8NsYgvUIfC4Vj0zJom0o34XhiBwYvucvrMY5
-	rKnz1OiZI5FPaM6/1VRtbwnOVwySRTwxx8Tz8KQq0MDD6YhBpZzk2Gc=
-X-Gm-Gg: AYBFou0ZNa13V2aVcvFmaIQUZIloZAZaU+ByKk3G49dWQIkJcCw5cJl+bJ49qcNx8QU
-	OA+SjdXJe5NUosbeXkPOQtXEza477NPSbkmjNP+Sx6jexnyT8ifR+IcZeWx9HGu4B/AkpJXurri
-	IMx/mi0hGmw8SORpx8zuVGh9pqW/1TxZV2MYkeEcSSfZpUGsQULwWyNUVF39FHjY5hHOln3aDw6
-	aMhqQHVbi5qVavmfHBRHKku007NL+Uwym4Y3vXo529ndC+2A3hferBAP6GlAiIv37VyRIVffnwK
-	PF/9jhvnaBth8fmFHfIImIc/ehfZKr+N4Dpjv9Q4hqugrZfPdxERitIG0NyPg2VnDWm3pVF1VSF
-	FZ4SYPEeOfDrBP9tgLABrwsn+L//lKgo75ptzYWXCRedGTeKsP7XTvUnxWFUn7ddwm0P48Rg+sV
-	qThrQoJWOBxYQYLT9q6zs6mpVuZiSL8FoxkMviOd+ijiy1hGu+pKahzBT3o4/0wLv2JG61inX9D
-	8NFrGo7vRQBl7B8
-X-Received: by 2002:a17:90b:54c3:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39b2612ecebmr35866634a91.9.1788782522669;
-        Mon, 07 Sep 2026 05:02:02 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm26976118a91.9.2026.09.07.05.01.59
+        d=1e100.net; s=20251104; t=1788782617; x=1789387417;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1DjLmqmU48ErFE5Dn+s01Gf2tFCVAmNdh86WaQ5BH/U=;
+        b=OlD1mD70aBKr/NZYN0FMEI1YBTmkQTHAdfU3G+8zpPXFoP9v8WPYqf2qOEIGFRw6of
+         nFenUuKKa5Gvdean8SkOSsbKySiwyyUVn31Wp3utYAMadA+SDQyv9ZN5vo5KpQcb1aY7
+         FUc9C95fu9oJDnNkk7d09R0WR5Pfovtch/MuFPsU6n+oNsQVnNSAEv8WShO2uDIE++kY
+         5Xoc9FQ1vLqXrfPY57Mf5VXm+tGp0c96nZwr1jz14x3oZdLfBvrla8UNmskj0dIUMnXz
+         KgGFXcyIp/oVZKSVnNYuF7l2Ba+A+sRPy/KeL9Kv/dDH4netAfnPjdvXoY7dil80OBUG
+         P1gw==
+X-Forwarded-Encrypted: i=1; AKwUvByxjNd+7+gpDKjcRkU13C0OJaNOR0oteYDrhBRa46HDYiTG+eTIWy3XAhypSQaEo+Sx5ePM+gz66Km06ik=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVKZpHswrDpvvILPcuuecctqC7Ag10D5Qjh3o++F6rYSEvZ1Gb
+	5+CE72ugFAgyuPSU6n4bCy0n9oCyV4E2PWLVgPxME7AuZmvygn4tY2ih
+X-Gm-Gg: AYBFou3WulGttMme4HksFJrmGdBghqUtqGIfZoATF4ydEVGjWO6oBJs/aChE4P3MzCX
+	hiE6RNhXBy+/pHMB5nt+FvPoCGJFP9brEPGjYp0XOQCLArk/0piXJFBnRb9l9j6WBBcjJh/SKLI
+	0IEkz/Nyn4emKAdbTbVba7HecQ93GYgYfd/MOK7DVFqM1jhx3o6AWLbjKmq7U1FU3lPrhD7eRig
+	3SNhV/GJSVfblVlweRSHqPhMIgBD0hanYEglEtpGpWC2z66X8bLlNWuHb4PInrJyWXfdhD/oTDy
+	cvbFkiab4kFWOBQ/qTfto9RQQwSMR3+Hzg47zQR3XXDIiRVC5zEsH77xNnKtWzcHq6wkgppXtpU
+	PMLcfq05Q+wi14lrXnhLZ1s7+KbkvIBKX45U/fLcDfLgqWZQ3wRTbl0pMl1GyJxn17PXD8HNUdO
+	6eo2o9FRkk/2Y4Bb8jHsJ0cz8MqdDsUhY06AkmIqmi5i2V2oMP65vYvNsn75TgN1EUWU3zeZmIK
+	35RIt40hueh959EVqbYLMuABTadw8uYuXIHuRMr+dduY6Bpwx+uVyA3m1Av5H5fvtjpBv1okUaF
+	qYE6
+X-Received: by 2002:a17:903:19d0:b0:2d9:2688:8be6 with SMTP id d9443c01a7336-2db126346b3mr282743715ad.19.1788782616991;
+        Mon, 07 Sep 2026 05:03:36 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae85eesm43064815ad.82.2026.09.07.05.03.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:02:01 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Robin Murphy <robin.murphy@arm.com>,
-	Sean Anderson <sean.anderson@linux.dev>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	iommu@lists.linux.dev,
+        Mon, 07 Sep 2026 05:03:36 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Cezary Rojewski <cezary.rojewski@intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Trevor Wu <trevor.wu@mediatek.com>,
+	Douglas Anderson <dianders@chromium.org>,
+	linux-sound@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: Re: [PATCH] dma-mapping: don't trace the DMA address when the allocation fails
-Date: Mon,  7 Sep 2026 21:01:56 +0900
-Message-ID: <20260907120156.603600-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ff20483d-c701-4cdb-8db8-15aa79bc32cf@samsung.com>
-References: <20260905071919.30784-1-donggeunyoo.kernel@gmail.com> <ff20483d-c701-4cdb-8db8-15aa79bc32cf@samsung.com>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 0/7] ASoC: mediatek: mt8188: Improve error handling
+Date: Mon,  7 Sep 2026 19:03:03 +0700
+Message-ID: <20260907120310.135693-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,24 +87,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 01:05:20PM +0200, Marek Szyprowski wrote:
-> Frankly speaking I would prefer to fix this in include/trace/events/dma.h with
-> __entry->dma_addr = virt_addr ? dma_addr : 0;
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Agreed, that is better. It also covers dma_alloc_pages() and
-dma_alloc_sgt_err(), which share dma_alloc_class, and any caller added
-later.
+Hi all,
 
-> Here You remove the debug_dma_alloc call for the failed case. Right, it
-> is a noop now for the allocation failure, but it might be extended with
-> some kind of debugging in the future, so I prefer to keep the current
-> code here.
+This series improves error handling in several parts of the MT8188 AFE
+driver.
+Propagate errors from clock, regmap, and runtime resume operations,
+remove redundant probe error messages, and fix clock cleanup on
+registration failure.
 
-Fair enough. kernel/dma/mapping.c is untouched in v2.
+Compile-tested only.
 
-include/trace/events/dma.h is not covered by the DMA MAINTAINERS entry,
-only by TRACING, so v2 has Steven and Masami on To as well.
+Best regards,
+Phuc
 
-v2, tested this time rather than compile-tested only:
+bui duc phuc (7):
+  ASoC: mediatek: mt8188: mt8188-afe-clk: Propagate clock initialization
+    errors
+  ASoC: mediatek: mt8188: mt8188-afe-clk: Handle tuner clock enable
+    errors
+  ASoC: mediatek: mt8188: mt8188-afe-clk: Propagate regmap update errors
+  ASoC: mediatek: mt8188: mt8188-afe-clk: Handle clock enable errors
+  ASoC: mediatek: mt8188: mt8188-afe-pcm: Handle runtime resume errors
+  ASoC: mediatek: mt8188: mt8188-afe-pcm: Drop redundant probe error
+    messages
+  ASoC: mediatek: mt8188: fix clk leak on error in audsys_clk_register
 
-  https://lore.kernel.org/linux-iommu/20260907120124.603373-1-donggeunyoo.kernel@gmail.com/
+ sound/soc/mediatek/mt8188/mt8188-afe-clk.c    | 115 +++++++++++++-----
+ sound/soc/mediatek/mt8188/mt8188-afe-pcm.c    |  34 ++++--
+ sound/soc/mediatek/mt8188/mt8188-audsys-clk.c |  12 +-
+ 3 files changed, 113 insertions(+), 48 deletions(-)
+
+-- 
+2.43.0
+
