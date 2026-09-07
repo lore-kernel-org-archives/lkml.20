@@ -1,185 +1,102 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82312503BD2
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 15:23:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099D227057D;
+	Mon,  7 Sep 2026 15:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794596; cv=none; b=T++xshN/YUIbnUUMRFcbOM85Hdo3rSpgvLWiau5A0PludhRU6sBhV9h4PtclxWuJfZ2M5+Rsiv97bf1KchRNAE97lkeftcKZMo50ZkPVLYK3XW66cKQwY+Mict5be4YmOx0CAHhSywZcJovNCr56GTTZbTUhL/4ZzUkJFrG9tjc=
+	t=1788794651; cv=none; b=qAb7vzDcrJKHDm9NiKfbHZxMseipEH7rvaP+ItiuCe5hKS+ky3SsVSsAuEAJqx81jlkaOc7j0cdPFoydVqJ0TLN116PosGuWsXmdg3AAXslTjgV1WfLmM4VzKZor0btx7Lk0Rd44sBen4mVWAlTiDfz2otVl52iM3w/YbhIQImU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794596; c=relaxed/simple;
-	bh=dq6QOnsULa1GJAx3h1sZHwK3pgAlPPHl5DxoXUXImkg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LyDkUkDfvIc72l7Z7m73VC5z/dXYlL3nZi6A2rJ5i+X+EXyCI+L1FB3seDVd7guqK3Ix1wmcpXO4s+5ZdpZBczVNTtEjwLYqEa/ty5qBclN8ocqgyPF8PcUg/2JTBJGmbH7AAtvGDuB1ZseYjQxJDTXw0NgLCactYb75xP9sLOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bw+//27Y; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788794651; c=relaxed/simple;
+	bh=GTuBLuN4JOqWdZd1Mu3f0IP0dpVMTxxsE0i4r7IPbms=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LhrimGEL7yzoEVALjTLrOmJxch03r47sEVlyYB9jIJHZbrm2njx0PRxGzzD5Unsa2c7kk45NfhK/Cz/CeWvFEnmnfOv0UDuET7EzQsm/PEnd5hz8itd0X1whMUPEICUTYwzNygc7CngM2xt+bsl1+toLIfp8P2UsSBF2o9r/1X4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGLDhRNt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bw+//27Y"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e4998d28so2930305f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 08:23:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788794592; x=1789399392; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HuBDL/aaH1UR1BM5pkVKYW965YZzYu0aSLt8mFhBVfw=;
-        b=Bw+//27Y15r/tZ1YTFGV7ja5GQsBZAlE2n239M4eREPHsYH9HILVZvTu4Z7zCpKhf2
-         D9Rl4Ji+GukU1S7lJ5idgPNY4nViO4/iEN3lBqv9JWRGJ+vpdwtaEBxinaauIlFAYosK
-         c/6l2yLhzszddafnaNKtT4hQ/gn42DsGA818uBizud5abyzmoDPLtIbyOvqCJqh1tP3+
-         P1RaOZNkNtaUFn6WzZmHXAD288Yx1B2J1A6nO+kCasvc5qyCUw3U82l7ds8qNoIw8BdM
-         Sc2c+j6uXi0R7MjKRzZb3YDOpWG85BYQCdZk9pRnxM52nCFVp1N2xava/MSxLUekPWrA
-         WXIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794593; x=1789399393;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HuBDL/aaH1UR1BM5pkVKYW965YZzYu0aSLt8mFhBVfw=;
-        b=Ul1EdjuzaJaEAXLow+BMXA6wQMqA2NjsZ8JpvmtJlBBehil55iVM7eS7Phr0eeDK4j
-         2OWKplQ6L650MMcqenFRQ8nmMK4QT3xR/I5SzZHyCI9JGAMEFsGCBuor6K2QWv39dHg+
-         lPIF6GuaMnGDN8INyoFLf12aQZuCpVdeh+mSLPFREaOvJ7WK5caoBuPdVagJHvFS0Mwp
-         REkpibct5A0hWvJw2edrx+nPfy2S2Wm8M7EUXyjnFRW2BD3PknRDJQFdbJm0sAuX+40a
-         UYb0reGrxVejVslxgn0tgTI05jBV1phG572IgmDV1gWU56FejS2AJ8HgG7EHLUbgESe5
-         D51A==
-X-Forwarded-Encrypted: i=1; AKwUvBzkDHmBdYdYiNS3kpZqrcWcr+1fGW0ipdNtBZUkIc67PoFUcaaIbBEe8X5QCQSAKX00myBmmemgbF2InYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwkBb+EjsiiUFQMphNoGaX2OadEj0sXs+tZJGFy8ua/8YPdcxI
-	DUsSJO2yQOXbEVe2safPpFcBzHdqqc33wz8k24qxCLQg/cRR5t0YIE9g
-X-Gm-Gg: AYBFou2Eae+k0TkkLgFY4distEmncFHtZOYjoiiS3w/Jv8JWpOAmoGQIFWM563CmYLq
-	eLdPKSObd5NrhNef7KQ2/OudbFtCxJ7DwGhqFnMqchy9vvX/qgxsKw7vJOL+NN0D+v/jnm8UeSd
-	3FV7RG5y4nKd9dOfh73jXaERxIdYxNzvvQqMSZQGvST3JJZ4IWX9l7r5w5YoOpAVUzxfpC+cqVY
-	Lx7F95k3ejkBpC/TZtgv8TQ+tVuQ0V+6760GieonnyA8C/+fa6eMaNY/YlK2wdP/u1O8JVhXxrv
-	V05VhusaRvNtf/Rh17LPvs/xtxOiiJ1+G3exHEtke3REFCV20SZ6xBSjaa4l/1MTCO9jEOhcMT9
-	1C056l50dCrE23lpiModyxlrvxliujEpv/xYTToKzPVaym+LB7JwkcclZavr4qkO7MoTwEkv0gB
-	4C0eoWbTagHqqTSLuvo5KNT3rh9Kx4dMfxBxpUzW1ObAYOeTbxsaWRgRuLINXbKCA2DDh9ba3oC
-	1EmuqBpH3bnwvCoqiuOlL1qbbI5z6kgAjx2beqeykTxfIiHR5dm
-X-Received: by 2002:a05:600c:8b25:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-49cfc6ea704mr211565355e9.25.1788794592561;
-        Mon, 07 Sep 2026 08:23:12 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm413785375e9.4.2026.09.07.08.23.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:23:12 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: [PATCH v3 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Mon,  7 Sep 2026 18:23:04 +0300
-Message-ID: <20260907152304.4992-2-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907152304.4992-1-flaviu.nistor@gmail.com>
-References: <20260907152304.4992-1-flaviu.nistor@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGLDhRNt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41A51F00A3A;
+	Mon,  7 Sep 2026 15:24:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788794649;
+	bh=XJq6pvnPJHRY0KLfPMgxtLcYaufXaCJJ6tr4Hi7QX3g=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WGLDhRNt4nRE4aE9ezf3Tni8/D/RqTrv1a6R29B8mOCPBobKtLb9zo5/lK9jOjLby
+	 Mt4b+OTtv8ryjM1qaIQNB89XPtXya1ta6ZulDgDK7CZJop1+wfVILgwIO3MqgD0ub6
+	 woXVtkapsHft7cjq4J3BuccCWv8KHf7zjuA5/xTBYuXfEE+WJOA8yR4/nvlQU3UiEM
+	 192hBNaTqr0SEDWxCJp1XYE5GT46/0RvbwyqZe9w4gnxhfWbzvxx6FliXBykjqnrn7
+	 FdefVRyfxMD1toYikoM7IQ+k7OLpz+ysg4cSsUclLwo4MsyZ1HbMyg2bd31iW24wEz
+	 2kqUMw1lREm2w==
+Message-ID: <4468d220-9d7f-47d0-8e5c-c01070ab2d47@kernel.org>
+Date: Mon, 7 Sep 2026 16:24:05 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next 2/2] bpftool: Reject non-autoload programs for
+ light skeletons
+To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
+ Leon Hwang <leon.hwang@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>
+Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+References: <20260904031912.2133476-1-tweek@google.com>
+ <20260904031912.2133476-2-tweek@google.com>
+From: Quentin Monnet <qmo@kernel.org>
+Content-Language: en-GB
+In-Reply-To: <20260904031912.2133476-2-tweek@google.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add support for label sysfs attribute similar to other adc devices. This is
-particularly useful because the label can match the schematic signal name,
-identifying channel voltages easier if label is defined via device tree.
+On 04/09/2026 04:19, Thiébaud Weksteen wrote:
+> When generating a light skeleton (bpftool gen skeleton -L), there is no
+> libbpf runtime object or bpf_program__set_autoload() API available to
+> enable/disable the autoloading of programs. If a BPF program in the
+> object has autoload disabled (e.g. via SEC("?...")), bpf_object__load()
+> silently skips loading it. bpftool still generates struct bpf_prog_desc
+> fields and attach functions in the light skeleton header, leaving
+> skel->progs.<name>.prog_fd uninitialized (0).
+> 
+> Explicitly reject non-autoloaded programs when use_loader is true with
+> an error message, preventing the generation of broken light skeleton
+> headers.
+> 
+> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
+> ---
+>  tools/bpf/bpftool/gen.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
+> index a50540ef6521..1583150241c8 100644
+> --- a/tools/bpf/bpftool/gen.c
+> +++ b/tools/bpf/bpftool/gen.c
+> @@ -1340,6 +1340,12 @@ static int do_skeleton(int argc, char **argv)
+>  	}
+>  	bpf_object__for_each_program(prog, obj) {
+>  		prog_cnt++;
+> +
+> +		if (use_loader && !bpf_program__autoload(prog)) {
+> +			p_err("program '%s' is marked as non-autoload, which is not supported for light skeletons",
+> +			      bpf_program__name(prog));
+> +			return -1;
 
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
----
-Changes in v3:
-- Return datasheet_name of the channel in user space if label is not present in dts. 
-- Link to v2: https://lore.kernel.org/all/20260902172230.5234-2-flaviu.nistor@gmail.com/
-Changes in v2:
-- Implement changes suggested by Andy Shevchenko. 
-- Link to v1: https://lore.kernel.org/all/20260901184302.8127-2-flaviu.nistor@gmail.com/
 
- drivers/iio/adc/ti-ads1015.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Sashiko is correct, at this stage of the function, rather than returning
+directly, you'd need to "goto out".
 
-diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0fbfa4e499aa..7ad03fa2253d 100644
---- a/drivers/iio/adc/ti-ads1015.c
-+++ b/drivers/iio/adc/ti-ads1015.c
-@@ -233,6 +233,7 @@ static const struct iio_event_spec ads1015_events[] = {
- struct ads1015_channel_data {
- 	unsigned int pga;
- 	unsigned int data_rate;
-+	const char *label;
- };
- 
- struct ads1015_thresh_data {
-@@ -586,6 +587,22 @@ static int ads1015_read_raw(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads1015_read_label(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan, char *label)
-+{
-+	struct ads1015_data *data = iio_priv(indio_dev);
-+	const char *name = data->channel_data[chan->address].label;
-+
-+	/*
-+	 * Avoid printing "(null)" in the console in case label property
-+	 * is missing for the channel, or channel is not defined.
-+	 */
-+	if (!name)
-+		name = chan->datasheet_name;
-+
-+	return sysfs_emit(label, "%s\n", name);
-+}
-+
- static int ads1015_write_raw(struct iio_dev *indio_dev,
- 			     struct iio_chan_spec const *chan, int val,
- 			     int val2, long mask)
-@@ -843,6 +860,7 @@ static const struct iio_buffer_setup_ops ads1015_buffer_setup_ops = {
- static const struct iio_info ads1015_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- 	.read_event_value = ads1015_read_event,
- 	.write_event_value = ads1015_write_event,
-@@ -853,6 +871,7 @@ static const struct iio_info ads1015_info = {
- static const struct iio_info tla2024_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- };
- 
-@@ -861,7 +880,9 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 	struct iio_dev *indio_dev = i2c_get_clientdata(client);
- 	struct ads1015_data *data = iio_priv(indio_dev);
- 	struct device *dev = &client->dev;
-+	const char *label;
- 	int i = -1;
-+	int ret;
- 
- 	device_for_each_child_node_scoped(dev, node) {
- 		u32 pval;
-@@ -897,6 +918,15 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 			}
- 		}
- 
-+		if (fwnode_property_present(node, "label")) {
-+			ret = fwnode_property_read_string(node, "label", &label);
-+			if (ret) {
-+				dev_err(dev, "invalid label on %pfw\n", node);
-+				return ret;
-+			}
-+			data->channel_data[channel].label = label;
-+		}
-+
- 		data->channel_data[channel].pga = pga;
- 		data->channel_data[channel].data_rate = data_rate;
- 
--- 
-2.34.1
 
+> +		}
+
+
+Thank you. Maybe consider adding a word about autoload/non-autoload in
+"bpftool gen" man page? My concern is that users who are not familiar
+with the notion will struggle to understand the error message.
+
+Quentin
