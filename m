@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B2751E444
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EDE51FCA5
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799432; cv=none; b=myers/ecZ0q3YagUuWuWeU3nf9OV+LklwSy41BAaRvuuT6v4q/HixVyc/7/nluymnjtBYL6+UNm5zoFUBf6JkKAN3MYAuTPzslqKiRK2Oo9sz8CYrXfcSI9k1cHC7UgAkohh+YWT9J7bookk5gENn2tVaGqAqfGAKWZ6RbDfihQ=
+	t=1788799436; cv=none; b=PhPnsbKvTjtE0J5snwqgpAaBj97AuSuuaduL7tc07NUTJq+qvP2FikC1fvK2BVGVtQkWdI+oCFa0Sry43EiVEU7eKV47tns8H7XxDEX7ZnNOvq8wh1RVAeQGM6Dk4EAAFED4ieFU+dS7oKLuEgs6zDuKcsGsmpPSZSuCygv5828=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799432; c=relaxed/simple;
-	bh=Te4DRSy4xtpWcqXZ88nRMIS+Kdm8FeBZqGLWgk+IODM=;
+	s=arc-20240116; t=1788799436; c=relaxed/simple;
+	bh=OjwrxO+Yb3VNhrFuMQv9vy/22rWY6qBRMH79RZf/xZM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=B2KquTu/WjSgDKDiUuc1yyejuliW639ycGBJOSeZIm7RLpgR79UcIzqNVfnhCZHK95gS88cf4azinxYAQMhjDKkqwu4mTp7cHgiWliImAzm2h5Argrh6f3srDZwdNvku3vUo/C4nLrAUX5eqWOoHbF5QNELMdwhK7W8V6NqbMuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrxXhU06; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ejnya2wV0eYU4Duavo9BCYSH4nGQO1IafchEKI3mWmCBCH+SIsF7QsGdcGpzUhCBDFXG9UW+0ZEB+OR1wXdyF2Cas5npDfe+UrURnhrjH43GKlLpqHULnIH/W7i0K1sG4cR9fiI7kUv+my27IOvASMnMt4zogM8SbtS12CJOe9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZoqkleTP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrxXhU06"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9795D1F00A3E;
-	Mon,  7 Sep 2026 16:43:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZoqkleTP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 014211F00ACA;
+	Mon,  7 Sep 2026 16:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799431;
-	bh=288+HAQJtG5VUtUXqsPB5v/Uwv9sAFZK9ElMT3/ktos=;
+	s=k20260515; t=1788799434;
+	bh=4B7ig5JOoqM/sFSoDwiMA77B2+r7GUXRB2lSds3AJ1E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GrxXhU06Oa0TvnY8YBCKujRY7bHLUC/gxIrBnOT95k66+ccDei5lUu2g7a20DIZB8
-	 qb0M86tduW0HvBxJkhxlBmb/byxZoaXasJOJ8mh6m0rfZItt35sMlwaOk9/DiJDHvi
-	 rLlB5nNiFCBtVHuOWUmhCB92RHNuYFJDt+qFioS0arHQiELQeZ3yQbE3Ah6RX4WR93
-	 RHNobZ8/EghVwtJPvnkgR0g3ei7GE1c5Lz01dwTEVUiE6aZtICBV57CZrqUVZjIArY
-	 hHlXbPilHMWGK3g9WITSJgcbYWUFddyRQUDY/6d0r9vT8QamNJ/VF4jdVQgGCe4Upu
-	 BKuQJ+sE6IzmQ==
+	b=ZoqkleTPnHZFWHuFBC5xHFyP3BP9O1hjKw2d5rYkM2MLLe3ztBAyg38Gruwde31aS
+	 jWJRkAiHsf7M7fxkT743JrzWBtbXc7avZ6a3lIOMUjP+4MUWi/DF+pYEn87+RJxXTR
+	 CbmjaGIyGsemrCX2J59wRJx953ODDyyNCEvjMNyYdCBvbQztdnNuzYh1AEnN8cuzbI
+	 XZluHaDSekTuobMXbIG7FeQkQUliobvqTwa8p49dDI2DkKbphNiqxzhHMudrp6w1Dd
+	 lwTb+jrLO3mkW7qape3i59DZkmdj5UVmLv50Mp27xt6I8D9KttLFsOBPcEmpnD1dAZ
+	 3+xisjdqBFSuA==
 From: Will Deacon <will@kernel.org>
 To: linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
@@ -42,9 +42,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Oliver Upton <oupton@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Marc Zyngier <maz@kernel.org>
-Subject: [PATCH 15/21] arm64: entry: Point SP_EL0 at the overflow stack
-Date: Mon,  7 Sep 2026 17:42:40 +0100
-Message-ID: <20260907164247.17223-16-will@kernel.org>
+Subject: [PATCH 16/21] arm64: entry: Implement EL1t exception handlers for overflow stack
+Date: Mon,  7 Sep 2026 17:42:41 +0100
+Message-ID: <20260907164247.17223-17-will@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907164247.17223-1-will@kernel.org>
 References: <20260907164247.17223-1-will@kernel.org>
@@ -56,75 +56,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With SP_EL0 now available for use in the kernel, point it at the
-overflow stack so that exception entry from EL1h will later be able to
-switch to the overflow stack by writing to SPSel.
+In preparation for using EL1t to handle exceptions taken whilst running
+on the overflow stack, implement some simple wrappers around the EL1h
+handlers which perform a best-effort stack overflow check before
+proceeding.
 
 Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Will Deacon <will@kernel.org>
 ---
- arch/arm64/kernel/entry.S |  2 ++
- arch/arm64/kernel/head.S  |  3 +++
- arch/arm64/kernel/smp.c   | 12 ++++++++++--
- 3 files changed, 15 insertions(+), 2 deletions(-)
+ arch/arm64/kernel/entry-common.c | 43 +++++++++++++++++++++++++++++---
+ 1 file changed, 39 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index a45be0a837c8..6958ee238649 100644
---- a/arch/arm64/kernel/entry.S
-+++ b/arch/arm64/kernel/entry.S
-@@ -227,6 +227,8 @@ alternative_cb_end
- 	mrs	x21, sp_el0
- 	ldr_this_cpu	tsk, __entry_task, x20
- 	msr	tpidrro_el0, tsk
-+	adr_this_cpu	x19, overflow_stack + OVERFLOW_STACK_SIZE, x20
-+	msr	sp_el0, x19
- 
- 	/*
- 	 * Ensure MDSCR_EL1.SS is clear, since we can unmask debug exceptions
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index c33551ee6572..27a19e1a0ee6 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -210,6 +210,9 @@ SYM_CODE_END(preserve_boot_args)
- 	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
- 	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
- 	set_this_cpu_offset \tmp1
-+
-+	adr_this_cpu	\tmp1, overflow_stack + OVERFLOW_STACK_SIZE, \tmp2
-+	msr	sp_el0, \tmp1
- 	.endm
- 
- /*
-diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index 702dee8d0db5..4c122d6598de 100644
---- a/arch/arm64/kernel/smp.c
-+++ b/arch/arm64/kernel/smp.c
-@@ -51,6 +51,7 @@
- #include <asm/processor.h>
- #include <asm/smp_plat.h>
- #include <asm/sections.h>
-+#include <asm/stacktrace.h>
- #include <asm/tlbflush.h>
- #include <asm/ptrace.h>
- #include <asm/virt.h>
-@@ -448,8 +449,15 @@ void __init smp_cpus_done(unsigned int max_cpus)
- 
- static void __init set_boot_cpu_offset(void)
- {
--	asm volatile("msr tpidr_el1, %0"
--			:: "r" (per_cpu_offset(0)) : "memory");
-+	u64 ovf_sp = (u64)raw_cpu_ptr(overflow_stack) + OVERFLOW_STACK_SIZE;
-+
-+	asm volatile(
-+	"	msr	tpidr_el1, %1\n"
-+	"	add	%0, %0, %1\n"
-+	"	msr	sp_el0, %0" /* Update the overflow stack pointer */
-+	: "+r" (ovf_sp)
-+	: "r" (per_cpu_offset(0))
-+	: "memory");
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+index 72c03ccea59f..9738142780df 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -327,10 +327,45 @@ static void debug_exception_exit(struct pt_regs *regs)
  }
+ NOKPROBE_SYMBOL(debug_exception_exit);
  
- void __init smp_prepare_boot_cpu(void)
+-UNHANDLED(el1t, 64, sync)
+-UNHANDLED(el1t, 64, irq)
+-UNHANDLED(el1t, 64, fiq)
+-UNHANDLED(el1t, 64, error)
++static void noinstr el1t_64_check_overflow_stack(struct pt_regs *regs)
++{
++	unsigned long sp = kernel_stack_pointer(regs) - sizeof(*regs);
++	unsigned long ovf_stack = (unsigned long)this_cpu_ptr(overflow_stack);
++
++	/*
++	 * We're in big trouble if we've overflowed the overflow stack
++	 * so perform a best-effort check before we proceed. If our SP
++	 * is outside of the overflow stack for this CPU then presumably
++	 * we're already corrupting memory, so park ourselves here in an
++	 * attempt to contain the damage.
++	 */
++	if (sp < ovf_stack || sp > ovf_stack + OVERFLOW_STACK_SIZE)
++		cpu_park_loop();
++}
++
++asmlinkage void noinstr el1t_64_sync_handler(struct pt_regs *regs)
++{
++	el1t_64_check_overflow_stack(regs);
++	el1h_64_sync_handler(regs);
++}
++
++asmlinkage void noinstr el1t_64_irq_handler(struct pt_regs *regs)
++{
++	el1t_64_check_overflow_stack(regs);
++	el1h_64_irq_handler(regs);
++}
++
++asmlinkage void noinstr el1t_64_fiq_handler(struct pt_regs *regs)
++{
++	el1t_64_check_overflow_stack(regs);
++	el1h_64_fiq_handler(regs);
++}
++
++asmlinkage void noinstr el1t_64_error_handler(struct pt_regs *regs)
++{
++	el1t_64_check_overflow_stack(regs);
++	el1h_64_error_handler(regs);
++}
+ 
+ static void noinstr el1_abort(struct pt_regs *regs, unsigned long esr)
+ {
 -- 
 2.55.0.979.g7e5102b832-goog
 
