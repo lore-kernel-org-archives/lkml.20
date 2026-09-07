@@ -1,74 +1,57 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010052.outbound.protection.outlook.com [52.101.46.52])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB9C2512C8;
-	Mon,  7 Sep 2026 06:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761461; cv=fail; b=PfZIuRrgf5m2z641pBwvRUvsjcLIdXZI9ZmQCUo9byhCbOZBlkwYuChsm7K7EsYxPVPpH23zxFr0VIsHqMcVrMyk/bzc6yNH/MQpbljvDORKfm4uAKGilrCteQyADKlDu2q/U6qMeLn+EPTPNSeS5ckzZh7O8jk3l9z8lNCj9/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761461; c=relaxed/simple;
-	bh=ghP37LM/uP+412tuzi4Dl7xqXWdxunAZdbVrWBD2SrU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832A13911AB
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788761487; cv=none; b=dYQ3lCcaEPaGsQSM87+v7rMk3j/yn29geZDOB7WVidUTeCiN85QjWFrEZ3rMues7V1FgGxwCZYrjWMgdolvsFK1Hg+MD+v4IrqueV5z/iFw5yaqfQ3y6VTTsz10+d5XF8KBMJu53I0LwThUkrbx7KqtR8nmpODDe0sj7JUL12Nw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788761487; c=relaxed/simple;
+	bh=jB+ebFbADzlSI72ORPu6wrGCP4ibrPE5oB6j8vV8kNw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DJhzNKDd7lNwH3z3tNOYR0qtuGt3u50IGXoZinVxwoALqo1/Fcn8bZnWi3pb1pxAYBDHqHGJUmFCRcwnVOhXcyqXZdKVjVXKrfj8AN0z3fVnDfNw//6Ahve5DTCbz26OCadzFo9MtCNBpYTlq2j2k9HrbvT5ZoVKjppXJA9CXtM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com; spf=pass smtp.mailfrom=gehealthcare.com; dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b=PCFGUYTD; arc=fail smtp.client-ip=52.101.46.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gehealthcare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gehealthcare.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=te3vr6wtB17rMdd0VysGNsj9ldV9pEugUBbWekhHod7iF6eRLGQd+fJLcAVjHHQr8AJc+skcGTA/6vL8r9wbjApI22j0kksgPPVBW2A79dNjAYEAkzm7S37IBgaZoDjaHO/xqHQO8JczMDLbbMB+gLc1YZFKspFtHWfugcMO2dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVs8Xu5r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gehealthcare.com header.i=@gehealthcare.com header.b="PCFGUYTD"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wlwce6byimiYKA7ws8PylAk3A0W5eO7AuQQ8utKQQwml/NUIqzeU5Czp3i63fP4XYTuDUxEmvRSdD0QpMHxySrnf7DALaAXovo5RtjkhgQFbOGgKLtLbqFVUcqZ2Y8dwRfeiSiAzmkgySJ386KDsRbRj0x0xpBnoJxndcXjl6DJJ7ZF8eoNFx79LjeN9f0LRmrXIVlNe/rsa2uIiZdXUEzfmNoUviLqhjp4iBhBvsUqiyLt/v+PzARVE+p/mw6KHbn1WPuvotESKDajv423DEElbtTo7fjxWoS5krAJtLZaO8ALgGNU/cOxmjJIubC4FtGdE+dpP+Ld3b8XYMP9jyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PIGz7hkh1JLUWmN8+M5d948EhmjRlHePmb+QrUM2OXo=;
- b=f+CgPQSUv4fnbomptfT+18uUWdbtIVDCt9KnzmVMLbIWMucjkyhMAdB+mZM40VB4Y+GtPRhRzSEdWo4o/acGzEJvTN4cDpe18Kh7z6/NU/41WYcXUL24m6/Wrvk3Ri5HH1OYXJPqUSJv0zqRLjBiMj+XkY4MrVrCnFx+Eb0rqoLp0jooMlNEkRguQi3wgCrF1VM7EKyrKruIr7MBExr7toL8v6lxxDRkmjnnGkHu2vE0ljdHLyyUCnzWswt0NFwbRbqtMyRBxQqdFBQeBdHGBxDfFgl6zWvAH+ShZtBbn1RTudp3UTTi6s63RaFgXwIvY6Xzdk4vgSWLIvBY1zi+ag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 165.85.157.49) smtp.rcpttodomain=vger.kernel.org
- smtp.mailfrom=gehealthcare.com; dmarc=fail (p=quarantine sp=quarantine
- pct=100) action=quarantine header.from=gehealthcare.com; dkim=none (message
- not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gehealthcare.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PIGz7hkh1JLUWmN8+M5d948EhmjRlHePmb+QrUM2OXo=;
- b=PCFGUYTD+pdAIUc+ZlrepynhgpGPfq4eEcfPIW5c/U1LLqa70e10Z2YZzkyk+2a5v/Z3D4993OPDaFxKI4Ycri5NB7bvQHEtQPZtRbVODE1ZBf1IbKKpyotB2t7p5vEFm6FCIj24re+8feBHDv5Ch9txI9Vc0gcK+X5i5LHjihAuQxesYkL2TyWpF7exJM+UMasq/9+8hkqTIrfY6uYxEBGPcviibZFgV61GEB4pohlAdnJ7jJFvzphkfVuTncDqFkoR8Ja59ibLogRuZDAc+EPAXqLp5Xft0zhPpVPWShQ+xumQhZt2yDy+eqApiGFlGxYTDnzdu9bsFpSUPenUNw==
-Received: from SN7PR04CA0003.namprd04.prod.outlook.com (2603:10b6:806:f2::8)
- by BL1PPF71FD9CFFF.namprd22.prod.outlook.com (2603:10b6:20f:fc04::f31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 06:10:58 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2603:10b6:806:f2:cafe::4d) by SN7PR04CA0003.outlook.office365.com
- (2603:10b6:806:f2::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 06:10:57 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 165.85.157.49)
- smtp.mailfrom=gehealthcare.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=gehealthcare.com;
-Received-SPF: Fail (protection.outlook.com: domain of gehealthcare.com does
- not designate 165.85.157.49 as permitted sender)
- receiver=protection.outlook.com; client-ip=165.85.157.49;
- helo=atlrelay1.compute.ge-healthcare.net;
-Received: from atlrelay1.compute.ge-healthcare.net (165.85.157.49) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 06:10:57 +0000
-Received: from zeus (zoo13.fihel.lab.ge-healthcare.net [10.168.174.111])
-	by builder1.fihel.lab.ge-healthcare.net (Postfix) with SMTP id 25E00E4DB;
-	Mon,  7 Sep 2026 09:10:55 +0300 (EEST)
-Date: Mon, 7 Sep 2026 09:10:54 +0300
-From: Ian Ray <ian.ray@gehealthcare.com>
-To: budcomfort <budcomfort@pm.me>
-Cc: "linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"jikos@kernel.org" <jikos@kernel.org>,
-	"bentiss@kernel.org" <bentiss@kernel.org>,
-	"buingoc67@gmail.com" <buingoc67@gmail.com>
-Subject: Re: Dell Latitude 7220: eGalax P80H84 0eef:c003 factory passive
- stylus not detected
-Message-ID: <ap5VbrllY_qDf_Y2@zeus>
-References: <62t8PiydnEWbOsSM0byy1IRKtFwxg7nfDZUtsgbE_1liuwRpKtyKZYsYwOe52IZ--zdy1QJg11p8u13QajhgH25DexN-Fx71z5TSlcLE6Mw=@pm.me>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVs8Xu5r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6B1D1F00A3A;
+	Mon,  7 Sep 2026 06:11:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788761486;
+	bh=P3dmwjKWC6Wefq3ZCIghBfeiIweYofYEsPr73KhRS2U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lVs8Xu5rqDz7930qIA7wlWJw7qb10AZRIm5YTTMxjRCX2t4BjgpcgVLZXPFoE2zuV
+	 4M9SQHuqpn/loOucuyWXztqjFxihFRGD56lGccTw/1aKzhqr+FH50miDZnNnJJTcge
+	 hrFj1FJ/PnBupIUwR4OzjlZwAhRsQglnRhNbbhTtDkDe+eoDZPXiFLVvXUzM7f8S27
+	 KEdQ1IhnCiQ0qOmOch6tMR0gQjP7UBAb1uLBnTN5/9d2zn7ISWoLN9N/5bnBQKWNjQ
+	 tkjFcPJIC12n54uQoRw8+/rW2Oom44GLwphExcwF37vyG8s3lzkoYshwdmTmvDwhXs
+	 KhuinYov4BKRQ==
+Date: Mon, 7 Sep 2026 09:11:18 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Eli Billauer <eli.billauer@gmail.com>
+Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	David Laight <david.laight.linux@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+Message-ID: <ap5VhownyptYcTw9@kernel.org>
+References: <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin>
+ <apaF1HUtJnstuUN4@kernel.org>
+ <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
+ <apcPg_y-HsMki7we@kernel.org>
+ <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
+ <apgSCyj-h2xVc2ss@kernel.org>
+ <1d7f8806-f4a0-fda0-a361-a011460ef308@outbound.gmail.com>
+ <3c19c24f-5036-4bbe-b3af-e5eae102f34a@kernel.org>
+ <49245a34-cc56-736e-b2b4-168c2a0b1df7@outbound.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,42 +60,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <62t8PiydnEWbOsSM0byy1IRKtFwxg7nfDZUtsgbE_1liuwRpKtyKZYsYwOe52IZ--zdy1QJg11p8u13QajhgH25DexN-Fx71z5TSlcLE6Mw=@pm.me>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|BL1PPF71FD9CFFF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7541ac12-c8d4-4a5e-ea0d-08df0ca6c887
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ijeH0skEWzmrCG8kNEwP0Pf6Fb7ohXvKkRAtUaD/Ik2Dhb0Dw4BzPWyEyoCmSF1sLXhf1Ie6bd9wHLnCFNXyfOoUNMVo+JaBvohFVFvrclxXjjZmayimpBINLKZt9YXNf6SbsM9Ozv2Ff8T63+ckFUDu+F19wDGKaWq7BGboRyauvg5EXc0wLbyOXWP6vxQP7+9fCawNKHVqM30x4rDAqWQHX0Wl0tD5mK5mGr2C3jrW3fZ567CxRG2WeshnsL7ebqLbq+bTlcUD6TK09EYritUmrB+oUcgJ+d8txUvYocjALFsyoAzozLMpElEadwWT+PUl/wZjXBS8JHvPlSdRblbgxr4oRNer0SyBJN+stAZoax89GcFLSz/ajzzbTp1ZVc68iKwPbcp5dW8g22Yr6y3t8hiJr7Y65gWWGE7ripnYhLz2IRE5qnWn/4plNHMYbuNP+7nnaF9OAG85n/HOp7ovKiHByGvdkI9apRGquMAUKuhU4s/DcdH5G9g3kV3e1lCNmmmNPjmEwqP8pqC4poiINM1uPj9iWIaimO9f5GrIf5x5/kJWUaTdpWXbSIZEGb5NwZhYbUf+gQljm5x+pjkU/WQ8esu8WtvrCXtDHUb0qnLzB+YieJiE5tRGIesZdGkMrdLNS8CZirpgCcxHnrU4cAxCeeuuoTsRMHze33gzRNTO6kSmo3BXU9fDDI5UxdTC2G8nMWDNymnECyHczg==
-X-Forefront-Antispam-Report:
-	CIP:165.85.157.49;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:atlrelay1.compute.ge-healthcare.net;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	XG+SifmIKPn7/V9Ry98QBN655eV/fHTAwJJdjtwtndxoIGmeO9H1BQT+7l/emUbGVNMMdpHm/0IJZFzpVzrWcBLmSJc4cpC0t2Yim+MUoW9+S8WHAU0XKNd2URBCNUhGZX0UDmjKoBAl8NjOJtHx8NoqTa0/SXmQqbONlGQtxoAjWQFEy3oRC1Yq5O5GX9KE9KjOq6orixfrluaeXAKOg9VA0p1b7f4bSGGGPy1YMMFs4DDLZXnmtFmVjn2/480UBLeGcDTlcWnYmYmaKmwStvGuuiX4c7gawRp1pnPEjVn4zD9MxoW/N27HASqk64pAbjAjs6yFIhtmMJr1ymt9VS5H2/Y+odYXj/yCx/62zto+MmAINA2/1hGUpeKbl36tAmtwiCWy4TkytP88HLL3je/IaZLVvidFsdXL4VgcnJKqoqFEorwYeM051uFUd5iF
-X-OriginatorOrg: gehealthcare.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 06:10:57.5685
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7541ac12-c8d4-4a5e-ea0d-08df0ca6c887
-X-MS-Exchange-CrossTenant-Id: 9a309606-d6ec-4188-a28a-298812b4bbbf
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=9a309606-d6ec-4188-a28a-298812b4bbbf;Ip=[165.85.157.49];Helo=[atlrelay1.compute.ge-healthcare.net]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SN1PEPF000397AF.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PPF71FD9CFFF
+In-Reply-To: <49245a34-cc56-736e-b2b4-168c2a0b1df7@outbound.gmail.com>
 
-On Fri, Sep 04, 2026 at 01:53:54PM +0000, budcomfort wrote:
-> Hello,
+Hi Eli,
+
+On Fri, Sep 04, 2026 at 05:29:16PM +0200, Eli Billauer wrote:
+> On 03/09/2026 16:28, Vlastimil Babka (SUSE) wrote:
+> > > Replacing it with a kmalloc() is confusing in my opinion, and requires
+> > > that the reader is aware that kmalloc() falls back to __get_free_pages()
+> > Why? The reader has only to know that kmalloc() will provide such a buffer
+> > (up to sizes that the page allocator would) and whether it falls back to the
+> > page allocator or not is an implementation detail.
 > 
-> I'm trying to determine whether support for the eGalax P80H84 0eef:c003 used in the Dell Latitude 7220 Rugged Extreme is a known issue or is currently being worked on.
-> ...
+> When I see __get_free_pages(), I automatically assume there is some ugly
+> low-level memory management going on, which is exactly what fifo_init()
+> does.
 
-Hello there,
+However you allocate memory, there will be some ugly low-level memory
+management underneath :)
 
-Sorry, this is not something I am working on.
+> kmalloc() feels like something you use more for allocating memory for
+> a struct.
 
-Blue skies,
-Ian
+For that we have k[mz]malloc_obj() now...
+
+> There is no such rule, of course, but this is my subjective view on these
+> two functions.
+
+... and using it to allocate struct is becoming a rule pretty much.
+
+> As I wrote earlier, this is a matter of taste. Maybe it's only me
+> thinking like that.
+
+Let's agree to disagree :)
+I think it's more about using the right tool for a job.
+
+For your usecase I really think vmalloc() should work. Presuming you can
+spare 256MB for fifo buffers, the driver can only run on quite recent and
+decent hardware and memory rates there are way higher than 400MB/s.
+
+Even the slowest DDR3 is above 6GB/s, so taking a fault to sync page tables
+on the first access is really a non-issue.
+ 
+> And as I'm not the one deciding whether this patch is applied or not, it
+> doesn't matter so much what I think about this matter. I've humbly voiced my
+> opinion, and that's about as much as I can do.
+> 
+> Regards,
+>    Eli
+
+-- 
+Sincerely yours,
+Mike.
