@@ -1,78 +1,48 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4131B3B19
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF061C69D;
+	Mon,  7 Sep 2026 01:03:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742777; cv=none; b=Rw/qnoYYzQe6JSG9bQ26OW5Zs/29OHSnTOW02YMUHIHGpgJvdD0i2/xsysQUubqz6mkNOvMH7hmqleGkWEQSfhT2Q90o5rvyvLwADKNSbm8efLa1fZRnLA2eUilOYS2VVI5bTxYYJQCGrkhyxYVaavk/srstlf/dta9LR3GczH0=
+	t=1788742986; cv=none; b=a08zw+gG5RDZiO/a18V3IUHzUBkX96ZtRu/k+Yw+NkqL8AqgF5qZwD1iy9tVPLYb4aRCOpRQP1XjCDHGtH4NoiTw7oq26UqTvRVjqnRtdC9bmJL57XCa42t7OBDH+fMNHHnbdoheUJfiltDlD3p9YpYPcsinKzGzTt8/yzD85oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742777; c=relaxed/simple;
-	bh=0PXGBHSc1a175hQ+EqQtqP6z5/0CGy6l4ZJGVwUeaZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OA1hZdBhJDtoId2/JJaFgYVFsmV5ZBbDZV76DDZcIcPHQTz5kYbPZqWdffmE6ywrr9bwf8EsLF2sEAJoU/e2US8ouqIaXXOStvX5wIGlRABxAsHXGs8Hm35j1IjOR5sVtHWsWGahOTCUh7PCFpZTuKElm2KBh9ry5yaIA8Coe9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdU0MZ0Z; arc=none smtp.client-ip=209.85.210.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788742986; c=relaxed/simple;
+	bh=KKUPqOlYgJtU8/img3Am+mLwMd9fiVviOxLhsk1h2iM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Afj38v+OW/fxTZPTB1hbLI6USMsgihxO3w2eQKLGPtg1Xv52N9rmaO97h0rVtvA0QAU+qyZ7u3OoSVTurIYqVmwxbOTDzzlsvOaFUGpEO8eZv13bjhH8WoewlVYAmdNliI4KgAKi4p9LHIigo44sKpAslWx2cgQSuiu1frTJq+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SH5+PN5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdU0MZ0Z"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so2234820b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788742776; x=1789347576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3G2fpMnHxfT6KHZD6xOx0AGQFY9wvoJVYEba4PDrt34=;
-        b=MdU0MZ0ZwjxcloSfaZU+9WUBTowoqV7wHbCFInlm6PnZHhAvpI/8mOxrJjgCGqlllL
-         DDchiExwS7NIPwNL/fRkvwrUFklMgA/7+5Dll6n5Hws6wpaGdtoRfsLubl5J/h/xh1ln
-         12lLvQMjJewI772dJ1kqm0X32pR0i3Mx46lPrCGvWxzyBQZuHQYhPOg8NC+TN4qr5hNQ
-         CAeAmgpVoP4MkVGA8TTOUr5z/rlRgYyIEvu4U9mGoCMm/FlvTcQ2oLOc5gZ7nnFRvkLQ
-         N/cZ8KwdogOtwFtBMVEHqdD+v/tfG54alMiOtVsWBfixwvkJQCZEyYqgHyolROsMFC/L
-         Ggag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788742776; x=1789347576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3G2fpMnHxfT6KHZD6xOx0AGQFY9wvoJVYEba4PDrt34=;
-        b=V3reAtJxxbh+x1J48U3rzmHb0m9RfGJE633vtFR6IFA4Ua4AH0hjSt67sQT29EUc0O
-         w0J9ihPmEGiiyevFU5YBm9EfEZQ/To9E0A6QykBDkD5vmvLHyhPgJIX/j8ldzan1gwt7
-         86Nx6x/B0KYcONEw7THcQY4qsQwRCMr4vA+xiNMb9Hnhlbek5zl617iXz+0hczF4CfBD
-         5ciecJx3bgG6iHqJpwtZaTMT+uI//0fjlI3YoLVKHH2Op5Rz64QnuKhma6Uyn7SkXgOC
-         Tkex1vJtzrWGKYPuNXuNUdK9hkJiFAtaxGMzYStFdbzJG0hMD7Eqgdi3+FQhDAWLBGCt
-         ztkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbbas/1OfEYz2dYyscjqdoxAItwB+jbP5f6kdCBpm/MWV3T8agz+NxZxSRbbV1XJAIuSFbwbuBonCO4PA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6KZqNR+xts/I8DL5f+3zqZLcwzNHrCc/VcdRecLQVUPoh/psQ
-	BMdPT7jb1oIhcNDVvB5dBvR2AyuYFMMKVUVTmbn5E+PHxWk6ivGvjBC2
-X-Gm-Gg: AYBFou3dy2f6TSWp5eeu7BrZsC/xtNuirsU/WThN0/lUpgi5rk0e32qw/0S5r5wmPar
-	XQNTtWQ88uri1IRlkt/KHnNe0IYaSyWk1WExtyOh6/TYuXiE2fWS6LL11owxFITsJV9LrXTi2Lz
-	sK1vHnwx+ufzV7/eVUZdWUUHAD2FlY36QPax5ZucdRPL7A1P1Qb/9gQfDmvG0WNt/RBCrRGgyJr
-	omGW3mhM4Ro2+wn+AUMPtjCm060koT0VHsI3sFPuYZVGW8xJmk8BlIn7Hxs6KYSRKvfXYTxPxdJ
-	9gl+EJDeAub/ooiE5acdNznnaVpum39vaPDPu/jQzTYtNXG09UKnFtZvKerDAFMNX1VsIPgZtoY
-	mjQhlSdKS+DptnHk/hshcS6jjnqSmtqt0/VMfmQLZBZ7EUocslAE1s4eFGFfrzzsU1wMUv2MD+o
-	dfrl7vQVy1OK3JiJcCQOLxxrwfImQPaoaxM69e5WkPWDOrGekoUSf785hzkHo18fmwz90t+2ih0
-	UlMTeP+Mp8xTySLvq0VmXhDzvcN3vOQym1CtfmzYszt7cSpLiVB58WSMWma1GCv/tYh2WcXoe/s
-	mHwHhRi4NOQ3wHL8kfEHIDB+QmTrwrRgjwOWpg==
-X-Received: by 2002:a05:6a00:440f:b0:84e:b7ed:7d50 with SMTP id d2e1a72fcca58-861684928fcmr27242447b3a.16.1788742775744;
-        Sun, 06 Sep 2026 17:59:35 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-861527382f0sm3628242b3a.24.2026.09.06.17.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 17:59:35 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] ARM: dts: marvell: armada-388: use onnn,pca9655 compatible
-Date: Sun,  6 Sep 2026 17:59:33 -0700
-Message-ID: <20260907005933.230766-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SH5+PN5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D021F00A3A;
+	Mon,  7 Sep 2026 01:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788742985;
+	bh=tSiNKOaWd0kGE4TaHFC/6HH1cBqoq/AO1cl2Gv4B9jg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SH5+PN5gBql3y3sMMAONNdUGjgTWLzLElIeB9EHpSS6niDuTqA2UCS9nqLA2wYQ/F
+	 pAHmJTJe1UPXbwgZ3AUehpteuZcqBil7M3fmRfAOLPqg2WpYn1sSCoaDBD/aG3ggTj
+	 k0dU8WFN3x6vfGAcxjg9sm3l7ZiK11m9mske8QKrunMnvXb0L18dAPnpsJd6CDfWQw
+	 pLxI3YlqpPk/lC7Jzgu3t8tIMFBsqvwMlFK2rZXPykSQdfgylKlrT9klV1F6Qwr1gF
+	 SJWyW7vx+9nnUtL32F6yd5IUmPO00Z+IOfCcZwic2XcfXWOjeUJbAP6Tfjtth5EL1s
+	 zCsyCMda9vSUQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Steve French <sfrench@samba.org>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Enzo Matsumiya <ematsumiya@suse.de>,
+	linux-cifs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/5] cifs: Scripted clean up fs/smb/client/cifs_unicode.h
+Date: Sun,  6 Sep 2026 21:02:58 -0400
+Message-ID: <20260907010302.1949559-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026090324-defraud-tremble-b3d8@gregkh>
+References: <2026090324-defraud-tremble-b3d8@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,63 +51,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PCA9655s on the ClearFog and Helios4 boards are
-register-compatible with the pca9555, and the gpio-pca953x driver has
-matched "onnn,pca9655" in its OF match table since
-commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
-pca9655").  OF matching is tried before the legacy I2C ID-table
-matching that the old comment alluded to, so the restriction no longer
-applies.  List the real part and drop the stale comment.
+From: David Howells <dhowells@redhat.com>
 
-The I2C client is now named "pca9655" instead of "pca9555", but the
-expander is otherwise identical.
+[ Upstream commit 696ca7d95658224ba807813101d0d5714d1d8aa4 ]
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Remove externs, correct argument names and reformat declarations.
+
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
+Signed-off-by: Steve French <stfrench@microsoft.com>
+
+For the stable backport, drop the original header cleanup because the stable-only __KERNEL__ guard makes it conflict and the target does not touch or depend on those declarations. Instead, carry only a behavior-preserving local snapshot of mnt_cifs_flags in cifs_setattr_nounix(); the target patch refers to that snapshot in its new setuid/setgid condition.
+
+cc: Steve French <sfrench@samba.org>
+cc: Paulo Alcantara <pc@manguebit.org>
+cc: Enzo Matsumiya <ematsumiya@suse.de>
+cc: linux-cifs@vger.kernel.org
+cc: linux-fsdevel@vger.kernel.org
+cc: linux-kernel@vger.kernel.org
+
+[ sashal: Reduced backport -- upstream 696ca7d956582 touches 1 file(s), this
+  backport carries 1. Not backported here:
+  fs/smb/client/cifs_unicode.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: b8e5dc4f95e5 ("smb: client: clear setuid/setgid bit on write with cifsacl/modefromsid/posix extensions")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- v2: rebase so it applies
- arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi | 7 +------
- arch/arm/boot/dts/marvell/armada-388-helios4.dts   | 9 +--------
- 2 files changed, 2 insertions(+), 14 deletions(-)
+ fs/smb/client/inode.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi b/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-index f8a06ae4a3c9..4a61e9d1a2c0 100644
---- a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-+++ b/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-@@ -131,12 +131,7 @@ &i2c0 {
- 	 * 15-SFP_MOD_DEF0
- 	 */
- 	expander0: gpio-expander@20 {
--		/*
--		 * This is how it should be:
--		 * compatible = "onnn,pca9655", "nxp,pca9555";
--		 * but you can't do this because of the way I2C works.
--		 */
--		compatible = "nxp,pca9555";
-+		compatible = "onnn,pca9655";
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 		reg = <0x20>;
-diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 39b2d4fa742c..bf6d70e2078b 100644
---- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-+++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -160,14 +160,7 @@ i2c@11000 {
- 				 *  6-USB3 power
- 				 */
- 				expander0: gpio-expander@20 {
--					/*
--					 * This is how it should be:
--					 * compatible = "onnn,pca9655",
--					 *	 "nxp,pca9555";
--					 * but you can't do this because of
--					 * the way I2C works.
--					 */
--					compatible = "nxp,pca9555";
-+					compatible = "onnn,pca9655";
- 					gpio-controller;
- 					#gpio-cells = <2>;
- 					reg = <0x20>;
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index c9e955d0d799e..88307e6b48006 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -3292,6 +3292,7 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	kgid_t gid = INVALID_GID;
+ 	struct inode *inode = d_inode(direntry);
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(inode->i_sb);
++	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
+ 	struct cifsInodeInfo *cifsInode = CIFS_I(inode);
+ 	struct cifsFileInfo *cfile = NULL;
+ 	const char *full_path;
+@@ -3306,7 +3307,7 @@ cifs_setattr_nounix(struct dentry *direntry, struct iattr *attrs)
+ 	cifs_dbg(FYI, "setattr on file %pd attrs->ia_valid 0x%x\n",
+ 		 direntry, attrs->ia_valid);
+ 
+-	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_NO_PERM)
++	if (sbflags & CIFS_MOUNT_NO_PERM)
+ 		attrs->ia_valid |= ATTR_FORCE;
+ 
+ 	rc = setattr_prepare(&nop_mnt_idmap, direntry, attrs);
 -- 
-2.55.0
+2.53.0
 
