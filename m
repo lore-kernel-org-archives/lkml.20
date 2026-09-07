@@ -1,188 +1,95 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 176434964F;
-	Mon,  7 Sep 2026 10:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A564746A611
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:57:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778672; cv=none; b=C8ZhiHILNThQsb6SXp5+/UaAWJP8IAWVxzsW5c4loCXtSHNSw0TKhDcw/8mwYEA1LS4W8V89DoU2kYROW050IJwLvso9SY5XQgxbfDSvSGX8bJh4GfKi1XWr95avB6Tdk4ri8kwebsSPzxpFknjaxvY8/TBCD03Yi3K1huwtjss=
+	t=1788778677; cv=none; b=imuGQjI2Sq3mLwi74ya+Zp4BB+APuroL9o36t0pz+REel5JZyJAwEIeg8bvjNa2mCombkx+TSTkdTQQAsD9ezxgV9Raohpx1cVf5NFXmO8zw2IM9E7uPTM1vBaNAb0vPOiwNO3UuFIbQA2icDOFX3pCqz9WISmb7WmcouvsZbe8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778672; c=relaxed/simple;
-	bh=3PDFtlco4OcZygR+DrQDf/kVT7D/7gQJWD424nAICOE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=M53/Wsn7UpQeK/RKJPc+TdPLCvc2fQltMgwQ+27TQSsocTG3pPyuThoJ2vL4nAm6dRpesgOLEto18DMSRynkJuUrdYHU579pvjT3e4v33ca0IfMPzXt5QaMDcuJTR57gT3hy1lPcJi3hvNSNqWa+GOOH8/jXCm6hYBWsrUWmgSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=e1WsTKHr; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1788778677; c=relaxed/simple;
+	bh=syzTCPf76miV9CWWGJGfEfziLpI1w4A3k4WXq3RHFG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PnehudE7vnv/m8xzWN1s0h5D6VxJ8bpfA9Ac+BUxSB7YhEyw9ISGS7XICroAOBhmzmJJ+O/r6SAvku1PkuAe2/C/1NmdGbeFDnssL7cKxEveiryNr+k2gvHYXjvRPg9N+TojTBKHArjL68eY4Ugh9SNeYUz5o2fX9EF9m8ZEF6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SAN6CeC9; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="e1WsTKHr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=tf3EYimRWhnEVKPQh6ORuRf1OW6Z+eMnNd2CBmc1Gco=; b=e1WsTKHrd39a2DnhXC34g4utpo
-	rBWi/Ar3pDwHYt1XiQtdfEOqE/HRl43R90QvlA+V+0gxDswhp3Ekjnbrq/Jp7rvxRWNujusKq5/aw
-	4PFixqt77gETG69bd2BZqb/ssf99Pr18RCfG2yII5v3Zw0RSwKFNs74VrFpyDPxAWGOTyUsSq65TD
-	n99nsMoR79liSCp6I2ZPe+xq4nSD3U/CFfvzQmk2IR3y23pki8L2f9eSwARjyvgK0OWeqiuYeUJL9
-	JwjjjWtT5wealIH6n3SZpY6XVyac0Ge+6GSvDfRWSfT6WSQ9RJbihbyRc8NqSqVXXY8HLbPbjrTvb
-	3S/9MqQw==;
-Received: from bl21-120-122.dsl.telepac.pt ([2.82.120.122] helo=localhost)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x3X2k-00Fzg0-Rx; Mon, 07 Sep 2026 12:57:42 +0200
-From: Luis Henriques <luis@igalia.com>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,  Chen Linxuan <me@black-desk.cn>,
-  Jonathan Corbet <corbet@lwn.net>,  Shuah Khan
- <skhan@linuxfoundation.org>,  fuse-devel@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,  Matt
- Harvey <mharvey@jumptrading.com>,  kernel-dev@igalia.com
-Subject: Re: [RFC PATCH v3 7/8] selftests/fuse: add fuse symlink caching test
-In-Reply-To: <CAOQ4uxhFCKOLexyiP6DQ=a9t+8dhGn=tJLGyHg0NHPz=mPDkhw@mail.gmail.com>
-	(Amir Goldstein's message of "Sat, 5 Sep 2026 14:32:46 +0200")
-References: <20260904103920.4471-1-luis@igalia.com>
-	<20260904103920.4471-8-luis@igalia.com>
-	<CAOQ4uxhFCKOLexyiP6DQ=a9t+8dhGn=tJLGyHg0NHPz=mPDkhw@mail.gmail.com>
-Date: Mon, 07 Sep 2026 11:58:29 +0100
-Message-ID: <87cxupfhuy.fsf@wotan.olymp>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SAN6CeC9"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so3114256a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:57:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788778675; x=1789383475; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sJLnGW9pcX8j15B5/bmzsLemLtVeZ3mcxy8gd7OV26o=;
+        b=SAN6CeC9ZXkL1E4d5q90CRchLx6I1CAoD0v/3fGU+rXRXISR96RldI2ZIyJLraqnFh
+         fk+Fq0JJy/EFHxmZ+aFYWOS3pTmX35H3eZb+GfxLiNODZfbeIrUoLLM7prF450gyXLuJ
+         KPf64JyRdPHJnDkaWaTXZBMDBCn2sFRywZE04=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788778675; x=1789383475;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sJLnGW9pcX8j15B5/bmzsLemLtVeZ3mcxy8gd7OV26o=;
+        b=KAmndSv7y87YfcgYgus/tS58kkKz0Wlj4jgKDPJt8yi3tdpctH3rGlOzYmW6PsqpfN
+         hEz3VtVZJsPUp3yQ2TKPMHwtECkS/tZge5/9xl0ylRWr667h/Isx2ukbYRqHxt3EIpxD
+         Z5JLuvjgXN7WKdoL7HM0m05qQKrlQLzSHCPAi627T4f9fX/xzz6TxFIhp0t8Z7Rkusax
+         yFk6fvR7EZjYYRPw5UFrBuPzHjqYZkd3513n5akmqPAo3anc0wjEaY0ZmV/duCfpHqy4
+         4qKKidBuNeM+Thz8XABRTyWdRwuMhaT2WYEMPvM8PiVdSvPCZYQX4MAvt6FpE2TC9Etv
+         Hglg==
+X-Forwarded-Encrypted: i=1; AKwUvBysebqkOSlccyfzVzhOFer9y6KBpyCd5wPO7pks2Yn5mj8qah12GXgWUPVPS5YXl66KQqRzz2aY5bSN4xo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXdBuIkLssREj7++hnpzRPSgtKn24D2JC0xMlgwdrNhmLW1f3V
+	90IlV4ilynrhCzpG170U7Q29VEd5pI+O3ArlEKpwdSze1TBXDbkpga/eZvo49gqLl7hCGwZrYaw
+	9cLc=
+X-Gm-Gg: AYBFou3aT201vrpmtytt/bKGifj5Xr7PCGmNGE8TYCTuq7EjNtCwqcnGYRvhXC05Rd0
+	tWHlLhfgaafcVNlUCLcoa9c/nbSUgml/2fjCtiEZ0O42Jqb6fIQRB+8sxB8+0kcnaS+UW4JYemN
+	/9RF1Yrq7qsXLT9Hau7xtiG08sWQbZUzlRKAvC6OeOWTVdg2r9XCIorGZsX4d/OI1hvRMppfrY0
+	4hVhSeL4afUzbT4VzbMsMn5cjnf+IPdDmNPmEjWQE7MGpaeJJtl6yBrxbUQ4Osr25fRdkm9b6QL
+	tPm/i4Z6u0/mzsrMYcZpV09CU2GLEPxO3rsLFtR4uWY9nH9nPcmDjlAsp3NeomXt9sh/RS2loec
+	vK7ISLZuWEDf5FLCjtTkhgrblspcszV1D2kn9SMWYLFauNyx7r0nKEB6YvvKjB3lS2gLuvy8/3g
+	OlwJDvJzSybP5XK2dH6gxlqEzKUSUikQJz/TnU2irWMHzQcpA2iBkTHW2yA9dEEuQkHa6CUpscN
+	igI6Nt7Myr9gcPb4DBOe6PEvMORZ53ZWcqCaLRIQSKvlhyESx6hPg==
+X-Received: by 2002:a17:90b:2f46:b0:398:9c39:520f with SMTP id 98e67ed59e1d1-39b261e763dmr34448742a91.15.1788778674947;
+        Mon, 07 Sep 2026 03:57:54 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:7fc7:d8d5:4877:bc3f])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b51eb40e6sm10343714a91.16.2026.09.07.03.57.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 03:57:54 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Minchan Kim <minchan@kernel.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH 0/2] zsmallc: remove old object read API
+Date: Mon,  7 Sep 2026 19:57:27 +0900
+Message-ID: <20260907105739.1793316-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 05 2026, Amir Goldstein wrote:
+zram reamins the only user of old zsmalloc object read API.
+This series removes the old API and converts zram to use the
+new SG-list based API.
 
-> On Fri, Sep 4, 2026 at 12:38=E2=80=AFPM Luis Henriques <luis@igalia.com> =
-wrote:
->>
->> This patch adds a simple test that allows to verify that, when resolving=
- a
->> symlink, user-space is called only the first time when caching is enabled
->> or, if caching is disabled, every time the symlink resolution is request=
-ed.
->>
->> Signed-off-by: Luis Henriques <luis@igalia.com>
->> ---
->>  .../selftests/filesystems/fuse/.gitignore     |   1 +
->>  .../selftests/filesystems/fuse/Makefile       |   2 +
->>  .../fuse/fuse_symlink_cache_test.c            | 167 ++++++++++++++++++
->>  3 files changed, 170 insertions(+)
->>  create mode 100644 tools/testing/selftests/filesystems/fuse/fuse_symlin=
-k_cache_test.c
->>
->> diff --git a/tools/testing/selftests/filesystems/fuse/.gitignore b/tools=
-/testing/selftests/filesystems/fuse/.gitignore
->> index f7f3dd345a50..ebfe7133d811 100644
->> --- a/tools/testing/selftests/filesystems/fuse/.gitignore
->> +++ b/tools/testing/selftests/filesystems/fuse/.gitignore
->> @@ -3,3 +3,4 @@ fuse_mnt
->>  fusectl_test
->>  write_extend_eof_test
->>  fuse_acl_cache_test
->> +fuse_symlink_cache_test
->> diff --git a/tools/testing/selftests/filesystems/fuse/Makefile b/tools/t=
-esting/selftests/filesystems/fuse/Makefile
->> index 7744f796eb06..3a5a557dde7a 100644
->> --- a/tools/testing/selftests/filesystems/fuse/Makefile
->> +++ b/tools/testing/selftests/filesystems/fuse/Makefile
->> @@ -5,6 +5,7 @@ CFLAGS +=3D -Wall -O2 -g $(KHDR_INCLUDES)
->>  TEST_GEN_PROGS :=3D fusectl_test
->>  TEST_GEN_PROGS +=3D write_extend_eof_test
->>  TEST_GEN_PROGS +=3D fuse_acl_cache_test
->> +TEST_GEN_PROGS +=3D fuse_symlink_cache_test
->>  TEST_GEN_FILES :=3D fuse_mnt
->>
->>  include ../../lib.mk
->> @@ -28,5 +29,6 @@ $(OUTPUT)/fuse_mnt: CFLAGS +=3D $(VAR_CFLAGS)
->>  $(OUTPUT)/fuse_mnt: LDLIBS +=3D $(VAR_LDLIBS)
->>
->>  $(OUTPUT)/fuse_acl_cache_test: fuse_common.c fuse_acl_cache_test.c
->> +$(OUTPUT)/fuse_symlink_cache_test: fuse_common.c fuse_symlink_cache_tes=
-t.c
->>
->>  EXTRA_CLEAN :=3D fuse_common.o
->> diff --git a/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache=
-_test.c b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
->> new file mode 100644
->> index 000000000000..ca3c5cdaf578
->> --- /dev/null
->> +++ b/tools/testing/selftests/filesystems/fuse/fuse_symlink_cache_test.c
->> @@ -0,0 +1,167 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * Simple filesystem to test FUSE symlink cache
->> + *
->> + * This is a simple FUSE filesystem that contains two objects: a file n=
-amed
->> + * 'file' and a symlink to that file named 'link'.  If symlink caching =
-is
->> + * disabled (i.e. FUSE_CAP_CACHE_SYMLINKS is reset during FUSE_INIT), w=
-henever
->> + * the ->readlink() is executed to resolve 'link' a counter will be inc=
-remented.
->> + *
->> + * If symlink caching is enabled (i.e. FUSE_CAP_CACHE_SYMLINKS is set d=
-uring
->> + * FUSE_INIT), resolving a symlink will only call into user-space the f=
-irst
->> + * time.
->> + */
->> +
->> +#define FUSE_USE_VERSION 31
->> +
->> +#include <stdio.h>
->> +#include <limits.h>
->> +#include <fuse_lowlevel.h>
->> +
->> +#include "kselftest_harness.h"
->> +
->> +#include "fuse_common.h"
->> +
->> +#define FILENAME "file"
->> +#define FILE_INO 42
->> +
->> +#define LINKNAME "link"
->> +#define LINK_INO 43
->> +
->> +#define TIMEOUT        86400.0f
->> +
->> +struct test_state {
->> +       pthread_mutex_t lock;
->> +       bool cache;
->> +       int readlink_counter;
->> +} test_state =3D {
->> +       .lock =3D PTHREAD_MUTEX_INITIALIZER,
->> +};
->> +
->> +static void fs_init(void *userdata, struct fuse_conn_info *conn)
->> +{
->> +       pthread_mutex_lock(&test_state.lock);
->> +       if (test_state.cache)
->> +               fuse_set_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
->> +       else
->> +               fuse_unset_feature_flag(conn, FUSE_CAP_CACHE_SYMLINKS);
->> +       pthread_mutex_unlock(&test_state.lock);
->> +}
->> +
->> +static void fs_lookup(fuse_req_t req, fuse_ino_t parent, const char *na=
-me)
->> +{
->> +       struct fuse_entry_param e =3D {};
->> +
->> +       if (parent !=3D FUSE_ROOT_ID ||
->> +           (!strcmp(name, FILENAME) && !(strcmp(name, LINKNAME))))
->
-> You probably meant strcmp() !=3D 0 ...
-> Did you miss this Sashiko comment?
+Sergey Senozhatsky (2):
+  zram: convert to SG-list zsmalloc object read API
+  zsmalloc: remove old object read API
 
-Oops! I did fix one similar comment (probably in a different test) but
-missed this one.  I'll fix it for the next iteration.  (And I'll still
-need to have a look at sashiko again for any new comments for this
-revision).
+ drivers/block/zram/zcomp.c    | 23 +++++++++--
+ drivers/block/zram/zcomp.h    |  4 +-
+ drivers/block/zram/zram_drv.c | 56 ++++++++++++++-----------
+ include/linux/zsmalloc.h      |  4 --
+ mm/zsmalloc.c                 | 77 -----------------------------------
+ 5 files changed, 55 insertions(+), 109 deletions(-)
 
-Cheers,
---=20
-Lu=C3=ADs
+-- 
+2.55.0.979.g7e5102b832-goog
+
