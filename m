@@ -1,128 +1,154 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FF32430794
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C939430794;
+	Mon,  7 Sep 2026 08:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768266; cv=none; b=AMP+eC+im8TMwUACpvbudRx3Hfnzj+w6WQehPqKTlIKYCMNiGQXKRhiwjtcdomu9bIIbptFhFoyAP8p8mXBRuVXxcicF6QfcYL6G/wniRXg8VibhcX8DYtwkxyRGQn2PLd17cFMqDFixNMjU42as2VxTcq/pOhMsu3R6SPpvoQk=
+	t=1788768304; cv=none; b=Xv9V65CBISMDhX0xsnSGXHFl5paU1sHLyYZnkI52SKAVjdNq4ViQI+xEfn/jd1xo59lCva4KjTq61vZSENWL8Plb3QdVpPD3xpxu4KA1PcJ6D5fWnRv05hPKyWIJioHwGqgbGt4fObdnRITRv4gwLBGgtd8s9rO6YWCk67kVn6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768266; c=relaxed/simple;
-	bh=b+OSBB7UacxAa2Ru3pf5yCv3jBIfpDG/oVpxk0NiODA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i4LRgueoAKmgx34CDCD04ck8uJEvwFLhfPsoTfPquLWTkWLyUm5jB2wVOC55gxGYlhx3U6SkvTzSLIp/xJz+DB4Z73ynCqimETDC3l4oi9XDS2VfkbOHgsvbnq1Yi95SqbvLitDM0tqGu7tQ3ZdPkirHyjAagPt2sMfS5owxHZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tyUIaPE9; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tyUIaPE9"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788768261; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=Q6I4xw0xnOtAHkDCMQZgtHQlZ6+NllaxbRPZMgDJ1jw=;
-	b=tyUIaPE99DVxkKK2DolqVABlHAB3VkeXTtEdovWM30UhC2+6cAgbMyVbnkSZYS9jcioblDBpgGcaJXra78xsgw7RWGjLUWS/TGERzDY/YqGVyZaLufsZSiv55aKU6V9nNOu3bM9pQMo+yJ3CzRz1mDmcpR05FwqTmyQGn2VzQ1w=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=18;SR=0;TI=SMTPD_---0XARLZAw_1788768258;
-Received: from 30.74.144.134(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XARLZAw_1788768258 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 07 Sep 2026 16:04:19 +0800
-Message-ID: <7e0cdf3c-d922-4c53-9a76-75451327d894@linux.alibaba.com>
-Date: Mon, 7 Sep 2026 16:04:18 +0800
+	s=arc-20240116; t=1788768304; c=relaxed/simple;
+	bh=5m1B4aJfXf5H5hsdLodfWQ9mjy7DVnphdpQJv2/UOqI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DD84wWG8gdXqDJ+uGNoZnKsY+KGrimjS9TDhrHL6Ok1hZRA+PG44ya/CPq9nczU2kpljqMdjQTdIIkvKfUkMkt6hKZkRqmdlBw1NRAwEUWlk1ZalAYkHJw1vOcBQnDao1S3nIyHap9mhSP2ClxETO8r4gt2QZ2UWTr+MK5lUxjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: cfc4e500aa9211f19a56ed5b684f684d-20260907
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e97009ba-17e3-4291-a8af-612b61fc4278,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:99c7b48fa2e5c16f576352676cb42907,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: cfc4e500aa9211f19a56ed5b684f684d-20260907
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1613542824; Mon, 07 Sep 2026 16:04:55 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: cem@kernel.org,
+	darrick.wong@oracle.com,
+	chandanrlinux@gmail.com
+Cc: linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] xfs: bound logged region access in inode buffer recovery
+Date: Mon,  7 Sep 2026 16:04:50 +0800
+Message-Id: <20260907080450.314067-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/12] mm/collapse: add collapse.h for the collapse
- interface
-To: Kiryl Shutsemau <kirill@shutemov.name>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- Zi Yan <ziy@nvidia.com>, "Liam R . Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-References: <cover.1788533997.git.kas@kernel.org>
- <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <ec5230f43af7153e18aed02c6ee38f010106d8e8.1788533997.git.kas@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+xlog_recover_do_inode_buffer() reads the logged di_next_unlinked field
+from a log record buffer at a computed offset:
 
+        logged_nextp = item->ri_buf[item_index].iov_base +
+                        next_unlinked_offset - reg_buf_offset;
+        *buffer_nextp = *logged_nextp;
 
-On 9/4/26 11:10 PM, Kiryl Shutsemau wrote:
-> From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-> 
-> khugepaged.c holds both the users of collapse and the machinery that
-> performs it.  The daemon's scan loop, the sysfs tunables, MADV_COLLAPSE's
-> entry point and the collapse itself all sit in one file and reach into
-> each other freely.  Nothing marks where a user ends and the engine
-> begins.
-> 
-> Start drawing that line.
-> 
-> Add mm/collapse.h for what the two sides have to agree on:
-> 
->    - enum scan_result - what the engine hands back;
->    - struct collapse_control - the state a request carries.
-> 
-> And two constants move with them:
-> 
->    - KHUGEPAGED_MAX_PTES_LIMIT -> COLLAPSE_MAX_PTES_LIMIT;
->    - KHUGEPAGED_MIN_MTHP_ORDER -> COLLAPSE_MIN_MTHP_ORDER.
-> 
-> Neither is a fact about the daemon, so both lose the KHUGEPAGED_ prefix.
-> 
-> No functional change.
-> 
-> Assisted-by: Claude-Code:claude-opus-5
-> Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-> ---
->   MAINTAINERS     |  1 +
->   mm/collapse.h   | 67 +++++++++++++++++++++++++++++++++++++++++
->   mm/khugepaged.c | 79 ++++++++-----------------------------------------
->   3 files changed, 81 insertions(+), 66 deletions(-)
->   create mode 100644 mm/collapse.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a9245d827ddb..4d1ff4c76496 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17433,6 +17433,7 @@ F:	Documentation/admin-guide/mm/transhuge.rst
->   F:	include/linux/huge_mm.h
->   F:	include/linux/khugepaged.h
->   F:	include/trace/events/huge_memory.h
-> +F:	mm/collapse.h
->   F:	mm/huge_memory.c
->   F:	mm/khugepaged.c
->   F:	mm/mm_slot.h
-> diff --git a/mm/collapse.h b/mm/collapse.h
-> new file mode 100644
-> index 000000000000..1c40229b9554
-> --- /dev/null
-> +++ b/mm/collapse.h
-> @@ -0,0 +1,67 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef __MM_COLLAPSE_H
-> +#define __MM_COLLAPSE_H
-> +
-> +#include <linux/mm.h>
-> +#include <linux/nodemask.h>
-> +#include <linux/pgtable.h>
-> +#include <linux/types.h>
-> +
-> +/* The most the max_ptes_* tunables accept */
-> +#define COLLAPSE_MAX_PTES_LIMIT		(HPAGE_PMD_NR - 1)
-> +
-> +/* The smallest order a collapse will build */
-> +#define COLLAPSE_MIN_MTHP_ORDER		2
+The only protection against reading past the log record buffer are
+ASSERT()s, which compile away on non-DEBUG kernels.  The existing
+XFS_IS_CORRUPT(*logged_nextp == 0) check also dereferences the pointer
+before validating that the computed offset lies within the logged region.
 
-These 2 macros are already self-explanatory, and the comments are 
-over-documented. I'd prefer to drop them. With that,
+A crafted log record can make the computed offset exceed iov_len, causing
+an out-of-bounds read from the log record buffer during inode buffer
+recovery.
 
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Convert the relevant ASSERT-only checks into runtime corruption checks and
+verify that the logged di_next_unlinked field lies entirely within the log
+iovec before dereferencing it.
+
+Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v2:
+ --Rebase top of for-next and re-send.
+---
+ fs/xfs/xfs_buf_item_recover.c | 40 ++++++++++++++++++++++++++++++++---
+ 1 file changed, 37 insertions(+), 3 deletions(-)
+
+diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+index 7148716366ba..8e06a68db310 100644
+--- a/fs/xfs/xfs_buf_item_recover.c
++++ b/fs/xfs/xfs_buf_item_recover.c
+@@ -651,6 +651,9 @@ xlog_recover_do_inode_buffer(
+ 	int				inodes_per_buf;
+ 	xfs_agino_t			*logged_nextp;
+ 	xfs_agino_t			*buffer_nextp;
++	size_t				buf_size;
++	size_t				iov_len;
++	size_t				rel_off;
+ 
+ 	trace_xfs_log_recover_buf_inode_buf(mp->m_log, buf_f);
+ 
+@@ -714,17 +717,48 @@ xlog_recover_do_inode_buffer(
+ 			return -EFSCORRUPTED;
+ 		}
+ 
++		buf_size = BBTOB(bp->b_length);
++		if (XFS_IS_CORRUPT(mp, reg_buf_bytes > buf_size ||
++			   reg_buf_offset > buf_size - reg_buf_bytes)) {
++			xfs_alert(mp,
++	"Bad inode buffer log bitmap region (off %d, len %d, buf_size %zu).",
++				reg_buf_offset, reg_buf_bytes, buf_size);
++			return -EFSCORRUPTED;
++		}
++
++		if (XFS_IS_CORRUPT(mp,
++				item->ri_buf[item_index].iov_base == NULL)) {
++			xfs_alert(mp, "NULL inode buffer log record.");
++			return -EFSCORRUPTED;
++		}
++
++		iov_len = item->ri_buf[item_index].iov_len;
++		if (XFS_IS_CORRUPT(mp, iov_len < reg_buf_bytes)) {
++			xfs_alert(mp,
++	"Bad inode buffer log record length (iov_len %zu, region len %d).",
++				iov_len, reg_buf_bytes);
++			return -EFSCORRUPTED;
++		}
++
+ 		ASSERT(item->ri_buf[item_index].iov_base != NULL);
+ 		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+ 		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+ 
++		rel_off = next_unlinked_offset - reg_buf_offset;
++		if (XFS_IS_CORRUPT(mp, rel_off > iov_len ||
++			   sizeof(xfs_agino_t) > iov_len - rel_off)) {
++			xfs_alert(mp,
++	"Bad inode buffer log record offset (rel_off %zu, iov_len %zu).",
++				rel_off, iov_len);
++			return -EFSCORRUPTED;
++		}
++
+ 		/*
+ 		 * The current logged region contains a copy of the
+ 		 * current di_next_unlinked field.  Extract its value
+-		 * and copy it to the buffer copy.
++		 * and copy it to the on disk inode buffer.
+ 		 */
+-		logged_nextp = item->ri_buf[item_index].iov_base +
+-				next_unlinked_offset - reg_buf_offset;
++		logged_nextp = item->ri_buf[item_index].iov_base + rel_off;
+ 		if (XFS_IS_CORRUPT(mp, *logged_nextp == 0)) {
+ 			xfs_alert(mp,
+ 		"Bad inode buffer log record (ptr = "PTR_FMT", bp = "PTR_FMT"). "
+-- 
+2.25.1
+
