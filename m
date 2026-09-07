@@ -1,352 +1,195 @@
-Received: from smtp-190c.mail.infomaniak.ch (smtp-190c.mail.infomaniak.ch [185.125.25.12])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1577A481648
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:50:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785437; cv=none; b=Kl36aFkn/hpM2jMYmZrbmp1ulwunkRV9+y6TXcCBfJHDj5FHcNdJA8O8D+AgWVIcl399wQrGDqokgygsqyD/wZ1nP/TRpDeuVw3KC9YUcAYdrwt4clnzo7vHTRM1kEXxCa5HDb5DGAfV+HzXkg2fluqstyp/NZOEgZyPY2TYeYk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785437; c=relaxed/simple;
-	bh=RugJaWLWn8svQL0XZ+Njm2GraMJF173gVIb85J6VEDs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NQ1/HT+iI8DGh2TbsTw5IuJY+0s5n1efkbNMYH185W8FKZSjKKwazCau2RyOWIlsu4lB8w/dpcQS/rzmha1BenyMRgE1YyMPXvRUm3TM0aH2+2FyhstxhXqyVB8/y+dXED2BKE4pP0BRczG5In0zKJ+3TIWI3MgnZYdwkQpNUio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch; spf=pass smtp.mailfrom=cinemaone.ch; dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b=nznUTXLq; arc=none smtp.client-ip=185.125.25.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cinemaone.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cinemaone.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BE14BCAA9
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788785462; cv=pass; b=BOrCUYB9jpPeQT5g8mMJoKwr2c5kPXP45vPNCPxMoi1C71B2BdLesZOQ6stXGUVA+/6Qjdf/vOilueBa8QEl+rP9sF3V0p8ZrgFB8zZ8Tx2BFKfi2/IfZp6jPXKRbXyTycdPamNjswVmK0NdvijMYqQjhgbMnVPjAC6+xOudUBU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788785462; c=relaxed/simple;
+	bh=gT+Bt5eURaG5QY5OQe8D6BhKgHr/3HEhc0BcnyDPJsc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lLaZtmoxr+9gMywHxMkB7Sz7E3xDWOFqnATadTrNRIXSQ2KVa6wGoLAreXDBZDAtSlklr3DUrmX3uvQwV1EoQRq+hY2SkBpeoI+JZjpVRA0Tn9OYhlvFd9v4BZjhDN+Fz+KKTr+Wf+HCPRIAiG83C0x2lb48Igo5enFnAWhjSxw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U04jKatk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D7S/LEd5; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cinemaone.ch header.i=@cinemaone.ch header.b="nznUTXLq"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hdn3k3gqyz1p2;
-	Mon,  7 Sep 2026 14:50:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cinemaone.ch;
-	s=20250113; t=1788785426;
-	bh=FSMW2HD+WgusnBjcbtcjOHidxkfywKTx62c2K4mKlFM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nznUTXLq1NCHpsJHL+LxK4bV7cE7sw4W5uosCjyz4EGAky0ZrI3B/l/IveQUbyfQG
-	 9UDUq82fTIvhMIlVb+ejKjKnsAOngLJKdc6w1gyEgHScN/5x4Rm6EQGe9ysHTBLmVz
-	 g41ENU2qTftEHtwSBs7RWnlNMrGn3sL6VitvXFdud12FA+bwP8Ez9ufM4w+XX7H7bX
-	 wgzgzbIwqJ3MFOiwKeY13M088uh+Cnd86eE0HiJeOYARp9qdh2fBAl622dkqW/5733
-	 zruzvDF3bHT5pbyI/qs3Xnv6au1u8/CyZIzBbbpSi7BchT9BpkKJ2wCy/dBWRPoljm
-	 ZjysRehlZQQ8A==
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hdn3c58X6zn9F;
-	Mon,  7 Sep 2026 14:50:20 +0200 (CEST)
-From: Adrian Betschart <adrian.betschart@cinemaone.ch>
-To: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>
-Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/3] drm/amd/display: support HDMI 1.4 3D modes on HDMI connectors
-Date: Mon,  7 Sep 2026 14:50:13 +0200
-Message-ID: <20260907125015.69811-2-adrian.betschart@cinemaone.ch>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
-References: <20260907125015.69811-1-adrian.betschart@cinemaone.ch>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U04jKatk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D7S/LEd5"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnHFs3863151
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 12:50:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gT+Bt5eURaG5QY5OQe8D6BhKgHr/3HEhc0BcnyDPJsc=; b=U04jKatkX5/Of0Lk
+	NmSq95IrJaz5jcdpR2S3y2CdjZZrtZ5yoWV23Nl9G6UoLVXFr5aJFDMsoJi9WX0I
+	nscIDNxtlNflYhFNPAXMWADWfbhGH4jyE+UTB9K4qxcPXD49SSYVfWcrjguxeEIT
+	5YxVZHRqY0IiHKiufD+oEu3sQ692rdNZR0iwB2iLAudyyGRUXah+yzW/eGC/j5GV
+	OpNpHAZsAMwSdDV1TDRFnU/WVuXH2wSDuQRWd50xY5EagiCkjIaZj703b4cFmVsP
+	v0sXaSQuO7cUCRLl/3/CJmTrcuN6JvGiwTM4bqVg0Ec4ccJogB1oAkJj0fPshJKx
+	ZHO2kA==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghq66hvdv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 12:50:58 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9104215fbdbso86355556d6.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:50:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788785458; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Q/C5Dh9MD/3CFUamUdOEqwd8DqanjMFWSA8riwWsfXNa7qEwhcnah+5PjQnt3JmRlO
+         h/NC1+s/mfyeSaK7OhXzwfNNjwFbeaRsN9BhN2ONkqFKgWAqaWCshvxVFifAzggxKSx1
+         LGz8XMxOOHPZgGiUgjVgTMnzmeLOAVxlks32HNUmxu0a4IJrRtxBO/lv0oKX213n/eVS
+         BcbNB8AfMla+MLw4nO0Y15XcuEBcCu6uZBYyZ+NM/bzVTIwRNKQ829xrNboY6g1y44qy
+         ys/CFN59kq0DibCXkHa52qFhn1/RSsL5ixQSBQ5lF7zdIgkecYU3rGEAhgjPL/uqsin/
+         53eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gT+Bt5eURaG5QY5OQe8D6BhKgHr/3HEhc0BcnyDPJsc=;
+        fh=fhBRr250NbrbxllJzxi3STJEXQz6gGPS14no0/02+rw=;
+        b=OL8jyhCqBh9HFMxoVxvtRPmT756Whe5ciIf6CciLZhpXmLADV4mLFLEWuirdCQ9lxP
+         NjjQ9A3Q8vL6iZdKfqaPD9C+iUIJTicojzNPjftUYt6pMxC+U2eQKTVLOtwUOAKVY/eu
+         ReXeQTwCCJRARiT1XPdOQya1Gk2p2Q7RGMY3a4is3dOhFp8mN02MWQHDycZVdhh7go5Z
+         RZ+3e/l0MOH3uKj/o3/tBXsgBVAK4qhS2o2NoxqtSPsSjlZDhfI8KSkWYWCEh65ZESTN
+         0qs8ReplMJROVtTXc71+OQEkVAkCr+ECgS4rZ5F9NTtCJF4r8EV4R65Ilerr7ZAIQuLL
+         aX9w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788785458; x=1789390258; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gT+Bt5eURaG5QY5OQe8D6BhKgHr/3HEhc0BcnyDPJsc=;
+        b=D7S/LEd5tfmtAEoVBVUlbGFPQU6VKZUF6Je2YKaHzboMgG4c99XlJi2XdYmYUTlbFV
+         2jcTK3II3F5K7p3rCXJWuLbI23ZM/zO4YMK1gF9S98VsFnH9njBf9UL3qWHYCDrC/iQ1
+         P8KcfZ2fjjnCiuRCybfFhjBvFTifik1vvY70WK7D4A0dSmotItmcUZ2jaIxZTkqcH+cI
+         ry4v9QNHbBpTXQGV1d6qic2TEaPCOCzgTIgVv1e80EnheXyqK2M+eegseltrbo8kVYvN
+         yVWdPTTYKtR1xBSXGe0YDdvv6hpftT+suysydKLOpr0WFpUIcKyWHWH19noPraGnXB8j
+         +9VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788785458; x=1789390258;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gT+Bt5eURaG5QY5OQe8D6BhKgHr/3HEhc0BcnyDPJsc=;
+        b=c+SLuTM/7NRud8kmMf0zlcA6AgFE5q9R9j+fnTYeCOAQxHePFFt+TNlmesz5Bln7Wr
+         tr3RZKDEHfDs91XUsSLOPkHPJNNpyVEwYD56t31VsCFOj/IyhcSbmH7HsS3U5z2R4Yno
+         LA7TgVJKXmwKOPyIFa3FYmxfDxFJqwx4/YRu7rE7FgNyFJbv4mWXIjq4/cb+PMJFlRL7
+         SftWJ4v2UCCga7/nO2VJ+/oZt7Ve953a3LhT523S0I1gkZmk/wkFLcpSKRBajPZHly5t
+         2c4YNEiJffeJn2VQuewEoXJN+g1PoEmG6Zp2thANKkmJ96EmzfxAH3zOYR4cmTUs0dBR
+         sLqQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzdxEM6gOgBsfGWDGuJFTxteJjRciEyQzkDvI/EEvoOmxuELFdTSmW8hFUhoT9o3qVpW2U8aqBDJPnEG34=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJeXa+PLl+tU0lEEfAmDkI1Ow8zG5xkvodQiO2rSH5fCOtLXWT
+	FtwUUyuj3eAKnXgx11+aHpkddG5UGKezcqzcnhcAZoxsr2iqQ0YBxtPRc52+feNcVlMfuQ6wRq/
+	12jRqHuSSTYqzqWLns2MWxwPX0Xs3eR6zgHdeIuKNMYZqVx2L2dM07+oPfAuG3CBsuAVEC325Ii
+	kfUiLMWh1eI4LXPhbuKcqQQ1LorQQiKkLG7+mxeTcaRQ==
+X-Gm-Gg: AYBFou0RPqd/NTL+0TAZvVJ2dKxQ6tYq9IjC6X/JHBe+NSoYiOI1nK8shLaOCvaNJAj
+	lAF92eLgN4paODZdG6/OhkYyG5wTShbZhm4esSrXAkgdmIrIYqMuKVdRUhiuNPxIOiTM6fIMq0N
+	B8Ffj5OdPU86MDWIu92CuQwuQXDyfNRg+FtqtnvY4vYxH6WYwUTBHaIlQXhlOTLaFY76jn+C5GM
+	lz6+HXWAGKUS1b/FKAuakCHh0Y24PoQr7XMRiUGBB99280TZUFkYt7gpS8D0RSklYlFGLKSkX4=
+X-Received: by 2002:ad4:5d67:0:b0:90e:84e1:8b93 with SMTP id 6a1803df08f44-9103efbc676mr253793506d6.16.1788785458367;
+        Mon, 07 Sep 2026 05:50:58 -0700 (PDT)
+X-Received: by 2002:ad4:5d67:0:b0:90e:84e1:8b93 with SMTP id
+ 6a1803df08f44-9103efbc676mr253793026d6.16.1788785457864; Mon, 07 Sep 2026
+ 05:50:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com> <CAMRc=MfDAiUMzOYRWioK2NDM37=yQqb4pQ5ETZz1PVOKQhhdug@mail.gmail.com>
+In-Reply-To: <CAMRc=MfDAiUMzOYRWioK2NDM37=yQqb4pQ5ETZz1PVOKQhhdug@mail.gmail.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:50:45 +0200
+X-Gm-Features: AcwNN1Uy8Dv_z6eHdNiSSHvTLy1MMXc0Rh3LRZ3dI-XaUt9s5OrddNB4Kn5BgT8
+Message-ID: <CAFEp6-1PuGMGkdfWYiUQnYffm7en8b-DQybg_4M9xw9MVDNRsQ@mail.gmail.com>
+Subject: Re: [PATCH v6 00/11] arm64: dts: monaco-arduino-monza: Add support
+ for LGA WiFi/BT module
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Wei Deng <wei.deng@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=QPhYgALL c=1 sm=1 tr=0 ts=6a9eb332 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=YKo8iWYt6ehE2M1v1KUA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: QRSTK6vBJBqw4wlnhU9NfhiIIIyDrW5F
+X-Proofpoint-ORIG-GUID: QRSTK6vBJBqw4wlnhU9NfhiIIIyDrW5F
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0MiBTYWx0ZWRfX+24peK54aWFn
+ /tWsUW1Ga9P+SIOoetnK8ejIlaqpQJm87LVYdbtrUFz+thC3z3prEkVMe6hVLf5KvT2EMUPBoNL
+ FbFUyoiePedskZlAF+aG/LXhBcbs/14=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0MiBTYWx0ZWRfXw2T1vzCTsMUx
+ r5+Ci+xJvd4LB7mX1m0VhHoNX38TlDiHm9G6pMUMj8lyQnuzzEcvJ6odNzEX2bal8AtUaFnHrL6
+ aiIDjTgQq3iTDhnANcQp5NS4E5f+POEuHxiED8Dy6xU/RanQD2wFK8kfpAD6bbBOqFohwKppHes
+ cWOx54OgEppEWUsutLJ2VAnnDOTyXSTCq59fja795DH9Z9yqXz4OCsiL3nwsrzRmW9aPmbaAK/m
+ YEysAF8cpuOAkBJhFJe3xmX/GnND6BQe53sFguDQSq5VjTzrh2nn/JKDJxgXM6UMipXWikqwUk3
+ 6zmrUwg75QhMrfdxiGnECf7H1o0dgpsFLjmAPKwIgQWO03yI9t4z4Rb73uA3IPQ4MAPz5ykOS/T
+ /vYd6j9QFB13KSivFKJdsWuYGeLWWx8TsCYibxrL49InMl5vuH+4g7fSsvbxBly2h1DX0evMYBQ
+ uDCc+/y7oW/s8IA1wTA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070142
 
-Allow the stereo modes drm_edid derives from a sink's HDMI VSDB on
-HDMI connectors, and drive them the way a 2D stream is driven: the
-source (compositor or media player) lays both views out in the frame
-itself - side by side, top and bottom, or the doubled frame-packing
-timing with the 45-line active space between the eyes - and the only
-3D-specific output is the HDMI vendor infoframe that tells the sink
-how the frame is laid out.
+Hi Bartosz,
 
-Keep the DC timing at TIMING_3D_FORMAT_NONE for all of them. Any DC
-stereo timing format, including the SW_PACKED variants, makes the
-hardware treat the surface as two views: the pipe is split and both
-view addresses point at the same surface, so the whole frame ends up
-in each half of the output. The new vsif_3d_format stream field
-carries the layout to mod_build_hf_vsif_infopacket() instead, so the
-VSIF is right and stays right when the freesync code rebuilds it for
-ALLM.
+On Mon, Sep 7, 2026 at 10:24=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.or=
+g> wrote:
+>
+> On Fri, 4 Sep 2026 17:42:15 +0200, Loic Poulain
+> <loic.poulain@oss.qualcomm.com> said:
+> > This series describes support for the onboard WiFi/Bluetooth module
+> > present on the Arduino VENTUNO Q (monaco) platform.
+> >
+> > The board provides LGA pads for a wireless module. On the VENTUNO Q
+> > these pads are populated with an NFA725B module featuring the
+> > QCA2066 WiFi/BT combo chip. While implemented as an LGA footprint,
+> > the design is functionally compatible with the M.2 Key E.
+> >
+> > The NFA725B exposes WiFi over PCIe and Bluetooth over a UART.
+> > Both interfaces are gated through the W_DISABLE1# and W_DISABLE2#
+> > signals, as defined by the M.2 specification and handled here via
+> > the pcie-m2 power sequencer.
+> >
+> > This series models the hardware using the existing pwrseq framework
+> > and connector bindings, allowing coordinated PCIe and UART bring-up.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+>
+> What is the merge strategy? Do the pwrseq changes depend on first two blu=
+etooth
+> patches (I don't think so)? Can they go onto an immutable branch shared w=
+ith
+> the BT tree?
 
-Frame packing needs the doubled CRTC timing; pass CRTC_STEREO_DOUBLE
-wherever amdgpu_dm recomputes the CRTC fields itself.
+The pwrseq changes are only a dependency for the Bluetooth changes,
+not the other way around. So yes, they can potentially go separately.
 
-Limit stereo_allowed to native HDMI connectors: on the DP-to-HDMI
-converter paths link validation rejects the 3D timings.
-
-Tested on a Radeon RX 7600 (DCN 3.2.1) driving a JVC DLA-RS4100
-projector through an HDFury VRROOM, with Kodi rendering the packed
-frames: frame packing, top-and-bottom and side-by-side at
-1920x1080p24, RGB 12 bpc, all engage the projector's 3D mode with
-correct per-eye geometry and eye assignment (checked with per-eye
-test patterns through shutter glasses).
-
-Two paths in create_stream_for_sink() would otherwise replace what the
-mode carries: decide_crtc_timing_for_drm_display_mode() copies the
-native CRTC timing over a mode with matching clock and totals or when
-scaling is on, which for frame packing is the doubled timing, and
-amdgpu_dm_is_freesync_video_mode() can match a stereo mode whose base
-timing equals the FreeSync base mode and swap in the 2D mode, dropping
-the 3D flags. A stereo mode keeps its own CRTC timing and is never a
-FreeSync video mode; KUnit cases cover both.
-
-Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
----
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 47 ++++++++++-
- .../tests/amdgpu_dm_connector_test.c          | 80 +++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |  7 ++
- .../display/modules/info_packet/info_packet.c |  3 +
- 4 files changed, 135 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 0e71ba498..987d98918 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -851,6 +851,25 @@ STATIC_IFN_KUNIT bool adjust_colour_depth_from_display_info(
- }
- EXPORT_IF_KUNIT(adjust_colour_depth_from_display_info);
- 
-+/*
-+ * 3D layout to announce in the HDMI vendor infoframe for a DRM 3D mode. The
-+ * stream timing itself stays 2D (see fill_stream_properties_from_drm_display_mode).
-+ */
-+static enum dc_timing_3d_format amdgpu_dm_vsif_3d_format(unsigned int mode_flags)
-+{
-+	switch (mode_flags & DRM_MODE_FLAG_3D_MASK) {
-+	case DRM_MODE_FLAG_3D_FRAME_PACKING:
-+		return TIMING_3D_FORMAT_SW_FRAME_PACKING;
-+	case DRM_MODE_FLAG_3D_TOP_AND_BOTTOM:
-+		return TIMING_3D_FORMAT_TB_SW_PACKED;
-+	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF:
-+	case DRM_MODE_FLAG_3D_SIDE_BY_SIDE_FULL:
-+		return TIMING_3D_FORMAT_SBS_SW_PACKED;
-+	default:
-+		return TIMING_3D_FORMAT_NONE;
-+	}
-+}
-+
- STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
- 	struct dc_stream_state *stream,
- 	const struct drm_display_mode *mode_in,
-@@ -887,7 +906,15 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
- 	 */
- 	timing_out->pixel_encoding = requested_encoding;
- 
-+	/*
-+	 * The source packs both views into the frame itself (side-by-side,
-+	 * top-and-bottom, or the doubled frame-packing timing), so the display
-+	 * core scans it out as a plain 2D stream and only the HDMI vendor
-+	 * infoframe tells the sink how the frame is laid out. Any DC stereo
-+	 * timing format would make the hardware treat the surface as two views.
-+	 */
- 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
-+	stream->vsif_3d_format = amdgpu_dm_vsif_3d_format(mode_in->flags);
- 	timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
- 		connector,
- 		(timing_out->pixel_encoding == PIXEL_ENCODING_YCBCR420),
-@@ -992,6 +1019,15 @@ decide_crtc_timing_for_drm_display_mode(struct drm_display_mode *drm_mode,
- 					const struct drm_display_mode *native_mode,
- 					bool scale_enabled)
- {
-+	/*
-+	 * A stereo mode has to go out at its own timing: frame packing's CRTC
-+	 * timing is the doubled one, and a side-by-side or top-and-bottom mode
-+	 * scaled to the native timing would announce a layout the sink cannot
-+	 * pair with what it receives.
-+	 */
-+	if (drm_mode->flags & DRM_MODE_FLAG_3D_MASK)
-+		return;
-+
- 	if (scale_enabled || (
- 	    native_mode->clock == drm_mode->clock &&
- 	    native_mode->htotal == drm_mode->htotal &&
-@@ -1120,6 +1156,10 @@ bool amdgpu_dm_is_freesync_video_mode(const struct drm_display_mode *mode,
- 	if (!high_mode || !mode)
- 		return false;
- 
-+	/* a stereo mode is never one of the inserted FreeSync video modes */
-+	if (mode->flags & DRM_MODE_FLAG_3D_MASK)
-+		return false;
-+
- 	timing_diff = high_mode->vtotal - mode->vtotal;
- 
- 	if (high_mode->clock == 0 || high_mode->clock != mode->clock ||
-@@ -1451,6 +1491,8 @@ create_stream_for_sink(struct drm_connector *connector,
- 	struct dc_sink *sink = NULL;
- 
- 	drm_mode_init(&mode, drm_mode);
-+	/* frame packing scans out both views plus the active space in one frame */
-+	drm_mode_set_crtcinfo(&mode, CRTC_STEREO_DOUBLE);
- 	memset(&saved_mode, 0, sizeof(saved_mode));
- 
- 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK) {
-@@ -2449,7 +2491,7 @@ enum drm_mode_status amdgpu_dm_connector_mode_valid(struct drm_connector *connec
- 	if (!test_mode)
- 		goto fail;
- 
--	drm_mode_set_crtcinfo(test_mode, 0);
-+	drm_mode_set_crtcinfo(test_mode, CRTC_STEREO_DOUBLE);
- 
- 	stream = amdgpu_dm_create_validate_stream_for_sink(connector, test_mode,
- 						 to_dm_connector_state(connector->state),
-@@ -3143,7 +3185,8 @@ void amdgpu_dm_connector_init_helper(struct amdgpu_display_manager *dm,
- 	aconnector->dc_link = link;
- 	aconnector->base.interlace_allowed = false;
- 	aconnector->base.doublescan_allowed = false;
--	aconnector->base.stereo_allowed = false;
-+	/* HDMI 1.4 3D only; DP-to-HDMI converters reject the timings in link validation */
-+	aconnector->base.stereo_allowed = connector_type == DRM_MODE_CONNECTOR_HDMIA;
- 	aconnector->base.dpms = DRM_MODE_DPMS_OFF;
- 	aconnector->hpd.hpd = AMDGPU_HPD_NONE; /* not used */
- 	aconnector->audio_inst = -1;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 76334fb84..396e91013 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -1430,6 +1430,46 @@ static void dm_test_decide_crtc_timing_no_crtc_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, drm_mode.crtc_hdisplay, 0);
- }
- 
-+/**
-+ * dm_test_decide_crtc_timing_keeps_stereo_mode - A stereo mode keeps its own CRTC timing
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_decide_crtc_timing_keeps_stereo_mode(struct kunit *test)
-+{
-+	struct drm_display_mode drm_mode = {};
-+	struct drm_display_mode native_mode = {};
-+
-+	/* The native mode is the 2D twin of the frame-packed one: same base timing ... */
-+	native_mode.clock = 74250;
-+	native_mode.htotal = 2750;
-+	native_mode.vtotal = 1125;
-+	native_mode.crtc_clock = 74250;
-+	native_mode.crtc_hdisplay = 1920;
-+	native_mode.crtc_vdisplay = 1080;
-+	native_mode.crtc_htotal = 2750;
-+	native_mode.crtc_vtotal = 1125;
-+
-+	/* ... so it matches, but the stereo mode's CRTC timing is the doubled one and must stay */
-+	drm_mode.clock = 74250;
-+	drm_mode.hdisplay = 1920;
-+	drm_mode.vdisplay = 1080;
-+	drm_mode.hsync_start = 2558;
-+	drm_mode.hsync_end = 2602;
-+	drm_mode.htotal = 2750;
-+	drm_mode.vsync_start = 1084;
-+	drm_mode.vsync_end = 1089;
-+	drm_mode.vtotal = 1125;
-+	drm_mode.flags = DRM_MODE_FLAG_3D_FRAME_PACKING;
-+	drm_mode_set_crtcinfo(&drm_mode, CRTC_STEREO_DOUBLE);
-+	KUNIT_ASSERT_EQ(test, drm_mode.crtc_vdisplay, 2205);
-+
-+	decide_crtc_timing_for_drm_display_mode(&drm_mode, &native_mode, false);
-+
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vdisplay, 2205);
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_vtotal, 2250);
-+	KUNIT_EXPECT_EQ(test, drm_mode.crtc_clock, 148500);
-+}
-+
- /* Tests for amdgpu_dm_connector_funcs_reset() */
- 
- static const struct drm_connector_funcs dm_test_connector_funcs = {
-@@ -2293,6 +2333,44 @@ static void dm_test_is_freesync_video_mode_match(struct kunit *test)
- 	KUNIT_EXPECT_TRUE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
- }
- 
-+/**
-+ * dm_test_is_freesync_video_mode_rejects_stereo - A stereo mode with matching timing returns false
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_is_freesync_video_mode_rejects_stereo(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+	struct drm_display_mode candidate = {};
-+
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aconnector);
-+
-+	/* Cached high mode acts as reference */
-+	aconnector->base.connector_type = DRM_MODE_CONNECTOR_HDMIA;
-+	aconnector->freesync_vid_base.clock = 148500;
-+	aconnector->freesync_vid_base.hdisplay = 1920;
-+	aconnector->freesync_vid_base.vdisplay = 1080;
-+	aconnector->freesync_vid_base.hsync_start = 2008;
-+	aconnector->freesync_vid_base.hsync_end = 2052;
-+	aconnector->freesync_vid_base.htotal = 2200;
-+	aconnector->freesync_vid_base.vsync_start = 1084;
-+	aconnector->freesync_vid_base.vsync_end = 1089;
-+	aconnector->freesync_vid_base.vtotal = 1125;
-+
-+	candidate.clock = 148500;
-+	candidate.hdisplay = 1920;
-+	candidate.vdisplay = 1080;
-+	candidate.hsync_start = 2008;
-+	candidate.hsync_end = 2052;
-+	candidate.htotal = 2200;
-+	candidate.vsync_start = 1084;
-+	candidate.vsync_end = 1089;
-+	candidate.vtotal = 1125;
-+	candidate.flags = DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF;
-+
-+	KUNIT_EXPECT_FALSE(test, amdgpu_dm_is_freesync_video_mode(&candidate, aconnector));
-+}
-+
- /**
-  * dm_test_is_freesync_video_mode_no_match - Test mismatched mode returns false
-  * @test: The KUnit test context
-@@ -8468,6 +8546,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_decide_crtc_timing_matching_mode),
- 	KUNIT_CASE(dm_test_decide_crtc_timing_no_copy),
- 	KUNIT_CASE(dm_test_decide_crtc_timing_no_crtc_clock),
-+	KUNIT_CASE(dm_test_decide_crtc_timing_keeps_stereo_mode),
- 	/* amdgpu_dm_connector_funcs_reset */
- 	KUNIT_CASE(dm_test_funcs_reset_sets_defaults),
- 	KUNIT_CASE(dm_test_funcs_reset_edp_abm_level),
-@@ -8521,6 +8600,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_is_freesync_video_mode_null_mode),
- 	KUNIT_CASE(dm_test_is_freesync_video_mode_match),
- 	KUNIT_CASE(dm_test_is_freesync_video_mode_no_match),
-+	KUNIT_CASE(dm_test_is_freesync_video_mode_rejects_stereo),
- 	/* update_subconnector_property */
- 	KUNIT_CASE(dm_test_update_subconnector_dp_with_sink),
- 	KUNIT_CASE(dm_test_update_subconnector_dp_no_sink),
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 934ae381e..e6fd75b87 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -235,6 +235,13 @@ struct dc_stream_state {
- 
- 	enum view_3d_format view_format;
- 
-+	/**
-+	 * @vsif_3d_format: 3D layout announced in the HDMI vendor infoframe when
-+	 * the source packs both views into the frame itself and the timing is
-+	 * therefore left at TIMING_3D_FORMAT_NONE.
-+	 */
-+	enum dc_timing_3d_format vsif_3d_format;
-+
- 	bool use_vsc_sdp_for_colorimetry;
- 	bool ignore_msa_timing_param;
- 
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 32b697f46..13478b8bd 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -536,6 +536,9 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
- 		format = stream->timing.timing_3d_format;
- 		if (stream->view_format == VIEW_3D_FORMAT_NONE)
- 			format = TIMING_3D_FORMAT_NONE;
-+		/* a 2D scanout of a frame the source packed itself */
-+		if (format == TIMING_3D_FORMAT_NONE)
-+			format = stream->vsif_3d_format;
- 
- 		if (stream->timing.hdmi_vic != 0
- 				&& stream->timing.h_total >= 3840
--- 
-2.43.0
-
+Regards,
+Loic
