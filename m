@@ -1,62 +1,64 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3798A3845B0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F294400969
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:42:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763368; cv=none; b=mTe2gcvu5/RNbsxycaNkiiRfGQNtvq/dXvctTQRnxtDVDeSLGANgJgCuQs75VKu5EIfc6xk/YIZRT9IkiShE+qyXyX3x6il1aaPXGYdMeZGTEfMTIYNVEzP1dZd13tROytOd+wOcOKSs80mkW17kbV0w2sqbLagkbP/lsm2E+cI=
+	t=1788763373; cv=none; b=kCNOlCqJ9kJzE6Sm04kgF8gEDQvOyRKGMRBm7uYJUWqNVtzfwKnNc4kqUJvfZcynwnFk1Ft0QxPBDF5nDvbLChvgwNikbREphMRnFjzFKztbQxRLwiWpHza+UkKkU5SEJnhyX68JJXS2c1j4cPraQMksscS1RpepoaaPZp27YOw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763368; c=relaxed/simple;
-	bh=bh09GlI2ZVrHHaVK9K6YfhcOnemvcxic7wyZXMUYXs0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F9qQ90bp3Z/Yz8UmKyzfjNaaG8GAXTvtHKmydFuP6CGf6CmlfNGTND3L/RKlCnwF8RbdD583fVnc1w8DShC9MXSaWWQ4OrRH+Cp0yZiAbqbxJwfzp9zfYbLq2XCr1pm/VGOUDkKJt0CaGpQx9ekU/1NDndEwgkHO00qIyCKBWSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fa2eLPRv; arc=none smtp.client-ip=209.85.216.51
+	s=arc-20240116; t=1788763373; c=relaxed/simple;
+	bh=obCt6dFIrhqK0L3cVGv0aYy1LeuBf7kuUudz81Z9e3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=q7qzdHUswd8YhxyHEpLtF1i+f/OAzuhiJak0sBoWK6dw1FPwT/4tWRfXlQuz9FmtKzoW8Zz1Q4HmcEtPvYwBqhHJH3rLQjBxLjTwRrY5ePxEU8YWC6XQ987DUViWO5E18Fr4IIDsXa7XaUwCR02lKS7Syl8OUvEapRMW9X8tnHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R2CM20xR; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fa2eLPRv"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398b3d66515so3065805a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:42:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R2CM20xR"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-395cf2535acso3355260a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:42:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788763366; x=1789368166; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UoT9Sm5I4OGgTRtKvk7z40wlIhMHDfTkFcK0qALI+Jc=;
-        b=Fa2eLPRvoDXHRRzKIni0sYpVYoXmRxoIlpbKCHd/gR5yKtUHZv9Gxfh29kqjL5g/+c
-         bbJyMhz9fMTrBV+PP031iqMq6BbPBEUNES86jHQJ36taChNOfPkb7VliWwCS9k4Ht5Za
-         I8wXCn/VZeP+i3x7VGVt1hVIGDjiUUdFmV6kPiSRL99omEFGtBtaPsLCNyZWNN2crK5u
-         VnAckeKxMQYZYpk5djHJ6DRMX8YZwd9aIrosGBCCh7oQb6laVwQJX/qVKnJ172otsnzL
-         I3cWNCxKlAWS5LWyfxXMQlXas/TRiuRC75mBQFQqjZyegsXsftmhChv+H8CK23v4o+e5
-         8Vrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788763366; x=1789368166;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788763371; x=1789368171; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UoT9Sm5I4OGgTRtKvk7z40wlIhMHDfTkFcK0qALI+Jc=;
-        b=cqqajHZXGGekarT5S/6a2Lx6Sna5WkfToT6GSU7zAQTvUTgi0osIiIq2yt0XheQrYE
-         yl5P8d6ioNJwQ3TgqtoSv55nwU665FRxsAN0084xEKccvZvgMWdRvr/QQTqy9EzYChqp
-         LpWW0vik4Mu1xfuTtj3SWRZ0c8+TtUg0ZAaD9Cd0TLblqB6YIRtI6sWHlzXorRFUb2mF
-         tkTbMCHox+9U6bF3gDkVseV0QEQjWGXe/tDeiVh4hVAhE/ZlpWKhkb9JGKRIil/5k6ru
-         GsuP8a5MneLXjYvYVSeNvOxj7m7/3P0sEe8GJ5JR9ynRKssIuSXn+I8BwndgwHThoGx5
-         vnPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwmG3bgKF8zLskniPxCgywz5Gbh0nLI0fOS3uWaXz6HvxV1aWoIkm2+0zSSWUvb2t/kgN9PIwCBXXxzAKc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lai1RB4+DLx5+UicrxOcUF50dyP7W+KVQ3JTQIR5pfGl46drs6
-	mxn14i1mo8J8f4M1hXjjvjpsRAQeHCyeVaf3ZrOmj9HjJS8OswPV84Lt
-X-Gm-Gg: AYBFou0PtiIuxZ+jgGFaZxXDyz6RaRc3aO0zCRO5p4sVB7t2TGoRsTp3lygnhQ8xfkb
-	OqMi4dK8dCPBf/moJkpylTU8kh6zq9KMT1MLXBMsQtEfgoKzmI3ITGq6y6E5ddxcKsoDrkR8YNB
-	dASNhC0DMe/BVoRrSylXKC3wQ0IPzGcgvyjy3F07kYBsWDHn9iIhDcxa4ZsG6F/6rE28S7aA0kV
-	0SoSMvm28HFkZ2hTQ8S5ZZH3JVTlHDrc0g/U8pbxr5RZPL12V0wyczdKzmXLgrqezqzr5m/Thf4
-	jqu54bY0UmaSzYAuNPA41vU1CAehlM7YRwU2cYp4GJN3vJxiLBEQMsmG3BA3vog7qWKICPfXaLA
-	BERIwnrDbO15Kp++3jF5rdgvlzr7UmMuZfaKOkFyf3CMv8Re/AbH5PwmEx8Ql/pphnFG3025tAq
-	iq+lJy9FlJ4wcJRplBRn4xhhMxsIQjIdGwA+JHFm2xeltDwHE+8erlAaPHUOG3kwigTAUlzKNrh
-	O9gzhEeD9LF8qN4DSPXYfnf
-X-Received: by 2002:a17:90a:d44b:b0:396:4cbf:45bc with SMTP id 98e67ed59e1d1-39b26203f11mr33952091a91.16.1788763366448;
-        Sun, 06 Sep 2026 23:42:46 -0700 (PDT)
+        bh=ar25cKs1gH5uWsuIBDWcu71MwwQW4FbjSNAQqbQcxuM=;
+        b=R2CM20xRVjgggwT6RZ9dSkgejffFNsFnk969uwIletslHRlWM2AM0Cr8kzvGwf0yIl
+         KwcsFLjVvcdoDeCfOsMvAm3K8Bs5OVwPjV8UDfFU0Xzggvboue9dQHK76Z5jdfGzpHXu
+         BCZRG0b0yewzeZP5AsHry0GMqg41JJeyKlT9JtQR2UTY51q01WcvdTmvV/SMUorTz49I
+         lpQoRa5E5ThOZc03Ojhal46F72whX7RZr6teukT5BaQPcxImtFYlzRS8+UKvJL7sO2E7
+         Lo0ejR9ivA8OWn1sKu06ohAqoIt8XJC/6cdTjVRfF0plg+mgmkLOgxnHU1/jkuEGPf2A
+         gQRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788763371; x=1789368171;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ar25cKs1gH5uWsuIBDWcu71MwwQW4FbjSNAQqbQcxuM=;
+        b=M6apw3JaJ44yKGPljUm6Qlyeep05ZNZa//iWpyYFqcsbq+iqQHJq4FrBvTa2vxoLli
+         BlchKPyR5oN1Z+zg6Es1wgLKh1s71kXC/z5j1J0PloOclJEe9SmQ7ELt/19NG1wjbsZf
+         NLordRenWM4gNYHSuLTMG0boxsXIBq6Jw7WXeaI/RwNSawP2RU9BQtUHpT6XLlHloPZQ
+         jem+LBXpFNvYOcxVO6jXezULtNc62nbR7cvRGNDtB+JIreupFqUcf2YWO37xHgGOvPUm
+         8b8+Y6EkspH2iF86nGVKX/oqF0020TcsKQpFp23LEtu7qKkmqflYAHML+hSKqy0/fLdY
+         tJ8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwitd316IHG8XOK9mQCs8ueWN8Z0wtgupYQq/mcmSyUlcxF4IWjzCTPrv382OHN8OOP5rOUrZrIJ7N6FZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpBKLTpeMHTsvZJJgGK7bp2KzHCFD1Mkp1KVox9GYbwotkJ+lr
+	gaZ2pGDBp7RHQBmolGtiFAB4krr+tB5wyjPmx/I36POYKMPnhW4P+szd
+X-Gm-Gg: AYBFou1wOXWZwj40pKQik2cb844NQr67rk9zs4Am3cXiJRyPAXzup/Oe+0u0xR3V3yT
+	sXsv9/hqLKjwgU44lvAob5wbiQZMsjj1LVj1sYV1lnSPH6zfJI/CaRA++pHYAPChM/EK89J8Zf9
+	9soiKZ/qhDBnIqdwJy7g2Y4jHtPWw5e242Lc/VkHCGGIX6Rg5OwQJUB61oMW+NFTyTVo0ChAU85
+	zIRMdA0S0ioDhYBfhLDyFUzj4nfJxS1m6kLM3tjLREEAHCqylk6OnBNRcNolRy3kw0OmtorQbvS
+	bqFnXVRIAyoWutMfIFqu/b1JVdx6lIzgcTTQFvuT1XMhW/JrR7rgFrj+0XRvkKq7LamSgT2QBfY
+	mxldJWHBAOCXQUaiMo8F3ejxNKuKQ8OXYnubIz52aj1IP92ldDan+fYm+Qblpg43CmIJq4teFpf
+	nDO1h0oo0H1mP3VWkFM47WbHk1GPSFuev1YJ4sVJs/D0YEBRTU9qccS8LyzT8GFMPW7AldDb2Bj
+	jqkrN1txbtnZA==
+X-Received: by 2002:a17:90b:4ac5:b0:398:9beb:a2ba with SMTP id 98e67ed59e1d1-39b087fb503mr30411442a91.28.1788763371277;
+        Sun, 06 Sep 2026 23:42:51 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3356dc5c04dsm14377817eec.8.2026.09.06.23.42.41
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3356dc5c04dsm14377817eec.8.2026.09.06.23.42.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:42:45 -0700 (PDT)
+        Sun, 06 Sep 2026 23:42:50 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Pablo Neira Ayuso <pablo@netfilter.org>,
 	Florian Westphal <fw@strlen.de>,
@@ -72,10 +74,12 @@ Cc: netfilter-devel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH 0/3] net: fix typos in comments
-Date: Mon,  7 Sep 2026 12:12:35 +0530
-Message-ID: <20260907064239.39910-1-hemanth.selam@gmail.com>
+Subject: [PATCH 1/3] net: ipv4: fix typo "alignement" in comment
+Date: Mon,  7 Sep 2026 12:12:36 +0530
+Message-ID: <20260907064239.39910-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260907064239.39910-1-hemanth.selam@gmail.com>
+References: <20260907064239.39910-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,37 +88,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This corrects 3 misspellings in comments.  Each is a separate patch so
-that any one of them can be dropped without touching the rest.
+Correct "alignement" to "alignment", reported by scripts/checkpatch.pl
+using the misspelling list in scripts/spelling.txt.  Only touches comments,
+no code changes.
 
-Nothing outside comments changes.  Every touched C file was checked by
-dropping its comments, replacing each string literal with a placeholder
-and collapsing whitespace; what remained was identical before and after,
-so the compiled code cannot differ.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ net/ipv4/netfilter/arp_tables.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The mistakes were found with scripts/checkpatch.pl against the list in
-scripts/spelling.txt.  The scanning, the edits and the changelogs were
-produced with Cursor running the claude-opus-5 model, from a request to
-find and fix spelling mistakes across the tree, and every correction was
-then re-checked by the comparison described above.  Words that name an
-identifier were left alone deliberately, even when they read as typos,
-because correcting the prose would make the comment disagree with the
-code it describes.
-
-Tested by building x86_64 defconfig at v7.3-rc1-269-gbc35965f6940, which
-is clean.  Nothing else was built, so any patch touching code that
-x86_64 defconfig does not compile has been read but not compiled.
-
-Hemanth Selam (3):
-  net: ipv4: fix typo "alignement" in comment
-  net: netfilter: fix typo "artifical" in comment
-  selftests: net: fix typo "adress" in comment
-
- net/ipv4/netfilter/arp_tables.c                                 | 2 +-
- net/netfilter/ipset/ip_set_core.c                               | 2 +-
- tools/testing/selftests/net/netfilter/conntrack_icmp_related.sh | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
-
+diff --git a/net/ipv4/netfilter/arp_tables.c b/net/ipv4/netfilter/arp_tables.c
+index a87e07e80d0d..b680bd14d329 100644
+--- a/net/ipv4/netfilter/arp_tables.c
++++ b/net/ipv4/netfilter/arp_tables.c
+@@ -59,7 +59,7 @@ static inline int arp_devaddr_compare(const struct arpt_devaddr_info *ap,
+ /*
+  * Unfortunately, _b and _mask are not aligned to an int (or long int)
+  * Some arches dont care, unrolling the loop is a win on them.
+- * For other arches, we only have a 16bit alignement.
++ * For other arches, we only have a 16bit alignment.
+  */
+ static unsigned long ifname_compare(const char *_a, const char *_b, const char *_mask)
+ {
 -- 
 2.48.1
 
