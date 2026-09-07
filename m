@@ -1,157 +1,93 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CB1384CD6
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:47:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF3C43E484;
+	Mon,  7 Sep 2026 21:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788817674; cv=none; b=hAXhV6m8L22M/PyM55EwnTHa0u9Diyi67Z4kFJe5KtjHV1WLsqmr27eo6VICd7TPvAEFQXVrZxw8TaC/frWb6ZUJm5vxDcabbZt/QLneUELzauOUmpQnukkTnSnRP0mBdKhC7EUk6C1ifhWcf/4btAesOOp2SXbpxZio5kH1ifQ=
+	t=1788817678; cv=none; b=p66QRfL+2GQ+Z3KYDxHmpSQQuay9OV8Bg+yB9WsHlxuCdkyk4Tyt0MW/NmHkW8vyGhUfeyY2IpTMYzV81KM7UaGzpuMPzg5ooMBbj45Kaagzikh7LQIHWP/5llCjdH2xemyjryU4pQa/HNIMB6j4fL1uddx95KXIqt8ui1kY4NI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788817674; c=relaxed/simple;
-	bh=IDjn/kq5IVHDJPlyX+6SDU+x4L/nD8KL0YP/lw8iah4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=i9gIZERbXtA/A1+xn4zd890PMxuMKRUmPHrCgX4uDxCLBTXLIksgjuFhG4uNN3ITow4j7CPrDGu3gR4klZ4xGrVW2KsPKeft0ipYGNUR9+jfcKfObGD7qIeji1mrAgyPcvwdIQr+sMPTh40qGiW3lIOlTbGfcMLiRP4X5i+ktA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qrj9VpYu; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788817678; c=relaxed/simple;
+	bh=HXWAokHFgJeO1B9vW0w+sCrmC95999arTMjNFJAR6yI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dC4Ll6mZl/ns/Uyd7ITiP5Ujk2OmkUrw5AEvoY6qdfKQyQQ+wtpyiBsEvkjpKhiM8Or3Hi0eXNy6jyop4EMc0U6EOMkV1V6QIbaBd+MHox3nPjOPVMGf0Xrxuvuwtk9V9R//jOzNXzhnwnH+ZdXDc5IiSPCQAoipjdjeWcdQ6Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ixu1xORo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qrj9VpYu"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482e067e908so3240560f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:47:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788817671; x=1789422471; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5KUdZmBnDmF2hbOlG2VbjARf63PeIjYTeZjDuYjWBho=;
-        b=Qrj9VpYus0ng4gQ6ieuhpo4gLLZndTv9HjPsY4C3qATyIXtKkTQbZgU7dlTdgC/SEH
-         qpJzD0/DrHrx2JMcikVIc52UY4+hx0AYySkPANH6YXIlmxGCjH2K4r9agfgz6kHlgJVx
-         IoWtsllNTjbkP+++NROTuh+Hdt4D0T7QQmXXnQcjBi1JChZh+kzXHaoles3YRK8y9sPp
-         8YYySMg0SdB4fJvJLUNt/2RCcySgQblMT9iXkjd7ghJwiYp9aVFg0oREpNmZl0F6eJuP
-         YAyB94Zzy6nL3slmken4tk/fQZhSrQW0YLoYpdMjI9qPS9hXaLSFD4d35B9bXTYGf3Jy
-         OUyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788817671; x=1789422471;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5KUdZmBnDmF2hbOlG2VbjARf63PeIjYTeZjDuYjWBho=;
-        b=ojSZeWJTIe1o+NucB+tiowgP7Nuz0CwVFDotnuI3MBoewgXiKyIMrk2NgrIHXQE/aF
-         nwVk/svd0xQHsCpVPb963Rc7oMv/0ZYwca0qNGkJnWrpfdTYYBnTs2XfHyUr7BttcsgS
-         Vos5qRo7DAs7MHCUatvkvxrgxFHmdL+frT3zqFgJEL2fbe3kBEfZ0mKr8ZMeWV+x7xVg
-         VwklmS9hue7p4cxOyyMn+tXP4Imv9VSCzpoEU2aS/lqZFsmGnFAv40YnBjOWy6S25uao
-         t3gPqqlIac7O26rXE/SkTCQ7gqiN/hza1EbXD2VAyyG5hQp8A5pr7chZsUd1npvISrtp
-         VK0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxnwhRHeNmnZfRuBjid3k8euqLvat9CA6prdkTU3s6Oeg/q0UCUgJeb2tYzBabCwbSdjC8TsR8Ml0osDPs=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRhZMhtg9ZY51OQBFI9L8eXsjIL4E1eFYJqOxqHNW7qXpQQA8+
-	aGRWqbc5MJ1p/9wu5N4SPgKXjPmKMe0bcyzxSb1XkOh+PgEAHmBZcuFd
-X-Gm-Gg: AYBFou2YhFrVZNaoFwr8SgHg74JfE94VB31oIK5XAmQ8R9jsznBJbdN+dU0M6HrOdZ7
-	7a2kG55Ea17lZhKhD+HhzxVNclRSrLSh1ylvQGNbqGFgqMxyUXMwA6rhBNNyg1D7Rxq4VaZ/LvR
-	+BSpR3vf21napXpsF6VcI8WY1/ao+6N1duocJPbY+Lki7BOJTcg/Q5Xvoy9K65J1XEj6VKBK3JT
-	++M8quiW6dPptopx0JTal4cs8T7kYRMaNAVXoBjdKzNeJW2BPcE/8JygYOHDqP0Gul7jOlXVEAQ
-	4cq5fXT3K/nugIPRJZ1Opz5sPyyBh7Rop/ZPq5ZhKbYl6R4GU52eIZoKCCdOzs8e+GgyyESzDLZ
-	cugLyfw4NlAHDDDBSaHZ9J3gw56u5POvvn/FT5O7VU9lve5FJI6Gk1rydS9q1LHdizRJjwZyHso
-	SuvyRc5v0fHq+3+3KNBPlmhEP8ov3Sx4uAmRwYdAdMpuMMgZhWGm+ZYeNKYtYvFCHfF0Yh
-X-Received: by 2002:a05:6000:1785:b0:485:91ac:434f with SMTP id ffacd0b85a97d-48591ac44a5mr16089651f8f.16.1788817671341;
-        Mon, 07 Sep 2026 14:47:51 -0700 (PDT)
-Received: from metepc ([46.197.185.71])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm32792941f8f.30.2026.09.07.14.47.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:47:50 -0700 (PDT)
-From: =?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>
-To: netdev@vger.kernel.org
-Cc: oneukum@suse.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	david.laight.linux@gmail.com,
-	=?UTF-8?q?=C3=96mer=20Mete=20Kaya?= <omermetekaya0@gmail.com>,
-	syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Subject: [PATCH net v4] usbnet: fix smp_processor_id() use in preemptible context
-Date: Tue,  8 Sep 2026 00:45:12 +0300
-Message-ID: <20260907214727.692307-1-omermetekaya0@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907212308.420701cf@pumpkin>
-References: <20260907212308.420701cf@pumpkin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ixu1xORo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4551F00A3A;
+	Mon,  7 Sep 2026 21:47:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788817677;
+	bh=FKBbhFVa059S4cyouWrgkTaUmVbQMUrd/Wmoh8VXRiI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ixu1xORodadWwi/1XFRNAhlOiK3hz2ID/uCTSrrn1ZAQ7BM6fCzTUG2AcWv01QHRJ
+	 1hpketZND3mj0Q2DNeo9Nq07+GHiPz4GFCL1TfS6uKJ0o9U6sm+/1uGxhWVSfKJIXZ
+	 JjnE0fSO/gJla807G+WttOfNP1OnqXR/MbV89cNZ2C0oCcM8uZ0IHe8usOJJF2zW+j
+	 S1/Ilr3i+NaoHHJonBr+G7WMZLbi1uUwhCTftEFjA1x3mh7Cs6ncI5I+Uf6KOb9qVV
+	 MRnwQHMbo5GOE7ky2qJ4rMAV0OwaEZaSJ1hoDPOuMTU7CPTU94u0VdW3ovlr4K2nnp
+	 N9Owo3NOgs+Ag==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, "hpp.iscas" <hppiscas@163.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ Kai Chieh Chuang <kaichieh.chuang@mediatek.com>
+In-Reply-To: <20260905133210.63803-1-hppiscas@163.com>
+References: <20260905133210.63803-1-hppiscas@163.com>
+Subject: Re: [PATCH] ASoC: mt6351: Publish the OF module alias
+Message-Id: <178880730290.118202.3003996533999491750.b4-ty@b4>
+Date: Mon, 07 Sep 2026 19:55:02 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1097; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=HXWAokHFgJeO1B9vW0w+sCrmC95999arTMjNFJAR6yI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnzEIcuBe9d/xYsCjxZOdBv1mqeJTu7OhGl0qN
+ I7sM5tkaemJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCap8xCAAKCRAk1otyXVSH
+ 0D8FB/40FRMYjNrvXYNR3VAn93IMc/gprjYD8QYyYiJo0cIiW/1pgqKrSnb8ndluSt3Y0Xk9dhu
+ FpHO2AFUcMPrcBI28PNypbcS4nfscT0DtOpzJ1rcz2As60H7MFRItBwX+53k9wN28uW6PJMkKvt
+ F8ENYsI/3K6ZO7ViVchdMdnjuapXWKOunAu+5cjHxiD5A0j5PWzgtVe5IUbYmDz9nMgs+1jB6kE
+ 9Cw35/AIswztZRkH/9sLoeVBOE1CW/SH0JIzq9/tNBTmZoi1SV6QPzHGYbfBdjMXXkFBsojZe1g
+ SgoI3YytVb8NJXFeuCmKVBa4+igGuauMhBEinhKe8dqR4OCR
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-usbnet_skb_return() and tx_complete() call this_cpu_ptr() before
-disabling preemption, which triggers a BUG when running with PREEMPT_FULL:
+On Sat, 05 Sep 2026 21:32:10 +0800, hpp.iscas wrote:
+> ASoC: mt6351: Publish the OF module alias
 
-  BUG: using smp_processor_id() in preemptible code in tx_complete
+Applied to
 
-Fix by using get_cpu_ptr()/put_cpu_ptr() which disable preemption
-and return the per-CPU pointer atomically.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
 
-Fixes: 43daa96b166c ("usbnet: Stop RX Q on MTU change")
-Reported-by: syzbot+04cd90bb99c6ef81a65d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=04cd90bb99c6ef81a65d
-Signed-off-by: Ömer Mete Kaya <omermetekaya0@gmail.com>
----
-v4: Use get_cpu_ptr()/put_cpu_ptr() as suggested by David Laight.
- drivers/net/usb/usbnet.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+Thanks!
 
-diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
-index a19ecf718f36..3df72b0c6bcf 100644
---- a/drivers/net/usb/usbnet.c
-+++ b/drivers/net/usb/usbnet.c
-@@ -325,8 +325,7 @@ static void __usbnet_status_stop_force(struct usbnet *dev)
-  */
- void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- {
--	struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
--	unsigned long flags;
-+	struct pcpu_sw_netstats *stats64;
- 	int	status;
- 
- 	if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
-@@ -338,10 +337,12 @@ void usbnet_skb_return(struct usbnet *dev, struct sk_buff *skb)
- 	if (skb->protocol == 0)
- 		skb->protocol = eth_type_trans(skb, dev->net);
- 
--	flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-+	stats64 = get_cpu_ptr(dev->net->tstats);
-+	u64_stats_update_begin(&stats64->syncp);
- 	u64_stats_inc(&stats64->rx_packets);
- 	u64_stats_add(&stats64->rx_bytes, skb->len);
--	u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+	u64_stats_update_end(&stats64->syncp);
-+	put_cpu_ptr(dev->net->tstats);
- 
- 	netif_dbg(dev, rx_status, dev->net, "< rx, len %zu, type 0x%x\n",
- 		  skb->len + sizeof(struct ethhdr), skb->protocol);
-@@ -1298,13 +1299,14 @@ static void tx_complete(struct urb *urb)
- 	struct usbnet		*dev = entry->dev;
- 
- 	if (urb->status == 0) {
--		struct pcpu_sw_netstats *stats64 = this_cpu_ptr(dev->net->tstats);
--		unsigned long flags;
-+		struct pcpu_sw_netstats *stats64;
- 
--		flags = u64_stats_update_begin_irqsave(&stats64->syncp);
-+		stats64 = get_cpu_ptr(dev->net->tstats);
-+		u64_stats_update_begin(&stats64->syncp);
- 		u64_stats_add(&stats64->tx_packets, entry->packets);
- 		u64_stats_add(&stats64->tx_bytes, entry->length);
--		u64_stats_update_end_irqrestore(&stats64->syncp, flags);
-+		u64_stats_update_end(&stats64->syncp);
-+		put_cpu_ptr(dev->net->tstats);
- 	} else {
- 		dev->net->stats.tx_errors++;
- 
--- 
-2.55.0
+[1/1] ASoC: mt6351: Publish the OF module alias
+      https://git.kernel.org/broonie/sound/c/9c3882ec1039
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
