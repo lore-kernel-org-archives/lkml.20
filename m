@@ -1,133 +1,140 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876573D5673
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC4D3F4827
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788818084; cv=none; b=hfQjx8uXR/g9k0ofcpruKGNcIFvYG42htwt5qWM6hHGKMYIi0nn4hJW4xpFOeQK1VQ+SXWqIc+X4CXYREqD9BQd7EZkCG445Jt1I1fxPYmkN975sB8qJcYWTag7j2u/vwuiPin9p5IamK8/Cs+aaw5ueazxR7+a0ZL0u9RGQJ8Y=
+	t=1788818081; cv=none; b=fcLgNkqPs63RFrGkka7iYZop2uc5WbiUYjWiIgCEw0tgrHinycrBS4YwS0PqcNw3aoRYd6o2z8di89/ELJXFOT/2iENnM20EdWxMhjIQ+6TdLE/AXOsn/5PPA205MdKCLrsM1AQsRuN7hiOw1HtXbRP8DDGQ4kCAR3xY79j/4Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788818084; c=relaxed/simple;
-	bh=N2ns42t2lkowA7Fk1OVBdhHQEf1nFZ75mrokscC9jI8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fyt/OpKw0idsIKAoj5u+3lx89YqyG/PHK8d+3E5+yv/vuCc1dzFyCw37Zz5iKSWnPHuUcjI0Mtek4PpPdbmzMM1CTCPJtYD2IdTqH3e07mmfNl5r5iwsE/98HQl6+yz+3L3NG3j/sV+wiPHFAM5WYGAD5JogATSJVjExm6gpASk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ESc7aepS; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788818081; c=relaxed/simple;
+	bh=ATzllCN+dDw5CaRunDgFMLiOohABpMDjBm9gAA2JbL4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=txpMYPeEbnQlMSceOQMC6X7GbZDk2uXkJHwIPVzhakScQCa7AU5+H8IGjHp4tVM0BYhAiD2coVsIm1+zDPgb3Di9pfK0AxF4wCg8VEHh4uBy6CV8X87PvuwOAkLQ5HEnBvLJFVO/cVABGdA/+2IbtdKK/cvf7So9pS/unKMpO0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=kRu5icKf; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ESc7aepS"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-86d43cdee51so46880547b3.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788818081; x=1789422881; darn=vger.kernel.org;
-        h=content-transfer-encoding:f:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nwpffGrF0yp02BONayMPau7nafrjjaDgDJ94lomGBcc=;
-        b=ESc7aepSBuly/9ppsfLYBRYJLWl3bY6U3Zqi8NERXRZXHTQtkmGORKatwI9JFWodCT
-         Jr2Upbd6VVDQnbKS2KEl5dDCWsTK7KmSNUi0u0yO9qqpIvtEEt4I3c9lVTF+NT7Y/hte
-         ypD97wM1OKM3oE2v3b64UPmW7wUc6HuxTurJaqolOZ3ulgLDMqfwu0yly09DormaVeIW
-         6UmuFZqQIC/anicxTFgsVJRT3iFJ4QMpqQE7lvu7DlDIhTMWRxE0PoQryv2K0VzakQ8Z
-         OZrhwaDI3b3kR633Qp6SmeuupwQkm5/h76TC5KzPQxN0fyNOnkcBcPMSUv7gqCehx+TZ
-         sKKg==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="kRu5icKf"
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4149D3F322
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 21:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1788818074;
+	bh=fRpckaKOwl0Kgs7K/gM2OB7RO7urUAj94CqnshB8/I4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version;
+	b=kRu5icKfUEUcmvwaKio7cmGGXWebNI9AbOdiVcfdEc3UeR4Hvbq/QCmhfLjI5J3Y1
+	 7BhNDcg4dLCwQzoIVntelMxGictKU1hIg2ouclc1olE3y168lrQPy78R8faOl7kB00
+	 y9MIS8bM6prt+jJBpChPHCQBDA3XzyIM2KefFXmXJcoUQ+xvIDf/3smoyEDItINtxT
+	 DEjecywl0Y7ijg0gi59NlebztCgnbEP9RF6QhnDx7M/fvLhnKm+zsfatzIEhuuXshi
+	 xh2dTgg5tPmA3/7tOb/be78LMtGonA+UKSDSJCLV+s+5UCjgPAEBQJ+iZit5d0kN24
+	 mDTr9bwUs0c/aPOyTFj3CfRvAZd/scZbW6OT/w3qccAgiRo0FtrOtyAF11Oa0Pmrlq
+	 Q+1rPhoKxmePEZPSt1p4MuiQ987Rj0hcP391N3DITApRl83kJs0kb9EseUWFbkyDhC
+	 3unbhfNJsPmfOoNR/mlQDvmc3xdCdnIjZ/IksvMRAQyRDpd3xbPK8IWEOpUBK3wQ14
+	 As0NXAWoc7Ic+DwqLokvCsr8Jop8NI2yUK4IVgFyh069MW5P4WvRsQXIO2RcC2V5PJ
+	 VBkzNbhV/lvX0ERDXWzWYYfIUpU5x59anBAdn1jTbUfG2mHuUjDvIkGpDfpuKUpTjt
+	 aCmfwM/rneWl3aRbec9rhkjI=
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-853a9c4c99eso30576727b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 14:54:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788818081; x=1789422881;
-        h=content-transfer-encoding:f:mime-version:message-id:date:subject:cc
+        d=1e100.net; s=20251104; t=1788818073; x=1789422873;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nwpffGrF0yp02BONayMPau7nafrjjaDgDJ94lomGBcc=;
-        b=BGF3VS6FoqpT/5vl/hWoMH1/y9kfc8/mB8T5a8t8AHElfnMTW6DS0F3lGfB8OpIGa9
-         8a2fjfPUOVPYwfIjLh8WIzMOUPnXH8D5oIxUP+DAWujlmbgqQt6o1BAIptADcVq58ui1
-         55YUfS43sBBE+WkJMGK6oHDVQhEzFnuprUt+znbMpbjqJvmZ+CJGZaoNG5dy4t5aXgUv
-         sueeAEKwzAfIEDnRIxu5gAXkep2xNSyfG49UonTqZ3Xh5D/X9JB8KAvhlTn4qs4MXDgy
-         OwAuxOYr60nKJM5/mSBvsfnaSw2xGxMqi8WebR3VW9/lVBkcjW1mDio/mI9qXL4z0lAA
-         RIBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+ak5kLh3YbEC8NLsMeALwC13nG9OlwCHUmfZDx2+5OzU5VYhydW3Gy2fHThYspLtHe0aFp8mEuaReD2w=@vger.kernel.org
-X-Gm-Message-State: AFuF++koUOz7SgYzITKI5qnl5TlTe/rhCStCak5Uzp8vmGSEs8jM48w1
-	WMgMyew/cCRxHO9NGQ/Jb52aQ2kBNm4UeT6qi8fVM0bOX2qlu2yG2o0M
-X-Gm-Gg: AYBFou2ZWJx7VbppBoJfY43EwGnzKJyGhJOMXY/Rz3QVHEBfw8jkmEU50PKyd0UR9JV
-	iWXlMb2jgNyKwGQ0pPKh1uxQbZkV7QS4xEmOe6rDY8OpqQhdbvbdsCENPSezgziigRRzg5vG2YP
-	CXBdKYEBK/9/ASjmt8ADntoHKsqumTGgV2MiwQnMu+KqflaovSbTH4sPTqrGpr6VJUZxFus/GSH
-	stzufTMLNNnxm3o+2BH6kJKp9RoyrKPxUj5o5ZSRXHfxAXwJAQPinjrgX7RtpWeGRKUOmbpXwep
-	6HifCtvVbpltK5tsZOp3GyfDAPXUwb8LSTd88tKLeK8u1xTVyRk7JwgBQ0bOTuveng2Ga3qtH80
-	bsjYh+xQCZiiCpXBSptqH4dQVdn2C+VY6VpZchouu7qnQY1S1Cf7oVzxJgnHJ8oxJIOlMY6YDq1
-	w7mrYIaArwmkGCqztcGJ6tltKqncpNgJu5bBycXPNF1iBunv6h6K809G66TvLddZDXTtE8PUMfr
-	uFN2nmINH84rvE0ug==
-X-Received: by 2002:a05:690c:c509:b0:873:5bb2:6c21 with SMTP id 00721157ae682-8735bb26f1emr64757207b3.40.1788818081486;
-        Mon, 07 Sep 2026 14:54:41 -0700 (PDT)
-Received: from localhost (c-73-105-0-191.hsd1.fl.comcast.net. [73.105.0.191])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-871493168dasm78139017b3.11.2026.09.07.14.54.40
+        bh=fRpckaKOwl0Kgs7K/gM2OB7RO7urUAj94CqnshB8/I4=;
+        b=A2/ZpBkofwyA58oWf1UiseeohiWUy68iwabLhSRCthK6I+jfTf5WGD04Qs1GE5lroU
+         VV2U8dZ52MvmH42bwoaaQxqRdI918N4swSQe41v3EvVgQTGLskCQ/Q8/anaXGKrmflBS
+         z12Csh0uNb+I86AgjXCF3oMPvO1W0KkOBwnzrTvwTiHfJbSnxrG+21FtH8aGvXzaTqAQ
+         ZeMar5J9jgLVVJSH0PwtbaVNJT5mbSBVo/uBdtr8rrh3O/05sp96xsFq06kcvsAHCThE
+         cK74oAvxHIak6WrpMUtMYyT5LLeb4nNPoX4LbXs2/QpRmvkWtpuiFnEm2EOLko5scRbC
+         0Xlw==
+X-Forwarded-Encrypted: i=1; AKwUvBx5DBFeWUlk3Gw4KWBwZcCL3HpJ2lz3oyblp9gfqN9oV3YYHPM2Ca0YRBTDGn8X+Kz8LrFwfrIuO3kH+nI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcGb7V0Bb1Fxe3sS1Ezgu4yAGbVgw4Nr6LLW5F9Jo70eD9ZMeZ
+	RziBdBYTdOqZL/EbU4aPfzRw/pX4F/IAPILAbWxiSQgIMPNCICQyUmGrzbM5oDgVU1cmxujNUar
+	bbdDOWvwaCdQUq4b1/xjK2i/UvybBgTG9Yxfetyve9jE36AAXbGpkGNPXirvy05ypLV3tR/pIyo
+	oJOxvFsg==
+X-Gm-Gg: AYBFou3eTuO2d0ymIDsMi/IOcTOsV0G9/VxbuN6xMxfoQSDh9wY89QiEpKFcx6ZyOLD
+	EUHT4bANtXrs+/d0Io4d3pHUQRNg8vNfjZuaIy6C5ASzasfTPsmA/raOh53naohuJEjtf08g4qC
+	NKJY2wTcxCNIjTabYswHfVN+8gtxerufWDR5olnh8ypjzSshzA6HH+RAcyIxXrNWDtyHO3vcCqM
+	jTv6Dc/UCNQdvrWZk39C1IRRNeSchxkZO9oRTL/ZkwubrCWRHJPK+3T7Ktq9AF7tWvmGicQg2Of
+	F7+z/XHJ46cDrm8uk5E8AsVqy4O3zhPdxEJqso54CFF3imtdmnNIgzum3PFniGWtSn7iXEFupxq
+	DiMl6q3NNP2kOa7mdrJk9KFibJN6vtHpmrGQv7KzTPg==
+X-Received: by 2002:a05:690e:2581:b0:66f:8797:8721 with SMTP id 956f58d0204a3-66fb591c4b0mr6436218d50.10.1788818072950;
+        Mon, 07 Sep 2026 14:54:32 -0700 (PDT)
+X-Received: by 2002:a05:690e:2581:b0:66f:8797:8721 with SMTP id 956f58d0204a3-66fb591c4b0mr6436205d50.10.1788818072556;
+        Mon, 07 Sep 2026 14:54:32 -0700 (PDT)
+Received: from Q58-sff ([2a00:5884:1118:0:ed91:74de:df2:6b36])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8b8fsm8977708d50.2.2026.09.07.14.54.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:54:41 -0700 (PDT)
-From: Yury Norov <yury.norov@gmail.com>
-X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Raju Rangoju <Raju.Rangoju@amd.com>,
-	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	intel-wired-lan@lists.osuosl.org,
-	linux-usb@vger.kernel.org
-Cc: Yury Norov <ynorov@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 0/9] linkmode: better use bitmap API
-Date: Mon,  7 Sep 2026 17:54:29 -0400
-Message-ID: <20260907215439.409858-1-ynorov@nvidia.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 07 Sep 2026 14:54:31 -0700 (PDT)
+From: Thibault Ferrante <thibault.ferrante@canonical.com>
+To: linuxppc-dev@lists.ozlabs.org,
+	maddy@linux.ibm.com
+Cc: mpe@ellerman.id.au,
+	npiggin@gmail.com,
+	shuah@kernel.org,
+	chleroy@kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/powerpc/tm: Fix tcheck() reading uninitialised CR value
+Date: Mon,  7 Sep 2026 23:54:20 +0200
+Message-ID: <20260907215420.1258678-1-thibault.ferrante@canonical.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-F:	include/linux/linkmode.h
 Content-Transfer-Encoding: 8bit
 
-Several linkmode users discard the return value of bitmap_and() and
-then call linkmode_empty() on the result. Propagate the return value
-through linkmode_and() and use it to avoid redundant bitmap scans.
+tcheck() is used to check the current transaction state (active,
+suspended, doomed) via the "tcheck" instruction, which writes its
+result into CR field 0. The inline asm declared a GPR output operand
+for this result but never actually moved the CR into it.
 
-Add bitmap_and_and() and bitmap_and_andnot() for callers that combine
-three masks. The new helpers perform the operation and emptiness check
-in a single pass.
+Every caller (tcheck_doomed(), tcheck_active(), tcheck_suspended(),
+tcheck_transactional()) has effectively been testing bits of an unrelated,
+arbitrary register value since this helper was introduced.
+The "& 4" mask discards the TDOOMED and TS_lsb (suspended) bits before
+they ever reach the callers, so tcheck_doomed() and tcheck_suspended()
+can never return true, and tcheck_transactional() degrades to being
+equivalent to tcheck_active().
 
-Yury Norov (9):
-  bitmap: add bitmap_and_and() and bitmap_and_andnot()
-  linkmode: make linkmode_and() return boolean
-  net: amd: xgbe: use linkmode_and() return value in
-    xgbe_set_link_ksettings()
-  ixgbe: use linkmode_and() return value in ixgbe_get_eee_fw()
-  net: phy: use linkmode_and() return value in
-    genphy_c45_eee_is_active()
-  net: avoid copies before linkmode_and()
-  net: phy: use linkmode operation return values in phy_device.c
-  r8152: use linkmode_and_and() in EEE checks
-  MAINTAINERS: co-maintain linkmode.h under BITMAP
+Fix tcheck() to actually move CR into the output register with mfcr,
+and widen the mask from "& 4" to "& 0xf" so the full CR0 nibble
+(TDOOMED | TS_msb | TS_lsb | reserved) is preserved for the callers.
 
- MAINTAINERS                                   |  1 +
- drivers/net/ethernet/amd/xgbe/xgbe-ethtool.c  |  9 ++-
- .../hisilicon/hns3/hns3pf/hclge_mdio.c        |  5 +-
- .../net/ethernet/intel/ixgbe/ixgbe_ethtool.c  |  3 +-
- drivers/net/phy/phy-c45.c                     |  3 +-
- drivers/net/phy/phy.c                         |  7 +-
- drivers/net/phy/phy_device.c                  | 14 ++--
- drivers/net/usb/r8152.c                       | 10 +--
- include/linux/bitmap.h                        | 32 ++++++++
- include/linux/linkmode.h                      | 21 ++++-
- lib/bitmap.c                                  | 46 ++++++++---
- lib/test_bitmap.c                             | 78 +++++++++++++++++++
- 12 files changed, 188 insertions(+), 41 deletions(-)
+This bug has been present since tcheck() was introduced.
 
+Link: https://bugs.launchpad.net/bugs/2107442
+Fixes: 8e03bd4e70b6 ("selftests/powerpc: Add TM tcheck helpers in C")
+Signed-off-by: Thibault Ferrante <thibault.ferrante@canonical.com>
+---
+ tools/testing/selftests/powerpc/tm/tm.h | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/powerpc/tm/tm.h b/tools/testing/selftests/powerpc/tm/tm.h
+index c03c6e778876..6024ce4ba6ff 100644
+--- a/tools/testing/selftests/powerpc/tm/tm.h
++++ b/tools/testing/selftests/powerpc/tm/tm.h
+@@ -105,8 +105,12 @@ static inline bool failure_is_nesting(void)
+ static inline int tcheck(void)
+ {
+ 	long cr;
+-	asm volatile ("tcheck 0" : "=r"(cr) : : "cr0");
+-	return (cr >> 28) & 4;
++	asm volatile("tcheck 0;"
++		     "mfcr %0;"
++		     : "=r"(cr)
++		     :
++		     : "cr0");
++	return (cr >> 28) & 0xf;
+ }
+ 
+ static inline bool tcheck_doomed(void)
 -- 
-2.53.0
+2.55.0
 
