@@ -1,137 +1,167 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8ADC94C6811;
-	Mon,  7 Sep 2026 13:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379834AA003
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787737; cv=none; b=cTl7TdhjsCa4CaMs5vR7nU2i/y1wTvYcc8ifXpaGEcAY8NMX1PZbterfBWEkNntmg57DMqfW18Mf4RgmUjvVW2QdSBythelTs8myEtQxXQxZ7+mbnwXkPQQ7VQUnx6YmkKAClqwkzjT8j7zKqQ6+DKL0JRTsj7lgcDEGai5y3cI=
+	t=1788787762; cv=none; b=poigfbuLxVMVM1MBDAk16lx4Ud9TRLLUqE5NXfuumQHYqXdcKp42CnfRdkEukjrWoDMIdvlmIddfHW0rTe2f+Nj388p4w3hQ1i6o3GpdXlG/8ALNN5oRPDGkZc+GzK1XxzwXcCNDcCsKwT2Npwi0gnnNVmojxsR7L8k6P+UkQyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787737; c=relaxed/simple;
-	bh=Q43zjFngUH4CVRm0yM8HzVAnPDiw5923YGyUdTIL2X8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Y8sIYRa04BG+r0YasISF83TtOIpPA261kZ2vk7IiCrtVT3ZRXRnVK3iAHh1snt51Ibr0R8dwxNsO62XjjDz27t+mRku2V6CdCIMOs83GKDUK6MoI3LczpZwafWOkWeyFyEKJTKX5GDhqlv54Xpx5SJqh2ozc5Q+sGOqrgt6zTXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=iDqy+gXd; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788787762; c=relaxed/simple;
+	bh=CSNKE3X9zGEThKEHTUj/MHt2L2p9PiFQgfv/1nvjjNU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=FaJHIJ/NSQPpe9IXxMv88qxqKM6X6PDlHKTQMH5cQkAdUjgNhmeTDJyRZoTTGkLe+3I+6hyBW/mfT17lfM5fBULljXRnPW+4tH+y2oDUbMlk5svam3UEcjny+mcUOE6TkSJKKhKKCSO85Zc1Fu95VciIxLZKGj+2CZbA7CfT7ss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Hu+58G3q; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="iDqy+gXd"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B49641476;
-	Mon,  7 Sep 2026 06:28:47 -0700 (PDT)
-Received: from [10.0.152.207] (unknown [10.0.152.207])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 893583F7D8;
-	Mon,  7 Sep 2026 06:28:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788787731; bh=Q43zjFngUH4CVRm0yM8HzVAnPDiw5923YGyUdTIL2X8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iDqy+gXdsbWjQJPd91C1nM1zZ+xgWeS11WliE9Osu1N/a3Fjgd/2p2Xx/8MhgRZLR
-	 ucE++QR5nAlr8Qq4g07e9u7HQKvsSBNE2oaru/6qRuQM+o3PTaTePwbVhyW9QXlP4A
-	 f0nPXWjg8bGVTYGo8ofymc0I7B9rALdmwVs+EelI=
-Message-ID: <d7bb2cf4-11c3-468c-8749-99cc408299c7@arm.com>
-Date: Mon, 7 Sep 2026 14:28:47 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Hu+58G3q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788787753;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=KjeZBR97TCcSu6Yi5+/kV6dt//KNAu887Dd5tax8g44=;
+	b=Hu+58G3qEFNGBdXTXxyzWrDKe790b/GGqR+3B1YrtHZonko2MQR/CUt+NfWNapOxjEzjGb
+	b9o4ovZqG8V5CCw6R2owr5EkxoCaEweNm1gYp2m/PZsynP52VGKQSgdrSs/9Kpm+zSJxn0
+	B9M3dTSTL3R/uX+PNcXoh0zkwWlMJ2o=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-325-s8jbVTQcPG2MVyvTqaa3lg-1; Mon,
+ 07 Sep 2026 09:29:08 -0400
+X-MC-Unique: s8jbVTQcPG2MVyvTqaa3lg-1
+X-Mimecast-MFC-AGG-ID: s8jbVTQcPG2MVyvTqaa3lg_1788787746
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 468DE18089B6;
+	Mon,  7 Sep 2026 13:29:05 +0000 (UTC)
+Received: from aesteve-thinkpadp1gen8.rmtes.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 67CBD30001A2;
+	Mon,  7 Sep 2026 13:29:00 +0000 (UTC)
+From: Albert Esteve <aesteve@redhat.com>
+Subject: [PATCH 0/3] drm/amd/display: use kunit/visibility.h for test
+ helpers
+Date: Mon, 07 Sep 2026 15:28:55 +0200
+Message-Id: <20260907-visibility-unification-v1-0-6a962e5b3351@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [BUG/PATCH] drivers/usb/mtu3: Work around mtu3_log_ep
- double-indirection issue
-To: paulmck@kernel.org, Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, rostedt@goodmis.org
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <a3ee0655-d818-48e0-84d1-475e6c16c991@paulmck-laptop>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2Myw5AMBQFf0XuWpN6P35FLKhbTiIlLULEvyvLS
+ WbmJscW7KgObrJ8wGExHqIwIDV1ZmSBwTPFMs5lJQvxKT1mbJfYDTRUt/lE6CHJSpWVMk0L8vF
+ qWeP8x037PC8qLH2yaAAAAA==
+X-Change-ID: 20260907-visibility-unification-fd358c580447
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, Albert Esteve <aesteve@redhat.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787739; l=4699;
+ i=aesteve@redhat.com; s=20260827; h=from:subject:message-id;
+ bh=CSNKE3X9zGEThKEHTUj/MHt2L2p9PiFQgfv/1nvjjNU=;
+ b=8zHCFmM8DeOlXqSqlpqBu7B6JtthMEyk14mY/UJKGwYfbN7SV1iH7DPRsKgP16JKLpc0ZEDhi
+ YY6+2QFeYO8CIZM8sNv4uB3f/ORgwzuvvOQHWSfIWm4LQihGNiMJR0B
+X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
+ pk=zI2RBeZgocwYm3AkJW4CtjoJnKoDZrfBl1xe5Ed6h+U=
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On 9/4/26 00:59, Paul E. McKenney wrote:
-> This is more bug report than patch, but this patch does suppress the
-> splat, so there is that.  ;-)
-> 
-> Kernels built with either KASAN or KCSAN produce this splat:
-> 
+amdgpu_dm grew its own STATIC_IFN_KUNIT / EXPORT_IF_KUNIT /
+INLINE_IFN_KUNIT macros instead of using kunit/visibility.h. This
+series switches the KUnit helpers over to the common API.
 
-I see it on kernel w/o KASAN or KCSAN. IIUC, this is new check introduced
-by b5cc230af5e5 ("tracing: Warn when an event dereferences a pointer in TP_printk()")
-so adding Steven :)
+VISIBLE_IF_KUNIT is gated on CONFIG_KUNIT rather than
+CONFIG_DRM_AMD_DC_KUNIT_TEST, so the helpers are non-static whenever
+KUnit is enabled. EXPORT_SYMBOL_IF_KUNIT places the symbols in the
+EXPORTED_FOR_KUNIT_TESTING namespace; the AMD DC test files import
+that namespace with MODULE_IMPORT_NS().
 
-> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
-> [    0.000000] ------------[ cut here ]------------
-> [    0.000000] Event mtu3_gadget_ep_set_halt has double dereference in TP_printk: &REC->gpd_ring->dma
-> [    0.000000] WARNING: kernel/trace/trace_events.c:420 at test_double_dereference+0x144/0x14c, CPU#0: swapper/0/0
-> [    0.000000] Modules linked in:
-> [    0.000000] CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.3.0-rc1 #15247 PREEMPT
-> [    0.000000] Hardware name: linux,dummy-virt (DT)
-> [    0.000000] pstate: 600000c5 (nZCv daIF -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-> [    0.000000] pc : test_double_dereference+0x144/0x14c
-> [    0.000000] lr : test_double_dereference+0x144/0x14c
-> [    0.000000] sp : ffffc80aa7633bf0
-> [    0.000000] x29: ffffc80aa7633bf0 x28: ffffc80aa7c0f047 x27: 000508b58019388f
-> [    0.000000] x26: 0000000000000003 x25: 0000000000000007 x24: ffffc80aa5fceff8
-> [    0.000000] x23: ffffc80aa7c0f05a x22: ffffc80aa64edfe8 x21: ffffc80aa7c0fce8
-> [    0.000000] x20: ffffc80aa7c0f047 x19: 0000000000000013 x18: 0000000000000001
-> [    0.000000] x17: 6572656420656c62 x16: 756f642073616820 x15: 746c61685f746573
-> [    0.000000] x14: 0000000000000000 x13: ffff000139d90000 x12: 0000000000000045
-> [    0.000000] x11: 00000000000000cf x10: ffff00013f546428 x9 : ffff000139d90000
-> [    0.000000] x8 : 3fffffffffffc000 x7 : 0000000000000001 x6 : 0000000000000001
-> [    0.000000] x5 : ffff00013f4e6440 x4 : 0000000000000000 x3 : 0000000000000000
-> [    0.000000] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffffc80aa764a700
-> [    0.000000] Call trace:
-> [    0.000000]  test_double_dereference+0x144/0x14c (P)
-> [    0.000000]  trace_event_raw_init+0x37c/0x5d8
-> [    0.000000]  event_init+0x34/0xc0
-> [    0.000000]  trace_event_init+0xec/0x588
-> [    0.000000]  trace_init+0x24/0x6e0
-> [    0.000000]  start_kernel+0x4a0/0x8ec
-> [    0.000000]  __primary_switched+0x88/0x90
-> [    0.000000] irq event stamp: 0
-> [    0.000000] hardirqs last  enabled at (0): [<0000000000000000>] 0x0
-> [    0.000000] hardirqs last disabled at (0): [<0000000000000000>] 0x0
-> [    0.000000] softirqs last  enabled at (0): [<0000000000000000>] 0x0
-> [    0.000000] softirqs last disabled at (0): [<0000000000000000>] 0x0
-> [    0.000000] ---[ end trace 0000000000000000 ]---
-> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_disable has double dereference in TP_printk: &REC->gpd_ring->dma
-> [    0.000000] TRACE EVENT ERROR: Event mtu3_gadget_ep_enable has double dereference in TP_printk: &REC->gpd_ring->dma
-> 
-> Apparently, the code should instead create another entry in
-> TP_STRUCT__entry(), and do the double-indirection TP_fast_assign() instead
-> of TP_printk().  But simply removing the offending double indirection
-> in TP_printk() gets this splat out of the way of other debugging.
-> 
+INLINE_IFN_KUNIT is dropped rather than generalized. It was only used
+on amdgpu_dm_fixpt_from_s3132(), inverted the original static inline,
+and is unnecessary for tests in another translation unit.
 
-Indeed, splat has gone after applying the patch.
+Tested with:
+  ./tools/testing/kunit/kunit.py run --arch=x86_64 \
+    --kunitconfig=drivers/gpu/drm/amd/display/amdgpu_dm/tests
 
-Thanks
-Vladimir
+(CONFIG_GCOV omitted; it is not available on x86_64.)
 
-> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Chunfeng Yun <chunfeng.yun@mediatek.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: <linux-usb@vger.kernel.org>
-> Cc: <linux-arm-kernel@lists.infradead.org>
-> Cc: <linux-mediatek@lists.infradead.org>
-> 
-> diff --git a/drivers/usb/mtu3/mtu3_trace.h b/drivers/usb/mtu3/mtu3_trace.h
-> index 89870175d63561..7c414e196d5871 100644
-> --- a/drivers/usb/mtu3/mtu3_trace.h
-> +++ b/drivers/usb/mtu3/mtu3_trace.h
-> @@ -236,11 +236,11 @@ DECLARE_EVENT_CLASS(mtu3_log_ep,
->  		__entry->direction = mep->is_in;
->  		__entry->gpd_ring = &mep->gpd_ring;
->  	),
-> -	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p/%pad flags %c:%c%c%c:%c",
-> +	TP_printk("%s: type %s maxp %d slot %d mult %d burst %d ring %p flags %c:%c%c%c:%c",
->  		__get_str(name), usb_ep_type_string(__entry->type),
->  		__entry->maxp, __entry->slot,
->  		__entry->mult, __entry->maxburst,
-> -		__entry->gpd_ring, &__entry->gpd_ring->dma,
-> +		__entry->gpd_ring,
->  		__entry->flags & MTU3_EP_ENABLED ? 'E' : 'e',
->  		__entry->flags & MTU3_EP_STALL ? 'S' : 's',
->  		__entry->flags & MTU3_EP_WEDGE ? 'W' : 'w',
-> 
+Suggested-by: Maxime Ripard <mripard@kernel.org>
+
+Signed-off-by: Albert Esteve <aesteve@redhat.com>
+---
+Albert Esteve (3):
+      drm/amd/display: replace STATIC_IFN_KUNIT with VISIBLE_IF_KUNIT
+      drm/amd/display: replace EXPORT_IF_KUNIT with EXPORT_SYMBOL_IF_KUNIT
+      drm/amd/display: drop INLINE_IFN_KUNIT
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  79 ++++-----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_audio.c    |  26 +--
+ .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  74 ++++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 133 +++++++--------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_colorop.c  |  12 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_connector.c    | 190 ++++++++++-----------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crc.c  |  38 ++---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  52 +++---
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c   |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_dmub.c |  30 ++--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 105 ++++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  | 140 +++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  | 146 ++++++++--------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_ism.c  |  40 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  60 +++----
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 104 +++++------
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_pp_smu.c   | 116 ++++++-------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_psr.c  |  22 +--
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_quirks.c   |   4 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_replay.c   |   9 +-
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_services.c |  10 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c   |  18 +-
+ .../display/amdgpu_dm/tests/amdgpu_dm_audio_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_color_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_colorop_test.c       |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_connector_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crc_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_dmub_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c      |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c  |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c       |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_irq_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_ism_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c      |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_mst_types_test.c     |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_pp_smu_test.c        |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_psr_test.c   |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_quirks_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_replay_test.c        |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_services_test.c      |   1 +
+ .../amd/display/amdgpu_dm/tests/amdgpu_dm_test.c   |   1 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_wb_test.c    |   1 +
+ drivers/gpu/drm/amd/display/dc/core/dc_sink.c      |   6 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c    |   2 +-
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h        |  13 +-
+ tools/lib/python/kdoc/xforms_lists.py              |   3 +-
+ 51 files changed, 748 insertions(+), 728 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260907-visibility-unification-fd358c580447
+
+Best regards,
+-- 
+Albert Esteve <aesteve@redhat.com>
 
