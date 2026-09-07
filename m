@@ -1,37 +1,37 @@
 Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5DBB4F7987
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:51:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755E94FC8C2;
+	Mon,  7 Sep 2026 14:51:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792699; cv=none; b=ZIfm6A9zNGQlJUw+O7al5nL/LccLnwRvYxNfddj3+BMNkfeK+NyEn4j/kTJcitz4fpIfq+3xkrh1FYN4Rb+2J4SKVWOxJZJYG6cPa303U3FW6NQhhqumpPZNFAhbC8sjafux8AqW9ReVAldQcqAc6DMLENEiMTPHAq7v0CBqZC4=
+	t=1788792697; cv=none; b=QjoV5xu17imcY3138u3ywOBOiKmSCz2alNtfWFiCNc5YMyyb0AiAPOb2KWspldF01LrWst4H4biMAq+u75WUkm9AyJEIwpSrnEK+fBw8RiCtWqLvtYRhSwJp1ObPhwJr8Z2E9F+zhvzlfGYfbIImGQaV7mbrzmOC7vZi4wvbJm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792699; c=relaxed/simple;
-	bh=/w2tP6jJm9Pa7PWjow2JuCQ6uthTilvQLfGJba/Y+xE=;
+	s=arc-20240116; t=1788792697; c=relaxed/simple;
+	bh=5aHhFmRHH7hXWezUncCFq6AliuOuzN9v+On7qJIecuQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KdK8vFaZ5We/5bp4hyM/kcpbDAFJBL+YQidksDBZjWerdYgjOt8ioclKNuAMV9lt0jOkOv20MpoQLauNptG7T6j7JQMMwzNUNbq0PTmGS95jzvczpckDRMlcKkSc7NOATame+gaDJE3KM27X8IHQr+MzOqriFZz//pVnXAsZ7/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=B8f1Fui3; arc=none smtp.client-ip=185.70.43.172
+	 In-Reply-To:To:Cc; b=mgOVzA/o+cBduKYFz9wxr38cDgNeQ66fK1BhcpUb1mGef52pFHrvN4LUNx9ZaSd6XNrc7igAdNBffRQrzeVoqJZy/jU2hQVgSxyYlKOELs7lftHFTC1rvDSSfm5P6dJdWtL4BXcNCHLQyo8DhYssXc4NfWUXw0cFNwMg4s/Yylg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=PqU4aRMZ; arc=none smtp.client-ip=185.70.43.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="B8f1Fui3"
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="PqU4aRMZ"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788792678; x=1789051878;
-	bh=GgJW7yM8729h7XWq075MBG7+8NNptLe3gc5PN/8g9BU=;
+	s=protonmail; t=1788792675; x=1789051875;
+	bh=zOE/xhizi9/jAXNjhr878qhJ9pvevPWCdRYDdJUXczg=;
 	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
 	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=B8f1Fui3U3QcSjigLrSrm862yC8mQlu/H+Vyd/rSYI8+FvLVXSH/yu6G5G5d7ZTdE
-	 rWVNnsyO0OZawffkazmo6D0fV4eOACIz0THO8eHEPuf5XxHHDbmHohlRrLj2HqH04g
-	 xtrpGXNfj9u6R1C6WDigRtLD2XwvbghAasemKyWZ4QEJrHJWC5lKGwhiged78GYkf2
-	 DhyVU5YkQxwHottheGQH3Dwa09uqwsleAzgahMpbW0CPc3RePeaFBn2w/aA3gz1rb6
-	 L8aiwpXiAjilCy8LWXyNgsMQZjPW0txu+n8NvQ0P8n1/G1gU2Yketk4cFt9PYtLADh
-	 2QC+XRP2JhAiw==
-X-Pm-Submission-Id: 4hdql82qC7z1DDXL
+	b=PqU4aRMZZUPSE/h5PfLqlt6nHBY6QAWuP4oFzOstDeZkKTOwv4t6ch8vjUBTHE1sD
+	 57LwOI9vEKFfIK3+y3ZjC4dQR8e9Utm4GOQ3qOWXHsOQT4OP45yI+K4jImpPXVyXiS
+	 Gbrx3jw01gzvN8GxbQsW0MFctogmcojLLlr7MUktmEZBeoYKGRvJBYsch6kXH2hMjY
+	 SvpZFumEkTCzy23lKe89cn3i3Ci5NyQdKvN5tLmL57KLHkVK+39fZiTqslmoAP9Qxk
+	 gHT4yQah6LUTSxjN5JMr0DGF4WuGNDXdeOX8BFjo79BuD1TiqAcrdw+i1+hAkbe6je
+	 p5v+Ae6/YZL/A==
+X-Pm-Submission-Id: 4hdql42T6Jz1DFGT
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 07 Sep 2026 16:50:58 +0200
-Subject: [PATCH v8 3/9] iio: accel: mma8452: Optimize struct mma8452_data
- member orders
+Date: Mon, 07 Sep 2026 16:50:57 +0200
+Subject: [PATCH v8 2/9] iio: accel: mma8452: Fix use-after-free bug in
+ error error path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-mma8452-open-drain-v8-3-c17407e22118@geanix.com>
+Message-Id: <20260907-mma8452-open-drain-v8-2-c17407e22118@geanix.com>
 References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
 In-Reply-To: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
@@ -54,52 +54,51 @@ To: Jonathan Cameron <jic23@kernel.org>,
  Christoph Muellner <christoph.muellner@theobroma-systems.com>
 Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>
+ stable@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788792664; l=1020;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788792664; l=1204;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=/w2tP6jJm9Pa7PWjow2JuCQ6uthTilvQLfGJba/Y+xE=;
- b=QbKXU7ryf13LAvyjt0CI/G4wjrXWHa2iEhuUA+/rnJi7Y+gNMRyF7s1h2zyThA7/tm8dfbTew
- TrEO85qyqjLAXdEpD8zzBwpl3hVNoFc9HZidZZP+9EV6CvuoUwEXJPt
+ bh=5aHhFmRHH7hXWezUncCFq6AliuOuzN9v+On7qJIecuQ=;
+ b=tUwM07OBNBaUq8CnaH0j0TKVCSIhrdYPShQmZYg4zmm5bh9TUKvxco+tUDPd5d/MIGZI9wkof
+ JGyzXt8o/zgD4HVnVXLiX5isbvXyIjtdQ+bItpkcRVFUykKk4lN+Udw
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 
-Reorder struct mma8452_data members to avoid holes.
+If mma8452_probe() fails in iio_device_register() or later, we could end up
+with runtime suspend callback being called with a now freed device pointer.
 
+Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
+Cc: stable@vger.kernel.org
 Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/iio/accel/mma8452.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/iio/accel/mma8452.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index a937cbd84f30..6c5a8d65c8a4 100644
+index fe62a903f0e2..a937cbd84f30 100644
 --- a/drivers/iio/accel/mma8452.c
 +++ b/drivers/iio/accel/mma8452.c
-@@ -108,10 +108,7 @@ struct mma8452_data {
- 	struct i2c_client *client;
- 	struct mutex lock;
- 	struct iio_mount_matrix orientation;
--	u8 ctrl_reg1;
--	u8 data_cfg;
- 	const struct mma_chip_info *chip_info;
--	int sleep_val;
- 	struct regulator_bulk_data regs[2];
+@@ -1681,7 +1681,7 @@ static int mma8452_probe(struct i2c_client *client)
  
- 	/* Ensure correct alignment of time stamp when present */
-@@ -119,6 +116,10 @@ struct mma8452_data {
- 		__be16 channels[3];
- 		aligned_s64 ts;
- 	} buffer;
+ 	ret = iio_device_register(indio_dev);
+ 	if (ret < 0)
+-		goto free_irq;
++		goto runtime_suspend;
+ 
+ 	ret = mma8452_set_freefall_mode(data, false);
+ 	if (ret < 0)
+@@ -1692,6 +1692,10 @@ static int mma8452_probe(struct i2c_client *client)
+ unregister_device:
+ 	iio_device_unregister(indio_dev);
+ 
++runtime_suspend:
++	pm_runtime_disable(dev);
++	pm_runtime_set_suspended(dev);
 +
-+	int sleep_val;
-+	u8 ctrl_reg1;
-+	u8 data_cfg;
- };
- 
-  /**
+ free_irq:
+ 	if (client->irq)
+ 		free_irq(client->irq, indio_dev);
 
 -- 
 2.55.0
