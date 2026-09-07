@@ -1,64 +1,64 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1471C51E43B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:53:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2BE52379B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799992; cv=none; b=MtVNzSSNCdqv8a1uPQii7v2YzDJegQEA6hrUvIgD3uuYPuX52rNrDJjNBSwf5T6iQy0PyHXwZeA8vlYEf3kgfVDl9auCp9dHnFkrZ3sDdryovYfzCwHJfvuXKPJRCU6ddh64p2XUERnLxZkLh3/xtosVCFZIOcbADoJLh3dVinM=
+	t=1788799998; cv=none; b=AoAZY4UjeVDr70cLVerBwXUBN//sblkHjKkMOrimydQJhHWmuLUgM04Di8ASn/jOLReK8TWymSjpZNpZIFDp4QQynxcQ11ROopUSpxkcn8DVIj0SjxG+s3pFDpW8VHlTKz8xksmGg1ZJtV0OG8dUhWwRjP6T/U+j5r2G3uWYh/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799992; c=relaxed/simple;
-	bh=hUiRfb4pPtGSt1XRoYIWNSwJicLgvBYrE8+iFiVEXj8=;
+	s=arc-20240116; t=1788799998; c=relaxed/simple;
+	bh=nSBS+rlhEpu4GtYBRlDxNT0IMhKXrWZBlDW7Ai/0My4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VxPfps3iFECIVihDr2KGyGVMTuPW47F49X1fmEnKliwzMAJELA60qhJoTPJIReUqmgsDtFTSKtIhd7mtnmMAkGULOCpuYJjFzSDhJ8AoG0tRj+A/VwuD/Wd8IrQd/hZvrclJNCUo+ljsfpvjVHkOgAPnVnxop+WjPZ+9IcHEsKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vk+dNN1c; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=m1wBnHCfOOFM2TYqnkdTXEtp2vu3lYgDajt9kkfZXzJpji2VMzLa8AWeOqgmV9H2W489/HY0CJQowGW3KyF8JRdmMGp46GYfPEFu7vHulgrb+cAxCWX6P/VNuaPwFAjZN/6yF3eEybDVlluRWCODTy7fZO+JsLbyueGDrfw4LII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gvLU/83Q; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vk+dNN1c"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso35741075e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:53:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gvLU/83Q"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49d036e0e99so12834195e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:53:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788799988; x=1789404788; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788799994; x=1789404794; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wiDantY2ppJjyfqauG6RKR7rX8GZTmilPQrscV/V7A4=;
-        b=Vk+dNN1cRSI1T20TmfDCeWcN2d2r54IPfCqatLuE3s5m+ogZPBGx27OQYy7G5RFo+F
-         3FLJoZsvfgEFEE/o0He6cT09e0lvkE5hN6s/4kaibIaVDrKLQ5E5/0AJ/kisfhSDNe6B
-         OoWvK+nFTV0Wm6o2qDDhu7H60Y9vMb1+szG/cOQ+9IQEwR9ATENM2Wx+tCXW1PLmsYcS
-         uuNnR8ixtvQkLCvnfG+fFmHf2wM833Bx8eB+BvcFK/tUxXo4CiY+igA0drs0sISKvvDW
-         WQU/0GwwJHw3pxaShURzAjX2/Yt6J4X2JATrTtBdErrxfHH6fQ1PM97ZszgRj2BF0dSD
-         Ofwg==
+        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
+        b=gvLU/83QWw+BBDbY7MKMk3tCFSXW3BMFl5bWQjLrzb3eSbsX7CgvOuqkuT3+icxm2R
+         bPBdMwcZkuj4gFm1mrvSDOiMzTWzL5430Oh1BK8VtAfdYHNEJRwXft5FMeiEnbgFyVus
+         ACImVqzqwnZwmVwrNm4rTCFRpWpun0bb3inLerxAAKGQO4ho3Zvk+NdEnPseRa1qMSjq
+         n4vb65ahHimcjBmrRV/yEstLuePXTqRYuxGSJsm2reSg5a4W5sNXt4o7zfCiArqDg4Ss
+         iiWOklDQaaOhMIu21mehblND5bzrbiC6vJ+INHYWYALeS5eYI3F9bOa6DFPGIknoEsZi
+         WcxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788799988; x=1789404788;
+        d=1e100.net; s=20251104; t=1788799994; x=1789404794;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wiDantY2ppJjyfqauG6RKR7rX8GZTmilPQrscV/V7A4=;
-        b=h92MGPF0eaSLhK23QyoqsOp4MXxQb3HvLoNRLPX1pSfk039Q+jEqjdG2PuUwDyd164
-         y7pIy5KJmwjdKxjp3P3/6DqlT29ggkFQx/wRmoF2UO+om3rl5azDtQw7biYjDNmgmbmg
-         DCOv4v34J8g6eG+FzskM15y1PVzOg+KxCJjYNfMb352Wd0nGPkPOMYHhC5LfR+Por/d9
-         AVBE+qTsrDvm/F+yNemF7T2dvEGGhD6a2HdxgEyd+T0BV9gC5sfjoPm+Jj6Cy+mxOfgH
-         goqV9LgXylSiBG1lD6o2/e23rD2k6iz/JIHvtOvWyYXKe1OxBGCpzmMKlpt6fvIxJl8C
-         XFWw==
-X-Forwarded-Encrypted: i=1; AKwUvBxGLTXBC+CdJlu028uIO6U3rlo+ahZSd6b34YerWdSE+C9rlKz/vDKYvkxRXfXtB9s/TkxhoY1I2z8ANw0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nj5avD5Nwu3D/thfa5cfconlClz0dd4lfHaTmddoNr8z995QbL
-	NbwwzgFvWe0+oqcZoUwM7bJ9p4VmFgPhZFFRVW7fZkjP2kDBdR3uGPrn
-X-Gm-Gg: AYBFou0VuaqbfowkQCvpyUHfl1PlgFiW2/ArzGXWaFXi+2fP4bbwKE5NxyAf3sqPO74
-	7N18cLdisK3WXr2zAXQA2XYGllhZnrRnQVz0Rc6rOCYpQudlMJSx+E2D038MlRnrEeMUg6gFReL
-	0+az/CnXESs9noxfzxk6fe6lz0cV5HGCejxAW+nnPAJ7/gW7MpXTmG3t4sjTbaJmJWiLkBA9XMT
-	S30Q2pE5yCMuQY4X5kXhggEPkTOR1aE14KPFwJYu2vta2bmdUjyNW4EsF1ko9A8tt/3FZoWhrIe
-	QEpMH7ehhyP9sTlJIcvZiCYj+KcQ6oHnqx6JMLX+p/zlV1UcxkBImQUg05aWVoDlRWWTbFDQJkA
-	SoSXipKqEXH+reF3MYG1n2LiCf60k3ty/1KCMmqJFgbRsIRdPKIduJyxcIlBHPwUDTc07f8jlkT
-	Dl7fybxm3X3dAtSnj7xLRWlT5FL+NIw5fx067tcasQKIlXPsq5J0kuREjbJeCEOcTHJSC0RK8lI
-	A==
-X-Received: by 2002:a05:600c:3e06:b0:49d:99:1d98 with SMTP id 5b1f17b1804b1-49d00991db1mr173226525e9.9.1788799987801;
-        Mon, 07 Sep 2026 09:53:07 -0700 (PDT)
+        bh=6KgsraBrUcToWRNGkqj8MPFUdOM/wW4nUtZo/xB90w4=;
+        b=ioHfPzxxVqhsldDA9yuUB+vsMF3Z7JEA9W/XZ7URtTGUnwyqwh2nfJB7Ll66W0V2xh
+         JQklW6dIrzWVoF0HM3+GlJWXJK/4fNxQI2nF/tq75lwahNelPKFdWBbjbkd1f46aI8kC
+         G2N10BtDEJtdKIiTKM2XmHaTcu08JcAtfElrns8xt7AVUa6cALF1+q7MZ74UJfuVGtSg
+         ljqBL/0LGZBcUkBchnjLohbIGqZ2QejgtS71bSoJfp9sFEiy9GYI9hCpyKHDfzpkq0tv
+         wEGmT4HLmNLzaU6DORgCwNzsKY61MkpQhouagBPsMmOg1I4U577L5O9ZrejBBpbGZ5yV
+         +iDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzjmEOspSsUTYYs8IV7yebLDMYNeIFfcDpmc4wkxYDAfp/g5MVpLlNLTUUd3NllZwVv9vcv8I+eMfzKvxs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKSZTfIv9OykNegZRA/l4vgfEaeR1n2MgkImf/1bDxANo9MNXV
+	KBG7RVuBBkOk0zgVNvnzWv7kBaU3G9qEcL3N7N93OscefjVkO133Gklq
+X-Gm-Gg: AYBFou3Eq8pFy7cf3oYV/VF65npiOel04X/ruCdNADdprEBx5hWRMaERZKxqux+6gcB
+	51aSXADvxcgVjIlRv5H0UHXQZmIobdYg/vEfL4NkE/hteEA8iaNt8tEcGQMscisdiVBJm9bT72l
+	uXvDcZYVMjpTALOWzumJPnQY/NW4WVKuHWJIdGbGMISN57vkrzVgpldRubGraTmrJ1vUC0M/Db/
+	bkOKK8ub57FBrBxESRZNH/CIW1PSJkIidD8rdaNNnwyDFUD3xTDzUe0X1DeET5+H8BFB2uSCKC5
+	EHmshji/G7MhHmbYGS86EzHa+sWWlfbcY84uzIBMTTJd6zXlWLOMRPIZKD+/3VS02QvQmD716yW
+	egCCysJdsbVEjGjP1n+1MzdDNOfYtm/Dp1c57XQvyUUqoCDLUrga/WW0PR+Tpk0S6LKuhMaqOeA
+	BryjugwEP3Fy67HnEe+BxVuKYd8c7TiBNOSyWoamkKT5qYlflZwr9Q4KhZMjbeYNXG6liwNfrI4
+	5oiKhY1h9uK
+X-Received: by 2002:a05:600d:650c:20b0:49c:fc6c:be08 with SMTP id 5b1f17b1804b1-49cfc6cc026mr166941545e9.31.1788799994171;
+        Mon, 07 Sep 2026 09:53:14 -0700 (PDT)
 Received: from dell-desktop ([2a02:587:4b5f:900:ef25:2f4:1792:4e6f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm233022415e9.13.2026.09.07.09.53.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm233022415e9.13.2026.09.07.09.53.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:53:07 -0700 (PDT)
+        Mon, 07 Sep 2026 09:53:13 -0700 (PDT)
 From: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 To: bpf@vger.kernel.org
 Cc: linux-fsdevel@vger.kernel.org,
@@ -80,9 +80,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	tasos.papagiannnis@gmail.com,
 	utilityemal77@gmail.com,
 	viro@zeniv.linux.org.uk
-Subject: [PATCH bpf-next v5 5/7] selftests/bpf: Cover trusted-or-null BTF pointer reads
-Date: Mon,  7 Sep 2026 19:52:18 +0300
-Message-ID: <20260907165220.52431-6-tasos.papagiannnis@gmail.com>
+Subject: [PATCH bpf-next v5 7/7] selftests/bpf: Test mm_struct user memory kfuncs with linux_binprm
+Date: Mon,  7 Sep 2026 19:52:20 +0300
+Message-ID: <20260907165220.52431-8-tasos.papagiannnis@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
 References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
@@ -94,463 +94,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Update verifier tests that expected an unchecked trusted-or-null BTF
-pointer dereference to fail. Cover scalar reads and chained reads through
-BTF and memory pointers. Add a runtime test which verifies that non-NULL
-reads return the field value and NULL reads return zero.
+Add a sleepable BPF LSM program attached to bprm_check_security to test
+bpf_copy_from_user_mm() and bpf_copy_from_user_mm_str() on CONFIG_MMU
+kernels.
 
-Verify that pointer arithmetic, stores, atomic RMW operations, and
-BPF_LOAD_ACQ accesses remain prohibited. Assert that a BTF pointer
-derived from an unchecked trusted-or-null load is PTR_UNTRUSTED. Verify
-that attempting to NULL-check the derived pointer remains rejected and
-that it cannot be passed to a kfunc requiring an RCU pointer. Keep the
-existing NULL-check tests to verify that an explicit check of the original
-pointer recovers normal trusted pointer behavior.
+Starting at bprm->p, verify that bpf_copy_from_user_mm() can copy the
+contiguous NUL-separated argument and environment data. Then use
+bpf_copy_from_user_mm_str() to read each argument and environment string
+separately, advancing the offset by the length returned from each call.
+
+Skip the test on !CONFIG_MMU. In that configuration, exec argument and
+environment strings remain in bprm->page[] until the binary loader
+transfers them to the new process stack, so they are not accessible
+through bprm->mm at the bprm_check_security hook.
 
 Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 ---
- .../selftests/bpf/prog_tests/bpf_iter.c       |  6 +-
- .../prog_tests/test_struct_ops_maybe_null.c   | 13 ++--
- .../bpf/prog_tests/tp_btf_nullable.c          | 28 +++++++
- .../selftests/bpf/progs/raw_tp_null_fail.c    | 78 +++++++++++++++++--
- .../bpf/progs/test_tp_btf_nullable.c          | 45 ++++++++++-
- .../bpf/progs/test_tp_btf_nullable_runtime.c  | 35 +++++++++
- .../selftests/bpf/progs/verifier_lsm.c        | 18 ++++-
- .../selftests/bpf/progs/verifier_vfs_accept.c | 14 ++++
- .../selftests/bpf/progs/verifier_vfs_reject.c | 14 ----
- .../selftests/bpf/test_kmods/bpf_testmod.c    |  1 +
- .../sched_ext/maybe_null_fail_dsp.bpf.c       |  5 +-
- 11 files changed, 221 insertions(+), 36 deletions(-)
- create mode 100644 tools/testing/selftests/bpf/progs/test_tp_btf_nullable_runtime.c
+ .../bpf/prog_tests/copy_from_user_bprm.c      |  72 ++++++++++
+ .../selftests/bpf/progs/copy_from_user_bprm.c | 123 ++++++++++++++++++
+ 2 files changed, 195 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+ create mode 100644 tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/bpf_iter.c b/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
-index c69080ca14f5..99a16a1add70 100644
---- a/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
-+++ b/tools/testing/selftests/bpf/prog_tests/bpf_iter.c
-@@ -39,10 +39,10 @@ static void test_btf_id_or_null(void)
- 	struct bpf_iter_test_kern3 *skel;
- 
- 	skel = bpf_iter_test_kern3__open_and_load();
--	if (!ASSERT_ERR_PTR(skel, "bpf_iter_test_kern3__open_and_load")) {
--		bpf_iter_test_kern3__destroy(skel);
-+	if (!ASSERT_OK_PTR(skel, "bpf_iter_test_kern3__open_and_load"))
- 		return;
--	}
+diff --git a/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+new file mode 100644
+index 000000000000..b2325b193576
+--- /dev/null
++++ b/tools/testing/selftests/bpf/prog_tests/copy_from_user_bprm.c
+@@ -0,0 +1,72 @@
++// SPDX-License-Identifier: GPL-2.0
 +
-+	bpf_iter_test_kern3__destroy(skel);
- }
- 
- static void do_dummy_read_opts(struct bpf_program *prog, struct bpf_iter_attach_opts *opts)
-diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_maybe_null.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_maybe_null.c
-index 01dc2613c8a5..45af6f00ad90 100644
---- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_maybe_null.c
-+++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_maybe_null.c
-@@ -19,15 +19,16 @@ static void maybe_null(void)
- 	struct_ops_maybe_null__destroy(skel);
- }
- 
--/* Test that the verifier rejects a program that access a nullable pointer
-- * without a check beforehand.
-+/*
-+ * Test that the verifier accepts a fault-protected read through a nullable
-+ * trusted pointer without an explicit NULL check.
-  */
--static void maybe_null_fail(void)
-+static void maybe_null_no_check(void)
- {
- 	struct struct_ops_maybe_null_fail *skel;
- 
- 	skel = struct_ops_maybe_null_fail__open_and_load();
--	if (ASSERT_ERR_PTR(skel, "struct_ops_module_fail__open_and_load"))
-+	if (!ASSERT_OK_PTR(skel, "struct_ops_maybe_null_fail__open_and_load"))
- 		return;
- 
- 	struct_ops_maybe_null_fail__destroy(skel);
-@@ -41,6 +42,6 @@ void test_struct_ops_maybe_null(void)
- 	 */
- 	if (test__start_subtest("maybe_null"))
- 		maybe_null();
--	if (test__start_subtest("maybe_null_fail"))
--		maybe_null_fail();
-+	if (test__start_subtest("maybe_null_no_check"))
-+		maybe_null_no_check();
- }
-diff --git a/tools/testing/selftests/bpf/prog_tests/tp_btf_nullable.c b/tools/testing/selftests/bpf/prog_tests/tp_btf_nullable.c
-index accc42e01f8a..825fe7a92d74 100644
---- a/tools/testing/selftests/bpf/prog_tests/tp_btf_nullable.c
-+++ b/tools/testing/selftests/bpf/prog_tests/tp_btf_nullable.c
-@@ -2,6 +2,31 @@
- 
- #include <test_progs.h>
- #include "test_tp_btf_nullable.skel.h"
-+#include "test_tp_btf_nullable_runtime.skel.h"
++#include <errno.h>
++#include <sys/wait.h>
++#include <unistd.h>
 +
-+static void test_nullable_runtime(void)
++#include <test_progs.h>
++
++#include "copy_from_user_bprm.skel.h"
++
++void test_copy_from_user_bprm(void)
 +{
-+	struct test_tp_btf_nullable_runtime *skel;
++	char arg0[] = "first";
++	char arg1[] = "second-argument";
++	char env0[] = "SOME_ENV=a";
++	char env1[] = "OTHER_ENV=something";
++	struct copy_from_user_bprm *skel;
++	pid_t child;
++	int status;
 +
-+	skel = test_tp_btf_nullable_runtime__open_and_load();
++	skel = copy_from_user_bprm__open_and_load();
 +	if (!ASSERT_OK_PTR(skel, "open_and_load"))
 +		return;
 +
-+	skel->bss->monitored_tid = sys_gettid();
++	/*
++	 * On !CONFIG_MMU, exec strings are held in bprm->page[] rather than
++	 * being mapped in bprm->mm.
++	 */
++	if (!skel->kconfig->CONFIG_MMU) {
++		printf("%s:SKIP: test requires CONFIG_MMU\n", __func__);
++		test__skip();
++		goto out;
++	}
 +
-+	if (!ASSERT_OK(test_tp_btf_nullable_runtime__attach(skel), "attach"))
++	if (!ASSERT_OK(copy_from_user_bprm__attach(skel), "attach"))
 +		goto out;
 +
-+	if (!ASSERT_OK(trigger_module_test_read(2), "trigger"))
++	child = fork();
++	if (!ASSERT_GE(child, 0, "fork"))
 +		goto out;
 +
-+	ASSERT_EQ(skel->bss->calls, 2, "calls");
-+	ASSERT_EQ(skel->bss->nonnull_len, 2, "nonnull_len");
-+	ASSERT_EQ(skel->bss->null_len, 0, "null_len");
++	if (!child) {
++		char *const argv[] = { arg0, arg1, NULL };
++		char *const envp[] = { env0, env1, NULL };
++
++		skel->bss->monitored_pid = getpid();
++		execve("/bin/true", argv, envp);
++		_exit(errno);
++	}
++
++	if (!ASSERT_EQ(waitpid(child, &status, 0), child, "waitpid"))
++		goto out;
++
++	if (ASSERT_TRUE(WIFEXITED(status), "child_exited"))
++		ASSERT_EQ(WEXITSTATUS(status), EPERM, "exec_errno");
++
++	ASSERT_EQ(skel->bss->bprm_argc, 2, "bprm_argc");
++	ASSERT_EQ(skel->bss->bprm_envc, 2, "bprm_envc");
++	ASSERT_EQ(skel->bss->data_len_match, 1, "data_len_match");
++	ASSERT_EQ(skel->bss->invalid_flags_ret, -EINVAL, "invalid_flags_ret");
++	ASSERT_EQ(skel->bss->copy_ret, 0, "copy_ret");
++	ASSERT_EQ(skel->bss->str_arg0_ret, sizeof(arg0), "str_arg0_ret");
++	ASSERT_EQ(skel->bss->str_arg1_ret, sizeof(arg1), "str_arg1_ret");
++	ASSERT_EQ(skel->bss->str_env0_ret, sizeof(env0), "str_env0_ret");
++	ASSERT_EQ(skel->bss->str_env1_ret, sizeof(env1), "str_env1_ret");
++	ASSERT_EQ(skel->bss->data_match, 1, "data_match");
++	ASSERT_EQ(skel->bss->str_args_match, 1, "str_args_match");
++	ASSERT_EQ(skel->bss->str_envs_match, 1, "str_envs_match");
 +
 +out:
-+	test_tp_btf_nullable_runtime__destroy(skel);
++	copy_from_user_bprm__destroy(skel);
 +}
- 
- void test_tp_btf_nullable(void)
- {
-@@ -11,4 +36,7 @@ void test_tp_btf_nullable(void)
- 	}
- 
- 	RUN_TESTS(test_tp_btf_nullable);
-+
-+	if (test__start_subtest("runtime"))
-+		test_nullable_runtime();
- }
-diff --git a/tools/testing/selftests/bpf/progs/raw_tp_null_fail.c b/tools/testing/selftests/bpf/progs/raw_tp_null_fail.c
-index 725d73c9ffe1..163124793d0a 100644
---- a/tools/testing/selftests/bpf/progs/raw_tp_null_fail.c
-+++ b/tools/testing/selftests/bpf/progs/raw_tp_null_fail.c
-@@ -2,22 +2,34 @@
- /* Copyright (c) 2024 Meta Platforms, Inc. and affiliates. */
- 
- #include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
- #include <bpf/bpf_tracing.h>
- #include "bpf_misc.h"
- 
- char _license[] SEC("license") = "GPL";
- 
--/* Ensure module parameter has PTR_MAYBE_NULL */
-+extern struct task_struct *bpf_task_acquire(struct task_struct *p) __ksym;
-+extern void bpf_task_release(struct task_struct *p) __ksym;
-+
-+/*
-+ * Ensure the module tracepoint argument is trusted-or-NULL while allowing
-+ * a fault-protected read without an explicit NULL check.
-+ */
- SEC("tp_btf/bpf_testmod_test_raw_tp_null_tp")
--__failure __msg("R1 invalid mem access 'trusted_ptr_or_null_'")
-+__success __log_level(2)
-+__msg("R1=trusted_ptr_or_null_sk_buff")
- int test_raw_tp_null_bpf_testmod_test_raw_tp_null_arg_1(void *ctx) {
-     asm volatile("r1 = *(u64 *)(r1 +0); r1 = *(u64 *)(r1 +0);" ::: __clobber_all);
-     return 0;
- }
- 
--/* Check NULL marking */
-+/*
-+ * Ensure sched_pi_setprio's second argument is trusted-or-NULL while allowing
-+ * a fault-protected read without an explicit NULL check.
-+ */
- SEC("tp_btf/sched_pi_setprio")
--__failure __msg("R1 invalid mem access 'trusted_ptr_or_null_'")
-+__success __log_level(2)
-+__msg("R1=trusted_ptr_or_null_task_struct")
- int test_raw_tp_null_sched_pi_setprio_arg_2(void *ctx) {
-     asm volatile("r1 = *(u64 *)(r1 +8); r1 = *(u64 *)(r1 +0);" ::: __clobber_all);
-     return 0;
-@@ -60,7 +72,8 @@ int test_tp_btf_signal_deliver_info_no_deref(void *ctx)
- }
- 
- SEC("tp_btf/sched_process_wait")
--__failure __msg("R1 invalid mem access 'trusted_ptr_or_null_'")
-+__success __log_level(2)
-+__msg("R1=trusted_ptr_or_null_pid")
- int test_raw_tp_null_sched_process_wait_arg_1(void *ctx)
- {
- 	asm volatile("r1 = *(u64 *)(r1 +0); r1 = *(u32 *)(r1 +0);" ::: __clobber_all);
-@@ -75,3 +88,58 @@ int test_raw_tp_null_sched_process_wait_arg_1_checked(void *ctx)
- 		     "r1 = *(u32 *)(r1 +0);" ::: __clobber_all);
- 	return 0;
- }
-+
-+SEC("tp_btf/sched_pi_setprio")
-+__failure __log_level(2)
-+__msg("R1=untrusted_ptr_task_struct")
-+__msg("R1 must be a rcu pointer")
-+int BPF_PROG(trusted_or_null_walk_is_untrusted, struct task_struct *task,
-+	     struct task_struct *pi_task)
-+{
-+	struct task_struct *parent, *acquired;
-+
-+	parent = pi_task->real_parent;
-+	acquired = bpf_task_acquire(parent);
-+	if (acquired)
-+		bpf_task_release(acquired);
-+	return 0;
-+}
-+
-+SEC("tp_btf/sched_pi_setprio")
-+__failure __msg("R1 must be a rcu pointer")
-+int BPF_PROG(derived_ptr_null_check_does_not_restore_trust,
-+	     struct task_struct *task, struct task_struct *pi_task)
-+{
-+	struct task_struct *parent, *acquired;
-+
-+	parent = pi_task->real_parent;
-+	if (!parent)
-+		return 0;
-+
-+	acquired = bpf_task_acquire(parent);
-+	if (acquired)
-+		bpf_task_release(acquired);
-+
-+	return 0;
-+}
-+
-+/*
-+ * In contrast, checking the original trusted-or-NULL pointer removes
-+ * PTR_MAYBE_NULL while retaining PTR_TRUSTED.
-+ */
-+SEC("tp_btf/sched_pi_setprio")
-+__success
-+int BPF_PROG(original_ptr_null_check_retains_trust,
-+	     struct task_struct *task, struct task_struct *pi_task)
-+{
-+	struct task_struct *acquired;
-+
-+	if (!pi_task)
-+		return 0;
-+
-+	acquired = bpf_task_acquire(pi_task);
-+	if (acquired)
-+		bpf_task_release(acquired);
-+
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/bpf/progs/test_tp_btf_nullable.c b/tools/testing/selftests/bpf/progs/test_tp_btf_nullable.c
-index cf0547a613ff..b7914224ba19 100644
---- a/tools/testing/selftests/bpf/progs/test_tp_btf_nullable.c
-+++ b/tools/testing/selftests/bpf/progs/test_tp_btf_nullable.c
-@@ -7,7 +7,7 @@
- #include "bpf_misc.h"
- 
- SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
--__failure __msg("R1 invalid mem access 'trusted_ptr_or_null_'")
-+__success
- int BPF_PROG(handle_tp_btf_nullable_bare1, struct bpf_testmod_test_read_ctx *nullable_ctx)
- {
- 	return nullable_ctx->len;
-@@ -21,4 +21,47 @@ int BPF_PROG(handle_tp_btf_nullable_bare2, struct bpf_testmod_test_read_ctx *nul
- 	return 0;
- }
- 
-+SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
-+__success
-+int BPF_PROG(handle_tp_btf_nullable_mem, struct bpf_testmod_test_read_ctx *nullable_ctx)
-+{
-+	return nullable_ctx->buf[0];
-+}
-+
-+SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
-+__failure __msg("pointer arithmetic on trusted_ptr_or_null_ prohibited")
-+int BPF_PROG(handle_tp_btf_nullable_arith, struct bpf_testmod_test_read_ctx *nullable_ctx)
-+{
-+	asm volatile("%[ctx] += 1" : [ctx] "+r"(nullable_ctx));
-+	return nullable_ctx->len;
-+}
-+
-+SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
-+__failure __msg("invalid mem access 'trusted_ptr_or_null_'")
-+int BPF_PROG(handle_tp_btf_nullable_atomic_rmw,
-+	     struct bpf_testmod_test_read_ctx *nullable_ctx)
-+{
-+	asm volatile ("r1 = %[ctx];"
-+		      "w2 = 1;"
-+		      "lock *(u32 *)(r1 + %[len]) += w2;"
-+		      :
-+		      : [ctx] "r"(nullable_ctx),
-+			__imm_const(len,
-+				    offsetof(struct bpf_testmod_test_read_ctx,
-+					     len))
-+		      : "r1", "r2", "memory");
-+	return 0;
-+}
-+
-+#ifdef __BPF_FEATURE_LOAD_ACQ_STORE_REL
-+SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
-+__failure
-+__msg("BPF_ATOMIC loads from R{{[0-9]+}} trusted_ptr_or_null_")
-+int BPF_PROG(handle_tp_btf_nullable_load_acquire,
-+	     struct bpf_testmod_test_read_ctx *nullable_ctx)
-+{
-+	return __atomic_load_n(&nullable_ctx->len, __ATOMIC_ACQUIRE);
-+}
-+#endif
-+
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/test_tp_btf_nullable_runtime.c b/tools/testing/selftests/bpf/progs/test_tp_btf_nullable_runtime.c
+diff --git a/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
 new file mode 100644
-index 000000000000..5c9c7f94040d
+index 000000000000..b334a157419e
 --- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/test_tp_btf_nullable_runtime.c
-@@ -0,0 +1,35 @@
++++ b/tools/testing/selftests/bpf/progs/copy_from_user_bprm.c
+@@ -0,0 +1,123 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
 +#include "vmlinux.h"
++
 +#include <bpf/bpf_helpers.h>
 +#include <bpf/bpf_tracing.h>
-+#include "../test_kmods/bpf_testmod.h"
++#include <errno.h>
++#include "bpf_misc.h"
 +
 +char _license[] SEC("license") = "GPL";
 +
-+int monitored_tid;
-+int calls;
-+__u64 nonnull_len;
-+__u64 null_len;
++static const char expected_data[] = "first\0second-argument\0"
++				    "SOME_ENV=a\0OTHER_ENV=something";
++static const char expected_arg0[] = "first";
++static const char expected_arg1[] = "second-argument";
++static const char expected_env0[] = "SOME_ENV=a";
++static const char expected_env1[] = "OTHER_ENV=something";
 +
-+SEC("tp_btf/bpf_testmod_test_nullable_bare_tp")
-+int BPF_PROG(handle_nullable_runtime,
-+	     struct bpf_testmod_test_read_ctx *nullable_ctx)
++int monitored_pid;
++int bprm_argc;
++int bprm_envc;
++int data_len_match;
++int invalid_flags_ret;
++int copy_ret;
++int str_arg0_ret;
++int str_arg1_ret;
++int str_env0_ret;
++int str_env1_ret;
++int data_match;
++int str_args_match;
++int str_envs_match;
++
++extern bool CONFIG_MMU __kconfig __weak;
++
++extern int bpf_copy_from_user_mm(void *dst, u32 dst__sz,
++				 const void *unsafe_ptr__ign,
++				 struct mm_struct *mm, u64 flags) __ksym;
++
++extern int bpf_copy_from_user_mm_str(void *dst, u32 dst__sz,
++				     const void *unsafe_ptr__ign,
++				     struct mm_struct *mm, u64 flags) __ksym;
++
++SEC("lsm.s/bprm_check_security")
++int BPF_PROG(check_exec_args, struct linux_binprm *bprm)
 +{
-+	__u32 tid = bpf_get_current_pid_tgid();
-+	__u64 len;
-+	int call;
++	u32 pid = bpf_get_current_pid_tgid() >> 32;
++	char data[sizeof(expected_data)] = {};
++	struct mm_struct *mm;
++	char arg0[32] = {};
++	char arg1[32] = {};
++	char env0[32] = {};
++	char env1[32] = {};
++	u64 offset = 0;
++	u64 data_len;
 +
-+	if (tid != monitored_tid)
++	if (!CONFIG_MMU)
 +		return 0;
 +
-+	len = nullable_ctx->len;
-+	call = calls++;
++	if (pid != monitored_pid)
++		return 0;
 +
-+	if (call == 0)
-+		nonnull_len = len;
-+	else if (call == 1)
-+		null_len = len;
++	mm = bprm->mm;
++	if (!mm)
++		return 0;
 +
-+	return 0;
++	bprm_argc = bprm->argc;
++	bprm_envc = bprm->envc;
++
++	/* this is the total size of args and envs starting from bprm->p */
++	data_len = bprm->exec - bprm->p;
++	data_len_match = data_len == sizeof(expected_data);
++
++	invalid_flags_ret = bpf_copy_from_user_mm(data,
++						  sizeof(data), (void *)bprm->p, mm, ~0ULL);
++
++	copy_ret = bpf_copy_from_user_mm(data, sizeof(data), (void *)bprm->p,
++					 mm, 0);
++	if (copy_ret)
++		return 0;
++
++	data_match =
++		!__builtin_memcmp(data, expected_data, sizeof(expected_data));
++
++	/* arg0 is at bprm->p */
++	str_arg0_ret = bpf_copy_from_user_mm_str(arg0, sizeof(arg0),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_arg0_ret != sizeof(expected_arg0))
++		return 0;
++	offset += str_arg0_ret;
++
++	/* arg1 is at bprm->p + sizeof(arg0) */
++	str_arg1_ret = bpf_copy_from_user_mm_str(arg1, sizeof(arg1),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_arg1_ret != sizeof(expected_arg1))
++		return 0;
++	offset += str_arg1_ret;
++
++	/* env0 is at bprm->p + sizeof(arg0) + sizeof(arg1) */
++	str_env0_ret = bpf_copy_from_user_mm_str(env0, sizeof(env0),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_env0_ret != sizeof(expected_env0))
++		return 0;
++	offset += str_env0_ret;
++
++	/* env1 is at bprm->p + sizeof(arg0) + sizeof(arg1) + sizeof(env0) */
++	str_env1_ret = bpf_copy_from_user_mm_str(env1, sizeof(env1),
++						 (void *)(bprm->p + offset),
++						 mm, BPF_F_PAD_ZEROS);
++	if (str_env1_ret != sizeof(expected_env1))
++		return 0;
++
++	str_args_match =
++		!__builtin_memcmp(arg0, expected_arg0, sizeof(expected_arg0)) &&
++		!__builtin_memcmp(arg1, expected_arg1, sizeof(expected_arg1));
++	str_envs_match =
++		!__builtin_memcmp(env0, expected_env0, sizeof(expected_env0)) &&
++		!__builtin_memcmp(env1, expected_env1, sizeof(expected_env1));
++
++	return data_match && str_args_match && str_envs_match ? -EPERM : 0;
 +}
-diff --git a/tools/testing/selftests/bpf/progs/verifier_lsm.c b/tools/testing/selftests/bpf/progs/verifier_lsm.c
-index c724bf389f5c..fac133d90f5e 100644
---- a/tools/testing/selftests/bpf/progs/verifier_lsm.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_lsm.c
-@@ -162,13 +162,13 @@ __naked int disabled_hook_test3(void *ctx)
- 
- SEC("lsm/mmap_file")
- __description("not null checking nullable pointer in bpf_lsm_mmap_file")
--__failure __msg("R1 invalid mem access 'trusted_ptr_or_null_'")
-+__success
- int BPF_PROG(no_null_check, struct file *file)
- {
--	struct inode *inode;
-+	ino_t ino;
- 
--	inode = file->f_inode;
--	__sink(inode);
-+	ino = file->f_inode->i_ino;
-+	__sink(ino);
- 
- 	return 0;
- }
-@@ -188,6 +188,16 @@ int BPF_PROG(null_check, struct file *file)
- 	return 0;
- }
- 
-+SEC("lsm/mmap_file")
-+__description("store through trusted-or-null file is rejected")
-+__failure
-+__msg("R{{[0-9]+}} invalid mem access 'trusted_ptr_or_null_'")
-+int BPF_PROG(store_through_trusted_or_null_file, struct file *file)
-+{
-+	file->f_flags = 0;
-+	return 0;
-+}
-+
- SEC("lsm_cgroup/file_open")
- __description("sleepable lsm_cgroup program is rejected")
- __failure __msg("Program of this type cannot be sleepable")
-diff --git a/tools/testing/selftests/bpf/progs/verifier_vfs_accept.c b/tools/testing/selftests/bpf/progs/verifier_vfs_accept.c
-index 55398c04290a..17c1542cc7e1 100644
---- a/tools/testing/selftests/bpf/progs/verifier_vfs_accept.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_vfs_accept.c
-@@ -100,4 +100,18 @@ int BPF_PROG(inode_rename, struct inode *old_dir, struct dentry *old_dentry,
- 	return 0;
- }
- 
-+SEC("lsm.s/inode_rename")
-+__success __log_level(2)
-+__msg("R{{[0-9]+}}=trusted_ptr_or_null_inode")
-+int BPF_PROG(inode_rename_no_null_check, struct inode *old_dir,
-+	     struct dentry *old_dentry, struct inode *new_dir,
-+	     struct dentry *new_dentry, unsigned int flags)
-+{
-+	ino_t ino = new_dentry->d_inode->i_ino;
-+
-+	if (ino == 0)
-+		return -EACCES;
-+	return 0;
-+}
-+
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/progs/verifier_vfs_reject.c b/tools/testing/selftests/bpf/progs/verifier_vfs_reject.c
-index 8f0c45421f89..2a0813258183 100644
---- a/tools/testing/selftests/bpf/progs/verifier_vfs_reject.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_vfs_reject.c
-@@ -159,18 +159,4 @@ int BPF_PROG(path_d_path_kfunc_non_lsm, struct path *path, struct file *f)
- 	return 0;
- }
- 
--SEC("lsm.s/inode_rename")
--__failure __msg("invalid mem access 'trusted_ptr_or_null_'")
--int BPF_PROG(inode_rename, struct inode *old_dir, struct dentry *old_dentry,
--	     struct inode *new_dir, struct dentry *new_dentry,
--	     unsigned int flags)
--{
--	struct inode *inode = new_dentry->d_inode;
--	ino_t ino;
--
--	ino = inode->i_ino;
--	if (ino == 0)
--		return -EACCES;
--	return 0;
--}
- char _license[] SEC("license") = "GPL";
-diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-index f798bbbb4d13..2ba6a83d243f 100644
---- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-+++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
-@@ -702,6 +702,7 @@ bpf_testmod_test_read(struct file *file, struct kobject *kobj,
- 	if (bpf_testmod_loop_test(101) > 100)
- 		trace_bpf_testmod_test_read(current, &ctx);
- 
-+	trace_bpf_testmod_test_nullable_bare_tp(&ctx);
- 	trace_bpf_testmod_test_nullable_bare_tp(NULL);
- 
- 	/* Magic number to enable writable tp */
-diff --git a/tools/testing/selftests/sched_ext/maybe_null_fail_dsp.bpf.c b/tools/testing/selftests/sched_ext/maybe_null_fail_dsp.bpf.c
-index ec724d7b33d1..ecaa36355cae 100644
---- a/tools/testing/selftests/sched_ext/maybe_null_fail_dsp.bpf.c
-+++ b/tools/testing/selftests/sched_ext/maybe_null_fail_dsp.bpf.c
-@@ -7,14 +7,13 @@
- 
- char _license[] SEC("license") = "GPL";
- 
--u64 vtime_test;
--
- void BPF_STRUCT_OPS(maybe_null_running, struct task_struct *p)
- {}
- 
- void BPF_STRUCT_OPS(maybe_null_fail_dispatch, s32 cpu, struct task_struct *p)
- {
--	vtime_test = p->scx.dsq_vtime;
-+	/* Pointer arithmetic on a trusted-or-NULL pointer must be rejected. */
-+	asm volatile("%[p] += 0" : [p] "+r"(p));
- }
- 
- SEC(".struct_ops.link")
 -- 
 2.55.0
 
