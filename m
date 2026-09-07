@@ -1,89 +1,78 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A7193E49FD
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64F6D2BDC1C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:05:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788750309; cv=none; b=aiIva7ExHWXhLTMzvvSP3nYD+SLzgOe+TOJKkGJWaDDOeP9I+u9jkI2FFaL7mO9pvxv/jhyFSFt1a029ErCsrUeXsypLuU1p3T/1pfM1Z8wgeP1Dpo0N5f5j7qVBCZouxF+apD5LbM3ntrv3CiuT/OGbH21YzeW8Q2QgwR30Uco=
+	t=1788750340; cv=none; b=ZbMhpyw7McjK6IDPYXBEE3FCPlSrRWCG5c2Z5U7XdPiiT696G571RWTdpCOpHj2pPJm5q2LmOGgIRREwxDu95iVl16274Ftuc3fi3KDVlraBgF3dmdH1eRLxW7l6d55FE7nGTXQVX7/eBZwCrpPwY0FUDjPWJj76FF+EQVO9Ioo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788750309; c=relaxed/simple;
-	bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ArJxlX98QgAdPaUOKYuT5tPbjPZUVWzsrSbdDtRmLa6kKhVM1KmijGuU/2MorfN7pNlEUE6GYXXa2ppwO3Tw0AmupG0Y62EzDbglqDmOjG0VFjAUytgdXwT72FrlFSm+UsSuC9Njof7K5aDFxnLRCBiYKYLBS9vDhqV1lr+39IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M7lKvrTD; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788750340; c=relaxed/simple;
+	bh=dHqJWZUgXl3dGlbdWmNmBvbXc33kA1M/YhES/1zhvl0=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=TU4VDM1FhZdkRMzlhOhbVWlBAmt7rGCtlyf3HP+k4qt2P1qEKbYD7uad6BHeBlkF2tGfrOgXL2XjGLf5n2iAc0LL88gjyQj6BtHT+BFfPe8U9/aPr82OfX6Q4/HHJCP0Y0Z9CQS5lfz7IJv+X+7E3+rZ92ZHa4R1RTqAUbzJYjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=PiC6HyEQ; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M7lKvrTD"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso30328985ad.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:05:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788750307; x=1789355107; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
-        b=M7lKvrTDwucm7XxMywJCfAx5ed/rSba4V81Ds6CFJBLKVX7RAnZSk/3bvl6J7xMvnw
-         BnV5n2XiG+eYVSHIJHy5Ikb9pWTEMpdmGqVbkJMJDoIWrYs8RAiFPB1BVgB7psexciIH
-         eKUnaCTnTMTEOZpjRGNt2pbi866ALd4mDGw9CxvAGDIwYjVe78XHrARzsYY74Js4Y+zx
-         iYik848iU08B+3ziFaHF1GIwag7s2ixNOrQPFk6M7TD+Se/TpJr0c8rvqTvaz05EFdp9
-         LYCLyez9O5VDi1DCqyMqAyN/g6N4D0tVimc+D2t1xkd8RQRSTcIeSRuqprt/2mI23Av8
-         CnQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788750307; x=1789355107;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jDwGIeZSxmQ+QLCqAsPbZtWRi3JWDzSBa7tgxRNC8D4=;
-        b=edw9LszdROWbQKBjjedygm7i1sR7ac5/VR2gS+PVMZsqagR4/I2XbbL68kXdynPlpp
-         9Md2Qb40eKYaKezwuLRzBvM2gqugSPF8uqdWE5noS3nf+Sc3sq9GzwJZKvl+tf2C3XVr
-         2gIVuvyzrXWqrHXP6bix/J8QW9qW5w2noX4f1UkW30ScVPioiizqB2K3wCElhNaAl+qJ
-         IXoFqSzK5KdTYtMhL6Gm6TOGRj26QxgcxY4YQTHarna59fOpdufkHf4kvhhQwG0z1sGd
-         auJjvBBMmNVtfCGb1M+Cjt0qYejpCgMaqqS90j8YtkWffyvwY4j6WSgIOMDc3iKm5h06
-         0CgA==
-X-Forwarded-Encrypted: i=1; AKwUvBwa0nUg0W0sMjle6Bjix5sVS+W+VGCMxSU/MmSBooZrG4jU7tBVpwbW6T9frL+azOVE6Z4NvmuMkRvLRpo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2nslzgiZcEtued5GkMKruOzImo4gd8lOFEBAGUxReck+nqOxN
-	T+z6FcURvuEt4V66eWsmZDh0APFJvUrzIcHDb0/Lo95LeVoDkNu0qLJZSYPwSa38
-X-Gm-Gg: AYBFou3oHSQoSM6/sLCoVTysjCLL/vICeCnhhbe0A6Z0bybCbdP416ilE6b+XBnAGlK
-	iyiAl99+nsEurrOejsnsbS3IiuMKnnMF50ZEGTVzDbvrAtu/imqMLQYDcSXHrluMCxyFUub/wwD
-	0dghVhNimomdhcDSPu9Axz6AZGlKcEhXo86u88izO7uXsnTFtMISoPq+jX9cuzukFnx8/7bw1Qn
-	jj2s7maLCYOIVJEACXfyX9a9yv//HrrcRzsfQ9m6ABr5rmHHBYhiCXeNKzCyDFhLAOfMfXzwnA2
-	sDWY5QGncewOXY6SAhdW/G6lEZ16qHCvRJOB/MC7JNaKz8sakmeGGg2Bj299tumPGGME/Om2tnN
-	yElUuz0LDqGXtU/PHRZwa67AHgeJ94+zvvy4ATCz0FXBVas/RFYah+rbcOWDRsCz6Lyfzv1GRcn
-	o6xU1xB8s5M0yUMfLK9N1UPbX+J8y/a+F6QM52ExeOBJIsPeF2Y0RfAYDqrSj6xmK0kxO35/o9O
-	qdYhQnZ+9fvAf0=
-X-Received: by 2002:a17:902:930a:b0:2d6:e074:9cad with SMTP id d9443c01a7336-2db1236f4femr206645485ad.6.1788750307334;
-        Sun, 06 Sep 2026 20:05:07 -0700 (PDT)
-Received: from mi-ThinkStation-K.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db148404b8sm38593825ad.2.2026.09.06.20.05.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 20:05:06 -0700 (PDT)
-From: yewentian395 <yewentian395@gmail.com>
-To: Oliver Hartkopp <socketcan@hartkopp.net>,
-	Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: yewentian395 <yewentian395@gmail.com>,
-	linux-can@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] can: isotp: implement N_Ar timeout handling for FC transmission
-Date: Mon,  7 Sep 2026 11:05:02 +0800
-Message-Id: <20260907030502.3049789-1-yewentian395@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <6ca3c6f6-91c4-4f0b-9136-9345dbaac1e0@hartkopp.net>
-References: <6ca3c6f6-91c4-4f0b-9136-9345dbaac1e0@hartkopp.net>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="PiC6HyEQ"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=qVlgjFyr8X3oCWakePj9eLcqUMiSwXFx9x+NdGeLY4I=;
+	b=PiC6HyEQi62P8vWr3VMiTe9VyyEKf6iXKJdsCLfQpnpObLXCcLee2cLRhB1uPrSv4MCnf/gwm
+	F5udepC2YFJ+PQ5fObcZpoHPX7VIW1qeuaT2XwFcMgbJgxWjk8F0EDIcA+a1XFYoKFowiTwOHRE
+	qfOuZ4rl2OjE4Vd6rnOOVgU=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hdWrB1CZSz1K96b;
+	Mon,  7 Sep 2026 10:54:34 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 4077540565;
+	Mon,  7 Sep 2026 11:05:27 +0800 (CST)
+Received: from [10.173.124.160] (10.173.124.160) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 7 Sep 2026 11:05:26 +0800
+Subject: Re: [PATCH 4/8] mm/memory-failure: convert process iterator to
+ for_each_process_rcu
+To: Ye Liu <ye.liu@linux.dev>
+CC: Ye Liu <liuye@kylinos.cn>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Andrew Morton
+	<akpm@linux-foundation.org>
+References: <20260904083001.553587-1-ye.liu@linux.dev>
+ <20260904083001.553587-5-ye.liu@linux.dev>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <cc748395-95ea-a7d7-d1c9-9678d2eaae21@huawei.com>
+Date: Mon, 7 Sep 2026 11:05:25 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904083001.553587-5-ye.liu@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-Hi Oliver,
+On 2026/9/4 16:29, Ye Liu wrote:
+> From: Ye Liu <liuye@kylinos.cn>
+> 
+> Replace the manual rcu_read_lock()/rcu_read_unlock() pairs combined
+> with for_each_process() loop in mm/memory-failure.c with
+> for_each_process_rcu().
+> 
+> No functional change.
+> 
+> Signed-off-by: Ye Liu <liuye@kylinos.cn>
 
-Thanks for sharing the patch and the context. Understood.
+With SJ's comment addressed:
 
-Best regards,
-Wentian
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+
+Thanks.
+.
