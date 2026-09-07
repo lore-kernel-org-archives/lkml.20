@@ -1,146 +1,112 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D503803EB;
-	Mon,  7 Sep 2026 09:20:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0E51A3F1055
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772855; cv=none; b=dE5MbdKZanWQQCPbGu9Em5twbMgszQWicqaCGmYcT6jmQMihV/UmJUwMZEg8pam0sla58Xh/0tim+QQna/xXy55TJdftKEWXfkVo0uKq/6E2Z0Na13Jka6+zD/bjCAr1p0TNpJyMhUgia2juttcqLlQgXRVbmv9TNbEHG+ItEP4=
+	t=1788772882; cv=none; b=OI7pkS/AwW9fUSSVm+s0+0RqwV9JoeanLNR3nRAWYUPCIlAqhJwlOfW6YD6RI9YZVAJfhawsdYJzKhgi2A5AQle4VHIovUlvCsXCWXw8R1lW8YRoBj28aJlRuprY67kun1ALrCpljTQHDN5cChMrrSsF/lzYyZdpmcHpZ57v3Ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772855; c=relaxed/simple;
-	bh=eO701lbX3C5DHJYwfENHGPXPgUh8CZ+Pu9PQWduUm/s=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=XYCRGUDNxTboRcyj0J+FtK5690+B2wn37gb3HJzU/wAooR1GMMzcG73bzaFGkdbJTgtT9BT3hIJWbkeIP8neBQrQycLrr8NmBLLSTt0XxSA2zvRCCmSs1XLpTL4FWqfHCdsVQAf/39riyk0YtPqhVWf3axIYDVnAR2vEc4+OMOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=0mqWwVLj; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=OZ/ioMZE; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788772882; c=relaxed/simple;
+	bh=K3qa1TQpTV87MVucLwzIVV0UEx/miaMiRTH3FpZpHp0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TdA+xI2K4vd9XGIkxYWdi6qmxzCnnezwrU/X+xAGJlwRVpIKsAqXB1vFWRemA6BTRZ+NDrqp+1hSQiquNtBJEoqau7r3xYs+TRRlt8TmSN95ZCk6t03+Bw/T6RlZOMxdyHj2FiVvU6VQq1z3OV4oREVRonszi6F9YPNgfse0rUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=RbeQYAUz; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="0mqWwVLj";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="OZ/ioMZE"
-Date: Mon, 07 Sep 2026 09:20:49 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788772851;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZIh5pP6ywjSkbVM7jFloGpR+IHpa5cKguv76QPPAOJc=;
-	b=0mqWwVLju4/i34erg/v4v90yx+rSAO7AlW7KQtOGpVwFLTe6RU3e5EUrMNtZOxrXksNNWH
-	ROBroBu+Fr6CW1DpAd2jpoiG/Z+u2ZyDfPyLWNIFN0VCELBo1YC5Hw9UulwnvoLDP90b3W
-	JJ0bd85dB8dlm9MLCy5ZY6hRQm7aijm8FLcypospLl7LmP37zAGHREoh6kYirWwsD0+ovT
-	44zNRCKTxCz+sycE04ZnAsdKZTDesR+/8MPfWpmcbX/gf7f7NC+BJTcr7CCaXF8QF+YNC6
-	idL+SRXADEFHBiaOqDZDY6YLsZMMF/HfApCVGq1JQc2ttZkvon5vOwWRkakmRQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788772851;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ZIh5pP6ywjSkbVM7jFloGpR+IHpa5cKguv76QPPAOJc=;
-	b=OZ/ioMZE6BXYVd0UErDzsCRSXvDrL2fIJKU+DTgg0I3z8Bvb6O7Ee5P4EIPF72zdJVCu7m
-	dzmsE42semyoVFBw==
-From: "tip-bot2 for Thomas Gleixner" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: core/urgent] entry: Guard syscall_enter_audit() invocation with
- CONFIG_AUDITSYSCALL
-Cc: kernel test robot <lkp@intel.com>, Thomas Gleixner <tglx@kernel.org>,
- stable@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <87tso45bqq.ffs@fw13>
-References: <87tso45bqq.ffs@fw13>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="RbeQYAUz"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B11831477;
+	Mon,  7 Sep 2026 02:21:16 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2A1D23F7B4;
+	Mon,  7 Sep 2026 02:21:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788772880; bh=K3qa1TQpTV87MVucLwzIVV0UEx/miaMiRTH3FpZpHp0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=RbeQYAUzbez7TNp8A5/0RkvEliIZxxgAdj9VlLpVz4iVZ7H18gHIPHAdiMNPeuPtP
+	 W5m13FKdd1RMPSKKcYa+KeTGnpM9zsWaPn09+w+Knee6o25moTRWIpJy09PVG4itg2
+	 g0xuACDMLHDXL8tnv9HtIy6wXhhLfh0WWpaqapdo=
+Message-ID: <790b4d24-a9bf-4226-b929-1c4611cd8540@arm.com>
+Date: Mon, 7 Sep 2026 10:21:16 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178877284970.623050.384082963514653186.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/5] fs/resctrl: Drop unnecessary parameter from
+ resctrl_io_alloc_parse_line()
+To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
+ james.morse@arm.com, Dave.Martin@arm.com, babu.moger@amd.com, bp@alien8.de,
+ tglx@linutronix.de, dave.hansen@linux.intel.com
+Cc: x86@kernel.org, hpa@zytor.com, fustini@kernel.org, fenghuay@nvidia.com,
+ peternewman@google.com, yu.c.chen@intel.com, linux-kernel@vger.kernel.org,
+ patches@lists.linux.dev
+References: <cover.1788452481.git.reinette.chatre@intel.com>
+ <4d050a1f7dc0b22bd8c4e6db1c2f2781e2bf929f.1788452481.git.reinette.chatre@intel.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <4d050a1f7dc0b22bd8c4e6db1c2f2781e2bf929f.1788452481.git.reinette.chatre@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The following commit has been merged into the core/urgent branch of tip:
+Hi Reinette,
 
-Commit-ID:     954f7a48fa2ae7310c67729fb556caf726783436
-Gitweb:        https://git.kernel.org/tip/954f7a48fa2ae7310c67729fb556caf7267=
-83436
-Author:        Thomas Gleixner <tglx@kernel.org>
-AuthorDate:    Sat, 05 Sep 2026 10:43:57 +02:00
-Committer:     Thomas Gleixner <tglx@kernel.org>
-CommitterDate: Mon, 07 Sep 2026 11:17:54 +02:00
+On 03/09/2026 17:57, Reinette Chatre wrote:
+> resctrl_io_alloc_parse_line() only has one caller that determines the
+> resource via resctrl_schema::res and then passes a pointer to the resource
+> as well as struct resctrl_schema.
+> 
+> Only pass pointer to struct resctrl_schema. resctrl_io_alloc_parse_line()
+> can determine the resource itself.
 
-entry: Guard syscall_enter_audit() invocation with CONFIG_AUDITSYSCALL
+Nit: Without taking into account that a resource is going to support multiple controls in the future
+this change feels a little under justified. Perhaps any extra line in the commit message is warranted.
 
-A bunch of older cross compilers notably RISCV64 and S390 fail to eliminate
-the dead code when CONFIG_AUDITSYSCALL=3Dn. The code in question is:
+Regardless, this looks good to me.
 
-     if (unlikely(audit_context())
-     	syscall_enter_audit(regs);
+Reviewed-by: Ben Horgan <ben.horgan@arm.com>
 
-and in case of CONFIG_AUDITSYSCALL=3Dn:
+Thanks,
 
-  static inline struct audit_context *audit_context(void)
-  {
-        return NULL;
-  }
+Ben
 
-which should make the compiler eliminate the syscall_enter_audit()
-call. But a RISV64 GCC12 cross compiler translates that into:
+> 
+> Signed-off-by: Reinette Chatre <reinette.chatre@intel.com>
+> ---
+> Changes since RFC v2:
+> - Rework changelog.
+> ---
+>  fs/resctrl/ctrlmondata.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/resctrl/ctrlmondata.c b/fs/resctrl/ctrlmondata.c
+> index 4562072b8ba6..69123b2a3274 100644
+> --- a/fs/resctrl/ctrlmondata.c
+> +++ b/fs/resctrl/ctrlmondata.c
+> @@ -955,11 +955,12 @@ int resctrl_io_alloc_cbm_show(struct kernfs_open_file *of, struct seq_file *seq,
+>  	return ret;
+>  }
+>  
+> -static int resctrl_io_alloc_parse_line(char *line,  struct rdt_resource *r,
+> -				       struct resctrl_schema *s, u32 closid)
+> +static int resctrl_io_alloc_parse_line(char *line, struct resctrl_schema *s,
+> +				       u32 closid)
+>  {
+>  	enum resctrl_conf_type peer_type;
+>  	unsigned long dom_id = ULONG_MAX;
+> +	struct rdt_resource *r = s->res;
+>  	struct rdt_parse_data data;
+>  	struct rdt_ctrl_domain *d;
+>  	bool update_all = false;
+> @@ -1052,7 +1053,7 @@ ssize_t resctrl_io_alloc_cbm_write(struct kernfs_open_file *of, char *buf,
+>  	io_alloc_closid = resctrl_io_alloc_closid(r);
+>  
+>  	rdt_staged_configs_clear();
+> -	ret = resctrl_io_alloc_parse_line(buf, r, s, io_alloc_closid);
+> +	ret = resctrl_io_alloc_parse_line(buf, s, io_alloc_closid);
+>  	if (ret)
+>  		goto out_clear_configs;
+>  
 
-        if (unlikely(audit_context()))
-    1c34:       00000097                auipc   ra,0x0
-    1c38:       000080e7                jalr    ra # 1c34 <.L785>
-    1c3c:       c511                    beqz    a0,1c48 <.L787>
-                syscall_enter_audit(regs);
-    1c3e:       8526                    mv      a0,s1
-    1c40:       00000097                auipc   ra,0x0
-    1c44:       000080e7                jalr    ra # 1c40 <.L785+0xc>
-
-and then claims in the failing link:
-
-   include/asm-generic/preempt.h:54:(.noinstr.text+0x1a20):
-	undefined reference to 'syscall_enter_audit'
-
-which is obviously hallucination.
-
-Add an explicit IS_ENABLED(CONFIG_AUDITSYSCALL) check into the condition to
-cure this compiler madness.
-
-Fixes: 6f25517010dd ("entry: Rework syscall_audit_enter()")
-Reported-by: kernel test robot <lkp@intel.com>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87tso45bqq.ffs@fw13
-Closes: https://lore.kernel.org/oe-kbuild-all/202609031938.ZvZZaRQy-lkp@intel=
-.com/
----
- include/linux/entry-common.h |  9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/include/linux/entry-common.h b/include/linux/entry-common.h
-index 6574b71..fa2854f 100644
---- a/include/linux/entry-common.h
-+++ b/include/linux/entry-common.h
-@@ -102,7 +102,14 @@ static __always_inline long syscall_trace_enter(struct p=
-t_regs *regs, unsigned l
- 	if (unlikely(work & SYSCALL_WORK_SYSCALL_TRACEPOINT))
- 		trace_syscall_enter(regs);
-=20
--	if (unlikely(audit_context()))
-+	/*
-+	 * The config check works around broken compilers which fail to
-+	 * eliminate the dead code in case of CONFIG_AUDITSYSCALL=3Dn as they
-+	 * insist on creating a always false runtime condition based on
-+	 * audit_context() which returns NULL in that case. The explicit
-+	 * IS_ENABLED() check makes that madness go away.
-+	 */
-+	if (IS_ENABLED(CONFIG_AUDITSYSCALL) && unlikely(audit_context()))
- 		syscall_enter_audit(regs);
-=20
- 	return true;
