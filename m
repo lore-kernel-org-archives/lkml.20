@@ -1,166 +1,140 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E717A448B84
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772264; cv=pass; b=T0jwiztcUDOUhXUVRssD+J5DjJOTno8XD+VjLk5XEwIEe6eHXQd7AzCZAK6MzVOmOIwTzgqvrddPZJEe4qF0Td1eg+yx6r+GWDoFbLerllB26d2SVRRTfq6h3zsDi+hS5URnyBclE2xxs7Lmc5BU8MB9j2xs4Nct8EoJ6nXwP8E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772264; c=relaxed/simple;
-	bh=fkDYfnpB/82JHIHK2bH6lv7ogS/1WhtQkaZX/r3FBjI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE3B4483BE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788772282; cv=none; b=AujOGSrE4x/onk/LtgRU9K7VjbDRroegaH4bRKiinId+hKvNFuqTKn9P7s14hE6SH6GD5fhaNB4LF4TolHnm2dZCMI60DuP6IKyGMm7JZ4ZApinJ1PyNIXIHNTXBscKD7VOI1J6XPmodT0LUxx8XMUz55QCSiqAaepwJ5bKhr64=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788772282; c=relaxed/simple;
+	bh=l2AIl/kpAuNoaMk+ybN1XBL0IKKOwb469zrWMKRoeIc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kOQBQy2FaFFnMDd7EYBhqzMv5o0n7jVLZ+Bzp0veUB9RRmVsRHwjwQRGqt5aDqxdlu3PBxRkeMQbo+22joL+B7nv1x7JacDUyPy+/+DEy3YnWJ30lygCli+ZvVpCdNBRg71eqgknhsz4Jo8dOvGmyAv19yS+c3th5W7XNDcTIBo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZSyLfjC; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=VBKgnuvuAssFRK8cnbEIGG6HSwF1YClkeTfOwhGI0Zkal7r4XcL+EKCym+N7c4ut68auSUsoAVH2xjyW9r3yJJmAtGGAMFGiXmBT7cIxnNNgndlHF2JWLVSqmzz9wwxLyUsdk+5md+dP4+WQK9DgV5w1kLd/xZ/3HQY5GoZili8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IdTgscoF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZSyLfjC"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-52e2d1bdbc0so20676991cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:11:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788772261; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OM0ObbhvFoh7e20+fcru8swfs4FL0cVmTLj1fQ+t7nPUPVjDGg+FflGmU74q0Slb2r
-         pQpi6u6Ax47DzZeKBtWsjMqirvunJgBG7Zpo9+Ggfui2pF6avl+WKN30caVJnJto6//8
-         LLa9cJawgr1dCQfjEaRWfBnYPBlk7RdRLw6U0ELHAqK36p3Y8WbzxE4bJGgZGjLaBOPv
-         1585PdGxCf651gbmMi4RVT/xH1o4vpt5Z6iKZJSZZof9g+P1MEJnWwC/re7LPPWC3DEB
-         IKTGf7trxPYvjjwQBEcaQwxs6Tf5sGZQcgLIkci7obC9wTzcOfVoR6/FYeFpgAlrna/t
-         JsHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UZwlo/PrjG/2W937OF/VpXOZ3P+Hd3ZS4n/JefxcXek=;
-        fh=8DYZWIOYfcrl00VmEauf1KrY6sFuHJFXomCUqG3lCoE=;
-        b=HKnVQyIiN7VKjVSx1GoZJ65UAMPo695GHEetRrwxNooAsftbyzADDBajHqM30EyifA
-         xBJA3gYeBa4+E5jFJRZUmnfUOdvcIpGOTFbGnqh3wlKK0ovCwfNiBb9YyJ43q9whZ1rX
-         orDcvaQsqwosTtcKC4FXXM0riNl3D8hGVmzI9/faGzrrQoqpqE9LkYyuqyXEoebYtOaK
-         ZWbVBwbm2rzUfHPJTMLnJ146wPBIzCl7OthJlOX1PMpKpr6qqoEBSB3rfUsUieedTGzj
-         8hKugo4B5/+8r1ucMcd9ShI0V9tgnmeupvlt+XL3k4bi4Cman2f9fgzpJEc95wCUHlx+
-         bPlQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788772261; x=1789377061; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UZwlo/PrjG/2W937OF/VpXOZ3P+Hd3ZS4n/JefxcXek=;
-        b=GZSyLfjCrVegqg/gPJuG0zFAHKqmZo1qu1/Ytjsrjh3Tjz3vlXiKyyFxzvuZ+GAC/7
-         +8Ey0rVo5AQECc9oxG58xzzZiYBq5tjJgk8Fui1DQIHpOEsZDnIX9pu+jYXVUsV8n0Dw
-         gCLH1af2pMp6OpVE0kCq4gANkygNUWN+OjDwh8rYdeA0+cLi37p/I5wmSeo1HikNDMg2
-         6tqIeuoqjd0wKDP2TnXPkCNEkXkHRPh4WVCpvlCbAwWz7oaQCdXQnRYV57pax6det9Ik
-         BqmpaxQCPHpsiaeQ5/Io68IAhVcPm98jFLQrzlImLoM0C6eMgLwLPxfsr8mx8hznakcW
-         b+Hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788772261; x=1789377061;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UZwlo/PrjG/2W937OF/VpXOZ3P+Hd3ZS4n/JefxcXek=;
-        b=ZNxCH5UWvgYLmegzqRgq07o1EyfpO3voafA/Wq1a4G7VJt4sOHtz9Z8oyFleJZucWb
-         +cT4HSTGb2dWO9qXD6ylFVmM60VmqNFsJ7dmc4fDeWtsi6D6V1fxdGP4XQ4KgkRJbglE
-         2bP7HFTI0TvEdeiMMeGPMiwTlkLZO3DA491qfmdmvaWFUTdiRqd3k8Xf0HrB5OTtl1sC
-         BZfIZsP/PnurtNue9V5+fFPh6uR81Zui1w/NGOrFNdp2NWw5FxC2S9ZfT9NZYf8FGEHR
-         Qvi+tDwxUJJkcdcEFy1upP8Aaz01Kbvm/xyd0b58EsN3zI6pOAy7ckxa3Jb/mXYDLjHh
-         VRMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzuasAnLZhti+QK7BF0yK9TZrY3CTz29QZ2L0YH8RFUCkoW2ktwQLTF8pfhx7T/2XFQ8QM9G495OavCIMI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBbOFMdWApb2T5855atzeAZfYjbY3Fw2XJvxid+q7MLE/dltQC
-	at5h8DmG0zGlyYvHj+mINWlo3IwmrS5mItV7yVqpa0Q7MnbaHYYpfGAtFAe65e+/0zJh1jyqnKl
-	Lt7pBXjdyojgP8ERmnd8+53VVMkF8jro=
-X-Gm-Gg: AYBFou06Fl68YQ6gkz/bBxTr0wja8qvhrpyw+aw86cbp7IAhk43aak79uN5z2+xBOpw
-	VuKALKY4K6fAsZVcmQGij3n8G8u5GE6+bvVQ4nPlkoUxgPpx8vIYDmqciiPQzyXPPCT8AspCtw7
-	2En6OyVponrYlEHgLIe7U2y+iHi+eIlfFpVBKvEnOog0H2ecyy5hPGdIL6r4z+6fVxa8RM6yVlr
-	LptU+4J1lilsSsjQAGy1sUbZJwXpYs/e3O5fYZn6s7Q3h+oyWpH08mBmkI9wgFLRGMLJ8bCFyBC
-	NxVJIkQ+1OJ0oCI4zr+bx3PWC+jH+tMOUr09XlkWUVpFQlmSHD6qj4mWWXUKmCAzKUhvoPyhRl6
-	f2Q==
-X-Received: by 2002:a05:622a:e113:10b0:530:6f9f:d4b9 with SMTP id
- d75a77b69052e-5306f9fe2fbmr77998031cf.20.1788772261584; Mon, 07 Sep 2026
- 02:11:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IdTgscoF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D1B1F00ACA
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:11:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788772280;
+	bh=wG0WmAyOO3ymA3aJN2xgzJ3JTR+4gP9o+6XF/2CnAYs=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=IdTgscoFwSDPguPFeYOAZsoliELN9y/GF39IzGQLF/4nwW++it3mr7PIzvXofvAMw
+	 +dkXfLDdAp6XgtFAdcnXt3jBjOzv4qYLFqLWFRpAqc0qRpSeOAGxeOJd+lVw53rTh2
+	 QW5uZJVzZanhOeRFp76ORNitYKMlckRFeXPSdMDRCcUkG8tPFheiGoL73PQ3EFEuQK
+	 2gI3QcJVvxm9aEM8RqarGoh4l27/S5tun2i9oJjx1O52I3KS+W6qV8XsUpY0AqYHoM
+	 KPr+pi3kyTBeDg3rGBydm2nUDz1EZLTztYLfBR1Ov++a5qd3+o/KqGvssaTj2lEGAe
+	 j7qU+MQ7yT3DA==
+Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-39c86945164so35610281fa.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:11:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy181Vsbudj81VOSfHkZyX18eoicFaD/+dCCFaEGhNVdLvP/6QQfhjx5zH5oJ5sVW5KUpsYbpGuqeN/eMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQ9aEOb67eVescm3w94dvKo6uWhroBLGcxIhRYkumrx6ph71r2
+	yAdPX+QrZnHg6y4Fspj7vJWJ/IBij2F5cUOJaiC3yC4TG5SVnfFHpUevKORKsycdPnMC2TyMGXm
+	nHECDyUZ5GikcVMeR5MKwSYcg7sqwWh0=
+X-Received: by 2002:a05:651c:43cc:20b0:3a3:7681:6d69 with SMTP id
+ 38308e7fff4ca-3a376817499mr13635561fa.18.1788772279038; Mon, 07 Sep 2026
+ 02:11:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260905183135.20993-1-christosskarlos.kernel@gmail.com>
- <60a8cf51-1493-4dbd-8779-8f007f6783a0@kernel.org> <CAEO-viHe6hZaJzS3mjKtA8sq=tnuQOp4a_u1D56tuFx69F3N2w@mail.gmail.com>
-In-Reply-To: <CAEO-viHe6hZaJzS3mjKtA8sq=tnuQOp4a_u1D56tuFx69F3N2w@mail.gmail.com>
-From: Christos Skarlos <christosskarlos.kernel@gmail.com>
-Date: Mon, 7 Sep 2026 12:10:50 +0300
-X-Gm-Features: AcwNN1VHz2Dx5JOhnvUzjOQL5MbqPSr2rrgIgq7g1Q4-0tJN6hN6Ipr9L7HFBoU
-Message-ID: <CAEO-viEyRBBWGzs1kDv7tdzYwuS4b75jm6abU5WcLN5iUD+54g@mail.gmail.com>
-Subject: Re: [PATCH v2 0/3] mm: minor janitorial style cleanups
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: akpm@linux-foundation.org, david@kernel.org, muchun.song@linux.dev, 
-	osalvador@suse.de, ljs@kernel.org, hannes@cmpxchg.org, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org, 
-	lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, jannh@google.com, 
-	pfalcato@suse.de, kasong@tencent.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, mhocko@kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
+References: <20260904084158.1341550-1-wenst@chromium.org> <20260904084158.1341550-8-wenst@chromium.org>
+ <2026090430-botanist-ungodly-0299@gregkh> <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
+ <2026090433-chair-tidings-5c99@gregkh> <apvQlBEgHOW9MCxN@ashevche-desk.local> <2026090516-nutshell-handiness-37f9@gregkh>
+In-Reply-To: <2026090516-nutshell-handiness-37f9@gregkh>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Mon, 7 Sep 2026 17:11:06 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64QQ1OsQ0hEw+hrYuG2bEpBFf6AWNnbJB-O3qr3on_X5Q@mail.gmail.com>
+X-Gm-Features: AcwNN1Wpt14dNKe4B6humzooduMblAi6GFxjh3D2jQuOPYxWMei9coTZFdaWUGw
+Message-ID: <CAGb2v64QQ1OsQ0hEw+hrYuG2bEpBFf6AWNnbJB-O3qr3on_X5Q@mail.gmail.com>
+Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related APIs
+ to port.h
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hey Vlastimil ,
-Understood. Thanks for taking the time to explain the proper scope of the
-checkpathc.pl. I will drop this patch and keep the tool strictly for new co=
-de
-submissions moving forward.
+On Sat, Sep 5, 2026 at 7:32=E2=80=AFPM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Sat, Sep 05, 2026 at 11:19:32AM +0300, Andy Shevchenko wrote:
+> > On Fri, Sep 04, 2026 at 07:52:37PM +0200, Greg Kroah-Hartman wrote:
+> > > On Sat, Sep 05, 2026 at 01:24:20AM +0800, Chen-Yu Tsai wrote:
+> > > > On Sat, Sep 5, 2026 at 12:47=E2=80=AFAM Greg Kroah-Hartman
+> > > > <gregkh@linuxfoundation.org> wrote:
+> > > > >
+> > > > > On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
+> > > > > > |struct usb_port| and its matching container_of() macro should =
+live in
+> > > > > > its own port.h, matching the split we have for .c files.
+> > > > >
+> > > > > Why?
+> > > >
+> > > > This was requested by Andy. And to me it sort of made sense.
+> > > >
+> > > > > > Move them as described. Also move usb_port_is_power_on(), since=
+ in the
+> > > > > > next change its |struct usb_hub *| parameter will be changed to
+> > > > > > |struct usb_port *|, and becomes a non-static function that onl=
+y
+> > > > > > references |struct usb_port|.
+> > > > >
+> > > > > No, please don't do that unless you have a really good reason.
+> > > >
+> > > > Which part? Move the code?
+> > >
+> > > Please don't make a new .h file.
+> > >
+> > > Moving the function might make sense on its own if you need it in a
+> > > different file later on, but do a move only, and then change things i=
+f
+> > > you really need to do that.
+> >
+> > Isn't this file to break possible circular dependencies?
+>
+> If so, that was not stated here at all...
+
+No. The code movement was purely done out of request by Andy [1]:
+
+    At a brief look this will be the only function that takes usb_port
+    instead of usb_hub in the entire hub.h (I don't count container_of()
+    as a function). With that being said I would rather see it to be moved
+    to port.c altogether (yes, it's more invasive change, but looks more
+    consistent).  I would even dare to move struct usb_port (and container_=
+of()
+    accompanied with that) and this function to port.h. This might require
+    a separate patch, though.
+
+Putting the function in either .c file works, as it is referenced in both
+files. Possible circular dependencies was the result, not the cause, of
+the code movement.
+
+And the main changes to usb_port_is_power_on() are in the next patch.
+This one just moves the code and drops the "external".
+
+If the maintainers feel that the code movement or header addition is
+undesired, I will drop the movement. Or we can discuss reorganizing the
+code in a separate series.
 
 
-=CE=A3=CF=84=CE=B9=CF=82 =CE=94=CE=B5=CF=85 7 =CE=A3=CE=B5=CF=80 2026 =CF=
-=83=CF=84=CE=B9=CF=82 11:58=E2=80=AF=CF=80.=CE=BC., =CE=BF/=CE=B7 Christos =
-Skarlos
-<christosskarlos.kernel@gmail.com> =CE=AD=CE=B3=CF=81=CE=B1=CF=88=CE=B5:
->
-> Hey Vlastimil ,
-> Understood. Thanks for taking the time to explain the proper scope of the
-> checkpathc.pl. I will drop this patch and keep the tool strictly for new =
-code
-> submissions moving forward.
->
-> =CE=A3=CF=84=CE=B9=CF=82 =CE=94=CE=B5=CF=85 7 =CE=A3=CE=B5=CF=80 2026 =CF=
-=83=CF=84=CE=B9=CF=82 10:44=E2=80=AF=CF=80.=CE=BC., =CE=BF/=CE=B7 Vlastimil=
- Babka (SUSE) <vbabka@kernel.org> =CE=AD=CE=B3=CF=81=CE=B1=CF=88=CE=B5:
->>
->> On 9/5/26 20:31, Christos Skarlos wrote:
->> > This patch series resolves various coding style issues flagged by
->> > checkpatch.pl across mmap.c , vmscan.c and hugetlb.c.
->>
->> Checkpatch is meant for avoiding the issues when submitting new patches,=
- not
->> to be run on the existing code to generate fixes just for the checkpatch
->> issues. NAK
->>
->> > Changes in v2:
->> > - Restored filename comment at the top of mmap.c.
->> > - Restore <asm/...> headers in mmap.c as they are architecture-specifi=
-c.
->> > - Remove blank lines above VMA_ITERATORS and NODEMASK_ALLOC declaratio=
-ns.
->> > - Fixed commit message typos.
->> >
->> >
->> > Thanks for the thorough review and guidance. As a newcomer every
->> > feedback and advice is really valuable to my workflow.
->> >
->> > (Note: Apologies for the stray huge_memory.c patch included in v1 by
->> > accident; this v2 series correctly focuses strictly on mmap, vmscan, a=
-nd hugetlb.)
->> >
->> > No functional changes are introduced.
->> >
->> > Christos Skarlos (3):
->> >   mm/mmap: fix various coding style warnings
->> >   mm/vmscan: fix various coding style warnings and errors
->> >   mm/hugetlb: fix various coding style warnings.
->> >
->> >  mm/hugetlb.c | 16 ++++++++++------
->> >  mm/mmap.c    | 12 +++++++-----
->> >  mm/vmscan.c  | 11 ++++++-----
->> >  3 files changed, 23 insertions(+), 16 deletions(-)
->> >
->>
+ChenYu
+
+[1] https://lore.kernel.org/all/ake09vk4fEv1D9QC@ashevche-desk.local/
