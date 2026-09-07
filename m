@@ -1,81 +1,67 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E77E3E2AB6;
-	Mon,  7 Sep 2026 02:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08C443F1046;
+	Mon,  7 Sep 2026 02:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788749051; cv=none; b=NfIO7T1FBYrxkCCG0TLwT+thUUyZRlQaYRk6HjNvR5IkatYRTMuK0SvVuJj0XBqzu5sgg0Rvx1qXgElG1Q4VDWSevq/7BlTcQQIkdmHdDOmV0StUbJQ4UsCSvPlZbKTfj95kqNfEA3u2vjpe5SERTDvj8Ca8Yl6R4HiW4bWijGY=
+	t=1788749063; cv=none; b=ZSEWavwPxtE/NHLVdr+uE5720RwxtOu0JzOVFxsZ8tpbtjfse1OQsDfZbOjSBWUPGclNt4s2C4/SIqZaIXvB1C4Rina+6MnyVAB0VOd1vsTnANZjigIgaTZ3jqpl32iTOZcX7WITZTeBoWCFZhxsXxnAXchA0LopaVZl/Mkil7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788749051; c=relaxed/simple;
-	bh=BAApXtExzKfi50T/qCqARuvuEZHhZD5nEPIPW0mtUgA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=NtbXi5JsswoY1xIe5n9T5UmudNu8l6GsO91M19YXmKPgB/mesZEzjgCnclkCj+kVYhJeSJbRJCYaTWl0YSq7Sax4D6u1VCAZSe1MTmNShrp7ln3acU1ffyPRmSPfFFHt46w20l8fmNdcadbVvz2uI8CRUiPBxn3x7kBQnXHmY9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=BbKC8tnH; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788749063; c=relaxed/simple;
+	bh=c8jW4Y3oIvOH/yBeYZIq2At8l4DS1lwDGk4khsrQ+pI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uonViX/1pzG1UYulCMmC7yNAz6MrvIRWaMmJOXfuQyTfjBqcdRD/tninl28ekb/xUAdAS9okuuIDxazVRgf/sY1BrWg873yBfVUhNYAIrnawbrIOBp6bXoUT2iQs4eU1pxcr+LEi1XoHDB6vxux4Q73ALVtLOH8q7Io8pAMSLAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q/5OPeOd; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="BbKC8tnH"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6872ht7S32417533, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788749035; bh=BAApXtExzKfi50T/qCqARuvuEZHhZD5nEPIPW0mtUgA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=BbKC8tnHrGK+nvq4lvZm09SgFwom6bIpcsbK8b73Ug19G+DmP+Jz0g4XZz6YB0/Id
-	 KDtxVBihUe1bcsbBg50ButMV0cA3hXgO7t767OndeWzdzAtcRsxBG0ccE+tFVSVhmG
-	 yPBCx/RfkXffGpdSIj2uzivpV4XXEfxu+ZLsFbJ9vCm1EltztvslBKB8uD5bCicBtS
-	 cbtKNfS6Etm0YK+/He2+fZGhwRDcXRLWHhqDFzi1LRHRsNqjFnAijh9/VrfLqwo2WU
-	 CVeZPh8rskO9i9lAT8KCSwVgERl+98ovU4WInvzhezvyuQ8eKmqEwJ12F2bZJpOhvV
-	 Q3/a/8Uhc6Q7A==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6872ht7S32417533
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 10:43:55 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 7 Sep 2026 10:43:55 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Mon, 7 Sep 2026 10:43:55 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v3] wifi: rtw88: use firmware MAC address as fallback
-Thread-Topic: [PATCH v3] wifi: rtw88: use firmware MAC address as fallback
-Thread-Index: AQHdOok1RcarBILzjEGGp2vwQcmTh7bCcElQ
-Date: Mon, 7 Sep 2026 02:43:55 +0000
-Message-ID: <01fd92db75bd47c182512cacb5fa2ea4@realtek.com>
-References: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
- <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
-In-Reply-To: <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q/5OPeOd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788749061; x=1820285061;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=c8jW4Y3oIvOH/yBeYZIq2At8l4DS1lwDGk4khsrQ+pI=;
+  b=Q/5OPeOdCnoKKQDICOzC+0bLYZPlPjXn1V26SiK51GKVbr23PJ124HpI
+   imDbYoF0DXKv4azfdZaFNNa8IwH93v/LgD/5a547j0TQikFEPCWd8mQON
+   Ds97LTEXDniHBOK5SOD7qJIvSCL27BiO/RiEqCyAASlX6yTxTO/i9tuZX
+   vqSFPOvHR0dQcoUuP2FJbFp515iQ+WQXLYLL2HbpsV6FMCGj7flbIeSv4
+   f7amDSH3anVYGDMR6wSqcm6SgrLdxszarCiX0pebnbJNrAbY5jPTFGm9C
+   GGjRWmGyLL0UeY5zEiSnvqfm2Ac8PSFCSdgrCaYJOTvwg7oWq7AfrsS4u
+   A==;
+X-CSE-ConnectionGUID: u533vQmAQrOg2NuGDjLClw==
+X-CSE-MsgGUID: UE8ctQJBQgqrhTXDjyT5Rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="99744369"
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="99744369"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:44:20 -0700
+X-CSE-ConnectionGUID: fEMTx9TfSCGvWZKSEo3n0w==
+X-CSE-MsgGUID: ncTqF6AcQdCwRDWuppDj6g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="266901553"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:44:18 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Marco Carvalho <marcocarvalho.web@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] HID: quirks: add ALWAYS_POLL quirk for SDINNOVATION gaming keyboard
+Date: Mon,  7 Sep 2026 10:44:08 +0800
+Message-ID: <20260907024408.482401-1-junjie.cao@intel.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260824031419.316315-1-junjie.cao@intel.com>
+References: <20260824031419.316315-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-YuChia-Kan <raspberrykan@stu.hqu.edu.cn> wrote:
-> Some devices provide the Wi-Fi MAC address through firmware instead of
-> storing a valid address in the Wi-Fi chip efuse.
->=20
-> This is the case on the Xiaomi Mi Box 4, which uses an Amlogic S905L
-> SoC and an RTL8723DS Wi-Fi chip. The Wi-Fi MAC address is stored in the
-> S905L efuse rather than the RTL8723DS efuse and is provided to the
-> device through firmware.
->=20
-> Try to read the MAC address from firmware before falling back to a
-> randomly generated address.
->=20
-> Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-
-
-
+Ping. Still applies to hid.git for-7.3/upstream-fixes and
+for-next as of 2026-09-06.
