@@ -1,30 +1,30 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B45323E35F
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41467478
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788750582; cv=none; b=mkBtVvYFN8FSSDmdvOyrA9sJkvV7KC95Spd+nJc/QfkMP3sSAR0SXToreBbMkZDJ4w5Fljyb715bH9DzO31nCa39YtUfoDmKLUVkMfYaYC9eVor1B2FZ+LS55JHJwjzRQn6ixoua6zpGLwbzA8BiV+AsO+G098AS0gXVCRP0z/k=
+	t=1788750652; cv=none; b=holSDmamRxNYpERbcKySF3JR7gUWRimJefoqqulvDjQS9SQWUzM6do0w7fVtQPCTUMPKI4hnvtMuxRl/ekLsnv6JIx2gI14EZpxaRKzenkPsCr9Yvn70+mBZZ/X3nGPjY6JFoP7VT3eYlW7YeCMCIANCG+jHMK4NSVOchxZYBXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788750582; c=relaxed/simple;
-	bh=UrFBnW1/fICcEXztg/0e2RNDkiLJvVUN8TInCHRb3yg=;
+	s=arc-20240116; t=1788750652; c=relaxed/simple;
+	bh=OB2wABeWabwKQU7skl+Rz9jtRZIAO84na74VEJNIaHE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gbW/P9hym3zUdk2Rzp7FGvzzeqTEy6+Po07Ffmfqs1tHufCyQ07I3fnAWZVM26RvZdvo/V6GIEJuvnZuGFtvlEji794njl1o4S2lzWTljcRandZsrEAlJnbL09kuGg7MPw4YaTjG2Km7HaQ1tehhu1Y3LKwyxvmWkOdwgl97mJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=54.254.200.128
+	 In-Reply-To:Content-Type; b=IilpfkWgGS3g54MfMLnHfn3eCy0u3w3/SEve0Yr/Nbx868DjhlnygFs0GgN2Fj1R/n2Rm7l/p9caYeo2ytw0REkTSIOBCpFH1x5WF9xKF+jwVrhsmk25N1Dd8Di7O/gqZg57TbzxY7TzoW/ZhdDbT1oAY2YlsN67xyzjWHGWD3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn; spf=pass smtp.mailfrom=kylinsec.com.cn; arc=none smtp.client-ip=52.59.177.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinsec.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinsec.com.cn
-X-QQ-mid: esmtpsz19t1788750506td1c3f24c
-X-QQ-Originating-IP: nDhhRbWgQjHqGOc9extJi2gMysH1x9Xa1OyXHlJP+Mc=
+X-QQ-mid: esmtpsz11t1788750627t59ff899e
+X-QQ-Originating-IP: dv7d05JYBruWzbduOPxHqLJnZMoYK3QjfK71uKOVlKE=
 Received: from [10.200.8.55] ( [175.0.204.93])
 	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 07 Sep 2026 11:08:23 +0800 (CST)
+	id ; Mon, 07 Sep 2026 11:10:24 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 6137544479074970621
-EX-QQ-RecipientCnt: 11
-Message-ID: <9201C88445F7D464+7ed4f829-b987-4259-a228-37d881e303d7@kylinsec.com.cn>
-Date: Mon, 7 Sep 2026 11:06:35 +0800
+X-BIZMAIL-ID: 13353973710952998014
+EX-QQ-RecipientCnt: 13
+Message-ID: <3480763CC31809EB+b4251e64-96c8-4332-a9b6-592548cb6d54@kylinsec.com.cn>
+Date: Mon, 7 Sep 2026 11:08:37 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -32,77 +32,79 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] coresight: syscfg: fix deadlock on device registration
- failure
+Subject: Re: [PATCH] coresight: tpdm: initialize spinlock before exposing
+ sysfs
 To: Suzuki K Poulose <suzuki.poulose@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
  Leo Yan <leo.yan@arm.com>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
- Miaoqian Lin <linmq006@gmail.com>, coresight@lists.linaro.org,
+Cc: Mao Jinlong <quic_jinlmao@quicinc.com>,
+ Tao Zhang <quic_taozha@quicinc.com>, jinlong.mao@oss.qualcomm.com,
+ qinyungao@kylinsec.com.cn, coresight@lists.linaro.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- qinyungao@kylinsec.com.cn
-References: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
+ Jie Gan <jie.gan@oss.qualcomm.com>
+References: <8693039B65AA093F+20260825020647.2469-1-dengyingchao@kylinsec.com.cn>
 From: yingchao deng <dengyingchao@kylinsec.com.cn>
-In-Reply-To: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
+In-Reply-To: <8693039B65AA093F+20260825020647.2469-1-dengyingchao@kylinsec.com.cn>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpsz:kylinsec.com.cn:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: NAtipnnbTPea2ScznlRZygyEL3WmDPcIAdDGrz0epiF9CKN1/SVDQDPH
-	L74oknimUVzwvQMz5dKTOIF5iqe6yu0/R3cX8YLEVpMfpBtiFh5USZNStd0AbOcRrO3vLcd
-	gi/LmNn4M7mQENW1xjbbU7xMzLHm2OiCeSaXCeT1Fz+NJthTDPW+ILAw5KG1ZaSY1VXfzyO
-	tjsliORoSAkj8Uqbgp+7h2YuAvYbTqctrWk8X/oVFbWMC94xXFrkj0uMfYv+WsSq9SAIVdx
-	2DMv8ThxxbvHlZjq0FCKmhrzHIlnovaEhlbAvtnnSZKXHlEz+oA4QqRiNh5HN82nrdQHIoR
-	3HYIaCfeC6iSEWos7ENFiReOWzwgQEHyLqInAQHaNLjdIJog0esENfm4V5adsQmQdZGeiqE
-	YFK3bPcYrgFutr19rr0lWYjbM0lDIqminAiVlHIRnCv26tR/Ws6TWt+KZ0dT3jM2x0vwnwV
-	FfkO0oAhlHt5hGp4qHgiGdf6seiXi/IWb4jWYsjnJ1fedn9gkOp/HwM8lVdD9vpvuCcm831
-	3S+D2crcvuivYtczMARYkfPSA5TYon58OU23bCxpmSaM7pUqn9QVd2ntP+EiDjtNKmvCD1m
-	hFFSJqAPMYfHzlwS97LtDJc7aosisbS4tpqeI+6fvABx+Cg9e23MgtVm+4g6cnrnCBDPT9x
-	KKV1WIV7ImrAk9KzAr5hTB0uItaoXEcPqEbDacOsBwGYK4/xYYFkgcplSyByX0GfDVcvKvu
-	kvff0wV7isuM91NQGPdOekwBlUckxivU6DmFlkFPKbVjqo6KRMWBIG93vRiZXP6QxDJ5UR+
-	AUvjdRXAfsPkigGPGaydr05HtTEkyp8w6+TAfj2rajsnwzJa4K9bgbV3+YTwRIW7zJMFD0c
-	quuSTixb0z0Y8CO5wx3LuK1jR+4kTXE9+weVLhNT6qUMpKu31eYfNatSWZNLfCksMdZq1kP
-	uc1VvGpHxpIN1utT5wmV3HmDlbOlpZS6s0Ls3XzfLbBV1oIjBcT0SAXedwxpgh22j7lwv0y
-	VZ29GuuonyaL+MPmlhmGDQKSxdet2WOfAH9FLn+A==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: M+/j+50/aE0/mDV0M6sxwYXPveMAlBAkquEtPfyWjRuelnlQjb260EUK
+	LIfEpKaawTetjF7qELCe826ABzaL9Mo0AbJreQPoNJXYBSTxE/PlxCvGhKjLTRYdnpy97Ag
+	R/H6vMeH9Miz7+2dHB++lZQ5ZtvoZ+UL+jztoT0bLtwd6heby/Wd4v/qQFOX6aV8S9ebfpX
+	o5zN+JTQL98ju4Ztz5IKkwEs2l+83J1NwcjyuDYTk7L5DUfQVTOGmZTr1psoZB7DrcthgAa
+	3eAvVW6wumCrqL1IDCBj6HpXWEa2Thv4ggiTQOOaYcCG4TeiusMs4plm3hFp+B8eWPkI5tK
+	MVFp/ftzq/YmE6PhMN685eXF7DCQmmTa6bHbEFzNcQ9iiJji1OguWT0DLs1IMTei2savgyr
+	l6BeiEuvv9+usU2s4otV0AULJArQIUdhSeiKBl6FhpCDt5wR2lQvbs0NMPXLjUU3AfTRAJH
+	p/c+yzqhkkTzAuCyEJ5d+sCtj88fm/Ocup92vNnctnne3+SR07OGS+ABu4ziXFUYvI5YHcR
+	DhUvyGImVJ7/CJ+Y7D/Cm1/TfBGFMA5g9UqpMKW3XMDC5SVGihMcrh5o6TBIHpFg8sFAl1u
+	Hnq8RuF5aTS5uKfBq0pak7SU6vtAH3aCa7ha5vmJsPKtwMDDxaqokWXyG+JD0TdYMm1izrg
+	uEWpz5f1UGJhBMHQ5dAhoEXYI9m05VomIROytlwA7HNZ5ToEkF9N8R/U0a2qMC4zowtiP6Z
+	pHpJsaBUu3r+AYoKdFfMToT621HeHX+6xj1OF8Eobx0FiWav/f6N+vOt3HUA/DHiWY9dV+U
+	JZ2VoWLKx/eZ+5kkD8+fNGh0lvzld9Ox7x3bPiTigsi5Rc4QCCys5pb5bBNV472xJG6jIcI
+	4AvnNUypGNMle4NE+pizKYC8HdPIq7QsFYYrZT3ByZ7vZNfCcnn4AshexF3j15UXPeMHwXF
+	wYXF6J5hnoG+Xo9YTr3eIppDPwVM5WlXvkJAUFGJ2vv1Xu/sGUQ9Xmu/eH9OW12Kja8t1bq
+	kWYT9+XYkjPe50ZeckTH3opN70rNA5hi+wzfpzXa5QLSX8z7fhaq2QZdYoef2CcwlfocIUh
+	ZrMh4fIZWy5
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
 X-QQ-RECHKSPAM: 0
 
 Gentle reminder
 
-On 25/08/2026 09:47, yingchao wrote:
+On 25/08/2026 10:06, yingchao wrote:
 > From: Yingchao Deng <dengyingchao@kylinsec.com.cn>
 >
-> cscfg_create_device() calls put_device() while holding cscfg_mutex.  If
-> device_register() failed, put_device() drops the last reference and invokes
-> cscfg_dev_release(), which takes cscfg_mutex again, deadlocking.
+> tpdm_probe() initializes drvdata->spinlock after coresight_register(), but
+> the sysfs attributes registered by coresight_register() use the spinlock.
+> This exposes a window where a concurrent sysfs write can lock an
+> uninitialized spinlock.
 >
-> Unlock cscfg_mutex before calling put_device().
+> Initialize the spinlock before coresight_register().
 >
-> Fixes: cfa5dbcdd7ae ("coresight: syscfg: Fix memleak on registration failure in cscfg_create_device")
+> Fixes: b3c71626a933 ("Coresight: Add coresight TPDM source driver")
 > Signed-off-by: Yingchao Deng <dengyingchao@kylinsec.com.cn>
 > ---
->   drivers/hwtracing/coresight/coresight-syscfg.c | 8 +++++++-
->   1 file changed, 7 insertions(+), 1 deletion(-)
+>   drivers/hwtracing/coresight/coresight-tpdm.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-> index 2bfdd7b45e49..d0e7e4720e46 100644
-> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
-> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-> @@ -1210,8 +1210,14 @@ static int cscfg_create_device(void)
->   	dev->init_name = "cs_system_cfg";
+> diff --git a/drivers/hwtracing/coresight/coresight-tpdm.c b/drivers/hwtracing/coresight/coresight-tpdm.c
+> index 8464edbba2d4..50d1351772b9 100644
+> --- a/drivers/hwtracing/coresight/coresight-tpdm.c
+> +++ b/drivers/hwtracing/coresight/coresight-tpdm.c
+> @@ -1457,12 +1457,12 @@ static int tpdm_probe(struct device *dev, struct resource *res)
+>   		desc.groups = tpdm_attr_grps;
+>   	else
+>   		desc.groups = static_tpdm_attr_grps;
+> +	spin_lock_init(&drvdata->spinlock);
+> +
+>   	drvdata->csdev = coresight_register(&desc);
+>   	if (IS_ERR(drvdata->csdev))
+>   		return PTR_ERR(drvdata->csdev);
 >   
->   	err = device_register(dev);
-> -	if (err)
-> +	if (err) {
-> +		/* put_device() triggers cscfg_dev_release() which takes
-> +		 * cscfg_mutex, so drop the lock first to avoid deadlocking.
-> +		 */
-> +		mutex_unlock(&cscfg_mutex);
->   		put_device(dev);
-> +		return err;
-> +	}
+> -	spin_lock_init(&drvdata->spinlock);
+> -
+>   	return 0;
+>   }
 >   
->   create_dev_exit_unlock:
->   	mutex_unlock(&cscfg_mutex);
 
