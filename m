@@ -1,36 +1,36 @@
-Received: from mta0.migadu.com (out-109.mta0.migadu.com [91.218.175.109])
+Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA86479886
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.109
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CF5483BEC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:32:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780756; cv=none; b=eDoOIiDVXN8AdhVV6t1IzjhxSGBSKftRFXQgJTNGnOlPaf4IU/5ytmux5t7UkIcEV0Q7S59xeDTwZskM6j4nssH608Z2YfFifVzVcKKrjQoZqx25xcyd490JprVU56SaWC4vG7zVajHsz90ZmSY9eSldf+ipDlWcz3mXsfd9Nas=
+	t=1788780761; cv=none; b=dRr+aV3W0fdf7vo/PObaOosOWrVrbTeo0xMLy5JUNHvxNZ6JRMo06ATdRq/aBhIx57ksrrdhFPgAmgP9xXBmmFVDtb84TP0voRAmCdvFvox089Ijke2DfO4DLuLnpZnlABprjvAZdJ37APsqopUZFf4jZQ/glrbTZQo+jNgw7fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780756; c=relaxed/simple;
-	bh=rvLCnfgy6I04fD8/CycKcJZ6RfCiOFO7BcEMS03VEHM=;
+	s=arc-20240116; t=1788780761; c=relaxed/simple;
+	bh=nor8OMnKbqc68bSUdRJWTTEArN9hgfGagsM9dJidQ/Q=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=uUDzFUnWR18HLsdtQFLHuCmFUdjL6kDsRj/8NgJA7paJH4cnE1oxayt9BNUXcgyS4cMh3PcGSaArnhNP5BELDl1txQJdIzghmvj4nnuDj/AcC2cwYgHIiFz8A+7pnyUJGf8OTetpJXh3tOKeTbNlV20N/zdiWD3IJOMbI7d8RmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tcPSf29m; arc=none smtp.client-ip=91.218.175.109
+	 In-Reply-To:Content-Type; b=Rcaq2z1UTpdsWYWRS8uydkyZclBBXPqB8mmEUHTt6PBSBqDsdVwQzEo5ihvfvyfwrI2ui2SqyosrHVUZDdguQzyab/yWUoHuIREbvVL+8YW7WrEXAjnqH5wxqKtSRW73O79aJJKCcrGUZOd5uBDeuBBYuEboWR0dfG/KO/qv0ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PVRMMyIJ; arc=none smtp.client-ip=91.218.175.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tcPSf29m"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PVRMMyIJ"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rvLCnfgy6I04fD8/CycKcJZ6RfCiOFO7BcEMS03VEHM=;
+DKIM-Signature: a=rsa-sha256; bh=nor8OMnKbqc68bSUdRJWTTEArN9hgfGagsM9dJidQ/Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788780752; v=1; x=1789385552;
- b=tcPSf29mmTjAxfZIn6VxMPkF6UBu78cksWQXtKIjfe9KY4B1wS5nil7JTUxvHY92N4+ayF2Q
- yWmmFvvY8B1jJinyf7q8t7gwglaJt0y7SDGJXY+GzvJ5Lt6UUs38OlyqDqngL+jsQU85nSWVsNb
- Au93SzfZpUzJeMUZDcENl6yQ=
+ t=1788780757; v=1; x=1789385557;
+ b=PVRMMyIJnFMzKdqJd0rNse39XdFAzMtZfvTcsInd6N1yHRBcjDn3mzHp7ircDhfXP3k4unyG
+ rvN5oWzSkC6LiKVR7vc+/MPnyfwvB2pP1gIBDitnColaUV9NaBNoE5/ZrDcqs6WZ57zTtz9FHp+
+ FCpmJuVhCaqQYCnrlsAjxWYo=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c698de2c7da5b2c6;
-	Mon, 07 Sep 2026 11:32:32 +0000
-X-Mizu-Trace-ID: c698de2c7da5b2c6
+Received: by smtp.migadu.com with ESMTPS id ad12b088e5b25ee6;
+	Mon, 07 Sep 2026 11:32:37 +0000
+X-Mizu-Trace-ID: ad12b088e5b25ee6
 X-Migadu-Flow: FLOW_OUT
-Message-ID: <289d5485-44fa-4d74-8f69-7adc1507ac9e@linux.dev>
-Date: Mon, 7 Sep 2026 13:32:30 +0200
+Message-ID: <525f887e-cb3b-4e74-8b93-30c3baeb8018@linux.dev>
+Date: Mon, 7 Sep 2026 13:32:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,8 +39,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Subject: Re: [PATCH v2 08/11] ASoC: SDCA: make find_sdca_control_reset()
- return void
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
 To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
  Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
  Charles Keepax <ckeepax@opensource.cirrus.com>
@@ -55,64 +55,147 @@ Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 Content-Language: en-US
-In-Reply-To: <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/7/26 10:37, Srinivas Kandagatla wrote:
-> find_sdca_control_reset() only ever returns 0 -- it just sets
-> control->has_reset / control->reset for the framework-known
-> (entity type, control selector) mappings.  The int return + caller
-> error check in find_sdca_entity_control() are dead code.
-> 
-> Convert to void and drop the check.  No functional change.
-> 
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> Add support for the Qualcomm Tambora (WCD9378) headset codec in SDCA
+> mode over SoundWire.  On ARM/DT platforms without ACPI/DisCo firmware
+> the SDCA topology and SoundWire port properties are supplied as static
+> data through the codec driver.
 
-That looks also unrelated to DT stuff, not sure it belongs here as patch
-08/11
+wow, I realize now I completely misunderstood what this whole endeavor
+was about. I *thought* the point was to read the information about all
+the functions from Device Tree tables. I now understand there are no
+such tables, all the information is encoded in C as part of the
+higher-level codec driver.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Is this really intended?
+I mean, the whole ACPI set of definitions relied on the _DSD mechanism
+that mimics what DT provides. Do we really want all this information in
+C? Why not have a set of DT properties for each function?
 
-> ---
->  sound/soc/sdca/sdca_functions.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> diff --git a/sound/soc/sdca/sdca_functions.c b/sound/soc/sdca/sdca_functions.c
-> index 25f95575c731..68a50552f4e4 100644
-> --- a/sound/soc/sdca/sdca_functions.c
-> +++ b/sound/soc/sdca/sdca_functions.c
-> @@ -922,8 +922,8 @@ static int find_sdca_control_value(struct device *dev, struct sdca_entity *entit
->  	return 0;
->  }
->  
-> -static int find_sdca_control_reset(const struct sdca_entity *entity,
-> -				   struct sdca_control *control)
-> +static void find_sdca_control_reset(const struct sdca_entity *entity,
-> +				    struct sdca_control *control)
->  {
->  	switch (SDCA_CTL_TYPE(entity->type, control->sel)) {
->  	case SDCA_CTL_TYPE_S(FU, AGC):
-> @@ -950,8 +950,6 @@ static int find_sdca_control_reset(const struct sdca_entity *entity,
->  	default:
->  		break;
->  	}
-> -
-> -	return 0;
->  }
->  
->  static int find_sdca_entity_control(struct device *dev, struct sdca_entity *entity,
-> @@ -1032,9 +1030,7 @@ static int find_sdca_entity_control(struct device *dev, struct sdca_entity *enti
->  
->  	control->is_volatile = find_sdca_control_volatile(entity, control);
->  
-> -	ret = find_sdca_control_reset(entity, control);
-> -	if (ret)
-> -		return ret;
-> +	find_sdca_control_reset(entity, control);
->  
->  	ret = find_sdca_control_range(dev, control_node, &control->range);
->  	if (ret) {
+I guess my main objection is for opaque initialization data aka blind
+writes or SWF table, this should really come from platform firmware, no?
+With this approach you'd have an endless set of kernel quirks for each
+board variant using the same codec.
+> +static int wcd9378_sdca_hw_init(struct sdw_slave *slave)
+> +{
+> +	struct device *dev = &slave->dev;
+> +	struct gpio_desc *reset;
+> +	int ret;
+> +
+> +	/* No SPMI parent: supplies and reset live on the SoundWire DT node. */
+> +	ret = devm_regulator_bulk_get_enable(dev,
+> +					     ARRAY_SIZE(wcd9378_sdca_supplies),
+> +					     wcd9378_sdca_supplies);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable supplies\n");
+> +
+> +	reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset),
+> +				     "failed to get reset GPIO\n");
+> +
+> +	if (reset) {
+> +		gpiod_set_value(reset, 1);
+> +		usleep_range(20, 30);
+> +		gpiod_set_value(reset, 0);
+> +		usleep_range(20, 30);
+> +	}
 
+Could this be part of wcd9378_sdca_probe()
+> +
+> +	/* SCP writes below need the slave attached. */
+> +	ret = sdw_slave_wait_for_init(slave, 5000);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "slave attach timeout: %d\n", ret);
+
+That wait doesn't seem required, if you are using the existing class
+probe there's already a wait?
+> +
+> +	/*
+> +	 * TX PDM clock: bank-1 shadow + SCP_COMMIT. SCP survives PDE
+> +	 * cycles; one-shot at hw_init before any port is enabled.
+> +	 */
+> +	ret = sdw_write_no_pm(slave, WCD9378_SCP_HOST_CLK_DIV2_CTL_B1, 0x01);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "HOST_CLK_DIV2_CTL_B1: %d\n", ret);
+> +
+> +	ret = sdw_write_no_pm(slave, SDW_SCP_COMMIT, 0x02);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "SCP_COMMIT: %d\n", ret);
+> +
+> +	return 0;
+
+and this could also be done in the existing .status callback upon
+enumeration.
+
+In other words the need for this hw_init() isn't very clear to me...
+
+> +}
+> +
+> +static int wcd9378_sdca_populate_function(struct sdw_slave *slave,
+> +					  struct sdca_function_data *function)
+> +{
+> +	/* @function->desc is already set by the framework; fill payload only. */
+> +	if (function->desc->type != wcd9378_sdca_desc.type)
+> +		return -EINVAL;
+> +
+> +	function->num_entities    = wcd9378_sdca_data.num_entities;
+> +	function->entities        = wcd9378_sdca_data.entities;
+> +	function->num_clusters    = wcd9378_sdca_data.num_clusters;
+> +	function->clusters        = wcd9378_sdca_data.clusters;
+> +	function->num_init_table  = wcd9378_sdca_data.num_init_table;
+> +	function->init_table      = wcd9378_sdca_data.init_table;
+> +	function->reset_max_delay = wcd9378_sdca_data.reset_max_delay;
+> +
+> +	/* Elevate is_volatile / has_reset to match the DisCo/ACPI path. */
+> +	sdca_apply_default_control_classifiers(function);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct sdca_class_hw_ops wcd9378_sdca_hw_ops = {
+> +	.hw_init           = wcd9378_sdca_hw_init,
+> +	.populate_function = wcd9378_sdca_populate_function,
+> +};
+> +
+> +int wcd9378_sdca_probe(struct sdw_slave *slave,
+> +		       const struct sdw_device_id *id)
+> +{
+> +	struct device *dev = &slave->dev;
+> +	struct sdca_device_data *data = &slave->sdca_data;
+> +	struct wcd9378_priv *priv;
+> +
+> +	/*
+> +	 * 0x0217:0x0110 covers both mobile and compute modes; the
+> +	 * qcom,wcd9378c variant compatible identifies compute-mode
+> +	 * nodes only.  Mobile-mode nodes carry the plain class-ID
+> +	 * compatible and are picked up by the mobile driver.
+> +	 */
+> +	if (!device_is_compatible(dev, "qcom,wcd9378c"))
+> +		return -ENODEV;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(dev, priv);
+> +
+> +	/* DT has no DisCo enumeration; seed the descriptor here. */
+> +	if (!data->num_functions) {
+> +		data->function[0].type = wcd9378_sdca_desc.type;
+> +		data->function[0].adr  = wcd9378_sdca_desc.adr;
+> +		data->function[0].name = wcd9378_sdca_desc.name;
+> +		data->num_functions    = 1;
+> +	}
+> +
+> +	return sdca_class_probe(slave, &priv->class, &wcd9378_sdca_hw_ops);
+> +}
