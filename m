@@ -1,211 +1,175 @@
-Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7FF51990C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:49:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD98D38228A;
+	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799778; cv=none; b=rIxb7tttnxN/3Sy70JIEQlwE3A6OtXO7HxQG4+3XEreG+oKHmlcAi7oSd8GfkLVbSR5UG9v3cte31LuLzziBUSM8FAjKSb8e8jSUVZTIhqEXKUBhR5Fcm4X/CTrysV+a+ubZ2XcTx8PewDKehGfMPgz/dSSrXX89VrcCYaLIEro=
+	t=1788799818; cv=none; b=I8zBmP6B/401/BS1ZvS6cQwd+RBj7KdvPMt0rmaS7NQo/0BZbad0u68XoqO7IpYEcyEqF7NaKj+f3j3VUgRB9tTxNiRJed1ZSa6Arbch0nJ32pNGTZ1Wg/78SQTaDgeYkghx/2Wgd+jE8aEK23cmXgw/61NByCRtdqVXuTcOqlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799778; c=relaxed/simple;
-	bh=aiOV96iWD1E/8/sYj8GdsqnibwPCG/X4Yj+j2mG5QNs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W+8B8N1RPqpmTm+1pb7IFic3P51L6rQ1ZSU5jjV7sb5MNT/06330wDX1YbMosCuNGfTucUxjecboJ29Ka9bFPfPfwDS6Pa/ISbj6PH+3YMHa8GURzoStnn91AqM85Tre0a2/80UkC9uH1pZgY+iMxTz/rx4i9oonZn/+4YPhEp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QQpm8w8q; arc=none smtp.client-ip=95.215.58.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788799818; c=relaxed/simple;
+	bh=pus3OIMvtAdqCN5lzcybKiNDZT2pHkfTRO5wGwjEElE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KiOfQcFOREPILec14BmPpTeajzd0Q07kX44SBf6fPSh1gJgf090oySRHaJ6OK2QS0DaTMV4jRxb+tdTt05/w8Ia6Lq7ECtJCNkJEuhe8I7LaYMNi2Vt2LeCyNPhvbpTQPLbYCPNSpiWO399la08hhlxLwDhVI2nL0SXpuwBpmPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLRazJML; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QQpm8w8q"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aiOV96iWD1E/8/sYj8GdsqnibwPCG/X4Yj+j2mG5QNs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788799774; v=1; x=1789404574;
- b=QQpm8w8qtlyl4A29Mq6LnWHurYgAMCMDz+IP0s22x/N0nM/hcuEbmZ5o0tzh+VcdNjCr3Reh
- OFnSHnHBZZNkvbzy9FKBNEf0SBsQLLgMuHSlBS+PPYe0YiqW1KLbxCn251Ze/xK9zS4bEAuMvbB
- 6T8MKteHfhqzXgK7TUMxIYYY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id b961d15e53dc88c5;
-	Mon, 07 Sep 2026 16:49:34 +0000
-X-Mizu-Trace-ID: b961d15e53dc88c5
-X-Migadu-Flow: FLOW_OUT
-From: Usama Arif <usama.arif@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Usama Arif <usama.arif@linux.dev>,
-	akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	david@redhat.com,
-	willy@infradead.org,
-	jannh@google.com,
-	paulmck@kernel.org,
-	pfalcato@suse.de,
-	linux-mm@kvack.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLRazJML"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F00A3D;
+	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788799817;
+	bh=QTFb/7AYKIYAJJpoTYlFHRzy0v+TkzM5XPwWHm7OcRE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XLRazJML7yVxacnO8lm1nOLPHjZv0NzBkvPqtmJ1Y/Q+4X/8vj37vxTjKeAanUhz6
+	 EPbeM2qkidzho26HsF/jPGwkzGKkN7ieKunIc8UZthcMgsKVfz3mSdiNDLjq0Bglb5
+	 su1cZzxyXM9iepayC8dD6d4U0bwjPtIpJDgxi6EzMvTx/2UNzMhCUXjBXMQVZX0YMo
+	 RU+49T+a4+2AowZJDQrk0Hjj8mKeIZ+fOX81erLawEMwIAkFG6JtnQHh5VwPDamb+U
+	 iaYz94lrWtDIx6/0/ItrbZfLo5jT7Gbgzg+t5p/vtovWCQp0Oyu1u10rNtnfpd7YLJ
+	 uPILftTgUhQhA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3cXv-00000005sFE-1cop;
+	Mon, 07 Sep 2026 16:50:15 +0000
+Date: Mon, 07 Sep 2026 17:50:14 +0100
+Message-ID: <86a4pt3t15.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Georgi Djakov <djakov@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak
+ <quic_rjendra@quicinc.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 2/5] proc/task_mmu: remove unnecessary inlines in function definitions
-Date: Mon,  7 Sep 2026 09:49:30 -0700
-Message-ID: <20260907164931.131215-1-usama.arif@linux.dev>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907063918.3432401-3-surenb@google.com>
-References: 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
+In-Reply-To: <0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
+References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
+	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
+	<apgeBNSiP01YfNcs@google.com>
+	<86ld9d4h4n.wl-maz@kernel.org>
+	<f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
+	<86jyox4fas.wl-maz@kernel.org>
+	<ca962589-3b6c-4e5d-a11e-b49cf20dc262@oss.qualcomm.com>
+	<86bja94234.wl-maz@kernel.org>
+	<0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: konrad.dybcio@oss.qualcomm.com, raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Sun,  6 Sep 2026 23:39:15 -0700 Suren Baghdasaryan <surenb@google.com> wrote:
-
-> It was pointed out in the previous reviews of this code that many
-> functions are specified as inline, which is unnecessary as the compile
-> can make that decision by itself. Cleanup these definitions.
+On Mon, 07 Sep 2026 15:34:35 +0100,
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
 > 
-> No functional change intended.
+> On 9/7/26 3:34 PM, Marc Zyngier wrote:
+> > On Mon, 07 Sep 2026 14:20:26 +0100,
+> > Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 9/7/26 10:49 AM, Marc Zyngier wrote:
+> >>> On Mon, 07 Sep 2026 09:18:38 +0100,
+> >>> Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
 > 
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
-> ---
->  fs/proc/task_mmu.c | 32 ++++++++++++++++----------------
->  1 file changed, 16 insertions(+), 16 deletions(-)
-
-Most of these functions would be inlined anyways so should be ok.
-
-Curious if there was a change in binary size with this?
-
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
+> [...]
 > 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 2f500d639db5..9908ba32f180 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -130,7 +130,7 @@ static void release_task_mempolicy(struct proc_maps_private *priv)
->  }
->  #endif
->  
-> -static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> +static int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
->  {
->  	int ret = mmap_read_lock_killable(lock_ctx->mm);
->  
-> @@ -140,7 +140,7 @@ static inline int lock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
->  	return ret;
->  }
->  
-> -static inline void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
-> +static void unlock_ctx_mm(struct proc_maps_locking_ctx *lock_ctx)
->  {
->  	mmap_read_unlock(lock_ctx->mm);
->  	lock_ctx->mmap_locked = false;
-> @@ -177,7 +177,7 @@ static struct vm_area_struct *get_next_vma(struct proc_maps_private *priv,
->  	return vma;
->  }
->  
-> -static inline bool fallback_to_mmap_lock(struct proc_maps_private *priv,
-> +static bool fallback_to_mmap_lock(struct proc_maps_private *priv,
->  					 loff_t pos)
->  {
->  	struct proc_maps_locking_ctx *lock_ctx = &priv->lock_ctx;
-> @@ -194,7 +194,7 @@ static inline bool fallback_to_mmap_lock(struct proc_maps_private *priv,
->  	return true;
->  }
->  
-> -static inline void drop_rcu(struct proc_maps_private *priv)
-> +static void drop_rcu(struct proc_maps_private *priv)
->  {
->  	if (priv->lock_ctx.mmap_locked)
->  		return;
-> @@ -202,7 +202,7 @@ static inline void drop_rcu(struct proc_maps_private *priv)
->  	rcu_read_unlock();
->  }
->  
-> -static inline void reacquire_rcu(struct proc_maps_private *priv)
-> +static void reacquire_rcu(struct proc_maps_private *priv)
->  {
->  	if (priv->lock_ctx.mmap_locked)
->  		return;
-> @@ -1230,7 +1230,7 @@ static const struct mm_walk_ops smaps_shmem_walk_vma_lock_ops = {
->  	.walk_lock		= PGWALK_VMA_RDLOCK_VERIFY,
->  };
->  
-> -static inline const struct mm_walk_ops *
-> +static const struct mm_walk_ops *
->  get_smaps_walk_ops(struct proc_maps_private *priv)
->  {
->  	if (priv->lock_ctx.mmap_locked)
-> @@ -1238,7 +1238,7 @@ get_smaps_walk_ops(struct proc_maps_private *priv)
->  	return &smaps_walk_vma_lock_ops;
->  }
->  
-> -static inline const struct mm_walk_ops *
-> +static const struct mm_walk_ops *
->  get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
->  {
->  	if (priv->lock_ctx.mmap_locked)
-> @@ -1572,7 +1572,7 @@ struct clear_refs_private {
->  	enum clear_refs_types type;
->  };
->  
-> -static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr, pte_t pte)
-> +static bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr, pte_t pte)
->  {
->  	struct folio *folio;
->  
-> @@ -1588,8 +1588,8 @@ static inline bool pte_is_pinned(struct vm_area_struct *vma, unsigned long addr,
->  	return folio_maybe_dma_pinned(folio);
->  }
->  
-> -static inline void clear_soft_dirty(struct vm_area_struct *vma,
-> -		unsigned long addr, pte_t *pte)
-> +static void clear_soft_dirty(struct vm_area_struct *vma, unsigned long addr,
-> +			     pte_t *pte)
->  {
->  	if (!pgtable_supports_soft_dirty())
->  		return;
-> @@ -1620,8 +1620,8 @@ static inline void clear_soft_dirty(struct vm_area_struct *vma,
->  }
->  
->  #if defined(CONFIG_TRANSPARENT_HUGEPAGE)
-> -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> -		unsigned long addr, pmd_t *pmdp)
-> +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> +				 unsigned long addr, pmd_t *pmdp)
->  {
->  	pmd_t old, pmd = *pmdp;
->  
-> @@ -1646,8 +1646,8 @@ static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
->  	}
->  }
->  #else
-> -static inline void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> -		unsigned long addr, pmd_t *pmdp)
-> +static void clear_soft_dirty_pmd(struct vm_area_struct *vma,
-> +				 unsigned long addr, pmd_t *pmdp)
->  {
->  }
->  #endif
-> @@ -1846,7 +1846,7 @@ struct pagemapread {
->  
->  #define PM_END_OF_BUFFER    1
->  
-> -static inline pagemap_entry_t make_pme(u64 frame, u64 flags)
-> +static pagemap_entry_t make_pme(u64 frame, u64 flags)
->  {
->  	return (pagemap_entry_t) { .pme = (frame & PM_PFRAME_MASK) | flags };
->  }
-> @@ -3388,7 +3388,7 @@ static const struct mm_walk_ops show_numa_vma_lock_ops = {
->  	.walk_lock = PGWALK_VMA_RDLOCK_VERIFY,
->  };
->  
-> -static inline const struct mm_walk_ops *
-> +static const struct mm_walk_ops *
->  get_show_numa_ops(struct proc_maps_private *priv)
->  {
->  	if (priv->lock_ctx.mmap_locked)
-> -- 
-> 2.55.0.979.g7e5102b832-goog
+> >>>> The current patch enable QoS for Hamoa SoC, which get programmed only during
+> >>>> driver probe. This shouldn't impact or cause any spurious resets once the 
+> >>>> device is booted up and probe is successful.
+> >>>
+> >>> And yet it absolutely does break things.
+> >>>
+> >>> With this patch applied, the box resets within 5GB of heavy network
+> >>> traffic, probably because some transaction get delayed, and a watchdog
+> >>> fires. With the patch reverted, the box keeps receiving packets, and
+> >>> everything is hunky dory (100GB+ so far).
+> >>>
+> >>> Which makes me think that the set of hardcoded parameters in this
+> >>> patch is not universal at all.
+> >>
+> >> They are, provided the configuration is for the right SoC..
+> > 
+> > Is x1e001de different from x1e80100? AFAIK, it is only a binned
+> > version of the same SoC. How do you explain the above regression?
 > 
+> I somehow skimmed over the fact you said it's on the devkit and not
+> on the mini-x mentioned before.
 > 
+> I pulled the Hamoa settings I could find, there are some updates but
+> none seem particularly related (maybe the PCIe one? I don't know how
+> the network card is connected), please give the attached patch a try.
+
+I cherry-picked the Hamoa-specific patch, and gave it a go. Same
+result (hard reset while synchronising a bunch of files), but this
+time with a nice little message:
+
+[  272.468031] nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
+[  272.468039] nvme nvme0: Does your device have a faulty power saving mode enabled?
+[  272.468039] nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off pcie_port_pm=off" and report a bug
+
+indicating that PCIe has died.
+
+None of that happens without the QoS stuff.
+
+> If nothing else, please "bisect" the QoS additions until it stops
+> crashing. Although perhaps applying only some of the settings may
+> have its own set of dragons..
+
+That's not exactly encouraging, is it? And if the "recommended" set of
+tunables is not up to scratch, surely there should be a way to opt-out
+until someone figures out what's wrong. Something like this:
+
+diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
+index 3b445acefece7..3a4743c364dac 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.c
++++ b/drivers/interconnect/qcom/icc-rpmh.c
+@@ -224,6 +224,9 @@ static int qcom_icc_rpmh_configure_qos(struct qcom_icc_provider *qp)
+ 	return ret;
+ }
+ 
++static bool enable_qos = true;
++module_param(enable_qos, bool, 0660);
++
+ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ {
+ 	const struct qcom_icc_desc *desc;
+@@ -308,6 +311,11 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ 		struct resource *res;
+ 		void __iomem *base;
+ 
++		if (!enable_qos) {
++			dev_info(dev, "Skipping QoS (command line)\n");
++			goto skip_qos_config;
++		}
++
+ 		/* Try parent's regmap first */
+ 		qp->regmap = dev_get_regmap(dev->parent, NULL);
+ 		if (!qp->regmap) {
+
+At least people stuck with Purwa or other abandonware (such as the
+devkit) would still have a usable machine.
+
+	M.
+
+
+-- 
+Without deviation from the norm, progress is not possible.
