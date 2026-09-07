@@ -1,75 +1,95 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A96377015
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DE2377015
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:33:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788805867; cv=none; b=KScNAnohGylVV7b7RPtdclu4Gkq0arJgdEh7eOme+rCX2/lAgki3ODymwIZwz6j8vdlUTPJFWEDz5VHQVtk8BqQ8453yddNEqmxk15nt97ViV85seVV33/IoRxvMQ+d8FR5qa6bjtrtjp9AxFePAEXMrZ3Zmb1vSM4c6id7is9w=
+	t=1788806030; cv=none; b=A9IC1R6kx0IlE3pVGMfDPY55MKf/b04U/2xuxy06b8lWgT2iALTShRV8Y4UbkIfLR3sD4oJ0Fj6PMHAXZhUzzwsKatTUPnTmhi/l86EHqXPn2nYgPvdhQhHBKol2jR4WGAUOONUDt1URvsxcf91JgdzfC15DiltsTrBFDwhTpFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788805867; c=relaxed/simple;
-	bh=cXq4ckXbDt5qTacGW/Dz8TiO8463xOq5t/ItvAzBv74=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ycoh7cGipIKLplWkOHm4Z97jpe7ZjFqoMIb7xEuFiXGBT2a3LpeWgxdGV79S/iSr27u9C53zyZ5E+dkV94YH947VjvDWZtIkvu1aY60i0v/gD7N1pOOyPMxeqPwWPqReCjJdMC4M+TuaYEDhteSqxIj+T91+icXPzjO3HbRZmYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EQ2QGvwx; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788806030; c=relaxed/simple;
+	bh=rq6xSq1MGREKDU1Qmv7HEWUHFLvttzwgd7k266cL8S8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jc9YHiYVyKxIrjrt0+IZnd6CrjxIp+O/qbvoXjhG8TiftwaLiHnXsMHRDdZw/LxMuFzqykxdLnAOEijgyT5VlClTQYvIrGSVSfTYn1dysnFhCE/zCSwFgNtRG6zCa6ySkKquYpp13Pjgt/SEzw0HpKkloZ0x6Mb2LMx/2+CIqek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=bBtFq1qE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=hYl/dw46; arc=none smtp.client-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EQ2QGvwx"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1740e4so1738755e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 11:31:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788805863; x=1789410663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0L7d6qm/+lnh2raU5fD/UwCh6P1gxbArjmHlEi+oqeE=;
-        b=EQ2QGvwxfMBPRgIxjYQnBk73ZOrI0ynsz+OrGpW9TI5CcfvYvohgRiKO2dLb9Z557w
-         BcBm7D7zhtmr95WjR48/3Cid6klzrIQgFvnEcWZX+fVPAcvgkin081imeigQmp/mUPAv
-         AXE+4Lnf6h8y6qqtZjMVDexFseA8Gh8gNhLN2qSLKqiH8CKpNdjh+BX0VOe/H3UjZj3F
-         Q69n3KVF+QtI0UcjXnVLbYfhN4UgOH8xltjG+5VchZ8iU92wJYdknSPY8ghQT8EoAU8R
-         QiYJFgqyGlqOY+QCVG7w98Z92bvY5taVkKw3PraX4t2YS5R4knC0PCA3HnoMsKKetcvv
-         4B1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788805863; x=1789410663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0L7d6qm/+lnh2raU5fD/UwCh6P1gxbArjmHlEi+oqeE=;
-        b=LWUxOcwSiLpPys7Lk/uTHQJeyxmjaIt0FbCgJPaGjVzj1ZeopEm4R77+GVqcBjzCDm
-         SG55LxxxumMEWjCmKq41pI0acMrnCqyNfAFaOYUWbiicni55vhBZDi8/kWaTJ9+AssgD
-         AelXRGOSDLM7Fg1B+WmobLx8BZE/nRUBlFNqPn6clDxw4BDBWpg1Csf2WBlQw9CHbsKu
-         Ok6aX40wDCzoxzeBzHJ8kKxD2cDpI4LmjiImV/81LBGgOT12EDTNi/N+na/wiIt5ENoD
-         TycBfgTFmCexJaUQi/F4l1wvajEw33rdeYZSlNMTAgk9g3M6pq+dQps7fUI1+hE+hCE9
-         9/yg==
-X-Forwarded-Encrypted: i=1; AKwUvBy+TYGqMdAAcqDRK5DUE+9lOQDkeVCaGmtbKjFcwJiQU+P6IVGkbHvbrHDQPI537uh0R/edZ/ne5U1S4pA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2+ebI8JJx4MQQVbdCyS66fg1mTWmRG/3aEXPu9vz3yAPuyzef
-	ducCQEdlLZbpSG0BRGXWTHYHyjTacMGpD5WRzlqM3KXq5rFKh9+yHhM+
-X-Gm-Gg: AYBFou2OGuYUiLELBo54AyhPspDBx15AXo+qpOrY5n7+uncUI9IrqcMFKPSJUjOPn4X
-	tYAfCtwMPut9dSP8lSlypYGtvobsqyYKmvEX8fcuH4BH33bsFtejZdu/G4lu6wqULJqN7P/jE4U
-	FoslzH0mazJfQQIYmJY/WVr90C2sSVOE/ycPvoO/DR/pilh28Q0JyZ3J5G1dmInXU1md/cYdNiz
-	qLrtn1HFcedSWuAWI3CJ6vQsM1GyhMDLd+hK7hsVV9G6vPONVy+8bLb/vFhKQxLlaSWuTp4SoeB
-	oeIm8oazxHofFF1iTwbQope25gAaYUD75m2A78bLswRRAQJ4HO+TaqOhcxdEThoX67rqXvtHbC9
-	9g0oRyD+m3p/oZUhwpDxqK5rjtCTHJHZGln72YSCXFAeL7vCXJfDHAimzSSeB+4rYjAs6srRTnU
-	XNs7cLJx/K6mnCzC4paoUYuKQE01kq19AysoUtTTFBSHqqlkT5tMFm+ISCuYAze6mPUqsLRXOBT
-	k3tdrV9atX7+ev/c6BaKlL+1BfWFFVCjvRH2hxURaG2NmhdnZMtmdROlb6q5qqlBfMEDss8MXyl
-	jA==
-X-Received: by 2002:a05:600c:4f48:b0:49d:798:67a4 with SMTP id 5b1f17b1804b1-49d079867f5mr141408595e9.0.1788805863135;
-        Mon, 07 Sep 2026 11:31:03 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B882200F5E89D570153D0A0.dsl.pool.telekom.hu. [2001:4c4e:1b88:2200:f5e8:9d57:153:d0a0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm871127675e9.0.2026.09.07.11.31.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:31:02 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Badhri Jagan Sridharan <badhri@google.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: RD Babiera <rdbabiera@google.com>,
-	linux-usb@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="bBtFq1qE";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="hYl/dw46"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id CC7F27A0096;
+	Mon,  7 Sep 2026 14:33:46 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Mon, 07 Sep 2026 14:33:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm2; t=1788806026; x=1788892426; bh=BXtFYHJPAK
+	f7ySUW3H9RvkuC80wSwao0DDfxfWpC290=; b=bBtFq1qEPlbUh7PdgXvR4k9Ic5
+	12H+YJWYrwFahJdTX2YAqCGYG/GvzypDugTok+bFEuhwU1s1906Ny3AIv2q5d7C2
+	PvUynxt8CguhPQSwpWufHxWazxBW0Rm62byks93U4CxVIf/SCtK/SAP82M4xwYbc
+	DhAvB/MelmhmTXmG33oKDvM/0EuYZEe4gjDqbs8e/ItcCYZATbz8XTZbNiJA8UL3
+	870fIIEuh7Hig1+pKZCh4RaaPuVoMPqNnPut5SoctRWeGmy0fUFZAA38LaYcN2q4
+	7BUfzZ2fxnEe4R3Yfm6+rgO8sHZCMtr5hM+gmQ9WP+bLEA+g2XbyroC4123w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788806026; x=1788892426; bh=BXtFYHJPAKf7ySUW3H9RvkuC80wSwao0DDf
+	xfWpC290=; b=hYl/dw46E9CNgxkp4DO9C3pI3k2WifzwuiFZ9EM6y7JU+yg0PN2
+	n8mXEnnAk8c+mJZR2Enwcz62VRIny++P5cpR15hvoF39XVJHFzAz50K1zardOjA+
+	7iY+tguykZA1BEE+QkK3pO9f5TlGXlFQdlUIHiaVjIeOMCWEWKzplWrNceyjc7vo
+	Tz+zdUVje28UBqb3Cp297CN5Me8lkyR8bZLmDS0Og5IL0Swu5aEVFBxBrIKKv3Yp
+	ElQSdXv4zwkKO4ZepQPNemyiBFvmXc1uNOohhDQtZ6lAREkJE8mRXUFbm84Nxnyv
+	SZQF09u+CgMYqVmupKKqnuvcQu+f7USb4mg==
+X-ME-Sender: <xms:iQOfaqT-O7TraHAT43xDGd_j2-wdE2vuRzzrRfT9heOBLGYQpZmWXg>
+    <xme:iQOfavD7OMCIjdX8uHkKzVZ-BNQje7uzB-8OIqVaYnYtw9ZmCaV9yklSFWuFBmWeZ
+    dg9omhVcG6MJPDeEyQttDB66N3troxpOV_8DnPaoalTr-VNUSyUNnop>
+X-ME-Received: <xmr:iQOfaqrZO4Z7BJCulYQT6TrG60HiZlzFRDXyy8a0K6RmhQCnb71PaKsiOkY>
+X-ME-Proxy-Cause: dmFkZTGqQC2Jf5uTmbrZ9IHMpLKMHTwTf8vZgahv+dbqM86a7GIADhyzyBKn+8z30hGxYi
+    JdDYvnWJ1aShMrgwyCTEnmGqMb6tYFf750DVdCmSYTFOLx+Tr1yyG804g5VwXxu336yI6l
+    6zVycKw68iUkXrefSacpJZvyFqpqN/zm7t3kC7vP4Q0H+B0U5TcLwi3Kb5oTxqwASil8yR
+    yPsRAGvocXU2rV25Q6e2Zq2n+VpPsGujc/6lxq2CTx4orAXd34KmW5x0fBxGrwQoGpVG8d
+    vq7W7xjZcTSZysP0Gwt5lGEw2lw7jGloKTLphiy6JNtlttF/KQb46faFXQDeP5KgdBeCn6
+    70x7HItBLj+zqtRIJ8W/FRQu3zx+HeJdagMUVLQhLfG7esTNc9Uj0E97K/T+cG2u7KPu9z
+    tDob6FASpCXCFDIavXHZugbOWHarPWT37AEabf6QgnweU87KCWMrmuWHG+kisA+F1la/QS
+    LpFd7GAV3g7eybbOVOqRqLG3yLoUwdpFTNBixqEr4C0whuO7rPQQUkwHUFSaeZE4/iQ+Pf
+    a+bOzP89N13YqRE7Ysf83Au4Fk2zxwapCi/uEEoKu7Y8+t3sw79xwnO8dXcAvofGGGrsxr
+    /S3gyqKGeYXVRWuZ7hOb0OGyJ/LyC+e272N2k/VWtxLHA7Brlny4IKkToTug
+X-ME-Proxy: <xmx:iQOfathAlH7BY-TLmTqCoPt8mVaOqIgTOdEVVV_2WK-OydFOrKJiJg>
+    <xmx:iQOfanz0zWFgeDVICnJc5EmizxL6_F0B9Wa_C1DKXSH6eDS_KOOBmw>
+    <xmx:iQOfarLPq3R1iQRaEMvvDKXA3DCtwjNNu2vfKbk0g_O_KqYg3Nst2Q>
+    <xmx:iQOfas1B7eZjGVd8_iYJIcXidTBeOGWg8tNngjVbY_PxD43U5S3Jbw>
+    <xmx:igOfasA-HIbX9cUeXjwgv7lo5N9Hqd43vnMiCxwIOpPgkRxDzXZV9yQg>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 14:33:44 -0400 (EDT)
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: akpm@linux-foundation.org,
+	david@kernel.org,
+	ziy@nvidia.com,
+	hannes@cmpxchg.org
+Cc: ljs@kernel.org,
+	usama.arif@linux.dev,
+	lance.yang@linux.dev,
+	baolin.wang@linux.alibaba.com,
+	liam@infradead.org,
+	nico.pache@linux.dev,
+	ryan.roberts@arm.com,
+	dev.jain@arm.com,
+	baohua@kernel.org,
+	kasong@tencent.com,
+	hughd@google.com,
+	balbirs@nvidia.com,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH] usb: typec: tcpm: fix use-after-free of the kthread worker on port unregister
-Date: Mon,  7 Sep 2026 20:30:41 +0200
-Message-ID: <20260907183041.8253-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	kernel-team@meta.com,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH] mm/huge_memory: add folio_reset_partially_mapped()
+Date: Mon,  7 Sep 2026 19:33:40 +0100
+Message-ID: <20260907183340.1446132-1-kirill@shutemov.name>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,89 +98,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tcpm_unregister_port() destroys the port's kthread worker first and
-calls tcpm_reset_port() afterwards.  Since the Discover Identity retry
-mechanism was added, tcpm_reset_port() calls
-mod_vdm_discovery_cancel_delayed_work(), which does
-kthread_cancel_work_sync(&port->vdm_discovery_work).  That dereferences
-work->worker, which still points at the worker that
-kthread_destroy_worker() has already freed:
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-  tcpm_unregister_port()
-    kthread_destroy_worker(port->wq)      -> kfree(worker)
-    ...
-    tcpm_reset_port()
-      mod_vdm_discovery_cancel_delayed_work()
-        kthread_cancel_work_sync(&port->vdm_discovery_work)
-          __kthread_cancel_work_sync()
-            raw_spin_lock_irqsave(&worker->lock, ...)   <- freed memory
+__folio_unqueue_deferred_split() and __folio_freeze_and_split_unmapped()
+both clear PG_partially_mapped and take the folio out of
+MTHP_STAT_NR_ANON_PARTIALLY_MAPPED with the same five lines.
 
-KASAN report on 7.3-rc1 when unbinding a fusb302 port (RK3588):
+Move the block into folio_reset_partially_mapped() and call it from both
+places.
 
-  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0x10c/0x210
-  Write of size 4 at addr ffff00010122ef04 by task bash/8349
-  Call trace:
-   _raw_spin_lock_irqsave+0x10c/0x210
-   __kthread_cancel_work_sync+0x60/0x408
-   kthread_cancel_work_sync+0x20/0x48
-   tcpm_reset_port+0x18c/0xb80 [tcpm]
-   tcpm_unregister_port+0x104/0x2f8 [tcpm]
-   fusb302_remove+0xc8/0x200 [fusb302]
-   i2c_device_remove+0x7c/0x288
-   ...
-  Allocated by task 112:
-   kthread_create_worker_on_node+0x14c/0x2c8
-   tcpm_register_port+0x288/0x3918 [tcpm]
-   fusb302_probe+0x604/0xc88 [fusb302]
-  Freed by task 8349:
-   kfree+0x260/0x558
-   kthread_destroy_worker+0xa0/0x130
-   tcpm_unregister_port+0x74/0x2f8 [tcpm]
-   fusb302_remove+0xc8/0x200 [fusb302]
+The helper asserts what both callers rely on: the folio is frozen, so
+deferred_split_folio() cannot set the flag again under it, and the folio
+is already off the deferred split queue. The list check sits behind the
+flag test because order-1 folios have no _deferred_list.
 
-With CONFIG_PROVE_LOCKING the same unbind shows up as
-"DEBUG_LOCKS_WARN_ON(lock->magic != lock)" in __lock_acquire, followed
-by an oops in the unbinding task, which then exits with interrupts
-disabled and the following shutdown hangs.
+folio_order() is safe to use at this point in the split process: it
+still shows the pre-split order.
 
-The work itself cannot be pending at that point: kthread_destroy_worker()
-has flushed the worker and the discovery timer is cancelled right before
-the cancel call.  So just remember that the worker is gone and skip the
-cancel in that case.
-
-Tested on an Orange Pi 5 Plus (RK3588, fusb302) with KASAN: unbinding
-the port reports the use-after-free above without this patch and
-nothing with it; the port binds again fine afterwards in both cases.
-
-Fixes: 205dc9cb39f5 ("usb: typec: tcpm: implement retry mechanism for Discover Identity VDMs")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Assisted-by: LLM
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: Claude-Code:claude-fable-5-1
+Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- drivers/usb/typec/tcpm/tcpm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ mm/huge_memory.c | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index a8cd1959c426f..e47d674c2ae00 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -1756,7 +1756,8 @@ static void mod_enable_frs_delayed_work(struct tcpm_port *port, unsigned int del
- static void mod_vdm_discovery_cancel_delayed_work(struct tcpm_port *port)
- {
- 	hrtimer_cancel(&port->vdm_discovery_timer);
--	kthread_cancel_work_sync(&port->vdm_discovery_work);
-+	if (port->wq)
-+		kthread_cancel_work_sync(&port->vdm_discovery_work);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index dd66c6ad5af1..23ef22c2b5db 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -3972,6 +3972,24 @@ static unsigned int folio_cache_ref_count(const struct folio *folio)
+ 	return folio_nr_pages(folio);
  }
  
- static void mod_vdm_discovery_delayed_work(struct tcpm_port *port, unsigned int delay_ms)
-@@ -8961,6 +8962,7 @@ void tcpm_unregister_port(struct tcpm_port *port)
++static void folio_reset_partially_mapped(struct folio *folio)
++{
++	VM_WARN_ON_FOLIO(folio_ref_count(folio), folio);
++
++	if (!folio_test_partially_mapped(folio))
++		return;
++
++	/*
++	 * Order-1 folios have no _deferred_list. The flag is only ever set
++	 * on folios that do, so the list can be checked after the flag.
++	 */
++	VM_WARN_ON_FOLIO(!list_empty(&folio->_deferred_list), folio);
++
++	folio_clear_partially_mapped(folio);
++	mod_mthp_stat(folio_order(folio),
++		      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
++}
++
+ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int new_order,
+ 					     struct page *split_at, struct xa_state *xas,
+ 					     struct address_space *mapping, bool do_lru,
+@@ -3980,7 +3998,6 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ {
+ 	struct folio *end_folio = folio_next(folio);
+ 	struct folio *new_folio, *next;
+-	int old_order = folio_order(folio);
+ 	int ret = 0;
  
- 	port->registered = false;
- 	kthread_destroy_worker(port->wq);
-+	port->wq = NULL;
+ 	VM_WARN_ON_ONCE(!mapping && end);
+@@ -3998,11 +4015,7 @@ static int __folio_freeze_and_split_unmapped(struct folio *folio, unsigned int n
+ 		 * leaves PG_partially_mapped set.
+ 		 * Clear it here: the flag does not survive the split.
+ 		 */
+-		if (folio_test_partially_mapped(folio)) {
+-			folio_clear_partially_mapped(folio);
+-			mod_mthp_stat(old_order,
+-				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+-		}
++		folio_reset_partially_mapped(folio);
  
- 	hrtimer_cancel(&port->vdm_discovery_timer);
- 	hrtimer_cancel(&port->enable_frs_timer);
+ 		if (mapping) {
+ 			int nr = folio_nr_pages(folio);
+@@ -4516,11 +4529,7 @@ bool __folio_unqueue_deferred_split(struct folio *folio)
+ 	memcg = folio_memcg(folio);
+ 	lru = list_lru_lock_irqsave(&deferred_split_lru, nid, &memcg, &flags);
+ 	if (__list_lru_del(&deferred_split_lru, lru, &folio->_deferred_list, nid)) {
+-		if (folio_test_partially_mapped(folio)) {
+-			folio_clear_partially_mapped(folio);
+-			mod_mthp_stat(folio_order(folio),
+-				      MTHP_STAT_NR_ANON_PARTIALLY_MAPPED, -1);
+-		}
++		folio_reset_partially_mapped(folio);
+ 		unqueued = true;
+ 	}
+ 	list_lru_unlock_irqrestore(lru, &flags);
+
+base-commit: e3fc12b08aadde9cec7b3799ac0e0c9a1aa245c4
 -- 
-2.43.0
+2.54.0
 
