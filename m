@@ -1,120 +1,67 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D2435C69D
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 02:03:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CD5368D4C;
+	Mon,  7 Sep 2026 02:03:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788746637; cv=none; b=uTZLtRL9MDVkU+TS+Iq79w6NbAMLRyu2CCVy+jPlu6H0TXdsq86mPK6LmwwD6OWS14wqGERBBU+JMrB8qrUmIyIL47v8D/zBMgds7UJHlkp6pHU6plRITWEBkjYaGD0OltnyQJ/BebmbSKr8tvE+on7TiBjUhuPTW4SFfMNOIDk=
+	t=1788746638; cv=none; b=axrCRfJswtw0G8H6ixamVIe1nuUFRlTQCXO7zp9OyAwNXMV0CTF6f1bLiL4dySzQwxvd+m7UfFLI/fPkWhWpqeu/BFOcToqjVp6typ2YuVADPHo3HP1iBeDR7yJ5K39NxCj1VgVx7lAYO8AceFEor+StlY/nZTXs2rANBSdYja4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788746637; c=relaxed/simple;
-	bh=8mYksM2jXQSHsHEL7egm+gIm/JXPg7ehRGMPhcW238I=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=BXVdnCw/FqXn6w0Cu3hEIpH8U0IUaoB3QuS7BwE5jOY/BO9cxsbZprVn6pkSAA6fsyI/KYirD/1B0BoHdqD8m19W7nIjgtuUpZ8bzu10WVaZff81selY28KYrAEMuXwxRGRCmAcklJZZAa0EhGQ4nUK+CbKBtM0LTzRV/rTnuYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AVQIG0SL; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788746638; c=relaxed/simple;
+	bh=NH8WM5baM1sUFc/WremnkzSni49JFz1TTKdqEzfDXkE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WmEknNLil1xWJ7n5Dz0uiJlWV5ef8T72nWfJm5Ha9i2DtCX3itp309HGGHUDI6z/bn+ps+rTX0eK9qA8HpqK49oBfTv75pHsk0yyfciZIk6gLqvyHFb1/ccXi1Nzg9Bj9N/fpIv2ihm+cbk0186Fednfr4EMomqn+Zye7FTKGI0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdNs0qSq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AVQIG0SL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788746634; x=1820282634;
-  h=date:from:to:cc:subject:message-id;
-  bh=8mYksM2jXQSHsHEL7egm+gIm/JXPg7ehRGMPhcW238I=;
-  b=AVQIG0SLZ45zX/Foa+mw/7N9D/Pzo1r7MFdTSzpt1RCpqjhdV80+r6zQ
-   0B+DDjdccYOwqy5AWfxeMUq70STOz+J6pe6778Br4ALy6/u4QhVuGT5m2
-   RwhpeNHuOwbfLPPZIv3pHOdMFFVkS4NJKpO9j4o3csEzFcFR0eflPymtS
-   Klh8itd1U7zg3GzQHJzNlhOplMr6gU94WQuHAGUmVCxPCfBbHU4gZU7j/
-   xA/UgkRi2UYv8iwXhSX815xHDqVfSYU4HQlkKckhZ8T25MvYl+9orDftH
-   onXgvEF4yz8yzobtKRJQK7lbsbLm3tf/ZngkwqcmuhLjS1H1Fx4X9dyQ2
-   w==;
-X-CSE-ConnectionGUID: rn9R7wiIRT+0d8XE+VvRgA==
-X-CSE-MsgGUID: OAYBVV3DRfyf00Yxf52Jog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="92846602"
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="92846602"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 19:03:53 -0700
-X-CSE-ConnectionGUID: m++IHw3RR5yOvIcVQRTVBA==
-X-CSE-MsgGUID: yz9sqS/xTMK2o43KMjRxOg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="266220270"
-Received: from lkp-server01.sh.intel.com (HELO 73f3364bc37e) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 06 Sep 2026 19:03:51 -0700
-Received: from kbuild by 73f3364bc37e with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3Oi4-0000000037d-1naT;
-	Mon, 07 Sep 2026 02:03:48 +0000
-Date: Mon, 07 Sep 2026 10:02:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:locking:urgent] BUILD SUCCESS
- a3b8d46fe401cba3a5c46dea610e6eb3dc15370e
-Message-ID: <202609071051.9pAw7z7F-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdNs0qSq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 544951F00A3A;
+	Mon,  7 Sep 2026 02:03:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788746635;
+	bh=NH8WM5baM1sUFc/WremnkzSni49JFz1TTKdqEzfDXkE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LdNs0qSqIVeCBfymUo4DTGwD9DYam0iSnTQvknrnNU5sYfn32aGP82zkKsagx8vtD
+	 8Ybeg+qyEt1/51PHcwWG1sfG2XAnVmC7jLuMNihjZB3ET2/4aJ0/GIEs6dah1Ymnhl
+	 foMynWOjvhaDEBGrB59CQYxlO5Ab9DhBwZG2m90UkoAVIJ6OgyzGTHYCm3ESoDUhID
+	 uJFyBMHh6EsXdPj27hE2U4QQLvbSshX7N8vZ3EEw+hGfxcZ3ShZh3zYhrResKwhzgF
+	 UTuufTOiZm2N1DmAK8eLui0/U8LfS7A4uGLiq/ldaOWsyz1lo1pfHf9wDrL5tAiwcO
+	 duUVzSgsP7yAg==
+Date: Mon, 7 Sep 2026 03:03:50 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v8 0/4] iio: light: add support for veml6031x00 ALS
+ series
+Message-ID: <20260907030350.5eacf496@jic23-huawei>
+In-Reply-To: <20260901-veml6031x00-v8-0-532cb4f2168a@gmail.com>
+References: <20260901-veml6031x00-v8-0-532cb4f2168a@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git locking/urgent
-branch HEAD: a3b8d46fe401cba3a5c46dea610e6eb3dc15370e  futex: Prevent rcuwait use-after-free during requeue PI
+On Tue, 01 Sep 2026 15:05:45 +0200
+Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
 
-elapsed time: 4037m
+> These ambient light sensors with I2C interface provide two light
+> channels (ALS and IR), high/low threshold alarms with configurable
+> persistence, and a data ready signal.
+Hi Javier,
 
-configs tested: 43
-configs skipped: 0
+I took a quick look through and don't have anything to add.
+Hopefully that code reordering you are doing is simple and v9 will
+the one to go in!
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Thanks for persisting!
 
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arm           allnoconfig    gcc-16.1.0
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    clang-20
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    clang-20
-openrisc      allnoconfig    clang-24
-parisc        allnoconfig    clang-24
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-s390          allnoconfig    clang-24
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    clang-20
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Jonathan
