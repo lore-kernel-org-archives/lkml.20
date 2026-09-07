@@ -1,138 +1,131 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1668C4CCDF3
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:49:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28DE15B5AB;
+	Mon,  7 Sep 2026 00:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742154; cv=none; b=C4F+0SHZxvo6md4ld+Ae6YDf2VRAEGazbNd2/AZ12dG1iktlO7OZUlM6nc4E0ZylIiYDNRVWhqwNaAITOSHXjfdfEfG5ntxWGdf0vTIg4LXwitcCnFM7vFCL27XRw+G73fGLZaoqbArwGi3NRRRlnznzqzWSLMX8mJ7iNlqYLcM=
+	t=1788742197; cv=none; b=u7akVRVHnpu879KbARm8egQTwZ/ZVE8ObpxhM3BguOxoEn5VLU3PGxRrVvZjn6GvVZ/OF/sG/U3IOpQ4hFB0bfTN2rpP5uhPWjgByZV5V8nIRKV+zoPBfU7PYUSLK3vKuBC6ekgiizY+IMJsqtuoZbO/WjU62SgQBRjirZhaeSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742154; c=relaxed/simple;
-	bh=hlcsJhUrLyBo5++wlhrrLrw8VUbuI1LW8vlmxLrWUg8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=h3jCCeOB8FlMf6jSzTzQqOvu7kcgMFJUDEDMmU3O4QQqPhDCRci09K1eNBQbXkbRFfs0n2Soi3yZyKnb0TInpHnv4hV6mXZvDjhlNrVs9STtrhbLgRU74JWUvWpG4Iwm1dZnyNyPp36KTVMqWcoWE3zUz6Nsr7sy/l1vJ0gC9xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=US6UZtWz; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788742197; c=relaxed/simple;
+	bh=tB61nY8GJOyvyQ5RsOs48QoD93sK+C5mpi3Rv4ue8E8=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LFSlO90dErFK0gDj60aYGmY7FgOXAMy9oyTvAfzRRklPTnII6M8gvkogc7Nf35Zmk3cmSB4dqgNlFIPYbAFKreSQZIv6bwPqB14hAZjoEcLylo3iCOgFMcAQbeyhGLhYgLK9IYYzpyDRHPuogv9ud/Q+3QySDfYvYODHJ4Jhc4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ZjzeX+xv; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="US6UZtWz"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso3002619b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:49:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788742152; x=1789346952; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K2XV7N8oiIfPwNA3+WEAPB+6Qv6pN5TtTgVk3F9R8Ps=;
-        b=US6UZtWzj5kefUTVHtiH7tMrKjkrvmfAwATwoQrg9LQgd6GrCB5SoVAnVhwXZTfcGG
-         QOIGI9OCUku3yBve1JVZFT1SWyoS4eU9SYvarLyru8QHb95yLSlaWmRCaDrrtTCIZvAm
-         ni7BWqOyzqF+uNhtRZHHaHXGKyDa11N9AjEalU129riSGVyBl+7W+yOpwU0se7ifd55Q
-         aqvyhW3m3X4BGmrwURHozivaUErCmJTN/J3DxD8e2owgtnshPoqaSrG2kMfytZxVRBj6
-         prFtNNhevN8p7d4BP33BdLGZVn1I9oJetuaEmWVodS4tcoYSniP8rDPrM8Oq0swH652v
-         MW2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788742152; x=1789346952;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K2XV7N8oiIfPwNA3+WEAPB+6Qv6pN5TtTgVk3F9R8Ps=;
-        b=GJCg0qm1wmOcqDdpf2Kdb3mNwsFC/0pG6i64Ac8CbjFINkRWHxDRF1jDerqB1tbeQ9
-         KKzJloU+5X6HeJl6lpCV1o70ijIcCugtW4gLz2lDiZRmBx9grVB88y7cIT+YXDvc4tgb
-         3FZGJipm8aatx0buj1iEY3KrdQOHpo+mzbo3TTlWkmlPrBO89V+F9xmNBvpU0U0pk2dm
-         Vxl0JXJhCWtjhaDDtDziqbhi6RbpWIvDikhtvQ8ArfA4TLareHeIXvp3LrDrpY2//tMC
-         +a82NoixmClX3XucpaokHnQF7PSvhbEhQ+HVEwrPjCEAzC/EieXH/ZptHZQdVSqT9iJY
-         9YTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxbwANQH4cJ+Jq0SdhZf1YLHDKzHU96WhEGIsp3HI3qb+uDLZSXwajBedOb/KyYAoXHXIbFnm08+GNaVxk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7gE+wflCfvgOV6SQHUoi41XOEk0lzcq9vdPffSbLHBJG5S3mk
-	EvXArAvhBJyH81eWKpMNZt4JQp27/m/pnuvGolYdo+N7L2EYjvYJNFUy
-X-Gm-Gg: AYBFou0S8gED/OuyZouCqs6Bo5kK3Y8H8cES50V9hlQyh7IC3asXFk3zZVERKwp8siN
-	bguwOxi1/dTXFXFaIrrZv1ns8fezdbFWoezN0LHOjGHgWQnXDB45dQ+rwRsmQG0k3XiJdRQZ/g7
-	w4/VhWdSxO/7NXefrLUwSWkqGT1oYQVNJ4EyY/aX5a8ZlvjY97mJwh9fHv3JZEYvmpZpTLLn8Ym
-	zt+ooYbdiGrH+iDCqnC3+GYoA0ncm8oZnKf3YwCgMbZ3EWucLGHp64eA4KpnYdUGK5Oh71B7lWn
-	jrfxncuX03EYOX8B1Yp++jYycI3/IN8u0rQF7lgikupFnrd3X87+w79udCKWI3meWaBFB63ISi9
-	qQqFWY1f/8IvkKQRGG7Ftr+ml78eYtFvWymIjbIAusAgOZiJTl0do1n/kOVSuAC0IDhZWrQkquI
-	Z6jeA63fo+N6k0kkF7YKWl1sCA2EDxyeKvohJFLffxPDKrJQjPNwPpczS77m+/dQsMsDBDlDFjC
-	QOs4m9XvL9thFjNL0dc3UxG3REUoSWZ3/bgisQgGT2puS0Ytyz0d5WiaE5MduAulJvsNFOUI5rO
-	P2r1e47FitqIqxynRcktgCeHx1m2ZqExlfxUBCg=
-X-Received: by 2002:a05:6a21:138c:b0:3d3:afd9:6040 with SMTP id adf61e73a8af0-3da3a1f77f2mr31242218637.27.1788742152360;
-        Sun, 06 Sep 2026 17:49:12 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm22771048eec.9.2026.09.06.17.49.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 17:49:11 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Robert Jarzmik <robert.jarzmik@free.fr>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-kernel@vger.kernel.org (open list),
-	llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT:Keyword:\b(?i:clang|llvm)\b)
-Subject: [PATCH] mtd: docg3: use devm_platform_ioremap_resource()
-Date: Sun,  6 Sep 2026 17:49:10 -0700
-Message-ID: <20260907004910.226013-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ZjzeX+xv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=5y1hSDZ9UuIL1kWSizTmd0FH5VoivWT5UoBaVu6sPqw=; b=ZjzeX+xvLO+BswX3whyyWALnvo
+	LILMat4B7Sbk80Dyd+tmHy0jWXEKhHLEmlOthLmmEVMih/gIU06NNwdQOw2/Kl4bVgafF/HxfIx+Q
+	FZM71O32Hl1RTthkmGi2jUSHMKgNdjeoYl5wL3yrn5gf/67HOCWqr1/9V5GyhuxywvrElHKMjmoDS
+	cpDpoyVO3bvgGB8j8F8bR/hliz739ui+5kmIyIf9q9iPTmHzGiDa1f6KR+92y2C6s66hiZyDWDR18
+	VC212ugJ5GPq2MuCoGOlD1rMgWSIMsBaRXnIVrkkUO/iwekl3Sb+H3GvRPEI5FppMwvOk9Sumq/MR
+	sK+NSajA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3NYV-00000005edQ-36HC;
+	Mon, 07 Sep 2026 00:49:51 +0000
+Message-ID: <a488363b-d60e-4570-a4cd-e6df82252909@infradead.org>
+Date: Sun, 6 Sep 2026 17:49:51 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] Input: yealink.rst: Fix typos and wording
+From: Randy Dunlap <rdunlap@infradead.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>,
+ Henk Vergonet <Henk.Vergonet@gmail.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260906095502.1116994-2-manuelebnerli@mailbox.org>
+ <06cc9fc4-28ba-4076-917e-5ac30336806a@infradead.org>
+Content-Language: en-US
+In-Reply-To: <06cc9fc4-28ba-4076-917e-5ac30336806a@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Replace the open-coded platform_get_resource(IORESOURCE_MEM, 0) plus
-devm_ioremap() sequence with devm_platform_ioremap_resource(), which folds
-the resource lookup, region reservation and mapping into one step and
-returns an ERR_PTR checked with IS_ERR()/PTR_ERR().
 
-The canonical docg3 register window is DOC_IOSPACE_SIZE (0x2000), which is
-the size any platform provides for this device, so mapping the full
-resource is equivalent to the previous fixed-size devm_ioremap().
 
-Built for ARM (multi_v7_defconfig + CONFIG_MTD_DOCG3) with LLVM=1;
-drivers/mtd/devices/docg3.o compiles cleanly.
+On 9/6/26 9:33 AM, Randy Dunlap wrote:
+> Hi,
+> 
+> On 9/6/26 2:55 AM, Manuel Ebner wrote:
+>> Improve readability.
+>>
+>> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+>> CC: Randy Dunlap <rdunlap@infradead.org>
+>> ---
+>> [v3]
+>>  fix wording
+>>  droped white-space fixes
+>>
+>> [v2]
+>>  add ']' instead of remove '[' as randy suggested
+>>  fix a couple more issues in the file
+>>
+>> [v1]
+>>  https://lore.kernel.org/all/20260904121026.759218-3-manuelebnerli@mailbox.org/
+>> ---
+>>  Documentation/input/devices/yealink.rst | 7 ++++---
+>>  1 file changed, 4 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/input/devices/yealink.rst b/Documentation/input/devices/yealink.rst
+>> index bb5a1aafe..de1460b6b 100644
+>> --- a/Documentation/input/devices/yealink.rst
+>> +++ b/Documentation/input/devices/yealink.rst
+>> @@ -120,9 +120,10 @@ Reading /sys/../lineX will return the format string with its current value.
+>>  Writing to /sys/../lineX will set the corresponding LCD line.
+>>  
+>>   - Excess characters are ignored.
+>> - - If less characters are written than allowed, the remaining digits are
+>> + - If fewer characters than allowed are written, the remaining digits are
+>>     unchanged.
+>> - - The tab '\t'and '\n' char does not overwrite the original content.
+>> + - The tab '\t' and newline '\n' characters do not overwrite the original
+>> +   content.
+> 
+> In looking at the produced html, the backslashes above are missing.
+> This fixes it, although I don't know if it's the best or only fix:
+> 
+>  - The tab '\\t' and newline '\\n' characters do not overwrite the original
+>    content.
 
-Assisted-by: opencode:hy3-free
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/mtd/devices/docg3.c | 16 +++-------------
- 1 file changed, 3 insertions(+), 13 deletions(-)
+I think this would be better:
 
-diff --git a/drivers/mtd/devices/docg3.c b/drivers/mtd/devices/docg3.c
-index 603fd0efc2ea..bbdf3bfb0e70 100644
---- a/drivers/mtd/devices/docg3.c
-+++ b/drivers/mtd/devices/docg3.c
-@@ -1971,25 +1971,15 @@ static int __init docg3_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct mtd_info *mtd;
--	struct resource *ress;
- 	void __iomem *base;
- 	int ret, floor;
- 	struct docg3_cascade *cascade;
- 
--	ret = -ENXIO;
--	ress = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--	if (!ress) {
--		dev_err(dev, "No I/O memory resource defined\n");
--		return ret;
--	}
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
- 
- 	ret = -ENOMEM;
--	base = devm_ioremap(dev, ress->start, DOC_IOSPACE_SIZE);
--	if (!base) {
--		dev_err(dev, "devm_ioremap dev failed\n");
--		return ret;
--	}
--
- 	cascade = devm_kcalloc(dev, DOC_MAX_NBFLOORS, sizeof(*cascade),
- 			       GFP_KERNEL);
- 	if (!cascade)
+ - The tab ``\t`` and newline ``\n`` characters do not overwrite the original
+   content.
+
+> 
+> With that fixed:
+> Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+> Tested-by: Randy Dunlap <rdunlap@infradead.org>
+> 
+> Thanks.
+> 
+>>   - Writing a space to an icon will always hide its content.
+>>  
+>>    Example::
+>> @@ -205,7 +206,7 @@ Troubleshooting
+>>  :Q: Module yealink compiled and installed without any problem but phone
+>>      is not initialized and does not react to any actions.
+>>  :A: If you see something like:
+>> -    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone
+>> +    hiddev0: USB HID v1.00 Device [Yealink Network Technology Ltd. VOIP USB Phone]
+>>      in dmesg, it means that the hid driver has grabbed the device first. Try to
+>>      load module yealink before any other usb hid driver. Please see the
+>>      instructions provided by your distribution on module configuration.
+> 
+
 -- 
-2.55.0
+~Randy
 
