@@ -1,303 +1,261 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9AF4CA78F;
-	Mon,  7 Sep 2026 12:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E7247045E;
+	Mon,  7 Sep 2026 12:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785247; cv=none; b=outxdI41elaPzuNKRkCH16aUqG4R06a6+2ZijtbBeMmK/cdkvuLFYTxUev2GYJ1CPKYLPHls7xCtieUKoFmziOUCH6TQYF8nHH/VsMVzTt6KC4ERzO4H+nz388eyfzHtm6V6xaDev3F/K0+C7QaYyj8eUCmWABZij3h5jiKhoeg=
+	t=1788785275; cv=none; b=birroldFJzoj0Hi8etWZKSBECeVTx1PfRFvDAnOdu+Ni/dmdlcnw75QMmc/ymLx6ijpMxtHuNw3jwbVhLDxIs28YLm1rA92cKc18sj+kTTKELa7UTrTgEVEz9aj255DxrFrfZzUqJmRsndALkRWRDuGrqCgoFMG0f53etCLmoDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785247; c=relaxed/simple;
-	bh=HJe8XfmAy+6cuvPSTFtenI0mNigrcHVtO6ugEMbO7Q8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PW27Ti6FzGEGV0I8XIrHz5qeEeAthezyXIzFwRg9xASkSFtzeI1wFIK5YsO6y3rXJxtD200Ss09dIAU+pqI9E+NV4dtCjhzh2l3WwmbLJZFDExJZ+UUcvfcPKQaI/EJlQc3fPzIKRo2NiaJDOPG2kCo7f0OpX1ooDfOsR9YD/cA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Y3/TFEJD; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788785275; c=relaxed/simple;
+	bh=JC/Oe5ZF+0FMXi+tB4cSC18yJde7t7u/o1RW76OfS+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hoeDstWoHkxTV7njG9qv7QOwardnnmW+B+G12FiKrTO97mg8eIonUgewADS72IyhQdTzD8KxFh+F1dPqsH4RuuU/fGY+vRzHG5XGchNbYlp6sXtnPypbYm7QZwDfh+MyMLDrgRqBezmWC83u2AthzVuSqHcP0zaZ3w4pR9qkCDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HsdkepCf; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Y3/TFEJD"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 517844E41569;
-	Mon,  7 Sep 2026 12:47:24 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 1FC5960383;
-	Mon,  7 Sep 2026 12:47:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90F9E11C7AF1F;
-	Mon,  7 Sep 2026 14:47:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788785242; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=RTA8Cqgcw1oYnw9byAz6lCL72FCqdK7NKRYgo/TeUsY=;
-	b=Y3/TFEJDM74Fha72snIPF7WEQ2RTnKfjROyNOjuRoNLC2B/6+vFFtZhQJeMCYVBoNRKzcT
-	c8mDRD9jXvH/QMvPNtAp4R4zuP1yUHCSuDN4CcPHzK/CenFaeXx5DellYx8e8JN9tlqudr
-	Z77mlVWIscvm4UGaJ0QtfhFLUD7Kuk50z1Zvs1nDdte3ppNpPBfWDqPyF+KLVOxXRu8xRw
-	BzMPIBS6o3COOWyFr/FklYD/wA+oIEIEMwdHWghOy2K9DvuHgWNuGjN8F7NPAbKxUF4Oxh
-	6mYztltxEfNbdfEDoDlXqo7LZ1KbAGzABRtVfVGavnbQ2sUKJMTLAN3ePVcNrw==
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Date: Mon, 07 Sep 2026 14:46:39 +0200
-Subject: [PATCH v3 5/5] clocksource: mips-gic-timer: Use local counter on
- synced multi-cluster systems
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HsdkepCf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788785273; x=1820321273;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=JC/Oe5ZF+0FMXi+tB4cSC18yJde7t7u/o1RW76OfS+E=;
+  b=HsdkepCf+LQIYqocB+bAi9asRiRnsxtL223zuIQG36b+Zng7CWGQUbLF
+   3X/9BORgtZH1FX5fueZipmOGIho/MJ7ZQjAHrPFyVmznq3d87WfmLBAXP
+   ZLcBKrqEo8555WJO7tYmatSpIr1/PK/l+K8Y6MNyqbqq7+bGaTesY1cJK
+   JKgVrPB6oYZhLgaryn/u7AVooY5qPZDM2+kunhM298LwRj+a4a9Xx+Mf8
+   RLE+hn4QQDK5C5s+Tzu+Yg16fkenAPFTk1R8sG9845CDJz74TMEb9H58G
+   ypLv1vidiZnfpUVMgB5NXog8x1sLsgV0R0xwfjuNqDLE813kdHvxxNGtI
+   Q==;
+X-CSE-ConnectionGUID: 1uRHmsC0S4qBygBCQADlzg==
+X-CSE-MsgGUID: kmckoH8RSnitY1QmgHXfhw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="88948549"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="88948549"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 05:47:51 -0700
+X-CSE-ConnectionGUID: Ic2JHZ2uQV6hiLQWygpaEQ==
+X-CSE-MsgGUID: d6wLlAXvQS6/w5EN3wicBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="274504647"
+Received: from zhaoliu1-desk.sh.intel.com (HELO localhost) ([10.238.208.118])
+  by orviesa004.jf.intel.com with ESMTP; 07 Sep 2026 05:47:48 -0700
+Date: Mon, 7 Sep 2026 20:47:46 +0800
+From: Zhao Liu <zhao1.liu@intel.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>, Shuah Khan <shuah@kernel.org>,
+	Chao Gao <chao.gao@intel.com>, Xin Li <xin@zytor.com>,
+	Sohil Mehta <sohil.mehta@intel.com>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Zhao Liu <zhao1.liu@intel.com>
+Subject: Re: [RFC 1/4] KVM: nVMX: Don't copy L2's CET state to L1 if VM-entry
+ didn't load it
+Message-ID: <ap6yciu1m7tz+NGv@intel.com>
+References: <20260904023105.1167376-1-zhao1.liu@intel.com>
+ <20260904023105.1167376-2-zhao1.liu@intel.com>
+ <apr02qOMhsZnXIlV@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-sync-gic-counters-v3-5-3d891ddabdaf@bootlin.com>
-References: <20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com>
-In-Reply-To: <20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>, 
- Chao-ying Fu <cfu@wavecomp.com>, Aleksandar Rikalo <arikalo@gmail.com>, 
- Paul Burton <paulburton@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mips@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+In-Reply-To: <apr02qOMhsZnXIlV@google.com>
 
-In a multi-cluster MIPS system there is one GIC per cluster, each with
-its own independent counter. These counters are not synchronized in
-hardware and can drift relative to one another, which is why multi-
-cluster systems currently fall back to gic_hpt_read_multicluster():
-every clocksource read is redirected to cluster 0's counter via a
-cross-cluster register access.
+Hi Sean,
 
-Instead, actively synchronize the counter of each secondary cluster
-to cluster 0's counter as its CPUs come online. When the first CPU of
-a cluster starts and the GIC counter is stopped, gic_sync_counter_64()
-is used to align the local counter with cluster 0 on systems using 64-bit
-CM accesses:
+Thanks for your feedback!
 
-  - the local counter is stopped, loaded with cluster 0's counter value
-    plus an accumulated offset, and restarted;
-  - the alignment is checked by reading the local counter, cluster 0's
-    counter and the local counter again (t0, t1, t2). If t1 lies between
-    t0 and t2 the two counters are considered in sync;
-  - otherwise the offset is refined by half of the measured error to
-    compensate for the cross-cluster access latency, and the process is
-    retried.
+On Fri, Sep 04, 2026 at 09:42:02AM -0700, Sean Christopherson wrote:
+> Date: Fri, 4 Sep 2026 09:42:02 -0700
+> From: Sean Christopherson <seanjc@google.com>
+> Subject: Re: [RFC 1/4] KVM: nVMX: Don't copy L2's CET state to L1 if
+>  VM-entry didn't load it
+> 
+> On Fri, Sep 04, 2026, Zhao Liu wrote:
+> > On a nested VM-exit that disables VM_EXIT_LOAD_CET_STATE, only copy L2's
+> > CET state from vmcs12 to vmcs01 if VM-entry really loaded that state,
+> > i.e. don't copy when VM-entry fails before loading guest state.
+> >
+> > The state, that L1 should see after a L2 VM-exit, depends on three
+> > things: the VM-exit load (host state) control, whether VM-entry loaded
+> > L2's state, and whether L2 ran.
+> 
+> No, it depends on four things.  The three things you listed, plus uarch-specific
+> ordering of checks and loads of guest state.  The SDM says:
+> 
+>   the following operations take place concurrently:
+>   
+>     (1) the guest-state area of the VMCS is checked to ensure that, after the
+>         VM entry completes, the state of the logical processor is consistent
+> 	with IA-32 and Intel 64 architectures;
+>     (2) processor state is loaded from the guest-state area or as specified by
+>         the VM-entry control fields; and (3) address-range monitoring is cleared.
+> 
+>   Because the checking and the loading occur concurrently, a failure may be
+>   discovered only after some state has been loaded. For this reason, the logical
+>   processor responds to such failures by loading state from the host-state area,
+>   as it would for a VM exit.
+> 
+> So KVM is well within its rights to load vmcs01 state from vmcs12 even on VM-Exit
+> due to a failed VM-Entry.  More at the very bottom (below the first diff).
 
-After a short delay the alignment is re-checked to confirm the counters
-have not drifted apart, and only then is the cluster recorded as
-synchronized in gic_synced_cl_map. Clusters with no cores and cluster
-0 itself are marked synchronized up-front.
+Yes, I agree. I think the specific way KVM handles guest state can also be
+considered "uarch-specific" and is not part of the ABI guarantee.
 
-Once every cluster is synchronized, gic_clocksource_promote() switches
-the clocksource back from gic_hpt_read_multicluster() to the fast
-local gic_hpt_read(), re-registers it, and re-enables the GIC VDSO clock
-mode. It also registers the GIC counter as the sched_clock. Systems where
-synchronization cannot be achieved keep using the safe cross-cluster
-read path.
+> This works, but IMO is unnecessarily convoluted.  KVM doesn't need to manually
+> query vmcs12 entry controls, we can and should instead call sync_vmcs02_to_vmcs12()
+> in the failed VM-Entry path if vmcs02 has been prepared with vmcs12 state.  Then
+> the only thing that needs to be communicated to load_vmcs12_host_state() is
+> whether or not vmcs02 was prepared.  This would make KVM consistent with how it
+> handles guest state on failed VM-Entry VM-Exits that occur because of hardware's
+> consistency checks (KVM only validates a subset of guest state).
+> 
+> So I'm fairly certain it's just the below change (I also tweaked the comment about
+> CET state because it's not at all obvious why vmcs12 would hold the correct state).
 
-Since gic_clocksource_promote() calls clocksource_unregister() and
-clocksource_register_hz() which internally use a mutex, it cannot be called
-directly from the CPU hotplug STARTING callback because interrupts are
-disabled. Instead the call is deferred to a workqueue.
+I tested this solution, and it passed the selftest in patch 4. Thanks!
 
-gic_clocksource_promote() also registers the local GIC counter as the
-sched clock via sched_clock_register(). This is valid from a non-__init
-context because sched_clock_register() lost its __init marker in
-commit 84b1a903aed8 ("time/sched_clock: Export symbol for sched_clock
-register function").
+But when I think more deeply about what the sync_vmcs02_to_vmcs12()
+function actually does, I think there are still two points worth
+discussing:
 
-Note that the clocksource is only promoted once when all clusters are
-first online and all GIC counters are in sync. It is assumed that even
-if a cluster is fully powered-off then on later, gic_sync_counter_64()
-will be able to synchronize it once again. Said differently: there is
-no support to "demote" the clocksource.
+1. We call sync_vmcs02_to_vmcs12() along the vm-entry failure path; for
+   CET, this effectively overwrites the CET guest in vmcs12 with the
+   expected L2 CET state.
 
-On the dual-cluster Mobileye EyeQ6H SoC, this allows four times faster
-clock_gettime(CLOCK_MONOTONIC) and a much higher precision sched_clock
-instead of jiffies.
+   Per SDM 29.8, regarding VM-entry failure handling - it states:
 
-Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
----
- drivers/clocksource/mips-gic-timer.c | 117 +++++++++++++++++++++++++++++++++--
- 1 file changed, 112 insertions(+), 5 deletions(-)
+   Although this process resembles that of a VM exit, many steps taken
+   during a VM exit do not occur for these VM-entry failures:
+   • Most VM-exit information fields are not updated (see step 1 above).
+   • The valid bit in the injected-event identification field is not cleared.
+-> • The guest-state area is not modified.
+   • No MSRs are saved into the VM-exit MSR-store area.
 
-diff --git a/drivers/clocksource/mips-gic-timer.c b/drivers/clocksource/mips-gic-timer.c
-index cdaf4ba1d509..2d6f69f87fbb 100644
---- a/drivers/clocksource/mips-gic-timer.c
-+++ b/drivers/clocksource/mips-gic-timer.c
-@@ -6,6 +6,7 @@
- #include <linux/clk.h>
- #include <linux/clockchips.h>
- #include <linux/cpu.h>
-+#include <linux/delay.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
- #include <linux/notifier.h>
-@@ -21,6 +22,8 @@ static int gic_timer_irq;
- static unsigned int gic_frequency;
- static unsigned int gic_count_width;
- static bool __read_mostly gic_clock_unstable;
-+static unsigned long *gic_synced_cl_map;
-+static struct work_struct gic_promote_work;
- 
- static void gic_clocksource_unstable(char *reason);
- 
-@@ -102,10 +105,71 @@ static void gic_update_frequency(void *data)
- 	clockevents_update_freq(this_cpu_ptr(&gic_clockevent_device), rate);
- }
- 
-+/* Number of iterations to synchronize the local GIC counter */
-+#define GIC_SYNC_ITERATIONS 4
-+
-+/* Delay in us to check if the local GIC counter is still in sync with cluster 0 */
-+#define GIC_SYNC_CHECK_DELAY 100
-+
-+static void gic_sync_counter_64(unsigned int cluster)
-+{
-+	unsigned int config = read_gic_config();
-+	u64 t0, t1, t2;
-+	s64 offset = 0;
-+
-+	mips_cm_lock_other(0, 0, 0, CM_GCR_Cx_OTHER_BLOCK_GLOBAL);
-+
-+	for (int i = 0; i < GIC_SYNC_ITERATIONS; i++) {
-+		write_gic_config(config | GIC_CONFIG_COUNTSTOP);
-+		write_gic_counter(read_gic_redir_counter() + offset);
-+		write_gic_config(config & ~GIC_CONFIG_COUNTSTOP);
-+
-+		t0 = read_gic_counter();
-+		t1 = read_gic_redir_counter();
-+		t2 = read_gic_counter();
-+
-+		if (time_in_range64(t1, t0, t2))
-+			break;
-+
-+		/*
-+		 * Compute the offset to apply to the local counter
-+		 * so that (t1 - t0) equals (t2 - t1).
-+		 */
-+		offset += (s64)(2 * t1 - t0 - t2) / 2;
-+	}
-+
-+	mips_cm_unlock_other();
-+
-+	if (!time_in_range64(t1, t0, t2))
-+		return;
-+
-+	udelay(GIC_SYNC_CHECK_DELAY);
-+
-+	mips_cm_lock_other(0, 0, 0, CM_GCR_Cx_OTHER_BLOCK_GLOBAL);
-+	t0 = read_gic_counter();
-+	t1 = read_gic_redir_counter();
-+	t2 = read_gic_counter();
-+	mips_cm_unlock_other();
-+
-+	/* If so, mark the cluster as synchronized */
-+	if (time_in_range64(t1, t0, t2) && gic_synced_cl_map)
-+		bitmap_set(gic_synced_cl_map, cluster, 1);
-+}
-+
- static int gic_starting_cpu(unsigned int cpu)
- {
--	/* Ensure the GIC counter is running */
--	clear_gic_config(GIC_CONFIG_COUNTSTOP);
-+	unsigned int cluster = cpu_cluster(&cpu_data[cpu]);
-+
-+	if (read_gic_config() & GIC_CONFIG_COUNTSTOP) {
-+		clear_gic_config(GIC_CONFIG_COUNTSTOP);
-+
-+		if (cluster && mips_cm_is64 && !gic_clock_unstable)
-+			gic_sync_counter_64(cluster);
-+
-+		if (gic_synced_cl_map &&
-+		    bitmap_full(gic_synced_cl_map, mips_cps_numclusters()))
-+			schedule_work(&gic_promote_work);
-+	}
- 
- 	gic_clockevent_cpu_init(cpu, this_cpu_ptr(&gic_clockevent_device));
- 	return 0;
-@@ -209,8 +273,33 @@ static void gic_clocksource_unstable(char *reason)
- 	clocksource_mark_unstable(&gic_clocksource);
- }
- 
-+static void gic_clocksource_promote(struct work_struct *work)
-+{
-+	if (gic_clock_unstable || gic_clocksource.read == &gic_hpt_read)
-+		return;
-+
-+	if (clocksource_unregister(&gic_clocksource) < 0)
-+		return;
-+
-+	gic_clocksource.read = &gic_hpt_read;
-+#ifdef CONFIG_GENERIC_GETTIMEOFDAY
-+	gic_clocksource.vdso_clock_mode = VDSO_CLOCKMODE_GIC;
-+#endif
-+
-+	if (clocksource_register_hz(&gic_clocksource, gic_frequency) < 0)
-+		return;
-+
-+	if (mips_cm_revision() >= CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ)) {
-+		sched_clock_register(mips_cm_is64 ?
-+				     gic_read_count_64 : gic_read_count_2x32,
-+				     gic_count_width, gic_frequency);
-+	}
-+}
-+
- static int __init __gic_clocksource_init(void)
- {
-+	unsigned int numclusters;
-+	bool synced = false;
- 	int ret;
- 
- 	/* Set clocksource mask. */
-@@ -222,14 +311,32 @@ static int __init __gic_clocksource_init(void)
- 
- 	/* Calculate a somewhat reasonable rating value. */
- 	if (mips_cm_revision() >= CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ))
--		gic_clocksource.rating = 300; /* Good when frequecy is stable */
-+		gic_clocksource.rating = 300; /* Good when frequency is stable */
- 	else
- 		gic_clocksource.rating = 200;
- 	gic_clocksource.rating += clamp(gic_frequency / 10000000, 0, 99);
- 
--	if (mips_cps_multicluster_cpus()) {
-+	numclusters = mips_cps_numclusters();
-+	if (numclusters > 1)
-+		gic_synced_cl_map = bitmap_zalloc(numclusters, GFP_KERNEL);
-+
-+	/*
-+	 * Mark cluster 0 as synchronized (with itself), and all clusters
-+	 * without cores since there is no local GIC counter access on those.
-+	 */
-+	if (gic_synced_cl_map) {
-+		bitmap_set(gic_synced_cl_map, 0, 1);
-+		for (unsigned int cl = 0; cl < numclusters; cl++) {
-+			if (!mips_cps_numcores(cl))
-+				bitmap_set(gic_synced_cl_map, cl, 1);
-+		}
-+		synced = bitmap_full(gic_synced_cl_map, numclusters);
-+	}
-+
-+	if (numclusters > 1 && !synced) {
- 		gic_clocksource.read = &gic_hpt_read_multicluster;
- 		gic_clocksource.vdso_clock_mode = VDSO_CLOCKMODE_NONE;
-+		INIT_WORK(&gic_promote_work, gic_clocksource_promote);
- 	}
- 
- 	ret = clocksource_register_hz(&gic_clocksource, gic_frequency);
-@@ -288,7 +395,7 @@ static int __init gic_clocksource_of_init(struct device_node *node)
- 	 * change performed by the CPC core clocks divider.
- 	 */
- 	if ((mips_cm_revision() >= CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ)) &&
--	     !mips_cps_multicluster_cpus()) {
-+	     gic_clocksource.read == &gic_hpt_read) {
- 		sched_clock_register(mips_cm_is64 ?
- 				     gic_read_count_64 : gic_read_count_2x32,
- 				     gic_count_width, gic_frequency);
+   The key point here I want to refer is that the guest state should
+   remain unchanged. And considering this case, when VM_ENTRY_LOAD_CET_STATE
+   is cleared, KVM tries to load L1's CET state to vmcs02 (vmcs01->vmcs02),
+   but sync_vmcs02_to_vmcs12() loads vmcs02 CET states back to vmcs12
+   (vmcs02->vmcs12), which changes the guest state and such vmcs12 guest
+   state is visible to L1 (so, the whole states transition path is:
+   vmcs01->vmcs02->vmcs12, the vmcs12 is changed!).
 
--- 
-2.55.0
+2. I feel sync_vmcs02_to_vmcs12() might be doing too much. One issue is
+   it updates vmcs12->guest_activity_state based on vcpu->arch.mp_state,
+   However, the "correct" vcpu->arch.mp_state is set based on
+   vmcs12->guest_activity_state only after the VM-entry succeeds (see
+   nested_vmx_run). Therefore, in an extreme case (just code reading, not
+   tested yet), GUEST_ACTIVITY_HLT might be set to guest_activity_state,
+   but because the vm-entry fails, the value of vcpu->arch.mp_state is
+   not updated, so sync_vmcs02_to_vmcs12() re-calculates an incorrect
+   guest_activity_state.
+
+   Another issue is about vmcs12->guest_linear_address. Per SDM 29.8
+   again (the 1st point I listed above), guest_linear_address, as the
+   VM-exit information field, is not necessary to be updated.
+
+So, in short, I think sync_vmcs02_to_vmcs12() updates too much state,
+and it seems we shouldn't directly modify the guest state visible to L1
+(i.e., the guest state in vmcs12).
+
+>  	if (from_vmentry) {
+>  		failed_index = nested_vmx_load_msr(vcpu,
+>  						   vmcs12->vm_entry_msr_load_addr,
+> @@ -3758,6 +3762,9 @@ enum nvmx_vmentry_status nested_vmx_enter_non_root_mode(struct kvm_vcpu *vcpu,
+>  	 * 26.7 "VM-entry failures during or after loading guest state".
+>  	 */
+>  vmentry_fail_vmexit_guest_mode:
+> +	if (prepared_vmcs02)
+> +		sync_vmcs02_to_vmcs12(vcpu, vmcs12);
+
+Based on the two points mentioned above, does Option B (which I described
+in my cover letter) seem more reasonable? Instead of updatding almost all
+states to vmcs12, we can re-use pre_enter_* states:
+
+vmentry_fail_vmexit_guest_mode:
+     if (prepared_vmcs02)
+             vmcs_read_cet_state(vcpu, &vmx->nested.pre_vmenter_s_cet,
+				 &vmx->nested.pre_vmenter_ssp,
+				 &vmx->nested.pre_vmenter_ssp_tbl);
+
+...
+
+> -static void load_vmcs12_host_state(struct kvm_vcpu *vcpu,
+> -				   struct vmcs12 *vmcs12)
+> +static void load_vmcs12_host_state(struct kvm_vcpu *vcpu, struct vmcs12 *vmcs12,
+> +				   bool prepared_vmcs02)
+>  {
+>  	enum vm_entry_failure_code ignored;
+>  	struct kvm_segment seg;
+> @@ -4854,14 +4861,15 @@ static void load_vmcs12_host_state(struct kvm_vcpu *vcpu,
+>  		vmcs_write64(GUEST_BNDCFGS, 0);
+>  
+>  	/*
+> -	 * Load CET state from host state if VM_EXIT_LOAD_CET_STATE is set.
+> -	 * otherwise CET state should be retained across VM-exit, i.e.,
+> -	 * guest values should be propagated from vmcs12 to vmcs01.
+> +	 * If CET state should be retained across VM-exit, i.e. isn't loaded
+> +	 * from host state fields, and vmcs02 was prepared with guest state and
+> +	 * thus synchronized back to vmcs12 (CET state is unconditionally saved
+> +	 * on VM-Exit), then propagate the guest's values from vmcs12 to vmcs01.
+>  	 */
+>  	if (vmcs12->vm_exit_controls & VM_EXIT_LOAD_CET_STATE)
+>  		vmcs_write_cet_state(vcpu, vmcs12->host_s_cet, vmcs12->host_ssp,
+>  				     vmcs12->host_ssp_tbl);
+> -	else
+> +	else if (prepared_vmcs02)
+>  		vmcs_write_cet_state(vcpu, vmcs12->guest_s_cet, vmcs12->guest_ssp,
+>  				     vmcs12->guest_ssp_tbl);
+
+then update L1's state based on pre_vmenter_*, and keep vmcs12 guest
+states upchanged:
+
+    else if (prepared_vmcs02)
+		vmcs_write_cet_state(vcpu, vmx->nested.pre_vmenter_s_cet,
+				     vmx->nested.pre_vmenter_ssp,
+				     vmx->nested.pre_vmenter_ssp_tbl);
+
+In addition, in this way, pre_vmenter_* should also be synchronized on
+the normal exit path with sync_vmcs02_to_vmcs12().
+
+However, I’m still hesitant because this intermediate state seems too
+fragmented. But considering that vmcs12 is L1 visible — and shouldn’t
+be modified arbitrarily — maybe an intermediate state like this is
+necessary?
+
+Or maybe we should just go back to my original patch, i.e., Option A,
+which eliminates the intermediate state.
+
+> As for nitpicking the SDM, KVM doesn't *need* to wait until prepare_vmcs02()
+> completes cleanly, KVM just needs to guarantee that vmcs12 holds the correct state
+> if L2 state is loaded from vmcs12 on VM-Exit.  Because even on failure,
+> prepare_vmcs02() has already loaded (most) guest state into vmcs02.  So we could
+> sync vmcs02=>vmcs12 on any failure after switching to vmcs02, if we adjusted
+> prepare_vmcs02() to fully prepare vmcs02 before do its final consistency checks.
+> I.e. we could do the below on top.
+>
+> However, as much as I want to be pedantic on this point, I don't think we should
+> actually do the below.  I combed through the flows and can't find anything that
+> would result in loading the wrong L1 state if KVM mostly prepares vmcs02 but
+> doesn't do sync_vmcs02_to_vmcs12().  And marking vmcs02 as prepared if and only
+> if it's fully prepared is much more obviously correct.
+
+Yes, I think both approaches - whether to wait until prepare_vmcs02()
+completes cleanly or not - are consistent with the SDM; they can be
+viewed as differences in the KVM uarch implementation :-) What the user
+sees is the hardware state and the guest VMCS state as presented under
+a given load control combination.
+
+Thanks,
+Zhao
 
