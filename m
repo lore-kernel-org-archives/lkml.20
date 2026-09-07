@@ -1,157 +1,160 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66A91AAE28
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:21:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6212D380FF7;
+	Mon,  7 Sep 2026 05:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788758481; cv=none; b=DpFhlk/qbJ+oaNXQHf+/ZVfLmxM1h8kJM1VE89Y0HWgK63kK+02osSXA6vVxom6YNeJ3+W5BfZbuldSxA5lIfZtpx2btC3VwzXNrhUVDBSevZtTV/Gi9iOznojXWyVrYwhlWJb9Sky9ZJa4RIizLIEtvIRbIsvwr6ijDxA7UvRI=
+	t=1788758484; cv=none; b=lENHMNdBql0Sj6XFPRBxq35OMI+yIyjU7RePFLu5WlqsWQCAaJa8kcxNuqtyawmGJhnqTky7Hmwgnq4qwHZybK0/E/yh+YH8fKvhNh06KKNbuPwZf09RrtmJR3gU/WVVsvLacv8wg7AbvuZ0MaaX06wDODlyaJ1JW7VwlE6vPGU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788758481; c=relaxed/simple;
-	bh=fh8PztGUjZg6c0C+06deI5LFt174xeSTuIW2JZdN684=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dgyXukmHc0gJ6XT24TjfbJW9angOZAMckQP69S8yWbdi3803uijudu64YifDgsZf1NqeotYBnsxgZ6TizSSDEQ0g917Y//HZft90wpSGFFtlCi773NwMZHP1m7pVQBlNlmmAD+NbNH8oVTsAKLrlTBxQG7SLfEXn/oRx8zXJdto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e+vVqGSP; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788758484; c=relaxed/simple;
+	bh=b2TCn9rlAsmkly0EHt6O3ksK+OsH2/828LwoizpnH7s=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sEt8kYkNSx8u5tImn92Lvl4PlC5kNL79IfWnP0vwUauf+ghVqioWrV5l7QG0kjhxmnM/g01PPLug+ctlGjrB0YUxQgPO0HDCLekKwWmkazuM07HhHatiqX3ad/v1qTClNP0Hzym2TZqVDqadgksGyFBj2fdpqCsOtxDB2BAcAUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=JUgTEi1e; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e+vVqGSP"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398b3d66515so3012191a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:21:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788758479; x=1789363279; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g/IoHQKVOt1DZYCcuXfN71+bBk3opjHV1VqUujIL3kM=;
-        b=e+vVqGSPZZgK7EJgKSy2p/fJsdxIt8fUMAURhPBnSyw66FxpTflOyFmyKy6ozBpYCW
-         BjkD2QadyCoCRoCYdGZik0Qid3irqo+BUv2XtveXqTj+vyq0wBcHFD7sFCquSrbOCZsS
-         T31ASWnTEUE2EvkK2GNyQ+wnEARILCqw9JFyvS2pnx9mjuBzSfALbjF8ifLlxmPNb+24
-         Z8/U725zMiDJ2FaCPD3eGokG4zlZUr+bHbK7KaiR2ApFeZkFqg85mWT53xSKjPIzLPE+
-         lRsHVkq0K+k1op3rPnroUgUzInkYzC4xxDL+TIIXW6rGi2IPNEFobIAopTGJ0ZPWMho/
-         8OVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788758479; x=1789363279;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g/IoHQKVOt1DZYCcuXfN71+bBk3opjHV1VqUujIL3kM=;
-        b=DqezPChgOwo1u4NqPfEKvXbETWKiJLdvH3W1SBPc60PLbmlbvYGSYAuEQE3RTkH8+n
-         IckU5eARho55Sm3MCrsmIvVPsZU29SDVfc36NBzl7vU5DuiIXQMw8wGBEtv8i/NvuG+F
-         1hfjXxOE2UoQr3ZW17BySalq7ZJb6QbydfaH9VHDSgVqXLSoM5Vy0uCtMo6HamK51Miw
-         FgPPWS858dRUqFFsH7Xd91UQv0NHWN5MhE+g/2YyxnfZdcBoqWpdYfpDg8fCoYp7CpWq
-         Uexyqr+Ex3GFEAVhQoH0nnAXYUDa36o0AViG0TzLSv4M83U482z06X5L2v/MMZKzu/dZ
-         OKcg==
-X-Forwarded-Encrypted: i=1; AKwUvBz09dPNziQUVeJLbDqNA5bFrTHTGyNzGx0Bpd+OOVdCLxACudq5YlA3v4ryjZ0pirH/FjQ/CZNG0VQrAkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpX7RunYWpZL3a1tdTkMPkpPONPcHmBaUZQBZh3wg+LZr4/r7X
-	uGtUIBw9vtYGN5FMoDZ38UQ4MbZzP5VZtUqAGaB8mFVbte4DPHBMY1s=
-X-Gm-Gg: AYBFou0rYfWZn8HANXbmz/47NOZbvbtHBYP0PNjMx2zYIxVvy1rc2k2FJ6ZL4RAWhul
-	aFL85WRvLUJwZSkc43pSsI2bwpASiOq4KVK3QIB5bRTXuyMxu/JIKGDppgqtJ65ZwUd6MpuuwV3
-	vCoXHc6MlTNHDDL4mFsbUnmn41RC+oxK0hbtO6cJr1+V6ruJiOX6E+ngQRBF1d51LAAID6pAMqE
-	RRMSaBFWS9rIhoIb32Kq6+1B2MO1Iyf/WLegF8thAeLnCKd2tcAQaO+qp6xYtWC64UiubU72kT3
-	HIAHqtv9lwzXdNgy40Ah/lqWlW8jrb5e1U25ppMbbSFhx6oF52SNVwN7NC0bqEW20ZwDSGhVBXV
-	OS9eWHC2DjOxKidSBYEEr+bs4kPeDkP8AGya6Ioe17t2FLnBe7J5km6leWB2lYwhVsW60d5fKOs
-	uwjAszBx04qVj0jgOHrhUHBwShzT4s3fzw6+WYFKxM8nOeP66iQo5E8c74xNgXvsmymHyUSSFDw
-	8Xp57Bq25UBnTpH
-X-Received: by 2002:a17:90a:d644:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-39b26245cfcmr32715392a91.20.1788758479088;
-        Sun, 06 Sep 2026 22:21:19 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae60a8e61sm8933987a91.0.2026.09.06.22.21.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 22:21:18 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com
-Subject: [PATCH] tracing: hist: let values keep the percent and graph modifiers
-Date: Mon,  7 Sep 2026 14:21:13 +0900
-Message-ID: <20260907052113.430818-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="JUgTEi1e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1788758483; x=1820294483;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=b2TCn9rlAsmkly0EHt6O3ksK+OsH2/828LwoizpnH7s=;
+  b=JUgTEi1ec0tgMzx194oObYO6jy/gn3JvTWdqDUQaJsG4DAo2sCtBpZkx
+   mHrYXNSxEk/v/ExbdqqP07jwy3jmVLef0MMjxIafnPKMXe4/pn0PDvGTQ
+   k3aXwSs/KMOH9JS+9NibG3EAazz/l4Zwoq015SBIdoFJAR0qnwSIOlsmc
+   N/Ipo0VNh9ayqgWCd3uNKYJy+JpYd2HcNbWeuQpN3aPSpiwME/a5UzhBB
+   e/oppQ66jGyUAVsSg+3cLS8ymU9DD/lJJgDQkFPXpK2YuclXynd8NZvha
+   gv5h4mDR6ZUQcbW3b6RpPrYh738wZJS58XgEdF8O1VQWXyJCoSBSdg7PQ
+   A==;
+X-CSE-ConnectionGUID: ynNG5RA4SXC1LMqIiB7wqA==
+X-CSE-MsgGUID: mzles+cmQuOYuBF8VHPPyQ==
+X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
+   d="scan'208";a="63542719"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 22:20:15 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
+ chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Sun, 6 Sep 2026 22:20:14 -0700
+Received: from che-ll-i17164.microchip.com (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Sun, 6 Sep 2026 22:20:10 -0700
+From: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
+	<kuba@kernel.org>, <pabeni@redhat.com>, <hkallweit1@gmail.com>,
+	<linux@armlinux.org.uk>
+CC: <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<UNGLinuxDriver@microchip.com>, <Parthiban.Veerasooran@microchip.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+Subject: [PATCH net-next v2 0/4] net: microchip_t1s: fix collision detection on PLCA status change
+Date: Mon, 7 Sep 2026 10:50:02 +0530
+Message-ID: <20260907052007.391972-1-parthiban.veerasooran@microchip.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The .percent and .graph modifiers exist only for histogram values, but a
-value carrying either of them has been rejected since v6.3. The example
-in Documentation/trace/histogram.rst,
+In a 10BASE-T1S multidrop network, when PLCA mode is configured, the PHY
+autonomously transitions between PLCA mode and CSMA/CD mode based on
+BEACON availability, without any further user action. The existing
+collision detection logic only adjusted on explicit ethtool PLCA
+configuration changes, leaving it in the wrong state across these
+autonomous mode transitions.
 
-  # echo 'hist:keys=prev_comm:vals=hitcount.percent:nohitcount' > \
-	 events/sched/sched_switch/trigger
+This series fixes that gap, wires up the complete interrupt path, and
+improves collision detection handling for LAN867X Rev.D0.
 
-returns -EINVAL.
+Patch 1 fixes the collision detection handling in the PHY driver. It adds
+the PLCA Status Changed (PSTC) interrupt handler for LAN86XX PHYs. On
+each PSTC interrupt, the PLCA operational status is checked and collision
+detection is adjusted accordingly: disabled when PLCA is online,
+re-enabled when PLCA goes offline to restore correct CSMA/CD operation.
+The interrupt handler uses a conditional assignment pattern without early
+returns for better extensibility. The existing static CDEN write in
+lan86xx_plca_set_cfg() is retained as a baseline for PHYs running with
+phydev->irq == PHY_POLL on boards where the PHY interrupt is not routed
+to the host. PHYs with routed interrupts (including LAN865X and LAN867X
+with interrupt support) skip the static write since the interrupt handler
+handles CDEN dynamically.
 
-parse_field() sets the two flags only when the field is neither a key nor
-a variable, that is, only on a value:
+Patch 2 delivers the in-band PHY interrupt to phylib from the 10BASE-T1S
+MAC-PHY SPI driver. The OA TC6 standard defines PHY interrupt delivery
+via the SPI status register as optional; the OA_TC6_PHY_INT quirk flag is
+introduced so drivers can opt in when the PHY interrupt is routed in-band.
+When set, a nested virtual IRQ is created inside oa_tc6_mdiobus_register()
+before mdiobus_register() is called. All mii_bus->irq[] entries are
+populated with the virtual IRQ so phy_device_create() picks it up
+regardless of the PHY's MDIO address, keeping mii_bus->irq[] and
+phydev->irq consistent. The teardown is integrated into
+oa_tc6_mdiobus_unregister(). When the PHYINT bit is seen in the extended
+status, handle_nested_irq() is dispatched synchronously from the sleepable
+threaded IRQ so phylib enters interrupt mode and drives the PHY driver's
+config_intr/handle_interrupt callbacks.
 
-	} else if (strncmp(modifier, "percent", 7) == 0) {
-		if (*flags & (HIST_FIELD_FL_VAR | HIST_FIELD_FL_KEY))
-			goto error;
-		*flags |= HIST_FIELD_FL_PERCENT;
+Patch 3 enables the PHY interrupt via virtual IRQ for LAN865X by passing
+the OA_TC6_PHY_INT quirk flag to oa_tc6_init(). The LAN865X integrates
+the PHY directly into the MAC-PHY SPI device. The PHY has no dedicated
+interrupt line; its interrupt is always delivered as the PHYINT bit in
+STATUS0.
 
-__create_val_field() then rejects a value for carrying them, so no field
-can reach hist_trigger_print_val(), where both are implemented.
+Patch 4 fixes collision detection for LAN867X Rev.D0 by configuring the
+hardware Collision Counting and MAC Forwarding Control field (CCMFC) in
+the Collision Detector Control 0 register to the OA default value. The
+hardware automatically gates collision forwarding to the MAC based on the
+live PLCA_Status: collisions are neither counted nor forwarded when
+PLCA_Status is OK, and are counted and forwarded when PLCA_Status is not
+OK. This eliminates the inherent delay between a PLCA status change and
+the software interrupt handler toggling CDEN, which was a limitation on
+older revisions that had no hardware alternative. A dedicated
+lan867x_revd0_handle_interrupt() is added to handle two separate interrupt
+events: link status change events trigger the phylib state machine for
+link re-evaluation; PLCA status change events update the link status
+selection. The handler uses the same conditional assignment pattern for
+extensibility. Collision detection gating is handled autonomously by
+CCMFC in hardware. The .config_intr/.handle_interrupt handlers are wired
+up for Rev.D0 using the shared lan86xx_config_intr() and the new handler
+to unmask both link status change and PLCA status change interrupts.
 
-commit e0213434fe3e ("tracing: Do not let histogram values have some
-modifiers") added the check after a value with .buckets oopsed in
-hist_field_name(). That happens because .buckets and .log2 make
-create_hist_field() build a nested field in operands[0] which
-hist_field_name() then walks into. The percent and graph flags do not
-create an operand and are not read by hist_field_name(); they are only
-used when printing a value.
+Note: Patch 1 carries a Fixes: tag but requires patches 2 and 3 to be
+applied together -- the interrupt handler in patch 1 cannot fire without
+the virtual IRQ wiring in patch 2, and the virtual IRQ infrastructure is
+activated for LAN865X by patch 3. This dependency applies to 10BASE-T1S
+MAC-PHYs (e.g. LAN8650/1) where the PHY has no dedicated interrupt line
+and relies on the MAC-PHY SPI driver to deliver the interrupt.
 
-Stop rejecting the two flags on a value. The check for variables is left
-alone, where they are unreachable anyway because parse_field() rejects a
-variable carrying them first.
+Changes in v2:
+- Patch 2: Introduce OA_TC6_PHY_INT quirk flag to guard the virtual IRQ
+  infrastructure; PHYINT is optional per the OA TC6 standard. Move
+  oa_tc6_phy_irq_setup()/oa_tc6_phy_irq_teardown() into
+  oa_tc6_mdiobus_register()/oa_tc6_mdiobus_unregister(). Populate all
+  mii_bus->irq[] entries with the virtual IRQ before mdiobus_register()
+  so phy_device_create() picks it up regardless of the PHY's MDIO
+  address, keeping mii_bus->irq[] and phydev->irq consistent.
+- Patch 3 (new): Pass OA_TC6_PHY_INT quirk flag from the LAN865X driver
+  to enable the virtual IRQ infrastructure for LAN865X.
 
-With the two flags removed, the trigger above installs and prints as
-documented:
+Parthiban Veerasooran (4):
+  net: phy: microchip_t1s: fix collision detection on PLCA status change
+  net: ethernet: oa_tc6: deliver the PHY interrupt to phylib
+  microchip: lan865x: enable PHY interrupt via virtual IRQ
+  net: phy: microchip_t1s: fix collision detection for LAN867X Rev.D0
 
-  { prev_comm: rcu_preempt  }  hitcount (%):   0.00
-  { prev_comm: init         }  hitcount (%):  99.98
-  Totals:
-      Hits: 237896
+ .../net/ethernet/microchip/lan865x/lan865x.c  |   4 +-
+ drivers/net/ethernet/oa_tc6.c                 |  76 ++++++++-
+ drivers/net/phy/microchip_t1s.c               | 159 ++++++++++++++++++
+ include/linux/oa_tc6.h                        |   3 +
+ 4 files changed, 238 insertions(+), 4 deletions(-)
 
-Fixes: e0213434fe3e ("tracing: Do not let histogram values have some modifiers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Tested under QEMU x86_64 on 1fc5a74b108f. Before the change all three of
 
-  vals=hitcount.percent
-  vals=hitcount.graph
-  vals=hitcount.percent:nohitcount
-
-are rejected with -EINVAL; after it they install and print. A plain
-'keys=prev_comm' trigger works on both, as a check that the test itself is
-sound. tools/testing/selftests/ftrace trigger tests are unchanged, all 45
-items identical before and after: 32 pass, 3 fail, 2 unresolved, 8
-unsupported, with the failures also present on an unpatched kernel.
-
-Nothing covers these two modifiers in selftests today, which is why the
-regression stood since v6.3. I can follow up with a test case.
-
- kernel/trace/trace_events_hist.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 963e0d6b61fd..faaff7b315f6 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -4313,8 +4313,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
- 			goto err;
- 	} else {
- 		/* Value */
--		if (hist_field->flags & (HIST_FIELD_FL_GRAPH | HIST_FIELD_FL_PERCENT |
--					 HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
-+		if (hist_field->flags & (HIST_FIELD_FL_BUCKET | HIST_FIELD_FL_LOG2 |
- 					 HIST_FIELD_FL_SYM | HIST_FIELD_FL_SYM_OFFSET |
- 					 HIST_FIELD_FL_SYSCALL | HIST_FIELD_FL_STACKTRACE))
- 			goto err;
+base-commit: 31f961de2f90fbf52eb2d4e15b3eeaa09f9b4fc2
 -- 
-2.53.0
+2.43.0
 
