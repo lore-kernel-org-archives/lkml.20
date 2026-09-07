@@ -1,67 +1,33 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E0846C851
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B94E46D09D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:18:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779883; cv=none; b=WZ0Rw95z2swLL8NwLi2lwg4AGT0DlY8S6ePG1hLwfI9x1P9JXe4GyqxKzY19FPHAl2I7+AnrcB+3iQCSqJKjtxI0sINKREgrgSuIn65MSb1CjyecVGAMTXljb3ND/IdvM0gFFgzjs2YvC3wX6MJaOVmJptgLz8ouksPKY15vppk=
+	t=1788779932; cv=none; b=inPpOtWuWYOtMpUX1hdP9oEwz8xpSmhD5OhdPmbMS3np0SYTE3XIxGpnQwX3AABsQ3meMp03mZzph9iKKgA+ZMoPq8e0mgOX2ggpEMJMdl1ay8Jj6ObA9KI8GaoRARZhKZCbys5IYMZsNQvemXUMxaUSh6h7H1O0T9FctVM7IE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779883; c=relaxed/simple;
-	bh=vc/u2+6K3u9duPkyjAm1VSzu2f/ZyL4eiCIH6p0kCCM=;
+	s=arc-20240116; t=1788779932; c=relaxed/simple;
+	bh=nRbZdy+9771v+FTfrzh4Uias0U1VEfTEVi8wbC862Ao=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=buWD3Y8AQmieodQVOJ7nKdkKZHpET8HnBUp/VBPcWQOBd93DZX1UuNep4HsohToctHGdNff3RLMpaWjUShgS4ZnvWPpOBaG79Ki7t2xlQjzD+qV8U+kdf1/EFi3pDKJIADHSbAsVd8fJTXtWwMCVdPgfri2YXa6cufS8PMzMMZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=de2MEp7Q; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=eJnI1pOVDWBr7NZQCGj9PaHAsLLSQTch1XYtWe288+FeqMRXBQ1TnMagykqkoyCURtRdnQDzX+vBY/Z0LRhnbqZnfuyL/h+2U7EX0ZeOIcQwcl47xKaZD7xMB0VvcjQsnV8HvJEHwa/sEGHFN4rq4qGbwSUmh5LufcuxgKqOlEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8m423Lh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="de2MEp7Q"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3880537f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:18:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788779879; x=1789384679; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kZeKG88pQvz+t3Gm/KrMtRBK71hTluhBWfm1A4t1QXw=;
-        b=de2MEp7QCbYxhT5Uaog3gIdpkYeUO0mVMVQtiCMgH5BJo4MLMu0GREGhdFYPLS2Fua
-         cxA/Pdft+yc3I+Zr3i3LCX/V9CDxAURVLJKTpP0pEGp7/pUJ2Zia5amibAXFRo7GNTIn
-         bbgNa6YiKBYgCOOx7JHcYR3sFNer6TirsXmCrtfmL1iPQx5qelkve5peqcyZ4HITw6Dw
-         QROMDiYlC8mkzpX8RO59w4qY5GWHM91SKo4XPP258xs0JXB5J+AwGxhKErj/qTtsqHKP
-         ihyTQ2cqlwiXs3QUOsRHJVWEqTRsbBPFs+VpgL9lu2dTBq+akrYPKlUZpnkEnKkvEeBT
-         4nVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788779879; x=1789384679;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kZeKG88pQvz+t3Gm/KrMtRBK71hTluhBWfm1A4t1QXw=;
-        b=Mj1hfC2T8Kor+AllcnWaow676mj2I6bq7986nUj7PIYjnrhZsh0jQZW/SA+LMOn4CA
-         5n5+5BaT3xIF8MHBukKfBYrDk19xwsjSUsOS5LNJrht+s1PP8aSPcxSU6MyAEK+O7NTU
-         hGlRAMtlPc7lKVTyqhaljnVQm7IEBrvqqNCNwPbMkFPY6cCVZdO701EQrZCLJxbzq+Aj
-         7jwC2qrJ2683i2KoPn5W1/xYQFG1BjgkJ4W8FwpHgXkEJTlK1n0QCgbPTayW7ERZ6UKd
-         0UX++toke5oIdNLzRldg04NvIA9BnBw2eQbFtkE0loNh7pSKrwbksHY/03NeRnAkbhB7
-         9QVA==
-X-Forwarded-Encrypted: i=1; AKwUvByXz7JQu1bXxw13ggWr+aMrJB46x/8v3XWpGACwXzCP71RuSDGm7Kv70CkKV+ofr+xMEGkVhaj4n81coxw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJKJTM+DBRt4VO/dDAHjzHWRvBNsj8rm/Hq2UcUf2EJiNZmTEN
-	SQPP5TEiz2OPhVYNtqs5lfzQAZgfcEzCUO5wQkM9H+/vR/hXfWv2+Z+G
-X-Gm-Gg: AYBFou35K7UoFEgBxuArDUAu0OodjXoHcsr9fpk/tlvfsMHE8jylhaE20LOzWO02Co4
-	LNyCgtOUaZEp6SOAGtOkC/hB4lk5v9Bmj3tuzNFeqq0EOWGs+xbxOlfjPQgx5Yga6O1LJ2HR93L
-	KLQn7ck8M5yJ9WPl32O5NqBlfdkINO6jI0wxmhQBoYTpTMSE+jqqGm9ssMow/tshTPc+RyqGGiY
-	r7eSsXGBuUK3YtBcQAtc5qZ12wNg923KP1U3bBJ7M6KLnh7LwcC85tFr9v0e/hM3UL8ZgTc01kn
-	QdUS3aUPTQHXICNQ2S+OGQ8/6tldQ1E5MXFb98Z+hR0Youq3db0pxQeQhNp+LLWlfPg4B7343Mn
-	x+xENoa+zKGb4E+OBHk1QF1ysuUcMpTJtesdsb3gB4TiNq9R5KvbuLsFiqjsA1P1pFhXnvbiD++
-	8d2pmay3HhUuzZKxka3ChHcMsNwMgVnm6DCRi6sd53/fABm1im4yC9b4bDZLlYaHEFl72+Q19y
-X-Received: by 2002:a05:600c:3e06:b0:49c:fc6c:be1b with SMTP id 5b1f17b1804b1-49cfc6cc0e9mr176101505e9.33.1788779878713;
-        Mon, 07 Sep 2026 04:17:58 -0700 (PDT)
-Received: from [172.24.138.145] ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm296957105e9.12.2026.09.07.04.17.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 04:17:58 -0700 (PDT)
-Message-ID: <4056ce28-cbf6-46cc-8bcf-a3db35410275@gmail.com>
-Date: Mon, 7 Sep 2026 13:17:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8m423Lh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D51B1F00A3A;
+	Mon,  7 Sep 2026 11:18:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788779930;
+	bh=6Z/SgvhpSWZZrEnPffWXml8Hd3wiK1YMY4/p+rNNK8Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=F8m423LhiG/t/9Wa6UuLgMPisSPSaM0ws6sLzcdYwfW2FEYdK/K+Z5A9zDpAI0e7z
+	 7zcW1KROfscWEZhgA/J8JMfiW9sSjf23XIOE1DtFpqV6RhSBlXktdEsVQQTJgaOMM4
+	 U+NDNAEYwpedUUzpWNcWoZO3jLmIdBS4eK85R8SBGtCl4vMw4N9c0Nuc0u/AMBroJV
+	 oRiUG+v7J4tZ82zGGs47AX3GVu31zIt3DwoR5PgXBUt3YEZASX0JDS1IsnET4tQ56d
+	 O1HMQB9Is+Yp9B8WSFxR5SaTnXfE7G6ZgJ+Now4boANlh1gpw9obeOJHtK/TEdEkGs
+	 kj3KDL5gjdRFA==
+Message-ID: <69db9546-d14d-4107-96b7-30963292c2bd@kernel.org>
+Date: Mon, 7 Sep 2026 13:18:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,60 +35,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Olivier Moysan <olivier.moysan@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>
-References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
- <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
- <ap0lp5THO64olugK@ashevche-desk.local>
+Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+To: Mike Rapoport <rppt@kernel.org>, Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, usama.arif@linux.dev,
+ ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org,
+ catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+ linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+ <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+ <apk8ZRr6do_YAlzf@kernel.org>
+ <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
+ <ap05ue1pq3TgHOS6@kernel.org>
+ <CA+qSx6y=OaMsvTKUbPP2DOan3Ym6c8L5z60512-tCYeUjLZz3w@mail.gmail.com>
+ <ap5Tqu5yswJrj5UM@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Janani Sunil <jananisunil.dev@gmail.com>
-In-Reply-To: <ap0lp5THO64olugK@ashevche-desk.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <ap5Tqu5yswJrj5UM@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-On 9/6/26 10:34, Andy Shevchenko wrote:
-> On Fri, Sep 04, 2026 at 04:14:57PM +0200, Janani Sunil wrote:
->> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
->> Configure supplies, clock and reset, use a custom regmap bus for the SPI
->> protocol, and parse the enabled channels and input buffer settings from
->> devicetree.
+On 9/7/26 08:03, Mike Rapoport wrote:
+> Hi Xueyuan,
+> 
+> On Mon, Sep 07, 2026 at 09:11:14AM +0800, Xueyuan Chen wrote:
+>> On Sun, Sep 6, 2026 at 6:00 PM Mike Rapoport <rppt@kernel.org> wrote:
+>>>
+>>>
+>>> I believe this is an historical artifact. change_memory_common() already
+>>> updates the linear map when a vmalloc mapping switches to RO and the system
+>>> supports it.
 >>
->> Connect the converter to an IIO backend for buffered capture with CRC,
->> provide a fixed safe wideband sampling configuration and add runtime
->> power management.
-> ...
->
->> +	/*
->> +	 * DCLK(min) is ODR * channels per DOUTx * 32. With fast mode
->> +	 * (fMOD = MCLK / 4) and x64 decimation, this gives:
->> +	 * MCLK / DCLK = 8 * data lines / channels.
->> +	 */
->> +	dclk_div = 8 * st->datalines / st->chip_info->num_channels;
->> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
-> So, this one is (4 - ffs(dclk_div)). If num_channels == 1, this will always give 0.
-> If num_channels == 2, this might give 0, 8, ... Since ffs(0) implementation is defined
-> to return 0, this will return... 0! So, tell me how this code may return
-> anything than 0?
+>> On x86, set_memory_ro() does work on direct-map addresses.
+>>
+>>>
+>>> I believe arm64::set_memory_ro() can change the linear map in the general
+>>> case as well as long as can_set_direct_map() is true.
+>>>
+>>
+>> On arm64, I'm reading arch/arm64/mm/pageattr.c, and the linear-map
+>> update in change_memory_common() is only reachable for vmalloc
+>> addresses:
+>>
+>>   set_memory_ro
+>>     change_memory_common
+>>        area = find_vm_area((void *)addr);
+>>        if (!area || ...)
+>>           return -EINVAL;
+>>
+>> So set_memory_ro() on a linear-map address returns -EINVAL on arm64.
+> 
+> And I believe this is an historical artifact rather than necessity. For
+> configurations that allow set_direct_map on arm64, change_memory_common can
+> update direct map too, it just need to be implemented there.
+> 
 
-The st->chip_info->num_channels is fixed at either 8 (AD7768) or 4 (AD7768-4) and not the number of channels described in the firmware. The supported dataline configurations produce dclk_div of 1, 2 or 8 and register values of 3, 2 or 0.
-However, I agree that using the ffs() obscures this mapping, so I will replace it with an explicit switch over the supported divider values.
+Are we sure the other architectures do what we want in their set_memory_ro?
+Having a dedicated set_direct_map_ro() with clear (documented ;)) semantics does
+not sound too crazy to me.
 
-Regards,
-Jan
+-- 
+Cheers,
 
+David
