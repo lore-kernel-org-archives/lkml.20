@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A7D2D592D;
-	Mon,  7 Sep 2026 20:02:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE9E521234;
+	Mon,  7 Sep 2026 20:06:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811355; cv=none; b=JKN1ENPP5I0kfReNHWPXGY9oQycYJB8xOcclL9v/ss6DbZLLX1iaVTYGitDlGTSSNLAuMe6+8IYfJ7M3Ir15brMr3TUM6W76bokN538SH3f1VK9SLbVBbMvNVRtLM9QuthEty+QBD3+Fybv6RMXdoLtDoFSmNTCWCQVUweEwMYU=
+	t=1788811594; cv=none; b=WNRcB2UD4lyAm5e5UqR/ZvisGCVyv4E2Bo0sa74OiTSsV9GkpkvkrENproplqRSjKmbVK5W/HwxEmkS5F0NpnQl28Epwmbp4GU540zBDNUPiejdb9/iTj0mmx0kiBvRQv2wY0p7xqsRDeyAZ0oih9kthwWtOyJKOtZS6J+iFvDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811355; c=relaxed/simple;
-	bh=P89AvUDHHiPuptr/iKn0Q3iRnug2zzEL/fIzUG/GwDg=;
+	s=arc-20240116; t=1788811594; c=relaxed/simple;
+	bh=6z+DKIAYLJkOjTbCElZ17IsPYuMv4G48gys7vG2ZGtY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iBU22ycEs2SPmnt0g23srN7OjFF/0kyVS+HH4kOPhVi4xYrRIAC6fn/PjDjLXCh6z7Wqy3FAqJeP96WihvaLFUx2iKFKrMne6OqZhcjULyclviu8X14XlA1hDODx8q/eMTtrxuu6D4awTkdU1l3TWvVZISQV4Od/MA4R7pbp+TU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xaxn5Zyq; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ieXhQlcmlPo/+sqla4ZeZCjfQS+BcHJ7bUCG05FCSmsWX75zdqoaaRpmdXZxaFBtOl0tCnfig9bks3c7osw3OmYH51UV7piBtZYmSxwnwilrC52TtIdOWWHSwRvBnBxFVTMww34y1t9YcJrjKB1P+GD9ODaSwdMpT69f9xuY6W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=itj8IO6W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xaxn5Zyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E5421F00A3A;
-	Mon,  7 Sep 2026 20:02:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="itj8IO6W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E356D1F00A3A;
+	Mon,  7 Sep 2026 20:06:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788811354;
-	bh=CZp9MQtMHz2+2kWpWNvVGa8Czo7fd2YuqFVjvJBqt9g=;
+	s=k20260515; t=1788811590;
+	bh=8iZFtkM4l1pBZzM0aft9DJRPxcvPbB47sa2kHkN4CLw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Xaxn5Zyq3Zh6YNGRvLtQuVm+NQpM9BWmnk8jbS1EnCD4VRfgdsJhdBY/JvwPyEIPE
-	 +bS1tIxSogjKgQ6BVPC861F1q6TFD2wipwg1FCIVbKUTWlvjm+phpvamQ1UaIG4oWk
-	 bzP7XzNTWz/YINQBS7OfE2wNxyEBv9R4dxEE9FnHT8y3PXpvYltWTHG1zHEqVx1qpo
-	 +iED8u69XsQYm0tDokPFgBeIgRiH+NpkaGxfsTEN8gNof2JTrrMmWm1BVp8nbVNq8h
-	 YsqgHFlHloBt7tFWZatNPngFIvD4vwRHJbidT+GGhL3HBEaocpqllshRKI9Of5129G
-	 clX5XGU/JwtcA==
-Message-ID: <6d6a876a-74a1-4317-9972-cde1d5ba844b@kernel.org>
-Date: Mon, 7 Sep 2026 22:02:25 +0200
+	b=itj8IO6WuGDUlG4fV19yF3V4rKpQ14rYl9UeIVKDmHnSJolv7EFD8UQxFlCdkBVGK
+	 ws9Vqsg1Z5r3sQcqqF/wAeIxdjJpCuEOH8c/snnX01Cix6RsOz8HMTuSuIxyouMrEX
+	 N9Ho7R/MyeVcbXscY7gENbyUtymnAzjTKk4/z1IDjAsYrtk1M77rWloHCt2hqKJLKo
+	 RJGm+RXuXyXLJDPqMwjCCESNFKNgKuiECjrFBmLVzhKAvOx6SXB7UFw/iN06DxwGtd
+	 PXj/TdTFDuHpUbKZBcLTJzspv/NQjcVuLM3gTFfWwF/b6764/khZWF7e+zmsWaTxUO
+	 tAY1Bek0OCNgg==
+Message-ID: <daeab5a8-44b8-4933-80c5-e4145b01a0a1@kernel.org>
+Date: Mon, 7 Sep 2026 22:06:22 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,20 +35,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/huge_memory: bypass THP tuneables for huge pfnmap
- mappings
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Peter Xu <peterx@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Cedric Le Goater <clg@redhat.com>, Saravanan D <saravanand@crusoe.ai>,
- stable@vger.kernel.org, SJ Park <sj@kernel.org>
-References: <20260907-hugepfn-allowable-orders-v2-1-b89728339148@kernel.org>
+Subject: Re: [PATCH bpf-next v5 1/7] mm: Add copy_remote_mm_str()
+To: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>, bpf@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org, akpm@linux-foundation.org, andrii@kernel.org,
+ ast@kernel.org, brauner@kernel.org, daniel@iogearbox.net, eddyz87@gmail.com,
+ kpsingh@kernel.org, ljs@kernel.org, matt@bobrowski.net, memxor@gmail.com,
+ song@kernel.org, sun.jian.kdev@gmail.com, utilityemal77@gmail.com,
+ viro@zeniv.linux.org.uk
+References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
+ <20260907165220.52431-2-tasos.papagiannnis@gmail.com>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -95,167 +91,73 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260907-hugepfn-allowable-orders-v2-1-b89728339148@kernel.org>
+In-Reply-To: <20260907165220.52431-2-tasos.papagiannnis@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 9/7/26 19:33, Lorenzo Stoakes (ARM) wrote:
-> The sysfs THP tuneables at /sys/kernel/mm/transparent_huge_pages/ rather
-> confusingly only control the behaviour of THP in some instances.
+On 9/7/26 18:52, Anastasios Papagiannis wrote:
+> copy_remote_vm_str() gets the target address space from a struct
+> task_struct. This does not work for an address space that exists but is
+> not yet associated with a task_struct, such as the mm held by struct
+> linux_binprm during exec.
 > 
-> They are not applicable to MADV_COLLAPSE operations, nor to DAX mappings.
+> Add copy_remote_mm_str(), which operates directly on a struct mm_struct.
 > 
-> Long-term, THP is predicated upon compaction being able to obtain large
-> folios to populate THP ranges.
+> Use a common internal interface for the MMU and NOMMU implementations
+> and define both public wrappers in mm/util.c. Preserve the existing
+> copy_remote_vm_str() behavior, including handling zero-length requests
+> before acquiring the task's mm.
 > 
-> However, vm_normal_folio() returns NULL for PFN map mappings, thus their
-> reference count is maintained by the driver, not core mm.
-> 
-> As a consequence, the folios are not subject to reclaim nor compaction, so
-> are not truly part of the THP mechanism at all.
-> 
-> However, since commit 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> introduced the ability to establish huge PFN maps, they have been subject
-> to THP tuneables.
-> 
-> This is incorrect - if a huge PFN map is available (defined by
-> vma->vm_ops->huge_fault being non-NULL for a VMA_PFNMAP_BIT VMA), then it
-> should be mapped huge upon fault-in.
-> 
-> Correct this by explicitly checking for this while ensuring that smaps
-> continues to accurately report THPeligible statistics.
-> 
-> While here, abstract the entire file-backed THP check in
-> vma_can_map_huge_file(), with sensible separation of logic into helper
-> functions.
-> 
-> Note that drm_gem_shmem_mmap() and panthor_gem_mmap() establish huge PFN
-> maps of shmem folios, however they are marked unevictable in
-> drm_gem_get_pages(), and in any case would fail the reference check in
-> __remove_mapping() even if they weren't.
-> 
-> Failing to map huge PFN maps has resulted in significant real-world
-> performance degradation, see links for details.
-> 
-> Reported-by: Cedric Le Goater <clg@redhat.com>
-> Closes: https://lore.kernel.org/linux-mm/20260805055544.1568534-1-clg@redhat.com/
-> Reported-by: Saravanan D <saravanand@crusoe.ai>
-> Closes: https://lore.kernel.org/linux-mm/20260821070520.25759-1-saravanand@crusoe.ai/
-> Fixes: 5dd40721f147 ("mm: allow THP orders for PFNMAPs")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Reviewed-by: SJ Park <sj@kernel.org>
-> Tested-by: Saravanan D <saravanand@crusoe.ai>
-> Tested-by: Lance Yang <lance.yang@linux.dev>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
 > ---
-> v2:
-> - Added tags thanks everybody!
-> - Updated to use vma_file_*() naming as per Zi.
-> - Also updated vma_can_map_huge_file() to vma_file_can_map_huge() as per
->   David.
+>  include/linux/mm.h |  2 ++
+>  mm/internal.h      |  5 ++++
+>  mm/memory.c        | 41 ++----------------------------
+>  mm/nommu.c         | 41 ++----------------------------
+>  mm/util.c          | 62 ++++++++++++++++++++++++++++++++++++++++++++++
+>  5 files changed, 73 insertions(+), 78 deletions(-)
+
+Almost looks like a cleanup now ;)
+
 > 
-> v1:
-> https://lore.kernel.org/r/20260827-hugepfn-allowable-orders-v1-1-94819c8807c8@kernel.org
-> ---
->  mm/huge_memory.c | 86 +++++++++++++++++++++++++++++++++++++++++---------------
->  1 file changed, 64 insertions(+), 22 deletions(-)
-> 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index afbb5974bd22..75c204af40cb 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -92,7 +92,7 @@ unsigned long huge_anon_orders_madvise __read_mostly;
->  unsigned long huge_anon_orders_inherit __read_mostly;
->  static bool anon_orders_configured __initdata;
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index dd09c438fa23..d5bde1f71a97 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -3326,6 +3326,8 @@ extern int access_remote_vm(struct mm_struct *mm, unsigned long addr,
+>  		void *buf, int len, unsigned int gup_flags);
 >  
-> -static inline bool file_thp_enabled(struct vm_area_struct *vma)
-> +static inline bool file_thp_enabled(const struct vm_area_struct *vma)
->  {
->  	struct inode *inode;
+>  #ifdef CONFIG_BPF_SYSCALL
+> +extern int copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +			      void *buf, int len, unsigned int gup_flags);
+>  extern int copy_remote_vm_str(struct task_struct *tsk, unsigned long addr,
+>  			      void *buf, int len, unsigned int gup_flags);
+
+Ah, no new "extern" and best to drop the "extern" from the other involved
+function while at it.
+
+Also, you can just drop the ifdef; the linker will complain either way later.
+
+>  #endif
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 38b1165212c9..8264a346d18a 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -25,6 +25,11 @@
+>  struct folio_batch;
+>  struct hstate;
 >  
-> @@ -118,6 +118,67 @@ static bool vma_is_special_huge(const struct vm_area_struct *vma)
->  	return vma_test_any(vma, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT);
->  }
->  
-> +static bool vma_file_bypass_thp_tuneables(const struct vm_area_struct *vma,
-> +		enum tva_type type)
-> +{
-> +	const bool has_huge_fault = vma->vm_ops->huge_fault;
+> +#ifdef CONFIG_BPF_SYSCALL
+> +int __copy_remote_mm_str(struct mm_struct *mm, unsigned long addr,
+> +			 void *buf, int len, unsigned int gup_flags);
+> +#endif
 > +
-> +	/* MADV_COLLAPSE ignores tuneables. */
-> +	if (type == TVA_FORCED_COLLAPSE)
-> +		return true;
-> +	/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-> +	if (vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault)
-> +		return true;
-> +	return false;
 
-/* Huge PFN mappings are uncompactable so the policy doesn't apply. */
-return vma_test(vma, VMA_PFNMAP_BIT) && has_huge_fault;
+Same here, the linker will complain, so no need for the ifdef.
 
-> +}
-> +
-> +static bool vma_file_allow_thp_tuneables(vm_flags_t vm_flags)
-> +{
-> +	/* THP=always? */
-> +	if (hugepage_global_always())
-> +		return true;
-> +	/* THP=madvise and marked MADV_HUGEPAGE? */
-> +	if (hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE))
-> +		return true;
-> +	return false;
 
-/* THP=madvise and marked MADV_HUGEPAGE? */
-return hugepage_global_enabled() && (vm_flags & VM_HUGEPAGE);
 
-> +}
-> +
-> +static bool vma_file_check_thp_tuneables(const struct vm_area_struct *vma,
-> +		vm_flags_t vm_flags, enum tva_type type)
-> +{
-> +	return vma_file_bypass_thp_tuneables(vma, type) ||
-> +		vma_file_allow_thp_tuneables(vm_flags);
-> +}
-> +
-> +static bool vma_file_can_map_huge(const struct vm_area_struct *vma,
-> +		vm_flags_t vm_flags, enum tva_type type)
-> +{
-> +	const bool has_huge_fault = vma->vm_ops->huge_fault;
-> +
-> +	/*
-> +	 * Enforce THP collapse requirements as necessary. Anonymous vmas
-> +	 * were already handled in thp_vma_allowable_orders().
-> +	 */
-
-The reference to an anon vmas is not really suitable in the vma_file_* helper
-(would be better kept in the caller). I'd just drop the reference to anonymous
-vmas entirely.
-
-> +	if (!vma_file_check_thp_tuneables(vma, vm_flags, type))
-> +		return false;
-> +
-> +	switch (type) {
-> +	case TVA_PAGEFAULT:
-> +		/*
-> +		 * Trust that ->huge_fault() handlers know what they are doing
-> +		 * in fault path.
-> +		 */
-> +		return has_huge_fault;
-> +	case TVA_SMAPS:
-> +		if (has_huge_fault)
-> +			return true;
-> +		fallthrough;
-> +	default:
-> +		/* Only regular file is valid in collapse path. */
-> +		return file_thp_enabled(vma);
-> +	}
-> +}
-
-Much nicer to read, thanks
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Apart from that LGTM, thanks!
 
 -- 
 Cheers,
