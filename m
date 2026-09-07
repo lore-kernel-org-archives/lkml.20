@@ -1,132 +1,67 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B534B8DE6;
-	Mon,  7 Sep 2026 12:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44FA54CA28C;
+	Mon,  7 Sep 2026 12:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788785243; cv=none; b=WVxnXIUhL0j1wgYfX5Pvj7az4kIIOHzfab5/HvrSmcyjwWQIhPLcDXwt8n5xrGIVqHQekTZUDoVnfbqaba2eRcz12EMxXryMYegpA0Vj7BMCJein+DR+wH/5EU+UWlxleZ2C08wpomd3ZlGDcup7TKTGtA3pt4Teoyw3tGV2sRA=
+	t=1788785245; cv=none; b=TnmIqvYRNzpquyoZ4AUdeKwtibK88dl6fTn+NB/H52WMtrtNT+8+NJ4OxJIbUMIJqCv8qwnQPR79Qe0GaYSAnVnhS7v71oI6BwxfHbg1jDZkMcEo9GiQXRXRMhankhJj41r/zTCfLEPM9/rl0+1QvS4xR3S20z3BTSxItPXti5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788785243; c=relaxed/simple;
-	bh=Wf+QbgdgWkQe3JNnFVvRLyHOwahdjGfq+ZuBa5Qlu6A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Y9KS39MHzp+iWrKqW5jAgZXBVfYcEVTTRsIb7WMtEdNTu92Wboh2lXPf1QXWeGb2LZowPNuBWnZRJ7ZGUrCw0vkDqg/Z2Z/fbrNXYmUqWJjD3l+K6CsO04CWGBP7+byJTjgbpRru/zFzD/HAs3opFdRYs7jZOaB0w16+2F7W/yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JICAoHPi; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788785245; c=relaxed/simple;
+	bh=3jzHfF8u66U4CkdfROE7pgSpM1GNQ3StL7xFXm46nTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oRWhUTnIB9xmxINpnRa3cip910Mqp9M830w8QYrbzpP6zoHPCCzkrCktq74EAM5VEXmvfgjy+/9bKpNi9sJWuGmYEoz6HFobfC/9MPIiNni15V410u5IfbvTTrh6rQqsPHz94vXqfEYiv8QMK/PWg2NkLsyXy9WzN6YYjRFD02w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=nQ1X6SOB; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JICAoHPi"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D05551A1A33;
-	Mon,  7 Sep 2026 12:47:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A468E60383;
-	Mon,  7 Sep 2026 12:47:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 793BC11C7AF1D;
-	Mon,  7 Sep 2026 14:47:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788785239; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ew1QXNv1E3Xm6+feIsK83rNyoslxYmVUO+n/IV7SqNw=;
-	b=JICAoHPiTZ/QblDsUau1a5K5GRNjskhifboDKXYf/KTO86w+aWiYWVSRcYCgnlceDPXDzM
-	bJfnKV3MnNCxgY39soL6Idnx8qc8dv0tXZHAisiH+kAaj3aXHfHGX2/hASpP6lz5q+JrHS
-	8PFxhgiNMN6h/GSnepEL8AQWcC+ExAOo/OjxgKaelSVZCcx2mL06hbo8VjcZgqpv072MsU
-	CrCNdPatUwjg/UoUoOsQr5ZmA7uuJOQl2EaQVd2oSuY8EjzDRrmK7Uoxqc0MZysHuAQo0W
-	vU65WB/yEuj5SIAZ1wSiIlPob10lNn0aGSQrGXuZ8ZcQ7pbiRwspSrVnvJ7/cw==
-From: =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-Date: Mon, 07 Sep 2026 14:46:37 +0200
-Subject: [PATCH v3 3/5] irqchip/mips-gic: Enable interrupt when moving
- affinity across clusters
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="nQ1X6SOB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=JLou8S9ILPVlsF0M7Wpo9XaUFU4gg0/ZQVsWHAAraeM=; b=nQ1X6SOBbKC+amzXfgUzXeRAx+
+	Deg2awIFuLzH2VU/oetFXMmlKcV/NS9oW/Njh/sZyIEMn886D59YU3izKIvmcVfAkXSlXxPkH5NUI
+	blNiiEjLUHkfA3JENpXieyvyOXpa+FrISBxb8wQ1dIzwHx0yeRe9SOYk53WUPG9Rnz+U=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3Ykk-003WA9-Qz; Mon, 07 Sep 2026 14:47:14 +0200
+Date: Mon, 7 Sep 2026 14:47:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Manish Chopra <manishc@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Simon Horman <horms@kernel.org>,
+	Edward Cree <ecree.xilinx@gmail.com>, Shuah Khan <shuah@kernel.org>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-net-drivers@amd.com, linux-kselftest@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH v2 5/6] selftests: net: fix repeated word 'use' in comment
+Message-ID: <713f3339-31b3-48f7-a162-6ace106c1543@lunn.ch>
+References: <20260907044635.7141-1-hemanth.selam@gmail.com>
+ <20260907044635.7141-6-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-sync-gic-counters-v3-3-3d891ddabdaf@bootlin.com>
-References: <20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com>
-In-Reply-To: <20260907-sync-gic-counters-v3-0-3d891ddabdaf@bootlin.com>
-To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Dragan Mladjenovic <dragan.mladjenovic@syrmia.com>, 
- Chao-ying Fu <cfu@wavecomp.com>, Aleksandar Rikalo <arikalo@gmail.com>, 
- Paul Burton <paulburton@kernel.org>, Radu Rendec <radu@rendec.net>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, linux-mips@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Beno=C3=AEt_Monin?= <benoit.monin@bootlin.com>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907044635.7141-6-hemanth.selam@gmail.com>
 
-When an interrupt's affinity is moved to a CPU in another cluster,
-gic_set_affinity() updates the routing (GIC_SH_MAP_VP) and trigger type
-in the destination cluster, but never touched the interrupt's mask state.
+On Mon, Sep 07, 2026 at 10:16:34AM +0530, Hemanth Selam wrote:
+> Drop the second 'use', reported by checkpatch.pl as a possible repeated
+> word.  Only touches a comment, no code changes.
+> 
+> Assisted-by: Cursor:claude-opus-5
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 
-The interrupt mask is per-cluster. After such a move the interrupt was
-left disabled in the destination cluster, so it never fires despite
-being correctly routed to its new VP.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-Handle the mask explicitly on a cross-cluster affinity change: in the
-old cluster, write GIC_SH_RMASK to disable the interrupt while clearing
-the route so it is no longer delivered. And in the new cluster, set the
-mask to enable the interrupt along with reconfiguring the trigger type.
-
-Fixes: 322a90638768 ("irqchip/mips-gic: Multi-cluster support")
-Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
----
- drivers/irqchip/irq-mips-gic.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/irqchip/irq-mips-gic.c b/drivers/irqchip/irq-mips-gic.c
-index f2ae60d39d66..4b76a65f12c9 100644
---- a/drivers/irqchip/irq-mips-gic.c
-+++ b/drivers/irqchip/irq-mips-gic.c
-@@ -390,14 +390,17 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *cpumask,
- 
- 	/*
- 	 * If we're moving affinity between clusters, stop routing the
--	 * interrupt to any VP(E) in the old cluster.
-+	 * interrupt to any VP(E) in the old cluster and disable
-+	 * the interrupt in that cluster.
- 	 */
- 	if (cl != old_cl) {
- 		if (gic_irq_lock_cluster(d)) {
- 			write_gic_redir_map_vp(irq, 0);
-+			write_gic_redir_rmask(irq);
- 			mips_cm_unlock_other();
- 		} else {
- 			write_gic_map_vp(irq, 0);
-+			write_gic_rmask(irq);
- 		}
- 	}
- 
-@@ -409,10 +412,17 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *cpumask,
- 
- 	/*
- 	 * If we're moving affinity between clusters, configure the interrupt
--	 * trigger type in the new cluster.
-+	 * trigger type and enable the interrupt in the new cluster.
- 	 */
--	if (cl != old_cl)
-+	if (cl != old_cl) {
- 		gic_set_type_locked(d, irqd_get_trigger_type(d));
-+		if (gic_irq_lock_cluster(d)) {
-+			write_gic_redir_smask(irq);
-+			mips_cm_unlock_other();
-+		} else {
-+			write_gic_smask(irq);
-+		}
-+	}
- 
- 	/* Route the interrupt to its new VP(E) */
- 	if (gic_irq_lock_cluster(d)) {
-
--- 
-2.55.0
-
+    Andrew
