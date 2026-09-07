@@ -1,62 +1,64 @@
 Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C88D34A791
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:46:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C273783AD
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756405; cv=none; b=FPUNunA5HdYN780HDHn2KcCFjIhLZxh+U3kPURF81eHFwWoE4Oev3wTztbpxImChCePei0NlvjBJCTeoOeLkxW0CS9OP7riH8lxbw1geOuz3NFXBmKAVGWUu+ThpYVehT3DORSu+eLcOiEtvRlCjB+buQ4bYPyr8uEqsDJ+GC0Y=
+	t=1788756416; cv=none; b=g5J3deg6JNwXqk85LVtqlrZ9/GfbbQ1LZL1E0KmGQoC60Kwj4x4SCQB3uVKSN1HeIyzLtmMNFlD71Q+AiXnZlnWxJF49lvlBfcV5L3p2hafVb/KzzTlMLZaJW6q1/RUhuuQiJa+j6Km8y3GQaYyBk35lXshnWrxXzAmozw530Z8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756405; c=relaxed/simple;
-	bh=kM+No/+mwCRbCgE+2r91S0pDirLJc757ykmgH52igpw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lTEz4Z5MzH5+wvPdwQB4aFI+nsZfDr5TNvvLsJap8ye65Wm4L7glGoZoSuoJePXWqh7/P7XgHzGIWjcePmueJi9M4b9HJoWLgq3IRkgrcHJThMhJ+6Lp2aGv7BEETlK6AWY7QjwrgmQNNamPA4d2Bzh+Pqok6b3y8+HX6elKdz8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pTzAZl+C; arc=none smtp.client-ip=209.85.214.174
+	s=arc-20240116; t=1788756416; c=relaxed/simple;
+	bh=6p6f+df7snFRvPwjOFv6KgfQzHYAQCGkqU2mMZozh8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e5IYc/zsbuyif2tgTsl3b8vmB4P1r2UXo0NSRCDDeH/vxa/e9jPu7odBaq3MARpEkyb7BEyaLVYjxjRt5hsyCLZ6/qVWBqDsG5CPqdm72VaPSeGUl94woFNMsD9tIHkZYoRMFDYP/pOqzRUT6Phr2p4LkYxImpFrOOHy5c5tzVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EPcRYs0j; arc=none smtp.client-ip=209.85.214.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pTzAZl+C"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2db3305f94fso19026745ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:46:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EPcRYs0j"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2d58efc7356so38869785ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:46:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756404; x=1789361204; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zQa/bPG8yKkFKAben/fnsp6Vnq0BaJANv+XXZY1Yr1g=;
-        b=pTzAZl+CGlmIcmqZYLMUz35DWWCl5Gdakk9s/2CSpeyysNZnm0kHF2pcfrhmrF14My
-         isjjwkdCjvUlXRl9Fs6DnxkHiIaE8R7tTx7nPcJ/iro/EH2+qDstLM7wG41pBe5fPWLf
-         jtDIUDPUs6moqQwfwWsP5yXqDe9FkFMw2nEwmesyNIw0qIhn4vjXy+T14VcbFUSgdZxz
-         ea3SVt6LEQapjbJXSjUUCBZfhGC8RBlDgO/u9Hc4BrrBKpoMiAKbcddsST1IQ5vk2dPB
-         /mN8l2OB5cQLd+/9ousCFJhZNXWJLeAqsl+uV/HhOvsDUAuNQQj7vrAa+y7CcuwsvgfQ
-         XTLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756404; x=1789361204;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788756415; x=1789361215; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zQa/bPG8yKkFKAben/fnsp6Vnq0BaJANv+XXZY1Yr1g=;
-        b=bHfjCFB7MUNe3gmeFozxcfqL5NTI4Xp4h7cuDxBwg+Ed0uXx+xGy4LVyTmfBXyXiOQ
-         Zv2xdQ2Qay722yccZ0Vz7WDwj78avz6NRyI8xgZ41HgKTBRqsDlLxe2cNQ9SDG0RZ5wZ
-         fR3oTqbmbgB6V/ECO0MvX8qhHUq3sZZjGw9u78TBcXfEDbS7k9PAjKyvM9C/Sbkg34g2
-         A09OooNNHExQP0H9dxQoZb11ytTJIdtZfmXmBsa3aQgmSWKtKCXPhcDeUgrzNrAaB7UZ
-         WafXK3L/o2iUcMTn74UqUrq1i8JoKYwY4tsH+i/PkTkPLApkD9e0kjmgCZx89T43AbEZ
-         mzwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzbOnqjyoYEtmBDjVdS1DfZRsuLWkvVSHrhRO9ZFFKC8Xv4N8rho7cSNZ7lE+eaklwNMOiLYTGqbuwqivE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nBk9/kDHlC4tEXfY0XAYsKu+9e5QBJyw0Lbxzqx1FZHY4ynGc4
-	IfkXG1oGP3ufhG09js1N4mRx1llro/E90POrjkokglbcWyEgqpencd96
-X-Gm-Gg: AYBFou09e0q+qNg2g11TIwVNIApck0MlAkIB+DGlTjXfZxt/xSbrcTUV3Jq2mKwuaaL
-	PZ3IEZ/g1nWaXXdAPD44U+skxf9IDaLpSrARSgRGj/5Dm9JQWV5n1YJMsXZMK7mrZPUmq+oRCRP
-	hi2Ll2BoKgROxjK6Bc0BZF98RjNNd1WQZ+VraKrW79q7N2S2aRm0kbuVNP0K9PLoXF9wSliYNqQ
-	CQviHBpWHFp2NXX6KJUshOAzZU9z0A/VEiMXoETuZatHV0YTEJTFB6gkEF6C7Q7N4BGB0OgBSl4
-	Ra2N1u++R68uo1T+zuNRVHi3xdDaUZ6r5/UVyUi914SBU3jPhVnDCK2n79f4QqdB8HPoZ4m+nHu
-	QtX5brBHYzyjd9jqnB+6JR6dpRPvCSCkA7Hs4rVu5NmCRkwnIrlCmCu70ehwpDFrvhWxcIvwBW4
-	vlG7ubhzw9EOkmeF6NjPoFIlbp8i2MDFdtCzVCt3i9sw9C4rP5U8+i6WDSi62LPmZY0Zvk9Smu7
-	XOacT0W4Y3AACRs409YKVOX
-X-Received: by 2002:a17:903:1b48:b0:2db:210f:c111 with SMTP id d9443c01a7336-2db210fc2cbmr220255975ad.2.1788756403514;
-        Sun, 06 Sep 2026 21:46:43 -0700 (PDT)
+        bh=igwbwoIkm59vj4ArfYtMkHGEc2L+jTWh6hxW3NeB46o=;
+        b=EPcRYs0jmy1DiFWPpHzhxGGDukqApEn75U15wXRo2Ds9Rgbb/RJVvr25gRmEmrVNpJ
+         wLpAdzb707URL3dI0VbLqvZRDWieNlrQxIQntAE02QaxJAmn9+/MQGRAS95mODfW2h4p
+         sMsYlkwd5cEq/6jlZQ7C127nxNqEUSue+KEuyOQ3hkAwcgpDhoEEoJhEkyXVyMWeDJUw
+         D+I1e3N7wEnAhXmxFRA90o0DP2kzirfJNHKYS2nujJ6BhbEbaRWKavl27C5Bb/ID3uwI
+         nmR15L+Z/oBs+jwyYorWKSnp++euNCt9acmt9S4xdPun5A8hgesdYsQLMRjODpcmtLsB
+         biAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788756415; x=1789361215;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=igwbwoIkm59vj4ArfYtMkHGEc2L+jTWh6hxW3NeB46o=;
+        b=pZp/EF/7UZOeoIU0yokMKr0UnnWjqZagpX1BPgvS+S+9QZMS3mhSDnZFiUYxqeZhJi
+         RRUTqMxoqoWVI4UzP7m80DQDTxaHfndYa19JJlglMUcSh1IJXomTuUYbEjhveAgJp2rl
+         XD7jdcNIyfvPJ45UnHzKiUeI8z/b7BEYlcH/ilfj0lyvQ5yViWs2OL3dqJ8eZkB/Wowi
+         e8rUX/riLGI5aX2YYOyKtoXHrk1a42V5nnJMy96F5+j7SRKl23vhObBAmDhg3/1/+quz
+         Eemy4VMD3u8Hfl2e3D7q+9R0c9aCH4vjbYdzBdl/Skv8ItrxcmWaKZz8A63D5AV/0r2q
+         HWFw==
+X-Forwarded-Encrypted: i=1; AKwUvByJcDFeMFb9nqxJCAOy02Mlokybrg2aNaVkb1IDxYBVa2nxXjoLIxHwlAfV1DNUjV3YLSts3piNhiElqz8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNbt09dYTsFOEcunP2sraQTP8UD39OvvzFZZZX4GbaRXQpZN7l
+	+mm3iX9axp9C1+gGTCtMtViTDb7vgLBKGopU+n7YjnJ4KQt3gePm0VeZ
+X-Gm-Gg: AYBFou2gOVFZ1fXYWVCd5bMBulnbpYonFfLuGZ1/w7h4h+DhXUoOnBJW/w6NbMFRCrb
+	hF3vjkX7nmvsmVf+UbWF8S+LiwMtHb09UCCEezsSpwtSQavfpIhYMM7s32gptAy4ulxkg1VRNIU
+	2/6OInmpAr+nFAyFYmS48UZT54qbc+jk2IwxeIriDN0z2MadTXGeV7un7dpIjhFcvjyW9J/PxvF
+	TAshIlxlVLvtjYA9qVAYDjKYr3iSQ8NEhesDrFYXxoKsscE8GzBRWsq/44ga5Td4iAJy6vXF7VS
+	HmgyY0F37DZfaGqcIgslRC1QiqQrMa2fvDBiL6RjzWZBpZPv5H/Cv5AjcmEtiG3x/sMcIajjOl/
+	Xo0ll0J3X8gfeA7NaB/a/SaoEC4MCLN0GHOwK1NoqENb2PeLpRn9+jjIviWOAD8Q2yvirxsRROa
+	n4g1hYGs/DBdU8tkWQglM25gxEEQ3FYsRJVzJALLi4HWnmzc+bF//2YD9ev+LuGdkBXFe2aiIfh
+	KHlpZlku6HN4HeQ3fTp7pu8
+X-Received: by 2002:a17:903:284:b0:2d9:464f:d45f with SMTP id d9443c01a7336-2db125ca396mr284219835ad.5.1788756414805;
+        Sun, 06 Sep 2026 21:46:54 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37844565eec.16.2026.09.06.21.46.38
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm37844565eec.16.2026.09.06.21.46.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:46:43 -0700 (PDT)
+        Sun, 06 Sep 2026 21:46:54 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: "David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
@@ -74,10 +76,12 @@ Cc: netdev@vger.kernel.org,
 	linux-net-drivers@amd.com,
 	linux-kselftest@vger.kernel.org,
 	linux-usb@vger.kernel.org
-Subject: [PATCH v2 0/6] net: fix typos and repeated words in comments
-Date: Mon,  7 Sep 2026 10:16:29 +0530
-Message-ID: <20260907044635.7141-1-hemanth.selam@gmail.com>
+Subject: [PATCH v2 2/6] net: broadcom: fix repeated word 'will' in comment
+Date: Mon,  7 Sep 2026 10:16:31 +0530
+Message-ID: <20260907044635.7141-3-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260907044635.7141-1-hemanth.selam@gmail.com>
+References: <20260907044635.7141-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,160 +90,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is v2 of the spelling fixes for this tree.
+Drop the second 'will', reported by checkpatch.pl as a possible repeated
+word.  Only touches a comment, no code changes.
 
-Changes since v1:
-Three patches from v1 are dropped because the fix was wrong: the doubled
-word is correct English in switchdev.rst, sfc/bitfield.h and
-ynl_gen_c.py.  v1 also failed to thread; this one is sent as one series.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Only comments change; no code is touched.
-
- drivers/net/dsa/bcm_sf2_cfp.c                          |  2 +-
- drivers/net/dsa/microchip/ksz_dcb.c                    |  2 +-
- drivers/net/dsa/realtek/rtl8366rb.c                    |  2 +-
- drivers/net/dsa/sja1105/sja1105_tas.c                  |  2 +-
- drivers/net/ethernet/3com/typhoon.h                    |  2 +-
- drivers/net/ethernet/8390/ax88796.c                    |  2 +-
- drivers/net/ethernet/airoha/airoha_eth.c               |  2 +-
- drivers/net/ethernet/allwinner/sun4i-emac.c            |  2 +-
- drivers/net/ethernet/amazon/ena/ena_eth_com.h          |  2 +-
- drivers/net/ethernet/amd/xgbe/xgbe-dev.c               |  2 +-
- drivers/net/ethernet/apm/xgene/xgene_enet_main.c       |  2 +-
- drivers/net/ethernet/atheros/atl1c/atl1c_hw.h          |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e.h             |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_hw.c          |  2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_main.c        |  2 +-
- drivers/net/ethernet/atheros/atlx/atl1.c               |  2 +-
- drivers/net/ethernet/atheros/atlx/atl2.c               |  2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.c           |  2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.h           |  2 +-
- drivers/net/ethernet/broadcom/bcmsysport.h             |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x.h            |  4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_dcb.c        |  4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_hsi.h        |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_init_ops.h   |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c       |  8 ++++----
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c       |  2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_reg.h        |  4 ++--
- drivers/net/ethernet/brocade/bna/bfa_ioc.c             |  4 ++--
- drivers/net/ethernet/brocade/bna/bna_enet.c            |  4 ++--
- drivers/net/ethernet/calxeda/xgmac.c                   |  2 +-
- drivers/net/ethernet/cavium/liquidio/cn66xx_device.c   |  2 +-
- drivers/net/ethernet/cavium/liquidio/lio_core.c        |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_config.h   |  4 ++--
- drivers/net/ethernet/cavium/liquidio/octeon_iq.h       |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_main.h     |  2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_nic.h      |  2 +-
- drivers/net/ethernet/cavium/liquidio/request_manager.c |  2 +-
- drivers/net/ethernet/cavium/thunder/nic.h              |  2 +-
- drivers/net/ethernet/cavium/thunder/nic_main.c         |  2 +-
- drivers/net/ethernet/chelsio/cxgb3/sge.c               |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_dcb.c         |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/cxgb4_ethtool.c     |  2 +-
- drivers/net/ethernet/chelsio/cxgb4/t4_hw.c             |  2 +-
- drivers/net/ethernet/chelsio/cxgb4vf/sge.c             |  2 +-
- drivers/net/ethernet/cirrus/cs89x0.c                   |  4 ++--
- drivers/net/ethernet/dec/tulip/de2104x.c               |  2 +-
- drivers/net/ethernet/dec/tulip/interrupt.c             |  4 ++--
- drivers/net/ethernet/dec/tulip/media.c                 |  2 +-
- drivers/net/ethernet/dec/tulip/tulip.h                 |  4 ++--
- drivers/net/ethernet/dec/tulip/winbond-840.c           |  2 +-
- drivers/net/ethernet/freescale/dpaa2/dpaa2-eth.c       |  2 +-
- drivers/net/ethernet/freescale/fman/fman_memac.c       |  2 +-
- drivers/net/ethernet/freescale/gianfar.c               |  2 +-
- drivers/net/ethernet/freescale/gianfar.h               |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c     |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c      |  2 +-
- drivers/net/ethernet/hisilicon/hns/hns_enet.c          |  4 ++--
- .../net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c    |  2 +-
- drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c  |  2 +-
- .../net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c  |  2 +-
- drivers/net/ethernet/ibm/emac/emac.h                   |  2 +-
- drivers/net/ethernet/ibm/emac/phy.h                    |  2 +-
- drivers/net/ethernet/jme.h                             |  2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2.h             |  2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c         |  8 ++++----
- drivers/net/ethernet/marvell/octeontx2/af/npc.h        |  4 ++--
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c    |  2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c     |  2 +-
- .../net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c    |  2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_pf.c   |  2 +-
- drivers/net/ethernet/marvell/pxa168_eth.c              |  4 ++--
- drivers/net/ethernet/mellanox/mlx4/eq.c                |  2 +-
- drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c |  2 +-
- drivers/net/ethernet/mellanox/mlx5/core/lib/tout.c     |  2 +-
- drivers/net/ethernet/mellanox/mlxsw/i2c.c              |  2 +-
- drivers/net/ethernet/mellanox/mlxsw/reg.h              |  2 +-
- drivers/net/ethernet/natsemi/sonic.h                   |  2 +-
- drivers/net/ethernet/nvidia/forcedeth.c                |  4 ++--
- drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c    |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_cxt.c              |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_dev.c              |  2 +-
- drivers/net/ethernet/qlogic/qed/qed_mcp.h              |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic.h            |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c  |  4 ++--
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c        |  2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c       |  4 ++--
- drivers/net/ethernet/qualcomm/emac/emac-mac.c          |  2 +-
- drivers/net/ethernet/realtek/8139too.c                 |  2 +-
- drivers/net/ethernet/realtek/rtase/rtase_main.c        |  2 +-
- drivers/net/ethernet/seeq/sgiseeq.c                    |  2 +-
- drivers/net/ethernet/sfc/falcon/falcon.c               |  2 +-
- drivers/net/ethernet/sfc/mcdi_pcol.h                   | 10 +++++-----
- drivers/net/ethernet/sfc/siena/mcdi_pcol.h             |  6 +++---
- drivers/net/ethernet/sfc/siena/ptp.c                   |  2 +-
- drivers/net/ethernet/sgi/meth.h                        |  2 +-
- drivers/net/ethernet/silan/sc92031.c                   |  6 +++---
- drivers/net/ethernet/sis/sis900.c                      |  2 +-
- drivers/net/ethernet/smsc/smsc9420.c                   |  2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c      |  2 +-
- drivers/net/ethernet/sun/cassini.h                     |  2 +-
- drivers/net/ethernet/synopsys/dwc-xlgmac-common.c      |  2 +-
- drivers/net/ethernet/synopsys/dwc-xlgmac-hw.c          |  2 +-
- drivers/net/ethernet/tehuti/tehuti.c                   |  8 ++++----
- drivers/net/ethernet/ti/tlan.c                         |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_net.c           |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_net.h           |  2 +-
- drivers/net/ethernet/toshiba/ps3_gelic_wireless.c      |  2 +-
- drivers/net/ethernet/via/via-rhine.c                   |  2 +-
- drivers/net/ethernet/via/via-velocity.c                | 10 +++++-----
- drivers/net/fddi/skfp/cfm.c                            |  2 +-
- drivers/net/fddi/skfp/ecm.c                            |  2 +-
- drivers/net/fddi/skfp/fplustm.c                        |  4 ++--
- drivers/net/fddi/skfp/h/hwmtm.h                        |  2 +-
- drivers/net/fddi/skfp/h/sba.h                          |  2 +-
- drivers/net/fddi/skfp/pcmplc.c                         |  2 +-
- drivers/net/fddi/skfp/rmt.c                            |  2 +-
- drivers/net/ipa/ipa_interrupt.h                        |  2 +-
- drivers/net/phy/bcm87xx.c                              |  2 +-
- drivers/net/phy/marvell.c                              |  2 +-
- drivers/net/ppp/ppp_generic.c                          |  4 ++--
- drivers/net/usb/asix_common.c                          |  2 +-
- drivers/net/usb/ax88179_178a.c                         |  4 ++--
- drivers/net/usb/sr9800.c                               |  2 +-
- drivers/net/wan/slic_ds26522.c                         |  2 +-
- drivers/s390/net/ctcm_main.c                           |  4 ++--
- drivers/s390/net/qeth_core.h                           |  2 +-
- include/net/inet_hashtables.h                          |  2 +-
- include/net/sock.h                                     |  2 +-
- net/ipv4/tcp.c                                         |  2 +-
- net/ipv4/tcp_input.c                                   |  2 +-
- net/ipv4/tcp_output.c                                  |  2 +-
- net/ipv6/calipso.c                                     |  4 ++--
- net/llc/llc_c_ac.c                                     |  2 +-
- net/llc/llc_conn.c                                     |  2 +-
- net/netlink/af_netlink.c                               |  2 +-
- net/sctp/protocol.c                                    |  4 ++--
- net/sctp/sm_make_chunk.c                               |  4 ++--
- net/sctp/sm_sideeffect.c                               |  2 +-
- net/sctp/transport.c                                   |  2 +-
- net/sctp/ulpqueue.c                                    |  2 +-
- samples/pktgen/README.rst                              |  2 +-
- tools/testing/selftests/drivers/net/team/options.sh    |  2 +-
- .../selftests/net/arp_ndisc_untracked_subnets.sh       |  4 ++--
- tools/testing/selftests/net/forwarding/lib.sh          |  2 +-
- tools/testing/selftests/net/ip_defrag.c                |  2 +-
- tools/testing/selftests/net/xfrm_policy.sh             |  2 +-
- 146 files changed, 190 insertions(+), 190 deletions(-)
-
+diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x.h b/drivers/net/ethernet/broadcom/bnx2x/bnx2x.h
+index a2050083048b..28ea4a33f245 100644
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x.h
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x.h
+@@ -280,7 +280,7 @@ enum {
+  * (db_msg_sz 1 << 7 * cid + 0x40 DPM offset) it can come up with a valid number
+  * We must avoid coming up with cid 8 for iscsi since according to this method
+  * the designated UIO cid will come out 0 and it has a special handling for that
+- * case which doesn't suit us. Therefore will will cieling to closes cid which
++ * case which doesn't suit us. Therefore will cieling to closes cid which
+  * has least signigifcant nibble 8 and if it is 8 we will move forward to 0x18.
+  */
+ 
