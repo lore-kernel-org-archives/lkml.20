@@ -1,97 +1,105 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009E942CAF6;
-	Mon,  7 Sep 2026 08:05:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 30DD4431E47;
+	Mon,  7 Sep 2026 08:06:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768362; cv=none; b=iV1oYv9xhluYfEEsUnpOvIJrcICJHrdclb+QkMrBs0/ozwSnwbcufJyNPVXGTA5c3tlRTyDMdnm8Y65nVZTowDIgC4woAQJDtSniWmxLLE7pXJXIJrmr4OddX/Y6q2h0+mk0E8QeGij4kRFe1Z1NXMgMqzMioCeniXvXdcB7OtM=
+	t=1788768395; cv=none; b=RDYsNFjfsGUjgwTCCnMfcdd+2NPkN1VOOZtq8JG29CpI6V+CJ/VPq6C/h2wBQkV2sx9MlIym5X1JLbCPqDH99IxVok9pnBpdD6jImf5t5LhmvzDYS7d9VidUq8T0xFbHGlhoSUJzLXxgVkMYT9ytRmY7t9E5mUt3mWOquzYfRxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768362; c=relaxed/simple;
-	bh=8w48dTQb3RhyDHJ7Jct7hUycV7Z3Zn1TcYs2qu9l1iI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=a3YI6qtcBkn4/k/BfeyRU5zgC3soBRS6DVjRtO+d3FZ/FnYZKE+R1M+8JDgSlbPgqNWSxTMpdEJd3b+n+GMYfZX0hbU7ZVmZUP5TycZh91RgM2dpAG8+mqjox1udE8R9dDTtMgi1fHysY3Obv1AGsxh1nkmdq1eeJZN5hi24XWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=bFHSS9VN; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788768395; c=relaxed/simple;
+	bh=M02Zz7duqtLH9w5WcLt9dmTeIbG6UdWlqLh0VhnRN2c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lhgrb5Anz0kF+AJUzbmilCoDgwBY0fmazyymx6dOPDTiShpoESFT+4ybPEvZDM4MIEe29A+4OuYb1zn819JxnC1A+TgA4v4Hwaav7NWmwVcHRfF61giMk/blAWfxDuHuORHVZTdTSUapUJ7D4ilAA5wBF2UffZN6p8ad4tDdUtM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=vX9YEFxm; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="bFHSS9VN"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=RzHd1JASvcx8FMNHnb3zPVsqRwqQGrruqqTmhSWJAV0=;
-	b=bFHSS9VNBYwMo01MuIiREqhcc7DYssKxZXyjmivk7nE0chlhgM5k2sMA8tLOkiBqY13aEjPB/
-	MtdSAqXvSKzuhVaXbE4jK2ioNa4yqHwlqUSQzww9oXTt7DkcSqLza1HCCWcfdfn8xptar1CV/xS
-	ZhkzR+DDmmOnw+P1RPGtlow=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hdfVk6p30z1cyPY;
-	Mon,  7 Sep 2026 15:54:54 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 5923F40586;
-	Mon,  7 Sep 2026 16:05:47 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 7 Sep 2026 16:05:46 +0800
-Message-ID: <25327839-d493-4e12-9b6b-1dda1f1b8704@huawei.com>
-Date: Mon, 7 Sep 2026 16:05:45 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="vX9YEFxm"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C01C71A32;
+	Mon,  7 Sep 2026 01:06:29 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 18C753F7D8;
+	Mon,  7 Sep 2026 01:06:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788768393; bh=M02Zz7duqtLH9w5WcLt9dmTeIbG6UdWlqLh0VhnRN2c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=vX9YEFxmN++GHfkO2xxc2HRCAVQZnfcF+y1vVz4p+I67mwn/6aHZjc3V5wQk92028
+	 QjFA4Ff9sydSH7mdW6Ml8i/iDQuE/cqvG/ChPtrzIxW16rDWLljleu6TZ5iGFYY1Y2
+	 dWFeU1IDBLwdUjSKvUI2sIAZ7djSAJVGofJYXeo8=
+Date: Mon, 7 Sep 2026 09:06:24 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Dave Hansen <dave.hansen@intel.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Russell King <linux@armlinux.org.uk>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Jonas Bonn <jonas@southpole.se>,
+	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>,
+	Stafford Horne <shorne@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-openrisc@vger.kernel.org
+Subject: Re: [PATCH RFC v3 13/21] x86: mm: use pgtable_level enum in
+ effective_prot_pXd()
+Message-ID: <ap5wgC-J6Byt7nPS@e129823.arm.com>
+References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
+ <20260902-dummy_ptxp3-v3-13-5d8f5b17c25c@arm.com>
+ <8f3979a9-238a-4d7d-a040-6aa526fedec5@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3] net: sched: act_gact: use acquire/release for
- tcfg_ptype
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <jhs@mojatatu.com>, <jiri@resnulli.us>, <davem@davemloft.net>,
-	<edumazet@google.com>, <pabeni@redhat.com>, <horms@kernel.org>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <20260902071659.395509-1-ruanjinjie@huawei.com>
- <20260905134221.233ae6b5@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260905134221.233ae6b5@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8f3979a9-238a-4d7d-a040-6aa526fedec5@intel.com>
 
-
-
-在 2026/9/6 4:42, Jakub Kicinski 写道:
-> On Wed, 2 Sep 2026 15:16:59 +0800 Jinjie Ruan wrote:
->> @@ -160,7 +155,8 @@ TC_INDIRECT_SCOPE int tcf_gact_act(struct sk_buff *skb,
->>  
->>  #ifdef CONFIG_GACT_PROB
->>  	{
->> -	u32 ptype = READ_ONCE(gact->tcfg_ptype);
->> +	/* Pairs with smp_store_release() in tcf_gact_init() */
->> +	u32 ptype = smp_load_acquire(&gact->tcfg_ptype);
->>  
->>  	if (ptype)
->>  		action = gact_rand[ptype](gact);
+On Wed, Sep 02, 2026 at 01:48:03PM -0700, Dave Hansen wrote:
+> On 9/2/26 04:56, Yeoreum Yun wrote:
+> > Instead of using hard-coded integer in effective_prot_pXd(), use
+> > pgtable level enum.
 > 
-> Clashiko points out that you are turning what used to be a conditional
-> barrier into one that's always obeyed, even if ptype is 0.
+> Does this actually *do* anything? ;)
+> 
+> I guess it's nice to have a wee bit of type safety from the enum and it
+> means that you don't have to *know* which level number a PUD is, for
+> example.
+> 
+> Either way:
+> 
+> Acked-by: Dave Hansen <dave.hansen@linux.intel.com>
 
-What do you think of the following fix?
+Thanks!
 
- #ifdef CONFIG_GACT_PROB
-        {
--       u32 ptype = READ_ONCE(gact->tcfg_ptype);
-+               u32 ptype = READ_ONCE(gact->tcfg_ptype);
-
--       if (ptype)
--               action = gact_rand[ptype](gact);
-+               if (ptype) {
-+                       /* Pairs with smp_store_release() in
-tcf_gact_init() */
-+                       ptype = smp_load_acquire(&gact->tcfg_ptype);
-+                       if (ptype)
-+                               action = gact_rand[ptype](gact);
-+               }
-        }
-
-
-
+-- 
+Sincerely,
+Yeoreum Yun
