@@ -1,156 +1,193 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012019.outbound.protection.outlook.com [52.101.66.19])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013081.outbound.protection.outlook.com [52.103.33.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68F64443AB6;
-	Mon,  7 Sep 2026 09:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 376533537C8;
+	Mon,  7 Sep 2026 09:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.81
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771651; cv=fail; b=Wqk+5A67Th6qZ2ZZy4TOF5DVlTVU9T8BaN70bAD74x7oB5zMIBllSZkdl5YyN60bCxEOEAaY9o6Rs1pbhn2tdgM1w1v/osAiIVDVf0fGIxpGR0K2B0EvnlTbTkgRc/M0D0u6DlLE/JQomBHaLY1DiMWaL+AYoEwWsJuLM4vQKLU=
+	t=1788771652; cv=fail; b=DBU7dGtPu6Hp3kVO8g15aJu1fvHSr91A0K+maXdM4jjMF284ynxRLHVFhANGaHlB3ejUDqP+KWw/SeS6i/Bw87kj/kJGUFMK880oDBP5HKdJV+2+nj5udsHnfG6VRnrptiP3pNPzvHGUMh6bcyqtlUwE/ImQc7yOrbJbG2FBh1s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771651; c=relaxed/simple;
-	bh=v6VaWMl7dKVjpj4xDZFz3IqIEgAdBMeQYbfexIXFZVI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=uDkLCnJ4FgwnSs99e19apnkCAl1xbAa1tV/LLphro4Yg2Y3VktylcbA0yG2//YSyXylIrKXSqrb7Ozhg73iGezRqtERB1I7N4JFig0mMO/A9JJpE76AdSAiolphKDOfk05rYoAs1722taMI282qFnaAA+Rw+BVdITOHefIt6YD0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=V9G4anj3; arc=fail smtp.client-ip=52.101.66.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1788771652; c=relaxed/simple;
+	bh=nN/HkifnOUI5iCtFEmHtzHVFSsmxsXN4R5dOm4sIRjU=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Wbm0V+2/kAr/SDfUS/5TmGp2nW19lgjbVlwnAz8QIsGx4SC99wRK0bTjpbR8S3GnpA4u2ijuz78Ixrx9Aw3HylreER07XDOgHKxcpBYXh+MQ5F1Um+RcoKPSTAEBH+2IXc/ApUsFoknkT0sTnkxKJVHBs7fhjiGYmIOOgMTWLGI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=X/FkSa10; arc=fail smtp.client-ip=52.103.33.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="V9G4anj3"
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="X/FkSa10"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jxEM7F1EGmf2VqlHqpUqvg2kwtXvELm+H7CJ/e/QXvQpKsc3i5w6P1JKjhn/W5112lyKfn+Dhh0n6HnwkzrVZDbBcPh0n8RYmO7A+c3kOc2UsALQ55obJmI5RwhiTS2SDYNymMs3CYW4DrP0rR0/WDZ5BhOs+6NCXNtPvHcvyRwvVivYqTy1ZF7zm3IqpNy2GgBNKDKrVbljr7Fo2dId5ayrMrGh8TzkhU1vKYpUB1WeSI+HfLdthIOLh7e584C6a13p8RJMDNFrZBb84cJAkEL9NsPOAYm3NjcvVgNYtLHSvYI27/xx9zL6zPHG2N0ujElmsby8sazx8oFoFD/yyA==
+ b=DYvsjto+qbnBxAWWbMzcoffJQq+ep6IG8wGUpx/Gnb1YCuUGX+F4Zz4U9ssyVVapCjB0ZkEuzIlID9CdWWSMoSolu9PAJOKsDW9ikcC1MIz/+JF3REMhn/HOcjPzAhhZuBI1bM0SkiIwM6xz557q3ZzuTTnWVjKfWS1v86vJXAgnhZADUWA+JF0hS425a2Piqe+RzX4m03plWVP5HYwEtuSpENLkd0xBULU3WqbnDu7H2e8RSlgGgutZsOQIHh+DE2EamfOyneH2aDBEACU+R0uFBfJQZ5jOoKOsCR0hV7QTwhquqSg62UyS0HuusDdi4x/C+WuGnlLwmKuJlSPsSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ANf9UDNytopyrwg+LpWVjvNBhiwnWv7brkza7pslZ68=;
- b=pnC/H3UFqdmdcqtmu2d+4AfBYk3Xq20O849I8fWPX9MjYvVoEd/6CCOs6ZfbwITX9HYW4mnDURrZXET4of3yIFCGy3AQX4CM0y3ekNBA4Vuy2kiViGRl/lAdJF1Zoyj4gs1V07HrYGzQyo8yBGQMNK35I/mJ0rx1+CxCOHeiM/xiM1mLKODsF+I6X+h3azx2JkJoB/pMkyHg5N+KBmF9rtYTtHzU7J/CFiEeKR8blC5UQdFdBNnvXIXHB3JOh7RXYTkt2fIDq0M8lI7NVGzMQEZA8o4Hf4lHrL/m3bt2H0pWr43sAVRgZiVkaB0LbglWkPFEmO2DlsNUr0Nu5308nQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=LREua/zl4h+1727b+KTmu7UFdfu/s3OdC0zba5X84YQ=;
+ b=GsVljbz1B5GjoxZEmW9WKj9kzB0Gomd3qltLUkZ/o8Zhs9yZo6FYBvHikxR204yq2niWltQ7M6mljbz1O4E1sUuwihUm1SOzQXUUZ+a1KMnmeZiNQ7G13iEgy04yXvp+9j0SEu1meJLGhSiH6lNQxwRmcjYvswGuOd/fl6eDrcJnMZV924wmleW0zhKOOr3mMvgAV/qAFVAdBSaUJoL0IEd+SNwdw54TZmyVFigQwKRHD/ltKSbiIaVCPV52biUkD2r0e46Ui4nEJhYBL9BslX15obiy3Onv4dBwUJl6CAR66lyqr9yZil4+Htz8DE7EyjUa7+2alonK9IxorcRI0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ANf9UDNytopyrwg+LpWVjvNBhiwnWv7brkza7pslZ68=;
- b=V9G4anj3zOjAYDvDBOoOmadbCcwKx50NWyWAQawzmaWsv+RDisslij+pkWJSNIcqWEcCwUqn61TVIHO4RtAkCDTmYf/dewjxZZaQZ6rVKrkGZTOX7cCaAP1rUr+l9hgrtMmYfclFIl2J1LhMGXvPgdAoDLw3C/AZHETgl6op6t1a7EE9u9K3aVrIe69o0nKRBrpsmTeTsGqKmLJxOt3MFcInO/pnkApWAUKLwVh70TacwVDZsWmx28wGTpQ1Avm460325g6WyPdlRJXy5LPo3iquLX6vSvRAgtabJpRaMaFkWUKKq/JE6XXxm0K3i0+ajQm+I0Sz8dk1JQKa/9IJ5w==
-Received: from DUZPR01CA0231.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b4::12) by GVXPR10MB9163.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:150:1e8::19) with Microsoft SMTP Server (version=TLS1_2,
+ bh=LREua/zl4h+1727b+KTmu7UFdfu/s3OdC0zba5X84YQ=;
+ b=X/FkSa10L4TzkMFdQYWd4iVNsc6Sp1jxbEmseKOSCObXqjh0nftEv7QHUatShlIxW1fwQqcYg7phTUr9lvNAN9uDhpfxcxB3cRkQS+8Fnz+ReisXbL5yTO7GY5nezS2mDyiGfT568Kq7CgqKgG/0/X+TNi3VTVvAJz4BRohwgNr6fveH/F88BgdRnCJHV2BjJ+zF3lGaKS3AicEJs/fhOkFWxKNW5QsCYExknwtrJr/jAPvDlXptjhRL3PIUlBIxCl5E+4l2nIXuO8MTw0uPygnBess8ixi0XwTCpvikmrYEF6O6EKc5lkYNobwxHbnLe1+mxP3TrcX+DnMj9a+3NQ==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by GVXP251MB0766.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:6f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 09:00:41 +0000
-Received: from DU2PEPF00028D08.eurprd03.prod.outlook.com
- (2603:10a6:10:4b4:cafe::46) by DUZPR01CA0231.outlook.office365.com
- (2603:10a6:10:4b4::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
- Sep 2026 09:00:40 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028D08.mail.protection.outlook.com (10.167.242.168) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 7 Sep 2026 09:00:40 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 7 Sep
- 2026 11:06:40 +0200
-Received: from [10.48.87.20] (10.48.87.20) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Mon, 7 Sep
- 2026 11:00:38 +0200
-Message-ID: <10aec35d-5828-44e6-a72c-1b8fceb1d95c@foss.st.com>
-Date: Mon, 7 Sep 2026 11:00:37 +0200
+ 2026 09:00:43 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%6]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 09:00:43 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Ryder Lee <ryder.lee@mediatek.com>
+Cc: Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: mt76: mt7996: validate TLV length in mt7996_mcu_ie_countdown()
+Date: Mon,  7 Sep 2026 09:00:39 +0000
+Message-ID:
+ <AS8P251MB0001CCE8D1BEE1F330D9E57AC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO2P265CA0508.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:13b::15) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260907090039.617311-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dmaengine: vchan: add vchan_chan_name() to get
- channel device name
-To: <Frank.Li@oss.nxp.com>, Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung
-	<schung@nuvoton.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
-	<Frank.Li@kernel.org>, Paul Cercueil <paul@crapouillou.net>, Eugeniy Paltsev
-	<Eugeniy.Paltsev@synopsys.com>, Andy Shevchenko
-	<andriy.shevchenko@linux.intel.com>, Binbin Zhou <zhoubinbin@loongson.cn>,
-	Patrice Chotard <patrice.chotard@foss.st.com>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, "Ludovic
- Desroches" <ludovic.desroches@microchip.com>, Viresh Kumar
-	<vireshk@kernel.org>, Keguang Zhang <keguang.zhang@gmail.com>,
-	=?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, Manivannan Sadhasivam
-	<mani@kernel.org>, Daniel Mack <daniel@zonque.org>, Haojian Zhuang
-	<haojian.zhuang@gmail.com>, Robert Jarzmik <robert.jarzmik@free.fr>, "Chen-Yu
- Tsai" <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, "Samuel
- Holland" <samuel@sholland.org>, Kelvin Cao <kelvin.cao@microchip.com>, "Logan
- Gunthorpe" <logang@deltatee.com>, Laxman Dewangan <ldewangan@nvidia.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <dmaengine@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-mips@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-trace-kernel@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-actions@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
-	<imx@lists.linux.dev>, Frank Li <Frank.Li@nxp.com>
-References: <20260904-dma-chan_dev-rename-v3-0-685601b0b788@nxp.com>
- <20260904-dma-chan_dev-rename-v3-1-685601b0b788@nxp.com>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20260904-dma-chan_dev-rename-v3-1-685601b0b788@nxp.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D08:EE_|GVXPR10MB9163:EE_
-X-MS-Office365-Filtering-Correlation-Id: 479e9f74-3004-4795-dd49-08df0cbe7df0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GVXP251MB0766:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36ac7c52-6cd8-493d-b7a8-08df0cbe7fb1
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|7416014|10067099003|4143699003|56012099006|11063799006|18002099003|22082099003|921020|41080700001;
+	BCL:0;ARA:14566002|8060799015|5062599005|5072599009|4140399003|25010399006|25031999004|15080799012|19110799012|23021999003|2604032031799003|16041099003|55001999006|24021099003|37011999003|440099028|3412199025|26104999009|40105399003|53005399003|2607281247196008;
 X-Microsoft-Antispam-Message-Info:
-	ptbm1Px8qYODMimfyFIYDZBxrv3Mn3uCcbbk3lshungwl74rVnhyD725DTkdxMfkOvljVDELSqsuyQMRYxQM3z0zi7K/JT5Ov4nLLKSDgBAtSJ6hV3ETIqROCezqJTnvjmeiwuUDOPAd5jmfDAdBbg8hH25hww7YEDQWjpXb0sJzPsgmQzqx80McCJFEnPY80VE2h+1fyiCx6QowWnF+NFNzwq/6w1QKQYwskF5QSn++/DRcMiCq1L7U3goivbguXeUZqL3+I9lmHTssmH2jLl0A4h0gTeH543Wli6uLZmOwflkbS0KetJCFuOM6+iE+JXjOm6OzzkadGPs/skazx2Mjw3iE6CBTS+nqlmzJmo9lqqtTfDK5RDmSuL0qJHxJ8Z6EQ8u1YWFGFFqiwYgzpXza7MaaN07J8jswFfXt1RkkDsRU5Nbm+/gIKQhikZXqtQkdnS2WTSTTab5HAOGRsMmmCd00vpApMGuOwWe2L8278iwAYl5kPTVKWU4mJWk/MOKwNFu0eQfVoGfDMLS/ccR5iAqp7+yxrw+klwXynOeaFGeZRxKlQCs22C+9iTbZtk2KIroDn+cOURZJnBfHoKMsaiTntlC7lzTP1IAblWa2SFuJMwe1f2n7OupzWr9mICAEOGaK429ZeWwGj+F+FUA0cmjpViJP63Smq6//tJ+5SUKSw+bh3+VusDIRozACZfRUdgeoSJXHJzMN5ALvCu8EPw2s+Q6mxpo9U5B3VkuvM2MT3fWKDARYW3Tmb9cMI18efJfwblXK8IOtQFpfVQ==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(7416014)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003)(921020)(41080700001);DIR:OUT;SFP:1101;
+	=?us-ascii?Q?ENyVKO3Ha8Ojy8wqaNmdT3pvUnZSDK41g/lzgT0axEx5kgoeochQpjxq1KJv?=
+ =?us-ascii?Q?1AqWoBBDM/rVn6kegVmcravUbRAupYFXrEm5YFWbSO/vyzK3+0FxJqIjt1yr?=
+ =?us-ascii?Q?zg0TwjWlNVNLAwBCKVh6iBRtsjBE2YPkl6ZrHknOoQo90AQlDwQqUXQKX9qN?=
+ =?us-ascii?Q?SgZRUqc1CSid/Lv+Bq3Rtm7VMeX3Adn51GKuce8mg4+W1xpYn5rtpLezlkK1?=
+ =?us-ascii?Q?YA5GjjdH7roR2DrYqppV2lQzR2kWGIuiNgdmntgCg5uKRyUnswwbVyCk72Ts?=
+ =?us-ascii?Q?CO+ubdpkfCsfDLeegthNkbEIYUefd7Y9SP7WLS22DhH/Ou1PxPiHlDGwOq1k?=
+ =?us-ascii?Q?w1OQjkmcd2iHHAK9d3NLtJvr1u3a5RQLGhywVMevJvo7v3Dhm9O3jBxWcLHl?=
+ =?us-ascii?Q?E1Yl0S5kyThsZ50wzN7V5TWB7ptxjbRd4gG6n8IUVge194cflq1iGwjqUf8j?=
+ =?us-ascii?Q?E/ZVRlYsPrh2zQbNSme4V5BqOWBiJcijOuJNNqjRitdXfBVoKLWIjJKZSp5Q?=
+ =?us-ascii?Q?+Muckzy6PgmvpomUupkgbgREvisanmPaCn5PuzyodcOd5Jlg0tTqPZCuPl5P?=
+ =?us-ascii?Q?x2t/7jOEyJXdZhhAkIS9BMWUtpOJ2EL+V+CuNJ396NvnxXKSvvO9jcR6QWgb?=
+ =?us-ascii?Q?Wlq7oUOsUQTmjAtRg1GEsumZ6SMEg8DrHUTgkSOrBOtjpSCgVg266z1VBDk7?=
+ =?us-ascii?Q?94Y/W1/BhTNgpiWY4HB383JXbnLCC+Kadm3hDnIaJKd05eU3tCtd5+tHR0zv?=
+ =?us-ascii?Q?Sybov0lWnbCGl1D1IvtBNGSFcMCA4fMslqNbKb9QOBs/n7D/5sL4D+gdD3C6?=
+ =?us-ascii?Q?pwN1gFFmv39Wdfypa4PzFVhzzJqU45trxjQu3yAe+8mHRk7+fEfOKXqx5sT+?=
+ =?us-ascii?Q?ILLCiQ1YSwLY6Uk8rcDAbmtWVRk9NYNeztVObozfoRXzox88Ues5aHCQNkeY?=
+ =?us-ascii?Q?cjaiECKQSTP9WL3Ye87+sEYLGwjem0aGX1MN4lxZ9Qhd7SA5nJTevlOnVns1?=
+ =?us-ascii?Q?PxTnJ5juPEWqDYYbw4dh9ScpT/Fg69ziOWi2V/0A+5C5b1wDA9P2+we2J9Yl?=
+ =?us-ascii?Q?FmyOi6cNgMjwc6g8uyTjQf0VIhzYxXux/D+t1iwEILT2RunFEaK14eBFrYeR?=
+ =?us-ascii?Q?W8AoKXm5rrATd7OoobX60aAvTKq4NjJcvg=3D=3D?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	4YIPkN1mOz68rj1FpmNS3arBCn/cMxs23Onm7dsEXQ9dKlXhf66N1Niw1lvETulrRB6KTPuisW2x5YoRLm8RoEK+vGM/fX++DVbpnugWoZfg7q+sWUvepVDd4iAwfXdENfkYDWD6CjWTxmNIHln9r+YKbVxtiCcN9DabKLMzETwB2YRL7jbD/U66YQdUzIH7Uu1V2SC3sGuC7GwCi60wKKKnvK7/PqL+bzreER7g+odraiD+MDHAaLdtsojNFBNdM8hPvpPKDqP/vDw1LsWozOokYfLJntf42O5W6Q2un/WUpUAkFMImOJb7oG6e38Zm3q6h9/RnO5wSzMUWishK3eHYMCB9uvN13EPoD5UpA+gJFgZtI/wc/0rPlFQEmKGAvHI12Wt5y8V5zYfQZvnXB6uFWnMetSVZhcE6+TNXqXicGI1PwRl9E3H/z8ZASAsX
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 09:00:40.5336
+	=?us-ascii?Q?N6Pa0r40BVhw4oA8K58lfjGHZ6Jlct93fCNhrOs1ROh1s1C//fYdmXY/xFy1?=
+ =?us-ascii?Q?9jTCCk/L29HfTMd1Q/+X8LRocm6TeCrj5J8MBk9nSPHtG5utycRdPgKZ2xIZ?=
+ =?us-ascii?Q?WD57Pl6QeBpcmgXF0JXdM7Q0wSVbjB1nNJFcO5cNzChUr1yG/m8yoB9jBRem?=
+ =?us-ascii?Q?rEubxj/MTF+/r/pYSpSr4hMyGK6Jet2WXyTA4jw61fBkGCwF38kD/AVxpgKy?=
+ =?us-ascii?Q?9k3MuQFwwILWR2uy/Y9jhuv5JqTYz87jNZqGMrJkH0ZFXm7RwY3yxJs+qgdV?=
+ =?us-ascii?Q?0gSS9KO/O/1RBBcmIK748tc9HEQgHPToQ0kls8oSfqc+er65x/ugm/73VBZ3?=
+ =?us-ascii?Q?/pgKd4nUhLw37+D1D2z6FSisqYUqhhB8HnS+hCs7mt11sah3/BiUG9wRXYWX?=
+ =?us-ascii?Q?1wz+xJi1SE4eCf3ehzbDjJpKO0eVJHAJhW7XCNWZo6YIotqB2MOdkphbAYZH?=
+ =?us-ascii?Q?gfrHhCUad5D9YAgW4cUb/OfNzopoA0mQMWsPYWU+CbZeBkfmTLSxt/GrdCJL?=
+ =?us-ascii?Q?XLT/i6zTdN2vr/zStmj867GQVBID4O86HFinunAn/qlgdfgAkUPRUfa4Zrrn?=
+ =?us-ascii?Q?itnablZlLENeXo6EUtvgfQnmxi5euktJvoVaNlMCFxb1OWP0hkyFtZhKxlRZ?=
+ =?us-ascii?Q?GpHHwJH/DU1z5Tg7NPN3usFvsXztbXv1H1qpZXg0aofPfCIzVhgYFSHpWP0m?=
+ =?us-ascii?Q?AQ0bhhs0WqprPt3Y9r+NguEI3UOehESoB2c2YTuu4vJxa3pvl1digF2aAQJA?=
+ =?us-ascii?Q?k8pEBxp3Z3EwjReyUpU5hGM3M6qgLOpoDjULK37vUgwTVv6sDcgeinmrk5TY?=
+ =?us-ascii?Q?7gnAPZFRtDBX3+1bYAz3ZooMcUuvS83hOjn2sFp1Pf7rb1Ejrf71LopXjvJJ?=
+ =?us-ascii?Q?tc117Ej81YCcnr7AzBnmoV4puk3sWu443cuBY+KJq2PFBtoVbXczA4Iar3lu?=
+ =?us-ascii?Q?LzSd2YOwk77qZuiUv8u5lOc5XCxVTUEWf8VLEEyU+aFvkNVNQ0CTT32Z5xjs?=
+ =?us-ascii?Q?cuSYp3MFyLPjQskZu8AAN+/xqqFVBIezGaW7r2WwbahhSHhaGAvjaluEiz/b?=
+ =?us-ascii?Q?25vXX5WSbQiMFWGroKlzXYyuYwbvBG+x3WrwgbCDjJzBHy5HsLbyHLpdrcN8?=
+ =?us-ascii?Q?A0bCMosQgwvK4M22+rq/UltqykEX++ODNFo6HiLtV4YWzEfSf2Otw9OtPbZx?=
+ =?us-ascii?Q?nPabNts1pscP3K39Jxwe1ctkX0A6IcjCRaAVGfbBgMsQcOc9m4MaKJi37zzp?=
+ =?us-ascii?Q?sOiTXeAAJrB6bivU6MwJ7DcvqdCQnykRaxcclpFtlo40zGX3NjpPOX3LXYvf?=
+ =?us-ascii?Q?SG/BiQoEbidirXPHg2KZW9t3jEywtUASKa2HS4jdhd2q9PjAOrI7fzFN8kTf?=
+ =?us-ascii?Q?GABOoaK6a6XACCS2IJxo59T1lYkN768cgXpCZDb7HrFB9pi9gdyCJa2IQ1BE?=
+ =?us-ascii?Q?S2vYAVuZPCljzofFOQ45JFLZSro9zwBy?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36ac7c52-6cd8-493d-b7a8-08df0cbe7fb1
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 09:00:43.8498
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 479e9f74-3004-4795-dd49-08df0cbe7df0
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028D08.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB9163
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXP251MB0766
 
+mt7996_mcu_ie_countdown() iterates over TLV entries in the countdown
+event but only checks for a non-zero tlv->len.  A malformed event with
+a TLV length smaller than the 4-byte TLV header advances the cursor by
+less than a header size, causing misaligned reads on subsequent
+iterations.  A TLV whose declared length exceeds the remaining buffer
+is also not caught, so the cursor can overshoot the end.
 
+This is the same class of bug fixed for mt7925 in
+commit fc7801b7f11d ("wifi: mt76: mt7925: fix infinite loop in UNI
+event TLV parsing").
 
-On 9/4/26 23:49, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li<Frank.Li@nxp.com>
-> 
-> Introduce vchan_chan_name() to obtain the DMA channel device name.
-> 
-> Use a dedicated helper instead of directly accessing dma_chan::dev
-> so callers remain unaffected by an upcoming rename of the struct member.
-> 
-> Signed-off-by: Frank Li<Frank.Li@nxp.com>
+Fix by validating that each TLV length is at least sizeof(*tlv) and
+does not exceed the remaining buffer, and that it is large enough to
+contain the countdown notify payload before dereferencing.
 
-Reviewed-by: Amelie Delaunay <amelie.delaunay@foss.st.com> # For STM32
+Fixes: 98686cd21624 ("wifi: mt76: mt7996: add driver for MediaTek Wi-Fi 7 (802.11be) devices")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude (Anthropic)
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
+ drivers/net/wireless/mediatek/mt76/mt7996/mcu.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-> ---
->   drivers/dma/arm-dma350.c                     |  2 +-
->   drivers/dma/loongson/loongson2-apb-cmc-dma.c |  2 +-
->   drivers/dma/stm32/stm32-dma.c                |  2 +-
->   drivers/dma/stm32/stm32-dma3.c               |  4 ++--
->   drivers/dma/virt-dma.h                       | 11 +++++++++++
->   5 files changed, 16 insertions(+), 5 deletions(-)
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
+index cd7587ce5b8a6..f74c4b0bda3c1 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7996/mcu.c
+@@ -497,10 +497,18 @@ mt7996_mcu_ie_countdown(struct mt7996_dev *dev, struct sk_buff *skb)
+ 
+ 	tail = skb->data + skb->len;
+ 	data += sizeof(*hdr);
+-	while (data + sizeof(*tlv) < tail && le16_to_cpu(tlv->len)) {
++	while (data + sizeof(*tlv) <= tail) {
++		u16 tag_len = le16_to_cpu(tlv->len);
++
++		if (tag_len < sizeof(*tlv) || data + tag_len > tail)
++			break;
++
+ 		event = (struct mt7996_mcu_countdown_notify *)tlv->data;
+ 
+-		cdata.omac_idx = event->omac_idx;
++		if (tag_len >= sizeof(*tlv) + sizeof(*event))
++			cdata.omac_idx = event->omac_idx;
++		else
++			break;
+ 
+ 		switch (le16_to_cpu(tlv->tag)) {
+ 		case UNI_EVENT_IE_COUNTDOWN_CSA:
+@@ -517,7 +525,7 @@ mt7996_mcu_ie_countdown(struct mt7996_dev *dev, struct sk_buff *skb)
+ 			break;
+ 		}
+ 
+-		data += le16_to_cpu(tlv->len);
++		data += tag_len;
+ 		tlv = (struct tlv *)data;
+ 	}
+ }
+-- 
+2.43.0
 
