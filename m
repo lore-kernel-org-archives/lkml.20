@@ -1,102 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099D227057D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E50136215D;
 	Mon,  7 Sep 2026 15:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794651; cv=none; b=qAb7vzDcrJKHDm9NiKfbHZxMseipEH7rvaP+ItiuCe5hKS+ky3SsVSsAuEAJqx81jlkaOc7j0cdPFoydVqJ0TLN116PosGuWsXmdg3AAXslTjgV1WfLmM4VzKZor0btx7Lk0Rd44sBen4mVWAlTiDfz2otVl52iM3w/YbhIQImU=
+	t=1788794651; cv=none; b=t3dC52fKonvo+7tuHa8aYxluaf3JFcn9Ea7QcdHKqIGsNZE5D/4Bq2OmFIKvq23SlEbHu2NxXBqsB8ljmOaGOFQ3Tk4/Uuq/LjHqu/Nrcdezx4s4emFHzUWeRr1uNXRjHjk1eYw+VwT5rMkuNjCknlRoEiz72Zn8ptCkGi61HaE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788794651; c=relaxed/simple;
-	bh=GTuBLuN4JOqWdZd1Mu3f0IP0dpVMTxxsE0i4r7IPbms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LhrimGEL7yzoEVALjTLrOmJxch03r47sEVlyYB9jIJHZbrm2njx0PRxGzzD5Unsa2c7kk45NfhK/Cz/CeWvFEnmnfOv0UDuET7EzQsm/PEnd5hz8itd0X1whMUPEICUTYwzNygc7CngM2xt+bsl1+toLIfp8P2UsSBF2o9r/1X4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WGLDhRNt; arc=none smtp.client-ip=100.103.45.18
+	bh=77OB6XLSPGdx1mrtaqK7OaOPUS+8dLBkb8o1P9wfP/Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=o2Y24HnE2Sa4brKQQ27NDwtNuXKFgPImg/C88fmauW3jZE5p9bXx4XvbHXeSvQ2E2iHywE5B5RdKU5QRXX8juXoj9hsSPxB0L3NdtHOGlJfgdycyTRg+VQQgBaBOXaVBB2f5Z42cqGe5XiMLR03Nemyq9fIo1DsAwJUwqgWRFdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=TwhS7pT7; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WGLDhRNt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C41A51F00A3A;
-	Mon,  7 Sep 2026 15:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788794649;
-	bh=XJq6pvnPJHRY0KLfPMgxtLcYaufXaCJJ6tr4Hi7QX3g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WGLDhRNt4nRE4aE9ezf3Tni8/D/RqTrv1a6R29B8mOCPBobKtLb9zo5/lK9jOjLby
-	 Mt4b+OTtv8ryjM1qaIQNB89XPtXya1ta6ZulDgDK7CZJop1+wfVILgwIO3MqgD0ub6
-	 woXVtkapsHft7cjq4J3BuccCWv8KHf7zjuA5/xTBYuXfEE+WJOA8yR4/nvlQU3UiEM
-	 192hBNaTqr0SEDWxCJp1XYE5GT46/0RvbwyqZe9w4gnxhfWbzvxx6FliXBykjqnrn7
-	 FdefVRyfxMD1toYikoM7IQ+k7OLpz+ysg4cSsUclLwo4MsyZ1HbMyg2bd31iW24wEz
-	 2kqUMw1lREm2w==
-Message-ID: <4468d220-9d7f-47d0-8e5c-c01070ab2d47@kernel.org>
-Date: Mon, 7 Sep 2026 16:24:05 +0100
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="TwhS7pT7"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=6c435i0Ybwx2SpPArP3T09GV23HR1EORsj2zutcyrsA=; b=TwhS7pT7b6MrSEMKFQfGDeSRIA
+	mv6TiijYkOzV3ljABhwcKRIImezX6VdLF59YDNzKwVu9XJSBnGJI+8bj+Zieec2dbmSX+dI64ObiU
+	C6HdX1Joy5LOL3lb5qIr5LcgDoacSanCjFIsu3Kvf6RuotHWPs8FxHINv1Mo6Jw8NyZsEJZmyioRK
+	Ei8ZzeJcwumibhpITvX9zwoCt14QChw+J8HOtulb9LVA4kEShJ+v6nO0XqbRUzgWQ7L1V+pSaiCHT
+	tbHwZpkOABgvU1Qwurrtp391g+wt6DKKAT7yXWR5gRPtkmNkPLKZHrevAIYTNDGTBgmBkr3mc7fuO
+	e3n1TF0Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1x3bCK-001bGs-0M;
+	Mon, 07 Sep 2026 15:23:52 +0000
+Date: Mon, 7 Sep 2026 08:23:46 -0700
+From: Breno Leitao <leitao@debian.org>
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	kexec@lists.infradead.org, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, linux-efi@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, rmikey@meta.com, riel@surriel.com, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v3 3/5] mm/memory-failure: efi: record hardware-poisoned
+ frames into the poisoned-memory table
+Message-ID: <ap7Tup6mahjIljVF@gmail.com>
+References: <20260826-hwpoison-kho-v3-0-6f79c4b605bc@debian.org>
+ <20260826-hwpoison-kho-v3-3-6f79c4b605bc@debian.org>
+ <apGWUWi5-RbhFHpe@thinkstation>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH bpf-next 2/2] bpftool: Reject non-autoload programs for
- light skeletons
-To: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Shuah Khan <shuah@kernel.org>,
- Leon Hwang <leon.hwang@linux.dev>, Emil Tsalapatis <emil@etsalapatis.com>
-Cc: Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Ihor Solodrai <ihor.solodrai@linux.dev>, Sid Nayyar <sidnayyar@google.com>,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-kselftest@vger.kernel.org
-References: <20260904031912.2133476-1-tweek@google.com>
- <20260904031912.2133476-2-tweek@google.com>
-From: Quentin Monnet <qmo@kernel.org>
-Content-Language: en-GB
-In-Reply-To: <20260904031912.2133476-2-tweek@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apGWUWi5-RbhFHpe@thinkstation>
+X-Debian-User: leitao
 
-On 04/09/2026 04:19, Thiébaud Weksteen wrote:
-> When generating a light skeleton (bpftool gen skeleton -L), there is no
-> libbpf runtime object or bpf_program__set_autoload() API available to
-> enable/disable the autoloading of programs. If a BPF program in the
-> object has autoload disabled (e.g. via SEC("?...")), bpf_object__load()
-> silently skips loading it. bpftool still generates struct bpf_prog_desc
-> fields and attach functions in the light skeleton header, leaving
-> skel->progs.<name>.prog_fd uninitialized (0).
+On Fri, Aug 28, 2026 at 03:11:10PM +0100, Kiryl Shutsemau wrote:
+> On Wed, Aug 26, 2026 at 05:03:54AM -0700, Breno Leitao wrote:
+> > +#include <linux/memblock.h>
 > 
-> Explicitly reject non-autoloaded programs when use_loader is true with
-> an error message, preventing the generation of broken light skeleton
-> headers.
+> Is it leftover? I don't see any memblock usage.
+
+Yes, good catch, I will remove.
+> > +#include <linux/mm.h>
+> > +#include <linux/overflow.h>
+> > +
+> > +static struct linux_efi_poisoned_memory *efi_poison __ro_after_init;
+> > +static u64 efi_poison_nbits __ro_after_init;
+> > +
+> > +static u64 __init
+> > +efi_poison_usable_size(const struct linux_efi_poisoned_memory *pm)
+> > +{
+> > +	u64 nr_units = DIV_ROUND_UP(PFN_PHYS(max_pfn), pm->unit_size);
+> > +	u64 bytes = DIV_ROUND_UP(nr_units, BITS_PER_BYTE);
+> > +
+> > +	/* Whole words: the bitmap is reached an unsigned long at a time. */
+> > +	return min(round_up(bytes, sizeof(unsigned long)), pm->size);
 > 
-> Signed-off-by: Thiébaud Weksteen <tweek@google.com>
-> ---
->  tools/bpf/bpftool/gen.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-> index a50540ef6521..1583150241c8 100644
-> --- a/tools/bpf/bpftool/gen.c
-> +++ b/tools/bpf/bpftool/gen.c
-> @@ -1340,6 +1340,12 @@ static int do_skeleton(int argc, char **argv)
->  	}
->  	bpf_object__for_each_program(prog, obj) {
->  		prog_cnt++;
-> +
-> +		if (use_loader && !bpf_program__autoload(prog)) {
-> +			p_err("program '%s' is marked as non-autoload, which is not supported for light skeletons",
-> +			      bpf_program__name(prog));
-> +			return -1;
+> Hm. Why bother to clamp to max_pfn? What's what's wrong with just using
+> pm->size directly?
 
+The clamp is a min(), so it can only ever make the kernel use less of
+the table than the table claims, just a silly and cheap optimization.
 
-Sashiko is correct, at this stage of the function, rather than returning
-directly, you'd need to "goto out".
+That said, pm->size is more than enought for now, and we optimize later.
 
+I will drop efi_poison_usable_size() completely and replace it by
+pm->size.
 
-> +		}
-
-
-Thank you. Maybe consider adding a word about autoload/non-autoload in
-"bpftool gen" man page? My concern is that users who are not familiar
-with the notion will struggle to understand the error message.
-
-Quentin
+Thanks,
+--breno
