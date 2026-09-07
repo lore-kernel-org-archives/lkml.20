@@ -1,123 +1,99 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB57503BC3;
-	Mon,  7 Sep 2026 16:28:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB3851993D;
+	Mon,  7 Sep 2026 16:28:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788798514; cv=none; b=E7Bvbt/+z3raXwJ3SwMz57ttHD3UxIjDNOU3TaU9n1dfJPHrACCKKe1zkbKV0DkEIpcdDzeL9vD2xRoQkfi8LLGymCG0i+JNUZS1foTFBU7yZEGfhaKQPulyoY2Fq2p+CPZjpAThzkmw0KGrn9PgPjcX8WDU+BOAC+rFQfuQTiE=
+	t=1788798526; cv=none; b=bZwOarPcJqRw1z78NC5C6UNUny5BVohaf+H+x6viK2ZQ0PHosvaMnkfHk0G7EVxGhH4ATTX/zecP3/C7Lpj5su4+jO/dg3aWea0X7LQrnZnYHbDBu6Mvv3oE6tymMSZ2i8KEMco0yhdoymmnY+kud63Gd5vc01DRsqF5QyXlEhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788798514; c=relaxed/simple;
-	bh=SgykCNQtDc/+Ij6tSBwu7t4+5/GaewaqS/8NPFi2cMY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=tBzOTX62ObLuw7nn1w00xKs7BLn96wNoUmGAnbhgR/qmHzF6Fqxg8p7B2Ln3eS4NZauK3QdRR8u05qD/SJYsl5DuMWB1dfhcBaKqc2vlDO6DF/lgnPPWpr23UM6UEz4/qpYghrF0t/mFriIrtuPuEMA9KLf43pHbyHorZ+SYW24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=Row8ZZm4; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1788798526; c=relaxed/simple;
+	bh=DaCJBhL0Ie/9JsoTEaLKQ46zw4SlWH/BTshKSEG3Quo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bGCBXbaGQdKUsD49xFEokoObyzLwu2Wz6upH5t+Cax/ExPeyDpyqV56IgZgeHuw+2YUFIWoNav7VsFRF1JOmb1ZLKQLDibBopdfzx1MoC92br5nFBvO4QPwiCtQsOP/2cuiv35PTtns8W+NZKojYowiTkI5qtjTZkZ4W/QEIj0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=on7YMwyp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="Row8ZZm4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788798507; x=1789057707;
-	bh=6OjgMIJj50VZV8va4rj3JqbmUwbnL6ihDuaNaKIdDGM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Row8ZZm4EMCgSAPpLNtG1bytykN33OhMyfiluR3nSXDgOrNnkMIqV+yMMgCIwrIyL
-	 3AEnk3fh29zlTQZplNgniOovNCdgcya4QMkVcF4NKrIM/V3Dq4G2lTQuw7jRpJKkiF
-	 Ogs5Bq6Dry15q/jyYvRW/vVoTP8l1UFEtZhmWSyitVLSLQkqF2+sF4nb4livVDz/ZW
-	 DZibD5A0X7PT7kSmct7NVrv4j+JWfQbGOwOkjgJYcsORF576hi6X5674ULD92OP2by
-	 z7PydcwUMa6EGu7ht91Mj+oU9VycsicCS8o3nl3TepAdcqGr+zQkPFrqfxRSncRjmj
-	 GeMjdeZgMINUw==
-X-Pm-Submission-Id: 4hdsvF42Mqz1DF7F
-From: Esben Haabendal <esben@geanix.com>
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>,  "Lars-Peter Clausen"
- <lars@metafoo.de>,  "Rob Herring" <robh@kernel.org>,  "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,  "Conor Dooley" <conor+dt@kernel.org>,
-  "Martin Kepplinger" <martink@posteo.de>,  "Sean Nyekjaer"
- <sean@geanix.com>,  "David Lechner" <dlechner@baylibre.com>,  Nuno
- =?utf-8?Q?S=C3=A1?=
- <nuno.sa@analog.com>,  "Andy Shevchenko" <andy@kernel.org>,  "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,  "Christoph
- Muellner" <christoph.muellner@theobroma-systems.com>,
-  <linux-iio@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for
- struct mma8452_data
-In-Reply-To: <20260907171452.00004fc8@gmail.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
-	<31YOKVM7iz6GWh9N-mvnk5VHc2P93CchlAdIr-K7hhDqvjulK8wced5UYHkLEn3czBuvn73NN5NdM4YellB4rQ==@protonmail.internalid>
-	<20260907171452.00004fc8@gmail.com>
-Date: Mon, 07 Sep 2026 18:28:24 +0200
-Message-ID: <87ik4h81qv.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="on7YMwyp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6B72C4E4156A;
+	Mon,  7 Sep 2026 16:28:42 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2F6F360383;
+	Mon,  7 Sep 2026 16:28:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D8D3211C79FF1;
+	Mon,  7 Sep 2026 18:28:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788798517; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=AdTMXhy7HLguCTbbF69du9V2VLLyGLfiqtqDG4IxbQE=;
+	b=on7YMwyp4JEz7fgboYhvMM746YaaFyJt8X1b5fezggtJNVGcA09k9WkK3fsielbCv9c/l0
+	KH9J6Lv1LIME1zJLxEwrAWzQdE8c61gX5XytPQRFM3YiwgbwNxV2qr0v2xjVrb9LB5Mmjv
+	Ld3C9jGny2UBizNaEcGq3rMh1Uh70gmU4QnPm1bzhVzT4kUGjE4/PsSJn15M7T4ly0oIk1
+	OjZ+DyCARtLAN3N4uUq9322g3fMt6EHl7zOFGkvvMc9rLxdRheMZStk5YoTXrUU9uc66cY
+	7Q5m9oKk8EiamKsEO+mLutRWzt89Io/BjWK2Sdy/q92tm5e3jL/e6VTYo2QCsA==
+Message-ID: <b7d56704-2aed-464f-8295-2ad70e4afa2c@bootlin.com>
+Date: Mon, 7 Sep 2026 18:28:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 3/3] net: dsa: lantiq_gswip: fix
+ GSWIP_MDIO_PHY_FCONTX_EN value
+To: "Jan Havran (Advantech Czech)" <havran.jan@email.cz>,
+ Hauke Mehrtens <hauke@hauke-m.de>, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: Daniel Golle <daniel@makrotopia.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260907134818.16670-1-havran.jan@email.cz>
+ <20260907134818.16670-4-havran.jan@email.cz>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260907134818.16670-4-havran.jan@email.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-"Joshua Crofts" <joshua.crofts1@gmail.com> writes:
+Hi,
 
-> On Mon, 07 Sep 2026 16:51:01 +0200
-> Esben Haabendal <esben@geanix.com> wrote:
->
->> The struct mma8452_data is central for this driver, and it makes sense to
->> have a description of the fields in it to make it easier to work with the
->> driver.
->>
->> Signed-off-by: Esben Haabendal <esben@geanix.com>
->> ---
->>  drivers/iio/accel/mma8452.c | 16 ++++++++++++++++
->>  1 file changed, 16 insertions(+)
->>
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index c6af68d2a297..2c1b97b77bc1 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
->> @@ -104,6 +104,22 @@
->>
->>  #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
->>
->> +/**
->> + * struct mma8452_data - IIO device private data structure
->> + * @client:			the I2C client object
->> + * @lock:			mutex for synchronziation of register
->> + *				read-modify-write and holding chip in STANDBY
->> + *				mode while writing to registers
->
-> Perhaps add the word sequences after read-modify-write (that
-> could be a personal preference though)?
+On 9/7/26 15:48, Jan Havran (Advantech Czech) wrote:
+> Per the GSW145 data sheet, the FCONTX (bits 8:7) and FCONRX (bits 6:5)
+> flow-control fields of the PHY_ADDR_n register both encode 00 = AUTO,
+> 01 = EN, 10 = reserved, 11 = DIS. GSWIP_MDIO_PHY_FCONTX_EN was 0x0100,
+> i.e. field value 10 (the reserved encoding), instead of 0x0080 (01 = EN);
+> FCONRX_EN is already 0x0020 (01). Enabling tx flow control therefore wrote
+> the reserved value.
+> 
+> Set FCONTX_EN to 0x0080. The register is shared by all supported parts.
+> 
+> Fixes: 14fceff4771e ("net: dsa: Add Lantiq / Intel DSA driver for vrx200")
+> Signed-off-by: Jan Havran (Advantech Czech) <havran.jan@email.cz>
 
-Added for next version.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
->> + * @orientation:		mounting matrix, flipped axis etc
->
-> Missing period in etc., but that's a small enough nit :)
+Maxime
 
-Also added :)
+> ---
+>  drivers/net/dsa/lantiq/lantiq_gswip.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/dsa/lantiq/lantiq_gswip.h b/drivers/net/dsa/lantiq/lantiq_gswip.h
+> index bc3686faad0d6..0b75be14dc109 100644
+> --- a/drivers/net/dsa/lantiq/lantiq_gswip.h
+> +++ b/drivers/net/dsa/lantiq/lantiq_gswip.h
+> @@ -42,7 +42,7 @@
+>  #define  GSWIP_MDIO_PHY_FDUP_DIS	0x0600
+>  #define  GSWIP_MDIO_PHY_FCONTX_MASK	0x0180
+>  #define  GSWIP_MDIO_PHY_FCONTX_AUTO	0x0000
+> -#define  GSWIP_MDIO_PHY_FCONTX_EN	0x0100
+> +#define  GSWIP_MDIO_PHY_FCONTX_EN	0x0080
+>  #define  GSWIP_MDIO_PHY_FCONTX_DIS	0x0180
+>  #define  GSWIP_MDIO_PHY_FCONRX_MASK	0x0060
+>  #define  GSWIP_MDIO_PHY_FCONRX_AUTO	0x0000
 
->> + * @chip_info:			chip specific data
->> + * @vdd_reg:			reference to VDD regulator
->> + * @vddio_reg:			reference to VDDIO regulator
->> + * @buffer:			triggered buffer
->> + * @sleep_val:			time in ms to sleep while waiting for drdy
->> + * @ctrl_reg1:			CTRL_REG1 register shadow value
->> + * @data_cfg:			DATA_CFG register shadow value
->> + * @open_drain:			true for irq pin in open-drain mode
->> + */
->>  struct mma8452_data {
->>  	struct i2c_client *client;
->>  	struct mutex lock;
->>
->
-> Either way, with those added in a new version or fixed up
-> by Jonathan,
->
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
-Thanks.
-
-/Esben
