@@ -1,47 +1,48 @@
 Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0B539A079;
-	Mon,  7 Sep 2026 19:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483173AFCE3;
+	Mon,  7 Sep 2026 19:35:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788809699; cv=pass; b=HOcnTnqMKcQ0pkKBiEu6alrANCfoAicIKazjNljlBxKYx0F82LHAckj8mvk+2Xp0M4HydmMErN0JtwI7R43Lnue1dgYTtFA7LNEA74L8zYL9HylgqN5LTInZZSUZd+G+3LE+P+ScApA54NBZGXP1FnEd9XepYnr83is2/9GgaxM=
+	t=1788809711; cv=pass; b=noH4a8lxlVOmt1B3vOks3c7P9IojSkeAO3ED0GuXOzmy5PVRtcy01jCQ0yqAQEwHQebXqPSUIJ+NBdx1yWYfXDg9DOvCFzXFWaF5kowoGhQte0VGbFSDoagJXol/SXy2FScB81H+v+lzv600gbc5DCXgHn2nGsegRLP7bg81S1c=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788809699; c=relaxed/simple;
-	bh=c+hOWorUBnKmPyDnXxILchG1lRF/nzLtcxnTP8ghlqM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uBY/lxtK+TiVriZKNqWuMY0cCo1C/Dy8XnzpSWM7y8gbvJTiPXe0/CCyfaDrWLN8nla9OX6oEqjXoJGYIK0Wl6JAwHEbWDU7bHdc5mrYSN8BDXktL0IXhDwAp4BfXSaoIfoeaw+huW4eoF4pp+h6KL+UaJZN6IFSI2dspYxZOEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=qf99WxMO; arc=pass smtp.client-ip=136.143.188.15
+	s=arc-20240116; t=1788809711; c=relaxed/simple;
+	bh=4HaGzMcGPx9s0u9x0nvtzwRlskOgxNWLJE816w3eD7w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=R+DKFtZ8Au9QI8+99uohUFfSH4ZES24WenG3D5ZP3Ff54Rdh8WUxFm3ZjR1wlJZ+kCgOiGvFeVjQFWfAcnctI0CemKgOHajgpv/wYJLH2EfOll7uuMkmKvklQnwoITuEJEY/R//+gLVCFmCK/3OacHG/Ygb1uFj4lzvMrbyuwE4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=Exms/u0a; arc=pass smtp.client-ip=136.143.188.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="qf99WxMO"
-ARC-Seal: i=1; a=rsa-sha256; t=1788809694; cv=none; 
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="Exms/u0a"
+ARC-Seal: i=1; a=rsa-sha256; t=1788809697; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=DytA/dUg2QjKCVlM2tVYME71fjSOiN8DaWIgrsVKBoA/pR5NtHjhf7+pnoEfbLaR2m8YdM0rHHqMySwvDkN7dglSR9slijTOUh2sz+s6UBvQiEEbl2Jh4mOnzDQ0SFrFQZ+KAy2ik/tvd4nv+kgPs7HIMHP4ZDyw1rw90tSH/uw=
+	b=kKXyVwOY44jTYgVbck7qToTL+K7trcwm4Mc7YATNMh8udJ/IwmhgzLtboTejpF3OQ8NFJI9L0uTLgF1dik3zgaVjV3kdqkGryowhIQ2+jz/hVrrY81ATOUpt5ejZrGO+2rCtsJMemGdEcaX89k2rs00IJdC44NkvxdRDAZmP3xc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788809694; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=i+D0vcKKwbN1XgiTByp7BXFM0NG02KTrbEnLhn+7BW4=; 
-	b=n7kiq7pDxj99iIkn4FrrXup/55ghqIzp5KT0CZGZZpJASZ30HZj4G7AACS9TYDH5z3wmlxh/sxXw8sK83xIzYOEQzTwvcLZYGEpMhCWrAAF3xSqha2CkisWWZBvedGKlm4iL1ixZKQv1ftfp1rzYJerLaL11e6Wf+zbGumLEwYI=
+	t=1788809697; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=DfH2LRJLFeTgvzPF/W3OIThz3rw0voZiqYQwEN7Kc1Q=; 
+	b=XA6jW1KJcmgXdpWtLvo1LUQ+Agf7E2Czran5a8jZExp+YumPjuYDhXPcAnkhSNLv08ZAqmZ18SkJoHe8BN72E4iEx/Z48KEEckCk3TmW5Mmp9o72zPeRQlg6FCSEIPqxyuiWvQq4bvTJ+3ab6uJRZKYOBTWmZ0g8oXICFajC5l8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=rong.moe;
 	spf=pass  smtp.mailfrom=i@rong.moe;
 	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788809694;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788809697;
 	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
-	bh=i+D0vcKKwbN1XgiTByp7BXFM0NG02KTrbEnLhn+7BW4=;
-	b=qf99WxMOFp9VxQcRAMQ8yww5FdhRLaicIgkNrm4MHq0L+ZcdaTlOGOn0nzIui31m
-	XOWSz3YWup33HfbYhfnjlau0RrzvbdcVX4CUwnNgvmzoyZkQzV7vcqC8RAu3ThvjZ07
-	lMHQnU8oZcWVb2CXd2OrJ3tHoHeIrR/BZkPcnRthzZhmui5w5fe5QQovBvNDgzxiRwt
-	P9LsP6bNhKYPARol6QbBWFSicUBiKmOCG+LUBCEdUlXBXtX51iYlwLTguVwcxkED37+
-	qSFSlhwwXDem7ydJA+xrAmr0EJ3YUwicQcaKbmjEioC8m9ciKOSHSHM9honQlKAhBhd
-	5P1zq+m+5Q==
-Received: by mx.zohomail.com with SMTPS id 1788809691320810.9730316643594;
-	Mon, 7 Sep 2026 12:34:51 -0700 (PDT)
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=DfH2LRJLFeTgvzPF/W3OIThz3rw0voZiqYQwEN7Kc1Q=;
+	b=Exms/u0a2uLCrJMiiCC1vFHB0/MfRUHdA8Nq0VyfIfnrjhqXlySpmekjWL6o11vx
+	Al2oig1kGaEY6oEINUolANjqNhq01g50ujcjVsZiqBJBvE2nmEhGY2jzeFgYw7JDaLd
+	ScgxDql7un7mWvn0fUURyoZtrdZ4EY9Ce7T2MZ75ftzH7Nxw6SEE7fVoQjIIG1OhkQe
+	aERJ9xOwUivBPZJr0oYUUHF+7dZ9kkyg8NzEHsG+VQX3U3IVnlOJJOCse5IlBCUI86W
+	LR6RlyYUHfzRIEDQcQXl6TvD7PTKSHfhe2JbnRUAR4aXmtv2vdGoT7B6Vl0DIwlIQKh
+	Ap/usDOIIg==
+Received: by mx.zohomail.com with SMTPS id 1788809693585630.894171923085;
+	Mon, 7 Sep 2026 12:34:53 -0700 (PDT)
 From: Rong Zhang <i@rong.moe>
-Subject: [PATCH 0/2] ALSA: usb-audio: Add quirks for HP Elite x3 Lap Dock
-Date: Tue, 08 Sep 2026 03:34:38 +0800
-Message-Id: <20260908-uac-hp-elite-x3-lap-dock-v1-0-e226cfe4038e@rong.moe>
+Date: Tue, 08 Sep 2026 03:34:39 +0800
+Subject: [PATCH 1/2] ALSA: usb-audio: Convert
+ snd_usb_apply_interface_quirk() into a switch statement
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,88 +51,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMPQ6DMAxA4asgz3gIPyrpVRBDcJziFkGUBISEu
- DtpO37DeydEDsIRnsUJgXeJsi4ZqiyAJrO8GMVmQ/OwSnedxc0QTh55lsR41Dgbj3alD7baUVO
- NTiuqIOc+sJPjt+6Hv+M2vpnS9wfXdQMb3crKfAAAAA==
-X-Change-ID: 47d1988d-uac-hp-elite-x3-lap-dock-59fc42bf91c2
+Message-Id: <20260908-uac-hp-elite-x3-lap-dock-v1-1-e226cfe4038e@rong.moe>
+References: <20260908-uac-hp-elite-x3-lap-dock-v1-0-e226cfe4038e@rong.moe>
+In-Reply-To: <20260908-uac-hp-elite-x3-lap-dock-v1-0-e226cfe4038e@rong.moe>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Rong Zhang <i@rong.moe>
 X-Mailer: b4 0.17-dev-1f2f7
 X-ZohoMailClient: External
 
-The HP Elite x3 Lap Dock is a laptop-like external display device with a
-FHD screen, a keyboard, and a MT touchpad. It can be connected via USB-C
-or Miracast. As an e-waste collector, I recently brought one for 69 CNY
-(10.2 USD). The price already indicates how broken the device's design
-and compatibility are ;-P
+A switch statement is more readable than the current if blocks.
 
-When connecting via USB-C, the video source is, of course, DisplayPort
-Alternate Mode. However, the audio source has nothing to do with the
-DisplayPort signal and is actually from a builtin UAC device.
+Also sort the cases in an ascending order.
 
-The builtin UAC device provides three Alternate Settings:
+As an interesting effect, this shrinks the size of quirks.o by 64 bytes
+(GCC 16 -O2 x86_64):
 
-- 1:1 - Capture, S16_LE, 8000/32000/44100/48000Hz
-- 2:1 - Playback, S16_LE, 48000Hz
-- 2:2 - Playback, S24_3LE, 48000Hz
+      text       data        bss      total filename	(before)
+     15266      12279          0      27545 quirks.o
 
-Unfortunately, the last one is broken because:
-
-- it doesn't accept SET_CUR(SAMPLE_RATE). QUIRK_FLAG_FIXED_RATE works
-  around it, however...
-- it constantly produces severe harmonic distortion once the capture
-  stream is also opened. The interface 2 must be closed and reopened to
-  make it recover. IOW, simply closing the capture stream makes no
-  difference.
-
-Considering that S24_3LE offers no additional benefit on small speakers
-compared to S16_LE, and 2:1 is always usable as an alternative, skip 2:2
-to get rid of the trouble.
-
-Setting chip->setup to any non-default value disables the fixup and
-reenables 2:2 (in this case QUIRK_FLAG_FIXED_RATE is required).
-
-Quirky device sample:
-
-  usb 7-1.4: new full-speed USB device number 50 using xhci_hcd
-  usb 7-1.4: New USB device found, idVendor=03f0, idProduct=0c56, bcdDevice= 0.00
-  usb 7-1.4: New USB device strings: Mfr=1, Product=2, SerialNumber=0
-  usb 7-1.4: Product: HP Elite x3 Lap Dock
-  usb 7-1.4: Manufacturer: HP
-  usb 7-1.4: Found last interface = 0
-  usb 7-1.4: 1:1: add audio endpoint 0x81
-  usb 7-1.4: Creating new data endpoint #81
-  usb 7-1.4: 1:1 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:1: add audio endpoint 0x1
-  usb 7-1.4: Creating new data endpoint #1
-  usb 7-1.4: 2:1 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:2: add audio endpoint 0x1
-  usb 7-1.4: 2:2 Set sample rate 48000, clock 0
-  usb 7-1.4: 2:2: cannot set freq 48000 to ep 0x1
-  usb 7-1.4: [9] FU [Sidetone Playback Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: cannot set ctl value: req = 0x4, wValue = 0x200, wIndex = 0x900, type = 4, data = 0x40/0x0
-  usb 7-1.4: [9] FU [Sidetone Playback Volume] ch = 1, val = -17664/0/128
-  usb 7-1.4: [2] FU [Headset Playback Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: [2] FU [Headset Playback Volume] ch = 2, val = -18944/0/1
-  usb 7-1.4: [6] FU [Headset Capture Switch] ch = 1, val = 0/1/1
-  usb 7-1.4: [6] FU [Headset Capture Volume] ch = 2, val = -18944/0/1
-  input: HP HP Elite x3 Lap Dock Consumer Control as /devices/pci0000:00/0000:00:08.3/0000:c9:00.4/usb7/7-1/7-1.4/7-1.4:1.3/0003:03F0:0C56.0033/input/input129
-  input: HP HP Elite x3 Lap Dock as /devices/pci0000:00/0000:00:08.3/0000:c9:00.4/usb7/7-1/7-1.4/7-1.4:1.3/0003:03F0:0C56.0033/input/input130
-  hid-generic 0003:03F0:0C56.0033: input,hiddev100,hidraw8: USB HID v1.11 Device [HP HP Elite x3 Lap Dock] on usb-0000:c9:00.4-1.4/input3
+      text       data        bss      total filename	(before)
+     15202      12279          0      27481 quirks.o
 
 Signed-off-by: Rong Zhang <i@rong.moe>
 ---
-Rong Zhang (2):
-      ALSA: usb-audio: Convert snd_usb_apply_interface_quirk() into a switch statement
-      ALSA: usb-audio: Add quirks for HP Elite x3 Lap Dock
+ sound/usb/quirks.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
- sound/usb/quirks.c | 52 ++++++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 46 insertions(+), 6 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 47d1988d-uac-hp-elite-x3-lap-dock-59fc42bf91c2
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 91938172912a..6e4808330a80 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1589,18 +1589,20 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
+ 				  int iface,
+ 				  int altno)
+ {
+-	/* audiophile usb: skip altsets incompatible with device_setup */
+-	if (chip->usb_id == USB_ID(0x0763, 0x2003))
+-		return audiophile_skip_setting_quirk(chip, iface, altno);
++	switch (chip->usb_id) {
+ 	/* quattro usb: skip altsets incompatible with device_setup */
+-	if (chip->usb_id == USB_ID(0x0763, 0x2001))
++	case USB_ID(0x0763, 0x2001):
+ 		return quattro_skip_setting_quirk(chip, iface, altno);
++	/* audiophile usb: skip altsets incompatible with device_setup */
++	case USB_ID(0x0763, 0x2003):
++		return audiophile_skip_setting_quirk(chip, iface, altno);
+ 	/* fasttrackpro usb: skip altsets incompatible with device_setup */
+-	if (chip->usb_id == USB_ID(0x0763, 0x2012))
++	case USB_ID(0x0763, 0x2012):
+ 		return fasttrackpro_skip_setting_quirk(chip, iface, altno);
+ 	/* presonus studio 1810c: skip altsets incompatible with device_setup */
+-	if (chip->usb_id == USB_ID(0x194f, 0x010c))
++	case USB_ID(0x194f, 0x010c):
+ 		return s1810c_skip_setting_quirk(chip, iface, altno);
++	}
+ 
+ 	return 0;
+ }
 
-Thanks,
-Rong
+-- 
+2.55.0
 
