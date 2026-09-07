@@ -1,154 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A784145041C;
-	Mon,  7 Sep 2026 09:51:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B9FE44E04C;
+	Mon,  7 Sep 2026 09:51:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774715; cv=none; b=M+YbEo4b/iNnueLpSc+6WUqC2vHJ+4Ix738RggMHNY21V5iJxX4+RtUGy6Enwv4wyB1DJphruq6mjG93ID0L3TjivJVwdp/l3+suCZS19o4W+O6GM2HcapiMZB4VMknN1aD6QqanOT49dwvtt/z1mb52vyQTrDYgk6N2aAQD4OI=
+	t=1788774717; cv=none; b=SaeKA2fBpZeU8btRX1Qun9z4LWhZPnYanY42QbfNBo4t5HulOFO1G8AnjJIXNCwBplhVsc9SlYWO4QVJKl6ZiTY1Z/+Fd9IiZQEvEwRNYwwQ1KdaYP7H85hh+dtnnx+IMVGqG+Bl40ugkHVMzAtwsWMPJMqs9wvzLyAZ77CWnHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774715; c=relaxed/simple;
-	bh=eq5BwWiyHB30dDI1F4cffK8njPC5VBf2pkAM6IIBxz0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eKP6Sm2Wl1JttMs6NvdD1DHkB1H8YvkYDuuFfT0prV7LddJYLtMIlpFQMZVH8iaLrOOXBRyjdpQxesxjd/gqDuhnFdpyBcNvUNakuZutfb+B2YatwoM/4+6dvfkATYjc3/+1bMBnAF98E2SSgLu2wG3BX4jo4X4lTZym1mkzMpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kaEnn1/K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788774717; c=relaxed/simple;
+	bh=bZeekVQBE9YlZon9Vvliwy/DhKV52lBfPfuHpmmsV9E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fnc9qy86sHodxmj46iSXlZkKQo1yQS3X+0v7z+MDpARBI+ZJyQ70KY6yP3e8gqZ1LFWWAECRzzmOEYC6DusV/nprSnGdYK/RW4xzlJOKcp3EsVuebJrk27X/aYvO2ziw1xiugHk4MOGKdZY5NKDXz62Is0uNfNc/77HJal+TncA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O+ziwSJT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kaEnn1/K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F00BE1F00A3A;
-	Mon,  7 Sep 2026 09:51:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O+ziwSJT"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 364591F00A3D;
+	Mon,  7 Sep 2026 09:51:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788774705;
-	bh=VFweDQmpO9/uaET+6g5EHgUcto2UGa8pbMFyGmTkkfI=;
-	h=From:To:Cc:Subject:Date;
-	b=kaEnn1/Ko6oWquK9wsPqH61ikUDEpeoxEoHyL4boSJKnQeG0NLsORHW8ggU6GWXOZ
-	 uIS/hK7GT9hNRD5zJ8epeURzkM4L2S1UwPCQtekiyrcVF56iVSFF3M2MULuMSRFRTl
-	 Ww4Oxvzlf+jwgBWWzdToBSoFNiRLob5CNfIKkN33l/gijxQ+EuDBAkVvTVmb5aC0zd
-	 Usw4f5Dz5SvmlSYFtS8KR3ljS12akFtwpJikwDpTTHzp3Bnp1m1+HFIohO91oOUPED
-	 dSqzlNZjsl/KzCQKzqp2i3SH+JO/e+ldvgJhWYCkEj3LMyh6c5LnLVRp53f2yZfV6f
-	 Ih0T4xmyB46bg==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x3W0s-00000000Xzi-1YPJ;
-	Mon, 07 Sep 2026 11:51:42 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Oliver Neukum <oneukum@suse.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Johan Hovold <johan@kernel.org>,
-	stable@vger.kernel.org,
-	Oliver Neukum <oneukum@suse.de>
-Subject: [PATCH v2] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-Date: Mon,  7 Sep 2026 11:51:30 +0200
-Message-ID: <20260907095130.130636-1-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788774707;
+	bh=94xGjJvtgFiX7cwwvmP6G4Zq0Fc+D8FQSJH9UuIdtbw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O+ziwSJTC22q3RCfQUXuzOvAYi9BrSdZU9yE743Z6QaY7LuFmqYPeEJA9kqdBJTjK
+	 ZALBSsnyPMsB1uCcOs+1pQ8c7qK32A70+ScYTEIqYZhqaap63YHXeAeT5wWT41bluW
+	 zPKIJ6PvbuWLd7aNQMkt2ZRQFFtuGq+vYwqf9NZoL++Lmhjo9C6uiVi3qHfp1snTQ3
+	 I0mrm5zRFk5PUxnk2yh+2X9Pc+2C7jpJXR5KoH8JSyHiQ6s8tl5jAT4rP7UcSi83Qi
+	 KkkqB+Jk8bcTxPBjpMLP1CA78dL+XJ7E9suMKYdFJa6XFMrvViG1E5zqwtSSLkzMEa
+	 LZ8fctdnAr9DA==
+Date: Mon, 7 Sep 2026 11:51:45 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: kr494167@gmail.com
+Cc: george.moussalem@outlook.com, quic_devipriy@quicinc.com, 
+	andersson@kernel.org, baruch.siach@siklu.com, linux-pwm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: ipq: prevent potential 32-bit integer overflow in
+ hi_div calculation
+Message-ID: <ap6IbbFqQsBvVSm9@monoceros>
+References: <20260724044854.33274-1-kr494167@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-Check the wakeup condition after adding the task to the waitqueue and
-updating the task state to avoid missing a racing modem status update or
-disconnect.
-
-Store the old icount on entry and do not update it in the completion
-handler to avoid missing events or reporting spurious ones (due to modem
-status changes before TIOCMIWAIT was called).
-
-Fixes: 5a6a62bdb925 ("cdc-acm: add TIOCMIWAIT")
-Cc: stable@vger.kernel.org	# 3.14
-Cc: Oliver Neukum <oneukum@suse.de>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
-
-Changes in v2:
- - store old icount on entry only
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="j34pj56bwgqgob27"
+Content-Disposition: inline
+In-Reply-To: <20260724044854.33274-1-kr494167@gmail.com>
 
 
- drivers/usb/class/cdc-acm.c | 36 +++++++++++++++++++-----------------
- drivers/usb/class/cdc-acm.h |  1 -
- 2 files changed, 19 insertions(+), 18 deletions(-)
+--j34pj56bwgqgob27
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: ipq: prevent potential 32-bit integer overflow in
+ hi_div calculation
+MIME-Version: 1.0
 
-diff --git a/drivers/usb/class/cdc-acm.c b/drivers/usb/class/cdc-acm.c
-index 7bc5329fa3ed..21417b4c5154 100644
---- a/drivers/usb/class/cdc-acm.c
-+++ b/drivers/usb/class/cdc-acm.c
-@@ -331,7 +331,6 @@ static void acm_process_notification(struct acm *acm, unsigned char *buf)
- 
- 		spin_lock_irqsave(&acm->read_lock, flags);
- 		acm->ctrlin = newctrl;
--		acm->oldcount = acm->iocount;
- 
- 		if (difference & USB_CDC_SERIAL_STATE_DSR)
- 			acm->iocount.dsr++;
-@@ -1027,11 +1026,16 @@ static int wait_serial_change(struct acm *acm, unsigned long arg)
- 	DECLARE_WAITQUEUE(wait, current);
- 	struct async_icount old, new;
- 
--	do {
-+	spin_lock_irq(&acm->read_lock);
-+	old = acm->iocount;
-+	spin_unlock_irq(&acm->read_lock);
-+
-+	add_wait_queue(&acm->wioctl, &wait);
-+	for (;;) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+
- 		spin_lock_irq(&acm->read_lock);
--		old = acm->oldcount;
- 		new = acm->iocount;
--		acm->oldcount = new;
- 		spin_unlock_irq(&acm->read_lock);
- 
- 		if ((arg & TIOCM_DSR) &&
-@@ -1044,22 +1048,20 @@ static int wait_serial_change(struct acm *acm, unsigned long arg)
- 			old.rng != new.rng)
- 			break;
- 
--		add_wait_queue(&acm->wioctl, &wait);
--		set_current_state(TASK_INTERRUPTIBLE);
--		schedule();
--		remove_wait_queue(&acm->wioctl, &wait);
- 		if (acm->disconnected) {
--			if (arg & TIOCM_CD)
--				break;
--			else
--				rv = -ENODEV;
--		} else {
--			if (signal_pending(current))
--				rv = -ERESTARTSYS;
-+			rv = -ENODEV;
-+			break;
- 		}
--	} while (!rv);
- 
--	
-+		schedule();
-+
-+		if (signal_pending(current)) {
-+			rv = -ERESTARTSYS;
-+			break;
-+		}
-+	}
-+	__set_current_state(TASK_RUNNING);
-+	remove_wait_queue(&acm->wioctl, &wait);
- 
- 	return rv;
- }
-diff --git a/drivers/usb/class/cdc-acm.h b/drivers/usb/class/cdc-acm.h
-index 01f448a783c0..d245e60eb9f5 100644
---- a/drivers/usb/class/cdc-acm.h
-+++ b/drivers/usb/class/cdc-acm.h
-@@ -90,7 +90,6 @@ struct acm {
- 	unsigned int ctrlin;				/* input control lines (DCD, DSR, RI, break, overruns) */
- 	unsigned int ctrlout;				/* output control lines (DTR, RTS) */
- 	struct async_icount iocount;			/* counters for control line changes */
--	struct async_icount oldcount;			/* for comparison of counter */
- 	wait_queue_head_t wioctl;			/* for ioctl */
- 	unsigned int writesize;				/* max packet size for the output bulk endpoint */
- 	unsigned int readsize,ctrlsize;			/* buffer sizes for freeing */
--- 
-2.55.0
+Hello,
 
+On Fri, Jul 24, 2026 at 10:18:54AM +0530, kr494167@gmail.com wrote:
+> From: Surendra Singh Chouhan <kr494167@gmail.com>
+>=20
+> In ipq_pwm_get_state(), hi_div was calculated as:
+>   hi_div =3D hi_dur * (pre_div + 1);
+>=20
+> hi_dur and (pre_div + 1) are both unsigned int (32-bit) values.
+> Evaluating their multiplication using 32-bit arithmetic before assigning =
+to
+> the 64-bit u64 hi_div variable can overflow 32-bit unsigned math.
+>=20
+> While effective_div explicitly uses (u64)(pwm_div + 1) * (pre_div + 1) to
+> prevent overflow, hi_div was missing the (u64) cast.
+>=20
+> Fix this by casting hi_dur to (u64) before multiplication, matching the
+> precision used for effective_div.
+>=20
+> Fixes: c436e3e9c265 ("pwm: Driver for qualcomm ipq6018 pwm block")
+> Signed-off-by: Surendra Singh Chouhan <kr494167@gmail.com>
+
+Applied to
+
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+
+=2E Did you find this issue by code review or does it trigger easily? If
+the latter you might be able to convince me to send this patch to Linus
+before 7.3.
+
+Best regards
+Uwe
+
+--j34pj56bwgqgob27
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqeiS8ACgkQj4D7WH0S
+/k557Qf+LY2Zqe4bJfS7bMDsyBtj5qhf5TsUMLj5q7neeevDrzFob8ELrLHYkM6h
+ljPkSGyyiV5hNS+/WYz6F9uFUlHWhl9sUSxWR6gA6sPz1rrBM2LuT/65TVFR7lrT
+jiZSBZ106vynlPZBfspmMFCzRW79ceatjjCm0qsmDt8tMSsCRD66der4ac3kufvc
+dIOFiJqtrd6/Zsxyi6Ns5mtCXwc7RPlv+/6n2pAr4z9HohJJp8QysvGjcy/FYcU6
+0PtPtKsGKSsLve7vwzbY9SWGObgK6YS9arPYSh5Egh4i4uQmZzAGvV9xpXeblNBW
+qScuR6aBzEXkvczMMCzN4pXU6TpELw==
+=In8r
+-----END PGP SIGNATURE-----
+
+--j34pj56bwgqgob27--
