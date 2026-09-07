@@ -1,63 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A26D94FDE4F;
-	Mon,  7 Sep 2026 17:28:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E7F4FDE4F;
+	Mon,  7 Sep 2026 17:29:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788802122; cv=none; b=K0g1E6xVklBC73ULdE76mt3fgRcPtAeNBPFxnR74IMfkkPmOFKPqKDRqKhw84ouUVup2A5AyuYCrrCADRimO61ZkHPGdu6Emz4wQIAgzmZw/diG/qSmdUag1pvzsykIDVY1tOKqm8Yw56uSXIINMbQXjQsVXTgHWhyYKoek8eec=
+	t=1788802150; cv=none; b=IEdULFbzXalUghl8Q5vssj5bvMKXF/6topD5q9gB1bY0HuvKVo/nsCUYjq/aXAsMv29/MzJU2D+xix0fQssRUuFGCbG5OP3uturt0K6Es7EfwNzf75C/FmpUdiuLr0OUitPaWUEeEUZm40C2tlRC5dBKR/VAu4Q+p08Ok7e1svY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788802122; c=relaxed/simple;
-	bh=vXwLNfHPzU8bfsofq4g8bmwUYL5F0bhrd10fUU0cZT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lZxu06PrLc1kc1FI/Ql1zDLixlaGuTXiRCQUC8qN++YELTz0P1FHcck/ATapeHunnbDfaS7/tg4lvwwjZKHvREgQPHm0s/vpxx1Ugx70AmxyKhbBeXu9Lm/i9v1KTywarG7PCN+heYiESkHwWuZ+4F7dRnH0FQ/J5PjKIjLs5X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PYW1rCbZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788802150; c=relaxed/simple;
+	bh=/1hmG1lehCuUO+ARkkMDQ+c6y5feMnW+gBtd5JoyDHc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YflxAtgKUzS0RVrS0BAcZoUM7yKLW2BnJAEIT2YYtR/XEixDtUUkp2pRJYl1tOhbz/APtg1cEhzXMQSCT0eV2TGmwi9JwWLjsupZxNOS/NHj5ds32Nn8oRmE6k7YADFWhuOUDcVfeEP6kPf2QJz68p3RL0IwJ6mOaqSyMjKXNrs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArpM/AG7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PYW1rCbZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 045F01F00A3A;
-	Mon,  7 Sep 2026 17:28:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArpM/AG7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7D831F00A3A;
+	Mon,  7 Sep 2026 17:29:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788802121;
-	bh=5b/sg7nRQD9/2QrfkHXPbfXaDTnpNCHth002k6PlL6w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PYW1rCbZTZK99N+NNFGs7g/OHBV3T9qv/759RQ4v6LlXSkJ2M2a128/B1bdIaxXiN
-	 5gvQxG2k5CpBoaJC9t/yFqaiCKSsnDMm5ncqUSG7xSz9uBwyPVrJYpAd8PZBW1DwdS
-	 7MQG73viD3iqAfSx5H3LSBirkbRRQFY8UQ3PPQUU2wi6wOAX2Yh6wcaqUIV4CYBRJJ
-	 f+I1jPepRGT9vQfbvrexSaraqe5iImI36nqXHWZvskLwPhdRZmzQ++s3b3NoncP5Ff
-	 73LRe7TTCFuEfILDGmnK/iqP69dlFoKRAN9lqsvyeD9M8l7qnmhJf0jIoUMrjMXz3Q
-	 rnEiPxrVlZXUQ==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	stable@vger.kernel.org,
-	Enze Li <lienze@kylinos.cn>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH] mm/damon/core: reset invalid quota->charge_target_from
-Date: Mon,  7 Sep 2026 10:28:32 -0700
-Message-ID: <20260907172833.102388-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907165529.98874-1-sj@kernel.org>
-References: 
+	s=k20260515; t=1788802149;
+	bh=/1hmG1lehCuUO+ARkkMDQ+c6y5feMnW+gBtd5JoyDHc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ArpM/AG7Ta1DlsDiaTnCz1zNCl7xQSCTdf501yXcUna7htnOL8CnXsGen3/PDI0x4
+	 Tyqboy+g16sB7aCR6FOFpZ1SEghGsbqBZxxlRwFKaGd5/jSScHAJdyvvc+eyasdt91
+	 ZmXOje3QDZrcjgAJ874NcIiwB7qyHzr2O70C4D22YmtWFo1BSNTXQSxmzvUV49taMk
+	 /1GQxlS+nuF6JBWtMkIfgue5q/q7YOkcy3WRxQPuc1Uf5//syprYxEewjfddEYyX6u
+	 4f2PHzkG7egCFN+9xeJgfeUe0ZecvWw3Cw/YkuRowYm/yNYv9ygWJL/o6IybZOLIGV
+	 cZeyVk2W9ufBQ==
+Date: Mon, 7 Sep 2026 18:29:04 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, jyanchou@realtek.com, p.zabel@pengutronix.de,
+	afaerber@suse.com, devicetree@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	james.tai@realtek.com, cy.huang@realtek.com,
+	stanley_chang@realtek.com
+Subject: Re: [PATCH v2 1/2] dt-bindings: spi: Add Realtek RTD1625 SPI support
+Message-ID: <20260907-grandma-extradite-6a15a475db96@spud>
+References: <20260906145755.1230079-1-eleanor.lin@realtek.com>
+ <20260906145755.1230079-2-eleanor.lin@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oZ84S2dSrw7uiTva"
+Content-Disposition: inline
+In-Reply-To: <20260906145755.1230079-2-eleanor.lin@realtek.com>
 
-On Mon,  7 Sep 2026 09:55:27 -0700 SJ Park <sj@kernel.org> wrote:
+--oZ84S2dSrw7uiTva
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> DAMOS can suddenly stop working if a target process that quota just
-> fully charged in it is terminated.  Fix by catching and processing the
-> corner case.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Sashiko found this fix is not complete.  I will post a new version.
+--oZ84S2dSrw7uiTva
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-SJ
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap70YAAKCRB4tDGHoIJi
+0qC/AQDIGRssxRyDzhZYy19V9Hk2KYPawIpTyzIa26SltTYFGwD/XYlhNpsNIt8N
+JCwJh9aCpXZGDOZ873k3+cbEfajHAQo=
+=QB0u
+-----END PGP SIGNATURE-----
 
-[...]
+--oZ84S2dSrw7uiTva--
