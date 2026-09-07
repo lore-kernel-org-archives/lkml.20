@@ -1,137 +1,233 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995DF37BE93
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 13:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DBD470EA5;
+	Mon,  7 Sep 2026 13:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787336; cv=none; b=idjb6mdPNt79/WDppGhCNUomHDlFGAkO1UMBgTpQl4Et5/622S2z1Nz4+CwExaQGPRonzD5uFO25Ke4gR3w+In2dM/3nczepmlD2WnQ6Mc8fosqWoDlvd4kM1sjUuAEnZpw/cKAeWCptC2nxfMzjgcp2TQq53hblepUueLd/eQ8=
+	t=1788787403; cv=none; b=Q3FPXeAsqKCT7h0HIt0lh8wziAcroeSqG4lN9neHay01BBIxzM1QjecmSnliJcdRqA98rLo/sacuCnCjuwEetNUCbmS/HQL9FfvuNZYPQ+JywNXW9hpsFSkBp8Z/MCaZjMIpJQp7BK/NCmbo9+iCvB8RmOdSU6/7nZYdnDz2T3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787336; c=relaxed/simple;
-	bh=NU+eZSzEsrnjCal8oIlsrDjpb9U7xXSSdQQ4LiKYAH0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qUnnPZ5yLA2q/oykONbDGujhc1MtS/yKEsyQ5gFpvhPA7TDZCP/feHTp6Ie45SgEoD43+7oVm+1sfbUG8csol+IKsrb437uNASvAc4QoxohjL7L5pIwVBk/mhQMT/WNjqAuaprAVg0ExLzj6MNcVt+Apjnf25lU6n9Rcrg0EA/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AgcB92mg; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788787403; c=relaxed/simple;
+	bh=6/tZIjgYlPDCnA2gdyUwB+mS3j9cICGl6lRKZbJ6NW4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WzGLjhDJPJaVtalyV0fZVcPdnF5e2RE4pOpLjyUUtd7F57XftfmDXBqTzag5NuRJVTiVcfvfjOy58JpREmJ28n9YD9lBjs9W4ijtAszfch1MS4QPgiqm50q1n2mHAToHG7FpBKAkm0ytg1pQFH6n8B33vqkmn44iPsAmgMh/ulM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L2cRw5pc; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AgcB92mg"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49557167508so43129535e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 06:22:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788787328; x=1789392128; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ViElzflaszjSFY7ZUxClX7Wwc/oOQXR/RJoA4DtKYyY=;
-        b=AgcB92mgA37QBT/VVE3DrDsyCQEwtDJmJfx3JGvZKtlAvrdgtC/n4/3B1DcMRcp6pr
-         31XtfxJf5GdwxvYCz30v1p6wV+N4r49FS/SO4qudxE2RzTqF5KpPwyK+HFIQIThLYVat
-         S/eU2zHTbuzFe9U4sS9/9mcYvI4/bsiRKalfRTOZsSQ7eNfggHwU8aAce9Itt9g8gT4C
-         W82owuPSa+qt4C5K7qdC0uUXnw8KLOSRBXs9fOwar/vp1HLqZS/8P+I7d4/jGfIx9Y38
-         D+MkazK/EegK5ri8NZEx8IvtmiIhJMAcPvjqWIUMJxgnwo+5CsMHBiW6C6VTarWOtzMs
-         YF9A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787328; x=1789392128;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ViElzflaszjSFY7ZUxClX7Wwc/oOQXR/RJoA4DtKYyY=;
-        b=Jc+ybtKjXvQHPU9EyqNkrLWKTh/Hm/0NYpolRYYtMJ2T3Ij1hicscy+O/vr132ZDuq
-         MpuATsnQPRcGNv0oYxJSgKbXuXLq8O0A5CcdLYxJMQEDu+MzOw2fTG7lgpc6PwIoMh/E
-         sKlR4xj5PZkNNw1dopiq4h6vLkTAGDfyYBTm5pnTCnBMxNHCpgit6lF4brm1EU61xnFz
-         JrdSm3z6/mLgM87olgD6LKYOfX6CpLGDQs+N/GywEdI9yugFh9C+9/Di+6A5nQaBkD0A
-         sCfWp/zD1r+lWq5OHNIB/Wi3GYO5cLArUZiLsCoPG/MvywtC8HLxWUGV49u7OF4gQsLz
-         3iAA==
-X-Forwarded-Encrypted: i=1; AKwUvBweilGhb8OwUF0io9wAdSP8d/MJBq4/4LCpIP5ya1ZSQGcAhHiZZ4UtLuU9hkRJuBwQSof6qCX0rtuzyRM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC9bJ9UfGtr5tVgsXdn/EvJklo+x80oh7wwmrVpVLNxVikA0yT
-	J0tCY4VzFZvrl56QXAXZBb3LpgRgnWdViDkyvzl5cTz62axSkSJ5mZUU
-X-Gm-Gg: AYBFou0tnNV8c5l7JaE4FSnpZsFKY1FQ8T9S/ZxWZT+oVBIMFs4tVA5f0WPwcVP/O/G
-	7Aa3NK8TyrLqTA9ValytFFlZ5dxDCHsi/Fkz0flQMx85bRxbapF/dtvlXbTIq8f7oxV9TEXmL65
-	jOAbej66pLMubRqIb+aXyYKTP29OWS4l/AgJmC5niP8W1X1TUlu2+pKEQk6aJXDnWYslOrWPas8
-	atRqcf/zk9K1A2AqmceKiuEGdBRB1Y4O1832cBZXFx/0te+/Zeb0l2bx52bpQSRWgCplUYOy2qY
-	5b9ozbEI5r+Yp1RhbA7lcLFO/EkW1AKvb8DreAabt4xnWJH0oTORUAFKRNtC4ii1qvFmoC2DHLA
-	aJ565iX/MGnIGVAPd03Z56aNi+Lx3qq/3Z0WhQHDCVkZXbQQz4gBDjv+/wivS7bPO+/O2s2wzWt
-	J/bKiuvfnBj9fS++05djCZ9UKBPn0foeQWdw7FNkdc02jQlklfTGxiPg+DNtFfNeel40xP60W5S
-	6avKKP2FkPToSDl+l2LvsUEqukuwZFlc1HoIMohAVqNn84JgPsTo8spIq7ToKaMVcC0MPwZebkF
-	ua98GU2P13FvmW52TkFtJG2lrWQkPvRk9TXGyPjuYi1UWSgiFL0Ufje94YGsj6s6ovQUhaNej+s
-	0mKeJdgs+8X+4eu437A==
-X-Received: by 2002:a05:600c:3f12:b0:49c:c8de:96a9 with SMTP id 5b1f17b1804b1-49cf7fdd2dfmr448928055e9.2.1788787327897;
-        Mon, 07 Sep 2026 06:22:07 -0700 (PDT)
-Received: from Ubuntu.ts.net (87-205-15-91.static.ip.netia.com.pl. [87.205.15.91])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588394fa1sm27458397f8f.8.2026.09.07.06.22.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:22:07 -0700 (PDT)
-From: Krystian Kaniewski <krystianmkaniewski@gmail.com>
-To: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: kernel test robot <lkp@intel.com>,
-	oe-kbuild-all@lists.linux.dev,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Linux Memory Management List <linux-mm@kvack.org>
-Subject: [PATCH] ocfs2: remove unnecessary ret variable in ocfs2_calc_xattr_init()
-Date: Mon,  7 Sep 2026 15:22:00 +0200
-Message-ID: <20260907132202.48834-1-krystianmkaniewski@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <202609040247.8B3lmoqX-lkp@intel.com>
-References: <202609040247.8B3lmoqX-lkp@intel.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L2cRw5pc"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 2A8074E41569;
+	Mon,  7 Sep 2026 13:23:14 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EBDEB60383;
+	Mon,  7 Sep 2026 13:23:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CB22B11C7AF23;
+	Mon,  7 Sep 2026 15:23:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788787392; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=I+ZtAvkf6k/wLeWcxjeg2Z2m4g05aYFAUCEjuKdkmqI=;
+	b=L2cRw5pcQQJCl65O/jv2bqUsUCCsBPvxnajMOGMTOmNC+OyEOAUrQInoJauv3LyzSk8HXm
+	47VnP/s2szCEMPgZe/8D1mLvPRrrEZbob8fKk9LuZL8ZKkFxmaFkKFvcnbaEvlwa3vQLaH
+	bYrlycClijhLxp0oZMjrgsnBC8UpX8I2ujgsxvbHL15L/l5g73A2VBdtundT3nEeb3p3RR
+	C++UvVKFVGC9PD//+pwkSQ2sNF++a1ExhBSvrYQBCwSiMxN86IO+ykW9aWRcj45Q/AGd4y
+	2vJJc6OFOJQZy382BH9tMt0Rj8uOPUSGZL/c+qZaudfC41O4Ktjgsp+yPCpKPA==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH v5 00/19] crypto: talitos - Driver cleanup
+Date: Mon, 07 Sep 2026 15:22:34 +0200
+Message-Id: <20260907-7-1-rc1_talitos_cleanup-v5-0-860f43cd7317@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QQW7DIBAF0KtYrEvlAWywV71HVVkDTFKqxE4Nt
+ lpFuXuJHTWponT5peHNH44s0hgosrY4spHmEMPQ51A9Fcy9Y78lHnzOTJSiLiswXHPgo4Mu4S6
+ kIXZuR9hPB94ICVgrEs0GWX59GGkTvhb59W3NcbIf5NKZu0yM9DnllWkdYxYjcTfs9yG1hbfGN
+ hshtJGS9JndKIUVCEQgY7AWla3QG3ZbtS3WoqXidhjSLvRdxtNv60ius9M2N+MgoW7Il9p7186
+ SnUu+h5iG8Xv5jRmWTqsnHh8+Ay+5s4C+dp5QNS+Xzc/5kkWdxVWqAR5LIkuICg1IR3Vj7yV5l
+ bT4R5JZ0k4DCqu1M/JeUreSeCypLBnwQF6gbwD+SqfT6QeiwyKQQwIAAA==
+X-Change-ID: 20260518-7-1-rc1_talitos_cleanup-9231a64e29fa
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Christophe Leroy <chleroy@kernel.org>, linux-crypto@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788787387; l=7941;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=6/tZIjgYlPDCnA2gdyUwB+mS3j9cICGl6lRKZbJ6NW4=;
+ b=umH84s/gA/99DS0hQPWM1Zz79JfjP0NPIoJg4WbOveln0zvQLWrHuXSeC6PPYI5ZnA90ZYRH9
+ LIs0B3NOiukCFhbXQ3Q+p696EBlwwVByJg5pmTolui0ufPuL2jBU3AR
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-Commit bd7c05fb4a47 ("ocfs2: fix circular locking dependency in
-ocfs2_init_acl()") removed the only code that could change ret in
-ocfs2_calc_xattr_init(). The variable is now always zero, so remove it
-and return zero directly.
+The Freescale Integrated Security Engine (SEC) aka "Talitos" driver
+implementation is a monolithic ~3800-line file that mixes SEC1 and SEC2
+hardware variants with hash, skcipher, aead and hwrng algorithm.
 
-This fixes the reported Coccinelle warning without changing behavior.
+This series reorganises the driver to improve readability and
+maintainability:
 
-Fixes: bd7c05fb4a47 ("ocfs2: fix circular locking dependency in ocfs2_init_acl()")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609040247.8B3lmoqX-lkp@intel.com/
-Signed-off-by: Krystian Kaniewski <krystianmkaniewski@gmail.com>
+- Split the driver into a dedicated directory with separate files for
+  hash, skcipher, aead, and hwrng implementations.
+
+- Modernise the crypto API usage: adopt {init,exit}_tfm (deprecated
+  cra_init/cra_exit), use CRYPTO_AHASH_ALG_BLOCK_ONLY to eliminate
+  manual partial-block buffering, and use macros to deduplicate
+  algorithm definitions.
+
+- Introduce a is_sec1() helper to get rid of is_sec1 variables /
+  parameters.
+
+- Define descriptor/pointer structures for each hardware version,
+  instead of using a single structure and anonymous union.
+
+No functional changes are intended except for patch 1.
+
+This series depends on the "crypto: talitos - bug fixes" series :
+https://patch.msgid.link/20260507-bootlin_test-7-1-rc1_sec_bugfix-v3-0-c98d7589b942@bootlin.com
+
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
 ---
- fs/ocfs2/xattr.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+Changes in v5:
+- Patch 1: compute the SEC1 software padding length in little endian for
+  MD5. Update message_size only once the hardware has accepted the
+  request, so a failed submission no longer updates the message length.
+  A note on Sashiko third comment [1]:
 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 35bcbb0ff607..ab3b645983c9 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -640,7 +640,6 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
- 			  int *want_clusters, int *xattr_credits,
- 			  int *want_meta, struct ocfs2_acl_state *acl_state)
- {
--	int ret = 0;
- 	struct ocfs2_super *osb = OCFS2_SB(dir->i_sb);
- 	int s_size = 0, a_size = 0, acl_len = 0, new_clusters;
- 
-@@ -662,7 +661,7 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
- 	}
- 
- 	if (!(s_size + a_size))
--		return ret;
-+		return 0;
- 
- 	/*
- 	 * The max space of security xattr taken inline is
-@@ -729,7 +728,7 @@ int ocfs2_calc_xattr_init(struct inode *dir, umode_t mode,
- 		}
- 	}
- 
--	return ret;
-+	return 0;
- }
- 
- static int ocfs2_xattr_extend_allocation(struct inode *inode,
+  - If the current digest operation errors out because the driver
+    returned -EAGAIN, it indeed clears the partial block buffer in the
+    core with CRYPTO_AHASH_ALG_BLOCK_ONLY.
 
-base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
--- 
-2.53.0
+    Looking at how the API handles it, it means for me that the entire
+    digest operation must be restarted, not just the current chunk of
+    data currently being processed with .update() or .finup(). In this
+    case, no need to keep the partial block buffer.
+
+    If I am mistaken, how should this be handled?
+
+- Patch 4: rename the module target to crypto-talitos to remove the
+  circular dependency in the Makefile.
+
+- Patch 5: make __map_single_talitos_ptr() static inline to avoid
+  unused-function warnings.
+
+- Patches 6, 7 and 8: register algorithms from a copy of the templates
+  instead of modifying the global arrays. Make the algorithm template
+  arrays const.
+
+- Patch 12: keep the "hmac-<hash>-talitos" driver names in the hash
+  macros.
+
+- Patches 12/13/14: added a driver_name parameter to the algorithm
+  macros. The driver name is built from driver_name"-talitos" instead
+  of name"-talitos", so the old dash separated format survives
+  ("cbc-aes-talitos" rather than "cbc(aes)-talitos"). Sashiko flagged
+  this in the v4 review as a userspace ABI break.
+
+- Patch 15: move before the macro conversion patches, and set the
+  properties that do not depend on runtime features in the templates.
+  This patch is now patch 12 in the series.
+
+- Link to v4:
+  https://patch.msgid.link/20260722-7-1-rc1_talitos_cleanup-v4-0-81d1ed2ad911@bootlin.com
+
+Changes in v4:
+- The modification I did in v3 in PATCH 1 was incomplete. message_size
+  was not initialized in ahash_init(), and not incremented in
+  ahash_process_req().
+- Link to v3: https://patch.msgid.link/20260721-7-1-rc1_talitos_cleanup-v3-0-7c71a2b77c83@bootlin.com
+
+Changes in v3:
+- Upon Herbert's remark on FINAL_NONZERO flag not working with algorithms
+  like md5, I removed the flag entirely for all algorithms.
+  Only the SEC1 revision is buggy when sending 0 byte descriptor
+  : the hardware yield an error. On the SEC2, this bug is not present
+  and can accept zero byte descriptor if the hardware auto-pad.
+  This bug is mitigated for SEC1 with software padding in
+  talitos_handle_buggy_hash().
+  It had to be slightly change in PATCH 1 because of the removal of
+  FINAL_NONZERO : the message length in bits was always zero. Now, a
+  zero byte request can happen after a handful of non-zero byte
+  requests.
+  Keep track of the message length in the request context, and put the
+  message length in bits as a 64-bit big endian integer at the end of
+  the padding.
+  Allocate a buffer per ahash request instead of using a static buffer,
+  since it is now written to.
+- Link to v2: https://patch.msgid.link/20260611-7-1-rc1_talitos_cleanup-v2-0-aa4a813ce69b@bootlin.com
+
+Changes in v2:
+- Fixed compilation warnings and errors.
+- Instead of using ops to dispatch SEC1/SEC2 variants, keep the small
+  helpers, and introduce is_sec1() inline function that can use static
+  key branching in case both hardware version are compiled.
+- Dropped the SEC1/SEC2 function variants inside the core driver file.
+- Reworded the cover letter for clarity.
+- Link to v1: https://patch.msgid.link/20260528-7-1-rc1_talitos_cleanup-v1-0-cb1ad6cdea49@bootlin.com
+
+References:
+
+[1]: https://sashiko.dev/#/patchset/20260722-7-1-rc1_talitos_cleanup-v4-0-81d1ed2ad911%40bootlin.com?part=1
+
+---
+Paul Louvel (19):
+      crypto: talitos/hash - Use CRYPTO_AHASH_BLOCK_ONLY API
+      crypto: talitos - Move driver into dedicated directory
+      crypto: talitos - Add missing includes to driver header file
+      crypto: talitos/hwrng - Move into separate file
+      crypto: talitos - Prepare crypto implementation file splitting
+      crypto: talitos/hash - Move into separate file
+      crypto: talitos/skcipher - Move into separate file
+      crypto: talitos/aead - Move into separate file
+      crypto: talitos/hash - Convert to {init,exit}_tfm type-specific API
+      crypto: talitos/skcipher - Convert to {init,exit}_tfm type-specific API
+      crypto: talitos/aead - Convert to {init,exit}_tfm type-specific API
+      crypto: talitos - Remove alg settings in talitos_register_common()
+      crypto: talitos/hash - Use macro for algorithm definitions
+      crypto: talitos/skcipher - Use macro for algorithm definitions
+      crypto: talitos/aead - Use macro for algorithm definitions
+      crypto: talitos - Introduce is_sec1() helper with static key support
+      crypto: talitos - Replace has_ftr_sec1() with is_sec1() static key helper
+      crypto: talitos - Introduce per-SEC-version descriptor and pointer structures
+      crypto: talitos - Remove TALITOS_DESC_SIZE macro
+
+ drivers/crypto/Kconfig                    |   38 +-
+ drivers/crypto/Makefile                   |    2 +-
+ drivers/crypto/talitos.c                  | 3640 -----------------------------
+ drivers/crypto/talitos/Kconfig            |   36 +
+ drivers/crypto/talitos/Makefile           |    3 +
+ drivers/crypto/talitos/talitos-aead.c     |  680 ++++++
+ drivers/crypto/talitos/talitos-hash.c     |  705 ++++++
+ drivers/crypto/talitos/talitos-rng.c      |   93 +
+ drivers/crypto/talitos/talitos-skcipher.c |  359 +++
+ drivers/crypto/talitos/talitos.c          | 1337 +++++++++++
+ drivers/crypto/{ => talitos}/talitos.h    |  316 ++-
+ 11 files changed, 3503 insertions(+), 3706 deletions(-)
+---
+base-commit: db8b9f227833e729faf44a512aa1e88a625b5ad8
+change-id: 20260518-7-1-rc1_talitos_cleanup-9231a64e29fa
+prerequisite-change-id: 20260504-bootlin_test-7-1-rc1_sec_bugfix-13169ed07ddc:v3
+prerequisite-patch-id: 7b364911e4b8d1c1033eb14e67ed24dac6a4bc13
+prerequisite-patch-id: 2c1cd7fdd003d9a116a697efa25d1716d548389f
+prerequisite-patch-id: b12bdbf565747609e0cfe0609a42cf69b5d816a1
+prerequisite-patch-id: 72cb2bc0fc2a48a5a029b049c199f4c86085cf04
+prerequisite-patch-id: 5f1f5ad6add760161bd48875df48c0893aa12613
+prerequisite-patch-id: 934931086968229434d15a2f2358aeb7e6975a1d
+prerequisite-patch-id: 8a0b4828fc0690e0c841bc9adcc6568bb522e0e8
+prerequisite-patch-id: 1d870f32e7dbf9a8bd3b8979558544107693e0f4
+prerequisite-patch-id: 758c18d7c9fabb14bd90df62e5e8a62a6f880db4
+prerequisite-patch-id: ce6e9e585f8edc1861ae6bb8fbdd836c20cbd290
+prerequisite-patch-id: 9446dc03e442ea81c5f5b39e802e01b37da29971
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
