@@ -1,195 +1,198 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 701D8486BBA
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B6E94582D4;
+	Mon,  7 Sep 2026 10:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778696; cv=none; b=jYVVyIL4aYkYp4atEULENjOjGaCwoApcMA5/uE4xJCvAJLV55i/WO5KTfiJkAm5xh/uCwPU3zEaHt/vtXym+b9PLRKa4pyHMWGeH16QYHxBZptIyPEom0TSljlcmGKIBtlYt0FO7Gih03yQ3IEBFwHVLTq88EM6kxzOXbVVTCsE=
+	t=1788778727; cv=none; b=rxtvMQfpllovFwPoRMerosADeKQ/rJT0RXGuua3GHnYM0/YgaIBrl2EV0vUVdK8wx5Nz3bQ4/M1od5EZ0JnNWIoow+M1JxLItH/1GErTs0KI+4Pv3uV2Rq8YwgUavt1isCqoJZoceGhmNLXCfsiPatNMJ/DatPuPuPsTtsXv5So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778696; c=relaxed/simple;
-	bh=nvRqfcTNrhKWsgYEYqserFC6aFy/Ypxd/ECdksDw0KQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uA3ln2a0kyFfuEI34UsNRluJwh+DCrtdWPpfQP6JLhQorXrzA+M+PgO364ccw44v0q8HiQwpvKSx5XbiO7pYoqqNJkauyYtc/pTWHiNq7ZiLFy9Vi+nV2aE4+OEhV35gB18P4mlr7Ul6OpVNAX4ADRDe3mS00AmTpzzxDE/BhsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ImEf6mle; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788778727; c=relaxed/simple;
+	bh=EkrhXH5scV73aYB6YZZt0Vtwwvc+ZFt63YMtJ31oaek=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ukqxk3uvH8CiFK/mFft4aSvk5I+1grAIiD3p8uGnMsRjw4tw10zu8XWctd77G/1rVX16jJPW82d0M+kFe0Wsp6fKdoVVOGP7VfHvlSMbYu0nnt8/Vl2ebbqXhCza7VkGSc+cyf1UuWYFdF9YelHxzBjUL8YnFVJxRR9gO8qzzpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=JFZvSV2z; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=huc143XI; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=kLmpv+zX; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=x7QNqunY; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ImEf6mle"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so3114543a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 03:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788778695; x=1789383495; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y1AN/04P+M2MfSUIh9oyME08cOW6o5tz/4VT3PS1ydI=;
-        b=ImEf6mleRfoRs7G7Qp9RzPadxnMuARp5ySbJs+LfCs+Yeao1WVPXUMyHRqq16mJY4M
-         TSIkg+AQQ5iBXQDAlt0QIr6m6xijElJonvMrUaZOVjDD7LEvgtfjDOG6/hwug20yVJnf
-         rY+ehCPIbtwRlAUYzs+vYvwMfOSU+QB1S4qD8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788778695; x=1789383495;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y1AN/04P+M2MfSUIh9oyME08cOW6o5tz/4VT3PS1ydI=;
-        b=BhdiHv0SnOiFtlvcmA4AjgdeJiFJVCIqtq5Q2sVai5rYaUVzOh3jHcR6pva4fJL9LH
-         xEREkf5RQugPY3LuZxCfcp/4Y4W9/bMGN89ZSFqXq7qoAEUcTr7brOjC7Z5/JT8rkFkd
-         A/NAzAQ2BHy8UmV3nuPMKb7PA5n4yH3KIS9xz3i2NSknobyMq9+OH2VfJIF1P3EiiXlY
-         JdNRaerUcDu0MnZ8/Q2TE3mhcEYYH2zUzL0H5bk13SOibkHfcmVaEk3wnbGWyoNLGJFl
-         WFlQ1y00FdgzOlNhUfsjzmaRC01eQNatKUdfEOj90dwnF1yZeTfWhWp60rawc43YMM+B
-         JmtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzw6Mihty5aoTzHh7IbhK3ZJdkxr/83oBDb35ouL8LtDqHeo9v4EjqRgF2HqCQ64HmW5Oolh9REx7vokrY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmLJXLalJAg0sFBlGJJ5i94cjuPXj01ofJm382Utw5Rj5PujE0
-	nWm29t1KaLuXlRmxb7UZ2x1C5NnmNlAFataoUG8FuDYeQ7PB/7lD/Y/6eVaFkepc1g==
-X-Gm-Gg: AYBFou3vpLnuxIfS36fXTxeZDMbo9F8irAK9Dz+Y+s6L2AzrD4cK7sUAIVxsshY5po+
-	UZDZPhk/Hj8wup06IO8LkU9yJ9+7zpjouF6Jn32pS+8cfXsjS8xpoi0lGlsHzxo77OoYC7YXzO2
-	X7akuehTeudnNO7nUM4n28B0GKdaYqJRAzeSC8JQFWamTHz7w19e8NE9IUY7O0+IG8mp1+rH2lL
-	GJOLLaVurQfvhtvPMgSpYviCi8EzRq0xgoobAptEUR5R1hp6AYDwLqQSyqn4EPT10cTCezAdBwd
-	4Ts8odVZgklRMcVjA40mPgLDDURCzoMVnl5fXcT6JK4F4DiX3rmYX58CMMgJsIYmUabaCgjDa0t
-	uWCp92obh3vCs7Z8TQ1p5A25HpK1z4eAN162wa7/UPgk72UTrBdt/RYu3f7xhK4/Ai41ReRArlc
-	IUanXFwC0b4sutw+Czr/3Zqk0A06mEfGe6cpkK3jDfusOXyahQs5JA4DL930oLy5ekI9h2cheiW
-	yDViQZ9I8WOUQ1Dfaw57wO909h8g0OXFy+HHfhJTr2+8jS2zjgXzjFcRDKRKuk=
-X-Received: by 2002:a17:90b:4fca:b0:38e:5b59:c2ff with SMTP id 98e67ed59e1d1-39b260dd278mr33380803a91.3.1788778694774;
-        Mon, 07 Sep 2026 03:58:14 -0700 (PDT)
-Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:7fc7:d8d5:4877:bc3f])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b51eb40e6sm10343714a91.16.2026.09.07.03.58.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 03:58:14 -0700 (PDT)
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Minchan Kim <minchan@kernel.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH 2/2] zsmalloc: remove old object read API
-Date: Mon,  7 Sep 2026 19:57:29 +0900
-Message-ID: <20260907105739.1793316-3-senozhatsky@chromium.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260907105739.1793316-1-senozhatsky@chromium.org>
-References: <20260907105739.1793316-1-senozhatsky@chromium.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="JFZvSV2z";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="huc143XI";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="kLmpv+zX";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="x7QNqunY"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D41B71F787;
+	Mon,  7 Sep 2026 10:58:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788778720; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+viKHz58Rn8k1rjKXE9mnduA/LwbkUEJxfHpRBN8A1s=;
+	b=JFZvSV2zAXUxkxB32ycpKVuSiNiSjCPnZCITHPZt2ZVW/AHKafyl/6sspCHgcyKwf2DR8u
+	FVsKsnZ+I9KenY0dw3li+dzmB+bH5dvUcNDKC7Pj1gdmIAq1FiHRZTrWxzXBYgOTri4nDA
+	xzeE0ij5B9WE4s8FBMRrDfURcznbRKc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788778720;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+viKHz58Rn8k1rjKXE9mnduA/LwbkUEJxfHpRBN8A1s=;
+	b=huc143XISAhg0SlPG7UcaZRp5fMk8wmFqzg/4PBaJ38ov3T4PPMlesK6Clhl9eIqMPe6ZL
+	0lYl61o3f0CBmIBQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=kLmpv+zX;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=x7QNqunY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788778715; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+viKHz58Rn8k1rjKXE9mnduA/LwbkUEJxfHpRBN8A1s=;
+	b=kLmpv+zXEB5cYWY3IxmkZkZRLw3jy3Wkc4ZU9KyGYw/pORF09Aev+3tQxxl1ZgoclDPnMb
+	b7vbtqN2W5uxibFD+ccqkx6kavF1mdi+KtOVRhsoqceS19TCtxlHGcR9/BAkJOnK5CqQYF
+	zHCQzZ+4ZDCqBbusqTsMmLZsR/+4WhI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788778715;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+viKHz58Rn8k1rjKXE9mnduA/LwbkUEJxfHpRBN8A1s=;
+	b=x7QNqunYWPxUP2LXLxPsi6lUthYAL5RFQbzyItLvezE1kE/c7d/uY9iccXU0Q3QvioF7Ys
+	gGqE7we9Zq9yj+Dw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B50881368D;
+	Mon,  7 Sep 2026 10:58:35 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id uPMuLNuYnmqGVAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 07 Sep 2026 10:58:35 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3EAA4A0B8F; Mon, 07 Sep 2026 12:58:27 +0200 (CEST)
+Date: Mon, 7 Sep 2026 12:58:27 +0200
+From: Jan Kara <jack@suse.cz>
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: jack@suse.cz, michael.bommarito@gmail.com, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] isofs: fix Rock Ridge CE extent validation on
+ multisession media
+Message-ID: <rkarpx2frv53ygu4hye6vpxi6kztw2uiygysx2x4cwrx3jjrtc@guubqalgvowf>
+References: <20260907082602.3777551-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907082602.3777551-1-liubaolin12138@163.com>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: D41B71F787
+X-Spamd-Result: default: False [-2.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[163.com];
+	ARC_NA(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
+	FREEMAIL_CC(0.00)[suse.cz,gmail.com,vger.kernel.org,kylinos.cn];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email]
+X-Spam-Flag: NO
+X-Spam-Score: -2.51
 
-There are no users left of the old API, all have switched to
-SG-list object read API.  Remove it.
+On Mon 07-09-26 16:26:02, Baolin Liu wrote:
+> From: Baolin Liu <liubaolin@kylinos.cn>
+> 
+> Commit a36d990f5913 ("isofs: validate Rock Ridge CE continuation extent
+> against volume size") compares the CE extent directly with s_nzones.  The
+> extent is an absolute block number, while s_nzones is the number of blocks
+> relative to the selected ISO session.  The comparison is therefore wrong
+> when a multisession disc starts at a non-zero block.
+> 
+> isofs_get_last_session() selects the last session on multisession
+> media, and its volume descriptors describe a volume beginning at that
+> session's LBA.
+> For example, a session beginning at LBA 45447 with 64 blocks can contain a
+> valid CE at absolute LBA 45467.  The existing check rejects that CE, so the
+> ER continuation record is not read, Rock Ridge is disabled, and the mount
+> falls back to Joliet names.
+> 
+> Save the selected session start in filesystem-block units and validate the
+> CE extent against the half-open interval [session_start, session_end).
+> Scale the session length to the same block units and retain a separate
+> block-device limit.  The lower bound is intentional: accepting arbitrary
+> blocks before the selected session could make a CE read data from a
+> previous session or another filesystem on the device.
+> 
+> Only apply the bounds check when cont_extent is non-zero.  A zero extent is
+> the in-memory sentinel indicating that no CE continuation was found, rather
+> than a request to read block zero.
+> 
+> For a single-session image, session_start is zero and the effective volume
+> boundary remains unchanged.
+> 
+> Build-tested with:
+> 
+>     make CONFIG_RUST= CONFIG_RUST_DRIVERS= fs/isofs/
+> 
+> Fixes: a36d990f5913 ("isofs: validate Rock Ridge CE continuation extent against volume size")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
 
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
----
- include/linux/zsmalloc.h |  4 ---
- mm/zsmalloc.c            | 77 ----------------------------------------
- 2 files changed, 81 deletions(-)
+Thanks for the fix! I've taken the patch to my tree. I've slighly cleaned
+up the types (use sector_t instead of u64). I've also remove the check
+against sb_bdev_nr_blocks() - if anything, we should have check s_nzones
+fits within the block device earlier, not in Rockridge parsing code.
 
-diff --git a/include/linux/zsmalloc.h b/include/linux/zsmalloc.h
-index 478410c880b1..5b7298a5026b 100644
---- a/include/linux/zsmalloc.h
-+++ b/include/linux/zsmalloc.h
-@@ -40,10 +40,6 @@ unsigned int zs_lookup_class_index(struct zs_pool *pool, unsigned int size);
- 
- void zs_pool_stats(struct zs_pool *pool, struct zs_pool_stats *stats);
- 
--void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
--			size_t mem_len, void *local_copy);
--void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
--		     size_t mem_len, void *handle_mem);
- void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
- 			  struct scatterlist *sg, size_t mem_len);
- void zs_obj_read_sg_end(struct zs_pool *pool, unsigned long handle);
-diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
-index 825022a7a328..11be37c43171 100644
---- a/mm/zsmalloc.c
-+++ b/mm/zsmalloc.c
-@@ -1134,83 +1134,6 @@ unsigned long zs_get_total_pages(struct zs_pool *pool)
- }
- EXPORT_SYMBOL_GPL(zs_get_total_pages);
- 
--void *zs_obj_read_begin(struct zs_pool *pool, unsigned long handle,
--			size_t mem_len, void *local_copy)
--{
--	struct zspage *zspage;
--	struct zpdesc *zpdesc;
--	unsigned long obj, off;
--	unsigned int obj_idx;
--	struct size_class *class;
--	void *addr;
--
--	/* Guarantee we can get zspage from handle safely */
--	read_lock(&pool->lock);
--	obj = handle_to_obj(handle);
--	obj_to_location(obj, &zpdesc, &obj_idx);
--	zspage = get_zspage(zpdesc);
--
--	/* Make sure migration doesn't move any pages in this zspage */
--	zspage_read_lock(zspage);
--	read_unlock(&pool->lock);
--
--	class = zspage_class(pool, zspage);
--	off = offset_in_page(class->size * obj_idx);
--
--	if (!ZsHugePage(zspage))
--		off += ZS_HANDLE_SIZE;
--
--	if (off + mem_len <= PAGE_SIZE) {
--		/* this object is contained entirely within a page */
--		addr = kmap_local_zpdesc(zpdesc);
--		addr += off;
--	} else {
--		size_t sizes[2];
--
--		/* this object spans two pages */
--		sizes[0] = PAGE_SIZE - off;
--		sizes[1] = mem_len - sizes[0];
--		addr = local_copy;
--
--		memcpy_from_page(addr, zpdesc_page(zpdesc),
--				 off, sizes[0]);
--		zpdesc = get_next_zpdesc(zpdesc);
--		memcpy_from_page(addr + sizes[0],
--				 zpdesc_page(zpdesc),
--				 0, sizes[1]);
--	}
--
--	return addr;
--}
--EXPORT_SYMBOL_GPL(zs_obj_read_begin);
--
--void zs_obj_read_end(struct zs_pool *pool, unsigned long handle,
--		     size_t mem_len, void *handle_mem)
--{
--	struct zspage *zspage;
--	struct zpdesc *zpdesc;
--	unsigned long obj, off;
--	unsigned int obj_idx;
--	struct size_class *class;
--
--	obj = handle_to_obj(handle);
--	obj_to_location(obj, &zpdesc, &obj_idx);
--	zspage = get_zspage(zpdesc);
--	class = zspage_class(pool, zspage);
--	off = offset_in_page(class->size * obj_idx);
--
--	if (!ZsHugePage(zspage))
--		off += ZS_HANDLE_SIZE;
--
--	if (off + mem_len <= PAGE_SIZE) {
--		handle_mem -= off;
--		kunmap_local(handle_mem);
--	}
--
--	zspage_read_unlock(zspage);
--}
--EXPORT_SYMBOL_GPL(zs_obj_read_end);
--
- void zs_obj_read_sg_begin(struct zs_pool *pool, unsigned long handle,
- 			  struct scatterlist *sg, size_t mem_len)
- {
+								Honza
+
+> @@ -101,11 +107,14 @@ static int rock_continue(struct rock_state *rs)
+>  		goto out;
+>  	}
+>  
+> -	if ((unsigned)rs->cont_extent >= ISOFS_SB(rs->inode->i_sb)->s_nzones) {
+> +	if (rs->cont_extent &&
+> +	    (extent < sbi->s_session_start ||
+> +	     extent >= session_end ||
+> +	     extent >= sb_bdev_nr_blocks(sb))) {
+>  		printk(KERN_NOTICE "rock: corrupted directory entry. "
+>  			"extent=%u out of volume (nzones=%lu)\n",
+>  			(unsigned)rs->cont_extent,
+> -			ISOFS_SB(rs->inode->i_sb)->s_nzones);
+> +			sbi->s_nzones);
+>  		ret = -EIO;
+>  		goto out;
+>  	}
+> -- 
+> 2.51.0
+> 
 -- 
-2.55.0.979.g7e5102b832-goog
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
