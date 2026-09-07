@@ -1,90 +1,266 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA14D30594E;
-	Mon,  7 Sep 2026 01:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5292ED16D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 01:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788746111; cv=none; b=oQnDdNsxBO/VDOJ80P6AD/xYsA12MYn5OPNFl0mPyYxxrYFVcT4tV5jBAi+dpvh2puZvZFfHkl/8B/6MuOQzskZX5/G3HtbPGE57FLnx7Yd9G7osLWaezUPrBfWeCUuwCapqkZwctsm6SsJwa3mEKOg6hUjzqwwqbZYhHIDGbDc=
+	t=1788746136; cv=none; b=Ljb8SSRLUZl5l40vfxDtpb/4ZYlvcFJjbUdodvx3s8pUtIAy/EKKGDJ1kAz1J+k/nHPSN5bjlLIQ705m/KDI4U9Y8zRaRJkZH8J4YlL96PTsi8qzmPmnsdeC8Lr/PeiZxWGPAew2H+D2D7k3UgwoX7LzCmYqwaChS9GTt+Bv84o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788746111; c=relaxed/simple;
-	bh=REHZZpUS00VCfUrJurFT2r0PEuBLbGS4eD8mWy/nr5g=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=Y35kiMkf327vnhbbBa3NCmsSEJrPc3XSvmjfVmH9srpNrClc1lxjPwR4T+94tXvT2MAC6z3JIarNbZZdezhy66vCv+nyPXLTc4P4uOc8m3XDoMQRA6yY0LHOn7zte1DmDjEzdLR7791/U1GyFObJ0NeaOWtqnPbZlsv7ODfTmw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NK50UjCu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NK50UjCu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AA41F00ACF;
-	Mon,  7 Sep 2026 01:55:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788746109;
-	bh=e2nnL6ESJLKVjCo/c5hZWoEYVbP7Y3fsojk2A38uTz4=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=NK50UjCuoQ6wEdBumo4RkG7JoBHpfBm795YooPDbe7xqcvY6BEkN/k+dSW874JhKX
-	 sWvPoiLH1L6n8tNQfliWsGZ/NMTj/nDbXVSv80eMtBAhnOxbZ40mYDt2gEwC5atJKj
-	 k7eXBZx+ztjEEh3KFsHaOsPeXdAsS6j/MeGGNi34BiQPj6BiQGK0qE3L4FAt88h8SH
-	 6Lwb33XZ3RIEeb4zuUhbJP+Qm7Y8EvCG1YlRYH78UleVKYRL25Z9I1z6lbsY85t0q0
-	 8U7q4o6RFbJ3w5fPJPzhvGxSk7VXHrwXqLgMYAj3Qtm4l6xzLWt2+vXrCY99bJGRM+
-	 VRJ7hpVvFfmzA==
+	s=arc-20240116; t=1788746136; c=relaxed/simple;
+	bh=5ghn7nxvgfAiAWaBixedr2h12wQs1M4XKcGJABNW0/o=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=AKdxzEC460MciLYcBKV32fCqcLSCmeQeohAZtEUTfGKv3cnZzxluqC8G+Ej+82fqsYl09bjyctWhFLjdD5hPDM4zEsqs0bcptWXhuwKW2b200xO5AnKexahr3Mt7rz6f6pJMNCGGbMP+jLuGO2k526fYKoDLFfilgJSWGyVMUn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6b1b7b6ac7fso901597eaf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 18:55:34 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788746133; x=1789350933;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kbZ2OnDIqN2FzfMGx2pAG1gARfawZnOqcaUIj2YUYrA=;
+        b=ApUoABTsU/KxALdU8NpXVLHqNI5aSvgrBwcn9BuE7QUDLmm1RgzwTzocKRa+erogJe
+         HePVWWOr0AvBU48w+9lHaMskdm1sz6jynZSkLj/9Qwcw6b5t4nBlg0g1eMDtpnBjffPa
+         +FnDwBEqYRha9QWuef2Oe5ml893bqR9uyj9xa2E90r567IM/1HPo+B9Tnw4KZUplmOW8
+         iNzcppU1cr2epDgPI12FbjjpgRA052XzphnuZ3zVxqhlhGyaDLvvB4Vm9CoTg+dV1DZh
+         nAvIgqC1QNAe9/Ckf9yDElqLUeVap0IpAk6PnJ3SYoaY1aoKoTmP38ePU4OWoQVMak2E
+         Ba1g==
+X-Forwarded-Encrypted: i=1; AKwUvByVNpQotmS99zqqLjtu8O6/VolbKnYxpyfQIbcf4P99nGjTacY7am0FRa84TrkDNVBHAv46LT51MNrnJ+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++laQz4f3CQojQL54DSwJlaDmb3dYAxT2X75ZDKDqU963ysM2JSY
+	nAqHFxL8IVReGlxwVHHuM2bAXsoPjEZK6rqcureQtxeQ4Ypf67eWLyagH0mwqd1Q9RW0PwxjZVF
+	uOt7KhoyXfyxCGXgS/fkLqCRBOIiPaGcZHGdhCRXEpeh0+lOMTaC46GpoEeU=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 8/8] iio: imu: inv_icm42607: Add gyroscope calibbias
- support
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, 
- Joshua Crofts <joshua.crofts1@gmail.com>, 
- Marcelo Schmitt <marcelo.schmitt1@gmail.com>, 
- Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260901-b4-inv_icm42370p-v3-8-77cc31642115@axis.com>
-References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
- <20260901-b4-inv_icm42370p-v3-8-77cc31642115@axis.com>
-Date: Mon, 07 Sep 2026 02:54:51 +0100
-Message-Id: <178874609183.3402141.16201490382277694849.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=551;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=REHZZpUS00VCfUrJurFT2r0PEuBLbGS4eD8mWy/nr5g=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnhlvLVNZvILgF02OizqYJNz+Ig6n0VBHAo7BX
- HpKLW1GkFqJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap4ZbxEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiKGkD/0WSyMPV8cBgE8qX8cYSQxgDn4WQpDjmpdNT2NEqujqs5L
- rV0WmabryQ8O0ucbXNhuy8NWpfLzNS/94hi98rdQD3QKIMxB88A+xnler6YZKdoQmoBuL8I5Nnq
- SRnsM47pg1lRqF1HVLbN4zx/GqQzT3PiJetkRcvuNmcJ1LBF0hFGBOGOtUJNqGMSiur2Q7rqP8w
- LyNkEn5BVIzAbiutOX1yS9fFx8Y+4Pi+JBie5jgRzEIQ4hH8kSis4OxFpupQ3mrDKg8hO05MsyJ
- uBDbnjw4MG5V5sovCBHf9nncEV1i8SKOOVplA/UOBD293YKqaRe7UdzaxnKKzr481yEtyL8q1C1
- lDICmPthFJletLzYpMRFjhy7qGCU7h/XPDhN1skLWuGylGnk9h8c/MiqyZJMCAVxaWYcecuvvpI
- fzXibT11SQrV2yXACVSR9ftY+MxxlJYFZCnpwN1buNnTi0hCQHtT9RQECt80KpfA9yvVlQzcjO7
- 6RpPW5vIbWNSu1TrfKYeQG19Ww/ZvAdFq2tBso1ZxDvR4bybOpmW7MDaplbAK7QlOBOtYVuqO43
- v1EyX9tkxB2Vr01G2xlA3RRI28qw9sg/zJcn567CG0SowZ54dXsKUFC2/gtznvluLPTIcQFN43S
- 499AEcofASRR9e8WrDE5uwH8KUuYpwr9oNW5COA==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
+X-Received: by 2002:a05:6820:1501:b0:6b7:83c5:fdea with SMTP id
+ 006d021491bc7-6b783c60367mr11036533eaf.43.1788746133211; Sun, 06 Sep 2026
+ 18:55:33 -0700 (PDT)
+Date: Sun, 06 Sep 2026 18:55:33 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9e1995.a5e650b3.26d8a.0024.GAE@google.com>
+Subject: [syzbot] [jffs2?] possible deadlock in jffs2_xattr_delete_inode
+From: syzbot <syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com>
+To: dwmw2@infradead.org, linux-kernel@vger.kernel.org, 
+	linux-mtd@lists.infradead.org, richard@nod.at, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> Expose IIO_CHAN_INFO_CALIBBIAS on the gyroscope channels. The
-> registers are stored in MREG1, which can be accessed by the mreg_read
-> and mreg_write routines. The calibration bias is written to OFFSET_USER0
-> to OFFSET_USER3 registers in MREG1.
-> 
-> Note: The gyroscope calibbias functionality is not tested on actual
-> hardware.
-Drop this one. You don't need it for your part. If anyone else wants
-this for the gyroscope then they can propose the design + test it!
+Hello,
 
-Jonatha
+syzbot found the following issue on:
 
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11d190f9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=fdfd8fdf716c90baef0f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-940de590.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/f3f674f98efb/vmlinux-940de590.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/132222426e71/bzImage-940de590.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+fdfd8fdf716c90baef0f@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+kswapd0/111 is trying to acquire lock:
+ffff8880266529d8 (&c->xattr_sem){++++}-{4:4}, at: jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+
+but task is already holding lock:
+ffffffff8efc8ce0 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5908 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0xc4/0x100 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       kmem_cache_alloc_noprof+0x63/0x6a0 mm/slub.c:5010
+       jffs2_alloc_xattr_datum+0x1c/0xe0 fs/jffs2/malloc.c:264
+       create_xattr_datum fs/jffs2/xattr.c:363 [inline]
+       do_jffs2_setxattr+0x6f0/0x1610 fs/jffs2/xattr.c:1175
+       __vfs_setxattr+0x175/0x1e0 fs/xattr.c:223
+       __vfs_setxattr_noperm+0x127/0x660 fs/xattr.c:257
+       __vfs_setxattr_locked+0x127/0x2b0 fs/xattr.c:318
+       vfs_setxattr+0x14a/0x390 fs/xattr.c:344
+       ovl_do_setxattr fs/overlayfs/overlayfs.h:324 [inline]
+       ovl_setxattr fs/overlayfs/overlayfs.h:336 [inline]
+       ovl_make_workdir fs/overlayfs/super.c:724 [inline]
+       ovl_get_workdir fs/overlayfs/super.c:836 [inline]
+       ovl_fill_super_creds fs/overlayfs/super.c:1449 [inline]
+       ovl_fill_super+0x1320/0x5ea0 fs/overlayfs/super.c:1561
+       vfs_get_super fs/super.c:1405 [inline]
+       get_tree_nodev+0xdd/0x190 fs/super.c:1424
+       vfs_get_tree+0x92/0x320 fs/super.c:1947
+       fc_mount fs/namespace.c:1198 [inline]
+       do_new_mount_fc fs/namespace.c:3772 [inline]
+       do_new_mount fs/namespace.c:3848 [inline]
+       path_mount+0x7d0/0x24c0 fs/namespace.c:4168
+       do_mount fs/namespace.c:4181 [inline]
+       __do_sys_mount fs/namespace.c:4397 [inline]
+       __se_sys_mount fs/namespace.c:4374 [inline]
+       __ia32_sys_mount+0x292/0x310 fs/namespace.c:4374
+       do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+       __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+       do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+       entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+
+-> #0 (&c->xattr_sem){++++}-{4:4}:
+       check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
+       lock_acquire kernel/locking/lockdep.c:5908 [inline]
+       lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+       down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+       jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+       jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
+       evict+0x3c2/0xad0 fs/inode.c:822
+       iput_final fs/inode.c:2015 [inline]
+       iput.part.0+0x989/0x1050 fs/inode.c:2064
+       iput+0x35/0x40 fs/inode.c:2030
+       dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
+       dentry_kill+0x25d/0xc20 fs/dcache.c:826
+       finish_dput fs/dcache.c:1001 [inline]
+       dput.part.0+0xd7/0x240 fs/dcache.c:1042
+       dput+0x1f/0x30 fs/dcache.c:1037
+       ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:217
+       destroy_inode+0xcb/0x1c0 fs/inode.c:387
+       evict+0x599/0xad0 fs/inode.c:846
+       iput_final fs/inode.c:2015 [inline]
+       iput.part.0+0x989/0x1050 fs/inode.c:2064
+       iput+0x35/0x40 fs/inode.c:2030
+       dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
+       dentry_kill+0x25d/0xc20 fs/dcache.c:826
+       shrink_kill fs/dcache.c:1275 [inline]
+       shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1292
+       prune_dcache_sb+0xea/0x150 fs/dcache.c:1374
+       super_cache_scan+0x361/0x5c0 fs/super.c:238
+       do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
+       shrink_slab_memcg mm/shrinker.c:560 [inline]
+       shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
+       shrink_one+0x398/0x850 mm/vmscan.c:5119
+       shrink_many mm/vmscan.c:5180 [inline]
+       lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+       shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
+       kswapd_shrink_node mm/vmscan.c:7101 [inline]
+       balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+       kswapd+0x556/0xb50 mm/vmscan.c:7555
+       kthread+0x373/0x450 kernel/kthread.c:436
+       ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(fs_reclaim);
+                               lock(&c->xattr_sem);
+                               lock(fs_reclaim);
+  lock(&c->xattr_sem);
+
+ *** DEADLOCK ***
+
+locks held by kswapd0/111: 2, last CPU#2:
+ #0: ffffffff8efc8ce0 (fs_reclaim){+.+.}-{0:0}, at: balance_pgdat+0xbce/0x1f00 mm/vmscan.c:7292
+ #1: ffff888025eec0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_trylock_shared fs/super.c:688 [inline]
+ #1: ffff888025eec0e8 (&type->s_umount_key#56){++++}-{4:4}, at: super_cache_scan+0x9b/0x5c0 fs/super.c:213
+
+stack backtrace:
+CPU: 2 UID: 0 PID: 111 Comm: kswapd0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_circular_bug.cold+0x178/0x1be kernel/locking/lockdep.c:2059
+ check_noncircular+0x146/0x160 kernel/locking/lockdep.c:2191
+ check_prev_add+0xeb/0xe60 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x1492/0x1ec0 kernel/locking/lockdep.c:5254
+ lock_acquire kernel/locking/lockdep.c:5908 [inline]
+ lock_acquire+0x1d1/0x380 kernel/locking/lockdep.c:5865
+ down_write+0x8b/0x1f0 kernel/locking/rwsem.c:1631
+ jffs2_xattr_delete_inode+0x83/0x130 fs/jffs2/xattr.c:605
+ jffs2_do_clear_inode+0x50/0x470 fs/jffs2/readinode.c:1418
+ evict+0x3c2/0xad0 fs/inode.c:822
+ iput_final fs/inode.c:2015 [inline]
+ iput.part.0+0x989/0x1050 fs/inode.c:2064
+ iput+0x35/0x40 fs/inode.c:2030
+ dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
+ dentry_kill+0x25d/0xc20 fs/dcache.c:826
+ finish_dput fs/dcache.c:1001 [inline]
+ dput.part.0+0xd7/0x240 fs/dcache.c:1042
+ dput+0x1f/0x30 fs/dcache.c:1037
+ ovl_destroy_inode+0x3e/0x190 fs/overlayfs/super.c:217
+ destroy_inode+0xcb/0x1c0 fs/inode.c:387
+ evict+0x599/0xad0 fs/inode.c:846
+ iput_final fs/inode.c:2015 [inline]
+ iput.part.0+0x989/0x1050 fs/inode.c:2064
+ iput+0x35/0x40 fs/inode.c:2030
+ dentry_unlink_inode+0x284/0x470 fs/dcache.c:479
+ dentry_kill+0x25d/0xc20 fs/dcache.c:826
+ shrink_kill fs/dcache.c:1275 [inline]
+ shrink_dentry_list+0x1e8/0x310 fs/dcache.c:1292
+ prune_dcache_sb+0xea/0x150 fs/dcache.c:1374
+ super_cache_scan+0x361/0x5c0 fs/super.c:238
+ do_shrink_slab+0x416/0x1200 mm/shrinker.c:443
+ shrink_slab_memcg mm/shrinker.c:560 [inline]
+ shrink_slab+0xa82/0x12e0 mm/shrinker.c:638
+ shrink_one+0x398/0x850 mm/vmscan.c:5119
+ shrink_many mm/vmscan.c:5180 [inline]
+ lru_gen_shrink_node mm/vmscan.c:5258 [inline]
+ shrink_node+0x2b20/0x4320 mm/vmscan.c:6247
+ kswapd_shrink_node mm/vmscan.c:7101 [inline]
+ balance_pgdat+0xb20/0x1f00 mm/vmscan.c:7279
+ kswapd+0x556/0xb50 mm/vmscan.c:7555
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
