@@ -1,85 +1,86 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6CF9524AFE;
-	Mon,  7 Sep 2026 16:41:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DDDE5111A9;
+	Mon,  7 Sep 2026 16:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799293; cv=none; b=nvC+AwzLKIgDEKB1OK8ki+ZEhiqN2ScE+Bn559j/1HemtXMf086E7LSbRLxYCFRragsbPNpUTsFGEgFPTy0sYHLEbZVbu1YH8fET26LIPCQ1bhKEg+HaH+XdAcD1As4Kbd0/Z/dhWJiF67E+uZRkUQs4lQG/YB78cGt4o4B7Peo=
+	t=1788799303; cv=none; b=eb7b0KfVD4JhmirVbe7zDqnY79eJCV+ApI4yISHHPEP0c0wNqRZRCS7xIC8sEpVFfd4IvaV1gt43ajAESjhrfuNlGCYvpB7G1pfHh0poBLMeu0ClrYrzIbP20sCdflW26vCRAO9j7HrAY/SUtPS5EeYqvfPRS1ZdYkxLz2aOO2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799293; c=relaxed/simple;
-	bh=m42hFV7sx9CzIFOPCUmmFIfZCRn9bsDzhfG/6n2dd8w=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Kq6LsRA8rlg3yMH6HV11QSKGiSHYe9g9mmiivo1IidEOQglOOGPD5nWum9tO8WN7spZEdPBRF3WgVxO0Vv42pzXBuboRiI3PMU6Hlp5jNkP5uwdcWVRqj+JFmu2KsXipiOW8ijMoOethNSEYIDANhwOoU/JLvCoKdZKrt1RgopM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=hC8jyeuW; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1788799303; c=relaxed/simple;
+	bh=ZjLOkSlLdR1jfLyWVz2vCCLaVWUaujxowOpu71YW9MI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ku/U4ui+DufUFag18rywD0iiTIFMJJ0u8KoqEkRA57nsNe79MvCI9H843gMG5Vh8Sz2uDDKzqnmwkwNoCTQlYIv0bgPuzEaSFaOdskvDbupqbkb55aiwRAHYqvdQk7+N6QoegD1uJTj2Ps8Hjqz+Ygzp3bOjA4hC/yWvouRZPa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jeZrNCGs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="hC8jyeuW"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net C7CE6408FF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1788799291; bh=tjAtv+oonZYpkXkL6B/93fFHM1akJqs+rgkm0CYB2ps=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=hC8jyeuWdtHVYNZrM3GYqMcY4NokShSE7rKz0rs/GnAf12GypcyXRLM0pLgOQFE3B
-	 J//24led0GxIHP+kb8hAEtOIqfcqR8eD2oX40J7BmeYE8/zzSpojr4CviocYPY81Lw
-	 7UP9cDfo5Wl8eU3Ov4FVEPD7JpSiujsGut9IO+AYjKa9pb41M+SWbQGIHHNabWYyXo
-	 Zmn6mCVIdQQhQLxH81LScwtFgmj/H484IumEHj0oWX0uS61lmWRm7Wx5EDj6zd6c9R
-	 9y4XDhiY6v6xW4Thi1aI/SnPPJS1QhA66uwe9CpoS6eXamcKaJY4Ol5EUa/vb772V8
-	 36qXwk8DrI/oA==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id C7CE6408FF;
-	Mon,  7 Sep 2026 16:41:30 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Manuel Ebner <manuelebnerli@mailbox.org>, Shuah Khan
- <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] Documentation: admin-guide: Fix bracket
-In-Reply-To: <20260903154924.732852-2-manuelebnerli@mailbox.org>
-References: <20260903154924.732852-2-manuelebnerli@mailbox.org>
-Date: Mon, 07 Sep 2026 10:41:30 -0600
-Message-ID: <87ld9dovyd.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jeZrNCGs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3CCE1F00A3A;
+	Mon,  7 Sep 2026 16:41:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788799302;
+	bh=2o2i19ypzRp1zZlcTwsPkK6eNqVdjfCbynSxyeXYXvc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jeZrNCGs4WD65/u5voFDVJu2Ma65oDUNgRc93clYuDP6GSkDO2JtRtD2xncF6rOI2
+	 2f+OLlBmoWqRoayX9iKMhoc20b25cThk2jBb0mFWXneLqCuC/JOxRzaWbZxaNP8SLS
+	 9RzCNa1AVLdPFVE5wULRVgyAMqn8BqnXPzPi1xzLaM46f9g/uC3JH41cFZExF7CSeN
+	 ySRjyaJmg3l3UhFQM3zwMaWmasvYp9sGVi09quy7ghOxmFTcDDCoV36uR+Ycea6QGJ
+	 +YMFqmJ2PRvtm3nilju2fFUKWf9Hxf/VfAQQ1K7x+lOMHjH/cJST+XvjoMnWt0AErK
+	 z99k0CK0c7IbQ==
+From: SJ Park <sj@kernel.org>
+To: Zenghui Yu <zenghui.yu@linux.dev>
+Cc: SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	shuah@kernel.org,
+	akpm@linux-foundation.org,
+	ekffu200098@gmail.com
+Subject: Re: [PATCH] selftests/damon: stop kdamond on error exits of no-op commit test
+Date: Mon,  7 Sep 2026 09:41:34 -0700
+Message-ID: <20260907164135.97543-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907123455.67246-1-zenghui.yu@linux.dev>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Manuel Ebner <manuelebnerli@mailbox.org> writes:
+On Mon,  7 Sep 2026 20:34:55 +0800 Zenghui Yu <zenghui.yu@linux.dev> wrote:
 
-> Add missing ')' and remove ';' to improve readability.
->
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> Acked-by: Randy Dunlap <rdunlap@infradead.org>
-> ---
->
-> [v2]
->  Remove ';' as Randy Suggested
-> [v1]
->  https://lore.kernel.org/all/20260902152347.708070-2-manuelebnerli@mailbox.org/
-> ---
->  Documentation/admin-guide/sysctl/vm.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-> index 5b318d17a..5f4a056e4 100644
-> --- a/Documentation/admin-guide/sysctl/vm.rst
-> +++ b/Documentation/admin-guide/sysctl/vm.rst
-> @@ -438,7 +438,7 @@ zone[i]'s protection[j] is calculated by following expression::
->      = (total sums of managed_pages from zone[i+1] to zone[j] on the node)
->        / lowmem_reserve_ratio[i];
->    (i = j):
-> -     (should not be protected. = 0;
-> +     (should not be protected. = 0)
->    (i > j):
->       (not necessary, but looks 0)
+> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> 
+> The sysfs_no_op_commit_break test starts a kdamond via sysfs, but its error
+> paths (e.g., drgn not installed) exit without stopping it.  The leaked
+> kdamond then makes subsequent tests, e.g. lru_sort.sh and reclaim.sh, skip
+> with "Another kdamond is running".
+> 
+> Wrap the post-start logic in try-finally so that kdamonds.stop() is
+> executed on every exit path.
 
-Applied, thanks.
+Looks good to me, thank you for fixing this, Zenghui.
 
-jon
+> 
+> Fixes: 10725cd2b09a ("selftests/damon: test no-op commit broke DAMON status")
+> Assisted-by: GLM-5.3 OpenCode
+> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+
+Reviewed-by: SJ Park <sj@kernel.org>
+
+This patch is applied to damon/next [1] tree.  If this patch is not added to
+mm.git in short term (~1 week?), I will ask mm.git maintainer (Andrew Morton)
+to pick this.  So, no action from your side is needed for now.  If it seems I
+also forgot doing that or you cannot wait for my action, please feel free to
+directly ask that to Andrew.
+
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
+
+
+Thanks,
+SJ
+
+[...]
