@@ -1,161 +1,174 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4C84CCDEC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D135272621
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 00:43:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788740922; cv=none; b=Lbm9oPsP0hZtuU02rwr6Vw9H/11jjVR09FI1kumo3C/j5rlZEz5cyrGI6WtYOxkSvQNjRs3jGEeRN5PZPou82o7eXW8kk4SGk8zIxVwe8QkPVoIQt3Gkwk81eXEdcOJ4vdklBO0PtlTEecmorktH0F0nPH5AQAlbl4QR/RqQsug=
+	t=1788741819; cv=none; b=K+6I/ooQjF/scm9tlPVcMIOZvzNqBBlPU2JwwV53HyMMbfDTl7s1sQPRbvXmyXBXChLc9Oo12iEeaeYfbwA5iJEmUi70HrvRR7cpSbxFQV8I85Hw4lV38wxiHeq1KZo07hQIB4BQ7MR+ewhlbtw1vbSwhS9/v8Fb9sKSlhTrS+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788740922; c=relaxed/simple;
-	bh=BXf3BxKM1Ry24+Btv4DKMA3IKOzmPZEdfw4Dh5Jj9Ss=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=RIBD5xpus3hY1RBUbCZiz7jLNlRz+aNBj2T9sFWrozm2cN1irTGkW+KgzUy1PdXbtptNhysP1EbuPngDbi9ZqyMOUu+/i6hutps1NNbbku1YIoA8mBu3DganLKuHi2YGxgdJnS8OQ4G5wJGWKG8o1YsGQWNkGhQWXKMIpWxxDBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dzpENCZH; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788741819; c=relaxed/simple;
+	bh=6L3LDFagaQCsDfVP0FJBsSxZ5m4twcTw1LREZtZc5wg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ETBCgivZHkR4sQGiuZfhHaZTBuqLma3SzsUsV3Det8cVArNKl4Sllwcj5Wt+XUTEb/0R0V3bxWy3uJivpw71zWh+/CW/tfD3HO8sBryZ/J7ejp3x/5wIXfKm82G3mrmS1ALCBSFuHb8jDTyRF5L1f05HgKKR6Q6CEZJlrFLpjcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p5OuFHgn; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dzpENCZH"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-4859245e493so1073921f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:28:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p5OuFHgn"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so3646771a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 17:43:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788740919; x=1789345719; darn=vger.kernel.org;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MgZHADWpXS9kOhNwmKYW4eHLUxKCVK4/x85xToQp0Vk=;
-        b=dzpENCZHJ5jw/OAKRJsO92TqW0KakA+mpqvWTQnbwjfqiBxgGxs9xU9g4XGYfvawxT
-         ejnTFbFmvtswqmo+nNXCbb9vYNHY5FAqVaRAVqherd1mEIWGIDdwaKoMPfXR+/8DNR7L
-         G+E+uxVYJ/fXAnUCfbye+kdnPG6kbjQl5txsa4sRv9bEll8x3aWzOwv0G45dkHg0YpCS
-         JiuCi8vxa2sJ6MgeQeK5LonMXmm6K8pVSGoXlddWwKXhTwVFuPxq6gcGEgeqEhgtIuja
-         0DgmwUTahtM7NOqOiRDoAsQZeKDvje+A5SuuqgA+N6VtoZKjrcRkZU4DM4DV2H930CD5
-         wAOg==
+        d=gmail.com; s=20251104; t=1788741817; x=1789346617; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x0x88oH7CrnZpFAXii2e1khx4b7zho7HKvH8FBEonEo=;
+        b=p5OuFHgn0jMWqbxMSI1WXsUfM+ifigK/Zo/5/lRcP5Ml/uXrzG9+xkAxDO6mnC/FxL
+         Aup0onlDgArehGK207qyvOdX+vdTH/TgtN7Qz4kZXbeLN7IIBv5LHgjU32Gxl+ExnvsU
+         9v0EzRKQ3BgSCV4E9qKoE7hPmFnAk2VfZZ5zZEbhAPBuqr/kTkcw44euDjCbNHbvvfHA
+         uMQIJyCTwDbLUJ9QyNOGstv35GXV8oDWANXD2uLL5JEqQrYxmWg1DWMT6taw3C5Gk1K/
+         wcL3qNXKREH3VFkE6EJtTyvbVC/+p1TfTeWDqgTe9W8SzMIEJLnXiO4Bj3dknl+nRlh+
+         Hxww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788740919; x=1789345719;
-        h=in-reply-to:references:subject:cc:to:from:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MgZHADWpXS9kOhNwmKYW4eHLUxKCVK4/x85xToQp0Vk=;
-        b=dL0H83QHZajXXjmlqpr0knC9i4Npaj92oNrKDoY1vgWcqFhfJ2rGkCK8WBJ17yd1dq
-         pJ8obOfNOR3ZGlOGNlt6Gmo99CctghtMEeIInEFc2xCOPnrjqL6v8YUTd2KXcQ9oH7Qy
-         6nQSfZh6JMClokwo2ZizvZbgTL0QuLaOsOyUrRsJYzFUglB6DiuIDEJz/ope4J5eZU3Y
-         KkbhlSpKhPLRCuoSHuhgAztNgaUxjNsDcWNYHwDusV7ZDZLWkXle8nvHfZep1xs/McEw
-         DHcTCwLzsQJJKTkV2aCuOyF0o0sEwrgjkVrllBYnHSVEqcenLw/Kpyz4e5gb0tf4zm08
-         B9kA==
-X-Forwarded-Encrypted: i=1; AKwUvByaVUbNbrHjGx3S7hZ6qCK8pVsWiHm9zTGbAx05qgd2o1Suwe6Sx5YJK6L0DIoEfDOddpNQPGkuEVxjqc0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS2SLc0E4i95Vfa1tqT1I+HY77lxhj3p7XVMoi/dtnKbn5QUOd
-	MCsMwp/KHhvrg9FFpYfcwzlS9z/Dm3fwtZ+2Xek9vjqW6Iyb9Ijdo/DYJBqGFt7mtqU=
-X-Gm-Gg: AYBFou0P6cZ1KE3gPzgO/q7VruJHanEc5su4r0Zju3hyesA+XeydqaIexpXRWEjrk/l
-	4F8JZDj8G5fP7zhPlZ+HgcbU7o3jYve9cAFVXMwHlUI4IJjQMEKk684x1vBDX3xToi+4tl4o8af
-	URsY3QU/rLR2P7AGxaWpC/95s//AZhpZXy39spVdQo9nWpt6UVDKW9oBUQMv/LIsCvMZHeFY5vO
-	OVkRe04/UBu9PNrg5LldJB0K6eZRS4FGcH+TjynDEpVbclo2ZH0h7H4Eli7VVqTBvIIFUwdpdhC
-	YS0ePxyXtUzFnVXosToYJp9BfSuCthrcBTBxxBiBjvskZ7wnJhUkAS/3EaAWWUzch5X5kCQoOwz
-	MyWsTYX2OljIyhtm2H7KABNQI0n/t2s6U8I+sB0RLboO5r533KAk8r5xHk/8vEcieIkDb9ZzVpM
-	Z3IVppmCcM1y8yX++IjC+jwaeBVcz5exNllVNu3cUhj0ZNoHfMTLra5aBSVL7o88QX8eAVI3kWR
-	M08r5y+ZWqyj2eXl8O+FsQFrFNsNywhDMplbYZoxpx9hlAazIkzmEQsVDHL
-X-Received: by 2002:a05:6000:4710:b0:485:8a47:5b83 with SMTP id ffacd0b85a97d-4858a475c60mr16910358f8f.32.1788740918931;
-        Sun, 06 Sep 2026 17:28:38 -0700 (PDT)
-Received: from localhost ([94.4.85.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858bc74298sm21639306f8f.6.2026.09.06.17.28.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 17:28:37 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788741817; x=1789346617;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x0x88oH7CrnZpFAXii2e1khx4b7zho7HKvH8FBEonEo=;
+        b=d6GsGsnH/jqplL3ZR9Q+/y/II9tsQX8j6c7SMK89a0i9F7XK39nlbIhE2CJwu9IqPc
+         53uU95MZcOVfHFsGLiNSVc0kObYCsO818HEuQLrFT6dplKATMC3GYhema4+C/pZXafAe
+         J0K36d/0mhmWXVxyUxgvcYlAorbD6EViWmI+4x7CDOUkc38tRTIsbGUvbiW0ypNUTJc+
+         6uFGcuFHkIQz7vqG4OJJpcXK9KHbJyvL+u8v34uHZYtOHkL8XYLmQ63vrk4hNwpPlywF
+         sEHpu4UEqhvxmwtx/aWSAX0JRr5Ppl5Ymdtw+lr5v1jrDxIjvVX2sDnpc/Qn822YfU0r
+         vXPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxc8Ku10nRddzBx+yMZzPHbJTdFp504vndxNACp7pUFa0GJCOEiFk8ZkJbrU74KR018wxrkiAn+PMMqOQo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZvwcWEcptR7bOjWxJywYCVTMA1ed6/PsAG726Nu72nVItG21+
+	tST2S9GoOEAUny17DIL6ze6mww+628HNJvY8jY60joiPVJJgGYyfA0w5
+X-Gm-Gg: AYBFou1OgkearzerFdE75UFKW5s6LEmVpBqF1LJ0G7haHD9g4nculnvhNMAX8rpvGKO
+	/YzFYuwTw9V/oR0H61N/d+mUCwfwry5mYy+a1HHnOPzj/gE1gxRUs2+eEuq9U8Mg7BQrE/5kFNX
+	maQJrQ9xNHkQP1wXBFAQ6Qr7+scCzH7EJoenlo7SLR31LV68CmFo2dz8Lq6Qg9xKXtpFNQnqWm0
+	FARI0+B6O862FIsS0om2aR/edwgzl6uAEkoJ02f4icfYqikYwR7m3FcJPrs4F6JADuhEbJ0g/Lh
+	HJyvwgwiyhFks/1ZhxhzhBjYa/dwAT1LR/EKsZK/fugCQvQTabFQlzOyFR6hhEPB3ijyoK65sLi
+	H3QbJpac0GO4aoIXQs7D2aWuN/UydzkS7eqXcqNZfGpoX/R84d7rkIlYem8GsTqd5lNt9uT/3qh
+	vlkcoE4zuVCGNGgkcEqBvqhQWECEhYMlneHBSI6cjmr48A6Cm5ubRtfllhWZ2VL11YnRBOXimZ+
+	opiRi/ByTqTVQ0gR9Rwfg2VYZtnLFPK3fVuaBLu79maxUC/xAPEcjTgLsa0YtyBISyHvEWLk5YY
+	vwHuRCfT07j+wNkjr+DvogXVutKDiU7pGHO/PQ==
+X-Received: by 2002:a17:90b:390f:b0:398:de23:9af6 with SMTP id 98e67ed59e1d1-39b261b216dmr29493077a91.15.1788741817065;
+        Sun, 06 Sep 2026 17:43:37 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm33187839c88.4.2026.09.06.17.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 17:43:36 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-mtd@lists.infradead.org
+Cc: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] mtd: rawnand: fsl_ifc: use devm_platform_get_and_ioremap_resource
+Date: Sun,  6 Sep 2026 17:43:34 -0700
+Message-ID: <20260907004334.221683-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 01:28:36 +0100
-Message-Id: <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Thomas Turner" <tturner@lineageos.org>, <semen.protsenko@linaro.org>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <peter.griffin@linaro.org>
-Cc: <alim.akhtar@samsung.com>, <linux-arm-kernel@lists.infradead.org>,
- <linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <thomas_turner@talktalk.net>
-Subject: Re: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to
- Exynos850
-X-Mailer: aerc 0.21.0
-References: <20260905170914.1640-1-tturner@lineageos.org>
- <20260905170914.1640-3-tturner@lineageos.org>
-In-Reply-To: <20260905170914.1640-3-tturner@lineageos.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat Sep 5, 2026 at 6:09 PM BST, Thomas Turner wrote:
-> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
-> for temperature throttling, DVFS, power domains, governor support,
+Replace the manual of_address_to_resource(), ioremap(), and iounmap()
+in the probe/remove paths with devm_platform_get_and_ioremap_resource()
+so the resource is managed and released automatically on probe failure
+and driver removal.
 
-One of the sensors exposed via ACPM is "linked" to the GPU/G3D as far as
-I know. The driver part was sent already and three sensors work there
-(two cpu clusters and GPU).
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/mtd/nand/raw/fsl_ifc_nand.c | 29 +++++++++--------------------
+ 1 file changed, 9 insertions(+), 20 deletions(-)
 
-I've never tested yet the DVFS of G3D via ACPM. Maybe it is worth a try
-on A21s. But it should work the same way as clusters clocks.
+diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+index b34524726dec..74db19e1d54f 100644
+--- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
++++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
+@@ -969,9 +969,6 @@ static int fsl_ifc_chip_remove(struct fsl_ifc_mtd *priv)
+ 
+ 	kfree(mtd->name);
+ 
+-	if (priv->vbase)
+-		iounmap(priv->vbase);
+-
+ 	ifc_nand_ctrl->chips[priv->bank] = NULL;
+ 
+ 	return 0;
+@@ -996,12 +993,12 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 	struct fsl_ifc_ctrl *ctrl;
+ 	struct fsl_ifc_runtime __iomem *ifc;
+ 	struct fsl_ifc_mtd *priv;
+-	struct resource res;
++	struct resource *res;
++	void __iomem *vbase;
+ 	static const char *part_probe_types[]
+ 		= { "cmdlinepart", "RedBoot", "ofpart", NULL };
+ 	int ret;
+ 	int bank;
+-	struct device_node *node = dev->dev.of_node;
+ 	struct mtd_info *mtd;
+ 
+ 	ctrl = dev_get_drvdata(dev->dev.parent);
+@@ -1010,15 +1007,13 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 	ifc = ctrl->rregs;
+ 
+ 	/* get, allocate and map the memory resource */
+-	ret = of_address_to_resource(node, 0, &res);
+-	if (ret) {
+-		dev_err(&dev->dev, "%s: failed to get resource\n", __func__);
+-		return ret;
+-	}
++	vbase = devm_platform_get_and_ioremap_resource(dev, 0, &res);
++	if (IS_ERR(vbase))
++		return PTR_ERR(vbase);
+ 
+ 	/* find which chip select it is connected to */
+ 	for (bank = 0; bank < ctrl->banks; bank++) {
+-		if (match_bank(ctrl, bank, res.start))
++		if (match_bank(ctrl, bank, res->start))
+ 			break;
+ 	}
+ 
+@@ -1055,13 +1050,7 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 	priv->bank = bank;
+ 	priv->ctrl = ctrl;
+ 	priv->dev = &dev->dev;
+-
+-	priv->vbase = ioremap(res.start, resource_size(&res));
+-	if (!priv->vbase) {
+-		dev_err(priv->dev, "%s: failed to map chip region\n", __func__);
+-		ret = -ENOMEM;
+-		goto err;
+-	}
++	priv->vbase = vbase;
+ 
+ 	dev_set_drvdata(priv->dev, priv);
+ 
+@@ -1077,7 +1066,7 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 		  &ifc->ifc_nand.nand_evter_intr_en);
+ 
+ 	mtd = nand_to_mtd(&priv->chip);
+-	mtd->name = kasprintf(GFP_KERNEL, "%llx.flash", (u64)res.start);
++	mtd->name = kasprintf(GFP_KERNEL, "%llx.flash", (u64)res->start);
+ 	if (!mtd->name) {
+ 		ret = -ENOMEM;
+ 		goto err;
+@@ -1099,7 +1088,7 @@ static int fsl_ifc_nand_probe(struct platform_device *dev)
+ 		goto cleanup_nand;
+ 
+ 	dev_info(priv->dev, "IFC NAND device at 0x%llx, bank %d\n",
+-		 (unsigned long long)res.start, priv->bank);
++		 (unsigned long long)res->start, priv->bank);
+ 
+ 	return 0;
+ 
+-- 
+2.55.0
 
-> boosting and voltage control. Once PMIC is properly implemented, support
-> will hopefully increase. However, the panfrost driver probes, the
-> Mali-G52 GPU initializes and the core clock is set-up.
->
-> Testing for this patch was done on a device not currently supported by
-> linux, the Galaxy A21s. After enabling this node for that device
-> locally, I was able to test and confirm basic GPU functionality. As of
-> now, this patch has no users which have tested GPU capabilities and so
-> the node has been set to "disabled".
->
-> Here are some logs I pulled:
->
-> panfrost 11500000.gpu: clock rate =3D 377000000
-> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
-> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,0000=
-0400
-> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x=
-00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-> panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
-> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
->
-> OpenGL core profile vendor: Mesa
-> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-> OpenGL core profile shading language version: 1.40
-> OpenGL compatibility profile vendor: Mesa
-> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-> OpenGL compatibility profile shading language version: 1.40
-> OpenGL ES profile vendor: Mesa
-> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
->
-> Signed-off-by: Thomas Turner <tturner@lineageos.org>
-
-So, I've got A21s and installed pmOS to test all that.
-My logs are slightly different but graphics is definitely alive:
-[    0.200787] [drm] Initialized simpledrm 1.0.0 for fa000000.framebuffer o=
-n minor 0
-[    0.215130] Console: switching to colour frame buffer device 90x100
-[    0.225540] simple-framebuffer fa000000.framebuffer: [drm] fb0: simpledr=
-mdrmfb frame buffer device
-[    0.226134] panfrost 11500000.gpu: clock rate =3D 377000000
-[    0.230960] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x=
-0 status 0x0
-[    0.230981] panfrost 11500000.gpu: features: 00000000,00000df7, issues: =
-00000000,00000400
-[    0.230991] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x0000=
-0000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-[    0.231002] panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
-[    0.232329] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-[    0.232726] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 1
-
-Also, when this is applied with status=3D"okay" on Winlink board then
-panfrost itself seems to be alive and drm initialises despite missing
-regulator as indicated in my other email in v2 of this series, hence:
-
-Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
-
-Thanks for working on this.
-Best regareds,
-Alexey
