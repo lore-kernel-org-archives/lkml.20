@@ -1,211 +1,407 @@
-Received: from cs.upt.ro (smtp.cs.upt.ro [193.226.12.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A3D31C01;
-	Mon,  7 Sep 2026 00:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.226.12.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFE22E401;
+	Mon,  7 Sep 2026 00:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788739396; cv=none; b=VvKq2pMcqfKgBtSih8zegDUILvXptmQw2nk1RMx+r6PKXWE1PlPUKKcIrPiWSMXnhlVDh+WMMS5VIKWY7sUxeQrBSDzo6P4CZWfLhuN5HK9gMR499ByFWaFiZUVcq4P7lwq6VSrGQzrcSCB/Yube6d87gLVqeEjPxIJWQ40uZtk=
+	t=1788739436; cv=none; b=dKS63NzrMvysdXe+u23QE7jV6z0OA4jRHDR41ctiyKFNbgdy5zm61r9+APTtY+agfub78lIivElrxKfwgH4b1/V377yrKAhS9raQ7+vK3rKmVZcfjYoIW2UJABGoZ1pN1Som2k8QFkN+4vHjewYF9Bm0CXCt3sNHO9pYO1nZIAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788739396; c=relaxed/simple;
-	bh=jnRVkg2NJw4Wi+Kz19rdNc2kA6hn8OoCKr0MDXsDzm8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IgQp2BVGtffeHrvylaZX3h+XvyXF2VZom3zZKmH/vTn8/xE+ZVjibUZk6P89KemFQjMc/zEgyFL9tRDM4WuCZHg7+ckzHEEVDZIIWeNCPJrrRotLBP759MrrKAJeeOy8OYCIQsz9qtAOmsutTvNYRio34kQGpSKaMLbHCLTs9UQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.upt.ro; spf=pass smtp.mailfrom=cs.upt.ro; dkim=pass (1024-bit key) header.d=cs.upt.ro header.i=@cs.upt.ro header.b=tPScYgnE; arc=none smtp.client-ip=193.226.12.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.upt.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.upt.ro
+	s=arc-20240116; t=1788739436; c=relaxed/simple;
+	bh=WC5YPFMgHVtwDE7hem+m0waMrMTakwDcFX80oG20pms=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mwoU5gocpgzLhAoIeRQE08UaevBiXkxMLkuoymS7LtVEpPA+XlFc6fHCmuGn3y82uw+t4wWXtncQ1jIbpKWjmwH2S3kGsweYNtwQU6alhiM9XZ0hId8ZBkc/+9ZmCiSlMkzG6wF2/Vw1u9RHeue3uO/avfF3Ao+Rht5vnZvcUWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bl6qqQSR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cs.upt.ro header.i=@cs.upt.ro header.b="tPScYgnE"
-Received: from localhost (localhost [127.0.0.1])
-	by cs.upt.ro (Postfix) with ESMTP id 3B988DFA3D;
-	Mon,  7 Sep 2026 02:54:22 +0300 (EEST)
-X-Virus-Scanned: Debian amavis at smtp.cs.upt.ro
-Received: from cs.upt.ro ([127.0.0.1])
- by localhost (smtp.cs.upt.ro [127.0.0.1]) (amavis, port 10024) with ESMTP
- id zMjYZF1ykPA0; Mon,  7 Sep 2026 02:54:20 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cs.upt.ro; s=mail;
-	t=1788738860; bh=jnRVkg2NJw4Wi+Kz19rdNc2kA6hn8OoCKr0MDXsDzm8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=tPScYgnE9dPX6wGGI/yLVTjBHM300XJFqaOP5ZPlljaehITQQ6VRh1JrliKhtNhGV
-	 vVvKGjfnLMuPPtzLW5zk1pgOqkj0jbLUXRHSgz+jxtgyZIJMj1Gwg0n31ezpdeiqYK
-	 mQdZBlhr4rMTbU5GEp8HMLdQA7h/thf/ymDZbFgc=
-Received: from kcstation.tailba65d9.ts.net (unknown [5.12.49.127])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
-	(No client certificate requested)
-	by cs.upt.ro (Postfix) with ESMTPSA id 16376DF947;
-	Mon,  7 Sep 2026 02:54:20 +0300 (EEST)
-From: Catalin Cereanu <catalin.cereanu@cs.upt.ro>
-To: Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>
-Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC] platform/x86: asus-wmi: no kbd backlight on Zenbook S 16 UM5606WA
-Date: Mon,  7 Sep 2026 02:53:55 +0300
-Message-ID: <20260906235355.13404-1-catalin.cereanu@cs.upt.ro>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bl6qqQSR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84C5C1F00A3A;
+	Mon,  7 Sep 2026 00:03:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788739434;
+	bh=ECOrYA0cpj6y5Jadj+BhOX8T+CCQ8iodDMe4wWyjnNU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Bl6qqQSRbwZ8pYJkivIyyIteS0GEy/Kq4kbkPsJqBQduNCWA8byFhMk9JytkbyYwq
+	 OYdnyrXaoLYsN6zC2iUcY/fLhJWEi+wknICbcLGGmasMCFBzqLEsMV/ORHBUMibo+A
+	 ttflt+i8AGzceBWqkIfgG3J9VbI40dyI5OK/7vylvL7fP64Y04LeGCfNSjoiJUIXvQ
+	 WC65WdZDGtFa1z4H+pkwitq+uwI+3dDc+IRwZat8A/u5TpuKvaHHMAfT5+b5orQkX9
+	 z+qb33EmuWPwtfu7EPA36uizSM9Njcfb+X490GWWexfKn0yGlNdy966Ysft+SfreK1
+	 S069sacahgDJg==
+Subject: Re: [PATCH net-next v5 01/12] gve: add struct gve_device_info to hold
+ device properties
+From: netdev-bot+sashiko@kernel.org
+To: hramamurthy@google.com
+Cc: netdev@vger.kernel.org, joshwash@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+ john.fastabend@gmail.com, sdf@fomichev.me, jordanrhee@google.com,
+ willemb@google.com, nktgrg@google.com, maolson@google.com, thostet@google.com,
+ jacob.e.keller@intel.com, debarghyak@google.com, kees@kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
+ przemyslaw.kitszel@intel.com
+Date: Mon, 07 Sep 2026 00:03:53 +0000
+Message-ID: <178873943304.219967.4275641978466508716@kernel.org>
+In-Reply-To: <20260903215606.31633-2-hramamurthy@google.com>
+References: <20260903215606.31633-2-hramamurthy@google.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 4 potential
+issue(s) to consider:
 
-On the ASUS Zenbook S 16 UM5606WA (Ryzen AI 9 HX 370), asus-wmi creates
-no asus::kbd_backlight LED and the factory Fn+F4 backlight key produces
-no input event at all. The keyboard backlight hardware itself works
-fine.
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
-I have tracked this to a single firmware flag and have a working
-out-of-tree fix, but I do not think the fix belongs in asus-wmi in its
-current form. I am sending this as an RFC to ask what shape, if any,
-would be acceptable.
+- [Medium] The ETH_MIN_MTU validation now applies to a different value
+  than before, contradicting the commit message claim that these changes…
+- [Low] `struct gve_priv` still declares `bool default_min_ring_size;`
+  (drivers/net/ethernet/google/gve/gve.h:849) and `u16…
+- [Low] The newly added `struct gve_device_info` declares `u16
+  max_tx_queues;` and `u16 max_rx_queues;`…
+- [Low] The comment above the netdev feature initialization in
+  `gve_probe()` (drivers/net/ethernet/google/gve/gve_main.c, target…
 
-Hardware / software
--------------------
-  Model        ASUS Zenbook S 16 UM5606WA
-  BIOS         UM5606WA.321, 10/14/2025
-  Kernel       6.17.0-35-generic (Ubuntu/Linux Mint 22.3)
-  asus_wmi     BIOS WMI version 9.4, SFUN 0x21, "Detected ATK, not ASUSWMI"
+--
 
-Symptoms
---------
-  * /sys/class/leds/ contains no asus::kbd_backlight (only platform::micmute)
-  * UPower exposes no KbdBacklight object
-  * The Fn+F4 media key emits nothing: no evdev event on any device, no ACPI
-    event, and no "Unknown key" message. The same key in its F4 function-layer
-    role emits KEY_F4 normally, so the key and the EC layer logic are fine.
+gve: add struct gve_device_info to hold device properties
 
-Root cause
-----------
-Both symptoms come from one flag: bit 7 of KBLC. From the DSDT:
+This adds struct gve_device_info to hold the properties negotiated with
+the device, converts gve_adminq_describe_device() and its helpers to fill
+that structure, and moves the code that applies those properties to priv
+into gve_init_priv().  The commit message states the changes are refactors
+only with no functional change.
 
-    OperationRegion (AECO, SystemMemory, AECB, 0x1E)
-    Field (AECO, AnyAcc, NoLock, Preserve)
-    {
-        ...
-        Offset (0x0F), KBLC, 8,
-        Offset (0x10), KBLV, 8,
-        ...
-    }
+> diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+> index c280ff35ee771..021adb9108dff 100644
+> --- a/drivers/net/ethernet/google/gve/gve.h
+> +++ b/drivers/net/ethernet/google/gve/gve.h
+> @@ -797,6 +797,34 @@ struct gve_ptp {
+>  	struct gve_priv *priv;
+>  };
+>  
+> +struct gve_device_info {
+> +	enum gve_queue_format queue_format;
+> +	u16 default_tx_queues;
+> +	u16 default_rx_queues;
+> +	u16 max_tx_queues;
+> +	u16 max_rx_queues;
 
-    Method (KBLD, 0, NotSerialized)
-    {
-        If (ATKP)
-        {
-            Local1 = (KBLC & 0x80)
-            If (Local1)
-            {
-                ^^^^ATKD.IANE (0xC5)
-            }
-        }
-    }                                   /* note: no Else branch */
+[Severity: Low]
+Who fills in max_tx_queues and max_rx_queues?  gve_fill_device_info() in
+gve_adminq.c sets tx_pages_per_qpl, max_registered_pages,
+num_event_counters, mac, max_mtu, default_tx/rx_queues and the four
+ring-size fields, but never these two, and nothing reads them either.
 
-    Method (KBLU, 0, NotSerialized)     /* same shape, IANE (0xC7) */
-    Method (_Q0C, 0, NotSerialized) { KBLD () }
-    Method (_Q0D, 0, NotSerialized) { KBLU () }
+Meanwhile the one consumer that needs device queue maxima,
+gve_set_num_queues(), still derives them from priv->tx_cfg.max_queues and
+priv->rx_cfg.max_queues (read from the BAR registers in gve_probe()) while
+this patch converts the defaults to come from device_info:
 
-The EC does fire _Q0C/_Q0D on the media key. With KBLC bit 7 clear the
-method falls through both conditionals and returns without notifying
-anyone, which is why the key is completely silent rather than producing
-an unknown scancode.
+	priv->tx_cfg.max_queues =
+		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
+	...
+	if (device_info->default_tx_queues > 0)
+		priv->tx_cfg.num_queues = min_t(int,
+						device_info->default_tx_queues,
+						priv->tx_cfg.num_queues);
 
-The same flag gates the DSTS presence reply that asus-wmi relies on:
+Would it be clearer to either populate the two fields in
+gve_fill_device_info() and have gve_set_num_queues() use them, or drop them
+until there is a producer?  As it stands a later MailboxQ consumer reading
+device_info->max_tx_queues in AdminQ mode would see 0.
 
-    If ((IIA0 == 0x00050021))
-    {
-        If (^^PCI0.SBRG.EC0.GLKB (One))     /* returns One if (KBLC & 0x80) */
-        {
-            Local0 = ^^PCI0.SBRG.EC0.GLKB (0x03)
-            Local0 <<= 0x08
-            Local0 += ^^PCI0.SBRG.EC0.GLKB (0x02)
-            Local0 |= 0x00050000
-            Local0 |= 0x00200000
-            Local0 |= 0x00100000
-            Return (Local0)
-        }
+> +	u16 default_tx_ring_size;
+> +	u16 default_rx_ring_size;
+> +	u16 max_tx_ring_size;
+> +	u16 max_rx_ring_size;
+> +	u16 min_tx_ring_size;
+> +	u16 min_rx_ring_size;
+> +	u16 max_mtu;
+> +	u8 mac[ETH_ALEN];
+> +	u16 max_rx_buffer_size;
+> +	u16 header_buf_size;
+> +	u32 max_flow_rules;
+> +	u16 rss_key_size;
+> +	u16 rss_lut_size;
+> +	u16 tx_pages_per_qpl;
+> +	u16 num_event_counters;
+> +	u64 max_registered_pages;
+> +	bool default_min_ring_size;
+> +	bool nic_timestamp_supported;
+> +	bool modify_ring_size_enabled;
+> +	bool cache_rss_config;
+> +};
+> +
 
-        Return (0x8000)                     /* no presence bit */
-    }
+[ ... ]
 
-So kbd_led_read() -> asus_wmi_get_devstate_bits() returns -ENODEV,
-kbd_led_avail stays false, and no LED is registered.
+> diff --git a/drivers/net/ethernet/google/gve/gve_adminq.c b/drivers/net/ethernet/google/gve/gve_adminq.c
+> index f05f4895f4c74..512349c5517f4 100644
+> --- a/drivers/net/ethernet/google/gve/gve_adminq.c
+> +++ b/drivers/net/ethernet/google/gve/gve_adminq.c
 
-Measured on this machine:
+[ ... ]
 
-    \_SB.ATKP                     = 0x1     (INIT ran, gate 1 passes)
-    GLKB(1)  i.e. KBLC & 0x80     = 0x0     (gate 2 fails)
-    GLKB(2)  current level        = 0x1
-    GLKB(3)  base                 = 0x80
+> @@ -190,7 +190,7 @@ void gve_parse_device_option(struct gve_priv *priv,
+>  
+>  		/* device has not provided min ring size */
+>  		if (option_length == GVE_DEVICE_OPTION_NO_MIN_RING_SIZE)
+> -			priv->default_min_ring_size = true;
+> +			priv->device_info.default_min_ring_size = true;
 
-Note the DEVS *setter* is not gated:
+[Severity: Low]
+Should the now-orphaned copies in struct gve_priv be removed in the same
+patch?  This was the only writer of priv->default_min_ring_size, and
+gve_enable_supported_features() now reads info->default_min_ring_size, so
+gve.h still carries
 
-    If ((IIA0 == 0x00050021))
-    {
-        ^^PCI0.SBRG.EC0.SLKB (IIA1)
-        Return (One)
-    }
+	bool default_min_ring_size;
 
-so the backlight can be driven even while the firmware reports it
-absent.
+with no writer and no reader.
 
-Nothing writes KBLC
--------------------
-I dumped and decompiled all 48 ACPI tables on this machine (DSDT, 30
-SSDTs and 17 others). KBLC appears exactly four times: once in the field
-declaration above, and three times as a read (GLKB, KBLD, KBLU). No
-method in any table writes it. By contrast BLCT, the panel-backlight
-equivalent, does have a WMI setter at devid 0x00050011.
+The same applies to priv->default_num_queues: gve_set_queue_properties() in
+gve_main.c no longer assigns it and gve_set_num_queues() now reads
+device_info->default_tx_queues / default_rx_queues, yet gve.h keeps
 
-So the BIOS simply never sets it on this SKU. An earlier ASUS laptop I
-owned (Vivobook S14, 2024) worked out of the box, so this looks like a
-firmware regression on the AMD SKU rather than an intentional
-configuration.
+	u16 default_num_queues; /* default num queues to set up */
 
-Confirmed fix
--------------
-Setting KBLC bit 7 fixes both symptoms. I wrote a small out-of-tree
-module that resolves the address two independent ways and sets the bit:
+Both priv fields stay 0/false forever after this change, and the comment
+describes behaviour no code implements.  A follow-on MailboxQ patch reading
+priv->default_num_queues (always 0, meaning "no default") or
+priv->default_min_ring_size (always false, meaning "device provided
+minimums") would get the opposite of what the device reported.
 
-    RAMW @ 0x70265000  ->  AECB @ +0x20  ->  AECO @ *AECB  ->  KBLC @ +0x0F
+>  		break;
+>  	case GVE_DEV_OPT_ID_FLOW_STEERING:
+>  		if (option_length < sizeof(**dev_op_flow_steering) ||
 
-On this machine AECB = 0x70265300. Cross-check: KBLV read directly from
-that mapping matches GLKB(2) evaluated through the ACPI interpreter.
+[ ... ]
 
-After setting the bit:
+> @@ -946,77 +949,105 @@ static void gve_enable_supported_features(struct gve_priv *priv,
+>  					  const struct gve_device_option_modify_ring
+>  					  *dev_op_modify_ring)
+>  {
+> +	struct gve_device_info *info = &priv->device_info;
+> +
+>  	/* Before control reaches this point, the page-size-capped max MTU from
+>  	 * the gve_device_descriptor field has already been stored in
+> -	 * priv->dev->max_mtu. We overwrite it with the true max MTU below.
+> +	 * device_info->max_mtu. We overwrite it with the true max MTU below.
+>  	 */
+>  	if (dev_op_jumbo_frames &&
+>  	    (supported_features_mask & GVE_SUP_JUMBO_FRAMES_MASK)) {
+>  		dev_info(&priv->pdev->dev,
+>  			 "JUMBO FRAMES device option enabled.\n");
+> -		priv->dev->max_mtu = be16_to_cpu(dev_op_jumbo_frames->max_mtu);
+> +		info->max_mtu = be16_to_cpu(dev_op_jumbo_frames->max_mtu);
+>  	}
 
-    GLKB(1) 0x0 -> 0x1
-    asus_wmi: using asus-wmi for asus::kbd_backlight
-    /sys/class/leds/asus::kbd_backlight, max_brightness = 3
+[ ... ]
 
-and the factory Fn+F4 key now cycles the backlight normally.
+>  	if (dev_op_flow_steering &&
+>  	    (supported_features_mask & GVE_SUP_FLOW_STEERING_MASK)) {
+>  		if (dev_op_flow_steering->max_flow_rules) {
+> -			priv->max_flow_rules =
+> +			info->max_flow_rules =
+>  				be32_to_cpu(dev_op_flow_steering->max_flow_rules);
+> -			priv->dev->hw_features |= NETIF_F_NTUPLE;
 
-No "Unknown key" message appeared in testing and no keymap addition was
-needed. I have not separately confirmed whether IANE(0xC7) is actually
-emitted on this machine, so I cannot say whether the absence of a 0xC7
-entry in the asus-nb-wmi keymap matters here.
+[Severity: Low]
+Does this leave the comment in gve_probe() pointing at the wrong function?
+gve_main.c still says:
 
-Questions
----------
-1. Would a DMI quirk that force-registers the LED (bypassing the DSTS presence
-   check, since the DEVS setter works regardless) be acceptable? That would
-   restore sysfs brightness control, but NOT the Fn+F4 key, since KBLD/KBLU
-   remain gated in firmware.
+	/* Set default and supported features.
+	 *
+	 * Features might be set in other locations as well (such as
+	 * `gve_adminq_describe_device`).
+	 */
+	dev->hw_features = NETIF_F_HIGHDMA;
 
-2. Is there any appetite for setting KBLC from asus-wmi under a DMI quirk?
-   It would fix both, but it means mapping an ACPI NVS address by firmware
-   field plus a hardcoded structure offset, which feels out of place in this
-   driver. I would understand a no.
+After this change gve_adminq_describe_device() and
+gve_enable_supported_features() only record properties into
+struct gve_device_info, and the NETIF_F_NTUPLE update lives in
+gve_init_priv().  Should the comment reference gve_init_priv() instead?
 
-3. Or is this purely a firmware bug to push to ASUS, with the out-of-tree
-   module as the practical answer for affected owners?
+>  			dev_info(&priv->pdev->dev,
+>  				 "FLOW STEERING device option enabled with max rule limit of %u.\n",
+> -				 priv->max_flow_rules);
+> +				 info->max_flow_rules);
+>  		}
+>  	}
 
-I am happy to write and test whichever option you prefer. I can also
-provide the full decompiled DSDT and acpidump output.
+[ ... ]
 
-Thanks, Catalin Cereanu
+> @@ -1097,18 +1129,9 @@ int gve_adminq_describe_device(struct gve_priv *priv)
+>  			 "Driver is running with GQI QPL queue format.\n");
+>  	}
+>  
+> +	gve_fill_device_info(priv, descriptor);
+>  	gve_set_default_rss_sizes(priv);
+>  
+> -	err = gve_set_mtu(priv, descriptor);
+> -	if (err)
+> -		goto free_device_descriptor;
+> -
+> -	priv->num_event_counters = be16_to_cpu(descriptor->counters);
+> -
+> -	gve_set_mac(priv, descriptor);
+> -
+> -	gve_set_queue_properties(priv, descriptor);
+> -
+>  	gve_enable_supported_features(priv, supported_features_mask,
+>  				      dev_op_jumbo_frames, dev_op_dqo_qpl,
+>  				      dev_op_buffer_sizes, dev_op_flow_steering,
+
+[ ... ]
+
+> @@ -1595,6 +1618,8 @@ int gve_set_num_ntfy_blks(struct gve_priv *priv)
+>  
+>  void gve_set_num_queues(struct gve_priv *priv)
+>  {
+> +	struct gve_device_info *device_info = &priv->device_info;
+> +
+>  	priv->tx_cfg.max_queues =
+>  		min_t(int, priv->tx_cfg.max_queues, priv->num_ntfy_blks / 2);
+>  	priv->rx_cfg.max_queues =
+> @@ -1602,10 +1627,13 @@ int gve_set_num_ntfy_blks(struct gve_priv *priv)
+>  
+>  	priv->tx_cfg.num_queues = priv->tx_cfg.max_queues;
+>  	priv->rx_cfg.num_queues = priv->rx_cfg.max_queues;
+> -	if (priv->default_num_queues > 0) {
+> -		priv->tx_cfg.num_queues = min_t(int, priv->default_num_queues,
+> +	if (device_info->default_tx_queues > 0)
+> +		priv->tx_cfg.num_queues = min_t(int,
+> +						device_info->default_tx_queues,
+>  						priv->tx_cfg.num_queues);
+> -		priv->rx_cfg.num_queues = min_t(int, priv->default_num_queues,
+> +
+> +	if (device_info->default_rx_queues > 0)
+> +		priv->rx_cfg.num_queues = min_t(int,
+> +						device_info->default_rx_queues,
+>  						priv->rx_cfg.num_queues);
+> -	}
+>  }
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_main.c b/drivers/net/ethernet/google/gve/gve_main.c
+> index 9cc343a162712..d3882de584e36 100644
+> --- a/drivers/net/ethernet/google/gve/gve_main.c
+> +++ b/drivers/net/ethernet/google/gve/gve_main.c
+
+[ ... ]
+
+> -void gve_set_queue_properties(struct gve_priv *priv,
+> -			      struct gve_device_descriptor *descriptor)
+> +static void gve_set_queue_properties(struct gve_priv *priv)
+>  {
+> -	/* set default descriptor counts */
+> -	gve_set_default_desc_cnt(priv, descriptor);
+> +	struct gve_device_info *device_info = &priv->device_info;
+>  
+> -	priv->max_registered_pages = be64_to_cpu(descriptor->max_registered_pages);
+> -	priv->tx_pages_per_qpl = be16_to_cpu(descriptor->tx_pages_per_qpl);
+> -	priv->default_num_queues = be16_to_cpu(descriptor->default_num_queues);
+> +	gve_set_desc_cnt(priv);
+> +	priv->max_registered_pages = device_info->max_registered_pages;
+> +	priv->tx_pages_per_qpl = device_info->tx_pages_per_qpl;
+>  }
+>  
+> -int gve_set_mtu(struct gve_priv *priv,
+> -		struct gve_device_descriptor *descriptor)
+> +static int gve_set_mtu(struct gve_priv *priv)
+>  {
+> +	struct gve_device_info *device_info = &priv->device_info;
+>  	u16 mtu;
+>  
+> -	mtu = be16_to_cpu(descriptor->mtu);
+> +	mtu = device_info->max_mtu;
+>  	if (mtu < ETH_MIN_MTU) {
+>  		dev_err(&priv->pdev->dev, "MTU %d below minimum MTU\n", mtu);
+>  		return -EINVAL;
+>  	}
+>  	priv->dev->max_mtu = mtu;
+> +	priv->dev->mtu = mtu;
+>  
+>  	return 0;
+>  }
+
+[Severity: Medium]
+Is the ETH_MIN_MTU check still validating the same value?  The commit
+message says:
+
+    These changes are refactors only, no functional change.
+
+Before this patch, gve_adminq_describe_device() called
+gve_set_mtu(priv, descriptor), which checked be16_to_cpu(descriptor->mtu)
+and returned -EINVAL before gve_enable_supported_features() could overwrite
+priv->dev->max_mtu from the JUMBO_FRAMES option, and the jumbo value itself
+was never re-checked.
+
+Now gve_fill_device_info() stores descriptor->mtu into
+device_info->max_mtu unchecked, gve_enable_supported_features() may
+overwrite it with dev_op_jumbo_frames->max_mtu, and gve_init_priv() checks
+whatever value survived.
+
+So two device-supplied combinations change outcome:
+
+  descriptor->mtu < ETH_MIN_MTU plus a valid jumbo max_mtu:
+    probe used to fail with -EINVAL, now succeeds.
+
+  valid descriptor->mtu plus a JUMBO_FRAMES option advertising
+  max_mtu < ETH_MIN_MTU (for example 0):
+    probe used to succeed and register the netdev, now fails with -EINVAL
+    and the device is unusable.
+
+The end of the series still validates device_info->max_mtu, so this is not
+restored by a later patch.  Could the commit message mention the moved
+validation point, or could the check be kept on the descriptor MTU?
+
+> -void gve_set_mac(struct gve_priv *priv,
+> -		 struct gve_device_descriptor *descriptor)
+> +static void gve_set_mac(struct gve_priv *priv)
+>  {
+> +	struct gve_device_info *device_info = &priv->device_info;
+>  	u8 *mac;
+>  
+> -	mac = descriptor->mac;
+> +	mac = device_info->mac;
+>  	eth_hw_addr_set(priv->dev, mac);
+>  	dev_info(&priv->pdev->dev, "MAC addr: %pM\n", mac);
+>  }
+>  
+
+[ ... ]
+
+> @@ -2507,12 +2523,34 @@ static int gve_init_priv(struct gve_priv *priv, bool skip_describe_device)
+>  		netif_set_tso_max_size(priv->dev, GVE_DQO_TX_MAX);
+>  	}
+>  
+> -	priv->dev->mtu = priv->dev->max_mtu;
+> +	if (gve_set_mtu(priv)) {
+> +		err = -EINVAL;
+> +		goto err;
+> +	}
+> +
+> +	priv->num_event_counters = device_info->num_event_counters;
+> +
+> +	gve_set_mac(priv);
+> +
+> +	gve_set_queue_properties(priv);
+> +	priv->modify_ring_size_enabled = device_info->modify_ring_size_enabled;
+> +
+> +	gve_set_buf_sizes(priv);
+> +
+> +	priv->max_flow_rules = device_info->max_flow_rules;
+> +	if (priv->max_flow_rules)
+> +		priv->dev->hw_features |= NETIF_F_NTUPLE;
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903215606.31633-1-hramamurthy%40google.com
