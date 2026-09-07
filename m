@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C4C4F30FB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985C34F4741;
 	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790456; cv=none; b=TEJx9X/PQLP64FcDqOrPtdOvmCWYVCwYtWWTlW8gsqb4VsZRFQ8h1733qenn/K0wtN1rmoYzqmW1aEXpmv7R345ZOM0GxAqiu6vSz/FXTb+95bQfsyUWv/c7bplpvN5W0zBDyyHxhpPO+lmURCa1Y7aQEOikqlXKDyoOWsHX40E=
+	t=1788790456; cv=none; b=MT3Yd0HHvGepu6MdhlZBljVrlE8Tjua0s3Lda9qfmsMM+6ahg1E2u4bI0zu5It1Ylza1hReX7WqaqYPg6ABLV8s3d1UJL2nt+4FVC+GnIucDYtdXUf0h5JU3qIXbypQSlnVqRFo9OBfSQ6UWvC+B9DpxC5xRdXLIdZc/8a9zh0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788790456; c=relaxed/simple;
-	bh=8Gwxp5aoWJUfNbbLdYN5LWeAcCfH1LcXcRH62cWgIps=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=VRAfgopbv756of6uGno/fAe6x4h/dHvVhzKp2uTFM4pz4Oel9Fj+kQAthgqSHqY+xwd2Lz48l2EWL+u8tYbmsuBLjq08TFn1dRkyejfrb6iPjYHmbExw9gWQlg8AahjEtBVEHytFUD2MTdJedP3Xe/5fczdnn0gFPox8ebGouYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jubPEiGN; arc=none smtp.client-ip=10.30.226.201
+	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BWsvYCpEpfmUxDHUOsbCXZnIYh3EenjaD/x9g/KO6rr3XtKFX9Tv/BRq4cwPIMYrnQJ+MAqzOlcqsijaLcVawDkFLSywImG016DVxUfJWuYfr95DslwcMD05IqbJp6Wd6LSkrhCn5PQ+IGIRkgQMS/4O8+c6k/4gw7xZc0zquvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rr58TWjM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jubPEiGN"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 0AF2AC2BCC7;
-	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rr58TWjM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EA673C2BCFA;
+	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788790456;
-	bh=8Gwxp5aoWJUfNbbLdYN5LWeAcCfH1LcXcRH62cWgIps=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jubPEiGNjDDwgik7Tz0Ccvj2+ItCjZZflXnctzuyJsu3YrJTg8LwjGbiVqaHEmsAS
-	 zmu2zIvlrtJS99qPnYP1fx43eRLxi09BEQNuh6r2PDnoHg08HxxAX52BI58FkYr0WJ
-	 oz+PZ00T2XDi41GRTGCD0l/0YNib+snzJ9ukxS2/AfJ0BAtxBGjVCnBOL7Z7yOmW8N
-	 XHTfb/o68Wp3ZLsSD0e7b2jiOUS66u5XNvSCoViSJ36kuQNZFa+fuX+rwBq5s+N2K9
-	 4F6VrVPUKD3FKKuYxigN3IGU6K47ZLUg/LyOvcf6cpS8eqOkrWJIVmi39TkpRJ218m
-	 j5N9UWUzcr9kQ==
+	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Rr58TWjMVe+P2pY9jidCowTTYxQBFO8VSsJky9yv/Tl5UuulSgYESfY7QiulrJ3j/
+	 gOxxKtfFlYzTBRMFMtn6FOJShlvrTIGUXrwvbT3KjZX876AgjMmQNvGIIVPWzox/zd
+	 TTctrpMobaTc7rVTfohhgtEeDDToDC1e7xd4e49eNv69zCsO52Rq9sasVm2LBBjC62
+	 WckQlbp+Ot1mjfm5IoXtciokIQawc/PirjEUKFvoWMMRbj/LEzJ9YrnMmEZ1BmZkyL
+	 eeJSlaJjJBK0NCO8cbjobDkcy02f69otykUvSSyxMLyYorRkkJK03Ql+pRb4qigIWl
+	 mJUifSibh/b0g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D93E5C79F9E;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C204CC79F99;
 	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
 From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Mon, 07 Sep 2026 22:13:55 +0800
-Subject: [PATCH v2 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
- R28S
+Subject: [PATCH v2 0/3] arm64: dts: rockchip: Add FriendlyElec NanoPi R28S
+Date: Mon, 07 Sep 2026 22:13:54 +0800
+Message-Id: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,9 +40,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260907-r28s-upstream-v2-1-21ab570fc91c@proton.me>
-References: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
-In-Reply-To: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU07hgquuIdhgTBITaBkphAN6
+ d2luHb5kvff30CIHQncsg2YVifOTzvgKYN2aKYnKdftDKjR6lLnirEQtcwSmJpRERokvHbW2Bz
+ 2zczUu/fRu9c/luXxojakSDIGJ8Hz5zhcTfL+tVejtOpt0eWXokRbNtXMPvjpPBLUMcYv9b06Y
+ rwAAAA=
+X-Change-ID: 20260905-r28s-upstream-e212e27d6165
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
@@ -51,13 +52,13 @@ Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
  =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=920;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2794;
  i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=LDAlcJQezbRbao3W92BQlWiQhp4bd/SQs/nEjmwyH1U=;
- b=kA0DAAoWFccN7oSCbgcByyZiAGqexraiZ5L7ToCkfpy8sawe5RyogUK47lmrosMUIKy1kgRej
- oh1BAAWCgAdFiEEHbJ7WRKqW5lyBBrHFccN7oSCbgcFAmqexrYACgkQFccN7oSCbgfRLAD/Q2T9
- KMFxgUqquC0UmhkV5yeXcW1ukQADSOjNBK+CCTEA/0EWfKl2yhK4z1JbJMWilZTOEPRJht2guaJ
- XNL4U0dwM
+ bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx5x7bFa+woUbApXbLNuU94kVaD381VvSaSt7dlMakVs
+ /7N/J7VUcrCIMbFICumyCK7qTpSaFX0zCIWqeMwc1iZQIYwcHEKwETKvzD8z+ngy/h3aQK3qujx
+ umh1VcNjc3crHphRbbmzYRbDJ02mDEaGH145tVeF41u+ry5YVfmy4ec6hhWr591KDQv6IyGZeug
+ OLwA=
 X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
  fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
 X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
@@ -65,34 +66,66 @@ X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
 X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
 Reply-To: HystericalDragons@proton.me
 
-From: 安容 <HystericalDragons@proton.me>
-
 The NanoPi R28S is a dual gigabit Ethernet router board based on the
-Rockchip RK3528 SoC.
+Rockchip RK3528 SoC:
 
-Signed-off-by: 安容 <HystericalDragons@proton.me>
+  https://wiki.friendlyelec.com/wiki/index.php/NanoPi_R28S
+
+It is closely related to the already supported NanoPi Zero2, sharing
+most of its power tree and peripheral routing. Patch 2 therefore moves
+the common parts into rk3528-nanopi.dtsi, and patch 3 adds the board on
+top of it. The split leaves the NanoPi Zero2 dtb unchanged; I verified
+this by decompiling the dtb before and after the split and comparing
+them with the phandle numbering normalised.
+
+The devicetree was derived from the vendor tree:
+
+  https://github.com/friendlyarm/kernel-rockchip/commit/ee640c5344b13a0a317436e2357df01af8268ce7
+
+but with many changes to make it suitable for mainline.
+
+Tested on a metal-case unit without the optional onboard eMMC: boots
+from microSD, both Ethernet ports link up at 1000 Mbps, the HYM8563 RTC
+registers, and all three LEDs are functional. The USB Type-C connector
+registers as a DWC3 UDC in peripheral mode; gadget enumeration against
+a USB host was not completed, because that connector is also the 5V
+input and a PC port cannot power the board.
+
+Two things I did not do, because my hardware cannot verify them:
+
+- The AICSemi AIC8800D80 WiFi chip on sdio0 has no upstream driver, so
+  only the SDIO controller is described.
+- The eMMC is described as HS200 rather than the vendor's HS400 with
+  enhanced strobe, since the board at hand has an unpopulated eMMC
+  footprint and the faster modes could not be verified.
+
 ---
- Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v2:
+- Split the parts shared with the NanoPi Zero2 into a new
+  rk3528-nanopi.dtsi (new patch 2). The NanoPi Zero2 dtb is unchanged.
+- Name the pinctrl labels after the nets in the schematic: usr_btn,
+  led1, led2, led_sys, pwr_wf and pcie_eth_perstb.
+- Rename the button node to button-user and its label to "USER".
+- Link to v1: https://patch.msgid.link/20260905-r28s-upstream-v1-0-f68d5389269a@proton.me
 
-diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
-index 81744fbee9..709e2cc44d 100644
---- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-+++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-@@ -347,6 +347,11 @@ properties:
-               - friendlyarm,nanopi-r2s-plus
-           - const: rockchip,rk3328
- 
-+      - description: FriendlyElec NanoPi R28S
-+        items:
-+          - const: friendlyarm,nanopi-r28s
-+          - const: rockchip,rk3528
-+
-       - description: FriendlyElec NanoPi R3S
-         items:
-           - const: friendlyarm,nanopi-r3s
+---
+安容 (3):
+      dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
+      arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
+      arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
 
--- 
-2.55.0
+ .../devicetree/bindings/arm/rockchip.yaml          |   5 +
+ arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+ .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 142 +++++++++++
+ .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 271 +-------------------
+ arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 279 +++++++++++++++++++++
+ 5 files changed, 428 insertions(+), 270 deletions(-)
+---
+base-commit: 32e0f64640d558a0f5410ac5cdd8ebf371c5e6a6
+change-id: 20260905-r28s-upstream-e212e27d6165
+
+Best regards,
+--  
+安容 <HystericalDragons@proton.me>
 
 
