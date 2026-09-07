@@ -1,110 +1,139 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0963239E80;
-	Mon,  7 Sep 2026 11:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2CD36215B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780850; cv=none; b=dKDvW+1xoAuUpt54nKEJBrzWzV/fYk14TPcoS+uPNPVwUuStMACetXY0iq6g9BzQtmZAoeVnJoGGGG7djJwmuqaPbhHgifI3PN+UpoUjTqIO+eZo6rcSEeyUa5Us/GIyn24iI4npoiLp3aJ6GVXpbnVJqm+VGwi45B/shzSYFoU=
+	t=1788780853; cv=none; b=akZhvfxNFBiZV70dZ0LJpWFPXEVbi4FMZIftxh20ReY4aVHrifTmemOkJNh/6n2S8tDy+4De9K0+7AzqGU1YFwZic+hF3lAMNHSft0v/BVfDmIBSTG5dXvDb58q3XRa10pcVgrvACjYITb2DNvTT3VkonsSpoHYN2oQ4JIyBM3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780850; c=relaxed/simple;
-	bh=xqaPec23TxqBqrsyBPj2UG+Cs2Tuu/xm3uZmpyee0rs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=doE/b2d9tJqhBD//HGxMLTBDRe8dLxjlITNv9RoIaD4UAoEvJISlUiXwzC0BT2toRQUL/Gcu2wGNCO9nxnIwKUyenA6A+ban4QLSeSIAmOm1sRrEc/80dRawJAeWNlFDjoIX5TeaCDmhY9MRD7fgpL4z9nzeU6/n0fmrKdZwOc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=bO/b20+f; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788780853; c=relaxed/simple;
+	bh=cHfUoX8k2mK1GryRLRcJEHVXfhFzIuMZZYl3kpa33WU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jllz3b8I+p5TrRpj3GLx2AkCWIJzFwLCERGKF4cWIVXWx86SutFACejLAgvIBQJsQy23t9oPqyvxuxUmsM4D/FjH8tF79tfZcVPlZi7KnLP6FhJcx+zxR40ubZ+sK8bKH1YkP1N+0D1UWdhvg1V3zT0FnfBMInGfnirsh+gufuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zbaszc60; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="bO/b20+f"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DE0224B0;
-	Mon,  7 Sep 2026 13:32:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788780752;
-	bh=xqaPec23TxqBqrsyBPj2UG+Cs2Tuu/xm3uZmpyee0rs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bO/b20+fnG5f4iets2MhI5Yfji0Aik+bFWdcOcDL8RrPp9POMW979MoBUyAlx8sUz
-	 Y08kUS1RJArTjK+X+15WuEgn4d9AwkBeU0bY7PVsjv+r+fXPBb2ZyqEhulXrtN+V7y
-	 +0rzMieIh1FFOKX97HWYFC2Zo0Vf0XbqjS+90eiI=
-Message-ID: <c52f0807-b361-4c76-8c5f-4aa59d7cde15@ideasonboard.com>
-Date: Mon, 7 Sep 2026 14:34:03 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zbaszc60"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ceab75934dso32856205ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:34:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788780851; x=1789385651; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=b0HO00FFYat2iO5z4XYKUwvadSW1KbkDr8EJUWfNwQM=;
+        b=Zbaszc606d5lKdJzo7218MZITkckMab+blFgtD/uufbwR8cKM5hinuF4X9wCft0IZr
+         SRZ9f0KJsXBnXJUch0kISPllVe07mxUiPULayV6TDB962YFmzsFn4BCnjmrCJPx2evwG
+         sibuGVfAkY+8jSkQ1WO0CLXRAfIjYzPqnGICMagj8lODe1kCjZ0NdwISShMRlAOcy5uU
+         aJX+euY7NMuil0cczJ4VR042vDDhD4jalCi+ljlARBWPCu+lAgeozXHZKRLmaOnZsHr0
+         xEN81/2nhqsWKuKHhGe5i9JVHmu76RJ7h0Q4uCO2yFqtk30qnvPZxtvROM0ZKiyZUprj
+         TxeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788780851; x=1789385651;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=b0HO00FFYat2iO5z4XYKUwvadSW1KbkDr8EJUWfNwQM=;
+        b=SLDJRa8IjdkwGZ/8zpKn6xiS3RdNTqAunXgciEXzWEKZvpAHboNieauU1nP4/Rmi+O
+         jyBcfA8zQg7Sqb1RHzcg3/EYTSVh3Nbe5MUNpqRLEqDYeKyAx+DtNGMbRlsrAWiAymyi
+         B3/1qQQqJaBeLAUl65pIcvefjm3q+0Go5WTCoy0ElMjQxz+5BxswzbLhpg4AvEl7pYQT
+         nJVjoB5FvdSPBUeoXKox8SgBtAKbYl1VTK+WF+KYGQ2lHBXdX0y0914Y+Se23UiLxUmf
+         iB0uA4xulTuhQeXB8WU0QdsRlEx9IhXobOn0L05oqxu3x6a0s7HaMJ4n8JYpmQnN1nJr
+         f//w==
+X-Forwarded-Encrypted: i=1; AKwUvBwk/WJwCtcXtjXWCIpy4IVFgYU42oRarcEo3GGvNUou11AO9RKQv8nyfduoXOHxy2260S5S3zRejyrpZu4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAYHXgalbQ7XHLtNBOSzO597wbbL1JQTFC+m5CBl5Futvdq3hM
+	iF4MxJoPup6jfET4arO53+r+FHJ29slrzyOqzBdQTalYbmcQt3Twvvh4
+X-Gm-Gg: AYBFou3dwzPdqCxgrL0G5+UGqBq5aRp+vU0ME2nPZEe66Jl5di7v5hkz6XI1HpzDsBo
+	4pAywSeFj8HZPBEXwhiGolmXVogsd3MqAhAiVOcPts4Yfh2cvEugnRB0PtGy1zYZ1uH7CvpYteh
+	K8eJk72uzluLTUPMNy21ec3YJmNkBRmR6hxy/hynq92YL1OO9ALBO0Mbh4gG8RgzGAUXOsLvKSO
+	sWnLbSIJ3gmwnIup3kJuCE2d2xL+8ZM7KVTGZKq1ggESwosFGmmpQAZX0YcjFgx3V+YecpuAUIH
+	OZO5JZ1ZDQU6QuDu1dMpW+/jP26CSNhmoQNlOktp8xnzVv5qcWS2FMmDu0aZBc24JjE/zgWgSLQ
+	sf4nsdKrKmE7vGgMHeOQ7Iv30Ai5hE6xRBe+Syle0jab6Na6HUEhpfNS1aiv3q8PsBbdZ818499
+	XHDqkgDc36AYxz2BKP0ZU9EUGquQoLwrVwQi5DTMfcsHGMzLBGp8BmM3pSsA4=
+X-Received: by 2002:a17:903:2ca:b0:2d9:3850:2741 with SMTP id d9443c01a7336-2db12255f7bmr330259655ad.0.1788780850921;
+        Mon, 07 Sep 2026 04:34:10 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d9ddsm43944095ad.31.2026.09.07.04.34.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:34:10 -0700 (PDT)
+Date: Mon, 7 Sep 2026 19:33:41 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Vladimir Oltean <olteanv@gmail.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v2 1/4] phy: core: Add common helper to add phy phandle
+ device link
+Message-ID: <ap6g-SwI6vvmdnB6@inochi.infowork>
+References: <20260904083709.425893-1-inochiama@gmail.com>
+ <20260904083709.425893-1-inochiama@gmail.com>
+ <20260904083709.425893-2-inochiama@gmail.com>
+ <20260904083709.425893-2-inochiama@gmail.com>
+ <20260907110121.hfrblphv5vhzobj7@skbuf>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: v4l2-common: add Y12 and YUV24 to
- v4l2_format_info()
-To: Nicolas Dufresne <nicolas@ndufresne.ca>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishal Sagar <vishal.sagar@amd.com>
-References: <20260806-v4l2-format-info-y12-yuv24-v1-1-de2dc061be02@ideasonboard.com>
- <f2a442a8a21ff5d22a3bcdb4089b96604ce8344d.camel@ndufresne.ca>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <f2a442a8a21ff5d22a3bcdb4089b96604ce8344d.camel@ndufresne.ca>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907110121.hfrblphv5vhzobj7@skbuf>
 
-Hi Nicolas,
-
-On 17/08/2026 18:56, Nicolas Dufresne wrote:
-> Le jeudi 06 août 2026 à 16:02 +0300, Tomi Valkeinen a écrit :
->> Add the V4L2_PIX_FMT_Y12 (12-bit greyscale stored in 16 bit container)
->> and V4L2_PIX_FMT_YUV24 (packed 24 bpp YUV 4:4:4) entries to the
->> v4l2_format_info table.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   drivers/media/v4l2-core/v4l2-common.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
->> index 65db7340ad38..0951a1b42a5f 100644
->> --- a/drivers/media/v4l2-core/v4l2-common.c
->> +++ b/drivers/media/v4l2-core/v4l2-common.c
->> @@ -307,6 +307,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
->>   		{ .format = V4L2_PIX_FMT_Y210,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
->>   		{ .format = V4L2_PIX_FMT_Y212,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
->>   		{ .format = V4L2_PIX_FMT_Y216,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 4, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
->> +		{ .format = V4L2_PIX_FMT_YUV24,   .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+On Mon, Sep 07, 2026 at 02:01:21PM +0300, Vladimir Oltean wrote:
+> On Fri, Sep 04, 2026 at 04:37:05PM +0800, Inochi Amaoto wrote:
+> > It is very common for adding a device link for phy phandle
+> > for device managed phy helper functions. So add a common
+> > helper for future reuse.
+> > 
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > ---
+> >  drivers/phy/phy-core.c | 38 +++++++++++++++++++++++---------------
+> >  1 file changed, 23 insertions(+), 15 deletions(-)
+> > 
+> > diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> > index 21aaf2f76e53..ea79913fbb87 100644
+> > --- a/drivers/phy/phy-core.c
+> > +++ b/drivers/phy/phy-core.c
+> > @@ -606,6 +606,26 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
+> >  }
+> >  EXPORT_SYMBOL_GPL(phy_validate);
+> >  
+> > +/**
+> > + * phy_add_device_link() - Associate the phy with the device
+> > + * @dev: the device to link the phy
+> > + * @phy: the phy to associate
+> > + *
+> > + * Associate the phy with the device by using device link.
 > 
-> This one is mapped two lines below, perhaps you wanted to reorder ?
-
-It was caused by patches crossing... My original series was based on a 
-kernel version without V4L2_PIX_FMT_YUV24, but that was added in April 
-and went unnoticed by me because my patch applied and worked fine...
-
-Thanks for catching, I'll drop YUV24 from my patch.
-
-  Tomi
-
->>   		{ .format = V4L2_PIX_FMT_YUV48_12, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 6, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
->>   		{ .format = V4L2_PIX_FMT_YUV24,   .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 3, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
->>   		{ .format = V4L2_PIX_FMT_MT2110T, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 2, .comp_planes = 2, .bpp = { 5, 10, 0, 0 }, .bpp_div = { 4, 4, 1, 1 }, .hdiv = 2, .vdiv = 2,
->> @@ -333,6 +334,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
->>   		{ .format = V4L2_PIX_FMT_YVU420,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
->>   		{ .format = V4L2_PIX_FMT_YUV422P, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
->>   		{ .format = V4L2_PIX_FMT_GREY,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
->> +		{ .format = V4L2_PIX_FMT_Y12,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+> I guess it would be good to specify somewhere "consumer" device, because
+> there are multiple devices involved.
 > 
-> Ack,
-> 
-> Nicolas
-> 
->>   
->>   		/* Tiled YUV formats */
->>   		{ .format = V4L2_PIX_FMT_NV12_4L4, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
->>
->> ---
->> base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
->> change-id: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
->>
->> Best regards,
->> --
->> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->>
 
+Reasonable. I will update this comment. Thanks.
+
+Regards,
+Inochi
+
+> > + */
+> > +static void phy_add_device_link(struct device *dev, struct phy *phy)
+> > +{
+> > +	struct device_link *link;
+> > +
+> > +	if (!phy)
+> > +		return;
+> > +
+> > +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+> > +	if (!link)
+> > +		dev_dbg(dev, "failed to create device link to %s\n",
+> > +			dev_name(phy->dev.parent));
+> > +}
+> > +
+> >  /**
+> >   * _of_phy_get() - lookup and obtain a reference to a phy by phandle
+> >   * @np: device_node for which to get the phy
