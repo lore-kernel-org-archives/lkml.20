@@ -1,182 +1,157 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCAD3CC337
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788812315; cv=none; b=e+p3qolDSYc6RgSlOmxIiq7grs+Obax9S2MoLcetoQgQ61W8Zx60DFSjeyqlwvjuPVxIfc7AOFJBc6Vqk9qFba0YWOWdAtJEy3KVx51F08qlOsKjRVZAeU+nJMkIIauxgySOVs9iSQX0sIosQjcHbSdZHtEvtYDgpkhTPyGl91E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CE5B3F2101
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:18:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788812315; cv=pass; b=qPMrKZltW9+QlHp5g/Mf+79Dux83cvyFosKLjtF+MMAQIc03wrsMouRUEdmpDt1cS0h5nhpZNrLr1KS5xpf4GMFm12fiIpPGo+CKcjLhqXFXHwPdM/opLa4NyiQZyFzPUJqKA1V+qFrezNvmPKzKglaJUbR4Y23HPfbnqUgv9NQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788812315; c=relaxed/simple;
-	bh=GP4LFAA+FEgEVuj9LBZm57dq1DGvQZhZyu8+UTZXZbo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q9gt5HdJNAU4Dpb1U8gjGeePojIDxkUoZZyytS9CaGc9NghVCIbWljroCPF1L7t0pqPvKoCwkB7P+AH4UR5lTn111Jo2TPnugbGn/hr0plrh3oL1FI3IBA4QgLM7tGtIoxSRT9gk3fKvSjGAzEt3QrCiUvP6yM2njbnBwWka5rU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h9yhTTft; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=RLXJVqDsqciJ2yl5PsUrLuoeCj7qRp4bu3LBKb54af8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=t1c4YnM2wh5FPQFt6ylObuNRWrPZUsXeJ8BMGhvzZ+Ujrd8JSDZJmg6nQinHuMbX7PMBkO5uFW/tjEyc7QHgvLMYIVm22ZcNdSjxcqkVQpBTP83WRqT+XBcMEVSbic+vRwu29KWqZCUetuFWy8Fi1+NLW0pYYoS92ie4buSL0T4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=cWsuLsUg; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h9yhTTft"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so3683597a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:18:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788812313; x=1789417113; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MkTk6U8Hsd5NK/nm/H/rlcc7sKnrtC8ko7vuxkMvp9s=;
-        b=h9yhTTftXTWLyZsEcB0gd2omCuef9iANidzKpO5EhD72dR7mE8aZG6wNpd2E5PNf4J
-         DEnv5lgzjskhPt6wqBLAIcBxfBu+hYd+oZV7W6ul+HEcVk0TmFG55ZxEeO1VdxmWsWK2
-         pIqnStJYYv+FQmnvgqzZ/C2+SWZ1Bm1aatH/1wVrAdTMJKmvrtASEHMJHFdcj0cH8wgO
-         HkLQ7Ao5etnc9+/SllylQ1ovsEv/uDLaxgU+WDsp6DjtaIqvH2TVqRJXpa+Q8gv8WzU9
-         LzEv2iMY5XBau3WwD2W+IzwZmghIDcA49UefmQsB1ffiamDmQ2y/j5ug8OliZx1IroEh
-         ekUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788812313; x=1789417113;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MkTk6U8Hsd5NK/nm/H/rlcc7sKnrtC8ko7vuxkMvp9s=;
-        b=Q5L/PTcxbEaFApH3q/1uBCqm0IFP8LFYJl3ywOPc1HRYUf0pL/HggUhdQoIEsO3PBU
-         wQeH2ihtsh0SQlOC+dBMDmcVXcxWcwliY7Oo2puEkPq51N4xGjx4XkC4MAEOkGkgPxYN
-         k0njdgJx1MU1Gc51pSIDOG1CKOnKVFjjgGG4OpFXuCu3II0KcSAL4Blgr9socQb/O6i+
-         edjfGRQrvgjFxJ1SVLBpA9aE1uxMgtSJeBhMPUPvDlYjBfUt5rW5cjNqABb7N/lJrYyM
-         268YTcBKTq9HGaPW+9vF8ZlpVjMuUw/FwWWw2mh/bft7T1Doq2/+ydFwsaYdlevUu7ee
-         gQ+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzdSFMoCh00t1s78GTfhg9u4W4oTopGDPb9gcJO1SSDFv2HIsqm8hyg0bLIXqswsBW2AL03Kf689EUkkRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhe9++KIJ6fGtH7myzfGJCPOr49HgmKAOZKl9ucGiL0NsykzUg
-	4htQIXWo4aXN8BIjyjLY+MSxgaUW/iz2Yj1jmKqjUPcbbrxESL9U5zY2
-X-Gm-Gg: AYBFou3qxcGgcj3itDH9j2mZzWqu0XfbKDZQ2yjgqi5lSDyzEBOtwBS5IqKg9mK3xzn
-	c5B1RluBu4k+d7rivVzkOGsgcg69fGtSQ71IWtK6Klm96oThdo6mCgzNt16b/GyI3SZxvUATVo+
-	fuWJ4W+w9JBBCZmqg9lKiEuRGRd7RAwcc6aAYMBcXzKoIKtIG9i+vFpE41xDstMFQAUYDzYAy2K
-	ZSIQI5PnBw+T9vmLHLHtBJYhdEeTsc7lD9kizpAgr4STO6HV9xXSIRqCzxhfrw4KKN//urLndgN
-	xSGgs5Ue2YMLnkXykrX35ax1+lEjl8RIDMrEEzI8yYZfxWuUgpyqPMV6KT21i4Yxv7HM889D1l4
-	EqnJVVbG7B2doI1A+9vp1R9xn16kKLj988B//tLmEz0ZXicmrBzmmTSAFxML+ueu7APq9n1x7d3
-	2BAvebkfCwvekw6UH8twXoy1/IO8NcK+O+WzjFA45ziPo8QT/VVL6OjNcvUH2mktzn7La1THghI
-	xv3hDQI3dkjZttNX66KK0YYbKsO2D6NZWiRsx3Xq0g+ULn+WmlaBLE84uQKCSyp7/mZw+5c6Vgn
-X-Received: by 2002:a05:6a20:7350:b0:3d3:aec2:4dc8 with SMTP id adf61e73a8af0-3da3a0c510dmr36997103637.20.1788812313022;
-        Mon, 07 Sep 2026 13:18:33 -0700 (PDT)
-Received: from ?IPV6:2001:df0:0:200c:e5ea:1a30:7c29:cd76? ([2001:df0:0:200c:e5ea:1a30:7c29:cd76])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-338778fb926sm4986048eec.31.2026.09.07.13.18.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 13:18:32 -0700 (PDT)
-Message-ID: <93ffe3ec-bb45-4c10-8d78-0cd23c9bb61e@gmail.com>
-Date: Tue, 8 Sep 2026 08:18:25 +1200
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="cWsuLsUg"
+ARC-Seal: i=1; a=rsa-sha256; t=1788812279; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=MuA8NHhE1oHwzXPlO4jmuk6dhxBSmhNzY7Yijeoe1+8/yz3fbUMNNeI76Phut8bua71eI4gHQsWTy76r62JDoDrIAo+FohCIilhmrKZONjPHpTRzPE61PF1IVqAvN8U0rk9u9N+i7palD/rYyTRaYy7MU2K31Q796x5qVjHVdXY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788812279; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=QpVjZQIXEM6PuM7BJI1fj2uYWU3Giv1q4JGW4lXGAUQ=; 
+	b=A3IKjnZIz+olCDLUFnGfNMx8vBtKNLVr0KmaLF8wjx0BAkkxL6+NBtVlucMoufrdEVCU583mvWdWCDA5hbYSw8CsEXCyb9MyRFuxd/i9vhDZOdoIHHclwSfZ9XFAV8heF7yM0/vBzRI/sEpCy3OTd6Ox+91A/hxlekNH/Tv7/t0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788812279;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=QpVjZQIXEM6PuM7BJI1fj2uYWU3Giv1q4JGW4lXGAUQ=;
+	b=cWsuLsUgV33aRvZ36uMK96b86LSCQCDvz6OU5nQnJXcI5D7sTIF0c9XfUHhBdvED
+	UxtRyVKF2FOdoregGHnFOJt3JioK+/Abb18T9H03gSFa8/38KucIomWQmtvOQLY8AcG
+	m7xizWX+40+xSu66W0MQNkf8qu6MGQOU4TJB2Ox0=
+Received: by mx.zohomail.com with SMTPS id 1788812277306611.3921507709811;
+	Mon, 7 Sep 2026 13:17:57 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Mon, 07 Sep 2026 21:16:23 +0100
+Subject: [PATCH v8 14/16] drm/panfrost: Introduce a reset lock
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de,
- linux-fbdev@vger.kernel.org, miro.kropacek@gmail.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-m68k <linux-m68k@lists.linux-m68k.org>
-References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
- <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
- <CAMuHMdVOc-_hgWvu84EW7tyQx6WzPtabnBUJ1T0uoxa1QZA94Q@mail.gmail.com>
-Content-Language: en-US
-From: Michael Schmitz <schmitzmic@gmail.com>
-In-Reply-To: <CAMuHMdVOc-_hgWvu84EW7tyQx6WzPtabnBUJ1T0uoxa1QZA94Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260907-claude-fixes-v8-14-c2bcb5e82184@collabora.com>
+References: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
+In-Reply-To: <20260907-claude-fixes-v8-0-c2bcb5e82184@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Faith Ekstrand <faith.ekstrand@collabora.com>, 
+ "Marty E. Plummer" <hanetzer@startmail.com>, 
+ Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt <eric@anholt.net>, 
+ Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Collabora Kernel Team <kernel@collabora.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3001;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=RLXJVqDsqciJ2yl5PsUrLuoeCj7qRp4bu3LBKb54af8=;
+ b=kA0DAAoBDiZ+TO5TQz0ByyZiAGqfG4zIy/uoHluHI30JJNL0ohN3HvSelA46mFR+kXQLX7B/h
+ YkBswQAAQoAHRYhBDJAMOjABRdd+TcHpA4mfkzuU0M9BQJqnxuMAAoJEA4mfkzuU0M9lpIL/2Gs
+ 13JUt2Ff8xhtU1X2fbFpyQnGsubbEKvRdqEqPcJsBZt4+XRovsaWjtm0URouLtNada2IOcBEF+3
+ khQsRardsNyiGGWDLc3hcdDwtTXggDY4+eKOdvyO0T2lJgExI/L70etMHmEf8NU4O+66tT95ozx
+ AJE+xJoMQB546lBbJ3CgFyjCk3xeTo+bSPCYy/wWpApKjdSBAa1CybpbZmMHUp1ta5FLKWIn3Ov
+ 8a3P81YzjNz338gGuM6Op0KA5pDelpOukfDOX9bgVyv7C/X3oJedJgmx8I0x8mn0cRHNm++ZqFI
+ KziFyHNnpZWrqpw1LIzyI4HGh0jnUfiYXGF4fTnK3LXWQJzMqr3ZZBWpu3vQ6FE8V+LYuApRYCz
+ JZYasrVJRs9KjutvUb5LD6ODWteRzSa7kL3yteJIIlBE6NV4kTOEu/4rpteWYIgzV/2isVJeDaS
+ 3PXedRKeanZkqqJoVd13DLEowbGNSwDJab36MnNYTi1SDjzygrAOLHJiiO4g==
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-Hi Geert,
+So as to avoid accessing HW register while a reset is ongoing, a read/write
+semaphore that envelopes the reset sequence will help driver entry points
+avoid racing with it. For now, the only such racy entry point is the ioctl
+that returns the current GPU timestmap.
 
-On 7/09/26 20:38, Geert Uytterhoeven wrote:
-> Hi Michael,
->
-> CC linux-m68k
->
-> On Sun, 6 Sept 2026 at 03:49, Michael Schmitz <schmitzmic@gmail.com> wrote:
->> Am 27.08.2026 um 21:39 schrieb Linmao Li:
->>> The SuperBlitter operations derive an integer byte count per pixel.  The
->>> accelerated fill path handles only one-, two- and four-byte pixels.
->>> However, the operations are currently installed for every external
->>> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
->>> truecolor modes accepted by the external video parser.
->>>
->>> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
->>> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
->>> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
->>> despite advancing addresses by three bytes per pixel.  These cases can
->>> corrupt the framebuffer beyond the requested rectangle.
->> I believe 24 bpp mode can be rescued using something like this (entirely
->> untested):
->>
->> --- a/drivers/video/fbdev/atafb.c
->> +++ b/drivers/video/fbdev/atafb.c
->> @@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *info,
->>           case 2:
->>                   memset16((u16 *)line, pix, rect->width);
->>                   break;
->> +       case 3:
->> +               memset(line, pix, ((rect->width * bytespp) % 4));
->> +               line += ((rect->width * bytespp) % 4);
->> +               memset32((u32 *)line, pix, (rect->width * bytespp) / 4);
-> This uses unaligned writes for the largest part.
-> You can avoid that by doing the memset32() first.
+Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_device.c | 2 ++
+ drivers/gpu/drm/panfrost/panfrost_device.h | 1 +
+ drivers/gpu/drm/panfrost/panfrost_drv.c    | 9 ++++++---
+ drivers/gpu/drm/panfrost/panfrost_job.c    | 1 +
+ 4 files changed, 10 insertions(+), 3 deletions(-)
 
-True enough (iff line happens to be aligned, which is only true if 
-rect->dx is even).
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
+index f171abe26f80..e90efcff5ce7 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.c
++++ b/drivers/gpu/drm/panfrost/panfrost_device.c
+@@ -466,6 +466,8 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
+ 
+ void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
+ {
++	guard(rwsem_write)(&pfdev->reset.lock);
++
+ 	panfrost_gpu_soft_reset(pfdev);
+ 
+ 	panfrost_gpu_power_on(pfdev);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
+index a0b9a2145fc9..63452febb1cf 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_device.h
++++ b/drivers/gpu/drm/panfrost/panfrost_device.h
+@@ -165,6 +165,7 @@ struct panfrost_device {
+ 	struct {
+ 		struct workqueue_struct *wq;
+ 		struct work_struct work;
++		struct rw_semaphore lock;
+ 		atomic_t pending;
+ 	} reset;
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index f77780c72a1a..571a26b84126 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -41,9 +41,12 @@ static int panfrost_ioctl_query_timestamp(struct panfrost_device *pfdev,
+ 	if (ret)
+ 		return ret;
+ 
+-	panfrost_cycle_counter_get(pfdev);
+-	*arg = panfrost_timestamp_read(pfdev);
+-	panfrost_cycle_counter_put(pfdev);
++	/* We should not read timestamp register while the GPU  is being reset */
++	scoped_guard(rwsem_read, &pfdev->reset.lock) {
++		panfrost_cycle_counter_get(pfdev);
++		*arg = panfrost_timestamp_read(pfdev);
++		panfrost_cycle_counter_put(pfdev);
++	}
+ 
+ 	pm_runtime_put(pfdev->base.dev);
+ 	return 0;
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 00fb36c577df..c2b1f1087e21 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -877,6 +877,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
+ 	mutex_init(&pfdev->sched_lock);
++	init_rwsem(&pfdev->reset.lock);
+ 
+ 	js->irq = platform_get_irq_byname(to_platform_device(pfdev->base.dev), "job");
+ 	if (js->irq < 0)
 
-But as Miro pointed out, 24 bpp can't actually be used (and without TOS 
-setting such a mode before Linux boot, it can't ever happen).
+-- 
+2.55.0
 
-Cheers,
-
-     Michael
-
-
->
->> +               break;
->>           default:
->>                   memset32((u32 *)line, pix, rect->width);
->>                   break;
->>
->> Can't test this on hardware, and would need Miro to confirm it works as
->> intended.
->>
->>> Enable the SuperBlitter operations only for the layouts they implement:
->>> 8-bpp packed pixels and 16/32-bpp truecolor.  Keep the existing software
->>> operations for all other external formats.
->>>
->>> Fixes: d463633d63e6 ("fbdev: atafb: Add support for SuperVidel's SuperBlitter")
->>> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
->>> ---
->>>   drivers/video/fbdev/atafb.c | 6 +++++-
->>>   1 file changed, 5 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/video/fbdev/atafb.c b/drivers/video/fbdev/atafb.c
->>> index 5bca34c45cef3..c3011b61a94b9 100644
->>> --- a/drivers/video/fbdev/atafb.c
->>> +++ b/drivers/video/fbdev/atafb.c
->>> @@ -3360,7 +3360,11 @@ static int __init atafb_probe(struct platform_device *pdev)
->>>                memset (screen_base, 0, external_len);
->>>
->>>                /* framebuffer in SV RAM: enable the SuperBlitter */
->>> -             if (external_addr >= 0xa0000000) {
->>> +             if (external_addr >= 0xa0000000 &&
->>> +                 ((external_pmode == FB_TYPE_PACKED_PIXELS &&
->>> +                   external_depth == 8) ||
->>> +                  (external_pmode == -1 &&
->>> +                   (external_depth == 16 || external_depth == 32)))) {
->>>                        svblit_regs = ioremap(SVBLIT_REGS_PHYS, 0x100);
->>>                        if (svblit_regs) {
->>>                                svblit_fw = svblit_rd(SVBLIT_VERSION) & 0x1ff;
->>>
->> Otherwise, LGTM.
->>
->> @Geert: can you remember if pixel format or bit depth of an external
->> framebuffer can be changed at runtime using fbset??
-> I am no Atari expert, but IIRC all external framebuffers rely on
-> being fully set-up before Linux boots?
->
-> Gr{oetje,eeting}s,
->
->                          Geert
->
