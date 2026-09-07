@@ -1,122 +1,180 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21D44854E8
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70DF448A2BE
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781088; cv=none; b=EBErQWmKYDhb5PKELGA9SBwj+ch9LPRmuPTcypIeOB3h4Umfjp15kcZukvbkz5fqO3UwLNtXw6BL4AnhBkBzUyjlLN9qWcHUDcFwtyZ2KkYmxnYbCIFlZODzB7bTBRfwzSrcuORnMJHYlYOXNnzXwZ3nb81leLJhqoBtDLwDzeI=
+	t=1788781091; cv=none; b=oVGdGg6AgKjYKlP9hMMHu63YuqwtHDfuCZ7XvoVI3wz9azJarwPBLihbs6ADPPDD8PAdOUzSLKThHC/Kray8gfkISAA+c/UzlpE45Noh6JdjWBhxG8/8TtUzttIM8HhIafEolQowWbFYVUY/6lB+FkO6hzVMeonVuGB6kIZzZok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781088; c=relaxed/simple;
-	bh=pSUUy68iEUMbccMv5CvszWOHJ0OfsO9hJWlxHfSfEyE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hg5/aKtKPLiB7UDn9da6et6LMjRw9sne02t1MNNqKjXtgEm0MKxykahb0+MqZS0IUA3Ah2fvV8+185HyCJMguoEUfXg6Q1oPAT0ylsy4goyQQkLz+Oh1BRUjkO3NMhYSHAaEBjsU484PUUzZPzYEyGQUCOvzxtohrMYD9VUF3d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BiWorANS; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788781091; c=relaxed/simple;
+	bh=tfEoOqUUY5uPobZJkXgbLqSu5IFOc+FoE1/vAmlcrmI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BRKijtkLDRx9mu1+7xhmCcF6ubCC5ij0v2AU4NVT3d8oGj/9Ve7h7tSKBDBgPqDpayhT2iklMnJr3pjuNigR+LwypRPsyZMBNn/+lb+M2Dmy5n28WkOVDOzzT6OQKo3697v5tXDVEOw3q6Jm9VBWcByIPaNJ5wEiLTXp+DtvMsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=X8ng6K/K; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BiWorANS"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d91ff7d9acso28852235ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 04:38:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788781086; x=1789385886; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2k3YSo3vpVW3e75vhErB5oixVDeaXIpJznt6jU4MH/I=;
-        b=BiWorANSNXRI5UDaQVdLltsEYeMcits//+pAOdbwpJAF02UOpaARiNtTrOW2FTiuQW
-         cQFolsRuoWMVW3fNAmfuCfkLpEalkkMq8yQumeoHwc8kHzVVXWTN5WrYfee/Dsp6PRlc
-         /KZGkMzwp6QmqALO37txsLbkGPUBn5AYih5oKuW3GQTz6FSWeweYK8Qra3LdvNsQ4+a8
-         A+yvVuiMnEQY6MioxmTMjHOk18Skayu/R5ftuF2nKjs7C8wNdjvZw2fxizfqzC8DYqr1
-         i8GJnrfr4c0vI2iSI4TsIAWe9fL1KdvW40JGDj+qohgoju1z9uKuumvGxKxYAmcD87qA
-         7row==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788781086; x=1789385886;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2k3YSo3vpVW3e75vhErB5oixVDeaXIpJznt6jU4MH/I=;
-        b=M3Vo07R/kCXVNW7x7obRtCQMptq/k4O5LFd1gZ+2dDCs9gbi7SSdr15AqK3CIn8+3P
-         d/kF5kizpiXb+4onTG3wBSxVLRMUXFz5oWD2LrvHI26i+gULVMQXRh0idHtDD3+W4nVx
-         2ISbDuxySBxnuzdQZfJ0cZwC3YfW+GMXmp9V3ubni2Za/TA4LcxsngwEM9y7eETRVMUC
-         DXBcuMaXDE84RXCchP5HSUzo01AS+TX443HS9ATB+osHl4IUoLRUgG1Vh+O0lPyrVI9f
-         taFmmZqnDfPcvtyO0obbU5lRA66PO7jF60zyOs0QJSZwWWEz+nJO9IIYb+xycc7Yqre7
-         mepw==
-X-Forwarded-Encrypted: i=1; AKwUvBxYi2sWhPY/O+u1gyG2tXA4aCmqGmyBlj7/CWjIyf7o7C0LHG/UELb+ZasJN/fmoZImLMek9ZW9HllWTq0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbUm5UZVbSPtlFCBNXNcdtO9nb40ytlnYlml/c8FxN77jzkpOk
-	na5JbZpeRqn8d9JFcxofHIJjgcq3nITdqaAzBbB9emWvZzySfS8SR19T
-X-Gm-Gg: AYBFou3AsTFZBL/uVz8DS/gQcsW6We7qozB9cdVFOP/roBBXiH9gqeFj4gI2AbrEFUv
-	wEgZUlmzpbSv58wD0Pn2lTmI5T3nbvnRcTETfn5fJHrXVrhc+HbhK09TaGCvIqZ+tSHg3161tn7
-	hDDWmoZmTr0SfLADQHtSuheFej8nrNdEcO1jV+R1HI1BWLJguTSMgEfWJ73ThAkK81XpJYc3/p9
-	oBOUFO4hPXfDaGSXEULtd+M1nKrTguBZAwPKXK54bmx3LwW9LfIZ1LXMF/XWNBY2BRs1fGRhYVN
-	N9AwvAM/eHognojZUbcAWcVvNBXoSr7oIHVYGZVG8riGo0psTWWqRl0okZzp4R09mw7YxhnZVFL
-	E6JYs9yBQKW1iONILeeGLJve1oWt20MH2b66KSRXw6kLTq42nO0UsCkbKOvqDI5bRakq/SqPbDK
-	yqTZt8lLvJj2wOaoIIVNXY4pDfsKrEc3GP3LfMWkaVYIIH54rdAicN12Ukhfs=
-X-Received: by 2002:a17:902:7004:b0:2d8:d4d3:3fbc with SMTP id d9443c01a7336-2db12629346mr237775995ad.16.1788781085615;
-        Mon, 07 Sep 2026 04:38:05 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149ca4eesm44727255ad.66.2026.09.07.04.38.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 04:38:05 -0700 (PDT)
-Date: Mon, 7 Sep 2026 19:37:35 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Vladimir Oltean <olteanv@gmail.com>, 
-	Inochi Amaoto <inochiama@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v2 3/4] phy: core: Add phy bulk data helper functions
-Message-ID: <ap6hHV49iWexJlWp@inochi.infowork>
-References: <20260904083709.425893-1-inochiama@gmail.com>
- <20260904083709.425893-4-inochiama@gmail.com>
- <20260907105611.uvhdywq2pwikfz3y@skbuf>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="X8ng6K/K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788781088;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9luXgLKX7odCzaclov5u6jsmNvxKtHBsHpUJ1lHcupg=;
+	b=X8ng6K/K+xJ1w5A0st/XpBzRPJqqvypYObIjrz/pssKKA5VX0uDodaBgW+1uw191lG2Pox
+	3jISOGk1HI/UHqX8SObBPOP+SNrNmHPhs6qRXsLV12M+xNcNV441RzPqD9XF72VMkLQB8T
+	zLFetapO+BsqP75mBWnhBy8pA/+AyJ0=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-482-_Pc-tk2OPKW0ga5iJG1FHA-1; Mon,
+ 07 Sep 2026 07:38:05 -0400
+X-MC-Unique: _Pc-tk2OPKW0ga5iJG1FHA-1
+X-Mimecast-MFC-AGG-ID: _Pc-tk2OPKW0ga5iJG1FHA_1788781083
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6FA6D1802162;
+	Mon,  7 Sep 2026 11:38:03 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id D25F81956042;
+	Mon,  7 Sep 2026 11:37:59 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v9 02/14] afs: Fix afs to abort the rxrpc call on send error
+Date: Mon,  7 Sep 2026 12:37:29 +0100
+Message-ID: <20260907113743.1453210-3-dhowells@redhat.com>
+In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
+References: <20260907113743.1453210-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907105611.uvhdywq2pwikfz3y@skbuf>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Mon, Sep 07, 2026 at 01:56:11PM +0300, Vladimir Oltean wrote:
-> On Fri, Sep 04, 2026 at 04:37:07PM +0800, Inochi Amaoto wrote:
-> > diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> > index ea47975e288a..13f9f030122f 100644
-> > --- a/include/linux/phy/phy.h
-> > +++ b/include/linux/phy/phy.h
-> > @@ -81,6 +81,17 @@ union phy_configure_opts {
-> >  	struct phy_configure_opts_hdmi		hdmi;
-> >  };
-> >  
-> > +/**
-> > + * struct phy_bulk_data - Data used for bulk phy operations.
-> > + *
-> > + * @id: phy consumer ID
-> > + * @phy: struct phy * to store the associated phy
-> > + */
-> > +struct phy_bulk_data {
-> > +	const char	*id;
-> > +	struct phy	*phy;
-> 
-> It's not clear from your design intention if struct phy_bulk_data :: phy
-> is permitted to be accessed individually by consumers. Personally I see
-> no reason to. In that case, can you explicitly mark "struct phy *phy" as
-> "/* private: Internal use */" (like struct regulator_bulk_data does,
-> albeit for "ret"), or simply say in the kernel-doc description that it
-> is managed internally by the PHY framework (as is done for both struct
-> regulator_bulk_data and for struct icc_bulk_data :: path)?
-> 
-> This should help at least LLM review flag abusive users.
-> 
-> > +};
+Fix afs_send_empty_reply() and afs_send_simple_reply() to always try to
+abort the rxrpc call rather than just aborting on -ENOMEM and otherwise
+abandoning it.  If the call is already complete due to network failure or a
+received abort, this will do nothing.
 
-Yes, in my design it does not allow and I have no reason for this too. 
-Because the bulk data helpers are for ones that does not care a specific
-phy. So this is fine for me. Thanks for the thing I have missed.
+Also make afs_make_call() always abort on send error; again, it does
+nothing if the rxrpc call is already dead.
 
-Regards
-Inochi
+Fixes: 08e0e7c82eea ("[AF_RXRPC]: Make the in-kernel AFS filesystem use AF_RXRPC.")
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824091645.415423-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+---
+ fs/afs/rxrpc.c               | 35 +++++++++++------------------------
+ include/trace/events/rxrpc.h |  2 +-
+ 2 files changed, 12 insertions(+), 25 deletions(-)
+
+diff --git a/fs/afs/rxrpc.c b/fs/afs/rxrpc.c
+index a80b043d36be..04756d8744e2 100644
+--- a/fs/afs/rxrpc.c
++++ b/fs/afs/rxrpc.c
+@@ -449,10 +449,8 @@ void afs_make_call(struct afs_call *call, gfp_t gfp)
+ 	return;
+ 
+ error_do_abort:
+-	if (ret != -ECONNABORTED)
+-		rxrpc_kernel_abort_call(call->net->socket, rxcall,
+-					RX_USER_ABORT, ret,
+-					afs_abort_send_data_error);
++	rxrpc_kernel_abort_call(call->net->socket, rxcall,
++				RX_USER_ABORT, ret, afs_abort_send_data_error);
+ 	if (call->async) {
+ 		afs_see_call(call, afs_call_trace_async_abort);
+ 		return;
+@@ -865,6 +863,7 @@ void afs_send_empty_reply(struct afs_call *call)
+ {
+ 	struct afs_net *net = call->net;
+ 	struct msghdr msg;
++	int ret;
+ 
+ 	_enter("");
+ 
+@@ -877,22 +876,13 @@ void afs_send_empty_reply(struct afs_call *call)
+ 	msg.msg_controllen	= 0;
+ 	msg.msg_flags		= 0;
+ 
+-	switch (rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
+-				       afs_notify_end_reply_tx)) {
+-	case 0:
+-		_leave(" [replied]");
++	ret = rxrpc_kernel_send_data(net->socket, call->rxcall, &msg, 0,
++				     afs_notify_end_reply_tx);
++	if (ret >= 0)
+ 		return;
+ 
+-	case -ENOMEM:
+-		_debug("oom");
+-		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
+-		fallthrough;
+-	default:
+-		_leave(" [error]");
+-		return;
+-	}
++	rxrpc_kernel_abort_call(net->socket, call->rxcall,
++				RXGEN_SS_MARSHAL, ret, afs_abort_send_error);
+ }
+ 
+ /*
+@@ -930,12 +920,9 @@ void afs_send_simple_reply(struct afs_call *call, const void *buf, size_t len)
+ 		return;
+ 	}
+ 
+-	if (n == -ENOMEM) {
+-		_debug("oom");
+-		rxrpc_kernel_abort_call(net->socket, call->rxcall,
+-					RXGEN_SS_MARSHAL, -ENOMEM,
+-					afs_abort_oom);
+-	}
++
++	rxrpc_kernel_abort_call(net->socket, call->rxcall,
++				RXGEN_SS_MARSHAL, n, afs_abort_send_error);
+ 	_leave(" [error]");
+ }
+ 
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 704a10de6670..554dfb777b93 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -20,10 +20,10 @@
+ 	/* AFS errors */						\
+ 	EM(afs_abort_general_error,		"afs-error")		\
+ 	EM(afs_abort_interrupted,		"afs-intr")		\
+-	EM(afs_abort_oom,			"afs-oom")		\
+ 	EM(afs_abort_op_not_supported,		"afs-op-notsupp")	\
+ 	EM(afs_abort_probeuuid_negative,	"afs-probeuuid-neg")	\
+ 	EM(afs_abort_send_data_error,		"afs-send-data")	\
++	EM(afs_abort_send_error,		"afs-send-error")	\
+ 	EM(afs_abort_unmarshal_error,		"afs-unmarshal")	\
+ 	EM(afs_abort_unsupported_sec_class,	"afs-unsup-sec-class")	\
+ 	/* rxperf errors */						\
+
