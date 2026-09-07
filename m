@@ -1,162 +1,160 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2132.outbound.protection.partner.outlook.cn [139.219.17.132])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444743EC833;
-	Mon,  7 Sep 2026 03:48:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.132
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788752931; cv=fail; b=XaRg0EdxvE4pNQhoOEFS/g8mNHvKQI2Osl6o2aGSk4t7e37IiOczqL2Xxb1N0suXzcc0H/b2XdRrwlI6Ff2KaDzKSNnKnDyoTqOIr9otKI4QYAJHPUWYsvNgSP6Lhw+bMB4rDxptHi6bI73jkZ03OddtWkzrbhuB9t47UWLGqfM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788752931; c=relaxed/simple;
-	bh=NuOTTd1pkRIKOlKjxkzpMJUfODdvxOMIsJNZjG4ejkY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FVGvs96FHS+eD76UqiiKelibg+ewes85sQMPA5Mw+JV+ooJgot440GZViWgPQIUEzSp4ks3H4nvF5PvD0Dd5RscscQseWsA0EmtT30Yf3lHcL6saEFlOgrVuiUJ2S8yhCNdgWIehtYOONXUJTTPw1UswKrDSxR92SyFjSDjUVTo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SJ2j6Id4Ijoveq3QRYKzjL8LrpqZ6UJ4EoTn2q2kSJ8lWeqV7OYyz1TkhPOpcvGFOpymH9EY/eOcILOcHkBk/a5fo/PhDYUTvYhoaR1JO84E6VNPyYmo2BChBDFRYoMygbpIyimaa9b8QiXDz3qep/8sYTr8EiqUHHWMvQx//8K75859BrPM1dhETWGKGlVoAjOK5oIqRWk3EfMjXFn9J6+YbQ/Nw/VnK/A3pFIQQ0oMLVaFrmW9uPw2DjM2fxArKXI8WYos7Dt3kZVHo+XCO8dlr9gegQzreSjIQKVO51Jm+P6MBVOOTex2C6lZDfhoxqCvjPwq0k1Mcg40nV3lBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
- b=PspXckre8xIwxLKkyr+dZufvwKm7/3koBeOUESdhAaIP7+RyRENZ7H8DSg/Ca6uQ60z7nQFAsRwY8xy6RAIIeUzUV4JX9BDR7bup59irSa61mqjY4MspngF3sf8TStnDoVzhxOFTxMIioNuQF2jGz5+YXO4Sx2pXjO+fUZpZCcSDXp636xydLF14xl0jSq9f29m6ahtUPJt84qWNOaUxF5JQiBwHg7voJkiXY6cZR6OiC2V97EG1zvYChuW6B4lqzLxDyi3yxJZC4I6yJGCvQ1CgJNDXfeiEFoYoM7upvhhLA7UfgX7r9057j9I8U3wEHHo8MfvULzpUoP6xfCr5IQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1320.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:19::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Mon, 7 Sep
- 2026 03:16:12 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0339.017; Mon, 7 Sep 2026
- 03:16:12 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 076483F104D
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:49:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788752996; cv=none; b=JfMNDZ9hSP9L6HVIy4AXae2DBqWx9n/i9uhcfK0ZtSTo06e+7C+jUQZCo+mRS8WEKnEQmtF9xtu+RXJfFEAphat5p7XlJuJL5HhD+LLaPVkBBZx3GyY7o3PPp1ZQ87u7A4kA9fC7wu3V5X5Lv+hfeRwBAXK8QmWMvsRrWIslcvs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788752996; c=relaxed/simple;
+	bh=nSW4NsKwkvH7BmiQJChN9fC/TyPeSFa/im/kFV67DP0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GjEIDl/KlIm648IwV2GYySCGvHKUrHFh+rKPpqybVqtH6ePbLPpmghkXmHOdhoIfZfxZ07ChGMWd0cFZb/UMrerN00q2+GAFDAB5BVJxmdl2HTesJiYlXu+DKxGp0C0/7078Q3rdDhW19ulPX9eQZw91fp9sRzX4OM14cZDRSIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q9aQCCcF; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9aQCCcF"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6d28aa26cso17629825ad.2
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:49:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788752994; x=1789357794; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C7q+VNGVNrcoYTCPMYgbT4Asobyd71i+FBLenDRfuM4=;
+        b=Q9aQCCcFGlPwmuB8fhNa3mHslByZ0vPEnA2fsxx3YI2lCW4rK2ZC+iNUkorBsi3y03
+         iAXc4Vy1p6Y8vZTeEkmP76U2fHHdSboHduUNVQvYGOGz9YbmU+npfSQks/z2+1cdzBpF
+         NUJFTCjdRd61TdFpoCPhY1GptVu2SB9H2Up6FXCwdHQV61P7BaOT/u+3gOo94c7BUg+D
+         u1E9sGpC4IhufRK/Di0axjGrK7Hu9tRua0pGm+1d41U4xRSjnWE+vA5+YYt32R152IRu
+         YAHnhRFnM0xwLNqQ3oeQHFl3VxJI1zxQdeN52fX9Sy7NvGZnjN5H30YFWtf+Tli+yB7Q
+         c5eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788752994; x=1789357794;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C7q+VNGVNrcoYTCPMYgbT4Asobyd71i+FBLenDRfuM4=;
+        b=H5cHsLZNiW1BB2aCpOBmJZx13gt7QmlYvcv14KfFXxox/j919dMsHW5Y6X5nutvuFr
+         wduAb9rSj/5SYZkrkgNtTYB87biFtTfzLlhQgTQjK5pNhsskWx6LTEBs9JfmmUady684
+         sEwyqq6x9OSccH3D3EksQRMHOTClamBDNnSN/ny6Mm8r6RidXXdWeUltcZ2FGUGPYZRB
+         lcf287br4RZAPIjU6MvX59Al/5CWPcXLfwZGUHGaA2RdX/BEb6tV+p+6yi/O7wOjdK0C
+         up0iwrMQLgrKko5nyQENtRhJ5rqS/AEIlz7MKyg6cfHWTDdgpHkevL8fb651f3MJq8fu
+         5VhA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXE5b3bHrMgGIawtdBM+/6kQZCiSYJ8oflYZePk3GhP/jaRAe3tB9pL2+EPtX/jCiE9Gjsx/eh1/t/OzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kD0KIHZxv4WwKQpzQPNFBA0ZTZCF2r2n1eGQaA/8O+GEcV8EPO
+	7hgQCYwhO6y7k9PEZyeTIHSUH7eD3qXB3rqdbNUpkf1YjvVLR/+hsdM=
+X-Gm-Gg: AYBFou1reZsCM735i1tb0bkNKP55vHTyihpDyEBAHJaJ5JuyuqbcXcKaGZC/CfyZ2K8
+	aUEktZauu3oj3bizqNRUaxwG5iROrR2EipVVP/8K/snCqz+xC8fbktKKxMZWW7ISlbyOdIBi+we
+	bxODUHwyRGWKVYWJW40pQS5OgrsUPuTg70J29WdqrJaZ6La/THiPF1jO2e7mPZP1md8mpNKkvdg
+	10NhvOQWbHBYyM2EiNCEmhpCTcvXQyHEgc5YDdExqWCvTGECbii2C/tJ8OQ/4yO2gJ9VVvenvbp
+	siICcyYaW2tB0chvu3+8EUoUBGoNrze6LIkYqEw3rFr+tUoMTOCW64OTpmELpw5MW2DmXu1Ov5e
+	ePX+SADaGOcvhi2YLriyIRtGphJkKdm5dEYm3Nse5uqtZWNJwy9GhXzuMXuqfNKc6OTgM2YCd0O
+	OxhhAlUBjk5FxmVO2audMXv7hXnffGmFYMn8XFkd/zg/Fj7kz6NAqTQnupYpZ2zQe9aIog9rQ7V
+	zc0pZUZsz8X3GRn
+X-Received: by 2002:a17:902:e952:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2db12754d9emr307628815ad.16.1788752994021;
+        Sun, 06 Sep 2026 20:49:54 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:c773:5f09:906c:a72b])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae8af3sm37437475ad.80.2026.09.06.20.49.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 20:49:53 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v8 1/2] dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
-Date: Mon,  7 Sep 2026 11:16:02 +0800
-Message-Id: <20260907031603.188483-2-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
-References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0033.CHNPR01.prod.partner.outlook.cn (10.2.8.10)
- To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn (10.2.3.134)
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH] tracing: hist: free the field rejected for a bad modifier
+Date: Mon,  7 Sep 2026 12:49:48 +0900
+Message-ID: <20260907034948.240387-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1320:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3853f96-111e-4082-20df-08df0c8e5eb5
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|52116014|10067099003|3023799007|22082099003|18002099003|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	xIiuv81l+6y8Zv/dLhn7LhOsJ4Sga7KWEQQDddQc2YbiJ0dA/ocXbQ75CPGAtnyD1AsCtl15LV9gXxoCRjK2cqXZtVcDU7OBreHBBTiWTJ7V/DuL10trzQ4wUmZNsNMc//sXJv0AfeHn8sZQz3pO/jnbNJ+uxLMqNgDNOLY98/y1Bzu/7M5wYtwIwzS7NRJjiKEehwpZqvcXaSzVN1MFqUOMA4aFJCu2eRqfHkqXqjQS4B+3CJJnpyvf/3nlbEvLWtyBoB5mFxwQ6rUCp5r5fYeRuw5kmNIYj4OEui4QZrQ82MJBRTuZWQYNJpawRFkqHfuXUW3toxTJkazcvgXu0Jh4B8isZOOO0EM+035y/BHlrWyOmdB0yeEqvXJxCQrN2bxze5elzAq4Ah8WKj2ILiSHQ+u8E0q2JbctTH8/fnqCEeodZbOP6nMvZDHILIWj+/cZVQwN+qWYhHdJKYH5YuggygPA/JiS8D54G64NukRNMGfZHIGrK5kDWZDG91jJIrwpRvDUwaBkfOgYg+yu5TPbSTBgi6vofIu5l/oEc86oKTnNzee31k4LcslTxYnb
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(52116014)(10067099003)(3023799007)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ddn8X56p/eY6hBtbAkH+NXo5DjPw+g2ZLczoUcB0NVuEy3vsiMOeyMD7wtUn?=
- =?us-ascii?Q?iOfPI+0qxzA8yI7qU4SdTklKlF4E4H2a1vzR0/+E9zJ1bd5xTfwyCx1bmg0M?=
- =?us-ascii?Q?H82//BgpvlPoEeGw0of+M3ceQSoUwbav+bLMM3ya9toCq1bE99WAYyTXUz1Y?=
- =?us-ascii?Q?cJxJv9NxSwBVRzyN2Ky9ZksMwPeEXS96mwd2eIiShB+Y8hcfdd8LueZ+iwqC?=
- =?us-ascii?Q?2G/JREsdS1l88WfkmujPCZ6PHHsSmi4udyso+Q8T6r6XxthmTz+myr9bpeVx?=
- =?us-ascii?Q?RZrVfFRM7biBBu0pzovJkR03FZBFkZo+ckzINepd0bD2zC2Oj+MAi8Bm+03Q?=
- =?us-ascii?Q?mtywZHD9+antt2FyofQv325gfoaTvkr563r5/mGVuWFdJExBif63E0VKsGkk?=
- =?us-ascii?Q?6fq4mSPhj2KnOhz0GS/ATNuvLuogm6NgaFgDcdA0PX1JlP8brHO0EnmOYxlY?=
- =?us-ascii?Q?eYKdmKl05PWRVaciowqRxCML/8AitHExdk4f3LeRNoAiY1M6lYUvKZQsLmbG?=
- =?us-ascii?Q?D1iiDuesgNmN0/TN1HdE8ly4h9ZBq9CwOD73Hbu4iFq552E0c9bkZi+cW9y9?=
- =?us-ascii?Q?lwozk2hHeqSrzRfZIe9QAgLTYnjoMSGtsjWUNeabHLmJz5Z/R7JrSdDGTH6l?=
- =?us-ascii?Q?KaMEdlroaG2EJahGHtwTSYm3RGcamn5oQ5eYRIfhZm2ITjQ9HjEYY3bs5Ea+?=
- =?us-ascii?Q?n+uMFkuyKzbi0rD7jR4T/ZaiKZNQ5ujsNBh3QJNXij7yXKEOxvUqbCFe/iGE?=
- =?us-ascii?Q?Oz7noNFpVvX98RimeR+htfJlFzzCiETHphX6faFY12uLRRxByRo3rWW3ZfQ2?=
- =?us-ascii?Q?A3LrpHfGFv/TaW2YBhdBsFIdzLyrAflgjHaDkE5gBZlgI0RMBdsL9jbQX+uj?=
- =?us-ascii?Q?VYn9pU6O6G3Kj7VHNOGM4eGolCsjU1ETW839etW4Do8xTdwqWvpR83jn9Vl0?=
- =?us-ascii?Q?8FOkfmPm82RdduCHk5WuIS2zGAZ5fgl0qLHvc6Lw+81Afi+4Luysehz9fdQY?=
- =?us-ascii?Q?6TzKcEzsRRrkWYpu2z4H3wjxDEzDs8qs98GcGSzvikQNZoZB11TtxS6tAgH5?=
- =?us-ascii?Q?K99ZwtTxX2jQQN29ulqqUz1N2KhqcZF7ApU58vpfuBmlLH17FS0he1DlNpXU?=
- =?us-ascii?Q?ORH9ieqBMfE+4YtsA4TXRBxbgPTuZZW4uy6Guv1HhHlK6F9m9IX9nc5AEvMU?=
- =?us-ascii?Q?Gnf7fzpEEKGSATJRh9RjAmany2yd6OvM3RVkVkSWQn/6Oin1tWYoMAxuzj/o?=
- =?us-ascii?Q?wmhzQ9BMiHHr12ljKl+3dc4ENfPh89cbhYHbvaZp6v7P9uzlVZsQEMAZ6J4S?=
- =?us-ascii?Q?oxjxBXemyvzOiYfQuSRuuz4R6F3wESDLOxiFaCPdF4uWSih8RZucLijS9Hb0?=
- =?us-ascii?Q?EXIO8GTPRYMJV5u8Ib6Ly+eFmi0Pit1PLCzJEcOtTQ/kZNE/XtFquUzHoRK5?=
- =?us-ascii?Q?1IGWl/1Ugu4Q2FizJKU4bCHwbqPEpCPJ+UWcGbpoxs83oecplhlvp9JfOQMd?=
- =?us-ascii?Q?xP3msYRKH4GOz4YurvIDQ8jQI0UG7yAfTJCj0nM8SiWyg2HIg/AknDxHQR1S?=
- =?us-ascii?Q?aQ/hH90g29ZB9P3HY2Ji2sWFP+ocdIGkHtGxQGDTEybJIngD9tdNyM97x7VF?=
- =?us-ascii?Q?SwouFE0Lxgj0+L11hKbdm9b38T1QIpY4+Bi6pHXkR1CVVyPrbx8vVvT1PuVk?=
- =?us-ascii?Q?3Jo7HvJ07/GqMBQtF/BaHF33diHVPeo6WYEpCxucM0QykW5uD1OYdGTV+Nje?=
- =?us-ascii?Q?41UgoFnJesWkeYAggSV7UR104qj7DnOKtqi0BcdsF5fAeh6FKYln?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3853f96-111e-4082-20df-08df0c8e5eb5
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:16:12.4865
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gy0SzarVHlPwvPRsNzFP7gcJYINZrljeVvMtzxthjE3hks1BquGHSkpijqpGsiE9gLR/ytpTJhZrzVwgJJ6BvYOMXoVl4E91mSZ5OVtSO4jldLn4oZkNtepItJfc1auR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1320
+Content-Transfer-Encoding: 8bit
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Writing a hist trigger whose value or variable carries a modifier that is
+not allowed there leaks the fields that were built for it.
 
-Update the StarFive TRNG DT bindings to reflect current SoC support.
+__create_val_field() takes the field from parse_expr() and stores it in
+hist_data->fields[] only after the modifier checks have run:
 
-The obsolete "starfive,jh8100-trng" compatible string is removed since
-  JH8100 SoC is no longer supported. A new "starfive,jhb100-trng"
-  compatible string is added for JHB100 SoC TRNG support.
+	hist_field = parse_expr(hist_data, file, field_str, flags, var_name,
+				&n_subexprs);
+	...
+	if (hist_field->flags & HIST_FIELD_FL_VAR) {
+		if (hist_field->flags & (...))
+			goto err;
+	} else {
+		if (hist_field->flags & (...))
+			goto err;
+	}
 
-The maintainer entry is also updated to reflect current ownership as the
-  previous maintainer has resigned.
+	hist_data->fields[val_idx] = hist_field;
 
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Both checks jump past that store, and the err label returns without
+freeing anything. The error unwinds to create_hist_data(), which calls
+destroy_hist_data() -> destroy_hist_fields(), and that reaches a field
+only by walking fields[]. A field that never got there is unreachable.
+
+commit e0213434fe3e ("tracing: Do not let histogram values have some
+modifiers") set ret to -EINVAL and fell through to the store, which left
+the field owned by fields[] and freed along with the rest of hist_data.
+Splitting the check into a value case and a variable case replaced that
+fall-through with a goto that skips it.
+
+With CONFIG_DEBUG_KMEMLEAK, 200 writes of
+
+  # echo 'hist:keys=prev_pid:vals=next_pid.log2' > \
+	 events/sched/sched_switch/trigger
+
+each correctly rejected with -EINVAL, leave 332 unreferenced objects
+(63744 bytes) reported at create_hist_field(); 200 install and remove
+cycles of a valid trigger leave none. A '.log2' field is two
+allocations, since create_hist_field() puts the plain field in
+operands[0] of the log2 field, and both are reported.
+
+Use destroy_hist_field() rather than __destroy_hist_field() so that
+operands[0] is freed as well. It returns early for HIST_FIELD_FL_VAR_REF,
+which is what an operand owned by hist_data->var_refs[] needs; the
+rejected field itself is never a var ref, because a var ref never carries
+a modifier flag.
+
+Fixes: e30fbc618e97 ("tracing/histograms: Allow variables to have some modifiers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 ---
- .../devicetree/bindings/rng/starfive,jh7110-trng.yaml  | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+Tested under QEMU x86_64 on 1fc5a74b108f, both kernels built from the
+same config:
 
-diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-index 4639247e9e51..d21769b7d54e 100644
---- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-+++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
-@@ -7,15 +7,13 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
- title: StarFive SoC TRNG Module
+  vals=next_pid.log2, 200 writes   332 objects / 63744 bytes -> 0
+  x=next_pid.log2,    200 writes   471 objects / 61544 bytes -> 0
+  valid trigger, 200 install/remove  0 -> 0
+
+All 400 writes are still rejected with -EINVAL after the change. A
+CONFIG_KASAN build reports nothing on the same runs. tools/testing/
+selftests/ftrace trigger tests are unchanged: 32 pass, 3 fail, 2
+unresolved before and after, with the failures also present on an
+unpatched kernel.
+
+ kernel/trace/trace_events_hist.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 963e0d6b61fd..b65d79d6e132 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -4331,6 +4331,7 @@ static int __create_val_field(struct hist_trigger_data *hist_data,
+ 	return ret;
+  err:
+ 	hist_err(file->tr, HIST_ERR_BAD_FIELD_MODIFIER, errpos(field_str));
++	destroy_hist_field(hist_field, 0);
+ 	return -EINVAL;
+ }
  
- maintainers:
--  - Jia Jie Ho <jiajie.ho@starfivetech.com>
-+  - Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
- 
- properties:
-   compatible:
--    oneOf:
--      - items:
--          - const: starfive,jh8100-trng
--          - const: starfive,jh7110-trng
--      - const: starfive,jh7110-trng
-+    enum:
-+      - starfive,jh7110-trng
-+      - starfive,jhb100-trng
- 
-   reg:
-     maxItems: 1
 -- 
-2.43.0
+2.53.0
 
