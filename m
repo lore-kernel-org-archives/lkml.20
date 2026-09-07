@@ -1,138 +1,206 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4F03AE6E9
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 06:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4373AFAE6;
+	Mon,  7 Sep 2026 06:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762526; cv=none; b=UldM2OkJpDoi/mC9ztSZFTZBM8jSlPKFFoh2EJ6aXC+90MzKejFvSJZsrrgm8r0v092mYvC8XKM+XsB3rTCXZSnjf7vaZ8yBvVmS1LWPUAcA6qDjacoYaPXltOKLUVSBjW3FhqnUGgfZLyT0esMvpn4JojyYmLJbkVmHIZrdfZ8=
+	t=1788762528; cv=none; b=DCxEH89xNogZ/EFXCsuz6qRdxY28c53hhelMBLMWbYS9jAB6mA6+uLkvx3CYmFCml1sW0ffkDgoMzS5J9otUq7ldIhirRMbVOLdv6RuykCN+5sy5+nkOKHz8anYuC8hZUEVwERfkw5t33x+8WtuVFLMUWnEpg9Nzge/3N+PXEL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762526; c=relaxed/simple;
-	bh=Eczviqg/1I0bF4Nop5EFAxHliXvYylccF8WSRSrMDJk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qusN3pt9o1la7yiTwo8Y38BJJFUNWUeBeKrdnCURsMbeK8F29Db5Py3WpllrGK2zCWgooFWe7AT1VQXV4t3wKY9+iqwIgaCYzyP/ICIg3IEg3x0GqaciEsyohW6zBCGYXWD+FttoJnsgQhKWFmhyidPom8ALaO0lxhfKzEyYeBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWI1vo4Q; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788762528; c=relaxed/simple;
+	bh=cBR1hHuCqUjgoqqFIrj/hbrTP743hZq4ny33mc0KjKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uX3rdRHGdN5z20U8uaZU4XpkhJoTFFm0rLVdJ8Zw8NyNYBoR7uVsyp2LEFDqsKkOeBlEMgBATvbptmKGOhxdpW4JBXlMYgE8qLNi2czCZCAdBgzeTQiJ9eSMD1Gz3rsaNE0Vw7/qhZd1Q2SrVobaSdzRL5pgOy7493mxC+Vwimw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUwKfgSX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWI1vo4Q"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398b3c37877so2888231a91.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 23:28:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762521; x=1789367321; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EPO3XgKtW39x62BjixAoLRnOdq38lit6qHUtJ4zQNAE=;
-        b=SWI1vo4QtD1kaRxhqS3nwYpllbba9vDiftF/CILJmsfQEspilXMZ2WMrz/w7G1U478
-         qbFwA54S8iq/jXfVusu4+u3Iz6nu55n4oilV0ix7TvtwkaBkRUjfIM12QyIyo0nrJIQn
-         0QfEKmHa4cf+cQ41HCzo9XvfXH+F71TySi1/5ecnLmbOsozVwO6kHkUrpCSDd7DCMFH7
-         +Qd7D8L8rQhjb7w2pEJ6TG4Cb4VBstvOjmCNIyX1Sdxg5bekpOl2yFbqQXAHGU3V7uzM
-         NKMrSoxlU4puoQZG5Tu3YL7pVhAh8HmjkoK3pN/UC3q+s7ThsJRgzENGipsi3hiP3Yy5
-         ENJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762521; x=1789367321;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EPO3XgKtW39x62BjixAoLRnOdq38lit6qHUtJ4zQNAE=;
-        b=RaflNKU6CDmfXlA0KWi2jBUVla9oq8XM7v2On6NHGLHr5bg5/72vvd36aS43mfUc3L
-         j6oLrZE2y4DSbVdIytRwcNAq8Kf+H9L9Lsu7uvLo3PXBwlig29fA+/5g0GUQk6a4TuJz
-         g2bVjJGiCIs5bdl03QDqozDTn3K+KHbqP2oX9j2BdNe7qo/Y2hnkLW8ugqy9ydUnSCNo
-         3of4bJmwLgdN2OTPFJhAA1srAwv6hdLNgXcqAFYHUu+yB587DLbYxJ04O5WDqewo1T2L
-         /3yTtRiJaA8pyV/WiNh/JuAiu5c+KtChYu5HlMGO/1zQKUVYegqLG0IDl9BkEoGqBTCo
-         FdyA==
-X-Forwarded-Encrypted: i=1; AKwUvByHWgoDNWU5q+g4VyQhlgU6rD7mTzZF+mdBT6wt2C/SUqd/vcjg7okXvH4tQSA8Liq07uUx7InRc6lJsX8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYnIFMhvbNXsaw4GKtmlDPUWF6a5ZZ2Mx0W06Litf4lOdqJYHB
-	HqMPKrc1gFLgXvHmUErkUJh1C643GCqRf/TFnWnKSVulTAc3KiMl5XDZ
-X-Gm-Gg: AYBFou2yMKXmBoaY5lVooWl/4wm/WKZRUkKvCACa0ryd0JSMwIRGfyVL/sPo4071T/K
-	psYS5ZqvL3GyGgWvi12HEkWubZKeOK3GoyZQ2vbwkJ3UX052UdT+6zzeChmD0NL4iIHz+9QtAiv
-	JQL6MOioFf9fBc/5ymDFJPHp/7qJ80iHvLflWqJM08SASO60DeI72jCAaIo9t9Vq1lNYu2zUD5Z
-	eEhHUGJVQbmkNCrDty0vK4DAFI+gXcnmnWemqBPiae/2UjpggdY2015m9IgOU8gQcuUY2iGWCYQ
-	Xu/Y5Vln2jYX2IYmUwct2R3zMa85ff+FnVdT7bOii6hHPAMtkwtSHS0w3k4gfbuelMimbO326Fi
-	sy0cFq1cZY2lgEmalJhxiu6iYAo+tVCkbZPtBuf/hZc0hDgphKOur2LWrgAl0FrJglToCjlqeyE
-	ZAooWvZTctRHPMdo+WrXvtDQ9YYgVu0ETWE/74+AY57XYUtJaAzAiupwDhp2M6Y59WvWKYPqkKj
-	cORKPfCDxaMuWoqBHMV6hsWNff0z63CetiBj7k7z3tibtXFXoroU0+HKXhXMr/WpDioNqGc
-X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr32816359a91.1.1788762520616;
-        Sun, 06 Sep 2026 23:28:40 -0700 (PDT)
-Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm18978042a91.0.2026.09.06.23.28.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:28:40 -0700 (PDT)
-From: Wei Jie Law <98lawweijie@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] media: uvcvideo: Fix out-of-bounds read in uvc_ctrl_status_event()
-Date: Mon,  7 Sep 2026 14:28:18 +0800
-Message-ID: <20260907062819.2519878-3-98lawweijie@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907062819.2519878-1-98lawweijie@gmail.com>
-References: <20260907062819.2519878-1-98lawweijie@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUwKfgSX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875B91F00A3E;
+	Mon,  7 Sep 2026 06:28:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788762522;
+	bh=Uhqq4SjaBmSEA8DrRzienxD9wkDqWA+Zx6N8pGJJeww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IUwKfgSXh8wAdVB1uda8oKDagMq50nSkJhaFjwhDyuGAD3ciKsn5vjkrHlMvx/Obk
+	 JdYVD7Uam5OKyLbP7PFdopgxr+qqh/u+JqI0da9ll9OsitD7c0pnDc4XadVLHt1gIY
+	 oR9e+eMtkdoo6XVhED+5xhSTCB2IXUytDO0oFrVeQ06lXPfC+ryATeaf5ddDz3jQ6H
+	 OtaDsKNJIZxMgY2hiXHdid70AoC2fp4ka7dzh1NrgA+sNT80wVyk0cMTgAgoVuox85
+	 KPfmTPxlePELs0TMtduVJBl7T/OlMpDvdtadNObM97Ef7wulPvuJsw+YuxPTTwAMlc
+	 Ar3KFzJXHquRw==
+Date: Mon, 7 Sep 2026 08:28:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: i3c: Document the AST2700 I3C controller
+Message-ID: <20260907-imaginary-economic-oyster-57cdd6@quoll>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+ <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
 
-An out-of-bounds read exists in v6.12.105 and upstream. KASAN crash log:
+On Tue, Sep 01, 2026 at 07:35:28PM +0800, Billy Tsai wrote:
+> The AST2700 I3C controller implements the MIPI I3C HCI programming
+> model, extended with an ASPEED in-house control block and a PHY
+> programming window advertised through an HCI vendor extended
+> capability. Follow the existing aspeed,ast2600-i3c precedent of
+> describing SoC integrations of a common I3C IP in their own schema.
 
-  BUG: KASAN: slab-use-after-free in uvc_get_le_value+0x314/0x350
-  Read of size 1 at addr ffff88802df955e4 by task kworker/0:2/128
-  Workqueue: events uvc_ctrl_status_event_work
-   uvc_ctrl_status_event+0x128/0x280
-   uvc_ctrl_status_event_work+0x82/0x240
-  The buggy address belongs to the object at ffff88802df955e0
-   which belongs to the cache kmalloc-16 of size 16
+What precedent exactly?
 
-uvc_ctrl_add_mapping() validates mapping->offset against the control
-data buffer, sized from the device's GET_LEN answer.
-uvc_ctrl_status_event() applies the same offset to the 11 byte bValue
-field of a control change event, so uvc_get_le_value() reads past the
-16 byte struct uvc_status and the value is reported to userspace as a
-V4L2_EVENT_CTRL change.  offset is a u8 bit offset, so the read reaches
-24 bytes into the neighbouring objects; KASAN calls it a use-after-free
-because the neighbour it read had just been freed.
+Are you now bringing some LLM slop arguments here?
 
-Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
- drivers/media/usb/uvc/uvc_ctrl.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+> 
+> The controller takes a core clock for PHY timing and two reset-names
+> lines: its own reset and a DMA engine reset shared by all I3C
+> controllers on the SoC.
+> 
+> The PHY timings derived from the core clock and bus rate assume
+> nominal bus loading. Boards with long traces, weak pull-ups, or
+> capacitive loading need different ratios and setup periods, so
+> document properties to override the push-pull and open-drain SCL
+> periods, the SDA TX hold time, the tCAS/tCBP periods, and the SCL low
+> period used for a repeated START or STOP.
+> 
+> Boards without external I3C pull-up resistors can use the PHY's
+> built-in pull-ups instead. The achievable resistance depends on the
+> voltage domain of the pins (high-voltage vs low-voltage), which can be
+> determined from the pin group assigned to the bus. Reuse bias-pull-up
+> (pincfg-node.yaml) for the strength in Ohms; it is declared on this
+> node rather than a pin-config node since the pull-up switch is part of
+> the I3C PHY, not the broader SoC pin control IPs.
+> 
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> Assisted-by: Claude:claude-fable-5
+> 
+> ---
+> We considered formally expressing bias-pull-up's dependency on a
+> pinctrl state in the schema, but couldn't find a clean way to say
+> "depends on whichever pinctrl-N is active" without hard-coding
+> pinctrl-0 specifically, which would be wrong in general (a node's
+> active pin state doesn't have to sit at index 0). We've added
+> pinctrl-0 to the example to illustrate the typical usage instead,
+> without a formal schema-level dependency.
+> ---
+>  .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 133 +++++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
+> new file mode 100644
+> index 000000000000..19ecb5b15038
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/aspeed,ast2700-i3c-hci.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ASPEED AST2700 I3C controller
+> +
+> +maintainers:
+> +  - Billy Tsai <billy_tsai@aspeedtech.com>
+> +
+> +description:
+> +  The AST2700 I3C controller implements the MIPI I3C HCI programming model,
+> +  extended with an ASPEED in-house control block and a PHY programming window
+> +  that are advertised through an HCI vendor extended capability.
+> +
+> +properties:
+> +  compatible:
+> +    const: aspeed,ast2700-i3c-hci
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    items:
+> +      - description: Core controller reset.
+> +      - description: DMA engine reset shared by all I3C controllers.
+> +
+> +  reset-names:
+> +    items:
+> +      - const: core
+> +      - const: dma
+> +
+> +  bias-pull-up:
+> +    $ref: /schemas/pinctrl/pincfg-node.yaml#/properties/bias-pull-up
+> +    enum: [177, 231, 261, 317, 400, 470, 550, 600, 750]
+> +    description:
+> +      Enable the PHY-internal pull-ups on SCL and SDA and select their
+> +      strength, in Ohms. High-voltage pins support 400, 470 or 600 Ohms,
+> +      and low-voltage pins support 177, 231, 261, 317, 400, 550 or 750
+> +      Ohms. When absent the internal pull-ups stay disabled and the bus
+> +      relies on external pull-ups.
+> +
+> +  aspeed,pp-scl-high-ns:
+> +    description:
+> +      Push-pull SCL high period. Overrides the value derived from the
+> +      i3c-scl-hz bus rate.
+> +
+> +  aspeed,pp-scl-low-ns:
+> +    description:
+> +      Push-pull SCL low period. Overrides the value derived from the
+> +      i3c-scl-hz bus rate.
+> +
+> +  aspeed,od-scl-high-ns:
+> +    default: 380
+> +    description:
+> +      Open-drain SCL high period.
+> +
+> +  aspeed,od-scl-low-ns:
+> +    default: 620
+> +    description:
+> +      Open-drain SCL low period.
+> +
+> +  aspeed,sda-tx-hold-ns:
+> +    default: 10
+> +    description:
+> +      SDA output hold time relative to the SCL edge.
+> +
+> +  aspeed,cas-ns:
+> +    minimum: 39
+> +    description:
+> +      Clock-after-start (tCAS) period driven after a START condition.
+> +      When absent it is derived from the SCL low period of the
+> +      applicable bus context, clamped to the protocol minimum.
+> +
+> +  aspeed,cbp-ns:
+> +    minimum: 20
+> +    description:
+> +      Clock-before-stop (tCBP) period driven before a STOP condition.
+> +      When absent it is derived from the SCL low period of the
+> +      applicable bus context, clamped to the protocol minimum.
+> +
+> +  aspeed,sr-p-scl-low-ns:
+> +    default: 40
+> +    description:
+> +      SCL low period used while preparing a repeated START or STOP
+> +      condition, kept separate from the push-pull SCL low period to
+> +      satisfy the MIPI I3C clock stalling requirements.
 
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 21802f9b1b61..d082bcb8d98d 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2156,11 +2156,16 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
- 		uvc_ctrl_clear_handle(ctrl);
- 
- 	list_for_each_entry(mapping, &ctrl->info.mappings, list) {
--		s32 value;
-+		s32 value = 0;
- 
--		if (uvc_ctrl_mapping_is_compound(mapping))
--			value = 0;
--		else
-+		/*
-+		 * The offset is validated against the control size, not
-+		 * against the event payload, so a mapping can reach past
-+		 * bValue[].
-+		 */
-+		if (!uvc_ctrl_mapping_is_compound(mapping) &&
-+		    mapping->offset + mapping->size <=
-+			8 * sizeof_field(struct uvc_status_control, bValue))
- 			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
- 
- 		/*
--- 
-2.43.0
+Probably I3C maintainers should weight in here and help - should these
+be made generic for all I3C controllers? I am surprised some "standard"
+I3C controller needs to configure this as the single one. No other ever
+needed...
+
+Best regards,
+Krzysztof
 
