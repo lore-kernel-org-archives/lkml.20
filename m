@@ -1,135 +1,109 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F87A4A6CEF;
-	Mon,  7 Sep 2026 12:38:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7B94AA008
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 12:39:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784723; cv=none; b=oh2VzjaZxRBFdy1l2ZOWmh5tuDNLhseHWWj2i6s5fkuWEPLxvzDv1cIZUHOdM+r3kMhevYPKZnhZ5Ilnf+LYACd6gEgoZopw4jkwTFeOfhO/QiZzP6V2XDENEyLHgulreNgwMfWlOODWpv1HUMXotdg6Ekh8skA8CYvRIGkNlr4=
+	t=1788784742; cv=none; b=J98ROT3UJh1jH3KCvLcrPJhUvP36RiAdP7oqUV/407WOKxbBF24nOS5AoGu5Q+w3II6P2hCu0XMu2Lv+/3u3kesTlXxvdhtxbzLl+dIgGs7zlTgDrfepvnZVrjHOKXrqZBQpgrKWlU/iQ/q1F+V/ybki+sqlFOI8bYkuzC2lhCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784723; c=relaxed/simple;
-	bh=2KKsXLABCVBrGrYgB3/AEs1QcF1OetznXpcnRKacGxY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=n9jcIcwgJb/ykqLdo9q1TSuWJArzDKdySvdsh5GeE7qJNm0bbZrcn8di8r1Zhy/9YxmVzfss/vh/K4fiATZjEDlOzXU9F4VYuJUSjJmPfIMV75g56jnfY/NnfOVlG6PZIsfJ7OU/JXlyyy8qttgyJBn2tFE3nchQDEmRdlmAfBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kRYVCxLY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788784742; c=relaxed/simple;
+	bh=TGjI/thz3Llbn6Gpk0USkAuLJ7+eYBjqNc6GYz+39Io=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bFMQQG8cqJnS/+GR0VbL4bz70YfBY8H7cXxz4Hmby+NpzT5/Cfl/UQl2bUFNMx7BCdEVn25hacqtKgXpQ9q/dYRNHtk1yTy3NidONQxalZmSEQPDsnVpvF7eBF179radW5dJkn4MpnPpKP+/oHHIe9T8z2t83DT9ro4b5awlXLU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=szzijRN+; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kRYVCxLY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 804011F00A3A;
-	Mon,  7 Sep 2026 12:38:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784722;
-	bh=KD+2zcpvmkcDZ3cJuCNDIPkcI/BtMjbq/CkWlis/PbU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=kRYVCxLY0/vTJ+fbmiuidiZQ+nIGH/QQuK/Qi8lQ02VhxlPUZ0WJUQjPMPR57SbcW
-	 q9ArkX+lA0h0qlH46NRcal31nv+ecnkEemNBrVHbmQ1h71tj5VST7+zO0x6YXSzB3i
-	 cPQW6OnsBJ7tUaclciTTf0zGW4oR1lCVNyUm6YsyUC9aGtgib7AnMYkJNGu41k6wdO
-	 /F3gYxxJ0BBinS+JZ2un9pBUwwbDdmNSaUG9m9bFQvkpJN3EFGFST8Mmq0yV6ViYwW
-	 7xvSkClBpumHKJBZnZ2b9YGNbICmSo0MxgutXJ3cXXgZrZrwS7637pq/UkkfPReY2B
-	 x5Ldt7pD8EE7Q==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>, Gary Guo <gary@garyguo.net>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, =?utf-8?Q?Bj=C3=B6rn?=
- Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Trevor Gross
- <tmgross@umich.edu>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>, Lyude Paul
- <lyude@redhat.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Arve =?utf-8?B?SGrDuG5uZXY=?=
- =?utf-8?B?w6Vn?=
- <arve@android.com>, Todd Kjos <tkjos@android.com>, Christian Brauner
- <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Dave Ertman <david.m.ertman@intel.com>, Leon
- Romanovsky <leon@kernel.org>, Paul Moore <paul@paul-moore.com>, Serge
- Hallyn <sergeh@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan
- Kara <jack@suse.cz>, Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar
- <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, Stephen Boyd
- <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof
- =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Pavel Tikhomirov
- <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>,
- Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, driver-core@lists.linux.dev,
- linux-block@vger.kernel.org, linux-security-module@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, Asahi Lina
- <lina+kernel@asahilina.net>
-Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
-In-Reply-To: <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-4-490735672187@kernel.org>
- <ao2WubjLtDuHvRzx@google.com> <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
- <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
-Date: Mon, 07 Sep 2026 14:38:23 +0200
-Message-ID: <8733vlxmm8.fsf@t14s.mail-host-address-is-not-set>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="szzijRN+"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d0b98d6d0so15670765e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 05:39:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788784739; x=1789389539; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gWsl2zvLyVndoF9DoyxrqyI4rxJ1CEr3Aj0zKDJse5g=;
+        b=szzijRN+jd5XbSXqn4HLIOoIBnObIDUgIGjDahe7yZAB2rs2Hnce9djyAwvOnp7YzW
+         0BAGMm72h9HVwstL/MzmTfva6EJ3YJ6pW1/Mg/18hU6ieFE5BGZnUU+v3+4kx9LS9MuM
+         WAwaVU7NU9zjK3KAQLueBRMNV4nk3/ZTtlxg2ASnSRRYuW9vovusm7WBcGYwTknaTG4s
+         9zVbG/gbWmhIsLH713ttwKTuZtArHpefMTGmbGYYVCQt8KFlWmzNCVfhXoi2cHMBKXmR
+         vg3z25cB4q0tSnszgB1bSdeqxNCvQzFrzjxYloloMsf308FECIcwxBRTRBsIJMPXJCzc
+         qj/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788784739; x=1789389539;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gWsl2zvLyVndoF9DoyxrqyI4rxJ1CEr3Aj0zKDJse5g=;
+        b=XfXMeSaNcM9HbspYjrAykX004l/t7ztzWKw5icJEl01rkExKYovwBoTWrFBLmJzlAV
+         aqInlhq54xVkrbH5vns6gDGUuAL5dsaM6BSVhD+9PFHuH+wtUlKkqXUA07uRxT2TLE7Z
+         WN/7eHPf+jvV6ETRLPp3RNBy5PqlEPItdOqTJRyHx+5aWnODIFlWMnLBfz6VdXOZMJ4r
+         f9aYMkzawmReI7B+8po3OlGXKPweMSl6TZlMA9Lv/m4IPB20TCkrKTcq9e9bHRWpsnNp
+         wYbUF7Hf/SFpcnmFwSdjBQBknmU+W6Nig4AxTXcBvK4QpZCsvwa57cIn0a/7iEtY281H
+         90Lg==
+X-Forwarded-Encrypted: i=1; AKwUvBzCKb4dOvoH9EQrdRtKAglkcfhEJqt6mdMAK3jDQPOmvNXkZdUpJAHetzAVjrSbPWWHwOCBRftl04kdJmc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUpwmCrplZsSPFEHG3KbL1esMnbCggj64gVrVN8KUKegBb9i7o
+	VjZwm+lzZinENzbjEgnxawejBF/E80Zb+7ixIndm5Tiw6RrXUDBG380Kciaps6aaQ+0=
+X-Gm-Gg: AYBFou2WJ3GE8HSoKOxcVZc8064z+553oi7F715yIjbtSyoLsaeoxXZa9pFRIEmnuNa
+	16wtNqjkDOCjMp2DydyQjqpqUa5umLBit/6RCAct9o2UXbn9KWpdBN+7BpgKpM+wdb9w1GlrH4T
+	i9eK4CQc1Bf8JZDydhCPNtN8SwyU6crzG9RLhyyaTxIqTWCfhz2TgH8PSasepfUyyhwuoOFK7ei
+	DqNftxDiO7Qxh5e2uBxU5YqXs0t/Yv6KkVDd0OHA7OmQBmUy7UF81Etm0xNLn/vI+t3rzN0i8iW
+	S4u8XfSLgZU1aeiKKNQrD5fhRmVgb4ym3Dgs2991eXj9P7ZGJ7qtNf+wpxsrV+1N5tC9HnYr9dv
+	CFUoukpUjdMQMGxHsXiamqHl41EbF7SGvkTFA+evwwjyDv8Q68IsleyKnQMi4iBADC6Vz/K6mpf
+	ZrgYT2fJkbwcSOMeTx6dGiwH4e7tM3d2nxQqNBGOscJIhw8srP6V7fyCUFA4DxR4P3d6yUnGR/l
+	nFanArwq8JMLQ==
+X-Received: by 2002:a05:600c:4e8f:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-49d04efc043mr139638645e9.10.1788784739203;
+        Mon, 07 Sep 2026 05:38:59 -0700 (PDT)
+Received: from vingu-cube.localdomain ([2a01:e0a:11f4:3020:579e:ab8:acf4:1c94])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d00031c95sm269737825e9.11.2026.09.07.05.38.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:38:58 -0700 (PDT)
+From: Vincent Guittot <vincent.guittot@linaro.org>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org
+Cc: Vincent Guittot <vincent.guittot@linaro.org>
+Subject: [PATCH] sched/eevdf: Fix augmented max_slice
+Date: Mon,  7 Sep 2026 14:38:55 +0200
+Message-ID: <20260907123855.1297976-1-vincent.guittot@linaro.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Alice Ryhl <aliceryhl@google.com> writes:
+Similarly to se->min_slice, init se->max_slice with se->slice before
+enqueueing the entity so the augmented callback computes it correctly
+at parent level.
 
-> On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
->>
->> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
->> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
->> >> +        // SAFETY: We just successfully allocated a page, so we now =
-have ownership of the newly
->> >> +        // allocated page. We transfer that ownership to the new `Ow=
-ned<Page>` object.
->> >> +        // Since `Page` is transparent, we can cast the pointer dire=
-ctly.
->> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
->> >
->> > This doesn't satisfy the safety requirements of Owned::from_raw()
->> > because the page may be used with vm_insert_page(), which increments i=
-ts
->> > refcount and causes it to be shared the vma system, and this occurs
->> > before Page::release() is called.
->>
->> I suppose the existing vm_insert_page() abstraction we have is already
->> problematic, because it uses `&Page`?
->>
->> Maybe we want to change the API to use `ARef<Page>` so it already has to=
- be
->> shared? Conceptually it takes a reference count from a `&Page`, which is=
-n't
->> possible because `Page` is not `AlwaysRefCounted`, so it needs a `&ARef<=
-Page>`
->> to be able to do that op.
->
-> Honestly, the problem is the safety requirements of Owned::from_raw().
-> Pages have a "special" main reference, and free_page() does more than
-> put_page(). It even does something when the refcount does not hit
-> zero.
->
-> The correct behavior for Page is to allow the user to hold one
-> Owned<Page> whose drop calls free_page(), *plus* any number of
-> ARef<Page> references that invoke put_page() on drop. This way, the
-> owned page controls the special drop codepath.
+Fixes: 6e3c0a4e1ad1 ("sched/fair: Fix lag clamp")
+Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+---
+ kernel/sched/fair.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-This does not mesh well with the model of `Owned` behaving like
-`UniqueArc` to `ARef` behaving like an `Arc`.
-
-Please help me understand; with page having a main ref and an auxiliary
-refcount, if we model that with a single `Owned<Page>` and a number of
-`ARef<Page>`, what would happen in the case where the main ref (`Owned`)
-is dropped first? Is this legal?
-
-My intuition here would be to follow Garry's suggestion and have
-`vm_insert_page` take an `ARef<Page>`. Can you elaborate why this is not
-an option?
-
-
-Best regards,
-Andreas Hindborg
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index b8bd308c2d5b..5d819918e870 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -1073,6 +1073,8 @@ static void __enqueue_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
+ 	sum_w_vruntime_add(cfs_rq, se);
+ 	se->min_vruntime = se->vruntime;
+ 	se->min_slice = se->slice;
++	se->max_slice = se->slice;
++
+ 	rb_add_augmented_cached(&se->run_node, &cfs_rq->tasks_timeline,
+ 				__entity_less, &min_vruntime_cb);
+ }
+-- 
+2.53.0
 
