@@ -1,257 +1,89 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C4238F65B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCDD326923;
+	Mon,  7 Sep 2026 03:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788751629; cv=none; b=TFXVoPh1nu7MtGvRKIdkWfAX0/aoBJnyWdR1VorCyMpEeTyaRW/bQ7jeKgM3aVdIdVUAV7t0ggAXsuGRscZounwuo5LdOs55mbXAF3FNFTw0R+t3BTiQlVQUHcE5fsZMeG6wIVqqSzulufhuiuES570mZyur6k4LJuKrEOOcBFk=
+	t=1788751647; cv=none; b=Xl0Go9P1jLbgky/4OKG+EZN0Tnc7d6fYrUEICZ2cP2pAsU3BKsxeN8Rjkkw8W1O8QuzKrL+Le25CugOytprRsMVC8j/DFBpq9lRp7FSlYZSHj3fdAqNMMK8XAFQOkyytxMJYtEnNhz0a5Gr+Ck/FEHWDcLM5Ujz1QsqQAJC0wvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788751629; c=relaxed/simple;
-	bh=yk2USMN6xn7rtSobYMSh6D8SwjA1pdVYQpd+ejOF9u0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G1SlvrVW30QkGj0KjI9qedsSx/odQfEpayTgUVWZb8crFFKiRL5YYNe/oSK6RXF221K24dMGVp2q0pbOxZdfWxtDFAsJ/rO+tWy1D3rL3dsDM35e8N4Htc+faxU8GCTjfrfUVs+NoM76KWiN1A1B6fkCUc52a8p9HYYYbh7i52w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LkdJw/go; arc=none smtp.client-ip=209.85.210.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788751647; c=relaxed/simple;
+	bh=38oaFWyNLVs8SqYOxYpN0DxRw0EcUvonwDgWKA2sieY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QNJrfP2zSkIoPOEHJhigfmyWoofjY44QOrMwC/PHYENJq74rjH2lG6Er2piC7RdS5vuerm1AvgJCeDgUofrl56ogtxcPOrkPzXc9BLBO1F0l2S4NDWy8d8M1ItbiHmEtLjWV8DgLHUeOFpFN5ieUYHQeQcyfOBoQrZFuJSPJdvs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tGze5aYn; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LkdJw/go"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-86265451beeso1213489b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 20:27:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788751627; x=1789356427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K26RqE9msRMaYisynjOqHw8QIY6pFVDP0+pz+DXoGQ4=;
-        b=LkdJw/goSp42DKJ5rU/XC4sH1ImNWM2aZWJNSmJWDG62TCVK8A25c+FgIyBK8Da9RA
-         6mcbv7s7oslSTxUFeR3AsfT8mD3s1GU0LUVvx1JeROKfFC0OofDgSdfmSM9VcAIZ0uTh
-         SbigjRB1/4/bQ0h3oq426YO7SCX3H8VyhUHKAo3Zmhetn2kb769qpKN0ksGZzQNSePBg
-         ZmFrhlw8nvY7Ut8Qj08zhchB1/mTmCEth7phm7BS1R3t9DGEvSTlHgT1XGah++lmLeR1
-         bCoxnkcYICvNHoIxmy6j2IxSJMEkc9zAISZIaJ2Y73zdUe6NWeflbHd09nTOj7/mmyFG
-         Mtbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788751627; x=1789356427;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=K26RqE9msRMaYisynjOqHw8QIY6pFVDP0+pz+DXoGQ4=;
-        b=OCYYJuTMf/16WeCEmzhWR+G9U0GGolugBw3ZgMJXiMzmzLDxbxdpqglCNs7+D2ELVP
-         zFK8dj3w3CGHeUrmhWWXkW8ESM9bds442lu/i/j4grlKS/wSMrHPdnCHTgFlDRrsCMRp
-         5fNU5HhK9POwhkHHeL0rPKB2R9LgLXYbUuCDUHyzM89ZW3WmtPpcsZppkQlAcPAfwZR2
-         uJ0sxRW5X6Ct5988Ql2AXnJSpo8rByCseCmniCE/9Q6e2rOZEH84HT/W3gKq8/bmmQKC
-         SdHAz/SaZKnGUjUVSgzJkgAKKItL0x4xMITXKsKzZ20VVIWmTr8nZtozjgygRrme4Y1T
-         gcPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXfOQ4ifuPeA/IUkNBYjX16jM4UzhwpzyONu9gPOJfS8vti5MzeINowbAWanXS5jL20PJTtTNHBm5oYx8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDN1VGfGxWHh5Vix/ZvPPspowKumY2FDrKHrJkAZbMy6EYwi1P
-	qBacGo7dTboyjSl+G/gIbHaaheIPsHkTOfyzBQcpsYqUuVWP9E8xYxEb
-X-Gm-Gg: AYBFou20hun5po9uUX1lC0tSYhgmkfBbPP05V2He/3ZBrYe3/Fy3S+oZQBcBI0QLZJZ
-	djLzRliGnFxe4/2U+H9z/BjQp3134D+RV+S1FsjLJ+taelUsFLcU49ZtTruuf+GZhRIEvwmPkEt
-	Xg7p8ZQ4QnkF6rJQn7qmdx84JrLV9ue7JyyYi1qvCFn0XB9chnmuKK17Cjpj7RAIajsrNpSb3fi
-	GCa1Ad1HpWlnbCSgHpgKPYAeEyU9frYCScOAQOtlzkRrlP6Jda9gDxS1qxdj2P9TNZITQ2W7U4l
-	fOGV0l3Un8bpGUnpum/A/eNIcjqm/n14AH7/SYLq77rtSzposThUSDw5qgE/66oxEquyggLsqmM
-	cu+7hY0rvJ0L77yIpC89ArfTnEC/bZ3err6M3nWjVeZebh8RqqpnS6eUPRnB9niwaovyLeXEsgG
-	r7KOENBwVVfIQnjh53AmjK1NGTz/BQ+eAz4XDFhAU7TpcsgrmPRZnxGy6ajQV0zeulADjzllP4D
-	GUqJgg4SAUZpSgThYY=
-X-Received: by 2002:a05:6a00:1151:b0:85d:84a5:b7bb with SMTP id d2e1a72fcca58-86168d8c2fdmr27300269b3a.18.1788751626985;
-        Sun, 06 Sep 2026 20:27:06 -0700 (PDT)
-Received: from [100.125.248.95] ([124.70.231.46])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-861527382f0sm3732954b3a.24.2026.09.06.20.26.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 20:27:06 -0700 (PDT)
-Message-ID: <9974bf2a-606b-432d-95ac-2f05f3fa9953@gmail.com>
-Date: Mon, 7 Sep 2026 11:26:49 +0800
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tGze5aYn"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=kCUL5nqybqNuKe6WZoppc38jGe//sVPhuSzPlITI3VI=; b=tGze5aYnl0VKkOvSlEVBJonOSJ
+	NQnDZBIBKQyGkzuASmtGDzGGz4AEqd2bJFJtxs8FboFwDyO/O+pblrx+Efur/vhfY7xdCw7pbpAKS
+	EMfCaMNEq+4X5GZ3cOmGNW1B8KTiI/GgMeh/YbfD6Q3BSUt0R7sD9WJO5pBu9Va8lisA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3Pam-003PNT-1E; Mon, 07 Sep 2026 05:00:20 +0200
+Date: Mon, 7 Sep 2026 05:00:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: David Yang <mmyangfl@gmail.com>, olteanv@gmail.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux@armlinux.org.uk, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	wei.zhang@gl-inet.com, sijia.huang@gl-inet.com
+Subject: Re: [PATCH net-next v5 1/6] net: dsa: motorcomm: refactor
+ registration path for upcoming switch families
+Message-ID: <8704e277-3968-4c04-91b6-04ce046fa806@lunn.ch>
+References: <20260904095416.1692962-1-kyle.switch@motor-comm.com>
+ <CAAXyoMN-RX1aY_isyajES5LgiDMp7_YTbM=jiS6d-8o2kKQXqg@mail.gmail.com>
+ <27a16f29-14a9-40d0-941b-f07d5b63ec4a@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] mm/truncate: fix data loss when splitting fails in
- truncate_inode_partial_folio()
-To: Zi Yan <ziy@nvidia.com>, linux-mm@kvack.org
-Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-ext4@vger.kernel.org, akpm@linux-foundation.org, david@kernel.org,
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, hughd@google.com,
- baolin.wang@linux.alibaba.com, willy@infradead.org, jack@suse.cz,
- bfoster@redhat.com, djwong@kernel.org, yi.zhang@huawei.com,
- yangerkun@huawei.com, chengzhihao1@huawei.com, wangkefeng.wang@huawei.com,
- yukuai@fnnas.com, Joanne Koong <joannelkoong@gmail.com>,
- Zhang Yi <yi.zhang@huaweicloud.com>
-References: <20260903115018.2034541-1-yi.zhang@huaweicloud.com>
- <DL6S5JLBHSAB.1RL17ESZ1EK10@nvidia.com>
- <4e166a3d-9012-45ab-a011-0e0ad54143d5@gmail.com>
- <DL7E27LHUEXZ.3B86XR1QN6PP5@nvidia.com>
-Content-Language: en-US
-From: Zhang Yi <yizhang089@gmail.com>
-In-Reply-To: <DL7E27LHUEXZ.3B86XR1QN6PP5@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <27a16f29-14a9-40d0-941b-f07d5b63ec4a@motor-comm.com>
 
-On 9/5/2026 8:41 PM, Zi Yan wrote:
-> On Sat Sep 5, 2026 at 5:15 AM EDT, Zhang Yi wrote:
->> On 9/5/2026 3:31 AM, Zi Yan wrote:
->>> On Thu Sep 3, 2026 at 7:50 AM EDT, Zhang Yi wrote:
->>>> From: Zhang Yi <yi.zhang@huawei.com>
->>>>
->>>> truncate_inode_partial_folio() splits a large folio so that the caller's
->>>> truncate loop can drop the in-range sub-folios while keeping the
->>>> out-of-range tail. The first split at the punch start edge is
->>>> non-uniform, which leaves the sub-folio at the truncation end edge as
->>>> large as possible, this means it may still straddle the range, holding
->>>> both zeroed in-range and valid out-of-range data. The function then
->>>> attempts a second split at offset + length to isolate that tail.
->>>>
->>>> If the second split fails the straddling sub-folio stays merged. The
->>>> function returned true unconditionally on all exit paths of the success
->>>> block, telling the caller it was fully handled. The caller kept its
->>>> default end and the truncate loop truncated every sub-folio below it,
->>>> including the merged straddler, discarding the valid out-of-range tail.
->>>>
->>>> For example, a 4-page order-2 folio punched from offset 0 to the middle
->>>> of the last page:
->>>>
->>>>     truncate_inode_pages_range()
->>>>       truncate_inode_partial_folio()      # same_folio == true
->>>>         1st split at page0 -> [p0, p1, p2-3]   # non-uniform, success
->>>>         folio2 = p2-3 # straddles: p2 zeroed, p3 tail valid
->>>>         2nd split of folio2 fails / cannot lock
->>>>         return true                       # BUG: caller keeps default end
->>>>       end = 3
->>>>       loop truncates p0, p1, p2-3        # p3's valid tail is lost
->>>>
->>>> This became reachable after commit 7460b470a131 ("mm/truncate: use
->>>> folio_split() in truncate operation") replaced the atomic split_folio()
->>>> with folio_split(), whose non-uniform split can partially split a folio
->>>> and leave the end edge merged.
->>>>
->>>> It has gone unnoticed because a dirty large folio normally carries the
->>>> filesystem's private data, for example buffer_head, so
->>>> filemap_release_folio() -> iomap_release_folio() returns false on a
->>>> dirty folio and folio_split() aborts with -EBUSY before any split,
->>>> leaving the straddler safely unsplit. The bug is only reachable on paths
->>>> that produce dirty large folios without filesystem private data, and it
->>>> was caught on the upcoming ext4 iomap buffered I/O path when no ifs is
->>>> attached.
->>>
->>> Thank you for the analysis.
->>>
->>>>
->>>> Rework the contract so the caller is told where to stop instead of
->>>> silently truncating the straddler:
->>>>
->>>>     - Return true only when a split occurred, false otherwise. This
->>>>       clarifies the existing confusing return value semantics.
->>>
->>> Should we do "return false" for not split case as a minmal fix first?
->>>
->>> Something like below. A second patch can optimize on top of it. Let me
->>> know if I miss anything.
->>>
->>> BTW, Claude also mentioned that if min_order > 0 and end is not aligned
->>> to 1UL << min_order, there could be some issue. So
->>>
->>> ret = !folio_split_or_unmap(folio2, split_at2, min_order);
->>>
->>> should be
->>>
->>> unsigned long idx2 = PAGE_ALIGN_DOWN(offset + length) / PAGE_SIZE;
->>>
->>> ret = !folio_split_or_unmap(folio2, split_at2, min_order) &&
->>> IS_ALIGNED(idx2, 1UL << min_order);
->>>
->>> ?
->>>
->>
->> Hi Zi Yan,
->>
->> Thanks for the minimal fix. I agree with the core observation — the
->> tail is only really isolated when the second split and the boundary
->> alignment both cooperate.  However, I'd like to point out a trade-off:
->> the "return false to make the caller skip the folio" mechanism leads
->> to an incorrect 'start' in truncate_inode_pages_range() and over-keeps
->> the in-range sub-folios.
->>
->> The problem is that the false return value was designed for the case
->> where the folio is unsplit.  Look at the caller:
->>
->>           if (!truncate_inode_partial_folio(folio, lstart, lend)) {
->>                   start = folio_next_index(folio);
->>                   if (same_folio)
->>                           end = folio->index;
->>           }
->>
->> start = folio_next_index(folio); end = folio->index only makes sense
->> when folio is still the whole folio.  But after the first split
->> succeeds, the caller's folio reference has already been transferred to
->> the sub-folio containing split_at, so folio is no longer the whole
->> folio.
->>
->> Concretely, take the commit's example: a 4-page order-2 folio
->> [p0 p1 p2 p3], punched from offset 0 into the middle of p3,
->> min_order == 0:
->>
->>           [p0 p1 p2 p3]  --1st split @p0-->  [p0] [p1] [p2-p3]
->>           folio now points to [p0]
->>           folio2 = [p2-p3]              # p2 zeroed, p3 tail valid
->>           2nd split of [p2-p3] fails    # e.g. -EBUSY, or can't lock
->> 		
->> With your fix, ret becomes false, so the caller runs:
->>
->>           start = folio_next_index([p0]) = 1;
->>           end   = folio->index          = 0;
->>
->> The truncate loop then does while (index < end) -> 1 < 0 -> nothing,
->> and [p0] and [p1] are left in the page cache, even though they are
->> fully inside the punched range and should have been dropped.
->>
->> To be fair, this will not lead to any data-corruption problem because
->> p0 and p1 are already zeroed.  So as a minimal fix to stop the data
->> loss, it is acceptable.  But it still leaves the in-range sub-folios
->> behind and wastes memory, which somewhat reduces the benefit of
->> splitting the folio. So I don't think change the return value alone can
->> solve this problem.
->>
->> What do you think?
->>
+> > >   static const struct of_device_id yt921x_of_match[] = {
+> > > -       { .compatible = "motorcomm,yt9215" },
+> > > -       {}
+> > > +       {
+> > > +               .compatible = "motorcomm,yt9215",
+> > > +               .data = &yt92xx_series_info_table[YT921X],
+> > Redundant if you use both runtime identification and the match data.
+> > Also I'm concerned with early IO operations, although I didn't see any
+> > incorrectness here.
 > 
-> Understood.
+> Ans: we have considered this issue before. in the next version, we
 > 
-> Alternatives are changing folio_split() to make sure folio2 is split.
->  From weakest guarantee to strongest guarantee:
+> will consider whether to do it via chip_detect() or using indexed
 > 
-> 1. make folio_split() return with folio2 locked: but others can still
-> put a ref on folio2 to fail the subsequent folio2 split.
+> assignment. From your suggestion, what are the side effects of each
 > 
-> 2. make folio_split() accept two split_at, folio_split() does both folio
-> and folio2 split internally: but if folio2 split require an xa_node and
-> the allocation fails, folio2 split can still fail.
-> 
-> 3. make folio_split() accept two split_at and preallocate two xa_node
-> upfront: this should guarantee folio_split() to either split both folio
-> and folio2 or split nothing, but it specializes folio_split() for
-> truncate.
-> 
+> approach and which of the two approaches do you recommend?
 
-I'm afraid even guaranteeing a successful folio2 split is not enough
-here. As Joanne pointed out [1], when min_order is not 0, even if folio2
-is successfully split and returns true, the folio remains a large folio.
-In the outer loop, 'end' still cannot point to the head of the split
-folio2, so the entire folio is still incorrectly dropped as a whole,
-losing the valid data at the tail.
+One problem with compatible is what do you do when it does not
+actually match the hardware, because the DT author has messed up?
 
-[1] 
-https://lore.kernel.org/linux-mm/CAJnrk1bQYUe6+1ryyJur5EEnZYrC+_5AYsy=OWzVRgD4202y1g@mail.gmail.com/
+For the Marvell devices, the compatible only indicates where the ID
+register can be found, because Marvell likes hide and seek, they keep
+moving it. Once the ID register is read, it is matched against a table
+to find the correct structure for that device.
 
-> I guess for now it might be better to make truncate to handle the
-> folio2-not-split situation.
-> 
+Where compatible are interesting is when the silicon vendor messed up
+and produced two different devices with the same ID value, or put no
+ID in the ID register at all. Then you have to work around the silicon
+vendors mess, and hope the DT author gets it correct.
 
-Yeah, agree.
+My suggestion would be to use the ID register and not have
+compatibles.
 
-Thanks,
-Yi.
+	Andrew
