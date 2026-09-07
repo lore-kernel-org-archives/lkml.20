@@ -1,185 +1,128 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D02353EC0
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:34:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A087D353EC0
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770101; cv=none; b=t1LpWI0XqUREnThQokW8EXFTPs3ou/9bSUBqjIXuI4+6RQUEz9XrXTcF7EHnv8N+4yEglj8YGzot004uAWefNkF1MdCZ6CqaKtRpKdcBuiTP8kkGZPwQLmVVGyDJDogKpfFwiRZryn/6Mbglku3pJSAOWzAk3reYI+M4nQDBKF0=
+	t=1788770119; cv=none; b=VbxNCy29SW3qpCnY5iFBI0PydC/H4VL53WxPnLuBOt7Wgv5g7WkJ3zu7MyUUbfhJ0bi0ulvwncAulm/8liAkvr3mlBa9eAIazzqqCXBr8TLMqfPehbV9uF03lglUnkkKbieXSjHYif1+pmYrJNJWnU8UcwHjvwEOlwU8BKos0rs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770101; c=relaxed/simple;
-	bh=bj5F5QK1uSQFMvIEdA00OoHx5q5YSJNDudHMXCmyJAQ=;
+	s=arc-20240116; t=1788770119; c=relaxed/simple;
+	bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dxwLAOgpFR+XuUltln74bnU2v5kJPrqJXiukfyBrJjl8XWc/nECOIeJysIkVke2XmVShUG4RYnhVVoQ3T+nnTrbzqUqP1SGw6/T3TkevVCIOfloHQKx8tOkej+MmUcahkyUatoOI7AMPchO+YEuvHEMXVWuPvFjtUrg3HjI2c9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=FCsYM2mm; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=hue610HF; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=l+OXNMw8; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=fLQhzhLS; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 Content-Type:Content-Disposition:In-Reply-To; b=h6Ii4U8BTSZmMd0yK+e9HoRbycD03tiiqSYP33+z0JmlWNWNDhvh1WPVuwtC6dxd22DhADYlNq4rocSI34D2zIikKnZwSyQlKEOwQlBYKX8qAwp4r45/sNeNcchEfAEu4K2H/Qllk+JK7KZphVZmLTrc45ziZlBduke7uU+9p1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JRRCTVK7; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="FCsYM2mm";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="hue610HF";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="l+OXNMw8";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fLQhzhLS"
-Received: from kunlun.suse.cz (unknown [IPv6:2a07:de40:b306:2000::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8B6F721A3A;
-	Mon,  7 Sep 2026 08:34:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788770093; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5L7h3jJPOtuGW9dF0Z9UUqBDrEsnf0yktjqYcU6pQ8=;
-	b=FCsYM2mmarB3qXfIEeIWWb5XDdQHoVbfOkfHs6ARV7sIh+cAZJIuRbeE0gJaPS8O2x698o
-	tXcfxnN/ha8Tptin5gg2pmDeJixUQjSlUHJC55Xgssb9oR/j4oB1DPlbGonh0TiyQYc87c
-	8DNegqYJQtvIr2qDfmSnPQJX5eiZC3U=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788770093;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5L7h3jJPOtuGW9dF0Z9UUqBDrEsnf0yktjqYcU6pQ8=;
-	b=hue610HFAm/L993Tte17gTKnARG61kdckHGRAiSGLjqo77wAzYFL6c9mhbpYuwT4zZKe2z
-	wpyKnZENVFojJ+Dg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=l+OXNMw8;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fLQhzhLS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788770089; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5L7h3jJPOtuGW9dF0Z9UUqBDrEsnf0yktjqYcU6pQ8=;
-	b=l+OXNMw8CGh103u/HVGGXE1VoQkoh4tERcY3zco0qx4jGdIcOWUJuO5N1QqjCqKh26bXyG
-	zmhGWb7I713+7GrAPBurgF8uMb8pYIlUxKkjtQenNPckfjIb47O3HcLTUEHDpqcFnnX+5A
-	0+Q8tkhvaDH30VTBGZXeIWDiEni3qrA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788770089;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P5L7h3jJPOtuGW9dF0Z9UUqBDrEsnf0yktjqYcU6pQ8=;
-	b=fLQhzhLSsSiDdX3rxfN+t0CgxNkfuZTnezhurr+WDldBhjFylafG3fa3+aMQjBOvnn9cDe
-	stH+Eot1NqyFqnBA==
-Date: Mon, 7 Sep 2026 10:34:48 +0200
-From: Michal =?iso-8859-1?Q?Such=E1nek?= <msuchanek@suse.de>
-To: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Cc: linuxppc-dev@lists.ozlabs.org, maddy@linux.ibm.com, mpe@ellerman.id.au,
-	npiggin@gmail.com, chleroy@kernel.org, mkchauras@linux.ibm.com,
-	mkchauras@gmail.com, sshegde@linux.ibm.com, ruanjinjie@huawei.com,
-	ritesh.list@gmail.com, riteshh@linux.ibm.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] powerpc/interrupt: Use early_radix_enabled() in NMI
- real-mode guard
-Message-ID: <ap53KNdFJWaUw8GM@kunlun.suse.cz>
-References: <20260907070058.26338-1-venkat88@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JRRCTVK7"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso30962525e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788770116; x=1789374916; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
+        b=JRRCTVK7h1DC57qMTcJxIx7iViDaB3G32uM+/ix4lR/+eIXKwhwbdGhQTIOXqN2mx5
+         7gMRI+TnBWP3aTGrmCZunL6S191T1M71nnp6YPFi5+OH1BBko0cILTPgMv37KxrJ6bgX
+         5PFgvm2qymbNMIGLsk+MiR0sCGkZUw5t6VsSKAVVYwqSXW6/gfSzMeRQXE/EjPeio6tw
+         ZWdG/GBUB0sFG246bxhLeQ+CWl3mwn2HrUjNVnto/F5DcIJwgrXPq2AbPUByzO0NvNuk
+         kqZ+UHfJ5pikHSvhZKgIAeQAJysgN+JN3KX6b0LwtkB1A33Ywpu19uVKU/eWCTOvXBXV
+         Xxjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770116; x=1789374916;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
+        b=kT4wWabP+/ZBOdUaNLcJVCzyMoY5lIfVAarjlX31ubis+pScW7bE+DjpycJWX9kBIU
+         fdpXhpK+nIOvGg0mlX9DpbGI09psMS/Cipotj+Gf1LAmySmLKa84Rndq/REUsQZTXZqg
+         nq8vz7xMrZXCL+nlmh5cWmkCRlw4n9OVhAy+HFhvNX4QPXeHncxPSzG7CGYOCVwoqp3k
+         Ugb1EPF/6gjHzmdX/jK79qMvaxTbK0PCJ+6LIzFM6bbUK238Re87TgQNmk6/YY8Nr7Tq
+         aqF+5fiBml7m9Ux0AdAS8XCxsIrSaBYPu3mw8c84VibF+0fDbDK0nuTMmdiDy47ZyAmI
+         0bSA==
+X-Forwarded-Encrypted: i=1; AKwUvBx1oMQCp4kok0+UmcDItDc4WcWCXP70HlfjUbh48UCYBpcC0I2WwXnhjd0Xs7qiV8Ap9UEpGWRdZYivJP0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLr1pp/BTRnfGdnCYqDafL8SyQ9d4SzWwZV+SjElPbZ6yTKA/Z
+	tM05ShuZ06GozpIbmsqveuFjfXp2VUlX5qa+8zIW4/wFb4KiRrw4+/WXoSrUrCRh/P0=
+X-Gm-Gg: AYBFou3YpWhasIfdP9NySJLrqxH4deAw9wFgt5RI84hAj/QgCzbTQUICu/3BTx3/apY
+	QkfgvqdUznapPRD4CZWNwHrqHl7gg6ng8UIdr4WPaQAfw6Cfq6TJi8hegmVC2ttoSjerIm87nB6
+	XdAw5Jzm9pCSJtMvXmmno7MZpuQ9ptWOhaLGP262Ll3EcRCnNA6cT9+dPW/uSQfvDcLkvDq0AxJ
+	NlQKCdEPmrUzah+tY3UEIvAL1TQhnt0QV5orHRTNPqAk1vuVRMv82s9knzs3gorJpLriJAJg6Lz
+	EUWSEYpq4RGxMDH5LebtgalVFs91IIO/lPFVAOCi5X9+kDR76k9eFu02GjHnMMONSrxbSsBI3cD
+	93f2b3KWATyz2mT4+qbI67oqYB1P0dx/PGFV99y5V1/lXhJPR5AHhQ7YBj6JZKjNt0XeWM0SBuy
+	FsXiFCe485DlgEZuIJN9YAdsHZZLLVgLv36p8bZU7EaXasnJ31XFIzPFyqfk4+hsWW4214VaILZ
+	eKgNAQqZsKiMTlfy557tCNAsJP9cxI+c5RTV0kvKSlqYCtkMK4=
+X-Received: by 2002:a05:600c:3b9b:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49cf8286e30mr197654635e9.15.1788770115721;
+        Mon, 07 Sep 2026 01:35:15 -0700 (PDT)
+Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ce4761dd1sm274503085e9.0.2026.09.07.01.35.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:35:13 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:35:13 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Nickolay Goppen <setotau@mainlining.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+Message-ID: <ap52w_LsxykYh6T1@monoceros>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="f7m35ekvx6ajsize"
 Content-Disposition: inline
-In-Reply-To: <20260907070058.26338-1-venkat88@linux.ibm.com>
-X-Spam-Level: *************
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: add header
-X-Rspamd-Queue-Id: 8B6F721A3A
-X-Spamd-Result: default: False [13.55 / 50.00];
-	SPAM_FLAG(5.00)[];
-	NEURAL_SPAM_LONG(3.50)[1.000];
-	BAYES_HAM(-3.00)[100.00%];
-	HFILTER_HOSTNAME_UNKNOWN(2.50)[];
-	RDNS_NONE(2.00)[];
-	SUSPICIOUS_RECIPS(1.50)[];
-	ONCE_RECEIVED(1.20)[];
-	HFILTER_HELO_IP_A(1.00)[kunlun.suse.cz];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[kunlun.suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.14)[-0.718];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b306:2000::2:from];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b306:2000::2:from];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_ZERO(0.00)[0];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[lists.ozlabs.org,linux.ibm.com,ellerman.id.au,gmail.com,kernel.org,huawei.com,vger.kernel.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kunlun.suse.cz:mid,kunlun.suse.cz:helo,suse.de:dkim]
-X-Spamd-Bar: +++++++++++++
-X-Spam-Flag: YES
-X-Spam-Score: 13.55
-X-Spam: Yes
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+
+
+--f7m35ekvx6ajsize
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
+MIME-Version: 1.0
 
 Hello,
 
-On Mon, Sep 07, 2026 at 12:30:58PM +0530, Venkat Rao Bagalkote wrote:
-> radix_enabled() uses a jump label which is only valid after
-> mmu_feature_keys_init() is called. Before that point, on a pSeries
-> hash guest, early_check_vec5() clears MMU_FTR_TYPE_RADIX in
-> cur_cpu_spec->mmu_features but the jump label has not yet been patched,
-> so radix_enabled() incorrectly returns true.
-> 
-> Replace radix_enabled() with early_radix_enabled() which does a plain
-> bitmask check against cur_cpu_spec->mmu_features and is correct at all
-> times, including before jump label initialization.
+On Sat, Aug 29, 2026 at 11:09:14PM +0300, Nickolay Goppen wrote:
+> +#include <linux/delay.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/regulator/consumer.h>
 
-Any Fixes: here?
+Please rely on <linux/of.h> to provide of_device_id and don't include
+<linux/mod_devicetable.h>. If you want to stick to IWYU, include
+<linux/device-id/of.h> instead.
 
-Thanks
+Liebe Gr=FC=DFe
+Uwe
 
-Michal
+--f7m35ekvx6ajsize
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 
-> Add the missing #include <asm/mmu.h> since early_radix_enabled() is
-> declared there.
-> 
-> Signed-off-by: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-> ---
->  arch/powerpc/include/asm/interrupt.h | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/interrupt.h b/arch/powerpc/include/asm/interrupt.h
-> index 1b45a49e9bed..36a654e780f7 100644
-> --- a/arch/powerpc/include/asm/interrupt.h
-> +++ b/arch/powerpc/include/asm/interrupt.h
-> @@ -71,6 +71,7 @@
->  
->  #include <asm/kprobes.h>
->  #include <asm/runlatch.h>
-> +#include <asm/mmu.h>
->  
->  #ifdef CONFIG_PPC_IRQ_SOFT_MASK_DEBUG
->  /*
-> @@ -290,7 +291,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
->  		state = irqentry_nmi_enter(regs);			\
->  	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
->  		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
-> -		   !radix_enabled()) {					\
-> +		   !early_radix_enabled()) {				\
->  		/* no nmi_entry for a pseries hash guest		\
->  		 * taking a real mode exception */			\
->  	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
-> @@ -307,7 +308,7 @@ interrupt_handler long func(struct pt_regs *regs)			\
->  		irqentry_nmi_exit(regs, state);				\
->  	} else if (IS_ENABLED(CONFIG_PPC_BOOK3S_64) &&			\
->  		   firmware_has_feature(FW_FEATURE_LPAR) &&		\
-> -		   !radix_enabled()) {					\
-> +		   !early_radix_enabled()) {				\
->  		/* no nmi_exit for a pseries hash guest			\
->  		 * taking a real mode exception */			\
->  	} else if (IS_ENABLED(CONFIG_KASAN)) {				\
-> -- 
-> 2.45.2
-> 
-> 
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedz4ACgkQj4D7WH0S
+/k6mCwf8DB+wWG1X5R1Barm6eVJNkn6T9iEtu6q952Rb44GVXBmsgNzH/8kPoPvx
+MgqVTBvCjN5jnomwxeU4EPk1eRtFXqf4jwGytePENeFWAqwNGvBZHuYaowSbPCzb
+r6NXPx7I9i9qrBNTAufIz8/sLutrkzoc5so8Z33c3eovQgHbRZXbNpsBSW7Et7d3
+DEBJbSFNF4lYRM6ozD7Xk2CHDgfhaf1sznfIlFIXe1jA1/tAIyI21LSclKz58Dkt
+JuDlvdCCSC+hoWswZFYnITu60LPBwbgo8JeIVPx07ZuHJr2v6yknqw1yefvB1TKC
+r+3sOCPIgjR9hMDIjXlfEVZwDo/T+A==
+=6K8E
+-----END PGP SIGNATURE-----
+
+--f7m35ekvx6ajsize--
