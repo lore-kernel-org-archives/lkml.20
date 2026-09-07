@@ -1,164 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB0BE448392;
-	Mon,  7 Sep 2026 09:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E55C637F300;
+	Mon,  7 Sep 2026 09:21:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772887; cv=none; b=Cswge3JUSl4/EuG02tDH7nOS2T4jWB9oVUNVRIz2hdGSYkE+J3P/EhauxOMxiwcxfTM5yn3h0nCoo0oR/tBqGjt8GXc7hpQLSa9Iep0Pd3CQWFvEM6tey8D8cfPBxmUS8UmNEuzBfJxbIAOeKqJvm/cQSQu/V2RcGO/gLngJ9mY=
+	t=1788772914; cv=none; b=ZveS+DS8UZu7zmP51KVYCPD+fm6eLH5iSXEUFdXQ4jKy9sRBsj2TDJhvs/bsOBH0Wf9DNRnlDLmE5t8Dc1AYUn8SClP0sgJek3YiCrqnVGG42If7KdlMMy0GIByc1SMVpXTABCh3ZQetBOgcrnmxsO6EiAOlxLgIQ9Bpr+Jc1Fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772887; c=relaxed/simple;
-	bh=dXlQ2Fg5i37mpPrZt9hpZ8bAbyBistuBZFQllpjQ9kg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E7tnu1Q9+dLapPtN7ghCS53UXCw5rS0NMxcRZqBLJr+0stvnKCzLc//VwdHWTpZ0AzzlfJEnL3/oTHQg3e+RH50zpPrI+5h/T2RuGZFWw6UjAMxycNWVdSDleCPRIZXqlBR2N7m1zmcfFLaXotq79eXHHvgYCRQ7pqnZpBX5qYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNKCpcky; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788772914; c=relaxed/simple;
+	bh=t4HVwL+CfSB3/5dXWTctaeJ66uVZqls+8Yc2VzWZ3Ag=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qUzqJZzWpoiRQtV8m+zvGw+RB1Xze6XgWNpyEdf7lP97CaXE67oGxLlzzndha+fvLwxVDtR1uX8owBjfpJ5RNFuZ5LsBiquvzFWZ8cJODpBe+WtNhUD8Mm4tovJYlc1D+FHLrhznomYKOyh+iZ2l8cYOIMutpDMc+Q9J2TWCYHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=bPr6HCmz; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNKCpcky"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4F31F00A3A;
-	Mon,  7 Sep 2026 09:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788772885;
-	bh=vobIiljlcAsX0NjzOBm2HwqlV+hAVsEf4kXRt73ZKG8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KNKCpcky6JKpBAF5KSqqVvOOIsP5V20tllovLPz+eBUBoHQwK1DQ8AXJFLxa7FL1a
-	 CAM/5hz6uBiO9S0Ee/EBQDpPD5bvNw4cw2zdMIZsuwKGQl2d8yTRHveOyL2nWpwZ5u
-	 xo/DWfv6wgx+y0WADn3/ACaTQ8+PYFL3Nss55YwvrbKbGlgVhUvLJhXYm8+gNu4o3k
-	 ocuzXXKouFnxuMkRaZoBXOEHcYd0FnfpRU2Uks5MJQ/jJNNmuskM7DNaM9h6t5v2Xz
-	 GKHtjOPOr8+k+xE31AaZ+Y12IkE1G63hHVoAurhtAkHxLTPdRgWDbD3+1zeC+97mdA
-	 Mq4lhqMYMVMzQ==
-Date: Mon, 7 Sep 2026 11:21:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-Message-ID: <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="bPr6HCmz"
+Received: from [10.95.64.224] (unknown [4.194.122.136])
+	by linux.microsoft.com (Postfix) with ESMTPSA id E734520B710C;
+	Mon,  7 Sep 2026 02:21:10 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com E734520B710C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788772873;
+	bh=V74XC9ZmOr8D3oNT40AbiLqYcwxnV5vD2AZ32zaDL7k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bPr6HCmzgrnuy9vVJEj2qhBj92btJKwEIA73s4K3zNUxH29t7LFCPVsrZIWNk+NFO
+	 0yZjw7Om6bq9VaV5Zw9gUMLcyxDyPFgXGnNoCpneYx1tjmS3a4b5I1A24K4LuMwCeA
+	 QmLciKO6B1hTjS715Th2P9im9kZowZiavZZpPxmQ=
+Message-ID: <f307de11-8915-47f9-a743-250296f10804@linux.microsoft.com>
+Date: Mon, 7 Sep 2026 14:51:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] Drivers: hv: vmbus: fix typo "substract" in
+ comment
+To: Hemanth Selam <hemanth.selam@gmail.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michael Kelley <mhklinux@outlook.com>
+References: <20260907044946.10813-1-hemanth.selam@gmail.com>
+ <20260907044946.10813-2-hemanth.selam@gmail.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <20260907044946.10813-2-hemanth.selam@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 03, 2026 at 08:10:59PM +0200, Vasilij Strassheim wrote:
-> Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
+
+
+On 9/7/2026 10:19 AM, Hemanth Selam wrote:
+> Correct "substract" to "subtract", reported by scripts/checkpatch.pl using
+> the misspelling list in scripts/spelling.txt.  Only touches a comment, no
+> code changes.
 > 
-> The compatible identifies a register layout characterized by the core
-> and feature identification registers at the encoded offsets. The
-> concrete synthesis-time configuration is then autodetected from these
-> registers.
+> The subject prefix changed since v1, from "hv:" to "Drivers: hv: vmbus:",
+> for consistency with the rest of the subsystem's history as Michael Kelley
+> pointed out.
+
+Hi,
+The change-log (these 3 lines) go after "---" line as a comment so that 
+these do not get propagated to the git log in kernel tree.
+
 > 
-> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> Assisted-by: Cursor:claude-opus-5
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+> Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 > ---
->  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 161 +++++++++++++++++++++
->  1 file changed, 161 insertions(+)
+
+Here.
+
+Refer: https://docs.kernel.org/process/submitting-patches.html#commentary
+
+Example: 
+https://lore.kernel.org/all/20260907054742.235389-1-namjain@linux.microsoft.com/
+
+Regards,
+Naman
+
+>   drivers/hv/channel.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> new file mode 100644
-> index 000000000000..508e444e10da
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> @@ -0,0 +1,161 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SoC-e ethernet switch IP core for FPGAs
-> +
-> +maintainers:
-> +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> +
-> +description:
-> +  SoC-e Ethernet switch IP cores are FPGA-based switches whose features
-> +  and number of ports are selected at synthesis time. Ports can connect
-> +  to CPUs, external PHYs, FPGA logic, or other switch cores. The
-> +  integrated MDIO controller provides multiple independently selectable
-> +  external outputs.
-> +
-> +$ref: dsa.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: soce,swip-00-04-0c-10
-> +    description:
-> +      Register layout with the core version register at offset 0x00 and
-> +      feature identification registers at offsets 0x04, 0x0c, and 0x10.
-> +      Switch instances using this register layout are autodetected from
-> +      these registers and use this compatible regardless of their
-> +      synthesis-time feature and port configuration.
-
-There is no traceable and documented version or model name?
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  mdios:
-> +    type: object
-> +    additionalProperties: false
-> +    description:
-> +      External MDIO buses provided by the integrated MDIO controller.
-> +      Each child bus selects one controller output.
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    patternProperties:
-> +      '^mdio@[0-9a-f]+$':
-> +        $ref: /schemas/net/mdio.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            maximum: 30
-> +            description:
-> +              MDIO controller output index, which must be lower than the
-> +              number of implemented switch ports.
-> +
-> +        required:
-> +          - reg
-> +
-> +    required:
-> +      - '#address-cells'
-> +      - '#size-cells'
-> +
-> +patternProperties:
-> +  '^(ethernet-)?ports$':
-
-ethernet-ports
-
-> +    patternProperties:
-> +      '^(ethernet-)?port@[0-9a-f]+$':
-
-ethernet-port
-
-> +        $ref: dsa-port.yaml#
-> +        unevaluatedProperties: false
-> +
-> +        properties:
-> +          reg:
-> +            maximum: 30
-> +            description:
-> +              Switch port index. Supported switch configurations have
-> +              up to 31 ports, numbered from 0 through 30.
-
-Best regards,
-Krzysztof
+> diff --git a/drivers/hv/channel.c b/drivers/hv/channel.c
+> index f4370617deac..c36ec14529b9 100644
+> --- a/drivers/hv/channel.c
+> +++ b/drivers/hv/channel.c
+> @@ -79,7 +79,7 @@ static inline u32 hv_ring_gpadl_send_hvpgoffset(u32 offset)
+>   	 * therefore leaving a (PAGE_SIZE - HV_HYP_PAGE_SIZE) gap.
+>   	 *
+>   	 * And to calculate the effective send offset in gpadl, we need to
+> -	 * substract this gap.
+> +	 * subtract this gap.
+>   	 */
+>   	return (offset - (PAGE_SIZE - HV_HYP_PAGE_SIZE)) >> HV_HYP_PAGE_SHIFT;
+>   }
 
