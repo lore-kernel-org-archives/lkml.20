@@ -1,121 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AC9046F49B;
-	Mon,  7 Sep 2026 10:24:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C7C46EC7B
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 10:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776677; cv=none; b=qi8aPU+G4MLZfXehOCxXlz/jMer3S1xeIm3gEL1wdNYHDqcTSifhDnl4nPA+syaN0TUvbI4jxEeZpwITsU5ic6NGvljulMuI2Tk5cmNLfWkBgQC/+inRJ1K8Mmszv2TLBAR5LlAE3FHZ2lkcwzmznsz7/3I7X7NZzc3lC/JP6zk=
+	t=1788776677; cv=none; b=H+rokMgs5xeEbBEmy48kKrzuyMTGvTNjWtwcZJbXyIKVtahZScjm7jxRAqb58iHNCAi73rx2fHkURM2Iv6dJOwJrr18qb7+01RpHgwqQf3WIaoqhJGta99ah3mk1OgoYiRVH9nV+cvBAybv2PamlJRkOo6eDYUHcrrLQti9vy9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788776677; c=relaxed/simple;
-	bh=msniaosZMR/qwh9gdvOXvUlhttFaDmHvFelXNEpOfZM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hzm+YOcuqqyNxKTcNgREJ0v9J1b1M97nE/alLu66pVNE9EXUlZ0N926wNmrsVTnchiX6ZfYdzG0KnXtRwb4/wTTi+QeK2V4ogJ+KvxEXX1yc/PalHjd+kedZJEeZmakp3flmb54YAfPlObjWga/+cKdq19faOXIdARqJxz6RMkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KS75OFvs; arc=none smtp.client-ip=100.103.45.18
+	bh=Sap+g3EOkzHwU6f/oKluEXLzAcdW83UoPmFUKOII4/Y=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=J5xM+zkzkA7DLFih+T+gHEg9auk/l0qLM0Dc1mQ6cvf/eL2ovp6UcpSO+3B7P2pmtxtjadPhzrjyEdzqxKR5guTMnEjtJsO8GuniIRTbZNTbUv3ZCuubkEsRE4zdid8aEEb0Z7xIsxzGk0kUq7VXjqPlnnZWSz2UUkaahHa5eqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FtXN28sx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KS75OFvs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C692D1F00A3D;
-	Mon,  7 Sep 2026 10:24:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FtXN28sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09EF11F00A3F;
+	Mon,  7 Sep 2026 10:24:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788776675;
-	bh=ZWoW41+x+7dy6umxK1i5p5XUicgKN/VyGWTHRTGB5Jk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KS75OFvsRCVf4saYIwM7a7NN1+hfRl9Js1UXnBdo4ejdc/JRfRr+x+8b7ByXevYcO
-	 rfWjqSA17UYgRcYKmT5++U7d420TnkfJlN6/yaQ6IiwBHHni3dULFPaSNEFlHOHw2c
-	 75cU9o/cuKArq7AlxXxBp5t1+KSdEJZobfXlSXI2uXLoU0e9yPaKq/Sue4Hk34mHCU
-	 GofAygwswbGe7s9LY4eI5lfqP+V3h1dDpHLxgGGX/umcnKChtdrJCfoURD02QOU0Ak
-	 g8d9a8fEYO5ZLLJ0aRKUoWXKJXV3FNe6Jw4y//ye/5HU1yV6B4ky0fGRSPsq4P5B2g
-	 ddGOIKLVTV9eg==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Mon, 07 Sep 2026 13:23:54 +0300
-Subject: [PATCH 13/13] s390/scm: Use kmalloc() for SCM information
+	s=k20260515; t=1788776676;
+	bh=9BqDLmGnAkMHp9vwRniiZuI/ddgBPW2A/NeBEBZzQS8=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=FtXN28sxVnTxLlot/tbGgKn54hYdfQDVpBNPETtLXAunDWU81VOHQTOLlu26rJ8WQ
+	 aBy1Zh9dPjbQ2OgxR53PQGQnJIoVSfKdt727BvlCEnKArD8P8/Yo+RQ68sqkxGMa28
+	 lgGBGLU+yHp3Tu5zZru6roNOjkq2b94KRXI0D0HW+Su4rY+xjIz0lzaziOZXZ4NY/f
+	 K/BkA98SIlMqgtlofTMtwLDBbYwiVgufOcnhPYcXpZqy5H3CJ5ytWYOxumDkkwRFPH
+	 QS1OCHzkLfTNoWT6s+6lUxGwFwgAjdYSA0JOKmV0SGHpdV5izJ/V1VSuV1FfYN8fPn
+	 FiyIrl8nP5cOA==
+Message-ID: <f9839ca2-1554-450d-9e98-72d686a8402d@kernel.org>
+Date: Mon, 7 Sep 2026 18:24:32 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ Barry Song <baohua@kernel.org>, Juan Yescas <jyescas@google.com>,
+ Pengfei Li <lipengfei28@xiaomi.com>, Dev Jain <Dev.Jain@arm.com>,
+ linux-kernel@vger.kernel.org, David Hildenbrand <David.Hildenbrand@arm.com>,
+ Bo Zhang <zhangbo56@xiaomi.com>, Kalesh Singh <kaleshsingh@google.com>,
+ Jaegeuk Kim <jaegeuk@kernel.org>, Ryan Roberts <Ryan.Roberts@arm.com>
+Subject: Re: [f2fs-dev] [PATCH 12/14] f2fs: handle block cloning within the
+ same large folio
+To: Nanzhe Zhao <nzzhao.sigma@gmail.com>
+References: <f1ffd3a5-9fdc-4f26-bd9d-5f55e563f800@kernel.org>
+ <20260907095759.2461366-1-zhaonanzhe@xiaomi.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20260907095759.2461366-1-zhaonanzhe@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-s390-cio-ready-v1-13-ca7f39806234@kernel.org>
-References: <20260907-s390-cio-ready-v1-0-ca7f39806234@kernel.org>
-In-Reply-To: <20260907-s390-cio-ready-v1-0-ca7f39806234@kernel.org>
-To: Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Mike Rapoport <rppt@kernel.org>, 
- Peter Oberparleiter <oberpar@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Vineeth Vijayan <vneethv@linux.ibm.com>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-s390@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-X-Mailer: b4 0.17-dev
 
-scm_update_information() allocates the response buffer for the CHSC
-Store SCM Information command.
+Thanks, better.
 
-This buffer can be allocated with kmalloc() as there's nothing special
-about it to go directly to the page allocator.
-
-kmalloc() provides a better API that does not require ugly casts and
-kfree() does not need to know the size of the freed object.
-
-Performance difference between kmalloc() and __get_free_pages() is not
-measurable as both allocators take an object/page from a per-CPU list for
-fast path allocations.
-
-For the slow path the performance is anyway determined by the amount of
-reclaim involved rather than by what allocator is used.
-
-Replace use of __get_free_page() with kmalloc() and free_page() with
-kfree().
-
-While on it, use __free(kfree) for the local response buffer.
-
-Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
-Assisted-by: copilot:claude-opus
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
----
- drivers/s390/cio/scm.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/s390/cio/scm.c b/drivers/s390/cio/scm.c
-index 171212a6d2d9c..b79fe023ab8d1 100644
---- a/drivers/s390/cio/scm.c
-+++ b/drivers/s390/cio/scm.c
-@@ -13,6 +13,7 @@
- #include <linux/slab.h>
- #include <linux/init.h>
- #include <linux/err.h>
-+#include <linux/cleanup.h>
- #include <asm/eadm.h>
- #include "chsc.h"
- 
-@@ -224,12 +225,12 @@ static int scm_add(struct chsc_scm_info *scm_info, size_t num)
- 
- int scm_update_information(void)
- {
--	struct chsc_scm_info *scm_info;
-+	struct chsc_scm_info *scm_info __free(kfree) = NULL;
- 	u64 token = 0;
- 	size_t num;
- 	int ret;
- 
--	scm_info = (void *)__get_free_page(GFP_KERNEL | GFP_DMA);
-+	scm_info = kmalloc(PAGE_SIZE, GFP_KERNEL | GFP_DMA);
- 	if (!scm_info)
- 		return -ENOMEM;
- 
-@@ -250,8 +251,6 @@ int scm_update_information(void)
- 		token = scm_info->restok;
- 	} while (token);
- 
--	free_page((unsigned long)scm_info);
--
- 	return ret;
- }
- 
-
--- 
-2.53.0
+On 9/7/26 17:57, Nanzhe Zhao wrote:
+> On Mon, 31 Aug 2026 16:19:05 +0800, Chao Yu wrote:
+>> A lot of codes are redundant, can we add fdst = fsrc;
+>> So that we can replace fsrc w/ fdst, and clean up the redundant codes
+>> below:
+>> Thanks,
+> 
+> Thanks for the review. I'll restructure the else branch as suggested:
+> 
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -56,25 +56,66 @@
+>   			f2fs_put_dnode(&dn);
+>   		} else {
+>   			struct folio *fsrc, *fdst;
+> +			size_t src_off, dst_off;
+> +			bool same_folio;
+>   
+>   			fsrc = f2fs_get_lock_data_folio(src_inode,
+>   							src + i, true);
+>   			if (IS_ERR(fsrc))
+>   				return PTR_ERR(fsrc);
+> -			fdst = f2fs_get_new_data_folio(dst_inode, NULL, dst + i,
+> -								true);
+> -			if (IS_ERR(fdst)) {
+> -				f2fs_folio_put(fsrc, true);
+> -				return PTR_ERR(fdst);
+> +
+> +			src_off = offset_in_folio(fsrc,
+> +						(loff_t)(src + i) << PAGE_SHIFT);
+> +
+> +			/*
+> +			 * For same-inode operations (collapse/insert), src and
+> +			 * dst may fall within the same large folio.  Detect this
+> +			 * to avoid self-deadlock on folio lock: in that case the
+> +			 * destination folio is fsrc itself and only its block
+> +			 * needs reservation.
+> +			 */
+> +			same_folio = src_inode == dst_inode &&
+> +					folio_contains(fsrc, dst + i);
+> +			if (same_folio) {
+> +				struct dnode_of_data dn;
+> +
+> +				/* Reserve block for dst before copying */
+> +				set_new_dnode(&dn, dst_inode, NULL, NULL, 0);
+> +				ret = f2fs_reserve_block(&dn, dst + i);
+> +				if (ret) {
+> +					f2fs_folio_put(fsrc, true);
+> +					return ret;
+> +				}
+> +				fdst = fsrc;
+> +			} else {
+> +				fdst = f2fs_get_new_data_folio(dst_inode, NULL,
+> +							      dst + i, true);
+> +				if (IS_ERR(fdst)) {
+> +					f2fs_folio_put(fsrc, true);
+> +					return PTR_ERR(fdst);
+> +				}
+>   			}
+>   
+> +			dst_off = offset_in_folio(fdst,
+> +					(loff_t)(dst + i) << PAGE_SHIFT);
+>   			f2fs_folio_wait_writeback(fdst, DATA, true, true);
+> -
+> -			memcpy_folio(fdst, 0, fsrc, 0, PAGE_SIZE);
+> +			memcpy_folio(fdst, dst_off, fsrc, src_off, PAGE_SIZE);
+> +			if (folio_test_large(fdst)) {
+> +				f2fs_ffs_find_or_alloc(fdst);
+> +				f2fs_ffs_mark_subrange_uptodate(fdst,
+> +							dst_off, PAGE_SIZE);
+> +				f2fs_ffs_mark_subrange_dirty(fdst, dst_off,
+> +							    PAGE_SIZE);
+> +			}
+>   			folio_mark_dirty(fdst);
+> +			if (same_folio && i_size_read(dst_inode) <
+> +			    ((loff_t)(dst + i + 1) << PAGE_SHIFT))
+> +				f2fs_i_size_write(dst_inode,
+> +					((loff_t)(dst + i + 1) << PAGE_SHIFT));
+>   			folio_set_f2fs_gcing(fdst);
+>   			f2fs_folio_put(fdst, true);
+> -			f2fs_folio_put(fsrc, true);
+> +			if (!same_folio)
+> +				f2fs_folio_put(fsrc, true);
+>   
+>   			ret = f2fs_truncate_hole(src_inode,
+>   						src + i, src + i + 1);
+> 
+> Thanks,
+> Nanzhe
 
