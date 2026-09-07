@@ -1,113 +1,160 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 517D84CA768
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B86420E7C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 20:14:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788811651; cv=none; b=oNpAqv4/tb/vJqT6FseRNnj5lO+1Z4nhrIsErC81qg70GpZ25/phOpGeykEc/VTimKjZaN5NQptF2yhAec9KhAZsoF6L+DEM0oqT4LWWqwDrnNxMCMj7tjNhCafD1F9qDJQxmQItcC2lHPaSRtGVE5kbBVasmc+6n2urV2/UQLg=
+	t=1788812055; cv=none; b=oez+ZmdU+OR0hZf0+dU7QyLkzco26KDYcLJWPUgEYqlsdZnr/mHn6bYfkl/0ji3mJBVLa0aZl4cLgF5xdJyQpxkyXfLL98bOKk41M0dawsSK/4OsN8RMX4huiz88QqBENRGACm2H5bK9rk4EY5p4s5CKalLfQmWo3qPJXxNyiAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788811651; c=relaxed/simple;
-	bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n3LfxjGLf2lBXuqlbkLx27ifvG2haarElC8yxkOiuF/KSAF86XUuTe04iqJ7D/l1TpLt3fnx+S81x+mFn/KK6oxrNwZKcJeTCCghUVoooheWhPczwKiFxiX4kEwCHVS8P50k7UYNHB4L3ngBmnj6GXs5H18OZph5SQ2MX3KKLHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Y9OFU7xP; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788812055; c=relaxed/simple;
+	bh=JdYM+UJ0B56bSrUUIISGmCCYJRuSXUMR7i0SnqkLauA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Y5RkwyBCkzAEQNWsgjAHoGn91roYSMLX6l1ipFbsSlQoSMCoR76ApD87Tl3If4cNetJDKEdAh1Lfoy6KeSRF28KTmyfb3/8dpathCbWKG/2ontoWs1++noK3zUem8rg0pUJBG96ik7U5R+KB70Qjric8I9xHaoVmmyLqVVYLqnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KFPuj26K; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Y9OFU7xP"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso33090865e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:07:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KFPuj26K"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1c9879395so2595251a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 13:14:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788811647; x=1789416447; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
-        b=Y9OFU7xPUJBy+/s5oAlg1Be75AVxSTrepbtWpgk0VsCl0038EUCjAF+DWkr/Ftq7eU
-         w7c41FYEEqLSYs4tED7SCWIxtTKwxN7S5OfWexWjs0ry4+SDVJpAt4G+dqKClIKBdrMq
-         xu818MkI5vXHJaZh5dzWWFJZR0S7oAtJjAQmeU31zsOmJkw2vdRaxO5LdR6Mo+7NDmoG
-         i0d+nnVG5azcG55xjrLo/PnU9BTO0yP28SOTvcLEqMefqr6pueE5926ljGthl88UoXsh
-         1yCTw7rAQZ1bEQKGWSbH4Z7XmVfB1f2xsTzNy9W/dAhfbhzVi5UG9BE7I/koyi0/D1uj
-         GGXA==
+        d=gmail.com; s=20251104; t=1788812053; x=1789416853; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MhNwMmgT5IoqPKbTajdZzif3txtKsi05HtP3StDpTm4=;
+        b=KFPuj26Kse0cFbiDqsg4/h8KgHrxVxgUPfAFkmmBfq0CDc3Nb1yh7O4U++4JkEG1xg
+         49GR7lGeJ9nA/1IbAH9VQIJ8gCDup/2wfcIH/tm55Y82i+3UQo28tc5PWpzl1xB8q9VE
+         u/3NlHiSQjqIt1IJiHpPuQSHZ/ceHL5IkbqWHI8lJ63QsNTTmp6tsRRfzM89M2y1KdZ1
+         lX6JWTg+N2YeYB6bnJrxO1q3ZN/kGS4HwAHZzFmMZYdR+9ZRnTZJpTq5f1IBkRJTl2xE
+         tnW1oOOZG5yKXjUtgvJ8E0XoMC2sXk1VE4snmOk53xEh0Y3SbNMn+BaTwBPf7wuV0G63
+         fy0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788811647; x=1789416447;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7NykevhhirRjqD4n4VJwFeqZSAO1XwPp+tka/eMaYgI=;
-        b=gF4q1JK6MP18evGc1bTDZRR/0sJTpglq0RVqejHlgkmj5tTrS2+zTqPKJP237yOBI8
-         agr+e+p8UZNR51uNqHCLfLv1eeeLFyll8F/JZ6KanUIx6PqXHdLLCAX6abiYK2KHPEnb
-         0B3z0oKaRFLoCdKgxZxWkqZ9ThQhgho4qyMCeaygcKxCUs2uRh3EIR6D4JWKfA+7d+0C
-         9iUVgjXJL7ammZ3K2X1Rp+t5HU0lY1Dwv4S7b5FJOBuMGZ8RyF0IcG5TzdcEVWCyJrMP
-         vZiy63Jaext/CaSJ4TN+krvkBrZW6bv36632qxg1L5xEyNdRZ+sD47PFs37AAuGoV87a
-         CWsw==
-X-Forwarded-Encrypted: i=1; AKwUvBxtQiKVj/y3v9aIxPwt46ghLFb+M54Qyyu5uaP/jmzEEv4l3gR2ombMB46yFenCGOUeO0RU0qnAmLXlhiE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyj2GTyNpINblW1cZp0Oy+eC33mNgiXK9Elbv46gF6Kspuil3i
-	wxy/I3nmtiMet44umtoHg6/B+KzIHuZILGbVy7nto8Bp77mkcnJu8j/wuU2FnYkz6HBbViuUyT9
-	ntVcQ7JbwewdJ
-X-Gm-Gg: AYBFou1N2perljkDmnE3DOt9Z0L0yBQxrJa5O45dcIPw6x/qQ8Su+tdqiWMrWlqf/AZ
-	YfKA3st7aKDlXhdZF5SKI1j5SlQkC4AGb0IaYkVto5QKRxWLECA4hWY0mSJLWWsv1ZQwEVhnZvR
-	3AcULxOLFNCp93hc8wsQs0UCwtj5s5nZySa09mDGyYDH2eXRA2geAqKVJydAyszfP7FFBH0oFDB
-	MM/XgW9q2ZJsfMCjhaPvpTMKJB8Ih/iwPOFPR7GjQ5oSZtIAklOnppSIHQp1fMzkGLd8aqUMVfH
-	pXdfU9Gu84tcvJo/SUYNfsTKeWMf93mFtfjJ00+8cO0CyD8VF9jgq0xX8m4+aszSTwfAJGWBDRj
-	d3r+YJY7zdyCAx9XytfDPi8lU8syaAKAG7iqPz30693pDO5zbc7qWjkU0Ft7Uzv7dMfR6tKnR9A
-	j24gD2r2jlOxcJwEAjgvaT7hXN93pGnBmRWj38BNU=
-X-Received: by 2002:a05:600c:a40f:b0:49c:fa21:e74b with SMTP id 5b1f17b1804b1-49cfa21e9a7mr169708245e9.33.1788811647263;
-        Mon, 07 Sep 2026 13:07:27 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm295497795e9.3.2026.09.07.13.07.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:07:26 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Conor Dooley <conor@kernel.org>
-Cc: linux@armlinux.org.uk,
-	andrew@lunn.ch,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aleksei Sviridkin <f@lex.la>
-Subject: Re: [RFC PATCH net-next 1/2] dt-bindings: net: ethernet-controller: add phy-needs-host-firmware
-Date: Mon,  7 Sep 2026 20:07:21 +0000
-Message-ID: <20260907200721.3391458-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907-shallow-universal-b614da6fe0c4@spud>
-References: <cover.1788711837.git.f@lex.la> <20260906174621.4107320-1-f@lex.la> <20260907-shallow-universal-b614da6fe0c4@spud>
+        d=1e100.net; s=20251104; t=1788812053; x=1789416853;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MhNwMmgT5IoqPKbTajdZzif3txtKsi05HtP3StDpTm4=;
+        b=VYdEl0c47Gepfx0DxwOY6atUw9UFJc8x6UyDfQCdOMQfmm8lXvOg37C+hIlUoex2JX
+         attzCccek84CBpPDJeiVU8M1oAILVD1oN+f8zzPmgfc1hDCqHKHa/zWL8K1jOXxiymxF
+         8z5utJRZ3MKGQjEJ8gx19Yj8K4ijZC5jXLm4cnLsokhpzVEbOEF3cZtXCixtHwYQ8IWk
+         9Cx3+WtlUdzYl0+LyJ+xMDuOFWP70nB4UW8I2ajzh4EhFMTvARgLL3NQWmi5GAxfZ0Or
+         QvhaqIUqT4u006lzJrxuRxtImOfotxt0O1Euy9XxvBZa1Q8nWSOLyfvLHgJfMgXK4oU5
+         uD1w==
+X-Forwarded-Encrypted: i=1; AKwUvByqrxHURq8CqiY97BQY3moNinZbEzjv/aHmdygHVNTz+XHwmwxw/9pYH5lM2kjc/hIQVDVBibEAcMyKO0w=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRJef9CiQxYSaOwP3dU4sag3HLBekaBSKYLN8TryTT/fwLKuLN
+	/8jhvxd/EemPesikMNKTHK6mCbgyS7Dk+Uq++4rtT1IY9rRm+UzIw/uQi0rUxg==
+X-Gm-Gg: AYBFou3wUZf7MDqt/D5jgmw1NIC5/UPLaaMn4jpnTE149i+3bNUill9C2nyfDymggKz
+	eih2SUQgbpuWMg0IJRwHKsKTNvfryJ6+vzZtWB/Wt+lxpZn2hOVnxSSAThZsrn5fbtERgiso72h
+	suanUSuvZ7vAJzXjoI/3PjPsLVL+tkyYYheWpVlSB8gljT5NOq5aEQNqK1xYQiGFPFRQS8h+YDy
+	Y5UxwJnT1raPmrxnufRJGHr3T+c6jBTQJXTDENUH8pUEIqZJTSXQdKKQwW+W5YtPP6K8mE2otu3
+	KKCSVzB8P3Ez+uYz5QI6q5x94KojuAw2h/wrw7jzOcBwEo4czO/+h8m5AhK0jnGGppMHWn+T2y7
+	4NhHs3Hnx1CoLkdcvpu5cSPDO2AbV+MA54ETdbEF9u8bI2YHf6enm3/zY5eaqpcXNFiVXlDaews
+	TNJmBbn8nKzVBMOzE9qPNc+3UE3ZTTZHCnYZ5Sv/1+zGyfEsmBXb9tp0Y+nM8EUyPcznujN99ma
+	fwEQ739yDli9T+tKspFuF0zTKoTQI2T+xCfFk9qR4xqdPf4a7u2NNpyp0Rkv0dHqbXSqj4+CLoS
+X-Received: by 2002:a05:6a20:c896:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3da39f47dd4mr42511514637.8.1788812052990;
+        Mon, 07 Sep 2026 13:14:12 -0700 (PDT)
+Received: from ?IPV6:2001:df0:0:200c:e5ea:1a30:7c29:cd76? ([2001:df0:0:200c:e5ea:1a30:7c29:cd76])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm29604849eec.13.2026.09.07.13.14.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 13:14:12 -0700 (PDT)
+Message-ID: <4f3c7184-1b5c-4074-b8a1-49261833df8f@gmail.com>
+Date: Tue, 8 Sep 2026 08:14:05 +1200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fbdev: atafb: Restrict SuperBlitter to supported formats
+To: =?UTF-8?B?TWlybyBLcm9ww6HEjWVr?= <miro.kropacek@gmail.com>
+Cc: Linmao Li <lilinmao@kylinos.cn>, deller@gmx.de,
+ linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
+References: <20260827093948.2825531-1-lilinmao@kylinos.cn>
+ <e4a2ba2e-c533-04d8-0795-e3d43caf47b9@gmail.com>
+ <CAN5rfbSh9ZoUkReAqv9rHYowqKcZFa-Svy6LP-MHvqfBVhjdBQ@mail.gmail.com>
+Content-Language: en-US
+From: Michael Schmitz <schmitzmic@gmail.com>
+In-Reply-To: <CAN5rfbSh9ZoUkReAqv9rHYowqKcZFa-Svy6LP-MHvqfBVhjdBQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 06:26:31PM +0100, Conor Dooley wrote:
-> That doesn't seem right, sounds like it should be on the phy if the
-> behaviour is caused by the phy.
+Hi Miro,
 
-I'll move it to the phy node.
+On 7/09/26 23:14, Miro Kropáček wrote:
+> Hi Linmao, hi Michael,
+>
+> On Sun, 6 Sept 2026 at 11:49, Michael Schmitz <schmitzmic@gmail.com> wrote:
+>> Hi Linmao,
+>>
+>> thanks for your patch!
+>>
+>> Am 27.08.2026 um 21:39 schrieb Linmao Li:
+>>> The SuperBlitter operations derive an integer byte count per pixel.  The
+>>> accelerated fill path handles only one-, two- and four-byte pixels.
+>>> However, the operations are currently installed for every external
+>>> framebuffer in SuperVidel RAM, including planar 1/2/4/8-bpp and 24-bpp
+>>> truecolor modes accepted by the external video parser.
+>>>
+>>> For 1/2/4-bpp modes, the byte count becomes zero, so accelerated copies do
+>>> nothing and fills fall through to 32-bit stores.  Planar 8-bpp uses an
+>>> incompatible memory layout.  For 24-bpp modes, fills also use 32-bit stores
+>>> despite advancing addresses by three bytes per pixel.  These cases can
+>>> corrupt the framebuffer beyond the requested rectangle.
+>> I believe 24 bpp mode can be rescued using something like this (entirely
+>> untested):
+>>
+>> --- a/drivers/video/fbdev/atafb.c
+>> +++ b/drivers/video/fbdev/atafb.c
+>> @@ -2463,6 +2463,11 @@ static void svblit_fillrect(struct fb_info *info,
+>>           case 2:
+>>                   memset16((u16 *)line, pix, rect->width);
+>>                   break;
+>> +       case 3:
+>> +               memset(line, pix, ((rect->width * bytespp) % 4));
+>> +               line += ((rect->width * bytespp) % 4);
+>> +               memset32((u32 *)line, pix, (rect->width * bytespp) / 4);
+>> +               break;
+>>           default:
+>>                   memset32((u32 *)line, pix, rect->width);
+>>                   break;
+>>
+>> Can't test this on hardware, and would need Miro to confirm it works as
+>> intended.
+> Linmao's patch: I ran it on a Falcon with SuperVidel at
+> 1920x1080x32bpp, all good.
+>
+> Michael's 24bpp fill: I cannot test it because the SuperVidel has no
+> 24bpp video mode. It was planned but never implemented. Its mode
+> register offers 1/2/4/8-bit bitplane, 8-bit chunky, 16-bit highcolor
+> and 32-bit truecolor (24-bit RGB plus an alpha byte), with the
+> remaining code reserved - and TOS offers no 24bpp mode to set.
+Without a 24 bpp mode, the 24 bpp fill is pointless, so no point trying 
+to keep that mode alive.
+> Unless I overlooked something, the fill also looks wrong on paper: the
+> first line is filled with a repeated byte and then with repeated
+> 32-bit words of the same value, which cannot reproduce a 3-byte pixel
+> pattern unless all three bytes are equal.
 
-> In fact, it seems like something that should be determined when the phy
-> is identified, not really sure why it needs a property at all?
+You're correct - we'd need a memset24() to account for that. Without 
+hardware support this is an academic exercise that I don't have time for :-)
 
-There is no device to identify when the controller connects. The PHY's
-MDIO bus is registered by the driver that loads its firmware, seconds
-later, so phy-handle points at nothing yet. The chip does answer a
-Clause 45 identifier before the firmware runs, I read it on my board, so
-identification is not the blocker.
+> On the fbset question: no, the pixel format, depth and geometry of an
+> external framebuffer cannot be changed at runtime here. fbset -depth
+> 16 and fbset -xres 1024 -yres 768 both return success and change
+> nothing, because ext_decode_var() only validates against the values
+> from the boot argument, ext_encode_var() re-derives every field from
+> the external_* globals and ext_set_par() is empty. Only a reboot with
+> a different atafb:external: argument changes the mode.
 
-> Or based on the fact that the phy has firmware-name.
+All good then - do you need my Acked-by for Linmao's patch, Helge?
 
-Nothing carries firmware-name here, the blob names are in the driver. I
-can add it to the phy node and key off that instead. Which do you want
-in v2?
+Cheers,
+
+Michael
+
