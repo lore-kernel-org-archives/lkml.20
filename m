@@ -1,714 +1,128 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B6F37E2EC
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:48:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756507; cv=pass; b=ZSywl9ggw1G+SN+zbG/tX6SbCicOuGkREuBCU7tW0raYdch+nFBuzq5YV7wfjGbztFP4c3/yrrfUSgOirtlhl2lDxpPcUllDWRw4R1R7KxH4jgKW4aWxuQfqHbIxxoacpcPYrXRDzk/nMrubRALh9BedVf1aMVl7Y50BC+RWJ3o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756507; c=relaxed/simple;
-	bh=lg2EjNYcWX1YmrLgH226d++MXZyTtWRz7Bf2+axtCig=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IjaERi2I45uXkErt1RNT6KpSj39IcinKjYWgZcMKAVlIAqdZ/H+6gNTn0IND9Sy0a8xkBf+8qWfdrwFZrbmCGuRsg1tfcQ7eWAmrLgXt7EdcRxgIZW2iW9S7eLfOL3asx8JDOPC6bYFOXNe3t0jC3KulyEjnnOukruJ+AY4SM3E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=oMFcLEBG; arc=pass smtp.client-ip=209.85.208.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA6D1DB92C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 04:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788756538; cv=none; b=HJbowuAwRZSe0kdpVT0SliGumpUbnCTKxisYV9IskQNozh4IAeLpHnz5iJBx+4d0Thws17dO+0N+jmEgvdFzZHEe2CBz4TRBDWx3vfIZbuRRt/Co0j8dYIxpNeKBtk5BzFrsXi1J4wcvoI/0v0UE67mYqsxBYWBlxnRE5RQG5MI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788756538; c=relaxed/simple;
+	bh=GaHTEdmNzzzlNBmR+bArB7XlDc1phrEHMtjnhtvDAgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FXYvPP1sSFBJgw7OhcBIsyCkfzERpAZmo5hasLYx1pK10+DjT2UBWF+wQr4pjwJLxGf/ViW7l88a4oRUNv6lAM2wadxkxFMwEXbMUm/Kkye7TONuLDQePzYT/u2b98n1J3ZqwwkfaE8EEHMLwbAeWTvAruImAQyYGKggXVFTQ2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r5ppAvA/; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="oMFcLEBG"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a305310ddaso29097891fa.0
-        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:48:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788756503; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bPkaz7EsbFgrvdPMxyQU4NJaUSHG7y9KUDU5vYkU9dclBpLVVOV7NqOI/ZnajwnbSl
-         fKxs/KDMSmdnN6EtPGTxSRNXl6j89Xu3KFdAa5e0Fy13Fm3xh+7LvhbyQ1f1H4BsZNdw
-         q3HnNy1BIBbhk1OzobRrLtBOa0+3sL9GDffCxx5BgPI2EkX5+W++E/1oBDhTTI0rck6t
-         +1K9a/h9Tvw/5AriEYDzKtOvlTUBvhZf+5MX2q7jltJu7d4ItmRTHFIbXP71Z+9nj5Hn
-         vtKZLBwG7VLkZSyB3NzihCxhY2iMjhLVW6xSSxkLXIiazhyVp037/cXEC3Li3GtMtbWL
-         8+vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LlCwC+OeHPgAlG4+7+P7EiIGYUqFR1bYavtRdwQlpTo=;
-        fh=5YElHP+/4fkB/Gy7En0xG6zpVIgexBmNsX5m3eyYETM=;
-        b=UyxM3eQyBw16SVnz4nTFum5FVq5KcMFEa/dOwJdVDwlIyoaiJZPGyk2qOQC98xnVuC
-         teKcdkZk8m9Uiwn0KFjtPthopxbc4K9KB3pgusTIalPJOYiPJ9u7IjqMK6bGkNhbgYlh
-         jPKYr7hh3jmj2StUclr5qQ8U4B4icvCK5kcZjZbc1HDwtCoWv5zePFdAL765168/j7Sx
-         sDIW1Vv/E/cn+jyqpIm3tX02GwXVm5xV0q6NAWqcoQgOmhsciC6NMsrVZnDrBcSedsR8
-         z8tCWTtxjbf0pqcv5PEYMlsWsg5DIfIwNm2HJdf5dMct8+ViUsg2CEZbpo4fkTXzVRfU
-         wj+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r5ppAvA/"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d8f265cbe6so22522065ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 21:48:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788756503; x=1789361303; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LlCwC+OeHPgAlG4+7+P7EiIGYUqFR1bYavtRdwQlpTo=;
-        b=oMFcLEBGhwr0CMRgiypasbtZKXspSqp2168AuMo9IiI5YA8SkWQvJKEw0XNGyX29bM
-         JHFcEZEduZ/2EaWnNDaYRS6Zw23f/WhBNd0+/lz4aTufLk0GBOvQM93sf/k3OrQYER6k
-         QIK+IRACcXJ4r2XekME9RN1Zxxe7+sP6O7I9E0YoN1qvzSC9O8JTWaN3WB4J2mkcm5WV
-         CbmNS8xbJXXEdlTonvNa8PwEX7gX7ExOL1Tykh9uHNuM7gk2nyNsWTNQQLuSCWP5vl37
-         umwq7eGugZCmi98/ZP8JwvJgLKiynoL1sq6x9jCHPpU+DGq+Q4xCJlyGGWPn2EX1IdAt
-         Ft/w==
+        d=gmail.com; s=20251104; t=1788756536; x=1789361336; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ofzc/Gj2NFvW1nQHd8NV9Yu7XtABoRJWurs6AjAsQWs=;
+        b=r5ppAvA/BT4uEZd0O8Pe6xXU0NoJ83NR/H8NP0qYFsB4S4lLWXlOBMC5l4YlUi6nlq
+         xZ6IAIMMMzw9/ZEBRnLwmMUGhhqmntG1PMYfAllj4HmzLFw0HmQlNDBgwxmOkwzUxY0e
+         v0k1zBBe2ZJrbY4rN+nBkhqMyhDNJkEDdVakdR1PXJYptkBCvGHCL1uDEwWje++EmHq3
+         NMwHu6MDdXKHO+C2Z+1xpm+j1xfwew6btGJbij5X4JCC2707E/w06QEUbfHRS/LEnkxG
+         GK9PICvkgpkMd1fW5MnxZXyK5/A5TPUtuaiyhxtGjex5Ravo6H4XCZ9ZOoO3dBfHCDcS
+         c0Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756503; x=1789361303;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LlCwC+OeHPgAlG4+7+P7EiIGYUqFR1bYavtRdwQlpTo=;
-        b=WIoHcOKn7G3rPePU1zQtaPyphBYmNjkHGY3zDNZuenHKTV0MIhLr3WiykDehisBTJV
-         m5QF2coU13mLlw+tuaFTbII032P/xuOoOFQaj8j4/SzUkfvNT8rev+fwljRS+sK8KiEV
-         bV1/gpwO3uqH+SozZ7hbIBcRexsd4MfzjUqN4FFZsHL3fV4abhH4HY836zE5wcdojHcU
-         HCa39Pl/40gfXIx5zpwOIQp7FlR7N6u6kf4dKafrVy+HsfDiz++Fzgto8P7DTKbDmSTR
-         fA3ercFkTMXhUm4xLrP2mobOOKNFbvTSe3XrLY1bASAkAhMWjrokh709oSO1MLtFxSHU
-         oOjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwiB9XnfnvmskOCKqi15/ZYvr75JhUo1Z+s8qvkJuwmSoEOgWNVT6TX/4cHQdmUJKJZh5DrDVNdsuXVhG0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7FibMy7nNHP2KB5wzu7A8Mvo3QKBFRrghJoblWdY4nAq7k2TS
-	haPdDig6OIbhoQR/uOliaZ60Sb2t49o+hOxW5nQdm1q8ewwL8CpCIshYlgygaEW3zK+jIBnGqAp
-	ySLNjk4u8sbGORlEt+dsckDtQgkLHrlQ4F/agMdGyRfi53eI2MHJMUvaxRZj/Uw==
-X-Gm-Gg: AYBFou2RFs5r8CkX/1ENC37zVpr9PkHjnM7uqI6dEUdabfQbwqAgaovf9XSCDQh//nw
-	8wDNI0nx9f9MzxZfvmdTw88GXlwAmVGeBEPj89Bh44RxOFI3FrukZoWKDBoCecZZfVo4ko4+E8S
-	S1S80T4Kmu/67bdkh6RKbnrGa3AuzJiJYP+iDzx09eSI3j+hbG/LlfhcpmCztoCaXylaBESv7Qk
-	qQsaDkvAvDWaolELHQTgzhbg74SfKd85PYFgFm7QjJg7iiyb95jAP+NtZZ9Jt1AvcRFzgGa/RKm
-	vDVUSVAetndt37GM+N6TQ2W1nQGyd6dSo6lv3DmwP0KUaUjDBwkwynGphd+KQLLEdPaeapC4p+I
-	=
-X-Received: by 2002:a2e:b893:0:b0:3a3:74b7:fc0a with SMTP id
- 38308e7fff4ca-3a374b8279dmr19375891fa.22.1788756503017; Sun, 06 Sep 2026
- 21:48:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788756536; x=1789361336;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ofzc/Gj2NFvW1nQHd8NV9Yu7XtABoRJWurs6AjAsQWs=;
+        b=epnG2b3ZZ4bhLwoGnF8L8i6dBGi4LlrPQfNM9uJEf5eU2isHTOywGOhpGSDlkeuRor
+         5yL5qphwk90N0thdnkOxyb/D9XswIdjao4xJsp03uLL3J4SsLldTQ5+I3v3ffoi+3pcg
+         1MKLlIFpP3DjtcnTcVEfNyShAwdIx5eQY18cCLS2RqIRk5yRVShJC9nl+N3CBzQTbZDL
+         8jrAW9ARSPEPBEbf1PTRG/ZTekFaio6d4RZRtsM00w276Cjd+pFTGP0stHyhRGe8fnQI
+         jKZC6dBng5L0AYGxwXPSMXVnB9jxhrPn/xUak7ByJabU66bmGlJ8ivYRk0cwD/wmRcxI
+         5tcA==
+X-Forwarded-Encrypted: i=1; AKwUvBzhI3u9vAfpW1v3srE7yVFHSR+9YMFkuR9ZuR8FgMPbc6PxqWPRw89WEf00D42Iv5KS8hyvX82ROIvhD88=@vger.kernel.org
+X-Gm-Message-State: AFuF++mU4Qpg6ikIkNak53FhWs4PLnUsewmk3tW2IYrtHXnDVI1dFsHh
+	4B704hZnL9g8dNsTMVL7dYgvglW+7PSMez4uUut9PfYhcMh0cS01cr3m
+X-Gm-Gg: AYBFou3xEv9lKqhVTr/TBy3KqTwBMj3UaWMQ+NUkzqDs03EtNySRVCUylkcv4X1nttq
+	vHufMtermbj5Sj4lIl7PPw+HFB3WNs+A7NkIeh/wseCbe9mRWGtSsllbX5hpzVbNDkHKOxEjNUC
+	aaqb01vOzL8ACD4OFliop7/QuWKvOPowseWwLUSdqnHGsSdcnhMvv1iLBH6lA87kWwVEMbYU4NO
+	IY7k/hIyXtXQqJ4ZGd4cAV7JQfT3KKzKqGdqk0cCV7teSpdbI3xVXZmAZg76t4a9f3IQ5z0psCo
+	8MMSshnMYltlT75KypP0Z8BiYuiwW5uv1517VwFLsR/xhvs5k8z41x+Xk+5viVS9fk6dlpp5fI1
+	83jjidarjKsbEH2knbewE4SXKt8t9atwA+GlG4CZ0GRSnmegFdIxmTm96E1Sj8TFUjHswx2WrYD
+	lffVngFN01Tzj8vzNaqtJ0rcgdGkOEchHLZuZX1KbYMS4Rktxc1MMfT1OI35cbRGzestfMdIcQy
+	05K/W5GJd++Hw==
+X-Received: by 2002:a17:90b:578c:b0:398:e6b6:acc2 with SMTP id 98e67ed59e1d1-39b261e7649mr33250077a91.12.1788756536244;
+        Sun, 06 Sep 2026 21:48:56 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm23834001eec.12.2026.09.06.21.48.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 21:48:55 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Jes Sorensen <Jes.Sorensen@gmail.com>,
+	Ping-Ke Shih <pkshih@realtek.com>
+Cc: linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/2] wifi: realtek: fix typos in comments
+Date: Mon,  7 Sep 2026 10:18:49 +0530
+Message-ID: <20260907044851.9884-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cdc628415cf10721480a51ce14837f846ec778c2.1788248601.git.zihanx@nebusec.ai>
- <178875495405.219967.5594821749566554418@kernel.org>
-In-Reply-To: <178875495405.219967.5594821749566554418@kernel.org>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Mon, 7 Sep 2026 12:48:11 +0800
-X-Gm-Features: AcwNN1UF1s5IJXPuklb8t5AThGjsMeHr902veOyCGjoeg8FS-0N6M_r-kwl8j7s
-Message-ID: <CAANe3eRBOQud=bMgLnPbD_yUYUkJtT=GBqtY+GR0ZtU0_kbzhg@mail.gmail.com>
-Subject: Re: [PATCH net v2 1/2] tcp: diag: bound bucket lock hold in tcp_diag_dump()
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mptcp@lists.linux.dev, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, 
-	kuniyu@google.com, matttbe@kernel.org, martineau@kernel.org, 
-	geliang@kernel.org, gnault@redhat.com, fw@strlen.de, stable@vger.kernel.org, 
-	vega@nebusec.ai
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 7, 2026 at 12:22=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 6 potential
-> issue(s) to consider:
->
-> Critical: 2 =C2=B7 High: 1 =C2=B7 Medium: 2 =C2=B7 Low: 1
->
-> - [Critical] Use-after-free / wild-pointer traversal: the new bind-hash
->   dump cursor revalidation in tcp_diag_dump() cannot detect that the=E2=
-=80=A6
-> - [Critical] Refcount initialization race: tcp_diag_bind_collect_sock()
->   calls sock_hold() unconditionally on every node of tb2->owners,=E2=80=
-=A6
-> - [High] Loss of dump forward progress and duplicate output: the patch
->   deletes every positional (`s_num`) resume path in tcp_diag_dump()=E2=80=
-=A6
-> - [Medium] Lockless, unordered reads of cursor state: the listen and
->   ehash cursor validations establish "this socket is in the bucket I=E2=
-=80=A6
-> - [Medium] The commit message mischaracterizes the pre-existing defect.
-> - [Low] Concern that the sibling MPTCP listener dump
->   (mptcp_diag_dump_listeners()) keeps evaluating request-supplied=E2=80=
-=A6
->
-> --
->
-> tcp: diag: bound bucket lock hold in tcp_diag_dump()
->
-> This reworks the three tcp_diag_dump() hash walks so that only referenced
-> sockets are collected under each bucket lock, and moves the family/port
-> filters, inet_diag_bc_sk() bytecode evaluation and the fill work outside =
-the
-> critical section.  A referenced dump cursor is added to
-> struct inet_diag_dump_data so a following batch resumes after the previou=
-sly
-> reported socket, with per-table validation of the cursor.
->
-> v1 Link: https://lore.kernel.org/all/cover.1785307984.git.zihanx@nebusec.=
-ai/
->
-> >     inet_diag dumps run request-supplied bytecode through inet_diag_bc_=
-sk().
-> >     tcp_diag_dump() currently evaluates socket filters and fills replie=
-s while
-> >     holding the listener, bind, and ehash bucket locks.
->
-> [Severity: Medium]
-> Is this description accurate for all three tables?
->
-> At the baseline (544d85de4dc2) only the listener walk fills replies under
-> ilb->lock.  The bind walk already collected at most SKARR_SZ =3D 16 refer=
-enced
-> sockets under spin_lock_bh(&ibb->lock) and only called inet_sk_diag_fill(=
-)
-> after the lock was dropped:
->
->         pause_bind_walk:
->                         spin_unlock_bh(&ibb->lock);
->
->                         res =3D 0;
->                         for (idx =3D 0; idx < accum; idx++) {
->                                 if (res >=3D 0) {
->                                         res =3D inet_sk_diag_fill(sk_arr[=
-idx],
->                                                                 NULL, skb=
-, cb,
->                                                                 r, NLM_F_=
-MULTI,
->                                                                 net_admin=
-);
->
-> The ehash walk did the same with sk_diag_fill() after spin_unlock_bh(lock=
-).
-> What remained under the bind and ehash locks was inet_diag_bc_sk() plus t=
-he
-> cheap family/port comparisons, bounded to 16 sockets per lock hold.
->
-> Could the changelog be narrowed to the listener walk, or state explicitly
-> what part of the bind/ehash work it is moving out?
->
-> > diff --git a/include/linux/inet_diag.h b/include/linux/inet_diag.h
-> > index 704fd415c2b49..6ccd32bc48f91 100644
-> > --- a/include/linux/inet_diag.h
-> > +++ b/include/linux/inet_diag.h
->
-> [ ... ]
->
-> > @@ -32,12 +33,23 @@ struct inet_diag_handler {
-> >  };
-> >
-> >  struct bpf_sk_storage_diag;
-> > +
-> > +enum inet_diag_dump_cursor_type {
-> > +     INET_DIAG_DUMP_CURSOR_NONE,
-> > +     INET_DIAG_DUMP_CURSOR_TCP_LISTEN,
-> > +     INET_DIAG_DUMP_CURSOR_TCP_BIND,
-> > +     INET_DIAG_DUMP_CURSOR_TCP_EHASH,
-> > +};
-> > +
->
-> [Severity: Low]
-> This isn't a bug, but a note for backporters.  The sibling MPTCP listener
-> dump mptcp_diag_dump_listeners() is converted by the follow-up patch in t=
-his
-> series (INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN, which is why the enum slot an=
-d
-> the exported inet_diag_dump_clear_cursor() appear here), so at the tip of=
- the
-> series the MPTCP listener walk also drops ilb->lock before calling
-> sk_diag_dump()/inet_diag_bc_sk().
->
-> This patch is Cc: stable, and the commit message body does not mention th=
-at
-> the MPTCP listener walk keeps running request-supplied bytecode under the
-> same hashinfo->lhash2 bucket lock until the follow-up patch is applied.  =
-Only
-> the v2 changelog, which is stripped on apply, mentions "Left
-> INET_DIAG_DUMP_CURSOR_MPTCP_LISTEN to the MPTCP patch".  Could that
-> dependency be stated in the commit message?
->
-> [ ... ]
->
-> > diff --git a/include/net/inet_hashtables.h b/include/net/inet_hashtable=
-s.h
-> > index 6e2fe186d0dcb..d95639ac70c67 100644
-> > --- a/include/net/inet_hashtables.h
-> > +++ b/include/net/inet_hashtables.h
-> > @@ -188,6 +188,24 @@ inet_lhash2_bucket(struct inet_hashinfo *h, u32 ha=
-sh)
-> >       return &h->lhash2[hash & h->lhash2_mask];
-> >  }
-> >
-> > +static inline struct inet_listen_hashbucket *
-> > +inet_lhash2_bucket_sk(struct inet_hashinfo *h, struct sock *sk)
-> > +{
-> > +     u32 hash;
-> > +
-> > +#if IS_ENABLED(CONFIG_IPV6)
-> > +     if (sk->sk_family =3D=3D AF_INET6)
-> > +             hash =3D ipv6_portaddr_hash(sock_net(sk),
-> > +                                       &sk->sk_v6_rcv_saddr,
-> > +                                       inet_sk(sk)->inet_num);
-> > +     else
-> > +#endif
-> > +             hash =3D ipv4_portaddr_hash(sock_net(sk),
-> > +                                       inet_sk(sk)->inet_rcv_saddr,
-> > +                                       inet_sk(sk)->inet_num);
-> > +     return inet_lhash2_bucket(h, hash);
-> > +}
-> > +
->
-> [ ... ]
->
-> > diff --git a/net/ipv4/tcp_diag.c b/net/ipv4/tcp_diag.c
-> > index ba1fdbe9807fd..842e13ee79e5b 100644
-> > --- a/net/ipv4/tcp_diag.c
-> > +++ b/net/ipv4/tcp_diag.c
-> > @@ -285,6 +285,73 @@ static int sk_diag_fill(struct sock *sk, struct sk=
-_buff *skb,
-> >                                net_admin);
-> >  }
-> >
->
-> [ ... ]
->
-> > +static struct inet_bind2_bucket *tcp_diag_sk_bind2(const struct sock *=
-sk)
-> > +{
-> > +     if (sk->sk_state =3D=3D TCP_TIME_WAIT)
-> > +             return inet_twsk(sk)->tw_tb2;
-> > +
-> > +     return inet_csk(sk)->icsk_bind2_hash;
-> > +}
-> > +
-> > +static bool tcp_diag_bind_collect_sock(struct sock *sk, struct sock **=
-sk_arr,
-> > +                                    int *num_arr, int *accum, int num)
-> > +{
-> > +     sock_hold(sk);
-> > +     num_arr[*accum] =3D num;
-> > +     sk_arr[*accum] =3D sk;
-> > +
-> > +     return ++*accum =3D=3D SKARR_SZ;
-> > +}
-> > +
-> > +static bool tcp_diag_bind_collect_owners(struct hlist_head *owners,
-> > +                                      struct sock **sk_arr, int *num_a=
-rr,
-> > +                                      int *accum, int *num, int s_num)
-> > +{
-> > +     struct sock *sk;
-> > +
-> > +     sk_for_each_bound(sk, owners) {
-> > +             if (*num < s_num) {
-> > +                     (*num)++;
-> > +                     continue;
-> > +             }
-> > +
-> > +             if (tcp_diag_bind_collect_sock(sk, sk_arr, num_arr, accum=
-, *num))
-> > +                     return true;
-> > +             (*num)++;
-> > +     }
-> > +
-> > +     return false;
-> > +}
->
-> [Severity: Critical]
-> Can the unconditional sock_hold() in tcp_diag_bind_collect_sock() hit a
-> TIME_WAIT socket whose tw_refcnt is still 0?
->
-> The changelog says "Bind collection counts TIME_WAIT nodes toward the bat=
-ch
-> limit", and tcp_diag_bind_collect_owners() no longer filters on
-> sk->sk_state !=3D TCP_CLOSE before taking the reference, so every node of
-> tb2->owners now gets a refcount_inc().
->
-> inet_twsk_alloc() starts the object at zero on purpose:
->
->         /*
->          * Because we use RCU lookups, we should not set tw_refcnt
->          * to a non null value before everything is setup for this
->          * timewait socket.
->          */
->         refcount_set(&tw->tw_refcnt, 0);
->
-> and inet_twsk_hashdance_schedule() publishes it into the bind owners list=
- and
-> drops both bind locks before initializing the count:
->
->         sk_add_bind_node((struct sock *)tw, &tw->tw_tb2->owners);
->
->         spin_unlock(&bhead2->lock);
->         spin_unlock(&bhead->lock);
->
->         spin_lock(lock);
->
->         refcount_set(&tw->tw_refcnt, 3);
->
-> A dumper blocked on bhead2->lock acquires it right after that unlock and
-> immediately walks tb2->owners, so it can observe the published tw with
-> tw_refcnt =3D=3D 0.  sock_hold() then calls refcount_inc() on zero, which=
- trips
-> refcount_warn_saturate() and leaves the counter saturated, after which
-> refcount_set(&tw->tw_refcnt, 3) discards the dump's reference.  The later
-> sock_gen_put() from the fill loop then consumes one of the three structur=
-al
-> references (bhash, ehash, timer).
->
-> Would using refcount_inc_not_zero() here, or keeping the TCP_CLOSE check
-> under the lock, be safer?
->
-> > @@ -335,8 +402,15 @@ static void tcp_diag_dump(struct sk_buff *skb, str=
-uct netlink_callback *cb,
-> >               for (i =3D s_i; i <=3D hashinfo->lhash2_mask; i++) {
-> >                       struct inet_listen_hashbucket *ilb;
-> >                       struct hlist_nulls_node *node;
-> > +                     struct sock *sk_arr[SKARR_SZ];
-> > +                     int num_arr[SKARR_SZ];
-> > +                     struct sock *cursor;
-> > +                     int idx, accum, res;
-> > +                     bool use_cursor;
-> >
-> > +resume_listen_walk:
-> >                       num =3D 0;
-> > +                     accum =3D 0;
-> >                       ilb =3D &hashinfo->lhash2[i];
-> >
-> >                       if (hlist_nulls_empty(&ilb->nulls_head)) {
-> > @@ -344,52 +418,81 @@ static void tcp_diag_dump(struct sk_buff *skb, st=
-ruct netlink_callback *cb,
-> >                               continue;
-> >                       }
-> >                       spin_lock(&ilb->lock);
-> > -                     sk_nulls_for_each(sk, node, &ilb->nulls_head) {
-> > -                             struct inet_sock *inet =3D inet_sk(sk);
-> > +                     cursor =3D cb_data->dump_cursor;
-> > +                     use_cursor =3D cursor &&
-> > +                                  cb_data->dump_cursor_type =3D=3D
-> > +                                  INET_DIAG_DUMP_CURSOR_TCP_LISTEN &&
-> > +                                  cb_data->dump_cursor_slot =3D=3D i &=
-&
-> > +                                  inet_sk_state_load(cursor) =3D=3D TC=
-P_LISTEN &&
-> > +                                  !hlist_nulls_unhashed(&cursor->sk_nu=
-lls_node) &&
-> > +                                  cursor->sk_nulls_node.pprev !=3D LIS=
-T_POISON2 &&
-> > +                                  inet_lhash2_bucket_sk(hashinfo, curs=
-or) =3D=3D ilb;
-> > +                     node =3D use_cursor ? cursor->sk_nulls_node.next =
-:
-> > +                                         ilb->nulls_head.first;
->
-> [Severity: Medium]
-> Is the "cursor is still in this bucket" conclusion sound when every input=
- to
-> it is read without the lock that publishes it?
->
-> In the listener path the recomputation uses sock_net(cursor),
-> sk_v6_rcv_saddr (a 16-byte non-atomic read) and inet_sk(cursor)->inet_num=
- via
-> the newly exported inet_lhash2_bucket_sk(), none of which is protected by
-> ilb->lock, and the pprev test and the bucket computation are separate pla=
-in
-> loads with no barrier between them.
->
-> The ehash variant later in this function has the same shape with
-> cursor->sk_nulls_node.pprev followed by cursor->sk_hash.  The insertion s=
-ide
-> sets sk->sk_hash before taking the target bucket lock and linking with
-> __sk_nulls_add_node_rcu(), and inet_csk_listen_start() stores TCP_LISTEN
-> before hashing into lhash2, so a reader that observes the new linkage is =
-not
-> guaranteed to observe the matching sk_hash/sk_state store.  A socket that
-> left ehash bucket i and called listen() keeps its old sk_hash, so
-> inet_sk_state_load(cursor) !=3D TCP_LISTEN can still be true while the lh=
-ash2
-> linkage is already visible.
->
-> If validation passes on a stale snapshot, the walk then follows
-> cursor->sk_nulls_node.next into a chain whose spinlock is not held and
-> sock_hold()s the entries it finds.  On x86 the store order makes the
-> inconsistent snapshot hard to observe, but is bucket membership something
-> that can be established from lockless per-socket fields at all?
->
-> > +                     if (!use_cursor)
-> > +                             s_num =3D 0;
-> > +                     hlist_nulls_for_each_entry_from(sk, node, sk_null=
-s_node) {
-> >
-> > -                             if (!net_eq(sock_net(sk), net))
-> > -                                     continue;
-> > +                             sock_hold(sk);
-> > +                             num_arr[accum] =3D num;
-> > +                             sk_arr[accum] =3D sk;
-> > +                             if (++accum =3D=3D SKARR_SZ)
-> > +                                     break;
-> >
-> > -                             if (num < s_num) {
-> > -                                     num++;
-> > -                                     continue;
-> > -                             }
-> > +                             ++num;
-> > +                     }
-> > +                     spin_unlock(&ilb->lock);
->
-> [Severity: High]
-> With the num < s_num skip removed from this loop and s_num forced to 0 wh=
-en
-> the cursor is rejected, what stops the bucket from being re-dumped from i=
-ts
-> head?
->
-> All three walks now do:
->
->         if (!use_cursor)
->                 s_num =3D 0;
->
-> and the batch continuations replace s_num =3D num + 1 with s_num =3D 0:
->
->         if (accum =3D=3D SKARR_SZ) {
->                 s_num =3D 0;
->                 goto resume_listen_walk;
->         }
->
-> The bind walk and the ehash walk have the same two changes, and the s_num
-> parameter of tcp_diag_bind_collect_owners() is dead because its only call=
-er
-> sits in the !use_cursor branch where s_num has just been zeroed.
->
-> So whenever cursor validation fails, which the changelog describes as the
-> "safe restart on mismatch", the walk restarts at ilb->nulls_head.first, a=
-t
-> the head of ibb->chain, or at head->chain.first, and re-emits sockets fro=
-m
-> that bucket that were already sent to user space earlier in the same dump=
-.
-> Before this change s_num =3D num + 1 guaranteed the restart advanced.
->
-> There is a second effect: if all of the re-collected leading SKARR_SZ soc=
-kets
-> are discarded after the lock is dropped (foreign netns, since lhash2 and
-> ehash are shared across netns, or sdiag_family/port mismatch, or bytecode
-> rejection), nothing is emitted, res stays 0 and the goto resume_*_walk lo=
-op
-> repeats over the same head with only cond_resched() yielding.
->
-> tcp_diag_dump() still loads s_num =3D num =3D cb->args[2] on entry and st=
-ill
-> stores cb->args[2] =3D num at the done: label, but num is now a chunk-rel=
-ative
-> counter that no resume path consumes.  Should that state be dropped, or
-> should a positional fallback be kept for the mismatch case?  Also, since =
-the
-> walk can now repeat objects within a dump, should NLM_F_DUMP_INTR be set =
-via
-> a generation counter in netlink_callback.seq?
->
-> [ ... ]
->
-> > @@ -412,34 +517,46 @@ static void tcp_diag_dump(struct sk_buff *skb, st=
-ruct netlink_callback *cb,
-> >                               continue;
-> >                       }
-> >                       spin_lock_bh(&ibb->lock);
-> > -                     inet_bind_bucket_for_each(tb2, &ibb->chain) {
-> > -                             if (!net_eq(ib2_net(tb2), net))
-> > -                                     continue;
-> > -
-> > -                             sk_for_each_bound(sk, &tb2->owners) {
-> > -                                     struct inet_sock *inet =3D inet_s=
-k(sk);
-> > -
-> > -                                     if (num < s_num)
-> > -                                             goto next_bind;
-> > -
-> > -                                     if (sk->sk_state !=3D TCP_CLOSE |=
-|
-> > -                                         !inet->inet_num)
-> > -                                             goto next_bind;
-> > -
-> > -                                     if (r->sdiag_family !=3D AF_UNSPE=
-C &&
-> > -                                         r->sdiag_family !=3D sk->sk_f=
-amily)
-> > -                                             goto next_bind;
-> > -
-> > -                                     if (!inet_diag_bc_sk(cb_data, sk)=
-)
-> > -                                             goto next_bind;
-> > -
-> > -                                     sock_hold(sk);
-> > -                                     num_arr[accum] =3D num;
-> > -                                     sk_arr[accum] =3D sk;
-> > -                                     if (++accum =3D=3D SKARR_SZ)
-> > +                     cursor =3D cb_data->dump_cursor;
-> > +                     use_cursor =3D cursor &&
-> > +                                  cb_data->dump_cursor_type =3D=3D
-> > +                                  INET_DIAG_DUMP_CURSOR_TCP_BIND &&
-> > +                                  cb_data->dump_cursor_slot =3D=3D i &=
-&
-> > +                                  !hlist_unhashed(&cursor->sk_bind_nod=
-e) &&
-> > +                                  cursor->sk_bind_node.pprev !=3D LIST=
-_POISON2;
-> > +                     if (use_cursor) {
-> > +                             tb2 =3D tcp_diag_sk_bind2(cursor);
-> > +                             use_cursor =3D tb2 &&
-> > +                                          inet_bhashfn_portaddr(hashin=
-fo, cursor,
-> > +                                                                sock_n=
-et(cursor),
-> > +                                                                inet_s=
-k(cursor)->inet_num) =3D=3D
-> > +                                          ibb;
-> > +                     }
-> > +                     if (!use_cursor)
-> > +                             s_num =3D 0;
-> > +                     if (use_cursor) {
-> > +                             sk =3D cursor;
-> > +                             if (tcp_diag_bind_collect_owners_continue=
-(sk, sk_arr,
-> > +                                                                      =
- num_arr,
-> > +                                                                      =
- &accum,
-> > +                                                                      =
- &num))
-> > +                                     goto pause_bind_walk;
-> > +                             hlist_for_each_entry_continue(tb2, node) =
-{
-> > +                                     if (tcp_diag_bind_collect_owners(=
-&tb2->owners,
-> > +                                                                      =
-sk_arr,
-> > +                                                                      =
-num_arr,
-> > +                                                                      =
-&accum,
-> > +                                                                      =
-&num, 0))
-> > +                                             goto pause_bind_walk;
-> > +                             }
->
-> [Severity: Critical]
-> Can these two liveness checks ever detect that the cursor left
-> tb2->owners, and can tb2 here already be freed?
->
-> Removal from a bind chain goes through __sk_del_bind_node():
->
-> include/net/sock.h:
-> static inline void __sk_del_bind_node(struct sock *sk)
-> {
->         __hlist_del(&sk->sk_bind_node);
-> }
->
-> __hlist_del() only writes *pprev and next->pprev; it leaves the removed
-> node's own pprev and next untouched.  So for a socket that was unlinked,
-> hlist_unhashed(&cursor->sk_bind_node) is false and
-> cursor->sk_bind_node.pprev !=3D LIST_POISON2 holds, and both tests pass.
->
-> The freed-bucket part comes from __inet_bhash2_update_saddr():
->
-> net/ipv4/inet_hashtables.c:
->         spin_lock(&head2->lock);
->         __sk_del_bind_node(sk);
->         inet_bind2_bucket_destroy(hinfo->bind2_bucket_cachep, inet_csk(sk=
-)->icsk_bind2_hash);
->         spin_unlock(&head2->lock);
->
->         if (reset)
->                 inet_reset_saddr(sk);
->         else
->                 inet_update_saddr(sk, saddr, family);
->
-> icsk_bind2_hash is never cleared, and inet_bind2_bucket_destroy() frees t=
-he
-> bucket immediately with no grace period when it was the sole owner:
->
->         if (hlist_empty(&tb->owners)) {
->                 __hlist_del(&tb->node);
->                 __hlist_del(&tb->bhash_node);
->                 kmem_cache_free(cachep, tb);
->                 return;
->         }
->
-> In the window between that spin_unlock() and the address update, the addr=
-ess
-> is unchanged, so inet_bhashfn_portaddr() still resolves to ibb, and
-> tcp_diag_sk_bind2(cursor) returns the dangling icsk_bind2_hash.  use_curs=
-or
-> therefore becomes true.
->
-> tcp_diag_bind_collect_owners_continue() then iterates the cursor's stale
-> sk_bind_node.next, and hlist_for_each_entry_continue(tb2, node) reads
-> tb2->node.next out of the freed slab object, producing an arbitrary
-> struct inet_bind2_bucket * whose owners list is walked with sock_hold()
-> applied to each apparent entry.
->
-> Note the dumper holds only hashinfo->bhash2[i].lock and never the primary
-> bhash head lock, and a cursor is saved for every collected owner includin=
-g
-> the ones filtered out afterwards, so a process that dumps with
-> TCPF_BOUND_INACTIVE while calling connect() on a bound socket in that buc=
-ket
-> can reach this.  Could the cursor instead record a validated tb2 identity
-> that is re-looked-up under ibb->lock, rather than being derived from
-> icsk_bind2_hash?
->
-> > +                     } else {
-> > +                             inet_bind_bucket_for_each(tb2, &ibb->chai=
-n) {
-> > +                                     if (tcp_diag_bind_collect_owners(=
-&tb2->owners,
-> > +                                                                      =
-sk_arr,
-> > +                                                                      =
-num_arr,
-> > +                                                                      =
-&accum,
-> > +                                                                      =
-&num, s_num))
-> >                                               goto pause_bind_walk;
-> > -next_bind:
-> > -                                     num++;
-> >                               }
-> >                       }
-> >  pause_bind_walk:
->
-> [ ... ]
->
-> > @@ -463,13 +598,15 @@ static void tcp_diag_dump(struct sk_buff *skb, st=
-ruct netlink_callback *cb,
-> >                       cond_resched();
-> >
-> >                       if (accum =3D=3D SKARR_SZ) {
-> > -                             s_num =3D num + 1;
-> > +                             s_num =3D 0;
-> >                               goto resume_bind_walk;
-> >                       }
-> >
-> > +                     inet_diag_dump_clear_cursor(cb_data);
-> >                       s_num =3D 0;
-> >               }
->
-> [ ... ]
->
-> >               if (accum =3D=3D SKARR_SZ) {
-> > -                     s_num =3D num + 1;
-> > +                     s_num =3D 0;
-> >                       goto next_chunk;
-> >               }
->
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/cover.1788248601.git.zihanx%40nebusec.ai
+This is v2 of the spelling fixes for this tree.
 
-- bind cursor UAF / dangling tb2: valid
-- unconditional sock_hold() on unpublished TIME_WAIT: valid
-- clearing s_num on cursor mismatch: valid
-- lockless cursor-membership checks: valid as a concern
-- commit message overstating bind/ehash fill-under-lock: valid
-- missing note that MPTCP needs the follow-up patch: valid as a
-  backport note
-- endless re-scan of the same bucket head: not valid as a
-  guaranteed livelock; duplicate output after a rejected cursor
-  is valid
+Changes since v1:
+Split into per-driver patches and the single-line comments touched now
+carry one space inside the delimiters, as Ping-Ke Shih asked.
+
+Only comments change; no code is touched.
+
+ drivers/net/wireless/realtek/rtl8xxxu/regs.h       |  2 +-
+ drivers/net/wireless/realtek/rtlwifi/base.c        |  2 +-
+ .../realtek/rtlwifi/btcoexist/halbtc8192e2ant.c    |  2 +-
+ .../realtek/rtlwifi/btcoexist/halbtc8723b2ant.c    |  2 +-
+ .../realtek/rtlwifi/btcoexist/halbtc8821a2ant.c    |  2 +-
+ drivers/net/wireless/realtek/rtlwifi/core.c        |  4 ++--
+ drivers/net/wireless/realtek/rtlwifi/debug.h       |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/dm.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/hw.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/phy.c   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/phy.h   |  2 +-
+ .../wireless/realtek/rtlwifi/rtl8188ee/pwrseq.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/reg.h   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8188ee/trx.c   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192ce/hw.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192ce/trx.c   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192d/reg.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192de/hw.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192du/phy.c   |  4 ++--
+ .../net/wireless/realtek/rtlwifi/rtl8192ee/fw.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192ee/phy.c   |  2 +-
+ .../wireless/realtek/rtlwifi/rtl8192ee/pwrseq.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192ee/trx.c   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192se/hw.c    |  4 ++--
+ .../net/wireless/realtek/rtlwifi/rtl8192se/phy.c   | 10 +++++-----
+ .../net/wireless/realtek/rtlwifi/rtl8192se/reg.h   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8192se/trx.c   |  4 ++--
+ .../wireless/realtek/rtlwifi/rtl8723ae/hal_btc.c   |  2 +-
+ .../wireless/realtek/rtlwifi/rtl8723ae/pwrseq.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8723ae/trx.c   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8723be/dm.c    |  2 +-
+ .../wireless/realtek/rtlwifi/rtl8723be/pwrseq.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8723be/reg.h   |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8723be/trx.c   |  4 ++--
+ .../net/wireless/realtek/rtlwifi/rtl8821ae/dm.c    | 12 ++++++------
+ .../net/wireless/realtek/rtlwifi/rtl8821ae/fw.c    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8821ae/hw.c    |  2 +-
+ .../wireless/realtek/rtlwifi/rtl8821ae/pwrseq.h    |  2 +-
+ .../net/wireless/realtek/rtlwifi/rtl8821ae/reg.h   | 14 +++++++-------
+ .../net/wireless/realtek/rtlwifi/rtl8821ae/trx.c   |  2 +-
+ drivers/net/wireless/realtek/rtlwifi/usb.c         |  2 +-
+ drivers/net/wireless/realtek/rtlwifi/wifi.h        |  6 +++---
+ 42 files changed, 64 insertions(+), 64 deletions(-)
+
