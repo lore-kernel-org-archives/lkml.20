@@ -1,280 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bg-bec.cloudflare-smtp.org (bg-bec.cloudflare-smtp.org [104.30.16.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C8AF523783
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:12:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233E6521225
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 18:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=104.30.16.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804737; cv=none; b=mv5LhOG9LYsk4U4+cDG4SzmKPny0sPTB9ZtDX4rj4VTeKvRn20+gA1sZNJwYpNmFLcdzbvETqdlryd8nfzStjbZPz5hQdgRHHZwnZZ+4RWLFn2SUWBnDcjIhJyrkqt/xE3Joqm3YmKWSIVevxA0DUL5yGC1oQWFjcH62dqyfnXI=
+	t=1788804808; cv=none; b=XXtL/X/8USDfzsTdaAd6mvyGx7wdE1mDwDhqEX++klI8jkPI96twb8jXGRfYwGN4Tx7yiED3M+af7tzm0Mlf1Gvz01z2N/EZyALD6umfspHicBHSREWQ4+0P3vsAvdbw8kyJJoPgo8UP9J1tO8ZM3oH+r7TU5PW+OaGM1kxWFJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804737; c=relaxed/simple;
-	bh=I+u+i0OhFDYXj2sOqSO0jh8o9wLuzioiM46T0DNhMxY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lDuAIWBGgG8hSnZ0mu291iQcfQDwT8k4DEmjU3MrCRgy9n7mTB6xQSInPHEDt3SOWHxXXqtFDJRWROIIgVWfSFEHCahdF1kNerK8sroGnRGvcM9vALtnhuXiynPRAL7JgT9WimgB9k8I/TlQIAXTRHAbgDK3iY6Psi8CnmNsD50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLQ/9gyb; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788804808; c=relaxed/simple;
+	bh=qCWRk6NNvF6vDMpmZHo9Ueq40DPrOWuJ7dexK/0j/yo=;
+	h=From:Message-ID:Date:Subject:To:Cc:MIME-Version:Content-Type; b=e60LkRIdp9SAg6k60XiSb26FA3EQqBz70LGe0+Xh7Mxf2D+Uvc5BHqflTaexJ98aBfm111tVT5IZPlm+M5nmaFmhKkumc9EXI6/gbMZowVXLwcLtOMMNu5UGKjdwttO3nCTL9Ix8cbAVQMBKn8iceAIx+W2kjoQOIRCFk2NdEGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh; spf=pass smtp.mailfrom=cf-bounce.bugs.sh; dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b=f6Ksgo7m; dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b=YsadLwD+; arc=none smtp.client-ip=104.30.16.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bugs.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cf-bounce.bugs.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLQ/9gyb"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B5B3CC2BCFF;
-	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788804736;
-	bh=I+u+i0OhFDYXj2sOqSO0jh8o9wLuzioiM46T0DNhMxY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kLQ/9gybOIgpNAOdvEuIotJ4XzANmeSDRFv8eKBkyPd0ogwiXBS9Uw4jmdo8RuAZC
-	 GEa1E+xXHN9R4e3eFXi7o9oxGoMjoct9ExxILR6s2SnV8l5SdB9rUyhEY/XPDFFDub
-	 wOOaaGoXLVdZMXu69XIP7cXEWRUxTX3i+KT3GFYmdHrdkcjiu5rTQLdbcFQOscDdBo
-	 d1eVgN0C+YwFgwhusBYTyDmA4Mq2mjZbVJDrfYNDrCxWWJrJ9PiZa9BaBU1y7uub+V
-	 ypYy+YtLF96QNViswrOaqiyOoBpHqkjtJB1tak8phhbBbthpDb8PkAlVJcHsWFKdwi
-	 AHVPg1HrVXYiw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A0640C79F9F;
-	Mon,  7 Sep 2026 18:12:16 +0000 (UTC)
-From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Tue, 08 Sep 2026 02:12:15 +0800
-Subject: [PATCH v4 11/17] mm/huge_memory: move filemap management into the
- file split helper
+	dkim=pass (2048-bit key) header.d=cloudflare-smtp.org header.i=@cloudflare-smtp.org header.b="f6Ksgo7m";
+	dkim=pass (2048-bit key) header.d=bugs.sh header.i=@bugs.sh header.b="YsadLwD+"
+DKIM-Signature: v=1; a=rsa-sha256; s=cf2024-1; d=cloudflare-smtp.org; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1788804806; x=1789409606; bh=Y1k9M3m0T020G6VgZc
+	BGnYVq9doEsBQQyGYyOLclWTY=; b=f6Ksgo7m4NZWhYkfYAcyzgA9SG/kf1jyzO+Smfvknbgx+
+	MgNI/9yuLc0W0f/9EJdg2Y49rC9UspwNPCqiKgHTFJmZIiTKaElzqPT7IRvBKmmnC4oP7FSXK44
+	WLbdZLnbHeE9p6iyEHLOAM166LeBQJcz036qmZ8IsFNVFx0NlavjYFTfh+N+m7qwyPsdoEBep3Z
+	e3LMi77fjLOGDe1MAJFFiwmvlCP52H0BAaiiTUyY+e+sujHm1eq9LBh/CvkbEuOwI70zuwvGr41
+	LfrWuV1T1lOTXWKVYPiHs90fKKbC44Jd8z895zJFoqt/k6O4djQtigq23Bov2nqfND8wzOGg==;
+DKIM-Signature: v=1; a=rsa-sha256; s=cf-bounce; d=bugs.sh; c=relaxed/relaxed;
+	h=Cc:To:Subject:Date:From:Feedback-ID:from:reply-to:resent-date
+	:resent-from:resent-to:resent-cc:in-reply-to:references:list-id:list-help
+	:list-unsubscribe:list-unsubscribe-post:list-subscribe:list-post
+	:list-owner:list-archive; t=1788804806; x=1789409606; bh=Y1k9M3m0T020G6VgZc
+	BGnYVq9doEsBQQyGYyOLclWTY=; b=YsadLwD+XQnAoBlyCeOaln67O68DZ7i+Q36Huv1ocE6eK
+	fVRzN2bkZAkUVINapUXwW1enDVsB5NH3ZMPqryikwRtLZ21XsMks8CFuecneq/QeAJI8a4uQTn1
+	TBZQs+qirfywaVCXBz/5M4/ky8Yld9+acr0kD62E3QVe8as+03QIvT6P+4CLr8Dted4a6/OyFsk
+	YIT78I+v3sRNWpNSeO1UHl892B9IoV4q73HlAL7jMom8MH6ZxuLlBSUgsQOazD0tWnLO1wT7KZQ
+	8aexsXX2+v3w7zeqWvYtaJWp6ymqOOKRx0IdNlrHcyeTqnVb1ZR6oM43OP3SouiMtSpFaLKQ==;
+Feedback-ID: bugs.sh:5:6:Cloudflare
+From: co <co+adfca3e91be95776@bugs.sh>
+Message-ID: <GCy0KRM2IcQGoJQTjJEU9D0maBxXzEDHuQpq@bugs.sh>
+Date: Mon, 07 Sep 2026 18:13:15 +0000
+Subject: [BUG] net/ipv6: use-after-free in seg6_bpf_has_valid_srh()
+To: "David S. Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Cc: "Alexei Starovoitov" <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
+ Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song
+ Liu" <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri
+ Olsa" <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
+ Solodrai" <ihor.solodrai@linux.dev>, "John Fastabend" <john.fastabend@gmail.com>, "Stanislav
+ Fomichev" <sdf@fomichev.me>, "Simon Horman" <horms@kernel.org>, "David
+ Lebrun" <dlebrun@google.com>, "Mathieu Xhonneux" <m.xhonneux@gmail.com>, bpf@vger.kernel.org, netdev@vger.kernel.org, co <co+adfca3e91be95776@bugs.sh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-swap-thp-cleanup-v4-11-b532a3f20e71@tencent.com>
-References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
-In-Reply-To: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, 
- "Kiryl Shutsemau (Meta)" <kas@kernel.org>, 
- Shivam Kalra <shivamkalra98@zohomail.in>, Kairui Song <kasong@tencent.com>, 
- Kairui Song <ryncsn@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804732; l=6255;
- i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=vVlYGjPyxYAYmn821pQL1VWkwmnGIaxktKpsOp5j70I=;
- b=h4Qkg+uChtRz/caeznumouNlo2l0UEj+Q2LMUaWSS9ZV0h+sAcMuQo9rAMjROhgWQJgv8Dp/G
- RKH9/kdQNRXCl9ekDK+BxBA1TodPkFP8OKVALZoBywEdV1SKjNB9iXm
-X-Developer-Key: i=kasong@tencent.com; a=ed25519;
- pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
-X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
- with auth_id=562
-X-Original-From: Kairui Song <kasong@tencent.com>
-Reply-To: kasong@tencent.com
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Kairui Song <kasong@tencent.com>
+We found a bug reachable in:
 
-Only file split needs the filemap and xarray handling and related
-variables.  Move them out of __folio_split() into the file helper so
-the helper is self-contained, and simplify the parameters.
+    path    net/ipv6
+    crash   use-after-free in seg6_bpf_has_valid_srh()
+    commit  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.kernel.o=
+rg/pub/scm/linux/kernel/git/trace/linux-trace")
 
-No functional change.
+Config, environment, the sanitizer report and a C reproducer follow.
 
-Signed-off-by: Kairui Song <kasong@tencent.com>
+=3D=3D Notes =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    If you patch the bug based on our artifacts, a tag would be
+    appreciated:
+
+Reported-by: co+adfca3e91be95776@bugs.sh
+
+    Everything in this mail is validated by the reproducer below.
+
+    We also hold an LLM-generated root-cause analysis and a candidate
+    patch. The patch passes an A/B test: the same reproducer panics the
+    unpatched kernel and runs clean on the patched one. Neither has had
+    human review, so both still require validation before you send or
+    apply them. Available on:
+
+        patch.diff  https://bugs.sh/b/adfca3e91be95776/patch.diff
+        report.md   https://bugs.sh/b/adfca3e91be95776/report.md
+
+    This is an open science project. The code and the full set of PoCs
+    are not public at this moment, as we intend to disclose our findings
+    in an ethical way.
+
+    Happy to test patches. Complaints and suggestions about our work
+    are welcome at:
+
+        cedalion@bugs.sh
+
+=3D=3D Environment =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+    Reproduced on  2f1baf1fc892 ("Merge tag 'trace-v7.2-rc7' of git://git.k=
+ernel.org/pub/scm/linux/kernel/git/trace/linux-trace")
+    VM setup       https://bugs.sh/b/adfca3e91be95776/run.sh
+    config         https://bugs.sh/b/adfca3e91be95776/config.gz
+    poc            https://bugs.sh/b/adfca3e91be95776/repro.c
+
+=3D=3D Sanitizer Report =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+BUG: KASAN: slab-use-after-free in seg6_bpf_has_valid_srh (net/ipv6/seg6_lo=
+cal.c:1411)
+Write of size 1 at addr ffff88803012c6b1 by task exploit/5008
+CPU: 0 UID: 0 PID: 5008 Comm: exploit Not tainted 7.2.0-07242-g7cbfb180945c=
+ #65 PREEMPT(full)
+Call Trace:
+<IRQ>
+dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+kasan_report (mm/kasan/report.c:595)
+seg6_bpf_has_valid_srh (net/ipv6/seg6_local.c:1411)
+input_action_end_bpf (net/ipv6/seg6_local.c:1463 (discriminator 1))
+seg6_local_input_core (net/ipv6/seg6_local.c:1628)
+seg6_local_input (net/ipv6/seg6_local.c:1650 (discriminator 1))
+lwtunnel_input (net/core/lwtunnel.c:465)
+ipv6_rcv (./include/net/dst.h:480 (discriminator 7) net/ipv6/ip6_input.c:11=
+9 (discriminator 7) ./include/linux/netfilter.h:325 (discriminator 7) ./inc=
+lude/linux/netfilter.h:319 (discriminator 7) net/ipv6/ip6_input.c:351 (disc=
+riminator 7))
+__netif_receive_skb_one_core (net/core/dev.c:6264 (discriminator 1))
+__netif_receive_skb (net/core/dev.c:6377)
+process_backlog (net/core/dev.c:6728)
+__napi_poll.constprop.0 (net/core/dev.c:7787)
+net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
+handle_softirqs (kernel/softirq.c:645)
+do_softirq (kernel/softirq.c:546 (discriminator 20) kernel/softirq.c:533 (d=
+iscriminator 20))
+</IRQ>
+__local_bh_enable_ip (kernel/softirq.c:473)
+__dev_queue_xmit (./include/linux/bottom_half.h:33 (discriminator 1) ./incl=
+ude/linux/rcupdate.h:914 (discriminator 1) net/core/dev.c:4961 (discriminat=
+or 1))
+packet_xmit (./include/linux/netdevice.h:3461 net/packet/af_packet.c:277)
+packet_sendmsg (net/packet/af_packet.c:3110 net/packet/af_packet.c:3142)
+__sys_sendto (net/socket.c:800 (discriminator 1) net/socket.c:815 (discrimi=
+nator 1) net/socket.c:2281 (discriminator 1))
+__x64_sys_sendto (net/socket.c:2288 net/socket.c:2284 net/socket.c:2284)
+do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:8=
+4)
+entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+Allocated by task 5008:
+Freed by task 5008:
+The buggy address belongs to the object at ffff88803012c680
+which belongs to the cache skbuff_small_head of size 704
+The buggy address is located 49 bytes inside of
+freed 704-byte region [ffff88803012c680, ffff88803012c940)
+The buggy address belongs to the physical page:
+page_owner tracks the page as allocated
+page last allocated via order 2, migratetype Unmovable, gfp_mask 0xd20c0(__=
+GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pi=
+d 1, tgid 1 (swapper/0), ts 23240374303, free_ts 0
+page_owner free stack trace missing
+Memory state around the buggy address:
+ffff88803012c580: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+
+
 ---
- mm/huge_memory.c | 102 ++++++++++++++++++++++++-------------------------------
- 1 file changed, 44 insertions(+), 58 deletions(-)
+The report format is based on syzbot bug report.
 
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 17bd2c053210..c4910c0b6018 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -4087,16 +4087,42 @@ static int __folio_freeze_split_anon(struct folio *folio,
- 
- static int __folio_freeze_split_file(struct folio *folio,
- 		unsigned int new_order, struct page *split_at,
--		struct xa_state *xas, struct address_space *mapping,
- 		bool do_lru, struct list_head *list,
- 		enum split_type split_type)
- {
-+	struct address_space *mapping = folio->mapping;
-+	XA_STATE(xas, &mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
- 	struct folio *new_folio, *next;
- 	int nr_shmem_dropped = 0;
-+	unsigned int min_order;
- 	struct lruvec *lruvec;
- 	pgoff_t end;
--	int ret;
-+	gfp_t gfp;
-+	int ret = 0;
-+
-+	min_order = mapping_min_folio_order(mapping);
-+	if (new_order < min_order)
-+		return -EINVAL;
-+
-+	gfp = current_gfp_context(mapping_gfp_mask(mapping) & GFP_RECLAIM_MASK);
-+	if (!filemap_release_folio(folio, gfp))
-+		return -EBUSY;
-+
-+	mapping_set_update(&xas, mapping);
-+
-+	if (split_type == SPLIT_TYPE_UNIFORM) {
-+		int old_order = folio_order(folio);
-+
-+		xas_set_order(&xas, folio->index, new_order);
-+		xas_split_alloc(&xas, folio, old_order, gfp);
-+		if (xas_error(&xas)) {
-+			ret = xas_error(&xas);
-+			goto fail_free;
-+		}
-+	}
-+
-+	i_mmap_lock_read(mapping);
- 
- 	/* Currently device private folios can only back anonymous memory. */
- 	VM_WARN_ON_ONCE_FOLIO(folio_is_device_private(folio), folio);
-@@ -4114,15 +4140,15 @@ static int __folio_freeze_split_file(struct folio *folio,
- 
- 	ret = unmap_folio(folio);
- 	if (ret)
--		return ret;
-+		goto fail_mmap_unlock;
- 
--	xas_lock_irq(xas);
-+	xas_lock_irq(&xas);
- 
- 	/*
- 	 * Check if the folio is present in page cache.
- 	 * We assume all tail are present too, if folio is there.
- 	 */
--	if (xas_load(xas) != folio) {
-+	if (xas_load(&xas) != folio) {
- 		ret = -EAGAIN;
- 		goto fail;
- 	}
-@@ -4149,7 +4175,7 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	if (do_lru)
- 		lruvec = folio_lruvec_lock(folio);
- 
--	ret = __split_frozen_folio(folio, new_order, split_at, xas,
-+	ret = __split_frozen_folio(folio, new_order, split_at, &xas,
- 				   mapping, split_type);
- 
- 	/*
-@@ -4205,9 +4231,19 @@ static int __folio_freeze_split_file(struct folio *folio,
- 	 * If we want to use try_to_migrate() on file in unmap_folio,
- 	 * remember to add remap_folio() and adapt it.
- 	 */
--	xas_unlock_irq(xas);
-+	xas_unlock_irq(&xas);
-+fail_mmap_unlock:
- 	if (nr_shmem_dropped)
- 		shmem_uncharge(mapping->host, nr_shmem_dropped);
-+	/*
-+	 * Drop the mapping while the inode is still pinned. @folio stays
-+	 * locked and present in the page cache, so eviction cannot free
-+	 * the inode yet, nothing past this point may touch the inode or
-+	 * the mapping.
-+	 */
-+	i_mmap_unlock_read(mapping);
-+fail_free:
-+	xas_destroy(&xas);
- 	return ret;
- }
- 
-@@ -4236,11 +4272,9 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		struct page *split_at, struct page *lock_at,
- 		struct list_head *list, enum split_type split_type)
- {
--	XA_STATE(xas, &folio->mapping->i_pages, folio->index);
- 	struct folio *end_folio = folio_next(folio);
- 	bool is_anon = folio_test_anon(folio);
- 	struct mem_cgroup *memcg, *old_memcg;
--	struct address_space *mapping = NULL;
- 	struct anon_vma *anon_vma = NULL;
- 	int old_order = folio_order(folio);
- 	struct folio *new_folio, *next;
-@@ -4287,60 +4321,15 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 			goto out;
- 		}
- 		anon_vma_lock_write(anon_vma);
--		mapping = NULL;
--	} else {
--		unsigned int min_order;
--		gfp_t gfp;
--
--		mapping = folio->mapping;
--		min_order = mapping_min_folio_order(mapping);
--		if (new_order < min_order) {
--			ret = -EINVAL;
--			goto out;
--		}
--
--		gfp = current_gfp_context(mapping_gfp_mask(mapping) &
--							GFP_RECLAIM_MASK);
--
--		if (!filemap_release_folio(folio, gfp)) {
--			ret = -EBUSY;
--			goto out;
--		}
--
--		mapping_set_update(&xas, mapping);
--
--		if (split_type == SPLIT_TYPE_UNIFORM) {
--			xas_set_order(&xas, folio->index, new_order);
--			xas_split_alloc(&xas, folio, old_order, gfp);
--			if (xas_error(&xas)) {
--				ret = xas_error(&xas);
--				goto out;
--			}
--		}
--
--		anon_vma = NULL;
--		i_mmap_lock_read(mapping);
- 	}
- 
- 	if (is_anon)
- 		ret = __folio_freeze_split_anon(folio, new_order, split_at,
- 						true, list, split_type);
- 	else
--		ret = __folio_freeze_split_file(folio, new_order, split_at, &xas, mapping,
-+		ret = __folio_freeze_split_file(folio, new_order, split_at,
- 						true, list, split_type);
- 
--	/*
--	 * Drop the mapping while the inode is still pinned. @folio stays
--	 * locked and present in the page cache until the loop below, so
--	 * eviction cannot free the inode yet; @lock_at is not enough, it may
--	 * be a tail beyond EOF that the split already dropped from the page
--	 * cache. Nothing past this point may touch the inode or the mapping.
--	 */
--	if (mapping) {
--		i_mmap_unlock_read(mapping);
--		mapping = NULL;
--	}
--
- 	/*
- 	 * Unlock all after-split folios except the one containing
- 	 * @lock_at page. If @folio is not split, it will be kept locked.
-@@ -4364,14 +4353,11 @@ static int __folio_split(struct folio *folio, unsigned int new_order,
- 		anon_vma_unlock_write(anon_vma);
- 		put_anon_vma(anon_vma);
- 	}
--	if (mapping)
--		i_mmap_unlock_read(mapping);
- out:
- 	/* restore to caller's old_memcg */
- 	set_active_memcg(old_memcg);
- 	mem_cgroup_put(memcg);
- out_no_memcg:
--	xas_destroy(&xas);
- 	if (is_pmd_order(old_order))
- 		count_vm_event(!ret ? THP_SPLIT_PAGE : THP_SPLIT_PAGE_FAILED);
- 	count_mthp_stat(old_order, !ret ? MTHP_STAT_SPLIT : MTHP_STAT_SPLIT_FAILED);
+This report is generated by a bot. It may contain errors.
+See https://github.com/n132/cedalion for more information.
 
--- 
-2.55.0
+For any issue with this report, reach out to cedalion@bugs.sh
+
+If the report is already addressed, let us know by replying with:
+#co fix: <commit hash>
+
+If the report is a duplicate of another one, reply with:
+#co dup: <lore link>
+
+If you want to undo deduplication, reply with:
+#co undup
 
 
