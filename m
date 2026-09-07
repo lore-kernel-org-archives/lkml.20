@@ -1,153 +1,105 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04544398EE
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:39:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEAD63932C3
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799158; cv=none; b=hrJaX8M9xA76S/p+Yt3CNIhC20QLhfTtGQFd6pO7P0WUdo+7y6qYkaY3oih1fyH9BmLrrIYPBU8JXAtd8eaJ7HcX/9vcfJNpJALlGOe8aVPaYvX5/0v8n/NXy6N6xRYPgRasmQt7FHjLBtfIjpjYMllgCbAbq62cMnkbumoXzwE=
+	t=1788799180; cv=none; b=qmvp1rFRUW4i/Wzo1OxO+CC/2RB94/ofh3sTCgDYM6QKc5knC11xZb/qh0TbUn10MRICmP1E/0KltCgkKh2JKO81LWR/5qMmPZQv82q8K2DIzY3aAh3u6KQ9iG2OanOQeINlXRXv/6s3SVwkVZTtO2yCwwmon1ScTjk0H+12dvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799158; c=relaxed/simple;
-	bh=3AjmEBPNF0f2ZW0gEE5xyAHj5vNKrZyIijdhUxwlpjc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WKeSA16OLvH5OmqUdp52a+WdnHOe8/M49mDDKzt6Eigrxy1RUVgqmOGY8w9DKs0Xv6dTMSaEYCXv5nkt8jl0Vathikl4cxMkQQl87E2OHKEYMqzMBpVgLIHnUpLfwP/Mo4B9to7ARpHQaEUDB3k4IS5COZY6I5Li2kf/Cr8Q9D4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=S8vQuega; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788799180; c=relaxed/simple;
+	bh=JScLvDY1v4ZXDmdRrVKEysuuyxpgWjgoIm5gZeod+cc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oqexmywoCainQTtjdOKZsdyvgFti2oHwwvuw4oJ8S8C3JfD8c3zjaiN+s2cm7x+QGdl6QQL34/ZPyWmxCxd/JcXWJflOysCrNcNKpWHlomHYFBbTj8Pjs0OK5VfvjGpUvOcwYJ5I3eDU0tN6xawVKQo1QqWlYSP/+1ixY573DZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gZrfW8Fd; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="S8vQuega"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4843e397f74so4551332f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:39:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gZrfW8Fd"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2637dd37c1so236838366b.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:39:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788799154; x=1789403954; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AgvnbjLKmi1onzNW5R9vjYjtLkXrQ/NRobaPoOB9+Bw=;
-        b=S8vQuegaXxqi7NNP0mQokzaMCMZBuxgb0TNfneg6G+fxZ0Qum2rB0qQEyBRNpeKcq5
-         XW85NHArqXH/IFwR9U77GFsapHgSGy+WX2o9pu2mS+USnNNVng5V18YEgtE42ZZ9pDok
-         0hHzAFMBCw/o500J4Esa03DiPe5xf6u0Z+Gelugd8DsiBMFknsTtofiJvwXoqSD1Oh77
-         tulgPjrW/xFv3eUq+/TL4rAy5zdpQsDdZCJPQ4zh49Zs3nf1rft+Y5h6eh1KIEbCjeyg
-         GFuvDP49M95qauLm97NJKzdSttY8lJJB94hoGkWUowmuDqMCeyTb4fWzrOGDy6mhVM89
-         supA==
+        d=gmail.com; s=20251104; t=1788799177; x=1789403977; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PtaQqVSlZuFX18DeVPVqwMKwClza0Yn6Bnu05r8m2bg=;
+        b=gZrfW8FdDX8V0jv9m6KpwNKdrnt4lHPBlDsIEuo/LaVewlK1+CvQs/UHN3ZaPYfVsB
+         HJV0VZeEyNTKTUF087+sbO7spEpAXS/Wdm891jOjqbSH6BQqgJidW5ZSKVQySIHqznzL
+         TmcqLdrSRymDQyBPMPNnGQO304ljoODI0Y8GTIRHbVWtOrjLtP1+0WOJaEfWL7GMGm/r
+         Vg461isbIpI8SY6exvzD94m+GsyO7R1yU3B4gwDNhGRsdBqU89KyzqMj4iHn74mJF8ds
+         5wF45BYdDxtn8FLsfSh6dFcMxuS9vxBnuLUqimygEoRTXGHfMN4OcsvXS5eBvzPdTHbT
+         WciQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788799154; x=1789403954;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AgvnbjLKmi1onzNW5R9vjYjtLkXrQ/NRobaPoOB9+Bw=;
-        b=lzVumWqY63NahcZpZisR8CpM1FxYpXiTOoBRg4LqT88g0bnXqlqdxpMF60K0/Vybk2
-         hD+Y/d3KRpNhA+9KcRGEw26M/7wslF8Kyna3sHty1yG9mA/frhZvHCyJVjR2Ld8mpTgz
-         G516rWrekcRDHSTuvPorWRgUFMO4aUyznFOok5u5ObcoyifNp4y39+xhiZ61SslaTQeW
-         8U9pHygUUCf4TCmZLLdGNb4Wj0dvGJSt3ZwkVoCghG5EL4bT+T43JdOgWqBBg98daWFM
-         0FApi/G5dUeHxGzA7QN1QHOmuIC1q8DInC5HUamiEjRuqHhcfcsCXA3T1b3osaHp4gBW
-         U7Tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxS9A45qjuMdcW6v0+nuSRJ7TZ0Rz+tx2FnRkHw2I0gvbzaD38yiqHia03NiZzXfADjiiQkPNBuLeiqSZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbXGH5fPEsOiTKWTIC9lJVJCKl6+oDVMpP140jIalLpiThgKlF
-	mTOmqRusIEUKWxye22YX5LcAl6Il3na3qP3Ka4r1FvCRxj3AVl6DAabe36IHvii1ew==
-X-Gm-Gg: AYBFou2VVK3F3pnSGOWBNH0pZJHefZqMIIyWMrx6PVRiHLK7PWzln5isJSu64IxUCYV
-	JlfCGZp5aXZ4Dl9JiicSTL+w/xriLaRCnS3Yde4So5zWvYoTorOGnN4du+/zN9df6L1aMi3mi3h
-	k8k0r/oyUu7Y5Mmt8OBP3or6MWKcUQr+3HDbOaRjZ6re3b4S23puUZtKHO1jGZVovf31snnjlGq
-	bEH6uBoKXUugAH8J3ryO66SILZBjGxz00GuhZKUsCKBRgJaNQJILn6DtVj73rfVcRXdbD6jDMDT
-	+lgyuygGiJFTDgbTj6KybkHMINdKi6Odkdb7exwLVVi/Ll2zNyWABalZJbKuj3J19h1UAEORK1X
-	ONMCT3uuZ49KUEzyAnOCiUOqi/gzQbIAeFsAqvAeSx6//rKLCIbp2YqVNwrhmofKIgVzEgJStZ7
-	q2UZhTXYEIFf263Z5vSmy0GG2Z17AyLBnmc0cXLA5AgQJEj7SXZ4sNPW5sdwHllEoXTtmU8eQeX
-	MAdBzTeIGWYErD2p2ofOslET4mtLd2K
-X-Received: by 2002:a5d:624c:0:b0:481:50ae:df9a with SMTP id ffacd0b85a97d-4857e4fdf87mr27409484f8f.9.1788799153524;
-        Mon, 07 Sep 2026 09:39:13 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm23526484f8f.5.2026.09.07.09.39.11
+        d=1e100.net; s=20251104; t=1788799177; x=1789403977;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PtaQqVSlZuFX18DeVPVqwMKwClza0Yn6Bnu05r8m2bg=;
+        b=nJoGlyv/OMUKykziE0W5kddwa9JveeowcyMEBJqcOfJ7IsiLqr+HPlKLCHtVKVS4dh
+         LZR6qCRJvatpuJhE2TSjfzLPpifxORZ9hXlDKvsFK8TTFniRL0o4/EfKwuvbx4/aAajy
+         JiE146MMfNNxA7kmy3QWqfEZCUxfaLz090M0txWhvV7h+HaOh8c7e3D7ir+ximo9lTPK
+         E0qm36QEeArtQsMlBSzUh19UVBD+3G+tsfYKXgL6QMnX2199vcHJRE9EjZw4gK2yRfpj
+         j4C2B8iIIfELAGZxd233ixkD7os4kLHwA1zWrALjsAzmosOtXBkQ3kdx8nWWpysBpRn2
+         B8VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxT4oVPEFFrzre8sVl2bQNgX/nvolupzKK4JtTS3WHerBeBBa47ZJ7d0Oo7WlqmxMjYhsVmDiFyW3MjDNI=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3wj5rEugQFKfbFHxIwDLXA4u/sksYUB+KkE9SGFUMfouyprWx
+	AA9Mx5UW5LJNnBegMYiVAv+ywYILtpRHxzXQYl8Hxorp5xjkL+1wAcFh
+X-Gm-Gg: AYBFou14oPh3hDrRF8fPAkIn8EgXyt+4HzXid3NqFdeVXmpDJGQBxnIZcma5JUeHngz
+	HqjJUhHr3lKAvX30xOWBh5ekDfjRWgAmpZaEAPuoCFOdbbKZbV7h8IwOFlb3HCok7/4YTp6e4Pv
+	otbSVvBz6kSMhq+DpFBWHmyQoy2Hq6SP8GSdawl0PoOuz9ozprAKqHnumf9BX4JA5TDTfxY5bVa
+	4328eTmeE1zPeivuGsL3VS/61vxvBBE1xzlqF/SkI0u7D4jeHUUIEuLBgJ9Z3WMm740AG88/19I
+	KC9FH/SoVqFhPkmgDGd7EQQbs+QZm7bWcGu7ViboPu8F2dxgkX7Jsev05u8f2BM1IdDBCe1obGz
+	qC7yUhP2v5gSxEv0CxX3MPCRTMucnEQnVs3CzLSoG9SHFZd8utEN9KY8wx93B0cQlUdSYl2YejH
+	LPZ0sMCxvkkVcyHBdTofsMNEEP89MLfRg1UIEFbwQicU5G+xr4sL3z/yVO+S4cGe+FJAzB4vnzP
+	Md5ychj0A==
+X-Received: by 2002:a17:907:6ea3:b0:c26:1649:47b6 with SMTP id a640c23a62f3a-c261649567dmr733976366b.44.1788799176674;
+        Mon, 07 Sep 2026 09:39:36 -0700 (PDT)
+Received: from grower.astralinux.ru ([82.22.172.205])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4a8b89sm483434766b.10.2026.09.07.09.39.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 09:39:12 -0700 (PDT)
-Date: Mon, 7 Sep 2026 17:39:08 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org,
-	mathieu.desnoyers@efficios.com, kernel-team@android.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ring-buffer: Rename ring_buffer_size() to
- ring_buffer_capacity()
-Message-ID: <ap7orBVddKVBMew2@google.com>
-References: <20260907094238.3624013-1-vdonnefort@google.com>
- <20260907234146.9739977b015a6c8c39ce3693@kernel.org>
+        Mon, 07 Sep 2026 09:39:36 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: alexevgmart@gmail.com,
+	stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: karolherbst@gmail.com,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	mhiramat@kernel.org,
+	mingo@kernel.org,
+	nouveau@lists.freedesktop.org,
+	ppaalanen@gmail.com,
+	rostedt@goodmis.org,
+	tglx@linutronix.de,
+	Ingo Molnar <mingo@elte.hu>,
+	linux-trace-kernel@vger.kernel.org
+Subject: [PATCH v2 5.15/6.1/6.6 0/2] tracing/mmiotrace: Add NULL check for mmio_trace_array in logging functions
+Date: Mon,  7 Sep 2026 19:39:17 +0300
+Message-ID: <20260907163919.183961-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902122613.442176-1-alexevgmart@gmail.com>
+References: <20260902122613.442176-1-alexevgmart@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907234146.9739977b015a6c8c39ce3693@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 07, 2026 at 11:41:46PM +0900, Masami Hiramatsu wrote:
-> On Mon,  7 Sep 2026 10:42:38 +0100
-> Vincent Donnefort <vdonnefort@google.com> wrote:
-> 
-> > Since commit 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring
-> > buffer readers"), "capacity" refers to the memory available for events
-> > (excluding subbuffer headers) while "size" refers to the raw allocation.
-> > ring_buffer_size() actually calculates this event capacity. Rename it to
-> > ring_buffer_capacity() to align with this convention.
-> 
-> I think this is OK, but I have a question.
-> 
-> [...]
-> > diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-> > index 8658cad53cb5..f0251788ec75 100644
-> > --- a/kernel/trace/trace.c
-> > +++ b/kernel/trace/trace.c
-> > @@ -4712,9 +4712,9 @@ void trace_set_buffer_entries(struct array_buffer *buf, unsigned long val)
-> >  static void update_buffer_entries(struct array_buffer *buf, int cpu)
-> >  {
-> >  	if (cpu == RING_BUFFER_ALL_CPUS) {
-> > -		trace_set_buffer_entries(buf, ring_buffer_size(buf->buffer, 0));
-> > +		trace_set_buffer_entries(buf, ring_buffer_capacity(buf->buffer, 0));
-> >  	} else {
-> > -		per_cpu_ptr(buf->data, cpu)->entries = ring_buffer_size(buf->buffer, cpu);
-> > +		per_cpu_ptr(buf->data, cpu)->entries = ring_buffer_capacity(buf->buffer, cpu);
-> 
-> nit: Don't we need to re-word this "entries" with "capacity" too? 
-> 
-> Actually, this "entries" is a bit odd because
-> 
-> - ring_buffer_entries() returns the number of events.
-> - trace_set_buffer_entries() sets the buffer capacity in bytes.
-> 
-> It seems we call it as "entries" historical reason, but now it becomes the
-> source of confusion. Maybe we should change it too. (but in the separate patch)
-> 
-> Thanks,
+Backport fix for CVE-2026-80689.
 
-Yes, I believe you're right, this "entries" here seems only used for
-buffer_size_kb, buffer_total_size_kb and resize_buffer_duplicate_size() so we
-can probably use "capacity" there too, it'll be less confusing than "entries".
+Masami Hiramatsu (Google) (1):
+  tracing/mmiotrace: Add NULL check for mmio_trace_array in logging
+    functions
 
-I'll respin a v2 with that additional patch. (and a fix to the typo)
+Steven Rostedt (1):
+  tracing/mmiotrace: Remove reference to unused per CPU data pointer
+
+ kernel/trace/trace_mmiotrace.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
 -- 
-Vincent
+2.43.0
 
-> 
-> >  	}
-> >  }
-> >  
-> > @@ -8476,7 +8476,7 @@ int allocate_trace_buffer(struct trace_array *tr, struct array_buffer *buf, int
-> >  
-> >  	/* Allocate the first page for all buffers */
-> >  	trace_set_buffer_entries(&tr->array_buffer,
-> > -				 ring_buffer_size(tr->array_buffer.buffer, 0));
-> > +				 ring_buffer_capacity(tr->array_buffer.buffer, 0));
-> >  
-> >  	return 0;
-> >  }
-> > 
-> > base-commit: df2908090cda368b01ff43709f51890076c56157
-> > -- 
-> > 2.55.0.979.g7e5102b832-goog
-> > 
-> 
-> 
-> -- 
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
