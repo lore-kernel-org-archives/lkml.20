@@ -1,208 +1,200 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D8F442B08
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:54:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771275; cv=none; b=Q1F46g9KbB15kYvCicvvCFBq6aqHGsOgExaVIT0nCXv05uPayMVbkXKl/UJojnnBvv6KikteqqkM5u41EZr6BnICOw1zPhdDvZJEtTf+ak8NfOyzpEVBXOhbcieZ2KJ6Xt8gj4siOcMCBQKyfHD7+v/YI3pcayCcSvVUyKEZFhA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771275; c=relaxed/simple;
-	bh=wBxZaD2/ZNzVEOWbBVSkTP3gXiMJcM2J7W26OU7nAg4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FgApD2P91owJX2rPBm7To4ihdCdFU2Df7wxji44ONT/d99FB0Cc42eZmfEgdsmQSmzSi4myHcFo9bscmCttmsf+eb3lxTAH5XEINCDBNy9Rev0BmBtYA5JSGUIOFB/kezOOQB3usB5gt4GlbJgUir8jJG9Rw5PRL8rT6f10qZyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PUrPZIJc; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5900440A07
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 08:54:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788771282; cv=pass; b=pVfs2eZMApc8An+M5ngBEmtmTZPDr/4VSOLtkbmutl27oeHKFZwjN5m/BivHzHLiBUC/ZF0gCLSgjucWnU+JWML9VpBHBc9GwWEjhhXR+8JqyzG5CzTPn9P4I56EG46batbjn2+Q88b5d4Bzm8jgvNKuxYZ7tBp/3vZUPi9fCo4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788771282; c=relaxed/simple;
+	bh=QXjMseea1+MUk12KuF/7jXKNO6pgSq+LEwZGSetRuqY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VSRcr94dTKbM2V+kW9L4C9X2xW52FgQNuGEq4UXhdp2uk9jsaDb9yvnAUTaRikHMyh5937+ecnOIUAzfZlJlYDZmXNIutvXt4pxDxrUD4xblXalFIHxc6axg1X9SSl5xIKqEo8Ai/OTeGXnGubeQFbg4TeUq5EtLsgxm1ddDXdg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCd2k0YO; arc=pass smtp.client-ip=209.85.167.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PUrPZIJc"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d58efc7356so41168105ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:54:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCd2k0YO"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b457a0b4e5so2999625e87.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 01:54:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788771279; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Jxy2IfQqm8nVzBSQ2b6B9Axf1wYK/PJA+y1sZpUorbojrshPi0qI8tBRloDf7x4x2G
+         GAPamMnoJ3lehS7b9Vu+RKPSI/mXzlVp9XhiExY5JxhUGaTDI2pXI00hFfTSvGsDlpzL
+         W8wkJTXWqi/3Qv5nnrAj7jInl/aiMVlhevE0cgTPAMJDOz6oYzSYFMvVY8WPeHFx+OtC
+         M+u8DIT5T6hr46iXKxRmSZZRZR9J+2uoG4aXkADnBlMMwf3WUXvoWofQrzLjFt2rboPq
+         g6by4HIKw3VuLi3G+61cD+MtwMo5d9PCoUDcjXCxyFiObSxare8QV1fuEkuVrTC3MbtN
+         zIMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Mb38/XyezgCTk/KQzy3RRuSB7soXICP+oM6KFosVqh8=;
+        fh=Jhyqr+RTraakle6w2CrpUml98fbGQVOtPCeeuFqLudY=;
+        b=ehfp8e5cYvRkGFeYeWqVkyZUhzuo7eev0p4MmmmCVCqBFrzxnCNQqNehia9qfBvOMI
+         SurNnOpuGvaJoFCi+s6EtXpl+ZS0lQa4FhpBTLfG8L83QYTugLfb3s1GbyoGJoaYoexo
+         JtgGylhntiSX7hD/HQZT9kwJymtG6rtjdY71XjF4Pja4J0z2mVuzXO/yT2p6XNouIQ/R
+         aLUUGB/bCNkYc2p/anpQmfLNF35FRXNpZ/3tu6Zvi6ufl1KrqQPjnu7iT31/6znF33a7
+         ZQRG4rBTBDvEiZ8B0mgGS6yKlAHSjeLjbGeWpPxnjA4TU6blBViG3F3dmSRtz622hvPa
+         rxSw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788771273; x=1789376073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/FrSxEN8ak5vclBPmxgXg5qafP5KTv46KpfDsZfuuR4=;
-        b=PUrPZIJcGYy5wR7JIpPfXsWlt0fzBlNPXS1mkdIQfRiBB7OEIQc2HihiFlizvwuuz2
-         BD0N2D8VoQlKLTdh//+u00xIrLWUKm/Wb5XHC0D8ol/vd+3BqfTtb8YA7LgNjBSXOma3
-         foCo5TlnlKW0oUV5Twgbuc6KTPC4mJ4adyyBoPFGyvpQr4TBsmldDTpY66b/GDWbaGOA
-         4b+305RIIu+YODAgFa0f//hOLwrJZjWcQhVMFR61Ix6OfFGPhRHKz/AE/IkaPhpqkmXF
-         +vDqS/+liYRkNTDVQKsfF+IGMXO0YepzqyLlrXFz/7vFMb8X5IW7qIK0GLmKAT/DRP5F
-         8sZQ==
+        d=gmail.com; s=20251104; t=1788771279; x=1789376079; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mb38/XyezgCTk/KQzy3RRuSB7soXICP+oM6KFosVqh8=;
+        b=GCd2k0YOt50GjTijPya2LAHftQPB90KcZgO9c8eqv6oQqPzOOiqElrHyEibblWAz8H
+         kF5t5vQlwi8BcefMKmE9RDg70AF7JfTcXcFDDoK4NoPzRhTjzHtV0q5lf/bW/L8w/d4x
+         P1f5D98N+cqkzOoo8T9i6h7a56+8TvD/XZ5ZK8OJP1gXVDdb1y4xUGhoNhQiXLtYu7L0
+         89Kursu44qTAnlrxvRFvxtXnoD8KIt4rhMeHcl7ZtSYF4WjTDkOO7tgP8Dd4BPIlBNTn
+         1TAIZxw89har3GEV502d7n0LOTQnS5HAqjg7j1jcoUnfKH89WEabUn69QLGOUa30sGoN
+         jcMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788771273; x=1789376073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/FrSxEN8ak5vclBPmxgXg5qafP5KTv46KpfDsZfuuR4=;
-        b=nHxK5PZRkB/rKU3t4BpJeoC8KLw9MzKk3y8HYGw/GHTw08ylQYVZZ95kpdmgyleOq9
-         1kt5SbzeO1wUB71UCb3/p5m2FX84BRr9Zym/FusYciu/CROGHTaFmnCnu+yMkCdC9+nj
-         zLjcEiFPRDzExCgTEgEeFtqPm5frZUjlgypcvKAg9A5IFAoVQHJs7QxHkLyjN3ZBlUkv
-         p8AMzo4Ago2Ig/TarUn56k3Fh25je4/rn1xwJWoWILlPvbymDq5s/pJwkOG/oZKCY0ae
-         WMVumDPxAeAc+epsLFp5N8UIZGjREbC8uanNPva9/Rk6Ip1dJ5+5p0HfhUDTMnn9/shQ
-         Pf9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzvSJNgL68Iyd01lKeCnlFll7+gEbx27UMcHzkkokVnv7yvVfeUBKQ2t8KEP73Ymw5J8G24vOfInovssic=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFgrcKM7PoBsLFa8I2BUIXV+HslWpmaiaBsofJzSWaHSeI0pGQ
-	aqVfUljOh2qZfT+XBrh+9TRzEXlyXa1m+200VMQxHs1TrYQXHVefCHL2
-X-Gm-Gg: AYBFou131Er1pumGprhVl64wq582MFFe+kXCsKMS7LWGD9+vd5xwflIqvJP9R+DzQ6W
-	PT8fvuv1QHJK6g0WPfYK+ITeXtajIM9g0qjsydA6/FfrP4k75BUKDdviyBr3qTUAiVS13rcFzdA
-	itY9ELlmew9bRoiq42ZA4dBnFdB/uxjd432xYBzeZvqoqhKXov+4rIWaR7TXScLGKQZDC7qRFQr
-	9AFOYcQMUQSJV7MyWZ63ZEcYpYQaAHAIpXTlSsRMaB52NqhP7iiM64JssGTbehsgNnsRMiU/KjF
-	K8Hfgl8PWVCjkzvrZdT03O9b0e3Gta1IehUobZxXr1zRLvpkoxY5QlWdjzIsSRKtNeIxyZ6/vxp
-	ypKEM+tHOkNq5MDKnsgyr+uI7d1njfjcvDZ15+E02CFyWJXPS/ytoySKkKzFAhkq7KV/MbhkPN8
-	7EnkmBqUggM8TSyrGtyM4dePccrD58P8DuGhPkc2Jijnu0HtX96AyE0gbiLn0vjitQzuv0THllo
-	bT699HIlhqSRw==
-X-Received: by 2002:a17:90b:1c8b:b0:398:9bd5:490c with SMTP id 98e67ed59e1d1-39b26214502mr30482551a91.19.1788771273430;
-        Mon, 07 Sep 2026 01:54:33 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm28958402eec.2.2026.09.07.01.54.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:54:33 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Eric Piel <eric.piel@tremplin-utc.net>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	"Lee, Chun-Yi" <jlee@suse.com>,
-	Kenneth Chan <kenneth.t.chan@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform: x86: fix typos in comments
-Date: Mon,  7 Sep 2026 14:24:26 +0530
-Message-ID: <20260907085426.3661-1-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
+        d=1e100.net; s=20251104; t=1788771279; x=1789376079;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mb38/XyezgCTk/KQzy3RRuSB7soXICP+oM6KFosVqh8=;
+        b=hMctYhu9VTkHiZyC2DGGcS/F0WOO94E2NCU86rIrtk7/Njaa1y5XevzXbGrRQb/y1L
+         e/bhWiN7CDrIZFuE82KLOsyDYbMx6wtrDEu+xn87Dfn6thlZg+x2LxOoZGLZC0q6QlQh
+         KNhhPPPfJPs5Or5N/WquV+E1YrBqrqgk10+/wiU1BzD6nNPL95uW8KoZGJY0xkrO5Ohz
+         n4uA143dDBP/Wa+sWPtvIHrTD8+DMKQb9KlbpAVkBES+5CEXRDWjnxwQqOAM6x2IBuY4
+         c5MYn2zxJIAMN/pOlP4/+4KDYIm0QB2Ky18oHnamNYPer2nybk0oaHjZ06EaDGDfisQk
+         DJAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzextBFQisBpSPJvVXpHgMtgEEvlklEUM7XcmvxBWPv68Rprjwua02zOF0E9boYa8vv9+gfn2mvVK0yGYQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEX99edDL9FfWaS4lcFzuuKSmMre1XYhfv44FuC9wUvaxE5XCl
+	N+31vQFaewDh4sh5vnjN1u0elp7FAC3zLlwdqatuxClYiR8O27enDsCb0PikQX+TzKDi08Iaz09
+	NnQOLjmJIoNtIEVRw3CsDnTS4mPoHIaA=
+X-Gm-Gg: AYBFou0DQyZrIAf8vPXtdTvrsjKRy98fNF16/Ya+i2PaUC7LRIhqw3YWOUIHgy1mVR3
+	ZJZkP93ehc6u/eUl8DoRog66aSzkbKf+1/TMiZjaSe6nGynuoMRvJHjPX1FcZMKHl5qwTWIVWk7
+	pObXf8GuE4iMGuRwAQmLOTlruvpqb/Fu6CCjrBVbfliHrWhiYs/1YfozxBVYSngJPDCXnjSQGK7
+	TEMnKZ6uMWWBbYXlsnuhS6kM7k8HiJA6yTxhLhrJzyYdWk7X97jmVD18be8P1ro0YDDNK8bF1m9
+	eLgKTuz/VxFd2fCkuzX4765roEAc8Fp36S3RuGo1m53z+jGUxqtj3PA=
+X-Received: by 2002:a05:6512:110d:b0:5b6:183b:d208 with SMTP id
+ 2adb3069b0e04-5b6183bd373mr2958460e87.47.1788771278685; Mon, 07 Sep 2026
+ 01:54:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+In-Reply-To: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+From: Hyunchul Lee <hyc.lee@gmail.com>
+Date: Mon, 7 Sep 2026 17:54:27 +0900
+X-Gm-Features: AcwNN1UQCOdsyH-zzjbRhn94C4SAU2WskgBGWC7pBgQzD2sd-mp-ikPeShGlfhM
+Message-ID: <CANFS6baT-+_u+c99qThd7jekqXZ3BW5utLPERLa_X3FE7XiBNw@mail.gmail.com>
+Subject: Re: [PATCH] ntfs: fix $MFTMirr write offset for MFT record sizes
+ larger than PAGE_SIZE
+To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>
+Cc: "linkinjeon@kernel.org" <linkinjeon@kernel.org>, "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Fix typos in comments, reported by scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt.  Only touches comments, no code
-changes.
+Hi Tianhao,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/platform/x86/asus-laptop.c          | 2 +-
- drivers/platform/x86/asus-nb-wmi.c          | 2 +-
- drivers/platform/x86/hp/hp_accel.c          | 2 +-
- drivers/platform/x86/intel/vsec_tpmi.c      | 2 +-
- drivers/platform/x86/msi-laptop.c           | 2 +-
- drivers/platform/x86/panasonic-laptop.c     | 2 +-
- drivers/platform/x86/samsung-laptop.c       | 2 +-
- drivers/platform/x86/uniwill/uniwill-acpi.c | 2 +-
- 8 files changed, 8 insertions(+), 8 deletions(-)
+2026=EB=85=84 9=EC=9B=94 5=EC=9D=BC (=ED=86=A0) =EC=98=A4=ED=9B=84 9:35, =
+=E6=9C=B1 =E5=A4=A9=E6=B5=A9 <zhutianhao75@hotmail.com>=EB=8B=98=EC=9D=B4 =
+=EC=9E=91=EC=84=B1:
+>
+> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
+> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
+> which is indeed what mkfs arranges.  However, the folio rewrite kept a
+> leftover from the old buffer-head/runlist based implementation:
+> vol->cluster_size_mask is still applied to the mirror write offset.
+> In fact it is no longer needed -- and in some configurations it is
+> actively wrong.
+>
+> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
+> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
+> written to the location of record 0.  $MFTMirr therefore gets out of
+> sync with $MFT and the following warning is printed on remount:
+>
+>         ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
+>               record 0 do not match.  Run chkdsk.
+>
+> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
+> to the base LCN address instead of applying the cluster_size_mask
+> truncation.  This is the standard file-offset calculation and is
+> correct for every combination of cluster size, page size and MFT
+> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
+> (which mkfs always arranges).
+>
+> While here, verify that the folio returned by read_mapping_folio() is
+> large enough to hold the whole mirror record (folio_ofs +
+> mft_record_size <=3D folio_size(folio)), guarding against records that
+> straddle a folio boundary when mft_record_size exceeds PAGE_SIZE,
+> although this cannot happen in practice.
+>
+> Tested on the volume above: before the change mirror records 1-3 are
+> all written to record 0's sector; after the change the write-back
+> probe reports:
+>
+>         ntfs: NTFSDBG pre mft_no=3D0x3 folio_idx=3D0x3 ofs=3D0x0 mftmirr_=
+lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0640
+>         ntfs: NTFSDBG pre mft_no=3D0x0 folio_idx=3D0x0 ofs=3D0x0 mftmirr_=
+lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0628
+>
+> which matches the expected sectors computed as:
+>
+>         (NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SE=
+CTOR_SHIFT
+>
+>         record 0: (0x2540c5 << 12) + 0x0000 =3D 0x2540c5000 >> 9 =3D 0x12=
+a0628
+>         record 3: (0x2540c5 << 12) + 0x3000 =3D 0x2540c8000 >> 9 =3D 0x12=
+a0640
+>
+> A 13 MB file write succeeds on this volume and the file is byte-for-byte
+> identical after a umount/mount cycle.
+>
+> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
+> Assisted-by: UOS-AI
+> Assisted-by: CodeBuddy:Hy4 preview
+> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
+> ---
+>  fs/ntfs/mft.c | 26 ++++++++++++++++----------
+>  1 file changed, 16 insertions(+), 10 deletions(-)
+>
+> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+> index 7e58c99f1728..a62b1d41697c 100644
+> --- a/fs/ntfs/mft.c
+> +++ b/fs/ntfs/mft.c
+> @@ -462,7 +462,7 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, con=
+st u64 mft_no,
+>  {
+>         u8 *kmirr;
+>         struct folio *folio;
+> -       unsigned int folio_ofs, lcn_folio_off =3D 0;
+> +       unsigned int folio_ofs;
+>         int err =3D 0;
+>         struct bio *bio;
+>
+> @@ -482,25 +482,31 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, c=
+onst u64 mft_no,
+>                 goto err_out;
+>         }
+>
+> +       /* Offset of the mft mirror record inside the folio. */
+> +       folio_ofs =3D NTFS_MFT_NR_TO_POFS(vol, mft_no);
+> +
+> +       /* The mirror record must fit entirely within this folio. */
+> +       if (folio_ofs + vol->mft_record_size > folio_size(folio)) {
+> +               ntfs_error(vol->sb, "Mft mirror record 0x%llx does not fi=
+t in folio.",
+> +                          mft_no);
+> +               folio_put(folio);
+> +               err =3D -EIO;
+> +               goto err_out;
+> +       }
 
-diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
-index 449addd1ac7a..de607edb9490 100644
---- a/drivers/platform/x86/asus-laptop.c
-+++ b/drivers/platform/x86/asus-laptop.c
-@@ -865,7 +865,7 @@ static ssize_t infos_show(struct device *dev, struct device_attribute *attr,
- 		len += sysfs_emit_at(page, len, "SFUN value         : %#x\n",
- 			       (uint) temp);
- 	/*
--	 * The HWRS method return informations about the hardware.
-+	 * The HWRS method return information about the hardware.
- 	 * 0x80 bit is for WLAN, 0x100 for Bluetooth.
- 	 * 0x40 for WWAN, 0x10 for WIMAX.
- 	 * The significance of others is yet to be found.
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index aeb461b1644d..9b729afb34f9 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -573,7 +573,7 @@ static void asus_nb_wmi_quirks(struct asus_wmi_driver *driver)
- 	driver->quirks = quirks;
- 	driver->panel_power = BACKLIGHT_POWER_ON;
- 
--	/* overwrite the wapf setting if the wapf paramater is specified */
-+	/* overwrite the wapf setting if the wapf parameter is specified */
- 	if (wapf != -1)
- 		quirks->wapf = wapf;
- 	else
-diff --git a/drivers/platform/x86/hp/hp_accel.c b/drivers/platform/x86/hp/hp_accel.c
-index 39b73dc473f1..40e1b9fb1b6d 100644
---- a/drivers/platform/x86/hp/hp_accel.c
-+++ b/drivers/platform/x86/hp/hp_accel.c
-@@ -122,7 +122,7 @@ static int lis3lv02d_acpi_read(struct lis3lv02d *lis3, int reg, u8 *ret)
- static int lis3lv02d_acpi_write(struct lis3lv02d *lis3, int reg, u8 val)
- {
- 	struct acpi_device *dev = lis3->bus_priv;
--	unsigned long long ret; /* Not used when writting */
-+	unsigned long long ret; /* Not used when writing */
- 	union acpi_object in_obj[2];
- 	struct acpi_object_list args = { 2, in_obj };
- 
-diff --git a/drivers/platform/x86/intel/vsec_tpmi.c b/drivers/platform/x86/intel/vsec_tpmi.c
-index 0153dd57838e..fbe9c8af4aee 100644
---- a/drivers/platform/x86/intel/vsec_tpmi.c
-+++ b/drivers/platform/x86/intel/vsec_tpmi.c
-@@ -597,7 +597,7 @@ static const char *intel_tpmi_name(enum intel_tpmi_id id)
- 	}
- }
- 
--/* String Length for tpmi-"feature_name(upto 8 bytes)" */
-+/* String Length for tpmi-"feature_name(up to 8 bytes)" */
- #define TPMI_FEATURE_NAME_LEN	14
- 
- static int tpmi_create_device(struct intel_tpmi_info *tpmi_info,
-diff --git a/drivers/platform/x86/msi-laptop.c b/drivers/platform/x86/msi-laptop.c
-index ddef6b78d2fa..0a0c756a5598 100644
---- a/drivers/platform/x86/msi-laptop.c
-+++ b/drivers/platform/x86/msi-laptop.c
-@@ -117,7 +117,7 @@ struct quirk_entry {
- 	 * Wlan/Bluetooth/3G, those netbook will load the SCM (windows app) to
- 	 * disable the original Wlan/Bluetooth control by BIOS when user press
- 	 * fn key, then control Wlan/Bluetooth/3G by SCM (software control by
--	 * OS). Without SCM, user cann't on/off 3G module on those 3G netbook.
-+	 * OS). Without SCM, user can't on/off 3G module on those 3G netbook.
- 	 * On Linux, msi-laptop driver will do the same thing to disable the
- 	 * original BIOS control, then might need use HAL or other userland
- 	 * application to do the software control that simulate with SCM.
-diff --git a/drivers/platform/x86/panasonic-laptop.c b/drivers/platform/x86/panasonic-laptop.c
-index 19d194ff37ca..a3597344edef 100644
---- a/drivers/platform/x86/panasonic-laptop.c
-+++ b/drivers/platform/x86/panasonic-laptop.c
-@@ -107,7 +107,7 @@
-  *
-  *	Jul.25, 2004	Hiroshi Miura <miura@da-cha.org>
-  *		- v0.4  first post version
-- *		        add function to retrive SIFR
-+ *		        add function to retrieve SIFR
-  *
-  *	Jul.24, 2004	Hiroshi Miura <miura@da-cha.org>
-  *		- v0.3  get proper status of hotkey
-diff --git a/drivers/platform/x86/samsung-laptop.c b/drivers/platform/x86/samsung-laptop.c
-index 710f3d5bf84c..18631e96bb17 100644
---- a/drivers/platform/x86/samsung-laptop.c
-+++ b/drivers/platform/x86/samsung-laptop.c
-@@ -295,7 +295,7 @@ static const struct sabi_config sabi_configs[] = {
-  *   d0, d1, d2, d3   - data fields
-  *   call             - call SABI using command and data
-  *
-- * This allow to call arbitrary sabi commands wihout
-+ * This allow to call arbitrary sabi commands without
-  * modifying the driver at all.
-  * For example, setting the keyboard backlight brightness to 5
-  *
-diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-index 7a2eeaec4c96..eeead0159828 100644
---- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-+++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-@@ -1705,7 +1705,7 @@ static int uniwill_kbd_led_mc_brightness_set(struct led_classdev *led_cdev,
- 
- 	/*
- 	 * The EC interprets a RGB value of 0x000000 as a command to restore
--	 * the device-specfic default RGB value. Work around this by writing
-+	 * the device-specific default RGB value. Work around this by writing
- 	 * a RGB value of 0x010101 (faint white) instead.
- 	 */
- 	if (data->kbd_led_mc_subled_info[0].intensity == 0 &&
--- 
-2.48.1
+vol->mft_record_size < PAGE_SIZE is guaranteed by ntfs_fill_super().
+Is this check necessary?
 
+Thanks,
+Hyunchul
