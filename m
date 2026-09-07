@@ -1,296 +1,221 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB60B47D440
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 14:01:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E28C4EE84E;
+	Mon,  7 Sep 2026 14:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789689; cv=none; b=dzUG0j5u9z8sNa/RrRCaAPKhN5q5T0OAZkIppyQ6dNMRHMEoU/ourRBMqawdrdr4kFguMGPFhkqze9pyME7tXuqplFTlkSOB3UP5g6MhflZJ8YM3kB/GaErmlpUM7Te9Ga7OtgxID/Z5jPpRZ6q824dHzvY7Q14YcK96SVW3tWs=
+	t=1788789692; cv=none; b=mkvY8cFERXOv7uaa6iunBlxKZBsJvCHsXUTRvz7+9GvEsH3V0pXyoF68nKRLstExCvPFAxZcyEMsk/T6wAFJtmJPhXAp3DEzXd0oRiGItOr4fZJ7SxbYCGV+8Ze9ttrSZErah3WWVt6pOfqu1SbjhhgucM5vSJfwlvYKlXyT36c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789689; c=relaxed/simple;
-	bh=mtWx82lL+mkn6H7qvwjYU8EhK19cwUGjNz3GK+cHBfw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QtBRedoyatjUK/8nAxavwfVo3w+LHQ/NcEQrPpC3YKH2s5Mcoh2FtNnGLDcwy1YuoHqhJTDQ1XVuVA/V4gJPAurctrGc+d47HGqv3V8YRESjMn6HM6x6S3SWqceUf2fv90lIqLtmzRVopkuczQ4/DqW+YhmuygSnOTqSwXhpiGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hlXwnM76; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GVTk3uR0; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788789692; c=relaxed/simple;
+	bh=/vECnPjWxz4Am2FXUZH/BO5GH/fidy0eNYtHKdj0ayo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LJ0FwNE3OdEL+qx99OQayxOkA88bpQ3pNtPX7UFuB7kErBB+OXg+wL4ffDujJnKXcdU+q1R+gtVQqjaO9LqgxUqahDRvAy0hatE5x9kycXzVkWVYTZw7VO0IJoAlqugd0p9zdPz+r2L8MOxJcHIpln3Y9lrgVT7XcBa/9TKvsVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sm1WYfMQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DRSIr7eo; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hlXwnM76";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GVTk3uR0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788789686;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sm1WYfMQ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DRSIr7eo"
+Message-ID: <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788789687;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=wmNJ8pkG4NaybST+4CQ0Bt5G1lP5T2gnC5sE7tY1xPA=;
-	b=hlXwnM76eEKUm6vt273bUd7+B0ouGf2Iqoamx5fXYrIZ8YAcldkzRTfi4w6tBt69mUSmFo
-	WqOBxQ8VLTWE6sY3xO0pOSBxYNjVfAyHoec8xZNQvmHZ1DlcDnUbYsOb5MqCH/WGtkh+yC
-	PI1ygU2/BfI1PaDJNEsXKH2Nc4VZsAQ=
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
- [209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-257-3OnJVxQqOLaNt49k2-odmw-1; Mon, 07 Sep 2026 10:01:25 -0400
-X-MC-Unique: 3OnJVxQqOLaNt49k2-odmw-1
-X-Mimecast-MFC-AGG-ID: 3OnJVxQqOLaNt49k2-odmw_1788789684
-Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6a1e3cfc8d3so2869323a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 07:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788789684; x=1789394484; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wmNJ8pkG4NaybST+4CQ0Bt5G1lP5T2gnC5sE7tY1xPA=;
-        b=GVTk3uR03MB84xZ3tA+w07jUStHCRomLnYCMGpqXaX6GJyR3XHV4+F38RzrW18QWD7
-         Cy11fO3BqdfCnCKtX3JNzPUesiA/vrAmrjXWBffl0R2+5GorJL2gHH/beUNMLfVDCXru
-         ekUdq0PdrQEqy66aMZgP56etBrSvySwj4+tuUyUTt8KtmxFV4YXSMWNYY7AkSN+FcamE
-         28MM4i6wRI4QwsO1Qk9z0p6WuKf99sR57ct5JGIIJdlnC2ctFVz08PVNBCAuJ4n0CqSz
-         fBGM2CLxvgUmQV4qSXZ1sdlTgLYY6Gx0eUpshZDHyn0EhwsQMh9a4iX2vZcFxJF2a5iD
-         0f1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788789684; x=1789394484;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wmNJ8pkG4NaybST+4CQ0Bt5G1lP5T2gnC5sE7tY1xPA=;
-        b=IOpjOIyug7yV2q8AECVyTJX7sIXUyl5eold1dyyvBy+hTOV9p3Wz76RaWPOuTdQfjh
-         RyZ2j8H8Iy4nOjD46mTdAMiKPtDmupIedhMglD9QBfj9fOuQRcNZ9Cl6ZvUdcCAYqhw6
-         Y94QaigBvIcIxVzDWFzbDorgVFEPMAhh1f6+Co6QF6netnCzGs56vWeuepDPYgGON3Uw
-         mY39AEXE87l0ad58wIdoinHN0B9aZGlC9Hl/Sg8HJo9b4UivolY+13yhxcaRenS8I5IQ
-         aO1NvIiTfuxBFBJmqX8Qg0tg/TB5QzqhZ3qH0LsdMSoAKW3BfAALgrcHsM5nRAGS9OZH
-         lDqw==
-X-Forwarded-Encrypted: i=1; AKwUvBwAfNhYKErTqB0MuDbUomdM+YiUYkYvG7yXLRmDTCymAktoL1DipyKGeuRPH2ToeA1YhWUqAFty9O4RQDU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKDjJhOTg4Co+I3BFOck5Fjp0AHYyF0rhJ1e/1LUM6G9kt2J8h
-	ltPzGX3WtFHuLA5hc1/+2D6vRgVnoiM9aR6kbTp1kE5OppsLnwcB4dnt2SGWeh1vGIzIbvJtnhA
-	l4pX+KdCNrOtFdxKlbqI4T6YkV1Y1rEa6WWiIlZRNaBliDYfbrqoTv92rDe7CUdMvdw==
-X-Gm-Gg: AYBFou3iA3dkghtEC9FLuKkuAY9fdQIr3Ic1a9V56DBR2gzfGp8JS8AopIQ3DL3LoaC
-	xo6ehPknKk8ZjkWc8HtlguRh3YdNrVHxnjmXr5N9b0Qy6jyJ9FdbYXjMU7Pyevy37qr9L88qzBC
-	kDyKMZPURwhY+kGEulPcBK2WEVNxdl68XV0pG5ykkAjnt6/LEsp/onbXy0qbXTXwWKQXsu9zj9J
-	i7hVjTZh2pdaAZ+F9PqHUBO7qcrY1Pfn3uxVxFC2bE+NHzsPL68oXwbWxAMXJDE/F8QMdoEgzTr
-	Kmw6htd4W2hYaGiXB4ZuFW0l2bGKSRLcerdYdsYpxvScqJbG8AaJE6dE2Ibqwm0Y1XrDNZZO
-X-Received: by 2002:a05:6402:a0d6:b0:6a7:ea54:38f with SMTP id 4fb4d7f45d1cf-6a7ea542648mr7202892a12.32.1788789683649;
-        Mon, 07 Sep 2026 07:01:23 -0700 (PDT)
-X-Received: by 2002:a05:6402:a0d6:b0:6a7:ea54:38f with SMTP id 4fb4d7f45d1cf-6a7ea542648mr7202845a12.32.1788789683010;
-        Mon, 07 Sep 2026 07:01:23 -0700 (PDT)
-Received: from [192.168.0.9] ([47.64.113.70])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6dfad6sm474269766b.60.2026.09.07.07.01.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 07:01:22 -0700 (PDT)
-Message-ID: <165e590d-7c04-41e4-985b-af368e1e1507@redhat.com>
-Date: Mon, 7 Sep 2026 16:01:21 +0200
+	 in-reply-to:in-reply-to:references:references;
+	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
+	b=sm1WYfMQ0uhWCREdKJ5XwD8aTS9mdvGiLwqgIoAcLvskYFxSSkxcNcmvS5nE/Xh4L+Hvht
+	8BdB7Rzk83ai3lL8tuUvP03kCB1cP4k7a5Fu/NKX1vIbNJvsNEkJfawRnAGs8w5vJeRriI
+	02Z6bgEHBLYy1I2hQfHq53y0Ymkvkc2CZo7927thHHiBp+CCoCXzWPITSbAfafVM28KK8w
+	zY0Dx/iltpww836xvZBBMTiddbhZAXkUyONhOj0Df0nJizlBEe2koOkRljDHh/yQtt/ZJ+
+	lmBc20h9uBPXYBZZ7mldQ2c8+gHcXaPrvpmFqrXW8WQ7NG/RgWnNSgusWSSykA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788789687;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
+	b=DRSIr7eoYFpI3/aOat3YDAKGZFyJHVh0FLfkxh3bj56gm3nMcswcW1t6pWeX1ccYDUdbvu
+	fkGfrEVZ4iR6foAA==
+Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
+ Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Mon, 07 Sep 2026 16:01:26 +0200
+In-Reply-To: <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
+References: 
+	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+	 <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/11] libcrypto: Provide more __cleanup functions for
- zeroizing data
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: "Jason A. Donenfeld" <Jason@zx2c4.com>, Ard Biesheuvel <ardb@kernel.org>,
- x86@kernel.org, Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260813134953.979481-1-thuth@redhat.com>
- <20260901001245.GA220448@quark> <20260901165355.GA2775257@google.com>
-Content-Language: en-US
-From: Thomas Huth <thuth@redhat.com>
-Autocrypt: addr=thuth@redhat.com; keydata=
- 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
-In-Reply-To: <20260901165355.GA2775257@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 01/09/2026 18.53, Eric Biggers wrote:
-> On Mon, Aug 31, 2026 at 05:12:45PM -0700, Eric Biggers wrote:
->> Hi Thomas,
->>
->> On Thu, Aug 13, 2026 at 03:49:38PM +0200, Thomas Huth wrote:
->>> Code that uses crypto-related structures (containing keys or context data)
->>> should zeroize their local structures on the stack after use to avoid
->>> leaking this sensitive material via the stack when the function returns.
->>> Using the __cleanup() marker is a very elegant way to assert that the
->>> data is zeroized without having to painfully verify that each early return
->>> in a function might miss it.
->>>
->>> Thus this series introduces zeroization functions for many crypto-related
->>> structures that can be used with __cleanup(). The series focuses on the
->>> introduction of the functions - most call sights will be adjusted to use
->>> these new functions in separate patch series later (since each subsystem
->>> needs separate review from the corresponding maintainer). However, I
->>> already included the two "safexcel" patches, since they already got ack'ed
->>> by the maintainer Antoine, so I think they should be fine to go via the
->>> libcrypto tree.
->>>
->>> Note there is one minor ugliness in patch 10: Since sha2.h is also used
->>> in the x86 purgatory code, and that code ships with its own implementation
->>> of string functions, we have to compile the purgatory.c file with
->>> -D__NO_FORTIFY now to be able to include <linux/string.h> in sha2.h.
->>> I hope that solution is OK (especially since the sha256.c file in the
->>> same folder gets that treatment already, too), if not - I'm certainly
->>> open for other suggestions here!
->>>
->>> Thomas Huth (11):
->>>    lib/crypto: aes: Provide a wrapper function for zeroizing
->>>      crypto_aes_ctx
->>>    crypto: safexcel - Simplify the check for a valid AES key
->>>    crypto: safexcel - zeroize crypto_aes_ctx with
->>>      __cleanup(aes_zeroize_ctx)
->>>    lib/crypto: aes: Provide functions for zeroizing aes_key and
->>>      aes_enckey
->>>    lib/crypto: aes: Use aes_zeroize_*key() instead of memzero_explicit()
->>>    lib/crypto: md5: Provide a function for zeroizing hmac_md5_ctx
->>>      structures
->>>    lib/crypto: md5: Use hmac_md5_zeroize_ctx() instead of
->>>      memzero_explicit()
->>>    lib/crypto: sha1: Provide a wrapper for zeroizing hmac_sha1_ctx
->>>    lib/crypto: sha1: Use hmac_sha1_zeroize_ctx() instead of
->>>      memzero_explicit()
->>>    x86/purgatory: Compile purgatory.c with -D__NO_FORTIFY
->>>    lib/crypto: sha2: Provide wrappers for zeroizing SHA2 hmac_sha*_ctx
->>>      structures
->>
->> I'm taking a look at these again for 7.3.  This is still missing quite a
->> few of the crypto library structs.  I would prefer to handle them all in
->> a consistent way.
->>
->> Also, given that we'll end up with a lot of these, we should be
->> thoughtful about the kerneldoc.  Using aes_enckey as an example:
->>
->> /**
->>   * aes_zeroize_enckey() - Zeroize an aes_enckey structure
->>   * @key: The location of the key structure that should be zeroized
->>   *
->>   * Explicitly fills the aes_enckey with zeroes. For example, use it with
->>   * __cleanup() for local aes_enckey structures on the stack, so that their
->>   * content is not leaked when the context is left.
->>   */
->>
->> It's not clear what is meant by "context".  And it doesn't explicitly
->> connect the zeroization requirement to the lifetime of the struct, so I
->> don't think it makes it clear when this should be called.  It also says
->> nothing about kfree_sensitive() which many users should use instead.
->>
->> Meanwhile, aes_prepareenckey() already has the following, which at least
->> connects the zeroization requirement to the lifetime of the key:
->>
->>     * The caller is responsible for zeroizing both the struct aes_enckey and the
->>     * raw key once they are no longer needed.
->>
->> How about we remove that and the free-form description of
->> aes_zeroize_enckey(), and instead expand the comment on the struct
->> itself:
->>
->> /**
->>   * struct aes_enckey - An AES key prepared for encryption
->>   * ...
->>   * Once prepared, users must zeroize this struct at the end of its lifetime.
->>   * For stack-allocated structs, use __cleanup(aes_zeroize_enckey) to zeroize
->>   * when the variable goes out of scope.  For slab-allocated structs, use
->>   * kfree_sensitive() or else call aes_zeroize_enckey() before freeing.
->>   */
->>
->> That would connect the zeroization requirement to the actual struct and
->> its lifetime, and make it clear how to handle each case.  It would also
->> make it clear that stack allocation is supported for this struct, which
->> might not have been obvious before.
->>
->> aes_zeroize_enckey() would then omit a free-form description, which
->> makes sense as it's a trivial wrapper around memzero_explicit():
->>
->> /**
->>   * aes_zeroize_enckey() - Zeroize an aes_enckey structure
->>   * @key: The aes_enckey to zeroize
->>   */
->> static inline void aes_zeroize_enckey(struct aes_enckey *key)
->> {
->> 	memzero_explicit(key, sizeof(*key));
->> }
->>
->> Similarly for all the other structs, of course.
->>
->> (For the hash contexts, the struct comment should mention that the
->> finalization function zeroizes as well.)
->>
->> Does that sound good?
-> 
-> There's also the subtlety that __cleanup shouldn't be used in functions
-> that are already using goto-based cleanup.
-> 
-> And any kernel code preparing a key also has the raw key too and has to
-> zeroize that too, otherwise doing so for the prepared key is pointless.
-> 
-> ... unless it's not actually a secret key, which sometimes it isn't.
-> We've been getting a lot of zeroization patches that try to add
-> zeroization for public keys, which is nonsense.  And also for pointers
-> to keys, which people confuse with the keys themselves.
-> 
-> There are also Rust bindings being proposed, and they handle zeroization
-> by calling memzero_explicit() directly.  So that's yet another case
-> where these new functions are not applicable.
-> 
-> I'm increasingly thinking that we shouldn't try to explain all the
-> zeroization stuff in the kerneldoc, and instead add a documentation file
-> in Documentation/crypto/ that properly explains the conventions for
-> crypto key zeroization in the kernel and defer to that.
-> 
-> The struct-specific zeroization functions are still worthwhile, but I
-> think they should be seen as trivial wrappers around memzero_explicit().
-> So maybe just add all of them with minimal comments like I suggested
-> above (maybe even just add them for all the algorithms in a single
-> patch), and add a file Documentation/crypto/zeroization.rst separately.
-Ok, makes sense, I can have a try to come up with a patch series for this 
-within the next days.
+On Mon, 2026-09-07 at 11:21 +0200, Krzysztof Kozlowski wrote:
+> On Thu, Sep 03, 2026 at 08:10:59PM +0200, Vasilij Strassheim wrote:
+> > Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
+> >=20
+> > The compatible identifies a register layout characterized by the core
+> > and feature identification registers at the encoded offsets. The
+> > concrete synthesis-time configuration is then autodetected from these
+> > registers.
+> >=20
+> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > ---
+> >  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 161 +++++++++++++=
+++++++++
+> >  1 file changed, 161 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b=
+/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> > new file mode 100644
+> > index 000000000000..508e444e10da
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> > @@ -0,0 +1,161 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SoC-e ethernet switch IP core for FPGAs
+> > +
+> > +maintainers:
+> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > +
+> > +description:
+> > +  SoC-e Ethernet switch IP cores are FPGA-based switches whose feature=
+s
+> > +  and number of ports are selected at synthesis time. Ports can connec=
+t
+> > +  to CPUs, external PHYs, FPGA logic, or other switch cores. The
+> > +  integrated MDIO controller provides multiple independently selectabl=
+e
+> > +  external outputs.
+> > +
+> > +$ref: dsa.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: soce,swip-00-04-0c-10
+> > +    description:
+> > +      Register layout with the core version register at offset 0x00 an=
+d
+> > +      feature identification registers at offsets 0x04, 0x0c, and 0x10=
+.
+> > +      Switch instances using this register layout are autodetected fro=
+m
+> > +      these registers and use this compatible regardless of their
+> > +      synthesis-time feature and port configuration.
+>=20
+> There is no traceable and documented version or model name?
+>=20
 
-However, I'm still stuck on the question how to handle the #include 
-<linux/string.h> for the purgatory:
+tl;dr
+There are too many, but they are not specific enough. I think it is not
+useful to use this information to define a specific compatible. Using a
+set of known registers, the driver can check the active features and
+capabilities and adapt accordingly, regardless of marketing names.
 
-  https://lore.kernel.org/lkml/7d373eca-c23c-4f79-9391-29d75bd5a53f@redhat.com/
+SoC-e shows different variants of their IP cores on their website:
+https://soc-e.com/soctek-ip-cores/
+SocTek is product line that covers different types of IP cores. Ethernet
+switches, Timing controllers, and SpaceWire.
+For Ethernet switches, there are different variants listed like Managed
+Ethernet Switch (MES), Managed Redundant Switch (MRS) and some others.
+Most of the variants are build of other variants e.g. MRS =3D MES+HPS
+Think of it as name of a base collection of IP functionality. On top of
+it you can license additional features. This do not result in a
+different name. If you start with MES and buy HPS later on, you may or
+may not end up with MRS.
+Additionally, the actual switch is synthesized in FPGA, so the final
+implementation can vary even if the same IP core is used e.g. port
+number, deactivated features, etc.
+This is used to bring down product costs: You can buy the same hardware,
+really the same hardware - here a PLC - with a different bitstream.
+Depending on the enabled features you have to pay more money for it.
 
-Do you maybe have any good suggestions how to tackle this?
 
-  Thomas
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  mdios:
+> > +    type: object
+> > +    additionalProperties: false
+> > +    description:
+> > +      External MDIO buses provided by the integrated MDIO controller.
+> > +      Each child bus selects one controller output.
+> > +
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 1
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+> > +    patternProperties:
+> > +      '^mdio@[0-9a-f]+$':
+> > +        $ref: /schemas/net/mdio.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maximum: 30
+> > +            description:
+> > +              MDIO controller output index, which must be lower than t=
+he
+> > +              number of implemented switch ports.
+> > +
+> > +        required:
+> > +          - reg
+> > +
+> > +    required:
+> > +      - '#address-cells'
+> > +      - '#size-cells'
+> > +
+> > +patternProperties:
+> > +  '^(ethernet-)?ports$':
+>=20
+> ethernet-ports
+>=20
+> > +    patternProperties:
+> > +      '^(ethernet-)?port@[0-9a-f]+$':
+>=20
+> ethernet-port
+>=20
 
+Is there a reason for such a restriction?
+The pattern intentionally follows the generic DSA binding in dsa.yaml,
+which permits both ports/port@N and ethernet-ports/ethernet-port@N. The
+device-specific pattern is needed here to apply the SoC-e port
+constraints to both accepted node naming variants.
+
+> > +        $ref: dsa-port.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maximum: 30
+> > +            description:
+> > +              Switch port index. Supported switch configurations have
+> > +              up to 31 ports, numbered from 0 through 30.
+
+Thanks,
+Vasilij
