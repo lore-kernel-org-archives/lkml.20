@@ -1,164 +1,161 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E5844237C
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:24:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788773079; cv=pass; b=jmxd9tCio4sXiJoySSCezZmFIoSnn4UOGUVOG4Rc53bhin6mK9OCG8mlhRSP3pdEil+AOshzHIOtFoj4kTYxgyAp0y0yyZ3E3BwppcGvNz72TATosbFQ/sxN/8QeONHEJ5vVj8LhsS2q7TWocO9664IDxwJel66EdnspDF3bwR8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788773079; c=relaxed/simple;
-	bh=cSfmMGgIFwjjaaI7Bk9duU/SsMv1zgWa3X4ow3p9Z0U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KU8RfTaGEiKFuH21zYwqVvFj/HXO54ClMLJLv5GGRVlxFYl3sxbXySK3EMupr1xjP8leFVsLnvgBu51YfnHnqpmZLBVpse4S72pArGrth4Ug2mV4tXDBQJNj1eZcO1ter/sd0F6PTFfiZVrNPF+HxEJ4k/omXe+vVx0zpufHWh4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bYzWZS6h; arc=pass smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A1435B136
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788773089; cv=none; b=uUperASJ9eJTMS1PKQJMSeSmpH7lfbLmuXHYmO1q/UOwmMn8dAkQs5VlC0DZrwZ3LTI9PdhbtFdYum7+fVDXDDbxR+FMg3cdo+N+Gacyc/T3rM2FsLqhypuCY3U4LQ6NgVAfO6lhNleJdn5jb/JCZ7eNlHfyH5VbbPJu5Zs1Pao=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788773089; c=relaxed/simple;
+	bh=Esx+dtM0TYwdO57j6xnTXvlu/TzjID1CmstR5RvhL0k=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DcUVmp4p1Pg3RWS0QwglvUyHQSMlhMz7tQdmGiXzz2TEJ07k1D1nWLtYdhSHYXGPH5q4IyeNz8luIVlF4Z0cQrnxOD+wFWRVhpkUEQpqKMhTP2Jw+U8urwPUCGhay342JHDqgWlTNaFJBpLo9KTClh3dnNwd3UpYblr5v6KUhjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QyNOXyZx; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bYzWZS6h"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-485843aeab8so3687551f8f.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:24:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788773075; cv=none;
-        d=google.com; s=arc-20260327;
-        b=S49IkCzeCA3wAQ7BBZgBhaktUZyiKgOdRkaIK9zPCO4Ctzo4iXqn11e0kjkKM8SqV/
-         NWmst7OvwLaUBthBwIdVwuqSJ1EP2CObREAVXqWbeDZNxShMm0DNHhI9zs+YRgdqwuDs
-         idqtAR4bxsPvSXqw3uJkUNowVcP2FFA+pKXvSpNNSSYXm+NyIXCCjsFPBffcqjmyi9sL
-         8eQupDdk5JmrhDcFL+H0nThy5BnlIQQiFPsqAcP9uk8vvRnkJUl6COjYt5IHdQ9u6A2I
-         7nVgp+08oCx2oMvLz8fozdl6whrA8HtZc2uAAZKINJDwROW91GRo9l8gqkApBZuv4S42
-         oIIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
-        fh=fyJAzwYp1TUZ4vMmjQWS7CWYlqO3Kg2S0B2yZM7qIfo=;
-        b=Ajz+nMIGJjj7eu0G7hFEIfPmRrXz11MeoWdvzdxLdLJt2tOCwSeApMdIUmwWFwVDS8
-         hqJqg0VgTCTw6zpShdQ0ZUUoSl+MtMS6LXoNHAJPbt/wNS1ZPhcLHLOTdP3NVjKjBzjR
-         1W4pWL04Rd+1M4/0s0EwM4yA1JShysqXhCM33VoTkrhB6AUNCrpYg0aeWr9dQEDjTnHM
-         fyo8B+b9wG9PB3FMJeyLpCXM3rnCk94vBF/r4u3GyM6I5yjBkySROOqPfe9EOzrwH0+n
-         BOgKAxWuYw5J9c8oqRsGSVIo8iyZRiv2zABEywRez0VQmK5vyIP9E028vk2CwmtV4Ose
-         GZVw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyNOXyZx"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso27166655e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:24:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788773075; x=1789377875; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788773085; x=1789377885; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
-        b=bYzWZS6hvyblgTmL2WcmqKBFUHHD7UV1gkXyod2CvfAo9EbydIVeGF++9jABbnZPte
-         ys7ocRIu1X8wdEIGp96wY0ZJwuX9iep0RRInWAVJmxBvFDn1O/SCyei+2Uu4DEx9EFWy
-         Ju0SX+/3BqiQeyfykHFwlXZNMjTYSHT9Hz+p1tge65xlQefntxQdIOB//wajbELDPR6l
-         bZSz7BV5hpdU91s0tZALuvzT0BaGoZvdwZ+37h8mSbXVV8RthaPq9o6xvdh7qixRCia5
-         5aTu+haqTXNlK7d6WQD6MLUT44ym0DOgw7EgnQhTgLv5A9qh2xRN6Nek2Upj1f/kRQ35
-         VQFA==
+        bh=oRUYERj4W2ZSChyYrd8ZBUDzTcb+VBgjaS3zm4CIBsE=;
+        b=QyNOXyZxk/VY3LypHInkRb2EunLm1ieDNALCC4W7lD56GpTbLVPHAeoyeBfqLUwLe+
+         de2c0gR5veh/0oXJal6zKnL2U9E+zhykrWILMAKzA3aSAhNOVDIjvs0vsXtjxhy8jOtg
+         ozKndcZn2U9yIRZaV2pdkVbxQAYKGyGXBLHmIH5riH1nEQGUG/XjtWBRFYIGUgLCapRu
+         Bq3RGYjcbgykIeqTlCxiFewhWFeEvPy4bDnVEV2w38u6tdncMBjjBKEkbSabex7gkbZG
+         +jgrreiWu1FnGhy8c8GTVot9Cf+9oxgj4z5R2qsXVD+mf0Qypbkjih6C+IsEuLEKpfaN
+         2Jyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788773075; x=1789377875;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788773085; x=1789377885;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:cc:to:from:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hfGjfP8T35WEV6rGIAsKY4f5Rwo6my7dAG0voowddxQ=;
-        b=S8RpwfMXdrTIL31JTnPlqGiutvqRttx02nwuKK6yu7+2hHBUY1doeXWRJX2kQ/yLjU
-         29JELfCQa6GYNebBQlzUyiFuSi3YcrzbJzdE64B2a23wcQsU+8DLxLt3V5vJ1i+X0A7r
-         +OeZDruydIPoGgG+7LIV4h5kpHS7BLQRQwZJdxe6cEjGlVBrrQkdKoLIXcSbt0059uUg
-         vOHjgvDXS2+JgPYlkQzji8158DHgdHJrxTL9YKoWwHPbVuts8A5nuA6jrUxGogsdN6vh
-         yGGOPFCHeQstfIyZF+j9HZNRnufTqyMytb5/BtliU8gUGAOPuHxNL4Dm7r5yJhrFj9vf
-         jarQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxz/6Br9V6Xp1uVMUzYUh97veLqMh95COybYBoVniQcZkdXqPUq+D9TpvlsKdx46PI+5+tv73EqKa+ysII=@vger.kernel.org
-X-Gm-Message-State: AFuF++npInDTDQs9A5dO8nZZQ2h3+G1mkKrtAZK7hJeVYrfteRTdFFHx
-	gJHQKiQ3odn8Kmw+UGNQAa8YbhxNPsE07qM3A/eegO4d6yLd/3sraUbEm3HbqkjD220mM1yAzGW
-	pPlMGPNnpKsvPaavJk8Gk8Fyvk74gfuqSjwCMW92i
-X-Gm-Gg: AYBFou1IAkshXnsbmtxIHjYMrLDDJT5JITvwRctEQSPoftb2w3AtJJOfn07nwgULT9Z
-	3n/suUt4COtn7iT3LTCF/SOyq1Jl/5PpWeg945WVhyGe9l2o4+OFsnkosu/F875hbI2pYkmJJ4Q
-	cP5Ya9iWHnkawGUX40V/X7mmiw1WvcrVxqw9DWEFm3JEUgU4NrHQ4XVjKYLmgPCNbHgk/WB3Vzr
-	oa8/490TREvEtSB3StNaMkp1uQARQNqjpL+UjOMVbMxRTudOj3t3yUXbGYb2QWYurWpvWosKmw8
-	dKLxUBRHPZfxGofJkTDRTNRbzCEyj3cVroo00n2Aqg9eihJ/MUO3QllVkwxZzdKUIaxbx8sQvFP
-	RDr5KkwKhMvKeBMwo4HRXcnm+JeHMtSM=
-X-Received: by 2002:a05:6000:430b:b0:485:8ad6:3752 with SMTP id
- ffacd0b85a97d-4858ad63a6fmr37026021f8f.5.1788773074197; Mon, 07 Sep 2026
- 02:24:34 -0700 (PDT)
+        bh=oRUYERj4W2ZSChyYrd8ZBUDzTcb+VBgjaS3zm4CIBsE=;
+        b=H1TYTrAycJ6NupGaJ1UgiXAEuzoMcA7dAd1odQBWLUeLRPAHikEppbNRIy82ASM1Yb
+         Jpxngg2lXZcaA1iUyKOqYx8fGBUiY3U4vx7KT1gD9anvcJ/F8k+zblO5YBV7IxfnuwdB
+         zanDXRnSYAb06bcMQ7IRbMCxpcg5M/NafAW9MvwBc55Hi1pIuqmQDokRg0bl6t2OsyRD
+         HU8lk5T5xlIwRke3pErxbAN7O2o/vLpxs25AGg3YpJqdCppSI6DJFxHnqsoY1SytuEhk
+         7K0JjZnfYMmf0HZ3/Wps9dTg1fLwcs5y++1ufPVgO/dOCgY1KSXnv4JVleWMkKWJSaUQ
+         Yjbg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqqt0BbVs5KYim+CMtiPpvwJ/+C1VYj3EPnMqYxKirLExZWED7kxGxGI2W6Djlbzq4VUr1jHd/QnpjbLA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9RMM2axzSNwEoh1r5vqqRGSrzfPGjkZ9q7mqnW//IbNb3F3+w
+	0hUg0AfcycPS+ZEg1Au/JzWpU+b5jVzbZ2nUpY0u9HFWysInBTErABsu
+X-Gm-Gg: AYBFou3ndu42lHGJsbcU4ogVF6SQ6L3KK4sXv6u2aatRjYxqRNwtyQg3Dh4pAbCnvio
+	6dKRlLV/7x6OQnQPpaBYUXUu0ejmNIrWzQ2Ef/8iadT6ckuhqdrvfNRAN4S4Zqd0P6EmO8mmNNa
+	MgyQxGLMjr/TrGZxeXHQ5t+Gr667ZspvciKzmrpfRDtc6HjSZYG79+QewEp0tHTBgQ7ZTSWeLGX
+	64j7F+QU2zfB7BJ+e4RIavcp11ocpwl1ddBURIWp/fDAzs/RylExm6u5cwpN7AWxgG3fzZvPLJP
+	Tkz1vVw5dbLrE9L1l31dvWdygZqzp3TxThyBEIto7L+7ax1PQtQZcgaoEhx1sCZzc7jrBHq7IY3
+	0u8OBTBg9kYBK7r2iG10pPqZUFe3Y5YCMp6Jtb7KMgiQqqEUBYtP8rp1At9Rpsel0W8mXn4db/6
+	0z/AKayQS/L71lkP/YzJlumBHOf7a+k0o/+AG9dzVVyp/9Er/tvwxDZYyKUseIReL/R0tvVu3X6
+	doxqyHWavRO/QywMp9vIYbAIXCZF1Z5NLnU
+X-Received: by 2002:a05:600c:310d:b0:49c:dc14:d681 with SMTP id 5b1f17b1804b1-49cf81e5449mr213057725e9.3.1788773085428;
+        Mon, 07 Sep 2026 02:24:45 -0700 (PDT)
+Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf755c22esm294849975e9.0.2026.09.07.02.24.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:24:44 -0700 (PDT)
+Message-ID: <6a9e82dc.8fb0a6ce.a0d71.1d0a@mx.google.com>
+X-Google-Original-Message-ID: <ap6C2YKs_NPS0pm9@Ansuel-XPS.>
+Date: Mon, 7 Sep 2026 11:24:41 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support for
+ AN7583 clock
+References: <20260819221458.30040-1-ansuelsmth@gmail.com>
+ <20260819221458.30040-2-ansuelsmth@gmail.com>
+ <20260827-expert-ruby-grasshopper-954aa2@quoll>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824-unique-ref-v20-0-490735672187@kernel.org>
- <20260824-unique-ref-v20-4-490735672187@kernel.org> <ao2WubjLtDuHvRzx@google.com>
- <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
-In-Reply-To: <DL894TFXM5AT.2QOXN683UKXIF@garyguo.net>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Mon, 7 Sep 2026 11:24:21 +0200
-X-Gm-Features: AcwNN1V4plkowyMHAsnIxTQwxzR-aYAz331pg1N8okzwNx7uKX70uWh-YG4Yx6I
-Message-ID: <CAH5fLggAMfBcxprKJxs4JbieKadC_mKg4B0xNETOH1QUi72UGQ@mail.gmail.com>
-Subject: Re: [PATCH v20 4/8] rust: page: convert to `Ownable`'
-To: Gary Guo <gary@garyguo.net>
-Cc: Andreas Hindborg <a.hindborg@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	Lyude Paul <lyude@redhat.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	=?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
-	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
-	Carlos Llamas <cmllamas@google.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
-	Paul Moore <paul@paul-moore.com>, Serge Hallyn <sergeh@kernel.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	Igor Korotin <igor.korotin@linux.dev>, Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>, Michal Wilczynski <m.wilczynski@samsung.com>, 
-	Ira Weiny <iweiny@kernel.org>, Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, driver-core@lists.linux.dev, 
-	linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	Asahi Lina <lina+kernel@asahilina.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827-expert-ruby-grasshopper-954aa2@quoll>
 
-On Sun, Sep 6, 2026 at 3:02=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+On Thu, Aug 27, 2026 at 11:52:13AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Aug 20, 2026 at 12:14:54AM +0200, Christian Marangi wrote:
+> > Document support for Airoha AN7583 clock. This is based on the EN7523
+> > clock schema with the new requirement of the "airoha,chip-scu".
+> > 
+> > Add additional binding for additional clock and reset lines.
+> > 
+> > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> > ---
+> >  .../bindings/clock/airoha,en7523-scu.yaml     | 20 ++++++
+> >  include/dt-bindings/clock/en7523-clk.h        |  3 +
+> >  .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
+> >  3 files changed, 88 insertions(+)
+> >  create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
+> > 
+> > diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> > index eb24a5687639..edecc635807b 100644
+> > --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> > +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> > @@ -30,6 +30,7 @@ properties:
+> >    compatible:
+> >      items:
+> >        - enum:
+> > +          - airoha,an7583-scu
+> >            - airoha,en7523-scu
+> >            - airoha,en7581-scu
+> >            - econet,en751221-scu
+> > @@ -50,12 +51,30 @@ properties:
+> >      description: ID of the controller reset line
+> >      const: 1
+> >  
+> > +  airoha,chip-scu:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description: phandle to the Chip SCU providing the registers required
+> > +      for configuring the PCIe related clocks and resets.
+> 
+> This is the clock provider. Clock provider should not be accessing
+> registers of other device to configure its clocks. Either you
+> misrepresented clock hierarchy or devices.
+> 
+> I did search for DTS to try to understand the big pictuer - nothing, no
+> results, no upstream submission to Linux kernel.
 >
-> On Tue Aug 25, 2026 at 2:20 PM BST, Alice Ryhl wrote:
-> > On Mon, Aug 24, 2026 at 01:17:56PM +0200, Andreas Hindborg wrote:
-> >> +        // SAFETY: We just successfully allocated a page, so we now h=
-ave ownership of the newly
-> >> +        // allocated page. We transfer that ownership to the new `Own=
-ed<Page>` object.
-> >> +        // Since `Page` is transparent, we can cast the pointer direc=
-tly.
-> >> +        Ok(unsafe { Owned::from_raw(page.cast()) })
-> >
-> > This doesn't satisfy the safety requirements of Owned::from_raw()
-> > because the page may be used with vm_insert_page(), which increments it=
-s
-> > refcount and causes it to be shared the vma system, and this occurs
-> > before Page::release() is called.
->
-> I suppose the existing vm_insert_page() abstraction we have is already
-> problematic, because it uses `&Page`?
->
-> Maybe we want to change the API to use `ARef<Page>` so it already has to =
-be
-> shared? Conceptually it takes a reference count from a `&Page`, which isn=
-'t
-> possible because `Page` is not `AlwaysRefCounted`, so it needs a `&ARef<P=
-age>`
-> to be able to do that op.
 
-Honestly, the problem is the safety requirements of Owned::from_raw().
-Pages have a "special" main reference, and free_page() does more than
-put_page(). It even does something when the refcount does not hit
-zero.
+Hi, you can use en7581 as an example as the implementation is exactly the
+same register wise.
 
-The correct behavior for Page is to allow the user to hold one
-Owned<Page> whose drop calls free_page(), *plus* any number of
-ARef<Page> references that invoke put_page() on drop. This way, the
-owned page controls the special drop codepath.
+The register for clock and reset for normal system and PCIe are scattered
+between the "SCU" and "chip SCU" registers (they are 2 different register
+block, the name is taken from the programming guide)
 
-Alice
+- Chip SCU provide register access to some clk gate and clk rate
+- SCU provide register for reset, PCIe clock, other clock gate and PHY
+  SERDES.
+
+Upcoming and current airoha clock driver all follow this pattern of
+declaring one of the 2 register and use a sysconf for the other as the 2
+register block are tighlty coupled.
+
+There was a similar phandle in another series adding support for pinctrl
+for econet EN7528.
+
+This phandle is not present for en7581 just because it's hidden by a direct
+call to the syscon with syscon_regmap_lookup_by_compatible API.
+
+With AN7583 I'm trying to fix this by making it more explicit.
+
+Does this makes the situation more clear? 
+
+-- 
+	Ansuel
