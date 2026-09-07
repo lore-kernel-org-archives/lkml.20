@@ -1,71 +1,71 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC583C5DD4
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:53:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6216545A2AC
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 09:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774840; cv=none; b=AgrVzVAViZmMLwGUHJGxqzAcsxeDXqjc29hr9oSvk22J1XBWMS+06cigO1hS/Gyb6cabRkE3utIVaXNf7mKpASjmfctRA3vDPbJsaYdnOhSF+AYDnMz33QJL+bM1egyDmFxYYBR4rPpWiMkF0CUhhadyvOQH7F8hTPuH+b0TVq8=
+	t=1788774842; cv=none; b=XZ/ESBuTSK2GLqhQQxIKQ2ko7/qpsvCVVwrzK8eixEhhNOfSwtrnphCMRqHwx3pVZCQ3cojPdB1k3IDHQyZy5klR+B7MrqyZrw748P6qkhd1/adlcUf9gddejWOKiM2eLsZjjf7g1OoRe+ygmusYOVtdOmcEW9si7oeJ1VDlu0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774840; c=relaxed/simple;
-	bh=eeIpykqHn3v97v6Vn5NBMhwy/4B4kc+s5oigMCXgBFw=;
+	s=arc-20240116; t=1788774842; c=relaxed/simple;
+	bh=5a9kc5qSIDnqccQ4eYyVurMLT8GhriRY12MQ4NrIJX4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d2fJyNKunFy5xxPO/G5QxBps14qDHdQ/z00OzxzxlY/w8VPNddgk2n58gzw6CiKaiIWpHtrzOdHHyveZ5DZSGHo+7blaUryoD0aSo8sJf7JRtvTRKUcoT+6kxQIFgMEST6xy7s1rbFIjmk6QqWRbMf0AWogjVCpvVzn8hPz6DXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0RuOw1Z; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version; b=pZ7zDOze43XhWRi3ZvP6r3YMIl3mFAPUQjaxZmlwNseHReTxaCgUZFr9Vq+v6ZbSQcp11CjAg84WugmHESi9IEZZUqwl2bIXdvrwbT7lt+i4d/sNsGG6LsYMT4hGDDkrAXrIyUGBZ5aT87KzG7SzID8Nl4dJpfh4J/np+ipzkl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BDJ8vpO9; arc=none smtp.client-ip=209.85.215.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0RuOw1Z"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-398a5aad413so2453512a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:53:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BDJ8vpO9"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1c9879395so2268648a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 02:54:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788774839; x=1789379639; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788774841; x=1789379641; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NvhoiELaoR7kd2vY205ko6ySCRXz4bZekivzye23j6I=;
-        b=H0RuOw1ZFHgxbb/w9fEZBiBOdB4eOcpf1z/HCrUJ19j2GoD03iUa4gqY4y5Bbo4HwQ
-         SlwLELBXKoJZR7/npOoI0dhhdkNRv0oLeWj/Sk9Ipnp4tTce+WESUR6wCFHNbrAAURDT
-         9L4eXF9HAw+KZ+qZs3TlTaHkszeMec0BujEeNco9arYoLOZAhkML+ijN7tfwUsO8Rf9x
-         DkuQ+x5OY40slfKnJjKpfSg+XBeK/9fIviwoitJ9RJg1D58UAlLP9r6qlQX95N3/MUtj
-         2poIGmguXB/ce86dO8BlTQA0pwOd/5ij2/Nq/P06rYKQ1omjNmo/5ht8TcsrPy79Tdkd
-         j8Yg==
+        bh=hOc33BWj25QL1XUvLm7489jtJxEZeuSgnZvck6W4yKg=;
+        b=BDJ8vpO9DaLFXvqBGE2+iflarQLk8zeguK1tXj4+TgbfT6uKUJZ1GqJyHDHLuK3uVQ
+         nCQAqi/VXdzHrW4f5jJRbDOE709wowFALcnhP6JKVdn68VpTZHufdbTBS8H+zu6iXer3
+         /PHFjg1yRyR7+R3tMk+1CPjbAiZFHDRCB9PdaKkvzC/NSyC+q+tffN8UqRuWxIV8r0I/
+         f5SHm4wlLeGl4gz5RKd/GIiVPU3eFe5vQABxooPMJb+B1A0TSyUaU1TTk0A06K+0zRcs
+         ilmlsCAhbNlNoecuJVZqJR/Plq0h5EwGebc5Ml0fu22CspWniwuWVP4gQRmMpI4Kw3j6
+         +dQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788774839; x=1789379639;
+        d=1e100.net; s=20251104; t=1788774841; x=1789379641;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NvhoiELaoR7kd2vY205ko6ySCRXz4bZekivzye23j6I=;
-        b=KC7P3uh8lcFp0vDxVvzuVCseUkjVd1slDXpXS+f59mznGtdSU6nhLjO3XZTxkPK6YL
-         +2AILPqdXpwpeGS8NwyqplGJMivTIhsc1j/zhUGBrVaEdJwkIJ3X3UX3K25mWmNk88sa
-         +filK5OpPHLNsqur61pu35hDZ6ExkzD9qQqsoiH4WxH09U0t1M9UkjZTj9GQkRYaP3DG
-         Fw1ik0fXdX/hVAVWMzBTkGO2HiHkCGDVmWRBiCxmy/PkGV2sMZZwHDiFmbkYoSoUPnfc
-         Xng2HpWB+WkhwfL1u8uR7xdsmY5gQhfBOm8Cpr7R2cgz/mFHvk+kW44P/WfCCqaKBiUW
-         Kz5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwYa2LTrSGSvwFITi2tkVJfWBlrLdMARHwbzqEy8p60phPeFEvjJaXGbH41zOCWzFTfqU0cGPpv6YKFeTs=@vger.kernel.org
-X-Gm-Message-State: AFuF++koX1TeeMOFxfOuBXrEB/jRFMOBnlAAyZiRz7XTUvhLpXZrsD5O
-	qk5VawR4zCcsJTy02+Tb3IAKNnttz7G07Gu1DIJ7axdIOOuMN85XFzAoUdjFqs+jbJs=
-X-Gm-Gg: AYBFou2DUR4TiF7jRuZoNp6iQOPhdpWrBbaQngtZITlFnG4mSR7E2pOj30XQYDXoqCx
-	JPNygtdJ9GGGcWXMKTGbk9hO8J9XC24TEHZVDwr3b47QrthslhEQZYTErSSzdOVrb5mHaw/jtdW
-	qtsU4gk15bm5sOy48avAYx8dkyw8TzoWb/qos//TlhYuKFigB+ahSUv8Op+1+wJm9T4PUwuWUmL
-	RB77FsbFhHawhze75IWbjOAPIsqLSYygXjMQa4Ntj9PJimuG2CtyFkGyOpdWjtIQJxSV26k0adt
-	rANPWwOMV50RIhYTX8MAIXTQtZ+Q1wH4LgyCJP6/+Pe8WJTQmVgRQnoQQKFgjQaEFp6I5xZEscC
-	DDxTR6iwJ6EM6yq9G8mNekJsM3WGgrtoWenXIKO1AVkDKvTDg79uylp+DFTzoOmRUOmH5v+Mu0j
-	MYtw0ia88eP8rWFxo0KOBmco9w/DmKrMjQsHLegBEqN6o3CH2HNzmmuOm+mq8bjvBOTNKJAqHHw
-	qMmrUF/Z5bVjg==
-X-Received: by 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr35242453a91.19.1788774838738;
-        Mon, 07 Sep 2026 02:53:58 -0700 (PDT)
+        bh=hOc33BWj25QL1XUvLm7489jtJxEZeuSgnZvck6W4yKg=;
+        b=c869dfOhntXSeihQx78HnPS+hxn9gWAwofJDrOal97rHEGi3aoYCjWYw5jL6Xj+hPp
+         tdRnlvpFkfeeEaOGitVR86f0PF/FNyFwVL8D4N55CyM30ANTMFXxr8z0gjKA+laBW+lJ
+         jJwn8UHM5qVamS32V9R7VfpXPutAf7GjRzF79jZuyXeQwPK+Fly5jY5IMQXqwqZq3KFn
+         isp5C7LZ3JfmLbUMF6NugHziZiq5v1s0ijcN48DiEnWMAt63zLj9My6MuLd93EWAF1FM
+         AaWcsmpN7mWZtSonZkaKQpXofiMChvDvdl1j0PL+D09rmly3OqV54ovgG7O5l1cFGHPj
+         kIZg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfglIYUlA+N2K04oyT9idgETdpCXQgoaXNxYnTTVQt4Jf07ISio/vQuPv/38e+jJlOELesZAYu+KnKpe8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/Cp+k13Z3sX6z9gSaD/vGUONDkMyihi2y2vV8uBRScp3DnSKY
+	w+inXTkYKc2DGAexmFEBTlPZa1MHD7UeSFtk8v1FdaHGSXEDZPZZpIZR
+X-Gm-Gg: AYBFou07No4Q3hpZ6QM+R9kieVaFDllagZ3Cftwa873XdIsdv1oMHUmH/2lBeNNicLl
+	NeHfbsKy2vgu09wSPQUqCcNIAXy5HF/29N1BJdVL1n6PdKiqU3J5jUqci56/Z+e7gDnKwfN4pxV
+	7iihaU1KCxZrjszfpLn2LKltlTBHGPBE3rjY3F0X8hBh07lYluuThPJQbjz8tMWd+AYMY/BIQ55
+	xTg+Ki5fSQlRYXIUtV9OKFFxvZGEgY+1V+dw5i63ThiaRGtvQCK2cBh0nzGV2GN/nheh31WE3Cs
+	59+UUkZFAHL9YrlFui5JMmIwt2UZZcZZLraP2GZ9TaGh2nKdRrpDuTWXnaVSZag9MYeYRHS4GI4
+	vqahfAVIXNEOCG4mvD8NONReUSlc4hb+a4j7flqaatt+emo9+v9QUVkMjufoX5CI8kjg1KFKOqY
+	ysHtk3GT3xIZ5jHSo691np1p8v6/icxFrwxLyydMHrqwNJDT+7EMNKcVAWxhDJXwW9WfOZgjWVk
+	QnRUxtCab1v7g==
+X-Received: by 2002:a05:6a21:e082:b0:3c4:3112:45 with SMTP id adf61e73a8af0-3da39eae841mr29919850637.1.1788774840751;
+        Mon, 07 Sep 2026 02:54:00 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm30377066eec.21.2026.09.07.02.53.57
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm30377066eec.21.2026.09.07.02.53.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 02:53:58 -0700 (PDT)
+        Mon, 07 Sep 2026 02:54:00 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next v2 3/4] wifi: mac80211: fix typo "capabilties" in comment
-Date: Mon,  7 Sep 2026 15:23:47 +0530
-Message-ID: <20260907095348.26094-4-hemanth.selam@gmail.com>
+Subject: [PATCH wireless-next v2 4/4] wifi: mac80211: fix repeated word 'used' in comment
+Date: Mon,  7 Sep 2026 15:23:48 +0530
+Message-ID: <20260907095348.26094-5-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <20260907095348.26094-1-hemanth.selam@gmail.com>
 References: <20260907095348.26094-1-hemanth.selam@gmail.com>
@@ -77,9 +77,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix a typo in comments, found with scripts/checkpatch.pl using the
-misspelling list in scripts/spelling.txt. Only touches comments, no code
-changes.
+Drop the second 'used', reported by checkpatch.pl as a repeated word.
+Only touches a comment, no code changes.
 
 Assisted-by: Cursor:claude-opus-5
 Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
@@ -92,19 +91,19 @@ Notes:
     
     v1: https://lore.kernel.org/all/20260907061417.33729-1-hemanth.selam@gmail.com/
 
- net/mac80211/cfg.c | 2 +-
+ include/net/mac80211.h | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 23f4f9ec86d0..0ce7a7ab769c 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -2870,7 +2870,7 @@ static int ieee80211_change_station(struct wiphy *wiphy,
- 		}
- 	}
- 
--	/* NAN capabilties should not change */
-+	/* NAN capabilities should not change */
- 	if (statype == CFG80211_STA_NAN_DATA &&
- 	    sta->deflink.pub->ht_cap.ht_supported &&
- 	    (params->link_sta_params.ht_capa ||
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index 7bb4618065b6..9594856a23e2 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -257,7 +257,7 @@ struct ieee80211_chan_req {
+  * @min_def: the minimum channel definition currently required.
+  * @ap: the channel definition the AP actually is operating as,
+  *	for use with (wider bandwidth) OFDMA
+- * @radio_idx: index of the wiphy radio used used for this channel
++ * @radio_idx: index of the wiphy radio used for this channel
+  * @rx_chains_static: The number of RX chains that must always be
+  *	active on the channel to receive MIMO transmissions
+  * @rx_chains_dynamic: The number of RX chains that must be enabled
