@@ -1,100 +1,69 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE54A3AFAE7;
-	Mon,  7 Sep 2026 20:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A4C3939A9;
+	Mon,  7 Sep 2026 20:49:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814156; cv=none; b=YpLMq/pcAbJat2eDB5J4uQIf5Ff/uhQ7LnGXMf1K4fdHlyb206dHLhir951OExty3o9Te58ESVCOqME9s+CX2rdErg0iCHfbLsH6LO7yQUEWP5xvLNeY0vcU8sY1XEPluJMUP+IYI2ZZzTSGtNEy9UvSVbspCeZyBmMW0vv+TpY=
+	t=1788814198; cv=none; b=HOVJqOD6nCuoq/Hrsu29ANE/vH/yhHBZQetiXcBgFV2FAHl4dMcA62NxnQ4yrN1lV1mpdPQtGQXlnarpD5TMMdYVYO5OopLGxzuGo90EblOkYpvMGCQ+rkXadicddMLGVWsuCiKjTfo8eci4rlV/ley6OrudgwTfSnypFckT0WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814156; c=relaxed/simple;
-	bh=4h+qmM0WACq2ITmnp607pQge5ogECSR4UrtWkzCyjmg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VridhhALxInZar9fPTZOOrySzzU3IKxBNtoCPcYbI9bH2v62UaEt4riCTKOmE85Wx1jqW1FuYbkjjPoWAJInRCJd9gSozb6HKjeA3KspUwelP8ZNG9Ue4Jm/uihTOLQQzXrlu48Yz97I48kBFhoCN5oo23pKV86XADZlOZe+yR0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=lOBdB6BM; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788814198; c=relaxed/simple;
+	bh=J8FpCVGnSx9b966efow95hj11vmznk9UzF065rFOfow=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=R9rM5jy+A7Ot/DAn/poLMwg2KIeV0xGQpJyfjaicek0FCoxdcbbTBnKX/4rgXQKAMf5j1PtGV1pCOfEVEUt+H5F5RwMmeYW2p585PDSuF8Q019prILnEi8joXv/2G919DWwyjCCDazfy0R9L1uZvkh5SFID59//7ujXGax3nR78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbFfogPQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="lOBdB6BM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=ixgnVD7QubPjJlZnelXYaQ1qrDYJnDYcUNq6P1sl4DU=; b=lO
-	BdB6BMfJk/DWrDx2Ml+HnRWtEv2FyxlXh0+9CMzsDzFyFGKVfNRkw+NGoqAZFtgvr0/OdkX19hmkH
-	WLcGafhcRyXC4D5QuT6jxqDdbVo06SUQ9P2O4nID0pJbt5yVhp78DXn/EY4iRozS0+dSJeAzdqcr/
-	d0FT9b6mjiyprn8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3gGz-003dlr-0r; Mon, 07 Sep 2026 22:49:01 +0200
-Date: Mon, 7 Sep 2026 22:49:01 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: khendry@reliablecontrols.com,
-	=?iso-8859-1?Q?Cl=E9ment_L=E9ger?= <clement.leger@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org, netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbFfogPQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7951F00A3A;
+	Mon,  7 Sep 2026 20:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788814197;
+	bh=oYYECABPoDtBTOwvz59BoaO22gUwWREnK+6nh3tyNT8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mbFfogPQJ6btxIZDR+rOcxb9Nc5JixT2mmcmiDMVArPov4NdZp0ccu4ORPWJezN0M
+	 N/PC21iYHYDvUDPRs/IYW2IMtvbJ7a1pfpgn4zbPnJuvEGiBsbbEH+aogQGNgXyh1G
+	 2MOomnS/eLR4HShSfdGWVDl5DSO8StoVq1UFJMVp45aborGrlxjjcQJaxnHjXRii5t
+	 U5UHCmsoye/w45wevfqDX98mlFW5i2DgHdAdFaq/9n9w3TwltHaANxNAbuaw/JPi+n
+	 j4XYeZ8zciJZz33eF1K9vmt+gWORpkdzcFwYrDlktTegBfMDiQz+MdojdM9uaoOQ2i
+	 KRormUBiHsKHA==
+From: Danilo Krummrich <dakr@kernel.org>
+To: Linkai Gong <gonglinkai@kylinos.cn>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Keith Busch <kbusch@kernel.org>,
+	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] net: pcs: rzn1-miic: Verify port number from dtb
-Message-ID: <81f2b455-7df7-4aae-8b67-d7cc9a7039d4@lunn.ch>
-References: <20260902-rzn1-miic-fix-array-v3-0-3f7dccffaf5a@reliablecontrols.com>
- <20260902-rzn1-miic-fix-array-v3-2-3f7dccffaf5a@reliablecontrols.com>
- <CA+V-a8tOLKxFEKF+yZ0Asf_KYb=_hrFuJagkdzHPxZ_zf3MNRw@mail.gmail.com>
+Subject: Re: [PATCH v3] drivers/base/node: fix UAF on device_register() failure
+Date: Mon,  7 Sep 2026 22:49:53 +0200
+Message-ID: <20260907204953.3762051-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907024732.1452228-1-gonglinkai@kylinos.cn>
+References: <20260907024732.1452228-1-gonglinkai@kylinos.cn>
+X-Patch-Reply: applied
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+V-a8tOLKxFEKF+yZ0Asf_KYb=_hrFuJagkdzHPxZ_zf3MNRw@mail.gmail.com>
 
-On Mon, Sep 07, 2026 at 08:39:27PM +0100, Lad, Prabhakar wrote:
-> Hi Kyle,
-> 
-> Thank you for the patch.
-> 
-> On Wed, Sep 2, 2026 at 7:55 PM Kyle Hendry via B4 Relay
-> <devnull+khendry.reliablecontrols.com@kernel.org> wrote:
-> >
-> > From: Kyle Hendry <khendry@reliablecontrols.com>
-> >
-> > Add check to make sure port number is in range before writing
-> > to dt_val array
-> >
-> > Signed-off-by: Kyle Hendry <khendry@reliablecontrols.com>
-> > ---
-> >  drivers/net/pcs/pcs-rzn1-miic.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >
-> > diff --git a/drivers/net/pcs/pcs-rzn1-miic.c b/drivers/net/pcs/pcs-rzn1-miic.c
-> > index c50b65d064fa..3ee40eb9d545 100644
-> > --- a/drivers/net/pcs/pcs-rzn1-miic.c
-> > +++ b/drivers/net/pcs/pcs-rzn1-miic.c
-> > @@ -692,6 +692,12 @@ static int miic_parse_dt(struct miic *miic, u32 *mode_cfg)
-> >                 if (of_property_read_u32(conv, "reg", &port))
-> >                         continue;
-> >
-> > +               if (port < miic->of_data->miic_port_start || port > miic->of_data->miic_port_max) {
-> > +                       dev_err(miic->dev, "Port number out of range: %d\n", port);
-> > +                       kfree(dt_val);
-> > +                       return -EINVAL;
-> > +               }
-> > +
-> Query to maintainers, what policy should be followed? Since the
-> dtbinding check complains if the port is out of range should the code
-> also check it?
+On Mon,  7 Sep 2026 10:47:32 +0800, Linkai Gong wrote:
+> [PATCH v3] drivers/base/node: fix UAF on device_register() failure
 
-Yes, the kernel should check it. Running the checker is
-optional. Crashing the kernel because of an invalid DT blob is not
-something you want to allow.
+Applied, thanks!
 
-	  Andrew
+  Branch: driver-core-testing
+  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+
+[1/1] drivers/base/node: fix UAF on device_register() failure
+      commit: 6d7e9bc51d8f
+
+The patch will appear in the next linux-next integration (typically within 24
+hours on weekdays).
+
+The patch is in the driver-core-testing branch and will be promoted to
+driver-core-next after validation.
