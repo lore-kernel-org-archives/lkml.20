@@ -1,52 +1,84 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015A61DB92C;
-	Mon,  7 Sep 2026 05:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 243B3352C3C
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 05:04:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788757387; cv=none; b=D2qM3xMtKemuv+ncUOSSdAVVgwDCoeEWwSetOa6aq+tl/E5so9E3NJVAni8e3Q2z3NyxErVxkS6ZJ8XXqSovJz5kk/NewFkEBsWzlcCvlgELriBY7KN5STPEELwInK7q5+CByoDdl/zn9AH7PRugLVha7p1n9cJOwdNN6QanMY8=
+	t=1788757486; cv=none; b=o9XdAxPIAgR8TLhRBBkiJQeQkehDDRFIG5dMHt71PiKpBINyejO4CAt/kRTQTWj/lxRXDAeDV5DNlJiFh1I4Y7hIn6enHW/GlxWzjIgxB36agpi/CK2FzX4A5A3oy6tq69xS5wochc9gAhpKO63ZqNn3H1rr34A7CzL72xPoduA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788757387; c=relaxed/simple;
-	bh=e2bL8wrKF0ciA3PdpUk7ZZ5XQEea/xPl7BZgsahz/P8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZQg8lj2T4x+cOQmdtDlvlo8itYUnf38R8HxtxUiKIDvztas4Jqk7HsHoqTq1Aoscx6K78veeB+Lz9f1CawTrwrMJPavbbC1KcfQ5kBc1APstG5U0Pl1ZUfkifE1KXe5WR68IiZaO1D2hCugoB9kpVGZa6y+e9JnqsJn4OymsMdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=GJxfaddS; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1788757486; c=relaxed/simple;
+	bh=dvzWV6uPH6nNpcqdcxfnsLvgt9T1LDV1zM8g+XqkO58=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GPyaQBnmPjSGf3Lj7YTVxGG8/2OgQO3uDCDYPjNOW+2jSfmVNACVYnd7mDVlqtkUZu7rAqJnVwkSDTWBk7Hb3aVzzE2Zwxcxwhe1Z2IyXeMkT/ez0aES77sbbw1ypnmWeLonybs9EXY7zp9OD7J9l4O9izvMIPYFw939YwENgyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jF1H5j/w; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="GJxfaddS"
-X-UUID: 6323b21eaa7911f191248d90cf864ef8-20260907
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=Iir+n2D6ZMzGxf47xJFqT4i3L3klFpl0eKQcraJvp4o=;
-	b=GJxfaddSwvgXFhbKgh0iMS8MqWFNEd5pBV0kJZnEGdxu9yLmkN1TTqqKsCG7wZTdSiVrvCSsTGItYveiR5GX7ei4nCV/8/zv/1CVGA5WS90qG40cmCt4kE0c6hpReitGwvimCNKbCOcYM/3hkXVnVsDYSF/jI3J2u3CCDaYxAFg=;
-X-UUID: 6323b21eaa7911f191248d90cf864ef8-20260907
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 400059417; Mon, 07 Sep 2026 13:02:55 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id 944821A1E1C;
-	Mon,  7 Sep 2026 13:02:55 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 46FE7C600DD; Mon,  7 Sep 2026 13:02:55 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: robh@kernel.org
-Cc: andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jF1H5j/w"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-85c9a79590aso2983062b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 06 Sep 2026 22:04:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788757484; x=1789362284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iaQChxd3RaTTS2M89yBBd8Z6krjXqSg7X3Hqq+Gd8is=;
+        b=jF1H5j/wtjWA5ZkNeKwzOgarYKJtCap/ZqXJhIydOv3c6yqkUDldwMCMDSfoJyAevx
+         xuihYxbGtxlPDCYvGxgxYjLYo35vUstlY3I+yppwYmw64YYufr6UWCTHWIAvnWynrmuC
+         U6jJbkDWMVgPHo2kTJjXjBAmJQHzIrUsJTbIwz4PlqpZL+tHh6BVWcdhg1eZvcQJY/9w
+         brB/JYQRkyod9wn15PXi/r/jLFJ7P5iJ5zEuQUi9A2CyjHFJfJ5Glf2ws762dNYIuBuq
+         LLErjXcELJaEwMm+sWoetcWvocR3dnmI6knz0SDQAzr4DoLZNBPuyjFPzv4T0cnXDr/k
+         ZZlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788757484; x=1789362284;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iaQChxd3RaTTS2M89yBBd8Z6krjXqSg7X3Hqq+Gd8is=;
+        b=l9jVzKsnkFxWuojtkkkQTQfRjf73N3DB49vSE45rg5JXvt3ZwbIc2epEzRyWkxjPb9
+         +TiCJIwFEGULFoQQjTasmoJ602YfgCjYLm2IRnRZ3+BKh44wazdSokCCg3rKNEgD0eFq
+         JgBgcqeTsZ5AD09/BYxwEBPAUjPMKdVvWrhB+JtWZTRyaItaJmGyPUGRdSA7LCa2b3aQ
+         q5WaP5bCbL/IvSIHxPKJn051aQWRPqKYkqJek0/Tr8ibsAyV6TBXoWNzjDIQPqmlaGRT
+         eVKz8xKCXgS2xI13K1OSAEviHT2bCCPfJkYQUtn0TuaXvNuxt7hn5KJS5ICAtairaYmz
+         hBRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9KHdCgaY9bts/djUjMbkSOGGl21At38EsBwcfe7gQtUmrAbsi95j1wbfWpsUiikpaqsPgXWrlAh6OIO8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQYMF9cH0WV72rgWXINDu/fbfZF0mjWcYu6DaPfpfQQ4bLjecR
+	TZfk+n3U5l3KNEE7ZT9mzBRSY+I26+K0VpPitAU2DtDByes9sCcNlMHe
+X-Gm-Gg: AYBFou2QRrCz6MM9wfdKRFdDaww7ZDsXAs92w9PQ0NgrIYE0lN4dFVPTlT2rF6+5jXm
+	srgnd0brLstNZrH8MxYpYd+lsyi4pYFFmH8b4GxYN9YYMAJsiHskRr2ejyElvVI9T87mDozPNDc
+	9tic5j/DtqEmCYsGN2R6QC6JvPBr6O+lqWKQlRyP7lhXPvVtoia5qOJjquNMZa9tMLfnNsYItKZ
+	D2qkvM92587MvOcakxxHMBx8Ar6yUTq0SysBiv1Cd5QJZJWLMd3NwmAofdf2fyeLM0xZERITkWj
+	hvYEI4izaeNg/fIvCAh1jLnMYdgcBKj0Q5SaCyxTA6j5+2kaaVk9aIaG/LkxpUCzI1G4tziRWlP
+	IKHzW5FXCFEey7AsbVHR0rAg5ubJBR2DHVbzVxnDeXd0qOtBsGnj4BxlJ51i5l6kzazIJz9VwvP
+	dEqeZAEomJBHOn6TAgjZB9d4UcBQ3158Q1n9i1q3h0/nmzQYFxYRkFZdoXwCuqc/nKh2CO36ahY
+	RqV46cRNHU1wpK6qJTqTnGdh0D+mA==
+X-Received: by 2002:a05:6a00:9514:b0:852:131f:b9d2 with SMTP id d2e1a72fcca58-861677b2704mr28394845b3a.2.1788757484351;
+        Sun, 06 Sep 2026 22:04:44 -0700 (PDT)
+Received: from Inspiron5409 ([2401:b60:5:2e5::a])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615203e041sm3885072b3a.17.2026.09.06.22.04.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 22:04:43 -0700 (PDT)
+From: Jianhui Xu <neuromoments@gmail.com>
+To: mail@birger-koblitz.de
+Cc: andrew+netdev@lunn.ch,
+	andrew@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	hkallweit1@gmail.com,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v8 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C controller
-Date: Mon,  7 Sep 2026 13:02:38 +0800
-Message-Id: <20260907050237.103430-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260904134834.GA3514178-robh@kernel.org>
-References: <20260904134834.GA3514178-robh@kernel.org>
+	linux-usb@vger.kernel.org,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
+	neuromoments@gmail.com,
+	pabeni@redhat.com
+Subject: Re: [PATCH net-next v10 00/15] ax88179_178a: Add support for AX88179A-based chips
+Date: Mon,  7 Sep 2026 13:04:37 +0800
+Message-ID: <20260907050437.1345480-1-neuromoments@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <f56aa06f-fad7-4714-9c54-846397bf2438@birger-koblitz.de>
+References: <f56aa06f-fad7-4714-9c54-846397bf2438@birger-koblitz.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,46 +87,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Hi Birger,
 
-Hi,
+Thanks for your testing.
 
-On Friday, September 4, 2026 12:05 AM, Rob Herring <robh@kernel.org> wrote:
->> >> +  The generic I2C controllers are accessible only by the host CPU and driven
->> >> +  by a 96 MHz AHB clock.
->> >> +  On the other hand, the STBC I2C controllers can be controlled by either the
->> >> +  host CPU or STBC (Standby Controller, an 8051-based microcontroller) and
->> >> +  driven by a 12 MHz STBC clock. Authentication with STBC is required before
->> >> +  the host CPU can access the STBC I2C controller registers.
->> >
->> > Is the programming model of the I2C controller different? If not, the 
->> > compatible should be the same.
->> 
->> The register layout and transfer programming model are the same, but these
->> are separate physical IP blocks with different hardware integration. They
->> have different interrupt sources and input clocks, and the STBC instance
->> requires an authentication and ownership-switch sequence before its
->> registers can be accessed by the host CPU. These differences are fixed
->> properties of the two IP blocks, so separate compatible strings are used.
->
-> Different interrupts and clocks is every IP block. That's why we have 
-> 'interrupts' and 'clocks' properties.
->
-> For ownership switch, that can be based on having the 
-> novatek,stbc-syscon property or not.
+Using only
 
-Understood.
+  if (link)
+          phylink_mac_interrupt(data->phylink);
 
-I will use the same compatible string "novatek,nt72676-i2c" for both
-instances and identify the STBC instance by the presence of
-novatek,stbc-syscon.
+would be simpler, but it would also discard every hardware link-down
+notification. I agree that we should leave the driver unchanged for now,
+since I could not reproduce that event in a further 90 unmodified-v9
+cycles, and your 1,000 v10 cycles also passed.
 
-There is currently no NT72676-specific clock-controller driver in the
-kernel. Since the input clocks are fixed-rate hardware inputs, I will
-describe them using generic fixed-clock providers in the Device Tree. The
-I2C driver will obtain the input clock through the common clock framework
-and use clk_get_rate() when calculating the I2C clock divider, rather than
-selecting a compatible-specific fixed rate.
+Please disregard my experimental patch. I will report again if I find a
+reliable reproducer or evidence that identifies a specific driver problem.
 
-Sincerely,
-Ben Huang
+Thanks,
+Jianhui
