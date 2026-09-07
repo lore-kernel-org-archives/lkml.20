@@ -1,245 +1,263 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F19649505E;
-	Mon,  7 Sep 2026 11:38:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC043499F37
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 11:38:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781108; cv=none; b=juf/0PMc4f1lAhYZYnWETIFAKDpiTAGTY2aChA4CvuzMulEKpomz4um8dhGf9Kb99zLo/m80x3m9EPzopBk0c4RlpQhp8zaklnodmlHknEsFlxg6Se7qgzlNAaM5UjkaX8/Ly1qziIGvJ6pv5Ra0srUI8ALwVoICA8u5spx1z9E=
+	t=1788781112; cv=none; b=Zq0FPFCYlcoeRpr3qOhxGwj5ZUqVMwzA6QpT4zHmwPDpuMSwaPsZyDO/Y83dfgIZuZBKfhm1slhE40y33KLr2bJxm2JdvwE40fI1WUWaJkx+uLZmXw5WyBP5hXhBSq78b0WrOjnmMwturYOK8rB3xnaR+0OVys20T8VSwISe0T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781108; c=relaxed/simple;
-	bh=OC//2e/8LqOiU6Uoe2z3bfkrYOzO7uszIec4ErixjGw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SK9FKn3NrD9jnHDMEyP9j0I1SRgS85om0QipmxCu8dx1pY9Boss3aoDBfTCNnAnmFxd31C/pWXUAEsUtujIJafYnjL5bHZXGz8YSs4F9CU30dh3BmBUOrQ2osmD4ML0RzcwDXRg8wdJjElr1ZljZkm2aL4hKUs6ego4CUl70sv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=1Z0IbnjS; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=9jnpIWrX; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=0u6bNTQR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XsD/Xjl5; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788781112; c=relaxed/simple;
+	bh=n1YdNQJiXH8fGwbWfaPUQZefpOVpAig+D9U4az+hWiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dlwo/jozSWpJVLkKNuUkLHwHhP0Anp5s9z+f24gg3QLoURl6THVwS2ReVyuSMAj4Elj/Hj5SpL4G0eS2XRuqD1aQfg6CVs0WsrQx5ygMAeub/iPGDg9sl+erROZg2/8Nu/h21aGPgGAFZPnPGsU8vBM9+zi2v6hoplWOcSGD4yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IpTLzS35; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="1Z0IbnjS";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="9jnpIWrX";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="0u6bNTQR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XsD/Xjl5"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IpTLzS35"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788781109;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=VfJ0b7lLuaZlI6ivE4yeY/awkgQjqwJ0GGi2sVpj0wY=;
+	b=IpTLzS35KG+wH58F4w98REAJhID+dQ62kTo1yVDpIDsmfdW8aJApPBopAezl4OFfEHcsKi
+	xyl5Bkb+LC7Nnje8BAzRCAqzOvwoHloK2/UNwle5Evt5iHwWa4NqcqfFyJSVB1ZiqmtCER
+	dVqbpGDAuyDsQ3gHnqOO6ICqt6h217g=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-610-Qb0MNS3EO_qiXBIfw6EK0A-1; Mon,
+ 07 Sep 2026 07:38:24 -0400
+X-MC-Unique: Qb0MNS3EO_qiXBIfw6EK0A-1
+X-Mimecast-MFC-AGG-ID: Qb0MNS3EO_qiXBIfw6EK0A_1788781103
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F3C7721ADB;
-	Mon,  7 Sep 2026 11:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788781100;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JHIDN0zHBu6BUmrbqddOm8FetZh3Qu7KSFuCF3AO7ac=;
-	b=1Z0IbnjSue0BXisGeKRXvBKJMZ2gJoGTfvpqPXAEXyyO1POyKIIMqvPq9iU43cTgV6Xdqi
-	Am0pWYSVVCyPWciSrfTC+1VTTAkjbaNruT/fDhRIrwOmxBYOj82H/xoqcj1JgM7ZbgwQip
-	L3+UEks1VTI7YQiaETbFS21SNXW0MgY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788781100;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JHIDN0zHBu6BUmrbqddOm8FetZh3Qu7KSFuCF3AO7ac=;
-	b=9jnpIWrXWRvpzId1+3W2edcdRIaMMB/VD1CCrZB/ZrXyQZosCU4obticyRQI4+wFIKSNAe
-	4ANaQUDK5vmoLcCQ==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=0u6bNTQR;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="XsD/Xjl5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788781096;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JHIDN0zHBu6BUmrbqddOm8FetZh3Qu7KSFuCF3AO7ac=;
-	b=0u6bNTQRV+/bGo1hUwdVzW6v5tV+bGeqn3TJHTo6ujLKGA15vTeBQ94491LRCGZzdaPPqo
-	cflm3fchPuTFdHXnDiolbANGj8gSqHrZj2lYAYLjha8+GzLw4kw0DQagC6g2eo8KXTWhBD
-	aPhw1HvOO5an0S0qmo0vqzexHEqG2gg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788781096;
-	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
-	 cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JHIDN0zHBu6BUmrbqddOm8FetZh3Qu7KSFuCF3AO7ac=;
-	b=XsD/Xjl5tDRxWcPbXkSJLGc3W9XmT2xCk2JKCmhBMWhrNLU2qJuMHoEFudNOCZOM54c1RJ
-	yNm4kW28Z/1d2yCg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BE77A13432;
-	Mon,  7 Sep 2026 11:38:15 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id GHo6LieinmrsewAAD6G6ig
-	(envelope-from <dsterba@suse.cz>); Mon, 07 Sep 2026 11:38:15 +0000
-Date: Mon, 7 Sep 2026 13:38:10 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Cc: dsterba@suse.cz, Jeff Layton <jlayton@kernel.org>,
-	Chris Mason <clm@fb.com>, David Sterba <dsterba@suse.com>,
-	Qu Wenruo <wqu@suse.com>, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, kernel-team@fb.com
-Subject: Re: [PATCH v3 1/6] btrfs: use an on-stack path in
- btrfs_insert_orphan_item()
-Message-ID: <20260907113810.GU9053@twin.jikos.cz>
-Reply-To: dsterba@suse.cz
-References: <20260811-btrfs-enomem-v3-0-46a993fc3fe5@kernel.org>
- <20260811-btrfs-enomem-v3-1-46a993fc3fe5@kernel.org>
- <20260820120428.GA9053@suse.cz>
- <4624cca9-6bca-4358-a29f-63f11224350a@gmx.com>
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0F4B51955DE1;
+	Mon,  7 Sep 2026 11:38:23 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id EF61730001A2;
+	Mon,  7 Sep 2026 11:38:19 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: netdev@vger.kernel.org
+Cc: David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-afs@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v9 06/14] rxrpc: Fix packet encryption error handling
+Date: Mon,  7 Sep 2026 12:37:33 +0100
+Message-ID: <20260907113743.1453210-7-dhowells@redhat.com>
+In-Reply-To: <20260907113743.1453210-1-dhowells@redhat.com>
+References: <20260907113743.1453210-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4624cca9-6bca-4358-a29f-63f11224350a@gmx.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: F3C7721ADB
-X-Spamd-Result: default: False [-4.21 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	HAS_REPLYTO(0.30)[dsterba@suse.cz];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[gmx.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmx.com];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
-X-Spam-Score: -4.21
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-On Fri, Aug 21, 2026 at 07:43:53AM +0930, Qu Wenruo wrote:
-> I think you're very inconsistent on on-stack memory usage at least.
-> 
-> You were fine when I was adding 128bytes for several call sites for the 
-> support of huge pages, and I'd argue all those call sites have a deeper 
-> stack, because it's on the writeback path.
+In rxrpc_send_data(), if ->secure_packet() returns an error, the code
+currently just jumps to out: and returns the error to the app on the
+assumption that any error returned by this is automatically fatal for the
+call, and may even have corrupted the transmission queue - but leaving it
+to userspace to deal with.  Nothing stops the application from retrying the
+sendmsg(), which will try to encrypt the buffer again, and might succeed
+with a corrupt buffer.
 
-This is a different structure and different use case than the
-btrfs_path. I'm not happy to allocate 128 bytes but there's no other
-way, because during writeback allocating memory is risky and making
-things worse. And I'm especially watching out for the path on-stack
-conversions because they're too tempting to do. For other structures
-it's case by case.
+Fix rxrpc_send_data() in the following ways:
 
-> Furthermore, that huge page support is not widely used, but everyone 
-> will need to pay that on-stack price.
+ (1) If -ENOMEM is returned, assume we never got as far as the encryption
+     and that the operation is retryable.  In which case, jump to
+     maybe_error_rewind and, if we've copied data into the last packet,
+     remove some of the bytes from it that we just added so that we don't
+     tell the caller that we've completed the transmission phase.  The
+     iterator is also correspondingly rewound.
 
-Huge pages are a performance optimization and it's good that they're
-built in ready to be used when needed and not optional. One clear
-benefit is fewer TLB misses, large data processing applications like
-databases like that, and there are certaily others.  That we allow such
-feature at a known cost is fine by me.
+ (2) If any other error occurs, set the TX_ERROR flag on the call and
+     return that error directly; on all subsequent attempts to add data to
+     the call, return -EIO.  The app must then abort the call to get rid of
+     it (this allows the app to choose the abort code to use).
 
-> On the other hand, you are also very hesitant on my recent patches 
-> removing those 128 bytes usages.
+ (3) The TX_NO_MORE test is moved so that both it and the TX_ERROR test are
+     repeated after a wait-for-space is performed.
 
-That's the 'paddr' patchset? This has been merged, I don't have problem
-with that.
+afs_make_call() and afs_send_simple_reply() are also modified to repeat
+calls to rxrpc_kernel_send_data() if less than a full transfer was made.
 
-> So your behavior doesn't seem to match what you said here.
-> 
-> 
-> Secondly, your deep-in-the-stack argument doesn't sound solid either.
-> 
-> Every block file system can be built upon layer of storage stacks, not 
-> only btrfs, but *every* block fs as long as there is a chance to do IO.
-> This means you're just saying, there can be almost-infinite lower layers 
-> under us, so we should not use any extra on-stack memory.
+Fixes: 17926a79320a ("[AF_RXRPC]: Provide secure RxRPC sockets for use by userspace and kernel both")
+Closes: https://sashiko.dev/#/patchset/20260702144919.172295-1-dhowells%40redhat.com
+Signed-off-by: David Howells <dhowells@redhat.com>
+cc: Marc Dionne <marc.dionne@auristor.com>
+cc: Eric Dumazet <edumazet@google.com>
+cc: "David S. Miller" <davem@davemloft.net>
+cc: Jakub Kicinski <kuba@kernel.org>
+cc: Paolo Abeni <pabeni@redhat.com>
+cc: Simon Horman <horms@kernel.org>
+cc: linux-afs@lists.infradead.org
+cc: stable@vger.kernel.org
+---
+ Documentation/networking/rxrpc.rst | 11 +++++-
+ include/trace/events/rxrpc.h       |  1 +
+ net/rxrpc/ar-internal.h            |  1 +
+ net/rxrpc/sendmsg.c                | 60 ++++++++++++++++++++++++------
+ 4 files changed, 60 insertions(+), 13 deletions(-)
 
-I think you've extrapolated too far, I'm not saying anything like that.
-We have to use stack, but it's a constrained resource. If system has
-terabytes of memory we still have 16K of stack per task. Since ever
-we've been avoiding unnecessary use, there's an optional kernel build
-tool to check for excessive use per function, but it cannot see runtime
-effects.
+diff --git a/Documentation/networking/rxrpc.rst b/Documentation/networking/rxrpc.rst
+index 8926dab8e2e6..7df6aff7644c 100644
+--- a/Documentation/networking/rxrpc.rst
++++ b/Documentation/networking/rxrpc.rst
+@@ -879,14 +879,21 @@ The kernel interface functions are as follows:
+      exclusively to in-kernel virtual addresses.  msg.msg_flags may be given
+      MSG_MORE if there will be subsequent data sends for this call.
+ 
+-     The msg must not specify a destination address, control data or any flags
+-     other than MSG_MORE.  len is the total amount of data to transmit.
++     msg must not specify a destination address, control data or any flags
++     other than MSG_MORE.  len is the amount of data to add to the
++     transmission.  The last-packet flag will only be set on the outgoing
++     packet if MSG_MORE is not set and len amount of bytes are buffered.
+ 
+      notify_end_rx can be NULL or it can be used to specify a function to be
+      called when the call changes state to end the Tx phase.  This function is
+      called with a spinlock held to prevent the last DATA packet from being
+      transmitted until the function returns.
+ 
++     The function returns the amount of data buffered or an error.  It will
++     return zero only if len is 0 or if msg->msg_iter is empty.  It may also
++     make a short write, buffering less than the amount of data provided or the
++     len specified, in which case it should be called again.
++
+  (#) Receive data from a call::
+ 
+ 	int rxrpc_kernel_recv_data(struct socket *sock,
+diff --git a/include/trace/events/rxrpc.h b/include/trace/events/rxrpc.h
+index 56dc9b614071..a5c92592d8f9 100644
+--- a/include/trace/events/rxrpc.h
++++ b/include/trace/events/rxrpc.h
+@@ -148,6 +148,7 @@
+ 	EM(rxrpc_eproto_wrong_security,		"wrong-sec")		\
+ 	EM(rxrpc_recvmsg_excess_data,		"recvmsg-excess")	\
+ 	EM(rxrpc_recvmsg_short_data,		"recvmsg-short")	\
++	EM(rxrpc_sendmsg_tx_error,		"tx-error")		\
+ 	E_(rxrpc_sendmsg_late_send,		"sendmsg-late")
+ 
+ #define rxrpc_call_poke_traces \
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 865f05fe37ab..a6f830c1621f 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -642,6 +642,7 @@ enum rxrpc_call_flag {
+ 	RXRPC_CALL_TX_LAST,		/* Last packet in Tx buffer (at rxtx_top) */
+ 	RXRPC_CALL_TX_ALL_ACKED,	/* Last packet has been hard-acked */
+ 	RXRPC_CALL_TX_NO_MORE,		/* No more data to transmit (MSG_MORE deasserted) */
++	RXRPC_CALL_TX_ERROR,		/* Terminal error; call needs abort */
+ 	RXRPC_CALL_SEND_PING,		/* A ping will need to be sent */
+ 	RXRPC_CALL_RETRANS_TIMEOUT,	/* Retransmission due to timeout occurred */
+ 	RXRPC_CALL_BEGAN_RX_TIMER,	/* We began the expect_rx_by timer */
+diff --git a/net/rxrpc/sendmsg.c b/net/rxrpc/sendmsg.c
+index 565799548102..4ce3ae0ba2e8 100644
+--- a/net/rxrpc/sendmsg.c
++++ b/net/rxrpc/sendmsg.c
+@@ -330,13 +330,6 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	bool more = msg->msg_flags & MSG_MORE;
+ 	int ret, copied = 0;
+ 
+-	if (test_bit(RXRPC_CALL_TX_NO_MORE, &call->flags)) {
+-		trace_rxrpc_abort(call->debug_id, rxrpc_sendmsg_late_send,
+-				  call->cid, call->call_id, call->rx_consumed,
+-				  0, -EPROTO);
+-		return -EPROTO;
+-	}
+-
+ 	timeo = sock_sndtimeo(sk, msg->msg_flags & MSG_DONTWAIT);
+ 
+ 	ret = rxrpc_wait_to_be_connected(call, &timeo);
+@@ -353,6 +346,21 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	sk_clear_bit(SOCKWQ_ASYNC_NOSPACE, sk);
+ 
+ reload:
++	if (unlikely(test_bit(RXRPC_CALL_TX_NO_MORE, &call->flags))) {
++		trace_rxrpc_abort(call->debug_id, rxrpc_sendmsg_late_send,
++				  call->cid, call->call_id, call->rx_consumed,
++				  0, -EPROTO);
++		ret = -EPROTO;
++		goto maybe_error;
++	}
++	if (unlikely(test_bit(RXRPC_CALL_TX_ERROR, &call->flags))) {
++		trace_rxrpc_abort(call->debug_id, rxrpc_sendmsg_tx_error,
++				  call->cid, call->call_id, call->rx_consumed,
++				  0, -EIO);
++		ret = -EIO;
++		goto maybe_error;
++	}
++
+ 	txb = call->tx_pending;
+ 	call->tx_pending = NULL;
+ 	if (txb)
+@@ -441,12 +449,26 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 		/* add the packet to the send queue if it's now full */
+ 		if (!txb->space ||
+ 		    (len == 0 && !more)) {
+-			if (len == 0 && !more)
+-				txb->flags |= RXRPC_LAST_PACKET;
+-
++			/* Do any required crypto.  If this fails, it could
++			 * have corrupted the txbuf content with a partial
++			 * encrypt.  Assume that ENOMEM is retryable, but
++			 * everything else is terminal.
++			 */
+ 			ret = call->security->secure_packet(call, txb);
+-			if (ret < 0)
++			if (ret < 0) {
++				/* Assume that ENOMEM here means that the
++				 * encryption hasn't happened yet.  The data is
++				 * aligned to avoid the need for slow buffering
++				 * in the crypto walk.
++				 */
++				if (ret == -ENOMEM)
++					goto maybe_error_rewind;
++				set_bit(RXRPC_CALL_TX_ERROR, &call->flags);
+ 				goto out;
++			}
++
++			if (len == 0 && !more)
++				txb->flags |= RXRPC_LAST_PACKET;
+ 			rxrpc_queue_packet(rx, call, txb, notify_end_tx);
+ 			txb = NULL;
+ 		}
+@@ -464,6 +486,22 @@ static int rxrpc_send_data(struct rxrpc_sock *rx,
+ 	_leave(" = %d", call->error);
+ 	return call->error;
+ 
++maybe_error_rewind:
++	/* If we got a retryable error after copying all the supplied data into
++	 * the last packet, we need to rewind as much as we can so the caller
++	 * knows they need to retry the sendmsg.
++	 */
++	if (copied && !more && !len) {
++		unsigned int rewind_by = umin(copied, txb->len);
++
++		txb->space  += rewind_by;
++		txb->len    -= rewind_by;
++		txb->offset -= rewind_by;
++		copied      -= rewind_by;
++		if (call->tx_total_len != -1)
++			call->tx_total_len += rewind_by;
++		iov_iter_revert(&msg->msg_iter, rewind_by);
++	}
+ maybe_error:
+ 	if (copied) {
+ 		if (rxrpc_call_is_complete(call) &&
 
-For that there's CONFIG_DEBUG_STACK_USAGE, I have it enabled on my
-testing setups. Some sample numbers below.
-
-> I do not think this is the sane nor really validated.
-
-It is indeed not sane to assume infinite layers in the IO stack. What I
-consider sane and realistic was written in my reply to Jeff, NFS, iscsi,
-encryption, DM/MD block device grouping and lowest level drivers.
-Leaving enough space for these layers is a courtesy of filesystem and we
-as filesystem expect the same from other layers.  The effects of stack
-savings are cumulative and preventative.
-
-> If you want to argue if the extra 112 bytes is good or not, give me some 
-> data about the on-stack memory usage.
-
-From a VM log, doing some dt, fsx tests, no layering:
-
-[    4.625550] mount (62) used greatest stack depth: 12152 bytes left
-[    4.754313] mkdir (67) used greatest stack depth: 11736 bytes left
-[   13.243415] modprobe (85) used greatest stack depth: 11216 bytes left
-[    3.326249] mount (64) used greatest stack depth: 12152 bytes left
-[    4.534019] dircolors (91) used greatest stack depth: 11952 bytes left
-[   10.640649] tmux (104) used greatest stack depth: 11824 bytes left
-[    3.674336] mount (65) used greatest stack depth: 12152 bytes left
-[    3.826533] grep (73) used greatest stack depth: 12064 bytes left
-[  205.946252] modprobe (151) used greatest stack depth: 11216 bytes left
-[  808.970673] dt (187) used greatest stack depth: 10392 bytes left
-[  808.971605] dt (184) used greatest stack depth: 9936 bytes left
-[ 1006.541586] kworker/u16:12 (201) used greatest stack depth: 8712 bytes left
-[    3.736577] mount (64) used greatest stack depth: 12152 bytes left
-[    3.877472] grep (73) used greatest stack depth: 11600 bytes left
-[    3.751221] mount (62) used greatest stack depth: 12152 bytes left
-[    3.683467] mount (62) used greatest stack depth: 12152 bytes left
-[    3.735522] mkdir (67) used greatest stack depth: 12064 bytes left
-[  393.206022] modprobe (108) used greatest stack depth: 11216 bytes left
-[    4.765551] mount (63) used greatest stack depth: 12152 bytes left
-[   30.059666] modprobe (109) used greatest stack depth: 11216 bytes left
-[    4.445938] mount (62) used greatest stack depth: 12152 bytes left
-[   26.977347] modprobe (110) used greatest stack depth: 11216 bytes left
-[    7.119540] mount (64) used greatest stack depth: 12152 bytes left
-[    7.849920] grep (73) used greatest stack depth: 11496 bytes left
-[    3.606916] mount (63) used greatest stack depth: 12152 bytes left
-[    4.504006] chmod (76) used greatest stack depth: 12096 bytes left
-[   36.783062] modprobe (109) used greatest stack depth: 11512 bytes left
-[  425.057076] fsx.real (3720) used greatest stack depth: 10672 bytes left
-[ 3019.822458] kworker/u16:5 (3688) used greatest stack depth: 10576 bytes left
-[53621.495082] fsx.real (4015) used greatest stack depth: 10464 bytes left
-
-As a base it's 4-6K for filesystem.
-
-> With the proof that with enough stacked dm layer, that extra 112 bytes 
-> are going to cause problem.
-
-In the right combination of configuration and system load it can become
-a problem.
-
-> Not to mention I believe some dm drivers are queuing the real submission 
-> handling into a workqueue, avoiding further increasing the on-stack 
-> memory usage.
-
-Yes, for the same reasons to be nice to other layers (eventually for
-performance reasons).
-
-While I don't mind rehearsing some basic kernel knowledge it's a bit
-amusing that we have to do it namely for stack usage.
