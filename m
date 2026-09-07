@@ -1,235 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D23511214;
-	Mon,  7 Sep 2026 16:05:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB576511181
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 16:05:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797127; cv=none; b=RUwSwLEy2X28Uw+FQ5NshbmXJmQZUnMkSMEir/FmIQ3Wl/41h1S2T7OFzp13yT4VuQAnG64eMaD+gWLcjhulgwLjn5Wi9uoRLJZKAIXPnWXslzcnD40DaFPlfbXDZmOjFgJyQn7rSEBz7Y5vVKV820xNAcMxzi9v1ABaYYl0fqQ=
+	t=1788797131; cv=none; b=Pd2HCNx+9vCBNiiOYuC+iQgBrw7voBXf2ANJ5VcHHefZyzUnPDfrMujxpwSWORHmqVf8NiqVPTDJ8Q0LlQ1pk++rWPMDjMaQY/FS8SCtlp+U6hkajTKoHGJxCCG8AKfaNZL7bzxMm3K9FsTrbdvOylmQZ6J7CD1yVw7PrtlEQQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797127; c=relaxed/simple;
-	bh=Pu3pS+x7/qSzBEbnx37NOM3uFmzpOB8DNhsFaV4JwgU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N2wTdrj/Evp3V0v2phy1W6EJ4y9HCXrUp+rIzxqsXMowTa//2vNpdZB+5t5QRsRA3QXxyHUGi51vbF1sKhDbBeQ9iBTSxbfSWlL8cBW3cFPqAUoTYtY5D2maGmCDCHUIUQdoYSq/5NIuOtf2UQoGS9wInzZDwKWi3oUCz4Umbpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WHuZuL+e; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788797131; c=relaxed/simple;
+	bh=2WOsLAPThCX8TB/02g8wSwkG34LMSmNHu26+Sy2QUG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=I7fCggvCjEGYcm+Vq3Czz0X7nax+DgxU0EdUI74J2sz8S5pcaUAsN8m9q0XIhqGwM1zV9rUeQy26/5a71MhrQ3VBaold01pLb/s2QMa0KC9OTB+jWaREvItZqbzrwohElwKJ1qBajVDUW7+myrOCJT3WnL/TO8YMzr/Eb5CEio4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=L+aV2QTs; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WHuZuL+e"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BEDD7C2BCFC;
-	Mon,  7 Sep 2026 16:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788797126;
-	bh=Pu3pS+x7/qSzBEbnx37NOM3uFmzpOB8DNhsFaV4JwgU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=WHuZuL+eVZZLE17Pkv7IJdn+uN+GchJr4r8Qn+14aSuXUyvkiWxswVbdL7jSR0Yon
-	 H02Ubhn3EJQE0FEnQFbD9cgZ1j/GG4cV4mQEQU5xbkiwiv9Kr5UkMKXQaZgidTC81b
-	 zgl56kHQAyICW+XDhvTHyrYRqr8l6nXmQJqwW+68pmuYiHE4HTp7D1PKbEJ8FLIe/N
-	 IGG+2Wb9VJRg7SJlqMuNLRNVqiPIdX6Z5DgQsBcMQ0lMG8zjjjSOhOl9ysM1YiWeBy
-	 LUGQeqaE/yVl0Zzr7bRtDEK24x6eliw62loLN1Icc21FxTQXUTSiV2NiHbQZf+sh6U
-	 dLeoBf6XowQDA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99827C79FA1;
-	Mon,  7 Sep 2026 16:05:26 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Mon, 07 Sep 2026 19:05:24 +0300
-Subject: [PATCH v5 1/2] dt-bindings: pinctrl: qcom: Add MSM8952 pinctrl
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L+aV2QTs"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843971bdd0so385079f8f.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 09:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788797126; x=1789401926; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2WOsLAPThCX8TB/02g8wSwkG34LMSmNHu26+Sy2QUG8=;
+        b=L+aV2QTsBWhB+Is/z1g81g+yq3HGNediJsdJ6Vo/U6iij7z3Y8RUdisXwmALd60FWA
+         4OBKdQOd9vPl7JhEZkc92iGbXXeZTppZbElsakAfAO4gpwutg/GLd5W80dUAZX7og40R
+         W0VOYABrDrVsWQ1u/7OLRJWUj6ZoV7cUHrYbqL+G+jNEvjr+kPkcruHjWR0a0rsWWPTA
+         MnpR8H9zp1bRNGIgvX3rlciw16ogMAFJIA6gYdeiX7HJzQCILIRV2pVIUDvt5HLvUI3c
+         2nZY/OlKDFKv1lYS3PWCO7wNx4vIvH+xnzV6vAMwPXW6OEcSmkG8C982DOIJPD8gR3/2
+         X+Dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788797126; x=1789401926;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2WOsLAPThCX8TB/02g8wSwkG34LMSmNHu26+Sy2QUG8=;
+        b=rSA3NHeMG7tX9vNnR2WXMgCpL5NCjSmQfbnNi9l6lDYHZVK5YRNfNTXS8yuyx1K7Dp
+         Tgl17klomImFdgM62XzdMN+oCcXcreF1YtoIxB96vOZj9oXbbxcGUy0ay3nqRdFDnx6B
+         ZuMUkJEkj346cimA7I9VKThgdzg8QiKelTvDDDfh8Cm1PknhdTh1GS3VQgcJ3NuOLS8H
+         QWRuTH2fcCGbCvrEf/vrZFekgeCE+dQT2pgiYcdZaIzUMukBaZgQ9DGq35cg0PRn3OTB
+         ytt70+FDcvuvNXU52EV4jQjUqWnFIO/McaoGeUZdDyjy/kV6REZ6J719Luj/PHbuyVmI
+         ACAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw1MgrT3AvUMkmverYTRWVt9cjR1E6wG82CS5JxVVEGUECJS8g9WDI4CwecC77Sh0SSKq6jZNvk9oJozcA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDUjCzsTCmM7tELV4jBpY6cV8/uW+mOxn/+pqSBiBb9s3o+L/s
+	q6m2ifHw8zR1wfUiQ/4XCW8nAfLsYFkD5Q+jKw05lI4KAc9P1BAmrjKI
+X-Gm-Gg: AYBFou0zwGM4BPEABrpcwoKv+UM58snSkbP7B3zOoRPRtsBVA1WEIgHXcUfTTEn50OX
+	Phj5pCMkfc1tJMxN8ezS/x8t53vX+PdiOO8BcRS6YgRGhK8WUXv3Ce0iHziHG0Fcj2XgFNQCHRE
+	zLH8Xw6f46JiaHt0m8Qwfixu69UEsNIGsb+GMsz+oRzNSXBoaf/MsUxlC/Zr5atUJRwEu/zLykT
+	l0O8JAVOwbfKVFmnhPF8tA6ZW95U4+TfIvhIh7QVPz6dEfGZx8eFeTEFFc5rNkRUcWKrXfnb69B
+	rx0AajbJsHuzY90j4UB5d50E2XuVFnBGjlUbAUho4/OUImMOcCOrkrToFJeXeqOw2Ymfqbp3k4l
+	h6XeuT47ZCvl3w7HA6D+FQ/W3Fu2OBiZLvJbghy6us04a8Yh/7NL+uGUQSZ/ALPS2agvqHWjiNC
+	ooosypN8bzp04wBbkNWHUGHlinkmf+2T89cLvAJ3+ZEG9hvU7DW1LVmYBhO9Q3eeMkcL6YUAFto
+	2vcu7zly6GTGSLEs8KY0w==
+X-Received: by 2002:a05:6000:25ed:b0:485:82f7:9053 with SMTP id ffacd0b85a97d-48589246177mr22958565f8f.1.1788797125515;
+        Mon, 07 Sep 2026 09:05:25 -0700 (PDT)
+Received: from lima-kdev.local ([85.100.66.184])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm29616413f8f.4.2026.09.07.09.05.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 09:05:24 -0700 (PDT)
+From: Kayra Cizmeci <kayracizmeci@gmail.com>
+To: kprateek.nayak@amd.com
+Cc: bsegall@google.com,
+	dietmar.eggemann@arm.com,
+	juri.lelli@redhat.com,
+	kayracizmeci@gmail.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	peterz@infradead.org,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/fair: Remove unused autogroup.h include
+Date: Mon,  7 Sep 2026 19:05:21 +0300
+Message-ID: <20260907160522.1152423-1-kayracizmeci@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <3ae49b35-2188-4b29-af4a-6fff500098d3@amd.com>
+References: <3ae49b35-2188-4b29-af4a-6fff500098d3@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-msm8952-pinctrl-v5-1-9a2d8d72ffdb@mainlining.org>
-References: <20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org>
-In-Reply-To: <20260907-msm8952-pinctrl-v5-0-9a2d8d72ffdb@mainlining.org>
-To: Bartosz Golaszewski <brgl@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788797124; l=6109;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=zyEd4/yxyO7O4KJLOwgxydrBBmH1hxrcAwjeDMs3h8M=;
- b=gSI+pIHeqMvdJpuuaiVqxHAl68ZBQdwRtmr7GHb2D93sNg8Dqqqgj0tvhXIytkARdn65J3MDX
- PjHwrsNrUGJDlYC4N2APo4syiIstUWl76OIsodCpzJKgAeMDrvTA7pm
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
+Content-Transfer-Encoding: 8bit
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-
-Add device tree bindings for the TLMM pin controller
-found on the Qualcomm MSM8952 platform.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
----
- .../bindings/pinctrl/qcom,msm8952-pinctrl.yaml     | 146 +++++++++++++++++++++
- 1 file changed, 146 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml
-new file mode 100644
-index 000000000000..d367bb078aff
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pinctrl/qcom,msm8952-pinctrl.yaml
-@@ -0,0 +1,146 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pinctrl/qcom,msm8952-pinctrl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm MSM8952 TLMM pin controller
-+
-+maintainers:
-+  - Muzaffer Kadir <muzafferkadir@mainlining.org>
-+
-+description:
-+  Top Level Mode Multiplexer pin controller in Qualcomm MSM8952 SoC.
-+
-+properties:
-+  compatible:
-+    const: qcom,msm8952-pinctrl
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  gpio-reserved-ranges:
-+    minItems: 1
-+    maxItems: 66
-+
-+  gpio-line-names:
-+    maxItems: 134
-+
-+patternProperties:
-+  "-state$":
-+    oneOf:
-+      - $ref: "#/$defs/qcom-msm8952-tlmm-state"
-+      - patternProperties:
-+          "-pins$":
-+            $ref: "#/$defs/qcom-msm8952-tlmm-state"
-+        additionalProperties: false
-+
-+$defs:
-+  qcom-msm8952-tlmm-state:
-+    type: object
-+    description:
-+      Pinctrl node's client devices use subnodes for desired pin configuration.
-+      Client device subnodes use below standard properties.
-+    $ref: qcom,tlmm-common.yaml#/$defs/qcom-tlmm-state
-+    unevaluatedProperties: false
-+
-+    properties:
-+      pins:
-+        description:
-+          List of gpio pins affected by the properties specified in this
-+          subnode.
-+        items:
-+          oneOf:
-+            - pattern: "^gpio([0-9]|[1-9][0-9]|1[0-2][0-9]|13[0-3])$"
-+            - enum: [ qdsd_clk, qdsd_cmd, qdsd_data0, qdsd_data1, qdsd_data2,
-+                      qdsd_data3, sdc1_clk, sdc1_cmd, sdc1_data, sdc1_rclk,
-+                      sdc2_clk, sdc2_cmd, sdc2_data ]
-+        minItems: 1
-+        maxItems: 36
-+
-+      function:
-+        description:
-+          Specify the alternative function to be configured for the specified
-+          pins.
-+
-+        enum: [ gpio, blsp_uart1, blsp_spi1, adsp_ext, blsp_i2c1, prng_rosc, qdss_cti_trig_out_b0,
-+                qdss_cti_trig_out_a1, blsp_spi2, blsp_uart2, ldo_update, qdss_tracedata_b,
-+                pbs1, pwr_modem_enabled_b, blsp_i2c3, gcc_gp2_clk_b, atest_combodac_to_gpio_native,
-+                ldo_en, blsp_i2c2, gcc_gp1_clk_b, atest_gpsadc_dtest0_native, blsp_spi3,
-+                blsp_uart3, sec_mi2s, pbs0, gcc_gp3_clk_b, blsp_spi4, blsp_uart4, pbs2,
-+                pwr_nav_enabled_b, pwr_crypto_enabled_b, blsp_i2c4, blsp_spi5, blsp_uart5,
-+                qdss_traceclk_a, atest_bbrx1, qdss_tracectl_b, qdss_cti_trig_in_b0, blsp_i2c6,
-+                qdss_traceclk_b, atest_wlan0, m_voc, qdss_cti_trig_in_a0, atest_bbrx0, blsp_i2c5,
-+                qdss_tracectl_a, atest_gpsadc_dtest1_native, qdss_tracedata_a, blsp_spi6,
-+                blsp_uart6, atest_wlan1, mdp_vsync, pri_mi2s_mclk_a, sec_mi2s_mclk_a,
-+                cam_mclk, cci_i2c, pwr_modem_enabled_a, cci_timer0, cci_timer1, pwr_nav_enabled_a,
-+                pwr_crypto_enabled_a, cci_async, sd_write, qdss_cti_trig_out_a0, gcc_gp1_clk_a,
-+                gcc_gp2_clk_a, gcc_gp3_clk_a, blsp6_spi, qdss_cti_trig_in_b1, uim_batt,
-+                qdss_cti_trig_out_b1, uim1_data, uim1_clk, uim1_reset, uim1_present, uim2_data,
-+                uim2_clk, uim2_reset, uim2_present, uim3_data, usb_fs, uim3_clk, uim3_reset,
-+                uim3_present, atest_char3, dbg_out, bimc_dte0, sec_mi2s_mclk_b, pri_mi2s,
-+                atest_char1, ebi_cdc, atest_char0, cdc_pdm0, pri_mi2s_mclk_b, lpass_slimbus,
-+                lpass_slimbus0, lpass_slimbus1, wcss_bt, atest_char2, ebi_ch0, wcss_wlan2,
-+                wcss_wlan1, wcss_wlan0, wcss_wlan, wcss_fm, ext_lpass, gcc_tlmm, dmic0_clk,
-+                dmic0_data, qdss_cti_trig_in_a1, blsp_spi7, blsp_uart7, pri_mi2s_ws, wsa_io,
-+                blsp_i2c7, blsp_spi8, blsp_uart8, blsp_i2c8, gcc_plltest, nav_pps_in_a,
-+                pa_indicator, nav_pps_in_b, nav_pps, modem_tsync, nav_tsync, ssbi_wtr1,
-+                gsm1_tx, gsm0_tx, atest_char, atest_tsens, bimc_dte1,
-+                gp_mn, gp_pdm_0a, gp_pdm_0b, gp_pdm_1a, gp_pdm_1b,
-+                gp_pdm_2a, gp_pdm_2b, gp0_clk, gp1_clk]
-+
-+    required:
-+      - pins
-+
-+allOf:
-+  - $ref: /schemas/pinctrl/qcom,tlmm-common.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    msmgpio: pinctrl@1000000 {
-+        compatible = "qcom,msm8952-pinctrl";
-+        reg = <0x01000000 0x300000>;
-+        interrupts = <GIC_SPI 208 IRQ_TYPE_LEVEL_HIGH>;
-+        gpio-controller;
-+        gpio-ranges = <&msmgpio 0 0 134>;
-+        #gpio-cells = <2>;
-+        interrupt-controller;
-+        #interrupt-cells = <2>;
-+
-+        blsp1-uart2-sleep-state {
-+            pins = "gpio4", "gpio5";
-+            function = "gpio";
-+
-+            drive-strength = <2>;
-+            bias-pull-down;
-+        };
-+
-+        spi1-default-state {
-+            spi-pins {
-+                pins = "gpio0", "gpio1", "gpio3";
-+                function = "blsp_spi1";
-+
-+                drive-strength = <12>;
-+                bias-disable;
-+            };
-+
-+            cs-pins {
-+                pins = "gpio2";
-+                function = "blsp_spi1";
-+
-+                drive-strength = <2>;
-+                bias-disable;
-+            };
-+        };
-+    };
-
--- 
-2.54.0
-
-
+Gentle ping on this patch.
