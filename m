@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3C4753F107B
-	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:51:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 657393F1057
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 03:51:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788753075; cv=none; b=OoQbrDsQawOTBemNGm8SlwFord2/oOTDd4DCo4a/tc34Kt3CRPblvjroMEgJketoC86OX5YRaZV/ScGyOR020xyiBaDFtDKFU+eMFN11Q96VTwwkk4EzuDDELem1M/Zgm+DD+T5C3OkFL0VrELlGa2ZW5kqM0qPQrjjkE1vUFeY=
+	t=1788753079; cv=none; b=AoRBsHKomAELw/iADV4Jxvv/luh9Xha8i7nMRNJo0xSMmffJC+6PxD7MnJxgLdIdSxP0uWFul4yOno1sTeIIPzbs8WU0zMvZp3BqMfzZ4VaGAiPixJLy2C+dBCr2jZPlxycSXxi4sjWSZlQ3bwIe9BM15jwRtH+y1lns/gcJf60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788753075; c=relaxed/simple;
-	bh=e60cWCqWvU5usBlVAuNQW11xubuWlhpocNAxI1B8G28=;
+	s=arc-20240116; t=1788753079; c=relaxed/simple;
+	bh=LhsC0NhjKIdOi9rcgt72ehmDXHWyJcPL2hu83ddAkXM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f+y8UOFx7VavK/hfKVaZ2zG7Giv/t7whNW2LuLvizrFlWutS5BkVyRkJ3qNxczvY+hmIEZ99h0XIVFFpwJeecMunwXrIXqPw3AhLd6Yl54tKKvJaoXJ6i8+7ZZbA3s+D23scsiYEPzhF4tZfeaVrZ7remunmhygfWAKRlQys1Cc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GoO/h9TL; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=sgnwtspDz7ocDp8kBkJfawZ/AlevRzx6uaw3VrwG5JDYepFyBxu8N+sONadhhME5ug85vfzMfBEEo9d10YjLMUcFxAniK/WB5CphhT7f8FCaxHm0oTmOiecdZDmOTreAAkdDYuZF8tgNn1R9BNHjtXeEGwP+npD/iZh03+XUWH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=GDH1iVaD; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GoO/h9TL"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="GDH1iVaD"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0018B1516;
-	Sun,  6 Sep 2026 20:51:09 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD1AF1AED;
+	Sun,  6 Sep 2026 20:51:12 -0700 (PDT)
 Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBE743F7B4;
-	Sun,  6 Sep 2026 20:51:11 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C28233FBF5;
+	Sun,  6 Sep 2026 20:51:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788753072; bh=e60cWCqWvU5usBlVAuNQW11xubuWlhpocNAxI1B8G28=;
+	t=1788753076; bh=LhsC0NhjKIdOi9rcgt72ehmDXHWyJcPL2hu83ddAkXM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GoO/h9TLo5WxQU44DjPignv1t1V1GPmlyG79AXj0rqAGEsV1VdWickcqE4TMSYxKb
-	 e0iIuExCyFmFHPnmczA8v3nVJeUJ1HA9VAXFwEGmE7WaYEZXk/vp0Prb41nDO6V5jP
-	 z3hOjL0pkiO6NZlaJ4aoiMB+agf8MRlGxZ7t6X4k=
+	b=GDH1iVaDTX9uj2NicaktrTaa+TO516GXCUn6g6G08VZgnHdHZUl1DRy1eGFL6TTxv
+	 5QfnhHYRlF7ub/R7VFyqpPlgoON0Xu9Hhf6wHW0ROHaudZTmb5DVQB+JS16u+qgWDk
+	 bTw9+mPbTyJtpWzYfQuf/x3Ux/JhZoSnBhnxP2t0=
 From: Anshuman Khandual <anshuman.khandual@arm.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
@@ -40,9 +40,9 @@ Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
 	Linu Cherian <linu.cherian@arm.com>,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH V2 10/14] arm64/mm: Add an abstraction level for tlbi_op
-Date: Mon,  7 Sep 2026 09:20:25 +0530
-Message-ID: <20260907035030.2839978-11-anshuman.khandual@arm.com>
+Subject: [PATCH V2 11/14] arm64/mm: Enable TLBIP instruction based TLB flush
+Date: Mon,  7 Sep 2026 09:20:26 +0530
+Message-ID: <20260907035030.2839978-12-anshuman.khandual@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907035030.2839978-1-anshuman.khandual@arm.com>
 References: <20260907035030.2839978-1-anshuman.khandual@arm.com>
@@ -56,13 +56,9 @@ Content-Transfer-Encoding: 8bit
 
 From: Linu Cherian <linu.cherian@arm.com>
 
-With FEAT_D128, a new instruction aka TLBIP is being introduced for the TLB
--by-range operations which has an argument size of 128 bit.
-
-Add an abstraction level to void (*tlbi_op)(u64 arg) helpers to support the
-D128 variations when applicable.
-
-No functional changes are introduced with this patch.
+Add TLBIP instruction support for TLB flush operation updating all relevant
+macros as necessary. This enables back pgtable level hint and address range
+support during TLB flush operation for D128 translation.
 
 Cc: Catalin Marinas <catalin.marinas@arm.com>
 Cc: Will Deacon <will@kernel.org>
@@ -71,133 +67,127 @@ Cc: Mark Rutland <mark.rutland@arm.com>
 Signed-off-by: Linu Cherian <linu.cherian@arm.com>
 Signed-off-by: Anshuman Khandual <anshuman.khandual@arm.com>
 ---
- arch/arm64/include/asm/tlbflush.h | 70 ++++++++++++++++---------------
- 1 file changed, 37 insertions(+), 33 deletions(-)
+ arch/arm64/include/asm/tlbflush.h | 68 +++++++++++++++++++++++++++----
+ 1 file changed, 59 insertions(+), 9 deletions(-)
 
 diff --git a/arch/arm64/include/asm/tlbflush.h b/arch/arm64/include/asm/tlbflush.h
-index 14a78ac0f800..88ae4e443ed6 100644
+index 88ae4e443ed6..f31a555760f0 100644
 --- a/arch/arm64/include/asm/tlbflush.h
 +++ b/arch/arm64/include/asm/tlbflush.h
-@@ -130,49 +130,53 @@ static inline void sme_dvmsync_batch(void)
+@@ -41,6 +41,25 @@
+ 
+ #define __tlbi(op, ...)		__TLBI_N(op, ##__VA_ARGS__, 1, 0)
+ 
++#ifdef CONFIG_ARM64_D128
++#define __tlbip(op, arg) do {		\
++	asm (ARM64_ASM_PREAMBLE		\
++	".arch_extension d128\n\t"	\
++	"tlbip " #op ", %0, %H0\n"	\
++	: : "r" (arg.full));		\
++} while (0)
++
++#define __tlbip_user(op, arg) do {		\
++	if (arm64_kernel_unmapped_at_el0()) {	\
++		arg.low |= USER_ASID_FLAG;	\
++		__tlbip(op, (arg));		\
++	}					\
++} while (0)
++
++#endif
++
++#define TLBI_ASID_MASK		GENMASK_ULL(63, 48)
++
+ #define __tlbi_user(op, arg) do {						\
+ 	if (arm64_kernel_unmapped_at_el0())					\
+ 		__tlbi(op, (arg) | USER_ASID_FLAG);				\
+@@ -130,9 +149,15 @@ static inline void sme_dvmsync_batch(void)
  
  #define TLBI_TTL_UNKNOWN	INT_MAX
  
--typedef void (*tlbi_op)(u64 arg);
-+typedef u64 tlbi_arg_t;
-+#define __tlbi_wrapper(op, arg)		__tlbi(op, arg)
-+#define __tlbi_user_wrapper(op, arg)	__tlbi_user(op, arg)
++#ifdef CONFIG_ARM64_D128
++typedef union __u128_halves tlbi_arg_t;
++#define __tlbi_wrapper(op, arg)		__tlbip(op, arg)
++#define __tlbi_user_wrapper(op, arg)	__tlbip_user(op, arg)
++#else
+ typedef u64 tlbi_arg_t;
+ #define __tlbi_wrapper(op, arg)		__tlbi(op, arg)
+ #define __tlbi_user_wrapper(op, arg)	__tlbi_user(op, arg)
++#endif
  
--static __always_inline void vae1is(u64 arg)
-+typedef void (*tlbi_op)(tlbi_arg_t arg);
+ typedef void (*tlbi_op)(tlbi_arg_t arg);
+ 
+@@ -179,17 +204,28 @@ static __always_inline void ipas2e1is(tlbi_arg_t arg)
+ 	__tlbi_wrapper(ipas2e1is, arg);
+ }
+ 
+-static __always_inline void __tlbi_level_asid(tlbi_op op, u64 addr, u32 level,
+-					      u16 asid)
++static __always_inline void __tlbi_update_level(u32 level, u64 *arg)
+ {
+-	u64 arg = __TLBI_VADDR(addr, asid);
+-
+ 	if (alternative_has_cap_unlikely(ARM64_HAS_ARMv8_4_TTL) && level <= 3) {
+ 		u64 ttl = level | (get_trans_granule() << 2);
+ 
+-		FIELD_MODIFY(TLBI_TTL_MASK, &arg, ttl);
++		FIELD_MODIFY(TLBI_TTL_MASK, arg, ttl);
+ 	}
++}
 +
-+static __always_inline void vae1is(tlbi_arg_t arg)
- {
--	__tlbi(vae1is, arg);
--	__tlbi_user(vae1is, arg);
-+	__tlbi_wrapper(vae1is, arg);
-+	__tlbi_user_wrapper(vae1is, arg);
++static __always_inline void __tlbi_level_asid(tlbi_op op, u64 addr, u32 level, u16 asid)
++{
++#ifdef CONFIG_ARM64_D128
++	union __u128_halves arg;
++
++	arg.low = FIELD_PREP(TLBI_ASID_MASK, asid);
++	__tlbi_update_level(level, &arg.low);
++	arg.high = addr >> 12;
++#else
++	u64 arg = __TLBI_VADDR(addr, asid);
+ 
++	__tlbi_update_level(level, &arg);
++#endif
+ 	op(arg);
  }
  
--static __always_inline void vae2is(u64 arg)
-+static __always_inline void vae2is(tlbi_arg_t arg)
- {
--	__tlbi(vae2is, arg);
-+	__tlbi_wrapper(vae2is, arg);
+@@ -475,19 +511,33 @@ static __always_inline void ripas2e1is(tlbi_arg_t arg)
+ 	__tlbi_wrapper(ripas2e1is, arg);
  }
  
--static __always_inline void vale1(u64 arg)
-+static __always_inline void vale1(tlbi_arg_t arg)
+-static __always_inline void __tlbi_range(tlbi_op op, u64 addr,
+-					 u16 asid, int scale, int num,
+-					 u32 level, bool lpa2)
++static __always_inline u64 __tlbi_range_args_encode_comm(u16 asid, int scale, int num, u32 level)
  {
--	__tlbi(vale1, arg);
--	__tlbi_user(vale1, arg);
-+	__tlbi_wrapper(vale1, arg);
-+	__tlbi_user_wrapper(vale1, arg);
+ 	u64 arg = 0;
+ 
+-	arg |= FIELD_PREP(TLBIR_BADDR_MASK, addr >> (lpa2 ? 16 : PAGE_SHIFT));
+ 	arg |= FIELD_PREP(TLBIR_TTL_MASK, level > 3 ? 0 : level);
+ 	arg |= FIELD_PREP(TLBIR_NUM_MASK, num);
+ 	arg |= FIELD_PREP(TLBIR_SCALE_MASK, scale);
+ 	arg |= FIELD_PREP(TLBIR_TG_MASK, get_trans_granule());
+ 	arg |= FIELD_PREP(TLBIR_ASID_MASK, asid);
+ 
++	return arg;
++}
++
++static __always_inline void __tlbi_range(tlbi_op op, u64 addr,
++					 u16 asid, int scale, int num,
++					 u32 level, bool lpa2)
++{
++#ifdef CONFIG_ARM64_D128
++	union __u128_halves arg;
++
++	arg.low = __tlbi_range_args_encode_comm(asid, scale, num, level);
++	arg.high = addr >> 12;
++#else
++	u64 arg = __tlbi_range_args_encode_comm(asid, scale, num, level);
++
++	arg |= FIELD_PREP(TLBIR_BADDR_MASK, addr >> (lpa2 ? 16 : PAGE_SHIFT));
++#endif
+ 	op(arg);
  }
  
--static __always_inline void vale1is(u64 arg)
-+static __always_inline void vale1is(tlbi_arg_t arg)
- {
--	__tlbi(vale1is, arg);
--	__tlbi_user(vale1is, arg);
-+	__tlbi_wrapper(vale1is, arg);
-+	__tlbi_user_wrapper(vale1is, arg);
- }
- 
--static __always_inline void vale2is(u64 arg)
-+static __always_inline void vale2is(tlbi_arg_t arg)
- {
--	__tlbi(vale2is, arg);
-+	__tlbi_wrapper(vale2is, arg);
- }
- 
--static __always_inline void vaale1is(u64 arg)
-+static __always_inline void vaale1is(tlbi_arg_t arg)
- {
--	__tlbi(vaale1is, arg);
-+	__tlbi_wrapper(vaale1is, arg);
- }
- 
--static __always_inline void ipas2e1(u64 arg)
-+static __always_inline void ipas2e1(tlbi_arg_t arg)
- {
--	__tlbi(ipas2e1, arg);
-+	__tlbi_wrapper(ipas2e1, arg);
- }
- 
--static __always_inline void ipas2e1is(u64 arg)
-+static __always_inline void ipas2e1is(tlbi_arg_t arg)
- {
--	__tlbi(ipas2e1is, arg);
-+	__tlbi_wrapper(ipas2e1is, arg);
- }
- 
- static __always_inline void __tlbi_level_asid(tlbi_op op, u64 addr, u32 level,
-@@ -443,32 +447,32 @@ static inline void arch_tlbbatch_flush(struct arch_tlbflush_unmap_batch *batch)
-  *    operations can only span an even number of pages. We save this for last to
-  *    ensure 64KB start alignment is maintained for the LPA2 case.
-  */
--static __always_inline void rvae1is(u64 arg)
-+static __always_inline void rvae1is(tlbi_arg_t arg)
- {
--	__tlbi(rvae1is, arg);
--	__tlbi_user(rvae1is, arg);
-+	__tlbi_wrapper(rvae1is, arg);
-+	__tlbi_user_wrapper(rvae1is, arg);
- }
- 
--static __always_inline void rvale1(u64 arg)
-+static __always_inline void rvale1(tlbi_arg_t arg)
- {
--	__tlbi(rvale1, arg);
--	__tlbi_user(rvale1, arg);
-+	__tlbi_wrapper(rvale1, arg);
-+	__tlbi_user_wrapper(rvale1, arg);
- }
- 
--static __always_inline void rvale1is(u64 arg)
-+static __always_inline void rvale1is(tlbi_arg_t arg)
- {
--	__tlbi(rvale1is, arg);
--	__tlbi_user(rvale1is, arg);
-+	__tlbi_wrapper(rvale1is, arg);
-+	__tlbi_user_wrapper(rvale1is, arg);
- }
- 
--static __always_inline void rvaale1is(u64 arg)
-+static __always_inline void rvaale1is(tlbi_arg_t arg)
- {
--	__tlbi(rvaale1is, arg);
-+	__tlbi_wrapper(rvaale1is, arg);
- }
- 
--static __always_inline void ripas2e1is(u64 arg)
-+static __always_inline void ripas2e1is(tlbi_arg_t arg)
- {
--	__tlbi(ripas2e1is, arg);
-+	__tlbi_wrapper(ripas2e1is, arg);
- }
- 
- static __always_inline void __tlbi_range(tlbi_op op, u64 addr,
 -- 
 2.43.0
 
