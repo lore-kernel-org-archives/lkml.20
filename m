@@ -1,33 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B42D3537E5;
-	Mon,  7 Sep 2026 17:47:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB31E51D530
+	for <linux-kernel@vger.kernel.org>; Mon,  7 Sep 2026 17:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803234; cv=none; b=m9S0DdyUbcjp/pd2w2+TBXoJJhRxwMAaynEOtgwljpZM0Trjrorj+V1iY75mIA47YMg5cFzkXtgtZgyMpovxmdMd783gO/8kq1oBB9klkzU4L03LcrB7qK3tnJihdCQCit3DCJsgThdV1eBeTor7crJ1mWOkh4IiYI4S1sSIyP8=
+	t=1788803250; cv=none; b=LRyWk/oK6ZM+5ppBlTbSgHB/1Di1yKrHTiLUP8Y/DuDcnOl71Ae2TsiNw+i3Rwb7oOOHrx1mVy3JKyPoFeImCjytXZUH2mgO4I9tYiFrcY+R8T9B8qix+cY3hvtJ6DDO153Nh3uzVAahCIBCCA3bbsdiQHB+sSgrgqc+58ENJSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803234; c=relaxed/simple;
-	bh=m9FMQDOcT4FQPnknbDFlfjy6QjpVnNqyIJ8B8YERdZI=;
+	s=arc-20240116; t=1788803250; c=relaxed/simple;
+	bh=CQtqFLMRUcTx0dj7FUe3b3albQBIDJiu1m58tOlomAQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tT/JzyPDy7WYYvApsDVRteZBaFWUPpM9Jbls3TWaiNkL03Rfa7GEuhB966intgcPj/bMSMpQK3B3tQrUAWL7x47xtZ+hvZ+jjuPLasJpnQQlfWYR+Lc+6Vn2sx5WtS0fNhht87PdQxQT1OwL4vu/Vyzkjq1ponMG2mmjfzYBklI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5CKxkTz; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Z/ejZ+2k1Pw6SWMFkJVRiePVzMsGmOW3Xhz0EEdTnIN/1CjK6bjh+hHzzx/fjvL2NL4b25a4sAuaTsciHpCWJlg5hAD2Z1mU5KMSfSYewC89SdUqVoNhrIOV8/jCdcUI5LoKqz9UGHRax5gpjN6iP4VQRRaM7jTBGHXUuUPYgpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=wfpKBPEy; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5CKxkTz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC751F00A3A;
-	Mon,  7 Sep 2026 17:47:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788803232;
-	bh=idlbhkKiTt/twN0uI3E3GTXch8QGLkjoueh0C9NXOMI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K5CKxkTzIc2iHDlS5Ls7aScP2LHvSXuI6yB7Z2S2jJdEgKw9XanNUxg/+6EG+gk20
-	 5V89+AZPWGeZYRS3iFTp4yOHkS7tiSgJ0JeTDl0fQsKFpUr5l1lNMSAKbf+RT7NmLV
-	 MYPav4GMBELPcLE+0R/F9VWpNSGEpZmf0JrJlrxdSsB1JbBC/oFVCriNIxAQcnYXGA
-	 EIFzAU4ZOGITcKP6WAwj3+vgi7vb0zxfVH4PBMHskCkGz6jJ5raUnjRpr51TAJhqrX
-	 CDxWO1wAbaPA7grjy/CG9uLiLyrX+8jxsEGvgTEdrzZPPNFd58xDVlE2X/PJPwpavk
-	 2MdN3pTLIt3BQ==
-Message-ID: <b0035ada-8760-4c43-aac5-264d6b1d0099@kernel.org>
-Date: Mon, 7 Sep 2026 19:47:08 +0200
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="wfpKBPEy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-2eefaa527c; t=1788803248;
+ bh=pulCHBNmHSLCMLUfuycAkgDBmy2iXM7iw4tKHzxTz4I=;
+ b=wfpKBPEyc9kgAhnxYkBPpUcRSWSFnVRMRR6h1aoI4f+a7MhUrS3dTO4EtTYVlavZuP7CicQSw
+ 7y1YZkoQxc1BJIoKJo2xEU81NbWaw+JGmXxWWFJF6wa6O/1O9rG2Fce0ydMTUyPcNOTqLuWR8os
+ 2NdeouD/liO2x55zOfh1SSk=
+X-Forward-Email-ID: 6a9ef8afe1a2da1fc80b68a4
+X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
+ smtp.forwardemail.net, 121.127.44.73
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <45014ba7-e213-4624-be45-78e88c1b52a0@lineageos.org>
+Date: Mon, 7 Sep 2026 18:47:23 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,186 +41,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/4] KVM: guest_memfd: Establish memslot<=>guest_memfd
- bindings *after* memslot is ready
-To: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Stefan Teodorescu <fane@google.com>, Dennis Tighe <dtighe@google.com>,
- Sashiko Bot <sashiko-bot@kernel.org>, Yan Zhao <yan.y.zhao@intel.com>
-References: <20260904004342.3162959-1-seanjc@google.com>
- <20260904004342.3162959-4-seanjc@google.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260904004342.3162959-4-seanjc@google.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to
+ Exynos850
+To: Alexey Klimov <alexey.klimov@linaro.org>, semen.protsenko@linaro.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ peter.griffin@linaro.org
+Cc: alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, thomas_turner@talktalk.net
+References: <20260905170914.1640-1-tturner@lineageos.org>
+ <20260905170914.1640-3-tturner@lineageos.org>
+ <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
+Content-Language: en-GB
+From: Thomas Turner <tturner@lineageos.org>
+In-Reply-To: <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/4/26 02:43, Sean Christopherson wrote:
-> Wait to bind a memslot to a guest_memfd instance until *after* the memslot
-> is fully prepared, as creating the binding in guest_memfd will effectively
-> expose the memslot to readers.  As pointed out by Sashiko, binding the
-> memslot before it's ready to be exposed to the rest of the world can break
-> various memslot assumption and rules.  E.g. x86 could observe a NULL rmap
-> pointer if a PUNCH_HOLE hit the guest_memfd after the binding was created,
-> but before KVM made it through kvm_prepare_memory_region().
+Hi Alexey,
+
+On 07/09/2026 01:28, Alexey Klimov wrote:
+> On Sat Sep 5, 2026 at 6:09 PM BST, Thomas Turner wrote:
+>> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
+>> for temperature throttling, DVFS, power domains, governor support,
 > 
-> Begrudgingly resort to passing in the guest_memfd fd+offset pair to
-> kvm_set_memslot(), as creating the binding really does need to happen in
-> the middle of setting the new memslot.  Alternatively, to preserve the
-> aesthetically pleasing function prototype, "struct kvm_memory_slot" could
-> be expanded to track the fd and the file, but that would create the
-> possibility for TOCTOU bugs on the fd vs. file, and would add zero value
-> beyond making kvm_set_memslot() look pretty.
+> One of the sensors exposed via ACPM is "linked" to the GPU/G3D as far as
+> I know. The driver part was sent already and three sensors work there
+> (two cpu clusters and GPU).
 > 
-> Fixes:a7800aa80ea4 ("KVM: Add KVM_CREATE_GUEST_MEMFD ioctl() for guest-specific backing memory")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko Bot <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260826170551.BEF801F000E9@smtp.kernel.org
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> ---
->  virt/kvm/kvm_main.c | 34 ++++++++++++++++++++++------------
->  1 file changed, 22 insertions(+), 12 deletions(-)
+> I've never tested yet the DVFS of G3D via ACPM. Maybe it is worth a try
+> on A21s. But it should work the same way as clusters clocks.
 > 
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 3c0dbe60a5b4..21c10cbbac66 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-> @@ -1887,7 +1887,8 @@ static void kvm_update_flags_memslot(struct kvm *kvm,
->  static int kvm_set_memslot(struct kvm *kvm,
->  			   struct kvm_memory_slot *old,
->  			   struct kvm_memory_slot *new,
-> -			   enum kvm_mr_change change)
-> +			   enum kvm_mr_change change,
-> +			   unsigned int gmem_fd, uoff_t gmem_offset)
->  {
->  	struct kvm_memory_slot *invalid_slot;
->  	int r;
-> @@ -1934,6 +1935,15 @@ static int kvm_set_memslot(struct kvm *kvm,
->  	if (r)
->  		goto err;
->  
-> +	if (new && new->flags & KVM_MEM_GUEST_MEMFD) {
 
-For readability I'd throw in an extra pair of (). But KVM seems to use both
-styles, so there is no clear preference when staring at the existing code :)
+I have had a little look at your ACPM stuff currently staged, looks like 
+some really good work, would be cool to see if we could get dvfs working 
+via acpm at some point :D.
 
-> +		if (WARN_ON_ONCE(change != KVM_MR_CREATE))
-> +			goto err_bind;
-> +
-> +		r = kvm_gmem_bind(kvm, new, gmem_fd, gmem_offset);
-> +		if (r)
-> +			goto err_bind;
-> +	}
-> +
->  	/*
->  	 * For DELETE and MOVE, the working slot is now active as the INVALID
->  	 * version of the old slot.  MOVE is particularly special as it reuses
-> @@ -1965,6 +1975,13 @@ static int kvm_set_memslot(struct kvm *kvm,
->  
->  	return 0;
->  
-> +err_bind:
-> +	if (new) {
+>> boosting and voltage control. Once PMIC is properly implemented, support
+>> will hopefully increase. However, the panfrost driver probes, the
+>> Mali-G52 GPU initializes and the core clock is set-up.
+>>
+>> Testing for this patch was done on a device not currently supported by
+>> linux, the Galaxy A21s. After enabling this node for that device
+>> locally, I was able to test and confirm basic GPU functionality. As of
+>> now, this patch has no users which have tested GPU capabilities and so
+>> the node has been set to "disabled".
+>>
+>> Here are some logs I pulled:
+>>
+>> panfrost 11500000.gpu: clock rate = 377000000
+>> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+>> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
+>> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+>> panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
+>> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+>> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+>>
+>> OpenGL core profile vendor: Mesa
+>> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
+>> OpenGL core profile shading language version: 1.40
+>> OpenGL compatibility profile vendor: Mesa
+>> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
+>> OpenGL compatibility profile shading language version: 1.40
+>> OpenGL ES profile vendor: Mesa
+>> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
+>> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+>>
+>> Signed-off-by: Thomas Turner <tturner@lineageos.org>
+> 
+> So, I've got A21s and installed pmOS to test all that.
+> My logs are slightly different but graphics is definitely alive:
+> [    0.200787] [drm] Initialized simpledrm 1.0.0 for fa000000.framebuffer on minor 0
+> [    0.215130] Console: switching to colour frame buffer device 90x100
+> [    0.225540] simple-framebuffer fa000000.framebuffer: [drm] fb0: simpledrmdrmfb frame buffer device
+> [    0.226134] panfrost 11500000.gpu: clock rate = 377000000
+> [    0.230960] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+> [    0.230981] panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
+> [    0.230991] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+> [    0.231002] panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
+> [    0.232329] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+> [    0.232726] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 1
+> 
+> Also, when this is applied with status="okay" on Winlink board then
+> panfrost itself seems to be alive and drm initialises despite missing
+> regulator as indicated in my other email in v2 of this series, hence:
 
-We'd never end up here with !new, right?
+Alright cool, just for the records we have tested this series on the 
+A21s both with and without proper regulators and GPU seems to work fine 
+with dummy regs.
 
-> +		kvm_arch_free_memslot(kvm, new);
-> +
-> +		if (new->dirty_bitmap && (!old || !old->dirty_bitmap))
-> +			kvm_destroy_dirty_bitmap(new);
+> Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
+> 
 
-That's essentially the cleanup path in kvm_prepare_memory_region().
+Cheers, will give this version a few days to stew then I will add this 
+onto v4.
 
-I guess with some more reshuffling we could have a single dirty bitmap cleanup
-path in this code.
+> Thanks for working on this.
+> Best regareds,
+> Alexey
 
-> +	}
->  err:
->  	/*
->  	 * For DELETE/MOVE, revert the above INVALID change.  No modifications
-> @@ -2059,7 +2076,7 @@ static int kvm_set_memory_region(struct kvm *kvm,
->  		if (WARN_ON_ONCE(kvm->nr_memslot_pages < old->npages))
->  			return -EIO;
->  
-> -		return kvm_set_memslot(kvm, old, NULL, KVM_MR_DELETE);
-> +		return kvm_set_memslot(kvm, old, NULL, KVM_MR_DELETE, -1, 0);
->  	}
->  
->  	base_gfn = (mem->guest_phys_addr >> PAGE_SHIFT);
-> @@ -2106,21 +2123,14 @@ static int kvm_set_memory_region(struct kvm *kvm,
->  	new->npages = npages;
->  	new->flags = mem->flags;
->  	new->userspace_addr = mem->userspace_addr;
-> -	if (mem->flags & KVM_MEM_GUEST_MEMFD) {
-> -		r = kvm_gmem_bind(kvm, new, mem->guest_memfd, mem->guest_memfd_offset);
-> -		if (r)
-> -			goto out;
-> -	}
->  
-> -	r = kvm_set_memslot(kvm, old, new, change);
-> +	r = kvm_set_memslot(kvm, old, new, change,
-> +			    mem->guest_memfd, mem->guest_memfd_offset);
->  	if (r)
-> -		goto out_unbind;
-> +		goto out;
->  
->  	return 0;
->  
-> -out_unbind:
-> -	if (mem->flags & KVM_MEM_GUEST_MEMFD)
-> -		kvm_gmem_unbind(new);
->  out:
->  	kfree(new);
->  	return r;
+I really appreciate all of the testing and insight you have provided in 
+the last few messages, now that we have Samsung E850s booting I hope to 
+expand support across the whole SoC :D.
 
-In general LGTM.
-
--- 
 Cheers,
-
-David
+Tom
