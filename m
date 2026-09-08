@@ -1,228 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F0449AA4E;
-	Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B893B6C14
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:35:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899684; cv=none; b=Ei5M20cR4QLxS3e0yCZbqjDMsnQfrbf/yxGhyyuUgPyf3hhV/5x+90FvKZkXM2CIEoIuxD8awreI0x4/rE1LS1DFV5uuyMSIcg8QNaw5zOWBr6F2Ok/PQ3cVz1KellT/wtt29j+QuQRjm++IWr9aui8DGC9NEUpQlFI9NPbEymY=
+	t=1788899736; cv=none; b=V5pchR6qFERnhtueIoXZkT2KInQy8dIVVci9/Qzf2IOGEBpw1OS1u5/UWTdDLV9Yh7tZp5BR6pDWvEQUjzSCoUDlQh/lxHsQ3wmWraPKb7hvAvoHIDltIhbvEyc5NFu1gvp+X3wpm+oOhhue8S7w+wMYxM3I3h3yq/48lV+32OY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899684; c=relaxed/simple;
-	bh=xOYB8xLIPdDX+iWXkXaxmeoECe3D61B81XNBv9a4IcQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U60f5JWQq2OVBNtn/klRQ/zRUpIBU+IPYbWoRMHV9bqUVxeaISleQWLD7PilKSxWxJzalZUGQVbHzA4pIPxSPKVi41oB3bYiyCDRf0NZgWNL9HOvSn01B1iqjF/GkTHn6I+G2A+Lpbmg3BkarLmkgUNlf/Zp1diRSqPf7o1cD7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/dbPmkr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788899736; c=relaxed/simple;
+	bh=dmuom4KhB+a1iF3KDGhN98dp9tB1+TbVBU6QMt8s5wI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=owijZgwUxZ0piDBB7y/1Q4/QXHDJ8b5haxuhaTMNFaBWwzB23liIlb2xHxYQ6UR2XN/yoTZBw1e7nZfYCIep7jqwkkI12I+pHsR4n6avPEOyIX7MdCx5r5KQzD6RlmPkFtL1NEF7ESIgFqayZ0EHelKwEwdCMJE81NAv8+tGWGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODVc1Tu6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/dbPmkr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28F111F00A3A;
-	Tue,  8 Sep 2026 20:34:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODVc1Tu6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5EE81F00A3D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:35:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899682;
-	bh=gqdq0pCabuiCdqmtff2BCCEhLZdJ6HEnMGsMgUVbUes=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i/dbPmkrZxwQXeAq4cgObdPSyb3/vhkOSpe6Xg2xUqBiZyi9RAFL54GW5vH/6OJtq
-	 89yOIM8Y4/Z5ExFbhtFNMxk52eD8IzmWzYp+rnpPz32RA3vw/i8v9ylzmrRq8HHCK2
-	 N6M4tYKjvt3R+l/OFI6OOPR2veYKEtYt4pa0RPS4RLg5Dvh1FS76BudLI7AJ1mjH+u
-	 rKEIK+a0oaXBh6XUS8f+iIxqcet+xQLgY989k2NCaAYOdrdGyShtoT+xMplGqsQriC
-	 k5CHNdWCcCFmU3C7GgED8a2i73a5SawqRocgQN+LkPfG8+0UtW7CvVfptUfMHSGz2z
-	 xOIoAjRpk3Eyg==
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: x86@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>,
-	Gary Guo <gary@garyguo.net>,
-	rust-for-linux@vger.kernel.org,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	linux-kbuild@vger.kernel.org,
-	Huacai Chen <chenhuacai@kernel.org>
-Subject: [PATCH v2 26/27] objtool: Annotate all module-exported noreturns and remove noreturns.h
-Date: Tue,  8 Sep 2026 13:33:38 -0700
-Message-ID: <0b7523a52a4d2d437f8201c2da8762c5e43c8df4.1788899473.git.jpoimboe@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788899473.git.jpoimboe@kernel.org>
-References: <cover.1788899473.git.jpoimboe@kernel.org>
+	s=k20260515; t=1788899734;
+	bh=dmuom4KhB+a1iF3KDGhN98dp9tB1+TbVBU6QMt8s5wI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ODVc1Tu6KscBT4/FXgn0LB+fn/KLN1seHZy6qmsWp5Jx7mE5B0f9fc0sKCrXBLSeG
+	 xTIOO33rAwX9iu6pQUxxyloB1yW107BUc68gidH1UyGN9kdTdlC6+k1NEueTlKdkde
+	 c/OX/sDMbQ4uJ85xtbM0ZEFqObvmci7jQMbpmTBhtCNfV8jwT9zCElxwlsGF6jioJp
+	 umAGt9qLrS/6ujpcDDMLYuJw08TbxnBobVfqp9Ml9tJGm456bJvMCCP5RbLPWL9L5T
+	 c5xjHOdeA/KDLHC+n9eXIUfn2kQq/IqsrZZz6VIFyqIyDCbOSEPiRkAMoGiQBgJCot
+	 7cl//8O9uPwKQ==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso4530497e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:35:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzoB0DpUb4mYVMCOt+PoXt3ychsHCqrc3SF6HrD+I3Ox1lrCMvVJ3DqwsMpF5MtP6ZAtqOTilz2yQZf5CU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nozP9z46M42D63FjUg7QfbesmUw4ao7uD+cndDSMvQk8yTvSdQ
+	CqMQ0gMMCrGSctIT+mS5XPLLv1QpXj+pVc/nxXsc4nayrrcHCIW3OB9gbpbX1cRXOiNEFODyxC/
+	5YBnk+rl9IIsXmKEBDp3GGpGa6KjfXcU=
+X-Received: by 2002:a05:6512:3f0e:b0:5b5:e86f:3550 with SMTP id
+ 2adb3069b0e04-5b616eed114mr4995073e87.9.1788899733518; Tue, 08 Sep 2026
+ 13:35:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260908174403.420507-1-kuncy7@gmail.com>
+In-Reply-To: <20260908174403.420507-1-kuncy7@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 8 Sep 2026 22:35:21 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnzzEsjB476rkC9TyMG7ZiP8Ou1jBy70G_89Z0nrgk3cw@mail.gmail.com>
+X-Gm-Features: AcwNN1XEHE4YjpmHKQ6UPV8OOAuOMn_3eO0GedRom7s1gWieUX8u4geTCwvQOgk
+Message-ID: <CAD++jLnzzEsjB476rkC9TyMG7ZiP8Ou1jBy70G_89Z0nrgk3cw@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: dsa: realtek: rtl8365mb: wait out the full
+ chip reset time
+To: Stanislaw Pal <kuncy7@gmail.com>
+Cc: Linus Walleij <linus.walleij@linaro.org>, =?UTF-8?Q?Alvin_=C5=A0ipraga?= <alsi@bang-olufsen.dk>, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The vmlinux.o objtool pass detects its exported noreturns and writes
-them to scripts/noreturns.builtins to avoid needing to keep them
-hard-coded in noreturns.h.
+On Tue, Sep 8, 2026 at 7:44=E2=80=AFPM Stanislaw Pal <kuncy7@gmail.com> wro=
+te:
 
-However, due to the parallel nature of module linking, module-exported
-noreturns are detected too late to be included in the generated file, so
-they still need noreturns.h entries.
+> The reset bit clears well before the RTL8365MB/RTL8367S has finished its
+> internal bring-up, so configuring it right away makes register writes to
+> blocks that are not up yet get lost. The switch is then left half
+> configured: the CPU port link comes up and the switch still transmits
+> towards the CPU, but nothing the CPU sends is ever forwarded - no MIB TX
+> counter moves on any user port, while the MAC reports every frame as
+> transmitted without errors.
+>
+> The driver already documents the 1 s reset time the chip needs and polls
+> with a 1 s timeout, but stops waiting as soon as the bit clears. Sleep
+> out the remainder of that second instead, measured from the reset write,
+> so the total wait stays at 1 s regardless of how long the poll took.
+>
+> Seen on a TP-Link Archer AX55 v1 (IPQ5018 + RTL8367S, 2.5G HSGMII trunk)
+> on roughly three out of four boots. Unbinding and rebinding the driver
+> always fixed it at runtime. With this patch: 6 out of 6 clean boots.
+>
+> Fixes: 4af2950c50c8 ("net: dsa: realtek-smi: add rtl8365mb subdriver for =
+RTL8365MB-VC")
+> Signed-off-by: Stanislaw Pal <kuncy7@gmail.com>
 
-Instead of hard-coding them in noreturns.h, annotate the functions next
-to their declaration sites with ANNOTATE_EXPORTED_NORETURN(), which is a
-more robust annotation, and allows us to finally be rid of noreturns.h.
+Interesting fix, with an interesting optimization of the reset
+deadline. I like it.
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
----
- drivers/message/fusion/mptbase.h        |  2 ++
- include/kunit/test.h                    |  1 +
- include/kunit/try-catch.h               |  2 ++
- include/linux/rtc/ds1685.h              |  2 ++
- tools/objtool/Documentation/objtool.txt |  2 +-
- tools/objtool/check.c                   | 23 +----------------------
- tools/objtool/noreturns.h               |  9 ---------
- 7 files changed, 9 insertions(+), 32 deletions(-)
- delete mode 100644 tools/objtool/noreturns.h
-
-diff --git a/drivers/message/fusion/mptbase.h b/drivers/message/fusion/mptbase.h
-index b406fd676da09..387b707a66742 100644
---- a/drivers/message/fusion/mptbase.h
-+++ b/drivers/message/fusion/mptbase.h
-@@ -49,6 +49,7 @@
- #define MPTBASE_H_INCLUDED
- /*{-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
- 
-+#include <linux/annotate.h>
- #include <linux/kernel.h>
- #include <linux/pci.h>
- #include <linux/mutex.h>
-@@ -942,6 +943,7 @@ extern int	mpt_raid_phys_disk_get_num_paths(MPT_ADAPTER *ioc,
- extern int	 mpt_set_taskmgmt_in_progress_flag(MPT_ADAPTER *ioc);
- extern void	 mpt_clear_taskmgmt_in_progress_flag(MPT_ADAPTER *ioc);
- extern void __noreturn mpt_halt_firmware(MPT_ADAPTER *ioc);
-+ANNOTATE_EXPORTED_NORETURN(mpt_halt_firmware);
- 
- 
- /*
-diff --git a/include/kunit/test.h b/include/kunit/test.h
-index da5312e0dfa57..9aa4c1d3a9821 100644
---- a/include/kunit/test.h
-+++ b/include/kunit/test.h
-@@ -723,6 +723,7 @@ void __printf(2, 3) kunit_log_append(struct string_stream *log, const char *fmt,
- #define KUNIT_SUCCEED(test) _KUNIT_SAVE_LOC(test)
- 
- void __noreturn __kunit_abort(struct kunit *test);
-+ANNOTATE_EXPORTED_NORETURN(__kunit_abort);
- 
- void __printf(6, 7) __kunit_do_failed_assertion(struct kunit *test,
- 						const struct kunit_loc *loc,
-diff --git a/include/kunit/try-catch.h b/include/kunit/try-catch.h
-index d4e1a5b98ed67..f3c0af4650080 100644
---- a/include/kunit/try-catch.h
-+++ b/include/kunit/try-catch.h
-@@ -10,6 +10,7 @@
- #ifndef _KUNIT_TRY_CATCH_H
- #define _KUNIT_TRY_CATCH_H
- 
-+#include <linux/annotate.h>
- #include <linux/types.h>
- 
- typedef void (*kunit_try_catch_func_t)(void *);
-@@ -54,6 +55,7 @@ struct kunit_try_catch {
- void kunit_try_catch_run(struct kunit_try_catch *try_catch, void *context);
- 
- void __noreturn kunit_try_catch_throw(struct kunit_try_catch *try_catch);
-+ANNOTATE_EXPORTED_NORETURN(kunit_try_catch_throw);
- 
- static inline int kunit_try_catch_get_result(struct kunit_try_catch *try_catch)
- {
-diff --git a/include/linux/rtc/ds1685.h b/include/linux/rtc/ds1685.h
-index 8ec0ebfaef04f..a0e1bf99407b7 100644
---- a/include/linux/rtc/ds1685.h
-+++ b/include/linux/rtc/ds1685.h
-@@ -21,6 +21,7 @@
- #ifndef _LINUX_RTC_DS1685_H_
- #define _LINUX_RTC_DS1685_H_
- 
-+#include <linux/annotate.h>
- #include <linux/rtc.h>
- #include <linux/platform_device.h>
- #include <linux/workqueue.h>
-@@ -362,5 +363,6 @@ struct ds1685_rtc_platform_data {
-  */
- extern void __noreturn
- ds1685_rtc_poweroff(struct platform_device *pdev);
-+ANNOTATE_EXPORTED_NORETURN(ds1685_rtc_poweroff);
- 
- #endif /* _LINUX_RTC_DS1685_H_ */
-diff --git a/tools/objtool/Documentation/objtool.txt b/tools/objtool/Documentation/objtool.txt
-index c7ebfb9a8ca6b..d5ac48bc203ec 100644
---- a/tools/objtool/Documentation/objtool.txt
-+++ b/tools/objtool/Documentation/objtool.txt
-@@ -330,7 +330,7 @@ the objtool maintainers.
-    traces and want objtool to ignore it, see "Adding exceptions" below.
- 
- 
--3. file.o: warning: objtool: foo+0x48c: bar() missing __noreturn in .c/.h or NORETURN() in noreturns.h
-+3. file.o: warning: objtool: foo+0x48c: bar() is missing __noreturn in .c/.h
- 
-    The call from foo() to bar() doesn't return, but bar() is incorrectly
-    annotated.  A noreturn function must be marked __noreturn in both its
-diff --git a/tools/objtool/check.c b/tools/objtool/check.c
-index 94beedcdb49bb..e6d33e57b7b33 100644
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -176,24 +176,6 @@ static bool is_sibling_call(struct instruction *insn)
- 	return (is_static_jump(insn) && insn_call_dest(insn));
- }
- 
--static bool is_listed_noreturn(struct symbol *func)
--{
--#define NORETURN(func) __stringify(func),
--	static const char * const global_noreturns[] = {
--#include "noreturns.h"
--	};
--#undef NORETURN
--
--	if (is_local_sym(func))
--		return false;
--
--	for (int i = 0; i < ARRAY_SIZE(global_noreturns); i++)
--		if (!strcmp(func->name, global_noreturns[i]))
--			return true;
--
--	return false;
--}
--
- /*
-  * Use this rather than reading sym->_noreturn directly: the noreturn status
-  * lives on the primary alias, and ANNOTATE_IGNORE_NORETURN() overrides it.
-@@ -205,9 +187,6 @@ static bool is_noreturn(struct symbol *func)
- 	if (func->ignore_noreturn)
- 		return false;
- 
--	if (is_listed_noreturn(func))
--		return true;
--
- 	return func->_noreturn;
- }
- 
-@@ -4890,7 +4869,7 @@ static int validate_reachable_instructions(struct objtool_file *file)
- 		if (prev_insn && prev_insn->dead_end) {
- 			call_dest = insn_call_dest(prev_insn);
- 			if (call_dest) {
--				WARN_INSN(insn, "%s() missing __noreturn in .c/.h or NORETURN() in noreturns.h",
-+				WARN_INSN(insn, "%s() is missing __noreturn in .c/.h",
- 					  call_dest->name);
- 				warnings++;
- 				continue;
-diff --git a/tools/objtool/noreturns.h b/tools/objtool/noreturns.h
-deleted file mode 100644
-index 4e8007a8c2584..0000000000000
---- a/tools/objtool/noreturns.h
-+++ /dev/null
-@@ -1,9 +0,0 @@
--/* SPDX-License-Identifier: GPL-2.0 */
--
--/*
-- * This is a list of noreturn functions which are exported *by modules*.
-- * No other noreturns need to be listed here.
-- */
--NORETURN(__kunit_abort)
--NORETURN(kunit_try_catch_throw)
--NORETURN(mpt_halt_firmware)
--- 
-2.55.0
-
+Yours,
+Linus Walleij
