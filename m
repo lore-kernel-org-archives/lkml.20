@@ -1,148 +1,283 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD88551996
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C6F54B1C6
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878602; cv=none; b=fUw5GaekcXWR28QSFjOPLoIrexWz+9N7tDDaNijpfQDcB6cL+mU6WC2P7iamJevL9stVW09U7gqhpkOMw9w/om4WXYHziPtibq5eJKFZ/0MqtdExdTD31FKIVPegbHWzKYR6QYz82Wp0aE8GHCupeIcttgoszwxUBsP9hyV2lkQ=
+	t=1788878835; cv=none; b=taqhfWuk75NRhEoNfGwUEsZMK7tSKZdXlCrYnG7k9p53rCXUZl67jT5WA4h01LBA6z8ZHR5yKVoodz+Bc6HlEoL+5E4tBqCEZXfp+6Jf+ZMnObimL0IaU8pzytQGab90frBLFyTZJZN7zQoDP7gTtIlGZ2Odzoxg6tzgTLh/KhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878602; c=relaxed/simple;
-	bh=Cizh/rafKYNYT0KXLdcIIm+Lz+4kUEHHuvKUEJoYFmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MD2ptx8Mvna1tTE8XcTG8z13BlDLde+TcdFdbLhMM6vNr6P2ypESH5BW+s6+K70f2wswb1NOkqm8ikOJMgBOj58szg5Ce5Li0IAqLcLy2V3fU7iikJKY/JGgtm/Ag7vyChpzdigUM+tBtlHbu+gVYEjfEBiPunyUYaIOQhByUTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2tUO9Y9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788878835; c=relaxed/simple;
+	bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FbKbYLoxQ1jmcl61P50KCnxkcjH+A5BfNnCxfUIO36X24oMfNc0S7owWZUwG5Msxx1wBTw3rC2s2Ue4Vk/9eYsRTj0p3W2IpVtrzyWM69mGJT+yn+dKA7vcFnXTxzgiyk1QbliUq/xb5ieEnmYbXaNQJxlwNz18LDTTD6DV2KiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BgJRwNhu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6fJqpPN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2tUO9Y9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d157f691cso1026005e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:43:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BgJRwNhu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6fJqpPN"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Ej5q73483196
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 14:47:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ST7wDY9QZk1oGjjrN6llgg
+	nO0dFwmF9Svnv+hjQYAyA=; b=BgJRwNhuUWBhQXkjeKX0A+aaLb2C236cUyWi+Y
+	lPpZhFfKBKlf5sPNedjk3dvDcQiU9vH/AkNjma0IkpquFUS8OxkQqRNu4XyIkXze
+	hbJN7yJ5a9uMVH+aD2QjC3uDi6LJfEgUUnF0LJUNOdJyZxHExONJugpiGsqYAAzF
+	ANTbXxYTS5iZ7I1TLlhcx2I72a4QiQG4sOMGfCXrjQ4HnSvUaGiOTOv2y37pebbj
+	RKpAB12Av4Bixtl0JZVmoc0cFbU3+pbIQgx0Z8sXWzTKFxhqYGK5zrQQQX98RAwa
+	2HQsrl+MhKWw6aW7cxPcFCOc0VjEO3fXn41z2CG1/eW4xD0A==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjagujmwn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:47:04 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso5728252a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:47:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788878591; x=1789483391; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KDuIAOmD9TOy7wbeKmvOrBhyXGkPda+5cVc0xJOwDR0=;
-        b=C2tUO9Y96jzEt1GHtbZboXZUPxkVeqLJsx4gJwZe//1omS3R8bjCaifgpFF+Tmy5UV
-         l7OSFsHmkdTtN8y74oEJNm1Z3UgPn4x8osLilL+F6Ht4FLmXPREDRc5woA2jhP2PQfVF
-         /jiGv7rq0aT6IvUkjEkvBtFjKRSRQ4goaVW7xBSIbcE/fQvZOoQn6UPL1ISzkNO+fcM+
-         s4sGvFQfAAH6hItxMsZz0ZU7uI3EfExP30Y/RZvI4WaSOXM1o88oxatp53FWzFFxBmaf
-         zAqmFm1J805amQSRm3dP5FGfjfBEOoOtXAhK1eHO+CN0h+b1OSLO4oSS8H6PAqI0uqHF
-         mOVw==
+        d=oss.qualcomm.com; s=google; t=1788878824; x=1789483624; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
+        b=Y6fJqpPNB3YteVoeL/6vkt4CkOyfwseqxYIASgDYH7igzawO+htZo71HRqX3Bd1ZM4
+         fPAz78xI/PJrfO99U60ym2XINRTxFAHIEbuVsyAhO/t/BhBWEIJW6I8vClcdwaK9Ml9l
+         bIypR8GFRL3uzifOKaos8+or1PCkn1sOTfPAqW3ekAFd2Env3HAoLVYexMAw/WTrHn8m
+         0szHcFvLFWBq2bVfJ7BSGrPV/hk/VP9yulyekXzCNQ6iqF4tBuBE0KLQujBNgCfYIQLU
+         7d5ITRgH1PzFSg23w+U4fky/XKjEx0yG2MZfqWh+bOcmJyvnaujSv5rwN80+Rb9eLGjn
+         PR8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878591; x=1789483391;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KDuIAOmD9TOy7wbeKmvOrBhyXGkPda+5cVc0xJOwDR0=;
-        b=h3htFQH5uL2iUhewYrsr9tFKUCjFoECFBMDs5IgPHgiXt5fHK7oUqo6TzrDKgMalsI
-         2r9FuFBIHC7CjeJlFgLleOWNX9ZNfo3raLUURzAKyTF7cg3Q3Akz8Imm3w2TBUlwEaPZ
-         GDqdT3SjcwmRBBxmj0hcS+0fxfkhjoizTCl0DfyvoUE6UgLw3TNSH+DUwULC9q9ksDqC
-         VwlQLNQ4NsiagJskAxFVoUrV5g/+R3dAuPNTB37OR8a6gByvj4juu5JgmLEAsYmPVhSl
-         uqtu6y9+9v4yv6MY4PJMEjXCChLvPn4H4KrhetrSXYqJpBYTY6JI+xA60O8QNQVFz5x4
-         ynNw==
-X-Forwarded-Encrypted: i=1; AKwUvBx1Y/JN0sUeBw8GgVyXbJCzK6S0KoaiTZilWlSrwb3fubw4y3SPWPGHTvuuL3ZZz4NBMBzNQz2OXjtyINA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrconCcvd7gSNDvdvUq29EnlBKM76LHGivdzj9Jrq7geEgtCpR
-	vCC8T/ewDmkRrvVoz0AijxA8Rnb7Fm8kWqaNYZu2buty8oQGN1v2nrd7
-X-Gm-Gg: AYBFou02t6vRds8wYCN2qW1ko1eLTGhndLhwC1IsqcP3lMa8Gh/WpMpeMvIn2rm/czP
-	1WrlTRQLX1W6E9MzXkXUsd1HTyh+9TH/Z50pnrbf3kDRI4HcnTNKeVp2zHRxVmJwjsFEzFKFaY4
-	hz+Goc6U3tGSDKwQ/FWvZNJ4oQHtT8uv6r4BeAD7u5v4Xnv4TnF9eDG8l2s/oG3fSX7/U7J2EKd
-	T+AkplLbL7amUvbXN4m8Lq8A7OxDSoSEnLM2PdVhVEyx2LElndfQkbuipasU6GXSI4kzfwpt+6v
-	BovqAhZdVP6s0A+lIttopIle6gXjEbDjK/SZGVFrMqlh3iocXuIldH0zucuTn+pPtjZbNCCJTEU
-	qWWIusBUpi2cIw9R1Z0vUJDRHuKKJSyo9XkVsQ3yGbYeAErYW8edsA9buGRYIrNoT4NpVTl4ciS
-	zBR7JdJ/4O5cURdlucHgPzeR8jEN2fkYRAjKJrM8SosZ0qfWgKzguZCSkgzYg8f8l1lJ4AkXAh/
-	h6SFDkoLbIxDFAwhzDXvSsFWOwnsd8ziZJVmZL3CI8JCSI3/g1drKWY93YHVjGG67yZuw==
-X-Received: by 2002:a05:600c:4f48:b0:49d:798:67a4 with SMTP id 5b1f17b1804b1-49d079867f5mr193440325e9.0.1788878590675;
-        Tue, 08 Sep 2026 07:43:10 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D00A0B3828666A65C4F.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:a0b3:8286:66a6:5c4f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm564356455e9.13.2026.09.08.07.43.09
+        d=1e100.net; s=20251104; t=1788878824; x=1789483624;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
+        b=RZ0P3FFBV3r7mBPi8sdyEOMPREXNda7E8AM45qWy+WLAj08lH5dWrIz4DmCDyyaJHJ
+         O1iZn9mUmlPuJSvqHuyhsjkPQVC5qFfekA8fx/6G01NQUDc+Tii/7VU2zM7rJ0kG3xRM
+         xx34FPAFKZ7lbf/37x8uZvSJms3ruVpXQjZv5YFb3Qg/rOTZ0KAumq2X4raQ6UAnevhn
+         5UEyROcgaQbOxg7yd7rCMVGS7XaO3A95FBzaYUXN2lI8oJjpcta7VLWvLF8jkBoRwVVd
+         OwJxgM7FMbehA+EwHgL5gUqezbDVXECXx2g+5Q1JxYVH715J3tltXdvjqfbfIIJgrK5U
+         UMbg==
+X-Forwarded-Encrypted: i=1; AKwUvBzvlgMgCj7rbpmEpdTKWlZOmSLln9H3WfwTxfLQklyojseQBMAYdUL8UM8ltdYsnvyWxdY+7tsfJ8MEaCA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDmDCsTUJjkw6+75s19mKe1bXMWFLytb3YKQiaJoIVDusMW/bf
+	7r0T5hZCO1g0mlKTQNVgqz7jv1s38mKzeftQyg34FMdEjugQWqAsFm9BZGAHY7ryVVcu46KHvb1
+	Nul5OsHOO3crX4gzkBcd3G/wGFxQeORSFqAafGbTD9VKY0h/HGsPtgu2WYjEoY0kUnqo=
+X-Gm-Gg: AYBFou1mw716yNFmtEQQoYnJjU2BsaQn84zXWko6iqH1yY9zSHIQLG0FDQW6us9MMjt
+	RzR2Osmw6JvEBT0S3HLSoXqDjQZvQ3elC4l6sGkoYEg1oDVZqYTQFjWg6pxI0PbE/vvA7ynMtTd
+	uEedLEKO9j+sgmtH73nmolRaveHUKR/KlM4TW0UkxD8r3Fs0VAqdfc87BUvv11M08yVyjhJQOZX
+	Yyv4kSo+ivfmMwf/SP3a0cvgJQ9TL2RvbEl8fLNzEqOvowijJZGYtEiq2porM3qf98bAw/KXQAX
+	ggj67wr7tMAIYo88VmCgHR0pYVwl38eqSC+RLpopK/3Kxzms59/AxYPHKX85rmrWXj5dSGzdxmm
+	sMVaGotE8yEm8rhskTHy8bfsofGZk6S/ucCQk
+X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609771a91.1.1788878823551;
+        Tue, 08 Sep 2026 07:47:03 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609705a91.1.1788878822944;
+        Tue, 08 Sep 2026 07:47:02 -0700 (PDT)
+Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm37018331eec.9.2026.09.08.07.46.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:43:10 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: s2idle resume hangs in ohci/ehci on RK3588: HC registers touched before the USB2 PHY is powered back on
-Date: Tue,  8 Sep 2026 16:42:44 +0200
-Message-ID: <20260908144245.10700-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908133147.8291-1-royalnet026@gmail.com>
-References: <20260907190000.s2idle-usb2-resume-royalnet026@gmail.com> <ap__5zeUakMSLWOQ@venus> <20260908133147.8291-1-royalnet026@gmail.com>
+        Tue, 08 Sep 2026 07:47:01 -0700 (PDT)
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Date: Tue, 08 Sep 2026 20:16:43 +0530
+Subject: [PATCH v4] dt-bindings: remoteproc: qcom,shikra-pas: Allow
+ bam-dmux subnode
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-shikra-pas-bam-dmux-binding-v4-1-6044889e7e3d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANIfoGoC/43NTQ6CMBCG4auYrh1Df6DFlfcwLkpbYKKAttpgC
+ He3stGFGjeTvLN4vokE59EFsl1NxLuIAYc+hViviGl13zhAm5qwjBWZZBJCi0ev4awDVLoD291
+ GqLC32DfAlC6qupQql4Yk4exdjeOi7w+pWwzXwd+XsUif3//cSIGCyWheGmm4s2I3hLC53PTJD
+ F23SYc8+cjeyfI3yRJpVV47rYShgn4h+YtUlP8meSJpITWvqzyz7BM5z/MDQCvLW3MBAAA=
+X-Change-ID: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788878817; l=5433;
+ i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
+ bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
+ b=D3EiykkSbxrcWm38hRsxB6VTUWXZEET42Pcgy8jgmvgFQuF58Ds79vOBbAIakrak0rQQ/JZ8e
+ /l1VH2SqGxhCMiuUpFayEp/ZeqrniTItldmp/y1Mi3OPhGNDaYcwHOt
+X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
+ pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
+X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6aa01fe8 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gmyZvYRh-Lm61jtpQzcA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: K9Lf8ae_95PoNQlZRYLQGm2Kt-UQtvyu
+X-Proofpoint-ORIG-GUID: K9Lf8ae_95PoNQlZRYLQGm2Kt-UQtvyu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfX/ywfBk5biy5P
+ 9MtnJWAahSpfS2z8/fijrO7sQ7vpUkkh9ufGP7ob5I6nkme5Uaiy1iyzR3gnM/VtVZZ7ceTrGtT
+ fZw/u+L9XRQsyVtDnLDgoxbKntpp//M=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfX7AwrnSr/NEh/
+ yD09vB73c2p0sZ89TmGkGvbjHwpoJBujB+jBYDqM81UxBR3Ni4h06BtNs9ccXeh8lZHrDhf5ZIQ
+ asKZqf+Aus5FJ/ktvxhqZOmT5C6VgfF0OGZe+pZ/CVTVIf5h62JE7kwqKag4mQXsrJMkGE/49EF
+ M9E/ANx0KbBWOZvfUm3vcz8TXsW6GSsZDDQ8eS6rqgjXDAeRKoyBMaHuCTIKqfRkf6MbTRnRp/I
+ 6TvCIM94j+hmzg8NtGJdvBROEJiVJ03h0bKQkGZznWJnJbKYXQqLk1aIOXqE/8V9M/pkIKN+nlD
+ XbQIkO1td9AI/Fbventf49EL7hZwl0NIgrWTPUYJTtonObXHQz7LsZzAQm8eYLyDdNEeIAK7BIr
+ Zz/d0f3sz7orcqW8DPwqgwV8jFtEzljmhk5nVaAPR8bVY2XtDblP5koDXkIQW729Ublo4FrmX1T
+ WI6VFKyJmV/4k43kSbQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080158
 
-Hello Sebastian,
+The Shikra modem uses BAM-DMUX for its WWAN data path, but the
+qcom,shikra-pas remoteproc binding has no way to describe that
+modem-owned child device.
 
-I tested 53014abc on the Orange Pi 5 Plus and it fixes the hang here.
+Without a bam-dmux child node, the binding cannot model the relationship
+between BAM-DMUX and the modem remoteproc, and userspace cannot
+associate the multiplexer with the correct remoteproc instance.
 
-Setup: same kernel (7.3.0-rc1 based), same dts, same procedure as the
-report, all four USB 2.0 hosts bound, RTC alarm as the wakeup source.
-The only change is that commit in phy-rockchip-inno-usb2.
+Add an optional bam-dmux subnode to qcom,shikra-mpss-pas referencing
+qcom,bam-dmux.yaml, and restrict it to the MPSS compatible since only
+the modem subsystem uses BAM-DMUX. Add a second example exercising the
+new subnode for dt_binding_check.
 
-Result: 4 full s2idle cycles, all of them resumed. The controller that
-used to hang, fc840000 (the OHCI on u2phy2, the port with nothing
-plugged in whose 480 MHz clock had it as its only user), went from
-"enters ohci_platform_resume and never returns" to:
+Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+---
+Changes in v4:
+- Reword the commit message to explain why BAM-DMUX belongs under the modem remoteproc.
+- Restore the original CDSP example and add a separate MPSS example that exercises the new bam-dmux subnode.
+- Link to v3: https://lore.kernel.org/r/20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com
 
-  ohci-platform fc840000.usb: PM: ohci_platform_resume returned 0 after 20649 usecs
-  ohci-platform fc840000.usb: PM: ohci_platform_resume returned 0 after 20773 usecs
-  ...
+Changes in v3:
+- Reword commit message to keep it scoped to the binding change. 
+- Retarget the example to qcom,shikra-mpss-pas and add a bam-dmux child.
+- Link to v2: https://lore.kernel.org/r/20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com
 
-8 out of 8 resume passes in that boot returned 0 (4 real s2idle cycles
-plus the pm_test device/platform phases), each around 20.7 ms, and the
-same for fc8c0000. For comparison, before the patch the all-bound
-configuration hung every single time and needed a cold reset, while the
-control with the four hosts unbound completed 4 out of 4.
+Changes in v2:
+- Restrict bam-dmux to the qcom,shikra-mpss-pas compatible.
+- Link to v1: https://lore.kernel.org/r/20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com
+---
+ .../bindings/remoteproc/qcom,shikra-pas.yaml       | 75 ++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+index 253b14eb2b598f0ca91854c8ff4d0b785090e621..da66034311522ba36d160959172c1444c5999509 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+@@ -44,6 +44,11 @@ properties:
+       - description: Firmware name of the Hexagon core
+       - description: Firmware name of the Hexagon Devicetree
+ 
++  bam-dmux:
++    $ref: /schemas/net/qcom,bam-dmux.yaml#
++    description:
++      Qualcomm BAM Data Multiplexer (provides network interface to the modem)
++
+   glink-edge:
+     $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+     description:
+@@ -117,6 +122,16 @@ allOf:
+         power-domains: false
+         power-domain-names: false
+ 
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,shikra-cdsp-pas
++            - qcom,shikra-lpaicp-pas
++    then:
++      properties:
++        bam-dmux: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+@@ -165,3 +180,63 @@ examples:
+             label = "cdsp";
+         };
+     };
++
++  - |
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/interconnect/qcom,icc.h>
++    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
++    #include <dt-bindings/interconnect/qcom,shikra.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++
++    remoteproc@6080000 {
++        compatible = "qcom,shikra-mpss-pas";
++        reg = <0x06080000 0x100>;
++
++        interrupts-extended = <&intc GIC_SPI 307 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
++        interrupt-names = "wdog", "fatal", "ready",
++                          "handover", "stop-ack", "shutdown-ack";
++
++        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>;
++        clock-names = "xo";
++
++        interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
++                         &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
++
++        power-domains = <&rpmpd RPMHPD_CX>;
++        power-domain-names = "cx";
++
++        memory-region = <&mpss_wlan_mem>;
++
++        qcom,smem-states = <&modem_smp2p_out 0>;
++        qcom,smem-state-names = "stop";
++
++        firmware-name = "qcom/shikra/modem.mbn";
++
++        glink-edge {
++            interrupts = <GIC_SPI 68 IRQ_TYPE_EDGE_RISING>;
++            mboxes = <&apcs_glb 12>;
++            qcom,remote-pid = <1>;
++            label = "mpss";
++        };
++
++        bam-dmux {
++            compatible = "qcom,bam-dmux";
++
++            interrupt-parent = <&modem_smsm>;
++            interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
++            interrupt-names = "pc", "pc-ack";
++
++            qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
++            qcom,smem-state-names = "pc", "pc-ack";
++
++            dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
++            dma-names = "tx", "rx";
++        };
++    };
 
-Two things about how the module was built, so the tag is not read as
-more than it is. The kernel was built with aarch64-linux-gnu-gcc 13.3.0
-and I built the module with gcc 15.2.0 on the board itself, against the
-installed linux-headers package (that package is arm64, so its host
-tools cannot run on my x86 build machine). vermagic and the modversions
-CRCs match, and as a control I first rebuilt the unmodified file from
-the same commit and got exactly the srcversion of the stock module, so
-the difference in the tested module comes from your patch and nothing
-else. The module is also unsigned, since the headers package has no
-private key, so the kernel is tainted O and E.
+---
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+change-id: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
 
-Two log entries I do not think are related, mentioned so you know I read
-the whole log rather than only the part I was looking for. On one resume
-there is an rcu_preempt stall report, but RCU marks the CPUs
-"(false positive?)", the NMI is answered, and the backtraces show them in
-cpuidle_enter_s2idle, i.e. asleep where they should be - the opposite of
-the original failure, where the CPUs did not answer the NMI at all. And
-on one of the three resumes there is a WARNING in
-drm_crtc_wait_one_vblank ("vblank wait timed out on crtc 0"). It is
-display side, and it happened on one resume only rather than on all of
-them; one of the monitors on this board goes into its own power saving
-after a while, which would leave the CRTC with no vblank to wait for
-while keeping HPD asserted, so nothing about it appears in the log. I
-cannot prove that from the log either way, but it is not the USB path.
+Best regards,
+-- 
+Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
 
-Also, the network check right after resume fails for about a second
-before r8169 reports "Link is Up - 2.5Gbps/Full"; that is my script
-asking too early, not a regression.
-
-Happy to re-run this on the version you post this week, and to test the
-PCIe suspend series on this board as well if that is useful - it has
-NVMe, two r8169 NICs and an rtw89 card on PCIe.
-
-Igor
