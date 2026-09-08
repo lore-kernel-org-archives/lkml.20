@@ -1,144 +1,143 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012042.outbound.protection.outlook.com [52.101.48.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908AC51991D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:10:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865858; cv=none; b=kg/BPLYjtRTrcBIt5FfPoMRNNe2Z6hxNzdyMi+O5OoPBwnK6NRua0u84BWKG64vh0rjfjVkCJziGb9fUVZAd2iUNmU0m2YELU/YHW1kJNi7bEfwEUOIPkNaAU4wVrxGHpLfG/7k6uEM7BfJoyL3FqxEISjSwZ0Y5RRrDmw7aIKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865858; c=relaxed/simple;
-	bh=rqHVgMiROJsS3QHZ/2FhNH0eT7u9QW+NHGjan0ZH5wE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gYKbr5+kV1sbrz7qS1RAOCcPYvXumGSYyquP/m6jpSie0L48VUn/DWyFW6evbcjBbsX4C2DISejD5J1aVsuPZOthU8Iv1mMXBhenHjaxLIhaUa+poCjD5akhy515jwIspAP6mxUxXFAt376vn81flrHHCirINVlwXGAyS1N0bfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5XqdaBT; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B9C51991D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788865957; cv=fail; b=kef7FYH95iiEwQTBux8ZkTW+Pp7Jry7UIBJOs4SDaS4nsFM2A+Qt6zAuDHfvPAtQ9+kkQqKCigwXbRXH2qf5rU/fqgpwb4ePmXX/DwUui5UdYVyhnyrQXZTztM54WPYXpi4EShaD+9HDFcs5PyzYiD843z4tfVvI5qXt9D5MiXA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788865957; c=relaxed/simple;
+	bh=U6J01i7NDsqruZP9tTSQc2M0PcCAWuHzldfHWN1ONSU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uTirKyR8XfSK8EiZr/qyzwdGbHz35CSf3AQEkGD18aktp7c7UVtWRyDqlLMghHVzTF6tsB+3bBt5GkG4kXjOVqLmwt0xcaJihdJ8nWVyfvNoloam5v0GDsxZ30Ye2/cV9YwLJFYVDsHShBQZ3afAEWHRKC1W5F2Vd8nBP1ZVsV8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=d3c84Di9; arc=fail smtp.client-ip=52.101.48.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5XqdaBT"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c15cf78d1a2so432250666b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:10:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788865850; x=1789470650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TnGX9akoQ/WbzKgGML/w7POJM/15dtNrSKYlYS+yEis=;
-        b=P5XqdaBTrKcRHrud+DUcqDTBPzVJBPEEnbU0EKTEuIWazz3XilyipcUU3Ozm2z1+Uw
-         b2CV/n+4VhBPz8gllTrX33QqtLXfjRPs/Z4kEBqiZryynsUvffV+k75U0rxSz5k27brR
-         jqIK+25aSQ5smpMvvIwK6jt7e2oUqHnD+u64uHEtHhWTSLhe8OIAwIEf260fZ+hHY7UN
-         S7uIWb8wS3XCRvPwIHidBI2lFOEmj9wbtBFnEOFm+XFMAIe+nmQ57KsuMme0xsssbjAR
-         QwihSgXH6GrJVcSIIUjt6OUZH7yjFh9JB5CKv6xMwHcaJvncmrvv6RHCYueL9r5BVRds
-         DRNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788865850; x=1789470650;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TnGX9akoQ/WbzKgGML/w7POJM/15dtNrSKYlYS+yEis=;
-        b=cyNAC+XVwfGyYd25kGZaL/X+577Vk3M7oElKPXro0NyPKPLvSHGabURyb60ullgxz3
-         mDiFT/7gT7coNGyzS39yRyF8O3t0FU1tWofKYXmIF9LXltYL2H6Ovk1opUYm097VP7l4
-         yyvNk0eiEiVvlS0QqORgzt5h/clZSykQhxKEtut80uE4isI8NbmHdaQRNR1yAzywcowe
-         TmpJlaDpBiHDlFHiP1wq8K6du1u55Qxo9Wye/plIQdrTvW1WcMmV84cnFPd3BQjG+KYK
-         V41AqUqqprCpoKn0ZmxSiwyTxSVyYGqlpdcN03FAr5h2JwTss5DPR9e2NiEdZFNgBuez
-         gMCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkkkWSoRlnjnryST9NVfRgHJRLFrolN9vK1GUpt6hF0QgEd5CI6mb7rkP2p6MVZT8/sOFk4YF4buW9DqY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnku6UbZhcqtHqYdPmVVv1Ivr7wn7W2vekDlHi3RRSRWqwljjJ
-	oUKcsaO4wBh+NP1Dl3LrsdXRof6UZxa1vb1Eoczp4g+R+Dys3RmXDhzo
-X-Gm-Gg: AYBFou0Zey6iyr3EA/0magcK3hSnAYDx+Xdqvv0TAot72QjIJtnKiaRfCsbE1VwMLTQ
-	b5EW2y0v2VrLd8skAggz87WufPfBsSQcd+dWRKKBwOwJDwtpvfD82tTTVLaqhYcsaG8Ajp4SkQQ
-	98MsN5kadiPd6D1lYsZ3y02q7Ibuoe6s4FIFiNY2nXZgFisTflK9USpFEm2ibJMrmmhNEv+li3c
-	qpL7AjWLrpazunRQWyz2T4bYodtLliFQHAtpCYktmumriyLS/rH8499pOzeL8BNI1CJuY4weMb+
-	4kllcirf/ghvnBT+qZJaNfzorgSNXPOeNATcMYoR+CriAC7k8HUTe7pgwWjrR6rQSjE+cYfhXDV
-	s/OuHYE4milHjPPju4G73UNV9MCGJ3hyJsknMGCzkqxkuAhQ+B/5e8NxFeccqERwxb3DBDhj5+8
-	tGEoXIs0DIkYYhkFBLpRnKukPdF5sCCYqAAPQVOhROI8Se8eX/puM+m94rfvAJraLm33rtfB4=
-X-Received: by 2002:a17:907:8b99:b0:c16:13e7:fd63 with SMTP id a640c23a62f3a-c260c3f946dmr985986866b.0.1788865849777;
-        Tue, 08 Sep 2026 04:10:49 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d53c37csm589464166b.32.2026.09.08.04.10.48
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Tue, 08 Sep 2026 04:10:49 -0700 (PDT)
-Date: Tue, 8 Sep 2026 13:10:46 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: wakasio <scarabeeta@gmail.com>
-Cc: Mathias Nyman <mathias.nyman@intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: xhci_hcd / ASMedia ASM4242: Bulk-OUT -EPROTO with Logitec
- 0789:0308 during DVD+RW recording
-Message-ID: <20260908131046.1fa7034f.michal.pecio@gmail.com>
-In-Reply-To: <20260908104935.13248-1-scarabeeta@gmail.com>
-References: <20260906122750.1c71f176.michal.pecio@gmail.com>
-	<20260908104935.13248-1-scarabeeta@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="d3c84Di9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KRLQq0XV+N7EYGHdqB6kHbBdV+Rl+XsF9KsnHlo6Vi9RMlIboS8aGTSyHvTXD1cDulGt2UA4CJ9wJh6S7gyiH8Hu0HEdK8l6K1/vTuKOcD9At56rhgimyErh9X1XhEiv6VyUjqmOnLEa0/Qo+EWYJsz4e+2N/AtIKp4NCia8VQvScinrV0VQMepWx67GfgQh8mUwCnVjEWgi8gXDUjLlFg0yc0zKC8xnrexByT8yU1vAiS8ytkGRb4Gdl/9Muw6FLqsUyUIoo++Zg/Z+/T8v2Kjv5oAAMO+qiqpOkcZBRVY2nO5sR1ZlyQ831fJp5Lb1rTyaWZih5zvLHCX990RuAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=V6XsTDmuf3DjmoVsgul3/sgUp16y8fLr6QBNh6O3/rc=;
+ b=NzTthdqMRW0BAY12czY4i6xyX+HudpdOHKfA17o4iimq44Obhi8Ng4gPDZ4JdkF1GvXY6GWR7mMNCgDOCmeGyZoi8IHe28iiKiBEmX/aHuf+mYDkwODn64RxMqEve7ISBOF5v62oXiZdlhaIKG6HdbekRqc1k7IxUtbvvG1K6DoeHDL5qNAyN+6UOO7iZya0vXFHX3bW01qpnqpoYYd1Ii6uyFRRjkCIrHVbjMSUeuVQyO0YPAtKjydiJivTDCVhkhTMFZw0UcPSthCz6vaVie6P4MGTKNukFQO1hOODmScGTqf5kfq0c6CCQijn9TDT5mO/iRJKyydh2ztKcFp7Uw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V6XsTDmuf3DjmoVsgul3/sgUp16y8fLr6QBNh6O3/rc=;
+ b=d3c84Di9wRqr17r5gXlrQyTKSFf2Zrx+Naa3WOOj/9rlvFdOmPz3lbgxE9lLFW9m+pcscNs41fX0UoNygCnAPv4pZWkUTVu9TSrPab1TpysFhbLFk7GK2nqj5S1p9KxsJZr/uskyVu8OufbHOFdkCWTfRHbsZT4yGbmGmCCqxn8=
+Received: from SJ2P220CA0006.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5da::19)
+ by DS4PR12MB9658.namprd12.prod.outlook.com (2603:10b6:8:280::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 11:12:24 +0000
+Received: from BY1PEPF0001AE19.namprd04.prod.outlook.com
+ (2603:10b6:a03:5da:cafe::18) by SJ2P220CA0006.outlook.office365.com
+ (2603:10b6:a03:5da::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 11:12:24 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0001AE19.mail.protection.outlook.com (10.167.242.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 11:12:23 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 06:12:13 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 06:12:12 -0500
+Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Tue, 8 Sep 2026 06:12:10 -0500
+From: Shubham Patil <shubhamsanjay.patil@amd.com>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Alexandre Belloni
+	<alexandre.belloni@bootlin.com>
+CC: Frank Li <Frank.Li@nxp.com>, <linux-i3c@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <adrian.hunter@intel.com>, <git@amd.com>,
+	Shubham Patil <shubhamsanjay.patil@amd.com>
+Subject: [PATCH v2] i3c: master: amd: Report direct CCC read length in payload.actual_len
+Date: Tue, 8 Sep 2026 16:42:07 +0530
+Message-ID: <20260908111207.3274407-1-shubhamsanjay.patil@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE19:EE_|DS4PR12MB9658:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8139271b-f513-4dbe-c665-08df0d9a0eb7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	XZJ8uJlH2o3HVJkFPk/1im7xbKXb5c7cHXWMYUqA3+JXL7bn4LNTEOWkTdE+u5uYP2W7dN1V9Wt8zA1Q/e7I8BsWrNUvRRT5+/D+GKnZLYrQjGVDfh2K0h397Klxp364ytzBW/V0LIH4UVTzBITGJ72y9u8wE025Tr17nSZMqEulOU7bvrHjbqxHgOLZ672tneQZ9udJkzpukXQB6mXXRWXoRA41Fln2HBG3PJI5RgtpoW03owbmKQvmbF/083xU4Gt+yLXUWoyqbyZKoJhNHx10+CKrgtBrCSwH46LJqSInGU4D1GvQyvzE1o3HRnUUjJIm4uf/gTXl2duDlftNp4u9yQH5ICSBfJrlpEpxb0Ka3ny+0p7aE1ArN+KKfhBBH0PqRBl06yeEJd2CEeVZ+nfGdninq0Ih6FkvfkqJvD4DYZzIwabfJEdZpX+n6tGI9X7LCi51Synwamy2dK+oOKDXcEWIprXmvzMTTv+1u4NxDOy5dOvunF3ETa1S/YJaKCLrC9kx6baM1q/5S9RziztbgtKuPJewBvymupErMcKoySOXlmJfl0eEKIKJ2QSJVH0z1/0Io/GKghkxPUM4qo3zLoNTQXMR3XF5Y/K1HV5hZHRMP5MjeYPZNqEJO/J2guMOXvdjEgm7YM96WNqlSBfzdLOQs6Mu2NfM985IQVyCDgvsKHicQGHrRMaj9cKRlHiKeGvi9IDy0ogpL3+eUw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	FHHrWhzEEudxfsaW5zNawaqVWbxPXupcrB0x+/jcpq5gs8UoRZfn0peBwcFZWD0ZD1s1oz5RcxLb7BHhvdmGddyFh0gMF7C5tlHkM+ngmdVIiOPGHO1owlLbwdfn9hUeb3V2FKbYW5g8ZWYlMZI98LpSaJR4s1x2QE2baYISUVQ1tS3KDDsNWjtuFKOmtufAsULZq3TYemNdLP/Hy8ia4Ujh3wUhGU3k/uerG+GtLXTZHDtZKnXW74CNY9AnOlRBLAv0Ft71pIGvWZPFi9EbTrlRTvFPjWqu2gcYXMuRyIzdFq83AxhlfurGGjzKADn9tmqe09hInVKD5iPlsnhb19jijATSisojUnDb/Xshvf9cUy5J1fzTkoaJA2kfBhb/YwtLzTLH3TpHbBTAAipHJRs7gW/8CAHJfrW6Sxt2XTASSmZscOz7kb/e5n5tGZYn
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:12:23.2282
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8139271b-f513-4dbe-c665-08df0d9a0eb7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0001AE19.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9658
 
-On Tue,  8 Sep 2026 19:49:35 +0900, wakasio wrote:
-> Hi Michal,
-> 
-> Thanks for the link. Bug 220936 looks like the same issue, same board
-> family (MSI X870E), same controller, same suspend timeout messages.
-> 
-> To answer your question: no device was connected to bus 5 or bus 6 at
-> any point before it happened. Full sequence from that boot:
-> 
->   10:59:35.014709 xhci_hcd 0000:77:00.0: xHCI Host Controller
->   10:59:35.014756 new USB bus registered, assigned bus number 5
->   10:59:35.014848 xhci_hcd 0000:77:00.0: xHCI Host Controller
->   10:59:35.014893 new USB bus registered, assigned bus number 6
->   10:59:35.014938 Host supports USB 3.2 Enhanced SuperSpeed
->   10:59:35.015160 usb usb5: SerialNumber: 0000:77:00.0
->   10:59:35.015534 usb usb6: SerialNumber: 0000:77:00.0
->   11:00:48.349628 Clearing Run/Stop bit failed -110
->   11:00:48.349744 PM: suspend_common(): xhci_pci_suspend returns -110
->   11:00:48.349812 can't suspend (hcd_pci_runtime_suspend returned -110)
-> 
-> Nothing else touches bus 5 or bus 6 in between. This was autosuspend
-> on an idle, empty controller, about 73 seconds after boot.
-> 
-> After that I tried unbind and bind on the PCI device by hand, that
-> did not recover it either:
-> 
->   11:03:30.975422 xhci_hcd 0000:77:00.0: remove, state 4
->   11:03:30.975812 USB bus 6 deregistered
->   11:03:30.976136 Host halt failed, -110
->   11:03:30.976262 Host controller not halted, aborting reset.
->   11:03:30.976325 USB bus 5 deregistered
->   11:03:33.058079 can't setup: -110
->   11:03:33.058350 init 0000:77:00.0 fail, -110
->   11:03:33.058416 probe with driver xhci_hcd failed with error -110
+The I3C core expects master drivers to leave payload.len unchanged and
+report the number of bytes received on GET CCCs via payload.actual_len.
+The AMD driver was overwriting payload.len after direct read CCCs.
 
-That's odd, not sure what excuse it could possibly have for refusing
-to halt idefinitely in a completely idle state.
+Set payload.actual_len from the directed command's rx_actual in
+xi3c_master_send_direct_ccc_cmd() instead of modifying payload.len.
 
-> Separately, I applied the TRB dump patch on top of the previous two
-> and reproduced the write failure again. Same pattern as the last two
-> times: 11 soft-resets then a hard-reset, all 12 Transfer error events
-> at the same TRB address (this run: ffffd140425178e0) with the same
-> resid (23552).
-> 
-> The dump itself printed fine, event ring and endpoint ring, about
-> 1061 lines total. I could not tell which dumped entry corresponds to
-> the failing TRB though. The "Transfer error ... at %px" address is a
-> kernel virtual address, but dump_ring() prints each TRB using
-> (u64)seg->dma + offset, which is the DMA address. I do not have a way
-> to convert between the two from here, so I do not want to guess which
-> line in the dump is the one that failed.
-> 
-> I have the full dump saved. It is about 1061 lines, too long to paste
-> directly into this mail. Let me know if you want it pasted anyway, or
-> sent some other way, or if there is a specific part of it you want
-> first.
+Fixes:629a6ddd1d9a ("i3c: master: Add driver for AMD AXI
+I3C master controller")
+Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+---
+Changes in v2:
+- Added Fixes tag
+---
+ drivers/i3c/master/amd-i3c-master.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-We should be able to find the offending TRB by looking at transfer
-events. 1061 lines isn't huge, you could send it as an attachment.
+diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd-i3c-master.c
+index ef5ad5abb788..f205aa06f9b8 100644
+--- a/drivers/i3c/master/amd-i3c-master.c
++++ b/drivers/i3c/master/amd-i3c-master.c
+@@ -806,8 +806,8 @@ static int xi3c_master_send_direct_ccc_cmd(struct xi3c_master *master,
+ 
+ 	/* Report actual byte count so the core sees the right length on short reads */
+ 	if (!ret && ccc->rnw)
+-		ccc->dests[0].payload.len = min(xfer->cmds[1].rx_actual,
+-						ccc->dests[0].payload.len);
++		ccc->dests[0].payload.actual_len = min(xfer->cmds[1].rx_actual,
++						       ccc->dests[0].payload.len);
+ 
+ 	return ret;
+ }
+-- 
+2.34.1
 
-Regards,
-Michal
