@@ -1,145 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B41854CF70;
-	Tue,  8 Sep 2026 16:01:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF28B559CA2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883313; cv=none; b=mDlBQurxthugFINRPd1Jgn7nwPVg+50LbSazDEWwaLTK8ldcKJ/wTZQotPeBDM7UmJ4guOu7aQOxD1ufyKbQYBtEa7VWkW35FyMCHLM4nQSWvxSAapjacuUVYLD3auvHAJRHD8YQz67vIXXoggfE1lD19U14tM+ZKlV+9BY8WfU=
+	t=1788883320; cv=none; b=dkueqYoMtLQ8BTFNTuiSiJYkUmDoJDs6oTpvTVlU31LqdGqIrqy9r79vE1jfZIhD5TG1EHm6TlUTxHLIi1cvHwQYQ7Pwq+cHS1EZecJCdbE2K+dWwc0D07f1wXN1vNXMOzerh0pxG5xaSORd3IyiFS1oebOiBFBq0CwZycGov48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883313; c=relaxed/simple;
-	bh=mZ2j5QOkE/HLnGIi0XE+hmpgBN1zSN9U6Agmkcnpk1U=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=Tr2bocVjJ1if5kf6Dc0qSaZgDupHrXR/nVgCUyrBsaTH1dtybs77cbrbBt3uN/sHxDedZGh6aC9giEH+OiuhwCJC6LL1CQuXLl7z3/KzMSEAhEIo+jtEbPgkxj9doNAkBiQzTsbcMWrkgY9phLtPpaGW61Jl+aGsRZiyBD8sG20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jrb0D6Ny; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788883320; c=relaxed/simple;
+	bh=yaBev6x1pDC3vXUmt2RhLbEpcdCihB7k6MXUk7ANKmE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=uHolnYXYvqqBmF3fm5sdnnLtYDFW9CfjaEXcCHbSJLUV7XSzogvT8kB4cvuD6icH9YB8pAqGeXDgp1iJ70ZCqfPJe7SSr4ntaC7YRv7FSziZy035FCYU27Q5EkcRzIuhzqOWk8PF0xs9g9bcvFOw0/l+cifNmE5LdYMtDf6SHy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=ougS9SQi; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jrb0D6Ny"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF79C1F00A3D;
-	Tue,  8 Sep 2026 16:01:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883311;
-	bh=BT0eMPiY4NnJmGV31mLExbYAagXnqjJF9EYkFecTOYo=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=Jrb0D6NyT4RW6WjtWwbU2Dt2TTqD+/zjEqrh3E6pXJPY45fevt5lRNQsuFPx2Wyx6
-	 0jJKLwcYMo3dcJ+MtaP4pFPxMp1jALxZlGXN9f+OOspsV52inSlTElWT2LDLOvkdYd
-	 tn820MMMMr2OwZqe6jpu760cEkjACQpMW/A4e+4X2iVGCB+MujyH+cNisCpWJy1SuJ
-	 qFUOegA5+SbDr+l29WUOkYRLdOH6vWQpKss8sT/1shLBF/Cu7pyABPot7086lQ5wgW
-	 dZG4ch/yROUt4WCb8DqTHRLPQFUfZH5faWnMA70dDzZAP/J5/qwP+m++Mk7NVwo2w0
-	 tgYs+RAx4/BtQ==
-Content-Type: multipart/mixed; boundary="===============5302876165755269338=="
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="ougS9SQi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1788883317;
+	bh=w7AqlwipuMPzkJSp3baFGeJqXcM7kW3BtoJJ6zsvqac=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=ougS9SQi8VLW2FYu52Eg8z+qMHgtJrbE+st/FCUSRcQx6yBDkdlF/ii6f7kxRzpQ2
+	 QYr98jaa2bAQ4GOht7OjO/UfiA02xe9RDc2UUutY8M3qqL/qpCyjzBbor8UGSzvdWf
+	 /RxY6StlkKCcvYpBD805evKaRztimLSg4XnM7Epj95aDjZEiSpkY08lkX4EojfOAqA
+	 q3iMsGBh9QcgM0X76U+O/bRXx/DcTb6s8gazMUYDXC6JCqmpMHFq1zhZnGgovG+CRi
+	 sYllzb1qEyyzZX6yymgzjcFMLV0U1KLMdyHPiKmKWa7x9SUJNjl6a25KPEwNj5brXR
+	 QLsHx4Dfm+ABw==
+Received: from localhost (199-193-172-8.cpe.axion.ca [199.193.172.8])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hfTGF3wg4zZ3F;
+	Tue, 08 Sep 2026 12:01:57 -0400 (EDT)
+From: Olivier Dion <odion@efficios.com>
+To: Florian Weimer <fweimer@redhat.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra
+ <peterz@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Boqun
+ Feng <boqun@kernel.org>, LKML <linux-kernel@vger.kernel.org>, Thomas
+ Gleixner <tglx@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, David
+ Matlack <dmatlack@google.com>, Marco Elver <elver@google.com>, Sean
+ Christopherson <seanjc@google.com>, Wei Liu <wei.liu@kernel.org>, Mathias
+ Stearn <mathias@mongodb.com>, Chris Kennelly <ckennelly@google.com>, Blake
+ Oler <blake.oler@mongodb.com>, Rich Felker <dalias@libc.org>, Matthew
+ Wilcox <willy@infradead.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos O'Donell
+ <codonell@redhat.com>
+Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
+In-Reply-To: <lhua4q28z30.fsf@oldenburg.str.redhat.com>
+Organization: EfficiOS
+References: <20260828153349.8061-1-odion@efficios.com>
+ <20260828153349.8061-2-odion@efficios.com>
+ <lhua4q28z30.fsf@oldenburg.str.redhat.com>
+Date: Tue, 08 Sep 2026 12:01:57 -0400
+Message-ID: <874ifzwx3e.fsf@laura>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <70e2a2f4354a7eb6208944e1ab2c13dadcb8b78cdbe2888ad4471124b1cc81b7@mail.kernel.org>
-In-Reply-To: <20260908065529.901593-1-tweek@google.com>
-References: <20260908065529.901593-1-tweek@google.com>
-Subject: Re: [PATCH bpf-next 1/2] bpftool: Skip non-autoload programs when generating light skeletons
-From: bot+bpf-ci@kernel.org
-To: tweek@google.com,qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org,tweek@google.com,kpsingh@kernel.org,leon.hwang@linux.dev,emil@etsalapatis.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue,  8 Sep 2026 16:01:49 +0000 (UTC)
+Content-Type: text/plain
 
---===============5302876165755269338==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-
-> diff --git a/tools/bpf/bpftool/Documentation/bpftool-gen.rst b/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-> index d0a36f442db7..1cdecf3e4fa5 100644
-> --- a/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-> +++ b/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-
-[ ... ]
-
-> diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-> index a50540ef6521..0fcfe20ff515 100644
-> --- a/tools/bpf/bpftool/gen.c
-> +++ b/tools/bpf/bpftool/gen.c
-> @@ -583,6 +583,9 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
->  	bpf_object__for_each_program(prog, obj) {
->  		const char *tp_name;
+On Mon, 31 Aug 2026, Florian Weimer <fweimer@redhat.com> wrote:
+[...]
+>> Indeed, TCMalloc relies on the behavior of RSEQ v1, that reset the
+>> cpu_id bits in the RSEQ shared region, to invalidate a per-cpu pointer
+>> cached in a TLS. This hack requires TCMalloc users to use a glibc
+>> tunable to disable RSEQ registration for threads so that TCMalloc can
+>> register its own region, overlapping the TLS cache.
 >
-> +		if (!bpf_program__autoload(prog))
-> +			continue;
-> +
->  		codegen("\
->  			\n\
->  			\n\
+> The commit message does not quite say how this addresses tcmalloc needs.
+> I assume the idea is to reset some other data structure and not the rseq
+> fields.  Is my assumption correct?
 
-[ ... ]
+Indeed.  That would allow TCMalloc to not have to overlap their pointer
+cache with their RSEQ area.  In other words, they could be using the
+glibc area and be compatible with the rest of the ecosystem.
 
-> @@ -1339,6 +1348,8 @@ static int do_skeleton(int argc, char **argv)
->  		map_cnt++;
->  	}
->  	bpf_object__for_each_program(prog, obj) {
-> +		if (use_loader && !bpf_program__autoload(prog))
-> +			continue;
->  		prog_cnt++;
->  	}
+> Would it be possible to use actual CPU instructions running in userspace
+> for this?  I assume not because it's not possible to restore the
+> register contents.
 
-Can the autoload flag change between when this check runs and when
-codegen_attach_detach() checks it?
+Well I had in mind another solution, albeit some might find it ugly but
+I think it does have the merit to be explored.
 
-Looking at the code flow, do_skeleton() samples bpf_program__autoload() here
-before calling bpf_object__load(), but codegen_attach_detach() and
-codegen_destroy() (which also check autoload at gen.c:586, 635, 654, and 686)
-run inside gen_trace() after bpf_object__load() completes.
+Basically, instead of doing all the operations in the kernel, we could
+setup something akin to a signal handler by pushing a frame on the
+userspace stack and resuming the execution of the thread into that
+"handler".  Userspace is now responsible of everything, including
+returning to the original IP.
 
-In tools/lib/bpf/libbpf.c, bpf_object__load() ->
-bpf_object_prepare() modifies prog->autoload for struct_ops programs:
+However, we need to be careful with things like the red-zone, the
+shadow-track and the extended states.  Other than that, the only thing I
+am unsure is how to handle nesting.  Perhaps someone with more
+knowledges could expand on that.
 
-1. bpf_object__init_kern_struct_ops_maps() (libbpf.c:1251, 1290) sets
-   st_ops->progs[i]->autoload = false when the member is missing from kernel
-   BTF or the slot was replaced/NULLed.
+> My concern is that this would turn into another bytecode interpreter
+> over time, basically reimplementing BPF.
 
-2. bpf_object_adjust_struct_ops_autoload() (libbpf.c:1166) sets
-   prog->autoload = should_load for programs referenced by struct_ops maps,
-   which can flip SEC("?struct_ops/...") programs from false back to true when
-   the referencing map has autocreate set.
+I did think about adding BPF type to run BPF bytecode.  However, I don't
+think it fits well the goal here and would make the feature unusable on
+configurations where BPF is not available.
 
-For the false->true case (SEC("?struct_ops/foo") with an autocreated map):
-do_skeleton() omits both the progs and links struct fields, but
-codegen_attach_detach()/codegen_destroy() then emit attach functions
-referencing skel->progs.foo.prog_fd and skel->links.foo_fd, which weren't
-declared.
+Overall, my idea with the RSEQ operations was make that could benifit
+the userspace as a whole instead of handling only the TCMalloc
+situation.  Otherwise, I would have just name it RSEQ reset.
 
-For the true->false case (plain SEC("struct_ops/foo") whose member is missing
-from kernel BTF): the fields are emitted but attach/detach/destroy skip the
-program, and the loader doesn't reserve a prog_fd slot for it, so subsequent
-program FDs get written into preceding fields.
+For example, there is a CPU-stride variant of the reset operation.  I
+dabble with this operation to cache a TLS that is global-dynamic into a
+per-cpu cache.  Thus, making a TLS global-dynamic access as fast as a
+TLS initial-exec.
 
-Would it work to sample autoload once and reuse that decision, or to move the
-struct field emission after bpf_object__load()?
-
-> @@ -1402,6 +1413,8 @@ static int do_skeleton(int argc, char **argv)
->  	if (prog_cnt) {
->  		printf("\tstruct {\n");
->  		bpf_object__for_each_program(prog, obj) {
-> +			if (use_loader && !bpf_program__autoload(prog))
-> +				continue;
->  			if (use_loader)
->  				printf("\t\tstruct bpf_prog_desc %s;\n",
->  				       bpf_program__name(prog));
-
-[ ... ]
-
-> @@ -1415,6 +1428,8 @@ static int do_skeleton(int argc, char **argv)
->  	if (prog_cnt + attach_map_cnt) {
->  		printf("\tstruct {\n");
->  		bpf_object__for_each_program(prog, obj) {
-> +			if (use_loader && !bpf_program__autoload(prog))
-> +				continue;
->  			if (use_loader)
->  				printf("\t\tint %s_fd;\n",
->  				       bpf_program__name(prog));
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34245369055
---===============5302876165755269338==--
+Thanks,
+Olivier
+-- 
+Olivier Dion
+EfficiOS Inc.
+https://www.efficios.com
