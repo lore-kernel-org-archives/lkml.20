@@ -1,128 +1,216 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56E992E612E;
-	Tue,  8 Sep 2026 08:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3795441F5F3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855928; cv=none; b=S/l63O//ubl4mODzyRcqfzmsoOcMxlDIMqbfgIRsz5P16aaVf8dO/yJ+iwg7LG7EgUodrDzW5sct3P3ZPekzFnbf1jXP3yuL3RA1VOEX2GcaYZZHqc5vhclk1VbJSAwrqRDo92U4IwZsbCod+XbtSsq0ZzMfaB+RMi1eRljPn98=
+	t=1788855965; cv=none; b=CmGMeBIz0z/ozTW9gXLVrT/lnZ4BPLOgn42YA5knGLldiZoEvdZk1Lj7fxx4MmyRrPQA1gO8PmdsnnghMe/guYzWeu9GznEVpDuHiY7jq5amakYcEZkVta4660B+xw02spvy+fcBtel7sjscATnAR76uvt3rwE0kc68lhXXqPno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855928; c=relaxed/simple;
-	bh=MNBOqjbiFY5cvbGJa0db+s9GIphlrm1cbRc2huUpNRk=;
+	s=arc-20240116; t=1788855965; c=relaxed/simple;
+	bh=mtlzNqSHslbgTL1E+s1EGrdbdVuzUh95XoEfQxCcoHY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X4W4CgzIzwD4tJ+zVydJX0YHodbbLmPZK5PpYDjbcfbg8VSFZPGmf5R9qNPd9SaZ4V9h38YCe1tCFUt1pROEjt05F3iBxupr8FurzP0osrryttkghiGjvuK360VdSEZxwkl7h/FrejiSHhvWxjEpzgKENQmCUHh3y0RUlijbO5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OoRH/r9A; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sVxwh/YOXxa2II8GZoTNjq9Z6Lu8Dfd83BMQjfvSAI+gVQbxQbCQPRbGBFZpVCKVyZh5VFFGvahaHfLOi2F2ibeaxgw1XufpuOheqJkkrcsnJZkqmaiyXJge9hgfZ+96USOEoGlmDyYkGFhBz0R5oKLoZOSXs/m4sMne6f/eG4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QUKW+cRB; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OVKQQ9sj; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OoRH/r9A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788855926; x=1820391926;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=MNBOqjbiFY5cvbGJa0db+s9GIphlrm1cbRc2huUpNRk=;
-  b=OoRH/r9AYaiOZ/4k9e4g/J9lTrOIaVc90W5TQKBk7ecRKGTvPxJy0axp
-   h5Iggg1iWKiH0GcAgtDXdxiUemNwuGX54f1B+oMiStC1fUh7xDwTkF269
-   S+JtL4f0n5eVJ98JL8FKecXI43IWOGEvmUz4nhFovICn65mR2zoh36Qw0
-   99HcPtZMyNbfltp6LdWkoIaQlieFhtMhjiY9ZLk7qN+hWbRaCFVWEXfKk
-   Jz0i1GM8f8FPD4jKCSyhp/dJYRXwcyKNdiHbQ6C1INPBTYt7m2HPEVMHS
-   HYihVz2A5+JwPGqjGecrLAWgZ3WIM0hx+IQMI3jomaPa8tlkfcuK9dHrn
-   Q==;
-X-CSE-ConnectionGUID: ntRf0cCmRta7f+5Tb3ttRQ==
-X-CSE-MsgGUID: 1svADnLyTg2LQxCNZUynSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93114668"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="93114668"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:25:25 -0700
-X-CSE-ConnectionGUID: FvNg+61LQ+2F8JqhAbC94Q==
-X-CSE-MsgGUID: kH58JbXiSn2WhYPwc39J2g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="269196840"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa006.jf.intel.com with ESMTP; 08 Sep 2026 01:22:19 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 08F8E99; Tue, 08 Sep 2026 10:22:18 +0200 (CEST)
-Date: Tue, 8 Sep 2026 10:22:18 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 10/22] thunderbolt: Unlock host router ports during
- startup
-Message-ID: <20260908082218.GA106095@black.igk.intel.com>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-10-1f80085f93fb@kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QUKW+cRB";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OVKQQ9sj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788855962;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/cIx/FN1ld5ZUnvvOO4W6SfTMNv+qsyUKpor9qdoZ3s=;
+	b=QUKW+cRB1vgNMh8fgJCHLMmXMprE18hgjlH8ruQ4mKP0QEdME0Bd1bp6oFUehRhSOObasJ
+	J7EmHViJb1sqrLkkZGzcUu5I1kKHZvnXtnF8P6Ekqhe3jfIfD5aRcz6JqZzj3963hxYzOu
+	DKEer3pEpYfvnVv+cuhlM2gVxZon2X0=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-178-wNVuePv0OpSKwFjLNGN-AQ-1; Tue, 08 Sep 2026 04:26:00 -0400
+X-MC-Unique: wNVuePv0OpSKwFjLNGN-AQ-1
+X-Mimecast-MFC-AGG-ID: wNVuePv0OpSKwFjLNGN-AQ_1788855959
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49ccf17d3b0so30827355e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:26:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788855959; x=1789460759; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/cIx/FN1ld5ZUnvvOO4W6SfTMNv+qsyUKpor9qdoZ3s=;
+        b=OVKQQ9sjja2u+cSgzrZlhyMDC+wSccriL5b/zmv9m0Q6TYe/JodaodnbrRDcvXq+OY
+         PQZfXr3LVuJnYwYUnjNCctoMxJZza9Z8WVzIE8K5QObjCixThyQ2fLymQRglfTBWocHh
+         rWTfnV7AzHmOs2wDU5sVactymzJcNk1xU6IEuFXEGsqyUTQDKWQJGTjQZH9NSqhn59mf
+         fHIZ60pj6OLtUDI/1mkxNxKJbQPOb9USZQkkMWx4boDEz+kf9FEPDKYlv05pHma+yH1o
+         3eiUxGEmQUxOS/AcmSuX+fdAW+0Y2OhtFjap02uU1PsQCZWEOGi54qeDxsRmMbqBJwoW
+         TwPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788855959; x=1789460759;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/cIx/FN1ld5ZUnvvOO4W6SfTMNv+qsyUKpor9qdoZ3s=;
+        b=iGHXsLvEFMiEyfkO2jel+pTDi4IPi6GLTyxyTgmP/GZq/2834IUnK0O6bl8hkGrTcq
+         EFcnYSJL9FM1buf0khqZiIIgmgSxxOAmQhE63v5hbjyBOiBcLEPoUvaKup6R5Ts4ogc7
+         hPv2moR6KzChfTTJ0OV23CtX2iY3TY8/6XzZj/RgqTbsCSd/jCsx0eC6kyZt9LYH/FxE
+         1fPXh7U5c0B23GG3EyNYJhSf2E9N59SwFoWa6mEu24hHlBJda2v5KjhDDhT1FKJUCx6q
+         S0DVs6wSVRKLT5biYxSMhqh0TY9ZK8pd5m+nWOb52ByFxfFwiKMIn5jpD+SvS2gnCxiM
+         RdWw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiEXn+sW9x+HoPCYg4Yu4hlcgul53n1/N+sAOAljLQGN6bxZBM3dfvHapuK6ZmytQbYKvBMZ2pYX+jZD8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDrw8sIZ7p15my7Ed93XMK14+C6RcstwmNNbtdelPnfwkPgxCn
+	XiP4ItPeOzqnScShP78fFHvmBi9rgEAKbtK9c5RnmwuX7xyIrHDHrb0JoFvpaOpkzASgKlIz3Gm
+	gpQthb4GmTdhuYOEYmg77lGwe51vO0T3AjO0Tiku4NkbWA5fUiTddMlpAKf/UYQBcuw==
+X-Gm-Gg: AYBFou2EI6mTDSeTL6xJ1dVFMO3UOZ6y0V81pKgH2Y/LcS/2IisZULQ0St2rL56evVV
+	np1Q+AePDClsDKpPt27lumHriZ87zDuCoTqPqEUdMthsSpsSpbb8GqEJHnsoyFfITS+kizh3CDF
+	rK3PEtr7A0XcbPf9RfYkxlA/6UCeLLTd4z4ym/hF9kTiNt33b8QISfLK+PkvtrLZmYA8sUaJJ8I
+	T4hcoNqjspN+jrIYStPw8Gqlau5Ru4A/dvqdCeyAsUi/bxo0sr+4i1V29ij16deFh0p2zE2B2U/
+	6vdzt3KnBk/LirT/xKU0ttE2p0LwRYAWoMVBZn+GGl2Ui1JCKe0cIqTdN3z3wmZlOn1Y9TYCr2H
+	RPkO+l9l9WPpst/6HSuCPEi8=
+X-Received: by 2002:a05:600c:c4aa:b0:49c:e3c3:5efd with SMTP id 5b1f17b1804b1-49cf8241a84mr469629155e9.9.1788855959358;
+        Tue, 08 Sep 2026 01:25:59 -0700 (PDT)
+X-Received: by 2002:a05:600c:c4aa:b0:49c:e3c3:5efd with SMTP id 5b1f17b1804b1-49cf8241a84mr469628205e9.9.1788855958792;
+        Tue, 08 Sep 2026 01:25:58 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm275644125e9.0.2026.09.08.01.25.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 01:25:58 -0700 (PDT)
+Date: Tue, 8 Sep 2026 04:25:53 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Jason Wang <jasowangio@gmail.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Pawel Moll <pawel.moll@arm.com>, Cornelia Huck <cohuck@redhat.com>,
+	Halil Pasic <pasic@linux.ibm.com>,
+	Eric Farman <farman@linux.ibm.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Vadim Pasternak <vadimp@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	virtualization@lists.linux.dev, linux-input@vger.kernel.org,
+	linux-s390@vger.kernel.org, kvm@vger.kernel.org,
+	linux-um@lists.infradead.org, platform-driver-x86@vger.kernel.org,
+	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>
+Subject: Re: [PATCH v3 0/6] virtio: fix and add callback synchronization hooks
+Message-ID: <20260908042440-mutt-send-email-mst@kernel.org>
+References: <20260908053817.26065-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-10-1f80085f93fb@kernel.org>
+In-Reply-To: <20260908053817.26065-1-kmehltretter@gmail.com>
 
-On Sun, Sep 06, 2026 at 08:36:33PM +0200, Sven Peter wrote:
-> The downstream ports of the host router may still be locked after a
-> reset. Unlock them when the software connection manager starts before
-> scanning for any connected devices.
+On Tue, Sep 08, 2026 at 07:38:11AM +0200, Karl Mehltretter wrote:
+> This is v3 of the callback synchronization series. It is based on
+> Michael S. Tsirkin's linux-next branch at f49e6cf91942 ("virtio:
+> synchronize callbacks after device reset"), which already contains the
+> core change and the virtio_input teardown reorder from v2.
+
+
+Thanks I applied since this looks like a net improvement.
+Pls keep iterating on the core change.
+If you want to take a stab at some of the pre-existing issues -
+will be welcome.
+Pls do note which patches were tested and which were not.
+
+> Patches 1 and 2 fix two bugs in virtio-ccw's existing
+> synchronize_cbs() hook. After a fallback from adapter to classic
+> interrupts it selects the wrong lock, and the classic interrupt handler
+> only takes the matching lock when notification hardening is enabled.
+> Patch 3 adds SRCU tracking for remoteproc callbacks, which can sleep.
+> Patches 4 and 5 replace the RCU fallback with synchronization against
+> the UML IRQ and the TmFIFO callback locks. The fallback already covers
+> these IRQ handlers and spinlock sections. Patch 6 adds SRCU tracking
+> in virtio_vdpa so callback synchronization does not depend on the
+> context in which the vDPA driver invokes the callback.
 > 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/thunderbolt/tb.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> The UML, TmFIFO and remoteproc reset paths do not themselves prevent
+> new virtqueue callbacks. UML and TmFIFO only clear a status field, and
+> remoteproc does not wait for the remote side to acknowledge the reset.
+> Without notification hardening or driver-specific teardown protection,
+> callbacks can still start after reset. The new synchronization hooks
+> do not fix that. The TmFIFO hook also does not synchronize with the
+> rest of the FIFO work item outside the callback locks.
 > 
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index 47753a5c0f2e..bf1c192ec10a 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -3016,6 +3016,7 @@ static int tb_scan_finalize_switch(struct device *dev, void *data)
->  static int tb_start(struct tb *tb, bool reset)
->  {
->  	struct tb_cm *tcm = tb_priv(tb);
-> +	struct tb_port *port;
->  	bool discover = true;
->  	int ret;
->  
-> @@ -3049,6 +3050,14 @@ static int tb_start(struct tb *tb, bool reset)
->  		return dev_err_probe(tb->nhi->dev, ret, "failed to add host router\n");
->  	}
->  
-> +	/* Make all host router downstream ports accessible to the CM. */
-
-Nit: Drop the . from single line comments
-
-	/* Make all host router downstream ports accessible to the CM */
-
-> +	tb_switch_for_each_port(tb->root_switch, port) {
-
-We should introduce tb_switch_for_each_null_port() at some point, not the
-job of this series though.
-
-> +		if (!tb_port_is_null(port))
-> +			continue;
-> +		if (tb_port_unlock(port))
-> +			tb_port_warn(port, "failed to unlock port\n");
-> +	}
-> +
->  	/*
->  	 * To support highest CLx state, we set host router's TMU to
->  	 * Normal mode.
+> The virtio_input loop change from v2 (continue instead of break, so
+> events the device already completed are still delivered) and the
+> event buffer leak are sent separately.
 > 
+> Changes in v3:
+> - Rebased on Michael's linux-next branch. Dropped the core change and
+>   the virtio_input patch, which are there already.
+> - Split the virtio-ccw fixes out of the core patch, one per bug, and
+>   the transport patch into one patch per transport. The CCW and TmFIFO
+>   changes are functionally unchanged from v2.
+> - Patch 2: added a Fixes tag and described the existing shutdown
+>   case. Removed the dependency note on the core reset change.
+> - remoteproc: read the queue pointer once in rproc_vq_interrupt(), and
+>   synchronize with callbacks in __rproc_virtio_del_vqs() before
+>   freeing the queues (Sashiko). Place vq_srcu next to rvdevs so the
+>   hunk also applies to mainline, which added attach_work after index.
+> - virtio_uml: compare against UM_IRQ_ALLOC instead of a bare negative
+>   check.
+> - virtio_vdpa: use SRCU instead of a per-device rwlock, so the
+>   callback tracking uses per-CPU counters, and cover the config
+>   callback (Sashiko).
+> - Rewrote the commit messages. Corrected the RCU fallback description
+>   for UML, TmFIFO and the vDPA simulators. Dropped the claimed simulator
+>   reset race: the simulators disable bottom halves around virtqueue
+>   callbacks and serialize reset with the worker's mutex.
+> 
+> Changes in v2:
+> - Moved callback synchronization from virtio-pci into the core, as
+>   Michael suggested, and added the missing synchronize_cbs() hooks.
+> 
+> Testing: the changed objects build with W=1 without warnings, with
+> clang on arm64, x86-64 and s390 and with gcc on SMP UML, and the
+> patches also apply to current mainline and linux-next. The runtime
+> tests from v2 were not repeated on this version: the input, rebind and
+> shutdown checks on arm64 MMIO and x86 PCI covered code that is
+> unchanged here, and the remoteproc and virtio_vdpa hooks have only
+> been build-tested. No remoteproc, TmFIFO or s390 hardware was
+> available.
+> 
+> v2: https://lore.kernel.org/r/20260905152059.89560-1-kmehltretter@gmail.com
+> v1: https://lore.kernel.org/r/20260818040433.66986-1-kmehltretter@gmail.com
+> 
+> Karl Mehltretter (6):
+>   virtio_ccw: fix synchronize_cbs() after interrupt fallback
+>   virtio_ccw: always take irq_lock in the classic interrupt handler
+>   remoteproc: implement synchronize_cbs() for virtio devices
+>   um: virtio_uml: implement synchronize_cbs()
+>   platform/mellanox: mlxbf-tmfifo: implement synchronize_cbs()
+>   virtio_vdpa: implement synchronize_cbs()
+> 
+>  arch/um/drivers/virtio_uml.c             | 10 +++++++
+>  drivers/platform/mellanox/mlxbf-tmfifo.c | 15 ++++++++++
+>  drivers/remoteproc/remoteproc_core.c     | 12 ++++++++
+>  drivers/remoteproc/remoteproc_virtio.c   | 37 +++++++++++++++++++-----
+>  drivers/s390/virtio/virtio_ccw.c         |  6 +---
+>  drivers/virtio/virtio_vdpa.c             | 34 ++++++++++++++++++++--
+>  include/linux/remoteproc.h               |  3 ++
+>  7 files changed, 102 insertions(+), 15 deletions(-)
+> 
+> 
+> base-commit: f49e6cf919425cc55f10fd7cda7e0fc895df4cc0
 > -- 
-> 2.55.0
-> 
+> 2.39.5 (Apple Git-154)
+
