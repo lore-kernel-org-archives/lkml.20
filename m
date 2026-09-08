@@ -1,134 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E939D4A4989;
-	Tue,  8 Sep 2026 17:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF37569F36;
+	Tue,  8 Sep 2026 17:26:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888376; cv=none; b=Y5Qb+lLC9U2KwSRS07zZbs4zfmyk4dmi6HUZEqQZPOFLMIZ1MvdXQrXK/csYqT8kWbT5CJwLeu2+53XfNUYqfXJMlJqD7tu8Fa3Y0tbF8DCH5gORrKTYdM0z4XBnh4gyrEuPx+5pgeMyibPMCN+dz3zpCaEmPFA0PQeTLxm3U84=
+	t=1788888394; cv=none; b=u0AJaE0RR1rfDIQdT3IrmDlyIleWqoO/33+krFDL4OedpQq3slQO9U3H3OnBbIG6rfFlboOihNRru3CJ01qFQjh9cNXDPUOSG9pEHah/9PtRCTJSjOdtreBdSMWr+NRcZOXAZNInk5QvPm4J34dlgM0Is1wJie/1IpiOclAN2uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888376; c=relaxed/simple;
-	bh=OS6GckkaKtUv/HWuqL0G/2QoFTSf6JP2z/baJIhCLf0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=t3KUWWayjLKYxYQ/0vAJa0VMqlO36hvNsO7nK4dLlGp5Loir+BbBfqVtMWGyyrf/2M2gfOh6ZG1K0C+2YtonMCUeh7LKwULbhKhlV5sK1d0XbuABChCzvcjmKMBfgvzXRmD8AgKsyRnHacRsVMQwMO+VNBBZ+1Dv945logHJ7qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bb/wUR2w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788888394; c=relaxed/simple;
+	bh=WlgBXwOzblyBFaYVS7iBaBu97IoJI6SwkmHW6zvBNqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J/jgCkIH772t8lgtmt8OLN449HhsKNKSCXd4s1LU828YD3puqhzabWvkk/Yt4il5hTGDQFtII2ndR2HN0B1TVHtxiwNTdfjvNRnMAWZYKTrB1iCRfs3SRXzKOt32YYdd3aFI7gVoGOaIPqk8F2ECJiD59w3dt7H+pcbEARe9PW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UfIDJdKD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bb/wUR2w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9DE81F00A3A;
-	Tue,  8 Sep 2026 17:26:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UfIDJdKD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603D61F00A3A;
+	Tue,  8 Sep 2026 17:26:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888374;
-	bh=jM3P1SONxa42AJzxhJ25bnkVtmobAHaArz1/6Ajlj0E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bb/wUR2w8sqwWsO38QEbnn1fVtayV+qDnb5wC7JB5qlgFJ6pu8srUgZGwCDisg3LC
-	 /KMqH+jSg4BKfEqV4CiMc99xasVRnbfYVhFKKO/QECoQZfd7IOndcB7xCCNnJipUAs
-	 qmzdw/rsCx7MwZEkRccucn3xpYBMmobfY6eX6mPQTAS4QM/uXFvtaGEeOE2MvNsO4A
-	 oXCCGPD4Nh8jCAvTxP9IVwsOA1OL+stqVlV4QtFhWyYMpyyOzS9qs8syNZDcdLPpuy
-	 B5iqPw/OYSdc1UwDXbNqK3Lapp86DKRmA+ZJTTPDeA9Askkg2JlQskUHKMnmL9KrTQ
-	 POJnOsuEZsm0A==
-From: Vincent Mailhol <mailhol@kernel.org>
-To: Ard Biesheuvel <ardb@kernel.org>
-Cc: linux-efi@vger.kernel.org,
-	x86@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vincent Mailhol <mailhol@kernel.org>
-Subject: [PATCH] efi: pass NUL-inclusive sizes to ucs2_as_utf8()
-Date: Tue,  8 Sep 2026 19:24:34 +0200
-Message-ID: <20260908172555.3356-1-mailhol@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906130817.1151961-9-ardb@kernel.org>
-References: <20260906130817.1151961-9-ardb@kernel.org>
+	s=k20260515; t=1788888392;
+	bh=uxWyRJzkqP7VbvZPWw1j5KCPbeYrZXoHr7DAYRRZAjQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UfIDJdKDYVPd0we6fYvkFHuvoBYvrxg6IIwlSt4qi6P68F+N94WOxsxOSjQB6JfYc
+	 rDtgIR6vinQAorilaIKJ0IrTNGwn0NHXxSgjF57Mm4dykf1qctetqnnhsNabL+e5Mh
+	 JMF5IcYiaFjQY7ZDI/Q2SJ6SbalfAA0rVPfBbkuL8n1CG8T/99glgPKkDKWSO4hOWP
+	 3Eo9tiZPlPe1ZUPgA+e/b36qYhsj6c499kB0cPtaJ0wKaHNBEkwNSeY84C3KgZhQvG
+	 d7/DnZBev4bS9eGIaxNf5BS2lx6NjNIKASH/Cpw2gd200VH9rObpuDl8J9YBD2vXy2
+	 5U/qWF5biAAQw==
+Date: Tue, 8 Sep 2026 18:26:26 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>, Lars-Peter Clausen <lars@metafoo.de>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v1 3/5] ASoC: codec: pcm1681: Enable system clock before
+ regmap access
+Message-ID: <de0a0b99-9213-442c-ac5b-944a0f6bd432@sirena.org.uk>
+References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
+ <20260907-nord-asoc-driver-support-v1-3-997d3b20cf43@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e0PIkH4Kp0kfVB5+"
+Content-Disposition: inline
+In-Reply-To: <20260907-nord-asoc-driver-support-v1-3-997d3b20cf43@oss.qualcomm.com>
+X-Cookie: The world is not octal despite DEC.
 
-An upcoming change will update ucs2_as_utf8() to expose a strscpy()
-style API where the size argument is the destination buffer size,
-including space for the final NUL terminator.
 
-Some EFI callers currently pass the exact number of UTF-8 payload bytes
-that they expect to copy and add the terminator themselves afterwards.
-Extend those sizes to include the final NUL terminator so the upcoming
-contract change does not truncate the converted output by one byte.
+--e0PIkH4Kp0kfVB5+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
----
-Hi Ard,
+On Mon, Sep 07, 2026 at 11:39:44PM +0530, Mohammad Rafi Shaik wrote:
+> The PCM1681 DAC requires the SCK (system clock) input to be
+> present for proper device operation. On platforms where SCK
+> is provided by a controllable clock source, register accesses
+> over I2C may fail when the clock is not enabled.
 
-I saw that you pushed on efi-libstub-native-utf16 WIP branch [1] and did
-some testing, despite those changes not yet submitted for review.
+> @@ -311,6 +313,22 @@ static int pcm1681_i2c_probe(struct i2c_client *clie=
+nt)
+>  	if (!priv)
+>  		return -ENOMEM;
+> =20
+> +	priv->sclk =3D devm_clk_get_optional(&client->dev, "sck");
+> +	if (IS_ERR(priv->sclk))
+> +		return dev_err_probe(&client->dev, PTR_ERR(priv->sclk),
+> +				     "Failed to get sck\n");
+> +
+> +	ret =3D clk_prepare_enable(priv->sclk);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "Failed to enable sck\n");
 
-There is an off-by-one error following your ucs2_as_utf8() code
-refactor. This patch prevents the issue. It should be cherry-picked just
-before your "efi/libstub: Use ucs2_string library for UTF-16 to UTF-8
-conversion" commit.
+It looks like the device needs a delay after the clock is enabled before
+the register interface is available (see 8.3.2 of
+https://www.ti.com/lit/ds/symlink/pcm1681-q1.pdf).
 
-There is one final off-by-one in "efi/libstub: Use ucs2_string library
-for UTF-16 to UTF-8 conversion" itself. This is the fix:
+--e0PIkH4Kp0kfVB5+
+Content-Type: application/pgp-signature; name="signature.asc"
 
-	---8<---
-	diff --git a/drivers/firmware/efi/libstub/efi-stub-helper.c b/drivers/firmware/efi/libstub/efi-stub-helper.c
-	index e9b714ca811db..db0bde514f7fd 100644
-	--- a/drivers/firmware/efi/libstub/efi-stub-helper.c
-	+++ b/drivers/firmware/efi/libstub/efi-stub-helper.c
-	@@ -379,8 +379,7 @@ char *efi_convert_cmdline(efi_loaded_image_t *image)
-	 	if (status != EFI_SUCCESS)
-	 		return NULL;
+-----BEGIN PGP SIGNATURE-----
 
-	-	ucs2_as_utf8(cmdline_addr, options, options_bytes - 1);
-	-	cmdline_addr[options_bytes - 1] = '\0';
-	+	ucs2_as_utf8(cmdline_addr, options, options_bytes);
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgRUIACgkQJNaLcl1U
+h9BbEQf7BNinLOtudO8oaqLcTu1OZBgIxb1vIkvHUeTBwolSxrD9yRTOndswYTmx
+mPOg+4X54Q+QOLuJQdRGDH+zONsSiIP9YVf9klpfANMFcZIafieAp8JgF/wxB1ah
++7LVPxFBfCFDr/50UStxMfHTBe4ZHAM4TUts5Gb6vY9gTdXueSDtD41Dqtta0jcw
+nnawl7Qd4hzfAHm+Lk/U+HAnaqjSmrx8gI/F7gIoMZ7W2QA6DuVTNNVhW9d3IK/L
+pgOErYI1aPx07VlbNacwNa5G6BTsz3AzpjXIln/1Zu6/g5RQHwTgSbrK08B9F3nG
+m48w4kIR9nu0vQtpckInm9N3zI86Pg==
+=nZsn
+-----END PGP SIGNATURE-----
 
-	 	return cmdline_addr;
-	 }
-	---8<---
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=efi-libstub-native-utf16
----
- drivers/firmware/efi/efi.c | 2 +-
- fs/efivarfs/vars.c         | 5 ++---
- 2 files changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
-index 6d987d7f97781..221804e7d5390 100644
---- a/drivers/firmware/efi/efi.c
-+++ b/drivers/firmware/efi/efi.c
-@@ -304,7 +304,7 @@ static __init int efivar_ssdt_load(void)
- 		}
- 
- 		limit = min(EFIVAR_SSDT_NAME_MAX, name_size);
--		ucs2_as_utf8(utf8_name, name, limit - 1);
-+		ucs2_as_utf8(utf8_name, name, limit);
- 		if (strncmp(utf8_name, efivar_ssdt, limit) != 0)
- 			continue;
- 
-diff --git a/fs/efivarfs/vars.c b/fs/efivarfs/vars.c
-index 6833c3d24b541..1ddc89e13518f 100644
---- a/fs/efivarfs/vars.c
-+++ b/fs/efivarfs/vars.c
-@@ -237,7 +237,7 @@ efivar_get_utf8name(const efi_char16_t *name16, efi_guid_t *vendor)
- 	if (!name)
- 		return NULL;
- 
--	ucs2_as_utf8(name, name16, len);
-+	ucs2_as_utf8(name, name16, len + 1);
- 
- 	name[len] = '-';
- 
-@@ -264,8 +264,7 @@ efivar_validate(efi_guid_t vendor, efi_char16_t *var_name, u8 *data,
- 	if (!utf8_name)
- 		return false;
- 
--	ucs2_as_utf8(utf8_name, var_name, utf8_size);
--	utf8_name[utf8_size] = '\0';
-+	ucs2_as_utf8(utf8_name, var_name, utf8_size + 1);
- 
- 	for (i = 0; variable_validate[i].name[0] != '\0'; i++) {
- 		const char *name = variable_validate[i].name;
--- 
-2.43.0
-
+--e0PIkH4Kp0kfVB5+--
