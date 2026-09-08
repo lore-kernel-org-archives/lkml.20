@@ -1,147 +1,155 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2866377ABC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37D81D432D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:51:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788846606; cv=none; b=euMAGHU4qCqh99mB39YcCl3VRCSxQ3Z9L1+J5pdXssMvIbRF77E7ERfetdyY5D1bcf6xhdcoTqakapnEQVVqCM13If9qnXAIeZCYZMFBcYKnU1DY3s5aPToAFRFATWRBsxyqj45K/yG8LD12XOkiBbV1RwildgcO3Fzswh+fCSs=
+	t=1788846701; cv=none; b=ABwVECuDCqE/9IOhJCRckZhT4DnmUHH30CEowLIHX5seyt0yY1J3Qx9LvRsbmMPxml1rqiS07ctZIvgJT4iv4ddO7UOcZzLfOfnhQTSeLxu0ba6IhhXffEpnatlA1OiVOdmXtCujQCDDt8lK/u5JjI/L80zSZq7A8WDtM1PwPlk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788846606; c=relaxed/simple;
-	bh=kuRqLYU/bVAolAtuT0lNsNPBb3H44v+1z9+WGNYvrCw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sVq1rszQfeKmPbPaM7NXCH3DkdxEjuFrNMfJ/zcKIbOJe6nUyDL/nMK2iXFoIwySYHs/tzJCrhPsuGgX7a8/UuyrN9e7Yj32uAtTioRQxrOLbVMBHOQ60ZlM+scgCo/XUf5T3l030wAKpiW9pJvnNre5UQhMshDxzglMPL3Rh74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XwXXfTsY; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788846701; c=relaxed/simple;
+	bh=b/YpcU/SZTQ7suBXhAmovdv3YrQFr9IFtG/dZ+tV87c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cWBKDa7r57pWsAn/v1nn+9CFptq4aXap+5plZqkOPnzhRamaHWqixEI/LOjiV7GE+6yR0oc30OjJMo4nF5PPAXxc1HDFoXKSSRAKy42Nd9KJoUKAC2WWL5e0SkvZYrM7bZ8plLdFyAZHjEd7/vAvV7zg5IJowBx3Pc3D7I2akyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G71s5Ggz; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XwXXfTsY"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4235896a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:50:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788846604; x=1789451404; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iSdhcylG8upaYgz/wmJd+JoSvai0ylGkPowyAHHfN0o=;
-        b=XwXXfTsYF9cY8pkPapoKPfNcuODFHqV39MRPPaVSTVQ7sUfNQAzjiBC1pRVbrdsBbJ
-         LUgj3Ryp9o/LvD1CQXZQfaz2zXpEgD/QlfEC0tat+2D+QTKwfG8//8Ch2zgXYbKfndYA
-         Nmiq/pICe1U6XESPT4L8IXwFuWML+RCA/AINdeZ6+adJcUCVLvDKu3lusM6F8U/2392A
-         QsRlMc0aPzKBsP9wWcjTUIH1tBrwdqXSVjKCVsB1GW5enT0YBlWzG+SWwsMhnf5VDuqQ
-         vsUhak5j8tFnxVzKI1pIoutlfrDMEhCs8JE2iTZc+rbp1uZoNC00GF0r58DwVgf3dHvI
-         NkTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788846604; x=1789451404;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iSdhcylG8upaYgz/wmJd+JoSvai0ylGkPowyAHHfN0o=;
-        b=n+U1mSEJ2o6/r9sjT/mupOj/57ViWgq96S13+WAO7swChVJJjvFzYhvwdHTZXpdTGc
-         kdVAFFES9TIRIH/DFHol+ve6oU/6xs9ERH8XpcoXDTTTm8FLC7FDdkd3SpGykGzCKSRK
-         WmxfGnbdmQ8IukuybuLCQQH8XJggMn88FbgfFP/ghurCCnhYgOzRIVLlgfMk2IVpyFF7
-         HIdud8xkBQL3STAmBAtFjU/HL7VXqUFoudjC2ndBBr9HsKTHResNKegoZmckrBy/9fdN
-         +tp4rgiL6UmA0hd0fMTazF2XH/tL1w0YDTLGnNuSt7DIvmMj8/Rv3Y7clYrgjUhNqdR3
-         6wFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxj6fMU8Am1tfp3dHJgiNz7SU7h4O0v4eL5BWuq8++PC/XwPcH5Wds7yidj1n6TDxjMbpZ3oDEM7iuZCxY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nyRTtOyLWj4RAWjlgvznVgDzrGwLMfHTmGt9mSrEwgpJyt8Kul
-	oAAidCBMALc8m0pLBJjNgyxJIVo3SaR/ffDNtZzjHa7AmHkB29Kf28wk
-X-Gm-Gg: AYBFou3Al8NnYMEwTxal3LOQ9+p5JHkQRQdv7TGVNlc/xHkjk7n9t59hI63K6mHzzjh
-	CDpI48m8P23NqkyqLq9aX99qbQoBxuhECVxxGMprt2j8sHdSdjaEUu9iL5OyzGXFPpbRl52HtE9
-	Mpp2OL9uB6r8NwQoFWouH8RroHjIUx7vCDt5gWbfCZRh8z+GlKvWW9obTnBlVrO7v4w2T0J91i7
-	uqdDv4MCdGsqf2gkW/7VQjfdhSO65AUmywgq/3nCzauarUdktPEMzMNQGcBTBNlC2z8LQIt+oMH
-	xoXm3vs/hRay0FYRnnCKnEAROCqGpdNrF1hk2OLdKh4utD8EH1n4kDJ7jMts9E0TbtMbLtmv4Lr
-	AnOLVJn8AdBnoner8EGbNT9DyJ5RtdoCBnJHyjiesVZunMox1+1LTSFdjBv9/RyJP7Chm8zOMiY
-	A8AoKX9RB3Pp2k8rF+2nTm2amGhtxrgugrtUvKeZ6motkxv2SayI/PLHjPzGJPAqhWpi/VJ+WYk
-	7eMFuqc93LrIcWpHx3uhF52
-X-Received: by 2002:a05:6a21:7989:b0:3da:421e:40f3 with SMTP id adf61e73a8af0-3da421e4978mr36173588637.17.1788846604363;
-        Mon, 07 Sep 2026 22:50:04 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-334fbd5e6f6sm25690109eec.23.2026.09.07.22.49.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:50:04 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	Russell King <linux@armlinux.org.uk>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Hari Bathini <hbathini@linux.ibm.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Naveen N Rao <naveen@kernel.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: bpf@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kselftest@vger.kernel.org,
-	sparclinux@vger.kernel.org
-Subject: [PATCH bpf-next v4 7/7] selftests/bpf: fix repeated words in comments
-Date: Tue,  8 Sep 2026 11:18:53 +0530
-Message-ID: <20260908054853.13820-8-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260908054853.13820-1-hemanth.selam@gmail.com>
-References: <20260908054853.13820-1-hemanth.selam@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G71s5Ggz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=d5CRftcM8cKZg4S+msRCJ3n7gXADB26qmvhpulgYttw=;
+	b=G71s5GgzdokRvAkxK9i+m0IeOP4iaBsuTDvL3k2yyz0WQcspmpUNOplKID+6n4
+	6+Mu2qvTp7PxoisXHq0yQl/s2+m3sRTdZDlRCEm8jmLdmk6v3m8Gt7yQ/kUIdvQS
+	z2KFH9s/k9vO6jhU3x2flUY19DV1kiVkc/B/8ZBJBn3bI=
+Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDXXzRUop9qlvlgQg--.45536S2;
+	Tue, 08 Sep 2026 13:51:18 +0800 (CST)
+Message-ID: <5a81c4fa-807e-47ca-a143-6985036534a9@163.com>
+Date: Tue, 8 Sep 2026 13:51:16 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ntfs: fix $MFTMirr write offset when it spans multiple
+ folios
+To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>,
+ Hyunchul Lee <hyc.lee@gmail.com>
+Cc: "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
+ "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+ <CANFS6baT-+_u+c99qThd7jekqXZ3BW5utLPERLa_X3FE7XiBNw@mail.gmail.com>
+ <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDXXzRUop9qlvlgQg--.45536S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCw1kKw4ruw13XF1kur17KFg_yoWrGw4xpF
+	9xCwn3Ar4kKryIk39rKa109a4kX39rKF1UKrW7Jr1I9anIqw1kWF4Uta9Y9FyFyr1Ykrn7
+	XF1kKrnxWF1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hZAC2qfolYKkQAA3t
 
-Drop repeated words in comments, reported by scripts/checkpatch.pl.  Only
-touches comments, no code changes.
 
-The subject prefix changed since v1, from "selftests: bpf:" to
-"selftests/bpf:", to match the rest of the history in this directory.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- tools/testing/selftests/bpf/libarena/src/asan.bpf.c | 2 +-
- tools/testing/selftests/bpf/progs/iters.c           | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+在 2026/9/8 04:41, 朱 天浩 写道:
+> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
+> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
+> which is indeed what mkfs arranges.  However, the folio rewrite kept a
+> leftover from the old buffer-head/runlist based implementation:
+> vol->cluster_size_mask is still applied to the mirror write offset.
+> In fact it is no longer needed -- and in some configurations it is
+> actively wrong.
+> 
+> The bug triggers whenever the four mirror records do not fit in a
+> single folio, i.e. when mft_record_size exceeds PAGE_SIZE / 4 (for
+> example mft_record_size > 1KiB on 4KiB pages).
+> 
+> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
+> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
+> written to the location of record 0.  $MFTMirr therefore gets out of
+> sync with $MFT and the following warning is printed on remount:
+> 
+> 	ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
+> 	      record 0 do not match.  Run chkdsk.
+> 
+> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
+> to the base LCN address instead of applying the cluster_size_mask
+> truncation.  This is the standard file-offset calculation and is
+> correct for every combination of cluster size, page size and MFT
+> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
+> (which mkfs always arranges).
+> 
+> Tested on the volume above: before the change mirror records 1-3 are
+> all written to record 0's sector; after the change the write-back
+> probe reports:
+> 
+> 	ntfs: NTFSDBG pre mft_no=0x3 folio_idx=0x3 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0640
+> 	ntfs: NTFSDBG pre mft_no=0x0 folio_idx=0x0 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0628
+> 
+> which matches the expected sectors computed as:
+> 
+> 	(NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SECTOR_SHIFT
+> 
+> 	record 0: (0x2540c5 << 12) + 0x0000 = 0x2540c5000 >> 9 = 0x12a0628
+> 	record 3: (0x2540c5 << 12) + 0x3000 = 0x2540c8000 >> 9 = 0x12a0640
+> 
+> A 13 MB file write succeeds on this volume and the file is byte-for-byte
+> identical after a umount/mount cycle.
+> 
+> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
+> Assisted-by: UOS-AI
+> Assisted-by: CodeBuddy:Hy4 preview
+> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
+> ---
+> v2:
+> - Removed the unreachable folio-size guard (thanks Hyunchul for the review)
+> - Dropped the "While here" paragraph from the commit message
+> - Clarified the trigger condition and retitled the subject
+> 
+> fs/ntfs/mft.c | 10 +++-------
+>   1 file changed, 3 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
+> index 7e58c99f1728..8399f07d45d6 100644
+> --- a/fs/ntfs/mft.c
+> +++ b/fs/ntfs/mft.c
+> @@ -462,7 +462,7 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
+>   {
+>   	u8 *kmirr;
+>   	struct folio *folio;
+> -	unsigned int folio_ofs, lcn_folio_off = 0;
+> +	unsigned int folio_ofs;
+>   	int err = 0;
+>   	struct bio *bio;
+>   
+> @@ -492,15 +492,11 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
+>   	memcpy(kmirr, m, vol->mft_record_size);
+>   	kunmap_local(kmirr);
+>   
+> -	if (vol->cluster_size_bits > PAGE_SHIFT) {
+> -		lcn_folio_off = folio->index << PAGE_SHIFT;
+> -		lcn_folio_off &= vol->cluster_size_mask;
+> -	}
+> -
+>   	bio = bio_alloc(vol->sb->s_bdev, 1, REQ_OP_WRITE, GFP_NOIO);
+>   	bio->bi_iter.bi_sector =
+>   		ntfs_bytes_to_bio_sector(NTFS_CLU_TO_B(vol, vol->mftmirr_lcn) +
+> -					 lcn_folio_off + folio_ofs);
+> +					 ((u64)folio->index << PAGE_SHIFT) +
+> +					 folio_ofs);
+>   
+>   	if (bio_add_folio(bio, folio, vol->mft_record_size, folio_ofs))
+>   		err = submit_bio_wait(bio);
 
-diff --git a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-index de656b69d13a..fb50ee4ad097 100644
---- a/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-+++ b/tools/testing/selftests/bpf/libarena/src/asan.bpf.c
-@@ -204,7 +204,7 @@ static __always_inline bool check_asan_args(s8 __arena *addr, size_t size,
- 		goto confirmed_valid;
- 
- 	/*
--	 * Wraparound is possible for values close to the the edge of the
-+	 * Wraparound is possible for values close to the edge of the
- 	 * 4GiB boundary of the arena (last valid address is 1UL << 32 - 1).
- 	 *
- 	 *
-diff --git a/tools/testing/selftests/bpf/progs/iters.c b/tools/testing/selftests/bpf/progs/iters.c
-index c6699159dacd..e44a979270ea 100644
---- a/tools/testing/selftests/bpf/progs/iters.c
-+++ b/tools/testing/selftests/bpf/progs/iters.c
-@@ -1511,7 +1511,7 @@ __naked int checkpoint_states_deletion(void)
- 	 * would get equal to one of the explored states and thus loop
- 	 * exploration would be finished (at-least for a specific path).
- 	 * Verifier evicts explored states with high miss to hit ratio
--	 * to to avoid comparing current state with too many explored
-+	 * to avoid comparing current state with too many explored
- 	 * states per instruction.
- 	 * This test is designed to "stress test" eviction policy defined using formula:
- 	 *
--- 
-2.48.1
+
+Looks good to me.
+
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
