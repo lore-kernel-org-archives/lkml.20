@@ -1,192 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40BC56B87D;
-	Tue,  8 Sep 2026 22:44:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 206E8509EE0
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:45:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907463; cv=none; b=jjLMi1uWb+ITMnyFg9UQUsJycSBaiCUWrfm/8Z8n/sxvm0iMmAddEcvAwP6Uz/qiXby5JiBTiCqk8XFZgZo4RrDuSdkg4dZyRKOyGDGRjZ0QKkjWFgEOBwcpqytvDpmKPIhdY7gDjrEI0Qo8P+ijVIWxEDRKHiuRjzMq4amysBg=
+	t=1788907557; cv=none; b=amcl9QYyp0pMleQvu5WzG+CT/4OnaiH8yvoTYxQ4Gq84N7yHttSEbl8wj7sYH1YIUV3X1+6iqzun92nWkxzim7x5WCKjIDqK2s1byDOXrso3qx2yB9teNM2cKZeseICXMEbfJipZGemBX5srTMAL7tEbNnbHBbIu/+kmH0Lzn9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907463; c=relaxed/simple;
-	bh=JOEDJP2DW+ls2ZC/0vA+O8vm2ntANqCPaKHWS5/MXzg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y1h2+yN28INookQpg1EARSBKMOCN/Szr7zrztX/ALooM/5oRifrnLId1HUkCpQl9SRo062vYsczTCoqkBbBoTckJEayIKQHT8tQJ8GrwRl4hVHl9gPXmijS7hHVujVo6hDXUBhw76HvskvIWa2AFsniD8vFBhW8quVINMJdyCKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAh3jSaG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788907557; c=relaxed/simple;
+	bh=Y+CSzOQ79R4zJsVhWVmxTsCY4eA6zFxvVUokey1j4BU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qBdfBV6ah37Kvo23mo0Kh080MYWubUWY+X8dP7Z6GJ8xgqTVs2hipyf6VOTetedqj8vdzOLsnmgScli1EF0yrr/hHU237GsicAIHU5J8wtGWQuxXLcIInzjzG/YYXdWoriuc1VkBF+fHtO/f71Qh26bg6BHFUJkmgu5BbOpMwvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=jk+uhubM; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAh3jSaG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 318A01F00A3A;
-	Tue,  8 Sep 2026 22:44:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907454;
-	bh=1ZnYa73NqlHvx0NBeklkPLHckc4CqlArTF1KYVVsrjI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QAh3jSaGlsGc3Fayn5XHnyXj4mBXkPfEEtBja09rGhxffJ28vDMcMuS4JLz5xE0di
-	 yPWz64mObi0YhHANOZ0uZGGmyNYvnLv/YG4QiXX0h8IRkaktrgSZiK+pACQt4/rSHR
-	 OqIjN7Ij5ZYkA2VLYTd/wkpqKt2pt+MVJjrrOrJbLaVvMK3RRQhtS13Yc+fpvN7stJ
-	 4oWbgpvB3lfi7YbjpsX0TbgdMRkiUomrr07LJgsP2Knx6PCXMHSMswat18fbg6/o+h
-	 SCSmpTcc9BkN8QVIbZqxthpFyBqMT+elACJHuS3a6XSuO+9S+361SMrCH3FNRuqH3Q
-	 PDrH30/JDB/aQ==
-Date: Tue, 8 Sep 2026 17:44:10 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	"Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Bharath Kumar <quic_bkumar@quicinc.com>, Chenna Kesava Raju <quic_chennak@quicinc.com>, 
-	srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org, 
-	linaro-mm-sig@lists.linaro.org, Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-Message-ID: <aqCKgM1yCbWjFdgO@baldur>
-References: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
- <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
- <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
- <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
- <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
- <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
- <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
- <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
- <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
- <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="jk+uhubM"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so722061f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:45:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788907550; x=1789512350; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YTxI2l5PJUI4RUaoloNJUKqD4x2VtZHDxrJ5sZCcTQQ=;
+        b=jk+uhubMT5uFsfKUKLRGwHZg4PJxZ9XBJ35OcxJ8e+6RHNcqyNr+1IBc0bfW8K8zJT
+         L7kaQZu2J3eFVYBUHxVTjvuKwcJ06UQ7uEr5Vb3RnGn1q4xINpEF5qpuPL129gn/wibz
+         9fYuzkBTxQcLdL1FBEe7ZapHHOsTVj3a00u9m6LPB14WMywapUr18N/FfZ3WgoovPVaI
+         CLnj9rj/dTlqANL3SrjH036jWJWkCjeCxC7MbZyKLSX7hyM4B4aU/w/Cz0LYXBiPfdv/
+         bs1Oo9UqWOOXkzAlb4FGQAUC+a86LZZ8MVYGDOjuav5rGsyPpwBU77VzwEN7+ZG5agg/
+         LkOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788907550; x=1789512350;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YTxI2l5PJUI4RUaoloNJUKqD4x2VtZHDxrJ5sZCcTQQ=;
+        b=QYd6E5G8udxciS+E6cyD5pEuq0RR/xkqRFv4mbmvvYq1dq77XRfH2BRjiqNAGKkTTn
+         JjKNAHwDNkl297/zr1kkEPNLzXSXQ/Ms6qktb2q3PHuUUktouat/Qz3HdSHnzQbHQK4n
+         +NevI9DWTH7kaR6LPPL7P9gpVbKZ+RPJLyAJ8YnlgSptFxfFO/+w4h1iNdJUp28ZHmWU
+         jOgKmmkR7Li/RY/nSrul3HE5uWMlPw1gGCwwaX/Uf2ZOAbHevhfy14woK607jtjqiobc
+         uJ53eknFJIJ2HHkfZB8oPQ2HbTl5dxPC2sj7gxJH33ki1F4JLkf2QF05/Te+14vTJ3eu
+         w2lQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyfKBuJasIJuNOeqtUaiVH8vA2Q4PYh6Cu5cWgxoqX2Kr//DNI6dMJHHLIqnq9lT6xRRnkq2ih5fQWXng=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGR2+iia4eN8NVJRBtf9EQrceKq/796pZFK1j3LACkNeuZA3Uc
+	D3K4BhYbsauOyfUXFY6dIAJFRJiT7ajQdLQpjt9a6NycY1koR3i4Bc+K+K87UR1ysw==
+X-Gm-Gg: AYBFou1SiIqwyIEmrGoCKssXT6bUYTAkNk+UTyOqfiEPyTYAplNRBvgdPhcotZDU3uc
+	XFLZwZSSjYoER6rjt8zduNgMXw3+L6wgtnojj8Vhf9TsBxehGNHIHJua9EDWuelr9a5CaxoBxik
+	iUEtuVH6XbtrK/IbEQYcHJBak82my6+V0WDYFWMpzfrvm+Sxh0EHtYNdkdUcsTFIiM06wLO5/tJ
+	diV/c2W1IVmnTSJJUbzgD82qjVYrBGZtcaYDfoF7Rg1j3gcdXkXB015m8GmXQKFixr4RB5oo50j
+	jcYfYv/OoCuhC2XsJ2IwFh/4THi47ogHAXPX3OCb0xNtOHtP7mnyA9L7jLSg5YFsO/dRiwsIcnr
+	vQhkIEgU1qiYIp6IJi6GIcAl6k3upzrHqjCA6cp213hDgR4gMbR+1Us9V0XQxJEo7L/2jAldrwu
+	S5yVFSStmVsZhKbu1SYG43DY/h80QLHQBSYUfuriIj9Wd1mFptNSAf6FD+0ci98XAxEIzJSJLrJ
+	8V/glXlOHMcQHEGwlX9oW1y+EyWI5TcIFmg
+X-Received: by 2002:a05:600c:4752:b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d175439dbmr104753715e9.1.1788907549693;
+        Tue, 08 Sep 2026 15:45:49 -0700 (PDT)
+Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7febb4sm553361685e9.14.2026.09.08.15.45.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 15:45:48 -0700 (PDT)
+From: Mike Lothian <mike@fireburn.co.uk>
+To: "Daniel J . Ogorchock" <djogorchock@gmail.com>
+Cc: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Silvan Jegen <s.jegen@gmail.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mike Lothian <mike@fireburn.co.uk>
+Subject: [PATCH] HID: nintendo: relax subcommand limiter until cadence is proven
+Date: Tue,  8 Sep 2026 23:45:32 +0100
+Message-ID: <20260908224532.114357-1-mike@fireburn.co.uk>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
 
-On Wed, Aug 26, 2026 at 06:37:00PM +0530, Ekansh Gupta wrote:
-> On 20-08-2026 20:17, Rob Clark wrote:
-> > On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >>
-> >> On 19/08/2026 17:48, Rob Clark wrote:
-> >>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> >>>> The rule of usptream development is that we do not accept duplicated
-> >>>> code, just because a vendor wants to write something new. This is
-> >>>> basically the concept applied all over the drivers tree, where we pushed
-> >>>> back against all sorts of duplications all over the vendors.
-> >>>>
-> >>>> What I miss in this thread is why would there be any exception here. We
-> >>>> do not grant exceptions from standard practices on "I want" reasons.
-> >>>
-> >>> I agree that we should not have duplicated drivers just for vendor
-> >>> lolz.  But when it comes to adopting common frameworks and integrating
-> >>> better into the ecosystem, this doesn't seem like something we should
-> >>> actively discourage.  I don't think this is a case of vendor lolz, but
-> >>
-> >> No one discourages it. Following standard Linux kernel practices and
-> >> requirements is not discouraging, do not twist the narrative here.
-> >> Again, it is standard upstream review telling that we do not duplicate
-> >> drivers. Ever, unless there is serious exception needed.
-> > 
-> > I wasn't trying to twist the narrative, just trying to come up with a
-> > path forward that isn't "no" or "improve existing driver", since
-> > neither of those gets us towards a future using common frameworks.
-> > 
-> >> I asked why there should be an exception granted? Is the reason for
-> >> exception following:
-> >> "We want to adopt common framework"
-> >> ?
-> > 
-> > Possibly?  But I don't think we want two drivers to be any sort of
-> > long term solution.  (Ie. as long as venus/iris have co-exist.)
-> > 
-> >>
-> >>> rather reacting to drm/accel emerging as the standard framework for
-> >>> this sort of driver.
-> >>>
-> >>> So how do we get from here to there?
-> >>
-> >> What is wrong with my proposal?
-> > 
-> > Maybe I missed something, my understanding was your proposal was
-> > "Grow/replace/improve existing driver instead of coming with a
-> > duplicate"..  grow or improve doesn't move us toward common
-> > frameworks.  Maybe "replace" is a valid option.  If there is something
-> > I missed, then I apologize.
-> > 
-> > Options I can think of are:
-> > 
-> > 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
-> >    driver
-> > 2. Backwards compat chardev registered by new driver, providing existing
-> >    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
-> >    AFAIU the fastrpc folks where planning a backwards compat layer in
-> >    userspace, so maybe it is possible.
-> > 3. exception?
-> > 
-> > I'd like to know what the feasibility of #2 is, since at a high level
-> > that sounds like the best option.  Possibly limit exposure of legacy
-> > UABI to existing hw so we don't get into a place of needing to extend
-> > the legacy UABI for new hw?
-> > 
-> > But #1 sounds like a non-controversial place to start regardless.
-> > Possibly with #2 coming as followup and necessary step before eventual
-> > migration to new driver for existing hw?
-> > 
-> > Even if we start with #2, how do we handle first-merge-window
-> > bugs/regressions without reverting addition of new driver and removal
-> > of old?  It seems like we'd need a window of a couple release cycles
-> > where both drivers exist?
-> > 
-> > Maybe others have other/better options in mind?
-> To all, I'm seeking on the approach I should follow to go ahead here. I
-> can work on implementing #1(as per Rob's list) with hw specific
-> compatible for v4 if it's acceptable.
-> 
+joycon_config_rumble() queues a zero-rumble packet during probe. The
+rumble worker sends it as soon as ctlr_state becomes READ, and
+joycon_handle_rumble_report() retries it a few more times after
+that. This is the first subcommand sent on every connection, and it
+goes out before any input reports have been seen, so
+consecutive_valid_report_deltas is still 0.
+joycon_enforce_subcmd_rate_strict() requires 3 consecutive reports
+in the 8-17ms window before it releases a subcommand, so this send
+exhausts all 25 attempts and warns, on every connection.
 
-I don't see any reason for you to define a "hw specific compatible",
-because as you have shown in this series (and as Rob point out), there's
-no difference in the "hardware".
+Start each connection on the legacy flat-delay throttle instead of
+the cadence-gated one, and switch to the strict limiter from
+joycon_parse_report() once JC_SUBCMD_VALID_DELTA_REQ consecutive
+reports have actually arrived at a valid cadence. Controllers that
+already hit the permanent fallback in
+joycon_enforce_subcmd_rate_strict() are left alone.
 
-The only reason for your "hw specific compatible" is to make a software
-selection in Linux - and that's not what DeviceTree is for.
+Found and bisected with a btmon capture over Bluetooth (MediaTek
+mt7921e): the three JC_SUBCMD_RATE_MAX_ATTEMPTS warnings on connect
+line up exactly with three JC_OUTPUT_RUMBLE_ONLY (0x10) frames sent
+by the rumble worker's zero-countdown retries, all before the first
+JC_OUTPUT_FULL_REPORT (0x30) frame has had a chance to establish
+cadence. Tested on real hardware (official Pro Controller): reliable
+first-attempt connect across repeated pairing/reconnect cycles,
+versus dropping inside the first ~70 seconds of a fresh connection
+about half the time before this change.
 
+Fixes: d750d1480362 ("HID: nintendo: fix rumble rate limiter")
+Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
+Assisted-by: Claude:Sonnet-5 [Claude Code]
+---
+ drivers/hid/hid-nintendo.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-As such, I don't see that you have a DeviceTree problem at all, because
-this is a Linux-internal problem.
+diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
+index 43e0f2aaea3b..0a169d0aa719 100644
+--- a/drivers/hid/hid-nintendo.c
++++ b/drivers/hid/hid-nintendo.c
+@@ -1797,8 +1797,12 @@ static void joycon_parse_report(struct joycon_ctlr *ctlr,
+ 	 */
+ 	if (report_delta_ms >= JC_INPUT_REPORT_MIN_DELTA &&
+ 	    report_delta_ms <= JC_INPUT_REPORT_MAX_DELTA) {
+-		if (ctlr->consecutive_valid_report_deltas < JC_SUBCMD_VALID_DELTA_REQ)
++		if (ctlr->consecutive_valid_report_deltas < JC_SUBCMD_VALID_DELTA_REQ) {
+ 			ctlr->consecutive_valid_report_deltas++;
++			if (ctlr->consecutive_valid_report_deltas == JC_SUBCMD_VALID_DELTA_REQ &&
++			    ctlr->subcmd_rate_exhaustions < JC_SUBCMD_RATE_MAX_FAILURES)
++				ctlr->subcmd_rate_relaxed = false;
++		}
+ 	} else {
+ 		ctlr->consecutive_valid_report_deltas = 0;
+ 	}
+@@ -2730,6 +2734,10 @@ static int nintendo_hid_probe(struct hid_device *hdev,
+ 
+ 	ctlr->hdev = hdev;
+ 	ctlr->ctlr_state = JOYCON_CTLR_STATE_INIT;
++	/* Promoted to the strict limiter once cadence is proven, see
++	 * joycon_parse_report().
++	 */
++	ctlr->subcmd_rate_relaxed = true;
+ 	ctlr->rumble_queue_head = 0;
+ 	ctlr->rumble_queue_tail = 0;
+ 	hid_set_drvdata(hdev, ctlr);
+-- 
+2.55.0
 
-> #2(compat driver) is something that we are still exploring as we
-> couldn't find any standard way to achieve it. We might start a separate
-> discussion for that once we have few possible designs with us.
-> 
-
-This is the actual problem!
-
-We have existing user space that depends on the ioctl interface exposed
-by the current misc driver. You must not break these.
-
-Hardware cutoff is not a viable solution, because that's just a
-declaration that we'll let the old platforms rotten - or alternatively
-you commit to maintain two drivers to the very same feature and quality
-level.
-
-So the only reasonable solution is #2; from there it's a valid question
-if you reach that point my stepwise migrating the current misc driver
-that solution, or if you present a new driver with the fully backwards
-compatible interface, alongside the new ABI.
-
-
-But this does bring to a question which the cover letter should explain
-- but doesn't: what problem does this patch series actually solve?
-
-Regards,
-Bjorn
-
-> Happy to take any other suggestion also.>
-> > BR,
-> > -R
-> 
-> 
