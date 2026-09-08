@@ -1,73 +1,68 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012008.outbound.protection.outlook.com [40.107.200.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625CF390CB9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788896112; cv=none; b=rBk8QRhOQvb61oD7Ise6mPkkiH6Q3rdb35GuX2QfZqwDy833pKhsdi2ocPO3sKmvVZK4gdgGkOCjqZJHtPczJABDI0l5OQHritidLPITqdMm9yjtGaZbxORT/d/o906LnnbQ7F/J5Utcl/OgBkBlL4aoyKuo5cl3JGKhL6SU1v0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788896112; c=relaxed/simple;
-	bh=Jqnmrd4aZJv+OTC6WlMiMLbEE0xKExHY1N/n+/K+zR0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mJ4sHAYBMRXwfvKbPbpGOu1S4s1RAxhtqpZM8XOmM173NFrVs1Qy3lWFwqdH6NL8sMzKCbOiwlSlz0Gu9h1H7spi62/VZtV/8cKFSmcTEKpAlx1562jQEJuyaX0mD+p9o2ROmbcs+AxBsA9/0E50b+gJ288Ba9zyPv96IE64vrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IY8gPDQb; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05CB3911C1;
+	Tue,  8 Sep 2026 19:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788896118; cv=fail; b=jk7BHe2d7atQPTHkWb+bmpBzRqtn2AQrhl4F+gLkW1BuFH4pT/dKd+aLxWNxTgK8AlGvhDzyKoLECddvhq12sn9DR7ZOsYOrk/jf+BdCUsQ/mUtVHMlKD1PAKhiXtNgTCNjyHshkRQ6R1OBBrMQRYjsr7KMjOkbzGO3c/ENhYv4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788896118; c=relaxed/simple;
+	bh=KylsEbYr0hTXnDcgL9HQUo8gs2sJfqr3B6WQ5cTwVX4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TMKL6dEoA2o5zdlmv0pGONRuRLXw8Vb94LHDGL94qmpxCO0/64UdMTceYZ9eiccxsXaV2YpJ3bdR6zUtIgD0JR9os1/HypO6pGv5o07KCMbX6zfrNo5ClfsrhYT7Nua01KqXG59qgIORAo1NDOCkAfQbnjUl7pSXkeaoGM4yzpc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZomJAQiP; arc=fail smtp.client-ip=40.107.200.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IY8gPDQb"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso5495429a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:35:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788896109; x=1789500909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nnDhSP6bczUTSkcaT5CjAbh23zZRgnhTqPeZ+Pxp09E=;
-        b=IY8gPDQbbyHGXZ3Wn49tzky7wVVUDnpm6wgZ4TIr9MP2FaVBW6nnSZDMKUu98cQFBv
-         Jjw2gDUkl99G5+LGCGNMNOKim3phjL0Zabgf9N4IJpmX6oSq3Q53T2RUS29LPiqSPVuu
-         XocEqQuCr+y6LORbz7aQNKN8uZdaoc5xkKaBY/3uKhmhbHnUQXmqoel9vR7wsOPb7Uph
-         z09bcjFselfrJjCat/FAwVP+fDqEjLaQ1OuJ+PRiHvhGmvmNIBYNjHmnUEcKaewUVyWe
-         z9gqGxidiNpdM2LBOZAOHoEaDoXc0442pvIZiWAPz2BaAluTuvz3G7jrHqvVVKhWyaP5
-         PPoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788896109; x=1789500909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nnDhSP6bczUTSkcaT5CjAbh23zZRgnhTqPeZ+Pxp09E=;
-        b=oDJDS7rLuYb47WKHMvsgTOrZaLvVjgr36eaMvL0t7GNaYXuYkhogTxDt1OJTySsKT3
-         dJi0BQ2G983vwevII+YaHa9lwK64TFx7NoRJ9eNVCOdEaSqPR3Sg6pvqeZUb73aNATe3
-         /d+vCd4UfXY2Nq0i/2U5tqbL+8r9/2PlsVUoYZUUuHYEMOVyXAbwwHwYYAf2iuHhaYcd
-         gwSx/Mqxx2q0htMO8bLf0i0zac4N//tDj8dt+QL9SK0/jBbxlmfX40f/vJHo/L7xpPGH
-         Vsti03fCGILtQKODfLFKvHJDMPFdHFUe3FcyOB58igDS/VN8EKtvqsBsR5rklmAKvyLY
-         UbCw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvcVM1OW2cfDa1KjRJ1F0+h7/ZPbn5+Us3Q80htMZ0uboz0qCykXj7ydYYWmkQT0eo73Lh3uB6wTnxsLo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7wX9RdiuviOnspybQ2Wmr2dj7RNpiNKGYpismHOFn47rGPLm9
-	SNlyrCmuQ5lphqtN1L4DgnqOI6pXTK0X2NFP/F6i8e6xrD3IKtS5Jg5v
-X-Gm-Gg: AYBFou2vkz8mnaUythuV2Nn4n4n9nIu+ZVhqVO39kRLrvbmcDse8mKVo209sYE2ZU8O
-	ejvu++mBfKcz99vmBrBuBZKvi3hlLK82qDUdSJ8BCJCofYDSJkyk2pk455XgHm87MdvxjHCtbaL
-	EZyLmRjIKqrWpUizD2XAsWnV9OgHHS4e4aI0yA7jz8c4VgljwolD1uuB0U3ak44Mh6TQRNdiLPJ
-	GBO6N1MNTajysvTZuEfLDwqs8A8+JUWEhny+2oQgIwMyqemb/d+hgoEv+TzYOCURUI0COpk+LPM
-	4mRk02sHX9r2ZD9vA7/s6uAxPRSFb+YXscnCa+eI0KuiGivVrNTFXphTf8/DBTQDoablk0t4Aas
-	Wc+dGCbKOyEgS6zve4oGw/S+Ke46K4XwQDz552ViUXdkOAxZ10W1qZYWB/+SJN/KuBF43XhnDRY
-	we58sSKbn/eSfUBB1MMR4DkZR0Da+VAoAhQpWhWU15zlrOxgOizc/dvYsUk/jGRil8MiQfdA==
-X-Received: by 2002:a17:90a:1189:b0:39b:2c55:365 with SMTP id 98e67ed59e1d1-39b2c55287dmr26428765a91.12.1788896109392;
-        Tue, 08 Sep 2026 12:35:09 -0700 (PDT)
-Received: from user.. ([2405:201:c052:b00b:4b36:fe93:5f92:db19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd2aasm27319660a91.3.2026.09.08.12.35.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:35:08 -0700 (PDT)
-From: pavankumaryalagada@gmail.com
-To: hch@lst.de,
-	sagi@grimberg.me
-Cc: kch@nvidia.com,
-	linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	skhan@linuxfoundation.org,
-	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
-	syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
-Subject: [PATCH] nvmet: validate device_path before enabling namespace
-Date: Wed,  9 Sep 2026 01:04:52 +0530
-Message-ID: <20260908193452.53347-1-pavankumaryalagada@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZomJAQiP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xKp/wsFai86KQ3Jf7IZ1RoTn2wDbKKRv4vXGJnJMQTGtGbVg4C4oJsZMdvCMYf7D7Bie8f95eF++43mRqqcR5Rg7xSWyJsBiwJpnunPF0RHRdgcIFK6hvsp+9r+ihfGdQ7V/WhT74lfSXuQi5Y+XETUtoObiJCrT3tdWN2jWVoyLRVl4UTT+xrkPswhuW/bfq102mMD7ERoJpW63gywHC5MSblSiX2vRVS+6Bfxa2HbmUDqdMOM8ep0gm5IFk2gmZHbKSDR6GjfBl3lwcfAd7d0IEaJC3AlQwZFCFMOXEjxI4eziBORQ2RHk1LoHQJoW64R2UnS+PC+TwB/Ez9ks4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=O/BiTfecksTtxsldtZ5A7WVz6XqXBaGqOb+8+eqX1dE=;
+ b=RsUhmB5cztP+v5Nn6v7yMtcLyAdSNWDk2MLhrjPtCtfdFBQxYz0DsOMDwTq6UT5H+HRInBR7WA4DxBgF4H5C6tN4uSJ7YhN/FhQ2jzelN5GT7d/KC2RCVzeFNLd2nwRziE622uUjgJ6seOxPBSuxZ5Abz64hDn1rlJjVhWHtUuJvZBjc3zapYee3WD7n4kFshIJ+Cr7uxIrHYjGv/zGqEibVjE6MfXLRfVEA5g9+JfbOJTi2aHY9S6cc51eQKwkjS0QAiVSqnvsWvE6yiD4qjpmf/RHijd8jBxX2HjmvRtZTz4IEN0WSIJ/hag3/IvOinwLDRr5ZkBmJs/HyrFXuaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=O/BiTfecksTtxsldtZ5A7WVz6XqXBaGqOb+8+eqX1dE=;
+ b=ZomJAQiP6LD0NoaDz4fZ46zqC/Ved+ndTDgQN+tyagjygRNgDnNIsgzPEgdhHR+U6hk6EQyHW7ABuokGKfjos67B28LNN2cb92hlnwqBIuAhka8CwtoYywFRbpj99D16OlBk7Pg+QRmJFE7akNN/XIIlMuDBNgFd7gQJ+P4M3kA=
+Received: from MW4PR03CA0324.namprd03.prod.outlook.com (2603:10b6:303:dd::29)
+ by SA5PPF530AE3851.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8c9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 19:35:10 +0000
+Received: from MWH0EPF000A672E.namprd04.prod.outlook.com
+ (2603:10b6:303:dd:cafe::5) by MW4PR03CA0324.outlook.office365.com
+ (2603:10b6:303:dd::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
+ Sep 2026 19:35:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000A672E.mail.protection.outlook.com (10.167.249.20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 19:35:10 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 14:35:09 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+CC: Len Brown <lenb@kernel.org>, "open list:ACPI COMPONENT ARCHITECTURE
+ (ACPICA)" <linux-acpi@vger.kernel.org>, "open list:ACPI COMPONENT
+ ARCHITECTURE (ACPICA)" <acpica-devel@lists.linux.dev>, open list
+	<linux-kernel@vger.kernel.org>, Mario Limonciello <mario.limonciello@amd.com>
+Subject: [PATCH v3] ACPI: utils: Ignore leading root scope prefix in string _UID match
+Date: Tue, 8 Sep 2026 14:34:58 -0500
+Message-ID: <20260908193458.246040-1-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,42 +71,95 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672E:EE_|SA5PPF530AE3851:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa029d23-9e66-4577-264c-08df0de04be4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|23010399003|3023799007|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	aecyfIZf7iqadIJvFfokI43GoefqL8kXx437Q/OISg7cuheu5FX6OasYD7iYbcssGX8wT/KUppMCNAIgxZgyEjJBnStgj2lCamRLxF+J8csMY7laQS01L6rxJGWwlBXn2CPMQYEOdoYxt8dIMCNiWPjrOt4uUGtllNGFFBaT+0xGvd3KxSvu8875uGId197DWU2yJI2oGpf+s9zbUGkuY+mlwWHdAlWbM1gfHo7Gpy23aMelbEjHvHvfRyT8fd+hkwf+ZijvOwGCtsnS8onNjXSk0weZI2Eh4VEly2cHq+GtoK1ZLI76pYiRMN6DlLdMYUCbqhYJ58mblRbEu8mWzbbpQfVmvFlb/kb3+wQuiy29YMC2TdLZur5GQV9x3/oe69/WxAwhnaml4BbUZzYziTh54juGsllQFTdj4k3BD7eiRypBiU5fURG2ae7PmS6UkN0Lh4xxWiSdfdsCyfDJAkzW2QFWwy6qyjhAtrwdiSKcEfDr2e3XkrQ5d2veEe+z8Uo5TQJTEUiTBQk3ROnYvtEYi0h8ty3EMfDXOAUqSpI4o3J4+qfGVZzsqgg5iHthYHSeTPnqrnmvFMuLsBW+NCNaTo7zEmL8CTC2EDgbdvxKpxfzgx4yVc7jqUaIa0xB3HPr5eCv8/u5h49vsOuR7oC6f5vRjZtgMqO3+OKn/Hx3suF07nlNM6yZlEq1EaplYZBUIP2b330AI0Nttw2GTg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(23010399003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OkI3iqeCMzpr+31cAwl+NaZQdE6Pt5qq+P/dX8zZZIby7c+4OPmcw6Qyvmh7dGiqwbZ+S4QoL/2IAGBFmW635s/aggGlWodiSjFH1D5HsJObf40PX4ol1Vlp4rlyXRLnLcpaT/5flc6c+RD4EYr7+1fbVfZ6cCcNFvXnR8Gy+blhMd+RZe6kDJzzJxHK1HKJ9K0HWBo3tFMFbg5OZowiyGarbFruj2Wbr5ZtdDnHaulwYk6JMyykj+MjDIAk3/WlIKMfNG5dv/jJox2ZcWgyIqvPqLft4TKXhfG0oza8kCXNuBk+uklaKVla+SAblExUvkvLT9eve6GB2BQcWSRxn54T9vP5gwOIKQNceN0Fex9pl7MYuuRg/eieo8O48sByWK5xpDFJ6k/6SHWHuXLahgM5ri+Us8+rKoDZhaEa6r0pW/IQCN4lHdH5T6RCbE5Z
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 19:35:10.6175
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa029d23-9e66-4577-264c-08df0de04be4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A672E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF530AE3851
 
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Firmware may express an ACPI namespace path used as a _UID with or
+without the leading root scope character ('\'). For example, an AMD
+IVRS IVHD ACPI HID device entry may carry a character UID of
+"\_SB.MHSP" while the corresponding device's _UID evaluates to
+"_SB.MHSP" (or vice versa).  This semantic difference is due to how
+Windows PnP enumerates and uses devices.
 
-When buffered_io is enabled, nvmet_bdev_ns_enable() returns -ENOTBLK
-without checking whether device_path is configured. nvmet_ns_enable()
-then falls back to nvmet_file_ns_enable(), which passes the NULL
-device_path to filp_open() and causes a NULL pointer dereference.
+acpi_str_uid_match() compared the two strings verbatim, so such
+entries failed to match on the UID even though they refer to the same
+object. In the AMD IOMMU case (get_acpihid_device_id()) this caused
+the exact HID+UID match to be missed and the code to fall through to
+the HID-only path, spuriously raising a FW_BUG.
 
-Validate device_path before attempting to enable to namespace and
-return -EINVAL when it has not been configured.
+Skip a single leading '\' on either string before comparing so that
+paths that differ only by the root scope prefix are treated as a
+match. The integer _UID path is unaffected.
 
-Fixes: 6f6d604b4ef8 ("nvmet: allow bdev in buffered_io mode")
-Reported-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6c46a179b56c651c4c96
-Tested-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
-Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
- drivers/nvme/target/core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+v3:
+ * Update kdoc in acpi_dev_uid_match() instead (Rafael)
+v2:
+ * Add kdoc
+ * Make sure the string is at least two characters long to normalize
+---
+ include/acpi/acpi_bus.h | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index d74c01c98f19..336013139ef6 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -591,6 +591,11 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
- 	if (ns->enabled)
- 		goto out_unlock;
+diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
+index a10a591c18b23..f506a73169d6e 100644
+--- a/include/acpi/acpi_bus.h
++++ b/include/acpi/acpi_bus.h
+@@ -830,7 +830,15 @@ static inline bool acpi_str_uid_match(struct acpi_device *adev, const char *uid2
+ {
+ 	const char *uid1 = acpi_device_uid(adev);
  
-+	if (!ns->device_path) {
-+		ret = -EINVAL;
-+		goto out_unlock;
-+	}
+-	return uid1 && uid2 && !strcmp(uid1, uid2);
++	if (!uid1 || !uid2)
++		return false;
 +
- 	ret = nvmet_bdev_ns_enable(ns);
- 	if (ret == -ENOTBLK)
- 		ret = nvmet_file_ns_enable(ns);
++	if (*uid1 == '\\' && uid1[1])
++		uid1++;
++	if (*uid2 == '\\' && uid2[1])
++		uid2++;
++
++	return !strcmp(uid1, uid2);
+ }
+ 
+ static inline bool acpi_int_uid_match(struct acpi_device *adev, u64 uid2)
+@@ -856,6 +864,9 @@ static inline bool acpi_int_uid_match(struct acpi_device *adev, u64 uid2)
+  * @uid2: Unique ID of the device.
+  *
+  * Matches UID in @adev with given @uid2.
++ * If both the UID in @adev and @uid2 are strings, they are compared
++ * after optionally skipping a leading backslash ('\') if the given
++ * string contains additional characters.
+  *
+  * Returns: %true if matches, %false otherwise.
+  */
 -- 
 2.43.0
 
