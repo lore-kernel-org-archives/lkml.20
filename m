@@ -1,46 +1,86 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCA6382F23;
-	Tue,  8 Sep 2026 06:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15CB3225403
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848544; cv=none; b=T2hKuzneAhcDwdlPfDvdtldOfrqkevUy70K5KAsVNhPeQuJCarmICYyUHwC9CIetOMUKhwvxZIitrhzcX1LkOutmrH+yHRkrY/CyP06JK/saIeSx+kFAMUuR98oc59tz49sYndXseqwSNyDsSiVKEU4a6N3OwmJA27Z0Qq2ffKA=
+	t=1788848627; cv=none; b=eu9gB6y9Xa/PP0nrhgsUdNQDrZm6LNOAGZIv8t+QCAgDuksRYB1/t07pzMeU6bBDOBLjXO+zM2upyJG/fnBO34DpuLLFRgLCUqNW6i4oEnXgg3HxopKechmepc+bOLICTtjtsuWmyNr+oR+oyv2tyOmEVAYQsUpJ+0ELx5Voc6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848544; c=relaxed/simple;
-	bh=frgMevK5TVhiaL5RJpv209UOvEFNyDdYVbihdVW1tJ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pyko8ew2DUOK7wDmBJ7GWT1nsnubMDTo2IcVJNdd0WwDwpFIht14SHcxHvIiA1AhZh517w26AzfYBASqC7FA7cfjamdOEYNhOhYmybLnMBEWVNhVXfhta8Hmp+IybG6eMJTh+mBiAMCSzEaQaA1nkgPZfOhw7s0VCel4WDXN+jQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rs5rvv9b; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iEIntkcz; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788848627; c=relaxed/simple;
+	bh=9gpvYZiiK++7fxFQKJTx+k6/ozmAgJ952XedouNhT/o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Gm8Q1Ty5WqnYmak5hSOoJSAZNC5u5q37vJHHmYcrOIc8CitflAXIjhQtv47UprkJrb5NQ9jE1nDApaxwDf8WGUlbv6v7CTn7CpSk3Ph+MM41b3gks4z+GZwR1py6U4wQgaaUVRu5vLWxERj5hk4GKkEktqoGoAwW+3z2hwcPu1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o0HMIsTW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JVOeiEcD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rs5rvv9b";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iEIntkcz"
-From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788848540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FbKyjWw5mfZHH0FX6Zh5pd3WFdFK8W+TfufQoK8ZQGQ=;
-	b=rs5rvv9b8g4M4Cfyl39TyfZ+IMCKWKkLj5j/HDCUHviGL7lAIp8OxSezqolC7B0SqRffdP
-	1pRiYTRnqX8iVv4BumM0UJ1eHyxSbOk2IeHvARCgcLGTz7VKsMQ5rBPS2l6fGP1+VnPvNr
-	E5tCpNh58uUmrkBh3ci0IbL60EEw0qr/JVOlNLU0zO0EMCm/p2lTVTOi9ih21EY59eVQ/W
-	2Qlanv0CgGe0g07eoFd9ea4AEQ9NS+jEpKm9LLiiffbPZNEu97gCsiwKMMM4fXJJUSmHt4
-	2+4BKmaTSmIAfMxI5kZdgLnsyUgvPfgPiUomh1OtitLEiqimmcw0I7rBfWsU1Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788848540;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FbKyjWw5mfZHH0FX6Zh5pd3WFdFK8W+TfufQoK8ZQGQ=;
-	b=iEIntkcz+LIDM0UmBJ829O1ZYbgdhIU6QNxGmOgH25r/+g54GewTuDl+7Pscgms5EmMjCT
-	CTamRlOFNI+HttDQ==
-Date: Tue, 08 Sep 2026 08:22:21 +0200
-Subject: [PATCH v2 7/7] tracing: Parse filter from boot event string
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o0HMIsTW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JVOeiEcD"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886Lr1n2502531
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 06:23:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=5LkBz/6+6EbGMarTpjWjMr
+	IiSvDbCV1mNMUZslHPIt0=; b=o0HMIsTWgg/AOpgaCl4VuHQB/5sa833g4xyNVa
+	prCMDlvSRJi6jgZ+9peM1zoFVbhv2W8NSjh6DGYQQjkNvyrB08fCzGbM5WUXrD9y
+	HiREqBAC6d83XM4u4Oq3QFTd9JOq8O83uBW2XAuni/Qb5EewsEsFhkLfn55L5dMA
+	ZzOOQVgHG0IfBMccPLa2PC5gwG72S8R3Tg2q7Kgmmh33cYw+AYqmhpq/k7K5HR4r
+	XY2cO1KKstv4baq+CtLhFqDpZvOpYy/xuhv2NSsG4oYYMRQahxfyQoFMft+MfjA/
+	b7UfiNJtj6SwYHhTUJwTbhJ2GkFAVGFT3wAoTX0uzLapsY+Q==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcv7g1u2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:23:43 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc42a07d04aso4555031a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:23:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788848623; x=1789453423; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=5LkBz/6+6EbGMarTpjWjMrIiSvDbCV1mNMUZslHPIt0=;
+        b=JVOeiEcD3/zSNbNl7uYA9gyz5J35B/MR6HpFiPU79hEZonwpdkVZaVJmp51zlpqfY+
+         867PhQ2l/NxdK+dKa93ssa8YklCKIrhxzp/DoQfJf4F8Cj9sirPP/iT4kBi1bTBOlRBf
+         DCT+QTeR8YLAuvEvCFY3qDnGMQ8aomBIT3VcU/4Tx+54MOOJ8yZpEqGQOxJpFnUpdspC
+         509cg7Rvz+WZJgRUmc+CB9IInZUkTscKRbiYKK6z2ikbM2CQW71pTEAILPeCIDp9AKvD
+         +wVKah9ALzgrsbZgpAex6m5yFk43arxbu9xndEop8VxpqKYCAYxFR9RPqKgRHfSEeOHp
+         cgvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788848623; x=1789453423;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5LkBz/6+6EbGMarTpjWjMrIiSvDbCV1mNMUZslHPIt0=;
+        b=cgDYrj3ZOdCVf+stANRkrG8mgJAhujro6u0oKNr9Cl/NgyDyY96MBJvPx+4PL0LHgK
+         SU5PFG+xuT0myC5dePVwj5YwReUElyRiBImKyGrKHV2vU+LrA/IElIscMfwpEwn0WbcA
+         iwLQecqIUOd4WwVgCNIYXjFiDapWvCjj5j3OFbqWXAtBe1umtVj4dS9lbanCCfuqsl+F
+         ag6APSGzuCq4ZsMzUESgTRJwpGcHJzjnd1wIGKyzmbbg43P++GD7S0kmz0cTqdGVEh9S
+         NPrmQZk14MmsNFVtlz3wgI1neJ7ppWqVXhRSgPi7HXao1FFCJ82z6CcWFjKc1ijL4aRX
+         6sZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw30qhJtzJfOuniYir9MTs7IPVJo+WUe6UnpsE4zzTT5+fmzcRKe55Vc2hSlh4I0sYJygV235QD35lTC6g=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4JKS7PnhhMgAm8h43QYWNJcgjPeb7nO+SrzZDwATBrqCFhBQO
+	hDTq9/djSts9EF5RVK9q/uNl2pIbAMQ++Niwx+v9fgHdfUhtIIjg8GXmfxk9xesZE/zMuaIvCZG
+	zyyQ2h5dBPbD1PO+tJfwhQDiLCtU3+JB+rcto3e2KKpjHs82x7sLi6LGOse/3mEAJmAE=
+X-Gm-Gg: AYBFou0ANKTM0i9ROx5boQYWyOMfFZntFez2QDYM83+O5tr2gmabQ8NDA9+2vgN/okc
+	O5zcQqYZJxRGp9JrTjKrR00yxDuOcREzkPCS2ENzZB8/bVYyz9pcn/rAjTcnDGw+4VDR/3ZIM93
+	i42lXI/QTIxvU2xRFH9R1UBKCcZKHxzwDW7Cyiq4znDLf0QIdP2Vgv/h1MOmjKJz55KW5c/CWex
+	087g+DfHjfVqnzFkGqJQvukh71xQR2ECBPtkoQY2yMoRiJkHISP9EaxwY748Y1EFbEsOebH4kiR
+	zpj29f9Vb9hihwbKHcjo0G/lArUFgB5oOd4g3zAjOY1gXq9c3zgsFMDQ9RoQ6vx00qF9HZVIU5A
+	45FwGudtIuQfNJFvEUpRHl0WpeLx1Hw==
+X-Received: by 2002:a05:6a20:e607:b0:3d3:ae51:181e with SMTP id adf61e73a8af0-3da3a16ab56mr42582293637.26.1788848622872;
+        Mon, 07 Sep 2026 23:23:42 -0700 (PDT)
+X-Received: by 2002:a05:6a20:e607:b0:3d3:ae51:181e with SMTP id adf61e73a8af0-3da3a16ab56mr42582205637.26.1788848622316;
+        Mon, 07 Sep 2026 23:23:42 -0700 (PDT)
+Received: from hu-mohdayaa-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm26266297c88.8.2026.09.07.23.23.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:23:41 -0700 (PDT)
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Subject: [PATCH PRELIMINARY 0/5] arm64: dts: qcom: shikra: add Ethernet
+ support
+Date: Tue, 08 Sep 2026 11:53:29 +0530
+Message-Id: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,259 +88,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260908-tracing-cli-event-filter-v2-7-05396a3fb663@linutronix.de>
-References: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
-In-Reply-To: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
-To: Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, 
- =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848535; l=8735;
- i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
- bh=frgMevK5TVhiaL5RJpv209UOvEFNyDdYVbihdVW1tJ8=;
- b=qYDgbBKKc7G/UYGZrxg7iQhbfFk4xfG+6cwPAR+qYc1Wbrc39ACv/w5FcDdccSeVIqTM5dWXY
- wV6Ay+5QKPxB6xwWqRsShtu2MAlv3e+Hd83sN4wAbSb1fryhQxvh0MU
-X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
- pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOGpn2oC/13NzWrDMBAE4Fcxe65gLTmW5FsPOQTaUnIrIQRJn
+ saixGklNRRC3j3ODzn0OMzsfkfKSBGZuupICYeY436cQv1UURjcuIWI/ZRJsmzZshF5iF/JbVA
+ GpBFl05csmLWGaXRvLdN0+Z3wGf+uX1f0vpy/LF4Xb8/LD1rfyoSf30kq98UD6qo7o/4zwkF7Y
+ AbDDbqDvCjeZYiw3+1i6SrNjQwm1FZh1reqqa3xOui29V45roOBAhiS1qfTGfdTAav1AAAA
+X-Change-ID: 20260908-shikra_ethernet_dts-0077e847d990
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Anurag Pateriya <apateriy@qti.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+        Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848616; l=2801;
+ i=mohd.anwar@oss.qualcomm.com; s=20250907; h=from:subject:message-id;
+ bh=9gpvYZiiK++7fxFQKJTx+k6/ozmAgJ952XedouNhT/o=;
+ b=BWNdle9xwzgMQXU+Fng3OrQQKVZCffhPMemmrtLubzjbmjkz1Qo9DHZLLqp+1B7NDbw1dJ/c6
+ Feg3lLCRwFQAYAmzRzDFnUFWV/RhMGTbsx0iWkLz4EqTDUTslssilHA
+X-Developer-Key: i=mohd.anwar@oss.qualcomm.com; a=ed25519;
+ pk=7JNY72mz7r6hQstsamPYlUbLhQ5+W64pY4LgfSh9DJU=
+X-Authority-Analysis: v=2.4 cv=CMEamxrD c=1 sm=1 tr=0 ts=6a9fa9ef cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=EtmUyxdyGpvgt5L2qVsA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA2OCBTYWx0ZWRfX9R3Pg9AFGj+7
+ soUP3si35vYOQ4za6BrECR8YTSJwc2R+kE7k6uSuTkYTNEj5k7sw+fuDhGRFtVdo87eTyf8X1qs
+ mgpbEtI8G/L2wR1KsXmwu6UFyf8C8+4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA2OCBTYWx0ZWRfXwOxNmvuNmU0v
+ PrFx7MGsrJaXieYLl/jzKfEDRQNzmXRJlp6rdZl6kRJ3PPqVf0KNdESDYETTrfAMMkE/Q/ab0u3
+ XWEdEn2iSJ2kPJsQ727jj59Qa6uaz4UJOK4D+ciNsKzzYif7aUahifErvSKAUUpVbo0Uq/UVEc3
+ e6zeYXSn2dW7b1reRmhe2qMBA1KTNso9rOBFeotGKQdFpVUi6J+JaHrORhW/IDQHQf0GsDvNMxt
+ OiTUTwchfwYBE26RpX230at7djJTtulAPLgCc+Edyr1oseOaGzW6eIts3Dzhl5pd+pdL8Faa+cw
+ 9xs8xucFVVsfvAG1xHpwoZQQtMA7NwcFxZI2PziBauuLYxxZK9BGpcNIlgvDuOj4aHHXuzAno08
+ Wf/MMdBIKcA2snwvQFHhAxRxMTU1Q/sVoBwArV1zq0BXNFyuDiWbnfYjw6Rjtd1os/vyQN6ssYI
+ 4v+dWyjFAlRl9JDU9zg==
+X-Proofpoint-ORIG-GUID: Cg-R3SYQ9iGnN31TmyjFf3sEZ49eQx1m
+X-Proofpoint-GUID: Cg-R3SYQ9iGnN31TmyjFf3sEZ49eQx1m
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
+ spamscore=0 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080068
 
-Make it possible to specify a trace event filter from the
-kernel command line.
+Hi,
 
-Example:
+This preliminary series adds the DTS changes required to enable
+Ethernet on the Qualcomm Shikra CQM, CQS, and IQS EVKs.
 
-	trace_event=syscalls:sys_enter_clock_nanosleep:filter:which_clock==0
+It adds the two Shikra EMAC controller nodes, enables the first
+Ethernet port on the CQM and CQS EVKs, enables both ports on the IQS
+EVK, describes the DP83867 PHYs and their GPIO-controlled 2.5 V
+supplies, and fixes an incorrect GPIO reservation on the IQS SoM.
 
-Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+This series is functionally dependent on the driver and binding changes
+posted here:
+
+https://lore.kernel.org/netdev/20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com/
+
+I am hoping that a preliminary DTS series makes the review of the
+driver, dt-bindings, and board-description changes easier.
+
+Changes since RFC:
+  - Model the PHY supplies as fixed regulators controlled by the PHY
+    driver -- Konrad, Andrew.
+  - Add the IQS GPIO reservation fix as the first patch -- Krzysztof.
+  - Move the Ethernet pinctrl default states to shikra.dtsi -- Konrad.
+  - Resolve property-ordering issues and add missing final newlines --
+    Konrad.
+  - Link to RFC: https://lore.kernel.org/netdev/20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com/
+
+Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt |  9 +++++++--
- Documentation/trace/events.rst                  |  5 +++++
- include/linux/trace_events.h                    |  2 +-
- kernel/trace/trace.h                            |  3 ++-
- kernel/trace/trace_boot.c                       |  2 +-
- kernel/trace/trace_events.c                     | 27 +++++++++++++++++--------
- kernel/trace/trace_events_test.c                | 26 +++++++++++++++++++++---
- 7 files changed, 58 insertions(+), 16 deletions(-)
+Mohd Ayaan Anwar (5):
+      arm64: dts: qcom: shikra-iqs-som: fix GPIO138 reservation
+      arm64: dts: qcom: shikra: add ethernet nodes
+      arm64: dts: qcom: shikra-cqm-evk: enable the first Ethernet port
+      arm64: dts: qcom: shikra-cqs-evk: enable the first Ethernet port
+      arm64: dts: qcom: shikra-iqs-evk: enable both Ethernet ports
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 68647ff4bdd2..63347a986706 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -7769,8 +7769,13 @@ Kernel parameters
- 			trace_event=:mod:<module>
- 
- 			The value before :mod: will only enable specific events
--			that are part of the module. See the above mentioned
--			document for more information.
-+			that are part of the module.
-+
-+			To apply a filter, use the :filter: keyword:
-+
-+			trace_event=...:filter:<filter>
-+
-+			See the above mentioned document for more information.
- 
- 	trace_instance=[instance-info]
- 			[FTRACE] Create a ring buffer instance early in boot up.
-diff --git a/Documentation/trace/events.rst b/Documentation/trace/events.rst
-index 581f2260614b..6ce53372acbc 100644
---- a/Documentation/trace/events.rst
-+++ b/Documentation/trace/events.rst
-@@ -118,6 +118,11 @@ In order to facilitate early boot debugging, use boot option::
- event-list is a comma separated list of events. See section 2.1 for event
- format.
- 
-+The boot option also supports the ``:filter:`` keyword to apply a filter.
-+The ``:filter:`` keyword needs to be at the end of the event specification::
-+
-+	<system>:<event>:mod:<module>:filter:<filter>
-+
- 3. Defining an event-enabled tracepoint
- =======================================
- 
-diff --git a/include/linux/trace_events.h b/include/linux/trace_events.h
-index af46614bc75d..c1f6bb94f483 100644
---- a/include/linux/trace_events.h
-+++ b/include/linux/trace_events.h
-@@ -882,7 +882,7 @@ extern int trace_add_event_call(struct trace_event_call *call);
- extern int trace_remove_event_call(struct trace_event_call *call);
- extern int trace_event_get_offsets(struct trace_event_call *call);
- 
--int ftrace_set_clr_event(struct trace_array *tr, const char *buf, int set);
-+int ftrace_set_clr_event(struct trace_array *tr, const char *buf, int set, bool handle_filter);
- int trace_set_clr_event(const char *system, const char *event, int set);
- int trace_array_set_clr_event(struct trace_array *tr, const char *system,
- 		const char *event, bool enable);
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 35f619a1655e..2ec212d90192 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -2508,5 +2508,6 @@ static inline int rv_init_interface(void)
- #endif /* _LINUX_KERNEL_TRACE_H */
- 
- #if IS_ENABLED(CONFIG_KUNIT)
--void ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod);
-+void ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod,
-+			       bool handle_filter, char **filter);
- #endif
-diff --git a/kernel/trace/trace_boot.c b/kernel/trace/trace_boot.c
-index 5da0a8bbb110..6ba70dac1f06 100644
---- a/kernel/trace/trace_boot.c
-+++ b/kernel/trace/trace_boot.c
-@@ -94,7 +94,7 @@ trace_boot_enable_events(struct trace_array *tr, struct xbc_node *node)
- 			continue;
- 		}
- 
--		if (ftrace_set_clr_event(tr, buf, 1) < 0)
-+		if (ftrace_set_clr_event(tr, buf, 1, false) < 0)
- 			pr_err("Failed to enable event: %s\n", p);
- 	}
- }
-diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
-index f8881a9d3c7a..2e2815d95c56 100644
---- a/kernel/trace/trace_events.c
-+++ b/kernel/trace/trace_events.c
-@@ -1455,10 +1455,21 @@ static int __ftrace_set_clr_event(struct trace_array *tr, const char *match,
- }
- 
- VISIBLE_IF_KUNIT void
--ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod)
-+ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, char **mod,
-+			  bool handle_filter, char **filter)
- {
- 	*event = NULL;
- 	*sub = NULL;
-+	*filter = NULL;
-+
-+	/* event filters can be appended with :filter:<filter> */
-+	if (handle_filter) {
-+		*filter = strstr(buf, ":filter:");
-+		if (*filter) {
-+			**filter = '\0';
-+			*filter += 8;
-+		}
-+	}
- 
- 	/* Modules events can be appended with :mod:<module> */
- 	*mod = strstr(buf, ":mod:");
-@@ -1498,9 +1509,9 @@ ftrace_parse_event_string(char *buf, char **match, char **sub, char **event, cha
- }
- EXPORT_SYMBOL_IF_KUNIT(ftrace_parse_event_string);
- 
--int ftrace_set_clr_event(struct trace_array *tr, const char *arg_buf, int set)
-+int ftrace_set_clr_event(struct trace_array *tr, const char *arg_buf, int set, bool handle_filter)
- {
--	char *event, *sub, *match, *mod;
-+	char *event, *sub, *match, *mod, *filter;
- 
- 	if (!tr)
- 		return -ENOENT;
-@@ -1509,9 +1520,9 @@ int ftrace_set_clr_event(struct trace_array *tr, const char *arg_buf, int set)
- 	if (!dupped_buf)
- 		return -ENOMEM;
- 
--	ftrace_parse_event_string(dupped_buf, &match, &sub, &event, &mod);
-+	ftrace_parse_event_string(dupped_buf, &match, &sub, &event, &mod, handle_filter, &filter);
- 
--	return __ftrace_set_clr_event(tr, match, sub, event, set, mod, NULL);
-+	return __ftrace_set_clr_event(tr, match, sub, event, set, mod, filter);
- }
- 
- /**
-@@ -1593,7 +1604,7 @@ ftrace_event_write(struct file *file, const char __user *ubuf,
- 		if (*parser.buffer == '!')
- 			set = 0;
- 
--		ret = ftrace_set_clr_event(tr, parser.buffer + !set, set);
-+		ret = ftrace_set_clr_event(tr, parser.buffer + !set, set, false);
- 		if (ret)
- 			goto out_put;
- 	}
-@@ -4842,10 +4853,10 @@ static __init void __early_set_events(struct trace_array *tr, char *buf, bool en
- 	while ((token = strsep(&buf, ","))) {
- 		if (*token) {
- 			if (enable) {
--				if (ftrace_set_clr_event(tr, token, 1))
-+				if (ftrace_set_clr_event(tr, token, 1, true))
- 					pr_warn("Failed to enable trace event: %s\n", token);
- 			} else {
--				ftrace_set_clr_event(tr, token, 0);
-+				ftrace_set_clr_event(tr, token, 0, true);
- 			}
- 		}
- 
-diff --git a/kernel/trace/trace_events_test.c b/kernel/trace/trace_events_test.c
-index 515d2e668c31..4a2d77fa0f58 100644
---- a/kernel/trace/trace_events_test.c
-+++ b/kernel/trace/trace_events_test.c
-@@ -8,7 +8,7 @@
- struct parse_event_string_test_case {
- 	const char *input;
- 
--	const char *match, *sub, *event, *mod;
-+	const char *match, *sub, *event, *mod, *filter;
- };
- 
- static const struct parse_event_string_test_case parse_event_string_test_cases[] = {
-@@ -37,6 +37,12 @@ static const struct parse_event_string_test_case parse_event_string_test_cases[]
- 		.sub	= "sub",
- 		.event	= "event",
- 	},
-+	{
-+		"sub:event:filter:filter",
-+		.sub	= "sub",
-+		.event	= "event",
-+		.filter	= "filter",
-+	},
- 	{
- 		"match",
- 		.match	= "match",
-@@ -51,6 +57,19 @@ static const struct parse_event_string_test_case parse_event_string_test_cases[]
- 		.event	= "event",
- 		.mod	= "module",
- 	},
-+	{
-+		"sub:event:mod:module:filter:filter",
-+		.sub	= "sub",
-+		.event	= "event",
-+		.mod	= "module",
-+		.filter	= "filter",
-+	},
-+	{
-+		"sub:event:mod:module:filter:unexpected-filter",
-+		.sub	= "sub",
-+		.event	= "event",
-+		.mod	= "module:filter:unexpected-filter",
-+	},
- };
- 
- static void
-@@ -72,18 +91,19 @@ KUNIT_ARRAY_PARAM(parse_event_string, parse_event_string_test_cases, parse_event
- static void parse_event_string(struct kunit *test)
- {
- 	const struct parse_event_string_test_case *params = test->param_value;
--	char *input, *match, *sub, *event, *mod;
-+	char *input, *match, *sub, *event, *mod, *filter;
- 
- 	input = kunit_kstrdup(test, params->input, GFP_KERNEL);
- 	if (!input)
- 		kunit_skip(test, "ENOMEM");
- 
--	ftrace_parse_event_string(input, &match, &sub, &event, &mod);
-+	ftrace_parse_event_string(input, &match, &sub, &event, &mod, params->filter, &filter);
- 
- 	EXPECT_NULL_OR_STR_EQ(test, match, params->match);
- 	EXPECT_NULL_OR_STR_EQ(test, sub, params->sub);
- 	EXPECT_NULL_OR_STR_EQ(test, event, params->event);
- 	EXPECT_NULL_OR_STR_EQ(test, mod, params->mod);
-+	EXPECT_NULL_OR_STR_EQ(test, filter, params->filter);
- }
- 
- static struct kunit_case trace_events_test_cases[] = {
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  |  46 +++++
+ arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  |  46 +++++
+ arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  |  90 +++++++++
+ arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi |   2 +-
+ arch/arm64/boot/dts/qcom/shikra.dtsi         | 266 +++++++++++++++++++++++++++
+ 5 files changed, 449 insertions(+), 1 deletion(-)
+---
+base-commit: 7042c8c193e5d634198b7c766bb3a01c8e3ee0e2
+change-id: 20260908-shikra_ethernet_dts-0077e847d990
+prerequisite-change-id: 20260903-shikra_ethernet-ae7bee5e804e:v2
+prerequisite-patch-id: 218773849d643c66166408f849566323f3d466c2
+prerequisite-patch-id: 8973e6e7fa7b09e09705913a37035c1bff8ad385
+prerequisite-patch-id: 6686a8aef5f4f729892d0b3ce2e75816fe874f82
+prerequisite-patch-id: 2ba77f9b01c8bf2f22589361e005805c28353f6e
+prerequisite-patch-id: bf25cc81677cccb0740f26a4fb3ed8fdd2e240d8
+prerequisite-patch-id: 5333cc3ebc07361084298168344d230b234e8795
+prerequisite-patch-id: c1ef6e429b44f3227554e8c50cc2dc9baaa54cb7
+prerequisite-patch-id: 0b2817da8c502234bf2867f9985f488389c519fa
+prerequisite-patch-id: f5716827eca798a78fea6a40b3097e52c14c1e81
 
+Best regards,
 -- 
-2.55.0
+Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
