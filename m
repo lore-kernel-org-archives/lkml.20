@@ -1,163 +1,227 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E46379991
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E915A378833
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845216; cv=none; b=AgmqNL59KpqxloVIPrsVFO59bsbUrVs8DNP2fhhXTSSKPeCRMktEPqpv92lZxCeNjFMU4dgLQT3FA9lr//ekm7B4j7kG5ZQRam/fLUZIQk6LQfe8JH2I/Amolfv3E694580rJANmLDFbXVN9Q2oQnORvdlIE9cbFFWxD0APnOuA=
+	t=1788845218; cv=none; b=UIyoFhVw7yF57RpFbbZxe/6Jhh4uZkuCGtNOBXcU1RhSoK0sPan2GMQk+9S2DNiBPa8/Co5t3Di4Se+J3Fu/8PQ4iPxsSoxlfLnRGmgXvWbCobBY4yWvVuykeNvr1ItfIrpbJh5bLNBRb7oD82BrS2thmQPiuyoGA/h6zyPYl6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845216; c=relaxed/simple;
-	bh=ZIRVEqjxXGVRKDzZh1TGbLw59T9G6VckCt7458JkZCw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pUoYp3TlCguD6LDk3NpbrQabgz2MrnUqSQfiPE/xX2q0D4HYj5Nk4l4Ts1vurIbhj6qKAzsfQg8Sn1ftwppDTIrISI9C+J4FiBz3VVBz1IoSjWwIR8d1o81cvk4u4vV6uz5FNfyuAQpJQ5RGHg11aFIbD8AjTrRZ3yEB7qXzrmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UkMuKH5D; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788845218; c=relaxed/simple;
+	bh=0T/9zHHBg8JlGaqYwBGGLUUgXoah60mFMolw0Z8Tmz0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jEq3XTr/7VHNi+FQCLHPN2rJE6ZzbzGRb7mkMi2fUyDmo8llQ1lTOm0uW3xio24m7Fjmv80dn4e1ycltloMvUaqSqz5/MwZYIn6IxnzQV1IVOQuWRmZrO4zXgDc2jBhyqp0c/qfGv9bQeh0IsD+W+NAvr7j7uqUVLXfUJG/fh6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VOse+mxU; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UkMuKH5D"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6e954afbdso26641425ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VOse+mxU"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-398b3c37877so3868152a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788845214; x=1789450014; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1W+fM/Wuxfg9AV61/48GxXECYU1wlppMPQetunuyOIs=;
-        b=UkMuKH5DLx1QhBCXQL0ADKpiw6NCr49GIdGMliXZKWyFc30tkMZ/Y9z1qanozXWTOR
-         YNlfYX6iZPh5J9Jx6UL6nGotIMa/c11eUgg0oibIIR2XZSXVPgLWWFsZUINvByi7VQBY
-         W5tsAMUGJ0SohkHxTmvyDlF6DrtNAmRo+EZMCh4LfDHfYJqNA+JGeTOeSKaVcDMquCbd
-         QyvmLgP0zqLrTb3pay0yYn0jMT8uJLn9uzZ9tj0dT2YF7VbHeaNbY+QzjmbERiEUMIVZ
-         ohIQrbrXRIDeRDlQx/6BK/zyrkFcbf+xzzJFFGXLOUJLi8ye5eIhAMgnoHxX+wZMAa6U
-         ONjg==
+        d=gmail.com; s=20251104; t=1788845216; x=1789450016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6LsOjIpoezfOQTuidmlHq/lP7hR+WKEHPT5u3b2kG30=;
+        b=VOse+mxUEXyeKLeLlSjz7tl4H9W0+Pmrqs1opJ7mcNl+IGNDMmiHarWoI1lVKIADvm
+         L35do45RoaaFseUgNbVQWeox0rtSqWU1SebBRAvwTHSKQ1j11Mul7imGHdYr0EkTIJxq
+         WJdifc+/8/yjw9gAe6q9A2hip65zfohheW6jjVXzvz2K0WZiiRd2Jw1rRr/54h1kJnoi
+         VcxBfbnhHxTJYEdh/nayg8DBE1yB6buM/VKAsuRCrH43Nxq1OtTdTWA+q/YhLUXiVRiB
+         WH8Q3XoIuTyZNXdfWQC82QpHa3JMHH58Tvtm+EQGoGmNURh8wkdlnRD+rjsTfUnA7M3/
+         p08w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845214; x=1789450014;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1W+fM/Wuxfg9AV61/48GxXECYU1wlppMPQetunuyOIs=;
-        b=Wu+nZkYB3R+ExzQ6MmDYNHjOccew4LZ7ipw4W3Ys52hr4aAakl64Ggke9ifbK0TiWm
-         hh4SdWJT1kgN4ZFEihlZPRLriJIAcsf+nqHFKhmmuHDMhz61pessQ+aXAC0J0lqP0Wy0
-         pUq8FuZ/ltnpmEF9KM3zgR9UWEJHl8GM60YQLry+7vgtIi6mDB1uN5KKvxOIMxNiVKy6
-         FcrUf4SwkWwUrQgIQUV+DL9wEsM0He9P7gKhId0a/1r94t4TqXSp8/W9mBfhEeETX4wp
-         JxNlPuiABMZheEbIVhUdx6fPtudVTbFtlNO1aMmJFv9jookJ4/bwzZzIz6l8mq7O2RYb
-         E63Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy7GEE54bR4G3ii63J48JAXF/HsZvjv8ZPQ2QtUrhNQEWELASjQ2ppbtLqekPSfmpE9jycFOH9HVnWbBhM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0+9N+kEacAlJ38vmZbqwQvPjKTdhi/QBTfbS9idy7IfUi+csn
-	kOPPBXTgaszHaBSU9zjnVX0MyrlYeM0uCxYwKvHBXEHqliY5foFp1AD8
-X-Gm-Gg: AYBFou07PQEl+yBONab6bV4Zr52/8O9WHeH+RORwVvBRM1UC10lGrANXbyP937K6N3H
-	EpcDLWOTr7mzTBxNce88ce3yBiRRKv3nUyOF2i9oXVnrUANUFGMr/+iGYteixiyYA6CY537F18Q
-	p1I1T5LDoFxIK7s3KENs4BX7sJxvv10l9FOfGcenDyRjNMwb9wx5LC+shfdaBie0081Mp40OEfY
-	qIpzho6cHYc+xaFtpCHJVE9xa302UFiggWiPPuFMJSHOaxeezPRPd6Vz0UMKnzsCb96bEL3lKzI
-	eZcIz1zsi6gnLZM65AAgymfX1pkeQ8NrH2h5WhlvyC+Y7agbr3Gu2dBQwI/u1FwBcBmE7xSJnuJ
-	S3r9HG4QcL+BnymTAeu+DaVN0NhZeEXcGlSPhBsu9DQM1453FzYGGETl4OzjBaChfV9O5ByDCHA
-	8JD0mbN4dJBXSTAfS+czk6GrIXNxw+BexAQI4DaR1Sk6f+dE8UtEgdZIG7GafVwd7InFbMdFAxg
-	9YSPbaI483ZGZbpGW2afrntKg9YJeZQIeQmZQ==
-X-Received: by 2002:a17:90a:d004:b0:392:6638:2e6a with SMTP id 98e67ed59e1d1-39b26273267mr41950559a91.13.1788845214308;
-        Mon, 07 Sep 2026 22:26:54 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b58187a9fsm4339012a91.3.2026.09.07.22.26.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 22:26:53 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <1b2d3cca-09a6-42f7-93b3-ac1a2934d301@roeck-us.net>
-Date: Mon, 7 Sep 2026 22:26:52 -0700
+        d=1e100.net; s=20251104; t=1788845216; x=1789450016;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6LsOjIpoezfOQTuidmlHq/lP7hR+WKEHPT5u3b2kG30=;
+        b=lHsW2QCwpeWTHSqE8mUxYnO2OBAZZsHiYIfKwbVe+0fcUlED9YIOUgf7Qy7FbWqFUZ
+         yQujkRb0NOV5jtYl/3lBVm3IDaBbTbwQS5Qt9VIsTW0z8wLWkigunXCbSH4BBQWw9HAn
+         YNSEq79KHASEMmArJMUHnbfpDsFN7AIAbsgvp/9k4mVEqKkd1ilRIEKok4L/Kf5PHogf
+         bELdYrvp5TipMv5wY0K1UMSa7Q9kR56xVv25CMec3PSF51fctu0pUNfvfuLFYRAXS69K
+         ebckfICiGxNLwDYh53uTyKx5xEklEYwfZoBaUscAo5d1yCcpFzB/HNQPFk8yZJu00mdX
+         TPEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwLRFarOKI9j2iyetxtlsD8lOGUST4soi8ZLGkCKfA00aYSyZPE15uGm4rxaWTnhv+fQHSwrLmpron4Y3M=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXanO6GVBgkNiBSNNvx49ChhcW5oMZkI0qOBkkKIi3kFANg+ah
+	69Q65dC67zJ6JtPutwT6Lr9spqI3artgDM9Niz8u6rl+eQ13U5v5iNFO
+X-Gm-Gg: AYBFou0ShP1DxkMEf668uoSjRjoi2F+Gpdkh4x0g3fvhBKHnmBubY9GVevnP1j3mkPB
+	p0r7pzUTWuDjMWzD37Gqd6y2F4ufKLB6/fDIJB/MiSDGn5JXD4/Uc4vKdCom0TMoWaHThGnZwY8
+	E9LwOEFVANWTwCD3/N4jb6N3Jib8J1RxliNQkqj6LAzdlA2zpPRPNYA7FJW0qFu39s1kMAwfqW4
+	/l64JIhQyI/pCyPY3vgNd2az8Ska1lHvNEfp8nA+4WTl5q1V4uwn4MfCn5XM262uO3bKCwBOWv5
+	2EaU+/ClPAOAC3jgWigaKxjBiSm/Zq3nJJElXst6q9QRR0mZlcwl3Ce+IILJhOebeOeaBzsgbCN
+	b2LVw1HMRDK3nW62B2F0vwCmDod5g3c4N1rPd+KTHR+dvji4x1yq1CkRISPHk3knJwSCOZj8SZM
+	PcWumqpy8iNVzNq3i/LMRRjfFLhgmlJUL8o2q1ZMYmJarWqVSj9U0Vlka9RSgyRWhNT+FqDZGPk
+	nZ2ryWtq05gAw==
+X-Received: by 2002:a17:90b:39a7:b0:381:cef1:11ac with SMTP id 98e67ed59e1d1-39b26125efemr37873663a91.10.1788845216050;
+        Mon, 07 Sep 2026 22:26:56 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.26.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 22:26:55 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Chris Snook <chris.snook@gmail.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	GR-Linux-NIC-Dev@marvell.com,
+	Geetha sowjanya <gakula@marvell.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	Manish Chopra <manishc@marvell.com>,
+	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rahul Verma <rahulv@marvell.com>,
+	Ratheesh Kannoth <rkannoth@marvell.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Shahed Shaikh <shshaikh@marvell.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Subbaraya Sundeep <sbhatta@marvell.com>,
+	Sudarsana Kalluru <skalluru@marvell.com>,
+	Sunil Goutham <sgoutham@marvell.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next v3 05/10] net: qlogic: fix typos in comments
+Date: Tue,  8 Sep 2026 10:55:57 +0530
+Message-ID: <20260908052602.27497-6-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
+References: <20260908052602.27497-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 2/2] platform: arm64: qcom-hamoa-ec: test sensor and
- variant handling
-To: Birk Skyum <birk.skyum@pm.me>, sashiko-bot@kernel.org
-Cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede
- <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>,
- Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260908015650.84401-1-birk.skyum@pm.me>
- <20260908015650.84401-3-birk.skyum@pm.me>
- <20260908020711.ED17B1F00A3A@smtp.kernel.org>
- <20260908021844.42118-1-birk.skyum@pm.me>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260908021844.42118-1-birk.skyum@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/7/26 19:18, Birk Skyum wrote:
-> Thanks for checking this.
-> 
-> The test client is bound to the I2C core's dummy driver by
-> i2c_new_dummy_device(). Unregistering it unbinds that driver and releases
-> the managed hwmon child before the adapter is deleted. I reran the arm64
-> KUnit image on the stated 7.3-rc2 base; all seven cases completed and the
-> guest rebooted normally, including cleanup after the sensor-probe test.
-> 
-> The dummy-driver binding is also documented here:
-> https://docs.kernel.org/driver-api/i2c.html#c.i2c_new_dummy_device
-> 
-> For the hwmon placement, I kept the small read-only sensor path in the
-> existing EC driver, as huawei-gaokun-ec does. Guenter and linux-hwmon are
-> already copied. Would an auxiliary driver under drivers/hwmon be preferred
-> here? I'm happy to split it if that is the preferred direction.
+Fix misspellings in comments, found with scripts/checkpatch.pl using
+the misspelling list in scripts/spelling.txt.  Comments only, no code
+changes.
 
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c   | 2 +-
+ drivers/net/ethernet/qlogic/qed/qed_cxt.c             | 2 +-
+ drivers/net/ethernet/qlogic/qed/qed_mcp.h             | 2 +-
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic.h           | 2 +-
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c | 4 ++--
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c       | 2 +-
+ drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c      | 4 ++--
+ 7 files changed, 9 insertions(+), 9 deletions(-)
 
-Your call, really, but it is all or nothing as mentioned
-in the other patch. Platform drivers are not documented in
-Documentation/hwmon/.
-
-Guenter
+diff --git a/drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c b/drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c
+index fef4b2b0b1f2..79d6a819bf90 100644
+--- a/drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c
++++ b/drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c
+@@ -17,7 +17,7 @@ netxen_poll_rsp(struct netxen_adapter *adapter)
+ 	int	timeout = 0;
+ 
+ 	do {
+-		/* give atleast 1ms for firmware to respond */
++		/* give at least 1ms for firmware to respond */
+ 		msleep(1);
+ 
+ 		if (++timeout > NX_OS_CRB_RETRY_COUNT)
+diff --git a/drivers/net/ethernet/qlogic/qed/qed_cxt.c b/drivers/net/ethernet/qlogic/qed/qed_cxt.c
+index b70262e70baf..89b947f82cf0 100644
+--- a/drivers/net/ethernet/qlogic/qed/qed_cxt.c
++++ b/drivers/net/ethernet/qlogic/qed/qed_cxt.c
+@@ -561,7 +561,7 @@ int qed_cxt_cfg_ilt_compute(struct qed_hwfn *p_hwfn, u32 *line_count)
+ 			 *      block in the ILT client. This is later used to
+ 			 *      configure the CDU segment offset registers and
+ 			 *      results in an FL command for TIDs of this
+-			 *      segement behaves as regular load commands
++			 *      segment behaves as regular load commands
+ 			 *      (loading TIDs from the working memory).
+ 			 */
+ 			line = p_cli->pf_blks[CDUT_SEG_BLK(i)].start_line;
+diff --git a/drivers/net/ethernet/qlogic/qed/qed_mcp.h b/drivers/net/ethernet/qlogic/qed/qed_mcp.h
+index 9bd0565fe8ab..50699d600b8e 100644
+--- a/drivers/net/ethernet/qlogic/qed/qed_mcp.h
++++ b/drivers/net/ethernet/qlogic/qed/qed_mcp.h
+@@ -783,7 +783,7 @@ struct qed_mcp_info {
+ 	u16					mfw_mb_length;
+ 	u32					mcp_hist;
+ 
+-	/* Capabilties negotiated with the MFW */
++	/* Capabilities negotiated with the MFW */
+ 	u32					capabilities;
+ 
+ 	/* S/N for debug data mailbox commands */
+diff --git a/drivers/net/ethernet/qlogic/qlcnic/qlcnic.h b/drivers/net/ethernet/qlogic/qlcnic/qlcnic.h
+index d7c8fadb49de..9728d583b891 100644
+--- a/drivers/net/ethernet/qlogic/qlcnic/qlcnic.h
++++ b/drivers/net/ethernet/qlogic/qlcnic/qlcnic.h
+@@ -909,7 +909,7 @@ struct qlcnic_mac_vlan_list {
+ 
+ #define QLCNIC_LRO_REQUEST_CLEANUP	4
+ 
+-/* Capabilites received */
++/* Capabilities received */
+ #define QLCNIC_FW_CAPABILITY_TSO		BIT_1
+ #define QLCNIC_FW_CAPABILITY_BDG		BIT_8
+ #define QLCNIC_FW_CAPABILITY_FVLANTX		BIT_9
+diff --git a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c
+index 47cd9ec665ee..ff337a917243 100644
+--- a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c
++++ b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c
+@@ -1957,9 +1957,9 @@ static void qlcnic_83xx_template_end(struct qlcnic_adapter *p_dev)
+ * qlcnic_83xx_exec_template_cmd
+ *
+ * @p_dev: adapter structure
+-* @p_buff: Poiter to instruction template
++* @p_buff: Pointer to instruction template
+ *
+-* Template provides instructions to stop, restart and initalize firmware.
++* Template provides instructions to stop, restart and initialize firmware.
+ * These instructions are abstracted as a series of read, write and
+ * poll operations on hardware registers. Register information and operation
+ * specifics are not exposed to the driver. Driver reads the template from
+diff --git a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c
+index eb827b86ecae..1b94c42d669b 100644
+--- a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c
++++ b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c
+@@ -95,7 +95,7 @@ qlcnic_poll_rsp(struct qlcnic_adapter *adapter)
+ 	int timeout = 0, err = 0;
+ 
+ 	do {
+-		/* give atleast 1ms for firmware to respond */
++		/* give at least 1ms for firmware to respond */
+ 		mdelay(1);
+ 
+ 		if (++timeout > QLCNIC_OS_CRB_RETRY_COUNT)
+diff --git a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c
+index ff4f7cd20c79..23ae76ca81db 100644
+--- a/drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c
++++ b/drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c
+@@ -640,7 +640,7 @@ static int qlcnic_max_rings(struct qlcnic_adapter *adapter, u8 ring_cnt,
+ 
+ void qlcnic_set_tx_ring_count(struct qlcnic_adapter *adapter, u8 tx_cnt)
+ {
+-	/* 83xx adapter does not have max_tx_rings intialized in probe */
++	/* 83xx adapter does not have max_tx_rings initialized in probe */
+ 	if (adapter->max_tx_rings)
+ 		adapter->drv_tx_rings = qlcnic_max_rings(adapter, tx_cnt,
+ 							 QLCNIC_TX_QUEUE);
+@@ -650,7 +650,7 @@ void qlcnic_set_tx_ring_count(struct qlcnic_adapter *adapter, u8 tx_cnt)
+ 
+ void qlcnic_set_sds_ring_count(struct qlcnic_adapter *adapter, u8 rx_cnt)
+ {
+-	/* 83xx adapter does not have max_sds_rings intialized in probe */
++	/* 83xx adapter does not have max_sds_rings initialized in probe */
+ 	if (adapter->max_sds_rings)
+ 		adapter->drv_sds_rings = qlcnic_max_rings(adapter, rx_cnt,
+ 							  QLCNIC_RX_QUEUE);
+-- 
+2.48.1
 
