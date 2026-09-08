@@ -1,136 +1,156 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B81D7361951;
-	Tue,  8 Sep 2026 16:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90BD58B6B6;
+	Tue,  8 Sep 2026 16:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886534; cv=none; b=QMJGc8Q2iK5iBObb2Zq8CsyhplamjqxIG95Iq0qSswpsTlwaguf4WDV8QWU/CYuSVvncIiLuxTfD+ubCT5k8VknkHym2/6arrIodVccVdzg5kd+ZLW781bnJu9bLnq9pHCSR/UNqWC2WP0Y2ennvLiVoGwpjRhgGfLC0n65eg0o=
+	t=1788886595; cv=none; b=icPkkgfyGBkn2emEtTovbKCBP1hLU9y7ch52QROntSjAFqu1dLkn9snLtkFbwmbqhYkTBV9SwebbJRyCETmMNWlJgQzwG9ieHDj++rk1NJlXkMXtQ9+9l2aHLOBGQeesV7yvqoiYsL5kWkrUw5eEZf3VGj//KNnG/ZfKSqSnwTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886534; c=relaxed/simple;
-	bh=vU6Lg8mVgH2kLihnlQaJOsrnqcEQ35BkClCyDzQd3Vo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dp9cyvOCB82NAhLn2OBUqqy8dTryStyoQqlHSZ/zjlTa17OlJpxAOTT++cfx1cN7FSM5bn/t2JRcIOwH10bSycDJ1zefmx1FQ8TAv0wpy9CE+Lorq3YRnkiyo8ugkZ5ZZuKUpWWozEhjPWLP+LbK1c9mzDHTlmPdObVPkjJvn+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Ye4uMFIv reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788886595; c=relaxed/simple;
+	bh=/XPuUaAUd29stiGou2x9DdmvMqe81AmQ7on+3rtpzOU=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=PD9jcluICZCaS17VTaEfhwHf8YbLRsBjMFBBziqb8G4eXxDCHJK2jsFojAxmZjZPYq64ycYvfrGEkpE78QOJuTvdu59aU+8kAG+IqFMaPHyMyz3ltLEsOBuykIMnNg+H6XGDntLv2Y+KT8O2VdaevAOza8pWYXQBnC58/mpOWhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ODicPeFe; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Ye4uMFIv"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2AE2240E016C;
-	Tue,  8 Sep 2026 16:55:29 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
-	reason="fail (body has been altered)" header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id YxAPGzGJBGqz; Tue,  8 Sep 2026 16:55:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788886519; bh=6eozimjrpivccbyvOVlUavXK7iRmTgvftqA3yiD2zCE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Ye4uMFIvMeIfQkSEXtF5yP2syWq7hXfFJRMeGyGkVJZ0E/NUIC0u6zesLA8iAmyyl
-	 FxAblM2wUHR6wVmcqSECunUZJvfhx7Ex5HHcFgBXsHC6QUwM7rZJgxPVHh8B9U+GW2
-	 sBkAt6k/hsdJYx/wM2RJ/N4roCGUmHpBJV7yogLLkq8hiFAjDiPZ8wSXABT4xBL/zR
-	 J6HGhSCCvOBa5Nkm66qLcb3Xr95XjRyF/kUXTLKk+4YsIKvUpYT12+WkG75XYt7Dbh
-	 5LwJ7/vBO7IoptldpHYW1WPMnUNwUmwduhHsm0sZ36eN/rNuH2DuiKmAG55+YY9J0M
-	 7KzrazJneLCltJWQWKLAsTFGyZ+vf5wF5woLANfyNcW1j7eN0r4d0yyg/INTlqmcjx
-	 mZVJ6Y9Jn4R9yugA+JcNhglVYgqiIlqQ5qIX607fzVM/uXzaAL4iIzFgjuP5LOpqrK
-	 viasYT8ezNoqAVFI7bgnOEuMGPYNfB1fG6y4YuXSIYo/xH+zn3U/qN5YIeZNCd/p3w
-	 CChJtsnJJtdzoQGfBt9d7cZhmGUQDVJ92nTWFxU5LmviKRIwNZ8X3BJ8yLgfRVW6IY
-	 2JQO5NETS3uoqRj3oneBDTe7AdvTJj7gjlQ+rLoqBG+FfoqFA6oL0odWY3oKmcz9no
-	 m6qbFGemS3HYJAkmYznzXMoE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6BA6340E01E1;
-	Tue,  8 Sep 2026 16:55:04 +0000 (UTC)
-Date: Tue, 8 Sep 2026 09:55:01 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>,
-	linux-iio@vger.kernel.org, Nicolas Pitre <nico@fluxnic.net>,
-	Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleinxer <tglx@linutronix.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>, rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260908165501.GDaqA95YQKx_IL416d@fat_crate.local>
-References: <20260803094702.3852-1-david.laight.linux@gmail.com>
- <11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
- <20260803163955.627bdd3f@pumpkin>
- <20260823233536.30b984ed@jic23-huawei>
- <20260901175101.1e059ac8@jic23-huawei>
- <20260907231444.7fa2d116@jic23-huawei>
- <20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
- <ap_cLN807bC56OBU@monoceros>
- <20260908152127.GCaqAn9zI09T7qvMhH@fat_crate.local>
- <aqAtRgouK7DyDlpJ@monoceros>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ODicPeFe"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=zxfHukaWNxcBEp0pmc++HuJ+JqVKCOkG3+1+3ES2XS0=; b=ODicPeFePwbXN1VGfvRTuTw3HQ
+	MDFglIpSFqbftx4Rgk0l6f8Db4SxPyiBWlMvvakDym59AosfMfjJDUSZ3NGqHwPZEXREWOvNG0/ll
+	MIP2cZobGqmgKWCvcv2SGmgmaAsxHBhN1UlgYxKXfQZu29u9VYNBL1Nk6fhcjmyggU1Z+0nj46eRa
+	RwQAtn6yIf67IGcLW/cVLbwlIiKcKLAgIy2xa3jO3pv05gk4bPegrrd0j3RXnCm6ohosilFB5ntJT
+	eHdW7uYopifPUoU05XgMAUGKeJNIySrlXa8FevPxlwg4ezN3IPLWiUGmfOMeYtJu6bVn+y5YqLP+G
+	v7NNaKxg==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3z7A-00000009kEt-0dmC;
+	Tue, 08 Sep 2026 16:56:08 +0000
+Message-ID: <3b9c6799-0b74-41d0-8421-acfb3487b910@infradead.org>
+Date: Tue, 8 Sep 2026 09:56:05 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqAtRgouK7DyDlpJ@monoceros>
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] ARM: deprecated platform removal
+From: Randy Dunlap <rdunlap@infradead.org>
+To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+ Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
+Content-Language: en-US
+In-Reply-To: <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 05:49:17PM +0200, Uwe Kleine-K=C3=B6nig wrote:
-> I don't see what you mean. If both the tip tree and the iio tree
-> contain the same commit (with or without a tag on it), it doesn't matte=
-r
-> who created that and when and in which repo it appeared first. The firs=
-t
-> to send it to Linus makes it new for him and all later PRs using it onl=
-y
-> introduce the follow-up commits. So if you pull Jonathan's branch you
-> still can send the branch/tag that contains it whenever you like
-> independant of when Jonathan sends out his PR.
 
-Yes, I'm going to have to merge that branch into tip now so I'd need the
-assurance from Jonathan that this branch is not going to change.
 
-Also, those patches are not tip-conform, but whatever, not that important=
- for
-a one-time thing.
+On 9/8/26 9:53 AM, Randy Dunlap wrote:
+> 
+> 
+> On 9/8/26 8:27 AM, Arnd Bergmann wrote:
+>> From: Arnd Bergmann <arnd@arndb.de>
+>>
+>> In the 7.3 kernel, I marked a number of platforms and features as
+>> deprecated, with the plan to keep these around for the LTS kernel, but
+>> remove them in 7.4, see [1].
+>>
+>> Cleaning out the deprecated platform code has turned into a larger effort
+>> than I expected, currently standing at 300 patches, with a lot of them
+>> still in need of being split up into smaller ones, see [2] for a current
+>> snapshot.
+>>
+>> The first series here removes just the bits in arch/arm/mach-*/, plus
+>> the portions that directly depend on the removed Kconfig symbols where
+>> these are trivial to remove.
+>>
+>> The parts that are not included are those that remove architectural
+>> features and device drivers that become unused after this part. Some of
+>> those may also make their way into 7.4, but at this point I would target
+>> 7.5 for most of them, to keep the dependencies simple.
+>>
+>> This also gives everyone a chance to voice their objections in case
+>> that some of the removed platform code does have active users after all,
+>> before all the corresponding drivers are gone.
+>>
+>>      Arnd
+>>
+>> Links:
+>> [1] https://lore.kernel.org/all/20260701212353.2196041-1-arnd@kernel.org/
+>> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+>>
+>> Arnd Bergmann (13):
+>>   ARM: remove sa1100 platform
+>>   ARM: remove footbridge
+>>   ARM: remove riscpc
+>>   ARM: remove legacy pxa board files
+>>   ARM: orion/dove/mv78xx0: remove all board files
+>>   ARM: omap2: remove omap24xx support
+>>   ARM: imx: remove i.MX31 SoC support
+>>   ARM: imx: remove nommu support
+>>   ARM: lpc18xx: remove entire platform
+>>   ARM: stm32: remove stm32f4/f7/h7 MCU support
+>>   ARM: versatile: remove mps2 support
+>>   ARM: at91: remove samv7 support
+>>   ARM: axxia: remove entire platform
+>>
+>>  Documentation/arch/arm/index.rst              |    1 -
+>>  Documentation/arch/arm/netwinder.rst          |   85 -
+> 
+> I don't see netwinder.rst in any of the single patches.
+> Should it be in one of them?
+> 
+> 
+> [snip]
+> 
+>>  arch/arm/configs/netwinder_defconfig          |   88 -
+> 
+> Same for netwinder_defconfig.
+> 
+> If netwinder is going away, can all of
+> Documentation/arch/arm/nwfpe/ also go away?
+> 
+> Or do all of these come later (in phase 2 or 3)?
 
-What I really don't understand is, why this rush needs to happen now so t=
-hat
-we completely do a one-off on the agreed upon process and we have to do a=
-ll
-this unnecessary gymnastics?
+gag. I hadn't received patch 02/13 yet. Didn't realize that. :(
 
-We have plenty of time.
+Only the nwfpe/ question remains.
 
-So why do we even have to debate this instead of you folks dropping this =
-and
-we merge it through tip and then everything's going the usual way?
+-- 
+~Randy
 
-When people start merging x86 patches in their trees, when do you think t=
-he
-process will break down and we'll have to redo branches and go into a cra=
-zy
-dependency madness?
-
-We're not merging other stuff through tip without an Ack - why can't you
-adhere to the process we've all agreed upon?
-
-Yes, this can work now. Is it necessary? Absolutely not because it is
-a one-off and will get everyone involved, confused.
-
-So please do not do this in the future. If we don't react to the mail, yo=
-u can
-always ping us on IRC like other folks do.
-
-Thx.
-
---=20
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
