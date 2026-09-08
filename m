@@ -1,137 +1,215 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509BA572688;
-	Tue,  8 Sep 2026 15:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A80576ED8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:55:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882901; cv=none; b=OnO4c3a/cgXJC5qYsugJ35Gq4aEl8lDTQjSu8M5tFziJHN0l6bkZHAfM1H50TXzH6Mj0GVcGiXo8+CZ5E2dCAE3yj1sYVJTz7zVoAWyP09RKfATSovKN7tpyon+aS6N6p0uK8sJnIno9Hhh0UaYPEi+2aWNU+sJc78uTGDy6OW8=
+	t=1788882949; cv=none; b=e5M0aTuCXgk7KJfnN7EFi8KPW6zmZjck6ipy8DQs51PX2JSVrXLmDcop+acj5JlBdIerHTW1ZVyYjrfV+FMIJK5pafd6iAcUCJckH8IRi7DYqW3RwALGXjMQejRD6sdG5V7FbTpQ7WXYWjZVIgLzuj+n53XDwDnzI0anFusz9kA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882901; c=relaxed/simple;
-	bh=pjkcNDn5KFxGr3G5TviCNOQbg/0IkK4fcvglxKhPONo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qW47AyLVjJRuQnLReFHMDMAzea4MRwzzarRZrlDzm/AWMWn1Z9lzQbm96CoU5X7BqltlViWdB6wFyxjS/VTUGhbcQPE97pqyLbLjgVAqlLh6W26bTGD8l0i3YLb/1EpiYTqKAGoxrj8K1AZfDHmCK9BRuq4xWc5NTl2kjqPvEm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jk1wi5nt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788882949; c=relaxed/simple;
+	bh=AzcQcDujYJDMScylfG3Dek1ZhVg7b50dImiSr//5IuQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ah42xkb11cbrefE4fGPo4RwWwERMIosGlxBpMWpJGwu72M6VRBsdnsCON5jaXT+2n6D2+TAN/RCApgnyBPI/KNkqFO+svRSKsgcMCeIcS5mkn1jX0CpH+hTsF2BMR8QR1VmcLnGu640r0f+dq2rdlRidyfh3y6hdliQoFnhWR2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=B954uWuP; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jk1wi5nt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE4AB1F00A3A;
-	Tue,  8 Sep 2026 15:54:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882899;
-	bh=+LaiAafgtAJeBS+j2Ji6I5vTEBM/3hGCFd1lVdOgJRk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=jk1wi5ntnDS9w08mvGcPx0/Tng1FRs8OBaQ0uCuMArdSwmO613fP/fiVV8b2MMrGu
-	 3XcaQz6LKP/milwhEwAJABqiicjt/O7NKceozS3oxKfeyPCk22Poa/puMvPVjaTHuV
-	 SQMhvm1S0ZLIHiReBjew1P2vsaQwv8KBeLysV905TUV9QCVVSMZshH2vHmDzV8YyHS
-	 C3FtJfUXVvMYv5hGYWoPlEshi6eELEi4XXVv9iNxR1bHmw5S52b+o3n/wVxxOp0WG6
-	 V8xwdRhs/Plj7f7XEITSOP90bzJg7XNwFvRORECnTX5/HAj3DETjgtna7WwcsCJXNU
-	 i4JRy7WA4Wl0A==
-Message-ID: <81e0b88b-84d1-4d9b-929d-68d26a6ffdbc@kernel.org>
-Date: Tue, 8 Sep 2026 17:54:50 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="B954uWuP"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b9320423cso54532855e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:55:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788882945; x=1789487745; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uvYRoMu996lSKiESe/rhQE6W2Irf+NpUm8XBKk69vVY=;
+        b=B954uWuPOYqiBOr5+PssQ3Ol4IU8jd7B2kSfmYHRslfdVmlCgSWcagS4GDpRE5GK6G
+         tcPBVk3yKLgyKKnP3YrA35fSjgZUrhWYnD4w+W98n2isGFsQp3j9mip72e7e6rqkOmNo
+         Z1iTVDZN39LZpBJ2v5LnNLHbysq3AAkVMjxT+2LiAgON7My+1OD8fa8gXGJ8QbSPqCe5
+         6MQsTHI2xUGwfmmeuS8d1MTX7hJsJLVn2YpT1XgA09dJJsKPyp9jBHcp9yKI5PLqBB04
+         RpqnnMEusVo8Ywlvuqyd8OSc8RDl7jjx19KTpjlPc4yCl/JloWZR5pxGFzmJ8PQd2ViO
+         vePw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788882945; x=1789487745;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uvYRoMu996lSKiESe/rhQE6W2Irf+NpUm8XBKk69vVY=;
+        b=CzjCO+DPqp8FDOCbJOgKiVb20FLV25FxpEAG73iMOtfTKV9y5/hxeljCa4tGdsdzhB
+         cO2s2ySQYtBIu1u6APjp4SZJcLLYHCU5TuvREO8uwlUeW8zoDEg7nssFe/p/wMylqad5
+         d96TXwN+nhA6+7gdkaKmwwLWpcsTTmRqtuzQpfX26xrO7A+d3wtaDtvILLOWMf/BO67O
+         JeErrQDupvwaETKOpWDcFgqSWQshPuPOTiuwVTIhhfTZvFzDOBjs+vcrGKjweJLMWE32
+         i/CAb7WLOQam6TCVMcE4vJTQj3gMAmawKZMBTBjordGliz1zusB1s5BuZlAFTFaHVJOB
+         3tNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwiZZXTDQCCwTdJzB9eksLy1snJQ4pK44pa/7ZXL3QGEfGISqfQ5fvQZWc+jokgP0EoleoeboNtG0dAKK4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYBxz3kX5zhyFcOwliZnuIbx6C45EZqux+Rmum6xlEUi776Hma
+	aZHZ13MOS+uQnYYN5zLhffVFIZNnlbyFgEqQYSsUcyj2ZvYukOmbchHBrY4dsIDLS/g=
+X-Gm-Gg: AYBFou2yl7c3osR8vWs+3Kbyv1gVY2i4xbEvJM4SdMScCK9IY+xMl1VE1ejbQXXd03Z
+	4MrP9s85K2CWYza3lHAhq7R06Z/FX+8vQrLgLKa3fzFEHguJHWnE/i9SHUR63c0ZsqdYtdMGZrU
+	xNETFRyj4MPkQxvHzcYpQQ90K8k62zpYdeh1an99bwqc3CL7V66kIBjmKwx/85Ndmog0yjd8yiE
+	YCIE9GBoSbFLRR/puS+Bf4l36toiARS8fKKDll4hWMx96295U82BwpkrJnN048UkoQHJE+DYKux
+	8cX+FLNgZLeX8D4KDhgYwXcEZ5QBITRNYQM4Rl5H7YFz0oskTmZMYnkXHLX5lj32gAwx6yyRZnz
+	4oLLZGUmsfiKWfdWNhmLTsw9McuHT8gxbBuJqEAkatTgM/5Z4QqUfwAZGPUqCESbXHbxwNoF9F5
+	pVfNmHyw0VuACZ5rnjdPzmPLhh30hocR6vMriK7OKOpQZSIFy9ynYmGlyccMxEWANK
+X-Received: by 2002:a05:600c:3b01:b0:49b:4d64:bbc4 with SMTP id 5b1f17b1804b1-49cf81f1592mr513548485e9.8.1788882945317;
+        Tue, 08 Sep 2026 08:55:45 -0700 (PDT)
+Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm501130535e9.4.2026.09.08.08.55.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 08:55:44 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:55:43 +0200
+From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
+To: Noah Feldt <noah@feldt.systems>
+Cc: Tejun Heo <tj@kernel.org>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, N.Feldt@mittwald.de, carnil@debian.org, dschatzberg@meta.com, 
+	hannes@cmpxchg.org, peterz@infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
+ refcount
+Message-ID: <aqAtv3WVn51LN3E8@localhost.localdomain>
+References: <20260907192723.72167-1-noah@feldt.systems>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/25] mm/fbatch: remove !CONFIG_SMP special case of
- folio_activate()
-Content-Language: en-US
-To: Hugh Dickins <hughd@google.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Ackerley Tng <ackerleytng@google.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, Barry Song <baohua@kernel.org>,
- Binbin Wu <binbin.wu@linux.intel.com>, Christian Brauner
- <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>,
- Christoph Lameter <cl@gentwo.org>, Claudio Imbrenda
- <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>,
- JP Kobryn <jp.kobryn@linux.dev>, Jan Kara <jack@suse.cz>,
- Jens Axboe <axboe@kernel.dk>, Johannes Weiner <hannes@cmpxchg.org>,
- Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Leonardo Bras <leobras.c@gmail.com>,
- Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti <mtosatti@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- Mel Gorman <mgorman@techsingularity.net>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Minchan Kim <minchan@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Shakeel Butt <shakeel.butt@linux.dev>, Suren Baghdasaryan
- <surenb@google.com>, Yang Shi <yang@os.amperecomputing.com>,
- Yu Zhao <yuzhao@google.com>, Zach O'Keefe <zokeefe@google.com>,
- Zi Yan <ziy@nvidia.com>, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
- <3f18ab7d-c12a-d2a3-4d3e-f9908f94f27d@google.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <3f18ab7d-c12a-d2a3-4d3e-f9908f94f27d@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zwoag2cpocblfvef"
+Content-Disposition: inline
+In-Reply-To: <20260907192723.72167-1-noah@feldt.systems>
 
-On 8/24/26 15:52, Hugh Dickins wrote:
-> 3.0 commit eb709b0d062e ("mm: batch activate_page() to reduce lock
-> contention") brought in an ifdef CONFIG_SMP around activate batching:
-> https://lore.kernel.org/linux-mm/20100805140755.501af8a7.akpm@linux-foundation.org/
-> shows a sensitivity to bloat that day, not any incompatibility with UP.
-> 
-> No other batching here has a UP alternative, and it's a bit confusing:
-> simplify mm/folio.c a little by removing it now.
-> 
-> Certainly we can reduce UP bloat (and/or 32-bit bloat) by, say, lowering
-> FOLIO_BATCH_SIZE from 31: traditionally 16, 14, 15, then raised to 31 by
-> 6.9 commit 9cecde80aae0 ("mm: increase folio batch size"); or by giving
-> just the static per-cpu folio batches a type of their own with a smaller
-> array size on UP (1? or a little batching worthwhile even on UP?). But
-> not right now, it's orthogonal to this series.
-> 
-> And I suspect that the old ifdef led to lru_activate being placed last,
-> whereas it's usually the second most popular fbatch: move it there, to
-> match cpu_needs_drain() comment "Check these in order of likelihood that
-> they're not zero".
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+--zwoag2cpocblfvef
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2] cgroup: Avoid iteration of dying tasks with zero
+ refcount
+MIME-Version: 1.0
 
+On Mon, Sep 07, 2026 at 07:27:32PM +0000, Noah Feldt <noah@feldt.systems> w=
+rote:
+> Hi Michal,
+>=20
+> thanks for the v2. I tested it on the same production node and with the
+> same reproducer (the 2nd PoC) that triggered the original crash.
+>=20
+> Result: it no longer panics, the use-after-free of the reaped leader is
+> gone. But the node now hard-locks up instead. dmesg is attached as
+> prod.log (module lists trimmed); the relevant part is:
+>=20
+>   watchdog: CPU24: Watchdog detected hard LOCKUP on cpu 24
+>   RIP: 0010:native_queued_spin_lock_slowpath+0x2aa/0x2f0
+>   Call Trace:
+>    _raw_spin_lock_irqsave+0x3d/0x50
+>    cgroup_task_dead+0x29/0x140
+>    finish_task_switch.isra.0+0x238/0x2c0
+>    __schedule+0x4ec/0xfe0
+>=20
+> i.e. one CPU spins forever holding css_set_lock with IRQs disabled, and
+> the other CPUs pile up on that spinlock until the NMI watchdog fires on
+> several of them.
+
+I bothed the loop...
+
+>=20
+> > First, I replaced the if() with a while() loop because when one such
+> > dying leader could remain on dying_tasks, there can be more of them
+> > (matter of effort) and single css_task_iter_advance() won't be
+>  enough
+> > (we need to skip all such tasks before get_task_struct()).
+>=20
+> The while() is what locks up:
+>=20
+> > +	while (it->task_pos && it->cur_tasks_head =3D=3D &it->cur_cset->dying=
+_tasks) {
+> > +		task =3D list_entry(it->task_pos, struct task_struct, cg_list);
+> > +		if (!atomic_read(&task->signal->live))
+> > +			css_task_iter_advance(it);
+> > +	}
+
+=2E..and after I hit Send, I realized it might be unnecessary thanks to
+implicit loop via `goto repeat;` in css_task_iter_advance(). But then
+there's CSS_TASK_ITER_WITH_DEAD which needs additional care
+(fortunately, this flag is not used by those userspace users, so the
+if-variant would be sufficient to fix the race in non-sched_ext
+scenarios).
+
+
+>=20
+> A LLM helped me debug this
+>=20
+> When the leader is still live, atomic_read(&task->signal->live) !=3D 0, so
+> the if() body is skipped, css_task_iter_advance() is never called,
+> it->task_pos never moves and the loop condition stays true forever. A
+> live dying-list leader thus spins the loop under css_set_lock -> the hard
+> lockup above.
+>=20
+> The loop has to stop on the first live leader (that is exactly the task we
+> want to hand out) and only advance past the dead ones. Turning the skip
+> into a break makes it terminate. The variant I tested:
+>=20
+> --- a/kernel/cgroup/cgroup.c
+> +++ b/kernel/cgroup/cgroup.c
+> @@ -5209,6 +5209,7 @@
+>   */
+>  struct task_struct *css_ta
+> sk_iter_next(struct css_task_iter *it)
+>  {
+> +	struct task_struct *task;
+>  	unsigned long irqflags;
+>=20
+>  	if (it->cur_task) {
+> @@ -5222,6 +5223,22 @@
+>  	if (it->flags & CSS_TASK_ITER_SKIPPED)
+>  		css_task_iter_advance(it);
+>=20
+> +	/*
+> +	 * @it->task_pos was picked on an earlier call. A dying leader stays on
+> +	 * dying_tasks until cgroup_task_free(), past its last usage ref drop,
+> +	 * so it may have been reaped since and get_task_struct() on it would
+> +	 * resurrect a task about to be freed. That last ref is dropped by an
+> +	 * RCU callback queued from release_task(), after signal->live hit zero,
+> +	 * so a leader still showing live threads in this irq-disabled section
+> +	 * can't lose its ref before the section ends.
+> +	 */
+> +	while (it->task_pos && it->cur_tasks_head =3D=3D &it->cur_cset->dying_t=
+asks) {
+> +		task =3D list_entry(it->task_pos, struct task_struct, cg_list);
+> +		if (atomic_read(&task->signal->live))
+> +			break;
+> +		css_task_iter_advance(it);
+> +	}
+> +
+>  	if (it->task_pos) {
+>  		it->c
+> ur_task =3D list_entry(it->task_pos, struct task_struct,
+>  					  cg_list);
+>=20
+> Same reproducer after this change: no panic and no lockup, the node stays
+> up under the load that reproduced it before.
+>=20
+> Tested-by: Noah Elias Feldt <N.Feldt@mittwald.de> # while-variant with th=
+e break
+
+Thanks, factoring the live count into the loop is what I should've done
+with the loop.
+Though, the fix loses a bit of elegance. Hm, thinking...
+
+Michal
+
+--zwoag2cpocblfvef
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqAv+xsUgAAAAAAEAA5t
+YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjGBwD/f2Y2iVrTgbxg/qzozsM7
+7pNj1MPifZ0yK1TvAtBYi5EA/iyXE0yNdFfYjuHLfjeGWW7DuKLIMxrJ0VDLy1xT
+3hIC
+=cwT4
+-----END PGP SIGNATURE-----
+
+--zwoag2cpocblfvef--
