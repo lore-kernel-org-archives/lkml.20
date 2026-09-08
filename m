@@ -1,195 +1,247 @@
-Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011036.outbound.protection.outlook.com [52.101.52.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0757147A867;
-	Tue,  8 Sep 2026 08:41:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856876; cv=none; b=gXgG5OGnTvms66Ii6eoOiZk0hTqdJuuMh2oH+UA6QqCud1TgZa09ZYNzT11sU9t659HOWBQ4jTLaBraFFzRyDCBsOVsrVHq8ZJY+b8EENPzVEacQwm1SI9EmRUIUhgakHiIFaONYc2uhe/KnovlHfHBi5BN5S3K8csQyi9/CZEo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856876; c=relaxed/simple;
-	bh=C4ZpWujrP3lY3tYZUmesciEdDg6gzrkYfF8gpZ7Tv7A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NNw2xelXPhOY1iwK9m7lyqsKQyCJuvSZA2x6jJpnkwYsEEgxSI48VZLu6S14MT8QH7U/cQAatN1VKEAToM5Oerh4jGF4u3WjILJ4wREszsxqY19OugBr/QHWVupd/xCeU/rfCgY7hldtR1C566vjT9rlcKBdkbLB9n/diUJbZ5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV; arc=none smtp.client-ip=35.157.23.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97C773D88F7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788856892; cv=fail; b=Ws6poUzLphOrw3jGgsix0keQjZlegHzBjIbiCdBCxS8lmazk64DGL/W98h1qJNWjksMf/cgJcqJrOSU/wyR0oLQWiD3k+j2grR/KKCx9iHCZwoMZYKdWNc6mj6leNdfXoWjXfMnsHK6iGtuyvxJzC7ySJkuPSDWUAm9LAAvn7/w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788856892; c=relaxed/simple;
+	bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=rx2VtM868d2KRzgHQgWSnqJYdHXYaIDEs00n140oS+yQVgn62yChUpqxIag7kctrE+1CqgoZE88zAJ7f1cjcvNFr1rG3enmLsphJnaqY8NTk1gYLJtmMvv9sXR+1v7eZHEs7+tkTvcuKv8g+t8CJ32pTfID+mV26kUErlnFIGUc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=rk/bvfe/; arc=fail smtp.client-ip=52.101.52.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="CIEUUamV"
-Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
-	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id B27FD1A9;
-	Tue,  8 Sep 2026 08:42:03 +0000 (UTC)
-Authentication-Results: relayaws-01.paragon-software.com;
-	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV;
-	dkim-atps=neutral
-Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
-	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 5256621B2;
-	Tue,  8 Sep 2026 08:41:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=paragon-software.com; s=mail; t=1788856866;
-	bh=4GdPyjWrZkTFVn0/S95iWhZM6CbPF4y1CFYjl9hyLBg=;
-	h=Date:Subject:To:CC:References:From:In-Reply-To;
-	b=CIEUUamVeS7RfAIh0VLHKDW180fdGbQ5evBmBDTZNfKhyoyBaJrB1qbniS0r4rC9m
-	 v5I9yIYLsn480pYjbId0SKt0AkLilPbrmkTVFOStAq+8mTo1Jau4lKSdm4+YSdDx5D
-	 Dh8RdsBwrH7ZQVPo5qKzQpDt5FuGGsgaGp9bCQYU=
-Received: from [192.168.95.128] (172.30.20.187) by
- vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.7; Tue, 8 Sep 2026 11:41:04 +0300
-Message-ID: <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
-Date: Tue, 8 Sep 2026 10:41:01 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="rk/bvfe/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qyHBxKch2ca5sz+b0F2s5LX4tn+6Fa9ZMKJFpEdPQI/JKF4lXF47cZGLaEMqfJ+p27dmNi2XuE/efGE7IFNnv0db3/zr5EDm6ECm8bF0uszCFBq9JHICbPMaHbsqS58aTKituuS3c9V4xIYg5OTzw0pHWDn9NcbqfiHa54CghNudIiDxg3wXIqky5zr7SAkdlNVyHjJc2/L1cThIviK9S3qRmTgFUC/fZd2Ci1IXdR9RbF6Po186qp1Ru8cFh1EHPcCBTvhvzlO191GR2WGsX3WIdb37CGfVEZSzjB33XpyjgLh7E8n0lk5NzhIu6F5Xgb5SFk1hAWeJKPuDrq8N2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
+ b=xhHDD7iX8yJ0759yD0eY0bdPzsDgAaq5WRq/7Xleba2DEIfJ+NLS0sk77amcHsqvd4L4wHXY/Ql5LCcPU6fDlyRR0IRu7mT+oZkOvQTpNk6m3vAqGp6N/9A3AuNiV2pTZ/6A8KBNkuWFfLFbxLuc0sXj9720KaFChl6N8H9tB3dsMW0kI6lfCmj0PltNeOb45Ey5nhGHXLmXCJ3E7n9LGnwyZd1It4/6+0YqnqvZkEcHtt/m/Og+lUPS1a7kEjqWmSb0MofnB3nhD1PnJYDI6XQuebz7sxahIEE5GLqOdEupKXhpaNMMAyAsj7fn3+01PqFO4/iN0Lfl1NzdLUQZ0w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UZwjtQhyUkICgreryu2WOPt+4Unznjl33n+dXxEJTmU=;
+ b=rk/bvfe/EzMJ9wbUmiXmiCxgnN3Ni/PqIBbcPJAkp+cnx6yRoo70NpXKWATVvYwRnro3trR3ZO0tckZ5RbJe1uKxhGLPgfPc8K+mINfgLVyQe2yH7EXo9/DOBaiI3QXc8jGy0gu26DLwIe2+pnGIMUJfSALO752mwsIV7zGHXY8=
+Received: from BN9PR12MB5259.namprd12.prod.outlook.com (2603:10b6:408:100::17)
+ by DS7PR12MB8084.namprd12.prod.outlook.com (2603:10b6:8:ef::5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.15; Tue, 8 Sep 2026 08:41:25 +0000
+Received: from BN9PR12MB5259.namprd12.prod.outlook.com
+ ([fe80::122c:cca7:c2b3:90ed]) by BN9PR12MB5259.namprd12.prod.outlook.com
+ ([fe80::122c:cca7:c2b3:90ed%2]) with mapi id 15.21.0382.007; Tue, 8 Sep 2026
+ 08:41:25 +0000
+From: "Garg, Shivank" <shivankg@amd.com>
+To: "dev.jain@arm.com" <dev.jain@arm.com>, "baohua@kernel.org"
+	<baohua@kernel.org>
+CC: "hughd@google.com" <hughd@google.com>, "rppt@kernel.org"
+	<rppt@kernel.org>, "chrisl@kernel.org" <chrisl@kernel.org>,
+	"shikemeng@huaweicloud.com" <shikemeng@huaweicloud.com>, "harry@kernel.org"
+	<harry@kernel.org>, "vbabka@kernel.org" <vbabka@kernel.org>,
+	"riel@surriel.com" <riel@surriel.com>, "akpm@linux-foundation.org"
+	<akpm@linux-foundation.org>, "david@kernel.org" <david@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"nphamcs@gmail.com" <nphamcs@gmail.com>, "surenb@google.com"
+	<surenb@google.com>, "linux-mm@kvack.org" <linux-mm@kvack.org>,
+	"youngjun.park@lge.com" <youngjun.park@lge.com>, "anshuman.khandual@arm.com"
+	<anshuman.khandual@arm.com>, "ryan.roberts@arm.com" <ryan.roberts@arm.com>,
+	"kasong@tencent.com" <kasong@tencent.com>, "liam@infradead.org"
+	<liam@infradead.org>, "jannh@google.com" <jannh@google.com>,
+	"baolin.wang@linux.alibaba.com" <baolin.wang@linux.alibaba.com>,
+	"ljs@kernel.org" <ljs@kernel.org>, "lance.yang@linux.dev"
+	<lance.yang@linux.dev>, "mhocko@suse.com" <mhocko@suse.com>,
+	"baoquan.he@linux.dev" <baoquan.he@linux.dev>, "pfalcato@suse.de"
+	<pfalcato@suse.de>
+Subject: Re: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
+ softleaf offset
+Thread-Topic: [PATCH v2 5/8] mm/internal: rename swap offset helpers to
+ softleaf offset
+Thread-Index: AQHdP23TCl1MibJBN0esUfaGpg2m3g==
+Date: Tue, 8 Sep 2026 08:41:25 +0000
+Message-ID: <e69e68f58afb8001613b710df6a602d490581292.camel@amd.com>
+References: <20260901054358.4049095-1-dev.jain@arm.com>
+		 <20260901054358.4049095-6-dev.jain@arm.com>
+		 <CAGsJ_4yigbhqkrnufJKC2+rW7StraQvD0gr=4HQkTjKGQ9siGQ@mail.gmail.com>
+		 <12efdc7f-ff82-412b-b79d-bff211d34218@arm.com>
+		 <CAGsJ_4y7V40CnTTh=84=Ek6T3tPTyLXsUtgO81O1zyZpmQcbug@mail.gmail.com>
+		 <8cc0b340-9526-47ac-abd4-3f5724963409@arm.com>
+In-Reply-To: <8cc0b340-9526-47ac-abd4-3f5724963409@arm.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5259:EE_|DS7PR12MB8084:EE_
+x-ms-office365-filtering-correlation-id: 144aaca8-f36a-4100-497f-08df0d84f7a2
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|7416014|11063799006|4143699003|6133799003|56012099006|3023799007|10067099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ bPUdkvW860hR+gEpYpFlE69dRMjJPCpbiv6MPTq5V7Ra4Kwn9SlN5l3rGm0saPvh8uvMSs4gxXo3NFk7h/O2BH3Rbkfq0r+uOaPJe4uG77QSePnsTwOqkHRvCdE6u4B7tjtTQ2xetbeavafpE9B4P8mN4epTsIPNQtaN+wlGcacKfIC/hg2F4U8pXA3FswWHbzoHWPuT451XA3QkXNzHUNa0F6ZvyfvyuoqPOyIymGtl9IDqMqeJCCmHOAy+HuBJyBMkaYWQgvqs2Y8iQfHHVlb7qT3rQmUVzhueNvjPO6werg/gH+9W8uj6NAyAuZMj3pekkCqaoGlR/e3pGgFDBS9ciF2iFpC8KnpH9egCdhMWUVm6GPmBO2NjptC9tO2TgUeihY+UomdUUk0exjKfj6jtu87/8qNpJ1fku4H13mwQKrRIP6yw5MQVfxW1kxEIc0o+KCCVJ4YcVBqOjjkAhrOyfdYfXVUuoq7GqFUyukPyxBFYtf51AFL0thdnZhYpwVW6AaEXjbXfU2YjFG+GS56igp6eiBMjyszLezcitoeRuQu5W89aTW4GTa34RNxZTt+R8hTftc6e5gdoM9dnIW+dn0z3VAP7E7fbMSruYk2xJz87uuZo1hjt5/KN79UEPCPil2XLDvYTj9ur9otfgOGurXaoX9udxgN0XbdJzrMJZjduF5SBWkGs7wYfPfGVu2wfcSM149Qi9HSGuHhgaDe2280Cf99i82OlW5tSh8E=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN9PR12MB5259.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(7416014)(11063799006)(4143699003)(6133799003)(56012099006)(3023799007)(10067099003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?azdEZ3J4QjNiZk52Mk1HNU94L2F3V1huRlcrK0pXRE43cDY4YUdFMGovQlFX?=
+ =?utf-8?B?a1pqMUkrbXNna0NiRGlxTmlteVA1RlV6N2dqbkxVSDVZVTlCOW41Q01JUWM2?=
+ =?utf-8?B?TllKQzQwR2kzc2J5dGUrbTlqYjQvSnM5OThUWFNUT2Z0c3UrV2F2cGJpWS80?=
+ =?utf-8?B?Y0RTMVQvU1J1TDAvMGRocjZnQ3dwZkVMcEN0UW1Sa3g5SDVoV3FOR296UlBD?=
+ =?utf-8?B?aTNnSkhtZExlbUUvRTRxYkZtWjNrdk9HdWxqTFplZ1MzaThzQ1dXS1dFSER1?=
+ =?utf-8?B?VWdvSVB1UmVEZ0Q4NlQxUDA2VFhXdW9xa0RVcktocVUrK05JZVhUMlF6Vms3?=
+ =?utf-8?B?RWxYcUZkeTFIYWNuOFJBbVU0OG01akVFS0VYOGlWZWU1MWRMN1ppdjlxbHNj?=
+ =?utf-8?B?THBiMTB6cXhHYzMwQTc5RGpnT1BTVHVqRVFnSG9YRUZlc3ptQ0lOeFY0TjVj?=
+ =?utf-8?B?akQ0SjlBNDk3ZjBLOWl1VWFMeDhBNEpmSGFQS1FFZ1JlU01FWGg2akFPWUlN?=
+ =?utf-8?B?R2dhNXhCMVhBWkFNbG1PcndXZnJjbk80MURBRzkwdVpycmw3ODk5TzB3bXRZ?=
+ =?utf-8?B?ZVdKaVZPSzhoT1d6dDd0c0Yvb2syMjBaeHZkeUdoalBobEpOODF0eXFkYUpl?=
+ =?utf-8?B?RHJqcWJGR1BjWHpTSHgzTk1IM0xiL05lcm5ENmo4NGxLclZaVTRJaEUwMGU4?=
+ =?utf-8?B?d3VKNnc4Z0kxZ0pxQThsSHA0NEFnL21WbU1WUXZaZVB5ZWFaZ1hDdEtzSFNz?=
+ =?utf-8?B?ZDVuQVhhRlRDZVozSUJma0dwUHBkY1Zuem1seE43S0NjNFdlMFlXN3RjNmNK?=
+ =?utf-8?B?bTRoUzY1eEVmRURMbEpJYWxLVWNqNkl6SWRkczBpT3BrOEFTV3BkWTBWeXVI?=
+ =?utf-8?B?NmdpRWdiSmpHbU4wek83ZkhYUG81ZExJNGFld3R3T2l4K0JReUdUOTlKcTdL?=
+ =?utf-8?B?aE1Md0x2VzBnMlNZVGFYMHphMGN1dHVndlI5UFFma1VOM0dmNFBicjc3ejYy?=
+ =?utf-8?B?dFBTdFFTTnRNb2w4Q0lnMEVuTGI3eDlsc3d6LzhqVWZpR3NsdFdZN2c2cnJs?=
+ =?utf-8?B?NGRkdWNySzRyT1FlQVBFeENVSlc4djJ4dG5jOUErc2UxLzdiY0Z6dzkzTkE0?=
+ =?utf-8?B?Q213Nk1lVHdkdVVvaGFVN2NHbEE4NCt5cnJrUDhWZTZDMytPd1pYakZoem1P?=
+ =?utf-8?B?OS83Z04yeS9QWXlRWGRZRXNNL0FUdEl2dTRpTzM3emNDTDdSZWdKemtQMnEw?=
+ =?utf-8?B?ZDJ2Kzdtc2hpc2hMK3dmN2hPbGVLZ1ZaR0FDM2VKMlJRVzljbkc2YndZS1lv?=
+ =?utf-8?B?SGlVTnFDZnBCOWRWVjdIU1lIQUFtWE5SQjdMeFpCWUcxQUtOdFhaZWlFRito?=
+ =?utf-8?B?MWFzaWIrUXBiZkt4TzdZOGNsUFJNRHB1amMxZjY5MUFoTkNVdTd6Y1hpQ0hG?=
+ =?utf-8?B?MytkRGI5Mk1hOEVqczdPSDVycTJEQWlNVitFQkMybnVyemRSOTlmN0EveGts?=
+ =?utf-8?B?OE1yeTNpVmZxZnpheW9yZFA5RXBkZ1VnMGcvRWM2QmNTWFozMFRZeUlxWk1l?=
+ =?utf-8?B?NzA5eTRRN0RyQU9mejhVR0xsSDF4dVhXTlVLeDNFMjZnaUJJd2V4K2l4dlhK?=
+ =?utf-8?B?ZTJ5MG5Tbk9YUi9kTGlvWlM4aFhwNytVaGFDNEZ3bjBGQXhHR0o0OGJsOE5W?=
+ =?utf-8?B?dmNIcHcxTlo5WVExQ0c3YzZ3bHJNSkc0cjV6NUcwSjZoM3d2bmM1ckxWb2Qx?=
+ =?utf-8?B?eE9ObFdkT3hkUDVhKzZhaWk1c3B4cklDeUZDMUxDWnFmVVdRdi81RXFnVTk5?=
+ =?utf-8?B?TXpHNFBudytmM0d4b1ZkakwrdjBGL05RNm1YdnZaalV3OGpDN3RnK05YZ0g3?=
+ =?utf-8?B?d21PSFFiUnZ0K3l5THNQUjRXYXpSYi9MWWt2d01XS3FoaTRvSnlWeTlBQktw?=
+ =?utf-8?B?UzBoTFFQWkgxNGt6QmZKY0FGY0VtVzFQcDJlcVQ4SGk4Z2ltMjZxNnFXU0hQ?=
+ =?utf-8?B?cHhzZFZHQzJUVElkOHN0cy9CejlUWWRZTWdCN1FvbkE5VXBKZFUwRlVlV0I0?=
+ =?utf-8?B?UithRnFPK2NuMzRMWHlUcFM1TlhpbzFvdDQ3bWx4YkxVcC9lVFRBZFYrRGQ1?=
+ =?utf-8?B?TUt6b0JvNEp4cVFBNmZxY2lOUUJ0amhjWVcxYkVUV1liNGNCZFhOYWE3bjJL?=
+ =?utf-8?B?TUpNY0lBNGtCbHhtWlppWjNaZEdDRFc5cjJ5OGFIRitidm4wNE5Od0lnNWsw?=
+ =?utf-8?B?QUIyVG8yRFhReW1lZitqNmV2ZEJ5MHlEUUxkNU5aQVFzOHBHNjVGdUZPTmx1?=
+ =?utf-8?B?U2VFME9reENtZEJEMDV2d3IvZUMrSUNKZ1dhbTVJcGFGU2ZYVC9BUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B481BF83AAE8B34BB8E311537F64C9B8@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in
- ni_create_attr_list()
-To: =?UTF-8?B?SEUgV0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
-CC: <ntfs3@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, Christian
- Brauner <brauner@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260625031932.9412-1-skyexpoc@gmail.com>
- <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
-Content-Language: en-US
-From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-In-Reply-To: <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
- vdlg-exch-02.paragon-software.com (172.30.1.105)
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5259.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 144aaca8-f36a-4100-497f-08df0d84f7a2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 08:41:25.1330
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: hzu4NDJxSZ5Ifq+uSx41yU0qmqqojVBV26KDlzJc4FITN31qCfAd7QenssK4C31GwxrCJzLzG62Pu4p/w85L6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8084
 
-On 7/6/26 06:40, HE WEI（ギカク） wrote:
-
-> Hi Konstantin,
->
-> Gentle ping on this v2. It's an attacker-controlled on-disk image heap
-> out-of-bounds write in ni_create_attr_list(),
-> reachable via setxattr on a crafted, loop-mounted NTFS image (KASAN
-> trace is in the commit message), which is why it's Cc'd to stable.
->
-> For the record, the fix was first posted as v1 on 2026-06-10:
-> https://lore.kernel.org/ntfs3/20260610002929.51765-1-skyexpoc@gmail.com/
-> This v2 (2026-06-25) only adds Cc: stable and widens review to
-> linux-fsdevel; the fix itself is unchanged from v1.
->
-> Could you let me know if you'd like any changes, or whether it can be
-> queued for a future bugfix pull? I'm happy to rebase or adjust as
-> needed.
->
-> Thanks,
-> HE WEI (ギカク)
->
-> hewei-gikaku <skyexpoc@gmail.com> 于2026年6月25日周四 12:19写道：
->> From: HE WEI (ギカク) <skyexpoc@gmail.com>
->>
->> ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
->> (== record_size) bytes and then walks every attribute of the primary MFT
->> record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
->> by le_size(name_len), with no check against the end of the buffer; the
->> total size is only computed after the loop.
->>
->> A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
->> bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
->> bytes in the list.  Because the number of attributes in a record is not
->> bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
->> minimum-size attributes), a crafted record packed with such attributes
->> produces a list larger than record_size and overflows the heap buffer.
->>
->> This is reachable from a crafted, loop-mounted NTFS image: opening the file
->> and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
->> ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
->> ni_create_attr_list().
->>
->>    BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
->>    Write of size 4 at addr ffff000008984c00 by task setfattr/345
->>     ni_create_attr_list+0xc48/0x1058
->>     ni_ins_attr_ext+0x510/0x7c0
->>     ni_insert_attr+0x3f8/0x70c
->>     ni_insert_resident+0xc8/0x3b0
->>     ntfs_set_ea+0x66c/0xd28
->>     ntfs_setxattr+0x4d8/0x5b0
->>     __arm64_sys_setxattr+0xa4/0x124
->>    Allocated by task 345:
->>     ni_create_attr_list+0x188/0x1058
->>    The buggy address belongs to the cache kmalloc-1k of size 1024
->>    (the write lands at object+1024).
->>
->> Size the buffer from the actual attributes instead of assuming a single
->> record_size is always enough.
->>
->> Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: HE WEI (ギカク) <skyexpoc@gmail.com>
->> ---
->> v2:
->>   - Add Cc: stable@vger.kernel.org: this is an attacker-controlled on-disk
->>     image heap out-of-bounds write and should be backported.
->>   - No functional change from v1; widening Cc (linux-fsdevel, VFS) for
->>     review, as the v1 posting received no response.
->>   - Drop a redundant self Reported-by.
->>
->> v1: https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.com/
->> ---
->>   fs/ntfs3/frecord.c | 20 ++++++++++++++++----
->>   1 file changed, 16 insertions(+), 4 deletions(-)
->>
->> diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
->> index 2e901d073fe9..6488d7a415c0 100644
->> --- a/fs/ntfs3/frecord.c
->> +++ b/fs/ntfs3/frecord.c
->> @@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
->>          rs = sbi->record_size;
->>
->>          /*
->> -        * Skip estimating exact memory requirement.
->> -        * Looks like one record_size is always enough.
->> +        * Compute the exact size of the attribute list.  Each attribute in the
->> +        * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
->> +        * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
->> +        * unnamed one expands to le_size(0) (0x20) here, so a record crafted
->> +        * with many such attributes needs more than a single record_size; the
->> +        * previous fixed kzalloc(record_size) could therefore be overflowed by
->> +        * an attacker-controlled record.
->>           */
->> -       le = kzalloc(al_aligned(rs), GFP_NOFS);
->> +       lsize = 0;
->> +       attr = NULL;
->> +       while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
->> +               lsize += le_size(attr->name_len);
->> +
->> +       if (!lsize)
->> +               return -EINVAL;
->> +
->> +       le = kzalloc(al_aligned(lsize), GFP_NOFS);
->>          if (!le)
->>                  return -ENOMEM;
->>
->> @@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
->>          attr = NULL;
->>          nb = 0;
->>          free_b = 0;
->> -       attr = NULL;
->>
->>          for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
->>                  sz = le_size(attr->name_len);
->> --
->> 2.43.0
-
-Hello,
-
-Sorry for the confusion. The fix is already upstream: v1 was applied as
-commit 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
-ni_create_attr_list()"), in v7.3-rc1. v2 is functionally identical, so
-there is nothing further for me to apply.
-
-The applied commit does not carry Cc: stable, though, so it has not
-been backported.
-
-Thanks for the fix, and for following up on it.
-
-Regards,
-Konstantin
-
+T24gVHVlLCAyMDI2LTA5LTA4IGF0IDExOjA4ICswNTMwLCBEZXYgSmFpbiB3cm90ZToNCj4gDQo+
+IE9uIDA4LzA5LzI2IDM6MDMgYW0sIEJhcnJ5IFNvbmcgd3JvdGU6DQo+ID4gT24gTW9uLCBTZXAg
+NywgMjAyNiBhdCAxOjM44oCvUE0gRGV2IEphaW4gPGRldi5qYWluQGFybS5jb20+IHdyb3RlOg0K
+PiA+ID4gDQo+ID4gPiANCj4gPiA+IA0KPiA+ID4gT24gMDUvMDkvMjYgNDoxMiBwbSwgQmFycnkg
+U29uZyB3cm90ZToNCj4gPiA+ID4gT24gVHVlLCBTZXAgMSwgMjAyNiBhdCAxOjQ04oCvUE0gRGV2
+IEphaW4gPGRldi5qYWluQGFybS5jb20+IHdyb3RlOg0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+IElu
+IHByZXBhcmF0aW9uIGZvciBhZGRpbmcgYSBoZWxwZXIgdG8gc2V0IHNvZnRsZWFmIHB0ZXMgaW4g
+b25lIGdvLA0KPiA+ID4gPiA+IGdlbmVyYWxpemUgdGhlIHN3YXAgZW50cnkgaGVscGVycyBzaGlm
+dGluZyB0aGUgc3dhcCBvZmZzZXQgYnkgZGVsdGEsDQo+ID4gPiA+ID4gZm9yIHNvZnRsZWF2ZXMu
+DQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gTm90ZSB0aGF0IHRoZSBzb2Z0LWRpcnR5IGJpdCwgZXhj
+bHVzaXZlIGJpdCBhbmQgdWZmZCBiaXQgcHJlc2VydmF0aW9uDQo+ID4gPiA+ID4gd2lsbCBzdGls
+bCB3b3JrIGZvciBub24tc3dhcCBzb2Z0bGVhdmVzLCBzaW5jZSBhIHNvZnRsZWFmIGVudHJ5IGlz
+DQo+ID4gPiA+ID4gY29uc3RydWN0ZWQgb3V0IG9mIGEgdHlwZSBhbmQgb2Zmc2V0LCBhbmQgdGhv
+c2UgYml0cyBhcmUgYWhlYWQgb2YNCj4gPiA+ID4gPiB0aGUgc29mdC1kaXJ0eSwgZXhjbHVzaXZl
+IGFuZCB1ZmZkIGJpdHMuDQo+ID4gPiA+ID4gDQo+ID4gPiA+ID4gRm9yIGV4YW1wbGUsIGZvciBh
+IG1pZ3JhdGlvbiBlbnRyeSwgcHRlX3N3cF9leGNsdXNpdmUoKSB3aWxsIHJldHVybg0KPiA+ID4g
+PiA+IGZhbHNlLCBhcyB0aGUgZXhjbHVzaXZpdHkgaXMgZW5jb2RlZCBpbiB0aGUgdHlwZSBpdHNl
+bGYNCj4gPiA+ID4gPiAoU09GVExFQUZfTUlHUkFUSU9OX1JFQURfRVhDTFVTSVZFKS4NCj4gPiA+
+ID4gDQo+ID4gPiA+IEkgZG9uJ3QgcXVpdGUgdW5kZXJzdGFuZCB3aHkgeW91IG1lbnRpb24gdGhp
+cy4gSXMgYW55b25lIGNhbGxpbmcNCj4gPiA+ID4gYHB0ZV9zd3BfZXhjbHVzaXZlKClgIG9uIGEg
+bWlncmF0aW9uIGVudHJ5PyBTaG91bGRuJ3QgaXQgb25seSBiZSBjYWxsZWQNCj4gPiA+ID4gd2hl
+biBgc29mdGxlYWZfaXNfc3dhcCgpYCBpcyB0cnVlPw0KPiA+ID4gDQo+ID4gPiBZb3UgYXJlIHJp
+Z2h0LiBJIGp1c3Qgd2FudGVkIHRvIGVtcGhhc2l6ZSB0aGUgc2Vjb25kIHBhcmFncmFwaCAtIHRo
+YXQgdGhlDQo+ID4gPiBwdGVfbW92ZV9zd3Bfb2Zmc2V0IHdpbGwgYWxzbyB3b3JrIGZvciBzb2Z0
+bGVhZiBlbnRyaWVzLiBCdXQgSSB0aGluaw0KPiA+ID4gdGhlIHRoaXJkIHBhcmEgY29uZnVzZXMg
+bW9yZSwgSSdsbCBkcm9wIGl0Lg0KPiA+IA0KPiA+IEkgd291bGQgcmF0aGVyIGludGVycHJldCB0
+aGlzIGFzIG1lYW5pbmcgdGhhdA0KPiA+IGBwdGVfbW92ZV9zb2Z0bGVhZl9vZmZzZXRgIHdpbGwg
+YWxzbyB3b3JrIGZvciBzd2FwIHNvZnRsZWFmcywNCj4gPiBzaW5jZSBgcHRlX21vdmVfc29mdGxl
+YWZfb2Zmc2V0YCB3aWxsIGNhbGwgc29tZSBwdXJlLXN3YXANCj4gPiBmdW5jdGlvbnPvvJ8NCj4g
+DQo+IFllcywgc28gaWYgeW91IHNlZSByZW1vdmVfbWlncmF0aW9uX3B0ZSwgdGhlcmUgcHRlX3N3
+cF91ZmZkIGFuZA0KPiBwdGVfc3dwX3NvZnRfZGlydHkgYXJlIGJlaW5nIHVzZWQuIFNhbWUgd2l0
+aCByZXN0b3JlX2V4Y2x1c2l2ZV9wdGUNCj4gKGZvciBkZXZpY2UtZXhjbHVzaXZlIHN0dWZmKS4N
+Cj4gDQo+IFdoaWNoIG1lYW5zIHRoYXQgcHRlX3N3cF9leGNsdXNpdmUgaXMgdGhlIG9ubHkgb25l
+IGJlaW5nIHVzZWQNCj4gKm9ubHkqIGZvciBzd2FwIGVudHJpZXMuDQo+IA0KPiANCj4gPiANCj4g
+PiBXb3VsZCBpdCBiZSBwb3NzaWJsZSB0byB1c2UgYGlmIChzb2Z0bGVhZl9pc19zd2FwKCkpYCBm
+b3INCj4gPiB0aGVzZSBjYXNlcyB0byBtYWtlIHRoZSBpbnRlbnQgY2xlYXJlcj8gb3Igd2UgY2Fu
+DQo+ID4ga2VlcCBib3RoIHB0ZV9tb3ZlX3NvZnRsZWFmX29mZnNldCBhbmQgcHRlX21vdmVfc3dh
+cF9vZmZzZXQ/DQo+IA0KPiBTbyBpbiBteSBwYXRjaCBJIGNhbiBkbw0KPiANCj4gaWYgKHNvZnRs
+ZWFmX2lzX3N3YXAoZW50cnkpICYmIHB0ZV9zd3BfZXhjbHVzaXZlKHB0ZSkpDQo+IA0KPiBUaGF0
+IHdvdWxkIG1ha2UgdGhlIGludGVudCBjbGVhci4NCj4gDQo+IA0KPiA+IA0KPiA+IEFzIGBwdGVf
+bW92ZV9zb2Z0bGVhZl9vZmZzZXQoKWAgaXMgZ2V0dGluZyBhIGJpdCB3ZWlyZCBub3csDQo+ID4g
+YSBnZW5lcmljIHNvZnRsZWFmIGZ1bmN0aW9uIGhhcyBhIGxvdCBvZiBzd2FwLXNwZWNpZmljIGNv
+ZGUgaW4gaXQ6DQo+ID4gDQo+ID4gc3RhdGljIGlubGluZSBwdGVfdCBwdGVfbW92ZV9zb2Z0bGVh
+Zl9vZmZzZXQocHRlX3QgcHRlLCBsb25nIGRlbHRhKQ0KPiA+IHsNCj4gPiAgICAgICAgIGNvbnN0
+IHNvZnRsZWFmX3QgZW50cnkgPSBzb2Z0bGVhZl9mcm9tX3B0ZShwdGUpOw0KPiA+ICAgICAgICAg
+cHRlX3QgbmV3ID0gX19zd3BfZW50cnlfdG9fcHRlKF9fc3dwX2VudHJ5KHN3cF90eXBlKGVudHJ5
+KSwNCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAoc3dwX29mZnNldChlbnRyeSkNCj4gPiArIGRlbHRhKSkpOw0KPiA+IA0KPiA+ICAgICAgICAg
+aWYgKHB0ZV9zd3Bfc29mdF9kaXJ0eShwdGUpKQ0KPiA+ICAgICAgICAgICAgICAgICBuZXcgPSBw
+dGVfc3dwX21rc29mdF9kaXJ0eShuZXcpOw0KPiA+ICAgICAgICAgaWYgKHB0ZV9zd3BfZXhjbHVz
+aXZlKHB0ZSkpDQo+ID4gICAgICAgICAgICAgICAgIG5ldyA9IHB0ZV9zd3BfbWtleGNsdXNpdmUo
+bmV3KTsNCj4gPiAgICAgICAgIGlmIChwdGVfc3dwX3VmZmQocHRlKSkNCj4gPiAgICAgICAgICAg
+ICAgICAgbmV3ID0gcHRlX3N3cF9ta3VmZmQobmV3KTsNCj4gPiANCj4gPiAgICAgICAgIHJldHVy
+biBuZXc7DQo+ID4gfQ0KPiA+IA0KPiA+IEFtIEkgbWlzc2luZyBzb21ldGhpbmcgaGVyZT8NCj4g
+PiANCj4gPiA+IA0KPiA+ID4gPiANCj4gPiA+ID4gPiANCj4gPiA+ID4gPiBTaWduZWQtb2ZmLWJ5
+OiBEZXYgSmFpbiA8ZGV2LmphaW5AYXJtLmNvbT4NCj4gPiA+ID4gDQo+ID4gPiA+IFJldmlld2Vk
+LWJ5OiBCYXJyeSBTb25nIDxiYW9odWFAa2VybmVsLm9yZz4NCj4gPiA+IA0KPiA+ID4gVGhhbmtz
+Lg0KPiA+ID4gDQo+ID4gPiANCj4gPiA+ID4gDQo+ID4gPiA+ID4gLS0tDQo+ID4gPiA+ID4gIG1t
+L2ludGVybmFsLmggfCAyOSArKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLQ0KPiA+ID4gPiA+
+ICBtbS9tZW1vcnkuYyAgIHwgIDQgKystLQ0KPiA+ID4gPiA+ICAyIGZpbGVzIGNoYW5nZWQsIDE3
+IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygtKQ0KPiA+ID4gPiA+IA0KPiA+ID4gPiBbLi4u
+XQ0KPiA+ID4gPiA+IA0KPiA+ID4gPiA+ICAvKioNCj4gPiA+ID4gPiBAQCAtNTIzLDcgKzUyNCw3
+IEBAIHN0YXRpYyBpbmxpbmUgcHRlX3QgcHRlX25leHRfc3dwX29mZnNldChwdGVfdCBwdGUpDQo+
+ID4gPiA+ID4gICAqLw0KPiA+ID4gPiA+ICBzdGF0aWMgaW5saW5lIGludCBzd2FwX3B0ZV9iYXRj
+aChwdGVfdCAqc3RhcnRfcHRlcCwgaW50IG1heF9uciwgcHRlX3QgcHRlKQ0KPiA+ID4gPiA+ICB7
+DQo+ID4gPiA+IA0KPiA+ID4gPiBXZSBtaWdodCBmaW5kIGEgdXNlciBmb3IgdGhpcyBpbiB0aGUg
+ZnV0dXJlLCBpbiB3aGljaCBjYXNlIHdlIG1pZ2h0DQo+ID4gPiA+IHdhbnQgdG8gcmVuYW1lIGBz
+d2FwX3B0ZV9iYXRjaCgpYCB0byBgc3dhcF9zb2Z0bGVhZl9iYXRjaCgpYD8NCj4gPiA+IA0KPiA+
+ID4gVGhhdCBpcyB3aGF0IGlzIGJlaW5nIGRvbmUgaGVyZToNCj4gPiA+IGh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2FsbC8yMDI2MDgxMy1taWdyYXRlLXJtYXAtYmF0Y2gtdjItMS0zYzU0MjRjNTU1
+YzdAYW1kLmNvbS8NCj4gPiA+IA0KPiA+ID4gSSBkb24ndCBoYXZlIGEgc3Ryb25nIG9waW5pb24s
+IEkgY2FuIGFsc28gZ2VuZXJhbGl6ZSB0aGlzIHJpZ2h0IG5vdy4NCj4gPiANCj4gPiBJIGRvbid0
+IGtub3cgaG93IHlvdSBhbmQgU2hpdmFuayBhcmUgY29sbGFib3JhdGluZywNCj4gPiBzaW5jZSB5
+b3UncmUgYm90aCBjaGFuZ2luZyB0aGUgc2FtZSB0aGluZyBhdCB0aGUgc2FtZSB0aW1lIDotKQ0K
+PiANCj4gV2UgYXJlIG5vdCBjb2xsYWJvcmF0aW5nIHJlYWxseSA6ICkgaGUgc2hvdWxkIGhhdmUg
+aWRlYWxseSB3YWl0ZWQNCj4gZm9yIG15IHBhdGNoc2V0IHRvIGdvIGluIGZpcnN0IHNpbmNlIEkg
+d2FzIGRvaW5nIGJpZyBjaGFuZ2VzIGluDQo+IHJtYXAuYy4NCj4gDQoNCkp1c3QgdG8gY2xhcmlm
+eSwgbXkgc2VyaWVzIGlzIGFscmVhZHkgYmFzZWQgb24geW91ciBWMSBzZXJpZXMsIGFzIG5vdGVk
+DQppbiBpdHMgY292ZXIgbGV0dGVyIGFuZCBiNCBwcmVyZXF1aXNpdGUtbWVzc2FnZS1pZC4NCg0K
+VGhlIGludGVudGlvbiB3YXMgYWx3YXlzIGZvciB5b3VyIHNlcmllcyB0byBnbyBpbiBmaXJzdC4g
+SSBwb3N0ZWQgbWluZQ0KbWVhbndoaWxlIHRvIGNvbGxlY3QgcmV2aWV3IHJhdGhlciB0aGFuIHdh
+aXQgZm9yIHlvdXJzIHRvIGxhbmQuIA0KDQo+ID4gDQo+ID4gSG9wZWZ1bGx5LCB3ZSBjYW4gZ2V0
+IG9uZSBvZiB5b3VycyBpbnRvIG1tLW5ldyBmaXJzdCwNCj4gPiBhbmQgdGhlIG90aGVyIG9uZSBj
+YW4gZmluZCBhIHdheSB0byByZXNvbHZlIHRoZSBjb25mbGljdHMuDQo+IA0KPiBZZXMuDQo+IA0K
+DQpJIGFncmVlIHRoZXJlIGlzIHNvbWUgb3ZlcmxhcCBpbiBybWFwLmMsIGFuZCBJIHdpbGwgcmVi
+YXNlIG15IHNlcmllcyBvbiB5b3VyDQpsYXRlc3QgdmVyc2lvbiB0byBhdm9pZCBjb25mbGljdHMu
+DQoNClJlZ2FyZGluZyBzb2Z0bGVhZl9wdGVfYmF0Y2goKSwgbXkgcGF0Y2ggZmFjdG9ycyB0aGUg
+Z2VuZXJpYyBsb2dpYyBvdXQgb2YNCnN3YXBfcHRlX2JhdGNoKCkgYmVjYXVzZSB0aGUgbWlncmF0
+aW9uIHBhdGggKG1pZ3JhdGlvbl9wdGVfYmF0Y2gpIG5lZWRzIGl0Lg0KSSBzdWdnZXN0IGtlZXBp
+bmcgaXQgaW4gbXkgc2VyaWVzLCBidXQgSSBjYW4gZHJvcCB0aGF0IHBhdGNoIGlmIHlvdSBwcmVm
+ZXINCnRvIGNhcnJ5IHRoaXMgcmV2aXNlZCBwYXRjaFsxXSBpbiB5b3Vycy4NCg0KWzFdIGh0dHBz
+Oi8vbG9yZS5rZXJuZWwub3JnL2FsbC84OWQ4YzJkNmYzNWY3ZmRjMzQ0NGVhM2E2MmNjZDI0NDk0
+NWQ5NjQ0LmNhbWVsQGFtZC5jb20NCg0KVGhhbmtzLA0KU2hpdmFuaw0KDQo=
