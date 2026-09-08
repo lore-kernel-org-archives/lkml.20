@@ -1,187 +1,276 @@
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E504B59C97F;
-	Tue,  8 Sep 2026 20:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353EC39E19A;
+	Tue,  8 Sep 2026 20:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898196; cv=none; b=iYdVN4MgYV/SxQcoxYE1OUIJM8m0tJtsqQXck7OlQeLY790O67cmolDyWjGYa3+8thUX1wiwW0IZ334vGmR8Ft94E8uECGx2/vwwoKI8Uz9Ka8L1x+UfldZ4YJeQZ8ZmKYdrl5byHKBK0Azjzry4UzxE6BS29vObX1zADzKFHU8=
+	t=1788898206; cv=none; b=H8x9Q3XL0MGDH4SvqrLPrADwmfpOtCZfp01ZFrl5YBuJSvF2p31XqySqa1qNPeMeC0F6hbqct2j/4R5ftyUDANpLvZ5l57JxfMcorE2/IzEtkSl4jaR/5NQE9itbWfIiLVhWVJjzNQ06HXjkAVMVUMNNkOiCE/e8cIUbsz2frB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898196; c=relaxed/simple;
-	bh=NjpevSsqsdVcBoNaqYNd964U1pKMHVgRtoQ8Fgxmacw=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=OauWcWgc1YjbSeB5/4IjX+6wb1jBNI61jl83ZWMCsRkx2LLrX7poH5+Qp9MOz0U0DMaPeILeD7UYRd08Gh312YcT1C3o6E2SyX/J0UPYKrdQ6AlHQ35C4SPBiHX4CRyAOOtARnmlCtrgZuTnGR43vMdu8qE0vGKwYoac37B49Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Ku2CBzv1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ujMQYS0s; arc=none smtp.client-ip=202.12.124.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1788898206; c=relaxed/simple;
+	bh=Jg2oZKAkMU8D3w7VkxZpIxKVLG547PwsxLoXFYp4+ho=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=AssqpJHEkFQesCCj9tPKCQULtVKwu7PADKeLqalcb9pqNpQS7rBrS4XpLA41lUJ+Hpp0M0MdSZuDoX3eThAYiJwmqpN7z8iFe8d95kcZ+VCSKR7H/qgzcYYIOJ7QbhR1x8SakLwZZpSFZiW5n9JxhOGCF48KTO9vpVuipZ7LdY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXtl5gCB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Ku2CBzv1";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ujMQYS0s"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.stl.internal (Postfix) with ESMTP id 29C0A1300C52;
-	Tue,  8 Sep 2026 16:09:49 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 16:09:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788898188;
-	 x=1788905388; bh=XGzc/5Eb+lr6gHxtsWUeqlpbhH2hHOwRDxbQuElICwQ=; b=
-	Ku2CBzv1lbwKt7FkbK1hK9z6lUhC4lyMvWVuJCDperQCrGR4/rovcYZT14+F2GRU
-	Rav/lw7wDP1LZUNHanxxKPv9TiMXrWJeF4XcFPkUtSvKXHgFfqD1zYYomxsGk/6w
-	D0ugcsY4ct992ReVcs1IUi3KQk3MwK2m0/nVfeh2El0YDoKepsDCsUsJEw2Xopqf
-	vUaW1KTQtRtXeElKC9QKtKuQIKUo2YJjj/bJt4iyEuMRznXurrxMtEOYF0Vypnae
-	hzllfDFfMF4MLpuFLIHlHRQICSgPksOWfpJUZziA6rKH7zrejjbOHOF06vLIb/zc
-	w5HH3y04fc96xLHdT/IkTQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788898188; x=
-	1788905388; bh=XGzc/5Eb+lr6gHxtsWUeqlpbhH2hHOwRDxbQuElICwQ=; b=u
-	jMQYS0sL+Aowo4kNVDUIZ6sxKERcte19OIubGhUn842ROtFnMhzcn9nOmWNq8m7C
-	FHmwKHYgoJ/jG2pkJGkAUm7NezuYNDuHEtea2iCCY1h68vHHRw1tbwvNgBC7NsFY
-	rbLssRXRc0/8Z7/FVbSv77yvARhK4G2eGFJ9PzzEfE+9jQ1o9Hc+VoCcqrJKguIG
-	cVWq5h0ss748M5e43R0TGSageD0VACosHeHSAOqC2oKrcgC+Dywg34eoHUA61vUD
-	Om+SXPAR6IF9uWHBupFJaffqsw5yQdw56xQkgFp2LSYGh5EmlOC0wvW/IaDQZnCb
-	LMTZ1CVIosTouKpnUkAaA==
-X-ME-Sender: <xms:fmuganAtXtSwL-JpSs__4SRF0rTRt5GmxPf831izoU_erzPTWgAXSQ>
-    <xme:fmugaoXMuufuq90WbEJq3jH2RboT9th930_-cNxUKLtsWrbB1oneFf9Xz6yLhoedT
-    YqurXU9BXFFOxISdk694hhj0cpVnKQYoXn04NuD4ysdyrWwPbUYtRY>
-X-ME-Proxy-Cause: dmFkZTEOp8fHm5Y3J5V2OI0TYboevCVDMAAGYDcPknsZa+0X0RAcfHjfIunQUCrjwll0ea
-    rAQKkk63eMYO5/YsUuJodvREtVTrCuYoOIZ9cdLF4PumfhTpYgh50Lfo6o9D8QrGucOErt
-    1sYxt2QrPbopoRmAf/GENKdf06cSRGVrvjFFQcAbo5nmTHwS3A0bt3HwuabeSgvhnsObAg
-    dbPo0mT2Qbsifo2veGFIaoL0lJSdd83VAXqWQzrdwJ/OSfRVxeUmrfI9jQpSwWye6jKqFi
-    NOft3xXk0NdTzkITEAa33TJA6ix1zF0AwdpfuVEyfJmRNLBy11archzASh1BSGprZa93Ds
-    C+Sv9U/weUns6mx2nwFA2lCN3zLi/Rk8p/J83yqZM7VlcK675+DuzSxAZqfRkMJBci1i1e
-    eqsl5xkRkXCorwVc/2lQanGN1S0IbMaPI/UhcGXT2qI1gtN8VcS4pCweSc1uJ3MgWVP5Fr
-    fd6wuggi9qR2Is2m5jQDxFEcLJqjzcHUFW7JybEqzCT2wTsaTx7pu+YFjg6kopHPn0PbED
-    uooY3D/duB0e3xj8T9BQsm45luJjYM2Rz0k3B09xmHAt8V34sz5JvPIlWK2+nJkOpdV5Fl
-    Crqztnvqs4a/7+lCs3/5TbA3fZD27fPI9F+o3hImahc2L0qBOLFE1RAotMHQ
-X-ME-Proxy: <xmx:hWugatKoHMBMnZtP17UULzQB6EuGdq9y4KPlROoonj4Gm0uf8OUMXA>
-    <xmx:hWugaqqpPwtCM1AUnviPCuSqlRr2u6RRud1ajk-GboRnZDzrQIApPA>
-    <xmx:hWugauWHWoYrWzb7a2llPhn3uSnztbyj-cPoQd3ZWlwfPBa7MX2nuQ>
-    <xmx:hWugagatGK1_RhDhj2yYgoRPdRO8Qbn-tAse6dSoi-K2c4PVP9gsKg>
-    <xmx:jGugarmn9UC73Fhha86G49qnTJMPVdxBgve0N-zdSoV85HG7yX3TtBkr>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5E56132A0078; Tue,  8 Sep 2026 16:09:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXtl5gCB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB1831F00A3D;
+	Tue,  8 Sep 2026 20:09:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788898204;
+	bh=TRgT9ea8+VjlPBqyFE1dpILlF4sMFkSDNa29fecVCzQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=CXtl5gCBQnmo1ODch5we5oyPtX6Nta2sLhdZVCDDoKrJYyG5ZOrfeL17dSMRxRx+O
+	 2JtdoLnek/ZnvF5M6XzHHKyvbTiryESdHP1W0t3643iGGF7vD8iJj7wa85XGsTdQwt
+	 jVgFDkNZwQbInU9u6s2EX2THAL+wyzfzfsWN/AApTZ2QAkHOhs0MBqZLv0neZAPd9D
+	 r3VHpvsQFuoBH08M0WynwzQJFyDYgjz8hc/CfsxdSjdJDToy8bZrk+CcdlfRaN6GiZ
+	 STxCchuEh6FVGii4scQ1lBGiJ3533RSLAGnPV8X1LfklWgDOvEuhjx87N1UE/YAZAW
+	 KE4B0FDcUN4lw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:20 +0100
+Subject: [PATCH 16/39] mm/vma: add and use vma_[flags]_is_fixed_mapping
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AwGOxrB98c9B
-Date: Tue, 08 Sep 2026 22:09:14 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Karl Mehltretter" <kmehltretter@gmail.com>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Linus Walleij" <linusw@kernel.org>,
- "Russell King" <linux@armlinux.org.uk>,
- "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Liviu Dudau" <liviu.dudau@arm.com>,
- "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Andrew Lunn" <andrew@lunn.ch>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
- "Gregory Clement" <gregory.clement@bootlin.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
- "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>,
- "Guenter Roeck" <linux@roeck-us.net>
-Message-Id: <e768247f-3c29-4d36-a40f-05ec81b45db2@app.fastmail.com>
-In-Reply-To: <aqBhF5oS1A2W6dAa@gmail.com>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-2-arnd@kernel.org> <aqBhF5oS1A2W6dAa@gmail.com>
-Subject: Re: [PATCH 01/13] ARM: remove sa1100 platform
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-16-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5182; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Jg2oZKAkMU8D3w7VkxZpIxKVLG547PwsxLoXFYp4+ho=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG5es2n6jbmNMW5PX19+3CQW5rEg8nT8bCWdz7nGe
+ e/NuDxvd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiDd2MDD+ib8253+fxTJGd
+ hXPZ4/adfMwxL6f9aj2hE7T5P6PAlh2MDA33ta9mW2WlSpl99XNb+fXNhbgq2+cPjoY/uzi352f
+ ldz4A
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Sep 8, 2026, at 21:39, Karl Mehltretter wrote:
-> On Tue, Sep 08, 2026 at 05:27:51PM +0100, Arnd Bergmann wrote:
->>  62 files changed, 19 insertions(+), 10501 deletions(-)
->
-> Note that Sashiko skipped reviewing this patch, because it exceeded
-> its current 10000 line limit.
->
->> diff --git a/drivers/rtc/rtc-sa1100.c b/drivers/rtc/rtc-sa1100.c
->> @@ -275,18 +275,10 @@ static int sa1100_rtc_probe(struct platform_device *pdev)
->> -	if (IS_ENABLED(CONFIG_ARCH_SA1100) ||
->> -	    of_device_is_compatible(pdev->dev.of_node, "mrvl,sa1100-rtc")) {
->> -		info->rcnr = base + 0x04;
->> -		info->rtsr = base + 0x10;
->> -		info->rtar = base + 0x00;
->> -		info->rttr = base + 0x08;
->> -	} else {
->> -		info->rcnr = base + 0x0;
->> -		info->rtsr = base + 0x8;
->> -		info->rtar = base + 0x4;
->> -		info->rttr = base + 0xc;
->> -	}
->> +	info->rcnr = base + 0x0;
->> +	info->rtsr = base + 0x8;
->> +	info->rtar = base + 0x4;
->> +	info->rttr = base + 0xc;
->
-> This drops the layout switch but keeps "mrvl,sa1100-rtc" in
-> sa1100_rtc_dt_ids[] and in bindings/rtc/sa1100-rtc.yaml, so a DT with
-> that compatible would now silently get the MMP register offsets instead
-> of the SA1100 ones.
+This determines whether a VMA cannot be expanded or merged because what
+they mapped was determined to be a set size at mmap time.
 
-This one is interesting: this was already the behavior before
-my patch, as CONFIG_ARCH_SA1100 is mutually exclusive with all
-other targets. That obviously wasn't the intention of the code.
+This typically refers to kernel-owned mappings, however VMA_DONTEXPAND_BIT
+is not reliably set alongside VMA_PFNMAP_BIT or VMA_MIXEDMAP_BIT, so we
+must explicitly test for this for now.
 
-I've removed the sa1100_rtc_dt_ids[] entry now.
+We also explicitly test for VMA_PFNMAP_BIT as VMA_DONTEXPAND_BIT may not be
+set for VMA_PFNMAP_BIT's despite the one implying the other.
 
->> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
->> @@ -614,16 +614,16 @@ config S3C2410_WATCHDOG
->>  	  be called s3c2410_wdt.
->>  
->>  config SA1100_WATCHDOG
->> -	tristate "SA1100/PXA2xx watchdog"
->> -	depends on ARCH_SA1100 || ARCH_PXA || COMPILE_TEST
->> +	tristate "PXA2xx watchdog"
->> +	depends on ARCH_PXA || COMPILE_TEST
->>  	help
->> -	  Watchdog timer embedded into SA11x0 and PXA2xx chips. This will
->> -	  reboot your system when timeout is reached.
->> +	  Watchdog timer embedded PXA2xx chips. This will reboot your
->> +	  system when timeout is reached.
->>  
->
-> "embedded into PXA2xx chips" is better.
->
-> The RTC_DRV_SA1100 help text a bit earlier in the patch also still says
-> "built into your SA11x0 or PXA2xx CPU".
+Use this predicate in vma_flags_can_merge() and in check_prep_vma() in the
+mremap logic testing to see if mremap() can expand the VMA. The criteria
+for khugepaged and MADV_COLLAPSE eligibility in
+__thp_vma_allowable_orders() are precisely those for mergeability, so use
+vma_can_merge() there (with an expanded comment).
 
-Fixed all these now, thanks for the review!
+This obviates the need for the VM_NO_KHUGEPAGED mask, so remove it.
 
-      Arnd
+Hugetlb VMAs remain excluded from khugepaged as hugetlbfs always sets
+VMA_DONTEXPAND_BIT.
+
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/mm.h | 39 +++++++++++++++++++++++++++++++++++----
+ mm/huge_memory.c   | 11 +++++++----
+ mm/mremap.c        |  5 ++---
+ 3 files changed, 44 insertions(+), 11 deletions(-)
+
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 45c59474c853..bca955941212 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -600,9 +600,6 @@ enum {
+ #define VMA_REMAP_FLAGS mk_vma_flags(VMA_IO_BIT, VMA_PFNMAP_BIT,	\
+ 				     VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT)
+ 
+-/* This mask prevents VMA from being scanned with khugepaged */
+-#define VM_NO_KHUGEPAGED (VM_SPECIAL | VM_HUGETLB)
+-
+ /* This mask defines which mm->def_flags a process can inherit its parent */
+ #define VM_INIT_DEF_MASK	VM_NOHUGEPAGE
+ 
+@@ -1650,6 +1647,40 @@ static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
+ 	return vma_flags_is_kernel_owned(&vma->flags);
+ }
+ 
++/**
++ * vma_flags_is_fixed_mapping() - Do the specified VMA flags indicate that this
++ * is a fixed mapping that cannot be expanded or merged?
++ * @flags: The VMA flags to test.
++ *
++ * Fixed mappings are those whose size is set at the point of mmap (for
++ * instance, a kernel-owned mapping of a fixed range of memory), and thus
++ * cannot be expanded or merged.
++ *
++ * Returns: true if the flags indicate a fixed mapping.
++ */
++static inline bool vma_flags_is_fixed_mapping(const vma_flags_t *flags)
++{
++	/*
++	 * VMA_PFNMAP_BIT should imply VMA_DONTEXPAND_BIT, but some callers set
++	 * only the former.
++	 */
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_DONTEXPAND_BIT);
++}
++
++/**
++ * vma_is_fixed_mapping() - Is this VMA a fixed mapping that cannot be
++ * expanded or merged?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_fixed_mapping() for a description of this property.
++ *
++ * Returns: true if the VMA maps a fixed mapping.
++ */
++static inline bool vma_is_fixed_mapping(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_fixed_mapping(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1671,7 +1702,7 @@ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ 	if (vma_flags_is_kernel_owned(flags))
+ 		return false;
+ 	/* VMA explicitly marked as being unmergeable. */
+-	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++	if (vma_flags_is_fixed_mapping(flags))
+ 		return false;
+ 
+ 	return true;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index dd66c6ad5af1..befffadd978e 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -212,11 +212,14 @@ unsigned long __thp_vma_allowable_orders(struct vm_area_struct *vma,
+ 		return in_pf ? orders : 0;
+ 
+ 	/*
+-	 * khugepaged special VMA and hugetlb VMA.
+-	 * Must be checked after dax since some dax mappings may have
+-	 * VM_MIXEDMAP set.
++	 * khugepaged moves data from VMAs once collapsed, after they have been
++	 * faulted in, relying on refaulting for file-backed memory.
++	 *
++	 * Kernel-owned mappings cannot be reliably reconstructed from page
++	 * faults, and fixed mappings (including hugetlb) may not be marked as
++	 * kernel-owned - precisely the mappings which cannot be merged.
+ 	 */
+-	if (!in_pf && !smaps && (vm_flags & VM_NO_KHUGEPAGED))
++	if (!in_pf && !smaps && !vma_can_merge(vma))
+ 		return 0;
+ 
+ 	/*
+diff --git a/mm/mremap.c b/mm/mremap.c
+index 7c368440fafe..ed19b47c2caf 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -1788,8 +1788,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 		return -EINVAL;
+ 	}
+ 
+-	if ((vrm->flags & MREMAP_DONTUNMAP) &&
+-	    vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if ((vrm->flags & MREMAP_DONTUNMAP) && vma_is_fixed_mapping(vma))
+ 		return -EINVAL;
+ 
+ 	/*
+@@ -1827,7 +1826,7 @@ static int check_prep_vma(struct vma_remap_struct *vrm)
+ 	if (pgoff + (new_len >> PAGE_SHIFT) < pgoff)
+ 		return -EINVAL;
+ 
+-	if (vma_test_any(vma, VMA_DONTEXPAND_BIT, VMA_PFNMAP_BIT))
++	if (vma_is_fixed_mapping(vma))
+ 		return -EFAULT;
+ 
+ 	if (!mlock_future_ok(mm, vma_test(vma, VMA_LOCKED_BIT), vrm->delta))
+
+-- 
+2.55.0
+
