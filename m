@@ -1,154 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B697B57C73A;
-	Tue,  8 Sep 2026 15:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA8557C738;
+	Tue,  8 Sep 2026 15:56:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883017; cv=none; b=twMu6trgSmsR4V6QRJLIfQsvux+UEx06s0XXp8ANeCPw9HuiEh9FwQ9D8sy0R8vn0AXosf6qVh2UYSnhpr+Id0RPQsZZxfDWyJgHxcCuaYActRl3SAycvRaBel3sjJVu74d6r7N5X9QJ6BWo0goWwUst94bKMcmP05CjX7qGXLk=
+	t=1788883018; cv=none; b=Zi8xl4q0Acz+z3QkESe5Um/SIEJwXknxLDpZRDRwZ3Jbqciw31QMhCoVO8ZfFPjXhWpi1rzcJH8DQ+UBGgrL44MAwSzNLHkpbqzZTSflOStJtLypHNqJB9QNjmRWzxkCHvx8u3lf7/49u1sPTC4gehAAcqgKcuOm57e3AcpEdn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883017; c=relaxed/simple;
-	bh=eeWrYG/5EbxTNbC6g1mL6zpX9xLS3sBPAC/s8HdcDwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UlfRkapc08u/sEZPpNGbnfnx5y2n5AnZPVu976rRMqQ1TU0F3nhAQEeqe05u29PfoPttdu7B0/XM8NgwnHZNC6AyFSBTN9dvC4m2W4Xogmkms52lc4Bkw65j8Kkv0GNE1oqJrYoAKzKYKZJsblRK7wzrqv9ZPyTv+11rgHOBtVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnNqH/UQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788883018; c=relaxed/simple;
+	bh=SYBL6JqyoQ76N8dx/qhGcs7E92Sv5vj8oJSL3lQKEzE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V6Ooj++VYVeHaYpIzwPfT9e9ErT+5fLAMn+UEN5eV4uMFjqVDjAxld67QCe1Tg4Fc1llSadg45PX//0QSAWYu1m3kf47pyRx6tWEAhHmembX7Np3E84p1Y0e8roefxuRJ/TSeFx0P+sWdz0O4AyriKobPvrVHy3VZGor9+m/JwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SaAb6Cao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnNqH/UQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 457E61F00A3E;
-	Tue,  8 Sep 2026 15:56:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SaAb6Cao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295801F00A3D;
+	Tue,  8 Sep 2026 15:56:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788883014;
-	bh=Tcijen+XrkE1sKKJX8CkIKKooxVBnQd0uzlIx9kSVSA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GnNqH/UQFVYnXra3IOHQ/cSX+xcE9Gtflza4237iNzbU/emeQIcdFaFSEbmxT34Ah
-	 7Mc7hfUaC0iEvJlhSwl7XOxg60TDmRvikCOiTgwVLAM5VImOq6qIMbukd03QYVSwPJ
-	 PmgeFd9GIF66wvENo0/46QR8MbGs6TlXSePQaUiBaf5EWrtEPtoE0/zKps9Qb9G8J8
-	 ex8McOjWWn7qQoI5U6se5codMlXNQ6NR7YEHTlNmH6C+qYSrLgXUwdbSFeZXIO8Hu2
-	 0YL9+81ECY8oWT45na2qdN4jrVvWW+FObaNB764wG4B/ajp8jvv5E8PgAPd0efZBVB
-	 xPDJ103/UfgbA==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Alexander Graf <graf@amazon.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Baoquan He <baoquan.he@linux.dev>
-Cc: x86@kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	linux-efi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arch@vger.kernel.org
-Subject: [PATCH v2 1/4] memblock: get rid of CONFIG_MEMBLOCK_KHO_SCRATCH
-Date: Tue,  8 Sep 2026 17:56:35 +0200
-Message-ID: <20260908155639.2496551-2-pratyush@kernel.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260908155639.2496551-1-pratyush@kernel.org>
-References: <20260908155639.2496551-1-pratyush@kernel.org>
+	s=k20260515; t=1788883015;
+	bh=D2+EB8N23BWkXyn3BS2+m2U6FpYOtn54CY3uZ3y8YJs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SaAb6Cao2iGX8tN4Xu800roPEU65yamNP1bauJE3x9rhEaor3zDWsgJusfIpMUdx7
+	 Ox5NYnmwCVp5nj7rHq83u0xvbw8rdpKc3JHPIpTGB4p4uXJ2yi10Pzg/IAp5nxzhiO
+	 2l5vcfFagM4XqqpbHtppKno5C2GJZP+FaAjZ/mFWvS9pbIw8aJcFp/XcRvtWnRU5au
+	 JC0GwyBQx5gLgEioUNwtDf56/cPi0o71i2xbwn8EhBdWgZVzwaE1nPrKEKYxN4Rko7
+	 oF71x82KM+ysYVdVhDJQSKfqCS1afgT1IUF+kw/3/HmE44AGPq4fnsZJH2O+jQMAnV
+	 qBwE3Kz8heHNQ==
+Message-ID: <1673485d-5529-415b-b1b6-60e27291e3bf@kernel.org>
+Date: Tue, 8 Sep 2026 09:56:54 -0600
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next 1/3] rtnetlink: add AF_PACKET multicast dumps
+Content-Language: en-US
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Donald Hunter <donald.hunter@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Ido Schimmel <idosch@nvidia.com>, Jakub Kicinski <kuba@kernel.org>,
+ Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260905093932.43726-1-sigefriedhyy@gmail.com>
+ <20260905093932.43726-2-sigefriedhyy@gmail.com>
+From: David Ahern <dsahern@kernel.org>
+In-Reply-To: <20260905093932.43726-2-sigefriedhyy@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
+On 9/5/26 4:39 AM, Yuyang Huang wrote:
+> +static int rtnl_dump_mcaddr(struct sk_buff *skb, struct netlink_callback *cb)
+> +{
+> +	struct net *net = sock_net(skb->sk);
+> +	unsigned int flags = NLM_F_MULTI;
+> +	struct {
+> +		unsigned long ifindex;
+> +		int addr_idx;
+> +	} *ctx = (void *)cb->ctx;
+> +	struct net_device *dev;
+> +	int ifindex = 0;
+> +	int err = 0;
+> +
+> +	if (cb->strict_check) {
 
-This config is only a proxy for CONFIG_KEXEC_HANDOVER. It is only
-enabled by KHO. No point in the indirection. Use CONFIG_KEXEC_HANDOVER
-directly.
+this is new code. It should only work with strict checking.
 
-Signed-off-by: Pratyush Yadav (Google) <pratyush@kernel.org>
----
- include/linux/memblock.h  | 2 +-
- kernel/liveupdate/Kconfig | 1 -
- mm/Kconfig                | 4 ----
- mm/memblock.c             | 4 ++--
- 4 files changed, 3 insertions(+), 8 deletions(-)
-
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index d62db9e776cf..db3b106c6335 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -614,7 +614,7 @@ static inline void early_memtest(phys_addr_t start, phys_addr_t end) { }
- static inline void memtest_report_meminfo(struct seq_file *m) { }
- #endif
- 
--#ifdef CONFIG_MEMBLOCK_KHO_SCRATCH
-+#ifdef CONFIG_KEXEC_HANDOVER
- void memblock_set_kho_scratch_only(void);
- void memblock_clear_kho_scratch_only(void);
- #else
-diff --git a/kernel/liveupdate/Kconfig b/kernel/liveupdate/Kconfig
-index c13af38ba23a..f50daee8eff0 100644
---- a/kernel/liveupdate/Kconfig
-+++ b/kernel/liveupdate/Kconfig
-@@ -5,7 +5,6 @@ menu "Live Update and Kexec HandOver"
- config KEXEC_HANDOVER
- 	bool "kexec handover"
- 	depends on ARCH_SUPPORTS_KEXEC_HANDOVER && ARCH_SUPPORTS_KEXEC_FILE
--	select MEMBLOCK_KHO_SCRATCH
- 	select KEXEC_FILE
- 	select LIBFDT
- 	select CMA
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 604c58199acb..631a410eaee9 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -483,10 +483,6 @@ config HAVE_GUP_FAST
- 	depends on MMU
- 	bool
- 
--# Enable memblock support for scratch memory which is needed for kexec handover
--config MEMBLOCK_KHO_SCRATCH
--	bool
--
- # Don't discard allocated memory used to track "memory" and "reserved" memblocks
- # after early boot, so it can still be used to test for validity of memory.
- # Also, memblocks are updated with memory hot(un)plug.
-diff --git a/mm/memblock.c b/mm/memblock.c
-index 9ce86349a29f..197d854c18d5 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -113,7 +113,7 @@ unsigned long min_low_pfn;
- unsigned long max_pfn;
- unsigned long long max_possible_pfn;
- 
--#ifdef CONFIG_MEMBLOCK_KHO_SCRATCH
-+#ifdef CONFIG_KEXEC_HANDOVER
- /* When set to true, only allocate from MEMBLOCK_KHO_SCRATCH ranges */
- static bool kho_scratch_only;
- #else
-@@ -2596,7 +2596,7 @@ int reserve_mem_release_by_name(const char *name)
- 	return 1;
- }
- 
--#ifdef CONFIG_MEMBLOCK_KHO_SCRATCH
-+#ifdef CONFIG_KEXEC_HANDOVER
- __init void memblock_set_kho_scratch_only(void)
- {
- 	kho_scratch_only = true;
--- 
-2.55.0.979.g7e5102b832-goog
+> +		err = rtnl_valid_dump_mcaddr_req(cb->nlh, cb->extack,
+> +						 &ifindex);
+> +		if (err < 0)
+> +			return err;
+> +	}
+> +
+> +	rcu_read_lock();
+> +
+> +	if (ifindex) {
+> +		cb->answer_flags |= NLM_F_DUMP_FILTERED;
+> +		flags |= NLM_F_DUMP_FILTERED;
+> +		dev = dev_get_by_index_rcu(net, ifindex);
+> +		if (!dev) {
+> +			err = -ENODEV;
+> +			goto out;
+> +		}
+> +		err = rtnl_dump_mcaddr_dev(dev, skb, cb, &ctx->addr_idx, flags);
+> +		goto out;
+> +	}
+> +
+> +	for_each_netdev_dump(net, dev, ctx->ifindex) {
+> +		err = rtnl_dump_mcaddr_dev(dev, skb, cb, &ctx->addr_idx,
+> +					   flags);
+> +		if (err < 0)
+> +			break;
+> +	}
+> +out:
+> +	rcu_read_unlock();
+> +	return err;
+> +}
+> +
+>  struct sk_buff *rtmsg_ifinfo_build_skb(int type, struct net_device *dev,
+>  				       unsigned int change,
+>  				       u32 event, gfp_t flags, int *new_nsid,
 
