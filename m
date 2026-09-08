@@ -1,198 +1,238 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35912D3727;
-	Tue,  8 Sep 2026 17:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887259; cv=fail; b=XR4Pyhuw4VDHo7/XzKunaRDCFyv/u8RdVv/Eijr9iCA2+n9tQxalvKUoj5FhUYc3MsdqAbtMWMrnEp7X7gSc0j4L+l86EVGRFyuNBE6vOJWg2Jp+o3gGRkiz0rBQDy1mhgv65IwHiCMyPzOTqBOly2C2pPUVvI9Gdm7Qo7zGFo0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887259; c=relaxed/simple;
-	bh=OIVx9s1riWx+UqHLDTsfy9bVYljiqga492giQMeC3rQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bbybdklys03TqkoM1MIDa4ewcQ6iYksTj7gP1X8e9yZ2EPCTYOotDO4eRhpd+w1btHPRk57h1zQNi617/kza7H0BLZlKKXLQXf+n6BxN/8k3iY21FYVh753pn0H+mNxti1UavBLn82YbK7vLaC6MXQtWYSmHbMTBU+jWX4gfB3s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=pdGkXfB0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=a4WP7O+I; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0502A5908CB;
+	Tue,  8 Sep 2026 17:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788887263; cv=none; b=uCaNRVUFxVH9jV8na94uw/KyjpoB84JnX7IkeZED+OqCMifQNqLAy2g+on3wCGX1HLI6663qfNky2LoYThKPr7dnnDnjxUt/VoPSeQTDPbrjw9Kovvt2SUspnbYFw6+gS7iSfqvYqHNrJDqzZsBKiRvJ02jSfEXF1wbbIsqyNrE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788887263; c=relaxed/simple;
+	bh=7jybtTARDbLiDN7g47KofFv0D/a1zezV6RwS8xfnTWk=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UFLNWI/lDDWV5YLLPNmKbVAogD5ELvHwBA2fsU8Qbw1uR9qZyHnQiSb2Ux3LLtONrbZLYRwwFiXbXmR2xiLXgrPtQrMS+fy09YpkeiwHsV6J723yusAHdOpfnnKKz0dIe88NtoAXKaC5SuGNSV6/FFla/EMGF7JD/W0PUVamRvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgnlZN/o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="pdGkXfB0";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a4WP7O+I"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 688EkPfO173220;
-	Tue, 8 Sep 2026 12:07:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=WJVyonQPf03US
-	X4RK1at4qTPhvvjwTnMfMX3BXM7FEc=; b=pdGkXfB0jTlL4+q2U0+7pYMSHAEur
-	T/yxsHJ/q9oj2BdN8f+VsVbW0+muvfWTjI79oA5ZzIz+GMaoe7STyjKfWPpDwxxu
-	NNCy1lTopAtjTEZ7Qq8ErnadQGvq9ZsxFqqrIFkK3qAr2ivZ/YbRb05711mKpcQs
-	a1USrv3Hb8dPf4Se0a0nlr4PIC1GIOwz/fI4hVCXBwJ4rDoaRXA3JlShler266At
-	bz54JqVFif3nEeLjVAfaZHDI85k5wwxbikjTKRExzILEES4L90bBB7HX2ZTUAG2H
-	cg2VP8Rd0PCYRcrYAkrXJmNdvmk9VczI+Ru0wNV51+lDJqs27ohwBzxpg==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gjkdmsjnr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 12:07:32 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X87UTHjXrQK+ebvQw89GPYtTgUVdCd2sfo1EM61HFNexSVjfkOMse1tiCaGZMU8FYKONZJ42fufgj2eW/oNn2nffN7OBksdJMGNP86yRVlc2L5bREoujONgLc8L9uf+PDyrmhUiTjMu7bimY67MGH7jhRZ78bUu7hI6YX1PrwiMWChqmBq+ZunqnGtyKWjDhaHlWGrbNCZ8dZCfsYCzyfINV30VTS84AQNFadxbc+Fv1ouT35KH8DqRQmMfa7PSZw78gBN4W2C4GQcRlZ86pulICZaI08+pOy62oWbET+sA0bHEYray0IDL3enlddOVFHGyeqjGED4o/Obk9vIIRrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
- b=UjKWZ7gAJmUUfx+HENqePFpgtsl8Nhb1GrKv+E2HY4tLCc1TdWdzDY+G+juVz5LuHB+gh6P1fJSiw4nFl21+udr67ZSVdsUahreWNeELIdEqViaTp2zdFT+CKaOxsjDQ2ztfmmKbEO5aWbnpjGjaxtenBs2R8WiPTmoWW/ps4I4uIECG5AEeD4fofHqVZmwPTAMJVnP+sJFplt+KFdNquNQNh+EOTeqHd9PrdXEKJbVt1mIP57wsVYD5y8/rnYmqeugIqG2PhHIYS7Uc3NnAQWzOzt1/xS4Q4vd0NBDRzSBQdMCZvD18zM1+XMeXIswvBxxJLGyYHy1wQPLg04Y8zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
- b=a4WP7O+IKfbN9ZWYJlRWeWwjCTxCBRNt4hjS1f0vEV7/Po8l2jVosEGEkrsOXPZ5ZbAxnNi3jm0kMleocqG/PnOalXhu43JX8HvKfO1FQVTsqPS+I5Naf/82M06k5MsOGJ2UM4Cbw0F1V7CWzcmPaxhkrCUk8+wfGnkEz93Fpyo=
-Received: from CH2PR07CA0043.namprd07.prod.outlook.com (2603:10b6:610:5b::17)
- by SABPR10MB997941.namprd10.prod.outlook.com (2603:10b6:806:50d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 17:07:30 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:5b:cafe::35) by CH2PR07CA0043.outlook.office365.com
- (2603:10b6:610:5b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
- Sep 2026 17:07:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 17:07:28 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 12:06:36 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 12:06:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 8 Sep 2026 12:06:35 -0500
-Received: from hpz2.dhcp.ti.com (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688H6Zge2860316;
-	Tue, 8 Sep 2026 12:06:36 -0500
-From: Judith Mendez <jm@ti.com>
-To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>,
-        Tero Kristo <kristo@kernel.org>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH] mmc: dts: am654: Add 650ms power off delay for proper MMC power cycle
-Date: Tue, 8 Sep 2026 12:06:35 -0500
-Message-ID: <20260908170635.238775-1-jm@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgnlZN/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268BD1F00A3A;
+	Tue,  8 Sep 2026 17:07:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788887261;
+	bh=zdNtkBOLC/SAMyuh+w73NAqwDKO7Dz8z8s85TF2kyro=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=TgnlZN/ok5ROunEpXsd9pVV6ur12Pl/ioBV5q9Y859TM6QGlXGVyitkXPsUmVKr81
+	 zIh/oQlEn+iFBeNHgkMnPifdZHegN5Ey8aNw77V5E7/gxVPKd7pfEidK+cb0R/FJs/
+	 dQzuWFTjoB3wWSTlW+yzTnN261+kzy8gn6xm//dEOuayV8CCPizY/TTMXqGtlcacOO
+	 Yrp6OGxw2tJrDszKfpllBWKJdmBc8vmgEHfalIvLU0Ysuiqx9cxPguEpi/thqtPNvK
+	 BdBwdsZ1bdYkXq+pxEpWMK3UKygz/lvk3tbV3zRxFAOOzsltDswPngEyTy+Xwn2T6m
+	 ycAGQ1MLcUpXQ==
+Subject: Re: [PATCH v4 net] octeontx2-pf: reset HTB scheduler topology before
+ freeing queues
+From: netdev-bot+sashiko@kernel.org
+To: rkannoth@marvell.com
+Cc: davem@davemloft.net, hkelam@marvell.com, linux-kernel@vger.kernel.org,
+ naveenm@marvell.com, netdev@vger.kernel.org, sgoutham@marvell.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com
+Date: Tue, 08 Sep 2026 17:07:40 +0000
+Message-ID: <178888726063.219967.8664029829834628993@kernel.org>
+In-Reply-To: <20260903020533.3068041-1-rkannoth@marvell.com>
+References: <20260903020533.3068041-1-rkannoth@marvell.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SABPR10MB997941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Cpg1deoLOARZoca91uc2oWecabNfVKEdrH6tLvFUWE+/Q6o+GJi8L3PQ9Q1PblBorURdeQCYm6DfNgeKB+m5PuxQLLDyuqgtWd+Ay/nlKIpYraPz3+f12uVNjTX8TEWSbGzi5dzrAa5xCE0tWBPjrYKU3W1cQEgvO8ILd4/PUOSBiYT+HPnnucExW2bcuqXjy51BKRueD9MZctGALwN9e3wqitQt8fyclQy2wqqBoQW3hg+a7ARyikExxdl7cV0+SIGQwH3AI9UDmxC1PXR0u0/Z41s79MejmJ986UeQpv64oC3TT0TTSn9jUb4L76xJj124DhBJJQFYR/V42jF5UdHrtpnRWYKDazD8ke+IeWjoqplrN5pys7MQ+Sh52lNFCxyBRr9h2Ik9u/vdr45yRNq113rkD5Q++WAyPySReKgetmQmcYFJ4J60dXGdKIg191H8CmVHbbeqOUfeOWAuJz9T8s31fBs1gI7IS9VU6xIPqtAwbTJE/bldkGcsh4rYg1IkVd0dhVLrCod1lw/BqBFke1Z6VKz1yxQf9A54v2ThWRoj5Pn+XwBMO6Uh4oXn30Z5mhjhECqCcYtWD7Emf/IWBfh4u5+iulmjIg8+KJqV6bOEgFdQP73wiXzHzAxTcfH8fV6wAtWFl/ml7aD4wRXFPgOASXDgR0VVG1sqY4IBpDvFQ3VG7LFRs+l0yQ+F
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DYQGsQhsS9OQ0L3t2yMdiCtms7jHrcIzJzDymYB+Li2B4B66EqmXtFxPQiRlguqgCmGsJcyJRumJJvDcZ1bZyBku8/O+0e0xeQ4vQhK8zNJ8U8XzQBDJMBajMKfVU0dMJnZ4pVS3aAE1gIFpb1x1r/fMyqULUnrbbuzBahD4Tb9e8J7FDiVF31ESUWxkS6i3e9aFNTg9R0HYnN7HCgZac6AGZgemIwYx0S/Q02pZupjiqLkFHG7z9VJfQ3keRdVMJF2nDLbjUQaBIfY3W1muM6O7zYew40cZ/Q0t6VAA8pLlNas0DV0Ge5QsbYX8SNjVOYDflehIBn7AmlYh9r2BwUjOKP7nGT8QpocMgqFRVyr7Gsgd3CJbRM3IcegWLBGEcrVEuzJAMZ10I87Dm8pKbHsH9I4V2tbXilmuYkiBrJZTbWFBikeesnyCERBIM3gY
-X-Exchange-RoutingPolicyChecked:
-	apHKN6TvkqPacjSLu9a1WcbqhY/mujSvLFHIAUIeHbHgY6QUepwFhUqtT14RhN3sdU/trQ7MoaEFimDt8i/5OSUpedzYYF0VD8W7Tmb8bAdNSQZxLFMzI0MIr/mxH+lA/gjJbVOIckGxnXaJ5e/LuxaCVJd7VVZCWPlZZ29OqwTUSQ1VAvAdvw/w1cMgdaLFX5qTqT7qW/ju1wJ79NFhc/HzRniz6ZgsfXhwLloqPqmjmEMcJ0Ose2DCaPk3gL5ZQaHY5LuymDPJZu52W6Uxt9dAaI2N7PZkoUfTN6LGmrZZNTQDk8e9YCvdMXj/Rl1cozeLED7yi1O+vOiJzzU5sA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 17:07:28.6937
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR10MB997941
-X-Proofpoint-ORIG-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
-X-Authority-Analysis: v=2.4 cv=KpZ9H2WN c=1 sm=1 tr=0 ts=6aa040d4 cx=c_pps
- a=YOgfsySBG6Gh3lLixmEA+w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=lUCeq0Dp3Nc7E5BXnPwA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfXxH2IJKbJ8uQe
- tX42dF0mE7/r8t94iVT448geuXWr0joA4m8asXKn+5J99QgQtDrItoQY8rxdlUk1ucok8JYFf79
- TjxQyOjQg8aExv0mg+BuIeJi2N15jvc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfX1HWOrPq7YVsS
- jTmN2nmvWDLAh2oJn7BGsjkYoYUmSyxIHqieFbjJptkjN4IhmJ2pzzd40tykguhJ5YZnIuXOARh
- 4iRKw6P051GRtn9/eS8iLmOmeJfbpolLiYxAWlNTM9WlfOiHBN1BDGWP9rFEueyCaEhYZFYf4Yj
- kn4UOVDPk17G8l2IhHWC9KhQ67JUVFU0XTFKmwxSAg5VMOCIpO2/7hF02oobUge1iZ0p5qMyG7h
- W2a1QyRFrIsj73+BCdk5v3+RF2oXw5oXIq+lve666/+JiES+ffjYciMtCsDNUzL8+phj3dvfl6v
- SR6SSZrheUiDfTn7qpQ7md+uyucpbsGwJ26vTaFWXpOyMrKM0F63KE9vm/HVpOjyv1+zgc5cAQI
- vu56z+NFX/a9zILJT68lfSNZPH9i5Qc89F91gDOPtM/TB5jnqryqD3Z6iIKpDoQUHvEGrNhvWTZ
- +NW8YDTg4kCV/l/3zwg==
-X-Proofpoint-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080184
 
-The AM65x EVM MMC1 VDD rail discharges slowly through RC circuit.
-SD spec (section 6.4.1.3) requires VDD < 0.5V for minimum 1ms during
-power cycle. Measured discharge time on this board is ~632.97ms to
-reach < 0.5V threshold.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-During boot, MMC power cycles between boot stages. Without power off
-delay, VDD doesn't fully discharge. Card retains 1.8V signaling state
-from previous stages. When U-Boot initializes, card no longer asserts
-S18A in ACMD41 response (already switched to 1.8V). Host misinterprets
-card state and forces 1.8V anyway, falling into a bad state and causing
-a boot failure.
+Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-Add power-off-delay-us = 650000 (650ms) to ensure proper VDD discharge
-during power cycles, allowing card to fully reset state between boot
-stages.
+- [High] Incomplete fix: the stale-TOPOLOGY bug class the commit claims
+  to close stays reachable through the AF's bulk release path.
+- [Medium] Set/reset asymmetry at the aggregation level: HTB offload
+  programs NIX_AF_TL1X_TOPOLOGY (PRIO_ANCHOR/RR_PRIO) on the shared per-…
 
-Signed-off-by: Judith Mendez <jm@ti.com>
----
- arch/arm64/boot/dts/ti/k3-am654-base-board.dts | 1 +
- 1 file changed, 1 insertion(+)
+--
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-index ca1300e130936..edcf039ccfbd0 100644
---- a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-@@ -460,6 +460,7 @@ &sdhci0 {
- &sdhci1 {
- 	status = "okay";
- 	vmmc-supply = <&vdd_mmc1_sd>;
-+	power-off-delay-us = <650000>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&main_mmc1_pins_default>;
- 	ti,driver-strength-ohm = <50>;
+octeontx2-pf: reset HTB scheduler topology before freeing queues
+
+This adds otx2_qos_reset_schq_topology() and otx2_qos_free_hw_schq() so
+that NIX_AF_TL{4,3,2}X_TOPOLOGY is zeroed before each QoS scheduler queue
+is handed back to the AF during HTB hierarchy teardown and cfg rollback.
+The aggregation level (TL1) is intentionally skipped.
+
+> diff --git a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
+> index 69c0911e28e9..f160b1618efa 100644
+> --- a/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
+> +++ b/drivers/net/ethernet/marvell/octeontx2/nic/qos.c
+> @@ -235,13 +235,63 @@ static int otx2_qos_txschq_set_parent_topology(struct otx2_nic *pfvf,
+>  	return rc;
+>  }
+>  
+> +static int otx2_qos_reset_schq_topology(struct otx2_nic *pfvf, u16 lvl,
+> +					u16 schq)
+> +{
+> +	struct mbox *mbox = &pfvf->mbox;
+> +	struct nix_txschq_config *cfg;
+> +	int rc;
+> +
+> +	if (lvl < NIX_TXSCH_LVL_TL4 || lvl >= NIX_TXSCH_LVL_TL1)
+> +		return 0;
+
+[Severity: Medium]
+Should the TL1 case be handled here too, or at least commented in the
+code?  otx2_qos_txschq_set_parent_topology() does program TL1:
+
+	else if (parent->level == NIX_TXSCH_LVL_TL1)
+		cfg->reg[0] = NIX_AF_TL1X_TOPOLOGY(parent->schq);
+
+	cfg->regval[0] = (u64)parent->prio_anchor << 32;
+	cfg->regval[0] |= ((parent->child_dwrr_prio != OTX2_QOS_DEFAULT_PRIO) ?
+			    parent->child_dwrr_prio : 0)  << 1;
+
+and for a PF the HTB root sits at that level, in otx2_qos_alloc_root():
+
+	if (!is_otx2_vf(pfvf->pcifunc)) {
+		node->level = NIX_TXSCH_LVL_TL1;
+
+so otx2_qos_txschq_push_cfg_tl() -> otx2_qos_txschq_set_parent_topology()
+writes NIX_AF_TL1X_TOPOLOGY with the HTB prio_anchor, which is the base
+index of the contiguous TL2 child block.
+
+On tc qdisc del, otx2_qos_root_destroy() -> otx2_qos_destroy_node() ->
+otx2_qos_free_hw_cfg() calls otx2_qos_free_hw_schq(pfvf, node->level,
+node->schq) with node->level == NIX_TXSCH_LVL_TL1, which takes the early
+return above.
+
+Does anything else restore the default TL1 topology while the interface
+stays up?  nix_txschq_free_one() early-returns for lvl >=
+hw->cap.nix_tx_aggr_lvl, nix_reset_tx_schedule() has no TL1 case, and
+nix_tl1_default_cfg() declines to reprogram once the PF has configured
+TL1:
+
+	/* Skip if PF has already done the config */
+	if (TXSCH_MAP_FLAGS(pfvf_map[schq]) & NIX_TXSCHQ_CFG_DONE)
+		return;
+	rvu_write64(rvu, blkaddr, NIX_AF_TL1X_TOPOLOGY(schq),
+		    (TXSCH_TL1_DFLT_RR_PRIO << 1));
+
+The only writer of the default TL1 value appears to be
+otx2_txschq_config():
+
+	req->reg[1] = NIX_AF_TL1X_TOPOLOGY(schq);
+	req->regval[1] = hw->txschq_aggr_lvl_rr_prio << 1;
+
+which runs at interface open rather than on TC_HTB_DESTROY.  So after HTB
+teardown with the link up, the shared TL1 keeps a PRIO_ANCHOR pointing at
+TL2 indices that were just returned to the AF's block-wide TL2 pool and
+may be re-allocated to another function.
+
+The commit message says TL1 "is not freed back to the AF by
+nix_txschq_free_one()", which rules out re-allocating TL1 itself, but does
+it cover the residual anchor pointing into recycled TL2 indices?  Whether
+the TL1 arbiter can act on such a stale anchor depends on hardware
+semantics that are not visible from the tree, so this may be harmless in
+practice, but the set/reset asymmetry looks worth spelling out in the code
+rather than only in the changelog.
+
+> +
+> +	mutex_lock(&mbox->lock);
+> +
+> +	cfg = otx2_mbox_alloc_msg_nix_txschq_cfg(mbox);
+> +	if (!cfg) {
+> +		mutex_unlock(&mbox->lock);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	cfg->lvl = lvl;
+> +	cfg->num_regs = 1;
+> +
+> +	if (lvl == NIX_TXSCH_LVL_TL4)
+> +		cfg->reg[0] = NIX_AF_TL4X_TOPOLOGY(schq);
+> +	else if (lvl == NIX_TXSCH_LVL_TL3)
+> +		cfg->reg[0] = NIX_AF_TL3X_TOPOLOGY(schq);
+> +	else if (lvl == NIX_TXSCH_LVL_TL2)
+> +		cfg->reg[0] = NIX_AF_TL2X_TOPOLOGY(schq);
+> +
+> +	cfg->regval[0] = 0;
+> +
+> +	rc = otx2_sync_mbox_msg(mbox);
+> +
+> +	mutex_unlock(&mbox->lock);
+> +
+> +	return rc;
+> +}
+> +
+> +static void otx2_qos_free_hw_schq(struct otx2_nic *pfvf, u16 lvl, u16 schq)
+> +{
+> +	int err;
+> +
+> +	err = otx2_qos_reset_schq_topology(pfvf, lvl, schq);
+
+[Severity: High]
+Does this cover the case where the AF, not the driver, releases the QoS
+queues?  The reset only runs on the driver's explicit per-schq frees, but
+nix_txschq_free() in af/rvu_nix.c returns the same TL4/TL3/TL2 indices to
+the shared pool with only PARENT and SCHEDULE cleared:
+
+	nix_reset_tx_schedule(rvu, blkaddr, lvl, schq);
+	rvu_free_rsrc(&txsch->schq, schq);
+	txsch->pfvf_map[schq] = TXSCH_MAP(0, NIX_TXSCHQ_FREE);
+
+and nix_reset_tx_schedule() writes TLxX_PARENT and TLxX_SCHEDULE only, so
+TOPOLOGY (PRIO_ANCHOR/RR_PRIO) stays programmed.
+
+That path is reachable while an HTB qdisc is still offloaded, for example
+on a function reset (echo 1 > /sys/bus/pci/devices/<bdf>/reset) or a VF
+FLR from a passthrough guest:
+
+rvu_flr_handler() -> rvu_blklf_teardown() -> rvu_nix_lf_teardown() ->
+nix_txschq_free()
+
+In that case otx2_qos_free_hw_schq() never runs, so the state the commit
+message describes ("PRIO_ANCHOR/RR_PRIO settings can survive in the
+shared scheduler pool and affect later allocations") is unchanged.
+
+The allocation side also looks unsanitized.  nix_txschq_alloc() resets
+linkcfg, shaping and schedule for every newly allocated schq:
+
+	nix_reset_tx_linkcfg(rvu, blkaddr, lvl, schq);
+	nix_reset_tx_shaping(rvu, blkaddr, nixlf, lvl, schq);
+	nix_reset_tx_schedule(rvu, blkaddr, lvl, schq);
+
+but not TOPOLOGY, and otx2_txschq_config() never writes TOPOLOGY for
+TL2/TL3/TL4, so a new owner inherits whatever anchor was left behind.
+
+Would adding the TLxX_TOPOLOGY register to nix_reset_tx_schedule() be a
+better place for this?  That would cover free_one, TXSCHQ_FREE_ALL, FLR
+and allocation-time inheritance for all AF clients under rvu->rsrc_lock,
+and the driver-side helper added here would not be needed.
+
+> +	if (err)
+> +		netdev_warn(pfvf->netdev,
+> +			    "QoS: failed to reset topology for schq %u at level %u: %d\n",
+> +			    schq, lvl, err);
+> +
+> +	otx2_txschq_free_one(pfvf, lvl, schq);
+> +}
+> +
+>  static void otx2_qos_free_hw_node_schq(struct otx2_nic *pfvf,
+>  				       struct otx2_qos_node *parent)
+>  {
+>  	struct otx2_qos_node *node;
+>  
+>  	list_for_each_entry_reverse(node, &parent->child_schq_list, list)
+> -		otx2_txschq_free_one(pfvf, node->level, node->schq);
+> +		otx2_qos_free_hw_schq(pfvf, node->level, node->schq);
+>  }
+
+[ ... ]
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903020533.3068041-1-rkannoth%40marvell.com
