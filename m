@@ -1,211 +1,182 @@
-Received: from esa12.hc1455-7.c3s2.iphmx.com (esa12.hc1455-7.c3s2.iphmx.com [139.138.37.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B3842620DE;
-	Tue,  8 Sep 2026 04:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.37.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788840675; cv=none; b=X1ZsIUY2eCMMmlk1t2T0gBF8O7F6h5BVa3jGCEfQ61tVopdmtLf9EtxpHrM+Z6rAE7hdrPoQOkdu9pYQPoJxoHxwfM7Vl+3OUIuB517/OVDpR+fiCN9E46Im9VqRfjcje4IR61CVtVIV3frR+P5JNwuUbQtsusLn7+/EEEIjUn0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788840675; c=relaxed/simple;
-	bh=1lJfLR7VTJt6Z4BK9Qx3EsC4zSeTnu2lBUv6+/ocf2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GSZhMzXbQkyIrZNEW5ZZRhdEqOYkByR87U9Xb5T33aOR36qjI25PgKe0FuBHmQwniFEBSYLmK3vNPxtuTffcu2JRJpKTJtKtIfuGIUiWbaav7zL2DXZb5hymwCQmggiloGNnsJUQUujLlq4UeB53bmjBHAJ7yVJ1NM845IS4ND4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=IpQe3nuw; arc=none smtp.client-ip=139.138.37.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F06364926
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:11:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788840677; cv=pass; b=Oj2bU7tge5SrTM5tw04jE6S8Cx6Rq7EleYKM+VBax+dpdsx45N0Ky0ctc0lzDCUvarOVXsVWq/QhEBiP/TitZgwdaBvZjTrFcp5KwNdrq76RuXkdj9LUcVxVLHf0C4J3fR90zH4q7HEVcsUsKuxgOM1htD/5ofN5obZueWM021A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788840677; c=relaxed/simple;
+	bh=jSczsniPhvvQCy37MO6Dre5VLhSUR1qB0JIGD3RBcOE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PR4fN2r01uqZMsPo3qj4GRCMgDjCIeeqUnGZkJgduIzTXnYYmO2CTv5g0mqOzsgTC6DzQJ3MU2XWvHIbfcTI6y/2VUxCBS7cn9VJG47r4pCqlUZI7QV0rHAjuN5SqSiByUYLmczer2SFgJcGH+KZCYvyJHfLkdR9IddjYZjInoA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=QCpDVaLL; arc=pass smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="IpQe3nuw"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1788840673; x=1820376673;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1lJfLR7VTJt6Z4BK9Qx3EsC4zSeTnu2lBUv6+/ocf2I=;
-  b=IpQe3nuwE9By3eGJK+H1HO7f+mZsiE7uveQXvtj8KqrJln4z90Xohqvo
-   r+NWaWlnNRmGMunKC3ffk5UJJk3NhYGoVOKW9jk5p59twLCMTM/IF6p7E
-   XZkRUa56TI+5uIqFmy13K+pDWykwOMfUi+BBaXVtIuGClC0J/XPMcTftC
-   G1gZsjvxdF0WZB+sjRA1e39bgsHUIqgaT9Xym/niuFkjQlXBy0ioefkBA
-   NZvPH7wbBYjMYJm3ASICUYkLWnWyv3vObfCewQF0FBva4Z9b+8qtLdy1G
-   R3dd+GLuxYsdztsXTqThQbRB7asiIE+0MnkGniSK2e/B4MF7n60Apgxoz
-   w==;
-X-CSE-ConnectionGUID: mimsaRrGTzqERHpe9a0iUw==
-X-CSE-MsgGUID: /De+HqMKQHCz0OTrQGqTZg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="232005754"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779116400"; 
-   d="scan'208";a="232005754"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa12.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 13:10:03 +0900
-Received: from az2nlsmgm3.fujitsu.com (unknown [10.150.26.205])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 2522D1000375;
-	Tue,  8 Sep 2026 04:10:03 +0000 (UTC)
-Received: from az2uksmom1.o.css.fujitsu.com (unknown [10.151.22.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm3.fujitsu.com (Postfix) with ESMTPS id C54C518009FD;
-	Tue,  8 Sep 2026 04:10:02 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.15.163])
-	by az2uksmom1.o.css.fujitsu.com (Postfix) with SMTP id 8EE4B1800BBF;
-	Tue,  8 Sep 2026 04:09:55 +0000 (UTC)
-Date: Tue, 8 Sep 2026 13:09:48 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org
-Subject: Re: [PATCH v17 0/7] firmware: arm_rmm: Add RMM v2.0 base RMI support
-Message-ID: <ap-C6NLnxuWWTMzi@FCCLS0092175.localdomain>
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="QCpDVaLL"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso3124671a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:11:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788840675; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e0xCeUjZ3NteAWsjKg896Faf0+mZ9BY7KbQHXSm49qcpHCCmnD6bbdDs07uYX+fYGe
+         cnZ1MW7HB+hEiY61+CBbRNALeigGPIrUn6Cio8s60OIi+EfUcFhzryzzIvqMLdyW8+7T
+         7FTi0CSSuq73g/eCho7MQ8axpCznuDNSlULefKQTXdxQ2D0fj+VcR3OcBLG2lWtnXe8P
+         V56HIavlJCbJfJm34jtWDfVLmGrYR9XGZU0k63gIxsGOIFvn4Q25qnKcXrQq7HNmm9+s
+         xuNlpKXmjlDQUcwCjHpJHHWr1ZaRn6F6jYTSychH3e6USPn3NlzGDZl4OBB33YYSYUps
+         C4eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
+        fh=M9gjOoaA7GHZ3iWuHot7u0IN33ou5jEVxVHaueFagCY=;
+        b=tCJ9ille3enDzxBnUYzrrZNCEWAnimH88cizSSsSWHZ23nxsa0otJGishbE5xgbZgm
+         RxWyOKhtW5EORX9pB0QNKb9to04zo3AEhXFgcaak2H7A9HG4/khs4HbPngL1m8jD78dO
+         DBl+6g6C3P9gafGErYYhncwKQz5w8AUrUuYxXHAm8MhvvjLwL7Xq1LQf4yX+kO3EIsgQ
+         DEgWOWwcegkBG30tC/+hAybXUDdWD+13BEJlQlFxJYPO9NIwMsrhYpIhll/AQlCQZZdP
+         eSf8uJANQXuU+DebwETfDcUp8qwZkJ5afWWzR0JciSaHR2Gx+/kr3h1mQoypkeOP7QZZ
+         2Liw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1788840675; x=1789445475; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
+        b=QCpDVaLLdDovkNacqCQznPv7E1JeEyKyTzZe3ht1RYyTt5GZf1iWrjvTnmmz/q7SU0
+         SR2Bwr3cX2H7t62lYn6KSdeD22pZuke9rZFiXJMXIPIePQqUXOcwCH0M12jAdZi3qsNg
+         XyQtVLTQ6ByFusnwkXHig/705BQWB9ZZF3koEmTLT55HzJ51H6I9p3QYL/rKX8C+3si7
+         EL6EMLLb6ttm4EzGw1hN0tvlItIFyA0DGvIbjz9wZunfyGlG4JHUTFZfQUYqXmi/6RgS
+         eL1CQslXbudJkKoSAVQGv4YrxmoE8/G9SoBW9TXXRdNTKj+UYYkvhz3W7zt2abAkttWv
+         JS/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788840675; x=1789445475;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
+        b=UH4frKz+t2vJKoJaVVktz+vrPYWbQkgC5QyFIH0c5IEiA8PdHcEMUcRf2yEqViII4y
+         2dU8LTPrOLeVxyd1x8qzR8N4qAGomgqOQqC01dp9MzAEdivGaPdMMDsTvacq/odwH4Ly
+         jf3zEqnEhPDHlHye9ou54fgGt9OZLqJpDd83HiyJyh99fF4mmgC2XXL1d87keMumpLTs
+         Rnzx90v4Ly+83HNukib2d7eWX+0sWYiMu8JwPsT6MsiupcLzkjoi1YGI6Jd8iro1Bdu/
+         2E6mrLKlVFAFAAWmcza5LFz6bL/NEtKujm1dLj8La7lNbxDmz+xOduIVIdT7UxpNbEnE
+         8bYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjxz3CEu7wQbhc4bIH+Fon8zRE0L48dArZvM8sdAKSBSBmZqtTUhwi0wYp5VNDTkOcDLORWB9l5vT4IEY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lzb1UBv1zC2qaPDjKTGZJDmmeNSyfbPW90BCK6HiE4RNf1/fG3
+	oE9uCeHej/QXsOoL2fpITcAi6HtTtJJ1+MgluSDFmG4V/Z5XYxlSoryg0ZXmDf7gfRbNli/60sg
+	rKrrJd5f9QwRLFwE9blNO6bhad2fr+FIW7KK18UaG
+X-Gm-Gg: AYBFou01phU1e1RXYxES+Vn5tkIGtqdgFvRH/zv3pSq9nLOJt1d/m4i1OvGuMN5JwXT
+	CmpNIvewkzfBseDgQOaD/x0h3DBBWssRFU1SDRpqpHLbQNnslg3Qiaeei8uMfVFfU70Hga5xXoa
+	i29Rf23i9qcDM3fqfhbSCwzUxLwfZ3dNrbypTL0N85RdRkvU+iZO7c+VHgNW0DTW75S31BDblap
+	i46AAbHcKp14ESjt2fIiASpfk/5F8UxUCe+J2ZrLhF1fmwGfNMyUOL6vyGXJvEj/IsRwhduB3L7
+	GHbA4+REayXsWiL/MiXPze0eQnxK4QK2K2Swpi4PvSYorROkuK7NRokZgAFqxUnmYwbdIZdKA+g
+	WSsLqziGgYMDpuJkc35Qe/Yn8A0K1mVQ=
+X-Received: by 2002:a17:90b:56cf:b0:398:dcf6:d40e with SMTP id
+ 98e67ed59e1d1-39b262aa580mr41210459a91.17.1788840674554; Mon, 07 Sep 2026
+ 21:11:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+References: <CA+0ovCiKb8axo+R-RsqzGbUsrVE0AcLbHqy=+-c9oSMCAqL1fA@mail.gmail.com>
+ <apGbKdJiMx8nCfEl@mit.edu>
+In-Reply-To: <apGbKdJiMx8nCfEl@mit.edu>
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+Date: Mon, 7 Sep 2026 21:11:02 -0700
+X-Gm-Features: AcwNN1UYBCSH5A2hJgM3PpIqoboOHM6LnyVHWwC7eYjFsBSpLnGI_b-UeW3bNKo
+Message-ID: <CA+0ovCgxFN3TLpdS_O_Z48sARuQ-WR-JLDCqQWEmd9ELtkzddA@mail.gmail.com>
+Subject: Re: [BUG] WARNING in ext4_journalled_invalidate_folio
+To: Theodore Tso <tytso@mit.edu>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
+	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000f86613065af0ec65"
 
-Hi Suzuki,
+--000000000000f86613065af0ec65
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 09/07 10:59, Suzuki K Poulose wrote:
-> This series adds the generic firmware layer for talking to the Realm
-> Management Monitor (RMM), as specified by the RMM v2.0-bet3
-> specification[1]. It is the first part of the Arm CCA host support that
-> was previously posted as part of the larger KVM series.
-> 
-> The split allows this RMM support to be used as a base for other work,
-> including Aneesh's PCI IDE support with Arm CCA RMM as the TSM,
->  without depending on the KVM Realm support that will follow as separate
->  series. (See more on that below)
-> 
-> The series adds:
-> 
->  * The RMI SMC definitions and direct-call wrappers.
-> 
->  * RMM discovery and version checks during firmware init.
-> 
->  * RMM host configuration, including the host page size.
-> 
->  * Stateful RMI Operation (SRO) infrastructure for commands which the RMM
->    can complete across multiple SMC calls while requesting or returning
->    memory to the host.
-> 
->  * Verification that granule tracking is available at fine granularity.
->    Fine-grained tracking allows each granule in the system to be tracked
->    independently, which is required before individual granules can be
->    delegated. A future series will add support for dynamically supplying
->    memory to the RMM for this tracking.
-> 
->  * Support for fully firmware-managed systems, where the Granule Protection
->    Tables for memory regions are allocated and managed by firmware. RMM v2.0
->    also allows dynamic GPT creation on demand; support for that will be added
->    in a later series.
-> 
->  * Wrappers for the RMI commands that are used for managing the "Realm VM"
->    lifecycle. This is added in to make it easier for the on-going KVM support
->    to evolve in parallel pieces.
-> 
-> If the platform firmware cannot manage the granule tracking or the GPTs, we
-> bail out and deactivate the RMM, reclaiming any memory that we have donated.
-> 
-> The RMM v2.0 spec introduces Stateful RMI Operations (SROs), which allow
-> the RMM to complete an operation over several SMC calls while requesting
-> or returning memory to the host. This allows interrupts to be handled in
-> the middle of an operation and lets the RMM dynamically allocate memory
-> for internal tracking purposes. For example, RMI_REC_CREATE no longer
-> needs auxiliary granules to be provided up front, and can instead
-> request memory during the operation.
-> 
-> This series applies on v7.3-rc1 and a branch is available at [2]. The KVM
-> CCA support that builds on this series is available at [3] as an integration
-> branch. The KVM support depends on guest-memfd-in-place conversion support v12
-> from Ackerley [4], we plan to split that into parts, which apply cleanly on
-> v7.3-rcx without any dependency and is in progress. This will be made available
-> as soon as it is ready. Until then [3] shows how this base series enables KVM
-> CCA support. You may find the tf-RMM [5] and kvmtool support [6] below.
-> 
-> [1] RMM spec : https://support.arm.com/documentation/den0137/2-0bet3/
-> [2] This series: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/fw_rmm/v17
-> [3] KVM CCA v17 integration branch: https://gitlab.arm.com/linux-arm/linux-cca.git cca/cca-host/kvm-integration/v17
-> [4] Gmem inplace conversion https://github.com/googleprodkernel/linux-cc/tree/guest_memfd-inplace-conversion-v12
-> [5] TF-RMM https://git.trustedfirmware.org/TF-RMM/tf-rmm.git main (commit: 134266ae)
+Attaching the reproducer; thanks!
 
-I understand that QEMU-virt is not intended to model a realistic
-production platform and that QEMU-SBSA is generally preferred. However,
-I sometimes use QEMU-virt to test functionality quickly because it runs
-slightly faster than QEMU-SBSA.
+On Fri, Aug 28, 2026 at 7:31=E2=80=AFAM Theodore Tso <tytso@mit.edu> wrote:
+>
+> On Thu, Aug 27, 2026 at 10:45:30PM -0500, Farhad Alemi wrote:
+> > Hello,
+> >
+> > As part of the kernel research at ASU's SEFCOM
+> > lab, we hit the crash below. Crash reports can be found here:
+> >
+> >   https://github.com/farhad-alemi/public_bug_reports/tree/main/172-warn=
+ing-in-ext4-journalled-invalidate-folio/
+>
+> Please send the reproducer.  Note that if it requries a maliciously
+> fuzzed file system, we consider this to be a minor bug (especially if
+> the maliciously file system would be fixed when the system
+> administrator runs fsck on the file system first), and not "security"
+> issue, so feel free to just send it to the list.
+>
+> Cheers,
+>
+>                                         - Ted
 
-I tested this series with QEMU-virt and found that RMM initialization
-failed during boot:
+--000000000000f86613065af0ec65
+Content-Type: application/octet-stream; name="reproducer.c"
+Content-Disposition: attachment; filename="reproducer.c"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mts5j3u30>
+X-Attachment-Id: f_mts5j3u30
 
-  [...]
-  INFO:    BL31: Initializing RMM
-  INFO:    RMM init start.
-  ERROR:   RMM init failed: -8
-  WARNING: BL31: RMM initialization failed
-
-The following TF-A revision was used:
-  https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git master (38269bb)
-
-After investigating, I found that the failure was caused by the lack of
-a plat_rmmd_reserve_memory() implementation for the QEMU-virt platform
-in TF-A. Adding an implementation equivalent to the QEMU-SBSA one
-resolved the issue:
-    https://git.trustedfirmware.org/plugins/gitiles/TF-A/trusted-firmware-a.git/+/9d594743aa4d4e8160cdf025ea7538041648972c
-
-Is QEMU virt still intended to be supported as an RME emulation
-platform? In particular, is this functionality simply not implemented
-yet, or is there a reason why RME support is not planned for QEMU virt?
-
-If this is not the appropriate place to discuss this, please let me
-know :)
-
-Thanks,
-Kohei
-
-> [6] kvmtool https://gitlab.arm.com/linux-arm/kvmtool-cca.git cca/kvm-v17
-> 
-> Known issues: RMMv2.0
->  * RmiOpMemDonateReq:count (Uint14) is incompatible with RmiAddrRangeDesc4KB
->   (Uint10) and RmiAddrRangeDesc16KB (Uint12). i.e., a larger contiguous request
->   may not be satisfiable by the host. Arm is aware of this defect and a spec fix
->   is in progress.
-> 
-> 
-> Steven Price (7):
->   firmware: arm_rmm: Add SMC definitions for calling the RMM
->   firmware: arm_rmm: Check for RMI support at init
->   firmware: arm_rmm: Configure the RMM with the host's page size
->   firmware: arm_rmm: Add support for SRO
->   firmware: arm_rmm: Activate the RMM
->   firmware: arm_rmm: Ensure the RMM has GPT entries for memory
->   firmware: arm_rmm: Add wrappers for Realm related RMI commands
-> 
->  arch/arm64/Kconfig                |   1 +
->  arch/arm64/kernel/cpufeature.c    |   1 +
->  drivers/firmware/Kconfig          |   1 +
->  drivers/firmware/Makefile         |   1 +
->  drivers/firmware/arm_rmm/Kconfig  |  26 +
->  drivers/firmware/arm_rmm/Makefile |   2 +
->  drivers/firmware/arm_rmm/rmi.c    | 819 ++++++++++++++++++++++++++++++
->  include/linux/arm-rmi-cmds.h      | 678 +++++++++++++++++++++++++
->  include/linux/arm-smccc-rmi.h     | 494 ++++++++++++++++++
->  9 files changed, 2023 insertions(+)
->  create mode 100644 drivers/firmware/arm_rmm/Kconfig
->  create mode 100644 drivers/firmware/arm_rmm/Makefile
->  create mode 100644 drivers/firmware/arm_rmm/rmi.c
->  create mode 100644 include/linux/arm-rmi-cmds.h
->  create mode 100644 include/linux/arm-smccc-rmi.h
-> 
-> -- 
-> 2.43.0
-> 
+LyoKICogV0FSTklORyBpbiBleHQ0X2pvdXJuYWxsZWRfaW52YWxpZGF0ZV9mb2xpbywgZnMvZXh0
+NC9pbm9kZS5jLgogKi8KI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8ZmNudGwuaD4KI2lu
+Y2x1ZGUgPHB0aHJlYWQuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxzdGRsaWIuaD4K
+I2luY2x1ZGUgPHN0cmluZy5oPgojaW5jbHVkZSA8c3lzL21tYW4uaD4KI2luY2x1ZGUgPHN5cy9z
+dGF0Lmg+CiNpbmNsdWRlIDx1bmlzdGQuaD4KCiNkZWZpbmUgSU1BR0UJCSIvdG1wL2V4dDQuaW1n
+IgojZGVmaW5lIE1PVU5UUE9JTlQJIi9tbnQvZXh0NGoiCiNkZWZpbmUgTlJfV1JJVEVSUwk2CiNk
+ZWZpbmUgTlJfRlNZTkNFUlMJMgoKc3RhdGljIHVuc2lnbmVkIGNoYXIgKnNob3J0X2NvcHlfc291
+cmNlOwkvKiByZWFkYWJsZSBwYWdlLCB0aGVuIFBST1RfTk9ORSAqLwpzdGF0aWMgdm9sYXRpbGUg
+aW50IHN0b3A7CgovKiBTdHJhZGRsZSBpX3NpemUgaW5zaWRlIG9uZSBmb2xpbywgdGhlbiB3cml0
+ZSBwYXN0IGl0IHdpdGggYSBjb3VudCB0aGUKICogc291cmNlIGNhbm5vdCBzYXRpc2Z5OiB0aGUg
+d3JpdGVfZW5kIHNlZXMgYSBzaG9ydCBjb3B5IGFuZCB0cnVuY2F0ZXMuICovCnN0YXRpYyB2b2lk
+ICpwYXJ0aWFsX3dyaXRlcih2b2lkICphcmcpCnsKCWxvbmcgaWQgPSAobG9uZylhcmc7Cgl1bnNp
+Z25lZCBsb25nIHJvdW5kID0gMDsKCWNoYXIgcGF0aFs2NF07CglpbnQgZmQ7CgoJc25wcmludGYo
+cGF0aCwgc2l6ZW9mKHBhdGgpLCBNT1VOVFBPSU5UICIvdyVsZCIsIGlkKTsKCWZkID0gb3Blbihw
+YXRoLCBPX1JEV1IgfCBPX0NSRUFULCAwNjAwKTsKCWlmIChmZCA8IDApCgkJcmV0dXJuIE5VTEw7
+CgoJd2hpbGUgKCFzdG9wKSB7CgkJb2ZmX3Qgc2l6ZV9pbnNpZGVfZm9saW8gPSA0MDk2ICsgNDAw
+ICsgKG9mZl90KShyb3VuZCAlIDYwMCk7CgkJc2l6ZV90IHNvdXJjZV9vZmZzZXQgPSAzMDAwICsg
+KHJvdW5kICUgMTAwMCk7CgkJb2ZmX3Qgd3JpdGVfcG9zID0gNDA5NiArIDE1MDAgKyAob2ZmX3Qp
+KHJvdW5kICUgMjAwMCk7CgoJCWZ0cnVuY2F0ZShmZCwgMCk7CgkJZnRydW5jYXRlKGZkLCBzaXpl
+X2luc2lkZV9mb2xpbyk7CgkJLyogd3JpdGUoMiksIG5vdCBwd3JpdGUoMik6IHRoZSByZXBvcnRl
+ZCB0cmFjZSBlbnRlcnMgdGhyb3VnaAoJCSAqIG5ld19zeW5jX3dyaXRlKCkva3N5c193cml0ZSgp
+LiAqLwoJCWxzZWVrKGZkLCB3cml0ZV9wb3MsIFNFRUtfU0VUKTsKCQl3cml0ZShmZCwgc2hvcnRf
+Y29weV9zb3VyY2UgKyBzb3VyY2Vfb2Zmc2V0LCAweDIwMDAwKTsKCQlyb3VuZCsrOwoJfQoJY2xv
+c2UoZmQpOwoJcmV0dXJuIE5VTEw7Cn0KCi8qIEtlZXAgamJkMiBjeWNsaW5nIHNvIGEgdHJhbnNh
+Y3Rpb24gaXMgaW4gdGhlIGNvbW1pdHRpbmcgc3RhdGUuICovCnN0YXRpYyB2b2lkICpmc3luY2Vy
+KHZvaWQgKmFyZykKewoJbG9uZyBpZCA9IChsb25nKWFyZzsKCWNoYXIgcGF0aFs2NF0sIGJ1Zls1
+MTJdOwoJaW50IGZkOwoKCW1lbXNldChidWYsICdjJywgc2l6ZW9mKGJ1ZikpOwoJc25wcmludGYo
+cGF0aCwgc2l6ZW9mKHBhdGgpLCBNT1VOVFBPSU5UICIvcyVsZCIsIGlkKTsKCWZkID0gb3Blbihw
+YXRoLCBPX1JEV1IgfCBPX0NSRUFULCAwNjAwKTsKCWlmIChmZCA8IDApCgkJcmV0dXJuIE5VTEw7
+Cgl3aGlsZSAoIXN0b3ApIHsKCQlwd3JpdGUoZmQsIGJ1Ziwgc2l6ZW9mKGJ1ZiksIDApOwoJCWZz
+eW5jKGZkKTsKCX0KCWNsb3NlKGZkKTsKCXJldHVybiBOVUxMOwp9CgppbnQgbWFpbih2b2lkKQp7
+CglwdGhyZWFkX3QgdGhyZWFkc1tOUl9XUklURVJTICsgTlJfRlNZTkNFUlNdOwoJbG9uZyBpOwoK
+CXNob3J0X2NvcHlfc291cmNlID0gbW1hcChOVUxMLCAzICogNDA5NiwgUFJPVF9SRUFEIHwgUFJP
+VF9XUklURSwKCQkJCSBNQVBfUFJJVkFURSB8IE1BUF9BTk9OWU1PVVMsIC0xLCAwKTsKCWlmIChz
+aG9ydF9jb3B5X3NvdXJjZSA9PSBNQVBfRkFJTEVEKQoJCXJldHVybiAxOwoJbWVtc2V0KHNob3J0
+X2NvcHlfc291cmNlLCAnQScsIDMgKiA0MDk2KTsKCW1wcm90ZWN0KHNob3J0X2NvcHlfc291cmNl
+ICsgNDA5NiwgMiAqIDQwOTYsIFBST1RfTk9ORSk7CgoJdW5saW5rKElNQUdFKTsKCWlmIChzeXN0
+ZW0oImRkIGlmPS9kZXYvemVybyBvZj0iIElNQUdFICIgYnM9MU0gY291bnQ9MTYwIHN0YXR1cz1u
+b25lIikpCgkJcmV0dXJuIDE7CglpZiAoc3lzdGVtKCJta2ZzLmV4dDQgLXEgLUYgLWIgMTAyNCAt
+SiBzaXplPTE2IC1JIDI1NiAiIElNQUdFKSkKCQlyZXR1cm4gMTsKCW1rZGlyKE1PVU5UUE9JTlQs
+IDA3NTUpOwoJaWYgKHN5c3RlbSgibW91bnQgLXQgZXh0NCAtbyBsb29wLGRhdGE9am91cm5hbCxj
+b21taXQ9MSAiCgkJICAgSU1BR0UgIiAiIE1PVU5UUE9JTlQpKQoJCXJldHVybiAxOwoKCWZvciAo
+aSA9IDA7IGkgPCBOUl9XUklURVJTOyBpKyspCgkJcHRocmVhZF9jcmVhdGUoJnRocmVhZHNbaV0s
+IE5VTEwsIHBhcnRpYWxfd3JpdGVyLCAodm9pZCAqKWkpOwoJZm9yIChpID0gMDsgaSA8IE5SX0ZT
+WU5DRVJTOyBpKyspCgkJcHRocmVhZF9jcmVhdGUoJnRocmVhZHNbTlJfV1JJVEVSUyArIGldLCBO
+VUxMLCBmc3luY2VyLCAodm9pZCAqKWkpOwoKCXNsZWVwKDQyKTsKCXN0b3AgPSAxOwoJZm9yIChp
+ID0gMDsgaSA8IE5SX1dSSVRFUlMgKyBOUl9GU1lOQ0VSUzsgaSsrKQoJCXB0aHJlYWRfam9pbih0
+aHJlYWRzW2ldLCBOVUxMKTsKCglzeXN0ZW0oInVtb3VudCAiIE1PVU5UUE9JTlQgIiAyPi9kZXYv
+bnVsbCIpOwoJcmV0dXJuIDA7Cn0K
+--000000000000f86613065af0ec65--
