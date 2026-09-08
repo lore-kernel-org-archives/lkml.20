@@ -1,126 +1,265 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF61397923;
-	Tue,  8 Sep 2026 07:35:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF1539A7E7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:35:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852955; cv=none; b=Wk1U6rMpr2OqAQlAYj2OxvQ/exBAdJCfFShpLqLUwPDAhPI6as/IAFedaMHJuwMBjBnAzHW2lnTYfs4eAK/RrSvWAl5SHXmpRfqCbyuxnDQ7JHNLoLpox1xjrObLXVwLwsgsxrdfFgxJkdUwvrY2zUw+fXrZMybJTWtlL72aJAg=
+	t=1788852955; cv=none; b=u6WsxJgFEcwGzwioVu1TftKHzrxtmUa0kb/wITz7C+hST/TNZGJnLjI4poyMUTNSHAJA5uKAAQ3c2lts7wvd6ipT/EjuBxK1Pdz4zgxPWm4JdqGX7U/duh0xAdNrYHR0lLB89IPHCCCElgU/vuu/bKWon2QTYU/xGVXVw3Attco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788852955; c=relaxed/simple;
-	bh=Yas4x71zv2CucLgcDzjxZfSt/KtDAAqnSBc20UX9Q9M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TYAOag9HzfFiWW2VViPsfL/QHcTmEN0Vm7R/y0mdVxR2wnV1tcSCljKAB3izTDPNHFd1TxwzzJrnxA2s4CsgrzvKinHi1ZUK5SzLdrp3dkB6VvpQsf0eAi4+1vaoZU0zEKdRvvz/p4d3gtopD61rUvFkUbAbNIxLhfGo4DqNpdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sF40x1Tn; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=t4GN1Dhf; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	bh=w34PiXT9SC+k/0T+RoDd5XeWmlTObvuDaqVPSeS2Q8c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ZPHjVQQmtu3go5jq2px1A99tk/GgfY1VmOTYA5yTjB/CERFljXtBA/CEaYVt8cbJgug6tCiJ04W5vFL23NesPqGALxCwOu/Pz9itLusPhsSDdiOViH/+jXJOt1mjsoVS1foLhs1wvQXS9ZUecVAWnlf8IrA9rUlHz8baKMEJAZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=YNB1BV9W; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sF40x1Tn";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="t4GN1Dhf"
-Date: Tue, 8 Sep 2026 09:35:46 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788852947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ji2FYflr/CbjV3rk9832i6ivZtcJlLtueWgeq3em9Fs=;
-	b=sF40x1TnpsNhyt0sI38rIHaeAvtNg/EM8w3EtHzsFSvvVwHHMnTzo9ND4gwdFmZKWgwiQI
-	zIUqZO38xf+hqbFqpxnJEf22XYPf5rduERB4k6rIc5UkCj8/unJYgFDyl/VlE7G+EFDI03
-	CNmgd/Vj1Q3c/q3Ydr3Q/DKOj3v431wlaOso4rjeyTahr+hMGIpBnsAkCalXgeDSgVmwoT
-	fSwtBw7bhzCeC4FkKyNmCXzfRLo7mT4mBMZCZPU/i5SaXQchJvrd+z5JqASF5WVbgiH5G4
-	it4ju8Bz/fYLxG5O3MBiu0Nd1yKjfxaEDd33C3bFc0Qo3/mwB0s4uDaabhB7ew==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788852947;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ji2FYflr/CbjV3rk9832i6ivZtcJlLtueWgeq3em9Fs=;
-	b=t4GN1DhfMH6AgNQoFSHKMaImcdOBofdEStAoUz2uy11ao2hSCXVnSiB6G9+q7fkA3MPgYT
-	C9GJghb2CAl+FqDg==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
-	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
-	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
-	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
-	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
-	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
-	Alexandre Ghiti <alexghiti@rivosinc.com>
-Subject: Re: [PATCH v5 12/24] vdso: Add the vdsocheck tool
-Message-ID: <20260908093302-1a1cf0c7-8103-48b1-9f6a-abd5c5c16523@linutronix.de>
-References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
- <20260908-vdso-absolute-reloc-v5-12-3a93791af1cf@linutronix.de>
- <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="YNB1BV9W"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd82be878so1850015e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:35:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788852952; x=1789457752; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ElpqtHVC7jMTpwo4iy/7Zs2kCnpT328w0BszAUno6nA=;
+        b=YNB1BV9WdXh+MXhWfvffoJKypjIdxDIWooXAPZfsgMgEgneWQ2ucJmmFnvNnFT/AAA
+         Xx4gjcDatB9NH1R9TbVyDt/1NVbsDC+ZQOFfc8rV4I0glzWVvfXwQyCYFmRn6DkE4Uq4
+         GR3amYkKhPxBU4a6kZr66TDl1zMnIZLsm3CeJ1sMxtlYTt92HDypG8u9m12whMbq5lE1
+         deQk9mxnc78mI2NimFXnuYEXAQzbhQ5b0NbKu7yPXjDsbIVcr26X+lqxDrscueF79Ggp
+         44LDdrjAON0E7+nIxU7WoNi/a7VrHM4soHkxF0qDlPOv8yNQ4c8yU1hhRClHXCwf0XmF
+         +weQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788852952; x=1789457752;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ElpqtHVC7jMTpwo4iy/7Zs2kCnpT328w0BszAUno6nA=;
+        b=KtR3/u3TQWRhe3jF6KuJUZYg0fDxnPWfSbDlxvDvp2KoMea7+Q6GzKtawJA1UWgIrH
+         3fswRcTtZOm5lwBCmL0tJ3oncavE7yo3IXS7EHsL+XjiOKJ8rp14Y8BJ2B6ZApKO5kG7
+         iGodn20FE8/weNfCoswmFjt8ovE2yJ3z1HO3QQD2u1jLq6w/yyL7IROndqLL4pHlhQMX
+         eRB4hDh8863vIRw8NGDPTDJ1jC4T14LlniXmC2Hk4HFpfAaQIwJhpSw+AJarobyEPU0z
+         xiAafszFuxekn7rYdKlu5+grq0W0oB8w5hlAMSzETwnZBjIGTiMuZ/BrSeEpa6/Y5BFu
+         Aqhg==
+X-Forwarded-Encrypted: i=1; AKwUvBwHkP/g9rtYLXnEPvPW7KX0i2qMuFd3LrPK91kJDkBDxPA/vgqg/HSGl5efLXglvz2Q1pajOnhFcVCFIwQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCN9HqoKFPPGCS5pDwmyFc/AznwKyxxMzyd0QW0w4m+Fv+jmc3
+	yRTUDOfR4Im2vwl2Nm9mr2sfK0FewPteFQj4QiMPsKvJdRjN5ugRFA8q5tyIsye0dfk=
+X-Gm-Gg: AYBFou35OP+Ifw+sw0lfPJA/exhZKEGCkSr5BT/AD/ejq2r7CGjvkKKnk8gLM7iAAA3
+	bKIFjp5BPUhPv+zZ+6Uv3TrKGfv7LraTDfnsOx76pK25oe0ode6Us1EZ+Q5Ae3BSzEPAW/8AASn
+	L4OHvkhUTPUsNfhaXrm7ipGYKCJkdCxpJ3EXCdy4x4BoCfGy8kfMhJn28g7FrZ5Wc5FkSqf2A4y
+	xeLzfnbFNXxlK+QrksjW736kEoptpqe4Cr2Cbv8Lzr5EerMvoC8mRu6QJ+MX/auTmfUsfk4f8Nt
+	DgF1rQOy5SM3ufBh+sNmB/gLndDpC7G1K9sneF7GdK5EtVRsOl/Sgv1I/fkuCCd1s6krBd9QRJG
+	1u1HhdhMy7y456fYPHZ2QlrbQ8sTlSbzoKZPay1gNF6KbY0+j4941WDbVYFY7VwSDGM9W5RmqZV
+	nDV6eSuVSxqIGboIrVsG5dPKUlkgup4ZXcltFBKMwlnE+Q2KAG9+0Z0EPMfXuAFPkLnBgUPEUQx
+	2PZZPl2OYG3arUb9EoiuBS5WBU86tw=
+X-Received: by 2002:a05:600c:530d:b0:49c:e363:c66e with SMTP id 5b1f17b1804b1-49d01dce86fmr169773115e9.1.1788852951560;
+        Tue, 08 Sep 2026 00:35:51 -0700 (PDT)
+Received: from [10.20.0.128] (lfbn-ann-1-199-252.w86-200.abo.wanadoo.fr. [86.200.161.252])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0656e7bbsm267934475e9.10.2026.09.08.00.35.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:35:51 -0700 (PDT)
+Message-ID: <a8d64435-2fd8-4e2b-9b48-aea496630e07@suse.com>
+Date: Tue, 8 Sep 2026 09:35:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] RDMA/rxe: Use validated num_sge in local buffer
+To: Zhu Yanjun <yanjun.zhu@linux.dev>, Zhu Yanjun <zyjzyj2000@gmail.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Tristan Madani <tristmd@gmail.com>,
+ "open list:SOFT-ROCE DRIVER (rxe)" <linux-rdma@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+References: <20260907161550.716670-1-nmorey@suse.com>
+ <27376486-9cab-4d42-8ed7-36e13231dd91@linux.dev>
+ <681ae665-523a-441b-bbd8-dbae51ee64f1@suse.com>
+ <4bb04e58-7e69-46bc-9ecf-283605b18340@linux.dev>
+Content-Language: fr, en-GB
+From: Nicolas Morey <nmorey@suse.com>
+Autocrypt: addr=nmorey@suse.com; keydata=
+ xsBNBFjZETwBCADEkoe7QWAXzd9xpSiPbQK6P2F4wKdxyTp6r0aN4I0O+4fc8xWXvmwOrCjF
+ UsuoGZ3CxJaHgdB/3ueW/IhMO5Ldz7pylhKVlG/moUh4CBK2eRUdaG7mHID01GyJMtR3VQqu
+ 22hJhHPYy0erpYViyr+I4MzQA9QZLoQhSxn4imjZOZPcj20JE+lRfXppNv9g7vQiRLMcXjTi
+ KcnrqG5owOi6Cn1sZ201YfdeztGxKA+jvjWO+6absTTlorIlZNGUf85s2+caGDsqa31u2DPs
+ hVv5UUTy1g/5aP2wacSWI3Qm4n2MWl1aCnHN2h737PCXXfBk5iGJsgBUnSQULgdgEAt1ABEB
+ AAHNH05pY29sYXMgTW9yZXkgPG5tb3JleUBzdXNlLmNvbT7CwI4EEwEIADgWIQRC0lOFwaHA
+ K4sbHG+AG924JZiPZAUCY5G8SAIbAwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRCAG924
+ JZiPZMZiB/9QkcGfH248qvFUWZig3jssK5IgijfOFDKB0YK4e844M5C8LVSuWpu7Z+lM+cql
+ 3mbrikW6mlZjPEusrQ/KGvT6TdfOM9VCQWjlshMzt7uiRDdzufHGtE5hhk/67UnkEVjmplpD
+ k8cb1O0VsBfGym7e0nySHTlDWqr++9EcwgV3uo4psYYEqm6Aon1yKqjbmj+vfl/C5iW3V4lq
+ DhBk8w21AvNS+tdEqJzhruxuXkEDZZ07wYFS7m8OxLNb4sMzn/Nz9x/NXeweBWx2ujIERtAq
+ 1e/hh0ZAcoPVR3CfO2QTmfTfrzVdpZrZ8F54337ze3+BUNnrFGObQhlNe26NqNYWzsBNBFjZ
+ ETwBCAC9zAzCRlTgzyO9siVLQYwbRUhcL1TUJU/FiOQWQTmL3uDdBc6MgVBs+hp82RwPbbXT
+ v4W4rghBYPKdmFXvRN+jvGDLq1f2hsuCSiE1ckTMzFV+sKoWRIEC12tEpw5ncEFGm+1k/rJR
+ Lk9eHxuqn+yRjPryN8CK6tK4+b4tZ2urKlP29XG+T3l/mbUSoqfjqvyeKaW6xw7ku89EX2Xo
+ QWP/pm92RxUd6VDU9vpVW/T7qPZRl0wtUnDnO2wePoZmvUfEr5Osh3MNvm1myG+v4EV2Hgva
+ NT6pa27IptrUq06cA6dDsIKwPtMuThJQp8/xumgl5Q9A/ErQoJTrB9rclIm7ABEBAAHCwF8E
+ GAECAAkFAljZETwCGwwACgkQgBvduCWYj2QwNwf/eOIpFB67cKoUJvcm3JWcvnagZOuyasCw
+ xwH9a0o9jORcq+nsJoynS/DpjUKGyZagy7+F7sBrF7Xx0cXF2f5Bo42XNNiQDE5P/VLwvgn9
+ 62AJ3q0dp4O7oQI8UgNmdsocQhNaBHHCoOabLGrgNobDTaLBeb9zaOZqz8CBuAiZ0bVABEpg
+ 50hDEYTHp4jCgWpadhAsp/eCgm93Tc+Y+e1fqtE3FmoOLxyhFa6evhn0Q1iX0kCasMZwlzse
+ zqLZjTM1Koqn6+UIHXE3QaULyFKD1GDhisXxyolOB6P2TXsyfvitYdIZ3CCtI7PVDxzmX2Xk
+ kvEz9bMtStoMpse9qAsmHQ==
+In-Reply-To: <4bb04e58-7e69-46bc-9ecf-283605b18340@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
 
-On Tue, Sep 08, 2026 at 09:19:11AM +0200, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 08:33:46AM +0200, Thomas Wei�schuh wrote:
-> > All vDSO code needs to be completely position independent. Symbol
-> > references are marked as hidden so the compiler emits PC-relative
-> > relocations. However there are cases where the compiler may still
-> > emit absolute relocations, as they are valid in regular PIC DSO code.
-> > These would be resolved by the linker and will break at runtime.
-> > This has been observed on arm64, see commit 0c314cda9325 ("arm64: vdso:
-> > Work around invalid absolute relocations from GCC")
-> > 
-> > Introduce a tool to check for absolute relocations during the build,
-> > as the current inline-shell logic is not expressive enough.
-> > The check is done on the object files as the relocations will not exist
-> > anymore in the final DSO. As there is no extension point for the
-> > compilation of each object file, perform the validation in vdso_check.
-> > 
-> > Signed-off-by: Thomas Wei�schuh <thomas.weissschuh@linutronix.de>
-> > ---
-> >  Makefile                    |  19 ++
-> >  lib/vdso/Kconfig            |   5 +
-> >  lib/vdso/Makefile           |   2 +
-> >  lib/vdso/Makefile.include   |  14 ++
-> >  lib/vdso/check/.gitignore   |   3 +
-> >  lib/vdso/check/Makefile     |  34 +++
-> >  lib/vdso/check/elf.rs       | 498 ++++++++++++++++++++++++++++++++++++++++++++
-> >  lib/vdso/check/vdsocheck.rs | 154 ++++++++++++++
-> >  8 files changed, 729 insertions(+)
+On 2026-09-08 05:07, Zhu Yanjun wrote:
+> 在 2026/9/7 14:44, Nicolas Morey 写道:
+>> On 2026-09-07 23:20, Zhu Yanjun wrote:
+>>> 在 2026/9/7 9:15, Nicolas Morey 写道:
+>>>> For both SRQ and non-SRQ receive paths, the WQE is copied into a local
+>>>> buffer to provide a kernel-owned, validated copy. While calculating the
+>>>> memcpy size from the validated num_sge prevents overflow during the
+>>>> copy, memcpy() itself still copies num_sge from shared memory.
+>>>>
+>>>> A concurrent userspace modification before or during memcpy() leaves
+>>>> an unvalidated num_sge in the local buffer, leading to potential
+>>>> out-of-bounds reads in rxe_resp_check_length() and copy_data().
+>>>>
+>>>
+>>> Hi Nicolas,
+>>>
+>>> Thanks for the patch. The logic makes total sense to prevent the TOCTOU race condition after memcpy.
+>>>
+>>> Just out of curiosity, do you happen to have a reproducer or a POC script that demonstrates this race in practice?
+>>>
+>>> It would be great to know if this can be reliably reproduced or integrated into testing setups (like rdma-core tests, or tools/testing/selftests/rdma) to catch similar double-read issues in the future.
+>>>
+>>
+>> No reproducer or PoC sadly. I haven't tried to make one though.
+>> This got caught by one of our AI tools when checking the backport of CVE-2026-74377.
 > 
-> Urgh, does this mean I have to have rust installed just to build a
-> kernel now?
+> Hi, Nicolas
+> 
+> Thanks for sharing this. Could you clarify whether your AI tool detected this purely through static analysis (and provided a suggested fix), or if it actually triggered a runtime bug with a backtrace/calltrace?
+> 
+> If you have a calltrace, please share it—that would help a lot in understanding the issue. Also, if this was flagged and fixed by a specific AI tool, adding an Assisted-by: tag (or referencing the tool in the commit description) would be appropriate.
+> 
+> Thanks,
+> 
+> Zhu Yanjun
+> 
 
-No.
+Hi Zhu,
 
-If you don't have rust installed the build will instead use the existing shell
-script for a less thorough check. We only need one build machine at some point
-to have rust installed to report issues and this check to be useful.
+The tool is a LLM static analyser that simply detected that d6ab440240a0 ("RDMA/rxe: Copy WQE to local buffer in non-SRQ receive path") was a valid patch but did not fix the whole issue. It did not suggest any breaker PoC nor any fix.
+All the rest is human (me) made.
+Does that warrant an Assisted-by tag ? 
+It seems sashiko picked the same issue for 22b8fbded65b ("RDMA/rxe: Fix TOCTOU heap overflow in get_srq_wqe")
+https://sashiko.dev/#/patchset/20260518215040.1598586-1-tristan%40talencesecurity.com
 
+> If a concurrent userspace thread modifies wqe->dma.num_sge after the
+> bounds check but before the memcpy completes, doesn't this copy the
+> unvalidated value into the kernel heap?
 
-Thomas
+By tweaking the reproducer from Tristan, I have been able to reproduce it once out of sheer luck I think:
+==================================================================
+BUG: KASAN: slab-out-of-bounds in rxe_receiver+0x8109/0x9ec0 [rdma_rxe]
+Read of size 4 at addr ffff88812c4867f8 by task kworker/u9:6/361
+
+CPU: 0 UID: 0 PID: 361 Comm: kworker/u9:6 Tainted: G            E       7.3.0-rc2-00006-g28924df2a08f #3 PREEMPT(full)  318a88bba3045f81bad31a7694727561b4bd4965
+Tainted: [E]=UNSIGNED_MODULE
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.16.3-2-gc13ff2cd-prebuilt.qemu.org 04/01/2014
+Workqueue: rxe_wq do_work [rdma_rxe]
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x4b/0x70
+ print_report+0x153/0x4b5
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? stack_trace_save+0x93/0xd0
+ kasan_report+0xbc/0xf0
+ ? rxe_receiver+0x8109/0x9ec0 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ ? rxe_receiver+0x8109/0x9ec0 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ rxe_receiver+0x8109/0x9ec0 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ ? pick_task_fair+0x12e/0x1b50
+ ? __pfx_rxe_receiver+0x10/0x10 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? hrtimer_start_range_ns+0xe7/0x320
+ ? ktime_get+0xe3/0x170
+ ? _raw_spin_unlock+0xe/0x30
+ ? _raw_spin_lock_irqsave+0x8a/0xf0
+ ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+ ? __pfx_rxe_receiver+0x10/0x10 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ do_work+0x149/0x610 [rdma_rxe b8d153a5fa9911e345612beff278ac3241bac327]
+ process_one_work+0x726/0x10a0
+ ? __pfx___schedule+0x10/0x10
+ ? __pfx_process_one_work+0x10/0x10
+ ? _raw_spin_lock_irq+0x85/0xe0
+ ? __pfx__raw_spin_lock_irq+0x10/0x10
+ worker_thread+0x500/0xd70
+ ? __kthread_parkme+0x8d/0x170
+ ? __pfx_worker_thread+0x10/0x10
+ ? __pfx_worker_thread+0x10/0x10
+ kthread+0x329/0x410
+ ? recalc_sigpending+0x15c/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x4cf/0x760
+ ? __pfx_ret_from_fork+0x10/0x10
+ ? __switch_to+0x575/0x11c0
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
+
+Allocated by task 1698:
+ kasan_save_stack+0x20/0x40
+ kasan_save_track+0x14/0x30
+ __kasan_kmalloc+0x9a/0xb0
+ __kmalloc_noprof+0x209/0x560
+ create_qp.part.0+0x760/0x9d0 [ib_core]
+ ib_create_qp_user+0xa2/0x500 [ib_core]
+ ib_uverbs_handler_UVERBS_METHOD_QP_CREATE+0x99b/0x12af [ib_uverbs]
+ ib_uverbs_cmd_verbs+0x214b/0x32d0 [ib_uverbs]
+ ib_uverbs_ioctl+0x131/0x200 [ib_uverbs]
+ __x64_sys_ioctl+0x13c/0x1c0
+ do_syscall_64+0xba/0x530
+ entry_SYSCALL_64_after_hwframe+0x76/0x7e
+
+Last potentially related work creation:
+ kasan_save_stack+0x20/0x40
+ kasan_record_aux_stack+0xb0/0xc0
+ __queue_work+0x8c5/0x11f0
+ queue_work_on+0x60/0x70
+ rxe_sched_task+0x1d2/0x250 [rdma_rxe]
+ rxe_rcv+0x847/0x1830 [rdma_rxe]
+ rxe_xmit_packet+0x408/0x950 [rdma_rxe]
+ rxe_requester+0x1878/0x5460 [rdma_rxe]
+ rxe_sender+0x17/0x40 [rdma_rxe]
+ do_work+0x149/0x610 [rdma_rxe]
+ process_one_work+0x726/0x10a0
+ worker_thread+0x500/0xd70
+ kthread+0x329/0x410
+ ret_from_fork+0x4cf/0x760
+ ret_from_fork_asm+0x1a/0x30
+
+The buggy address belongs to the object at ffff88812c486000
+ which belongs to the cache kmalloc-part-13-2k of size 2048
+The buggy address is located 0 bytes to the right of
+ allocated 2040-byte region [ffff88812c486000, ffff88812c4867f8)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88812c480000 pfn:0x12c480
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0x17ffffc0000240(workingset|head|node=0|zone=2|lastcpupid=0x1fffff)
+page_type: f5(slab)
+raw: 0017ffffc0000240 ffff888100059140 ffffea0004499010 ffffea00049a7a10
+raw: ffff88812c480000 0000000200080007 00000000f5000000 0000000000000000
+head: 0017ffffc0000240 ffff888100059140 ffffea0004499010 ffffea00049a7a10
+head: ffff88812c480000 0000000200080007 00000000f5000000 0000000000000000
+head: 0017ffffc0000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88812c486680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff88812c486700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff88812c486780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fc
+                                                                ^
+ ffff88812c486800: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88812c486880: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
