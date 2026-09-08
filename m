@@ -1,90 +1,80 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4A3380FC4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 280AA37F00A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:28:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848858; cv=none; b=f5e9UevzlaD/uXaH8ubPF9mAxER3sKh6iGYBvyY2bJRL77JYh6pgtEXbW4nt7FFx15PVztuVVr5Q0PRtsjxrpV0MqrJlVJQPMgzrmb9VnYngJxEMWXhGGKeQOMc5YxjVDhZNptAkcmkTwNWV1LboWMAolydMUpcYwOOzQt7TEbo=
+	t=1788848921; cv=none; b=UMP+9opoG4m7lRI6hPHM+K7dX8RpPcf1II24Ud0J4UIiIIHiDGnuODOhXjQRIEb9c3Y3Oq9+tfpu6oYZ3KSTYBsozdiTFa9bGS5vfcwtAXQn7MPezBYMSstcS8OJMhHiEoU/2B5qNodgJiD3NXG/Wi5MVQo5aV9UpKtsCoj1x8Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848858; c=relaxed/simple;
-	bh=XcWBN3GeP00Ku0Mc2HBPgjLZacSijIptpn85T5vzpjk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q2nck4UVFFQ9JCHmzZSsincMV3OLprrby+QTX5gUpeUBwgcunWVMS+kmCIH/IJqIKwnxUaE/17z0ojwDTAB7i5W/5Uq8Lc4wd3UQodpU03Jnr7kLcV4MQ9+TLLyK8/EQSwr00YHwd6U2qxMQgOcnJNyBBZ6x3ifU2OP73nW77j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRBPqj7w; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788848921; c=relaxed/simple;
+	bh=xeL2XZisgo/FUrGnl5D33KAEDxNC1ErjkrARUG8bI+I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZxYrIKfuRwaP+zAELLZd5LgIoVgZb/CHULVBj6CYo6SNDnkN1KbqYq7+KDlWf/tvzDcFO4p/YEiRsXoj1hZErjzSkrhQbyLsz5LKllUjp++42kjXtIPqkLn+oykUr94H6bKqpPwPUku94PhStG6/ZRjNjasjSFExxwGtW3L1ONY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=N8yV5RIQ; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRBPqj7w"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2f2c4eso4355835ad.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:27:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="N8yV5RIQ"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-85339ed040aso3328476b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:28:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788848856; x=1789453656; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Do+tyJs/In1J8gFUGP4c/jQC48P3JQhaviUTpiPjDi0=;
-        b=WRBPqj7wx65qeOC0zPwlYUMyEp9LdWvSxR62583muzrIanrvTbe5PEEXmxAuBS+PRz
-         MRodjMXr1EwpVaoRit1CmYtTlG8Lw7iNFnZTW2G9afkHb/qiZZuAsfIB8TsTJQntPvUG
-         L414Ql5FN9bAk8l5+UMGCX8x+5MocWVe4QPbJFx2KApr58KqCYZWloJtyswHOgVZkMtW
-         wAURTDkLCWFGlTuXRdZZT1kcZK1kH+LII4RqIVvxHK7teFe4GDGTUuXN/0glgs1USTA5
-         TYk5hytR05Tu9BtMxOqWRKPC8p81PGYWGaC9ic8hq5259Xg1wJSb3o8cTRLZfip/W4Us
-         unpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788848856; x=1789453656;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nebusec.ai; s=google; t=1788848918; x=1789453718; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Do+tyJs/In1J8gFUGP4c/jQC48P3JQhaviUTpiPjDi0=;
-        b=Of11QRYgM7k8lf8jenheaAuAk0IMUfo5w8BsVIhJ6IfwfoM6QmArz1FaVf7zyjvdjj
-         NEXXbb1HUuOctG9KMuDwo9wUkPkRztImddAZn+S8JDRCW0qa6fNewfXLXijmRcmlTLfe
-         y9+mJWXvfH535V6P70mjiLs4vUwMHTcF/7S1g6/IhTSDXoienKtQwthQoTFs/m1nzV1t
-         aNseDNTyFcxYIV1hWutLT+7cctUX/eiUiU47BroBTadIj4KqmgEmosemfbsGeG7Tnpo1
-         uiABgiBSqZL+NUNzisEiNGY5Ei1eml94NeeXx/S/I6vZTwViTqVETAPkxSfp8Qr6MW10
-         Zqvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxw9Fj1iuzEy1rK5jOa4NwfT55O8I5sWlPhk2ob/9YsZT8OGPUFUggdHKgHBMFQ2d9FK6wUt5fydQf4+yQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kizp+jCgvezd7BHUP7vbkjP+4yc1QQpV646KGyJZ5LPNDmA5te
-	e1Fiqo+V5cl2NUpdDd3m7Al+7adubJoA9tB7lv5gnUoxaBxXxjRDB3zW
-X-Gm-Gg: AYBFou3uUvmNw2xp92vQltn0ZHNwwrVBOi9NJ8jwUXEtIIADcT6KukAXIFqbWwid8qV
-	KddnoC42mSdmF3P8qw/voIe17ADQyVZ6NTsA7gdSL8CT11rz/SF+oHUw24RBHAPo6E9lSnrnoNn
-	3qoVBK0vICkCgksHkziVYL79Wcy/Dlnz0YpH7/PEEgXRDA6ZWbihlOct+A+anb6qXXMOCpa6MkR
-	5oGD+6jvpjqXu3aBequbX9tOxcx2BWom4/YFjiYzvQEFyrRufq2G3PKQff24vV3WMTItapCX+ca
-	gqQWwj7e3RE7f5qBMaRXSPreQBOISPX9OcBuQf06+3QK/nYR4O/KVlNv1aQ2lPaQ3dLSboFdkuG
-	+Ih90gwxRHpKstshDM5Lea9BI0M7EuHtcrSkq8rh52XFzM9iiyptFGsQukOZpGQ2Ctz+ELCWG7H
-	03YV7u3KCQpYQXFRt49myE78VxM86QFr+wt8JnhWjdP3y5vrnsBQp6cbfuHhYXQV9hgBYQ3T1Gz
-	fM=
-X-Received: by 2002:a17:902:ced2:b0:2cb:2b50:d9da with SMTP id d9443c01a7336-2db2779b54fmr189996155ad.3.1788848853049;
-        Mon, 07 Sep 2026 23:27:33 -0700 (PDT)
-Received: from fedora (45.62.127.193.16clouds.com. [45.62.127.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497fbf8sm54701565ad.43.2026.09.07.23.27.22
+        bh=UWrOKVPw0FussDK28wDfiGtsg6J7IXyelNHwkTWChaQ=;
+        b=N8yV5RIQtimPiD9HYrJi1GyiBsLsRbERpXWx6Q49fwh1UfCkHMxVqFk5Gv7+zXT3Ml
+         XhGujVBYdYnXt30mHZC8y6CTXCk48E3Kvv/Q2sKMb68Ya8dhPeQAyhJl83qIAEqsLYPT
+         6QuZT6tZO74riSKlz19LgRNv30u3oTcCvnWkRW1/f/sQR/qCzffNWMCtu862TIuH8P9r
+         tlft42KiA3apJEBV4AlcEFLzVExsB+uIAj7MMwfNfPIFL7yzBujAKdZpUFftqPGZ5plI
+         Yb+qQS97IGerAYwOShXr3TDolUoF3dK6GbdpGUUT6IZmKy2H9b23HIIOKvCO5yz7YHy3
+         dvJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788848918; x=1789453718;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UWrOKVPw0FussDK28wDfiGtsg6J7IXyelNHwkTWChaQ=;
+        b=loaZQEBYGuD/SzNTUSZCXNXIujmpzynvQTa7tKcMVink8lwhQUI2N6bEkMgGMfu2Wp
+         mbNGZHOTNHDiZvG61qSTHpA7UQTfo59KIEG1zwuo+FySII/sJyqQQsW46ce1ozRQfmeO
+         LgQ4LFFhvWjOXPMcc29N0/ScfVuH14DzdQnEO9P5CPZwtmL590l3ea/H6/oBnj6wyAIy
+         cASYcIerW7xDnYCeiV8tPvRKaxVOfxTxUjki96rhlXgofV1e31fu2vk9oxrWF+ebLVDJ
+         EMBUK8NP6/6N+3/BakXTsJWxWIQfoa70ENnFiMCRlIwhdW5bPtw2/qa8TSzNLKhipkJW
+         wUcw==
+X-Forwarded-Encrypted: i=1; AKwUvBxrav0C7n5hITahdWc4ejElvDOIKzipxTUhndHj+FIaslRBvTcClxTp/fanRFKH3EVSYjylHGM6yLHihUA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mB3fuibmtyS3uvL5BMd5cZSBAFruEYH/IPoM+sfxq3Us2aWDbj
+	lR+u7QBx5GxhFKvtsWWbEi0jk5tuseZopMbewtm1/IzZaYd5xJIK/JMzKVhAKZp3i7A8
+X-Gm-Gg: AYBFou0HNjRNKAbPTLoZJc0j6/Xi4MywarR12vo5s3NJMzxfCePDPykawcUncCD/jS3
+	k2K9keZb2qat4ivkqyaho0lNjF6Vq5uB6phik0vpNzpJIZaJmv/xfJhteNhSXPtKw/pI6dpOyug
+	RugDUu7VR9Fb+e9ray4IKZ8HOg/KtBUSr/9lbJCTZoI7HpMcWIZj27/lBh6oZkH60aFHxdxrjgX
+	LEMJptelpa2YPnXIwJorCFmD/9rXb+teqVxpz2ZxlOQgYjYFtHCzfNdH8Cll22K1CRp8u8T0hfR
+	hpeQHUze1enz1Yv7SaBDkCtFP5pp43tDgLlmX8wl9iE6DPm1DzJG5hCacU9A0WUuMj1edCQBNE6
+	VCd8buhmCuSKpD+1DnbMY/HcZgiXUith+5NXbCxOh1JdKdYi4CDRy0iFNpNFk534+a1+w9cu0nc
+	JoZgfzPx2jDsgs8DWLNKtADFKD5w1qk0d4xAfjjFcjRKtLPoRU+thpP8UySPFpBfjGF3+ZmAgEM
+	CoQI360rvyklcUDcSFl4apCtEZPCQ==
+X-Received: by 2002:a05:6a21:483:b0:3c4:3112:3b with SMTP id adf61e73a8af0-3da3a0a264fmr46279526637.18.1788848918208;
+        Mon, 07 Sep 2026 23:28:38 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554a312dsm5109502a12.29.2026.09.07.23.28.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 23:27:32 -0700 (PDT)
-From: Frank Zhang <rmxpzlb@gmail.com>
-To: royalnet026@gmail.com,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	cristian.ciocaltea@collabora.com,
-	daniels@collabora.com,
-	detlev.casanova@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	sebastian.reichel@collabora.com,
-	macromorgan@hotmail.com
-Cc: dri-devel@lists.freedesktop.org,
+        Mon, 07 Sep 2026 23:28:37 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org
+Cc: Zihan Xi <zihanx@nebusec.ai>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
-Date: Tue,  8 Sep 2026 14:27:08 +0800
-Message-ID: <20260908062708.39437-1-rmxpzlb@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH wireless 1/1] wifi: mac80211: fix mesh fast xmit path deletion UAF
+Date: Tue,  8 Sep 2026 06:28:27 +0000
+Message-ID: <94174303640c5e1022b31836770bad75f741afbf.1788845030.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1788845030.git.zihanx@nebusec.ai>
+References: <cover.1788845030.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -93,99 +83,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The following panic was observed during system reboot:
+mesh_fast_tx_cache() stores raw mesh_path pointers in a persistent
+fast-xmit cache entry. Path deletion flushes currently visible cache
+entries and then schedules the path for RCU freeing, but a sender that
+already holds the path in an RCU read-side section can insert a new
+entry after that flush. Once the lookup RCU section ends, the path is
+freed while the new cache entry still points at it. A later
+mesh_fast_tx_get() then dereferences the freed flags, expiry, or
+next_hop fields.
 
-Kernel panic - not syncing: Asynchronous SError Interrupt
-CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-Call trace:
- ...
- regmap_update_bits_base+0x70/0xa8
- dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
- drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper]
- ...
- dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
- drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
- drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
- hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
- ...
- snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
- snd_pcm_release+0x4c/0xc0 [snd_pcm]
- ...
+Mark the path MESH_PATH_DELETED before flushing the cache, and reject
+cache insertion if the mesh path or optional MPP path was deleted while
+the entry was being built. The cache walk lock orders this check with
+deletion flush, so entries inserted before the flush are removed and
+later entries are not cached.
 
-The root cause is pipewire tries to close the HDMI audio device after
-atomic_disable(), which sets tmds_char_rate to 0 and disables the PHY.
+The crash path is ieee80211_mesh_xmit_fast() -> mesh_fast_tx_get().
+The same cache is also consumed by ieee80211_rx_mesh_fast_forward(),
+so the deletion tombstone covers both consumers.
 
-In this case, dw_hdmi_qp_audio_disable() will call
-dw_hdmi_qp_bridge_clear_audio_infoframe(), accessing register without
-checking tmds_char_rate.
-
-Guard the register access in drm_display_helper callback function with
-tmds_char_rate check.
-
-Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi-qp")
+Fixes: d5edb9ae8d56 ("wifi: mac80211: mesh fast xmit support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
-
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
 ---
-Changes in v2:
-- Move drm_atomic_helper_connector_hdmi_clear_audio_infoframe() inside
-  the if (hdmi->tmds_char_rate) of dw_hdmi_qp_audio_disable().
-- Link to v1: https://lore.kernel.org/all/20260416093150.13853-1-rmxpzlb@gmail.com/
+ net/mac80211/mesh_pathtbl.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Changes in v3:
-- Add a tmds_char_rate guard in clear_audio_infoframe path.
-- Decouple write_audio_infoframe from clear_audio_infoframe.
-- Balance the PKTSCHED_AMD_TX_EN bit enable/disable.
-- Link to v2: https://lore.kernel.org/all/20260418101936.7731-1-rmxpzlb@gmail.com/
-
-Changes in v4:
-- Update panic stack on 7.0.5
-- Link to v3: https://lore.kernel.org/all/20260423081514.15444-1-rmxpzlb@gmail.com/
-
-Changes in v5:
-- Reuse the origin dw_hdmi_qp_bridge_clear_audio_infoframe and add
-  tmds_char_rate guard in new callback function.
-- Link to v4: https://lore.kernel.org/all/20260512103153.8861-1-rmxpzlb@gmail.com/
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index 1c214a8e6dc2..8729783d4eb6 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -880,7 +880,7 @@ static int dw_hdmi_qp_bridge_clear_spd_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
+diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
+index 03171cf008557..dfcc4f3a7088e 100644
+--- a/net/mac80211/mesh_pathtbl.c
++++ b/net/mac80211/mesh_pathtbl.c
+@@ -577,6 +577,12 @@ void mesh_fast_tx_cache(struct ieee80211_sub_if_data *sdata,
+ 		goto unlock_sta;
  
--static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+static int __dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
-@@ -893,6 +893,16 @@ static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
- 	return 0;
- }
- 
-+static int dw_hdmi_qp_bridge_clear_audio_infoframe(struct drm_bridge *bridge)
-+{
-+	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 	spin_lock(&cache->walk_lock);
++	if ((READ_ONCE(mpath->flags) & MESH_PATH_DELETED) ||
++	    (mppath && (READ_ONCE(mppath->flags) & MESH_PATH_DELETED))) {
++		kfree(entry);
++		goto unlock_cache;
++	}
 +
-+	if (hdmi->tmds_char_rate > 0)
-+		return __dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+
-+	return 0;
-+}
-+
- static void dw_hdmi_qp_write_pkt(struct dw_hdmi_qp *hdmi, const u8 *buffer,
- 				 size_t start, size_t len, unsigned int reg)
+ 	prev = rhashtable_lookup_get_insert_fast(&cache->rht,
+ 						 &entry->rhash,
+ 						 fast_tx_rht_params);
+@@ -812,6 +818,9 @@ static void __mesh_path_del(struct mesh_table *tbl, struct mesh_path *mpath)
  {
-@@ -987,7 +997,7 @@ static int dw_hdmi_qp_bridge_write_audio_infoframe(struct drm_bridge *bridge,
- {
- 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
- 
--	dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
-+	__dw_hdmi_qp_bridge_clear_audio_infoframe(bridge);
- 
- 	/*
- 	 * AUDI_CONTENTS0: { RSV, HB2, HB1, RSV }
+ 	hlist_del_rcu(&mpath->walk_list);
+ 	rhashtable_remove_fast(&tbl->rhead, &mpath->rhash, mesh_rht_params);
++	spin_lock_bh(&mpath->state_lock);
++	mpath->flags |= MESH_PATH_DELETED;
++	spin_unlock_bh(&mpath->state_lock);
+ 	if (tbl == &mpath->sdata->u.mesh.mpp_paths)
+ 		mesh_fast_tx_flush_addr(mpath->sdata, mpath->dst);
+ 	else
 -- 
-2.55.0
+2.43.0
 
