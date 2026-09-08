@@ -1,205 +1,148 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FCE53AAF6D;
-	Tue,  8 Sep 2026 07:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B47B3AD506
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854272; cv=none; b=e80zymrAZNM0Z/b6UDbMx+ZpI+hHYZpxg58ZAAKGaUGPpsal9MqYD1+iEXaAngZtPGmGfBFBHYKZXjca6IPDvEh+oJjpwYRUmxfSYuc4DJ+qlW4OgH773Sevt3Qb50gxXorKnaNtjJCZHnEDyClJQz/2SeL5FyBZCdJsNLDifSs=
+	t=1788854287; cv=none; b=OKHQwyA98pV/dbwyOmYMMCGeLROJrvIBVdFBDEI6E0cHnVu+qZgMlyREn1eTRcvXgWtMPcbwWOKay9ahCw2+OOiwx6V8oCWlytZVCWuRKA7YvlNAXQxEmpRn6ytWwKd0R6DI0QFQRf+eul2/09Q8y9A2fq9G1MCcHqfqr57IWLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854272; c=relaxed/simple;
-	bh=QYy17LhUjd7G0KPVtQa9AT156zJJmhd75aS73kNqMnY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sZ5Pa7uCFeCFAMD3skvtcX8c93p4kfInzxUi0kDa2nzE26pBpn/yE57IHLyiscKWhmRpTt+IN5pJ2S3sEl1oSdfiDGYxDcgfTltn8I/MU5hcfktsQNkWa6DE1yAmAudFVsDiZtTfW4BzdFt5y52+1eE+5ibRhBb9f1HD3IuvZSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZMB7o0XO; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788854287; c=relaxed/simple;
+	bh=TdLKtRb4SEvTKzu+KCQUsmzinljqSC9tZozsram1pws=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CJ/5kp42D+Op1lHrxrGike8isrEBu0K909vKFFjUPkRN/1TAMd2Dos49bo6ja/wzEnAVqBOXHW02qvK59Dk1z28AXAMo6g4DkpgXymqn26NpnNUWwGzGkKtIFmhIhgPHQN1Qjv0Ma49Nk2NR3n65fxK9x9hXE9+fwg/nu7YKvnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EbYkI2AU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cnvan/Se; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZMB7o0XO"
-Received: from [192.168.125.177] (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8C9B6C13;
-	Tue,  8 Sep 2026 09:56:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788854167;
-	bh=QYy17LhUjd7G0KPVtQa9AT156zJJmhd75aS73kNqMnY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=ZMB7o0XOsCH7Wa1CCHf3fgrgP6qCGB2Xon+B2LEnvFE7/qwszTiYPUtRS6MDlW40Z
-	 CQr1p4hINKCETZ9ichvCAYQzoTEJs8hRzGqtgYlmQR39quqZrj4Ijxn5iojXr3RH78
-	 RCbV8A3haDTQTq8oyoz1QiYEy1GKq269KKsPVdsc=
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Tue, 08 Sep 2026 09:57:23 +0200
-Subject: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EbYkI2AU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cnvan/Se"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788854284;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=uLFjRbxpszKYFTPYbV8IRN6QAJXJZc4bP6C5VBeyph4=;
+	b=EbYkI2AUU0mtKFpqc3JKIPM3nbSB12scIICErNGM8dGdc8ZioFTgxsaX7L9nhNv6i1O11J
+	8J6dFKPDEezJRSDNyGIqmsC+DtzQwa+QfAHzk5fiu4GlnTG06HPqVOdnSid1+lOzpYWb28
+	76oaUnJ23lKO308GhHjtlc8ZS/RgjCk=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-277-AeDvMMXnNHejP4diXJOBxg-1; Tue, 08 Sep 2026 03:58:02 -0400
+X-MC-Unique: AeDvMMXnNHejP4diXJOBxg-1
+X-Mimecast-MFC-AGG-ID: AeDvMMXnNHejP4diXJOBxg_1788854282
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49ccfad90f1so26437145e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788854281; x=1789459081; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=uLFjRbxpszKYFTPYbV8IRN6QAJXJZc4bP6C5VBeyph4=;
+        b=cnvan/SesNgXWdn3m2NUV/rJKOXqWOPgtzn12roNVFy3Q5STbexV9RjwgQk5yo2bto
+         D4pZU8hbkMVFiMHBAhba8aU5W4hkix8VJRB4PiBggShGMsEsYKAQWfigtHfbtCj3mECY
+         NLZhUW85fR5Q5dYwrKQfZyqXi9/8HfolY6KUn7s4Wz8f5DErEPDHPmdq7pQ5U3uWn8FC
+         cRbBrdWl5aGR8quFDYIZ9DqoPSkw76nGrKyCsBLluk+zuDiKcGvuvSwmMh+Iqfz6TJ59
+         fouaGE4dveTV6LV3Bec59tscs1j8Z+fIlVwBFdVsiVBuDDfKVI1gJRbs+31EMxqyPEzX
+         nshg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788854281; x=1789459081;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uLFjRbxpszKYFTPYbV8IRN6QAJXJZc4bP6C5VBeyph4=;
+        b=fp4/p1pDisTLLBKZIHUvPf6lb7R27ZYeZ9XzNNxsrFnNO4WUAmsuuZSoJXMgyeaynK
+         Q1yK69pL92VwGJ/eY2cLeArP1RZr1jdl+ukP1aWdmKumr/hBzvhSGqno0e5TIUJ9CbGG
+         LVfry9dKAOCHtG5aOO7jm8LwtAH5LCOxykjKKKbVJa9P3VFh50phelLKSh0Nry3iejIE
+         VLIDmKe7iYoBzlABKxJyzL4CSKrssTtn1JQbOmO7OQFXTq6mmL37jF/C4u2jLJkcB1L+
+         AW0ZenQSruZ8n47faYM4GxVhiVY0yyunWLil21UG3uZishv4ef4cijLzbqtwjXHWgMVX
+         6NMA==
+X-Forwarded-Encrypted: i=1; AKwUvByv5LOjMCbbHgqhu+Mw/EP+mhG7Pj6HlSXByAQPjgt1ukDyu9dEsOTjS9616t5Dvd2jMnLQfH1oo+aHDms=@vger.kernel.org
+X-Gm-Message-State: AFuF++mr1rj0hwZ6u9wDdVUm2/9qxUl0LGFsfkaPm9lYsvYKneu6o8/R
+	biEDp7DYYxEVeDPsyZ2tG+R24Wp5i9/6WS+oTXb74Fk8k5lBOZuIU/mMW4+h1IEN7Zmkj7PkXiA
+	3kHESLqyDp7CfxN00P5mn+aPdekw8RoAlJ1KU8bgq7LRPeZfiEWVRV008d3pwjNHskw==
+X-Gm-Gg: AYBFou1dtRjHgK0Bd7TYf+Un7FWrtyvMnasQ880PuzhNHZQK1QBKQ0Q/Yys/odhb0CI
+	DPvKwvxmJJl09/DspoGsfVpwVy7MHNL7Ha6fVFeyvdtKuXQFcIrUEsFZJlS4eyIkpGI9/JzKnU/
+	yGVskDjlN8bwvQwJoCXa79pQwWLsH1HfjuMzraijm5bcYsU0QzSCTbAG6+pifOFu/aa3SmU3K1v
+	Ffn+01jg4D8VghFWkVO6tDeq8Z2nJbQOqv4yI6TIOtZYuclrmAd6zId79+D5+pxNzldtLMSEunE
+	zzZxcWIsVHFwtF8bzYr7uUAIxq0Q8nV+pYSuQDX5QnJFG3ldrVw201V52clEG3sev+kyapR38zp
+	XbDfNO9s+f4/OXAYnSUyL4vg=
+X-Received: by 2002:a05:600c:190d:b0:49d:72d:9ba3 with SMTP id 5b1f17b1804b1-49d072d9bccmr177643635e9.14.1788854281452;
+        Tue, 08 Sep 2026 00:58:01 -0700 (PDT)
+X-Received: by 2002:a05:600c:190d:b0:49d:72d:9ba3 with SMTP id 5b1f17b1804b1-49d072d9bccmr177643265e9.14.1788854280929;
+        Tue, 08 Sep 2026 00:58:00 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbe5b252sm326431605e9.3.2026.09.08.00.57.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:58:00 -0700 (PDT)
+Date: Tue, 8 Sep 2026 03:57:57 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Cc: Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>
+Subject: Re: [PATCH] vduse: return compat ioctl results directly
+Message-ID: <20260908035646-mutt-send-email-mst@kernel.org>
+References: <20260908-fix-vduse_dev_compat_ioctl-v1-1-62264d9bfb8d@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
-In-Reply-To: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
-To: Philippe Baetens <philippebaetens@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3613;
- i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=QYy17LhUjd7G0KPVtQa9AT156zJJmhd75aS73kNqMnY=;
- b=kA0DAAoBcjQGjxahVjwByyZiAGqfv+yjQJRwp5i7f4NZNZ4VPjPYG+RJG4LGhKhurvByNXEqx
- okCMwQAAQoAHRYhBLXEPUiAmiCKj1g4wHI0Bo8WoVY8BQJqn7/sAAoJEHI0Bo8WoVY8kbAQAJ0v
- tcLWtVGhD5r41v6QVN9vaOnaKg60rXxKZEfScS9KoI5DabaOCRWf+PpXPnWjWFSCRGsJ/tgBpkF
- 8LPMo/Yb2v4mgsNL3Vp1FFwcb1RGh/5FNg14tHW4aPdlYCC2O4LjF6GDwSdj95vJPTueHCu544V
- O9TJFhdNNJJSXFwFSoh1ozsCmqGBRdxM82cKi5z8pMKmgINPdH8fh82U7Bv97JzUGp3uvnnSCvv
- QHmBl8kRnVdRkViZ8K1apFe4r3I8zBK4JeRq/C4xXh+iqFv2DzfpgKw/P3wQ7YP8xH4ju6JTKQ+
- DjPU5dGDq9qJXnWI5k7FYxowwlSzIJbCHYQkPFNro4N4zCELGblTEpJkvnpkVFnX60mZeUU1liq
- Mr3v6ZEYwiOqVdx8xyd78RNRKDS2tRqdkh8t+rMGui1m/fGydFYfRetymD2A7nhgSr3q2QTZbaK
- YWxeYzevkyKFiSsyflVvDgtL3yW+qlMlqo+S5VVZ4aH4bG1nkf58+IjQy3TWA4mSCL0Ui50LKGU
- CDY20JjAmAXPVAuf7y3k8nSOpZaGE24moIbjW/p2fqxHIKTVjeP78B29gibd+zkc6zlqvhpQQWs
- 1xfFF0QClmLdwrD66XKoWxvon8dneKUN1/tTB3TZTT/fuUlf6DR9LYrqkD+4vvfZ3JsRUHjT/U7
- 64d1a
-X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
- fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-fix-vduse_dev_compat_ioctl-v1-1-62264d9bfb8d@gmail.com>
 
-Add bindings for the ams OSRAM Mira016 image sensor.
+On Tue, Sep 08, 2026 at 03:31:51PM +0800, Linfeng Sun wrote:
+> The compat handler handles VDUSE_IOTLB_GET_FD and VDUSE_VQ_GET_INFO, but
+> then calls the native handler. Their different command sizes make native
+> dispatch return -ENOIOCTLCMD.
+> 
+> For GET_FD, this overwrites receive_fd()'s return value after the
+> descriptor is installed, leaking one fd per call. Return handled compat
+> results directly and use native dispatch only for other commands.
+> 
+> Fixes: 455a2a1af926 ("vduse: fix compat handling for VDUSE_IOTLB_GET_FD/VDUSE_VQ_GET_INFO")
+> Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
 
-Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
----
- .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
- MAINTAINERS                                        |  7 ++
- 2 files changed, 104 insertions(+)
+indeed, I will apply.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-new file mode 100644
-index 000000000000..49a606fca6cb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-@@ -0,0 +1,97 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 0.16 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-+  and 3D consumer and industrial machine vision applications. The sensor is
-+  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-+  physical layer specifications to transmit the image data to the host
-+  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira016
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdd28-supply:
-+    description:
-+      I/O voltage supply, 2.8 volts
-+
-+  vdd11-supply:
-+    description:
-+      I/O voltage supply, 1.1 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (RST_N) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdd28-supply
-+  - vdd11-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@36 {
-+            compatible = "ams,mira016";
-+            reg = <0x36>;
-+            clocks = <&cam1_clk>;
-+
-+            vdd28-supply = <&cam1_reg>;
-+            vdd11-supply = <&cam_dummy_reg>;
-+
-+            port {
-+                endpoint {
-+                    data-lanes = <1>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e12dc3ca57ab..1c24b05b378b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1454,6 +1454,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
- 
-+AMS MIRA016 DRIVER
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
+Cc Arnd.
 
--- 
-2.55.0
+But ... how was the original patch working then? Arnd, what gives?
+
+> ---
+>  drivers/vdpa/vdpa_user/vduse_dev.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/vdpa/vdpa_user/vduse_dev.c b/drivers/vdpa/vdpa_user/vduse_dev.c
+> index 4dea4d6a3855..49a231bdf948 100644
+> --- a/drivers/vdpa/vdpa_user/vduse_dev.c
+> +++ b/drivers/vdpa/vdpa_user/vduse_dev.c
+> @@ -1882,11 +1882,11 @@ static long vduse_dev_compat_ioctl(struct file *file, unsigned int cmd,
+>  		break;
+>  	}
+>  	default:
+> -		ret = -ENOIOCTLCMD;
+> -		break;
+> +		return vduse_dev_ioctl(file, cmd,
+> +				       (unsigned long)compat_ptr(arg));
+>  	}
+>  
+> -	return vduse_dev_ioctl(file, cmd, (unsigned long)compat_ptr(arg));
+> +	return ret;
+>  }
+>  #else
+>  #define vduse_dev_compat_ioctl compat_ptr_ioctl
+> 
+> ---
+> base-commit: d7808b37da0a619cf1fa541c2384e783fecc2480
+> 
+> Best regards,
+> -- 
+> Linfeng Sun <linfeng.sun.dev@gmail.com>
 
