@@ -1,74 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB7C3F3265
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:02:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 341543F8252;
+	Tue,  8 Sep 2026 21:02:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901349; cv=none; b=FoW6/GT6AyDICYIxVfCPcMmd0m1hfRIeGd0rPAn3LVKgfDlxnSk7IBKdJYlK4MXF8p3HlTaIQdqV4MK8bFukjVH14/TtAo9WUvBx8WSvzeFq9pPMTAqNAKB63OiCJFpcPt7ugwrKB0yliYWA8tGlufQbLqwXhgihNPIleiHnfkQ=
+	t=1788901367; cv=none; b=iP0e9ymPRVJW8d4iMSJjDYJn4Ktqa+yCnoWK5QlY8Ct4zcRWGpXi8eR9Ldre4uSAeNaG76FxPO58SEYONm+VggeLpeZNEykNoPO6GsJRWpggynqC8GyuZzdwDNVnR3n+b2sbRYUlRWMrtnUoVNNV5/ro89tvWKQ+zHxVl+cgF7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901349; c=relaxed/simple;
-	bh=bd9xi0N3rfkqry0x1YqyaoxKZnsAKbGywNtxLyc98es=;
+	s=arc-20240116; t=1788901367; c=relaxed/simple;
+	bh=etGFNzryVHVIzhzIbWKVACbTFB0Fz5j+NBDjhPIvoYg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U8NyAhiyI1iS2t9ejwXjJJYW45zYHy1zjGZzZGiyAkfizZX/3w9kjZhRfRlRyk+3mv7O6FKGgdo/DISLG6oNEKU5rD4w/iFofm87zq224ta/iX8oEQzR7GXXt5nxWnbYB1SUF0ksWpIZmuwOy90U6iQgBxIkhBkr5OkNuSUOIwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCRj10zz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YDU57mGSwIckPWb3EW/jt3T0/IPzk/niHs6K4ZE4O0xfYDo0TCfRbE7POVMzNMMmUlKGe/n/aG5tFlXY8jtrUrWPkFIE9BH1AB56tg46d7LJvyb/Z+dk7cLqOBeADpRfmEZIwzcf+EWq1DBrEfAYZN+5iBBrvyVyUsKcMcXtlxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfpLzjEF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCRj10zz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6D131F00A3A;
-	Tue,  8 Sep 2026 21:02:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfpLzjEF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7731F00A3A;
+	Tue,  8 Sep 2026 21:02:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788901342;
-	bh=sUj2tGJ84SLrIUDajcfhUjeh5g/d0LaSfpAMYFutJ7Y=;
+	s=k20260515; t=1788901361;
+	bh=I1nTJJBN0/8Z3vREycaem0mdZLGZl8Q52gVbOoYMerY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JCRj10zzlHMwLx+4DZ1w6ePXNa1xoU0MZyluycdxUvJl3W2DLiysbVUOUBYcqcsUg
-	 q2k8WBeuDnjrNiEVfogw+ntY0dBsBgn4kk8D06WyqJtmfY6TdUNPiTIQebOp7gZVnx
-	 /aRFjRCRPX4/qaaDDphcsL9rWNd8TqG05pQHmHDkMqy/9mRB66sZ+H/7ULGk5Y8f+2
-	 KKhAQzbMwFWtkPd5icTlTpFIYuQpHvywonf/F6OKBwXvvY5e6CODNUx+T5PvTB42Ip
-	 riAXNaMIEztZzyZija0aSXLxbgdCyZISc5a4ULWw62fQpBr8TSONRvN1MlHfrxHW8+
-	 r6Nz2e+0xtCug==
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfauth.ams.internal (Postfix) with ESMTP id F0114198003A;
-	Tue,  8 Sep 2026 17:02:15 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Tue, 08 Sep 2026 17:02:20 -0400
-X-ME-Sender: <xms:13egaiv3I5NU7VkxDzDwWakKBx8vLWSGAgFoGO2JwU1lWM-KeeqChA>
-    <xme:13egaoLrTAGAf8PKDwojN6-fnAt2cd4EKu1ADshk71glMBbS5cFtGKptEky8Wf1mK
-    DcE4DRcHGIKZ0-s35gl6A84yMKZ_cBAZlaKukZDnr17HgrXngKHGiyT>
-X-ME-Received: <xmr:13egao15JrCthvAwd8a67FoiaL1RBjeWvS1WTY6pLhSSX7ZYGuMumx-nnCk>
-X-ME-Proxy-Cause: dmFkZTEAILA6vc5JwE1AywUZhHj3jrCZoHnZLeOWd69ORmx0fD70m1rj/vEtHXnDNbZ/3S
-    JbZrhvU5i2gCAEseWg8ahCUqEo46O8afIzjj0LeuDxoGzqZkV4cyrGYUvzgqoZJBMTbuN3
-    jWKEzH/ZQxzy4VmBoZ/TyPXkyEjAB/tHZ0tKcccELp4/GxOE707NkBOG3g7PkbB1CzqEvp
-    0KtWO2dtBG8BGkW68TQrYp3sdyh7ETyZWTuT1ajiI1J4Dru/d8hD6yTvO4U44jWIhYkACx
-    rvPqpCBmfzl7xqOEdFrgQJTocBrtcyT7b7+4p5MkFHwVAlUgpoFxlnvSuXq+EVi/E6wyA4
-    jILJ2dkKz6ujRedUs17ko3DHmINS6jdEsRiP9kfTzh/RpKaTP7B5ZkQbqFKOd7D/vNQLbA
-    bK89aIgAq5FvDxLP48Lr78jJrP6NuZsN1fI4VZw2iDkD4ZnhKlbOkr7Afi5PePALdNioVI
-    LhnrDLQw8dZE2Idm2XTLoFEvPVu2uts0bwZvGqaSs/d+59+2ZmV3BM/ozt0gX0AzUHmmk5
-    v8xJQ8yq8yZghiLCvaLLa8E/MLHjrrHicKDlNCB/+dK59W2PDOeVCdVjazxT+ELm90imLW
-    SMgwKeJSPEkDdeizukYNUVo7WsuiX1HboFGYpxHaZAh8j6q4jV17QrpNE83g
-X-ME-Proxy: <xmx:13egatNAY0gyHF6R4MNJ2-Ya2RdYgFjVX7fJm3Fcf1lra-j6koLYgw>
-    <xmx:13egal61Vs39srGUNYlctXsK5TryErbfKl0XKBwTa_8pRfE2UQGiOg>
-    <xmx:13egal-4yhKJnXzCc2CFEPcDpLvaijicsF3Bg-Gacyubo9BYdlPyFg>
-    <xmx:13egaqj-pW7Huvu53CmtDnjJDCbTP068Poqs9cr4bS8Axsg-oopNlQ>
-    <xmx:13egahmeoFhUN6TXVAB1XzkQVfQz7gqe46pSSN2oPS23zCImg4QRCcmX>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 17:02:14 -0400 (EDT)
-Date: Tue, 8 Sep 2026 22:02:13 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
-	rppt@kernel.org
-Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, 
-	dev.jain@arm.com, hughd@google.com, lance.yang@linux.dev, liam@infradead.org, 
-	mhocko@suse.com, ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com, 
-	vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v5 13/19] selftests/mm: cover a shared-source collapse
- write race
-Message-ID: <aqB2ckEupUKnoJt_@thinkstation>
-References: <20260908125105.1510704-1-kirill@shutemov.name>
- <20260908125105.1510704-14-kirill@shutemov.name>
+	b=PfpLzjEFh+YzweqpMsSnGG9nwRUxroZS6gFkwEHTj3mq1YzSe5uND/Uhcd0u8mAFj
+	 shvFN9Hyi67FW3zR0+u0oV5tagVTmWfIPwHWh9bVV1Nbh53L1ttUdhi9Gu/AMehuTe
+	 JljHe5fyWsA04oan5Ozd8olgrloRiUED0cnZbLhXCkpNh3zzt40q1mZkRRu6QjEkZz
+	 yLDsKI+L8GaEDb3uWH+uou03ztcNJ1tLfkUL/s4B3gB+rGrK6p2I2zVdKzpXFwFsJg
+	 mDNRepvV2unRPWVExIvkBegwGWqo1uBtYvUhTZvFPdy7LanRwaKX6LFvR6vcKFaEgc
+	 yQ23sn4FI+MoA==
+Date: Tue, 8 Sep 2026 18:02:37 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Sizhe Liu <liusizhe5@huawei.com>
+Cc: rostedt@goodmis.org, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, corbet@lwn.net,
+	skhan@linuxfoundation.org, bhelgaas@google.com,
+	yangyccccc@gmail.com, jic23@kernel.org, john.g.garry@oracle.com,
+	will@kernel.org, james.clark@linaro.org, mike.leach@arm.com,
+	leo.yan@linux.dev, peterz@infradead.org, mingo@redhat.com,
+	namhyung@kernel.org, mark.rutland@arm.com,
+	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
+	irogers@google.com, adrian.hunter@intel.com,
+	wangyushan12@huawei.com, wuzongyu1@huawei.com,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	linuxarm@huawei.com, prime.zeng@hisilicon.com
+Subject: Re: [PATCH v4 0/8] Enhance TLP packet decoder with field-level
+ parsing and versioning
+Message-ID: <aqB37YCMUYKodo3N@x2>
+References: <20260908140509.2485649-1-liusizhe5@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,65 +55,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908125105.1510704-14-kirill@shutemov.name>
+In-Reply-To: <20260908140509.2485649-1-liusizhe5@huawei.com>
 
-On Tue, Sep 08, 2026 at 01:50:59PM +0100, Kiryl Shutsemau wrote:
-> +	close(sync[1]);
-> +	if (read(sync[0], &go, 1) != 1)
-> +		ksft_exit_fail_msg("child never reached the collapse\n");
-> +
-> +	/*
-> +	 * Unshare one page at a time: a burst would break CoW on the whole
-> +	 * range before the collapse starts, leaving nothing shared to collapse.
-> +	 */
-> +	i = 0;
-> +	for (;;) {
-> +		if (i < n)
-> +			ip[i * stride] = i + 0xbeef0000;
-> +		i++;
-> +		usleep(10 * 1000);
-> +		if (waitpid(child, &wstatus, WNOHANG))
-> +			break;
-> +	}
+On Tue, Sep 08, 2026 at 10:05:01PM +0800, Sizhe Liu wrote:
+> The original hisi-ptt-decoder only prints raw hex values with generic field
+> names for DW0/DW1/DW2/DW3, without classifying TLP types or decoding
+> DW0/DW1/DW2/DW3 fields according to the hardware-defined packet format.
+> 
+> This series enhances the HiSilicon PTT (PCIe Trace and Tuning) packet
+> decoder in perf tool to provide detailed field-level parsing of TLP headers
+> based on message type, and adds a versioning mechanism for backward
+> compatibility both in hisi_ptt driver and perf tool.
 
-Sashiko flagged two issues here:
+Series is sashiko clean by now, has a Reviewed-by, but it touches both
+kernel and tools, I wouldn't have a problem if it was processed by
+whoever maintains the kernel part.
 
- - sync[0] never closed. It is fd leak;
-
- - wstatus is garbage if waitpid() fails, returning -1;
-
-Here's a fixup:
-
-diff --git a/tools/testing/selftests/mm/khugepaged.c b/tools/testing/selftests/mm/khugepaged.c
-index 335f946eca61..c0a07d75a306 100644
---- a/tools/testing/selftests/mm/khugepaged.c
-+++ b/tools/testing/selftests/mm/khugepaged.c
-@@ -1228,6 +1228,7 @@ static void collapse_fork_cow_race(struct collapse_context *c, struct mem_ops *o
- 	close(sync[1]);
- 	if (read(sync[0], &go, 1) != 1)
- 		ksft_exit_fail_msg("child never reached the collapse\n");
-+	close(sync[0]);
+- Arnaldo
  
- 	/*
- 	* Unshare one page at a time: a burst would break CoW on the whole
-@@ -1235,12 +1236,17 @@ static void collapse_fork_cow_race(struct collapse_context *c, struct mem_ops *o
- 	*/
- 	i = 0;
- 	for (;;) {
-+		pid_t ret;
-+
- 		if (i < n)
- 			ip[i * stride] = i + 0xbeef0000;
- 		i++;
- 		usleep(10 * 1000);
--		if (waitpid(child, &wstatus, WNOHANG))
-+		ret = waitpid(child, &wstatus, WNOHANG);
-+		if (ret == child)
- 			break;
-+		if (ret < 0)
-+			ksft_exit_fail_perror("waitpid()");
- 	}
- 
- 	/* Finish whatever the paced sweep did not reach */
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> ---
+> Changes in v4:
+> - Add missing space in hisi-ptt.rst (Sashiko).
+> - Widen the pattern bit field in struct hisi_ptt_trace_ctrl (Sashiko).
+> - Add protocol defined TLP header length parsing in patch 05/08.
+> - Add MRd and DMRr message types parsing in patch 05/08.
+> - Add comment for enum hisi_ptt_pkt_msg_type in patch 05/08. 
+> - Add DW0 and DW1 fields analysing in patch 06/08.
+> - Refine bit-fields parsing of DW0/DW1/DW2/DW3 based on different requests
+>   in patch 06/08.
+> - Refine the description of pattern=1 in the document in patch 07/08.
+> - Extract the bit-field printing of v1 version into functions in
+>   patch 08/08. 
+> - Link to v3: https://lore.kernel.org/linux-pci/20260903075241.1445338-1-liusizhe5@huawei.com/
+> 
+> Changes in v3:
+> - Add explicit inclusion of <stdbool.h> (Sashiko).
+> - Make patch 07/08 apply cleanly to mainline (Yushan).
+> - Pick up the reviewed-by tag (Yushan).
+> - Link to v2: https://lore.kernel.org/linux-pci/20260827140442.2031128-1-liusizhe5@huawei.com/
+> 
+> Changes in v2:
+> - Split patch 01/10 and patch 02/10 from series v1 into independent patch
+>   series for backporting (Bjorn).
+> - Use bitwise operations instead of C bitfields for cross-platform cases
+>   (Sashiko).
+> - Add `pattern` parameter in hisi_ptt driver for layout compatibility.
+> - Link to v1: https://lore.kernel.org/linux-pci/20260604075005.2219785-1-liusizhe5@huawei.com/
+> 
+> ---
+> Sizhe Liu (8):
+>   perf hisi-ptt: Abstract trace data buf and offset
+>   perf hisi-ptt: Complete the field names for 4DW and 8DW packets
+>   perf hisi-ptt: Extract the raw data printing part
+>   perf hisi-ptt: Merge 4DW and 8DW HEAD0 printing
+>   perf hisi-ptt: Add parsing of supported message types and proto length
+>   perf hisi-ptt: Add field-level parsing for header DW0/DW1/DW2/DW3
+>   hwtracing: hisi_ptt: Add pattern PMU config for trace format selection
+>   perf hisi-ptt: Pass pattern version to decoder for compatibility
+> 
+>  Documentation/trace/hisi-ptt.rst              |  26 +-
+>  drivers/hwtracing/ptt/hisi_ptt.c              |  25 +-
+>  drivers/hwtracing/ptt/hisi_ptt.h              |   4 +
+>  tools/perf/arch/arm64/util/hisi-ptt.c         |  18 +
+>  .../hisi-ptt-decoder/hisi-ptt-pkt-decoder.c   | 593 ++++++++++++++++--
+>  .../hisi-ptt-decoder/hisi-ptt-pkt-decoder.h   | 241 ++++++-
+>  tools/perf/util/hisi-ptt.c                    |  51 +-
+>  tools/perf/util/hisi-ptt.h                    |   9 +-
+>  8 files changed, 872 insertions(+), 95 deletions(-)
+> 
+> -- 
+> 2.33.0
