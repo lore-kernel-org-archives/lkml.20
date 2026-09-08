@@ -1,103 +1,80 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBC5E4AD7E6;
-	Tue,  8 Sep 2026 09:20:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 025D74AD7E6;
+	Tue,  8 Sep 2026 09:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859259; cv=none; b=byvMXBOnHn/XtPk42YwenvxUOsUMzCwewe//6L29RxI/BSOIRSvgNcfcAKuSfvCo6ySYYa111/f1jSaM+lQrCc63Z1Aq8eziZfdQSidsFPt4xXOtFQkfjaAjAb2kBRfXJWVaoRl9xLsrKLFL9QlHZtASQBeMYvIOIZKS8VYaA/Q=
+	t=1788859267; cv=none; b=r483b/7CU/GUcdrxf1gC9mY8Vgj2PagzHydfVAsBFKEMnOKxGO9KVYDJ5pwp8AspnLWrOOXCV+M227rc7Wp1+fDYiFVEwhYYQF1GJfDxoDR63cSSJXhfQ9qaZT/ej7mGgtuzAr+auaISn/o9sVehejIQ8JI3Fuj5PAhdy75pDFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859259; c=relaxed/simple;
-	bh=VGdgfu8FflBUe1F0QvCfe+YXb0jjB4KTsG1VdxloQ1M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jsNy1QahzZHh6yVTwzMD050u5QqizEVDcely56uJdJ9ex/WJ+OBTl32xwPCf1yhjqj08cjm8xhrcmGe4mRbv6hMtAUmb5m7yu09Oa5AGM4C+HU3tKtn5aKEkoBMffMKJW+ePErXSn88HvNjq3652ywM9i5bT0vQM1vzfUnQ6NTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=iqCEkxAq; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1788859267; c=relaxed/simple;
+	bh=y50Ojfv5VkTBJPFZ0chnmlHeWcVQPMv+rHT31BA3sBs=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=G6IkVR7w93BPeCLVUZNOqkpcRjThr1BYGhQs2ctwDxzJ+Y/hpe8RxahOjBRFf2jc2VEYo+wqgnEFS84wU5KfNpDTZSAoaavQxHU2KFEKWoGrFIJOAkm3omULacQa+OlTiwG94C95DM139IWxW8Jj2alNGs/E15VW8nfKDTIyCAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lv7hJOyf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="iqCEkxAq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=C407YdSwLyJjiUUnrA36d5Mbdvt5XnU6O23tFgKHeQw=; 
-	b=iqCEkxAqCo7XVL7E97GFXAOhpV6JPho2st8lQtUfP4A41jAbO2CbgHhoNg0315hmmQpAyqqBI/w
-	Wl7SK+hGFcjEsk8P6sVSBAByY+u2ZDGpc+H8jgXHwT9aZsKmUZFm3ld4UCVXOpdpXHHfeWM1LQchL
-	HX9TYGZ9xDp2D/dAQnJvJVpq/8ZItBgNel6RYGv/9zqFeG+DSf6ECIQWpWwA+Wp/vinHqyU3QCGV3
-	5acQzPEoj+bNw+AiqnMFe/T9yKzicMqhptHC2hb7MiemYFnOK6v+JsdKABkA1s8lKLoJ9vRmMIBKr
-	GDjD5WouYQ8KFFWfC4enyI2srdjLjCqKObYA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x3s0Q-0000000Bncv-0UA9;
-	Tue, 08 Sep 2026 17:20:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 08 Sep 2026 19:20:42 +1000
-Date: Tue, 8 Sep 2026 19:20:42 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: =?iso-8859-1?B?Suly6W15?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Cc: arei.gonglei@huawei.com, mst@redhat.com, davem@davemloft.net,
-	jasowangio@gmail.com, xuanzhuo@linux.alibaba.com,
-	eperezma@redhat.com, linux-crypto@vger.kernel.org,
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Bryam Vargas <hexlabsecurity@proton.me>
-Subject: Re: [PATCH] crypto: virtio: validate akcipher completion length
-Message-ID: <ap_TatiabFuXiiad@gondor.apana.org.au>
-References: <20260821095511.3600564-2-Jeremy.Jean@oss.cyber.gouv.fr>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lv7hJOyf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97FA31F00A3A;
+	Tue,  8 Sep 2026 09:21:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788859265;
+	bh=C0Wc1z0UK/jSMdHMVCi2Qy2vKtOSdoNgOL/Z+mNx+pw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=Lv7hJOyf8TCEIxn5H+5OlVL7TM3S00stkbY0SKUdInDMtRjnLhi86sCgTZvKgGOAh
+	 oiTdyX+AAoevCo4hw5WNo/nDMZrdrbR2nwCIssraucQYMZRbdS7ILxtGpkD5LUESk9
+	 UP4Jil9WfBYwPmfp1CQdenM39moO//Q6tuYcPqyuiTTkRTjx/GixVFAeGuYN/7+4iL
+	 kbb9B/P5VWJRjD/ga9yG2aZ93ZEpRZz+gfykw+wMfBEXLEhLucIlKhO9HgXFZ6YVTI
+	 h2cqhw6PdHnB/L1jzW3RNoHVhDN9I+bw4ycWTxSPuGqyirgs7T29uZd62EkTGoY0NC
+	 +RkDoyjZ+mPGQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 9396039E8A73;
+	Tue,  8 Sep 2026 09:20:05 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260821095511.3600564-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Subject: Re: [PATCH net-next v2] net: marvell: mvmdio: Handle errors from
+ optional
+ IRQ lookup
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178885920436.3407595.13954843751051119614.git-patchwork-notify@kernel.org>
+Date: Tue, 08 Sep 2026 09:20:04 +0000
+References: <20260903074638.345952-1-phucduc.bui@gmail.com>
+In-Reply-To: <20260903074638.345952-1-phucduc.bui@gmail.com>
+To: Bui Duc Phuc <phucduc.bui@gmail.com>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, o-takashi@sakamocchi.jp, dakr@kernel.org,
+ bhelgaas@google.com, u.kleine-koenig@baylibre.com,
+ chris.packham@alliedtelesis.co.nz, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org
 
-On Fri, Aug 21, 2026 at 09:55:12AM +0000, Jérémy Jean wrote:
-> The device controls the used length returned for an akcipher request.
-> Subtracting the status byte without validating that length can underflow
-> dst_len, while accepting a payload larger than the submitted destination
-> can make sg_copy_from_buffer() read past the response buffer.
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Thu,  3 Sep 2026 14:46:38 +0700 you wrote:
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> Reject malformed completion lengths before updating dst_len or copying the
-> response.
+> platform_get_irq_optional() returns a positive IRQ number on success or
+> a negative error code on failure. For an optional IRQ, -ENXIO indicates
+> that no optional IRQ is available. Other errors should be propagated so
+> that the caller can handle them appropriately.
 > 
-> Fixes: a36bd0ad9fbf ("virtio-crypto: adjust dst_len at ops callback")
-> Assisted-by: Codex:gpt-5
-> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  drivers/crypto/virtio/virtio_crypto_akcipher_algs.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
-> index d8d452cac391..886032abae80 100644
-> --- a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
-> +++ b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
-> @@ -69,6 +69,7 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
->  	struct akcipher_request *akcipher_req =
->  		container_of((void *)vc_akcipher_req, struct akcipher_request,
->  			     __ctx);
-> +	unsigned int dst_len;
->  	int error;
->  
->  	switch (vc_req->status) {
-> @@ -88,9 +89,19 @@ static void virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
->  	}
->  
->  	/* actual length may be less than dst buffer */
-> -	akcipher_req->dst_len = len - sizeof(vc_req->status);
+> [...]
 
-This appears to have already been fixed by
+Here is the summary with links:
+  - [net-next,v2] net: marvell: mvmdio: Handle errors from optional IRQ lookup
+    https://git.kernel.org/netdev/net-next/c/3ef961d01c2c
 
-commit f77a956f6a19f9463ef1527c9d0cda50dded6b92
-Author: Bryam Vargas <hexlabsecurity@proton.me>
-Date:   Mon Jun 22 01:52:15 2026 -0500
-
-    crypto: virtio - bound the akcipher result length
-
-Please check that commit and see if it's sufficient or not.
-
-Thanks,
+You are awesome, thank you!
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
