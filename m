@@ -1,124 +1,436 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905BF3ED3BA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855620; cv=pass; b=Nl7xSo808yMbLO36DwQDYvju1A9GjESDaiOR3LjhOzdvugcyZ8/tmEM91EgrznL9Ho0cbbJQVbGe7eyEpOQjUgXqjjSkYC63Dv3X1elDIpzMlBVWMu0zD1Aif72l1WSzMqqbbG5gaRs8Jxo2tFuvU8m9mt0uHeAILyoAibo7rrE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855620; c=relaxed/simple;
-	bh=hsjTDp8GxgJOwpED1Wg/Qo5pHHkBB4Ysmhw6O6ZbUK4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pltdLjgF36H2YKXqYNTZ8mDo0mDLHK7FxFlNQqQo6+PPpTTJjSJuA31hKh76WdS2IXZlZnfzUtR3tDCFFXO/GghdjESvtzAOPbitl70ThIG79BcHplyHreWnS26etMG3VUkLwoUGn+NuZxnnUk++RYcXq0nRaUObRmFucNVR33o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sO8ebbnR; arc=pass smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12ADA3EB106
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:20:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788855632; cv=none; b=SwsaAf3md3WdIH46fhBzK+1Kd14pNGVeu8b1y31NXvrd2tnreUaZS+x4o8vHJeBS/y+waLNVtFQn0COsED6EzNP/0R3ug6IiXFFM7WAHDMSZ89UCYkRbxHYJet0WfpBpN2GSLVdST+70cAImk3vzcVAC6MxDyewd/YtJaFh3WCQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788855632; c=relaxed/simple;
+	bh=nUc/DpYu/azYIaHQpLD+OgDapqmBFdfLWC4iFmovybk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Z9O9WGD+c+eI7lvYBxMEBBFOPuxh1Hp9wqtwHzG/uwPafkOzLgWgghy2UsqjhPfdeGsl/+JesHHiFvUHtgV+9M6qsQnO54zcuGRceU41BqT2Us1yrzWQReMsljqOhL+6gzvrcbchtPfX9ndxR/Z4XRpSeyLvwF0xqB4p9Y9CFJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=CK65Pz33; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sO8ebbnR"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-9399997417aso212842885a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:20:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788855616; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qsu+fWZJH6mrFb9naGYSZzjSLCBgOiY69f32kvTMhmzf4YF4vlX7RzHCSgdf8tWrQc
-         69L7pjMe85bGiDrJmi4jlmN3DdJMEnyPGRqfLq4pmy93dl+/n3MA7COIuowpyulfQw/T
-         1Xe2xEgWURRy50YK8sh4SSaeqKZi49xItnvwhojPPCX7dD1VTl335vtjinSXKjE0CwnI
-         viC4rNC0erTf1BIam2W2sXkeQZfcfJ6JQpMb+xS2Cn0Km63+ZouT3GKOLajHdejcx3pt
-         ZEo6eslXF2uX1+6P4CRebuQkidrHPsq6X9Rc61PW4aEtJ2wZ8pKY+AGxQ3spG8k3T4ub
-         bhwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hsjTDp8GxgJOwpED1Wg/Qo5pHHkBB4Ysmhw6O6ZbUK4=;
-        fh=iKkPhd5rL4Bnnz3ntwJtqF6csOCPFelQZi2azLaE0J8=;
-        b=PiFFmIUeK+bJJsxb4iYoYyYbpD5ffb2xWIJG2n3+AKJmuWaCbiga6j4Lu3goPGi0+t
-         rvWv4os7Ni9OcAeD4ZkFiAd6tJMMKww6DAumuYVw4Hw5FlOeBRZUjfuZWnGwtGHlZ2Nh
-         0erMvaQQhDuwXd9A91hm+3LvaWF5NVaGhInbZjK+cLe2LQddTeka/1F7Kbq+sDf+Nvi1
-         tCHDLeBZK+pky1CfUMC/GC9xZv/X7IhFtgREEMM89KHThtxMgCGn1DJ6AggX2vJ5pW8y
-         4npZjs0oeMhrMSLQl53A3IPxtVOooyuYnt/WHQkELLUkGbUg9eNlciC9QbdG6kYKfpuV
-         SXHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788855616; x=1789460416; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hsjTDp8GxgJOwpED1Wg/Qo5pHHkBB4Ysmhw6O6ZbUK4=;
-        b=sO8ebbnRRyogAoRUoEKrDUIrV9/y3WCeanjkAFp/SRpg/dbdT0cqX+wN2pNTpuFDX/
-         +d9L75Qm2B5nKiNt8BOFJ7xKu/VPzEwH1XXltWfXF8MfArLid1o/wwxXOMSudlwqkf5b
-         iv+2MJpKykr9OOcDdb0iGuOtCwXDS97rFgfbVWVftInFIhwAN9mfYyr4Etkr2Xcf85+O
-         dmPWy+RMlAO6KgtbEr/+LskeSzf6StieEdPwll9jU/hP2DA4DYZgHWhxmymgCqWysBBS
-         sIjpHQv5bpjIFh8kBlqHDCsL/zGpVHKEz0AyDi8msAhBSUvwlfMKCMnH9bC3ntPrEys4
-         IJcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788855616; x=1789460416;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hsjTDp8GxgJOwpED1Wg/Qo5pHHkBB4Ysmhw6O6ZbUK4=;
-        b=f4Z1lr/QABJdvKkUI+aI4BlPWuvknQyaHf3puviiP6U5tT8Yy1gXP6ok2L2ZwcCNFk
-         Tw+gr012ij7gijytDMfvo2d7MGVgcaMpmZSyKcOSBWwecjzXGADa7IOFzgl/Maus3zYG
-         yrXpwHYbz2afFSf2A550KVLSDiIAxOPR0R/Ydj0vPh9BrSAfsiv/c2Eq409rOMUOeYN2
-         EpvsrGvuMQDJTe/UyqSNzVfcykloTllZwX9CXCnfMnIt8o0zqrmh73GBGuncqACrfr79
-         V0xNbXgvz+33ZPmczrmuQbXsb08aXzDOoRyyTIxrjgYe/aGkInEzmzqSSJmHo83bVB5f
-         bzrw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwBUSkSg2EhXmr3/y7uUB2h2pe+9kJm+6qp+zBAHcupnzgQtGPz6Uw6cwHllep5ANXcL/qXYK06SbCpHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nd48CiC8Hk8r9BAvJx3YGh/tyOo3NtkGju5PdWfRB4aOZcQPuu
-	GoydSiJRMLp7mw+527NZqzmWukI/yiXsaxuV14toK6qHggNk51zUxKMVQ5dKwDzxF9+p1ixxSTe
-	I4vFeGxB3KuD9M379dDHY2hT2nxqMGZXzYNK2jWG+
-X-Gm-Gg: AYBFou1A8uUWhRcxZnflSgceN1L4H3SEi9i94g7GyNHvxYKChN62X8ZdGbPG3+KOmB9
-	gLCsCnlyMeqjD23uzgGCIco/TsxXguxnKvFjIX9a9wqz9pMLHadp0+kPaVRgBpWoH8O3QWCXYwb
-	eOSRrc7UuWT8+A3BNB6plN/8tth+jpn+l+8YZ2fpS1Nhkor+JcTgmqotHW+Z5ObdUgH9Tfp7VUv
-	gdkNQK99wOn6BMZz8jO9F0mczJ5tQ6IToYY05P5/1tBHkT1ql4SpwOrsukBmycQN5HjTHWBsZtA
-	okP3j8Dg3cIfuiOwk8Zd7OQw8e9e0ISiBb7K1LsRJYq/JjmtvCgkg6PFltPANEgfV5EzBLd/Si1
-	NVR3RKwwXVUikNm8V9ufyM3phPOOQ2XmTts+cRDH+PWPovNU4W4WftOGHcA==
-X-Received: by 2002:a05:620a:2855:b0:936:eb7f:d2c7 with SMTP id
- af79cd13be357-93980400609mr3654539685a.27.1788855615776; Tue, 08 Sep 2026
- 01:20:15 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="CK65Pz33"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=QmsX8TJTtUIRUHrt4sWMd0a+v9JHbWfSkNY/BVrfhy8=;
+	b=CK65Pz33vWuPKCmRGDQemRKi9ybOqNv+2pZ3z0cqnzo5ZZdHzkAJ9NHwIXu9wgwDOYRId5+Zo
+	a0zffzbs4lsCC5eVraU7c4xHyCirFef0u6vnngRIMJ1fzoe9iVdQpeQxv8Z1mkA1WeKfrUlmTe7
+	jHYz3M+rERBHET2+ol5sgso=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfGmz1bNZzKm6K;
+	Tue,  8 Sep 2026 16:09:23 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 92DF34058E;
+	Tue,  8 Sep 2026 16:20:20 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 16:20:19 +0800
+Message-ID: <b6c45b5c-06ca-4774-b749-ddbf887fe976@huawei.com>
+Date: Tue, 8 Sep 2026 16:20:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908072135.877364-1-qingfang.deng@linux.dev>
-In-Reply-To: <20260908072135.877364-1-qingfang.deng@linux.dev>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 8 Sep 2026 10:20:03 +0200
-X-Gm-Features: AcwNN1Xe-V-EjnVcuPI54J8HF_f0_7IiJQXu4AsaIKhTCzrczAlMe4wF4WaYDBY
-Message-ID: <CANn89i+w-txLUf9KbUORYy03x2GS8Z=Uroh+rqiBKztdc9hqFQ@mail.gmail.com>
-Subject: Re: [PATCH net] ppp_synctty: ensure a writeable skb header
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>, Kees Cook <kees@kernel.org>, Tom Parkin <tparkin@katalix.com>, 
-	linux-ppp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Markus Elfring <Markus.Elfring@web.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/19] arm64: smp: Defer update of secondary CPU
+ capabilities
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-8-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-8-will@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-On Tue, Sep 8, 2026 at 9:21=E2=80=AFAM Qingfang Deng <qingfang.deng@linux.d=
-ev> wrote:
->
-> ppp_sync_txmunge() checks headroom before prepending the address and
-> control bytes, but does not ensure that the skb header is writable.
-> A received skb can reach this function through PPP channel bridging
-> without passing through ppp_start_xmit(), which calls skb_cow_head().
->
-> For example, a PPPoE frame may share its buffer with a clone queued to
-> an AF_PACKET socket. If it is bridged to a synchronous tty channel, the
-> address/control bytes can overwrite data still visible to that socket.
->
-> Use skb_cow_head() to ensure both sufficient headroom and a writable
-> header.
->
-> Fixes: 4cf476ced45d ("ppp: add PPPIOCBRIDGECHAN and PPPIOCUNBRIDGECHAN io=
-ctls")
-> Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
 
-SGTM. I will fix pppoatm_send() in net/atm/pppoatm.c which has a similar bu=
-g.
 
-Reviewed-by: Eric Dumazet <edumazet@google.com>
+在 2026/9/8 0:40, Will Deacon 写道:
+> check_local_cpu_capabilities() runs relatively early during the boot of
+> each secondary CPU and, despite its name, calls update_cpu_capabilities()
+> to manipulate the global 'system_cpucaps' based on the features detected
+> by the incoming CPU.
+> 
+> In preparation for parallel bringup of secondary CPUs, move the call
+> to update_cpu_capabilities() into update_cpu_features(), allowing
+> check_local_cpu_capabilities() to run concurrently in future, as it now
+> only performs local verification of the incoming CPU.
+> 
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/kernel/cpufeature.c | 311 +++++++++++++++++----------------
+>  1 file changed, 157 insertions(+), 154 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 33279a264145..fadc36cdff99 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -1408,156 +1408,6 @@ static int update_32bit_cpu_features(int cpu, struct cpuinfo_32bit *info,
+>  	return taint;
+>  }
+>  
+> -/*
+> - * Update system wide CPU feature registers with the values from a
+> - * non-boot CPU. Also performs SANITY checks to make sure that there
+> - * aren't any insane variations from that of the boot CPU.
+> - */
+> -void update_cpu_features(int cpu)
+> -{
+> -	struct cpuinfo_arm64 *boot, *info;
+> -	int taint = 0;
+> -
+> -	boot = &boot_cpu_data;
+> -	info = per_cpu_ptr(&cpu_data, cpu);
+> -
+> -	/*
+> -	 * The kernel can handle differing I-cache policies, but otherwise
+> -	 * caches should look identical. Userspace JITs will make use of
+> -	 * *minLine.
+> -	 */
+> -	taint |= check_update_ftr_reg(SYS_CTR_EL0, cpu,
+> -				      info->reg_ctr, boot->reg_ctr);
+> -
+> -	/*
+> -	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
+> -	 * could result in too much or too little memory being zeroed if a
+> -	 * process is preempted and migrated between CPUs.
+> -	 */
+> -	taint |= check_update_ftr_reg(SYS_DCZID_EL0, cpu,
+> -				      info->reg_dczid, boot->reg_dczid);
+> -
+> -	/* If different, timekeeping will be broken (especially with KVM) */
+> -	taint |= check_update_ftr_reg(SYS_CNTFRQ_EL0, cpu,
+> -				      info->reg_cntfrq, boot->reg_cntfrq);
+> -
+> -	/*
+> -	 * The kernel uses self-hosted debug features and expects CPUs to
+> -	 * support identical debug features. We presently need CTX_CMPs, WRPs,
+> -	 * and BRPs to be identical.
+> -	 * ID_AA64DFR1 is currently RES0.
+> -	 */
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64DFR0_EL1, cpu,
+> -				      info->reg_id_aa64dfr0, boot->reg_id_aa64dfr0);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64DFR1_EL1, cpu,
+> -				      info->reg_id_aa64dfr1, boot->reg_id_aa64dfr1);
+> -	/*
+> -	 * Even in big.LITTLE, processors should be identical instruction-set
+> -	 * wise.
+> -	 */
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR0_EL1, cpu,
+> -				      info->reg_id_aa64isar0, boot->reg_id_aa64isar0);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR1_EL1, cpu,
+> -				      info->reg_id_aa64isar1, boot->reg_id_aa64isar1);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR2_EL1, cpu,
+> -				      info->reg_id_aa64isar2, boot->reg_id_aa64isar2);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR3_EL1, cpu,
+> -				      info->reg_id_aa64isar3, boot->reg_id_aa64isar3);
+> -
+> -	/*
+> -	 * Differing PARange support is fine as long as all peripherals and
+> -	 * memory are mapped within the minimum PARange of all CPUs.
+> -	 * Linux should not care about secure memory.
+> -	 */
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR0_EL1, cpu,
+> -				      info->reg_id_aa64mmfr0, boot->reg_id_aa64mmfr0);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR1_EL1, cpu,
+> -				      info->reg_id_aa64mmfr1, boot->reg_id_aa64mmfr1);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR2_EL1, cpu,
+> -				      info->reg_id_aa64mmfr2, boot->reg_id_aa64mmfr2);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR3_EL1, cpu,
+> -				      info->reg_id_aa64mmfr3, boot->reg_id_aa64mmfr3);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR4_EL1, cpu,
+> -				      info->reg_id_aa64mmfr4, boot->reg_id_aa64mmfr4);
+> -
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64PFR0_EL1, cpu,
+> -				      info->reg_id_aa64pfr0, boot->reg_id_aa64pfr0);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64PFR1_EL1, cpu,
+> -				      info->reg_id_aa64pfr1, boot->reg_id_aa64pfr1);
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64PFR2_EL1, cpu,
+> -				      info->reg_id_aa64pfr2, boot->reg_id_aa64pfr2);
+> -
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64ZFR0_EL1, cpu,
+> -				      info->reg_id_aa64zfr0, boot->reg_id_aa64zfr0);
+> -
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64SMFR0_EL1, cpu,
+> -				      info->reg_id_aa64smfr0, boot->reg_id_aa64smfr0);
+> -
+> -	taint |= check_update_ftr_reg(SYS_ID_AA64FPFR0_EL1, cpu,
+> -				      info->reg_id_aa64fpfr0, boot->reg_id_aa64fpfr0);
+> -
+> -	/* Probe vector lengths */
+> -	if (IS_ENABLED(CONFIG_ARM64_SVE) &&
+> -	    id_aa64pfr0_sve(read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1))) {
+> -		if (!system_capabilities_finalized()) {
+> -			unsigned long cpacr = cpacr_save_enable_kernel_sve();
+> -
+> -			vec_update_vq_map(ARM64_VEC_SVE);
+> -
+> -			cpacr_restore(cpacr);
+> -		}
+> -	}
+> -
+> -	if (IS_ENABLED(CONFIG_ARM64_SME) &&
+> -	    id_aa64pfr1_sme(read_sanitised_ftr_reg(SYS_ID_AA64PFR1_EL1))) {
+> -		unsigned long cpacr = cpacr_save_enable_kernel_sme();
+> -
+> -		/* Probe vector lengths */
+> -		if (!system_capabilities_finalized())
+> -			vec_update_vq_map(ARM64_VEC_SME);
+> -
+> -		cpacr_restore(cpacr);
+> -	}
+> -
+> -	if (detect_ftr_has_mpam()) {
+> -		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
+> -		taint |= check_update_ftr_reg(SYS_MPAMIDR_EL1, cpu,
+> -					info->reg_mpamidr, boot->reg_mpamidr);
+> -	}
+> -
+> -	/*
+> -	 * The kernel uses the LDGM/STGM instructions and the number of tags
+> -	 * they read/write depends on the GMID_EL1.BS field. Check that the
+> -	 * value is the same on all CPUs.
+> -	 */
+> -	if (gmid_el1_accessible(info))
+> -		taint |= check_update_ftr_reg(SYS_GMID_EL1, cpu,
+> -					      info->reg_gmid, boot->reg_gmid);
+> -
+> -	/*
+> -	 * If we don't have AArch32 at all then skip the checks entirely
+> -	 * as the register values may be UNKNOWN and we're not going to be
+> -	 * using them for anything.
+> -	 *
+> -	 * This relies on a sanitised view of the AArch64 ID registers
+> -	 * (e.g. SYS_ID_AA64PFR0_EL1), so we call it last.
+> -	 */
+> -	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0)) {
+> -		lazy_init_32bit_cpu_features(info, boot);
+> -		taint |= update_32bit_cpu_features(cpu, &info->aarch32,
+> -						   &boot->aarch32);
+> -	}
+> -
+> -	/*
+> -	 * Mismatched CPU features are a recipe for disaster. Don't even
+> -	 * pretend to support them.
+> -	 */
+> -	if (taint) {
+> -		pr_warn_once("Unsupported CPU feature variation detected.\n");
+> -		add_taint(TAINT_CPU_OUT_OF_SPEC, LOCKDEP_STILL_OK);
+> -	}
+> -}
+> -
+>  u64 read_sanitised_ftr_reg(u32 id)
+>  {
+>  	struct arm64_ftr_reg *regp = get_arm64_ftr_reg(id);
+> @@ -3902,16 +3752,169 @@ void check_local_cpu_capabilities(void)
+>  	 */
+>  	check_early_cpu_features();
+>  
+> +	/*
+> +	 * Verify that this CPU has all the system advertised
+> +	 * capabilities.
+> +	 */
+> +	if (system_capabilities_finalized())
+> +		verify_local_cpu_capabilities();
+> +}
+
+As I commented below, this order avoids concurrency issues, as after
+cpuhp_ap_sync_alive(), the secondary CPUs are woken up serially by the
+boot CPU.
+
+It also eliminates the problem of boot CPUs being stuck in deadlock wait
+for the secondary CPUs, because update_cpu_capabilities() does not call
+cpu_die_early() or cpu_panic_kernel().
+
+secondary_start_kernel()
+   -> check_local_cpu_capabilities()
+   -> cpuhp_ap_sync_alive()
+   -> update_cpu_features()
+      -> update_cpu_capabilities()
+
+So LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+Link:
+https://lore.kernel.org/all/3501828e-7dd4-4587-b29a-71eabcc05ab8@huawei.com/
+
+> +
+> +/*
+> + * Update system wide CPU feature registers with the values from a
+> + * non-boot CPU. Also performs SANITY checks to make sure that there
+> + * aren't any insane variations from that of the boot CPU.
+> + */
+> +void update_cpu_features(int cpu)
+> +{
+> +	struct cpuinfo_arm64 *boot, *info;
+> +	int taint = 0;
+> +
+>  	/*
+>  	 * If we haven't finalised the system capabilities, this CPU gets
+>  	 * a chance to update the errata work arounds and local features.
+> -	 * Otherwise, this CPU should verify that it has all the system
+> -	 * advertised capabilities.
+>  	 */
+>  	if (!system_capabilities_finalized())
+>  		update_cpu_capabilities(SCOPE_LOCAL_CPU);
+> -	else
+> -		verify_local_cpu_capabilities();
+> +
+> +	boot = &boot_cpu_data;
+> +	info = per_cpu_ptr(&cpu_data, cpu);
+> +
+> +	/*
+> +	 * The kernel can handle differing I-cache policies, but otherwise
+> +	 * caches should look identical. Userspace JITs will make use of
+> +	 * *minLine.
+> +	 */
+> +	taint |= check_update_ftr_reg(SYS_CTR_EL0, cpu,
+> +				      info->reg_ctr, boot->reg_ctr);
+> +
+> +	/*
+> +	 * Userspace may perform DC ZVA instructions. Mismatched block sizes
+> +	 * could result in too much or too little memory being zeroed if a
+> +	 * process is preempted and migrated between CPUs.
+> +	 */
+> +	taint |= check_update_ftr_reg(SYS_DCZID_EL0, cpu,
+> +				      info->reg_dczid, boot->reg_dczid);
+> +
+> +	/* If different, timekeeping will be broken (especially with KVM) */
+> +	taint |= check_update_ftr_reg(SYS_CNTFRQ_EL0, cpu,
+> +				      info->reg_cntfrq, boot->reg_cntfrq);
+> +
+> +	/*
+> +	 * The kernel uses self-hosted debug features and expects CPUs to
+> +	 * support identical debug features. We presently need CTX_CMPs, WRPs,
+> +	 * and BRPs to be identical.
+> +	 * ID_AA64DFR1 is currently RES0.
+> +	 */
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64DFR0_EL1, cpu,
+> +				      info->reg_id_aa64dfr0, boot->reg_id_aa64dfr0);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64DFR1_EL1, cpu,
+> +				      info->reg_id_aa64dfr1, boot->reg_id_aa64dfr1);
+> +	/*
+> +	 * Even in big.LITTLE, processors should be identical instruction-set
+> +	 * wise.
+> +	 */
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR0_EL1, cpu,
+> +				      info->reg_id_aa64isar0, boot->reg_id_aa64isar0);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR1_EL1, cpu,
+> +				      info->reg_id_aa64isar1, boot->reg_id_aa64isar1);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR2_EL1, cpu,
+> +				      info->reg_id_aa64isar2, boot->reg_id_aa64isar2);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR3_EL1, cpu,
+> +				      info->reg_id_aa64isar3, boot->reg_id_aa64isar3);
+> +
+> +	/*
+> +	 * Differing PARange support is fine as long as all peripherals and
+> +	 * memory are mapped within the minimum PARange of all CPUs.
+> +	 * Linux should not care about secure memory.
+> +	 */
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR0_EL1, cpu,
+> +				      info->reg_id_aa64mmfr0, boot->reg_id_aa64mmfr0);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR1_EL1, cpu,
+> +				      info->reg_id_aa64mmfr1, boot->reg_id_aa64mmfr1);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR2_EL1, cpu,
+> +				      info->reg_id_aa64mmfr2, boot->reg_id_aa64mmfr2);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR3_EL1, cpu,
+> +				      info->reg_id_aa64mmfr3, boot->reg_id_aa64mmfr3);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64MMFR4_EL1, cpu,
+> +				      info->reg_id_aa64mmfr4, boot->reg_id_aa64mmfr4);
+> +
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64PFR0_EL1, cpu,
+> +				      info->reg_id_aa64pfr0, boot->reg_id_aa64pfr0);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64PFR1_EL1, cpu,
+> +				      info->reg_id_aa64pfr1, boot->reg_id_aa64pfr1);
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64PFR2_EL1, cpu,
+> +				      info->reg_id_aa64pfr2, boot->reg_id_aa64pfr2);
+> +
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64ZFR0_EL1, cpu,
+> +				      info->reg_id_aa64zfr0, boot->reg_id_aa64zfr0);
+> +
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64SMFR0_EL1, cpu,
+> +				      info->reg_id_aa64smfr0, boot->reg_id_aa64smfr0);
+> +
+> +	taint |= check_update_ftr_reg(SYS_ID_AA64FPFR0_EL1, cpu,
+> +				      info->reg_id_aa64fpfr0, boot->reg_id_aa64fpfr0);
+> +
+> +	/* Probe vector lengths */
+> +	if (IS_ENABLED(CONFIG_ARM64_SVE) &&
+> +	    id_aa64pfr0_sve(read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1))) {
+> +		if (!system_capabilities_finalized()) {
+> +			unsigned long cpacr = cpacr_save_enable_kernel_sve();
+> +
+> +			vec_update_vq_map(ARM64_VEC_SVE);
+> +
+> +			cpacr_restore(cpacr);
+> +		}
+> +	}
+> +
+> +	if (IS_ENABLED(CONFIG_ARM64_SME) &&
+> +	    id_aa64pfr1_sme(read_sanitised_ftr_reg(SYS_ID_AA64PFR1_EL1))) {
+> +		unsigned long cpacr = cpacr_save_enable_kernel_sme();
+> +
+> +		/* Probe vector lengths */
+> +		if (!system_capabilities_finalized())
+> +			vec_update_vq_map(ARM64_VEC_SME);
+> +
+> +		cpacr_restore(cpacr);
+> +	}
+> +
+> +	if (detect_ftr_has_mpam()) {
+> +		info->reg_mpamidr = read_cpuid(MPAMIDR_EL1);
+> +		taint |= check_update_ftr_reg(SYS_MPAMIDR_EL1, cpu,
+> +					info->reg_mpamidr, boot->reg_mpamidr);
+> +	}
+> +
+> +	/*
+> +	 * The kernel uses the LDGM/STGM instructions and the number of tags
+> +	 * they read/write depends on the GMID_EL1.BS field. Check that the
+> +	 * value is the same on all CPUs.
+> +	 */
+> +	if (gmid_el1_accessible(info))
+> +		taint |= check_update_ftr_reg(SYS_GMID_EL1, cpu,
+> +					      info->reg_gmid, boot->reg_gmid);
+> +
+> +	/*
+> +	 * If we don't have AArch32 at all then skip the checks entirely
+> +	 * as the register values may be UNKNOWN and we're not going to be
+> +	 * using them for anything.
+> +	 *
+> +	 * This relies on a sanitised view of the AArch64 ID registers
+> +	 * (e.g. SYS_ID_AA64PFR0_EL1), so we call it last.
+> +	 */
+> +	if (id_aa64pfr0_32bit_el0(info->reg_id_aa64pfr0)) {
+> +		lazy_init_32bit_cpu_features(info, boot);
+> +		taint |= update_32bit_cpu_features(cpu, &info->aarch32,
+> +						   &boot->aarch32);
+> +	}
+> +
+> +	/*
+> +	 * Mismatched CPU features are a recipe for disaster. Don't even
+> +	 * pretend to support them.
+> +	 */
+> +	if (taint) {
+> +		pr_warn_once("Unsupported CPU feature variation detected.\n");
+> +		add_taint(TAINT_CPU_OUT_OF_SPEC, LOCKDEP_STILL_OK);
+> +	}
+>  }
+>  
+>  bool this_cpu_has_cap(unsigned int n)
+
