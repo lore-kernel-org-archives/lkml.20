@@ -1,41 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5044A0910
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:25:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B724A0910;
+	Tue,  8 Sep 2026 09:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859555; cv=none; b=rYKhMfLL+qwdxTiabGYAA8nOgyoWzbLql6HYGiL8PsuP/ka7mKykyjRtbksGzDZ3yJTo+Dr+9PF8KPO5HvaKC1pCIoXjJBf2v/bIylLkyfkWuoe8dFV4kmwzayshj/KCsOd0Mlwq9K7bZv7Xo0e30iosJQKjUI8DD+Jz9CQO41M=
+	t=1788859564; cv=none; b=SWTcN3ieU+WN9iimOWuLKLU68cCpFTHaVLXTvG0BBLhU7jN8NnOcE7FsCzNqgRmCw42jWR2ZS6A+70WJT0Oz16zORTFmDw/5H472fRA+Tvg85YuogEfcMuEgoyCUc8fULi3e2YEfikgvQpmKRR6Ju5oJokr81dh3AKrwcgUI3Xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859555; c=relaxed/simple;
-	bh=k3As73wHNbT59b6kCc/0IegpIzyMcHJMqFAaJru+v9Q=;
+	s=arc-20240116; t=1788859564; c=relaxed/simple;
+	bh=DUiEwI/ExDlzzZ/qhMuh2PV5ZE+tMD2+ciGcjVmWCYs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P4FvvnqAQ93S6eLdjx749/tP7WOZ4R7EFdPecZGPDnZifH13XaevRqLKgmn6VgTPnZJ5zSzofyDJc5aaLjWGDWY9SIvPG0QvyVHradp3qyEByY9kyYEMPGH1M8qsLra+zcGM/mD5HB2IEechPEFTh7s9gzsnueFwsdMwKkI+B6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGEIzbQZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SHMzmjRFYw9WPUwSX7r3CxwVRFv+klgluTO+s0kZIXhqgtqL3NiprqoO4WTuf0Jxl+DV2HFHWFhpeHtu6LnMkPnFl5cKf6JxC0YA/GO2pYV/hAFg3VMZKJB83IKZgtaKLv5g+5Y1LAFpDTAuPttTtONVZj6St8GN3gs1TjIVPb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcJWZiWy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGEIzbQZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92CB61F00A3A;
-	Tue,  8 Sep 2026 09:25:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcJWZiWy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D131F00A3A;
+	Tue,  8 Sep 2026 09:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788859553;
-	bh=EIjb+8qA0AOLbrUigbrFdsr7Bi7xUORUq9H//Gsw4uU=;
+	s=k20260515; t=1788859562;
+	bh=o69IttcuA7tEu2aNd7IWY/GFsPeUHYiH4+43qLbSxr4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DGEIzbQZ+aPgK3MYWRjjK08/6SvQLu58K4JBVmBFiUqScBXqCi9GHoevigvsyfB4G
-	 JfeNxKWVQC74+SAmTkV0A4a30ebmw9xXXEVjlPlrfZtrIaLcaWn1Wnju9BRCzK40Mf
-	 fz+JDUGCYWIYbMUrF/UzDzffKEyhJlf88rXs8VrZ5CYwfmvsE0EWh6iAdAxz7ROSlY
-	 R8PJMSwbBp2YNMUcfcb0sRazaYGegWmfnscXC87EW8FwSvET56XtCyekmPPjpPsMcX
-	 uAPrdHc/BekDrHKWcYJZ4Uuhaaq26PsvcKtsbQ05xlS1L6FEYSWowg2ccuw3C7U1jq
-	 2DIWv0rHrjLFw==
-Date: Tue, 8 Sep 2026 10:25:49 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: syzbot <syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com>
-Cc: akpm@linux-foundation.org, jannh@google.com, liam@infradead.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, pfalcato@suse.de, 
-	syzkaller-bugs@googlegroups.com, vbabka@kernel.org
-Subject: Re: [syzbot] [mm?] WARNING in vma_add_pgoff
-Message-ID: <ap_Uke89Q9LWoaoK@gremlin>
-References: <20260907192517.564ea15aa8c9d47669b3a81f@linux-foundation.org>
- <6a9f8bc6.f614420e.2bf292.0005.GAE@google.com>
+	b=JcJWZiWyuNXSBXu33ocUnSilnVKHTJPyZfPQ/D5JSsXezRh4OfA9gIgz2xZJH/jhV
+	 hcB7WL/AdHcKT5W68v3mBSZ1D8rAxtxcnyvDBmiTr+FRAo0OlzvlDCEsp5v2ieZOKi
+	 o2lXHejcSnhPxNXlQxtMT2UWymiWyksbYs1C0YzR7SVuFnTg0FqRAmDsHdoaHnnUIX
+	 JU321VdkHKCKYv5RBZzGkE0CNs8l+H1T13Pi0a+orsdN7aPj04CBMmhcYUil8LSHAs
+	 g/90mUJPsX+Cl81g9gA+wC3tXd1Rx757idGPB5cLkutCMStyOVT6za88mNYJrjc1Xf
+	 8P0FbPxOVTq/w==
+Date: Tue, 8 Sep 2026 10:25:59 +0100
+From: Simon Horman <horms@kernel.org>
+To: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH iwl-net] idpf: fix NULL pointer dereference and memory
+ leak in interrupt request
+Message-ID: <20260908092559.GP40544@horms.kernel.org>
+References: <20260904091827.911123-1-zhangyunfei1@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,33 +45,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6a9f8bc6.f614420e.2bf292.0005.GAE@google.com>
+In-Reply-To: <20260904091827.911123-1-zhangyunfei1@kylinos.cn>
 
-On Mon, Sep 07, 2026 at 09:15:02PM -0700, syzbot wrote:
-> Hello,
->
-> syzbot has tested the proposed patch and the reproducer did not trigger any issue:
->
-> Reported-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
-> Tested-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
+On Fri, Sep 04, 2026 at 05:18:27PM +0800, Zhang Yunfei wrote:
+> The kasprintf() call in idpf_vport_intr_req_irq() can return NULL on
+> memory pressure, but the result is passed directly to request_irq()
+> without a NULL check. The IRQ core then stores this pointer as
+> action->name and dereferences it later from /proc/interrupts and
+> procfs, leading to a NULL pointer dereference.
+> 
+> Add a NULL check after kasprintf() and bail out with -ENOMEM.
+> 
+> Additionally, when request_irq() fails, request_threaded_irq() frees
+> the irqaction itself without taking ownership of the name string, so
+> the caller-allocated name is leaked. Free it on the error path only.
+> On the success path the name is owned by the irq action and released
+> later via kfree(free_irq(...)) in the cleanup loop, so it must not be
+> freed here.
+> 
+> Fixes: d4d558718266 ("idpf: initialize interrupts and enable vport")
+> Cc: stable@vger.kernel.org # 6.7
+> Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
 
-Yup there we are :)
-
-Why is this constantly duplicating I wonder...
-
->
-> Tested on:
->
-> commit:         35b0fb39 mm/mremap: reset unfaulted VMA page offset fo..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=15e13af9580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-> dashboard link: https://syzkaller.appspot.com/bug?extid=c6879dc677a017f0a21b
-> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-> userspace arch: arm64
->
-> Note: no patches were applied.
-> Note: testing is done by a robot and is best-effort only.
-
---
-Cheers, Lorenzo
+Reviewed-by: Simon Horman <horms@kernel.org>
