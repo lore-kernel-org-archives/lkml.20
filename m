@@ -1,86 +1,47 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055D74B2031;
-	Tue,  8 Sep 2026 09:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860139; cv=pass; b=q4kfQDxlaq8n6/gs687HLpT9Lryy+cI6vC9cOsNX3vVxaEeAyu/EMTogL0qlIgAFtLpTCIkokXFPEs9kCVmJREEYZQl9pJ+s14Yft3IPte1idesSRUrClwjXbbpcLqnYSkZXnbG1lkrvhEerlmRwHxl2hlSwpo3ir6B/lrJX6W0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860139; c=relaxed/simple;
-	bh=CjIuEh27k1Xal8RS7CusYRx4cMVCNqvokJf2yY4eXCU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FFMLmXC2Zz70M7DVCK173Msfktur6ySHWzN+I0ydG27Ul7jya0p7B7e5ZPX1COjxUPB/wyzsHyRmsC1tunW6ngLniZFNIMYRTDAvAFWRCt2us37ZY8lqhABqJN6gvRNqdmsYbJd3oqtByBIjLm7iQT2NL65qes6ONOZahXEMuig=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=NiAdMkxI; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819E039D3DA;
+	Tue,  8 Sep 2026 09:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.143.211.150
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788860200; cv=none; b=n4nZWK2Hd/wEv/PIZU8xnXNpbsLUZhQW2vaxWditJBc84tQjuiX1PKfhj0U2bfi/UWHPs43XBoXM9RGqK2YODDVDSOXskHXmAYqQAMsRemEiteqJXP4v7Hvd3jz/0kg7YyRVM2HaJT/01BsKftKOhxx+AquAHec26giu3zLv/7g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788860200; c=relaxed/simple;
+	bh=W+2anHyHRU14MUZi9nWeel6a7Klgj+ZAIu1ugPIti40=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L53V2o2ZS5Fcdkv+WHCtSbHtQyvMg2VXB1WR3rVrnMvtCl3vBBNtj7f/VDt7Zl9vc4MCyZLGtTuVSGBpNVPRDjjHVmbh84v5jus+s/zGl6mjAh+wJJ0AhOpDQD8omQ62VakNRKtUiPnx83nlVrk/ONHLBIMApkU3i2BXpDOMK04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru; spf=pass smtp.mailfrom=swemel.ru; dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b=akQ3zzA6; arc=none smtp.client-ip=95.143.211.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="NiAdMkxI"
-Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hfJhM12z2z49QLG;
-	Tue, 08 Sep 2026 12:35:31 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1788860131;
+	dkim=pass (1024-bit key) header.d=swemel.ru header.i=@swemel.ru header.b="akQ3zzA6"
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1788860188;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=vRs19l52ovGuAIjGa7YqoKMg2NfGlSjJwTPL4k7vc2c=;
-	b=NiAdMkxIyyh3NDJprkUTuf2Q1eqFxi344Ao8crIgZwnovGK9ixUTOjC3pJBBXVQBPI/Rks
-	ndnVwVTgF2OvmJvYtY4mJgONTqNKN77WaJcksfnx4LSL9bB4eQjP+cC5njyJtJLxAxb8xe
-	tUPus41JipdUKflsmdtawujIJEpnTB3+AwjboMoTkNYAY/oTPIRqjIvfF0O28Ydl95SKa/
-	atBjq2+8qVqi654xiTtfcMfZkq5usAoBLEwkpap436S5zVx6RSbKBT/tlvIWK6APE2oXva
-	QKY/39E0KnHVh2ZfeZjxx0L26QKdXZ8TXHEx/H3v1gSL6GJKQTRouxSX1f8gUw==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788860131;
-	b=pQAkl8rQAsHWpen5iLs2INnduCGReTAGSKqifshOOzkT6kHUyU5HcyPD0/k1M7PNMW9KNK
-	KD2Utq93Zatn2j5kOIS91BzkWybAmkFS/B0ninJiHNHLJ3Rz9tNBJNvEpUSi3OppP8gS7B
-	ZREihqJWVgzxIbGli8GGdm9xXYipoMgeLRuJ0aKP3qQtRTZPgkWGwkNDqMPntB4jYkym2y
-	V2SVoj5GwLgYIr74PqHY+m46vjLSvlgJvCjsVwdJPaqvOIhz3lwXRDMw61ktbvFAxZAkVW
-	tWFCyD4nZ+UUAgQBzSnCiiyb6YlZ0rfNYZGMz5YgtK4EnC2zWXKib1acFx7YQQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1788860131;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=vRs19l52ovGuAIjGa7YqoKMg2NfGlSjJwTPL4k7vc2c=;
-	b=Z+SYMumaDUZrM+bK91MfhU15ixQ4a/2cZVTvZSQR0Xg5cxRl7TM6jCc7od+d8CeGwsss7w
-	U2caCdxD7iPUYUw/sdBxRy24cdOyeR7/1EJEoizbkDxa6nEpuVcgNzm+jFUOu+sEEM28Lg
-	r2SNHNXd1AZPTu89SOdXuRm0+E+voiyg/UcGBILz52bJU3K6W1BBUSh2yLl6YraXaLcdja
-	iRMr+TMcZHZoSnOqN4siTOwse+vn0zyI/3o1UMxibAQHsvj5n0dPI4v7hPjEyuTBh0vYAw
-	r4YlQHEYmPAYhT7bcaxgk2GJ3dbHDfUYLewkv3pEQcyN7kb79ao9Aumk/KgCYQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-To: ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	Kalle Valo <kvalo@kernel.org>,
-	Jeff Johnson <jjohnson@kernel.org>,
-	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Mihai Moldovan <ionic@ionic.de>,
-	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-	linux-wireless@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	netdev@vger.kernel.org,
+	bh=kpq/dM2FXhmvz9NaLq2Y/fYUID515C4TuKswVMl89ZE=;
+	b=akQ3zzA6kD3+HP+5X1KO9yuE5SqmCkAyFixh0Y1O+cR364HtHxkmSMFjtzrpkBBVmEH3DJ
+	SZWY73qeSesmuQA56ZtslHc234GiiDLZbYtgftg9zWebNEf2qdM/hldYSPTqxK/kXPr9S1
+	+a/yYGOdbjeV/fptF/YlhatHlk1r92U=
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Artem Shimko <a.shimko.dev@gmail.com>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+	linux-serial@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 12/12] wifi: ath12k: bind to QRTR endpoint ID in ath12k_qmi_init_service
-Date: Tue,  8 Sep 2026 12:34:37 +0300
-Message-Id: <20260908093437.2493698-5-juha-matti.tilli@iki.fi>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260908093437.2493698-1-juha-matti.tilli@iki.fi>
-References: <20260908093437.2493698-1-juha-matti.tilli@iki.fi>
+Subject: [PATCH 2/2 5.10] serial: 8250_dw: unregister 8250 port if clk_notifier_register() fails
+Date: Tue,  8 Sep 2026 12:36:22 +0300
+Message-ID: <20260908093626.15492-3-arefev@swemel.ru>
+In-Reply-To: <20260908093626.15492-1-arefev@swemel.ru>
+References: <20260908093626.15492-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,57 +50,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mihai Moldovan <ionic@ionic.de>
+From: Stepan Ionichev <sozdayvek@gmail.com>
 
-If possible, fetch the QRTR endpoint ID in ath12k_qmi_init_service, just
-before calling qmi_handle_init, and make it available in the qmi_handle.
+commit 10fc708b4de7f86002d2d735a2dbf3b5b7f65692 upstream.
 
-qmi_helpers will then automatically bind to this endpoint for us.
+dw8250_probe() registers the 8250 port via serial8250_register_8250_port()
+and then, if the device has a clock, registers a clock notifier. If
+clk_notifier_register() fails, probe returns the error but leaves the
+8250 port registered. The matching serial8250_unregister_port() lives
+in dw8250_remove(), which is not called when probe fails, so the port
+slot stays occupied until the device is rebound or the system is
+rebooted. The devm-allocated driver data is freed while the port still
+references it (via the saved private_data and serial_in/serial_out
+callbacks), so any access to that port slot before a rebind is a
+use-after-free hazard.
 
-This finally allows using multiple ath12k-based cards with the same QRTR
-node/port combination to work simultanenous (and, for that matter, at
-all), including combinations of ath11k-based and ath12k-based cards.
+Unregister the port on the clk_notifier_register() error path.
 
-Signed-off-by: Mihai Moldovan <ionic@ionic.de>
-Old-version-tested-by: Mihai Moldovan <ionic@ionic.de>
-Old-version-tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.0.c5-00481-QCAHMTSWPL_V1.0_V2.0_SILICONZ-3
-Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+Fixes: cc816969d7b5 ("serial: 8250_dw: Fix common clocks usage race condition")
+Cc: stable@vger.kernel.org
+Signed-off-by: Stepan Ionichev <sozdayvek@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Link: https://patch.msgid.link/20260514143746.23671-2-sozdayvek@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+[Denis Arefev: adapted for 5.10:
+- system_dfl_wq is not available here, use system_unbound_wq instead]
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
 ---
- drivers/net/wireless/ath/ath12k/qmi.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Backport fix for CVE-2026-53384
+Link: https://nvd.nist.gov/vuln/detail/CVE-2026-53384
+---
 
-diff --git a/drivers/net/wireless/ath/ath12k/qmi.c b/drivers/net/wireless/ath/ath12k/qmi.c
-index 50082505c882d..3611d0eff22b3 100644
---- a/drivers/net/wireless/ath/ath12k/qmi.c
-+++ b/drivers/net/wireless/ath/ath12k/qmi.c
-@@ -9,11 +9,13 @@
- #include "qmi.h"
- #include "core.h"
- #include "debug.h"
-+#include "hif.h"
- #include <linux/of.h>
- #include <linux/firmware.h>
- #include <linux/of_address.h>
- #include <linux/ioport.h>
- #include <linux/of_reserved_mem.h>
-+#include <net/sock.h>
+ drivers/tty/serial/8250/8250_dw.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 629eb24166b5..0afcfe4ff56a 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -610,8 +610,10 @@ static int dw8250_probe(struct platform_device *pdev)
+ 	 */
+ 	if (data->clk) {
+ 		err = clk_notifier_register(data->clk, &data->clk_notifier);
+-		if (err)
++		if (err) {
++			serial8250_unregister_port(data->data.line);
+ 			return dev_err_probe(dev, err, "Failed to set the clock notifier\n");
++		}
+ 		queue_work(system_unbound_wq, &data->clk_work);
+ 	}
  
- #define SLEEP_CLOCK_SELECT_INTERNAL_BIT	0x02
- #define HOST_CSTATE_BIT			0x04
-@@ -4075,6 +4077,13 @@ int ath12k_qmi_init_service(struct ath12k_base *ab)
- 	ab->qmi.ab = ab;
- 
- 	ab->qmi.target_mem_mode = ab->target_mem_mode;
-+
-+	ret = ath12k_hif_set_qrtr_endpoint_id(ab);
-+	if (ret) {
-+		ath12k_warn(ab, "failed to set QRTR endpoint ID: %d\n", ret);
-+		ath12k_warn(ab, "only one device per system will be supported\n");
-+	}
-+
- 	ret = qmi_handle_init(&ab->qmi.handle, ATH12K_QMI_RESP_LEN_MAX,
- 			      &ath12k_qmi_ops, ath12k_qmi_msg_handlers);
- 	if (ret < 0) {
 -- 
-2.34.1
+2.43.0
 
