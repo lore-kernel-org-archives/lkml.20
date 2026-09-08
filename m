@@ -1,72 +1,73 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21B9558B6CA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A59592205;
+	Tue,  8 Sep 2026 17:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890116; cv=none; b=RAOK78IOzOPICDPhCm9O2iLlSMfiQh3xwUtWJtcnTEua0Kcxq0zjONsqGmeb+fbot96DDyMFUIlgUvk8kO7DRiT2jRX90AQG0cYTuhg/gzlRsDQlOt5yYLfMKF1WjEhkSRS5RLRU/RJsQIenmHtex1q8bqbv6319KsTLhIuw6VM=
+	t=1788890119; cv=none; b=NTj0uYGJGwPoSe+ogjLjz6aB+OP/v0L7uFLXBwaOhQhKi98UZ3J8+cmS5aRN40ykeeLX1nH0ecOTbF7pAnSC87xxcWxQveOz66Mhyo39y0686Ub0FMb6DBBK+mA4gsQGz85WmGaIQwj2gX2vlMid1dSZC+8HPXDZ4qam5NSwAMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890116; c=relaxed/simple;
-	bh=Hy/Te7Pip3ioEuVMdVc35RsOXd3jxVjPwmDOSLCYcI0=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=FVYMtbIj9fKawOe9gCTzh41aFYPOJPyJ53iWxJAYJc818cPARvwgjTcOhdU3AWjbmg7puezyp4PJ2HUhyljdXBb0UzJWnlQFFqVeIUii/baUH/hU+p/yE4r1SqOFrjr4DpI41WlRZVm4QfuHztHDsbaPqfnhKPlkEr//aNHcoi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hVzMVnSW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890119; c=relaxed/simple;
+	bh=765idAEKKbWPuz2USlH1VcNBUvTkzIPKO0MxgkuZDTo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uDe8I3lST35oQGRMmw860XgFYuM6/euFshW+JOr5oA9yFyk0yOsxBhFifwKyPyzjTebAxGHlqb6vZ/68BXnkfDtq63WsoSbJPjdNQiGG5EPqJEfAcGp5RHKciXAtSxAbbdCQpSZYwyybTAqhjz2DmtECRBkx8yIxJJYBSFNALIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TO4wloGH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hVzMVnSW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703FE1F00A3A;
-	Tue,  8 Sep 2026 17:55:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788890114;
-	bh=gBAuJhW7S3ZXQ2qvDNf9JatkhBim/pKGvLVV7RlONSg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hVzMVnSWPNFrjH8TWsZOHxRl0Old2NxIqVPRlGr2uN94NqWa7kezMsS/g0wy4UcGS
-	 UtnZwWRgJJenERfATUGgoXTtmS+YyDkVLwdKouJCYBrNjcAty6d+qSlcrdxRWgLtn9
-	 ZHsMfwRfPDq+5GrIQa7o17bWgKDLvrbv6j4vVFcc=
-Date: Tue, 8 Sep 2026 10:55:12 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, Kemeng
- Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He
- <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Youngjun Park
- <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, Zi Yan
- <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Lance
- Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, Kiryl
- Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel
- <riel@surriel.com>, Vlastimil Babka <vbabka@kernel.org>, Harry Yoo
- <harry@kernel.org>, Jann Horn <jannh@google.com>, Johannes Weiner
- <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Chengming Zhou
- <chengming.zhou@linux.dev>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 0/8] mm: remove page_swap_entry()
-Message-Id: <20260908105512.8854d7972c82b6b6f417b0f8@linux-foundation.org>
-In-Reply-To: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
-References: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TO4wloGH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6ED41F00A3D;
+	Tue,  8 Sep 2026 17:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788890118;
+	bh=765idAEKKbWPuz2USlH1VcNBUvTkzIPKO0MxgkuZDTo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TO4wloGHlbkHv52gHzObnN3VVqxM1a4e/M9o8fBTYihhow1bP9RJBw6jNnSBye4Ao
+	 ntvkKCjI/vSDGmv+LIgaRXNIvv9lV7tKRSvyLYrKXZ3kzqGMhlPTFk2270uQ9tENoB
+	 PWeZYkti1K+BEFDbSgGn0TrR4wUYfkknljXNTAtaFI1wjBFUa8OjOsHZ3+KTn9RSzp
+	 +qCJPDcFTFah7hzjPiNXtM9aE/MORRz3hNqkBV+y0yT3Ditbou1V3KQJQE7h1Py6/A
+	 gp/ouwO7LrmSgaxukWNxvEzu3I7rPQcOJSL3sciNtmX/oljsFGgv1izTei8qY6pC2q
+	 TYl6leeLghpDQ==
+Date: Tue, 8 Sep 2026 18:55:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: zhengxingda@iscas.ac.cn, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, ychuang3@nuvoton.com, schung@nuvoton.com,
+	yclu4@nuvoton.com, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support
+ for nuvoton,ma35d1-dcu
+Message-ID: <20260908-elevating-eggnog-0d11f728f6f2@spud>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bxAegO/MuCyNqq2e"
+Content-Disposition: inline
+In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
 
-On Tue, 08 Sep 2026 11:16:30 -0400 Tal Zussman <tz2294@columbia.edu> wrote:
+--bxAegO/MuCyNqq2e
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> A folio in the swap cache occupies folio_nr_pages() contiguous swap
-> entries starting at folio->swap, so a page's swap entry is just
-> folio->swap plus the page's index in the folio. The swap entry is
-> folio state, but the only helper for it is page-based:
-> page_swap_entry() takes a page and recomputes the folio its callers
-> already hold. Several callers avoid it by open-coding the arithmetic
-> on folio->swap instead.
-> 
-> Add folio_swap_entry() and folio_page_swap_entry(), convert all users,
-> and remove page_swap_entry(), with a few other cleanups along the way.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Thanks, I'll queue this for testing and further review.
+--bxAegO/MuCyNqq2e
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMAAAKCRB4tDGHoIJi
+0iZXAQCE8i0GV0vfMMOm3ja2XjSEnbf+JCqzgRyl/u9zngsMNgD/ZXAx3nxTMtoJ
+P39HX+WyJk4Tjo3v5hxRuaPy++cdwwo=
+=6YLb
+-----END PGP SIGNATURE-----
+
+--bxAegO/MuCyNqq2e--
