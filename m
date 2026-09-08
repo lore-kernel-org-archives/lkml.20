@@ -1,58 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4333259B67F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:37:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D199059D60A;
+	Tue,  8 Sep 2026 22:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907063; cv=none; b=TY5PzIg9n4ZnzPNdsfoCHsymtHk/gK6jKAgMQWt5skwG25VTzyiR0F4QAKXlk3TCuPVJWxl09m1GF9d0RPCfeRAmtDO6cr8anIZQfBe3gJCJ9GeC/OGUP6uj1hFof3bqz/UpejTDdMuydz4J+g5EJreBsFaDUdnoywXgTGEtta0=
+	t=1788907170; cv=none; b=VAR5U+LEUjDYRw09ECDolO3mTkf/G1pgjh1V+OxxRFZWI8IXshL0F3z9G4E4ae2f+zTZohRO81Z0EWYaZGKg1dAjXmOCpsSBjQG1T/3gIxFmAuNWMRRf9vpGHELBx8TXXb5dbYOEQLkO92N3mtcSvFYK6JnXtB9lHstVxQUESgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907063; c=relaxed/simple;
-	bh=2n0phIkKhbmLdtV+ZLRMad8KXdidoIOnQMaJlIdjOps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uefsaFHzBeype4Pm6vkp/vFQ4xJO3D/+pFMztbJgcbtfy4DuQSgEuKHH0hbZxtNlgEhw1JWoDlyQXZ2PRb1D1qEoW4ibdxjc1+adMi/9mnsVlvCIehhyUqx3EL/5+LKzg51B7p7pdZexIfgfY8mELPDW2P+HmxOvKrzIe3b9kHQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs4PuKBT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788907170; c=relaxed/simple;
+	bh=r4+6imm2cixbAzjE6HJSypfg3ZPolQpzYr9i7QBahjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZPPih5pl4qSocTiv266h4af1NfXLui8sPmJ9Q2qbl7w2+mX+f8KJlmRlBaGGijUdVkh7eV55ELFqRvuo8m5VY5n/9O0OXdJOuqt/0gldoKSuaKQycU2IfNkbHdv735ya92YTgqR/i6cc+SMJihLrZ2gk86imRSEcxp8n6HaVsps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZftlDTKl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs4PuKBT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3251F00A3A;
-	Tue,  8 Sep 2026 22:37:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZftlDTKl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1431F00A3D;
+	Tue,  8 Sep 2026 22:39:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907058;
-	bh=7z89r6De+Pix2WcL9SoacX1sh2v4nb+4z6b1L4BolQo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Bs4PuKBTBJ0ljf4gzJ5wMylFxMyLimDh67zyNz3W6NKDINFJGk2EEJiMNNUoE3kq/
-	 sX1IxqZuJBY6pDry3k52BHgs2TvjAGaKHqK2nYcWk63N5e1vsrr3Rty3BknUxOBdaa
-	 QguXJ0bvLEB0RrKHBtlKK+PtuZqMPvBzthNqAbftO80Cj/RwjtHVT7pC1mKsATfLHd
-	 84k0KtpeyiQyYjbddm6jVpgTtgROswYsnDzdpUeLryUqLWCPrtamZIDO15YcLpHMtT
-	 84OQkyZKZh3NiZF0nlNngijZGKh+fnqVb7Yh0feaACmaBAH+u5oV5L3o7iGIkv3Mhk
-	 ojYe7zXFeZZ0g==
-Date: Wed, 9 Sep 2026 00:37:34 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] m68k/serial: Use generic BASE_BAUD in asm/serial.h
-Message-ID: <aqCOLjfOHCpV-9_E@kernel.org>
-References: <20260731094402.741645-3-thorsten.blum@linux.dev>
+	s=k20260515; t=1788907162;
+	bh=BlYCZGR/JTnpR4X6mpxSSJVCoIWpP2K5WuhOaMyeRps=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZftlDTKlyws3Q508jpZ2osnF3idMMmT0r4tS9igQdlhwiWrfMdYKfxiF0UHi4jtcS
+	 Uwn6h9ApXNikfkH5o0LY+M5Z/IR6FwIsCpeYBwsOX9JWtwY42A311sj1aIRYwMZWGD
+	 8rQKh5p4IgeZa4dawvyBK3mcTMozF//B4/Y0q357id316KrI/zq6LHI9Qh9etltREo
+	 O54E6Rf9zN7I8ib5J4xGqgo+rQ76cF4ZXLM8x7HXLnvV5tcKdBCIezZ/d30cDFgLEF
+	 /TdWR8QTcUu1WeoisZOUF7nYkvORWKoo6hj2ujzKZc4M/Moz76CqV6Eab4Gpqkre/w
+	 L2sTUSpbunSmA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	dmitry.torokhov@gmail.com,
+	gregkh@linuxfoundation.org,
+	pengpeng@iscas.ac.cn,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Miguel Garcia <miguelgarciaroman8@gmail.com>
+Subject: Re: [PATCH 5.15.y] Input: aiptek - validate raw macro indices before updating state
+Date: Tue,  8 Sep 2026 18:39:09 -0400
+Message-ID: <2026-09-08-daily-reply-0002-aiptek-macro-index-5-15@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907184956.1567815-1-miguelgarciaroman8@gmail.com>
+References: <20260907184956.1567815-1-miguelgarciaroman8@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260731094402.741645-3-thorsten.blum@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 31, 2026 at 11:44:00AM +0200, Thorsten Blum wrote:
-> Include asm-generic/serial.h and use the generic BASE_BAUD definition
-> instead of redefining it.
-> 
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
-> ---
->  arch/m68k/include/asm/serial.h | 10 +---------
->  1 file changed, 1 insertion(+), 9 deletions(-)
+> aiptek_irq() derives macro key indices directly from tablet reports and
+> then uses them to index macroKeyEvents[]. Report types 4 and 5 also save
+> the derived value in aiptek->lastMacro and later use that state to
+> release the previous key.
 
-Gentle ping?
+Queued for 5.15, thanks.
 
+-- 
 Thanks,
-Thorsten
+Sasha
