@@ -1,220 +1,124 @@
-Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68EC4F4735
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB18551120E;
+	Tue,  8 Sep 2026 10:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863380; cv=none; b=GBbV14B0pXGxMcgMv6AQv02IL5yHpVKCuX4e8h9U+CN3w0qzmqNfb0ipZ+AJBZyitAOkwDU6yiPnB4nSYTktFQxwbbk3ngOm6XGjJWSiidRa9t7uL0q8wdfkUizQHvH8XR4gEhpK8Dc3lCVG1KqJMUMLz/mj7bSx04l+9gYr0fA=
+	t=1788863383; cv=none; b=PxkY0ZcUZb2y2oBnUoDeLt8+EffiQvgUkXlqfU9E9hgndb5jaxAiJ6oobxmy1GasNZjPoZvWNALbK0hxME3t7XUEqbPFc34ZPEwzUss75hw5nc9SCx0d6MNCSPC3IGTyf/YihbmtEt01sQd5mnEidCEltu6vYjO3Y34sWOt5/no=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863380; c=relaxed/simple;
-	bh=0huURJH+bq7BGRuA49dbK70WUA8RUUT6E5UMwxs81nc=;
+	s=arc-20240116; t=1788863383; c=relaxed/simple;
+	bh=jkB1zD6Jn9zXtXuHn8a/znVZ/dAQ8s/MQdg2UsJtUY8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=REucyk7RRAVCIDF74Fo5ctYzCAoZ17TKBL3aOwBJwLtPCStjt2jMtckL9eytB8ZLAoVlaUB8MxmBz70PAsFVrg34U0nnaSR0/i3TIXrsEyJi9o+WapT5QCBrncvcClW/XlBU4nkMtY8YiragoFP5PkwSUXZx+brG4XOxtCt+3UE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Xo0G8Ysh; arc=none smtp.client-ip=95.215.58.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZNTrY9Agk4SczQz1mzIWj36/64IMXD5y9j6Mf8+qxx352YoTz/IkdTQtzDtg3L41/vbCZifo4PnwzDV9QHvdjuTzpoDfU0v7lt3JTwB67iKB0NpJUzUHkeJLNXhrN6a+jkmLz0O+A/RV1SW9tcEdKNRumKl424aos3H3FrS2PSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lDeS1buP; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Xo0G8Ysh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=0huURJH+bq7BGRuA49dbK70WUA8RUUT6E5UMwxs81nc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788863375; v=1; x=1789468175;
- b=Xo0G8YshDHvlyYXPhTHZ0GSxNbZa/80xWtlp3z9OZqEvMuqqHi5n6WjvFuIH9Q/1e5oqn/Ne
- 8NPeDBDizmBvdJLPimQY3GC8SfZaW9JnZObVcW6I8kB+lCyELv4R0jsPaRxaqH1UWEYhNGC6Y7g
- DHtsUP2t2vm9bcg6NPMvMvQY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 965e93f6bc2a3c87;
-	Tue, 08 Sep 2026 10:29:35 +0000
-X-Mizu-Trace-ID: 965e93f6bc2a3c87
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 8 Sep 2026 18:29:28 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
-	kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
-	hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org,
-	ljs@kernel.org, ridong.chen@linux.dev, hebaoquan@kylinos.cn,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
- folios
-Message-ID: <ap_jiN_ogpeaxlGv@fedora>
-References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
- <ap9zPPughaSlfXM2@fedora>
- <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
- <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
- <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
- <ap-yQOH0pni-mfdf@fedora>
- <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
- <ap_GBGDHkEzZ1Osq@fedora>
- <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lDeS1buP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788863382; x=1820399382;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jkB1zD6Jn9zXtXuHn8a/znVZ/dAQ8s/MQdg2UsJtUY8=;
+  b=lDeS1buP9YDkDYwG5IljSL5pCEY7DKeQTgboK0rqiMOybrU3fvxqOK64
+   IN97RcPyjtElkfjFy55l3ol+260Ztv7k8hZTa7ArqVj/H2PYRWFbUTVcu
+   Ghlpy1TWS9k5ZYYQLls0xNqFJjkF1FEzQ16OHRAh7vfXNk66RztxfSdUZ
+   9Br5SftPCV467LZtoZfG5mpybwMkUqQ20SzCkmu4LQUV5OIq92Kw063F0
+   5tUH1fzQiH2GxxdToIOJb4dmHkfeM1EDfWHpDLRHUWds8vJFy5rJvaBMY
+   cQ2Xpk9ld4qgEB+B7lifl1++vQPcBD8lPJTh8Or1SFZm9KlbogYTxRkU1
+   w==;
+X-CSE-ConnectionGUID: 8XouAd3ERFiIxfnSF0hnUQ==
+X-CSE-MsgGUID: AQduja7VSDGZRJyJtIoFoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89017912"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="89017912"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:29:38 -0700
+X-CSE-ConnectionGUID: pLoFB+6XSpih592zmri7pQ==
+X-CSE-MsgGUID: eCKyAV6nTdKnJJfmYy0uaA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="266610116"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:29:30 -0700
+Date: Tue, 8 Sep 2026 13:29:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 2/6] PCI: spacemit-k1: Add multiple PHY handles support
+Message-ID: <ap_jh_NAqHnIlZeu@ashevche-desk.local>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-3-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
+In-Reply-To: <20260907112606.465778-3-inochiama@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 09/08/26 at 05:39pm, Baolin Wang wrote:
-> 
-> 
-> On 9/8/26 4:23 PM, Baoquan He wrote:
-> > On 09/08/26 at 03:53pm, Baolin Wang wrote:
-> > > 
-> > > 
-> > > On 9/8/26 2:59 PM, Baoquan He wrote:
-> > > > On 09/08/26 at 12:01pm, Baolin Wang wrote:
-> > > > > 
-> > > > > 
-> > > > > On 9/8/26 11:03 AM, Baolin Wang wrote:
-> > > > > > 
-> > > > > > 
-> > > > > > On 9/8/26 10:34 AM, Barry Song wrote:
-> > > > > > > On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
-> > > > > > > > 
-> > > > > > > > Hi Baolin,
-> > > > > > > > 
-> > > > > > > > On 09/07/26 at 11:25am, Baolin Wang wrote:
-> > > > > > > > ......snip...
-> > > > > > > > > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > > > > > > > > index 40d3f1b48a74..42c0a09938ab 100644
-> > > > > > > > > --- a/mm/vmscan.c
-> > > > > > > > > +++ b/mm/vmscan.c
-> > > > > > > > 
-> > > > > > > > Well, this seems to be based on Andrew's mm-new branch. I usually track
-> > > > > > > > mm-unstable branch. Maybe the subject should be marked as below?
-> > > > > > > > [PATCH mm-new] mm: mglru: clear the reference counter for rejected
-> > > > > > 
-> > > > > > ACK.
-> > > > > > 
-> > > > > > > > 
-> > > > > > > > > @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
-> > > > > > > > > long nr_to_scan, struct lruvec *lruvec,
-> > > > > > > > >                  }
-> > > > > > > > > 
-> > > > > > > > >                  /* don't add rejected folios to the oldest generation */
-> > > > > > > > > -             if (lru_gen_folio_seq(lruvec, folio, false) ==
-> > > > > > > > > min_seq[type]) {
-> > > > > > > > > -                     folio_set_lru_refs(folio, 0);
-> > > > > > > > > +             if (lru_gen_folio_seq(lruvec, folio, false) ==
-> > > > > > > > > min_seq[type])
-> > > > > > > > >                          folio_set_active(folio);
-> > > > > > > > > -             }
-> > > > > > > > > +
-> > > > > > > > > +             /* See the comments on LRU_REFS_FLAGS */
-> > > > > > > > > +             folio_set_lru_refs(folio, 0);
-> > > > > > > > 
-> > > > > > > > This looks like a great catch, while the code change could bring issue.
-> > > > > > > > 
-> > > > > > > > Because move_folios_to_lru() relies on folios' flags to decide their new
-> > > > > > > > generation. You just cleared it before move_folios_to_lru(). This is no
-> > > > > > > > problem for rejected folios that are determined to be put into the
-> > > > > > > > oldest generation. But for those rejected folios that are determined to
-> > > > > > > > be promoted, this could be wrong. E.g currently gen window is 4, and a
-> > > > > > > > folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
-> > > > > > > > is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
-> > > > > > > > referenced bit, this causes it being put into the oldest generation in
-> > > > > > > > move_folios_to_lru(), this is not expected.
-> > > > > > 
-> > > > > > Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
-> > > > > > to be reconsidered regarding whether it should rely on PG_referenced
-> > > > > > [1].
-> > > > > > 
-> > > > > > For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
-> > > > > > either. Before commit 6cbdd9726fb5, if rejected folios did not have
-> > > > > > PG_active set by shrink_folio_list(), evict_folios() would set PG_active
-> > > > > > on these rejected folios.
-> > > > > > 
-> > > > > > [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
-> > > > > > baohua@kernel.org/
-> > > > > > 
-> > > > > > > The original code looks quite weird. It even prioritizes folios
-> > > > > > > that won't be promoted by `PG_active`. Do we need to change all
-> > > > > > > the cases just to call `PG_active`?
-> > > > 
-> > > > I would agree if we can. While I have one concern. A rejected folio that
-> > > > should have gone into the oldest generation is now being promoted to the
-> > > > 2nd newest generation. In the original code, referenced folio is only
-> > > > being promoted to the next gen. I even think this is not a bug, but Yu
-> > > 
-> > > That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced
-> > > folio was also put back to the 2nd youngest gen.
-> > 
-> > OK, I didn't follow your earlier discussion, I need take some time to
-> > fully understand that commit and the patch thread from Ehab.
-> > 
-> > > 
-> > > > Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
-> > > > referenced folio (hot folio) is moved to new gen but carries the referenced
-> > > > bit. Both of them seems to be treated somewhat equally.
-> > > > 
-> > > > To me, I would rather move both of them to the next gen, while keep their
-> > > > refs untouched.
-> > > 
-> > > IMHO, I strongly recommend not doing this, and that's exactly the motivation
-> > > behind my patch. Because this is also being treated as a promotion, it
-> > > should behave like folio_inc_gen() or folio_update_gen() and clear the refs
-> > > after promotion. I think this is a fundamental principle of promotion.
-> > > Otherwise, ref-based promotion is already completely broken.
-> > 
-> > OK, it makes sense to me to make principle of promotion strictly applied
-> > no efficiency degradation involved.
-> > 
-> > > 
-> > > Next, I also plan to clean up refs in lru_gen_set_refs() as discussed with
-> > > Barry.
-> > 
-> > Looks forward to seeing that. By the way, your discussion with Baryr is
-> > private or in public list, do you have pointer if public? Thanks.
-> 
-> I raised this issue before[1], and recently there has been another
-> discussion[2] about it (we had some private discussions, but I'll post a new
-> patch for discussion).
-> 
-> [1] https://lore.kernel.org/all/eb395442-0aad-428a-a5ac-9072d2d89060@linux.alibaba.com/
-> [2]
-> https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
+On Mon, Sep 07, 2026 at 07:26:01PM +0800, Inochi Amaoto wrote:
+> The PCIe controller on Spacemit K3 may use multiple PHYs at the
+> same time. The feature is not supported by the current driver.
+> So extend the PHY definition to support multiple PHY handles.
 
-Got it, thanks.
+...
 
-> 
-> > > > > > Yes. Regarding this concern, I plan to change back to the original
-> > > > > > behavior:
-> > > > > > 
-> > > > > >        /* See the comments on LRU_REFS_FLAGS */
-> > > > > >        folio_set_lru_refs(folio, 0);
-> > > > > > 
-> > > > > >        /* don't add rejected folios to the oldest generation */
-> > > > > >        if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
-> > > > > >            folio_set_active(folio);
-> > > > > > 
-> > > > > > What do you think?
-> > > > > 
-> > > > > Just FYI, after above changes, the performance improvement on zram is no
-> > > > > longer obvious either. I think this also answers Kairui's earlier question
-> > > > > about why I saw a performance improvement (which seems related to commit
-> > > > > 6cbdd9726fb5). Also, there is no obvious performance regression either.
-> > > > 
-> > > > Hi Baolin,
-> > > > 
-> > > > Not sure if it's convenient to do a little more testing in your side.
-> > > > E.g rejected folios are moved to next gen, but not clearing their flags.
-> > > 
-> > > I'm not sure what you mean by "next gen" here. If you mean the 2nd oldest
-> > > gen, I actually tested that too, that is, clearing refs after
-> > > move_folios_to_lru(), and there wasn't any noticeable performance impact
-> > > either (but the code was a bit hacky, so I didn't go with this approach).
-> > 
-> > Yeah, I meant the 2nd oldest gen, while what I am curious about is moving
-> > them into 2nd oldest gen but not clearing refs. Clearly it's conflicting
-> > with your plan. Anyway, it's just a brain store idea, please forget it.
-> > Thanks for the sharing and detailed explanation.
-> 
-> Thanks for reviewing.
-> 
+> +static int k1_pcie_get_phy_handle(struct k1_pcie *k1, struct device_node *node)
+> +{
+> +	const struct k1_pcie_device_data *data = k1->data;
+> +	struct device *dev = k1->pci.dev;
+> +	int count;
+> +
+> +	count = devm_of_phy_bulk_get_all(dev, node, &k1->phys);
+> +	if (count < 0)
+> +		return count;
+> +	if (count == 0 || count > data->max_phy_count)
+> +		return -EINVAL;
+
+Elsewhere we distinguish count == 0 with -ENOENT.
+
+> +	k1->phy_count = count;
+> +
+> +	return 0;
+> +}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
