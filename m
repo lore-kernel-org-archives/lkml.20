@@ -1,116 +1,244 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF28B559CA2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5964F56B874;
+	Tue,  8 Sep 2026 16:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883320; cv=none; b=dkueqYoMtLQ8BTFNTuiSiJYkUmDoJDs6oTpvTVlU31LqdGqIrqy9r79vE1jfZIhD5TG1EHm6TlUTxHLIi1cvHwQYQ7Pwq+cHS1EZecJCdbE2K+dWwc0D07f1wXN1vNXMOzerh0pxG5xaSORd3IyiFS1oebOiBFBq0CwZycGov48=
+	t=1788883324; cv=none; b=WOvRHofYzjCey2iOm/jD0K43vYQK+sq0Ar77KPOXRSJFAn4eY8gAAhYikW9ZEDR+RUVhT1s3D2IKpsd/1YQteHCgdzZIYZPi0PjhM88oKC8x4cVtG9jLl+2mEehmdvQMLLwFH192z1P8RiI7cdMo9edauYke7Sgj6snr8bBpmUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883320; c=relaxed/simple;
-	bh=yaBev6x1pDC3vXUmt2RhLbEpcdCihB7k6MXUk7ANKmE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=uHolnYXYvqqBmF3fm5sdnnLtYDFW9CfjaEXcCHbSJLUV7XSzogvT8kB4cvuD6icH9YB8pAqGeXDgp1iJ70ZCqfPJe7SSr4ntaC7YRv7FSziZy035FCYU27Q5EkcRzIuhzqOWk8PF0xs9g9bcvFOw0/l+cifNmE5LdYMtDf6SHy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=ougS9SQi; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	s=arc-20240116; t=1788883324; c=relaxed/simple;
+	bh=PtBvshArS3P1b+I2XeuugmZi94aHWwfsom4fpF20Tj8=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Noau7DQltlqO9YmJTo4h4d4UOOLjDY/Xysw83k+mAUC/lQcadbxviC+AOf08ERhV28hZbkVuN2PXHddzMxsJgq8HEfxrmADzU2cHtoHMxMKT94Ij6x7SZJCuVM/nxDSzq9aw8JGwWc0scLV0q2n8uEoWLUYhE4U+aXRo0Ss/H54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=cA9AP2BB; arc=none smtp.client-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="ougS9SQi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1788883317;
-	bh=w7AqlwipuMPzkJSp3baFGeJqXcM7kW3BtoJJ6zsvqac=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=ougS9SQi8VLW2FYu52Eg8z+qMHgtJrbE+st/FCUSRcQx6yBDkdlF/ii6f7kxRzpQ2
-	 QYr98jaa2bAQ4GOht7OjO/UfiA02xe9RDc2UUutY8M3qqL/qpCyjzBbor8UGSzvdWf
-	 /RxY6StlkKCcvYpBD805evKaRztimLSg4XnM7Epj95aDjZEiSpkY08lkX4EojfOAqA
-	 q3iMsGBh9QcgM0X76U+O/bRXx/DcTb6s8gazMUYDXC6JCqmpMHFq1zhZnGgovG+CRi
-	 sYllzb1qEyyzZX6yymgzjcFMLV0U1KLMdyHPiKmKWa7x9SUJNjl6a25KPEwNj5brXR
-	 QLsHx4Dfm+ABw==
-Received: from localhost (199-193-172-8.cpe.axion.ca [199.193.172.8])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hfTGF3wg4zZ3F;
-	Tue, 08 Sep 2026 12:01:57 -0400 (EDT)
-From: Olivier Dion <odion@efficios.com>
-To: Florian Weimer <fweimer@redhat.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra
- <peterz@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Boqun
- Feng <boqun@kernel.org>, LKML <linux-kernel@vger.kernel.org>, Thomas
- Gleixner <tglx@kernel.org>, Dmitry Vyukov <dvyukov@google.com>, David
- Matlack <dmatlack@google.com>, Marco Elver <elver@google.com>, Sean
- Christopherson <seanjc@google.com>, Wei Liu <wei.liu@kernel.org>, Mathias
- Stearn <mathias@mongodb.com>, Chris Kennelly <ckennelly@google.com>, Blake
- Oler <blake.oler@mongodb.com>, Rich Felker <dalias@libc.org>, Matthew
- Wilcox <willy@infradead.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos O'Donell
- <codonell@redhat.com>
-Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
-In-Reply-To: <lhua4q28z30.fsf@oldenburg.str.redhat.com>
-Organization: EfficiOS
-References: <20260828153349.8061-1-odion@efficios.com>
- <20260828153349.8061-2-odion@efficios.com>
- <lhua4q28z30.fsf@oldenburg.str.redhat.com>
-Date: Tue, 08 Sep 2026 12:01:57 -0400
-Message-ID: <874ifzwx3e.fsf@laura>
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="cA9AP2BB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1788883316;
+	bh=6SwRQ6PA+jZ9sSnyk3mpNdGgMyUDicpbvYGA8+pGlt0=;
+	h=From:To:Cc:Subject:Date;
+	b=cA9AP2BBeBRMIcVSMX3/V27YTRhx8lemN8guv/6gHMhGv/tWCtej+81boyBwcVmPF
+	 zRQ/BPnOv5fqWqr0YRm7jHQkLOqxV0NBhxjO1qLlnU8qlWBpD3mxhUTqQOQEi56jh1
+	 5NIyt//U/LVn+nVpab65sL6NNJ2gzdMvmBoRJjgQ=
+Received: from LAPTOP-TKBJAGN4.localdomain ([2408:8256:2d01:e2b1:f9b4:79bb:79ab:d0e2])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 6F854B2; Wed, 09 Sep 2026 00:01:47 +0800
+X-QQ-mid: xmsmtpt1788883307t0dys8503
+Message-ID: <tencent_342A87BFCECA70C9982E68A79AAD878B6909@qq.com>
+X-QQ-XMAILINFO: MXzpxT/vcbSg1A6KbdFVmG0bev7a//SwtdgMKyqlQmb1J15c/8b45jn6e/n++N
+	 oy/K9Oa3/ujrfqmzuGOkzW4Dg11LO1WiY1hXXp2bX0NS/w6SHVmNpUILzzB79Z8GHQ84fMNLCLG2
+	 g4dr0cNCC4oiFwrjAbSfN3Ul7HjyX3eub9w2tNO8+nOocLInxP/DzNhhZF9rszK1WkT1ESge5n2h
+	 B2BuN5cpP/bW8jUHyz5fEKkLtxQeUG4sIj/OR0qfilH9NUK1irs7Trj+xhM2ct9+ZVXoUUO8o1rF
+	 Z+ipMbGGrIiWlcma6nG8Bl1PGI4KoXyRBUhnhVota0Q3bk9dCesMDR7+Q4GOtFvUykodpi5akkc+
+	 1Ll2jZ4LfXuLPCnxPhK6yqh86w6DAXWSk9OrnfO7rtmKJI5f4J9JUdyLS3C9Jwz0s9CDHp2sXCCU
+	 6XLVL8VPN2Y6QUxJDlTzC4e3CDMLyJG/uypHfRq8z7bxDL4kjXcr7K8R4rzv3sgywMNkXXQs3l1U
+	 I/wH7iLbXA/6/57+rxzDeXhNDn7dCs1Q+DhhLrdLrJ9ldMh82Ygl/2QQw6LK18zuQminc1Lb5eC1
+	 SSsYC9h88UGM0BUZiq/6bBPzM6aZ8fKtNMruaMXQ1oevdkeZ8hkKmQHmBWmrNlFQDYkGHMer5o/M
+	 3z66tDN+rkRMgHnE0C+AcZYny39YP7QDg6h36BfvApNwVLADDUNPgf5ye3RDc9QKuOmgeIseuA9T
+	 uzc6i9pJDi2P464u4QprI4GxJWxTuSMkvXZGjrQiRyysEqzMvwFdpTBdNyYJcL5Sk4qbGakx3ryu
+	 NTh2YsITDkbVBIhyt3/jKl1qdNyQuJX3wgU2bkwYPTb4b2e9SNetT9Lph8PVPD6O1pfRSBR/v0PX
+	 0NfzpgPd4ak2TEqR6WqC++0pSQn26f1VNq4AvnkdY/yvcgzS+9idxcmdrdwHDO1GqRGEFT4EuJHZ
+	 22ANU/j4XxtkvOUUltPlRKPKFwPV3kphpKbKr93xmluKS8VjGgtreCEH5nXVJ+DKlaxvWxXuKzhs
+	 d3v/Qh5EbgGgAFUG17WewXjoueZUeT1K75FCy1IJrV9Lh0N81x/NP11/8wuXABUW4JKQ/gb0T2oo
+	 vFf4oUb1dH10NZdNa6MSz6sAjw54T4lrO6tJzV4m3H6AlETn8U+J9PoO6tmvsGA9xT0NM6mVnlqX
+	 mtXt/eVkTFVWfWqA==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Haobin Jiang <lemonoutput@foxmail.com>
+To: carlos.song@oss.nxp.com,
+	dillon.minfei@gmail.com
+Cc: andi.shyti@kernel.org,
+	Frank.Li@nxp.com,
+	festevam@gmail.com,
+	imx@lists.linux.dev,
+	kernel@pengutronix.de,
+	linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	o.rempel@pengutronix.de,
+	s.hauer@pengutronix.de,
+	Haobin Jiang <lemonoutput@foxmail.com>
+Subject: [PATCH v3] i2c: imx: honour I2C_M_IGNORE_NAK
+Date: Wed,  9 Sep 2026 00:01:45 +0800
+X-OQ-MSGID: <20260908160145.180323-1-lemonoutput@foxmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026, Florian Weimer <fweimer@redhat.com> wrote:
-[...]
->> Indeed, TCMalloc relies on the behavior of RSEQ v1, that reset the
->> cpu_id bits in the RSEQ shared region, to invalidate a per-cpu pointer
->> cached in a TLS. This hack requires TCMalloc users to use a glibc
->> tunable to disable RSEQ registration for threads so that TCMalloc can
->> register its own region, overlapping the TLS cache.
->
-> The commit message does not quite say how this addresses tcmalloc needs.
-> I assume the idea is to reset some other data structure and not the rseq
-> fields.  Is my assumption correct?
+I2C_M_IGNORE_NAK is removed from the flags rejected by
+i2c_imx_check_msgs(), so the flag is honoured as documented. I2C_M_STOP
+stays unhandled to preserve existing behaviour and backward
+compatibility. I2C_M_NO_RD_ACK stays rejected.
 
-Indeed.  That would allow TCMalloc to not have to overlap their pointer
-cache with their RSEQ area.  In other words, they could be using the
-glibc area and be compatible with the rest of the ecosystem.
+This change is meant to apply on top of the I2C_M_REV_DIR_ADDR and
+I2C_M_NOSTART series [1], which is not yet merged.
 
-> Would it be possible to use actual CPU instructions running in userspace
-> for this?  I assume not because it's not possible to restore the
-> register contents.
+Tested on an ALIENTEK i.MX6ULL mini board (v6.6.44, equivalent
+backport) with a logic analyzer: with the flag, a 3-byte write to an
+unpopulated address clocks out every byte (each NAK'd) and returns 0;
+without the flag it aborts with -ENXIO after the address byte. A
+4-byte read with the flag completes and returns 0 as well. Waveforms
+and test logs: https://github.com/JHB11Hinson/i2c-imx-ignore-nak-test
 
-Well I had in mind another solution, albeit some might find it ugly but
-I think it does have the merit to be explored.
+Note: part of the code was generated with the assistance
+of a generative AI tool (GLM 5.3) from the author's description of
+the problem, then reviewed and verified by the author.
 
-Basically, instead of doing all the operations in the kernel, we could
-setup something akin to a signal handler by pushing a frame on the
-userspace stack and resuming the execution of the thread into that
-"handler".  Userspace is now responsible of everything, including
-returning to the original IP.
+Link: https://lore.kernel.org/linux-i2c/20260812-for-upstream-i2c-imx-lx2160-reverse-v2-1-f1343714c5a9@free.fr/ # [1]
 
-However, we need to be careful with things like the red-zone, the
-shadow-track and the extended states.  Other than that, the only thing I
-am unsure is how to handle nesting.  Perhaps someone with more
-knowledges could expand on that.
+Signed-off-by: Haobin Jiang <lemonoutput@foxmail.com>
+---
 
-> My concern is that this would turn into another bytecode interpreter
-> over time, basically reimplementing BPF.
+v1 -> v2:
+	- Honour I2C_M_IGNORE_NAK on the read path as well, mirroring
+	  i2c-img-scb, instead of silently dropping the flag there.
+	- Force the PIO path for every message with I2C_M_IGNORE_NAK:
+	  a NAK'd byte does not generate a further DMA request, so a
+	  DMA write to a deliberately-NAKing target would stall until
+	  DMA_TIMEOUT.
+	- Reject I2C_M_NO_RD_ACK instead of advertising blanket support
+	  and silently ignoring it. I2C_M_STOP is not rejected: the
+	  controller already emits a STOP after the final message, and
+	  rejecting it would break the ov2659 camera on imx6qdl-ds.
 
-I did think about adding BPF type to run BPF bytecode.  However, I don't
-think it fits well the goal here and would make the feature unusable on
-configurations where BPF is not available.
+v2 -> v3:
+	- Rebase on top of the I2C_M_REV_DIR_ADDR and I2C_M_NOSTART
+	  series; the flag rejection moved to i2c_imx_check_msgs().
+	  I2C_M_IGNORE_NAK is now honoured and I2C_M_STOP stays
+	  unhandled, preserving the ov2659/SCCB use case and backward
+	  compatibility as agreed during review.
+	- Keep the DMA write path checking ACK with ignore_nak=false,
+	  as suggested during review; messages carrying
+	  I2C_M_IGNORE_NAK are forced onto the PIO path.
+	- Fix double spaces after periods in the changelog and comments.
+	- State the use of a generative AI tool in the changelog.
+	- Test on an ALIENTEK i.MX6ULL mini board (v6.6.44, equivalent
+	  backport); results linked in the commit message.
 
-Overall, my idea with the RSEQ operations was make that could benifit
-the userspace as a whole instead of handling only the TCMalloc
-situation.  Otherwise, I would have just name it RSEQ reset.
+ drivers/i2c/busses/i2c-imx.c | 31 ++++++++++++++++++++++---------
+ 1 file changed, 22 insertions(+), 9 deletions(-)
 
-For example, there is a CPU-stride variant of the reset operation.  I
-dabble with this operation to cache a TLS that is global-dynamic into a
-per-cpu cache.  Thus, making a TLS global-dynamic access as fast as a
-TLS initial-exec.
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index ab6794bf3ea5..9cd1fa0f4021 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -612,9 +612,12 @@ static int i2c_imx_trx_complete(struct imx_i2c_struct *i2c_imx, bool atomic)
+ 	return 0;
+ }
+ 
+-static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx)
++static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx, bool ignore_nak)
+ {
+ 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
++		if (ignore_nak)
++			return 0;
++
+ 		dev_dbg(&i2c_imx->adapter.dev, "<%s> No ACK\n", __func__);
+ 		return -ENXIO;  /* No ACK */
+ 	}
+@@ -968,11 +971,15 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
+ 	return ret;
+ }
+ 
+-static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx)
++static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx,
++				    bool ignore_nak)
+ {
+ 	i2c_imx->isr_result = 0;
+ 
+ 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
++		if (ignore_nak)
++			return 0;
++
+ 		i2c_imx->state = IMX_I2C_STATE_FAILED;
+ 		i2c_imx->isr_result = -ENXIO;
+ 		wake_up(&i2c_imx->queue);
+@@ -985,7 +992,7 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
+ {
+ 	int result;
+ 
+-	result = i2c_imx_isr_acked(i2c_imx);
++	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
+ 	if (result)
+ 		return result;
+ 
+@@ -1014,7 +1021,7 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
+ {
+ 	int result;
+ 
+-	result = i2c_imx_isr_acked(i2c_imx);
++	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
+ 	if (result)
+ 		return result;
+ 
+@@ -1229,7 +1236,8 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
+ 	if (result)
+ 		return result;
+ 
+-	return i2c_imx_acked(i2c_imx);
++	/* I2C_M_IGNORE_NAK messages never take the DMA path. */
++	return i2c_imx_acked(i2c_imx, false);
+ }
+ 
+ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+@@ -1248,7 +1256,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, !use_dma);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1381,7 +1389,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, true);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1396,7 +1404,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
+ 		result = i2c_imx_trx_complete(i2c_imx, true);
+ 		if (result)
+ 			return result;
+-		result = i2c_imx_acked(i2c_imx);
++		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
+ 		if (result)
+ 			return result;
+ 	}
+@@ -1580,8 +1588,9 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
+ 	return ret;
+ }
+ 
++	/* I2C_M_STOP is the controller's native behaviour; don't reject it. */
+ #define I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS \
+-	(I2C_M_IGNORE_NAK | I2C_M_NO_RD_ACK | I2C_M_STOP)
++	I2C_M_NO_RD_ACK
+ 
+ static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
+ {
+@@ -1675,6 +1684,10 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
+ 		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
+ 			msgs[i].flags & I2C_M_DMA_SAFE &&
+ 			!(msgs[i].flags & I2C_M_NOSTART);
++
++		/* A NAK'd byte may not generate a further DMA request. */
++		if (msgs[i].flags & I2C_M_IGNORE_NAK)
++			use_dma = false;
+ 		if (msgs[i].flags & I2C_M_RD) {
+ 			int block_data = msgs->flags & I2C_M_RECV_LEN;
+ 
 
-Thanks,
-Olivier
+base-commit: 04e9bf1648f846976b543e91c1838a712433772a
+prerequisite-patch-id: 24876ef6d4dc440b8d8080e65d369b2b37709b0b
 -- 
-Olivier Dion
-EfficiOS Inc.
-https://www.efficios.com
+2.34.1
+
