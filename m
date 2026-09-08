@@ -1,176 +1,195 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803DA4A5C4A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908882; cv=fail; b=VfRbTTReTi8fzfYNQNlciMJbxAQPYjscH4Bj/YJA1Vagut4YGwqaKdX3NuO88sJzU9922whfcH5hLyuKLtuOPOIdQxqE8nQm70KHUPEZHBEUKoRRF9wbzZ69Grj4yfnERBhXD7HCNSywLEdKp5PAyfof45lMEJEtUCqqqzpDtEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908882; c=relaxed/simple;
-	bh=qPITnT0/U3hjN8j4IY0J3el1EFHMOhpIDJq0BOKqsSk=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=YPDRv1gS5vpuGDVzUtoOosDFBjzRlLRADf58ODcx4AujC1TE0lhqO2fdRC0jK31/kSLW0DilHHalgktNR2H8smpNTMJ3NH8T5fIFnpQ0D2t02T86fL7IYW0PKk8L+wdX8QWnXpOFHcriJRMzwI0b81DxxBQ/+NtlIDQumXmms70=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cBhtTCWm; arc=fail smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D05492E21
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788908987; cv=none; b=Z6CAEVM7KQt29ByyQS3YTcjFTlN8Y82uhKpAkRbtlKimedg/nzHqIW52lGNCKp+o8iILpIIUAoSJaZCgIDcfACWjrd+KeASqoLZEaeYkUaJ7lpUTna1EiV+FVRtOIQibMz56QQKcrbFmdTFTVf5oL63gQZERLgYXHIxr15G3PrQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788908987; c=relaxed/simple;
+	bh=atrQOTjrNgABMsK63b7+x9nwBtP4l6gXo/MfCfGKi4s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=PiT7Cs7JhrIUV3pJWfVnlgBOPJ2XAKqWV9waQxObhJfib2itHPQbRNnciWXE8uyhvUxGT+rhpbRvQ938V2fsfZDFh6r5A+p+S5IFa0ad/3+VpNxCpuOkewjdbXkZmgH1uVAPhz39hY1IMdUHN0aqiprs9DPAjm4e+rLu/u2E3eE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F6j3gGtD; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cBhtTCWm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788908880; x=1820444880;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=qPITnT0/U3hjN8j4IY0J3el1EFHMOhpIDJq0BOKqsSk=;
-  b=cBhtTCWmloyDRFQLySqMTRwnAK82/l7H5bVKPemj/cD9sA6wIDUnWHCe
-   Z1H6zFhoCpJNpv72xfm1SPRz3gloRWFqA3SJaAi/Krb87txGIewadM+oq
-   L8I73F9IKXG9Adh7ifUqpWUOb1Ali9G/bYkR7mDSYsoZHgE+CFLfO4iN+
-   r2MM2rjIIA9ATjCQmu9mfnS3b8tcWTQOALRtWwtQc9Xiu8qfzej5M4X81
-   vCxg3T4uiH8YPfyFC1lHY5yOcSwdPfRgOzsyqpVnJfckc9NceSopTdpuT
-   EbZ3yfIEm3QZEVZIxK1aclwldn4tMxEt0ZMk+x0aSzvEf8I7NHKJ8byTf
-   g==;
-X-CSE-ConnectionGUID: ZS9/V0dER3S0Qe56TyzBjg==
-X-CSE-MsgGUID: DLwY1lW/QbKL0fIvUmx5VQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100484960"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="100484960"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:07:59 -0700
-X-CSE-ConnectionGUID: FDQuzRCzTbmCiCSD+fuJYQ==
-X-CSE-MsgGUID: uCWwwZLRSBm5/L9GhISPFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="273091942"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa004.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:07:58 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 16:07:57 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 16:07:57 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.25) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 16:07:56 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G+XOgtQ2MCw9YayC8E0Wj7G4HRUbbNTxNJu12Pr6DT5e+qTa958qdPETu2MNjSEomgovtkZX4XmvvSNqDG7zHWB5ILfPlTSPQSYuvvbL1xWqenaVPSPUGONgpSRUD6d08uZBU3cdTdaZ9sIWvFrR4YtBMawDT4vQUUvPmkPIkkbtcq1ApxH0fjFwZCoJDK46nWj/XPP8wpTZ9v7PYii0OsvOrSbGDaVwMp/xK+JpbJj+HiglxP/3SK33N2Sc/qDy99ctxhtY/J8PsyR6gN39WagMWFrmhgBh1lMbADb07QwFofsuQkOCSYntWtwfEIEs45Xs6DmhcSFhqCSHkSeNFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dGv/bbPjFdOuihwi4V3D0S9sKDAn/jo9vXQ0crMBWrk=;
- b=VTII4YtJvvVBqhlu4WQkbr44a+2muWjSBWb9ex91R2trDDpxIsYdQlVtxjSLWnz2aJHSywIkMrKgdpEJ2AQPuRXXT4uiPcm2o05UymB3zFfYX4It8JfmB26f/s9rme92bmj/zxvdiNW+ugTi2Qx4S+iM35jy9FHHIHQaMUCUBuWAk4cfGdrD30PE7dQP7xOzUQ9gBZRw1K2P0Zv8bDQTqYZPfHIOTdY5Lw7PzmwNNXcks0H2rRzP6Wlg0lOxLlV8VEiSK4prZMhGmIgrQU5D1bDr+bkYvQSTr2EW/g2KKNeYapUcFhWZnVh+qj9Tm6PYPANmPBP0CTPW+XhKNTkZfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com (2603:10b6:8:f8::18) by
- PH7PR11MB8455.namprd11.prod.outlook.com (2603:10b6:510:30d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 23:07:54 +0000
-Received: from DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84]) by DS0PR11MB7925.namprd11.prod.outlook.com
- ([fe80::60af:89a0:65dc:9c84%7]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 23:07:54 +0000
-Message-ID: <bf94ee57-ba7c-46b9-9799-4a7927f80475@intel.com>
-Date: Tue, 8 Sep 2026 16:07:51 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] x86/microcode: Address GNR errata and follow-up
-To: <linux-kernel@vger.kernel.org>
-CC: <x86@kernel.org>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <andrew.cooper3@citrix.com>,
-	<arjan.van.de.ven@intel.com>
-References: <20260901231634.714144-1-chang.seok.bae@intel.com>
-Content-Language: en-US
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-In-Reply-To: <20260901231634.714144-1-chang.seok.bae@intel.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0100.namprd13.prod.outlook.com
- (2603:10b6:a03:2c5::15) To DS0PR11MB7925.namprd11.prod.outlook.com
- (2603:10b6:8:f8::18)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F6j3gGtD"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so41799575e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:09:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788908982; x=1789513782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S1sqlRiEDMtea/68TRHJP/y7Fg6bS0f93iC/rAE6DLs=;
+        b=F6j3gGtDWuk06NJt//uFMPNqNX0Rt7/fBXc6J9pg8UKN8hi/rmm4JZoIxXmTBPr228
+         6ZNhbPu4JFwkAoAtRBUImddloTtjMpiAyWTVgjgZya/zWTc6kQFFGc6oVskDZuGIMWUs
+         D2akvJT5Kzsvx5oDCj79e8Hnd0/31IiTZRBAByRKogExR23wotvhe6IDfWvmbdbKTWJq
+         l1wjIHbF/7byVkd67ggaGeJqieCDqcbtWJPhploQcENcamavkS6rvVfIYVtCGu/C5HzL
+         Z98KA6un4wPq3dT+iYGdqcQRjO196A+1zf2iETyhL0dcCLKsTZcvvNlzwpLq4ITUb2Cd
+         aXUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788908982; x=1789513782;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S1sqlRiEDMtea/68TRHJP/y7Fg6bS0f93iC/rAE6DLs=;
+        b=eD457MFguUvNW4uVKEVa9YeEs6WA/FxHAQTl1ksSvcf0l7qofdDJ+qOF4d5gVARbWk
+         kkGFNKhKGeKlT0t9ScTXJsREloFyPgFWceAOjFZ4chqCOQeemqDM4XoetaWJrhXVv6gN
+         BeRFkwJL6Uqo9pP1ohii0Juc7UbD863snEUW5nHiGLt8ekyWuiY3vqxQySciMzDSWZWs
+         aOHC4gFjb3VjrIezxU8sjVlZNpyE/NHRFMm+dpZEXwxSlPFVEJBfKxSndBck/lpKySDV
+         5BLDG586e4zzgDgeVJhU2R0baiR0wBIY/WWaFc9QaLPnGjFITN1MLEFtho/U2CjDf1n7
+         oW4A==
+X-Forwarded-Encrypted: i=1; AKwUvByYnk/mMQIGybFJ86ILvvnsWLwoG0Q04mOpX1obrfxACDW0YSbClsw1SPxlHqJMEKrtn1DySYURVKP6yHc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrn5OWzeTEcPtZyODWrHx8/9e3ff2eiEvAk1o+yICIbXyWc1rT
+	/VB9ofVzFAJRYLTw4cahKzvd/O5OEIq1MGG7EqUD2fzIJx13XTZxB4sW
+X-Gm-Gg: AYBFou14+czxiVPItZa6cZUo3JfNou0m2XkXjKedqaU+r3QB+p4hWHCf+qo4DwYu+aZ
+	qBwSfOQPgmHgawG6ULvaZ9kwa3KTAGaDqa9t0+uUgJPWEYNxrgdNEB5dgOJu6NUk4hTJfeD+p39
+	DMR9Hvbggw7AzRIKmTtQHIeD6dJx05aSmeTwpYakMUbgbh7MyYJSax0Zc1tEYmdCP6Y+yfB0mpS
+	vsPPKXax6zt1B9ljP9rg+Y42MeD1FmGzWOP8pF5y2emYz70MS7wEDinBP362RP6I7vdspyOesed
+	chOGuDxtBgpAhYwAXtrnTfivyZpUExBGa5Ee5zizIZDokVSzH7SFPdSjQ0J9GVF1f7upW+Hz6Ax
+	55vTnhlFpTqXd56gCcGsGQRP5tIgAauwOZuXsLQku0lzEFnhNTBCVO0ihdCfNfgTo0kznjNmaFs
+	RYx08geJesX1IdvLeKgMCY0mfepuJo7gdsBGbCUST3QM+hydJW6+YsC9xZ2wdr6qMs+CwXJ7IaV
+	NJRQLXVwRHQ9Ab32ATn2QObGTa7unGxJY+OWFnS/LuJWQa4lCTYFUNB3gBt3k/A89vpqs3Nd12b
+	9iR/+vjVK/hFsIm7PtClx2lp1Q==
+X-Received: by 2002:a05:600c:348a:b0:49c:fa20:cc03 with SMTP id 5b1f17b1804b1-49cfa20ccedmr254595975e9.26.1788908982187;
+        Tue, 08 Sep 2026 16:09:42 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-095-117-170-066.95.117.pool.telefonica.de. [95.117.170.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm385530905e9.3.2026.09.08.16.09.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 08 Sep 2026 16:09:41 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Nicolas Pitre <nico@fluxnic.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Helge Deller <deller@gmx.de>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
+	linux-modules@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-parisc@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] module: reject out-of-range relocation target indices
+Date: Wed,  9 Sep 2026 01:08:15 +0200
+Message-Id: <20260908230815.78409-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR11MB7925:EE_|PH7PR11MB8455:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8ba4d95-35f2-4895-44ce-08df0dfe035f
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: h2F2PjDI18ZzNihpVwH9EayTzjbegRIzCUR/A8bR7SPXSCpwjeZzeh5l4YO/bIyI1IJXjzjksFzPIihMUV5nC2hmGLVWZdWDdECx+jjddZ2DMSlsTiytgOBpX4rcqxkZpgQE6bFBdTWKpzj/3YpkrW1m9nsw/ivu80C3UO1sTHygIa4Wcwk/6rcEJIGIV7o4uAxJhJ8lixZrrrT9gbHbIxKrlmYd7Wv8pkNoMkDQCQtjpC6uQYEWIbAPINfxB4S1rjDCyHf1VzxYDSCm7OJhsTnQ96ZGy9prD40t7d0SLCBS0ZphVie433Ct3JY6kUXBAOHgXyjQcq3WIWXJbUGtu33jwSkvTqTBCsWG7qucb6d3qQhiAQKuOSN+NTA2xkRLOItzK8lYfPad6d444pVUUVzfaSHIk32Bgt4iF98g0y5nIH7zrUfeHQCi41MDuF8nV/vq7uPeZdFb+qHARsJ82vjpfJEpulWievvnv9ayqGR8+SNtYQNStbSxveACi7kjOUBCGNDdJlKGSuqx42BNRk7xahRJPAH806wo8B5OVZzT2rH/cNd5ihDZiMFke3vwMVFBfGzpOXuf2UVDLyU4rQsEGerfKh2QGCuWzLuvjOidNRnBEqqiwtVNmM4fJ71nx+FLTfNRchPPD4RSz+NBBkwQKmAWNAj0ZPZvC6O3b+E=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR11MB7925.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3JIVDg0aGdoUkhzVTNZZlcxczJ5WEt2UTdud2Q3dHNPRTZlcXFrdmx1QVM3?=
- =?utf-8?B?RkNUbmpSSWI4aW5uNnVFeVJ6S2lrV2ZBYzdxSzlDcVpiMmRVVXIwQzV2WEd4?=
- =?utf-8?B?b3BDa2JBVVN3bWNLa1NSWlh4ZHl4cEFROUxIbng1a1ZvdEVFSUp4VTdIaGhK?=
- =?utf-8?B?N1dRZGRTSTVOUzMxRzAwMEN4ZWxheTZTZXZCcC9FU0Q0Vlh5N1hzVEM5dXYz?=
- =?utf-8?B?c3g0T0dvZiszaWxlcEZ2OFhqQTVnTWFxMnhjcjJOSm1aV1hncklKSWZlOXNr?=
- =?utf-8?B?QVljZUVITmkxZmtwWXNKQmY5SFFlUzFXNE56TFVqUGNCUUhvQ0ovY3k4S3lG?=
- =?utf-8?B?Y1ovR0ZrcWNtNDMwcGtKZno3VkYxOEovQnQyQ2JlaERvQVhVTEJQQUxNNG5o?=
- =?utf-8?B?REhncTU3RDM4RXdrQWxtOU1TMklDUzBHTFdlemV0VFhsdmh0TXhjVU00cFo0?=
- =?utf-8?B?VGpzSHljNHhjTjl5V3F1Y0N5TVZmTDJJYUp2d0xPZG00aHJoKzhGU045RkdR?=
- =?utf-8?B?VTBsZ1N6dUdOUVp5Q3BNaS9JblVKenJucnlQVk9YSmRCNjBMTkdyRWMza0gx?=
- =?utf-8?B?WkNTbTFFd0VqTmNNR2VUam5vbm5DRWQ1VFFsUitwa1pIVHg0ZmRUZS9QT2Y3?=
- =?utf-8?B?OVZvZ0p3dno1eUhuOVlKTmVhM0pMNE1YMzhsTDJrdzJNSHR0a0l3U3JjdmU2?=
- =?utf-8?B?dDIwdzRsTFNkUWloQnV2YmZlOWJuTks2T3A2T3BtaEdBZ2xJdUxBUVN3M3d3?=
- =?utf-8?B?ZzZ2M00wWkk5QkNjM0dyekFvV3B5dDg0SG9IaXdWMHlrY2p4MFU0aFVjN0Rl?=
- =?utf-8?B?eWhKMk13eEowd2dYSmRPNWhQU2oxb1gxam9CU0ZIRDFVYTJYbGlvVG44VUxG?=
- =?utf-8?B?NUZ1OUpVZWhOdXd0V0trTE1Qck9OVlYxZFZVYlZtS21lRmRFMHVXT3dtbmM1?=
- =?utf-8?B?L1U2cExpMDRYSFpwKzZ3MURFWmQzamhWOWFRR0YzcEtSa2htYzB4UG9jUElU?=
- =?utf-8?B?Vk44OER0cVp4dVZBM2UwT3NBaStReG9qSFpOMGdKOS9UUnh2Z1BiQUU2VDhH?=
- =?utf-8?B?K3BzL3NpdXRPT1h0cGQyWCtHanZBUzk3dFp3QTFNV3A2RTV1S2FwTHJ6aUJL?=
- =?utf-8?B?S0dsa0dnVHlwY3RCb3RRYjFudzNOQmdyTFJaVEp4dkJGYmE2cThHQlVJaXBw?=
- =?utf-8?B?SjFqeXVia2lBT0pZSDBVcDk1OU9CbTZxU2R5Szh4VmFwaWRpb3krQ3JxNWNR?=
- =?utf-8?B?bTQrN3RteEFEbEJtVkk0SWg4bTlYbjZBYU1tYmpKclZIaFAxOUNKTWwzeTZK?=
- =?utf-8?B?Qk5BUlZrY0doRkpvYzZmWlFXaGUraHQvTjMwWWZUTkZUcC84WkVzdkkrVS9N?=
- =?utf-8?B?eVUxZElta1FOMkdTVGx6Smt3WktKTTlPb2IvcE9HNjk3SCs0K2ZNWmJjeERP?=
- =?utf-8?B?K1dER2xZZFkzbUhmRnlQUE5DOGZNalNuVUphYXpVRzFNUjM0TGRuMDFMQXdx?=
- =?utf-8?B?T05iQ29NTHlYQWIvb29jUmpXR25ZandJbzg1UUFPTHRRMG5pbHRRdi9ocGZP?=
- =?utf-8?B?Yk5tN2JXenpZRVpJZ0RYUjBpRmtOUWpCK3JNVlIwWXVMNVRjZEc0c0JEK3hw?=
- =?utf-8?B?UzQxcCtMRU13NTJRWDhORHdTRDFHajNWRnhKUlZhT0VIYUpaWTBiN3NPbUdy?=
- =?utf-8?B?cU9Ia3ZRK1lKc3pvd2tlWDkyVERNTzVxc3BYYXByK0QwMzZhZzNTOEpIUXpN?=
- =?utf-8?B?dFdiNk10MTFrU3NKSnpUQkpQTVhiZzVKcmYrVUYxVFhCbUowczVsQzBBUGww?=
- =?utf-8?B?N2kvLzRHYzJZam9nZjZoTWpPMHkwblJGQlZobFhIUGV0V09RWVI5Ymo5Rkha?=
- =?utf-8?B?cTNuaGsvc0hXUlByL2VsZFNqYWpEbVBBb0J2ZEVsVkNsdysvSTNPZWtwQjBW?=
- =?utf-8?B?UGdvcjBsOTB4OHYwem1xeVI1cXdKd0tGV1lSS3ZObC9SUGphemlWZFFKTDlC?=
- =?utf-8?B?Z1BPcEZhNDdVQm53SnhHaktLdmdUV0txdkJZQVFhblgzT1dpOWZtQ0w5TitD?=
- =?utf-8?B?aExMckh1MmFKRnpFUm5zakJ6dHFUUFVRS2hRV3lrMW5YaHF0QWhpQmI0VnZJ?=
- =?utf-8?B?ZDdJakdVOGVNVXVOY3ZSa25kUU5BVFJyeStaN1h1QnVjREIzVUhJcG1qWFFX?=
- =?utf-8?B?VW9iWjNYRkR2SFhSR2VXVTNZYmtIZjV1dENDSlFodVVlNSswSmd1QU9vYy9U?=
- =?utf-8?B?U2IvcGxnYURhNTY4elowV1ozL2pnL3ZURTA0L0VVZ1JsQnBrZWFWeEJ4S215?=
- =?utf-8?B?UXVXTmQvc0JNY2NVUndwdFFnSVRZTmFEekZ0S1J5MzUxRy9FdGFFZz09?=
-X-Exchange-RoutingPolicyChecked: s6boXhHXmvlIS9r9VqlLKu7S5y0l5tRlpQv/muBSvqf1qleXpxTRfd4m8j5pQqrwmw8oa38sPiRYSXa8mBai4a7I3HrXUBtv30qmWG/uAbUTPRdfyZPPDewMyt4bsGfl8ZqlKfOwaHWJZENagHJOrQVYvrprFJyK9axtmprzlX7klU9heVX7l4s9yuh8CldI31lBfPmlOP1kpyJlQM39qA+vkUOIoyJEc/8jE06zBLPfRnTrvcpbxP2W3PaF0QNYbB/houbAZb+YqP84pBjxTUOZ8y34PEKMxP5WxCbjFZqq9CRX+JJjs49t6BGrTsY15ub91mt8nrevRXXc4jZ2/Q==
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8ba4d95-35f2-4895-44ce-08df0dfe035f
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7925.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 23:07:54.1113
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: drFfJwo379lkuV2nlU/fnGbfnBITBeMpDEPYGBuA4yV9MrVoSEnWHCY30lvTyjg3va2isGKIzzBdFMt2UMmIx/47g2makwWUn09eHFIMDL8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR11MB8455
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
 
-On 9/1/2026 4:16 PM, Chang S. Bae wrote:
-> 
-> It would be much appreciated if the short-term, one-off fix (patch1)
-> could be sorted out first to allow backporting.
-Split patch1 from the series and posted V2 separately:
+apply_relocations() skips relocation sections whose sh_info target index
+is outside the section table. ARM, ARM64, LoongArch, PA-RISC and RISC-V
+use sh_info earlier in module_frob_arch_sections(), before this check.
 
-  
-https://lore.kernel.org/lkml/20260908223209.916758-1-chang.seok.bae@intel.com
+ARM, ARM64, LoongArch and RISC-V use the unchecked index to read
+sh_flags outside the section header table. PA-RISC uses it to index an
+e_shnum-sized heap array for a read and an update. QEMU reproduced
+page-fault Oopses on ARM, ARM64, LoongArch and RISC-V, and a Data TLB
+miss on the PA-RISC array read.
 
-I will revisit the rest once the workaround finds its way.
+Validate sh_info for SHT_REL and SHT_RELA sections in
+elf_validity_cache_sechdrs(). Reject the module with ENOEXEC before
+architecture code can use the index.
 
-Thanks,
-Chang
+Fixes: c298be74492b ("parisc: fix module loading failure of large kernel modules")
+Fixes: 7d485f647c1f ("ARM: 8220/1: allow modules outside of bl range")
+Fixes: fd045f6cd98e ("arm64: add support for module PLTs")
+Fixes: ab1ef68e5401 ("RISC-V: Add sections of PLT and GOT for kernel module")
+Fixes: fcdfe9d22bed ("LoongArch: Add ELF and module support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+
+A custom harness for upstream Frama-C 33.0 (Arsenic) Eva found the
+ARM32 instance in a source-identical ARM module_frob_arch_sections()
+slice. Eva reported the out-of-range section-table pointer and sh_flags
+access.
+
+The analysis and ARM32 A/B test ran at Linux b9b3e33b70b7 ("Merge tag
+'trace-v7.2-rc6' of
+git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace"). The
+PA-RISC, ARM64, RISC-V, LoongArch and x86_64 A/B tests ran at the
+declared base commit, 28924df2a08f. arch/arm/kernel/module-plts.c and
+the touched loop in kernel/module/main.c are identical between the two
+commits.
+
+Each A/B test changed only a relocation section's sh_info to
+0x10000000. The same configurations and modules were used before and
+after the change. All controls loaded before and after the change. The
+fixed kernels rejected the malformed modules with ENOEXEC.
+
+Original-kernel results with QEMU 10.2.1 TCG:
+
+- ARM32, virt/Cortex-A15, GCC 15.2.0, multi_v7_defconfig plus
+  VMSPLIT_2G: page fault at module_frob_arch_sections()+0x160.
+- ARM64, virt/Cortex-A57, GCC 15.2.0, defconfig: page fault at
+  module_frob_arch_sections()+0x110.
+- PA-RISC, B160L, hppa-linux-gcc 8.1.0, binutils 2.30,
+  generic-32bit_defconfig: Data TLB miss at
+  module_frob_arch_sections()+0x11c on the stub_entries read for a
+  counted R_PARISC_PCREL17F relocation.
+- RISC-V, virt, GCC 15.2.0, defconfig plus RELOCATABLE with
+  MODULE_SECTIONS enabled: page fault at
+  module_frob_arch_sections()+0xe4.
+- LoongArch, virt/LA464, LLVM 21.1.8, loongson64_defconfig: page fault
+  at module_frob_arch_sections()+0x1b8.
+
+On x86_64, which has no vulnerable early sh_info access, the original
+kernel loaded both modules. The fixed kernel loaded the control and
+rejected the malformed module with ENOEXEC. The test used pc/qemu64,
+x86_64_defconfig and GCC 15.2.0.
+---
+ kernel/module/main.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index d0e1e0bd2ad0..30c7a05488bc 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -1933,6 +1933,7 @@ static int elf_validity_ehdr(const struct load_info *info)
+  * * Section array fits in the user provided data
+  * * Section index 0 is NULL
+  * * Section contents are inbounds
++ * * Relocation section target indices are inbounds
+  *
+  * Then updates @info with a &load_info->sechdrs pointer if valid.
+  *
+@@ -1983,6 +1984,12 @@ static int elf_validity_cache_sechdrs(struct load_info *info)
+ 	/* Validate contents are inbounds */
+ 	for (i = 1; i < info->hdr->e_shnum; i++) {
+ 		shdr = &sechdrs[i];
++		if ((shdr->sh_type == SHT_REL || shdr->sh_type == SHT_RELA) &&
++		    shdr->sh_info >= info->hdr->e_shnum) {
++			pr_err("Invalid ELF relocation section target index %u\n",
++			       shdr->sh_info);
++			return -ENOEXEC;
++		}
+ 		switch (shdr->sh_type) {
+ 		case SHT_NULL:
+ 		case SHT_NOBITS:
+
+base-commit: 28924df2a08f440c73991b83028032c901de2ae4
+-- 
+2.53.0
