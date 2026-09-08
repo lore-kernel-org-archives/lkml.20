@@ -1,161 +1,65 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96F64CB8A3;
-	Tue,  8 Sep 2026 08:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1EEE372EED;
+	Tue,  8 Sep 2026 08:58:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857924; cv=none; b=rTEDarOBkqE8Xzet45erA3pVTRhFIwgxJuVPBPXArQZ7qd+98rW6aaetAVbPEfWEHeEGdlpSjXJ1s45cr2kb6O02Vc2Zato7/qePBb7AP26o+ZOCAGh8G4cURSjWwNvek0QvjnbBwkfJYpCzZwORbfaIYsOtBxkPDKjtPQRH44M=
+	t=1788857929; cv=none; b=L8t1HhL2GF2510SAG+W9D6dAQ64UL/xipgrwhA0gE7FVKYDPDKfJ+hO6rgNY+gLOAAFbrz7UVDRSowTYNo9D5vwG2AdqCyUpjGDKuHk2QIe4Akw51b++BHA26RvKzncZGWtu76yxCvfYDA8//W3vfhauK/tAN/AAWNDNq9EBSPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857924; c=relaxed/simple;
-	bh=CTsQdxysntUGntTxp2s7c8/ETcCzeu8SXsWlEmKuqxI=;
+	s=arc-20240116; t=1788857929; c=relaxed/simple;
+	bh=opKn2fpMKEDc321rgycwurVdr2GvdFTV286BpXdBLHo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uUvikYWRFsOo5rlLiyEfDm96Bvh3jWa/o9DuA0Un+RIRBkx48Au/0eAHfLQ+Wyiy12o23KqPMJZ//MM3uTgfTj44ObA+LADrNAQ8llLfOufb45vG20hAQ2EDZ/9vWjaQEUILXeBW17hDM+1zBSNLAVeInP4KERbbzksCiXJFZ2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: alexandre.belloni@bootlin.com
-X-PTX-Original-Recipient: mailhol@kernel.org
-X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
-X-PTX-Original-Recipient: imx@lists.linux.dev
-X-PTX-Original-Recipient: nicolas.ferre@microchip.com
-X-PTX-Original-Recipient: s32@nxp.com
-X-PTX-Original-Recipient: ciprianmarian.costea@oss.nxp.com
-X-PTX-Original-Recipient: claudiu.beznea@tuxon.dev
-X-PTX-Original-Recipient: dev.kurt@vandijck-laurijssen.be
-X-PTX-Original-Recipient: linux-can@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C9AEA20177F;
-	Tue, 08 Sep 2026 10:58:26 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1x3res-000gXD-2J;
-	Tue, 08 Sep 2026 10:58:26 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 616925972E3;
-	Tue, 08 Sep 2026 08:58:26 +0000 (UTC)
-Date: Tue, 8 Sep 2026 10:58:25 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, 
-	Nicolas Ferre <nicolas.ferre@microchip.com>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Kurt Van Dijck <dev.kurt@vandijck-laurijssen.be>, 
-	linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>
-Subject: Re: [PATCH v5 0/3] can_rx_offload keeps a lockless irq_queue that
- the IRQ handlers fill and that is later spliced under skb_queue.lock into
- the NAPI-facing skb_queue. This works as long as a single context fills the
- irq_queue. flexcan with FLEXCAN_QUIRK_SECONDARY_MB_IRQ and mcf5441x use two
- mailbox IRQ lines. When those are affined to different CPUs the two handlers
- can enqueue into the same list at the same time and corrupt it.
-Message-ID: <20260908-defiant-mauve-woodpecker-0e0f62-mkl@pengutronix.de>
-References: <20260907104942.17089-1-ciprianmarian.costea@oss.nxp.com>
- <20260907-lively-easygoing-groundhog-51cdd3-mkl@pengutronix.de>
- <6bdc8044-34de-4d7a-89a5-908de7f8b044@oss.nxp.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=hQ9LAjAtUIS7jySVnamZxcvPfhKjQq3rrcMy3AtJXOH09ZCzQPIwJy4K8w7YGXGRb3ogWFS48CSLAcuUbHqkvpkqIXITbaECP7Tgs+8ox2T2dxw3DnJle38zXxjteITImqzdXqz6Cs+c5aob/gpCopJqFzhnUiIkejMU2hD3SRE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ajJnaWTL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ajJnaWTL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 489BA1F00A3A;
+	Tue,  8 Sep 2026 08:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788857911;
+	bh=u2t2292GCZUYzVr38mfmWIcBx/9spVP6gVdlNV372jM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ajJnaWTLXTOy4XIh63JXmpNXZ/fg+kYItJ51kpQ1KdSvjRyC2+go74QFYMZy0QVTa
+	 7t59uPQuGkIuulnK4ary4D3ENEqhD8V+4DmFowO4oKdGyETzIaUBG7Iy8J3QpikZB3
+	 ysg34S2YXSh+qxTIT0WAF7nZk22EbJR7XSTfbxJ5F6K+09yCa2D/Rm9w9HAEpeuD0n
+	 ZHg1Qxiry90cJ0R5i5RE8erql7VZ+tG6coi+QwqlEmcD4ZwQOKJewvjFW0nme9jtQ4
+	 YEW660ivmyFjl9PblnEv6ENS8fH3VEMsvUEHpLh18tfUAqSohTpquoBwsbzt78HSMD
+	 XgvnojZ1ivfHQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3rev-000000014jO-0See;
+	Tue, 08 Sep 2026 10:58:29 +0200
+Date: Tue, 8 Sep 2026 10:58:29 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Ian Lin <ian.lin@jetone.com.tw>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] USB: serial: option: add Compal EXC-T1 support
+Message-ID: <ap_ONd3X2UY4Mi8Z@hovoldconsulting.com>
+References: <20260904080046.56772-1-ian.lin@jetone.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2x5jigtab6tpbqlb"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <6bdc8044-34de-4d7a-89a5-908de7f8b044@oss.nxp.com>
+In-Reply-To: <20260904080046.56772-1-ian.lin@jetone.com.tw>
 
+On Fri, Sep 04, 2026 at 04:00:46PM +0800, Ian Lin wrote:
+> The Compal EXC-T1 is a Qualcomm MDM9207-based LTE modem which reports
+> "EXC-x1" as its USB product string. It exposes diagnostic, modem, AT,
+> and NMEA ports as vendor-specific interfaces with subclass 0x10 and
+> protocols 0x01 through 0x04.
+> 
+> Add exact interface matches for these four ports, leaving the ff/ff/ff
+> interface unbound.
 
---2x5jigtab6tpbqlb
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 0/3] can_rx_offload keeps a lockless irq_queue that
- the IRQ handlers fill and that is later spliced under skb_queue.lock into
- the NAPI-facing skb_queue. This works as long as a single context fills the
- irq_queue. flexcan with FLEXCAN_QUIRK_SECONDARY_MB_IRQ and mcf5441x use two
- mailbox IRQ lines. When those are affined to different CPUs the two handlers
- can enqueue into the same list at the same time and corrupt it.
-MIME-Version: 1.0
+> Assisted-by: Codex:GPT-5
+> Signed-off-by: Ian Lin <ian.lin@jetone.com.tw>
 
+Applied, thanks.
 
-FYI: somehow the series description ended up in the subject
-
-On 07.09.2026 18:07:42, Ciprian Marian Costea wrote:
-> On 9/7/2026 4:49 PM, Marc Kleine-Budde wrote:
-> > On 07.09.2026 12:49:39, Ciprian Costea wrote:
-> > > From: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
-> > >
-> > > This series:
-> > >    1. Makes the irq_queue per-CPU so the handlers no longer share a l=
-ist.
-> >
-> > As sashiko pointed out, using per-CPU variables in a preemptible context
-> > doesn't work. When proposing to use per-CPU variables I haven't thought
-> > that far. So in hindsight this approach is not good.
-> >
-> > What about following what NAPI does. Have a dedicated data structure per
-> > IRQ. I think these ones are needed:
-> >
-> > | 	struct sk_buff_head skb_irq_queue;
-> > | 	u32 skb_queue_len_max;
-> > |
-> > | 	unsigned int mb_first;
-> > | 	unsigned int mb_last;
-> >
-> > And pass them to can_rx_offload_queue_timestamp() and
-> > can_rx_offload_irq_finish().
-
-If the RX-Offload knows the number of concurrent IRQs, you can optimize
-for the single IRQ case and keep skb_queue_splice_tail_init(), while for
-the other case you should sort the skbs into the offload->skb_queue
-list.
-
-> Thanks for replying.
-> Indeed the per-CPU approach should be dropped. I've also missed the
-> PREEMPT_RT case.
-> Your proposal seems better than even having a dedicated spinlock for
-> skb_irq_queue operations as I've originally thought.
->
-> One thing to confirm before I go ahead and implement this approach for V6:
-> Having the following connected patchset in mind [1] which separates the I=
-RQ
-> handlers, both flexcan MB IRQs currently run flexcan_do_mb() over the full
-> iflag. Therefore, to actually separate the producers I'll have each IRQ
-> drain only its own mb_first..mb_last range into its own queue - is this t=
-he
-> right approach ?
-
-Yes!
-
-Please look out for shared ressources (read-modify-write registers,
-etc..) when accessing the mailboxes concurrently from 2 (or more) IRQs.
-After a quick look I haven't found any.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---2x5jigtab6tpbqlb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCap/OLwAKCRDMOmT6rpmt
-0gC+AP0XJdF0jo1CfnOQqWOPjOdZRSTRYgJxQ/iIjLgdE84A3wEAyf2YhGx0Gr5s
-CMrG0nCwwLxVzMmHBw9CJ51rtQbPXAQ=
-=hr1P
------END PGP SIGNATURE-----
-
---2x5jigtab6tpbqlb--
+Johan
