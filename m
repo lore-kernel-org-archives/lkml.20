@@ -1,419 +1,330 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E3C525A84;
-	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB735013A3;
+	Tue,  8 Sep 2026 09:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860516; cv=none; b=GtPl5pRV2MEvegrDmYM+eLht37wyYtFkL2SYvYdxxWqLqlJYqqLATvBh+ChaJW0OZkto1UVF4oKGXvQfm1WW6I7PmpVCTVtr7dYjpkJuTF5GJ+0fLlGySnHTzIrnraePAWQWdRTSkOFEFRgwnJrIR39+mrNiv+jCz4cj0RbE6gA=
+	t=1788860529; cv=none; b=VFt4W6SrF9aGzN9P5g8mXv/ydXLBWS7qOrWsdmeeRbpAyyKORo9v2slld9fC/fcX8xOL9CxQ0HknV7fuZvy2phJGDAD9ZH2blg/Kj78k5y+gfaaGZ9qJuv7DM9dFwfw9byLlvTqKxo63p1GWFapJrJ3JTHcdtR0Qj+ycbkZy7po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860516; c=relaxed/simple;
-	bh=ZO5jvrocZjQt67O6VgC9J8nF2RckLuv38HfbcB7cyq4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZrWicsTmwOC+sQNjC93Yf/vkGWKr3B3Hv/+R/uwC4exYm/vjpQX9h2RjVj7qNGvxkW91ZN+6MTyWydx4z0F3W1jjYEFimJVmlR/YrzefHObO5lm38/qVqvlO8vqX6KiYpzU4rg+VgXp6tR3nIWAnE8wN+hdg63ok5RkoR86CEco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHl7x6wQ; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788860529; c=relaxed/simple;
+	bh=QfaJJbUig+Vtvdufb+3QBQtvUcq3o2KuI3k7hgHZmfo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jMT+IfMKwvupEW/OPHsAApbFL2TMR8piFpxHHQWNFb0+uBNWCB9nbGiwgfjYMsX31hqeB1wfJTP38hJ197J3TCee5TfqXfomJ0XtwBNbBXnlge0boBUza/YoeQcJD4F+9Ic4NJTsGFX4r3gJAMBvPRwv/+7UR2V+h+8UwP2Tcns=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jx4ZFGVv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=S1DEt1Ez; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=i+MfMNfL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=YL1YhHWR; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHl7x6wQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 549D7C2BCFB;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jx4ZFGVv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="S1DEt1Ez";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i+MfMNfL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YL1YhHWR"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 7906A219CF;
+	Tue,  8 Sep 2026 09:41:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788860521; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=knOVHim3X4XNp/FSUMqy2ub0CSiLA2rjajB+xRZ1zo8=;
+	b=jx4ZFGVv/81HUV6b3rbSvVTDyyxWDbrdU4Xanw4lf/d4ErBEyfFRgxdjxg8DRNJSu1Yo9F
+	AHr8OrX2rlVfXqBz0Wy5bTW2Gs8dAV5YsaID7pF1W5JdYPfXeBgQS+YGsxgcpGeOz+11jR
+	tVut9muBwrwIeFuhcNastBFURvU1X6s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788860521;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=knOVHim3X4XNp/FSUMqy2ub0CSiLA2rjajB+xRZ1zo8=;
+	b=S1DEt1EzlTZBUuk0qWQDGNTNdRDNwR7NdqmEmo6CsHA2rfIuNkG7YdO4Y68x2EVEwwOt9+
+	BpWwQwSowKP39pCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788860517; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=knOVHim3X4XNp/FSUMqy2ub0CSiLA2rjajB+xRZ1zo8=;
+	b=i+MfMNfL8rf/C2OQmLat7T5vbTVrbIaChvIMv6/CsT+dwqp89COrDwRjM8juPoWR44jKTJ
+	cSuj57/Mdyw4sPRg+0Pa3I26UGMz/RQJ2IJo2j3Qp99cB+5Osys+8XcNzQtpkvAVwMbhMw
+	qkgyLE3/OKRGAkKHJGcILvHXjoTvTXY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788860517;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=knOVHim3X4XNp/FSUMqy2ub0CSiLA2rjajB+xRZ1zo8=;
+	b=YL1YhHWRD3ZausxTW246PKckJ82bndPxDQaeIn1HlvHSZuhP3PTi8ZUGDdJkboQIiYno1p
+	CAkJa1kxF7B2RHAQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E1E0F1347F;
 	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788860516;
-	bh=ZO5jvrocZjQt67O6VgC9J8nF2RckLuv38HfbcB7cyq4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=KHl7x6wQkDj2Ix8UFb7PB3MAyIEZgdjGceDUItfnlJLMy59hL9+JAx6CTemfbRlN2
-	 X67E/5Zz5ps6eZU1x+QRNsZve9qfTmAgSdekMeHvqpBTRy4cL1oYZxbxh00GyhvT/P
-	 wrwPAJdgomfv+VfBFyCFLkyJ5O7IDz6EIluqlnpO7ShcC6FBfVHkF0+S7SzRpB81wR
-	 nB+pACs1DPWpmzprSb9s6AphakbwU+rfuKElYUCSOceW6Pfr373J1Igxmp+tJblumC
-	 riTfUkWmifLTgeKbhkvp0XyUbuksq9314IoTLCsywZhmvVY0X2sShyYEt33Q6w4l3F
-	 aBfzyRnzm1k3w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FAB3C79F99;
-	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
-From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Tue, 08 Sep 2026 13:41:01 +0400
-Subject: [PATCH v4 08/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
- support for USB3 PHY on IPQ5018
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 2Ui3NWTYn2p9ZwAAD6G6ig
+	(envelope-from <tzimmermann@suse.de>); Tue, 08 Sep 2026 09:41:56 +0000
+Message-ID: <d3e13d97-72c4-4a14-8de2-b509ef3e8759@suse.de>
+Date: Tue, 8 Sep 2026 11:41:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ipq5018-usb3-v4-8-b789702f0695@outlook.com>
-References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
-In-Reply-To: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
- Nitheesh Sekar <quic_nsekar@quicinc.com>, 
- Wesley Cheng <quic_wcheng@quicinc.com>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Varadarajan Narayanan <quic_varada@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-usb@vger.kernel.org, Stanislaw Pal <kuncy7@gmail.com>, 
- George Moussalem <george.moussalem@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860513; l=10947;
- i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=hQz7KLN8ayzrj3pX64Qwz30mR0DsL9ZYq7Hhrx1edmc=;
- b=4K5/lf1rXmQvEjFVbxqkQFHT6ZHcnQVXyc5GoZz3rzTWioqldOpFii7XbFwFBlG/E964WOC5e
- aRzxfc4ofBcC3kFjTCPx1rLdhvKz0oSv2od5jGFij6nmFUyh+TLS4o1
-X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
- pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
-X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
- with auth_id=364
-X-Original-From: George Moussalem <george.moussalem@outlook.com>
-Reply-To: george.moussalem@outlook.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/fb-dma-helper: Add
+ drm_fb_dma_get_gem_clipped_addr()
+To: Chen-Yu Tsai <wenst@chromium.org>, Liu Ying <victor.liu@nxp.com>,
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-sunxi@lists.linux.dev, imx@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260908090745.1089143-1-wenst@chromium.org>
+ <20260908090745.1089143-2-wenst@chromium.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260908090745.1089143-2-wenst@chromium.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.999];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,ffwll.ch,lists.linux.dev,lists.freedesktop.org,lists.infradead.org,vger.kernel.org];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,chromium.org:email,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
 
-From: George Moussalem <george.moussalem@outlook.com>
+Hi
 
-Add support for the USB3 PHY on IPQ5018 chipsets.
+Am 08.09.26 um 11:07 schrieb Chen-Yu Tsai:
+> drm_fb_dma_get_gem_addr() returns the DMA address to the "unclipped"
+> framebuffer. However some display drivers want the "clipped" framebuffer
+> instead, as they are also using the clipped coordinates to program the
+> hardware.
+>
+> Some of these drivers are open-coding drm_fb_dma_get_gem_addr() with
+> the source coordinates replaced, while others have been incorrectly
+> converted to using drm_fb_dma_get_gem_addr(), which would end up
+> causing incorrect parts of the framebuffer to be displayed if it were
+> somehow clipped.
+>
+> Add drm_fb_dma_get_gem_clipped_addr(), a "clipped" version of
+> drm_fb_dma_get_gem_addr() for these drivers to use.
+>
+> Cc: <stable@vger.kernel.org> # dependency for next patch
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
+>   drivers/gpu/drm/drm_fb_dma_helper.c | 63 +++++++++++++++++++++--------
+>   include/drm/drm_fb_dma_helper.h     |  4 ++
+>   2 files changed, 51 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_fb_dma_helper.c
+> index fd71969d2fb1..a260e7cd5667 100644
+> --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> @@ -59,20 +59,10 @@ struct drm_gem_dma_object *drm_fb_dma_get_gem_obj(struct drm_framebuffer *fb,
+>   }
+>   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_obj);
+>   
+> -/**
+> - * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for framebuffer, for pixel
+> - * formats where values are grouped in blocks this will get you the beginning of
+> - * the block
+> - * @fb: The framebuffer
+> - * @state: Which state of drm plane
+> - * @plane: Which plane
+> - * Return the DMA GEM address for given framebuffer.
+> - *
+> - * This function will usually be called from the PLANE callback functions.
+> - */
+> -dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+> -				   struct drm_plane_state *state,
+> -				   unsigned int plane)
+> +static dma_addr_t _drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+> +					   unsigned int plane,
+> +					   unsigned int x,
+> +					   unsigned int y)
+>   {
+>   	struct drm_gem_dma_object *obj;
+>   	dma_addr_t dma_addr;
+> @@ -96,8 +86,8 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   		v_div = fb->format->vsub;
+>   	}
+>   
+> -	sample_x = (state->src_x >> 16) / h_div;
+> -	sample_y = (state->src_y >> 16) / v_div;
+> +	sample_x = x / h_div;
+> +	sample_y = y / v_div;
+>   	block_start_y = (sample_y / block_h) * block_h;
+>   	num_hblocks = sample_x / block_w;
 
-The PHY outputs a 250MHz PIPE clock routed to and gated by the GCC, so
-register a fixed rate clock. In addition, add the register/value pairs
-for the PHY initialization sequence.
+The current code already mixes up responsibilities of the involved 
+modules. It's a good opportunity to improve that. I think there should 
+be a block-offset helper for the framebuffer. That function will return 
+the byte offset of a pixel's block from the beginning of the framebuffer 
+plane.
 
-The code to acquire clocks and resets is the same as for PCIe so no
-changes are needed. Add a USB3-specific helper function to acquire the
-required regulator and TCSR syscon for USB mux selection. The PCIe and
-USB3 pads are muxed so select USB3 mode in TCSR which needs to occur
-before the DWC3 USB3 controller resets. Otherwise, the SS link doesn't
-train and remains stuck in RX.Detect.
+/* in drm_framebuffer.{c,h} */
+u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, plane, 
+x, y)
+{
+     /* here goes the current offset calculation from the gem-dma code */
+}
 
-Add PHY ops for USB3 power on/off sequences to account for USB3-specific
-delay timings and enabling/disabling the PHY supply.
+In the GEM-DMA code, you can then write your helpers like this
 
-Rename the existing reset delay timings to describe they are for PCIe.
-Lastly, add the USB3 PHY type to the UNIPHY PHY type enum and remove the
-GEN2 and GEN3 PCIe types as the driver makes no distinction between the
-two which also makes it easier to distinguish between the PCIe and USB3
-PHYs.
+drm_fb_dma_get_gem_addr(...)
+{
+     obj = drm_fb_dma_get_gem_ob(fb)
 
-Tested-by: Stanislaw Pal <kuncy7@gmail.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
----
- .../phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c  | 178 ++++++++++++++++++---
- 1 file changed, 159 insertions(+), 19 deletions(-)
+     offset = drm_framebuffer_get_block_offset(obj->base, state->src_x, 
+state->src_y)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-index 15b17044fde3..810121508634 100644
---- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-+++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-@@ -14,15 +14,22 @@
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/reset.h>
- #include <linux/units.h>
- 
--#define RST_ASSERT_DELAY_MIN_US		100
--#define RST_ASSERT_DELAY_MAX_US		150
--#define PIPE_CLK_DELAY_MIN_US		5000
--#define PIPE_CLK_DELAY_MAX_US		5100
--#define CLK_EN_DELAY_MIN_US		30
--#define CLK_EN_DELAY_MAX_US		50
-+#define PCIE_RST_ASSERT_DELAY_MIN_US	100
-+#define PCIE_RST_ASSERT_DELAY_MAX_US	150
-+#define PCIE_PIPE_CLK_DELAY_MIN_US	5000
-+#define PCIE_PIPE_CLK_DELAY_MAX_US	5100
-+#define PCIE_CLK_EN_DELAY_MIN_US	30
-+#define PCIE_CLK_EN_DELAY_MAX_US	50
-+
-+#define USB3_RST_ASSERT_DELAY_MIN_US	1
-+#define USB3_RST_ASSERT_DELAY_MAX_US	5
-+#define USB3_CLK_EN_DELAY_MIN_US	35
-+#define USB3_CLK_EN_DELAY_MAX_US	40
-+
- #define CDR_CTRL_REG_1		0x80
- #define CDR_CTRL_REG_2		0x84
- #define CDR_CTRL_REG_3		0x88
-@@ -42,10 +49,13 @@
- #define PHY_CFG_EIOS_DTCT_REG			0x3e4
- #define PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME		0x3e8
- 
-+#define TCSR_USB_MUX_SEL		BIT(0)
-+
-+#define PHY_IS_USB3(phy)	((phy)->data->phy_type == PHY_TYPE_USB3)
-+
- enum qcom_uniphy_type {
- 	PHY_TYPE_PCIE = 1,
--	PHY_TYPE_PCIE_GEN2,
--	PHY_TYPE_PCIE_GEN3,
-+	PHY_TYPE_USB3,
- };
- 
- struct qcom_uniphy_regs {
-@@ -71,6 +81,9 @@ struct qcom_uniphy {
- 	int num_resets;
- 	void __iomem *base;
- 	int lanes;
-+	struct regulator *vreg;
-+	struct regmap *tcsr;
-+	unsigned int mux_offset;
- };
- 
- #define PHY_INIT_CFG(o, v)		\
-@@ -92,6 +105,14 @@ static const struct qcom_uniphy_regs ipq5018_pcie_regs[] = {
- 	PHY_INIT_CFG(PCS_INTERNAL_CONTROL_2, 0xf101),
- };
- 
-+static const struct qcom_uniphy_regs ipq5018_usb3_regs[] = {
-+	PHY_INIT_CFG(SSCG_CTRL_REG_4, 0x1cb9),
-+	PHY_INIT_CFG(SSCG_CTRL_REG_5, 0x023a),
-+	PHY_INIT_CFG(SSCG_CTRL_REG_3, 0xd360),
-+	PHY_INIT_CFG(SSCG_CTRL_REG_1, 0x1),
-+	PHY_INIT_CFG(SSCG_CTRL_REG_2, 0xeb),
-+};
-+
- static const struct qcom_uniphy_regs ipq5332_pcie_regs[] = {
- 	PHY_INIT_CFG(PHY_CFG_PLLCFG, 0x30),
- 	PHY_INIT_CFG(PHY_CFG_EIOS_DTCT_REG, 0x53ef),
-@@ -100,15 +121,23 @@ static const struct qcom_uniphy_regs ipq5332_pcie_regs[] = {
- 
- static const struct qcom_uniphy_data ipq5018_pcie_data = {
- 	.lane_offset	= 0x800,
--	.phy_type	= PHY_TYPE_PCIE_GEN2,
-+	.phy_type	= PHY_TYPE_PCIE,
- 	.init_seq	= ipq5018_pcie_regs,
- 	.init_seq_num	= ARRAY_SIZE(ipq5018_pcie_regs),
- 	.pipe_clk_rate	= 125 * MEGA,
- };
- 
-+static const struct qcom_uniphy_data ipq5018_usb3_data = {
-+	.lane_offset	= 0x800,
-+	.phy_type	= PHY_TYPE_USB3,
-+	.init_seq	= ipq5018_usb3_regs,
-+	.init_seq_num	= ARRAY_SIZE(ipq5018_usb3_regs),
-+	.pipe_clk_rate	= 250 * MEGA,
-+};
-+
- static const struct qcom_uniphy_data ipq5332_pcie_data = {
- 	.lane_offset	= 0x800,
--	.phy_type	= PHY_TYPE_PCIE_GEN3,
-+	.phy_type	= PHY_TYPE_PCIE,
- 	.init_seq	= ipq5332_pcie_regs,
- 	.init_seq_num	= ARRAY_SIZE(ipq5332_pcie_regs),
- 	.pipe_clk_rate	= 250 * MEGA,
-@@ -151,7 +180,7 @@ static int qcom_uniphy_pcie_power_on(struct phy *x)
- 		return ret;
- 	}
- 
--	usleep_range(RST_ASSERT_DELAY_MIN_US, RST_ASSERT_DELAY_MAX_US);
-+	usleep_range(PCIE_RST_ASSERT_DELAY_MIN_US, PCIE_RST_ASSERT_DELAY_MAX_US);
- 
- 	ret = reset_control_bulk_deassert(phy->num_resets, phy->resets);
- 	if (ret) {
-@@ -159,7 +188,7 @@ static int qcom_uniphy_pcie_power_on(struct phy *x)
- 		return ret;
- 	}
- 
--	usleep_range(PIPE_CLK_DELAY_MIN_US, PIPE_CLK_DELAY_MAX_US);
-+	usleep_range(PCIE_PIPE_CLK_DELAY_MIN_US, PCIE_PIPE_CLK_DELAY_MAX_US);
- 
- 	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
- 	if (ret) {
-@@ -168,13 +197,90 @@ static int qcom_uniphy_pcie_power_on(struct phy *x)
- 		return ret;
- 	}
- 
--	usleep_range(CLK_EN_DELAY_MIN_US, CLK_EN_DELAY_MAX_US);
-+	usleep_range(PCIE_CLK_EN_DELAY_MIN_US, PCIE_CLK_EN_DELAY_MAX_US);
- 
- 	qcom_uniphy_pcie_usb3_init(phy);
- 
- 	return 0;
- }
- 
-+static int qcom_uniphy_usb3_power_off(struct phy *x)
-+{
-+	struct qcom_uniphy *phy = phy_get_drvdata(x);
-+
-+	clk_bulk_disable_unprepare(phy->num_clks, phy->clks);
-+
-+	reset_control_bulk_assert(phy->num_resets, phy->resets);
-+
-+	regulator_disable(phy->vreg);
-+
-+	return 0;
-+}
-+
-+static int qcom_uniphy_usb3_power_on(struct phy *x)
-+{
-+	struct qcom_uniphy *phy = phy_get_drvdata(x);
-+	int ret;
-+
-+	ret = regulator_enable(phy->vreg);
-+	if (ret) {
-+		dev_err(phy->dev, "failed to enable regulator: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = reset_control_bulk_assert(phy->num_resets, phy->resets);
-+	if (ret) {
-+		dev_err(phy->dev, "reset assert failed (%d)\n", ret);
-+		goto err_disable_regulator;
-+	}
-+
-+	usleep_range(USB3_RST_ASSERT_DELAY_MIN_US, USB3_RST_ASSERT_DELAY_MAX_US);
-+
-+	ret = reset_control_bulk_deassert(phy->num_resets, phy->resets);
-+	if (ret) {
-+		dev_err(phy->dev, "reset deassert failed (%d)\n", ret);
-+		goto err_disable_regulator;
-+	}
-+
-+	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
-+	if (ret) {
-+		dev_err(phy->dev, "clk prepare and enable failed %d\n", ret);
-+		reset_control_bulk_assert(phy->num_resets, phy->resets);
-+		goto err_disable_regulator;
-+	}
-+
-+	usleep_range(USB3_CLK_EN_DELAY_MIN_US, USB3_CLK_EN_DELAY_MAX_US);
-+
-+	qcom_uniphy_pcie_usb3_init(phy);
-+
-+	return 0;
-+
-+err_disable_regulator:
-+	regulator_disable(phy->vreg);
-+
-+	return ret;
-+}
-+
-+static inline int qcom_uniphy_usb3_get_resources(struct platform_device *pdev,
-+						 struct qcom_uniphy *phy)
-+{
-+	struct device *dev = phy->dev;
-+
-+	phy->vreg = devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(phy->vreg))
-+		return dev_err_probe(dev, PTR_ERR(phy->vreg), "failed to get regulator\n");
-+
-+	phy->tcsr = syscon_regmap_lookup_by_phandle_args(dev->of_node,
-+							 "qcom,phy-usb-mux-sel",
-+							 1, &phy->mux_offset);
-+	if (IS_ERR(phy->tcsr))
-+		return dev_err_probe(dev, PTR_ERR(phy->tcsr), "failed to get regmap\n");
-+
-+	phy->lanes = 1;
-+
-+	return 0;
-+}
-+
- static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pdev,
- 						      struct qcom_uniphy *phy)
- {
-@@ -206,6 +312,13 @@ static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pd
- 
- 	phy->num_resets = count;
- 
-+	if (PHY_IS_USB3(phy))
-+		return qcom_uniphy_usb3_get_resources(pdev, phy);
-+
-+	ret = of_property_read_u32(dev_of_node(dev), "num-lanes", &phy->lanes);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Couldn't read num-lanes\n");
-+
- 	return 0;
- }
- 
-@@ -233,7 +346,8 @@ static inline int phy_pipe_clk_register(struct qcom_uniphy *phy, int id)
- 	struct clk_hw *hw;
- 	char name[64];
- 
--	snprintf(name, sizeof(name), "phy%d_pipe_clk_src", id);
-+	snprintf(name, sizeof(name), "%sphy%d_pipe_clk_src",
-+		 (PHY_IS_USB3(phy)) ? "usb" : "", id);
- 	hw = devm_clk_hw_register_fixed_rate(phy->dev, name, NULL, 0,
- 					     data->pipe_clk_rate);
- 	if (IS_ERR(hw))
-@@ -243,10 +357,19 @@ static inline int phy_pipe_clk_register(struct qcom_uniphy *phy, int id)
- 	return devm_of_clk_add_hw_provider(phy->dev, of_clk_hw_simple_get, hw);
- }
- 
-+static int qcom_uniphy_usb_mux_select(struct qcom_uniphy *phy, bool enable)
-+{
-+	return regmap_assign_bits(phy->tcsr, phy->mux_offset,
-+				  TCSR_USB_MUX_SEL, enable);
-+}
-+
- static const struct of_device_id qcom_uniphy_pcie_usb3_id_table[] = {
- 	{
- 		.compatible = "qcom,ipq5018-uniphy-pcie-phy",
- 		.data = &ipq5018_pcie_data,
-+	}, {
-+		.compatible = "qcom,ipq5018-uniphy-usb3-phy",
-+		.data = &ipq5018_usb3_data,
- 	}, {
- 		.compatible = "qcom,ipq5332-uniphy-pcie-phy",
- 		.data = &ipq5332_pcie_data,
-@@ -261,6 +384,12 @@ static const struct phy_ops qcom_uniphy_pcie_ops = {
- 	.owner          = THIS_MODULE,
- };
- 
-+static const struct phy_ops qcom_uniphy_usb3_ops = {
-+	.power_on	= qcom_uniphy_usb3_power_on,
-+	.power_off	= qcom_uniphy_usb3_power_off,
-+	.owner          = THIS_MODULE,
-+};
-+
- static int qcom_uniphy_pcie_usb3_probe(struct platform_device *pdev)
- {
- 	struct phy_provider *phy_provider;
-@@ -280,16 +409,15 @@ static int qcom_uniphy_pcie_usb3_probe(struct platform_device *pdev)
- 	if (!phy->data)
- 		return -EINVAL;
- 
--	ret = of_property_read_u32(dev_of_node(dev), "num-lanes", &phy->lanes);
--	if (ret)
--		return dev_err_probe(dev, ret, "Couldn't read num-lanes\n");
--
- 	ret = qcom_uniphy_pcie_usb3_get_resources(pdev, phy);
- 	if (ret < 0)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "failed to get resources: %d\n", ret);
- 
--	generic_phy = devm_phy_create(phy->dev, NULL, &qcom_uniphy_pcie_ops);
-+	if (PHY_IS_USB3(phy))
-+		generic_phy = devm_phy_create(phy->dev, NULL, &qcom_uniphy_usb3_ops);
-+	else
-+		generic_phy = devm_phy_create(phy->dev, NULL, &qcom_uniphy_pcie_ops);
- 	if (IS_ERR(generic_phy))
- 		return PTR_ERR(generic_phy);
- 
-@@ -304,6 +432,18 @@ static int qcom_uniphy_pcie_usb3_probe(struct platform_device *pdev)
- 	if (IS_ERR(phy_provider))
- 		return PTR_ERR(phy_provider);
- 
-+	/*
-+	 * Select USB mux before the controller comes out of reset. Selecting it
-+	 * later in .power_on leaves the SuperSpeed pads muxed away while the
-+	 * controller resets, and the SS link training remains in Rx.Detect
-+	 */
-+	if (PHY_IS_USB3(phy)) {
-+		ret = qcom_uniphy_usb_mux_select(phy, true);
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "failed to select usb mux\n");
-+	}
-+
- 	return 0;
- }
- 
+     dma_addr = obj->dma_addr + offset;
+
+     return dma_addr
+}
+
+_get_clipped_gem_addr()
+{
+     /* likewise */
+}
+
+This better structures the responsibility. It also works for other GEM 
+code besides GEM-DMA.
+
+Best regards
+Thomas
+
+
+>   
+> @@ -106,8 +96,49 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   
+>   	return dma_addr;
+>   }
+> +
+> +/**
+> + * drm_fb_dma_get_gem_addr() - Get DMA (bus) address for unclipped framebuffer,
+> + * for pixel formats where values are grouped in blocks this will get you the
+> + * beginning of the block
+> + * @fb: The framebuffer
+> + * @state: Which state of drm plane
+> + * @plane: Which plane
+> + *
+> + * This function will usually be called from the PLANE callback functions.
+> + *
+> + * Return: GEM DMA address for given framebuffer, unclipped.
+> + */
+> +dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+> +				   struct drm_plane_state *state,
+> +				   unsigned int plane)
+> +{
+> +	return _drm_fb_dma_get_gem_addr(fb, plane, state->src_x >> 16,
+> +					state->src_y >> 16);
+> +}
+>   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+>   
+> +/**
+> + * drm_fb_dma_get_gem_clipped_addr() - Get DMA (bus) address for clipped
+> + * framebuffer, for pixel formats where values are grouped in blocks this
+> + * will get you the beginning of the block
+> + * @fb: The framebuffer
+> + * @state: Which state of drm plane
+> + * @plane: Which plane
+> + *
+> + * This function will usually be called from the PLANE callback functions.
+> + *
+> + * Return: GEM DMA address for given framebuffer, clipped.
+> + */
+> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
+> +					   struct drm_plane_state *state,
+> +					   unsigned int plane)
+> +{
+> +	return _drm_fb_dma_get_gem_addr(fb, plane, state->src.x1 >> 16,
+> +					state->src.y1 >> 16);
+> +}
+> +EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_clipped_addr);
+> +
+>   /**
+>    * drm_fb_dma_sync_non_coherent - Sync GEM object to non-coherent backing
+>    *	memory
+> diff --git a/include/drm/drm_fb_dma_helper.h b/include/drm/drm_fb_dma_helper.h
+> index c950732c6d36..b2a0bd7ef9d0 100644
+> --- a/include/drm/drm_fb_dma_helper.h
+> +++ b/include/drm/drm_fb_dma_helper.h
+> @@ -17,6 +17,10 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_framebuffer *fb,
+>   				   struct drm_plane_state *state,
+>   				   unsigned int plane);
+>   
+> +dma_addr_t drm_fb_dma_get_gem_clipped_addr(struct drm_framebuffer *fb,
+> +					   struct drm_plane_state *state,
+> +					   unsigned int plane);
+> +
+>   void drm_fb_dma_sync_non_coherent(struct drm_device *drm,
+>   				  struct drm_plane_state *old_state,
+>   				  struct drm_plane_state *state);
 
 -- 
-2.53.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
 
 
