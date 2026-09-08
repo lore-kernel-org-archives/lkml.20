@@ -1,53 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E45F1E7C18;
-	Tue,  8 Sep 2026 00:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E1F91FCFEF;
+	Tue,  8 Sep 2026 00:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828855; cv=none; b=SQHA5zTmILlqOaLIYpdvSzBaoSD/HmKG0flIjlBT7oL4iaZmMO4pDfS9P5KGL7YXsNxjVuVFFKGLZ86yvEhBK+r/R/m1nTzCxaePPPWZTeNiDZcOfBcTjVdEd7ADSwvm7rXCaCccblq/MxrWZbQKId/H+aBV238QDneSKMtVhD4=
+	t=1788828858; cv=none; b=htprVls+DuHXvPgl0KIYcRtts01H8vwVJVI48j02rQyKh0dxj1H3aF4XpsxEMAo+oAPld2Cm3MdTi4KzJ6s+re5vuOH2ot3o5ilO+Qz3StAxUnTu2hg3UDbi+yvhtX48y4Poar9pm1/CnsCXWTSbffStOtGaKB1LuiLP6qy/Woo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788828855; c=relaxed/simple;
-	bh=hPmVzwL3eOmkSaiZUw8/Mxvq4YcmDwIZUIOkSs1G534=;
+	s=arc-20240116; t=1788828858; c=relaxed/simple;
+	bh=IRusWtHW7mcbjKYztHYH+8izFk60cn1ITgkZLvHtMF8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nvVOWQ/gfAFice3BmotNvSJU//0oXpt2AIN45ypWcur/1YhPjf1b5tkGx58mOV5mK80GaUggh6QNax7uNaQqgFvnO3o19EBjJ9yzccQAEGcH0u2dUL9Wlhleu7E8Qsbirewcry8toGDbw/SsYZaxqSCXooig/slmmiSDEizyAh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XG2VLCdb; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=El3Ts0ulRhMzfp3ul4zu1QGJe8yW3r6dlIPr54Iwru46bHEAbkOUgWYvqgDITAfA2NiattrMTejxZa3byQ4VX1Z6/JfxExFzDq6E5/rgPgSASIHw3DuAjh4n/VRF2/xhsbHk53Kcqp16HP9QvK3cjVfTzfyfyR7l0Xk/u+2W2VI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JATViqPO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XG2VLCdb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867451F00A3A;
-	Tue,  8 Sep 2026 00:54:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JATViqPO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672751F00A3E;
+	Tue,  8 Sep 2026 00:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788828854;
-	bh=lezepxTgS7POllyZ/XNViL/Q/E+HXFBOpB5tNFaAYXo=;
+	s=k20260515; t=1788828856;
+	bh=qDirhoGWjc2csBx5d7xGbdH0VhGX3fyzJfQO3BP318E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XG2VLCdbC/cs4vpUI61dxsgJz2S/Qxz+ftWxjXt03XC5dgTmbK6SYlPXo2Pr6GjKD
-	 JBe4zBlXPEy4lCkJY+F0HW/PWlAZDTopm9gBPUqOjgXIUdqkvkW2gcCmIFW7mh0UaB
-	 +XFwjRV7m+VMwzN56SqgbFp8S+8fI6mHwo3NIyj2P74lFAx/CR7Tio5LuD41oxQYY7
-	 gqkU959hqDw44wSFELdsnV/aHZeLESXkcFmRz2QNeZaC4Kld1NMnkwAYUCJPEe2MWd
-	 6Q3CWetD40RRg8ose32fVltd20GmLkMkSQwgSaFSNGDDcGglD59BpJco64NLo4xPCA
-	 xjnb1fPgNYHHA==
+	b=JATViqPOpoe9C0rwmk6Y0aHo1Xk4cvNxXBgDeUpumGGgmpuD1kV7y7C+LLzBXt3nd
+	 USlk7dwstkRprraKWW0FuqTHnaQL/jaKDSeEBWSlFQwN+Ne6UJU3G/VhCBeapjbo8W
+	 5pNmV3aef/SHErc5WbjQ6Bw5iagh7Sct7/cEuJfSEqqyIxC4lKAOSGN4xA2Ei3AD4Y
+	 8EROnMiw+Mwoqkyz3I4tzrg50Y4aqbgAjb6J0r/AfwjwqBZhVNYuNzOUZmT77uVV0M
+	 STU6VimGlx6cWisDVYS+YbQ86UU2PfviKUFMvH3iLEhmHFhGrf97ac50uyYFNeJ/ZX
+	 Fz9AWP7J/KGBg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
+To: alexevgmart@gmail.com,
+	stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Alexander Martyniuk <alexevgmart@gmail.com>,
-	VMware Graphics <linux-graphics-maintainer@vmware.com>,
-	Roland Scheidegger <sroland@vmware.com>,
-	David Airlie <airlied@linux.ie>,
-	Daniel Vetter <daniel@ffwll.ch>,
-	Thomas Hellstrom <thellstrom@vmware.com>,
-	Jakob Bornecrantz <jakob@vmware.com>,
-	dri-devel@lists.freedesktop.org,
+	karolherbst@gmail.com,
 	linux-kernel@vger.kernel.org,
 	lvc-project@linuxtesting.org,
-	Zack Rusin <zack.rusin@broadcom.com>,
-	Ian Forbes <ian.forbes@broadcom.com>
-Subject: Re: [PATCH 5.10/5.15] drm/vmwgfx: drop dma_buf reference on foreign-fd prime import
-Date: Mon,  7 Sep 2026 20:53:49 -0400
-Message-ID: <2026-09-07-daily-reply-0010-vmwgfx-dma-buf@kernel.org>
+	mhiramat@kernel.org,
+	mingo@kernel.org,
+	nouveau@lists.freedesktop.org,
+	ppaalanen@gmail.com,
+	rostedt@goodmis.org,
+	tglx@linutronix.de,
+	Ingo Molnar <mingo@elte.hu>,
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5.15/6.1/6.6 0/2] tracing/mmiotrace: Add NULL check for mmio_trace_array in logging functions
+Date: Mon,  7 Sep 2026 20:53:51 -0400
+Message-ID: <2026-09-07-daily-reply-0012-mmiotrace-v2-3trees@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907121751.126950-1-alexevgmart@gmail.com>
-References: <20260907121751.126950-1-alexevgmart@gmail.com>
+In-Reply-To: <20260907163919.183961-1-alexevgmart@gmail.com>
+References: <20260907163919.183961-1-alexevgmart@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -56,11 +56,15 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> ttm_prime_fd_to_handle() returns -ENOSYS when the imported fd's
-> dma_buf->ops do not match the ttm_object_device's ops, but does so
-> without releasing the reference acquired by dma_buf_get().
+> Masami Hiramatsu (Google) (1):
+>   tracing/mmiotrace: Add NULL check for mmio_trace_array in logging
+>     functions
+>
+> Steven Rostedt (1):
+>   tracing/mmiotrace: Remove reference to unused per CPU data pointer
 
-Queued for 5.15 and 5.10, thanks.
+Queued for 6.6, 6.1 and 5.15, thanks. Good catch adding the
+prerequisite.
 
 -- 
 Thanks,
