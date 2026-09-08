@@ -1,150 +1,167 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA694FC8CB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A244FDE76
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858649; cv=none; b=YWBQq7Sk04d7ogXtGRzvCvPuJdUsySXJzDx4PD+0lXWYrWd0ONfKQ9VWEcpZTfrRmfZSCJtKHs4MlS/SWidU++NGvoj8vQ7ZMWrIFkFCxPYuJjAZl3TUVsZ6FKAqZgce/h+sE1B+j1TtcQxo5fZDUrmUvckq9S6s+07ZRc+g6Yk=
+	t=1788858653; cv=none; b=UfXTEFdgI8kn/myzth2o6sim1+ttc/tobMTsiDZh7VD8Q4EA5KrnY32lTBygQaMS3wA4xWGk0bcvX8IpUU7QZQ1CWRZRBIEU+iC2iEdZVlvCAW+eE6QAzNyVzwGFN4lMnqvGVePFCZciUdlNkBV4ZW/xIskD13aOoxb4In737ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858649; c=relaxed/simple;
-	bh=kpbmkS7Kn9Fe5bFNuPA50A2+us3zYSnVRKbNbOgUF6c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=NgHo1XRqWpoz9l6HmZnY4g36x5iw8MRtAtwmb990+Wnw+CAmveW6XUTeR+IEpJH+wskDUuIS0YjVmEH36dNBYvUnKBqmrhFW0cp9Lua5LXPCvRBost38+S30kKZSTGhbv5zrr+gF4rQNxRlQ7+J1RXazy3g2Ks/6ufl7cpfC0X0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=AmEyBD5j; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788858653; c=relaxed/simple;
+	bh=8tSqHlLIXJuWsBQYydJqqwZT5KxUO6DtIPiXjOTGxhs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQvjgqY65a/Dg65lWgi696eIUX3CFTHQGdz3AyiLE0rWq9pSFJMxUOVF6TLuForEeFJGHwWk3i4LJi6VB7aFeTPWjXtv9XwUGy/X+fQEZOf/cheBPYEeRM3IueP0zJGKvalKzrUl4XrAZdYnlRGWhPZU2u/5eereslMgIS0SFj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XYbQ6+xP; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="AmEyBD5j"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=sShEmy1XuzfNNWN3+4kC09Nfe5OSu2vtRKrpboDP/5I=;
-	b=AmEyBD5jV7g6LrGvy2qZh3W5SPD/whMxLAr7Bz1vlW98e9Ku/4oTeU37m9gDGfltTLZCDiiEH
-	rweT38ZOn7PffvjnZFeGI6cBf1ikvyEB/AQQ8PJTg/Iwd7/DqHP9u3+evIOgeT1KKEOoHSshTsd
-	js6UCb4Y5BAuAUEDENWwTUA=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hfHv81fr9zLlTC;
-	Tue,  8 Sep 2026 16:59:48 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id E825440586;
-	Tue,  8 Sep 2026 17:10:41 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 17:10:41 +0800
-Message-ID: <a7f78676-4b01-436f-9fef-dbabae849c45@huawei.com>
-Date: Tue, 8 Sep 2026 17:10:40 +0800
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XYbQ6+xP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788858650;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=C0xiqVZ1UP4oD+0sq73SGDSnEeFESxAGnTexw/YKrQk=;
+	b=XYbQ6+xPKhdULTdZwa4MyBMGLMulhkFhG+cFq/Pg8rckggehWWeZZmL/BoV5hJcdzWQKHr
+	OZT/Cir+aDKwyP1U4XucPiaX3xvvO3fOgCQ9ug4HqvRlXXeAHZ2oKTiYeWHeKmSLvGXnmn
+	Tos4QX9kJ48W/5ZihVroP50bA+b0GfI=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-522-Z9G_OryfNLuOMVNfyLh3Ag-1; Tue,
+ 08 Sep 2026 05:10:46 -0400
+X-MC-Unique: Z9G_OryfNLuOMVNfyLh3Ag-1
+X-Mimecast-MFC-AGG-ID: Z9G_OryfNLuOMVNfyLh3Ag_1788858644
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4B2B31834595;
+	Tue,  8 Sep 2026 09:10:43 +0000 (UTC)
+Received: from warthog.com (unknown [10.44.32.158])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3AA8430001A2;
+	Tue,  8 Sep 2026 09:10:34 +0000 (UTC)
+From: David Howells <dhowells@redhat.com>
+To: Paulo Alcantara <pc@manguebit.org>
+Cc: David Howells <dhowells@redhat.com>,
+	Christian Brauner <christian@brauner.io>,
+	Matthew Wilcox <willy@infradead.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Marc Dionne <marc.dionne@auristor.com>,
+	Stefan Metzmacher <metze@samba.org>,
+	Eric Van Hensbergen <ericvh@kernel.org>,
+	Dominique Martinet <asmadeus@codewreck.org>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	netfs@lists.linux.dev,
+	linux-afs@lists.infradead.org,
+	linux-cifs@vger.kernel.org,
+	linux-nfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org,
+	v9fs@lists.linux.dev,
+	linux-erofs@lists.ozlabs.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v12 0/8] netfs: Miscellaneous preparatory changes
+Date: Tue,  8 Sep 2026 10:10:21 +0100
+Message-ID: <20260908091031.1506798-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/19] arm64: smp: Use generic HOTPLUG_SPLIT_STARTUP
- machinery for CPU onlining
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-12-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-12-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
+Hi Christian,
 
+Could you pull these patches please for -next?  This is the first of four
+batches.  This is based on your vfs.fixes as there are some prerequisite
+patches there.  This was split from v11 of a larger series[1].
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> In preparation for enabling parallel bringup of secondary CPUs on arm64,
-> take the baby step of moving from HOTPLUG_CORE_SYNC_FULL to
-> HOTPLUG_SPLIT_STARTUP.
-> 
-> Rework the cpu_die_early() path to use a private cpumask, otherwise
-> clearing the incoming CPU from the present mask in the 'kick' stage will
-> prevent the hotplug stage machine from progressing and
-> arch_cpuhp_cleanup_kick_cpu() will not be called.
-> 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/Kconfig           | 2 +-
->  arch/arm64/include/asm/smp.h | 1 +
->  arch/arm64/kernel/smp.c      | 9 +++++----
->  3 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 89d1f0f2269c..fd8cf792b7fd 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -230,7 +230,7 @@ config ARM64
->  	select HAVE_SYSCALL_TRACEPOINTS
->  	select HAVE_KPROBES
->  	select HAVE_KRETPROBES
-> -	select HOTPLUG_CORE_SYNC_FULL
-> +	select HOTPLUG_SPLIT_STARTUP
->  	select HOTPLUG_SMT if HOTPLUG_CPU
->  	select IRQ_DOMAIN
->  	select IRQ_FORCED_THREADING
-> diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
-> index fe343c30d620..7b986a6a765b 100644
-> --- a/arch/arm64/include/asm/smp.h
-> +++ b/arch/arm64/include/asm/smp.h
-> @@ -89,6 +89,7 @@ asmlinkage void secondary_start_kernel(void);
->  struct secondary_data {
->  	struct task_struct *task;
->  	long status;
-> +	cpumask_t cpu_died_early_mask;
->  };
->  
->  extern struct secondary_data secondary_data;
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index 00362ed6e1ab..c5e9d5d5e003 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -62,7 +62,7 @@
->   * so we need some other way of telling a new secondary core
->   * where to place its SVC stack
->   */
-> -struct secondary_data secondary_data;
-> +struct secondary_data secondary_data = {};
->  /* Number of CPUs which aren't online, but looping in kernel text. */
->  static int cpus_stuck_in_kernel;
->  
-> @@ -108,7 +108,7 @@ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
->  	return -EOPNOTSUPP;
->  }
->  
-> -int __cpu_up(unsigned int cpu, struct task_struct *idle)
-> +int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
->  {
->  	int ret;
->  
-> @@ -146,6 +146,8 @@ void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
->  		cpus_stuck_in_kernel++;
->  		break;
->  	case CPU_KILL_ME:
-> +		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
-> +			set_cpu_present(cpu, false);
+This a collection of miscellaneous modifications to netfslib that I want to
+make ahead of bigger changes, including:
 
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+ (1) Convert "unsigned long long" to "uoff_t".  This makes it a little more
+     obvious as to the meaning of the value.  Also convert some "loff_t" to
+     "uoff_t" as most of the time it's used the value really should never
+     be negative.
 
->  		if (!op_cpu_kill(cpu)) {
->  			pr_crit("CPU%u: died during early boot\n", cpu);
->  			break;
-> @@ -406,8 +408,7 @@ void __noreturn cpu_die_early(void)
->  
->  	pr_crit("CPU%d: will not boot\n", cpu);
->  
-> -	/* Mark this CPU absent */
-> -	set_cpu_present(cpu, 0);
-> +	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
->  
->  	if (IS_ENABLED(CONFIG_HOTPLUG_CPU)) {
->  		update_cpu_boot_status(CPU_KILL_ME);
+ (2) Remove the writethrough code as the locking is really tricky to get
+     right and it looks like it could deadlock with Ceph if snapshots are
+     used.
+
+ (3) Adjust some tracepoints, including adding the cache object ID to
+     certain tracepoinits.
+
+ (4) Make use of PG_private_2 opt-in.  Use of PG_private_2 is deprecated
+     and the MM people would like their page bit back, so we need to stop
+     using it soon.
+
+ (5) Add some helper functions to handle the barriering needed for the
+     NETFS_RREQ_ALL_QUEUED flag.
+
+ (6) Set the subrequest type at allocation time so that the allocation
+     trace records the proposed type.
+
+The patches can also be found here:
+
+	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-1
+
+Thanks,
+David
+
+Changes
+=======
+ver #12)
+- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
+  chain"[1]
+
+[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
+
+David Howells (8):
+  netfs: Use uoff_t instead of unsigned long long and loff_t
+  netfs: Remove the writethrough code
+  netfs: trace: Change the "clear" folio traces to "endwb"
+  netfs: trace: Rejig a couple of the tracepoints
+  netfs: Add the cache object ID to netfs_read/write tracepoints
+  netfs: Make deprecated PG_private_2 support opt-in
+  netfs: Add some functions to wrap the all-queued handling
+  netfs: Set subrequest->source at alloc before trace emission
+
+ fs/9p/vfs_addr.c                  |   1 -
+ fs/afs/file.c                     |   5 +-
+ fs/cachefiles/interface.c         |  10 +--
+ fs/cachefiles/internal.h          |   4 +-
+ fs/cachefiles/io.c                |  25 +++---
+ fs/ceph/Kconfig                   |   1 +
+ fs/ceph/addr.c                    |   4 +-
+ fs/netfs/Kconfig                  |   3 +
+ fs/netfs/Makefile                 |   2 +-
+ fs/netfs/buffered_read.c          |  35 ++++----
+ fs/netfs/buffered_write.c         |  66 +++------------
+ fs/netfs/direct_read.c            |  14 ++--
+ fs/netfs/direct_write.c           |   8 +-
+ fs/netfs/fscache_cookie.c         |   8 +-
+ fs/netfs/fscache_io.c             |  10 +--
+ fs/netfs/internal.h               |  67 ++++++++++++---
+ fs/netfs/iterator.c               |   2 +-
+ fs/netfs/main.c                   |   1 -
+ fs/netfs/misc.c                   |  10 +--
+ fs/netfs/objects.c                |   6 +-
+ fs/netfs/read_collect.c           |  14 ++--
+ fs/netfs/read_pgpriv2.c           |  13 ++-
+ fs/netfs/read_retry.c             |   5 +-
+ fs/netfs/read_single.c            |  11 +--
+ fs/netfs/stats.c                  |   4 +-
+ fs/netfs/write_collect.c          |  25 +++---
+ fs/netfs/write_issue.c            | 123 ++-------------------------
+ fs/netfs/write_retry.c            |   5 +-
+ fs/nfs/Kconfig                    |   1 +
+ include/linux/fscache-cache.h     |   2 +-
+ include/linux/fscache.h           |  36 ++++----
+ include/linux/netfs.h             |  80 +++++++++---------
+ include/trace/events/cachefiles.h |  30 +++----
+ include/trace/events/fscache.h    |  10 +--
+ include/trace/events/netfs.h      | 134 +++++++++++++++---------------
+ 35 files changed, 324 insertions(+), 451 deletions(-)
 
