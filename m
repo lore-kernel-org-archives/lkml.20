@@ -1,155 +1,160 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37D81D432D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCDF937A846
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788846701; cv=none; b=ABwVECuDCqE/9IOhJCRckZhT4DnmUHH30CEowLIHX5seyt0yY1J3Qx9LvRsbmMPxml1rqiS07ctZIvgJT4iv4ddO7UOcZzLfOfnhQTSeLxu0ba6IhhXffEpnatlA1OiVOdmXtCujQCDDt8lK/u5JjI/L80zSZq7A8WDtM1PwPlk=
+	t=1788846703; cv=none; b=aV9XEvDevwz6oB1GHWRqKbAUZlIIqmuTvdl76eyjYSdsPNr9/S/y5xh2qD71RNuLPpkqL4waLb1p5WiRATogyoZd9QiarXbV0cTJQ4H6PKvYaFjI2clgaajsA+fc3jbKY5O6HRjwlJnpl9fYgj3zVYNJYYtQqelcJ3Q45clcW7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788846701; c=relaxed/simple;
-	bh=b/YpcU/SZTQ7suBXhAmovdv3YrQFr9IFtG/dZ+tV87c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cWBKDa7r57pWsAn/v1nn+9CFptq4aXap+5plZqkOPnzhRamaHWqixEI/LOjiV7GE+6yR0oc30OjJMo4nF5PPAXxc1HDFoXKSSRAKy42Nd9KJoUKAC2WWL5e0SkvZYrM7bZ8plLdFyAZHjEd7/vAvV7zg5IJowBx3Pc3D7I2akyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=G71s5Ggz; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788846703; c=relaxed/simple;
+	bh=TWQCqQZ3uXI5BozZg6a+SHVZQfLS/RM7NyQOd1gRU5U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n87qe3rtHdt8L6k6n6UqqoUqVr/IWUV37BGhKq7iXiF1f3g4zP3bjJKIh0TI4qyBwebK7lUQlKEPtjVgZp5wXsDnVbPFka4BnRt+3xatB/7UDZnhLIpLRSfTzmAz9jNBC9NETuZYUUZqu3e3aBFzXDf9KoDA373weoXIlc7yVzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gjeU/FSy; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="G71s5Ggz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=d5CRftcM8cKZg4S+msRCJ3n7gXADB26qmvhpulgYttw=;
-	b=G71s5GgzdokRvAkxK9i+m0IeOP4iaBsuTDvL3k2yyz0WQcspmpUNOplKID+6n4
-	6+Mu2qvTp7PxoisXHq0yQl/s2+m3sRTdZDlRCEm8jmLdmk6v3m8Gt7yQ/kUIdvQS
-	z2KFH9s/k9vO6jhU3x2flUY19DV1kiVkc/B/8ZBJBn3bI=
-Received: from [IPV6:2409:8900:1e93:d74:46a:b98a:2b32:6a19] (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgDXXzRUop9qlvlgQg--.45536S2;
-	Tue, 08 Sep 2026 13:51:18 +0800 (CST)
-Message-ID: <5a81c4fa-807e-47ca-a143-6985036534a9@163.com>
-Date: Tue, 8 Sep 2026 13:51:16 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gjeU/FSy"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cc1c8d4a959so2734977a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:51:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788846701; x=1789451501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k4gh5k6ECBQWHxt1QP4VjfRnV+K82E4kkpVh09p6XGw=;
+        b=gjeU/FSyigNeyI3Uc5O2M0cM6iu/Hl/vZ5SgAgmoCIzldbYl6joLTyYP9ad3PxKCnn
+         u00QRdXmJNMaENqlVTy67PjeRvZ4PhvNu7nlLxADtnreb8e1+PFmT8KdLFRVK4mHgJjT
+         7BjJCyLxb9kYcvjBJ3Iv5obsUSENu3hZUh8PNrlkYNONb0kmxOnWi9itBB3ee7EiYPN4
+         KvzpkwufAMowuIf6e4IyRe/6OmkVR3/VTKtYP0+L9CwcGqHgQ8VgV9S78fSgl++bpsJy
+         NEvo+75MxlMT3XGB6/ohqZ2y6mixWnAGpaaqJqVRE/GFJFZ19rikzD0rNhUhx/bZji7q
+         u+JQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788846701; x=1789451501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k4gh5k6ECBQWHxt1QP4VjfRnV+K82E4kkpVh09p6XGw=;
+        b=TnInap1Fdlg9Ozjg9rQay8ZyLRANlEIJzdaPXD9dR61v6wvb1n7zULMGi5448nzPvS
+         Zwr+r3nzO8q1grdPe93jLV9RFBGMbKB5fsCHlQuj6Oe1SJlzDfQohqcyV6Nmw0mvBdQi
+         La+aReWayJXTmTErkxGmbvVnW4c09vapvKCd1PEihFm23c21gw7WaD1dDfRgtCJ8Z3Ub
+         FqGtZnpkLk5xPbdspCr2ob7yF+bZVicijz/0KZIU+/cYJfdBQ51EWJRXm3djSROddWPu
+         kNN8QIfei4nl67gzRxPfJPNNtghWYrZSH8/UtLO7RCJmWTavtAOrn0wxgf23Uz43TZS7
+         wmYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzb78KzRyP19l9q0WHkXal13Ph0wT4HoZ/Fipj3bEOq10IPfdn+2cvt9/iAepp7726NHynJrD5ipfYTwh8=@vger.kernel.org
+X-Gm-Message-State: AFuF++l21rGMBcTOZdrfR7tkyV6/2TSERlpZKgnFa7vODd2YT9FMDpl3
+	nUnfTmY/vdz+W2F4PbtGdQLg7hSIAyWSheHhgZvFRFDgQncLA4G/UVwo
+X-Gm-Gg: AYBFou0ZObh2JXuu8jFe3Lhzw4HEU49t3UkkEMv+xl57Mg+2N2kVJgQtbQFYEk030Z9
+	rlno03u8OONXsnctHnnZWV4ggr3FZN432qX70LAoNd+p3TuvISSHlldX13txbxPXYVlT1InbwCl
+	XG+9oPeKDRh4E293cJ6k1kHsbSMVn+pts4igm5X0IqnXi13wwEBZEZKRUkasqRXK1WxszD3VUEJ
+	2nT82ofhPgDM2R0UjLFcvnpqosnYwr8l8gWarijzAgxlYjO1xAIOtqr0eYJSIvVp8U1YS9arqbp
+	IK2gO4dpxUbRL7PmGuTL5QkiPzqhHfnpyhtAZY8/9iKZdhxe5r3WtonamdBUl0aUJkVlXbFVIek
+	WV/+EOpR1IqtX9yTRqupQ9tBV7QNkkuf3nBnRviuNgTTLSmt3vykLk4f0kFFUZFfVpJD3YAeNhz
+	IygutOorV+IvOqhtAq21+werXgys0g5FPpVEt5VT8f7t7w+7w5jFSgZ51EIOhJgr3LlzfyVTfmK
+	gNRMX3ap5OE5MFuhzKfQ94M
+X-Received: by 2002:a05:6a20:b418:b0:3d3:adbf:7777 with SMTP id adf61e73a8af0-3da3a066ef5mr43666492637.19.1788846701101;
+        Mon, 07 Sep 2026 22:51:41 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm37719041eec.7.2026.09.07.22.51.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 22:51:40 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Oliver O'Halloran" <oohall@gmail.com>,
+	Geoff Levand <geoff@infradead.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org
+Subject: [PATCH v2 0/2] powerpc: fix typos and repeated words in comments
+Date: Tue,  8 Sep 2026 11:21:31 +0530
+Message-ID: <20260908055133.16469-1-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix $MFTMirr write offset when it spans multiple
- folios
-To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>,
- Hyunchul Lee <hyc.lee@gmail.com>
-Cc: "linkinjeon@kernel.org" <linkinjeon@kernel.org>,
- "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
- <CANFS6baT-+_u+c99qThd7jekqXZ3BW5utLPERLa_X3FE7XiBNw@mail.gmail.com>
- <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgDXXzRUop9qlvlgQg--.45536S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCw1kKw4ruw13XF1kur17KFg_yoWrGw4xpF
-	9xCwn3Ar4kKryIk39rKa109a4kX39rKF1UKrW7Jr1I9anIqw1kWF4Uta9Y9FyFyr1Ykrn7
-	XF1kKrnxWF1DAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2zuZUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6hZAC2qfolYKkQAA3t
 
+Fix misspellings and repeated words in comments, found with
+scripts/checkpatch.pl using the misspelling list in scripts/spelling.txt.
+Comments only, no code changes.
 
+Changes since v1:
+ - dropped the drivers/net/ethernet/ibm/ibmvnic.h hunk.  Andrew Lunn
+   asked for the networking change to go to netdev rather than through
+   the powerpc tree, so it will be sent there separately.
 
-在 2026/9/8 04:41, 朱 天浩 写道:
-> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
-> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
-> which is indeed what mkfs arranges.  However, the folio rewrite kept a
-> leftover from the old buffer-head/runlist based implementation:
-> vol->cluster_size_mask is still applied to the mirror write offset.
-> In fact it is no longer needed -- and in some configurations it is
-> actively wrong.
-> 
-> The bug triggers whenever the four mirror records do not fit in a
-> single folio, i.e. when mft_record_size exceeds PAGE_SIZE / 4 (for
-> example mft_record_size > 1KiB on 4KiB pages).
-> 
-> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
-> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
-> written to the location of record 0.  $MFTMirr therefore gets out of
-> sync with $MFT and the following warning is printed on remount:
-> 
-> 	ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
-> 	      record 0 do not match.  Run chkdsk.
-> 
-> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
-> to the base LCN address instead of applying the cluster_size_mask
-> truncation.  This is the standard file-offset calculation and is
-> correct for every combination of cluster size, page size and MFT
-> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
-> (which mkfs always arranges).
-> 
-> Tested on the volume above: before the change mirror records 1-3 are
-> all written to record 0's sector; after the change the write-back
-> probe reports:
-> 
-> 	ntfs: NTFSDBG pre mft_no=0x3 folio_idx=0x3 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0640
-> 	ntfs: NTFSDBG pre mft_no=0x0 folio_idx=0x0 ofs=0x0 mftmirr_lcn=0x2540c5 clu_bits=12 rec_bits=12 PAGE_SHIFT=12 sect=0x12a0628
-> 
-> which matches the expected sectors computed as:
-> 
-> 	(NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SECTOR_SHIFT
-> 
-> 	record 0: (0x2540c5 << 12) + 0x0000 = 0x2540c5000 >> 9 = 0x12a0628
-> 	record 3: (0x2540c5 << 12) + 0x3000 = 0x2540c8000 >> 9 = 0x12a0640
-> 
-> A 13 MB file write succeeds on this volume and the file is byte-for-byte
-> identical after a umount/mount cycle.
-> 
-> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-> Assisted-by: UOS-AI
-> Assisted-by: CodeBuddy:Hy4 preview
-> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
-> ---
-> v2:
-> - Removed the unreachable folio-size guard (thanks Hyunchul for the review)
-> - Dropped the "While here" paragraph from the commit message
-> - Clarified the trigger condition and retitled the subject
-> 
-> fs/ntfs/mft.c | 10 +++-------
->   1 file changed, 3 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/ntfs/mft.c b/fs/ntfs/mft.c
-> index 7e58c99f1728..8399f07d45d6 100644
-> --- a/fs/ntfs/mft.c
-> +++ b/fs/ntfs/mft.c
-> @@ -462,7 +462,7 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
->   {
->   	u8 *kmirr;
->   	struct folio *folio;
-> -	unsigned int folio_ofs, lcn_folio_off = 0;
-> +	unsigned int folio_ofs;
->   	int err = 0;
->   	struct bio *bio;
->   
-> @@ -492,15 +492,11 @@ int ntfs_sync_mft_mirror(struct ntfs_volume *vol, const u64 mft_no,
->   	memcpy(kmirr, m, vol->mft_record_size);
->   	kunmap_local(kmirr);
->   
-> -	if (vol->cluster_size_bits > PAGE_SHIFT) {
-> -		lcn_folio_off = folio->index << PAGE_SHIFT;
-> -		lcn_folio_off &= vol->cluster_size_mask;
-> -	}
-> -
->   	bio = bio_alloc(vol->sb->s_bdev, 1, REQ_OP_WRITE, GFP_NOIO);
->   	bio->bi_iter.bi_sector =
->   		ntfs_bytes_to_bio_sector(NTFS_CLU_TO_B(vol, vol->mftmirr_lcn) +
-> -					 lcn_folio_off + folio_ofs);
-> +					 ((u64)folio->index << PAGE_SHIFT) +
-> +					 folio_ofs);
->   
->   	if (bio_add_folio(bio, folio, vol->mft_record_size, folio_ofs))
->   		err = submit_bio_wait(bio);
+Hemanth Selam (2):
+  powerpc: fix typos in comments
+  powerpc: fix repeated words in comments
 
+ arch/powerpc/include/asm/book3s/64/mmu-hash.h          |  8 ++++----
+ arch/powerpc/include/asm/book3s/64/radix.h             |  2 +-
+ arch/powerpc/include/asm/fsl_hcalls.h                  |  2 +-
+ arch/powerpc/include/asm/io.h                          |  2 +-
+ arch/powerpc/include/asm/machdep.h                     |  2 +-
+ arch/powerpc/include/asm/nohash/32/pte-8xx.h           |  2 +-
+ arch/powerpc/include/asm/pmac_feature.h                |  2 +-
+ arch/powerpc/include/asm/prom.h                        |  2 +-
+ arch/powerpc/include/asm/sfp-machine.h                 |  2 +-
+ arch/powerpc/include/asm/smu.h                         | 10 +++++-----
+ arch/powerpc/include/asm/task_size_64.h                |  2 +-
+ arch/powerpc/include/asm/uaccess.h                     |  2 +-
+ arch/powerpc/include/uapi/asm/bootx.h                  |  2 +-
+ arch/powerpc/kernel/eeh.c                              |  4 ++--
+ arch/powerpc/kernel/eeh_event.c                        |  2 +-
+ arch/powerpc/kernel/exceptions-64e.S                   |  2 +-
+ arch/powerpc/kernel/exceptions-64s.S                   |  4 ++--
+ arch/powerpc/kernel/fadump.c                           |  2 +-
+ arch/powerpc/kernel/irq_64.c                           |  2 +-
+ arch/powerpc/kernel/paca.c                             |  4 ++--
+ arch/powerpc/kernel/pci_dn.c                           |  2 +-
+ arch/powerpc/kernel/prom.c                             |  4 ++--
+ arch/powerpc/kernel/setup_64.c                         |  2 +-
+ arch/powerpc/kernel/signal_64.c                        |  2 +-
+ arch/powerpc/kernel/smp.c                              |  2 +-
+ arch/powerpc/kernel/switch.S                           |  2 +-
+ arch/powerpc/kexec/core_64.c                           |  2 +-
+ arch/powerpc/kvm/book3s_pr.c                           |  2 +-
+ arch/powerpc/kvm/book3s_xive.c                         |  8 ++++----
+ arch/powerpc/kvm/bookehv_interrupts.S                  |  2 +-
+ arch/powerpc/lib/copyuser_power7.S                     |  4 ++--
+ arch/powerpc/lib/memcpy_power7.S                       |  4 ++--
+ arch/powerpc/lib/rheap.c                               |  2 +-
+ arch/powerpc/mm/book3s64/hash_native.c                 |  6 +++---
+ arch/powerpc/mm/book3s64/hugetlbpage.c                 |  2 +-
+ arch/powerpc/mm/book3s64/radix_tlb.c                   |  4 ++--
+ arch/powerpc/mm/book3s64/slb.c                         |  4 ++--
+ arch/powerpc/mm/nohash/tlb.c                           |  2 +-
+ arch/powerpc/perf/imc-pmu.c                            |  2 +-
+ arch/powerpc/platforms/powermac/low_i2c.c              |  2 +-
+ arch/powerpc/platforms/powermac/pci.c                  |  2 +-
+ arch/powerpc/platforms/powermac/sleep.S                |  2 +-
+ arch/powerpc/platforms/powernv/opal-memory-errors.c    |  2 +-
+ arch/powerpc/platforms/powernv/opal.c                  |  2 +-
+ arch/powerpc/platforms/powernv/pci-ioda.c              |  2 +-
+ arch/powerpc/platforms/powernv/vas.h                   |  2 +-
+ arch/powerpc/platforms/ps3/platform.h                  |  4 ++--
+ arch/powerpc/platforms/pseries/firmware.c              |  4 ++--
+ arch/powerpc/platforms/pseries/papr_scm.c              |  4 ++--
+ arch/powerpc/sysdev/xics/xics-common.c                 |  2 +-
+ arch/powerpc/xmon/ppc-opc.c                            |  4 ++--
+ arch/powerpc/xmon/ppc.h                                |  2 +-
+ drivers/tty/hvc/hvc_opal.c                             |  2 +-
+ .../testing/selftests/powerpc/tm/tm-signal-msr-resv.c  |  2 +-
+ tools/testing/selftests/powerpc/tm/tm-tar.c            |  2 +-
+ 55 files changed, 79 insertions(+), 79 deletions(-)
 
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+-- 
+2.48.1
 
