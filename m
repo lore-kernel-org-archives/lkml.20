@@ -1,127 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from embla.dev.snart.me (embla.dev.snart.me [54.252.183.203])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E251429D;
-	Tue,  8 Sep 2026 00:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FF401E7C18
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:54:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.252.183.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788828711; cv=none; b=GvuM/7GVAcX06y3CCXRh5cguV5VGj1lXSdfvoiXIlaoFBuzpoUmQR1eOqidlyq5hsWtzXmp1iy3P8ITrBEG4F/wHtTcdeUjVk6uLg6lTqrp6hCW3/dFDJcdepPtHiFuvyJdFpbU8gM6QojN4Xg45oNwtdNIJxFsg9UNaZvtLOSI=
+	t=1788828843; cv=none; b=uBaqLrK7y3BafN9X2DgkVqRFe6poGBeNe56Y5tf1p5/GM6WvftzW6uphtrlaWBloPShxSTzE73xipweS+qaXga4LJbhlQ+r3qfOf8ImJJcPcAs8S3xo0fTVpmNd7HMEoVBvs/5KiRaaiR6HYgF6NuwzTKUSF/wuXrP368TZs4zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788828711; c=relaxed/simple;
-	bh=7ApgOXS7+Zc62TeYh/05EG4TAA8IiFgxmmXi2Gv0UiE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sN3c9gEZ+KHGA5CLu4a3oJ5f2FN6Ehrw3BUwN8Ru+T1l42YX0M8Re0QL5QKHdtV+1fRpLCoJiu5zz3sl2VpApZp/0b2gWg8Xv+OVrUzp2YcN/rIL6XElF3+ZxqlsW/BDgT8tm8kBRnr1MPviFfKemH6bXYKud7+pjBfPD7p3do8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwGYGMz6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788828843; c=relaxed/simple;
+	bh=++FzqTLaFYfr8wejQ/E4bIWtzv8cLWckoV/axWcXg4o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O+YJKFefP1oikQnsuvCZATbQ8I/3SjYLAEO3EOYlCUf6MNDou7u+2C8nykR6ttPg/OFaW2hEjR1Oj0ZXeIxhFQP211FU0QgDxAq36BNQhlfuLxpMGR8ou097PpJg/B8oW315dqyJQcViQz2mvki5zCwvFz4qEve34T2SQEeDYR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me; spf=pass smtp.mailfrom=dev.snart.me; dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b=qXAYM5Bu; arc=none smtp.client-ip=54.252.183.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dev.snart.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dev.snart.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwGYGMz6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 671F11F00A3A;
-	Tue,  8 Sep 2026 00:51:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788828710;
-	bh=vlSM9I+RRl9gXEOFgqKrbkaOZdEoPx1m6vVEOqLY5Xk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HwGYGMz6SbXwE/i05mqw9jutk5YGBRI2zTDNa7oDm3g6M4J53dpG6qJS4kq4vAyvM
-	 zwHq+6+XHmdtTKOr3lK8jI5vAGMAWeW81ydBEULaOevAf+bzfM/rbyHQgIBdIwS4X9
-	 ApXHf921HpKQEfXusMRhjMWPW81NjxkpGRtaOZvNqB7fzJmmCFL5H0JT3Kf0k1sHHg
-	 PQtNhqhkb/QMoYioAGI5jDARYRFDo+tOTPdZ/ehiNEhd6o0JALX1+Qx2/j5WB8uRl/
-	 hNPToP86LifPhQYT0esr6IFrB2Z88jtrBcnerNlhQejx2HGxSyqqBYo3LR9o/wXPJI
-	 5T5P+nqe2UAFw==
-Date: Tue, 8 Sep 2026 01:51:44 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Terry Bowman <terry.bowman@amd.com>
-Cc: Dave Jiang <dave.jiang@intel.com>, Alison Schofield
- <alison.schofield@intel.com>, Vishal Verma <vishal.l.verma@intel.com>,
- Davidlohr Bueso <dave@stgolabs.net>, "Bjorn Helgaas" <bhelgaas@google.com>,
- Dan Williams <djbw@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, <linux-cxl@vger.kernel.org>, Tony Luck
- <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, "Hanjun Guo"
- <guohanjun@huawei.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Shuai
- Xue" <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, Ira Weiny
- <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Shuah Khan
- <skhan@linuxfoundation.org>, Ben Cheatham <Benjamin.Cheatham@amd.com>,
- Richard Cheng <icheng@nvidia.com>, Robert Richter <rrichter@amd.com>,
- "Lukas Wunner" <lukas@wunner.de>, <linux-pci@vger.kernel.org>,
- <linux-acpi@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v20 1/9] PCI/AER: Introduce AER-CXL protocol error kfifo
-Message-ID: <20260908015144.62ee9c1c@jic23-huawei>
-In-Reply-To: <20260902133933.2992457-2-terry.bowman@amd.com>
-References: <20260902133933.2992457-1-terry.bowman@amd.com>
-	<20260902133933.2992457-2-terry.bowman@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=dev.snart.me header.i=@dev.snart.me header.b="qXAYM5Bu"
+Received: from embla.dev.snart.me (localhost [IPv6:::1])
+	by embla.dev.snart.me (Postfix) with ESMTP id 5D8251D452;
+	Tue,  8 Sep 2026 00:53:59 +0000 (UTC)
+DKIM-Filter: OpenDKIM Filter v2.11.0 embla.dev.snart.me 5D8251D452
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=dev.snart.me; s=00;
+	t=1788828840; bh=++FzqTLaFYfr8wejQ/E4bIWtzv8cLWckoV/axWcXg4o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=qXAYM5BumDrn7R130i07+H7AHV4oUZZ6dmD/AnA3n7Uo4OWjh67ZKIZMKY5EC3rw8
+	 PzLoHD740myIYEgqwwn400U8bBFbPIKYj+B8JfyONwggiGGMcAPOFRKSHQGQPXPEqD
+	 Lpswb7OFsOIarrmhQCLw0i3P2o7zilzODKaG2NTM=
+Received: from [192.168.1.18] ([182.226.25.243])
+	by embla.dev.snart.me with ESMTPSA
+	id l4rPAqdcn2r3egYA8KYfjw
+	(envelope-from <dxdt@dev.snart.me>); Tue, 08 Sep 2026 00:53:59 +0000
+Message-ID: <147c3770-bc3e-446c-8bc2-352418aeb1ea@dev.snart.me>
+Date: Tue, 8 Sep 2026 00:53:57 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] exfat: take bitmap_lock at the start of
+ exfat_alloc_cluster()
+To: Chi Zhiling <chizhiling@163.com>, exfat@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Cc: Namjae Jeon <linkinjeon@kernel.org>, Sungjong Seo
+ <sj1557.seo@samsung.com>, Yuezhang Mo <yuezhang.mo@sony.com>,
+ Chi Zhiling <chizhiling@kylinos.cn>
+References: <20260905054951.674766-1-chizhiling@163.com>
+ <20260905054951.674766-3-chizhiling@163.com>
+ <0eb35731-1d8f-4f46-9a0d-36a45ceccfb2@dev.snart.me>
+ <6d6c01f9-4cc2-4e63-a765-f735452e7eab@163.com>
+From: David Timber <dxdt@dev.snart.me>
+Content-Language: en-US, ko
+Autocrypt: addr=dxdt@dev.snart.me; keydata=
+ xjMEYmJg1hYJKwYBBAHaRw8BAQdAf5E+ri1XLtjqYbZdHOyc8oS+1/XJ5bSlbx5WHXmVBZzN
+ IERhdmlkIFRpbWJlciA8ZHhkdEBkZXYuc25hcnQubWU+wpQEExYKADwWIQQn/Jn96EMUaIoF
+ X+T/ldyyrZpWaAUCYmJg1gIbAwULCQgHAgMiAgEGFQoJCAsCBBYCAwECHgcCF4AACgkQ/5Xc
+ sq2aVmjJZwD8COjPlUwccrlRvbNQ6f87DWchtYO0o8W2DNRM3RLps0EA/jEhIbRV6AsyC8jr
+ 30Ut3aJ3/mO/6G4sLj7OvkEEBH0MzjgEYmJg1hIKKwYBBAGXVQEFAQEHQFpgtIgaByv9lIEY
+ EmpavMO0pYjtu7TMJynwdnGYkN9LAwEIB8J4BBgWCgAgFiEEJ/yZ/ehDFGiKBV/k/5Xcsq2a
+ VmgFAmJiYNYCGwwACgkQ/5Xcsq2aVmhFCwEA0kM9VyYB4bLCM7+SuXUUH+5Ec99Nj4RXxFad
+ Key9GuwA/2BZK6bNyrLSfEk2JDRoskqf7OIL0wa6JOD5SrBnMe8E
+In-Reply-To: <6d6c01f9-4cc2-4e63-a765-f735452e7eab@163.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On Wed, 2 Sep 2026 08:39:25 -0500
-Terry Bowman <terry.bowman@amd.com> wrote:
+On 9/7/26 08:04, Chi Zhiling wrote:
+[...]
+>
+> You mean one user has changed the fs, and others see the stale value
+> of used_clusters?
+>
+> For SMP (including NUMA), if a certain CPU changes the value of
+> used_clusters, then the caches of all other CPUs will be invalidated
+> and need to be refilled. This process is completed by the hardware,
+> see MESI protocol.
+My bad for taking NUMA as an example. I was just curious as to what you
+might have to say on this since the fix is kinda related to your patch.
 
-> CXL VH RAS handling requires the AER driver to hand off CXL protocol
-> errors to cxl_core for logging and recovery before PCIe AER recovery
-> tears down the device. Introduce pci/pcie/aer_cxl_vh.c to implement
-> this handoff via a kfifo-backed work item.
-> 
-> The producer, cxl_forward_error(), is gated by is_cxl_error() and
-> enqueues the error source PCI device and severity. cxl_core registers a
-> consumer via cxl_register_proto_err_work(); the consumer drains the
-> kfifo with for_each_cxl_proto_err(). For uncorrectable errors,
-> cxl_proto_err_wait_for_empty() lets the AER path block until the CXL
-> plane has finished so recovery does not race device teardown.
+I was just pointing out that there's a minor race condition in
+exfat_statfs(). I used NUMA as an example because the delay through the
+interconnect would make the cache coherency problem worse. btw, I think
+the MESI protocol only covers cache. It has no control over the
+execution flow of processors.
 
-Do we need most of this last paragraph?
-Maybe the bit about letting AER block but the rest smells like implementation
-details to me with no info on 'why' or anything unexpected.
-> 
-> A rwsem serializes registration, deregistration, enqueue, and dequeue
-> against concurrent AER IRQ threads; a spinlock serializes concurrent
-> kfifo writers. is_aer_internal_error() moves into this file and now
-> evaluates info->status & ~info->mask rather than the raw info->status,
-> so a masked internal-error bit is treated as not-set. For the RCH RCEC
-> path this is equivalent because cxl_rch_enable_rcec() first calls
-> pci_aer_unmask_internal_errors(), which clears those mask bits in
-> hardware before the AER status is read back.
-> 
-> A subsequent patch wires cxl_forward_error() into handle_error_source().
-> 
-> Add MAINTAINERS entries for aer_cxl_vh.c and aer_cxl_rch.c under the CXL
-> entry.
+I might have an access to a real NUMA hardware that I can test my
+reproducer on. I'll report back with a patch if I can actually reproduce
+it. Thanks anyways.
 
-I couldn't immediately find any discussion about switching away from panic
-on a kfifo overflow.  Was there a reply to an earlier version with a
-discussion of that?  I'm not against the change but a 'why' 
-here would be good to have.
-
-> 
-> Co-developed-by: Dan Williams <djbw@kernel.org>
-> Signed-off-by: Dan Williams <djbw@kernel.org>
-> Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-One trivial thing inline to add to Ben's nits.
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-
-> +/**
-> + * Callback for processing a CXL protocol error from the AER-CXL kfifo.
-> + */
-> +typedef void (*cxl_proto_err_fn_t)(struct cxl_proto_err_work_data *wd);
-> +
-> +void cxl_register_proto_err_work(struct work_struct *work,
-> +				void (*flush)(void));
-
-Align to after the ( Looks to be 1 space short. If this is a local
-style thing ignore me ;)
-
-> +void for_each_cxl_proto_err(struct cxl_proto_err_work_data *wd,
-> +			    cxl_proto_err_fn_t fn);
-> +void cxl_unregister_proto_err_work(void);
-> +#endif
-> +
->  void pci_print_aer(struct pci_dev *dev, int aer_severity,
->  		    struct aer_capability_regs *aer);
->  int cper_severity_to_aer(int cper_severity);
-> 
-> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-
+Davo
