@@ -1,116 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AC0580387;
-	Tue,  8 Sep 2026 16:23:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2859A5803B7;
+	Tue,  8 Sep 2026 16:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884609; cv=none; b=cGsm2qnikbAePFjvCyu+7Da2pi12R13ilrUt9WhFS1LJwM04871ylxPIXp6XZf5wjTdnu5QsV1m0cGUmddxFv5cTCCIwGjQlS1wcFnt2GJzt1ceCNuLaKErRG+Jq890PWGM/hzsg2gHNWhpP+HxDDqUV4ziYf3MxBTu0/tMh9+Y=
+	t=1788884611; cv=none; b=a1YnhgRJRK05ZkgpWgcYjRyjjWUNrptlOUlr6siTaaiFsodHpxd1r/1XyPM8oVaIg8XOd61QtIscRvdsXlsbBHiZRHkOl7+vAtI++jIz4pceCSPflFgk3fPKlKyPGCXTpZrWIPgF6XK7T8wVhMqxOXtBd+YVUuuRXtzf+cFYjFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884609; c=relaxed/simple;
-	bh=hub5blECutfizzP3hRGexeRhZ5of1o9nSPjFK5WWoKU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VcRTQSlkMeixWk6IOFye04/0BNFO3dxnEjq+2HQyQjhcZ0ExV9/rMCsuYMLdEX6iHF8fBiRQUhw54aA2nQPLeEjCOyjDZT2vtSfxW+OQOWI/h0TQJ0c1caQpe5pk8qURYyDOJ6zYUmyQTc/5AG1MSqg1G747hkzGpBd0Hxb44RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YG4Y+Wt3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788884611; c=relaxed/simple;
+	bh=W2yWocIjX/1lSG41m89vduKUKYOsNpQW6LsSskrDhH8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ujgsk6kPswaXca8LTqBhZfp8mqLog0s9bTQwZEbeg1sv9SC7BLVny3yEQdQ6us+BlagZXneNC87F5FcaNpks9KBEeWnA94vUiWXUTbnNksSqgh45AZOMgs/UmQp8I8jczeQn53EG+MertOP357uNtM+3gSYqu2B2+mTi+rt6XcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C/02/NQ7; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YG4Y+Wt3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7139C1F00A3E;
-	Tue,  8 Sep 2026 16:23:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884607;
-	bh=/HXYrbgclYu58RuX0QSm6jSDZFolOyDdWjKM7pSOK80=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YG4Y+Wt3V5bhywm4t3ehe2TVwNWw8ZKVGEMXVpEq7x9UhJmXsHXEm7cZP9mO2b6N1
-	 SGN2Ep555PkW8ZNGjU83f9gLxMbcGYPboa+pTcIH0ip1UliNWbOFMHxOf6HOfrRya/
-	 6gImKNIxC525JNsQEFp15RhmAdaIIodt2yCkUwY1GiUFP1wbVBWy8n0RikTBzhaPxq
-	 +WgAQDCEUqyDC8XlOWaR8Y8uBQiI2lPb2xcbzC9qjPWLnGUY3HenmwB3mE74Ay5Wjm
-	 dlCh5DUmR1hvN0M9j7fSk2kg1McJLVWoTEqvMqt6MDEoc5JT3ZkkYGwt9tGPNr9GLD
-	 1cwQoaHVn0EQw==
-Message-ID: <331c0f09-5d81-4cb8-9728-5b13c252540e@kernel.org>
-Date: Tue, 8 Sep 2026 18:23:23 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C/02/NQ7"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D2DAF1477;
+	Tue,  8 Sep 2026 09:23:24 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 356B33F7B4;
+	Tue,  8 Sep 2026 09:23:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788884608; bh=W2yWocIjX/1lSG41m89vduKUKYOsNpQW6LsSskrDhH8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C/02/NQ71e7kEfL+DYbaJceFhyRvQa7eVvAYwvfxkW3wXxUNeydtcGDoxcGzimu2b
+	 f0rnHpbKFLqCBQrtJ/a7dn+aEA3mMqvBmxQcYvLKLq/7ImxMPMkj1tY4SqXkxyEMEV
+	 rLo3UfobC5k9KyJtN8fQpcyleSowUCWy8shC18nw=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v17 11/20] KVM: arm64: coco: Don't handle MMIO with no ISV
+Date: Tue,  8 Sep 2026 17:22:14 +0100
+Message-ID: <20260908162223.1683432-12-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+References: <20260908162223.1683432-1-suzuki.poulose@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource
- conflict quirk
-To: "D. Manresa" <dmanresa@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: Thierry Chatard <tchatard@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Daniel Scally <dan.scally@ideasonboard.com>, linux-kernel@vger.kernel.org,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260831160754.9857-2-tchatard@gmail.com>
- <20260908161629.335223-1-dmanresa@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260908161629.335223-1-dmanresa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Generalize the MMIO with no ISV handling to confidential guests.
 
-On 8-Sep-26 18:16, D. Manresa wrote:
-> The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
-> the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
-> variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
-> same variable, so intel_lpss_acpi fails to bind the controller with
-> -EBUSY and the front camera sensor (OV5670, INT3479) is never registered
-> unless acpi_enforce_resources=lax is passed.
-> 
-> Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
-> applied to INT3446 on it as well.
-> 
-> Assisted-by: Claude Code:claude-fable-5-1
-> Signed-off-by: D. Manresa <dmanresa@gmail.com>
+Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+---
+ arch/arm64/kvm/mmio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-
-Regards,
-
-Hans
-
-
-
-> ---
-> Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
-> Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
-> to fold this into v11 instead if you prefer.
-> 
-> The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
-> OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
-> returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
-> has the same effect as the quirk, the controller binds and the camera
-> works with the board data from "platform/x86: int3472: Add TPS68470 board
-> data for Dell Latitude 7275" [2]. The distribution kernel here builds
-> intel-lpss-acpi in, so this exact patch has not been run yet.
-> 
-> [1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
-> [2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
-> 
->  drivers/mfd/intel-lpss-acpi.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> --- a/drivers/mfd/intel-lpss-acpi.c
-> +++ b/drivers/mfd/intel-lpss-acpi.c
-> @@ -191,6 +191,12 @@ static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
->  			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
->  		},
->  	},
-> +	{
-> +		.matches = {
-> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7275"),
-> +		},
-> +	},
->  	{ }
->  };
->  
+diff --git a/arch/arm64/kvm/mmio.c b/arch/arm64/kvm/mmio.c
+index d1c3a352d5a22..bbcf52f01e912 100644
+--- a/arch/arm64/kvm/mmio.c
++++ b/arch/arm64/kvm/mmio.c
+@@ -168,14 +168,14 @@ int io_mem_abort(struct kvm_vcpu *vcpu, phys_addr_t fault_ipa)
+ 	 * No valid syndrome? Ask userspace for help if it has
+ 	 * volunteered to do so, and bail out otherwise.
+ 	 *
+-	 * In the protected VM case, there isn't much userspace can do
++	 * In the protected/Realm VM case, there isn't much userspace can do
+ 	 * though, so directly deliver an exception to the guest.
+ 	 */
+ 	if (!kvm_vcpu_dabt_isvalid(vcpu)) {
+ 		trace_kvm_mmio_nisv(*vcpu_pc(vcpu), esr,
+ 				    kvm_vcpu_get_hfar(vcpu), fault_ipa);
+ 
+-		if (vcpu_is_protected(vcpu))
++		if (vcpu_is_confidential(vcpu))
+ 			return kvm_inject_sea_dabt(vcpu, kvm_vcpu_get_hfar(vcpu));
+ 
+ 		if (test_bit(KVM_ARCH_FLAG_RETURN_NISV_IO_ABORT_TO_USER,
+-- 
+2.43.0
 
