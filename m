@@ -1,100 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224C655409F;
-	Tue,  8 Sep 2026 15:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424A749550A;
+	Tue,  8 Sep 2026 15:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880960; cv=none; b=MXUjvOtHviscDmSaypgc73ybpJK+wEnnP9lghYF0t4+j8joBsgfCLdoqYt5u6qDU+BP1MztwKIjvQK6Uu1r5+bNE2U4bLKoKsvJtm5VZzbD3hdQvcpOEPIk32D/SnXKB+HKHHP9LeEQdQEATyF4celSFxNYSMHcShjayUHMsjog=
+	t=1788880972; cv=none; b=nUV0AKuYPk/cKKivVweCMyhZxCf51c2t8tq0//7yr+xEnrrsYKm202AltqSczIhhygSs9mUtTSbA3JDl05Ayhc3IhE660o2IErg9mtOP3VjJuBJFlbCjSC3nIoeJzx7RlqMi4FyYEr3IBqlypgcLCbD3/Q1cdBE4szdJc6/8i8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880960; c=relaxed/simple;
-	bh=gj7JIuERcOTGR68Njp+98tTAK6VQecEwQn+jCmaVA3k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HWW8LF3NDgpFwjKT6teSKdaJjlJQuSAc1h28YsZyDFOM8gVl5O7h087CbLouk2pV10BSZhX/qQBCaSUf8mJk7h7Cmlx8CMY9Z12Wq16e2iMr2mkITWiItq5qB7jrcxYYjRhiNEE/AvMtRzL4fQ12EP3qvEuK0ddlI4X/Z96+O1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WPbAemoO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788880972; c=relaxed/simple;
+	bh=mTGBytBy30yR2n8RIN0aGhOmetmxyZc7H67s2rG2XKU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AmsTi/bMmiXwVMU9Vtt8pQlRRztIeuIbRkJe+++Xi+xQ933yJVXMaD2ziDGB8BiG23JptxExw6gxYH1MAbS6x7wsGL81VDz98la2CyXfy/MI2fSGR6+IfnaBpyeLczjQMcDtfxvsZSIm1DxyDmcAqBOVjkiqvBCMpqE0GB2UOnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=PnRRoogu; arc=none smtp.client-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WPbAemoO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21A021F00A3A;
-	Tue,  8 Sep 2026 15:22:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788880951;
-	bh=cHMBp6i7INBNLIc6sx2XBcLlbWaM9vvHRGdTgduCTYE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WPbAemoOa8A4rITV/C6EFYULS6YrhsmJV0nmbdSVox1ASEKctBaAF25WpPDsm8/WF
-	 BMhTevd1GC2jEu1gmQrUW5ArJZ3g20w7T5GRraXS2CgVAWWjQTzW4WUTEF/5Ekgi7F
-	 TfHymkLf4XcMDxrYW3wNhYoVx2fZHTte0dV6NlGf37d6rmMGGP7OqL8uRkiphtLM2I
-	 CMwZwjSiu+9Ru5O5sUhI35tdiZrXJZDFBe/59lPN64X/Gq418orK+V+OF7Uhe75oz9
-	 nHhs8xm0GPzqI2jOxAfC2xME42bZXAHyK4GLLFs3Zno9uM2nKdrluU9eJB7tdUyTOG
-	 LXTABEgO4T6uw==
-Date: Tue, 8 Sep 2026 16:22:27 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
-	Intel Graphics <intel-gfx@lists.freedesktop.org>,
-	DRI <dri-devel@lists.freedesktop.org>,
-	Alex Huang <Alex.Huang2@amd.com>,
-	Mario Limonciello <superm1@kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <fba3bcaf-628e-46a2-9c81-c8beee5e5e07@sirena.org.uk>
-References: <aqAVSgsypMch2c0v@sirena.org.uk>
- <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
- <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="PnRRoogu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1788880952;
+	bh=Ll8O7/oSDXteWBBd8gjtRbrrqAVJ9v6gypCgNt3Ws/M=;
+	h=From:To:Cc:Subject:Date:From;
+	b=PnRRooguu8xbF24LY4+G/MqRn42L01zfQiqXRVVKi+/+Bgn6huwl7DU0FWDyPTlHd
+	 LYSxX4waxbG+rNeEWCffC3W1kTUskMCwsadwdhqd5hJXfPPJE/2zjyDa3SOqVZNql2
+	 ISQcDMf8x9Ix/xyj1WoJV8CfURQAUTS7gffCFkoC/WbyyMZFCoyXwctdj/nq8XJpSg
+	 2J+uLReOcZFzQrsRQtypCLZsoU1fF9CO4ro4A7Q+MVZkCOeMb+kfH/fuXRSyQ+X5w+
+	 UKkUIKXwVpCB/4H169AOPbVX9qAlIOc8rr8SWT6mTivwPF5H2kgKZmY3b/u7Vw+K9t
+	 mvLUrDi2/y9mw==
+Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hfSNl75KlzY3s;
+	Tue, 08 Sep 2026 11:22:31 -0400 (EDT)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	kernel test robot <yi1.lai@intel.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	Boqun Feng <boqun@kernel.org>,
+	rcu@vger.kernel.org,
+	lkmm@lists.linux.dev
+Subject: [PATCH] hazptr: handle NULL address in hazptr_detach
+Date: Tue,  8 Sep 2026 11:22:14 -0400
+Message-ID: <20260908152228.4154-1-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tEWCGMc5H55jZNzj"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
-X-Cookie: The world is not octal despite DEC.
+Content-Transfer-Encoding: 8bit
 
+When hazptr_acquire loads a NULL pointer, it sets:
 
---tEWCGMc5H55jZNzj
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+- slot_item->slot.addr = NULL,
+- slot_item->ctx.ctx = ctx
+- ctx->slot = slot
 
-On Tue, Sep 08, 2026 at 11:15:36AM -0400, Alex Deucher wrote:
-> On Tue, Sep 8, 2026 at 10:07=E2=80=AFAM Mark Brown <broonie@kernel.org> w=
-rote:
+And it returns NULL.
 
-> > > Caused by commit
+Then hazptr_detach is called on this ctx, it will act on the ctx as if
+needed to be promoted to backup slot, even though it has a NULL addr.
 
-> > >    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common=
- EDID parser)
+Looking at what hazptr_note_context_switch() does before promoting
+to backup slot, it checks for a NULL slot->addr, which is exactly
+what is missing from hazptr_detach.
 
-> > Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
+With this in place there would be no need to explicitly check the
+hazptr_acquire() return value before calling hazptr_detach().
 
-> > > I have continued to use the version from next-20260831 instead.
+hazptr_release() has a early return check for NULL addr as well, so it
+makes sense that detach does an early return (no-op) similarly.
 
-> Fixed here:
-> https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/730c6d8072d8d9a6d=
-bfd06c7c5ab4479167a792a
+Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
+Reported-by: kernel test robot <yi1.lai@intel.com>
+Closes: https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Cc: Paul E. McKenney <paulmck@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>
+Cc: Bradley Morgan <brads@mainlining.org>
+Cc: <rcu@vger.kernel.org>
+Cc: <lkmm@lists.linux.dev>
+---
+ include/linux/hazptr.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Thanks for getting on top of this so quickly.  This also suggests that
-there's some issues with the setup of your KUnit tests and those of drm
-in general, kunit is run as part of the coverage for -next and didn't
-trip up.  --alltests is enabled so everything coverable should be being
-covered but I see a distinct lack of any DRM stuff getting run.
+diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+index 43122c5673bd..d1670121947a 100644
+--- a/include/linux/hazptr.h
++++ b/include/linux/hazptr.h
+@@ -160,10 +160,12 @@ void hazptr_detach(struct hazptr_ctx *ctx)
+ 	struct hazptr_slot *slot;
+ 
+ 	guard(preempt)();
++	slot = ctx->slot;
++	if (!slot->addr)
++		return;
+ #ifdef CONFIG_HAZPTR_DEBUG
+ 	ctx->detach_task = ctx->detach_cpu = true;
+ #endif
+-	slot = ctx->slot;
+ 	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
+ 		return;
+ 	hazptr_promote_to_backup_slot(ctx, slot);
+-- 
+2.43.0
 
---tEWCGMc5H55jZNzj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgKDIACgkQJNaLcl1U
-h9DM2Af/f0C7C3wM/y2X3P+8Jnhe6naxs8ZefQH9Pm1AMtKE2mBHDy/R5TjgwazT
-Rvg35scV34k4ko7zkfZHdnHVgeZthGEzpSde2unAcMyScx/40fUiTvlbdnIdV+R+
-EHohf59bUkGIlRfDPujG3UKQh8UI+l+D/3nQtJE7PMkzScjMz4BpCiMt15fZMJAj
-WKXomzVtJ6ndTdb0YHUo/+JyO2sZFrXfZ3i8m8d6riz3yw8DUGujgb94v+jZ7LXw
-U36CB7ufEv+fBf+QaUriPqs3+YgrUYwC5azOpshC2ZSmVcl6Sjzzl0gHdzvpv+B+
-5w+TiujVd1NpQm8WTVdRFOmS2XvMAQ==
-=aJXx
------END PGP SIGNATURE-----
-
---tEWCGMc5H55jZNzj--
