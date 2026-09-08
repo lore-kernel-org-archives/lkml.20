@@ -1,200 +1,168 @@
-Received: from elvis.franken.de (elvis.franken.de [193.175.24.41])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF57C4E80A3;
-	Tue,  8 Sep 2026 14:17:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.175.24.41
+Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B301F91E3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877029; cv=none; b=E5Hessedw5xh+bZdYeHsng1Q/QkRQcpwBs7uLp2z2LgSJqxIuG0qM4QNeRzK4fewX+JiaUa5V+SbFx/8ZgsKJDZPboKwWiuuMTL0TSGGgSG3dNYEf/WZ2Xe3mjtM9vmpZTh+Srsd8jdpfdtHPyAMiGddXfHfzJxKfblJcMOaH30=
+	t=1788877045; cv=none; b=arUmfyo9/zr9AogP7QoIrO5N/A5Y1pdkG3wR9QR9tqD/nLRX9PMKA2Dn6675F/W9ElG/GM+UNxWHQseIjX7D662488qXGQAQpINXs4Hm0vMQbp9aEJHh+Rwc9+F+1Sx/QKP2ChZzYnbDFYzvVqx9QIQINEbMrLeGw9wv2udLRI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877029; c=relaxed/simple;
-	bh=dl5AWU68BS2Ezaxw2/gJ0EKanb2dZsb9bAtoK2VloU4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WiN6meD7lwo85vfM2TxEk2K1K1BqFrI8GhPjjOIQ/nGq2dS3I/jvzYo+43oAWjB15r7NIb5FCmzz9NNHg16AoKdxYBZZTQC6aL7ik5oXAGRacxYJNrdrIpInxJDvZJI1NosOMfiVWPhG2m6ccjHnvd3e/vtuD/UxoaVWNSjkmt4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de; spf=pass smtp.mailfrom=alpha.franken.de; arc=none smtp.client-ip=193.175.24.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alpha.franken.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alpha.franken.de
-Received: from uucp by elvis.franken.de with local-rmail (Exim 3.36 #1)
-	id 1x3wd3-0002fj-00; Tue, 08 Sep 2026 16:16:53 +0200
-Received: by alpha.franken.de (Postfix, from userid 1000)
-	id A40BCC0155; Tue,  8 Sep 2026 16:16:41 +0200 (CEST)
-Date: Tue, 8 Sep 2026 16:16:41 +0200
-From: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
-To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
-Cc: Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	=?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mips: select CONFIG_WEAK_REORDERING_BEYOND_LLSC from
- CONFIG_EYEQ
-Message-ID: <aqAYyd1uwh1mJOwY@alpha.franken.de>
-References: <20260828-eyeq-reordering-llsc-v1-1-0c5a69fc5124@bootlin.com>
+	s=arc-20240116; t=1788877045; c=relaxed/simple;
+	bh=AtllziWAEBylwDOWuicoRwDn5AZurYw0+Fy/xhiHsj0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=drmTlgd3rNQ7fvIpG57Y10KvLIOQPZ6NSSEp4GuHukC0aDyDEsvH/lKUo4CCrXZxK7IuSF1vYwd61GqKpf6TDXMTnRc5Eteo+RZKssfaYWuci9yISNYdTUTRDg1QBpuzMpsTcEtFM8F6GuP8QTVLzu6zceDCDssUfEbcEj/KxoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Tz8t8nLj; arc=none smtp.client-ip=95.215.58.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Tz8t8nLj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AtllziWAEBylwDOWuicoRwDn5AZurYw0+Fy/xhiHsj0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788877029; v=1; x=1789481829;
+ b=Tz8t8nLj+OIB9JqmyuLa1vS3oBTrhaxt6P2PAJreFOoYu6Tliy+E1/xloyjhW5CtYLpocr1G
+ VU03NoMwczbXQQvEWGEtnGPIb5g7QOeRlgJt1P+boVVKma+6hmj9P/sLJRseFA4jmuWJ8vtuw69
+ BUuQWaZSBwq5/2w1LsugUhkg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id a34898e233871779;
+	Tue, 08 Sep 2026 14:17:09 +0000
+X-Mizu-Trace-ID: a34898e233871779
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260828-eyeq-reordering-llsc-v1-1-0c5a69fc5124@bootlin.com>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a7ff6faabc94381f35eb70cb994205d1a66fcd018b82abba28681d1ee3fa;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 08 Sep 2026 22:16:56 +0800
+Message-Id: <DL9ZZ8F7HTZT.1IUMD1ECSOZXL@linux.dev>
+Cc: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>, "Troy
+ Mitchell" <troy.mitchell@linux.dev>
+Subject: Re: [PATCH v2] usb: dwc3: core: resume xHCI child on runtime resume
+ in host mode
+From: "Troy Mitchell" <troy.mitchell@linux.dev>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Thinh Nguyen"
+ <Thinh.Nguyen@synopsys.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260908-resume-xhci-v1-1-aca107602e9c@linux.spacemit.com>
+In-Reply-To: <20260908-resume-xhci-v1-1-aca107602e9c@linux.spacemit.com>
 
-On Fri, Aug 28, 2026 at 04:07:33PM +0200, Théo Lebrun wrote:
-> On I6500 CPU cores, lld and scd give no ordering guarantees (same as all
-> other instructions). To respect the assumption that arch_cmpxchg() is
-> fully ordered, we must inject sync instructions above and below our
-> lld/scd loops using the already in place WEAK_REORDERING_BEYOND_LLSC
-> infrastructure.
-> 
-> Otherwise, bad things can happen:
-> 
-> [   34.054496] CPU 3 Unable to handle kernel paging request at virtual address 0000000000000000, epc == a80000080838e01c, ra == a80000080838dfc4
-> [   34.054559] Oops[#1]:
-> [   34.069561] CPU: 3 UID: 0 PID: 170 Comm: pipe_race Not tainted 7.2.0-rc6-01553-gb73c35220968-dirty #103 VOLUNTARY
-> [   34.079932] Hardware name: Mobile EyeQ5 MP5 Evaluation board
-> [   34.085592] $ 0   : 0000000000000000 0000000000000001 0000000000000000 0000000000000000
-> [   34.093616] $ 4   : a800000808ee2618 000000000b7a879d 0000000000001000 0000000000000000
-> [   34.101638] $ 8   : 0000000000e3f2c9 0000000000000000 a800000808a2a9f8 0000000000000000
-> [   34.109660] $12   : a8000008139ffcd8 ffffffff84080018 a80000080837fae0 7878787878787878
-> [   34.117682] $16   : a800000807e82940 0000000000001000 0000000000000000 0000000000000000
-> [   34.125704] $20   : a800000802920e00 a8000008139ffdf8 a800000802649400 0000000000e3f2c9
-> [   34.133726] $24   : 0000000000000006 00000001200406e0
-> [   34.141783] $28   : a8000008139fc000 a8000008139ffd10 0000000000e3f2c8 a80000080838dfc4
-> [   34.149837] epc   : a80000080838e01c anon_pipe_read+0xd4/0x428
-> [   34.155697] ra    : a80000080838dfc4 anon_pipe_read+0x7c/0x428
-> [   34.161549] Status: 140000e3  KX SX UX KERNEL EXL IE
-> [   34.166551] Cause : 40800408 (ExcCode 02)
-> [   34.170574] BadVA : 0000000000000000
-> [   34.174161] PrId  : 0001b028 (MIPS I6500)
-> [   34.178183] Process pipe_race (pid: 170, threadinfo=000000005ca35720, task=00000000e1013890, tls=000000014ebbb780)
-> [   34.188568] Stack : a800000802649400 0000000000000000 0000000000000000 a8000008139ffdd0
-> [   34.196623]	 0000000000000fba a800000808ee0000 0000000000000001 a8000008130c3e80
-> [   34.204676]	 a8000008080d1280 a8000008139ffd58 a8000008139ffd58 1dbd2b22ea1dd500
-> [   34.212729]	 a800000802649400 a800000808ee0000 ffffffffffffffea 0000000000000001
-> [   34.220783]	 0000000000001000 0000000000000000 00000001200ae518 ffffffffffffffff
-> [   34.228836]	 000000fffbe0e530 a80000080837edf4 000000fffbe0e530 0000000000000000
-> [   34.236890]	 0000000000000000 0000000000000000 000000014ebb55a0 0000000000001000
-> [   34.244943]	 0000000000000001 a800000802649400 0000000000000000 0000000000000000
-> [   34.252996]	 0000000000000000 0000400400000000 0000000000000000 1dbd2b22ea1dd500
-> [   34.261049]	 00000000140000e3 a800000802649400 a800000802649400 a800000808ee0000
-> [   34.269103]	 ...
-> [   34.271568] Call Trace:
-> [   34.274026] [<a80000080838e01c>] anon_pipe_read+0xd4/0x428
-> [   34.279533] [<a80000080837edf4>] vfs_read+0x25c/0x318
-> [   34.284607] [<a80000080837faac>] ksys_read+0x104/0x138
-> [   34.289763] [<a80000080802b9cc>] syscall_common+0x44/0x68
-> [   34.295187]
-> [   34.296689] Code: f84000cf  02209825  de020010 <dc420000> d8400004  02002825  0040f809  02802025  f84000c3
-> [   34.306504]
-> [   34.308099] ---[ end trace 0000000000000000 ]---
-> 
-> My initial reproducer was the xdp-tools test suite. A standalone
-> reproducer would be an lld/scd loop that, when the read is reordered by
-> the CPU, triggers a fault. We can achieve this from userspace by
-> stressing an anonymous pipe, which uses a mutex. Program used:
-> 
-> 	// SPDX-License-Identifier: GPL-2.0
-> 	// pipe_race.c - reproducer for MIPS LL/SC reordering vs fs/pipe.c
-> 	//
-> 	// Two userspace processes on an anonymous pipe:
-> 	//   parent  = writer: tight write() loop
-> 	//   child   = reader: tight read() loop
-> 
-> 	#define _GNU_SOURCE
-> 	#include <assert.h>
-> 	#include <errno.h>
-> 	#include <sched.h>
-> 	#include <signal.h>
-> 	#include <stdio.h>
-> 	#include <stdlib.h>
-> 	#include <string.h>
-> 	#include <sys/types.h>
-> 	#include <sys/wait.h>
-> 	#include <time.h>
-> 	#include <unistd.h>
-> 
-> 	int main(void)
-> 	{
-> 		long wrsize = 70;	// bytes per write()
-> 		long rdsize = 4096;	// bytes per read()
-> 		int pfd[2];
-> 		char *buf;
-> 		pid_t pid;
-> 		int ret;
-> 
-> 		ret = pipe(pfd);
-> 		assert(!ret);
-> 
-> 		pid = fork();
-> 		assert(pid >= 0);
-> 
-> 		if (pid == 0) {			/* reader */
-> 			close(pfd[1]);
-> 			buf = malloc(rdsize);
-> 			assert(buf);
-> 			for (;;) {
-> 				ssize_t n = read(pfd[0], buf, rdsize);
-> 
-> 				if (n < 0 && errno == EINTR)
-> 					continue;
-> 				if (n <= 0)
-> 					_exit(n < 0 ? 1 : 0);
-> 			}
-> 		}
-> 
-> 		close(pfd[0]);			/* writer */
-> 		buf = malloc(wrsize);
-> 		assert(buf);
-> 		memset(buf, 'x', wrsize);
-> 
-> 		for (;;) {
-> 			ssize_t n = write(pfd[1], buf, wrsize);
-> 
-> 			if (n < 0 && errno == EINTR)
-> 				continue;
-> 			if (n != wrsize)
-> 				break;
-> 		}
-> 
-> 		kill(pid, SIGKILL);
-> 		wait(NULL);
-> 		return 0;
-> 	}
-> 
-> Fixes: fbe0fae601b7 ("MIPS: mobileye: Add EyeQ6H support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+--a7ff6faabc94381f35eb70cb994205d1a66fcd018b82abba28681d1ee3fa
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+
+On Tue Sep 8, 2026 at 10:01 PM +08, Junzhong Pan wrote:
+> USB controller runtime suspend halts the controller on disconnection.
+> It relies on platforms with custom connection notification to start
+> the controller again.
+>
+> The host branch of dwc3_runtime_resume() does nothing currently. There
+> are two paths that can trigger a runtime resume of the dwc3 core in
+> host mode:
+>
+> (a) Wake lands on the xHCI child (DT platforms, e.g. Qualcomm, i.MX8MP)
+>     A platform wakeup IRQ fires and the glue handler calls
+>     pm_runtime_resume(&xhci->dev). Runtime PM walks upward, resumes
+>     the dwc3 parent first, then resumes xHCI. Both wake correctly.
+>
+> (b) Wake lands on the dwc3 parent (ACPI platforms)
+>     When an ACPI Notify(ACPI_NOTIFY_DEVICE_WAKE) targets the dwc3
+>     parent device -- for example via a Generic Event Device on a
+>     hardware-reduced platform where dwc3 is enumerated as an ACPI
+>     device without a glue driver -- the ACPI core turns this into
+>     pm_request_resume(dwc3_dev). Runtime PM does not propagate resume
+>     downward, so the xHCI child stays suspended. Root hub polling is
+>     never re-armed, and a device plugged in while suspended is silently
+>     dropped.
+>
+> This patch fills in the host branch to cover case (b) by requesting an
+> async resume of the xHCI child so xhci_resume() can restore the port
+> state machine and re-arm root hub polling. Glue drivers in case (a)
+> resume xHCI directly, an extra call introduced by this change, but
+> runtime PM can serialize those requests and skip device already active,
+> so the extra resume call is safe. Those calls can be replaced with
+> resume calls to dwc3 device later.
+>
+> Tested on SpacemiT K3 Pico-ITX, covering both wakeup paths: an ACPI
+> boot with a GED device notifying the dwc3 node (HID 808622B7), and a
+> DT boot with a modified dwc3-generic-plat driver exposing a wakeup IRQ
+> similar to dwc3-qcom.c and dwc3-imx8mp.c. This is not validation on
+> actual Qualcomm or i.MX8MP hardware, changing those drivers would still
+> need platform-specific testing.
+>
+> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Assisted-by: Opencode:claude-opus-5
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
 > ---
->  arch/mips/Kconfig | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
-> index e2eb9627bd14..5713a7e325dc 100644
-> --- a/arch/mips/Kconfig
-> +++ b/arch/mips/Kconfig
-> @@ -661,6 +661,7 @@ config EYEQ
->  	select USB_UHCI_BIG_ENDIAN_MMIO if CPU_BIG_ENDIAN
->  	select USE_OF
->  	select HOTPLUG_PARALLEL if HOTPLUG_CPU
-> +	select WEAK_REORDERING_BEYOND_LLSC
->  	help
->  	  Select this to build a kernel supporting EyeQ SoC from Mobileye.
->  
-> 
+> Changes since RFC:
+> - add Assisted-By tag and collect tag
+> - refine the commit message and comments as suggested
+>
+> Link to RFC: https://lore.kernel.org/linux-usb/20260811090817.109350-1-pa=
+njunzhong@linux.spacemit.com/
+> ---
+>  drivers/usb/dwc3/core.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index fd5c2cd36c59..76883dc6184c 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
+> @@ -2739,6 +2739,18 @@ int dwc3_runtime_resume(struct dwc3 *dwc)
+>  		}
+>  		break;
+>  	case DWC3_GCTL_PRTCAP_HOST:
+> +		/*
+> +		 * Only the xHCI child's resume re-arms root hub polling, which
+> +		 * is what rediscovers a device plugged in while suspended.
+> +		 * Runtime PM doesn't resume children, so request it here.
+> +		 * Keep it asynchronous to avoid waiting for the parent's resume
+> +		 * callback to finish from inside it. Glue drivers may also
+> +		 * resume xHCI directly, but runtime PM will serialize those
+> +		 * requests and skips an already-active device.
+> +		 */
+> +		if (dwc->xhci)
+> +			pm_request_resume(&dwc->xhci->dev);
+> +		break;
+Could we also check a parent-only resume with no USB wake event? For
+example, reading the DWC3 debugfs lsp_dump file calls
+pm_runtime_resume_and_get(dwc->dev). With both devices suspended, this
+change would wake xHCI too.
 
-applied to mips-fixes
+Would both devices return to autosuspend after the read and still
+detect a subsequent plug-in? This would help cover the non-wakeup
+case.
+>  	default:
+>  		/* do nothing */
+>  		break;
+>
+> ---
+> base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> change-id: 20260908-resume-xhci-0fa34ff9b332
+>
+> Best regards,
 
-Thomas.
 
--- 
-Crap can work. Given enough thrust pigs will fly, but it's not necessarily a
-good idea.                                                [ RFC1925, 2.3 ]
+--=20
+Troy Mitchell
+
+
+--a7ff6faabc94381f35eb70cb994205d1a66fcd018b82abba28681d1ee3fa
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqAY2CEcdHJveS5taXRj
+aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC93lQEAnfUXUqFGj8nw
+pq/QcoMwv8/AZglrFri8AwmbKiziyQ0BALR07IvfqVq06ZjfzBNg2XwB0u4Kf28m
+MbT8XWa53wIE
+=yhFf
+-----END PGP SIGNATURE-----
+
+--a7ff6faabc94381f35eb70cb994205d1a66fcd018b82abba28681d1ee3fa--
