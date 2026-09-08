@@ -1,138 +1,149 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE057544895
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D21C549381
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874343; cv=none; b=g+m2gOt3ucEe9jACVKKiFFAEV217T+UevE7BmybxWu5SRflf+Ci0AcS8ae13DyG1S4LqJSKkDfm0jUEFRIuntoSsyP2Tpt0zaNk63Iqftb+bQCwJLrY/2FvO1gRSxGJxYk7QFvtnBr5HC/cx4vR2LO0uV3meaNI0ZHuqoSjY+jI=
+	t=1788874353; cv=none; b=spZjF6q69hiC4hKtiqIetPZ+PkHKfNH7iPhYQOrE458gEhXyuV5IzZaUUHbLJtGJ6xSRg2OoHiLow+fhLQYW+DUTBzIK9ktxylmApYg2I4O4D5KsPq07G0FC9K+5FZ3IOXbtxAsnGKZ7pYx+T9fKKBxmyYZg56/DRFbiqtCmG9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874343; c=relaxed/simple;
-	bh=tCih0LIPNTT45pEfh/zJWK4KvLPKxLWUzk1RehMfmTQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CJTQpM6e6LFl7TTUtlx0sCtRrkHS1Cq1CqdRSRMiqg/zeYoK57WyU2M1OO7ormwf7OiS45d9PJNX8KhAxC02OE2G6Lbi1eH0lAZNfkFIvaVn4xfM66XJENct67utB7aaq5dBJr8N9reRmg/RQR4pQPNTRHZyHEPGujONqF6RNi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rvt5AmhA; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788874353; c=relaxed/simple;
+	bh=WkJJWZ4SaxJF/zyHzYEhTuM+Mb9yokH8po4OGhCk8uQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kASLzKP543Ic6fBEmetVcj6RdJh944BuML7qLcQneAF37iAe6Wx0dtp3sT277CMy2oe0vki2cV88y9h+9o9hCkHgI9Fp2WsjsbYzN4Fa+Y+TdO2h/AzD0E/0o/g7XcllgTcrlgXrTEYaJDr9iTbhN5P6qR03ETTzwz4BJa7zqPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SSAFH46W; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rvt5AmhA"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c25331b31e8so61061366b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:32:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SSAFH46W"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so44647735e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:32:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788874329; x=1789479129; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c09duG40XUDjljTKKEnm8AMSUZjhNe4OtYQ1ssenbDY=;
-        b=Rvt5AmhA03SX3g9aYAf/pgGuu7Qwl71l/HgBOKT0ZdOFod+Tde+Evp1XW8t/31qHZg
-         YT+aLQD8xaC51OW5etQw1VFlFB/iRw2nbVNolBlKVFcl3xVEAGFWrGUyw8116iIfxj62
-         3Ndt6mdIA4bWeKrrDZBv9w2Nq2/P4bGZOQ+ql3IihEWsWd+RmznwreIRC6+EsRN92VRC
-         kV1VWjWzFiygM/aUr8zaNNP8/J9WA0mmAFnzUcqi1OQoP8pZuaafQRHD10JVY7qUJzix
-         IZHyEqlVj83J2Nun/Q7IYk5UXO48o8hf7yhIMW2yBXd4Wx+UfuH7FBbh8qWa6ITrNreu
-         WnKw==
+        d=suse.com; s=google; t=1788874334; x=1789479134; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mzA37jUw1zDr0CBMAEx16zABWeBDZswZOBHILRhm0ZI=;
+        b=SSAFH46Wc+tnRKi/RlRlGjt4dqFT80tRzWBvl4lbx9tVjvyjaUSpA95KM880CkktGT
+         hPz+5JVQVxsj4FzWzmNY0P/UDTzwgbPPqdoOmtkroc6bLBbWkxYRQ5oTf+MXMP8xkWyc
+         TNoQt5yVqu/YdBx69Z8bo3ZGCBjES7vO0Ayjl13TIGtKOJN3cyaGVmA9oA/fghGPq2p0
+         79H0MIXRptvXiP6P8WaHgKiIKj6lrVUc0lELsNsikc7CjVoKfhx1vIaw2kIdnaSY0/Z5
+         H2xYQJiGwJoDGQ2P5i32QUHs0YvNgQ+s8SnsTGejvsHpKawoQBFSrKXf3sA98rErs0Nt
+         cq3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874329; x=1789479129;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c09duG40XUDjljTKKEnm8AMSUZjhNe4OtYQ1ssenbDY=;
-        b=Mj9NFI8yRZAo0XU8121hr+StlZSxFiCDDx4/XVhnD3/esI6MBtBG6ZUevFEgXtFck8
-         dDaafiH3+nhRLbDbFzCwApLb+zVfhmmo5Kp9ANaW+v47+hvcnqH1OYEulQ0vQPNWbIzW
-         8hu3sc0s4pwPhr44nhhbDkIgaC5oeSSoT+1k2NfC0+AkDZUWrDF+lS9Tf6C39wKRe+p5
-         3VJ7HI0hrezwBaUc7Qfl8PPi7aTIsgnAa93+nRkj3Oi0N8yjlKoF0FwJUxedsaRIUBgC
-         FVdYHUa06VMWIrh2s9s+PtgyMowqSn0dHUaVIoIg4Be/9PD0K3b2byiN6OdAudTwxlqS
-         QwOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgh3FyeyN9msRd6aiZZjjqRozNPnCzP86YzUzlpS7nWLmz9hWlUTK1Y1gHC5/0xMGi5Pb7ZZzL2ZlRXWk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqCfaZhPW/RmjJDbxQ1H1+0ASDsdJtZGq0CK2RChmuB9GMb5dy
-	jw+4ge0uKDYgjQ7N7+SSx0YvgUq6V57cGG/N8GFYS+bc0suc3xghLthH
-X-Gm-Gg: AYBFou0JbRZfXpkuqmI/DR50L3gcpCjQbr/ZMmScpKrXRDjI/yOKraQ1ORhXGLQUdot
-	q91X8iqEqSMiwfFbKSe5beTqodX0Row/yE+WMMN7tDGsazC1PjxkqOAzYrqg4o+ez1EoYRDtJcM
-	R7sJ8/NUPoX8ynWtiQ76FMjNN1XyA6Y5mYppsw3owDKaLiTRwJAb8Lhdnbi5srmXlDf2CWZbwNY
-	R31MBnVS1JTRZzcU7ARSxtNn7C2nLwv0lMmw4Az4if37Ff/CSxgQhJSJ3uqrtFLVOS39AGmIXq+
-	hXw3Br0Z1mK7MigirQEEqOKHbHbl/USdUjBuGAcfrzuO3avURHbH6fmDe7cgL77prI3tPkM8CSn
-	b6MdpHikrXKVt9cgiBa2Wbk0uxjWXQ4nOu0XdEftyqYJ7Ow01slRbbFfVHb/AA8dLxxIYWOXfhm
-	I/9mptlN4aBfDu3fkUcxr5rXlNNwwWTusHa1c7JSA0cuqH3uxlSLgYzh0Or3UeGleOV0pNXb7Gd
-	CG25MKEfrlsEAC+Mpz5wh1qZKyBc0VofUVdL8N8PWdkFgYjegKdK9Q9Mkldl7y+2VclY+7liA1H
-	tVqx
-X-Received: by 2002:a17:907:3f8d:b0:c25:ca8a:8e25 with SMTP id a640c23a62f3a-c2624eef698mr794013366b.1.1788874329043;
-        Tue, 08 Sep 2026 06:32:09 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D0079B84A36A788F67A.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:79b8:4a36:a788:f67a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm36163217f8f.1.2026.09.08.06.32.07
+        d=1e100.net; s=20251104; t=1788874334; x=1789479134;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mzA37jUw1zDr0CBMAEx16zABWeBDZswZOBHILRhm0ZI=;
+        b=EfnIZbUFlfPaNQskj8Zr3FbhMjuSCI109aX3X7qbNwq1ShRr9dhluIlwraMjkZRgH+
+         eVsttnA1lJrp/xnB6jzk9KQ0gon0U2xt8IkB1roLuH7ZTd2wLceRu43+r/AUWgCiieaa
+         79ZAYfSW58ezjn5SP+6hQ+c8FH1oRrqkMag/5uQUs215pWh5wTWR+3p2TbAizZS+kdFO
+         bjUp73F+J6A1CuePV5LWtEac2Yupsj0Q5PDTum9Vk9Y4uSAnFUeUOpG0RnXQw5L6zyBI
+         IXAHv+6MWrjc9zJhRv3qnwh3W+lydzZY13vJne7jwwIX81WfFjlhCmKwfQYDMPB7tves
+         9rAw==
+X-Forwarded-Encrypted: i=1; AKwUvByC45YoLQ1/x5JGOxZKUuMQoDok43o9zOYnZKweIfZ126dvTKfPaeMszWvCQ64hr0cjnPVnj9GIppTt+FA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMAFHrnff6JUrycHPmxnwxtHtQtL7uSjzb+cSG5dQEl5rwh4Xi
+	RGQOCkjFPvmHR1BaZhgAGon/fqtGOj/SQr0+KcZVTV0HWVoA7v7oHbbM/1mqM2YsF0c=
+X-Gm-Gg: AYBFou11O5N+GVqkcf7e3bSTGJRr10out/jwFeDz6w/KibR5bw79VRlIqPDH4RUGpAV
+	JtzR5ooGDwNJali0PSEesTlbCIE8KIO90OR8UiuiCIYnnxInzhu11gMrZ0u5wejAecklJ4ec2M5
+	HOhdh/s5Gi2qcYg4Neg3ArWJe9RoQ16l0f7SHfObe9ElLx/BkcUshno+l3cmZd1xT5auXn88oBq
+	1kzjeRYpIL+yh6y3DdS22opkdcjQU+S99duX1hjMl+JVa8YOEmieyA18hIYKgA1rWtUWGauPugM
+	P2qJZtYaAoUMwWgljm1a9bt7vdwMUre9+myqqcrFGOELwhdeuwmAlktd6luh++I0EerqOiUCqt8
+	yR7NymAbz/8giLpuX+5EOSva60su5z1+Qp3cwVDMQrSCI5RXleSFo9N90OzLReV/Dbt3svjKb25
+	tnXBOlxpW7QD8ZPuW4wo/OjVywyX4dnqLdpFplKIk7eXZDGZvEXIU=
+X-Received: by 2002:a05:600c:3d92:b0:49d:726:cc9f with SMTP id 5b1f17b1804b1-49d0726cd2emr409557115e9.5.1788874333600;
+        Tue, 08 Sep 2026 06:32:13 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7febb4sm518069085e9.14.2026.09.08.06.32.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:32:08 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: s2idle resume hangs in ohci/ehci on RK3588: HC registers touched before the USB2 PHY is powered back on
-Date: Tue,  8 Sep 2026 15:31:46 +0200
-Message-ID: <20260908133147.8291-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <ap__5zeUakMSLWOQ@venus>
-References: <20260907190000.s2idle-usb2-resume-royalnet026@gmail.com> <ap__5zeUakMSLWOQ@venus>
+        Tue, 08 Sep 2026 06:32:13 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:32:10 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: jpoimboe@kernel.org, joe.lawrence@redhat.com,
+	Harry Hsu <x90613@gmail.com>, mbenes@suse.cz,
+	linux-kernel@vger.kernel.org, shuah@kernel.org,
+	live-patching@vger.kernel.org, song@kernel.org, jikos@kernel.org
+Subject: Re: [PATCH v4 5/5] livepatch: Clean up klp_init_object_loaded() when
+ fails
+Message-ID: <aqAOWrmq1YgTbgAi@pathway>
+References: <20260908120325.299649-1-pmladek@suse.com>
+ <20260908120325.299649-6-pmladek@suse.com>
+ <20260908122549.193F41F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908122549.193F41F00A3A@smtp.kernel.org>
 
-Hello Sebastian,
+On Tue 2026-09-08 12:25:48, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Partial relocations are not reverted when apply_relocate_add() fails midway, leading to permanent state corruption.
+> --
+> 
+> commit 3f6df1b4ed699e839abbdc8919a6c7de5d1850c8
+> Author: Petr Mladek <pmladek@suse.com>
+> 
+> livepatch: Clean up klp_init_object_loaded() when fails
+> 
+> When loading a module, klp_module_coming() updates all enabled patches.
+> If an error occurs, klp_cleanup_module_patches_limited() cleans up fully
+> processed patches, but skips the patch that failed midway. This commit
+> updates klp_free_object_loaded() to revert all and only changes made by
+> klp_init_object_loaded().
+> 
+> Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.org
+> Closes: https://lore.kernel.org/r/20260830175608.4BABB1F000E9@smtp.kernel.org
+> 
+> > Next, klp_init_object_loaded() has to clear its own changes on
+> > failure. It just returns an error when relocations failed because
+> > they clear their own mess. It could call klp_free_object_loaded()
+> > in other situations because all relocations were done and other
+> > values are just cleared.
+> 
+> [Severity: High]
+> Does this actually clear its own mess completely? Looking at how relocations
+> are rolled back in klp_write_object_relocs_limited(), which was introduced
+> earlier in this series:
+> 
+> kernel/livepatch/core.c:klp_write_object_relocs_limited() {
+>     ...
+> 		ret = klp_write_section_relocs(patch->mod, info->sechdrs,
+> 					       info->secstrings,
+> 					       patch->mod->core_kallsyms.strtab,
+> 					       info->symndx, i, obj->name, apply);
+> 		if (ret) {
+> 			if (apply)
+> 				klp_write_object_relocs_limited(patch, obj, false, i);
+> 			return ret;
+> 		}
+>     ...
+> }
+> 
+> By passing i as the limit to the rollback function, the rollback loop:
+> 
+> 	for (i = 1; i < limit; i++) {
+> 
+> will terminate at i - 1. Doesn't this skip the rollback for the partially
+> applied section i?
+> 
+> If apply_relocate_add succeeds on relocations 0 to k-1 in section i, but
+> fails on relocation k, these partial relocations remain permanently applied
+> in the livepatch module's text. 
 
-Thank you, that is a much better place to fix it than either of the two
-options I asked about, and it matches what the board shows: the OHCI
-that hung was the one whose 480 MHz clock had it as the only user, so
-the clock was gated on suspend and the PHY was left in suspend when the
-controller came back and touched its registers.
+This is the same problem which was reported for the 4th patch.
+It would need to handled in the arch-code, namely
+in __write_relocate_add() in arch/x86/kernel/module.c.
 
-I read 53014abc in the rockchip-devel branch. One data point in case it
-is useful for the version you send: on RK3588 the early return does not
-get in the way.
+Best Regards,
+Petr
 
-    /* Limit to single port; it's unclear how multi-port should be handled */
-    if (rphy->phy_cfg->num_ports > 1)
-            return 0;
-
-All four entries in rk3588_phy_cfgs[] have num_ports = 1 (0x0000 and
-0x4000 as OTG, 0x8000 and 0xc000 as HOST), so the new code does run on
-RK3588, including u2phy2 at 0x8000, which is the port whose controller
-(fc840000, host0) hung for me. The num_ports = 2 configs are the older
-SoCs, so as far as RK3588 is concerned that guard costs nothing.
-
-I will build the patch for my test kernel and report back. My setup
-should be a reasonable test case for it: with all four USB 2.0 hosts
-bound, s2idle resume hung every time and needed a cold reset, and with
-the four hosts unbound the same cycle completed 4 out of 4, so there is
-a clear before/after to measure rather than an intermittent one. The
-driver is a module in my configs, so this is a single module rebuild.
-If it holds up I will send a Tested-by.
-
-One observation on your second point. On this board s2idle is entered:
-the machine goes down, the hym8563 RTC alarm wakes it ("PM: Triggering
-wakeup from IRQ 52"), and only then does the resume stall in the USB2
-hosts. So PCIe did not block suspend here, even though the board has
-NVMe, two r8169 NICs and an rtw89 card on PCIe. I do not know why my
-case differs from yours; if that is interesting for your PCIe suspend
-series I can dump whatever state you want from before the suspend.
-
-The RTC pin fix I mentioned is now v2 on the list [1], with megi's
-Reviewed-by. Without it there is no wake source on this board at all,
-so it is a prerequisite for anyone else trying to reproduce this.
-
-If you would rather I wait for the version you post this week instead of
-testing the branch commit, just say so and I will wait.
-
-[1] https://lore.kernel.org/all/20260908111908.19371-1-royalnet026@gmail.com/
-
-Igor
+> Subsequent attempts to load the target module will fail immediately at
+> relocation 0 due to non-zero target memory, converting a potentially transient
+> address-space layout failure into a permanent -ENOEXEC on retry.
