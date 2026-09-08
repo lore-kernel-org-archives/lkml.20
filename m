@@ -1,115 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C24253A88C;
-	Tue,  8 Sep 2026 12:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047A153B60A;
+	Tue,  8 Sep 2026 12:18:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869896; cv=none; b=bdhlTQK5b5gpcHMD2y8YiBwkrTFUG1DkSDf8KrRDCwbE8T/J1t68gyj5ht696IFrq6q+4s4m5q6Fh+2wkti2SokmR5zkQqVX5qZarDpgFnM2ameuDBD5gvVMNGCuk5wDXqcer2EYgsOnbyUtRIJj0Cytq7W/mkDKzEwqu48zoH0=
+	t=1788869917; cv=none; b=rVOdp5fD1bNJwc4OIlF60yj8QVzQ+O+LzkgGbWPYcWGpfaj9k1bMDau9ne/hirLn1aNi8w920nX9R9mO/nmXf7Hd3to2MW9/rTh8VDmmldYgoxXvmHGJRHf+ytTdtUSUNV3TQoJ/0mjqIdxkWKoY2Wn8ToSchJIZtFiY4k67OcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869896; c=relaxed/simple;
-	bh=TIRcg9IQT3/cIx5oKWUzo6r87yIoibtLWFHboGqSczs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=E8akBjN7EM/PTdZx2k3znAw5ti+xK5IiMKjmm0l3Z2GnTLao2E1DGHjyYPzPpYDFfLLk9jKSoVqXhT8k62cnxWNyj0hHMiUD2xrkcRj+eoNE57dw5127OpGj3Y1NctBxkglQ5uyCIeN+59F/RLbhcQBmTuiuD4eK7bDFFpOW1Rk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gHuH6apw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788869917; c=relaxed/simple;
+	bh=ZhlmP6DRfiNjxAh6PBzYYJKk+sOFFH5MoTjJDBoHgGw=;
+	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type; b=smaSBD1FTghgh/dxklTlxhoErArtiwBlt9RuPTFynJFlo+I1fJjFsP/XIwynBKU9t4zgcjarEcF5IosB1RyuTY+V0zBCu55If8UsEGYXUeSJ4NUidNaN7RSg1dz+ZUoN9SQHEqqEsl8Xt2DY2nqfdCiMOQr+aagaXFWJRksTK4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=tLj74R80; arc=none smtp.client-ip=113.46.200.224
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gHuH6apw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9577A1F00A3A;
-	Tue,  8 Sep 2026 12:18:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869891;
-	bh=+KFsR2PjohcrJpHQ9FZuDGDq2ithXoh9dhtMY1cu5vg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gHuH6apwDchlIJvBE/ZGWQeVmeUrl0nwSF0oIbd0GUWkL8kAR+NXrokO3EPoLuZow
-	 CbRUvl7SrMHFDQkO/CFvvmuKbUIhn84Fl7XR18FeAnAXYBSU96b0LDQK2ghQuE9QUQ
-	 VXtCvHzLoSIfJ1MrSf4CULqqXlhg+wvvEWchJj6OJjH07Dw0lptZGXfPD5Zbfjn6h1
-	 6S4naBF7g5b3zkF7AJ/sPQb+VDRLmq5NTZrluTG9DsdPl8AcO7bgD2PHTeM1MIXOyE
-	 RueuoAYPG30PD8UAzLGuNDnmhftmhEG+41rGwHH6BAdpbZFcc5tw5+Ne+tzk6ZDKxY
-	 JOu2utDBVCcWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/5] livepatch: Clear relocations when
- klp_apply_object_relocs() fails
-Reply-To: sashiko-reviews@lists.linux.dev
-To: joe.lawrence@redhat.com, "Harry Hsu" <x90613@gmail.com>, jpoimboe@kernel.org, "Petr
- Mladek" <pmladek@suse.com>, mbenes@suse.cz
-Cc: shuah@kernel.org, linux-kernel@vger.kernel.org, live-patching@vger.kernel.org, jikos@kernel.org, song@kernel.org
-In-Reply-To: <20260908120325.299649-5-pmladek@suse.com>
-References: <20260908120325.299649-1-pmladek@suse.com>
- <20260908120325.299649-5-pmladek@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 12:18:10 +0000
-Message-Id: <20260908121810.9577A1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="tLj74R80"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Ymu30IFequ9j8mwpIl1fqgOuunAR0A9gnw/b4W0QRgQ=;
+	b=tLj74R80BzjABZm0VutAzoakmtJkuevI6rCYwabEuTFLDXgsbrVrO3rjC1plZB+JxSK5swNTT
+	VFuKA0pvqJ+UxMGDZNYm1QOBGAxXScKmM1V7CKO+aMjBPoNiYLtMQSRWq9HJaIG/6sHeAPNT5+K
+	8vUnrj07jeUrKI+b/zoFozw=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfN3m6SW0z1cyVf;
+	Tue,  8 Sep 2026 20:07:32 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 07FBD40565;
+	Tue,  8 Sep 2026 20:18:26 +0800 (CST)
+Received: from [10.173.124.160] (10.173.124.160) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 20:18:21 +0800
+Subject: Re: [PATCH 15/25] mm/fbatch: remove shake_folio() shake_page() from
+ memory-failure
+To: Hugh Dickins <hughd@google.com>
+CC: Ackerley Tng <ackerleytng@google.com>, Alexander Viro
+	<viro@zeniv.linux.org.uk>, Baolin Wang <baolin.wang@linux.alibaba.com>, Barry
+ Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, Christian
+ Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, Christoph
+ Lameter <cl@gentwo.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, David
+ Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, Jan Kara
+	<jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, Johannes Weiner
+	<hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau
+	<kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, Leonardo Bras
+	<leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti
+	<mtosatti@redhat.com>, Matthew Wilcox <willy@infradead.org>, Mel Gorman
+	<mgorman@techsingularity.net>, Michal Hocko <mhocko@suse.com>, Minchan Kim
+	<minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
+	<osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, Qi Zheng
+	<qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, Sebastian Andrzej
+ Siewior <bigeasy@linutronix.de>, Shakeel Butt <shakeel.butt@linux.dev>, Suren
+ Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, Yang
+ Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, Zach O'Keefe
+	<zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, <linux-block@vger.kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mm@kvack.org>, Andrew Morton <akpm@linux-foundation.org>
+References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
+ <213f92b1-7ac2-189c-4656-ba7d00cc7666@google.com>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <1563bfbb-0596-1217-b407-2d1504627bef@huawei.com>
+Date: Tue, 8 Sep 2026 20:18:21 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <213f92b1-7ac2-189c-4656-ba7d00cc7666@google.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Off-by-one error in the rollback loop leaves the failing section=
-'s partially applied relocations uncleared.
---
-
-commit d297505bb4b1d833ec93725770d65ac1044abcad
-Author: Petr Mladek <pmladek@suse.com>
-
-livepatch: Clear relocations when klp_apply_object_relocs() fails
-
-This commit introduces klp_write_object_relocs_limited() to unwind and
-clear only the relocations that were successfully applied before
-klp_write_object_relocs() encountered an error. This prevents partially
-applied patches from leaving un-reverted changes that cause subsequent
-patch operations to fail validation.
-
-Link: https://lore.kernel.org/r/20260830175608.4BABB1F000E9@smtp.kernel.org
-
-> diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
-> index a6796cd6b65fd..714f97fdd271a 100644
-> --- a/kernel/livepatch/core.c
-> +++ b/kernel/livepatch/core.c
-> @@ -342,14 +342,17 @@ int klp_apply_section_relocs(struct module *pmod, E=
-lf_Shdr *sechdrs,
-[ ... ]
-> +static int klp_write_object_relocs_limited(struct klp_patch *patch,
-> +					   struct klp_object *obj,
-> +					   bool apply, int limit)
->  {
->  	int i, ret;
->  	struct klp_modinfo *info =3D patch->mod->klp_info;
-> =20
-> -	for (i =3D 1; i < info->hdr.e_shnum; i++) {
-> +	if (!limit || limit > info->hdr.e_shnum)
-> +		limit =3D info->hdr.e_shnum;
-> +
-> +	for (i =3D 1; i < limit; i++) {
->  		Elf_Shdr *sec =3D info->sechdrs + i;
-[ ... ]
-> -		if (ret)
-> +		if (ret) {
-> +			if (apply)
-> +				klp_write_object_relocs_limited(patch, obj, false, i);
-
-[Severity: Medium]
-When an error occurs in klp_write_section_relocs(), the rollback is trigger=
-ed
-with the failing section index passed as the limit. Since the rollback loop
-iterates with a strict less-than bounds check against this limit, will this
-skip the rollback for any relocations that were successfully applied within
-the failing section itself before it encountered the error?
-
-It looks like this could leave partially applied relocations permanently
-in memory within the failing section, causing future module loads to fail
-validation.
-
->  			return ret;
-> +		}
->  	}
-> =20
->  	return 0;
+On 2026/8/24 22:27, Hugh Dickins wrote:
+> shake_folio()'s lru_add_drain_all() no longer serves a purpose, now that
+> the per-cpu fbatch references are gone. Are the retries in get_any_page()
+> then still useful? Not obvious, so keep them.
+> 
+> Signed-off-by: Hugh Dickins <hughd@google.com>
+> ---
+>  mm/hwpoison-inject.c |  1 -
+>  mm/internal.h        |  1 -
+>  mm/memory-failure.c  | 38 +-------------------------------------
+>  3 files changed, 1 insertion(+), 39 deletions(-)
+> 
+> diff --git a/mm/hwpoison-inject.c b/mm/hwpoison-inject.c
+> index a11222572f97..9eab4b7d25b2 100644
+> --- a/mm/hwpoison-inject.c
+> +++ b/mm/hwpoison-inject.c
+> @@ -118,7 +118,6 @@ static int hwpoison_inject(void *data, u64 val)
+>  	if (!hwpoison_filter_enable)
+>  		goto inject;
+>  
+> -	shake_folio(folio);
+>  	/*
+>  	 * This implies unable to support non-LRU pages except free page.
+>  	 */
+> diff --git a/mm/internal.h b/mm/internal.h
+> index ff4bd3a14539..9a25552cbd83 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -1140,7 +1140,6 @@ static inline bool node_reclaim_enabled(void)
+>   */
+>  #ifdef CONFIG_MEMORY_FAILURE
+>  int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill);
+> -void shake_folio(struct folio *folio);
+>  typedef int hwpoison_filter_func_t(struct page *p);
+>  void hwpoison_filter_register(hwpoison_filter_func_t *filter);
+>  void hwpoison_filter_unregister(void);
+> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
+> index aaf14608b30e..2a6a01e260ed 100644
+> --- a/mm/memory-failure.c
+> +++ b/mm/memory-failure.c
+> @@ -310,30 +310,6 @@ static int kill_proc(struct to_kill *tk, unsigned long pfn, int flags)
+>  	return ret;
 >  }
+>  
+> -/*
+> - * Unknown page type encountered. Try to check whether it can turn PageLRU by
+> - * lru_add_drain_all.
+> - */
+> -void shake_folio(struct folio *folio)
+> -{
+> -	if (folio_test_hugetlb(folio))
+> -		return;
+> -	/*
+> -	 * TODO: Could shrink slab caches here if a lightweight range-based
+> -	 * shrinker will be available.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908120325.2996=
-49-1-pmladek@suse.com?part=3D4
+I'm not sure whether we should keep above TODO. Anyway, this patch looks good to me.
+
+Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+
+Thanks.
+.
