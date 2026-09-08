@@ -1,219 +1,160 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC99A530E1A;
-	Tue,  8 Sep 2026 11:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37972531B09;
+	Tue,  8 Sep 2026 11:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867989; cv=none; b=LCiQfqMMS2urSQyShnAm0la5YnJUZFcK157wF4MCZmZ7CO2xLcKFeLirnW6YLCWSuRtqQnfM5Ir4J3FkiqBgIcv1BbxaqygOn9osR+lXtixY7L2gEAYF2vUFJDnDXnKzR87KzK7p14lNqJ1DHfv2K1gcuZ84k5ERPhbWk133YNE=
+	t=1788867998; cv=none; b=vFKMuYp2Bcs/ocf0GCOZbpyNFrnVCKMk5xbObc2Swi03q9sF+3RikvXrKmnnG93r8p0LEzZfNMlqigKiMyjKN6PBORBBdbeIKwRrtk5zgI7USkXasK9ZOuKpSq+Jqs6EeYr3dftT0QJiD34AVCx3iOjzH1Jiz8EuZJKBveOi4AY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867989; c=relaxed/simple;
-	bh=efiL20xfO2/Ukyplnq5Bm8swRLh4lhKFNVtoe9ECT74=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S9nPCaedtqyuPQVeOSbucY1Ee8749VAC2pZRkScmu1FVjxbP1x+nsJF+5AegfcUmZQCuOPhh5z7bIxnoO+Kd9dzB7FfFhqCqH3NwFVQ73cy/pnJILrdJsjbbf1Lm+oPr0iIuU5qvhcxDz+bmrAmIftywQYvmkN1k2UDWFZy/5u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dIEXy6yr; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788867998; c=relaxed/simple;
+	bh=udaUPos8qeX6niqQOjR7IRAqpmdcwnEyvXML18aAfjA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nssrIRM3RYhTDlKLnck/gi6UYNHhFSYKsJo0iU7COtwTEZdI96wvBx21jsIY0rSzEUOdTS6f2sMdF82GAQowVRZedmclt1eHhcfIasZuOiiJqwx/vA0vHd7zTKdpdzH/X4VJ64oAm9hKhnu6eoQpbueA1z+eB4zEO3+OltQ1dOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B5HgeJdS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dIEXy6yr"
-Received: from ideasonboard.com (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 2290E981;
-	Tue,  8 Sep 2026 13:44:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788867880;
-	bh=efiL20xfO2/Ukyplnq5Bm8swRLh4lhKFNVtoe9ECT74=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=dIEXy6yrfXbA3WicxATpBwLH4/+a/3KRnx46e0z1090JfOIa1/hzwyBuN+YYPSqim
-	 DGELzMX5+ywkcYSGnCshcCEOduc1JzjiqY7FOKrqzNtTXo55tI89Z9bKZYNS3Z6uZ9
-	 JopJ4tFvSBdfEb98El9SMLxpHhhaMNHbQnTgPMzo=
-Date: Tue, 8 Sep 2026 13:46:11 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <ap_0yL-JatdVDaXG@zed>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B5HgeJdS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936B21F00A3A;
+	Tue,  8 Sep 2026 11:46:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788867991;
+	bh=ouzEKVJXsfjO99UBVwzaAPFaYYY6ZMo1TvSb3eu46gI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=B5HgeJdSGLv9pAPw3eCiPdkFs/5qosc8MpC4nBAMot24HG8ijoKEMuIAnGTIlUrlH
+	 ORghexK5Wlm2T9vYhI34XGIg2Yq+egSGdj+06c7RDrEF9gDNuLb/715KC5wqwn38lB
+	 jkUhyLf69IOnHG+qOwFa01OpI6fq0gwaoNhnS8pdbHvFmG9s4x3HZFlZliYmFEFwTP
+	 zU6YV5OWdYEzDRAS3cDKCg2QVDpC9tGRM9auy+cUJ4ao3oT4PLPdtQ6/aAkL4MKbml
+	 oMTG9JpW8wbwvkHHYgin9BTQgvR5vHLUWyYSEe1zDk+p1WPr1b1GEYKJyrSAFT57Tl
+	 FTQzFep6N2CjQ==
+Subject: Re: [PATCH net-next 12/14] net: pch_gbe: Remove obsolete 32-bit DMA
+ mask fallback
+From: netdev-bot+sashiko@kernel.org
+To: zhouruizhe@resnics.com
+Cc: michael.chan@broadcom.com, pavan.chebbi@broadcom.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Tue, 08 Sep 2026 11:46:30 +0000
+Message-ID: <178886799012.219967.9931005997243012418@kernel.org>
+In-Reply-To: <20260903084339.870562-13-zhouruizhe@resnics.com>
+References: <20260903084339.870562-13-zhouruizhe@resnics.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
 
-Hi Sakari
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > Add bindings for the ams OSRAM Mira016 image sensor.
-> >
-> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > ---
-> >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> >  MAINTAINERS                                        |  7 ++
-> >  2 files changed, 104 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > new file mode 100644
-> > index 000000000000..49a606fca6cb
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > @@ -0,0 +1,97 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > +
-> > +maintainers:
-> > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > +
-> > +description:
-> > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > +  physical layer specifications to transmit the image data to the host
-> > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: ams,mira016
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  clocks:
-> > +    maxItems: 1
-> > +
-> > +  vdd28-supply:
-> > +    description:
-> > +      I/O voltage supply, 2.8 volts
-> > +
-> > +  vdd11-supply:
-> > +    description:
-> > +      I/O voltage supply, 1.1 volts
-> > +
-> > +  reset-gpios:
-> > +    description: Sensor reset (RST_N) GPIO
-> > +    maxItems: 1
-> > +
-> > +  port:
-> > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > +    additionalProperties: false
-> > +    description:
-> > +      Video output port
-> > +
-> > +    properties:
-> > +      endpoint:
-> > +        $ref: /schemas/media/video-interfaces.yaml#
-> > +        unevaluatedProperties: false
-> > +
-> > +        properties:
-> > +          data-lanes:
-> > +            items:
-> > +              - const: 1
->
-> The device obviously supports non-continuous clock mode (and that's what
-> the driver also only does right now) but as the continous clock mode is
-> required by CSI-2, I presume the device can do both.
->
-> So I think you should have
->
->              clock-noncontinuous: true
->
-> here.
->
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Maybe I'm confused (again, after 10 or so years of doing this) by the
-usage of unevaluatedProperties/additionalProperties, but if I read
-Documentation/devicetree/bindings/writing-schema.rst right
+- [High] pch_gbe (Intel EG20T / OKI ML7223/ML7831 GbE) is a 32-bit-DMA-
+  only controller, but after this patch `pch_gbe_probe()` requests…
 
-  * unevaluatedProperties: false
-      Used when this binding references other schema whose all properties
-      should be allowed.
+--
 
-Means all properties from video-interfaces.yaml are accepted (which is
-imho very wrong, but it's a battle with dt maintainers I don't want to
-start again).
+net: pch_gbe: Remove obsolete 32-bit DMA mask fallback
 
+This removes the DMA_BIT_MASK(32) retry in pch_gbe_probe() and keeps only
+the DMA_BIT_MASK(64) request, on the grounds that the DMA API guarantees
+masks of 32 bits or wider and that retrying a narrower mask is incorrect.
+The error check and dev_err() are retained.
 
-> > +
-> > +        required:
-> > +          - data-lanes
-> > +          - link-frequencies
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - clocks
-> > +  - vdd28-supply
-> > +  - vdd11-supply
-> > +  - port
-> > +
-> > +unevaluatedProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    i2c {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        camera@36 {
-> > +            compatible = "ams,mira016";
-> > +            reg = <0x36>;
-> > +            clocks = <&cam1_clk>;
-> > +
-> > +            vdd28-supply = <&cam1_reg>;
-> > +            vdd11-supply = <&cam_dummy_reg>;
-> > +
-> > +            port {
-> > +                endpoint {
-> > +                    data-lanes = <1>;
-> > +                    link-frequencies = /bits/ 64 <750000000>;
-> > +                };
-> > +            };
-> > +        };
-> > +    };
-> > +...
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index e12dc3ca57ab..1c24b05b378b 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -1454,6 +1454,13 @@ S:	Maintained
-> >  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
-> >  F:	drivers/iio/light/as73211.c
-> >
-> > +AMS MIRA016 DRIVER
-> > +M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > +M:	Philippe Baetens <philippebaetens@gmail.com>
-> > +L:	linux-media@vger.kernel.org
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > +
-> >  AMT (Automatic Multicast Tunneling)
-> >  M:	Taehee Yoo <ap420073@gmail.com>
-> >  L:	netdev@vger.kernel.org
-> >
->
-> --
-> Regards,
->
-> Sakari Ailus
+> diff --git a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> index 88c5c52e0e38..ba3d10f9aec6 100644
+> --- a/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> +++ b/drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+> @@ -2504,12 +2504,10 @@ static int pch_gbe_probe(struct pci_dev *pdev,
+>  	if (ret)
+>  		return ret;
+>  
+> -	if (dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64))) {
+> -		ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+> -		if (ret) {
+> -			dev_err(&pdev->dev, "ERR: No usable DMA configuration, aborting\n");
+> -			return ret;
+> -		}
+> +	ret = dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(64));
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "ERR: No usable DMA configuration, aborting\n");
+> +		return ret;
+>  	}
+
+[Severity: High]
+Can this device actually address 64 bits?  After this change the 64-bit
+request is the only mask pch_gbe_probe() ever installs, and the fallback
+that used to leave the device with a 32-bit mask is gone.
+
+The descriptors in pch_gbe.h only carry a 32-bit address:
+
+	struct pch_gbe_rx_desc {
+		u32 buffer_addr;
+		...
+	};
+
+	struct pch_gbe_tx_desc {
+		u32 buffer_addr;
+		...
+	};
+
+and the ring registers in struct pch_gbe_regs are 32-bit with no
+companion high-address register:
+
+	u32 RX_DSC_BASE;
+	u32 RX_DSC_SIZE;
+	...
+	u32 TX_DSC_BASE;
+
+pch_gbe_configure_tx() narrows the coherent ring address into a u32 local
+and programs it with one iowrite32():
+
+	u32 tdba, tdlen, dctrl;
+	...
+	tdba = adapter->tx_ring->dma;
+	tdlen = adapter->tx_ring->size - 0x10;
+	iowrite32(tdba, &hw->reg->TX_DSC_BASE);
+	iowrite32(tdlen, &hw->reg->TX_DSC_SIZE);
+	iowrite32(tdba, &hw->reg->TX_DSC_SW_P);
+
+pch_gbe_configure_rx() does the same with rdba, and the per-packet paths
+store dma_addr_t straight into the u32 descriptor fields:
+
+	pch_gbe_tx_queue():
+		tx_desc->buffer_addr = (buffer_info->dma);
+
+	pch_gbe_alloc_rx_buffers():
+		rx_desc->buffer_addr = (buffer_info->dma);
+
+There is no lower_32_bits()/upper_32_bits() handling anywhere in the
+driver.  With a 64-bit mask declared, dma_alloc_coherent() and
+dma_map_single() may return addresses above 4 GB, which are then silently
+truncated into these u32 fields and registers.  Does that leave the MAC
+bus-mastering to the truncated address, writing received frames into
+unrelated memory, transmitting unrelated memory, or walking a bogus
+descriptor ring, with nothing reported?
+
+Since dma_direct_supported() accepts any mask of 32 bits or wider, the
+64-bit request always succeeds under direct mapping, so this looks like
+the live path rather than a theoretical one.  The driver is buildable for
+MIPS_GENERIC and X86_32 (dma_addr_t is 64-bit with PAE) as well as
+COMPILE_TEST:
+
+	depends on PCI && (MIPS_GENERIC || X86_32 || COMPILE_TEST)
+
+Would requesting DMA_BIT_MASK(32) here, i.e. the width the hardware
+actually implements, be the right way to apply the cited
+dma-api-howto guidance instead of keeping the 64-bit request?
+
+One smaller point on the changelog.  It says the error check is retained
+"so that a genuine DMA setup failure is still reported and aborts
+initialization", but by the same premise quoted just above it ("The DMA
+API guarantees support for masks of 32 bits or wider"), can that
+dev_err()/return ret branch ever be taken for a mask of 32 bits or wider?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260903084339.870562-1-zhouruizhe%40resnics.com
