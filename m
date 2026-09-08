@@ -1,81 +1,267 @@
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1D23769E7;
-	Tue,  8 Sep 2026 06:13:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ACF4376BD9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848009; cv=none; b=VhK23LybBfn4xfrLtJs8iireIZy4Mr+FeMtasYPdKUiWkon2EIZ0fxFv2rnlrN1vT47TFHq+luCvSmXgtl++Oa/D20KVc3jH9TQfsi6WEFKyrW0n+jV9/TdOXldD5jNkxR0jN/u0BmFuGhK7dMXvefCxKUV428xPDxBSLuhHJLk=
+	t=1788848097; cv=none; b=OnX2qjIOWBKuynOKGPd510e2M95rwRugw+IDWurXwM3nHzCxX8r/7M9zpWLB6P1f6RAhkfY1Qd0fpTcImAB0lZr5Rpp91BBePs/2MsocBiMJqi0/dO90RppnPkJiHv7GQy4xy+nNexU5UhKbzoLZHSnEl0nILYwOX1tK0jeyIQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848009; c=relaxed/simple;
-	bh=6xfkiSnxJMe13C0cNqDcgAD0WvwPmDl8XXmZekWjLzg=;
-	h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type; b=e1dqWt2o9xLrk5ytfX/Oabi2n4t4iq/oAtTv5OVqhWJeuInKWtYjzL2UJc67WZav6SphFtl1XpLXIfThm2vmwhSUEaDfeQoyXuqE9i7UwjQWT8KAv0CAA1CpKkrDBc6FY0ha/s4fFLPC5CoFahvTS4MNNfqjZ8zl6HnXLcoDU/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tGaDRJUq; arc=none smtp.client-ip=115.124.30.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788848097; c=relaxed/simple;
+	bh=7v//YBccA+Wta/WJmdeX/TznEKFSuxoImEEytIwQxeg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PVyKXJXmj0WVgY4DiCvc0Siew7wtepT3aw2KxQdAT6/TMTeELFpr+Fqwlt++ugQlUINW5LLV7u/Xw4O5aczRn2SS5BStbapYEYc7oRb220dybKRvOcgmsfj6z8md7zbwjCAv2SJyV8MqN1VXD0lI+ILtMz3DXSfkeLnNclO1pig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iH65YUce; arc=none smtp.client-ip=74.125.231.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tGaDRJUq"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788848003; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
-	bh=6xfkiSnxJMe13C0cNqDcgAD0WvwPmDl8XXmZekWjLzg=;
-	b=tGaDRJUqxgV4STUSlYZZI8f8nOG7pGM5eifpbIXeDrtO1OpOX0EB+OKrBW7TTwjyevqm1o3f2bYQ73HXb12wzUK+rv4L3mGNiCAtHIBKubIXnh9OiMknNsi5iPZTQZeLCMnag/KVH/78BmwlLsbWYlMbvLP1EXIZI13NOX1XW3w=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R881e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=hao.xiang@linux.alibaba.com;NM=1;PH=DW;RN=8;SR=0;TI=alimail_imapd_hao.xiang@linux.alibaba.com-33.40.2.50-1229-1788840263;
-Received: from WS-web (hao.xiang@linux.alibaba.com[alimail_imapd_hao.xiang@linux.alibaba.com-33.40.2.50-1229-1788840263] cluster:ay36) at Tue, 08 Sep 2026 14:13:17 +0800
-Date: Tue, 08 Sep 2026 14:13:17 +0800
-From: "Hao Xiang" <hao.xiang@linux.alibaba.com>
-To: "kvm" <kvm@vger.kernel.org>,
-  "linux-kernel" <linux-kernel@vger.kernel.org>,
-  "xianghao.xiang" <xianghao.xiang@alibaba-inc.com>,
-  "hao.xiang" <hao.xiang@linux.alibaba.com>,
-  "zhao1.liu" <zhao1.liu@intel.com>,
-  "seanjc" <seanjc@google.com>,
-  "pbonzini" <pbonzini@redhat.com>,
-  "shannon.zhao" <shannon.zhao@linux.alibaba.com>
-Reply-To: "Hao Xiang" <hao.xiang@linux.alibaba.com>
-Message-ID: <45146bc1-0d78-46de-8bd8-cb1ecba49fe2.hao.xiang@linux.alibaba.com>
-Subject: =?UTF-8?B?W1BBVENIXSBpMzg2L2NwdTogUmVuYW1lIENQVUlEIGZlYXR1cmUgYml0IEFWWDEwX1ZOTklf?=
-  =?UTF-8?B?SU5UIHRvIEFWWDEwX1YxX0FVWA==?=
-X-Mailer: [Alimail-Mailagent][W4_0.2.3][v5ForWebDing][Chrome]
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iH65YUce"
+Received: by mail-oo2-f10.google.com with SMTP id 46e09a7af769-7e9df14804fso1000658a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788848095; x=1789452895; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TuA/xmu86f2+uzRrjt1sV1QoY+5IdkmNTkwkB6MMzEY=;
+        b=iH65YUcef1DKqbf/QEK1m1KOlygSHejiTqO/AgNIb/3M/bkbANS5lPqo4ewCw7PDCI
+         OY+4h0o/ZQ2sCwwQBDe6/qDqElH9iSHk/enhulQwcDcX4gw4+HEphmI1L/Z5hkQ5ePCR
+         k+X9qw9yFXQ37AkCHx6ld1+MtrgnxejGLyslhMpVd3eOSMmqU0nBV5xRkWzYOujKVEvx
+         rWkirAvQJBUdYmwKumexAOY2R30hb3xh9LKuQCPEvEhG7xzgkim7yl/WEJnQZ3rMhAEs
+         cY6u2UMAkR1ijkV98B1yMvLwxapf9ip/xj6MrdAaPz5Dym5uzOXUVv2GrrTalwP61a3B
+         f9+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788848095; x=1789452895;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=TuA/xmu86f2+uzRrjt1sV1QoY+5IdkmNTkwkB6MMzEY=;
+        b=Pl8gKD1qOo3uzJucMHtKm+XHz61yYO1IvedzRIRwJnO+K1iGGotdsJRQsjNy23nrYc
+         U9JDX7qgustFdXY1ab1pToRUs+7TR0aTeYRP0EfJD6xEDzsRV6Ny6+d6Fa9FaCSQUYq8
+         S+SIqdorLE4k6BIO0JuCoNqAh9z3VSC74sfEqIVf5Jcx1P0TEeN0Or3fQSRMrmT2JrRO
+         XowyvG51Yr4+9iNY3WiktL+dbR3HcV/EtL0GX1phW1G8Ex7vARbZnnxsTBk5dL9G+XIL
+         Kn56K9mRACw0waJ0b1ULJygwYyvjEESvcfTV2r43TRtoPNz7JoSo9i4o7pLoV1B8ahqX
+         YYPw==
+X-Forwarded-Encrypted: i=1; AKwUvBzBMFPsBZpY6zN3SnxPz49hyOYJlv0KGKHJ0NfoX+w8QKKCLQ7PizlLqEJwwC4wbltXeox9fJBS8M6OPy8=@vger.kernel.org
+X-Gm-Message-State: AFuF++liqHuuq54jXtJ3V3qhxIbdbOFzR0ixE7M1kXX25uiscBfW/FzE
+	5mSjWA2+27rtk4jsnOVYLDM7YfbUDv/zH9ZY0e5A3oQE5b12Z1DQ8OieOyDIvQV3WAfR/w==
+X-Gm-Gg: AYBFou24XD1t58cIsBd05n00KD5WsjPJRdWY3hmWA23xFcGP/Tu7OyKjTlkgOeO9RsH
+	mcaUiXR5tYRKQ81M13oU13ApbvgWuB/XXzX84g4kNUUKba6z+uuYZRtepHFR1ZaTPM+B0Dr5q7H
+	VP/rBbaPJKOlD7NBOk8rpJLQcnqhJGMAKDVPL4VcMealai0w/2dHEZOokBFQyDgKIpUFG+rsj3q
+	Q0rgPkqtWuSgyb54cjxOMEqJkIzlQfVx5WneSB4/+uBZlQ0C+vY5MQD5pBpxsEt1Q/7FuK+Rcwk
+	zLN5lnhC+/KAytggilAmu/yr9opqTmKTAiC1RTcpUeDWKt9MBvEsAzPbGZzwl9hK+Kr6ufov2ko
+	e5xF8GgmJcTi4E7ukLW4OFGkwAz8Tczs0417pTUZPM4KlwI/aILaZSci4yTus2S3pSiNwJYDjfU
+	DrkOjLcJ1JY7WLKGOM1ZH13Gc08d+hzPMI0ZOh5XiBu3H6SgWmGEcfpvQo
+X-Received: by 2002:a05:6820:1890:b0:6b1:b31f:132e with SMTP id 006d021491bc7-6b6fabd2e99mr16401107eaf.6.1788848094953;
+        Mon, 07 Sep 2026 23:14:54 -0700 (PDT)
+Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fde1b9a9c5sm5038843a34.17.2026.09.07.23.14.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:14:53 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+Date: Tue, 08 Sep 2026 01:14:46 -0500
+Subject: [PATCH] power: supply: bq24190_charger: don't reset registers
+ across system suspend
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-x-aliyun-im-through: {"version":"v1.0"}
-x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_QvNTW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE1Mi4wLjAuMCBTYWZhcmkvNTM3LjM2La
-x-aliyun-mailtrack: {"foreign-track":"0"}
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-rbrue-suez-upstreaming-bq24190_charger-no-reset-regs-sys-suspend-v1-1-b7f7c784959c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWOwQrCMBBEf6Xs2YW0lNb6KyKSNtMYwbTuNqKW/
+ rtRDzPwDsOblRQSoHQoVhI8goYpZih3BQ0XGz04uMxUmaoxndmz9JLAmvDmNOsisLcQPff3qi4
+ 7c84j8RCOEwsUS26vrK+cpDOiY+va2rbD6JrRUNbMgjE8fxeOpz9r6q8Ylq+Xtu0DNQu646QAA
+ AA=
+X-Change-ID: 20260908-rbrue-suez-upstreaming-bq24190_charger-no-reset-regs-sys-suspend-ad74a7cfd6f0
+To: Sebastian Reichel <sre@kernel.org>, 
+ "Mark A. Greer" <mgreer@animalcreek.com>, 
+ Anton Vorontsov <anton@enomsg.org>
+Cc: Hans de Goede <hansg@kernel.org>, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848093; l=8369;
+ i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
+ bh=7v//YBccA+Wta/WJmdeX/TznEKFSuxoImEEytIwQxeg=;
+ b=0BK1BbsepJFy53AzEMU6iHDU88RdgpU2hcN9U8wLb2JXc9+xpxNXwgb0SV/0iTig/bY/dJtti
+ BEgqNm+uMDfDqqBnhtU6C309scMI1boFqqADaox5ESJ61ONUZFPSJhB
+X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
+ pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-Q1BVSUQgZmVhdHVyZSBiaXQgQVZYMTBfVk5OSV9JTlQgaXMgcmVuYW1lZCB0byBBVlgxMF9WMV9B
-VVggdG8gYWNjb3VudApmb3IgYWRkaXRpb25hbCBBVlgxMC4yIGlzbnRydWN0aW9ucyBzZXAtYXJh
-dGVkIHRvIGhhdmUg4oCdT1LigJ0gc2Vuc2l0aXZpdHkKZm9yIHBsYXRmb3JtcyB3aGljaCBtYXkg
-bm90IHN1cHBvcnQgYWxsIG9mIEFWWDEwLjJbKl0uIFRoaXMgQ1BVSUQgYml0IG5vdwphcHBsaWVz
-IHRvIHRoZSBmb2xsb3dpbmcgVk5OSSBpbnN0cnVjdGlvbnM6IFZQRFBCW1NVLFVVLFNTXURbLFNd
-ClZQRFBXW1NVLFVTLFVVXURbLFNdLCBhcyB3ZWxsIGFzIHRoZSBmb2xsb3dpbmcgY29udmVydCBp
-bi1zdHJ1Y3Rpb25zOgpWQ1ZUWywyXVBIMltCLEhdRjhbLFNdLCBWQ1ZUMlBTMlBIWCwgVkNWVC1C
-SUFTUEgyW0IsSF1GOFssU10sClZDVlRIRjgyUEguCgpbKl06IEludGVswq4gQWR2YW5jZWQgVmVj
-dG9yIEV4dGVuc2lvbnMgMTAuMiBBcmNoaXRlY3R1cmUgU3BlY2lmaWNhdGlvbgogICAgICAocmV2
-IDcuMCkuCgpTaWduZWQtb2ZmLWJ5OiBIYW8gWGlhbmcgPGhhby54aWFuZ0BsaW51eC5hbGliYWJh
-LmNvbT4KLS0tCiAgYXJjaC94ODYva3ZtL2NwdWlkLmMgICAgICAgICB8IDIgKy0KICBhcmNoL3g4
-Ni9rdm0vcmV2ZXJzZV9jcHVpZC5oIHwgMiArLQogIDIgZmlsZXMgY2hhbmdlZCwgMiBpbnNlcnRp
-b25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2FyY2gveDg2L2t2bS9jcHVpZC5j
-IGIvYXJjaC94ODYva3ZtL2NwdWlkLmMKaW5kZXggODUxZjE1MWVmYjM1Li4xZTViZjZmZmY5Yzkg
-MTAwNjQ0Ci0tLSBhL2FyY2gveDg2L2t2bS9jcHVpZC5jCisrKyBiL2FyY2gveDg2L2t2bS9jcHVp
-ZC5jCkBAIC0xMDk1LDcgKzEwOTUsNyBAQCB2b2lkIGt2bV9pbml0aWFsaXplX2NwdV9jYXBzKHZv
-aWQpCiAgICAgICk7CgogICAgICBrdm1fY3B1X2NhcF9pbml0KENQVUlEXzI0XzFfRUNYLAotICAg
-ICAgICBGKEFWWDEwX1ZOTklfSU5UKSwKKyAgICAgICAgRihBVlgxMF9WMV9BVVgpLAogICAgICAp
-OwoKICAgICAga3ZtX2NwdV9jYXBfaW5pdChDUFVJRF84MDAwXzAwMDFfRUNYLApkaWZmIC0tZ2l0
-IGEvYXJjaC94ODYva3ZtL3JldmVyc2VfY3B1aWQuaCBiL2FyY2gveDg2L2t2bS9yZXZlcnNlX2Nw
-dWlkLmgKaW5kZXggMmFkMjU3ODFjZWZiLi44OTM0NWFmMGY3YWQgMTAwNjQ0Ci0tLSBhL2FyY2gv
-eDg2L2t2bS9yZXZlcnNlX2NwdWlkLmgKKysrIGIvYXJjaC94ODYva3ZtL3JldmVyc2VfY3B1aWQu
-aApAQCAtNjYsNyArNjYsNyBAQAogICNkZWZpbmUgWDg2X0ZFQVRVUkVfQVZYMTBfNTEyIEtWTV9Y
-ODZfRkVBVFVSRShDUFVJRF8yNF8wX0VCWCwgMTgpCgogIC8qIEludGVsLWRlZmluZWQgc3ViLWZl
-YXR1cmVzLCBDUFVJRCBsZXZlbCAweDAwMDAwMDI0OjEgKEVDWCkgKi8KLSNkZWZpbmUgWDg2X0ZF
-QVRVUkVfQVZYMTBfVk5OSV9JTlQgS1ZNX1g4Nl9GRUFUVVJFKENQVUlEXzI0XzFfRUNYLCAyKQor
-I2RlZmluZSBYODZfRkVBVFVSRV9BVlgxMF9WMV9BVVggICAgS1ZNX1g4Nl9GRUFUVVJFKENQVUlE
-XzI0XzFfRUNYLCAyKQoKICAvKiBDUFVJRCBsZXZlbCAweDgwMDAwMDA3IChFRFgpLiAqLwogICNk
-ZWZpbmUgS1ZNX1g4Nl9GRUFUVVJFX0NPTlNUQU5UX1RTQyAKS1ZNX1g4Nl9GRUFUVVJFKENQVUlE
-XzgwMDBfMDAwN19FRFgsIDgpCi0tCjIuMzIuMC4zLmcwMTE5NWNmOWY=
+bq24190_pm_suspend() calls bq24190_register_reset(), which returns every
+register to its power-on default, and bq24190_pm_resume() does it again
+before re-applying the probe-time configuration. On any board that wires
+the charger's interrupt this makes system suspend unusable.
+
+The reset re-arms the chip's 40 s i2c watchdog. bq24190_set_config() turns
+that watchdog off at probe, deliberately: as the comment there explains,
+the same write also takes the part out of default mode into host mode.
+Nothing pets it while the system is asleep, so it expires, resets the
+registers again and pulses INT. The charger interrupt is a system wake
+source -- armed unconditionally in probe since commit f385e6e2a153 ("power:
+bq24190_charger: Use PM runtime autosuspend"), and still enabled by default
+after the conversion to the wake irq API [1] -- so the pulse wakes the
+machine.
+
+Measured on an MT8173 board (Amazon Fire HD 10 2017, BQ24297) by swapping
+only this driver between builds with and without this change, asking for
+a 150 s suspend each time:
+
+  on charger, with the reset:     41-43 s, 7 runs of 7
+  on charger, without the reset:  150 s,   3 runs of 3
+  on battery, with the reset:     40-41 s, 3 runs of 3
+  on battery, without the reset:  150 s,   3 runs of 3
+
+It is not a charging-only problem. The watchdog runs from VBUS or from
+the battery, so an unplugged tablet loses suspend in the same way.
+
+ftrace names the wake source. Across the resume, the first device
+interrupt after the machine comes back is the charger:
+
+  1270.760799: suspend_resume: machine_suspend[3] end
+  1270.775683: irq_handler_entry: irq=25 name=bq24190-charger
+  1270.776156: irq_handler_entry: irq=250 name=11010000.i2c
+
+Everything between is IPI and arch_timer from bringing the secondary CPUs
+back up, and no RTC interrupt appears anywhere in the trace -- the 150 s
+wake alarm never fired. The cause leaves nothing behind for userspace to
+find, because WATCHDOG_FAULT is in the latch-on-read fault register and
+the driver's own interrupt handler has already consumed it.
+
+The reset also discards host configuration that nothing restores. Resume
+calls bq24190_set_config(), which writes only the watchdog, SYS_MIN,
+IPRECHG, ITERM, ICHG and VREG, so:
+
+ - IINLIM returns to its power-on default. Boards without a charger-type
+   detector set the input limit from userspace; measured here, one ordinary
+   suspend/resume silently took input_current_limit from 1500 mA to 500 mA,
+   and to 100 mA when running from the battery, where the default differs.
+
+ - EN_HIZ is cleared, so a charger the host put into high-impedance mode
+   starts drawing from VBUS again the moment the system sleeps.
+
+There is no way to have both. Default mode is what the reset is for, and on
+this part default mode and a disarmed watchdog are mutually exclusive: a
+write to any register moves the chip into host mode, and it only returns to
+default mode when the watchdog times out. Parking it in default mode for
+the sleep therefore always leaves a timer armed that will fire, and on any
+board that wires INT that firing is a wake. A per-board opt-out would not
+be choosing between two workable configurations, only between a working
+suspend and a broken one.
+
+Resetting in suspend buys nothing worth this. The part is in host mode with
+its watchdog off; it charges on its own, switching from constant current to
+constant voltage and terminating when the battery is full, and nothing in
+it can expire or change while the host sleeps. Resetting on resume is
+weaker
+still: the host is awake and about to reconfigure the chip, so the reset
+only guarantees the loss.
+
+The one thing the reset does guard against is a host that never comes back:
+a chip in host mode keeps whatever it was last told, where default mode
+would revert to the power-on values. But that is the state the driver
+leaves it in for all of normal runtime operation already, so sleep is not
+special, and the part still makes its own constant-current to
+constant-voltage transition and terminates when the battery is full.
+
+So drop it in both directions. The suspend callback has nothing left to do
+and goes away. Resume re-applies the probe-time configuration, which is
+idempotent and also recovers a part that did somehow fall back to default
+mode, since bq24190_set_config() starts by turning the watchdog off.
+
+This has been proposed before. Hans de Goede sent the same change in 2017
+[2] and Sebastian Reichel agreed with the reasoning [3], but v6 kept the
+reset on by default and added the "disable-reset" device property instead
+[4]. That property cannot answer this: it is set only from x86 platform
+code -- i2c-cht-wc and x86-android-tablets -- and is not in bq24190.yaml,
+so no DT board can reach it. Every in-tree DT user of this driver
+(tegra124-xiaomi-mocha, qcom-msm8974-lge-nexus5-hammerhead,
+qcom-msm8974pro-oneplus-bacon, rk3188-bqedison2qc) wires the charger
+interrupt and so has the same wake armed, with no way to opt out. If some
+board does want the reset, it would be better expressed the other way
+round.
+
+The vendor kernel for this board does not reset across suspend either: its
+driver, drivers/power/mt81xx/bq24297.c, only masks the charger interrupt on
+suspend and unmasks it on resume.
+
+Reproduced on a BQ24297. The reasoning applies to the family, but the other
+parts were not available to test.
+
+[1] https://lore.kernel.org/all/20260908-rbrue-suez-upstreaming-bq24190_charger-use-wake-irq-api-v1-1-c3f10ae2a34a@gmail.com/
+[2] https://lore.kernel.org/all/20170322145536.30570-5-hdegoede@redhat.com/
+[3] https://lore.kernel.org/all/20170323112052.ukyazi4pnji7n6st@earth/
+[4] https://lore.kernel.org/all/20170414165233.4532-1-hdegoede@redhat.com/
+
+Fixes: d7bf353fd0aa ("bq24190_charger: Add support for TI BQ24190 Battery Charger")
+Assisted-by: LLM
+Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+---
+ drivers/power/supply/bq24190_charger.c | 30 +++++++++---------------------
+ 1 file changed, 9 insertions(+), 21 deletions(-)
+
+diff --git a/drivers/power/supply/bq24190_charger.c b/drivers/power/supply/bq24190_charger.c
+index 4bea6fd83c36..fef277bb18d3 100644
+--- a/drivers/power/supply/bq24190_charger.c
++++ b/drivers/power/supply/bq24190_charger.c
+@@ -2242,25 +2242,6 @@ static __maybe_unused int bq24190_runtime_resume(struct device *dev)
+ 	return 0;
+ }
+ 
+-static __maybe_unused int bq24190_pm_suspend(struct device *dev)
+-{
+-	struct i2c_client *client = to_i2c_client(dev);
+-	struct bq24190_dev_info *bdi = i2c_get_clientdata(client);
+-	int error;
+-
+-	error = pm_runtime_resume_and_get(bdi->dev);
+-	if (error < 0)
+-		dev_warn(bdi->dev, "pm_runtime_get failed: %i\n", error);
+-
+-	bq24190_register_reset(bdi);
+-
+-	if (error >= 0) {
+-		pm_runtime_put_autosuspend(bdi->dev);
+-	}
+-
+-	return 0;
+-}
+-
+ static __maybe_unused int bq24190_pm_resume(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+@@ -2274,7 +2255,14 @@ static __maybe_unused int bq24190_pm_resume(struct device *dev)
+ 	if (error < 0)
+ 		dev_warn(bdi->dev, "pm_runtime_get failed: %i\n", error);
+ 
+-	bq24190_register_reset(bdi);
++	/*
++	 * The chip kept its configuration through the sleep: it is in host
++	 * mode with the i2c watchdog off, so nothing expired and nothing was
++	 * reset. Do not reset it here either -- a userspace setting such as
++	 * EN_HIZ or IINLIM would otherwise be silently lost on every resume.
++	 * Re-applying the probe-time configuration is idempotent and cheap,
++	 * and covers a part that did somehow fall back to default mode.
++	 */
+ 	bq24190_set_config(bdi);
+ 	bq24190_read(bdi, BQ24190_REG_SS, &bdi->ss_reg);
+ 
+@@ -2293,7 +2281,7 @@ static __maybe_unused int bq24190_pm_resume(struct device *dev)
+ static const struct dev_pm_ops bq24190_pm_ops = {
+ 	SET_RUNTIME_PM_OPS(bq24190_runtime_suspend, bq24190_runtime_resume,
+ 			   NULL)
+-	SET_SYSTEM_SLEEP_PM_OPS(bq24190_pm_suspend, bq24190_pm_resume)
++	SET_SYSTEM_SLEEP_PM_OPS(NULL, bq24190_pm_resume)
+ };
+ 
+ static const struct i2c_device_id bq24190_i2c_ids[] = {
+
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260908-rbrue-suez-upstreaming-bq24190_charger-no-reset-regs-sys-suspend-ad74a7cfd6f0
+
+Best regards,
+--  
+Ryan Brue <ryanbrue.dev@gmail.com>
+
