@@ -1,129 +1,138 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573D1396D14
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:30:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED18395ADE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:31:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867051; cv=none; b=r/eykb6YziOofyLKqI/trBpBCjSUVF2Cym/Cn12oetekldz/JhjxkPwZL9lX0G2kIoAa2mRbL73feSgn/7nbmVE8j/hWa9J5G8vhxEJenaaoPuJoce2wEqyTapQvC013mhJdztiNfgPHwOovTCh5ozCY4cpf0ue5cp9ZaQf7yp4=
+	t=1788867081; cv=none; b=snEIcpbPEnRZGfok8vLGSqXufGbw1+D74AoDd4/JuiVceqVr9ri4KyEkLUtB2wX9BRjIiBfa6TKHDHiqgrI1PTwrLYMln4pA97jo3FRGwmcC/njgXPBiYSy5VNaj+4U1EYSgDiFrVzHLHpM1K7aurLZzWbul9WPyKNiKpL4kRkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867051; c=relaxed/simple;
-	bh=31c0r96KNwxH60URkYG/Dq8KPtohqhJi7zlAxQBZBzw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=S+EfWu/o5tIZV1Ba1a/1R+oapqCfCPPbKF/ARSmQYYwevgylih2F/4sCpXkyW/D94jRj/Db7TeQTxjdm1UZO+DyDuRgls6hMXxYybRqM1je4OsrtuhUto9SnxFlpl9nsobC38rUU5upqbGTFiyxYnCVHS7665oOt3oGANOo+aT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RXkJi3CF; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788867081; c=relaxed/simple;
+	bh=u8J66aam5HAU3EWrKJfVOFwKlJPnOYn4J4IC9+9xLnk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OGIY01LzHVUtc4WQNaN83G87PFU0ayniGlg8e5mRtWaVKc2MyIN002TKidZv41H8DU2/OYhb77Y13D9X85qWQKApNpj3zorUFNROl0fh5xaqyWrdrpXUnuExRUglydrYsU+5WOQOgBgtg5WPAXnU2S56ifgKGFfD9sRrpCgJJJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C6L5byV+; arc=none smtp.client-ip=91.218.175.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RXkJi3CF"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso39860615e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:30:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788867036; x=1789471836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0b12Cm5Gb+b1IM+WblZsuohOBmH8KyzuDASigLWND6Y=;
-        b=RXkJi3CF5EKXr4Jk+Ckn41CPDahCn/gNYouc84Y5W6Z3zdTy3Ap+qx1+qzXYQ6BrOm
-         6mH0AgChsnzIkc2EDOBx6JvrzAiIT5z6y3o9JPPHpkPzXhX+AQqPY+r+y8xBdADfv+wg
-         UnSlFv2Vt4NqqLAtTFRYCsdOLgQwHC4Ga95ndGnJ/BbAMC53RmGWfn+BNwOTewLWy9GF
-         n3LoHz30jGZO4b7GN0V20tbkKiNHKpkm/mVALHdTicBEF+bNeVLAfkBZYop0sZ/o2lo4
-         MX70uvuFQLHQsRG/mT8fjGgl+IyphDiqLlEGIvgzXRN44pd3JjAIvAo9lDKJ0for0tWx
-         2YZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788867037; x=1789471837;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0b12Cm5Gb+b1IM+WblZsuohOBmH8KyzuDASigLWND6Y=;
-        b=SCLLHJ/lyYntbIqsLrErfnuB8OJo7WI+1yz/LngJ5f+B0axbT+hj0p9xo17wMazMem
-         GB0RVLc0zuCGYVr1tWafJvaXLqgFy35ZNW4SgMWk9jTbcxJOSKpyR6sOztHrouVrnQt8
-         hmMw5ne9pIHetRgMxm6GqafI7Re+Ip05+yhdxixdKXWsTjtP4DtHtiX4f2Lx6AZLZkxu
-         4KuunHtWdDF1srmUrqu8LhFoHv9euDgA4ZttUNJRTxp9XBRlBRT1xHi16lfG6Aq8f6av
-         hdta3Z9DcI9atYZiz6mSCI/dvvey9RR4hiWrZDAAr+cbVAYM9ZdJ6ME5v/zoYXOoXQRp
-         uAkA==
-X-Forwarded-Encrypted: i=1; AKwUvByCiTa/+uJSUe3ZaGenvpnc/7Lm8RqNz5RxhWEwxc6557JAmzVuffWNgQLDky7fmsV4ScnokwTOHdWZIp4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7Y2kxMjzq4WdRzmqnx5yjWIxvk50cPuqOE1DizT28GCr02IQL
-	gg6GAVt7iHpm85LjskmlP63Vmu0ISk0oC13qpKtnmtAOIkUtjI/uLjcXFpp0EEDD
-X-Gm-Gg: AYBFou2Nj11lt27Ztm+m8uzIMuOW4egUzlAhl384gDkItd36WSFeneB/7clGYpX+7Nt
-	KjQWAYSedMb7VIp9OXC1YrNWXcH767gkd18+cqYTMHQ855jopxFqTmDqsN1UmV/WF87pJNiBv3F
-	C+MT/yDpVacvdFrJk8OfypNuSso9V4iQ6IPUB7AhN4LoKy1zkCuXmxGxGZjJ8e1gFNgDWG2ttsC
-	RhPwWbzHYrEoVPrTKuWJy42V2LhRykymUZxmgpbe7PKj8s9wvTGLV3V0Vwz5/ufHnbJq6XEmy9B
-	1zKWiLchJu/FoCJYvyJc10fk0xQqDUSSBuHciKMaHtEV2DAHm1vLuLqExIXI3krOaPaj+w7sRzi
-	+3IXeqKK7zP28AWvgkTFasyeN+DX61w+prbh45gBzkZurY3LaG107yAYxDCG5B5vphG3LgKZe+d
-	O1eTShisr765ORnoEVo+aOGLqsYLlWOJYFV8JwzDM6ZiAJd4zdjG5AkshMaI2S8dS5bfBlgm1A6
-	3M7CDy3Id/lP6fsLYGyT25Z6L3gpJXkZMj1L41Jd1N7+bvmVESqTKOVRTZyuFgmhnKPDDabIMr1
-	2sAnqifkkS18iNUDGNdK7BSTz1/tTtRW6fUtCBkt7fEjzbc2GXWR1XHb+iS7AgbT4qJvfrzLwwz
-	TWKJZUHQjVvgcMvEksbXvyafcVsuuNGx303Ub9ovi/2PiDOGAJIVUndthNsP4JS7//evpIA==
-X-Received: by 2002:a05:600c:1c23:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49cf820a8e3mr314405825e9.3.1788867036409;
-        Tue, 08 Sep 2026 04:30:36 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm331050675e9.0.2026.09.08.04.30.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:30:36 -0700 (PDT)
-Date: Tue, 8 Sep 2026 13:30:33 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
- syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
-Subject: Re: [PATCH] nfc: nfcmrvl: fix null pointer dereference in
- nfcmrvl_bulk_complete
-Message-ID: <20260908133033.000037c5@gmail.com>
-In-Reply-To: <20260831104110.1307-1-joshua.crofts1@gmail.com>
-References: <20260831104110.1307-1-joshua.crofts1@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C6L5byV+"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=u8J66aam5HAU3EWrKJfVOFwKlJPnOYn4J4IC9+9xLnk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788867071; v=1; x=1789471871;
+ b=C6L5byV+5caH0phAIZi87oKiL/hPR9kSo6jeIliJujcuRYtazTpMlwcCOSY2Ktrt2122KPdL
+ uLldgxnbJDDY+YJb8X2xOeo7kLTKKcXKiKUS3Dp5tHLRH/eJN/8DgfC/g8up4GHDMpUBKttROpH
+ vOck97bUxI/9fcdbu5UYpj44=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c921d85a689fffe6;
+	Tue, 08 Sep 2026 11:31:01 +0000
+X-Mizu-Trace-ID: c921d85a689fffe6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <6e54b8b3-150d-4d41-b4d1-8c5793edb840@linux.dev>
+Date: Tue, 8 Sep 2026 19:30:53 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH next] buffer: guard folio_test_dropbehind() against a NULL
+ b_folio in __bh_submit()
+To: Jan Kara <jack@suse.cz>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Chao Shi <coshi036@gmail.com>,
+ Weidong Zhu <weizhu@fiu.edu>,
+ "open list:FILESYSTEMS (VFS and infrastructure)"
+ <linux-fsdevel@vger.kernel.org>, linux-kernel@vger.kernel.org,
+ Ridong Chen <chenridong@xiaomi.com>
+References: <20260908023600.788219-1-ridong.chen@linux.dev>
+ <mpqseqzxcgyug5cwk5sivtyngvtcz7az7pugzv65nkm3ylmwjq@rfhz34dg655s>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <mpqseqzxcgyug5cwk5sivtyngvtcz7az7pugzv65nkm3ylmwjq@rfhz34dg655s>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Mon, 31 Aug 2026 10:41:10 +0000
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-> A race condition in the current implementation can cause a null pointer
-> dereference. When nfcmrvl_nci_register_dev() calls nci_register_device(),
-> the NCI device is immediately exposed to userspace. If userspace brings
-> up the device before probe() finishes assigning drv_data->priv,
-> submitted bulk URBs can complete while priv is still NULL.
-> 
-> Additionally, nfcmrvl_bulk_complete() incorrectly checked
-> NFCMRVL_NCI_RUNNING on drv_data->flags instead of drv_data->priv->flags.
-> 
-> Fix this by adding a NULL check and testing NFCMRVL_NCI_RUNNING on
-> drv_data->priv->flags before processing the completed URB.
-> 
-> Fixes: f26e30cc6b50 ("NFC: nfcmrvl: Initial commit for Marvell NFC driver")
-> Reported-by: syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=59d5e6a8ed04e6a000c8
-> Tested-by: syzbot+59d5e6a8ed04e6a000c8@syzkaller.appspotmail.com
-> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> ---
->  drivers/nfc/nfcmrvl/usb.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/nfc/nfcmrvl/usb.c b/drivers/nfc/nfcmrvl/usb.c
-> index c7f2afe00b93..c22d783718fe 100644
-> --- a/drivers/nfc/nfcmrvl/usb.c
-> +++ b/drivers/nfc/nfcmrvl/usb.c
-> @@ -61,7 +61,7 @@ static void nfcmrvl_bulk_complete(struct urb *urb)
->  	dev_dbg(&drv_data->udev->dev, "urb %p status %d count %d\n",
->  		urb, urb->status, urb->actual_length);
->  
-> -	if (!test_bit(NFCMRVL_NCI_RUNNING, &drv_data->flags))
-> +	if (!drv_data->priv || !test_bit(NFCMRVL_NCI_RUNNING, &drv_data->priv->flags))
->  		return;
->  
->  	if (!urb->status) {
 
-Hi David,
+On 9/8/2026 6:07 PM, Jan Kara wrote:
+> On Tue 08-09-26 10:36:00, Ridong Chen wrote:
+>> From: Ridong Chen <chenridong@xiaomi.com>
+>>
+>> Commit 8deae2284976 ("buffer: allow a buffer_head to point at memory
+>> outside the page cache") made bh->b_folio optional: jbd2 submits a shadow
+>> buffer_head whose data lives in slab (the frozen/escaped copy of a metadata
+>> block), and such a buffer carries no folio at all - b_folio stays NULL from
+>> alloc_buffer_head() onwards (see the comment in
+>> jbd2_journal_write_metadata_buffer()).  That commit audited __bh_submit()
+>> and taught bio_add_folio_nofail() and wbc_account_cgroup_owner() to check
+>> for a NULL folio, but it missed an earlier dereference:
+>>
+>> 	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
+>> 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+>>
+>> That test was added by commit a2c924c240e7 ("buffer: set
+>> BIO_COMPLETE_IN_TASK for dropbehind writeback"), which predates the
+>> NULL-b_folio semantics and so dereferenced b_folio unconditionally.  Once
+>> b_folio may be NULL, folio_test_dropbehind() reads NULL->flags and the
+>> kernel takes a NULL pointer dereference.
+>>
+>> This is reached from the jbd2 commit path (bh_submit() -> __bh_submit())
+>> whenever a shadow buffer is submitted, i.e. when a metadata block has to be
+>> escaped or was copied out, so it is data/timing dependent rather than seen
+>> on every commit.  When it does hit, it is deterministic and independent of
+>> the dropbehind bit, since the flag test dereferences the folio before
+>> examining it.
+>>
+>> Reproduced on x86_64 with KASAN under filesystem write pressure:
+>>
+>>    KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+>>    RIP: 0010:__bh_submit+0x21b/0x9d0
+>>    Call Trace:
+>>     bh_submit+0x15/0x30
+>>     jbd2_journal_commit_transaction+0x1c19/0x5ac0
+>>     kjournald2+0x1cf/0x760
+>>
+>> Guard the flag test with a b_folio check, matching the other folio
+>> accesses in the same function.
+>>
+>> Fixes: 8deae2284976 ("buffer: allow a buffer_head to point at memory outside the page cache")
+>> Assisted-by: Claude:claude-opus-4-8
+>> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> 
+> A similar fix was already posted here [1] and is on its way to upstream.
+> 
+> 								Honza
+> 
+> [1] https://lore.kernel.org/all/20260902013357.2815214-1-joseph.qi@linux.alibaba.com/
+> 
 
-gentle ping on this patch.
+Apologies, I missed that. Thank you for letting me know.
+
+>> ---
+>>   fs/buffer.c | 3 ++-
+>>   1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/fs/buffer.c b/fs/buffer.c
+>> index 427d8a817cd5..f46fa6413032 100644
+>> --- a/fs/buffer.c
+>> +++ b/fs/buffer.c
+>> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
+>>   
+>>   	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+>>   
+>> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
+>> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
+>> +	    op_is_write(opf))
+>>   		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+>>   
+>>   	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
+>> -- 
+>> 2.34.1
+>>
 
 -- 
-Kind regards,
-Joshua Crofts
+Best regards
+Ridong
+
