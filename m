@@ -1,130 +1,84 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBA2E2AE78
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E47F2AE78;
+	Tue,  8 Sep 2026 02:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788835736; cv=none; b=fV4cA/gpzqWYjYPUc6NKxA8Z05djJjNQNq1C/zt9nHOfaLWbtp9cOtdo163rNRA7xgR8YdZEBQJLJikb2wRDoVxp+pnH5aHWWMSqfMCfDvEUsl+Zfr5mlxRSfUkp7o4th/Out7NOtCU8sUUzRAjmauZDxgFS2ct+DqXixeybZWE=
+	t=1788835852; cv=none; b=Z2SxJ9IIMeTuMSo+J06zMSfzRcFByK9q+0GDOx98jjmOXu0gpLR6068d/In4hIRXF/bk5z7LgpqiP9UDtDe01Tz9hhyqulGh64l/ZyZkkdHu6V5xJJtse0X1/OfcjRE+tv4H32rq5iGbQOwZjECh4CGYEd7BfkbcI2aMSjniY00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788835736; c=relaxed/simple;
-	bh=nMD+HFxqtWb98q+Dd5yamAN3mV3IUNCRO97y95Ldr84=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=KBq7PhVx8GzH/NrQDKyRJeRbthPmmi6V/frjRdRbUiNZ7rJC9ywhrICiXXld3pnYuJTaTh12omA9ybPLQQ12/9KneNARvoC/mV2pkE4Qor+cUUaQYaOWZmMQO3OHk1c3DmRQyWTT2dDkXtgh4UWFZ9gcAcPahp0JtwmRYhxuSrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZMNkhmrM; arc=none smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788835852; c=relaxed/simple;
+	bh=/GafB/voq2TTbeWohwTqd7l0hbwhqKA0yhakv4V1wJo=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type; b=DA48E+hiEfGmQmV31ePoeB243AUiKaoHu2pKFwcjS3nQrkNN0jWS3f4/zl+OzQnyzvmE+HOWS0NbHTNxOZ+mmxKHq0vA65/6TL31Xs2QFnj1cNuIrkVZpUekuqgPbWT9dXe1JVJoziaI2+z772jKVYgdSYTHb3kC2gTv6JJsQqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=owm50j/8; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZMNkhmrM"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d5cad1a6baso35102045ad.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 19:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788835734; x=1789440534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WBu+NhvQpv2NWcsnpIgxu4YIS16eKFsC/Iwk8ZVLPjA=;
-        b=ZMNkhmrMdeeC6oRE1lWeEmOKc/GbgvWOFVWa0IugSZnfg2WIhFigkNwk2auxOXwpn4
-         SlSql/EeSi7cGZOlX8Wd3KJFKtfJjpyx2OcHLxNmpuWzPJkSn3oXJ/+7kiFqpffe3dX4
-         u56ty9SH0+R3aHut3xD4yoQMn2lyiw9T3AJBAwu2zABq1K2hVMcnrSq4s7Xwkue3Itq7
-         ZR9TG5fySkgIMIoYuOCbDggnfRjghEu0Bgwu1Y4dfstWbv/golJ6uQgfM8xcmYtDxHQH
-         gsP/r5kx7R2iKBhHT5rFu9tUZNelo31uzRjN+LYNu1Avh3CC60DOjd3SDVS2lMFQgzxa
-         3bFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788835734; x=1789440534;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WBu+NhvQpv2NWcsnpIgxu4YIS16eKFsC/Iwk8ZVLPjA=;
-        b=gamCl7AgJgtGREJu/TDHbN/MseVyyRoKk01gAYXcz0EQhSCrY4E3uNLG6oWNftZjUv
-         jkwhsqJ1RbvoRXqwmwfQU3740lfrW3q82B1pocaMS5XvffLOJxjL0JwE4J5px0Ox9DxE
-         tdNijWHlHWs0X85KgGiKsOLwrA8YIMVVzI5euBI3OixLs8H9Hsep019g38IF4PXAg50q
-         umJi2M4AXieIldoCDvlPSkeg54r1vvRMK3tAdPFlfroWOzrPx+yB/PcRmF+IarChoVNm
-         peQI4pUCDC6bx6CvnXhNp25HSVSlMl2daGP2oT3AJwR0oSj+b+U5H4BQD6lP1rfMvFXx
-         ppoQ==
-X-Gm-Message-State: AFuF++nVoj1AVQT50XrFhAlW8BI3s3PbzyGexwX2inJjd3Kx9uPWjj71
-	JvVAHfxCfo+6zVbHp2TXRo8N/1Am1c3laCGFXRHBgrZp1BzUg9Qv6D3d6WASElU6
-X-Gm-Gg: AYBFou2Snqw98nvZu3FvVexXdKKNzD76xVY/xz5oM9ITS+bpRxBPpnpI+gH32jYY7uz
-	qlkM2V7DXJHOksGqWMI1PxYI7W0OxANZETsCcEu5uNDZA21IXF+vGd6L2KdG2nLioTfBchTsddX
-	oqKBwGFWgTl9B73HgRD+nrYAQ9xeQx2n4dDX0wHc+dZccYPfgjMyXosMgvmJKJMWxSytUh6OZ/9
-	RR+d43FmUptiGP1uXmww/2Gb8+NnKG39xbDyySsKy/v6vYk4oKPCZEG+IyvRYTN7rG6Wpc3jmHA
-	P7ADo6TGDrkx0c2sHNPL/QWqXOFFbiDBkyrFASSqqzMnT100LxsVyFJUxUYdUpNI6mmJW1lSh5s
-	5DINVl6nOIk3cKnSSFu/rN+fV7jkRBrDseRhqLqtPMkd4nTDKVvaRat88QP3mNMQtSnvfwwUkXU
-	zHirOcdGv7uTkHqhj495JbSPdo8wRrd7JWBYR5KptoBgTn6KokT23upJwBatF6
-X-Received: by 2002:a17:902:c94f:b0:2d6:df31:5bd0 with SMTP id d9443c01a7336-2db125c3322mr391612335ad.10.1788835734121;
-        Mon, 07 Sep 2026 19:48:54 -0700 (PDT)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae8af3sm50145505ad.80.2026.09.07.19.48.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 19:48:53 -0700 (PDT)
-From: "ping.li" <leeonion.muyu@gmail.com>
-X-Google-Original-From: "ping.li" <ping.li@horizon.auto>
-To: james.morse@arm.com,
-	ben.horgan@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com,
-	Ping Li <leeonion.muyu@gmail.com>
-Subject: [PATCH v2] arm_mpam: Only schedule mpam_enable work after first successful MSC probe
-Date: Tue,  8 Sep 2026 10:48:46 +0800
-Message-Id: <20260908024846.2063161-1-ping.li@horizon.auto>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260818130646.663778-1-ping.li@horizon.auto>
-References: <20260818130646.663778-1-ping.li@horizon.auto>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="owm50j/8"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6882odvH73423890, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788835840; bh=YGvH//1vvKBwWqkBWAHhKZOqP7GKXQYkA5ZWAQRRqtM=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=owm50j/8a7TZH1jN3R1FuwigHXNFnO0oxjyFuYTR7H7HCOINwvWvsd4T7A+6/UvYF
+	 UGUsW1Q9fXaqxriaZYXC07rrsbjJxw22+xMOFgUmAL6MvfSjMZ+PG3QW/JBDj4o5+6
+	 KGuom/qFe3PH2bSDN7JadX2xPRvfC8XQfPN34fm0KyS3/3GDaBR+88yKRj7AcF/VIp
+	 y6gpIZbC9gQ/JCeEcD+oJKkzDYYYcIl0oRFk7SmPFYvorhSF3hPU1/goq0SW97d4PU
+	 /gWTdvBfcLNXHj7c9/5R427JWnxyHpgifD/+I/bTWrsN+yheV7zX0az+ispQGlLC1Z
+	 WR67n1jBll/Eg==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6882odvH73423890
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 8 Sep 2026 10:50:40 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 8 Sep 2026 10:50:39 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 8 Sep 2026 10:50:39 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS04.realtek.com.tw
+ (10.21.1.54) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43 via Frontend
+ Transport; Tue, 8 Sep 2026 10:50:34 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>, <linux-wireless@vger.kernel.org>
+CC: <pkshih@realtek.com>, <linux-kernel@vger.kernel.org>, YuChia-Kan
+	<raspberrykan@stu.hqu.edu.cn>
+Subject: Re: [PATCH v3] wifi: rtw88: use firmware MAC address as fallback
+In-Reply-To: <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
+References: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn> <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
+Message-ID: <d2c88589-09f7-41a5-ae50-c8ea64509d94@RTKEXHMBS04.realtek.com.tw>
+Date: Tue, 8 Sep 2026 10:50:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Ping Li <leeonion.muyu@gmail.com>
+YuChia-Kan <raspberrykan@stu.hqu.edu.cn> wrote:
 
-mpam_discovery_cpu_online() sets new_device_probed unconditionally after
-processing each reachable MSC. Once an MSC has already been probed
-(msc->probed is true), later CPUs sharing it skip
-mpam_msc_hw_probe() but still leave err at its default value of 0.
-As a result, new_device_probed is still set to true, causing
-mpam_enable_work to be scheduled again even though no new hardware was
-probed.
+> Some devices provide the Wi-Fi MAC address through firmware instead of
+> storing a valid address in the Wi-Fi chip efuse.
+> 
+> This is the case on the Xiaomi Mi Box 4, which uses an Amlogic S905L
+> SoC and an RTL8723DS Wi-Fi chip. The Wi-Fi MAC address is stored in the
+> S905L efuse rather than the RTL8723DS efuse and is provided to the
+> device through firmware.
+> 
+> Try to read the MAC address from firmware before falling back to a
+> randomly generated address.
+> 
+> Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
 
-Set new_device_probed only when mpam_msc_hw_probe() is called and
-succeeds.
+1 patch(es) applied to rtw-next branch of rtw.git, thanks.
 
-Signed-off-by: Ping Li <leeonion.muyu@gmail.com>
+e1c844ef72c0 wifi: rtw88: use firmware MAC address as fallback
+
 ---
-Changes in v2:
-- Drop the Fixes: tag, as the extra mpam_enable() calls cause no real
-  harm: schedule_work() merges the duplicate work, and mpam_enable()
-  is a no-op until all MSCs have been probed. This is a cleanup, not a
-  bug fix.
-
- drivers/resctrl/mpam_devices.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 2f09f4b78bd3..fefdcf588932 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -1866,13 +1866,15 @@ static int mpam_discovery_cpu_online(unsigned int cpu)
- 			continue;
- 
- 		mutex_lock(&msc->probe_lock);
--		if (!msc->probed)
-+		if (!msc->probed) {
- 			err = mpam_msc_hw_probe(msc);
-+			if (!err)
-+				new_device_probed = true;
-+		}
- 		mutex_unlock(&msc->probe_lock);
- 
- 		if (err)
- 			break;
--		new_device_probed = true;
- 	}
- 
- 	if (new_device_probed && !err)
--- 
-2.34.1
+https://github.com/pkshih/rtw.git
 
