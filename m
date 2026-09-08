@@ -1,68 +1,67 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92B255D876
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D74D559CBC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873246; cv=none; b=j1gRJ2S3piaNL8o6/DdLeA2SjHRugKYoMyFngMrhSSktXBEsdLthSFgYe1bJY29exvBFQXloO8U3tLAIvwaapDkX/Cop29oXh5pEsVndnB4q50c8Q55UdGn2Qd7bnGWYyJwXhmmiBbOiHNCeM4raAbcDhEbAD1kMQkKDqEuF39Y=
+	t=1788873249; cv=none; b=th/IM890PIPWYjTR3HKXrHpRXSvZtkaSV7CU3xBx0HtzReGS63kEz6rcV4Zib+kPzUzrL1JkmiAu52FiEwkc61hunHMb5BF75rHg6m/jrbKcclEO+1mGPbiBM3AFyT6vbL/grPVV6/F0pcxsvfqK1fJh2gRAUCvPHd+M0KJn3Rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873246; c=relaxed/simple;
-	bh=KUMLl8Nlf4ganKmUfRpSqfk9SbXFsUXlAZxjeBAClCg=;
+	s=arc-20240116; t=1788873249; c=relaxed/simple;
+	bh=HpBFvtYbBbaBVYOSmjDeMZxcswzVX3gJi0+gdtI6+cQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=R2TAcPhQfKuIlwmsYQnkB2+DAKmjJTovyc5/mRdiWzYD1y6dOsQH0El8BT3WcivCRizL/4Pmm8r5zneEfdwTAdlXFewoun4b3rbE0gDeABdzxOUR9gz6Oc3pOT5rioBPqa0oYcSr3O4DEp/amfUc5fIquE8tLXe8+X8S9pWKeAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jev4xhHY; arc=none smtp.client-ip=209.85.218.42
+	 In-Reply-To:To:Cc; b=lAXl7oPCf8C9TPwJhO/R7p55XbmKotbmue3jpE7Ye0r5Mt+yik0o5rQwKIEdOPhA2yyNeIwF3xK3v9hOLb2E+9Xex0pSqc/8/gVxh5DUV36ew+KUxUWRNQrOK1S0ZgtvSpM3NvwpU/iGq/GJoVBSzbTZrK7Fsx9jXi8JZcCW8uE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ip9j/d4z; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jev4xhHY"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c250f28f1cdso741367166b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ip9j/d4z"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so826714a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788873235; x=1789478035; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788873236; x=1789478036; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mbEf3V3BeedaNXPvyc7QWrrndht5k6QHT5mMZYzozBE=;
-        b=Jev4xhHYniEvbnzhUpYQDjzQioIO7WIey59aJFO6uB9+0oc99TAVPQHI6BysaDkTHJ
-         sa21McQS7Y/vCj5EjkdIysJOPnf8Vw8VL6sTVs6oVtCbwZivSVoUVGoCZDR9y3OFY2R8
-         3NwSKRM7oDfxIT8trrTcmuGrAmwmecYW49X9tTEK0qmUL5tdKEEdCx3ZjlXLXj56RSw/
-         dY5ZH5vOKAVtED2J+o5H1P1/uDYaf3nS69H87HP/NNtidF+IIzDfb/JRIXrkp86v7cJE
-         n23xcW/YNW1hrVao/THqTPXSAYTbLYh0drggKHMCujL+KFvnQtu1LD1ABEn3ziRYnxzG
-         n+Cw==
+        bh=YxLP4rXMEUOlBTXUJ41qDJ2wD0esY5E0fZn3mGsmNX4=;
+        b=ip9j/d4zThDzG/NtkhbEw4JpmAFe+neYygMTqDPaXP34kR1R2mNR+t7CppypNEGdM9
+         o+cbb1wNIljgIM6kvxsrjuOaGyToON6LpwDtMVlUBgIzDLVMxiWoknQvGj5jKcb6qrnK
+         45k79ObgE5Qn3OqUwJDUTTwYIYKTP4epHwGYTZYaVs6k2v7tY2lVtEyqeWZJzG+KrhhC
+         P1t750zh9vQkQ6mLxU5r0XATpga8EID+490++RG27SvHWrph1wG5Zcv6Urs9GiZlXb3b
+         4zKsJORDCAnqJPu78MdS3PkM0RoySN+IzQymTC2uCv1Wx52lfgtE3MANpKNfQnyT4Lge
+         ZTeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873235; x=1789478035;
+        d=1e100.net; s=20251104; t=1788873236; x=1789478036;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mbEf3V3BeedaNXPvyc7QWrrndht5k6QHT5mMZYzozBE=;
-        b=TBWkiTQRj5oFfgRc5/u1AiKKPQh2jOjRYT5qV8ic2tC1fZN7TXi/YWXKrnfLgQLU6L
-         qzP1QaY8Tgfbxsny5U32b0fw25CjUs33sAAHLjr2rUGBRbMoYT7sbFJBCU8cFXt+umXT
-         dH3v778G2YVkY2Om7eqWWIX43NtS4QnSRVon0y1vfw1bOjI4Y5+/dmzkrRUnW51F/DMr
-         Ka2tsPmseWBppb8b/mwotswjRoiTPv0z/KL2gbSRGZbqUT/v9hP2jIrnWaAM6vM5n8av
-         K3eb+sY5uEnC3WtUTlNEqS3N+L0JWvGnlrxPkWcJIBCg9wT1xFu426POLZc2y/K+v/MD
-         SOxg==
-X-Forwarded-Encrypted: i=1; AKwUvByEugnY/GkB/CbVufwYUUNFLUd2H6bsJT+QBmvNq0tQH6vvKRKuM32PvP8TTxwzDkG/vj2v/ADxeQblAF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ldyhQrmlTYcwoxNX7EieuNkg7l3mKqHPDrJW9LxYFlG9yP1xa1
-	nT4BGmIOY81NoYeTEGkyIJnUT0OFsgSQXcQnb+TNroUcVWmuX7HHEaQ2
-X-Gm-Gg: AYBFou3B8XzLF1T5934eKNmzwxp9CCosamArWrOGUjsG/mn7nrxR4UQ8HnFcn6aOKy3
-	VbEAqn+3qykk8L/JDclqu62/RuucZSOGcb/Q//XROi9OX3cZl+sDWcv3gxReX6/gXOO5RscVMnp
-	pBt9+sbknTeCqYV+ZXwGvUPdC4VZ2ibioBEOmc5T9B+uTZqX8I+3rO8hm4J6n5KSy2yjakOxM3p
-	Zzz1HgQSsgsxRePh6PsV8jbl/89FA/kOczaL8uisUyJUrSt5eM9QO8nNVmGV+sVVrCsU8Y+0NhW
-	Tl5XxoDaS1PqjxXfyRiq/oV19/aTZUmNoLB6DxXsK+7Ieeebjy0i4VbyEDP0qshSVEH8hZkysya
-	YHsWeyipVNc23RO22qVtkZwXZrRwAxdlH9ULtn85CeO9qcQq75MXv1izmUp8VWwNAPbfszipP8Z
-	FRJm7q1njT4kWNtO6CiFF4M8b+0UuaUq/8m50FTxnlmfFXvPG1+g==
-X-Received: by 2002:a17:906:1004:20b0:c26:2205:e8b9 with SMTP id a640c23a62f3a-c262205ea13mr572772266b.25.1788873234617;
-        Tue, 08 Sep 2026 06:13:54 -0700 (PDT)
+        bh=YxLP4rXMEUOlBTXUJ41qDJ2wD0esY5E0fZn3mGsmNX4=;
+        b=kUSy5zd8f4L4d7eBud/WpWdUzrAxCY/OqMnFV7urqXxOvJuov8hoSbbqzBofykaJJJ
+         E6xjskM2kedp08U10mKuDR8oWLWH+j1P2IznZ0YQbbp51owVqgqBjCOzD+I1ECNfgWeK
+         khQKjXpk6kgDj80F3tDZ24rR4hZyG2dizmDpqFyNjaXUDblSH+XQpYFrkDliGMVSm8FL
+         PIHRwlaxJ2e5ZKybJ4VSe+q1iaaKgMvCjM+36ds9Ous20NlgRM+byUG8N/Myi7PrnUu2
+         S6oHQw7ghLrY+sqkDvPY1IkvTA5HH71njZDBGzSXDVJAMRmH6Jsp/KrpSMa9D3niUrQl
+         lVDg==
+X-Forwarded-Encrypted: i=1; AKwUvByzVTvys/OMI0QBtlUetcKPvHX028jFTpCloeShih10ZH2yGcQU0HYoOxH8gSBemuMuyUGrJ6ywoqcOXao=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2C69j9+g6wCmlGGJrC6O5+MN8VV1CWNQw42Tqtef1Ucxv0rhm
+	gBTOT3j7so6yXK2t4+MtzfVaYRz8TFGwe/v61xF848MLaScKsJu/LI2n
+X-Gm-Gg: AYBFou12f4mAF2N2DT7FT6bi39flLkc3pKJoDwPg3KYtXT5sy9cuiIQH2Bti0a7r4w4
+	0gEevuQILQM8WJIknVVirxSb1N5D2+dH7hX6Do+iiaD5h/Ok0kOM9muPQSOtptbacJvyemtUfDh
+	UMQVdnsND7Lacmo/9jT+/Ze+hywBExgc+J6Se7bJgj+Khl/PxCe+NL7ah7tsNeZapiZ8XxDKKAQ
+	SIgGgPt+SSCs3Tm/rE1D90oAcLa0I3Qc248Qh7EVKSf5MKEr8EXAdV1TmgOwNUQ8aioYjJ1Nd2y
+	rsDSmdoZd9Gslr3SS47w9JvU8tE9YVwYkp6jdF6Dcfn+oMiS0Wl82XxqwrAPbymiGrwEFyt/C6N
+	S3ax3YyqoQN80VqrTuLjknXOIcgBxqa6h6+FAT73kgj5vG7DRHeuEJeehWXH+POVEQO69GLYYri
+	/zZbPO7C35XWqy2Js/Q0bzlKjp2//bc1Zr2lBNbrTgeEEVIkg67vDy4SW+8OMD
+X-Received: by 2002:a17:907:3f09:b0:c25:f7db:4bea with SMTP id a640c23a62f3a-c290446b88cmr319041366b.16.1788873235525;
+        Tue, 08 Sep 2026 06:13:55 -0700 (PDT)
 Received: from [127.0.0.1] ([2a09:bac6:37a9:1e5a::306:1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:13:54 -0700 (PDT)
+        Tue, 08 Sep 2026 06:13:55 -0700 (PDT)
 From: Caleb Kan <calebkan1106@gmail.com>
-Date: Tue, 08 Sep 2026 14:13:37 +0100
-Subject: [PATCH RFC v2 04/11] mm/kmemleak: print trie-backed stack depot
- traces
+Date: Tue, 08 Sep 2026 14:13:38 +0100
+Subject: [PATCH RFC v2 05/11] kmsan: report trie-backed stack depot traces
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +70,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-stackdepot-trie-v2-4-1996d5cef732@cloudflare.com>
+Message-Id: <20260908-stackdepot-trie-v2-5-1996d5cef732@cloudflare.com>
 References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 In-Reply-To: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -85,38 +84,128 @@ X-Mailer: b4 0.16.0
 
 From: Caleb Kan <ckan@cloudflare.com>
 
-kmemleak stores allocation backtraces as persistent stack depot handles.
-When trie storage is enabled, stack_depot_fetch() cannot return a pointer
-to contiguous stack-record entries, so leak reports would omit the saved
-backtrace.
+KMSAN stores ordinary origin stacks and synthetic alloca and chain origins
+in stack depot and retains the resulting persistent handles. Once trie
+storage is enabled, these handles can refer to trie-backed entries, while
+kmsan_print_origin() still relies on the hash-only stack_depot_fetch() API.
 
-Use stack_depot_fetch_into() with a MAX_TRACE-sized local array before
-formatting the report. MAX_TRACE matches the save-side limit, so every
-valid kmemleak trace fits without truncation. Preserve frame order and the
-existing report format for hash-backed handles.
+Use one KMSAN_STACK_DEPTH array to materialize each origin and chained
+stack in turn. Preserve the chain's head and next-origin handles before
+reusing the array for the chained stack. The array covers both the regular
+save limit and the smaller synthetic records.
+
+Pass the scratch array into a common origin-printing helper. Keep local
+storage for standalone kmsan_print_origin() calls, but let kmsan_report()
+reuse its existing stack_entries array after printing the report stack.
+With x86-64 Clang 19, the regular nested report path uses 752 bytes, below
+its 768-byte size before this conversion.
+
+lib/stackdepot.c is uninstrumented, so stack_depot_fetch_into() unpoisons
+the successfully copied range before returning it to KMSAN. Remove the
+now-redundant explicit unpoisoning of chained entries. Origin depth and
+use-after-free metadata remain in the handle's extra bits and are
+unchanged.
+
+Update test_stackdepot_roundtrip() to use caller-owned storage while
+retaining its frame-count and kmsan_check_memory() checks. This verifies
+that the copy-out API returns initialized entries to instrumented callers.
 
 Signed-off-by: Caleb Kan <ckan@cloudflare.com>
 ---
- mm/kmemleak.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/kmsan/kmsan_test.c |  4 ++--
+ mm/kmsan/report.c     | 28 ++++++++++++++++------------
+ 2 files changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-index 8fa409a4f9fb..c42741a88bd4 100644
---- a/mm/kmemleak.c
-+++ b/mm/kmemleak.c
-@@ -378,10 +378,10 @@ static void __print_unreferenced(struct seq_file *seq,
- 				 bool hex_dump)
+diff --git a/mm/kmsan/kmsan_test.c b/mm/kmsan/kmsan_test.c
+index 31f47cc4dab4..7c04e4b21873 100644
+--- a/mm/kmsan/kmsan_test.c
++++ b/mm/kmsan/kmsan_test.c
+@@ -669,7 +669,7 @@ static void test_long_origin_chain(struct kunit *test)
+  */
+ static void test_stackdepot_roundtrip(struct kunit *test)
  {
- 	int i;
--	unsigned long *entries;
-+	unsigned long entries[MAX_TRACE];
- 	unsigned int nr_entries;
+-	unsigned long src_entries[16], *dst_entries;
++	unsigned long src_entries[16], dst_entries[16];
+ 	unsigned int src_nentries, dst_nentries;
+ 	EXPECTATION_NO_REPORT(expect);
+ 	depot_stack_handle_t handle;
+@@ -680,7 +680,7 @@ static void test_stackdepot_roundtrip(struct kunit *test)
+ 		stack_trace_save(src_entries, ARRAY_SIZE(src_entries), 1);
+ 	handle = stack_depot_save(src_entries, src_nentries, GFP_KERNEL);
+ 	stack_depot_print(handle);
+-	dst_nentries = stack_depot_fetch(handle, &dst_entries);
++	dst_nentries = stack_depot_fetch_into(handle, dst_entries, ARRAY_SIZE(dst_entries));
+ 	KUNIT_EXPECT_TRUE(test, src_nentries == dst_nentries);
  
--	nr_entries = stack_depot_fetch(object->trace_handle, &entries);
-+	nr_entries = stack_depot_fetch_into(object->trace_handle, entries, ARRAY_SIZE(entries));
- 	warn_or_seq_printf(seq, "unreferenced object%s 0x%08lx (size %zu):\n",
- 			   __object_type_str(object),
- 			   object->pointer, object->size);
+ 	kmsan_check_memory((void *)dst_entries,
+diff --git a/mm/kmsan/report.c b/mm/kmsan/report.c
+index d6853ce08954..0770658ba932 100644
+--- a/mm/kmsan/report.c
++++ b/mm/kmsan/report.c
+@@ -83,9 +83,9 @@ static char *pretty_descr(char *descr)
+ 	return report_local_descr;
+ }
+ 
+-void kmsan_print_origin(depot_stack_handle_t origin)
++static void kmsan_print_origin_with_buf(depot_stack_handle_t origin,
++					unsigned long *entries)
+ {
+-	unsigned long *entries = NULL, *chained_entries = NULL;
+ 	unsigned int nr_entries, chained_nr_entries, skipnr;
+ 	void *pc1 = NULL, *pc2 = NULL;
+ 	depot_stack_handle_t head;
+@@ -97,7 +97,8 @@ void kmsan_print_origin(depot_stack_handle_t origin)
+ 		return;
+ 
+ 	while (true) {
+-		nr_entries = stack_depot_fetch(origin, &entries);
++		nr_entries =
++			stack_depot_fetch_into(origin, entries, KMSAN_STACK_DEPTH);
+ 		depth = kmsan_depth_from_eb(stack_depot_get_extra_bits(origin));
+ 		magic = nr_entries ? entries[0] : 0;
+ 		if ((nr_entries == 4) && (magic == KMSAN_ALLOCA_MAGIC_ORIGIN)) {
+@@ -123,14 +124,10 @@ void kmsan_print_origin(depot_stack_handle_t origin)
+ 			origin = entries[2];
+ 			pr_err("Uninit was stored to memory at:\n");
+ 			chained_nr_entries =
+-				stack_depot_fetch(head, &chained_entries);
+-			kmsan_internal_unpoison_memory(
+-				chained_entries,
+-				chained_nr_entries * sizeof(*chained_entries),
+-				/*checked*/ false);
+-			skipnr = get_stack_skipnr(chained_entries,
+-						  chained_nr_entries);
+-			stack_trace_print(chained_entries + skipnr,
++				stack_depot_fetch_into(head, entries,
++						       KMSAN_STACK_DEPTH);
++			skipnr = get_stack_skipnr(entries, chained_nr_entries);
++			stack_trace_print(entries + skipnr,
+ 					  chained_nr_entries - skipnr, 0);
+ 			pr_err("\n");
+ 			continue;
+@@ -147,6 +144,13 @@ void kmsan_print_origin(depot_stack_handle_t origin)
+ 	}
+ }
+ 
++void kmsan_print_origin(depot_stack_handle_t origin)
++{
++	unsigned long entries[KMSAN_STACK_DEPTH];
++
++	kmsan_print_origin_with_buf(origin, entries);
++}
++
+ void kmsan_report(depot_stack_handle_t origin, void *address, int size,
+ 		  int off_first, int off_last, const void __user *user_addr,
+ 		  enum kmsan_bug_reason reason)
+@@ -193,7 +197,7 @@ void kmsan_report(depot_stack_handle_t origin, void *address, int size,
+ 			  0);
+ 	pr_err("\n");
+ 
+-	kmsan_print_origin(origin);
++	kmsan_print_origin_with_buf(origin, stack_entries);
+ 
+ 	if (size) {
+ 		pr_err("\n");
 
 -- 
 Git-155)
