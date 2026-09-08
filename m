@@ -1,133 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264FC5908DD;
-	Tue,  8 Sep 2026 18:03:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12825237A3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:03:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890625; cv=none; b=t3Z/TeCTJQsj3SwzHWLk2ak92EIQZD3tvhDVd1hlyyERGhRVn2Eeb2DjlRUIszMrxStIr/7/iOeXR/p3iUGnKUN6YHeyLk+uk3+DXkPwQ1rnWhQ36HuMJuCrhD2OP62LbC5jDdp7J5brTBDT6OHHTZ35qegJdmDPmkY1GKmi1x8=
+	t=1788890628; cv=none; b=jYr+UPR0OXrWjT3vGujgwCaw5NyTREJC3yXT7OyPufjh5G1pwp9a6JmT3XEPb5LEwwwNY20iBDf+3ghr+9LavYb0YvPApr4MSr8jJdUJiehnwaz0HXITLQfuJDIPGemtsgz8QB8IFQqoMg3HlTJSYuPNjTHLv99ZkgmM1rP4Jeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890625; c=relaxed/simple;
-	bh=g8gaWVtpR0N2D+c50/zh69oZ3JLwsmCAyGVWni76RhA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z6qSBnR5152SEvstzU1eQxdI4elKODiVyaBteL6cV7tGPKlrSiPGrA1y8mTQHU51O7juLoDEPob9jxW6dJ9epJ9/T3ljIK/eWE4tccV7/BzFgkFY20/Z8XK8BzI63Te6Yl9l93MjMSdr7O8ERrxsB9DvjSrM0ci+TdicLHFYCbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9PBGEno; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890628; c=relaxed/simple;
+	bh=QrQloLTgPyBoSDJmlMoitiIti6e69y2BWiWAb6tCtlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=N6zmzm2x5eluOOf5paRxdRn4i2AXGiu7wFJRLGM1t2rMiZtusMqqmVHJMpS1RZp8XszCNyglEsKAUZnqf6NHrXzotbqdiyT63XfxweV4jH6vv+ONaEos2Er26woFnNjoDd80ZTG0pU7Q+xWKY5YrYezEzoCym/IE+9cA/NQ6iKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e/1IHny5; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9PBGEno"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8761D1F00A3A;
-	Tue,  8 Sep 2026 18:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890624;
-	bh=iKTjKW+fOiZeD1KxQV7HvuEp3nfVuLzMeXDXviM50ho=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=G9PBGEnox/B03RmcJTj6GOEOJ2qkVvUWF6CPbvaoFkOQD331PQK04+RDNJo0fE5FF
-	 c8MKgTTz+UkvhA8PmZp9qDmKwHz/rqHV10ijX7hSOb6ftmOl2BSxtlkbEr9AuazGoZ
-	 QpTBwffg5VcgqgjDtFqIfoAG8cneHxb+H86oGbiuB8iG5MXAdPS00ASSmDE4fQSnZZ
-	 vX8F66RjHA8Z0eH4yX3Aw0afG76YgGuJ7DuvTELDCIcpk3NEs6tjGqC3PWAQwSz2fT
-	 y8eo6bPtm5EuHJkpSkSFdJxCdbCZ24MpbqEu3jm2b8j0kRJ4I3gC0f4rw25K2J7IXj
-	 lm5V3NxKOQwhw==
-Date: Tue, 8 Sep 2026 19:03:39 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Nikita Travkin <nikitos.tr@gmail.com>,
-	Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH RFC 1/3] dt-bindings: leds: aw2013: Add aw2027 compatible
- and rename to aw20xx
-Message-ID: <20260908-sample-onshore-a2cf8af658b4@spud>
-References: <20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org>
- <20260907-aw2013-aw20xx-rename-v1-1-c9a7df12a701@postmarketos.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e/1IHny5"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-47de0093c42so4665584f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:03:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788890624; x=1789495424; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2pVC7S66/1r0QzvP5eIL5EhHuAGtHQbwAjanVNMfirM=;
+        b=e/1IHny5j3TlXWKf0rTfiEH/5b/RZHAPye2C8va3JlzONcTNxKWD443rspq9JgR1wh
+         2y3YdYd7H6SPTX60OrkS9FFx+9E/LYnGBAeV7iY/maZUNUdfB8xQD9Ql347YLi5HGxuc
+         dV9vhoBMeP6cNx+XUZQ2EqPTmsPyyeMCS/V6gbhFipbPT6ZPHASpLMA4A5BIr0l8Wze0
+         Hgt9lSnffoHUWeREH43LgIq1+Hu7ujXpeN1drcOIHPAyo482p0BT54gvz+CQnZ1cBemV
+         gFx3jd+Wq4D8aDtSNHctbHRNTkr5ly48GlsRuLcWtDaLMwtZ63S9vl+dFSgtmWJjdzGM
+         CexA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788890624; x=1789495424;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2pVC7S66/1r0QzvP5eIL5EhHuAGtHQbwAjanVNMfirM=;
+        b=j1PNLLuEnSHCyIq/oEdgN853ZKdsym1Pe+M4+cGI8vHLUOX3UukcdFnOKic2MXJgnm
+         gk+xPHO8CEWPv5F+RlfWke3ifz6IZpL6bRDlXDW//O/OJ4jllyuPKJzgkOpPtG3uSemh
+         SzDRkwxsfVVYUJKoVkkCZb7SSc2gNoyVUH2qISDnzUhBcny/e8ewhZwoUMAmtYQLZDun
+         NEA/uyXm/pSVmy4mwzqVAdNqbV2/IfBodJhiDhe6TsNLOWRKy797RuCGtci1W4QCsXcv
+         wfRKe7KaGfdZnyPGXZihWsYGKv9/idliO3ojl90V6hBBE9a+xOOzOmrhFmIb+ZvYIHlb
+         D9xA==
+X-Gm-Message-State: AFuF++l5q5Cs9mfAuiXn8O0bK7xlD/yjHLOEsP6rP3EwY77UFwnzxNFa
+	/4eKWBFeiXM+k54+efRzfR5lNggIOiZWEjBb99dE+rkGzYKa17sNBcE3suy8
+X-Gm-Gg: AYBFou0+84sCb0NZLihro4bnQNtO7htD1iHmJuWTZy1T0Dj+SqCn0OVBZ+wHFsFtuX4
+	vwe9nFW0av4SsYdBkQ9xSw9dFEtuAPYvICOwxRqe2sXBlwYRIiPvkR3fFC7RxU9rtE//F4dLxIR
+	ftnd70xhFmF+1xrgZPvn6HVGd6oYvgstMjD6aDbN0aDUiRGg1Vyc7uh1uC0T7ajuSgAobI2VMqh
+	BsKYbOgqc2PqbFFBACdkbBMaylbPUfkcGrD2G33EJZyWbXBED56+Szur7XEU4vfHztXXXmvj6lU
+	ibHeFqoeRmpbh6wLL+/1379/MMFS8pJYQrvh0kTJ0I/C9fqpEf+sbq0wZ7asCGLCKJWCrmU7RjE
+	dg3YzQH5hdTXPyx1vlMUPXuLruif75gyLnNT1ZjcZYTa96xOWl16vcdBAswA0U6Tx9iUn4EtOAo
+	TgisKtA71/l15nO3yOcjQ5mX74enW+9MwE7cpQhryhGrdvRNOMMKGPoaBaou1UrvTyHQJOWsSQY
+	nodtOYXI9gPAyzKnLhqxp8qVJBnlEHD19kaZJq4vTzbmSFtsAirG2i5kfvnRI1oIwD5MpHKS8tc
+	dCoq
+X-Received: by 2002:a05:6000:1863:b0:485:83a6:b296 with SMTP id ffacd0b85a97d-485872b8d76mr36158782f8f.19.1788890623419;
+        Tue, 08 Sep 2026 11:03:43 -0700 (PDT)
+Received: from nn ([2001:1ab8:1003:0:5454:f357:ba89:4e22])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm37039330f8f.32.2026.09.08.11.03.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 11:03:42 -0700 (PDT)
+Sender: N B <gen.benner@gmail.com>
+From: =?UTF-8?q?Nerijus=20Bend=C5=BEi=C5=ABnas?= <nerijus.bendziunas@gmail.com>
+To: =?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	linux-wireless@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH] wifi: ath9k: refuse spectral scan control while the hardware is disabled
+Date: Tue,  8 Sep 2026 21:03:08 +0300
+Message-ID: <20260908180308.788642-1-nerijus.bendziunas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xN1OfmFunrnmuw20"
-Content-Disposition: inline
-In-Reply-To: <20260907-aw2013-aw20xx-rename-v1-1-c9a7df12a701@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---xN1OfmFunrnmuw20
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+The spectral_scan_ctl debugfs file drives PHY register writes, and
+nothing checks whether the hardware is up. While the interface is down
+the chip is asleep, and on the AR9271 those writes go over WMI to a
+sleeping target and hang the firmware until the device is re-enumerated.
 
-On Mon, Sep 07, 2026 at 04:47:51PM -0700, Paul Sajna wrote:
-> Document the awinic,aw2027, which is very similar to aw2013.
-> Rename the driver to support all of the 20xx series.
->=20
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->  .../bindings/leds/{leds-aw2013.yaml =3D> leds-aw20xx.yaml}       | 10 ++=
-++++----
->  1 file changed, 6 insertions(+), 4 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml b/Do=
-cumentation/devicetree/bindings/leds/leds-aw20xx.yaml
-> similarity index 91%
-> rename from Documentation/devicetree/bindings/leds/leds-aw2013.yaml
-> rename to Documentation/devicetree/bindings/leds/leds-aw20xx.yaml
-> index 26238446f2bd..f20b5344e3e1 100644
-> --- a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
-> +++ b/Documentation/devicetree/bindings/leds/leds-aw20xx.yaml
+Refuse the write with -EBUSY while ATH_OP_INVALID is set. The reset
+control already refuses on the same flag.
 
-Please retain a filename matching a compatible. IOW, leave this alone.
-pw-bot: changes-requested
+Assisted-by: LLM
+Signed-off-by: Nerijus Bendžiūnas <nerijus.bendziunas@gmail.com>
+---
+ drivers/net/wireless/ath/ath9k/common-spectral.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-The rest of this is fine, but please note in your commit message what
-makes this device different to the existing one.
+diff --git a/drivers/net/wireless/ath/ath9k/common-spectral.c b/drivers/net/wireless/ath/ath9k/common-spectral.c
+index ca01a07f6630..0bbbef9e3b9c 100644
+--- a/drivers/net/wireless/ath/ath9k/common-spectral.c
++++ b/drivers/net/wireless/ath/ath9k/common-spectral.c
+@@ -805,6 +805,14 @@ static ssize_t write_file_spec_scan_ctl(struct file *file,
+ 
+ 	buf[len] = '\0';
+ 
++	/* Every command below drives PHY register writes. Refuse them while
++	 * the hardware is disabled (the interface is down): on the AR9271
++	 * that traffic hangs the firmware until the device is re-enumerated.
++	 * The reset control refuses on the same flag.
++	 */
++	if (test_bit(ATH_OP_INVALID, &common->op_flags))
++		return -EBUSY;
++
+ 	if (strncmp("trigger", buf, 7) == 0) {
+ 		ath9k_cmn_spectral_scan_trigger(common, spec_priv);
+ 	} else if (strncmp("background", buf, 10) == 0) {
 
-Thanks,
-Conor.
+base-commit: 1d8e73163ef933624341075f576e2f36ef9133f7
+-- 
+2.55.0
 
-> @@ -1,21 +1,23 @@
->  # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->  %YAML 1.2
->  ---
-> -$id: http://devicetree.org/schemas/leds/leds-aw2013.yaml#
-> +$id: http://devicetree.org/schemas/leds/leds-aw20xx.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: AWINIC AW2013 3-channel LED Driver
-> +title: AWINIC AW20XX 3-channel LED Driver
-> =20
->  maintainers:
->    - Nikita Travkin <nikitos.tr@gmail.com>
-> =20
->  description: |
-> -  The AW2013 is a 3-channel LED driver with I2C interface. It can control
-> +  The AW20XX is a 3-channel LED driver with I2C interface. It can control
->    LED brightness with PWM output.
-> =20
->  properties:
->    compatible:
-> -    const: awinic,aw2013
-> +    enum:
-> +      - awinic,aw2013
-> +      - awinic,aw2027
-> =20
->    reg:
->      maxItems: 1
->=20
-> --=20
-> 2.55.0
->=20
-
---xN1OfmFunrnmuw20
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBN+wAKCRB4tDGHoIJi
-0mihAQDYRW3Dc+tmgQeM9ZVjwjmMEmIKNmrerr12ozj7zbw/VwEA1Bn5tdnnzeDt
-Nry9qwkRP7pEKTIM3vQgS8iE5Gnb6g0=
-=tgWJ
------END PGP SIGNATURE-----
-
---xN1OfmFunrnmuw20--
