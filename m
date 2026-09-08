@@ -1,80 +1,72 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 066135678F1
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C5C54A7CC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872886; cv=none; b=XeIYk+UkpL6c6uoFymvzOdIYD7X1XUC6JrZa3hhOapv/0XNk9hkopGPDQ8ROSW++kGpt0A8vp7BSyjz6lZJ8YDABYcgPT8zQbirpYb4LGUyz194SsWoGym27HI/IXweRW8k64VnslFlh9sEHkEKh0bQrmYHkyEiEZyfE/3JexE0=
+	t=1788872900; cv=none; b=G1OgX8bCdIW4zFxdlBGoCGQ7wRdgYPBqV36RV51epdhOLTZIOz178VUYirsbwkBaHgYefuYKa8B35gXFML2v13HpU24m56GNkCd8hB+oOReEw+8jLfVQj1eQuBXwtSBk/PbTMwkRJ9MM/KggNStc6bxLF0e+xVwUgLKizYsi/aU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872886; c=relaxed/simple;
-	bh=+OIWRe3YDSSSfno1aUGzUXI4pqYdomv36H08zvrEp/Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WRJmFLhZzKrQMjvULqxVw0oDU6trNSUoENPqSUIDI6hsWZOxLzv6Vz0kogx52TpC2NjbR8R5mUbnsERvGFG6A/ON6twq8maf1QYhVOH3qWvBv+ZswmVwESvCxTdTh+bXUG2cr++Fy9dQQCYWOKALEsbFFdepJoDgadjn18YJdEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OC87lQmX; arc=none smtp.client-ip=209.85.221.48
+	s=arc-20240116; t=1788872900; c=relaxed/simple;
+	bh=gS76ZUxJGII/IfQJPP3cQBrBvwEJIEfz3eGV0ojgosc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QVycEEKyfJLanGjEafb+0D4tKiyGPjVFOdX7w2f8tauy5vl5Hcdgeb4kq1u2rZkSMoEhxUx6NLES47FdaeAys0OpTjC7UR9KxYASZtRHqIP7KxWmKPECaj0VcEXjLbn3+JUshUp0HJ8I5QXY5c6ndhwsOuerqFh/t7C7xbYH/do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dshc00bz; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OC87lQmX"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f96c5b722so3258383f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:08:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dshc00bz"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so4970325e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788872882; x=1789477682; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RugyRWGWsjHVr0AiFzCDOt1qK0c+eaQP2Q1JnZpRYIo=;
-        b=OC87lQmXh7w+yK8XuPde0PyMYCCjA20cG1IvIEvJLT2rPe0wWO8Nx7deSAnXX6LmCG
-         OJaAYLb5eePj7yh/R1fNTaKnV0/kK2ZrH3mp6m1H9dxAgLMLmh4Ie96sT3dmtcpeTEZX
-         ZzXH57ikqTwtAKYUPHcONPP6viWlpAPsxLSPbM4LkWXAQPiN6Ufxt3Ku+kbgLDfYhPB9
-         TqKgKMX2UFYCTgKqbSS751CnS+S/czJj+BFfEtAtQ4cjbCpnz4JJHaWRBiGUQicIFzBe
-         I0IQTDyet5evUFpFkGd/8r8TsEMNOHTZ1jxZlA+tafsUOXNmN2j/7MKavtLrpDsckAGP
-         gzXg==
+        d=gmail.com; s=20251104; t=1788872897; x=1789477697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W+P6yu5LK3ZN7OT5GNukgXFTes6g5Rd5+fxFP67JMrY=;
+        b=Dshc00bzt06Pz3AjqDH+fu968X+35BI07RWQaADIOVWv4JiWnaUqyx5LFVm7u8uYlJ
+         NUi8hWltlkoK112sZM3SfFNJXMmIeedNjM1mhfAAOdfaeMX1rryOL/8wUJNsOmQ4X/Rf
+         TWG41qEmoTLIzO89yiaWNZ+IoTlqNtqBGE5iz40qhVJ3Iaq0/VRWlrXsn/17l0G+uquE
+         2pmPSOlUXS9Hu+VMHPGmXpwE0GZ1tD9I26cvv1mo+65LYADykLenMqnD092BI6sEGUTB
+         5VjYYW59kl7n4u4Mo9986gqQFnc8g8lOzuUIm5x4pUWqLyumpGB8FJVe0qXjbjEspV6X
+         cPPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788872882; x=1789477682;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RugyRWGWsjHVr0AiFzCDOt1qK0c+eaQP2Q1JnZpRYIo=;
-        b=TmDoqEkKdQ8ivtIRoq5hG1+0XIyqXLYLdWK5DAf6QNFX8x4zrfTkW+WskZmmOhhm7u
-         F4ryJPGZiVkDAzsoxwZi9S4bkJ6+PZT3JGDieuyrgOFh5Ei2W+cE3Es40IVHJ1e0ZBWS
-         yPqj6FNAHyHXCSnLsN71iR1UXQWa/aMeulUh0KGjoP2nD+YQD6Zij5d0A8w/7AI/yTRI
-         lV7LsqhPV2D/6mODGwbZ7+WVFgRdh5AYhsgjN3AJ0BrhLb58yNkeieDq0HjURZZMKhMa
-         /KFGyy3LGQQUvTAn3vFAgB9viNg9EsfVsNED4EXa25M1iNlePsH9OZROsOKxGPy7oBA4
-         uehw==
-X-Forwarded-Encrypted: i=1; AKwUvBzkdm151shqcixFMDpUiTqHsurnoDpMvGKSlJFU/kyM9TwZ0BTGPrR9MeCGVFwkZ5P046pMyQcHx++qqQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVPXZ5L9u7v7IAdTkUT7edXTHsrnLbL/vFgrMjV3RSVBTB2MZo
-	3ZBaVzi3LS1qcfcmP65T+URcmD/Zd/KuI4DcfKY5dZaoSzQp4UjlEYbW
-X-Gm-Gg: AYBFou0CLXFLp/CFXEcEhn6CCFqC8/pFcbmPDsR1ZZfnw+hTGN/QGd2u/r5YwTJLqyx
-	HlsEg7ZvQCQF0dlBHhtpSnyYqjVX60z85eYQGwbTk8wASnNppIC7ARyhIV8FYkJFtWQFstZmOQE
-	ubto/kc626mTfixj740Y5hWz0jG54wKFca7mScQby+e24yWlh5Ber8plJxZOqI6/nZjG8be0QTc
-	oWYlrSxfKAqHAMGENLQSTvkFrhcovXMhUNmCoPkRFe7h/tInZuqcwXasK9UuvIa8c/7+470e+2h
-	QOR2q4iJO3bJYHWtBbnAa4+PdcIX9ROT8LWT7OfSj7Uw/1t5KpvmD8V8i9va9XzlqLag/NX/r/+
-	pcC17uBjtvj7nT94kLnWuc38NJmCI/V1jsu/a1GVEsBm7QPWmXgVRaG+DU1Mxhx3bC+KHSgYX1J
-	OhWkEruFaBnpY8IvtMo+f2VBibhjQDoLH53xZt3ta5KTgmgKWxx+KfVS7TLYtCXrMAK+/nlSduc
-	haL3A+ezcEU2/gJH9ciDtSwHCScY0zt
-X-Received: by 2002:a05:600c:c1c8:10b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-49cfa21e8f3mr187137995e9.31.1788872881636;
-        Tue, 08 Sep 2026 06:08:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788872897; x=1789477697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W+P6yu5LK3ZN7OT5GNukgXFTes6g5Rd5+fxFP67JMrY=;
+        b=hW5O0QfuVAvx/Ecc+g/CFhP9lRKbKLWhPBpOylUd7jNUNlZmYcyuA4OATcyl9e9VK2
+         7KTPslelmdrMDibvSvAqeLiVy1zM83BRYYC9n5waEdPPPleVOrLeAP2ZGo80sEOnXhxh
+         Ppz1rzLURXjtdy51Xbkv1XNXlFfSV+s8OzWlXXoUNpeIlfsWtB8AZu+AQjdT7zJ/n3Xi
+         bJa6CPIMFkyoLyh0GTq0nL86MrB2P2t5fqFU9lrL3YAGsUY54CzgEj6f4YPU3NQgUcPk
+         rohesXrEJVSxLuxaJffNQyDbqr9bLhWRhoZp9tl4CP//QvOiGnTdyJb9mxlV/1fsGgPq
+         47VA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9RI40+CisILIARzj1UsuzkKGEZ/5kRXq0/y803Q/3gPmNNwLqeH10w/yuSN5EoNktaJSXEnqWReg4KXA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ntH7HbWTJbpTQ9YeLZjLzeqj2kLWLtXecbpzwbLmmDW27S6IfT
+	ZVaRUbcZgDOMaCS/iyThOLXoCZIa2ItnXwkNugI0Kxmmcn7pwX37ozJP/I68ySvIylG5aA==
+X-Gm-Gg: AYBFou0nRB1vpTlHtiOMMjNRF5JEREVTSB9MNlJLBobkN8irYeiBlP4edcLaZqFGavt
+	i84I5v2u08uil2rmUPkRz8Sp4W02GYlrBCB9ogL5iHEOwIWBHebIj2mqVux/Talj2/UX0Rb+e9u
+	AS4I4s11ywxQ95Cc/mP/ko2x8dzqFBesqtdoeaeF6FfaWiAdpkqBwK74qlzrrYWxkgWaBbuM2EH
+	GMgqNTA6pc39LDDXnyXvaS89EqDDO+iDdAOZDmsBv3YeiDwBKzFVaY0Zw8hGT5+2lUwmFftx618
+	4KBjcpVr4Z+nVcyTbXGmgZ9GW4uRK8VWVz3k8RGfZD/pbzVmC0rhbSSQn0Oy5ZpzuQsOY8kJY/v
+	j/VmMOguHhAQ/G7n+fxH+9RV8a9tTUeRmWJmolZocf/ACATIYazBzYsNYv95uQeaxtseEQzPFOg
+	aJJORAllKGY5B1SS3AezBTuTUCbHh+smswDKc8v0Rm0DazZzS75kuR5Vgjqhe1xItqljNIEh+Va
+	a/PiLdMOPP930BIf62/NOOZAhjYPYX8
+X-Received: by 2002:a05:600c:3513:b0:49c:ee3b:723d with SMTP id 5b1f17b1804b1-49d1e07e622mr12635625e9.0.1788872897012;
+        Tue, 08 Sep 2026 06:08:17 -0700 (PDT)
 Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm28884165f8f.20.2026.09.08.06.08.00
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm523660125e9.1.2026.09.08.06.08.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:08:01 -0700 (PDT)
+        Tue, 08 Sep 2026 06:08:14 -0700 (PDT)
 From: Oleg Keri <okerixx@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>
-Cc: linux-arm-msm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jimmy Su <jimmy.su@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] mfd: qcom-pm8008: support PMICs with no interrupt line
-Date: Tue,  8 Sep 2026 15:07:45 +0200
-Message-ID: <20260908130745.2545-3-okerixx@gmail.com>
+Subject: [PATCH] media: ov08x40: implement get_selection
+Date: Tue,  8 Sep 2026 15:08:03 +0200
+Message-ID: <20260908130803.2632-1-okerixx@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908130745.2545-1-okerixx@gmail.com>
-References: <20260908130745.2545-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -83,116 +75,175 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The interrupt is only needed for the temperature alarm and the two GPIOs.
-Where the pin is not routed the regulators are still perfectly usable, but
-probe fails: client->irq is 0 and request_threaded_irq() rejects it.
+The driver does not implement any pad selection op, so userspace gets
+-ENOTTY when asking for the pixel array geometry. libcamera then has to
+guess: it defaults PixelArraySize to the output size and
+PixelArrayActiveAreas to a zero-sized rectangle, and warns that the driver
+needs fixing.
 
-Skip the IRQ chip in that case and register the regulator cell alone. The
-temperature alarm cannot be registered without a domain either, because
-its IORESOURCE_IRQ would be handed to the platform device as a raw number
-rather than being mapped, and the GPIO cell needs the domain for the same
-reason.
+Report the full pixel array and the per-mode analogue crop. The values are
+those the register lists already program: X_ADDR_START/END give a 3872
+pixel wide array and Y_ADDR_START/END give 2432 lines, with each mode
+cropping that window vertically.
 
 Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
- drivers/mfd/qcom-pm8008.c | 63 +++++++++++++++++++++++++--------------
- 1 file changed, 40 insertions(+), 23 deletions(-)
+ drivers/media/i2c/ov08x40.c | 87 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 87 insertions(+)
 
-diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
-index 60204cc9a2dc..b51a9657ee56 100644
---- a/drivers/mfd/qcom-pm8008.c
-+++ b/drivers/mfd/qcom-pm8008.c
-@@ -183,6 +183,10 @@ static const struct mfd_cell pm8008_cells[] = {
- 	MFD_CELL_NAME("pm8008-gpio"),
+diff --git a/drivers/media/i2c/ov08x40.c b/drivers/media/i2c/ov08x40.c
+index 5eaf454f4763..0299d50222ad 100644
+--- a/drivers/media/i2c/ov08x40.c
++++ b/drivers/media/i2c/ov08x40.c
+@@ -151,6 +151,9 @@ struct ov08x40_mode {
+ 	/* Exposure calculation */
+ 	u16 exposure_margin;
+ 	u16 exposure_shift;
++
++	/* Analogue crop programmed by reg_list */
++	struct v4l2_rect crop;
  };
  
-+static const struct mfd_cell pm8008_regulator_cells[] = {
-+	MFD_CELL_NAME("pm8008-regulator"),
-+};
+ static const struct ov08x40_reg ov08x40_global_regs[] = {
+@@ -1183,6 +1186,10 @@ static const char * const ov08x40_test_pattern_menu[] = {
+ #define OV08X40_LINK_FREQ_749MHZ	749000000ULL
+ #define OV08X40_SCLK_96MHZ		96000000ULL
+ #define OV08X40_XVCLK			19200000
 +
- static void devm_irq_domain_fwnode_release(void *data)
- {
- 	struct fwnode_handle *fwnode = data;
-@@ -195,9 +199,12 @@ static int pm8008_probe(struct i2c_client *client)
- 	struct regmap_irq_chip_data *irq_data;
- 	struct device *dev = &client->dev;
- 	struct regmap *regmap, *regmap2;
-+	const struct mfd_cell *cells;
- 	struct fwnode_handle *fwnode;
-+	struct irq_domain *domain;
- 	struct i2c_client *dummy;
- 	struct gpio_desc *reset;
-+	int num_cells;
- 	char *name;
- 	int ret;
++/* Full pixel array, from X/Y_ADDR_START..END in the register lists */
++#define OV08X40_NATIVE_WIDTH		3872
++#define OV08X40_NATIVE_HEIGHT		2432
+ #define OV08X40_DATA_LANES		4
  
-@@ -231,33 +238,43 @@ static int pm8008_probe(struct i2c_client *client)
- 	 */
- 	usleep_range(1000, 2000);
+ /*
+@@ -1235,6 +1242,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 	},
+ 	{
+ 		.width = 3856,
+@@ -1250,6 +1263,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 	},
  
--	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
--	if (!name)
--		return -ENOMEM;
--
--	name = strreplace(name, '/', ':');
--
--	fwnode = irq_domain_alloc_named_fwnode(name);
--	if (!fwnode)
--		return -ENOMEM;
--
--	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
--	if (ret)
--		return ret;
--
--	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
--				IRQF_SHARED, 0, &pm8008_irq_chip, &irq_data);
--	if (ret) {
--		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
--		return ret;
-+	if (client->irq > 0) {
-+		name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
-+		if (!name)
-+			return -ENOMEM;
-+
-+		name = strreplace(name, '/', ':');
-+
-+		fwnode = irq_domain_alloc_named_fwnode(name);
-+		if (!fwnode)
-+			return -ENOMEM;
-+
-+		ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
-+		if (ret)
-+			return ret;
-+
-+		ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap,
-+						      client->irq, IRQF_SHARED, 0,
-+						      &pm8008_irq_chip, &irq_data);
-+		if (ret) {
-+			dev_err(dev, "failed to add IRQ chip: %d\n", ret);
-+			return ret;
-+		}
-+
-+		domain = regmap_irq_get_domain(irq_data);
-+		cells = pm8008_cells;
-+		num_cells = ARRAY_SIZE(pm8008_cells);
-+	} else {
-+		domain = NULL;
-+		cells = pm8008_regulator_cells;
-+		num_cells = ARRAY_SIZE(pm8008_regulator_cells);
- 	}
+ 	{
+@@ -1266,6 +1285,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_400MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_BIN_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 0,
++			.width = 3872,
++			.height = 2432,
++		},
+ 	},
+ 	{
+ 		.width = 3856,
+@@ -1281,6 +1306,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 1,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 112,
++			.width = 3872,
++			.height = 2208,
++		},
+ 	},
+ 	{
+ 		.width = 1928,
+@@ -1296,6 +1327,12 @@ static const struct ov08x40_mode supported_modes[] = {
+ 		.link_freq_index = OV08X40_LINK_FREQ_749MHZ_INDEX,
+ 		.exposure_shift = 0,
+ 		.exposure_margin = OV08X40_EXPOSURE_MAX_MARGIN,
++		.crop = {
++			.left = 0,
++			.top = 120,
++			.width = 3872,
++			.height = 2192,
++		},
+ 	},
+ };
  
- 	/* Needed by GPIO driver. */
--	dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
-+	dev_set_drvdata(dev, domain);
+@@ -2055,10 +2092,60 @@ static const struct v4l2_subdev_video_ops ov08x40_video_ops = {
+ 	.s_stream = ov08x40_set_stream,
+ };
  
--	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, pm8008_cells,
--				ARRAY_SIZE(pm8008_cells), NULL, 0,
--				regmap_irq_get_domain(irq_data));
-+	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells,
-+				num_cells, NULL, 0, domain);
- }
++static const struct v4l2_rect *
++__ov08x40_get_pad_crop(struct ov08x40 *ov08x,
++		       struct v4l2_subdev_state *sd_state, unsigned int pad,
++		       enum v4l2_subdev_format_whence which)
++{
++	const struct v4l2_mbus_framefmt *fmt;
++	const struct ov08x40_mode *mode;
++
++	if (which == V4L2_SUBDEV_FORMAT_ACTIVE)
++		return &ov08x->cur_mode->crop;
++
++	fmt = v4l2_subdev_state_get_format(sd_state, pad);
++	mode = v4l2_find_nearest_size_conditional(supported_modes,
++						  ARRAY_SIZE(supported_modes),
++						  width, height,
++						  fmt->width, fmt->height,
++						  filter_by_mipi_lanes, ov08x);
++
++	return &mode->crop;
++}
++
++static int ov08x40_get_selection(struct v4l2_subdev *sd,
++				 struct v4l2_subdev_state *sd_state,
++				 struct v4l2_subdev_selection *sel)
++{
++	struct ov08x40 *ov08x = to_ov08x40(sd);
++
++	switch (sel->target) {
++	case V4L2_SEL_TGT_CROP:
++		mutex_lock(&ov08x->mutex);
++		sel->r = *__ov08x40_get_pad_crop(ov08x, sd_state, sel->pad,
++						 sel->which);
++		mutex_unlock(&ov08x->mutex);
++
++		return 0;
++	case V4L2_SEL_TGT_NATIVE_SIZE:
++	case V4L2_SEL_TGT_CROP_BOUNDS:
++	case V4L2_SEL_TGT_CROP_DEFAULT:
++		sel->r.left = 0;
++		sel->r.top = 0;
++		sel->r.width = OV08X40_NATIVE_WIDTH;
++		sel->r.height = OV08X40_NATIVE_HEIGHT;
++
++		return 0;
++	}
++
++	return -EINVAL;
++}
++
+ static const struct v4l2_subdev_pad_ops ov08x40_pad_ops = {
+ 	.enum_mbus_code = ov08x40_enum_mbus_code,
+ 	.get_fmt = ov08x40_get_pad_format,
+ 	.set_fmt = ov08x40_set_pad_format,
++	.get_selection = ov08x40_get_selection,
+ 	.enum_frame_size = ov08x40_enum_frame_size,
+ };
  
- static const struct of_device_id pm8008_match[] = {
 -- 
 2.55.0
 
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
