@@ -1,121 +1,176 @@
-Received: from mta1.migadu.com (out-247.mta1.migadu.com [95.215.58.247])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C2F44F55C0
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:36:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.247
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D589553D0A0;
+	Tue,  8 Sep 2026 12:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871014; cv=none; b=rBwBJi+0+IjRtC6YEnz/gG3oTg90/YCu+QNyGaHB0rnKIL/h14qsIgEu3u+HDrucGfzcOSKJcONZz3NM9P8wzFskREIFAeZYmm688OeOHGbp1QGGNr58+E6oL2QHIUtoNvkCQY1sFQeNthdoAF42VgN4CH3P8M7tH2+Ks6Jx2Os=
+	t=1788871019; cv=none; b=qMNYGEG9oF2W21+4lMr7dnMuAT2G2448u595yhSy5EQ1VhipI8/PzMdJpqF4FCz5tyQaWf9zyVA6wznoxC79P5vf1lOTpDl4k+VWl2Nt4bg2B0qMxKy7U+etyRQYicBOQNs4HZlL7AQpUQ8CWUZ8egduW9/m+DdaetAGiYX2liU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871014; c=relaxed/simple;
-	bh=QRZxdxzoLo0jlgJuYiv5XaSXuLWyyys4yksB6p91GRQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GcZylngh42sBMQBkJ8ZlSRKJoHLFjDpDDxwUHoyjbaElnyGBYP+3f08N9DhjWgRYw4x6AjwmMpYWU3Ue92D6WbO87KdJ/6TS2C4PHCcrT7Mux33FkpU6xRkPDMx9A1USh13r/2lcepUFoeBpJJuhYDDLaPgF76RLCNTJo9GGHwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=pHQAM/sM; arc=none smtp.client-ip=95.215.58.247
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788871019; c=relaxed/simple;
+	bh=Z3Spp3yZf9MDP8GI9lcTMaFp7We7mSk3CHVti4eQ8Kk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=pQz7++XUNevCQ1kv0TVsf4oBs4FAjZmFWyrKSopjA3owpQs7kSCWcQUTrW7h5BVIX/NUcgJKTGUcrstaaJGrIQptePLdX0hUOloMGve7fdCXBvQQ5+XrH5mjleA3iQUiXSwkhlhh9k9bWsLVygzJWusJB9LUXnYcE+SCeb8QUeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+e1gF9H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="pHQAM/sM"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=QRZxdxzoLo0jlgJuYiv5XaSXuLWyyys4yksB6p91GRQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788871010; v=1; x=1789475810;
- b=pHQAM/sMYAT/bxfSiW1IsHDoL6i/1mRzlDMHUZN4GUkaK45tShjjItrgc13/ticviNTPdsmr
- 3CBvEztkITc2fH6TnlPieTL4yJIzJFS1yMTd5R0sGfifpY4csAsJsWcHnq6bUrrB4AhcQFDKKiI
- RVA7+TPsIPBQQQcERuVTAWRQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 2af1264f8bc09df4;
-	Tue, 08 Sep 2026 12:36:39 +0000
-X-Mizu-Trace-ID: 2af1264f8bc09df4
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 8 Sep 2026 20:36:29 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Ramses <ramses@well-founded.dev>
-Cc: Jay Vosburgh <jv@jvosburgh.net>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Jiri Bohac <jbohac@suse.cz>, Netdev <netdev@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net v2] bonding: fix initial last_rx vs ARP-monitor slack
- window
-Message-ID: <aqABTWhi9M5f46R9@fedora>
-References: <20260827-bonding-last-rx-v2-1-7c3833822c23@well-founded.dev>
- <apD3VyaIOmMlv6kK@fedora>
- <P0pqA1I--F-9@well-founded.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+e1gF9H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B341F00A3A;
+	Tue,  8 Sep 2026 12:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788871017;
+	bh=CROMFVbCukyMBi3KsqVLGHf8AAALUePfF8l3vUCFXhE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=m+e1gF9HAH60Vx1qwxMPowlrU6eO2azVERbApHj9g19Jub9o1b7t062ouaLe+afPM
+	 Pdpz4mTfhvIL6ad9/ZbcEZa1dwcpR87PdVabIS2tKSCkF5a0TjwVBSS4d27bobKBog
+	 58GgGbptltPuCClSQg/AH8Z3XN9kKi4dQbnmnRd95VmwpdTCkHuWJhGfGKqe/i/Q5L
+	 AJA5urYfLM6QaO1Uqs0BMxOI7yfZ3eilA2ektqZGKdrwL5wGWFm++sZLa5Pjkngzj0
+	 GPO21vSo38ptKCVdCHFOLCr2Y7aSnhpyq0PHDCd7vf6hJ32M5dclf0J0scZLQjSSbg
+	 eMlmrLVvYoejQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 13:32:21 +0100
+Subject: [PATCH v2 12/12] mm: change the contract for free_pgtables(),
+ update docs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <P0pqA1I--F-9@well-founded.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-rcu-pagetable-freeing-v2-12-1f60b64e878e@kernel.org>
+References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
+In-Reply-To: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3183; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Z3Spp3yZf9MDP8GI9lcTMaFp7We7mSk3CHVti4eQ8Kk=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWMMR8PCxbzHxp/Yz1uQGnaswntkhbX2KLqyh2mjovm
+ qNat1ino5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPxvMbwT/XufKusteKnNrtN
+ sON7/H0yywOjjd/4r2xj0Qt5o76Y/z3D/+JLmldsiq8UVM993a39V05NdEGx2I24otIKkTsVeV0
+ nuQA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Sun, Sep 06, 2026 at 11:02:37AM +0200, Ramses wrote:
-> Aug 28, 2026, 04:50 by hangbin.liu@linux.dev:
-> 
-> > On Thu, Aug 27, 2026 at 01:44:42PM +0200, Ramses de Norre via B4 Relay wrote:
-> >
-> >> From: Ramses de Norre <ramses@well-founded.dev>
-> >>
-> >> Commit f31c7937c254 ("bonding: start slaves with link down for ARP
-> >> monitor") initialises a freshly enslaved port's last_rx to
-> >> jiffies - (arp_interval + 1) so that it does not "immediately cause
-> >> fake detection of 'up' state". At the time, the comparison was a plain
-> >> <= arp_interval and the value was just stale enough.
-> >>
-> >> Commit da210f559019 ("bonding: add some slack to arp monitoring time
-> >> limits"), four months later, added a +arp_interval/2 slack term to
-> >> every comparison (now bond_time_in_interval()) but did not widen the
-> >> init to match. Since then, bond_time_in_interval(bond, last_rx, 1) is
-> >> true for the first ~arp_interval/2 after enslavement even though no
-> >> packet has been received: the upper bound is last_rx + 1.5*delta and
-> >> last_rx was set to jiffies - delta - 1.
-> >>
-> >> If the ARP monitor tick lands in that window, bond_ab_arp_inspect()
-> >> proposes the slave UP. If the slave is the configured primary,
-> >> bond_ab_arp_commit() sets do_failover and the still-armed
-> >> force_primary in bond_choose_primary_or_current() makes it the active
-> >> slave regardless of primary_reselect. ARP validation as the active
-> >> slave then fails (the link has not actually received anything; on
-> >> SFP+ ports the PHY is often still negotiating) and the bond falls back
-> >> to the backup. With primary_reselect=failure, force_primary has now
-> >> been spent and the bond stays on the backup until something else
-> >> triggers a reselect.
-> >>
-> >
-> > Can we set primary_reselect to always or better to avoid this? If you prefer
-> > to using the primary slave.
-> >
-> That hides the symptom, but the wrong link state happens nonetheless, in bond_ab_arp_inspect(), independent of any selection policy:
-> 
-> if (slave->link != BOND_LINK_UP) {
->   if (bond_time_in_interval(bond, last_rx, 1)) {
->     bond_propose_link_state(slave, BOND_LINK_UP);
-> 
-> bond_enslave() needs to seed last_rx with a timestamp old enough that this test fails until a real ARP reply arrives. That is what the seed is for, see f31c7937c254 ("bonding: start slaves with link down for ARP monitor").
-> 
-> The seed is one arp_interval old, which was just old enough back when the test was "jiffies <= last_rx + delta". da210f559019 then added delta/2 of slack to every such comparison without adjusting the seed accordingly, so the seed now sits inside the window instead of outside it. So for the first half ARP interval after enslavement the test indicates "received recently" for a slave that hasn't actually received anything, and that is true for any freshly enslaved slave, primary or not, whatever primary_reselect is set to.
-> 
-> With the always policy the bond does recover once the port really comes up, so it is not permanent, but until then traffic goes to a port whose PHY has not finished negotiating and is dropped.
-> So in my case, I use the failure policy precisely to avoid the bond flapping back to the primary while it is not actually up, which would cause dropped packets, but it would be much nicer if the link state was just detected correctly and this workaround wasn't needed.
+Now that page tables are freed after an RCU grace period, it is safe for
+read-only page table walkers to walk page table ranges that are being
+concurrently torn down, provided the mm is kept alive via mmgrab().
 
-Ah, I got what you mean. The primary slave is set "UP" but no arp reply yet,
-which cause a false UP and then goes down. Your fix is similar with
-f31c7937c254 ("bonding: start slaves with link down for ARP monitor"), the
-difference is your version is based on the extra arp_interval/2 delta.
+It is however unsafe for writers to do so, as they must obtain an
+appropriate lock to do so safely.
 
-The code looks good to me.
+Update the pte_offset_map_lock()'s comment block to reflect this.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Similarly update the process addresses documentation.
 
-But it would be good if someone else also could help review in case I missed
-anything.
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ Documentation/mm/process_addrs.rst |  6 ++++++
+ mm/pgtable-generic.c               | 15 +++++++++++----
+ 2 files changed, 17 insertions(+), 4 deletions(-)
 
-Thanks
-Hangbin
+diff --git a/Documentation/mm/process_addrs.rst b/Documentation/mm/process_addrs.rst
+index a7296f251799..1e65b139f355 100644
+--- a/Documentation/mm/process_addrs.rst
++++ b/Documentation/mm/process_addrs.rst
+@@ -537,6 +537,12 @@ We establish basic locking rules when interacting with page tables:
+ * When changing a page table entry the page table lock for that page table
+   **must** be held, except if you can safely assume nobody can access the page
+   tables concurrently (such as on invocation of :c:func:`!free_pgtables`).
++* Page tables may be *walked* under RCU alone, as page tables are freed only
++  after an RCU grace period has elapsed. However, any entry found must be
++  revalidated after the page table lock is taken (such as the
++  :c:func:`!pmd_same` recheck performed by :c:func:`!pte_offset_map_lock`)
++  before it is acted upon. Changing an entry always requires the page table
++  lock.
+ * Reads from and writes to page table entries must be *appropriately*
+   atomic. See the section on atomicity below for details.
+ * Populating previously empty entries requires that the mmap or VMA locks are
+diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
+index b91b1a98029c..a127e3e8f9b9 100644
+--- a/mm/pgtable-generic.c
++++ b/mm/pgtable-generic.c
+@@ -385,10 +385,17 @@ pte_t *pte_offset_map_rw_nolock(struct mm_struct *mm, pmd_t *pmd,
+  * Note: "RO" / "RW" expresses the intended semantics, not that the *kmap* will
+  * be read-only/read-write protected.
+  *
+- * Note that free_pgtables(), used after unmapping detached vmas, or when
+- * exiting the whole mm, does not take page table lock before freeing a page
+- * table, and may not use RCU at all: "outsiders" like khugepaged should avoid
+- * pte_offset_map() and co once the vma is detached from mm or mm_users is zero.
++ * Note that free_pgtables(), used after unmapping detached vmas or when exiting
++ * the whole mm, does not take a page table lock before freeing a page table.
++ *
++ * As page table freeing itself is RCU-safe, page table readers can safely run
++ * concurrently with page table teardown.
++ *
++ * However, writers CANNOT as, without a lock being held, nothing prevents
++ * concurrent teardown.
++ *
++ * Also note that the PGD itself is freed at mmdrop() time, not under RCU - so
++ * the walker must keep the mm alive either by pinning the mm or the VMA.
+  */
+ pte_t *pte_offset_map_lock(struct mm_struct *mm, pmd_t *pmd,
+ 			   unsigned long addr, spinlock_t **ptlp)
+
+-- 
+2.55.0
+
