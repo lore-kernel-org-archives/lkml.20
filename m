@@ -1,96 +1,214 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D09F415B6C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D845111AE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863048; cv=none; b=nNE7NkULLYok6O8PfUV9wBXv58tswZiWrADexwRFgcSER0nYVS9ZXJWIl4OPyd8WMt/d2RAWhR0IfvCvhpXWZDU/8zXLyULBhXiXodYgmtiX4m0sBsbyO63aZUdq22IL9qsnQpgx+lyCCsT3+CFn6HPCYLzkTSUn0oWkAURHmI0=
+	t=1788863050; cv=none; b=Hl6b+zbHq/oP+1sb/S6xY/P4GC+y1vjIjxIKkEOli5yb1gSRJJSedHQxTpAlF01knr8ns8zV8bNdXnDoa8/rMTkos4wYXNXSTkbdA2lKVl7S6Z6U88qUTvV2O+CUW+AQsyH9kuKDhx+K0M2H0UzxUDywU/eDigRTM6XZF4xPGzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863048; c=relaxed/simple;
-	bh=n3/4pZn0Pxh+I/p99s/v8Mv1MMqkarffqjTRhn5UEDw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=H+rxiQmu1R3muJZjAsoRuFZA1WkgBnGcBZHFuzxyjq+sFXRlHX3zNgODlCfbB0SkVo0w2GH6BBws6yPw4lfyA+X3cIWSQC/EpnPlUHCKoPXBVu6AcQKVg59C9wIB/l25eworRXSioKB2dFaKDs8MsIAACnozYeF/TGUj8No/k24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 68d60562ab6f11f19a56ed5b684f684d-20260908
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:092cf187-ca51-4ca9-98e4-ea0066458ffb,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:8fb3236ba92cc8e487a5ccb68986fc5e,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 68d60562ab6f11f19a56ed5b684f684d-20260908
-X-User: liuqiqi@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuqiqi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1347047867; Tue, 08 Sep 2026 18:24:01 +0800
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	gourry@gourry.net,
-	Qiqi Liu <liuqiqi@kylinos.cn>
-Subject: [PATCH v4] mm: page_alloc: add missing hooks to bulk allocation path
-Date: Tue,  8 Sep 2026 18:23:56 +0800
-Message-Id: <20260908102356.344075-1-liuqiqi@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260907120949.418450-1-liuqiqi@kylinos.cn>
-References: <20260907120949.418450-1-liuqiqi@kylinos.cn>
+	s=arc-20240116; t=1788863050; c=relaxed/simple;
+	bh=7QsWDOvRIVcKWQN6AjiUMToSowjA3/ius6pXM5piGjU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=dQywxaDqavXDBVkUMS6u/oEMGbPf74dGnKUwmsC5hC0PFNXFFKa5MS+Npx2c6TAaXS91Qlhitrr5O3Hpbsc5QgsCR8Qp6DokIjXsHZLJEe4UppRHQagmT5xT5lgi4UqupWp5lH80yr3XI8MVriPHWbBANxu8LXjw6wrTpGJKtjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HKYiLaKk; arc=none smtp.client-ip=74.125.225.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HKYiLaKk"
+Received: by mail-wr2-f9.google.com with SMTP id ffacd0b85a97d-485850cf4deso1950790f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:24:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788863047; x=1789467847; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GN5oe+Yb7QbWSaMIabzdcqrqYrF+b3TvzNzha4X/Tls=;
+        b=HKYiLaKkmCOS2yriyMLsD+7wVJY7qw7N3N/Y4FhL9Tntyk5VmVPpT9wICDSCv/6j7l
+         auVC5QqNyGMWD9Q/ZjQ0NaNUn+AuQHs/Sud1tjJT1soI+WPDjx9fQiE/ZXHdgZOlSd3K
+         YbuEdsi/03zLucTr25K6KGrSroLigCxz3ew0lNLGb9toyNYOFYiDJcdYFUqT84GP+HCT
+         pjkJVQ/F0uwxFubh8UZBidEbmu7TRuuIRO3wGZ4qQu7P5v/mMBTICkX9sfdFpoqLb8GQ
+         HMAyBCVcdICKo6aWGWW7C2ULUxBHbhJpDT+eC7hc7RPVRFk85z3Ax9BWWHKkrDjnIQqM
+         Ss+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788863047; x=1789467847;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GN5oe+Yb7QbWSaMIabzdcqrqYrF+b3TvzNzha4X/Tls=;
+        b=ZEned8kLdabdUj+uEi0L62TR7exQJxURMeGeTVx3acdhCBnLf/LoDO3wDZxphzqAUm
+         f30DRJFf/YK0EkZzBb3iUJh+3BjQPV9cnZILs5xALjtVyLsCCATPrERpH+h0yRWrw1BA
+         oLEDb/M3kRlQf738dFNy4Vn7iTeYGJP1k6RwnjPCitl5yzqedYKaQDujSB2Kc76YEYK9
+         gVhUfpfsRhNposUNmPXm5eAvr/XmaXsFCV0kX9NUK9yzEwGBw0+tBGKuYuT2nhXBhdsB
+         h7ma8CXi1s/RbN7ibp/llhDV8zbwFXYbzEpd0K6ydaW8w+A2hohNtt3fijGgd6DAU+X/
+         ofyg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOO4PoMnm5UBSy3NeQjDcvS0gBNUXjTLgFE925jknt4UeKOTPVJVtnSOZEz5GqXqBbBqJcEuI7MvX2SSI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lvhVOqj4O+TWt3Fbwr04gMmc1Uj1yL74TFnVTI8XpOeu/xlLM4
+	tlKAmRTJDH8O6A7fmGFzk2h3lO3/t2yML7DsXhHwtrfCOnWGIVeBtpM8
+X-Gm-Gg: AYBFou0PikLTg3bsW3LacdFGr6x+RGKJbyziINFVfD/d5SKdV2PAQiQlHgMRV/IgMJA
+	53htgqh+QkcjmLzgk/yWZGbBKmFlLGJNOeZ3Frx81WzL2hMvPGZjBELg0MtVmdCS50+8ILoMqM2
+	hro4sOy664qSOZrIY3XfPGRf0kz3hMS932Z8/j08iKLUkpPXfCFRNA8U9S/WISzm0jMb+QmD3EG
+	V9U+dxbnGdOyNO2lk3YPwf5JSOtVemtWdyVBnkz8pyTTrHK04+2vRECaalYh1tU8/QsUXpSC8BP
+	iy13M55hgFWmEMG18AXzvv15c9LcJ+QuJXTvS5dXE3QiiMecxr92LbGxzvozoXBB6VkPnSJfRQS
+	9EAC2j/ArVjpY4GsvbcqwsCJhGrJa+5i0r60QA+9GNVva/pwWp0T1MvyTlcBuOuuKC18V9wxsZO
+	b8olUPdLX8AjisRa2/SSBhjn6BRx+VY6eq2fr71nn12Vbi053i0CT03CZz4JDJSjBPfcXU4NYMK
+	xGpsfZc4dL8PECIBSkaIO56msXgWoyFDB4YSP+UWBumQjeNKlObU9mZuwcei+zfiHezC5Qh8vmu
+	rx9V2h7sN2DDHU9yuYMIdhoL1KE=
+X-Received: by 2002:a5d:5f51:0:b0:485:8a46:704b with SMTP id ffacd0b85a97d-4858a467215mr25183611f8f.29.1788863046836;
+        Tue, 08 Sep 2026 03:24:06 -0700 (PDT)
+Received: from localhost (nat-icclus-192-26-29-3.epfl.ch. [192.26.29.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4859207c28fsm29714859f8f.5.2026.09.08.03.24.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 03:24:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Sep 2026 12:24:05 +0200
+Message-Id: <DL9V0Y6BPZSY.3J1EXVDXSHRFO@gmail.com>
+Cc: <linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-mm@kvack.org>, <david@kernel.org>, <akpm@linux-foundation.org>,
+ <andrii@kernel.org>, <ast@kernel.org>, <brauner@kernel.org>,
+ <daniel@iogearbox.net>, <eddyz87@gmail.com>, <kpsingh@kernel.org>,
+ <ljs@kernel.org>, <matt@bobrowski.net>, <song@kernel.org>,
+ <sun.jian.kdev@gmail.com>, <utilityemal77@gmail.com>,
+ <viro@zeniv.linux.org.uk>
+Subject: Re: [PATCH bpf-next v5 4/7] bpf: Allow reads through
+ trusted-or-null BTF pointers
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Anastasios Papagiannis" <tasos.papagiannnis@gmail.com>,
+ <bpf@vger.kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260907165220.52431-1-tasos.papagiannnis@gmail.com>
+ <20260907165220.52431-5-tasos.papagiannnis@gmail.com>
+In-Reply-To: <20260907165220.52431-5-tasos.papagiannnis@gmail.com>
 
-The bulk allocation path in alloc_pages_bulk_noprof() currently misses
-trace_mm_page_alloc() and kmsan_alloc_page() calls, leaving bulk-allocated
-pages invisible to ftrace/BPF/perf and leaving KMSAN shadow memory stale.
+On Mon Sep 7, 2026 at 6:52 PM CEST, Anastasios Papagiannis wrote:
+> Currently, a trusted-or-null pointer
+> (i.e. PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL) has to be checked
+> for NULL before it can be dereferenced. Marking a field from
+> PTR_TO_BTF_ID typing to trusted-or-null can reject programs that
+> previously dereferenced the pointer directly. This is useful as we
+> need to mark new fields as trusted in order to pass those as arguments
+> to kfuncs.
+>
+> Allow reads through pointers marked as
+> PTR_TO_BTF_ID|PTR_TRUSTED|PTR_MAYBE_NULL without an explicit NULL
+> check. Treat these pointers as potentially faulting so the reads happen
+> through BPF_PROBE_MEM. If a read produces another BTF pointer, clear its
+> trusted flags and mark it as PTR_UNTRUSTED.
+>
+> This applies only to reads. Other cases still require an explicit NULL
+> check. After such a check, the pointer retains PTR_TRUSTED and can be
+> used normally.
+>
+> The unchecked read path has two consequences:
+>
+> 1. It uses BPF_PROBE_MEM, which is slower than a normal load. An
+>    explicit NULL check refines the pointer to PTR_TRUSTED and allows a
+>    normal load.
+>
+> 2. A faulting read returns zero, which is indistinguishable from a
+>    legitimately zero-valued field. Programs that need to distinguish
+>    those cases must check the pointer before reading the field.
+>
+> The next patch updates current tests and also introduces more checks to
+> ensure this change does not break anything.
 
-Add both calls in the bulk loop to match the standard allocation path,
-placing them before set_page_refcounted() for consistency. The gfp mask
-passed to kmsan_alloc_page() is stripped of __GFP_RECLAIM because the
-bulk loop runs under the PCP spinlock, and KMSAN's stack depot allocation
-must not sleep.
+We tried doing this before in
+https://lore.kernel.org/bpf/20241104171959.2938862-2-memxor@gmail.com and i=
+t
+got reverted, it broke all sorts of things and made everything more complex=
+.
 
-Both are no-ops when their respective features are disabled, so there
-is no overhead in production kernels.
+I would drop this hack and just fix the program. Given your earlier change =
+to
+annotate the field correctly, I am puzzled why you added this, and there is=
+n't
+any description anywhere explaining why.
 
-Suggested-by: Gregory Price <gourry@gourry.net>
-Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
----
- mm/page_alloc.c | 2 ++
- 1 file changed, 2 insertions(+)
+Anyway, regardless of the reason, it's a bad idea and shouldn't be done. At=
+ some
+point we will also tighten conditions around normal PTR_TO_BTF_ID and only =
+allow
+trusted pointers everywhere.
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..eac419eef697 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -5279,6 +5279,8 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
- 		nr_account++;
- 
- 		prep_new_page(page, 0, gfp, ALLOC_DEFAULT);
-+		trace_mm_page_alloc(page, 0, gfp, ac.migratetype);
-+		kmsan_alloc_page(page, 0, gfp & ~__GFP_RECLAIM);
- 		set_page_refcounted(page);
- 		page_array[nr_populated++] = page;
- 	}
--- 
-2.25.1
+pw-bot: cr
+
+>
+> Signed-off-by: Anastasios Papagiannis <tasos.papagiannnis@gmail.com>
+> ---
+>  include/linux/bpf_verifier.h |  9 ++++++++-
+>  kernel/bpf/verifier.c        | 12 +++++++++++-
+>  2 files changed, 19 insertions(+), 2 deletions(-)
+>
+> diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+> index 9727df5af83a..4f032ad83c67 100644
+> --- a/include/linux/bpf_verifier.h
+> +++ b/include/linux/bpf_verifier.h
+> @@ -1339,6 +1339,11 @@ static inline bool bpf_is_ptr_to_mem_or_btf_id(enu=
+m bpf_reg_type type)
+>  	}
+>  }
+>
+> +static inline bool bpf_is_trusted_or_null_btf_ptr(enum bpf_reg_type type=
+)
+> +{
+> +	return type =3D=3D (PTR_TO_BTF_ID | PTR_TRUSTED | PTR_MAYBE_NULL);
+> +}
+> +
+>  static inline bool bpf_may_fault_on_deref(enum bpf_reg_type type)
+>  {
+>  	/*
+> @@ -1346,7 +1351,9 @@ static inline bool bpf_may_fault_on_deref(enum bpf_=
+reg_type type)
+>  	 * protection, that is, the ones bpf_convert_ctx_accesses() has to
+>  	 * turn a BPF_LDX into a BPF_PROBE_MEM one for.
+>  	 */
+> -	return type =3D=3D PTR_TO_BTF_ID || (type_flag(type) & PTR_UNTRUSTED);
+> +	return type =3D=3D PTR_TO_BTF_ID ||
+> +	       (type_flag(type) & PTR_UNTRUSTED) ||
+> +	       bpf_is_trusted_or_null_btf_ptr(type);
+>  }
+>
+>  static inline bool bpf_prog_has_arena_ctx_arg(const struct bpf_prog *pro=
+g)
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index 9e79750e2480..b5186e664aea 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -6168,6 +6168,15 @@ static int check_ptr_to_btf_access(struct bpf_veri=
+fier_env *env,
+>  	if (ret !=3D PTR_TO_BTF_ID) {
+>  		/* just mark; */
+>
+> +	} else if (bpf_is_trusted_or_null_btf_ptr(reg->type)) {
+> +		/*
+> +		 * An unchecked load through a trusted-or-NULL pointer is
+> +		 * fault-protected. Any pointer derived from that load must be
+> +		 * untrusted, as a fault produces a NULL value.
+> +		 */
+> +		clear_trusted_flags(&flag);
+> +		flag |=3D PTR_UNTRUSTED;
+> +
+>  	} else if (type_flag(reg->type) & PTR_UNTRUSTED) {
+>  		/* If this is an untrusted pointer, all pointers formed by walking it
+>  		 * also inherit the untrusted flag.
+> @@ -6644,7 +6653,8 @@ static int check_mem_access(struct bpf_verifier_env=
+ *env, int insn_idx, struct b
+>  		if (!err && t =3D=3D BPF_READ && value_regno >=3D 0)
+>  			mark_reg_unknown(env, regs, value_regno);
+>  	} else if (base_type(reg->type) =3D=3D PTR_TO_BTF_ID &&
+> -		   !type_may_be_null(reg->type)) {
+> +		   (!type_may_be_null(reg->type) ||
+> +		    (t =3D=3D BPF_READ && bpf_is_trusted_or_null_btf_ptr(reg->type))))=
+ {
+>  		err =3D check_ptr_to_btf_access(env, regs, reg, argno, off, size, t,
+>  					      value_regno);
+>  	} else if (reg->type =3D=3D CONST_PTR_TO_MAP) {
 
