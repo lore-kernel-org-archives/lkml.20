@@ -1,176 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D589553D0A0;
-	Tue,  8 Sep 2026 12:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC2153D0A5
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871019; cv=none; b=qMNYGEG9oF2W21+4lMr7dnMuAT2G2448u595yhSy5EQ1VhipI8/PzMdJpqF4FCz5tyQaWf9zyVA6wznoxC79P5vf1lOTpDl4k+VWl2Nt4bg2B0qMxKy7U+etyRQYicBOQNs4HZlL7AQpUQ8CWUZ8egduW9/m+DdaetAGiYX2liU=
+	t=1788871024; cv=none; b=L9x7iSIPWdvsttj1KGQvNBZEnZsrytM+q4uarfc8SNm8aEFW+Qio4SFgbrlfNVE/lipcGR0bRBZA3x9/WGSOAG7dQsLwtcPMJsPhhmxy/nhN8xC3GWfhJ3bfF2SIRV13etBQoJ15dtZpDpfqu2DfjMVnERw5z6AsfCSabDsnQqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871019; c=relaxed/simple;
-	bh=Z3Spp3yZf9MDP8GI9lcTMaFp7We7mSk3CHVti4eQ8Kk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pQz7++XUNevCQ1kv0TVsf4oBs4FAjZmFWyrKSopjA3owpQs7kSCWcQUTrW7h5BVIX/NUcgJKTGUcrstaaJGrIQptePLdX0hUOloMGve7fdCXBvQQ5+XrH5mjleA3iQUiXSwkhlhh9k9bWsLVygzJWusJB9LUXnYcE+SCeb8QUeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m+e1gF9H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788871024; c=relaxed/simple;
+	bh=rFgdO2dJ9qHWHCugdPsurRI0n1j/jdZfr1HAi1LVuiE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kgdWzdNTydj5ummcAEyj9pLtb82v0+o1Bo5b6lIr6yoaHOr3TKOnd5vgqPW6gSLPXIv8sktXmoWHSVtd3BKhK0bEGO2+7tsq1vVBLpJb+405jAEw6rNOQCbWgpNiXhHgHFpi78ESC0mqT6GNs8qapuwTcygeZFb6fIV9bQw+r/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLLyEI3S; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m+e1gF9H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34B341F00A3A;
-	Tue,  8 Sep 2026 12:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871017;
-	bh=CROMFVbCukyMBi3KsqVLGHf8AAALUePfF8l3vUCFXhE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=m+e1gF9HAH60Vx1qwxMPowlrU6eO2azVERbApHj9g19Jub9o1b7t062ouaLe+afPM
-	 Pdpz4mTfhvIL6ad9/ZbcEZa1dwcpR87PdVabIS2tKSCkF5a0TjwVBSS4d27bobKBog
-	 58GgGbptltPuCClSQg/AH8Z3XN9kKi4dQbnmnRd95VmwpdTCkHuWJhGfGKqe/i/Q5L
-	 AJA5urYfLM6QaO1Uqs0BMxOI7yfZ3eilA2ektqZGKdrwL5wGWFm++sZLa5Pjkngzj0
-	 GPO21vSo38ptKCVdCHFOLCr2Y7aSnhpyq0PHDCd7vf6hJ32M5dclf0J0scZLQjSSbg
-	 eMlmrLVvYoejQ==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 13:32:21 +0100
-Subject: [PATCH v2 12/12] mm: change the contract for free_pgtables(),
- update docs
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLLyEI3S"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so1509525e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788871021; x=1789475821; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
+        b=rLLyEI3SMmxMOLKyiHNRr2PZaQulnFWIlx2NnPM+OfWM+ExYhYCjETiTGcWl020RC9
+         U2kFNCCRPe9pUympox+69Lzx1EmI7eIvrQhhEBUVnBFoo/b3XiX66l1e2KjKxoSRTVs8
+         RZQR5G15AZ5JwjiiMAEU7rFWOjt5D3TgBQL/7lVNE9lMGLuqYuCzM6KoLWM53BVcuyDp
+         tGsqAdYPnjyXxH8ZjCxQ8wmytz0p2vWrO37529tMhsfESUrEWBrjYocL5N1ir8lm4NBj
+         nTXO6mdXfUfMSIcFk40IuDj403NCLAGbRwqO+/pAYJBYb0/lir2WSjvcy/NgzMCOmJVO
+         +uuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788871021; x=1789475821;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
+        b=PtmxPFem2XZX5ka7suufCz9hNd98lGVvRcGS2aMGUTSZSm30RGT/Pa+BsVSDJCREJt
+         yaY0JqwGP2qViKqgGtL9UQLQdUD67a6oPdw9ureUOH2Dr1o7dsJd3ytgo/hRrtJOLsW/
+         37yoh9HzCc8MmTzAYEd2PrlWy/SrmPCHoR0tempyZj/Vlkbus7ymAq523tsZsKfuKVuR
+         loG3+Xg0vRpKNDKL8VI+Gf8oTSy+HmORzqEmKYoaljftY49acSFLI1Zm7bfMohgoENz2
+         wmiUFP5Sm9weZcotwkdyxcvGwiGqJIOQzAKcboB5k2Hy/bYbftoN+hAVprgdeHi7BhZE
+         LU9g==
+X-Forwarded-Encrypted: i=1; AKwUvBweZclfX9v0EowozVRLBK35QbiGIUWY5ADHMJLu2eJJP4vpldCg12OAlIM79Sb5VpKQtg3uASzlcL9n05g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVYGDX95JYwdeKgNIBm0xRnYeInihov5FioiFgMQKt6i8g9Vr+
+	AuLN4OpK/fGKtIYPGWrJCqxfwPHswxiE2DqjJV+RqZ4iC8u2ryhnjqNu
+X-Gm-Gg: AYBFou0tqWg8VMQRd5jPlYohsiXPQbkpoJyeop+NEDS6MaEwdrP2yLlfh3iEqTlgaRD
+	pGMHR2SK7xzAFb/xfwDPTuf7BqMId3abMMTTEbpI8DLlUL0gIKmRc2sIqElcrUo4rcQt01kppJw
+	VEUQaR8Hw9VFfAXIMEGuVmW4FeHiZjdISV2/c+QjGnGE8rlaVQ7DFmVBO+24u+Lnf9zugEYOzoX
+	Up+34mjXDzvIPf24HdT0KHUDO9WmRF8IAOagYwqnpTEm5nL+Y6mN8XR2H1NsqK1ez5E4PIyBwmO
+	M2XlLwE8F63gqqLy27UcBSvNCCaUTc/vu4zxcE4P2fl8qJ7RvNGbR/ciw8TYG0knHdegZepyVCu
+	55rLGz72zi1LB/VjhMdg3CTCF8kXJ64ypT9ADhZ8s7OtW+WsjgYguyz9mrDptftLeELEZf/ylMr
+	gZ09bv16VlW1P2bMRghvEkHaSKEIsBb/O3RynKWoEt8+JQigZXOyJohqxAAYex/aflxy0yaVJU0
+	216S/ZTmzsJ69spdf3QkJwHC8YhUh8u/84E9TIKr1N8dNaF1sxUl+vg6N3Jj5ltQqwRIw==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr183513645e9.1.1788871020732;
+        Tue, 08 Sep 2026 05:37:00 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D004857F441745A19CB.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:4857:f441:745a:19cb])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm253454955e9.8.2026.09.08.05.36.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 05:36:59 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Frank Zhang <rmxpzlb@gmail.com>
+Cc: Igor Paunovic <royalnet026@gmail.com>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Detlev Casanova <detlev.casanova@collabora.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	luca.ceresoli@bootlin.com,
+	daniels@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	heiko@sntech.de,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	macromorgan@hotmail.com,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
+Date: Tue,  8 Sep 2026 14:36:34 +0200
+Message-ID: <20260908123638.7282-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908070220.41574-1-rmxpzlb@gmail.com>
+References: <20260908070220.41574-1-rmxpzlb@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-rcu-pagetable-freeing-v2-12-1f60b64e878e@kernel.org>
-References: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
-In-Reply-To: <20260908-rcu-pagetable-freeing-v2-0-1f60b64e878e@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Dinh Nguyen <dinguyen@kernel.org>, 
- Simon Schuster <schuster.simon@siemens-energy.com>, 
- Jonas Bonn <jonas@southpole.se>, 
- Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
- Stafford Horne <shorne@gmail.com>, 
- Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
- John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
- Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
- Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Richard Henderson <richard.henderson@linaro.org>, 
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
- WANG Xuerui <kernel@xen0n.name>, 
- Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
- Johannes Berg <johannes@sipsolutions.net>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
- Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
- linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
- linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
- linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
- linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
- linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
- Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3183; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Z3Spp3yZf9MDP8GI9lcTMaFp7We7mSk3CHVti4eQ8Kk=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWMMR8PCxbzHxp/Yz1uQGnaswntkhbX2KLqyh2mjovm
- qNat1ino5SFQYyLQVZMkeX5F/H9QSJh8zov+LvBzGFlAhnCwMUpABPxvMbwT/XufKusteKnNrtN
- sON7/H0yywOjjd/4r2xj0Qt5o76Y/z3D/+JLmldsiq8UVM993a39V05NdEGx2I24otIKkTsVeV0
- nuQA=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-Now that page tables are freed after an RCU grace period, it is safe for
-read-only page table walkers to walk page table ranges that are being
-concurrently torn down, provided the mm is kept alive via mmgrab().
+Hi Frank,
 
-It is however unsafe for writers to do so, as they must obtain an
-appropriate lock to do so safely.
+Thank you for sending v5 so quickly.
 
-Update the pte_offset_map_lock()'s comment block to reflect this.
+I tested it on an Orange Pi 5 Plus (RK3588) against the exact case I
+reported in [1]. v5 applied cleanly to my 7.2.0-rc7 based tree with no
+context fixup, which v4 still needed here.
 
-Similarly update the process addresses documentation.
+Reproducer, unchanged from [1]: the compositor turns the HDMI sink off
+(so tmds_char_rate is 0 and the PHY is down), then plughw:hdmi1,0 is
+opened and closed. Before, that took the machine down on close, in
+dw_hdmi_qp_bridge_clear_audio_infoframe() -> regmap_update_bits_base()
+-> _regmap_read() -> regmap_mmio_read32le(), either as a synchronous
+external abort in the closing task or as an asynchronous SError panic.
+The task died with interrupts disabled, so the codec lock stayed held
+and every later open of that PCM hung in D state until reboot.
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- Documentation/mm/process_addrs.rst |  6 ++++++
- mm/pgtable-generic.c               | 15 +++++++++++----
- 2 files changed, 17 insertions(+), 4 deletions(-)
+With v5 applied, three consecutive open/close cycles in that state all
+behave identically: prepare fails with -ENODEV as before (3 x "ASoC
+error (-19) at snd_soc_dai_prepare()"), no external abort, no SError,
+the shutdown path completes, and the PCM can be opened again afterwards.
 
-diff --git a/Documentation/mm/process_addrs.rst b/Documentation/mm/process_addrs.rst
-index a7296f251799..1e65b139f355 100644
---- a/Documentation/mm/process_addrs.rst
-+++ b/Documentation/mm/process_addrs.rst
-@@ -537,6 +537,12 @@ We establish basic locking rules when interacting with page tables:
- * When changing a page table entry the page table lock for that page table
-   **must** be held, except if you can safely assume nobody can access the page
-   tables concurrently (such as on invocation of :c:func:`!free_pgtables`).
-+* Page tables may be *walked* under RCU alone, as page tables are freed only
-+  after an RCU grace period has elapsed. However, any entry found must be
-+  revalidated after the page table lock is taken (such as the
-+  :c:func:`!pmd_same` recheck performed by :c:func:`!pte_offset_map_lock`)
-+  before it is acted upon. Changing an entry always requires the page table
-+  lock.
- * Reads from and writes to page table entries must be *appropriately*
-   atomic. See the section on atomicity below for details.
- * Populating previously empty entries requires that the mmap or VMA locks are
-diff --git a/mm/pgtable-generic.c b/mm/pgtable-generic.c
-index b91b1a98029c..a127e3e8f9b9 100644
---- a/mm/pgtable-generic.c
-+++ b/mm/pgtable-generic.c
-@@ -385,10 +385,17 @@ pte_t *pte_offset_map_rw_nolock(struct mm_struct *mm, pmd_t *pmd,
-  * Note: "RO" / "RW" expresses the intended semantics, not that the *kmap* will
-  * be read-only/read-write protected.
-  *
-- * Note that free_pgtables(), used after unmapping detached vmas, or when
-- * exiting the whole mm, does not take page table lock before freeing a page
-- * table, and may not use RCU at all: "outsiders" like khugepaged should avoid
-- * pte_offset_map() and co once the vma is detached from mm or mm_users is zero.
-+ * Note that free_pgtables(), used after unmapping detached vmas or when exiting
-+ * the whole mm, does not take a page table lock before freeing a page table.
-+ *
-+ * As page table freeing itself is RCU-safe, page table readers can safely run
-+ * concurrently with page table teardown.
-+ *
-+ * However, writers CANNOT as, without a lock being held, nothing prevents
-+ * concurrent teardown.
-+ *
-+ * Also note that the PGD itself is freed at mmdrop() time, not under RCU - so
-+ * the walker must keep the mm alive either by pinning the mm or the VMA.
-  */
- pte_t *pte_offset_map_lock(struct mm_struct *mm, pmd_t *pmd,
- 			   unsigned long addr, spinlock_t **ptlp)
+I also confirmed with ftrace that the guard is what stops it, rather than
+the path simply not being reached. Tracing
+dw_hdmi_qp_bridge_clear_audio_infoframe with function_graph:
 
--- 
-2.55.0
+  - sink off (tmds_char_rate == 0): the function is entered and returns
+    as a leaf, 2.9 us, with no calls inside it at all.
 
+  - sink on, as a positive control: the same function shows
+    regmap_update_bits_base() -> _regmap_update_bits() -> _regmap_read()
+    / _regmap_write() nested inside - the same frames the crash walked
+    through - so the tracer does see the body, and "empty" in the first
+    case really is the tmds_char_rate check taking effect.
+
+Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
+
+Two notes, so this is not read as more than it is.
+
+First, what I exercised is the sequential case: the display is already
+off before the audio device is closed. I did not try to hit the narrow
+window the automated review raised in this thread, where the atomic
+disable lands between the tmds_char_rate check and the register access,
+so my test says nothing about that race either way.
+
+Second, for whoever picks this up: Detlev Casanova's patch [2] covers
+the other half of the same problem on this hardware - the enable/prepare
+side returning -EOPNOTSUPP when there is no link - and has three
+Tested-by tags. The two are complementary here. His cuts the case where
+the PCM is opened while the sink is already off; yours covers the case
+where the PCM is already open and the output goes away underneath it.
+Taking only one of them still leaves a way to reach the crash. With both
+applied together on this board the path is quiet and the -19 messages
+are gone as well.
+
+[1] https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail.com/
+[2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
+
+Igor
