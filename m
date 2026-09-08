@@ -1,244 +1,173 @@
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-130.mta1.migadu.com [95.215.58.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5964F56B874;
-	Tue,  8 Sep 2026 16:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD45C579829
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:02:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883324; cv=none; b=WOvRHofYzjCey2iOm/jD0K43vYQK+sq0Ar77KPOXRSJFAn4eY8gAAhYikW9ZEDR+RUVhT1s3D2IKpsd/1YQteHCgdzZIYZPi0PjhM88oKC8x4cVtG9jLl+2mEehmdvQMLLwFH192z1P8RiI7cdMo9edauYke7Sgj6snr8bBpmUM=
+	t=1788883342; cv=none; b=dKp0okvuq2ycAGfcWuXPjRjWDzss1vCqMguo0b/M6q+O2/icxHLVdQRj9hTNdT7g7MW430uDKwT453/dMhK3p3PuyYeuNDHhvhPkZyloGz3EEjKUHWvUAn4sKE/5GM+UMqqZuiebbEW548JuDL9L6VRVXGWdbEj4WG1Csq+fzyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883324; c=relaxed/simple;
-	bh=PtBvshArS3P1b+I2XeuugmZi94aHWwfsom4fpF20Tj8=;
-	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=Noau7DQltlqO9YmJTo4h4d4UOOLjDY/Xysw83k+mAUC/lQcadbxviC+AOf08ERhV28hZbkVuN2PXHddzMxsJgq8HEfxrmADzU2cHtoHMxMKT94Ij6x7SZJCuVM/nxDSzq9aw8JGwWc0scLV0q2n8uEoWLUYhE4U+aXRo0Ss/H54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=cA9AP2BB; arc=none smtp.client-ip=203.205.221.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	s=arc-20240116; t=1788883342; c=relaxed/simple;
+	bh=KYOUd2P6kAd8a+UBCiIUa1mr5xWgXanrBxIfJjm/KtE=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=EvnK8qNNAL5CdDq/T8CUxjn2rFBYWct0+D9ptg5lrhWxscsfgKtXt65tyF6Ssal3bwRBYL6R+mAWC2BSezKEWILEPUNw2fatazIRP/PNXZrgzFTuP3+N/kZ9nREefAUP/EbdKw9/krNPUdDLnoZaDWBtgh7cLlJWHw9koTFr2/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BseIsBf1; arc=none smtp.client-ip=95.215.58.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="cA9AP2BB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1788883316;
-	bh=6SwRQ6PA+jZ9sSnyk3mpNdGgMyUDicpbvYGA8+pGlt0=;
-	h=From:To:Cc:Subject:Date;
-	b=cA9AP2BBeBRMIcVSMX3/V27YTRhx8lemN8guv/6gHMhGv/tWCtej+81boyBwcVmPF
-	 zRQ/BPnOv5fqWqr0YRm7jHQkLOqxV0NBhxjO1qLlnU8qlWBpD3mxhUTqQOQEi56jh1
-	 5NIyt//U/LVn+nVpab65sL6NNJ2gzdMvmBoRJjgQ=
-Received: from LAPTOP-TKBJAGN4.localdomain ([2408:8256:2d01:e2b1:f9b4:79bb:79ab:d0e2])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 6F854B2; Wed, 09 Sep 2026 00:01:47 +0800
-X-QQ-mid: xmsmtpt1788883307t0dys8503
-Message-ID: <tencent_342A87BFCECA70C9982E68A79AAD878B6909@qq.com>
-X-QQ-XMAILINFO: MXzpxT/vcbSg1A6KbdFVmG0bev7a//SwtdgMKyqlQmb1J15c/8b45jn6e/n++N
-	 oy/K9Oa3/ujrfqmzuGOkzW4Dg11LO1WiY1hXXp2bX0NS/w6SHVmNpUILzzB79Z8GHQ84fMNLCLG2
-	 g4dr0cNCC4oiFwrjAbSfN3Ul7HjyX3eub9w2tNO8+nOocLInxP/DzNhhZF9rszK1WkT1ESge5n2h
-	 B2BuN5cpP/bW8jUHyz5fEKkLtxQeUG4sIj/OR0qfilH9NUK1irs7Trj+xhM2ct9+ZVXoUUO8o1rF
-	 Z+ipMbGGrIiWlcma6nG8Bl1PGI4KoXyRBUhnhVota0Q3bk9dCesMDR7+Q4GOtFvUykodpi5akkc+
-	 1Ll2jZ4LfXuLPCnxPhK6yqh86w6DAXWSk9OrnfO7rtmKJI5f4J9JUdyLS3C9Jwz0s9CDHp2sXCCU
-	 6XLVL8VPN2Y6QUxJDlTzC4e3CDMLyJG/uypHfRq8z7bxDL4kjXcr7K8R4rzv3sgywMNkXXQs3l1U
-	 I/wH7iLbXA/6/57+rxzDeXhNDn7dCs1Q+DhhLrdLrJ9ldMh82Ygl/2QQw6LK18zuQminc1Lb5eC1
-	 SSsYC9h88UGM0BUZiq/6bBPzM6aZ8fKtNMruaMXQ1oevdkeZ8hkKmQHmBWmrNlFQDYkGHMer5o/M
-	 3z66tDN+rkRMgHnE0C+AcZYny39YP7QDg6h36BfvApNwVLADDUNPgf5ye3RDc9QKuOmgeIseuA9T
-	 uzc6i9pJDi2P464u4QprI4GxJWxTuSMkvXZGjrQiRyysEqzMvwFdpTBdNyYJcL5Sk4qbGakx3ryu
-	 NTh2YsITDkbVBIhyt3/jKl1qdNyQuJX3wgU2bkwYPTb4b2e9SNetT9Lph8PVPD6O1pfRSBR/v0PX
-	 0NfzpgPd4ak2TEqR6WqC++0pSQn26f1VNq4AvnkdY/yvcgzS+9idxcmdrdwHDO1GqRGEFT4EuJHZ
-	 22ANU/j4XxtkvOUUltPlRKPKFwPV3kphpKbKr93xmluKS8VjGgtreCEH5nXVJ+DKlaxvWxXuKzhs
-	 d3v/Qh5EbgGgAFUG17WewXjoueZUeT1K75FCy1IJrV9Lh0N81x/NP11/8wuXABUW4JKQ/gb0T2oo
-	 vFf4oUb1dH10NZdNa6MSz6sAjw54T4lrO6tJzV4m3H6AlETn8U+J9PoO6tmvsGA9xT0NM6mVnlqX
-	 mtXt/eVkTFVWfWqA==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-From: Haobin Jiang <lemonoutput@foxmail.com>
-To: carlos.song@oss.nxp.com,
-	dillon.minfei@gmail.com
-Cc: andi.shyti@kernel.org,
-	Frank.Li@nxp.com,
-	festevam@gmail.com,
-	imx@lists.linux.dev,
-	kernel@pengutronix.de,
-	linux-arm-kernel@lists.infradead.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	o.rempel@pengutronix.de,
-	s.hauer@pengutronix.de,
-	Haobin Jiang <lemonoutput@foxmail.com>
-Subject: [PATCH v3] i2c: imx: honour I2C_M_IGNORE_NAK
-Date: Wed,  9 Sep 2026 00:01:45 +0800
-X-OQ-MSGID: <20260908160145.180323-1-lemonoutput@foxmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BseIsBf1"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=KYOUd2P6kAd8a+UBCiIUa1mr5xWgXanrBxIfJjm/KtE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788883337; v=1; x=1789488137;
+ b=BseIsBf1mZc5LE0Qhdg7lDC08rjQinZD8wc1ByZBkezgrFOkadvKleNMILzb3DcbELI9+59q
+ 2v2zRWccBMoW2edzdkg07hxRPWb5u0adJvvVOBibR2hke/UE4alJVRHONflMaDRpfp/FTpjYxPF
+ GDpA8YfQ6wRAfBbX9qcrT53g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2cc85f100057596d;
+	Tue, 08 Sep 2026 16:02:17 +0000
+X-Mizu-Trace-ID: 2cc85f100057596d
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Tue, 08 Sep 2026 16:02:15 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Tianchu Chen" <tianchu.chen@linux.dev>
+Message-ID: <aa1496d71e0867c1e04f6442ab97520f531531ca@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH v2] staging: rtl8723bs: fix protected RX frame validation
+  in decrypt path
+To: "Greg KH" <gregkh@linuxfoundation.org>
+Cc: hansg@kernel.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <2026090714-sneezing-unrated-b0ef@gregkh>
+References: <7848fcb635963ddb8474924ed71fdd687b5d6ec7@linux.dev>
+ <2026090714-sneezing-unrated-b0ef@gregkh>
 
-I2C_M_IGNORE_NAK is removed from the flags rejected by
-i2c_imx_check_msgs(), so the flag is honoured as documented. I2C_M_STOP
-stays unhandled to preserve existing behaviour and backward
-compatibility. I2C_M_NO_RD_ACK stays rejected.
+September 8, 2026 at 12:13 AM, "Greg KH" <gregkh@linuxfoundation.org mail=
+to:gregkh@linuxfoundation.org?to=3D%22Greg%20KH%22%20%3Cgregkh%40linuxfou=
+ndation.org%3E > wrote:
 
-This change is meant to apply on top of the I2C_M_REV_DIR_ADDR and
-I2C_M_NOSTART series [1], which is not yet merged.
 
-Tested on an ALIENTEK i.MX6ULL mini board (v6.6.44, equivalent
-backport) with a logic analyzer: with the flag, a 3-byte write to an
-unpopulated address clocks out every byte (each NAK'd) and returns 0;
-without the flag it aborts with -ENXIO after the address byte. A
-4-byte read with the flag completes and returns 0 as well. Waveforms
-and test logs: https://github.com/JHB11Hinson/i2c-imx-ignore-nak-test
+-snip-
 
-Note: part of the code was generated with the assistance
-of a generative AI tool (GLM 5.3) from the author's description of
-the problem, then reviewed and verified by the author.
+> >=20=20
+>=20>  drivers/staging/rtl8723bs/core/rtw_recv.c | 21 ++++++++++++++++++-=
+--
+> >  1 file changed, 18 insertions(+), 3 deletions(-)
+> >=20=20
+>=20>  diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/s=
+taging/rtl8723bs/core/rtw_recv.c
+> >  index 7568fc514d7ce..4756e0fedd46f 100644
+> >  --- a/drivers/staging/rtl8723bs/core/rtw_recv.c
+> >  +++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+> >  @@ -426,8 +426,21 @@ static union recv_frame *decryptor(struct adapt=
+er *padapter, union recv_frame *p
+> >  u32 res =3D _SUCCESS;
+> >=20=20
+>=20>  if (prxattrib->encrypt > 0) {
+> >  - u8 *iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+> >  + u8 *iv;
+> >  + u32 min_len =3D prxattrib->hdrlen + prxattrib->iv_len + prxattrib-=
+>icv_len;
+> >=20
+>=20Why will this not overflow?
 
-Link: https://lore.kernel.org/linux-i2c/20260812-for-upstream-i2c-imx-lx2160-reverse-v2-1-f1343714c5a9@free.fr/ # [1]
+The overflow(without this fix) happens inside the per-suite decrypt routi=
+nes
+when a received frame is shorter than this minimum. For example:
 
-Signed-off-by: Haobin Jiang <lemonoutput@foxmail.com>
----
+rtw_aes_decrypt() computes length =3D len - hdrlen - iv_len, so a
+30-byte frame with hdrlen =3D 26 and iv_len =3D 8 wraps length to ~4GiB,
+and aes_decipher() then iterates num_blocks =3D (plen - 8) / 16 16-byte
+blocks, reading and writing gigabytes past the skb.
 
-v1 -> v2:
-	- Honour I2C_M_IGNORE_NAK on the read path as well, mirroring
-	  i2c-img-scb, instead of silently dropping the flag there.
-	- Force the PIO path for every message with I2C_M_IGNORE_NAK:
-	  a NAK'd byte does not generate a further DMA request, so a
-	  DMA write to a deliberately-NAKing target would stall until
-	  DMA_TIMEOUT.
-	- Reject I2C_M_NO_RD_ACK instead of advertising blanket support
-	  and silently ignoring it. I2C_M_STOP is not rejected: the
-	  controller already emits a STOP after the final message, and
-	  rejecting it would break the ov2659 camera on imx6qdl-ds.
+The WEP and TKIP decryptors start from the same subtraction and
+underflow the same way.=20
 
-v2 -> v3:
-	- Rebase on top of the I2C_M_REV_DIR_ADDR and I2C_M_NOSTART
-	  series; the flag rejection moved to i2c_imx_check_msgs().
-	  I2C_M_IGNORE_NAK is now honoured and I2C_M_STOP stays
-	  unhandled, preserving the ov2659/SCCB use case and backward
-	  compatibility as agreed during review.
-	- Keep the DMA write path checking ACK with ignore_nak=false,
-	  as suggested during review; messages carrying
-	  I2C_M_IGNORE_NAK are forced onto the PIO path.
-	- Fix double spaces after periods in the changelog and comments.
-	- State the use of a generative AI tool in the changelog.
-	- Test on an ALIENTEK i.MX6ULL mini board (v6.6.44, equivalent
-	  backport); results linked in the commit message.
+min_len=20is the minimum size of a legitimate protected frame: header +
+IV + ICV, plus the 8-byte Michael MIC for TKIP.
 
- drivers/i2c/busses/i2c-imx.c | 31 ++++++++++++++++++++++---------
- 1 file changed, 22 insertions(+), 9 deletions(-)
+The min_len computation itself cannot wrap either: all three
+addends are u8 fields, hdrlen is at most 36 and iv_len/icv_len are
+per-suite constants (max 18/16), so the sum stays below 80 even with
+the TKIP +8. A frame shorter than min_len cannot even hold its IV
+and ICV, so only malformed frames are dropped.
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index ab6794bf3ea5..9cd1fa0f4021 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -612,9 +612,12 @@ static int i2c_imx_trx_complete(struct imx_i2c_struct *i2c_imx, bool atomic)
- 	return 0;
- }
- 
--static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx)
-+static int i2c_imx_acked(struct imx_i2c_struct *i2c_imx, bool ignore_nak)
- {
- 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-+		if (ignore_nak)
-+			return 0;
-+
- 		dev_dbg(&i2c_imx->adapter.dev, "<%s> No ACK\n", __func__);
- 		return -ENXIO;  /* No ACK */
- 	}
-@@ -968,11 +971,15 @@ static int i2c_imx_unreg_slave(struct i2c_client *client)
- 	return ret;
- }
- 
--static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx)
-+static inline int i2c_imx_isr_acked(struct imx_i2c_struct *i2c_imx,
-+				    bool ignore_nak)
- {
- 	i2c_imx->isr_result = 0;
- 
- 	if (imx_i2c_read_reg(i2c_imx, IMX_I2C_I2SR) & I2SR_RXAK) {
-+		if (ignore_nak)
-+			return 0;
-+
- 		i2c_imx->state = IMX_I2C_STATE_FAILED;
- 		i2c_imx->isr_result = -ENXIO;
- 		wake_up(&i2c_imx->queue);
-@@ -985,7 +992,7 @@ static inline int i2c_imx_isr_write(struct imx_i2c_struct *i2c_imx)
- {
- 	int result;
- 
--	result = i2c_imx_isr_acked(i2c_imx);
-+	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
- 	if (result)
- 		return result;
- 
-@@ -1014,7 +1021,7 @@ static inline int i2c_imx_isr_read(struct imx_i2c_struct *i2c_imx)
- {
- 	int result;
- 
--	result = i2c_imx_isr_acked(i2c_imx);
-+	result = i2c_imx_isr_acked(i2c_imx, i2c_imx->msg->flags & I2C_M_IGNORE_NAK);
- 	if (result)
- 		return result;
- 
-@@ -1229,7 +1236,8 @@ static int i2c_imx_dma_write(struct imx_i2c_struct *i2c_imx,
- 	if (result)
- 		return result;
- 
--	return i2c_imx_acked(i2c_imx);
-+	/* I2C_M_IGNORE_NAK messages never take the DMA path. */
-+	return i2c_imx_acked(i2c_imx, false);
- }
- 
- static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
-@@ -1248,7 +1256,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, !use_dma);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1381,7 +1389,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, true);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1396,7 +1404,7 @@ static int i2c_imx_atomic_write(struct imx_i2c_struct *i2c_imx,
- 		result = i2c_imx_trx_complete(i2c_imx, true);
- 		if (result)
- 			return result;
--		result = i2c_imx_acked(i2c_imx);
-+		result = i2c_imx_acked(i2c_imx, msgs->flags & I2C_M_IGNORE_NAK);
- 		if (result)
- 			return result;
- 	}
-@@ -1580,8 +1588,9 @@ static int i2c_imx_read(struct imx_i2c_struct *i2c_imx, struct i2c_msg *msgs,
- 	return ret;
- }
- 
-+	/* I2C_M_STOP is the controller's native behaviour; don't reject it. */
- #define I2C_IMX_UNSUPPORTED_PROTOCOL_MANGLING_FLAGS \
--	(I2C_M_IGNORE_NAK | I2C_M_NO_RD_ACK | I2C_M_STOP)
-+	I2C_M_NO_RD_ACK
- 
- static int i2c_imx_check_msgs(struct i2c_msg *msgs, int num)
- {
-@@ -1675,6 +1684,10 @@ static int i2c_imx_xfer_common(struct i2c_adapter *adapter,
- 		use_dma = i2c_imx->dma && msgs[i].len >= DMA_THRESHOLD &&
- 			msgs[i].flags & I2C_M_DMA_SAFE &&
- 			!(msgs[i].flags & I2C_M_NOSTART);
-+
-+		/* A NAK'd byte may not generate a further DMA request. */
-+		if (msgs[i].flags & I2C_M_IGNORE_NAK)
-+			use_dma = false;
- 		if (msgs[i].flags & I2C_M_RD) {
- 			int block_data = msgs->flags & I2C_M_RECV_LEN;
- 
 
-base-commit: 04e9bf1648f846976b543e91c1838a712433772a
-prerequisite-patch-id: 24876ef6d4dc440b8d8080e65d369b2b37709b0b
--- 
-2.34.1
+> >=20
+>=20> + /* TKIP appends an 8-byte Michael MIC that icv_len doesn't accoun=
+t for */
+> >  + if (prxattrib->encrypt =3D=3D _TKIP_)
+> >  + min_len +=3D 8;
+> >  +
+> >  + /* a protected frame must be long enough to hold the IV and ICV/MI=
+C */
+> >  + if (precv_frame->u.hdr.len < min_len) {
+> >  + rtw_free_recvframe(precv_frame,
+> >  + &padapter->recvpriv.free_recv_queue);
+> >  + return NULL;
+> >  + }
+> >  +
+> >  + iv =3D precv_frame->u.hdr.rx_data + prxattrib->hdrlen;
+> >=20
+>=20What prevents this from overflowing?
 
+The check above keeps the offset within the frame: it guarantees
+len >=3D hdrlen + iv_len + icv_len, and iv_len >=3D 4 for every suite, so
+len >=3D hdrlen + 4 and both iv and the iv[3] dereference stay within the
+first len bytes ([rx_data, rx_data + len)).
+
+
+Those len bytes are in turn inside the allocation: hdr.len is set by
+recvframe_put() only after pkt_exceeds_tail() verified that pkt_len
+bytes were actually copied from the RX FIFO into an skb sized for
+them (rtl8723bs_recv.c), so any offset below len is inside the
+buffer.
+
+This is also why the iv assignment moved: the iv[3] read that follows
+it would otherwise be an out-of-bounds read when the frame is shorter
+than hdrlen + 4. The IV may only be examined once the frame is known
+to actually contain it.
+
+
+>=20
+>=20thanks,
+>=20
+>=20greg k-h
+>
+
+Regarding the format issue being mentioned earlier, I can send a v3
+patch. Also, I believe decryptor() is also where this check should belong=
+s.=20
+
+It=20is the head of the whole post-handle pipeline
+(decryptor -> chk_defrag -> portctrl -> indicate, rtw_recv.c:2082+),
+so one check covers not just the three decrypt routines but every
+later consumer of hdrlen + iv_len offsets. For TKIP the invariant
+has to hold before both stages of the WPA model - decryption and
+the Michael MIC verification in recvframe_chkmic(), which subtracts
+8 more; the +8 in min_len exists for that second stage, and
+decryptor() is the only point preceding both.
+
+This matches the WPA model in mac80211: both
+ieee80211_crypto_tkip_decrypt() and ieee80211_crypto_ccmp_decrypt()
+reject frames too short for header + IV + ICV/MIC at their entry
+(net/mac80211/wpa.c).
+
+Since I have the real hardware, I can also verify the execution flow
+at runtime with a build that adds a temporary printk in this path if
+that would help.
+
+Please let me know if a v3 is needed, or if there is any further
+verification you would like me to do on my side.
+
+Best regards,
+
+Tianchu
