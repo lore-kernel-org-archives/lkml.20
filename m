@@ -1,573 +1,200 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C8056E07B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:19:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884346; cv=none; b=FiPagcJZCBy0SAEQ8zcnHMAEt1Q2jiT4KXo+ME2kUq8XrZRmaldDBpPRNPaTdKB0yEFXvLZ8NwaxAdWO9uX4l8/orHxoxIolH7xOpNHkXnLsABACqNQR7Ja+MppjPlIDfhxm5NOyQMbR8/1I7unWADzGMA8GYRZBSBJfypY9oZM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884346; c=relaxed/simple;
-	bh=XkR89vXS6/LVy4g7tgwtdkjBkk5zheuK4ErI+75id9I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=PWsUbptmUZYqBw7wPAoIcP8w4+V5ZuVCcCnJnHQb998JvmOFtDJm/U1YMIepuaHBmDBbjAWz2g+uIrJgRHtQ4jTs2SOtXIFe/cpZegtdiPSBUB3JfImKEbe6soSpb6LJeAKIiSbfz4LjPzv6as74DN+ksfjMZ4TUPdpSCm94Nxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Psd5Y1GH; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E29E56B84D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788884351; cv=fail; b=Crm2N3Dg59iV+BCkoZM9sJqvlHSnk+NdIhF5mkjVTgKl0Am1Zkd/xn0YgpfPVkkjk7wV1b634HfQzQNQaCDndTrAjXF+p1LL0yMJpgtpvhkMMLApwkaCYY0JtlEQtrHUUC5Hm6n3PESJ1mGiWvCUF3zwNPODMBgaKPn65svY2LI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788884351; c=relaxed/simple;
+	bh=DGy1hAzzZ3o1dIJ3SV5WZfIQInk5v1e0tMx0r3dnONo=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=A0ZMSxxtPI7O4AhJ6xTpVx+HHUcix9m4mT6HGVicsMGgtpV2i5IqE/Htvm/rHLjoDWbtZcLAf0RXc3Ft9SzJqiRc7n96qDi4+9Is1MhEX4qCCCIEfzDWuC9Nbj6hP+ZkDCd3mtcX1wMFHGthC0LSHKfHf/ycBj9V1MnMImLrooA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ya+ZH0Ec; arc=fail smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Psd5Y1GH"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ya+ZH0Ec"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788884344; x=1820420344;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=XkR89vXS6/LVy4g7tgwtdkjBkk5zheuK4ErI+75id9I=;
-  b=Psd5Y1GHBcZcGenPsF2iRphWPNyaY+uQTLoPjcavUN7ztjo56mDmGpDG
-   WBWkEaCfC1AzNYxDOLL+RBQZKKMzX5l4EKp4U/oH5exYDIB6JbXk1zE+w
-   dBdrC7ELKqSEhW0njWOgc9TDOvjcqZECVdNPGFHsq6lZQtlg9svNaq31x
-   tyTJRMTmIgEhGFvO2OuTd0Nw/Zw5ptp5L3KyneM0EBUnx7xu2dG28y2uL
-   B27KfcvUJl3Mp981Yl/LFke5jrwh3k0eySTM+H2v0yk8N5+jUfWkEECvZ
-   2dCej5GVXrCghMIM8eH/egA0EewuLFJ/WVUtBAijisPfZUAwB7CkvsNYi
-   A==;
-X-CSE-ConnectionGUID: m6nyKiFSQWWndkdDA4ztdQ==
-X-CSE-MsgGUID: +JxeU2zfSjiyAy7Q1hjYKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="112070027"
+  t=1788884350; x=1820420350;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=DGy1hAzzZ3o1dIJ3SV5WZfIQInk5v1e0tMx0r3dnONo=;
+  b=Ya+ZH0Ec8fWI11nYKfUSFJq5J8fQZ5grzezQ8KZEMapyHfvHxl7jO2Uz
+   PPtr1quf/4t4m1USw+XhKN3IolyWIqHm3oJS12F/F/G2mmrh3BgyV4iUz
+   Qpmfd1mQrwg60BzL0m8VdkTnh5bN+lo5kDDXTIg467Ni4eUEAiikxkBgU
+   jAArNDWvw5QFKfnzRRQFmbIprRL0L4xpc/lB0x4Xqs+8strHsZifXw8cz
+   RCzW+q/s536/DMqU+m08tq7AbPsjYXwGIvVWVKYZJ/dX3aMg1edUdRkT8
+   pj0pZGbSMXU7JpHWAC0hZCg0bE40Uv03H175wdiHDLYlbpNiaZDttxbr0
+   w==;
+X-CSE-ConnectionGUID: MjX/dEp4RCmCoZqTNAk64Q==
+X-CSE-MsgGUID: gp+qe3ACRH6NKENN27/0vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106663029"
 X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="112070027"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 09:19:03 -0700
-X-CSE-ConnectionGUID: D5yt/1GkRQikLRXRa7qCfA==
-X-CSE-MsgGUID: IWLiFa21R4Sslneeq+UcYw==
+   d="scan'208";a="106663029"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 09:19:06 -0700
+X-CSE-ConnectionGUID: ofGTRBmyTLC8D1B5vxc0/Q==
+X-CSE-MsgGUID: fC4BkbHTRFKiH5718qC2IQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="269303926"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.140])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 09:18:56 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss
- <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, Linus
- Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, Jagan Teki
- <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa
- <asrivats@redhat.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, Ian
- Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-In-Reply-To: <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
-Date: Tue, 08 Sep 2026 19:18:53 +0300
-Message-ID: <678ddef7e56703d9adffff5c490d4857af515343@intel.com>
+   d="scan'208";a="274845938"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 09:19:02 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 09:19:01 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 09:19:01 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.8) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 09:19:01 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FQWHOa2WjrUT0g0N0KAOgl6RXEjHx/9eIeE4d/JZgsRHreiU5txSpEgDBpWSH0YSewetP9FAG8800UROVmeg9/hr4Gaf4aY6SRXggySgMZB/lVj3kgjIY+bFGwszWa1h/cBHr1otW8qGt6NhGz2/rkY+2+CcIvgMjVikfsBtCVU0803aBc/pKps6d9AgZWb66d7DKySCHWSM8WowdYYgtkeHhNEH9Yx3bKfoEiaM7TBxbvD1tHf6cXCkAfjs4xd30x4fhAVD7U79qys+h7AlYlPKKNvh32qDTb1R+Ofl4x72rIn6Mg+luychEJHMRJr8wYqZVBiKUqne4no/7eD6aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/GNg3Ve6CFMC0FoIj3YLSPQqxRgzlXI5XKpXtSedHkg=;
+ b=ykTkSlY3JLzU9NTm5bTd07O0o2Jpo1LGbmBxF+jOE7zhf0sXNnokqN06O9e+BO+xRTTBExSH+lm4gktCoo+lhjBDXhn6oc1YVezSNbPg1oXS1d6cFdLlC5nemlEm/zyLImhuC9uSpu0yDjDHjrff/PSBOXT2jOWiNhVZQrC9obbZEJICqd30uP3Tc/4tGBlydheCamIaNKNl97dKCix4IptWgQrHGEHcRJq/Z+skv3zvFl7aFPfE6J0AWFp7821ENi5fM/iZBWyJy+k/JX9b06wYPQJkFHXG4eU6qRWF6BAMurePfkSYH6u08TpMuA3Q0DhZq3LpBOzIQxyGRdzqow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com (2603:10b6:a03:540::20)
+ by SA0PR11MB4733.namprd11.prod.outlook.com (2603:10b6:806:9a::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.13; Tue, 8 Sep
+ 2026 16:18:58 +0000
+Received: from SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc]) by SJ2PR11MB8370.namprd11.prod.outlook.com
+ ([fe80::b6cf:ce77:3cdf:7cc%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 16:18:58 +0000
+Message-ID: <d46d66c6-7a14-46ce-b4ba-57944b29932b@intel.com>
+Date: Tue, 8 Sep 2026 09:18:56 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] x86,fs/resctrl: Remove "arch_needs_linear"
+To: "Chen, Yu C" <yu.c.chen@intel.com>
+CC: <tony.luck@intel.com>, <ben.horgan@arm.com>, <james.morse@arm.com>,
+	<Dave.Martin@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tglx@linutronix.de>, <dave.hansen@linux.intel.com>, <x86@kernel.org>,
+	<hpa@zytor.com>, <fustini@kernel.org>, <fenghuay@nvidia.com>,
+	<peternewman@google.com>, <linux-kernel@vger.kernel.org>,
+	<patches@lists.linux.dev>, <chen.yu@linux.dev>
+References: <cover.1788452481.git.reinette.chatre@intel.com>
+ <62904217290f2cd3225d8608c19e284d6dde3aec.1788452481.git.reinette.chatre@intel.com>
+ <apo3lSWAQRRK2W_r@fengwei-dev>
+ <35759986-3bd3-4ada-b2ce-434090cdc1cb@intel.com>
+ <425a1c9f-7051-4baf-a884-65524e8f4fe4@intel.com>
+From: Reinette Chatre <reinette.chatre@intel.com>
+Content-Language: en-US
+In-Reply-To: <425a1c9f-7051-4baf-a884-65524e8f4fe4@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MW4PR03CA0073.namprd03.prod.outlook.com
+ (2603:10b6:303:b6::18) To SJ2PR11MB8370.namprd11.prod.outlook.com
+ (2603:10b6:a03:540::20)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR11MB8370:EE_|SA0PR11MB4733:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a47a6de-002a-41c3-0df8-08df0dc4e32d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|7416014|10067099003|6133799003|22082099003|18002099003|11063799006|56012099006|4143699003;
+X-Microsoft-Antispam-Message-Info: /nlrVXiz6Yb4IYOam7sYdsDfwGhJ/Mz5bf6URBti/Ju4069ykJ2HchCGHdS+uABVs0YRwUSgxfoS8FpS+H7xnaPqS/49MqFvsK8aGnYAuEz26QyBW0/+e9somQjD7Y+NMEsObNiazGeADkJfOv/U3UjA/8prwVq9imBKm/xs7PMpNPGv+63Emj6GiDtcAGX9upeB/5MxqF/FAtb4kApJYPTBWH2I3o9Tc2lK/SAqdxZuWGVNYsMUJFKBOLPPQLwZ6VMQhTQ2jpk9PYDwXbpIripZFVYbeMpyb4uNwJG9OJb5aFapvuJtJDi+YXbX9CWbij4Qf2HUTvQ5Fg1RTzglErfg83VtqbGPb57OBHTDPGYaHCap9a8LiNxKLZJyX9RCHw266dY3nRwl5PnZY7RsWukHYP14cI+7UNE7ZUh5qbsj6fclzAKpACzTW8BKBfk97w0Q8+6nbZ/HCE4NSu+X78NkQHyrdCwsD9K/KdkzGrj5b+SGr1LiStnfrcMKE0X9p/nNL6GQiJ22AxTUex7GJVaCFb2N+bMYUpe/Vtf7S1RIsPm4JH+9azVm+mjR44esgmEjnNDNgAFyAwCzJZKNhVEBnErZTztDSnumbUAI3JnJLmv88yZs5RE9NjsHX7byvtCTgQUnb/rL/vmPfi4EbgW7k87ZigwRFWyEtb2Rz8c=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR11MB8370.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(7416014)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NFQ1YnhqR0RiZ1h5T2NJRE9CVTdDKzlsOFMrSWFOUVJxVmpuY2xSZExOU0tx?=
+ =?utf-8?B?bUZmczhqYjkwMXB0NWQvZXJNTHEwdnUvVGlkNjFLSzFVU2dYRmJtem0xMnhR?=
+ =?utf-8?B?alFieXVRTE9keFdrK2JScU41VEZPajlQN0tLMXZ5Mkc4K3FVY1JVRWdxQk91?=
+ =?utf-8?B?TFRnUm9rVDlRdDlRV2xDVWZCZEhrc201NDlMWlpZWGZBVGN2S2hWNE1iTHRR?=
+ =?utf-8?B?Z0pOMUlpWFJzT3VPZU9ieXhaeml1WDdZR0Y2N1R0VHZJcXlzSUF0ajNqR2Np?=
+ =?utf-8?B?cU44RWtYQjNHMHFENWF5Y0hCQ2NqVXcyMzdUa3hmQXdMTFBVWERTOEV5WG92?=
+ =?utf-8?B?b3lidCtRMnMvS1FEODNJd3RVZkdEanh0eXJmYTBaVkNjU1R4NWgrenYrQzBF?=
+ =?utf-8?B?KzgybUtiVkhTeHJFbjJOcFJ1cDZPdkR3K2ZJWmFwTTFLeVBTVWpaTU5rZ0Nj?=
+ =?utf-8?B?QUtaQzFKbitGMmt5bnlObVYwczNINVFMcnE4RDVxZGJqaFNRSk1zQmpwWVdZ?=
+ =?utf-8?B?enR5TkFUYTFiMHFJOHVaTG5vZFBBV1dCM3JzMkl2ZVhydEtrMlhWZkE3RmQw?=
+ =?utf-8?B?NXlVTnNkK0RORy9RSTRYWXZuaDNxcHVoTnpWR2ZjYjJQTERkU0ZoOHV3eGp6?=
+ =?utf-8?B?YmwvMjhuU2k4SW4vc3NET283d3lOcm55NFlBT28vS3QvcE4yNDYzdEsvbU0y?=
+ =?utf-8?B?dC8zU2VQaHVNajBqajJnUFpGckZUYS9qR2hFblByajN1aW41cVJ4SXlnaDgy?=
+ =?utf-8?B?L1BKRFduc3dsNlBNNCtLc25TbEhMdzhVcE9kMDU1UTlEMGJtNFpXU3VXdDZK?=
+ =?utf-8?B?SUptTDBPQTdSbkhHcld3WWpWc0lGRlVQMjhhK01GNnRtNFUrUWlvRUcwMnMw?=
+ =?utf-8?B?Q2VuRDM1aEpKRTN4c1pKTUVlR3NLV3h4U0J2STd4dGJrTHhXV1Jad1IwMzRP?=
+ =?utf-8?B?bnlBL0lmZXhiNi9TNjlnelV4Vjd1dTNWWWt3c29SclgyVzNKZWlRZmtCVXJv?=
+ =?utf-8?B?K21qYzRITDlVeGlCY2pTVzd2WnNpYk5ZczJuUHVKMVFpOHZRSVRGT2JKMFQz?=
+ =?utf-8?B?NzhIbjlSM045TGdmcThJdE00L3lXRGtCZ2owbnAvMUJpdE5NUjNzVitiUzB3?=
+ =?utf-8?B?dWtUTFR0bk1CKzdhT3UzTHJaMThPU2ZScWF0TUd3aXJZL3dIcHc5VFM4bnNs?=
+ =?utf-8?B?Z01wV0pzZVVUY3RVQitEdytxejRZM0VqODdmY282cy9Ta21PSFhhaUFzem5I?=
+ =?utf-8?B?KzZiMFRiUkVlNDZBbk52OVpSOUdycThxR3NNYjl5clFFRkVNbDltcjNaZDZl?=
+ =?utf-8?B?bUlYRHFEcnFJNGFjT3pEVDdXNnZPc1JFaWg3VUxNYVBkaGFjZVF5N0hRdzI5?=
+ =?utf-8?B?VmgrWGdFK3hPcG50bm96MklrTnhIWlBtOERlZzRwTzk1WFFUWm5VTWZweEhO?=
+ =?utf-8?B?NWFod0tnQWJPbGF1dmZVMHdEQWQ2c0hGRVpSU0pncnhScWRPY0MweXFRaGY1?=
+ =?utf-8?B?My80bmtFa21IS1NQdllLcVQwL3dvdW5tSlVtK0pEZ3lxSUcwUWE1eG52d0tS?=
+ =?utf-8?B?SWNuMDFuRmVCQmlaZW9kRkl5WUFYRUd4U0hCSGdBa2laMithZzU2NlBlOGd0?=
+ =?utf-8?B?b2tKV2Vmdzc4YXJ4Y2h5dW15bW5YczFhWnJWUG5QVVdRTDMzalhLV3JhaDVG?=
+ =?utf-8?B?YmxKdURvdUp6R1ViY0ZycWlJWnBnY1NsTFQ1R0VyY0kzT1FheUNrODNBKytr?=
+ =?utf-8?B?bm5DVzQyRkhaUVZxVEtadzhWZFp3M01sQUx3d0FISTVVNis5RjE0WXJZZ1hn?=
+ =?utf-8?B?bEo2cFNTcW04MUhqMkF4YmU5MzJuYUlXbVN0a2tESkFvMjFnb0p0THd0eUxr?=
+ =?utf-8?B?bWQ5TjMxbkRYTjFxVGRtQjFNMHlVeW5Hck1LS2NRVXlnaE45TmxjdXZiZUxW?=
+ =?utf-8?B?TG4yU3BGbWpJaG9JaWxTa0lqUUljM1dPSTVKV25TZU1ET2FrUTZkR3A1NTE5?=
+ =?utf-8?B?WVRmTnVSVjN3dUUwVlIvS2JaTnMrUWtxRDlya3hvL2xBNGRrRFl2YkFodnYx?=
+ =?utf-8?B?cmFhUWhldkdoaVA5Y2o2T1F5aFlRekhKR2ZsV2lRZURBaWc2eUltSjJ0TFNk?=
+ =?utf-8?B?emh1WTJQMXFlZkpZWVRRVy95VWhuVWljTGNpcTJXa1dielZjanU3ODMwZVNr?=
+ =?utf-8?B?dWtpbTR6SFBSeFhWYTZ3bDdEWThEOHd4RCtGWkc4RkgzLzl6VUNJekJMaS8w?=
+ =?utf-8?B?bUNORjM3endaMExlZ2o3MWV1R3NGOGZGRk9JV3VrN2w2L2hPWk1nbUlEMkYy?=
+ =?utf-8?B?emg5b2JZcldBTG05aXg0UUtyVVlsRkw2Sm9HMTlaUHYyZEc0VGhxamNjdktK?=
+ =?utf-8?Q?ggcIcFSVAkkphSqM=3D?=
+X-Exchange-RoutingPolicyChecked: HOToJBT6ppiSJ+j+CCu0V45KPiU6uJE8NT/o0FocUEZ+HRa0a71Efu103KBZzsC7s3pkrbPIp4yB/4PN4FYlbIxQT/i6fUVWNQ1y0nZcsQT/hkrafS8pcpo1CjYvrx9yx17ka6Mu7D4MySBFNRQw8Eyg4WShd+lVgAVvm9X69Y5ERext2iSeECDVM3UmsTSB8sBeqU3GwipK5CxQSjIsh9PV0RDw5nLRK4dTmP0JhVHiFyX8r2PQAnkzEIiwpnNbVqz8feTw4rUr5ZXvamCihFWLnVrUVY84flvSe8PzZvd56ydOpoweqT+u987uGXI2/OlpHNGjQcbmBh+cs6kV7A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a47a6de-002a-41c3-0df8-08df0dc4e32d
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR11MB8370.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 16:18:58.7587
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aQIRapKpy1DtYbGMZzugYddqnlhwdpoxZEO50K59n55dk6ztSdlDgax2OLU04FpQiu6Sw53wQ7YQlNunylkc2eu1JgO4iBE1BiPLyJNqO1M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR11MB4733
+X-OriginatorOrg: intel.com
 
-On Thu, 03 Sep 2026, Luca Ceresoli <luca.ceresoli@bootlin.com> wrote:
-> Adding a drm_panel does currently not add a panel_bridge wrapping
-> it. Usually the panel_bridge creation happens later, when some other driver
-> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and the
-> following element in the pipeline is a panel.
->
-> This has some drawbacks:
->
->  * the bridge API is currently the best practice to access various
->    components of the pipeline, especially with complex cards where bridges
->    can be combined in different ways on different hardware
->  * the panel_bridge is not created in the context of the driver of the
->    underlying physical device (the panel driver), but of some other driver
->  * that other driver is not aware of whether the returned drm_bridge
->    pointer is a panel_bridge created on the fly, a pre-existing
->    panel_bridge or a non-panel bridge
->  * removal of a panel_bridge requires calling drm_panel_bridge_remove(),
->    but that other driver doesn't know whether this is needed because it
->    doesn't know whether it has created a panel_bridge or not
->
-> Other drivers call [a variant of] drm_panel_bridge_add(), which also has
-> some of the above drawbacks.
->
-> So far the current approach was working mostly because devm and drmm ensure
-> the panel bridge would be dealloacted at some later point. However with the
-> upcoming implementation of bridge hotplug and dynamic bridge lifetime this
-> will get more complicated.
->
-> Switch to the new approach: embed a drm_bridge inside every drm_panel,
-> which behaves just like the current drm_panel_bridge.
+Hi Chenyu,
 
-What does this mean for drivers like i915 that use drm_panel *only* for
-handling panel followers? We don't need the bridge for anything. It'll
-just be excess midlayer baggage.
+On 9/6/26 7:10 PM, Chen, Yu C wrote:
+> Hi Reinette,
+> 
+> On 9/4/2026 11:50 PM, Reinette Chatre wrote:
+>> Hi Chenyu,
+>>
+> 
+> [ ... ]
+> 
+>>>> +
+>>>> +    if (!(ecx & MBA_IS_LINEAR))
+>>>
+>>> Maybe also print the following from rdt_get_mb_table()?
+>>>     pr_info("MBA b/w map not implemented for cpu:%d, model:%d",
+>>>         boot_cpu_data.x86, boot_cpu_data.x86_model);
+>>>
+>>> In the previous patch, a "Non Linear delay-bw map" warning is triggered
+>>> during the actual write operation. Similarly, displaying such a message
+>>> during bootup in this patch might also be helpful.
+>> ok ... but who will the message be helpful to? This is a check of
+>> hardware state, not x86 resctrl driver state as in the previous patch.
+>>
+> 
+> This can be used by the admin (not the driver) to query why MBA is not
+> enabled by checking the boot message, IMO.
+Right, but this message will only appear on hardware that does not exist, no?
 
-I'm also concerned about the embedded struct drm_connector being added,
-since that can't and will not be a drm_connector that we'll use. All of
-our drm_connector are embedded in intel_connector, and all of our
-codebase expects this, and we init them ourselves. Having additional
-drm_connector (not embedded in intel_connector) added by library code
-*will* oops in our driver.
-
-I haven't had the time for an in-depth look, but it feels like this
-assumes a certain driver model, instead of providing building blocks for
-drivers to use.
-
-
-BR,
-Jani.
-
-
->
-> Do this by copying and adapting the code from bridge/panel.c, using
-> function names that are more suitable within drm_panel.c and doing the
-> minimal adaptation needed.
->
-> Currently drm_bridge and drm_panel have independent refcounted
-> allocation. As they now become a single struct, just change
-> drm_panel_get/put() to get/put the bridge. As a result, the refcount for a
-> drm_bridge embedded in a drm_panel is:
->
->   bridge.refcount == number of drm_bridge_get() calls
->                    + number of drm_panel_get() calls
->                    - number of drm_bridge_put() calls
->                    - number of drm_panel_put() calls
->
-> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
->
-> ---
->
-> This patch is new in v2, and replaces "drm/bridge: panel: add a
-> panel_bridge to every panel" which was based on a different approach.
-> ---
->  drivers/gpu/drm/drm_panel.c | 258 +++++++++++++++++++++++++++++++++++++++++---
->  include/drm/drm_panel.h     |  33 ++++--
->  2 files changed, 266 insertions(+), 25 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> index f8f6082e637f..9b86195f9f66 100644
-> --- a/drivers/gpu/drm/drm_panel.c
-> +++ b/drivers/gpu/drm/drm_panel.c
-> @@ -22,15 +22,19 @@
->   */
->  
->  #include <linux/backlight.h>
-> +#include <linux/debugfs.h>
->  #include <linux/err.h>
->  #include <linux/export.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  
-> +#include <drm/drm_atomic_helper.h>
->  #include <drm/drm_crtc.h>
-> +#include <drm/drm_modeset_helper_vtables.h>
->  #include <drm/drm_of.h>
->  #include <drm/drm_panel.h>
->  #include <drm/drm_print.h>
-> +#include <drm/drm_probe_helper.h>
->  
->  static DEFINE_MUTEX(panel_lock);
->  static LIST_HEAD(panel_list);
-> @@ -46,6 +50,18 @@ static LIST_HEAD(panel_list);
->   * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add().
->   */
->  
-> +static inline struct drm_panel *
-> +drm_bridge_to_panel(const struct drm_bridge *bridge)
-> +{
-> +	return container_of(bridge, struct drm_panel, bridge);
-> +}
-> +
-> +static inline struct drm_panel *
-> +drm_connector_to_panel(const struct drm_connector *connector)
-> +{
-> +	return container_of(connector, struct drm_panel, connector);
-> +}
-> +
->  /**
->   * drm_panel_init - initialize a panel
->   * @panel: DRM panel
-> @@ -86,6 +102,7 @@ void drm_panel_add(struct drm_panel *panel)
->  	mutex_lock(&panel_lock);
->  	list_add_tail(&panel->list, &panel_list);
->  	mutex_unlock(&panel_lock);
-> +	drm_bridge_add(&panel->bridge);
->  }
->  EXPORT_SYMBOL(drm_panel_add);
->  
-> @@ -97,6 +114,7 @@ EXPORT_SYMBOL(drm_panel_add);
->   */
->  void drm_panel_remove(struct drm_panel *panel)
->  {
-> +	drm_bridge_remove(&panel->bridge);
->  	mutex_lock(&panel_lock);
->  	list_del_init(&panel->list);
->  	mutex_unlock(&panel_lock);
-> @@ -370,13 +388,198 @@ int drm_panel_get_modes(struct drm_panel *panel,
->  }
->  EXPORT_SYMBOL(drm_panel_get_modes);
->  
-> -static void __drm_panel_free(struct kref *kref)
-> +static int drm_panel_bridge_connector_get_modes(struct drm_connector *connector)
-> +{
-> +	struct drm_panel *drm_panel = drm_connector_to_panel(connector);
-> +
-> +	return drm_panel_get_modes(drm_panel, connector);
-> +}
-> +
-> +/**
-> + * drm_bridge_set_connector_orientation - Set the connector panel
-> + * orientation from the bridge that can be transformed to drm_panel.
-> + *
-> + * @bridge: The drm_bridge for a drm_panel.
-> + * @connector: The connector to be set panel orientation.
-> + *
-> + * Returns 0 on success, negative errno on failure.
-> + */
-> +int drm_bridge_set_connector_orientation(const struct drm_bridge *bridge,
-> +					 struct drm_connector *connector)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +
-> +	return drm_connector_set_orientation_from_panel(connector, panel);
-> +}
-> +EXPORT_SYMBOL(drm_bridge_set_connector_orientation);
-> +
-> +static const struct drm_connector_helper_funcs
-> +drm_panel_bridge_connector_helper_funcs = {
-> +	.get_modes = drm_panel_bridge_connector_get_modes,
-> +};
-> +
-> +static const struct drm_connector_funcs drm_panel_bridge_connector_funcs = {
-> +	.reset = drm_atomic_helper_connector_reset,
-> +	.fill_modes = drm_helper_probe_single_connector_modes,
-> +	.destroy = drm_connector_cleanup,
-> +	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-> +};
-> +
-> +static int drm_panel_bridge_attach(struct drm_bridge *bridge,
-> +				   struct drm_encoder *encoder,
-> +				   enum drm_bridge_attach_flags flags)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_connector *connector = &panel->connector;
-> +	int ret;
-> +
-> +	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR)
-> +		return 0;
-> +
-> +	drm_connector_helper_add(connector,
-> +				 &drm_panel_bridge_connector_helper_funcs);
-> +
-> +	ret = drm_connector_init(bridge->dev, connector,
-> +				 &drm_panel_bridge_connector_funcs,
-> +				 panel->connector_type);
-> +	if (ret) {
-> +		DRM_ERROR("Failed to initialize connector\n");
-> +		return ret;
-> +	}
-> +
-> +	drm_bridge_set_connector_orientation(bridge, connector);
-> +
-> +	drm_connector_attach_encoder(connector, encoder);
-> +
-> +	if (bridge->dev->registered) {
-> +		if (connector->funcs->reset)
-> +			connector->funcs->reset(connector);
-> +		drm_connector_register(connector);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void drm_panel_bridge_detach(struct drm_bridge *bridge)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_connector *connector = &panel->connector;
-> +
-> +	/* Cleanup the connector if we know it was initialized */
-> +	if (connector->dev)
-> +		drm_connector_cleanup(connector);
-> +}
-> +
-> +static void drm_panel_bridge_atomic_pre_enable(struct drm_bridge *bridge,
-> +					       struct drm_atomic_commit *atomic_commit)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_encoder *encoder = bridge->encoder;
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *old_crtc_state;
-> +
-> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_commit, encoder);
-> +	if (!crtc)
-> +		return;
-> +
-> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_commit, crtc);
-> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
-> +		return;
-> +
-> +	drm_panel_prepare(panel);
-> +}
-> +
-> +static void drm_panel_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					   struct drm_atomic_commit *atomic_commit)
->  {
-> -	struct drm_panel *panel = container_of(kref, struct drm_panel, refcount);
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_encoder *encoder = bridge->encoder;
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *old_crtc_state;
->  
-> -	kfree(panel->container);
-> +	crtc = drm_atomic_get_new_crtc_for_encoder(atomic_commit, encoder);
-> +	if (!crtc)
-> +		return;
-> +
-> +	old_crtc_state = drm_atomic_get_old_crtc_state(atomic_commit, crtc);
-> +	if (old_crtc_state && old_crtc_state->self_refresh_active)
-> +		return;
-> +
-> +	drm_panel_enable(panel);
-> +}
-> +
-> +static void drm_panel_bridge_atomic_disable(struct drm_bridge *bridge,
-> +					    struct drm_atomic_commit *atomic_commit)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_encoder *encoder = bridge->encoder;
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *new_crtc_state;
-> +
-> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_commit, encoder);
-> +	if (!crtc)
-> +		return;
-> +
-> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_commit, crtc);
-> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
-> +		return;
-> +
-> +	drm_panel_disable(panel);
->  }
->  
-> +static void drm_panel_bridge_atomic_post_disable(struct drm_bridge *bridge,
-> +						 struct drm_atomic_commit *atomic_commit)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +	struct drm_encoder *encoder = bridge->encoder;
-> +	struct drm_crtc *crtc;
-> +	struct drm_crtc_state *new_crtc_state;
-> +
-> +	crtc = drm_atomic_get_old_crtc_for_encoder(atomic_commit, encoder);
-> +	if (!crtc)
-> +		return;
-> +
-> +	new_crtc_state = drm_atomic_get_new_crtc_state(atomic_commit, crtc);
-> +	if (new_crtc_state && new_crtc_state->self_refresh_active)
-> +		return;
-> +
-> +	drm_panel_unprepare(panel);
-> +}
-> +
-> +static int drm_panel_bridge_get_modes(struct drm_bridge *bridge,
-> +				      struct drm_connector *connector)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +
-> +	return drm_panel_get_modes(panel, connector);
-> +}
-> +
-> +static void drm_panel_bridge_debugfs_init(struct drm_bridge *bridge,
-> +					  struct dentry *root)
-> +{
-> +	struct drm_panel *panel = drm_bridge_to_panel(bridge);
-> +
-> +	root = debugfs_create_dir("panel", root);
-> +	if (panel->funcs->debugfs_init)
-> +		panel->funcs->debugfs_init(panel, root);
-> +}
-> +
-> +static const struct drm_bridge_funcs drm_panel_bridge_funcs = {
-> +	.attach = drm_panel_bridge_attach,
-> +	.detach = drm_panel_bridge_detach,
-> +	.atomic_pre_enable = drm_panel_bridge_atomic_pre_enable,
-> +	.atomic_enable = drm_panel_bridge_atomic_enable,
-> +	.atomic_disable = drm_panel_bridge_atomic_disable,
-> +	.atomic_post_disable = drm_panel_bridge_atomic_post_disable,
-> +	.get_modes = drm_panel_bridge_get_modes,
-> +	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-> +	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-> +	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
-> +	.debugfs_init = drm_panel_bridge_debugfs_init,
-> +};
-> +
->  /**
->   * drm_panel_get - Acquire a panel reference
->   * @panel: DRM panel
-> @@ -387,10 +590,8 @@ static void __drm_panel_free(struct kref *kref)
->   */
->  struct drm_panel *drm_panel_get(struct drm_panel *panel)
->  {
-> -	if (!panel)
-> -		return panel;
-> -
-> -	kref_get(&panel->refcount);
-> +	if (panel)
-> +		drm_bridge_get(&panel->bridge);
->  
->  	return panel;
->  }
-> @@ -406,7 +607,7 @@ EXPORT_SYMBOL(drm_panel_get);
->  void drm_panel_put(struct drm_panel *panel)
->  {
->  	if (panel)
-> -		kref_put(&panel->refcount, __drm_panel_free);
-> +		drm_bridge_put(&panel->bridge);
->  }
->  EXPORT_SYMBOL(drm_panel_put);
->  
-> @@ -429,8 +630,22 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
->  			     const struct drm_panel_funcs *funcs,
->  			     int connector_type)
->  {
-> -	void *container;
-> +	/*
-> +	 * Struct embedding and offsets:
-> +	 *
-> +	 *    |--------------- user container struct ------------|
-> +	 *    :    |---------- struct drm_panel ------------|
-> +	 *    :    :    |----- struct drm_bridge ------|
-> +	 *    A    B    C
-> +	 *
-> +	 * B - A = offset (passed as argument)
-> +	 * C - B = panel_bridge_offset
-> +	 * C - A = alloc_bridge_offset
-> +	 */
-> +	const size_t panel_bridge_offset = offsetof(struct drm_panel, bridge);
-> +	const size_t alloc_bridge_offset = offset + panel_bridge_offset;
->  	struct drm_panel *panel;
-> +	void *container;
->  	int err;
->  
->  	if (!funcs) {
-> @@ -438,14 +653,16 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
->  		return ERR_PTR(-EINVAL);
->  	}
->  
-> -	container = kzalloc(size, GFP_KERNEL);
-> -	if (!container)
-> -		return ERR_PTR(-ENOMEM);
-> +	container = __devm_drm_bridge_alloc(dev, size, alloc_bridge_offset,
-> +					    &drm_panel_bridge_funcs);
-> +	if (IS_ERR(container))
-> +		return container;
->  
->  	panel = container + offset;
-> -	panel->container = container;
->  	panel->funcs = funcs;
-> -	kref_init(&panel->refcount);
-> +	panel->bridge.of_node = dev->of_node;
-> +
-> +	drm_panel_get(panel);
->  
->  	err = devm_add_action_or_reset(dev, drm_panel_put_void, panel);
->  	if (err)
-> @@ -457,6 +674,19 @@ void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
->  }
->  EXPORT_SYMBOL(__devm_drm_panel_alloc);
->  
-> +/**
-> + * drm_bridge_is_panel - Tell if a drm_bridge is a panel.
-> + *
-> + * @bridge: The drm_bridge to be checked.
-> + *
-> + * Returns true if the bridge is a panel, or false otherwise.
-> + */
-> +bool drm_bridge_is_panel(const struct drm_bridge *bridge)
-> +{
-> +	return bridge->funcs == &drm_panel_bridge_funcs;
-> +}
-> +EXPORT_SYMBOL(drm_bridge_is_panel);
-> +
->  #ifdef CONFIG_OF
->  /**
->   * of_drm_find_panel - look up and reference a panel by device tree node
-> diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-> index 08949d41d743..7fe2f3160b2a 100644
-> --- a/include/drm/drm_panel.h
-> +++ b/include/drm/drm_panel.h
-> @@ -30,6 +30,8 @@
->  #include <linux/mutex.h>
->  #include <linux/kref.h>
->  
-> +#include <drm/drm_bridge.h>
-> +
->  struct backlight_device;
->  struct dentry;
->  struct device_node;
-> @@ -228,6 +230,22 @@ struct drm_panel {
->  	 */
->  	const struct drm_panel_funcs *funcs;
->  
-> +	/**
-> +	 * @bridge:
-> +	 *
-> +	 * Bridge to access the panel features through the drm_bridge API.
-> +	 */
-> +	struct drm_bridge bridge;
-> +
-> +	/**
-> +	 * @connector:
-> +	 *
-> +	 * Connector instantiated by the bridge (only for legacy code not
-> +	 * yet using the drm_bridge_connector and
-> +	 * DRM_BRIDGE_ATTACH_NO_CONNECTOR).
-> +	 */
-> +	struct drm_connector connector;
-> +
->  	/**
->  	 * @connector_type:
->  	 *
-> @@ -281,17 +299,6 @@ struct drm_panel {
->  	 * If true then the panel has been enabled.
->  	 */
->  	bool enabled;
-> -
-> -	/**
-> -	 * @container: Pointer to the private driver struct embedding this
-> -	 * @struct drm_panel.
-> -	 */
-> -	void *container;
-> -
-> -	/**
-> -	 * @refcount: reference count of users referencing this panel.
-> -	 */
-> -	struct kref refcount;
->  };
->  
->  void *__devm_drm_panel_alloc(struct device *dev, size_t size, size_t offset,
-> @@ -327,6 +334,10 @@ void drm_panel_add(struct drm_panel *panel);
->  void drm_panel_remove(struct drm_panel *panel);
->  int devm_drm_panel_add(struct device *dev, struct drm_panel *panel);
->  
-> +bool drm_bridge_is_panel(const struct drm_bridge *bridge);
-> +int drm_bridge_set_connector_orientation(const struct drm_bridge *bridge,
-> +					 struct drm_connector *connector);
-> +
->  void drm_panel_prepare(struct drm_panel *panel);
->  void drm_panel_unprepare(struct drm_panel *panel);
-
--- 
-Jani Nikula, Intel
+Reinette
