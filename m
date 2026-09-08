@@ -1,43 +1,43 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B33A556BB6;
-	Tue,  8 Sep 2026 14:51:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FAD5519A4;
+	Tue,  8 Sep 2026 14:52:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879121; cv=none; b=RL8HfCNExwdygxtfhmUEiJwmP8ENqvBfek04fpPsw74GJqfKzxZ63ILAo/OEl17ADoDrmGg4Z3NU8ib0uzAWZ85QjtEhwB0pqlM2rNJtQX7PubDosqWzB1x08Z9hMm6FRlgKP9or1858W6EvzQB2d0FPc2p07R4HUItlKQJSpUs=
+	t=1788879130; cv=none; b=ndtSfQH17oQmfIJNkyA1k6oCGnUkJP45DttfeozrjU42nRVtL9DxiKtpJU8NfO26uVFMjAOhNGdAOpGp7J2QVY5jNDXf1H7r/BGj+CGqfW+iD1Hl6uON9YcWFsYmVJpaMlXumdM3DXAAWVRajpHZvDyX1hNP6QKe6kj8lOoINl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879121; c=relaxed/simple;
-	bh=Fg34IEunqJ87tallgVaqmL3g1l7Lk3fv7w8kAzfIgiQ=;
+	s=arc-20240116; t=1788879130; c=relaxed/simple;
+	bh=L4M7hLiRxDRX1JjACPykw3mztl3t/GK4QMLCwWFrxIo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=W2Rf53MmWQx9wKVsssbgTfWcRRaU0HZ86PouqBEG1eSODSToJdIuqBFRWPgX793G4LOV69cvVHFOUkjs6rZWQBcX1YT3A6QAy4SAGWrdjnoqcqIeCa5PtAP1Jw92ItkPG//cHDf6fWC8JlGxvt1/ovr74KRl15fZwfUd3UzqELg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TbNDZZCk; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=uMGReHmp2SEm0IzBirOYecUd0/+vYI5ANyT0rYDGBRFOORDM/m41DErJTagP2NUntkDXpvOSIdJaTC5LUHdNJ8rv4oQFq/7V9FOJaM7K5q5kMlaw1zwJSrww9/wHpQciN7a60kY/T4oum/7yr1TtTmZGA5nEeMkDlCQg10cw0Jo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kW0ee1qC; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TbNDZZCk"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kW0ee1qC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1788879101;
-	bh=Fg34IEunqJ87tallgVaqmL3g1l7Lk3fv7w8kAzfIgiQ=;
+	bh=L4M7hLiRxDRX1JjACPykw3mztl3t/GK4QMLCwWFrxIo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=TbNDZZCkh3+30wTwoHAFATA8ACNPU5c21RyKLa28Dmqn83mRr7ahXKFBIkHIzoV9Y
-	 XX+GJtDg28T26H66tGuYlK4VWBSYKHIfzPIitwGlFVlkfjwDR4VAq9KSQ5EhYGV4fz
-	 AP1GgYxwLMUBUkDMLIP8AMAWft6KPATxQHNzPSiDJAqz/ro+L3XZoBZFtSlVrHAvfQ
-	 CkvONTw4W+fvwE0ii/iHhMXGIcUX1gNIPU8AyG/YMye0Liige0huoQT0ooLrLQNTGK
-	 NBS6OBqAhI0PpukKElgCZCCfdaE8Qo1Tvzn8m8WnP3MQNFNsxE+1lk4YZc61m4JV0p
-	 2o3fSxnOQbCUg==
+	b=kW0ee1qC0mWQjAr1zWej6iBHaL/pedHxs0MoPFbMbpp7UHet1M/me8w/7ikqnvwio
+	 OfFPrVq+Eb7Bce+wUGuP6RlreC5vX7HV/Hxazj4uin98eiYsZelg+EAGSdSMGG19kv
+	 MCEBdfZmGusea7/XGt7YQKccST+LYlBcWfbPOmJG1fuGvih8yf10Bll8Wd4hxEuHWG
+	 8P6AfXMxKDZ5LD5xymYcGdszsoMH0CU7gNdH+S1L5LVVWJjQ75CmAFxK5gacYkJoTz
+	 wL+gOEHyuDaS+42xwy77K5QK2UoOCz/3BsE7N1pi1nmbTp2Nhh3Lo4yr8F5ZD1SeIr
+	 PN9XAbud11iyw==
 Received: from jupiter.universe (unknown [100.64.1.62])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519)
 	(No client certificate requested)
 	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D83D817E0CA6;
-	Tue, 08 Sep 2026 16:51:40 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C67E17E0D81;
+	Tue, 08 Sep 2026 16:51:41 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
-	id 8E17C480029; Tue, 08 Sep 2026 16:51:40 +0200 (CEST)
+	id 979CA48003A; Tue, 08 Sep 2026 16:51:40 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 08 Sep 2026 16:51:19 +0200
-Subject: [PATCH v6 01/10] PCI: dw-rockchip: Fix LTSSM set functions
+Date: Tue, 08 Sep 2026 16:51:25 +0200
+Subject: [PATCH v6 07/10] PCI: dw-rockchip: Add pme_turn_off support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,7 +46,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-rockchip-pcie-system-suspend-v6-1-fbabcca9921b@collabora.com>
+Message-Id: <20260908-rockchip-pcie-system-suspend-v6-7-fbabcca9921b@collabora.com>
 References: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
 In-Reply-To: <20260908-rockchip-pcie-system-suspend-v6-0-fbabcca9921b@collabora.com>
 To: Lorenzo Pieralisi <lpieralisi@kernel.org>, 
@@ -63,63 +63,103 @@ Cc: Alexey Charkov <alchark@flipper.net>, linux-pci@vger.kernel.org,
  linux-kernel@vger.kernel.org, kernel@collabora.com, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1781;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3022;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Fg34IEunqJ87tallgVaqmL3g1l7Lk3fv7w8kAzfIgiQ=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqgIPwEwohiJhIRtREX/UPidd6YqPL8FjV5B
- /2sETgGRQv07IkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqoCD8AAoJENju1/PI
- O/qadEkQAJq+v1y4/jvh+oo3YY3fY5I+eWTBo+SLQvRumeyeqQEPeRMCgyu/I8i42rprrdh3ciZ
- zNFR3QwfFJfxrqdhS65Mz2/u+xF+JzFUJjSiKsAmUvQ65yy2npvrnXbwkA3fPdFyRSS+OwsL5F8
- NSG75CrMRJAvXprI3B8jNwSDgxAR31LpauxDUMwru9tQhwpKAOQlyz3/rCoIgKcaJY1OOlqY5Ej
- Pfkw/vVeZLZgl9iJzPusU+xRO0zD11RX2N/XAv2qfKz9aOtC3UbRDdn1PwroMRIKE4mJaSTamWK
- LPblA2NVdE3WA65rxFPZ+WgkOamc5KWgyz0HT5Njz4WpwmkUuKQw1ii4a7J7jMlbYE4c8Nl08Gd
- qE/epbdwETAb5o0O7+8+e5HPe6EVIsDiC7MCTyZ9h9GtxnSVSKxieTIEByI8TlDcTm+9H8g79qb
- cCo7iGYj0vt/VAJBaxP1CG67ZrQoQGS230mG27YKLWNG7QD7A5DyrPnPDS9/GoKkI7uqFvn9qrt
- utZqRGGoPTncdQF0lltIqyGe57JlzDZng4ZWcRCEB+T6YW8n0wKEUrrWq8gliMsgNVilTHOBwMU
- UMTV+FVW/qQmKrZxEiX6xj6SL8cz0cWrRGp6OUFxAMrbhwUvSUbEdforXcOnEa5Ub0ZxDEmg0JL
- JpYJr+o/gVyhmUzW+P3owcg==
+ bh=L4M7hLiRxDRX1JjACPykw3mztl3t/GK4QMLCwWFrxIo=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqgIPwONPLCUoy4DvvoogqBm9II90BbJz5ht
+ eejLik2EOCWKYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqoCD8AAoJENju1/PI
+ O/qaGZQP+gOurxzOFdXPQH/FppuFVPfAZBUWPfQAUq/RHhR7nlu/RavTNBh/+wmJnox+7OcVRm4
+ IpCPBVCl6o0sXgL5myrdgqw8EyUIwyvcX9PSAQ0tBM+F2bdW9FOB4tDwtwI+kt/4w7j97QZdWlB
+ O6Nf6na/zPD4q4V93PqLTQC07pczGYcXRo08398LQU8kTFETitEm/X3KTLl2mZSbAMsZAjKTyvA
+ ZaTVaL/KBXEWLlsbC9UzhCPquLIjvhO/epJCiUc3LPNOJN1g6PFBz5llnyEIn+g+u9+j1hiLjXx
+ JSV92CfOxYxiODNfSY3ZqTiPBgTwVj6BV/jlwkEXzJ+Spxi1yFnLcXi8RNfvNzYhuOaqxbsZwLI
+ FiB9366KJiii4d4KNdP25wgnWhRt7ZRJAVME3Tt1RMzXSq462vWVb8c/yM4rhTITMc3abgYfjfi
+ I6834iZKidFeqelUf3Z/LeYEbnzNWtM4FcJyxC8ShTvSyso+VgJir8+SHfdk5QJvhSocyNzt0RX
+ AiewwJfk7FyPrGdkr13fNqRcfldOTP9TddhpnZ9aUrpCvqWVNqaOzwvH+zNtz4Ekfld7t2XtZLP
+ LLRUrKEl91b2pqck+Xdh8R0W8SCTb68aGa4CwgjyqrHQQ6Qjf34PZ2kF2jGwuUpN9r7ZYKFjqlE
+ WZCE/bMJ/ugNr3eB9PV4zcg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-Before the Rockchip PCIe driver has been switched over to the
-FIELD_PREP_WM16 macro, PCIE_CLIENT_ENABLE_LTSSM and
-PCIE_CLIENT_DISABLE_LTSSM were setting bits with a mask of 0xc = 0b1100,
-which means BIT 2 and BIT 3. After the conversion it only sets bit 2,
-with bit 3 being handled by a separate define named
-PCIE_CLIENT_LD_RQ_RST_GRT. Apparently the conversion missed to make use
-of this new macros resulting in the third bit not being set.
+Prepare Rockchip PCIe controller for system suspend support by
+adding the PME turn off operation.
 
-Fixes: 30e919570581 ("PCI: dw-rockchip: Switch to FIELD_PREP_WM16 macro")
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c | 44 +++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
 diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index af26a07c0c9e..dc85564e5001 100644
+index 1e48099e36e4..17530507e41b 100644
 --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
 +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -321,14 +321,16 @@ static void rockchip_pcie_ltssm_trace(struct rockchip_pcie *rockchip,
+@@ -45,6 +45,7 @@
+ #define  PCIE_CLIENT_LD_RQ_RST_GRT	FIELD_PREP_WM16(BIT(3), 1)
+ #define  PCIE_CLIENT_ENABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 1)
+ #define  PCIE_CLIENT_DISABLE_LTSSM	FIELD_PREP_WM16(BIT(2), 0)
++#define PCIE_CLIENT_INTR_STATUS_MSG_RX	0x04
  
- static void rockchip_pcie_enable_ltssm(struct rockchip_pcie *rockchip)
- {
--	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_ENABLE_LTSSM,
--				 PCIE_CLIENT_GENERAL_CON);
-+	u32 val = PCIE_CLIENT_ENABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
-+
-+	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
+ /* Interrupt Status Register Related to Legacy Interrupt */
+ #define PCIE_CLIENT_INTR_STATUS_LEGACY	0x8
+@@ -64,6 +65,11 @@
+ 
+ /* Interrupt Mask Register Related to Miscellaneous Operation */
+ #define PCIE_CLIENT_INTR_MASK_MISC	0x24
++#define PCIE_CLIENT_POWER		0x2c
++#define PCIE_CLIENT_MSG_GEN		0x34
++#define PME_READY_ENTER_L23		BIT(3)
++#define PME_TURN_OFF			FIELD_PREP_WM16(BIT(4), 1)
++#define PME_TO_ACK			FIELD_PREP_WM16(BIT(9), 1)
+ 
+ /* Power Management Control Register */
+ #define PCIE_CLIENT_POWER_CON		0x2c
+@@ -452,8 +458,46 @@ static int rockchip_pcie_host_init(struct dw_pcie_rp *pp)
+ 	return 0;
  }
  
- static void rockchip_pcie_disable_ltssm(struct rockchip_pcie *rockchip)
- {
--	rockchip_pcie_writel_apb(rockchip, PCIE_CLIENT_DISABLE_LTSSM,
--				 PCIE_CLIENT_GENERAL_CON);
-+	u32 val = PCIE_CLIENT_DISABLE_LTSSM | PCIE_CLIENT_LD_RQ_RST_GRT;
++static void rockchip_pcie_pme_turn_off(struct dw_pcie_rp *pp)
++{
++	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
++	struct rockchip_pcie *rockchip = to_rockchip_pcie(pci);
++	struct device *dev = rockchip->pci.dev;
++	u32 status;
++	int ret;
 +
-+	rockchip_pcie_writel_apb(rockchip, val, PCIE_CLIENT_GENERAL_CON);
- }
++	/* 1. Broadcast PME_Turn_Off Message, bit 4 self-clear once done */
++	rockchip_pcie_writel_apb(rockchip, PME_TURN_OFF, PCIE_CLIENT_MSG_GEN);
++	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_MSG_GEN,
++				 status, !(status & BIT(4)), PCIE_PME_TO_L2_TIMEOUT_US / 10,
++				 PCIE_PME_TO_L2_TIMEOUT_US);
++	if (ret) {
++		dev_warn(dev, "Failed to send PME_Turn_Off\n");
++		return;
++	}
++
++	/* 2. Wait for PME_TO_Ack, bit 9 will be set once received */
++	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_INTR_STATUS_MSG_RX,
++				 status, status & BIT(9), PCIE_PME_TO_L2_TIMEOUT_US / 10,
++				 PCIE_PME_TO_L2_TIMEOUT_US);
++	if (ret) {
++		dev_warn(dev, "Failed to receive PME_TO_Ack\n");
++		return;
++	}
++
++	/* 3. Clear PME_TO_Ack and Wait for ready to enter L23 message */
++	rockchip_pcie_writel_apb(rockchip, PME_TO_ACK, PCIE_CLIENT_INTR_STATUS_MSG_RX);
++	ret = readl_poll_timeout(rockchip->apb_base + PCIE_CLIENT_POWER,
++				 status, status & PME_READY_ENTER_L23,
++				 PCIE_PME_TO_L2_TIMEOUT_US / 10,
++				 PCIE_PME_TO_L2_TIMEOUT_US);
++	if (ret)
++		dev_err(dev, "Failed to get ready to enter L23 message\n");
++}
++
+ static const struct dw_pcie_host_ops rockchip_pcie_host_ops = {
+ 	.init = rockchip_pcie_host_init,
++	.pme_turn_off = rockchip_pcie_pme_turn_off,
+ };
  
- static bool rockchip_pcie_link_up(struct dw_pcie *pci)
+ /*
 
 -- 
 2.53.0
