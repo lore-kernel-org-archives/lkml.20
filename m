@@ -1,224 +1,105 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mail-106120.protonmail.ch (mail-106120.protonmail.ch [79.135.106.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6561A41C6A;
-	Tue,  8 Sep 2026 01:54:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779B41DDFE;
+	Tue,  8 Sep 2026 01:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788832499; cv=none; b=l20TdO4ZK+paYD+pGPivh3Q9Rtor1FE9Z1WwtWgUVNmdEan8EG6ux9ZGyYqh8YawZ3gd1o7LkUSNU3HQh8Lz6h1+1Q/9Ul7rTUYkgyDbSakWOdqEk/GVJMLas/MAbmRiHHv7ibHUVzWPM/vUlBrbSn53yU2teji5lC009kQgzlY=
+	t=1788832635; cv=none; b=uqXNemP/gR8C30+BUH31SbSrz4Fk+2YBY1++AkQyhm19H6809ORMtmPz6tqJyPhiN7LiNRygXyJgLptb1jYm0oS0S70M/lf88olDgLCRIoiipWb56eb/ubavQMvrJeZPaMcnNo5Y7zseOIklFVNI1ZUh+qsu7d60Vdj/++O1cfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788832499; c=relaxed/simple;
-	bh=2KHz+9PXx//SdcHWJC0BWk4fQ0RyF97GJFgAaSYlJWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Pe2Tit5HAcq7VOitgmHJCFPugP+s3Kme2ww9+kvpc5nKdQMhrYRwIORUtFLpv2uidUU/zKLcHV2YBANiV1V99SWPNuvnfS7DxHuQRa9jp1nUeOPkSUA74H+GXCd8HZLp7km0Ll2WPriD5RekWDP7jLMDaXRnlS11UJlKPp6Uv0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=RsFmmtF6; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788832635; c=relaxed/simple;
+	bh=ll8K1DeCc7dBftjGUkjjBVxBL0oayo50XIYa/iNA8Kg=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=AkVGpymLp0yLenaRpW8hDya73zzVzib7YnD2Jdy/umzGSutV3BKNeTszbnerOliFCDqMsqAMfyJyxKra12buZmFNFC8zyQWa+ieCrTLddj5lSaMesv+BYdSsiketI0rbQbtDAN1hV/ZDvuSuma2EG5IA2ugHrZIbmljSJHaineU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=qy8agDaP; arc=none smtp.client-ip=79.135.106.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="RsFmmtF6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=aB
-	UHwBWmpgi9/lMoTRo3LUqOohStkqLLrAeFh+KYDAc=; b=RsFmmtF6xyPnQN87U9
-	OpOfn0FUFK4Q03yxEXhSTgqiOyZuaPjY0ukrY4f2vjVDQ2/j2IFkUm6rnE8O+NCW
-	7qvYyTzbxR+FO7j0g+WH2MJVM7X4OWjxdvUJSMtBSwZrzs3Z/oJ2flVTx1anSLVQ
-	3+eY93d9s/7+73Nz7JXIT+2c4=
-Received: from LAPTOP-BJS5C4G0 (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wBnX9Liap9qm1g6BQ--.20701S2;
-	Tue, 08 Sep 2026 09:54:44 +0800 (CST)
-From: Heyang Tan <thy15333007817@163.com>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	sgoutham@marvell.com,
-	rkannoth@marvell.com,
-	gakula@marvell.com,
-	sbhatta@marvell.com
-Subject: [PATCH v2] octeontx2-af: use seq_file for rsrc_alloc debugfs
-Date: Tue,  8 Sep 2026 09:54:35 +0800
-Message-ID: <20260908015435.1213-1-thy15333007817@163.com>
-X-Mailer: git-send-email 2.51.0.windows.1
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="qy8agDaP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788832630; x=1789091830;
+	bh=dmXMvzsAojrLI8KMhKwvwOPr21ujpVN7YHvFwQ2zHBg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=qy8agDaPyL1OWRDzbfHEHgfxApJ3E/ZSl55XfGjo8Sh64GDBKsLjEYfE6SW7yaEqN
+	 l++1ZTr01iKuhzFKDihFmX5lZA9xAKBHxYH3ObyQIlUw1xn5vDN9rx28KooaT4PGu+
+	 q4htZqF+SeCgXOgrWf0AMc+8Fl+7R8Ktl0hBSj0U5qCVjMK+vlox7VrzjE9S/b0h2i
+	 PaNAqR9tLU4uWVGpKn1fN15xo/cRzqzeyvlzRJ2Bxce8C+adcCaRzftDPdgob7xxu9
+	 C/pmk+2YnYAMsxFpjRd/ufdllWNlBPnkw3r8QP8070ginCBrO5FD55CLscY/qsddGy
+	 YvKVZTvOu0kvA==
+Date: Tue, 08 Sep 2026 01:57:02 +0000
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>, Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/2] Monitor Yoga Slim 7x EC sensors without taking over cooling
+Message-ID: <20260908015650.84401-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: 759afb0872a01ed65916baee3b25e7d0a368f2d4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBnX9Liap9qm1g6BQ--.20701S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWF47Jr43JF4fGw18GryUJrb_yoWrKF13pa
-	1Yyry0yr4qqF18J3WDKa1UJFyrWan0qFW0grWku34ru3ZYkF4Fqr1Yk3yjgayrGrWvyr90
-	qa98trZ7C3WjyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UQXoxUUUUU=
-X-CM-SenderInfo: 5wk1ikatttiiixyrlqqrwthudrp/xtbC-gVWAGqfauWLXAAA3A
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The rsrc_alloc debugfs reader writes rows directly to userspace without
-respecting the caller's read count. It also uses the current row length as
-the userspace stride, which can corrupt output when rows have different
-widths.
+The Yoga Slim 7x firmware tested here (EC 0.99.0, BIOS NHCN62WW) returns
+00 00 00 to command 0x42. The upstream driver correctly rejects that
+malformed thermal capability response. Its legacy fan RPM query (0x22,
+fan ID 1) and thermistor query (0x29) work, and the firmware ramps the fan
+automatically under CPU load.
 
-Use seq_file to handle userspace buffer sizes, offsets, and partial reads,
-and write output columns directly to the seq_file buffer.
+This series adds a Lenovo-specific, read-only path to the existing driver
+and KUnit tests using a simulated I2C adapter. It does not replace the
+strict reference-board response validation, guess a writable fan count,
+or include calibration, LUT programming or temperature reporting.
 
-Fixes: 23205e6d06d4 ("octeontx2-af: Dump current resource provisioning status")
-Signed-off-by: Heyang Tan <thy15333007817@163.com>
----
-Changes in v2:
-- Write columns directly to the seq_file buffer as suggested by Ratheesh.
-- Preserve skipping PF/VF rows without allocated resources.
+This builds on Daniel J Blueman's pending binding and board patches [1].
+They remain separate prerequisites, with Daniel's authorship unchanged.
+The sensor transactions are documented in the public Yoga DSDT and Maya
+Matuszczyk's protocol notes; Anvesh Jain P's pending fan-profile series
+also implements the RPM query [2].
 
-Link: https://lore.kernel.org/netdev/20260906141129.1730-1-thy15333007817@163.com/
-Compile-tested: drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.o
-Not hardware-tested.
+Testing on the Yoga with the EC node enabled and its existing 7.2 kernel:
+- W=3D1 external-module build.
+- Three bind/read/unload cycles; read-only fan1_input and temp1_input.
+- Bounded CPU load: fan rose from 0 to approximately 2800 RPM, with a
+  maximum SoC reading of 55.4 C. Original profile 0x15 was unchanged.
+- Previous monitor restored after testing; boot files unchanged.
 
- .../marvell/octeontx2/af/rvu_debugfs.c        | 104 ++++++------------
- 1 file changed, 33 insertions(+), 71 deletions(-)
+On the stated mainline base, an arm64 KUnit kernel booted in QEMU passes
+all seven tests. These cover sensor decoding, error handling, compatible
+selection, probe, read-only attributes and no-write PM/remove callbacks.
+The QEMU results validate code paths, not Yoga suspend behavior.
 
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-index 22ee99676879..fcbf4ba0e10a 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-@@ -714,110 +714,72 @@ static int get_max_column_width(struct rvu *rvu)
- }
- 
- /* Dumps current provisioning status of all RVU block LFs */
--static ssize_t rvu_dbg_rsrc_attach_status(struct file *filp,
--					  char __user *buffer,
--					  size_t count, loff_t *ppos)
-+static int rvu_dbg_rsrc_attach_status(struct seq_file *filp, void *unused)
- {
--	int index, off = 0, flag = 0, len = 0, i = 0;
--	struct rvu *rvu = filp->private_data;
--	int bytes_not_copied = 0;
-+	int index, pf, vf, pcifunc;
-+	struct rvu *rvu = filp->private;
- 	struct rvu_block block;
--	int pf, vf, pcifunc;
--	int buf_size = 2048;
- 	int lf_str_size;
- 	char *lfs;
--	char *buf;
--
--	/* don't allow partial reads */
--	if (*ppos != 0)
--		return 0;
--
--	buf = kzalloc(buf_size, GFP_KERNEL);
--	if (!buf)
--		return -ENOMEM;
- 
--	/* Get the maximum width of a column */
- 	lf_str_size = get_max_column_width(rvu);
-+	if (lf_str_size < 0)
-+		return lf_str_size;
- 
- 	lfs = kzalloc(lf_str_size, GFP_KERNEL);
--	if (!lfs) {
--		kfree(buf);
-+	if (!lfs)
- 		return -ENOMEM;
--	}
--	off +=	scnprintf(&buf[off], buf_size - 1 - off, "%-*s", lf_str_size,
--			  "pcifunc");
--	for (index = 0; index < BLK_COUNT; index++)
--		if (strlen(rvu->hw->block[index].name)) {
--			off += scnprintf(&buf[off], buf_size - 1 - off,
--					 "%-*s", lf_str_size,
--					 rvu->hw->block[index].name);
--		}
- 
--	off += scnprintf(&buf[off], buf_size - 1 - off, "\n");
--	bytes_not_copied = copy_to_user(buffer + (i * off), buf, off);
--	if (bytes_not_copied)
--		goto out;
-+	seq_printf(filp, "%-*s", lf_str_size, "pcifunc");
-+	for (index = 0; index < BLK_COUNT; index++)
-+		if (strlen(rvu->hw->block[index].name))
-+			seq_printf(filp, "%-*s", lf_str_size,
-+				   rvu->hw->block[index].name);
- 
--	i++;
--	*ppos += off;
-+	seq_putc(filp, '\n');
- 	for (pf = 0; pf < rvu->hw->total_pfs; pf++) {
- 		for (vf = 0; vf <= rvu->hw->total_vfs; vf++) {
--			off = 0;
--			flag = 0;
- 			pcifunc = rvu_make_pcifunc(rvu->pdev, pf, vf);
- 			if (!pcifunc)
- 				continue;
- 
--			if (vf) {
-+			for (index = 0; index < BLK_COUNT; index++) {
-+				block = rvu->hw->block[index];
-+				if (!strlen(block.name))
-+					continue;
-+				lfs[0] = '\0';
-+				get_lf_str_list(&block, pcifunc, lfs);
-+				if (strlen(lfs))
-+					break;
-+			}
-+			if (index == BLK_COUNT)
-+				continue;
-+
-+			if (vf)
- 				sprintf(lfs, "PF%d:VF%d", pf, vf - 1);
--				off = scnprintf(&buf[off],
--						buf_size - 1 - off,
--						"%-*s", lf_str_size, lfs);
--			} else {
-+			else
- 				sprintf(lfs, "PF%d", pf);
--				off = scnprintf(&buf[off],
--						buf_size - 1 - off,
--						"%-*s", lf_str_size, lfs);
--			}
-+			seq_printf(filp, "%-*s", lf_str_size, lfs);
- 
- 			for (index = 0; index < BLK_COUNT; index++) {
- 				block = rvu->hw->block[index];
- 				if (!strlen(block.name))
- 					continue;
--				len = 0;
--				lfs[len] = '\0';
--				get_lf_str_list(&block, pcifunc, lfs);
--				if (strlen(lfs))
--					flag = 1;
- 
--				off += scnprintf(&buf[off], buf_size - 1 - off,
--						 "%-*s", lf_str_size, lfs);
--			}
--			if (flag) {
--				off +=	scnprintf(&buf[off],
--						  buf_size - 1 - off, "\n");
--				bytes_not_copied = copy_to_user(buffer +
--								(i * off),
--								buf, off);
--				if (bytes_not_copied)
--					goto out;
--
--				i++;
--				*ppos += off;
-+				lfs[0] = '\0';
-+				get_lf_str_list(&block, pcifunc, lfs);
-+				seq_printf(filp, "%-*s", lf_str_size, lfs);
- 			}
-+			seq_putc(filp, '\n');
- 		}
- 	}
- 
--out:
- 	kfree(lfs);
--	kfree(buf);
--	if (bytes_not_copied)
--		return -EFAULT;
- 
--	return *ppos;
-+	return 0;
- }
- 
--RVU_DEBUG_FOPS(rsrc_status, rsrc_attach_status, NULL);
-+RVU_DEBUG_SEQ_FOPS(rsrc_status, rsrc_attach_status, NULL);
- 
- static int rvu_dbg_rvu_pf_cgx_map_display(struct seq_file *filp, void *unused)
- {
--- 
-2.34.1
+Two design questions for this RFC:
+- Is this read-only match-data path the preferred way to accommodate
+  the Lenovo firmware alongside the reference-board work?
+- Should the pending Lenovo binding omit the qcom,hamoa-crd-ec fallback,
+  given that this firmware cannot satisfy the reference driver's probe?
+
+EC standby notifications and desktop power-profile integration are not
+implemented or claimed by this series. Those need separate validation.
+
+[1] https://lore.kernel.org/all/20260526112409.66325-1-daniel@quora.org/
+[2] https://lkml.iu.edu/hypermail/linux/kernel/2607.3/08806.html
+
+Birk Skyum (2):
+  platform: arm64: qcom-hamoa-ec: monitor Slim 7x legacy sensors
+  platform: arm64: qcom-hamoa-ec: test sensor and variant handling
+
+ Documentation/hwmon/index.rst               |   1 +
+ Documentation/hwmon/qcom-ec.rst             |  40 +++
+ MAINTAINERS                                 |   2 +
+ drivers/platform/arm64/Kconfig              |  16 +-
+ drivers/platform/arm64/qcom-hamoa-ec-test.c | 294 ++++++++++++++++++++
+ drivers/platform/arm64/qcom-hamoa-ec.c      | 157 ++++++++++-
+ 6 files changed, 505 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/hwmon/qcom-ec.rst
+ create mode 100644 drivers/platform/arm64/qcom-hamoa-ec-test.c
+
+
+base-commit: 28924df2a08f440c73991b83028032c901de2ae4
+--=20
+2.53.0
 
