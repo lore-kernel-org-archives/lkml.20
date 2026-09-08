@@ -1,174 +1,131 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E55357D11
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C9B351C25
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788840016; cv=none; b=ZkZbahQ1BjAEwdrzD7PqU4tuge33r3WeTLaw5Zq52OMhiz5zw2WT0ZD8ZXX0DaHR4tBLtvI52XG772hxGOdWiwl4KMNWJXDM6e1zJuEpigSmjQp3G4SzaDsGsis21HsbSqDN64CiQzIF1zAUlWDEJjz2WDD/TQf9IYyockZf6kA=
+	t=1788840054; cv=none; b=b9v+zOOQCtIlBUCi+ODXO+JoFQNioZK/8yeKDLXjQNDZKd036aYdpE5mnivJcgnob8ux2af+CGRpjqoJGKTecbg+uZw1ZhS51SM5soJ8t89XFBhJhTmzE0gscgHqLDXRIwSKq0INpqA41nT0+FXnS7kyJJT7LJs7V2CcQZ/VPtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788840016; c=relaxed/simple;
-	bh=w6yrpgyhzNmRI5aodd17/jcO/g8HDH/eJ92xh97skGM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=IbF+vHCVqdH+x6I2QVOkvCHtHw7n369lrwNaemhJpzU1NkWuCXhHvx6AvZYduFSWzlrfcdRTQ5554OphtnxKdekldohnS4/DGW4VKYzjXpcwzLwzjQ6RYEwsvHHMWcRrEp0HhT6FFpcpGQOuBxhexBJmQytMgKfBpEjblqbleU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=mchR9rE2; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788840054; c=relaxed/simple;
+	bh=uAS9OkpwLPHeJlMQ/U1vOU2QbffPJ/SKe3md6NOYc4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=unsh0lSUoTQ8yOMok49CCNNpkpC7joR7eZ6n9JSqfccVUudUe5p72HuS1LKDiyOxHX1sR/XFgzFhTcATv0niGU6WX3IGHzhDRXZxB+8Oet06yMoB8B7CUx00ajB2buENeOTUiQ1LbsrEoNUoJ4q076ZUtCi6gp9jf/S3vNem6m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QIKDT0CP; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="mchR9rE2"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=d1UTSXGSQkkvgkrqYy9bvZK/+3gHrgJ5ygCju4XwVTg=;
-	b=mchR9rE2nyqD1cIlEWA9dMP6ivzol7DreZVvnwQZqpOLftIlidfw9ttxQTJoMno9RoWwG+xI2
-	pv0uE7+l2byS8sk7aSoLqYNRT4ztah/riAGlbDZ4qEBxK2C76J7ZrybIKd5ZsmC72N7+yT7mspj
-	S6YnIBW1dSuGNVbfrgoX3Dg=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hf90g6P19z1prM0;
-	Tue,  8 Sep 2026 11:49:07 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 0E41440537;
-	Tue,  8 Sep 2026 12:00:03 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 12:00:02 +0800
-Message-ID: <90935a12-a728-4c73-a538-06752b783210@huawei.com>
-Date: Tue, 8 Sep 2026 12:00:01 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QIKDT0CP"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso5004916a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:00:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788840052; x=1789444852; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L4jnmKHloU+sKl+iuw0i8Qcd5hz/Yqk3n6VoYdv2FXk=;
+        b=QIKDT0CPvWcdirpmx7+9djnRtuZMGYHHIFJW36w4+Pcq5O/jllnL7izIhj0qQFqG+H
+         y8yEQ43z9ncxSo9ysxG2PP8CUn0TXDGcIG3OJldpCrdtisCELqKvCV1iMGfb8nDEtUPc
+         ZQVrxiA2v8k6hXg4K8M/DXWky1w59Un2p9l8hg3OacAC6mzfqcR3PSrEqEw/CC/7rT6b
+         CHSG5/CG6VMjsfeQpsQD6CjiLZI06IQLETMsJLzziJSVYVCT9wDBOyLDoLyvU1zQdHc2
+         3sHW0CHoBBf9hRBk+qN0q/knSxpMCQQF2/UMDfJpSVCB+KenF07CMkkdOl7i7aaoZ9wH
+         dlnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788840052; x=1789444852;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L4jnmKHloU+sKl+iuw0i8Qcd5hz/Yqk3n6VoYdv2FXk=;
+        b=QvSGOb4q/XDlhfOtbUUmizyzvuLe3sljIHOxQBiRtT/PXv4O/ZcoLqFiqdKypUnxly
+         rMc3YBRD+d8a7RCN92wB1/D9pEnshrvx62w/obrS4z/Rp7aXDWOdeM6/PWkJ1Tra7XPv
+         5uuQUxURzaGmUqvjuoeNAysAf15cevazDY+hp5CHHP+8qdsawlNIhYq2+Q5Nd5wDNJ2v
+         lqbFdidrPG/zGiZJ4bZoeQouX9KDCeYazmHq92Ul+PtWCAvBUhdClhB99Zzjhpk7xfyl
+         lzk3vuZM7VNQ7YHejO1/l73Q2Og1L/rcKRrrD4B+/JH/HzjrFKJX7n3W2/0AOuC7yb9w
+         vUeA==
+X-Gm-Message-State: AFuF++npee04Y9p+JgCmYic13iSLWAssdvCojtVxxud5jmu+dT5U+FSY
+	K4wIYLvb94iOSuUUORo9vUXfyrJN77CxrkeVELdWYDExzZPSLAAYfd2q
+X-Gm-Gg: AYBFou2bVNsDESD9STkQOzUBKsl5mhmiURW7cPs/fOQ9OK9JxVvw+VCzDUCmz0FwYQV
+	+uLVlbtublTFITgwBItLI+3YOTb6+ycGYS/jfPeRx6z8ZbwROsZ6X+T8rKJ20tSdGgXR75Ga2BF
+	2xEqSu4qPDLua4w5ZE5bUkNOH2jhM8A6S+PQHT/FtxVV6/0OiBDx9OInDkZ2xK1PbVtYdw0yILo
+	bsjoz5Emh5HyXOE89lqZtLL+M2JICjXo9/Wu3wgQmnDKy1jYcOHMXk0d9dl8D7kWTt0xNr3Ssr8
+	m3i6ZmFrxsvIpXzAHLeDzCogswD4UvPi0UBa3XcqXfbpEVAtLBbUcLW/IhBMhvjZfIa3t5zIQ3m
+	2D0R1aUuNXK7WDVe76Vb6IMAAlqo/xJzCg3oVUMgMXC+z/ry0oH7ULoXb9/H/+3QVKy/VwNZkTY
+	JAYy0GTbaZux66kEZFoDDaVrEA1Z3qWBNH52g/zZUedQlodN8YtsjumkKJ6037e5vUJ9U9qwuNa
+	IfzdYDASfA3gVH7/K/cWCDQR4y2yaO9n0U5ZRDA9xweHRdZdyK0SZm7iBuCxWkAduTvRuB75x40
+X-Received: by 2002:a17:90b:2542:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39b26101402mr37347669a91.5.1788840052012;
+        Mon, 07 Sep 2026 21:00:52 -0700 (PDT)
+Received: from CP-IN-7ZMK5M3.. ([2402:e280:411f:685:1aaf:dd1e:6319:ef96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b813fb4ddsm6042860a91.10.2026.09.07.21.00.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 21:00:50 -0700 (PDT)
+From: Amitesh Singh <singh.amitesh@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	andrew@lunn.ch,
+	olteanv@gmail.com,
+	kuba@kernel.org,
+	davem@davemloft.net,
+	Amitesh Singh <singh.amitesh@gmail.com>
+Subject: [PATCH] net: dsa: tag_rtl8_4: push VLAN tag into payload before DSA CPU tag
+Date: Tue,  8 Sep 2026 09:30:41 +0530
+Message-ID: <20260908040041.124640-1-singh.amitesh@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/19] cpu/hotplug: Avoid busy-polling on archs where
- cpu_relax() is a no-op
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-4-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-4-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+When a socket buffer has a hardware-accelerated VLAN tag (skb->vlan_tci
+set), the upstream NIC (e.g. imx-dwmac with tx-vlan-offload fixed:on)
+inserts the 802.1Q header after the DSA CPU tag, producing:
 
+  [8100 VID][8899 CPU tag]
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> On some architectures (such as arm64), cpu_relax() is effectively a NOP
-> and so isn't particularly efficient when used in a tight polling loop
+on the wire instead of the correct ordering:
 
-Yes, a "yield" instruction in aarch64 is essentially a nop, with no
-power optimization effect.
+  [8899 CPU tag][8100 VID]
 
-However, x86 "PAUSE" provides power optimization benefits.
+The switch reads 0x8100 as the EtherType, does not recognise a valid
+CPU tag, and fails to strip it on egress. The raw 0x8899 tag then leaks
+to the peer port, breaking any protocol (e.g. batman-adv over a VLAN
+subinterface) that relies on seeing clean 802.1Q frames.
 
-> such as the CPU state synchronisation in cpuhp_wait_for_sync_state().
-> 
-> Once an incoming CPU has reached the SYNC_STATE_ALIVE state, we know
-> that it is executing within the kernel and so we can use the more
-> efficient polling mechanism provided by the atomic_cond_read* API.
+Fix this by calling __vlan_hwaccel_push_inside() to move the VLAN tag
+into the skb payload before prepending the RTL8_4 DSA CPU tag in
+rtl8_4_tag_xmit(). The helper frees the skb internally on allocation
+failure, so returning NULL directly is correct and consistent with how
+tag_sja1105.c handles the same pattern.
 
-Right! Once the secondary CPU state transitions to SYNC_STATE_ALIVE, it
-is already executing kernel C code.
+Signed-off-by: Amitesh Singh <singh.amitesh@gmail.com>
+---
+ net/dsa/tag_rtl8_4.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-> 
-> Extend the generic implementation of arch_cpuhp_sync_state_poll() to
-> take the state details as additional parameters and polling using
-> atomic_cond_read_relaxed() instead of cpu_relax() once we have reached
-> the alive state. No change on x86.
-
-Right! x86 still use cpu_relax() for atomic_cond_read_relaxed().
-
-And we can aslo mention that this also allow RISC-V to leverage the
-Zawrs extension for low-power stalling instead of busy-wasting cycles
-with cpu_relax().
-
-> 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/x86/kernel/smpboot.c  |  2 +-
->  include/linux/cpuhotplug.h |  2 +-
->  kernel/cpu.c               | 13 +++++++++----
->  3 files changed, 11 insertions(+), 6 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-> index ba01a9e919b7..362f85cbdbaf 100644
-> --- a/arch/x86/kernel/smpboot.c
-> +++ b/arch/x86/kernel/smpboot.c
-> @@ -1138,7 +1138,7 @@ void arch_cpuhp_cleanup_dead_cpu(unsigned int cpu)
->  		pr_info("CPU %u is now offline\n", cpu);
->  }
->  
-> -void arch_cpuhp_sync_state_poll(void)
-> +void arch_cpuhp_sync_state_poll(atomic_t *st, int old)
->  {
->  	if (smp_ops.poll_sync_state)
->  		smp_ops.poll_sync_state();
-> diff --git a/include/linux/cpuhotplug.h b/include/linux/cpuhotplug.h
-> index feb32949aeea..bbcee650155f 100644
-> --- a/include/linux/cpuhotplug.h
-> +++ b/include/linux/cpuhotplug.h
-> @@ -509,7 +509,7 @@ static inline void cpuhp_online_idle(enum cpuhp_state state) { }
->  struct task_struct;
->  
->  void cpuhp_ap_sync_alive(void);
-> -void arch_cpuhp_sync_state_poll(void);
-> +void arch_cpuhp_sync_state_poll(atomic_t *st, int old);
->  void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu);
->  int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *tidle);
->  bool arch_cpuhp_init_parallel_bringup(void);
-> diff --git a/kernel/cpu.c b/kernel/cpu.c
-> index 97a9bfe4edad..d9fe204f02cb 100644
-> --- a/kernel/cpu.c
-> +++ b/kernel/cpu.c
-> @@ -303,7 +303,13 @@ static inline void cpuhp_ap_update_sync_state(enum cpuhp_sync_state state)
->  	(void)atomic_xchg(st, state);
->  }
->  
-> -void __weak arch_cpuhp_sync_state_poll(void) { cpu_relax(); }
-> +void __weak arch_cpuhp_sync_state_poll(atomic_t *st, int old)
-> +{
-> +	if (old < SYNC_STATE_ALIVE)
-> +		cpu_relax();
-> +	else
-> +		atomic_cond_read_relaxed(st, VAL != old);
-> +}
-
-With atomic_cond_read_relaxed(), we can use WFE to improve the power for
-arm64.
-
->  
->  static bool cpuhp_wait_for_sync_state(unsigned int cpu, enum cpuhp_sync_state state,
->  				      enum cpuhp_sync_state next_state)
-> @@ -328,7 +334,7 @@ static bool cpuhp_wait_for_sync_state(unsigned int cpu, enum cpuhp_sync_state st
->  			return false;
->  		} else if (now - start < NSEC_PER_MSEC) {
->  			/* Poll for one millisecond */
-> -			arch_cpuhp_sync_state_poll();
-> +			arch_cpuhp_sync_state_poll(st, sync);
->  		} else {
->  			usleep_range(USEC_PER_MSEC, 2 * USEC_PER_MSEC);
->  		}
-> @@ -395,8 +401,7 @@ void cpuhp_ap_sync_alive(void)
->  	cpuhp_ap_update_sync_state(SYNC_STATE_ALIVE);
->  
->  	/* Wait for the control CPU to release it. */
-> -	while (atomic_read(st) != SYNC_STATE_SHOULD_ONLINE)
-> -		cpu_relax();
-> +	atomic_cond_read_acquire(st, VAL == SYNC_STATE_SHOULD_ONLINE);
-
-LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
->  }
->  
->  static bool cpuhp_can_boot_ap(unsigned int cpu)
+diff --git a/net/dsa/tag_rtl8_4.c b/net/dsa/tag_rtl8_4.c
+index 4da3beebef75..bc11ddc4e178 100644
+--- a/net/dsa/tag_rtl8_4.c
++++ b/net/dsa/tag_rtl8_4.c
+@@ -128,6 +128,19 @@ static void rtl8_4_write_tag(struct sk_buff *skb, struct net_device *dev,
+ static struct sk_buff *rtl8_4_tag_xmit(struct sk_buff *skb,
+ 				       struct net_device *dev)
+ {
++	/* If the skb has a hardware-accelerated VLAN tag (skb->vlan_tci set),
++	 * push it into the payload before prepending the DSA CPU tag.
++	 * Otherwise the upstream NIC (e.g. imx-dwmac with tx-vlan-offload
++	 * fixed:on) will insert the 802.1Q header *after* the CPU tag,
++	 * producing [8100 VID][8899 CPU tag] on the wire instead of the
++	 * correct [8899 CPU tag][8100 VID].
++	 */
++	if (skb_vlan_tag_present(skb)) {
++		skb = __vlan_hwaccel_push_inside(skb);
++		if (!skb)
++			return NULL;
++	}
++
+ 	skb_push(skb, RTL8_4_TAG_LEN);
+ 
+ 	dsa_alloc_etype_header(skb, RTL8_4_TAG_LEN);
+-- 
+2.43.0
 
