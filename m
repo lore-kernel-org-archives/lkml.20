@@ -1,242 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mo-csw-fb.securemx.jp (mo-csw-fb1122.securemx.jp [210.130.202.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9877355294C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:36:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60646530DEA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.130.202.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878178; cv=none; b=nXNzUvfJLGN+RMT2H4XM9K+sY6myt0G9yPeX7ZEYa0k1K4vkXIZlbn4WSKvyF5xWNyjw5cMDpoMQ73wR2K2/ajVoDB23DS4EGWOhUUa6WfSkRctwJSPxUIjEHyAIxDAd3IyX2uIMmRXXUB51SdM8HjBv29S28cRQjre7YOBEMJ0=
+	t=1788878215; cv=none; b=o3iT6iPihu5KJssrxnp4ml7LsmVexQ+MQXWHUmd+r9b+sQPAEfazizNCWhhCRQqs2k5Fu2Z1FRMUXJeXG90sspJfbxerWGxj5AzZ9LPrauD4VnxqIb4RNn8HBSbmexbNRVzR/Cr45E3Z5rfcDb1/14TlnIgj4HhD0o+BnKmMSb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878178; c=relaxed/simple;
-	bh=rx00sXWn5MJHdSH6gN45L9lMWJzjUVjUG9ORKnW1irE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P8shEdR48aMlIJwdm0j+WoYHLVdU07FVuNExUQ9riSRzDYx+VtOqkHxnax6uIx89BgDhRuSnez4BKgZSOCK/rglr9EokuE48ydB497BB1r3Q/Ldiry8Ua+iqQLRhKxOsrb2BUlo/TBesTGRlM7lyfWkqhdEbiweUODofyzPArC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8390F1F00A3F;
-	Tue,  8 Sep 2026 14:36:02 +0000 (UTC)
-From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:35:12 +0200
-Subject: [PATCH v3 11/11] drm/vkms: Add driver-specific plane property for
- testing
+	s=arc-20240116; t=1788878215; c=relaxed/simple;
+	bh=Zw6CDH1SqvRAOoGf6u6YMlXMcatv/Kq25DVxobnhcVo=;
+	h=From:To:Cc:Subject:Date:Message-Id; b=dQF6CSpcRttWLsyzGe6pf+J3Wi+VWQi+CT42jBZ0nbHPLiI6SoB5P5gi1jAElOT4bWeuAIAHs08V1OxOzGDhn/2ctSVXjaCmM8Kd0NcGpHmDL39+GUbYQIZZs2/Zxn7lmk4dPpl7VJnnMlB2PQk3FNoa8nMDbFCjwxcsJsAZdAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba; spf=pass smtp.mailfrom=mail.toshiba; dkim=pass (2048-bit key) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.b=iDVf92uZ; arc=none smtp.client-ip=210.130.202.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.b="iDVf92uZ"
+Received: by mo-csw-fb.securemx.jp (mx-mo-csw-fb1122) id 688DK6Vd3629921; Tue, 8 Sep 2026 22:20:06 +0900
+DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
+	Subject:Date:Message-Id;i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=
+	1788873584;x=1790083184;bh=Zw6CDH1SqvRAOoGf6u6YMlXMcatv/Kq25DVxobnhcVo=;b=iDV
+	f92uZW3j4c8Sj+1SNWNiBKXx2Vdm7w5cxI4a6yJchePBdebhVRneJbFUKMHOassGG6d1v70q44u1l
+	afJUXtQKE6kj8JYV9rh+leLKLrRsAbZsWwDyUSoAFSeuZC4obFmyZ7iSwxuNRsqVAZ6IRtE6YaDTg
+	Ww+5OGWJnfpbIo+OKzYMNbUXdSTZVIlyaaNw2nM+efTQlRUFQBaSAJbeFHMYnNwUQS2zTfEt4IAag
+	ElsWxxgB35omr2WdOAD3fjTxmPOofzBA2AINcdYSLxopDVX1C+xPVcO3LooCc1nFAmmU+VhcPIpoI
+	xV9WrECN0+7eOm1ZHV1p9+xnpiMvA5g==;
+Received: by mo-csw.securemx.jp (mx-mo-csw1120) id 688DJhR5390204; Tue, 8 Sep 2026 22:19:44 +0900
+X-Iguazu-Qid: 2rWhoBnMSUnbwtukGv
+X-Iguazu-QSIG: v=2; s=1; t=1788873583; q=2rWhoBnMSUnbwtukGv; m=CsCSc32dUtUyIfxbQTWAKz096b3n0mVzQSY5v9ck4zk=
+Received: from imx12-a.toshiba.co.jp (unknown [38.106.60.135])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	 id 4hfPg263Grz4vym; Tue,  8 Sep 2026 22:19:42 +0900 (JST)
+From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+To: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Subject: [PATCH] MAINTAINERS: Change ARM Visconti5 architecture maintenance status to Odd Fixes
+Date: Tue,  8 Sep 2026 22:19:26 +0900
+X-TSB-HOP2: ON
+Message-Id: <1788873566-7765-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+X-Mailer: git-send-email 2.7.4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-reset-state-flag-v3-11-905570f387a4@kernel.org>
-References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
-In-Reply-To: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: Daniel Stone <daniels@collabora.com>, 
- Harry Wentland <harry.wentland@amd.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
- =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
- Pekka Paalanen <pekka.paalanen@collabora.com>, 
- Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
- Victoria Brekenfeld <victoria@system76.com>, 
- Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6425; i=mripard@kernel.org;
- h=from:subject:message-id; bh=rx00sXWn5MJHdSH6gN45L9lMWJzjUVjUG9ORKnW1irE=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZOVdz1vxCFsJf8jgD5qbfHi23J7UciG+O/zlC75KW
- m/axny4YyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEykcAJjw8Tpii6Bf6WUXy44
- sXHXNsEA07OP1LZOyDvx8o556IbV5ZdyWxcsNX3nnhl69tcRTW3Fl4x19rEPtYIEm+r2T+SWzd0
- bIJv5PTF00uQJ61i1Fuwr6potNnFvubDw6Tm/Vt3heCT10EoVAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The DRM_MODE_ATOMIC_RESET flag allows userspace to reset all object
-states to their defaults before applying new property values. Testing
-that this mechanism works correctly requires a property that the test
-can set to a non-default value and then verify is properly reset.
+ARM Visconti5 architecture is not currently actively maintained. However,
+if patches are submitted, the fix would be applied.
+Therefore, this changes the maintenance status to 'Odd Fixes'.
 
-Using a standard property for this is problematic: compositors like
-Mutter enumerate and track all known properties, making it difficult
-to isolate the reset behavior from the compositor's own property
-management.
-
-Add a "vkms-test-do-not-use-in-prod" range property to vkms planes.
-The property is stored in vkms_plane_state, duplicated across state
-copies, and initialized from its registered default in
-atomic_create_state via drm_object_property_get_default_value().
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Signed-off-by: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
 ---
- drivers/gpu/drm/vkms/vkms_drv.h   |  3 ++
- drivers/gpu/drm/vkms/vkms_plane.c | 61 +++++++++++++++++++++++++++++++++++++--
- 2 files changed, 62 insertions(+), 2 deletions(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index dea6cad3f1b9..384616095b45 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -144,20 +144,23 @@ struct conversion_matrix {
-  * @base: base plane state
-  * @frame_info: data required for composing computation
-  * @pixel_read_line: function to read a pixel line in this plane. The creator of a
-  *		     struct vkms_plane_state must ensure that this pointer is valid
-  * @conversion_matrix: matrix used for yuv formats to convert to rgb
-+ * @vkms_test_do_not_use_value: driver-specific property for testing only
-  */
- struct vkms_plane_state {
- 	struct drm_shadow_plane_state base;
- 	struct vkms_frame_info frame_info;
- 	pixel_read_line_t pixel_read_line;
- 	struct conversion_matrix conversion_matrix;
-+	unsigned int vkms_test_do_not_use_value;
- };
- 
- struct vkms_plane {
- 	struct drm_plane base;
-+	struct drm_property *vkms_test_do_not_use_property;
- };
- 
- struct vkms_color_lut {
- 	struct drm_color_lut *base;
- 	size_t lut_length;
-diff --git a/drivers/gpu/drm/vkms/vkms_plane.c b/drivers/gpu/drm/vkms/vkms_plane.c
-index fd3d34dcf0fe..0ebc131c2788 100644
---- a/drivers/gpu/drm/vkms/vkms_plane.c
-+++ b/drivers/gpu/drm/vkms/vkms_plane.c
-@@ -9,14 +9,18 @@
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_print.h>
-+#include <drm/drm_property.h>
- 
- #include "vkms_drv.h"
- #include "vkms_formats.h"
- 
-+#define to_vkms_plane(target) \
-+	container_of_const(target, struct vkms_plane, base)
-+
- static const u32 vkms_formats[] = {
- 	DRM_FORMAT_ARGB8888,
- 	DRM_FORMAT_ABGR8888,
- 	DRM_FORMAT_BGRA8888,
- 	DRM_FORMAT_RGBA8888,
-@@ -52,16 +56,19 @@ static const u32 vkms_formats[] = {
- };
- 
- static struct drm_plane_state *
- vkms_plane_duplicate_state(struct drm_plane *plane)
- {
-+	struct vkms_plane_state *old_state = to_vkms_plane_state(plane->state);
- 	struct vkms_plane_state *vkms_state;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state)
- 		return NULL;
- 
-+	vkms_state->vkms_test_do_not_use_value = old_state->vkms_test_do_not_use_value;
-+
- 	__drm_gem_duplicate_shadow_plane_state(plane, &vkms_state->base);
- 
- 	return &vkms_state->base.base;
- }
- 
-@@ -83,28 +90,69 @@ static void vkms_plane_destroy_state(struct drm_plane *plane,
- 	kfree(vkms_state);
- }
- 
- static struct drm_plane_state *vkms_plane_create_state(struct drm_plane *plane)
- {
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
- 	struct vkms_plane_state *vkms_state;
-+	u64 val;
- 
- 	vkms_state = kzalloc_obj(*vkms_state);
- 	if (!vkms_state) {
- 		DRM_ERROR("Cannot allocate vkms_plane_state\n");
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
- 	__drm_gem_shadow_plane_state_init(plane, &vkms_state->base);
- 
-+	if (!drm_object_property_get_default_value(&plane->base,
-+						   vkms_plane->vkms_test_do_not_use_property,
-+						   &val))
-+		vkms_state->vkms_test_do_not_use_value = val;
-+
- 	return &(&vkms_state->base)->base;
- }
- 
-+static int vkms_plane_atomic_set_property(struct drm_plane *plane,
-+					  struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t val)
-+{
-+	struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+	struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		vkms_state->vkms_test_do_not_use_value = val;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
-+static int vkms_plane_atomic_get_property(struct drm_plane *plane,
-+					  const struct drm_plane_state *state,
-+					  struct drm_property *property,
-+					  uint64_t *val)
-+{
-+	const struct vkms_plane_state *vkms_state = to_vkms_plane_state(state);
-+	const struct vkms_plane *vkms_plane = to_vkms_plane(plane);
-+
-+	if (property == vkms_plane->vkms_test_do_not_use_property) {
-+		*val = vkms_state->vkms_test_do_not_use_value;
-+		return 0;
-+	}
-+
-+	return -EINVAL;
-+}
-+
- static const struct drm_plane_funcs vkms_plane_funcs = {
- 	.update_plane		= drm_atomic_helper_update_plane,
- 	.disable_plane		= drm_atomic_helper_disable_plane,
--	.atomic_create_state = vkms_plane_create_state,
--	.atomic_duplicate_state = vkms_plane_duplicate_state,
-+	.atomic_set_property	= vkms_plane_atomic_set_property,
-+	.atomic_get_property	= vkms_plane_atomic_get_property,
-+	.atomic_create_state	= vkms_plane_create_state,
-+	.atomic_duplicate_state	= vkms_plane_duplicate_state,
- 	.atomic_destroy_state	= vkms_plane_destroy_state,
- };
- 
- static void vkms_plane_atomic_update(struct drm_plane *plane,
- 				     struct drm_atomic_commit *state)
-@@ -281,10 +329,19 @@ struct vkms_plane *vkms_plane_init(struct vkms_device *vkmsdev,
- 					  BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 					  BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 					  DRM_COLOR_YCBCR_BT601,
- 					  DRM_COLOR_YCBCR_FULL_RANGE);
- 
-+	plane->vkms_test_do_not_use_property =
-+		drm_property_create_range(dev, 0,
-+					  "vkms-test-do-not-use-in-prod",
-+					  0, U32_MAX);
-+	if (plane->vkms_test_do_not_use_property)
-+		drm_object_attach_property(&plane->base.base,
-+					   plane->vkms_test_do_not_use_property,
-+					   0);
-+
- 	if (vkms_config_plane_get_default_pipeline(plane_cfg))
- 		vkms_initialize_colorops(&plane->base);
- 
- 	return plane;
- }
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6215fcb077705..f4d678bbf0a9d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3806,7 +3806,7 @@ F:	arch/arm/boot/dts/nspire/
+ ARM/TOSHIBA VISCONTI ARCHITECTURE
+ M:	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+-S:	Supported
++S:	Odd Fixes
+ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/iwamatsu/linux-visconti.git
+ F:	Documentation/devicetree/bindings/arm/toshiba.yaml
+ F:	Documentation/devicetree/bindings/clock/toshiba,tmpv770x-pipllct.yaml
 -- 
-2.55.0
+2.51.0
+
 
