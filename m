@@ -1,141 +1,113 @@
-Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047A153B60A;
-	Tue,  8 Sep 2026 12:18:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.224
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E88BB538D64
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869917; cv=none; b=rVOdp5fD1bNJwc4OIlF60yj8QVzQ+O+LzkgGbWPYcWGpfaj9k1bMDau9ne/hirLn1aNi8w920nX9R9mO/nmXf7Hd3to2MW9/rTh8VDmmldYgoxXvmHGJRHf+ytTdtUSUNV3TQoJ/0mjqIdxkWKoY2Wn8ToSchJIZtFiY4k67OcQ=
+	t=1788869975; cv=none; b=SJQUR85l0NLziGS1KAHd9uy8a5Suu4ydyPSWTo+mztv3+9RE1Oixycd77Vli/TrHwRMBT7v6v/mIlsMQF9ZkiouINhv/olNqnsKnPe9SBJuOsfT8cdyKzNHMHqavAgFckQUa9FJmevNMdZrvg+CwTM1LOc2iZ5B51B9iw0MjJaM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869917; c=relaxed/simple;
-	bh=ZhlmP6DRfiNjxAh6PBzYYJKk+sOFFH5MoTjJDBoHgGw=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=smaSBD1FTghgh/dxklTlxhoErArtiwBlt9RuPTFynJFlo+I1fJjFsP/XIwynBKU9t4zgcjarEcF5IosB1RyuTY+V0zBCu55If8UsEGYXUeSJ4NUidNaN7RSg1dz+ZUoN9SQHEqqEsl8Xt2DY2nqfdCiMOQr+aagaXFWJRksTK4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=tLj74R80; arc=none smtp.client-ip=113.46.200.224
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="tLj74R80"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Ymu30IFequ9j8mwpIl1fqgOuunAR0A9gnw/b4W0QRgQ=;
-	b=tLj74R80BzjABZm0VutAzoakmtJkuevI6rCYwabEuTFLDXgsbrVrO3rjC1plZB+JxSK5swNTT
-	VFuKA0pvqJ+UxMGDZNYm1QOBGAxXScKmM1V7CKO+aMjBPoNiYLtMQSRWq9HJaIG/6sHeAPNT5+K
-	8vUnrj07jeUrKI+b/zoFozw=
-Received: from mail.maildlp.com (unknown [172.19.162.92])
-	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4hfN3m6SW0z1cyVf;
-	Tue,  8 Sep 2026 20:07:32 +0800 (CST)
-Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 07FBD40565;
-	Tue,  8 Sep 2026 20:18:26 +0800 (CST)
-Received: from [10.173.124.160] (10.173.124.160) by
- whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 20:18:21 +0800
-Subject: Re: [PATCH 15/25] mm/fbatch: remove shake_folio() shake_page() from
- memory-failure
-To: Hugh Dickins <hughd@google.com>
-CC: Ackerley Tng <ackerleytng@google.com>, Alexander Viro
-	<viro@zeniv.linux.org.uk>, Baolin Wang <baolin.wang@linux.alibaba.com>, Barry
- Song <baohua@kernel.org>, Binbin Wu <binbin.wu@linux.intel.com>, Christian
- Brauner <brauner@kernel.org>, Christoph Hellwig <hch@lst.de>, Christoph
- Lameter <cl@gentwo.org>, Claudio Imbrenda <imbrenda@linux.ibm.com>, David
- Hildenbrand <david@kernel.org>, JP Kobryn <jp.kobryn@linux.dev>, Jan Kara
-	<jack@suse.cz>, Jens Axboe <axboe@kernel.dk>, Johannes Weiner
-	<hannes@cmpxchg.org>, Kairui Song <ryncsn@gmail.com>, Kiryl Shutsemau
-	<kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, Leonardo Bras
-	<leobras.c@gmail.com>, Lorenzo Stoakes <ljs@kernel.org>, Marcelo Tosatti
-	<mtosatti@redhat.com>, Matthew Wilcox <willy@infradead.org>, Mel Gorman
-	<mgorman@techsingularity.net>, Michal Hocko <mhocko@suse.com>, Minchan Kim
-	<minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, Oscar Salvador
-	<osalvador@suse.de>, Peter Zijlstra <peterz@infradead.org>, Qi Zheng
-	<qi.zheng@linux.dev>, Rik van Riel <riel@surriel.com>, Sebastian Andrzej
- Siewior <bigeasy@linutronix.de>, Shakeel Butt <shakeel.butt@linux.dev>, Suren
- Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, Yang
- Shi <yang@os.amperecomputing.com>, Yu Zhao <yuzhao@google.com>, Zach O'Keefe
-	<zokeefe@google.com>, Zi Yan <ziy@nvidia.com>, <linux-block@vger.kernel.org>,
-	<linux-fsdevel@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mm@kvack.org>, Andrew Morton <akpm@linux-foundation.org>
-References: <14a16945-529b-8bc0-ab38-3ea97e54e223@google.com>
- <213f92b1-7ac2-189c-4656-ba7d00cc7666@google.com>
-From: Miaohe Lin <linmiaohe@huawei.com>
-Message-ID: <1563bfbb-0596-1217-b407-2d1504627bef@huawei.com>
-Date: Tue, 8 Sep 2026 20:18:21 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.0
+	s=arc-20240116; t=1788869975; c=relaxed/simple;
+	bh=0TMTisvxJ+92sKupOfinZVmI2wJF91ccrQT+YBZKyKI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YcPIrR/oNmyuWJsqrUvbQbSasAr2qS7Oyaq/8MBG4HFHW21aP467RBTiy/dHg9RvcpMKlVM8v+rqInDDnVPv1LpDhB3w5P/dgaTj0ynTRvVUDQXtIrGssF7JSwjTbdzsnHb5k4R/wV8Tkj/lIswtn/eWxGQtwrTYUExlyqY6Y8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5309dc5cdfcso2973171cf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:19:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788869963; x=1789474763;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ofUUPAlzK0RlPGiJuLSG6vss9ksk5CLPkzJ8jLWh4TE=;
+        b=TOUaRosd1/3HcCbG9fNkPXMyqtI8qi6VWYs4mRtnMuw0uVwG9Tv251dRKh2xbZcYI3
+         FYFfSwjssvcjFhMBFoMFPzojhWOJjTKlU5fHOsj5KJesVZjoM9Z32NKcZAIbk1lQJJxT
+         Vn7fuHm6fR3vCwFGrQ8POXvINp7YAEqMe2krOYj0umLrUOa03QCHNLoKCk10u0hOohqm
+         QGNMb3T74lmkSk4iagYmJSH8olgbM/yWqNidk8wHciLLCIW6rUzbJ+3ofdNBvcY9/zT0
+         cttxXeixwVVFk6eMCoO/PYDQ8OAtNBWncPHzKQFo/Lpc64TMAcyOj0MrEQS/63fdiCCv
+         KccA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXVz5/1zL3lJGUKenMUKNBKdsWQws9rTS048VuOqwkRXOJsywg4Z4gEcgOHhbeQRKKivzeqUM5D1E1uhQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9j+ZwX4JoBY40J498O9G/W61JCq4Zp4b3kSEaKpfnGz5pa4ao
+	gh6c/eBhO4S2+yviKsprsRR1MElyELxRYnPsA0oKjU3117ukUcLpCIG2VpKZkLPz
+X-Gm-Gg: AYBFou0Snw/c91Sll48/ON55PYKFJ54F0t/Id6mzmqrSmH7++NplpMErsFrpsIf+3SA
+	TIbD8VSC5p98U24APz9FkUb7ikS1EGtwNXNYvy+/lO80RaGQ6pmQs5qCu/1arC53ruTOqeGyx7C
+	PsLJ89l/300nWvHxkoFVTmEyYDZrhk7nfS90zay+CAyKgpliz3FF2hWkMOnExeURQb8ogVubinv
+	2IgusycD65YrKlvMLU6DAJBmrefL3E97x87P1xD+S+ooFPRTEdO4Pw1/ffWB40T5VBuU5rxo+0+
+	akvuE+1/gWzHg75TYAV9lLW0nPJOlD1M1GBusCUIYyAWdkxC0+ApwcfhTgUsNBEYWEy2zqBz80c
+	kRhMuHCD9r4uE+nBKMwvPtIjDlX4z9lqPGH7ZCQSuXVJoM5TUEmtPFR2484utd2m9Ha7oGVWNXO
+	g73TDidM7VxoDl1gF0zE+u4FFDBNdRyzP5ZSmUEtquI6Gx8cgrlPkrzzEfYBUvlKU/sttarJM2t
+	QjgokAY4kHtdxXlS2A/D0nP3A==
+X-Received: by 2002:a05:622a:4a89:b0:52d:8743:bc83 with SMTP id d75a77b69052e-530549f8267mr74233561cf.34.1788869962642;
+        Tue, 08 Sep 2026 05:19:22 -0700 (PDT)
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com. [209.85.219.49])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054180b8fsm110214701cf.17.2026.09.08.05.19.22
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:19:22 -0700 (PDT)
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90e8535619bso71207856d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:19:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzVmhZtBd0Hq5NDiIBZon/ZI+2QxxdBt7RUsNAnRXhj6BGm1JEjVFbUuXTl+yiedRw5EZexOhI8oHraXVE=@vger.kernel.org
+X-Received: by 2002:a05:6102:8098:b0:783:79ac:9dc3 with SMTP id
+ ada2fe7eead31-78a4a880ccdmr9426846137.10.1788869517073; Tue, 08 Sep 2026
+ 05:11:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <213f92b1-7ac2-189c-4656-ba7d00cc7666@google.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk100004.china.huawei.com (7.152.185.74)
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com> <20260907-rcar-du-dsc-v6-4-f8ef711a7494@ideasonboard.com>
+In-Reply-To: <20260907-rcar-du-dsc-v6-4-f8ef711a7494@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 14:11:45 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXA6koxaUjv7hobWhL4eJHHDnBtn6Z44uAbf=3thn8oew@mail.gmail.com>
+X-Gm-Features: AcwNN1WQMv0pxPEjkRceB80LKKGbxYp0qnUsTTCp1Uv8lpJfhrW-zDPu8BR9rQQ
+Message-ID: <CAMuHMdXA6koxaUjv7hobWhL4eJHHDnBtn6Z44uAbf=3thn8oew@mail.gmail.com>
+Subject: Re: [PATCH v6 4/6] arm64: dts: renesas: r8a779g0: Add DSC
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026/8/24 22:27, Hugh Dickins wrote:
-> shake_folio()'s lru_add_drain_all() no longer serves a purpose, now that
-> the per-cpu fbatch references are gone. Are the retries in get_any_page()
-> then still useful? Not obvious, so keep them.
-> 
-> Signed-off-by: Hugh Dickins <hughd@google.com>
-> ---
->  mm/hwpoison-inject.c |  1 -
->  mm/internal.h        |  1 -
->  mm/memory-failure.c  | 38 +-------------------------------------
->  3 files changed, 1 insertion(+), 39 deletions(-)
-> 
-> diff --git a/mm/hwpoison-inject.c b/mm/hwpoison-inject.c
-> index a11222572f97..9eab4b7d25b2 100644
-> --- a/mm/hwpoison-inject.c
-> +++ b/mm/hwpoison-inject.c
-> @@ -118,7 +118,6 @@ static int hwpoison_inject(void *data, u64 val)
->  	if (!hwpoison_filter_enable)
->  		goto inject;
->  
-> -	shake_folio(folio);
->  	/*
->  	 * This implies unable to support non-LRU pages except free page.
->  	 */
-> diff --git a/mm/internal.h b/mm/internal.h
-> index ff4bd3a14539..9a25552cbd83 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1140,7 +1140,6 @@ static inline bool node_reclaim_enabled(void)
->   */
->  #ifdef CONFIG_MEMORY_FAILURE
->  int unmap_poisoned_folio(struct folio *folio, unsigned long pfn, bool must_kill);
-> -void shake_folio(struct folio *folio);
->  typedef int hwpoison_filter_func_t(struct page *p);
->  void hwpoison_filter_register(hwpoison_filter_func_t *filter);
->  void hwpoison_filter_unregister(void);
-> diff --git a/mm/memory-failure.c b/mm/memory-failure.c
-> index aaf14608b30e..2a6a01e260ed 100644
-> --- a/mm/memory-failure.c
-> +++ b/mm/memory-failure.c
-> @@ -310,30 +310,6 @@ static int kill_proc(struct to_kill *tk, unsigned long pfn, int flags)
->  	return ret;
->  }
->  
-> -/*
-> - * Unknown page type encountered. Try to check whether it can turn PageLRU by
-> - * lru_add_drain_all.
-> - */
-> -void shake_folio(struct folio *folio)
-> -{
-> -	if (folio_test_hugetlb(folio))
-> -		return;
-> -	/*
-> -	 * TODO: Could shrink slab caches here if a lightweight range-based
-> -	 * shrinker will be available.
+On Mon, 7 Sept 2026 at 11:30, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>
+> The Renesas DSC Display Stream Compression is a bridge embedded in the
+> Renesas R-Car V4H SoC. The bridge is placed between DU and DSI1 units.
+>
+> The current dtsi file does not represent the DSC at all, and thus the
+> pipeline for DSI1 has not been functional.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> [tomi.valkeinen: separated the sparrowhawk changes]
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-I'm not sure whether we should keep above TODO. Anyway, this patch looks good to me.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4, pending acceptance of the
+DT bindings.
 
-Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+Gr{oetje,eeting}s,
 
-Thanks.
-.
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
