@@ -1,617 +1,219 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010014.outbound.protection.outlook.com [52.101.56.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C272D530E13
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870238; cv=none; b=gvtugb43VQVE0/XjpZvAnvLMhtZjd8oh44FBi/Ay+t4nRemnN/E5m+D8nNvA99U2tu3gJo9U3jS9Jjh8bSEPV2q66DH1x59zV6SJR+S6kQH6sAPjE9BkTlQj4Z+Bu2MkkcHSj2ZgnMpea4l0aJ//YcHOEYdTd9uLml3b37vu+pg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870238; c=relaxed/simple;
-	bh=PqATjzEsz8MT0VIzTuHg8oPgXD9uUghWm95ZYTMEEGQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DnZR9xUE7dXAZV99yunJD2f/lwnrgzTVj8wGEBBIcoTMG0lZ1XWbe3xxQQCjjuErG6H56FEqRu1c7b3r2jArBQyJ/zaXxRqByuNBs9zjm7m+WLlLQxTqvlJGmlYSIcPamY2Tn+bDBU9AueMra5BCGXiMOBiE9aH5qLHU+QVuG84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hQ/kbwdh; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC52243E484
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:24:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788870287; cv=fail; b=DlnDo8psHmy0lkt57oC6ZCEzpIQ6+bgMj00XsNnBx6lJPKqrEoplUnoGZ+Ne7uNasE1ZAi/RhVK3D9absv+lquVgHj65XCDeZ7ooxNrByLuFmLNoVwZ33K1ZjnfojSHIIOWthjZuFBwDm1SExI/clX1WsxCqrjKlgJkhMZfzQuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788870287; c=relaxed/simple;
+	bh=YwnKBn3EqCTVc/r2rdX7pIu36yEMCZCXHXQ5OzH26pc=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=eADd5BwOqTcP9if7kDASvBTQ3a4FkY1K2K3YFXiZmt8Wqu0kk8dFWUkex5cdnhPYj2wc8xowTigxa53jqdwdI/9Oh2r4oVTiNS3ofyLpjdX0IdDHtOmIY+oPciDE+7QYomVXbj4+Q7N6W5e+VYFZ7obpkycwjvZLFnDwQOMs9h0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=XJEE4hwY; arc=fail smtp.client-ip=52.101.56.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hQ/kbwdh"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so64276665e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788870234; x=1789475034; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5xe6HHIWqtBdovbW5N5/pJK08vk6nkZiNA8TFPACwlE=;
-        b=hQ/kbwdh4ZFplLlfhzZMaWoeZbpqQiDdu9VxTuvzyK6zYFfbqX5Ht5UN8xKCNFwwjF
-         MRfNHUsGtp9bcRfes7WdTaagl6WAiiymEJkPQrF56aNeG9GVjpNNut4Hg913Wz3yRtfY
-         O7jtlAjhbbqDezWMmF6Z2hsUi2vid1sZDsFUrF29jreDdS0Mtd5Si8sayz+GnO7MMsxN
-         YM0ll0E4OJ6Dy71TD1H+L1b5H+oQMPsUdoYA645Kfu23a67kAaOXiUHu1I5HG/3pfvxl
-         9hh2p6voWIMw94CdD7whxF59idUbLj9YTz/Sh74G1+8+tILXj+9mrstYTnxcF5nSBLLo
-         7t0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788870234; x=1789475034;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5xe6HHIWqtBdovbW5N5/pJK08vk6nkZiNA8TFPACwlE=;
-        b=LSwav372FIKOMKWhL5DWOTfWXX+6CKMXrAHnFZ8yX9Uj6KD3f7ENnQ7Lo9Dh8st2bT
-         0iiZadRG2XbbgGBLpwcgL+f73C3Q0IZ8scmQ7nJsrfETtUQ3oUT4aNPV0O3n+8mvQMuY
-         I2bGnYj1D4lsQypUmfHiazmRFYtLtKG4Bjr7jaeZhaUU4T9LgNbIxd/Zo2780izovaRA
-         odTNVFhrqOUrdx7lnYq5oxcwqw3qf5ewqyCv76ypabOO1Rv7B3tsjq4ufQG93Lg3ieFE
-         xr/LaqnNfZNE64VfmO1J66dHtouwMbBx0p01UFibxqEnGfkstoDT6+wI0U1IIIZKCFjC
-         SjVA==
-X-Forwarded-Encrypted: i=1; AKwUvByCpbp2rnKG+GVA2YfrQY0rfPf50YE3j7ftc5NGg+4T0/3u7VDniq5aQ758zaLlVLKDvYwFhZKxk1GFxe0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lxeeZNhjmUbRdyMLOVR6dn0C6UfmhE5N8TGyNq1ik+jRh3PbZU
-	V7z9LxnQF7PCT+KRYKy5ixktOSG43ktfdbDPcXrU+0SgGpgYt9X65GAu
-X-Gm-Gg: AYBFou0DY1d5MlwnKv/iNNLqYyTQXCzsJgIoO4lqlUBlVqEli8iWjTE3eOpcB4fHZg1
-	NxQTNw8pS243hdMgXc1fYPjdXBD1z/IyTNiP6pvUI60VteqHJAafQKDgiQtIWK0uqOmqANUqXdV
-	fT+2206z5E1IJZckfoAEcyC7M9t9nlK/0zCGU2E8AbQSOMTMZ5idn+8QLMeqL/FJoiEn2dYK4+N
-	d/L9dilwaMiXaAKj7ytTg9sKTxKM1m40q2jp9VMQ96Xdr/at8EAmSrXv4VSk1jW7fksuuluaNwM
-	GP+TJaf+QrwLNF+5aQ5ADBwfC7VcL4zSFUSnl9oeBnMnEfY4P7xEQK/uECM0aAmC0B4Mgq3cL04
-	38FtWL/puOlbcHQ9AzBvkHjBtJAOSaB2Yr1vAClxxTJPBnL1Osd4ogrnfwKm5UX6F0gyJkAfaXM
-	fVlcx/Zw2JGNjCjwGVm2wAGHpCS6OWiwEDWYErfrMWziEoIqtR8Ipc1euCU0Wo6l5arBG765ar0
-	npbwRfKS6ZyvF1Qn0WKEQPM+jJvxLJS0XVy4OHorPDuerGZPaUskg5TGzjhIf/oXwJ3cgDI07gY
-	sac=
-X-Received: by 2002:a05:600c:3f06:b0:49d:1cc3:fa9a with SMTP id 5b1f17b1804b1-49d1cc3fde0mr23542435e9.14.1788870233677;
-        Tue, 08 Sep 2026 05:23:53 -0700 (PDT)
-Received: from fedora-tap.advaoptical.com (bzq-84-110-212-205.static-ip.bezeqint.net. [84.110.212.205])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm496744995e9.6.2026.09.08.05.23.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 05:23:53 -0700 (PDT)
-From: Sagi Maimon <maimon.sagi@gmail.com>
-To: netdev@vger.kernel.org
-Cc: vadim.fedorenko@linux.dev,
-	richardcochran@gmail.com,
-	kuba@kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	Sagi Maimon <maimon.sagi@gmail.com>
-Subject: [PATCH net-next v13 2/2] ptp: ocp: add TAP CPLD firmware upload for ADVA TimeCard X1
-Date: Tue,  8 Sep 2026 15:23:28 +0300
-Message-ID: <20260908122328.52641-3-maimon.sagi@gmail.com>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260908122328.52641-1-maimon.sagi@gmail.com>
-References: <20260908122328.52641-1-maimon.sagi@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="XJEE4hwY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FC6en/IlDpR7GllTXmD9mU8qRWQnLQDSpHRZI6z1hOTWk/U4IFuUnOxprD+So1QC5fmfuvSK8jvAXo5BBO4L0EKrLx5Ayk/ehe06XtxGKfBE3OGjyLQqG/6j5TcQUGKHOo+XqjumFFrNCWg5KxMfMsHqcqXbP9gqr3Ejf+D17pFL3gkgrfhpocTsIC4esWi0kvUFcw8gPwUpv9mp8A/4HRr8GOTafYtG3Io8X5YxATmOkySpBoGq6wNWO9Eu0CSOWAzSgU5bXRSXNVpDqkmT02Z4Va4/R8xKwH+69yTHQk0i9aeZqP8jHeYJTQyl/0HMfGbcEINCyy+iiIeUnK+Sxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/JebeRBM2yWEvaAKT8yxwdAismABECoKt1r+3mPM4Bs=;
+ b=H621W3PAcT7LNa93CSZLvfFtArbcvSn0XMz00EJI8D5LeLQmF+bxfW62++WRKBWBj8//MwahJeJOF/aPtO8FouWCLX2SicjlBc2iJGVsEXN+QxRN11B8on/AFXHft/cZQ+uuxsIS7ltM5kqi9OH4KCn49HorxvfUWuz9eA2ReHAMTGDV7syaukPxIiqeQYH15BQCswaMX/XbXTe0F4fHYQnBwp+rPD3BfHFi2zf1v/q4gkAhPzcBYIHQLBt9Ue8/ustEKzZMZOWn8aZENWADEJfpbdGIwmhxqVVYg0o6BR7hjY76cl1lWDPyEctFDvtTCj6HzjFcaA0bwXGrrJiIEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/JebeRBM2yWEvaAKT8yxwdAismABECoKt1r+3mPM4Bs=;
+ b=XJEE4hwYBXiv5bxcOYDW/bUS65Vj/lZsebd7flDuZMA8XZXlZLjnX9TzMaRwZPjKqMnc6jWvAlZe5Tb7BOaMf/2DPcUqNTO/bXWF6FwKPMgSwTynNqYyZ0gGx0JRhvSgu42OCBtYEMmgNll95LzJuC5eO3xD+OI69tnzptKe0cOkyUR6RfAN9s033mxUHf5ysCpqShiD9Ti2KDY9LJHDUxWhkEPizwfE2w5P44phxT7APqR83BVs3DPSvV8MfWVCxGXRliymenKDw+XtWxbCqqv6nmmRTRr7co2Q55qpMaa85+t8KOcbZRnzr8SOj6UoNL4L94/JoeHhR7ePSxzR2Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by PH7PR12MB5594.namprd12.prod.outlook.com (2603:10b6:510:134::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 12:24:41 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 12:24:40 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Sep 2026 08:24:38 -0400
+Message-Id: <DL9XL8T6UG93.1T1NSJMI8PISK@nvidia.com>
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Cc: "Baolin Wang" <baolin.wang@linux.alibaba.com>, "Liam R. Howlett"
+ <liam@infradead.org>, "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts"
+ <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry Song"
+ <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama Arif"
+ <usama.arif@linux.dev>, "Kiryl Shutsemau" <kas@kernel.org>, "Mike Rapoport"
+ <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko"
+ <mhocko@suse.com>, "Brendan Jackman" <brendan.jackman@linux.dev>, "Johannes
+ Weiner" <hannes@cmpxchg.org>, "Hugh Dickins" <hughd@google.com>, "Nirmoy
+ Das" <nirmoyd@nvidia.com>, "Dragos Tatulea" <dtatulea@nvidia.com>,
+ <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
+To: "Johannes Weiner" <hannes@cmpxchg.org>, "Vlastimil Babka (SUSE)"
+ <vbabka@kernel.org>, "Nimrod Oren" <noren@nvidia.com>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260901190123.3511535-1-noren@nvidia.com>
+ <d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org>
+In-Reply-To: <d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org>
+X-ClientProxiedBy: YQBPR0101CA0203.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:67::11) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB5594:EE_
+X-MS-Office365-Filtering-Correlation-Id: b6e8e776-08a1-4486-e648-08df0da427ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|13003099007|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	q+tCZhs8EdEpG6weRS16+MNVz1xtKbeWznGKt0pMVoWX0GJvC8EeoiSmAt35t37tsGdlbK5N0xMEiY/5FGQQPLfBJATaERGbaWTua2pk2wxOV+vgcv9OlSLzLfqO0F2mY1iQwLm9/IvRqA2Em0kQjX9/ZOftkXINScx+mRtWU79nuNIVCoz9KvJBr4sD+Q2pXuL/NA+oW7GoatYWoyX9RcQjHLqBqwN3vaQn6H1LfNpdKcInlQo/Nh8dztIKmvSx+uOYvnwtbf4jHi7A9q9OSzOLlYR61rEDLgAaBieubgSOYSWnw6eUHct3yEQ2AsRPp6NEn2leLFQ8UqmF5kZXJHMDKttUGuCqR67N12AcOht+TNG1Fu5WSfCPKiRjJJXbPUpxI1grLKoNEHL/1XeN8hMirbFBIR6vq5Y014vnYjlFewkRdxbQZp1148Ct+rK5C+5FzjIxKLKUuP7yVjTXoYyKEqKnrWfHnDH51LFYqsjZMJgfvckArRZljtEfmEumEXpAp2EfCUT9PThSGaG8pEKrnvrHsjz72jHvcZ/6bF/x+JVjsgeJ8TkQRdVzydR30UpZlzETkZqGQkIfZgqe+lQ5JCCp0F69/potZ8Yt59p4zsgUy+sLOGK0qF/I20DNVB+VVYiJTt3uKI/D1IMl3Xo7AUxSrJHZR4ZGR1uXh88=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(13003099007)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?c3FGNXVrb0NyRVArUW0wdEtjUGhTeWxhRlpPbjV3Z2k5TU1JUmlPdVlVbTRs?=
+ =?utf-8?B?REI2REprN3NBeWowMFV6d2QxZFF0SWUzYXZWZmxtZTIwN3VBa3I4VDZLaHJo?=
+ =?utf-8?B?OTRKa2F6ek9GRVIrUDk1OWV3ZUlVYlhhSUJBQW94WUdDNzNSL2p5MTVFQTZH?=
+ =?utf-8?B?UUJ1Q2QwZmhWbzgycERHNGJRbEdNVUV1R091M25wWFRYQURuM2FuZE5ZQ1BK?=
+ =?utf-8?B?QzVySzBBZkl3eTdBT3ZYMlJ5a3hvclNLQVBEbWFBdXNIT3FrWVBDbjRNdzBT?=
+ =?utf-8?B?akVLOUErOVF3RTVybHZIdHR4TEdodWpPZ3hjVjUyc1ZwZVV0cllYTXBmcUND?=
+ =?utf-8?B?N1NDOE91QldqS0s3Si9aNmdEU3MwUUtaSXhBYW5iT1VibWo4SncwUFA3bnUr?=
+ =?utf-8?B?MWVuMDhnSVFJeWQzcUp6cjlYY243bmd4aVJPU2YzazhmZm9vWVJTZ0p3QVFu?=
+ =?utf-8?B?OWRVbnViZjdCVmQ3QlpxUVdvbkg2WHhiZmJqRHVYWXZ6QTJGNDF5VEhUY1Rh?=
+ =?utf-8?B?bGtLR2g3SkdKOWJXNmFxa2JRU1loMUJpbndueTZMWFFIYnhqZXlxbWovazZF?=
+ =?utf-8?B?QXZadWlXeWNVK0RzTEVQajBrMHoyYURSY1dWanhrNUhVYWxoWkVFZ05iNGdP?=
+ =?utf-8?B?TW9BOTZnZTgrKzJnZE9GWlRndjN6ektpRG0zTVUxMllXY2RwZk1LUkdHcGFI?=
+ =?utf-8?B?TWdSR25RMXZaRjBqaXVJWXRVU0RkZ3RxZFlpai9xcDJlcW1oK0NqVW5FMm5X?=
+ =?utf-8?B?UUxXbXMwbWJMcGpLMjNDVVNEK1VFcjgwYzk5UjVhYUU1cEVlMURVb3hhUHV2?=
+ =?utf-8?B?cTF6TWZyYTAxaUc2NDRRcU1naUVtQ1hsODByVk1jQW1Wd1h3Q3AxMEFtNnJG?=
+ =?utf-8?B?OVB0WGxYd3M3bGNSVzNyc09XM2VFa21UeTI5ZW9hS01yejUvaXhObFoxcEov?=
+ =?utf-8?B?MlM3bTdmajRyYXBPbzdJYldSWEdhbkVQS3RwNHdWcTNMWEVzUnQ4SEN0eUda?=
+ =?utf-8?B?Qi90cytZcHFUcUxkOWJibXdETkN1QUZHTUtRb2FZMUJkWndtTXpodC9VQ3Jr?=
+ =?utf-8?B?RFN6eXYweldVVnVwOW1LRk9hdStiSlNRN0Y2WmRiNDUxZU52VXhKZHQySWsx?=
+ =?utf-8?B?K2hHUzNjUlZWQm1paFJwVm8vdldSODJBY1l6N0o5NHc5dUxFdWVkRUV2cUxr?=
+ =?utf-8?B?amhwRnRLd1UrM2x1U1dzYnU3SDE1UTd1QVpOR3RmVmhoNlgyaDBlTFd0UXdR?=
+ =?utf-8?B?bHJDWFlGL3lmWG5mdnU2YVYrbE50K2IyNkNSeDl0TldqRGJVaHdQS0ZvcjJK?=
+ =?utf-8?B?U1RyOHJPM2djZS9ZQUFLOEd5V3VHN3BDLzY5dExtc3V0Ym5NRzdCOStZWDFt?=
+ =?utf-8?B?Y3NjT2ZQVGQzR2hlL2ZtZ0FKWWNxcGpVTTRyV01TZWlPc0x3d1RMTVVBaG1T?=
+ =?utf-8?B?ak9SZm9nTWd3WDVLYVZwT3hxek54MmNFRGg5QThRdlRmV0FzWTRNQ1Rac1ZD?=
+ =?utf-8?B?bDkrSXppNzk2OENwTHlXN1l4M0FSV05FTm1uZlMvd2ZwMFg1clFxb3BWTWcz?=
+ =?utf-8?B?cW4ySE54Ym9UbnBSSlc5K3VPM0t0NUxNaEd5ODhnQmRNT21jeTYvVDNsd3Jz?=
+ =?utf-8?B?TTc2enFhZEpNSGRJT3pneW9IT1pHMDR6cjFFc0xpRTMwSEhqSnJSdFZjUVhM?=
+ =?utf-8?B?ekRPYWhyampMNENZNnpSNGk0bnZuTytWZjVRcEF1d1dEZWVmZXZvSVlWeUtw?=
+ =?utf-8?B?T3N2ZWUxaXdocEJWNCszTFhZK2NzQlhxRlFyTiswQ2s4YW9JeWJjcWVtWnRQ?=
+ =?utf-8?B?VDZWZHJudGtIbHp1R09OM2FXbUtEZnhHY2wwaFVYVVU5TzUvM1RkejZDSVpM?=
+ =?utf-8?B?YjhTMm5nSmdCUEU1cFdEWEZidnd1dm95enNZL2tETjJYbTFCTEVBVjgwZlEw?=
+ =?utf-8?B?ZkJSR1A1ci9iMTQvdjBieHEwME9IdkxPY2g3bDd2RVQxZ0M0K0hwTGQwRExt?=
+ =?utf-8?B?SmtUSlErYU1sSFRJSVByM2dQK2Y3NFE1SVpaODNoZm1UNUJ2MnpFTVVsaENp?=
+ =?utf-8?B?VmVtZFd1bDBVYy9laGd2ME1aczlNeGk3MzBzcGJuTW94YzdkZWFldTN2UkVY?=
+ =?utf-8?B?aVc5TDhWVGJ2ZXN6UmI4S01lZjFGSHpWNGMweFlLdUsvR1FGNVA2OWJXbnRx?=
+ =?utf-8?B?ajJjNXhJQkdWSWJCaDd1c0pJQ3R4Z1F3VWVqY21LV2JxWVh6d0xwNmM2MEtW?=
+ =?utf-8?B?NW4xOFhzUFRWNTNBUGNLNktYYjdyT3JFb0RNaGVHYUhjbGZ2anJxd3FvQXps?=
+ =?utf-8?Q?LRxEE0PjdtFn6O/hPy?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6e8e776-08a1-4486-e648-08df0da427ed
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 12:24:40.7542
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oR742Gfik4y/agxR4YiuT0hd1N5vVxxGynIw/g5Yqbix4dFRfDBSgBc/4+iNYcg6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5594
 
-The Lattice MachXO3 CPLD on the ADVA TimeCard X1 is programmed over I2C
-using in-system programming (ISP).  Build on the TMC bus arbitration
-added previously and expose the update path through the kernel
-firmware-upload subsystem.
+On Tue Sep 8, 2026 at 7:54 AM EDT, Vlastimil Babka (SUSE) wrote:
+> On 9/1/26 21:01, Nimrod Oren wrote:
+>> When THP is enabled, set_recommended_min_free_kbytes() may raise
+>> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+>> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+>> heuristic to help keep pageblocks free and reduce fragmentation for THP
+>> allocations.
+>>=20
+>> The recommendation scales poorly with larger base page sizes. With the
+>> default arm64 pageblock sizes, the contribution per eligible zone
+>> before applying the existing cap of 5% of low memory is:
+>>=20
+>>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+>>=20
+>> Even with that cap, min_free_kbytes can reach excessive levels.
+>>=20
+>> The automatic min_free_kbytes increase predates proactive compaction
+>> and many subsequent changes to compaction. Given those changes,
+>> increasing min_free_kbytes for THP by default is no longer clearly
+>> justified.
+>>=20
+>> Remove set_recommended_min_free_kbytes() and all associated
+>> recalculation paths. With this policy gone, min_free_kbytes is
+>> controlled only by the page allocator's default calculation and the
+>> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+>> higher value via that sysctl.
+>>=20
+>> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.co=
+m/
+>> Suggested-by: Michal Hocko <mhocko@suse.com>
+>> Signed-off-by: Nimrod Oren <noren@nvidia.com>
+>> ---
+>> v3:
+>> * Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
+>>   increase as suggested by Michal.
+>> * Remove all associated recalculation paths.
+>> * Make min_free_kbytes, user_min_free_kbytes,
+>>   calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
+>> * Drop the now-unused declarations and khugepaged's page_alloc.h include=
+.
+>> * Drop the obsolete v2 documentation addition.
+>>=20
+>> v2:
+>> * Use a named constant for the cap.
+>> * Drop explicit linux/sizes.h include.
+>> * Update min_free_kbytes documentation.
+>> https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+>>=20
+>> v1:
+>> * Cap the final recommendation at 1 GiB as suggested by Lorenzo.
+>> https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
+>>=20
+>> RFC v1:
+>> https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
+>> ---
+>>  include/linux/khugepaged.h |  5 ----
+>>  mm/huge_memory.c           | 14 ---------
+>>  mm/internal.h              |  8 -----
+>>  mm/khugepaged.c            | 60 --------------------------------------
+>>  mm/page_alloc.c            | 11 +++----
+>>  mm/page_alloc.h            |  2 --
+>>  mm/shmem.c                 |  7 -----
+>>  7 files changed, 4 insertions(+), 103 deletions(-)
+>
+> Given neither of the patchset versions achieved universal acceptance, cou=
+ld
+> we try just disabling all the automatic (re)calculations of min_free_kbyt=
+es
+> the first moment the sysctl gets adjusted from userspace?
 
-The framework acquires the bus, erases the configuration flash, programs
-the image page-by-page and activates it with the MachXO3 REFRESH
-command.  The upload node is registered per card as adva-cpld.N, using
-the same index as the owning ocpN device, so a host with more than one
-X1 board gets one node each:
+Sounds good to me. Johannes, WDYT?
 
-  /sys/class/firmware/adva-cpld.N/
-
-The whole prepare/write/poll_complete/cleanup sequence runs under
-cpld_lock and the i2c adapter lock, so an EEPROM read blocks for as long
-as programming takes; the alternative is reading the TMC bus instead.
-The upload is unregistered first on detach, which cancels and flushes an
-in-flight programming cycle while the I2C controller is still up.
-
-Select FW_LOADER and FW_UPLOAD, as the documented update path does not
-exist without them.
-
-Signed-off-by: Sagi Maimon <maimon.sagi@gmail.com>
----
- Documentation/ABI/testing/sysfs-timecard |   4 +
- drivers/ptp/Kconfig                      |   2 +
- drivers/ptp/ptp_ocp.c                    | 381 ++++++++++++++++++++++-
- 3 files changed, 383 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-timecard b/Documentation/ABI/testing/sysfs-timecard
-index 70ecc15b347f..8c0d41c941ad 100644
---- a/Documentation/ABI/testing/sysfs-timecard
-+++ b/Documentation/ABI/testing/sysfs-timecard
-@@ -30,6 +30,10 @@ Description:	(RO, root only) The status register of the TAP CPLD, in
- 		ID of the CPLD is read once at probe and reported as the
- 		fixed "cpld.id" version by devlink dev info.
- 
-+		To program new CPLD firmware use the standard kernel
-+		firmware-upload interface, registered per card at:
-+		/sys/class/firmware/adva-cpld.N/
-+		where N is the index of this ocpN device.
- 
- What:		/sys/class/timecard/ocpN/available_clock_sources
- Date:		September 2021
-diff --git a/drivers/ptp/Kconfig b/drivers/ptp/Kconfig
-index feb50f8cc406..24f047c37e4c 100644
---- a/drivers/ptp/Kconfig
-+++ b/drivers/ptp/Kconfig
-@@ -219,6 +219,8 @@ config PTP_1588_CLOCK_OCP
- 	select NET_DEVLINK
- 	select CRC16
- 	select DPLL
-+	select FW_LOADER
-+	select FW_UPLOAD
- 	help
- 	  This driver adds support for an OpenCompute time card.
- 
-diff --git a/drivers/ptp/ptp_ocp.c b/drivers/ptp/ptp_ocp.c
-index 7db1dc9b94bd..6eefc3db586f 100644
---- a/drivers/ptp/ptp_ocp.c
-+++ b/drivers/ptp/ptp_ocp.c
-@@ -20,12 +20,14 @@
- #include <linux/spi/altera.h>
- #include <net/devlink.h>
- #include <linux/i2c.h>
-+#include <linux/iopoll.h>
- #include <linux/mtd/mtd.h>
- #include <linux/nvmem-consumer.h>
- #include <linux/crc16.h>
- #include <linux/dpll.h>
- #include <linux/unaligned.h>
- #include <linux/delay.h>
-+#include <linux/firmware.h>
- 
- #define PCI_DEVICE_ID_META_TIMECARD		0x0400
- 
-@@ -436,6 +438,12 @@ struct ptp_ocp {
- 	bool			cpld_id_tried;
- 	/* x1 TAP CPLD present */
- 	bool			has_cpld;
-+	/* firmware upload handle; NULL if absent */
-+	struct fw_upload	*cpld_fw_upload;
-+	/* cancellation requested */
-+	bool			cpld_cancel;
-+	/* EN_CFG_TP issued but not yet REFRESH'd */
-+	bool			cpld_in_config_mode;
- };
- 
- #define OCP_REQ_TIMESTAMP	BIT(0)
-@@ -469,6 +477,8 @@ static int ptp_ocp_art_board_init(struct ptp_ocp *bp, struct ocp_resource *r);
- 
- static int ptp_ocp_adva_board_init(struct ptp_ocp *bp, struct ocp_resource *r);
- 
-+static const struct fw_upload_ops adva_cpld_upload_ops;
-+
- static const struct ocp_sma_op ocp_adva_sma_op;
- static const struct ocp_sma_op ocp_adva_x1_sma_op;
- 
-@@ -3232,6 +3242,29 @@ ptp_ocp_adva_board_init(struct ptp_ocp *bp, struct ocp_resource *r)
- 	ptp_ocp_sma_init(bp);
- 
- 	bp->has_cpld = info->has_cpld;
-+	if (bp->has_cpld) {
-+		struct fw_upload *fwl;
-+		const char *name;
-+
-+		/* One instance per card, numbered like the ocpN device.
-+		 * firmware_upload_register() keeps the pointer rather than
-+		 * copying the string, so it has to outlive the registration.
-+		 */
-+		name = devm_kasprintf(&bp->pdev->dev, GFP_KERNEL,
-+				      "adva-cpld.%d", bp->id);
-+		if (!name)
-+			return -ENOMEM;
-+
-+		fwl = firmware_upload_register(THIS_MODULE, &bp->pdev->dev,
-+					       name, &adva_cpld_upload_ops, bp);
-+		if (IS_ERR(fwl))
-+			dev_warn(&bp->pdev->dev,
-+				 "CPLD firmware upload unavailable: %pe\n",
-+				 fwl);
-+		else
-+			bp->cpld_fw_upload = fwl;
-+	}
-+
- 	return ptp_ocp_init_clock(bp, &info->servo);
- }
- 
-@@ -4293,6 +4326,15 @@ static const struct ocp_attr_group art_timecard_groups[] = {
- /* Lattice LCMXO3LF ISC command codes */
- #define CPLD_CMD_READ_ID      0xE0000000UL
- #define CPLD_CMD_READ_STATUS  0x3C000000UL
-+#define CPLD_CMD_EN_CFG_TP    0x74   /* enable config, transparent mode */
-+#define CPLD_CMD_DIS_CFG      0x26
-+#define CPLD_CMD_ERASE        0x0E
-+#define CPLD_CMD_RESET_ADDR   0x46
-+#define CPLD_CMD_WRITE_PAGE   0x70
-+#define CPLD_CMD_SET_DONE     0x5E
-+#define CPLD_CMD_REFRESH      0x79
-+#define CPLD_PAGE_SIZE        16
-+#define CPLD_POLL_US          10000  /* status poll interval while busy */
- 
- /* Status register bit positions (Lattice LCMXO3LF datasheet) */
- #define CPLD_STATUS_DONE   BIT(8)
-@@ -4307,9 +4349,10 @@ static const struct ocp_attr_group art_timecard_groups[] = {
-  *
-  * The message is assembled in the scratch buffer taken by
-  * adva_x1_bus_claim(), so an opcode and its arguments are copied exactly
-- * once.  I2C_M_DMA_SAFE is deliberately not set: no adapter that can bind
-- * here does DMA, and the two halves are not separately aligned, so the
-- * core is left free to bounce.
-+ * once and an upload costs one allocation, not one per page.
-+ * I2C_M_DMA_SAFE is deliberately not set: no adapter that can bind here
-+ * does DMA, and the two halves are not separately aligned, so the core is
-+ * left free to bounce.
-  *
-  * Caller must hold that claim, hence __i2c_transfer() over i2c_transfer().
-  */
-@@ -4447,7 +4490,9 @@ static int adva_x1_bus_claim(struct ptp_ocp *bp)
- 		return -ENODEV;
- 	}
- 
--	/* One scratch buffer per claim, not per transfer. */
-+	/* One scratch buffer per claim rather than per transfer: an upload
-+	 * holds the claim for the whole image.
-+	 */
- 	bp->cpld_buf = kzalloc(2 * ADVA_CPLD_XFER_MAX, GFP_KERNEL);
- 	if (!bp->cpld_buf) {
- 		i2c_put_adapter(adap);
-@@ -4475,6 +4520,48 @@ static int adva_x1_mux_select(struct ptp_ocp *bp, int ch)
- 	return adva_x1_i2c_xfer(bp, ADVA_MUX_ADDR, val, NULL, 0, NULL, 0);
- }
- 
-+/*
-+ * Argument bytes that follow an ISC opcode.  Returns NULL with @nargs set
-+ * when the arguments are all zero: adva_x1_i2c_xfer() zeroes the buffer.
-+ */
-+static const u8 *adva_x1_cpld_args(u8 cmd, u8 *nargs)
-+{
-+	static const u8 en_cfg_tp[] = { 0x08, 0x00 };
-+	/* cfg sector only */
-+	static const u8 erase_cfg[] = { 0x04, 0x00, 0x00 };
-+
-+	switch (cmd) {
-+	case CPLD_CMD_EN_CFG_TP:
-+		*nargs = sizeof(en_cfg_tp);
-+		return en_cfg_tp;
-+	case CPLD_CMD_ERASE:
-+		*nargs = sizeof(erase_cfg);
-+		return erase_cfg;
-+	case CPLD_CMD_RESET_ADDR:
-+	case CPLD_CMD_SET_DONE:
-+		*nargs = 3;
-+		return NULL;
-+	case CPLD_CMD_DIS_CFG:
-+	case CPLD_CMD_REFRESH:
-+		*nargs = 2;
-+		return NULL;
-+	default:
-+		*nargs = 0;
-+		return NULL;
-+	}
-+}
-+
-+/* Send an ISC command with the fixed arguments that belong to it. */
-+static int adva_x1_cpld_write(struct ptp_ocp *bp, u8 cmd)
-+{
-+	const u8 *args;
-+	u8 nargs;
-+
-+	args = adva_x1_cpld_args(cmd, &nargs);
-+
-+	return adva_x1_i2c_xfer(bp, ADVA_CPLD_ADDR, cmd, args, nargs, NULL, 0);
-+}
-+
- /*
-  * Send a 4-byte command then read data back without an intermediate STOP
-  * (Lattice combined write->repeated-START->read).  Two messages in one
-@@ -4500,6 +4587,55 @@ static int adva_x1_cpld_read_status(struct ptp_ocp *bp, u32 *status)
- 	return 0;
- }
- 
-+/* Poll the status register until the CPLD goes idle, or @max_ms elapses.
-+ * The deadline is on wall time, so the I2C transactions count against it,
-+ * and the status is read once more after it expires before giving up.
-+ */
-+static int adva_x1_cpld_wait_ready(struct ptp_ocp *bp, unsigned int max_ms)
-+{
-+	u32 status = 0;
-+	int err, ret;
-+
-+	ret = read_poll_timeout(adva_x1_cpld_read_status, err,
-+				err || READ_ONCE(bp->cpld_cancel) ||
-+				(status & CPLD_STATUS_FAILED) ||
-+				!(status & CPLD_STATUS_BUSY),
-+				CPLD_POLL_US, max_ms * USEC_PER_MSEC, false,
-+				bp, &status);
-+	if (ret)
-+		return ret;
-+	if (READ_ONCE(bp->cpld_cancel))
-+		return -ECANCELED;
-+	if (err || (status & CPLD_STATUS_FAILED))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+/* Map an errno onto the category userspace reads back from
-+ * /sys/class/firmware/adva-cpld.N/error.  A step aborted by cancel() must
-+ * be reported as such, not as a HW error.
-+ */
-+static enum fw_upload_err adva_cpld_err(struct ptp_ocp *bp, int err)
-+{
-+	if (READ_ONCE(bp->cpld_cancel))
-+		return FW_UPLOAD_ERR_CANCELED;
-+
-+	switch (err) {
-+	case -ECANCELED:
-+		return FW_UPLOAD_ERR_CANCELED;
-+	case -ETIMEDOUT:
-+		return FW_UPLOAD_ERR_TIMEOUT;
-+	case -ENOMEM:
-+		return FW_UPLOAD_ERR_BUSY;
-+	case -ENODEV:
-+	case -EIO:		/* FAILED status, or a short transfer */
-+		return FW_UPLOAD_ERR_HW_ERROR;
-+	default:		/* from the i2c controller itself */
-+		return FW_UPLOAD_ERR_RW_ERROR;
-+	}
-+}
-+
- /*
-  * Read the Lattice device ID into bp->cpld_id.  Done once, off the
-  * unprivileged devlink path, which reports the cached value only.
-@@ -4572,6 +4708,234 @@ cpld_status_show(struct device *dev, struct device_attribute *attr,
- }
- static DEVICE_ATTR_ADMIN_RO(cpld_status);
- 
-+/*
-+ * adva_x1 CPLD firmware-upload callbacks.
-+ *
-+ * The kernel firmware-upload subsystem (CONFIG_FW_UPLOAD) exposes:
-+ *   /sys/class/firmware/adva-cpld.N/{data,loading,status,error,...}
-+ * where N is the index of the owning ocpN device.
-+ * Userspace writes the raw binary page data directly — no /lib/firmware/
-+ * staging file is needed.
-+ *
-+ * Callback sequence driven by the framework:
-+ *   prepare()      - validate size, acquire bus, enable config, erase flash
-+ *   write()        - program one 16-byte page per call
-+ *   poll_complete()- set DONE, REFRESH, wait for CPLD to reboot
-+ *   cancel()       - set flag; checked on entry to each callback
-+ *   cleanup()      - release bus resources (called on success or failure)
-+ */
-+static enum fw_upload_err
-+adva_cpld_prepare(struct fw_upload *fwl, const u8 *data, u32 size)
-+{
-+	enum fw_upload_err ret = FW_UPLOAD_ERR_NONE;
-+	struct ptp_ocp *bp = fwl->dd_handle;
-+	int err;
-+
-+	/* Do not clear cpld_cancel here: fw_upload_start() queues the work
-+	 * before this runs, so a cancel may already have arrived - honour it
-+	 * before touching the hardware.  It is cleared once the upload is
-+	 * over, on every exit below and in cleanup().
-+	 */
-+	if (READ_ONCE(bp->cpld_cancel)) {
-+		WRITE_ONCE(bp->cpld_cancel, false);
-+		return FW_UPLOAD_ERR_CANCELED;
-+	}
-+
-+	if (!size || size % CPLD_PAGE_SIZE) {
-+		WRITE_ONCE(bp->cpld_cancel, false);
-+		return FW_UPLOAD_ERR_INVALID_SIZE;
-+	}
-+
-+	bp->cpld_in_config_mode = false;
-+
-+	mutex_lock(&bp->cpld_lock);
-+
-+	err = adva_x1_bus_claim(bp);
-+	if (err) {
-+		ret = adva_cpld_err(bp, err);
-+		goto err_unlock;
-+	}
-+
-+	err = adva_x1_mux_select(bp, ADVA_MUX_CHANNEL);
-+	if (err) {
-+		ret = adva_cpld_err(bp, err);
-+		goto err_release;
-+	}
-+
-+	/* Set before issuing EN_CFG_TP, not after it completes: the CPLD may
-+	 * have entered configuration mode even if the write reports an error
-+	 * or the wait below times out, and err_deselect only sends DIS_CFG
-+	 * when this is set.  A DIS_CFG to a device that never entered the
-+	 * mode is harmless; leaving it enabled is not.
-+	 */
-+	bp->cpld_in_config_mode = true;
-+
-+	err = adva_x1_cpld_write(bp, CPLD_CMD_EN_CFG_TP);
-+	if (!err)
-+		err = adva_x1_cpld_wait_ready(bp, 5000);
-+	if (err) {
-+		ret = adva_cpld_err(bp, err);
-+		goto err_deselect;
-+	}
-+
-+	if (READ_ONCE(bp->cpld_cancel)) {
-+		ret = FW_UPLOAD_ERR_CANCELED;
-+		goto err_deselect;
-+	}
-+
-+	err = adva_x1_cpld_write(bp, CPLD_CMD_ERASE);
-+	if (!err)
-+		err = adva_x1_cpld_wait_ready(bp, 15000);
-+	if (err) {
-+		ret = adva_cpld_err(bp, err);
-+		goto err_deselect;
-+	}
-+
-+	if (READ_ONCE(bp->cpld_cancel)) {
-+		ret = FW_UPLOAD_ERR_CANCELED;
-+		goto err_deselect;
-+	}
-+
-+	err = adva_x1_cpld_write(bp, CPLD_CMD_RESET_ADDR);
-+	if (err) {
-+		ret = adva_cpld_err(bp, err);
-+		goto err_deselect;
-+	}
-+
-+	/* cleanup() unlocks everything.  fw_upload_main() only pairs it with
-+	 * a prepare() that succeeded, so the error paths below unlock here
-+	 * instead; hand the context to cleanup() for sparse's benefit.
-+	 */
-+	__release(&bp->cpld_lock);
-+	return FW_UPLOAD_ERR_NONE;
-+
-+err_deselect:
-+	if (bp->cpld_in_config_mode) {
-+		adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
-+		bp->cpld_in_config_mode = false;
-+	}
-+	adva_x1_mux_select(bp, -1);
-+err_release:
-+	adva_x1_bus_release(bp);
-+err_unlock:
-+	WRITE_ONCE(bp->cpld_cancel, false);
-+	mutex_unlock(&bp->cpld_lock);
-+	return ret;
-+}
-+
-+static enum fw_upload_err
-+adva_cpld_write(struct fw_upload *fwl, const u8 *data,
-+		u32 offset, u32 size, u32 *written)
-+{
-+	struct ptp_ocp *bp = fwl->dd_handle;
-+	u8 args[3 + CPLD_PAGE_SIZE] = { 0x00, 0x00, 0x01 };
-+	int err;
-+
-+	lockdep_assert_held(&bp->cpld_lock);
-+
-+	if (READ_ONCE(bp->cpld_cancel))
-+		return FW_UPLOAD_ERR_CANCELED;
-+
-+	if (size < CPLD_PAGE_SIZE)
-+		return FW_UPLOAD_ERR_INVALID_SIZE;
-+
-+	memcpy(&args[3], data + offset, CPLD_PAGE_SIZE);
-+
-+	err = adva_x1_i2c_xfer(bp, ADVA_CPLD_ADDR, CPLD_CMD_WRITE_PAGE,
-+			       args, sizeof(args), NULL, 0);
-+	if (!err)
-+		err = adva_x1_cpld_wait_ready(bp, 100);
-+	if (err)
-+		return adva_cpld_err(bp, err);
-+
-+	*written = CPLD_PAGE_SIZE;
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static enum fw_upload_err
-+adva_cpld_poll_complete(struct fw_upload *fwl)
-+{
-+	struct ptp_ocp *bp = fwl->dd_handle;
-+	int err;
-+	u32 st;
-+
-+	lockdep_assert_held(&bp->cpld_lock);
-+
-+	if (READ_ONCE(bp->cpld_cancel))
-+		return FW_UPLOAD_ERR_CANCELED;
-+
-+	err = adva_x1_cpld_write(bp, CPLD_CMD_SET_DONE);
-+	if (!err)
-+		err = adva_x1_cpld_wait_ready(bp, 1000);
-+	if (err)
-+		return adva_cpld_err(bp, err);
-+
-+	err = adva_x1_cpld_read_status(bp, &st);
-+	if (err)
-+		return adva_cpld_err(bp, err);
-+	if (!(st & CPLD_STATUS_DONE))
-+		return FW_UPLOAD_ERR_HW_ERROR;
-+
-+	err = adva_x1_cpld_write(bp, CPLD_CMD_REFRESH);
-+	if (err)
-+		return adva_cpld_err(bp, err);
-+
-+	/* REFRESH reboots the CPLD out of configuration mode, so cleanup()
-+	 * must not send DIS_CFG afterwards even if the checks below fail.
-+	 */
-+	bp->cpld_in_config_mode = false;
-+
-+	/* The new image is already running at this point, so a segment that
-+	 * is not back yet must not be reported as a failed update: retry the
-+	 * reselect instead of sampling the mux once at a fixed delay.
-+	 */
-+	msleep(1500);
-+	if (read_poll_timeout(adva_x1_mux_select, err, !err, CPLD_POLL_US,
-+			      3000 * USEC_PER_MSEC, false,
-+			      bp, ADVA_MUX_CHANNEL))
-+		return FW_UPLOAD_ERR_TIMEOUT;
-+
-+	err = adva_x1_cpld_wait_ready(bp, 3000);
-+	if (err)
-+		return adva_cpld_err(bp, err);
-+
-+	return FW_UPLOAD_ERR_NONE;
-+}
-+
-+static void
-+adva_cpld_cancel(struct fw_upload *fwl)
-+{
-+	struct ptp_ocp *bp = fwl->dd_handle;
-+
-+	WRITE_ONCE(bp->cpld_cancel, true);
-+}
-+
-+static void
-+adva_cpld_cleanup(struct fw_upload *fwl)
-+{
-+	struct ptp_ocp *bp = fwl->dd_handle;
-+
-+	__acquire(&bp->cpld_lock);	/* held since prepare() returned ok */
-+	lockdep_assert_held(&bp->cpld_lock);
-+
-+	if (bp->cpld_in_config_mode) {
-+		adva_x1_cpld_write(bp, CPLD_CMD_DIS_CFG);
-+		bp->cpld_in_config_mode = false;
-+	}
-+	adva_x1_mux_select(bp, -1);
-+	adva_x1_bus_release(bp);
-+	WRITE_ONCE(bp->cpld_cancel, false);
-+	mutex_unlock(&bp->cpld_lock);
-+}
-+
-+static const struct fw_upload_ops adva_cpld_upload_ops = {
-+	.prepare	 = adva_cpld_prepare,
-+	.write		 = adva_cpld_write,
-+	.poll_complete	 = adva_cpld_poll_complete,
-+	.cancel		 = adva_cpld_cancel,
-+	.cleanup	 = adva_cpld_cleanup,
-+};
-+
- static struct attribute *adva_timecard_attrs[] = {
- 	&dev_attr_serialnum.attr,
- 	&dev_attr_gnss_sync.attr,
-@@ -5214,6 +5578,15 @@ ptp_ocp_detach(struct ptp_ocp *bp)
- {
- 	int i;
- 
-+	/* Must come first: cancels and flushes an in-flight upload while the
-+	 * I2C controller is still up, and drops cpld_lock so a cpld_status
-+	 * reader cannot stall ptp_ocp_attr_group_del() below.
-+	 */
-+	if (bp->cpld_fw_upload) {
-+		firmware_upload_unregister(bp->cpld_fw_upload);
-+		bp->cpld_fw_upload = NULL;
-+	}
-+
- 	ptp_ocp_debugfs_remove_device(bp);
- 	ptp_ocp_detach_sysfs(bp);
- 	ptp_ocp_attr_group_del(bp);
--- 
-2.47.0
+--=20
+Best Regards,
+Yan, Zi
 
