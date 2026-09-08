@@ -1,179 +1,200 @@
-Received: from mx9.didiglobal.com (mx9.didiglobal.com [111.202.70.124])
-	by smtp.subspace.kernel.org (Postfix) with SMTP id F10971E2834
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.202.70.124
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71F33859C3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:38:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853098; cv=none; b=NsIdLcTb/JVgh2iGOByO45jSZH/eHjPBXYYl7322x7cN9+UrQf7w4nDznmPEy/pTeVfrFQGDUTdgDcmQIVUloeoLXsDYEvu/R1Q1S43InkgHDASKpuS2Hrmi1DWB8aR9iTueZmhxbmrC7U4G3q+YlnubWylP1ogJBoI51P7eqe4=
+	t=1788853106; cv=none; b=VinguSXTB6YLUTNUxmpWfkvbD127JmmZ2q1mxuI1dAs4iEcbWHe8AR7RPhx7lhxu0gEuOHgKTJyiu6fHpsbmBF0hJv/XekgYdqWlrng+5sjYrrRh/wSXfTaAdfssQZzR5ibEjdbyd7EvJaFx+75KnnkMz1PefjJukAIIOWvl4hE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853098; c=relaxed/simple;
-	bh=rCITZH9XRxR9u7JidjNbdBXA6RQZYXguPA1h6FUSUVw=;
-	h=Date:From:To:CC:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=JYOXjBvxaLvMNUP+b0zDrTjGM62hKHzBoMvsIIqBnI0RuDJ0uEBKXiylAT7A/Bto0RGNhp/XxQeyfFe1Y+Yl5q3ZeQ/kK8HUGTMDIOlwXH68p8nIPTXj/u6GvrTz+E4Q7xVjmHV9K7X+pBa69YhWTNlBNqJO4vYo3gcAC6bb4JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=didiglobal.com; spf=pass smtp.mailfrom=didiglobal.com; arc=none smtp.client-ip=111.202.70.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=didiglobal.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=didiglobal.com
-Received: from mail.didiglobal.com (unknown [10.79.65.20])
-	by mx9.didiglobal.com (MailData Gateway V2.8.8) with ESMTPS id DE1B91879F6E51;
-	Tue,  8 Sep 2026 15:37:51 +0800 (CST)
-Received: from BJ01-ACTMBX-04.didichuxing.com (10.79.64.12) by
- BJ02-ACTMBX-02.didichuxing.com (10.79.65.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 15:37:51 +0800
-Received: from didi-ThinkCentre-M920t-N000 (10.79.64.102) by
- BJ01-ACTMBX-04.didichuxing.com (10.79.64.12) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Tue, 8 Sep 2026 15:37:51 +0800
-Date: Tue, 8 Sep 2026 15:37:42 +0800
-X-MD-Sfrom: jinkehan@didiglobal.com
-X-MD-SrcIP: 10.79.65.20
-From: Jinke Han <jinkehan@didiglobal.com>
-To: <jinkehan@didiglobal.com>, <tglx@kernel.org>, <mingo@redhat.com>,
-	<bp@alien8.de>, <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	<mhiramat@kernel.org>
-CC: <hpa@zytor.com>, <laoar.shao@gmail.com>, <peterz@infradead.org>,
-	<jgross@suse.com>, <kees@kernel.org>, <rppt@kernel.org>,
-	<jpoimboe@kernel.org>, <calvin@wbinvd.org>, <pfalcato@suse.de>,
-	<linux-kernel@vger.kernel.org>, <tiozhang@didiglobal.com>
-Subject: [PATCH v3] x86/kprobe: Fix crash when probe cs call
-Message-ID: <20260908073742.GA10517@didi-ThinkCentre-M920t-N000>
-Mail-Followup-To: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, mhiramat@kernel.org,
-	hpa@zytor.com, laoar.shao@gmail.com, peterz@infradead.org,
-	jgross@suse.com, kees@kernel.org, rppt@kernel.org,
-	jpoimboe@kernel.org, calvin@wbinvd.org, pfalcato@suse.de,
-	linux-kernel@vger.kernel.org, tiozhang@didiglobal.com
+	s=arc-20240116; t=1788853106; c=relaxed/simple;
+	bh=IBYPM4gS2ibae2Tkf2AXKkiQurwxQJzEd5l6rSV9/YU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=bJO/CSrNjY5mDAzj5XNpEPh1VnJpe359dna508FRKJo9wSRNj2K/87h9hh0om5otSqW8diC3GLesbwxaCuoXLM+yAvlvOKjGnWC9r9RY/9T7TPN89B1jIGtDGRxNQEvWtMtJeIF3BYyfFTGPSjEzVlWK3e7bdEfQ5F4fAz8FLKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kqS2RlKe; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kqS2RlKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25BDF1F00A3A;
+	Tue,  8 Sep 2026 07:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788853103;
+	bh=/kSqH1rN9n/9GtXKzCM0V84VdAyIIJGiJDMXHLS4jlE=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=kqS2RlKeEEjcRYMQLdn4gM0YZvQ+h8TrNibP1S0WQQHCAJBPvtdcafU+hURXpqV4a
+	 psLrxLYyi3pxKwfoO3CUH4DSJWUd/2S0X3XMRWdeE+nRxKtCz9Ah3Ze9bmmt3RXyZI
+	 TLkFB2so8HIFNSTlzlRu3w+Y1cyiEMU9rdVp4kJrsQmKmZp45znq8BYsutT9cOO2Ws
+	 y1Pq7DnY9tCOKw0aStIYZXAGcqLdL/BUe9WVLGxXNpi3EgCifUp3tl38T2Rtjmqs1C
+	 tDLfttwhzHHcDthlp0TVjqXHHEnsC2oQcRpTQhNvWM+w4om2Wh4y8mHCyc9+OHpGMB
+	 my0wZGY23vRFg==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 8D11D198003A;
+	Tue,  8 Sep 2026 03:38:21 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 03:38:21 -0400
+X-ME-Sender: <xms:bLufalAaQFh12jYoGOafVF2xOM0hBoJ9BWVYVI4SBJyUeoDE3qrj2g>
+    <xme:bLufauXnPahEqL3YvnlhXw99v2-OlbbnkYOadFYt7NxQgPsmnu4AL2PhZS8boyFjb
+    OzOElfonkzFUUctiasT8j1Bdd2k8-zYzeL6H2DTu3616IN2KgVXW9oc>
+X-ME-Proxy-Cause: dmFkZTEced+ul679K3YgLYg9btfbuog+ZXQNrZVY0yYbBHzgy//3EHi4gblYcDzjPWAl0I
+    QnF1ra6uZmBhvWIVd/FIGYdvsLIWziSzFvu0lQRlOO6dfq1y5cqE9ZzXugQwrS7f7ecqrc
+    3HpkcNj7vMWPr5ycNKcw1FOlpuus3KCSs/tDqr3rGFFuWJpbbLoSMustknK0GUcoN4tdRD
+    +P+HIKaUPTG3fjWuqQrsG/Idbforq0nj6QnKo7KVsOsKUoEudz9LPewKIZ9yvA4lvZqnyW
+    a6pPecG7FvjX4OG5VdvG5Ck9YNTKT4UExvknk6lte56saC3b4uW2CILWtfkkVcjRpn0+HY
+    /JSy+O2RkdSbHPPy2UcmqItFLJYn/picrW79HRV4JgtEW6tJdWb1/BWTGPyLiA8b9eQbSg
+    7PGmZpRX/pD5ggaQIie0w8HrzDmyY9jLcCKEKAu6FPRU7MCChR0mZSdTuXvcatltAxnJEJ
+    +PhJ3FsaWl9BlqIpBst6XTGDwyzHV3sQ7ExouR8NN77uapFPya3CMBXaqNchQ2CZQ//R3R
+    QIch5VRRO20SPhRO33BFZKRpNuFwx5mEZwXmPKe5zqbazJyH6G171vPtmFmAz6ex0XhxVm
+    lmY8HYF/GRWq1/Kg2FV9H1y3C1ftlXpLuqx87msdylYlqm+GUfxeACPVrb/g
+X-ME-Proxy: <xmx:bbufamr4nbbgZ17QWdZyX8FzkG5shrHL1DZRrBxKt-ilmZrECQ8VVw>
+    <xmx:bbufagFPwOqvqgEQbPLv9fzG7YtdOeFx4q3ffixv40gtDTcHSti91w>
+    <xmx:bbufauucs_VldCCdjMoC6ItfI8XoHvb9EYGY5xXv49n9dhDC7mBpzA>
+    <xmx:bbufaqXYRYr-2T2ot47Tu2hfyH6nRlIQqRt_Th0SBUqcnHFCZ_NrJg>
+    <xmx:bbufaiEPkBFdf379bWI1YvSp63EQMKRzikqEmE6f57ptSbcLwjyIqsR8>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 19FD0F8007A; Tue,  8 Sep 2026 03:38:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: BJ02-PUBMBX-01.didichuxing.com (10.79.65.22) To
- BJ01-ACTMBX-04.didichuxing.com (10.79.64.12)
+Date: Tue, 08 Sep 2026 09:37:59 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: "Vincent Mailhol" <mailhol@kernel.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>
+Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org
+Message-Id: <33a38234-c46b-41bf-838f-db0beec8b1cf@app.fastmail.com>
+In-Reply-To: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
+References: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
+Subject: Re: [PATCH v3] efi/libstub: add initial Boot Loader Interface support
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-When I used eBPF to probe the call instructions within a function,
-we encountered a kernel crash.
+Hi Vincent,
 
-The ebpf tool probes the 257 offset of the __hrtimer_run_queues
-function.
+On Sun, 6 Sep 2026, at 23:52, Vincent Mailhol wrote:
+> The Boot Loader Interface (BLI) [1] defines EFI variables that expose
+> boot loader state to the running OS. LoaderInfo identifies the boot
+> loader, while LoaderDevicePartUUID records the GPT partition UUID of
+> the partition containing it.
+>
+> LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generat=
+or
+> [2] to identify the disk the boot loader was launched from and
+> automatically detect and mount partitions on it.
+>
+> GRUB [3] and systemd-boot [4] populate these variables, but when the
+> kernel is started directly by EFI firmware, there is no conventional
+> external boot loader to provide them. In that case, because the EFI st=
+ub
+> performs the boot loader role, it should provide the variables itself.
+>
+> Use LoaderInfo as a sentinel: if it is already set by an earlier boot
+> stage or cannot be set, bail out. Otherwise, populate the other BLI
+> variables.
+>
+> Parse the loaded image device path, extract the GUID signature from its
+> GPT HD() node and publish it under the Linux loader entry vendor GUID =
+as
+> the volatile LoaderDevicePartUUID EFI variable.
+>
+> Install the efi_bli_set_variables() hook in both the generic efi-stub.c
+> path and the x86-specific x86-stub.c path.
+>
+> [1] The Boot Loader Interface
+> Link: https://systemd.io/BOOT_LOADER_INTERFACE/
+>
+> [2] systemd-gpt-auto-generator
+> Link:=20
+> https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-au=
+to-generator.html
+>
+> [3] GRUB -- =C2=A716.2 bli
+> Link:=20
+> https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodule=
+.html
+>
+> [4] systemd -- systemd-boot UEFI Boot Manager
+> Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=3D=
+1#L102
+>
+> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
+> ---
+> Changes in v3:
+>
+>   - Populate LoaderInfo in addition to LoaderDevicePartUUID.
+>
+>   - Use LoaderInfo as the provider-level sentinel before setting BLI v=
+ariables.
+>
+>   - Drop CONFIG_EFI_STUB_BLI and enable the feature unconditionally.
+>
+>   - Use the libstub %pUl formatter instead of local GUID string conver=
+sion.
+>
+>   - Mode type definitions to efi.h and add enums for the EFI HD()
+>     partition format and signature type fields.
+>
+>   - Reintroduce the NULL check on image to resolve the sashiko finding:
+>    =20
+> https://sashiko.dev/#/patchset/20260903-efi_stub_bli-v2-1-dbf7ba915117=
+%40kernel.org
+>
+> - Link to v2:=20
+> https://patch.msgid.link/20260903-efi_stub_bli-v2-1-dbf7ba915117@kerne=
+l.org
+>
+> Changes in v2:
+>
+>   - Add CONFIG_EFI_STUB_BLI to make the BLI feature optional.
+>
+>   - Use static storage for GUID initializers. This reduces the size by
+>     about 10% compared to v1.
+>
+>   - Remove the redundant NULL check on image.
+>
+>   - Move the nibble-to-ASCII-hex conversion out of efi_bli_guid_to_str=
+()
+>     into the new efi_bli_nibble_to_hex().
+>
+>   - Rename variables to be closer to the EFI specification.
+>
+> Link to v1:=20
+> https://lore.kernel.org/r/20260725-efi_stub_bli-v1-1-966e4748077f@kern=
+el.org
+> ---
+> This patch depends on series "efi/libstub: Avoid UTF-16 conversion
+> busywork" from Ard.
+>
+> Link:=20
+> https://lore.kernel.org/all/20260906130817.1151961-9-ardb@kernel.org/
+> Link:=20
+> https://git.kernel.org/pub/scm/linux/kernel/git/ardb/linux.git/log/?h=3D=
+efi-libstub-native-utf16
+>
+> Bloat-o-meter results on drivers/firmware/efi/libstub/lib.a before and
+> after this patch on x86_64 with gcc 15.3.0:
+>
+>   add/remove: 4/0 grow/shrink: 1/0 up/down: 770/0 (770)
+>   Function                                     old     new   delta
+>   efi_bli_set_variables                          -     636    +636
+>   loader_info                                    -      90     +90
+>   loader_entry_guid                              -      16     +16
+>   device_path_guid                               -      16     +16
+>   efi_stub_entry                              4180    4192     +12
+>   Total: Before=3D29436, After=3D30206, chg +2.62%
+> ---
+>  drivers/firmware/efi/libstub/Makefile   |  2 +-
+>  drivers/firmware/efi/libstub/bli.c      | 87 ++++++++++++++++++++++++=
++++++++++
+>  drivers/firmware/efi/libstub/efi-stub.c |  1 +
+>  drivers/firmware/efi/libstub/efistub.h  |  2 +
+>  drivers/firmware/efi/libstub/x86-stub.c |  1 +
+>  include/linux/efi.h                     | 22 +++++++++
+>  6 files changed, 114 insertions(+), 1 deletion(-)
+>
 
-<__hrtimer_run_queues+249>:  nopl   0x0(%rax,%rax,1)
-<__hrtimer_run_queues+254>:  mov    %r14,%rdi
-<__hrtimer_run_queues+257>:  cs call <__x86_indirect_thunk_r12>
-<__hrtimer_run_queues+263>:  mov    %eax,%r12d
-<__hrtimer_run_queues+266>:  xchg   %ax,%ax
-<__hrtimer_run_queues+268>:  mov    %r13,%rdi
+Reviewed-by: Ard Biesheuvel <ardb@kernel.org>
 
-The scene of kernel crash is as follows:
-
-[73665.737181] BUG: unable to handle page fault for address: 00000000000f41c9
-[73665.744253] #PF: supervisor write access in kernel mode
-[73665.749643] #PF: error_code(0x0002) - not-present page
-[73665.754843] PGD 0 P4D 0
-[73665.757390] Oops: 0002 [#1] SMP NOPTI
-[73665.761073] CPU: 1 PID: 0 Comm: swapper/1 Kdump: loaded Tainted: P
-[73665.782671] RIP: 0010:__hrtimer_run_queues+0x106/0x230
-
-Note that __hrtimer_run_queues+0x106 is __hrtimer_run_queues+262, which is
-at the 6th byte of the above cs call instruction. Since the cs call
-instruction occupies 6 bytes, the exception occurred in the middle of that
-call instruction.
-
-The root cause is that when using eBPF tools to probe in the middle of a
-function, kprobe with int3 is used as the underlying implementation.
-During single-step emulation of the original call instruction,
-int3_emulate_call assumes that the probed call instruction is 5 bytes
-long. However, the actual CS-prefixed call instruction occupies 6 bytes,
-so it constructs an incorrect exception return address. When the CPU
-returns from the kprobe handler, the next instruction to be executed is at
-the address of the last byte of that CS call instruction. Coincidentally,
-starting from that address, the CPU fetches and decodes a completely
-different instruction, which ultimately triggers a kernel crash.
-
-Fix the issue by using the actual instruction length obtained from
-the instruction decoder when constructing the exception return
-address, rather than relying on the hardcoded CALL_INSN_SIZE macro.
-
-Cc: stable@kernel.org
-Cc: linux-trace-kernel@vger.kernel.org
-Fixes: 6256e668b7af ("x86/kprobes: Use int3 instead of debug trap for single-step")
-Reviewed-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Suggested-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Acked-by: Yafang Shao <laoar.shao@gmail.com>
-Signed-off-by: Jinke Han <jinkehan@didiglobal.com>
----
- arch/x86/include/asm/text-patching.h | 4 ++--
- arch/x86/kernel/alternative.c        | 6 ++++--
- arch/x86/kernel/kprobes/core.c       | 5 ++---
- 3 files changed, 8 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/include/asm/text-patching.h b/arch/x86/include/asm/text-patching.h
-index f2d142a0a862..ea09381070e8 100644
---- a/arch/x86/include/asm/text-patching.h
-+++ b/arch/x86/include/asm/text-patching.h
-@@ -164,9 +164,9 @@ unsigned long int3_emulate_pop(struct pt_regs *regs)
- }
- 
- static __always_inline
--void int3_emulate_call(struct pt_regs *regs, unsigned long func)
-+void int3_emulate_call(struct pt_regs *regs, unsigned long ip, unsigned long func)
- {
--	int3_emulate_push(regs, regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE);
-+	int3_emulate_push(regs, ip);
- 	int3_emulate_jmp(regs, func);
- }
- 
-diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index add62db3e82c..d13bc5215d87 100644
---- a/arch/x86/kernel/alternative.c
-+++ b/arch/x86/kernel/alternative.c
-@@ -2172,6 +2172,7 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
- 	unsigned long selftest = (unsigned long)&int3_selftest_asm;
- 	struct die_args *args = data;
- 	struct pt_regs *regs = args->regs;
-+	unsigned long ip;
- 
- 	OPTIMIZER_HIDE_VAR(selftest);
- 
-@@ -2184,7 +2185,8 @@ int3_exception_notify(struct notifier_block *self, unsigned long val, void *data
- 	if (regs->ip - INT3_INSN_SIZE != selftest)
- 		return NOTIFY_DONE;
- 
--	int3_emulate_call(regs, (unsigned long)&int3_selftest_callee);
-+	ip = regs->ip - INT3_INSN_SIZE + CALL_INSN_SIZE;
-+	int3_emulate_call(regs, ip, (unsigned long)&int3_selftest_callee);
- 	return NOTIFY_STOP;
- }
- 
-@@ -2754,7 +2756,7 @@ noinstr int smp_text_poke_int3_handler(struct pt_regs *regs)
- 		break;
- 
- 	case CALL_INSN_OPCODE:
--		int3_emulate_call(regs, (long)ip + tpl->disp);
-+		int3_emulate_call(regs, (long)ip, (long)ip + tpl->disp);
- 		break;
- 
- 	case JMP32_INSN_OPCODE:
-diff --git a/arch/x86/kernel/kprobes/core.c b/arch/x86/kernel/kprobes/core.c
-index 4e5f8c1736ec..133ff20caccd 100644
---- a/arch/x86/kernel/kprobes/core.c
-+++ b/arch/x86/kernel/kprobes/core.c
-@@ -510,10 +510,9 @@ NOKPROBE_SYMBOL(kprobe_emulate_ret);
- 
- static void kprobe_emulate_call(struct kprobe *p, struct pt_regs *regs)
- {
--	unsigned long func = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
-+	unsigned long ip = regs->ip - INT3_INSN_SIZE + p->ainsn.size;
- 
--	func += p->ainsn.rel32;
--	int3_emulate_call(regs, func);
-+	int3_emulate_call(regs, ip, ip + p->ainsn.rel32);
- }
- NOKPROBE_SYMBOL(kprobe_emulate_call);
- 
--- 
-2.34.1
-
+I'll pick this up once the prerequisites are in place.
