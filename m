@@ -1,309 +1,127 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA45376A1E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64DD396579;
+	Tue,  8 Sep 2026 07:26:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852371; cv=none; b=MPSm4b+vGx0XDCvACJEC7jOQMa/AQ+ywb84TMP3U8y3DNrXTFEwQ9JET9+kwuCD8O9J4IFiplrhtCFEGQDdF9CGAWnu27DK2pwqygciTEgXQ8r7JA5POCpS+cvUsTxv364OVcvRyvv7NOicMWAh5B99kbhhluv+cmWlc6Fl6ZuE=
+	t=1788852374; cv=none; b=sXC+2Fzr5GimOqWTkKZZ18lcePUV4oqApTjhIK574KuDwLBhxz4eEujPhko+yAM3ZShlHob3FmEZUfV6dWDVA7gt97Iezf3sFYJWc/eL1Supt7CeaehIq36HSUjXRSQQz0mYFMvz180wD1ZxMqqjVQUFFh+RKajU+lSMJukSpPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852371; c=relaxed/simple;
-	bh=g2N7u5+KpCZU0GkwFtMcLt92bYHgv/NW9aruaK0B2Ko=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bXJQvTYRBM3snaS2OQ9jXDonQhwGZcWKUV3xCGCq/MUMGU4TzqVo843ozugfIwGG8EJ3BDK6W4pag96rG9VMsIqqsEosqtdQ+me0VgeWN+AwQ0ScKmgB45IrRqCEdF6wnAHNd4rbhtpeIVWrRjxpgEmJ7HuM4THFTr7KNYxuiro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com; spf=fail smtp.mailfrom=pythoncharmers.com; dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b=DS6LBNRH; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=aicharmers.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=pythoncharmers.com
+	s=arc-20240116; t=1788852374; c=relaxed/simple;
+	bh=RNj8bNDPoqgTZww4eSXoFwemv1jGmr8fMaku4epod3s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZuoRIi/3w3HGCdgQ1W19TTV6VaugZ5vGM4EZC5h0AmskayNPrTM+6ibGPTPcR2GwTHmfimBd1LnCKJrMKQNSRVgmLFPVaP5C2qERsimOQTHJiMM/UrCzQcEOMf7SDX9AFGYUKnVNVV5IyEWgdPd1nF4E68ba4TNdPC3MbPdaO/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cCZO/LBs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aicharmers.com header.i=@aicharmers.com header.b="DS6LBNRH"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so4304714a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:26:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=aicharmers.com; s=google; t=1788852369; x=1789457169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
-        b=DS6LBNRHnQxgDHLf3+T69GtXYZ+tSbGiLSetZi7V73S/KnV4Y7zr3kAyespQNsVkUz
-         uInLtBmhUWdED3gLcLwfBuB/fC/3kV32r4dwNASu7ufrt5q3KrqXmX0KEYhyvDdme1Kx
-         S5W8wf8SxENSyvKdC9byQseLc65jPM1+p+/DN0jnzErra0zfuuzPU57mmDkLliIIZABV
-         gybdBgiBJQN5JMbD/fCUDmlUICc+cKrLdu24j4dz6Ob1BNI5YQtpd//2eUvIyZdN1XZN
-         mNnQMXuCwcQiOZXWcv6vNMIdHC1j3rq+aLxX+cAtUVOwAEqax7Yj822CN/rd7eJklhGS
-         T8aQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788852369; x=1789457169;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9p6gnFadNyB/qeih9jsIAGctpC57sjAwmCrr2gNlVmQ=;
-        b=qNnEYYgYxaqBB3+DpcV9emn4EzOHqXHeZo4/emTUn/4XbO0KUbA7EYplPiobMXxWT4
-         0Bqu70y9Sx7PmCfXss1ffUwkSG4DpnJItaXVqzBm4O+OltcrCkmrCiv3d5Dvg29383cG
-         hEjUeYpKUY7bWlJ/Tz/liUUW65Ne/UA+Ft2MsNFB3wXrwDZxg5+iG4FHo52BW64avn2e
-         06CWK62sEvpVhUrkWjhe6SQTBfCnv8z/d8ZyQnNp6+DRV3O+EkyfbXYmOoyYe/o5ZYvG
-         qulHmK3c89jRA+zU9JlVaGR/MSX0jFgV1FKt5zyqHMNmYRm4CX8CCPq2ksoCf5+AjTN3
-         /vqA==
-X-Forwarded-Encrypted: i=1; AKwUvByrDgD10e4+d+hi25VCAcQaejRhOleP0q3PSnWueF/FVKou4wccs2YyJDYwAf0My8pasrjeF1yzsbCKUGI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJInj7oD16AA1bT/WpJx2EqhehUfTT8yHy7dtUqtRhba579Bsi
-	R1YEAXMMpbioVdtuQmUHtFX7wNZxnSeuGJ03sk/DfyZ1ko+oYbHkRKUiluFV0vf9G1Q=
-X-Gm-Gg: AYBFou0CkW8zTP3KNBvdDWh2YITbBsQ3cAlaHaSOEMxAo+Z9Uymert/Cdo7b7969a6A
-	sFFhJZAi1QDdG9S4ielY+/N4IsF3DJipJq23FqulQHGT6kymK8s071O/ufkJZP9RoLyUUPcblGa
-	SkbOmMv3vvRMK/KAnStCuFYAieRYDBjA+NwgQHkrhBZ2p8osEmN6p6KRnHQUt4N7ua+2T3uFW4O
-	9V1UMj2s3If6+RHkTqBLPCX/TEzPp0iz2A68Q7cX5VL+bDC0y21UEfG/7FPYlIP5UCXH4j5kEbw
-	82ket1PLsendMseDc5AkIkZ13Vk7j7/NN6tqwLXZLmUl4LUhyg3Ym/walnL5WPEZDQOEaAw9RJi
-	3OTfirW0Am3V1s7Fot7Olsiwos8M+7Zp62qmTRtu54jvZGDYXLcz+jWvIumMjsiEcAhFuTNYgr3
-	YQxTx1Uh2nMfYse95QEdpoD0YqrtyFdRpIYjpAH+iBwgBV2QTSfQloANmXF1aO+j6oN4gsVbNL5
-	hWoagD6YLoxa3Kv/on59HyRskY1TcA9VC5dCRLK1YyvcLvF3mwz0mh7KhTp24O1miDrpcKcgUvO
-	75rIhTgm5S7T3IIoaRDPhMl92DwvtJA0BDF3zU0JsQ==
-X-Received: by 2002:a17:90b:5344:b0:395:4de4:92be with SMTP id 98e67ed59e1d1-39b261b1a47mr44358365a91.13.1788852368553;
-        Tue, 08 Sep 2026 00:26:08 -0700 (PDT)
-Received: from ip-192-168-20-24.ap-southeast-2.compute.internal (2403-5803-1750-0-3d77-e76e-aa73-3d48.ip6.aussiebb.net. [2403:5803:1750:0:3d77:e76e:aa73:3d48])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm33210752eec.12.2026.09.08.00.26.03
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 08 Sep 2026 00:26:07 -0700 (PDT)
-From: Ed Schofield <ed@aicharmers.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: kenneth.feng@amd.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] drm/amd/pm: defer UCLK DPM enablement on Apple Navi 14 0218
-Date: Tue,  8 Sep 2026 17:25:34 +1000
-Message-ID: <20260908072552.67798-1-ed@aicharmers.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cCZO/LBs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D0151F00A3A;
+	Tue,  8 Sep 2026 07:26:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788852372;
+	bh=jTFa7o85HfsRzNBfV4MGb2LKxXfcZbC4WkrPTKuc/Tk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cCZO/LBsTF7qo7/DvrIev+rF/sK81D2iKzd4UD/f3GE2/q8/+nB1SnTgQJJaJbx1M
+	 NQ7ui5/MyViW9IdA75KqRP/78HkvqZaJIKAJf+nQNNbu1DpqALHHLmiWapeoWGPN5V
+	 5lgwhjDUTepgJGGDJLdIIKZXAXxCT5LcUBuq7CKBGoaYf5/PKJlOluHU56pfwGevZa
+	 Ey2w9m2HzErqfxp5rNFAy8fKV+NisFnZCdxkAP1kPLB9/1YqGRCbW5RBAoSZSaWlQa
+	 rqcM8md/0gZkA4MZ9BKTs/+pJVO3dtGsZPknpUg+qyAOtBeIcFUTYlAZj8WxwMjWY8
+	 /QYg3iUcp7+QQ==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1x3qDa-00000000spI-0krx;
+	Tue, 08 Sep 2026 09:26:10 +0200
+Date: Tue, 8 Sep 2026 09:26:10 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Adriano Cordova <adrianox@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
+Message-ID: <ap-4khETBju3X8-T@hovoldconsulting.com>
+References: <20260907151428.643841-1-adrianox@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907151428.643841-1-adrianox@gmail.com>
 
-On the Apple 1002:7340/106b:0218 revision 41 board, enabling UCLK DPM
-with EnableAllSmuFeatures can time out and leave amdgpu without a DRM
-device. Omitting only UCLK avoids that timeout; enabling it separately
-immediately afterwards still timed out in a local experiment.
+On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
+> Do not dereference mmc/vub300/udev after the final kref_put, because
+> it can release them via mmc_free_host()/usb_put_dev().
+> 
+> Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
 
-Defer UCLK enablement to the Navi post-init callback, then verify the
-firmware bit and refresh the supported-feature bit, memory DPM table
-and sustainable clock limits before the UMC workaround and UMD setup.
-Validate the PPT memory states consumed by DCN20 before that callback.
-Keep both memory-voltage features enabled and respect PP_MCLK_DPM_MASK.
-Limit the change to the board and revision tested locally.
+This commit reverted a buggy change so if anything is broken here, this
+isn't the commit to blame.
 
-Based on Atharva Tiwari's delayed-UCLK proposal for Apple board 0219.
-This adaptation uses the Navi callback and updates driver clock state;
-it does not change T2's existing 0219 allowed-mask workaround.
+> Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
+> Link: https://syzkaller.appspot.com/bug?extid=f312381a95cc080992fd
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 
-Link: https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
-Link: https://github.com/t2linux/kernel/issues/19#issuecomment-5537823876
-Assisted-by: LLM
-Signed-off-by: Ed Schofield <ed@aicharmers.com>
----
-This is a board-specific follow-up to Atharva Tiwari's August 25 delayed-UCLK
-proposal for Apple 0219:
-https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg149770.html
+Are you missing an Assisted-by tag?
 
-T2 review: https://github.com/t2linux/linux-t2-patches/pull/60
-Hardware report follow-up: https://github.com/t2linux/kernel/issues/19#issuecomment-5579537553
+> ---
+>  drivers/mmc/host/vub300.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+> index 2dae474dcd06..a1a6aa1aafdb 100644
+> --- a/drivers/mmc/host/vub300.c
+> +++ b/drivers/mmc/host/vub300.c
+> @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
+>  {				/* kref callback - softirq */
+>  	struct vub300_mmc_host *vub300 = kref_to_vub300_mmc_host(kref);
+>  	struct mmc_host *mmc = vub300->mmc;
+> +	struct usb_device *udev = vub300->udev;
+>  
+>  	usb_free_urb(vub300->command_out_urb);
+>  	vub300->command_out_urb = NULL;
+>  	usb_free_urb(vub300->command_res_urb);
+>  	vub300->command_res_urb = NULL;
+> -	usb_put_dev(vub300->udev);
+>  	mmc_free_host(mmc);
+> +	usb_put_dev(udev);
 
-The affected machine here is iMac20,1, PCI 1002:7340 / 106b:0218, revision 41,
-with SMU firmware 53.38.0, interface 38. The original-policy control times out
-in EnableAllSmuFeatures (message 6, -62). Omitting only UCLK avoids that
-timeout. Enabling it immediately afterwards also failed in an earlier local
-experiment; Navi's post-init callback is the point tested successfully.
+This makes no sense at all as the driver data is freed by
+mmc_free_host().
 
-The patch refreshes driver state after enabling UCLK because initial table
-setup ran while that feature was disabled. DCN20 also consumes the PPT memory
-states before post-init, so their count and nonzero frequencies are checked.
-Both memory-voltage features remain enabled, and the public MCLK-DPM policy
-still takes precedence over the workaround.
+>  	/*
+>  	 * and hence also frees vub300
+>  	 * which is contained at the end of struct mmc
+> @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_struct *work)
+>  			construct_request_response(vub300, cmd);
+>  			vub300->resp_len = 0;
+>  			mutex_unlock(&vub300->cmd_mutex);
+> -			kref_put(&vub300->kref, vub300_delete);
+>  			mmc_request_done(vub300->mmc, req);
+> +			kref_put(&vub300->kref, vub300_delete);
 
-A direct control on this AMD staging base used the same kernel image,
-configuration, firmware, boot parameters and 6,434 companion modules, with
-only amdgpu rebuilt from the pristine upstream source. Comparing the two
-extracted initramfs images found exactly one changed file: amdgpu.ko.zst.
-The first unpatched warm boot passed rendering and video checks. The second
-reproduced the EnableAllSmuFeatures timeout (message 6, -62) and left no bound
-AMDGPU driver. Linux remained reachable over SSH. Warnings in amdgpu_irq_put
-followed during GPU error cleanup. The control series stopped at that point.
-Restoring the exact patched module/initramfs recovered GPU initialization,
-hardware rendering and all 60 VAAPI/software frame comparisons on the next
-warm boot. This demonstrates an intermittent GPU initialization fault on the
-upstream base, not an inability of every unpatched kernel boot to reach Linux.
+This order has been here since the driver was merged.
 
-The experimental implementation passed 40 warm and ten cold boots on this
-machine. The extracted production implementation has separate T2 7.2.3 warm,
-rendering, video, sustained-render and public-policy checks. The production
-T2 patch also passed prescribed AC-connected and AC-unplugged cold starts,
-with operator-confirmed 60-second intervals and rendering/video validation.
-An intervening start was corrected to AC-connected when the operator clarified
-that he had not unplugged it; the actual unplugged test followed.
-The T2 build also passed a ten-minute, 2 GiB-budget
-Vulkan memory test with a load/idle/load transition and a normal boot after
-system updates and initramfs regeneration. This AMD staging variant has a
-successful W=1 object build, full kernel build and extracted-C ASan/UBSan
-checks; it has now passed ten warm boots: two attended boots, including
-recovery after the failed unpatched control, and eight further unattended
-boots. SMU initialization, SSH, hardware rendering and all 60 VAAPI H.264
-frame comparisons against software decoding passed on every boot. Console
-login was visually confirmed on the two attended boots.
-All four memory states (98, 500, 625 and 875 MHz) were available, with both
-memory-voltage features enabled. This build has only the proposed GPU fix
-on AMD staging, without the T2 patch collection. Rust was disabled after an unrelated Rust DRM
-preparation failure. This is AMD staging hardware coverage, not a boot of Linus's current tree.
-No AMD staging cold, suspend/resume or full desktop test is claimed. The staging
-boot also logged an applesmc probe failure (-5), Bluetooth initialization
-errors and the previously observed boot-time MCEs. The T2-patched SMC driver
-initialized successfully after returning to the protected production kernel.
-USB storage and wired Ethernet provided the boot and SSH path; this test does
-not establish full T2 device support.
+>  			return;
+>  		}
+>  	}
+> @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *mmc, struct mmc_request *req)
+>  		    satisfy_request_from_offloaded_data(vub300, cmd)) {
+>  			cmd->error = 0;
+>  			mutex_unlock(&vub300->cmd_mutex);
+> -			kref_put(&vub300->kref, vub300_delete);
+>  			mmc_request_done(mmc, req);
+> +			kref_put(&vub300->kref, vub300_delete);
 
-Is the Navi post-init callback the right place for this sequencing quirk, and
-are there additional clock-state consumers that should be refreshed? The
-predicate is deliberately limited to the tested subsystem and revision.
-The related 0219 board has an existing T2 allowed-mask override and needs
-separate evidence before combining the cases.
+Same here.
 
-Codex assisted with investigating the initialization sequence, writing the
-patch and tests, and preparing this message. The session progressed from
-reproducing the GPU boot failure to isolating UCLK timing and extracting a
-board-specific fix with public policy and error handling preserved. The
-patch contains an Assisted-by trailer. The host checks use extracted C with
-mocked firmware; the T2 hardware results are recorded separately above.
+So if this is wrong (it does look suspicious, but this driver is just a
+mess) then that's the commit to blame.
 
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   | 81 +++++++++++++++++++
- 1 file changed, 81 insertions(+)
+>  			return;
+>  		} else {
+>  			vub300->cmd = cmd;
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index f8ca5eb9a..4e8fb9e7c 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -60,6 +60,18 @@
- 
- static int navi10_init_ppt_limits(struct smu_context *smu);
- 
-+static bool navi14_needs_late_uclk(struct amdgpu_device *adev)
-+{
-+	struct pci_dev *pdev = adev->pdev;
-+
-+	return pdev->vendor == PCI_VENDOR_ID_ATI &&
-+		pdev->device == 0x7340 &&
-+		pdev->subsystem_vendor == PCI_VENDOR_ID_APPLE &&
-+		pdev->subsystem_device == 0x0218 &&
-+		pdev->revision == 0x41 &&
-+		(adev->pm.pp_feature & PP_MCLK_DPM_MASK);
-+}
-+
- static const struct smu_feature_bits navi10_dpm_features = {
- 	.bits = {
- 		SMU_FEATURE_BIT_INIT(FEATURE_DPM_PREFETCHER_BIT),
-@@ -356,6 +368,11 @@ navi10_init_allowed_features(struct smu_context *smu)
- 		smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_ALLOWED, FEATURE_MEM_MVDD_SCALING_BIT);
- 	}
- 
-+	/* This board times out if EnableAllSmuFeatures includes UCLK DPM. */
-+	if (navi14_needs_late_uclk(adev))
-+		smu_feature_list_clear_bit(smu, SMU_FEATURE_LIST_ALLOWED,
-+					   FEATURE_DPM_UCLK_BIT);
-+
- 	if (is_asic_secure(smu) &&
- 	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(11, 0, 0)) &&
- 	    (adev->rev_id == 0))
-@@ -470,6 +487,25 @@ static int navi10_store_powerplay_table(struct smu_context *smu)
- 	return 0;
- }
- 
-+/* DCN20 consumes these PPT states before the post-init UCLK enable. */
-+static int navi14_imac_check_uclk_states(struct smu_context *smu)
-+{
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	unsigned int count, i;
-+
-+	if (!navi14_needs_late_uclk(smu->adev))
-+		return 0;
-+
-+	count = ppt->DpmDescriptor[PPCLK_UCLK].NumDiscreteLevels;
-+	if (!count || count > ARRAY_SIZE(ppt->FreqTableUclk))
-+		return -EINVAL;
-+	for (i = 0; i < count; i++) {
-+		if (!ppt->FreqTableUclk[i])
-+			return -EINVAL;
-+	}
-+	return 0;
-+}
-+
- static int navi10_setup_pptable(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -490,6 +526,10 @@ static int navi10_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
-+	ret = navi14_imac_check_uclk_states(smu);
-+	if (ret)
-+		return ret;
-+
- 	return navi10_init_ppt_limits(smu);
- }
- 
-@@ -3219,6 +3259,41 @@ static int navi10_enable_mgpu_fan_boost(struct smu_context *smu)
- 					       NULL);
- }
- 
-+/* Rebuild memory clocks before the UMC workaround and UMD clock setup. */
-+static int navi14_imac_late_uclk_enable(struct smu_context *smu)
-+{
-+	struct smu_11_0_dpm_context *dpm = smu->smu_dpm.dpm_context;
-+	struct smu_dpm_table *table = &dpm->dpm_tables.uclk_table;
-+	PPTable_t *ppt = smu->smu_table.driver_pptable;
-+	struct smu_feature_bits enabled;
-+	int ret;
-+
-+	if (!navi14_needs_late_uclk(smu->adev))
-+		return 0;
-+
-+	ret = smu_cmn_feature_set_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT, true);
-+	if (ret)
-+		return ret;
-+	ret = smu_cmn_get_enabled_mask(smu, &enabled);
-+	if (ret)
-+		return ret;
-+	if (!smu_feature_bits_is_set(&enabled, FEATURE_DPM_UCLK_BIT))
-+		return -EIO;
-+
-+	smu_feature_list_set_bit(smu, SMU_FEATURE_LIST_SUPPORTED,
-+				 FEATURE_DPM_UCLK_BIT);
-+	table->clk_type = SMU_UCLK;
-+	ret = smu_v11_0_set_single_dpm_table(smu, SMU_UCLK, table);
-+	if (ret)
-+		return ret;
-+	if (!table->count)
-+		return -EINVAL;
-+	if (!ppt->DpmDescriptor[PPCLK_UCLK].SnapToDiscrete)
-+		table->flags |= SMU_DPM_TABLE_FINE_GRAINED;
-+
-+	return smu_v11_0_init_max_sustainable_clocks(smu);
-+}
-+
- static int navi10_post_smu_init(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -3227,6 +3302,12 @@ static int navi10_post_smu_init(struct smu_context *smu)
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
- 
-+	ret = navi14_imac_late_uclk_enable(smu);
-+	if (ret) {
-+		dev_err(adev->dev, "Failed to enable late UCLK DPM: %d\n", ret);
-+		return ret;
-+	}
-+
- 	ret = navi10_run_umc_cdr_workaround(smu);
- 	if (ret)
- 		dev_err(adev->dev, "Failed to apply umc cdr workaround!\n");
-
-base-commit: c22f9a61e288580824edbbc3ae5a29c9a338594f
--- 
-2.55.0
-
+Johan
