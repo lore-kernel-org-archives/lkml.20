@@ -1,160 +1,162 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7370030D3F8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884556; cv=pass; b=im66jb9R2Kp0oY2ofb7/vugrnkfjXVE0Ta9ouqeE0p2olHZ2POdxzV1fTPMcpV4k3d//v5vTcOIQBdrRtSGcB/8vphcOYMRF1j8fh2jacxTC/y44mnwNiTejv5aYp0bmLijDVVp2VLlQ5AYQFYgKz+NAhrzcy4SMD8a90YSyspo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884556; c=relaxed/simple;
-	bh=gx0WNzHrzpR5Vg5y5KJZ32oxwshPQgn8Fi9efTzEQjU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kxVGjbEnR6toxEadmd4mq3bxkvneAJ6TnSAfUI8mvneEWnwlvoPnzir5dWRlx8wxpUlFv3ySxA3tdA6LJw1/1n1pdY7vgZanUEA5cCWJPdPl/uLST8pD0QoMdEEmENZ1rHDflrlBkVMT2NTS53nCOrYyXNpWEeA9dOOXL7dxMEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MHI7JKr2; arc=pass smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6496556329D;
+	Tue,  8 Sep 2026 16:22:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788884571; cv=none; b=ZakN1niDUVvRBi6XcplWFZNdns6f71p6qztchjQsqUs8YTliMJzOIH3/8hGSLM4WKmeA7CY7cX2G1U61n0I1FD1m5VKFX4NfgjcTTDUSYdY8/qNR53Tw51RJhEq82P+WjK0tf6FSyMR5IbU9w9NCWYYM3mCPTErzFNteWudIOwg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788884571; c=relaxed/simple;
+	bh=MicxkYdQIJvLlM2WnDXT+B4vDYwqYweRzRp+ztwb4gY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KIfYXT+q0TrkzTJe4n4tYWP44IgoXYmMrAOOdS5yntvPLK4d/1gRkjPYHr1GZuVj+LC6Ijf7itJg2VnnYsajrGY0NcdwqA4wp34jXD7T2mHqLLt+6dCbgtqJVRePW16bYD08LPYSQVpVHa6kf7SInXqGEmNvttmPY7QP3MtSFrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=LynWZ9HX; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MHI7JKr2"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482e257a23aso3339020f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:22:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788884552; cv=none;
-        d=google.com; s=arc-20260327;
-        b=il+QPye6bQAPlSCljY1gHQpFoz8imHIYsdmasC9XXcS2ZT0/4tcdQodE7H0LmtsyKQ
-         okwEblSiRuRIRHJ/GyPFkAsPi4mnm0lglg6p6NFbrpk0yaF64kV0B4AAgJuWRjEUrT6D
-         JDFq/OktyzY2xM/nXJLOEEh5WHxkAaK+hWmSW3SP7dChbQbL7Jn8rEMnC55MK2yQ7D28
-         T4GwhIUR1r7y6hHqvS6C8uVBGJ8XzJ/8eoXhTmHALTP6LtDzp9ApmTfZdhZMi3J/BPNc
-         6AQwV8HZvI7KPINpMyYOZQGoz9S/gQCaEqt7gaBJLcV9oU+SzMP73iUPlrQtblYvpL3g
-         AQGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        fh=W/BudQMG3F00x1KHembFVejDgOGpz2bNwbfANktsXuY=;
-        b=lVImN8YKmkYIEqkuqc9MDaf+igPfxXbubOdowjEuxn8FFMareCsTGFjknGEHHkRhQk
-         qCn/wfruTFu/SzI/pllo1TVD1hF5u4MFRcJKIxMo5gHcJ5UkcH1qdgaQMVoGvsyHZBcr
-         LN3m2Jkguyqy40FvXG5Vu3a28FE8wefUwiJJHrJod3FsDpn5iGlkdLjSQRH/mQ8MpGgX
-         /CIX8IhJk3wE9yciqVODxrMRklzThTwIzttjCFit3+zo9d616nejlwoJD9J5wYe37kUT
-         4MrhgFcPL8JYuEiMxwPHr6rLHEyi5VINBxb5k10aklHkfAGMZRXqHGu7Qp81Sx2DISsH
-         3mEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788884552; x=1789489352; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        b=MHI7JKr2kkr24YW4snLpJdEML8QbgbEuKlTVoMWeXvxapQb9bE9iEJ/apSQfsEBCyF
-         6UK7QNkxSB/f9xiBqGLkw/iBAFfKmaoStMFU0SS5vDwnJAGG+tC7GH189zop7UdBzH8w
-         nwK+VulVgJKrc1YU+MG+M392P5la+71HfwYsPHAQAtL6Wmj11OiTlSRr3/2FVb7gcRtK
-         kzeWmmZTOwgHWcLQ2wBGrFe/9jhFTHjnktsABOgWj2M/hW1C+S4I+XMRSJOVRPGTC81W
-         1m9LjXgjk7Udg7NCQtPn+rsj5TDhUg6pzer5U/kGbQZXLXNO6XY0wDlRDF54Tgi9padj
-         LwxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788884552; x=1789489352;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        b=ffZicGe5hYqEOJFAGzSGP4JABBbn29bpMRkWgkHgtEQBsg6sfab8eCEG5BBbOgF+eV
-         W0woKo99D0WpbyZ0cC94n511XyyCvfKaa+dVEE1mv3fdq/grP30i6ktvA7o2e6RB3jed
-         iEW/FIymmA5+DMmQpR9ennSDXp2s/MYncOtN38uwi1Wk38NwPxpxfmFpL/yiXJ2ubfWX
-         9qUWddd1DfPNWivuA3Lt7VMoaYRH0BNZCZKRECXgi4FrHpIsxcSOl2MFYVvvqMhbF4Sc
-         W5Zld4G3bBTB0PQjPYM/XaZoA2C6gqsbTsbAixeF2go588Cd/to9tki+3kOzGHOvKLHf
-         FnWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwlDOZjtdCeHveU1qoTaC9g/MDMovpQtd/B6lsu4wcdqCq6OWGsCxBbHg2/4EacnQl5/Yvnqt9gs9dln2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBNdjeOS9yJgIVaMua58YV6l8OumYyJuQbTgwfdRhbtm60hXsP
-	B8Cx4N2nyMBh7tgMpOJ48YF0N/zKcXgFTVr2JeXwXIrwR7OysE+Ki1bwAkJrMQlM1hogi0BWjCm
-	zhsbJScEnELGrfcC2Ud/NHL73/Gq5QuM=
-X-Gm-Gg: AYBFou1cqCj5a+/qHXZx2XN3bNxUxxVbicgU1gbArIDIdoc6ZIeAhiA1JS1aGyF27kK
-	kzxcBlJmF6NLQmidNIMHhSJAeXgaEzKb+Mne/7EA/mT98NSBVh2zM4reLcJrUROJwRZGfhj/gk5
-	PiPObSPn6thOc7wh1qKU4Gvy1TnMK8UN2OmlNlHwihwvbTfMlJXBPI+Js9lFgrJB5zYkseP4HG7
-	xp0VC4HLi2pzkgUetd8+KEXRrny0INoHv4Hsjch2Fhdmu1laR7+Qasd9hnEQ3WzDXnYazcnRZxr
-	ixWMksaoYFHkr6H7XYiJHiDp/Ab3o4lKbvwlj8pDwDOmP46Aewwzan7Kw9bDx1q4AwlGelM2uPm
-	XW34VC/iffmp9z50jPLBUvIkHxsRaMg==
-X-Received: by 2002:a05:6000:29c9:b0:485:8ecc:9415 with SMTP id
- ffacd0b85a97d-4858ecc96bfmr18626346f8f.48.1788884552482; Tue, 08 Sep 2026
- 09:22:32 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="LynWZ9HX"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06E271477;
+	Tue,  8 Sep 2026 09:22:45 -0700 (PDT)
+Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 639083F7B4;
+	Tue,  8 Sep 2026 09:22:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788884568; bh=MicxkYdQIJvLlM2WnDXT+B4vDYwqYweRzRp+ztwb4gY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=LynWZ9HXpFCF7ZmiCj445U7s22J61VPliLR00ix8Lb4UiOvBVECOKxAFtLvKBdNMC
+	 rBNFqsJfhR/C5fl3PGSrYHFISJ/Jmfxppj6UgkAn7VqAci+NGSTkwXkjfeCwvzSg2C
+	 /KbizwECPFuTxNezEAQm5XH3RJbDZeyDgelwLrhw=
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+To: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev
+Cc: maz@kernel.org,
+	will@kernel.org,
+	catalin.marinas@arm.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	steven.price@arm.com,
+	aneesh.kumar@kernel.org,
+	oupton@kernel.org,
+	gshan@redhat.com,
+	joey.gouly@arm.com,
+	tabba@google.com,
+	yuzenghui@huawei.com,
+	linux-coco@lists.linux.dev,
+	gankulkarni@os.amperecomputing.com,
+	sdonthineni@nvidia.com,
+	alpergun@google.com,
+	fj0570is@fujitsu.com,
+	WeiLin.Chang@arm.com,
+	lpieralisi@kernel.org,
+	enju.kohei@fujitsu.com,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: [PATCH v17 00/20] KVM: arm64: CCA: Add basic plumbing for Realms
+Date: Tue,  8 Sep 2026 17:22:03 +0100
+Message-ID: <20260908162223.1683432-1-suzuki.poulose@arm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
-In-Reply-To: <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 8 Sep 2026 17:22:04 +0100
-X-Gm-Features: AcwNN1U9H3bV0zPtcgBr5_fY5_Ex_KcZm0AWkc_KXas88ZieEy0_hzjnmDi9vSA
-Message-ID: <CA+V-a8uSR2jgpYqeUxteqhSD-FuxKBT_o2519y1z35cg+3XOig@mail.gmail.com>
-Subject: Re: [PATCH v4 0/7] Add syscon support for Renesas RZ/T2H & RZ/N2H in
- CPG/MSSR driver
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Geert,
+This series is a trimmed down version of the Arm CCA KVM support, previously
+posted here [0]. Since the last version, we have tried to split the entire
+series into the following chunks, while also addressing the review comments on
+that version.
 
-On Tue, Sep 8, 2026 at 1:31=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 17 Aug 2026 at 21:25, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs
-> > in the CPG/MSSR driver. The CPG/MSSR block on these SoCs is a
-> > multi-function block that integrates several system-level features beyo=
-nd
-> > clock and reset control, including clock monitoring, write protection,
-> > and peripheral configuration registers.
-> >
-> > For the other IP blocks to be configured a syscon support is provided i=
-n
-> > the CPG/MSSR driver. This allows other drivers to access the CPG/MSSR
-> > registers via a regmap interface.
->
-> > Lad Prabhakar (7):
-> >   clk: renesas: r9a09g077: Register SYSC regmap
->
-> Thanks, will queue in renesas-clk for v7.4.
->
-> >   arm64: dts: renesas: r9a09g077: Adjust CPG register region sizes
-> >   arm64: dts: renesas: r9a09g087: Adjust CPG register region sizes
->
-> Thanks, will queue both in renesas-devel for v7.4.
->
-Thank you for picking it up.
+ 1) Base RMM RMI support under drivers/firmware/arm_rmm -> [1]
+ 2) Linux Host support for handling GPFs - [2]
+ 3) NEW: Enlighten KVM arm64 about the different VM types and use call backs for
+   the VM type, rather than spilling the is_this_type_of_vm() everywhere. This is
+   not complete yet, but it is largely functional. Adds VCPU and Stage2 MMU related
+   callbacks with support for the existing VM types. There are other places where
+   we may be able to abstract, but those need careful performance evaluations to
+   make sure they are fit (e.g., vcpu_run)
+   Also adds classification of "Confidential" VMs (which includes Protected VM
+   and Realms), which allows us to handle common themes without having to do
+   things like :
+     if (kvm_vm_is_protected() || kvm_vm_is_realm()),
+     instead:
+     if (kvm_vm_is_confidential())
+   The S2 MMU abstraction layer is kept at the end of this series. The Realm S2
+   related implementations cannot be added meaningfully without the RMI commands.
+ 4) Bare minimal Realm VM support without the actual functionality to run a Realm.
+   This would help the maintainers to review the series in smaller chunks. This
+   doesn't depend on [1] and can be independently merged, without being "functional".
+ 5) Core implementation of the RMI driver for KVM and actual enablement of the
+    Realm support. This depends on (1), (2) and the guest-memfd-in-place
+    conversion series v12 from Ackerley. This is available here at the integration
+    branch [3]
 
-> >   dt-bindings: watchdog: renesas,r9a09g057-wdt: Add CPG/MSSR syscon
-> >     support
->
-> This is now in watchdog-next.
->
-> >   watchdog: rzv2h: Add syscon support for WDTDCR
-> >   arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
-> >   arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
->
-> These two have a hard dependency on the first five patches, so they
-> are postponed.
->
-Agreed, once I sort out the series [0] maybe we can take all the WDT
-driver changes via renesas-soc due to its hard dependancy.
+This series is comprised of (3) and (4) above.
 
-[0] https://lore.kernel.org/all/20260814191415.2110732-1-prabhakar.mahadev-=
-lad.rj@bp.renesas.com/
+The integration branch has been tested with the following components:
+  tf-RMM:   main branch (commit 5e6e2acd) compliant to RMM-v2.0-beta3 [4]
+  kvmtool: git@git.gitlab.arm.com:linux-arm/kvmtool-cca.git cca/kvm-v17
 
-Cheers,
-Prabhakar
+[0] Arm CCA KVM Support v16 : https://lore.kernel.org/all/20260803134403.80630-1-steven.price@arm.com
+[1] Linux firmware RMI https://lore.kernel.org/all/20260907095942.1140734-1-suzuki.poulose@arm.com
+[2] Linux GPF Host https://lore.kernel.org/all/20260907162204.1479401-1-suzuki.poulose@arm.com
+[3] https://git.gitlab.arm.com/linux-arm/linux-cca/ cca/cca-host/kvm-v17/integration
+[4] https://support.arm.com/documentation/den0137/2-0bet3/
+
+Jean-Philippe Brucker (2):
+  KVM: arm64: CCA: Provide register list for unfinalized RECs
+  KVM: arm64: CCA: Provide an accurate register list
+
+Steven Price (4):
+  KVM: arm64: Avoid including linux/kvm_host.h in kvm_pgtable.h
+  KVM: arm64: CCA: Introduce Realms
+  KVM: arm64: CCA: Support timers in realm RECs
+  KVM: arm64: CCA: WARN on injected undef exceptions
+
+Suzuki K Poulose (14):
+  KVM: arm64: Include kvm_emulate.h in kvm/arm_psci.h
+  KVM: arm64: Track the type of VM in kvm_arch
+  KVM: arm64: Refactor the vcpu_load to allow for VM specific callbacks
+  KVM: arm64: Add vcpu load/put call backs for flavors
+  KVM: arm64: CCA: Add a new mode for supporting Realm guests
+  KVM: arm64: coco:  Add a helper to check if a VM is confidential
+    compute guest
+  KVM: arm64: coco: arch_timer: Prevent timer offset configuration
+  KVM: arm64: coco: Disable Steal time accounting for coco guests
+  KVM: arm64: coco: Don't handle MMIO with no ISV
+  KVM: arm64: CCA: Add VCPU load/put for Realms
+  KVM: arm64: CCA: Don't expose unsupported capabilities for realm
+    guests
+  KVM: arm64: Reuse kvm_stage2_unmap_range in kvm_unmap_gfn_range
+  KVM: arm64: Add VM specific callback for S2 MMU operations
+  KVM: arm64: Abstract out memory abort handling
+
+ .../admin-guide/kernel-parameters.txt         |   3 +
+ arch/arm64/include/asm/kvm_emulate.h          |  16 ++
+ arch/arm64/include/asm/kvm_host.h             |  58 +++-
+ arch/arm64/include/asm/kvm_pgtable.h          |   6 +-
+ arch/arm64/include/asm/kvm_pkvm.h             |   2 +-
+ arch/arm64/include/asm/kvm_rmi.h              |  61 ++++
+ arch/arm64/include/asm/virt.h                 |   1 +
+ arch/arm64/kvm/Makefile                       |   2 +-
+ arch/arm64/kvm/arch_timer.c                   |  28 +-
+ arch/arm64/kvm/arm.c                          | 267 +++++++++++++++---
+ arch/arm64/kvm/guest.c                        |  16 +-
+ arch/arm64/kvm/hyp/nvhe/pkvm.c                |   2 +-
+ arch/arm64/kvm/hyp/pgtable.c                  |   1 +
+ arch/arm64/kvm/hypercalls.c                   |   4 +-
+ arch/arm64/kvm/inject_fault.c                 |   1 +
+ arch/arm64/kvm/mmio.c                         |   4 +-
+ arch/arm64/kvm/mmu.c                          | 173 +++++++++---
+ arch/arm64/kvm/pkvm.c                         |   1 -
+ arch/arm64/kvm/pvtime.c                       |  10 +-
+ arch/arm64/kvm/rmi.c                          |  18 ++
+ arch/arm64/kvm/sys_regs.c                     |  27 +-
+ include/kvm/arm_psci.h                        |   2 +
+ 22 files changed, 581 insertions(+), 122 deletions(-)
+ create mode 100644 arch/arm64/include/asm/kvm_rmi.h
+ create mode 100644 arch/arm64/kvm/rmi.c
+
+-- 
+2.43.0
+
