@@ -1,154 +1,113 @@
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB81656B863;
-	Tue,  8 Sep 2026 19:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4665328AE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897155; cv=none; b=hMHJht33S/IS3x2dilzTEo1Q5V5Z+n0TgLsEzSl86VS2rhTFD9Aq8+0WgEk4/T/6XMmEVvQdE6b4M0cRhEUs0wCZQs5r74vP/uL39l1CR0nkQlm563mfHZTCQIW9zvBycXthkBkDGeVInqAk938dyPV9+KtG1j7lMLr+mtcgMOA=
+	t=1788897212; cv=none; b=UDZZgF4S8kard69u2k1ZNd79WFRcert1RMNqaj8y6x37SraznhCogo9bF8P0XmO3bYzAT6c31hnuIu48ueLMtDQ32tXAh/az4/6akxswUePCeUYBei1yLGNkbKf1Pph/ivFRp+wAaJcjtO02IjXVNCkxdD73E66kkUvGhZI3fYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897155; c=relaxed/simple;
-	bh=6326xk+jrpEIBXOG54K20yI97uABfLpJxethu4b5mHM=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=EilYK4uBjkdJjTCZG5HgY8zHYJDYTECGT2BrwvisazCrYVkROQDwAsw5/BTAkvYQNXAuIcoJIwlVe0c8NtgW8FMALSaLZnLkzoxuGvbzhJ8eyOVYTJ9nCipR4ya3keWvvSSvNjYTmc8wjJObY/Z4THbd3eWxHkPevjyVo0eBwok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=P58IFdzl; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LRFD/f46; arc=none smtp.client-ip=202.12.124.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1788897212; c=relaxed/simple;
+	bh=NTd2pp5ANgj0lmniIesf6GIajPDFvFvZIKDPSGDqkEY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=UOvo1Kt9+4bKb/gotBLPv+7s4/R9hbu8uGtl5Bv0+ZAbeoPTn3CN13Yhp/VYkafcxhlkFnUXs9hnEANqpBfVweM4EeAtJ8FWUE4N044dpAdHMYB0wHwUZD+6nr6t0W6gP+S3JEZ6o7O2cgFB3Q2dSKsWXWzO6jkLyCpViv14j9k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0jVGLeX; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="P58IFdzl";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LRFD/f46"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.stl.internal (Postfix) with ESMTP id 85A461300173;
-	Tue,  8 Sep 2026 15:51:58 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 15:52:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788897117;
-	 x=1788904317; bh=A/e0e19wnUZPqqLKoMAOuMvCVCDJrhro7wf7xxyMHwQ=; b=
-	P58IFdzlsTgXoIoBXikdguZ2nXztIlOBmxSodD0WXxYGPXO7M4lOhtfguU9SFu6J
-	cZgsQ/MZNekvR/WTiAfwjQoPAlnY4C31oKHSM/gUw7nate2JrzT1hrPeXu30q50+
-	BJRrLjVcjAnQcsooyFAIDNUODUcEjo5mJiikG/StoC8C8RvkYG6C5PF2i/5R/VH0
-	6C6xFQ4NHddZjgk/6ybGeMryB7G/oCPHBtmu0qrWWDY3fMO0dCNmCw4zy5DMld7u
-	G3XoIKaOaFvfpelNde4g0yvWU0Xk9vSSSgk0pxvKieO1hY0F8aWETnNJkwHLMDSE
-	nPKb9twScg/ZP4yivk9YyA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788897117; x=
-	1788904317; bh=A/e0e19wnUZPqqLKoMAOuMvCVCDJrhro7wf7xxyMHwQ=; b=L
-	RFD/f46Bs2KJfmFUvSBP/7lf0/w04iiwlgU+qj08BF5beouVQdNMJbf3cmEf1dcX
-	NSaypUIjdLDP1C59SiEqiTbSDjBZnklDAKzXCpypeDuVI6II3x5l1NuHDYdCJ/ho
-	EKQPwe78auB/W3y7wrKBPSTdaC2ezdAq4cMGvcG8m5bZUQk7R0f9+2iZoHBoU6oc
-	kAvXYzPBBLCuULkeApaNoOfUOBO778CMTTv8FIY80/LvhYH63uUbOl0hRvwq30RH
-	43kWnjBJ4gW+iGa1p/Pp47lflnCRJC31AeIK9cSMnxnaTlNJQA2RbC4vGOIeemdk
-	b3Li2jcX9oMMgrcqkxW1A==
-X-ME-Sender: <xms:T2egag5oIkuupeSIYDY94NunnRRhZIxEezsO8rpn3e3dl3iPrchJzQ>
-    <xme:T2egasu1mdPaxP9s5F92AtsAgInsQsD3MBKRHJuZTHdkt2bN1j8pzKnZjey8JjmLr
-    xQ6KqEFhutp-cOjg1qaXfhchPuC_kb1VnwNt6AicVHDFQpJ98Wz_JE>
-X-ME-Proxy-Cause: dmFkZTE1Y/y+iXHrT4A989RrEgu0WXpfA7PAMkeHi9WihMt0TWWMtR/yeXyoHJrl1nWQmF
-    7TF9E/yrsVXkvWrzHR9tCljohg66JCwGrfHpeOsdV/8TeksGyT4UgQM9BDOKl2/9dooW98
-    VMeYCwebTyuaL/I24VjdGNS2Opu/hxKG3Q5gsD/wZU49IMOPPWbh5LrEMNOqEq0m37O1HH
-    Ipa4ffH9ZrQf6phbhHSzBRN6uNfWxpxExSFKFxbG7ndmQjU+NUVSW8+9dHbfO0fU9VeXSX
-    mqQq7UYma4YiPTGbM93H1k50hN9X2iydbnXKAlinNkbusXfalUmxf/BAdu7WUDqL33sLbU
-    hEigDe8rdfutTXBaUq3zw+iiKx6t8HYXdqZEejcdDB1br+Lp3cd6+QYtOs/OsbmVF1qNTS
-    Rhxvdn1h6HI8HWEfrr2fwCrbo0Wmvihd6JP+pWUxCkoTdfLR+sCm2BaKLS2qMiwBn9cV0O
-    TmXjGJuISjoOnnDb1s9pb6+Utb8BQkeSe0AimVI1qzv3cfHso1rLst7Z/sHjnQFQEcAUrB
-    kkM1Ra3oyPOYQFSgzoceKCG4CH+vqVnToW2MpFprAe67sHiRSlpvqPUPieu0DuK0e47b21
-    XMaOzmnHsBo7TRE4emvWAa2h86Dqlp188ynY4lC9Iiax1qTcb6Q6j+FOxKQw
-X-ME-Proxy: <xmx:Vmegag89zoQyZd7bVnRNCeqp7tMNNUpUcO1GkHbVWd6fN_k5yDnR7w>
-    <xmx:Vmeganv4hvj2MQSKk_aQQ_A2RQMYX74hr_WLF-nXtFyP1f0iSYd_mg>
-    <xmx:VmegamIudnmukHuTPOYl0uLi0lqF_qVVDE2nQfPnkXBZprX-zSeErQ>
-    <xmx:Vmegai2z5BFwRC0w2LiQbXnsdKFTnweeCfNN2o9Ixrv2AAKuVYKzwQ>
-    <xmx:XWegagO5GSccbuwz4TrW8ZYubo48bMkCyrDqfEbHJ4MNRPk9XUvqggBR>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 817EC32A007B; Tue,  8 Sep 2026 15:51:43 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0jVGLeX"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4956869750eso45110485e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:53:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788897208; x=1789502008; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=d34WrDSCafXYxFFebWg84mmDn+YaaqWAdBrUeMqE4nk=;
+        b=o0jVGLeXFM+lkuUdxQ7YjkyrzTQdtuRvHQIUVQFmCBpFCSImOEaxOx1hKNNFH/5Lda
+         7RjLKVW5Bv1H5OTu9iPjKlA6FxFyZBco9XQ/pnrTYGutKmF/Bv7hx6fu1S1CyqFpl5cY
+         ROHtSGj/aCDcvGkFzXzaC+Qr6i9Sh5EilyIsvplDPxMA/6nBJynUhf+cVRXnRAloEbQU
+         wlxqGe1O4LJyA9+rBBOapvL9sD2rtQmtUo9fhkv1vbYXSO9BxIECIsGgdvu20irZOQDA
+         /PZJhXJotp9GWyK+BfVraNfBNx3Z07uNK3kxj7cODhypCgeSVbf68AmT/7CS/7hcRoix
+         cgSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788897208; x=1789502008;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=d34WrDSCafXYxFFebWg84mmDn+YaaqWAdBrUeMqE4nk=;
+        b=o5aI85Dd4a5mXQd/gSJgX3Wa1v/+BdBepnJE+oTQv87CGLFWWnU7LLqFSaBO/19Yd6
+         GI35UOwiMiDeXp54ndGetmKm7gGmyZDibYy/dJKntx6F4PKSm9tgSe8+fv/7l68sCFX5
+         354iRWHEU760zc+OMV88EbQF2h2kmBvCKDlYvsrQTgUTODNU6hHNmDyjUWHkUIikT3XY
+         feJ7Ds/bEay0r14GBJz1E23JZ1b1yw7NVpb8SdD2rPBXEfVthZYFrSQxHALYK8bIB70u
+         ZrrK/kyT0DTj9hiQG2iexzDYCoeXg6ORk4YywLBdttjwHCsqTd5mFgZEPgV2qfovUbQ9
+         qCSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgn4NUEAhxcNG+bNdUnr5LT3hKOYRqEOSXk0INNCkQz5raG8YJedy8oLMKiirxitwMVgxscrduKdF0PKE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS1k/xXhO4t4eAaPdl6fyd7p1ul0ED1PZ83IaEFzmzC3FRkQVl
+	HvyZy2m72vN80BEOuLSbTCk55lxQktg32iVzZQU8QB/0mivIt3h7rIVu
+X-Gm-Gg: AYBFou03WGbOpNMiVpINTNP6fnD5hJGAp/PCnYMUQf4fkDSM7AnVhCV/b6DnEAlRq4Z
+	nZsN7t4t9yhI0OeiW6O7uxVFeA2oGvXIzOzgVMtghTY/SYo5LZKjL/7F+PbWK09nRvCMW6XqqtH
+	8b974UX2RrfIYmwpDE9MQuoJbExITULB5KGE7aWMt+cFdirQvdh57hwXyVc4fkGteDZk3a5QPfC
+	J9R5LysJFy9j4nZNf20bgsfFdHm+WbwffBsewmlF50ppx0lnMtFWSU4gQ+FZggp/43vVb2lOD9d
+	RkvdcZLqjNK92soYj41vwh4/bwjTdj+BwAiB3YMJkwRMp6bn+YFXsbqOx/c8ZmMVpFut/u6MxY6
+	EXXg3oReCZQ1myy7UaubibWdOKACEkEquv7QXJIPYQpn+tf3Pe/RUEmSt24qAA/jNoUezJqhQGB
+	z3Ki2IPmwBioMhuLTOIDpoFGMzBH9wa5RrAM0pD4kjLY+I3PQwq0KwWo4O6bB2k6BATn2T14MnK
+	r5WDtU5kS1huUh2
+X-Received: by 2002:a05:600c:620b:b0:49c:fa20:cc07 with SMTP id 5b1f17b1804b1-49cff19cbf4mr255212345e9.30.1788897207627;
+        Tue, 08 Sep 2026 12:53:27 -0700 (PDT)
+Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cee5d476esm547748475e9.1.2026.09.08.12.53.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 12:53:27 -0700 (PDT)
+From: Gabor Juhos <j4g8y7@gmail.com>
+Date: Tue, 08 Sep 2026 21:53:16 +0200
+Subject: [PATCH] spi: spi-qpic-snand: remove unnecessary cast to '__le32 *'
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AzMelPSusUZF
-Date: Tue, 08 Sep 2026 21:51:22 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Linus Walleij" <linusw@kernel.org>,
- "Russell King" <linux@armlinux.org.uk>,
- "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Liviu Dudau" <liviu.dudau@arm.com>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Andrew Lunn" <andrew@lunn.ch>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
- "Gregory Clement" <gregory.clement@bootlin.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
- "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "Karl Mehltretter" <kmehltretter@gmail.com>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Andi Shyti" <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org
-Message-Id: <85c2f9d0-0e9f-4228-9275-65e731def3b1@app.fastmail.com>
-In-Reply-To: <20260908-nuthatch-of-utter-peace-68ead7@sudeepholla>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-12-arnd@kernel.org>
- <20260908-nuthatch-of-utter-peace-68ead7@sudeepholla>
-Subject: Re: [PATCH 11/13] ARM: versatile: remove mps2 support
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-qpic-snand-unnecessary-cast-v1-1-26df1cdd4bb6@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ6CQAwAwK+Qnm1SiEHWrxgPTbdqLwW2SiCEv
+ 7vhOJfZIbSYBtybHYouFjZ6RXtpQD7sb0XL1dBR11OiAefJBMPZM/7cVTSCy4bC8cV0yzTwtZU
+ kBHWYir5sPffH8zj+2d2XPm0AAAA=
+X-Change-ID: 20260908-qpic-snand-unnecessary-cast-97d08a41c9c0
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Gabor Juhos <j4g8y7@gmail.com>
+X-Mailer: b4 0.14.3
 
-On Tue, Sep 8, 2026, at 21:49, Sudeep Holla wrote:
-> On Tue, Sep 08, 2026 at 05:28:01PM +0200, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->> 
->> The Arm mps2 platform is the reference implementation for Arm
->> microcontrollers and is useful for testing but not expected to be used
->> as a production device.
->> 
->> With all the Cortex-M based products gone, there is no longer a need
->> for a reference platform either, so remove it as well.
->> 
->> Cc: Liviu Dudau <liviu.dudau@arm.com>
->> Cc: Sudeep Holla <sudeep.holla@kernel.org>
->
-> Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+Remove an unnecessary cast to '__le32 *' in the qcom_spi_io_op()
+function. The 'reg_read_buf' member of the 'qcom_nand_controller'
+structure is defined as '__le32 *' already, so the cast is not
+needed.
 
-Thanks!
+Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+---
+ drivers/spi/spi-qpic-snand.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> While at it, should we also remove
->
-> drivers/tty/serial/mps2-uart.c and related Makefile/Kconfig entries ?
+diff --git a/drivers/spi/spi-qpic-snand.c b/drivers/spi/spi-qpic-snand.c
+index 61b1f2eb19ce..4bee26b06ff1 100644
+--- a/drivers/spi/spi-qpic-snand.c
++++ b/drivers/spi/spi-qpic-snand.c
+@@ -1485,7 +1485,7 @@ static int qcom_spi_io_op(struct qcom_nand_controller *snandc, const struct spi_
+ 
+ 	if (copy_ftr) {
+ 		qcom_nandc_dev_to_mem(snandc, true);
+-		val = le32_to_cpu(*(__le32 *)snandc->reg_read_buf);
++		val = le32_to_cpu(*snandc->reg_read_buf);
+ 		val >>= 8;
+ 		memcpy(op->data.buf.in, &val, snandc->buf_count);
+ 
 
-Yes, I have a patch for that in
-https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3 and will post that once this series has progressed enough.
+---
+base-commit: cb2ad3c020579bf51fb0d702db9cf64af9698377
+change-id: 20260908-qpic-snand-unnecessary-cast-97d08a41c9c0
 
-     Arnd
+Best regards,
+-- 
+Gabor Juhos <j4g8y7@gmail.com>
+
