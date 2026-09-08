@@ -1,172 +1,195 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B0355D89B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874090; cv=none; b=dnx6ksz/DiFCQ523+vifplDEwNlNTaxiBL6kticuG2YwXJatXBDjcjYVb/fl3ucmVH5Vs0Vk0cMjSfeFWe/8oeAc30nrzsYN1nCw0qhiBwK6kc4ifbSLfoOowczfXKtuyUZqzeso3hh2BfdHA0gQIEKBljA2a6MZ8VS/vB8QH0o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874090; c=relaxed/simple;
-	bh=e8BuZAhC+MLAr3dIChDONBH6Nn9xUIL3CVxsjkAI9pA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PrdSGkZmUO9jK0UP302ZLLMSDWS4m2xmcFdto93AsUS1oepevZdaDKA2+nhbA/R4hWJ2bsedknNLRsotzvcLHeZ5rnukhkJ6EHeTKxsRqyb84LC3Tru3TAAuV5jfPSffvR1eiOOOLeC0AAD/hD9X2N5/pZRUjUTIJU64rfgx2Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KHktZt23; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dgsC+tkl; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EF65650F0
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:28:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788874119; cv=pass; b=uNZg246MffP2h9jMpifIIAna1T045Loh/2a0sqrntYqgfoC7PxnLL2cCViYq6JOvIlAHASqkOwimsXl2UFfTkHGeDby4J2JDsmfHs7bhMy0aYMnSi5IFUDV+PcLPqOWvaFr17cVa6Sl3SwVkZnLVSUHfkKnMjil6gpcdwtUJuxg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788874119; c=relaxed/simple;
+	bh=XrWPQdu6aVkIEftfYKLA9OZgTitSQ0N+EPeHqgtL9RA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qu6zH2UpogsZDPAPwmGGtYNU/n0vWEiLZfNT0HvWUSbloZasmYa5u1Y+sryYHWEJDdIq3f0IzhOfTU3l7r7d73OjaOK2A8/+kb3zgbvj6dIV0Ze7fJ3IwBFQNKKupJrZqQO6qjdYw/qjlA43EhtNYzsawbsPlkkfNg2pTit/mwA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GDzKyIQe; arc=pass smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KHktZt23";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dgsC+tkl"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688CknV13573819
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 13:27:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=xVBfE4bB6UBnPqaf4fcSGOt+
-	V0oC9kKvBZySwiRwwVs=; b=KHktZt23Nu/EUKMhStOdFK/SatUoUuxEpdqpXY5e
-	4UmrF5lo/Z2FvxKvsbUjbPstOQcuAv13/9v1KxWUAPxt6pD0nAcChhOPzfDisAKo
-	lOfOMqKhyz6bv8YYbYChggjfN3Ri1/HwXhoCWAIji3FHwwyikwKlJILMHVLQksfn
-	AIOFywXG3OK7+yDirBlNOA5YIUUInadxAlgUmRP+C1VEfFfCeY+2uVJMEO/aKjUF
-	zgNnKfBCrKW3xEivxg/W3vRQ09TUCA3sJDycWc+25erxNkMsVYVaQ3S3VaiPH7jt
-	HsLoF90GzWry+XB4WtkT8tVFt4PiNuUmZgeEdjHOeTpUcw==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjfp48wf4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:27:56 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78d25a8ff32so253833137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:27:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GDzKyIQe"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469e2254dso162452b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:28:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788874098; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sLFCc8ZNjXPt9hAa+e9nNuuY3S825KHs/mnJxI4YkMs+J5dnlmZEtN2xCuELb1jvYT
+         /pQ6gXkIbMlT0QpJxaqNhirlAAk7OINmf2Ag5OYwgLD37SNeMp+SoUhXNrvPskWbHCmj
+         ZmnG9+5gGEKVGXO3BHJhjujJBjMkqszoxdxv/w8IciLaV6/XZoRwOXjeKg9y934rtdFl
+         vyqzfw0vkB+vKEb1DJ9EUKgDpANnUhV0csFLlGOSS5syzI20VpMf7uYZCFhVmVvg335/
+         obZ76IN7+JvYDXmSIa+w7SyY/GnCQLgf27bH6HCfSzyYyX5siDaGZEIwhnJxp9sPEm3e
+         JqAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        fh=CHeQOWZBuwRxPRjCkzraIbJld2yCfh7uNumMCU4DWoU=;
+        b=CO+ABQNRhHI8p9D7EQI3XnjJTrp+sHH/haIV/wASyByJJG2oGpA9ROpspntUqgBxRC
+         UAFQ5adVYSIMqoD9ndx4u8rWncJEl9QQ95/aVqG0ZjtZrbeUsaTF/YgEO2SsH7I2HZyP
+         J5n4lVswIyg7qeCIPbpO8xAbnWjVPtvC0p4ePE2CrTFH/BDQF3lq6IwYJt8eKnrpNsss
+         e20ATnBZmjfrH+1OCm/TFneJBCECNCkyIV3TMkUq4TwjP2eq3+Ayyz/d5J0F9NJQj0Nh
+         bpX5AJNgaeGunjcEASIEdbtBpgASeWz/0xfXpmVMaGqQhx4cbG4DxPcK8xqCQyDBL1NA
+         GtKw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788874076; x=1789478876; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788874098; x=1789478898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xVBfE4bB6UBnPqaf4fcSGOt+V0oC9kKvBZySwiRwwVs=;
-        b=dgsC+tklxaOovxqcRSWihGHf6DBEG9AO+XFLHw7Rs+Q8AMzq4wSJ77GUW9lfZRhwk5
-         sSHHizrNJiMmAGQfyH8QUj7UYqm6fA/oFw3rSx2Exd655wy5WlPY/83ftpgWycQx8zt7
-         ERyjajksIw8le/A6qfcegc5BsDlx04GUWhzUwPq12NFz37wrdSIW8KLDKryKOSBy+rEx
-         EwK9IJwcHr4Pty1mbC+3KEB522LIMhdaTLEAuRsNu4R3R8A35HbhT9Xnx2gWTCOiLp1F
-         qGIZSK+yX9yjDL9ns/arS3unIG8++5ABCmz9sUG1ZTlUxSeyIE3wCfxpBTTGJzx00Xur
-         F/eQ==
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        b=GDzKyIQe6gkTpY6dg7Tc7eMqvtKCONPfezqQzQ5kSDS69CAoCuxI+JOe9Ujb/wFLW4
+         NNv+wf/qu5jdSqGH7GT5mO72kF2aRTO2AuMqtrXHH7wlTZ4+aSuFaIJWNgQUXuAMYx7L
+         UOXdcc7cxtrl+qMW51cYjvQYfA/iqjn8lj81IVJQxRjJq1gfEBFvoqh+lJXly7YKFn31
+         tKPwVvmvAVxONDj/w2fFNezBOlbgpMWRrSC6k0kPaKxjvM9ePRZMOPaXiM8t3LZzy41R
+         //xbVtYL4P+kxfcx0gk3zPTtdLqVTnyxH1f72xn30RhM3jKP1qExiEcevXkcF6slhrMp
+         xLSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874076; x=1789478876;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788874098; x=1789478898;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xVBfE4bB6UBnPqaf4fcSGOt+V0oC9kKvBZySwiRwwVs=;
-        b=SEGaTW/nIGSUVzs/BMnoJ9ZIMqySSHSzWsXdGZKfCirr11KDFgG6IJPtbTem1bQci8
-         tLLnuvyqj+vhZn5oy4RHEXuecOEbjmYbIUNw2qIAKlvpyY4zVUW934LY3wycv7VZ90Kb
-         AdlJydRZBVjBy/3OmBTzq5zk7IzS7M9xiEBnTtcZTCsUiAWUmiR3Xb1kRDP1osc/FHBQ
-         JK8gNhVBgjf298Y8EiHZWkWJrxMyqD5Y536YUS4BszP17Rl5lPbK9W4fbYN1kT2zbLE4
-         w4KtFChmoFWmFsq5kaKmBMb5ShSr5n6siwBm15jJug+vynshdTKeqrKRhjqr7H7dw6Ep
-         n8Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBwc6Z5k1kfk7z3+V2ThEXEUeYh5tlB2NW9OWAfY47FkiWnQFTXaEW76C4IIo3y7o0nVm1PP0XfPqhcmZFA=@vger.kernel.org
-X-Gm-Message-State: AFuF++le0wdfEZl9lDa5H3OB4p3s9yqQXcK51iwxY5T0RJE1I4RVuMD8
-	EXKYIcbC6fHCo/H9sEJtFZKLOUTURRAZXCEdLEZr9PFmeRfpFeJCpB1LNQBXluR8JvV/6iYMGKZ
-	o4Z/hSKQqBaf24wldetQ+lILYy6GKYwCEK4K1DyeEYG4u3CNHz56F8DoyM1J3uQUFvQ4=
-X-Gm-Gg: AYBFou2rqL8t1ZvBX2bTjj86VRV8uWMy7T5s3YNmq09ua0kROzej0U4fBmW5AEXTRrd
-	RhZLRribQ3IuNIxrf4K0ynvx4efTXEJjTvYSqjzjOSr16Ub2voTHqAhCK1uAmE6wE0pytNqJqkT
-	HOk8sGvkZ3qXxXoi71QTZzsltYISzLYM0bHDbVzBrthfLudwLUAoKukgZLPLFyDavYTsrq8PJl3
-	8x+CXDIBHQuy0zQ3ZqpgPN/bhgeNw9kPBwjYcxYnZA9Twc/2vPNH1Z/3j5pd2SnhbnDhu023q0N
-	WfQIVTC4nW8leblq+R7Jn+iq0wv90rAVL3YU+UF0AzePryIU/RzLtWgUuBJi0Hnz8qI+8q2gE/Y
-	jKWKQvwrsploJUxeIaoMZmTFDKi3JQQHkKSPTy692tA+GqCUIlaF8/aY6wpu1K/wW/D0PaNYavP
-	9IfyahfGq5uGd5
-X-Received: by 2002:a05:6102:554a:b0:780:5605:743f with SMTP id ada2fe7eead31-78a4a8bb311mr10294377137.3.1788874075892;
-        Tue, 08 Sep 2026 06:27:55 -0700 (PDT)
-X-Received: by 2002:a05:6102:554a:b0:780:5605:743f with SMTP id ada2fe7eead31-78a4a8bb311mr10294352137.3.1788874075438;
-        Tue, 08 Sep 2026 06:27:55 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b74cbfdfd7sm2572414e87.75.2026.09.08.06.27.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:27:54 -0700 (PDT)
-Date: Tue, 8 Sep 2026 16:27:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Luca Weiss <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 06/12] iommu: qcom_iommu: support non-TZ-managed instances
-Message-ID: <a2fy6smhao73nr4od6wo443622ym5exlj6qp4nb6wdfzgx7nkb@35a3nyftkhur>
-References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
- <20260809-msm8974-iommu-upstream-v1-6-87f5cd492560@oss.qualcomm.com>
- <08bc7c0c-4e15-4e76-8ed0-34dbee36a6ce@oss.qualcomm.com>
+        bh=JKqux52iVKTfYQy6cAyWyQ3ntl+32JLmlvNYP6anbHY=;
+        b=PtHF/nbenW2ONZp2euTNG20GNn+9Wj9Zpo61mgXOWVuMaQIHcEfU/2NjfY2KOh98WY
+         CKuGOggiNixWLv2PZteuA2e0ggLGuGFLuf1U9w5bPqk46VQGw2+bC5X8ommudrC7IrFo
+         20lFl67Gks/t8Oz8iFBzpdT9SirfMO0KuuHHHHeEr6FWo7zUDL13Pz7Wl81MZXP6I84C
+         8SMzEOedQDcqrVzepXcvlJ3UNz5dlJZ0sDXkKXvv4CvmJr3I9hBxFafv4VCUaUn8alsM
+         8jN6A5ruYf9jTHMIL3nO0bc09MndP1CIjsgRmte3Ralb/e/7UAqVxapKxjX4j8Sk7PC7
+         6AeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByryrHpCVrFKA0R3Zl7D5GmmSpIlwTv+oKh5fC0XdIX5yjMUb5aEkrrqOkOaOMzgPIdTxgWB/i4EE6sKYE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lpTX8maGjVZAkuoDnD4NBMenGxlFiQVLwiSXdsBSnV5hukYZHF
+	2Pa2HdAdI4Qy3EolE7d+UylW7r1WRbxS+jCuT2D5A9pAHidNJX5uDlNWuun0pQ+h5aLhTx/+p50
+	MNxz7QUuUU8b3BIIllB5e/Sl+xYw3o+c=
+X-Gm-Gg: AYBFou0Ehk3a2FCgvmxU3pnF/Q9WdJDnMwhhv2diRP6y1El6XWMNLLSx5xiOKCY4JYS
+	B7j63SHHGoBMJiKOlc5bWm/L3bz4YlyrKo4czn7Ie4vJptfyv6pKxJG4HTspYojCIQYiuyKoOvZ
+	2AWL4gzaEJE4xLo8TAVXrRJQ4D4a29iykBEa2j7FkDm09+gKMpAjt98HguIthrzxjBfWBY1AfiE
+	tf4y+SgdtBCRe4jztvngLwA2vWMMk+rQu3ydST1nO56bPCqQdGLNxpI/bNOuUn8hfUHQE+vvvOW
+	gKa8F4ACPDCl+lDz+dOMHiTtkIbNWZkxR5X+D/DN+O1nbOONPb30Ofo8
+X-Received: by 2002:a05:6a00:1395:b0:84e:cd14:aeba with SMTP id
+ d2e1a72fcca58-86698fe1ea8mr6346255b3a.6.1788874097889; Tue, 08 Sep 2026
+ 06:28:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <08bc7c0c-4e15-4e76-8ed0-34dbee36a6ce@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=Qu9uG1yd c=1 sm=1 tr=0 ts=6aa00d5c cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=JrPXT6BsTxOl0o4Vz8AA:9
- a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-ORIG-GUID: BDBG59R0p3o7ELo_sRNHKub8cUyTTZG4
-X-Proofpoint-GUID: BDBG59R0p3o7ELo_sRNHKub8cUyTTZG4
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0NCBTYWx0ZWRfX9zWE0vgV3iFx
- 9/1LhzkIGJJwYZ+4SYaCekFS+eJgEfVCzydutS9P4JnB4ak4PsbHeI7gIBeVQxEaQs/a3DDtzp8
- PctTKkOhfs7SzG+riWsAwllKCst+cQOeoJhZVsD/TbqnYFwp8hj0i9GNXF4U0o2E9oMYk/FiF17
- mD2dMKw49Z6C/AyucxkujTUVQ1TdBV/JSYN+q78tlOveRbEbsfAPnrxA+ocNj4n7q0PYyGWXN0R
- 9ja4XbX+hZ2Be/oZA9cjvtQWJKNS7caTS2TxURz/GQanG7hgelII5W/5n0+QX2PQWmxbRuVS9wM
- +eC6qVunpvFR8ViwgAlQQm7NA6XzzukxLtlM6P27nNLfI0lFVFY1KaXbXSZHLYFrHbRH1M+21/A
- 7F/UE9Tj1dMFa4eT+McLS6ULQIkIamMPF0/1muJNoJB+3dfIr7ir7C7KRHt5WZ8/kzHffEK0zCX
- Ea0EzlmldT4ErWUVGLg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0NCBTYWx0ZWRfX6fq7/iOjQcSi
- Io3D7Uj8oVfVT0Vzx1FOlQ39tsK+s6XOd2HGbqhw0risL80rLWGjdirNRM+RsVJ+s8KvBqUF1dB
- iUlvqDTVTxuUVAX5uEliQiM9HgCb530=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 spamscore=0 bulkscore=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080144
+References: <20260907151428.643841-1-adrianox@gmail.com> <ap-4khETBju3X8-T@hovoldconsulting.com>
+In-Reply-To: <ap-4khETBju3X8-T@hovoldconsulting.com>
+From: =?UTF-8?Q?Adriano_C=C3=B3rdova?= <adrianox@gmail.com>
+Date: Tue, 8 Sep 2026 10:28:06 -0300
+X-Gm-Features: AcwNN1UwNNi1uUL8ZrK4YlYg6vVWK6_rZXfk738aK_31iCexOOmSxAgWI8zqjXg
+Message-ID: <CAMGU2hXrURUh3NknkgLnmyiJiEwEqZdDz3Ujy5tO8oqVMD9OJw@mail.gmail.com>
+Subject: Re: [PATCH] mmc: vub300: fix use-after-free in vub300 teardown
+To: Johan Hovold <johan@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, linux-mmc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 17, 2026 at 01:40:43PM +0200, Konrad Dybcio wrote:
-> On 8/9/26 10:15 PM, Dmitry Baryshkov wrote:
-> > The GPU on MSM8974 has never been usable upstream because its IOMMU
-> > cannot be driven: unlike the MSM8916-style instances this driver
-> > supports, where the secure world owns the SMMU global register space
-> > and the OS programs just the context banks after a restore_sec_cfg SCM
-> > call, the MSM8974 GPU IOMMU is not managed by TZ at all. Nobody sets
-> > up its stream mapping, so attaching a domain leaves every transaction
-> > unmatched and the GPU faults on its first memory access. Verified on
-> > the APQ8074 dragonboard: restore_sec_cfg is only accepted for the
-> > secured instances, while the GPU instance exposes its ID registers to
-> > the OS (IDR0 0x78034404 / IDR1 0x10000003).
-> > 
-> > Add a non-secure programming mode, derived from the downstream
-> > msm_iommu-v1.c driver. When qcom,iommu-secure-id is absent, reset and
-> > program the global space at runtime resume instead of calling into TZ:
-> > clear sACR/sCR2 and the global fault state, invalidate the TLB and all
-> > SMRs, install the per-instance stream mapping (SMR/S2CR/CBAR, with the
-> > downstream MEMATTR/NSCFG/VMID/IRPTNDX values) and enable the SMMU with
-> > fault reporting enabled and stalling disabled (sCR0.STALLD, matching
-> > the downstream terminate model). The stream ID map is per-instance
-> > configuration data since it is not discoverable from the hardware; the
-> > SMR index allocation keeps ASID == context bank index, which this
-> > hardware requires (downstream msm-3.10 commit 4d92ea10aac3 ("iommu:
-> > msm: Use CB index as ASID")). Also set CB_ACTLR to redirect cacheable
-> > requests to the L2 slave port, as the downstream driver does for every
-> > context on this IP generation - on MSM8916 TZ owns CB_ACTLR, so the
-> > driver never needed to touch it before.
-> 
-> At this point, would it make more sense to retrofit this atop
-> arm-smmu-qcom.c given all of the differences vs 8916?
+El mar, 8 sept 2026 a las 4:26, Johan Hovold (<johan@kernel.org>) escribi=
+=C3=B3:
+>
+> On Mon, Sep 07, 2026 at 12:14:28PM -0300, Adriano Cordova wrote:
+> > Do not dereference mmc/vub300/udev after the final kref_put, because
+> > it can release them via mmc_free_host()/usb_put_dev().
+> >
+> > Fixes: 8f4d20a71022 ("mmc: vub300: fix use-after-free on disconnect")
+>
+> This commit reverted a buggy change so if anything is broken here, this
+> isn't the commit to blame.
+>
+> > Reported-by: syzbot+f312381a95cc080992fd@syzkaller.appspotmail.com
+> > Link: https://syzkaller.appspot.com/bug?extid=3Df312381a95cc080992fd
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+>
+> Are you missing an Assisted-by tag?
+>
+> > ---
+> >  drivers/mmc/host/vub300.c | 7 ++++---
+> >  1 file changed, 4 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/mmc/host/vub300.c b/drivers/mmc/host/vub300.c
+> > index 2dae474dcd06..a1a6aa1aafdb 100644
+> > --- a/drivers/mmc/host/vub300.c
+> > +++ b/drivers/mmc/host/vub300.c
+> > @@ -370,13 +370,14 @@ static void vub300_delete(struct kref *kref)
+> >  {                            /* kref callback - softirq */
+> >       struct vub300_mmc_host *vub300 =3D kref_to_vub300_mmc_host(kref);
+> >       struct mmc_host *mmc =3D vub300->mmc;
+> > +     struct usb_device *udev =3D vub300->udev;
+> >
+> >       usb_free_urb(vub300->command_out_urb);
+> >       vub300->command_out_urb =3D NULL;
+> >       usb_free_urb(vub300->command_res_urb);
+> >       vub300->command_res_urb =3D NULL;
+> > -     usb_put_dev(vub300->udev);
+> >       mmc_free_host(mmc);
+> > +     usb_put_dev(udev);
+>
+> This makes no sense at all as the driver data is freed by
+> mmc_free_host().
 
-I'll take a look.
+mmc_free_host() only frees mmc (struct mmc_host) and vub300
+(struct vub300_mmc_host), but the udev (struct usb_device, linked
+as mmc->parent) is not freed by mmc_free_host() and has to be
+freed separately.
 
--- 
-With best wishes
-Dmitry
+But it cannot be freed before mmc_free_host(), because the kobject
+cleanup code of mmc_host accesses it in mmc_host_classdev_release()
+via host->parent->of_node.
+
+>
+> >       /*
+> >        * and hence also frees vub300
+> >        * which is contained at the end of struct mmc
+> > @@ -1794,8 +1795,8 @@ static void vub300_cmndwork_thread(struct work_st=
+ruct *work)
+> >                       construct_request_response(vub300, cmd);
+> >                       vub300->resp_len =3D 0;
+> >                       mutex_unlock(&vub300->cmd_mutex);
+> > -                     kref_put(&vub300->kref, vub300_delete);
+> >                       mmc_request_done(vub300->mmc, req);
+> > +                     kref_put(&vub300->kref, vub300_delete);
+>
+> This order has been here since the driver was merged.
+>
+> >                       return;
+> >               }
+> >       }
+> > @@ -1946,8 +1947,8 @@ static void vub300_mmc_request(struct mmc_host *m=
+mc, struct mmc_request *req)
+> >                   satisfy_request_from_offloaded_data(vub300, cmd)) {
+> >                       cmd->error =3D 0;
+> >                       mutex_unlock(&vub300->cmd_mutex);
+> > -                     kref_put(&vub300->kref, vub300_delete);
+> >                       mmc_request_done(mmc, req);
+> > +                     kref_put(&vub300->kref, vub300_delete);
+>
+> Same here.
+>
+> So if this is wrong (it does look suspicious, but this driver is just a
+> mess) then that's the commit to blame.
+
+Hope is more clear now, it makes sense to me, and I think the Fixes:
+tag is right.
+
+>
+> >                       return;
+> >               } else {
+> >                       vub300->cmd =3D cmd;
+>
+> Johan
+
+Best,
+Adriano
