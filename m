@@ -1,141 +1,226 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazolkn19010023.outbound.protection.outlook.com [52.103.43.23])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F746531B05;
-	Tue,  8 Sep 2026 12:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869883; cv=fail; b=G2EIMb/J8y/trS4SLUxHgJjF4Vn24Qs01JECRkDDEEGwgXPoc/H6XzoHfvaaZq04IHrtbKF7sxNAs7m2krrM+sxjQQlHYOJqGGCIK/DZftFfKykEcOIQdvJCvCQ1HtTqf3NgyOrIZENOAIVJbpAJ1wQHN0brJ0zBUllOnrXDon8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5D3FAE09;
+	Tue,  8 Sep 2026 12:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788869883; cv=none; b=OBGt2n376oH8xHlBiKQSa5eqHKNFLw73SUDElCoY4vVqDHwM4RkxnssXufGWPKA4+adR1o4YzZ6hhUfn3KvhK3ku0ylk4TI0Uji4rpSFaN8JMfbyTy8AdjnBSMakhFGuUcRxLD4jKzOUE0qGlqJwISTcx64f2OMiYqE5hpasL1k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788869883; c=relaxed/simple;
-	bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UwwTTE17+iY1HbDCnEpVJh/sUTxhlT2Db6dEZeIpf3P2zMSkKdqfGj1q7yQ0zrSuTZ3+H/ueeOePoozDgzg35GyCjA0FUA6lUw5xfCzoRho1Y7DBLLMBi090RtggiPqDrGzznTVvmAL1Nu64Zm2fEz0TaKwMDQFuwIkQ34DWS14=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.kr; spf=pass smtp.mailfrom=outlook.kr; dkim=pass (2048-bit key) header.d=OUTLOOK.KR header.i=@OUTLOOK.KR header.b=bzGtBXUs; arc=fail smtp.client-ip=52.103.43.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.kr
+	bh=Mu+8g3xS2BA5wtrLHppsUcLI+gud0QOurvLkjHYx3YI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O82xLcwy8io08tQKSrBffuomFRoY2Kg2lNSAujhtSphFnaacHelWka8c+Rt2AJKrmBEcw3N0bCUn4d1PeXhrgdhMXyins5pKf+19xHLxYlZXsmh1I22QxlUJwYSMlMwVa6LSezXb6WUMyx43f10aEFEOx6112IeN2oXl/KQ3roQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=TBp+Qlt+; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.KR header.i=@OUTLOOK.KR header.b="bzGtBXUs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UUk/9Tq2hkrlG+3WrcTxADvp6aQIhMSz1qkV5KuPmUrOiWICFfYI2tZp6lxFzj8s0yESrG2ZqYW41cqlXuBD+uljimKE4oTLrm8C3BGahq8/YBFE1hAh/I0VUy8NNPxSjUDZjCWra+6yG26/zecUTncBSFLeVw09zcvcV9OAcCykcccCJdRQPS/NT0hjFpI8lBPGhl2EX2z72CjXgzr+z5H7/7z7AHmivEnVdagS5VU50QtmSjR71ZAZyKz65qpVMRVu6VPymAYlTOp9WDLzGHeNo8V04cxu4wXtrXn2lDOKjqSoyQAjlaeemVlarn4Reg7T6XyFDhvcVPbjLItI6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
- b=ZZAEpoaDW4A9fuHghEp8SXq3rcen1DQCu3QK6u5WUsn3H3dP3JFRggiVH86HDPJhbpmOs/Zt2JQScqF/j5q3zrnM6js5Kh50LVXUStBouKlKKZrAfHLHND2reTWPIy8+WyeDaaEb/t0h8/1pOmIWaSr0Sxfk4YcW48kZ4WXTv/9NM55qoO1YBxN04JFQdeFRAxfl6AySV2ih16IPcC5P3yf0KnbyLBi1MZhxHCGg1h9hbEYVadQBgcHjcHpyL7d+5px9hLrCgqI1G/yIhtOKXQc/+gmzi1T+ed/did3DlHagmDvbPjC8l2vLgxhsKI+kckn/X3h7S0SxiCtBFClvfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.KR;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aHVqaJ67mucfqbz+m05efTZm6Ual4GrzGQcSx6E0FaU=;
- b=bzGtBXUsfTl4QSDAfxSNzMMXqsXacKchTmfqFH82xMvSe8mT8hkNrENGsVaaA8IbV0sabI7me+cbgIG9nqxATp/povpV5SIoUX3bpqpEajHTcRsaRK6P7p6HLzcXz1AWRpk1zFD+jqmqMLZBGPj41TnM8g8j26+Uy/Tc75rA1fWU4o2cQDr5TMalTUqfPrHkr2nEoR14sIJKMJOCNQp/fI/fswcguxBY5/UT2Cz/FuuToNzkSkCTu+h+iSDWBEk0uWkCBTUNaTDyTARD0hgHAsdwXl0ZDw0Kw2OQGYq/25dyjFiX/KRKe8G41LRG/2wrNjyWt0/vMfeweuFkQd9AQw==
-Received: from OS7PR01MB13914.jpnprd01.prod.outlook.com
- (2603:1096:604:36b::13) by TYCPR01MB9749.jpnprd01.prod.outlook.com
- (2603:1096:400:20b::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 12:17:52 +0000
-Received: from OS7PR01MB13914.jpnprd01.prod.outlook.com
- ([fe80::641e:83cf:743b:85bc]) by OS7PR01MB13914.jpnprd01.prod.outlook.com
- ([fe80::641e:83cf:743b:85bc%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 12:17:52 +0000
-From: Eric Kim <seohyun.kim@outlook.kr>
-To: seohyun.kim@outlook.kr
-Cc: juri.lelli@redhat.com,
-	linux-kernel@vger.kernel.org,
-	mgorman@suse.de,
-	mingo@redhat.com,
-	peterz@infradead.org,
-	qlsdnjs236@chungbuk.ac.kr,
-	stable@vger.kernel.org,
-	vincent.guittot@linaro.org
-Subject: Re: [PATCH v3] sched/fair: Reset NUMA fault locality after scan period update
-Date: Tue,  8 Sep 2026 21:17:37 +0900
-Message-ID:
- <OS7PR01MB139146F4F1879F2194899866496B12@OS7PR01MB13914.jpnprd01.prod.outlook.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <OS7PR01MB13914CB69D682A599970F258C96A62@OS7PR01MB13914.jpnprd01.prod.outlook.com>
-References: <OS7PR01MB13914CB69D682A599970F258C96A62@OS7PR01MB13914.jpnprd01.prod.outlook.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SE2P216CA0143.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2c8::14) To OS7PR01MB13914.jpnprd01.prod.outlook.com
- (2603:1096:604:36b::13)
-X-Microsoft-Original-Message-ID:
- <20260908121737.6398-1-seohyun.kim@outlook.kr>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="TBp+Qlt+"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 170125340333;
+	Tue, 08 Sep 2026 14:17:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788869874;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=pCGS7QFek799eYvFtCYM8Z1cMo6BbumL8qntZvDYcks=;
+	b=TBp+Qlt+GRv/buIuJ69rXb73XHqHAGbbk8U2xxfEvZDXjZwD1gfiDmPLPuKjg+UpRntRkp
+	C2eAJenjtbNdueVNCxkRJlDf2vnk05MHTv1iOJ6EJPPdLpxEPUU8xLS7F0AXnSwyPz8uOU
+	T62O5qM5b+6xa5lNzNU+eUN3vyXZCKM=
+Message-ID: <7f9def9e-1c2c-4856-9b92-e6417499ed74@ixit.cz>
+Date: Tue, 8 Sep 2026 14:17:53 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: OS7PR01MB13914:EE_|TYCPR01MB9749:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95b2df78-6087-4c64-d0b4-08df0da33495
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|21061999006|15080799012|51005399006|23021999003|5072599009|25031999004|8060799015|19110799012|25010399006|40105399003|2607281247196008|3412199025|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?lQ0wf0tcjeVAjojM+EMzJR4NmVKsiBvV3c/9zE0vtI39z/ebWndS5B1YOC0p?=
- =?us-ascii?Q?6dbVnJ5EleOQ5F0syk5jsWfaeSMeq0kinvgydfFPZWZdTV9KSaEXOcxvtN59?=
- =?us-ascii?Q?iuDsp/f6pdNaaI2tzKUIgRGeNJHtDIYv9U8fmG5ZUW20zZF0EzsE3/jq30mp?=
- =?us-ascii?Q?zg6hTGbE2q4kKK0TQ2MX25l74tq3qDEXtN1KQBegVUSQndrTHCydHZQCUW7b?=
- =?us-ascii?Q?qKX7jfppQRJlI8u86HInlRg7pV0xfqjVqcAT5mfv7NC01GL10id8umc9B5gK?=
- =?us-ascii?Q?tu6GjvI4ml9vMKBUS8LTQZjx5aRC8z9VP7zYmHfrklIYGj9nd58w8q8cpxQL?=
- =?us-ascii?Q?SJHU4xh8i4fDsLTkAwBPEkzMZ+I4uuhXVg3nwH4ZF19I5myeEdq5prbmGOt0?=
- =?us-ascii?Q?+ix5hhRWC5BB88rzsNs2JrL9vUWU233WwotLU7GYb1QiuDfZViYvVPSDB1iv?=
- =?us-ascii?Q?P9cae+uOfYPROYAgz1Tsz2eNczFHuIhNBOV+5Ncx4ZuAfVe1ADJYHsdpeiwd?=
- =?us-ascii?Q?QxyBRbNOn4RqFnNS+vKfiHltbtDoKl/dWFu2480nDCwcIlk65zOnolKx7amB?=
- =?us-ascii?Q?I6G/ScS1xYOXyzAMsMyAHV371kOF9GjBLj0rI9jWVSepeVIFFPsSCYkNTs5f?=
- =?us-ascii?Q?GXZlSzeMAT73vh3FqcSxfrZ30sJ/WUwtVNfsXV8NU++bFOtGbKchCNAwvxLO?=
- =?us-ascii?Q?Wbe8jDzkSSthuxYxO4olfpxgqL2KD7XJnsNmyhN5ZvGyfU10EMg5IV2PAxVb?=
- =?us-ascii?Q?7f2UtSMl9nZQJqvRVoKXvO3nOIF2hkIia+cBTviTN1noY8igs/LhiuBDl8FH?=
- =?us-ascii?Q?UoJAzifPi7giVbhVzlSjgRxBfm2IbSdEOtA1zsk8t+j1/PFUw3qxe6dtw2p8?=
- =?us-ascii?Q?qrTqTx57toRvhx2Pajra4kLw2RNrKQpkpEGwdavqTVlXlEDtS5e5tK6pAaVl?=
- =?us-ascii?Q?U1uFyREs9V1xIciQZ32VEcazwQLYtyNDgm3gotjUcxYao9kyNblQqf/1hVZJ?=
- =?us-ascii?Q?AIGSnSJEyr/TuN0oN7CkLCdwvA=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+WDB8vnoPBxfXBp/Ph1smtWdKzLLGtacLg8buEmEswATz/Ldjxu176BEvBiO?=
- =?us-ascii?Q?WHLUpUqSpvCDFz8AZuZRz4btR1wygsPb6I4K4CmJXNTzTh8efYPHo98N0nT9?=
- =?us-ascii?Q?N9eDco9pZ+qa33iTrpUBPZr9CmFxrunx4xaoQW++s1aolzxZ74uYm/6KepyU?=
- =?us-ascii?Q?T7mvYi0LMxp+bFIf7ZpW3d7UdcQthws7s9pQcfjF4L1HdLnNmjFNwayc5U8x?=
- =?us-ascii?Q?iI3sM3Y+RR99EfcqkgATgHXpBlElXvQcvDoksOk0Udw/ZQI8ZihD5lS+fdna?=
- =?us-ascii?Q?84Ov5Qh2ESPKQSUik+XksdqHBKydMR8IHfolgcdkQUEJNKDCnPpO3jSl3ynh?=
- =?us-ascii?Q?dGJY0nQcYZJ2Z2MS9xgqmnnnVUE4MqUfH1WhCM8I1ASAGRVbs+U2ODiBHuwS?=
- =?us-ascii?Q?IAAgHWyd1mLs0Iq1wAnqpIlpyEnEwBciRvTZkPq/49ER2V+nDMcp/HeIfFDe?=
- =?us-ascii?Q?OJtsfT88QEdMQdspv2OmecTmXBhWgJJJUCZY8jH6EnG5M5kMn4Tra7MTKFR8?=
- =?us-ascii?Q?FR/0NZi0BlywgUKIjIVIFlUoJehuRqN8BPvI38H+88SKNUF3RuxkrQQ/mtmx?=
- =?us-ascii?Q?F6ldQlC6/pcAw22nK0foKmcPckSOwD/PbKuyHF+6i+WG5STr1JujK0otlCz3?=
- =?us-ascii?Q?6zfiNIc1YUHsQrycy1YCe+l/4XB01xD4DJsuYutYe6rd6gJY4JwZYa0fGNx8?=
- =?us-ascii?Q?13QCQ3L8HB6ioRC0UXl1d/K6ZCe/oUUQSJa9SpgdoF/0ostNqJIGRhHjf+PE?=
- =?us-ascii?Q?ycKkpWlDn/6ks5pZvhzH0gKZfRE19bQnB9EKVwDtBMrXdGhmIeQqLFM72Av1?=
- =?us-ascii?Q?7clEhvKFt8xo9M0MJwRvhPdCQNcbhMONSxgYmjh6AtrULPR9o83biji5t5y9?=
- =?us-ascii?Q?RhkNhXL1GQ2ETt2iiC2aJXWBjt/gP3MASdYUuCzlK5wUrqdImJbaj+B67gbb?=
- =?us-ascii?Q?naWlJtKk5FwmAmCFR3efLbTRfjUdZMSRQqh3ljfYI3WgbsAys/DeYXZSQnwS?=
- =?us-ascii?Q?1OTrU3BeLBgMsBqRNWcVJC8EGT6IdvJlYBIV+gsT3gLZmlEmKxto0weGZfPM?=
- =?us-ascii?Q?2O8mxDkjcbt+rPonEI6uKHZoocYJChiwU1gLHf164msRNBYfgOVN1/kjrc9h?=
- =?us-ascii?Q?aJrIib9l0TDnpYzAbzO40obUFQLFijXPxk9uPoOMPDsvV9nV+PyImA8hdQxL?=
- =?us-ascii?Q?HDmvAGtY98QrVfgl5fx/w/OErhHVZgKVZisFWN1KFzlG2c9urs1BqaCuqRXM?=
- =?us-ascii?Q?mRRXzz5Crmtp7F9jc6au59kKuTp+gRM4EfQ+jZcP/cBP/flPgbhmAp9jvlpk?=
- =?us-ascii?Q?LkydFMKlwhARjzrKCmw5ZXCLy0dwqWrCOAwzXo/oe+qPk1/b0NM3dO7Ff70v?=
- =?us-ascii?Q?VU2OYwX01ZlfH+AK7l2JwxhiD4iQ?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-b83fc.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95b2df78-6087-4c64-d0b4-08df0da33495
-X-MS-Exchange-CrossTenant-AuthSource: OS7PR01MB13914.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 12:17:52.6956
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9749
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] drm/panel: ebbg-ft8719: Split initialization into
+ enable/disable fn
+To: Neil Armstrong <neil.armstrong@linaro.org>, Joel Selvaraj
+ <jo@jsfamily.in>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>,
+ Linus Walleij <linusw@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org
+References: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
+ <20260906-ebbg-ft8719-fixups-v1-3-4e846510cad1@ixit.cz>
+ <7d1d7726-aff1-40cf-a958-6e825a1b50eb@linaro.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <7d1d7726-aff1-40cf-a958-6e825a1b50eb@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Peter,
+On 08/09/2026 14:15, Neil Armstrong wrote:
+> On 9/6/26 15:19, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Efficiently this already happens with prepare/unprepare calls.
+>> Remove unnecessary login and just use enable/disable functions.
+> 
+> I would replace with:
+> 
+> Move the MIPI commands into enable/disable callbacks since they
+> are called between prepare/unprepare callbacks.
+> 
 
-gentle ping on v3 of this patch.
+I'll adjust.
 
---
-Kind regards,
-Eric
+> Or similar.
+> 
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 17 +++++++----------
+>>   1 file changed, 7 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/ 
+>> panel/panel-ebbg-ft8719.c
+>> index 14982263a94f1..9965f46f1a316 100644
+>> --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+>> +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+>> @@ -49,40 +49,42 @@ static void ebbg_ft8719_reset(struct ebbg_ft8719 *ctx)
+>>       gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>>       usleep_range(4000, 5000);
+>>       gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+>>       usleep_range(1000, 2000);
+>>       gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>>       usleep_range(15000, 16000);
+>>   }
+>> -static int ebbg_ft8719_on(struct ebbg_ft8719 *ctx)
+>> +static int ebbg_ft8719_enable(struct drm_panel *panel)
+>>   {
+>> +    struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+>>       struct mipi_dsi_device *dsi = ctx->dsi;
+>>       struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+>>       dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+>>       mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x00ff);
+>>       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 
+>> 0x24);
+>>       mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_POWER_SAVE, 0x00);
+>>       mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>>       mipi_dsi_msleep(&dsi_ctx, 90);
+>>       mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+>>       return dsi_ctx.accum_err;
+>>   }
+>> -static int ebbg_ft8719_off(struct ebbg_ft8719 *ctx)
+>> +static int ebbg_ft8719_disable(struct drm_panel *panel)
+>>   {
+>> +    struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+>>       struct mipi_dsi_device *dsi = ctx->dsi;
+>>       struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
+>> -    dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+>> +    ctx->dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+>>       mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+>>       mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
+>>       mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+>>       mipi_dsi_msleep(&dsi_ctx, 90);
+>>       return dsi_ctx.accum_err;
+> 
+> Before the ebbg_ft8719_off() return error was ignored, perhaps you still want to 
+> ignore the disable return error.
+
+Sure, make sense. Next revision will land in minutes!
+Thanks
+David
+
+> 
+> Neil
+> 
+>>   }
+>> @@ -93,30 +95,23 @@ static int ebbg_ft8719_prepare(struct drm_panel *panel)
+>>       int ret;
+>>       ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+>>       if (ret < 0)
+>>           return ret;
+>>       ebbg_ft8719_reset(ctx);
+>> -    ret = ebbg_ft8719_on(ctx);
+>> -    if (ret < 0) {
+>> -        gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+>> -        return ret;
+>> -    }
+>> -
+>>       return 0;
+>>   }
+>>   static int ebbg_ft8719_unprepare(struct drm_panel *panel)
+>>   {
+>>       struct ebbg_ft8719 *ctx = to_ebbg_ft8719(panel);
+>> -    ebbg_ft8719_off(ctx);
+>>       gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+>>       regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
+>>       return 0;
+>>   }
+>>   static const struct drm_display_mode ebbg_ft8719_mode = {
+>>       .clock = (1080 + 28 + 4 + 16) * (2246 + 120 + 4 + 12) * 60 / 1000,
+>> @@ -148,16 +143,18 @@ static int ebbg_ft8719_get_modes(struct drm_panel *panel,
+>>       connector->display_info.height_mm = mode->height_mm;
+>>       drm_mode_probed_add(connector, mode);
+>>       return 1;
+>>   }
+>>   static const struct drm_panel_funcs ebbg_ft8719_panel_funcs = {
+>>       .prepare = ebbg_ft8719_prepare,
+>> +    .enable = ebbg_ft8719_enable,
+>> +    .disable = ebbg_ft8719_disable,
+>>       .unprepare = ebbg_ft8719_unprepare,
+>>       .get_modes = ebbg_ft8719_get_modes,
+>>   };
+>>   static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
+>>   {
+>>       struct device *dev = &dsi->dev;
+>>       struct ebbg_ft8719 *ctx;
+>>
+> 
+
