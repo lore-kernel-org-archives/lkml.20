@@ -1,171 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 999B451474B;
-	Tue,  8 Sep 2026 09:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C60F4509EF1;
+	Tue,  8 Sep 2026 09:49:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860934; cv=none; b=cMcHBPnLpvEs2UT3h3pPrTNioykiZLBrvZT8ESwCENsjpRLmOhVqAMTr+JQHihvVbe/ppbNsGfOkEyhUSjGkCIsgzSVe53ciNclBvA3EpPphijHJ7w6gAB+5tS0fpWBCkjfAzjy3qvYcJ8GKTb06zGiHXodRhnuPlcyQQkypPFc=
+	t=1788860980; cv=none; b=iU5jUxLBCeeKSJLkFqemVdGxRDx5S/PY8bfH31aG4k1Bnhs9SujRpLcBM021EqsOvPBzQ1odVCZN8zuSJfjdtkEvvqUGM2UuCIExz8xsYPQq/P8AGQrovaMK5laczlvHz6mtyTgVfEwBUk31ErrzNKlcAyqNPxnj3hic9RVs330=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860934; c=relaxed/simple;
-	bh=FQ8ZMzTKofLU0qPLHmTL2tAZMMnwAl7z1LFZMDmKgp4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hZqlxrRTYfpxRq1kdwCrHcLLsXuDg6VewumGlzWfT6ktoNeTT8+XogKT5yhB+f/EYYODCe49yw3n2111WBSoLpk9xo0leX0XOu0fOjXVWhmDVpjQSTZp7VQvrbHf/sdKhrZFoFNqqS1m4NxMldpd6N8puLTLQ9tBsRQwJqhD/GM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MzW+jsbS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788860980; c=relaxed/simple;
+	bh=kJteEwoT3OdITFopCoesbDyojoKuGSBp7kslVKQdQY0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LrIf7Wc0ugBN9c9wixRsfRgS1Daci+yhm5C+ONyGVKSd94sI8ZVsOx9geuRMXOeKnH2242ZOmAYCdicYGU5TRU9sVRmO9scMZrOJwRI0jMNL00Xso9vsHSLHt66B5B13B+yrPQOU85+6SlxKFwXkdYS17sKvYKWxwzVBLbPRvIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bnEijS8U; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MzW+jsbS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 939921F00A3A;
-	Tue,  8 Sep 2026 09:48:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788860933;
-	bh=/XWRPqU55h6uhJI7ycca8LCEXhLR71tGbYlOGOC7L08=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MzW+jsbSwh51dH7rTd8ROmhvcm+PGF0VsWj/Gt+kyOaTZ77GvtJr9hbpybetxlrwD
-	 fy22I83nYoYEUSHKNEbhi3GrZLyDvKcZUVm2CCpd7Ty469YCx9aAQ5Lkt/uyIysauR
-	 tGMzqQ61FlasC1UqiFubHA/dwjpNuDY42bgRtbayj+D8liL37/O9+f/Qh4xR0ybcb3
-	 E8bpgDsCYwds3y55p8P/i68v39oEI+JNGvNVR+w2nluFmgEJDzrUjW4wJ/qSrzWoYk
-	 vIBAAwqMcNWzIA05tgxflgfG09M5l/jyElNn92X+8+iCCpwwCpO5q+kTP4kuLTFIfH
-	 KBMadJ9RDnZ3g==
-Date: Tue, 8 Sep 2026 11:48:49 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	=?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Raphael Gallais-Pou <rgallaispou@gmail.com>, Sandy Huang <hjc@rock-chips.com>, 
-	Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
-	Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>, 
-	Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>, 
-	kernel@collabora.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
-	linux-fbdev@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Sashiko <sashiko-bot@kernel.org>, Diederik de Haas <diederik@cknow-tech.com>, 
-	Maud Spierings <maud_spierings@hotmail.com>
-Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
-Message-ID: <ap_ZyC-XaHTUNyQ5@houat>
-References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bnEijS8U"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5AE741476;
+	Tue,  8 Sep 2026 02:49:33 -0700 (PDT)
+Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 685AE3F7B4;
+	Tue,  8 Sep 2026 02:49:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788860977; bh=kJteEwoT3OdITFopCoesbDyojoKuGSBp7kslVKQdQY0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bnEijS8UoORGgws4/gA0W4HiONlIvwJMlSXD8OSU/r3dg/eT6i8+aRl9HfVheUaUS
+	 jvbmdRo2tL2vQpBZlOOwEVT3bN917GE2o282Fo2hN0lkk+zG8H03BMgZ26A3d4piwM
+	 cNK8rOVVEt5zZV461cpirSw+FvdQcp6Aynp4+T4M=
+Message-ID: <7c8b3430-e233-486e-b4fd-3c1f5d05d97d@arm.com>
+Date: Tue, 8 Sep 2026 10:49:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="nzsbn5t5v2qw5zft"
-Content-Disposition: inline
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 2/7] firmware: arm_rmm: Check for RMI support at init
+To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-3-suzuki.poulose@arm.com>
+ <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
+Content-Language: en-US
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+On 08/09/2026 07:46, Gavin Shan wrote:
+> Hi Suzuki,
+> 
+> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+>> From: Steven Price <steven.price@arm.com>
+>>
+>> Query the RMI version number and check if it is a compatible version.
+>> The first two feature registers are read and exposed for future code to
+>> use.
+>>
+>> Signed-off-by: Steven Price <steven.price@arm.com>
+>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+
+...
+
+>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
+>> arm_rmm/rmi.c
+>> new file mode 100644
+>> index 0000000000000..008a783407b4e
+>> --- /dev/null
+>> +++ b/drivers/firmware/arm_rmm/rmi.c
+>> @@ -0,0 +1,101 @@
+>> +// SPDX-License-Identifier: GPL-2.0
+>> +/*
+>> + * Copyright (C) 2023-2026 ARM Ltd.
+>> + */
+>> +
+>> +#include <linux/cpufeature.h>
+>> +#include <linux/memblock.h>
+>> +#include <linux/arm-rmi-cmds.h>
+>> +#include <linux/slab.h>
+>> +
+>> +#include <asm/memory.h>
+>> +#include <asm/pgtable-hwdef.h>
+>> +
+>> +/* Currently only the first 2 registers are used by Linux */
+>> +#define RMI_FEAT_REG_COUNT    2
+>> +static __ro_after_init unsigned long 
+>> rmi_feat_reg_cache[RMI_FEAT_REG_COUNT];
+>> +
+> 
+> I would drop RMI_FEAT_REG_COUNT and use ARRAY_SIZE(rmi_feat_reg_cache) 
+> in the code.
+> Besides, __ro_after_init is usually put at the last the declaration.
+> 
+> static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] 
+> __ro_after_init;
+> 
+>> +unsigned long rmi_feat_reg(unsigned long id)
+>> +{
+>> +    if (WARN_ON(id >= RMI_FEAT_REG_COUNT))
+>> +        return 0;
+>> +
+>> +    return rmi_feat_reg_cache[id];
+>> +}
+>> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
+>> +
+> 
+> I would suggest to rename 'id' to 'index' since it represents the feature
+> register index instead of feature register ID.
+> 
+> unsigned long rmi_feat_reg(unsigned long index)
+> {
+>     :
+> }
+> EXPORT_SYMBOL_GPL(rmi_feat_reg);
+> 
 
 
---nzsbn5t5v2qw5zft
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
-MIME-Version: 1.0
+>> +/*
+>> + * Note arm64_init_rmi() must be called before kvm_init_rmi() 
+>> otherwise KVM
+>> + * will not support realm guests. subsys_initcall() is called before
+>> + * module_init() (used for KVM) so this is OK.
+>> + */
+>> +subsys_initcall(arm64_init_rmi);
+>> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+>> new file mode 100644
+>> index 0000000000000..2fb1f7f86d71e
 
-Hi,
+>> +static inline int rmi_features(unsigned long index, unsigned long *out)
+>> +{
+>> +    struct arm_smccc_res res;
+>> +
+>> +    arm_smccc_1_1_invoke(SMC_RMI_FEATURES, index, &res);
+>> +
+>> +    if (res.a0 == RMI_SUCCESS && out)
+>> +        *out = res.a1;
+>> +
+>> +    return res.a0;
+>> +}
+>> +
+> 
+> We needn't expose rmi_features() through include/linux/arm-rmi-cmds.h 
+> since it's
+> used for once in rmi.c::rmi_read_features(). I would suggest to drop it 
+> by combining
+> the code with that function.
 
-On Tue, Sep 01, 2026 at 09:50:24PM +0300, Cristian Ciocaltea wrote:
-> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
-> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
-> management for high TMDS clock ratio and scrambling.  Since SCDC state
-> is lost on sink disconnects, the bridge driver needs to trigger a CRTC
-> reset during connector detection.
->=20
-> To support this at the DRM infrastructure level, the series first
-> introduces the HDMI version enum, then prepares for changing the
-> signature of drmm_connector_hdmi_init(), i.e. dropping the vendor,
-> product, supported_formats and max_bpc arguments, which are being moved
-> into struct drm_connector_hdmi_funcs, by temporarily renaming the helper
-> to drmm_connector_hdmi_ini2().  This lets the new signature be
-> introduced under the original name while callers are converted
-> incrementally.  Note the transitional name matches the original's length
-> so continuation-line arguments stay aligned to the opening parenthesis,
-> keeping the diff to the identifier itself and avoiding re-alignment
-> churn.
->=20
-> Appending more HDMI-specific arguments to the init function would not
-> scale well, hence the hdmi_funcs struct is extended with new fields:
-> supported_hdmi_ver, supported_tmds_char_rate.  These are used to
-> infer and/or limit the maximum TMDS character rate permitted for the
-> connector.
->=20
-> Patches 6-11 build the connector and bridge scrambling infrastructure on
-> top: the connector scrambler callbacks/flags, the scdc-helper
-> additions (connector-prefixed debug macro and SCDC version helper), and
-> the HDMI scrambling management helpers including SCDC source-version
-> advertisement.
->=20
-> Patches 12-25 wires this up through the hdmi-state-helper and bridge
-> connector layers: source TMDS rate validation, hotplug SCDC state sync
-> and the scrambling requirement, new source-side scrambling bridge ops,
-> the switch to a cached-status, atomic-aware .detect_ctx() connector
-> helper, and finally hooking up the HDMI 2.0 scrambler callbacks.
->=20
-> The SCDC scrambling feature itself is implemented in the DW HDMI QP
-> bridge driver, alongside i2c error-message rate limiting,
-> .enable_hpd()/.disable_hpd() PHY ops and a dw_hdmi_qp_hpd_notify()
-> helper (patches 26-30).
->=20
-> Patches 31-41 cover the Rockchip platform driver and HPD handling: bug
-> fixes, minor cleanups, avoiding spurious HDP IRQ wakeups, masking the
-> RK3576 HPD IRQ in io_init, implementing the .{enable|disable}_hpd() PHY
-> ops, switching HPD reports to dw_hdmi_qp_hpd_notify() to restrict events
-> to the affected connector, dropping the now-unused .setup_hpd() PHY op.
->=20
-> Patches 42-48 convert VC4 HDMI to the common infrastructure as a proof
-> of reuse: adopting the shared TMDS char rate constants, switching to
-> drm_hdmi_mode_needs_scrambling() and force_ctx(), proper -EDEADLK
-> handling, and replacing the driver-local scrambling implementation with
-> the common SCDC scrambling helpers.
->=20
-> Patches 50-57 advertise supported version for all HDMI
-> connectors/bridges, except the MediaTek HDMI driver (for now), as it
-> requires non-trivial changes: there's a core library shared between two
-> drivers, one being HDMI 2.0 compliant.
->=20
-> Patches 58-67 add KUnit tests: HDMI caps-based init coverage and
-> source-side scrambler validation for the connector, conversion of
-> hdmi_state_helper to the new drmm_connector_hdmi_init() with
-> max_tmds_char_rate validation, a new 4K@60Hz 600MHz TMDS EDID,
-> source-side scrambling decision coverage, and conformity fixes for the
-> existing 1080p+4K YUV420 200MHz and 4K RGB/YUV 340MHz test EDID blobs.
->=20
-> Patches 68-71 remove the now unused drmm_connector_hdmi_ini2() helper
-> and redundant hdmi fields from connector structs: vendor, product,
-> supported_formats and max_bpc.
->=20
-> Eventually patches 72-74 consolidate SPD InfoFrame handling of
-> vendor/product.
->=20
-> This has been tested on the following boards:
->=20
-> * Radxa ROCK 5B (RK3588)
-> * Radxa ROCK 4D (RK3576)
-> * Raspberry Pi 5 Model B Rev 1.1 (BCM2712 D0)
+Thanks for the review, I will address them in the next version.
 
-This series is getting a bit insane. You have preliminary patches that
-have been reviewed/acked already, you should merge them, and possibly
-split the rest into preliminary series.
+Cheers
+Suzuki
 
-Maxime
 
---nzsbn5t5v2qw5zft
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCap/aAQAKCRAnX84Zoj2+
-dv9XAX9oDeI3wDy10tV+f8vak5FVVTZKMbvE8NuOWjzS5ke86rNCCg0fFOLb2Gkl
-/jYyaY0BgK6pl0RWaDlJFFeoumCaNTtVO599YwFFK/eGZbzy69V96EFdkh/2vLuY
-LCrbjebfDA==
-=+Pca
------END PGP SIGNATURE-----
-
---nzsbn5t5v2qw5zft--
