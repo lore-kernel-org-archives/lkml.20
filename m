@@ -1,99 +1,78 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4C352BE51
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:56:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B836478E5F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:57:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911784; cv=none; b=fIORoLUh8GCftyQ/HKwpikdzB4A+KL04H3yjFQpWD3nwtNxQgvN7d4VV6o3w0rRTjImS2RWjMXod4DZuGAI+Yeas8rqelCkaprVhIgVggfvnudcpvQn4FgtU56b9lKnp+WsPoqT1zPBFYWbx6Ic05wWu20pEBehzCqMF+Rc7Xvg=
+	t=1788911869; cv=none; b=iMejHa7EgzFB3goy3ISZ54kZFVO0WtlEZ2tG/XDQXHgRPY6AMRD28AhH2ZWiVD3S0LdabGeQixwZw/i7hfNCAvA34SyaLH2nML93LwJwYPJ+C/+6fQ5VBp+ydNcCX0rZ58QJlG8Uwju1R2gwpKYSK3OlZW0gp8WLHFNmRO6DDX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911784; c=relaxed/simple;
-	bh=w9r0DlDbTMSzEwcjDYEnooTEZQ9xTl6+RuzK6h+3+bY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gKjGqQ4y3ow77bx8aXA31/BM9iNCPvjRsy+B9UpLi23rfrgRD/izuo4KRvpR4E++It3qPARnIZSQd7Abkss12YTBWLzgGGUPoroNdVD5/qK6/6mOmU3nQrV26Yl+TuuAAaVvQQBG8zyp4Bzquo2ENT2mPy3oQsWAHXwn5dIzdek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lKpjGusL; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1788911869; c=relaxed/simple;
+	bh=VJ0MPbI5xfD3ZMlJEXV8n8SUCJXzZf+olgXKzL2RilU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Am229IyYzr5Kmzz8D7iu6f9AReDHJAE/5kXTCuuFSUXE176JN/lWiUQkgZ+MfnmdTcdLHqsIfTkWr7onKi9gOFeJu2v2d+ZXjOGMSYWglPXx2DRNL+DLUVARVKyOCuupZ6cyBIpvrBoZR3UV/vricGWLDwStbGqycQAC63TKtTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QEkwvInJ; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lKpjGusL"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso3934467a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:56:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QEkwvInJ"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8557c3f270eso3420404b3a.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788911779; x=1789516579; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9fZKGzY01y/E2faY+DMK8cuBaTBVURlmRm5LuUIRdnA=;
-        b=lKpjGusL/C02yA1yI6rQvA9GsQkxDgakWuC9CPCkC7ebrjtXLDPLgi2nnP4oVL/2IL
-         IJfMhxbqhuZH3FK33KvjuytQsG9Xb2yxRRDfFx0rKNvU+21A5epuHE5wXR8dAs1bQLhV
-         CdBUZ5uECRkkw7nAGGEOysrj+E7vgCDxF4mkJmKEupKQI7IWx3i6b+Q4gv5ncosgtg96
-         T4lyn20twXaaH80bE/octBMUXgTwZd6rqKGezrzriDscZ2ekLlH9QlI8myS1wgsgDoKW
-         P+DbgHNE+sGHRALJDsdu6Xypfy+EvoTNUhdGCHcdVXFC+Uw/9+KPqGrMg7WXRRqoJPIE
-         u7BQ==
+        d=gmail.com; s=20251104; t=1788911866; x=1789516666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WKYkqIAghiiLGuffdxjpe98PeRmDzJG3HnH417yBgeQ=;
+        b=QEkwvInJIugz31zT7RAvjA27oL5HJPs1ncmheie7xNa2T2GT9WxxpR5T9JQHW4eC1q
+         Wb3sobsxL2614npxZq2jrCm1wSwSCYyywA+75pqfUMAD5APyjyD8zi/TFjnhkAX9LQ/k
+         aMsbFwr3AtYjOeK5IGUiM95A+Z7ziz2CJZUr8QxNhrhmFnhPJQ7yRe4uQW/SQsO++BRn
+         we8AEjroVK3KyHxtQ8DYMZruuhxZYNf/wm3ZP64cxYVXDc+gFVxPH6HsB5THVtXdwknt
+         I63PCGDbbxakmfiXT6d9MseWyNF7riG4F0vBJdTCImywnFwwYpbOptchiwJ6KgxeNdLs
+         aTNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788911779; x=1789516579;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9fZKGzY01y/E2faY+DMK8cuBaTBVURlmRm5LuUIRdnA=;
-        b=pArlIlDojEeReRcMPksHdZ3zbydO3awVd8nyXZFKKmg3XFuEDfo9Agh8Z8eBoV09tI
-         xROTxFLj1s1FGRxYJ2Jqa1KkIWptNMJ0xNDiIiH4JJXEpXTuwdgmrE/8F6Y4BVWHaUzD
-         +GE8E/yj45htQNQBgXRq78k1pw5vyLmBMWmtNDgeAVXz8qBIyf6jaoTneVaX6vSC2+7e
-         Z8UsloY9CCtbr8q9ms6fnufnNZIdB/D15AxyYVPIZ0psA8XErLrwWX6fPioXHjxBNPo/
-         SNd2KpP2eWHC1Y0Vp4AKQZgOU9KGLY0kLgPl3VCZ8nYyvgPcUdusD+R7Uy5GlHkcfme1
-         tWuw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVNabvHlUnKBZB5wabljWyjRSvKgFQydl+UvFTa5LDy14dI78YIjozj0evK6aiwV0ikSqZtTmhwnfJnV4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpPWB9DFDLsDD5x9nNddBISweNhrBn4oeu3/bj30m9RaSmQUpL
-	NFClGBHF/YxpglkBH8bFZDB4x0ZTBqDyZScSjwjX7Fn3GLd1A4OPoebi
-X-Gm-Gg: AYBFou3A8V7eY5ot2A/X3f0gDdkkt0TNjeZcswKrUi+jPWf/V9zasdteAjIMH9s8anx
-	fZWkAgCvw+j7JubX8Y1pdB4kzlj2BakEScKx1JxsOLfgPV1dyzOiXbRwTKrUAs6981qadUWUt7R
-	JFx3kibXHMf9jW9IYVovQ2fvCsQ9x/lIu7KEfZ6LnRvO3Zncf233iIDT/nviJw2eswoobm5csX8
-	coVS8Oy3Mb2FFGsQTx5z4GqGtr92zxAI7ut4kdeZ7WkwtRVfFLShPyz8ygmBkECBWD6CzQPQIsF
-	307yi+MQZR4p9WmRsaEFe/zwuB9b7XJJxOfgvxj0WNixb6bzfmeAyPlkwA+PQIlI5LEZVCpqko1
-	fTeEIhsZ1Ppi7KuEowY2rGropA3XW9VlkawXGqion/sm7t2jkfMA8ttUZz3GyQVlO+VE7fV+upQ
-	C1VKW8mSQC1TG/NHtLhSumkUYhC6Tu3Q0w3/R+Cy7XituHbq1U6JjxdB4=
-X-Received: by 2002:a17:90b:1d44:b0:38f:cab0:9aa9 with SMTP id 98e67ed59e1d1-39b0803b0efmr37028692a91.13.1788911778699;
-        Tue, 08 Sep 2026 16:56:18 -0700 (PDT)
-Received: from localhost ([2a03:2880:9ff:72::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-334fbd5e6f6sm32118504eec.23.2026.09.08.16.56.17
+        d=1e100.net; s=20251104; t=1788911866; x=1789516666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WKYkqIAghiiLGuffdxjpe98PeRmDzJG3HnH417yBgeQ=;
+        b=lPAHeNuM+PTvGUwitiaX01qqA1pNf1i6ZhcG7YE85Fn1o9QuWQGHmG14jRKY1Ml6Xz
+         CB3Q0yOr7U5rU7YI2SImAP6Fex1OlrXPpwwur/lhkVLfNRFiEdDPzhjkfRPxDzOZmXYD
+         NrPmK6PKlD1RVK20OzBP4CHsecKSoMWzJG7lRehBD4OqzlIycXhF8QFR9A9V8RZQ3zJE
+         9FJBBpM8IvFtc/oK3xYxpxHr1jRT5w92XkvjRwlVxLSdrPW18AP2RIG7ngCfzRQaO2st
+         9WNFin+rv3q56QlWXL1CdNUF0gSq0ZPdEgXO/sXk6inMNNVAO5KL55YpZzU8k8L8FIf/
+         zFtQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9yRmj7sClzsoIerdFmJ7f9ZBeBnDr4oRNWz0i6N8yEeJDt7+NOWwCpTPxNSCeRDsr+MSTo49JQxJ4U7o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kWnnPLo/gxcXwHruAdeHpwOOkf1YK/esalQGcrZU2Y3lG72myD
+	HQy21UEVSOfDy3JJs4Eb83oBkFF4SmdRuaVv/NZHMiBbKJIuXcGB3bn2iMDX30Y=
+X-Gm-Gg: AYBFou0R29O898Yj/mcT13m/7z9/JMo2XHvLQZc36eCn4iTQOiUUJ31GFDzipEUcq1c
+	j2QuJElM/38MfZEzkRUta3WB/B3KYjMCykP3biS85lUR8+E9dfuuTAWIdGsaTnWlM5h2vyLtELF
+	WuoN02KEo0zaI4chpyK3nqows9E/0+hhjQ6knVG0Jb4RojOUh1+RLCTKwmaMCwrnMIBJVbxWaU7
+	aK85m2nHWz7reqXZdPT8Li4AlHmWdAt1zQbAJk5+S8w0+umb8O8NB5RvJ3If4Zw4tc/aO5+Q9jg
+	mfRKGS70vAs4ua/q5xtbWi3KekzHq4bowb3UTPwNehCVShQvttSvwNm6GipwhTlYMpsHpBM2NgO
+	BZunTzi1lwmcxGDtl3j5PWzhlDlmoO+8q/Xu7stiC892plw5e+78uBG4hyiGDwdwikI3q+mzz7E
+	PAurVwc0E+jRtCyPOpEnu5Xn8FiGHh5dp9EZRPOeP5k4n9WUbsvFzDcNxYeVKiVx9pR+njWZD3f
+	o4JpxnFz8fXcf7L
+X-Received: by 2002:a05:6a20:db90:b0:3d3:ad3c:49a9 with SMTP id adf61e73a8af0-3da3a1c8619mr52311925637.23.1788911866396;
+        Tue, 08 Sep 2026 16:57:46 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6467:d689:f6ea:9d29:b387:9ed5])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45e15604fsm5686176a12.0.2026.09.08.16.57.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 16:56:18 -0700 (PDT)
-From: Ziyang Men <ziyang.meme@gmail.com>
-To: Shuah Khan <shuah@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	David Vernet <void@manifault.com>,
-	Eduard Zingerman <eddyz87@gmail.com>
-Cc: Viktor Malik <vmalik@redhat.com>,
-	Andrea Righi <arighi@nvidia.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	JP Kobryn <inwardvessel@gmail.com>,
-	Mykola Lysenko <mykolal@meta.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Ziyang Men <ziyang.meme@gmail.com>,
-	kernel-team@meta.com,
-	linux-kselftest@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	sched-ext@lists.linux.dev,
-	linux-mm@kvack.org,
-	bpf@vger.kernel.org,
-	llvm@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/4] selftests/cgroup: add memcg_stat_cross_cpu correctness test for flush
-Date: Tue,  8 Sep 2026 16:55:50 -0700
-Message-ID: <20260908235552.2610256-3-ziyang.meme@gmail.com>
+        Tue, 08 Sep 2026 16:57:45 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com
+Subject: [PATCH net v2] net: phy: dp83867: restore LED configuration after a soft reset
+Date: Wed,  9 Sep 2026 08:57:40 +0900
+Message-ID: <20260908235740.120112-1-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908235552.2610256-1-ziyang.meme@gmail.com>
-References: <20260908235552.2610256-1-ziyang.meme@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,1211 +81,253 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add test_memcg_stat_cross_cpu, which verifies that flushing a memcg
-subtree produces the same statistics through the BPF memcg kfuncs and
-cgroupfs.
+The LED configuration lives in LEDCR1 (the per-LED function nibble) and
+LEDCR2 (per-LED driver enable/value and polarity). The driver programs it
+through the LED class callbacks -- dp83867_led_brightness_set(),
+dp83867_led_hw_control_set() and dp83867_led_polarity_set() -- either once
+from device tree at probe, or at runtime from sysfs and the netdev trigger.
 
-The existing cgroup_iter_memcg test only checks that selected values are
-non-zero.  That can pass even when aggregation is incomplete, and it does
-not exercise a hierarchy with charges spread over multiple CPUs.
+dp83867_phy_reset(), the .soft_reset callback, issues a global software
+reset (CTRL SW_RESET), which the datasheet defines as resetting all
+registers, including the extended registers, to their defaults.
+phy_init_hw() runs .soft_reset before .config_init on every attach and
+resume -- phy_attach_direct(), mdio_bus_phy_resume() and MAC drivers -- so
+the LED configuration is wiped from the first attach onward and never
+restored. A device-tree polarity is lost, a manually driven LED goes dark,
+and an LED offloaded to the netdev trigger whose link stays down after a
+resume keeps the reset-default function until the next link event.
 
-Build a multi-level cgroup tree, charge each leaf from several CPUs, flush
-the subtree once from a sleepable cgroup iterator, then compare every
-reported value with memory.stat.  Also check that the root value equals the
-sum of its leaves.
+Shadow what the LED callbacks program, as a value and a written-bits mask
+per register, and replay it from config_init(), which runs right after the
+soft reset. Only bits the driver actually set are restored.
 
-Probe all required kfuncs and sleepable iterator support before running.
-Bound CPU fanout and aggregate memory use so large systems skip cases that
-would exceed the limit instead of exhausting resources.
+The callbacks run under phydev->lock, but config_init() must not take it:
+the cable-test abort path in phy_state_machine() already holds phydev->lock
+when it reaches phy_init_hw(), so config_init() taking it would deadlock.
+Serialize the shadow and its replay with a dedicated lock instead.
 
-Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Ziyang Men <ziyang.meme@gmail.com>
+Fixes: 938f65adc420 ("net: phy: dp83867: Add led_brightness_set support")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Assisted-by: Claude:claude-fable-5
 ---
- tools/testing/selftests/cgroup/.gitignore     |   8 +
- tools/testing/selftests/cgroup/Makefile       |  46 ++
- tools/testing/selftests/cgroup/config         |   5 +
- .../selftests/cgroup/lib/cgroup_util.c        |  82 ++
- .../cgroup/lib/include/cgroup_util.h          |   3 +
- .../cgroup/memcg_stat_cross_cpu.bpf.c         |  95 +++
- .../selftests/cgroup/memcg_stat_cross_cpu.h   |  18 +
- .../cgroup/test_memcg_stat_cross_cpu.c        | 755 ++++++++++++++++++
- .../selftests/cgroup/test_memcontrol.c        |  29 +-
- 9 files changed, 1016 insertions(+), 25 deletions(-)
- create mode 100644 tools/testing/selftests/cgroup/memcg_stat_cross_cpu.bpf.c
- create mode 100644 tools/testing/selftests/cgroup/memcg_stat_cross_cpu.h
- create mode 100644 tools/testing/selftests/cgroup/test_memcg_stat_cross_cpu.c
+v1 restored only the polarity bit. Andrew Lunn pointed out that the soft
+reset drops the other LEDCR2 bits too, and the datasheet confirms it also
+clears the LEDCR1 function nibble, so v2 shadows and restores the full LED
+configuration.
 
-diff --git a/tools/testing/selftests/cgroup/.gitignore b/tools/testing/selftests/cgroup/.gitignore
-index 952e4448bf07..561a3e891b98 100644
---- a/tools/testing/selftests/cgroup/.gitignore
-+++ b/tools/testing/selftests/cgroup/.gitignore
-@@ -6,7 +6,15 @@ test_freezer
- test_hugetlb_memcg
- test_kill
- test_kmem
-+test_memcg_stat_cross_cpu
- test_memcontrol
- test_pids
- test_zswap
- wait_inotify
-+# Artifacts generated by lib.bpf.mk
-+/tools
-+/host-tools
-+*.bpf.o
-+*.bpf.d
-+*.linked*.o
-+*.skel.h
-diff --git a/tools/testing/selftests/cgroup/Makefile b/tools/testing/selftests/cgroup/Makefile
-index e01584c2189a..cb999bc2c875 100644
---- a/tools/testing/selftests/cgroup/Makefile
-+++ b/tools/testing/selftests/cgroup/Makefile
-@@ -20,9 +20,46 @@ TEST_GEN_PROGS += test_zswap
+v2:
+  - Restore LEDCR1 (function) and the LEDCR2 driver-enable/value bits as
+    well as the polarity, via a value-plus-mask shadow updated in the LED
+    callbacks and replayed in config_init().
+  - Serialize the shadow with a dedicated lock; config_init() cannot take
+    phydev->lock because the cable-test abort path already holds it across
+    phy_init_hw().
+  - A failed LED restore now warns instead of failing phy_init_hw().
+
+Compile-tested with W=1 only; I have no affected hardware.
+
+v1: https://lore.kernel.org/netdev/20260908114901.74637-1-donggeunyoo.kernel@gmail.com/
+---
+ drivers/net/phy/dp83867.c | 111 +++++++++++++++++++++++++++++++++-----
+ 1 file changed, 98 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+index 88255e92b4cd..eeb4cd648f74 100644
+--- a/drivers/net/phy/dp83867.c
++++ b/drivers/net/phy/dp83867.c
+@@ -8,6 +8,7 @@
+ #include <linux/kernel.h>
+ #include <linux/mii.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/of.h>
+ #include <linux/phy.h>
+ #include <linux/delay.h>
+@@ -196,6 +197,16 @@ struct dp83867_private {
+ 	bool set_clk_output;
+ 	u32 clk_output_sel;
+ 	bool sgmii_ref_clk_en;
++
++	/* Shadow of the LED registers, replayed after a soft reset. led_lock
++	 * serializes the shadow and its replay against the LED callbacks,
++	 * because dp83867_config_init() does the replay off phydev->lock.
++	 */
++	struct mutex led_lock;
++	u16 ledcr1;
++	u16 ledcr1_mask;
++	u16 ledcr2;
++	u16 ledcr2_mask;
+ };
  
- LOCAL_HDRS += $(selfdir)/clone3/clone3_selftests.h $(selfdir)/pidfd/pidfd.h
+ static int dp83867_ack_interrupt(struct phy_device *phydev)
+@@ -722,6 +733,7 @@ static int dp83867_resume(struct phy_device *phydev)
+ static int dp83867_probe(struct phy_device *phydev)
+ {
+ 	struct dp83867_private *dp83867;
++	int ret;
  
-+# Resolve Clang early so the optional BPF test can be selected.
-+ifneq ($(filter %/,$(LLVM)),)
-+CLANG ?= $(LLVM)clang
-+else
-+CLANG ?= clang$(filter -%,$(LLVM))
-+endif
-+READELF ?= $(CROSS_COMPILE)readelf
-+VMLINUX_BTF_PATHS ?= $(if $(O),$(O)/vmlinux)				\
-+		     $(if $(KBUILD_OUTPUT),$(KBUILD_OUTPUT)/vmlinux)	\
-+		     ../../../../vmlinux				\
-+		     /sys/kernel/btf/vmlinux				\
-+		     /boot/vmlinux-$(shell uname -r)
-+# Ignore ELF images without .BTF; raw sysfs BTF needs no check.
-+VMLINUX_BTF ?= $(abspath $(firstword $(foreach v,$(wildcard $(VMLINUX_BTF_PATHS)),\
-+		 $(if $(filter /sys/kernel/btf/%,$(v)),$(v),\
-+		   $(if $(shell $(READELF) -S "$(v)" 2>/dev/null | grep -F .BTF),$(v))))))
-+# Accept either a supplied header or usable BTF.
-+HAVE_BPF := $(and $(or $(VMLINUX_H),$(VMLINUX_BTF)),			\
-+		  $(shell command -v $(CLANG) 2>/dev/null))
-+
-+ifneq ($(HAVE_BPF),)
-+TEST_GEN_PROGS += test_memcg_stat_cross_cpu
-+BPF_SRCS := memcg_stat_cross_cpu.bpf.c
-+# Replace lib.mk's link rule below.
-+OVERRIDE_TARGETS := 1
-+endif
-+
- include ../lib.mk
- include lib/libcgroup.mk
+ 	dp83867 = devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
+ 			       GFP_KERNEL);
+@@ -730,9 +742,60 @@ static int dp83867_probe(struct phy_device *phydev)
  
-+ifneq ($(HAVE_BPF),)
-+include ../lib.bpf.mk
+ 	phydev->priv = dp83867;
+ 
++	ret = devm_mutex_init(&phydev->mdio.dev, &dp83867->led_lock);
++	if (ret)
++		return ret;
 +
-+# Restore lib.mk's rule for non-BPF tests.
-+LOCAL_HDRS += $(selfdir)/kselftest_harness.h $(selfdir)/kselftest.h
-+$(OUTPUT)/%: %.c $(LOCAL_HDRS)
-+	$(call msg,CC,,$@)
-+	$(Q)$(LINK.c) $(filter-out $(LOCAL_HDRS),$^) $(LDLIBS) -o $@
-+endif
-+
- $(OUTPUT)/test_core: $(LIBCGROUP_O)
- $(OUTPUT)/test_cpu: $(LIBCGROUP_O)
- $(OUTPUT)/test_cpuset: $(LIBCGROUP_O)
-@@ -33,3 +70,12 @@ $(OUTPUT)/test_kmem: $(LIBCGROUP_O)
- $(OUTPUT)/test_memcontrol: $(LIBCGROUP_O)
- $(OUTPUT)/test_pids: $(LIBCGROUP_O)
- $(OUTPUT)/test_zswap: $(LIBCGROUP_O)
-+
-+ifneq ($(HAVE_BPF),)
-+# Keep in-tree UAPI headers private to the BPF test.
-+$(OUTPUT)/test_memcg_stat_cross_cpu: private CFLAGS += -I$(top_srcdir)/tools/include/uapi
-+# Link cgroup_util and the skeleton against the in-tree libbpf.
-+$(OUTPUT)/test_memcg_stat_cross_cpu: test_memcg_stat_cross_cpu.c \
-+					$(BPF_SKELS) $(LIBCGROUP_O) $(BPFOBJ)
-+	$(call bpf_link,$@,$< $(LIBCGROUP_O))
-+endif
-diff --git a/tools/testing/selftests/cgroup/config b/tools/testing/selftests/cgroup/config
-index 39f979690dd3..1f585ed9a596 100644
---- a/tools/testing/selftests/cgroup/config
-+++ b/tools/testing/selftests/cgroup/config
-@@ -4,3 +4,8 @@ CONFIG_CGROUP_FREEZER=y
- CONFIG_CGROUP_SCHED=y
- CONFIG_MEMCG=y
- CONFIG_PAGE_COUNTER=y
-+CONFIG_BPF=y
-+CONFIG_BPF_SYSCALL=y
-+CONFIG_BPF_EVENTS=y
-+CONFIG_DEBUG_INFO_BTF=y
-+CONFIG_DEBUG_INFO_DWARF4=y
-diff --git a/tools/testing/selftests/cgroup/lib/cgroup_util.c b/tools/testing/selftests/cgroup/lib/cgroup_util.c
-index 2596c12cd864..ca12d794c092 100644
---- a/tools/testing/selftests/cgroup/lib/cgroup_util.c
-+++ b/tools/testing/selftests/cgroup/lib/cgroup_util.c
-@@ -54,6 +54,88 @@ ssize_t write_text(const char *path, char *buf, ssize_t len)
- 	return len < 0 ? -errno : len;
+ 	return dp83867_of_init(phydev);
  }
  
-+/**
-+ * cg_get_id - return a cgroup's kernfs ID
-+ * @cgroup: absolute cgroup path
-+ *
-+ * This is cgrp->kn->id, not st_ino.
-+ *
-+ * Return: ID or 0 on failure.
++/* Update an LED register and mirror the change into the shadow, so that
++ * dp83867_config_init() can replay it after a soft reset. Caller must hold
++ * dp83867->led_lock.
 + */
-+unsigned long long cg_get_id(const char *cgroup)
++static int __dp83867_led_modify(struct phy_device *phydev, u32 reg,
++				u16 mask, u16 val)
 +{
-+	union {
-+		unsigned long long id;
-+		unsigned char raw[8];
-+	} handle;
-+	struct file_handle *fhp, *fhp2;
-+	int mount_id, fhsize, err;
-+	unsigned long long ret = 0;
++	struct dp83867_private *dp83867 = phydev->priv;
++	int ret;
 +
-+	fhsize = sizeof(*fhp);
-+	fhp = calloc(1, fhsize);
-+	if (!fhp)
-+		return 0;
++	ret = phy_modify(phydev, reg, mask, val);
++	if (ret)
++		return ret;
 +
-+	/* The failed probe reports the cgroupfs handle size. */
-+	err = name_to_handle_at(AT_FDCWD, cgroup, fhp, &mount_id, 0);
-+	if (err >= 0 || fhp->handle_bytes != 8)
-+		goto out;
++	if (reg == DP83867_LEDCR1) {
++		dp83867->ledcr1 = (dp83867->ledcr1 & ~mask) | (val & mask);
++		dp83867->ledcr1_mask |= mask;
++	} else if (reg == DP83867_LEDCR2) {
++		dp83867->ledcr2 = (dp83867->ledcr2 & ~mask) | (val & mask);
++		dp83867->ledcr2_mask |= mask;
++	} else {
++		WARN_ON_ONCE(1);
++	}
 +
-+	fhsize = sizeof(*fhp) + fhp->handle_bytes;
-+	fhp2 = realloc(fhp, fhsize);
-+	if (!fhp2)
-+		goto out;
-+	fhp = fhp2;
++	return 0;
++}
 +
-+	if (name_to_handle_at(AT_FDCWD, cgroup, fhp, &mount_id, 0) < 0)
-+		goto out;
++/* Restore the LED registers the driver has programmed, cleared by the soft
++ * reset in dp83867_phy_reset().
++ */
++static int dp83867_led_restore(struct phy_device *phydev)
++{
++	struct dp83867_private *dp83867 = phydev->priv;
++	int ret = 0;
 +
-+	memcpy(handle.raw, fhp->f_handle, 8);
-+	ret = handle.id;
-+out:
-+	free(fhp);
++	mutex_lock(&dp83867->led_lock);
++	if (dp83867->ledcr1_mask)
++		ret = phy_modify(phydev, DP83867_LEDCR1,
++				 dp83867->ledcr1_mask, dp83867->ledcr1);
++	if (!ret && dp83867->ledcr2_mask)
++		ret = phy_modify(phydev, DP83867_LEDCR2,
++				 dp83867->ledcr2_mask, dp83867->ledcr2);
++	mutex_unlock(&dp83867->led_lock);
++
 +	return ret;
 +}
 +
-+/**
-+ * cg_touch_pages - fault every page in a region
-+ * @buf: start of the region
-+ * @size: length of the region in bytes
-+ *
-+ * Pages are charged to the caller's cgroup on its current CPU.
-+ */
-+void cg_touch_pages(char *buf, size_t size)
-+{
-+	long page_size = sysconf(_SC_PAGESIZE);
-+	char *ptr;
-+
-+	if (page_size <= 0)
-+		page_size = BUF_SIZE;
-+
-+	for (ptr = buf; ptr < buf + size; ptr += page_size)
-+		*ptr = 0;
-+}
-+
-+/**
-+ * cg_alloc_anon - allocate and fault anonymous memory
-+ * @size: bytes to allocate
-+ *
-+ * Return: Region to free(), or NULL.
-+ */
-+char *cg_alloc_anon(size_t size)
-+{
-+	char *buf = malloc(size);
-+
-+	if (!buf) {
-+		fprintf(stderr, "malloc() failed\n");
-+		return NULL;
-+	}
-+
-+	cg_touch_pages(buf, size);
-+	return buf;
-+}
-+
- char *cg_name(const char *root, const char *name)
+ static int dp83867_config_init(struct phy_device *phydev)
  {
- 	size_t len = strlen(root) + strlen(name) + 2;
-diff --git a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-index 8ebb2b4d4ec0..640778018780 100644
---- a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-+++ b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
-@@ -54,6 +54,9 @@ extern ssize_t write_text(const char *path, char *buf, ssize_t len);
- extern int cg_find_controller_root(char *root, size_t len, const char *controller);
- extern int cg_find_unified_root(char *root, size_t len, bool *nsdelegate);
- extern char *cg_name(const char *root, const char *name);
-+extern unsigned long long cg_get_id(const char *cgroup);
-+extern void cg_touch_pages(char *buf, size_t size);
-+extern char *cg_alloc_anon(size_t size);
- extern char *cg_name_indexed(const char *root, const char *name, int index);
- extern char *cg_control(const char *cgroup, const char *control);
- extern int cg_create(const char *cgroup);
-diff --git a/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.bpf.c b/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.bpf.c
-new file mode 100644
-index 000000000000..c3c69ecd888f
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.bpf.c
-@@ -0,0 +1,95 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Meta Platforms, Inc. and affiliates. */
-+#define BPF_NO_KFUNC_PROTOTYPES
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_core_read.h>
-+#include "memcg_stat_cross_cpu.h"
+ 	struct dp83867_private *dp83867 = phydev->priv;
+@@ -896,6 +959,10 @@ static int dp83867_config_init(struct phy_device *phydev)
+ 			       mask, val);
+ 	}
+ 
++	ret = dp83867_led_restore(phydev);
++	if (ret)
++		phydev_warn(phydev, "failed to restore LED config: %d\n", ret);
++
+ 	return 0;
+ }
+ 
+@@ -1004,7 +1071,9 @@ static int
+ dp83867_led_brightness_set(struct phy_device *phydev,
+ 			   u8 index, enum led_brightness brightness)
+ {
+-	u32 val;
++	struct dp83867_private *dp83867 = phydev->priv;
++	u16 val;
++	int ret;
+ 
+ 	if (index >= DP83867_LED_COUNT)
+ 		return -EINVAL;
+@@ -1015,10 +1084,13 @@ dp83867_led_brightness_set(struct phy_device *phydev,
+ 	if (brightness)
+ 		val |= DP83867_LED_DRV_VAL(index);
+ 
+-	return phy_modify(phydev, DP83867_LEDCR2,
+-			  DP83867_LED_DRV_VAL(index) |
+-			  DP83867_LED_DRV_EN(index),
+-			  val);
++	mutex_lock(&dp83867->led_lock);
++	ret = __dp83867_led_modify(phydev, DP83867_LEDCR2,
++				   DP83867_LED_DRV_VAL(index) |
++				   DP83867_LED_DRV_EN(index), val);
++	mutex_unlock(&dp83867->led_lock);
 +
-+char _license[] SEC("license") = "GPL";
-+
-+/* Declare kfuncs that may be absent from the build-time vmlinux.h. */
-+struct mem_cgroup *bpf_get_mem_cgroup(struct cgroup_subsys_state *css) __ksym;
-+void bpf_put_mem_cgroup(struct mem_cgroup *memcg) __ksym;
-+void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg) __ksym;
-+unsigned long bpf_mem_cgroup_page_state(struct mem_cgroup *memcg, int idx) __ksym;
-+unsigned long bpf_mem_cgroup_vm_events(struct mem_cgroup *memcg,
-+				       enum vm_event_item event) __ksym;
-+
-+/* Userspace resizes this cgroup-ID map before load. */
-+struct {
-+	__uint(type, BPF_MAP_TYPE_HASH);
-+	__uint(max_entries, 1);
-+	__type(key, __u64);
-+	__type(value, struct memcg_stat_snapshot);
-+} results SEC(".maps");
-+
-+/* Isolate capability failures from verifier failures in the test program. */
-+SEC("iter.s/cgroup")
-+int memcg_kfuncs_probe(struct bpf_iter__cgroup *ctx)
-+{
-+	struct cgroup *cgrp = ctx->cgroup;
-+	struct mem_cgroup *memcg;
-+
-+	if (!cgrp)
-+		return 0;
-+
-+	memcg = bpf_get_mem_cgroup(&cgrp->self);
-+	if (!memcg)
-+		return 0;
-+
-+	bpf_mem_cgroup_flush_stats(memcg);
-+	bpf_mem_cgroup_page_state(memcg, 0);
-+	bpf_mem_cgroup_vm_events(memcg, 0);
-+	bpf_put_mem_cgroup(memcg);
-+	return 0;
-+}
-+
-+/* Sleepable iterator: flush the root once, then snapshot each cgroup. */
-+SEC("iter.s/cgroup")
-+int cgroup_memcg_stat_cross_cpu(struct bpf_iter__cgroup *ctx)
-+{
-+	struct cgroup *cgrp = ctx->cgroup;
-+	struct memcg_stat_snapshot snap = {};
-+	struct cgroup_subsys_state *css;
-+	struct mem_cgroup *memcg;
-+	int idx_anon, idx_file, idx_shmem, idx_fmapped, idx_pgfault;
-+	__u64 cg_id;
-+
-+	/* Ignore the final post-processing call. */
-+	if (!cgrp)
-+		return 0;
-+
-+	css = &cgrp->self;
-+	memcg = bpf_get_mem_cgroup(css);
-+	if (!memcg)
-+		return 0;
-+
-+	/* DESCENDANTS_PRE visits the subtree root first. */
-+	if (ctx->meta->seq_num == 0)
-+		bpf_mem_cgroup_flush_stats(memcg);
-+
-+	cg_id = BPF_CORE_READ(cgrp, kn, id);
-+	snap.cgroup_id = cg_id;
-+
-+	idx_anon = bpf_core_enum_value(enum node_stat_item, NR_ANON_MAPPED);
-+	idx_file = bpf_core_enum_value(enum node_stat_item, NR_FILE_PAGES);
-+	idx_shmem = bpf_core_enum_value(enum node_stat_item, NR_SHMEM);
-+	idx_fmapped = bpf_core_enum_value(enum node_stat_item, NR_FILE_MAPPED);
-+	idx_pgfault = bpf_core_enum_value(enum vm_event_item, PGFAULT);
-+
-+	snap.anon = bpf_mem_cgroup_page_state(memcg, idx_anon);
-+	snap.file = bpf_mem_cgroup_page_state(memcg, idx_file);
-+	snap.shmem = bpf_mem_cgroup_page_state(memcg, idx_shmem);
-+	snap.file_mapped = bpf_mem_cgroup_page_state(memcg, idx_fmapped);
-+	snap.pgfault = bpf_mem_cgroup_vm_events(memcg, idx_pgfault);
-+
-+	/* Read page counters from the trusted pointer. */
-+	snap.usage_pages = BPF_CORE_READ(memcg, memory.usage.counter);
-+	snap.max_pages = BPF_CORE_READ(memcg, memory.max);
-+
-+	bpf_map_update_elem(&results, &cg_id, &snap, BPF_ANY);
-+
-+	bpf_put_mem_cgroup(memcg);
-+	return 0;
-+}
-diff --git a/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.h b/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.h
-new file mode 100644
-index 000000000000..f75e341f8cb8
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/memcg_stat_cross_cpu.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (c) 2026 Meta Platforms, Inc. and affiliates. */
-+#ifndef __MEMCG_STAT_CROSS_CPU_H
-+#define __MEMCG_STAT_CROSS_CPU_H
-+
-+/* Fixed-width snapshot shared by BPF and userspace. */
-+struct memcg_stat_snapshot {
-+	__u64 cgroup_id;
-+	__u64 anon;		/* NR_ANON_MAPPED, bytes */
-+	__u64 file;		/* NR_FILE_PAGES, bytes */
-+	__u64 shmem;		/* NR_SHMEM, bytes */
-+	__u64 file_mapped;	/* NR_FILE_MAPPED, bytes */
-+	__u64 pgfault;		/* PGFAULT, count */
-+	__u64 usage_pages;	/* page_counter memory.usage, in PAGES */
-+	__u64 max_pages;	/* page_counter memory.max, in PAGES */
-+};
-+
-+#endif /* __MEMCG_STAT_CROSS_CPU_H */
-diff --git a/tools/testing/selftests/cgroup/test_memcg_stat_cross_cpu.c b/tools/testing/selftests/cgroup/test_memcg_stat_cross_cpu.c
-new file mode 100644
-index 000000000000..96e4a4a958ed
---- /dev/null
-+++ b/tools/testing/selftests/cgroup/test_memcg_stat_cross_cpu.c
-@@ -0,0 +1,755 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Meta Platforms, Inc. and affiliates. */
-+
-+/*
-+ * Compare memcg BPF kfuncs with memory.stat over a charged subtree. Chargers
-+ * spread anonymous memory across CPUs and hold it. Read BPF first so its flush
-+ * is not consumed by memory.stat, then require two file samples to bracket each
-+ * BPF value. Each leaf must cover its charge; root anon must equal the leaf sum.
-+ */
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <linux/limits.h>
-+#include <fcntl.h>
-+#include <limits.h>
-+#include <stdint.h>
-+#include <sched.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/wait.h>
-+
-+#include <linux/bpf.h>
-+#include <bpf/bpf.h>
-+#include <bpf/libbpf.h>
-+#include <bpf/btf.h>
-+
-+#include "kselftest.h"
-+#include "cgroup_util.h"
-+#include "memcg_stat_cross_cpu.h"
-+#include "memcg_stat_cross_cpu.skel.h"
-+
-+#define SUBTREE_NAME		"mcg_xcpu"
-+
-+#define MEMCG_CHARGE_BATCH	64
-+
-+#define FLUSH_MARGIN		2
-+
-+/* Bound total charge on large systems. */
-+#define MAX_TOTAL_CHARGE	(256UL << 20)
-+
-+/* Bound the CPUs used by each leaf. */
-+#define MAX_CPUS_PER_LEAF	16
-+
-+#define CHARGE_WAIT_RETRIES	500
-+
-+static char root[PATH_MAX];
-+static char *subtree_root;
-+static long page_size;
-+
-+/* cgroupfs values in bytes. */
-+struct file_snap {
-+	long anon, file, shmem, file_mapped, pgfault;
-+	long current;
-+};
-+
-+struct cg_node {
-+	char path[PATH_MAX];
-+	unsigned long long id;
-+	bool is_leaf;			/* holds a charge of its own */
-+	long previous_current;		/* previous memory.current poll */
-+	struct memcg_stat_snapshot bpf;	/* read through the kfuncs */
-+	struct file_snap file[2];	/* post-BPF cgroupfs samples */
-+};
-+
-+static struct cg_node *nodes;	/* DFS order: a parent precedes its children */
-+static int n_nodes;
-+static int n_leaves;
-+
-+/* ---- CPUs this test may run on ----------------------------------------- */
-+
-+static cpu_set_t allowed_cpus;
-+static int n_cpu;
-+static long n_online_cpu;
-+
-+static int nth_cpu(int n)
-+{
-+	int i, seen = 0;
-+
-+	for (i = 0; i < CPU_SETSIZE; i++) {
-+		if (!CPU_ISSET(i, &allowed_cpus))
-+			continue;
-+		if (seen++ == n % n_cpu)
-+			return i;
-+	}
-+	return -1;
-+}
-+
-+static int pin_cpu(int cpu)
-+{
-+	cpu_set_t set;
-+
-+	if (cpu < 0)
-+		return -1;
-+
-+	CPU_ZERO(&set);
-+	CPU_SET(cpu, &set);
-+	return sched_setaffinity(0, sizeof(set), &set);
-+}
-+
-+/* ---- tree construction -------------------------------------------------- */
-+
-+static int add_node(const char *path, bool is_leaf)
-+{
-+	struct cg_node *n = &nodes[n_nodes];
-+
-+	if (cg_create(path))
-+		return -1;
-+
-+	strncpy(n->path, path, sizeof(n->path) - 1);
-+	n->id = cg_get_id(path);
-+	n->is_leaf = is_leaf;
-+	n->previous_current = -1;
-+	if (is_leaf)
-+		n_leaves++;
-+	n_nodes++;
-+	return 0;
-+}
-+
-+/* Build @levels below @path; only leaves are charged. */
-+static int build_children(const char *path, int fanout, int levels)
-+{
-+	char child[PATH_MAX];
-+	int i;
-+
-+	if (levels == 0)
-+		return 0;
-+
-+	/* Give child cgroups a memcg. */
-+	if (cg_write(path, "cgroup.subtree_control", "+memory"))
-+		return -1;
-+
-+	for (i = 0; i < fanout; i++) {
-+		snprintf(child, sizeof(child), "%s/c%d", path, i);
-+		if (add_node(child, levels == 1))
-+			return -1;
-+		if (build_children(child, fanout, levels - 1))
-+			return -1;
-+	}
-+	return 0;
-+}
-+
-+static size_t tree_capacity(int fanout, int depth)
-+{
-+	size_t total = 1, level = 1;
-+	int d;
-+
-+	for (d = 0; d < depth; d++) {
-+		level *= fanout;
-+		total += level;
-+	}
-+	return total;
-+}
-+
-+static int build_tree(int fanout, int depth, int *root_fd)
-+{
-+	n_nodes = 0;
-+	n_leaves = 0;
-+	nodes = calloc(tree_capacity(fanout, depth), sizeof(*nodes));
-+	if (!nodes)
-+		return -1;
-+
-+	if (add_node(subtree_root, depth == 0))
-+		return -1;
-+
-+	*root_fd = open(subtree_root, O_RDONLY);
-+	if (*root_fd < 0)
-+		return -1;
-+
-+	return build_children(subtree_root, fanout, depth);
-+}
-+
-+/* Destroy children before parents, then reap chargers. */
-+static void destroy_tree(void)
-+{
-+	int i;
-+
-+	if (!nodes)
-+		return;
-+
-+	for (i = n_nodes - 1; i >= 0; i--)
-+		cg_destroy(nodes[i].path);
-+	free(nodes);
-+	nodes = NULL;
-+
-+	while (waitpid(-1, NULL, 0) > 0)
-+		;
-+}
-+
-+/* ---- cross-CPU charge (one child per leaf) ------------------------------ */
-+
-+struct charge_args {
-+	size_t bytes;	/* anon this leaf holds */
-+	int base;	/* index of the first CPU to fault on */
-+	int k;		/* CPUs to spread the charge over */
-+};
-+
-+static int charge_leaf(const char *cgroup, void *arg)
-+{
-+	const struct charge_args *ca = arg;
-+	int ppid = getppid();
-+	size_t per, off;
-+	char *buf;
-+	int j;
-+
-+	buf = malloc(ca->bytes);
-+	if (!buf) {
-+		fprintf(stderr, "malloc() failed\n");
-+		return -1;
-+	}
-+
-+	/* Keep each CPU's slice page-aligned. */
-+	per = ca->bytes / ca->k / page_size * page_size;
-+
-+	for (j = 0; j < ca->k; j++) {
-+		off = (size_t)j * per;
-+		if (pin_cpu(nth_cpu(ca->base + j))) {
-+			free(buf);
-+			return -1;
-+		}
-+		cg_touch_pages(buf + off,
-+			       j == ca->k - 1 ? ca->bytes - off : per);
-+	}
-+
-+	while (getppid() == ppid)
-+		sleep(1);
-+
-+	free(buf);
-+	return 0;
-+}
-+
-+static int leaf_charge(size_t want, int k, size_t *bytes)
-+{
-+	size_t min_pages, pages, want_pages;
-+
-+	if ((size_t)n_online_cpu > SIZE_MAX / FLUSH_MARGIN /
-+					 MEMCG_CHARGE_BATCH)
-+		return -EOVERFLOW;
-+
-+	/* Force more than one pending batch per CPU across the subtree. */
-+	min_pages = (size_t)FLUSH_MARGIN * MEMCG_CHARGE_BATCH * n_online_cpu;
-+	pages = min_pages / n_leaves + !!(min_pages % n_leaves);
-+	want_pages = want / page_size + !!(want % page_size);
-+	if (pages < want_pages)
-+		pages = want_pages;
-+	if (pages < (size_t)k)
-+		pages = k;
-+
-+	if (pages > MAX_TOTAL_CHARGE / (size_t)n_leaves / page_size)
-+		return -E2BIG;
-+
-+	*bytes = pages * page_size;
-+	return 0;
-+}
-+
-+static int start_chargers(int k, size_t bytes)
-+{
-+	struct charge_args ca = { .bytes = bytes, .k = k };
-+	long prev, cur;
-+	bool ready;
-+	int i, retries;
-+
-+	for (i = 0; i < n_nodes; i++) {
-+		if (!nodes[i].is_leaf)
-+			continue;
-+		if (cg_run_nowait(nodes[i].path, charge_leaf, &ca) < 0) {
-+			ksft_print_msg("cannot start a charger on %s\n",
-+				       nodes[i].path);
-+			return -1;
-+		}
-+		ca.base += k;
-+	}
-+
-+	/* Wait until every leaf is fully charged and stable. */
-+	for (retries = CHARGE_WAIT_RETRIES; retries; retries--) {
-+		ready = true;
-+		for (i = 0; i < n_nodes; i++) {
-+			if (!nodes[i].is_leaf)
-+				continue;
-+
-+			cur = cg_read_long(nodes[i].path, "memory.current");
-+			if (cur < 0) {
-+				ksft_print_msg("cannot read %s/memory.current: %s\n",
-+					       nodes[i].path, strerror(errno));
-+				return -1;
-+			}
-+
-+			prev = nodes[i].previous_current;
-+			nodes[i].previous_current = cur;
-+			if (cur < (long)bytes || cur != prev)
-+				ready = false;
-+		}
-+		if (ready)
-+			return 0;
-+		usleep(DEFAULT_WAIT_INTERVAL_US / 10);
-+	}
-+
-+	for (i = 0; i < n_nodes; i++) {
-+		if (nodes[i].is_leaf && nodes[i].previous_current < (long)bytes) {
-+			ksft_print_msg("%s reached only %ld of %zu charged bytes\n",
-+				       nodes[i].path, nodes[i].previous_current,
-+				       bytes);
-+			return -1;
-+		}
-+	}
-+	ksft_print_msg("memory.current did not settle before the timeout\n");
-+	return -1;
-+}
-+
-+/* ---- the two readers ---------------------------------------------------- */
-+
-+/* Flush the subtree and collect each cgroup's kfunc values. */
-+static int read_bpf(int root_fd)
-+{
-+	DECLARE_LIBBPF_OPTS(bpf_iter_attach_opts, opts);
-+	struct memcg_stat_cross_cpu *skel = NULL;
-+	union bpf_iter_link_info linfo = {};
-+	struct bpf_link *link = NULL;
-+	int ret = -1, err, i, mfd, fd;
-+	char buf[4096];
-+	ssize_t r;
-+
-+	skel = memcg_stat_cross_cpu__open();
-+	if (!skel) {
-+		ksft_print_msg("skel open failed: %s (%d)\n",
-+			       strerror(errno), errno);
-+		return -1;
-+	}
-+	err = bpf_program__set_autoload(skel->progs.memcg_kfuncs_probe, false);
-+	if (err) {
-+		ksft_print_msg("disabling capability probe failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		goto out;
-+	}
-+	err = bpf_map__set_max_entries(skel->maps.results, n_nodes + 8);
-+	if (err) {
-+		ksft_print_msg("set max_entries failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		goto out;
-+	}
-+	err = memcg_stat_cross_cpu__load(skel);
-+	if (err) {
-+		ksft_print_msg("skel load failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		goto out;
-+	}
-+
-+	linfo.cgroup.cgroup_fd = root_fd;
-+	linfo.cgroup.order = BPF_CGROUP_ITER_DESCENDANTS_PRE;
-+	opts.link_info = &linfo;
-+	opts.link_info_len = sizeof(linfo);
-+
-+	link = bpf_program__attach_iter(skel->progs.cgroup_memcg_stat_cross_cpu,
-+					&opts);
-+	err = libbpf_get_error(link);
-+	if (err) {
-+		link = NULL;
-+		ksft_print_msg("attach iter failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		goto out;
-+	}
-+
-+	fd = bpf_iter_create(bpf_link__fd(link));
-+	if (fd < 0) {
-+		ksft_print_msg("bpf_iter_create failed: %s (%d)\n",
-+			       strerror(errno), errno);
-+		goto out;
-+	}
-+	do {
-+		r = read(fd, buf, sizeof(buf));
-+	} while (r > 0 || (r < 0 && errno == EINTR));
-+	err = errno;
-+	close(fd);
-+	if (r < 0) {
-+		ksft_print_msg("bpf walk failed: %s (%d)\n",
-+			       strerror(err), err);
-+		goto out;
-+	}
-+
-+	mfd = bpf_map__fd(skel->maps.results);
-+	for (i = 0; i < n_nodes; i++)
-+		if (bpf_map_lookup_elem(mfd, &nodes[i].id, &nodes[i].bpf)) {
-+			ksft_print_msg("no map entry for %s: %s (%d)\n",
-+				       nodes[i].path, strerror(errno), errno);
-+			goto out;
-+		}
-+	ret = 0;
-+out:
-+	bpf_link__destroy(link);
-+	memcg_stat_cross_cpu__destroy(skel);
 +	return ret;
-+}
-+
-+/* Read one cgroupfs snapshot. */
-+static int read_files(int slot)
-+{
-+	int i;
-+
-+	for (i = 0; i < n_nodes; i++) {
-+		const char *path = nodes[i].path;
-+		struct file_snap *f = &nodes[i].file[slot];
-+
-+		f->anon = cg_read_key_long(path, "memory.stat", "anon ");
-+		f->file = cg_read_key_long(path, "memory.stat", "file ");
-+		f->shmem = cg_read_key_long(path, "memory.stat", "shmem ");
-+		f->file_mapped = cg_read_key_long(path, "memory.stat",
-+						  "file_mapped ");
-+		f->pgfault = cg_read_key_long(path, "memory.stat", "pgfault ");
-+		f->current = cg_read_long(path, "memory.current");
-+
-+		if (f->anon < 0 || f->file < 0 || f->shmem < 0 ||
-+		    f->file_mapped < 0 || f->pgfault < 0 || f->current < 0) {
-+			ksft_print_msg("reading the stats of %s failed\n", path);
-+			return -1;
-+		}
-+	}
-+	return 0;
-+}
-+
-+/* ---- comparison --------------------------------------------------------- */
-+
-+static void dump_node(const struct cg_node *n)
-+{
-+	int s;
-+
-+	ksft_print_msg("%s bpf   : anon=%llu file=%llu shmem=%llu fmapped=%llu pgfault=%llu\n",
-+		       n->path, n->bpf.anon, n->bpf.file, n->bpf.shmem,
-+		       n->bpf.file_mapped, n->bpf.pgfault);
-+	for (s = 0; s < 2; s++)
-+		ksft_print_msg("%s file%d: anon=%ld file=%ld shmem=%ld fmapped=%ld pgfault=%ld\n",
-+			       n->path, s, n->file[s].anon, n->file[s].file,
-+			       n->file[s].shmem, n->file[s].file_mapped,
-+			       n->file[s].pgfault);
-+}
-+
-+/* Equal file samples require an exact BPF match; otherwise accept their range. */
-+static bool bracketed(unsigned long long v, long a, long b)
-+{
-+	long lo = a < b ? a : b;
-+	long hi = a < b ? b : a;
-+
-+	return v >= (unsigned long long)lo && v <= (unsigned long long)hi;
-+}
-+
-+static int check_tree(size_t charged)
-+{
-+	unsigned long long root_anon = 0, leaf_anon = 0;
-+	int i, bad = 0;
-+
-+	for (i = 0; i < n_nodes; i++) {
-+		const struct cg_node *n = &nodes[i];
-+		const struct memcg_stat_snapshot *b = &n->bpf;
-+		const struct file_snap *f0 = &n->file[0], *f1 = &n->file[1];
-+
-+		if (!bracketed(b->anon, f0->anon, f1->anon) ||
-+		    !bracketed(b->file, f0->file, f1->file) ||
-+		    !bracketed(b->shmem, f0->shmem, f1->shmem) ||
-+		    !bracketed(b->file_mapped, f0->file_mapped,
-+			       f1->file_mapped) ||
-+		    !bracketed(b->pgfault, f0->pgfault, f1->pgfault)) {
-+			ksft_print_msg("kfuncs disagree with memory.stat\n");
-+			dump_node(n);
-+			bad++;
-+		}
-+
-+		/* Live page counters are bounds, not flushed statistics. */
-+		if (b->anon > b->usage_pages * (unsigned long long)page_size ||
-+		    f1->anon > f1->current) {
-+			ksft_print_msg("%s: anon above usage: bpf %llu/%llu file %ld/%ld\n",
-+				       n->path, b->anon,
-+				       b->usage_pages * (unsigned long long)page_size,
-+				       f1->anon, f1->current);
-+			bad++;
-+		}
-+
-+		if (n->is_leaf) {
-+			if (b->anon < charged) {
-+				ksft_print_msg("%s: flushed anon %llu, charged %zu\n",
-+					       n->path, b->anon, charged);
-+				bad++;
-+			}
-+			leaf_anon += b->anon;
-+		}
-+		if (i == 0)
-+			root_anon = b->anon;
-+	}
-+
-+	if (root_anon != leaf_anon) {
-+		ksft_print_msg("subtree root anon %llu, sum of the leaves %llu\n",
-+			       root_anon, leaf_anon);
-+		bad++;
-+	}
-+	return bad ? -1 : 0;
-+}
-+
-+/* Accept PAGE_COUNTER_MAX values from either 32- or 64-bit kernels. */
-+static int check_unlimited(void)
-+{
-+	unsigned long long max64 = (unsigned long long)INT64_MAX / page_size;
-+	unsigned long long max32 = INT32_MAX;
-+
-+	if (cg_read_strcmp(nodes[0].path, "memory.max", "max\n"))
-+		return 0;
-+
-+	if (nodes[0].bpf.max_pages != max64 && nodes[0].bpf.max_pages != max32) {
-+		ksft_print_msg("memory.max reads max, kfunc reports %llu pages\n",
-+			       nodes[0].bpf.max_pages);
-+		return -1;
-+	}
-+	return 0;
-+}
-+
-+/* ---- one case ----------------------------------------------------------- */
-+
-+struct testcase {
-+	const char *name;
-+	int fanout;
-+	int depth;
-+	int cpus_per_leaf;	/* K, or 0 for the bounded cross-CPU count */
-+	size_t resident_bytes;	/* anon per leaf, raised if too small */
-+};
-+
-+static int run_case(const struct testcase *tc)
-+{
-+	int root_fd = -1, ret = KSFT_FAIL, err, k;
-+	size_t charged;
-+
-+	if (build_tree(tc->fanout, tc->depth, &root_fd)) {
-+		ksft_print_msg("cannot build the tree\n");
-+		goto out;
-+	}
-+
-+	k = tc->cpus_per_leaf;
-+	if (k <= 0)
-+		k = n_cpu < MAX_CPUS_PER_LEAF ? n_cpu : MAX_CPUS_PER_LEAF;
-+	else if (k > n_cpu)
-+		k = n_cpu;
-+	err = leaf_charge(tc->resident_bytes, k, &charged);
-+	if (err == -E2BIG) {
-+		ksft_print_msg("%s needs more than %luMB to trigger a flush on %ld online CPUs\n",
-+			       tc->name, MAX_TOTAL_CHARGE >> 20, n_online_cpu);
-+		ret = KSFT_SKIP;
-+		goto out;
-+	}
-+	if (err) {
-+		ksft_print_msg("cannot calculate the charge for %s: %s (%d)\n",
-+			       tc->name, strerror(-err), err);
-+		goto out;
-+	}
-+
-+	ksft_print_msg("%s: %d cgroups, %d leaves, %d/%d cpus, %zuKB per leaf\n",
-+		       tc->name, n_nodes, n_leaves, k, n_cpu, charged >> 10);
-+
-+	if (start_chargers(k, charged))
-+		goto out;
-+
-+	/* Read BPF first; memory.stat would consume the pending flush. */
-+	if (read_bpf(root_fd) || read_files(0) || read_files(1))
-+		goto out;
-+
-+	if (!check_tree(charged) && !check_unlimited())
-+		ret = KSFT_PASS;
-+out:
-+	if (root_fd >= 0)
-+		close(root_fd);
-+	destroy_tree();
-+	return ret;
-+}
-+
-+static const struct testcase cases[] = {
-+	/* name, fanout, depth, K, anon per leaf */
-+	{ "single_cpu_small_tree", 4, 2, 1, 2 << 20 },
-+	{ "cross_cpu_small_tree", 4, 2, 0, 2 << 20 },
-+	{ "single_cpu_large_tree", 4, 3, 1, 256 << 10 },
-+	{ "cross_cpu_large_tree", 4, 3, 0, 256 << 10 },
-+};
-+
-+static bool memcg_kfuncs_available(void)
-+{
-+	static const char *const kfuncs[] = {
-+		"bpf_get_mem_cgroup",
-+		"bpf_put_mem_cgroup",
-+		"bpf_mem_cgroup_flush_stats",
-+		"bpf_mem_cgroup_page_state",
-+		"bpf_mem_cgroup_vm_events",
-+	};
-+	struct btf *btf;
-+	int err, i;
-+
-+	btf = btf__load_vmlinux_btf();
-+	err = libbpf_get_error(btf);
-+	if (err) {
-+		ksft_print_msg("cannot load vmlinux BTF: %s (%d)\n",
-+			       strerror(-err), err);
-+		return false;
-+	}
-+
-+	for (i = 0; i < ARRAY_SIZE(kfuncs); i++) {
-+		if (btf__find_by_name_kind(btf, kfuncs[i], BTF_KIND_FUNC) > 0)
-+			continue;
-+		ksft_print_msg("required kfunc %s is not in vmlinux BTF\n",
-+			       kfuncs[i]);
-+		btf__free(btf);
-+		return false;
-+	}
-+	if (btf__find_by_name_kind(btf, "bpf_iter_cgroup", BTF_KIND_FUNC) <= 0) {
-+		ksft_print_msg("cgroup BPF iterator is not in vmlinux BTF\n");
-+		btf__free(btf);
-+		return false;
-+	}
-+	btf__free(btf);
-+	return true;
-+}
-+
-+static bool unsupported_bpf_feature_error(int err)
-+{
-+	return err == -EINVAL || err == -ENOENT || err == -EOPNOTSUPP;
-+}
-+
-+/* Return 1 if supported, 0 if unavailable, or a negative error. */
-+static int probe_memcg_bpf_features(int root_fd)
-+{
-+	DECLARE_LIBBPF_OPTS(bpf_iter_attach_opts, opts);
-+	struct memcg_stat_cross_cpu *skel;
-+	union bpf_iter_link_info linfo = {};
-+	struct bpf_link *link = NULL;
-+	int ret, err, iter_fd = -1;
-+
-+	skel = memcg_stat_cross_cpu__open();
-+	if (!skel) {
-+		err = errno ? -errno : -EINVAL;
-+		ksft_print_msg("capability probe open failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		return err;
-+	}
-+
-+	err = bpf_program__set_autoload(skel->progs.cgroup_memcg_stat_cross_cpu,
-+					false);
-+	if (err) {
-+		ksft_print_msg("disabling test program failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		ret = err;
-+		goto out;
-+	}
-+
-+	err = memcg_stat_cross_cpu__load(skel);
-+	if (err) {
-+		ksft_print_msg("BPF capability probe load failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		ret = unsupported_bpf_feature_error(err) ? 0 : err;
-+		goto out;
-+	}
-+
-+	linfo.cgroup.cgroup_fd = root_fd;
-+	linfo.cgroup.order = BPF_CGROUP_ITER_SELF_ONLY;
-+	opts.link_info = &linfo;
-+	opts.link_info_len = sizeof(linfo);
-+	link = bpf_program__attach_iter(skel->progs.memcg_kfuncs_probe, &opts);
-+	err = libbpf_get_error(link);
-+	if (err) {
-+		link = NULL;
-+		ksft_print_msg("BPF capability probe attach failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		ret = unsupported_bpf_feature_error(err) ? 0 : err;
-+		goto out;
-+	}
-+
-+	iter_fd = bpf_iter_create(bpf_link__fd(link));
-+	if (iter_fd < 0) {
-+		err = -errno;
-+		ksft_print_msg("BPF capability probe iterator creation failed: %s (%d)\n",
-+			       strerror(-err), err);
-+		ret = unsupported_bpf_feature_error(err) ? 0 : err;
-+		goto out;
-+	}
-+
-+	ret = 1;
-+out:
-+	if (iter_fd >= 0)
-+		close(iter_fd);
-+	bpf_link__destroy(link);
-+	memcg_stat_cross_cpu__destroy(skel);
-+	return ret;
-+}
-+
-+int main(int argc, char **argv)
-+{
-+	int feature_fd, i, ret;
-+
-+	ksft_print_header();
-+
-+	/* Probe BTF before operations that may require privileges. */
-+	if (!memcg_kfuncs_available())
-+		ksft_exit_skip("memcg BPF kfuncs are not available\n");
-+
-+	if (cg_find_unified_root(root, sizeof(root), NULL))
-+		ksft_exit_skip("cgroup v2 isn't mounted\n");
-+	feature_fd = open(root, O_RDONLY | O_DIRECTORY);
-+	if (feature_fd < 0)
-+		ksft_exit_fail_msg("cannot open cgroup root: %s (%d)\n",
-+				   strerror(errno), errno);
-+	ret = probe_memcg_bpf_features(feature_fd);
-+	close(feature_fd);
+ }
+ 
+ static int dp83867_led_mode(u8 index, unsigned long rules)
+@@ -1069,18 +1141,24 @@ static int dp83867_led_hw_is_supported(struct phy_device *phydev, u8 index,
+ static int dp83867_led_hw_control_set(struct phy_device *phydev, u8 index,
+ 				      unsigned long rules)
+ {
++	struct dp83867_private *dp83867 = phydev->priv;
+ 	int mode, ret;
+ 
+ 	mode = dp83867_led_mode(index, rules);
+ 	if (mode < 0)
+ 		return mode;
+ 
+-	ret = phy_modify(phydev, DP83867_LEDCR1, DP83867_LED_FN_MASK(index),
+-			 DP83867_LED_FN(index, mode));
+-	if (ret)
+-		return ret;
+-
+-	return phy_modify(phydev, DP83867_LEDCR2, DP83867_LED_DRV_EN(index), 0);
++	mutex_lock(&dp83867->led_lock);
++	ret = __dp83867_led_modify(phydev, DP83867_LEDCR1,
++				   DP83867_LED_FN_MASK(index),
++				   DP83867_LED_FN(index, mode));
 +	if (!ret)
-+		ksft_exit_skip("sleepable cgroup iterator or memcg kfuncs are not available\n");
-+	if (ret < 0)
-+		ksft_exit_fail_msg("cannot probe BPF capabilities: %s (%d)\n",
-+				   strerror(-ret), ret);
++		ret = __dp83867_led_modify(phydev, DP83867_LEDCR2,
++					   DP83867_LED_DRV_EN(index) |
++					   DP83867_LED_DRV_VAL(index), 0);
++	mutex_unlock(&dp83867->led_lock);
 +
-+	if (cg_read_strstr(root, "cgroup.controllers", "memory"))
-+		ksft_exit_skip("memory controller isn't available\n");
-+
-+	if (cg_read_strstr(root, "cgroup.subtree_control", "memory"))
-+		if (cg_write(root, "cgroup.subtree_control", "+memory"))
-+			ksft_exit_skip("Failed to set memory controller\n");
-+
-+	CPU_ZERO(&allowed_cpus);
-+	if (sched_getaffinity(0, sizeof(allowed_cpus), &allowed_cpus))
-+		ksft_exit_skip("cannot read CPU affinity\n");
-+	n_cpu = CPU_COUNT(&allowed_cpus);
-+	if (n_cpu <= 0)
-+		ksft_exit_skip("no CPU to run on\n");
-+	n_online_cpu = sysconf(_SC_NPROCESSORS_ONLN);
-+	if (n_online_cpu <= 0)
-+		ksft_exit_fail_msg("cannot determine the number of online CPUs\n");
-+
-+	page_size = sysconf(_SC_PAGESIZE);
-+	if (page_size <= 0)
-+		page_size = BUF_SIZE;
-+
-+	subtree_root = cg_name(root, SUBTREE_NAME);
-+	if (!subtree_root)
-+		ksft_exit_skip("cannot build subtree root path\n");
-+
-+	/* Set the plan after all global skip checks. */
-+	ksft_set_plan(ARRAY_SIZE(cases));
-+
-+	for (i = 0; i < ARRAY_SIZE(cases); i++) {
-+		switch (run_case(&cases[i])) {
-+		case KSFT_PASS:
-+			ksft_test_result_pass("%s\n", cases[i].name);
-+			break;
-+		case KSFT_SKIP:
-+			ksft_test_result_skip("%s\n", cases[i].name);
-+			break;
-+		default:
-+			ksft_test_result_fail("%s\n", cases[i].name);
-+			break;
-+		}
-+	}
-+
-+	free(subtree_root);
-+	ksft_finished();
-+}
-diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/testing/selftests/cgroup/test_memcontrol.c
-index 0ebf796f3cff..15ba46879504 100644
---- a/tools/testing/selftests/cgroup/test_memcontrol.c
-+++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-@@ -26,7 +26,6 @@
- 
- static bool has_localevents;
- static bool has_recursiveprot;
--static int page_size;
- 
- int get_temp_fd(void)
- {
-@@ -56,28 +55,12 @@ int alloc_pagecache(int fd, size_t size)
- 	return -1;
++	return ret;
  }
  
--static char *alloc_and_populate_anon(size_t size)
--{
--	char *buf, *ptr;
--
--	buf = malloc(size);
--	if (buf == NULL) {
--		fprintf(stderr, "malloc() failed\n");
--		return NULL;
--	}
--
--	for (ptr = buf; ptr < buf + size; ptr += page_size)
--		*ptr = 0;
--
--	return buf;
--}
--
- int alloc_anon(const char *cgroup, void *arg)
+ static int dp83867_led_hw_control_get(struct phy_device *phydev, u8 index,
+@@ -1141,9 +1219,11 @@ static int dp83867_led_hw_control_get(struct phy_device *phydev, u8 index,
+ static int dp83867_led_polarity_set(struct phy_device *phydev, int index,
+ 				    unsigned long modes)
  {
- 	size_t size = (unsigned long)arg;
- 	char *buf;
++	struct dp83867_private *dp83867 = phydev->priv;
+ 	/* Default active high */
+ 	u16 polarity = DP83867_LED_POLARITY(index);
+ 	u32 mode;
++	int ret;
  
--	buf = alloc_and_populate_anon(size);
-+	buf = cg_alloc_anon(size);
- 	if (!buf)
- 		return -1;
+ 	for_each_set_bit(mode, &modes, __PHY_LED_MODES_NUM) {
+ 		switch (mode) {
+@@ -1154,8 +1234,13 @@ static int dp83867_led_polarity_set(struct phy_device *phydev, int index,
+ 			return -EINVAL;
+ 		}
+ 	}
+-	return phy_modify(phydev, DP83867_LEDCR2,
+-			  DP83867_LED_POLARITY(index), polarity);
++
++	mutex_lock(&dp83867->led_lock);
++	ret = __dp83867_led_modify(phydev, DP83867_LEDCR2,
++				   DP83867_LED_POLARITY(index), polarity);
++	mutex_unlock(&dp83867->led_lock);
++
++	return ret;
+ }
  
-@@ -195,7 +178,7 @@ static int alloc_anon_50M_check(const char *cgroup, void *arg)
- 	long anon, current;
- 	int ret = -1;
- 
--	buf = alloc_and_populate_anon(size);
-+	buf = cg_alloc_anon(size);
- 	if (!buf)
- 		return -1;
- 
-@@ -420,7 +403,7 @@ static int alloc_anon_noexit(const char *cgroup, void *arg)
- 	size_t size = (unsigned long)arg;
- 	char *buf;
- 
--	buf = alloc_and_populate_anon(size);
-+	buf = cg_alloc_anon(size);
- 	if (!buf)
- 		return -1;
- 
-@@ -1001,7 +984,7 @@ static int alloc_anon_50M_check_swap(const char *cgroup, void *arg)
- 	long mem_current, swap_current;
- 	int ret = -1;
- 
--	buf = alloc_and_populate_anon(size);
-+	buf = cg_alloc_anon(size);
- 	if (!buf)
- 		return -1;
- 
-@@ -1793,10 +1776,6 @@ int main(int argc, char **argv)
- 	char root[PATH_MAX];
- 	int i, proc_status;
- 
--	page_size = sysconf(_SC_PAGE_SIZE);
--	if (page_size <= 0)
--		page_size = BUF_SIZE;
--
- 	ksft_print_header();
- 	ksft_set_plan(ARRAY_SIZE(tests));
- 	if (cg_find_unified_root(root, sizeof(root), NULL))
+ static unsigned int dp83867_inband_caps(struct phy_device *phydev,
 -- 
-2.53.0-Meta
+2.53.0
 
