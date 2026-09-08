@@ -1,209 +1,161 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33CC35E1C3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849077; cv=none; b=Tc0jsA5Z66UkaINvdMEovMaN1onMvDGyW2E18pr0ziJpeDzTPl+y1GFp9TdcxVXJ2CI5iW6qamdsFXubEB18aiHTY11WvU3Yc8vztNyYOQ838BwfoU8ifDxK9TDUy4Or2Aq8VkDuckLC4eaQ2Vsup4KOmnD3sRFVSBbBApdxpio=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849077; c=relaxed/simple;
-	bh=9kSVuJRDsWjViodFHrie+eZnJyCuXAqZL2GkKHPxZf8=;
-	h=Message-ID:Date:MIME-Version:To:Cc:From:Subject:Content-Type; b=WucGn29uJJGQpJIxIeII19qQUbhew6Tj0XCfba9oNes0KOn3hYAxZkGtLCLoR54g6G/7jF6ZAE1+laMani0rrFcbWgPOqQa9C88jn4fHdVhyi5FbSPcy4HajP0Br4smNwwJfSlVNZ+KzIP+W3TqqbxmV4hq1haU2cj7ZkP0kIQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=YJx2YRgz; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1610B3803C8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788849115; cv=pass; b=cX/hEHTm4m7K2OZektoGa5VLceS+zXwG1lo5getARVauuOsoHqIDodslVPgZbrCkfvpz0nPjCKbS713uWJPgL93qVVvZTRsgoV3nyDUsyEsoh0rUE3rPvJ/jPuECIloawVbexeG6aimJ4e2gW80SZ3rAgpZAqTtjJVEBmAj2kpk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788849115; c=relaxed/simple;
+	bh=K1DnQZh7RTksEY/PnpmATjYf26gyDYwEwJXUsGJdA6o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QAiXAiPp9GY1Px/fMEFZ37OsEBnjaYU6iKpuF4abAnJytW/nyKh/j/UuTpmlWMuNxwlMD1w/M6jZ28zBhvMPto43NQImWrIhNt1ySmqF0UOGpdUHAejxlQHc92xxyf6/4n+hgEonE6H1JA/Zw0t5LXPRpqrvmvp2p2bID6vmOpg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/oV6L8e; arc=pass smtp.client-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="YJx2YRgz"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68801ql62221168;
-	Tue, 8 Sep 2026 06:30:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=V34JaugQxeV4Go6LtcZQ+CAzlsqu
-	OP93taTuW5zRMwY=; b=YJx2YRgzD/bDkolL+43CQ21+WbXfz7RFxtar0IuUv+qD
-	0/lrNAE+k2khjHYBuHtcr6w7R19OYzriVddWX25a7ZSJTtds8rV8IHa16dq6hJKj
-	2tsMAOv6XLrweOoqOK9MkPbIqBuYwm3qDzErTOVUWW8QhHb7ScMtyHlVBRRvTxra
-	7nvd8YYyaAMoBpdHrB/zJQV6O4E+P0ViD9ToZcMdzuCN5lfXlt/jA8Eq+7mgO1j1
-	bSYU2VEFhiJ0UUFbw03Kf1EIGvKfm5v0LInKgWVwuqlksR/OZresNnW9TKvmuQ6X
-	E8/bW7GQ4Z2/xpKktikH+uRrbICwsJNjw6ytx4kjKg==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbjrmsbp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 06:30:40 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6886QhEI008157;
-	Tue, 8 Sep 2026 06:30:39 GMT
-Received: from smtprelay04.dal12v.mail.ibm.com ([172.16.1.6])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggxwh20mv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 06:30:39 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (smtpav06.wdc07v.mail.ibm.com [10.39.53.233])
-	by smtprelay04.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6886UcDZ26870404
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 06:30:38 GMT
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 552B158054;
-	Tue,  8 Sep 2026 06:30:38 +0000 (GMT)
-Received: from smtpav06.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 32AC85804E;
-	Tue,  8 Sep 2026 06:30:31 +0000 (GMT)
-Received: from [9.43.98.45] (unknown [9.43.98.45])
-	by smtpav06.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  8 Sep 2026 06:30:30 +0000 (GMT)
-Message-ID: <54e891f8-d549-4ab0-91ea-999d6e8dd385@linux.ibm.com>
-Date: Tue, 8 Sep 2026 12:00:29 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/oV6L8e"
+Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-782e0fc1e55so1150465137.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:31:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788849113; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ls8nECzaDay7IHSt5uE3mD8jeUynJrlMusdsrN8VG3MucMfKFg5D55+ee+PXRmZ3x0
+         1W+wnrpkU6JBNAs6tLQVqjikBrorHwP7pidaWgk4TIEmAwBuZ22Vn8h6yRi7DU0WaiBR
+         qUVddi61MqZmy63vUdhxNdkV02t27Xwph89d3StviOJ8eLCUjryq82Zt+g2XxlSqegsF
+         X2t1Re44Wgm6tK/5a0hXIXGVzWVHNOXSS3R21MOhUCKm8CSHmk2pv0eYtteA1ISXXijQ
+         DEt1WNToKKgyd0bhljMAKaK/sTynMaLsIQ/1N8kdqeMzImMRN+gwihItIpKiB19dXfu0
+         5RTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A0NVeeZ7CaBwnLyyfI9ekqGFl4BMkIYvBk52KFpKzqk=;
+        fh=NiDTcDcyl8xlbYOqSUX7TV2/AgzvKI3NqMkogDHr9QA=;
+        b=JORpU2jc5FjEuQcfysuW/aa+CS9rwzVKHAvEU8+kMlNATlD/acBAcxnCeSfA90EAGo
+         AV+L1bzewKfeIlm3YUInDb+qLPrcfKBM/sA9k9BxWDt9LgnQwPaprdiToeBx6cr4aTh8
+         NvUQCPmffeDxCxLdRoOIV2VIUZOxLdTkhUSvY+8HBSeSNarGnnwA6xHg9MfYfE7N21PE
+         /ER0FnFoLRdaYrMO1Ye/wI2buyYzvjs4/+aQuO7fwe5v90lEgCyHsJF5DZv2xYz3GESX
+         d6fzmLb0U9UPbtMQZ7pf4Kazb59r5o9/Ejf7nnk1GnxK8vwyGGxOJ6NpKuEFZFd9Vz6E
+         aULg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788849113; x=1789453913; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A0NVeeZ7CaBwnLyyfI9ekqGFl4BMkIYvBk52KFpKzqk=;
+        b=E/oV6L8e1aiLfGoBq7YwMle5u91Ur4uTXXkB72MF4JI6VtnAYx6NITO/tu2PmL5Uf4
+         +TerQDVMNv53kBymdWmftUuluJhkxtzfEWKq6zxVqMcBiIHa9xksCuoZ3nV7PUlgoEzQ
+         0qmuVsm/ZlFjkwonIKMPC/m5uL+NCOMSrD+y3K62v4JIFX0UD7l8ijoZ1IiwI0ZptScS
+         DqaYol1xgwnx+9eHMtOyxlDf7MMfqImxU1L9dWFhvIFgVJ/yAvjzN8P1kHy0XHYI9zKu
+         9SPBUP5E6NIjDjVz3QIfjCzVS1km7LdAfHE9uOFpVDCEscvz0PuweOQyL5uKVexOjP3c
+         24IA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788849113; x=1789453913;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A0NVeeZ7CaBwnLyyfI9ekqGFl4BMkIYvBk52KFpKzqk=;
+        b=FdzRaggf0an5jBvvbPjsqrplVlSvdII1uEqHCMU1igJh/F5+GLOoxnrZzL8rul9oDO
+         AF1+lIRaU6ZqQHHz0/47axnNsoHSwvM6Fz79f/EowcaYa7YAJf/1dFQ45Gg3pQ26e9NU
+         Z2Tce8Inetn5uXyTXk351RjHd2LyP+kwf21Z6kIs/q/4QbBjt9+SuQZVXOT6KjHOAgnU
+         crFT+hJkaZCmXby/4E/Ys6DL2magiLI4FPeuQ40B9YDJgqv0MdAmdLVxjDrsjJ+4a2ho
+         S26h+670TpAdJRUo2x8ngNfn8/8YFj2DnKqsbMJWSGInzhbqnS1CoMZkClIzCpIkTQ/F
+         IzsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzbRYvCYD07atyu5iHeVStmyunuREPMkUpqXyNWBeduKulKnKNLwosTs9Wb84UT5Pmwnk+TLGDDSjNdTkA=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2fm33YKJDQ6kuZlRfMq+ogA56CQRAJfxgQLRBf6gHWhcP/UOk
+	67lfk4bgeBIkW0X5lR4qkU3FVh/LdZ6t3FenzGJiN14oKR4IxqRyizlI9ziFI4V69EqDfwJuzRn
+	lcBffhLVHki29vgvECY5P73eI4Ev+3xm0rA==
+X-Gm-Gg: AYBFou1yYwnoqKgTafqyAsF9clfihpleA3CbgW8UQ4G52ALeq2DVHhYX73XiHzKSUMs
+	bVA2CpG4htsTM+kGPGUm46jdj/Op/ZYzW0/3Oxo18yZzdhJGTeuHIHIuyXeQPRW+eLGLJEmcLak
+	wrZuQrdWW+FHxkXLo/J/ZaN6Zgd1KU10CF+DtmXVb2IOFjVFodNhxc6l/3C8Abni0aaTas1/lZ4
+	sST0Z5if0gX5y4eiQBQVhVkTrF2Y4mRm4Wvrmp2zeO/G/+JTvM4+QNZ01MlmmhVIZZjAyRDVY2w
+	YpixWxNwpI7LqkS8H1IuvpNZ6YxUBNyXxKNMlF4AlujksGA=
+X-Received: by 2002:a05:6102:e0d:b0:785:d308:cc0a with SMTP id
+ ada2fe7eead31-78a4a91077bmr9190993137.9.1788849112904; Mon, 07 Sep 2026
+ 23:31:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: chleroy@kernel.org, christophe.leroy@csgroup.eu,
-        linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        mkchauras@gmail.com, mpe@ellerman.id.au, naveen@kernel.org,
-        npiggin@gmail.com, ritesh.list@gmail.com, sbhat@linux.ibm.com,
-        sshegde@linux.ibm.com, thorsten.blum@linux.dev, yijiangshan@kylinos.cn
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-Subject: [GIT PULL] Please pull powerpc/linux.git powerpc-7.3-2 tag
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=E7T9Y6dl c=1 sm=1 tr=0 ts=6a9fab90 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=EJlZcYTZVgbFLH6Yc1EA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA2NCBTYWx0ZWRfXzK0n68x+B9mW
- A7G2TNDoxsYZZVko2YbZTx5xkO+eAWhoUhWBizPQ7dHLJFlxuEtSs1uFKOHtRDxCUHSogmvt9jt
- LJMxpsKDpty79tvJ9h35SRjvbBtckFA=
-X-Proofpoint-ORIG-GUID: dPAJrhxn7vc62P6f7SqkdGAsZpktiYQG
-X-Proofpoint-GUID: 32g_EzjPSOQ3vE_BuAxOGdNyRwt6xZ0Z
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA2NCBTYWx0ZWRfXyp+D1y8/x+8d
- vjRRpA/EnaOeU28bvJdPHDaHmIP7TJNYC2Zo2zdOy6CFV3rMgSni2eSJVRRpz5mvEUV3cTzMix+
- kp4CTjZNmljmDyIJES17Farjowijm3kjOT6bwgt+opnuZJLyW/l51OFZr8z9oO/p3NDKmqfTLkL
- hU3Oim/2jllSU52XsFzMuSlAjgYzm/jzSQ/Zc6YuSaSbxN/RCY6bPPUVN3NA5HUAdRIvL+mT4/K
- SMtj37KNQmqLuGMS3xcwLnSVvOrqZi7fFKt8liC+kBaL19XrIX9skQiC6Yae/7lq1CWv87VlXv6
- FNwp8fSE7l3Jlqu5oTArEitiGiEAu1aHb7MSImZJQ9XW0+6xIhONjvILJE+jfPwEhGsUAdF8gxu
- kvuziIdBg3VEceyT6OlO5c+PlSqKnZXWxoncsTLDYWf0xwEAPcHC2K890pT2JQWXbDXr1PJCaGL
- rKbsWDTWPLn6LWBgUiA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_07,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080064
+References: <20260907-add-raa229639-and-raa229640-v1-0-8f7218cba85d@gmail.com>
+ <20260907-add-raa229639-and-raa229640-v1-1-8f7218cba85d@gmail.com> <20260907-chimp-pectin-20f4ea3b772c@spud>
+In-Reply-To: <20260907-chimp-pectin-20f4ea3b772c@spud>
+From: Colin Huang <u8813345@gmail.com>
+Date: Tue, 8 Sep 2026 14:31:40 +0800
+X-Gm-Features: AcwNN1VlTv2SntxcoxVK5N-Ex2mESc274Ua-5DjlQCs8MlAthNoLCriEU_XA3R8
+Message-ID: <CAPBH0A9GZSD5R657xo1woijKfgS6gecUND4uabguaqUON2exXw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+To: Conor Dooley <conor@kernel.org>
+Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Grant Peltier <grant.peltier.jg@renesas.com>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
+Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=888=E6=97=A5=
+=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=881:01=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Mon, Sep 07, 2026 at 03:03:29PM +0800, Colin Huang wrote:
+> > From: Colin Huang <u8813345@gmail.com>
+> >
+> > Add Device Tree compatible strings for Renesas RAA229639 and
+> > RAA229640 PMBus devices.
+>
+> Driver change suggests fallback compatibles could be used.
+> Why aren't they? If they can be, add them. Otherwise, explain why not in
+> your commit message.
+>
+> pw-bot: changes-requested
+>
+> Thanks,
+> Conor.
+>
+Hi Conor
+  Thanks for the review.
 
-Hi Linus,
+  I didn't add a fallback compatible because I only have document for
+RAA229639 and RAA229640
+  and could not verify full DT level compatibility with any existing
+supported devices. While both devices
+  are handled by the existing raa_dmpvr2_2rail driver variant, I don't
+have sufficient information to establish
+  a compatible fallback relationship.
 
-Notable out of area changes:
-   MAINTAINERS: powerpc: Add Ritesh and Shrikanth # 45a5f7285f83
+  I will clarify this in commit message in v2.
 
-Please pull powerpc fixes for 7.3:
-
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
-
-   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
-
-are available in the git repository at:
-
-https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git 
-tags/powerpc-7.3-2
-
-for you to fetch changes up to 45a5f7285f835adb3b74c9344c09a7bd2c4fb664:
-
-   MAINTAINERS: powerpc: Add Ritesh and Shrikanth (2026-09-07 12:15:39 
-+0530)
-
-- ------------------------------------------------------------------
-powerpc fixes for 7.3 #2
-
-  - Clear TIF_SYSCALL_RET before syscall error return
-
-  - Don't drop _TIF_RESTOREALL on syscall restart
-
-  - Do not restore KUAP in arch_exit_to_user_mode_prepare()
-
-  - pci-ioda: Fix the stale irq chip reference
-
-  - Use inclusive range checks in add_usable_mem() and excluded memory
-
-  - Fix irq_soft_mask corruption on replayed interrupt exit
-
-  - MAINTAINERS: powerpc: Add Ritesh and Shrikanth
-
-  - misc fixes and cleanups
-
-Thanks to: Amit Machhiwal, Christophe Leroy (CS GROUP), Gautam Menghani, 
-Harsh
-Prateek Bora, Jiangshan Yi, Mukesh Kumar Chaurasiya (IBM), Ritesh Harjani
-(IBM), Shivaprasad G Bhat, Shrikanth Hegde, Sourabh Jain, Tasmiya Nalatwad,
-Thorsten Blum, Venkat Rao Bagalkote,
-
-- ------------------------------------------------------------------
-Jiangshan Yi (1):
-       powerpc/pseries/pci: Fix misleading VF limit error message
-
-Madhavan Srinivasan (1):
-       MAINTAINERS: powerpc: Add Ritesh and Shrikanth
-
-Mukesh Kumar Chaurasiya (IBM) (1):
-       powerpc/entry: Fix irq_soft_mask corruption on replayed interrupt 
-exit
-
-Ritesh Harjani (IBM) (2):
-       powerpc: Don't drop _TIF_RESTOREALL on syscall restart
-       powerpc: Do not restore KUAP in arch_exit_to_user_mode_prepare()
-
-Shivaprasad G Bhat (3):
-       powerpc: pci-ioda: Fix the stale irq chip reference
-       powerpc/eeh: Fix recursive locking on devices without EEH 
-sensitive driver
-       powerpc/rtas_pci: No hotplug on permanently removed device on pSeries
-
-Shrikanth Hegde (1):
-       powerpc/entry: Clear TIF_SYSCALL_RET before syscall error return
-
-Thorsten Blum (4):
-       powerpc/kexec_file: Use inclusive range checks in add_usable_mem()
-       powerpc/kexec: Simplify kdump_extra_elfcorehdr_size()
-       powerpc/kexec_file: Use inclusive range checks for excluded memory
-       powerpc/ps3: Fix repository.c build failure
-
-
-  MAINTAINERS                               |  2 ++
-  arch/powerpc/include/asm/entry-common.h   | 12 +++++++++---
-  arch/powerpc/kernel/eeh_driver.c          |  2 --
-  arch/powerpc/kernel/interrupt.c           |  2 +-
-  arch/powerpc/kernel/rtas_pci.c            |  8 ++++++++
-  arch/powerpc/kernel/syscall.c             |  4 +++-
-  arch/powerpc/kexec/file_load_64.c         | 10 +++-------
-  arch/powerpc/platforms/powernv/pci-ioda.c |  6 ++----
-  arch/powerpc/platforms/ps3/repository.c   |  5 ++++-
-  arch/powerpc/platforms/pseries/pci.c      | 13 ++++++++-----
-  10 files changed, 40 insertions(+), 24 deletions(-)
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEqX2DNAOgU8sBX3pRpnEsdPSHZJQFAmqfqycACgkQpnEsdPSH
-ZJQfcA//fLyVXSmS7lXIYoWtlE+qZbDtSH2k9sKbjYtB42EE7SMtIfk7c/ID7nMm
-tL7bA6apAz+ih0bpjvtGhtASL3YgVlb5sRyW5L8UoxL8J/F7hYNBqPohOKvRL995
-hYTUkef9t8aA/OZ5KJW4MsVL19Zkx1bQ57TjTTDG/Z9JFhrDZyknIr2tYEZvmrMF
-1NH3sc5f0k8LjmFAeTfVoR7AJuR/kpnu07yT3XdS/QX6hlP89hkDW+ndfbCGkRb2
-uZklJZsFRqPRCUCwZcLhcD2yKBLpMV0E7ZHH39REiMlv1gJ9PhC2Voi9W9bPADK3
-ILuL8ZF8qeKyU4pVL/znr9qNG3GzJCYTF/K4aJyIxhNma/O9Hy8m+igC7/1o4gZA
-SnhB90BoVB1BQpsploZ3YnhNhnz8MH23raTGswGIbRaRAX3KOM/bi4CC6sKYhimx
-QYot5mJHyIkMQTZ0HwEx5CatUuQvdiAeeHafeUf0PD6LjqI8SUgfzrUa3SRfmSZM
-gkWbYd1cJd0otLrmyOKA5EL3fNjVa8UIlGAd5vWERYFxlx4p43GtDxfOk6hQk4Yd
-re6CbE9grgTH/OAsoROUItR1wvHdL9QkZlEEQPazfvdECFIU6xRoHGXJolBSm7XS
-I/vRuh7Mo5iF9/hoS8wihldNsVked7coZbxW/LYLPaYXgMTCK7s=
-=wh3X
------END PGP SIGNATURE-----
+Thanks.
+Colin
+> >
+> > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > ---
+> >  Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 2 +=
++
+> >  1 file changed, 2 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl6813=
+7.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > index 8216cdf758d8..3537c7ddfb09 100644
+> > --- a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > @@ -60,6 +60,8 @@ properties:
+> >            - renesas,raa229001
+> >            - renesas,raa229004
+> >            - renesas,raa229621
+> > +          - renesas,raa229639
+> > +          - renesas,raa229640
+> >
+> >        - items:
+> >            - enum:
+> >
+> > --
+> > 2.34.1
+> >
