@@ -1,114 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-32.mta1.migadu.com [95.215.58.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 994205328A8;
-	Tue,  8 Sep 2026 12:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669C03D6CDD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:26:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870350; cv=none; b=qxw9U08t//VZ+ge1sQXwvF/x3l2q3F3zDcS3qCrkO8EsRyLitCZjlhJslM0tN4asg89CGxVF5IWjxJtb33QdTWv3GoGQlYppxQhtnxJXoJ6y9XdtfRBEI4MTlKTy1uU+sRdTgbvP83KV4UrJ+/KRdQsazIK8CKePoFn8YlxWFr8=
+	t=1788870364; cv=none; b=n6agrqwGiTb+yFps8vgKhmZLTMLZh98fwvHh4NRMjhjMX/tOiee3u8tU12gtvgK5HT61sPrlDxANklAKHDYoEHIhK+EbHsS5rYXyAaqDlO9u4Rr0oZ7SAWmbTvuBJMvYuFofKzaXpbqXp3e5haZIBwoecglVzDeDotNeAH40yzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870350; c=relaxed/simple;
-	bh=4rFBA3HKDb+638PqkSiiH+hYUtCnA8lUX2rhTsukyFg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RyUGQ9uzFny2MMl6Wbf54sQb6H8EzYEfzIe+SO+WBk31HuDKqzBw4t+6+aIr5ww0mn+j1gXeARXT5PCXXJc8pjeOAZl34ir1xYrdob5itFYEnDQ4SFJm2aFI8S9tlDB5hHOLn+nevR5aQqaglxLaOoiIRggc1bu1ijFHt6e59sI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1NqRal/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788870364; c=relaxed/simple;
+	bh=tFsgpBV6g8F8xBl+z2QVHBMs7DUcyN+PgiltX0ODWKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iopjci2eqyfn8+Zk3LQuikrAzWNXHlGawQnSQ26UkFGa6YCuUf29bGeVhN6C/PYj4zgj59suFkueJa9RC0SVZFbY+VRRUI+EkiPF/muvQ1QL6HOZ/9djLbPc6sukX5JACIjWNWmIBtxBhEQ6fjSTtr+e2wmNyf3JupOhp0V+Wfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C/yxU9RR; arc=none smtp.client-ip=95.215.58.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1NqRal/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 193F41F00A3A;
-	Tue,  8 Sep 2026 12:25:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788870349;
-	bh=0rtUs+O/l71Yeg+5z6gmxu3148+6wPm/5qkpJWj68dA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X1NqRal/WD62Owvz2WzfbhtEbObyyYUCbsVEiRo/a3h1lMvSosI6PvHRFxd7oACrd
-	 h12fD+3zSnM9ARa90hFPJN9NyzKlpwlnqcu4zltGVpgNwERdtVx1oDI/OmZm3H4Z2H
-	 a6kQkY7uXa2st9olvX6ycVtsDNlB/JiH1pQHiQXwD49y95NvqozLTH50ybAHT4R2nC
-	 b0W9z4LYCsD47hAXej9FrWiSh/V0sC5pPwnoxfAcTIXqk8bEz8SLxAteKD8Ki6wr2O
-	 z0PDYoS9gq/TcKwlVWWP7hL964r2UU68j3VYM+0jd4CgAM/YHw6xvNXcSyckbopqmV
-	 Ou6uStP6sxFRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] livepatch: Clean up klp_init_object_loaded()
- when fails
-Reply-To: sashiko-reviews@lists.linux.dev
-To: jpoimboe@kernel.org, joe.lawrence@redhat.com, "Harry Hsu" <x90613@gmail.com>, "Petr
- Mladek" <pmladek@suse.com>, mbenes@suse.cz
-Cc: linux-kernel@vger.kernel.org, shuah@kernel.org, live-patching@vger.kernel.org, song@kernel.org, jikos@kernel.org
-In-Reply-To: <20260908120325.299649-6-pmladek@suse.com>
-References: <20260908120325.299649-1-pmladek@suse.com>
- <20260908120325.299649-6-pmladek@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 12:25:48 +0000
-Message-Id: <20260908122549.193F41F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C/yxU9RR"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=tFsgpBV6g8F8xBl+z2QVHBMs7DUcyN+PgiltX0ODWKI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788870359; v=1; x=1789475159;
+ b=C/yxU9RRUdPpzw3c6ATqEYPi9BY3z34WSttUVJkbiWWy9EK8EFgwismOHGohJBY0pSktXJfg
+ +omTblRSvAheGPggqCfSWk+OQzW4pX5zpTPZAc8TfxuIRXKzzG6ElYT2c9T5sL8ATrmlnThCVc5
+ HcG+QbzC2qqqp1Toim1aN0Ks=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cba39cd4919c1c92;
+	Tue, 08 Sep 2026 12:25:59 +0000
+X-Mizu-Trace-ID: cba39cd4919c1c92
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <792a64de-b5fc-49ca-8d7d-98c232d1b7cb@linux.dev>
+Date: Tue, 8 Sep 2026 20:25:52 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
+ validation
+To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
+ cgroups@vger.kernel.org
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
+ <20260902102615.79189-2-guopeng.zhang@linux.dev>
+ <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
+ <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
+ <fe0c93af-5562-44fe-8aee-328c4a450a9b@linux.dev>
+ <7c2a545f-7fa2-40d5-8d4f-25a65ec5df24@linux.dev>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <7c2a545f-7fa2-40d5-8d4f-25a65ec5df24@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Partial relocations are not reverted when apply_relocate_add() fai=
-ls midway, leading to permanent state corruption.
---
 
-commit 3f6df1b4ed699e839abbdc8919a6c7de5d1850c8
-Author: Petr Mladek <pmladek@suse.com>
 
-livepatch: Clean up klp_init_object_loaded() when fails
+在 2026/9/8 09:40, Ridong Chen 写道:
+> 
+> 
+> On 9/7/2026 5:49 PM, Guopeng Zhang wrote:
+>>
+>>
+>> 在 2026/9/4 09:25, Ridong Chen 写道:
+>>>
+>>>
+>>> On 9/4/2026 2:33 AM, Waiman Long wrote:
+>>>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
+>>>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>>>
+>>>>> compute_partition_effective_cpumask() checks whether each valid child
+>>>>> partition remains covered by the parent exclusive CPU mask and whether it
+>>>>> would consume all remaining CPUs of a populated parent.
+>>>>>
+>>>>> Factor these two checks into child_partition_error() so the same rules can
+>>>>> be reused when evaluating a proposed parent configuration. This is a
+>>>>> preparatory refactoring with no intended functional change.
+>>>>>
+>>>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+>>>>> ---
+>>>>>    kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
+>>>>>    1 file changed, 29 insertions(+), 9 deletions(-)
+>>>>>
+>>>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+>>>>> index 8f24171b6055..6994dc75d940 100644
+>>>>> --- a/kernel/cgroup/cpuset.c
+>>>>> +++ b/kernel/cgroup/cpuset.c
+>>>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
+>>>>>        return 0;
+>>>>>    }
+>>>>> +/*
+>>>>> + * Return the error that will invalidate a child partition under a proposed
+>>>>> + * parent partition configuration.
+>>>>> + */
+>>>>> +static enum prs_errcode
+>>>>> +child_partition_error(struct cpuset *child,
+>>>>> +              const struct cpumask *partition_cpus,
+>>>>> +              const struct cpumask *remaining_cpus,
+>>>>> +              bool parent_populated)
+>>>> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
+>>>
+>>> Would it help to rename them to excpus and local_excpus?
+>>> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
+>>>
+>>
+>> Ridong, thanks for your review.
+>>
+>> Renaming the masks would help, but I think `local_excpus` may be slightly misleading here. When the helper is called, the mask may still contain active CPUs assigned to the current child and to children that have not yet been visited. It excludes only the CPUs of previously visited children that remain valid under the configuration being evaluated, and the mask itself is restricted to active CPUs.
+>>
+>> In addition, "local" already has the local-versus-remote partition meaning in cpuset.
+>>
+>> Would `parent_xcpus` for the complete effective exclusive mask, which may include offline CPUs, and `remaining_ecpus` for the remaining active CPUs before evaluating the current child be clearer? I will also document both parameters explicitly.
+>>
+> 
+> Passing struct cpuset *parent into the function simplifies naming, as the needed values become local variables derived from it.
+> 
+Thanks, Ridong.
 
-When loading a module, klp_module_coming() updates all enabled patches.
-If an error occurs, klp_cleanup_module_patches_limited() cleans up fully
-processed patches, but skips the patch that failed midway. This commit
-updates klp_free_object_loaded() to revert all and only changes made by
-klp_init_object_loaded().
+I agree that passing `parent` would make the interface simpler, but I don't think `parent` alone provides all the state needed by this helper.
 
-Closes: https://lore.kernel.org/r/20260823062313.1321B1F000E9@smtp.kernel.o=
-rg
-Closes: https://lore.kernel.org/r/20260830175608.4BABB1F000E9@smtp.kernel.o=
-rg
+In `compute_partition_effective_cpumask()`, the remaining active CPU mask is temporary state maintained during the child walk:
 
-> Next, klp_init_object_loaded() has to clear its own changes on
-> failure. It just returns an error when relocations failed because
-> they clear their own mess. It could call klp_free_object_loaded()
-> in other situations because all relocations were done and other
-> values are just cleared.
+compute_excpus(cs, new_ecpus);
+cpumask_and(new_ecpus, new_ecpus, cpu_active_mask);
 
-[Severity: High]
-Does this actually clear its own mess completely? Looking at how relocations
-are rolled back in klp_write_object_relocs_limited(), which was introduced
-earlier in this series:
+cpuset_for_each_child(child, css, cs) {
+	...
 
-kernel/livepatch/core.c:klp_write_object_relocs_limited() {
-    ...
-		ret =3D klp_write_section_relocs(patch->mod, info->sechdrs,
-					       info->secstrings,
-					       patch->mod->core_kallsyms.strtab,
-					       info->symndx, i, obj->name, apply);
-		if (ret) {
-			if (apply)
-				klp_write_object_relocs_limited(patch, obj, false, i);
-			return ret;
-		}
-    ...
+	if (child_err)
+		continue;
+
+	cpumask_andnot(new_ecpus, new_ecpus,
+		       child->effective_xcpus);
 }
 
-By passing i as the limit to the rollback function, the rollback loop:
+So `new_ecpus` changes as valid children are processed and cannot be replaced by `parent->effective_cpus`. In this update path, `parent->effective_cpus` still contains the previously published effective mask, while `new_ecpus` already represents the active CPUs remaining before the current child is evaluated.
 
-	for (i =3D 1; i < limit; i++) {
+For example, assume CPUs 1-3 are active, the parent is populated, and child A is visited before child B. Initially:
 
-will terminate at i - 1. Doesn't this skip the rollback for the partially
-applied section i?
+parent:
+        effective_xcpus = 1-3
+        effective_cpus  = 3
 
-If apply_relocate_add succeeds on relocations 0 to k-1 in section i, but
-fails on relocation k, these partial relocations remain permanently applied
-in the livepatch module's text.=20
+child A:
+        effective_xcpus = 1
 
-Subsequent attempts to load the target module will fail immediately at
-relocation 0 due to non-zero target memory, converting a potentially transi=
-ent
-address-space layout failure into a permanent -ENOEXEC on retry.
+child B:
+        effective_xcpus = 2
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908120325.2996=
-49-1-pmladek@suse.com?part=3D5
+If the parent's effective exclusive mask is changed to `1-2`, this update path publishes the new `effective_xcpus` before recomputing `effective_cpus`. Therefore, when entering `compute_partition_effective_cpumask()`:
+
+parent->effective_xcpus = 1-2
+parent->effective_cpus  = 3
+new_ecpus               = 1-2
+
+After child A remains valid, its CPU is removed from `new_ecpus`:
+
+new_ecpus = 2
+
+So when child B is evaluated, the `PERR_NOCPUS` check uses:
+
+cpumask_subset(new_ecpus, child_B->effective_xcpus)
+= cpumask_subset(2, 2)
+= true
+
+Since the parent is populated, the `PERR_NOCPUS` condition is met for child B.
+
+At the same point:
+
+remaining mask needed by the check = 2
+parent->effective_cpus             = 3
+
+Using `parent->effective_cpus` instead would give:
+
+cpumask_subset(parent->effective_cpus,
+               child_B->effective_xcpus)
+= cpumask_subset(3, 2)
+= false
+
+and would miss the condition.
+
+So unless `cs_partition_error()` also takes over or reconstructs the relevant child-walk state, passing only `parent` cannot provide the remaining active CPU mask needed to evaluate the current child.
+
+The next patch also reuses this helper for a trial parent configuration. In that case, the complete mask being evaluated comes from `trialcs->effective_xcpus`, rather than from the currently published state in the real parent. The follow-up child-invalidation fix similarly needs to distinguish the complete effective exclusive mask from the remaining active CPU mask.
+
+So for now, I will use the more general `cs_partition_error()` name, but keep the two masks explicit in the interface.
+
+In the next version, I plan to include the remaining patches related to this helper and the associated invalidation paths so that all the call sites and use cases can be reviewed together.
+
+I may still be thinking within the constraints of the current code structure, so if you see a cleaner interface once the full picture is visible, I would very much appreciate your suggestion.
+
+Thanks,
+Guopeng
+
