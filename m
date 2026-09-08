@@ -1,211 +1,97 @@
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8B04D2EFE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:39:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF12C4F30FE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:39:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860394; cv=none; b=XrysZCEnp+jMNd9U8K02BPDHZsTyBmK9F3zRkfCpKRNqX/lMwqsYAIaVFDSHDEBM6EzFAc6f6g3vdrV5D8uKeP12riSnERYTV0eqjKENAhY0tTs4SQ6nK/iYbeOF3f7Slvlpy3nNk7fcdH9oiW2wy0HaLdKZA5QLds2+U+dftXY=
+	t=1788860398; cv=none; b=n6sWNp5q+P+px3MFc2Y8fQPu/nmAYmDp6ikEpchnvmk1+c3YlcqsjLyAkqu010psIfiuNXKk6QmGd8Ni44lumRaPkOgVqshaFfUS63mErrvNqPCPczOgjnqzAVXsyRXnbsIwMU+H1LYKb/eA5FXcjYSYAnawtYXWr2NvniJ//xE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860394; c=relaxed/simple;
-	bh=yCew8vzP/YIvibWdDAJ7BqtfIX11EBzOyl+uk4tqf+A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gCWK5KaW/RKjeL5oLhcTiARf5FHwtQEKTRVE2mq/JiDbADBUSvg6bK4FIjKPVjPlcBGSVzWeuJAqVqnIBzmM29skfjcbCGDWQGuFgye8ApQUH7G7p16ktInLh0jOZeeJARS88d+82xCGmTq6+zN9LAfz9OUA1NINNLBB5Kyc14w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w9m8GmV+; arc=none smtp.client-ip=115.124.30.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788860398; c=relaxed/simple;
+	bh=4GHa3lNHMkLWKE81S5CI6BlV5V3PtJ3VoW2M7li/Edg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=dqIj/Gzlr61rmDZgHqdSZBItgQupeI/kufAZzXnKlmxWNg1A2NhAhHCvy/hL/dyzs/Pl3H8d+33coZIIygGRlIqdwO5wu+sC7SWptyH+jBd+iMcGwAVVSa2aocXUBzI7EJyCmdTLSWx8lb0spCvJdDtkYnnDKwr3/zHhtQBH+pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=LCHZ571R; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w9m8GmV+"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788860387; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=PWYEPdRQ17N+5c66Weq133KixewGNO1R8mkZenc6WbY=;
-	b=w9m8GmV+E+jZUftAfdD81heihklgeZWk7WOxtiq8HmbNLIkgrigOqkC493QgPuJBpiqQTnN7VpbaqokVn9cIjL6nB5j80pwHxz7qsgr/uRvq5IiXxj4OyZTc7RRkr6ILoiwG7Aarl2uOh7NDEtXiFcsM75kpNM1f9GhjwjodXTc=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAbBF0o_1788860384;
-Received: from 30.74.144.127(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAbBF0o_1788860384 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 08 Sep 2026 17:39:46 +0800
-Message-ID: <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
-Date: Tue, 8 Sep 2026 17:39:44 +0800
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="LCHZ571R"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 082204E41592;
+	Tue,  8 Sep 2026 09:39:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8C96603C4;
+	Tue,  8 Sep 2026 09:39:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2328311C79CA0;
+	Tue,  8 Sep 2026 11:39:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788860393; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=4GHa3lNHMkLWKE81S5CI6BlV5V3PtJ3VoW2M7li/Edg=;
+	b=LCHZ571RWZ7U7M8TbTFAHthgTx+h87AllccsZvqf2kcMsQ7Y6z0dBhWg78XiFpgPtu91DG
+	qWApgX2wU/Juan6iBKL3phpPFPVL3+EwYmzzANWuBOrXD/uBQIw81qBl1I7xItXgp3vZvX
+	Xib49WAQukU1h+vXVE4qAYVL/lhiyo1f6zSRWyUNDhdoy+VPOvFePPcY2qtj/F3bsQ96Rk
+	nUa4eIqo8mPww930rz2amNUzrdx1QeoVuS/DBqwWn6KN9EVezFvrKjBGq2QxblAZgp2wDu
+	VjjjpxZUUKEo9ZeDuFfnsBduHrEe5Y7iuPSuK9fiinzcDoijKLR46VRCYuAPVQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: fzz <1768315307@qq.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,  Richard Weinberger
+ <richard@nod.at>,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] mtd: spinand: cache the last read page to avoid
+ redundant SPI operations
+In-Reply-To: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com> (fzz's
+	message of "Tue, 8 Sep 2026 11:25:30 +0800")
+References: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 08 Sep 2026 11:39:49 +0200
+Message-ID: <87bja8ulne.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
- folios
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
- kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, ljs@kernel.org,
- ridong.chen@linux.dev, hebaoquan@kylinos.cn, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
- <ap9zPPughaSlfXM2@fedora>
- <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
- <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
- <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
- <ap-yQOH0pni-mfdf@fedora>
- <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
- <ap_GBGDHkEzZ1Osq@fedora>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <ap_GBGDHkEzZ1Osq@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+Hello Zongzhen,
 
+On 08/09/2026 at 11:25:30 +08, fzz <1768315307@qq.com> wrote:
 
-On 9/8/26 4:23 PM, Baoquan He wrote:
-> On 09/08/26 at 03:53pm, Baolin Wang wrote:
->>
->>
->> On 9/8/26 2:59 PM, Baoquan He wrote:
->>> On 09/08/26 at 12:01pm, Baolin Wang wrote:
->>>>
->>>>
->>>> On 9/8/26 11:03 AM, Baolin Wang wrote:
->>>>>
->>>>>
->>>>> On 9/8/26 10:34 AM, Barry Song wrote:
->>>>>> On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
->>>>>>>
->>>>>>> Hi Baolin,
->>>>>>>
->>>>>>> On 09/07/26 at 11:25am, Baolin Wang wrote:
->>>>>>> ......snip...
->>>>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
->>>>>>>> index 40d3f1b48a74..42c0a09938ab 100644
->>>>>>>> --- a/mm/vmscan.c
->>>>>>>> +++ b/mm/vmscan.c
->>>>>>>
->>>>>>> Well, this seems to be based on Andrew's mm-new branch. I usually track
->>>>>>> mm-unstable branch. Maybe the subject should be marked as below?
->>>>>>> [PATCH mm-new] mm: mglru: clear the reference counter for rejected
->>>>>
->>>>> ACK.
->>>>>
->>>>>>>
->>>>>>>> @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
->>>>>>>> long nr_to_scan, struct lruvec *lruvec,
->>>>>>>>                  }
->>>>>>>>
->>>>>>>>                  /* don't add rejected folios to the oldest generation */
->>>>>>>> -             if (lru_gen_folio_seq(lruvec, folio, false) ==
->>>>>>>> min_seq[type]) {
->>>>>>>> -                     folio_set_lru_refs(folio, 0);
->>>>>>>> +             if (lru_gen_folio_seq(lruvec, folio, false) ==
->>>>>>>> min_seq[type])
->>>>>>>>                          folio_set_active(folio);
->>>>>>>> -             }
->>>>>>>> +
->>>>>>>> +             /* See the comments on LRU_REFS_FLAGS */
->>>>>>>> +             folio_set_lru_refs(folio, 0);
->>>>>>>
->>>>>>> This looks like a great catch, while the code change could bring issue.
->>>>>>>
->>>>>>> Because move_folios_to_lru() relies on folios' flags to decide their new
->>>>>>> generation. You just cleared it before move_folios_to_lru(). This is no
->>>>>>> problem for rejected folios that are determined to be put into the
->>>>>>> oldest generation. But for those rejected folios that are determined to
->>>>>>> be promoted, this could be wrong. E.g currently gen window is 4, and a
->>>>>>> folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
->>>>>>> is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
->>>>>>> referenced bit, this causes it being put into the oldest generation in
->>>>>>> move_folios_to_lru(), this is not expected.
->>>>>
->>>>> Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
->>>>> to be reconsidered regarding whether it should rely on PG_referenced
->>>>> [1].
->>>>>
->>>>> For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
->>>>> either. Before commit 6cbdd9726fb5, if rejected folios did not have
->>>>> PG_active set by shrink_folio_list(), evict_folios() would set PG_active
->>>>> on these rejected folios.
->>>>>
->>>>> [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
->>>>> baohua@kernel.org/
->>>>>
->>>>>> The original code looks quite weird. It even prioritizes folios
->>>>>> that won't be promoted by `PG_active`. Do we need to change all
->>>>>> the cases just to call `PG_active`?
->>>
->>> I would agree if we can. While I have one concern. A rejected folio that
->>> should have gone into the oldest generation is now being promoted to the
->>> 2nd newest generation. In the original code, referenced folio is only
->>> being promoted to the next gen. I even think this is not a bug, but Yu
->>
->> That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced
->> folio was also put back to the 2nd youngest gen.
-> 
-> OK, I didn't follow your earlier discussion, I need take some time to
-> fully understand that commit and the patch thread from Ehab.
-> 
->>
->>> Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
->>> referenced folio (hot folio) is moved to new gen but carries the referenced
->>> bit. Both of them seems to be treated somewhat equally.
->>>
->>> To me, I would rather move both of them to the next gen, while keep their
->>> refs untouched.
->>
->> IMHO, I strongly recommend not doing this, and that's exactly the motivation
->> behind my patch. Because this is also being treated as a promotion, it
->> should behave like folio_inc_gen() or folio_update_gen() and clear the refs
->> after promotion. I think this is a fundamental principle of promotion.
->> Otherwise, ref-based promotion is already completely broken.
-> 
-> OK, it makes sense to me to make principle of promotion strictly applied
-> no efficiency degradation involved.
-> 
->>
->> Next, I also plan to clean up refs in lru_gen_set_refs() as discussed with
->> Barry.
-> 
-> Looks forward to seeing that. By the way, your discussion with Baryr is
-> private or in public list, do you have pointer if public? Thanks.
+> From: Zongzhen Feng <1768315307@qq.com>
+>
+> When squashfs reads files through mtdblock, the mtdblock layer
+> splits I/O into 512-byte sectors. For a 4K-page SPI NAND, this
+> means reading the same page 8 times (4096 / 512), generating 7x
+> redundant SPI read-from-cache operations. Each such operation
+> involves a full SPI bus transaction, significantly slowing down
+> boot time and file access.
+>
+> Cache the last successfully read page in spinand_device to avoid
+> these redundant operations. When the same {target, eraseblock,
+> page} is requested consecutively, the data is served directly
+> from the bounce buffer (databuf) via memcpy, skipping the SPI
+> transaction entirely.
+>
+> The cache is invalidated on write and erase operations. RAW reads,
+> OOB reads, and continuous reads are excluded from caching to
+> maintain correctness.
+>
+> Signed-off-by: Zongzhen Feng <1768315307@qq.com>
 
-I raised this issue before[1], and recently there has been another 
-discussion[2] about it (we had some private discussions, but I'll post a 
-new patch for discussion).
+Sashiko reports interesting warnings, can you please address them?
 
-[1] 
-https://lore.kernel.org/all/eb395442-0aad-428a-a5ac-9072d2d89060@linux.alibaba.com/
-[2] 
-https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The page caching mechanism uses the shared bounce buffer
+`spinand->databuf` to store cached data, but fails to unconditionally
+invalidate the cache when this buffer is overwritten by other
+operations, leading to severe cross-page data corruption.
+- [Critical] Pages with uncorrectable ECC errors are prematurely cached
+as valid, causing subsequent reads to bypass ECC checks and silently
+return corrupted data as successful.
 
->>>>> Yes. Regarding this concern, I plan to change back to the original
->>>>> behavior:
->>>>>
->>>>>        /* See the comments on LRU_REFS_FLAGS */
->>>>>        folio_set_lru_refs(folio, 0);
->>>>>
->>>>>        /* don't add rejected folios to the oldest generation */
->>>>>        if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
->>>>>            folio_set_active(folio);
->>>>>
->>>>> What do you think?
->>>>
->>>> Just FYI, after above changes, the performance improvement on zram is no
->>>> longer obvious either. I think this also answers Kairui's earlier question
->>>> about why I saw a performance improvement (which seems related to commit
->>>> 6cbdd9726fb5). Also, there is no obvious performance regression either.
->>>
->>> Hi Baolin,
->>>
->>> Not sure if it's convenient to do a little more testing in your side.
->>> E.g rejected folios are moved to next gen, but not clearing their flags.
->>
->> I'm not sure what you mean by "next gen" here. If you mean the 2nd oldest
->> gen, I actually tested that too, that is, clearing refs after
->> move_folios_to_lru(), and there wasn't any noticeable performance impact
->> either (but the code was a bit hacky, so I didn't go with this approach).
-> 
-> Yeah, I meant the 2nd oldest gen, while what I am curious about is moving
-> them into 2nd oldest gen but not clearing refs. Clearly it's conflicting
-> with your plan. Anyway, it's just a brain store idea, please forget it.
-> Thanks for the sharing and detailed explanation.
-
-Thanks for reviewing.
+Thanks,
+Miqu=C3=A8l
