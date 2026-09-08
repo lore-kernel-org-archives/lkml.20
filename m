@@ -1,119 +1,220 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-136.mta1.migadu.com [95.215.58.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A2FF4E80B4;
-	Tue,  8 Sep 2026 10:29:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A68EC4F4735
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863347; cv=none; b=Zt3QDfa7auzshN64194g72V8Ai3gNL9sHtfRIz7dJwegU4EZmKPkE6Yf8M9YMDN8i9XbXH4hYx32KwWzWSZNs1y7cV6Rch6D7FXRQIL6iRN+NYZV5z97eBL55tbZHLQtFhhTSCpBpSHuOo9VtUJRbTGGEMYREphVU/hgrRCQpK8=
+	t=1788863380; cv=none; b=GBbV14B0pXGxMcgMv6AQv02IL5yHpVKCuX4e8h9U+CN3w0qzmqNfb0ipZ+AJBZyitAOkwDU6yiPnB4nSYTktFQxwbbk3ngOm6XGjJWSiidRa9t7uL0q8wdfkUizQHvH8XR4gEhpK8Dc3lCVG1KqJMUMLz/mj7bSx04l+9gYr0fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863347; c=relaxed/simple;
-	bh=ozom8fQ77lGgHCpwm21KGAj1xRs4nzphcZD390TyrSw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NW43uUdk04LKXA7qt7l31lK1zCizviaHRCNdpCmIXqWJHlJDtlxyNlqK1P+y9L1aXQ6YXDb85b0mIcdYVDcz2dqvH4XYkwSiR7zlR1jC1s4iLHt4w++4+GKXWKx2unSW+D8N0Y/F6CODM5yA54/U4TyzEwKeTXzB4clnkTIKipU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=wu+jsMYk; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=L0AEbMzJ; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788863380; c=relaxed/simple;
+	bh=0huURJH+bq7BGRuA49dbK70WUA8RUUT6E5UMwxs81nc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=REucyk7RRAVCIDF74Fo5ctYzCAoZ17TKBL3aOwBJwLtPCStjt2jMtckL9eytB8ZLAoVlaUB8MxmBz70PAsFVrg34U0nnaSR0/i3TIXrsEyJi9o+WapT5QCBrncvcClW/XlBU4nkMtY8YiragoFP5PkwSUXZx+brG4XOxtCt+3UE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Xo0G8Ysh; arc=none smtp.client-ip=95.215.58.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="wu+jsMYk";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="L0AEbMzJ"
-From: Kurt Kanzenbach <kurt@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788863343;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WFScFLRESnQ2NhYJSdgH/W//z7cYjaSf5Z0jWD/z1bU=;
-	b=wu+jsMYk16SCctmm8QiraTHBm3crXmtHQN8jHn0KV/FvVbntZmOI4OuXIOTMMwlZJlkfFn
-	3xchQwQYE/zmG49vTIfEL5s3diVZWUXHMR6neFhNMvYfJaaB8UxhIDQsr31sk1VdUEn47l
-	Evf/1wqsafGMuczGiaLqUkLAJWn5oabAPyeBAvBYFwJo8Hy9VHI0hRzgiErZ0fyZDaBMNP
-	gWJAYP+yZDkI8O/o3ttF0+AKmlrLFzVZXfSasJATcj2SqblZEzFejLhLLnjNq5qSBPaPmi
-	DmQi32c6kq1Q0swguFnxvT4txIajQII1tUHnxIEflX3fGDXbrTaIsXS50I8uLA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788863343;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WFScFLRESnQ2NhYJSdgH/W//z7cYjaSf5Z0jWD/z1bU=;
-	b=L0AEbMzJgFgS9AbenRjHI/NwMYTLjsFWZHNwAk6Qvxb5EScYFY4Eq0sI/L1iNsL4meXYni
-	/Edl8k91XgES10BQ==
-To: Andrew Lunn <andrew@lunn.ch>, Vasilij Strassheim
- <v.strassheim@linutronix.de>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>,
- Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-In-Reply-To: <85b4b052-e97c-40b8-b434-de1b6e3af1b5@lunn.ch>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
- <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
- <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
- <85b4b052-e97c-40b8-b434-de1b6e3af1b5@lunn.ch>
-Date: Tue, 08 Sep 2026 12:29:01 +0200
-Message-ID: <87fqzknij6.fsf@jax.kurt.home>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Xo0G8Ysh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0huURJH+bq7BGRuA49dbK70WUA8RUUT6E5UMwxs81nc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788863375; v=1; x=1789468175;
+ b=Xo0G8YshDHvlyYXPhTHZ0GSxNbZa/80xWtlp3z9OZqEvMuqqHi5n6WjvFuIH9Q/1e5oqn/Ne
+ 8NPeDBDizmBvdJLPimQY3GC8SfZaW9JnZObVcW6I8kB+lCyELv4R0jsPaRxaqH1UWEYhNGC6Y7g
+ DHtsUP2t2vm9bcg6NPMvMvQY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 965e93f6bc2a3c87;
+	Tue, 08 Sep 2026 10:29:35 +0000
+X-Mizu-Trace-ID: 965e93f6bc2a3c87
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 8 Sep 2026 18:29:28 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
+	kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
+	hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org,
+	ljs@kernel.org, ridong.chen@linux.dev, hebaoquan@kylinos.cn,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
+ folios
+Message-ID: <ap_jiN_ogpeaxlGv@fedora>
+References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
+ <ap9zPPughaSlfXM2@fedora>
+ <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
+ <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
+ <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
+ <ap-yQOH0pni-mfdf@fedora>
+ <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
+ <ap_GBGDHkEzZ1Osq@fedora>
+ <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
-	micalg=pgp-sha512; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
 
---=-=-=
-Content-Type: text/plain
-Content-Transfer-Encoding: quoted-printable
+On 09/08/26 at 05:39pm, Baolin Wang wrote:
+> 
+> 
+> On 9/8/26 4:23 PM, Baoquan He wrote:
+> > On 09/08/26 at 03:53pm, Baolin Wang wrote:
+> > > 
+> > > 
+> > > On 9/8/26 2:59 PM, Baoquan He wrote:
+> > > > On 09/08/26 at 12:01pm, Baolin Wang wrote:
+> > > > > 
+> > > > > 
+> > > > > On 9/8/26 11:03 AM, Baolin Wang wrote:
+> > > > > > 
+> > > > > > 
+> > > > > > On 9/8/26 10:34 AM, Barry Song wrote:
+> > > > > > > On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
+> > > > > > > > 
+> > > > > > > > Hi Baolin,
+> > > > > > > > 
+> > > > > > > > On 09/07/26 at 11:25am, Baolin Wang wrote:
+> > > > > > > > ......snip...
+> > > > > > > > > diff --git a/mm/vmscan.c b/mm/vmscan.c
+> > > > > > > > > index 40d3f1b48a74..42c0a09938ab 100644
+> > > > > > > > > --- a/mm/vmscan.c
+> > > > > > > > > +++ b/mm/vmscan.c
+> > > > > > > > 
+> > > > > > > > Well, this seems to be based on Andrew's mm-new branch. I usually track
+> > > > > > > > mm-unstable branch. Maybe the subject should be marked as below?
+> > > > > > > > [PATCH mm-new] mm: mglru: clear the reference counter for rejected
+> > > > > > 
+> > > > > > ACK.
+> > > > > > 
+> > > > > > > > 
+> > > > > > > > > @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
+> > > > > > > > > long nr_to_scan, struct lruvec *lruvec,
+> > > > > > > > >                  }
+> > > > > > > > > 
+> > > > > > > > >                  /* don't add rejected folios to the oldest generation */
+> > > > > > > > > -             if (lru_gen_folio_seq(lruvec, folio, false) ==
+> > > > > > > > > min_seq[type]) {
+> > > > > > > > > -                     folio_set_lru_refs(folio, 0);
+> > > > > > > > > +             if (lru_gen_folio_seq(lruvec, folio, false) ==
+> > > > > > > > > min_seq[type])
+> > > > > > > > >                          folio_set_active(folio);
+> > > > > > > > > -             }
+> > > > > > > > > +
+> > > > > > > > > +             /* See the comments on LRU_REFS_FLAGS */
+> > > > > > > > > +             folio_set_lru_refs(folio, 0);
+> > > > > > > > 
+> > > > > > > > This looks like a great catch, while the code change could bring issue.
+> > > > > > > > 
+> > > > > > > > Because move_folios_to_lru() relies on folios' flags to decide their new
+> > > > > > > > generation. You just cleared it before move_folios_to_lru(). This is no
+> > > > > > > > problem for rejected folios that are determined to be put into the
+> > > > > > > > oldest generation. But for those rejected folios that are determined to
+> > > > > > > > be promoted, this could be wrong. E.g currently gen window is 4, and a
+> > > > > > > > folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
+> > > > > > > > is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
+> > > > > > > > referenced bit, this causes it being put into the oldest generation in
+> > > > > > > > move_folios_to_lru(), this is not expected.
+> > > > > > 
+> > > > > > Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
+> > > > > > to be reconsidered regarding whether it should rely on PG_referenced
+> > > > > > [1].
+> > > > > > 
+> > > > > > For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
+> > > > > > either. Before commit 6cbdd9726fb5, if rejected folios did not have
+> > > > > > PG_active set by shrink_folio_list(), evict_folios() would set PG_active
+> > > > > > on these rejected folios.
+> > > > > > 
+> > > > > > [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
+> > > > > > baohua@kernel.org/
+> > > > > > 
+> > > > > > > The original code looks quite weird. It even prioritizes folios
+> > > > > > > that won't be promoted by `PG_active`. Do we need to change all
+> > > > > > > the cases just to call `PG_active`?
+> > > > 
+> > > > I would agree if we can. While I have one concern. A rejected folio that
+> > > > should have gone into the oldest generation is now being promoted to the
+> > > > 2nd newest generation. In the original code, referenced folio is only
+> > > > being promoted to the next gen. I even think this is not a bug, but Yu
+> > > 
+> > > That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced
+> > > folio was also put back to the 2nd youngest gen.
+> > 
+> > OK, I didn't follow your earlier discussion, I need take some time to
+> > fully understand that commit and the patch thread from Ehab.
+> > 
+> > > 
+> > > > Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
+> > > > referenced folio (hot folio) is moved to new gen but carries the referenced
+> > > > bit. Both of them seems to be treated somewhat equally.
+> > > > 
+> > > > To me, I would rather move both of them to the next gen, while keep their
+> > > > refs untouched.
+> > > 
+> > > IMHO, I strongly recommend not doing this, and that's exactly the motivation
+> > > behind my patch. Because this is also being treated as a promotion, it
+> > > should behave like folio_inc_gen() or folio_update_gen() and clear the refs
+> > > after promotion. I think this is a fundamental principle of promotion.
+> > > Otherwise, ref-based promotion is already completely broken.
+> > 
+> > OK, it makes sense to me to make principle of promotion strictly applied
+> > no efficiency degradation involved.
+> > 
+> > > 
+> > > Next, I also plan to clean up refs in lru_gen_set_refs() as discussed with
+> > > Barry.
+> > 
+> > Looks forward to seeing that. By the way, your discussion with Baryr is
+> > private or in public list, do you have pointer if public? Thanks.
+> 
+> I raised this issue before[1], and recently there has been another
+> discussion[2] about it (we had some private discussions, but I'll post a new
+> patch for discussion).
+> 
+> [1] https://lore.kernel.org/all/eb395442-0aad-428a-a5ac-9072d2d89060@linux.alibaba.com/
+> [2]
+> https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
 
-On Mon Sep 07 2026, Andrew Lunn wrote:
->> > ethernet-ports
->> >=20
->> > > +    patternProperties:
->> > > +      '^(ethernet-)?port@[0-9a-f]+$':
->> >=20
->> > ethernet-port
->> >=20
->>=20
->> Is there a reason for such a restriction?
->> The pattern intentionally follows the generic DSA binding in dsa.yaml,
->
-> You need to be careful with the DSA binding. It is old, and uses some
-> things which are not considered best practices today. But they cannot
-> be removed because of backwards compatibility.
+Got it, thanks.
 
-Yes, exactly. When we added the dsa.yaml binding, we've had a discussion
-about 'port' vs. 'ethernet-port' and had to allow both [1].
-
-Thanks,
-Kurt
-
-[1] - https://lore.kernel.org/netdev/20200710090618.28945-1-kurt@linutronix=
-.de/
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQJHBAEBCgAxFiEEvLm/ssjDfdPf21mSwZPR8qpGc4IFAmqf420THGt1cnRAbGlu
-dXRyb25peC5kZQAKCRDBk9HyqkZzgu2kD/9m4gxfU3gSdA5w1V5WtBZ2pDpxlzyu
-FR56m1jb4/3Du1/xlvPxnIlRknu4s2/gd2dyrPFsVr3BcKLkcswJaqt+luzTn7VO
-eX9Tak9hZOzIrfzUNUh6ATHyG6/MKl8Nu2gOOOM21mxSw+dt5Owctt+vn/II1Nki
-BfPh7QWiveyhViAr5yrgEfP8vi5YGZdRxQTnisQc8Acn2XoVfU4O7P6pgsQ/jmKX
-42+gzVA0qulA/MGX7VFkhhOOWCocJhb+5VSHJRVaU49VhQVrvQNxa/HbYqjDU9AT
-XMFbPtfiP4wr9A4SqnkmitHNxEeJAJDyjJmennRlTti/crlI0xDDIES1xdC7lAeF
-rqEtNdB45OlHv1Eg67tqTZbuczuu9cAoZ7Ks5GPo53vMkmIAxpShQeGeMXVCAq2h
-iGLtMvuLWw3zN5ig4fAubY5BQ5Z4irgcvakN1Eb4LluIBty6BaPnoIxYanzeaTOH
-KC8WoS0qAVga1Q9+CwA21vViTOfeWl0z7y5+62VfJpYC5iH9t6oh+2je6rzLKbWu
-7MEDopSZs4BI3DFeBVzxxDZwEDXdgetzS3GFejhDoQ6XLDNHg+RIefXdV/wCQQ/S
-2xxMJm9La9A9FA4KI4s5WTVfZUywWwNPrybI0GintThndQtqAyNJUFHcthMgsD6K
-3PfechJZKXkJpA==
-=RDqN
------END PGP SIGNATURE-----
---=-=-=--
+> 
+> > > > > > Yes. Regarding this concern, I plan to change back to the original
+> > > > > > behavior:
+> > > > > > 
+> > > > > >        /* See the comments on LRU_REFS_FLAGS */
+> > > > > >        folio_set_lru_refs(folio, 0);
+> > > > > > 
+> > > > > >        /* don't add rejected folios to the oldest generation */
+> > > > > >        if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
+> > > > > >            folio_set_active(folio);
+> > > > > > 
+> > > > > > What do you think?
+> > > > > 
+> > > > > Just FYI, after above changes, the performance improvement on zram is no
+> > > > > longer obvious either. I think this also answers Kairui's earlier question
+> > > > > about why I saw a performance improvement (which seems related to commit
+> > > > > 6cbdd9726fb5). Also, there is no obvious performance regression either.
+> > > > 
+> > > > Hi Baolin,
+> > > > 
+> > > > Not sure if it's convenient to do a little more testing in your side.
+> > > > E.g rejected folios are moved to next gen, but not clearing their flags.
+> > > 
+> > > I'm not sure what you mean by "next gen" here. If you mean the 2nd oldest
+> > > gen, I actually tested that too, that is, clearing refs after
+> > > move_folios_to_lru(), and there wasn't any noticeable performance impact
+> > > either (but the code was a bit hacky, so I didn't go with this approach).
+> > 
+> > Yeah, I meant the 2nd oldest gen, while what I am curious about is moving
+> > them into 2nd oldest gen but not clearing refs. Clearly it's conflicting
+> > with your plan. Anyway, it's just a brain store idea, please forget it.
+> > Thanks for the sharing and detailed explanation.
+> 
+> Thanks for reviewing.
+> 
