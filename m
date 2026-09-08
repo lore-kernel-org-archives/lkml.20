@@ -1,110 +1,112 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mta1.migadu.com (out-195.mta1.migadu.com [95.215.58.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B9F50EBF6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:03:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9F95427F4
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872601; cv=none; b=AwSwG+r1iMO4D92U72XrHzhDwreFFwEItCxSuKb0LT5kIajX/VUZK1J6IlFcfzpZ8sM/Hx5lHZc17CpOuwcCvujVcD43Wa79CkOdjoL/SEhusvfOEAzlruj4xhAXaO3DiCrJGVrcnygBgRu2xiJMeZyJJsIb0We/LOeJhsQYO3Y=
+	t=1788872640; cv=none; b=M5/ZJAzG/DDt8yyCxQ4O5P2GoJnACUcAmcs63L4O4HBoUvM1eS+S89SMPrPUeIgA7HO9Ssb/p53YvHSvfzB1h8T5XX25OOZi2DdKC9qUkEnNsWoAO4Srxs8fr7hvpxIJdqCiq2Li+goYXwKiH5z0/ZUOwkIgdqs1thsxBd8gbac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872601; c=relaxed/simple;
-	bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kFSEgBeg/TeniSxTe5kC1WP5853P8vgE+nwtnzpaxXo0SnmKtVZ0PamOm/Y+Kgr1b5doQQxDhQ6W6e7WpoJk702EL1UnsPI9eaStVlVoirKJYo2SQJO27MPHA2IhQ90dKnVzg8X1Iwnt9hMCzrFBRlFeRpU57+m9nJmdDlfN6Ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aqvrTgpA; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788872640; c=relaxed/simple;
+	bh=G1xbX1aVzAnasMGtM4jScBWUpUusRlFiE4T+B4ny3Js=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W8YjWYD6G8aP9j38dSUqXKlS5F0HOHbeHemJQP3JNsnXRmqCKWBxfxeRkewIhd3RUPSiZ1O+Xmwgwhv/5qk7MXNkbEwcpAJjtxFNVkkE8RrQpBvNIiEgfdaQ3VitwxMOUwkVBsKtr4wqs1DgoyLgOix+RENK0kxSy64zlyPZMrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WaRpLafl; arc=none smtp.client-ip=95.215.58.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aqvrTgpA"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b9320423cso52197885e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:03:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788872595; x=1789477395; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
-        b=aqvrTgpAcqZ0INMXVDRhgGYj+qryYPu19QHumQ7VoA/AnJJCIkux8bo5WzOgY9enYg
-         savjeiDfENMq9D3z903FnLln7adYaM04WUK3ecbYK7ewTpH9EKmgtSUW2MiHXRCtWUMN
-         MWfjqy7tp59ENjsGAWWuNAQDO6/E7IFCaK4WcQeXic9cGHLqMGUsfe2pIcEx7cY6Uq7N
-         /w8SiR9nDAR0cTDIiaY//+GHenOnT31lFwXunNoc1OstiqYgJGKJzf+Ku7pJrhkuTp/j
-         CzC2xobdBWOPpfiBQv+kyNnos53AtmO0Iex7NRFRm0tl0VLGdG4m0o2SGcjAMgMBv4ve
-         cihw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788872595; x=1789477395;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/litBUCmykqlKIXM9mqB+Ix6fkKAHYidvnz5JeC4/bk=;
-        b=FV0RYxQFGd1I/CTsAlN6PKWQ1RdqIA8wlEhGSD2X/haVf7J+VGRXhLBCEDGp5DzQHx
-         JrCt/nEWRQ6Uhpv3o8Zaccrwy5aOMKmyUnV5JDb/eqTAVqZkZICRJwYZw0XFBhvr5dXs
-         IOR2ggZc4KRroDw1L4KkoV9tIn1jK6cXdz9nIpayDJbJIlYtIr2iG4DGendL6MTRZLu6
-         gnOC4VTemgTzVXX857gp5+jJmWSrzmkAehI18IyKJ41QXfrwH8KFJ8TbmE7VImR1PWvo
-         XIE3Upze9s/bjG8CaqMnTWN3F8cOQazYfZqAkT4biuhWK/nmojkxqtUnqDoTDB5V4Z4G
-         L2zw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNUNJattDBM67SWFQRm97Y0FHFWBWppozvBk/LMc9jJqTN1k4gkqMLiJ9nGiBMw3gFm3YSjEonusLDjPI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvIMf9mUcmvWf46KCnC+o4oeoAJrQKE8BNmJIqYnioouWQaXE8
-	hGhxek3lpdzjPJIZCz97P2aGGMKBFr7t4RW8WSw3Su0/NmKkEFrAwJ70
-X-Gm-Gg: AYBFou0cNuvVDo5A5FsU//LktMxU03l1801F3XACwxoEnfPgpUxpEaZmdtksIUwlP6c
-	fE/kts20eFXKeXR7VwL7o/0/pUV1xZc5PrBGNoZ9bhd+E6GVonsYVpBM0BXLz5ZPZevAn2MLtaB
-	g/oDOyAEy2jmrDd62ZXuBshv59HLSqD/NMGDvP+V5/nJAnYK0jrNnhUD1HF3KmpnNnEUn6fIyVA
-	T1YQgthVbSsk/ibASwig6Bm8vZme3bTRK+qbTkDdeAjNUmZjrLJdip+Udqx3bF+92qKvOcDt86d
-	9ssaV7haFHvsIlSGL0Tbr9TS+r7AZXUYSHdJ04Zsj7+d0wtEipHznpgwKILflLUxvNRk6Lqx8EO
-	rqNXGylRF+fCHAZFmUZ0zBVzqQC7zAtVQrCuJXLC3PW9sVB2k/YLWH0huu4NSpPExC6HI76WwiR
-	rM8jX6i3c4nPiHa3cyzeMMS4E9QfZ9QVu91eqL68FY7LJtry66jO1QqPOrM+Q4jhy+rzS6Yy/CT
-	sUPr/9w1TpDx4Q0n+UIcR0ijOmbyAg5S1A2fjlhVuZZe/vPFrEBxRUFmOaFH+5qHzwHcFyxBmNW
-	1BSitBwn4v6oLhZ/LrEoK2Yx85196ppCKsy6c2dqJIGZ5ItJM/Si5bf+LmKyBXFZdt181/pBUWX
-	TY7M6ixyn3D5uahor2XQgEFZwWmoiaO3hPMfPjq/KYiaPYYcJZX3yZN+WEtB4DgAEI1Av4g==
-X-Received: by 2002:a05:600c:6087:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49cf81e3454mr614754605e9.4.1788872594406;
-        Tue, 08 Sep 2026 06:03:14 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm255179095e9.8.2026.09.08.06.03.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:03:14 -0700 (PDT)
-Date: Tue, 8 Sep 2026 15:03:11 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-Cc: Kim Seer Paller <kimseer.paller@analog.com>, Marilene Andrade Garcia
- <marilene.agarcia@gmail.com>, Jonathan Cameron <jic23@kernel.org>, David
- Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE
- macro
-Message-ID: <20260908150311.00000da6@gmail.com>
-In-Reply-To: <CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
-References: <20260908114047.1360-1-joshua.crofts1@gmail.com>
-	<CAHp75Vd-LTwJU-SvVug3MNPzFYsOQFc7qQ5AiMDjHOx8XNkHow@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WaRpLafl"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=G1xbX1aVzAnasMGtM4jScBWUpUusRlFiE4T+B4ny3Js=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788872629; v=1; x=1789477429;
+ b=WaRpLaflgrJ0MSBjsJbTauykzAT2szHDUDgVLvHvz7cAd7GNbJ4lOFoYa5Ks4NQkgK731NBE
+ nMREOCEE/ge0/OlI/unULWWfpc/WLowSn2ThMVQBK0yBK02fQKYtNjY2FMwJzfN/7m/EaoFZJe4
+ MCyKIKHyS+hHWJ/w+8OAKIfM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id c969d80fa3af1ccf;
+	Tue, 08 Sep 2026 13:03:48 +0000
+X-Mizu-Trace-ID: c969d80fa3af1ccf
+X-Migadu-Flow: FLOW_OUT
+From: Troy Mitchell <troy.mitchell@linux.dev>
+Date: Tue, 08 Sep 2026 21:03:37 +0800
+Subject: [PATCH] riscv: vector: Fix data pointer constraints in context
+ save/restore
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-riscv-vector-asm-fix-v1-1-147f314efb2b@linux.dev>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQqDQAwAvyI5N7Duyrb2K6UHXaNNQS1JuxTEv
+ xv1OAMzCygJk8K9WEAos/I8GZSXAtKrmQZC7ozBOx9d7W4orCljpvSdBRsdsec/+it1IUYf6lC
+ BpR8h08f28TxZf+3bov0F67oBwDpXr3gAAAA=
+X-Change-ID: 20260908-riscv-vector-asm-fix-27ed36623934
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Guo Ren <guoren@kernel.org>, 
+ Andy Chiu <andybnac@gmail.com>, Vincent Chen <vincent.chen@sifive.com>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@rivosinc.com>
+Cc: Alexandre Ghiti <alex@ghiti.fr>, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Palmer Dabbelt <palmer@rivosinc.com>, 
+ Greentime Hu <greentime.hu@sifive.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Kevin Zhang <zhangmeng.kevin@linux.spacemit.com>, 
+ Troy Mitchell <troy.mitchell@linux.dev>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1551;
+ i=troy.mitchell@linux.dev; h=from:subject:message-id;
+ bh=G1xbX1aVzAnasMGtM4jScBWUpUusRlFiE4T+B4ny3Js=;
+ b=owGbwMvMwCU2g/N9w09jE33G02pJDFkL2Ne5fpC/OH3WxGUtT0vW20+ddT91/dXE5Ef5Anb5y
+ odmWTM86ShlYRDjYpAVU2TpfsCzrcAnyrZAoNAXZg4rE8gQBi5OAZjIvx6G/5l9Hh9nPS1Zyrf0
+ 0A2G9zzBr5+Lrw9WfCNwtWRtsswG2UhGhq6pc+vfBcmEsLhv3344tdliZZByU+/kzzvn/SkXWW7
+ 4mgMA
+X-Developer-Key: i=troy.mitchell@linux.dev; a=openpgp;
+ fpr=3FE5535CF1B0E658E57DB59BAE1C2FBEA7DB42E1
 
-On Tue, 8 Sep 2026 15:41:23 +0300
-Andy Shevchenko <andy.shevchenko@gmail.com> wrote:
+The standard vector save/restore asm advances datap but declares it as
+input-only. An inlined caller reusing the original pointer may therefore
+use the advanced address instead.
 
-> On Tue, Sep 8, 2026 at 2:41=E2=80=AFPM Joshua Crofts <joshua.crofts1@gmai=
-l.com> wrote:
-> >
-> > The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TABLE()
-> > macro. =20
->=20
-> Is this a problem?
->=20
+Declare datap as read-write so the compiler can preserve the original
+pointer when needed.
 
-For systems using devicetree, no. For legacy systems using spi_board_info a=
-nd
-this stuff, yes.
+Fixes: 03c3fcd9941a ("riscv: Introduce struct/helpers to save/restore per-task Vector state")
+Signed-off-by: Troy Mitchell <troy.mitchell@linux.dev>
+---
+ arch/riscv/include/asm/vector.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-If you're referring to the mark for stable then I'm fine with removing it.
+diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
+index fffe72a772080..c7fd6d50a7a47 100644
+--- a/arch/riscv/include/asm/vector.h
++++ b/arch/riscv/include/asm/vector.h
+@@ -230,7 +230,7 @@ static inline void __riscv_v_vstate_save(struct __riscv_v_ext_state *save_to,
+ 			"add		%1, %1, %0\n\t"
+ 			"vse8.v		v24, (%1)\n\t"
+ 			".option pop\n\t"
+-			: "=&r" (vl) : "r" (datap) : "memory");
++			: "=&r" (vl), "+r" (datap) : : "memory");
+ 	}
+ 	riscv_v_disable();
+ }
+@@ -266,7 +266,7 @@ static inline void __riscv_v_vstate_restore(struct __riscv_v_ext_state *restore_
+ 			"add		%1, %1, %0\n\t"
+ 			"vle8.v		v24, (%1)\n\t"
+ 			".option pop\n\t"
+-			: "=&r" (vl) : "r" (datap) : "memory");
++			: "=&r" (vl), "+r" (datap) : : "memory");
+ 	}
+ 	__vstate_csr_restore(restore_from);
+ 	riscv_v_disable();
 
---=20
-Kind regards,
-Joshua Crofts
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260908-riscv-vector-asm-fix-27ed36623934
+
+Best regards,
+--  
+Troy Mitchell <troy.mitchell@linux.dev>
+
