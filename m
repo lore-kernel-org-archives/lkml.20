@@ -1,61 +1,63 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA9C581254
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:57:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5FC582BAB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883036; cv=none; b=HsGtxRPMKWfI8fGkeTaMe4kk6d0ufjGuPylpSFhGZmMFaseb9+L4z4vYR3ZrH698A+IRrUvUFm5mv0iiL0YnF8hi074MgRlaZKFW+dj8UVui3Pd/mB1SSxiK7PlnzxKJ6ICXTvrpRIaANWjo5he5cL6Qw18tu877EKKyJ6fLAGk=
+	t=1788883038; cv=none; b=h7uWsX+E1vKCXFuubtY4BxRUdpK/BqP0IWwypbnlsQ/z62Xl5oHFNXRVGfBsjYfj7chM1A8NIfv5ONTIuzNbQWrNq6Bbu7cvQmQ+Ic7KRc7RDszCq9fBJis16ri7efwnY6EqThBVwdUJyqAFN+YTz04tDuZTqsMIfHwKFewz/ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883036; c=relaxed/simple;
-	bh=zi96+EZd2CP475BTpx81u2hso2C9fSpqeLLxMFMqhoM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sBRAhvNw29g20OOCAhJZo0cN0QXV0tXjnWgw81h7YS8egrIFFVvAz9ME4IfhaUfrs5msnyRy0kG1UO6zRquQQfKP1SIOirdxodNIoHzjHriRw+sQs3MyDysGrwhL/ZeKHReK6Mczn5Y7UOuYixVAT/sns4NoWDsL3I0c2QH60Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=JzE8gBt3; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1788883038; c=relaxed/simple;
+	bh=K244GoaR/SBN1qTkqznMbdB/qRyg1uAQxHof7eZyYLA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GYSC/kBTJD4WkMdHv0UJIh0nSz7Cp+PV822P0WnY7HKDajEDuxt1ppRaVtej9yTgEqfl3PThDtcPcko6M6Y7JhBt3xpDQRzBEfLhG1ihwfQOTu6bfXdJoXL8gNDUVU/mthuQGgpOTNZMNm7782LO9vLZjzrGNwihrIGlqwRaIDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=BP8nITiC; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="JzE8gBt3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so17690f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:57:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="BP8nITiC"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4858303de5dso5860267f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:57:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788883030; x=1789487830; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IQZoZUPW7XsnZUyDNP1zXoPIybWlOKVOw77p6n3MbfQ=;
-        b=JzE8gBt3Xd2jajalSjWAeJqlMnEPEttBPbkDsZaKhXNkfeHwerAllsA8nvDCJ6P5+F
-         2e8UQOlyO+iywF/H/gx1T/dJlmUsdpIOKWjUwk4a69Y+QsFNC0qOkBiPuhePU4U5ILKG
-         Kj+kqyFwlQEZTdfy6oMtzIP39SUfwnmWBDpekAZsIwIoZ8zsIyOhO1yQyY+OUHTF1LjC
-         xWI+c/VUzFEIxF99zCaUwUaDYQ70hJNQxh/zbSoSVoMmECBs3aXfYTUff9zhIRmWN6y4
-         UnK0Ukw0eInBEuP8qqymgZPyi7Pk4fHjIvBVqjkpChERaSWeeVIpWRx3XLdjXBulOScx
-         dLEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883030; x=1789487830;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=lex.la; s=google; t=1788883033; x=1789487833; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IQZoZUPW7XsnZUyDNP1zXoPIybWlOKVOw77p6n3MbfQ=;
-        b=fmbhwuOZWbTzI6/My7IponGJfhprXoJpj9kvz/FosmBy7x4JsHR0hEniWmzOn2VQZz
-         E9rByLD915jR5v7YDGzsPReSpZmXUHlc5AfehYVId8uDdDBfqerKNnaWga6Jd7lI2Cjk
-         l5qGoV9N2aNyWlt+9eti0j9qPrXx5q7x8cFZXu6kQvLIQfeVMC7ybVxAND2Regf4j7oA
-         Z8ykXcnhRQ0yzaClOsl6EfKsW7WZzUcfKAITVb9Du1VKvijN50g/YB78V/mPV7/FqRT6
-         zJnPWTgxyoTs/TW7uVLERYY7WSMJV4mNtv8ok62YjGQ7spGFinO+fMaU/Ogwhd07iE4a
-         HZnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmAIJPGB8Mn7jG0Jbwj25VQLEKB6LOnBLwnwSk+s00IlKFbPdny034A/J0RfxiacoiIvL3ToGUVSgvgPw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lb64cpgDZHIinqdQpSVzTXXy5/7kJ4jMLpC0lPQ2mL+A4GuAxO
-	7BRUstpR0FfROGsejBLX74PorPrh530vXDFpE7dXLR1hvJq7crSSL+0cvGEXCISoJD4=
-X-Gm-Gg: AYBFou3gh5cPdMPdORLmC4ivYG3l3kxBbRKiOuOGBuq6X0+Jst2rB5OdnXx72ABDVW6
-	4BmutnT1ZpkA5kt0wOdqIDSHplz6fQnFSnCQHVj7Hqo8t9Bd2m65cJxaU3TP4ekNisDCJf9B8AS
-	FSLlPsa8+PmBlvipDNBiQ2R7i+7TyVCPOHphO30y1r1uggI0WTi8EHjRfx0SlsEJ0ZHEyK2TH+4
-	vtjS6ygAxHf5rVE9GZXFNUAgw2RYWGlbkRcmVJ0ukID5voTdzIVP6pK47C7H6P10nUzuz80Tj8x
-	3eWDSjLIn0fYyMcrTKpIfmnGGFGCDG/6x9DFCPLZFyDBeZeMGn5hkfh2ZUJPhYA/CeRPJabq8Av
-	iwfusj8GbegBXsJy5rZcNO2M5Of+kSVEnpxe22edZsJR84QrpqwPcmAT8ETkHKl9VZr84wHtQHq
-	346D+MpIM+ZvGcrRmnLT6welHwL9gGr8J+0OBNmlgkw+XOmsYjoQ==
-X-Received: by 2002:a05:6000:2489:b0:485:8e72:93ad with SMTP id ffacd0b85a97d-485aac58437mr501655f8f.0.1788883029989;
-        Tue, 08 Sep 2026 08:57:09 -0700 (PDT)
+        bh=nwJE/G6DLPhkatwmSaqyq8HEYQKnbZm9tru5auWihS0=;
+        b=BP8nITiCIEsy0JEGklGDMKuWpAgorlXpkH2F6YRnmPqaFXdDadP5kPIJNyMvNluzlG
+         aM539YAje5/MxDx7hzLBGUoaBuLKGfS9kPHLa+GT43rnS+S2dy3WxZ50e0V4RqrKO20z
+         QrN5H7GtW4XojmW1rowEd73eYpdM3VpBh4Vsa+uNh+LzdLLPFz/SFLDOsg3QA7Lssb1i
+         1/qSvlHJRXiEKXy0xHpte6oxGp8vk1XkJBYLpsA7QPMHyaknAlcGqVV3LBpWaU/2rmOp
+         ngC8yS/WL9i4K3epRWdtH3OrAG0tWU7Dyv3j1aYUwkkrQ5mKxGPpYeRulDnJO/oDGwkS
+         FW2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788883033; x=1789487833;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nwJE/G6DLPhkatwmSaqyq8HEYQKnbZm9tru5auWihS0=;
+        b=RNM9UaZBJNeiHaFc/qdsUZGmA/FXpB1RbwWZeqcz4hdMwNKl6+puM8U4t3wu0c2ecQ
+         kroVd2S21mS9mET5qLAY1omru+YKiSWXW4p2BGuk7HN40pqka9BamJhKQWRnlxj2hZTp
+         dD5cg5c9R/7j6f24jkkNTzH0FO8LeWlDhcJ7L7mrfRV9ArmqsdZxWUOsZXbwWKRGHWd4
+         SeGWVLfVG6vnceKomjk/QroRLQk5Ud40Np87W/xQ1WIRqVsRXnY2A+hIo1Ougd4YAOLE
+         B94rvnikkOhWBZT5AXFFSHd5gB29UVn8fbsujharru5+BrTpS7/vN8riuC1h1AoE51UK
+         pP7g==
+X-Forwarded-Encrypted: i=1; AKwUvBzLZDexrLbCSxhSHRIgqb5FUb4WPMukHTrlfxQLv3W6ttEd3U1A+H2mqzA/tNATyJ+x6+sRQ3w0pG5gzkI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kmbnFwSidN542+5nRxab7gFf2kL30A+MsS2Nq1y6b4XZeuuUmw
+	ahimqIKqCBrrK0/99Q2Va+Np3PdXpIGuujWWKcUB5tzBVCnW1wmuYC9iUUc0I/0vjpk=
+X-Gm-Gg: AYBFou1J7d07o9pnIXC1ZcVoAhMh4TO83gxQEm/Nx0BiHzRwbiqNAKTyjBazDS7NKm4
+	O4ukC0ZF24KvRunne9f/NWrHrWSb0HE4oNzmpq3Wm2Epg+BLiufyrzJ55JwPOuLpKkyCu3gw7cF
+	pTuhleBwkQEHr6N0+O3lZH7tS8KkTgFiwtq+ZDMEJvemG2pZqIj3nG+l64KUIkDn4eea9c4WP9O
+	1T+iTdPfQLidLS4iDk7K07LCw03JvnLQNoKRv/hkgZHAWpeFxG2d0vIRCiDQK2xq1kRl1tkUEva
+	IsQ+cMLm8jZ6s4krdHXsDC/nZhKg6yIe7w05QW9Ygis+Y0EtVFNjQ9FK++OGnzu1R0a3jcJYTIp
+	lbFyx1RiRY+ZLwCA5cdXryD8iwJzPDQGG0yvov0lBatO5cLcRQcO/A3Wo2KpPIh61rcvt0Z9jUo
+	kLXtiqtiuFKNt/OixiFfHdc6nf2ybERmhb/nOKslMfMVCuMSuFYQ==
+X-Received: by 2002:a05:6000:2c11:b0:485:8c16:a340 with SMTP id ffacd0b85a97d-4858c16a82bmr28568008f8f.53.1788883033146;
+        Tue, 08 Sep 2026 08:57:13 -0700 (PDT)
 Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm37345704f8f.21.2026.09.08.08.57.08
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883be709sm37345704f8f.21.2026.09.08.08.57.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:57:09 -0700 (PDT)
+        Tue, 08 Sep 2026 08:57:12 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: andrew@lunn.ch,
 	andrew+netdev@lunn.ch,
@@ -74,10 +76,12 @@ Cc: ericwouds@gmail.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Aleksei Sviridkin <f@lex.la>
-Subject: [RFC PATCH net-next v2 0/7] net: mdio: an MDIO device driver for the Airoha EN8811H
-Date: Tue,  8 Sep 2026 15:57:00 +0000
-Message-ID: <20260908155707.4164559-1-f@lex.la>
+Subject: [RFC PATCH net-next v2 2/7] net: phy: add mdiodev_lock(), mdiodev_lock_nested() and mdiodev_unlock()
+Date: Tue,  8 Sep 2026 15:57:02 +0000
+Message-ID: <20260908155707.4164559-3-f@lex.la>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908155707.4164559-1-f@lex.la>
+References: <20260908155707.4164559-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,251 +90,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Airoha EN8811H answers its PHY ID from power-on, but it is an MD32
-microcontroller until the host loads firmware into its volatile RAM.
-Today one driver owns both roles: the PHY driver downloads the firmware
-from .probe(), which works only when the files are readable by then and
-leaves the reset line in the hands of a PHY node whose detach wipes what
-was loaded.
+Code that holds the MDIO bus across a burst of transactions has
+phy_lock_mdio_bus(), which needs a phy_device. A library serving a chip
+before its phy_device exists has to open-code the same mutex.
 
-Describe the chip instead as an MDIO device that owns the download and
-the reset, and publish the PHY on a child pass-through bus once the
-firmware runs. Patch 1 adds the binding. Patch 2 adds mdiodev_lock(),
-mdiodev_lock_nested() and mdiodev_unlock(), the names Andrew asked for
-in [1], for code that holds the bus lock across a burst without a
-phy_device. Patches 3-5 move the download into the shared library,
-typed on the MDIO device, and teach it to skip a download when the MD32
-already runs firmware - which is what lets the two drivers coexist
-whichever runs first. Patches 6-7 add the driver and its bus.
+Add the mdio_device spelling beside it. The nested form is for a
+library whose caller already holds the bus one level up, which is what
+the EN8811H MDIO driver later in this series does.
 
-This is one half of an RFC last posted whole as v2 [2]. The other half
-teaches phylink to keep a port whose PHY is expected to probe late,
-under a new needs-host-firmware property; it is posted alongside this
-one, and its v1 thread is at
-https://lore.kernel.org/r/cover.1788711837.git.f@lex.la/
-. The halves touch no common file and go to different reviewers, so they
-are apart. They are not alternatives: the phylink half alone carries a
-board whose chip answers its ID before firmware and whose PHY driver is
-a module, and this half buys the cases that are not that - chips mute
-before firmware, a built-in PHY driver whose probe fails once on missing
-files and is never retried, and reset ownership. The shape also admits a
-quad package, one MCU serving four PHYs; this driver passes one address
-through and does not try.
+Assisted-by: LLM
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+ include/linux/phy.h | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-There is a smaller way to do the EN8811H alone, and I did not take it:
-keep the PHY driver, have it poll for its firmware from a workqueue,
-and hold the link down until the download is done. It fails on the
-cases above. A chip that is mute before firmware gets no phy_device at
-scan, so no PHY driver ever probes it. A PHY node that owns reset-gpios
-has that line asserted by phy_detach(), which erases the firmware, and
-the driver cannot refuse that from inside phylib. And once the firmware
-is up, nothing in phylib re-runs the initialisation the driver skipped
-at probe; the driver would be doing that itself, from a workqueue,
-under locks phylib expects to own.
-
-Publishing the PHY on a child bus splits the two agents that drive this
-chip onto two mutexes, so the driver holds the child bus lock around
-its own access and the library beneath takes the parent one level down.
-Patch 7 has the mechanism. Two choices in it are worth your opinion:
-the level is a bool and not an enum mdio_mutex_lock_class, because the
-helpers it picks between are the names Andrew asked for in [1], and the
-parameter arrives with the patch that creates the second level so it
-never sits unused. I can go the other way on either.
-
-One shape the series does not support, though nothing rejects it: the
-pass-through bus reads its parent at MDIO_MUTEX_NESTED, the same
-subclass a DSA user bus takes for the switch's own parent. An MCU
-sitting on such a bus gives lockdep three nesting levels of one class
-across two subclasses, and a recursive-locking report. The mutexes are
-distinct, so that is a complaint and not a demonstrated deadlock,
-and the driver neither detects nor refuses the topology. The enum's
-remaining value, MDIO_MUTEX_MUX, belongs to mdio-mux, so a third level
-wants a new one - not a decision this series should make on its own.
-
-Andrew asked whether any board with this chip sits on a bus without
-direct Clause 45. I found none. The two in-tree device trees that carry
-it - mt7981b-openwrt-one by compatible, mt7986a-bananapi-bpi-r3-mini by
-bare PHY nodes at the chip's addresses - put it on mtk_eth_soc, and out
-of tree it hangs off one of four controllers: mtk_eth_soc, the MT7530
-DSA bus on EN7581, mdio-airoha on AN7583, or the SiFlower xgmac. All
-four set read_c45, and none of those boards reaches the chip through an
-mdio-mux or a bitbanged bus.
-
-The status poll keeps the Clause 22 indirection, which patch 4
-explains. It is a preference and not a necessity: the chip does answer
-Clause 45 before its firmware, and the board readings below say what it
-answered.
-
-System sleep is handled but untested, since this board gives no way to
-cut power to the PHY. A power-cutting suspend wipes the MD32, so
-.resume repeats the reset decision and the download in line, because
-the child PHY's own resume calls phy_init_hw() immediately after and
-needs the firmware by then. request_firmware_direct() already caches what
-it loaded, so the explicit registration exists for the adopt path, where
-loaded, so the explicit registration exists for the adopt path, where
-no file was ever read and the cache would otherwise hold nothing. A
-resume that cannot reload restores the chip and not the port; question
-3 says why.
-
-Tearing the MDIO device down while its child PHY is attached crashes:
-mdiobus_unregister() removes the PHY's driver without freeing the
-interrupt its consumer requested, so the next interrupt dereferences
-phydev->drv after phy_remove() cleared it. No open or close is needed.
-Module unload cannot reach it, because attaching a PHY takes a
-reference on the bus owner, and sysfs unbind cannot, because the
-attributes are suppressed. Removing the parent MDIO controller still
-can; question 3 again.
-
-Tested on an MT7981B board (MT7531 switch, EN8811H on a 2500base-x
-port), warm boots only - I have no remote way to cut power. The board
-runs OpenWrt, so what booted is these patches backported onto its 6.18
-tree, not the mailed text byte-for-byte. What the board showed:
-
- - download and handover on the normal boot path: U-Boot leaves the
-   MD32 in its bootloader on every reboot here, so each boot runs the
-   driver's pulse-reset and download; ~144KB lands in about two
-   seconds, which is what 73728 Clause 22 frames cost at the 2.5 MHz
-   MDC these boards default to; the driver reports the firmware it
-   loaded at 6.33 s, and the PHY driver finds that firmware already
-   running at 6.39 s and skips its own download through the shared
-   check
- - the PHY is attached at 7.10 s through the child bus with irq=15 from
-   DT and not PHY_POLL; the port reaches forwarding and the link
-   comes up at 20.1 s, and the interrupt line counts link events across
-   forced renegotiations
- - Clause 45 before firmware: with the MD32 never programmed, read on
-   the parent bus while the child bus does not exist, the PMA/PMD
-   identifier is 0x03a2, matching the Clause 22 pair 0x03a2/0xa411 at
-   the same address, and the vendor status reads 0x0000 where a silent
-   chip would float to 0xffff
-
-Two of the v1 review points [3] went a different way than asked, and
-each gets a sentence rather than silence. The shared header went to
-include/linux/mdio/ beside the other MDIO driver headers: include/net/phy/
-does not exist, and include/linux/phy/ is the generic PHY framework. And
-the copy of parent->irq[addr] onto the child bus was in v2 and is gone
-from v3. A bus's irq[] starts as PHY_POLL from mdiobus_register(), and
-the DT path fills an entry only when it registers a PHY at that address,
-from the PHY node's own interrupts property. The MCU node is not a PHY,
-so the parent's entry at its address stays PHY_POLL, while the child bus
-gets its own entry filled from the child PHY node when that bus is
-registered. The copy carried PHY_POLL over a value the child fills
-correctly on its own, and the board's irq=15 comes from the child node
-either way.
-
-The base matters for patch 5: it makes the MCU restart on the adoption
-path, and commit 03b4702fc5e3 ("net: phy: air_en8811h: move LED GPIO
-configuration to config_init") with commit 3498acda6b68 ("net: phy:
-air_en8811h: restore AN8811HB LED GPIO after MCU restart") moved the
-LED GPIO enable to the end of config_init, after that restart. On an
-older base the restart would have cleared the buckpbus-mapped GPIO
-state with nothing to re-enable it. The firmware size check landed as
-commit daf0972d38e9 ("net: phy: air_en8811h: refuse a firmware blob
-that is not a multiple of 4"), and patch 4 carries it into the library
-with the write loop it guards.
-
-What I am asking:
-
- 1. The binding lets software timing pick the topology: the same chip
-    on the same board is a plain PHY node when its firmware is in the
-    bootloader, and an MCU with a child bus when the firmware arrives
-    with the rootfs. Move the files into an initramfs and the
-    recommended description changes without a wire moving. The hardware
-    argument that does hold is narrower - the reset line belongs to the
-    MD32 core rather than to the PHY the firmware creates, and a PHY
-    node that owns it wipes the firmware on detach - and it argues for
-    the MCU node, not for the child bus. If the child bus has to be
-    justified by hardware too, I do not have that argument, and the
-    honest options are to describe the chip one way always, or to say
-    plainly in the binding that this is a driver model choice. Which
-    would you rather see?
-
- 2. A third nesting level has no subclass, as above. Should this series
-    add one?
-
- 3. Removing the parent MDIO controller reaches this driver's remove
-    with the child PHY attached, and nothing pins the parent's owner.
-    Closing it wants a way for a bus to tell its PHYs' consumers to let
-    go, which is a phy-core change. The failed-resume path above wants
-    the same channel for "re-initialise" rather than "let go", so that
-    is two uses for one mechanism. Is it worth doing here?
-
- 4. MDIO_AIROHA_EN8811H sits in the "MDIO controller drivers" menu,
-    though it drives a device on a bus and not a controller. The
-    mdio-mux entries set the precedent, but say if you want it
-    elsewhere.
-
- 5. The child bus accepts exactly one address, the one this node
-    occupies on the parent, and I do not think the schema can say so.
-    What it does say now is that a child named ethernet-phy@N is
-    validated as one, and that it must not carry reset-gpios or its
-    timings - the whole reason this node exists is that a PHY-node
-    reset is what phy_detach() asserts, and it erases the firmware.
-    What it cannot say is that a differently named child is refused:
-    mdio.yaml's own patternProperties evaluates any node@hex and its
-    additionalProperties: true admits the rest, so unevaluatedProperties
-    has nothing left to reject. Is prose enough for the address, and is
-    there an idiom I am missing for the rest?
-
- 6. include/linux/mdio/mdio-airoha-en8811h.h is named for the driver
-    that consumes it, while its four neighbours in that directory name
-    the driver that implements them - here the implementation is
-    drivers/net/phy/air_phy_lib.c. Where should this header live, and
-    should the MAINTAINERS entry that now claims it also claim the
-    library files it declares?
-
-Changes since v1:
-
- - the child PHY node references airoha,en8811h.yaml instead of the
-   generic ethernet-phy schema. On the generic one the polarity
-   properties that PHY defines are unevaluated, so a device tree using
-   airoha,pnswap-rx on the child was rejected; the example check says
-   so, and says it passes now.
- - resets and reset-names are closed on that node beside reset-gpios.
-   Only the GPIO spelling was refused before, while mdio_device_reset()
-   pulses reset_ctrl the same way, so a reset controller on the child
-   node validated and would have erased the firmware.
- - both were found by the Sashiko AI review. Its third point, that
-   pm_ptr() should replace pm_sleep_ptr() on the driver's dev_pm_ops,
-   is not taken: DEFINE_SIMPLE_DEV_PM_OPS builds the ops out of
-   SYSTEM_SLEEP_PM_OPS, which CONFIG_PM_SLEEP guards, and of the 34
-   files in drivers/net that define ops that way, 26 use pm_sleep_ptr()
-   and none use pm_ptr().
- - question 5 below still stands, and the answer to the part about a
-   differently named child has not changed.
- - v1: https://lore.kernel.org/r/cover.1788711797.git.f@lex.la/
-
-[1] https://lore.kernel.org/netdev/29f973e4-980d-4198-bbec-452f7421d416@lunn.ch/
-[2] https://lore.kernel.org/r/cover.1788548229.git.f@lex.la/
-[3] https://lore.kernel.org/netdev/20260829052546.1152446-1-f@lex.la/
-
-Aleksei Sviridkin (7):
-  dt-bindings: net: add Airoha EN8811H PHY MCU
-  net: phy: add mdiodev_lock(), mdiodev_lock_nested() and
-    mdiodev_unlock()
-  net: phy: air: type the buckpbus core on the mdio device
-  net: phy: air: move the EN8811H firmware download into the library
-  net: phy: air: skip the download when the MD32 is already running
-  net: mdio: add Airoha EN8811H MDIO device driver
-  net: mdio: en8811h: add the nested bus
-
- .../bindings/net/airoha,en8811h-mcu.yaml      | 119 +++++
- MAINTAINERS                                   |   8 +
- drivers/net/mdio/Kconfig                      |  13 +
- drivers/net/mdio/Makefile                     |   1 +
- drivers/net/mdio/mdio-airoha-en8811h.c        | 382 ++++++++++++++++
- drivers/net/phy/air_en8811h.c                 | 151 +------
- drivers/net/phy/air_phy_lib.c                 | 421 ++++++++++++++++--
- drivers/net/phy/air_phy_lib.h                 |  27 ++
- include/linux/mdio/mdio-airoha-en8811h.h      |  25 ++
- include/linux/phy.h                           |  16 +
- 10 files changed, 984 insertions(+), 179 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/airoha,en8811h-mcu.yaml
- create mode 100644 drivers/net/mdio/mdio-airoha-en8811h.c
- create mode 100644 include/linux/mdio/mdio-airoha-en8811h.h
-
-
-base-commit: ab217fbb9b2169ce677b09a66558d5c3adcfbb76
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 3d8afe6b7f1c..e74a8f5cf5c6 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -2284,6 +2284,22 @@ static inline void phy_unlock_mdio_bus(struct phy_device *phydev)
+ 	mutex_unlock(&phydev->mdio.bus->mdio_lock);
+ }
+ 
++static inline void mdiodev_lock(struct mdio_device *mdiodev)
++{
++	mutex_lock(&mdiodev->bus->mdio_lock);
++}
++
++/* For a bus reached through another one, as mdiobus_read_nested() is. */
++static inline void mdiodev_lock_nested(struct mdio_device *mdiodev)
++{
++	mutex_lock_nested(&mdiodev->bus->mdio_lock, MDIO_MUTEX_NESTED);
++}
++
++static inline void mdiodev_unlock(struct mdio_device *mdiodev)
++{
++	mutex_unlock(&mdiodev->bus->mdio_lock);
++}
++
+ void phy_attached_print(struct phy_device *phydev, const char *fmt, ...)
+ 	__printf(2, 3);
+ char *phy_attached_info_irq(struct phy_device *phydev)
 -- 
 2.53.0
 
