@@ -1,203 +1,140 @@
-Received: from mail-pj1-f99.google.com (mail-pj1-f99.google.com [209.85.216.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0307D517BD2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:32:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6722251E429
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:32:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859937; cv=none; b=qe6I5v6TwWVQd/3Iu6xYWZj1BwZ7rLt1/YpRqkRQUnZ0ASb6Wk2ZFA9kqwyxI5S7j/EAFFvuVKPWk/r0rm7iNc5ZB4wjzlDP/ky5YhjEEyJv0r8t42Ni4vqc77bQZrL9wFj+b1wBVGKqXRj7jE1m0Wnd3AioLNamYxa0UAvMwgk=
+	t=1788859943; cv=none; b=m4r1zdGUYe89B5jA9JCk4K6sHHhtA5lu05r7NZ1REd1RbdJTLhRgTozDQeQtTAVMDn1Cg7TbVqZMFNmPErM1ATgPcI/86FLHIgiffTexXHTe48JKPmbpHQhPnv/bOapqOZ2YlesyhFr7cUqAqXT2i9TqjntHmjrMOOyD/j8qscY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859937; c=relaxed/simple;
-	bh=nQgDbNSdzJH22q/WdFenL2FDe0FvWhCCSlCQujJNnXE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jusKcehMzIQvtpEm8H4KMoR3Y8bysSL9oeNzTn7y9JAkSaAG6BcLUDpdl+dqu9YDy0YJxcuAf0EOl/gihWYYRYr7v0F8j2rDs5nkxHbxQJRiWyCx9wUabp4dbesA/sjipfq8DDZpNeGCuOuWjtlkNvn9BXGIrk7IWs5wXveNss4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=EmlTXcO4; arc=none smtp.client-ip=209.85.216.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788859943; c=relaxed/simple;
+	bh=BqbMqlm4FDsGzMYuRIEmsBVHqYZ0z3pDff8KoOkJopM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fjSdDUcg3CwxpgwaGpTGS0QqXTkqlCpV+wQB5lqZ2ek1e4MmcxpFWQwtzeeUKufnUwaphqZur3xk8tnZ9EZhN35RZVQmScx+r7EwVtcaWyAxVp5l53JVp3krdPjRgfEISwOu8V5/UgcGxFf2Cp8sn5HbSlSxn2ZIMMXrg03CkEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=is6KQl01; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="EmlTXcO4"
-Received: by mail-pj1-f99.google.com with SMTP id 98e67ed59e1d1-39675172593so3471954a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:32:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859934; x=1789464734;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=C5GxQgx0x9/x4+P5Kqldr17QscDXY7tg/o4os18rkDo=;
-        b=GdjAFgAbvacEZMh+DOInGH/BdkdoC3culBBgcQ3Mh+fd3xOrbQ9sn7/ld6jFz6gfcL
-         qo/RPOioudGFVQQoHH36s0Qp5ikrajFyqgXlcN0j1CsMUNnxsYdozMZ6gVdLLzSP9xA/
-         HwbpoQGFd96ZO6CkCHbfcwUT4gCmaGvnel5VyoFDs78lsfQPjm84x3Z7dizu2cCEMc7p
-         YDXBNgG/2lbR0oroNOmMrvONKGH88VBJm3V95tnLWSYgfxOFrBRUdmWzsiuD9aDVM6cl
-         rjX9/1bTH5mCYs9F/wIQa69ACjgqd7uXQHeOtCqFT/BAhWhITRt0fm+ApFez2cE2prbx
-         p6BA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiRTxxuY01uC7cWGdEfyPxheMAIUPUNzLjKarF83H7+BE+1onaznXLR/KcEWPVVU3/zIOSW2mGPw4SKlk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lanurdqg5XslKOnsIA9pjuxALgZ5/Hr8N1RQiBnpferOiZDHwr
-	6QdcznzJG4h1b7CWx5puTV86MWT6pPBuMl4BJg13aKoWSEstY6WSWF1dbdkHLQ/oO1QT7rDGBTg
-	8ru9tJvvXsXO+Mm3K0wEezrvN/qMhf6EsPgzKoBTYFtzdBIZY7ErD/MBPAuAdjF4Hx4T1SSlDl/
-	Y0Grv/Ou6ftGTCnDTNXFfK7jsVQrceyKkvi+4WAp7oYtBLp/wukB1sm3eJhOOR+VXr/rLu7p/ms
-	/nuGpobGGyyTgGkfQ==
-X-Gm-Gg: AYBFou0yIlYVgvpN0jnc4jSIe313QpMvL4BgoyqTbGdh7H0HT1fpkxNAFU1mOEhCg6i
-	DV5GamUyx5jpd12JE0Bw8KwIt3oj4fgS5ETHcSeU4gZ7lN2BDXyC6IK/Jhm5g1R6Y6XKx4fzrKH
-	gN6z9jS4r9L78w53aweoHka85RmM+FSw/p4ejooTnSwC9RTuYcNmhH+kqr5UbPRGUeAmpvO49tM
-	9OMBK2Rw3Tep/E5t/i3LCxWF0yKmEPartwgex1tfCb/dP8jwryblgsPuhs4X2IXlXhQFkq5FTRC
-	r3061GYms4FNsghNpoO5KN9AwS5tSEuj1hOV3UzQMTzZK4MeHzlurpD0FNFq3HmiU6vmEhz5M17
-	eXKdqhoWhBLjl+UuAz2jZbdxD1BtooLTZsjBPX6TRrskFwrnXNq1OTJTpmVm9+ZbR3wN6kjE/nA
-	wRf+Rp0SuhMd7q1UX+xFIykJB0fKatgUc=
-X-Received: by 2002:a17:90a:d644:b0:398:9c00:29ec with SMTP id 98e67ed59e1d1-39b26245cfcmr44000164a91.20.1788859934135;
-        Tue, 08 Sep 2026 02:32:14 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b25fadaa6sm8263389a91.1.2026.09.08.02.32.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 08 Sep 2026 02:32:14 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ecc48b3c2so7250669a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:32:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788859932; x=1789464732; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C5GxQgx0x9/x4+P5Kqldr17QscDXY7tg/o4os18rkDo=;
-        b=EmlTXcO4T8o7Shh0vwtSOjDVVsoQDyLcA+KrBYX0ngjqDPW0NfQyEpaMVna/Q09YDg
-         VrHxMdFuUU55hLNKIrboPopzImwot3Adw3nzbx/7FBIDh7X59S5l1j+QS+nM9yeP55SS
-         /8UvcIZ+MeXZsH6Od1yZcAUUK0dUjuHzcoxuU=
-X-Forwarded-Encrypted: i=1; AKwUvBynUeZeSettqJIU+bo/rocM/o/P9x2cpF5NfLwCiezaCEeROexTeIdv4/dsFi4tcp8piygMYUrWN4J3R7Y=@vger.kernel.org
-X-Received: by 2002:a17:90b:264c:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-39b2612f7dbmr41937156a91.10.1788859932460;
-        Tue, 08 Sep 2026 02:32:12 -0700 (PDT)
-X-Received: by 2002:a17:90b:264c:b0:36b:bec8:94c5 with SMTP id 98e67ed59e1d1-39b2612f7dbmr41937133a91.10.1788859932003;
-        Tue, 08 Sep 2026 02:32:12 -0700 (PDT)
-Received: from localhost.localdomain ([192.19.203.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm31493316a91.11.2026.09.08.02.32.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:32:11 -0700 (PDT)
-From: Vikas Gupta <vikas.gupta@broadcom.com>
-To: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	horms@kernel.org
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bhargava.marreddy@broadcom.com,
-	rahul-rg.gupta@broadcom.com,
-	vsrama-krishna.nemani@broadcom.com,
-	rajashekar.hudumula@broadcom.com,
-	dharmender.garg@broadcom.com,
-	ajit.khaparde@broadcom.com,
-	Vikas Gupta <vikas.gupta@broadcom.com>
-Subject: [net-next, v2 11/11] bnge: add cpu_rmap support for IRQ affinity
-Date: Tue,  8 Sep 2026 15:00:53 +0530
-Message-ID: <20260908093053.2596020-12-vikas.gupta@broadcom.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260908093053.2596020-1-vikas.gupta@broadcom.com>
-References: <20260908093053.2596020-1-vikas.gupta@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="is6KQl01"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C3E1F00A3A;
+	Tue,  8 Sep 2026 09:32:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788859941;
+	bh=idOnIsbF4aqGbbwgFi07xd+2BwFsQcBoIJ7fhbX7sIA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=is6KQl01jgWMql6FMQr1xk4ZLTp10tUIpdaw1BuP5Rf1d3EdS7dMLKaiPRZThwuqD
+	 Zz3wcM39/XWli/MFxs5l2NuNPSjlU8qMWXqNptPFuT4CFfVUNdkDthAFS1YK6zQLS1
+	 nmtpMdpWmBqCCe2wIfrgXYPvi8EvGSNXfa7xlVQe2pGyMROlgXFPsY+GF1r/q/OwTB
+	 p+s5pjSRGKJFXbW5tWnRNXxcQRntY9B3rZ83+pI7dTryfPaOjIWD6J8mfxP/35Wwg4
+	 NCNXkDMfDYhL3azEtB6DmMI4zns9IM5YqZaboMTZZIo95XbBv3wHc3xcP0mVoCNIyl
+	 60gxvEX45F9Tw==
+Message-ID: <90cd8ace-b135-45d6-815b-bf7329cbfa4d@kernel.org>
+Date: Tue, 8 Sep 2026 11:32:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+User-Agent: Mozilla Thunderbird
+Subject: Re: [syzbot] [mm?] WARNING in vma_add_pgoff
+Content-Language: en-US
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ syzbot <syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com>
+Cc: akpm@linux-foundation.org, jannh@google.com, liam@infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, pfalcato@suse.de,
+ syzkaller-bugs@googlegroups.com
+References: <20260907192517.564ea15aa8c9d47669b3a81f@linux-foundation.org>
+ <6a9f8bc6.f614420e.2bf292.0005.GAE@google.com> <ap_Uke89Q9LWoaoK@gremlin>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <ap_Uke89Q9LWoaoK@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When CONFIG_RFS_ACCEL is enabled, allocate and populate a cpu_rmap
-for the RX IRQ vectors so that the kernel's aRFS infrastructure can
-correctly map flows to the RX queues serviced by the nearest CPU.
-This ensures that NTUPLE rules created by the kernel steer packets
-to the optimal queue based on CPU/IRQ affinity.
+On 9/8/26 11:25, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 07, 2026 at 09:15:02PM -0700, syzbot wrote:
+>> Hello,
+>>
+>> syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+>>
+>> Reported-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
+>> Tested-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
+> 
+> Yup there we are :)
+> 
+> Why is this constantly duplicating I wonder...
 
-Signed-off-by: Vikas Gupta <vikas.gupta@broadcom.com>
-Reviewed-by: Bhargava Chenna Marreddy <bhargava.marreddy@broadcom.com>
-Reviewed-by: Dharmender Garg <dharmender.garg@broadcom.com>
----
- .../net/ethernet/broadcom/bnge/bnge_netdev.c  | 35 ++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+Going back to the first mail:
 
-diff --git a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-index 4354fbf438f7..0753d90c0b6f 100644
---- a/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-+++ b/drivers/net/ethernet/broadcom/bnge/bnge_netdev.c
-@@ -18,6 +18,7 @@
- #include <net/ip.h>
- #include <linux/skbuff.h>
- #include <net/page_pool/helpers.h>
-+#include <linux/cpu_rmap.h>
- 
- #include "bnge.h"
- #include "bnge_hwrm.h"
-@@ -2435,10 +2436,23 @@ static int bnge_setup_interrupts(struct bnge_net *bn)
- {
- 	struct net_device *dev = bn->netdev;
- 	struct bnge_dev *bd = bn->bd;
-+	int rc;
- 
- 	bnge_setup_msix(bn);
- 
--	return netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-+	rc = netif_set_real_num_queues(dev, bd->tx_nr_rings, bd->rx_nr_rings);
-+	if (rc)
-+		return rc;
-+
-+#ifdef CONFIG_RFS_ACCEL
-+	if (bn->priv_flags & BNGE_NET_EN_NTUPLE) {
-+		dev->rx_cpu_rmap = alloc_irq_cpu_rmap(bd->rx_nr_rings);
-+		if (!dev->rx_cpu_rmap)
-+			return -ENOMEM;
-+	}
-+#endif
-+
-+	return rc;
- }
- 
- static void bnge_hwrm_resource_free(struct bnge_net *bn, bool close_path)
-@@ -2454,6 +2468,11 @@ static void bnge_free_irq(struct bnge_net *bn)
- 	struct bnge_irq *irq;
- 	int i;
- 
-+#ifdef CONFIG_RFS_ACCEL
-+	free_irq_cpu_rmap(bn->netdev->rx_cpu_rmap);
-+	bn->netdev->rx_cpu_rmap = NULL;
-+#endif
-+
- 	for (i = 0; i < bd->nq_nr_rings; i++) {
- 		int map_idx = bnge_cp_num_to_irq_num(bn, i);
- 
-@@ -2473,6 +2492,7 @@ static void bnge_free_irq(struct bnge_net *bn)
- 
- static int bnge_request_irq(struct bnge_net *bn)
- {
-+	struct cpu_rmap *rmap = NULL;
- 	struct bnge_dev *bd = bn->bd;
- 	int i, rc;
- 
-@@ -2481,10 +2501,23 @@ static int bnge_request_irq(struct bnge_net *bn)
- 		netdev_err(bn->netdev, "bnge_setup_interrupts err: %d\n", rc);
- 		return rc;
- 	}
-+
-+#ifdef CONFIG_RFS_ACCEL
-+	rmap = bn->netdev->rx_cpu_rmap;
-+#endif
-+
- 	for (i = 0; i < bd->nq_nr_rings; i++) {
- 		int map_idx = bnge_cp_num_to_irq_num(bn, i);
- 		struct bnge_irq *irq = &bd->irq_tbl[map_idx];
- 
-+		if (IS_ENABLED(CONFIG_RFS_ACCEL) &&
-+		    rmap && bn->bnapi[i]->rx_ring) {
-+			rc = irq_cpu_rmap_add(rmap, irq->vector);
-+			if (rc)
-+				netdev_warn(bn->netdev,
-+					    "failed adding irq rmap for ring %d\n", i);
-+		}
-+
- 		rc = request_irq(irq->vector, irq->handler, 0, irq->name,
- 				 bn->bnapi[i]);
- 		if (rc)
--- 
-2.47.1
+syzbot found the following issue on:
+
+HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
+git tree:
+git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+
+We can see it's based from 7.3-rc1:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git/log/?h=for-kernelci
+
+And since the problem was introduced there, all kinds of development trees
+for 7.4 (or even pending hotfixes for 7.3) based on 7.3-rc1 will now have it.
+
+I guess syzbot has to learn to recognize it's a known problem and ignore it,
+or have some repo of known important fixes merged after rc1 it applies on
+top of such development trees, as they generaly won't be rebased to later rcs.
+
+> 
+>>
+>> Tested on:
+>>
+>> commit:         35b0fb39 mm/mremap: reset unfaulted VMA page offset fo..
+>> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+>> console output: https://syzkaller.appspot.com/x/log.txt?x=15e13af9580000
+>> kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+>> dashboard link: https://syzkaller.appspot.com/bug?extid=c6879dc677a017f0a21b
+>> compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+>> userspace arch: arm64
+>>
+>> Note: no patches were applied.
+>> Note: testing is done by a robot and is best-effort only.
+> 
+> --
+> Cheers, Lorenzo
 
