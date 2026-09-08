@@ -1,105 +1,88 @@
-Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4272D5013CA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F51C5013CA;
+	Tue,  8 Sep 2026 10:03:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861813; cv=none; b=pREUck6NV7PEEg8MkVpyS6opf0bvS9kPgDJH22tipM5I7W7jI2RPityMBQZzrWdipqUpyCbh2wqqmpArt3S/QoRFdyU+i1esKBoR94PqF9feHyx4a/YZTzTKI5coBSzcWHWIo/PPnUIEWPaxD2xS637+MOA/Mzy/yIWoUy6dJhU=
+	t=1788861825; cv=none; b=itPDdYfI8H6TaUTZ34LTdkSBXkOHNLjm7Vjt+FFFDeHyc5i8nGrTBtp/fmwfONMw5sa7/RBmSiN7i7CTS2e/bQe9gQ+5z9aXXa1zfJ7VnTsmOuGAv9WC/5/H9BUFeAMYXvtN+NPOVYMv3OGiG1RfCmfOe3x1eASIzZW2o49yT5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861813; c=relaxed/simple;
-	bh=k5Y//fCuyAhbYOt7/YCpHnHqsrzwl/eKE/03WaIacHw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=un0BMaY1L1fXLLzPc4pBFpKz0cxKuRnw99V0B11SfLxUaeYAL5iqycKhf3GeJXop2r4Whmu5iZOhAu2J6NieQ71mP+nI2Z9YVgVr3S6dQ2dV7vwDbrpGG+T/fROXUV4otuUhABfeIEjdmrZ7uUP7uta4CAW+rQwDSM012GN2WIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=DRyqWAQ/; arc=none smtp.client-ip=95.215.58.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788861825; c=relaxed/simple;
+	bh=5vAQX4mLQwg3bgyjWIDegZmml35dIae71Cu53YVyKVc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=STEeYWUuvwkFjsoQOckesNgxy4f2tCq3tGT8fOxgNnXNr+fx59mAd1uZUrHD+QkuQcvFMCNz8yzeL1CpMpxTM3PgfuPdoEDANKawo9r5NhNB2/A74cCTQFa5yommHGszcTMc7W4wRbJC1G4J5C8+MqQcJYJr7EPf42y4+G84HT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HJxw7a5n; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="DRyqWAQ/"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=k5Y//fCuyAhbYOt7/YCpHnHqsrzwl/eKE/03WaIacHw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788861809; v=1; x=1789466609;
- b=DRyqWAQ/01uOxFLLVdU0Q3kcUtbK0o8j+ZZ1WjXK5DF86otKxmQUkRvVMLzifVzmt2JKbjjO
- ciXGVelUME4KVM030fOrQu3qbJf9d9gzURgAl79PxQ6Anq8nPoNcy/5EV9ly3+KCad116vNirWm
- 4V4jYvLi1f4MwIBvydRRrR/Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d758f2e248c73fe8;
-	Tue, 08 Sep 2026 10:03:29 +0000
-X-Mizu-Trace-ID: d758f2e248c73fe8
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [RFC PATCH 8/8] docs: cgroup-v2: document io.cost ctrl=bpf option
-Date: Tue,  8 Sep 2026 18:01:43 +0800
-Message-ID: <20260908100143.47598-9-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908100143.47598-1-cui.tao@linux.dev>
-References: <20260908100143.47598-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HJxw7a5n"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A1D9A1A1A56;
+	Tue,  8 Sep 2026 10:03:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 73C25603C4;
+	Tue,  8 Sep 2026 10:03:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C87711C7AF5C;
+	Tue,  8 Sep 2026 12:03:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788861816; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=5vAQX4mLQwg3bgyjWIDegZmml35dIae71Cu53YVyKVc=;
+	b=HJxw7a5n7JiOtutr1aQa1jZOAcwYz7vUl4NtBmXInV72w47M2bbpX/gqsgpboIQx2ttkkD
+	uJhck1Odhe6MP98SkTQKScFMRfE+5rZvf2rZimWdm5MoC+P3Vt1g8SUjbHeVIGdvRCwoO3
+	ZbuzkTmBrjV6OMhxCdmzmvHQ/A6D8ohLa4PtjAqD7VLGrwY+PRcX7UZ2YBzXC3FGJ0HrxZ
+	wLeFInhRpblg7OiYJyNlVTfsWzs8Qv1eFkR+N9jQ8iDBUhTHmI+JplH6lx4pGdlSV5BA60
+	hhUYLGMmQCeKzYfHZ5VZTkgd4in2hMlAyW681J1LPsot4e024AN+k71R7E96Ew==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Chen-Yu Tsai <wens@kernel.org>,  Jernej Skrabec
+ <jernej.skrabec@gmail.com>,  Samuel Holland <samuel@sholland.org>,  Boris
+ Brezillon <bbrezillon@kernel.org>,  linux-mtd@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v2] mtd: rawnand: sunxi: fit maximized ECC step to page
+ size
+In-Reply-To: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
+	(James Hilliard's message of "Fri, 04 Sep 2026 16:39:27 -0600")
+References: <20260904-submit-sunxi-nand-ecc-step-validation-v2-1-6e3ba6200948@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 08 Sep 2026 12:03:33 +0200
+Message-ID: <87zexst5ze.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Tao Cui <cuitao@kylinos.cn>
+Hello James,
 
-Document the "bpf" value of the ctrl key of io.cost.model and the
-iocost_model_ops struct_ops it selects, in the io.cost.model section
-of the cgroup v2 documentation: the registration precondition and
-single-instance limit, the scalar arguments, the vtime clamp and the
-delegation-to-builtin semantics of a zero return value.
+On 04/09/2026 at 16:39:27 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- Documentation/admin-guide/cgroup-v2.rst | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+> When nand-ecc-maximize is set, the driver unconditionally selects a
+> 1024-byte ECC step. A NAND with a 512-byte page consequently produces
+> zero ECC steps before the available OOB bytes are divided by the step
+> count.
+>
+> The older sunxi NAND controllers support 512-byte ECC blocks. Select the
+> smaller of the page size and the preferred 1024-byte step, using a
+> 512-byte step for a 512-byte page while retaining 1024-byte steps for
+> larger pages. Unsupported smaller steps and controllers without
+> 512-byte support continue to be rejected by the existing checks.
+>
+> Fixes: 4796d8655915 ("mtd: nand: sunxi: Support ECC maximization")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 8d2603751c51a..54b0574ce586c 100644
---- a/Documentation/admin-guide/cgroup-v2.rst
-+++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2115,10 +2115,24 @@ IO Interface Files
- 	are defined.
- 
- 	  =====		================================
--	  ctrl		"auto" or "user"
-+	  ctrl		"auto", "user" or "bpf"
- 	  model		The cost model in use - "linear"
- 	  =====		================================
- 
-+	When "ctrl" is "bpf" (only available when
-+	CONFIG_BLK_CGROUP_IOCOST_BPF is enabled), cost calculation for
-+	the device is dispatched to the BPF program registered against
-+	the iocost_model_ops struct_ops.  Writing "bpf" fails with -EINVAL
-+	until such a program is registered, and at most one program can
-+	be registered system-wide.  The model is called with scalar
-+	arguments (operation, size, sector, cgroup cursor, css id of the
-+	issuing cgroup, flags; see include/linux/blk-iocost.h for their
-+	meaning) and returns a cost in vtime units, clamped by the kernel
-+	to 1 second of device time per IO.  A return value of 0 delegates
-+	the IO back to the builtin linear formula, so a model which only
-+	handles some IO types cannot make the rest free.  Devices which
-+	don't opt in keep the builtin linear model unchanged.
-+
- 	When "ctrl" is "auto", the kernel may change all parameters
- 	dynamically.  When "ctrl" is set to "user" or any other
- 	parameters are written to, "ctrl" become "user" and the
--- 
-2.43.0
+As reported by Sashiko, there is another use of 1024 down the road which
+must be modified accordingly. Although, in practice, 512-byte page NANDs
+have disappeared for quite some time, so this is a theoretical fix more
+than a real problem.
 
+Thanks,
+Miqu=C3=A8l
