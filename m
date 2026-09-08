@@ -1,113 +1,120 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD2233344A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914653B6C01
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883940; cv=none; b=s3xF3mPDfvuhNxk2MXUrJxTtFGdqRHOWBFvpWmSf9BuCn1i8cLgEcR6H9GFBoIsiET5+UVFSonNqa5ShyO/OfuVqE/VTe62o7c5z53BpUgw7Yohsf/6IvWsj19Xt21J2orExFewiITYSme6sedqFVUEMmZiOsspi4Wx3DRRecRU=
+	t=1788883980; cv=none; b=hkevOMZhZtWw1lP2u3p2PP92qtV+7iNVwk+JXoR7b4/aMC4VRrGduYoGZFfexOuhKbOPzuTkEe0rFaBLqik6hBwiyOaSkgvFYFVV6n1BF9mYsySGBZWO9Nd9R4LVqCoqmL2K4r6J62uvteFw6ZbmiZEBBNPysafHZTUVVpZt3lc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883940; c=relaxed/simple;
-	bh=ngRQZd35Jt8WtlvrkxLAiPGXLe55YxX1GcCgc8p/Miw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hTMaYRv47duiM6RdagZ/T/YSMces/nX4YjbkIh03jdzZsrxq5uVpn9htKGoanjIJzNZSqaHjUjOjZimrODLwoVzphxSmOeuY4H0cydcszTYV2gmChPWjO5oOgXbeUtVSfaJl6e5xBndLN8q7DiBjRQcDIpJf6cbMAnb3gFAnHSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4J8Q2yy; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1788883980; c=relaxed/simple;
+	bh=YAG/p2uvViRw+vxyRrhGP803cSs/AcKDMK5dMaKMeyg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cU0WcoToqXj4LJp9LYKZOq3c53UFhs/hQS5lNvWZdtHMyerLcxIZWC/9MoaFamEOp5ddhbB8xviq1XleIGG20pWHH14isq+hjtI8OMdwwlnSyELKbrYP+N6efz/XyEUXoPnY/HtYTtHriLhgPhjlMo2wyQYg0yKZntvLlcMkVpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwGHcSSc; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4J8Q2yy"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6e954afbdso31059365ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:12:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwGHcSSc"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b9320423cso54757305e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:12:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788883937; x=1789488737; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2RTVmx65sj/OQ1FTIJA7qw5cuQ/6mnn1iGRNRdhAkxI=;
-        b=e4J8Q2yyLgnaI3DuH2ilWxg3DHl3Q0BkXvbDPlZXmC2w4+ftoonQL77NoEVp338iiX
-         gJFWe/t0mVVAw1ODfUoCMFm1GWazrQZ4Yx5xlxl0TXHt9oKcEOd5UO6SgZsIkGSalrcw
-         8KqiUvLhF9XFYJGdo2jbToC+/M/DQh5KuJndIHo5NfPeDp5MBK+SpTddcwyCDXa6Gw3d
-         Wi+U3v3cfm0E3s8HY+LEas8r7lq4ckD0dtfZCO3vOJkVO25cxCEkqRBp5dYvza6Rt4iu
-         bl1MVzlG7rcvcoBQZ1g6gjLwoK7qQxNvqfnv2YZVDf3sQESJLZ8gB8jvrrZnEPWr28OI
-         NIWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883937; x=1789488737;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788883961; x=1789488761; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2RTVmx65sj/OQ1FTIJA7qw5cuQ/6mnn1iGRNRdhAkxI=;
-        b=KLybfbnvspSWSHtOedSV+lhPS+1aVl4eumqJ4CXShuWZcPf5HHPQx0eQ3lfF2diUXt
-         Nh2J01mRY1r/DzPTnRZ2+ujur3V59zbi0X6EUNUjsWJhU6Dhbz0jclOflQC4oYbj6HUW
-         n3RauJ6pZEQDQDIvao5/93DZPZd/Se94DCxYiAVgc4ZrFNhgffTd4cx27kdxNeAHfaBx
-         z2rh6CbVZS0m1SvaCsGG8Iaynfu8IBy16qnNxPQbMfhC7IQeDNgEyP97aJTUEy080dPc
-         hhVXtyxL4m6M01/zDPAAM0ajqYkNIMZ7VMNCJXiU3SxCLzg9okYLlef6K/Hcg74E87os
-         bXlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbxwZwcbqKVBufxSpVEA/dC8bhVbJ2Pz8QaiAKO5P+cAnmoyZ8S7+2Svv0E5w7Qvj0LWrXQ2/WvuuyLs0=@vger.kernel.org
-X-Gm-Message-State: AFuF++k5PU+nooTo6ux/VZY3/1DnmW93np9aGYpMHYcWgyYza4qTsQTy
-	4kDmNYolSKSaGtijdcJfjnzRQp5HCdBx+jVZAVC4vZTVuNAarU5vt7x212jSiw==
-X-Gm-Gg: AYBFou2Dx9UnY1mOlpzCfiMaXMsTMnlxgOEEEBBzUK3wBotjJjQN8oHJXBgpkSSXedR
-	lUNy8PZu9qneelQE9XdmAwSXbA52oOSM/tJgb5+zLZ2t9cd5R54w0jGtlAbkuf2tbldslwzOkKd
-	08N5iV8nw3KPHqLA/4UCcfeN8g5CK2mlCCp8PnbysvuBAlq1wxjIwBdU7xs9Mtuh0VQq3sYlIPF
-	GG3xc9uWlJr/nVxc/CvrrzxjWH4IkJl/Wj/vpY6UwD+LNl6Oni1uNDB8XQLYK6uRL8Q7ZuTCyz4
-	yMJZC3pQsyzF0h8ggKajDQ9UxuFiMmPewzIvvQo9x4u9VrpZw9ju3M1e1/SBnOTd6E4+d35ywOI
-	KV1HK2aWe98E+69lTZxVyz+Te98zuenCBZt6bWZBu2IIyJwFFAXml1rN/xEs1w8357ScSMmwZby
-	ZgxBA8XysUHUULx79VEmxFFDLSzZJQGXtpaMa3vC1KtshF4yZtgZM7HYenu1WNwo+ug+y1WJ6nG
-	g==
-X-Received: by 2002:a17:902:db07:b0:2db:5ea1:8b04 with SMTP id d9443c01a7336-2db5ea18e2amr170023395ad.5.1788883937378;
-        Tue, 08 Sep 2026 09:12:17 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b419sm61093785ad.13.2026.09.08.09.12.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:12:16 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 8 Sep 2026 09:12:15 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
-	Karthikeyan Mitran <kmitran@axiado.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: Add Axiado AX3000 TSADC
-Message-ID: <ba945a15-bd57-4c6a-a738-53177a9cd814@roeck-us.net>
-References: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
- <20260903-axiado-ax3000-tsadc-v1-1-a8a0f3b251f5@axiado.com>
+        bh=gbKHtTY9KT87kFPLKh9dpqTp4nN3nypI6GpO1jaX+sE=;
+        b=VwGHcSScWX6Kf1sqqNThyQskAlAJd1sqI9uWm+OAizhDMa2qJwyFMRINBP4+M5eUq+
+         Rn58p02yPnUSVZ/566dAHB0GLXEYBvMuaQuQ3Jm/hG5J+BTqgklnrkgsc2aW821pbACQ
+         syhv3w9g1kUhxpfZgqigzf4GgH/0miLuLFuHapOjYVKPErWc3KNH6T5qNqwYuSvcnd3S
+         6sjwMiKGz20T+oSJBKSFzh4qYXhZ0FAplkdvZI6QhbvVNkijowbIrfbAdRYRxz6T1Gqz
+         r45rWLZMF+j0Qdgd5el8GLv9y0H3c+OKgcPPLpCzanR16iNoh9LR3MuDAWwag+nA2ijm
+         sl6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788883961; x=1789488761;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gbKHtTY9KT87kFPLKh9dpqTp4nN3nypI6GpO1jaX+sE=;
+        b=kTQTR2ayZ2BEcaaI/gydTc4wMG2ftQ8DV+vBBdL5vC5VBeax5opfhqwZzRB/FyMknb
+         vbPv8aMppNyGCyt+LvFrRmASMT6V4dLaOsnSVyQobMvJwfxUAelzXHcEU7O8lxXT+rmE
+         aa5FNIg1SHb78ZbM6WcOMOxuPisoM7Xpoj+ZGXI2EvgPG5hGzdc3+54UukkpdlO0JOoU
+         iStpbM2TNkKtmRJuiph965yzd+edPjoN09A/5s4EYVvWomaoDj95/a6Vrwo4xvPEjwid
+         g8eVuIB8mjI8387q1wwMYXyTkERMVH/Eh+NFmZh5xOxcZ2fj1yYJsU64VX2F/G2GxWkY
+         7VIg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfU17eQh4JNYj5qYhi9goH0afkdjO9QirEQzs7bOKgnOFE4XxHyuHSaXpJCTC3kT6V8eMBYKzmYgYOHoE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE1P3knW2DOz9ZvM7OFQqAnK/cDyNpHjwVp4yUMx84AkKM/oW1
+	vRAWU8Wd24yB/jN4r9v948m6zuHIf9k0Q5gKaREmcoZNxU+ysM84v/go
+X-Gm-Gg: AYBFou1IFUg2uELwFuRXKhhueQ/CkxmEZlqBMkN+tDkn6xewGeWudZT8pfB4zu8xYVM
+	COR5cBGAzdJqYlhBv7mcMqeQGyP8zc00W6HPzKV4PSPJDq4fCOx7Xfb3ppOEL1vYhP2Bfy5JZki
+	hRfCbGaVD3DRpbmlV6eMBLF/X2pgCObFEw3YYlI0bvJ5qpGOL+1Ynkn+oK1LDqsca//0lcchaAH
+	665Jbij1zRE/k3mJVFfCM/kJZxliJkMKImapfnTBT+E0oOaGSe5PWPZjgPENObqYDtXkpNP4Img
+	p2+/GUP1RAR6UsIhK/Lr8eG9/x78LTA4v+MsNpCCe3Da+AqeSEIJKcXLrLpyD9KiZjW5ORsteg3
+	Rnf/3TVrhpkHPp0ruCCpCYWFcR9WflLanyeL0bDCyZ6jOs2kqdVEbEbupS7BVMq5vP+RpVNfgtt
+	VW31byQtmtoSjA6/dqldTR0dmtbyCT5LkOr3PBLEgmtehXwnhtehx6289RbkLWola/wQ6RoA==
+X-Received: by 2002:a05:600c:4712:b0:499:7a15:fcec with SMTP id 5b1f17b1804b1-49cf8248cd3mr498749485e9.13.1788883960771;
+        Tue, 08 Sep 2026 09:12:40 -0700 (PDT)
+Received: from [192.168.18.21] ([46.197.185.71])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm36433502f8f.18.2026.09.08.09.12.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 09:12:40 -0700 (PDT)
+Message-ID: <e6cfe188-c4ce-4919-bb16-9c26175e111b@gmail.com>
+Date: Tue, 8 Sep 2026 19:12:38 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903-axiado-ax3000-tsadc-v1-1-a8a0f3b251f5@axiado.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3] nfc: llcp: fix slab-out-of-bounds reads when
+ logging service names
+To: Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, david@ixit.cz, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ oe-linux-nfc@lists.linux.dev, linux-kernel@vger.kernel.org,
+ syzbot+1e3df0852e82c21ca418@syzkaller.appspotmail.com
+References: <20260905225211.596366-1-omermetekaya0@gmail.com>
+ <20260906003917.627282-1-omermetekaya0@gmail.com>
+ <20260908154152.GA40544@horms.kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?=C3=96mer_Mete_Kaya?= <omermetekaya0@gmail.com>
+In-Reply-To: <20260908154152.GA40544@horms.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 03, 2026 at 12:09:47AM -0700, Petar Stepanovic wrote:
-> Add a Devicetree binding for the temperature sensor ADC (TSADC)
-> controller found on the Axiado AX3000 and AX3005 SoCs.
-> 
-> The controller monitors the on-die temperature. An SoC may contain
-> multiple TSADC controllers at different locations on the die, each
-> represented by a separate Devicetree node.
-> 
-> AX3005 uses the same programming model as AX3000 and is compatible
-> with the AX3000 implementation. Therefore, axiado,ax3000-tsadc is
-> used as its fallback compatible.
-> 
-> Also add a MAINTAINERS entry covering the binding and driver.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Applied.
 
-Thanks,
-Guenter
+On 9/8/26 18:41, Simon Horman wrote:
+> On Sun, Sep 06, 2026 at 03:38:08AM +0300, Ömer Mete Kaya wrote:
+>> nfc_llcp_wks_sap() and nfc_llcp_build_sdreq_tlv() pass non-null-
+>> terminated strings to pr_debug() using the %s format specifier.
+>> The buffers are allocated via kmemdup() or come from netlink
+>> attributes and are not guaranteed to be null-terminated, causing
+>> __dynamic_pr_debug() to read beyond the allocated region:
+>>
+>>   KASAN: slab-out-of-bounds Read in __dynamic_pr_debug
+>>
+>> Fix both call sites by using %.*s with the explicit length to limit
+>> the output to the actual length of the string.
+>>
+> 
+> As a patch for net, this needs a Fixes tag here
+> (no blank line between it and other tags).
+
+Sorry, I know that but I wasnt sure whether to add it since the bug
+has been there since the function was introduced. I will add it in v4.
+>> @@ -135,7 +135,7 @@ struct nfc_llcp_sdp_tlv *nfc_llcp_build_sdreq_tlv(u8 tid, const char *uri,
+>>  {
+>>  	struct nfc_llcp_sdp_tlv *sdreq;
+>>  
+>> -	pr_debug("uri: %s, len: %zu\n", uri, uri_len);
+>> +	pr_debug("uri: %.*s, len: %zu\n", (int)uri_len, uri);
+> 
+> This does not compile because the trailing uri_len argument is now missing.
+
+Sorry, I normally test-build before sending but this
+one slipped through.
+
