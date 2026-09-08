@@ -1,208 +1,171 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C459E556B92
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:13:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF5E549364;
+	Tue,  8 Sep 2026 14:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876813; cv=none; b=IvPZK1j6RBADqYjbTZHqvjoGUHlSqPFa425csUcjycBuXx4CS7lrTtAobZGgnu4xEDZJ8qPMTkwC/vxqhjsoaaik0tdSKugv9HtPr/PpbVUamTZn16g0359OzQU7IRENpRg4eCCGfQu6EvKUFwWu8PX2ocnVHejOID4tsEI8PvE=
+	t=1788876869; cv=none; b=ed9e2gWfZsbEzSIpsmBVx5YLipOyFTf5JUwvpRXwc78C47NokN1o+SrM4pHjWxUJfrlhNV/eApj2t2krHS5iz9KPAi1xYvKl6feSToFh8our1hEEEnSSLlv87sSq5Spdwx4YdOMS2H3ccxeg1AIy/+aU8vInnVNtB+SbBAqE0wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876813; c=relaxed/simple;
-	bh=pC6jcGOtItS2e12mvg6Rf1hkiJ5TikWx8vGxQaaWnjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aylGTU+gKOW0aFbXI6GZ/VSYbFCVifn+WFeU9F5Oat4Z57zeVUZ+MEphOxqr0pRAyTZvwci+2epxkaVVUR2m1JLc9yr3SvBLVtrKiKdHUlgbEWhKWYR0pSjjn938p4cSVDaXNaWhy7iqYmWnapuDRjqzhgxBWfClWpfF7NNYmk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BOs0MWjZ; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788876869; c=relaxed/simple;
+	bh=7draGfBDNZi29j/TLTT47mMEBWips5JH8cEIVxr4N7w=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=uVkf1+tenlNKw6EHcjA4v/Rg2Ak9hZA06cbd+QXvQogoYWgehHPGBOwhGnu1WY/FdIidnf060y/Rml9flGykJIyUgfIq07/WIP6JL9gmFyOuRVIk2rSBK9dwqxF9t3QDvlKSN6c1x7xAnASphNFQCiAf/RzH6ySUDRuPNXTaxzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oimtIBqS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BOs0MWjZ"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4858be8b509so2091756f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:13:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788876793; x=1789481593; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3L5oRWmTUO6yAxQOWYcTnXegO65U7Igw+Adee2Oy+KQ=;
-        b=BOs0MWjZyCSQnaxc8tKqRuXPfuGP+iYYdD/CqQya0kp/tF2dl7CbRxON1DB4/YZzE8
-         6JUKvrvchaz6Z05USmNp710FiKTZUOUSGnMq7OypAr08dkKhDksSF9dwav+sp887xtBF
-         5WlFoDLXU/tniYPwY1dvJ8b/b4E3MwIkGkuXK4tLuy8rSlUBlg1wnH/NqluFb724qgDE
-         l9XiwmO1hFfA9bg7ulNKqbbF02DzNatEJzxAyOtPQcpG2mejMvf/gkL/vJzn0oYmfQOj
-         VQZHcLxH8HPD1S5wkne9p4c3iHtvB3+IHpPNiH98CtPXpAuI1yKRtWPtBy/tY73TrmvX
-         +SMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788876793; x=1789481593;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3L5oRWmTUO6yAxQOWYcTnXegO65U7Igw+Adee2Oy+KQ=;
-        b=g7AHXohKZVvHTl7oZtGrfNVvs/VdLlEKaaPFgVs1jaTJ60HQvaVfSrOW+u6oSdv5J+
-         VBcQ6nhhq8vCgwGnC4lUDaaMDW0iDz7iJWOXUlsLB5lH2XpuD828aqbEpCYT1MRNP62E
-         9S1SaHmcmHZpVCYnQUsCCMQTURDvqnFwfaqSCUGgjPIUazfR2kePDYSBrwkQAb8iYpRC
-         wwis6fGeXXkxJlrMvvoAFVp9Ndx7QBpzRzoP33F+dkPlN+9/I8QzIJHy0dUtrjYixt3W
-         WdNbJhmmt5QZYsRp/JGH5b0Wm1exVCxpTUAduNvRlSgqTnw+Inc3+rvMIjTVjAp0Rgzn
-         k/yQ==
-X-Forwarded-Encrypted: i=1; AKwUvByvzGoNygaZJNWMvfXQaP+teV2vhPVjdITK20xJhCC/wnh0e9WLkpVMuFELnfuHH+tHgor9KTPSVFepHD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6Ye7c50bYaHoqdcaNQB+Pvd3+bRNLKZjJ1qeqqf0ktO0BND2Y
-	JVyCxeG7QoOaZ984pnCy5ABRZ5YBPSLSTLtoJHwtJXmtQK+7w2lD7HP1xx+/r1Jsi9I=
-X-Gm-Gg: AYBFou1plVdQvuK0Y9gCIFanepaIFpsBHvWv/o8pdHsTvCAtAbSYbyYe5ewwwWkEjpi
-	q8bjVm02IFXbo77jxVEJVqSiNFv6u/m9Fsi9MHMzbl2PYyd9NuzXtFbbEF32aKF4+bckRaxEDNk
-	x/bFFIQ+eWfSjjP5fYucaw8xDJfo75zhLCKw2zicqx6P0YviKcE2aVMXTm2ZVB0XsBFWLXctbow
-	4V+xgyxkhQQf8lP3wL1CdaBLcZnXYK3xu5xufKGzxxpzyRSWe1cUqh79AsHpANFOiVztbeKOfaC
-	wfkXR3IkxrinLM06gRr/Q1tEmIWw75lRaME5vMvi1yOMdNBw7dZcsy9dvDKY/0SCaY7W6IEt4WO
-	eVAFXbi4d8KlY6cYnL63WvC6rRrgIjs9gq+vNU4DxIepSbhyj4Q3LcsXwYH7fKhLnv9Sd1pvul1
-	3f7gYusyF5Fvu9DjSSUBkBfLIIM55ERhRj3uKV/qYxLWAllnLZOMcWl8fTyQkJ7io=
-X-Received: by 2002:a05:6000:98a:b0:484:3311:af37 with SMTP id ffacd0b85a97d-48587298f26mr32655977f8f.26.1788876793275;
-        Tue, 08 Sep 2026 07:13:13 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858ac2b4cdsm35144071f8f.16.2026.09.08.07.13.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:13:12 -0700 (PDT)
-Date: Tue, 8 Sep 2026 16:13:11 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Junnan Zhang <zhangjn_dev@163.com>
-Cc: cgroups@vger.kernel.org, hannes@cmpxchg.org, 
-	linux-kernel@vger.kernel.org, sunshx@chinatelecom.cn, tj@kernel.org, zhangjn11@chinatelecom.cn
-Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
- cgroup1_pidlist_destroy_all
-Message-ID: <ap_3u9i1n8mQrObY@localhost.localdomain>
-References: <apU1sXYP_QhsQFcB@localhost.localdomain>
- <20260901033923.40420-1-zhangjn_dev@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oimtIBqS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5756E1F00A3D;
+	Tue,  8 Sep 2026 14:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788876857;
+	bh=17seS13qk4JOZLGW6Qfu9f3yF9o8uUYcInlzEsS2S0Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=oimtIBqS+hSoh7HEKX9BPZIPL+CGGLW4BjgFSV08G7k+unaA6I02tz40CCPDVIaTn
+	 CK8336vcLSesjXe53Xtj1jruFMXBSVOXaTN7Ybd0UlHdYoHMNHev6reTOhUaUBYBlq
+	 P/mVStZNArpQNoBT08t9YXObdiaCIiDsDjej3+7THJ1bcatYHf4MAczwBLoBZq5VE0
+	 5NDjnJ77om7NTz9no4uDXw4n5v9QAIEbPwd6giur2YOjd14albDyMaSudkrEw8W5sL
+	 cWFl685WM66HaRXaT+Yh05s3OalafYW8CZCwNdOaeYPEznE+k/u85akaI02SV4VsyH
+	 UtG/s/0CvJwvQ==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Date: Tue, 08 Sep 2026 16:07:06 +0200
+Subject: [PATCH net v2 01/15] mptcp: do not reschedule the RTX timer for
+ fallback sockets
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i6d4qd4oqwkj5vkb"
-Content-Disposition: inline
-In-Reply-To: <20260901033923.40420-1-zhangjn_dev@163.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-1-df1de70348b6@kernel.org>
+References: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
+In-Reply-To: <20260908-net-mptcp-misc-fixes-7-3-rc1-v2-0-df1de70348b6@kernel.org>
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3878; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=LyPa1XUh+30erF0yIMt1XvekC3KhkLs9mfYDTkKecY0=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLIWSKgFP56WuIHlfKra+m39Pw7+XHb1zMuncv/9GywTI
+ q94uB1x6ShlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZiItDHDH07Bi06hOawdG7pq
+ Fct+X+pp8GTUO9H8rJ/TuefD2ess+xkZDhhKqT4UuNHsc/bXhJxjyX2fWJY5nWT8IheUFmcs+1y
+ QGwA=
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
+From: Paolo Abeni <pabeni@redhat.com>
 
---i6d4qd4oqwkj5vkb
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] cgroup: avoid flushing global workqueue in
- cgroup1_pidlist_destroy_all
-MIME-Version: 1.0
+On fallback socket the retrans timer is a quite convoluted no-op, but
+currently nothing prevents the MPTCP core to keep rescheduling it.
 
-Hi Junnan.
+Additionally gate RTX timer reset to the msk not being fallen back to
+TCP yet. To avoid adding multiple tests in fast-path, use a new flags
+bit for such condition.
 
-On Tue, Sep 01, 2026 at 11:39:23AM +0800, Junnan Zhang <zhangjn_dev@163.com=
-> wrote:
-> Thanks for the review.
->=20
-> > a) a single reader taking more than hung_task_timeout_secs (that'd be
-> >    a softlockup earlier),
-> > b) starvation of cgroup1_pidlist_destroy_all() by many (queued)
-> >    cgroup_pidlist_start() callers which goes against the second-long
-> >    caching of pidlists,
-> > c) there is large number of nr_cgroups * nr_pidnses which makes the
-> >    caching ineffective
->=20
-> An honest caveat first: this was reported by a customer on a production
-> Kubernetes node. A guest memory dump was taken at the time, but it
-> couldn't be analyzed with crash, so I can't give you the exact
-> nr_cgroups/nr_pidnses.
->=20
-> That said, I believe c) alone is sufficient, and neither a) nor b) is
-> needed to explain the 120s stall, because the flush latency is
-> backlog x per-work latency rather than the latency of any single work:
->=20
-> - backlog: flush_workqueue() waits for all works already queued on the
->   shared wq, which drains serially (WQ_PERCPU, max_active=3D1). Container
->   churn constantly runs cgroup destruction, and each destroyed cgroup
->   queues one work per cached (type, ns) pidlist, so the queue ahead of
->   the flusher grows with churn rate x nr_cgroups.
+The RTX enable bit is clear at close time and set before the msk could
+start retransmitting, with a couple of caveats:
 
-flush_workqueue() should only block for items present at its invocation
-(not later added). I assume large amount of rmdir's in short succession
-may build up the queue as a one-off event.
+- passive sockets inherit the bit from the listener msk; set the bit on
+  such socket to avoid flipping it in the fast-path, even if the
+  listener will obviously never retransmit.
 
->=20
-> - per-work latency: each destroy work must acquire the owner's
->   pidlist_mutex, contending with readers (kubelet/cadvisor/runtime
->   scraping cgroup.procs). pidlist_array_load() runs entirely under
->   that mutex (css_set walk, kvmalloc, sort), so on a node with frequent
->   scraping each work can sit tens of ms behind a reader.
+- while fastopening (MPTFO), mptcp_sendmsg_fastopen still ends-up
+  calling mptcp_connect via tcp_sendmsg_fastopen ->
+  __inet_stream_connect(ssk->sk_socket), and the first subflow's
+  sk_socket points to the msk one.
 
-OK, lets (over)estimate 100ms per pidlist_mutex passthrough, that gives
-lower bound of some 1200 cgroups removed together. (That's a lot but
-borderline still practically possible.)
+Fixes: b51f9b80c032 ("mptcp: introduce MPTCP retransmission timer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+---
+v2:
+ - Sashiko noted that the 'RTX disabled' status is carried over across
+   connect() failures, potentially to subsequent successful connect()
+   or listen().
+   Explicitly control the RTX enabling status across the whole msk
+   life-cycle. To make the code more straight forward switch the newly
+   introduced flag semantic.
+---
+ net/mptcp/protocol.c | 13 ++++++++++---
+ net/mptcp/protocol.h |  1 +
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-> A few thousand queued works each delayed by tens of ms already exceed
-> hung_task_timeout_secs -- no single reader needs to hold the mutex for
-> that long (so a) doesn't apply), and each individual work does get the
-> mutex eventually, so it's not sustained starvation either (so b)
-> doesn't apply).
->=20
-> More on b): the second-long caching only helps readers that re-read
-> within that 1s window (e.g. a single `cat` doing several seq_file
-> iterations). Periodic scrapers like kubelet/cadvisor, with typical
-> intervals of 10-30s, never hit the cache at all: every scrape round
-> rebuilds the pidlist under the mutex and queues an expiry work 1s
-> later.
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index e1f08f71cdb1..be59651e708e 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -95,6 +95,7 @@ bool __mptcp_try_fallback(struct mptcp_sock *msk, int fb_mib)
+ 
+ 	msk->allow_subflows = false;
+ 	set_bit(MPTCP_FALLBACK_DONE, &msk->flags);
++	clear_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	__MPTCP_INC_STATS(net, fb_mib);
+ 	spin_unlock_bh(&msk->fallback_lock);
+ 	return true;
+@@ -1084,13 +1085,14 @@ static bool mptcp_rtx_timer_pending(struct sock *sk)
+ 
+ static void mptcp_reset_rtx_timer(struct sock *sk)
+ {
++	struct mptcp_sock *msk = mptcp_sk(sk);
+ 	unsigned long tout;
+ 
+-	/* prevent rescheduling on close */
+-	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
++	/* Prevent rescheduling on close and in case of fallback. */
++	if (!test_bit(MPTCP_RTX_ENABLED, &msk->flags))
+ 		return;
+ 
+-	tout = mptcp_sk(sk)->timer_ival;
++	tout = msk->timer_ival;
+ 	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
+ }
+ 
+@@ -3323,6 +3325,9 @@ void mptcp_set_state(struct sock *sk, int state)
+ 		 * transition from TCP_SYN_RECV to TCP_CLOSE_WAIT.
+ 		 */
+ 		break;
++	case TCP_CLOSE:
++		clear_bit(MPTCP_RTX_ENABLED, &mptcp_sk(sk)->flags);
++		fallthrough;
+ 	default:
+ 		if (oldstate == TCP_ESTABLISHED || oldstate == TCP_CLOSE_WAIT)
+ 			MPTCP_DEC_STATS(sock_net(sk), MPTCP_MIB_CURRESTAB);
+@@ -4141,6 +4146,7 @@ static int mptcp_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	if (IS_ERR(ssk))
+ 		return PTR_ERR(ssk);
+ 
++	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	mptcp_set_state(sk, TCP_SYN_SENT);
+ 	subflow = mptcp_subflow_ctx(ssk);
+ #ifdef CONFIG_TCP_MD5SIG
+@@ -4288,6 +4294,7 @@ static int mptcp_listen(struct socket *sock, int backlog)
+ 		goto unlock;
+ 	}
+ 
++	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	mptcp_set_state(sk, TCP_LISTEN);
+ 	sock_set_flag(sk, SOCK_RCU_FREE);
+ 
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index 87ccb84e9927..2b4c27426477 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -116,6 +116,7 @@
+ #define MPTCP_WORK_RTX		1
+ #define MPTCP_FALLBACK_DONE	2
+ #define MPTCP_WORK_CLOSE_SUBFLOW 3
++#define MPTCP_RTX_ENABLED	4
+ 
+ /* MPTCP socket release cb flags */
+ #define MPTCP_PUSH_PENDING	1
 
-So one reader produces ~0.1 items/s, with the latency number above
-around 10 items/s should be dispatched. Or ~100 (parallel) scrapers
-should be manageable.
+-- 
+2.55.0
 
-> So heavy reader traffic and the existence of the cache are not
-> in conflict -- the cache is simply ineffective for this access
-> pattern. It also means the wq steadily carries ~nr_cgroups expiry
-> works per scrape round, on top of the works queued by churn, which is
-> what the flusher ends up waiting behind.
-
-I understand that an abprubt removal of thousands of cgroups may stress
-the pidlist_destroy workqueue.
-
-> On nr_pidnses specifically: containers typically share the pod/host
-> pid namespace, so in the common case the multiplier is really
-> nr_cgroups x scraping frequency rather than nr_pidnses. I can't confirm
-> the customer's pidns usage for the same reason as above.
->=20
-> > OTOH, I'm surprised this v1-issue popped up only now
->=20
-> cgroup v1 is legacy but still the default on widely deployed enterprise
-> distros, and per-node cgroup density plus metrics scraping frequency
-> have grown a lot in recent years, so the backlog needed to trip this
-> only became common recently.
-
-I remain somewhat reserved whether only the mere density would cause
-thise (as there are other bottlenecks that may start blocking with these
-numbers).
-
-
-> It still serves the normal path: the deferred expiry that makes the
-> pidlist cache work, and process context for freeing. The patch only
-> removes the flush from the cgroup-removal path where, as you noted,
-> the orphan list guarantees the pidlists head won't be used after cgrp
-> removal.
-
-Your patch looks correct to me, although, I'd rather not nurture the
-venerable code at all. And I've never liked pidlists, so I'd like to
-take the opportunity to retire them a bit:
-
-https://github.com/Werkov/linux/commit/8c3d45be95841ede16ceac29d48be59e59ec=
-5a82
-
-Opinions?
-
-Michal
-
---i6d4qd4oqwkj5vkb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaqAX8xsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AiCNAEAuH4tNak/UWWRTrr33e1Y
-/LNO4CkrwG5PfwH7cMDM8bEA/R5qVFuVBf/N8JAqUJg5KzBs1LoIvZVOFsWODqGT
-bpQC
-=VMSf
------END PGP SIGNATURE-----
-
---i6d4qd4oqwkj5vkb--
