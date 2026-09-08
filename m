@@ -1,219 +1,166 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61B733A1E81;
-	Tue,  8 Sep 2026 07:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851222; cv=fail; b=h1QJRejDc3z90AoTxfhjUMLtidSyZHtkfAG2JDQVZJSmbaJetrdWgPmdgch0YmJtPDpwCZI4vAb52EG/ntJ9wT/+09hHse3ujFT77ybs/LUQZaw2cVqqq9zhRbOSwSMjzDGcUpOLB0UJcskx1sRq3dXBibT19ct7RSNh8XYpWjI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851222; c=relaxed/simple;
-	bh=ysRHlQiFm9AEvhhcc/kRGn61O1KqzgnvPaPwaleMVGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JEOcNwov57V1htawG7wFPU3+7+eqvREvQv7dkrYEaQrbCUllUuE7Bjbyn0mw1KrZ399uAC8AYLoov+zSWoTYIbiJRxGefdw3inRw8PIBp+8fvgLhVGQ1Ow8CitBIitJHEoZTJ7c9PpuSLJQZXGz4zF8JCpOg8rwLlkquZNB/NBU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=dc1/1Pie; arc=fail smtp.client-ip=52.101.53.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="dc1/1Pie"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hPgg/BPkCpF//11vCwv3C/e2iDYabu23n98dpz+6X/tBZoIMcl3Y41IR3k6Y+CBKcmEoEvMRtbTXehORS9IIo3bmDdtxRtBzE2uxrfwpHV6JnQ2FMkNt3nRz8yd+htFgdsF/Zz1kCO9x5nkwPnh5fu+2t7oQkwJ3w87c9LnB/elZfOVyeCsXo5iOO392CfWejIi+cTFd3TDacHWhkaGgtNErByjmM/X3Ov2vXIStnVNiDxfpw+pQO3ax/+Q9UYB4WnL8X2DDlWNNjuFTmBJcRYgVMGi6+Dm2EvUw2qF0coJzmXGDGtHRhITHCbOXOzisw/bSGOhCEghUm6ksH8Rwng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wDVPp9EaY4cvm1vODgHTxHMD89QBX1qhYtrWZWyUMf0=;
- b=CV7zijep1T/zR8dt4QoGhHGMDXfyyWpStfJ7jN9qn0oB3+5pW+nR5Q6Y+/5GjiVgp6Z+TSRDUImT2GiGiJTV8acNYxWNa6Dt4oygzHx6Etvv0lr7H/BOqKoq/dUKSVHWzqzPgNFBS4iwK3TR+/HlxLWMZQt/7tqFX4sTwPWTqauSvuvd4XsOVp2RCuo/rMTJQHwkJQ4JKTK1M8vhylQeCDV1MKZfY/rH4ShvxDlqwOVMTz4PYpqwc6fPSzKQKyDupsxUZWrAJ8uAnq5X/ES+9oaYOVXFhLMq6xg7h1pZqY7Wkgg8v1IL0NLAecuGVE8TQLxRxFROV+Arl0npcxhvBw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wDVPp9EaY4cvm1vODgHTxHMD89QBX1qhYtrWZWyUMf0=;
- b=dc1/1PienijET16RA0SSn2nnU7WsW1yEXRm15H2WH5fFza+02Rm1upy1pN2hw5zjD7mHetASIQ4M8JJzG/kutNj5EOlCdCX676ZdATLi7qBwvFG+KHCJ8ciGrKtURfnHqaJ0qQ6DenAKUxZE2e1rtCUuDAWNAs+N4gIa8p7YH5CTLna68VFvXwpFxrNeV0AhM06Zbeq0k1yMd8BGSjuRwEUoFAy568ifogc9KQkYBjKmyTTOkE8XiCskxSQGbUeAZFKfF/jV4ykIg/Vwdh6H3PNBdifNKqUbHb8CDfAPbV4/hYe+9j6OFERsY0IB8nG8dqa0Bgogi+HTYvJI+JHDGQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
- by CY1PR03MB8123.namprd03.prod.outlook.com (2603:10b6:930:104::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 07:06:55 +0000
-Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
- ([fe80::b965:bfa8:58fb:e775%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 07:06:55 +0000
-From: muhammad.nazim.amirul.nazle.asmade@altera.com
-To: dinguyen@kernel.org,
-	maxime.chevallier@bootlin.com
-Cc: rmk+kernel@armlinux.org.uk,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	robh@kernel.org,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v6 4/4] net: stmmac: dwmac-socfpga: Add support for Agilex5 TSN GMAC with FPGA converter
-Date: Tue,  8 Sep 2026 00:05:57 -0700
-Message-ID: <20260908070557.3585-5-muhammad.nazim.amirul.nazle.asmade@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-References: <20260908070557.3585-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SJ0PR13CA0008.namprd13.prod.outlook.com
- (2603:10b6:a03:2c0::13) To SJ0PR03MB6964.namprd03.prod.outlook.com
- (2603:10b6:a03:432::18)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69FD38DC79
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:08:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788851307; cv=none; b=ajY+20xIuuzSq3NP13vCsftSJQHq0wxp7vSygrOliHk6v/rYisBXT1tawPN1dIfNuCdlxKeTw70YXYeiVeN1f95D0mvW+SKqadITcmTwO3k9oNJXlPAuJAm0HTzixy653/7qaPHRvZSUNI2KLnSv8J2Ts+SpSMK/QObsDbdMxd0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788851307; c=relaxed/simple;
+	bh=VjjRAi7oBGcBtLljLBiLc+MTVU7w3NBnfN+wIzcEqfo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=fWB9nNd/g4UeWU92sDBzBTJlek5ANAOrCmCwM209RtLgUqpza+5+3FOwicgamSSTZiG52KIgpCx9Byyi8SHIa/OQbEZR8yeMCwJ7d3O9TE5E1czaxG9axUQowFp9tyJSl+Io15saZ/7x8Uc3avTgFyqR9kdFmDAw7QRVrWo8wKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so2015635fac.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:08:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788851305; x=1789456105;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SRv6I7fY9tO4zDn70XoEsC2tkr/GJjwF3CkkS/r/sac=;
+        b=ce5nOCIE+3b1i+EHbQNVSy2hfF4Z0ID2WkW9PU2W7SFWaI6p6lah/bdez8MUttsS00
+         AgVNeNTFZ4VGPOqKMx2pwMj7ttMYd+++3vhTF8weNHtQIDmTcOFVhobVEEdxseldJkL+
+         COU2S7MsCqff+GFMMr8BCbhc9WS9uc270IWv+zMpo3kSTg5xcxyyN1L/hmOZuFvKTEW0
+         xi96oVbIUXxyvmmwMO43d08mOwQ33MahC6ALPVNHKz2XZ+OtEkgfF33TVa842HxdcsLa
+         NJlkBq11pc60C5XeOS2VGaAdy5mf+k3HaXRigiogbMCyMQN7jGnzmJqS60omMtZAEH1I
+         h/yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw2cJGBHSOhAqOOf7Fq9ILPVtunMApFk6VSsMGahaNTIGb057MbZFLzymlZoLEr6isDHVTc9/6+qdwLnWs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lS+TtSC+OLdcGLVaJS1RqvGIOG/NGB1HPhCR7gceow3b91eb++
+	XtSfBkZzOBqnquSnSTRTMDa7tlRiaHPzSZ3hxnozsvrKEXiZwvHFogUYLc768LApHID6vFf7I83
+	41ZNtO5ayJdZLd/yBC6uQMwwTnvrQ5S9Z1oJfaP+/0PnUI7iamBSrMk9vjVM=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|CY1PR03MB8123:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6004fdc9-b8db-4ede-0ad5-08df0d77c3ca
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|1800799024|376014|10067099003|3023799007|22082099003|55112099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	K/9cyhrake0kTnrXtnsE++wwqfE0ufo8fVJZzDsKZlPjXMoKzr02c3Yq4h2FseW8mJ1LU3jK6AjjhQLFAuaHZjgGAIBUZLk+P7PKruhUN5o9XseQU0i7OQ2OpYl6OtCokxFK6WtBU9BFT8lj2qu6x6Bt21oFzIGcmeNj2IfL2a47+/jQXsE+74vjCA/7MHxpxrglkaZI0ukfThHKFHkVkKy0W3BPANTo1tZqyMWJOVqD7oIxrpozuwFReARoQfJmLA6weAw3Zg0DvXVEH5HjIPELONbnf7buwzVKUFbWVAvkSn2M9T+EQJsdPcD2t8bFXuJFLNrjSJsj5xUly58C+dQKa2KIVonrKZ0PYOmRxJl4UKL1Lfne5lFpHNn+FxgwBLrKEozn9OziCp1J6pN4UJEEtnyj9mFjOwctK8jfuAZAVcXt1OyatwHkComoyqnYHqdIbCVWIyBlolybX/2U7eftvdBvr3L6Za6+sxZlmB7pam55nGJ7bANzFoUEImO9YyfPF6H8Xm6YIQn1GCVid0hHz2s6j9XyABNaTFfa5J2jULat51UsctZC0rc+V78p2vvjQqT2NBROYBuq4wTqHG3NJ860V2Q1wLzxB84O+g+5aSoKP6CyJSY0as3aELLnaJH6uVj57yyhcVpO0dP9EYMFofbDJ4ndXe0LiS/WiJQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6964.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(3023799007)(22082099003)(55112099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NrOTFditU9rhSc0MIQHXgHhy1jW97BeCibMmyrQarKPVP1SRgzw7x26rWQee?=
- =?us-ascii?Q?EBwBWEQE/+stUeUZB9AYZIiWYp95I+jUbsIPNEWUGkVtEdcdopQaAyFJN0YQ?=
- =?us-ascii?Q?RGKkQcTc1gilaM/1Ko3OCU5n5UpulLcOsvih5jYDXOYJzbe2p84+yZ46plDp?=
- =?us-ascii?Q?22Jy0nWZB+3yF4vFoH9BSBhsTz9JkhrSm2rXerCVNMQDb4ysFApD8hiE/+Cr?=
- =?us-ascii?Q?TXCto2QFZrAzs2+x/75R0MBqNY+gcnrHdelqdXZ7OGKCyzQ8KXXzL38ArG+a?=
- =?us-ascii?Q?IbV4cH1W2rZFkfKS93tUlT9o3nzJN5bJCofF84ZlLcvhQH9f8tHqVnuu88Bj?=
- =?us-ascii?Q?HvYAEkW5Gsilbl4ie4gTckfUjvKjS5xn5UuctWrHcx4MwuF3xn1lpIOz2Lpt?=
- =?us-ascii?Q?t6TELcjXA4q8b4XJXnVr4Q3byFkHU1GPOn6841n2J+cQlJnUwgtKTBuEaDSb?=
- =?us-ascii?Q?e8Ns7eaqjUZHvhIivzQkXb2VLLPViuf5gzg0uNxm1jpUN4FD0R1kI7WBnvqo?=
- =?us-ascii?Q?6DSyKlzbyZWfWm3IUBzhBjZnLrAREjEM7mjY89/0v6QZGS3ho8q8Uu24PGZt?=
- =?us-ascii?Q?/l8cX1ev1wv5hrE8tiHMVMjg8m90NEcQiIOGY3SobqntnCf+ZcZ4j4b8hqOp?=
- =?us-ascii?Q?zB690eQQ4uZdXNlAAooYlwVj/ofYrZiUZ86dLPI2o31cZLRBZkgQxTD0lihB?=
- =?us-ascii?Q?Mdah0ZfA2P1khwUfvVZMKjFtaY/nOcXoI5XddYpWyzUaUlJ27yAPuYJXKjTy?=
- =?us-ascii?Q?CyHz6hILV3ytfOL8qG1NSjafpoK7GI2TfBcEcQgnjuX4ofRoCQ5awzQ24FfD?=
- =?us-ascii?Q?JdcmRZQIg+WhwgxsiCllzIQCTxL9Ngh49yoiMusBKM+waopXrrXH2Cab0ngH?=
- =?us-ascii?Q?AgYaptYn8BKcSQKM3lLGpLf+VcdtVfMYxGB61m1V7krIlKeAdpVLiHy6BALj?=
- =?us-ascii?Q?XslGtdtilwAda77w/IjLvOyWeiPG/2KsTafeuGwmo2FevjIn7GFov/9feSCu?=
- =?us-ascii?Q?nxk06yxwDgRrmP5KUSehW7YXz/qaMSoOKrFO7NKgwqJka6WYR4xP+FB4LRsY?=
- =?us-ascii?Q?yVFxvelxohVFvCrsO0O03d1ledJbgiYrttAtfCyLVezo4W2KT9OT4j6tiHzC?=
- =?us-ascii?Q?3OosBl0/pRP/Fa8YPJ7e1g0+OvQXfh4tuLEAum50dFSM7UuxT4EWRa8q89y0?=
- =?us-ascii?Q?0pAj4i3+JUNe6MlCUiwfwwVBC8Xx+Mo6264CzsrB5Gg2NNVzotf8h1YNKSHY?=
- =?us-ascii?Q?qtmFpYnm0b3IobvZNTapBU7t6ZwQVkG05pRJq4HeCDrihwZMPFtC8nVRDio5?=
- =?us-ascii?Q?gVmV62DbTzNWO3LXkDg3x6uCSUFXPgJnZXIbeAuwaIJ7tcBsNwXRnqFG06o6?=
- =?us-ascii?Q?OWz48rGp+65/2/2U8JVbbBZdz7qRppAokN0fs6XY/ZQKgilzAk70GetzFTHP?=
- =?us-ascii?Q?ljlBLcbDEd6v9Qa8R1538O87n87E1s5BXBczNVRYoDr+5KkfPMFbdO5rE34C?=
- =?us-ascii?Q?+avWgc7iipEBrZxeiKxeX2R2O1NKb4G8sVLtrLUx8BR+KRC6n5zTo4qFUYeA?=
- =?us-ascii?Q?wt2Rq/v+iKXSEqn+U9yOFStigo1+vvOYnna5wBsPNy/suat/eeJN7m10txfy?=
- =?us-ascii?Q?MOSqFdZ8lTklRO1DRf9tDuKqYDC4ceE7PNK1yx3XX0acRK8MUImYRhH+j1D7?=
- =?us-ascii?Q?DAX8Hbg3o9epeIErmzTcl1/6B31c7TCr9PDbC1Buq+gQjYurHWcIR8M90ieE?=
- =?us-ascii?Q?DPXcrVHSxhDH76uSAukF9lkCH9z5koiJph9Mtx4zWQIS70juBkSZ738xIJiP?=
-X-MS-Exchange-AntiSpam-MessageData-1: Uz7oBthAEdbDQA==
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6004fdc9-b8db-4ede-0ad5-08df0d77c3ca
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 07:06:54.9530
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CDXte/Bz3dT48o1Uo3GebldUMpiKpj2GuruK6WqKAP+uSZJz87Zvog3CsnSO94nBd3Tv9JxtA+O8JtBx6hLNt0qqskNmDtZFJfXcDI3OMSxMWwM3FNuWAs1TjFKEHdC6+BAh/3EyePzu9aLy/wKe6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR03MB8123
+X-Received: by 2002:a4a:e909:0:b0:6b1:9f9d:7a00 with SMTP id
+ 006d021491bc7-6b6fbdc70efmr27895020eaf.5.1788851304811; Tue, 08 Sep 2026
+ 00:08:24 -0700 (PDT)
+Date: Tue, 08 Sep 2026 00:08:24 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9fb468.6e6c5f9e.28f11f.000a.GAE@google.com>
+Subject: [syzbot] [fs?] general protection fault in configfs_depend_item_unlocked
+From: syzbot <syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com>
+To: a.hindborg@kernel.org, leitao@debian.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Hello,
 
-The Agilex5 SoCDK TSN Config2 board uses a GMII-to-RGMII converter
-implemented as FPGA soft IP between gmac1 and its PHY. This converter
-provides the RGMII TX/RX clock delays, so the MAC interface selector
-must be configured for GMII while the PHY is configured without delays.
+syzbot found the following issue on:
 
-Add the "altr,socfpga-stmmac-agilex5-tsn" compatible with dedicated
-match .data ops that extend the standard Agilex5 setup: force GMII for
-the MAC interface selector and strip delay bits from phy_interface so
-the PHY is not configured to add delays already provided by the FPGA
-converter.
+HEAD commit:    1fc5a74b108f Merge tag 'kmalloc_obj-v7.3-rc2' of git://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17299b49580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
+dashboard link: https://syzkaller.appspot.com/bug?extid=a9efa71b884a23e74153
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
-Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/90e25e7ccbef/disk-1fc5a74b.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/4e7b78b56aee/vmlinux-1fc5a74b.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c2f010471672/bzImage-1fc5a74b.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN PTI
+KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+CPU: 1 UID: 0 PID: 6141 Comm: syz.3.68 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:configfs_depend_item_unlocked+0x96/0x420 fs/configfs/dir.c:1246
+Code: df e8 1e 88 00 00 89 c5 31 ff 89 c6 e8 13 58 56 ff 85 ed 74 0a e8 fa 52 56 ff 4d 89 fd eb 6c 48 8d 7b 60 48 89 f8 48 c1 e8 03 <42> 80 3c 30 00 74 05 e8 ee 0f c2 ff 4c 8b 6b 60 48 89 df e8 e2 87
+RSP: 0018:ffffc90005477ad8 EFLAGS: 00010206
+RAX: 000000000000000c RBX: 0000000000000000 RCX: ffff888026a51f40
+RDX: 0000000000000002 RSI: 0000000000000000 RDI: 0000000000000060
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffffbfff1f63c30 R12: ffffffff8ecb12e0
+R13: 1ffff92000a8ef6c R14: dffffc0000000000 R15: ffff888061ee3c00
+FS:  00007ff7e9de66c0(0000) GS:ffff888125cd4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00002000000016c0 CR3: 000000005eb6a000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ usbg_make_tpg+0x1e0/0x550 drivers/usb/gadget/function/f_tcm.c:1692
+ target_fabric_make_tpg+0xa8/0x6d0 drivers/target/target_core_fabric_configfs.c:947
+ configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1360
+ vfs_mkdir+0x408/0x620 fs/namei.c:5410
+ filename_mkdirat+0x289/0x520 fs/namei.c:5443
+ __do_sys_mkdir fs/namei.c:5470 [inline]
+ __se_sys_mkdir+0x34/0x150 fs/namei.c:5467
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7ff7ebb8e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ff7e9de6028 EFLAGS: 00000246 ORIG_RAX: 0000000000000053
+RAX: ffffffffffffffda RBX: 00007ff7ebe15fa0 RCX: 00007ff7ebb8e159
+RDX: 0000000000000000 RSI: 00000000000001ff RDI: 0000200000000600
+RBP: 00007ff7ebc25024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007ff7ebe16038 R14: 00007ff7ebe15fa0 R15: 00007ffc34b91458
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:configfs_depend_item_unlocked+0x96/0x420 fs/configfs/dir.c:1246
+Code: df e8 1e 88 00 00 89 c5 31 ff 89 c6 e8 13 58 56 ff 85 ed 74 0a e8 fa 52 56 ff 4d 89 fd eb 6c 48 8d 7b 60 48 89 f8 48 c1 e8 03 <42> 80 3c 30 00 74 05 e8 ee 0f c2 ff 4c 8b 6b 60 48 89 df e8 e2 87
+RSP: 0018:ffffc90005477ad8 EFLAGS: 00010206
+RAX: 000000000000000c RBX: 0000000000000000 RCX: ffff888026a51f40
+RDX: 0000000000000002 RSI: 0000000000000000 RDI: 0000000000000060
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: dffffc0000000000 R11: fffffbfff1f63c30 R12: ffffffff8ecb12e0
+R13: 1ffff92000a8ef6c R14: dffffc0000000000 R15: ffff888061ee3c00
+FS:  00007ff7e9de66c0(0000) GS:ffff888125cd4000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00005650aabe2588 CR3: 000000005eb6a000 CR4: 00000000003526f0
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	e8 1e 88 00 00       	call   0x8823
+   5:	89 c5                	mov    %eax,%ebp
+   7:	31 ff                	xor    %edi,%edi
+   9:	89 c6                	mov    %eax,%esi
+   b:	e8 13 58 56 ff       	call   0xff565823
+  10:	85 ed                	test   %ebp,%ebp
+  12:	74 0a                	je     0x1e
+  14:	e8 fa 52 56 ff       	call   0xff565313
+  19:	4d 89 fd             	mov    %r15,%r13
+  1c:	eb 6c                	jmp    0x8a
+  1e:	48 8d 7b 60          	lea    0x60(%rbx),%rdi
+  22:	48 89 f8             	mov    %rdi,%rax
+  25:	48 c1 e8 03          	shr    $0x3,%rax
+* 29:	42 80 3c 30 00       	cmpb   $0x0,(%rax,%r14,1) <-- trapping instruction
+  2e:	74 05                	je     0x35
+  30:	e8 ee 0f c2 ff       	call   0xffc21023
+  35:	4c 8b 6b 60          	mov    0x60(%rbx),%r13
+  39:	48 89 df             	mov    %rbx,%rdi
+  3c:	e8                   	.byte 0xe8
+  3d:	e2 87                	loop   0xffffffc6
+
+
 ---
-v6: No changes from v5.
-v5: Replace of_device_is_compatible() probe check with dedicated
-    socfpga_agilex5_tsn_gmac_ops via match .data, per Krzysztof
-    Kozlowski and Dinh Nguyen.
-v4: Add Reviewed-by from Andrew Lunn.
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 23 ++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 1d7f0a57d288..0632105b420f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -69,12 +69,13 @@ struct socfpga_dwmac {
- 	void __iomem *tse_pcs_base;
- 	void __iomem *sgmii_adapter_base;
- 	bool f2h_ptp_ref_clk;
-+	phy_interface_t mac_interface;
- 	const struct socfpga_dwmac_ops *ops;
- };
- 
- static phy_interface_t socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
- {
--	return dwmac->plat_dat->phy_interface;
-+	return dwmac->mac_interface;
- }
- 
- static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
-@@ -650,6 +651,8 @@ static int socfpga_dwmac_probe(struct platform_device *pdev)
- 	plat_dat->pcs_exit = socfpga_dwmac_pcs_exit;
- 	plat_dat->select_pcs = socfpga_dwmac_select_pcs;
- 
-+	dwmac->mac_interface = plat_dat->phy_interface;
-+
- 	ops->setup_plat_dat(dwmac);
- 
- 	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
-@@ -670,10 +673,28 @@ static const struct socfpga_dwmac_ops socfpga_agilex5_ops = {
- 	.setup_plat_dat = socfpga_agilex5_setup_plat_dat,
- };
- 
-+static void socfpga_agilex5_tsn_gmac_setup_plat_dat(struct socfpga_dwmac *dwmac)
-+{
-+	struct plat_stmmacenet_data *plat_dat = dwmac->plat_dat;
-+
-+	socfpga_agilex5_setup_plat_dat(dwmac);
-+
-+	/* FPGA converter supplies RGMII delays; MAC uses GMII, PHY gets plain RGMII */
-+	dwmac->mac_interface = PHY_INTERFACE_MODE_GMII;
-+	if (phy_interface_mode_is_rgmii(plat_dat->phy_interface))
-+		plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
-+}
-+
-+static const struct socfpga_dwmac_ops socfpga_agilex5_tsn_gmac_ops = {
-+	.set_phy_mode = socfpga_gen10_set_phy_mode,
-+	.setup_plat_dat = socfpga_agilex5_tsn_gmac_setup_plat_dat,
-+};
-+
- static const struct of_device_id socfpga_dwmac_match[] = {
- 	{ .compatible = "altr,socfpga-stmmac", .data = &socfpga_gen5_ops },
- 	{ .compatible = "altr,socfpga-stmmac-a10-s10", .data = &socfpga_gen10_ops },
- 	{ .compatible = "altr,socfpga-stmmac-agilex5", .data = &socfpga_agilex5_ops },
-+	{ .compatible = "altr,socfpga-stmmac-agilex5-tsn", .data = &socfpga_agilex5_tsn_gmac_ops },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, socfpga_dwmac_match);
--- 
-2.43.7
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
