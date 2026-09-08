@@ -1,479 +1,181 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CF5552943;
-	Tue,  8 Sep 2026 21:54:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7295505F3;
+	Tue,  8 Sep 2026 21:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788904469; cv=none; b=WY50hsIasjfAY9VLVCKN8Sfp54tgGedoYzfEV977UqYiuurn9qznsq1HFI/GpDewK3IxHmfThI3igRS7XSAZdCRnR2J/NfJ1jhNUJxP6mGSMT8tK0GpKC1un0i/4J66g7gfHzvHFYnaIHVnPshDeMIevR9v2/ZQnhWiPNYqJ39w=
+	t=1788904487; cv=none; b=T9btJdIFasWWALXBxzBwoOAz+u5RlJZhW8yj28GWIQg9USnlPqrxShgKoFL+45kV70YYW2IE/SuP5GXI2Lm4KdXuWg+G0EaNYM4bFT7ExQ1XGFwC8wWIHmI7dMA6vH9CYhfT4qb9UqwDpEKVwfu4MpfogoM0o6hZcGackWoLhdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788904469; c=relaxed/simple;
-	bh=zl2UFm+eERLdzi9WAOUTNcRWXaoJyOpP7jCOr5YoSwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mZpWR+3n2WhoTA9Vwc/UIevZBzR/s6AR90UF0oeWNx/k1HmCUGp4vDq5yoj4zPJyCc5FMwBqOZQviGALiYGBDJI6x8fxqDdxG9+Hj7RtBEasEKPr/lwl3T2FlxrvlqOotUefF2zTmfDym133paZTeIs4wDYDmLGboe5ARVgCkxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=WXAs9orN; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788904487; c=relaxed/simple;
+	bh=46D7DTped0o7Lg5mF3tCFCJ+EluhhFx6QATB5hfpgZ0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=T/pxjDYRlYFgPkAek9eKVbinRNJGia9amJlG1iyNE7fRtb6CMSdbCE7cCTUfpxEgFpj1VFhcG6nTnByTjZ8f5Nv5L9wEjv1FidsrovzO8ShQlMttf2rQKj11Tq+g0hDR2vvCOxpF0iYBDnLbGEflGhF9kvGxgNB08D1MjLhwcqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=n4j2EOYS; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="WXAs9orN"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2C69B10176D;
-	Tue, 08 Sep 2026 23:54:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788904461; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=lo980KpxOEWZtNfw8Iuk8CZbmDKkSo6ssfw7sJy1rvs=;
-	b=WXAs9orNlQF1RJTcQ6ASKpmmwroiR/ZRjTj0BJqFLbxz0PdjUDyMPYicKspslQ33sfcFpE
-	xBoMIzdEjBgazKbMgRDz1xJ1GZQHpZo7P/yFdD2kefb4dbmy+86E7Gu6/L2o3HhJP/vsBj
-	ggkwvHuyC79AnqPdslkWTtqnxvtm0FepFNHf10WWoAgD+StxaofZG6DQO+nZTMFiZlCs55
-	A0JV+g/UsU15Cg4svhzBVI1sO6jUitzN6f9M48oD4AEzGI6p51n2nA/LM812oiaIfeAeIb
-	01ZNyCMDpCX0War6D+j8Fc9MFx/S0KmfExjuRVjVNJJpXiXRIta9AcOZLeRCGg==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Fedor Ross <fedor.ross@ifm.com>,
-	Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: imx8mn: Add display DT overlays for the ifm VHIP4 EvalBoard
-Date: Tue,  8 Sep 2026 23:53:05 +0200
-Message-ID: <20260908215409.32993-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="n4j2EOYS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788904485; x=1820440485;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=46D7DTped0o7Lg5mF3tCFCJ+EluhhFx6QATB5hfpgZ0=;
+  b=n4j2EOYSkv8so6bJI60RNw1u0wzV5Y8kfdhdQhWz1u6hXyr5Pameq+3X
+   HD1hWFCDbckYfWRMSeEY2ZJIfifelBKqYJWbZ/0R1yGXw/XtzNSeI2v1t
+   fVjwEb/R1cIRaCBhJRCXP7KBhcgzJu/qeG/LIRFLSV2iLVnl2J5E1YJ7C
+   ef2I9Natw/sW+mi1RF6oin4+ZeunfrLabNQeHT1ezOdohzYYfFoknm+pQ
+   gFOnq7D0s9C8SwJUGOplTI6jtlbVqDlQbnmXePVpAfNHtsqcoLbkz8HdT
+   ROAA3lOfbgSeFYalloZZY0CokmqrCl5gR6GDUS9hinYrPI9mjrOx81227
+   A==;
+X-CSE-ConnectionGUID: KiKFFUncQymNIpUAJyx1xw==
+X-CSE-MsgGUID: 8RsVIup2SACD9AWpiBQxPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89361945"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="89361945"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 14:54:44 -0700
+X-CSE-ConnectionGUID: +4Z1+9LCR8mmUnyAn3HkAQ==
+X-CSE-MsgGUID: D25G1V3rQTOEJItnhnbDuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="274658137"
+Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 14:54:44 -0700
+Message-ID: <3cb5cbdb227bee0b822f1550e10659faadd77a3d.camel@linux.intel.com>
+Subject: Re: Cache-aware scheduling does not work well with amd big/little
+ cores
+From: Tim Chen <tim.c.chen@linux.intel.com>
+To: Klaus Kusche <klaus.kusche@computerix.info>, "Chen, Yu C"
+	 <yu.c.chen@intel.com>, Mario Limonciello <mario.limonciello@amd.com>
+Cc: "Badole, Vishal" <Vishal.Badole@amd.com>, Peter Zijlstra
+	 <peterz@infradead.org>, linux-kernel@vger.kernel.org, "maintainer:X86
+ ARCHITECTURE (32-BIT AND 64-BIT)"
+	 <x86@kernel.org>, platform-driver-x86@vger.kernel.org, K Prateek Nayak
+	 <KPrateek.Nayak@amd.com>, ricardo.neri@intel.com
+Date: Tue, 08 Sep 2026 14:54:43 -0700
+In-Reply-To: <14630984-9287-4454-b52f-3a1e526e1fdf@computerix.info>
+References: <2180ea5a-eb28-4152-8d4d-cd00b0c24b2e@computerix.info>
+	 <8064e1d8-b51c-48e5-a312-8c31581991f5@amd.com>
+	 <b475039b-defe-46e7-ab85-46e3196da667@intel.com>
+	 <369d0bbb-db7a-4f86-bee2-332d5295c452@computerix.info>
+	 <406a5c407bbe60cafc24f715e089f5552a0791f9.camel@linux.intel.com>
+	 <14630984-9287-4454-b52f-3a1e526e1fdf@computerix.info>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Fedor Ross <fedor.ross@ifm.com>
+On Sat, 2026-09-05 at 17:40 +0200, Klaus Kusche wrote:
+> Hello,
+>=20
+> On 31/08/2026 19:29, Tim Chen wrote:
+> > On Mon, 2026-08-31 at 13:24 +0200, Klaus Kusche wrote:
+> > > Hello,
+> > >=20
+> > > both patches in combination seem to have the desired effect.
+> > >=20
+> > > But I just look at a bar graph showing the current load
+> > > of each core.=20
+> > > The graph suggests that long-running CPU-intensive processes=20
+> > > migrate to fast cores when fast cores become available.
+> > > And I have the impression that LTO compilations
+> > > finish significantly faster now.
+> > >=20
+> > > I don't have exact numbers or benchmarks.
+> >=20
+> > Thanks for testing the fix.
+> >=20
+> > If you just apply https://lore.kernel.org/lkml/20260825174112.2580942-1=
+-tim.c.chen@linux.intel.com/,
+> > with default aggr_tolerance, what numbers do you see?
+> >=20
+> > That will be helpful for further tuning.  Thanks.
+> >=20
+> > Tim=20
+>=20
+> I did some quick testing (no perfect benchmark environment,
+> just checking runtime and CPU consumption with "time").
+>=20
+> I timed a kernel build (-j 24 and full lto, my own .config)
+> and an application build (also with a lot of parallelism)
+> with three different kernels:
+>=20
+> a) Cache aware scheduling completely configured off
+>=20
+> b) Cache aware scheduling turned on, but without patch
+>=20
+> c) Cache aware scheduling turned on, with patch
+>=20
+> Big/little scheduling was always on,=20
+> Mario's patch was always applied
+> (without it, results are significantly worse,
 
-Add display DT overlays for the ifm VHIP4 EvalBoard v1. This
-includes two expansion modules, one populated with Displaytech
-DT050BTFT-PTS panel, and the NXP ADV7533 DSI-to-HDMI adapter.
-The Displaytech DT050BTFT-PTS is configured in three different
-DSI lane counts to allow testing all possible DSI lane count
-configurations of the VHIP4 EvalBoard.
+Sorry, I am a bit confused.  You mentioned later the result for (b)
+and (c) are about the same with or without the patch
+exposing debugfs (commit c1e7fe5e75ed11fa85368e5a186472afd3858f3a
+Mario mentioned in another mail). =20
+But here you say the result is much worse without Mario's patch.
+Is Mario's patch the one above or some other patch?=20
 
-Signed-off-by: Fedor Ross <fedor.ross@ifm.com>
-Co-developed-by: Marek Vasut <marex@nabladev.com>
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/freescale/Makefile        |  16 ++
- ...-evalboard-v1-overlay-dt050btft-1lane.dtso |  16 ++
- ...-evalboard-v1-overlay-dt050btft-2lane.dtso |  16 ++
- ...-evalboard-v1-overlay-dt050btft-4lane.dtso |  16 ++
- ...evalboard-v1-overlay-dt050btft-common.dtsi | 155 ++++++++++++++++++
- ...evalboard-v1-overlay-nxp-adv7533-hdmi.dtso | 104 ++++++++++++
- 6 files changed, 323 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtso
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi
- create mode 100644 arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtso
+> because I use kernels without debugfs,
+> so big/little scheduling is off without the patch).
+>=20
+> Results:
+>=20
+> There is no significant difference between b) and c)=20
+> (<=3D 1 % wallclock time)
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 984642146dd91..1cbf7205d577c 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -319,6 +319,12 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mn-var-som-symphony.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mn-var-som-symphony-legacy.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mn-venice-gw7902.dtb
- 
-+imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
-+							  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtbo
-+imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
-+							  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtbo
-+imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
-+							  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtbo
- imx8mn-vhip4-evalboard-v1-overlay-eeprom-1000-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
- 						      imx8mn-vhip4-overlay-eeprom-1000.dtbo
- imx8mn-vhip4-evalboard-v1-overlay-eeprom-1100-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
-@@ -327,6 +333,8 @@ imx8mn-vhip4-evalboard-v1-overlay-ksz8794-dtbs := imx8mn-vhip4-evalboard-v1.dtb
- 						  imx8mn-vhip4-evalboard-v1-overlay-ksz8794.dtbo
- imx8mn-vhip4-evalboard-v1-overlay-ksz9031-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
- 						  imx8mn-vhip4-evalboard-v1-overlay-ksz9031.dtbo
-+imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi-dtbs := imx8mn-vhip4-evalboard-v1.dtb \
-+							   imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtbo
- imx8mn-vhip4-evalboard-v2-overlay-adin1300-dtbs := imx8mn-vhip4-evalboard-v2.dtb \
- 						   imx8mn-vhip4-evalboard-v2-overlay-adin1300.dtbo
- imx8mn-vhip4-evalboard-v2-overlay-eeprom-1100-dtbs := imx8mn-vhip4-evalboard-v2.dtb \
-@@ -336,12 +344,20 @@ imx8mn-vhip4-evalboard-v2-overlay-eeprom-2000-dtbs := imx8mn-vhip4-evalboard-v2.
- imx8mn-vhip4-evalboard-v2-overlay-ksz8794-dtbs := imx8mn-vhip4-evalboard-v2.dtb \
- 						  imx8mn-vhip4-evalboard-v2-overlay-ksz8794.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mn-vhip4-evalboard-v1.dtb \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtb \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtbo \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtb \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtbo \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtb \
-+			  imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtbo \
- 			  imx8mn-vhip4-evalboard-v1-overlay-eeprom-1000.dtb \
- 			  imx8mn-vhip4-evalboard-v1-overlay-eeprom-1100.dtb \
- 			  imx8mn-vhip4-evalboard-v1-overlay-ksz8794.dtb \
- 			  imx8mn-vhip4-evalboard-v1-overlay-ksz8794.dtbo \
- 			  imx8mn-vhip4-evalboard-v1-overlay-ksz9031.dtb \
- 			  imx8mn-vhip4-evalboard-v1-overlay-ksz9031.dtbo \
-+			  imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtb \
-+			  imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtbo \
- 			  imx8mn-vhip4-evalboard-v2.dtb \
- 			  imx8mn-vhip4-evalboard-v2-overlay-adin1300.dtb \
- 			  imx8mn-vhip4-evalboard-v2-overlay-adin1300.dtbo \
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtso
-new file mode 100644
-index 0000000000000..4151765743265
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-1lane.dtso
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2021-2026 Marek Vasut
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi"
-+
-+&sn65dsi83_in {
-+	data-lanes = <1>;
-+};
-+
-+&mipi_dsi_bridge1_out {
-+	data-lanes = <1>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtso
-new file mode 100644
-index 0000000000000..7b1bd925f53f6
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-2lane.dtso
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2021-2026 Marek Vasut
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi"
-+
-+&sn65dsi83_in {
-+	data-lanes = <1 2>;
-+};
-+
-+&mipi_dsi_bridge1_out {
-+	data-lanes = <1 2>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtso
-new file mode 100644
-index 0000000000000..300d5e9536102
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-4lane.dtso
-@@ -0,0 +1,16 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2021-2026 Marek Vasut
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+#include "imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi"
-+
-+&sn65dsi83_in {
-+	data-lanes = <1 2 3 4>;
-+};
-+
-+&mipi_dsi_bridge1_out {
-+	data-lanes = <1 2 3 4>;
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi
-new file mode 100644
-index 0000000000000..c82cc2eef8532
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-dt050btft-common.dtsi
-@@ -0,0 +1,155 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2021-2026 Marek Vasut
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+#include "imx8mn-pinfunc.h"
-+
-+&{/} {
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		/* FIXME: 200 Hz, since DT050BTFT-PTS datasheet does not say */
-+		pwms = <&pwm4 0 5000000 0>;
-+		brightness-levels = <0 100>;
-+		num-interpolated-steps = <100>;
-+		default-brightness-level = <75>;
-+	};
-+
-+	lvds-decoder {
-+		compatible = "ti,sn65lvds822", "lvds-decoder";
-+		powerdown-gpios = <&gpio5 19 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_lvds_bridge>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				lvds_dpi_bridge_in: endpoint {
-+					data-mapping = "vesa-24";
-+					remote-endpoint = <&sn65dsi83_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				lvds_bridge_out: endpoint {
-+					remote-endpoint = <&lvds_panel_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	panel {
-+		compatible = "displaytech,dt050btft-pts";
-+		backlight = <&backlight>;
-+		power-supply = <&reg_panel_3v3>;
-+
-+		port {
-+			lvds_panel_in: endpoint {
-+				remote-endpoint = <&lvds_bridge_out>;
-+			};
-+		};
-+	};
-+
-+	reg_panel_3v3: regulator-panel-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "VCC_DISPL";
-+	};
-+};
-+
-+&i2c3 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	bridge@2d {
-+		compatible = "ti,sn65dsi83";
-+		enable-gpios = <&gpio2 1 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_dsi_bridge>;
-+		reg = <0x2d>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				sn65dsi83_in: endpoint {
-+					data-lanes = <1>;
-+					remote-endpoint = <&mipi_dsi_bridge1_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+				sn65dsi83_out: endpoint {
-+					remote-endpoint = <&lvds_dpi_bridge_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&iomuxc {
-+	pinctrl_dsi_bridge: dsibridge-grp {
-+		fsl,pins = <
-+			/* nRESET_BRIDGE */
-+			MX8MN_IOMUXC_SD1_CMD_GPIO2_IO1                  0x100
-+		>;
-+	};
-+
-+	pinctrl_lvds_bridge: lvdsbridge-grp {
-+		fsl,pins = <
-+			/* LVDS_RGB_SHTDN_n */
-+			MX8MN_IOMUXC_I2C3_SDA_GPIO5_IO19                0x100
-+		>;
-+	};
-+
-+	pinctrl_pwm4: pwm4-grp {
-+		fsl,pins = <
-+			/* LCD PWM */
-+			MX8MN_IOMUXC_I2C3_SCL_PWM4_OUT			0x0116
-+		>;
-+	};
-+};
-+
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&mipi_dsi {
-+	samsung,burst-clock-frequency = <891000000>;
-+	samsung,esc-clock-frequency = <10000000>;
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			mipi_dsi_bridge1_out: endpoint {
-+				data-lanes = <1>;
-+				remote-endpoint = <&sn65dsi83_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&pwm4 {	/* LCD backlight PWM */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm4>;
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtso
-new file mode 100644
-index 0000000000000..e1a7aa6806c48
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp-adv7533-hdmi.dtso
-@@ -0,0 +1,104 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright (C) 2021-2026 Marek Vasut
-+ */
-+/dts-v1/;
-+/plugin/;
-+
-+&{/} {
-+	cec_clock: clk-cec-fixed {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <24000000>;
-+	};
-+
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&adv7513_out>;
-+			};
-+		};
-+	};
-+
-+
-+	reg_adv_1v8: regulator-adv-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "ADV-1V8";
-+	};
-+
-+	reg_adv_3v3: regulator-adv-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-always-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		regulator-name = "ADV-3V3";
-+	};
-+};
-+
-+&i2c3 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	status = "okay";
-+
-+	hdmi-transmitter@3d {
-+		compatible = "adi,adv7535";
-+		reg = <0x3d>, <0x3e>, <0x3c>, <0x3f>;
-+		reg-names = "main", "edid", "cec", "packet";
-+		a2vdd-supply = <&reg_adv_1v8>;
-+		adi,dsi-lanes = <4>;
-+		avdd-supply = <&reg_adv_1v8>;
-+		dvdd-supply = <&reg_adv_1v8>;
-+		pvdd-supply = <&reg_adv_1v8>;
-+		v3p3-supply = <&reg_adv_3v3>;
-+		status = "okay";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				adv7535_in: endpoint {
-+					remote-endpoint = <&mipi_dsi_bridge1_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+				adv7513_out: endpoint {
-+					remote-endpoint = <&hdmi_con>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&lcdif {
-+	status = "okay";
-+};
-+
-+&mipi_dsi {
-+	samsung,burst-clock-frequency = <891000000>;
-+	samsung,esc-clock-frequency = <10000000>;
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@1 {
-+			reg = <1>;
-+
-+			mipi_dsi_bridge1_out: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&adv7535_in>;
-+			};
-+		};
-+	};
-+};
--- 
-2.53.0
+Yes, I don't expect difference between (b) and (c).  My
+understanding is the patch in question is to only
+expose the default cache aware parameters via debugfs
+but don't acutally change them.
 
+> Sometimes b) is better, sometimes c) is better,
+> I'd say the differences are below the accuracy of my tests.
+>=20
+> But a) was reproducibly better than b) and c)
+> w.r.t. wallclock time: 2-2.6 %
+> It was also very slightly better w.r.t. total kernel CPU seconds.
+> The results w.r.t. total usermode CPU seconds varied too much.
+> (I always ran the application build twice,
+> and for all a), b) and c), the second run consumed
+> significantly more usermode CPU seconds,
+> but took a little less wallclock time - I don't know why).
+
+Will have to look around to see if we have some similar CPUs
+as HX-370.  My understanding is that the 4 big cores are in
+one L3 and the 8 small cores are in another L3.
+
+BTW, we have also found two issues with the active load balance
+paths for CAS that need fixes.  You may want to add those patches
+and see if they are helpful to improve things.
+
+Active load balance fixes:
+https://lore.kernel.org/lkml/20260903020656.3793626-1-wanglu.priv@gmail.com=
+/
+https://lore.kernel.org/lkml/2b0a35122ee615c6fa51076e5d79330e633755ac.camel=
+@linux.intel.com/
+
+
+Tim
+
+>=20
+> So in short, at least for the two build benchmarks I made,
+> and with respect to the wallclock time they took, AMD Ryzen HX 370=20
+> does slightly better completely *without* cache aware scheduling,
+> but cache aware scheduling looses less than 3 %,
+> both with and without the patch.
+>=20
+> The big difference I observed when 7.2 came out=20
+> was perhaps due to the fact
+> that the older version of Mario's patch I had
+> did not apply correctly or did not work as expected with 7.2.
+>=20
+> Greetings
