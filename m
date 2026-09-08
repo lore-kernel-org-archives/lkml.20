@@ -1,79 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B0835AC3F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:39:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B248623507B;
+	Tue,  8 Sep 2026 20:40:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899986; cv=none; b=n2NngWD/xKAvai/a5WEbovKseH+Fy6MvQ5jhT/CCSzhSjXM8VgXeJXmmF5U9AGy4WZBTwyE4gr/pWfXdfkSC6KjAR1tfU/yHJGDwqN5Lp+bQWDi4nEp4++JjEJdEDiP0cGhh7h0qJpP2pEDf6KS70NPtUnrkGicrukY2G7XLGSk=
+	t=1788900037; cv=none; b=QRLxkDT/O0X+WP4rM0UUaulzcUBXvvlsK0SvZiXd5ij7eFkNJUrW3eN+NGHjLHfKciyadtG0epDqrxe9ZlvIcXdXNm0VkAhJQUxl2sLBzrjYX3IhxTE4G23sjIOVaMab/UDeXrV4LuMjs3zXPTtv+MeQCWY+BMK4JihFxn6TBWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899986; c=relaxed/simple;
-	bh=nCnsjjMTbUDAwEVdehRrOjPfCO10U5Scg/gBoVtzFBw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZR+TNatArgKEZa1IV7VUMuNbFFGiJ8EawlIETr6z8xFH7sBjRKpYHo0bcuBxl4dZnUbgfDQd15YXNgpuSgOtUdDgVNeij5cAzIfXVj75LnYt1kRWZFgKJMybeuhzursA4jOMommhdOx+wF2PQcNC+Eo5J9NUkHCkuSKNlJtMlsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxyV62hT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788900037; c=relaxed/simple;
+	bh=Ss93J/8EbMVt2vkJwkChegaPEjEjz4i+QNqfsSn9gS4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=AMSL2vdsLnt5GC3IT9XV2vmXy7Y//Z2tta6gwT04mLD+jPlf5DGqaCZb8bx3FvrVCLY6UyI7IJ0BLDgvUU8M0r2NCiJ7dfoN3kJwc/pw1T8ziDVwJKgJdW2RlDBm8jmkIi5FScY0y1ZBjgQnn2JgSLjUM5Lf6PKs8em2/KDu3k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Evdo/wa+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxyV62hT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C45F01F00A3D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:39:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Evdo/wa+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6901F00A3A;
+	Tue,  8 Sep 2026 20:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899984;
-	bh=VGIyugQlsIYpc+dmpbUv46JU+bLlIRQ7v9SfNEJE4h8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TxyV62hTmXbbpmwg12Mk3kNNRbaPxPQFUJru14Nhxco/Bt/2+nIf1/GmdK2QiP8hR
-	 +bTBp+bO5kLBFl0OxoNNwPEIwkfqFSmD54pi44mIZtR0cecsPFfmQrj2ir/vTSI4D5
-	 vAbJhe/mfFoOdJI4r/hbwIlCofmaFr5qJqJ0GCeBw9jESVIRbQTr0RX6kIkaoo347D
-	 hLQ7EiikpOLnf/3XXE6d3xvV3Q8LploTNHneCAVE9YkeNSl3LLDf5Ib2CjJ5fTcxei
-	 vDCyd192k828gxnMlXdN/FG+AOA4dISKIpr2V7eg0D3Kku5pgYxUWKGVewtGXdDKeQ
-	 MDCJ7o8AbGA4Q==
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-9103be3b3d9so73577206d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:39:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzgPLnBfYBv74GF7dayAf0s/ERXgtSbpDL/qu61vPOg9cxW91QCCPJR5MlPSH4MkiI8OZfFh5iaM1MrSTo=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltum/6IoldAdQxOnOzTZBeLeSpLYXW+6mKvxYgQDQO1QBFopru
-	R1pcLSthHiIwsXmeVUoUjA2nJd6GKniZPlISg8eiDYf247PLHVMNomCNRZNxHlMd2GFT9vAfft6
-	x/oe1M5G7giffRJXyqKgonTWhlCCtgMw=
-X-Received: by 2002:a05:620a:400f:b0:939:7e48:f937 with SMTP id
- af79cd13be357-939806da346mr3158589685a.34.1788899984069; Tue, 08 Sep 2026
- 13:39:44 -0700 (PDT)
+	s=k20260515; t=1788900035;
+	bh=+nL20GL20N0hmfHYzmA3AYONzYIM2k86Zkd55y524x4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Evdo/wa+YMPnE1CPNuNIMJ2OYDKlKtod81MrMeARVK3RS0vFqs7FuD2SI4Kun8pyL
+	 hQjnG/mAZmIL9hMLtSFJnxXf5uf2yOB3m2YP3+e0R6fnN7D4ZTAYUzKow8FoScvCMt
+	 l9A/taFk2bMzTcOKurpwdtG9IN1HT22//jG/zBB1HTr1VDNbkMImTYKcJ5x57oBmzX
+	 Mppr3aFckiQeNNTTOQpyPD7d7SYgISlYZGsUWIYIqpc0EE9wpinesXnStBYbgcNlbq
+	 dQj6QtX5Z0Oxz3BdxB4V3oM/H6sbCSr5Eqj5vL4jvR7w4ro5+h7RDOI4TpzzxB+/Ah
+	 /TO7PFPbZvm8w==
+Date: Tue, 8 Sep 2026 13:40:34 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: David Carlier <devnexen@gmail.com>
+Cc: Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ oss-drivers@corigine.com, "David S . Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nfp: reject truncated hwinfo table
+Message-ID: <20260908134034.792ea77f@kernel.org>
+In-Reply-To: <20260908005437.11004-1-devnexen@gmail.com>
+References: <20260908005437.11004-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830173343.52759-1-x90613@gmail.com> <20260905155507.273262-1-x90613@gmail.com>
-In-Reply-To: <20260905155507.273262-1-x90613@gmail.com>
-From: Song Liu <song@kernel.org>
-Date: Tue, 8 Sep 2026 13:39:32 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW5y0pCnqfgoB0RzyDTF+mgEsWFAmXkm-EJO-VUS354zvQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VljhyK_WpgGIum9xkIf8oYM84UCOrazKd5KVTGjZVWiUm5xYIHyPbTPV8
-Message-ID: <CAPhsuW5y0pCnqfgoB0RzyDTF+mgEsWFAmXkm-EJO-VUS354zvQ@mail.gmail.com>
-Subject: Re: [PATCH] selftests/livepatch: Test rejection of aliased symbols in
- one object
-To: Harry Hsu <x90613@gmail.com>
-Cc: pmladek@suse.com, jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz, 
-	joe.lawrence@redhat.com, shuah@kernel.org, live-patching@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Sep 5, 2026 at 8:55=E2=80=AFAM Harry Hsu <x90613@gmail.com> wrote:
->
-> klp_init_object_loaded() now rejects an object whose klp_funcs resolve to
-> the same address, because aliased symbols would push two klp_funcs of one
-> livepatch onto a single ops->func_stack and leave the redirection
-> ambiguous.
->
-> Add a target module providing test_klp_alias_show() together with its
-> __alias() sibling, and a livepatch naming both of them.  Two test cases
-> cover both callers of klp_init_object_loaded(): the klp_enable_patch()
-> path, where the target module is loaded before the livepatch, and the
-> klp_module_coming() path, where the livepatch is loaded first and the
-> module loader has to refuse the target module.
->
-> Suggested-by: Song Liu <song@kernel.org>
-> Signed-off-by: Harry Hsu <x90613@gmail.com>
+On Tue,  8 Sep 2026 01:54:37 +0100 David Carlier wrote:
+> hwinfo_db_validate() only bounds db->size from above, so a firmware
+> table advertising size < sizeof(*db) + sizeof(u32) makes the following
+> "size -= sizeof(u32)" underflow and crc32_posix() read far out of
+> bounds. Reject such tables before the subtraction.
 
-LGTM. Thanks for adding the test!
-
-Acked-by: Song Liu <song@kernel.org>
+AFAIU it's okay to assume that PCIe devices are not malicious
+Let's not waste time with these sort of "fixes"
+-- 
+pw-bot: reject
