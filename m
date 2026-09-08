@@ -1,157 +1,169 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF793E40E7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B775A512C;
+	Tue,  8 Sep 2026 20:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898429; cv=none; b=coQjv+mqq/qgpChn921DLmlb313B5Us5dqpstJ1jCd1rk6MO1Wk+2UkeWfCRwUe/GmxxwXL9SCsJezXg0CHdDepExzhE4x8trl9CiA03D5SNfn7YuQVWQ3RqKLE+sX+Ht+qE3gEBcnR1/BKghKsFCwRAzQIgNuWhI3yDmbJzljE=
+	t=1788898434; cv=none; b=j23uVm4FmNJHchBF7P9aLYrJb/vOX4s1j9cCNTtYU5hifBVwUzCc7/SZknjEKvg2Rhtc6PjiQF/3V4zXuuDNKXRYoqdWHKFNWbSTWfrfUeFMZ4PPp5OzHNPXAVD8f4cHrqLOIRA0o7BMS9Wl9YkC2YP6bsZHcw5Ra+0BspJuiJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898429; c=relaxed/simple;
-	bh=dxF2BaSzBnbJDO8svzFefD5jxms69tdB9jvx6FnSrDU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FXDVkLRIwbfLkA1tXifo6A4uy70UYMkXuAXT8B7qXWgvjXItMCHo43b+W7FkDJfz0zUGl34lMruTG4OiexhZL1JescIjdks7kRbYC6jr9ZqI3MPN74aE6k3Sfogam1prYWUj41TRXXimf8VG9jUBD25LNz/FlufqvWJCkpj84b0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gtld5I3U; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788898434; c=relaxed/simple;
+	bh=Waz7DiD3rguBJppiiScbshRu8gUGaEpIlzQeObU8kmI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Vk2OZkuJjry4pqMxNbSfIzXV4+dbliZJlPtRSu565K8m/QYdN1NSPqBqxXND8+A7CuUaKTom8AUr/Hk4R4Sm6O0RabepI7ZWxQ6OqWb+d01o5Tu3ALdM+0IWMT3NLQ5O4dgdOdmL/VWYAkCEb+agHv4grvUb2lFwuosYAjOydHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f+Mr+LZ5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gtld5I3U"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5300bdf61d9so52988211cf.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788898427; x=1789503227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G1WVEAgCDTyboEwqwqS6xMrZxXr/rnP7TsZmJjP2k8c=;
-        b=Gtld5I3U3zwNlhdPWB5px2usxxEgyBd49PaFnJBCS4L2ICxZPfqn2Jcad8zvfxerSj
-         L9ef+QG1i7UDRlRewrAOv3KbiRkrMcUYBDcYSqtrPUqLis3kw0e0AuW7cT/r7S86weKk
-         o+VbBsbH5CDVAKHUEXTXWqge6QYrEc1F9jKKZn8FU+lVx39lxCDPGH4RSpTUBgwXL5AM
-         iW9kBe9XjIy6QeXiMgOuPgO/IFoMpEqwATzEZA6tSm8ng4vjlWcdYVR/ovz1AwpItMFf
-         jtRB5So56zmDMLD4P4Yc9XnlL03SqPlC6FvFDps4M7i9/OlMEY8UBw9jdVGET2JGpoZw
-         YX7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788898427; x=1789503227;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G1WVEAgCDTyboEwqwqS6xMrZxXr/rnP7TsZmJjP2k8c=;
-        b=ocqFEVpFLM0Ap0dHgeqJXax6RwUaB+iZLFSd+1GX4PDtN2JBgqWX5m0PGus6zLVEc/
-         c3G3Q1KnGdGH/0cFfy82imu9Kwr47Z6JL8tZRJBW7jGXbKgGCcdHXkkViAuee+q2ml5B
-         8lslMNEtarTkHXpdLbyhEeFO0WYY/Dkm4TCTYlOwA9R03cucvoSdZ5yvKEDGK4N9+l17
-         R6e5sgFF3PQFMLubmDDrSoqowxO26k/AB93kvIR1r5YmR6MhskZUtd0BNGzzTYquC2mB
-         QP1HeZy/7yHNyGNmFdxgVq+L1B43umgT3n4M1VgfehY62KiFiBGefKXjLNHZjbAa2r9t
-         qH2w==
-X-Forwarded-Encrypted: i=1; AKwUvBydjk5ht8c53Fa0qcQ2lJlxYnLkyLevhFdUCrxhTdyKLce4H1xtGTTlm0b7uoRO+z//iOhewvhjtc1PaEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFa2/fbHIfDwlIgSq9N9yt1PKu7glNex5NAah5R4ncZuT6S32O
-	YEpqv//Nn1Wh4rVuQCFAzXfq9cWbZyCgcuG/bTo3EVHjJgNeE8WTk2r2
-X-Gm-Gg: AYBFou0GuEyprh0HkFPDRwOIO5jyADtCPRfbsGdmXXfcLlB/lqUbyHkphL8KjHLN/Eu
-	u3BAr826j5ybknBFuxHaTK30+f8N3is6L5V39i7tJlty7Rsg8jxoXe4BqxP+x6JNQa04jkOdMNh
-	osoo2IFSLLVGkvk/XztLP7Oz/WAlTa/l80R6B3Otm9+hUqrOZqebZ/qipTWbGNe5vUz+QmbTeHy
-	KsFbPo5LgJ5v0kSEvMLv50ylFoX6CN/7t30fJZkU/zWSUJbiTWXi2FIPzv67CMrKDNxQ94LaAtJ
-	jOLdlNvPoRGZK3IV2l3yJslmBeo4aGxUihSQIa6YfAzu9TjZ3uOLPpwGCmfJv782OppQoWudjkB
-	aV6JZ0JtdqRTPgSe5FZ9xL283u7u2IiOy3tIyAmG5sOY/2Z2LQk2Np5uktk+549ZgjDABteU9R9
-	APbSj7t0f8+hi9/PNEZqxgmzKks0rkfoLaKsJve8tyN0gv/ctOS8Y9Ho8Apes=
-X-Received: by 2002:ac8:5945:0:b0:530:42d4:4c9a with SMTP id d75a77b69052e-53054a34924mr346612041cf.44.1788898426597;
-        Tue, 08 Sep 2026 13:13:46 -0700 (PDT)
-Received: from tofu.. ([128.210.0.165])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530a300c3adsm7197381cf.10.2026.09.08.13.13.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:13:46 -0700 (PDT)
-From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-To: Alice Ryhl <aliceryhl@google.com>,
-	Burak Emir <burak.emir@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Yury Norov <yury.norov@gmail.com>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Subject: [PATCH v3] rust: bitmap: document panics in `next_bit` and `next_zero_bit`
-Date: Tue,  8 Sep 2026 16:13:02 -0400
-Message-ID: <20260908201302.1085862-1-georgeandrout13@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f+Mr+LZ5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041C11F00A3D;
+	Tue,  8 Sep 2026 20:13:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788898433;
+	bh=zxsoHiZuiEmxcJzcWN4k6DuzJHqi17MQRpDsUiD+p6A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=f+Mr+LZ58EWjR1Vj2Y5dhsxFsGCZxc+h1J3z0LW/Dz9YFUtW31pXWkPAuPHaQLwT6
+	 XID45ZVviQp1sn4ZyDvfZC0qj8TiV4MhitcrJ5xl4HyXLD4mbiHsILxVcHNJu1r1eF
+	 +IgSffXPhD1650r0HHbohuhzizR6waCzyazMS2u9ne16fJavkbA8xOgfWVIY7CLOev
+	 +CXWw8pxxuoSNswby4MLsIWIbEgAVKt0RocXC7OHhsVYfUZSss/lLjIkmorwpW+XTm
+	 XGAivUcLQSspqcjTNjKulBCyAjPHqAYEL4W5mIN09vBk00oewkoopdDJb/9JVzsb8j
+	 wR2ZUYVjlTEEQ==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:28 +0100
+Subject: [PATCH 24/39] mm/vma: enforce that only kernel-owned mappings may
+ set VMA_IO_BIT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-24-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Waz7DiD3rguBJppiiScbshRu8gUGaEpIlzQeObU8kmI=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6xdK1TKJ/+t6vvAO+7/4wPmDUiFX991cpqLJkr4
+ rrsxsr3HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZjIrl+MDGuZw/32qyX85TdQ
+ 2J3TPqvM223zrmdpi5nrqw3n2xX8/MDwPyZeaV/9mzmlK9K3p066/oSRYfW007c8v/9Ivea/xOh
+ KCjcA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-`next_bit()` and `next_zero_bit()` use `bitmap_assert!()` to check
-that `start` is less than `self.len()`, which panics when
-`CONFIG_RUST_BITMAP_HARDENED` is enabled. However, neither function
-has a `# Panics` section, and both document that `None` is returned
-for exactly the input that triggers the panic.
+It makes no sense for a mapping whose contents the kernel does not own to
+specify that the range is MMIO.
 
-Update the documentation of `next_bit()` and `next_zero_bit()` to add
-the missing `# Panics` sections, add the missing blank doc comment line
-before `Returns` in `next_zero_bit()`, and simplify the wording.
+Prior to this patch, all in-tree drivers which did so have been updated
+such that they are marked as kernel-owned. The check WARNs and fails the
+mmap for any out-of-tree driver that still sets VMA_IO_BIT without a kernel
+mapping.
 
-Fixes: 11eca92a2cae ("rust: add bitmap API.")
-Closes: https://github.com/Rust-for-Linux/linux/issues/1252
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+No functional change intended for in-tree code.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
-Changes in v3:
-- Use Closes: instead of Link:, and add Fixes:, following feedback from
-  Alexandre Courbot and Miguel Ojeda.
-- Link to v2: https://lore.kernel.org/rust-for-linux/20260828133543.2259029-1-georgeandrout13@gmail.com/
+ mm/vma.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Changes in v2:
-- Simplify doc wording following feedback from Alice Ryhl.
-- Remove extra empty line between Link: and Signed-off-by:.
-- Link to v1: https://lore.kernel.org/rust-for-linux/20260827150719.109145-1-georgeandrout13@gmail.com/
----
- rust/kernel/bitmap.rs | 17 +++++++++++++++--
- 1 file changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
-index b27e0ec80d64..b51c8a96f1a8 100644
---- a/rust/kernel/bitmap.rs
-+++ b/rust/kernel/bitmap.rs
-@@ -459,7 +459,13 @@ pub fn last_bit(&self) -> Option<usize> {
+diff --git a/mm/vma.c b/mm/vma.c
+index cb0c4c625756..5996757d5aaf 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -2772,6 +2772,12 @@ static int mmap_validate_vma_flags(const vma_flags_t *flags)
+ 		return -EINVAL;
+ #endif
  
-     /// Finds next set bit, starting from `start`.
-     ///
--    /// Returns `None` if `start` is greater or equal to `self.nbits`.
-+    /// Returns `None` if no bits are set on or after the given index. The
-+    /// index `start` must be in bounds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
-+    /// out of bounds.
-     #[inline]
-     pub fn next_bit(&self, start: usize) -> Option<usize> {
-         bitmap_assert!(
-@@ -479,7 +485,14 @@ pub fn next_bit(&self, start: usize) -> Option<usize> {
-     }
++	if (!vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT)) {
++		/* Only kernel-owned mappings may set VMA_IO_BIT. */
++		if (WARN_ON_ONCE(vma_flags_test(flags, VMA_IO_BIT)))
++			return -EINVAL;
++	}
++
+ 	return 0;
+ }
  
-     /// Finds next zero bit, starting from `start`.
--    /// Returns `None` if `start` is greater than or equal to `self.len()`.
-+    ///
-+    /// Returns `None` if no bits are zero on or after the given index. The
-+    /// index `start` must be in bounds.
-+    ///
-+    /// # Panics
-+    ///
-+    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
-+    /// out of bounds.
-     #[inline]
-     pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
-         bitmap_assert!(
 
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 -- 
-2.47.3
+2.55.0
 
