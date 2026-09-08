@@ -1,129 +1,204 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF0B530DED
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CA31156661
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868931; cv=none; b=uZStuylNjoLO+NV/7PJteb/AiCtqI1i2SUEVnGkr0Viz/pmubZIrsJmGU9oMDl0xuYVT5SC/g+m1feOdrBOAzOXvShZ1ZU4YCTQ8ogWA+4CetcRHJTp7qy7lQlAezLRklsTK2gHl+w5i4A7W5fYLRjG8F7huhn5o4LKfFE1rioA=
+	t=1788868989; cv=none; b=SBEr9sLyvliMlLKunxYwt02h4r6LjRoTDqsOCjLDKfIPUK/m12gOkdV1L6GTY0W6+7qLc/iF55zTuPYMsmGwDKpb0TyFHekKXC1sx6PmJqRNq2XJ1nNzlHa/f9WYrl3rg+qGwhDNYO7MulvHAryiCCuaBuZL6QwSfeLbKT6e08w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868931; c=relaxed/simple;
-	bh=+ea3yYnkWvkYggstAtARXqN3w6KyrKQX3QazvOPZjRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ux4d+DUh7zqEbhyD5osVD1Sh+2ApTJapHBAI6isnLEbh0eoc1k5aahHiZ07RTTmVoaz1f14wPOoiInzugLBA7wJyeDoNVGHSblQ86TXT5788jwe0NN13E77K6HiHRLhdcAOv8xKMOORqfBE3YgaUP4KyXDVqhlzee/AMlHcBtVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=E5awR27W; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="E5awR27W"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-48449f62b93so395138f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788868928; x=1789473728; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=487eRbWP9lyEU/S8kmCpSA9mRITwOfBc17qyoaa0o10=;
-        b=E5awR27WEx8bPD1LeqecbkKIBOOPdU6nR3CA/iyv3T331T+nVkykyL3Hbd/wNbG64Z
-         2yJ/kZd1/My5pp//AogqJlXLpp63gPCoVywO0QszjXlRPT+eCLBUUUAsIVmcuWvq3Hip
-         1dVqlNY6YSc6frswjbtc5Xp+/lYS4TXcbAlbpL0cg48Xhxyva+4iE5VR24/q/rb2et0D
-         1/d5NmKaeURV+0IqSXX+yRwZV1zIuhaoCKDk3w/OChIRAxzkRwFu1Xvxl7H1SIx0Z8JJ
-         VqolXPmqqwssVsoZY2WGiFpcbYxgn/WyZH0BXQg/AukVeh9hspJKKbeJRf8oi+kSCt6n
-         GnSA==
+	s=arc-20240116; t=1788868989; c=relaxed/simple;
+	bh=1KjGT4jEmlgZm57thkTt2U42w8uocIKFVbOmxzSyT6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j/0gIfAT1Sjuk9rbzYHCGydQyLItssuICfeFQtMlunUC4WjX9uKDig1vcS00+243KnpRQ7oNzVZqx7euorG+BW6LrVLp6Vpv8fIe2XN3kSkGBjR+0BiLirD+vLqsFOQlViyHvL2KdJW2uF95fRUM7B6UcFJH8kgX6LnGCSeK9qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7466771f1caso1403006137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:03:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788868928; x=1789473728;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=487eRbWP9lyEU/S8kmCpSA9mRITwOfBc17qyoaa0o10=;
-        b=gsJgW/H8H68Xt+wGLUp8uN7D+OkjPPmEZFSkgWnIR/r+2cXO+4zjUoJ9vdgFXgZlEc
-         3VZybeh/BmzlWZ3EwHEqE+5QmMTGu1MRiSABBoPad6z9tCJrDC1zDhL69d1L8nOdDRPa
-         JM0nAdsMiXfwQxFvA7tCaJwS4nXs0saQKew/9YHV+FGVEVpLxtz6yNzBBb1klQtfIEcv
-         /9Cb1HexIQk2clRZuqCWuMRCmxsCIWmIb94cnyDX9S4JWtcX0cCytgpS4S0JMoBW7R+D
-         +BSKZZvJpsI6cm9iXnuD8n46rEnv/LYnRLF2Zhx1wXtkJpj/oHnbuxKkJjuUwsmIZhfL
-         OSlA==
-X-Forwarded-Encrypted: i=1; AKwUvBzVX9bGZsi8VGwDOHqtAczq3yfUaEawWz4ZmpQbGKI0Q/kLiDkSD6oTQhLjzxk9XC51LkqgPt7ZOU18Ddo=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2YRWHCda86TGC4Qpqty08Lb6L2lS039dAxJZB+qBmS2xhMWAb
-	ooWJiSDKMHZ2+e/zK0QH9sxmYrzCE2+z/sC+Bh80rIUwbjYBfTeUpQXYTntc+jVI7f0=
-X-Gm-Gg: AYBFou1AY9BXwsrQL+MaC78mOAHzJOlHIG49qRFWoTp+XpB83oioKSRFry5ZyRBBCDk
-	iBHOcFsLsp144nKenAEIkDIPYMiEImjLP7XkINSZQZp/G6vyUV1uT25qsJ5B2WPY77PCBAjZYfH
-	KIgY3EKIouS0Lis4aFcWXpIZCZ8H3GR4nIHQJBCzORoqIbnfx3QjXoeraVfh/K7tIQh2LX9WDjt
-	YIWIA/EM+xASvWzaHWokdJa7c0V/Vv8bu/0YXH/BrZ0d+UUZol7Dl9vZQdpJ599ZPwdQBsvHicI
-	nLJElwlaiCUV6XkLj8B3iXmENYhAotNP7asX8ebzaNsqnVLzx7FUmRjp2Bh/1yRS5ATA+Ghzhk9
-	vGmu39GOqXbaMiLPRSMeQ/SZr3cuIN1UQcrJfMRcj9qQ3GmPEG6lQh53RHkob85QepLWnH2L/UC
-	3Q7kKPLuJEmC25Pvk7SojzEh1grjCXL54lgzuyg232TNUaTKQVvLk=
-X-Received: by 2002:adf:e944:0:b0:485:8ea0:da8c with SMTP id ffacd0b85a97d-485a242f46cmr5662930f8f.16.1788868928335;
-        Tue, 08 Sep 2026 05:02:08 -0700 (PDT)
-Received: from pathway ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885c5bbdsm33929719f8f.36.2026.09.08.05.02.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 05:02:07 -0700 (PDT)
-From: Petr Mladek <pmladek@suse.com>
-To: Harry Hsu <x90613@gmail.com>,
-	jpoimboe@kernel.org,
-	mbenes@suse.cz,
-	joe.lawrence@redhat.com
-Cc: jikos@kernel.org,
-	live-patching@vger.kernel.org,
-	shuah@kernel.org,
-	song@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Petr Mladek <pmladek@suse.com>
-Subject: [PATCH 0/5] livepatch: Fail object initialization on duplicate patched function
-Date: Tue,  8 Sep 2026 14:01:44 +0200
-Message-ID: <20260908120149.299352-1-pmladek@suse.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788868984; x=1789473784;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2ewf6TAC6datJbrIguz8TlCYfKFGg/5aYhxsRPBSYo4=;
+        b=jKRqF7xPksBWLQLlxHS3MMpeogQ2QVmmDg9azEMnkikvYAgsu7C3zlwXx3febXbnui
+         N3QsmPVy1ZDrlakPgzn4IoxYfuzyaXqPj5mfMwkoGH2W6OPDikaLmtzB4CkHHwkAg5/e
+         A8aWt0TYlyqgjK43MDuJc2cJ8fP0rSCNg1N2pLMw9X0rcIujwJ7/ETBIjGX9E2GOgqtR
+         h+kG6NzzN6+UgTdGu2lNxjwF61tIhV0S2oeB1nlMsY5HAZq8DfYG3LuwBLduEnvUqlNG
+         Uv1kj8dSbJMEl0tB9AZWZ1ZbebwAwgmcXJXoFHxcZZY/B36wP7h/OYXReIFqT4Foy7BR
+         0yQw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2oU/gM+ZZUx5AiRNbKlZUaF+QVqqAMQYRq86rw5fKZ/XHwAh1dX/iD8mQYsKmEaNc+0OB2xn+Qci6RCE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8QzrTbf8E1vOL99ny9P+rOX2BHbokL/VrUB3v4qddTFcjc9MY
+	5fvwplW430G1b4jXS7tVZ8RgznRcqAtnR1/3IkHjBugmOJ9Tt43sUswfQbsyfqPr
+X-Gm-Gg: AYBFou1u4sOCos7Zjy4cpYBItD4XzFfN5wUOFjchxezN+58AcUNvVuci5i1tj0TgJBD
+	hcsAOW1iZu0cY4K27Phxk8+PQJoa27g0d4BhX8SfYDL3SvlpigbeG/CF0l5cCbdWajzgdLAxfOl
+	LER7+v6VtKCQYQg74bZX0o+wT1laoGkhFtbVbse9Ymy+2vX5f0rKJp740iAJ2WUJBQRvQPCXSTm
+	9lvOwVtYbtyL2/zjzA6zwdqM02D0yT/Z8oXADGgNXvAi5dqZRkdmq1kyQ9r5ijh0nnr2FVAumF+
+	qd2vRrcT8BquTvUlKUiy5BoLXZ9xJX8pq8IzAF0lN8jo+fW54qxL9dWr9NkabSUf0dMTQZG2bNj
+	eDjBvHDnf3jXrDGxfIAIA3HxgMkeNO72iOM+RC2Mz2babWG4fA2Vaj6pIMsoKEfqzrMnQ7yhbfp
+	CfQE49mKCGaZCMRXF5nl2B0A3eWQ4OBcOMDZmhlSdcDTEpPm5lXVz2fLOnlBF4T6od4vmfUZ4W6
+	2Oh5X4QmIraFTTvrMvWqine7LCfBg==
+X-Received: by 2002:a05:6102:554a:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-78a4a8bb304mr9960997137.6.1788868983985;
+        Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com. [209.85.221.178])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a478ad217sm8307744137.2.2026.09.08.05.03.03
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c6559620e3so1915252e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:03:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy1VZfZsw9qiq5z06e61ICJZoK3KtBSLXlMR8rHITvgZUpokGVcI5RD+UJ8k6bmkaC/ScjzJmgRga0v/0A=@vger.kernel.org
+X-Received: by 2002:a05:6122:2187:b0:5c1:25d4:e29c with SMTP id
+ 71dfb90a1353d-5c7ed0b2b83mr13290597e0c.0.1788868982949; Tue, 08 Sep 2026
+ 05:03:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260808025724.131943-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 14:02:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWvLX7OZSkfEBA34wKtnoZ4asB6rWFJiLa=2+=fezqsCA@mail.gmail.com>
+X-Gm-Features: AcwNN1Ut5SdzvrXN_MrghHd3UEoZOGWpEZlnNMWeOIWmWWDEytJDRzefIJak2-I
+Message-ID: <CAMuHMdWvLX7OZSkfEBA34wKtnoZ4asB6rWFJiLa=2+=fezqsCA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: sparrow-hawk: Add overlay for
+ WaveShare 2CH CANFD HAT
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-This is v4 of the patch failing object initialization when it patches
-the same underlying function twice through two aliased symbols
-(functions sharing one address) in the same object.
+Hi Marek,
 
-Changes against [v3]:
+On Sat, 8 Aug 2026 at 04:57, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD
+> Expansion HAT on the Retronix R-Car V4H Sparrow Hawk board.
+>
+> Current device link is at https://www.waveshare.com/2-ch-can-fd-hat.htm
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-  + Add selftest for livepatching aliased symbols [Song, Harry]
+Thanks for your patch!
 
-  + Only partially revert relocations when failing inside
-    klp_apply_object_relocs() [Sashiko]
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
 
-  + Cleanup changes made by klp_init_object_loaded() for failing
-    patch on another failures in klp_module_coming() [Sashiko]
+> +&{/} {
+> +       /* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
+> +       clk_can0: clk-ws-2ch-canfd0 {
+> +               compatible = "fixed-clock";
+> +               #clock-cells = <0>;
+> +               clock-frequency = <40000000>;
+> +       };
+> +
+> +       clk_can1: clk-ws-2ch-canfd1 {
+> +               compatible = "fixed-clock";
+> +               #clock-cells = <0>;
+> +               clock-frequency = <40000000>;
+> +       };
+> +
+> +       /*
+> +        * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
+> +        * muxed on the pins allocated for SPI_1 on this CANFD HAT.
+> +        */
+> +       spi-ws-2ch-canfd {      /* SPI_1 */
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +               compatible = "spi-gpio";
 
-Changes against [v2]:
+Please list the "compatible" property first (everywhere).
 
-  + Clarify comments and the commit message [Miroslav]
+> +               sck-gpios = <&gpio0 10 0>;              /* CN7 pin 40 */
+> +               miso-gpios = <&gpio0 9 0>;              /* CN7 pin 35 */
+> +               mosi-gpios = <&gpio0 12 0>;             /* CN7 pin 38 */
+> +               cs-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>; /* CN7 pin 12 */
+> +               num-chipselects = <1>;
+> +
+> +               can@0 {
+> +                       compatible = "microchip,mcp2518fd";
+> +                       clocks = <&clk_can1>;
+> +                       /* CN7 pin 18 */
+> +                       interrupts-extended = <&gpio1 25 IRQ_TYPE_EDGE_FALLING>;
 
-  + Cleanup when klp_init_object_loaded() fails [Sashiko]
+Datasheet says active low, so IRQ_TYPE_LEVEL_LOW.
 
+> +                       reg = <0>;
 
-[v2] https://lore.kernel.org/r/20260823060734.58443-1-x90613@gmail.com
-[v3] https://lore.kernel.org/r/20260830173343.52759-1-x90613@gmail.com
+Please list the "reg" property second (everywhere).
 
+> +                       spi-max-frequency = <20000000>;
+> +               };
+> +       };
+> +};
+> +
+> +&msiof0 {      /* SPI_0 */
+> +       #address-cells = <1>;
+> +       #size-cells = <0>;
+> +       pinctrl-0 = <&msiof0_pins>;
+> +       pinctrl-names = "default";
+> +       status = "okay";
+> +
+> +       /*
+> +        * Native MSIOF chipselect does not work with MCP2518FD
+> +        * because MCP251xFD driver needs to keep the chipselect
+> +        * line asserted between transfers. This requirement is
+> +        * fulfilled only by using GPIO chipselect.
+> +        */
+> +       cs-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
+> +
+> +       can@0 {
+> +               compatible = "microchip,mcp2518fd";
+> +               clocks = <&clk_can0>;
 
-Harry Hsu (2):
-  livepatch: Fail object initialization on duplicate patched function
-  selftests/livepatch: Test rejection of aliased symbols in one object
+Please insert a comment "/* CN7 pin 22 */".
 
-Petr Mladek (3):
-  livepatch: Move code for updating livepatch object relocations
-  livepatch: Clear relocations when klp_apply_object_relocs() fails
-  livepatch: Clean up klp_init_object_loaded() when fails
+> +               interrupts-extended = <&gpio1 26 IRQ_TYPE_EDGE_FALLING>;
 
- kernel/livepatch/core.c                       | 137 ++++++++++++------
- tools/testing/selftests/livepatch/Makefile    |   3 +-
- .../testing/selftests/livepatch/test-alias.sh |  81 +++++++++++
- .../selftests/livepatch/test_modules/Makefile |   4 +-
- .../test_modules/test_klp_alias_patch.c       |  62 ++++++++
- .../test_modules/test_klp_alias_target.c      |  48 ++++++
- 6 files changed, 285 insertions(+), 50 deletions(-)
- create mode 100755 tools/testing/selftests/livepatch/test-alias.sh
- create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_patch.c
- create mode 100644 tools/testing/selftests/livepatch/test_modules/test_klp_alias_target.c
+IRQ_TYPE_LEVEL_LOW.
+
+> +               reg = <0>;
+> +               spi-max-frequency = <20000000>;
+> +       };
+> +};
+> +
+> +&pfc {
+> +       msiof0_pins: spi-ws-2ch-canfd0 {        /* SPI_0 */
+
+Node name should be "msiof0".
+
+> +               groups = "msiof0_clk", "msiof0_txd", "msiof0_rxd";
+> +               function = "msiof0";
+> +       };
+> +};
+> +
+> +/*
+> + * PWM1 uses PWM1_B pin configuration for pin GP2_13. This conflicts
+> + * with SPI_1 CE_1 signal which is also on pin GP2_13. Disable PWM1
+> + * in case this hat is in use.
+> + */
+> +&pwm1 {
+> +       status = "disabled";
+> +};
+
+Please move this node disabling pwm1 to the top, for compatibility
+with dynamic DT overlays.
+
+The rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-2.55.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
