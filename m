@@ -1,89 +1,117 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D583F353A70
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:32:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625CF390CB9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:35:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895982; cv=none; b=kNZIcsHj0w3rqQGJ8ZtZbTZBqVmU4o9MHbmLRubcGBM5JF8r6xLVY/BCBiSlbXCIIP76w0TC0T0nJUAgzMFitjjrOaEWnhU7OWLpSb5b2XlTOCE2j1G41J7iu5Htl98GQjNOA0A1yCI0P7F+WBjjszI6NHg+xgSKDDhdgPI80FY=
+	t=1788896112; cv=none; b=rBk8QRhOQvb61oD7Ise6mPkkiH6Q3rdb35GuX2QfZqwDy833pKhsdi2ocPO3sKmvVZK4gdgGkOCjqZJHtPczJABDI0l5OQHritidLPITqdMm9yjtGaZbxORT/d/o906LnnbQ7F/J5Utcl/OgBkBlL4aoyKuo5cl3JGKhL6SU1v0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895982; c=relaxed/simple;
-	bh=PsmvxiniHeaenvgUByMKyc1Seh9VNZoo6AhTYZzDViA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ctlKNIpCF6dEd9hyOEwDKrCizd8wBlcn/qTeWBjKDgrMfb3cNKVzp3yUlo9DHOWpZi6DlrvG9UIx7aTZALRgV47tECQ9m2CU64ElQJ/ZbwlUdPhz0a4MD1bHDkXWNofBuUvp7zRCB2wLDwR39qYPl+KHWiDTfzPbITEHRj9t1fM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=cwg+fHP6; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788896112; c=relaxed/simple;
+	bh=Jqnmrd4aZJv+OTC6WlMiMLbEE0xKExHY1N/n+/K+zR0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mJ4sHAYBMRXwfvKbPbpGOu1S4s1RAxhtqpZM8XOmM173NFrVs1Qy3lWFwqdH6NL8sMzKCbOiwlSlz0Gu9h1H7spi62/VZtV/8cKFSmcTEKpAlx1562jQEJuyaX0mD+p9o2ROmbcs+AxBsA9/0E50b+gJ288Ba9zyPv96IE64vrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IY8gPDQb; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="cwg+fHP6"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 7ABD340E01F9;
-	Tue,  8 Sep 2026 19:32:57 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id EOvuZCCfcmsb; Tue,  8 Sep 2026 19:32:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788895967; bh=CSxdJl4VBmqHBG2bWI7rm0ZQwyV1SRPcqmp/fkG/2Fc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cwg+fHP68U1E4MZ59lLpLK/8gQ6qCUXS7fi5N32ugrohWQjHI6hDpvpxTWRIE5Uhn
-	 p6GUxO/I9ZXLuYKmVbEuMqDqRrGw5eI4prsmMRnlGxCY4C4+TTQ1Q97gBYJa3GCdmv
-	 ASmk0yH1wCK1RvHvz+mp8scgjIluUYfD+ejJtJmyjcJRYecg3WnfY+Hwcq4DB0i0zE
-	 L2m+h1SAkafW6bkrpr8pNiBUSa+gdznsgnLq1PMzc/pBupjiqfExCFGUPNvEY8TSrP
-	 cL7dfrs1tAC9t9AOfJM8duIPbsCHZZbehvFl0cvQdGC3KSJ4V2P7IKZwmKMGohEph8
-	 7KAVVlgS9yOdoDDWPurPqj+d5p6nsY7ROShKx9SQa8LK2DVdR9tOLAc7GC7pWoM++w
-	 VJO05TcWaSy6da/m+C2WftviWAvOtriATkGbNX1L3Yhb15QMwYatOukSuqqXDXOMo+
-	 5eJxuquCtyeN7sVE3Dxgjvhlb9ZN/EAqkVNrzKWQuogJ86EvXw//L8RmpUpAj0dl3Z
-	 /11ogNuRl0PeDHKTpqMJa96NpNeh/dY16TGIXH3JGLbLWrAWpgKYPwK2ZiVP/+KDxM
-	 vBGlz8imGLf75+JzTvp248YRm3SiWdd9NdJx4kCbAVkcABxryoqq4N5zIjSrv6tUKn
-	 cGqY+ntuQUYJ7gzDyyyd1aa0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id D3FB040E01DD;
-	Tue,  8 Sep 2026 19:32:32 +0000 (UTC)
-Date: Tue, 8 Sep 2026 12:32:29 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Mauricio Faria de Oliveira <mfo@igalia.com>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Alexey Dobriyan <adobriyan@gmail.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
-	kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
-Message-ID: <20260908193229.GFaqBizWcssBoewNSo@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
- <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
- <E4FDF95C-3FAB-41DB-8EA0-8A26B964B38D@zytor.com>
- <d1b9ff734b918889eaf8885d64141bc3@igalia.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IY8gPDQb"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso5495429a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:35:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788896109; x=1789500909; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nnDhSP6bczUTSkcaT5CjAbh23zZRgnhTqPeZ+Pxp09E=;
+        b=IY8gPDQbbyHGXZ3Wn49tzky7wVVUDnpm6wgZ4TIr9MP2FaVBW6nnSZDMKUu98cQFBv
+         Jjw2gDUkl99G5+LGCGNMNOKim3phjL0Zabgf9N4IJpmX6oSq3Q53T2RUS29LPiqSPVuu
+         XocEqQuCr+y6LORbz7aQNKN8uZdaoc5xkKaBY/3uKhmhbHnUQXmqoel9vR7wsOPb7Uph
+         z09bcjFselfrJjCat/FAwVP+fDqEjLaQ1OuJ+PRiHvhGmvmNIBYNjHmnUEcKaewUVyWe
+         z9gqGxidiNpdM2LBOZAOHoEaDoXc0442pvIZiWAPz2BaAluTuvz3G7jrHqvVVKhWyaP5
+         PPoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788896109; x=1789500909;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nnDhSP6bczUTSkcaT5CjAbh23zZRgnhTqPeZ+Pxp09E=;
+        b=oDJDS7rLuYb47WKHMvsgTOrZaLvVjgr36eaMvL0t7GNaYXuYkhogTxDt1OJTySsKT3
+         dJi0BQ2G983vwevII+YaHa9lwK64TFx7NoRJ9eNVCOdEaSqPR3Sg6pvqeZUb73aNATe3
+         /d+vCd4UfXY2Nq0i/2U5tqbL+8r9/2PlsVUoYZUUuHYEMOVyXAbwwHwYYAf2iuHhaYcd
+         gwSx/Mqxx2q0htMO8bLf0i0zac4N//tDj8dt+QL9SK0/jBbxlmfX40f/vJHo/L7xpPGH
+         Vsti03fCGILtQKODfLFKvHJDMPFdHFUe3FcyOB58igDS/VN8EKtvqsBsR5rklmAKvyLY
+         UbCw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvcVM1OW2cfDa1KjRJ1F0+h7/ZPbn5+Us3Q80htMZ0uboz0qCykXj7ydYYWmkQT0eo73Lh3uB6wTnxsLo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7wX9RdiuviOnspybQ2Wmr2dj7RNpiNKGYpismHOFn47rGPLm9
+	SNlyrCmuQ5lphqtN1L4DgnqOI6pXTK0X2NFP/F6i8e6xrD3IKtS5Jg5v
+X-Gm-Gg: AYBFou2vkz8mnaUythuV2Nn4n4n9nIu+ZVhqVO39kRLrvbmcDse8mKVo209sYE2ZU8O
+	ejvu++mBfKcz99vmBrBuBZKvi3hlLK82qDUdSJ8BCJCofYDSJkyk2pk455XgHm87MdvxjHCtbaL
+	EZyLmRjIKqrWpUizD2XAsWnV9OgHHS4e4aI0yA7jz8c4VgljwolD1uuB0U3ak44Mh6TQRNdiLPJ
+	GBO6N1MNTajysvTZuEfLDwqs8A8+JUWEhny+2oQgIwMyqemb/d+hgoEv+TzYOCURUI0COpk+LPM
+	4mRk02sHX9r2ZD9vA7/s6uAxPRSFb+YXscnCa+eI0KuiGivVrNTFXphTf8/DBTQDoablk0t4Aas
+	Wc+dGCbKOyEgS6zve4oGw/S+Ke46K4XwQDz552ViUXdkOAxZ10W1qZYWB/+SJN/KuBF43XhnDRY
+	we58sSKbn/eSfUBB1MMR4DkZR0Da+VAoAhQpWhWU15zlrOxgOizc/dvYsUk/jGRil8MiQfdA==
+X-Received: by 2002:a17:90a:1189:b0:39b:2c55:365 with SMTP id 98e67ed59e1d1-39b2c55287dmr26428765a91.12.1788896109392;
+        Tue, 08 Sep 2026 12:35:09 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:4b36:fe93:5f92:db19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260cd2aasm27319660a91.3.2026.09.08.12.35.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 12:35:08 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: hch@lst.de,
+	sagi@grimberg.me
+Cc: kch@nvidia.com,
+	linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	skhan@linuxfoundation.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
+Subject: [PATCH] nvmet: validate device_path before enabling namespace
+Date: Wed,  9 Sep 2026 01:04:52 +0530
+Message-ID: <20260908193452.53347-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d1b9ff734b918889eaf8885d64141bc3@igalia.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 03:04:53PM -0300, Mauricio Faria de Oliveira wrote:
-> Boris, perhaps the approach here could be changed to add an actual
-> memcmp()-like inline implementation (e.g., as provided in a previous
-> revision, without return value differences), or continue with the
-> memeq()-like memcmp() from arch/x86/boot/ but rename it to memeq() ?
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-Nah, new functionality is not needed. We can add it later when it is really needed.
+When buffered_io is enabled, nvmet_bdev_ns_enable() returns -ENOTBLK
+without checking whether device_path is configured. nvmet_ns_enable()
+then falls back to nvmet_file_ns_enable(), which passes the NULL
+device_path to filp_open() and causes a NULL pointer dereference.
 
+Validate device_path before attempting to enable to namespace and
+return -EINVAL when it has not been configured.
+
+Fixes: 6f6d604b4ef8 ("nvmet: allow bdev in buffered_io mode")
+Reported-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6c46a179b56c651c4c96
+Tested-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+---
+ drivers/nvme/target/core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
+index d74c01c98f19..336013139ef6 100644
+--- a/drivers/nvme/target/core.c
++++ b/drivers/nvme/target/core.c
+@@ -591,6 +591,11 @@ int nvmet_ns_enable(struct nvmet_ns *ns)
+ 	if (ns->enabled)
+ 		goto out_unlock;
+ 
++	if (!ns->device_path) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
++
+ 	ret = nvmet_bdev_ns_enable(ns);
+ 	if (ret == -ENOTBLK)
+ 		ret = nvmet_file_ns_enable(ns);
 -- 
-Regards/Gruss,
-    Boris.
+2.43.0
 
-https://people.kernel.org/tglx/notes-about-netiquette
