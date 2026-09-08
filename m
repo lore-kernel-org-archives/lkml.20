@@ -1,314 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3198C434989;
-	Tue,  8 Sep 2026 20:06:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5DEB59D620
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898006; cv=none; b=oXzzhybY+bZh10L1w3MBHCypTmoDXr0sqBO/L0lEnnC57WM5RCF8MDy4ttULSx6q2t3z4tkjzuDPihponM7AmoiX4rc/+7UO3Sa2/iWv9jPuSWQquy3hCOn79Ph/b4gaWo60DkRWzOI9Aw4XGqPitaBkmCyKoJ7h6z/oPD2x+zk=
+	t=1788898026; cv=none; b=KAp9AdfhckX8JG2t4+CTFuUjhkV+BeSjdsIWxczYqYENJTX6M4zHgfIfEwHYjE7y6Oyi5fFc9MSKogAbR7qhdXI30Z2jJZSLNDuyIjFD6rmDv8zSdO5bWJH945wmU982bBVD3H1KgaBvfpF0yEknhxJKgiTE4D3LgqX7UzCSHC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898006; c=relaxed/simple;
-	bh=Kga81qu7Oz3OCjE2VFbHFuLAyKOVWZ4qEDtF1PVGOsw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=spBomKH9vsYbiZ0UTW3FLCwd6otXJYg2lnpmIS8MjAm2+ekrk151MbvyJj9ZRPKTjNG/AU9qyF5P2OWXCBO2K+OTl/LVQsfoSst7lXcmVqWtH8PutzDHR4UhTevp3h+NKScJ7857S9DWqjLU7biLOcohnp3sHCpvPDiZOY7wkjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAFFF8kU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788898026; c=relaxed/simple;
+	bh=aWhvoKxzbfaU56wQB/QeQ6Ph5VkCnhZCfLmq+NV2GOI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s6fW2etya8/d4TcrAF8sdjt/BR89VmGuEwTTS6sM/FxVUe/nSNrcOtWAcGry1zS03Ou+hMLtPQa9ueaAaoKJhQ9dy+A+OHcif1akakLFpvBEOYa0CoJwvAMyFeUfFmxpnpp1KCawq0y1zSTDlUZGWsjuNKf+hw0DR26/bHHvkcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gy8NCtPG; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAFFF8kU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA7F1F00A3A;
-	Tue,  8 Sep 2026 20:06:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788898005;
-	bh=Q1zSXCuuemMYSZ+ATEEeV/0Jgsd6l+I3SUQ2G9I+xWQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=nAFFF8kULWGDtynQ1ptaTKgtwlADNVTMJQzH9XDZPaYvYCKiMrLjdGKXP9p4DzLES
-	 1IxJ2YXF+5EfIeFpLwZ47ZZU+ydsAaQYvfyiviYwez6sZf8Ka/2v8iw30Bsqey0Bzy
-	 hUekG1qis3YlBMAA2XEO06XY5v8B2T9kHQVzC+OBPtEp0yIm98MeGB6i2ZyV5GRBFz
-	 c07oX/1c5GK2D2RJ4GN/q++PPjmZjvOpzr7IxT2B2PMx/SnyguYWIV3H3ikbyvrJhF
-	 WhDPOrlqEwEt6qc3Oew4hW1unMOTBuwcErdgQhLim2QXogQv5C95YoT73t7g6MaCo8
-	 U9zjDfC5khPKw==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:13 +0100
-Subject: [PATCH 09/39] drivers/usb/mon: update to use mmap_prepare + map
- kernel pages
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gy8NCtPG"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4957eefd361so39889635e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788898022; x=1789502822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GzN6rbmR1iUu2LnxWgQWrLFKGnzUpRCvYGe9UsoaA/A=;
+        b=gy8NCtPGL7lvdop/lotLGXYzhHH2rs3WyH8a4NubjS29KXnNRmazshr9AfkhBBSmAV
+         wNTDG6bx5ZlRvfuz9UAxTQwGzZnnqatKaLIHSNrxJSXtFtAOkJSbrWnrq5LN1EfH/39f
+         y977rGwrCVP21AHESkk8tMVN1daqU18jQNbASM9bIYgF1QGxsvFVIlGE54SNpdOaCX/R
+         q01bv5FO0rOBKJoL2uOUNNMGBcV2BgoC9wNawsCSjPxaKFeN+iH0rNwrVSG6zlbIgE90
+         isBQV5yYg8zKy7F8vfZhB+DgQaYBWLCV0XpjyOwCLg2jK3TCE5q/JNd9XKrTkPhsOVtc
+         Uu9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788898022; x=1789502822;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GzN6rbmR1iUu2LnxWgQWrLFKGnzUpRCvYGe9UsoaA/A=;
+        b=Ca1bIrna8cBRCIsPi6oIFdMv5e5gk0lbsMMeyAhSPvRpsz7CR+48yklP9NrUnLIvHV
+         7fZvmodI6XeZJdNieCUEc9ZjXoE99imSdez4SvwHQe7t8IpFXhGTI+hkmxjilU5cWonF
+         +L9uwlZdrywLlE0btOObgF33sSYC25Vfcwfo/HqVTvbJ1QAxMlDT2fTVrlabtk6EP4fs
+         vNN0ryv9pDeMVwGJraSFZpH2EA+tkYgab5t/b7t1Ozc4PfqZITDTr6I/q/8/h5AcTm/x
+         CpNSwy9sawjLRfd4e4gsA6zdqDxiftQwGFAXtEReLmzjkbM64egHa9ewxe+IX8PZi3Cz
+         aw5A==
+X-Forwarded-Encrypted: i=1; AKwUvByA69dgW6xQ6DochNgTJzvqWibY7WK63BFCC7I0RFGgQBy9QvnhyTs27i0RlwzPfs6T0rO3DEtDbXPKFBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNt5KELgh5Zp8vjrPqixSiXlNzjqeUEEXG+bQE9dbFOHHjRUCm
+	J8/emqiI17dRf273ZG213GQOTeOSdICMMFL5UIK+2aE+5Jf/eYpmDIZc7NxPG87W
+X-Gm-Gg: AYBFou2oJjpKLhTQEUtYwCgpvJbw7KUHn8EByIogw9VR2PYwd1+qdsNV5nwkzJlmbKr
+	Jn0TO5+njWuepwjswNXEucy4wpAKJVSgcR6RM8LBqrR/1Bi9eJo6KMkIVaeS1xU6tAcbLC5MpoU
+	Eh3Z28eLw/c3loqV3B3hl4fjdzxMtW/14eFwr56EXA800+N1Tl1jCM2K81VRr9RRi5TBDLzj6Q9
+	Ab31ZlWsk7agkpMnWb/M/yU+/ThWtE1UKTX0vskoSGFaFP+HlaF2+KwNf/gzDLgqbWJUvX12TQO
+	Uf1Gaj0ijSrjPQgk2bNpVcWL4yX5E2FxJltaPPnH7RVrRs4frI7/0S60CP+bbhoWfYaeTlN8gQi
+	fhMiAqWA8KcXv6bQrn/kf1Y34mCTvdGSBSaJ0FFIn2oc6BVAaOklWECiW4i2BmOHM2/N7/yBpoX
+	KjotaivNx60jxIbcGpMdu6AgMt6pe9jrnG+L/cynzVVzel9t8GgJx9qBnT8IHvwgiIJd9V4I9nU
+	vdN8YUlEuv+9D2nC2UNqTYQEd9V6JEFOH94W0KwJ7ukvl7tL0omMC3LTpyNhDAVVorwk2m0vVmz
+	F8p1MdsT9xA4262F3ImVWtLxVJpIGgvSjLyIkraXh2/JtUpNJhiWi9SJYxjLQw==
+X-Received: by 2002:a05:600c:1d08:b0:49b:96a0:5c00 with SMTP id 5b1f17b1804b1-49cf825168cmr334965715e9.13.1788898022462;
+        Tue, 08 Sep 2026 13:07:02 -0700 (PDT)
+Received: from xenia15 (30.21.143.157.bbcs.as8758.net. [157.143.21.30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbe5b252sm365683295e9.3.2026.09.08.13.07.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 13:07:02 -0700 (PDT)
+From: Nazarii Tupitsa <nazarii.tupitsa@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Peter Hutterer <peter.hutterer@who-t.net>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] HID: core: Avoid leaking field ordering on repeated connect
+Date: Wed,  9 Sep 2026 00:06:55 +0400
+Message-ID: <20260908200655.139098-1-nazarii.tupitsa@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-9-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6164; i=ljs@kernel.org;
- h=from:subject:message-id; bh=Kga81qu7Oz3OCjE2VFbHFuLAyKOVWZ4qEDtF1PVGOsw=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6cuEiV50DhpRlXMmoT/tWx+xWIJD363xO/cd5xO
- 65TdbnfO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR64mMDF1i281jpHf15u/h
- v+FZPH+fqPcFzyURLa9TgyafWdXt+Zrhf/mCRbffzl3VNUUn78jH5j2PbzOceMTNuN3lxiXR5tV
- Wv9kA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
-part of this change, additionally take the approach of mapping pages upon
-mmap rather than providing a fault handler.
+hid_connect() builds report->field_entries for every input report. Some
+drivers stop and restart the same parsed HID device. Wacom wireless does
+this when the connected tablet changes. Each subsequent hid_connect()
+overwrites field_entries and leaks the previous allocation.
 
-The page span cannot be mutated when an mmap mapping is in place, so this
-is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
--EBUSY if it's attempted, gated by the rp->mmap_active reference count).
+No physical Wacom device was available, so the reproducer was built with a
+Raspberry Pi Pico. It emulates the affected wireless receiver lifecycle and
+repeats the tablet connect/disconnect sequence.
 
-Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
-this, which allows for iteration over pages in mon_bin_discontig_get().
+The ordering is owned by the parsed struct hid_report and remains valid
+until hid_free_report() destroys the report. Skip initialization when the
+ordering has already been built. If allocation fails, field_entries remains
+NULL so a later connect can retry.
 
-mon_bin_discontig_init() increments the rp->mmap_active reference count to
-stabilise page spans. Should an error arise the core unmaps the VMA and
-mon_bin_vma_close() drops the reference again.
+On Linux 7.2.3, the Pico emulated a Wacom 056a:0084 wireless receiver. An
+unpatched run with repeated tablet connect/disconnect cycles left multiple
+unreferenced 512-byte allocations in a kmemleak scan. With this change,
+repeated cycles successfully recreated the Pen, Pad and Finger devices, and
+scans after removing the receiver found no leaks.
 
-The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
-correct reference count arithmetic upon unmap (with mon_bin_vma_open()
-accounting for splitting).
+A representative kmemleak entry was:
 
-The existing semantics are all retained, including not mapping past the
-range of available pages, with a SIGBUS being raised in a userland process
-that attempts to access past this point.
+  unreferenced object (size 512):
+    backtrace:
+      __kmalloc_noprof
+      hid_connect
+      hid_hw_start
+      wacom_parse_and_register [wacom]
+      wacom_wireless_work [wacom]
 
-Ultimately insert_page() is invoked to insert each page, which increments
-the reference count on each mapped page. This mimics what was being done
-previously, only we pre-map the entire range rather than doing so on
-demand.
-
-The existing fault handler did nothing that required demand paging, and was
-presumably implemented this way due for historic reasons.
-
-One behavioural difference: pages are no longer faulted in on demand, so a
-page discarded with MADV_DONTNEED is not repopulated and a subsequent
-access raises SIGBUS, as with other pre-populated kernel mappings.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 22f4b026c3dd ("HID: compute an ordered list of input fields to process")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Nazarii Tupitsa <nazarii.tupitsa@gmail.com>
 ---
- drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------------
- 1 file changed, 53 insertions(+), 29 deletions(-)
+ drivers/hid/hid-core.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
-index 687f6a8981f3..9d00b21a8153 100644
---- a/drivers/usb/mon/mon_bin.c
-+++ b/drivers/usb/mon/mon_bin.c
-@@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
- 	return mask;
- }
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index a3ff0514f..9f4ba5f60 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -1802,6 +1802,9 @@ static void hid_report_process_ordering(struct hid_device *hid,
+ 	unsigned int a, u, usages;
+ 	unsigned int count = 0;
  
-+static void __mon_bin_vma_open(struct mon_reader_bin *rp)
-+{
-+	unsigned long flags;
++	if (report->field_entries)
++		return;
 +
-+	spin_lock_irqsave(&rp->b_lock, flags);
-+	rp->mmap_active++;
-+	spin_unlock_irqrestore(&rp->b_lock, flags);
-+}
-+
- /*
-  * open and close: just keep track of how many times the device is
-  * mapped, to use the proper memory allocation function.
-@@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
- static void mon_bin_vma_open(struct vm_area_struct *vma)
- {
- 	struct mon_reader_bin *rp = vma->vm_private_data;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&rp->b_lock, flags);
--	rp->mmap_active++;
--	spin_unlock_irqrestore(&rp->b_lock, flags);
-+	__mon_bin_vma_open(rp);
- }
- 
--static void mon_bin_vma_close(struct vm_area_struct *vma)
-+static void __mon_bin_vma_close(struct mon_reader_bin *rp)
- {
- 	unsigned long flags;
- 
--	struct mon_reader_bin *rp = vma->vm_private_data;
- 	spin_lock_irqsave(&rp->b_lock, flags);
- 	rp->mmap_active--;
- 	spin_unlock_irqrestore(&rp->b_lock, flags);
- }
- 
--/*
-- * Map ring pages to user space.
-- */
--static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
-+static void mon_bin_vma_close(struct vm_area_struct *vma)
- {
--	struct mon_reader_bin *rp = vmf->vma->vm_private_data;
-+	struct mon_reader_bin *rp = vma->vm_private_data;
-+
-+	__mon_bin_vma_close(rp);
-+}
-+
-+static const struct vm_operations_struct mon_bin_vm_ops = {
-+	.open =     mon_bin_vma_open,
-+	.close =    mon_bin_vma_close,
-+};
-+
-+static int mon_bin_discontig_init(void *vm_private_data, void **private)
-+{
-+	struct mon_reader_bin *rp = vm_private_data;
-+
-+	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
-+	__mon_bin_vma_open(rp);
-+	return 0;
-+}
-+
-+static int mon_bin_discontig_get(struct discontig_kernel_page_state *state)
-+{
-+	struct mon_reader_bin *rp = state->vm_private_data;
- 	unsigned long offset, chunk_idx;
--	struct page *pageptr;
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&rp->b_lock, flags);
--	offset = vmf->pgoff << PAGE_SHIFT;
-+
-+	offset = state->pgoff << PAGE_SHIFT;
- 	if (offset >= rp->b_size) {
- 		spin_unlock_irqrestore(&rp->b_lock, flags);
--		return VM_FAULT_SIGBUS;
-+		discontig_kernel_map_abort(state);
-+		return 0;
- 	}
- 	chunk_idx = offset / CHUNK_SIZE;
--	pageptr = rp->b_vec[chunk_idx].pg;
--	get_page(pageptr);
--	vmf->page = pageptr;
-+	discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
-+
- 	spin_unlock_irqrestore(&rp->b_lock, flags);
- 	return 0;
- }
- 
--static const struct vm_operations_struct mon_bin_vm_ops = {
--	.open =     mon_bin_vma_open,
--	.close =    mon_bin_vma_close,
--	.fault =    mon_bin_vma_fault,
-+static const struct discontig_kernel_page_ops mon_discontig_ops = {
-+	.init = mon_bin_discontig_init,
-+	.get = mon_bin_discontig_get,
- };
- 
--static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
-+static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
- {
--	/* don't do anything here: "fault" will set up page table entries */
--	vma->vm_ops = &mon_bin_vm_ops;
-+	const struct file *filp = desc->file;
- 
--	if (vma->vm_flags & VM_WRITE)
-+	if (vma_desc_test(desc, VMA_WRITE_BIT))
- 		return -EPERM;
- 
--	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
--	vma->vm_private_data = filp->private_data;
--	mon_bin_vma_open(vma);
-+	desc->vm_ops = &mon_bin_vm_ops;
-+	vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
-+	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
-+	desc->private_data = filp->private_data;
-+
-+	mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig_ops);
- 	return 0;
- }
- 
-@@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary = {
- 	.compat_ioctl =	mon_bin_compat_ioctl,
- #endif
- 	.release =	mon_bin_release,
--	.mmap =		mon_bin_mmap,
-+	.mmap_prepare = mon_bin_mmap_prepare,
- };
- 
- static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *rp)
+ 	/* count the number of individual fields in the report */
+ 	for (a = 0; a < report->maxfield; a++) {
+ 		field = report->field[a];
 
+base-commit: 23da087d9a636d9b2046f3aa3b7470ae51b89c8a
 -- 
-2.55.0
+2.50.1
 
