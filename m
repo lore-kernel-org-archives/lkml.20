@@ -1,35 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C65654B1C8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:35:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA97354DADA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:35:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878130; cv=none; b=HQa5ZSg+vx4AHsK1phk8qgouO5V13ErHtKsZczbEra6qNz9TjNPpq66uXrAzW6PUDNYOo/onO0qnMyv3FNchmPReOOEVt2pfVC/K355E05rlS4jrveFFCa9qa5RJVHoe9fdGC6XStHEEe0pB70PfDIk7hnIpWa3zYIfCVm7C5Co=
+	t=1788878137; cv=none; b=ePdE+KVTkfJhbXMTyp9eKqCCweieCteUtW58s8JtrKmnuWZkEGmPL3A74/dg9wKZFdfmoJUi8vqhBodCE34Y+MDQDQLshN+3DmJ+XyBnco3ZAbWVn1XF6PbYT8cy214oVYq5w+c+CXqx0ookfknQhbt25k4D/QPJ0WzIGodk8wM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878130; c=relaxed/simple;
-	bh=tUdqkKg02G7pZNM/cxmM4hrdK64B6/77cjhDvSy80wQ=;
+	s=arc-20240116; t=1788878137; c=relaxed/simple;
+	bh=SBXepA+Kzx2kmCXRTs2XA6GB/9sKhpv4dQQh4KGM1yE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=H/cX90VrZxfsJXUgnJqk4YI+bYT+WIFn7n9nIrcMLnQ58o31QaYjmF949v+2zvNUosNqguo/ecq516CmHf4srS9gpagzb9y9Kw7g6w0W4+O5RNpbUNuAJFaAn+caHMpDvtcpu3R86E9e4mhV3SpppywpxSzNZlByFx7rbuwSE9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAcXXL2P; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=J81IxhNhHK+N/nITAf87Qb/NwuuG2PVj2RMTrvNl9jjeUwp3lZ9OTHeEaj4wGs90t3fookIHH5C2PgB4Hxu+nNtqOQGLs4LTg6RMZJBAX5Aibyi1gfoZAa6EWi7dofk7iwW5tyfElUPBWrNe+05gzFOXYKOHJ4bK6Ndsw4KAJk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEz2sfP/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAcXXL2P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29B6B1F00A3E;
-	Tue,  8 Sep 2026 14:35:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEz2sfP/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B860C1F00ACA;
+	Tue,  8 Sep 2026 14:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788878119;
-	bh=rhbPg4XZXLlcdCtHG8r7d95+Q7hYT+p0CMQ+ukMM0+8=;
+	s=k20260515; t=1788878127;
+	bh=bqBWshvt3L6MTIRaqkZiDc6MNSNPGD81ogLG36xTIIg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=dAcXXL2PVD9eNa8FkFtNSvGEAy3REIco//NLmuzoZ0y+sqCNGOXo70KxKPkbshKjb
-	 7ME4qeK26032suIE27/BdFJPz+JuNtde+5Dy6VvYOZFFdut0Gnh9O7IK9iWt5yxP+S
-	 up0Nni72Kx/gLFCTz15ymwXjl2phG0KRn5ilQ7f4js28QQhwjMVibRw4jqu9Th5r5G
-	 ezG8bkqOKmqpCA1vM+0tXC41eUnjsmAwFXuB2+BxK/SgLu47JWM/JGnSIvZXQzDnz9
-	 lFuE8fzH3kOsfZNhxRHAEFrmAEBPo7F5Q3IxrDkGGxeg0Eaa6pZcd01WMYGzNxBTpL
-	 /5tLmJ0cq//ZQ==
+	b=BEz2sfP/ZwE43hDKsTyCe3K9a1usqzxP2GqopSFANewtxzFAF78Rt0Gq3FQqrUZDK
+	 4fx+h5+G1O6B/wmcVZJUG4e/XPeotusY80Uq3GgBoRGJGAs5sK9u1exr74VDgWOevA
+	 g+pAAmIh3uwDFUvaTHWQweiDvfR0x9hl//XA2vqHO2I5URSyf7UAYC2OpQxyKZUoaH
+	 mD5Lq0SXO3O1VgUxeVz+v1my4wJ94UTdLw/rWTRyBaX6gIg8CTa4NxmdpPooyR5FDF
+	 mxHBXfs13g4LzqZQY7SuhB/Kiw7qYC0sOEJgL5AVN37FMRgP33ECeGhAyPw1Na8WHX
+	 8JCCFtiIz9s1Q==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Tue, 08 Sep 2026 16:35:02 +0200
-Subject: [PATCH v3 01/11] drm/atomic: colorop: Rename state to
- state_to_destroy
+Date: Tue, 08 Sep 2026 16:35:04 +0200
+Subject: [PATCH v3 03/11] drm/atomic: Create function to insert plane state
+ into a commit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-drm-reset-state-flag-v3-1-905570f387a4@kernel.org>
+Message-Id: <20260908-drm-reset-state-flag-v3-3-905570f387a4@kernel.org>
 References: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
 In-Reply-To: <20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -55,115 +55,98 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3757; i=mripard@kernel.org;
- h=from:subject:message-id; bh=tUdqkKg02G7pZNM/cxmM4hrdK64B6/77cjhDvSy80wQ=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZKV5+ObIWmew+75udTTa2twZEfP4ghLHfe6cpD1LF
- nYuEPfpmMrCIMzJICumyPJEJuz08vbFVQ72K3/AzGFlAhnCwMUpABPZxcjYsNRsylRB30wXEdPd
- Tv+PT2nufr9Hft1iT1dZ9f0vL2Z1HUq9mzml6ajIhH+3b7yr37llI2PD7ufflN9qHSk+m+MtnPD
- q8i7eE32yerwz/lYZXZknfaOLNVvfYe9mLebNzY7fWj5pK6QCAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2806; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=SBXepA+Kzx2kmCXRTs2XA6GB/9sKhpv4dQQh4KGM1yE=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkLZGUCKrn1cxZYyWvt5SnhZlp0JTpPwP+QjJdmy4sa8
+ 2Pqxzd1TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgInsZWZs+DIlMy7uwq2Cidyz
+ g841bbi569PDVKXz1++/XyHHHH6pzCb3mo7xtEsn+7fMF5D72/lLnLFOZV91guXCk3MzamXym1I
+ WrX97xGjS37l9r+LuCTO6L1ZLfXNbYf/d8CjtbVJ7XS0WbJMGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The atomic state tracking structures used to have a generic state
-field to track the state to free when tearing down the
-drm_atomic_commit. It has since been renamed to state_to_destroy in
-__drm_planes_state, __drm_crtcs_state, __drm_connnectors_state, and
-__drm_private_objs_state to better describe its purpose.
+drm_atomic_get_plane_state() allocates a new plane state by
+duplicating the current one and inserts it into the atomic commit as
+a single operation.
 
-The colorop support has been added after that rename, but
-__drm_colorops_state still uses the old state name. Rename it to
-state_to_destroy for consistency, and add the matching kerneldoc.
+However, a later change will need to insert a plane state into a
+commit without going through the full allocation and duplication path
+in drm_atomic_get_plane_state().
+
+Extract the state insertion logic into a new static
+drm_atomic_commit_set_plane_state() helper, and convert
+drm_atomic_get_plane_state() to use it.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c        |  6 +++---
- drivers/gpu/drm/drm_atomic_helper.c |  2 +-
- include/drm/drm_atomic.h            | 18 +++++++++++++++++-
- 3 files changed, 21 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 29 +++++++++++++++++++++++------
+ 1 file changed, 23 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 45df6376f408..5c0f7b7024d1 100644
+index 153d959bd4ff..f62323679f44 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -341,13 +341,13 @@ void drm_atomic_commit_default_clear(struct drm_atomic_commit *state)
- 
- 		if (!colorop)
- 			continue;
- 
- 		drm_colorop_atomic_destroy_state(colorop,
--						 state->colorops[i].state);
-+						 state->colorops[i].state_to_destroy);
- 		state->colorops[i].ptr = NULL;
--		state->colorops[i].state = NULL;
-+		state->colorops[i].state_to_destroy = NULL;
- 		state->colorops[i].old_state = NULL;
- 		state->colorops[i].new_state = NULL;
+@@ -624,10 +624,27 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
  	}
  
- 	for (i = 0; i < state->num_private_objs; i++) {
-@@ -706,11 +706,11 @@ drm_atomic_get_colorop_state(struct drm_atomic_commit *state,
+ 	return 0;
+ }
  
- 	colorop_state = drm_atomic_helper_colorop_duplicate_state(colorop);
- 	if (!colorop_state)
++static int drm_atomic_commit_set_plane_state(struct drm_atomic_commit *commit,
++					     struct drm_plane *plane,
++					     struct drm_plane_state *plane_state)
++{
++	int index = drm_plane_index(plane);
++
++	drm_modeset_lock_assert_held(&plane->mutex);
++
++	commit->planes[index].state_to_destroy = plane_state;
++	commit->planes[index].old_state = plane->state;
++	commit->planes[index].new_state = plane_state;
++	commit->planes[index].ptr = plane;
++	plane_state->state = commit;
++
++	return 0;
++}
++
+ /**
+  * drm_atomic_get_plane_state - get plane state
+  * @state: global atomic state object
+  * @plane: plane to get state object for
+  *
+@@ -642,11 +659,11 @@ static int drm_atomic_connector_check(struct drm_connector *connector,
+  */
+ struct drm_plane_state *
+ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ 			  struct drm_plane *plane)
+ {
+-	int ret, index = drm_plane_index(plane);
++	int ret;
+ 	struct drm_plane_state *plane_state;
+ 
+ 	WARN_ON(!state->acquire_ctx);
+ 	drm_WARN_ON(state->dev, state->checked);
+ 
+@@ -665,15 +682,15 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *state,
+ 
+ 	plane_state = plane->funcs->atomic_duplicate_state(plane);
+ 	if (!plane_state)
  		return ERR_PTR(-ENOMEM);
  
--	state->colorops[index].state = colorop_state;
-+	state->colorops[index].state_to_destroy = colorop_state;
- 	state->colorops[index].ptr = colorop;
- 	state->colorops[index].old_state = colorop->state;
- 	state->colorops[index].new_state = colorop_state;
- 	colorop_state->state = state;
+-	state->planes[index].state_to_destroy = plane_state;
+-	state->planes[index].ptr = plane;
+-	state->planes[index].old_state = plane->state;
+-	state->planes[index].new_state = plane_state;
+-	plane_state->state = state;
++	ret = drm_atomic_commit_set_plane_state(state, plane, plane_state);
++	if (ret) {
++		plane->funcs->atomic_destroy_state(plane, plane_state);
++		return ERR_PTR(ret);
++	}
  
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 285aac3554df..c4752bd7d999 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -3349,11 +3349,11 @@ int drm_atomic_helper_swap_state(struct drm_atomic_commit *state,
- 		WARN_ON(colorop->state != old_colorop_state);
+ 	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
+ 		       plane->base.id, plane->name, plane_state, state);
  
- 		old_colorop_state->state = state;
- 		new_colorop_state->state = NULL;
- 
--		state->colorops[i].state = old_colorop_state;
-+		state->colorops[i].state_to_destroy = old_colorop_state;
- 		colorop->state = new_colorop_state;
- 	}
- 
- 	drm_panic_lock(state->dev, flags);
- 	for_each_oldnew_plane_in_state(state, plane, old_plane_state, new_plane_state, i) {
-diff --git a/include/drm/drm_atomic.h b/include/drm/drm_atomic.h
-index 88087910ab1a..00b3e9fc429a 100644
---- a/include/drm/drm_atomic.h
-+++ b/include/drm/drm_atomic.h
-@@ -157,11 +157,27 @@ struct drm_crtc_commit {
- 	bool abort_completion;
- };
- 
- struct __drm_colorops_state {
- 	struct drm_colorop *ptr;
--	struct drm_colorop_state *state, *old_state, *new_state;
-+
-+	/**
-+	 * @state_to_destroy:
-+	 *
-+	 * Used to track the @drm_colorop_state we will need to free
-+	 * when tearing down the associated &drm_atomic_commit in
-+	 * $drm_mode_config_funcs.atomic_state_clear or
-+	 * drm_atomic_commit_default_clear().
-+	 *
-+	 * Before a commit, and the call to
-+	 * drm_atomic_helper_swap_state() in particular, it points to
-+	 * the same state than @new_state. After a commit, it points to
-+	 * the same state than @old_state.
-+	 */
-+	struct drm_colorop_state *state_to_destroy;
-+
-+	struct drm_colorop_state *old_state, *new_state;
- };
- 
- struct __drm_planes_state {
- 	struct drm_plane *ptr;
- 
+ 	if (plane_state->crtc) {
 
 -- 
 2.55.0
