@@ -1,301 +1,89 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0B657ED99
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906080; cv=pass; b=JZi8q+r6rPUDQ/UBUOhuNMWYginJLiemLMf37VElo+0I6GjmAp67zwgnVbLn37vSZoSuyLe4sp+LwYqQKj3PHlv+R1OAP6H1yfxPiqNTtRSTTlvCrMVgk5uMKA5Gbx3TYRqMacnX8fCMbAWYg0KBZEalxPNgWuhbyMfh6OP2+vc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906080; c=relaxed/simple;
-	bh=PkxK1hRJN11m8LSNX96hQF3MGEKXyL4gSEwSGL4thvo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EwlOMmaRA3WIBMSzIM3bP0XPthZdxiJOQZsS6Tp77Y7gvuaRU3554/xGQpX5mn0ELYSkpD7A8C61/TfbJdWHdOixuA89biO0vx/ip3WJkqTW5EP39EV7gUrqVawnYHfHIo4iF7Gt0CGV/bH7KI5aX6oqUpVe/Q7POAh8i9u6NJ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e2ZgyroH; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9763B8D40
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.204
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788906150; cv=none; b=J0FyjImALq4s5gS8SikYOdtadPwNvL6Ml5h0jINCUCMfdPfj3eDcGE8qN+eD5abRsPtoRgNEBQTJx0aKk620X16PfNK+5FKtrX6lHBWdbmM6+oEglPrH+2VheiS4LiHSTYSBPB2atxOAuIw2KSOqf7q4+UZEl7ngAmAHC9Pge1Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788906150; c=relaxed/simple;
+	bh=dBHzUIUBfsk5+tZfCjA1x9npjd6OXYKBljORHRBuAoY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=rkgEyoTg6kZid+Hx8KruFI9hz0linxfhyImPQHotsWQ99qCtB8Ml1MvZ/UzVIYq38/m1uSERqvirC6sY06h/GjthD+EUrDAz/OXl3HhVZDe0VAF6oIvxP6/gdSzVqevhaRMmzv8uJkAMG58Lo3zCG/8FCRyD5GxP7u0lrgKvxoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=owH+zgz7; arc=none smtp.client-ip=74.125.229.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e2ZgyroH"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c197e7e4e94so851674666b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:21:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788906076; cv=none;
-        d=google.com; s=arc-20260327;
-        b=N4pyj38n+8PQUWfCVffd30hObyr/cORZUGeJnJbh4nE3ahUl7qAXiJae03qPDCGc/T
-         gU7L2c32Qa/gIw+uux+rBeYNdTy/tzJ7R/YMvDn238csoVNYGy3RWVrbUOvtzE/DNYSn
-         AaFHHDussMa3T8FzQWpeoUIJgAPrOiz5hul3lH2Z83Ass3PRp1PH/0qdPvoH6H0Gd6Wl
-         weQF0q0G4yIijTblsGoDO17u7/u+aRPLri5eoVcXnj18X3PjOCSx/6p9oh/FmUyyFDS8
-         fFADHSOqtGgkzgdr8xgN5CEZSA7KVHv/FsyxmN/lnaj4eLbQ0XJSmN5zfRjid4nhjCOL
-         Q7Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qjq2CIi3STsQo1+yNK5BNbmq6h6MKRnygZeJmqARTMs=;
-        fh=AyobAKxYiqwWSS1ZuNf/Y0BlRHdAjChPEFIpWaPSJnk=;
-        b=hrTvgUyPDvCyYJ9gBpSLnmOCWYabGWPjP0HoUvK8kVFdVM2ULSleCMDqts713inAdq
-         b1mdiRYxUBZp8XszBCc1r0BB3Tw4dQNZi0U7KnRtYqZ4nY+ZaQ9eYhcp0ykGPiIuzXi5
-         SbiW/3ebeGQTHKWJ/8HnMEAxgkfkuzesUsaXscM/roy4nAYCqNCrH8qmcx9nNbiM/k/l
-         cdrrX68aCZg+jhcFWMUlyvrkET9BtcWHY2rXU8AAuBoAVXZ/O52vNkStZZvPfdc7moEK
-         KijoOn4QuMOR+TICrnGkmFUkfDICOGuK/FJCpoQEKoQlNTz4X5CjYVzCECg3afusWdxr
-         VgSQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="owH+zgz7"
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so438124e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:22:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788906076; x=1789510876; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qjq2CIi3STsQo1+yNK5BNbmq6h6MKRnygZeJmqARTMs=;
-        b=e2ZgyroHVZJXmeiiqHTsJrKypdDpICBPVHM2DlMI35IDmW/c8B+pHucUQaI66jAFVd
-         G3iE3kLiGC/ipSldj5/beofrESRsHrCjHsDEwIGHhGrdkVyh+yZFyAAZgqvFzFSktK/y
-         F7Anzpc95uwQYWpzXh8jYgzctuX0eHBYn+xGNr3olFBiqV0scfsVerObWHxsLUqJY0xj
-         oI1bTgs+YVtHIYgYCSAQxapFSn8auhI/3muEA6z81u84LTOO0jQ1/eSyZwUKHv6lLGqC
-         B/YPSCBXvZVP410DkzEiZ1+PLFB/BNle0Fr+Ddrp5j3dQaF1YCviBXND1/qSRq114RLt
-         zm6w==
+        d=gmail.com; s=20251104; t=1788906146; x=1789510946; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:mime-version:date:message-id
+         :sender:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dBHzUIUBfsk5+tZfCjA1x9npjd6OXYKBljORHRBuAoY=;
+        b=owH+zgz7Mg8jAuv6lAmO1fzd+zXeljxm2ElNWmnYpW+qzAvgiUdP0qWvwa75Vy0TFJ
+         nr+V1OySO4fKlx3GbroUNHxDyD+nRcHxNwfmyq/zo2ofjney3juSk9oGjw5ju6TMQdcQ
+         BTUPZjPYeLf06tCIc9r07jHZDN4Ms6XumpqGzveauvLdUpfwF+3gsWADVTt5NA+2wyEL
+         rnezxvMWEJIaFEhnIV+WsNhkhB7uIHlgGf5/pVLVZeq7yHeWb2jb499WTXIpc5MC0Knl
+         i5R9EIrrcuyRaqGiLXfmTSxIYyu9dRfSS3bxJe8eN1OtyMt8g4fexPvdiVmy+lP6esxJ
+         qZ/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788906076; x=1789510876;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qjq2CIi3STsQo1+yNK5BNbmq6h6MKRnygZeJmqARTMs=;
-        b=dHl/+4U3g2T/Chmbo48WlpC2xOgvMu76oBabOQcBge2d5o3slbCXxoHCj5EsdwJwtM
-         d+VdN2eaxFg/mUtSVyx+d0i5vZhWWljoEULJi5HoBzoDc0agSQ0BueD4RWJH1SyshRhq
-         dydLOk43BMNTbpOlImHpoy6lxgs4bk8Kez6mYI/NKCLfTa+vdfGazx5UNFYTvy31eusk
-         aMn9RhAggHK9W4tBTG3WjfZDRQsF2qcFBn4FCaa2zkZAYbadwt1tfo0sVZQz1GXkrWS+
-         jyivDgrTFqMirC/3qLWXz0V4yuxW5bV4T8Q1ZLoDAmcCtzMlexsQNz5CBXefSKtirOFE
-         hL1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ+7xm/ZcNMFUZXo5aENtR49DRMnrRTd8wr1SHw4zDwDw8A1Q24fr73Bl6NnwjD89KejmHDGsPr+ZbRAI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkOasFfLEBIAXwO3lHRm1TrC9U98SeM9019u4WCqP0PioR+Joc
-	EvTXyfS99dh0GIkbSuAECCHJ3S4YWOz+06iJv09cOViVyNb/tjNOqSXDkJz0aOVt29liS0D5qe0
-	J/S1nEbt32q8wEWCQb72mV6+GWEHhkvM=
-X-Gm-Gg: AYBFou0gm5emaBuFPt1aaPIKLQJHcXNUdCOxYskGblln+b6aeAFhRuBGMwUC7nBg9wI
-	2MOY1UvcNj6xJu/4XINFRaw5j6jdQGVM/WbA5Z2XIVwA/7Df+NKmnF40ZwSD0SrDLe5dRErjF5Q
-	I94LJngzITmc1aBDWObhRexOh1pJ8Kj7UGGwFZKxAbgNLfC6D4B4v7MThK8ZlMH/Wn5SMbUEIsc
-	R/AsBmrPaHI5MIbuP4i5UxxhmT4/Y4mcL6ZQpmRw9sUDZn88CjT0SbyVw1MvI0Tp4KX8BUU7566
-	mMXb4KHhPflByvla6tQIAjep7otowZGsVvQCK/29mtCrB81I1GVsh1w/CK63U1VOZ48ZdrzTmbq
-	rHQ==
-X-Received: by 2002:a17:907:720f:b0:c1c:4a80:30c4 with SMTP id
- a640c23a62f3a-c260c988d9emr1294985866b.11.1788906075748; Tue, 08 Sep 2026
- 15:21:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788906146; x=1789510946;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:to:subject:mime-version:date:message-id
+         :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dBHzUIUBfsk5+tZfCjA1x9npjd6OXYKBljORHRBuAoY=;
+        b=c3J3qAiaGAERljCZS47JJvXNzmrmWk9gKUQkZpOM8wns4CqEF4YLsR+CH3fPgtBSpT
+         2M3uA3N3ff/TNKjD2IRepXX7Rvb089dc/jOiJHy7/lb0KBcPMmj/P5zaXSrENM9XceOv
+         /bEaq6kwcZHKWuLn+uCrq7/EgkvCLi391z38c+DM7T1G6kj5sZaxFxWcxaJSKGdz65yO
+         Kcl2gKaJHZN/iP7jsBjsI3PN7UVDHriGWLnF4vpsSh9fOieyoWhfP2jCtUD+kFmj1QVb
+         ioq6gA7zsS75X87BRdO0YmSFvoB4H8XmngONAvCjhrqyp6XRphwsoLTOr9wvPiLgZZs8
+         7qpw==
+X-Forwarded-Encrypted: i=1; AKwUvByZTpYIhNJy0B6CFMecsK+QOmyRiElk62qtbYDsE6ZTKlNHjTOrJQQOCuxVoGsfrdnZMxJbbQK6EfezxYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfxvqXWTeRhYl3h3VX67E+bPdM/SwqJEKQxRUtBtgR/w8l6x+c
+	teJ2mX8e/cisE4PrYrsX2K5jgpDMVhNbctBm7jQW8f0+tZGj0DXxk/l/
+X-Gm-Gg: AYBFou3liahgSvawK3AJ4tkMF9LRo9Q6EUiOYOM9jOC9Q8ocEeVEiIGqHdR1+gSLwzU
+	0oy84S3ruJzzyijiryottqnfITQpYaGjM4hMureLjlBHxVQfBLVH+tad4Y15T2F6St1HMU6geSH
+	Z6KwaQvu9KwLZhpiVY8e5y4AdYVpoOwfsoqqdIzY+LREPOxik3ig/n+v8XDIU1p6alUHtjAAF7v
+	RfQhdkMd4mGqhVzaF/LjQOFgeoFMRwDgOEa2M6n4Lbaa8GcemcqYolxu8Um6rxxdKMlfeZuHttO
+	w+42YvL108N0iEJ39WWd/MEEFoEYzDOpwOzI1X1JbZ4FQIQdIBGluYCaMYrvPa9VOU4Y0qMeZAf
+	WZXbNHXkc/smz/JgA+UO2+BW/jey4/f72FFYB6xgiz24fsW/F01QNjoZ557KH3bsPrSgo07auPY
+	QWFIuH+17jiaHkWKQapY1jJligiuGq/D1BWpWwodu2kn0YvQNg36LwKoQmVV7eFIgF4zM/9qhuE
+	iSQZPhNMXShIov6e7E=
+X-Received: by 2002:a05:6512:1321:b0:5b6:422:a61b with SMTP id 2adb3069b0e04-5b763cf3f3dmr657559e87.27.1788906146292;
+        Tue, 08 Sep 2026 15:22:26 -0700 (PDT)
+Received: from 127.0.0.1 ([94.41.86.134])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b74d55a4absm2792656e87.50.2026.09.08.15.22.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 15:22:25 -0700 (PDT)
+Sender: <irecca.kun@gmail.com>
+Message-ID: <378f8289-a32b-4b60-9f5f-dd9f3940b0a2@gmail.com>
+Date: Tue, 8 Sep 2026 22:22:24 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902134417.1270552-1-lee@kernel.org> <20260902134417.1270552-2-lee@kernel.org>
-In-Reply-To: <20260902134417.1270552-2-lee@kernel.org>
-From: Ping Cheng <pinglinux@gmail.com>
-Date: Tue, 8 Sep 2026 15:20:17 -0700
-X-Gm-Features: AcwNN1Wp-SB8HDOgT9DMxkuas3yoEcqiqAhEPsH8sFiI8oT1AfpfDmoXm_j06yQ
-Message-ID: <CAF8JNhJTZ8t_MaopSihkiDZgadhdphKJirDzqjNb9+5dTeH8Nw@mail.gmail.com>
-Subject: Re: [PATCH v9 2/5] HID: wacom: Advertise SW_MUTE_DEVICE capability
- prior to registration
-To: Lee Jones <lee@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
-	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Peter Hutterer <peter.hutterer@who-t.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: Re: commit 108cc873398932af589c295f78c348513b8d70d9 breaks
+ update-grub on btrfs root filesystem
+To: Alex Romosan <aromosan@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-btrfs <linux-btrfs@vger.kernel.org>
+References: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+Content-Language: en-US
+From: Hanabishi <i.r.e.c.c.a.k.u.n+kernel.org@gmail.com>
+In-Reply-To: <CAKLYgeL7nrA4nXcewdv9Fqg_s=3GS=vmoypnEiZBKQ7rySZFuQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I tested the devices that I can reach, mainly the ones released in the
-past 10 years or so. The tablets all worked. No crashes whatsoever. I
-am comfortable to give the whole set of this version an acked-by and a
-tested-by to help it move forward.
+> Running my own compiled kernel without initramfs
 
-Acked-by: Ping Cheng <ping.cheng@wacom.com>
-Tested-by: Ping Cheng <ping.cheng@wacom.com>
+> a git-bisect identified commit
+> 108cc873398932af589c295f78c348513b8d70d9 as being the culprit.
+Looks like another consequence of the problem described in
+https://lore.kernel.org/linux-btrfs/dfbe1e27-dab8-4d55-8cf3-0b28eeac5df4@gmail.com/
 
-With that said, the SW_MUTE_DEVICE capability assigned through a
-softkey is not properly recognized. I've figured out the root cause. I
-will submit a patch after this set is merged. The main value of this
-set is to resolve the Use-After-Free issue and the redesign of the
-shared sibling data lifecycle. The individual softkey feature can be
-addressed separately.
-
-Hope my testing results make the maintainers feel comfortable too.
-
-Thank you,
-Ping
-
-On Wed, Sep 2, 2026 at 8:20=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
->
-> Input subsystem guidelines require that device capabilities are advertise=
-d
-> before the input device is registered.  The Wacom driver was violating
-> this by advertising the SW_MUTE_DEVICE capability post-registration in
-> wacom_set_shared_values() (and duplicating it in device-specific setup
-> cases).
->
-> Resolve this by moving the SW_MUTE_DEVICE capability setup to
-> wacom_setup_touch_input_capabilities() for all touch devices that support
-> it.
->
-> For generic touch devices whose capabilities depend on mute switch
-> usages parsed from a sibling Pen/Pad interface, defer registration
-> with -EPROBE_DEFER until the sibling has parsed its descriptors and
-> initialized shared capabilities.
->
-> Cc: stable@vger.kernel.org
-> Fixes: d2ec58aee8b1 ("HID: wacom: generic: support generic touch switch")
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->
-> v4 -> v5: New patch used to split out SW_MUTE_DEVICE as per Jason's reque=
-st
-> v5 -> v6: Unconditionally advertise SW_MUTE_DEVICE on generic touch devic=
-es
-> v6 -> v7: Only advertise SW_MUTE_DEVICE on composite USB generic touch de=
-vices
-> v7 -> v8: Replace heuristic with probe deferral until sibling Pen/Pad is =
-parsed
->           Split out 'hdev->product' cleanups into a separate standalone p=
-atch
-> v8 -> v9: Fix TOCTOU race by assigning shared sibling pointers in wacom_s=
-et_shared_values()
->           Support Pad interfaces in sibling deferral logic
->
->  drivers/hid/wacom_sys.c | 68 ++++++++++++++++++++++++++++++-----------
->  drivers/hid/wacom_wac.c |  4 +++
->  2 files changed, 55 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-> index 0eafa483b7f7..026a6be467d3 100644
-> --- a/drivers/hid/wacom_sys.c
-> +++ b/drivers/hid/wacom_sys.c
-> @@ -912,14 +912,6 @@ static int wacom_add_shared_data(struct hid_device *=
-hdev)
->         wacom_wac->shared =3D &data->shared;
->
->         retval =3D devm_add_action_or_reset(&hdev->dev, wacom_remove_shar=
-ed_data, wacom);
-> -       if (retval)
-> -               return retval;
-> -
-> -       if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH)
-> -               wacom_wac->shared->touch =3D hdev;
-> -       else if (wacom_wac->features.device_type & WACOM_DEVICETYPE_PEN)
-> -               wacom_wac->shared->pen =3D hdev;
-> -
->         return retval;
->  }
->
-> @@ -2343,10 +2335,7 @@ static void wacom_release_resources(struct wacom *=
-wacom)
->
->  static void wacom_set_shared_values(struct wacom_wac *wacom_wac)
->  {
-> -       if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
-> -               wacom_wac->shared->type =3D wacom_wac->features.type;
-> -               wacom_wac->shared->touch_input =3D wacom_wac->touch_input=
-;
-> -       }
-> +       struct wacom *wacom =3D container_of(wacom_wac, struct wacom, wac=
-om_wac);
->
->         if (wacom_wac->has_mute_touch_switch) {
->                 wacom_wac->shared->has_mute_touch_switch =3D true;
-> @@ -2359,14 +2348,54 @@ static void wacom_set_shared_values(struct wacom_=
-wac *wacom_wac)
->                         wacom_wac->shared->is_touch_on =3D true;
->         }
->
-> -       if (wacom_wac->shared->has_mute_touch_switch &&
-> -           wacom_wac->shared->touch_input) {
-> -               set_bit(EV_SW, wacom_wac->shared->touch_input->evbit);
-> -               input_set_capability(wacom_wac->shared->touch_input, EV_S=
-W,
-> -                                    SW_MUTE_DEVICE);
-> +       if (wacom_wac->features.device_type & WACOM_DEVICETYPE_TOUCH) {
-> +               wacom_wac->shared->type =3D wacom_wac->features.type;
-> +               wacom_wac->shared->touch_input =3D wacom_wac->touch_input=
-;
-> +               wacom_wac->shared->touch =3D wacom->hdev;
-> +       } else if (wacom_wac->features.device_type &
-> +                  (WACOM_DEVICETYPE_PEN | WACOM_DEVICETYPE_PAD)) {
-> +               wacom_wac->shared->pen =3D wacom->hdev;
->         }
->  }
->
-> +static bool wacom_sibling_pending(struct wacom *wacom)
-> +{
-> +       struct hid_device *hdev =3D wacom->hdev;
-> +       const struct wacom_features *features =3D &wacom->wacom_wac.featu=
-res;
-> +       struct usb_host_config *actconfig;
-> +       int i;
-> +
-> +       if (features->type !=3D HID_GENERIC ||
-> +           !(features->device_type & WACOM_DEVICETYPE_TOUCH))
-> +               return false;
-> +
-> +       if (wacom->wacom_wac.shared &&
-> +           rcu_access_pointer(wacom->wacom_wac.shared->pen))
-> +               return false;
-> +
-> +       if (!hid_is_usb(hdev) || !wacom->usbdev)
-> +               return false;
-> +
-> +       if (features->oPid !=3D HID_ANY_ID && features->oPid !=3D 0)
-> +               return true;
-> +
-> +       actconfig =3D wacom->usbdev->actconfig;
-> +       if (actconfig && actconfig->desc.bNumInterfaces > 1) {
-> +               for (i =3D 0; i < actconfig->desc.bNumInterfaces; i++) {
-> +                       struct usb_interface *sibling_intf =3D actconfig-=
->interface[i];
-> +
-> +                       if (!sibling_intf || sibling_intf =3D=3D wacom->i=
-ntf)
-> +                               continue;
-> +
-> +                       if (sibling_intf->cur_altsetting->desc.bInterface=
-Class =3D=3D
-> +                           USB_INTERFACE_CLASS_HID)
-> +                               return true;
-> +               }
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  static int wacom_parse_and_register(struct wacom *wacom, bool wireless)
->  {
->         struct wacom_wac *wacom_wac =3D &wacom->wacom_wac;
-> @@ -2444,6 +2473,11 @@ static int wacom_parse_and_register(struct wacom *=
-wacom, bool wireless)
->         if (error)
->                 goto fail;
->
-> +       if (wacom_sibling_pending(wacom)) {
-> +               error =3D -EPROBE_DEFER;
-> +               goto fail;
-> +       }
-> +
->         error =3D wacom_setup_inputs(wacom);
->         if (error)
->                 goto fail;
-> diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-> index 4436faf2d2bb..a7e3817aa2c4 100644
-> --- a/drivers/hid/wacom_wac.c
-> +++ b/drivers/hid/wacom_wac.c
-> @@ -3965,6 +3965,10 @@ int wacom_setup_touch_input_capabilities(struct in=
-put_dev *input_dev,
->
->         if (features->type =3D=3D HID_GENERIC) {
->                 hid_dbg(hdev, "generic touch setup\n");
-> +               if (wacom_wac->shared && wacom_wac->shared->has_mute_touc=
-h_switch) {
-> +                       input_set_capability(input_dev, EV_SW, SW_MUTE_DE=
-VICE);
-> +                       wacom_wac->has_mute_touch_switch =3D true;
-> +               }
->                 /* setup has already been done */
->                 return 0;
->         }
-> --
-> 2.55.0.966.g6673acef38-goog
->
->
