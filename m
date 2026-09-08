@@ -1,405 +1,200 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012026.outbound.protection.outlook.com [40.93.195.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E403812FE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850032; cv=none; b=mIo5xXciK2XdXLwokghSWcNOmvwn0fD1HRW9PD7OzVH8ulv2vNcPqdhC6PHcIEGeEGWj2vhKCl9NcgGr5DJPQV1qFJ67B7kKOl+l+XwspqxUs/5GxW2J+Y3KL+bAMTfG8Xo9tAvTKFOQvSpnO6LwqLXWEnJ5rfW067WuXSdaCC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850032; c=relaxed/simple;
-	bh=kb87Y4IYHxF6Ta03dXCpn3WcpvTYwXjOw6j9lCNrrNY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l9UlvRJJOzWdr/GeYN+mveRBFy73WNiiHKW51OPPbsBdirz4kGhWbocDAw5VphFalycWekljfPG7p9/dotN2QnWBVHQideWjAs7ZhhxCNEzaKSdPBl/ZYD0vafVuFdpw8s7ZVujh4rWW6SZcuWg0jIKtqf8UMbsI4XzhatEhRZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WNFVfgaf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ROci3oW4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C917379EC6;
+	Tue,  8 Sep 2026 06:47:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788850052; cv=fail; b=dsRTr+JQM5oeP4sO7Qjdh+NUUTJ9RdvaVDrs5f8Kzc2Evr0oTkCB34/qHE/FlQeiG3tbwFRzWPHxK1joQeX/1WA5UyjzbweASFZLsLrZAeeeTKmggHuYXx7GDrB5CUuspezN9NV57ydGEFiCLm1FcOolnlhSmRurJ3YEeCMLoDU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788850052; c=relaxed/simple;
+	bh=a6/1Hu4yrfMbaCJhSFXpkWmiGil/O8zFZ2FcC5ftUus=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=UICjNWV1w822jwI8IHJwJE1+GKVAa5TBtf5jUSzEpHhwpqt8aVPJLMlwrliTOjRqkmxUpSt3vK3GaohnEyPFverqNq7IEyZ42sgP1bJR8+gwma8NmDf0J+zQqmmvzUQJDL7cRq4AIVzIKC+dsuQi8GzsAaK7Fsmz15Blf2MGwL8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Ip+RUanE; arc=fail smtp.client-ip=40.93.195.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WNFVfgaf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ROci3oW4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788850028;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
-	b=WNFVfgaflrTGAeUeTzEf8EXmwgi2EXqs9JKFxxxzvR9+9VEx1L6GBqLGq23S0hf2hABpkU
-	oJ61l6dje3SEyURYSY2HxyD8pPvOYU/7SvsehLuzhi83iei8fs7LPqTYtzE/gelAQTPdy3
-	TaONJjnwAvNNeBijbVew9N4xBJbdg9s=
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-520-2oc24QVGPGKMa9OcGrZQcQ-1; Tue, 08 Sep 2026 02:47:07 -0400
-X-MC-Unique: 2oc24QVGPGKMa9OcGrZQcQ-1
-X-Mimecast-MFC-AGG-ID: 2oc24QVGPGKMa9OcGrZQcQ_1788850026
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84e13b57b2cso4990000b3a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:47:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788850026; x=1789454826; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
-        b=ROci3oW4J48Vksrk/UngTONeT+0O7511RZK2TzmfkThh02KMD4nlz0oqBuyo6D7jfY
-         gAW9vYA/LIOD9OAIOc9TyLZCsRABS+RU8N2GWgvU+aoVKo+ddQSJDe2w9t+MXfLzXwnf
-         EnAkrLF9rpRO6kbwMvuml2fiZNosnNYmzwyvqftgQk/EF9K0yWPWeq9/5o9Kz8JohzZT
-         Hq3ztzNiaj2jS+anD2cKhQdbcWVuX5ml/XiP0ZDEze1mMhL/sWQvKT2IsMV1ddO1CieL
-         qjwU7nehdmDYxAV3GY4zqP3fMYLxS07syB7S6SZXV/v6x5sbavkKO9qWWj+Xfz+9S3uK
-         asFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788850026; x=1789454826;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
-        b=hnpFGu0kvtpwEuuNQXq32sC3h1C5/S3TNypxMJreVvRoO0NL28mpDQtfW4dq1IqCMB
-         jpg+iMkSgqPCA9RsvaAEYqGRI5EFC793I9KywWODpllSoN5DcVgXRNRmwArPWH1whNNQ
-         /5TEN2Dik7IImgfM6YIMM7byErwvD2zQi2Bxo8R5BMzw0DX3+LfqnVMCwIpP+9kA02hM
-         VlN9CCCOMCF4Oa7V4whBIHXRP1lTShxm2GB74pPihC35oXGZCykW4nbPoBIDryj0cyro
-         zs/cwS0474uYYtp/cn0sTu0PARBZ6+rrFvbSfQiuoALY+AW7Wag8w2v5BTIrIArBXOzf
-         1vbg==
-X-Forwarded-Encrypted: i=1; AKwUvByw5m54LovSBWiTHpbYOcOwkgx+vu3XZURvFOa6bb4HJjBG8xV3zVBxnSdUpph8K2LsBmcT+7X9CrSKrdY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6vzl8tAU3LxL3L1w6P8i9v7BHMsOso2U+aNps3aaL3gbKcYM+
-	wukMo6AocPDakiJtvkVFqa+vctOZkkrZ8oUbuPiLsAjyza0VGAhlqBCme2XTGkBCp+0ev92Z5tq
-	jeUr9NhVnca2CYekzzCGfGLc32t3zA+dFjPKN4lyqxRENh+2p93BJv2F5l92NNzSHzg==
-X-Gm-Gg: AYBFou1MFDUvezdNdsI7jZQCpXachnizuUpUWXxn0KOT67NaTVImuUQDFpigvPiGb9x
-	+6cTdHFCslwQKAdGRbNyWgfJJjBfJpjgL95D6RTMaEw5PLBe0kXe5XuJvBJftAf1ql4vBJTRcBB
-	sm2nh6NP2dGaQuwsrkcy/9VgIjqAsO+C/+N1dltIodNMjOC9VPCwjt9EvhkAHcUNl7GQrFKm0HS
-	Q85G4ufsqui5HmnAluGdSVNdG8CrrGgQORQuUfvQ8C+ZgC3QYCG07wAamvr3DUloG8WCMPaJ0lA
-	0qUBbXQpY8SllL1yVp9kOGlQfOYk7QbxIAQv0OuwmuKCv4OIMufynS1WW8Q14WPtc2iBvbZZHKl
-	LE3f8Spnqhhi0HtQerWBbU8OpdcBOZOzIgE0nxXN6/g==
-X-Received: by 2002:a05:6a00:2e19:b0:853:50f2:9c03 with SMTP id d2e1a72fcca58-86169182795mr34477505b3a.11.1788850026311;
-        Mon, 07 Sep 2026 23:47:06 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2e19:b0:853:50f2:9c03 with SMTP id d2e1a72fcca58-86169182795mr34477437b3a.11.1788850025792;
-        Mon, 07 Sep 2026 23:47:05 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86154048df2sm5208107b3a.61.2026.09.07.23.46.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 23:47:05 -0700 (PDT)
-Message-ID: <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
-Date: Tue, 8 Sep 2026 16:46:52 +1000
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ip+RUanE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XiiqRJh0VJ/GpGcJgmq/wDb89n/AXuEVMlILgNoCxw2cFSBL+QBSkEOQLXvSlZa+IuIHrN9ICNipuLGbi+MC6K/ti8bmZSn21ZSSnCpoa5slFzI71Lt8NlpWXoe/eRAb9/jze85EaejW/rYZ2UZjxGW4o5ffTQSx8t3c7k77w6zlkgzasxZ2G8lGIfEB+S+zFpmIyzVRbr9tjUkkFeLD9uyylL0v4W2bfluWTkUAv6uDaxOQqwZPx+WC15wLxtcImQCSfA79TV6HJkm3Y9m7Lk8cp9PBDLQG9kis4oszqM5MoI11fANaMdF310ykzMAa6c1v29eyt6OOI8Se+CeKeg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fIj59JgImeuf3nuMJLXSXYCL7eurkcuD7rDgJZrlUHM=;
+ b=TRtiitBazWXVJAfAbSA/KxF7k9CfKGbd3Kpq7MB7+OjByd7EqcvhLCU2apX1Q2TnqzvcKEhcdiOQqRB0sQJKPjhL7Eq4+3u129LO49zKNuuxXVWxReOiPX5JD3AnDKihqtd8UzC/yWY7NmL/pY03rPCb7VPLwd8jBPXXczRrZMYnRlxeG9OWkHNiOVqlnMyw4BzPdJbHLczqbTGRhiTb2fj+htanLg6nCFOiyj03CysLbR+wcYywJz7DsrYQjPDTz0vkinNPeh0dstqpy9+RBSMkn3N0LOFc80z/UMc4NhZHdlgDUIiEmKabnwJcQkEmaOHrHfQ+nIDHp0SOELEnpA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fIj59JgImeuf3nuMJLXSXYCL7eurkcuD7rDgJZrlUHM=;
+ b=Ip+RUanER9tLyme/82VK/MRy21jUeeIUNOjRWTXPg56H4l2FecLDH9oov0jwhhc22rcUy+TAeTRqFnVPXyDBuqvEj1oP4GieozjKQq2x2jR7i/bi/fURnwnJ57e2mXEbD4WrLpJ6SfYeCPD+88kJCbwp/Q2jOCqWvRwXN+MQrwAb19XrdLTnt77pfetfX/U1H3NIOlGgmXpOs3efjWmtwkthEi2iLN987rBRBJRDWjg+ZsgRHI3n3BXjIvpPZwNCFiG34pcb88g9Jz89piTh+72m6QSUwLHrAFmy5l/HWdWc+6DT/uVn7kEreycKhLly6Pp19dnTThH6Bw17C6/6ng==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by SA3PR12MB138305.namprd12.prod.outlook.com (2603:10b6:806:517::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 06:47:28 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 8 Sep 2026
+ 06:47:27 +0000
+Date: Tue, 8 Sep 2026 16:47:22 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>, @nvdebian.thelocal
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <ap-mQnaspil49v-6@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
+ <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
+ <apdvTgAp5eGezO5t@nvdebian.thelocal>
+ <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
+ <apioGUDamrCur_oR@nvdebian.thelocal>
+ <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
+ <appc5-0MRW1XwsMh@nvdebian.thelocal>
+ <DL6FGP49MMWG.32RPN38WO2PXU@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL6FGP49MMWG.32RPN38WO2PXU@kernel.org>
+X-ClientProxiedBy: SY6PR01CA0009.ausprd01.prod.outlook.com
+ (2603:10c6:10:e8::14) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 2/7] firmware: arm_rmm: Check for RMI support at init
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-3-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260907095942.1140734-3-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SA3PR12MB138305:EE_
+X-MS-Office365-Filtering-Correlation-Id: caa097d5-f591-4ce3-7d97-08df0d750bf8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AGy4oEg9my8AMwiIc76xPFI2UFh3daoIfifjqPEPatHzn8sDx4wV+ONJpLwXj1io9O2w6ZmFHDCljcSpO0tmO5wKPPEY4tmlO5sA8qufgfKddKIPu2AZ3yWT4xJo0GljJEVxId7kTgqjZjoxHxjHBWXLz/jXxlLZfBsLNKJYP2uGM9rfQdw/5Wv0iIE6HAk9j/7PXAhM/dHPjUjDh0EupbYAUFi4sS6Whg3KsLKoO38DYsxZJpFYvXigJrr18P2TLBF6431nUngN6b2ssXfwUjKMqQRtvZjJhe/0imgdMxYVEb/m1Re+1lxtQWNc3l31WwzdOyjJxflga1eWL+gT9H+p05gr/lwvKrtDf7GVyRuV6OZE6DIVC0yERPqpKkI6qs5YRg91Ka1Essgctosg1bnY0BpsjP/MtyvM/mTmA41vD/xVfQqmu3r8yws/aWapoO4eb/eSzHVxmuqB3TWrfhke+Z+mxbJbzVrdVLDMcBQDGt+v8AxvrQfROmWNeXojsOr/MA4GJg/5mjTuqeyUXZF2anDk84hkwMO+Kus03+51JJ6H5b97ihlQL47Q/qRY2q/dtvTWF1ckfMQ3Bp5sGlwBJPxmqjvL7DQx4cR2e/uj0uTkOR31hRWaJDGJyMIJiD52WMnmBlSUY7PVyG7xVsGc/C/WBgvLLvX1pYM+8s4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?/QTYygV0zUrSXN1l4NZBiln2kxTQXIEuNjwArfahHgM7q43PpvZMlcYUv4mc?=
+ =?us-ascii?Q?6+QxRLoksqURcSxFdjZLqHjSpOrqZbwKnDajdFOdioIxE2P3Xg2VcexScsa1?=
+ =?us-ascii?Q?pxGYuiTsIYp9CsDr2FSOCZ1MFStg2PgloCtSGIjZXPkrOhvkAt57KUcPwIui?=
+ =?us-ascii?Q?TZ/mYoG5HQcEtOTDU+1PQVWFZVMnqn+o9uWgUhlMo+tqG1XSZK9Bfk9HpBss?=
+ =?us-ascii?Q?8w0p6YmSdrDonTSeN4uxFMSRSo+239dTazwjJXp9wWf1kBR9FbCUSs49yWVH?=
+ =?us-ascii?Q?U8L+cQ13RqKlRhWS2/+FuUzKX8tm0AfjJ7c7K2uWc9BE7iBeTdUEMt5+fyel?=
+ =?us-ascii?Q?j8wK7RnuLEVFQ4KLPaGfZvQhLWzm6PH5uPJ/sW8P77mJzh7txMfAi9Rjs1q3?=
+ =?us-ascii?Q?rUWIEf+2X2IocCNA0WGE7OOLeOBQ5bZ4CcJnSDmVmJmUVxEV3FE8r7DuE1+H?=
+ =?us-ascii?Q?ILonAA68Psu99pzjFda6vHibyfPS/1h61MAN8rcWEQdCMnf1ClLbDSG/3pu3?=
+ =?us-ascii?Q?su1zsqnnRP/ugzdZg7jad5kzAdD2mbJlB1D6uz08ElcUSSyBMcT8PSdEx6t0?=
+ =?us-ascii?Q?u0aG1nvWjcb9KUfCWChqeKnKPl7yknbBi1oprFXkcDdfsQOX1OX6OXI6j44d?=
+ =?us-ascii?Q?AW+6E7EeKLpOoodhZ/civfr1BzzNppqx/cVmuTr3tEU81bUFZPe63i0XAUj1?=
+ =?us-ascii?Q?4Pvvp+f516deuBnri/7LE4J8S8zisTczEQhnh/kHsC/2FFFExBNztWbglk2W?=
+ =?us-ascii?Q?idOyANpywSuOrLqIz8OYamRcJ0f8Ij3wo8hHMiXu8MYoV+v+Wjy6ih1m4ETV?=
+ =?us-ascii?Q?5CFMVhUtLWQkt2lPE8ybja/97AhVSNVyCsEGje4TkPD4aDXnFE0rGuV66AQs?=
+ =?us-ascii?Q?KYMv8hRmHvtyDDGaVvw6Z5QTnTCfVhdMLvXUEKn9c8iKUG8+gIorS0rjXtQf?=
+ =?us-ascii?Q?GR74/HvgeHPFtDp/Ve96H/hl3O5HuMsbRmc2pCSE4GNvE23Zfal70PeJzwRh?=
+ =?us-ascii?Q?r80XYQsTTqn2fgWjZyXbagokJ5orYVjx+iTXuFi4mKgCSxKRRCyYjtXN6z6x?=
+ =?us-ascii?Q?/dcPXboe4Ny3dAZzgQFVDkzMITMWWpAT890WlgY1hPJ5mnF7hx7UC9cO5tcD?=
+ =?us-ascii?Q?Pq1EkxShh+CEYijORxxmUAsWAPYo5wD2V3jfcLNDGoJm+30YvGYel1JOyIWJ?=
+ =?us-ascii?Q?OGIzgYukwTuXllx6cwn9bXqlnf/rii1Mn79QsG9aKndkSovXvCbVajBdVrdU?=
+ =?us-ascii?Q?HME/bmAd0ADGXiKMIdymkUUfjpVRTGdDLzIbM5a9XwvzMqTnKNxrTgnKWItS?=
+ =?us-ascii?Q?vDrV7lL4AUFTPcbt0r0xKu5SRwm68OidI/jO4HpGHIRhyDQMpuK7O442YcFi?=
+ =?us-ascii?Q?51ItCugHqWZqt8C/CBT1OLRE6ZR1k3MsnuWHCF8mQTU4e+CeYqLmqvPE6mev?=
+ =?us-ascii?Q?F74Oek0tTeUt54UF7chudFmEJT48SzQ8Ht4SkhgZ5EI6zHCk23buW+ox3UU3?=
+ =?us-ascii?Q?5aDtpbqIXh2rQBcjqAw80sQ6WIn0YP6C6iFa5WsD84NgQwlz5g3/Dyj12Y3+?=
+ =?us-ascii?Q?PfypyW5QkigiE4q3bX2qYtyba5IlGmB5nSX8JAjuuhp8dMloO9StF72GFroi?=
+ =?us-ascii?Q?bwJGpqlWTobWdZGKMml3/FG5Y8N5YYhs9Oe90rJvETgX6TPjJCHCOvT8JrQW?=
+ =?us-ascii?Q?niAriqUxiBquw/ccKT0dYNXQ3UutJHN/4TH6fm9bPgz6RVg8lAKlB9LfdjLl?=
+ =?us-ascii?Q?I8r0g2C0Ow=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: caa097d5-f591-4ce3-7d97-08df0d750bf8
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 06:47:27.6556
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: BfUI+1cjbAflSt3uUgMQYk3jWtJdLxAHYv+l7h2iGpDZm6cYsqSw4GsaCg+QGicrWUr6k4IWGCU7tUOyNG340A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB138305
 
-Hi Suzuki,
-
-On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
+On 2026-09-04 at 19:34 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Fri Sep 4, 2026 at 9:49 AM CEST, Alistair Popple wrote:
+> > On 2026-09-03 at 20:42 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> >> I think there never was a "rather than". The point was that if userspace has
+> >> conditionals based on the architecture it shouldn't have to figure it out based
+> >> on the chipid, as this has been done by the kernel already.
+> >
+> > I see. Maybe that was a bad assumption on my behalf, because I assumed that if
+> > you make a precise hardware description available (chip-id) there'd be no point
+> > making an imprecise subset of that description (arch) available as it isn't
+> > particularly useful if you can't use it in isolation for any generic purpose.
 > 
-> Query the RMI version number and check if it is a compatible version.
-> The first two feature registers are read and exposed for future code to
-> use.
+> Except that it is used in isolation for a generic purpose e.g. in NAK.
 > 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
-> v17:
->   * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest facing RSI
->     support, which is also in progress
-> v16:
->   * Update Kconfig text to include PCIe TDISP.
->   * Export rmi_feat_reg() here rather than in a later commit.
-> v15:
->   * The code is moved again, this time into the 'firmware' directory.
-> v14:
->   * This moves the basic RMI setup into the 'kernel' directory. This is
->     because RMI will be used for some features outside of KVM so should
->     be available even if KVM isn't compiled in.
-> ---
->   arch/arm64/Kconfig                |   1 +
->   arch/arm64/kernel/cpufeature.c    |   1 +
->   drivers/firmware/Kconfig          |   1 +
->   drivers/firmware/Makefile         |   1 +
->   drivers/firmware/arm_rmm/Kconfig  |  26 ++++++++
->   drivers/firmware/arm_rmm/Makefile |   2 +
->   drivers/firmware/arm_rmm/rmi.c    | 101 ++++++++++++++++++++++++++++++
->   include/linux/arm-rmi-cmds.h      |  34 ++++++++++
->   8 files changed, 167 insertions(+)
->   create mode 100644 drivers/firmware/arm_rmm/Kconfig
->   create mode 100644 drivers/firmware/arm_rmm/Makefile
->   create mode 100644 drivers/firmware/arm_rmm/rmi.c
->   create mode 100644 include/linux/arm-rmi-cmds.h
+> >> Then in NAK (src/nouveau/compiler/nak/ir.rs), there's this code.
+> >> 
+> >> 	fn is_turing(&self) -> bool {
+> >> 	    self.sm() >= 73 && self.sm() < 80
+> >> 	}
+> >> 	
+> >> 	fn is_ampere(&self) -> bool {
+> >> 	    self.sm() >= 80 && self.sm() < 89
+> >> 	}
+> >> 	
+> >> 	fn is_ada(&self) -> bool {
+> >> 	    self.sm() == 89
+> >> 	}
+> >> 	
+> >> 	#[allow(dead_code)]
+> >> 	fn is_hopper(&self) -> bool {
+> >> 	    self.sm() >= 90 && self.sm() < 100
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell_a(&self) -> bool {
+> >> 	    self.sm() >= 100 && self.sm() < 110
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell_b(&self) -> bool {
+> >> 	    self.sm() >= 120 && self.sm() < 130
+> >> 	}
+> >> 	
+> >> 	fn is_blackwell(&self) -> bool {
+> >> 	    self.is_blackwell_a() || self.is_blackwell_b()
+> >> 	}
+> >> 
+> >> That's two unnecessary indirections for something the kernel already has
+> >> available.
+> >
+> > Again though is what the kernel provides in the form of an arch actually useful
+> > to user-space? Obviously the code above makes it look nice and simple like that,
+> > but as I have been saying more complete implementations can't just rely on arch
+> > alone and so are still going to have lookup tables both for SM and for other
+> > info the kernel can't provide.
 > 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index b5a51b0ef9440..ff9565d3ffa59 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -38,6 +38,7 @@ config ARM64
->   	select ARCH_HAS_MEMBARRIER_SYNC_CORE
->   	select ARCH_HAS_MEM_ENCRYPT
->   	select ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS
-> +	select ARCH_SUPPORTS_RMM
->   	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
->   	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
->   	select ARCH_HAS_NONLEAF_PMD_YOUNG if ARM64_HAFT
-> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-> index 17b83a2518a8f..db26f6b0eaf5e 100644
-> --- a/arch/arm64/kernel/cpufeature.c
-> +++ b/arch/arm64/kernel/cpufeature.c
-> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
->   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
-> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_DIT_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_AMU_SHIFT, 4, 0),
->   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_MPAM_SHIFT, 4, 0),
-> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-> index b7cc11e4fbfa6..62660bf520a8d 100644
-> --- a/drivers/firmware/Kconfig
-> +++ b/drivers/firmware/Kconfig
-> @@ -310,5 +310,6 @@ source "drivers/firmware/samsung/Kconfig"
->   source "drivers/firmware/smccc/Kconfig"
->   source "drivers/firmware/tegra/Kconfig"
->   source "drivers/firmware/xilinx/Kconfig"
-> +source "drivers/firmware/arm_rmm/Kconfig"
->   
->   endmenu
-> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-> index be46f1e1dc77f..196a650ccf025 100644
-> --- a/drivers/firmware/Makefile
-> +++ b/drivers/firmware/Makefile
-> @@ -39,3 +39,4 @@ obj-y				+= samsung/
->   obj-y				+= smccc/
->   obj-y				+= tegra/
->   obj-y				+= xilinx/
-> +obj-y				+= arm_rmm/
-> diff --git a/drivers/firmware/arm_rmm/Kconfig b/drivers/firmware/arm_rmm/Kconfig
-> new file mode 100644
-> index 0000000000000..82724ee23186d
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/Kconfig
-> @@ -0,0 +1,26 @@
-> +
-> +config ARCH_SUPPORTS_RMM
-> +	bool
-> +
-> +config ARM_RMM_RMI
-> +	bool "Realm Management Interface (RMI) Support"
-> +	depends on ARCH_SUPPORTS_RMM
-> +	default y
-> +	help
-> +	  Support the Realm Management Monitor (RMM) on Arm systems that
-> +	  implement the Realm Management Extension (RME), as defined by the
-> +	  Arm Confidential Compute Architecture.
-> +
-> +	  The RMM runs at EL2 in the Realm world and provides the Realm
-> +	  Management Interface (RMI) used by a Normal World host to create,
-> +	  manage and run protected virtual machines called Realms. The RMM can
-> +	  also act as a TSM, as defined by the PCIe TDISP and can manage the
-> +	  PCI IDE setup for securing the PCIe links.
-> +
-> +	  This option builds the host-side RMI support used by KVM to detect a
-> +	  compatible RMM, configure it, manage delegated memory and enable
-> +	  Realm guests.
-> +
-> +	  Selecting this option does not by itself make Realm guests available:
-> +	  the system must also provide RME-capable hardware and firmware with a
-> +	  compatible RMM implementation.
-> diff --git a/drivers/firmware/arm_rmm/Makefile b/drivers/firmware/arm_rmm/Makefile
-> new file mode 100644
-> index 0000000000000..65171988fdcae
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/Makefile
-> @@ -0,0 +1,2 @@
-> +
-> +obj-$(CONFIG_ARM_RMM_RMI)	= rmi.o
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> new file mode 100644
-> index 0000000000000..008a783407b4e
-> --- /dev/null
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -0,0 +1,101 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2023-2026 ARM Ltd.
-> + */
-> +
-> +#include <linux/cpufeature.h>
-> +#include <linux/memblock.h>
-> +#include <linux/arm-rmi-cmds.h>
-> +#include <linux/slab.h>
-> +
-> +#include <asm/memory.h>
-> +#include <asm/pgtable-hwdef.h>
-> +
-> +/* Currently only the first 2 registers are used by Linux */
-> +#define RMI_FEAT_REG_COUNT	2
-> +static __ro_after_init unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT];
-> +
+> Are you saying that NAK oversimplifies things and hence gets away with per
+> architecture checks in src/nouveau/compiler/nak/sm70.rs? And that a "more
+> complete implementation" would be specialized to a point where it becomes
+> impossible to have any common code per architecture and in general?
 
-I would drop RMI_FEAT_REG_COUNT and use ARRAY_SIZE(rmi_feat_reg_cache) in the code.
-Besides, __ro_after_init is usually put at the last the declaration.
+That is my understanding yes, AFAICT we cannot reliably derive the SM ISA from
+the chip architecture alone as it's defined here.
 
-static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;
+Obviously in practice not everything must change for every ISA or the NAK
+implementation above wouldn't work at all, so there must be some commonality,
+but HW makes no compatibility guarantees between ISA versions so we can't really
+make assumptions about the ISA based on the architecture alone.
 
-> +unsigned long rmi_feat_reg(unsigned long id)
-> +{
-> +	if (WARN_ON(id >= RMI_FEAT_REG_COUNT))
-> +		return 0;
-> +
-> +	return rmi_feat_reg_cache[id];
-> +}
-> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
-> +
-
-I would suggest to rename 'id' to 'index' since it represents the feature
-register index instead of feature register ID.
-
-unsigned long rmi_feat_reg(unsigned long index)
-{
-    :
-}
-EXPORT_SYMBOL_GPL(rmi_feat_reg);
-
-> +static int rmi_check_version(void)
-> +{
-> +	struct arm_smccc_res res;
-> +	unsigned short version_major, version_minor;
-> +	unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
-> +						     RMI_ABI_MINOR_VERSION);
-> +	unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
-> +
-> +	/* If RME isn't supported, then RMI can't be */
-> +	if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
-> +		return -ENXIO;
-> +
-> +	arm_smccc_1_1_invoke(SMC_RMI_VERSION, host_version, &res);
-> +
-> +	if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
-> +		return -ENXIO;
-> +
-> +	version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
-> +	version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
-> +
-> +	if (res.a0 != RMI_SUCCESS) {
-> +		unsigned short high_version_major, high_version_minor;
-> +
-> +		high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
-> +		high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
-> +
-> +		pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d.%d\n",
-> +		       version_major, version_minor,
-> +		       high_version_major, high_version_minor,
-> +		       RMI_ABI_MAJOR_VERSION,
-> +		       RMI_ABI_MINOR_VERSION);
-> +		return -ENXIO;
-> +	}
-> +
-> +	pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
-> +
-> +	return 0;
-> +}
-> +
-> +static int rmi_read_features(void)
-> +{
-> +	/*
-> +	 * Since we've negotiated a compatible version these feature registers
-> +	 * should always be available
-> +	 */
-> +	for (int i = 0; i < RMI_FEAT_REG_COUNT; i++) {
-> +		if (WARN_ON(rmi_features(i, &rmi_feat_reg_cache[i])))
-> +			return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int __init arm64_init_rmi(void)
-> +{
-> +	int ret;
-> +
-> +	/* Continue without realm support if we can't agree on a version */
-> +	ret = rmi_check_version();
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = rmi_read_features();
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Note arm64_init_rmi() must be called before kvm_init_rmi() otherwise KVM
-> + * will not support realm guests. subsys_initcall() is called before
-> + * module_init() (used for KVM) so this is OK.
-> + */
-> +subsys_initcall(arm64_init_rmi);
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> new file mode 100644
-> index 0000000000000..2fb1f7f86d71e
-> --- /dev/null
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -0,0 +1,34 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2026 ARM Ltd.
-> + */
-> +
-> +#ifndef __LINUX_ARM_RMI_CMDS_H_
-> +#define __LINUX_ARM_RMI_CMDS_H_
-> +
-> +#include <linux/arm-smccc-rmi.h>
-> +#include <linux/bug.h>
-> +#include <linux/types.h>
-> +
-> +unsigned long rmi_feat_reg(unsigned long id);
-> +
-> +/**
-> + * rmi_features() - Read feature register
-> + * @index: Feature register index
-> + * @out: Feature register value is written to this pointer
-> + *
-> + * Return: RMI return code
-> + */
-> +static inline int rmi_features(unsigned long index, unsigned long *out)
-> +{
-> +	struct arm_smccc_res res;
-> +
-> +	arm_smccc_1_1_invoke(SMC_RMI_FEATURES, index, &res);
-> +
-> +	if (res.a0 == RMI_SUCCESS && out)
-> +		*out = res.a1;
-> +
-> +	return res.a0;
-> +}
-> +
-
-We needn't expose rmi_features() through include/linux/arm-rmi-cmds.h since it's
-used for once in rmi.c::rmi_read_features(). I would suggest to drop it by combining
-the code with that function.
-
-> +#endif
-
-#endif /* __LINUX_ARM_RMI_CMDS_H_ */
-
-Thanks,
-Gavin
-
+ - Alistair
