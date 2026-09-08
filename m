@@ -1,210 +1,128 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B7048F017;
-	Tue,  8 Sep 2026 22:10:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938D148F017;
+	Tue,  8 Sep 2026 22:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905408; cv=none; b=lpfmEu+vhhqPhTfGOsGuIaS8U2H7dnegcp9tAyk7o2MwcQhxgM5tNbPHtjFj9SONie78FArd4bfMYdFilKN1PG0Nl0el21oDcwPeDUGFgsb1DbXIYo3mprCJNW1fCi21cpNbT0PxyZtjYcF++/Tw0tFQ0RmoJyqxOVkXTNLQAdM=
+	t=1788905414; cv=none; b=gwMzArNFuiUJ+OPDCOaSMJE2eQvghzkRSnTugkhLXyqG/5S6xAwNItGYpDGrGByaMdqPbVzRuBCVFiBtzMqmxs8xOBdksxwDH52mnr/8qMagQ9glR5AhOkJwKpEqmvkQWdNsEPapOsbsinTbh+POBNPJRGDAhlSHzNp+OUeZWuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905408; c=relaxed/simple;
-	bh=lW7tNfaog1QxEwCVOimeAPseJChsHB31CrLCR8LjaWk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VhwaTi3n/O2MKePrOl7/LwN1S9Rr2nmUCo0sWkm0Fr8THRsSd+U4O5QWmhrtsZnQMlf006L1Gy6R/tia0uT30SXRVV7MgzVtxdxHOcj6mYkCjZrWbuowuUVBMhBNzy2F00r7e4x+XRiGVSEqNiNvcJxPD9VK+TImHTZb9kjT66E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=iIhEpS+h; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
+	s=arc-20240116; t=1788905414; c=relaxed/simple;
+	bh=aJ+DAVjTt5QVEU3NCrdpeAEJi6hWWxEYiDpAKAueLxo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=swoapjukoujJV+E9SLfTzsUBKXdanPYzLbw6AaAqfOruJ4IQzWm1tUuaB7F3i0Bjz8XKzXN2g6qZgTAuXNFoXjrhrjw0NObAc7FXrUlZXMaDgUqeAcJlC+0TIIX11c0mQa89b6ylPhTLO+VVkAp1yWQShFUTujDcFcm/EfgsgGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UsCtT6i3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="iIhEpS+h"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=wieqynRCAE5rJEK0uBZHAJhGCeCPCApA9jbPjxhcNEM=; b=iIhEpS+hV5Mp32ld3l5jtyS1KK
-	iZkeyR/EhxVjmAKeV9c6ZEgjXHLG9PRsqJpxXvwFcF+ci1lM5TTHamqTNHBnakqI1Y0gMgz3bMNQJ
-	tBdwdhtAq9IEMwZ5ES+YadBjED4LnRSbrV7XxqLE41lLaBLZWYNOT1+sMWel7SdoV9TY91gRiBP6w
-	6KSPvLSPZCe3UVYhjKC4b3vhMnoHLI2QgD7xjr1M7hLI7yhwwv1qppGKW0GwrklV2uEZkhsR/XNAB
-	UJPwvo1tca5hQ81sSDSOKTiY50ES9TlvriM38lCjahdAvBAEsZ88kdwh9/DfVYL7zE88yMzeImqdI
-	kgawTU9w==;
-Received: from [2001:8b0:10b:5:a5ee:470e:c67a:1ec0] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x440s-0000000E444-49aq;
-	Tue, 08 Sep 2026 22:09:59 +0000
-Message-ID: <c5e946d3af034749111d9292c57cf2e3d0df5416.camel@infradead.org>
-Subject: Re: [PATCH 03/13] srcutree: Add reader-free fastpath to
- synchronize_srcu_atomic()
-From: David Woodhouse <dwmw2@infradead.org>
-To: paulmck@kernel.org
-Cc: Kunwu Chan <kunwu.chan@gmail.com>, jiangshanlai@gmail.com, 
-	josh@joshtriplett.org, rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
- 	rcu@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 08 Sep 2026 23:09:34 +0100
-In-Reply-To: <40a4a925-d984-4f0b-b594-2d0a5ca7bde0@paulmck-laptop>
-References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
-	 <20260907075829.2073224-4-kunwu.chan@linux.dev>
-	 <b7bc58aa-4b8a-4eaa-a7e8-8d338f34d14a@paulmck-laptop>
-	 <d622a6ed07845e5b7c5ab87446ff8b622b4b80eb.camel@infradead.org>
-	 <40a4a925-d984-4f0b-b594-2d0a5ca7bde0@paulmck-laptop>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-BcyBV0V3PJc760MaZ4oo"
-User-Agent: Evolution 3.60.3-0ubuntu1~ppa10~24.04 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UsCtT6i3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7BBA1F00A3D;
+	Tue,  8 Sep 2026 22:10:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788905413;
+	bh=seKjOh8A2djDcz5JdoNucUq7lBezRfZyhy3wonVf/uI=;
+	h=From:Date:Subject:To:Cc;
+	b=UsCtT6i3JK/ZUw0hv1zLvqWlwvWgg8jrs109bWl38piHLJaw0w0TZJh99CnAcon7B
+	 x/1Z/amNFkBFmV9xJgebG+VdfO7zdOnqy1NCy01BZxWqQXZKQI5mp1nZzZmNIah6Lr
+	 OyZfZzJFe0T3QZ3pN+kUqKfTUymj0Lyr1xQ9G3zzrDKhAd7GRoG7UIijfjE3nAwS79
+	 Mab7iLVmfoyk2GEM+O9IRn0jS4jX59eDM1da2bgv2U5gATo4J87uKmQf4//053gX4T
+	 dJbysHroGx6V/iwBj4ResR3ectnv7rtxyPzn/jkqRHqYPN0IJmjjecFvNb/hfzL1nb
+	 tK5y4JNLJVTlw==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Tue, 08 Sep 2026 15:10:06 -0700
+Subject: [PATCH] samples: rpmsg: Fix mtu printk specifiers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-samples-rpmsg-fix-mtu-print-v1-1-f995518f0a46@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QrCMAxA0V8ZeTaQdjCcvyI+bDOdEVtL0okw9
+ u/W7fHA5a5grMIGl2YF5Y+YvFOFOzUwPYY0M8q9Gjz5jno6ow0xv9hQc7QZg3wxlgWzSiroemo
+ Dtd51HKAesnIN9vv1dtiW8clT+S9h236iMYW/fwAAAA==
+X-Change-ID: 20260908-samples-rpmsg-fix-mtu-print-1903f03216ef
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, 
+ Tanmay Shah <tanmay.shah@amd.com>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3031; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=aJ+DAVjTt5QVEU3NCrdpeAEJi6hWWxEYiDpAKAueLxo=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFkL2g/kWglxJv7wnDDz/7WZ04S/tvsWL/q96QqHR0CHT
+ cISuWP8HaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAipT0M/xOct3WHWF2JmbdX
+ 26OmlZF72vP1r25tOifrxiIxvTT7pwcjQ5/Lg1k3d08TVLpstGSt9JVpF2/L8xUlznqp+uxte63
+ vWm4A
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
+When building rpmsg_client_sample.c for a 32-bit platform, such as
+during arm allmodconfig, there are a few warnings due to using an
+incorrect specifier for mtu:
 
---=-BcyBV0V3PJc760MaZ4oo
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+  samples/rpmsg/rpmsg_client_sample.c:68:59: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
+     68 |                 dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %ld\n", mtu);
+        |                                                                 ~~~     ^~~
+        |                                                                 %zd
+  ...
+  samples/rpmsg/rpmsg_client_sample.c:72:50: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
+     72 |         dev_info(&rpdev->dev, "rpmsg MTU size = %ld\n", mtu);
+        |                                                 ~~~     ^~~
+        |                                                 %zd
+  ...
+  samples/rpmsg/rpmsg_client_sample.c:79:17: error: format specifies type 'long' but the argument has type 'ssize_t' (aka 'int') [-Werror,-Wformat]
+     78 |                         "message size %zu exceeds rpmsg MTU size %ld\n",
+        |                                                                  ~~~
+        |                                                                  %zd
+     79 |                         strlen(MSG), mtu);
+        |                                      ^~~
 
-On Tue, 2026-09-08 at 14:54 -0700, Paul E. McKenney wrote:
->=20
-> And another option is to pull the fastpath up earlier, before
-> checking and/or acquiring ->srcu_atomic_gp_flag.=C2=A0 But this is a
-> bit more complicated from a concurrency viewpoint, at least if
-> we are to interact normally with get_state_synchronize_srcu() and
-> poll_state_synchronize_srcu().=C2=A0 For example:
->=20
-> 	srcu_state =3D get_state_synchronize_srcu(ssp);
-> 	synchronize_srcu_atomic(ssp);
-> 	WARN_ON_ONCE(!poll_state_synchronize_srcu(ssp, srcu_state));
->=20
-> Without at least some mucking with the grace-period mechanism, that
-> WARN_ON_ONCE() could trigger, which just might not be universally
-> considered to be a friendly act.=C2=A0 ;-)
->=20
-> So it would be very good to keep the fastpath where Kunwu put it, if
-> that works reasonably.
+Use '%zd', the proper specifier for a 'ssize_t' variable, to clear up
+the warning. Additionally, modify the last dev_err() call in
+rpmsg_sample_probe() to reuse msg_len instead of calling strlen(MSG)
+again and use '%zd' throughout the string consistently.
 
-Could we not just declare that synchronize_srcu_atomic() *isn't*
-guaranteed to drive a GP, so the above code isn't valid? Why poll for a
-thing that's atomic? Is that a likely use case?
+Fixes: 1029c89bafc7 ("samples: rpmsg: Add MTU size info")
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ samples/rpmsg/rpmsg_client_sample.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-And you've already forbidden start_poll_synchronize_srcu() for atomic,
-haven't you?
+diff --git a/samples/rpmsg/rpmsg_client_sample.c b/samples/rpmsg/rpmsg_client_sample.c
+index 4c43436aadb6..8c629065c64c 100644
+--- a/samples/rpmsg/rpmsg_client_sample.c
++++ b/samples/rpmsg/rpmsg_client_sample.c
+@@ -65,18 +65,18 @@ static int rpmsg_sample_probe(struct rpmsg_device *rpdev)
+ 
+ 	mtu = rpmsg_get_mtu(rpdev->ept);
+ 	if (mtu < 0) {
+-		dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %ld\n", mtu);
++		dev_warn(&rpdev->dev, "invalid rpmsg MTU size = %zd\n", mtu);
+ 		return mtu;
+ 	}
+ 
+-	dev_info(&rpdev->dev, "rpmsg MTU size = %ld\n", mtu);
++	dev_info(&rpdev->dev, "rpmsg MTU size = %zd\n", mtu);
+ 
+ 	msg_len = strlen(MSG);
+ 	/* make sure our message fits in a single rpmsg buffer */
+ 	if (msg_len > mtu) {
+ 		dev_err(&rpdev->dev,
+-			"message size %zu exceeds rpmsg MTU size %ld\n",
+-			strlen(MSG), mtu);
++			"message size %zd exceeds rpmsg MTU size %zd\n",
++			msg_len, mtu);
+ 		return -EMSGSIZE;
+ 	}
+ 
 
-I concede that the same logic doesn't work quite as well for
-synchronize_srcu_expedited(), as it's an established API. Could we
-retcon that one?
+---
+base-commit: 70e14d5db3a01a44f6c3217bb3dda2dd5828a507
+change-id: 20260908-samples-rpmsg-fix-mtu-print-1903f03216ef
 
---=-BcyBV0V3PJc760MaZ4oo
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Best regards,
+--  
+Cheers,
+Nathan
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-KlMopLJCTX22G3NrFjoyfVgAAAAAAAA=
-
-
---=-BcyBV0V3PJc760MaZ4oo--
