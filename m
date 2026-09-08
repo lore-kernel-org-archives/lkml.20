@@ -1,126 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9556D55C1D7;
-	Tue,  8 Sep 2026 13:37:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E12550DB5;
+	Tue,  8 Sep 2026 13:37:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874633; cv=none; b=fV1qWGrEv6g6By3lS6MSubQqBlyZ6fC68mpyfYTNjqMQoDUtsW0vH9ggtyXfPhObXTQDEQ3t//a/0EHVfzUKdYViyT0ex7T8JbfacNvLlBlBr+GotHOvB4Urmun8yACkP8F8gCeffND1h4JWqWjmunJZxBhC4p4VvdkLG/EwmK4=
+	t=1788874638; cv=none; b=gzjlrHL4Vri+zHQ2rtci2gjqEWIRm7RcuWfA8yc0qNgL6GEE8zZYcki26PIKFbB6IuSSR8RCs3b0az3QCx2PXy3sWrLQ/iWH7NvMJ+dT9fIYPDlnZ9yOPd5agHumNkK40rnNHKA8oO56HYtv0LWaciAMuuh1P29k2naR4rJIxRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874633; c=relaxed/simple;
-	bh=DHdmYXq/qocA92uRv8JdvD7KClxlL26v2+4xcGHXHZw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ETpZGbIhGtmmUTp6Vzm7b16v3m2CCuX0pkNuKonpZiVANoxp0i8SjatRA+3JBX25iDrHg9I5ZMRUtLfs+EzemqsOYKuQGhHC9O1RvbUv1ga0cczo3KjlfsNjS+hHcWIxvcngJ9if4EzhKfscLZjbCR9kHjM6PWOqNX1KiVp1E50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VoiCR7zd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874638; c=relaxed/simple;
+	bh=IbM1Bv44TEHTLCWBNjA2HnURrhTufnRRCvdhOSZLlgY=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=dP4tNwr0exQ65lBQiw7BhgJMOEzzJUsXAxfVfmW2oAsVkmBQpW/z7HXh8BkR8ROJGY83RGpqglTWYKLqezax96wtSlwGt08MseLE1RudaU0S4lU5X2zJk9eYoRTqsN7q9c1Rrv8cmAZDc39kmllKTSzhmjQwFqeqvq1iLd2wfSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=B+APpEOs; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VoiCR7zd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 051011F00A3E;
-	Tue,  8 Sep 2026 13:36:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788874620;
-	bh=VWuxOAzpawUbawzTS2dIYwJZv+ozSpJF3kgvkYsVzKs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VoiCR7zdGqLzzWJEnkFL9mN3l2+qnyZNvOFfxM+dy7uWyBiUrGmDv8tOF9cza0Hz8
-	 ghueWDZvT9ePkaFqelpaZOUJYG4pGbb0fkNEhyIpEqAyO+ee3hZ2EMCcnz9ylaYKwT
-	 JS30KXaN4pO1DmgLst2SEJgbKHrWQ2PpeuQOjZF6/AN20Ge2gWFxqDJEpDwuENhw/d
-	 Sv0MtMbEXPJxHqMtvUMwv+Y3XW92chtVWwrRabeN3uOxb01077FfNOReGyKsg0gdF0
-	 rxts7SsF9PPUR3EQV9qVEVWdWRZBDQEgbtspIzXuLg+fUuBT3TP280+FlfApwMlOXv
-	 MvgWDyceoL6mg==
-From: SJ Park <sj@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	lianux.mm@gmail.com,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/damon/tests/core-kunit: improve nr_samples_per_aggr test isolation
-Date: Tue,  8 Sep 2026 06:36:50 -0700
-Message-ID: <20260908133651.96278-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908063635.2208922-1-kunwu.chan@gmail.com>
-References: 
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="B+APpEOs"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=Baywc0yHKb2bcz/JRqx1yPA4dHvHWOqsOf8KAn6vPfw=;
+	t=1788874635; x=1790084235; b=B+APpEOs91AzE75ZKQ0Yqvr4veoaMe9pVnXeZDsNeVgn4FT
+	QfP96ENuO++3jXzFQ0oueFt8bswTIYlLA83wFoiA3PuVDZrJnQUbfns5yeb2A0D7Olh4CYPqihUD1
+	9oJNOzzSxBhz8YAo9k4x6KJ/AijRmlYzZ/bwPTYf4bQZZ/DfwOvOQ+tKnXGt8yeJr9zsZPr2lcPOy
+	H1e7f2OBbY9JBu76JS2C4pwg+OBixKRdka/Bcrp/szHjDNLuhbSKGQhnpTIq+itt+OFkHZtnfirFd
+	mIXfWtNGzAgneXi7MNSHC7Dl2TnVgUf2Em4r2Rm6WEcO1+VmpkX8WTtVDr92JVSg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x3w0c-00000006BkC-49u7;
+	Tue, 08 Sep 2026 15:37:11 +0200
+Message-ID: <98532cdcf1feb1591353bd4b8e3e84822e3e1a11.camel@sipsolutions.net>
+Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
+ adding new station
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Slawomir Stepien <sst@poczta.fm>
+Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev, 
+	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
+Date: Tue, 08 Sep 2026 15:37:10 +0200
+In-Reply-To: <aqAPPd4qHy0qjo1k@nr200>
+References: <20260813090434.2071318-1-sst@poczta.fm>
+	 <20260813090434.2071318-3-sst@poczta.fm>
+	 <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
+	 <ap_Y8OD0eBAnB8QS@nr200>
+	 <8934029f86b1c0e75f777185b2768f8e9755cae5.camel@sipsolutions.net>
+	 <ap_4hS6M8g4u6z--@nr200>
+	 <22e7ddfc50d7a6a16c437b876dab5fe223799610.camel@sipsolutions.net>
+	 <aqAPPd4qHy0qjo1k@nr200>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
-Hi Kunwu,
+On Tue, 2026-09-08 at 15:35 +0200, Slawomir Stepien wrote:
+> > But it's another messy code path - if you have AP A and B, and VLANs A'
+> > and B' belonging to A and B respectively, then you can
+> >=20
+> > 	add_station(A, vlan=3DB')
+> >=20
+> > and it gets added on B/B', and B must be IFF_UP (because B' must be
+> > IFF_UP) but doesn't need to be beaconing and we're back to the bug, it
+> > seems? Maybe I'm missing something.
+>=20
+> You can't add a vlan interface that dosn't have correct "parent" wiphy, g=
+et_vlan() checks that
+> already:
+>=20
+> 	v =3D dev_get_by_index(genl_info_net(info), nla_get_u32(vlanattr));
+> 	if (!v)
+> 		return ERR_PTR(-ENODEV);
+>=20
+> 	if (!v->ieee80211_ptr || v->ieee80211_ptr->wiphy !=3D &rdev->wiphy) {
 
-On Tue,  8 Sep 2026 14:36:35 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+Sure, but that just means that A and B have to be on the same wiphy.
 
-> The damon_nr_samples_per_aggr() test sets both intervals to zero,
-> which exercises two different fallback paths at once.
-> 
-> Use separate compound initializers for each case so that each case
-> tests one fallback path independently. Also make the overflow case
-> use an explicit non-zero sample interval so that it does not depend
-> on the zero sample interval fallback.
+> This check I've pasted should be good enough, right?
 
-Thank you for sharing this patch!
+Don't think so? You can have A, B, A' and B' all on the same wiphy.
 
-> 
-> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> ---
->  mm/damon/tests/core-kunit.h | 19 +++++++++++++++----
->  1 file changed, 15 insertions(+), 4 deletions(-)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index c01e6a75cad..ff23208c181 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -627,12 +627,20 @@ static void damon_test_set_regions(struct kunit *test)
->  
->  static void damon_test_nr_samples_per_aggr(struct kunit *test)
->  {
-> -	struct damon_attrs attrs = {
-> +	struct damon_attrs attrs;
-> +
-> +	/* Zero sample interval is treated as one. */
-> +	attrs = (struct damon_attrs){
->  		.sample_interval = 0,
-> -		.aggr_interval = 0,
-> +		.aggr_interval = 5000,
->  	};
-> +	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 5000);
-
-Thank you for adding this test case.
-
->  
-> -	/* Zero aggregation interval doesn't cause division by zero */
-> +	/* Zero samples per aggregation is treated as one. */
-> +	attrs = (struct damon_attrs){
-> +		.sample_interval = 5000,
-> +		.aggr_interval = 0,
-> +	};
->  	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 1);
-
-But damon_set_attrs() disallows sample intervals that are larger than the
-aggregation intervals.  Hence this setup is somewhat unrealistic.  Should we
-set sample_interval zero?
-
->  
->  	/*
-> @@ -640,7 +648,10 @@ static void damon_test_nr_samples_per_aggr(struct kunit *test)
->  	 * overflow
->  	 */
->  	if (ULONG_MAX > UINT_MAX) {
-> -		attrs.aggr_interval = (unsigned long)UINT_MAX + 1;
-> +		attrs = (struct damon_attrs){
-> +			.sample_interval = 1,
-> +			.aggr_interval = (unsigned long)UINT_MAX + 1,
-> +		};
->  		KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs),
->  				UINT_MAX);
->  	}
-> 
-> base-commit: d118502628f8b673be9023db8bdf878f64a7ed45
-> -- 
-> 2.43.0
-
-
-Thanks,
-SJ
+johannes
