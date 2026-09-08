@@ -1,107 +1,107 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71DE64B4889;
-	Tue,  8 Sep 2026 22:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D2B579838
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905662; cv=none; b=Ox7HbkpO8/GBA+S1DHJ8HyQLQS5xhHGWnQvywxqddQmd0TudWSVIMJuawnoo31I5rmvzyFM8GC4BV2sd+p31RogJ4FI8BFyGxznCba3TEG5J/bjzddMausM6e4jxEqtOMd9ae4Ai648ZTXUJqW8M+6HcMtzEV48kgsTuXnjyg4g=
+	t=1788905743; cv=none; b=s4MJI/I923jBaZACkyyJh6GErPED5wx73FhI5a3Pp6H+G5ysaEstGDyU+Gfikz/lP2KLcQuJc1bVfL5qDuGtlpMKh+eZoKWllXkBNKStueJf+pe8vtAVSnfjLQaUHqkYdiCrUZQvXy/3kANVpKBAfgANFiyAmHzfILUW0TPGGmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905662; c=relaxed/simple;
-	bh=/Gbbbl5DsNf6Sl6ZIKHJRLMh+EXYfejrdwZQTjky4Ew=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kSruS+PPlk5v91QIiBz417xt2Wl/Rzc94cjYVhk8NzRHCPNWKXB+k3TGHyHxFgQsMrRo/q+Hpe8mYT8H17Y1TADacWAZBd/1aZSzYuCqUq2NKZvRgTFEs5xlSOT81LXeH1AyuIPQ/B1INh9Pb+UtHMuEtrBkxl9mZ3m8fBQtgi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=WKOnYHS4; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788905743; c=relaxed/simple;
+	bh=YdeaSz1ZMpPi3WNhWEKVwleFNUmSr1j6NVx2DNuRh5Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EXoNokC6JFiVF+MEYUSTE3kNFTxPGKXBGTVoD2mv4k4LS8GRpUwmzdyeEN0Ob3dTRetZdP9RNPxIL96SicoVOLEp98rk/7P/xgZ52KVSlXLOvJods1LOZctBV6Bf8txG3wyTFRraJdmr6pTpFvcnFovHUi2I4DnnCqE1pOGUlDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRWL2rnb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="WKOnYHS4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=WL8PR1cF+IzCQiYcl+pyURrUEtax4ylV5QBL0aKIFYs=; b=WKOnYHS4MCh0/HHRCOJHvvOo7Q
-	0e/ppqBYETeu2qyt7V/9LDwfjozo7msFkHSz6dUlFt0AYcgkl4lu4zyHI5am9ihctAIfOxSp0p5zh
-	CWvZv2iZfDJO/EvUAUMgy4DA5u2oJiJ2KCSdxG9JTOr5pzrvtDH0YipbqQT3aRSQTIHEBiY4eLgPR
-	IZfzyoiweKmSzqwUTlqFkB7CatgTlfV0DJc8VAkc9x/MLoKq+PZnA+bP35bB1aSbvXqPCCLIlqVhz
-	ycYU+V4hy8kSHA4eRo6aRm/3lILtmhyxXp/29iyCXQWWAYSoOoAL1N0CmhmBfccf1UUTH6tcQhnew
-	+hrtAiDg==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x444k-0000000E7Aw-0bsi;
-	Tue, 08 Sep 2026 22:13:58 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 5859F300EA2; Wed, 09 Sep 2026 00:13:57 +0200 (CEST)
-Date: Wed, 9 Sep 2026 00:13:57 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: Soheil Hassas Yeganeh <soheil.kdev@gmail.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, X86 ML <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	stable <stable@vger.kernel.org>
-Subject: Re: [PATCH] x86/cfi: Fix FineIBT hash offset in cfi_get_func_hash()
-Message-ID: <20260908221357.GY4120091@noisy.programming.kicks-ass.net>
-References: <20260831-b4-x86-cfi-fineibt-func-hash-v1-1-6ffc0af5c4ec@gmail.com>
- <CADAM+B2jgDiyShSSXYoUG36C7yVpjx2NrhP6tOHeDjB0h+GvTA@mail.gmail.com>
- <CAADnVQLu-XiLxz_k02YK9xCgM8guoszby3O_m00_vdq5X8-w5A@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRWL2rnb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51C11F00A3A;
+	Tue,  8 Sep 2026 22:15:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788905741;
+	bh=biOXQY29VUqFI2tf6h3jT8vQ2QWQDuZsZ84Sh2bREdc=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=jRWL2rnbb4GuMHvrfx/N4vEjpcWQWuHG5LH+yf9uWSRXjcICCOw1I8sY9yA4vS8x1
+	 vk2gdNwhTHe8XRNqvMGuit+o61k2A02gBcIx74HjzWN0pTb7uHIO7eo8diRXmfvw8h
+	 k5j5MYk9a2iwxO1Pw/exX9Qznj/eA8DnlUjmeLyRHtqkgLMPQiH+RHDmEfOmcTCdeV
+	 pJi3XAMHdz3pwUF9O3OWsdHSisoRgIHLOCaEN7icKmUoxYP5Avk5aoLkOWagLPnANJ
+	 VHivxdZhCyZnJim6SqZtuWm2t3vaCQRCP3M6Res3bjoU18CVBYnlkpo5BGsSpzuKiN
+	 ZNukwfz5A7MLA==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Florian Weimer <fweimer@redhat.com>, Olivier Dion <odion@efficios.com>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Peter Zijlstra
+ <peterz@infradead.org>, "Paul E. McKenney" <paulmck@kernel.org>, Boqun
+ Feng <boqun@kernel.org>, LKML <linux-kernel@vger.kernel.org>, Dmitry Vyukov
+ <dvyukov@google.com>, David
+ Matlack <dmatlack@google.com>, Marco Elver <elver@google.com>, Sean
+ Christopherson <seanjc@google.com>, Wei Liu <wei.liu@kernel.org>, Mathias
+ Stearn <mathias@mongodb.com>, Chris Kennelly <ckennelly@google.com>, Blake
+ Oler <blake.oler@mongodb.com>, Rich Felker <dalias@libc.org>, Matthew
+ Wilcox <willy@infradead.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos O'Donell
+ <codonell@redhat.com>
+Subject: Re: [RFC PATCH 1/5] rseq: uapi: add rseq operation definitions
+In-Reply-To: <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
+References: <20260828153349.8061-1-odion@efficios.com>
+ <20260828153349.8061-2-odion@efficios.com>
+ <lhua4q28z30.fsf@oldenburg.str.redhat.com> <874ifzwx3e.fsf@laura>
+ <lhuy0dbd4zd.fsf@oldenburg.str.redhat.com>
+Date: Wed, 09 Sep 2026 00:15:38 +0200
+Message-ID: <87h5jz1jat.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAADnVQLu-XiLxz_k02YK9xCgM8guoszby3O_m00_vdq5X8-w5A@mail.gmail.com>
+Content-Type: text/plain
 
-On Tue, Sep 08, 2026 at 09:37:46AM -0700, Alexei Starovoitov wrote:
-> On Tue, Sep 8, 2026 at 6:22 AM Soheil Hassas Yeganeh
-> <soheil.kdev@gmail.com> wrote:
-> >
-> > On Mon, Aug 31, 2026 at 10:49 AM Soheil Hassas Yeganeh
-> > <soheil.kdev@gmail.com> wrote:
-> > >
-> > > The switch of the FineIBT preamble from "subl $hash, %r10d" to the
-> > > shorter "subl $hash, %eax" moved the hash immediate from offset 7 to
-> > > offset 5 of the preamble. fineibt_preamble_hash was updated to match,
-> > > but the open-coded offset in cfi_get_func_hash() was missed and it
-> > > still reads the hash at offset 7.
-> > >
-> > > cfi_get_func_hash() is used by the BPF JIT to give a struct_ops
-> > > trampoline the CFI hash of the stub function it stands in for. With
-> > > FineIBT the trampoline now gets the upper half of the real hash
-> > > followed by the first two bytes of the next instruction, so the first
-> > > indirect call from the kernel into a struct_ops program,
-> > > tcp_init_congestion_control() calling ->init() of a BPF congestion
-> > > control for example, fails the FineIBT check and the kernel dies with
-> > > a CFI failure.
-> > >
-> > > Move the FineIBT preamble template and its offset defines above
-> > > cfi_get_func_hash() and use fineibt_preamble_hash there, so every
-> > > reader of the preamble shares one definition of its layout. The
-> > > CFI_FINEIBT arm is only built with CONFIG_FINEIBT, the only
-> > > configuration in which cfi_mode can take that value.
-> > > cfi_get_func_arity() does not need the same treatment: the __bhi_args
-> > > call whose displacement it reads still ends at the function address.
-> > >
-> > > Fixes: 85a2d4a890dc ("x86,ibt: Use UDB instead of 0xEA")
-> >
-> > Gentle ping on this one. To recap: since 85a2d4a890dc the FineIBT preamble
-> > stores the hash at +5, but cfi_get_func_hash() still reads it at +7, so BPF
-> > struct_ops trampolines are emitted with a wrong hash and the first indirect call
-> > through them (e.g. a bpf tcp_congestion_ops .cong_control) hits a FineIBT #CP.
-> >
-> > We have large scale panics when we use BPF congestion control.
-> > Happy to respin if a different shape is preferred (e.g. moving the
-> > offset next to
-> > the preamble definition), but this seemed like the best way to fix the issue.
-> 
-> Looks fine to me. I guess it will go via tip tree?
+On Tue, Sep 08 2026 at 19:31, Florian Weimer wrote:
+>>> Would it be possible to use actual CPU instructions running in userspace
+>>> for this?  I assume not because it's not possible to restore the
+>>> register contents.
+>>
+>> Well I had in mind another solution, albeit some might find it ugly but
+>> I think it does have the merit to be explored.
+>>
+>> Basically, instead of doing all the operations in the kernel, we could
+>> setup something akin to a signal handler by pushing a frame on the
+>> userspace stack and resuming the execution of the thread into that
+>> "handler".  Userspace is now responsible of everything, including
+>> returning to the original IP.
+>
+> On mere context switch (not signal delivery), I don't think the kernel
+> assumes that there is a valid stack pointer.  These scheme would change
+> that.  This would be fine for managed code, but this scheme has to work
+> with arbitrary code that reassigns registers temporarily.
 
-Yes, I'll pick it up. Thanks!
+You are right that aside of signal handling there is no assumption, but
+as signal handling can happen at arbitrary times user space should not
+play with SP unless there is an alternative signal stack, which has its
+own nasties as we all know.
+
+If there is truly code which needs to trainwreck SP for a sane reason
+and not just because and has a good reason to utilize such a
+library/functionality, then we can work around that by a mandating a
+separate "fixup" stack per thread to enable this functionality. Then the
+screwed up user space stack pointer becomes completely irrelevant and
+the only interesting register on the kernel entry stack is the return IP
+which got pushed by the hardware. And provide an option to work without
+this indirection of course. :)
+
+There are probably other solutions, but I really want to move this to
+user space and not introduce yet another limited single purpose
+"interpreter" in the kernel, which will be "extended" and duct taped
+forever.
+
+TBH. At some point we have to stop pretending that we can support all
+possible insanities and their arbitrary combination. That just limits
+ourself and puts the burden and the complexity into the wrong places
+just because.
+
+Thanks,
+
+        tglx
+
+
+
+
