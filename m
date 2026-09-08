@@ -1,87 +1,129 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C3D3AC0FA;
-	Tue,  8 Sep 2026 20:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 255953B27C7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:28:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899281; cv=none; b=HJ39ExWM0qkU0KCpUabYnkA2dcuE92DCxN1OAMqfsuZ/MgxLVwy3vTM9cebM1ATEBTNsZW+COTUOwl1Kykat/i93WSQ5p6K3db1VSKT15si8hzZlfkjfkMnD01RTpKUNZVEPYsm49ZGzXB2WPQSP0ZWJtZK3cxRy8r9R95nyUU8=
+	t=1788899283; cv=none; b=YmLaf7A52xXH/PE57sNjv0QbhtYxCLa9ZFTsmcjpAhuSD7AZs7CN5BlJrio/uohW08019MsH+bDazH8fy2mChrgGP1Qi/hJy6jLzkCV4HzpBxVPu2djpu5d4J/FpOf4C8m7EWoAZJkceH8bQ2sb50g9EBMtweSfnlym0gjUTkJE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899281; c=relaxed/simple;
-	bh=6PGUsdWAJ5itb1tBxcAZFkYjuulVrO26ZhmGSsf2HB0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=H25vD3ABIgJVtLybd5HouinF84uyD48IjBHuJbgAOj30IAuuw4KJ27Hf3kiA70XqpkHZyQWK0HICKfOfVgHnTwPXYacsDUfKmiLdl/E+Obi/deMJpye71oH+Zv9ui2PIn7Bd/QWiEOnNvY/cfKPXQupKlLFruopGhwTExSk3mJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=bC/+sGBY; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788899283; c=relaxed/simple;
+	bh=xhjxFBTG7o3V1hF+9/Cr5Z1r4ea26wH+zPzkcZjKFfM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kgOUrnBog/uio7Nb47t8YSxU3gB7B5dQa/ZuO/HNDxqt2WPGT5Xdd6aMVlrLnC4bOmZZlnic6iS9xU9BCbISfqX2EIubizZKeVlcZykSwld42Ei2Fh7OTcynwfnqwF6Ht2YOsm9YaMP7DE8m3HkZZMaGrTeGvsCON34+EQfciSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QYmwsrYi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="bC/+sGBY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=E339hku+nsXigG6xS5eAMnOglg7j43G8fXIZZLMCQvc=;
-	t=1788899280; x=1790108880; b=bC/+sGBYJcC3JnGbZeJFdGMDFD9qB04n05Jd2lVEFsQwvwj
-	RhLMWZB1Ab82MuISeIBpRWKErVV+0yqSu8Qn/+db3yS+8Fx0LI3WTjj0OvVNVUQuCEGp7LoFHBk4R
-	bqjOqYfqL7Lzr83F3kI7+Pc0SHNoVbbY2Na4IzzLf02WcurnbhbDS5LQ1tzZn8Y/Vc1b8zl/QxnhF
-	6kxW8uY9zLjjcRNSEKb8+tKBOxHj+LmTiSdNLJ3inXDtaD3WO/dP5BeHt/13PMgGqiXb1FN25akWN
-	lwVpXlZq9eNJAtWop3fTZuIzymd/kCI1e23ih4ocVMRvYzDmO7jFyAcqh7ncSkLA==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x42Q5-00000006dMP-1QZK;
-	Tue, 08 Sep 2026 22:27:53 +0200
-Message-ID: <0e950f7f0c3f5a2c1f6476e255716b09876624f4.camel@sipsolutions.net>
-Subject: Re: [PATCH RESEND wireless-next 00/18] wifi: Add Seamless Mobility
- Domain (SMD) AP support
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>, "David S . Miller"
-	 <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
-	 <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-wireless@vger.kernel.org
-Date: Tue, 08 Sep 2026 22:27:52 +0200
-In-Reply-To: <20260908132004.29176fec@kernel.org>
-References: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
-		<20260908125017.0fb226c5@kernel.org>
-		<404004c4c97bf776077685b7ec33a14fa777cd70.camel@sipsolutions.net>
-		<80266eb9666d6106110d998cb6330868da55bf59.camel@sipsolutions.net>
-	 <20260908132004.29176fec@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QYmwsrYi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DABBB1F00ACF
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:28:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788899281;
+	bh=S0a7sPcU8wc1jcg6rbzkx4XGuPOW8khUqg/hvozg0pw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QYmwsrYiWXxlcbrz+84a1PDCnJcJUbqh7YYLu57BTYKF/HKQWGAq0tUj+Qoyy2K0x
+	 eus4yechctPc4uEZciQGtASCVjoxnLfqyKLLRiM3l7/KgW2sjrhnAq4bDJsYWBY8lC
+	 Z6jvczHhr/FrruoWiFKtlx1N3CY/tY8C1YHkR0tXR1MK6E/ch1nd/b+VSotajvBlUq
+	 +mG+d6QFGzvcjGe+4UyOH4OHWmHMejXjXp2CYYgsF55FDJ8ciuEGxvWI1Cmb0tgDlv
+	 W837G0c3logmRNYG9HQWcWY9/Detx7pcB8mzSw2VMw/8PxOWK6PG+UldwzYbcrZtAh
+	 3UgX57OUztwzQ==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b5607bd3b5so2790561e87.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:28:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw7yJkg+ZvJEbtEGCIorijiJ/R+PcJOxOZbmsd0ASX0taxwMwP2UjeUpsEVVGVz6O3RvjnouJqfqDqFDTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kz10IoqIXXiOEtiBbAZs3uwcbJQd3FbZOEZajDaYVzZB4IoOrr
+	++rLRr0bl1spiq3e3i1nhFbp5BWTLM9cxSi/HMTheW7OlW1ohc66PP6iOypAx3lAD8Pgv7ql7at
+	SAboAvUe/agkN/rb7Udc6BBP8BERymZg=
+X-Received: by 2002:a05:6512:3b2a:b0:5b6:1870:268a with SMTP id
+ 2adb3069b0e04-5b6187043cbmr5136367e87.59.1788899280190; Tue, 08 Sep 2026
+ 13:28:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+References: <6044499.DvuYhMxLoT@rafael.j.wysocki>
+In-Reply-To: <6044499.DvuYhMxLoT@rafael.j.wysocki>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 8 Sep 2026 22:26:51 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0gsmu51KUNw-Z7UW2-wG8PmRwNLcPrV5q0-L5m6QdutDw@mail.gmail.com>
+X-Gm-Features: AcwNN1US7Xwj1rSV2TcpMsp96DN_vSvbKxp-AM68iLIKkYIho42GE_IS0UgYI98
+Message-ID: <CAJZ5v0gsmu51KUNw-Z7UW2-wG8PmRwNLcPrV5q0-L5m6QdutDw@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ACPI: scan: Adjust power management initialization
+ and PCI devices handling
+To: Linux ACPI <linux-acpi@vger.kernel.org>
+Cc: Linux PM <linux-pm@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>, 
+	Mika Westerberg <mika.westerberg@linux.intel.com>, 
+	Peixin Xie <peixin.xie@linux.spacemit.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Lukas Wunner <lukas@wunner.de>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Linux PCI <linux-pci@vger.kernel.org>, Bjorn Helgaas <helgaas@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-08 at 13:20 -0700, Jakub Kicinski wrote:
-> On Tue, 08 Sep 2026 21:57:52 +0200 Johannes Berg wrote:
-> > On Tue, 2026-09-08 at 21:51 +0200, Johannes Berg wrote:
-> > > On Tue, 2026-09-08 at 12:50 -0700, Jakub Kicinski wrote: =20
-> > > > On Tue,  8 Sep 2026 22:39:28 +0530 Pooventhiran G wrote: =20
-> > > > Why are you sending this To: core networking maintainers.
-> > > > This is wireless code, what do we know.
-> > > > Drop the core maintainers and netdev@ going forward please. =20
-> > >=20
-> > > They have patch 1 but I already told them a long time ago that was
-> > > completely broken, I don't know why this is happening ... =20
->=20
-> Ah, missed the skb extension. Obvious AI slop. Fun times.
+On Thu, Sep 3, 2026 at 7:10=E2=80=AFPM Rafael J. Wysocki <rafael@kernel.org=
+> wrote:
+>
+> Hi All,
+>
+> This is an update of
+>
+> https://lore.kernel.org/linux-acpi/5144065.31r3eYUQgx@rafael.j.wysocki/
+>
+> that adds 1 patch, 3 two patches, and addresses review comments in patch =
+[2/4].
+>
+> The new patch drops in v3 is a cleanup relocating the acpi_bus_init_power=
+()
+> declaration to an internal header file in the core ACPI support code (pat=
+ch
+> [3/4]).
+>
+> One of the patches dropped from the v2 has been folded into patch [2/4]
+> and the other two have become cleanups on top of this series that can be
+> done later.
+>
+> Overall, the series aims at addressing a few issues present in the core A=
+CPI
+> device enumeration code, mostly related to the acpi_bus_attach() function=
+.
+>
+> The first one is that, on some systems, ACPI power management is initiali=
+zed
+> twice for devices that have missing dependencies to start with.  An attem=
+pt
+> to address this issue had been made during the 7.3 merge window, but it h=
+ad
+> to be reverted [1].  The approach used here is roughly the same as in the
+> reverted commit, but it takes PCI devices (which are a special case) into
+> account.
+>
+> In addition to the above, ACPI power management may be initialized premat=
+urely
+> for device objects whose parents are not ready for enumeration.
+>
+> The other issues are that flags are unnecessarily cleared by acpi_bus_att=
+ach()
+> for devices with missing dependencies and PCI devices are handled by
+> acpi_bus_attach() like any other devices which is a mistake.
+>
+> Please see the changelogs of individual patches for details.
+>
+> Thanks!
+>
+>
+> Link: https://lore.kernel.org/linux-acpi/20260820-acpi-power-resource-ref=
+-fix-v2-1-29818173ea13@linux.spacemit.com/ [1]
 
-"Look Mom, I can push a button, I'm an engineer now!"
+This series has received two Tested-by tags and I believe that the
+only Sashiko's comment on it has been addressed:
 
-Do we have rules? I'm currently refusing to read anything that has an AI
-written commit message ... at the very least.
+https://sashiko.dev/#/message/CAJZ5v0i-Q_Gnz%2B2ti3sOHTCZF4dTZT%2BoUoNVSB-T=
+Mfz-SJH4Xw%40mail.gmail.com
 
-While I was on vacation the AI sloperators were arguing with each other
-on the wireless list:
-https://lore.kernel.org/linux-wireless/20260827074442.826644@enxio.de/
+so I'm planning to put it into linux-next this week so it is exposed
+to broader testing relatively soon in the cycle because it is not a
+straightforward change.
 
-Can I ban those email addresses somehow?
+If anyone has concerns or reservations regarding it, please let me know.
 
-johannes
+Thanks!
