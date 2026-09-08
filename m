@@ -1,116 +1,212 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from sg-3-111.ptr.tlmpb.com (sg-3-111.ptr.tlmpb.com [101.45.255.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5A433123D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5693E38E100
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851370; cv=none; b=L7T0UskAt6asEKVYuvaOjnfXCh2JmwBVpOXyQGJ/n0wQ8k761jI6Rv9hQIWmeYf9HtJ68vfD2WShGVVDPp6bIf/axYu7YnyZMauH2Z3YdchwmPyixUOqPnJc+7b7eeYoinlvNgFZAltd0xY6qE+ssBBbVpJg4kSijoT0c1Toxx0=
+	t=1788851413; cv=none; b=UoBKSqwos4XRFWZgIKw7Ujz+/WWtloI+RgmYPLKkk2noTDNgdGG1jGBebHw9tirNtqAF1TX/qN4/u1BtkEyH4vlskLhBRa3f1qHxcdBgQClRd6FyOQYJhUtvum7vNqc8Fw99at8PEwvLeeUdVIneeE1gP+X7HRCISzutvGPqMa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851370; c=relaxed/simple;
-	bh=u+ey/CJS2ARmIQu5wX+w7GU/MrgYt6L2EL87LvMkuBc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lTWv7kYQgGD2ibKWSP4FvAUT6Muj3S7e14sT0G+kVu/68J6N6+HiLipuXJCSc0Nh6gfCSPcea7q0jNp8ovekN4k0ppWeUtvE9kMZpi1QtDSBv2uF9H6W4RqZbQLpeU1Ic3mBLP13C1yB3wGPusNAiOEYeeEPGen9Ek/UGecenD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZYjWVFwi; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788851413; c=relaxed/simple;
+	bh=gMcPkkrsYFrDaf7KtGiUZKZ4igekg8qNltXw9MzJMyk=;
+	h=References:Cc:From:Subject:In-Reply-To:To:Date:Content-Type:
+	 Message-Id:Mime-Version; b=KyFU/sQWg67w1LNAbWHYJWfFJRRKQgLPGDLWRgUzxnLcAMLYa0aqFphDYy6SnTtG70NuqMUoYteHeULsWOiBV/3G5sPe5LYUtw9k7Kc2jPn3lKt+IXivzNjVmHtybAv74YEQKTHMVkLWqbaeGHiX1VrvyS2WKRvNHcEh/YFlMqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=ESgXK0oL; arc=none smtp.client-ip=101.45.255.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZYjWVFwi"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so3377165e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:09:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788851363; x=1789456163; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KaN8ORG6D91TdeVvPbVzs5MI5F+Br3tg7mv89xYjlPA=;
-        b=ZYjWVFwi2Cc6OukpxbZKVvjmFZIpkWLZq8M84L4yQphYUd/wNr/quUFeO4G9nSVOjk
-         xx5X0AL9RPi02lwvFk00TZvav9Ta+Wv+I1Mul2zLxbUc8nXc+o7GjmMrhFFI0vFSCgbr
-         TFsFhkZYnxfgMMppaPt9FPVCOqDSpGXQT7pokxrE87gyPmiPSlS38/Tc3nOh7jpT/jKs
-         sBPdgzEkN2p7ic8wwYZxnwy+8MA6ITLR47a8yZtroJfYTzTAx1fAQ2IDA9LUneimxMat
-         /Ggfc71n1ILLQUhKOBFQG5KwMxFVvk91IOua8FOvJufVY57FcJy0K9NdMQ2dm+9TLsjk
-         naug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788851363; x=1789456163;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KaN8ORG6D91TdeVvPbVzs5MI5F+Br3tg7mv89xYjlPA=;
-        b=diyZqDTKuKa6acErtUaVaAnkNTf63RbxY8asWnbmJmMKj2cIueTfaP0plDVOWMGuMj
-         TGbfEGZEGJl/RMlEWa8wywpDhpPasc+JF+AIGFERmYIZnp7ShZsIOwcls5jpZqsfKswJ
-         /5NRPAQRmeL0TXzBtgfd67so4h3qw237kCXd1HYzDafJzEmoDGXgHCxyC8iMX7xGi6xU
-         8nidEX6CwlbTKoavF500aPXEXCHLceRXtAsV3Poi3vHM8B9ZdMj09qZSpBMFkUzc87Xv
-         TjUpOwTfi4lxYO++yW/3KYERoDIhkDYcIgYxUqk7CEclBNf1jFUKfxh3zDC/A65HUbhX
-         R+bQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwBPv7RDA9Kz+qDu1VJtYsd+jQT4mHyBKxv6hcDmrDmxmTGFrEyAziNwbmeVUY4qBPQvzMMCXnquGvYLGg=@vger.kernel.org
-X-Gm-Message-State: AFuF++niCXDL6tisjzdJRvqbJwfMUif7VLVdeT3+dkN1fztNiC1sgUM3
-	pmfKV3CfYhJtMHXlCWjD07A3DeemSGcQYT4Re5tCgEne98QYWJPeEPtq0y/4rPmLaCw=
-X-Gm-Gg: AYBFou3sh1ugTm4LQsnFUY2vkdoSdgjnZ2fgNxeElJFQ7P+pIure4ONLSCBSofWxxil
-	QbuxnXEkBImtb0NogxmPIHGhu6afM9nk+xcHNI4o8+iD4EVhhHVfWYJ4/PsH/IKbsZRAlymz7mi
-	nTjt35ROLeT/DrwYiOeEIXde6noVjnHti0WWy+gXFkMkK/2AeGfl0MixjLwyAfHTrndxBcXg6rQ
-	CVtZIEypg8RXW6ikjV9KduU8Sn8PRjN3WJononE2LLcA+EJJR917p2cJJcy1occpy/iyeGkBNDg
-	eBwajwEgbJEnW3JrR9UULGJWsMaLOGvMW0hBP/cAhxv/CJJeyS26Iuhfok6GHpTqgXky1LDUhHZ
-	5d/S1ncGB2Y7LXVSNa+R6he8b5M0G955GbEyW71prmC6fJzR8rAdq5kkdVQzbmSHzu50Cuxbcny
-	ghMjql3waxMap/EI4IV6QBlJ8BUkQHYSAaWpktlorpfLnNAT6Kubg=
-X-Received: by 2002:a05:600c:1908:b0:49c:f13e:e4f with SMTP id 5b1f17b1804b1-49d1757b03dmr45007475e9.12.1788851363346;
-        Tue, 08 Sep 2026 00:09:23 -0700 (PDT)
-Received: from pathway ([176.114.240.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm279962065e9.13.2026.09.08.00.09.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 00:09:22 -0700 (PDT)
-Date: Tue, 8 Sep 2026 09:09:21 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Harry Hsu <x90613@gmail.com>
-Cc: jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz,
-	joe.lawrence@redhat.com, shuah@kernel.org, song@kernel.org,
-	live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/livepatch: Test rejection of aliased symbols
- in one object
-Message-ID: <ap-0odfpLVv8k2er@pathway>
-References: <20260830173343.52759-1-x90613@gmail.com>
- <20260905155507.273262-1-x90613@gmail.com>
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="ESgXK0oL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1788851364; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=gMcPkkrsYFrDaf7KtGiUZKZ4igekg8qNltXw9MzJMyk=;
+ b=ESgXK0oLUWANrK/Bcrbi66n7tfJXymtEu4XyoFluXLU4Q1JRGst+BTf1cna9B/OJBvAKQ7
+ gT06CW/P1tH3kDbETPuP4N087LjFjR6nnhE7dVM7KgU+y6rY0XUDhm0lUy1e/rXu3FbRlC
+ xggPP4P9kvNXxaNxd6LDG9XuWNQ3WSK9bDvhed9KQWpkGhdzH99P7cAZWi0AvTJIvWn1pa
+ 4fnUBGi2a2R0++dNyycYleJQhDT/8zTlzlOvRNsoADYezX9QIo0PCzuKrRNTiEL7Gh76Ni
+ Q7j1VhK1sijPCp2SHxTIwj9jFCgDO9cZ02WjS0vtiz4Wwooc4++I+You/OFbyg==
+User-Agent: Mozilla Thunderbird
+References: <20260831091023.66581-1-lizhe.67@bytedance.com> <20260831173220.72ab28190a44a305dacf4d04@linux-foundation.org> <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org>
+Cc: <muchun.song@linux.dev>, <osalvador@suse.de>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>, <aiqi.i7@bytedance.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+Subject: Re: [PATCH] mm/hugetlb: fix overbroad MMU notifiers for unshared PMDs
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+In-Reply-To: <47a6817e-e98e-4a00-8e2c-6a66d15ddb37@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	"Andrew Morton" <akpm@linux-foundation.org>
+Date: Tue, 8 Sep 2026 15:09:04 +0800
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26a9fb4a2+32e61f+vger.kernel.org+lizhe.67@bytedance.com>
+Message-Id: <874e7793-877a-40a5-97ce-11dd5b9ee9ba@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905155507.273262-1-x90613@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-On Sat 2026-09-05 23:55:07, Harry Hsu wrote:
-> klp_init_object_loaded() now rejects an object whose klp_funcs resolve to
-> the same address, because aliased symbols would push two klp_funcs of one
-> livepatch onto a single ops->func_stack and leave the redirection
-> ambiguous.
-> 
-> Add a target module providing test_klp_alias_show() together with its
-> __alias() sibling, and a livepatch naming both of them.  Two test cases
-> cover both callers of klp_init_object_loaded(): the klp_enable_patch()
-> path, where the target module is loaded before the livepatch, and the
-> klp_module_coming() path, where the livepatch is loaded first and the
-> module loader has to refuse the target module.
-> 
-> Suggested-by: Song Liu <song@kernel.org>
-> Signed-off-by: Harry Hsu <x90613@gmail.com>
+On 9/7/26 11:29 PM, David Hildenbrand (Arm) wrote:
+> On 9/1/26 02:32, Andrew Morton wrote:
+>> On Mon, 31 Aug 2026 17:10:23 +0800 "Li Zhe" <lizhe.67@bytedance.com> wro=
+te:
+>>
+>>> Hugetlb currently expands MMU notifier ranges to PUD boundaries wheneve=
+r
+>>> PMD sharing is possible. That is only needed when huge_pmd_unshare()
+>>> actually detaches a shared PMD page table, because clearing the PUD
+>>> invalidates the whole PUD-sized virtual address range.
+>>>
+>>> For hugetlbfs hole punch and MADV_DONTNEED, a shared mapping can pass
+>>> the "PMD sharing is possible" range test in function
+>>> adjust_range_if_pmd_sharing_possible() even when the PMD table covering
+>>> the target 2M page is not shared. KVM then receives a 1G invalidation f=
+or
+>>> a 2M operation and zaps unrelated secondary mappings, so the guest has =
+to
+>>> fault them back in.
+>>>
+>>> Fix this by using the existing cheap "sharing possible" test only as a
+>>> gate, then inspect the candidate PMD tables under the locks held by the
+>>> hugetlb unmap paths. The notifier is expanded only for PUDs whose PMD
+>>> table is actually shared, while the other callers keep the existing
+>>> conservative expansion.
+>> Thanks.
+>>
+>>> On a Redis-in-VM workload that punches cold 2M hugetlb pages, this
+>>> patch improves P99 QPS stability while punching pages, reducing the QPS
+>>> degradation ratio from 7.09% to 1.45%.
+>> So a modest performance improvement?
+> Is that worth the complexity, though?
 
-Looks good to me and seems to work:
 
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Tested-by: Petr Mladek <pmladek@suse.com>
+That is a fair concern.
 
-> This is the selftest I promised in the v2 thread [1].
-> 
-> It applies on top of patch 1/3 of the series [2] and does not touch the
-> rest of it.  Petr, since you are going to post v4 of the whole patchset
-> anyway, please feel free to fold this in as the last patch.  Otherwise I
-> am happy to resend it as a separate follow-up once the series lands --
-> whichever is less work for you.
+I tried to simplify the approach. Instead of computing the exact PUD
+sub-ranges that contain shared PMD tables, this version keeps the
+existing adjust_range_if_pmd_sharing_possible() logic unchanged and only
+adds an actual shared-PMD check as a gate before it.
 
-Yup, I am working on v4 and included this patch.
+So the behavior becomes:
 
-Best Regards,
-Petr
+ =C2=A0 - if no shared PMD table is found, keep the notifier range unchange=
+d;
+ =C2=A0 - if any shared PMD table is found, fall back to the existing
+ =C2=A0 =C2=A0 conservative PUD-sized expansion.
+
+This should still avoid the unnecessary 1G KVM invalidation for the
+common unshared-PMD case, while keeping the range expansion policy
+unchanged when a shared PMD is present.
+
+The resulting diff would look like this:
+
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 816dde7..7a61fc3 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -5355,10 +5357,12 @@ void __hugetlb_zap_begin(struct vm_area_struct *vma=
+,
+ =C2=A0 =C2=A0 =C2=A0if (!vma->vm_file)=C2=A0 =C2=A0 /* hugetlbfs_file_mmap=
+ error */
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;
+
+-=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, start, end);
+ =C2=A0 =C2=A0 =C2=A0hugetlb_vma_lock_write(vma);
+-=C2=A0 =C2=A0 if (vma->vm_file)
++=C2=A0 =C2=A0 if (vma->vm_file) {
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i_mmap_lock_write(vma->vm_file->f_mappin=
+g);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (range_has_shared_pmd(vma, *start, *end))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_poss=
+ible(vma, start, end);
++=C2=A0 =C2=A0 }
+ =C2=A0}
+
+ =C2=A0void __hugetlb_zap_end(struct vm_area_struct *vma,
+@@ -5397,7 +5401,9 @@ void unmap_hugepage_range(struct vm_area_struct=20
+*vma, unsigned long start,
+
+ =C2=A0 =C2=A0 =C2=A0mmu_notifier_range_init(&range, MMU_NOTIFY_CLEAR, 0, v=
+ma->vm_mm,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0start, end);
+-=C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &range.start, &ran=
+ge.end);
++=C2=A0 =C2=A0 if (range_has_shared_pmd(vma, range.start, range.end))
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 adjust_range_if_pmd_sharing_possible(vma, &ran=
+ge.start,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&range.end);
+ =C2=A0 =C2=A0 =C2=A0mmu_notifier_invalidate_range_start(&range);
+ =C2=A0 =C2=A0 =C2=A0tlb_gather_mmu(&tlb, vma->vm_mm);
+
+@@ -6958,6 +6964,52 @@ void adjust_range_if_pmd_sharing_possible(struct=20
+vm_area_struct *vma,
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0*end =3D ALIGN(*end, PUD_SIZE);
+ =C2=A0}
+
++static bool range_has_shared_pmd(struct vm_area_struct *vma,
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned lon=
+g start, unsigned long end)
++{
++=C2=A0 =C2=A0 unsigned long v_start =3D ALIGN(vma->vm_start, PUD_SIZE);
++=C2=A0 =C2=A0 unsigned long v_end =3D ALIGN_DOWN(vma->vm_end, PUD_SIZE);
++=C2=A0 =C2=A0 struct hstate *h =3D hstate_vma(vma);
++=C2=A0 =C2=A0 struct mm_struct *mm =3D vma->vm_mm;
++=C2=A0 =C2=A0 unsigned long address;
++
++=C2=A0 =C2=A0 if (huge_page_size(h) !=3D PMD_SIZE)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
++
++=C2=A0 =C2=A0 /*
++=C2=A0 =C2=A0 =C2=A0* First apply the same cheap test as
++=C2=A0 =C2=A0 =C2=A0* adjust_range_if_pmd_sharing_possible(). Only the PUD=
+-aligned
++=C2=A0 =C2=A0 =C2=A0* intersection can contain shared PMD tables.
++=C2=A0 =C2=A0 =C2=A0*/
++=C2=A0 =C2=A0 if (!(vma->vm_flags & VM_MAYSHARE) || !(v_end > v_start) ||
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 end <=3D v_start || start >=3D v_end)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 return false;
++
++=C2=A0 =C2=A0 start =3D max(ALIGN_DOWN(start, PUD_SIZE), v_start);
++=C2=A0 =C2=A0 end =3D min(ALIGN(end, PUD_SIZE), v_end);
++
++=C2=A0 =C2=A0 hugetlb_vma_assert_locked(vma);
++=C2=A0 =C2=A0 i_mmap_assert_write_locked(vma->vm_file->f_mapping);
++
++=C2=A0 =C2=A0 for (address =3D start; address < end; address +=3D PUD_SIZE=
+) {
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 pte_t *ptep;
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 bool shared;
++
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 ptep =3D hugetlb_walk(vma, address, PMD_SIZE);
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (!ptep)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 continue;
++
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_lock(huge_pte_lockptr(h, mm, ptep));
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 shared =3D ptdesc_pmd_is_shared(virt_to_ptdesc=
+(ptep));
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 spin_unlock(huge_pte_lockptr(h, mm, ptep));
++
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (shared)
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 return true;
++=C2=A0 =C2=A0 }
++
++=C2=A0 =C2=A0 return false;
++}
++
+ =C2=A0/*
+ =C2=A0 * Search for a shareable pmd page for hugetlb. In any case calls=20
+pmd_alloc()
+ =C2=A0 * and returns the corresponding pte. While this is not necessary fo=
+r the
+--=20
+
+
+Does this look like a more reasonable tradeoff?
+
+Thanks,
+Zhe
+
+>
