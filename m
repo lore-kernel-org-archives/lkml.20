@@ -1,203 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9420F3F9A04;
-	Tue,  8 Sep 2026 08:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763754AF9D3;
+	Tue,  8 Sep 2026 08:56:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857799; cv=none; b=S9dwP4P8SKC1S5DLL/YD3KCKYYxbIlzFuHM8t6OODBrnTIZefDkji6jiH1ISgoELr6WTgILFb0zMz2xrX/z6yyfDDMsQ+TnYOtjJ1qje05n4JaG1mwDvy//k44bngmUP/svRPibOJ5jmfC1KGazeXHyP6FHqt10h1JqlT4SKZsc=
+	t=1788857802; cv=none; b=Dy1OuPB5hm6pfkNMCuliZHSu5o6uP+enaMMNwsUADoR8SzBJIMMJ/ViksunBUKRKQDLn1kJM4QYNKlS2Qv3YR8VrXQzblYGWmjR7Tnva02KFQoS7Pp8qkdQul5620m0SQEkVDEIJAVunHgXYBin356uhuHbuS7WzztkzCwA9KiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857799; c=relaxed/simple;
-	bh=fCVqIxDRV9LfquW63mZtbLxHFF3Bgw1t4t+NoPTxuGU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jnwhqND4aAY96/EBe5D0qYujqb7HRIGfWzMOPbLiaK9kxytejGBZqBNDENUJyHvWW7zvynO5/17uS8sPxLwGwUE3eGEq9V9Buo3fCnnOiQRZF3gFw5OoqEEn/BsVeAjtB2rSj8Vw5CW2cPCsQsSLTovbPHDHoxemSX6/qITxEDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQ79rwIb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788857802; c=relaxed/simple;
+	bh=XuR89paReM5i+jnslJrHfRiRnslXz9G5DzQVW+tZL+k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bjvl4/XyqrsI9kWRlcdQUPIlm/1HPhmbnOONYFQRog8RRwtPeAfMgI6fG28a6/pJzAflg/rwVZnoWuXE0Lugyi8m1CaGcs8zf+xRayoK8+WtCfy8xFfP8QHmtkwj6PLHezz6tOoENUZ2rAzNnU460AgV07V7J/yq3SbK8JWMoTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=HKIenxmD; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQ79rwIb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050E91F00A3A;
-	Tue,  8 Sep 2026 08:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788857789;
-	bh=7GtzElf9EKxZso4ToovIvNR7XDQENlazd7Q/RdkJzdo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hQ79rwIbEigj2HF6YhUhvrVFLJQeX0d2CLSQ363xGAnSZG2MkP+aC/cHWxuxjEigT
-	 Q9iKlYIucsWreXv/r0AS/DJao72+AhIM4G4qUqH3eICYNbwVtWIk4f8PxitVXtpKGu
-	 bQDXJT6FWnwWbGoUpuJU2jtftDZrQZUMM9CBy9SMtVmtkPrRmZw9B3tv9063UbazD2
-	 3o8ai0gV0j06rkFLJInDR37/FfUAx5ohLnkb3QqIXt7ISK9IaAd7pRr6sHFGUgBe2v
-	 Chk6IuG/lChHjaK5tYzvDsc0Nv1SDd3plshDkUuSuKk2kX/09RUfnf8/bWmcYikXNP
-	 NWR2zFpjg6ZTg==
-Date: Tue, 8 Sep 2026 09:56:22 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH 6/6] tools/testing/selftests/mm: add
- MAP_PRIVATE-/dev/zero merge tests
-Message-ID: <ap_LyUQNjxyytDue@gremlin>
-References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
- <20260902-map-private-dev-zero-v1-6-a578c730cec7@kernel.org>
- <42c1b1be-d176-45fd-b467-464b5b87e116@kernel.org>
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="HKIenxmD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=XuR89paReM5i+jnslJrHfRiRnslXz9G5DzQVW+tZL+k=;
+	t=1788857797; x=1790067397; b=HKIenxmDNRr2sw91wb7fF8JyRmCjmWgr3vkX2029i64UJX5
+	XrPu6OPfVTYc0ZA05qbMcoFh0rF6dbMT89ZMQ5i7IQpdqdx4qbVbdObM1Az9pVMekrochOqnpxHE3
+	Jvw3W/x+GZDkfWlMnWs5avk76XlkSgExRjk3Dm6dBhtg4C58x0maErAW3bkGEW8EG4nNNwmIP6C1H
+	RJFhmOyDILpAbiqY4tT6B/9Atlw2ybSN5PpMye6xOoV3MXB7LF1dphyTsb4ye1IwnjvaBkP6uvLn9
+	3AzOn4Y1vskgtM14wcTggvSne9TDtBQ7ZyOlXJoMrGxqQJASOYTedhtQtXP7IwSw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x3rcz-00000005ttu-0Bos;
+	Tue, 08 Sep 2026 10:56:29 +0200
+Message-ID: <0fc3903fc2b6e0b2a01a8b473cd5ce1fa3b57f00.camel@sipsolutions.net>
+Subject: Re: [PATCH wireless 1/1] wifi: mac80211: fix mesh fast xmit path
+ deletion UAF
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Zihan Xi <zihanx@nebusec.ai>, linux-wireless@vger.kernel.org
+Cc: Ryder Lee <ryder.lee@mediatek.com>, Felix Fietkau <nbd@nbd.name>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Vega
+ <vega@nebusec.ai>,  Luxing Yin <root@tr0jan.top>
+Date: Tue, 08 Sep 2026 10:56:28 +0200
+In-Reply-To: <94174303640c5e1022b31836770bad75f741afbf.1788845030.git.zihanx@nebusec.ai> (sfid-20260908_082840_904659_5067153E)
+References: <cover.1788845030.git.zihanx@nebusec.ai>
+	 <94174303640c5e1022b31836770bad75f741afbf.1788845030.git.zihanx@nebusec.ai>
+	 (sfid-20260908_082840_904659_5067153E)
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42c1b1be-d176-45fd-b467-464b5b87e116@kernel.org>
+X-malware-bazaar: not-scanned
 
-On Mon, Sep 07, 2026 at 07:08:48PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/2/26 20:00, Lorenzo Stoakes (ARM) wrote:
-> > Assert that MAP_PRIVATE-mapped /dev/zero mappings behave like they are
-> > anonymous.
-> >
-> > We test both unfaulted and faulted/unfaulted merges - each with the regions
-> > having page offset of 0, which would not merge if the mappings were treated
-> > as if they were file-backed.
-> >
-> > With the recent change that makes them behave as pure anonymous mappings,
-> > the merges should succeed as their page offsets are equal to their
-> > anonymous page offsets.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  tools/testing/selftests/mm/merge.c | 104 +++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 104 insertions(+)
-> >
-> > diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
-> > index 52b8727b6628..7c528d470404 100644
-> > --- a/tools/testing/selftests/mm/merge.c
-> > +++ b/tools/testing/selftests/mm/merge.c
-> > @@ -1362,6 +1362,110 @@ TEST_F(merge, anon_and_page_offset_mismatch_memfd)
-> >  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
-> >  }
-> >
-> > +TEST_F(merge, merge_map_private_dev_zero_unfaulted)
-> > +{
-> > +	struct procmap_fd *procmap = &self->procmap;
-> > +	unsigned int page_size = self->page_size;
-> > +	char *carveout = self->carveout;
-> > +	char *ptr, *ptr2;
-> > +	int fd_zero;
-> > +
-> > +	if (access("/dev/zero", F_OK))
-> > +		SKIP(return, "No /dev/zero.");
-> > +	fd_zero = open("/dev/zero", O_RDWR);
-> > +	ASSERT_NE(fd_zero, -1);
-> > +
-> > +	/*
-> > +	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
-> > +	 * each.
-> > +	 *
-> > +	 * With these being made truly anonymous upon mapping, they will
-> > +	 * merge. If they were file-backed VMAs the page offsets would prevent
-> > +	 * merge:
->
-> Nit: "the" merge? You're the native speaker, so I don't know if what you have is
-> just correct :)
+On Tue, 2026-09-08 at 06:28 +0000, Zihan Xi wrote:
+> mesh_fast_tx_cache() stores raw mesh_path pointers in a persistent
+> fast-xmit cache entry. Path deletion flushes currently visible cache
+> entries and then schedules the path for RCU freeing, but a sender that
+> already holds the path in an RCU read-side section can insert a new
+> entry after that flush. Once the lookup RCU section ends, the path is
+> freed while the new cache entry still points at it. A later
+> mesh_fast_tx_get() then dereferences the freed flags, expiry, or
+> next_hop fields.
+>=20
+> Mark the path MESH_PATH_DELETED before flushing the cache, and reject
+> cache insertion if the mesh path or optional MPP path was deleted while
+> the entry was being built. The cache walk lock orders this check with
+> deletion flush, so entries inserted before the flush are removed and
+> later entries are not cached.
+>=20
+> The crash path is ieee80211_mesh_xmit_fast() -> mesh_fast_tx_get().
+> The same cache is also consumed by ieee80211_rx_mesh_fast_forward(),
+> so the deletion tombstone covers both consumers.
 
-You're right ;) native speakers are not immune from messing up grammar, as my
-copy editor will tell you :P
+What? You need to start writing your own commit messages.
 
-Will fix up on respin.
-
->
-> > +	 *
-> > +	 * |-----||------|    |-------------|
-> > +	 * | ptr || ptr2 | -> |     ptr     |
-> > +	 * |-----||------|    |-------------|
-> > +	 */
-> > +	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
-> > +		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> > +	if (ptr == MAP_FAILED) {
-> > +		close(fd_zero);
-> > +		ASSERT_TRUE(false);
-> > +	}
-> > +	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
-> > +		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> > +	if (ptr2 == MAP_FAILED) {
-> > +		close(fd_zero);
->
-> Is the close() really required before the ASSERT?  After all, you're also not
-> munmap'ing, so I wonder to which degree we have to clean up.
->
-> So maybe this could just become a
->
-> 	ASSERT_NE(ptr2, MAP_FAILED);
->
-> Same for ptr above.
->
-> You could likely also do
->
-> ptr = mmap()
-> ptr2 = mmap()
-> close(fd_zero);
->
-> ASSERT_NE(ptr, MAP_FAILED);
-> ASSERT_NE(ptr2, MAP_FAILED);
-
-Yeah that's easiest I think! Will fixup on respin.
-
->
-> > +		ASSERT_TRUE(false);
-> > +	}
-> > +	close(fd_zero);
-> > +
-> > +	/* Assert that they merged. */
-> > +	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-> > +	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
-> > +	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
-> > +}
-> > +
-> > +TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
-> > +{
-> > +	struct procmap_fd *procmap = &self->procmap;
-> > +	unsigned int page_size = self->page_size;
-> > +	char *carveout = self->carveout;
-> > +	char *ptr, *ptr2;
-> > +	int fd_zero;
-> > +
-> > +	if (access("/dev/zero", F_OK))
-> > +		SKIP(return, "No /dev/zero.");
-> > +	fd_zero = open("/dev/zero", O_RDWR);
-> > +	ASSERT_NE(fd_zero, -1);
-> > +
-> > +	/*
-> > +	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
-> > +	 * it in:
-> > +	 *
-> > +	 * |-------------------------------|
-> > +	 * |           faulted             |
-> > +	 * |-------------------------------|
-> > +	 */
-> > +	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
-> > +		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> > +	if (ptr == MAP_FAILED) {
-> > +		close(fd_zero);
-> > +		ASSERT_TRUE(false);
->
-> Same question regarding cleanup requirements. The ASSERT_TRUE(false) looks a bit
-> odd.
-
-Yeah it does. This case is trickier as you then do a memset(), so maybe just
-live with the 'leaked' fd in this case (the tests fail so it aborts the run at
-that point anyway and tears down).
-
-Fixed and will send respin!
-
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+johannes
