@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCF73B42CC;
-	Tue,  8 Sep 2026 18:31:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AED5908BF;
+	Tue,  8 Sep 2026 18:32:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788892293; cv=none; b=AWJt1C11iGW+ChfFoVU8Mfi2Yd4BGuVg8B5HMv2Ncaxo4EJDMzThzV5Z0Y8vbnyfIEyiVxl3+TWtZUxHPCDRU7CWB4o+2FXSNL+c9AzxitU/7GS/JXdGMC2w4fd99WY+eQlmAp4ZqQaAV3GFf3Ae/BzxNCW0lRvSEHRN03lHKKE=
+	t=1788892333; cv=none; b=awxmRyEFV75oXkT05wN8+Cv5N+42LkXBlWirEjMHK1S1rvd5zjn9SH9LVCgfAlNF++Qk0XyQWSAIHaZUaXUDMaQwn13oox5pbEmOyG9EbmQGb+fpqLpbDrDvGv9ZlCSV7YOumRyAhRnyBv4IpZyY/9c2rMK/B70TuZ0zE4Kv/3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788892293; c=relaxed/simple;
-	bh=aVAGn4xIfri3FoQOQii2ogobOJcVUu0pX3OAeXIoRIk=;
+	s=arc-20240116; t=1788892333; c=relaxed/simple;
+	bh=liWYTw1gFaWCOc3lsNTkoVeARu8vtlTsM0Gf7Ryge7o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YuKSt+XQT1GyDiah4L2ykWICv7Qr13rL/iGIhCs3iZUaOP/LWfbBBATSlgWkZyPb2fo+BNSm5iLX1s5OYNEO8a51XN5rpkEfISVyzkntqi/gEmgmyVpAZlTZH4ZX/Ot661NO20oVJQg2qpXrS7878ESc7qx2+3LPkz8UUwZ4hSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RV4ymRzt; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=S1lXELJQyW1mPzkuieZkHfKttjkrI+3y26gknNLxwby0G3e/79z7RWPGnBjvSSSHI81eoTBLNR1flv/oV7p7P6SbImyr+/fX978oQNLm74OmoBgWds0f1ETwf/dHk5iQlrlv0BnV2rZvjpak8dG9leJO3hBA/a9MnTAcDV7gzgg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crBidmcr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RV4ymRzt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E391F00A3A;
-	Tue,  8 Sep 2026 18:31:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crBidmcr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8635D1F00A3A;
+	Tue,  8 Sep 2026 18:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788892292;
-	bh=6cZDfge7+OG+kjdYRJde9UV0lkM6osQI8hAMk9OLaKs=;
+	s=k20260515; t=1788892331;
+	bh=l0CggrwevG1xFJXWU9JWMqvoGtAQryeGoT9XLBo0uuI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RV4ymRzt7Lu5dJwvFDAif4TWvHlfUweRaL6NQi+7IpectWu4m6w+olWMLLdtFyUQo
-	 Aa8ds3802eo320xxDh4NF0WLV5JRin3mtYTfxPScWJ9xgXZWK62Oe/kfYfASEyiAH8
-	 kMNbrCYAgoR3y02G49MfGZgfhkApjecFiKd3VtD4/2Bg8xwdkn2zdJ0WAsOCvQLR6n
-	 ig6xDzA4jcd8tbfviDvLhMnBrYLbI4yIiJ53KF5lXraPp0QVu477EZv4G3nssVyt2y
-	 ledOgk4d+9t0+s/4vieFxGAVHuH/DK3v5LUw0JRN6pETEnbeaWg01jESas7xOLTtqd
-	 Mk7xpb5pAKmMQ==
-Date: Tue, 8 Sep 2026 19:31:27 +0100
+	b=crBidmcrpEcnBr67Ljy1VrLxiB9GDPbc+oVD+aJxu0WBgWe0tftkVIQr09iuviLxT
+	 5AjjKhYWInCjEnlJ6m/iPoeRccV6tD6azBT6MZh3/QGYhU6d/BdYzKxJAOlf89dgP4
+	 xGXh3tY9T1LYnMX5SvS1O0ttI6WhL8y/Ihq7HqM7p90/QwRt8CFNxWJh++liFe8IxR
+	 YVOs16jX3OWQ3emsqekKdjrqSmqFyLMSH2UM219oUtf1ww6Oto+lFY0AMD5ER1rQcd
+	 2JSzAr49CaPe6HlgxWELVMqIkMwF/FmrpCF+GHd965t5kFXyvnuSNj3Lqfq2fmMJqd
+	 FI06m+DSNAYVA==
+Date: Tue, 8 Sep 2026 19:32:07 +0100
 From: Simon Horman <horms@kernel.org>
 To: Aaron Ma <aaron.ma@canonical.com>
 Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
@@ -38,9 +38,11 @@ Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Henry Tieman <henry.w.tieman@intel.com>,
 	"moderated list:INTEL ETHERNET DRIVERS" <intel-wired-lan@lists.osuosl.org>
-Subject: Re: [PATCH v2 1/2] ice: restore DDP state during PFR recovery
-Message-ID: <20260908183127.GD40544@horms.kernel.org>
+Subject: Re: [PATCH v2 2/2] ice: clear Flow Director entries before reset
+ cleanup
+Message-ID: <20260908183207.GE40544@horms.kernel.org>
 References: <20260907115221.926007-1-aaron.ma@canonical.com>
+ <20260907115221.926007-2-aaron.ma@canonical.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,45 +51,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907115221.926007-1-aaron.ma@canonical.com>
+In-Reply-To: <20260907115221.926007-2-aaron.ma@canonical.com>
 
-On Mon, Sep 07, 2026 at 07:52:20PM +0800, Aaron Ma wrote:
-> The firmware package and switch recipes are shared by all PFs of an
-> adapter. However, each PF rebuilds independently after system resume. The
-> resulting package downloads and recipe updates can interleave, causing
-> firmware timeouts and leaving interfaces unusable.
+On Mon, Sep 07, 2026 at 07:52:21PM +0800, Aaron Ma wrote:
+> Flow Director profiles retain handles to generic flow entries. Reset calls
+> ice_clear_hw_tbls() to free those entries, but leaves the Flow Director
+> handles unchanged until replay replaces them.
 > 
-> PFR also clears package-derived firmware state on affected devices. The
-> existing PFR path only rebuilds the driver's block tables, so VLAN recipe
-> programming can fail after the reset.
+> If rebuild fails before replay completes, later driver removal follows a
+> stale handle and dereferences a freed flow entry in ice_flow_rem_entry().
+> KASAN reports a wild access to list poison from
+> ice_fdir_erase_flow_from_hw().
 > 
 > The failure is reported as:
 > 
->   ice 0000:04:00.0: Update pkg failed: err -5
->   ice 0000:04:00.0: package load failed, -12
->   ice 0000:04:00.0: Rebuild failed, unload and reload driver
+>   KASAN: maybe wild-memory-access in range [0xdead000000000108-...]
+>   RIP: ice_flow_rem_entry+0xaf/0x170 [ice]
+>   ice_fdir_erase_flow_from_hw+0x1ee/0x420 [ice]
 > 
-> This was observed on an Intel E810-XXV-2 adapter (PCI ID 8086:159b,
-> revision 02) with NVM package 1.0.0.18 and ICE OS Default DDP package
-> 1.3.43.0.
+> Clear the Flow Director handles while holding hw->fdir_fltr_lock before
+> the hardware tables free their entries. A successful replay installs new
+> handles, while a failed rebuild leaves them invalid for later cleanup.
 > 
-> Serialize rebuilds across PFs of the same adapter, while allowing each PFR
-> to complete independently. Reload the DDP package from its cached copy and
-> restore the default DVM recipes before rebuilding the remaining PF state.
-> Abort recovery if either operation fails.
-> 
-> In addition, stop the service task before tearing down resources in
-> ice_remove() so that an in-flight rebuild completes and cannot dereference
-> pf->adapter after ice_adapter_put().
-> 
-> Fixes: 462acf6aca85 ("ice: Enable DDP package download")
+> Fixes: 148beb612031 ("ice: Initialize Flow Director resources")
 > Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 > Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
 > ---
 > v1 -> v2:
-> - Stop service task early in ice_remove() to prevent use-after-free on
->   pf->adapter if rebuild is in flight.
-
-Thanks for the update.
+> - Acquire hw->fdir_fltr_lock in ice_fdir_clear_flow_handles() to
+>   synchronize with concurrent ethtool filter add/del.
 
 Reviewed-by: Simon Horman <horms@kernel.org>
+
