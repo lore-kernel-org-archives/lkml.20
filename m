@@ -1,66 +1,66 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA15438493
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D82243DA3A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:05:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901508; cv=none; b=VLaZQkTDor62fA8/3lwV7KPhir6Z8RGHlbwde2hXRpjvSNUVyVVmNb8IG5vViIrgvK6gHxG6sWzoX5SMDtUxu98VkAIA4FVJjazVLgWvWA8HNjpSvWwefc+sTOVBWFBM9slsmKL5HnEjRgXY7RJqTU7YzlKq6LMpEmeHEuMyo6o=
+	t=1788901510; cv=none; b=cfodNVB+1h7rbZqu6jZC7+mpr698SUzamZbIYqpFyhlkmvomesNGYbPF/ARZT+MNJkpAWaRKkYxrzVs5gkgIlQuYjPvZcBWZ/vaJPdqMrqnPImbyzaz4d7DhYJBWKC3Gs5PL18rbcpWtzLlH3tdHrRSkwWY6H7DTNUUS1xoLsFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901508; c=relaxed/simple;
-	bh=jOzpIQqlYHA2pVFNKY7kzTiGuzamQCH3EM192/ZKawI=;
+	s=arc-20240116; t=1788901510; c=relaxed/simple;
+	bh=z8nxWyZBGM2mWMHN3Gb3eNdOXLjX6i/8WNe3N3r6Jjo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nyawL37ykCr8sCTxHcjQx16Js5miiXxWE70j2JkQuD5vi8RduR9gX6VcHkruDvc1Eu12082fnm5r9n9AAJQ8OxIyJJ7g/EnnQbsWba2ZHQBX9x2M0KoyNU0vKXRekG7p6c2FmEwzUoCRzUvshpQ4BNNS2ehIKDyR7jeP+HHtagk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=yQmbrVEc; arc=none smtp.client-ip=74.125.224.54
+	 MIME-Version; b=bg6Jv7+2CVMvnrpPyYuqt2zofKbl9ol0VvGJzLNwHqsrFZ9dmuk7o8UZukCQjkjDPqlWT8mhrUo3lHKdjNEErqOTQYDVoJCKk0QpOHTAsnqM+EHZj+2SNGmdXdmab28ALyBoEYWizNlcOaH7ElXp49Vho4yIS3KcRQZatobfYaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=nqzFr5b/; arc=none smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="yQmbrVEc"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-66c70f69d3fso4869815d50.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:05:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="nqzFr5b/"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66fa10f35caso4745378d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788901506; x=1789506306; darn=vger.kernel.org;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788901507; x=1789506307; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p7fqt/xpLD4nMGxuw74g5K5kBibq9QTHLwKBrfOGNM4=;
-        b=yQmbrVEcmdwP6SC5BtG1fnirqIrIjUDL1iXhJQmRv/9HZKyhYn/sBbbOUYuHRXhPDM
-         AekN4DSvj0RyhDedUCVYyNrPZRmF01U7QNhZoaSf0Us18bnRb7IsZEqcGDH9LT7/3Okb
-         pgRSCA+oRvcW9FXzRd1+NIWZINAFDiZpJsNrNIpi7wJvvVv2jLeafEACgNaDYwjNFgrY
-         sFEMNjWyG5IpzKIxCELxnXrfCTMCqkfiA6ETk4su1y9spJiuFxqOqjLKLbzn9m8q668u
-         DegQ7tnFN+fEXAKM0SeX0gJbLGc6Y44ZouKuCEvSuxV073GHkFINdmwIHZpIGOz6TCKi
-         NHNg==
+        bh=06j1qeZXVtj7Nz/ZYPnBZzCHEmkktKQWmdPGkPaUsk8=;
+        b=nqzFr5b/pTtjcRg+Jqu0gCaCp4Wu5A69pa2YxpkdUmc2bTVF/LRUnxEHbTZ63PaptX
+         BZd86Z/LAQiNAqf4pC0ljgxT8Kyo7gDqWFjQF0gX+koipfsHIXXzof4APdNwUQlv9168
+         qHcIinySHa7VtlRcC+m8lUcV/DwxEbKJv7XKNKLuehXgHLvRwqcyJ5c7iShIfTx/Kd8J
+         73/NqlEpEnsvUBw3ou+iX+beAyAwuZRwJi7RaG8xT64fNRwwe4DlFfb/KR6kYNELqzAo
+         lY/uMsITl6UMFRrrh2qs8F3dPepBguKy1SJPYAxooiLS0+96BSp0UUMwexkK+/rMQlbH
+         PUvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788901506; x=1789506306;
+        d=1e100.net; s=20251104; t=1788901507; x=1789506307;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p7fqt/xpLD4nMGxuw74g5K5kBibq9QTHLwKBrfOGNM4=;
-        b=eJ+nkDvdPn69gpH4+giM9BXn5evdr+/VF5kapynpTD3YoB4S5eQeRsvqceeqC8wdDg
-         zZZT0o02rpDN0ddanE1NgxyzfzVNB6G0MzEnbvBvdJIZOkgzDWkYLWSzJ3tCjTtDa5pR
-         Vybe/Y7UyztC9ONduG/JPYj3IAhVdjhuYWZFBc90CvUAIopBW2EcJTmp16LYEvcjNpf0
-         kqeWHw8BvEGgHwzZHx5mLd3I+xpKCwvDgxrQvKWlpavVU3Hw0i2cbeZWywKzfD5T7nZC
-         54Ky3/2zDcABWm2AapjdPu+vZ/j2wF3DnvP1KrkJ5CJ0RDSb6CH9msHMcI6yW4WT3h17
-         tW7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwWhH1KYIjtzsQkJ1Fpa6oheY2dmpK5LEmDj3BEJvZeaN6GqOUnq5ej96avT3qDCb/Wsg9MK+JtuQwsJQ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nh4zaCqgkdRg7NCOm0e1Gyau4CWctCnDb4JBocK7IBUFvAypJp
-	XJ1rDbIa9FALndM81D3tkSd1WY4djNKZWVfnzCEXgVtJ+KeCo4EZzijMFbCTmXG4bFBQw23wsw+
-	tkRndUBIqfg==
-X-Gm-Gg: AYBFou2MpDUAxqa89sLykygD9lLokAPTbyFmzpdEyXnGJ+ThBXqiuCWFYrAYoVk5yDv
-	suPlJmnlc3p39aYRSOUWG9Xr/8j3yXQOoM1QKqJgyhYzAksaMta2mbzlVmJR0hHKJu4wQIJ0k6o
-	FrBXd1ouLnQWtFLg0maqrQcB2wxgUb1qUM0PwyeHPmxy52Y0aDUOEq1GCg8kcOirmlEIywOKGhf
-	UyJNJWzJo3nCa17TaydCQPqMn/wc1A9yuBuhoDRDmTHBnssElEJlZwu2K9kdL63blxKE1/G4G7/
-	oFpNRwOvUKKJkyidxPhT++V+b7mjWfp0l5jSSAe4Kzbr+EkgTTLcnYBtDOG+P2wOuCOlpIMv732
-	nxtIYXuEWTME377ztqoEdmENHMbzhA3em7dnDOskFi/8SsYeSTSqVx9NXZN+w5lWdtEY3Z+2abf
-	eZAQj7oAuAR8Cz7pcdwr+WDG9yEXwhNimf0tvcsjGnMx3XIYue7xXm8tUP+glkXlxUK+D/LGd+2
-	Z9+WpJkfGgG/yubfHp1vvjPN4MM3kfPdIbDJfnhjb7BXjvzzbXvU9yPscYddBivwTMAxsmlWtrz
-	GdAoBBEyF4pW//bB
-X-Received: by 2002:a53:b712:0:b0:66f:9d85:8d6f with SMTP id 956f58d0204a3-66fb59a684cmr7470949d50.19.1788901505438;
-        Tue, 08 Sep 2026 14:05:05 -0700 (PDT)
+        bh=06j1qeZXVtj7Nz/ZYPnBZzCHEmkktKQWmdPGkPaUsk8=;
+        b=JXQOJQRjQwAlVlG+Xx/wLyXGrsKBa9qRmAG5iNLj/gpioGRJNbU16VOJYyFwX9BnOd
+         jBsIiOLEFrkpB1kmLt3EFXeIP4YowSsufSBxPgaQ4yW8TiQPwrdkl0MLaRJuSeVGWdpR
+         1YyYQcQNMvrYYHEy/hm6sZuy1CpPqFF1scQ0DU5n/iRb01wNhz6Lh9jdIGu2inbQWTYg
+         Io+gPUWSykJ2s0ixopauTNZA/Gp/T40Mfwxb8DmFm9qn7TuZGyIZJ9KO/oT38Xihrkxd
+         mdEvvdmFgd9II2kp/V4rk6QTl5RLQN6Tpz40vShT9isrvArZbMoDwaijOULTqi27Vihw
+         H3RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxEwABSso6SQwVmkHxLe2155u8JKF/44Rsqwkz+JSN5NCG9QZH7EiFtm2AQCKdZzq1GrMrKuSXRuwysGPs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k87h/qgVp+66+18F2c3O8Gk1utsMszqi3WN6IczeF2WOJx1QEs
+	0WfbOeUq63z4yl6Nx72YS33Tec3wD/6uuwSUsLgvY/z5QzGwQVyv1Wfboo9gtg6/OWQ5C5Zfu03
+	e2yfgfcKAhw==
+X-Gm-Gg: AYBFou0jdCSfMPMFA+686Yd+oADzxeQl5NvmJFVZaiMNorlUt4F5G3G4s6XPjPm20dV
+	r48kHEgz1T67/+HZqWdXV+mxStnQ3gVYUMr21DYXf2flYHDcVm4eji93DIpW+M1eec5/dF2CLE8
+	8RbvIgzHFPl4fr4+iPm6pW0e0R6Y9LJR3Z7bhsINVjTERLkQ23r9Vx4Ht7OKwFIHs3gRreJpWu/
+	3p59rCtMOC6keVzk0vt6m1ItfI6ZUH/e6aOSZPoIlwN+YOOLYnAdNNPUjb5t4Ar9C7jqu8u8mYw
+	QyZfnKRfUQWV/qwDdlX1YXmQVoCP06GwlQM3NXxg2RZ+Z0CL/ejKSktW78tV4/RrsA12xk6Req2
+	HtOO1xIG1ajHrSWeAwbNk9kfC5wjlxIiG6H7IXQY5w5WGGYZFrXm9QjmHaKGfMb6rGWtOmTWl2p
+	I/E5SCUCMtrd3nsEoGsEn+rYQQ5LhPtLyD4Js2YHj2wG0clECMW7ipVbsYL9suK6zo1JRO7/B4X
+	G1iCar8bx5Ihfj/tTAYUJA6gJkJ2mbWTywnvlkdA4oXoymqSvBPCVmBk4U2oEGZ39ct2C/LBAHF
+	qDOusyy3o2lWXkB8
+X-Received: by 2002:a05:690e:13cf:b0:66f:8731:8d1 with SMTP id 956f58d0204a3-66fb5a646bcmr9702655d50.39.1788901507316;
+        Tue, 08 Sep 2026 14:05:07 -0700 (PDT)
 Received: from pop-os.attlocal.net ([2600:1700:6476:1430:1eca:212:86d0:4e87])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm11078129d50.18.2026.09.08.14.05.03
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm11078129d50.18.2026.09.08.14.05.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:05:04 -0700 (PDT)
+        Tue, 08 Sep 2026 14:05:06 -0700 (PDT)
 From: Viacheslav Dubeyko <slava@dubeyko.com>
 To: glaubitz@physik.fu-berlin.de,
 	frank.li@vivo.com,
@@ -72,9 +72,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	brauner@kernel.org,
 	djwong@kernel.org,
 	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH v3 4/7] hfsplus: add iomap operations for regular file data
-Date: Tue,  8 Sep 2026 14:04:45 -0700
-Message-ID: <20260908210448.296772-5-slava@dubeyko.com>
+Subject: [PATCH v3 5/7] hfsplus: move file related operations to file.c
+Date: Tue,  8 Sep 2026 14:04:46 -0700
+Message-ID: <20260908210448.296772-6-slava@dubeyko.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908210448.296772-1-slava@dubeyko.com>
 References: <20260908210448.296772-1-slava@dubeyko.com>
@@ -86,13 +86,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch adds iomap.h and iomap.c files. The iomap.h contains
-declarations of hfsplus_iomap_ops, hfsplus_write_iomap_ops,
-hfsplus_writeback_ops, and hfsplus_write_dio_ops operations.
-The iomap.c implements __hfsplus_iomap_begin(),
-hfsplus_write_iomap_end(), hfsplus_iomap_cont_expand(),
-hfsplus_writeback_range() methods that become the basis of
-HFS+ iomap operations.
+This patch introduces fs/hfsplus/file.c and moves
+file related operations from fs/hfsplus/inode.c
+into the new file.
 
 Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
 cc: Christoph Hellwig <hch@lst.de>
@@ -100,328 +96,341 @@ cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
 cc: Yangtao Li <frank.li@vivo.com>
 cc: linux-fsdevel@vger.kernel.org
 ---
-v2
-Christoph Hellwig suggested to introduce a generalized version
-of iomap_dio_end_io() that was placed into include/linux/iomap.h.
----
- fs/hfsplus/Kconfig      |   1 +
- fs/hfsplus/Makefile     |   5 +-
- fs/hfsplus/hfsplus_fs.h |  16 ++++
- fs/hfsplus/iomap.c      | 192 ++++++++++++++++++++++++++++++++++++++++
- fs/hfsplus/iomap.h      |  18 ++++
- include/linux/iomap.h   |  20 +++++
- 6 files changed, 250 insertions(+), 2 deletions(-)
- create mode 100644 fs/hfsplus/iomap.c
- create mode 100644 fs/hfsplus/iomap.h
+ fs/hfsplus/Makefile     |   6 +-
+ fs/hfsplus/file.c       | 133 ++++++++++++++++++++++++++++++++++++++++
+ fs/hfsplus/hfsplus_fs.h |   7 ++-
+ fs/hfsplus/inode.c      | 122 ------------------------------------
+ 4 files changed, 141 insertions(+), 127 deletions(-)
+ create mode 100644 fs/hfsplus/file.c
 
-diff --git a/fs/hfsplus/Kconfig b/fs/hfsplus/Kconfig
-index ca8401cb6954..865a1966f395 100644
---- a/fs/hfsplus/Kconfig
-+++ b/fs/hfsplus/Kconfig
-@@ -6,6 +6,7 @@ config HFSPLUS_FS
- 	select NLS
- 	select NLS_UTF8
- 	select LEGACY_DIRECT_IO
-+	select FS_IOMAP
- 	help
- 	  If you say Y here, you will be able to mount extended format
- 	  Macintosh-formatted hard drive partitions with full read-write access.
 diff --git a/fs/hfsplus/Makefile b/fs/hfsplus/Makefile
-index f2a9ae697e81..2416dfdc3190 100644
+index 2416dfdc3190..3ddea69a9c69 100644
 --- a/fs/hfsplus/Makefile
 +++ b/fs/hfsplus/Makefile
-@@ -5,8 +5,9 @@
+@@ -5,9 +5,9 @@
  
  obj-$(CONFIG_HFSPLUS_FS) += hfsplus.o
  
--hfsplus-objs := super.o options.o inode.o ioctl.o extents.o catalog.o dir.o btree.o \
--		bnode.o brec.o bfind.o tables.o unicode.o wrapper.o bitmap.o part_tbl.o \
-+hfsplus-objs := super.o options.o inode.o iomap.o ioctl.o extents.o catalog.o \
-+		dir.o btree.o bnode.o brec.o bfind.o tables.o unicode.o \
-+		wrapper.o bitmap.o part_tbl.o \
+-hfsplus-objs := super.o options.o inode.o iomap.o ioctl.o extents.o catalog.o \
+-		dir.o btree.o bnode.o brec.o bfind.o tables.o unicode.o \
+-		wrapper.o bitmap.o part_tbl.o \
++hfsplus-objs := super.o options.o inode.o file.o iomap.o ioctl.o extents.o \
++		catalog.o dir.o btree.o bnode.o brec.o bfind.o tables.o \
++		unicode.o wrapper.o bitmap.o part_tbl.o \
  		attributes.o xattr.o xattr_user.o xattr_security.o xattr_trusted.o
  
  # KUnit tests
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 67586382269b..0a0df0388e7b 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -175,6 +175,22 @@ static inline struct hfsplus_sb_info *HFSPLUS_SB(struct super_block *sb)
- 	return sb->s_fs_info;
- }
- 
-+/*
-+ * Physical byte offset of allocation block 'dblock' on the volume.
-+ */
-+static inline loff_t hfsplus_ablock_to_phys_bytes(struct super_block *sb,
-+						  u32 dblock)
-+{
-+	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-+	loff_t phys_bytes;
-+
-+	phys_bytes = dblock;
-+	phys_bytes <<= sbi->fs_shift;
-+	phys_bytes += sbi->blockoffset;
-+	phys_bytes <<= sb->s_blocksize_bits;
-+
-+	return phys_bytes;
-+}
- 
- struct hfsplus_inode_info {
- 	atomic_t opencnt;
-diff --git a/fs/hfsplus/iomap.c b/fs/hfsplus/iomap.c
+diff --git a/fs/hfsplus/file.c b/fs/hfsplus/file.c
 new file mode 100644
-index 000000000000..5723e854e58e
+index 000000000000..509046aad0c6
 --- /dev/null
-+++ b/fs/hfsplus/iomap.c
-@@ -0,0 +1,192 @@
++++ b/fs/hfsplus/file.c
+@@ -0,0 +1,133 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * iomap callback functions for the hfsplus filesystem
++ * File operations: open/release/fsync and iomap-based read/write/seek
 + */
 +
-+#include <linux/iomap.h>
-+#include <linux/pagemap.h>
++#include <linux/fs.h>
++#include <linux/uio.h>
++#include <linux/mount.h>
 +
 +#include "hfsplus_fs.h"
 +#include "hfsplus_raw.h"
-+#include "iomap.h"
 +
-+static int __hfsplus_iomap_begin(struct inode *inode, loff_t offset,
-+				 loff_t length, unsigned int flags,
-+				 struct iomap *iomap, bool may_alloc)
++static int hfsplus_file_open(struct inode *inode, struct file *file)
 +{
-+	struct super_block *sb = inode->i_sb;
-+	struct hfsplus_sb_info *sbi = HFSPLUS_SB(sb);
-+	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+	u32 ablock, dblock, max_blocks;
-+	loff_t ablock_offset, ablock_bytes;
-+	loff_t block_start;
-+	bool is_new;
-+	int err;
-+
-+	if (!may_alloc) {
-+		/* Completely beyond EOF. Treat as hole */
-+		if (i_size_read(inode) <= offset) {
-+			iomap->type = IOMAP_HOLE;
-+			iomap->addr = IOMAP_NULL_ADDR;
-+			iomap->offset = offset;
-+			iomap->length = length;
-+			return 0;
-+		}
-+
-+		/* Clamp length if the requested range goes beyond i_size */
-+		if (offset + length > i_size_read(inode)) {
-+			loff_t i_size = i_size_read(inode);
-+			unsigned int blocksize = i_blocksize(inode);
-+
-+			length = round_up(i_size, blocksize) - offset;
-+		}
-+	}
-+
-+	ablock = offset >> sbi->alloc_blksz_shift;
-+
-+	err = hfsplus_map_extent(inode, ablock, may_alloc, &dblock,
-+				 &max_blocks, NULL);
-+	if (err)
-+		return err;
-+
-+	ablock_offset = offset & (sbi->alloc_blksz - 1);
-+	ablock_bytes = (loff_t)max_blocks << sbi->alloc_blksz_shift;
-+
-+	length = min_t(loff_t, length, ablock_bytes - ablock_offset);
-+	block_start = round_down(offset, i_blocksize(inode));
-+	is_new = may_alloc && block_start >= hip->phys_size;
-+	if (may_alloc && !is_new && offset < hip->phys_size)
-+		length = min_t(loff_t, length, hip->phys_size - offset);
-+
-+	iomap->bdev = sb->s_bdev;
-+	iomap->offset = offset;
-+	iomap->length = length;
-+	iomap->addr = hfsplus_ablock_to_phys_bytes(sb, dblock) + ablock_offset;
-+	iomap->type = IOMAP_MAPPED;
-+	iomap->flags = IOMAP_F_MERGED;
-+
-+	if (is_new)
-+		iomap->flags |= IOMAP_F_NEW;
-+
++	if (HFSPLUS_IS_RSRC(inode))
++		inode = HFSPLUS_I(inode)->rsrc_inode;
++	if (!(file->f_flags & O_LARGEFILE) && i_size_read(inode) > MAX_NON_LFS)
++		return -EOVERFLOW;
++	atomic_inc(&HFSPLUS_I(inode)->opencnt);
 +	return 0;
 +}
 +
-+static int hfsplus_iomap_begin(struct inode *inode, loff_t offset,
-+				loff_t length, unsigned int flags,
-+				struct iomap *iomap, struct iomap *srcmap)
++static int hfsplus_file_release(struct inode *inode, struct file *file)
 +{
-+	return __hfsplus_iomap_begin(inode,
-+				     offset, length, flags,
-+				     iomap, false);
++	struct super_block *sb = inode->i_sb;
++
++	if (HFSPLUS_IS_RSRC(inode))
++		inode = HFSPLUS_I(inode)->rsrc_inode;
++	if (atomic_dec_and_test(&HFSPLUS_I(inode)->opencnt)) {
++		inode_lock(inode);
++		hfsplus_file_truncate(inode);
++		if (inode->i_flags & S_DEAD) {
++			hfsplus_delete_cat(inode->i_ino,
++					   HFSPLUS_SB(sb)->hidden_dir, NULL);
++			hfsplus_delete_inode(inode);
++		}
++		inode_unlock(inode);
++	}
++	return 0;
 +}
 +
-+static int hfsplus_write_iomap_begin(struct inode *inode, loff_t offset,
-+				     loff_t length, unsigned int flags,
-+				     struct iomap *iomap, struct iomap *srcmap)
++int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
++		       int datasync)
 +{
-+	return __hfsplus_iomap_begin(inode,
-+				     offset, length, flags,
-+				     iomap, true);
-+}
-+
-+const struct iomap_ops hfsplus_iomap_ops = {
-+	.iomap_begin = hfsplus_iomap_begin,
-+};
-+
-+/*
-+ * hfsplus_write_iomap_end()
-+ *
-+ * Advance the allocated-and-zeroed high-water mark
-+ * (hip->phys_size / hip->fs_blocks) to cover the newly written range.
-+ */
-+static int hfsplus_write_iomap_end(struct inode *inode, loff_t pos,
-+				   loff_t length, ssize_t written,
-+				   unsigned int flags, struct iomap *iomap)
-+{
++	struct inode *inode = file->f_mapping->host;
 +	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
 +	struct super_block *sb = inode->i_sb;
-+	loff_t end;
-+	bool dirtied = false;
++	struct hfsplus_sb_info *sbi = HFSPLUS_SB(inode->i_sb);
++	struct hfsplus_vh *vhdr = sbi->s_vhdr;
++	int error = 0, error2;
 +
-+	if (!written)
-+		return 0;
++	hfs_dbg("inode->i_ino %llu, start %llu, end %llu\n",
++		inode->i_ino, start, end);
 +
-+	end = pos + written;
-+
-+	if (iomap->flags & IOMAP_F_NEW)
-+		end = round_up(end, sb->s_blocksize);
-+
-+	if (hip->phys_size < end) {
-+		inode_add_bytes(inode, end - hip->phys_size);
-+		hip->phys_size = end;
-+		hip->fs_blocks = end >> sb->s_blocksize_bits;
-+		dirtied = true;
-+	}
-+
-+	if (dirtied)
-+		mark_inode_dirty(inode);
-+
-+	return written;
-+}
-+
-+const struct iomap_ops hfsplus_write_iomap_ops = {
-+	.iomap_begin	= hfsplus_write_iomap_begin,
-+	.iomap_end	= hfsplus_write_iomap_end,
-+};
-+
-+/*
-+ * hfsplus_iomap_cont_expand()
-+ *
-+ * Zero-extend the backing store from the current phys_size up to 'size'.
-+ * Used both by hfsplus_setattr() and by hfsplus_file_truncate().
-+ */
-+int hfsplus_iomap_cont_expand(struct inode *inode, loff_t size)
-+{
-+	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
-+	loff_t start = hip->phys_size;
-+
-+	if (size <= start)
-+		return 0;
-+
-+	return iomap_zero_range(inode, start, size - start, NULL,
-+				&hfsplus_write_iomap_ops, NULL, NULL);
-+}
-+
-+/*
-+ * hfsplus_writeback_range() - map folio during writeback
-+ *
-+ * Called for each folio during writeback. If the folio falls outside
-+ * the current iomap, remaps by calling __hfsplus_iomap_begin() again.
-+ */
-+static ssize_t hfsplus_writeback_range(struct iomap_writepage_ctx *wpc,
-+					struct folio *folio, u64 offset,
-+					unsigned int len, u64 end_pos)
-+{
-+	int err;
-+
-+	if (offset < wpc->iomap.offset ||
-+	    offset >= wpc->iomap.offset + wpc->iomap.length) {
-+		err = __hfsplus_iomap_begin(wpc->inode,
-+					    offset, len, 0,
-+					    &wpc->iomap, false);
-+		if (err)
-+			return err;
-+	}
-+
-+	return iomap_add_to_ioend(wpc, folio, offset, end_pos, len);
-+}
-+
-+const struct iomap_writeback_ops hfsplus_writeback_ops = {
-+	.writeback_range	= hfsplus_writeback_range,
-+	.writeback_submit	= iomap_ioend_writeback_submit,
-+};
-+
-+const struct iomap_dio_ops hfsplus_write_dio_ops = {
-+	.end_io		= iomap_dio_end_io,
-+};
-+
-+int hfsplus_iomap_swap_activate(struct swap_info_struct *sis,
-+				 struct file *file, sector_t *span)
-+{
-+	return iomap_swapfile_activate(sis, file, span, &hfsplus_iomap_ops);
-+}
-diff --git a/fs/hfsplus/iomap.h b/fs/hfsplus/iomap.h
-new file mode 100644
-index 000000000000..dac07a9d25f8
---- /dev/null
-+++ b/fs/hfsplus/iomap.h
-@@ -0,0 +1,18 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * iomap callback declarations for the hfsplus filesystem
-+ */
-+
-+#ifndef _LINUX_HFSPLUS_IOMAP_H
-+#define _LINUX_HFSPLUS_IOMAP_H
-+
-+extern const struct iomap_ops hfsplus_iomap_ops;
-+extern const struct iomap_ops hfsplus_write_iomap_ops;
-+extern const struct iomap_writeback_ops hfsplus_writeback_ops;
-+extern const struct iomap_dio_ops hfsplus_write_dio_ops;
-+
-+int hfsplus_iomap_cont_expand(struct inode *inode, loff_t size);
-+int hfsplus_iomap_swap_activate(struct swap_info_struct *sis,
-+				struct file *file, sector_t *span);
-+
-+#endif /* _LINUX_HFSPLUS_IOMAP_H */
-diff --git a/include/linux/iomap.h b/include/linux/iomap.h
-index bc7ae6327dbf..66a6389c9c74 100644
---- a/include/linux/iomap.h
-+++ b/include/linux/iomap.h
-@@ -636,6 +636,26 @@ struct iomap_dio_ops {
- 	struct bio_set *bio_set;
- };
- 
-+/*
-+ * Direct I/O completion handler
-+ */
-+static inline
-+int iomap_dio_end_io(struct kiocb *iocb, ssize_t size,
-+		     int error, unsigned int flags)
-+{
-+	struct inode *inode = file_inode(iocb->ki_filp);
-+
++	error = file_write_and_wait_range(file, start, end);
 +	if (error)
 +		return error;
++	inode_lock(inode);
 +
-+	if (size && i_size_read(inode) < iocb->ki_pos + size) {
-+		i_size_write(inode, iocb->ki_pos + size);
-+		mark_inode_dirty(inode);
++	/*
++	 * Sync inode metadata into the catalog and extent trees.
++	 */
++	sync_inode_metadata(inode, 1);
++
++	/*
++	 * And explicitly write out the btrees.
++	 */
++	if (test_and_clear_bit(HFSPLUS_I_CAT_DIRTY,
++				&HFSPLUS_I(HFSPLUS_CAT_TREE_I(sb))->flags)) {
++		clear_bit(HFSPLUS_I_CAT_DIRTY, &hip->flags);
++		error = filemap_write_and_wait(sbi->cat_tree->inode->i_mapping);
 +	}
 +
-+	return 0;
++	if (test_and_clear_bit(HFSPLUS_I_EXT_DIRTY,
++				&HFSPLUS_I(HFSPLUS_EXT_TREE_I(sb))->flags)) {
++		clear_bit(HFSPLUS_I_EXT_DIRTY, &hip->flags);
++		error2 =
++			filemap_write_and_wait(sbi->ext_tree->inode->i_mapping);
++		if (!error)
++			error = error2;
++	}
++
++	if (sbi->attr_tree) {
++		if (test_and_clear_bit(HFSPLUS_I_ATTR_DIRTY,
++				&HFSPLUS_I(HFSPLUS_ATTR_TREE_I(sb))->flags)) {
++			clear_bit(HFSPLUS_I_ATTR_DIRTY, &hip->flags);
++			error2 =
++				filemap_write_and_wait(
++					    sbi->attr_tree->inode->i_mapping);
++			if (!error)
++				error = error2;
++		}
++	} else {
++		if (test_and_clear_bit(HFSPLUS_I_ATTR_DIRTY, &hip->flags))
++			pr_err("sync non-existent attributes tree\n");
++	}
++
++	if (test_and_clear_bit(HFSPLUS_I_ALLOC_DIRTY,
++				&HFSPLUS_I(sbi->alloc_file)->flags)) {
++		clear_bit(HFSPLUS_I_ALLOC_DIRTY, &hip->flags);
++		error2 = filemap_write_and_wait(sbi->alloc_file->i_mapping);
++		if (!error)
++			error = error2;
++	}
++
++	mutex_lock(&sbi->vh_mutex);
++	hfsplus_prepare_volume_header_for_commit(vhdr);
++	mutex_unlock(&sbi->vh_mutex);
++
++	error2 = hfsplus_commit_superblock(inode->i_sb);
++	if (!error)
++		error = error2;
++
++	if (!test_bit(HFSPLUS_SB_NOBARRIER, &sbi->flags))
++		blkdev_issue_flush(inode->i_sb->s_bdev);
++
++	inode_unlock(inode);
++
++	return error;
 +}
 +
- /*
-  * Wait for the I/O to complete in iomap_dio_rw even if the kiocb is not
-  * synchronous.
++const struct file_operations hfsplus_file_operations = {
++	.llseek		= generic_file_llseek,
++	.read_iter	= generic_file_read_iter,
++	.write_iter	= generic_file_write_iter,
++	.mmap_prepare	= generic_file_mmap_prepare,
++	.splice_read	= filemap_splice_read,
++	.splice_write	= iter_file_splice_write,
++	.fsync		= hfsplus_file_fsync,
++	.open		= hfsplus_file_open,
++	.release	= hfsplus_file_release,
++	.unlocked_ioctl = hfsplus_ioctl,
++};
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 0a0df0388e7b..190c7de704fd 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -446,6 +446,11 @@ int hfsplus_rename_cat(u32 cnid, struct inode *src_dir, const struct qstr *src_n
+ extern const struct inode_operations hfsplus_dir_inode_operations;
+ extern const struct file_operations hfsplus_dir_operations;
+ 
++/* file.c */
++extern const struct file_operations hfsplus_file_operations;
++int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
++		       int datasync);
++
+ /* extents.c */
+ int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
+ 			const hfsplus_btree_key *k2);
+@@ -480,8 +485,6 @@ int hfsplus_cat_write_inode(struct inode *inode);
+ int hfsplus_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 		    struct kstat *stat, u32 request_mask,
+ 		    unsigned int query_flags);
+-int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
+-		       int datasync);
+ int hfsplus_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
+ int hfsplus_fileattr_set(struct mnt_idmap *idmap,
+ 			 struct dentry *dentry, struct file_kattr *fa);
+diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
+index 2ce6de574fa6..9d25e6224ee5 100644
+--- a/fs/hfsplus/inode.c
++++ b/fs/hfsplus/inode.c
+@@ -276,35 +276,6 @@ static int hfsplus_get_perms(struct inode *inode,
+ 	return -EIO;
+ }
+ 
+-static int hfsplus_file_open(struct inode *inode, struct file *file)
+-{
+-	if (HFSPLUS_IS_RSRC(inode))
+-		inode = HFSPLUS_I(inode)->rsrc_inode;
+-	if (!(file->f_flags & O_LARGEFILE) && i_size_read(inode) > MAX_NON_LFS)
+-		return -EOVERFLOW;
+-	atomic_inc(&HFSPLUS_I(inode)->opencnt);
+-	return 0;
+-}
+-
+-static int hfsplus_file_release(struct inode *inode, struct file *file)
+-{
+-	struct super_block *sb = inode->i_sb;
+-
+-	if (HFSPLUS_IS_RSRC(inode))
+-		inode = HFSPLUS_I(inode)->rsrc_inode;
+-	if (atomic_dec_and_test(&HFSPLUS_I(inode)->opencnt)) {
+-		inode_lock(inode);
+-		hfsplus_file_truncate(inode);
+-		if (inode->i_flags & S_DEAD) {
+-			hfsplus_delete_cat(inode->i_ino,
+-					   HFSPLUS_SB(sb)->hidden_dir, NULL);
+-			hfsplus_delete_inode(inode);
+-		}
+-		inode_unlock(inode);
+-	}
+-	return 0;
+-}
+-
+ static int hfsplus_setattr(struct mnt_idmap *idmap,
+ 			   struct dentry *dentry, struct iattr *attr)
+ {
+@@ -361,86 +332,6 @@ int hfsplus_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 	return 0;
+ }
+ 
+-int hfsplus_file_fsync(struct file *file, loff_t start, loff_t end,
+-		       int datasync)
+-{
+-	struct inode *inode = file->f_mapping->host;
+-	struct hfsplus_inode_info *hip = HFSPLUS_I(inode);
+-	struct super_block *sb = inode->i_sb;
+-	struct hfsplus_sb_info *sbi = HFSPLUS_SB(inode->i_sb);
+-	struct hfsplus_vh *vhdr = sbi->s_vhdr;
+-	int error = 0, error2;
+-
+-	hfs_dbg("inode->i_ino %llu, start %llu, end %llu\n",
+-		inode->i_ino, start, end);
+-
+-	error = file_write_and_wait_range(file, start, end);
+-	if (error)
+-		return error;
+-	inode_lock(inode);
+-
+-	/*
+-	 * Sync inode metadata into the catalog and extent trees.
+-	 */
+-	sync_inode_metadata(inode, 1);
+-
+-	/*
+-	 * And explicitly write out the btrees.
+-	 */
+-	if (test_and_clear_bit(HFSPLUS_I_CAT_DIRTY,
+-				&HFSPLUS_I(HFSPLUS_CAT_TREE_I(sb))->flags)) {
+-		clear_bit(HFSPLUS_I_CAT_DIRTY, &hip->flags);
+-		error = filemap_write_and_wait(sbi->cat_tree->inode->i_mapping);
+-	}
+-
+-	if (test_and_clear_bit(HFSPLUS_I_EXT_DIRTY,
+-				&HFSPLUS_I(HFSPLUS_EXT_TREE_I(sb))->flags)) {
+-		clear_bit(HFSPLUS_I_EXT_DIRTY, &hip->flags);
+-		error2 =
+-			filemap_write_and_wait(sbi->ext_tree->inode->i_mapping);
+-		if (!error)
+-			error = error2;
+-	}
+-
+-	if (sbi->attr_tree) {
+-		if (test_and_clear_bit(HFSPLUS_I_ATTR_DIRTY,
+-				&HFSPLUS_I(HFSPLUS_ATTR_TREE_I(sb))->flags)) {
+-			clear_bit(HFSPLUS_I_ATTR_DIRTY, &hip->flags);
+-			error2 =
+-				filemap_write_and_wait(
+-					    sbi->attr_tree->inode->i_mapping);
+-			if (!error)
+-				error = error2;
+-		}
+-	} else {
+-		if (test_and_clear_bit(HFSPLUS_I_ATTR_DIRTY, &hip->flags))
+-			pr_err("sync non-existent attributes tree\n");
+-	}
+-
+-	if (test_and_clear_bit(HFSPLUS_I_ALLOC_DIRTY,
+-				&HFSPLUS_I(sbi->alloc_file)->flags)) {
+-		clear_bit(HFSPLUS_I_ALLOC_DIRTY, &hip->flags);
+-		error2 = filemap_write_and_wait(sbi->alloc_file->i_mapping);
+-		if (!error)
+-			error = error2;
+-	}
+-
+-	mutex_lock(&sbi->vh_mutex);
+-	hfsplus_prepare_volume_header_for_commit(vhdr);
+-	mutex_unlock(&sbi->vh_mutex);
+-
+-	error2 = hfsplus_commit_superblock(inode->i_sb);
+-	if (!error)
+-		error = error2;
+-
+-	if (!test_bit(HFSPLUS_SB_NOBARRIER, &sbi->flags))
+-		blkdev_issue_flush(inode->i_sb->s_bdev);
+-
+-	inode_unlock(inode);
+-
+-	return error;
+-}
+-
+ static const struct inode_operations hfsplus_file_inode_operations = {
+ 	.setattr	= hfsplus_setattr,
+ 	.getattr	= hfsplus_getattr,
+@@ -462,19 +353,6 @@ static const struct inode_operations hfsplus_special_inode_operations = {
+ 	.listxattr	= hfsplus_listxattr,
+ };
+ 
+-static const struct file_operations hfsplus_file_operations = {
+-	.llseek		= generic_file_llseek,
+-	.read_iter	= generic_file_read_iter,
+-	.write_iter	= generic_file_write_iter,
+-	.mmap_prepare	= generic_file_mmap_prepare,
+-	.splice_read	= filemap_splice_read,
+-	.splice_write	= iter_file_splice_write,
+-	.fsync		= hfsplus_file_fsync,
+-	.open		= hfsplus_file_open,
+-	.release	= hfsplus_file_release,
+-	.unlocked_ioctl = hfsplus_ioctl,
+-};
+-
+ struct inode *hfsplus_new_inode(struct super_block *sb, struct inode *dir,
+ 				umode_t mode)
+ {
 -- 
 2.43.0
 
