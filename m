@@ -1,33 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAC44252BE;
-	Tue,  8 Sep 2026 08:44:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21F684963B7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857075; cv=none; b=dddRxxQigxighwp3zE7OBPnPzgA9EdG1vtZYPTMI5jKYT9xY9K0NU4JGsfyRFbC8IdlfoMgv/l8A1rh4rkWWgBTr1setFvVqQ/zdbYEUAOlCDeBgeMq4KvBxADTyLA3brR8iSnn0IBu1wrszMdV4MO2mT9zk36fV6PGMZDlUKr0=
+	t=1788857109; cv=none; b=YGCTTPYazFC3G0zJJBB1rC5oFLNIe5uLM0oJKgNTmAHovKPOBd3SeXGk3+jQ27fq92BNkkKOHPvu5/LORDxvuBqQRu+TSrsgD/0emF/5a5fhwHGHPMUeVk2tZfGglMHG4kco3SWoyglj0PdEOmEItqDi9NB5VRU4SjBnBQgQGJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857075; c=relaxed/simple;
-	bh=o58QQfCt15xua89x5+DAJ0WRmo3Kq+qoqV1p7Y4Z48Y=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=u6qLIj1HIwZxz0r9QAAj07QYaxoN3boXjrIxMbPzrb2zGfWsd1VoHawTYomsOpAPLu3zFqVtBE27IN9yHNdRmDwFADsK9hVHXTLiPiIDTCQMlPYJ2letilMqE5TlgllOfzihzLy7om4+xsEdvQMu5g5CkVMlTOpdH3XK2RPTSBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCKE2Au1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788857109; c=relaxed/simple;
+	bh=rqQzBkXLE1s3C9fDauqcJQsG/1ffI62DmHui3HpO/0Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tePONtW0cbaHEQ2zzbu14+7OFxeNjieTyalTmyxqc/V8oXgjoBbV3hILlzuW+TiozYswcP18RIXhZeFNplkSvwVk/2jz37g5+mjBxGeoKH4scZiNh1wvjuS72iFApmmQBFePR2wikk5dmI6nWc1xCgpGm/GFD0Ye9SlXV2d2KAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kqLGz+Tw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IYaBKazs; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCKE2Au1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C08911F00A3A;
-	Tue,  8 Sep 2026 08:44:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788857074;
-	bh=ly6hjq+K8GO9D2rbZkUxDZHflLJVp+jlAAYIptHGrTY=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=MCKE2Au1QNx5s65ip6z/5kKMuTNqIWXEebYGDOHEG0+9Z0zzr22p1k0ULM2n2wLHr
-	 2WfiwkB2wa4jWvepmB+OE+WMLM9z3Wigg1cqw5mvFcor2n96jn4X3y8QtSGeQf4zJA
-	 qZE616WL+5BZypY8H64HvFJNYpWX348l68gy2X/qxjgK6yWcMdgeJAOi24xvVqSS1S
-	 IbeNGffQoH+4JKF402UgzDmn50lshmH55/07f/CCJuh7H+J4Ou0fvQDmtT1etkLPuR
-	 8IpEp32kwtR462/HvemmI5mcnUMbi/s0G9NonDdBUAGJHZ8VHFqccWVs3txCchLgun
-	 IPi1xmNTJrfCw==
-Message-ID: <979164e2-2c1d-4c6a-9af5-7c25f556ed93@kernel.org>
-Date: Tue, 8 Sep 2026 10:44:31 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kqLGz+Tw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IYaBKazs"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886Lj4a950294
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 08:45:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=; b=kqLGz+TwQMzOjLKa
+	ulg1wd0+6WRqw9I2yLN8Cx/GeMqcY/unL0U6eYe2ge1X6HySWplgTgqYlJen88Cj
+	5Qpyf1T/b05cs+mFFPAJleKMR7/U5DJ3j4onKe1y6Xq5FNgcpUljlSUY8m+afler
+	MUu3mqv7IbG9nD8mC3OtFBOs7LAGkXStthIwcqMpGr1WIq4+LSv/onKlo4HAyqlV
+	nw6LLt1FLilemW3Jaggw5+lvdqaMEMFCcymOtXbBUMvJF8FBaHEOwGfKHBBlbDaU
+	+DCZJ6LVztiGZtho6HCkVvLnFESIMwik/5+ZFcGcQ2gCyBuugY3z7hVV6bds3MEL
+	wCmL2Q==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcrp8n0c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:45:07 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc0097865so114798491cf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:45:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788857106; x=1789461906; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=;
+        b=IYaBKazsibwSYAdAvUmKzD1Sfsh581Ws7v7L49K7cpX5Tq4qdVYBCO5c7VVrU5JiE0
+         UWJ8x7hq/2oiL0jI89hfs+jqt9o0zpYGU4lPuc5oG4SoVzrpxXkjmsJO9AHjVpltJ0ZZ
+         AWHoPEiLsX8ykOIcO4FDCRBQdsOM1dKIRWH3E1PLGdiam0oatpWWuBKcFLLiS4yeOBzO
+         9i+ESEinhdnLgFlPr2jneydGvsyiSCIUGsOhxy58ZyJHTx9lBg7VFASa4KEqD9d0QNyF
+         aOK402pZmzoYa5JDlyj+RxlxpKRgKofOAkl6Qdjx6Kl5YZSfhB/wflP5e68VM3gqvLlI
+         IRkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788857106; x=1789461906;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ub4569bRPlpOHYa78WABwl6Ou9bAMihTjUsTBS73P6w=;
+        b=LMkFI2XRz2+62GlFqWJm7tjamnvJrz03uoADXeFTYqv5+XsroLVgMWImBcrkoWFfLn
+         QDLwHJO+YWfW9nRwux2B0AmTjFd5Wa/o5hTEZFOKtSiIvqlWGY/qJenb8GqaIQ14jsFR
+         wByfqoC2AWn44fD6JRlMnq2DPHcrRDC6tPGKezwkyxSH59c9k7I6GRvcXBr3YKoHMGf2
+         jcUxTOM0F4lMADtOWOH7IFdMT3SEkZrrHIkGZnHRZEnCAadBg3Ag+22pF1IPkjR7+B7z
+         LcYEf40N7pixKRFI2c0tZBn5V+U+a/RaAKJXsdzC+yDcmv1wj2gSUvTyt8IEEW5+vHfN
+         /2kw==
+X-Forwarded-Encrypted: i=1; AKwUvBybm4JbPX38eNH65r6andkz0a0yyy3fXz6UrVfA0YgmizlHHLdkQxqYeeqgVuNblBIxOk+yzAWGsJsC2r4=@vger.kernel.org
+X-Gm-Message-State: AFuF++l6PMf0g9G0P9t7xlMdt4o7bdNHKAgXQBVt9bveCpC2SrrRuqWD
+	juZrz2JaUzt8Ww6Ibyvo2Vsb9A2OOPHFLPy4dFskmK8bVYwaWe4mJS9ft3saXNxencrS6FA1sxw
+	mqP2vv+PDuv0VMamAU1AOj+1XQn4p4pcBUpDs82dkWmuNHaIYb0CrUPdu+0rzoz0LN2c=
+X-Gm-Gg: AYBFou3lF1b1mE8p3LaKxfaDmCiTxErGEfMblk9pQ6T04arcxAC/13y4uWa5e9G41/M
+	Zy5qv5Nl+qL0Un8/achgiIbxPCqoXHodImT2z/Nitj6TzIufJ6LBGoADSmVcSU2uC+foYf6h3ck
+	6Jv7mRj2sEISaKEzVFtw6xw0FM+32m0xdvSW08kfnHQ+LuUYfRKLeQ99KEfgeHx7Zu65rwD/7lM
+	RX1WLdY7cZ1n9ewiPxMFqBy1DYBmJz0ORoX2+EA4Qm08Pdfb6y+PTAV2tQexIKvXOv0OZWFry9/
+	SeKTjkr+3BUoap8kuUb8m9Evl5WNb679xuwlpsmLVrBl61u8C9qLKHuvyiTqAqOv2pS5pEm+oRP
+	JvM8F/hn44OFgbdyw+S8l2BkKgQjm+sc9ab2lS6TBhL99G34uRhWPpBU15Rf13yQ=
+X-Received: by 2002:a05:622a:1f0d:b0:51c:1a46:9148 with SMTP id d75a77b69052e-530549ce605mr345337461cf.34.1788857106018;
+        Tue, 08 Sep 2026 01:45:06 -0700 (PDT)
+X-Received: by 2002:a05:622a:1f0d:b0:51c:1a46:9148 with SMTP id d75a77b69052e-530549ce605mr345336831cf.34.1788857105476;
+        Tue, 08 Sep 2026 01:45:05 -0700 (PDT)
+Received: from [10.38.244.120] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305413ce9dsm107174381cf.11.2026.09.08.01.44.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 01:45:04 -0700 (PDT)
+Message-ID: <82b7c6f2-a45a-44b5-919e-ea448a3387f6@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 16:44:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,238 +88,109 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: Wrongly bound Elantech touchpad on Lenovo Yoga Slim 7
-From: Jiri Slaby <jirislaby@kernel.org>
-To: Benjamin Tissoires <benjamin.tissoires@redhat.com>,
- Takashi Iwai <tiwai@suse.de>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Hans de Goede <hansg@kernel.org>
-Cc: "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
- lkml <linux-kernel@vger.kernel.org>
-References: <s5hleyqwowl.wl-tiwai@suse.de>
- <CAO-hwJK-7migm7VWkwvTPHwxgTZEbNX0XYpk0A1pr6N2jkYrxw@mail.gmail.com>
- <0af0150d-c66e-3f46-f9a5-bb2886045e03@redhat.com>
- <b5ba00c3-4842-4f39-a33f-93e4fe0794f7@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <b5ba00c3-4842-4f39-a33f-93e4fe0794f7@kernel.org>
+Subject: Re: [PATCH v6 03/13] arm64: dts: qcom: x1e80100: Add CAMCC block
+ definition
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-3-067f2ecc4630@linaro.org>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-3-067f2ecc4630@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=UfRhjqSN c=1 sm=1 tr=0 ts=6a9fcb13 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=72T5t8mROkFztkF13RwA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 4kiOOWZiKFDIjVsVVZ55uA36TixEr6GL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5MSBTYWx0ZWRfX7U0UjanDn/57
+ k9ul5OAsghvenkM+jyrji6NXLgB68c9q482rxH6DEvWKNMsp/MoJAT7D0PM6wufbU0AngEfCNI1
+ 9oHksAzn5/GU+W/2t049glsue9DnNi4u5tgdzhB9EmN64TE0rDg1AyMREk+lbiKIJbqRA31R6x9
+ EGnVidX11rj1bxFvi+gqjUPNwaWE38xDelrlojSXrYHRn3UP2JLEYq2+TbK2o8MzdnFhO7Ell5w
+ K81vrw2OG8H7Vw8kuantlGYY5GT6oDqAeUPxPnvoybPYTa+PFHw8J97Tw+HBVf33UmEYkbeC+zh
+ Tnafnrmn2V4eCR13H3RY/7bjVjrQfe7C7zYYUJPGLPq/XxYoKwxD8bRv77k6pO8VfJhhT2ZNzK+
+ DHhu+vjcCtjnrQb37xXwW6sDKhlXnA1Btmuy0+0MCT/VOoSC7tnezJU79GL5UPvChqshSlp4Q7t
+ WYFwfjG49oTJtkc7Leg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5MSBTYWx0ZWRfXw0ku2PtdcnN4
+ eL/vXIROwsMonf5bGn3gK98WkN8CXFpQbTWbKNJiZHAGFEr8Cg8LHgvEAaO7S2Q9lR1nzFMTIv/
+ vsvvr0JaIFFHvBBwRmMrNmtmbf5a/7w=
+X-Proofpoint-GUID: 4kiOOWZiKFDIjVsVVZ55uA36TixEr6GL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080091
 
-Use hansg@kernel.org, not @redhat.com
 
-On 08. 09. 26, 10:27, Jiri Slaby wrote:
-> Hi,
+
+On 9/6/2026 10:20 PM, Bryan O'Donoghue wrote:
+> Add the CAMCC block for x1e80100. The x1e80100 CAMCC block is an iteration
+> of previous CAMCC blocks with the exception of having two required
+> power-domains not just one.
 > 
-> I am resuming an ooold thread...
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   arch/arm64/boot/dts/qcom/hamoa.dtsi | 17 +++++++++++++++++
+>   1 file changed, 17 insertions(+)
 > 
-> On 05. 02. 22, 12:12, Hans de Goede wrote:
->> Hi,
->>
->> On 2/4/22 18:39, Benjamin Tissoires wrote:
->>> Hi,
->>>
->>> [adding Dmitry, the maintainer of the input tree and Hans, a 
->>> colleague of mine]
->>>
->>> On Fri, Feb 4, 2022 at 5:57 PM Takashi Iwai <tiwai@suse.de> wrote:
->>>>
->>>> Hi,
->>>>
->>>> we've got a bug report on openSUSE Bugzilla about the broken touchpad
->>>> on Lenovo Yoga Slim 7:
->>>>    https://bugzilla.opensuse.org/show_bug.cgi?id=1193064
->>>>
->>>> The touchpad is an Elantech one, connected over i2c, and there are two
->>>> drivers supporting it.  Unfortunately, the default one the system
->>>> binds, elan-i2c input driver, doesn't seem working properly, while
->>>> i2c-hid driver works.
->>>
->>> Hans, we do have a similar bug on RHEL at
->>> https://bugzilla.redhat.com/show_bug.cgi?id=2029078 (sorry, private
->>> bug).
->>>
->>> IIRC you worked on the discrimination between i2c-hid and elan_i2c (I
->>> might be completely wrong though).
->>
->> Yes I did work on that, but then the other way around making sure
->> that the i2c-hid driver would not bind to some devices which need
->> the elan_i2c touch*pad* driver.
->>
->> And indeed as Dmitry points out:
->>
->>> I believe we need to do what Hans did for Elan Touch*screen* driver and
->>> avoid binding to the device if it has i2c-hid-specific _DMS in ACPI.
->>> I.e. we need to replicate elants_acpi_is_hid_device().
->>>
->>> Even better would be to factor it out, maybe not into a shared module
->>> but simply shared header with static inline function that we could share
->>> between elan drivers and maybe others as well.
->>
->> I did fix a similar problem for the touchscreen driver last year or so.
->>
->> I agree with Dmitry that we should try to avoid DMI matching here;
->> and I also agree that having some header with a static inline
->> acpi_is_hid_device() device helper would be good.
->>
->> I'm a bit worried about the acpi_is_hid_device() approach though,
->> there is a lot of copy and pasting going on when vendors create
->> ACPI tables and sometimes a "PNP0C50" CID is present combined
->> with a valid i2c-hid _DSM method even though the device is not
->> an i2c-hid device, also see the i2c_hid_acpi_blacklist[] in
->> drivers/hid/i2c-hid/i2c-hid-acpi.c .
->>
->> It seems to me that the problem is that the Lenovo Yoga Slim 7
->> is using what seems to be a very generic "ELAN0000" ACPI hardware
->> id instead of one of the many more specific ones.
->>
->> So we could limit the acpi_is_hid_device() check to just the
->> "ELAN0000" ACPI hardware id I guess?
->>
->> So I see the following 2 options:
->>
->> 1. Add an unconditional acpi_is_hid_device() check to elan_probe()
->>     and watch out for any bug-reports that this is causing breakage
->>     elsehwere
->> 2. Add an acpi_is_hid_device() check to elan_probe() for ACPI enumerated
->>     touchpads with a hardware-id of ELAN0000 only; and still
->>     watch out for any bug-reports that this is causing breakage
->>     elsehwere just to be sure
-> 
-> I assume noone ever tried to implement this, right? Or was some 
-> alternative approach merged in the meantime?
-> 
-> openSUSE still drags the Takashi's downstream patch with a DMI check. It 
-> would be nice to sort this out upstream and drop that private one ;).
-> 
-> Thanks.
-> 
->>>> I'm not sure what's the best fix for this, but below a quick
->>>> workaround using a deny list with DMI matching.
->>>> If this is OK, I can resubmit the patch for merging.
->>>>
->>>> Any comments appreciated.
->>>>
->>>>
->>>> thanks,
->>>>
->>>> Takashi
->>>>
->>>> -- 8< --
->>>> From: Takashi Iwai <tiwai@suse.de>
->>>> Subject: [PATCH] Input: elan_i2c: Add deny list for Lenovo Yoga Slim 7
->>>>
->>>> The touchpad on Lenovo Yoga Slim 7 doesn't work well with elan-i2c but
->>>> rather better with i2c-hid.  Add a deny list for avoiding to bind with
->>>> elan-i2c.
->>>>
->>>> BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1193064
->>>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
->>>> ---
->>>>   drivers/input/mouse/elan_i2c_core.c | 19 +++++++++++++++++++
->>>>   1 file changed, 19 insertions(+)
->>>>
->>>> diff --git a/drivers/input/mouse/elan_i2c_core.c b/drivers/input/ 
->>>> mouse/elan_i2c_core.c
->>>> index 47af62c12267..fd08481f7aea 100644
->>>> --- a/drivers/input/mouse/elan_i2c_core.c
->>>> +++ b/drivers/input/mouse/elan_i2c_core.c
->>>> @@ -18,6 +18,7 @@
->>>>   #include <linux/acpi.h>
->>>>   #include <linux/delay.h>
->>>>   #include <linux/device.h>
->>>> +#include <linux/dmi.h>
->>>>   #include <linux/firmware.h>
->>>>   #include <linux/i2c.h>
->>>>   #include <linux/init.h>
->>>> @@ -1222,6 +1223,20 @@ static void elan_disable_regulator(void *_data)
->>>>          regulator_disable(data->vcc);
->>>>   }
->>>>
->>>> +static const struct dmi_system_id elan_i2c_denylist[] __initconst = {
->>>> +#if IS_ENABLED(CONFIG_I2C_HID_ACPI)
->>>> +       {
->>>> +               /* Lenovo Yoga Slim 7 is better supported by i2c-hid */
->>>> +               .matches = {
->>>> +                       DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
->>>> +                       DMI_MATCH(DMI_PRODUCT_NAME, "82A3"),
->>>> +                       DMI_MATCH(DMI_PRODUCT_VERSION, "Yoga Slim 7 
->>>> 14ITL05"),
->>>> +               },
->>>> +       },
->>>> +#endif
->>>> +       { }
->>>> +};
->>>> +
->>>>   static int elan_probe(struct i2c_client *client,
->>>>                        const struct i2c_device_id *dev_id)
->>>>   {
->>>> @@ -1233,6 +1248,10 @@ static int elan_probe(struct i2c_client *client,
->>>>
->>>>          if (IS_ENABLED(CONFIG_MOUSE_ELAN_I2C_I2C) &&
->>>>              i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
->>>> +               if (dmi_check_system(elan_i2c_denylist)) {
->>>> +                       dev_info(dev, "Hits deny list, skipping\n");
->>>> +                       return -ENODEV;
->>>> +               }
->>>>                  transport_ops = &elan_i2c_ops;
->>>>          } else if (IS_ENABLED(CONFIG_MOUSE_ELAN_I2C_SMBUS) &&
->>>>                     i2c_check_functionality(client->adapter,
->>>> -- 
->>>> 2.31.1
->>>>
->>>>
->>>>
->>>>
->>>>
->>>>
->>>>
->>>
->>
->>
+> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> index 4ba751a65142b..9a8d6f020a391 100644
+> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> @@ -6,6 +6,7 @@
+>   #include <dt-bindings/clock/qcom,rpmh.h>
+>   #include <dt-bindings/clock/qcom,sc8280xp-lpasscc.h>
+>   #include <dt-bindings/clock/qcom,sm8450-videocc.h>
+> +#include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+>   #include <dt-bindings/clock/qcom,x1e80100-gpucc.h>
+> @@ -5550,6 +5551,22 @@ videocc: clock-controller@aaf0000 {
+>   			#power-domain-cells = <1>;
+>   		};
+>   
+> +		camcc: clock-controller@ade0000 {
+> +			compatible = "qcom,x1e80100-camcc";
+> +			reg = <0 0x0ade0000 0 0x20000>;
+> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+> +				 <&bi_tcxo_div2>,
+> +				 <&bi_tcxo_ao_div2>,
+> +				 <&sleep_clk>;
+> +			power-domains = <&rpmhpd RPMHPD_MXC>,
+> +					<&rpmhpd RPMHPD_MMCX>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +			#clock-cells = <1>;
+> +			#reset-cells = <1>;
+> +			#power-domain-cells = <1>;
+> +		};
+> +
+>   		mdss: display-subsystem@ae00000 {
+>   			compatible = "qcom,x1e80100-mdss";
+>   			reg = <0 0x0ae00000 0 0x1000>;
 > 
 
--- 
-js
-suse labs
+Hi Bryan,
 
+The latest code already includes this change, so please drop it in the 
+next version.
+
+Thanks,
+Wenmeng
