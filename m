@@ -1,119 +1,131 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E49524AE3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:02:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649DB4A9D67
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:02:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865335; cv=none; b=Uc5gyFLNSduzha9VZ9Gly843mx06quE/mAgodsmHvWWhYR5P0/iI/BPEXKp3EnXQAwOKFI2PBnLgcqmFsmk1qTXIqzmI1171aMnBNL7LcRb/BMxKlgZDMizgPhRldUP5JlR7C69R/kBrWqKJOScAq8H6zCWL8Rrwl486jKEJ+1w=
+	t=1788865370; cv=none; b=EKN4gu5ql8SsvxZzuCVNnfRTpJIfgsT7zuCGcRTVrN4FUqa90YoAIo/xf+vpXcch0uA9+DTtmbwjTMd7mk9AnjQPrAWN5EZZWHugsMTCr7rqOJpJ2VICCfa53A71IX9DmoHU2UPvGqXf7Eh0/mP9uPomH+wbnb+ZI0sWAlVHcSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865335; c=relaxed/simple;
-	bh=JNIxa+Q0uCVgKetLJLxRgWMaDSMh9rMFW0vqnWvekdw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xv72k/EtyjoB2irf2wyeAphpUPSNTizcHihb3b0678L1yA+AKamDCf0YOAv6m/xsI2Oj0RaMNkAizNyx1Y4fhZFNNFdae4breXVssy6Q6PWHLqj68HN54CIfLE/bGDpRqN7aa8fojcjatuaoO1S/M3fKPrES7S9C1yL2jrOQo1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nyRT5Lp7; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788865370; c=relaxed/simple;
+	bh=sBa8ltIh4+pH6a10LBu/cywBUv7pw7RdSU2NuPS8+JU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RnI3WKEcHMpihFGlJyR1e2a/2Q83Jc1mbr78dA6fybfaseoVHLvx6BaSVdFBCwkwrCQKOwV6GVM000J44ACO/RFeNSzuTnrs6cZmQ72RmQt+H1BAljsCMgtMh8EgGvDRLe4cnHBmJAr2Sn8iZPWqYq8EMykhIliIck2wl6Y1Hik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vFvNbTPV; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nyRT5Lp7"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-52ff0b7c98aso42951591cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:02:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vFvNbTPV"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so25725a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:02:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788865332; x=1789470132; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+dgpGZXxyzJEKTUi5CrmtVo7cbMHzzenxTIN8C/YkDs=;
-        b=nyRT5Lp71tUbri3kPZUBttNkfF1upezuCZBEIRb7oiTXZb3E7d8fQ1Cliozn1SMca8
-         s4n66f0fTFQQi88RTVSpnlQ9DCmwmoRQwS9rmh+8eZYFxNrNGmY3K2CrAobDw0vrpnHv
-         KqsP6AP6MQaLJHqsP2VvyjKp9ljJbcSabz2T97icfhXdMI7MToeecChHhlGKnG4bTtVO
-         4dL8C+c9uWMO0GqLIOmp/7lZ4IL1ojH7V72FOTvoAKq6yEo+Q0jyWcJPeGibhQShnO3a
-         En4lW5FBIMCCgHswcqwjJYtsmmHe4/fVvN6/OXOaj5xeNSEDxC8RYe0fPCLL3uD0j1cM
-         0s8w==
+        d=google.com; s=20251104; t=1788865366; x=1789470166; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=RrjJW9gbDN+73JFbZgzTZ4EPfRkPYet7uyVCoDfB100=;
+        b=vFvNbTPVuttGVMVUGzXSVNzSMTkdbPNvpYiXKzu/83cxPeqd4XtB6JYuzABwrEFwlC
+         uscSDw7lNExciJ9U0b/1HUrlKbXAmV5O9zO7zIgDCMXGTrx3CgDRpq3yqNlNCvo5jUaI
+         RHLZ4Py1PGu2arSFMl+p1VFDlpzX1I0MOI94EecpSPdlPAM9ul1rfnIHL/HX2QF+55w3
+         uHRO6UNoouilk+6GASamhSXzOSZ8L9//n6q7Z9zHe+zFTJImMBr2HSAT4nQm79/ciHEA
+         /Z1H2LkULeul/VMHz2NmnFAVCzPloUZFWKC2eybHWCc9aOv5EoXaCDXlp8av0QbU/yya
+         MANw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788865332; x=1789470132;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+dgpGZXxyzJEKTUi5CrmtVo7cbMHzzenxTIN8C/YkDs=;
-        b=TgRcClM9bpmPBJkjWcNeFQ0sjZx79fWialdUD1InR7pB2erwFd1SIN3GrjuIGggMBl
-         Pfg76xpppu/bNHywppF6Lqr+QYlCipxQVR417S2nXpwztuA7j29mJkcUI//ZKNdatbif
-         +frQt3C0YXAWt+3g4zdg7p21xlap4qVHRtGvTsWVTvfxsYP3WXLaFPiWuG30hiy2I4qE
-         luqklkVWjnXbbAyDX0f5FP7q4OICxEWHLBaND4x3EPFl51EzNaQD7ajmu4gDbFROQxrh
-         PoHewu/j0V0LsfHC+eDrpQdwIIHNZ21VPkOibM+rUWosHMC6VEsrPuLSnbOseR4fNP79
-         EnEg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2jZQUloubRDpkK/5G+Fr8iMX5DBVYoIem83SNm/eIpvQwPTT1sQ5UvfGzi7CzpbPlfY3q3ybJtIu6Mf0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfjSu2YlpKv1kvTRHvHMbGpe903GybBiVSVJag2uTwZXkPjomL
-	3do42d3ibsEtWD9QGrTMJCWCcofUqcXe4NK3Ie7lyLdud4MrtfLfrT1MA5gHsQ==
-X-Gm-Gg: AYBFou0ENQr/q7ezYDbIBHaNCnPaVzv5CvDvcG8Sks/Y7JFlgfESiUiR3RxKa9mDyD5
-	Qsjuk8nDIR46WX7UQKnlZmhOCG18qUv0m6aV2GIz0SYCmR/vYQgCIJr0ABxhBbb86ll1m+40D/X
-	UDKsCWdOAkl4KEi4hflJNfS1RIdYcFUSkw6w5BTb93yGUV9YevuHA97+traYtlGeZRZUuCF9HC8
-	mZfnouq9lT0GqpovYmZQKB3cZergwKtlcyicG4t5yo3VQeYOMZYI5j6DBBF2s+8D8VlIqT64uon
-	KF6qt359UpfLIvwZhsNsO2kCjS7r5jQ8APng5w5g0teVtgJ2ELSdAIUf3o3QeRSQceAUyJgxsoE
-	InH3/XHwlr6x7uSF2Ea9Ta/n1oiOEkKSPVz+Izv7+dGOVWwP0ipBN2Wxz4iiqi1EeO7qYo2kZ1y
-	TmsZj8qHvfYfla8X5KL6olZ5TIK3wbL2HrKglH414KdLNxUnpEfmNmbx8qKs1X0RJFaVZ/qQ==
-X-Received: by 2002:a05:6a20:2586:b0:3d1:8876:fb1e with SMTP id adf61e73a8af0-3da3976ed13mr37575699637.0.1788865272958;
-        Tue, 08 Sep 2026 04:01:12 -0700 (PDT)
-Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc455485c25sm5207152a12.26.2026.09.08.04.01.11
+        d=1e100.net; s=20251104; t=1788865366; x=1789470166;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RrjJW9gbDN+73JFbZgzTZ4EPfRkPYet7uyVCoDfB100=;
+        b=PP0B+pWHQjbq9Y8aMhxcnkfs5mCSteY/0lRcJjzZ6eqyrUh3rRLGf4MZgX/gsW5ldX
+         NQwwun8ycFxHBUgb3vmAC8tTwfknK9hX7rnH5Ap4JKD8LNhX8TJvtOyg+sjQbbKwT/ni
+         a9m25Og16UTzyXmoOfqbMZ41+2w2xhlf5Xjln1f/8SG9X5ybIyKw1k0OCJim89QVbzeU
+         gQ8rG5Drj1sb6yUPqKk/L4HgMpAeOggVAopogx3y0SI2JNtpA1nxN79PBPeMP9UahTNA
+         ZRvNnZWWKQRxR25fLlgqQ1P5KLoWYxVz0g19j/EBsstRzwOa47DTvqcO6Xk4M2m0WCfH
+         rYpQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaCMr5fZ41OoEf/IaWYrNZLsFkJwkB69VMSz5joTVLQFfgCqsYzlOGlvFx4y57zdzA7aGk4CGilcKj5iM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGxgXsWOZFeXhF2ryRtKV+9bnWfV5SjIA5itHSzlY7Y9vKSsNT
+	IWHMB85v2XkJp8UlDqUCy4tMNMxUZv+7SxunwvbrGR3/fusLrN1hCdSm1UbjsOYfkQ==
+X-Gm-Gg: AYBFou11hNJX9b7fmjZXeiFertOFo6Mi/xirL8tDoRR2bTWRpIxlD3+U0QOg+6g9Ybu
+	J0Urjo+dmmiIIEbaAV+4jYtXhp++vXNZ+SIClEnCmVvEd2Ga5IJYLixLZqf+avoboviqJWbpXll
+	glIEIzF0a2bQ5y6iblBU0ppheIeG3uiSD7UncZwX856VCq+xaGLlaIUXLWucQCpI51ry3+HqHpl
+	z/N4MnonBbKfmU2yupijK+ioAbkXPMSVRzsAfPf6Y4pzrWh96qnpvnI42htnA/V6GN+rADfKlOx
+	8gVwTZEDfsGxQL04GlNshU1TlBb5KWqZlyhop+HvixQgcS6XpG1QoA3LZABZzyXMb9+XE9PCR+k
+	r+Fpjw3fFqnlBasv3RtbGYrRK25baad0X1I4J3E4Fv7DChfAzo2rqEwSNFVGQCxhIW95+++/Tfx
+	nadbvFcg2Naq0wCxZKj/VnZVsLpIeLEfS2Q6Yp/XSTwpRdKGhdxwf8wdZP69ptSpmAbrd/p+CHE
+	gSFgzeRVox8bKys6XxIgYC3QJU2qg==
+X-Received: by 2002:a05:6402:1a4c:b0:6a6:9d10:f52b with SMTP id 4fb4d7f45d1cf-6a7f682636amr90301a12.12.1788865365985;
+        Tue, 08 Sep 2026 04:02:45 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036652sm606844766b.2.2026.09.08.04.02.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:01:12 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Kazuki Hanai <hnkz.64@gmail.com>
-Subject: [PATCH] ALSA: us122l: Prevent write upgrades for read mappings
-Date: Tue,  8 Sep 2026 20:00:53 +0900
-Message-ID: <20260908110053.2950767-1-hnkz.64@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Tue, 08 Sep 2026 04:02:45 -0700 (PDT)
+Date: Tue, 8 Sep 2026 11:02:40 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	jens.glathe@oldschoolsolutions.biz,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
+ Purwa
+Message-ID: <ap_rUIaJGAk-gZVP@google.com>
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <ap_PdUrwLIVGJ3oG@google.com>
+ <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
+ <ap_RKfCbXAVBRtSY@google.com>
+ <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
 
-The hwdep mmap callback rejects read-buffer mappings that are initially
-writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
-A process that can open the hwdep node O_RDWR can later use mprotect() to
-make the mapping writable.
+On Tue, Sep 08, 2026 at 11:57:33AM +0200, Konrad Dybcio wrote:
+> On 9/8/26 11:11 AM, Mostafa Saleh wrote:
+> > On Tue, Sep 08, 2026 at 11:05:34AM +0200, Krzysztof Kozlowski wrote:
+> >> On 08/09/2026 11:03, Mostafa Saleh wrote:
+> >>> Hi Jens,
+> >>>
+> >>> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
+> >>>> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
+> >>>> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
+> >>>> chassis, different silicon. Stubble and the DTB loader need distinct
+> >>>> compatibles.
+> 
+> [...]
+> 
+> >>>> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
+> >>>
+> >>> This series does not apply to ToT nor I can find this base-commit
+> >>> in it.
+> >>
+> >> It's a public/standard commit, next.
+> >>
+> >> What is ToT in upstream development?
+> > 
+> > I am using Linus's Tree:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/
+> 
+> This tree contains the latest release/rc tags, linux-next is an
+> aggreagation of each submaintainers' branches, effectively "what is
+> the next release going to look like" so essentially that's where the
+> development happens
 
-The read allocation begins with struct usb_stream. Its read_size member is
-used by the fault handler to decide which pages belong to the read buffer.
-The read VMA intentionally remains expandable because pcm_usb_stream uses
-mremap() after reading that size. Changing read_size first can therefore
-map and access pages beyond the allocation. The same member is also
-consumed by usb_stream_free(), where changing it can make
-free_pages_exact() release pages outside the allocation.
+AFAIU, linux-next is useful to get a view of the next release. However,
+it shouldn't be used for developement. It should be either Linus's tree
+or the maintainer's tree (as mentioned in process/submitting-patches)
 
-Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
-writable VMA. This keeps the separate output-buffer mapping writable while
-preventing later permission upgrades.
+Thanks,
+Mostafa
 
-Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
----
- sound/usb/usx2y/us122l.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index f00b53346abd..a5db0d044ef9 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -180,8 +180,11 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
- 	guard(mutex)(&us122l->mutex);
- 	s = us122l->sk.s;
- 	read = offset < s->read_size;
--	if (read && area->vm_flags & VM_WRITE)
--		return -EPERM;
-+	if (read) {
-+		if (area->vm_flags & VM_WRITE)
-+			return -EPERM;
-+		vm_flags_clear(area, VM_MAYWRITE);
-+	}
- 	/* if userspace tries to mmap beyond end of our buffer, fail */
- 	if (size > PAGE_ALIGN(read ? s->read_size : s->write_size)) {
- 		dev_warn(hw->card->dev, "%s: size %lu > %u\n", __func__,
+> 
+> Konrad
