@@ -1,157 +1,159 @@
-Received: from mta0.migadu.com (out-40.mta0.migadu.com [91.218.175.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CE1C3ACEE1
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:08:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73833A901C;
+	Tue,  8 Sep 2026 08:09:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854932; cv=none; b=pXxohEnR7PN1Uo5AVPusS/qUjS6kdVKsc+zkVx346FIBDQ6YfjmsBxHhS20qdFjw9H4YibxTSgd185gVh2xTR6wPVA9vMANNJTLHQ3quUVQ8Xodoh77g58xOp3ZNmFmeAXsbCEpKGtaz/9VvgBDxXI/fJjmhdx4PMb/3i0bcw+M=
+	t=1788854946; cv=none; b=uNOfQT3l6rgahOxxziphWOEpDLlU9FkrJ7p49gxOb8Mr5sFfq8XJJLjrf1DBG11cy1vPFnm2S+l9viuNp1b6CC5pSl9vHGzJdcn3UOouOCfw3zG+x4TeLU2gQzjLdKNisYaBuAnshxe+j02VyKjwozGZkp2onbIxtvIas4xW4Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854932; c=relaxed/simple;
-	bh=XGg4zKBZIdsYlLMLs2Et22MQ6qSUt/Oz2PZF17USj98=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pOK0zzgmTw+ptUgvyLiUbnJzLpfm9F+G6ztZ4dpPhZFGAHLInsCAglviy9ZO6/pdooWZTjzQHqXNHF9FI4Gv1c0ju91Wp0CUDOlizXzVj2/yuqtJCOTgGCATeUv00tKSnvcbSZbqkzG0nUhAQRZCrGeHhyfaSYbXFSy6W1adSog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=PW5oRwee; arc=none smtp.client-ip=91.218.175.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788854946; c=relaxed/simple;
+	bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WXviJ3srY5LN2ie7YHEe7JEnYuzuIYXtIPx6169Zr10OhquAE23xd2MN546tHPo5i+ZRvdlqSm01wGJriXwN9EuxWBC6PvKvRr4DAp/P/9Ifrpj9halgaAWZknCuf0sAiwu97h7WQV+Yiy0dB1Dds+NwBKx9ck2w+cxzCLRa1Is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cdrUxvfj; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="PW5oRwee"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=XGg4zKBZIdsYlLMLs2Et22MQ6qSUt/Oz2PZF17USj98=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788854928; v=1; x=1789459728;
- b=PW5oRweem8GeyMypPghAsF8yOYdprzqwcpCNqj2H1YCHFtk4yFCnQgTMXl9f9KZ2x7raaXhx
- lVT8er8/V87WyzRGK74wpGygH6Ev/w6qOkJfBWhZ594B3A0v8r+ro8CwrDr0YYtx/2Nr/mqklCU
- ABQmv6A2OSSA9Xmt4crvjd2s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 19109097935353e8;
-	Tue, 08 Sep 2026 08:08:48 +0000
-X-Mizu-Trace-ID: 19109097935353e8
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17359so14290e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:08:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBym1BPZP3iBlR71i2Ijn0cSNjLAWb4iTWlUChd/5dV25vJ9ZG/B2gt13kYhQ8KPJ+iPib2zlHRrJAuvD+A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbi06lHYa88kOcURRZ3dVHvCnvZGGXw5nQf6kfsBy4QmHqNYG4
-	3gLGCRq/s7R+VoeT/paP1wYDGzgWQEZf9BfjKZmNUNzvXzuVhfhoCtrZiEW2FW16y74TDwZBEAH
-	h7ZkR9Ovt868UtQkYfLM2nGYWBqIfe5Wym/O29z9/
-X-Received: by 2002:a05:6512:1344:b0:5b6:186e:682f with SMTP id
- 2adb3069b0e04-5b751a5bf63mr134070e87.0.1788854927331; Tue, 08 Sep 2026
- 01:08:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cdrUxvfj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788854945; x=1820390945;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
+  b=cdrUxvfj66YcQ5+IBDfWEY0cTX1m6yd4i1sMJlYzDpoxAbRz4Ae61Lpo
+   TSTIb/uPHbIAG4Tm9uGMnh+2cw/Hfm2AFLLlFnb4zIIg1n4dRdZxmbUSA
+   Oe1+3kgZelUkdPfrxx2kzO6AwbRu96gIMl2uYDSeWarUx0WIqBNfLU85w
+   M31osRGfi8XZuCjF21H8+cztafoh3ALgV0XAZLJReK43Shzgcd4V/UOAf
+   zmoISULNwn83Vqn+X3oVye6eKiMQRKE54m0Kd3hxDa0CAWe1LXGZoC2Eg
+   fkeyx5sZpc0Qtmj6DhD6RgdiKbd0LG+hrZS4JgQX782l5UGqqOpnsJVv7
+   Q==;
+X-CSE-ConnectionGUID: g3AxdscvRzy+ceqAWVUlcA==
+X-CSE-MsgGUID: PQe7+rx1SQK50/LmkxTbSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100771329"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="100771329"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:05 -0700
+X-CSE-ConnectionGUID: kCeffEvVQ/KHlW6WfeAo5Q==
+X-CSE-MsgGUID: 2dwkh/uRShOLteCW5P3xvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="266577821"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:02 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 6A05511FA3A;
+	Tue, 08 Sep 2026 11:09:04 +0300 (EEST)
+Date: Tue, 8 Sep 2026 11:09:04 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap_CoB5YL2rKAuCy@kekkonen.localdomain>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
+ <ap561H8xYJvjZsRa@kekkonen.localdomain>
+ <ap6ALNC8Q0M-Oo51@zed>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826-arm64-52bit-va-v1-0-14ec98211363@fujitsu.com>
- <20260826-arm64-52bit-va-v1-2-14ec98211363@fujitsu.com> <CA+EHjTyJpPd8HjaWBw0V6pHF9UR0w2UFmaKDe7U3O+Sj8wiyPg@mail.gmail.com>
- <ap8rnTINMJQqfYGL@sm-arm-grace07>
-In-Reply-To: <ap8rnTINMJQqfYGL@sm-arm-grace07>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 8 Sep 2026 09:08:11 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwhoZEORBjJcUb1WQbFT1TtX8x=BeeMJAcdpEBVJJ265Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UAtKldnq8E5xQ_R8tgfkqEMJun_timebwDOYCwtGlMYwbA3T-yjMp633c
-Message-ID: <CA+EHjTwhoZEORBjJcUb1WQbFT1TtX8x=BeeMJAcdpEBVJJ265Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] KVM: selftests: arm64: Add 52-bit VA guest modes
-To: Itaru Kitayama <itaru.kitayama@fujitsu.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, Joey Gouly <joey.gouly@arm.com>, 
-	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Shuah Khan <shuah@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Takayuki Okamoto <tokamoto@fujitsu.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap6ALNC8Q0M-Oo51@zed>
 
-On Mon, 7 Sept 2026 at 22:24, Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
->
-> Hi Fuad,
-> On Fri, Sep 04, 2026 at 09:45:30AM +0100, Fuad Tabba wrote:
-> > Hi Itaru,
-> >
-> > On Tue, 25 Aug 2026 at 22:18, Itaru Kitayama <itaru.kitayama@fujitsu.com> wrote:
-> > ...
-> > > diff --git a/tools/testing/selftests/kvm/lib/arm64/processor.c b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> > > index 9108e14a9b5b..bcdf670c9eb8 100644
-> > > --- a/tools/testing/selftests/kvm/lib/arm64/processor.c
-> > > +++ b/tools/testing/selftests/kvm/lib/arm64/processor.c
-> > > @@ -46,7 +46,7 @@ static u64 pud_index(struct kvm_vm *vm, gva_t gva)
-> > >         u64 mask = (1UL << (vm->page_shift - 3)) - 1;
+Hi Jacopo,
+
+On Mon, Sep 07, 2026 at 11:16:41AM +0200, Jacopo Mondi wrote:
+> > > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > > > +{
+> > > > > +	struct mira016 *mira016 =
+> > > > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > > > +	struct v4l2_subdev_state *state;
+> > > > > +	struct v4l2_rect *crop;
+> > > > > +	int ret = 0;
+> > > > > +
+> > > > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > > > > +	crop = v4l2_subdev_state_get_crop(state, 0);
+> > > > > +
+> > > > > +	if (ctrl->id == V4L2_CID_VBLANK) {
+> > > > > +		s32 exposure_max = crop->height + ctrl->val
+> > > > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
+> > > > > +		s32 exposure_def = min(exposure_max,
+> > > > > +				       mira016->exposure->val);
+> > > > > +
+> > > > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > > > > +					       mira016->exposure->minimum,
+> > > > > +					       exposure_max,
+> > > > > +					       mira016->exposure->step,
+> > > > > +					       exposure_def);
+> > > > > +		if (ret)
+> > > > > +			return ret;
+> > > > > +	}
+> > > > > +
+> > > > > +	if (!pm_runtime_get_if_in_use(&client->dev))
+> > > > > +		return 0;
+> > > > > +
+> > > > > +	switch (ctrl->id) {
+> > > > > +	case V4L2_CID_EXPOSURE:
+> > > > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
+> > > > > +		break;
+> > > > > +	case V4L2_CID_VBLANK:
+> > > > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
+> > > > > +		break;
+> > > >
+> > > > Is hblank part of the register lists?
+> > > >
 > > >
-> > >         TEST_ASSERT(vm->mmu.pgtable_levels >= 4,
-> > > -                   "Mode %d does not have at least 4 page table levels",
-> > > +                   "Mode %d does not have >= 4 page table levels",
-> >
-> > Patch 1 added this string one commit earlier. Could it go in with the
-> > final wording there?
->
-> Surely, will fix in v2.
->
-> >
-> > ...
-> >
-> > > @@ -298,10 +304,14 @@ struct kvm_vm *____vm_create(struct vm_shape shape)
+> > > These sensors (there will hopefully be more supported by this driver)
+> > > do not have a real horizontal blanking.
 > > >
-> > >         /* Setup mode specific traits. */
-> > >         switch (vm->mode) {
-> > > +       case VM_MODE_P52V52_4K:
-> > > +               vm->mmu.pgtable_levels = 5;
-> > > +               break;
-> >
-> > This is now the deepest mode, so page_fault_test.c's sizing is stale:
-> >
-> >    * VM_MODE_P48V48_4K is the mode with most PT pages; let's use
-> >    * twice that just in case.
-> >   pt_size = 26 * guest_page_size;
-> >
-> > The margin still covers it. Could pt_size come from vm->mmu.pgtable_levels?
->
-> I'm not the author of the page_fault_test.c for arm64, but so I'm
-> guessing here; per the comment in the test, I dont think total number of
-> levels determines pt_size, rather by the addresses prepared for the
-> test.
->
-> This stress test does not require high virtual addresses, though should
-> we update the comment while at it?
-
-You're right, pgtable_levels alone wouldn't capture it: what sizes
-pt_size is the granule and how much the test maps, not the depth.
-
-So just updating the comment is enough: name VM_MODE_P52V52_4K as the
-deepest mode. At 5 levels it's the deepest any 4K mode uses, so the 2x
-margin holds and the constant won't need revisiting.
-
-Cheers,
-/fuad
-
-
->
-> Thanks,
-> Itaru.
->
-> >
-> > Cheers,
-> > /fuad
-> >
-> >
-> > >         case VM_MODE_P52V48_4K:
-> > >                 vm->mmu.pgtable_levels = 4;
-> > >                 break;
-> > >         case VM_MODE_P52V48_64K:
-> > > +       case VM_MODE_P52V52_64K:
-> > >                 vm->mmu.pgtable_levels = 3;
-> > >                 break;
-> > >         case VM_MODE_P48V48_4K:
-> > > @@ -322,6 +332,7 @@ struct kvm_vm *____vm_create(struct vm_shape shape)
-> > >         case VM_MODE_P48V48_16K:
-> > >         case VM_MODE_P40V48_16K:
-> > >         case VM_MODE_P36V48_16K:
-> > > +       case VM_MODE_P52V52_16K:
-> > >                 vm->mmu.pgtable_levels = 4;
-> > >                 break;
-> > >         case VM_MODE_P47V47_16K:
+> > > Their line length is expressed by a time base multipled by a line
+> > > length which doesn't directly depend on the pixel width but rather on
+> > > the ADC and PHY timings.
 > > >
-> > > --
-> > > 2.43.0
+> > > You could expand the line duration by increasing the time base, but I
+> > > wouldn't go there and use VBLANK only to control the frame duration.
 > > >
+> > > As you can see the HBLANK control is registered with  fixed value of
+> > > 0.
 > >
+> > How does control frame rate then? If HBLANK is zero, the frame rate is
+> > undefined, isn't it?
+> >
+> 
+> Why do you think so ?
+> 
+> The row_timing is the product of the time base (in usec) multiplied by
+> the row length expressed in time base cycles (see mira016_trow_psec()
+> and how seq_time_base and row_length are calculated).
+> 
+> VBLANK is still controllable, and you can vary the frame rate by
+> changing the vblank.
+> 
+> What have am I missing ?
+
+Using only vertical blanking value to control the frame rate is fine, but
+the correct HBLANK value is still needed by the user space to be able to
+set the frame rate.
+
+-- 
+Regards,
+
+Sakari Ailus
