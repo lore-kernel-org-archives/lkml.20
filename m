@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A680569F36;
-	Tue,  8 Sep 2026 17:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808FA5908DA;
+	Tue,  8 Sep 2026 17:28:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888478; cv=none; b=CYUJit1vjjuZ6/S6iCYU+/2B0jwnT1o0rdzpOv9YaMtv6Pl+IG/n/iuWns/LDB7T8FKwZdQdLvoMsp8WylLDclPEgt6/zonCq+WHJMkWxfsHJ9SExukuc6PdumAnwIZDBxh6lStT839bNhx39smiNa7QEQuUnZKccw8zXuuqzdQ=
+	t=1788888484; cv=none; b=l0Mf4y8sTwJEh2n1i8sKQTsbLvbfYyHudMsYIHRoZ/SWdmUQdLjonhDeKapWiWjXEoBtBZe9R8i/GoRYpixIHo3zeXmOcdbWXSYErn7eGdEi9Qx/+R7xdPwDUwP0KTfIOGD4FnyPFkyA+dRgaFWs5++oM7nfozNMPUMAOr0uOrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888478; c=relaxed/simple;
-	bh=01dkiHqX2v4Ffp+nQXUGYU2vuj26ESgNt5a/i4S108c=;
+	s=arc-20240116; t=1788888484; c=relaxed/simple;
+	bh=lEUgOH/O9TJ8aaaKwHIpkEDMFvYaZ3as10UkVzac/3A=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RVr4ytNYW5LW5M7aM8SpVYovUR7LJ4ZvGSvgQtzXB6lQQcg68IJW1z6/+C2ESYA7/Ug8rHAERa2boi9dZHjPLPFsi89OJZ0KLsBZ7Y63ziEolm8KJdqubG+JGd9uEb/xN+mVtfwekcolgCFisVQWCule90swBwXAMDSjYl9fZQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gwPg89nn; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=iw5/feQHgZvbpSY8McU+eNfijA2nmHQdE7hTESjrYgHMEPwqxqt40yUYrvrwkuheXZIGeItTDDjTreInaLkPxNlFF72EVwIUCOoqfG694erp8JOgl9CN5815tTcneZx4Wr6l+2jdIXvGqMEMFGbfLCtXV7KGW6CHqKNCg2Uip68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLkoMscu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gwPg89nn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152711F00A3A;
-	Tue,  8 Sep 2026 17:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLkoMscu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E27B1F00A3A;
+	Tue,  8 Sep 2026 17:28:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888477;
-	bh=Ets4uTKkXyNkTovvlm2LamMg/N1Srr9yc5R7205pmws=;
+	s=k20260515; t=1788888483;
+	bh=0EQhqCbrqwzwwWKEroV5fCssCI+1bbt2OCRkahyZW/s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gwPg89nnibBa0qHDxWh1dHkW+I16J3thSEpKBPNpx/ez1iTzaPI6GVdFP16lBGBpw
-	 RszPqfDkRF74qQnXBWAhf/Rp5CDA0AmpGbFq2BuzX+LzI2cvZa2oGXyynbyRGu7FyG
-	 SU1s1EuMLHuCwjro6hBZCUwRkajYkxgbxKrodgznp76JtkpUqoxez+BxidVjjet7V3
-	 WUiDHAbfkctmpCy9Pg7zbE4kaZhShcJ9wfFodR3OXbAc9NVsetG6h1wB0eta2wcPpd
-	 dVqWGSng9Ak+KfA9rfRq1FP6KFsUnBQRwwdBk/IN27wTSOibOCmBXMr+FDlKIttbU+
-	 J7HsmfyRN3USQ==
+	b=DLkoMscuF03DiQJB8lCqCtMGAeV3vv2NEAna4f2iHH/j9eReKaml+h7pLpaTfn+2R
+	 LUjES668wLWU9PgXc6TjSKI8XwXHFnWa07fJXdcTXIBsC12DL674ajnQIBpwtltn7X
+	 tfpCvZqC3gqmY47Ings9HwPUEX0ZJQW5Nvh85pF4gQtJTFqVmHD8YjfyBsr+zd7sLX
+	 rCP/gQQeLHXx+1M5pRmJ/05lHa/Q4qnShobypYZgIlgRwKLUPgv6vmYlW6Is3DMhDV
+	 Jj4hnh8imw2uY3hRpypYmkX//gS5f5oftody7hS/y/faOQrqk9JUqtmHHwIrExuzqX
+	 UyOPiSjJGvZYg==
 From: Mark Brown <broonie@kernel.org>
 To: Matthias Brugger <matthias.bgg@gmail.com>, phucduc.bui@gmail.com
 Cc: Liam Girdwood <lgirdwood@gmail.com>, 
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Cezary Rojewski <cezary.rojewski@intel.com>, linux-sound@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260821122840.41266-1-phucduc.bui@gmail.com>
-References: <20260821122840.41266-1-phucduc.bui@gmail.com>
-Subject: Re: [PATCH v3 0/3] ASoC: mediatek: mt6797: Fix error handling
-Message-Id: <178887711876.78527.15336463917556288176.b4-ty@b4>
-Date: Tue, 08 Sep 2026 15:18:38 +0100
+ Cezary Rojewski <cezary.rojewski@intel.com>, 
+ Jiaxin Yu <jiaxin.yu@mediatek.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260903051150.178057-1-phucduc.bui@gmail.com>
+References: <20260903051150.178057-1-phucduc.bui@gmail.com>
+Subject: Re: [PATCH v4 0/8] ASoC: mediatek: mt8186: Fix clock error
+ handling
+Message-Id: <178887689148.78527.9216488124284671038.b4-ty@b4>
+Date: Tue, 08 Sep 2026 15:14:51 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -48,26 +51,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1560; i=broonie@kernel.org;
- h=from:subject:message-id; bh=01dkiHqX2v4Ffp+nQXUGYU2vuj26ESgNt5a/i4S108c=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqwFrjO85unGxDwS0zkW9XxHDuOBssZrR+z6clT6tj+9c
- 2xKYlZrJ6MxCwMjF4OsmCLL2mcZq9LDJbbOfzT/FcwgViaQKQxcnAIwke257P/sfFKS0i67X1i8
- QI7TUstl742dpyco8POxfNA4sdKu+k2R2Z1ptoG/Worlwh99S5tyrnyzbd18f92ItuvN9bfad52
- KOtQU2r/Qhefg08UhDskb9/B0shsZvBPfNUOo1ay/xbUpqjP2oM22mv9PXzMK+meY8tcIKoUs+6
- n54muPmB+HrXT8S6+c7NKE6Qk9Queeec35GqJnq7ojTWjtBePADrcKqc1VPUVVpXdqEyXrQnYJ/
- WrYN2Px07jGmdcfVrLs1ldxmtMt/02KT2PrxTn3bER/sX1qkbzheUWwLSnk98PPdrcdlN8ExhTO
- 5DZYHM7OHv3qX2GZ2aJ6UYX5Dw4z/UpINM6Qft5qPiMdAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2159; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=lEUgOH/O9TJ8aaaKwHIpkEDMFvYaZ3as10UkVzac/3A=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoEWeQes/jCku3Iq4D3H5LKd6gl8xKA3GdAEe/
+ XlZjShb5niJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqBFngAKCRAk1otyXVSH
+ 0CkuB/wOoqeXC9FOIyndZtWhz5Qj4zD7zwwM/7nTG52Om90sRRJGh0Wubs8FAtPV2zv5lA5NiBf
+ ofcjtN7pp35fsEmexC5PGYZ0NRHNY5eQR1rJE4aaTZVWiwLUrpdtiZNebxjeKCOF73goNfZnxTe
+ 7xjdm2dalX1Cs0HEVDjbaHoyw7YaO0vAch3jJ+H5J0AXrcVN9vL55Oo09BdKS+D9+zJhf0IhVlD
+ HVIRpt7Lc7VMYorRse3fo9+MxGYB8PdrTvRpIW15wEJlREkn0kXLgguf9kq1lGWfXw94gk/gpK8
+ /Fe0kdw6jJBQN1oFT5vlFg+xEEhWpvcsvXCtQ5PvhoW+GpbT
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Fri, 21 Aug 2026 19:28:37 +0700, phucduc.bui@gmail.com wrote:
-> ASoC: mediatek: mt6797: Fix error handling
+On Thu, 03 Sep 2026 12:11:42 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: mediatek: mt8186: Fix clock error handling
 > 
 > From: bui duc phuc <phucduc.bui@gmail.com>
 > 
 > Hi all,
 > 
-> This series fixes and cleans up error handling in the MT6797 ASoC driver.
+> This series fixes several error handling issues in the mt8186 ASoC driver.
 > 
 > [...]
 
@@ -77,12 +80,22 @@ Applied to
 
 Thanks!
 
-[1/3] ASoC: mediatek: mt6797: fix wrong unwind order and error code in enable_clock
-      https://git.kernel.org/broonie/sound/c/e967d479b65c
-[2/3] ASoC: mediatek: mt6797: Use dev_err_probe() for error handling
-      https://git.kernel.org/broonie/sound/c/2e4b0d5f52da
-[3/3] ASoC: mediatek: mt6797: Drop redundant probe error messages
-      https://git.kernel.org/broonie/sound/c/1e5e1344b36e
+[1/8] ASoC: mediatek: mt8186: Fix APLL mux setting error handling
+      https://git.kernel.org/broonie/sound/c/5ee5987fadf6
+[2/8] ASoC: mediatek: mt8186: Fix clock handling in mux disable path
+      https://git.kernel.org/broonie/sound/c/d70109f5510b
+[3/8] ASoC: mediatek: mt8186: Fix AFE clock error handling
+      https://git.kernel.org/broonie/sound/c/eb72060a1966
+[4/8] ASoC: mediatek: mt8186: Fix APLL enable error handling
+      https://git.kernel.org/broonie/sound/c/cb552c6b9abe
+[5/8] ASoC: mediatek: mt8186: Fix MCK error handling
+      https://git.kernel.org/broonie/sound/c/996469c1092e
+[6/8] ASoC: mediatek: mt8186: Fix gpio rollback on adda dl/ul partial failure
+      https://git.kernel.org/broonie/sound/c/d87989ec1c2a
+[7/8] ASoC: mediatek: mt8186: Handle regcache sync failure
+      https://git.kernel.org/broonie/sound/c/0830625cacf9
+[8/8] ASoC: mediatek: mt8186: Drop redundant probe error messages
+      https://git.kernel.org/broonie/sound/c/5ca0b1c5e32a
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
