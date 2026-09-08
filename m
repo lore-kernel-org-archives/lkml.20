@@ -1,117 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BC752BE38;
-	Tue,  8 Sep 2026 11:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA95395ADE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:30:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867026; cv=none; b=YT92slRTrOMqfA87u6tfrJLNlf8NX88d+Y7qVh+4CWsMlHocx3v+v8BOajhTFGG3UlX+UmIFiQ+Y3iAHAp+9DMO8b5xUrVk5C4MrWNKGTMDR829HPiyyOmn+riD/vZS6jpWYkLEYO5kfj6uvCPblgcG5IB3HSagd8H4hhl3Xc44=
+	t=1788867032; cv=none; b=ZnIY5lh5WJbJvpZW2zBqvOXhF8urz+HjwKZlInKbqv2AeuSnnyOJtsSAO6nPyyn21Zp3fh7y0vsY7EuBPU05jmbzLfWzhsEBU9RHU32nClQw4iNqaBN4SqZ6m7ztEwxxrM9dFgvyMhgjt4OFe32eqqocMayQJ4N+z5ds+U466tM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867026; c=relaxed/simple;
-	bh=ZdXaRe4HWFBmLd0LXW6U2l7QcS01R5ntbQH6pp65rHQ=;
+	s=arc-20240116; t=1788867032; c=relaxed/simple;
+	bh=Uk1IB/yLUX5xMDeox1qyJEYqId4ibuxn8HZkM4l440E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qikEAugHdvTIsVkwics2AwHjF6julDNkV/CZvkS/mHdAzkfbxjU+8okx2w/cKFwyRTtEm1LSYP7mLrFAnmwXETJBdfPuRL/2n2xs5rohMDrCuqGCCeGTuQHp/MgYFZtkbB2DMfD03uT9a/xriseRuB/xUqDExZ8XLMDVhjvca+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbzZ3F73; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ah0nG185ppFLZsxiRiox1PvCcKqTjDWl+MPF3dTvX5NgUrB7o8V1phL8Xh1PbDmaA7uZ744kpVjsBBhUxWo+ivXasYQLtH1i7rliZL8hRCYaFMqtc1q7iqjZDT8Cwbs7B6SB+5/Dcz4nbpq7PnEET5Y16rpDVXA5+hoNCQWBAHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1PzksPg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbzZ3F73"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1CBD1F00A3A;
-	Tue,  8 Sep 2026 11:29:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1PzksPg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1741F00A3D;
+	Tue,  8 Sep 2026 11:30:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788867009;
-	bh=mB8nfc2dyoUj8MneI5XtqKUJWAX+H2A9jp3sF5M1qbA=;
+	s=k20260515; t=1788867020;
+	bh=e1G/5FmZL4xdw+0lMQfJjEPkPMKzHU5gOio8BHsZzuA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BbzZ3F73x9vlPWvAcrfnuEIBJXW3qsffsRXzmqRI35CWZGCBYksgG+FZ6D4aufx7+
-	 sEVq9yImHXZGqNWFVp5OCg/tUPoqmbCnXM4gOVpEztvlmpfzA1qGnFHu5hqumBWzdY
-	 N5H85H7ubmL/KpLoi3BPX0MUJ8xr61MTWOAacXoR48MSTMJ0Wfiiqe1Y/y4kuLcp+l
-	 khOBR7+6+n4ltCTDSLtuvWLW78S/WOu2iBGYFFag5m3jqVXrl0QqQoIKHO1R75ph5X
-	 Qb1cRBjIYoRUQrLjUPvWxDGa1pvp8BiecTbRNMlM0odqliUSIGX+UuU4BPhFAXN8b9
-	 dTjdPKOeABgjg==
-Date: Tue, 8 Sep 2026 12:29:46 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Dinh Nguyen <dinguyen@kernel.org>, 
-	Simon Schuster <schuster.simon@siemens-energy.com>, Jonas Bonn <jonas@southpole.se>, 
-	Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, Stafford Horne <shorne@gmail.com>, 
-	Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Russell King <linux@armlinux.org.uk>, 
-	Vineet Gupta <vgupta@kernel.org>, Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
-	Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
-	Peter Zijlstra <peterz@infradead.org>, "David S. Miller" <davem@davemloft.net>, 
-	Andreas Larsson <andreas@gaisler.com>, Richard Henderson <richard.henderson@linaro.org>, 
-	Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-	Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
-	linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-snps-arc@lists.infradead.org, linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
-	linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
-	linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
-	linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, Qi Zheng <qi.zheng@linux.dev>
-Subject: Re: [PATCH 12/12] mm: change the contract for free_pgtables(),
- update docs
-Message-ID: <ap_xj3W3SjsnRBXv@gremlin>
-References: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
- <20260901-rcu-pagetable-freeing-v1-12-5456a81c8212@kernel.org>
- <apbUpMDJglS99_yK@thinkstation>
- <apbfzUwBQyxe3P9R@gremlin>
- <apcH74QsR5I-DIbL@thinkstation>
- <apcJhtvnd45EkjJI@gremlin>
- <CAJuCfpH_v4YU+hsQDU_yQ4HZDf-2C6DuiJU5PGL+uVAsTwkZug@mail.gmail.com>
+	b=S1PzksPg3GlnN60NnS8u3KBNEe7/XQ0UakTlKP1QoSmuhUcSbgqt1k4d09k6QY5wX
+	 R/9SIIEU42bHp3YuHzLz0ykO3sWf6jDfuGfpYiTwelbaCgnyummIn86hf5NAOfSbol
+	 IFk7BLyVI+n2ug1mifLTTcagY/wvvWa5q+6a7FNja8qDXc6zMT5mWVLU5lN9i2TppZ
+	 9F0IallBAlbVkewMxKdEsSIdOUIsm7ROgvWPNx5TSc1CTZqTR2l9G8gSl4wOL2loYV
+	 ncmPQ0rIuJEO9031Qc96uD7sn5Cvhm1LV7uCB5WMPDN0Fh58t31BxrLBxuF0KY26Wn
+	 riiBYA0yJmNEw==
+Date: Tue, 8 Sep 2026 12:30:14 +0100
+From: Will Deacon <will@kernel.org>
+To: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, Marc Zyngier <maz@kernel.org>
+Subject: Re: [PATCH 19/21] arm64: entry: The great stack switcheroo
+Message-ID: <ap_xxpoBi_x-7wF-@willie-the-truck>
+References: <20260907164247.17223-1-will@kernel.org>
+ <20260907164247.17223-20-will@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJuCfpH_v4YU+hsQDU_yQ4HZDf-2C6DuiJU5PGL+uVAsTwkZug@mail.gmail.com>
+In-Reply-To: <20260907164247.17223-20-will@kernel.org>
 
-On Mon, Sep 07, 2026 at 09:53:43AM -0700, Suren Baghdasaryan wrote:
-> On Tue, Sep 1, 2026 at 10:25 AM Lorenzo Stoakes (ARM) <ljs@kernel.org> wrote:
-> > > > So, maybe something like:
-> > > >
-> > > >  * Note that free_pgtables(), used after unampping detached vmas, or when
-> > > >  * exiting the whoel mm, does not take a page table lock before freeing a page
-> > > >  * table.
-> > > >  *
-> > > >  * As page table freeing itself is RCU-safe, page table readers can safely run
-> > > >  * concurrently with page table teardown. However, writers cannot, as without
-> > > >  * a lock nothing prevents concurrent teardown.
-> > > >  */
-> > > >
-> > > > Instead? What do you think?
-> > >
-> > > s/whoel/whole/
-> >
-> > Haha yup the inevitable typo...
->
-> Also s/unampping/unmapping please.
+On Mon, Sep 07, 2026 at 05:42:44PM +0100, Will Deacon wrote:
+> With the kernel stack pointer in SP_EL1 and the overflow stack pointer
+> in SP_EL0, it is now straightforward to switch between the two on
+> exception entry from EL1 by writing to SPSel. However, since exception
+> entry sets PSTATE.SP to 1 (selecting SP_EL1 as the stack pointer),
+> repurposing the overflow stack as a more general kernel exception stack
+> would require writing to SPSel on every exception entry from the kernel.
+> 
+> Switch things around so that the overflow stack resides in SP_EL1, with
+> the kernel stack residing in SP_EL0.
+> 
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/include/asm/kvm_asm.h | 16 +++++++++++++++
+>  arch/arm64/kernel/entry-common.c | 34 ++++++++++++++++----------------
+>  arch/arm64/kernel/entry.S        | 26 +++++++++++++-----------
+>  arch/arm64/kernel/head.S         |  5 ++++-
+>  arch/arm64/kernel/smp.c          |  8 +++++---
+>  arch/arm64/kvm/hyp/entry.S       |  3 +++
+>  arch/arm64/mm/proc.S             |  3 +++
+>  7 files changed, 63 insertions(+), 32 deletions(-)
 
-Ack will fix on respin! I am the typo master ;)
+[...]
 
---
-Cheers, Lorenzo
+> diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
+> index 12aacc74f764..0811fa569100 100644
+> --- a/arch/arm64/mm/proc.S
+> +++ b/arch/arm64/mm/proc.S
+> @@ -98,6 +98,7 @@ SYM_FUNC_START(cpu_do_suspend)
+>  	mrs	x10, oslsr_el1
+>  	mrs	x11, sctlr_el1
+>  	get_this_cpu_offset x12
+> +	msr	spsel, #1
+>  	mrs	x13, sp_el0
+>  	stp	x2, x3, [x0]
+>  	stp	x4, x5, [x0, #16]
+> @@ -156,6 +157,8 @@ alternative_else_nop_endif
+>  	msr	sctlr_el1, x12
+>  	set_this_cpu_offset x13
+>  	msr	sp_el0, x14
+> +	msr	spsel, #0
+
+Sashiko rightfully points out that I've got this slightly wrong because
+I've pushed the spsel toggle too deep in the callchain for the
+suspend/resume paths. My original rationale was that the current code
+already saves/restores SP_EL{0,1}, so we shouldn't need to change
+anything. However, that's not quite right because it's the caller (e.g.
+__cpu_suspend_enter()) which saves SP_EL1 as 'sp', so the stack toggle
+should happen there.
+
+I'll fix that in v2.
+
+Will
