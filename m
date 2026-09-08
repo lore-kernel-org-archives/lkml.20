@@ -1,36 +1,40 @@
-Received: from mta0.migadu.com (out-98.mta0.migadu.com [91.218.175.98])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED18395ADE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270DF4AE12B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:32:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867081; cv=none; b=snEIcpbPEnRZGfok8vLGSqXufGbw1+D74AoDd4/JuiVceqVr9ri4KyEkLUtB2wX9BRjIiBfa6TKHDHiqgrI1PTwrLYMln4pA97jo3FRGwmcC/njgXPBiYSy5VNaj+4U1EYSgDiFrVzHLHpM1K7aurLZzWbul9WPyKNiKpL4kRkY=
+	t=1788867145; cv=none; b=ZWzlo36Fd0pIwalycp/38WwSETHQq2eHmRvge9PEzX94mVJnrmjtA1VRgwe7nRfLOzvqQOB8upSUWgJjI7xHfigprQRMkNcje8acqQ5eD71v6LcDBe4QnfX/VCLqTXXcaFc2FvbCLdCMTzCKSXYlvGDifSugs3UXxEDoHDIk3kQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867081; c=relaxed/simple;
-	bh=u8J66aam5HAU3EWrKJfVOFwKlJPnOYn4J4IC9+9xLnk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OGIY01LzHVUtc4WQNaN83G87PFU0ayniGlg8e5mRtWaVKc2MyIN002TKidZv41H8DU2/OYhb77Y13D9X85qWQKApNpj3zorUFNROl0fh5xaqyWrdrpXUnuExRUglydrYsU+5WOQOgBgtg5WPAXnU2S56ifgKGFfD9sRrpCgJJJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C6L5byV+; arc=none smtp.client-ip=91.218.175.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788867145; c=relaxed/simple;
+	bh=vskJrLiw0ReGp0xBFPxK1JbkHTI4tmjCuy9ROCIz5WQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OygO+pqXnbQBiXuIAMAY/2RsQTUQiEFz/eRITXpn2A5lhoL9E6SyADg80eUR20TnBNMZeapkUei566Ln7KjDIba+/agdK/uszBu2W/4JYz3Olxb99MZaiDTGFmWFGa5kRlxOab+PNE2C4UDcLqQ3Dk8KOT6K5RyYAEZnSAPnOV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ApyhTskm; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C6L5byV+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=u8J66aam5HAU3EWrKJfVOFwKlJPnOYn4J4IC9+9xLnk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788867071; v=1; x=1789471871;
- b=C6L5byV+5caH0phAIZi87oKiL/hPR9kSo6jeIliJujcuRYtazTpMlwcCOSY2Ktrt2122KPdL
- uLldgxnbJDDY+YJb8X2xOeo7kLTKKcXKiKUS3Dp5tHLRH/eJN/8DgfC/g8up4GHDMpUBKttROpH
- vOck97bUxI/9fcdbu5UYpj44=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c921d85a689fffe6;
-	Tue, 08 Sep 2026 11:31:01 +0000
-X-Mizu-Trace-ID: c921d85a689fffe6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6e54b8b3-150d-4d41-b4d1-8c5793edb840@linux.dev>
-Date: Tue, 8 Sep 2026 19:30:53 +0800
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ApyhTskm"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=i4Xz0mp9rb3bxPkNxDow+JBbZkBtvVDwN9ZMjpiwOik=;
+	b=ApyhTskmP38fVZbWCC5h7WJFp4aUqBZ7sKVyCYG7ueQyCYnwKHrlLziQe4+udmgtKGaBgT9Dc
+	wWHlgHL537zoDQ4rjU7gOaGKvMO2hc+M9VGpN2vLPFvdvaMFRQk3qyTh6lWMmSC19kR1Y7TTFcs
+	JEkIg1WngKb0+NYqDSz3djI=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hfM2H627bzcb3G;
+	Tue,  8 Sep 2026 19:21:11 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id B01B040537;
+	Tue,  8 Sep 2026 19:32:08 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 8 Sep 2026 19:32:08 +0800
+Message-ID: <ed47c328-6906-4bad-9a0e-a01f067dc812@huawei.com>
+Date: Tue, 8 Sep 2026 19:32:06 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,101 +42,131 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH next] buffer: guard folio_test_dropbehind() against a NULL
- b_folio in __bh_submit()
-To: Jan Kara <jack@suse.cz>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Chao Shi <coshi036@gmail.com>,
- Weidong Zhu <weizhu@fiu.edu>,
- "open list:FILESYSTEMS (VFS and infrastructure)"
- <linux-fsdevel@vger.kernel.org>, linux-kernel@vger.kernel.org,
- Ridong Chen <chenridong@xiaomi.com>
-References: <20260908023600.788219-1-ridong.chen@linux.dev>
- <mpqseqzxcgyug5cwk5sivtyngvtcz7az7pugzv65nkm3ylmwjq@rfhz34dg655s>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <mpqseqzxcgyug5cwk5sivtyngvtcz7az7pugzv65nkm3ylmwjq@rfhz34dg655s>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 12/19] arm64: cpu_ops: Make 'cpu_operations' pointer
+ global instead of per-cpu
+To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
+CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
+ Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
+ Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
+ Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
+ Zyngier <maz@kernel.org>
+References: <20260907164024.17164-1-will@kernel.org>
+ <20260907164024.17164-13-will@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260907164024.17164-13-will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
 
-On 9/8/2026 6:07 PM, Jan Kara wrote:
-> On Tue 08-09-26 10:36:00, Ridong Chen wrote:
->> From: Ridong Chen <chenridong@xiaomi.com>
->>
->> Commit 8deae2284976 ("buffer: allow a buffer_head to point at memory
->> outside the page cache") made bh->b_folio optional: jbd2 submits a shadow
->> buffer_head whose data lives in slab (the frozen/escaped copy of a metadata
->> block), and such a buffer carries no folio at all - b_folio stays NULL from
->> alloc_buffer_head() onwards (see the comment in
->> jbd2_journal_write_metadata_buffer()).  That commit audited __bh_submit()
->> and taught bio_add_folio_nofail() and wbc_account_cgroup_owner() to check
->> for a NULL folio, but it missed an earlier dereference:
->>
->> 	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
->> 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
->>
->> That test was added by commit a2c924c240e7 ("buffer: set
->> BIO_COMPLETE_IN_TASK for dropbehind writeback"), which predates the
->> NULL-b_folio semantics and so dereferenced b_folio unconditionally.  Once
->> b_folio may be NULL, folio_test_dropbehind() reads NULL->flags and the
->> kernel takes a NULL pointer dereference.
->>
->> This is reached from the jbd2 commit path (bh_submit() -> __bh_submit())
->> whenever a shadow buffer is submitted, i.e. when a metadata block has to be
->> escaped or was copied out, so it is data/timing dependent rather than seen
->> on every commit.  When it does hit, it is deterministic and independent of
->> the dropbehind bit, since the flag test dereferences the folio before
->> examining it.
->>
->> Reproduced on x86_64 with KASAN under filesystem write pressure:
->>
->>    KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
->>    RIP: 0010:__bh_submit+0x21b/0x9d0
->>    Call Trace:
->>     bh_submit+0x15/0x30
->>     jbd2_journal_commit_transaction+0x1c19/0x5ac0
->>     kjournald2+0x1cf/0x760
->>
->> Guard the flag test with a b_folio check, matching the other folio
->> accesses in the same function.
->>
->> Fixes: 8deae2284976 ("buffer: allow a buffer_head to point at memory outside the page cache")
->> Assisted-by: Claude:claude-opus-4-8
->> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+在 2026/9/8 0:40, Will Deacon 写道:
+> 'cpu_ops' is an NR_CPUS-length array of 'cpu_operations' pointers, which
+> theoretically allows for different CPUs to have different bringup and
+> hotplug backends.
 > 
-> A similar fix was already posted here [1] and is on its way to upstream.
+> In reality, this complexity exists only to deal with the case where CPU0
+> is not hotpluggable, so replace the array with a single, global pointer
+> and record separately whether or not they apply to the boot CPU. Update
+> the logic in init_cpu_ops() to enforce that only a single set of
+> 'cpu_ops' is required.
 > 
-> 								Honza
+> Signed-off-by: Will Deacon <will@kernel.org>
+> ---
+>  arch/arm64/kernel/cpu_ops.c | 29 ++++++++++++++++++++---------
+>  1 file changed, 20 insertions(+), 9 deletions(-)
 > 
-> [1] https://lore.kernel.org/all/20260902013357.2815214-1-joseph.qi@linux.alibaba.com/
-> 
+> diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
+> index e133011f64b5..eacfb88a0c0c 100644
+> --- a/arch/arm64/kernel/cpu_ops.c
+> +++ b/arch/arm64/kernel/cpu_ops.c
+> @@ -20,7 +20,8 @@ extern const struct cpu_operations acpi_parking_protocol_ops;
+>  #endif
+>  extern const struct cpu_operations cpu_psci_ops;
+>  
+> -static const struct cpu_operations *cpu_ops[NR_CPUS] __ro_after_init;
+> +static const struct cpu_operations *cpu_ops __ro_after_init;
+> +static bool boot_cpu_has_enable_method __ro_after_init;
+>  
+>  static const struct cpu_operations *const dt_supported_cpu_ops[] __initconst = {
+>  	&smp_spin_table_ops,
+> @@ -40,6 +41,9 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+>  {
+>  	const struct cpu_operations *const *ops;
+>  
+> +	if (!name)
+> +		return NULL;
+> +
+>  	ops = acpi_disabled ? dt_supported_cpu_ops : acpi_supported_cpu_ops;
+>  
+>  	while (*ops) {
+> @@ -49,6 +53,7 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
+>  		ops++;
+>  	}
+>  
+> +	pr_warn("Unsupported enable-method: %s\n", name);
+>  	return NULL;
+>  }
+>  
+> @@ -94,25 +99,31 @@ static const char *__init cpu_read_enable_method(int cpu)
+>  	return enable_method;
+>  }
+>  /*
+> - * Read a cpu's enable method and record it in cpu_ops.
+> + * Read a cpu's enable method and update/check cpu_ops.
+>   */
+>  int __init init_cpu_ops(int cpu)
+>  {
+>  	const char *enable_method = cpu_read_enable_method(cpu);
+> +	const struct cpu_operations *ops = cpu_get_ops(enable_method);
+>  
+> -	if (!enable_method)
+> +	if (!ops)
+>  		return -ENODEV;
+>  
+> -	cpu_ops[cpu] = cpu_get_ops(enable_method);
+> -	if (!cpu_ops[cpu]) {
+> -		pr_warn("Unsupported enable-method: %s\n", enable_method);
+> -		return -EOPNOTSUPP;
+> -	}
+> +	if (!cpu_ops)
+> +		cpu_ops = ops;
+> +	else if (cpu_ops != ops)
+> +		return -EBUSY;
 
-Apologies, I missed that. Thank you for letting me know.
+Should we return the original error code of init_cpu_ops() in
+smp_cpu_setup()?
 
->> ---
->>   fs/buffer.c | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/fs/buffer.c b/fs/buffer.c
->> index 427d8a817cd5..f46fa6413032 100644
->> --- a/fs/buffer.c
->> +++ b/fs/buffer.c
->> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
->>   
->>   	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
->>   
->> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
->> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
->> +	    op_is_write(opf))
->>   		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
->>   
->>   	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
->> -- 
->> 2.34.1
->>
+ 487 static int __init smp_cpu_setup(int cpu)
+ 488 {
+ 489 >-------const struct cpu_operations *ops;
+ 490
+ 491 >-------if (init_cpu_ops(cpu))
+ 492 >------->-------return -ENODEV;
+ 493
+ 494 >-------ops = get_cpu_ops(cpu);
+ 495 >-------if (ops->cpu_init(cpu))
+ 496 >------->-------return -ENODEV;
 
--- 
-Best regards
-Ridong
+
+Otherwise LGTM
+Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
+
+> +
+> +	if (cpu == 0)
+> +		boot_cpu_has_enable_method = true;
+>  
+>  	return 0;
+>  }
+>  
+>  const struct cpu_operations *get_cpu_ops(int cpu)
+>  {
+> -	return cpu_ops[cpu];
+> +	if (cpu || boot_cpu_has_enable_method)
+> +		return cpu_ops;
+> +
+> +	return NULL;
+
+>  }
 
