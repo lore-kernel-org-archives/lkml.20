@@ -1,166 +1,116 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C69FD38DC79
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:08:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5A433123D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:09:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851307; cv=none; b=ajY+20xIuuzSq3NP13vCsftSJQHq0wxp7vSygrOliHk6v/rYisBXT1tawPN1dIfNuCdlxKeTw70YXYeiVeN1f95D0mvW+SKqadITcmTwO3k9oNJXlPAuJAm0HTzixy653/7qaPHRvZSUNI2KLnSv8J2Ts+SpSMK/QObsDbdMxd0=
+	t=1788851370; cv=none; b=L7T0UskAt6asEKVYuvaOjnfXCh2JmwBVpOXyQGJ/n0wQ8k761jI6Rv9hQIWmeYf9HtJ68vfD2WShGVVDPp6bIf/axYu7YnyZMauH2Z3YdchwmPyixUOqPnJc+7b7eeYoinlvNgFZAltd0xY6qE+ssBBbVpJg4kSijoT0c1Toxx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851307; c=relaxed/simple;
-	bh=VjjRAi7oBGcBtLljLBiLc+MTVU7w3NBnfN+wIzcEqfo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=fWB9nNd/g4UeWU92sDBzBTJlek5ANAOrCmCwM209RtLgUqpza+5+3FOwicgamSSTZiG52KIgpCx9Byyi8SHIa/OQbEZR8yeMCwJ7d3O9TE5E1czaxG9axUQowFp9tyJSl+Io15saZ/7x8Uc3avTgFyqR9kdFmDAw7QRVrWo8wKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so2015635fac.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:08:25 -0700 (PDT)
+	s=arc-20240116; t=1788851370; c=relaxed/simple;
+	bh=u+ey/CJS2ARmIQu5wX+w7GU/MrgYt6L2EL87LvMkuBc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lTWv7kYQgGD2ibKWSP4FvAUT6Muj3S7e14sT0G+kVu/68J6N6+HiLipuXJCSc0Nh6gfCSPcea7q0jNp8ovekN4k0ppWeUtvE9kMZpi1QtDSBv2uF9H6W4RqZbQLpeU1Ic3mBLP13C1yB3wGPusNAiOEYeeEPGen9Ek/UGecenD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=ZYjWVFwi; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="ZYjWVFwi"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912e2406so3377165e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:09:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788851363; x=1789456163; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KaN8ORG6D91TdeVvPbVzs5MI5F+Br3tg7mv89xYjlPA=;
+        b=ZYjWVFwi2Cc6OukpxbZKVvjmFZIpkWLZq8M84L4yQphYUd/wNr/quUFeO4G9nSVOjk
+         xx5X0AL9RPi02lwvFk00TZvav9Ta+Wv+I1Mul2zLxbUc8nXc+o7GjmMrhFFI0vFSCgbr
+         TFsFhkZYnxfgMMppaPt9FPVCOqDSpGXQT7pokxrE87gyPmiPSlS38/Tc3nOh7jpT/jKs
+         sBPdgzEkN2p7ic8wwYZxnwy+8MA6ITLR47a8yZtroJfYTzTAx1fAQ2IDA9LUneimxMat
+         /Ggfc71n1ILLQUhKOBFQG5KwMxFVvk91IOua8FOvJufVY57FcJy0K9NdMQ2dm+9TLsjk
+         naug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788851305; x=1789456105;
-        h=content-type:to:from:subject:message-id:date:mime-version
+        d=1e100.net; s=20251104; t=1788851363; x=1789456163;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SRv6I7fY9tO4zDn70XoEsC2tkr/GJjwF3CkkS/r/sac=;
-        b=ce5nOCIE+3b1i+EHbQNVSy2hfF4Z0ID2WkW9PU2W7SFWaI6p6lah/bdez8MUttsS00
-         AgVNeNTFZ4VGPOqKMx2pwMj7ttMYd+++3vhTF8weNHtQIDmTcOFVhobVEEdxseldJkL+
-         COU2S7MsCqff+GFMMr8BCbhc9WS9uc270IWv+zMpo3kSTg5xcxyyN1L/hmOZuFvKTEW0
-         xi96oVbIUXxyvmmwMO43d08mOwQ33MahC6ALPVNHKz2XZ+OtEkgfF33TVa842HxdcsLa
-         NJlkBq11pc60C5XeOS2VGaAdy5mf+k3HaXRigiogbMCyMQN7jGnzmJqS60omMtZAEH1I
-         h/yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw2cJGBHSOhAqOOf7Fq9ILPVtunMApFk6VSsMGahaNTIGb057MbZFLzymlZoLEr6isDHVTc9/6+qdwLnWs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lS+TtSC+OLdcGLVaJS1RqvGIOG/NGB1HPhCR7gceow3b91eb++
-	XtSfBkZzOBqnquSnSTRTMDa7tlRiaHPzSZ3hxnozsvrKEXiZwvHFogUYLc768LApHID6vFf7I83
-	41ZNtO5ayJdZLd/yBC6uQMwwTnvrQ5S9Z1oJfaP+/0PnUI7iamBSrMk9vjVM=
+        bh=KaN8ORG6D91TdeVvPbVzs5MI5F+Br3tg7mv89xYjlPA=;
+        b=diyZqDTKuKa6acErtUaVaAnkNTf63RbxY8asWnbmJmMKj2cIueTfaP0plDVOWMGuMj
+         TGbfEGZEGJl/RMlEWa8wywpDhpPasc+JF+AIGFERmYIZnp7ShZsIOwcls5jpZqsfKswJ
+         /5NRPAQRmeL0TXzBtgfd67so4h3qw237kCXd1HYzDafJzEmoDGXgHCxyC8iMX7xGi6xU
+         8nidEX6CwlbTKoavF500aPXEXCHLceRXtAsV3Poi3vHM8B9ZdMj09qZSpBMFkUzc87Xv
+         TjUpOwTfi4lxYO++yW/3KYERoDIhkDYcIgYxUqk7CEclBNf1jFUKfxh3zDC/A65HUbhX
+         R+bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwBPv7RDA9Kz+qDu1VJtYsd+jQT4mHyBKxv6hcDmrDmxmTGFrEyAziNwbmeVUY4qBPQvzMMCXnquGvYLGg=@vger.kernel.org
+X-Gm-Message-State: AFuF++niCXDL6tisjzdJRvqbJwfMUif7VLVdeT3+dkN1fztNiC1sgUM3
+	pmfKV3CfYhJtMHXlCWjD07A3DeemSGcQYT4Re5tCgEne98QYWJPeEPtq0y/4rPmLaCw=
+X-Gm-Gg: AYBFou3sh1ugTm4LQsnFUY2vkdoSdgjnZ2fgNxeElJFQ7P+pIure4ONLSCBSofWxxil
+	QbuxnXEkBImtb0NogxmPIHGhu6afM9nk+xcHNI4o8+iD4EVhhHVfWYJ4/PsH/IKbsZRAlymz7mi
+	nTjt35ROLeT/DrwYiOeEIXde6noVjnHti0WWy+gXFkMkK/2AeGfl0MixjLwyAfHTrndxBcXg6rQ
+	CVtZIEypg8RXW6ikjV9KduU8Sn8PRjN3WJononE2LLcA+EJJR917p2cJJcy1occpy/iyeGkBNDg
+	eBwajwEgbJEnW3JrR9UULGJWsMaLOGvMW0hBP/cAhxv/CJJeyS26Iuhfok6GHpTqgXky1LDUhHZ
+	5d/S1ncGB2Y7LXVSNa+R6he8b5M0G955GbEyW71prmC6fJzR8rAdq5kkdVQzbmSHzu50Cuxbcny
+	ghMjql3waxMap/EI4IV6QBlJ8BUkQHYSAaWpktlorpfLnNAT6Kubg=
+X-Received: by 2002:a05:600c:1908:b0:49c:f13e:e4f with SMTP id 5b1f17b1804b1-49d1757b03dmr45007475e9.12.1788851363346;
+        Tue, 08 Sep 2026 00:09:23 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm279962065e9.13.2026.09.08.00.09.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:09:22 -0700 (PDT)
+Date: Tue, 8 Sep 2026 09:09:21 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Harry Hsu <x90613@gmail.com>
+Cc: jpoimboe@kernel.org, jikos@kernel.org, mbenes@suse.cz,
+	joe.lawrence@redhat.com, shuah@kernel.org, song@kernel.org,
+	live-patching@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests/livepatch: Test rejection of aliased symbols
+ in one object
+Message-ID: <ap-0odfpLVv8k2er@pathway>
+References: <20260830173343.52759-1-x90613@gmail.com>
+ <20260905155507.273262-1-x90613@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a4a:e909:0:b0:6b1:9f9d:7a00 with SMTP id
- 006d021491bc7-6b6fbdc70efmr27895020eaf.5.1788851304811; Tue, 08 Sep 2026
- 00:08:24 -0700 (PDT)
-Date: Tue, 08 Sep 2026 00:08:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9fb468.6e6c5f9e.28f11f.000a.GAE@google.com>
-Subject: [syzbot] [fs?] general protection fault in configfs_depend_item_unlocked
-From: syzbot <syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com>
-To: a.hindborg@kernel.org, leitao@debian.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260905155507.273262-1-x90613@gmail.com>
 
-Hello,
+On Sat 2026-09-05 23:55:07, Harry Hsu wrote:
+> klp_init_object_loaded() now rejects an object whose klp_funcs resolve to
+> the same address, because aliased symbols would push two klp_funcs of one
+> livepatch onto a single ops->func_stack and leave the redirection
+> ambiguous.
+> 
+> Add a target module providing test_klp_alias_show() together with its
+> __alias() sibling, and a livepatch naming both of them.  Two test cases
+> cover both callers of klp_init_object_loaded(): the klp_enable_patch()
+> path, where the target module is loaded before the livepatch, and the
+> klp_module_coming() path, where the livepatch is loaded first and the
+> module loader has to refuse the target module.
+> 
+> Suggested-by: Song Liu <song@kernel.org>
+> Signed-off-by: Harry Hsu <x90613@gmail.com>
 
-syzbot found the following issue on:
+Looks good to me and seems to work:
 
-HEAD commit:    1fc5a74b108f Merge tag 'kmalloc_obj-v7.3-rc2' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17299b49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=a9efa71b884a23e74153
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Tested-by: Petr Mladek <pmladek@suse.com>
 
-Unfortunately, I don't have any reproducer for this issue yet.
+> This is the selftest I promised in the v2 thread [1].
+> 
+> It applies on top of patch 1/3 of the series [2] and does not touch the
+> rest of it.  Petr, since you are going to post v4 of the whole patchset
+> anyway, please feel free to fold this in as the last patch.  Otherwise I
+> am happy to resend it as a separate follow-up once the series lands --
+> whichever is less work for you.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/90e25e7ccbef/disk-1fc5a74b.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/4e7b78b56aee/vmlinux-1fc5a74b.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c2f010471672/bzImage-1fc5a74b.xz
+Yup, I am working on v4 and included this patch.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-CPU: 1 UID: 0 PID: 6141 Comm: syz.3.68 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:configfs_depend_item_unlocked+0x96/0x420 fs/configfs/dir.c:1246
-Code: df e8 1e 88 00 00 89 c5 31 ff 89 c6 e8 13 58 56 ff 85 ed 74 0a e8 fa 52 56 ff 4d 89 fd eb 6c 48 8d 7b 60 48 89 f8 48 c1 e8 03 <42> 80 3c 30 00 74 05 e8 ee 0f c2 ff 4c 8b 6b 60 48 89 df e8 e2 87
-RSP: 0018:ffffc90005477ad8 EFLAGS: 00010206
-RAX: 000000000000000c RBX: 0000000000000000 RCX: ffff888026a51f40
-RDX: 0000000000000002 RSI: 0000000000000000 RDI: 0000000000000060
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffffbfff1f63c30 R12: ffffffff8ecb12e0
-R13: 1ffff92000a8ef6c R14: dffffc0000000000 R15: ffff888061ee3c00
-FS:  00007ff7e9de66c0(0000) GS:ffff888125cd4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00002000000016c0 CR3: 000000005eb6a000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- usbg_make_tpg+0x1e0/0x550 drivers/usb/gadget/function/f_tcm.c:1692
- target_fabric_make_tpg+0xa8/0x6d0 drivers/target/target_core_fabric_configfs.c:947
- configfs_mkdir+0x4f6/0x9e0 fs/configfs/dir.c:1360
- vfs_mkdir+0x408/0x620 fs/namei.c:5410
- filename_mkdirat+0x289/0x520 fs/namei.c:5443
- __do_sys_mkdir fs/namei.c:5470 [inline]
- __se_sys_mkdir+0x34/0x150 fs/namei.c:5467
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7ff7ebb8e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ff7e9de6028 EFLAGS: 00000246 ORIG_RAX: 0000000000000053
-RAX: ffffffffffffffda RBX: 00007ff7ebe15fa0 RCX: 00007ff7ebb8e159
-RDX: 0000000000000000 RSI: 00000000000001ff RDI: 0000200000000600
-RBP: 00007ff7ebc25024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007ff7ebe16038 R14: 00007ff7ebe15fa0 R15: 00007ffc34b91458
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:configfs_depend_item_unlocked+0x96/0x420 fs/configfs/dir.c:1246
-Code: df e8 1e 88 00 00 89 c5 31 ff 89 c6 e8 13 58 56 ff 85 ed 74 0a e8 fa 52 56 ff 4d 89 fd eb 6c 48 8d 7b 60 48 89 f8 48 c1 e8 03 <42> 80 3c 30 00 74 05 e8 ee 0f c2 ff 4c 8b 6b 60 48 89 df e8 e2 87
-RSP: 0018:ffffc90005477ad8 EFLAGS: 00010206
-RAX: 000000000000000c RBX: 0000000000000000 RCX: ffff888026a51f40
-RDX: 0000000000000002 RSI: 0000000000000000 RDI: 0000000000000060
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: fffffbfff1f63c30 R12: ffffffff8ecb12e0
-R13: 1ffff92000a8ef6c R14: dffffc0000000000 R15: ffff888061ee3c00
-FS:  00007ff7e9de66c0(0000) GS:ffff888125cd4000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005650aabe2588 CR3: 000000005eb6a000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess), 1 bytes skipped:
-   0:	e8 1e 88 00 00       	call   0x8823
-   5:	89 c5                	mov    %eax,%ebp
-   7:	31 ff                	xor    %edi,%edi
-   9:	89 c6                	mov    %eax,%esi
-   b:	e8 13 58 56 ff       	call   0xff565823
-  10:	85 ed                	test   %ebp,%ebp
-  12:	74 0a                	je     0x1e
-  14:	e8 fa 52 56 ff       	call   0xff565313
-  19:	4d 89 fd             	mov    %r15,%r13
-  1c:	eb 6c                	jmp    0x8a
-  1e:	48 8d 7b 60          	lea    0x60(%rbx),%rdi
-  22:	48 89 f8             	mov    %rdi,%rax
-  25:	48 c1 e8 03          	shr    $0x3,%rax
-* 29:	42 80 3c 30 00       	cmpb   $0x0,(%rax,%r14,1) <-- trapping instruction
-  2e:	74 05                	je     0x35
-  30:	e8 ee 0f c2 ff       	call   0xffc21023
-  35:	4c 8b 6b 60          	mov    0x60(%rbx),%r13
-  39:	48 89 df             	mov    %rbx,%rdi
-  3c:	e8                   	.byte 0xe8
-  3d:	e2 87                	loop   0xffffffc6
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best Regards,
+Petr
