@@ -1,129 +1,55 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD6215964EC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:35:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E215964FC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:35:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888932; cv=none; b=RjiUagrW1JpR1MqVOsAet43sz1HdFiKqQBKJvWHgJKe+/pzuQDeXXt6RVR8QnNMzsaiTYGFIrdVYEd900hcT69LuiwRmRZpPHexJR3mdDdHJ3F1pSy9oyZ9H47ZDEpvSQLB13ox3942mmXdiicC+9va/gaq6ElgCTlRfQm5PHTc=
+	t=1788888934; cv=none; b=dxQJy2irTR9NNwHpr37gdT8IlU5BwPlNaEyyXGBAoTzikJraQSuSgSjOg+GAJhZiSMEDMKsW6oS4suMZ2I9HeopB0UW8h9NFrK0qXBwSCm9qYiFcDWTlUR8U7re/qmWxCWM0/IOfTx6UA48CEfSRU66NWccXeN8T6MtxWicPBUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888932; c=relaxed/simple;
-	bh=zvjd/OzBfuPYT7BKbdMoiUi8iXO0iBXgZckMkZOu3PU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FUjRyU9XTHrZcgSLljzoYAU6X4BBRgmHt1EBTPfT5XSAQ4jj3u7fUS23GvZLDc6ghSe2uVHfdVIOVgmzvW24t7aZLeODav5xYqJaXnM0CnJ/g1zmr7h3sVXzIquLXirDUU+9c84/jaY8igoYD/z3Am6MGBTLLaBOfxC9xUnZ4bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qwshzapm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788888934; c=relaxed/simple;
+	bh=tAG8Lue9629kNalgMmNSSsTdNoA1itsPONjX7pCfh5o=;
+	h=Message-ID:From:To:Cc:Date:Subject:In-Reply-To:References; b=SwXQLDE1raApJvKaiAJ9TcC4aZAQKClyH/JlqMnNli/tmE370IVvwwDUGfQHDwv88Q5BeARqaZr2jpmoAFglRjIP9yX4gfyhYB5oI3/ZaEhJMrLALdpM0LH4NY8FBdkUaXF/8CwFzyknm2/NSQ6CJSmU73azhU1p7gBjqVTLx5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fmk34loo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qwshzapm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D90AE1F0156D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:35:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fmk34loo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3579B1F00A3A;
+	Tue,  8 Sep 2026 17:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888928;
-	bh=zvjd/OzBfuPYT7BKbdMoiUi8iXO0iBXgZckMkZOu3PU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Qwshzapm39uXq2bVZZ9GfIJxkRheR3vOmylHbJtw3OxtcIqEw4JoMA7w+Tw/kgH4O
-	 1rCS4JS58AFDBjVvowhwlytP979SDLVjwHHeX8h/SjjynwzRGtIxITSyRESG7cOEvl
-	 3HtdMPZIJMUxw/VSwULMfZECLECqDa8XTzdlotHHLNl7Z18J9S91ysKJU/+rsSE3st
-	 zRG2A5Weif3rhmhHI0XD5iRES+YAIJcQ2wJO4+SOoBi8ErXXYJ7STnxRAwRPBCYu0W
-	 desQfa5d0YO4aFUsg16AnAqsoQKwbyDEOsvhbUJ1x0nYUQ/eNxL3zzmcUyeTMJuXyv
-	 Si2cRn1tsxNWA==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-39faf9e2c62so35340061fa.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:35:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByLYs6+lOYxvX3cbQmJFefQE92OjLHh9yHpijbPoIne1MyzzbAKdyIWGaI2TZfdssBEcxqXde2DL8lYyN4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKKr60D8kNCj1rSKi+sW/PsV9pHD6gvyngF457BwoYzfo22YOG
-	e0yzTAdREBevWHOXmXHiVxLqz9COBY8fRI9fShNjMDLkw5YdZ1Skto2h8079Q/K6hXixR2cX85o
-	X7xLPIp4JS8Cgi1N/RnyO5wtj3ig59Kg=
-X-Received: by 2002:a05:6512:3b2a:b0:5b6:1870:268a with SMTP id
- 2adb3069b0e04-5b6187043cbmr4987140e87.59.1788888927352; Tue, 08 Sep 2026
- 10:35:27 -0700 (PDT)
+	s=k20260515; t=1788888933;
+	bh=kweM/m7GAV6aw6QrzV1oCtonVvC2T+OVbj32EAz2knw=;
+	h=From:To:Cc:Date:Subject:In-Reply-To:References;
+	b=Fmk34loondlloZRfd8F/RSBDV7XQ8BJtAW35kEPdE97NUZcYo+KfIxTV58UfiHJwy
+	 Ussfeg/Likkf8dIfApzXIBrr+bIj6romkr/UpQpliFeZ6xU/h36MSG79eK55RqTNg9
+	 8DVYHjDujGgL9GNj4usaAxs1bxG5ZDa38S/7VvxgiAi+iTAq/UT/c1fkiy3WPiMjQi
+	 cFao7OvLti7dw1RGGrJhi+bxYeedY15XqBIMkTOO1zv9DJZS3SxnhSB9MEyHOK+U3p
+	 RqKWH+ZxpbhM4k1Qr1guknRL3lXkglJenAHMMjRYbO2hDflPynBrveu76HupBkxQS8
+	 icvYroSZljl+A==
+Message-ID: <0674544ccdfa9cdc68d848fbed3f8f4b@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Breno Leitao <leitao@debian.org>,
+ Yao Kai <yaokai34@huawei.com>, liuyongqiang <liuyongqiang13@huawei.com>,
+ Tejun Heo <tj@kernel.org>
+Date: Tue, 08 Sep 2026 07:33:16 -1000
+Subject: Re: [PATCHSET wq/for-7.4] workqueue: Make flush_workqueue() cost scale with active pwqs
+In-Reply-To: <20260901210929.3092513-1-tj@kernel.org>
+References: <20260901210929.3092513-1-tj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-7-arnd@kernel.org>
-In-Reply-To: <20260908152808.3928630-7-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 8 Sep 2026 19:35:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnPYmOre6_kZfftmOaWyNdDSTTNxsJn8PsnwA=KqoYXkg@mail.gmail.com>
-X-Gm-Features: AcwNN1Vy2Xn3FP6S0HerShzZSl6E63lIl1BsiI7kBkdVTNwbpJho60d2kWzYdwE
-Message-ID: <CAD++jLnPYmOre6_kZfftmOaWyNdDSTTNxsJn8PsnwA=KqoYXkg@mail.gmail.com>
-Subject: Re: [PATCH 06/13] ARM: omap2: remove omap24xx support
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Paul Walmsley <paul@pwsan.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Kyungmin Park <kyungmin.park@samsung.com>, Helge Deller <deller@gmx.de>, 
-	Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, linux-media@vger.kernel.org, 
-	linux-mtd@lists.infradead.org, linux-fbdev@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 8, 2026 at 5:29=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
-
-> From: Arnd Bergmann <arnd@arndb.de>
+> This patchset contains the following three patches:
 >
-> The omap24xx SoC platform was used in the Nokia N800 and N810 tablets
-> released on 2007 and was among the first ARMv6 CPUs in products that
-> made it into products.
->
-> Unfortunately the early ARM1136r0 CPU cores had a number of quirks that
-> caused a disproportionate amount of work to keep them compatible with
-> later ARMv6K/v7/v8 implementations.
->
-> Drop the support for this SoC in order to allow removing ARM1136r0.
->
-> Cc: Aaro Koskinen <aaro.koskinen@iki.fi>
-> Cc: Andreas Kemnade <andreas@kemnade.info>
-> Cc: Kevin Hilman <khilman@baylibre.com>
-> Cc: Roger Quadros <rogerq@kernel.org>
-> Cc: Tony Lindgren <tony@atomide.com>
-> Cc: Paul Walmsley <paul@pwsan.com>
-> Cc: Herbert Xu <herbert@gondor.apana.org.au>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-> Cc: Kyungmin Park <kyungmin.park@samsung.com>
-> Cc: Helge Deller <deller@gmx.de>
-> Cc: Tero Kristo <kristo@kernel.org>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-omap@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-media@vger.kernel.org
-> Cc: linux-mtd@lists.infradead.org
-> Cc: linux-fbdev@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-clk@vger.kernel.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>  0001-workqueue-Add-for_each_node_with_fallback.patch
+>  0002-workqueue-Maintain-pwq-total_in_flight.patch
+>  0003-workqueue-Make-flush_workqueue-visit-only-pwqs-activ.patch
 
-Since Aaro says it can go, it can go.
+Applied 1-3 to wq/for-7.4.
 
-If the n800 had a PostmarketOS port things would be different,
-but it does not.
+Thanks.
 
-Yours,
-Linus Walleij
+--
+tejun
