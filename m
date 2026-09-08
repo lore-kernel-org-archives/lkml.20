@@ -1,254 +1,130 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4365221C3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C96519913;
+	Tue,  8 Sep 2026 09:37:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=51.159.188.251
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860247; cv=none; b=G2Bvajvn+NryA1QRI6SX4/d8NgJrPiuscRgBGJfd05rlTJIJBNG6z/0fsHmfAiHermA5eJx0Wvcc8eKHaDIs5or1e4K7ATxN5YiCJpW/OblEv1Iy36sntSqBiqORKKPmb7vDITKGCjlnXTvmTQDI7Hl6K1c23GkLV6Wt1r7tRFk=
+	t=1788860254; cv=none; b=ky9RaRddmxRik2fB+MNmC9A2sjQz45zj2FLxfnll1A5lUSlnllYsb3lQmhf+6lAYNPEZU7BkWitmdKRAvzdNGHHuQ48MnIaCFcHk8wZky/+qGerTOwJmMS1RpLAF/pt2bff/0/AsOWPOVdNSmMutT0QYe2a5p/VNaRf3vRH09+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860247; c=relaxed/simple;
-	bh=HvxZtc3mr9i12qOLGEDlGRfFFykU81xPzVzA7iGQRMs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=t8LGgbZA6d9W06boldsQuEFW3UJ1ubnvv0QlYBQoax2z5VZ4uCkRIod1GpL+tYB3RsvbTzo9NklZGTsgF9AwTZBU5MiAmXujZoeGzIhDAgzZ32/ii1qJYATHM8E0cGzCVCOHAvtWMY7h31Ymb0JdpEdCRfbInqanbY+vb5Dx2tA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YOVTGmi8; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788860254; c=relaxed/simple;
+	bh=Uzro9sQyNbEXpshQpInNR8RyMssihPgj7sRtvoTsTRQ=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=rn00IGjsoYq1rKnShMsaXDyCiTnMqod06r+HY6G/8Ns6rqZPL9nLh8s0wuEEpTZ3MO36Ia+7Y9MUsjXezNgbwLIaWPfxSplFilMKz9dSZY4RB2t6AjVZ6JsX5rXGu2BlNX+bPM6toVX/sfDx4jNj/ZBaDPxn/heowBPrXpfuUVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr; spf=pass smtp.mailfrom=oss.cyber.gouv.fr; dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b=o2sFK7r+; arc=none smtp.client-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YOVTGmi8"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8534d507f59so4615268b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788860246; x=1789465046; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Jdo8OnRnaSJ+QK5iLvvBRCC1dMO84Sr5WG2RzM3Vkaw=;
-        b=YOVTGmi8Lz0PfQvS99ehQWKsOOwtEGHFRwKiGZ1bppImrvR6t66w6JnCSHww2wXkb6
-         H7yJ2LajLXhcLPhexpMfZzsL3K5FYwEs+cLCL6HfprKkQqi87KBQn3yG8bIVo83/72ns
-         4mYLtV7vTDIMFEoCL/MafzuFCOmaHWFeAYstEqvd6uqhYBFcBkM9MHmZEJ0Y9lWMB4Cq
-         r/06HFlNsUNzjfUhk06kg8W4GLkfeD/bkGfqHStDH3ez2h9cnPXVpoH0KT1T5ytiK1GU
-         WE9Bl0KhAKlZBPxph4gFB73o/u/y8QeUwbDVt5ws+FXBDT7sR5lUUdJ5uqanfG+X+d+V
-         k1WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788860246; x=1789465046;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Jdo8OnRnaSJ+QK5iLvvBRCC1dMO84Sr5WG2RzM3Vkaw=;
-        b=pIXwiC1AKUUaS0LpcmDfngLetkMkXnz1tn1AraDhzrSZPvR9+xfbtujduf3HB6l6gs
-         wu2gImN+lfr66xebeoXH620bIymXSTRWNScvgyEesgeQwbACAoeJi56WV6+o7yBvis3z
-         OCdsaKhc38/oVladgrAWTSzlThRYz0148Szq867PyZmD0JQjPjaEMlbL6JL4dSmh/BYL
-         I6oltBkSgB5Br+BD2LHSDJv+J77kl0+avK9nfuH1pS3vFnsr4e9UcFsJD+WYYS6hDiov
-         UeHvKL2Aco2QHB66PeUvDbwuBWLq5mQY/lSmcvJQgSJiWzz2VgaBF7nAtnFb81C7dIWu
-         LbYA==
-X-Forwarded-Encrypted: i=1; AKwUvByjh3yj0/9LbRp1OdrmO8GGlMFcFeJcSU2thXs3e+FiSQ3sS/nnm3PtL0z+ls2exWzCnn+hF8a7loMR7mQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYCjyvyE6IVbp71SYGnsybW3Cdi9Q/VoDGjBnOfz0IgH6R381F
-	PcDzyaeALlivugZSCbnI1aKwlopjkKRIXZ8fXEK4B+sopkefXBgINMSl7lH6FJ6w0zY=
-X-Gm-Gg: AYBFou0EnxN9u0Iw2dECcaZ1tCJdsJGRvl7ql+u+OuySw7HjlKYyKUkZ3ssMTA9jSka
-	LF66vVextRmExHv8rxS7ITlbULLXkBgKCSxYCACWc2h3peMSbHu1j01uVwmiab/STYpD53Iqqgr
-	NcC1RCdmtmqs4JyrsKHmZ/l1+dMkkoVLfaC9SMZBovGHgtMJSNxWCLmUCxeL3KKrwxRNKLBidzQ
-	NWR7w1IdsbQulE8cuDXHT5odjLv/f8NqvO7Q+yA+VW8C7BoaNEvZ+/Z9wn2fvbfPwSwOCUjfFsw
-	PKfBFtLNF+MyTTDg8fIAbaFHBkUqXmFWfI5tfvy92+TEIZTrtq9Kk+1OHUT4GA0aPY9RDqvueRj
-	0iiIUnFyUNnWgBSShln0kJrk/RtalXLm0yF4wGCMd8cmUk5w/lnmjEBoQoakOCu4Ln2+fdY1WP6
-	ZENXqR+Z/3/LDHKpn5DWs1Nh7/ADWsStV56rOwV2dmHIKbDNSeRhFPnhFMjoI=
-X-Received: by 2002:a05:6a00:f94:b0:857:7337:5db7 with SMTP id d2e1a72fcca58-8616ac58363mr41402529b3a.21.1788860245006;
-        Tue, 08 Sep 2026 02:37:25 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615292d875sm5324180b3a.25.2026.09.08.02.37.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:37:24 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-To: Alexandre Ghiti <alex@ghiti.fr>
-Cc: Kunwu Chan <kunwu.chan@gmail.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Yosry Ahmed <yosry@kernel.org>,
-	Nhat Pham <nphamcs@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Chris Li <chrisl@kernel.org>,
-	Kairui Song <kasong@tencent.com>,
-	Kairui Song <ryncsn@gmail.com>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Jan Kara <jack@suse.cz>,
-	Kemeng Shi <shikemeng@huaweicloud.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Youngjun Park <youngjun.park@lge.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Wei Xu <weixugc@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] mm: swap: move LRU insertion out of the swap cache allocator
-Date: Tue,  8 Sep 2026 17:37:00 +0800
-Message-ID: <20260908093711.2364516-1-kunwu.chan@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260825135209.3135169-2-alex@ghiti.fr>
-References: 
+	dkim=pass (2048-bit key) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.b="o2sFK7r+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=yCthNr5mJM9tAeqQeJQ8svvk+g0Q+GqxOFfeKxDoCjk=; b=o2sFK7r+mVqe1wEsO8jOZ4Zzi6
+	amtR+kji1nwyTlsmWpU3Mbgkz+z5kzixEgJjF7A7doqBj3VswbhSs3vmiae0dS5Z5aWfdmYQeGX/i
+	LznBj2F1AM1zJVfAtmF9b7cI56C9FN041WxfOgJTEuCPaZawtRTGzMMhPDz4CEEuOouTjTQutZODt
+	zrN4OJ+fTo6/EKYaTZOCZyno0Jyi1gZeCeIaL3vHYATK5DrXCyoLI6A7sMExZf59fe55XJF8ji2Fa
+	QfgmLo7rW21LC6hsigjmTxM7jFgjVMRdGXIUkaFDd1g2uKnbi+hQJdgrAvEyvsm3nOBRI8sc3Q9ZC
+	nDAwSJ0w==;
+Received: from [::1] (port=34328 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.99.5)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1x3sGi-0000000ABeP-3g1Q;
+	Tue, 08 Sep 2026 11:37:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Date: Tue, 08 Sep 2026 11:37:30 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: arei.gonglei@huawei.com, mst@redhat.com, davem@davemloft.net,
+ jasowangio@gmail.com, xuanzhuo@linux.alibaba.com, eperezma@redhat.com,
+ linux-crypto@vger.kernel.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Bryam Vargas <hexlabsecurity@proton.me>
+Subject: Re: [PATCH] crypto: virtio: validate akcipher completion length
+In-Reply-To: <ap_TatiabFuXiiad@gondor.apana.org.au>
+References: <20260821095511.3600564-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <ap_TatiabFuXiiad@gondor.apana.org.au>
+User-Agent: Roundcube Webmail/1.6.18
+Message-ID: <7fc9c66a8d89113854ecf8cc54ecb0c5@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Tue, 25 Aug 2026 15:52:05 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
-
-> zswap writeback wants a swap cache folio it can free directly once
-> writeback completes, i.e. one that is not on the LRU (folio_add_lru()
-> stages the folio in a per-CPU batch that holds a reference until it is
-> drained, which keeps remove_mapping() from freeing the folio on
-> synchronous devices, and likely on asynchronous ones too).
+On 2026-09-08 11:20, Herbert Xu wrote:
+> On Fri, Aug 21, 2026 at 09:55:12AM +0000, Jérémy Jean wrote:
+>> The device controls the used length returned for an akcipher request.
+>> Subtracting the status byte without validating that length can 
+>> underflow
+>> dst_len, while accepting a payload larger than the submitted 
+>> destination
+>> can make sg_copy_from_buffer() read past the response buffer.
+>> 
+>> Reject malformed completion lengths before updating dst_len or copying 
+>> the
+>> response.
+>> 
+>> Fixes: a36bd0ad9fbf ("virtio-crypto: adjust dst_len at ops callback")
+>> Assisted-by: Codex:gpt-5
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  drivers/crypto/virtio/virtio_crypto_akcipher_algs.c | 13 
+>> ++++++++++++-
+>>  1 file changed, 12 insertions(+), 1 deletion(-)
+>> 
+>> diff --git a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c 
+>> b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+>> index d8d452cac391..886032abae80 100644
+>> --- a/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+>> +++ b/drivers/crypto/virtio/virtio_crypto_akcipher_algs.c
+>> @@ -69,6 +69,7 @@ static void 
+>> virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
+>>  	struct akcipher_request *akcipher_req =
+>>  		container_of((void *)vc_akcipher_req, struct akcipher_request,
+>>  			     __ctx);
+>> +	unsigned int dst_len;
+>>  	int error;
+>> 
+>>  	switch (vc_req->status) {
+>> @@ -88,9 +89,19 @@ static void 
+>> virtio_crypto_dataq_akcipher_callback(struct virtio_crypto_request *
+>>  	}
+>> 
+>>  	/* actual length may be less than dst buffer */
+>> -	akcipher_req->dst_len = len - sizeof(vc_req->status);
 > 
-> So defer the LRU addition to the callers of __swap_cache_alloc_folio(),
-> no functional change intended.
+> This appears to have already been fixed by
 > 
-> Suggested-by: Kairui Song <kasong@tencent.com>
-> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
-> ---
->  mm/swap.h       |  6 +++---
->  mm/swap_state.c | 20 ++++++++++++--------
->  mm/zswap.c      |  5 +++--
->  3 files changed, 18 insertions(+), 13 deletions(-)
+> commit f77a956f6a19f9463ef1527c9d0cda50dded6b92
+> Author: Bryam Vargas <hexlabsecurity@proton.me>
+> Date:   Mon Jun 22 01:52:15 2026 -0500
 > 
-> diff --git a/mm/swap.h b/mm/swap.h
-> index 77d2d14eda42..fc44daae1de1 100644
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -304,9 +304,9 @@ bool swap_cache_has_folio(swp_entry_t entry);
->  struct folio *swap_cache_get_folio(swp_entry_t entry);
->  void *swap_cache_get_shadow(swp_entry_t entry);
->  void swap_cache_del_folio(struct folio *folio);
-> -struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
-> -				     unsigned long orders, struct vm_fault *vmf,
-> -				     struct mempolicy *mpol, pgoff_t ilx);
-> +struct folio *__swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
-> +				       unsigned long orders, struct vm_fault *vmf,
-> +				       struct mempolicy *mpol, pgoff_t ilx);
->  /* Below helpers require the caller to lock and pass in the swap cluster. */
->  void __swap_cache_add_folio(struct swap_cluster_info *ci,
->  			    struct folio *folio, swp_entry_t entry);
-> diff --git a/mm/swap_state.c b/mm/swap_state.c
-> index 727a17ee7821..07418fc94f00 100644
-> --- a/mm/swap_state.c
-> +++ b/mm/swap_state.c
-> @@ -483,13 +483,11 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
->  	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
->  	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
->  
-> -	/* Caller will initiate read into locked new_folio */
-> -	folio_add_lru(folio);
->  	return folio;
->  }
->  
->  /**
-> - * swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
-> + * __swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
->   * @targ_entry: swap entry indicating the target slot
->   * @gfp: memory allocation flags
->   * @orders: allocation orders, must be non zero
-> @@ -501,13 +499,17 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
->   * doing IO (e.g. swap in or zswap writeback). The swap slot indicated by
->   * @targ_entry must have a non-zero swap count (swapped out).
->   *
-> + * The returned folio is locked and is NOT on the LRU. The caller must either
-> + * add it to the LRU with folio_add_lru() so page reclaim can find it, or free
-> + * it directly once done; a folio left off the LRU is unreclaimable and leaks.
-> + *
->   * Context: Caller must protect the swap device with reference count or locks.
->   * Return: Returns the folio if allocation succeeded and folio is in the swap
->   * cache. Returns error code if failed due to race, OOM or invalid arguments.
->   */
-> -struct folio *swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
-> -				     unsigned long orders, struct vm_fault *vmf,
-> -				     struct mempolicy *mpol, pgoff_t ilx)
-> +struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
-> +				       unsigned long orders, struct vm_fault *vmf,
-> +				       struct mempolicy *mpol, pgoff_t ilx)
->  {
->  	int order, err;
->  	struct folio *ret;
-> @@ -643,12 +645,13 @@ static struct folio *swap_cache_read_folio(swp_entry_t entry, gfp_t gfp,
->  		folio = swap_cache_get_folio(entry);
->  		if (folio)
->  			return folio;
-> -		folio = swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
-> +		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
->  	} while (PTR_ERR(folio) == -EEXIST);
->  
->  	if (IS_ERR_OR_NULL(folio))
->  		return NULL;
->  
-> +	folio_add_lru(folio);
->  	swap_read_folio(folio, plug);
->  	if (readahead) {
->  		folio_set_readahead(folio);
-> @@ -683,12 +686,13 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
->  		folio = swap_cache_get_folio(entry);
->  		if (folio)
->  			return folio;
-> -		folio = swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
-> +		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
->  	} while (PTR_ERR(folio) == -EEXIST);
->  
->  	if (IS_ERR(folio))
->  		return folio;
->  
-> +	folio_add_lru(folio);
->  	swap_read_folio(folio, NULL);
->  	return folio;
->  }
-> diff --git a/mm/zswap.c b/mm/zswap.c
-> index 761cd699e0a3..8163e6c5f76c 100644
-> --- a/mm/zswap.c
-> +++ b/mm/zswap.c
-> @@ -1000,8 +1000,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
->  		return -EEXIST;
->  
->  	mpol = get_task_policy(current);
-> -	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
-> -				       NO_INTERLEAVE_INDEX);
-> +	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
-> +					 NO_INTERLEAVE_INDEX);
->  	put_swap_device(si);
->  
->  	/*
-> @@ -1013,6 +1013,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
->  	 */
->  	if (IS_ERR(folio))
->  		return PTR_ERR(folio);
-> +	folio_add_lru(folio);
->  
->  	/*
->  	 * folio is locked, and the swapcache is now secured against
-> -- 
-> 2.53.0-Meta
+>     crypto: virtio - bound the akcipher result length
 > 
+> Please check that commit and see if it's sufficient or not.
 > 
+> Thanks,
 
-I checked the callers of __swap_cache_alloc_folio(). The regular 
-swap-in paths add the folio to the LRU after allocation, while 
-the zswap writeback path keeps it off-LRU for the dropbehind 
-handling in patch 3. 
-The new allocator contract is preserved by all callers.
+Hello,
 
-swapfile.c still references the old name in a comment — minor 
-consistency nit.
+Indeed, this fixes the bug.
+Thanks for the pointer, I missed that patch.
 
-Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
-
-Thanks,
-KunWu
-
+Regards,
+Jérémy
