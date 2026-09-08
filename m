@@ -1,252 +1,163 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28447353A7D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E46379991
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845209; cv=none; b=Y3JeDCUagcnX5IokSjyZWR6cyNWyFUN9ECOgyAqBrK+LFBNn2tV+g+8iQE8q3RQwLBs9cRXcNIbck6GORZVzWtz/Wtpf44Ux5AvvpFa2abc1LwLhHzCX7YRhw7Kv17r1D4hC4gwnlH/6/056H3Rh5M4eql2DCjCSb78QAI3sPD8=
+	t=1788845216; cv=none; b=AgmqNL59KpqxloVIPrsVFO59bsbUrVs8DNP2fhhXTSSKPeCRMktEPqpv92lZxCeNjFMU4dgLQT3FA9lr//ekm7B4j7kG5ZQRam/fLUZIQk6LQfe8JH2I/Amolfv3E694580rJANmLDFbXVN9Q2oQnORvdlIE9cbFFWxD0APnOuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845209; c=relaxed/simple;
-	bh=euwZzd/VFR4HBBLlVmWUOsKqBJWwNbfBplF7gYP2uQw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pm4MAN/057EYx4cHepmyfw9L0MJwrsmbo3oJpH7Z7jKj4MLVTRfpU87PSpYaoH+QNVzx2DE0LwLq7SRpc7ZraZ789yara9YrQGsqot9uDa4jkcMCau/KASPIs959/arZFVt/Y9AT2Ijz6skrzDANqQasozFkJDjm1iwRLRNtvSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QqBDloLS; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1788845216; c=relaxed/simple;
+	bh=ZIRVEqjxXGVRKDzZh1TGbLw59T9G6VckCt7458JkZCw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pUoYp3TlCguD6LDk3NpbrQabgz2MrnUqSQfiPE/xX2q0D4HYj5Nk4l4Ts1vurIbhj6qKAzsfQg8Sn1ftwppDTIrISI9C+J4FiBz3VVBz1IoSjWwIR8d1o81cvk4u4vV6uz5FNfyuAQpJQ5RGHg11aFIbD8AjTrRZ3yEB7qXzrmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UkMuKH5D; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QqBDloLS"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso5409532a91.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UkMuKH5D"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6e954afbdso26641425ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788845207; x=1789450007; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1z6Bj27I27t4pJmuJ175AefeQtd/kOqAphoJXB6vZBA=;
-        b=QqBDloLSVafCHnAlsUsq5XcwBtt+XX1R7bRNH4j6B6tWCKT9uEK3rCaO1L2/OTOWGB
-         AdSSr6xnT4Xhm0i87tb7YWrjToGKZz+yfSHQ4zZGiko4yXH2wfAPzyCbzXstvGgVXbgp
-         J2ricQyJDxB/mpt8Q0OlID3DWPPntbl1HWp49mjswQ0AU9739U5FrOvIoWHDu5wQzMxn
-         +K0CEZ1W/PHroneZG0N4JMd4e0GzsF/6pRehAoXpGpaPHNrX/t4w1/vlGM5MgTaF6kqU
-         tbIyXd4+bUg7O7TAJyjMnUqig95IiFdjiHFoNENsgX5skakNNbsiQQ6OmakcOiOVUoMQ
-         kKKw==
+        d=gmail.com; s=20251104; t=1788845214; x=1789450014; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1W+fM/Wuxfg9AV61/48GxXECYU1wlppMPQetunuyOIs=;
+        b=UkMuKH5DLx1QhBCXQL0ADKpiw6NCr49GIdGMliXZKWyFc30tkMZ/Y9z1qanozXWTOR
+         YNlfYX6iZPh5J9Jx6UL6nGotIMa/c11eUgg0oibIIR2XZSXVPgLWWFsZUINvByi7VQBY
+         W5tsAMUGJ0SohkHxTmvyDlF6DrtNAmRo+EZMCh4LfDHfYJqNA+JGeTOeSKaVcDMquCbd
+         QyvmLgP0zqLrTb3pay0yYn0jMT8uJLn9uzZ9tj0dT2YF7VbHeaNbY+QzjmbERiEUMIVZ
+         ohIQrbrXRIDeRDlQx/6BK/zyrkFcbf+xzzJFFGXLOUJLi8ye5eIhAMgnoHxX+wZMAa6U
+         ONjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845207; x=1789450007;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1z6Bj27I27t4pJmuJ175AefeQtd/kOqAphoJXB6vZBA=;
-        b=SC8P5O4TetrRUiRqyQwPv8bQTkYNkda8nT9WSQc/hht/GCJvt2+aAFoSUqN5tC4384
-         rwyd1EvUFsOmsVsExHreegqebHe41PUl0banpQKWllBpN4J9M2sKb/pKJvmIl/7HU4rU
-         EqzSQ74/vV93CX2M2YJqCtjujUwh4HVHfbKUk39avjCrPitaWdxu/hLp80RhZM5xz2au
-         vl8B+dON5505msa1R+lvHyOP8Kd/2Q2dbOioYcfdJ1HXGShZV6NO4AZ5GBrK+XbCbCNM
-         yK5mTo1o5fbkYMbDNMfjN3gOpIv7BDtOyoTuB3ydKyTAz28A8TReYFVLIEN8FVBsGbcJ
-         1bjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0XQy4A+Iykb6IY1M9WS9gBlkqhDB3KwQLuSNBbLmDAt1C8ktTAV2rVIL1V6aJoJLMfEE9eAYprjz1jic=@vger.kernel.org
-X-Gm-Message-State: AFuF++niIbwzetj+QNF6YEmp0cXXEo4QgICY8pgkyJosEgg+xlKe/Tgc
-	abS6MToM5Dzwl6EI0LGE0ymZE9FGwVE5S6UZSXRzZedBfKPrcEYuu0aV
-X-Gm-Gg: AYBFou0bHE+i7PccnZ4hHDkJZtl0W9IN62DDN2YMh+tkui4xUPv0vIlMIpkKm2H4/Oh
-	yEkrsLIzpII4vZn0ZLQMwrs5Zl0w0VV+ToH1zVoIJCOeHgrkdJfn2bgUdF/I7mLvtAixs1ovupm
-	t/PrdP8Ho/vGrLA+pEi0nAWS9812ljwUWxOgX8D5JwBGBobwMdbWdHhfXBMb1rv3D6qBit3uAjr
-	gDK8vSrTMHR/AlUMG6yv8tDk+nCRXbSp5p4n+jm5V0Jq0uQkiEBDpSi6ldj7HPnrxKkDb4fJgls
-	LaDv9EWooDEfH2CBM2NMBrznYvFGd4OBCmY3BgwQGVz+gmcjHZBh5KJ3KuONqq1+3lWVMo149bL
-	RFR58G9atznU8wQUWkeej8Fh6r49pfJhZYQUTeWAfuQxCFhR6wKYvjbxk2I4+4ElQyFkRqo0+KF
-	fvWy6rJ9IXT6wlX9Y3A/4pDXZmH76SHgiltI8h9hExVZy4bxeRX23LWuFOazD0JPQdbP5Qhr/6C
-	oBAcrUOupKHg/T3tz6nCxxF
-X-Received: by 2002:a17:90b:3943:b0:398:d8eb:cb2a with SMTP id 98e67ed59e1d1-39b26273e31mr43805291a91.23.1788845207542;
-        Mon, 07 Sep 2026 22:26:47 -0700 (PDT)
-Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.26.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:26:47 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Bharat Bhushan <bbhushan2@marvell.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Chris Snook <chris.snook@gmail.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	GR-Linux-NIC-Dev@marvell.com,
-	Geetha sowjanya <gakula@marvell.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Jian Shen <shenjian15@huawei.com>,
-	Jijie Shao <shaojijie@huawei.com>,
-	Manish Chopra <manishc@marvell.com>,
-	Marcin Wojtas <marcin.s.wojtas@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rahul Verma <rahulv@marvell.com>,
-	Ratheesh Kannoth <rkannoth@marvell.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Shahed Shaikh <shshaikh@marvell.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Sudarsana Kalluru <skalluru@marvell.com>,
-	Sunil Goutham <sgoutham@marvell.com>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-parisc@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 04/10] net: cavium: fix typos in comments
-Date: Tue,  8 Sep 2026 10:55:56 +0530
-Message-ID: <20260908052602.27497-5-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
-References: <20260908052602.27497-1-hemanth.selam@gmail.com>
+        d=1e100.net; s=20251104; t=1788845214; x=1789450014;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1W+fM/Wuxfg9AV61/48GxXECYU1wlppMPQetunuyOIs=;
+        b=Wu+nZkYB3R+ExzQ6MmDYNHjOccew4LZ7ipw4W3Ys52hr4aAakl64Ggke9ifbK0TiWm
+         hh4SdWJT1kgN4ZFEihlZPRLriJIAcsf+nqHFKhmmuHDMhz61pessQ+aXAC0J0lqP0Wy0
+         pUq8FuZ/ltnpmEF9KM3zgR9UWEJHl8GM60YQLry+7vgtIi6mDB1uN5KKvxOIMxNiVKy6
+         FcrUf4SwkWwUrQgIQUV+DL9wEsM0He9P7gKhId0a/1r94t4TqXSp8/W9mBfhEeETX4wp
+         JxNlPuiABMZheEbIVhUdx6fPtudVTbFtlNO1aMmJFv9jookJ4/bwzZzIz6l8mq7O2RYb
+         E63Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy7GEE54bR4G3ii63J48JAXF/HsZvjv8ZPQ2QtUrhNQEWELASjQ2ppbtLqekPSfmpE9jycFOH9HVnWbBhM=@vger.kernel.org
+X-Gm-Message-State: AFuF++m0+9N+kEacAlJ38vmZbqwQvPjKTdhi/QBTfbS9idy7IfUi+csn
+	kOPPBXTgaszHaBSU9zjnVX0MyrlYeM0uCxYwKvHBXEHqliY5foFp1AD8
+X-Gm-Gg: AYBFou07PQEl+yBONab6bV4Zr52/8O9WHeH+RORwVvBRM1UC10lGrANXbyP937K6N3H
+	EpcDLWOTr7mzTBxNce88ce3yBiRRKv3nUyOF2i9oXVnrUANUFGMr/+iGYteixiyYA6CY537F18Q
+	p1I1T5LDoFxIK7s3KENs4BX7sJxvv10l9FOfGcenDyRjNMwb9wx5LC+shfdaBie0081Mp40OEfY
+	qIpzho6cHYc+xaFtpCHJVE9xa302UFiggWiPPuFMJSHOaxeezPRPd6Vz0UMKnzsCb96bEL3lKzI
+	eZcIz1zsi6gnLZM65AAgymfX1pkeQ8NrH2h5WhlvyC+Y7agbr3Gu2dBQwI/u1FwBcBmE7xSJnuJ
+	S3r9HG4QcL+BnymTAeu+DaVN0NhZeEXcGlSPhBsu9DQM1453FzYGGETl4OzjBaChfV9O5ByDCHA
+	8JD0mbN4dJBXSTAfS+czk6GrIXNxw+BexAQI4DaR1Sk6f+dE8UtEgdZIG7GafVwd7InFbMdFAxg
+	9YSPbaI483ZGZbpGW2afrntKg9YJeZQIeQmZQ==
+X-Received: by 2002:a17:90a:d004:b0:392:6638:2e6a with SMTP id 98e67ed59e1d1-39b26273267mr41950559a91.13.1788845214308;
+        Mon, 07 Sep 2026 22:26:54 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b58187a9fsm4339012a91.3.2026.09.07.22.26.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 22:26:53 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <1b2d3cca-09a6-42f7-93b3-ac1a2934d301@roeck-us.net>
+Date: Mon, 7 Sep 2026 22:26:52 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 2/2] platform: arm64: qcom-hamoa-ec: test sensor and
+ variant handling
+To: Birk Skyum <birk.skyum@pm.me>, sashiko-bot@kernel.org
+Cc: Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
+ Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede
+ <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>,
+ Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260908015650.84401-1-birk.skyum@pm.me>
+ <20260908015650.84401-3-birk.skyum@pm.me>
+ <20260908020711.ED17B1F00A3A@smtp.kernel.org>
+ <20260908021844.42118-1-birk.skyum@pm.me>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260908021844.42118-1-birk.skyum@pm.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Fix misspellings in comments, found with scripts/checkpatch.pl using
-the misspelling list in scripts/spelling.txt.  Comments only, no code
-changes.
+On 9/7/26 19:18, Birk Skyum wrote:
+> Thanks for checking this.
+> 
+> The test client is bound to the I2C core's dummy driver by
+> i2c_new_dummy_device(). Unregistering it unbinds that driver and releases
+> the managed hwmon child before the adapter is deleted. I reran the arm64
+> KUnit image on the stated 7.3-rc2 base; all seven cases completed and the
+> guest rebooted normally, including cleanup after the sensor-probe test.
+> 
+> The dummy-driver binding is also documented here:
+> https://docs.kernel.org/driver-api/i2c.html#c.i2c_new_dummy_device
+> 
+> For the hwmon placement, I kept the small read-only sensor path in the
+> existing EC driver, as huawei-gaokun-ec does. Guenter and linux-hwmon are
+> already copied. Would an auxiliary driver under drivers/hwmon be preferred
+> here? I'm happy to split it if that is the preferred direction.
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- drivers/net/ethernet/cavium/liquidio/cn66xx_device.c   | 2 +-
- drivers/net/ethernet/cavium/liquidio/lio_core.c        | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_config.h   | 4 ++--
- drivers/net/ethernet/cavium/liquidio/octeon_iq.h       | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_main.h     | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_nic.h      | 2 +-
- drivers/net/ethernet/cavium/liquidio/request_manager.c | 2 +-
- drivers/net/ethernet/cavium/thunder/nic.h              | 2 +-
- drivers/net/ethernet/cavium/thunder/nic_main.c         | 2 +-
- 9 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/cavium/liquidio/cn66xx_device.c b/drivers/net/ethernet/cavium/liquidio/cn66xx_device.c
-index 93fccfec288d..d3ebbb40579e 100644
---- a/drivers/net/ethernet/cavium/liquidio/cn66xx_device.c
-+++ b/drivers/net/ethernet/cavium/liquidio/cn66xx_device.c
-@@ -177,7 +177,7 @@ static void lio_cn66xx_setup_pkt_ctl_regs(struct octeon_device *oct)
- 
- 	/* 66XX SPECIFIC */
- 	if (CFG_GET_OQ_MAX_Q(cn6xxx->conf) <= 4)
--		/* Disable RING_EN if only upto 4 rings are used. */
-+		/* Disable RING_EN if only up to 4 rings are used. */
- 		pktctl &= ~(1 << 4);
- 	else
- 		pktctl |= (1 << 4);
-diff --git a/drivers/net/ethernet/cavium/liquidio/lio_core.c b/drivers/net/ethernet/cavium/liquidio/lio_core.c
-index 93b06d599eed..bed450bfad38 100644
---- a/drivers/net/ethernet/cavium/liquidio/lio_core.c
-+++ b/drivers/net/ethernet/cavium/liquidio/lio_core.c
-@@ -565,7 +565,7 @@ static int octeon_setup_droq(struct octeon_device *oct, int q_no, int num_descs,
- }
- 
- /**
-- * liquidio_push_packet - Routine to push packets arriving on Octeon interface upto network layer.
-+ * liquidio_push_packet - Routine to push packets arriving on Octeon interface up to network layer.
-  * @octeon_id:octeon device id.
-  * @skbuff:   skbuff struct to be passed to network layer.
-  * @len:      size of total data received.
-diff --git a/drivers/net/ethernet/cavium/liquidio/octeon_config.h b/drivers/net/ethernet/cavium/liquidio/octeon_config.h
-index 24c212001212..d2d64edaf3bf 100644
---- a/drivers/net/ethernet/cavium/liquidio/octeon_config.h
-+++ b/drivers/net/ethernet/cavium/liquidio/octeon_config.h
-@@ -254,7 +254,7 @@ struct octeon_oq_config {
- 	u64 pkts_per_intr:16;
- 
- 	/** Interrupt Coalescing (Time Interval). Octeon will interrupt the
--	 *  host if atleast one packet was sent in the time interval specified
-+	 *  host if at least one packet was sent in the time interval specified
- 	 *  by this field. The driver uses time interval interrupt coalescing
- 	 *  by default. The time is specified in microseconds.
- 	 */
-@@ -296,7 +296,7 @@ struct octeon_oq_config {
- 	u64 oq_intr_pkt:16;
- 
- 	/** Interrupt Coalescing (Time Interval). Octeon will interrupt the
--	 *  host if atleast one packet was sent in the time interval specified
-+	 *  host if at least one packet was sent in the time interval specified
- 	 *  by this field. The driver uses time interval interrupt coalescing
- 	 *  by default.  The time is specified in microseconds.
- 	 */
-diff --git a/drivers/net/ethernet/cavium/liquidio/octeon_iq.h b/drivers/net/ethernet/cavium/liquidio/octeon_iq.h
-index a04f36a0e1a0..fdd7d3a77a2d 100644
---- a/drivers/net/ethernet/cavium/liquidio/octeon_iq.h
-+++ b/drivers/net/ethernet/cavium/liquidio/octeon_iq.h
-@@ -70,7 +70,7 @@ struct oct_iq_stats {
- 
- /** The instruction (input) queue.
-  *  The input queue is used to post raw (instruction) mode data or packet
-- *  data to Octeon device from the host. Each input queue (upto 4) for
-+ *  data to Octeon device from the host. Each input queue (up to 4) for
-  *  a Octeon device has one such structure to represent it.
-  */
- struct octeon_instr_queue {
-diff --git a/drivers/net/ethernet/cavium/liquidio/octeon_main.h b/drivers/net/ethernet/cavium/liquidio/octeon_main.h
-index 953edf0c7096..d2a52673cac5 100644
---- a/drivers/net/ethernet/cavium/liquidio/octeon_main.h
-+++ b/drivers/net/ethernet/cavium/liquidio/octeon_main.h
-@@ -166,7 +166,7 @@ static inline int octeon_map_pci_barx(struct octeon_device *oct,
-  * errno -EINTR: user abort the command.
-  * errno -ETIME: user spefified timeout value has been expired.
-  * errno -EBUSY: the response of the request does not return in
-- *               resonable time (LIO_SC_MAX_TMO_MS).
-+ *               reasonable time (LIO_SC_MAX_TMO_MS).
-  *               the sc wll be move to zombie response list by
-  *               lio_process_ordered_list()
-  *
-diff --git a/drivers/net/ethernet/cavium/liquidio/octeon_nic.h b/drivers/net/ethernet/cavium/liquidio/octeon_nic.h
-index c139fc423764..8341faaa0c24 100644
---- a/drivers/net/ethernet/cavium/liquidio/octeon_nic.h
-+++ b/drivers/net/ethernet/cavium/liquidio/octeon_nic.h
-@@ -277,7 +277,7 @@ int octnet_send_nic_data_pkt(struct octeon_device *oct,
- 
- /** Send a NIC control packet to the device
-  * @param oct - octeon device pointer
-- * @param nctrl - control structure with command, timout, and callback info
-+ * @param nctrl - control structure with command, timeout, and callback info
-  * @returns IQ_FAILED if it failed to add to the input queue. IQ_STOP if the
-  * queue should be stopped, and IQ_SEND_OK if it sent okay.
-  */
-diff --git a/drivers/net/ethernet/cavium/liquidio/request_manager.c b/drivers/net/ethernet/cavium/liquidio/request_manager.c
-index d7cfb20eea00..a983e7f79461 100644
---- a/drivers/net/ethernet/cavium/liquidio/request_manager.c
-+++ b/drivers/net/ethernet/cavium/liquidio/request_manager.c
-@@ -40,7 +40,7 @@ static void  __check_db_timeout(struct octeon_device *oct, u64 iq_no);
- 
- static void (*reqtype_free_fn[MAX_OCTEON_DEVICES][REQTYPE_LAST + 1]) (void *);
- 
--/* Define this to return the request status comaptible to old code */
-+/* Define this to return the request status compatible to old code */
- /*#define OCTEON_USE_OLD_REQ_STATUS*/
- 
- /* Return 0 on success, 1 on failure */
-diff --git a/drivers/net/ethernet/cavium/thunder/nic.h b/drivers/net/ethernet/cavium/thunder/nic.h
-index 090d6b83982a..bb3f4fa6b995 100644
---- a/drivers/net/ethernet/cavium/thunder/nic.h
-+++ b/drivers/net/ethernet/cavium/thunder/nic.h
-@@ -97,7 +97,7 @@
-  * This value ensures that once a packet has been "accepted"
-  * for reception it will not get dropped due to non-availability
-  * of CQ descriptor. An errata in HW mandates this value to be
-- * atleast 0x100.
-+ * at least 0x100.
-  */
- #define NICPF_CQM_MIN_DROP_LEVEL       0x100
- 
-diff --git a/drivers/net/ethernet/cavium/thunder/nic_main.c b/drivers/net/ethernet/cavium/thunder/nic_main.c
-index 0ec65ec634df..086f32b61580 100644
---- a/drivers/net/ethernet/cavium/thunder/nic_main.c
-+++ b/drivers/net/ethernet/cavium/thunder/nic_main.c
-@@ -595,7 +595,7 @@ static void nic_config_rss(struct nicpf *nic, struct rss_cfg_msg *cfg)
- 	nic_reg_write(nic, idx_addr | (cpi_base << 3), cpi_cfg);
- }
- 
--/* 4 level transmit side scheduler configutation
-+/* 4 level transmit side scheduler configuration
-  * for TNS bypass mode
-  *
-  * Sample configuration for SQ0 on 88xx
--- 
-2.48.1
+Your call, really, but it is all or nothing as mentioned
+in the other patch. Platform drivers are not documented in
+Documentation/hwmon/.
+
+Guenter
 
