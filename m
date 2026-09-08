@@ -1,88 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4963241DE11
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AF543A80B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856194; cv=none; b=i86v3zgZsDqVsVnNB9jhW1VNJhaKgOLrw28zLqdFaBZRNLjsOcRwcj7ARC2Om6WGht+QE5JhIM8u5mcbQyHultsuLZpbrTjosNS+JN1TWrhN5lUxrqNvoc68DMIsk692BpXS55jQrbrTCUS2oGR6Qq+HLc2ohqMw3qzM+MXY3OI=
+	t=1788856207; cv=none; b=rJTLZREMDjPexpo7kFKqe9qCpOSYLKhu5VVp2MI8hKbnhMa4HrOH2Aig20OKt6FX3ParkOR7l0I6X8UcJ2Rp5Y595D5ykinutQGjBzQDgrWqI3UpiG/MpQyLBorNzN9h3XMvsRkYVvXzcDk3UQREeD2hUDXdyCxGTSMkMHU0mns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856194; c=relaxed/simple;
-	bh=nc3Jt2ZMZmrZg7w2li/YMN/7RDIm51oz7VxnoMpkwnI=;
+	s=arc-20240116; t=1788856207; c=relaxed/simple;
+	bh=aOCoYIAHIxlFwQV4J+InIGSdig2bm9qzsd+cFa8uh4Y=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z55MCiRqwfMfk9PW98VOye7HYRYQxAIT0XSc8QwLfT2XeGYGYbNRaXSzgRpaDCU/vFNtZMZekXxCBb5J+5I6blnLqTX1UFIWpUDJ0hIvqdHrM+uq2Ou0xKwJFTLT9evvhR6x5KMq79Z++OruhKJeuMrjDW5DfLjTdDMX5xVlRmQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YOodalYL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hPaQEuEe; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Snj5pC7/LKkDuJPXI945wWau1hZuC+HUr8tCkPMSiJk44qJpwLiK8dfIxhH66QKUdJk74eE05dy16ACN/ITLU7icFi29arD8lYNoGxH+XllsdSU/zhago4YbNUC0TgSHM32Kk3TtAjSvSLzkvnusJfa3+IsNgp2F18u8XZkdvgk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfMk3wkz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YOodalYL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hPaQEuEe"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M3iF2363272
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 08:29:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1huhk9P06Z6mqd4EHk9Oqks2AFMSMZuTW6MMtKJjj0k=; b=YOodalYLDNLXBrSx
-	vrfzlLnzdYtqwKt2iWNcG7ymzup/A3wZuBDazv/7h0Grg+YE37aU8SCeZi7hJ3jS
-	+H+o/n3iqWABBTrnH5No9FCQrmK58zpdmiNqeiQ/VzOnkE1J78eEG4pa2CPn9gip
-	yJEIDw3g9koUjcwQ62sQC67aPVYP4DCX0UL0gfZfBMYKtDY6ylaOLqWBPufqsyHb
-	XWQ89ZIq7dSMGwAEabHYmCzdfQDgFXDIpUFBW1qhwlm4G9CQ8hKbBsq9LJ1cF1t4
-	LeHK2oqaSqGJGmyJPM57cdyw/nT2hx6SpcVRYM4a9a0Te0Vk+H+9dZaxRJjl3bcn
-	y1jCOA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjaguh2b6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:29:51 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-396638f9a18so2931286a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:29:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788856191; x=1789460991; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1huhk9P06Z6mqd4EHk9Oqks2AFMSMZuTW6MMtKJjj0k=;
-        b=hPaQEuEeuZauNZM1FzaKbdSDCdHnh7ei/OIXL/55aVdVDeP2PNKGZKy9PFHoq0c5/0
-         1gzDnHiefX8W02rPRcwJaQumyl114/JF3LF8kVk/PL3CnNyYsHwPEPMDJiLajWWWnIFc
-         qGSkXIHolMq7T7BmIpvRji5A1v1JQplAcgRMeIVaFhYOHpD+8bfVu3bzGKASCE5DY3s8
-         T6FqHvB6P2LcaqPvIhJP6Glx28weyF/p3aFnxZSvV3TThozagU5/WjCmuThstqOhipK0
-         RzLsdeeiYSpAMr6bkF4LYI9iRjR5TTpbZRHdwLK3zw4BLhYNa2v9edYPcNCka/BQOUXz
-         oETA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788856191; x=1789460991;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1huhk9P06Z6mqd4EHk9Oqks2AFMSMZuTW6MMtKJjj0k=;
-        b=gRvKaDSTungg6s0ItTH0xm4CHG/Lc6Ll4IXL6G7DlPdqtUlhCrIlN11gvVdGOdRRmg
-         W7Si7ukxjoOVykJlEs1OMgq1msx16ALlntdjAeiK5EMj+ZSPAvNzqQphtd6FrcLe3QXe
-         yHGdDl19a1yhRchBjI6aKj/1O0UKwMoDoe7YRdjYDzzfpRrymBaI/E8D25E3iwqPYAZg
-         sP4qI4DsLJTUjGtrIp4gltw9ULn8nrQk85WWdepL0GeGmUC0Jg+Ru5HgJgJLDToT8A7A
-         df67+K7C7XwZJI00+46ZOjfEtCmVnyUcuJA6rMNo/jxyRwwTwHoY7eipLhLxJD55sj92
-         oU2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwn2BLOZmPJ105zpnmOhJGRZHMYURX2+G1yBccfxkhfLIOYAJ/8QS2vEeav1+m3EbUzeEu39XjwXLsusDA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE5C0i5jMtxkxSHb74t5AHdqPKBtcotWx6pl5vDrw/ihy7+Rtc
-	Gu6YHffvquhOMwbUsu9L/JAMSAgacWC9qGUWtc6S/GnmmKsIhZ8lb5UX/Qz9HJsgxG3cwMgpHZv
-	4FPjeK+ygffOA0GByMBUBDONjhy/oygE6+RFCLLcONXNSi8LHD1Yq7nxjMShvSVeW/nXG1ANN1d
-	Q=
-X-Gm-Gg: AYBFou09xu4XW9qAtMrDPjogNCn0u8IituBtaHwcDhSDgGVz0QBx5/diW93DEaY8zpR
-	NiqwnRjJDukjb1mnDIq3+UfJb84YDzdpZGLqIZuZPcYDDCR6vf71DjiU0P8sSE/8R+d+xj0Tz23
-	Q2b4VQyvY1S1ApB72RQOzwxXSwqRaVGxKJyIngBrqQ7d038srWIGJkBNpqmHgJlx8trDX+5kj56
-	io6NeRDXUJrHDeZ179bZYM61sPDTn9xShDtp3SI8i4VmEcslpxxzPyEP4WBrthXKLY3haWwGn8+
-	1CE8ZvHxQMPU08XSiqWewQ9/SiECut9dluk/xw+yxYZb9IGaXHjR3R7ynjHEoZQN9+NWjG4YDSr
-	GOjN0O6+BSiANW2bBEjB9h7kTL6sYiMfd2tG1agBmkQ==
-X-Received: by 2002:a17:90b:5844:b0:398:e436:370 with SMTP id 98e67ed59e1d1-39b260ff0e9mr43921548a91.2.1788856190943;
-        Tue, 08 Sep 2026 01:29:50 -0700 (PDT)
-X-Received: by 2002:a17:90b:5844:b0:398:e436:370 with SMTP id 98e67ed59e1d1-39b260ff0e9mr43921517a91.2.1788856190438;
-        Tue, 08 Sep 2026 01:29:50 -0700 (PDT)
-Received: from [10.217.217.129] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm29188386eec.6.2026.09.08.01.29.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 01:29:49 -0700 (PDT)
-Message-ID: <17d7ebef-9ec7-4bf8-bf16-34e3bd3cd92e@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 13:59:44 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfMk3wkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B861B1F00A3A;
+	Tue,  8 Sep 2026 08:29:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788856205;
+	bh=ebCInI9e4Od3AHhat/r530l+pPuLJ5UuOoklobhTgGY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=LfMk3wkzpvMtWNa9uiopWPpLLfLC13UUn6mEqFqhG/qMNhTUxJTv7gWgiL7w95bRD
+	 0vKcjlDAq/jahkdL2mFfijUfIk0dy98QCKqCYCoBiamLeocjj2qYqrxrBv7ARFcR5C
+	 Rxvjll3Oi27ywmi1n3bgfo8nr6Os4VRAiVCza9J/7bwfxXclMu+540O9RdZLegUk+b
+	 kRZQPL9CXB4lsxrAYrOFu5r6ACtrJAHouHzOogyfavu/f5tFWxhEAWPThHykKFonwd
+	 pH04EutZIU3bIOPIhD/5bI+sY9aOEhpBUDY+xHn3JTHWCT0ZZ093A872Pyd4rJMQRk
+	 39FODpLeFY51A==
+Message-ID: <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
+Date: Tue, 8 Sep 2026 10:29:55 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -90,100 +35,161 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for
- QoS settings
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>, Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mostafa Saleh <smostafa@google.com>,
-        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-References: <20260907171729.1735641-1-maz@kernel.org>
- <v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
- <87ld9c4vc2.wl-maz@kernel.org>
- <6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
+Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>, akpm@linux-foundation.org
+Cc: ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
+ ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
+ lance.yang@linux.dev, kas@kernel.org, rppt@kernel.org,
+ catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
+ linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+ <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-In-Reply-To: <6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6a9fc77f cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=caKvAN_lNXawD3NbKk4A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: uEwyq3vrGMbm4Ewp9A9_JZolZlSZzuer
-X-Proofpoint-ORIG-GUID: uEwyq3vrGMbm4Ewp9A9_JZolZlSZzuer
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4OCBTYWx0ZWRfX0QIj36W6Lko8
- 4SFv5Iv+gwCcsydbG+6jvjihmEKCrMgXZzea4Z3yY8ZzB70nrovxbA9tYLi5as/MgYcOOi2jdBL
- KUyFA4wnX/zPQh4fgTJ/y3nFG8V6lyI=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4OCBTYWx0ZWRfXzGUE9D5WpIL2
- AX9cDqtMYyRKGelDwWk7DiytmxFOTmg1vSR3T3Q5x74lSUdQ1mKBVrZj/UKqAwEsZfX4AXLKK7M
- WzNo1lGvtQI+awn4BfDH5vEb02/A65/PZQWxF2+XExCZ4KNz8BNi8p6K2PwJnhpG3G3Gru9gkm7
- 2Mf34Hrxp9Y4kmevI9ZUy6p/J0WLHQZuzmrK+ag3gTL08yNX2XXoh71LdlgdOytxRjEuH6xW2wN
- LGkCQfcEQxf+o9RcFdp3VMqEVffT9eFOOTRDfLhiR8E2r+Ri3RHsKVcGiFUE2uyHqboGp+1/is2
- paxJvs4W4qQRXgr1yxp7N8D+0RhMXT85ZS9e8epRf2fvzVANvz2Ll7nCzYvk5y7UzRoNWfWE8vv
- g5e4U7BeYCWqo+MKdQl7KqUl7GAbKTSx2jzxcBYzcxJ4EgeS1ZY5MAfb1BAyBUeaWHZxCb1SroP
- lvCz3bUMudRr9sht74g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080088
 
-
-
-On 9/8/2026 1:04 PM, Abel Vesa wrote:
-> On 26-09-07 22:15:09, Marc Zyngier wrote:
->> On Mon, 07 Sep 2026 21:21:44 +0100,
->> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
->>>
->>> On 26-09-07 18:17:29, Marc Zyngier wrote:
->>>> Recent addition of QoS configuration to the X1 variants resulted in
->>>> systems that spontaneously reset at boot time or under load.
->>>>
->>>> Given that this is both very unpleasant and hard to debug, give the
->>>> affected user the option to survive such event with a module parameter.
->>>>
->>>> Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
->>>> offending QoS setup.
->>>>
->>>
->>> Lets not start doing this, please.
->>>
->>> Can we figure out which platform deosn't work and then maybe we can 
->>> add a quirk in DT per platform?
->>
->> We have at least 3 machines that are dysfunctional since [1] was
->> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
->> going to be the one doing a survey.
->>
->> What really should happen is [1] to be reversed until QC figures out a
->> set of parameters that actually works, instead of making this platform
->> even more unreliable than it already is.
+On 9/1/26 17:18, Xueyuan Chen wrote:
+> The persistent huge zero folio is shared globally and should stay zero
+> after initialization. As Jann Horn pointed out [1], kernel bugs have
+> ended up writing to pages that were meant to be read-only, including in
+> security-sensitive cases. Making the folio read-only in the direct map
+> turns such writes into faults instead of silent zero-page corruption.
 > 
-> I'd rather have the patch reverted than adding a module parameter which
-> users might not know about and distros will probably never addopt.
+> Add a page-based helper consistent with the existing direct-map interfaces.
+> Handle TLB invalidation in the architecture implementation; unsupported
+> architectures retain their current behavior.
 > 
->>
->> Just like [2] should have been reverted.
->>
->> Until then, we'll have to paper over this stuff.
+> Protect the folio after initialization. Skip highmem folios, which have no
+> permanent direct-map mapping.
 > 
-> But a module parameter complicates things rather than just papering over.
+> Inspired by Jann Horn's read-only zero page work [1] and follow-up
+> discussion [3] with Yang Shi.
 > 
-> I suggest we get both reverted if they break existing platforms.
+> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
+> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
+> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
+> 
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Co-developed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> ---
+>  include/linux/set_memory.h | 17 +++++++++++++++++
+>  mm/huge_memory.c           | 13 ++++++++++---
+>  2 files changed, 27 insertions(+), 3 deletions(-)
+> 
+> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
+> index 3fe293cfed8c..ed9ce04b18a1 100644
+> --- a/include/linux/set_memory.h
+> +++ b/include/linux/set_memory.h
+> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
+>  #endif
+>  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+>  
+> +#ifndef set_direct_map_ro
+> +/**
+> + * set_direct_map_ro - make a direct-map range read-only
+> + * @page: first page in the direct-map range
+> + * @nr: number of pages in the range
+> + *
+> + * Make the direct-map range starting at @page read-only and invalidate stale
+> + * writable translations before returning.
+> + *
+> + * Return: 0 on success, or a negative error code on failure.
+> + */
+> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
+> +{
+> +	return 0;
+> +}
+> +#endif
+> +
+>  #ifdef CONFIG_X86_64
+>  int set_mce_nospec(unsigned long pfn);
+>  int clear_mce_nospec(unsigned long pfn);
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 54494c3fa983..742283b36d74 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -42,6 +42,7 @@
+>  #include <linux/pgalloc_tag.h>
+>  #include <linux/pagewalk.h>
+>  #include <linux/cleanup.h>
+> +#include <linux/set_memory.h>
+>  
+>  #include <asm/tlb.h>
+>  #include "internal.h"
+> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
+>  	huge_zero_folio = alloc_huge_zero_folio();
+>  	if (!huge_zero_folio) {
+>  		pr_warn("Allocating persistent huge zero folio failed\n");
+> -	} else {
+> -		huge_zero_pfn = folio_pfn(huge_zero_folio);
+> -		count_vm_event(THP_ZERO_PAGE_ALLOC);
+> +		return 0;
+>  	}
+> +
+> +	huge_zero_pfn = folio_pfn(huge_zero_folio);
+> +	count_vm_event(THP_ZERO_PAGE_ALLOC);
+> +
+> +	/* Highmem folios have no permanent direct-map mapping to protect. */
+> +	if (!folio_test_highmem(huge_zero_folio))
+> +		set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
 
-I will share a patch to add interconnect support for Purwa. 
-Purwa is similar to Hamoa, but there are few port additions and deletions with 
-respect to PCIe, and trying to program QoS for them can result in crash. 
+Assuming we keep the page-based approach, can't we just move the highmem test in
+there?
 
-Thanks,
-Raviteja.
+-- 
+Cheers,
 
-
+David
