@@ -1,89 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDAB2538D73
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:13:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F62D5592EF;
+	Tue,  8 Sep 2026 15:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880440; cv=none; b=IjeuDBN6o7FLRBEoF2W6aQcTh1ABPjSHCwXtzw/mvMJblORfEUfMMaizacjzmWYFXmCj16EeGXYSfLKtbH8nd99S4G78Lkk5dmg4I2gBZVlO35ji0GXEHpjmDyD3rzcGFp3XXn9j0IcuNVZmkFVqCdq/BSvhp2DW3VkdbPEUHPw=
+	t=1788880443; cv=none; b=gux7VjLlrdhOr/f8tZWDBHvQjgAvjN3tpOfjsUEOu3QkqJhgCF4XedzA/60zzuxlfNlWw63cyaPd1pV8QAPMT/Km/Nbf9NtYJbvuydWy78KIvtj5BUspMFG01vrbvT4NbU0Iu48OdlNF6XHZvqv0eJ7VXf3VEVCR0p0iGtKl/nE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880440; c=relaxed/simple;
-	bh=LunjGKO7O7mBvE2kK/igMuhkYj3CTTqLwKlw4eujefg=;
+	s=arc-20240116; t=1788880443; c=relaxed/simple;
+	bh=9VnbqKcFo0PdV/F50ouF++HgJygmdMQ5dTr+q9TdSv0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p/w1/K5W7SNnqwTGSNAiHqPfldR4WtltNkqanpkfjjSFKXogdakNJ+y/eDKNZ2NUUDMMIXlJvtHvvj1o6IBaixHnd8wOPH8NRCz+omgiAmr97rG6u3zQVoRdurkz/2bBgx5BTRfKltBA/vsP9SZchyTdWjgf4COySn6F67MLfHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A33981F00A3E;
-	Tue,  8 Sep 2026 15:13:42 +0000 (UTC)
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 148E5198003A;
-	Tue,  8 Sep 2026 11:13:36 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 08 Sep 2026 11:13:40 -0400
-X-ME-Sender: <xms:HyagamyqoJnb88x48ecjkqXIGmM6yEPbqcGAYIx6iVL5eDsaFQ3LXg>
-    <xme:HyagajG8MXmdDl842GDAgIOTSD2UmzbGyztgBLHHurHcZuZAVYUq6Q8bQZKacXeb-
-    eOA9dEa4-_4bWGajdhDWV1wzzrppGYA3mJ0NsJmpPMvxMpO20tiBw0o>
-X-ME-Received: <xmr:Hyagam5nteqcoy7k3LNYIAwEhcE8zbEcVBK266qlXyk6xispleaxc2_Ic0I>
-X-ME-Proxy-Cause: dmFkZTESaxOuzeIzUb7pYu/ajwm5NhNWJYdY2isfBcty34gtQ6Pwe+s4eEC1fJrhTAlDdO
-    FjHnzt6qt8+lAGUIIoPiYqmucaikse38hNpvmfclkQ80xpW1bz1B30mB0R/gPss+tUZhCD
-    dhlSJbVDLxGJlVWEFFoHyV57MZKVealYI5QxIkjMaKYg9eaVh6DWitRUuM5e0wRcG0OHeG
-    zj34sza7Zd3kMEhvxdadwjuKuw8pk1EJDD/ELYCgoQxtsBMhKj7FU0km8PGhMhBTCGdNen
-    Yj8GNb/r0sex81mZbbJKFkA/4KEG++Z2tEyS42TvV65pyKzDLV5wGiwZtsazgv+shkl0Ez
-    vD1666cLVIAatJJTiVDaGSSplaVseKmtZxnqOWv+WihLIXEAddihbrJoOQw8MWuXcIkms1
-    vwgmqr4l7mJwVBNt4D3VrLoZftcH7pD5Vxb9ZbUrzN06dTd9rc2RtjQZlWWYwVD1qntiSX
-    WpxgwU/E9i3kZNx2brxAFOwvYigokqVdWF624PLRY7W8YlsMhGaBNo6zRrdWXwPI1rA0wi
-    fAHQQe875AGKOTamckeSDNCBjTIE99/cwvgvqKHrjsCA3y96T5D8kSc0hREhJYaFzKxcPS
-    ftzg4B7ziesyDeXJRLDKkDSPxL36vszm6QxrTgnHI/lsRtTz0gp4GsJy672Q
-X-ME-Proxy: <xmx:HyagaiUKGxmPD6t5weSMBzxOf6-h11xtoqJ321MFpRui5xu7zQW3pQ>
-    <xmx:HyagajJx8XhYdV-4vcrM4l5NrRks7bXuSu3SekOy98rBAuy5kdbQ2g>
-    <xmx:HyagaiQPf5dRCXNmY0V2nmS699ezPx_74Wcfwc19n51-2IAgK8lNVA>
-    <xmx:HyagamD6V60CMTJcpSLgMb0mBXzAOHC3_qHoVoLsY6vXfRX4PIDprg>
-    <xmx:Hyagao_SsIhbBnUnFa4Tg9b8SRmV-MvY5AWx9WynStj1LITq2diUMZrp>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 11:13:34 -0400 (EDT)
-Date: Tue, 8 Sep 2026 16:13:33 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
-	Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v4 08/17] mm/huge_memory: move unmap and remap into the
- split helpers
-Message-ID: <aqAmD9C1Y31F6ByT@thinkstation>
-References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
- <20260908-swap-thp-cleanup-v4-8-b532a3f20e71@tencent.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Qdip1vlPIOM2PqJXL9+Oe8Ka25D5E/TITvZC2uOon45DijyEPp6Fh+4ylESwL81rUF/1PjZzFOrEUVZ8+29OwVw9N2tQ/WU031LOWGEovCRyi5VpJP2LgsFsrRysMlIgkj7gvFUgifBZwAaaiXTCWR/8BMJ2e9D3WTMN3Mi4/pk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=fAETnApx reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="fAETnApx"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id AF2E640E01DD;
+	Tue,  8 Sep 2026 15:13:48 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 90bGYtLVFUMy; Tue,  8 Sep 2026 15:13:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788880423; bh=SihVXpN4VvNY3Mg5IOkHy8UfEsHqRfkcnelNTeVhEJY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=fAETnApxBEtfPuqHFKCgIL29nHx0Z2YHgAygdIUM8hU/Mz33/kA4ZUBeN/gRjrvau
+	 vtDllihc6pYSe5SXQwgoqpNhfk4/08/8KMfUsCAU9thasCFYYPKC5Y/pV7Y6XU69vH
+	 LNwlFlG04npY9qQKxVsZcrZnpWC37yTWxuzhzHRm5KpwYfkHvzNEQeiGPcvB58aLNL
+	 CiYr2yyCrB3Kpf/DVc891YwOW/34b2QLG1yPFPyiPhCi535fKHZgiFGNQiM2V+7vT2
+	 gPcZgp3ofWVjQmcjoKAe195uX42B3clf9ibePNVbJKWUY1oARNBH9aqSnI0FgzmH5W
+	 h3dWuWkymclGp3MUg9haChNnjvPBl3Zfv+FDejA3/AFf/CVXHWsWO5KDUQ2zEgeqt/
+	 YAh14BnniVfR4yGoNbbKeldMZUsNF3icLMOF+CXHFJzyhU2PGxTQ2922hXMjHxMdeL
+	 Z7VOvQUlIKK4Twu3A1MK/eNhNVBp3Aq4OXXBOciVJLy8/PcJIx0toX/zZ4lcn1jfV9
+	 ErcQYDZ5WCkd1WmQQESUO71elKnVOkkPTWwEHl1ZBofjxaMBHmYZWTaJGuyt7QqChy
+	 44ZU/2M46IVY51m5w2KmjWEiICeA6W5JNXmeJ3Nh9U8UDaWIWWakyv4XQKa/cqNpso
+	 4+S63J9RdOKwhC2R/OGeJJio=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2B8AE40E016C;
+	Tue,  8 Sep 2026 15:12:41 +0000 (UTC)
+Date: Tue, 8 Sep 2026 08:12:38 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Richard Weinberger <richard@nod.at>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Russell King <linux@armlinux.org.uk>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>, Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>,
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Christophe Leroy <chleroy@kernel.org>,
+	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, linux-mm@kvack.org,
+	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev,
+	linux-s390@vger.kernel.org, linux-mips@vger.kernel.org,
+	rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Jan Stancek <jstancek@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Alexandre Ghiti <alexghiti@rivosinc.com>
+Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
+ to UAPI
+Message-ID: <20260908151238.GBaqAl5iKb64meuPJl@fat_crate.local>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+ <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
+ <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
+ <20260908161740-0d79e592-87a6-43c5-9174-84ce1904e639@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260908-swap-thp-cleanup-v4-8-b532a3f20e71@tencent.com>
+In-Reply-To: <20260908161740-0d79e592-87a6-43c5-9174-84ce1904e639@linutronix.de>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 02:12:12AM +0800, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> To prepare for further cleanup, move the unmap/remap handling from
-> __folio_split() into the split helpers.  Only anon folios need to
-> be remapped, so remap_page() is now only called for anon splits and
-> the anon check in remap_page() is redundant and can be removed.
-> 
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
-> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+On Tue, Sep 08, 2026 at 04:26:00PM +0200, Thomas Wei=C3=9Fschuh wrote:
+> The existing, generic ELF definitions are there.
+> The ELF stuff in include/linux/ is highly specific to Linux.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+And putting them in UAPI casts them in stone. I wouldn't want to maintain=
+ them
+forever if not necessary.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+> Also later in the patchset I want to expose the definitions to the
+> tools/ build. Exposing generic UAPI definitions to tools/ is a much
+> easier sell than include/linux/.
+
+tools/ *copies* kernel headers on a "they're needed" basis. No need to pu=
+t
+anything in UAPI for that.
+
+It's even written down: tools/include/uapi/README
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
