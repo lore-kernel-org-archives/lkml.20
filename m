@@ -1,134 +1,161 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75332551990
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:40:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A482BE05A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874832; cv=none; b=VF3sTccjefTaUidfUbzFUUXmsfNXC7s4yShShfT45GYDi06KpJmzWkCQjEzNDp0ThucgzNNLjVWvPz9vYVwYpoDkm629S6ikzPlY8IiT9Rl+puH5sH4qxzjrDLYqNtQfmwKoVSBtWHhPn2aSwwc5lIOAQ+IyMOtl5mlWvyTS/6Q=
+	t=1788874904; cv=none; b=g10kPmUf8TFAqOWbOaP4PSdpi0zkxb4w9AsfQ/mluAZlMOjcp3LBizhnUVPrbHyQRxJfB+CXd050Vbg/p4+TeoJFaNHf0aAOjKwUAZJ+VbVEl0Xhfqg4qv/B4Pode29F+qlnQjIYuf/Vb9mD9SupbInGbD2XwDTLlU9ZIIuy8RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874832; c=relaxed/simple;
-	bh=gkZiwD1bUMbHLsoBAAMAF82T6b0KqXCHjaMB8sqpczs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NKUruzW170TQfb+/HoSvIJmi5N9mMXkZLTmJGJCMyhXm1gVFWvz1FqatVlz6rnM7yVFQwrlBkoyoKrJl4G9V885aN1ZCw9Y7LGUT+exMxIH9iQ3zCOlPoYYW/kpUglyDwbPS8LazZQXvq5ks56kqGlkVYto6wJQiWRKx4X3nq08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZArCEkF+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788874904; c=relaxed/simple;
+	bh=RDPQq58Cd3DI2HDQUMxeKmPp0jGflyU98pZlpLkOxzc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=byq8BMiEItLtgyIMb/SOFB9D9wp1zOK6K4PjMN7x+/mckBR8DG4LZHISn2As0T0aqRgyIvwM50lOiTrNK9domdfHK7glZtWOWK4t0A63mtYPdXCRCKPqe7NS9ryJLBAus6mR5ykuwYj8qviy13IRv5hDSXJgBdHQtyiG/I9pYN4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AVoYe7Fj; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZArCEkF+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so4170025e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:40:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AVoYe7Fj"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4843e397f74so5216190f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:41:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788874823; x=1789479623; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SJkr96/2clFb+b5z9ffMnNCNrpjtiTK03D1PubpYdyQ=;
-        b=ZArCEkF+XESFYv8Hr9qQe/geQkwaG5k4vszp2yuJUUYve0/RCYtcX0CLwXO0Tq5JRc
-         AjzTzQfwdlHaesfu46RrjsMbGZt+m5UHp2juT37cDf1ks+ZCIge8ZtC8vgSn3uIgjz4H
-         rP9IUuZ1/DOtdqMBUG9x2WNuPbgKZsVnkaGSCB6xqk9RWDvvJU16UIv5mew0y+ehtSpP
-         3lp5oFADQ3+PPeVGxhzF7wzRXfNS260aFyOgB3+F9OHBr7Ac1YPk7zLEXUK2fkRdl1sn
-         J5Wv5c0I+HWbP+FZTNe/iR+vfwfIuUMAJXQcdy2ITYYc1qomdC0sch492w0KyqOlKLtU
-         4KlQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874823; x=1789479623;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1788874889; x=1789479689; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SJkr96/2clFb+b5z9ffMnNCNrpjtiTK03D1PubpYdyQ=;
-        b=pGUl8u0NAvDl8fdHa7No5Qgzr43L7KDzfc/CM0M4bvaJpI/6gQcyaXMNUzlKDHxlmy
-         V6g+8Ik1m1TthGp24QFI6dv+RTjAU8F7erxDi+JgutHoB1X5rVJfS7JC8B/Ui7LJz7H/
-         /VldLPhPLJiLCMnG/cL0OTdPz+E7C3DDpuymLpUmh5p/GyubVjoofrpQgFlG2OgCArOg
-         +3ngPz2/In+/FZjGZJXzm2VaO5qEc2isPfLTPuwzMipCg0Fc/BWg5o/9v79E2XJScKiJ
-         CHT0mYLQu4YskorLgXIXgAxEz7BzShG6Ea4mwfdIFpX0AabBd39T+tdttGzh6RciyDp5
-         Am9w==
-X-Forwarded-Encrypted: i=1; AKwUvBzzSGQ/c+pIwLzSEeMjRrO+u3rOgv4p/u9SnNRST80YeIDa1t/KyFNguw4m1cxwfbKsbGz4uZtkAcbk6tc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrfc/2pYbIBV8fIRqKcSE63ficRASBgVDzzE06r2z1F0cdPuer
-	VUiB0DElabWWtbO2CeyeWbbXf0/Th7LdlU9cYWu/WuZ9ZnPq2s3ZxCpd
-X-Gm-Gg: AYBFou36hCW+qc88rovAxMV+biOU0wwzeWjrybKCBFNuqkFvYS8ZtyQFwA2A3sQSkg3
-	8xF2dVF8Wa5ulVY7xbEvbVsEm83XvlMtYV3S30SqfuPjYiDtIwzmwgcbvvINFbXhbt8Px23Y//Z
-	0ZolD81JokTg8YLRQhRzsqEAmcg1t2V3tPf0Qsu5wQsMZMy+M0cX727EDQ/+dR98kh0oyYxuZ3d
-	uRDyBoy6JmpsbRgUFl6uI7vDnz/Xb1eBS9I4ee8rVWTGeMbNTed6JeAkyI73nIRA9bBtKn2b6sT
-	cqHkAVuXa9QiOYXySxXu6u5x3L3r7bC3i+Xl+tIjuAVyiQVLrrE7G6rFYGaGlOF3KpJYlI7COOr
-	Xdzb0JustLgDX4pftVf1DnSDZ2vGSUpQs+ugqUsspKqSwt7KOEExpseldFz0d/aVG4f8VgPdsJt
-	SkZIDLXYFJ70afEvQ+asAg8XfXo8IjA4JYibghwnAr2XRb1OuAHSDH4THjTq5lb91pth50wd6cr
-	kev9gngeXnpYXsCYbR5SV4JXsJ607bp
-X-Received: by 2002:a05:600c:c4b8:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49d17543be5mr77030865e9.3.1788874822663;
-        Tue, 08 Sep 2026 06:40:22 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cfbe5b252sm345600325e9.3.2026.09.08.06.40.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:40:22 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] mfd: qcom-pm8008: support PMICs with no interrupt line
-Date: Tue,  8 Sep 2026 15:40:11 +0200
-Message-ID: <178887481187.4612.2819576206036967152@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908130745.2545-1-okerixx@gmail.com>
-References: <20260908130745.2545-1-okerixx@gmail.com>
+        bh=RvYCjwpDTspvXYGdD306UQH/AjlQHFsP0gn4FZ66m8g=;
+        b=AVoYe7FjfXgLiWHZqu4XN3dTaOuMSymiHXKrYlfZb0EdMefnuQ9p3wYg14u0sTGh2G
+         5sdbOKxQjib4eAQ3phxRHwLY07Im51GutTeOdPqwTQaHMlKWcU8/nOt1crRi2VDLNZy8
+         dViWMdP+FuVLTKsVcndJYovi4LTyVGsc1vBkbiCmsTsqzFvoOaDZhYe+tNlmGSJS7zpC
+         rol3516TQwaMXsplnPB5/jW3OQKj7m4it7haUPHXr8Q408e9rJPEJ46LZF0WSLGmw5fE
+         bz6f9t/DKTU+X3zKH20sKiE61hq6MuXYaHHX/FGQkiF4oqb1Cfkk3HKwTo2I6WVxfCJx
+         /qyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788874889; x=1789479689;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RvYCjwpDTspvXYGdD306UQH/AjlQHFsP0gn4FZ66m8g=;
+        b=c2OTqSRpvQFspfQbvBkQcRMaeckBELxTzVvCrGOgNF38NdXBEKcgsfLullXkj87M/v
+         q+IEKelOm4hUvXVR3XGn7AxeH9HkMfIHBd7ufufpTDofdq6k5h2B5WAqxRvg5xI5FtCD
+         Nh7aHNkSCo+56KAHg/Y3Z8UCmhS21BohBOIdzwZ0Gv8Otv6EnZhvkGxH1feNAYdvJOMF
+         ysJDJTiqccs6tbWKRb2ud8vh8XqfmOflAHGjCG2nQ5TowLQK/OO1fKJIdDMHwiQRV7FU
+         jHA9eMvv2T8H4HLATlUyFtRsxEWNJ9/HPDDWHmxTE5l/9mHCnEbX3alOCGa8s2YUQbKx
+         M/YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzL0rSuj3lO1nrCGVBSCJRcWR3D46698n6IemwYTnUjQbGd7SfFp1liPYtsndFaKIoW+CKXwTkPxfXsqFo=@vger.kernel.org
+X-Gm-Message-State: AFuF++neV05z0PZmpbULelUFM+mkiGCEFevj0pCdJslsOaLz0ffpwPVd
+	LtGAs+pmedBL9eSA3ndiYJ4JmXyoppzcUFhFoTXA8B5RdR2RlvCI+Bk+Rv/Yh+ZHMxQ=
+X-Gm-Gg: AYBFou2u5Xhh44vc6PNnbQPX8KY6fnbBIILcXgNBM2OPSHlOM9sa1uVt7Bkt/qvdzVi
+	K+pGR7ywtR1bg6H3mUA5ornjr4BIgsX2n+J+tTdwiUlqBnEzQ1e+pcPRDKzN8AnfsN0sIx5TULa
+	xUFixNzHUU+P9E1VMJ4+1wYtnNq4W6LSFL80dQqs7+1oGreaVvNbw9So8QORV2XVln0nCFuaNxA
+	OTBaV16zbeu9vYNDpDh8EQgCHFKtzmoPSg1mbuf+rzTyi1/Gp4XsxDCCr4hRuuX9/bNXI+66emE
+	kUEFD9Oq1bzRD8qC/jJX5v5xznaon0e2lUGmrHliJb90qwbOCSPOzCcwjD6vTjdxrVGqKg6H2WL
+	sQLJ6Ty0wtqQX4XuO/JV/euJbd4bAhlcagvDKc5wvTGCqow+nBhHkgpU9DwX7UmCyNvAYP6/0Hi
+	qu3lmsSexxb/Wiz+a+PkLePWjr6OXSFthZSkee2U7LLZjLoLJo5rw4rs1Obn+Bl3iopwNH
+X-Received: by 2002:adf:edc8:0:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-4857e5171femr30520180f8f.11.1788874889298;
+        Tue, 08 Sep 2026 06:41:29 -0700 (PDT)
+Received: from [10.11.12.110] ([79.115.63.240])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfe14sm36702704f8f.35.2026.09.08.06.41.28
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:41:28 -0700 (PDT)
+Message-ID: <dd704898-c51d-46e4-bef2-28d863cdee22@linaro.org>
+Date: Tue, 8 Sep 2026 16:41:25 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] opp: fix use after free in _update_opp_table_clk()
+To: Peter Griffin <peter.griffin@linaro.org>,
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ andre.draszik@linaro.org, alim.akhtar@samsung.com, krzk@kernel.org,
+ kernel-team@android.com, jyescas@google.com
+References: <20260908-opp-core-uaf-update-opp-table-v1-1-93d3fc928c5c@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20260908-opp-core-uaf-update-opp-table-v1-1-93d3fc928c5c@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Please drop this series.
 
-It duplicates, as a strict subset, work that was already on the list a day
-before I posted:
 
-  [v2,3/6] dt-bindings: mfd: pm8008: Add PM8010 I2C support
-  [v2,5/6] mfd: qcom-pm8008: Add support for PM8010 PMIC
-  https://lore.kernel.org/all/20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com/
+On 9/8/26 3:37 PM, Peter Griffin wrote:
+> dev_pm_opp_put_opp_table() frees the opp_table which is subsquently used
+> by dev_err_probe(). This causes an Oops during boot on gs101-oriole.
+> 
+> cpu cpu0: error 000000006b6b6b6b: Couldn't find clock
+> Unable to handle kernel paging request at virtual address 006b6b6b6b6b6cd3
+> ...
+> Hardware name: Oriole (DT)
+> pstate: 00400005 (nzcv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> pc : _of_add_table_indexed+0x80/0xbb0
+> lr : _of_add_table_indexed+0x6c/0xbb0
+> ...
+> Call trace:
+>  _of_add_table_indexed+0x80/0xbb0 (P)
+>  dev_pm_opp_of_cpumask_add_table+0x70/0x120
+>  dt_cpufreq_probe+0x23c/0x480
+>  platform_probe+0x64/0xb8
+> 
+> Fixes: 84f05af0975c9 ("opp: Use clk_get_optional() to avoid leaving opp_table->clk as an error pointer")
+> Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+> ---
+> This UAF regression was introduced in v7.3-rc1, and causes an Oops on
+> boot for gs101-oriole (in part due to our default upstream kernel dev
+> config having memory poisoning enabled, hence the 0x6b6b6b6b
+> pattern). It is intended that this patch should get picked for the
+> next -rc.
+> 
+> Peter
+> ---
+> ---
+>  drivers/opp/core.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/opp/core.c b/drivers/opp/core.c
+> index 2fafd983de8f5..c8b941cb81b44 100644
+> --- a/drivers/opp/core.c
+> +++ b/drivers/opp/core.c
+> @@ -1581,6 +1581,7 @@ static struct opp_table *_update_opp_table_clk(struct device *dev,
+>  					       struct opp_table *opp_table,
+>  					       bool getclk)
+>  {
+> +	int ret;
+>  	/*
+>  	 * Return early if we don't need to get clk or we have already done it
+>  	 * earlier.
+> @@ -1607,9 +1608,10 @@ static struct opp_table *_update_opp_table_clk(struct device *dev,
+>  	opp_table->clk = clk_get_optional(dev, NULL);
+>  
+>  	if (IS_ERR(opp_table->clk)) {
+> -		dev_pm_opp_put_opp_table(opp_table);
+>  		dev_err_probe(dev, PTR_ERR(opp_table->clk), "Couldn't find clock\n");
 
-Nihal's 3/6 relaxes the same required: entries mine does and more, and adds
-the qcom,pm8010-i2c compatible; his 5/6 already carries the no-interrupt
-path my 2/2 was adding:
+you can do ret = dev_err_probe(dev, PTR_ERR(opp_table->clk), "Couldn't find clock\n");
+> -		return ERR_CAST(opp_table->clk);
+> +		ret = PTR_ERR(opp_table->clk);
 
-  static const struct mfd_cell pm8008_no_irq_cells[] = {
-          MFD_CELL_NAME("pm8008-regulator"),
-  };
+and you won't need this duplicated line.
 
-on top of a PM8010 IRQ chip, match data and a pm8010-regulator cell. There
-is nothing in my series that his does not do better. My apologies for the
-noise - I should have searched the list before posting.
+with this addressed:
+Reviewed-by: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-Nihal, if it is useful: the Lenovo Yoga Slim 7x Gen 11 (glymur, DMI 83QR)
-has a PM8010 whose INT pin is genuinely not routed on the board, so it
-exercises your no-IRQ path rather than being a DT omission. I have been
-running an equivalent no-IRQ path there since 2026-08-25 - the LDOs
-register and the OV08X40 works - and I am happy to test your series on it
-and send a Tested-by once I have actually run it.
+> +		dev_pm_opp_put_opp_table(opp_table);
+> +		return ERR_PTR(ret);
+>  	}
+>  
+>  	if (opp_table->clk)
+> 
+> ---
+> base-commit: df2908090cda368b01ff43709f51890076c56157
+> change-id: 20260908-opp-core-uaf-update-opp-table-0d9ea3741231
+> 
+> Best regards,
 
-Your 6/6 also shows that describing a PM8010 as "qcom,pm8008", which is
-what I do today, silently programs the wrong voltage ranges. On that board
-the sensor takes dovdd from ldo4 at 1.8 V, and:
-
-  pm8008_pldo_ranges    1504000 + 8000 * n   ->  1.8 V is selector 37
-  pm8010_pldo_lv_ranges 1800000 + 200000 * n ->  1.8 V is selector 0
-
-so the same regulator-min/max-microvolt lands on a completely different
-register value depending on which compatible the node carries. ldo3 and
-ldo6 have the same split. ldo2 and ldo7 happen to map identically because
-the nldo and pldo ranges share a base and step and differ only in their
-upper bound.
-
-The camera works on my board today despite this, which I would treat as
-luck rather than evidence that it is harmless. It does mean your series
-fixes a latent bug for boards already describing a PM8010 as qcom,pm8008,
-not merely adding a new compatible - worth a line in 6/6 if you respin,
-since those boards need the DT change and the driver change together.
