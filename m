@@ -1,134 +1,110 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B46474CA292
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:15:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB6351D52F;
+	Tue,  8 Sep 2026 09:15:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858911; cv=none; b=IuGpPtitUuPKkMjSyk3Oo7E2b1moZiZ4ACUvJ4oQJ8k8yT4s51U9pretfZwBXWPRxtMssHaHORRsYmtZLuOvMZzB0U4Zqu+1Q9FCgXvDnLoEwmzmPwb3cgEjRsv84oTazF4LQd7jp0y+wJ9Wo8D7ZdJ4vQ2bcEQX6zCkCKsOWLg=
+	t=1788858922; cv=none; b=a1enAdHl+UyeIoY8IdSROGgAkvPd9Nvmc72h0JkwOT/FqKDZX3azdrn6XCphQepxVyEvL+vpZdDBzUp3/M30w7dXLN3JE6EBD64lBQddy/kXmRjtK4aPEkw2ceweWWq3sOxnRnVY7VVwmeUBRM5JH70jo0Gxc1rGWx/6Wf6B9tQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858911; c=relaxed/simple;
-	bh=t/xxnUmrNfICBiCkOoksIKEwk12retoGdTtWu0AOSdE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MW/IaSO5i1f0VuMGQ6GMDpESHYR1qsSTzt1ZdBa4V2+foFpWjHA+yXGwZnrsTxHTIsTF+KF2xYWWFHTaTcux8zh8NHx6UfuHVUBOW/g3TD3CpzjT1bUCMpcjMQoRJ4B/SLSZNsZxSsN/loTgv8WGcAb3P7rjy37ZH3/QHHSsvlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XrmMCm5E; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ebGZO4g1; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788858922; c=relaxed/simple;
+	bh=yDNZEhg1qi3cdLkc6pYbOR3ONrVCKjzM8UOHzV5U7TE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oWfQNcwO4YR+Fkep3px8o3gXdfdi0gb13ZWaVT2B5U4XUGuB6oHoFJ3GdMhakmc2jJr7/aaBQo6od+B2ZivIcXFzwP30qHakEFXof02OD9QNFl8bGQ9vXEFOWpYydtDuLpEEnLFThBNJj93kESMAS0AOByMwnS4CB9ZRVdzf2f4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MVZyGCbY; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XrmMCm5E";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ebGZO4g1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788858908;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nNgGtNecSlAmjqV28TTW1q4l/anKAb2D0PenLdi3DMs=;
-	b=XrmMCm5ECDobMICa1gPoFVy3lnvpwze3KHj47LKS/cMV9BZFwgcBoV4Nh0K2Vzu53dlRgu
-	uCWcvXzpDPVILRv3u2t8CJigFAPPaZ+MKJWqLdxOXEOrWGMfB92Yyi3DR3l/uS99MdSYH/
-	BjKWTGR7huk7VQDi2hiyPEZYXCa5S4I=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-683-fO2Z20k1OJGjttsnmmd-LQ-1; Tue, 08 Sep 2026 05:15:05 -0400
-X-MC-Unique: fO2Z20k1OJGjttsnmmd-LQ-1
-X-Mimecast-MFC-AGG-ID: fO2Z20k1OJGjttsnmmd-LQ_1788858904
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49cf9df1eadso33516405e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:15:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788858904; x=1789463704; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nNgGtNecSlAmjqV28TTW1q4l/anKAb2D0PenLdi3DMs=;
-        b=ebGZO4g1ChA6oglwIE44xl2P4JpwETtFkLxAyDYLU3o7OyAmB5gGxEGHWYR/zfOaHj
-         HuGIzuLwK87kMtMcm7+8I1iFLPzuxV1JcL4Jx2lctaUTRTqYv9DCbUGAxJ29XRRqJBkF
-         iR/Zwd+DIlBk/my7bmhbCpZLk7RZfLQML4atJQX5gEvPMVeCuz36fq7MyIfmGCljHhnt
-         17TpX1M7L/239PQsWTI15nY4S1bpiGXX6ERr4lf6rMu8lIjmzBquazemqp6RXr5WBR4c
-         HTuF1Et1yCLDk/5326OaY9tXHLeVJcr0YEJ6PlHImRbL6nRHhlYXV89rAFjUB1IrYGHk
-         92iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788858904; x=1789463704;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nNgGtNecSlAmjqV28TTW1q4l/anKAb2D0PenLdi3DMs=;
-        b=l6ofpEHOfMZ03BusEsPP1G8yPb8vWeHrwzrEhbdg+TsV2hbuI5pvrx5gTeAerHl9XY
-         R6Om6VFWq8/oNQO6bdVrW7Cfvn7a7wFPW7PriRU65HdYimJoV9TmcdGe7uYYgiobCiR6
-         MKVgz8vGK4Wb7DSmKSi8YKV+o699ZzkN9iDi37Eqyu9dJ5GytWTpNLK8IrnYcGkLhzqR
-         NpBtpKmYWHgIPVCtA5PcgquhRwFtwvZa+hgKIcbN1i7ZJfKjZBWF0vuxRQauVEeCTK2O
-         1GssBgbvzDFFLXH6pmGgpc2rlV25Zc0TC4yz77FlfsiAMyDmorkLthpVESrzfU1T0hTL
-         7iig==
-X-Forwarded-Encrypted: i=1; AKwUvBwbLnGe9oeViosq0Z5XPOTOWKl10PcP9VI3ynEJEp97gFO59X2QLUcR/CVlSWLeZJcMQwUZyaEkcpYPkfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIG3E5CZ530t/r3Ilon952Zv1tstfa/WdL+6iJIMx4xzE8r/Ex
-	5bhRlU68aHC+nhVGVv+I1EUrcMgtdTDg6LBY/JN/wuhFZMv2UcSdw0t/Abwgky9H6Qietq0Rzx8
-	EeZ+hjcaHNAMjDSRuX5eWqpMuL8uK8aGHqsTj2Y7OI8p0FOKL6jWgETknhVCJu+AdkQ==
-X-Gm-Gg: AYBFou26CVSAqA99eXHBqgHw1lV2p+dDOQKChsQNfiUreB3z41KreoBx6x67VMotUFX
-	MYtOqnOYDPXqCi5doTTvz7ac0EDelEVTwuXG9raDSBDV9U8LissDd3TtKRNeO7SnG1CWa6A5gP3
-	Ex/FPj8y6hDMgOU/FNZcq6HMY7JUD9+SQYrV/kukc8AyeUgcPciKY6rrv1teT55RT4H0rOHfTvU
-	p4JvjLn+wYdVSGvbDn6Y/fvHUc1Ce7STrhVcOmdFzYuWHVRM/RzFnWchtSZKflSz6mUGyHN8tKO
-	Sly1ZB9wyXuiFlv/6nbJcAc2ia19MtzSNN6bbkkjJ7WvSkJOiYglqWv4R5Wh/A1e8t/lDLpxOel
-	Zw3CEW6Iw1ViTI6EsWjky2OpGYY6gJNHDRINFfjzAeMPKdM7a0Tmcsi95f5A0FVp65ec7sYcTNQ
-	==
-X-Received: by 2002:a05:600c:6298:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49d17d4d6e7mr44236065e9.23.1788858904235;
-        Tue, 08 Sep 2026 02:15:04 -0700 (PDT)
-X-Received: by 2002:a05:600c:6298:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49d17d4d6e7mr44235535e9.23.1788858903823;
-        Tue, 08 Sep 2026 02:15:03 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm279283445e9.4.2026.09.08.02.15.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 02:15:01 -0700 (PDT)
-Message-ID: <349fef66-0513-435c-815a-23f2b2df829e@redhat.com>
-Date: Tue, 8 Sep 2026 11:15:00 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MVZyGCbY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788858921; x=1820394921;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yDNZEhg1qi3cdLkc6pYbOR3ONrVCKjzM8UOHzV5U7TE=;
+  b=MVZyGCbYBsvMCO+mZHogB1vxWyYpcdp89T6Ffi3bXPK9tsS31Cu+7XKm
+   bH0xqxVVQ5reMflQ39rhdbeXhqs6veCJakeAG6qxo3qsyJ9hwR63rZhRG
+   KlxaWP/I80DTQ0og4XaydqCkgPUTkbSxuwfCl5HRFAJJ9AF+CIF7tbAOT
+   BOaYhEC6Qik7+Hv34ggBfJtPhYWo9cNzS1yf38c5ZF71NC/IUcgoG40wl
+   wEz16LP27I47mcCU2j7qp5J3YuSsc7n+Z/spEzBqFg+eKRGwrhqkEZH0m
+   FNrGdr6H2dPXBVwOCbmG6AAzSP5dW0F+gQvLMQ/Tw7LVNv4yUL9mhgX1h
+   Q==;
+X-CSE-ConnectionGUID: 9N3qGOQvSoOEs7TM2Nl79A==
+X-CSE-MsgGUID: 2ILOEPTwSZ6TN/0BM83aCg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="112032178"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="112032178"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 02:15:20 -0700
+X-CSE-ConnectionGUID: QSsWcOlHT1eHpxa2iqmdJw==
+X-CSE-MsgGUID: QJkqW0aASJmOyzuliKmg5g==
+X-ExtLoop1: 1
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 02:15:16 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B0AFA121BC8;
+	Tue, 08 Sep 2026 12:15:18 +0300 (EEST)
+Date: Tue, 8 Sep 2026 12:15:18 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
+To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Kate Hsuan <hpa@redhat.com>,
+	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Message-ID: <ap_SJs-vXJu4tClB@kekkonen.localdomain>
+References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
+ <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+ <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+ <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2] net: marvell: mvmdio: Handle errors from
- optional IRQ lookup
-To: phucduc.bui@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>
-Cc: Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- u.kleine-koenig@baylibre.com,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260903074638.345952-1-phucduc.bui@gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260903074638.345952-1-phucduc.bui@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
 
-On 9/3/26 9:46 AM, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
-> 
-> platform_get_irq_optional() returns a positive IRQ number on success or
-> a negative error code on failure. For an optional IRQ, -ENXIO indicates
-> that no optional IRQ is available. Other errors should be propagated so
-> that the caller can handle them appropriately.
-> 
-> The existing code propagates -EPROBE_DEFER, but ignores other negative
-> errors. Propagate negative errors other than -ENXIO.
-> 
-> Found by manual code inspection.
-> 
-> Fixes: e1f550dc44a4 ("net: mvmdio: avoid error message for optional IRQ")
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
-> 
-> Changes in v2:
->  - Add a Fixes tag.
->  - Add net-next to the --subject-prefix.
-It's one or the other: no fixes tag for net-next patches.
+Hi Elgin,
 
-This does not look like stable material, stripping the fixes tag.
+On Tue, Sep 08, 2026 at 09:03:10AM +0000, Elgin Perumbilly wrote:
+> >>Could you please have a look at this patch series and let me know your thoughts ?
+> >>
+> >>Best Regards,
+> >>Elgin
+> >
+> >Just following up on the os02g10 patch series.
+> >Is there any blocker preventing it from being merged, or anything I need to address?
+> >
+> >Best Regards,
+> >Elgin
+> 
+> Just following up once again on the OS02G10 patch series. Could you
+> please let me know if you had a chance to review it?
 
-/P
+Thanks for the ping. I'd merge this, but the patches are malformed somehow.
+D
 
+Can you try resending them, please?
+
+And my apologies for the delay -- during the summer holidays not much
+happens here and the e-mail backlog can take a long time to clean.
+
+-- 
+Kind regards,
+
+Sakari Ailus
