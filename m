@@ -1,172 +1,109 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270DF4AE12B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:32:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EFA4A8FC7;
+	Tue,  8 Sep 2026 11:32:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867145; cv=none; b=ZWzlo36Fd0pIwalycp/38WwSETHQq2eHmRvge9PEzX94mVJnrmjtA1VRgwe7nRfLOzvqQOB8upSUWgJjI7xHfigprQRMkNcje8acqQ5eD71v6LcDBe4QnfX/VCLqTXXcaFc2FvbCLdCMTzCKSXYlvGDifSugs3UXxEDoHDIk3kQ=
+	t=1788867174; cv=none; b=op0ygWinlPmsBwohn90lqKf5lZzugPIPSz8TZRozA5ftadMYrHlfUrEiGhIf2ydna08tzATsyeNmgMEMEETZu8ix/Ntpw8C9opFjZzEjjZT3SN9sJ6djbW46XEUge2SRiVgxm9v7+iGQYBMZbJWccsH67LhsOKq6hT1tpnlqOSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867145; c=relaxed/simple;
-	bh=vskJrLiw0ReGp0xBFPxK1JbkHTI4tmjCuy9ROCIz5WQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OygO+pqXnbQBiXuIAMAY/2RsQTUQiEFz/eRITXpn2A5lhoL9E6SyADg80eUR20TnBNMZeapkUei566Ln7KjDIba+/agdK/uszBu2W/4JYz3Olxb99MZaiDTGFmWFGa5kRlxOab+PNE2C4UDcLqQ3Dk8KOT6K5RyYAEZnSAPnOV0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ApyhTskm; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788867174; c=relaxed/simple;
+	bh=35hgWuDFJJqbTBxmJnJ57l3+9GRQQ6qZ4Rul2TtgEiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J/mqQCC2oEnEBl26SvO31EB1CwTQxONVzBnTfiClIJ/h+bEzJ0QGoHvJQLKLMnvcffUj+nMpeQHblpdulAdq/K8EBSA2/D1Z5QXN7M0KX4PG8zWs5Nfg0siMv30DAw8SDrYGojUlCkxafyw//7yJmp120cZz6I7nJf8CHPXECYQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVyJU94Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ApyhTskm"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=i4Xz0mp9rb3bxPkNxDow+JBbZkBtvVDwN9ZMjpiwOik=;
-	b=ApyhTskmP38fVZbWCC5h7WJFp4aUqBZ7sKVyCYG7ueQyCYnwKHrlLziQe4+udmgtKGaBgT9Dc
-	wWHlgHL537zoDQ4rjU7gOaGKvMO2hc+M9VGpN2vLPFvdvaMFRQk3qyTh6lWMmSC19kR1Y7TTFcs
-	JEkIg1WngKb0+NYqDSz3djI=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hfM2H627bzcb3G;
-	Tue,  8 Sep 2026 19:21:11 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B01B040537;
-	Tue,  8 Sep 2026 19:32:08 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 19:32:08 +0800
-Message-ID: <ed47c328-6906-4bad-9a0e-a01f067dc812@huawei.com>
-Date: Tue, 8 Sep 2026 19:32:06 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVyJU94Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029B61F00A3A;
+	Tue,  8 Sep 2026 11:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788867163;
+	bh=T3bfuKnIDLKBYWubE5n0qpIfcywQnWZyol1/WTQ0KNU=;
+	h=From:To:Cc:Subject:Date;
+	b=iVyJU94ZTzqH5cP7b+nkZZ60NPVtcggewHM3kTKwES92MMlEVdjTJmxSG8FR2YxkO
+	 MMz1ZskncIhd9nSNGlCpnM3su7xV1PUNwcDGzmR4s9tNAYQCwnAEx8+QYVwnFhop1y
+	 tAdIq+5xvsujlM5nMyiQyxbsHg5NW+Rus29zp/42eukdlgrDzr/Eu/kEqPG7PjpUCc
+	 FqhacDVfeHXBng2yUDUoInQNYhnXUFrH8sUgZEwozMmAkSTuML3R3ueah/wpqFP+w2
+	 grolg6pPg0CSdkLqRtKORx31+lKc8Pjv64NofWt5yWphPWKWIXKQS/tljsKpONtvSN
+	 cNc8HIiHSDvAw==
+From: "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>
+To: x86@kernel.org,
+	linux-kernel@vger.kernel.org,
+	iommu@lists.linux.dev
+Cc: Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Alexander.Deucher@amd.com,
+	Thomas.Lendacky@amd.com,
+	Vasant.Hegde@amd.com,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Timo Witte <timo.witte@gmail.com>
+Subject: [PATCH] x86/mm: Don't force unencrypted DMA for IOMMU-backed devices
+Date: Tue,  8 Sep 2026 17:02:32 +0530
+Message-ID: <20260908113232.247457-1-aneesh.kumar@kernel.org>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/19] arm64: cpu_ops: Make 'cpu_operations' pointer
- global instead of per-cpu
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-13-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-13-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+Commit 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select
+them via attrs") exposed an issue with force_dma_unencrypted() on
+systems using host memory encryption.
 
+force_dma_unencrypted() checks whether the device DMA mask can address
+the encryption bit and, if not, requires DMA allocations to use
+unencrypted memory. However, this check is not applicable when the
+device is using the IOMMU. In that case, the device DMA mask constrains
+the IOVA seen by the device, not the backing physical address, so it
+does not need to cover the C-bit.
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> 'cpu_ops' is an NR_CPUS-length array of 'cpu_operations' pointers, which
-> theoretically allows for different CPUs to have different bringup and
-> hotplug backends.
-> 
-> In reality, this complexity exists only to deal with the case where CPU0
-> is not hotpluggable, so replace the array with a single, global pointer
-> and record separately whether or not they apply to the boot CPU. Update
-> the logic in init_cpu_ops() to enforce that only a single set of
-> 'cpu_ops' is required.
-> 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/kernel/cpu_ops.c | 29 ++++++++++++++++++++---------
->  1 file changed, 20 insertions(+), 9 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/cpu_ops.c b/arch/arm64/kernel/cpu_ops.c
-> index e133011f64b5..eacfb88a0c0c 100644
-> --- a/arch/arm64/kernel/cpu_ops.c
-> +++ b/arch/arm64/kernel/cpu_ops.c
-> @@ -20,7 +20,8 @@ extern const struct cpu_operations acpi_parking_protocol_ops;
->  #endif
->  extern const struct cpu_operations cpu_psci_ops;
->  
-> -static const struct cpu_operations *cpu_ops[NR_CPUS] __ro_after_init;
-> +static const struct cpu_operations *cpu_ops __ro_after_init;
-> +static bool boot_cpu_has_enable_method __ro_after_init;
->  
->  static const struct cpu_operations *const dt_supported_cpu_ops[] __initconst = {
->  	&smp_spin_table_ops,
-> @@ -40,6 +41,9 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
->  {
->  	const struct cpu_operations *const *ops;
->  
-> +	if (!name)
-> +		return NULL;
-> +
->  	ops = acpi_disabled ? dt_supported_cpu_ops : acpi_supported_cpu_ops;
->  
->  	while (*ops) {
-> @@ -49,6 +53,7 @@ static const struct cpu_operations * __init cpu_get_ops(const char *name)
->  		ops++;
->  	}
->  
-> +	pr_warn("Unsupported enable-method: %s\n", name);
->  	return NULL;
->  }
->  
-> @@ -94,25 +99,31 @@ static const char *__init cpu_read_enable_method(int cpu)
->  	return enable_method;
->  }
->  /*
-> - * Read a cpu's enable method and record it in cpu_ops.
-> + * Read a cpu's enable method and update/check cpu_ops.
->   */
->  int __init init_cpu_ops(int cpu)
->  {
->  	const char *enable_method = cpu_read_enable_method(cpu);
-> +	const struct cpu_operations *ops = cpu_get_ops(enable_method);
->  
-> -	if (!enable_method)
-> +	if (!ops)
->  		return -ENODEV;
->  
-> -	cpu_ops[cpu] = cpu_get_ops(enable_method);
-> -	if (!cpu_ops[cpu]) {
-> -		pr_warn("Unsupported enable-method: %s\n", enable_method);
-> -		return -EOPNOTSUPP;
-> -	}
-> +	if (!cpu_ops)
-> +		cpu_ops = ops;
-> +	else if (cpu_ops != ops)
-> +		return -EBUSY;
+This currently causes dma_alloc_attrs() to set
+__DMA_ATTR_ALLOC_CC_SHARED for such devices. iommu_dma_alloc() does not
+support that attribute and rejects the allocation, causing DMA
+allocations to fail.
 
-Should we return the original error code of init_cpu_ops() in
-smp_cpu_setup()?
+Do not force DMA allocations to be unencrypted when the device is using
+the IOMMU. This allows the IOMMU to map the encrypted physical pages as
+before and avoids incorrectly requesting CC_SHARED allocations.
 
- 487 static int __init smp_cpu_setup(int cpu)
- 488 {
- 489 >-------const struct cpu_operations *ops;
- 490
- 491 >-------if (init_cpu_ops(cpu))
- 492 >------->-------return -ENODEV;
- 493
- 494 >-------ops = get_cpu_ops(cpu);
- 495 >-------if (ops->cpu_init(cpu))
- 496 >------->-------return -ENODEV;
+Fixes: 8277a12d0d60 ("dma-pool: track decrypted atomic pools and select them via attrs")
+Reported-by: Timo Witte <timo.witte@gmail.com>
+Link: https://lore.kernel.org/all/CANB4YXR7h8V5Xp=MXVZeSdvw9UiriSagp=E+ju5RRDNghoPHLQ@mail.gmail.com
+Signed-off-by: Aneesh Kumar K.V (Arm) <aneesh.kumar@kernel.org>
+---
+ arch/x86/mm/mem_encrypt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-
-Otherwise LGTM
-Reviewed-by: Jinjie Ruan <ruanjinjie@huawei.com>
-
-> +
-> +	if (cpu == 0)
-> +		boot_cpu_has_enable_method = true;
->  
->  	return 0;
->  }
->  
->  const struct cpu_operations *get_cpu_ops(int cpu)
->  {
-> -	return cpu_ops[cpu];
-> +	if (cpu || boot_cpu_has_enable_method)
-> +		return cpu_ops;
-> +
-> +	return NULL;
-
->  }
+diff --git a/arch/x86/mm/mem_encrypt.c b/arch/x86/mm/mem_encrypt.c
+index 912f22ca838f..a349d8d21569 100644
+--- a/arch/x86/mm/mem_encrypt.c
++++ b/arch/x86/mm/mem_encrypt.c
+@@ -13,6 +13,7 @@
+ #include <linux/cc_platform.h>
+ #include <linux/mem_encrypt.h>
+ #include <linux/virtio_anchor.h>
++#include <linux/iommu-dma.h>
+ 
+ #include <asm/sev.h>
+ 
+@@ -30,7 +31,7 @@ bool force_dma_unencrypted(struct device *dev)
+ 	 * device does not support DMA to addresses that include the
+ 	 * encryption mask.
+ 	 */
+-	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT)) {
++	if (cc_platform_has(CC_ATTR_HOST_MEM_ENCRYPT) && !use_dma_iommu(dev)) {
+ 		u64 dma_enc_mask = DMA_BIT_MASK(__ffs64(sme_me_mask));
+ 		u64 dma_dev_mask = min_not_zero(dev->coherent_dma_mask,
+ 						dev->bus_dma_limit);
+-- 
+2.43.0
 
