@@ -1,103 +1,193 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B396E545DBF;
-	Tue,  8 Sep 2026 13:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0324C53ED08;
+	Tue,  8 Sep 2026 13:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875523; cv=none; b=bO0ttPLRuhfICot/WZSXqcnvcJSGpakXbgPayaQcPJxz4qhvoddyAmGbsEHrOQBFL+hPnHvBGSan67wYcfur7IdJs1KvV4r7pcde/jCZ7qs04JCDZWDsyunmdYm25M+cLlx13bss4PL/Yh6+Yjoj7U2Rq5g+rMnw5fhf/CE2IrE=
+	t=1788875530; cv=none; b=QOz2sb+LyUZMgClZqIvvt5nr6gY+pKMbU1srDwsRIPreX57lpddJt+6NMnS8QsgU5EZTCqmefXurCJIjOpc030Alb93U8NnFVZOz7mfIolz8SAULk6SKs/grt+vPk9uJYj9Y2MbKKXKf5ahZh2w0p/VyDLXLJpzBsFiEP4KXluE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875523; c=relaxed/simple;
-	bh=c8Gv/tOmnBsoRpMKP0BTnBqpL8Bhf2gTxJwPTe6abXg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M010ui3vZO1AIXJxaMoctqtXdt6gttzS9BFb2Dnmr4zSfG/gtHstME26dtcpqoYLI4pTH0JqQE56btz2oa7NyT5ovcoLRr6XRHjVqivmu+vx02nsoUCkNNh6MO92hhcPJp2FwYCpFtmi3gbSmbwfct7jBWa7Jd1VhIeReK6xHBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=uTc1rGyi; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788875530; c=relaxed/simple;
+	bh=+K4xTvSkKif75qG4vxNMmd1if/dED4tM7Xr2M32c6SY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nmnpVUJOr7HGv3kv2WVzLLC/cz8esy501wRu9nl+ifyCxw0qrWMT6x7CyXOdogk5aDYlnlDceINfoLfn7nfzlv1gt/9xGK9cnxRJXE4rgaBNlOuRASBbmJbLVkTkdCr8nVK74bM3Wkwm8TUyfdHc3J+69Vu+19A13JEyd3dGUh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3+r43w9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="uTc1rGyi"
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 297A31C27D3;
-	Tue,  8 Sep 2026 13:51:55 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id BF43420012;
-	Tue,  8 Sep 2026 13:51:39 +0000 (UTC)
-Date: Tue, 8 Sep 2026 09:52:53 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Alexei
- Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau
- <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
- <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
- <emil@etsalapatis.com>, Puranjay Mohan <puranjay@kernel.org>, Xu Kuohai
- <xukuohai@huaweicloud.com>, Ard Biesheuvel <ardb@kernel.org>, Ilias
- Apalodimas <ilias.apalodimas@linaro.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin
- <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl
- <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, Danilo Krummrich
- <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?UTF-8?B?w5Z6a2Fu?= <work@onurozkan.dev>, Sami Tolvanen
- <samitolvanen@google.com>, Kees Cook <kees@kernel.org>, Leon Hwang
- <leon.hwang@linux.dev>, Ihor Solodrai <ihor.solodrai@linux.dev>, Josh
- Poimboeuf <jpoimboe@kernel.org>, live-patching@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-kbuild@vger.kernel.org, llvm@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, bpf@vger.kernel.org,
- linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, Ben Cressey
- <ben@cressey.dev>, "Florent Revest (Anthropic)" <florent.revest@linux.dev>
-Subject: Re: [PATCH RFC 1/8] ftrace: Let ftrace_call_adjust() reject a patch
- site
-Message-ID: <20260908095253.520c278c@gandalf.local.home>
-In-Reply-To: <ap3PYIdhL3ETmN0Y@linux.dev>
-References: <20260904-b4-arm64-callops-kcfi-v1-0-ce6687739b0c@linux.dev>
-	<20260904-b4-arm64-callops-kcfi-v1-1-ce6687739b0c@linux.dev>
-	<20260904084728.6d2ebcc8@gandalf.local.home>
-	<ap3PYIdhL3ETmN0Y@linux.dev>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3+r43w9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25521F00ACA;
+	Tue,  8 Sep 2026 13:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788875524;
+	bh=hbhWqGHP3IwdcG31EliQltqMq/ikBw+QUFL967DHBK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V3+r43w92haZ4/6h+NEX+yvlEVncdTDrKytnbWI0M8fT87s/vDS11yKyUCSiOlDm0
+	 iyO0FmIXd//l+XRftblxtTIl8OTR5E2rj9iuLrwXYP1KY4sPbbqNtGHxImzC8jp6jz
+	 qVPtLROBDJZnukrHdgtAXZusmW7LJeRt/Ka9J4bQkPAfCLByACdIpBfT2sKnsK53Af
+	 xKjO6a1A8b+xui07xjlORaH2lkzvAQ7JywBg7EJ16r//tDIg03FHGcJ6KPYJth0LuI
+	 ZCwxELgh+DrFXUbnEdOcv5L0cAngD/p1QoCfSMQeO0v1f8P6SO+J1Jd6bTlqHk5lcf
+	 NFya6CFQn33bw==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Krishna Iyer <kiyer@crusoe.ai>,
+	SJ Park <sj@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v3 3/3] mm/damon/paddr: support hugetlb folios in access monitoring
+Date: Tue,  8 Sep 2026 06:51:55 -0700
+Message-ID: <20260908135156.97481-4-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908135156.97481-1-sj@kernel.org>
+References: <20260908135156.97481-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: x457bex6yki4ewxmaioc5ood1sdccp73
-X-Rspamd-Server: rspamout08
-X-Rspamd-Queue-Id: BF43420012
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18nR2NzFrPVTBxdKw6aYNAKXDfxBb2FKIM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zmEISpUYs3PxDYsmwRf2tNZx1Ic66nQ4OS2YYg6VWuk=; b=uTc1rGyiax3d1heQBZvkqpESgAHTDt6puNzDb1kcaIw4IkVtTy8A1ipxHVxbFEoTotD5HI2HsR4MrblNpcB2tBhZCY5+By0G9i36l82d2hxFXEU+61IX5LsNnB8IYnbFlV+Hdk8lzxWxarrR31+5z6ELIXFNLi1siI+bPwO90hs=
-X-HE-Tag: 1788875499-703192
-X-HE-Meta: U2FsdGVkX19G2BzycxCMNywV55nFSuOsSuiCbrC27AdqLgblO/sjNWn8yFEVA1Pp4o54M56CAWLIIQPWiVbjNfHhKlkV7l9KH/m9cY30zHeFrqCV8VhxxkqgYRPQd0XdnDR29QpQjYtYZgEHDCk6F4UR4PhSZraMLTC0xijKFy1vc0KkipbPR7rWejQrGl0csG0VWcKwTFPmYo+8Mz/gKTw5i6SQwge1PHx9dHxhXncKI6vPabGOBRl5yQN6P/57/0gb/tGzPJdwg8IvwUXMxizGUE136mn9rXBG5BXLbaHmWF3w9OZI7xiwx2sAB2Pm
+Content-Transfer-Encoding: 8bit
 
-On Sun, 6 Sep 2026 20:40:59 +0000
-"Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev> wrote:
+From: Krishna Iyer <kiyer@crusoe.ai>
 
-> Will add one in v2, thanks.
-> 
-> Today arm64 returns 0 only for a mis-aligned patch site. But patch 4 of
-> this series replaces that check with two: the two NOPs to patch must be
-> there, and the ops pointer must fit in the prefix NOPs (which also
-> catches a mis-aligned site). How about this to cover the series?
-> 
-> 	/* The architecture may return 0 to reject a patch site */
+DAMON's physical address space monitoring is blind to hugetlb-backed
+memory.  Every access check starts at damon_get_folio(), which rejects
+folios that are not on the LRU lists.  Hugetlb folios are managed
+outside of the LRU by design, so every sampling attempt on
+hugetlb-backed memory silently fails and the pages are reported as
+never accessed.
 
-That comment is fine. I didn't really like the specifying of mis-alignment
-as it did appear to be too specific, and could change.
+This is a significant blind spot on virtualization hosts.  Cloud
+hypervisor hosts commonly back guest memory with 1 GiB hugetlbfs pages,
+covering the vast majority of the machine's memory.  On such hosts,
+modules like DAMON_STAT observe only the host-side remainder (page
+cache, daemons) and report all guest working sets as permanently
+idle, defeating the purpose of host-level access monitoring.  In
+testing on a 1 TiB host, an hour of 4-thread random access over 842 GiB
+inside a guest was statistically indistinguishable from an idle host,
+while a 40x smaller host-side workload produced a quantitatively
+correct response.
 
--- Steve
+Add damon_get_monitor_folio(), which additionally accepts hugetlb
+folios, and use it in the two paddr access monitoring primitives,
+damon_pa_mkold() and damon_pa_young().  With the previous commit
+teaching the folio-granular rmap walkers to age huge PTEs and to call
+the mmu notifiers spanning the whole huge page, this makes guest
+accesses visible through secondary MMU (e.g. KVM/EPT) young bits.
 
+Free hugetlb pool folios have a zero refcount, so folio_try_get()
+naturally keeps rejecting them.
 
-> 
-> Happy to name the mis-aligned case in patch 1 and extend the comment
-> in patch 4 if you prefer that.
+The DAMOS action appliers (damon_pa_pageout(),
+damon_pa_mark_accessed_or_deactivate(), damon_pa_migrate(),
+damon_pa_stat()) keep using damon_get_folio(): reclaim, LRU
+manipulation and migration cannot act on hugetlb folios, so their
+behavior is unchanged.
 
+Note that the access check granularity for hugetlb-backed memory is the
+huge page size: one touched byte reports the whole (up to 1 GiB) page
+as accessed.  Also, DAMON now consumes secondary MMU young bits that
+KVM's own aging uses; at DAMON's sampling rate (one page per region per
+sampling interval) the interference is negligible.
+
+Link: https://lore.kernel.org/20260902025700.17975-4-kiyer@crusoe.ai
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
+Reviewed-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/ops-common.c | 25 +++++++++++++++++++++----
+ mm/damon/ops-common.h |  1 +
+ mm/damon/paddr.c      |  4 ++--
+ 3 files changed, 24 insertions(+), 6 deletions(-)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index 349e1604cc1b1..acf8f216c51cc 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -15,14 +15,20 @@
+ #include "../internal.h"
+ #include "ops-common.h"
+ 
++static bool damon_folio_acceptable(struct folio *folio, bool monitor)
++{
++	return folio_test_lru(folio) ||
++		(monitor && folio_test_hugetlb(folio));
++}
++
+ /*
+- * Get an online page for a pfn if it's in the LRU list.  Otherwise, returns
+- * NULL.
++ * Get an online page for a pfn if it's in the LRU list, or a hugetlb folio if
++ * @monitor is set.  Otherwise, returns NULL.
+  *
+  * The body of this function is stolen from the 'page_idle_get_folio()'.  We
+  * steal rather than reuse it because the code is quite simple.
+  */
+-struct folio *damon_get_folio(unsigned long pfn)
++static struct folio *__damon_get_folio(unsigned long pfn, bool monitor)
+ {
+ 	struct page *page = pfn_to_online_page(pfn);
+ 	struct folio *folio;
+@@ -33,13 +39,24 @@ struct folio *damon_get_folio(unsigned long pfn)
+ 	folio = page_folio(page);
+ 	if (!folio_try_get(folio))
+ 		return NULL;
+-	if (unlikely(page_folio(page) != folio) || !folio_test_lru(folio)) {
++	if (unlikely(page_folio(page) != folio) ||
++			!damon_folio_acceptable(folio, monitor)) {
+ 		folio_put(folio);
+ 		folio = NULL;
+ 	}
+ 	return folio;
+ }
+ 
++struct folio *damon_get_folio(unsigned long pfn)
++{
++	return __damon_get_folio(pfn, false);
++}
++
++struct folio *damon_get_monitor_folio(unsigned long pfn)
++{
++	return __damon_get_folio(pfn, true);
++}
++
+ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr)
+ {
+ 	pte_t pteval = ptep_get(pte);
+diff --git a/mm/damon/ops-common.h b/mm/damon/ops-common.h
+index f7811c9c7a024..172f0f17c4a84 100644
+--- a/mm/damon/ops-common.h
++++ b/mm/damon/ops-common.h
+@@ -6,6 +6,7 @@
+ #include <linux/damon.h>
+ 
+ struct folio *damon_get_folio(unsigned long pfn);
++struct folio *damon_get_monitor_folio(unsigned long pfn);
+ 
+ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr);
+ void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr);
+diff --git a/mm/damon/paddr.c b/mm/damon/paddr.c
+index c1e7d7a4f40df..d2173a448d0b0 100644
+--- a/mm/damon/paddr.c
++++ b/mm/damon/paddr.c
+@@ -37,7 +37,7 @@ static unsigned long damon_pa_core_addr(
+ 
+ static void damon_pa_mkold(phys_addr_t paddr)
+ {
+-	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
++	struct folio *folio = damon_get_monitor_folio(PHYS_PFN(paddr));
+ 
+ 	if (!folio)
+ 		return;
+@@ -67,7 +67,7 @@ static void damon_pa_prepare_access_checks(struct damon_ctx *ctx)
+ 
+ static bool damon_pa_young(phys_addr_t paddr)
+ {
+-	struct folio *folio = damon_get_folio(PHYS_PFN(paddr));
++	struct folio *folio = damon_get_monitor_folio(PHYS_PFN(paddr));
+ 	bool accessed;
+ 
+ 	if (!folio)
+-- 
+2.47.3
