@@ -1,33 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relayaws-01.paragon-software.com (relayaws-01.paragon-software.com [35.157.23.187])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7403F99F4;
-	Tue,  8 Sep 2026 08:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0757147A867;
+	Tue,  8 Sep 2026 08:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.157.23.187
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856857; cv=none; b=SDthw1Z9Pi9wjmALgQoO0+gpq0ioLibRypHVEU/dCO/IU/hq9zl4a394O24KbRoqSfzGFqxzZUFB/nMj1ovkwGt3jDtbwIoCp2Obtdkk2ylyFBbHbhSyhTF8MVtNiAOXG3GCkwx5pnIylazReJIKUzwoRKqqxnJAySTDjdzO/CE=
+	t=1788856876; cv=none; b=gXgG5OGnTvms66Ii6eoOiZk0hTqdJuuMh2oH+UA6QqCud1TgZa09ZYNzT11sU9t659HOWBQ4jTLaBraFFzRyDCBsOVsrVHq8ZJY+b8EENPzVEacQwm1SI9EmRUIUhgakHiIFaONYc2uhe/KnovlHfHBi5BN5S3K8csQyi9/CZEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856857; c=relaxed/simple;
-	bh=oPG8VBNrRlqipsMmtZpmQ3beL9mc/4dKsNEBMmlHVzg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U1L5eavygcg3bbt6Gn1711bUIWGN4hOVHgufFTd9D2jz5p94RgUaAP4mdaCrNzWYmpk64KNgxs/jawBXxVRUKhl5MHbQR6z6G0dia8jEr/4op73nqseyQ39jGRAiFbdaJRsNdf3vLaEHiLkNU7qjze1NoNH8FcD2MA60MtWSQR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PhWtAtE0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788856876; c=relaxed/simple;
+	bh=C4ZpWujrP3lY3tYZUmesciEdDg6gzrkYfF8gpZ7Tv7A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NNw2xelXPhOY1iwK9m7lyqsKQyCJuvSZA2x6jJpnkwYsEEgxSI48VZLu6S14MT8QH7U/cQAatN1VKEAToM5Oerh4jGF4u3WjILJ4wREszsxqY19OugBr/QHWVupd/xCeU/rfCgY7hldtR1C566vjT9rlcKBdkbLB9n/diUJbZ5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com; spf=pass smtp.mailfrom=paragon-software.com; dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV; arc=none smtp.client-ip=35.157.23.187
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=paragon-software.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paragon-software.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PhWtAtE0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B582E1F00A3D;
-	Tue,  8 Sep 2026 08:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856854;
-	bh=jSuLEe6P7QY7UzfjfsGtEwmzDfa2TYxR0HKzgMeZmUw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PhWtAtE0KEcCG98o1pIsJJ6a3rK1l6z+R9VmbKYDRmWiJcQ3H0AblQV9Q9DElj/K2
-	 9DdzrzLxjLdApNdLM5QUyNugyFFw3OpDQ3rGJIwApIPTmloOgJ4C85emmurItDWD5i
-	 KtLG7BXjtOJyH/OExhNyJWsWvtAAc1qDz9RGM1CIVa47QMf9LbJifJPgdWxenngJPk
-	 5F8/5FStfc87d42IPU0eROCZahzFTosbELD41d7O7oqz0dAHcUBuiOuFKpS/go+2GX
-	 c4N9bFWmyax34NmoGtTAxqi6OSRqXWt4zirCd0S5zCmHshCYwoEQ/pAIAjfISq1yDB
-	 U9/X+prdEhmdw==
-Message-ID: <fd428d1c-646f-47f1-9fbb-91f3b50760dd@kernel.org>
-Date: Tue, 8 Sep 2026 10:40:45 +0200
+	dkim=pass (1024-bit key) header.d=paragon-software.com header.i=@paragon-software.com header.b="CIEUUamV"
+Received: from relayfre-01.paragon-software.com (relayfre-01.paragon-software.com [176.12.100.13])
+	by relayaws-01.paragon-software.com (Postfix) with ESMTPS id B27FD1A9;
+	Tue,  8 Sep 2026 08:42:03 +0000 (UTC)
+Authentication-Results: relayaws-01.paragon-software.com;
+	dkim=pass (1024-bit key; unprotected) header.d=paragon-software.com header.i=@paragon-software.com header.b=CIEUUamV;
+	dkim-atps=neutral
+Received: from dlg2.mail.paragon-software.com (vdlg-exch-02.paragon-software.com [172.30.1.105])
+	by relayfre-01.paragon-software.com (Postfix) with ESMTPS id 5256621B2;
+	Tue,  8 Sep 2026 08:41:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=paragon-software.com; s=mail; t=1788856866;
+	bh=4GdPyjWrZkTFVn0/S95iWhZM6CbPF4y1CFYjl9hyLBg=;
+	h=Date:Subject:To:CC:References:From:In-Reply-To;
+	b=CIEUUamVeS7RfAIh0VLHKDW180fdGbQ5evBmBDTZNfKhyoyBaJrB1qbniS0r4rC9m
+	 v5I9yIYLsn480pYjbId0SKt0AkLilPbrmkTVFOStAq+8mTo1Jau4lKSdm4+YSdDx5D
+	 Dh8RdsBwrH7ZQVPo5qKzQpDt5FuGGsgaGp9bCQYU=
+Received: from [192.168.95.128] (172.30.20.187) by
+ vdlg-exch-02.paragon-software.com (172.30.1.105) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.7; Tue, 8 Sep 2026 11:41:04 +0300
+Message-ID: <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
+Date: Tue, 8 Sep 2026 10:41:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,103 +45,151 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PRELIMINARY 0/5] arm64: dts: qcom: shikra: add Ethernet
- support
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
- Anurag Pateriya <apateriy@qti.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
- <ap+zd/2QmerMwi0o@oss.qualcomm.com>
- <c23369fc-84ff-4881-8327-c18fc3692306@kernel.org>
- <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in
+ ni_create_attr_list()
+To: =?UTF-8?B?SEUgV0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
+CC: <ntfs3@lists.linux.dev>, <linux-fsdevel@vger.kernel.org>, Christian
+ Brauner <brauner@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+References: <20260625031932.9412-1-skyexpoc@gmail.com>
+ <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+In-Reply-To: <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: vobn-exch-01.paragon-software.com (172.30.72.13) To
+ vdlg-exch-02.paragon-software.com (172.30.1.105)
 
-On 08/09/2026 09:23, Mohd Ayaan Anwar wrote:
-> On Tue, Sep 08, 2026 at 09:14:45AM +0200, Krzysztof Kozlowski wrote:
->> On 08/09/2026 09:04, Mohd Ayaan Anwar wrote:
->>> On Tue, Sep 08, 2026 at 08:56:39AM +0200, Krzysztof Kozlowski wrote:
->>>> On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
->>>>> Hi,
->>>>>
->>>>> This preliminary series adds the DTS changes required to enable
->>>>> Ethernet on the Qualcomm Shikra CQM, CQS, and IQS EVKs.
->>>>
->>>> What is "PRELIMINARY" patch in upstream? Where is this process
->>>> documented or expressed?
->>>>
->>>
->>> My apologies. The code is ready, and I was hoping that sharing the DTS
->>> changes would make reviewing the driver and dt-bindings a bit easier.
->>> The original RFC had them together, and I split it out for net-next
->>> and linux-next.
+On 7/6/26 06:40, HE WEI（ギカク） wrote:
+
+> Hi Konstantin,
+>
+> Gentle ping on this v2. It's an attacker-controlled on-disk image heap
+> out-of-bounds write in ni_create_attr_list(),
+> reachable via setxattr on a crafted, loop-mounted NTFS image (KASAN
+> trace is in the commit message), which is why it's Cc'd to stable.
+>
+> For the record, the fix was first posted as v1 on 2026-06-10:
+> https://lore.kernel.org/ntfs3/20260610002929.51765-1-skyexpoc@gmail.com/
+> This v2 (2026-06-25) only adds Cc: stable and widens review to
+> linux-fsdevel; the fix itself is unchanged from v1.
+>
+> Could you let me know if you'd like any changes, or whether it can be
+> queued for a future bugfix pull? I'm happy to rebase or adjust as
+> needed.
+>
+> Thanks,
+> HE WEI (ギカク)
+>
+> hewei-gikaku <skyexpoc@gmail.com> 于2026年6月25日周四 12:19写道：
+>> From: HE WEI (ギカク) <skyexpoc@gmail.com>
 >>
->> Yeah, but why calling it completely different than every other patchset?
->> Why coming with different style? Why this cannot be RFC?
-> 
-> Agreed. In hindsight, this should probably have been an RFC v2. I saw
-> some recent series using a PRELIMINARY tag, but I see that its
+>> ni_create_attr_list() allocates a fixed buffer of al_aligned(record_size)
+>> (== record_size) bytes and then walks every attribute of the primary MFT
+>> record, writing one ATTR_LIST_ENTRY per attribute and advancing the cursor
+>> by le_size(name_len), with no check against the end of the buffer; the
+>> total size is only computed after the loop.
+>>
+>> A minimum-size resident attribute occupies SIZEOF_RESIDENT (0x18 = 24)
+>> bytes on disk, but an unnamed attribute expands to le_size(0) (0x20 = 32)
+>> bytes in the list.  Because the number of attributes in a record is not
+>> bounded (mi_enum_attr() accepts arbitrarily many equal-type, nameless
+>> minimum-size attributes), a crafted record packed with such attributes
+>> produces a list larger than record_size and overflows the heap buffer.
+>>
+>> This is reachable from a crafted, loop-mounted NTFS image: opening the file
+>> and adding an attribute (e.g. via setxattr) drives ntfs_set_ea() ->
+>> ni_insert_resident() -> ni_insert_attr() -> ni_ins_attr_ext() ->
+>> ni_create_attr_list().
+>>
+>>    BUG: KASAN: slab-out-of-bounds in ni_create_attr_list+0xc48/0x1058
+>>    Write of size 4 at addr ffff000008984c00 by task setfattr/345
+>>     ni_create_attr_list+0xc48/0x1058
+>>     ni_ins_attr_ext+0x510/0x7c0
+>>     ni_insert_attr+0x3f8/0x70c
+>>     ni_insert_resident+0xc8/0x3b0
+>>     ntfs_set_ea+0x66c/0xd28
+>>     ntfs_setxattr+0x4d8/0x5b0
+>>     __arm64_sys_setxattr+0xa4/0x124
+>>    Allocated by task 345:
+>>     ni_create_attr_list+0x188/0x1058
+>>    The buggy address belongs to the cache kmalloc-1k of size 1024
+>>    (the write lands at object+1024).
+>>
+>> Size the buffer from the actual attributes instead of assuming a single
+>> record_size is always enough.
+>>
+>> Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: HE WEI (ギカク) <skyexpoc@gmail.com>
+>> ---
+>> v2:
+>>   - Add Cc: stable@vger.kernel.org: this is an attacker-controlled on-disk
+>>     image heap out-of-bounds write and should be backported.
+>>   - No functional change from v1; widening Cc (linux-fsdevel, VFS) for
+>>     review, as the v1 posting received no response.
+>>   - Drop a redundant self Reported-by.
+>>
+>> v1: https://lore.kernel.org/all/20260610002929.51765-1-skyexpoc@gmail.com/
+>> ---
+>>   fs/ntfs3/frecord.c | 20 ++++++++++++++++----
+>>   1 file changed, 16 insertions(+), 4 deletions(-)
+>>
+>> diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+>> index 2e901d073fe9..6488d7a415c0 100644
+>> --- a/fs/ntfs3/frecord.c
+>> +++ b/fs/ntfs3/frecord.c
+>> @@ -768,10 +768,23 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+>>          rs = sbi->record_size;
+>>
+>>          /*
+>> -        * Skip estimating exact memory requirement.
+>> -        * Looks like one record_size is always enough.
+>> +        * Compute the exact size of the attribute list.  Each attribute in the
+>> +        * record yields one ATTR_LIST_ENTRY of le_size(name_len) bytes.  The
+>> +        * minimum on-disk attribute is SIZEOF_RESIDENT (0x18) bytes, but an
+>> +        * unnamed one expands to le_size(0) (0x20) here, so a record crafted
+>> +        * with many such attributes needs more than a single record_size; the
+>> +        * previous fixed kzalloc(record_size) could therefore be overflowed by
+>> +        * an attacker-controlled record.
+>>           */
+>> -       le = kzalloc(al_aligned(rs), GFP_NOFS);
+>> +       lsize = 0;
+>> +       attr = NULL;
+>> +       while ((attr = mi_enum_attr(ni, &ni->mi, attr)))
+>> +               lsize += le_size(attr->name_len);
+>> +
+>> +       if (!lsize)
+>> +               return -EINVAL;
+>> +
+>> +       le = kzalloc(al_aligned(lsize), GFP_NOFS);
+>>          if (!le)
+>>                  return -ENOMEM;
+>>
+>> @@ -781,7 +794,6 @@ int ni_create_attr_list(struct ntfs_inode *ni)
+>>          attr = NULL;
+>>          nb = 0;
+>>          free_b = 0;
+>> -       attr = NULL;
+>>
+>>          for (; (attr = mi_enum_attr(ni, &ni->mi, attr)); le = Add2Ptr(le, sz)) {
+>>                  sz = le_size(attr->name_len);
+>> --
+>> 2.43.0
 
-Where?
-https://lore.kernel.org/all/?q=s%3APRELIMINARY
+Hello,
 
+Sorry for the confusion. The fix is already upstream: v1 was applied as
+commit 7c4841e2a627 ("fs/ntfs3: fix slab-out-of-bounds write in
+ni_create_attr_list()"), in v7.3-rc1. v2 is functionally identical, so
+there is nothing further for me to apply.
 
-Best regards,
-Krzysztof
+The applied commit does not carry Cc: stable, though, so it has not
+been backported.
+
+Thanks for the fix, and for following up on it.
+
+Regards,
+Konstantin
+
