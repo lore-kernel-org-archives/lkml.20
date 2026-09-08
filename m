@@ -1,306 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15E032BE033
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880877; cv=none; b=Ciz2FbFShQKxX/35WMYLtq+m4ksQYIDbAUKOaYRgUm2CKbcKuOqOpLXv78vM54ZDP89Wb0D1wl79sSdn32mE98fwIfr0/6cd1xKPj/dik9FPd1jDS9yn3Q5rHZghF04DjPxXcd4zdpWUiWf1e1AT0fndFQztcsuGov6qTbQzkmo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880877; c=relaxed/simple;
-	bh=v7JcKdjl8BJLeJHfNr/M1jHSm23fuPKSkQKvtgPGZ50=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdVNbQWzJzFrHHhsBKkjTsr+gPXtIuRyg14inZ897SEhtw0n0WPk6eeMsRmbxUK/uaZW6BFOH55cMIQmBWF9M4dnJVAArLUKrGFGmkV11+019glrw2Bw+O7QbbD6FBel2QhKPs4s/rf7vmxeTXFsY5cj/mZsKFJUnrRHIA1L8Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioauQODE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioauQODE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4660B1F00A3A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09DC9311C2D;
 	Tue,  8 Sep 2026 15:21:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788880866;
-	bh=jHrBx0GYLJ/czyw8Dz2DV0Uyy/hB6kCYl3xbiY3VLxs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ioauQODEhvEpjvQABj+5OWAD8+fjU/RMgiPK6PiQB85jIOEoNwGeYMyf9vq0Ic5sc
-	 5N8OTvRqGdampJ9dsl+DaR6AqU4Vdvy0SBLBWC+4pIYDu3i67Av/SUEZ6ThvNB/u/X
-	 AinJj2KXeZ0awrK1bnO5zb6X5wxRsbohTq6yddVnKAY3yKcsZzaUto2pI4cjBECmUz
-	 c8363Y9uAXs8KgBaUcbWqdn586xprGh/3Aysu+RSrfSaAMCXWjzRIl7WXtH6xhA+Dg
-	 3PjIm//vEe4200/PlSYY+c4YBJHYDuwndb5/lQXjwrkHCtFuLnbZK3q2Quf4XTXzXo
-	 dO+pP2IoDpglA==
-Date: Tue, 8 Sep 2026 17:21:03 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Linus Walleij <linusw@kernel.org>, Inki Dae <inki.dae@samsung.com>, 
-	Jagan Teki <jagan@amarulasolutions.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Albert Esteve <aesteve@redhat.com>, Anusha Srivatsa <asrivats@redhat.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Hui Pu <Hui.Pu@gehealthcare.com>, 
-	Ian Ray <ian.ray@gehealthcare.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-Message-ID: <aqAld6W-JmrKLK_9@houat>
-References: <20260903-drm-bridge-every-panel-v2-0-2ab8ee24538e@bootlin.com>
- <20260903-drm-bridge-every-panel-v2-5-2ab8ee24538e@bootlin.com>
- <aplG-skzq-TPfFZQ@houat>
- <DL5Q0MLS0KT9.24LJK2Q1L89KP@bootlin.com>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788880880; cv=none; b=M1a0SCIpBHZT2etUBkpRaxYKz/crb6nhceOskqLFTl3rn3ac0CaLD22wDYvqZZPb1+UP+B29K2RIjWUcY/XdNY6NyuKtKWwZYGd42WgVh1cNPKMCCWzaRRdG/SUfHYeprorbyjRAByC1T0BPxnZV/Eq2FPfXrjmrGohQEo935Bs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788880880; c=relaxed/simple;
+	bh=W4334SuzahnU1++N24thvZV9Vdj0KvisRMqA85OggxE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OJ8/bh1f+5mnHMyP/6xLvciwGSMalih5Cgof1jJySPtyhVcI3F462dNKTHJ7sXcdNc9j4vGkCjX8vzESnIlbc614YPb0f+bpFaFi9mt9h8DgVvBRxjgeSasGJFie/Dj2RxmbFpmqova0Q2mJ3WaTScyAJQvuip+uYXfKjl1FoJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g1ENglvz; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g1ENglvz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788880868; x=1820416868;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=W4334SuzahnU1++N24thvZV9Vdj0KvisRMqA85OggxE=;
+  b=g1ENglvz5DmMNu6E478+vGJTmwaWbFsG26pIWhxDdhIydVup7yXCm+eq
+   X1CqoO3v8i+0tb7/HiJ7Z8WQcOx5wktSUCqBzb5rKslp/gZXz7hwp28q/
+   4UkQcGacBuRiY3kA9fz66berCy/n+30EoKXSP2gvp63o6ob888LOn8l96
+   VW8r9Fvl+zDE5AgAmUWSf0UzD0oNLzSSpu8q+PoGfNeDuT4+Rjl668zCb
+   MydNATFTid9WfDM74viKLMDLjnVpxJp/rIDjQrxtgr/Q7tM7Kf9WFMxG4
+   0q7u/NO/G8dRSGz1rPisA1emik1X5BDfnjSnVPT+0Bl1+SziclAWJJkLA
+   g==;
+X-CSE-ConnectionGUID: SazQIxk/TVO/kWNRgecyxw==
+X-CSE-MsgGUID: 2hMUjN8RRiydxRtiIhlDcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="106803261"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="106803261"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 08:21:03 -0700
+X-CSE-ConnectionGUID: ftnRedlfQW+Y9nB8GonF3g==
+X-CSE-MsgGUID: YxKle19RRwOSwN/a6kGh8w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="294535638"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO ahunter6-desk) ([10.245.244.90])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 08:21:01 -0700
+From: Adrian Hunter <adrian.hunter@intel.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Jiri Olsa <jolsa@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH] perf test: waiting.sh: Replace timestamp polling with sleep
+Date: Tue,  8 Sep 2026 18:20:53 +0300
+Message-ID: <20260908152053.192830-1-adrian.hunter@intel.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="bd64h2ct5hdmo56j"
-Content-Disposition: inline
-In-Reply-To: <DL5Q0MLS0KT9.24LJK2Q1L89KP@bootlin.com>
+Organization: Intel Finland Oy, Registered Address: c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo, Business Identity Code: 0357606 - 4, Domiciled in Helsinki
+Content-Transfer-Encoding: 8bit
 
+The waiting helpers implement timeouts using:
 
---bd64h2ct5hdmo56j
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC v2 05/19] drm/panel: embed a drm_bridge into every
- drm_panel
-MIME-Version: 1.0
+  date +%s%1N
 
-On Thu, Sep 03, 2026 at 03:37:55PM +0200, Luca Ceresoli wrote:
-> Hi Maxime,
->=20
-> thanks for keeping the round-trip time short for this discussion!
->=20
-> On Thu Sep 3, 2026 at 12:22 PM CEST, Maxime Ripard wrote:
-> > On Thu, Sep 03, 2026 at 10:11:08AM +0200, Luca Ceresoli wrote:
-> >> Adding a drm_panel does currently not add a panel_bridge wrapping
-> >> it. Usually the panel_bridge creation happens later, when some other d=
-river
-> >> (e.g. the previous bridge or the encoder) calls *_of_get_bridge() and =
-the
-> >> following element in the pipeline is a panel.
-> >>
-> >> This has some drawbacks:
-> >>
-> >>  * the bridge API is currently the best practice to access various
-> >>    components of the pipeline, especially with complex cards where bri=
-dges
-> >>    can be combined in different ways on different hardware
-> >>  * the panel_bridge is not created in the context of the driver of the
-> >>    underlying physical device (the panel driver), but of some other dr=
-iver
-> >>  * that other driver is not aware of whether the returned drm_bridge
-> >>    pointer is a panel_bridge created on the fly, a pre-existing
-> >>    panel_bridge or a non-panel bridge
-> >>  * removal of a panel_bridge requires calling drm_panel_bridge_remove(=
-),
-> >>    but that other driver doesn't know whether this is needed because it
-> >>    doesn't know whether it has created a panel_bridge or not
-> >>
-> >> Other drivers call [a variant of] drm_panel_bridge_add(), which also h=
-as
-> >> some of the above drawbacks.
-> >>
-> >> So far the current approach was working mostly because devm and drmm e=
-nsure
-> >> the panel bridge would be dealloacted at some later point. However wit=
-h the
-> >> upcoming implementation of bridge hotplug and dynamic bridge lifetime =
-this
-> >> will get more complicated.
-> >>
-> >> Switch to the new approach: embed a drm_bridge inside every drm_panel,
-> >> which behaves just like the current drm_panel_bridge.
-> >>
-> >> Do this by copying and adapting the code from bridge/panel.c, using
-> >> function names that are more suitable within drm_panel.c and doing the
-> >> minimal adaptation needed.
-> >>
-> >> Currently drm_bridge and drm_panel have independent refcounted
-> >> allocation. As they now become a single struct, just change
-> >> drm_panel_get/put() to get/put the bridge. As a result, the refcount f=
-or a
-> >> drm_bridge embedded in a drm_panel is:
-> >>
-> >>   bridge.refcount =3D=3D number of drm_bridge_get() calls
-> >>                    + number of drm_panel_get() calls
-> >>                    - number of drm_bridge_put() calls
-> >>                    - number of drm_panel_put() calls
-> >>
-> >> Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> >
-> > So there's a lot to unravel, and I wished you had split it, but I can't
-> > find a good way to split it either.
->=20
-> As I see it, this could be maybe split in 2:
->=20
->  - copy all needed symbols from bridge/panel.c (or move or whatever, see
->    discussion below) without using them
->  - change _alloc, _get, _put etc to actually embed the bridge and start
->    using the copied/moved symbols
->=20
-> Would you prefer that?
->=20
-> Note the second bullet, which is the core change, is pretty small, I think
-> a <100 lines diff, but I don't think it can be split further.
+This relies on GNU coreutils date truncating %N to the specified width,
+so %1N yields tenths of a second.
 
-Yeah, that's why I'm not sure it's going to make a big difference
-anyway. Sometimes it's just not great and there's nothing to do about
-it, really :/
+Rust coreutils (uutils) interprets the width differently and does not
+truncate the nanoseconds field.  Consequently "date +%1N" returns all
+nine nanosecond digits, causing the elapsed-time calculation to be done
+in nanoseconds while timeout values remain in tenths of a second.
 
-> >> This patch is new in v2, and replaces "drm/bridge: panel: add a
-> >> panel_bridge to every panel" which was based on a different approach.
-> >> ---
-> >>  drivers/gpu/drm/drm_panel.c | 258 +++++++++++++++++++++++++++++++++++=
-++++++---
-> >>  include/drm/drm_panel.h     |  33 ++++--
-> >>  2 files changed, 266 insertions(+), 25 deletions(-)
-> >>
-> >> diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-> >> index f8f6082e637f..9b86195f9f66 100644
-> >> --- a/drivers/gpu/drm/drm_panel.c
-> >> +++ b/drivers/gpu/drm/drm_panel.c
-> >> @@ -22,15 +22,19 @@
-> >>   */
-> >>
-> >>  #include <linux/backlight.h>
-> >> +#include <linux/debugfs.h>
-> >>  #include <linux/err.h>
-> >>  #include <linux/export.h>
-> >>  #include <linux/module.h>
-> >>  #include <linux/of.h>
-> >>
-> >> +#include <drm/drm_atomic_helper.h>
-> >>  #include <drm/drm_crtc.h>
-> >> +#include <drm/drm_modeset_helper_vtables.h>
-> >>  #include <drm/drm_of.h>
-> >>  #include <drm/drm_panel.h>
-> >>  #include <drm/drm_print.h>
-> >> +#include <drm/drm_probe_helper.h>
-> >>
-> >>  static DEFINE_MUTEX(panel_lock);
-> >>  static LIST_HEAD(panel_list);
-> >> @@ -46,6 +50,18 @@ static LIST_HEAD(panel_list);
-> >>   * take look at drm_panel_bridge_add() and devm_drm_panel_bridge_add(=
-).
-> >>   */
-> >>
-> >> +static inline struct drm_panel *
-> >> +drm_bridge_to_panel(const struct drm_bridge *bridge)
-> >> +{
-> >> +	return container_of(bridge, struct drm_panel, bridge);
-> >> +}
-> >> +
-> >> +static inline struct drm_panel *
-> >> +drm_connector_to_panel(const struct drm_connector *connector)
-> >> +{
-> >> +	return container_of(connector, struct drm_panel, connector);
-> >> +}
-> >> +
-> >>  /**
-> >>   * drm_panel_init - initialize a panel
-> >>   * @panel: DRM panel
-> >> @@ -86,6 +102,7 @@ void drm_panel_add(struct drm_panel *panel)
-> >>  	mutex_lock(&panel_lock);
-> >>  	list_add_tail(&panel->list, &panel_list);
-> >>  	mutex_unlock(&panel_lock);
-> >> +	drm_bridge_add(&panel->bridge);
-> >>  }
-> >>  EXPORT_SYMBOL(drm_panel_add);
-> >>
-> >> @@ -97,6 +114,7 @@ EXPORT_SYMBOL(drm_panel_add);
-> >>   */
-> >>  void drm_panel_remove(struct drm_panel *panel)
-> >>  {
-> >> +	drm_bridge_remove(&panel->bridge);
-> >>  	mutex_lock(&panel_lock);
-> >>  	list_del_init(&panel->list);
-> >>  	mutex_unlock(&panel_lock);
-> >> @@ -370,13 +388,198 @@ int drm_panel_get_modes(struct drm_panel *panel,
-> >>  }
-> >>  EXPORT_SYMBOL(drm_panel_get_modes);
-> >>
-> >> -static void __drm_panel_free(struct kref *kref)
-> >> +static int drm_panel_bridge_connector_get_modes(struct drm_connector =
-*connector)
-> >> +{
-> >> +	struct drm_panel *drm_panel =3D drm_connector_to_panel(connector);
-> >> +
-> >> +	return drm_panel_get_modes(drm_panel, connector);
-> >> +}
-> >> +
-> >> +/**
-> >> + * drm_bridge_set_connector_orientation - Set the connector panel
-> >> + * orientation from the bridge that can be transformed to drm_panel.
-> >> + *
-> >> + * @bridge: The drm_bridge for a drm_panel.
-> >> + * @connector: The connector to be set panel orientation.
-> >> + *
-> >> + * Returns 0 on success, negative errno on failure.
-> >> + */
-> >> +int drm_bridge_set_connector_orientation(const struct drm_bridge *bri=
-dge,
-> >> +					 struct drm_connector *connector)
-> >> +{
-> >> +	struct drm_panel *panel =3D drm_bridge_to_panel(bridge);
-> >> +
-> >> +	return drm_connector_set_orientation_from_panel(connector, panel);
-> >> +}
-> >> +EXPORT_SYMBOL(drm_bridge_set_connector_orientation);
-> >
-> > I don't think we should create new ones. Just move the code from
-> > bridge/panel here and remove it there. The only thing left will be the
-> > panel_bridge_add() variants that become almost trivial now, and you can
-> > cleanup the drivers in later patches.
->=20
-> What do you mean by "move" exactly? Really move all relevant functions fr=
-om
-> bridge/panel.c into drm_panel.c, so evey user driver will depend on the n=
-ew
-> drm_panel module instead of the old one for these symbols?
+As a result, timeout comparisons succeed immediately and the waiting
+helpers time out on their first iteration.  This causes
+test_intel_pt.sh to fail on systems using uutils "date".
 
-Yes. Basically, I don't want to end up in a situation where we have
-competing implementations of the same function and we have to mess
-around with names to accomodate one or the other.
+Avoid implementation-specific date formatting entirely.  Instead, wait
+for 100 ms on each iteration and count the timeout down.  Besides fixing
+the portability issue, this removes the busy-waiting behaviour in
+wait_for_perf_to_start(), which could otherwise consume CPU while
+waiting for perf record to start.
 
-> > This also allows to get rid of all the symbol renaming, which isn't
-> > great in itself, but also the existing names were good so it's hard to
-> > come with better ones.
->=20
-> I think the names in bridge/panel.c make sense there, but not in
-> drm_panel.c. Here's my interpretation (using atomic_enable as an example):
->=20
->  - panel_bridge_atomic_enable
->    ^^^^^^^^^^^^ <- this is about the panel_bridge
->=20
->  - drm_panel_bridge_atomic_enable
->    ^^^^^^^^^        <- this is drm_panel stuff
->              ^^^^^^ <- and specifically about the bridge embedded in drm_=
-panel
->=20
-> Does it make sense to you too in this perspective?
+Since the timeout is now based on repeated sleeps, it is only
+approximate.  Update the comments accordingly.  Also make is_running()
+wait for exactly the documented number of tenths by changing its timeout
+test from -gt to the new logic, and quote tm_out in the modified code.
 
-It's an internal symbol anyway, right? So it's really doesn't matter
-that much to me.
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+---
+ tools/perf/tests/shell/lib/waiting.sh | 34 +++++++++++++--------------
+ 1 file changed, 16 insertions(+), 18 deletions(-)
 
-That being said, if we were to make it public, drm_panel_bridge seem
-totally fine by me. It's "panel_bridge_atomic_enable", in the drm
-namespace.
+diff --git a/tools/perf/tests/shell/lib/waiting.sh b/tools/perf/tests/shell/lib/waiting.sh
+index 3a152892e077..43f4322dbe9e 100644
+--- a/tools/perf/tests/shell/lib/waiting.sh
++++ b/tools/perf/tests/shell/lib/waiting.sh
+@@ -1,77 +1,75 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ 
+-tenths=date\ +%s%1N
+-
+ # Wait for PID $1 to have $2 number of threads started
+-# Time out after $3 tenths of a second or 5 seconds if $3 is ""
++# Time out after approx. $3 tenths of a second or 5 seconds if $3 is ""
+ wait_for_threads()
+ {
+ 	tm_out=$3 ; [ -n "${tm_out}" ] || tm_out=50
+-	start_time=$($tenths)
+ 	while [ -e "/proc/$1/task" ] ; do
+ 		th_cnt=$(find "/proc/$1/task" -mindepth 1 -maxdepth 1 -printf x | wc -c)
+ 		if [ "${th_cnt}" -ge "$2" ] ; then
+ 			return 0
+ 		fi
+-		# Wait at most tm_out tenths of a second
+-		if [ $(($($tenths) - start_time)) -ge $tm_out ] ; then
++		if [ "${tm_out}" -le 0 ] ; then
+ 			echo "PID $1 does not have $2 threads"
+ 			return 1
+ 		fi
++		sleep 0.1
++		tm_out=$((tm_out - 1))
+ 	done
+ 	return 1
+ }
+ 
+ # Wait for perf record -vvv 2>$2 with PID $1 to start by looking at file $2
+ # It depends on capturing perf record debug message "perf record has started"
+-# Time out after $3 tenths of a second or 5 seconds if $3 is ""
++# Time out after approx. $3 tenths of a second or 5 seconds if $3 is ""
+ wait_for_perf_to_start()
+ {
+ 	tm_out=$3 ; [ -n "${tm_out}" ] || tm_out=50
+ 	echo "Waiting for \"perf record has started\" message"
+-	start_time=$($tenths)
+ 	while [ -e "/proc/$1" ] ; do
+ 		if grep -q "perf record has started" "$2" ; then
+ 			echo OK
+ 			break
+ 		fi
+-		# Wait at most tm_out tenths of a second
+-		if [ $(($($tenths) - start_time)) -ge $tm_out ] ; then
++		if [ "${tm_out}" -le 0 ] ; then
+ 			echo "perf recording did not start"
+ 			return 1
+ 		fi
++		sleep 0.1
++		tm_out=$((tm_out - 1))
+ 	done
+ 	return 0
+ }
+ 
+ # Wait for process PID %1 to exit
+-# Time out after $2 tenths of a second or 5 seconds if $2 is ""
++# Time out after approx. $2 tenths of a second or 5 seconds if $2 is ""
+ wait_for_process_to_exit()
+ {
+ 	tm_out=$2 ; [ -n "${tm_out}" ] || tm_out=50
+-	start_time=$($tenths)
+ 	while [ -e "/proc/$1" ] ; do
+-		# Wait at most tm_out tenths of a second
+-		if [ $(($($tenths) - start_time)) -ge $tm_out ] ; then
++		if [ "${tm_out}" -le 0 ] ; then
+ 			echo "PID $1 did not exit as expected"
+ 			return 1
+ 		fi
++		sleep 0.1
++		tm_out=$((tm_out - 1))
+ 	done
+ 	return 0
+ }
+ 
+-# Check if PID $1 is still running after $2 tenths of a second
++# Check if PID $1 is still running after approx. $2 tenths of a second
+ # or 0.3 seconds if $2 is ""
+ is_running()
+ {
+ 	tm_out=$2 ; [ -n "${tm_out}" ] || tm_out=3
+-	start_time=$($tenths)
+ 	while [ -e "/proc/$1" ] ; do
+-		# Check for at least tm_out tenths of a second
+-		if [ $(($($tenths) - start_time)) -gt $tm_out ] ; then
++		if [ "${tm_out}" -le 0 ] ; then
+ 			return 0
+ 		fi
++		sleep 0.1
++		tm_out=$((tm_out - 1))
+ 	done
+ 	echo "PID $1 exited prematurely"
+ 	return 1
+-- 
+2.53.0
 
-Maxime
-
---bd64h2ct5hdmo56j
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaqAn1QAKCRAnX84Zoj2+
-dj6kAX9hes0lXVYSoppnuBFwWfQgULvAoLhNFbe7BBMJst5qpS1LG+qQgvOKria2
-b9OpaSkBgKd9MelOsTn3TuBA3edoxxtNZj1Ifg4T471fDW0fx17WN23egOYxH+A0
-dllMEvyNkQ==
-=6V1p
------END PGP SIGNATURE-----
-
---bd64h2ct5hdmo56j--
