@@ -1,125 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324E34FDE4F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3D7513541;
+	Tue,  8 Sep 2026 10:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864058; cv=none; b=dO46GnHn3cPBv9ZYP/xS5/xrJY4jiN++46wBaDb2tLpVGO0mAMj8rNX4Op/hupkd++l2tlI40VZj205n1O6/ig5vXSl/4o3tepo7Z3zt4tUGdjqOqV5k5jd7JsWG0z/FGAXwR/1hLAJDePlywGz9cYWLLXcsXEZjKsOs4cx0+UU=
+	t=1788864099; cv=none; b=JH7yKSmgKfzr13/MIXIDMHno30E6MNUQvqI24Kz9/6Xhx4zInX2T5i1ZxMNLcwLw8YOaYec9wSz4iMGP1uKrL09FO/Et6qy3lAlFzpbHp6xDTBYx9e83IIewePNAJ/smPhBpQDCl9kQT76zSeyHsvhM9iHNbOv07Rn5j2AWlIsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864058; c=relaxed/simple;
-	bh=6MrkOvxvKnW7TUEX38uVtxuQVcubBsW6gHoqh8Zyu5c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J8JwpAfdRouBVFqHds7ydeAwz4RCPSShXIc6QKUJs1NOZPgSVNsLE1MkqUhve5TulFWeuq0NCnocZj/ChnD+lSLIXbB3UvW7/Dq++8z0ixz/9+qLF8w6NHR3aSBIH9ifEY6DqvsMnKHkjcyZcX2kYwG+Hx0SygypMKZ0zOccW4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3aU1Y8T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788864099; c=relaxed/simple;
+	bh=Gw7KN0Or/jOkVbOCW9IUJ128+upxz2FvtjLVYKII3dQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fx5+TpNSrr1FrEMcA0hqv7TpsnKkopC4JPTeLIb4R+HZ6btR+rVejftHCIQ5sy8uiSy4dnFedaPRBQDKhQyIQvCKZ+44cO5Y+yeUxyOZBbGNyaeOKfZZXMqmHr/yiSakxr6T7FdxL8BPDXw2j52q7GGve6y8xf6wWudcsI9P7rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U0TUmpCT; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3aU1Y8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3401F00A3E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:40:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788864056;
-	bh=6MrkOvxvKnW7TUEX38uVtxuQVcubBsW6gHoqh8Zyu5c=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=h3aU1Y8Ttw8AHk97pm1z5GvUGuxS/5NzZCoZ7+H59y1UFTmbVQjWt33n8tLl8zWQ3
-	 UVfQyyqbqdBCgwHMvGzwe9jnCy7WRIjxkm5kujPLQKakZqOj0ryl52CAntlCTWS+Bu
-	 IYkqVN+mYg+cSxVUeEJLaP8Np6nt1Uo57l5YP+DWjFYI7baiVgCbzj1Z+EGO1etbFo
-	 Xb41ZHljrfpZasXBU7C4/wQ2144N+asOVnf/vgDhUU2v865aRvYECko7n0KNueDd3b
-	 ZshO3qHhIcwEl4uC4EZxfhRLSHSj3dHDD/IHHSGxxwcyY3Mmeo4gR2IpOXjKHlLhBJ
-	 yuKkPwyQ2A8Tg==
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-939b5ded99dso100762085a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:40:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByzg8gudk6eYKuJwgG652evaGrM8kej4KM6LIv8FwKL4b+6sWFQaVe7vrEFzPxTFeHR3tzmq4X0sX29pOA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mid2QgAuuOWsfFjHPcYlUfuHfyHqrsIEEA8H3jlSOKaq+LmEQn
-	4/8g8Gkh73NYWgFUPY7bz5hiyF5MKaI3TobSoD6v2i8t+Sc+ygrz7xr7QzAH6IEQAn9BdnAGS9y
-	1op14pxs1OTD3FTArB6lN1v2U0jmd81w=
-X-Received: by 2002:a05:620a:2903:b0:939:13a7:70f0 with SMTP id
- af79cd13be357-939802f7939mr3057881485a.5.1788864056096; Tue, 08 Sep 2026
- 03:40:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U0TUmpCT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788864097; x=1820400097;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Gw7KN0Or/jOkVbOCW9IUJ128+upxz2FvtjLVYKII3dQ=;
+  b=U0TUmpCTqZbOiIE9PP6jSyWNxK1gxK1W4CQ65kC+YmU5fJhGkzpkeaai
+   wGb+HTOEprsSaBGM9tM1rr3nBKYeBCETqpmxsbe39Cq7PlCTiV5m+lfgh
+   D3ct2Q1ueMg8uHtzMS0V1e8f5jmUh9PqWYEYujrMMRrCd0IqjXxQ3yJg0
+   Omn+hc9sW54AgRPGAlec1GGZqmpttllZIu78XjexEIJsYhM8eiNGGpSZS
+   2GaHg7JFptdISlttWOsWw+eEQqom+oSKv296nWwsxQeYiTtqnwQUlA4UV
+   TjgKhTFXfGUPlM3Ox6ufMDPouuDEX4UbPsG7Q4OTmgv2Lam40DoRy+zI2
+   g==;
+X-CSE-ConnectionGUID: n1NgR5lCRLeMgLCxrst0aw==
+X-CSE-MsgGUID: JTM8ZwJWTpqUnedUMnlo7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89292662"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="89292662"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:41:37 -0700
+X-CSE-ConnectionGUID: Cn4i2TNtSGiFr8qAHvdhVQ==
+X-CSE-MsgGUID: 0Ze/sG3wQDqoJxVvvBbL4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="270468783"
+Received: from igk-lkp-server01.igk.intel.com (HELO cc074f2a4298) ([10.211.93.152])
+  by orviesa008.jf.intel.com with ESMTP; 08 Sep 2026 03:41:34 -0700
+Received: from kbuild by cc074f2a4298 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3tGd-000000000f4-2tBu;
+	Tue, 08 Sep 2026 10:41:31 +0000
+Date: Tue, 8 Sep 2026 12:40:32 +0200
+From: kernel test robot <lkp@intel.com>
+To: Alex Elder <elder@riscstar.com>, bhelgaas@google.com, robh@kernel.org,
+	saravanak@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, herve.codina@bootlin.com,
+	daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+Message-ID: <202609081256.UUzbm16V-lkp@intel.com>
+References: <20260904134607.1856121-5-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901190123.3511535-1-noren@nvidia.com> <20260901204449.GK3004@cmpxchg.org>
- <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com> <20260901220917.GM3004@cmpxchg.org>
- <69C018F5-A1C8-47AD-9567-3497AA6808EC@nvidia.com> <20260902160417.GN3004@cmpxchg.org>
-In-Reply-To: <20260902160417.GN3004@cmpxchg.org>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 8 Sep 2026 18:40:43 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4w-GF06J0kd1X9Hxzfcs3YtpO6KRGLAv1w4j1L1Zt=ibg@mail.gmail.com>
-X-Gm-Features: AcwNN1VT6lhf2AnAT1VcPvsMl-I0MnH4-pnEeOyIikJkyUIQO06ZRhqlMrKECeA
-Message-ID: <CAGsJ_4w-GF06J0kd1X9Hxzfcs3YtpO6KRGLAv1w4j1L1Zt=ibg@mail.gmail.com>
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-To: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Zi Yan <ziy@nvidia.com>, Nimrod Oren <noren@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	"Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Hugh Dickins <hughd@google.com>, 
-	Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo0325@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904134607.1856121-5-elder@riscstar.com>
 
-On Thu, Sep 3, 2026 at 12:04=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
-> wrote:
-[...]
->
-> The idea is that the pageblock maintains contiguity for the largest
-> size you routinely expect to allocate.
->
-> The page allocator is very passive right now, and it doesn't work
-> super reliably. But even in the current regime, smaller blocks have a
-> better chance of containment.
->
-> For example, when the ever-growing page cache runs out of movable
-> block space, it spills into unmovable free space. When the next
-> unmovable request finds no space, it runs LRU reclaim - which is more
-> likely to free space in one of the many movable blocks. And so the
-> next block is poisoned. Smaller blocks have a better chance of filling
-> up natively, means less pressure to spill into incompatible ones.
->
-> And the higher min_free_kbytes, the more likely there are still native
-> options when the zones are down to the watermarks. E.g. better odds
-> there is still unmovable free space, you just need to reclaim some
-> movable/reclaimable space elsewhere to satisfy the watermarks.
->
-> I've been working on making this more robust with the huge page
-> allocator / defrag_mode stuff: instead of falling back and poisoning a
-> block, invoke reclaim/compaction to produce a neutral block that can
-> be converted entirely.
->
-> It's the same idea as the higher min_free_kbytes and watermark
-> boosting, but it is more targeted at the end result: readily available
-> space in compatible or convertible blocks.
->
-> But with that active regime, oversized pageblocks are even
-> worse. You'd pay ongoing compaction work to produce a level of
-> contiguity that you don't actually need.
+Hi Alex,
 
-Hi Johannes,
+kernel test robot noticed the following build warnings:
 
-This could also be true when running 16KB or other mTHP sizes,
-such as 32KB or 64KB, on a system with 4KB base pages and
-2MB pageblocks.
+[auto build test WARNING on cee9395acd8043be0644b25c34bfa86623f2b935]
 
-Proactive compaction would try to create 2MB pageblocks, even
-by migrating mTHPs, but 2MB isn't actually needed for large
-folios on the system.
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Elder/PCI-of-avoid-allocations-in-of_pci_prop_compatible/20260904-084603
+base:   cee9395acd8043be0644b25c34bfa86623f2b935
+patch link:    https://lore.kernel.org/r/20260904134607.1856121-5-elder%40riscstar.com
+patch subject: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20260908/202609081256.UUzbm16V-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609081256.UUzbm16V-lkp@intel.com/reproduce)
 
-So here is an mTHP-friendly compaction RFC from Bo (Cc: Bo):
-https://lore.kernel.org/linux-mm/20260825043833.2659350-1-zhangbo56@xiaomi.=
-com/
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609081256.UUzbm16V-lkp@intel.com/
 
-The idea is to let compaction create mTHP orders rather than
-2MB pageblocks, with much lower cost and greater efficiency.
+All warnings (new ones prefixed by >>):
 
-I'd be interested to hear if you have any comments on it.
+   drivers/pci/of_property.c:335:7: error: incompatible pointer to integer conversion initializing 'char' with an expression of type 'char[48]' [-Wint-conversion]
+     335 |         char bufp = buf;
+         |              ^      ~~~
+   drivers/pci/of_property.c:338:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     338 |         ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:341:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     341 |         compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+   drivers/pci/of_property.c:344:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     344 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:347:43: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     347 |         compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+         |                                                  ^ ~~~~
+         |                                                    &
+   drivers/pci/of_property.c:350:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     350 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:351:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     351 |         compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+>> drivers/pci/of_property.c:336:6: warning: unused variable 'i' [-Wunused-variable]
+     336 |         int i, ret;
+         |             ^
+   1 warning and 7 errors generated.
 
-Best Regards
-Barry
+
+vim +/i +336 drivers/pci/of_property.c
+
+407d1a51921e9f Lizhi Hou  2023-08-15  326  
+5a35f85c8e450f Alex Elder 2026-09-04  327  /* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
+5a35f85c8e450f Alex Elder 2026-09-04  328  #define PROP_SIZE	16	/* Max size of each compatible string */
+407d1a51921e9f Lizhi Hou  2023-08-15  329  static int of_pci_prop_compatible(struct pci_dev *pdev,
+407d1a51921e9f Lizhi Hou  2023-08-15  330  				  struct of_changeset *ocs,
+407d1a51921e9f Lizhi Hou  2023-08-15  331  				  struct device_node *np)
+407d1a51921e9f Lizhi Hou  2023-08-15  332  {
+407d1a51921e9f Lizhi Hou  2023-08-15  333  	const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
+5a35f85c8e450f Alex Elder 2026-09-04  334  	char buf[PROP_COMPAT_NUM * PROP_SIZE] = { };
+5a35f85c8e450f Alex Elder 2026-09-04  335  	char bufp = buf;
+407d1a51921e9f Lizhi Hou  2023-08-15 @336  	int i, ret;
+407d1a51921e9f Lizhi Hou  2023-08-15  337  
+5a35f85c8e450f Alex Elder 2026-09-04  338  	ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+5a35f85c8e450f Alex Elder 2026-09-04  339  	if (ret >= PROP_SIZE)
+5a35f85c8e450f Alex Elder 2026-09-04  340  		return -EINVAL;
+5a35f85c8e450f Alex Elder 2026-09-04  341  	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  342  	bufp += ret + 1;
+407d1a51921e9f Lizhi Hou  2023-08-15  343  
+5a35f85c8e450f Alex Elder 2026-09-04  344  	ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+5a35f85c8e450f Alex Elder 2026-09-04  345  	if (ret >= PROP_SIZE)
+5a35f85c8e450f Alex Elder 2026-09-04  346  		return -EINVAL;
+5a35f85c8e450f Alex Elder 2026-09-04  347  	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  348  	bufp += ret + 1;
+407d1a51921e9f Lizhi Hou  2023-08-15  349  
+5a35f85c8e450f Alex Elder 2026-09-04  350  	ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+5a35f85c8e450f Alex Elder 2026-09-04  351  	compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  352  
+5a35f85c8e450f Alex Elder 2026-09-04  353  	return of_changeset_add_prop_string_array(ocs, np, "compatible",
+5a35f85c8e450f Alex Elder 2026-09-04  354  						  compat_strs, PROP_COMPAT_NUM);
+407d1a51921e9f Lizhi Hou  2023-08-15  355  }
+5a35f85c8e450f Alex Elder 2026-09-04  356  #undef PROP_SIZE
+407d1a51921e9f Lizhi Hou  2023-08-15  357  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
