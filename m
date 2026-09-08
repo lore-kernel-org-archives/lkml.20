@@ -1,204 +1,117 @@
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14C8E3C3787
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:16:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DED1255292C;
+	Tue,  8 Sep 2026 15:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880623; cv=none; b=RI8Sy/KD5yqWrrHusqwyuy5h/jfDDkbEQ12u4ZiDgDaR+4X/hoKoydvL1x5+CagBkBrht7d7FP/taimpQbeAsHeRQlAnWAdKkNkSDDJ6X4ZOYhwINfIdw6FfpMSVxAxf8yVC6LsZYO4Hsl/GsZ2wToL9OqpX56/Yj3FjGsZMfgY=
+	t=1788880681; cv=none; b=EiUncEcQPPXemCnXuX9tMicdnTCutiCm4HatNB10Vm72VDjEE4m9wYpYSwxvcv92iwcR7lWx7ALOU9KWKQAMBtakusPOoi/NB3vcwkSfXz2neXqf65aHGeJLwvfzJG8yBpEXGlXUYxSWZr2kss18UZLSPLk9PyzDqnITYY/RtUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880623; c=relaxed/simple;
-	bh=JMnLiPjPeuQ8XHbUf4RdPN6u8wF8V4jepqQl+nANMew=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=upgJf3n5PmcNudviCCrLB/PioaGjLf3CXS+BR0Gu88eojUuxIoBdGY8Pkt6ct9x+s0Kpg1mgaQdZlCEd+Q0whckPhebTBiTjLqCmrMgFUtpqMyQwOSvENDEgJrEZuzWbbkg4wjcY85j2bwtbI1ePdfch0n+8y3Z8CQ+Z31wykf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=PB+XrZxP; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=5eqr/QFB; arc=none smtp.client-ip=148.163.135.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="PB+XrZxP";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="5eqr/QFB"
-Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688EYpBO2420788
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 11:16:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=d/ju
-	GQBpeXjCCGF/Jvctg7hi+/3D3O4YYez7MG8kxSg=; b=PB+XrZxPTwrkXbTyYVYd
-	lumHQ20EoJN0qSaX0iS4gdwRdgCm0ih1QdVMcHCfxMyxoeBesUAwedtVTF0Jn1Rf
-	jwD8hGuisXzAiFVARxfvQKG+jr5u2hvkKdechYgQE4CBe6hCBfDkYf9Kq/g4WGEh
-	sDjVp39yDqviUY9iyHs7d3HzHYME+KHUbElN87zOQwdhnAIgZmMCl0BLYovoJxrB
-	AeZzl68wQ34cCgR+BxZdmJ3uIpXtogr9+A0ljJmO5mMqi0L4Qk4UxZnkD+0e4BsY
-	3DS9Kc9SEDVtaj8C0R6dUKbMLGvVED40s4NWh91cEozh2jxEAyIZMffO1UBdh/x7
-	yw==
-Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4gj4d5d7sv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:16:51 -0400 (EDT)
-Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66cbb3dcea7so6112553d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788880610; x=1789485410; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d/juGQBpeXjCCGF/Jvctg7hi+/3D3O4YYez7MG8kxSg=;
-        b=5eqr/QFBLWCoWrHqAyzcx7ZtA6n64Bca7n9yM3MbIfUAxpTZU5IZq6prbWkGEz/XrE
-         +Rzt6nGlAmwJB8RpOnWE3Yu/QU6lYMWVK2t48yIN8uIx8YxySpuWol962fSKJACOfyEV
-         OZnXTvfjx9z8UzYMUH0eZvCpqSHEmWfo1fI9QffmH9WBDTpcqvZGJoT57JHhd5DX3FZp
-         PRQ/33V0Lu7GvW4jjYFMlEURFSMcL9DzKjwVG+ADa0m493LATniMBUTzq5Y0b0OxIfDi
-         iPv8PSibUgiD7fpVXI4PuYVpIYqu8ecMV92TbeX6HZLpUYYkXgryoalS4t/NUMwoCkNm
-         g4Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880610; x=1789485410;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d/juGQBpeXjCCGF/Jvctg7hi+/3D3O4YYez7MG8kxSg=;
-        b=hwLv+m++fa5kL9GIDFXGLhZwGLWDCVEqfkSdKOzafvvKjWh4ZnKm9zrKWexC8YFooP
-         tJScHD61kHHl8TUpwJjO8yBGFQUTgOvzAwiz+fXzgMaBRgib70H5+3HSS2ha0/b7q3Kk
-         JeXSngZ+KmuOqvh6P7SmdjJmP1anq+QM6yFMQm9xU7NVZce9FXJWBhZ+p917kx7eGxhv
-         maqD2J70wgbfTs00KIg1cbfk/EbXQJmtZ4yCFekByHz+vRW/eptmy/+kxLJhMerc3h59
-         xoLWqHV2/ttzZMiUldP6xfHcxKHZNI/nAAKbxXqUTZ3g4WZ4SCktFtLrieWwNiH7xCtN
-         ASnQ==
-X-Forwarded-Encrypted: i=1; AKwUvByVdd22l5ZvUDu+npI0jFeETK1edKiV3aWCL4OZlBMpocyrKHJv1O2a7rX7Scp8iRfYiid/OHZ6iw2kQt8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ll7452HApEyJWffWqIt9k6s0Rda8DSvC3YPPpF88o/qErBm6pk
-	RGX78ElIlmg4Yzrm/VxCrM1IK5pp/Kiza+LPQo0TjIw7yAcXSw1qPnnJiYrbRjbT9lWkNS0IGJm
-	/qkA5IbFKMSuhH38J6qzfwQ2r4dl9mlaIqK6BIzpOlWtlyu3bkPRh625ApuFZOg==
-X-Gm-Gg: AYBFou3ys98FJUsFcuNYB/PEPZGWbCdgqIC+9rvP0SsCuPOJvGMtAIXwQPXzp5WRRl/
-	0BFJ0N8QNRFHeqEwtyTNpVySyckIbkbkrK+U01Ub0ahVX7PV7r9STMGVqYFQBnWE5e6h4yrNpCA
-	4zyXs60xTpOzKBR0OJzp+YLlMsaEuU+KiR874mb4lG9zcTnB+boT8zi4U9LqG5vWZdjjrlEei4H
-	suAinhoWG+HO7LYayySICnyf++qnmZBe/CjN8yJmYlnA16/iYcfbzylXKb65p5V8To+E36MYN6Z
-	sQfJRwaCv68ImOk7EN1ez+nliDikZtdpIMy5ITNFMJsvFKqhyPF4sKk9VTHqk4GS22OH5OTPH0D
-	BWiQ4cFiT2I+PvPr7CJkb5Q41VG4gss6b5wc1sZrFGa+4o0Wg0XGUCg==
-X-Received: by 2002:a05:690e:4513:20b0:66f:c8e4:f013 with SMTP id 956f58d0204a3-66fc8e4f18dmr4249090d50.50.1788880610232;
-        Tue, 08 Sep 2026 08:16:50 -0700 (PDT)
-X-Received: by 2002:a05:690e:4513:20b0:66f:c8e4:f013 with SMTP id 956f58d0204a3-66fc8e4f18dmr4249033d50.50.1788880609732;
-        Tue, 08 Sep 2026 08:16:49 -0700 (PDT)
-Received: from [127.0.1.1] (nat-128-59-177-174.net.columbia.edu. [128.59.177.174])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040673ce0sm122105496d6.25.2026.09.08.08.16.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:16:49 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Tue, 08 Sep 2026 11:16:36 -0400
-Subject: [PATCH v2 6/8] arm64: mte: make mte_save_tags() and
- mte_restore_tags() static
+	s=arc-20240116; t=1788880681; c=relaxed/simple;
+	bh=lX2+xlhy6aKGcKxfnElI7gsPN9ftet39k8I+KmFj3SI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Oue0YKmGfrqyWONGOCfBLhXTKej9OT2R9JTVJhGDa9fPNJ15zH7zPLE7ZYLDkO7ezryyDzaZHcYMznI89iWgitGFKOPUkXjCQJjpoKa8NWJ/CoRkPwIIIatR6o46mhSq75mEo3MguYd7cBcnNBqi/TILleByN46rI8UQgHRvNyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432B41F00A3A;
+	Tue,  8 Sep 2026 15:17:44 +0000 (UTC)
+Message-ID: <5394f2d7-03e2-4aeb-a5da-60a0368340d9@kernel.org>
+Date: Tue, 8 Sep 2026 17:17:12 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [tip: x86/urgent] x86/mm/pat: Acquire init_mm write lock on
+ collapse to avoid UAF
+Content-Language: en-US
+To: Dave Hansen <dave.hansen@intel.com>, Mike Rapoport <rppt@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, linux-kernel@vger.kernel.org,
+ linux-tip-commits@vger.kernel.org, Jiri Slaby <jirislaby@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>, Will Deacon <will@kernel.org>,
+ David Carlier <devnexen@gmail.com>, Atish Patra <atishp@meta.com>,
+ Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, x86@kernel.org,
+ Ingo Molnar <mingo@kernel.org>
+References: <20260813-cpa-fixes-v2-1-39b4ff90f91d@kernel.org>
+ <178821524784.3717435.3293914321834699913.tip-bot2@tip-bot2>
+ <b2095df8-9991-4e65-9890-c34f8c206319@kernel.org> <apZ52DKlJIrpX6qq@gremlin>
+ <7fe0aee9-d1e9-419c-9ca6-c0160223d5dc@intel.com>
+ <ap_WIZwCPKB07nAf@kernel.org>
+ <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <54f55b19-4a42-4c5d-a6ec-979132e11ece@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-folio_swap_entry-v2-6-ee6d01dfa5e1@columbia.edu>
-References: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
-In-Reply-To: <20260908-folio_swap_entry-v2-0-ee6d01dfa5e1@columbia.edu>
-To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
-        Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>,
-        David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
-        Baolin Wang <baolin.wang@linux.alibaba.com>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
-        Dev Jain <dev.jain@arm.com>, Lance Yang <lance.yang@linux.dev>,
-        Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-        Lorenzo Stoakes <ljs@kernel.org>, Rik van Riel <riel@surriel.com>,
-        Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
-        Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
-        Yosry Ahmed <yosry@kernel.org>,
-        Chengming Zhou <chengming.zhou@linux.dev>,
-        Catalin Marinas <catalin.marinas@arm.com>,
-        Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788880600; l=1787;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=JMnLiPjPeuQ8XHbUf4RdPN6u8wF8V4jepqQl+nANMew=;
- b=gGrVpzINCdcX9e9UtB7ydxsckIe/46z/TwXW94oeS12x2L3iuyn2uigTEvuOZbHdpQe5OV2Um
- +P1oxTLmtU0CwWIE5zTT16WQtchDHj8G1SYst8releCqJFl2APeIPvs
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE2NSBTYWx0ZWRfXxnM5BRmxtGbC
- UVJ6cicyeDMVsqmX6wX1FqP+qCSRf/ykklF+QJEEyqao+58M4FmcWEhmiOdOWN6lnKmNxy6SfI8
- Utfi3K1J3SG70hcgXEZ7vCsZpmngBjJIECznHXYCYUI4VSb1+kz35nGVnO0ks6PVrmGJGOjd5ey
- UkD95OEMN0pbQIpeAI3WX6uBUu6s5reAv/Y+GSX+HxSBY6Co9ZsGY8vAdQCHj4FqNbRxzOhLhPY
- wtnnX6fvjHJpZ/kUPt1WY6pXVLpRnz3b0zmTNmg06oC10fzr1UvmRsW4RR/GFjaErD2Bkdi763h
- KXzBH744Lb50ZoiCSt0vtPNLRdcM2C85Yj0wqq2H/Egv9+FwMT6Esd3zBxaUvMBwtlOQ9VV9kQJ
- 6QjkwfhDnM4PUSM+TAcAhE+dwAaDBpI4fepQLQXT0gP6/645pZxQvr9QG03eRZoBKUozrwR62HA
- LmSuBDZtIXiv/anR1Rg==
-X-Proofpoint-ORIG-GUID: LAbXbh8Ek9XWvrHjgc4SBkfZRfkBkoCP
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE2NSBTYWx0ZWRfX0c1jjlXTmPWy
- j6XKHQI64JusIGrb5qIesSBkP/APj4l/AHkAvFJHMIh+S989jDGJlIMWRszOETpIKSXPJwT1Dso
- oYxLK/EJU9CtMGXaNglZayTdsqGbN4GHZbRQvKsljx86JH39oH2/
-X-Proofpoint-GUID: LAbXbh8Ek9XWvrHjgc4SBkfZRfkBkoCP
-X-Authority-Analysis: v=2.4 cv=BqCtB4X5 c=1 sm=1 tr=0 ts=6aa026e3 cx=c_pps
- a=VEzVgl358Dq0xwHDEbsOzA==:117 a=HBUb3goEnnz3w2smY6d+Hw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
- a=f-bboeSTcrnmky8UUdsA:9 a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 spamscore=0 impostorscore=10
- lowpriorityscore=10 priorityscore=1501 clxscore=1015 bulkscore=10
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609080165
 
-mte_save_tags() and mte_restore_tags() are only used by
-arch_prepare_to_swap() and arch_swap_restore() in mteswap.c. Make them
-static and remove their declarations from mte.h.
+On 9/8/26 15:58, Dave Hansen wrote:
+> On 9/8/26 02:32, Mike Rapoport wrote:
+>> I have to say I'm confused with today's batch of tip-bot emails saying Ingo
+>> applied these to x86/mm :/
+> 
+> Just a reminder that we have x86/urgent which will be going to Linus
+> like today. There's also x86/mm which goes up in the next merge window..
 
-No functional change.
+However x86/urgent (at least as visible [1]) doesn't contain anything from
+this series, and x86/mm has everything except "Fix effective RW computation".
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- arch/arm64/include/asm/mte.h | 2 --
- arch/arm64/mm/mteswap.c      | 4 ++--
- 2 files changed, 2 insertions(+), 4 deletions(-)
+But tip/urgent does merge x86/mm so hopefully it means it's really going to
+Linus now-ish (and not next merge window)? It just doesn't have "urgent" in
+the branch name?
 
-diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
-index 7f7b97e09996..83f3b05fc784 100644
---- a/arch/arm64/include/asm/mte.h
-+++ b/arch/arm64/include/asm/mte.h
-@@ -23,9 +23,7 @@ unsigned long mte_copy_tags_from_user(void *to, const void __user *from,
- 				      unsigned long n);
- unsigned long mte_copy_tags_to_user(void __user *to, void *from,
- 				    unsigned long n);
--int mte_save_tags(struct page *page);
- void mte_save_page_tags(const void *page_addr, void *tag_storage);
--void mte_restore_tags(swp_entry_t entry, struct page *page);
- void mte_restore_page_tags(void *page_addr, const void *tag_storage);
- void mte_invalidate_tags(int type, pgoff_t offset);
- void mte_invalidate_tags_area(int type);
-diff --git a/arch/arm64/mm/mteswap.c b/arch/arm64/mm/mteswap.c
-index 63e8d72f202a..3c54afc8b758 100644
---- a/arch/arm64/mm/mteswap.c
-+++ b/arch/arm64/mm/mteswap.c
-@@ -20,7 +20,7 @@ void mte_free_tag_storage(char *storage)
- 	kfree(storage);
- }
- 
--int mte_save_tags(struct page *page)
-+static int mte_save_tags(struct page *page)
- {
- 	void *tag_storage, *ret;
- 
-@@ -47,7 +47,7 @@ int mte_save_tags(struct page *page)
- 	return 0;
- }
- 
--void mte_restore_tags(swp_entry_t entry, struct page *page)
-+static void mte_restore_tags(swp_entry_t entry, struct page *page)
- {
- 	void *tags = xa_load(&mte_pages, entry.val);
- 
+> The "Fix effective RW computation" patch is getting broken out and is
+> going to wait for the next merge window. We don't want it sitting in
+> mainline generating warnings, especially false positives like the one
+> this weekend. That's not to disparage the patch; it's overall the right
+> thing to do.
 
--- 
-2.39.5
+So that means adding it to x86/mm after the current one is sent as urgent?
+
+Just wanted to double check, thanks.
+Vlastimil
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git/
+
+> Sound good?
 
