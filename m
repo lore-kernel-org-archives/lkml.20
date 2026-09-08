@@ -1,49 +1,43 @@
-Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526F956511A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:17:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31EFB566C77;
+	Tue,  8 Sep 2026 16:17:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884259; cv=none; b=huNh5ait0Wki00/In2/CxLF+72gPh3Vg3P2g/LDP6PQZoYGXkp+ImwvN3ishZk7TAFHpW3fdgz9PoNaAeVP8OS6Pq96z/lECQLQMzh2p5M0XLsXNOmR19l48m8SwAonspWgVXFyQbPTldtzu4gkeqaZOj+gxGwqhbc8087WuQyI=
+	t=1788884268; cv=none; b=gdihXY+/z0PBmerHOvICLrPmzp8O9tQHpudFQdYRYU6jJy8p6CYGo/TOA4aopslSBxPPoOeR4zVK/KDh4eBSvU4po3D05h53ZvTWMFm2jdydRnN0hLRBwTSbVUotXOPC6EK3VChJwCxKRmYJp7TSSjJ/avsgSE7x+uHx6OpwjEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884259; c=relaxed/simple;
-	bh=g0TrRds+CsCyqh5G5x4Il7gz6nNDRLvdGFk0lOmfFKU=;
+	s=arc-20240116; t=1788884268; c=relaxed/simple;
+	bh=Bg+LfqyEsGkhckYggMUqul/pcpkqv8OR/eyE/SJQNAo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=V4V1X/gcuoyQEyc77zr264358tXZSY3k052fGqpHALNP7F8q+5fkfOCyb7SFMBmHB57GNl3/wuMxjrgA3VlD1gezSAziU7RpJ46KuyB/sI9iIQ3fG0Pdv/3nHmsjUwvq/TS5Bm9WA+muHmXxtS55zq01WvwpFyKWdWD4eIm7ISM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=OhycqMCj; arc=none smtp.client-ip=212.27.42.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
+	 Content-Type:Content-Disposition:In-Reply-To; b=VZuLnxFi0x0Qbdo1s5JE7cdxCDC6ZoSH+YYmxOj9i+YB0mhorDKrgjgLEn7taHuHBZWlTJtrOpgO06cXF+2W6XsTfDvdwIfdZaBMihspm7Ge0KOuIekA3ORDNeqe7LzNqWtENt/GmejPULALc+L1heVmeZfeFReJpSWv7Aih90Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WN59U50U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="OhycqMCj"
-Received: from L10892.iliad.local (unknown [213.36.7.12])
-	(Authenticated sender: vjardin@free.fr)
-	by smtp6-g21.free.fr (Postfix) with ESMTPSA id 7B22478050A;
-	Tue,  8 Sep 2026 18:17:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
-	s=smtp-20201208; t=1788884253;
-	bh=g0TrRds+CsCyqh5G5x4Il7gz6nNDRLvdGFk0lOmfFKU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OhycqMCja6XUqSTHOaKuk5pWKhkMHc9yA81KgHFBtM1o2jz/PwpjEaVCMPokgt0eG
-	 Jmcy6ETkgBZuhZZVpyigiOtajFYryciPjWD9RAQvHkYn/Ax0/AXh/IQnxfY6hTz5Jv
-	 /15XxibscZQMzz7A86oZTCEd/rT9FOb0d7hBx+XnPQ8GrnoF1s3//pAWhd6vAZJTfq
-	 jTLrip+RXI0QC6hMP0dJHIql42rRmNLLFCXLDPXk6MsAIaTugrG0IcAUvY/K+bim2T
-	 FlQhR/cDSNSg4PvNr8DnsJSKWPd/WNBqSG3u6cZlRtfyoHjIJzaaufkXsnJaZgE+Qq
-	 p+ZBK7vEkin5g==
-Date: Tue, 8 Sep 2026 18:17:24 +0200
-From: Vincent Jardin <vjardin@free.fr>
-To: Ioana Ciornei <ioana.ciornei@nxp.com>
-Cc: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	Laurentiu Tudor <laurentiu.tudor@nxp.com>,
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable+noautosel@kernel.org
-Subject: Re: [PATCH] bus: fsl-mc: register the object drivers after
- misc_class exists
-Message-ID: <aqA1FKnhAA6iIuyH@L10892.iliad.local>
-References: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
- <fmmf72ypmmooyxszz3l47xabdhvetowgvbmbjmvj6bumuh5onh@pntmny63urbg>
- <ap7mmR_4QV0k88dK@L30177.local>
- <dvnnk7fnk57x7gf4mc25codec62xtpbe4v7omhjguqxd25ssmu@pqqjwe5xif4q>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WN59U50U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C8D1F00A3A;
+	Tue,  8 Sep 2026 16:17:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788884264;
+	bh=tnZJ4TAR3Sf4Zu6CGRu48cBWy8dW5MWtCE2PWAjoCqc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WN59U50U5G1EKkyX71IUfpoCdPMeC5d90wuJ/gt98+xen9YCUqh8ZG/YidigHUXPP
+	 IhlM+NWOWtOUgVdRMk/Gj3buyE37EJaDBeIjp7O5OKeNjkfshbqSp0hAzWT8B5oBV1
+	 WQT3dMZizZKwfQeYfA6x2HryRi+AHeGoF8V+H/+ulNhAs+W2K5TbyoXfUAtDR0FPK1
+	 yTxOB4s7Jt43xHu2Zdztz3cqSRqiNiHT3JhpEqn6NupYlI+jAxMF3OpxToeAWeXJHW
+	 Z8DevSzdNm6cXa86lBRAhOUHOiU+hcxTbDFyjqzhX95SZhD2HKD83uyo3zgDG15oS4
+	 1fo4L3eHIz/Kg==
+Date: Tue, 8 Sep 2026 17:17:41 +0100
+From: Simon Horman <horms@kernel.org>
+To: Richard Patel <ripatel@wii.dev>
+Cc: intel-wired-lan@lists.osuosl.org,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Steve Douthit <stephend@silicom-usa.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH iwl-net v2] ixgbe: fix MDIO bus lifetime
+Message-ID: <20260908161741.GB40544@horms.kernel.org>
+References: <20260906023319.1978945-1-ripatel@wii.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,87 +46,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <dvnnk7fnk57x7gf4mc25codec62xtpbe4v7omhjguqxd25ssmu@pqqjwe5xif4q>
+In-Reply-To: <20260906023319.1978945-1-ripatel@wii.dev>
 
-Hi Ioana,
-
-> I am indeed in the case in which the uapi support is builtin but the
-> dprc.1 probing is deferred, thus it will get executed after misc_init()
-> had a chance to run.
+On Sun, Sep 06, 2026 at 02:33:19AM +0000, Richard Patel wrote:
+> Plugging in an unsupported SFP module caused ixgbe NICs to get
+> wedged permanently.
 > 
-> The deferral happens because of_dma_configure_id() returns EPROBE_DEFER
-> since it waits for arm-ssmu to probe. How did you get past this
-> deferral?
-
-I think I isolated the difference: I guess you have smmu enabled while I
-did disable it. I checked and when smmu is enabled back, the issue does
-not show up anymore. But it is not my goal.
-
-I do have with my dts,
-        &smmu {
-                status = "disabled";
-        };
-
-for the mc to load, you need:
-        fsl_mc: fsl-mc@80c000000 {
-                compatible = "fsl,qoriq-mc";
-                ...
-                iommu-map = <0 &smmu 0 0>;
-                dma-coherent;
-        };
-
-it seems due to,
-of_dma_configure_id() -> of_iommu_configure() ends up with "no IOMMU" and
-it returns 0 instead of -EPROBE_DEFER.
-
-So the root DPRC, populated at arch_initcall_sync, probes now
-synchronously, before misc_init() registers misc_class at subsys_initcall
-and so dprc.1 is created classless. (I hope I did not miss something).
-
-> > I started to face this issue when I did try to restart
-> > the MC from Linux userland instead of uboot in order to be able to adapt
-> > with some DPC changes during the runtime.
-> >  see https://github.com/vjardin/lx2160-sdx/blob/main/src/lx2160-mc.c
-> > But I guess this issue should be quite generic.
+> ixgbe unregisters the netdev when rejecting an SFP transceiver as
+> unsupported.
 > 
-> Can you reproduce it without restarting the MC: boot to prompt, echo
-> dprc.1 > .../unbind, echo dprc.1 > ..../bind ?
+>   ixgbe 0000:3b:00.0: failed to initialize because an unsupported SFP+ module type was detected.
+>   ixgbe 0000:3b:00.0: Reload the driver after installing a supported module.
+>   ixgbe 0000:3b:00.0: removed PHC on enp59s0
+> 
+> This code path failed to unregister an MDIO bus owned by that
+> netdev, so when unregister_netdev() tries to tear it down
+> (via device_del() -> devres_release_all() -> mdiobus_free()),
+> it trips over the leaked registration.
+> 
+>   ixgbe-mdio-0000:3b:00.0: not in UNREGISTERED state
+>   WARNING: drivers/net/phy/mdio_bus_provider.c:711 at mdiobus_free+0x3d/0x50, CPU#21: kworker/u128:0/12
+> 
+> This prevents ixgbe from reloading, even after PCIe remove/rescan:
+> 
+>   sysfs: cannot create duplicate filename '/class/mdio_bus/ixgbe-mdio-0000:3b:00.0'
+> 
+> Switch to devm_mdiobus_register(), drop custom unregister calls.
+> This is safe because the bus is already devm-allocated, so unregister
+> always happens before free.
+> 
+> Assisted-by: LLM
+> Fixes: 8fa10ef01260 ("ixgbe: register a mdiobus")
+> Suggested-by: Andrew Lunn <andrew@lunn.ch>
+> Signed-off-by: Richard Patel <ripatel@wii.dev>
+> ---
+> v1 -> v2: use devm_mdiobus_register() instead of another
+>           mdiobus_unregister() call
+> v1: https://lore.kernel.org/netdev/20260826042945.2344686-1-ripatel@wii.dev/
+> 
+>  drivers/net/ethernet/intel/ixgbe/ixgbe_main.c | 9 ++-------
+>  drivers/net/ethernet/intel/ixgbe/ixgbe_phy.c  | 2 +-
+>  2 files changed, 3 insertions(+), 8 deletions(-)
 
-Yes, see below, even without restarting the MC.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-smmu disabled / without the patch of this serie:
-   # grep dprc /proc/misc
-   256 dprc.1
-   # ls /sys/class/misc/ | grep dprc # nothing: not in the class
-   # ls -l /sys/dev/char/10:256
-   ... /sys/dev/char/10:256 -> ../../devices/dprc.1  <- not under devices/virtual/misc
-
-Unbind: the minor is freed but the char link leaks:
-
-   # echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/unbind
-   [  201.633695] fsl_mc_dprc dprc.1: DPRC device unbound from driver
-   # grep dprc /proc/misc    <- gone (minor 256 freed)
-   # ls -l /sys/dev/char/10:256
-   ... /sys/dev/char/10:256 -> ../../devices/dprc.1  <- still here: leaked
-
-Bind:
-
-    # echo dprc.1 > /sys/bus/fsl-mc/drivers/fsl_mc_dprc/bind
-    sh: write error: Resource temporarily unavailable
-    [  203.306315] sysfs: cannot create duplicate filename '/dev/char/10:256'
-    [  203.306356] Call trace:
-     ...
-    [  203.306440]  misc_register+0xcc/0x158
-    [  203.306449]  fsl_mc_uapi_create_device_file+0x44/0x74
-    [  203.306462]  dprc_setup+0x134/0x214
-    [  203.306471]  dprc_probe+0x18/0xec
-    [  203.306480]  fsl_mc_probe+0x1c/0x30
-      ...
-    [  203.306517]  bind_store+0xa8/0xc4
-
-With the patch applied on the same board, smmu disabled, then, it is fine.
-
-This apply patch should be ok for smmu and not smmu in order to cover any cases now.
-
-best regards,
-  Vincent
