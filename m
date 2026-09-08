@@ -1,127 +1,118 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E62380FC8;
-	Tue,  8 Sep 2026 07:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885EF38333A;
+	Tue,  8 Sep 2026 07:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851415; cv=none; b=YTBOmJzuJGAcUVZ3PDmpqd45q+K0OB4sqeWSs7CYC9p6ExRZ/AKM+m2SBuo7P+JMNBsFng+4fLcUDZ46IRhZacqigufUb1EGyo5k+//q3GZJxTax3LED+s0jckTYQy/AvyLzomJtSe+zSG7HdOnI4s4tYRUm14l2bHdN0+5wUn8=
+	t=1788851455; cv=none; b=s/S9rDASnN9zWSq0yDHr5Nwmaxt/bZ1h7fEScXdwnRysESmQffeYWFN5DjruneyxreDWVt4ZdqOsz5vQOQKFOw6gSHaLHZZn9rMKwTP8lrHe46vVwksJC71JkdnTzVOJvXb71Tl5uJf4TRYzFY3fZMpOVtnZr3QLC21VVr7anFA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851415; c=relaxed/simple;
-	bh=XYcm6/u4aPrRxtMnU6crOjHT12cC2RoaM2V5PFQ3WGo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B48b/a60wvJb5vYK/xb9i5P0EkFHOFhOj4zeSV4e+3Fe0E2l766baJ8MJsLEe3YALUrJ/qaB7+9P9UTiNttI30WyVp48Ggz9eusx+GtCTcyZYhAmk1JDbtu5phRiru48qSiPN98uYAVZBeWW+HrIfNqye28lwEwyEsBwgKKYyiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=bcSUTkTn; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788851455; c=relaxed/simple;
+	bh=mdWavgnh/x/AJO4uF1VDhCNX+mR1zYzu/G1GpTBRe8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PaoVOaM2Q6cD2TBFOW3wjeLhXP+/F7dAdOEOOHgFX4Y7xCT2oaJZ8QBWPbJL04xiUuTLSqTn8oHcRKQgxdCWgTL2V3h85R0UTjcsGmmyIVrQYTzuX0bQzyWRtgWK7dNT/v/OWrfac22rTrx31EI3tUdPsq7Y0I7rmm96dm7PvH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EkHvieVw; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="bcSUTkTn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788851412;
-	bh=XYcm6/u4aPrRxtMnU6crOjHT12cC2RoaM2V5PFQ3WGo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bcSUTkTnjY746bpRxVLz5XsbQtiYhwkK1l3rnfjDBMl5EKYfEIBHaNvXMMxt76vNd
-	 SSfhWY6E7bVF8lPncqvs8UDQqyRzXZ+HmZifwXM8YnwFIQ9JZQefXf4joLloH8YNTW
-	 xAiyynpiO9MulhBIx5XJDo54dPd8/tUO5yltVTmFjHE5HYz6CfNRoRTY8EO+eRnnT/
-	 Kl2BmTyNgsPhbhE4y31nsk71eSKLjF0zu28vcMSfUrKWdsD3pFdQnsWO0oqwf2vOS+
-	 A2zJ1APW0YMa75G6RL8ScdeeUzR1hBfb6uwuS1DBigazO52U/QTslr5EtWe9ZrgGGx
-	 ItCIdJw106b6g==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id AA2B717E0945;
-	Tue, 08 Sep 2026 09:10:11 +0200 (CEST)
-Message-ID: <84dac42d-39ca-4d45-b5ba-f23e6fd4675f@collabora.com>
-Date: Tue, 8 Sep 2026 09:10:11 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EkHvieVw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788851454; x=1820387454;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=mdWavgnh/x/AJO4uF1VDhCNX+mR1zYzu/G1GpTBRe8g=;
+  b=EkHvieVw/1VVb3AeIbe+eNtg5gcrWh8Qv5Y3f27UocpqXPsBjp2E7egA
+   srd0zUNX4gdKhgxOpAD5pZ2RrgJ0GmOjs80FUOWVtI1prULeplaV2BWAC
+   Dj/uxeIq5KMnm+lU4r+BvMSMLGcpCb+l3aII7ttTt4BbgLYeDov6wNME6
+   1s6EcxwkQ7727dS4BCERU8B4yg3iZPgaU4TkTy9Yd2FVrFLpAjwDaVbYO
+   DQhKPjPePSN36J2IVGP/RRaaSJZ2Xatjxchha5CgY0JhX3fPDM+m/SnKO
+   X4DB9MALNu0ZPcrs72guVkYqbeXsuTytCpFEnAkMgapr+u4WKxbp1vdH8
+   A==;
+X-CSE-ConnectionGUID: hZct/MPPS/+lYi4fv1tZgw==
+X-CSE-MsgGUID: GIEeHpkMQt2A3Nq8FSOoLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89261917"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="89261917"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 00:10:53 -0700
+X-CSE-ConnectionGUID: GaW/K/4mQPCAaDXJAQ150g==
+X-CSE-MsgGUID: dF7gKv5FReGETBuTzKqxhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="268333197"
+Received: from zhaoliu1-desk.sh.intel.com (HELO localhost) ([10.238.208.118])
+  by fmviesa008.fm.intel.com with ESMTP; 08 Sep 2026 00:10:50 -0700
+Date: Tue, 8 Sep 2026 15:10:49 +0800
+From: "zhao1.liu" <zhao1.liu@intel.com>
+To: Hao Xiang <hao.xiang@linux.alibaba.com>
+Cc: kvm <kvm@vger.kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+	"xianghao.xiang" <xianghao.xiang@alibaba-inc.com>,
+	seanjc <seanjc@google.com>, pbonzini <pbonzini@redhat.com>,
+	"shannon.zhao" <shannon.zhao@linux.alibaba.com>,
+	Zhao Liu <zhao1.liu@intel.com>
+Subject: Re: [PATCH] i386/cpu: Rename CPUID feature bit AVX10_VNNI_INT to
+ AVX10_V1_AUX
+Message-ID: <ap+0+e0MKHdOC/bW@intel.com>
+References: <45146bc1-0d78-46de-8bd8-cb1ecba49fe2.hao.xiang@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] arm64: dts: mediatek: UFS cleanup adaptation
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-References: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260902-mediatek-ufs-cleanup-dts-v1-0-7876e7a27a9d@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <45146bc1-0d78-46de-8bd8-cb1ecba49fe2.hao.xiang@linux.alibaba.com>
 
-On 9/2/26 12:32, Louis-Alexis Eyraud wrote:
-> This series goal is to adapt the Mediatek UFS dt-bindings changes
-> done by "MediaTek UFS Cleanup and MT8196 Enablement" series ([1])
+On Tue, Sep 08, 2026 at 02:13:17PM +0800, Hao Xiang wrote:
+> Date: Tue, 08 Sep 2026 14:13:17 +0800
+> From: Hao Xiang <hao.xiang@linux.alibaba.com>
+> Subject: [PATCH] i386/cpu: Rename CPUID feature bit AVX10_VNNI_INT to
+>  AVX10_V1_AUX
+> X-Mailer: [Alimail-Mailagent][W4_0.2.3][v5ForWebDing][Chrome]
 > 
-> The patches were present in the v10 revision of the series ([2])
-> but it was requested to be sent in a separate series. The first patch
-> was also modified to add a valid OPP table rather than simply dropping
-> the freq-table-hz array to fix an issue detected on this patch by
-> Sashiko ([3]) during [2] review.
+> CPUID feature bit AVX10_VNNI_INT is renamed to AVX10_V1_AUX to account
+> for additional AVX10.2 isntructions sep-arated to have ”OR” sensitivity
+
+nits:
+
+s/isntructions/instructions/ - though it's a typo in spec :-(.
+s/sep-arated/separated/ - there are no line breaks here.
+
+> for platforms which may not support all of AVX10.2[*]. This CPUID bit now
+> applies to the following VNNI instructions: VPDPB[SU,UU,SS]D[,S]
+> VPDPW[SU,US,UU]D[,S], as well as the following convert in-structions:
+
+s/in-structions/instructions/
+
+> VCVT[,2]PH2[B,H]F8[,S], VCVT2PS2PHX, VCVT-BIASPH2[B,H]F8[,S],
+> VCVTHF82PH.
 > 
-> The series is based on linux-next kernel tree (tag: next-20260901) and
-> depend on [1] with v11 or later.
+> [*]: Intel® Advanced Vector Extensions 10.2 Architecture Specification
+>       (rev 7.0).
 > 
-> [1]: https://lore.kernel.org/linux-mediatek/20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com/
-> [2]: https://lore.kernel.org/linux-mediatek/20260730-mt8196-ufs-v10-0-bc5ecef202dc@collabora.com/
-> [3]: https://sashiko.dev/#/message/20260730-mt8196-ufs-v10-24-bc5ecef202dc%40collabora.com
-> 
-> Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-
-Whole series is
-
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-...but obviously I need the bindings bindings to get picked before being able to
-do anything here.
-
-Cheers
-
+> Signed-off-by: Hao Xiang <hao.xiang@linux.alibaba.com>
 > ---
-> Louis-Alexis Eyraud (3):
->        arm64: dts: mediatek: mt8195: Align ufshci node to dt-bindings changes
->        arm64: dts: mediatek: mt8395-genio-1200-evk-ufs: Complete UFS power supplies
->        arm64: dts: mediatek: mt8395-radxa-nio-12l: Complete UFS power supplies
-> 
->   arch/arm64/boot/dts/mediatek/mt8195.dtsi           | 35 +++++++++++++++-------
->   .../dts/mediatek/mt8395-genio-1200-evk-ufs.dts     |  3 ++
->   .../boot/dts/mediatek/mt8395-radxa-nio-12l.dts     |  3 ++
->   3 files changed, 30 insertions(+), 11 deletions(-)
-> ---
-> base-commit: a7957fd910b93155d81edcdd4472551764c8957a
-> change-id: 20260901-mediatek-ufs-cleanup-dts-6a7f7a3e1292
-> prerequisite-message-id: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
-> prerequisite-patch-id: 841e7d21c8ca7e3f35741279672e23c84db3d165
-> prerequisite-patch-id: 44f254cfdbb97cdf19ab4c2ab8126a95d6e2b050
-> prerequisite-patch-id: 5176591d5737581d21ff2d045e8f16c30fb8a39f
-> prerequisite-patch-id: 54d073543d7687cdc9cea3d91025b2bae3cc8e8f
-> prerequisite-patch-id: 3c082f576efeaaecae285d6ba734463b39f2a9df
-> prerequisite-patch-id: abe5e24769fbb4dd6399bb9ac3a6c7c8567fe6ce
-> prerequisite-patch-id: 1e16da816ec429b5261e5c2145ed11646acec4b7
-> prerequisite-patch-id: 89e0e053a67aba4c8897110ba32c9ee64acf7dff
-> prerequisite-patch-id: c968b5646b227ceb339883450a5bba635033cac3
-> prerequisite-patch-id: a193861af215b41231ff22aac96e3f230881d896
-> prerequisite-patch-id: 47fd54e3799a18734587ce17776f75c823ca6e23
-> prerequisite-patch-id: 7bce272ba16fd694baa7e75c3612c48b64b70ed0
-> prerequisite-patch-id: 2623e1613e37cf92a13f5912053f216897d44e37
-> prerequisite-patch-id: a27017f12729000629e7397677468ec43d56b488
-> prerequisite-patch-id: 90be5a4db503b293b6e2aaa11b6626764f74c600
-> prerequisite-patch-id: 17987efb08b3f7882577822709ddf1b4b0a47f17
-> prerequisite-patch-id: 3a4a3de5953f1aa5adbe9d4d919d79360408bfcb
-> prerequisite-patch-id: 8c0177924a6a5ced7d097d1069de693a29bcd7fc
-> prerequisite-patch-id: 41a2390410768e2331b07b9806ccb7509828e2e5
-> prerequisite-patch-id: 847e46df5bbd0539b1324d628f601122728e025c
-> prerequisite-patch-id: e97641f63406d43924af801293e5d24ecd440ba8
-> prerequisite-patch-id: ce5a76f40d591a54631fc4caebf97bfe49d57ef8
-> prerequisite-patch-id: 74648a530be0081338cad49722eda0839c363455
-> prerequisite-patch-id: 44bcb8920c4cb56811943d0d51bf0de9fd363ac7
-> 
-> Best regards,
+>   arch/x86/kvm/cpuid.c         | 2 +-
+>   arch/x86/kvm/reverse_cpuid.h | 2 +-
+>   2 files changed, 2 insertions(+), 2 deletions(-)
+
+I hadn't renamed it before because I thought this bit's name is not
+exposed to user space, and it's enough to refer to it simply as
+"this bit". But, semantically speaking, VNNI_INT is indeed no longer
+correct. As noted in your commit message, the feature represented by
+this bit now includes more convert instructions. And more accurate
+naming is better, as it makes it easier to look up the spec.
+
+This name change looks good to me, so
+
+Reviewed-by: Zhao Liu <zhao1.liu@intel.com>
+
+And BTW, the prefix of subject should be "KVM: x86:", referring
+"Shortlog" section of Documentation/process/maintainer-kvm-x86.rst.
+
+Thanks,
+Zhao
 
