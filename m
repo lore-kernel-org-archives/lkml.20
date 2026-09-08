@@ -1,197 +1,113 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB7683B47EF
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:43:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 963AB52379E;
+	Tue,  8 Sep 2026 23:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911018; cv=none; b=fY1cmyExK0PMjmShDruQbiNUZXpq6Plk7MZCCT8Ulz1lwVdHAR0i2XeNnIblc9LK6EoxeeHzgKICOf6u84cbBLcgJkOtLW1Bgun4gGvRlUvvfdR51lEGQ4gpZVUZyEty3otRLpnVLzOCGPVHo8RYDEpMyLd3J2qWEfzihgUYezo=
+	t=1788911021; cv=none; b=NTiyzGqRk2ytQsgS/NutXAFLvqJO8ChPn889b+mBn09zyU0lPofflQ0wR3YWA2YwVnbJreOs0ykT0U8IpmXknEQd521Jy935hl87INIOxlyNbAgT19xv2O9XyuH7rQzsRaHuyjMmJ1E0k7ci0zMAJTOblHLG6tBMmR1lHnnFtsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911018; c=relaxed/simple;
-	bh=uwYgOWB6T85giMBSAkiXo5AXxkPNnz+4KKs0hupdbKk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TzIa+z1Nv4nOlqiV3YF2QqlmiYi53jtdgCv1aD3sczrzJ+LR/J+hsakIesbYnhs+AtN201lRy/XD4ElgUwl+L3wsNkk5XT9usuYDOK6CaGwcnKE6dqshIQGFtlh8jx0GKa5L4VwiTfRERdQk5ZB+vET1xlpK/wAUixO1gfEitfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk; spf=none smtp.mailfrom=fireburn.co.uk; dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b=0ICz5k5K; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=fireburn.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=fireburn.co.uk
+	s=arc-20240116; t=1788911021; c=relaxed/simple;
+	bh=H999UKy2iuT6K8CgwNJcVisePbX+7Xem5RN2cVdD5c0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dkRwFRF82qLp3CHkvaPXfUBq+i9ngpLhlZ0H9tFmjgW//IcHP6FHVw+jSwwV2t56gcUGpf6zLu6KYmpHbu4YTeFNMsBDdG+/Mc2i5HfutRySrVl+f2+qjZ94lQg6m3PBpQBEHMVPxfrkYjF03tb+c9ViyJKfm9xntTvyqxBXObc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mOv/YVHW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fireburn-co-uk.20251104.gappssmtp.com header.i=@fireburn-co-uk.20251104.gappssmtp.com header.b="0ICz5k5K"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so730345f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:43:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fireburn-co-uk.20251104.gappssmtp.com; s=20251104; t=1788911015; x=1789515815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Z21b6fsoY2E6Vzr2RDS21MTgNdKIrr6ZxRGvarq9zjQ=;
-        b=0ICz5k5KkX7+Cgy32968AY4YtYGJQLMvrLXdkeXr+ZRALB8GqR66KuKGcHGdD7sFCd
-         03qaoZzRGCZV+qvZ6ADriIZdWrRDhaOVNp5ak98iNOvafAZvCcqqPOaNGVFoq8S10ZPp
-         ElbPIF2cMrIWLBxRSBpgZKAgWKW9uBUh8LcF2VWRRElckOCBv9isbKiOp+WoQOE9uAH2
-         Az8JxYaPxc40aCcssDqgtQx4Xcsl5IuxCdpvu4NnUpd/1ccCgBaj0OFQ5DksTSzt0v/7
-         bT9ziL7QYGfRghcVKp4EqLFR7mHggJaaWVDPX94Qef5wFo7bKC8z8rZ9BauGJvqPcDHq
-         t48w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788911015; x=1789515815;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Z21b6fsoY2E6Vzr2RDS21MTgNdKIrr6ZxRGvarq9zjQ=;
-        b=gmjJhBFY0gOByPNgu2mH3pfP/HPmaieXgwi0bLwKlHmgLTccPvfaEPbekp674NWG0H
-         XUFAXJ/KrfbFqUwFeeirleu9MAg9XfpyYj4cir94ZwfkYVXuj7yQnd1cR/HlZevyTSvk
-         CSCkfFktfPz/LKaH18UTKGFv0zhIsAX4ZDicxN4guFWAxVYuahnRvloUUOFk9X5daSs4
-         gfrUyKIR1Xjy/pVi0guvSGmTlnYzkTyDiXB/qprFYaMlTMzERXFrzKrhtrybwlzG6OPo
-         n50zdWGO7a9kN7q/2MY3ITCgtNDRTLUisjrUtSDKVLoJSO71Zrdxq2Su5yDVnXD6wTtK
-         5Png==
-X-Forwarded-Encrypted: i=1; AKwUvBxoAX6ioOgqvkPVCdUDz/nGgB3p7fNDdenrUtlQim61hauYK/V6juP6wFn/rDk6f+cE5zE+zSJCkipJXf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++knf40QUFKWENBLfIoaOgSae3P3PK+hdVe3+uLzVythMlnhIpwE
-	AOg9S4v9cjz1yvYAlGMx40MjzT/ti/sXs/WYCBo11N2NlmpTHkMTCrV9rEFTLND1sw==
-X-Gm-Gg: AYBFou12aLal4jw5wOjCOEZyfe40ezUCMM8hY2HUxrOojEfvh0PWd8ZIBEieRaGlRTA
-	lOiiuEYrKbwgqU9qkzC+n1VCsbQmFxt1dfEPOAy9FOMOoIZGm2ORLeBI7UmZxMGTMe92PJ2jSZa
-	CZrXXpk9tznJrRKHU8kMc5j6qesXLLEssYW8fQg3wkEQMTmmrOUc03weLbtF7RckKNeJzqWjU1S
-	iwHZkX22m+1mX3sXkBNCFr7oPxJRj4gE8cc3XnyqcFjpBlrddfIiRwlan4uozDg1NoZjPpwx5HZ
-	vwQ3sGSaz7hH+VTfUA50IqeAsdH4bn321e6HO0MlhA55eWMOwkx14Jrbntl/nkQG1x6QHUZyIKL
-	mwQA/HMKvRsVNHorF36b0zctctQ95a7AAij5hx4IfsTfE07AAyfjII2dR39CjDwk8lFkIsmTkyQ
-	bCyq92rMH+veXBSyG1fGO+WSC8C1CWSekVB4KYYSSV+kt3rRyfWDUOXFkqEFDjqrk+vHDd771/2
-	N+z7Nvz6Bgmo5YNIdaZaQ8ZNlwT3rkgpie8
-X-Received: by 2002:a05:600c:4455:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49d1754fdf6mr107220985e9.6.1788911014994;
-        Tue, 08 Sep 2026 16:43:34 -0700 (PDT)
-Received: from axion.fireburn.co.uk ([2a01:4b00:d309:1c00:caf1:6b20:8531:818c])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbe5b252sm376047695e9.3.2026.09.08.16.43.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 16:43:34 -0700 (PDT)
-From: Mike Lothian <mike@fireburn.co.uk>
-To: "Daniel J . Ogorchock" <djogorchock@gmail.com>
-Cc: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Silvan Jegen <s.jegen@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Mike Lothian <mike@fireburn.co.uk>
-Subject: [PATCH v2] HID: nintendo: relax subcommand limiter until cadence is proven
-Date: Wed,  9 Sep 2026 00:43:15 +0100
-Message-ID: <20260908234315.117903-1-mike@fireburn.co.uk>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908224532.114357-1-mike@fireburn.co.uk>
-References: <20260908224532.114357-1-mike@fireburn.co.uk>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mOv/YVHW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EC071F00A3A;
+	Tue,  8 Sep 2026 23:43:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788911020;
+	bh=bTC3iSyF2tfahKD69KVMM+MNNO/UKZifg5yuXtJejmQ=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=mOv/YVHWssv7SlL3NRs15iDfBMqWENVXstipSTuZfYniXrL8HTO9PbjdMc6mcshS4
+	 Kb0f0FM7iIJuNo7b0qRcFjwU2omEvbEQm31WvVuATYPn56wpw8x8S7ton2SWe7Qx7u
+	 Qbc2lMZbekgGa7Ln4sUF8e0IT7F/KNPDEj09qgr7KK+212lTlfQ7tne93ejOyGHE2u
+	 ErC8Z5cs3BiklJ7A/Y6VlK5M+gxe9zG1KcpUyV9gG7VfmNvVFok6u0Rq1clch8q6L9
+	 xgAARo14RWPJJydxz33ciPMxHkIIiLflzCrx0Hr6fu3/48shqJ3T6ztJEnX61iREVf
+	 52aROnR7I+bqg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 032B1CE18F4; Tue,  8 Sep 2026 16:43:40 -0700 (PDT)
+Date: Tue, 8 Sep 2026 16:43:39 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Kunwu Chan <kunwu.chan@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/13] srcutree: Forbid srcu_expedite_current() on atomic
+ SRCU
+Message-ID: <b292e178-0158-41df-881d-d02b0f393c6c@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260907075829.2073224-1-kunwu.chan@linux.dev>
+ <20260907075829.2073224-9-kunwu.chan@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907075829.2073224-9-kunwu.chan@linux.dev>
 
-joycon_config_rumble() queues a zero-rumble packet during probe. The
-rumble worker sends it once ctlr_state becomes READ, and
-joycon_handle_rumble_report() retries it a few more times. This is the
-first subcommand sent on every connection and it goes out before any
-input report has been seen, so consecutive_valid_report_deltas is still
-0. joycon_enforce_subcmd_rate_strict() needs 3 consecutive reports in
-the 8-17ms window before it releases a subcommand, so the send exhausts
-all 25 attempts and warns on every connection.
+On Mon, Sep 07, 2026 at 03:58:24PM +0800, Kunwu Chan wrote:
+> From: Kunwu Chan <kunwu.chan@gmail.com>
+> 
+> srcu_expedite_current() has no early guard for atomic SRCU, so calling
+> it on an atomic srcu_struct leaks the expediting callback in
+> __call_srcu(), leaving ->srcu_ec_state stuck at SRCU_EC_PENDING.
+> 
+> Add the same WARN_ON_ONCE()-guarded early return used by the other
+> forbidden APIs, and list srcu_expedite_current() and srcu_barrier() in
+> synchronize_srcu_atomic()'s documentation.
+> 
+> Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
 
-Add a subcmd_rate_unproven flag, set until the cadence has been
-observed, and use the legacy flat-delay throttle while it is set.
-joycon_parse_report() clears it after JC_SUBCMD_VALID_DELTA_REQ
-consecutive reports at a valid cadence. USB is excluded, as its
-consecutive_valid_report_deltas is forced to the requirement anyway.
+Excellent catch, thank you very much!!!  I have queued this to be folded
+into the original with attribution, all in the name of bisectability.
 
-The flag is separate from subcmd_rate_relaxed so that the exhaustion
-fallback added by commit 781f8e020a78 ("HID: nintendo: fix rumble
-starved by the input report cadence gate") keeps its semantics.
-subcmd_rate_relaxed is written from the subcommand worker under
-output_mutex, subcmd_rate_unproven only from joycon_parse_report().
+							Thanx, Paul
 
-Found with btmon over Bluetooth on a MediaTek mt7921e: the three
-JC_SUBCMD_RATE_MAX_ATTEMPTS warnings on connect match three
-JC_OUTPUT_RUMBLE_ONLY (0x10) frames from the rumble worker's
-zero-countdown retries. Tested on a Pro Controller, which now connects
-reliably, where before it dropped within the first ~70 seconds of a
-fresh connection about half the time.
-
-Fixes: d750d1480362 ("HID: nintendo: fix rumble rate limiter")
-Signed-off-by: Mike Lothian <mike@fireburn.co.uk>
-Assisted-by: Claude:Opus-5 [Claude Code]
----
-v2:
-- Use a separate subcmd_rate_unproven flag rather than reusing
-  subcmd_rate_relaxed. In v1 joycon_parse_report() cleared
-  subcmd_rate_relaxed from softirq under ctlr->lock, while
-  joycon_enforce_subcmd_rate_strict() sets it from the subcommand
-  worker under output_mutex. Clearing it after the exhaustion counter
-  had passed JC_SUBCMD_RATE_MAX_FAILURES would stop the
-  ++subcmd_rate_exhaustions == JC_SUBCMD_RATE_MAX_FAILURES test from
-  ever matching again, permanently disabling the fallback added by
-  781f8e020a78.
-- Start USB controllers proven. consecutive_valid_report_deltas is
-  forced to JC_SUBCMD_VALID_DELTA_REQ for USB at the end of
-  joycon_parse_report(), so the v1 promotion could never run and USB
-  would have been left on the legacy throttle.
-- v1 was assisted by Claude Sonnet 5, v2 by Claude Opus 5.
-
-Both issues in v1 were spotted by the Sashiko AI review:
-https://lore.kernel.org/linux-input/20260908225815.952CE1F00A3A@smtp.kernel.org/
-
-That review also flagged a pre-existing issue: that the probe error
-path does not set ctlr_state to JOYCON_CTLR_STATE_REMOVED, so a queued
-rumble worker could run against stopped hardware during
-destroy_workqueue(). As far as I can tell that is not reachable. The
-worker can only be queued from joycon_handle_rumble_report(), which
-runs via joycon_ctlr_read_handler() and is gated on ctlr_state ==
-JOYCON_CTLR_STATE_READ, and from joycon_play_effect(), which needs the
-input device registered. input_register_device() is the last call in
-joycon_input_create() that can fail, and ctlr_state is set to READ
-immediately after it returns, so there is no window in which the worker
-is queued and probe can still fail.
-
-v1: https://lore.kernel.org/linux-input/20260908224532.114357-1-mike@fireburn.co.uk/
-
- drivers/hid/hid-nintendo.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
-index 43e0f2aaea3b..5b3d97c0ad39 100644
---- a/drivers/hid/hid-nintendo.c
-+++ b/drivers/hid/hid-nintendo.c
-@@ -611,6 +611,7 @@ struct joycon_ctlr {
- 	unsigned int consecutive_valid_report_deltas;
- 	unsigned int subcmd_rate_exhaustions;
- 	bool subcmd_rate_relaxed;
-+	bool subcmd_rate_unproven;
- 
- 	/* factory calibration data */
- 	struct joycon_stick_cal left_stick_cal_x;
-@@ -917,7 +918,7 @@ static void joycon_enforce_subcmd_rate_legacy(struct joycon_ctlr *ctlr)
- 
- static void joycon_enforce_subcmd_rate(struct joycon_ctlr *ctlr)
- {
--	if (ctlr->subcmd_rate_relaxed)
-+	if (ctlr->subcmd_rate_relaxed || READ_ONCE(ctlr->subcmd_rate_unproven))
- 		joycon_enforce_subcmd_rate_legacy(ctlr);
- 	else
- 		joycon_enforce_subcmd_rate_strict(ctlr);
-@@ -1797,8 +1798,11 @@ static void joycon_parse_report(struct joycon_ctlr *ctlr,
- 	 */
- 	if (report_delta_ms >= JC_INPUT_REPORT_MIN_DELTA &&
- 	    report_delta_ms <= JC_INPUT_REPORT_MAX_DELTA) {
--		if (ctlr->consecutive_valid_report_deltas < JC_SUBCMD_VALID_DELTA_REQ)
-+		if (ctlr->consecutive_valid_report_deltas < JC_SUBCMD_VALID_DELTA_REQ) {
- 			ctlr->consecutive_valid_report_deltas++;
-+			if (ctlr->consecutive_valid_report_deltas == JC_SUBCMD_VALID_DELTA_REQ)
-+				WRITE_ONCE(ctlr->subcmd_rate_unproven, false);
-+		}
- 	} else {
- 		ctlr->consecutive_valid_report_deltas = 0;
- 	}
-@@ -2730,6 +2734,7 @@ static int nintendo_hid_probe(struct hid_device *hdev,
- 
- 	ctlr->hdev = hdev;
- 	ctlr->ctlr_state = JOYCON_CTLR_STATE_INIT;
-+	ctlr->subcmd_rate_unproven = hdev->bus != BUS_USB;
- 	ctlr->rumble_queue_head = 0;
- 	ctlr->rumble_queue_tail = 0;
- 	hid_set_drvdata(hdev, ctlr);
--- 
-2.55.0
-
+> ---
+>  kernel/rcu/srcutree.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index 74acd5645d4c..2d2a12f86115 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -1972,6 +1972,9 @@ static void srcu_expedite_current_cb(struct rcu_head *rhp)
+>   * no current grace period, one might be created.  If the current grace
+>   * period is currently sleeping, that sleep will complete before expediting
+>   * will take effect.
+> + *
+> + * This function must not be invoked on srcu_struct structures that are
+> + * used with srcu_read_lock_atomic() and synchronize_srcu_atomic().
+>   */
+>  void srcu_expedite_current(struct srcu_struct *ssp)
+>  {
+> @@ -1979,6 +1982,9 @@ void srcu_expedite_current(struct srcu_struct *ssp)
+>  	bool needcb = false;
+>  	struct srcu_data *sdp;
+>  
+> +	// Atomic SRCU has no callbacks, so there is nothing to expedite.
+> +	if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
+> +		return;
+>  	migrate_disable();
+>  	sdp = this_cpu_ptr(ssp->sda);
+>  	raw_spin_lock_irqsave_sdp_contention(sdp, &flags);
+> @@ -2104,8 +2110,9 @@ static void srcu_advance_state(struct srcu_struct *ssp, bool is_atomic)
+>   *
+>   * If synchronize_srcu_atomic() is invoked on a given srcu_struct
+>   * structure, then none of call_srcu(), synchronize_srcu(),
+> - * synchronize_srcu_expedited(), or start_poll_synchronize_srcu() may be
+> - * invoked on that same structure.
+> + * synchronize_srcu_expedited(), start_poll_synchronize_srcu(),
+> + * srcu_barrier(), or srcu_expedite_current() may be invoked on that
+> + * same structure.
+>   *
+>   * Because synchronize_srcu_atomic() is even more expedited than is
+>   * synchronize_srcu_expedited(), there is no expedited counterpart to
+> -- 
+> 2.43.0
+> 
