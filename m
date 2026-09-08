@@ -1,138 +1,293 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012042.outbound.protection.outlook.com [40.93.195.42])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B757399D0D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865174; cv=fail; b=Ht/BqcnkqNqh8hl0U8WV37haHafu28tepO9Jmq9wt221m5JUE9YcrnJwNUkXVA4lGgI0N6QBNooL5Iq/lR6qA3LhCXU9q9YVUSgqS+yZZ9SvZtpH9mDwB8fenYAZ/nbDV9raMsNfiOWEaw3dSVzRLmfiyAkXJdK/vRygnGBQo30=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865174; c=relaxed/simple;
-	bh=hHenXxzCMt6XI1wyjlBzDQS3oaanvZImZC6muenXvyA=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sMiuyjJUJGhwoGc91TEWmtTKgKcrvwQAa5cFNTlOaXF32BvDA1bERrBsQMgeZeP8Rzu5L+r3jgZmhJtZ5/e4j/7K15X3neY/vS9UJYggVs09SXqZLkZCEiM6QxqXTPlfzuNciEQxeQGZoEyZS+D/Z36ROKZU8+79sFGoUncSDJM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lExnoWMs; arc=fail smtp.client-ip=40.93.195.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E08751121C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788865203; cv=none; b=BC/qLPTrS7381Xhr8aVyzXNKjg0uTBRkL6jZ1in7IiX56fO4yjZ+QbHTVNby8boqMo+OGifZb3TYTHQwx0vg3tdT3cQTkjhfd0nqj7inHGmy4YEmfR/5To1SofkOBJRYWrhIVzTgTzxYuOjOiUQo9PUTOqaj1srTiUQ/qFkdWzc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788865203; c=relaxed/simple;
+	bh=PASoVvJRW52udlXwVPLEvyOYeF6gdA9Vi//Tr1ZPV98=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Cfdzfxuxzwkje/Sr6no59mIf5SRyDqACPfHoqing6vObQfGY12VQXbjttekgfETq5NStEwRJJ9fZT2R6j0ZO52ohFnWMgEm0nVjVyRnoYynyGyO/iGMqf+Wjp9yXBdqCUeTMbtMd3RcH3JbmuOvvMng1fRLl+pL0SksNwoRApzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LXzoBEhq; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RbWZCoSE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lExnoWMs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=id2SmDncqASHBzJXfpMLDpOYtSv03izP67HYZOJM2CE4oF1j02NAzPW88Txrgp5Lkdb3NVJyzyF3eeQ4uCfvX8pGZ5bZIv8zOdyRN7kXxZ0iemMj1r7SEHeZlm9B+GFPugpIAZSeZC8J5aiwfNglzdEGgAPz+gRXMp1wXrkWcfbs4jEdRFJuLO2XJpmJEumK+6MHZY672sec+B4uAd7JTCBiezyef3vkZMIXWYTDSUpl+TcxHnP7xWFTNcuB4CEeQ5XFQhPR9sE8kqdvT34ryzCoWr81lc81p8ep10N86ib2FkOMveits01/onRrUQjogJUhMyErEOj7NXyjGPWcGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YXy66010Ea9bcSZVXjugEmNH/Q0BdGzKnqum6iQhNIE=;
- b=DYoPzpMUgptGlkw+yE2pGUssbEFhYsXKf350w699iomVAGBO/PtpSgXCde/EaEM974qg05EKV+K3FzR0EYWmCsOTBt1vRQT/qfLTwc3SsWIrEVPzMG+eQialFzEaUgK/mFbt5vjh0ZvoUiRicwlCYoNjNjj/bm4OG0K0bB2QFQldNpOJ7O63e+llS2QivHGC0Q328HJKfSOheqd1G0fHmqH0IO/OKOO+A8U7QE1Jhk1DGnxJRLeKd/1AckvINdFpPgh33XKTOLTxDq4YCxyrxf6nP9UauEOUmtb6Vpgb5gpIEIMbZWo5UeA2+e2Pg581ddRhCW+LqoKUEy+bSZh+EA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YXy66010Ea9bcSZVXjugEmNH/Q0BdGzKnqum6iQhNIE=;
- b=lExnoWMsJHJgg+8epvaj0AnBTPlFbY9qHooSz4/i1O4RIDkZPR/YAeVwtCOaNk4nxbIb26hKcEnN8tf6RNsXabeyMk5fW5daM3BLu12Lv0Ief+dXKMGJ6nQeAbxIN3059KAN5Q/SwYdx3oup8eyXVSWZu3JxiJArxXDZawHiA0c=
-Received: from BN9PR03CA0512.namprd03.prod.outlook.com (2603:10b6:408:131::7)
- by DS7PR12MB6072.namprd12.prod.outlook.com (2603:10b6:8:9c::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 10:59:29 +0000
-Received: from BN1PEPF00004683.namprd03.prod.outlook.com
- (2603:10b6:408:131:cafe::8d) by BN9PR03CA0512.outlook.office365.com
- (2603:10b6:408:131::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
- Sep 2026 10:59:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00004683.mail.protection.outlook.com (10.167.243.89) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 10:59:27 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 05:59:26 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 05:59:25 -0500
-Received: from xhdshubhraj40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 05:59:23 -0500
-From: Shubham Patil <shubhamsanjay.patil@amd.com>
-To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>
-CC: Frank Li <Frank.Li@nxp.com>, <linux-i3c@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <adrian.hunter@intel.com>, <git@amd.com>,
-	Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: [PATCH] i3c: master: amd: Report direct CCC read length in payload.actual_len
-Date: Tue, 8 Sep 2026 16:29:19 +0530
-Message-ID: <20260908105919.3262254-1-shubhamsanjay.patil@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LXzoBEhq";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RbWZCoSE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788865200;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=c02abhHVFEdqDQiBq5z2yqG6TQE5ipoCqgc71cPZ6jg=;
+	b=LXzoBEhqwe8ib+S+2ZuRpUQowaoHboDxb8Z7a8XPl1hMQPyxZ/JZCuq8BEFVCQ6avXpAm3
+	7qcLqSJ3goFKKod3yVOjggeeCsIdAGx0N6JhMG4xutLlZrKyDrwxU1qmTH4zvlQZDpk1lo
+	wpkWEWhqTromg3HOpXPQtOwJ0FKedPc=
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-434-qxi-tHzeOrOM907ZzppVzQ-1; Tue, 08 Sep 2026 06:59:59 -0400
+X-MC-Unique: qxi-tHzeOrOM907ZzppVzQ-1
+X-Mimecast-MFC-AGG-ID: qxi-tHzeOrOM907ZzppVzQ_1788865198
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dff6253so23249755ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:59:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788865198; x=1789469998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c02abhHVFEdqDQiBq5z2yqG6TQE5ipoCqgc71cPZ6jg=;
+        b=RbWZCoSECzSj5b7saBBqkGW7npWfHhg1xilGEDeNL/p/ED+PQ965CUZ15FlxzDqteu
+         i2t1Hu/dlX7acclVeCrCzU8ux2hYlipwOt0h1YjFnHeBBjy9voIR+47XIRDttFpyeOQJ
+         UABEwNlJiRi4JSIxWalaqO0IWyQn75E6fNM/Teh1HvOVW9gE7h5lISsiErEXXgTUUFTx
+         +z36RrRvjYDV7Wv5Gv15byNVrzKd8eeleebl4dd7dqwCLD2tyso4PFWUc5N/uf7FLvj0
+         uG490E5+vn+cd/zXwAjPVKnuKdEEjF3CFAov+1qaycLQjB0Pi9OuNGIKUArOgdoniG/0
+         4a/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788865198; x=1789469998;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c02abhHVFEdqDQiBq5z2yqG6TQE5ipoCqgc71cPZ6jg=;
+        b=tBwTwiTVop2TAGUBCcazra+lo+ldnBZpQycAHPQg4RjnKhIvuVukASooxLxdtzuPpc
+         FJMH+BZr7fQQcJdX0ZRepU+F75cPakNjrWXaz5VSeuWOjxa18do/tzP8B0qsMIrJ7Vxo
+         unbIjbbnr3qwJ4lwNywuk6y/jEZylDmO8mT0+Pfn9QVsXMnlDIIlGunlCoq3rruLdOmG
+         4GF4dZnOj4x0DV7NDx/YFEUgUjhESXr5vmYnewR6aTZXiIu9vNOdk7A4Ts2nhM8eGLM0
+         SSUhh+/zAgFa/yNozRSLjtQFT+5fN8j+lmpvsbcrCXzf+d3IFTq8OuCKri9S0pG8/dkY
+         xQhg==
+X-Forwarded-Encrypted: i=1; AKwUvBzXX3191/1gPSo81R2ec9Bs7m9T7TrP0LIt52LLbiyAICao5ql2/CnCnGhGkFGZKqTxpSKIY8wjSgGuCzU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mDchlbQydRgtrrONFp7vTqOw4v8Gwrp552gDNpApqqj9rq5fKK
+	Z6LQZrejPwzVgbwEvwCRucEwqIDY7I586h91e5XGflPP8qLAXLuFUZ5yrU47QFIgO3xn6Xx8hC+
+	oQ8xrckUAJ1Jh4yDMYWkywaGYYD3in4aKtIkQKUqJbn49cny4bEMdaIa5HU8XF9ahmWUIQrCwGA
+	==
+X-Gm-Gg: AYBFou3cTQL1Q1Me2PC/OtyPfKf58RrFizHvf/W6mxFxsp3yQUo+hcDhIi37XwxUm8H
+	KQ0PmCiKGiFGeE/w4uAch/y9VQkGoFs8/10uBid3RQ2B93rrvrWeFqLyB3peBbw63ViBhjWnfNQ
+	4iRp/pY22m/NOiAS4q7KX1jXeiCfOw94aJQxRu1Z4fcU66oW9c3s5A/uKO+FgGw85Nremm3fCq0
+	n6XJJeVbl7Q+czbuP6wbNP8/HWkEiJRQ4kr0T2KWdszZCwpzGeJjlGUw9zMjP5ps/ZZ7Rb4RCBf
+	8H0ne4TbDjUpsJdEBCw7gUl3LU2NXlMbTRqEt2TTWQdfU48XCEfVAnSvvQFgtGef4W1pbHP1qeJ
+	BvylRvGORMiu7OjZ3siUjAfvXzV3kuCRSybKIz7+vIw==
+X-Received: by 2002:a17:902:e944:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2db6fe6d0f8mr58961615ad.3.1788865198147;
+        Tue, 08 Sep 2026 03:59:58 -0700 (PDT)
+X-Received: by 2002:a17:902:e944:b0:2cf:7db9:e13e with SMTP id d9443c01a7336-2db6fe6d0f8mr58961265ad.3.1788865197629;
+        Tue, 08 Sep 2026 03:59:57 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495acf7sm57511075ad.25.2026.09.08.03.59.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 03:59:56 -0700 (PDT)
+Message-ID: <9706a0b9-b686-4502-bfae-08aabe05fb84@redhat.com>
+Date: Tue, 8 Sep 2026 20:59:45 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004683:EE_|DS7PR12MB6072:EE_
-X-MS-Office365-Filtering-Correlation-Id: 579d5fd9-1f8b-48ef-204d-08df0d984098
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	7twIX8GPzz0GvTlnUmHctlo8koibHYtp9vPkYSSlEQQ1zbHxDYBF2X3diVsbfwXSUmlbub2sadIrHaiW5iQx/E3UfpA+ZYvfrY8+8FBQaTV07Qm+/c2xnTxYTALJjAqiD7QwdNuX9a+0n2TxeV+Pmb+yCGssBgrL5bcqAL/8NdEeEQf5Xb49cTKokP5GtgGP2GyyClABjoLqSM+IyOhygLVoR2+pZpblCkA1z2A2m6raQtzAel7jdLLjeOgR8mmLCCMXuE5Yy5c8PNIPjzkl/Z4Z5INORv5jw5Qzn86eiAwFRejIkM6MmuxCRowuR8oihSpbGh+sNtJd2hW0nSxKbiVLkqukpYxz48vUFH+nLwPzsmjWlAEU13L036rzCzr8v6mThhXX7pyIDpp4QyqAjRaHSvTAsQ/A2Zme9pKPOtGJ6tIBxbLNIGe7prLNHhcA2K2yYuuGUph37Qa+sG1mDDUUqIMRMlFeEHCWGCHcM4A6HXRLTvynVypL+jeRm4a0k93lHS8uz0QjSrV+ReyYrFp1kSnn/O+0rfLInJu42XyAcnsOSOPeJH4khvKiQG3fR5sXK0trZKcYcGY7v5ETm/Uqb82yqNWLreYldd5v2RmGOhoakAOPt2PvQ9aOtbJY91yYscw1U2qP5FkF92SdkF+StXle/FCG/xzyoOT9N+DfJWFGU949JXbEZYkLp2uWa1QKSGFx4m8DMg37mp0iCQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jx/58ge0bDZI0WNWYwIDk1E05ttnkc2BidIEDHnstq2JFzlJw+/RHbNwlDvFPXSH9ZjFspzYWJjCcpJI3jCshidGgFTjJ2k0LC3cxcHpCS8ZAKTUCxdajNNIxoIoZLxjLFjovac+Cv7qkVy1yZiRe5tQbz0XM58GZPG7Ct+8yH4tslr2cK0hKWnGtcK1ylGpdR4tzcXx9e3uWtt+h+/1PNxJ+LBbsL7Wr3wZnBKUpUoRuBwMIbliOZJLFEMvd5eZWOm8ChzsU7TT3Ve09mLlaPh/j+9wHs53o1BlpFo1GyqJwMRCD4ef0kycyrFsFfB9YRylXBzU567zngx4mk8SdmH8glLpisGwkd5v4UwQs6nI5lKrVDm0b55LA44C/gi/kqc+IsNLbpDP4qAAuwJa3vQwG7xLqHoQw9A4hbtgQ7b166vI8PQOn7JiIqeyldXp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 10:59:27.9320
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 579d5fd9-1f8b-48ef-204d-08df0d984098
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00004683.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6072
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the
+ host's page size
+To: Kohei Enju <enju.kohei@fujitsu.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org,
+ catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com,
+ tabba@google.com, yuzenghui@huawei.com, linux-coco@lists.linux.dev,
+ gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
+ alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
+ lpieralisi@kernel.org
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-4-suzuki.poulose@arm.com>
+ <10893135-4757-44de-91b5-180a9774d868@redhat.com>
+ <ap--9pJdD_Y_j1aY@FCCLS0092175.localdomain>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <ap--9pJdD_Y_j1aY@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The I3C core expects master drivers to leave payload.len unchanged and
-report the number of bytes received on GET CCCs via payload.actual_len.
-The AMD driver was overwriting payload.len after direct read CCCs.
+Hi Kohei,
 
-Set payload.actual_len from the directed command's rx_actual in
-xi3c_master_send_direct_ccc_cmd() instead of modifying payload.len.
+On 9/8/26 6:00 PM, Kohei Enju wrote:
+> Hi Gavin,
+> 
+> On 09/08 17:04, Gavin Shan wrote:
+>> Hi Suzuki,
+>>
+>> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+>>> From: Steven Price <steven.price@arm.com>
+>>>
+>>> RMM v2.0 brings the ability to set the RMM's granule size. Check the
+>>> feature registers and configure the RMM so that it matches the host's
+>>> page size. This means that operations can be done with a granularity
+>>> equal to PAGE_SIZE.
+>>>
+>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>> ---
+>>>    Changes since v15:
+>>>     * Actually check the feature register for the host's page-size support.
+>>>    Changes since v14:
+>>>     * Move the implementation into drivers/firmware/arm_rmm.
+>>>    Changes since v13:
+>>>     * Moved out of KVM.
+>>> ---
+>>>    drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
+>>>    include/linux/arm-rmi-cmds.h   | 17 ++++++++++
+>>>    2 files changed, 75 insertions(+)
+>>>
+>>> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+>>> index 008a783407b4e..76f91c145e1fd 100644
+>>> --- a/drivers/firmware/arm_rmm/rmi.c
+>>> +++ b/drivers/firmware/arm_rmm/rmi.c
+>>> @@ -77,6 +77,60 @@ static int rmi_read_features(void)
+>>>    	return 0;
+>>>    }
+>>> +static int rmi_configure(void)
+>>> +{
+>>> +	unsigned long granule_feature;
+>>> +	unsigned long granule_size;
+>>> +	int ret = 0;
+>>> +	struct rmm_config *config;
+>>> +
+>>> +	switch (PAGE_SIZE) {
+>>> +	case SZ_4K:
+>>> +		granule_size = RMI_GRANULE_SIZE_4KB;
+>>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
+>>> +		break;
+>>> +	case SZ_16K:
+>>> +		granule_size = RMI_GRANULE_SIZE_16KB;
+>>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
+>>> +		break;
+>>> +	case SZ_64K:
+>>> +		granule_size = RMI_GRANULE_SIZE_64KB;
+>>> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
+>>> +		break;
+>>> +	default:
+>>> +		BUILD_BUG();
+>>> +	}
+>>> +
+>>> +	if (!(rmi_feat_reg(1) & granule_feature)) {
+>>> +		pr_err("RMM does not support %luKB granules\n",
+>>> +		       PAGE_SIZE >> 10);
+>>> +		return -ENXIO;
+>>> +	}
+>>> +
+>>> +	config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
+>>> +	if (!config)
+>>> +		return -ENOMEM;
+>>
+>> An error message is needed here.
+>>
+>> 	if (!config) {
+>> 		pr_err("Unable to alloc RMM config memory\n");
+>> 		return -ENOMEM;
+>> 	}
+> 
+> I largely agree with your suggestions, and they look reasonable to me.
+> 
+> However, wouldn't this be redundant? Since __GFP_NOWARN is not set, the
+> page allocator would normally emit an allocation failure warning with a
+> stack trace anyway.
+> 
+> I don't have a strong preference, but as per "14) Allocating memory" in
+> the coding style, I believe it would be considered unnecessary.
+> 
 
-Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
----
- drivers/i3c/master/amd-i3c-master.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+You're correct that the error message is most likely redundant here and we
+needn't it. However, it's notable the allocation failure warning and stack
+trace isn't 100% raised when looking at mm/page_alloc.c::warn_alloc(). At least,
+it depends on !__ratelimit(&nopage_rs) even it's less likely to happen. Similarly,
+there are conditions to raise a warning and stack track in case of the injected
+allocation error in lib/fault-inject.c::fail_dump().
 
-diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd-i3c-master.c
-index ef5ad5abb788..f205aa06f9b8 100644
---- a/drivers/i3c/master/amd-i3c-master.c
-+++ b/drivers/i3c/master/amd-i3c-master.c
-@@ -806,8 +806,8 @@ static int xi3c_master_send_direct_ccc_cmd(struct xi3c_master *master,
- 
- 	/* Report actual byte count so the core sees the right length on short reads */
- 	if (!ret && ccc->rnw)
--		ccc->dests[0].payload.len = min(xfer->cmds[1].rx_actual,
--						ccc->dests[0].payload.len);
-+		ccc->dests[0].payload.actual_len = min(xfer->cmds[1].rx_actual,
-+						       ccc->dests[0].payload.len);
- 
- 	return ret;
- }
--- 
-2.34.1
+Thanks,
+Gavin
+
+> Thanks,
+> Kohei
+> 
+>>
+>>> +
+>>> +	config->rmi_granule_size = granule_size;
+>>> +
+>>> +	/*
+>>> +	 * For now we set the tracking_region_size to 0 which is the only option
+>>> +	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
+>>> +	 * TODO: Support other tracking sizes via Kconfig option for other
+>>> +	 * PAGE_SIZES
+>>> +	 */
+>>> +	config->tracking_region_size = 0;
+>>> +
+>>> +	ret = rmi_rmm_config_set(virt_to_phys(config));
+>>> +	if (ret) {
+>>> +		pr_err("RMM config set failed\n");
+>>> +		ret = -EINVAL;
+>>> +	}
+>>
+>> The error code from rmi_rmm_config_set() is indicative sometimes. Also, -ENXIO
+>> would be more appropriate than -EINVAL?
+>>
+>> 	if (ret) {
+>> 		pr_err("RMM config set failed (%d)\n", ret);
+>> 		ret = -ENXIO;
+>> 	}
+>>
+>>> +
+>>> +	free_page((unsigned long)config);
+>>> +	return ret;
+>>> +}
+>>> +
+>>>    static int __init arm64_init_rmi(void)
+>>>    {
+>>>    	int ret;
+>>> @@ -90,6 +144,10 @@ static int __init arm64_init_rmi(void)
+>>>    	if (ret)
+>>>    		return ret;
+>>> +	ret = rmi_configure();
+>>> +	if (ret)
+>>> +		return ret;
+>>> +
+>>>    	return 0;
+>>>    }
+>>> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+>>> index 2fb1f7f86d71e..9aa27697e2377 100644
+>>> --- a/include/linux/arm-rmi-cmds.h
+>>> +++ b/include/linux/arm-rmi-cmds.h
+>>> @@ -12,6 +12,23 @@
+>>>    unsigned long rmi_feat_reg(unsigned long id);
+>>> +/**
+>>> + * rmi_rmm_config_set() - Configure the RMM
+>>> + * @cfg_ptr: PA of a struct rmm_config
+>>> + *
+>>> + * Sets configuration options on the RMM.
+>>> + *
+>>> + * Return: RMI return code
+>>> + */
+>>> +static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
+>>> +{
+>>> +	struct arm_smccc_res res;
+>>> +
+>>> +	arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
+>>> +
+>>> +	return res.a0;
+>>> +}
+>>> +
+>>
+>> rmi_rmm_config_set() is used for once by rmi.c::rmi_configure(), I would not expose
+>> rmi_rmm_config_set() by combining the logic to rmi.c::rmi_configure().
+>>
+>>>    /**
+>>>     * rmi_features() - Read feature register
+>>>     * @index: Feature register index
+>>
+>> Thanks,
+>> Gavin
+>>
+> 
 
