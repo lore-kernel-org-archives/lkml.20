@@ -1,379 +1,519 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E95583290B1;
-	Tue,  8 Sep 2026 02:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E19B2EEE86;
+	Tue,  8 Sep 2026 02:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788833637; cv=none; b=dtd/SpbxvFtcf54b0IiO6fuTftGOraMvgVdyFZklg+AS/cDOTVklzsfvLyYJfXVlEOOJQ/+X4mUSFUlTUft3ILepyFL/lmCWnIDc61OBi2BMn25A9Z/V9m4D2WuNx8DMMfIJ+ZNX8232anABudWgd13Nr0VWLBXx3ro2rWPGnEs=
+	t=1788833857; cv=none; b=jfd4q4R1+JzhW1CoO2Td139jYqYJEYDGUwcLeUAYbDfwZCH39VUqP7Gkf1CDZu2pmDe9ivCT2Xr9gi3bvfn7FXLR8VeV98XKWMV+3KnnNMrUY8pomsmpkusBf9qnjyqrQnvcfmRNTEMifTXZARc9MuxeW8x67SVVFPZ1K2X7IPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788833637; c=relaxed/simple;
-	bh=wZ/r4/bF9hAlTtquHXnE+wBTqQ/7BYwrtsPzipxkVGk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hHGY7+f+OLnuuV4JLYtUS6PL8gcBL4z/yF3PHLDACN6FdBisFkDZtYXkDOqe+E2siPKgnguXkT8Y9Bamv6fhm3V9+BwgVnhoP4LlLmOIBDiybWmXrjlS18ABDBlYLTQ0az7HcxZ/hXdlU5reeOqbEdLZKNVcgFu7NCHTIls4u6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Wg/U2UpR; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Wg/U2UpR"
-Received: from mrdev.corp.microsoft.com (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 6477E20B700D;
-	Mon,  7 Sep 2026 19:13:15 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6477E20B700D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788833595;
-	bh=woYa3VktAHCxIlUnUShf3U66XvJ2x0MsWEVzqJ9QFTQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Wg/U2UpRmjP+qL5e3dbgKbJ5/4Ux/AqKTLMQhvHtohBNeB3vRpyEuE1dDALfAfSRE
-	 rvJEArNqWvTyLvoJWmDY+egu52QvQ+K/qSIOpxDOGFqTkuCwPV/uDPRO0OHXLdjWTz
-	 SdEEQkQygWCP8AHMdJmZkPX1rtul7iPlvBny7QkU=
-From: Mukesh R <mrathor@linux.microsoft.com>
-To: linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: kys@microsoft.com,
-	wei.liu@kernel.org,
-	mhkelley58@gmail.com,
-	mrathor@linux.microsoft.com
-Subject: [PATCH V1 2/3] mshv: Redesign hypervisor memory deposit logic
-Date: Mon,  7 Sep 2026 19:13:39 -0700
-Message-ID: <20260908021340.2548924-3-mrathor@linux.microsoft.com>
-X-Mailer: git-send-email 2.51.2.vfs.0.1
-In-Reply-To: <20260908021340.2548924-1-mrathor@linux.microsoft.com>
-References: <20260908021340.2548924-1-mrathor@linux.microsoft.com>
+	s=arc-20240116; t=1788833857; c=relaxed/simple;
+	bh=fLA6in3Ij13UC2nwIXCu7OnGo+pG+q+8Zl5HyV2uPK0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nWzbepzl0zuVeSf9oYN4POg6uKjZaVJ2ejJ5JwX3zD5raQpEiOB9v7x599YrxcEDvQCv9PX/0TGh+v5U/9t8KflngaAQS2XsP5pul/0DQM1vfn6en5lmwJgB+zn/qpdP4bgGKpErL+PNYW04JmQIFHQML5anA7VXMduMwCHk+SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com; spf=pass smtp.mailfrom=mucse.com; arc=none smtp.client-ip=54.207.22.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mucse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mucse.com
+X-QQ-mid: zesmtpsz9t1788833769tef9c61c0
+X-QQ-Originating-IP: kLbYVU+755wSU8YKSLsWWaLKmeLyx1MAeHs234vGnuw=
+Received: from localhost ( [203.174.112.180])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 10:16:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10928057382997564492
+EX-QQ-RecipientCnt: 10
+Date: Tue, 8 Sep 2026 10:16:07 +0800
+From: Yibo Dong <dong100@mucse.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	pabeni@redhat.com, vadim.fedorenko@linux.dev,
+	u.kleine-koenig@baylibre.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, yaojun@mucse.com
+Subject: Re: [PATCH net-next v10 2/5] net: rnpgbe: Add basic TX packet
+ transmission support
+Message-ID: <BAF9629C6F55DE4D+20260908021607.GA507605@nic-Precision-5820-Tower>
+References: <F744115CE91035F6+20260831073608.401988-3-dong100@mucse.com>
+ <20260904215713.3999937-1-kuba@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904215713.3999937-1-kuba@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:mucse.com:qybglogicsvrgz:qybglogicsvrgz3a-1
+X-QQ-XMAILINFO: MvyKdZyVtFx3SDlVgLMfYIxgpEOT+Hi+FQ/KGM8xefXqastwq2uOexo2
+	4c9c6k+SMWbXnNhc0JaDISobAgWKRg/Gnv5L+PRTputc6zuAQr05XsMvQ/zWYApwSSV93s3
+	TFaUP2An4Ta8J/CMsQS1IKa/wasOy1WLP2KKbz6+154qVD7BDu+ydwLboLm/wG5iO+yHhht
+	yfHtPlkSf70OZTDa3U3jwcJo8NkZfFumDuc+bow7wrVD9T38gSCD++sSnloJ8YMjls7zF+b
+	5/VYpoW7UjmKwJYB8EkQT1CRBPEEcmFmBnpxbqBo1+54ll4scyNUQWe94Bd1LBxvey4QAhc
+	PJjCSfJmkqiSrDf7g+FPVjvZvys267zVxQu+mch6iVIOMTHLUoFEmAfbx4GK03KvsfsWVoh
+	IKb9hA+/3qKrfATJy+pH46FrQxFVzLX98O+3V+Z6Mxq3p2BtT8PxAzlg3toMWl8R02JSKkt
+	u6W22CU8adTTpOSYXCvA+coE0MZivE+pOuJWkbC8yr4Nu9a5cUBD/WY8qN977OGA0F+4CSk
+	fut/lvTQahuiW9gG1jW4gmlH6ClncsVXFVEqBhJQh93QTBPvpxb7Kc1KHt+zrVYebPPFwVF
+	NHbYAcaO6+ypNyvAE6Om4+IWNNcnGIFUcR8k1KiwopSAzDTJ3jjcmtVgQK9f/TU8aFD7ODl
+	byfhcUIifLy+dm8XFujLkzyRNgARfoxL+yjpV2HgdZFYjcy6oNWJtc8kTKWRGEWdY3Srg+O
+	S8PyEqs+oSogSi3oMB3vYDAo6GtpLWH8U+8k4q9VMXEpYS5zaQlcNktbP68QD0gFbxHjoPa
+	F+6mEtDDm2o+voXGjevj2YpXFI93rc4NsC0JmhNZeJGYx7PYpsS9ttitqH2GezXvLPBQR7p
+	+G0yOCpsN7ovLrY/w/15tmYAsJ7NSGCyBbeyrbzNMGI5I/BA7QblhDkQlo6gjkYALApz7sU
+	HrJgF5YK5OnJORvSigzgcMii2tln7Dt0YkLq0Nf93nMecOCTlexpzkOkbeMJytMXLXbr91e
+	pDiDl3GbZO+HmHO3rsNBj5ZqPfg2U=
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
 
-The current memory deposit implementation has a few issues and bugs:
- o It is very slow
- o Contiguous range requirement is broken, and is critical bug
- o An incorrect assumption is made that contiguous memory size would
-   always be power of 2.
- o Two pages are allocated, only one is really needed. This adds to
-   overhead.
- o For a 512 page deposit, the allocation is split into two: one for 511
-   and second for 1. Thus, an order 9 allocation never happens. A
-   contiguous 2M range, if possible, significantly improves performance
-   in the hypervisor.
- o Since a page is already allocated to collect the frames, there is
-   not really a need to use per cpu input page, and hence avoid local
-   irq disable.
- o In hv_call_deposit_pages(), in case of error, under err_free_allocations
-   label, all pages are freed without checking status to see if some pages
-   were deposited. This is a critical bug as it would free pages that hyp
-   may be using.
-
-All of above is addressed by:
- o Allocate 2M by default, this is the recommendation from the hypervisor
-   team, and greatly improves performance.
- o Always start with a full 2M range allocation, thus getting contiguous if
-   available. In cases where possible, the deposits are much faster.
- o Allocate only one page in the deposit function and collect 511 pfns
-   there. Just use a local variable for last pfn.
- o Use the page as input to hypercall. Since this page is locally allocated,
-   irq disable can be avoided helping speed up the deposit.
- o Fix the physical contiguous memory requirement.
- o Lastly, remove pre-deposits hv_call_create_vp() and
-   hv_call_initialize_partition() as they were removed internally while
-   ago, most likely because they didn't help much.
-
-Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
----
- drivers/hv/hv_proc.c           | 198 +++++++++++++++++++++++++++++----
- drivers/hv/mshv_root_hv_call.c |  10 +-
- include/asm-generic/mshyperv.h |   5 -
- 3 files changed, 179 insertions(+), 34 deletions(-)
-
-diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
-index 57864bb5bcd8..0ebede0bc8b4 100644
---- a/drivers/hv/hv_proc.c
-+++ b/drivers/hv/hv_proc.c
-@@ -9,6 +9,184 @@
- #include <linux/export.h>
- #include <asm/mshyperv.h>
- 
-+#define HV_DEPOSIT_MAX 512
-+#define HV_DEPOSIT_INP_MAX ((HV_HYP_PAGE_SIZE -  \
-+	offsetof(struct hv_deposit_memory, gpa_page_list)) / sizeof(u64))
-+
-+/*
-+ * Allocate free pages for deposit to hypervisor. pfna[] must be large enough
-+ * to hold HV_DEPOSIT_INP_MAX (511) pages. If num_pages is 512, return last
-+ * pfn in lastpfn. If @single, then it must be a single allocation (not split
-+ * over multiple contiguous ranges).
-+ *
-+ * Returns: number of pages allocated or -ENOMEM
-+ */
-+static int hv_alloc_dep_pages(int node, u64 *pfna, u64 *lastpfnp, int num_pages,
-+			      bool single)
-+{
-+	struct page *page;
-+	int num_allocd, count = 0;
-+
-+	/* Published ABI, enforce its immutability. */
-+	BUILD_BUG_ON(HV_DEPOSIT_INP_MAX != 511);
-+
-+	if (num_pages > HV_DEPOSIT_MAX ||
-+	    (num_pages == HV_DEPOSIT_MAX && lastpfnp == NULL))
-+		return -EINVAL;
-+
-+	while (num_pages) {
-+		/* Find highest order we can actually allocate */
-+		int order = 31 - __builtin_clz(num_pages);
-+		gfp_t gfp_flags = GFP_KERNEL;
-+
-+		if (!single)
-+			gfp_flags |= __GFP_NOWARN;
-+
-+		while (1) {
-+			page = alloc_pages_node(node, gfp_flags, order);
-+			if (page || order == 0 || single)
-+				break;
-+
-+			order--;
-+		}
-+
-+		if (page == NULL)
-+			break;
-+
-+		split_page(page, order);
-+		num_allocd = 1 << order;
-+		num_pages -= num_allocd;
-+
-+		while (num_allocd && count < HV_DEPOSIT_INP_MAX) {
-+			pfna[count++] = page_to_pfn(page++);
-+			num_allocd--;
-+		}
-+
-+		if (num_allocd-- && count == HV_DEPOSIT_INP_MAX) {
-+			*lastpfnp = page_to_pfn(page);
-+			count++;
-+			break;
-+		}
-+	}
-+
-+	return count ? count : -ENOMEM;
-+}
-+
-+/*
-+ * Deposit memory in the hypervisor. Even if @contiguous is false, a contiguous
-+ * 2M worth of pfns is utmost desired for performance reasons. But short of
-+ * that, we deposit whatever contiguous chunks we can get. If @contiguous is
-+ * true, then the entire range has to be physically contiguous. Note, in that
-+ * case, upon withdrawl, hypervisor could return any page in between the range,
-+ * so we must split that also. Lastly, HV_MAX_CONTIGUOUS_ALLOCATION_PAGES is
-+ * not guaranteed to always be power of 2.
-+ */
-+static int hv_call_deposit_pages(int node, u64 partition_id, bool contiguous)
-+{
-+	struct hv_deposit_memory *hc_input;
-+	int i, rc, num_pages;
-+	u64 status, *pfna, lastpfn = 0;
-+	bool trunc_extra = false;
-+
-+	BUILD_BUG_ON(HV_MAX_CONTIGUOUS_ALLOCATION_PAGES > HV_DEPOSIT_MAX);
-+
-+	if (contiguous) {
-+		num_pages = roundup_pow_of_two(
-+					  HV_MAX_CONTIGUOUS_ALLOCATION_PAGES);
-+		trunc_extra = num_pages != HV_MAX_CONTIGUOUS_ALLOCATION_PAGES;
-+	} else {
-+		num_pages = HV_DEPOSIT_MAX;
-+	}
-+
-+	hc_input = (struct hv_deposit_memory *)get_zeroed_page(GFP_KERNEL);
-+	if (hc_input == NULL)
-+		return -ENOMEM;
-+
-+	hc_input->partition_id = partition_id;
-+	pfna = hc_input->gpa_page_list;
-+
-+	rc = hv_alloc_dep_pages(node, pfna, &lastpfn, num_pages, contiguous);
-+	if (rc < 0)
-+		goto out_free;
-+
-+	num_pages = rc;
-+	if (num_pages > HV_DEPOSIT_INP_MAX)
-+		num_pages = HV_DEPOSIT_INP_MAX;
-+
-+	if (contiguous && trunc_extra) {
-+		for (i = HV_MAX_CONTIGUOUS_ALLOCATION_PAGES; i < num_pages; i++)
-+			__free_page(pfn_to_page(pfna[i]));
-+
-+		if (lastpfn) {
-+			__free_page(pfn_to_page(lastpfn));
-+			lastpfn = 0;
-+		}
-+
-+		num_pages = HV_MAX_CONTIGUOUS_ALLOCATION_PAGES;
-+	}
-+
-+	/* We are not using hyperv_pcpu_input_arg, so no need to disable */
-+
-+	status = hv_do_rep_hypercall(HVCALL_DEPOSIT_MEMORY, num_pages,
-+				     0, hc_input, NULL);
-+	if (!hv_result_success(status))
-+		goto err_free_dep_pages;
-+
-+	if (lastpfn) {
-+		hc_input->gpa_page_list[0] = lastpfn;
-+		status = hv_do_rep_hypercall(HVCALL_DEPOSIT_MEMORY, 1, 0,
-+					     hc_input, NULL);
-+
-+		if (!hv_result_success(status)) {
-+			if (contiguous)
-+				goto err_free_dep_pages;
-+
-+			/* We deposited lot earlier, so give it a go */
-+			__free_page(pfn_to_page(lastpfn));
-+		}
-+	}
-+
-+	free_page((unsigned long)hc_input);
-+	return 0;
-+
-+err_free_dep_pages:
-+	hv_status_err(status, "\n");
-+	rc = hv_result_to_errno(status);
-+
-+	for (i = hv_repcomp(status); i < num_pages; i++)
-+		__free_page(pfn_to_page(pfna[i]));
-+	if (lastpfn)
-+		__free_page(pfn_to_page(lastpfn));
-+
-+out_free:
-+	free_page((unsigned long)hc_input);
-+	return rc;
-+}
-+
-+int hv_deposit_memory_node(int node, u64 pt_id, u64 hv_status)
-+{
-+	int result = hv_result(hv_status);
-+	bool contiguous = false;
-+
-+	if (result == HV_STATUS_INSUFFICIENT_ROOT_MEMORY ||
-+	    result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY) {
-+		if (!hv_root_partition()) {
-+			hv_status_err(hv_status,
-+				      "Unexpected root memory deposit\n");
-+			return -EINVAL;
-+		}
-+
-+		pt_id = HV_PARTITION_ID_SELF;
-+	}
-+
-+	if (result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_MEMORY ||
-+	    result == HV_STATUS_INSUFFICIENT_CONTIGUOUS_ROOT_MEMORY)
-+		contiguous = true;
-+
-+	return hv_call_deposit_pages(node, pt_id, contiguous);
-+}
-+EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
-+
- /*
-  * See struct hv_deposit_memory. The first u64 is partition ID, the rest
-  * are GPAs.
-@@ -109,12 +287,6 @@ static int hv_call_deposit_pages_old(int node, u64 partition_id, u32 num_pages)
- 	return ret;
- }
- 
--int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
--{
--	return hv_call_deposit_pages_old(node, partition_id, num_pages);
--}
--EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
--
- static int __maybe_unused hv_deposit_memory_node_old(int node, u64 partition_id, u64 hv_status)
- {
- 	u32 num_pages = 1;
-@@ -144,12 +316,6 @@ static int __maybe_unused hv_deposit_memory_node_old(int node, u64 partition_id,
- 	return hv_call_deposit_pages_old(node, partition_id, num_pages);
- }
- 
--int hv_deposit_memory_node(int node, u64 partition_id, u64 hv_status)
--{
--	return hv_deposit_memory_node_old(node, partition_id, hv_status);
--}
--EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
--
- bool hv_result_needs_memory(u64 status)
- {
- 	switch (hv_result(status)) {
-@@ -212,14 +378,6 @@ int hv_call_create_vp(int node, u64 partition_id, u32 vp_index, u32 flags)
- 	unsigned long irq_flags;
- 	int ret = 0;
- 
--	/* Root VPs don't seem to need pages deposited */
--	if (partition_id != hv_current_partition_id) {
--		/* The value 90 is empirically determined. It may change. */
--		ret = hv_call_deposit_pages(node, partition_id, 90);
--		if (ret)
--			return ret;
--	}
--
- 	do {
- 		local_irq_save(irq_flags);
- 
-diff --git a/drivers/hv/mshv_root_hv_call.c b/drivers/hv/mshv_root_hv_call.c
-index cb55d4d4be2e..b8d199f95299 100644
---- a/drivers/hv/mshv_root_hv_call.c
-+++ b/drivers/hv/mshv_root_hv_call.c
-@@ -15,8 +15,6 @@
- #include "mshv_root.h"
- 
- /* Determined empirically */
--#define HV_INIT_PARTITION_DEPOSIT_PAGES 208
--#define HV_MAP_GPA_DEPOSIT_PAGES	256
- #define HV_UMAP_GPA_PAGES		512
- 
- #define HV_PAGE_COUNT_2M_ALIGNED(pg_count) (!((pg_count) & (0x200 - 1)))
-@@ -140,11 +138,6 @@ int hv_call_initialize_partition(u64 partition_id)
- 
- 	input.partition_id = partition_id;
- 
--	ret = hv_call_deposit_pages(NUMA_NO_NODE, partition_id,
--				    HV_INIT_PARTITION_DEPOSIT_PAGES);
--	if (ret)
--		return ret;
--
- 	do {
- 		status = hv_do_fast_hypercall8(HVCALL_INITIALIZE_PARTITION,
- 					       *(u64 *)&input);
-@@ -248,8 +241,7 @@ static int hv_do_map_gpa_hcall(u64 partition_id, u64 gfn, u64 page_struct_count,
- 		completed = hv_repcomp(status);
- 
- 		if (hv_result_needs_memory(status)) {
--			ret = hv_call_deposit_pages(NUMA_NO_NODE, partition_id,
--						    HV_MAP_GPA_DEPOSIT_PAGES);
-+			ret = hv_deposit_memory(partition_id, status);
- 			if (ret)
- 				break;
- 
-diff --git a/include/asm-generic/mshyperv.h b/include/asm-generic/mshyperv.h
-index bf601d67cecb..c16abaecb65e 100644
---- a/include/asm-generic/mshyperv.h
-+++ b/include/asm-generic/mshyperv.h
-@@ -345,7 +345,6 @@ static inline bool hv_parent_partition(void)
- 
- bool hv_result_needs_memory(u64 status);
- int hv_deposit_memory_node(int node, u64 partition_id, u64 status);
--int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages);
- int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id);
- int hv_call_notify_all_processors_started(void);
- bool hv_lp_exists(u32 lp_index);
-@@ -360,10 +359,6 @@ static inline int hv_deposit_memory_node(int node, u64 partition_id, u64 status)
- {
- 	return -EOPNOTSUPP;
- }
--static inline int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
--{
--	return -EOPNOTSUPP;
--}
- static inline int hv_call_add_logical_proc(int node, u32 lp_index, u32 acpi_id)
- {
- 	return -EOPNOTSUPP;
--- 
-2.51.2.vfs.0.1
-
+On Fri, Sep 04, 2026 at 02:57:13PM -0700, Jakub Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> ---
+> net: rnpgbe: Add basic TX packet transmission support
+> 
+> This adds the TX path for rnpgbe: TX descriptor and buffer structures,
+> rnpgbe_xmit_frame_ring(), TX ring setup/teardown, completion handling in
+> rnpgbe_clean_tx_irq(), and TX counters exported via ndo_get_stats64().
+> It also switches probe to dma_set_mask_and_coherent(DMA_BIT_MASK(56))
+> and adds hw->cycles_per_us plus NETIF_F_HIGHDMA.
+> 
+> A few questions below about the new fault state, the teardown error
+> handling, the stats reader and the missing TX watchdog.
+> 
+> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
+> > index 77304196c2b6..6d0b9f424c64 100644
+> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
+> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe.h
+> 
+> [ ... ]
+> 
+> > @@ -74,21 +139,20 @@ struct mucse_q_vector {
+> >  	struct mucse_ring ring[] ____cacheline_internodealigned_in_smp;
+> >  };
+> >  
+> > -struct mucse_stats {
+> > -	u64 tx_dropped;
+> > -};
+> > -
+> >  #define MAX_Q_VECTORS 8
+> >  
+> > +#define M_DEFAULT_TXD     512
+> > +#define M_DEFAULT_TX_WORK 256
+> > +
+> >  enum mucse_state_t {
+> >  	__MUCSE_DOWN,
+> > +	__MUCSE_AXI_FAULT,
+> >  };
+> 
+> [ ... ]
+> 
+> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+> > index f511a3a5f916..ff81d222edd3 100644
+> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_lib.c
+> 
+> [ ... ]
+> 
+> > @@ -636,13 +760,169 @@ static void rnpgbe_napi_disable_all(struct mucse *mucse)
+> >  		napi_disable(&mucse->q_vector[i]->napi);
+> >  }
+> >  
+> > +static void rnpgbe_stop_tx_ring(struct mucse_ring *tx_ring)
+> > +{
+> > +	if (!tx_ring->tx_buffer_info)
+> > +		return;
+> > +
+> > +	/* Stop hw. No new descriptors are fetched after TX_START=0.
+> > +	 * DMA for descriptors fetched before the stop may still be in flight.
+> > +	 */
+> > +	mucse_ring_wr32(tx_ring, RNPGBE_TX_START, 0);
+> > +	/* Flush posted write to ensure hardware sees TX_START=0 */
+> > +	(void)mucse_ring_rd32(tx_ring, RNPGBE_TX_START);
+> > +}
+> > +
+> > +static int rnpgbe_wait_tx_dma_idle(struct mucse *mucse)
+> > +{
+> > +	struct mucse_hw *hw = &mucse->hw;
+> > +	u32 dma_status;
+> > +	int err;
+> > +
+> > +	/* A timeout indicates a terminal AXI fault. Hardware stops DMA
+> > +	 * accesses, so teardown may release mappings, but configuration
+> > +	 * must not re-enable TX DMA.
+> > +	 */
+> > +	err = readl_poll_timeout(hw->hw_addr + RNPGBE_DMA_STATUS,
+> > +				 dma_status,
+> > +				 (dma_status & RNPGBE_DMA_TX_STATUS) ==
+> > +				 RNPGBE_DMA_TX_STATUS,
+> > +				 10, 100000);
+> > +	if (err) {
+> > +		set_bit(__MUCSE_AXI_FAULT, &mucse->state);
+> > +		dev_err(&mucse->pdev->dev,
+> > +			"TX DMA failed to quiesce, status %#x\n", dma_status);
+> > +	}
+> > +
+> > +	return err;
+> > +}
+> 
+> [Severity: Medium]
+> Once __MUCSE_AXI_FAULT is set here, is there a way back?
+> 
+> Grepping drivers/net/ethernet/mucse/ at the end of the series shows no
+> clear_bit(__MUCSE_AXI_FAULT, ...) anywhere, and the existing
+> firmware-mediated reset rnpgbe_reset_hw() (which clears
+> RNPGBE_DMA_AXI_EN) is only called from rnpgbe_add_adapter() during
+> probe, never from this path.
+> 
+> After the bit is latched, rnpgbe_stop_all_tx_rings() always ends with
+> "return err ? err : -EIO;", so rnpgbe_configure_tx() can never succeed
+> again, and rnpgbe_open() bails out with -EIO on every subsequent
+> "ip link set <dev> up". Is unbind/rmmod the only intended recovery?
+The AXI timeout is terminal for the current driver instance. The device
+requires a chip-level PCIe reset, which rnpgbe_reset_hw() cannot provide.
+For now recovery requires a platform reset followed by driver unbind/bind
+(or module reload) to create a fresh driver instance.
+> 
+> There is also an ordering question about when the poll first runs. The
+> quiesce poll is on the entry path:
+> 
+> rnpgbe_open()
+>   rnpgbe_configure()
+>     rnpgbe_configure_tx()
+>       rnpgbe_stop_all_tx_rings()
+>         rnpgbe_wait_tx_dma_idle()
+> 
+> mucse->num_tx_queues is already non-zero after probe, so this runs
+> before any ring has ever been started. If the tx_wr/tx_rd done bits in
+> RNPGBE_DMA_STATUS[23:22] do not read as set in the post-reset state,
+> would the very first open permanently latch the fault and leave the
+> netdev un-openable?
+No. The DMA status bits report whether the engine is idle and are set
+after a chip-level reset even before TX has been started. Therefore the
+initial configuration path does not falsely latch the fault.
+The check is intentionally kept on this path because __MUCSE_AXI_FAULT is
+per-driver-instance state. A driver reload without a chip-level reset
+clears that software bit but does not recover the hardware fault; polling
+DMA idle again prevents the new instance from using fault status hardware.
+> 
+> Could the commit message also mention the new terminal state? It
+> enumerates the descriptors, rnpgbe_xmit_frame_ring(), ring
+> alloc/teardown, rnpgbe_clean_tx_irq(), stats, the 56-bit DMA mask,
+> cycles_per_us and NETIF_F_HIGHDMA, but not that ndo_open can now fail
+> permanently on a hardware timeout.
+> 
+> > +
+> > +/**
+> > + * rnpgbe_stop_all_tx_rings - Stop TX DMA on all queues
+> > + * @mucse: board private structure
+> > + *
+> > + * Return: 0 when TX DMA was quiesced, negative errno otherwise
+> > + **/
+> > +static int rnpgbe_stop_all_tx_rings(struct mucse *mucse)
+> > +{
+> > +	struct mucse_hw *hw = &mucse->hw;
+> > +	u32 dma_axi_ctl;
+> > +	int err = 0;
+> > +
+> > +	for (int i = 0; i < mucse->num_tx_queues; i++)
+> > +		rnpgbe_stop_tx_ring(mucse->tx_ring[i]);
+> > +
+> > +	if (mucse->num_tx_queues &&
+> > +	    !test_bit(__MUCSE_AXI_FAULT, &mucse->state))
+> > +		err = rnpgbe_wait_tx_dma_idle(mucse);
+> > +
+> > +	dma_axi_ctl = mucse_hw_rd32(hw, RNPGBE_DMA_AXI_EN);
+> > +	dma_axi_ctl &= ~TX_AXI_RW_EN;
+> > +	mucse_hw_wr32(hw, RNPGBE_DMA_AXI_EN, dma_axi_ctl);
+> > +	/* Flush the posted write before continuing. */
+> > +	(void)mucse_hw_rd32(hw, RNPGBE_DMA_AXI_EN);
+> > +
+> > +	if (!test_bit(__MUCSE_AXI_FAULT, &mucse->state))
+> > +		return 0;
+> > +
+> > +	return err ? err : -EIO;
+> > +}
+> > +
+> > +/**
+> > + * rnpgbe_clean_tx_ring - Free Tx Buffers
+> > + * @tx_ring: ring to be cleaned
+> > + **/
+> > +static void rnpgbe_clean_tx_ring(struct mucse_ring *tx_ring)
+> > +{
+> 
+> [ ... body of rnpgbe_clean_tx_ring() snipped ... ]
+> 
+> > +	netdev_tx_reset_queue(txring_txq(tx_ring));
+> > +	size = sizeof(struct mucse_tx_buffer) * tx_ring->count;
+> > +	memset(tx_ring->tx_buffer_info, 0, size);
+> > +	/* Zero out the descriptor ring */
+> > +	memset(tx_ring->desc, 0, tx_ring->size);
+> > +	tx_ring->next_to_use = 0;
+> > +	tx_ring->next_to_clean = 0;
+> > +}
+> > +
+> > +/**
+> > + * rnpgbe_clean_all_tx_rings - Stop TX DMA and free Tx buffers for all queues
+> > + * @mucse: board private structure
+> > + **/
+> > +void rnpgbe_clean_all_tx_rings(struct mucse *mucse)
+> > +{
+> > +	rnpgbe_stop_all_tx_rings(mucse);
+> > +
+> > +	for (int i = 0; i < mucse->num_tx_queues; i++)
+> > +		rnpgbe_clean_tx_ring(mucse->tx_ring[i]);
+> > +}
+> 
+> [Severity: Medium]
+> Is it safe to discard the return value of rnpgbe_stop_all_tx_rings()
+> here?
+> 
+> rnpgbe_stop_tx_ring() only writes RNPGBE_TX_START=0, and its own comment
+> says "DMA for descriptors fetched before the stop may still be in
+> flight". The only thing that establishes retirement is the
+> RNPGBE_DMA_TX_STATUS poll in rnpgbe_wait_tx_dma_idle(). When that poll
+> times out, rnpgbe_configure_tx() refuses to re-arm TX, but this caller
+> proceeds anyway:
+> 
+> rnpgbe_down()
+>   rnpgbe_clean_all_tx_rings()
+>     rnpgbe_stop_all_tx_rings()   /* -EIO ignored */
+>     rnpgbe_clean_tx_ring()       /* dma_unmap_*() + memset(desc) */
+> 
+> and then:
+> 
+> rnpgbe_close()
+>   rnpgbe_free_all_tx_resources()
+>     rnpgbe_free_tx_resources()
+>       dma_free_coherent(tx_ring->dev, tx_ring->size, tx_ring->desc, ...)
+> 
+> So the streaming mappings are released and the coherent descriptor ring
+> is handed back to the allocator while RNPGBE_TX_BASE_ADDR_LO/HI still
+> point at it, based on the comment's claim that "Hardware stops DMA
+> accesses". Can that claim be verified? It is asserted in exactly the
+> state where the register used to observe TX DMA retirement is the thing
+> that failed to report done.
+> 
+> Clearing TX_AXI_RW_EN gates new AXI transactions rather than draining
+> ones already accepted by the fabric, so does it substitute for the
+> quiesce handshake? If the engine is still active, a late write into
+> recycled pages or an IOMMU fault against the freed ring both look
+> possible. Would it be preferable to quarantine (leak) the mappings and
+> the coherent ring when the quiesce fails, instead of releasing them?
+> 
+The return value is intentionally ignored on the cleanup path. On the
+first timeout the driver logs the failure and latches __MUCSE_AXI_FAULT.
+In that hardware fault state the device guarantees that it issues no
+DMA requests. Therefore the DMA mappings and descriptor memory can be
+released safely.
+> > +
+> >  bool rnpgbe_down(struct mucse *mucse)
+> >  {
+> > +	struct net_device *netdev = mucse->netdev;
+> > +
+> >  	if (test_and_set_bit(__MUCSE_DOWN, &mucse->state))
+> >  		return false;
+> >  
+> > +	netif_tx_disable(netdev);
+> >  	rnpgbe_napi_disable_all(mucse);
+> >  	rnpgbe_irq_disable(mucse);
+> > +	rnpgbe_clean_all_tx_rings(mucse);
+> >  
+> >  	return true;
+> >  }
+> 
+> > @@ -653,11 +933,420 @@ bool rnpgbe_down(struct mucse *mucse)
+> 
+> [ ... rnpgbe_up_complete(), TX resource setup/teardown, rnpgbe_tx_map()
+> and rnpgbe_xmit_frame_ring() snipped ... ]
+> 
+> > +/**
+> > + * rnpgbe_get_stats64 - Get stats for this netdev
+> > + * @netdev: network interface device structure
+> > + * @stats: stats data
+> > + **/
+> > +void rnpgbe_get_stats64(struct net_device *netdev,
+> > +			struct rtnl_link_stats64 *stats)
+> > +{
+> > +	struct mucse *mucse = netdev_priv(netdev);
+> > +	int i;
+> > +
+> > +	rcu_read_lock();
+> > +	for (i = 0; i < mucse->num_tx_queues; i++) {
+> > +		struct mucse_ring *ring = READ_ONCE(mucse->tx_ring[i]);
+> > +		u64 bytes, packets, dropped;
+> > +		unsigned int start;
+> > +
+> > +		if (ring) {
+> > +			do {
+> > +				start = u64_stats_fetch_begin(&ring->syncp);
+> > +				packets = ring->stats.packets;
+> > +				bytes = ring->stats.bytes;
+> > +			} while (u64_stats_fetch_retry(&ring->syncp, start));
+> > +			dropped = atomic64_read(&ring->stats.dropped);
+> > +
+> > +			stats->tx_packets += packets;
+> > +			stats->tx_dropped += dropped;
+> > +			stats->tx_bytes += bytes;
+> > +		}
+> > +	}
+> > +	rcu_read_unlock();
+> >  }
+> 
+> [Severity: Medium]
+> Does the rcu_read_lock() plus READ_ONCE() here actually protect the ring
+> memory?
+> 
+> mucse->tx_ring[i] points inside the struct mucse_q_vector allocation,
+> and the free side does not use an RCU grace period:
+> 
+> rnpgbe_free_q_vector()
+> 	mucse_for_each_ring(ring, q_vector->tx)
+> 		mucse->tx_ring[ring->queue_index] = NULL;
+> 	...
+> 	netif_napi_del(&q_vector->napi);
+> 	kfree(q_vector);
+> 
+> On the shutdown path the free also happens outside rtnl while the netdev
+> is still registered:
+> 
+> rnpgbe_dev_shutdown()
+> 	rtnl_lock();
+> 	netif_device_detach(netdev);
+> 	if (netif_running(netdev))
+> 		rnpgbe_close(netdev);
+> 	rtnl_unlock();
+> 
+> 	rnpgbe_free_mbx_irq(mucse);
+> 	rnpgbe_clear_interrupt_scheme(mucse);   /* kfree(q_vector) */
+> 
+> So can this sequence read freed memory?
+> 
+> CPU0: reboot -> rnpgbe_shutdown() -> rnpgbe_dev_shutdown()
+>         -> rnpgbe_clear_interrupt_scheme() -> kfree(q_vector)
+> 
+> CPU1: cat /proc/net/dev -> dev_seq_show() -> dev_get_stats()
+>         -> rnpgbe_get_stats64()
+>              ring = READ_ONCE(mucse->tx_ring[i]);  /* loaded pre-NULL */
+>              packets = ring->stats.packets;        /* freed slab */
+> 
+> Would kfree_rcu() for the q_vector (or unregistering the netdev before
+> freeing the vectors) be the right pairing for this reader?
+> 
+Got it, I should use kfree_rcu here. I will fix this in next version.
+> > diff --git a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> > index b7472dba2a19..5be78afd0b25 100644
+> > --- a/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> > +++ b/drivers/net/ethernet/mucse/rnpgbe/rnpgbe_main.c
+> 
+> [ ... ]
+> 
+> > @@ -26,6 +27,19 @@ static struct pci_device_id rnpgbe_pci_tbl[] = {
+> >  	{ },
+> >  };
+> >  
+> > +/**
+> > + * rnpgbe_configure - Configure the hardware
+> > + * @mucse: pointer to private structure
+> > + *
+> > + * rnpgbe_configure configure mac, tx, rx regs to hw
+> > + *
+> > + * Return: 0 on success, negative errno if hardware configuration fails
+> > + **/
+> > +static int rnpgbe_configure(struct mucse *mucse)
+> > +{
+> > +	return rnpgbe_configure_tx(mucse);
+> > +}
+> 
+> [Severity: Low]
+> This isn't a bug, but the kernel-doc says "configure mac, tx, rx regs to
+> hw" while the body only calls rnpgbe_configure_tx(). This resolves later
+> in the same series: the final state adds rnpgbe_configure_rx() and
+> rnpgbe_set_rx_mode() to this function, at which point the description
+> matches. Mentioning it only for completeness.
+> 
+Will update this in next version.
+> > @@ -40,6 +54,9 @@ static int rnpgbe_open(struct net_device *netdev)
+> >  	struct mucse *mucse = netdev_priv(netdev);
+> >  	int err;
+> >  
+> > +	if (test_bit(__MUCSE_AXI_FAULT, &mucse->state))
+> > +		return -EIO;
+> > +
+> >  	err = rnpgbe_request_irq(mucse);
+> >  	if (err)
+> >  		return err;
+> 
+> [ ... ]
+> 
+> > @@ -83,25 +111,37 @@ static int rnpgbe_close(struct net_device *netdev)
+> >   * @skb: skb structure to be sent
+> >   * @netdev: network interface device structure
+> >   *
+> > - * Return: NETDEV_TX_OK
+> > + * Return: NETDEV_TX_OK or NETDEV_TX_BUSY when insufficient descriptors
+> >   **/
+> >  static netdev_tx_t rnpgbe_xmit_frame(struct sk_buff *skb,
+> >  				     struct net_device *netdev)
+> >  {
+> >  	struct mucse *mucse = netdev_priv(netdev);
+> > +	struct mucse_ring *tx_ring;
+> >  
+> > -	dev_kfree_skb_any(skb);
+> > -	mucse->stats.tx_dropped++;
+> > +	tx_ring = mucse->tx_ring[skb_get_queue_mapping(skb)];
+> >  
+> > -	return NETDEV_TX_OK;
+> > +	if (unlikely(skb_put_padto(skb, RNPGBE_TX_MIN_PKT_LEN))) {
+> > +		atomic64_inc(&tx_ring->stats.dropped);
+> > +		return NETDEV_TX_OK;
+> > +	}
+> > +
+> > +	return rnpgbe_xmit_frame_ring(skb, tx_ring);
+> >  }
+> >  
+> >  static const struct net_device_ops rnpgbe_netdev_ops = {
+> >  	.ndo_open       = rnpgbe_open,
+> >  	.ndo_stop       = rnpgbe_close,
+> >  	.ndo_start_xmit = rnpgbe_xmit_frame,
+> > +	.ndo_get_stats64 = rnpgbe_get_stats64,
+> >  };
+> 
+> [Severity: Medium]
+> This patch makes the TX queues stoppable, but the ops table gains only
+> .ndo_get_stats64 and there is still no .ndo_tx_timeout (and
+> netdev->watchdog_timeo is never set). Was that intentional?
+> 
+> rnpgbe_xmit_frame_ring() stops the queue:
+> 
+> 	if (!netif_txq_maybe_stop(txring_txq(tx_ring),
+> 				  mucse_desc_unused(tx_ring),
+> 				  count + RESV_DESC_NEEDED,
+> 				  count + RESV_DESC_NEEDED))
+> 		return NETDEV_TX_BUSY;
+> 
+> and the only wake is __netif_txq_completed_wake() inside
+> rnpgbe_clean_tx_irq(), which needs a TX completion interrupt to schedule
+> NAPI. Meanwhile the core watchdog never arms:
+> 
+> net/sched/sch_generic.c:netdev_watchdog_up() {
+> 	if (!dev->netdev_ops->ndo_tx_timeout)
+> 		return;
+> 	...
+> }
+> 
+> So if a TX completion interrupt is lost or the TX engine stalls, does
+> anything detect the permanently stopped queue? The driver itself defines
+> RNPGBE_DMA_INT_TRIG as a "lost-interrupt recovery trigger", which
+> suggests interrupt loss is a real case for this hardware. The ops table
+> is still open/stop/start_xmit/set_rx_mode/get_stats64 at the end of the
+> series.
+> 
+> [ ... ]
+> 
+This series is intentionally limited to establishing the basic Tx and Rx
+data paths. Normal descriptor exhaustion is handled by the completion path,
+which wakes the stopped Tx queue.
+Would it be acceptable to add ndo_tx_timeout and the associated hardware
+recovery sequence in a follow-up series?
+The timeout recovery needs a complete reset/reinitialization design, so
+I would prefer to keep it separate from this initial datapath enablement series.
