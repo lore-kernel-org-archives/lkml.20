@@ -1,137 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CF13D3498;
-	Tue,  8 Sep 2026 08:42:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E2A3D3498;
+	Tue,  8 Sep 2026 08:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=78.32.30.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856971; cv=none; b=AcyB5mw9evSEhQXaH4JPGLyPeU/8N3DqNnJOvzvffUbLUolX6EES+49KKbXCRhGzStcX0FR4mryfIINFzppKDV343Uy0qCwq8pG4nVBVuvsKgvQKMqekn8lRKpZssH9gpfbXubH9CW817VyajNMjuNQ3W8xt1yrxAb8CCFmDNjQ=
+	t=1788857036; cv=none; b=fg4Cnw0MhOAtB6WLrSJeXFaM6AIkLNVKnsyCu7NPlfKWeM7on+dPSJuirOXIKaKIbb0ySodEg+pNoTisvoLEO6d8jeauGX17PqXbJefdrZxBr7y6Hv7Qasg7asut9Lb4dCmZHiPcFNkIBS5gFFti/zN7tFQ7AZi9PYELns+fZvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856971; c=relaxed/simple;
-	bh=wmzPfUG6OMd6SXJ/gLHhbOb1alILy66CcV6rzfKIUkU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=npsuM6xGzPiNGNZtmWefMm/1Jfcr7z9WrJUr84PgONFwAZUd3eLCdS9UJ78NkmUAYDyjNp23rWRfAgi1aCUQgaEUoIvZ5Gr6Q4eJCnhZIrg7O4WCIqePHNN+xORyL+XO9WBdgVWq6V6XwvFyJ6gKaWPD60V6UYVJekxQcUbHoBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkreHeI2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788857036; c=relaxed/simple;
+	bh=V3Y/tN8cv5zoIHeTOZMh11Bj4L3iOIFDlw1Nbeem3sg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PL4RuVjv3QrOdhrtRR426VbMOMfPpwBfMHiN0mX+Prn+aw61af3CXC3k6y/RgiMUaxGALh0XNXIUIGTj0rn6217L9z2svjjDclsy6eqrSqqNhLd23JIKdBmBsoOVztNa2D7DC9jz3RK3bvUOvWBkIQzDyWcZRW+hjVKtoLOIHPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk; spf=none smtp.mailfrom=armlinux.org.uk; dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b=hR9qHFr3; arc=none smtp.client-ip=78.32.30.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=armlinux.org.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=armlinux.org.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkreHeI2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B7A1F00A3D;
-	Tue,  8 Sep 2026 08:42:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856970;
-	bh=fVFljffm031sI1y7wyLyTTTPjkaePVEttrtm9XlbPF0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kkreHeI2Lg4XnYjx8Fr6cdJ1FSYfU1w0kgR5TgDB6pdz7cF8UYmunXULyfmZXWQNa
-	 Tu54h0ACg42lYo56vY+Z/bR4ai9w4dOukd9mzPpPCjQKTN4qPsB+K3jCtTF+CST/AD
-	 9X54C1K9ZpLhM3eN6a03r+rVTFKigAoBCXlp19Hr8EU7nC+u9zErZWeGibkgbCSpvw
-	 GSGQSd3DssgEc2niJxiO2k2xpS6sppBNZjGushHYhlvEF1ck3xvg+4i6PZfGJCDehI
-	 2RuZVD/RB1oCArH18ffAIe7rZh0gTHQDbTvyp6Y5Q6oyhwQV+mVIwFmlRaZuGkxf4+
-	 13oJo9P7QjGfg==
-Message-ID: <c0e617f9-202a-4786-8383-2ce7567b7d29@kernel.org>
-Date: Tue, 8 Sep 2026 10:42:40 +0200
+	dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk header.b="hR9qHFr3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+	MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=J92dX1oYM7IY0/1ZeLhTll1RV7mRC8e5gkuzB135nxY=; b=hR9qHFr3OSXErFC5iBesCBBeSk
+	bTfXHJaXG/zjBu1aLbz1evnNftw8yA7hRKdqggMvA9ZqlZoXdEPHmHAo+5C/EWPRODdAQ7xf3zekn
+	3i8AavI9NcH4Yfm6Bofi9lQG83RA6sloUe8nosSdGjIy2+2iVjirSgtmNScjUYe2x6Fm82XX8QYA+
+	HPutxONOfbTqouxx47VlSWVkG12y3XeRseH60frlsUB6wqf+8kOAOO7WnpCgK14XjECBH0xJ54hbm
+	QtjKh2IJeqt66MA3r6nbnc1hpr0AQj5ExsusZbNoeX+A9P2kMjdRj/OnUL8LAjfgxh1tHSLjfsQtV
+	EKKJLG0g==;
+Received: from shell.armlinux.org.uk ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33722)
+	by pandora.armlinux.org.uk with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <linux@armlinux.org.uk>)
+	id 1x3rQh-0000000088V-3esd;
+	Tue, 08 Sep 2026 09:43:47 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+	(envelope-from <linux@shell.armlinux.org.uk>)
+	id 1x3rQd-000000003ul-3w0J;
+	Tue, 08 Sep 2026 09:43:43 +0100
+Date: Tue, 8 Sep 2026 09:43:43 +0100
+From: Russell King <linux@armlinux.org.uk>
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
+	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>,
+	Ian Rogers <irogers@google.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+	Waiman Long <longman@redhat.com>, WANG Xuerui <kernel@xen0n.name>,
+	Will Deacon <will@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>
+Subject: Re: [PATCH v2] ARM, ARM64, LONGARCH: Delay HW BP notification to
+ task_work()
+Message-ID: <ap_Kv73A8exPhK-j@shell.armlinux.org.uk>
+References: <20260814085118.OPEA_Ssn@linutronix.de>
+ <20260903160710.vVf4gEL2@linutronix.de>
+ <apmknG55qFAn8EPf@shell.armlinux.org.uk>
+ <20260903133146.07095885@gandalf.local.home>
+ <20260904155404.ESPFg3zi@linutronix.de>
+ <ap7OMYBVKUrQjX9O@shell.armlinux.org.uk>
+ <20260908075455.OffmMhrB@linutronix.de>
+ <ap_AhKXlAWecV3BI@shell.armlinux.org.uk>
+ <20260908083740.0qERUBOE@linutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PRELIMINARY 0/5] arm64: dts: qcom: shikra: add Ethernet
- support
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
- Anurag Pateriya <apateriy@qti.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
- <ap+zd/2QmerMwi0o@oss.qualcomm.com>
- <c23369fc-84ff-4881-8327-c18fc3692306@kernel.org>
- <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com> <ap+7oEcW6GONVdEk@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ap+7oEcW6GONVdEk@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908083740.0qERUBOE@linutronix.de>
+Sender: "Russell King,,," <linux@armlinux.org.uk>
 
-On 08/09/2026 09:39, Mohd Ayaan Anwar wrote:
-> On Tue, Sep 08, 2026 at 12:53:46PM +0530, Mohd Ayaan Anwar wrote:
->> On Tue, Sep 08, 2026 at 09:14:45AM +0200, Krzysztof Kozlowski wrote:
->>> On 08/09/2026 09:04, Mohd Ayaan Anwar wrote:
->>>> The only reason I added a PRELIMINARY tag was because these DTS changes
->>>> should go in after the driver changes and dt-bindings.
->>>>
->>>
->>> DTS cannot go after the driver changes. If that is your requirement,
->>> then original work is broken and needs to be fixed.
->>>
->>
->> I should have worded it better. I am only worried about the dt-bindings
->> going in before this DTS. The driver changes just add support for
->> whatever we are desribing in this series, they can go in after
->> dt-bindings and DTS without any issues.
->>
+On Tue, Sep 08, 2026 at 10:37:40AM +0200, Sebastian Andrzej Siewior wrote:
+> On 2026-09-08 09:00:04 [+0100], Russell King wrote:
+> > On Tue, Sep 08, 2026 at 09:54:55AM +0200, Sebastian Andrzej Siewior wrote:
+> > > On 2026-09-07 15:46:09 [+0100], Russell King wrote:
+> > > > On Fri, Sep 04, 2026 at 05:54:04PM +0200, Sebastian Andrzej Siewior wrote:
+> > > > > On 2026-09-03 13:31:46 [-0400], Steven Rostedt wrote:
+> > > > > > On Thu, 3 Sep 2026 17:47:24 +0100
+> > > > > > Russell King <linux@armlinux.org.uk> wrote:
+> > > > > > 
+> > > > > > > What do you expect to happen with this? Which arch maintainer should
+> > > > > > > apply this patch that affects three different independently maintained
+> > > > > > > architectures?
+> > > > > 
+> > > > > Well, if you as the ARM person are fine with ARM part, an ACK would be
+> > > > > appreciated. If you have something to object, it would be nice to let me
+> > > > > know so I can adjust accordingly.
+> > > > 
+> > > > First, I only just looked at the email - you may have noticed I'm not
+> > > > very active with the kernel anymore, as I'm a full-time carer at the
+> > > > moment.
+> > > > 
+> > > > Second, I'm not fine with the patch as-is, because it's not clear how
+> > > > it could be merged in its current form. It would be inappropriate to
+> > > > give an Ack, because an Ack means I'm fine with it. I'm not.
+> > > > 
+> > > > Third, I haven't actually reviewed the patch itself (see first point).
+> > > > 
+> > > > Looking deeper now, I see nothing in the linked report, nor in your
+> > > > write-up that identifies what is responsible for the context being
+> > > > inappropriate to deliver the SIGTRAP. See the first point - I'm not
+> > > 
+> > > The linked report shows a backtrace by "BUG: sleeping function"
+> > > originating from el0_breakpt() -> perf_bp_event() following by sending a
+> > > signal force_sig_fault() followed by rt_spin_lock() and
+> > > __might_resched(). It also contains a reproducer.
+> > > 
+> > > The first sentence has the part
+> > > | The hardware event is
+> > > | delivered with disabled interrupts and perf intrastrucure expects
+> > > | disabled interrupts while the overflow callback is invoked.
+> > 
+> > *Where* are interrupts disabled?
 > 
-> ...would it be preferable to instead have the split like this?
-> 
->   - This series + dt-bindings (on top of linux-next)
->   - Only driver changes from [1] (for net-next)
+> On exception entry point, that would el0t_64_sync() for arm64 as in the
+> report.
 
-No, because it would be against explicit documented rules in the kernel
-and against clear guidelines and recent discussions within Qualcomm. I
-wonder why did we have these long discussions about Shikra if only a few
-people were listening and the rest will be repeating the same broken
-process as before?
+Oh FFS. So why does this need to be done on ARM? Explain it. This is
+what I'm trying to get out of you, but you're being very resistant
+to providing the technical details. I can only think you haven't
+actually done the analysis.
 
-Best regards,
-Krzysztof
+So, NAK.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
