@@ -1,113 +1,113 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB3375581ED
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873183; cv=pass; b=Bd9w9BLGkU2vfGl/oqLp/2KT8YXHBCUM9skIcglXgzJ2ZwWYDC7ENAleAvwWGx6jnPfD6UptejMbMPXWxn4uzwZ1gCEs8h6Jm2RWMuIAP9WrQQxtDF/9qCjZQHybqKlg/kNC6oJuqf+L6+ZdKl5kC5xygh2MsdKUsgxQkw2zMTU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873183; c=relaxed/simple;
-	bh=Wz7IZrJW1UapIj7FlBxMC/F5YCmC6GItgtFzsvZAj8k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HnSHo1FPubyXFf/NJnCQwoUdEvk+K/T5tK+D0d9WriLy1uP4e92wUNxrZFuNmsuxNWURJ6P7255vJ58165+Ga8t4NC15EQvPxeMgDaStVlhZCC0O4lbOAWkkMFe+1z/nPHSzJiUDZ9fkf49O5s6n1KEthm8ES2O5sH5zx06Nrfc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hthW87jI; arc=pass smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BF0559CA8;
+	Tue,  8 Sep 2026 13:13:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788873200; cv=none; b=UW2Sf0wG4GWGc931odz6RP4ULogV6U1yqKnhmwqU6IyTs31Fyy9XnNmRcB0Aa8+nG0r6GagiZRm+agL6MeMG80omID4V7xDDcaMWqf1r2/6vcXN9ZbVXbMT7cIOKgUAU2Jfryl36kbmRqbTNtefKvTcEdY8W3ES5B9AE2VElV9o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788873200; c=relaxed/simple;
+	bh=mIWyqqRMsfpDKfz/nz9NbsL48iyrcIIeqP8orz9L/8M=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=CmTvb242x3UvyB+3jUfD/wvxTDlTlsZTyz8s8rDE9hYGVYPWsp8s8ax1ZV2Ipg0vv8ONzheRXjQLJPtz70b1ftlV1AaRTj71Nr9PPiU3EQz2jIAXhAWrpgP1P2KLpkJ51Ku/bQSCoEQNXJoEv6iOlgoM8/4zk8ZtzhP6jV1vfz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=FTMLz2Es; arc=none smtp.client-ip=54.204.34.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hthW87jI"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b01910b499so3716307e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:12:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788873174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rxa9uJajKuYYvx+ZgDLjhI1mwPHY6geH43hIsbeZP6qOym8dwZTAD4blzpoCJzure3
-         4TQel6dNloIZM/63oo4TPvV3TiqXvkO70Y5ouDm0a3RXOpWD/khmQBd4o2joDYfP44+O
-         6AwZokNiZ3gJE9HIZmjTGCg5wMXqXU7wXKkDfnL+aqtACxng/VlGXfSS9o3gSbocLeW8
-         0fLBlalEiClz7thPUHmU3Fzd8CF8uU24OpFVXQYgSDYzuTsG92vteCyEdR2ScweLpLqS
-         1JapB66NG9Mb0bl8Dt20jFxTAbkKfNEQkKnJB1E31/kJgmlYWDuXFtcTietpNqxGWwfK
-         FmoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=Wz7IZrJW1UapIj7FlBxMC/F5YCmC6GItgtFzsvZAj8k=;
-        fh=Z2ChQqk5WR44gTibLOBpRL93XM0om8VldPtkfDHU4QI=;
-        b=hEyGgMBB7VluXXq64t0z1WG21byp/PXmrNIgIVxp1VLTOMqK6uyR90sfae39sJBkOl
-         Fi4OEFMS/Rx9BJdgKZfkyj9zkBNANTy0WuO4O+sIkhQYt2LSCK9MOtHFwDKXcMxnGfJC
-         Md/bI3+L0pQvXG0z6t6cRvMxnArGudkbOpCfVQuJbI5hl5jWpviVBhQ7rEsOXWqvgDRG
-         TUZn1vp3EIOHMYp4NZoUJjlU/tvghlF1OvEwJ+v/RSaX++MVOS5T5lJ7BjlSyBlWChGs
-         FRquEz7MtwwfBUFPlsTrQXisAQbXBsfr32RbmWlsg9Dqr/bQ9VKUee+xnwZqM/31zc3k
-         JaCw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788873174; x=1789477974; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wz7IZrJW1UapIj7FlBxMC/F5YCmC6GItgtFzsvZAj8k=;
-        b=hthW87jIhBpiiYGqUdyOInp+OnGrNnQhF0JAGo5hZbptZEDHh8wBlgpQHcO3UTkzEC
-         07gDn972zCPflcA3bMPRGsta8ymbolxJQvPIT93stHJoq8ptVgiabFk+bNCq56SfFiTL
-         gtW68dm6dGFaGQZ/LMnkz0jEFs3VHqbBZSTb8IDwK46YyOMkJRf1SYTVzAXLz4/XSs8f
-         SOeowigjbhNE5hvxALg9uGtXbzq5RNtC3d1ghLHCQ/hXV5dra3pfqu3uTEquwmk8KiWk
-         76GPum4CurFPUopsG712juFDnO2hR02ZLfiRcaZUbFxOFwhrVbZSxj9DI5Os3sC95N5G
-         +9cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873174; x=1789477974;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Wz7IZrJW1UapIj7FlBxMC/F5YCmC6GItgtFzsvZAj8k=;
-        b=CSueRnNo1jxb0HTsPwASwTdCsoOoHIFEYy8J3hBaNPYD3HfzeCTzYBDgp6flRQUjAp
-         OTOSzzWhaTYr1g63KDxdv+mcYNH2HXn2kIIUvNGOok2IEs4FrBtnpzsaot38SH9xDlak
-         QndXcy5toPN3m4v8TQCu/KhEcDiCmTs454RmOCPAGptkzynBNhX/e3LSEp4vJprzEUSA
-         NGLhUwQGwOhTma7WCzbvp2er/jeL/0x8O67g59fSs1r+H1Vzz93lsE277Pe1w5k2v4Z6
-         I3hZCA2fc7/W3/uaSDula9+EXcfUsw1zhyrsCEujUJ3EA/mjzvuPyr7gTCyvlAxlIBa2
-         wN/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzD0h8vurviAqhXnMObdARY7nUL9zA9TBB3be6ZYHPS26n04OsnHU5H8chvlR0ZA43BdqlQwhcJRM9f1ZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++momIFg2YGP/6vYj4NCAwDYxf4HqCxCqZEneMMKPTfkf311B0XF
-	o009VDKEJhQ6qL/ojE81GtqKLyPbkfd2iixlJI6et/PIzkkLBGI1294jgPPYlPG28rhS7ifYRF0
-	3mlEtSu61DBpOQwQBoj0eRZWdNazMMzmdNfFEcuA=
-X-Gm-Gg: AYBFou0N8z7Qx3XFgSueKdcmTcH0h/xRvCMy/0B2hso4nQY28xRSqmZwyPBue7oGSkS
-	8go36bfeTGZLtJ5anAtV+JOeWIiTMAe3/ul3DMF+aO9P18WOfklMqT8BqRWXr1ltnKXh5EIFN2l
-	6MwP/4PTlH9S01nIR2yThPZ/3uDBuLuTD56gqXzqsG0DYglnS1kwhNWUyA0pnC+UReL9NlpSjgv
-	YnTfjD7uxh/jO8tYPBYK3xLQE+NEzfMcyeTRJ8crVyphu6UIdhgVTntPDB0CpoNERwOpZwnwVYY
-	42nPL7fsfhtrsK3G51W3BV2JVFZSb+nCCYr0cFmGuK99HJ4MlMTLlPu62ViRFc/Yj/3evEvVlEL
-	lcYaeYqNNjOG6bJP2na8UJMNtlqo=
-X-Received: by 2002:a05:6512:108d:b0:5b6:10bc:dc4c with SMTP id
- 2adb3069b0e04-5b610bcde18mr4681829e87.35.1788873173726; Tue, 08 Sep 2026
- 06:12:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="FTMLz2Es"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788873126;
+	bh=mIWyqqRMsfpDKfz/nz9NbsL48iyrcIIeqP8orz9L/8M=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=FTMLz2EsWPsSiHxnudJaDopeTZI2t1PwzM7zATruCquh7F0eFfZhPak9fSP4kHP5l
+	 KAdJL2XNBagLwhHX4Bzm+uFCVwvlxtWMFFe606Zylb01dcxRNLHZO7Qjq+ZDJ+4+ll
+	 lkG7oNOK0gPockjo4nVsN7S4UYZkrGyBBNzXB55Y=
+X-QQ-mid: esmtpsz21t1788873119tb9caac5d
+X-QQ-Originating-IP: OzT991yKTm8aPCZVAdh22ewUudNoGlUr/PsMZfz1plg=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 21:11:57 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17554750982614222209
+EX-QQ-RecipientCnt: 21
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1788623619.git.ahmadexp@gmail.com> <00b33b4b352848ff87dd9089190b35d8732676f3.1788623619.git.ahmadexp@gmail.com>
- <ap_mtZa1bGidHXfq@ashevche-desk.local>
-In-Reply-To: <ap_mtZa1bGidHXfq@ashevche-desk.local>
-From: Ahmad Byagowi <ahmadexp@gmail.com>
-Date: Tue, 8 Sep 2026 06:12:39 -0700
-X-Gm-Features: AcwNN1VS8bqELjY4qMU91gkD-1lcpNW1D8zk_hGJp1BpHq5sUsNQjNRuWPYsAHE
-Message-ID: <CAOQiBWMAgBCd4ssAFOdHO7kkNKj=k_XH1SOasH2kwLxCYtRE4Q@mail.gmail.com>
-Subject: Re: [PATCH v10 2/2] i2c: mux: Propagate firmware nodes to channel adapters
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Peter Rosin <peda@lysator.liu.se>, 
-	Andy Shevchenko <andy@kernel.org>, Jakub Kicinski <kuba@kernel.org>, linux-i2c@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=c8689e971497ee65ed5d0babc05266408e6f8eba1d89b75ccbd7b9d886cb;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Tue, 08 Sep 2026 21:11:54 +0800
+Message-Id: <DL9YLFXV5XHU.2GLN2OSEB8EV@linux.spacemit.com>
+Cc: <linux-usb@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Ze Huang" <huang.ze@linux.dev>
+Subject: Re: [PATCH v2 5/9] usb: chipidea: usb2: add SpacemiT K1 support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Yixun Lan" <dlan@kernel.org>, "Xu Yang" <xu.yang_2@nxp.com>, "Peng Fan"
+ <peng.fan@nxp.com>, "Peter Chen" <peter.chen@kernel.org>, "Philipp Zabel"
+ <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com> <20260908-b4-spacemit-k1-usb2-v2-5-f07342ffa051@linux.spacemit.com>
+In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-5-f07342ffa051@linux.spacemit.com>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NOSiq+6X1Fi2h96Ve7jtwZRi4zyHPpUx4yY2i1Wz+CloC3OzfV/KJww2
+	ioJLxYrTwx9BTJk7Cg2AcHWll571CY7ZIxkNuhGXlQEJ+x9A3y1XAKX6mLfPigK4nwCzKBW
+	M07bO1UefBd2BKZZVYkefDz1RS5wigfHTYuesYlPeM/CP36u0QnulTx1UDojC74fbhl5yvh
+	hblfK4rgt8B+3mFo+rrbOkRlrEvc0qROqtO/7edaGK3/Y8kvKFuLTXRY+f3u15JCXn9CSBm
+	vPRcUqxpf53DWPvt7+KOb5I7j3kB2glYCnnRj8LNSEtGmi8FzinkE/h8mbKX6amJKnOw1AN
+	kTkYo0R+ELBP6JIe6v4rwqp9bWW5KRwcYkG2cMZP+CrgJdDmezhFFSIi1D6JxWaf5OtSm7u
+	SLNAEanUjuyQs6qbS4koaPwwI/NcotQzlmloWUJ8224o2veInNasOHuTGx+t8qNL9WmEyd2
+	m/nmM/RaC8h4Y+kD0UeWDyVxMBt+w4fF4YHaiSOoT7ptZeKjdiBznJcEmFAf5wqf9xGAS6d
+	Zzz8cbKm+8lzRAbnp2YTQNpy0/ZZw4orAjRQmyGvwu284eb+UxtBB2BjuMCPsaF43TcE/ol
+	iRKNiX7P8OlOUt8wX1f6Agodm3svsbZS0nwCy3NRmCMZ+gugrqNEnPcgGkSAwpoeEjz6WqS
+	K8Kakho+QZv84ymQsI2dfni/eRv7NABPJCSiwZdnGeUz/GVJRtnUA2eh+ZekOq6QYgfSihI
+	rLv2P26xZ/iN1sqIQXZNvJ50uTqlfeJNnBycnooZrs6mhR+WbNVWZAwutZjqd4bX9wzpdch
+	QRICN1OAeQ+07XtsjV4jlTcoJAGqoTmRefRv7VbnIWucOqnjhlC5lQbvhz4LUazfL932kck
+	8DkAZ9FId8TjvQ7tx8LV3h5Xw3ifx3cJe9+ERolvW3LwnAgASZ6H18CaJJfRK2t4RmRZjmm
+	+tNZfids3xUStUyuC4HK0COsbX/4eiv55bgdAh6d2NVHgaPgIalg0MiZd5Y7sRH7XCjKQkH
+	/omtsvyh7r1Ch1G6SZkyCDGtJ0M7ONKME4oqmeKEaUBJNxNm8ulj4nfyKnxWzzkTZoeuaz7
+	6PmAM622eIsmwCCzBEPAAJcfexy89sM2g==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-Andy,
+--c8689e971497ee65ed5d0babc05266408e6f8eba1d89b75ccbd7b9d886cb
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-> I hope here it's just a mechanical stuff and we don't have side effects
-> as per above.
+On Tue Sep 8, 2026 at 5:48 PM +08, Junzhong Pan wrote:
+> Add a compatible for SpacemiT K1, and add platform data with correct
+> flag since the hardware doesn't have internal otg register support.
+>
+> Acked-by: Peter Chen <peter.chen@kernel.org>
+> Tested-by: Ze Huang <huang.ze@linux.dev>
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
 
-Thanks for reviewing both patches and for the advice about renaming
-variables when their types change.
+--=20
+Troy Mitchell
 
-I checked all uses of dev_node, mux_node, and child in the converted
-helper. They use firmware-node APIs throughout, with no remaining OF
-calls or void * consumers for those pointers. I did not find a
-type-mismatch issue in this conversion.
 
-Regards,
-Ahmad
+--c8689e971497ee65ed5d0babc05266408e6f8eba1d89b75ccbd7b9d886cb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqAJmg0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQv4x0A/j9HUTzRUUs/A5yTaji1bts8yMGFvIYujiOYT58W
+BYd+AP97yqSaybxN4+y/r68x8lBLo8FQ4tFvWHotMVs37WmsBQ==
+=cVfF
+-----END PGP SIGNATURE-----
+
+--c8689e971497ee65ed5d0babc05266408e6f8eba1d89b75ccbd7b9d886cb--
