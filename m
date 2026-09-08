@@ -1,165 +1,221 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75DE22ED16D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883667; cv=none; b=ukNQMAO787d2CKyj4mEQWwcpPq4QuwRjy+xZoDAUzv61PlJAThmxoVKwM/oAZ46/fgTdafR0QRhpGlc7xgnZmS65zJ8Z7MN87DffeL/Fs2oXUD2MmTxcaVL2kUVHC3W08mFcJxv9+OuKUFFYIJAiwdoZGxpgx8tjgLt+hGnlhUk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883667; c=relaxed/simple;
-	bh=mZy1cqdWdJhHt9O0ElVrbLOd8aw7/ukD53tdlXnuAcg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=sV4ynOIYAOcm91jdjzFIBMDZou5JChx9v/SsnwJ+Kf6dgbOSce/rQ/0yIsOf7/JJgbeNGE3TO57xJJaJ1tgD8n7RqqlQKjaS67D8Pp6uPwXr+0EJfurjMNd0qNs6UWsK+eQX/tmkfOPKWrovUnmViXeZ+Svw9CHZW4sXVXWvuTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qsHo/WrI; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59C033A6F2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:08:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788883716; cv=pass; b=Xfkj2slGLgX4GOthKHH1XLVm9mV7LVe7QrLjgDKPbxFJ1763DC3Z8LWraib9IRRjp0dursB22+E1Vo5OSsjXxr/K9vdKxTPFsT76KsB9ntFVn9urzai5+Qz6BLcd4qp9tl1p9I6VXMaC+6nnCUxor/rFuB0WwfNtRTGzX1Fb1Do=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788883716; c=relaxed/simple;
+	bh=BuweEasqZa4FcA5KIdPQe9NpHrOVSkXVRDcRoAAtry8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Cou3RXjcZf0UDhEOaNXpRf4Cxp2uKQRjnL9hWO0N/0N1TRmYktclC5RRfWW+yGN5iQqtLv2F/frDDk7ucBsg2A1VXNXORuPyS8NNfv5t1JjLSkx6e9OIRqDF/Sn2hhK5SYX3XlTTbvF5sKYgdwCCSMu9yCKzzlm9aQcqTkEe42g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UitvwMzL; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qsHo/WrI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788883663;
-	bh=mZy1cqdWdJhHt9O0ElVrbLOd8aw7/ukD53tdlXnuAcg=;
-	h=From:Date:Subject:To:Cc:From;
-	b=qsHo/WrIgmVfRw6p7uZI1OLxOt70hmvt0GRmI+JHoV3y5RDzCi7Ws6iYmpccNroQe
-	 tHZ/LBfaypNZ+R8BKp7vDmaGjANQDwInp0fEFCKQsm1spmUb0J82bGNAVsV37saMml
-	 mRbq/3+qQ8coeZ0EwoJYv6oDLW1m54tKWRwSH/JNEKiWM2aytDS/mXwSUqBRSlEg3Y
-	 6y1IRUo87FZBx+T0Zng+0l4XyGPNLxmDkCTvjFl6k67k893eJgUYg2ezjMztuSPP+f
-	 bdebaUab9/5+DIc0XqK48tUGK1E3eEQQeOTfwlra1FtlrRRbmztYTb/8nmFVUrEunz
-	 +4a6uVOtcYZ1g==
-Received: from jupiter.universe (unknown [100.64.1.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: sre)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 79C7217E0420;
-	Tue, 08 Sep 2026 18:07:43 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
-	id 3903C48002B; Tue, 08 Sep 2026 18:07:43 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 08 Sep 2026 18:07:42 +0200
-Subject: [PATCH] phy: rockchip: inno-usb2: ensure PHY is running when clock
- is requested
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UitvwMzL"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d88so32237a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:08:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788883712; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h2vFrp71P8hBrU+5AXdi7FEh45yzPeXHZBAqmiyF/McGQwNGKMp2nwUDliRkswptcc
+         /ATVNq4gFfG7udTqSGOjqgxlmJZ9s8SJOqI/tlb5j0gRCLGUPZzi3Urvkv8DPM2n9KNk
+         3c8d1hw9DwwEnRM4GzRxoh374FxIfpjXV1i2CIErO6gqfMEdiUd3Y4B1TVOzN9dEdBei
+         zUQHXi31NR4a/0J8LSwyjSAMpmw5Nkgc3dMlLLbNr5jMEeS1a25oLQ12iHCxMctK4Vw2
+         YnR++/DMjCkKl3wvf95k3268aB08ryhwibDQl4r8zkOybbAM09fliPGzIFhl7OMhAwlE
+         jDKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2ZRky5Q4Vf1326tpyqcdGWIP2cKltS6aBzaezaZXYDY=;
+        fh=DO0WcrCdI8a5mHldklrL6LQjqgJ+0x2hck3mFLa+qBQ=;
+        b=bTaVa0r9mk1rMDg8lDToRM0yqYRfHBAvnenWlR0j5hqzmeungKGIsbIS+X+kHoeOzo
+         AxxPIeSe3LwHrmZpy9Gyaud2A1iYVeqF1bo2fpgSQZJB5Z+sgY2jeqxtrZF0ouI2Qjw1
+         pmdBp+CFaJmY8fXTurLCCy6l5+F1HoOL27270a2FT8i9w/coxo6RPDTusHQfKP9GEEys
+         qJ9Cu9EnystFR4Fsd19Gvn0nqhl9TTdFxIS1wRx65RogAFIFnvdnv0qE4U6gl2xaW4jX
+         SPwL9vXRLS66Pq2Xi45a78pXAGRq7+wqYmLnI5P/PJ4NmcKvDjbE1141YlpHyTjQwxI0
+         gEow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788883712; x=1789488512; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2ZRky5Q4Vf1326tpyqcdGWIP2cKltS6aBzaezaZXYDY=;
+        b=UitvwMzLPIw1DhPGO7Ytq8MT2YW6tdGh5kGfOc7wLCkmN7WkMmnTjM4mE8i9YdsY2D
+         QBZMRuulBy0HJ4nqdzWaHnPbeit7Z53HwI5VnQPdqbtg4C5+mTVQHumf2Ambugw4nJ+b
+         Sg3/swSmrHnZUyHLAFu2ecr0cNKGRQkNyKucVxrqvl7iKExENslfe2JQg1wrCAilJR1z
+         nj//WiKqFEMolZ8GeJiN5wOFouXP4Z19hRd53IGIBwJe9EzyBzVbe6kES5G182V72hun
+         S1LLN/lPYzyxycwzk+cVMHYZpXfT+03ovIn9CF39qJJ+BQf105W+fkq4fsVnhzPsrYI6
+         LeRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788883712; x=1789488512;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2ZRky5Q4Vf1326tpyqcdGWIP2cKltS6aBzaezaZXYDY=;
+        b=R7cAyKSiTbDZL+ON+NPOjMj88qlVlf9gJLBN1va9t1XRwnrgBWv3stHfQOKO0aPXYC
+         zrq2tKYHsTfqlG3VJWDlFPaz9270EdMkKvSfGa+7ULatV+OzFG6vjPGtBWDl2aLjQyM8
+         SP2u8RPwlz2Y8gy/cFJBNJ+y18FUnULvmOKko0EW+Xq0gYic7GRc5QZ0Iwo4FMqyeNca
+         5J+ziAq1xh1PXeZcHfVbGXQOHVp4JDNbxx1fmEparLK7W6IykBNxcASKsM8S/RvYrKxf
+         koGL64oGfTufFGH0Y+pcVecLti+R79nCElyjcwv5Q2qNmfrh0YGSQzEWE0FEAxOLrkay
+         JfOA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6Jda13/9hfneeOlzR6jQQpS8ueNRRqpNsQvNLBWYxencMJOzjxzvaVBiXygP0+oBlcM70KeaR/KqFUKQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/EQ4mBwyfjn+8YUG2mlFQvjBM0WeXYQa9ZWf/tQISwEB01T//
+	7VzqvLWwF36ehe4jObtSP6t3bqjkc3BJlAcrm52SW42LQQxW2U0ydb2Jda4mog5eDSvbBwyYO0y
+	F0934WtAjgM1hsn3b1soXIEmDhmTUcLf7m1sX+FJa
+X-Gm-Gg: AYBFou07KmZNABdOuPfOBZnPjbg6980gR0N+2XunPNzE0rcmqx9WfF1/rKQZPGh/KpG
+	tbRDUM3vf35brtNy5pR04HuErpKWq0MzgKbk8mc/KPQPHjAPUPsDbHqiCtLuc1iCU3Vvtq9M8cM
+	IcB7J8Aw1ZGqHZRHbvddQV4W5CZSEBZOUwwWmp5+sKZOPtq35NZLh7QBdQ49V5h8pFXiEpitj8c
+	etlEnRdjiUfDqrY5Nf3CqKg/JYfxchFHMFUUKUji5IEvOKTB308gSFSwjGZ7TMbGVKNka7aDl7/
+	XvWKojLGjbExnwvmJzJFla7e7nN//wa8fvKOt+x5I4mPoSRQIJv2gqZb0JmPRmJRj1HbfpCgCJ8
+	=
+X-Received: by 2002:aa7:db59:0:b0:6a6:8513:7e14 with SMTP id
+ 4fb4d7f45d1cf-6a98df30f3emr443a12.9.1788883710869; Tue, 08 Sep 2026 09:08:30
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-phy-rockchip-inno-usb2-clock-fix-v1-1-f7d59c31b908@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ7CIBAAv9Ls2U2Q2Ip+xfQgsJVVA4S1RtP07
- 656nDnMLCDUmASO3QKNnixcssJ200FI53wh5KgM1tjBHIzDmt7YSriFxBU554KzeIvhrg4nfiH
- FOPS+30/O7UAztZHq3+I0/llmf6Xw+HZhXT+JiLhohAAAAA==
-X-Change-ID: 20260908-phy-rockchip-inno-usb2-clock-fix-edd65b57f884
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3031;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=mZy1cqdWdJhHt9O0ElVrbLOd8aw7/ukD53tdlXnuAcg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqgMs9WpqhLxTPuwexyL6CnHWKALsLCTjiT1
- alS9w/buWlcYIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqoDLPAAoJENju1/PI
- O/qaaJoP/1XvEvAnZaDbwRNrMatVi1f3Kaex+2hUDpKMZPWG1Qhi2YzZmzUfMQ03nM1ZzLQHwxe
- OptxYH8WRRj7r0ZFMo/resXz4IUTRx8fMoW2Aum0pykvB+4JL76iHAZurVS7Gw+5j8REs3jkIvs
- Ux8H7ILqBRcjnlI24t9+2owlvtAuPbbVgsJg154zEafA/dic8DD7drz7dxUpQVygeKtaOthz3qG
- G9fPz/lXRfWD/eJrST3GWjSjhv5o2BabTPWex1hQCb69lNe4DjK3BlCdem/inAnrUDcQE43xzS1
- kXoD9xV8j2JIYRW2TKhum+6KpSYcqXBcwgkEEkPmcaTKroS/12PHkxHh2E1FoOTc5ub3WivgOv8
- 6zOgIAgLh0yb6Db7JDx+L25f/phwCxZ8yE8soMs+93Xi0RzVWJConxMAVuBUtV73jqdpCwBpXdg
- /+DU1nv1IQq8mKgKCglv0iDki44nS8piOLAr6yN1aJFCsvVXfXB7MPI6H4qE6xzUu8o0kfHbJT4
- xTRvVSm6GpYAIGQHrXPinFs+wMPXsB5MSsA+8Nhm95xvigTu6RQz4cw39jUA29SXd7P2S9/lSnD
- sBL0P69ooCCZAr/HlESKZ/IKHPiBuHV3AU1GBZdYe5jNI/ycXnljGyCIVx/SY/sXadOixW9PyGe
- lHEOnLeedDxujdklPRG8sgw==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+References: <20260907063918.3432401-1-surenb@google.com> <20260908160452.1548235-1-xueyuan.chen21@gmail.com>
+In-Reply-To: <20260908160452.1548235-1-xueyuan.chen21@gmail.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 8 Sep 2026 09:08:16 -0700
+X-Gm-Features: AcwNN1X03USG0tbC7AUd4gWC5PsyFgweG67SorhUtWJ-m6PW4b2RwVrgEorognA
+Message-ID: <CAJuCfpEwbMQsax4TG6egJ+nD1C0JB-tY1BZKX0LeiiNoMev7MQ@mail.gmail.com>
+Subject: Re: [PATCH v2 0/5] read proc/pid/smaps_rollup under per-vma lock
+To: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Cc: akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org, 
+	vbabka@kernel.org, david@redhat.com, willy@infradead.org, jannh@google.com, 
+	paulmck@kernel.org, pfalcato@suse.de, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On RK3588 the OHCI controller registers can only be accessed when the
-PHY's 480MHz clock is running. After system suspend the controller is
-resumed before the PHY. The controller requests the clock, which opens
-the gate in the PHY's clock prepare function. But with the PHY suspended
-this just results in a dead clock being routed. The OHCI driver will
-then continue to access its registers resulting in a board hang.
+On Tue, Sep 8, 2026 at 9:05=E2=80=AFAM Xueyuan Chen <xueyuan.chen21@gmail.c=
+om> wrote:
+>
+>
+> On Sun, Sep 06, 2026 at 11:39:13PM -0700, Suren Baghdasaryan wrote:
+> >proc/pid/smaps_rollup can be read using the combination of RCU and
+> >VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
+> >required to safely traverse the VMA tree and VMA lock stabilizes the
+> >VMA being processed and the pagetable walk.
+> >Note that we have to keep the logic to drop mmap_lock on contention
+> >because even when using per-VMA locks we might have to fall back to
+> >holding the mmap_lock.
+> >
+>
+> Hi Suren,
+>
+> I tested this series on my arm64 24-core machine, using the same
+> command:
+>
+> run-proc-vs-map.sh --nsamples 20 --rawdata -- \
+> --busyduration 2 --procfile smaps_rollup
+>
+> baseline:
+>   Median   Minimum   Maximum
+>     0.132     0.121     2.600
+>     0.132     0.123     2.768
+>     0.132     0.123     2.804
+>     0.132     0.125     2.835
+>     0.132     0.125     2.837
+>     0.132     0.125     2.849
+>     0.132     0.125     2.858
+>     0.132     0.125     2.888
+>     0.132     0.130     2.894
+>     0.132     0.132     2.896
+>     0.132     0.132     2.915
+>     0.132     0.134     2.921
+>     0.132     0.134     2.927
+>     0.132     0.137     2.945
+>     0.132     0.141     2.984
+>     0.132     0.246     3.004
+>     0.132     0.270     3.381
+>     0.132     1.316     3.533
+>     0.132     1.321     3.551
+>     0.132     1.343     3.924
+>
+> patched:
+>    Median   Minimum   Maximum
+>     0.006     0.006     1.950
+>     0.006     0.006     1.955
+>     0.006     0.006     1.955
+>     0.006     0.006     1.956
+>     0.006     0.006     1.956
+>     0.006     0.006     1.957
+>     0.006     0.006     1.958
+>     0.006     0.006     1.959
+>     0.006     0.006     1.959
+>     0.006     0.006     1.961
+>     0.006     0.006     1.962
+>     0.006     0.006     1.963
+>     0.006     0.006     1.964
+>     0.006     0.006     1.966
+>     0.006     0.006     1.969
+>     0.006     0.006     1.976
+>     0.006     0.006     1.982
+>     0.006     0.006     1.995
+>     0.006     0.006     1.996
+>     0.006     0.006     2.043
+>
+> So the median is 0.132 -> 0.006 ms, about 22x, and the worst case
+> drops from 3.9 to 2.0 ms.
+>
+> Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 
-Fix this by resuming the suspended PHY in the clock's prepare function,
-so that the clock is really prepared once the function returns.
+Thanks for the confirmation!
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
-This was noticed on RK3588 EVB1 when resuming from system suspend. This
-is technically a fix, but its unclear when the bug was introduced and
-system suspend is broken on RK3588 for quite a while and not just due
-to this problem. So I think this fix can be merged the normal way via
-linux-next.
----
- drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 37 +++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
-
-diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-index 7d8a533f24ae..07d400967def 100644
---- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-+++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
-@@ -332,6 +332,39 @@ rockchip_usb2phy_clk480m_clkout_ctl(struct clk_hw *hw, struct regmap **base,
- 	}
- }
- 
-+static int rockchip_usb2phy_clk480m_leave_suspend(struct clk_hw *hw)
-+{
-+	struct rockchip_usb2phy *rphy = container_of(hw, struct rockchip_usb2phy, clk480m_hw);
-+	bool relock = false;
-+	int ret, i;
-+
-+	/* Limit to single port; it's unclear how multi-port should be handled */
-+	if (rphy->phy_cfg->num_ports > 1)
-+		return 0;
-+
-+	for (i = 0; i < rphy->phy_cfg->num_ports; i++) {
-+		struct rockchip_usb2phy_port *rport = &rphy->ports[i];
-+		const struct rockchip_usb2phy_port_cfg *port_cfg = rport->port_cfg;
-+
-+		if (!rport->phy || !port_cfg || !port_cfg->phy_sus.enable)
-+			continue;
-+		if (property_enabled(rphy->grf, &port_cfg->phy_sus)) {
-+			property_enable(rphy->grf, &port_cfg->phy_sus,
-+					false);
-+			relock = true;
-+		}
-+	}
-+
-+	if (relock) {
-+		ret = rockchip_usb2phy_reset(rphy);
-+		if (ret)
-+			return ret;
-+		usleep_range(1500, 2000);
-+	}
-+
-+	return 0;
-+}
-+
- static int rockchip_usb2phy_clk480m_prepare(struct clk_hw *hw)
- {
- 	const struct usb2phy_reg *clkout_ctl;
-@@ -340,6 +373,10 @@ static int rockchip_usb2phy_clk480m_prepare(struct clk_hw *hw)
- 
- 	rockchip_usb2phy_clk480m_clkout_ctl(hw, &base, &clkout_ctl);
- 
-+	ret = rockchip_usb2phy_clk480m_leave_suspend(hw);
-+	if (ret)
-+		return ret;
-+
- 	/* turn on 480m clk output if it is off */
- 	if (!property_enabled(base, clkout_ctl)) {
- 		ret = property_enable(base, clkout_ctl, true);
-
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260908-phy-rockchip-inno-usb2-clock-fix-edd65b57f884
-
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
-
+>
+> Thanks,
+> Xueyuan
+>
+> >The first 3 patches are cleanups making later change simpler. The main
+> >change is in patch 4. Patch 5 extends existing proc-maps-race tearing
+> >test to verify smaps_rollup content.
+> >
+> >Changes since v1 [1]
+> >- removed helper functions which are not needed after per-VMA locks
+> >became unconditional in [2];
+> >- added a cover letter, per Lorenzo Stoakes and David Hildenbrand;
+> >- removed is_mmap_lock_contended() as it's no more needed after [2],
+> >per David Hildenbrand;
+> >- fixed typos, per Lorenzo Stoakes and David Hildenbrand;
+> >- refactored duplicate error checks, per Lorenzo Stoakes;
+> >- eliminated special case of start=3D0 in smap_gather_stats(),
+> >per Lorenzo Stoakes;
+> >- updated comments, per Lorenzo Stoakes;
+> >- moved original comment about 4 possible cases when mmap lock is
+> >dropped into patch 4 changelog;
+> >- added smaps_rollup testing into proc-maps-race test.
+> >
+> >[1] https://lore.kernel.org/all/20260606015729.1837935-1-surenb@google.c=
+om/
+> >[2] https://lore.kernel.org/all/20260813193433.3318288-1-surenb@google.c=
+om/
+> >
+> >Suren Baghdasaryan (5):
+> >  proc/task_mmu: remove unnecessary helpers
+> >  proc/task_mmu: remove unnecessary inlines in function definitions
+> >  proc/task_mmu: remove special-casing of smap_gather_stats() start
+> >    parameter
+> >  proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock
+> >  selftests/proc: add /proc/pid/smaps_rollup tearing tests
+> >
+> > fs/proc/task_mmu.c                            | 280 +++++++-----------
+> > tools/testing/selftests/proc/proc-maps-race.c | 187 +++++++++++-
+> > 2 files changed, 291 insertions(+), 176 deletions(-)
+> >
+> >
+> >base-commit: e3fc12b08aadde9cec7b3799ac0e0c9a1aa245c4
+> >--
+> >2.55.0.979.g7e5102b832-goog
+> >
+> >
