@@ -1,170 +1,289 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011024.outbound.protection.outlook.com [52.101.52.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC4541C6A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788826294; cv=none; b=HH/IfQ9uglgiALNpeezMLDcumfM+tU/28979okSp2lo6M4zUu8SLhqf1izBcZebLT1Kv05yvea+8DKiAQXZFvK7aapizfd4EpZ0VXIon1gyQlnlOnej2JFWCIM+iKLZq/ulI6mc5JP5byPbMD1Fm06PwrizsIyUZToNtfcodjRs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788826294; c=relaxed/simple;
-	bh=ls7R5dKuAv9pAtaI6tZbcbs0Cq6QuFIba8TTUWJGYAg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PIUjbtwIwvvNGClGAdSv5ag1VGEruSdsAuJHWEwx0cps3PnMVSZcM8lyGb/oHnjyzKZDXFhA63xabTyK5OoEYEB2CKf3flrRb9WDV0cZZ9zu5QMrK0/mTx/O/Gz/v92FtcQlGZmmQSpkGgFnXQbZImQ+U2wCcbMWcUeJ32JeAG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=AR/5ENzL; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=FfDpgQxD; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D586C70808
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:14:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.24
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788826498; cv=fail; b=NvUrJ8YRBZwv49+9bShLwmFZil2VMjoQOgBj1kxBILXfTz8Mz/908hUvgfr89oioPMGNMC2XuDaUSWAk3X1PvKaft1/Ff5xMktFdAkLoAdXVDQuDC3iexYKNyVOeA4dXw71CkUiZdh1nYpuYrbuf8tMevp+lUu82a5fzvg/ehWA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788826498; c=relaxed/simple;
+	bh=6iIqcR/IX39cBaT0rvc9f3E/na9tQrqSJS7G6i0KnX0=;
+	h=Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To:MIME-Version; b=IQ++Agn9pF+7y8vBO8VuIcdrV9PxOfpNosHWCn9E4mhGDIuKpCHmzmbzByPRyC7AqDtlAjMhSPve2alKfK+UBEaJ/6qqFYWOL7c4pg9mSuIxIXUMHFvt8o95+dVHhfmcMFZp0XC4KCzqPaI0DlkNrEwj966CCQ+XwzaOCYrKS8k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=fnuoIqTB; arc=fail smtp.client-ip=52.101.52.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="AR/5ENzL";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="FfDpgQxD"
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687MXksa3578679
-	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:11:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=6F9U
-	PwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=; b=AR/5ENzL+6KsEimeNtJ7
-	rXj7MjmNPF4of0uR9Y3453jKSftTEqsb1kb3Rbac5SfKI6X2Rdyl3IQyPhYga3FO
-	WFdxfyqT+8d8nzCy4AhbHIO7vvrOI+TITImwFA59T8NXC78JfCHQMj5q5wQpm+ue
-	IgvafaigkaybO+2wl3VUsUcQzonLqEhLyknt+Q9Wh8lUircBR8p4ZMQMOIv5qKH7
-	YN90XycDLxcQF/ZK9B9bGrI8F6TJa9AbDuDl7Co0nTqCtLLcXCBxZcqb7Bf5HbYf
-	jKd71lIImcFBIbiF3wN0yqTKK1Q+wWeLrxsiX+XW30pb/5YPIqMXry1vWamVl7Ea
-	lQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gj4y3gqhf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:11:31 -0400 (EDT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e62e3459fso599450485a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 17:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788826291; x=1789431091; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6F9UPwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=;
-        b=FfDpgQxDS51d2UBHwMD/6f3jFEw+wem2zifg44x3LPqCEjPzSMRGfi+t7YtgH8ubfB
-         DAtlzEoF/Yh1bgc0XNnZjxQJy/Ic6oELZcIUAB8qNdh8qKbE4eck7WVXyZrbv180n1Of
-         vhQ9XyYB87Dep2joECqm5y8xYcQXTd3ZVYPdIn4v7DdsPWnqWLLWNNjzfSFtTFZSyh1o
-         bXV+e5ac+twJbHmSTN2eXuztRxhNeUvWQQ1ARxQSifrSqQuWzfwfcJ2TBI+99ChEOJ+0
-         Ar1bsAEU4cFhHXkJM8d+sD7Xt+E+Qis0IiT4UmlsWv0gNxQlwZDnGTMxkO8+amzxQJ/6
-         PQEQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788826291; x=1789431091;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6F9UPwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=;
-        b=HTWUkAOJN5dHopH6Fn/yDDkVyh0VX/lsYKhhBZtr2vbAz/6d2t591e9G3hQkZusJk8
-         jzvJWxuq5tN5fQWTHoQzvT2Cges2NxNDDRET0VXn62tB1h2Pcmmhg75xYxGLMN7a95O9
-         P56p5QECYt739G6m3aDafFQNXDXupFbbIVrYPGcIEs4mspSXwfkS2h7SfNS8iJYZj+hW
-         PLHPDBmM0zq6eRwoKokPoY52kd5y8n/kpQZTL8KCTjc/PK7V8nbivyX75B5pF+VAo7rU
-         KlhoDran9FB41eJMpxHr8FkgqwqQh4n+s1gqnc6cV8z+4Qp1s4cRHqEPlqjBp5ApDasJ
-         TMEA==
-X-Forwarded-Encrypted: i=1; AKwUvBxpCMvVZ2QnIB5jILpyhuU2hbbAPp3tQtNn+Sg30bO80fKDsEEojqNMOPD5Ndn4MWOhm/c8DlmScC0T1xY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUlaACRb3bimceEzMsd7mZhGXo+MhomHar5QdQ2p696o0o05Or
-	OGIed6MfsP1YcDGf2b+xxER/b5wzl0aCWYA0/cB4Y2SLzri291KlLPwe6RTjPMfBeWwM2mQE5bN
-	LB+CHkU6aL2TrIO5On7/cGPOdtUeP/Ri8xWjL0UgxwXyz/BV8MbbTE4TU2VAL5g==
-X-Gm-Gg: AYBFou3oXjObFRfnlXS2KBlR1epuRxQWxjH8P/t49DFRE7m7GqBo5TX9y0ob0hdqBBO
-	mVk/PVifr9z5Kv3wkrhTeFBn7hUTKK25fq/1DqwPXE5r9tPIxcrxul3g+3C1a4P5CGhHjuEACmr
-	xXYdwrSF2pYxDPq3D68jB+aUjJ+njVHKSqNqiS8xIQ6EEvZVh1zVe2rZb47/yU1sKGJJVSqah4j
-	29TPO4AGRKF236a+bNGctLEq1SBqQ4Ot+EhOVlh5aE9REBMgUjJu+1Sxc2g8qzFAu5XIr4gg6zf
-	Z3CgC7mcpXLWoCmNcfeq5187rTAa14IUY8iacScrpeJ/dkgwJWivTwjAwgRl1Q1U0PBGVHFttnB
-	RPF2lf09o8IBKwMadkoW8kr5d4Sc5m1vfx5bEGGuPnIaogMs=
-X-Received: by 2002:a05:620a:6081:b0:936:69dc:aedf with SMTP id af79cd13be357-93980370c3bmr2604431585a.16.1788826291295;
-        Mon, 07 Sep 2026 17:11:31 -0700 (PDT)
-X-Received: by 2002:a05:620a:6081:b0:936:69dc:aedf with SMTP id af79cd13be357-93980370c3bmr2604427185a.16.1788826290792;
-        Mon, 07 Sep 2026 17:11:30 -0700 (PDT)
-Received: from [10.207.49.22] (nat-128-59-176-3.net.columbia.edu. [128.59.176.3])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb59c72sm995351485a.26.2026.09.07.17.11.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 17:11:30 -0700 (PDT)
-Message-ID: <f51c6392-f77d-48e1-83a1-4d6d4f83aece@columbia.edu>
-Date: Mon, 7 Sep 2026 20:11:29 -0400
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="fnuoIqTB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L9ZaJace3srPyNWd6jac1lBwCu86Sn3gv7a2NEEVJ4k2PAdrI4SQMd2XFf+8+SRrvNqwt39QorPaqL8n/9MxfAAkcCjqvOBy2+KUU3xbcfx/qo3C9HqQ/TyBMFbL8dSI01GDeWslUq5UDF28kKMw+A1tc+ZexjuC59RsJwxdbv30KmNYHAzcAZnsRBIgrUdX+rtX5DJavKleI7M5evTy2kN7G0eyvnyHF0S1bHE/cA859gSUP6QVRiZ/+SSW/9K+Zv+dz+HuFWoLiXrqUepCYhDpcHb0XAu1klSabRvspSq+HYgAdvUcQlE0Du1IYNJ+3fIesebrhihhNN64BquUnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=olZ7rzC1+DAwEgAsHgkBMGNCpzpm6qm2TQ2J8FB9DBA=;
+ b=mqwTKXDt5zcsLD2b/+PT8cE1xS0XFtx58o8giqDVWhF4cGDn1xNKsQGqsU0W21ce6hy9ZSMl5HcvUsz4MJNub+SGWoYLZXnZZYGOS3dz5kXWdgKmyULKQAUzKoq7fmaa0pOj/046xrxX+DOCS4G7tSIIYFJEs/X1tWtV22I5ZFZNgWVpnDlk1H11XFsUGpsCHvzfygxH7kZo02hSGjP3ynEknLrzITpNH6hOwelaBzBB7rA0yvR8rBbofmiTP5g6Khu9ZmzYAfHcMpprdcyCixgNur9F+4gla8Z617bAG1h7qSxmaWDjgzeLkQVvEaBjeVu8sx554Df6mdkacuTtnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=olZ7rzC1+DAwEgAsHgkBMGNCpzpm6qm2TQ2J8FB9DBA=;
+ b=fnuoIqTB3bnf+pFGSs4xJmenNi9Qc68xymxbFOF9Vg6mnvWZqYaQULJ1KgObDQ60sa/+zwski6Gwk9fSLKVeQhoGnDdhmArkEfMuULPGYpC7H4qda5K9/Tmfx1IETngzKubDjaLq5yJ1sBZfqfDPbnZ2YCZcOHcflN3LY6Jy9iv/3Vyas3rSrMm6Ho/GAFMFaCWr3iIzr8x07xZN0xlmLK78vtV6KA/bWG1HKJndmGkOpunjEJ5Xas+EE91zTkBYpPB5EeOTJhLcemWxjCsjsx8f9087uM8u7NCtMoOuvtCcmTz134YMojfJ0IPAk7hyzThB8MAnUdS5hVYHrebiLw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by CH1PPF711010B62.namprd12.prod.outlook.com (2603:10b6:61f:fc00::614) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 00:14:47 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 00:14:47 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 20:14:45 -0400
+Message-Id: <DL9I2ENHO8WT.2THUK1IVTIS8D@nvidia.com>
+Subject: Re: [PATCH] mm/memory: fix hugetlb_zap_begin() call in
+ zap_vma_range_batched()
+Cc: "Liam R. Howlett" <liam@infradead.org>, "David Hildenbrand"
+ <david@kernel.org>, "Lorenzo Stoakes" <ljs@kernel.org>, "Michal Hocko"
+ <mhocko@suse.com>, "Mike Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Vlastimil Babka" <vbabka@kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+To: "Andrew Morton" <akpm@linux-foundation.org>, "SJ Park" <sj@kernel.org>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20260904000028.149656-1-sj@kernel.org>
+ <20260903173540.e8f660dcaf083946417cba3e@linux-foundation.org>
+In-Reply-To: <20260903173540.e8f660dcaf083946417cba3e@linux-foundation.org>
+X-ClientProxiedBy: YQBPR0101CA0185.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:f::28) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/7] block: unpin all pages of a bvec in
- bio_iov_iter_align_down()
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>,
-        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
-        Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@suse.de>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        John Garry <john.g.garry@oracle.com>,
-        Christian Brauner
- <brauner@kernel.org>,
-        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
-        "Martin K. Petersen" <martin.petersen@oracle.com>,
-        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
- <20260828-blkdev-fixes-v2-6-32f3f40cebed@columbia.edu>
- <8da4a2dd-a4ef-4a61-888f-60c611d3f911@columbia.edu>
- <20260907071318.GE934@lst.de>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20260907071318.GE934@lst.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: vT-Vh8eo8VfgCrQj7F6B6VR_yCj5Fb8G
-X-Authority-Analysis: v=2.4 cv=T/68ifKQ c=1 sm=1 tr=0 ts=6a9f52b3 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=92j1mJcILCjWExuphHMrQw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=IfWMoTYk9wI_L9YC-tMA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDAwMCBTYWx0ZWRfX9Rjd17TQF++0
- S+JyvJIRbgG2FC4VjFOoIEidc1egMsHt/0jh0HGd9vWnM8E4CIAJIfnAwFcgVUYHmvcaJOzBgbS
- YE6aYjy1pFaM9oObIdwCr0wFpk792gvQgFgvk4NLLDiS4nTsjiXf
-X-Proofpoint-GUID: vT-Vh8eo8VfgCrQj7F6B6VR_yCj5Fb8G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDAwMCBTYWx0ZWRfX7arf7iWC166v
- RpvV8xbkI9Ax1gOZfnqbtPASFPJ+0eNPHYNib+rvzisC0AZBqgtZ+evF8RDnBDD34tdkcxydHka
- DxF+q9C3TGjakDzCSxsi15fAnk2yXJbjdUS9GmoXYJE3a3tjkJ2chmBVOcQPQbVLz4zCNMqfe9W
- ckWct676W4fCAypGpjAq2NEwX+6jawdQNiuqflO/WbYcMk2z769z18UXsEmOv4BjqTUFe4d3ZZF
- VdKZJ1au9eVlpghNZ27RGr0+mujE+ZvFULLDSyyM3btrqXXqgwGfFCV9Nh3+6Xi8ZOf8+dBF6u3
- dNoclhiM8XP5jhkH31vbBvWNsrBIxXeYzjsq5xowQAU3goPJ8CwBWnz9aZDdJ9X6CvZxt8WAc7+
- Jw3hSFlFkKTRrNMG17yAKYcAJJvvfZFFIRsnMGzEd+ldmWLgqsAVZ7BvVo/TBtKIhzEQP9KtSDW
- vqs1RzhiUSByM6iT/7A==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=10 priorityscore=1501 adultscore=0 impostorscore=10
- spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=10 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH1PPF711010B62:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2adcb982-5505-4330-dbe3-08df0d3e30ce
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|13003099007|6133799003|10067099003|4143699003|11063799006|5023799004|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	k/O64/t3u9r0UjYfITXO57RT5gsGdg96m8KV9ZJazCtqG4uRoLUsJumnIjyoFakENawfZuJC7CnZzniZOqZPKqQmBH+oCyqw27QtdJ7DrVbfhdsBIBO4VR0DnUVvbxVtWYqWHmcnZoANtN6gcJFvBcFo0cCvXyg2x7pXOVBEfgdQgz1jbsNJIUZdBvBa/jQkPucDQuHx8UNNTb+aLxuvEFk3Ezqds9/T+0I332PAp7SrA6OWBaBojI1sZC2sd8nJQ/UyKF7BQCbtJ7okU3L0E2Ndj+Jw9ZFDOsO+MEh4/uF4TAtUb1B/dqE7AgpS7ldmmPPqsfmt/4n5ZJSlv+C02bWyg96628cRCq0Tew3VV/e8+rRZVOYbFsNCe+hteHYOGozbu+nxKgxt7vbe06DpUCWTMhLQF30faC0lRx7aPWMv/t9zzXXVsbjsvykPtsRjBoIj6uFPqNPGhWaSK97Rc+cU/fkKh7Q67ZXFpzRR7tNE+J9+0OIOLfnjdrjOhPV5zzrHrs/rdiAIO/GCCuMMF+523A3fy2hlAFWSSzb1YWBz7egnunDPdxNX/xE7VnI5+CJG9HSx8efizFZR+08Rzy0WA/vs4F6Rei0GqdVxjvtTc/vNLa+qkUWFVhW1YNF24l+ux/Ny+q+iauu7+SCLN53cnw80Vzp9MmDGte8m+X4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(13003099007)(6133799003)(10067099003)(4143699003)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WlRwSEpaMjZzN2h5LzdqclU4YlJXVkxCZ3hQQXV5NlczaEZZVW9KOFJnSFlt?=
+ =?utf-8?B?Uzh0YnM5cXF6emtwVit1NzRFYkFDV25mUDFQaWJRU3hzWWtHMzk4WGtMa1dB?=
+ =?utf-8?B?SFVMVzVHSzIvNTJ0Mlh5dkJ5ano3ZitKTU5NWlJVNU9CQk9PdnhpREJKaHlk?=
+ =?utf-8?B?Q29MWFcwWEkwSVBmRFV6MFZRcFdidGQ1a1ROUzVDaTcwREZ4RjcvL3pWeGRZ?=
+ =?utf-8?B?amdQVHlwM1prSVJSMzEwYTRtL1FmUVlOREVDbTRsKzBOdDJiL1RzNEM4Zm11?=
+ =?utf-8?B?N05RVzFIRXZyem1UUG80Z2Z6ZG9maExkaE5rR1Z2d1QwTnUweFIxbU10dC93?=
+ =?utf-8?B?eW9vSzFyMkFYNWJJcDhwa3E0ZnZCR2pZYUJBV2YyWXMxMUxFejh5cTNvRERG?=
+ =?utf-8?B?YXFxVWtHTTg0cm03bE5qYkNVeGxrUmdnZWlCUlByaFRaZzRmNjdMcjJJZC9j?=
+ =?utf-8?B?ZFl1OEgyZlZZSit3bnc0cmc3M3E3QndiYWlSVjgxN2trbTFndXJNVS9ROGYv?=
+ =?utf-8?B?cjFCUzArR3ZTMDZjaDFGMFQ1bXRhMk00VUNKVHVzdnhrOHdvSzJJb0VQTFM3?=
+ =?utf-8?B?dkJsS3dtR21keGwwc1pzcnl3YVFCT2s2a05IRElzcjRCOEJVUW1nSGMvdjlz?=
+ =?utf-8?B?R0R3QkJsMm5YbVEyaTFJekpGUC9mUmttajRTUTN1NUhFTnFNNmdqUVU0L3la?=
+ =?utf-8?B?Ulh5RXpSMEpBUmdiTysxVjExdVNPSi9weWh6R0l0cWpnN2VwK0VNNDh0V1JO?=
+ =?utf-8?B?cElTSTdmbXE5MDhHajdHbU1UaW4zVkpMZ0NnR2FXUFE4VGxpdkN5MGZNQlpu?=
+ =?utf-8?B?S1c0THVndkJ1OXV2eU9zU0IyaGlJemZnOXhnd1J1Z1R4YUFVa3I4eDJ4N2E2?=
+ =?utf-8?B?Ymk4Q25nekI4NEo3cFlmWkx1dndNa3E5b2ZJZUE1ZWFiZ1pBZlljR09hTTAz?=
+ =?utf-8?B?UjZXUmJ6SXRSbHBwY3FLWUgxVzh0RUdJbEtEMU5nTXJGdzJIMy9zUmhZVk9V?=
+ =?utf-8?B?T2xvK0dIYWdiRm1hdmVjVmt0Rk9rM1E3NFh3UE1LV3lEM1pmMGhCYTlxdVNU?=
+ =?utf-8?B?cisxUlZpRXRaTmpmVkJ2VkVSRlJvWnFVL1l6OHhJd1B2T0pDK1Y3ZnR1d2Q3?=
+ =?utf-8?B?NHNMUkM2d1loMk9ManlkcmxzV0VaWFljVHRoZFJuVTFHdHZybE9FZUt3bFZY?=
+ =?utf-8?B?MWQwS0RkQzBHeVhnd085Yi9aTFZpcXkyb2xOd3Y3SzRpNUtzWTF5WEVIZ3VS?=
+ =?utf-8?B?RmJ2Y2lEZHZrMDhNSmlSdUx1K2gzYXg2Z0NqSnFOZWhZM3J0bEtDOXE3T1ox?=
+ =?utf-8?B?R25zVVg0dEFTT2I3cUtUZkpncmljdXBYMmh6Q01UL1BZWFg5dVFEQTNoRDhE?=
+ =?utf-8?B?czlPZ0JSYjJ3Rk9KVzhJOHVxZDA5TkdlSXJURVBuWDM5djBuZVIxTkxENVN4?=
+ =?utf-8?B?UTZkdTl5akxtejdGOXN2Wkk5QnhFTnZNMlArYjQrVDluSGtpdWZJWStCN0k4?=
+ =?utf-8?B?YWJWczBIUm10NThqS2F1NXMwR2p5bWZHVXFydUprTUxHMldLYy9OZFlnajRN?=
+ =?utf-8?B?d0pqMnFiZzRuY29NQWVYTWtrMDdYTXc3S1lYS09iSzk3ZVl1ajhicHI2dHpJ?=
+ =?utf-8?B?cHU1MlFVVDloYmR1S0RDTm83NXcxaDJDRVhUL21OSy8xS1h2ODFxZFN3MVg2?=
+ =?utf-8?B?NDRhalJNdmlZa0w4N3B6L0xLc1dGSmxqS3A1UWdYQzlqWXRybFJRV2hlNUtO?=
+ =?utf-8?B?OUNJRkdKYVJsUnFSa09SU2pCT2NzOUsxQ01BU0o4V2NhNWNacHZnMG1kSTdP?=
+ =?utf-8?B?ZkwwVDBucStxUDVuNDhHalh4aTBXa3ovSUVVWTJmTFdxZytUSTZ1ZVlNY1Ji?=
+ =?utf-8?B?RW5GbThncE9xMWY4WUpJa2NKZjExMDFBZ3lOSTdaVXZpbURWc0dqcEt0SXdl?=
+ =?utf-8?B?d0NsbGZVYWZNUGNrR09Gb25FZkN3YkY1bUV5OWNVVkExYlUyNUNhdTRha2pS?=
+ =?utf-8?B?UmNIbGl3MFZnZ0FxdHNEZFE4SExqeWc3VHR0MmNFdXlIK2pvSjJuTDFMek9W?=
+ =?utf-8?B?aHJaUVE2TDV2U0dwdXE0VkM2UDBzSDRhZWVQU3RIVEl3MlJzK3RSaGFsTHdG?=
+ =?utf-8?B?NlJrWk94QXRmWW5MSExSOExTM0VOdTMvaHJVVGJ1S1h5L0E3dHo0SCs4bmZY?=
+ =?utf-8?B?SUJSL1R6U0FsZDZhbkZubkp0SVRrMTkxMjI3dmgzNmd6d3JzUmVlclJLL2hV?=
+ =?utf-8?B?eFl1dHFUS3NaOEliT2Q3RlpFekdIbmZ3VU8raFBHbE5GQTIxaVMwTytpSnBT?=
+ =?utf-8?Q?k9XumwaAn39gCuPeEY?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2adcb982-5505-4330-dbe3-08df0d3e30ce
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 00:14:46.9269
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uROv7amomAg9nuWnMAy31DjO1RzJNrV3gogvoxZpIlM8LrNZ5XV+vFEFX6SffLfM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF711010B62
 
-On 9/7/26 10:13 AM, Christoph Hellwig wrote:
-> On Fri, Aug 28, 2026 at 05:36:24PM +0300, Tal Zussman wrote:
->> > Both issues occur only with a logical block size above PAGE_SIZE and a
->> > large folio backing the user buffer. On a device with a 64K logical
->> > block size, an O_DIRECT pwritev() from a hugetlb mapping that ends 16K
->> > past a block boundary leaks one huge page per call, whether the
->> > remainder is its own bvec or the tail of a larger one.
-> 
-> Do you have a reproducer for that?
-> 
+On Thu Sep 3, 2026 at 8:35 PM EDT, Andrew Morton wrote:
+> On Thu,  3 Sep 2026 17:00:26 -0700 SJ Park <sj@kernel.org> wrote:
+>
+>> Commit f1fc44daf618 ("mm/hugetlb: don't lock private resv_map during
+>> final unmap") added zap_details parameter to hugetlb_zap_begin().  But
+>> the hugetlb_zap_begin() call in zap_vma_range_batched() is not updated.
+>> As a result, build fails as below.  Fix it.
+>>=20
+>>   CC      mm/memory.o
+>> .../mm/memory.c: In function =E2=80=98zap_vma_range_batched=E2=80=99:
+>> .../mm/memory.c:2308:9: error: too few arguments to function =E2=80=98hu=
+getlb_zap_begin=E2=80=99
+>>  2308 |         hugetlb_zap_begin(vma, &range.start, &range.end);
+>>       |         ^~~~~~~~~~~~~~~~~
+>> In file included from .../mm/memory.c:48:
+>> .../include/linux/hugetlb.h:253:20: note: declared here
+>>   253 | static inline void hugetlb_zap_begin(struct vm_area_struct *vma,
+>>       |                    ^~~~~~~~~~~~~~~~~
+>
+> You cleverly pulled during the ten-minute-window after I'd pushed this
+> out in order to pull it onto my build-test-machine.
+>
+> There's probably a smarter way of doing this, not sure what though.
+>
+> It doesn't happen often - I usually only need to push/pull the quilt
+> patches (25-new).
+>
+>> /* TODO: move below to commentary */
+>>=20
+>> I didn't read the broken commit in depth.  This fix is only
+>> build-tested.  I wanted to report the issue with this as a temporal fix,
+>> but the broken commit doesn't have Link: tag.  So directly posting this
+>> temporal and not very well verified fix first.
+>
+> Yeah, this is possible fix for
+> https://syzkaller.appspot.com/bug?extid=3Dbd6aaf99e8443d8a9034 which I
+> had chatgpt create for me.  It's in limbo at present until I figure out
+> what to do with it.  Actually I'll hide it from others while figuring-out
+> happens.
+>
+>
+>
+> For the morbidly curious.  It's really only a 2-line change, plus a bunch
+> of changes to pass the zap_details down to  __hugetlb_zap_begin().
+>
+>
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: mm/hugetlb: don't lock private resv_map during final unmap
+>
+> Replacing a private hugetlb mapping can trigger a lockdep circular
+> locking warning and, if the corresponding reclaim, NBD and socket paths
+> run concurrently, can deadlock userspace tasks.
+>
+> The mmap path holds mmap_lock for write while removing an overlapping
+> mapping and then reaches:
+>
+>   unmap_vmas()
+>     hugetlb_zap_begin()
+>       hugetlb_vma_lock_write()
+>         resv_map->rw_sema
+>
+> This establishes the lock ordering:
+>
+>   mmap_lock -> resv_map->rw_sema
+>
+> Lockdep already knows about a transitive dependency in the other
+> direction.  In full, the relevant part of the dependency graph is:
+>
+>   resv_map->rw_sema
+>     -> fs_reclaim
+>     -> q->q_usage_counter
+>     -> q->elevator_lock
+>     -> set->srcu
+>     -> cmd->lock
+>     -> nsock->tx_lock
+>     -> sk_lock-AF_INET6
+>     -> mmap_lock
+>
+> The resv_map->rw_sema -> fs_reclaim edge can be established by a
+> private hugetlb fault.  The fault holds the private VMA lock for read
+> and huge_pte_alloc() can allocate page-table memory with reclaim
+> enabled.  The middle of the chain comes from the block and NBD paths,
+> while sk_lock-AF_INET6 -> mmap_lock can be established when an IPv6
+> send copies from userspace while holding the socket lock and faults on
+> the user buffer.
+>
+> Consequently, lockdep summarizes the relevant reverse path as:
+>
+>   resv_map->rw_sema -> sk_lock-AF_INET6 -> mmap_lock
+>
+> This is a transitive lockdep dependency, not a single call stack
+> holding all three locks.
+>
+> Commit bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private
+> VMAs") made hugetlb_vma_lock_write() acquire resv_map->rw_sema for
+> private hugetlb mappings.  That lock is needed for partial zaps such as
+> MADV_DONTNEED.  It keeps a concurrent fault from running after the PTE
+> has been cleared but before the hugepage has actually been returned to
+> the pool, which could otherwise result in an unexpected SIGBUS when the
+> hugepage pool is fully allocated.
+>
+> That serialization is unnecessary when the VMA is being finally
+> unmapped.  mmap_lock prevents a concurrent fault from entering a VMA
+> which is being removed, and private VMAs do not participate in hugetlb
+> PMD sharing.
+>
+> Pass the zap details to hugetlb_zap_begin() so that it can distinguish
+> a final unmap.  For final unmaps, continue taking the hugetlb VMA lock
+> for shareable mappings, where it protects PMD sharing and the lifetime
+> of the VMA lock, but do not take resv_map->rw_sema for a private
+> mapping.  Likewise, do not attempt to release the private reservation
+> map lock from hugetlb_zap_end().
+>
+> Non-final zaps continue taking resv_map->rw_sema, preserving the
+> MADV_DONTNEED versus page-fault serialization for which private hugetlb
+> VMA locking was introduced.
+>
+> Fixes: bf4916922c60 ("hugetlbfs: extend hugetlb_vma_lock to private VMAs"=
+)
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Reported-by: syzbot+bd6aaf99e8443d8a9034@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=3Dbd6aaf99e8443d8a9034
+> Cc: Rik van Riel <riel@surriel.com>
+> Cc: Muchun Song <muchun.song@linux.dev>
+> Cc: Oscar Salvador <osalvador@suse.de>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Michal Hocko <mhocko@suse.com>
+> Cc: Mike Rapoport <rppt@kernel.org>
+> Cc: Suren Baghdasaryan <surenb@google.com>
+> Cc: Vlastimil Babka <vbabka@kernel.org>
+> Cc: Jane Chu <jane.chu@oracle.com>
+> Assisted-by: ChatGPT <chatgpt@openai.com>
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+>
+>  include/linux/hugetlb.h |    8 +++++---
+>  mm/hugetlb.c            |   16 ++++++++++++++--
+>  mm/memory.c             |    4 ++--
+>  3 files changed, 21 insertions(+), 7 deletions(-)
+>
 
-Of course :)
-I can wire that up to blktests too if desired.
+hugetlb-madvise got stuck because of this. Reverting the patch fixed the
+issue.
 
->> > @@ -1213,14 +1219,24 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
->> >  	bio->bi_iter.bi_size -= nbytes;
->> >  	while (nbytes >= bv->bv_len) {
->> >  		if (bio_flagged(bio, BIO_PAGE_PINNED))
->> > -			unpin_user_page(bv->bv_page);
->> > +			unpin_user_folio(bvec_folio(bv),
->> > +					 bvec_nr_pages(bv));
->> 
->> And right after sending this, I noticed bvec_unpin()...
->> 
->> I think a cleaner solution is to move bvec_unpin() up, make bvec_nr_pages()
->> handle bv_offset > PAGE_SIZE, use bvec_nr_pages() in bvec_unpin(), and then
->> use bvec_unpin() here.
-> 
-> Yes, that sounds better.
-> 
+From proc stack, it points to __hugetlb_zap_begin+0xf5/0x210, which
+corresponds to __hugetlb_zap_begin at mm/hugetlb.c:5436 in mm-new.
+
+--=20
+Best Regards,
+Yan, Zi
 
