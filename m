@@ -1,128 +1,144 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE31655C303
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788880562; cv=pass; b=NkPfKZ7rdy3olFLkjhJTsGTbCY+txIGGERXm3cD0W0LWQMcSaU/LNMTxlkkY8j3eZuntoilkZ1mBjzu1F3X2knNlFfERAqbho/WT1xVrcLQi8HvkZs4HWcFQNRy3IUMyxwPUsU8ljz00weNYY42Gls2dWR86ReVn3L/lnJp8wJM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788880562; c=relaxed/simple;
-	bh=CwgTXRyt6y4ZSmfmvQpYiUTiFQ8bOpJfy6S0oEkKA2k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZPi1KWhIgMIWV9QHJdOHdNOsxZrWiCSEtSkY0XRY6wIQZDERKEWXi5IccuwJBZvsd+JyKze/L4RqnJewQ8ECoIdDFDnAGskj9x3wM7p5rozZfRsPhmwy7/0+qhYLpz18l+sKWFQj9xU+admHqXOvhBNmR9RhiurDhUWlP7eawkk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TCB6PChy; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TCB6PChy"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b2ad861b1so669100a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:15:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788880549; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E8rxziz2hn0GltlQ+oKZJC+NnENla/8Dcke6I8Z1pU8rlUSmiv+cvIqMPumI1e988f
-         D+sEQPiEmd7LHbChpsmZhByZ8ger6j7LpvnK9trF5o9zxgXMZ6ZFqw+tPWBQu7PBWff+
-         diT6alwjRSON46pxcitJmH3/Hdfl33PWCflpSH/LPDkXaPU2lEvt+vMRnvqEgQtj2b4e
-         x5ZaWruaPq705lK3Qo0L6W4hJsZCFxxGg+M/TBo7NzNILTvwTg1tK+k6GTYde6G8DDrZ
-         UMDJSbgirIvyj2HTwcEtH5iuwnFFqUahNRMfh1glIeNnzGVKS9BUMRhz9bzq12TJkKwo
-         CNzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
-        fh=AngwALEoIC4scDtU/z5TTmJbRe5W+eiUZcBlZlm6N/0=;
-        b=SY+IenN6vc+/fHR27PmrJcYhAoy02gNuovGi1YTwJkubYIP3p1bWw8eApk1k+ccn2B
-         hay7Q9VZGxY4indSgRgFvtGyIbUmVlxjdEKIGOzH9KUddsRBgLcb0GiHsce1ELHoWYp+
-         bjGL3ryVqQY/+bZerB6eBTvmMGObyYzwItrG8yOaQGKrS1WY3q6y5f0DXcxQqs2Ce0vA
-         cxWvZrgEAIGOUf+f7VNa8ord/QMbMh7eSmK4sDKF2tekYSiOV/B4sASm8d6Uk92YPACT
-         0U6YNLyQI0rcIsG3HdWM5p+xxZsTuJtfjs6quTSHsfPGjNwRM/UKZss66oF1CTjYw6M7
-         0lvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788880549; x=1789485349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
-        b=TCB6PChyZ7w2s5+u+dxkHVUnCPzlnA8mA3sUxkUH625PqZQd+zNfGkRddUbbLhFBcb
-         oV8rX86MfPh5V2inN+9cW+i4CT8KcvalPWlZCTE3wdQcp76m9OmCthDJWQYt5SQdo8Fj
-         F6Zj2a8zGeQrGeRjMnUv1lahFwr9suRt4qULQ+zrZIktx/+uh54aIP9slBgkp9QxAo3b
-         9+OQgNPTPHHipBykwV+3LcSS8yTvwuP5UaAk+cZ6Rho8XOo2A/JrUdM3dCR6208M/n+y
-         QbRUOvtPwyrBwQL3JXag7e9ftbnqiITsJs7JaSL+1AaLaaWbF5kC3awqLLxFLA8M4/Rf
-         V9QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788880549; x=1789485349;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=48I/5ZV3M8PQW+Nd+AVAKmbCj8LyPvNeg4eQe0wKYGc=;
-        b=Mk2K6IK0J+v74v2SBsAaX2ZiBRmiRFTTsFttS0NZmkWvWeYyu4FrGkk3zpiYhaMZud
-         jvuXOOrW5Tz36W3hXHye0VoAR+QcHf2s/UDxU2gKEkl40EDXQkRVEpOvle1TtbarUzlw
-         B5FeeDP19hTRf3qRwiSzwG06E0efIVwF/w9unbK+v6hl6pdqy8YWSUFXkGgXYcOBBmnQ
-         Md/KgjQB4nBJEm9oLyOiKD2Ed1+OQM9a6nxIL7dlFVkIesKH3HMEwRekh7SYGqEWFuiY
-         jVA58smrGm+VxVn/N4B1EMDgXsjLrJ2zrxH7DA6PJ9sJ5XMbbGcZsj7jfNIkbbdnpmD0
-         WvvQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1wOMoRZ6CRLrajHJtliYgenBcEAFeMjoo8doo+cEt5+PXj6zLK+ixuiipE1pXA/MsqH2luRA+FFjuKHE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mM1sXJslP2r1/sAf2dl2bBITypSrH9acBSJs3qGr64meS7RDNh
-	tZF4DQAlWH4tu8A3z/G1n6TY3c3mtnUhIrFCVkEFGhKuW+ZjL+Ccrx0sgJj1te/psX0VHxzrS1G
-	q39TgFpkSz1L8fSJ3nje5SfoYd/cb4p4=
-X-Gm-Gg: AYBFou2Nm+DdzezllI3eyaT7JuMCVsBS/7zg1K8o0jp+wfcjA9NsS9C3GUYgiPwbEa7
-	vjVzCGJKsR5+h4/cuCfTXJby8t5+k+RTyUXuWKUtJk5fe7uPKQwn36EIfbIohDXQJwHX+Rl0RQ1
-	G6IB1RlnGXAmQoFeu8olYPq5mtk77LV3dwKzokgIqFZkk/EXIgkDypMwkhY5JXSJccqDs6DwNmZ
-	b98tCKIhzS3TT5gpkiSgKvYgCf+AHhuCywhFarlJWEp5QtW1cK9LSeXaBOg9JwH0L+4jSj2I/+s
-	cwml8FaN95GWvEC3QSgUi9iza3RouVRNq7f3QBtBqckJg569bkq5cb/GAENmbdXNJsyiqpkxBTv
-	hE+L1j/pAY3jzbzLCh7NgLmHDfSSNPws=
-X-Received: by 2002:a17:90b:2dc5:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-39b9a99459fmr4622408a91.3.1788880548969; Tue, 08 Sep 2026
- 08:15:48 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E910C55C30E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788880601; cv=none; b=Rg77GuEbM9Z27adRkzH7Popw/IFTKKBwL+6fV/jYfDwqYHpfigmwMfosjrBrrQDWETLhJ/KejXkS4Ont2FogL4gta11I6bS0ZLp34O6PFshzJbJ3pg8DJERKlfbJUB7jEHnpuMd9bJULao+YqJBx7agu4KLlVhhzUXCjQn1H2J4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788880601; c=relaxed/simple;
+	bh=DUaDczNmdDmQIYvrm6YoiyapRdKUDiJzoDvkQUWLOho=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rFNHRXy2x3SUKK3erE1Zw0LXj9zbvob785HTfc1brmKFAcllRrkxuVq6KMG1iqu0EDq+rkFR6SynjOlvqqQQscATKqfYg0F219ezxI+tylH/f/QwdLLtA9hCPGZerqPtfktQD9vQdhfxQh4+wLXWv+vtUhXBAGNE61ZVvGG6hd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2F2B1F00A3A;
+	Tue,  8 Sep 2026 15:16:24 +0000 (UTC)
+Message-ID: <fb8ab0ac-87b8-44ea-87d2-006a7a7569f1@kernel.org>
+Date: Tue, 8 Sep 2026 17:16:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <aqAVSgsypMch2c0v@sirena.org.uk> <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
-In-Reply-To: <5d3de44a-c382-4ce6-8f52-62696e67fcd0@sirena.org.uk>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 8 Sep 2026 11:15:36 -0400
-X-Gm-Features: AcwNN1VnTXeV8V659QiKMCwYI-2o7Ug_RreQwrzcUErxFzh7ylh_yBH27lIHOHY
-Message-ID: <CADnq5_MiNmzkDqZRk70_RmJaJWTEXFtu0c+eV3TJ_At=uvJ54Q@mail.gmail.com>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>, 
-	Intel Graphics <intel-gfx@lists.freedesktop.org>, DRI <dri-devel@lists.freedesktop.org>, 
-	Alex Huang <Alex.Huang2@amd.com>, Mario Limonciello <superm1@kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/14] xen/grant-table: stop setting PG_private on
+ pages for grant mapping
+To: Zi Yan <ziy@nvidia.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Juergen Gross <jgross@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ xen-devel@lists.xenproject.org
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-3-6ae22f9d9272@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20260907-remove-pg_private-v3-3-6ae22f9d9272@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 10:07=E2=80=AFAM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Tue, Sep 08, 2026 at 03:01:50PM +0100, Mark Brown wrote:
-> > Hi all,
-> >
-> > After merging the drm-misc tree, today's linux-next build (x86_64
-> > allmodconfig) failed like this:
-> >
-> > ERROR: modpost: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/tests/a=
-mdgpu_dm_connector_test.ko: symbol 'parse_hdmi_amd_vsdb' undefined!
-> >
-> > Caused by commit
-> >
-> >    65198b3d0738 (drm/amd/display: Use HDMI FreeSync range from common E=
-DID parser)
->
-> Sorry, that should be f65198b3d07389afdcb48e4ad00fea2aded95dfd.
->
-> > I have continued to use the version from next-20260831 instead.
->
+On 9/8/26 04:56, Zi Yan wrote:
+> gnttab_alloc_pages() stores xen_page_foreign in page->private. On 32-bit, a
+> pointer to an allocated xen_page_foreign is stored; on 64-bit,
+> xen_page_foreign is stored inline. Checking page->private != NULL is enough
+> to tell whether a xen_page_foreign needs to be freed on 32-bit and
+> page->private is zeroed unconditionally on 64-bit.
+> 
+> It prepares for a future commit that remove PG_private.
+> 
+> No functional change intended.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Codex:gpt-5
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
+> To: Juergen Gross <jgross@suse.com>
+> To: Stefano Stabellini <sstabellini@kernel.org>
+> Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+> Cc: xen-devel@lists.xenproject.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+>  drivers/xen/balloon.c     |  5 +++++
+>  drivers/xen/grant-table.c | 11 +++++------
+>  2 files changed, 10 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/xen/balloon.c b/drivers/xen/balloon.c
+> index e7f74ea7cd5eb..fdb18348cfdfe 100644
+> --- a/drivers/xen/balloon.c
+> +++ b/drivers/xen/balloon.c
+> @@ -182,6 +182,11 @@ static struct page *balloon_retrieve(bool require_lowmem)
+>  
+>  	__ClearPageOffline(page);
+>  	dec_node_page_state(page, NR_BALLOON_PAGES);
+> +	/*
+> +	 * clear page->private before giving it out, since it might be used to
+> +	 * store xen_page_foreign info.
+> +	 */
+> +	set_page_private(page, 0);
 
-Fixed here:
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/730c6d8072d8d9a6dbf=
-d06c7c5ab4479167a792a
+Who would have set it to != 0 in the first place?
 
-Alex
+e.g., gnttab_free_pages() resets it to 0 now before calling
+xen_free_unpopulated_pages().
+
+-- 
+Cheers,
+
+David
