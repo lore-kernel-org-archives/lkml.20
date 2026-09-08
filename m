@@ -1,72 +1,405 @@
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89906379EC6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E403812FE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850023; cv=none; b=b66sEgY38feOkPyMTvJwEn5Yq+yYGn7ocDYJFD96/zYQvBmbcUHnyt4BGK3zamVmRQcbm8ir3BIxchS/uHdFgaQL/3rE38yy3HEMy2PuAFr2nUMxYy7i9XyQmiCOBbro6or1w+gwF8pO+733TTgE8Uyh/uYX0ZyjCCJxqfNgPR4=
+	t=1788850032; cv=none; b=mIo5xXciK2XdXLwokghSWcNOmvwn0fD1HRW9PD7OzVH8ulv2vNcPqdhC6PHcIEGeEGWj2vhKCl9NcgGr5DJPQV1qFJ67B7kKOl+l+XwspqxUs/5GxW2J+Y3KL+bAMTfG8Xo9tAvTKFOQvSpnO6LwqLXWEnJ5rfW067WuXSdaCC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850023; c=relaxed/simple;
-	bh=Hj1U3immOaN88lF7o7m6DMA1mthOz1uggmwei7SAVdQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=lVQ2lX7hBS3idqCm7Vi54FDK4DYVNyAsxYDHBM9mLLPIo052YMFM8yYoct25yUGfu3ZfOCzkyQnxlODfL40QuwYcKCsm4CAFwoWnmLv5nrfdi9Pc1MOzLCMOPuOV9YiFg8YSIZe4cVmtSvUNQR+ub1mxYWBwEwctkj44f8vFBYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6bcff1b9fafso168990eaf.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:47:02 -0700 (PDT)
+	s=arc-20240116; t=1788850032; c=relaxed/simple;
+	bh=kb87Y4IYHxF6Ta03dXCpn3WcpvTYwXjOw6j9lCNrrNY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l9UlvRJJOzWdr/GeYN+mveRBFy73WNiiHKW51OPPbsBdirz4kGhWbocDAw5VphFalycWekljfPG7p9/dotN2QnWBVHQideWjAs7ZhhxCNEzaKSdPBl/ZYD0vafVuFdpw8s7ZVujh4rWW6SZcuWg0jIKtqf8UMbsI4XzhatEhRZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WNFVfgaf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ROci3oW4; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WNFVfgaf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ROci3oW4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788850028;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
+	b=WNFVfgaflrTGAeUeTzEf8EXmwgi2EXqs9JKFxxxzvR9+9VEx1L6GBqLGq23S0hf2hABpkU
+	oJ61l6dje3SEyURYSY2HxyD8pPvOYU/7SvsehLuzhi83iei8fs7LPqTYtzE/gelAQTPdy3
+	TaONJjnwAvNNeBijbVew9N4xBJbdg9s=
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-520-2oc24QVGPGKMa9OcGrZQcQ-1; Tue, 08 Sep 2026 02:47:07 -0400
+X-MC-Unique: 2oc24QVGPGKMa9OcGrZQcQ-1
+X-Mimecast-MFC-AGG-ID: 2oc24QVGPGKMa9OcGrZQcQ_1788850026
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84e13b57b2cso4990000b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:47:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788850026; x=1789454826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
+        b=ROci3oW4J48Vksrk/UngTONeT+0O7511RZK2TzmfkThh02KMD4nlz0oqBuyo6D7jfY
+         gAW9vYA/LIOD9OAIOc9TyLZCsRABS+RU8N2GWgvU+aoVKo+ddQSJDe2w9t+MXfLzXwnf
+         EnAkrLF9rpRO6kbwMvuml2fiZNosnNYmzwyvqftgQk/EF9K0yWPWeq9/5o9Kz8JohzZT
+         Hq3ztzNiaj2jS+anD2cKhQdbcWVuX5ml/XiP0ZDEze1mMhL/sWQvKT2IsMV1ddO1CieL
+         qjwU7nehdmDYxAV3GY4zqP3fMYLxS07syB7S6SZXV/v6x5sbavkKO9qWWj+Xfz+9S3uK
+         asFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788850021; x=1789454821;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3RW50lH+F3MZcqoyTHclr60xplh/6XBgO9SGuOi6QFo=;
-        b=f2a6BBvAKj+haxYDb8Yj4NdyMH54FJUhw9rDzKIMFzsxI6fHL5X8JHpU5fDPxA8U6+
-         /VhXwCCNAVRGy8nhd+VWCUYVEDkecUWupTl1R1k8yi4Lov/B1/2cYhf1Y3rVwkwko2h8
-         /goZ5yfsXBuKsYgMDLdJSIUXW3Zh4/QuTAjrtHzfOCHnN3PRRdISjK/cTNNHUaKr8vqx
-         zUkcJJN18LDw967j7ibp6/8eYBSlwGCMBz4Z74ZrSf1uR9is0DcytPReil74R+vlgi9H
-         nystXImn1SdfNPtl3OdZbw/NKMNM2cw/bHRCDGcXFCjOY9NuJ+CNNtepzRrsdE5SEq4a
-         C+Gw==
-X-Forwarded-Encrypted: i=1; AKwUvBzgh7OTlwAwxgEbhceSbf4SJZ0h1hD+xhqbjPTdd/9g1kWRpOELTQ9O5ZWs9jAbSAwzL30Xhc2T8WLdYuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVgVt8aiu9/2Eo6Bn+anymIBico6QYfoq1ETBjXKp8TN8VQQbC
-	2TMhv4uvmucQCv/KUx+ES8sjC9ow34+VUV/mNAmkTESzHpyoRYOcvgELxMFGz2dPqHk/JGKCC+G
-	Z4JAjig3TS1l2nnkza6d5cjh1QN7GqpjXjjWu0idgxeWrwrlIM8ftidDACJo=
+        d=1e100.net; s=20251104; t=1788850026; x=1789454826;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3UiMHGFhPbk7D6S9onjfcZBvfsx9CaE6NOzQzrP6JAw=;
+        b=hnpFGu0kvtpwEuuNQXq32sC3h1C5/S3TNypxMJreVvRoO0NL28mpDQtfW4dq1IqCMB
+         jpg+iMkSgqPCA9RsvaAEYqGRI5EFC793I9KywWODpllSoN5DcVgXRNRmwArPWH1whNNQ
+         /5TEN2Dik7IImgfM6YIMM7byErwvD2zQi2Bxo8R5BMzw0DX3+LfqnVMCwIpP+9kA02hM
+         VlN9CCCOMCF4Oa7V4whBIHXRP1lTShxm2GB74pPihC35oXGZCykW4nbPoBIDryj0cyro
+         zs/cwS0474uYYtp/cn0sTu0PARBZ6+rrFvbSfQiuoALY+AW7Wag8w2v5BTIrIArBXOzf
+         1vbg==
+X-Forwarded-Encrypted: i=1; AKwUvByw5m54LovSBWiTHpbYOcOwkgx+vu3XZURvFOa6bb4HJjBG8xV3zVBxnSdUpph8K2LsBmcT+7X9CrSKrdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6vzl8tAU3LxL3L1w6P8i9v7BHMsOso2U+aNps3aaL3gbKcYM+
+	wukMo6AocPDakiJtvkVFqa+vctOZkkrZ8oUbuPiLsAjyza0VGAhlqBCme2XTGkBCp+0ev92Z5tq
+	jeUr9NhVnca2CYekzzCGfGLc32t3zA+dFjPKN4lyqxRENh+2p93BJv2F5l92NNzSHzg==
+X-Gm-Gg: AYBFou1MFDUvezdNdsI7jZQCpXachnizuUpUWXxn0KOT67NaTVImuUQDFpigvPiGb9x
+	+6cTdHFCslwQKAdGRbNyWgfJJjBfJpjgL95D6RTMaEw5PLBe0kXe5XuJvBJftAf1ql4vBJTRcBB
+	sm2nh6NP2dGaQuwsrkcy/9VgIjqAsO+C/+N1dltIodNMjOC9VPCwjt9EvhkAHcUNl7GQrFKm0HS
+	Q85G4ufsqui5HmnAluGdSVNdG8CrrGgQORQuUfvQ8C+ZgC3QYCG07wAamvr3DUloG8WCMPaJ0lA
+	0qUBbXQpY8SllL1yVp9kOGlQfOYk7QbxIAQv0OuwmuKCv4OIMufynS1WW8Q14WPtc2iBvbZZHKl
+	LE3f8Spnqhhi0HtQerWBbU8OpdcBOZOzIgE0nxXN6/g==
+X-Received: by 2002:a05:6a00:2e19:b0:853:50f2:9c03 with SMTP id d2e1a72fcca58-86169182795mr34477505b3a.11.1788850026311;
+        Mon, 07 Sep 2026 23:47:06 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2e19:b0:853:50f2:9c03 with SMTP id d2e1a72fcca58-86169182795mr34477437b3a.11.1788850025792;
+        Mon, 07 Sep 2026 23:47:05 -0700 (PDT)
+Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86154048df2sm5208107b3a.61.2026.09.07.23.46.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 23:47:05 -0700 (PDT)
+Message-ID: <25894d08-0fec-4dcd-9d5e-e8270ff9d26c@redhat.com>
+Date: Tue, 8 Sep 2026 16:46:52 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:198b:b0:6b3:52da:b343 with SMTP id
- 006d021491bc7-6b6fd6d3467mr15247730eaf.28.1788850021544; Mon, 07 Sep 2026
- 23:47:01 -0700 (PDT)
-Date: Mon, 07 Sep 2026 23:47:01 -0700
-In-Reply-To: <20260908141929.2110081-1-jie.wang@intel.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9faf65.f81106d8.285f0a.0000.GAE@google.com>
-Subject: Re: [syzbot] [usb?] general protection fault in adsl_state_store
-From: syzbot <syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com>
-To: jie.wang@intel.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 2/7] firmware: arm_rmm: Check for RMI support at init
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
+References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
+ <20260907095942.1140734-3-suzuki.poulose@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260907095942.1140734-3-suzuki.poulose@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hello,
+Hi Suzuki,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
+> From: Steven Price <steven.price@arm.com>
+> 
+> Query the RMI version number and check if it is a compatible version.
+> The first two feature registers are read and exposed for future code to
+> use.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> ---
+> v17:
+>   * Rename ARM_RMM to ARM_RMM_RMI to make it easier to add Guest facing RSI
+>     support, which is also in progress
+> v16:
+>   * Update Kconfig text to include PCIe TDISP.
+>   * Export rmi_feat_reg() here rather than in a later commit.
+> v15:
+>   * The code is moved again, this time into the 'firmware' directory.
+> v14:
+>   * This moves the basic RMI setup into the 'kernel' directory. This is
+>     because RMI will be used for some features outside of KVM so should
+>     be available even if KVM isn't compiled in.
+> ---
+>   arch/arm64/Kconfig                |   1 +
+>   arch/arm64/kernel/cpufeature.c    |   1 +
+>   drivers/firmware/Kconfig          |   1 +
+>   drivers/firmware/Makefile         |   1 +
+>   drivers/firmware/arm_rmm/Kconfig  |  26 ++++++++
+>   drivers/firmware/arm_rmm/Makefile |   2 +
+>   drivers/firmware/arm_rmm/rmi.c    | 101 ++++++++++++++++++++++++++++++
+>   include/linux/arm-rmi-cmds.h      |  34 ++++++++++
+>   8 files changed, 167 insertions(+)
+>   create mode 100644 drivers/firmware/arm_rmm/Kconfig
+>   create mode 100644 drivers/firmware/arm_rmm/Makefile
+>   create mode 100644 drivers/firmware/arm_rmm/rmi.c
+>   create mode 100644 include/linux/arm-rmi-cmds.h
+> 
+> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+> index b5a51b0ef9440..ff9565d3ffa59 100644
+> --- a/arch/arm64/Kconfig
+> +++ b/arch/arm64/Kconfig
+> @@ -38,6 +38,7 @@ config ARM64
+>   	select ARCH_HAS_MEMBARRIER_SYNC_CORE
+>   	select ARCH_HAS_MEM_ENCRYPT
+>   	select ARCH_SUPPORTS_MSEAL_SYSTEM_MAPPINGS
+> +	select ARCH_SUPPORTS_RMM
+>   	select ARCH_HAS_NMI_SAFE_THIS_CPU_OPS
+>   	select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
+>   	select ARCH_HAS_NONLEAF_PMD_YOUNG if ARM64_HAFT
+> diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
+> index 17b83a2518a8f..db26f6b0eaf5e 100644
+> --- a/arch/arm64/kernel/cpufeature.c
+> +++ b/arch/arm64/kernel/cpufeature.c
+> @@ -293,6 +293,7 @@ static const struct arm64_ftr_bits ftr_id_aa64isar3[] = {
+>   static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV3_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_CSV2_SHIFT, 4, 0),
+> +	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_RME_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_VISIBLE, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_DIT_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_AMU_SHIFT, 4, 0),
+>   	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_MPAM_SHIFT, 4, 0),
+> diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+> index b7cc11e4fbfa6..62660bf520a8d 100644
+> --- a/drivers/firmware/Kconfig
+> +++ b/drivers/firmware/Kconfig
+> @@ -310,5 +310,6 @@ source "drivers/firmware/samsung/Kconfig"
+>   source "drivers/firmware/smccc/Kconfig"
+>   source "drivers/firmware/tegra/Kconfig"
+>   source "drivers/firmware/xilinx/Kconfig"
+> +source "drivers/firmware/arm_rmm/Kconfig"
+>   
+>   endmenu
+> diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+> index be46f1e1dc77f..196a650ccf025 100644
+> --- a/drivers/firmware/Makefile
+> +++ b/drivers/firmware/Makefile
+> @@ -39,3 +39,4 @@ obj-y				+= samsung/
+>   obj-y				+= smccc/
+>   obj-y				+= tegra/
+>   obj-y				+= xilinx/
+> +obj-y				+= arm_rmm/
+> diff --git a/drivers/firmware/arm_rmm/Kconfig b/drivers/firmware/arm_rmm/Kconfig
+> new file mode 100644
+> index 0000000000000..82724ee23186d
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/Kconfig
+> @@ -0,0 +1,26 @@
+> +
+> +config ARCH_SUPPORTS_RMM
+> +	bool
+> +
+> +config ARM_RMM_RMI
+> +	bool "Realm Management Interface (RMI) Support"
+> +	depends on ARCH_SUPPORTS_RMM
+> +	default y
+> +	help
+> +	  Support the Realm Management Monitor (RMM) on Arm systems that
+> +	  implement the Realm Management Extension (RME), as defined by the
+> +	  Arm Confidential Compute Architecture.
+> +
+> +	  The RMM runs at EL2 in the Realm world and provides the Realm
+> +	  Management Interface (RMI) used by a Normal World host to create,
+> +	  manage and run protected virtual machines called Realms. The RMM can
+> +	  also act as a TSM, as defined by the PCIe TDISP and can manage the
+> +	  PCI IDE setup for securing the PCIe links.
+> +
+> +	  This option builds the host-side RMI support used by KVM to detect a
+> +	  compatible RMM, configure it, manage delegated memory and enable
+> +	  Realm guests.
+> +
+> +	  Selecting this option does not by itself make Realm guests available:
+> +	  the system must also provide RME-capable hardware and firmware with a
+> +	  compatible RMM implementation.
+> diff --git a/drivers/firmware/arm_rmm/Makefile b/drivers/firmware/arm_rmm/Makefile
+> new file mode 100644
+> index 0000000000000..65171988fdcae
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/Makefile
+> @@ -0,0 +1,2 @@
+> +
+> +obj-$(CONFIG_ARM_RMM_RMI)	= rmi.o
+> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
+> new file mode 100644
+> index 0000000000000..008a783407b4e
+> --- /dev/null
+> +++ b/drivers/firmware/arm_rmm/rmi.c
+> @@ -0,0 +1,101 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2023-2026 ARM Ltd.
+> + */
+> +
+> +#include <linux/cpufeature.h>
+> +#include <linux/memblock.h>
+> +#include <linux/arm-rmi-cmds.h>
+> +#include <linux/slab.h>
+> +
+> +#include <asm/memory.h>
+> +#include <asm/pgtable-hwdef.h>
+> +
+> +/* Currently only the first 2 registers are used by Linux */
+> +#define RMI_FEAT_REG_COUNT	2
+> +static __ro_after_init unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT];
+> +
 
-Reported-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
-Tested-by: syzbot+9b195c4f412ea5c4e56a@syzkaller.appspotmail.com
+I would drop RMI_FEAT_REG_COUNT and use ARRAY_SIZE(rmi_feat_reg_cache) in the code.
+Besides, __ro_after_init is usually put at the last the declaration.
 
-Tested on:
+static unsigned long rmi_feat_reg_cache[RMI_FEAT_REG_COUNT] __ro_after_init;
 
-commit:         28924df2 Merge tag 'perf-tools-fixes-for-v7.3-2026-09-..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14921af9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=9b195c4f412ea5c4e56a
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=15ed3af9580000
+> +unsigned long rmi_feat_reg(unsigned long id)
+> +{
+> +	if (WARN_ON(id >= RMI_FEAT_REG_COUNT))
+> +		return 0;
+> +
+> +	return rmi_feat_reg_cache[id];
+> +}
+> +EXPORT_SYMBOL_GPL(rmi_feat_reg);
+> +
 
-Note: testing is done by a robot and is best-effort only.
+I would suggest to rename 'id' to 'index' since it represents the feature
+register index instead of feature register ID.
+
+unsigned long rmi_feat_reg(unsigned long index)
+{
+    :
+}
+EXPORT_SYMBOL_GPL(rmi_feat_reg);
+
+> +static int rmi_check_version(void)
+> +{
+> +	struct arm_smccc_res res;
+> +	unsigned short version_major, version_minor;
+> +	unsigned long host_version = RMI_ABI_VERSION(RMI_ABI_MAJOR_VERSION,
+> +						     RMI_ABI_MINOR_VERSION);
+> +	unsigned long aa64pfr0 = read_sanitised_ftr_reg(SYS_ID_AA64PFR0_EL1);
+> +
+> +	/* If RME isn't supported, then RMI can't be */
+> +	if (cpuid_feature_extract_unsigned_field(aa64pfr0, ID_AA64PFR0_EL1_RME_SHIFT) == 0)
+> +		return -ENXIO;
+> +
+> +	arm_smccc_1_1_invoke(SMC_RMI_VERSION, host_version, &res);
+> +
+> +	if (res.a0 == SMCCC_RET_NOT_SUPPORTED)
+> +		return -ENXIO;
+> +
+> +	version_major = RMI_ABI_VERSION_GET_MAJOR(res.a1);
+> +	version_minor = RMI_ABI_VERSION_GET_MINOR(res.a1);
+> +
+> +	if (res.a0 != RMI_SUCCESS) {
+> +		unsigned short high_version_major, high_version_minor;
+> +
+> +		high_version_major = RMI_ABI_VERSION_GET_MAJOR(res.a2);
+> +		high_version_minor = RMI_ABI_VERSION_GET_MINOR(res.a2);
+> +
+> +		pr_err("Unsupported RMI ABI (v%d.%d - v%d.%d) we want v%d.%d\n",
+> +		       version_major, version_minor,
+> +		       high_version_major, high_version_minor,
+> +		       RMI_ABI_MAJOR_VERSION,
+> +		       RMI_ABI_MINOR_VERSION);
+> +		return -ENXIO;
+> +	}
+> +
+> +	pr_info("RMI ABI version %d.%d\n", version_major, version_minor);
+> +
+> +	return 0;
+> +}
+> +
+> +static int rmi_read_features(void)
+> +{
+> +	/*
+> +	 * Since we've negotiated a compatible version these feature registers
+> +	 * should always be available
+> +	 */
+> +	for (int i = 0; i < RMI_FEAT_REG_COUNT; i++) {
+> +		if (WARN_ON(rmi_features(i, &rmi_feat_reg_cache[i])))
+> +			return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int __init arm64_init_rmi(void)
+> +{
+> +	int ret;
+> +
+> +	/* Continue without realm support if we can't agree on a version */
+> +	ret = rmi_check_version();
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = rmi_read_features();
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * Note arm64_init_rmi() must be called before kvm_init_rmi() otherwise KVM
+> + * will not support realm guests. subsys_initcall() is called before
+> + * module_init() (used for KVM) so this is OK.
+> + */
+> +subsys_initcall(arm64_init_rmi);
+> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
+> new file mode 100644
+> index 0000000000000..2fb1f7f86d71e
+> --- /dev/null
+> +++ b/include/linux/arm-rmi-cmds.h
+> @@ -0,0 +1,34 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) 2026 ARM Ltd.
+> + */
+> +
+> +#ifndef __LINUX_ARM_RMI_CMDS_H_
+> +#define __LINUX_ARM_RMI_CMDS_H_
+> +
+> +#include <linux/arm-smccc-rmi.h>
+> +#include <linux/bug.h>
+> +#include <linux/types.h>
+> +
+> +unsigned long rmi_feat_reg(unsigned long id);
+> +
+> +/**
+> + * rmi_features() - Read feature register
+> + * @index: Feature register index
+> + * @out: Feature register value is written to this pointer
+> + *
+> + * Return: RMI return code
+> + */
+> +static inline int rmi_features(unsigned long index, unsigned long *out)
+> +{
+> +	struct arm_smccc_res res;
+> +
+> +	arm_smccc_1_1_invoke(SMC_RMI_FEATURES, index, &res);
+> +
+> +	if (res.a0 == RMI_SUCCESS && out)
+> +		*out = res.a1;
+> +
+> +	return res.a0;
+> +}
+> +
+
+We needn't expose rmi_features() through include/linux/arm-rmi-cmds.h since it's
+used for once in rmi.c::rmi_read_features(). I would suggest to drop it by combining
+the code with that function.
+
+> +#endif
+
+#endif /* __LINUX_ARM_RMI_CMDS_H_ */
+
+Thanks,
+Gavin
+
