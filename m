@@ -1,130 +1,135 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC91C381E97
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:43:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 078F533F589
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:44:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849791; cv=none; b=EFmC9sVLIBLoiRkWCLwdhOq2dCXdz+rifO06dqtoyvCYgWgQ6eQpT7FD1VwZcsTGdIwbQSsZTzEIoLLEk+5B+bDwUE7Js7/gRZs2UFIphI3nLcx3RBNpkm3p7UcNY8ScoJc7yKQ9WX+XDzjepcN1ktE7FrOYksD9rCOiwzOD4q8=
+	t=1788849854; cv=none; b=X08L4Prf4opkwAFnoyWNGvTN2uxn8fWWFDF7AcNVpAU3v6alv2447zxCLqwSlw0AJ0sJft9UsO+rziDtMgfxSLFv5QezCpNT5Z0sC/ZsNF36Rpj/R34RJtjN07ZlXKbRovC/W0wazRX0bx3/y9EQLOpylfex9+ttMTMJ7vsK+q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849791; c=relaxed/simple;
-	bh=r81amRFlPjzeUTmfDZcNSSRmn8+UhK/PkcDEwxOg4Ww=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GOMRK+sdtPSiQEz+TxZHnQ8ZSWZ94nXri5TBFUDm0Dj5nyEHB4pjUtxJovCaitV2ioB02eSrR3u8kPE5kjbgiGGv/bWVcrihqj1CvLHy+zXKjqdGuaqA3Vm7orqfdyK6nAvtqOL3l3BjLec7WK6JzGPOEeLnaXNGymnBBoow1fQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GrAZLTJ4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788849854; c=relaxed/simple;
+	bh=iKNgjJoUHtFvUy8ZtbLXXy+sd19reNcRVpd1W4ZsCfM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=GQ7+wPfEK6QbuhvZ0jc3JdejXrZ92Ae3Ea6j7CWjpvejDGgn5OP/mDPwjblxjHdavdYf4yBTzPmYHN2xTf0h7minU8mfmpoOCqcZflNbGKDzdsfL283ioYEuiPJLqfMdlHbUU8eFgp/CCvVAWumeFC4tVj/mYonx2jh3wSL5Sso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M9lZEqDZ; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GrAZLTJ4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788849788;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YW1GKuJRhHZmwuIL2WlsvAjfLcvMatnxv0NMJQFIHUY=;
-	b=GrAZLTJ4K4xj6Q1mNEXjPzD9BJ69sKzZ2OGtG1YSCyq72wF84SVm2sGHO44imrovhfR4u1
-	4rIRvDofxBpa2Hdol+Wh7V4m0kAZ3IxMcTw6N/z4fSpzvie13pBtKSfN6V0MYky9Lia/Ia
-	nyJ5iR04Z3sXGqXAsst0IWQ0s7zk+8c=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-446-K15Hh85TMv-qJLfCPFJEfw-1; Tue,
- 08 Sep 2026 02:43:04 -0400
-X-MC-Unique: K15Hh85TMv-qJLfCPFJEfw-1
-X-Mimecast-MFC-AGG-ID: K15Hh85TMv-qJLfCPFJEfw_1788849783
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id D4D75195E918;
-	Tue,  8 Sep 2026 06:43:02 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 59C205B1;
-	Tue,  8 Sep 2026 06:42:46 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue,  8 Sep 2026 08:43:02 +0200 (CEST)
-Date: Tue, 8 Sep 2026 08:42:45 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, david@kernel.org,
-	linmiaohe@huawei.com, nao.horiguchi@gmail.com, gnoack3000@gmail.com,
-	ljs@kernel.org, sj@kernel.org, rientjes@google.com,
-	shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
-	babu.moger@amd.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <ap-uZcmqAr03Xqax@redhat.com>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M9lZEqDZ"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1b838f9b6so4606399a12.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:44:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788849852; x=1789454652; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iKNgjJoUHtFvUy8ZtbLXXy+sd19reNcRVpd1W4ZsCfM=;
+        b=M9lZEqDZ4ttThLELRwfE50i7wGwFXC7O1MlqcXm7Bkodp6XMjRnWg70VVFA5O5qPo6
+         FD2Ud5dG5BEj+ckN1XxThYGdfb4wjTJ5SopNfUagwBx/0bq0aUw6ZORJfUPvtSEZfKcM
+         CyS807SyW4LqPBM76RFjyMjet5LHQW+mQz3gKupYscuB600SMK25irWwP9/iSxFupMjT
+         5B8r1lLbfTINtKxf7TrPjzr2Qrtz/vk0QcEkVbJFDRv9bCunC7e9lZtvq6dY6curYert
+         8lfTcu2mGfgfl6HeDeVYPW2I5a1Y4418eDwIOx1TqB9+nCqzk2UCDsXBuiEEI69umCzm
+         Cl/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788849852; x=1789454652;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iKNgjJoUHtFvUy8ZtbLXXy+sd19reNcRVpd1W4ZsCfM=;
+        b=ZxlZN1L6TrHFcaWUSeRn339WR7NWxIok3XRVijv+95c/VvqxTJmuOw9qtdjWVjYg+N
+         DBFe3ZzrVY28PKUB4wQ8fGJ5Rp/vAAZ9U/HQZb3fD1eZCtcAKVQ4Q7R5Qs+QvZ2N/P9i
+         LQz9K2WkFgIrfFU3tIiNHYhAMfG4xl/fCjIVrbU8OLgOPVC2Hf2IiVnvBq9SLEXfQd2V
+         mnT/a40FOWtGrUbXq6IdGsggwssOX+JtvqW7oyG6TjYWbJbnAQuA1bXsTMbgiPrcM4yy
+         9MgYM7FEvAZImZTqRexgdj7E8+VLrCtn0PuPzfilJjYtHc/F9Pm+StoS8LfYkdW+NB3V
+         XH+g==
+X-Forwarded-Encrypted: i=1; AKwUvBwuL1bzNTBvFmZSZ8jLvDcptA7s1R2VakyHpRKuGo5p9z5aMkhou3fHJRmYICECb7oAm5DTNO0uD9UBD5I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lgc33RXwDOQLm9i1ocsh0kbXs5SdDjOE/H04hdHtmB+ctxeaFS
+	2IhHJmtptRi5vXcdUOMQ86IV6HcfGBiJRQtVrx0ttM6MYeV0edx4KrDc
+X-Gm-Gg: AYBFou0RZR99D3Bbc+RWVy9Bs+GrFCo4hvEcKiNZcEofUZXW3XR5m6i/8UISk/yVyee
+	qyF8ANeK1bPVOC978V8B99fpmyTA3EqGUXwtr0jjGUukaXeYff8eiFaY/pW46qmdAV6X4waTXw/
+	OqpRfTh4ncX80TLPQoWb7WHy1SX5VVvkYPZrt3MMhim6N9SJHACAontZgAOqNxSDr+tCQTrSuia
+	7Q6V1WqIHJTKVHXiFwVVGTqhlUuOwkLIHiLRqF7hg/hG5ywu5QSDhh4lqjgeXpBjKOmbk4kxmav
+	iYyHBaQGWHcK4cYnrKgah4Ek3jiRWe4lnMU+Y1iIzJ/WvUV8rVindVVOGbOAo2QJ4Bzy7JnKIBX
+	+aeHDlIutxuty12iql54xPXR5ZiDcTIBnk4OBbXhFPDuEhioMW1Dm5KbLSTTNewJ49voL4CRwHa
+	3mO6xW3m8RSYOqm2ATrLdlblPHYzhcPQGbcfNCrFrcvq9+uot6IWKPxTYhPmf8t0Ti+9n6JNj0D
+	mv2w/EXcLugP8n0Dw==
+X-Received: by 2002:a17:90a:d004:b0:398:c9be:cca8 with SMTP id 98e67ed59e1d1-39b2609f363mr47840731a91.2.1788849852197;
+        Mon, 07 Sep 2026 23:44:12 -0700 (PDT)
+Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26123c99sm24392766a91.11.2026.09.07.23.44.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:44:11 -0700 (PDT)
+From: Bo Zhang <zhangbo0325@gmail.com>
+To: aliceryhl@google.com
+Cc: gregkh@linuxfoundation.org,
+	cmllamas@google.com,
+	arve@android.com,
+	tkjos@android.com,
+	christian@brauner.io,
+	surenb@google.com,
+	baohua@kernel.org,
+	zhanghongru06@gmail.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v4 1/2] binder: switch alloc->mutex to spinlock for buffer metadata
+Date: Tue,  8 Sep 2026 14:44:06 +0800
+Message-Id: <20260908064406.1048059-1-zhangbo0325@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907130028.807366-2-zhangbo0325@gmail.com>
+References: <20260907130028.807366-2-zhangbo0325@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907081334.1152889-6-ye.liu@linux.dev>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 09/07, Ye Liu wrote:
->
-> From: Ye Liu <liuye@kylinos.cn>
->
-> Replace the manual rcu_read_lock()/rcu_read_unlock() and guard(rcu)
-> pairs combined with for_each_process(), for_each_thread() and
-> for_each_process_thread() loops across kernel/ with the
-> for_each_*_rculock() macros, which scope the RCU read lock to the
-> loop body via scoped_guard(rcu).
->
-> No functional change.
->
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> ---
-> Changes in v2:
->   - Rename *_rcu to *_rculock
->   - Rename stale 'unlock:' label to 'out:' in hung_task.c (Günther Noack)
->  kernel/cpu.c             |  4 +---
->  kernel/freezer.c         |  4 +---
->  kernel/hung_task.c       | 11 ++++-------
->  kernel/locking/lockdep.c |  4 +---
->  kernel/rcu/update.c      |  4 +---
->  kernel/sched/core.c      |  3 +--
->  kernel/sched/debug.c     |  4 +---
->  kernel/trace/fgraph.c    |  8 ++------
->  kernel/unwind/deferred.c |  3 +--
+Thanks for the review. Both are real regressions introduced by this
+patch: the current tree uses a mutex here, and neither problem exists
+under the mutex. Converting to a spinlock is what introduces them, so
+they must be fixed rather than left as-is.
 
-Reviewed-by: Oleg Nesterov <oleg@redhat.com>
+The root cause is that this patch (spinlock only) cannot fix either
+problem on its own, because the fixes rely on the install_mutex added in
+patch 2. I will therefore fold the two patches into one in v5, so the
+spinlock and install_mutex land together and the intermediate state is
+never reached.
 
+1) Soft lockup holding the spinlock across cleanup
+
+Sashiko says
+"this loop iterates over all allocated buffers and pages, it can execute
+up to 4MB of memset operations and 1024 calls to binder_free_page() while
+preemption is disabled by alloc->lock."
+
+Correct. Under the mutex this loop is preemptible; under the spinlock it
+is not, so unprivileged userspace can keep a CPU with preemption disabled.
+In v5, binder_alloc_deferred_release() drops alloc->lock around the
+sleeping/long-running work: the clear-on-free memset and binder_free_page()
+run outside the spinlock, while alloc->lock only covers the rb-tree and
+LRU bookkeeping.
+
+2) Use-after-free from the early spin_unlock() in the shrinker
+
+Sashiko says
+"By dropping alloc->lock here, the shrinker allows a concurrent
+binder_alloc_deferred_release() ... to acquire the lock ... The release
+function can then complete its cleanup ... and eventually free the
+binder_alloc structure. When the shrinker resumes execution, it accesses
+the freed alloc structure when calling trace_binder_unmap_user_end()."
+
+Correct. Under the mutex the shrinker's zap and trace ran inside
+alloc->mutex, which deferred_release() also took, so release waited for
+the shrinker. Dropping the spinlock early breaks that. In v5 the shrinker
+already holds install_mutex across the zap/trace (from the folded patch 2),
+so binder_alloc_deferred_release() takes install_mutex too and waits for
+the shrinker to finish before freeing the alloc.
+
+Note that deferred_release() runs from binder_free_proc(), after all
+threads are released and there are no in-flight transactions, so no page
+install can run concurrently; the only concurrent writer to pages[] is the
+shrinker, which install_mutex now serializes against.
+
+v5 will fold the two patches and carry both fixes.
+
+Bo
