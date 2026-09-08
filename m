@@ -1,204 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 621E7385D73;
-	Tue,  8 Sep 2026 06:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB193BAD95;
+	Tue,  8 Sep 2026 06:34:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849252; cv=none; b=Cp79Shp+j65QMD0E9tWCf6ZMow+fPOFlOWGmbCwtGdDWY03miKPK7BGDhd7/OX6Rq3uRGaLmrVT5Ul5CXcs/aCRAJTE0kTaX1cmWHf4BpfQ3pW1okE5tuW7DVLP1vPHzbQLw9bU45pLdRsgsKHL8cloNMHNCYZTVSz98/qQcQ8M=
+	t=1788849252; cv=none; b=Y5TkZWIOsASEG9qrfk78cEAay44PIyDGdDRjObwjvou6C/bSboC8FtIb0vzZoWhECuG6mIq1J3fjY0csEfG/5f0gPGKHVpf+qeMJ6ArP0dXTxZOoK+jPVDHe96z0ITSTMjud5lNb3GaDlzMEek0yrzPup+8p3mUXDccC+RtRHy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788849252; c=relaxed/simple;
-	bh=oh948wHwE+92N7A7GHZByuxRaDZZWMpabhyUSnkDyvU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=isnFJRCW78+2koj5yK9cutUVXwlHUQ95wxlEant3oIoTGmFc+c6raLGiUqhX6gmIZKKM2dTa14ckZwiwYHu455ODrCn1WgzF1n1g9cQ1xjRPuXlaKuQZTZ91FQJn/4JE7ViwmFVFKgQB514Fzm/ZN2OQAwHxyOmdMT4dORj5920=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFwQolio; arc=none smtp.client-ip=100.103.45.18
+	bh=HZMdEj1C9yKMvR8t0T0b/I+JGw7MLB0CX99puHdToGs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=jVdxbZ1GsxQINieDCBDf9YQYX+uJrImv1P3L5CjrpUXknhBYPz4iNiSdyIwWeK8VTSEI7l1wOZOfm2p20hctYVmmIJMzr0oXJAh5678l16xdIc7plWWl3rvHR20/aDE9ax4iTR4vNyhlzDl744SAL19jGZuJdOdm+6Bn+Cfb1UM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ONcLc8uH; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=l6gHpIlB; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFwQolio"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86FE41F00A3E;
-	Tue,  8 Sep 2026 06:34:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788849248;
-	bh=uQAtdeCpjEFjK7Mix88SdJFp8UWpForvQAe5vbBazts=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TFwQolioxiW3Y02xxUGM9pg4abmCVw4EtNka52NS56rCT4pgwECpITZpBaBb7uzVj
-	 wWI7HzrFgkHqHOZYJLXFyBc4tAcCKv5RfLFIXit8faKM3CdR+guaZ0vhAFz16fzthi
-	 MkL/CjrJm1R4vtxz3/xLhgEYHylebLuoZTTNszGWxvRFX0eTCVKt7UHPLfHxHKDCt2
-	 byxEGF+kTzWpCduuTm1WBznHfg9wFgPBoKJK4z/zIxWhMhAM+4MnPSGqPEUvSNpLnT
-	 TA1Lat7aNNIaw8HY40E2gAifZOJmaDQQ6iYFggaslcfYyIgMAUx4ZmdUdHlXP7DHLL
-	 ywtDwaQH5JwKA==
-Date: Tue, 8 Sep 2026 16:33:59 +1000
-From: Dave Chinner <dgc@kernel.org>
-To: Hongling Zeng <zhongling0719@126.com>
-Cc: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org,
-	darrick.wong@oracle.com, chandanrlinux@gmail.com,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer
- recovery
-Message-ID: <ap-sV2Cc5U5fNMmo@dread>
-References: <20260907080450.314067-1-zenghongling@kylinos.cn>
- <ap8ucHIw-pKLhh9c@dread>
- <6A9F7022.6020206@126.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ONcLc8uH";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="l6gHpIlB"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788849241;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3kBqivOxnOtc9zasn0eCWq4RBwv8X/Ufx01wFT8ObgI=;
+	b=ONcLc8uHweGH7n0pCw/rap58Hd3hlqqZX3tNa81FyeUAKASG7dHmKKrwNHdlyHHiRFlDv3
+	7P6wVHU85ZYXnfcCRiWnVYi+2QpFNcZuXtYVzD3P1Zn/fdZu12Z/aImdrANiv+oZZMl4at
+	9mMaHVOXZGbjivRo2no35o+uWLGgDiSG6UNMuG2+iEMTJ22PZURSKSRfc4Mgb5ukOyd5eo
+	qHDw6CT/f4p+x+WbR2azw5m6Mvj+cSnQGWh6LIR2cGKjHOZ07fbIsBdVtvR5MjpChX7mMS
+	oLADeRjpYC5cEYx4I9eCz34hLIFqdP4uXVXHWdOJrV8hibo+4NiNMS3Ou5SNNg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788849241;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3kBqivOxnOtc9zasn0eCWq4RBwv8X/Ufx01wFT8ObgI=;
+	b=l6gHpIlBwSi62BlkjxL9EUNAzZDCPGUsAN4gQqoMPR3kEWA9gAzwkD/kVYA1N+/Whf7HSz
+	RiUDLayydxIFtsCw==
+Date: Tue, 08 Sep 2026 08:33:57 +0200
+Subject: [PATCH v5 23/24] sparc: vdso: Enable the vdsocheck tool
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <6A9F7022.6020206@126.com>
+Message-Id: <20260908-vdso-absolute-reloc-v5-23-3a93791af1cf@linutronix.de>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+In-Reply-To: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+To: Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Andy Lutomirski <luto@kernel.org>, 
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, 
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Christophe Leroy <chleroy@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Nicolas Schier <nsc@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-mm@kvack.org, linux-um@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linuxppc-dev@lists.ozlabs.org, 
+ loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
+ linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-kbuild@vger.kernel.org, Jan Stancek <jstancek@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@redhat.com>, 
+ Alexandre Ghiti <alexghiti@rivosinc.com>, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788849226; l=2334;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=HZMdEj1C9yKMvR8t0T0b/I+JGw7MLB0CX99puHdToGs=;
+ b=BIOspn+qM5bOmIKIxJ7EFwVtuD4wBWlInysCLHBriHSIaZ4Mi4Uuz/G1wqiiCglI1Bscu2LVw
+ tLp8zgIJJGDDE/NO9Dyua6VwQNT98vlN+rim+byvjliIudZ111tEN/Y
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-On Tue, Sep 08, 2026 at 10:17:06AM +0800, Hongling Zeng wrote:
-> 
-> 在 2026年09月08日 05:36, Dave Chinner 写道:
-> > On Mon, Sep 07, 2026 at 04:04:50PM +0800, Hongling Zeng wrote:
-> > > xlog_recover_do_inode_buffer() reads the logged di_next_unlinked field
-> > > from a log record buffer at a computed offset:
-> > > 
-> > >          logged_nextp = item->ri_buf[item_index].iov_base +
-> > >                          next_unlinked_offset - reg_buf_offset;
-> > >          *buffer_nextp = *logged_nextp;
-> > > 
-> > > The only protection against reading past the log record buffer are
-> > > ASSERT()s, which compile away on non-DEBUG kernels.  The existing
-> > > XFS_IS_CORRUPT(*logged_nextp == 0) check also dereferences the pointer
-> > > before validating that the computed offset lies within the logged region.
-> > > 
-> > > A crafted log record can make the computed offset exceed iov_len, causing
-> > > an out-of-bounds read from the log record buffer during inode buffer
-> > > recovery.
-> > > 
-> > > Convert the relevant ASSERT-only checks into runtime corruption checks and
-> > > verify that the logged di_next_unlinked field lies entirely within the log
-> > > iovec before dereferencing it.
-> > > 
-> > > Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> > <sigh>
-> > 
-> > I'm going to say what I've said before again here, and it applies to
-> > the BLF bitmap range checks patches you posted yesterday, too:
-> > 
-> > Hacking the same types of region size and range checks into every
-> > log item type in an ad-hoc manner is not the right way to address
-> > these log item verification issues.
-> > 
-> > We need to add a robust verification layer to the journal to verify
-> > all the journal level metadata (e.g. ophdrs, transaction headers,
-> > initial log item regions, per-log item type verification, etc) so
-> > that we check *all* the journal items for sanity before we use them.
-> > 
-> > This is the same architecture we use for metadata (the verifier
-> > layer) and it applies to the journal for the same reasons and
-> > provides the same benefits (i.e. validate at first access, rest of
-> > the code can assume validity and not have to clutter logic with
-> > random validity checks to prevent bad behaviour.)
-> > 
-> > The high level design doc and rough plan I put together last time I
-> > brought this up is in the patch below. If you're not willing or able
-> > to spent time and tokens on fixing this entire class of problems for
-> > everyone, then let please let me know ASAP.
-> > 
-> > -Dave.
->   Hi Dave,
-> 
->   Thanks for the detailed feedback. I understand the concern: the ad-hoc
->   region checks I posted don't address log recovery validation
->   systematically.
-> 
->   I'll withdraw the inode buffer and BLF bitmap patches and switch to
->   the design-driven approach. I'll post your patch 5 first (the
->   unchecked ri_buf[ri_cnt-1] in add_to_cont_trans(), the unbounded
->   kvrealloc() there, the missing oh_len alignment check in
->   process_data() - all reachable bugs, no restructuring), then work
->   through the rest of Phase 1.
-> 
->   Three points to confirm before coding:
+The vdsocheck tool validates the object files and final .so library.
+It can detect if the compiler created relocations which are incompatible
+with the vDSO which need to be worked around.
 
-Don't take the design doc as being complete or correct - it's a
-working document and really only serves as the initial high level
-plan I fleshed out.
+Wire it up for the architecture.
 
-Indeed, I implemented a chunk of it yesterday afternoon (i.e.
-before I saw your patch this morning) and my findings change quite a
-bit of the generic infrastructure to make it handle the transaction
-header without having to special case it. So from that perspective,
-it's already out of date...
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+---
+ arch/sparc/Kconfig          | 1 +
+ arch/sparc/vdso/Makefile    | 5 +++--
+ lib/vdso/check/vdsocheck.rs | 7 +++++++
+ 3 files changed, 11 insertions(+), 2 deletions(-)
 
-I'll post what I have in the series later this afternoon so you can
-get up to speed.
-
->   1. I don't see a write-side guarantee that a region is split at most
->      once - xlog_write_partial() can emit multiple continuations. So
->      beyond your patch 2 treating the header as a normal accumulated
->      region, note that today a third fragment walks into
->      ri_buf[ri_cnt-1] with ri_cnt == 0 / ri_buf == NULL. Correct?
-
-The iterator structure behind the item decoding should handle
-decoding regions split into an arbitrary number of ophdr regions
-without issue.
-
-That's kinda the point of it; ensure the region is
-fully extracted from the journal before we try to decode any of it.
-Hence we have to handle CONTINUE/WAS_CONT regions as partial
-additives until we get to the final WAS_CONT region that closes off
-the region as a whole.
-
->   2. For the zero-length first fragment: if this is old-log
->      compatibility only,
-
-Real thing, go look at xlog_write_get_iclog_space() and
-consider what happens when the lv_chain passed to xlog_write() gets
-it's first iclog with only space for two ophdrs left in it....
-
->      I'd document it that way and keep the special
->      handling as narrow as possible rather than introducing a generic
->      anonymous item state. Note the doc's ri_in_continuation has no
->      owner at that point since no item exists yet - narrow handling
->      avoids that entirely.
-
-The special case handling for it is awful, and IMO needs to go away
-because it is actually buggy and makes it much harder to reason
-about what is a valid item in a transaction....
-
->   3. For testing I'll cover each phase with crafted-log images and run
->      xfstests.
-
-This is why I have been rewriting xfs_logprint in rust: so it has
-the same capabilities as xfs_db in terms of being able to walk,
-parse and modify individual items in the journal. i.e. to be able to
-explicitly fuzz the journal in a systematic, programmable and
-reproducable way and hence avoid the need for hundreds of corrupted
-images to test all the corner cases....
-
-And, FWIW, the iterator + generic item handling design of the
-validator for the kernel code is a fairly close translation of the
-layered generic item type verification my new rust logprint code
-already uses. 
-
->      My bigger worry is over-strict validation rejecting valid
->      logs, which only shows up replaying real crash logs - what
->      coverage do you expect there? And should the design doc go in
->      first so the series can reference it?
-
-We have extensive journal recovery stress and validity tests in
-fstests (e.g. the recoveryloop group), and so I'm really not worried
-about structure verification being too strict. I'd much prefer to
-err on the "extremely strict" side right now, and loosen if needed.
-I don't think it will be an issue, because if the journal
-verification comes across improperly formatted items then it points
-to a runtime bug that needs to be fixed, not a journal recovery
-issue.
-
-i.e. I'd much prefer we have strict verification because that finds
-logic bugs on both sides during testing, that way they do not end up
-in production systems...
-
--Dave.
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+index ab77d3f2536e..628bdfc2f088 100644
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -114,6 +114,7 @@ config SPARC64
+ 	select ARCH_SUPPORTS_SCHED_SMT if SMP
+ 	select ARCH_SUPPORTS_SCHED_MC  if SMP
+ 	select ARCH_HAS_LAZY_MMU_MODE
++	select VDSO_CHECK
+ 	select GENERIC_GETTIMEOFDAY
+ 
+ config ARCH_PROC_KCORE_TEXT
+diff --git a/arch/sparc/vdso/Makefile b/arch/sparc/vdso/Makefile
+index 83fb2aca59cb..8bb235c3a618 100644
+--- a/arch/sparc/vdso/Makefile
++++ b/arch/sparc/vdso/Makefile
+@@ -28,7 +28,7 @@ CPPFLAGS_vdso.lds += -P -C
+ VDSO_LDFLAGS_vdso.lds = -m elf64_sparc -soname linux-vdso.so.1 \
+ 			-z max-page-size=8192
+ 
+-$(obj)/vdso64.so.dbg: $(obj)/vdso.lds $(vobjs) FORCE
++$(obj)/vdso64.so.dbg: $(obj)/vdso.lds $(vobjs) $(vdsocheck) FORCE
+ 	$(call if_changed,vdso)
+ 
+ HOST_EXTRACFLAGS += -I$(srctree)/tools/include
+@@ -99,7 +99,8 @@ $(obj)/vdso32.so.dbg: CHECKFLAGS = $(CHECKFLAGS_32)
+ $(obj)/vdso32.so.dbg: FORCE \
+ 			$(obj)/vdso32/vdso32.lds \
+ 			$(obj)/vdso32/vclock_gettime.o \
+-			$(obj)/vdso32/vdso-note.o
++			$(obj)/vdso32/vdso-note.o \
++			$(vdsocheck)
+ 		$(call	if_changed,vdso)
+ 
+ #
+diff --git a/lib/vdso/check/vdsocheck.rs b/lib/vdso/check/vdsocheck.rs
+index 865e8cf7d4e1..0d3b47bf57e1 100644
+--- a/lib/vdso/check/vdsocheck.rs
++++ b/lib/vdso/check/vdsocheck.rs
+@@ -172,6 +172,13 @@ fn allowed_relocations_for_machine(machine: u16) -> Option<AllowedRelocations<'s
+             ..Default::default()
+         }
+         .into(),
++        bindings::EM_SPARC | bindings::EM_SPARC32PLUS | bindings::EM_SPARCV9 => {
++            AllowedRelocations {
++                in_object_file: &[bindings::R_SPARC_DISP32],
++                ..Default::default()
++            }
++            .into()
++        }
+         _ => None,
+     }
+ }
 
 -- 
-Dave Chinner
-dgc@kernel.org
+2.55.0
+
