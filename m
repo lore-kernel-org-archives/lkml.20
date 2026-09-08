@@ -1,91 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A0F355F49;
-	Tue,  8 Sep 2026 16:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B13CD35C680
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:16:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884150; cv=none; b=tmqkMUr0FD7p0m3KonDvTZzsmCFBGluSJWwtqRLYMlNLL0eA2ElJneqAicJAkAEU9cIj7reGMbeexl2PI+s0VoEKBk3NYjZLcoEiVzvYkmg7zfbVRSejhPQzYb1IhUbyXxl61npheUKEQ9xIgNVw0stDUcJBMc9c1Znzpsg1SFQ=
+	t=1788884179; cv=none; b=dVM1xzKWN03GpPWew/fKVo26N27A8vW4hS95HxeSGrRt9u9k7jN9XH+2U8QXW1btG6hq2De0nj5mXxNrvpSAyq3fOm/ZPk/S3R2McasRLlRvA9fRXXst3lI//MPOd9NK7TWzjNuez8IeruT5mZ29UAJlxZNvyHL2Nx6K/TE6OIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884150; c=relaxed/simple;
-	bh=rvVZYPYH7iKY+4YiJxF0YMxyOw1dv8LOBm6HtLVgRag=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=EeTz9fKM5ZqHZQ0yKorjaU4jqOT07Uyv6jvCNvvMJ5D86/LpKkJoZptXULm3SmEjkPKm5O058vcGd2mBt/xx00aPqHRGhiUv7bbC8Wj0H2OeVLnSW0PKC3Gz7nlq8lNc7T18ybSQc7jA865IhGD/jwclsLpL4DOG9uwok+eTH/I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnFDK4bj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788884179; c=relaxed/simple;
+	bh=W86j1xmuLlz2bk41yXWceX/GDhYI2NYm1k/krLylX4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PG3vkahnlpvGMtqA8ZAA4EhZ6BbFwU8qr/tfXoTy8+KtJqgHCPu/5VbX349bGBqD8ID+f9oP9+Sz7H/l/SSQYdbH5vC742KHkSAX+ypFZKPpEEcPJ0MBSArfTWhc2fDZgR6YrI+4qgr7C3eOQEyiU2/C+hLYm73mg+1pglGMHO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qh8sgSR2; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnFDK4bj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1D981F00A3A;
-	Tue,  8 Sep 2026 16:15:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884148;
-	bh=2wuLOPQn3VUfQTPIEZYgXlZfyHe85AMIIidcauXH/uU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=EnFDK4bjGoQnF0tZW3+X4z90QC5uo5VTG+h78KHMq+6fNoEKf89q+3NzCJLCDsQtA
-	 0dYKKnyXMxBfMkB4EgL7RH/NsfTeyXAZlCc7BVZ4nlZyCRv67YfZEjxpb5cpTeFusO
-	 E4UDn5/ud+NJo1C6db9v1NZMAsM3k5LPVM9OC8vPZfIApiUS7/EY2nSh93Sz3qYvDN
-	 ZyQ7iwGjivw6YaOR6Eq+GtX6+Efk39OQhcZz5f0U0kHbZ9e2rG/ZWRomz5k15gGcjQ
-	 PhN2IvfMJ0ofz74PjeXEDsgaudgYdc0BqWZTOn3mQLCiUIfeUEWQsq7jcu3eB/rVrv
-	 BQuHqjZNmxQYg==
-From: Mark Brown <broonie@kernel.org>
-To: linux-spi@vger.kernel.org, Rosen Penev <rosenp@gmail.com>
-Cc: Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-In-Reply-To: <20260907005750.230103-1-rosenp@gmail.com>
-References: <20260907005750.230103-1-rosenp@gmail.com>
-Subject: Re: [PATCH] spi: orion: yield to scheduler in transfer wait loop
-Message-Id: <178886895967.78527.1214841053052376485.b4-ty@b4>
-Date: Tue, 08 Sep 2026 13:02:39 +0100
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qh8sgSR2"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 355081476;
+	Tue,  8 Sep 2026 09:16:13 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76E233F7B4;
+	Tue,  8 Sep 2026 09:16:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788884176; bh=W86j1xmuLlz2bk41yXWceX/GDhYI2NYm1k/krLylX4M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Qh8sgSR2twbUctxTPL7/+iYnMnoN4URVKwArsPBGM/VyK9vQf92Fce8nkCqEgTUB/
+	 G9DhPh4RC259GqtINnAUa3906GZ7KK1Y2aAXUMv6Cxzua6FF23/iK06U2Rkz8n560k
+	 B/CHzhK2DuOl73avp3FjFYsFMewTAP/L28DTPpJo=
+Date: Tue, 8 Sep 2026 17:16:14 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: yingchao <dengyingchao@kylinsec.com.cn>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Miaoqian Lin <linmq006@gmail.com>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	qinyungao@kylinsec.com.cn
+Subject: Re: [PATCH] coresight: syscfg: fix deadlock on device registration
+ failure
+Message-ID: <20260908161614.GA200420@e132581.arm.com>
+References: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1117; i=broonie@kernel.org;
- h=from:subject:message-id; bh=rvVZYPYH7iKY+4YiJxF0YMxyOw1dv8LOBm6HtLVgRag=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoDSwFqh9zajyJ/g6tH8vjbeAQRruYNvIew7bA
- HjXralD2V+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqA0sAAKCRAk1otyXVSH
- 0HkMB/4ikbDVn/KOhy4iYBRU3jEsGFkZeEJ2TPTRDO03iYbyrkAlWCRxrqePtSOqLS+Ea1lHOUg
- 22aseQsDd6Iifqq4R0EdQDWJyXeSu7i2/x8PnUbK1/SLTUn5T4KcyQtCXOEGbHT22idN4sy1Msf
- EW7PdOpvoJTUQ3zplOSr25kCuFhwxdQJhnTIFP09AjMfnQ6hLIKfNo1ksZWcnNTfp7Vnf4X3xHb
- gu6GOjVZCNAyjH3kF518HgWlIrbaQHx4I0qc3Qy/5JObMhmgOO6vpQEwSMZ37wSebFa4JH8EF2i
- 05PR0ZUje0HDBuBDUlyT90gUVKlf6V9cLzr65QMJjG/BulVo
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
 
-On Sun, 06 Sep 2026 17:57:50 -0700, Rosen Penev wrote:
-> spi: orion: yield to scheduler in transfer wait loop
+On Tue, Aug 25, 2026 at 09:47:17AM +0800, yingchao wrote:
 
-Applied to
+> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
+> index 2bfdd7b45e49..d0e7e4720e46 100644
+> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
+> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
+> @@ -1210,8 +1210,14 @@ static int cscfg_create_device(void)
+>  	dev->init_name = "cs_system_cfg";
+>  
+>  	err = device_register(dev);
+> -	if (err)
+> +	if (err) {
+> +		/* put_device() triggers cscfg_dev_release() which takes
+> +		 * cscfg_mutex, so drop the lock first to avoid deadlocking.
+> +		 */
+> +		mutex_unlock(&cscfg_mutex);
+>  		put_device(dev);
+> +		return err;
+> +	}
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+As module init and exit are serialized by the kernel, I don't think we
+need the mutex to protect the allocation and freeing of cscfg_mgr.
 
-Thanks!
+The mutex should only be used for exclusively access cscfg_mgr.
+So how about the change below?
 
-[1/1] spi: orion: yield to scheduler in transfer wait loop
-      https://git.kernel.org/broonie/spi/c/23ea08ca607c
+---8<---
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
+index 2bfdd7b45e49..2dd0b29f44e4 100644
+--- a/drivers/hwtracing/coresight/coresight-syscfg.c
++++ b/drivers/hwtracing/coresight/coresight-syscfg.c
+@@ -1173,27 +1173,21 @@ struct device *cscfg_device(void)
+ /* Must have a release function or the kernel will complain on module unload */
+ static void cscfg_dev_release(struct device *dev)
+ {
+-	mutex_lock(&cscfg_mutex);
+ 	kfree(cscfg_mgr);
+ 	cscfg_mgr = NULL;
+-	mutex_unlock(&cscfg_mutex);
+ }
+ 
+ /* a device is needed to "own" some kernel elements such as sysfs entries.  */
+ static int cscfg_create_device(void)
+ {
+ 	struct device *dev;
+-	int err = -ENOMEM;
+-
+-	mutex_lock(&cscfg_mutex);
+-	if (cscfg_mgr) {
+-		err = -EINVAL;
+-		goto create_dev_exit_unlock;
+-	}
++	int err;
+ 
+ 	cscfg_mgr = kzalloc_obj(struct cscfg_manager);
+ 	if (!cscfg_mgr)
+-		goto create_dev_exit_unlock;
++		return -ENOMEM;
++
++	mutex_lock(&cscfg_mutex);
+ 
+ 	/* initialise the cscfg_mgr structure */
+ 	INIT_LIST_HEAD(&cscfg_mgr->csdev_desc_list);
+@@ -1204,6 +1198,8 @@ static int cscfg_create_device(void)
+ 	cscfg_mgr->load_state = CSCFG_NONE;
+ 	raw_spin_lock_init(&cscfg_mgr->sysfs_store_lock);
+ 
++	mutex_unlock(&cscfg_mutex);
++
+ 	/* setup the device */
+ 	dev = cscfg_device();
+ 	dev->release = cscfg_dev_release;
+@@ -1213,8 +1209,6 @@ static int cscfg_create_device(void)
+ 	if (err)
+ 		put_device(dev);
+ 
+-create_dev_exit_unlock:
+-	mutex_unlock(&cscfg_mutex);
+ 	return err;
+ }
