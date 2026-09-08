@@ -1,62 +1,64 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0E93290A6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C0D37269B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:26:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845175; cv=none; b=npoZW/kiMGxC4gUiM+VWSii5vKOWFLYGx9SdFCokfZ9JaR5yJ4gvLgxHQhlKvuVk0PuRhQgNXRv5e8jejDqlLLv2apOAkYVhsrj+6OcH0pcyfFI4HOAa8eSEeopljCv2VEcXBY1kfaTbN2Dyvlyiu6nsY7pG7hsTI8ApB2AFV4U=
+	t=1788845184; cv=none; b=N2L3BRzf5bxij/gp9hkRAggIYXO3ZZJFZBWYxbSEDxhg90/ESArYXgLokrApTlaC3KFKTrnXQvUOGe5tD/1+kCRED1cG1H0qa7cUhAF8mS4Vz/UgHUMk/LNQudu4MnD4bx3+MoR4iL4Q2wn3dBIwo6cxiXPPF3y23OoEHbjtNIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845175; c=relaxed/simple;
-	bh=s2UvvtpfgXNv2L7fkygFiRDiDd5YrK2+Wj+lzdu6Ovk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jmVAGrcjuy9zkJUdHwm1PDf/1qqs+JMJlJej7HjCwEnqW/v/SIOQfg2i3Lr9tmwhsHRoOymzUNmMzvT2TGqE2oD40bSKkO1FePp85W/xC8/0eALq1G3cD5TaO4xMDMH+7TVm0vTqxn6PdTX5/7DFwHQgm8HCPlZXca0WORCJS+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B3Jg6ocm; arc=none smtp.client-ip=209.85.216.45
+	s=arc-20240116; t=1788845184; c=relaxed/simple;
+	bh=Wu4MFNvM9+B3qaLFMlJBJ7B2feraxxXczXPfqfNWxOk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Su0iU+i8S0OpKYqIc12C7lgNX5BsQ3g250/XueTFN3+RulCi73tGp048EJof9pi8zETw2ayLT36ndADx70KeLuLNEU4ehcy73Xj1hw8dgcEmBXQJr/uacMi8bKzQB0H7oQgVRVMbPo/gP/zDRrRbAz1Qa7pETk8a2xZRC5TlkuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z44fveco; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3Jg6ocm"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-398a5aad413so3171617a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z44fveco"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6efd73032so42927865ad.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:26:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788845173; x=1789449973; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=okLYyER6/N2GBwBRyBPpmzsC1jZeKyrc1yuodvLQ8ts=;
-        b=B3Jg6ocmRQ4IC73Xq7XATF1IeLKv0+MSJknUIAzN0kRk8ucxID6xno5R/IAF3yCM4s
-         JVu3X6I5rQdfbMhJ/D8p5nMOlwsYD84rrgO28ZJKNnSPvPpQpi64HdwAYczM9ppdmvOF
-         FpjmadimzdWgzGVtTcmGo5AHMeY0qrxAaSFqLZd5MCe7LPplE3SyJiyhF0z1i+rklhr3
-         HI/XaAO3DrP1A2zvp3k7mjrlZbWt36C3EemBknq9l76HyiwNsIEDh1OzOhGAfoViAx2e
-         jSqkNDUbktyW1O0kyjvYBQjQtN7+mbA76RXKFbY1r/33h+2ijYbrEafA1UCt0uY9K9t3
-         dXHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845173; x=1789449973;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788845182; x=1789449982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=okLYyER6/N2GBwBRyBPpmzsC1jZeKyrc1yuodvLQ8ts=;
-        b=DHeQ6/MpfgRMos6WpcIXE3Md946DRz2l9GijU5Hvq7b8TzIxhNV0zX3LnEk2qX996h
-         QNbo4m5VnkpWj/k/XW8qQggugvLbjbGcBcTbgyO+m/LEZoUp+WEfsSJiLmiXbY47mlp8
-         3qk2M1RQBP76GwcrejRCoTpdL/mwprtMmawa06SIAWlQkcKHZxGSzqM4A8tROUp/W25Z
-         axwj+JI6715J+FezTS9zGdSy0m5C5nk+ZIKps0WhA6qVn+wmx5a7a0EGoqFlA2IhWoY3
-         5VBk43g+Rb4aH1Y34Ijhti+o6GKl1fYXFwdeyOcfuCs8Ta3SqC3uT49ge3XHzcC2xthW
-         p0dA==
-X-Forwarded-Encrypted: i=1; AKwUvBzu1hkvYyRHmVi09f1AcojdBH9w8sg7twfC2YVzy5UuF1BmnjXIDD8wufCeaG2PTaNqdGv/3Ni7QuKuk88=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsbzfIGpGaMuYxiew2vTmxvpHP5Rb+jYkg68/bpISPDB/N0r0H
-	u8Y9uucH0BInTwJ4y1P7ViyFVinhPSY/VZLH/jbHOY/ojmVBW8K86Eyv
-X-Gm-Gg: AYBFou3hecc1V66cyVLMy8feJ7vUlziB6Q7mHpqzjtvzhtvRdUGUWh4IYUXoy/8UaTk
-	Z5OporcTrR5ok6UdbNtb1o8oLaftIh6HJ0vsfmNbUjE8XFuw9kFxdubBI+YN8cPPLd6tDMkRBlA
-	0C/mOXXGu574olg0oxeLqiOKXK8WtXkw+gUg2ybgnCTgY1y10ystL5TWtQdX6cWuAyuPywDToqG
-	ZlhL/94fw5n+9khFmSGTckK5LPJ3RVs3xCmq/rQYSENlnqBfwYP+6ez2PSOxKgP7DNPzh6nZMLj
-	W2MwLo6UTlwmpYNBHlJycnO65IDCAtWZSeDaPF4xq0jsJHUGMjPZK+WuE68qcLJYLsUSNylGhaF
-	Aq7yyIR2oJWV0H6e97d/Gr76dgIT4CiLOojtmkbZXghocflSG66fk53/0rJufAry8g8IdSi9G6b
-	p79Bzyv2n3IAYNyriOV8hVkSydV4zwUtrAGsZTx3d+E9TmcI/IxpgE8CfXn4XjtLkBLhE2l241Y
-	gvFGwSok1rPzQ==
-X-Received: by 2002:a17:90a:d2c7:b0:398:9bd1:3216 with SMTP id 98e67ed59e1d1-39b262e4e02mr39316555a91.23.1788845173328;
-        Mon, 07 Sep 2026 22:26:13 -0700 (PDT)
+        bh=tSn4eHKtRzspZgNVVCdMYZdE8RSN993BlWf0kOF29tw=;
+        b=Z44fveco7Kmdjwu0kZEnjeyJqOkjZYgYaveyyw4PqXJhWpJIPJXxtKz7Prbfj+ggRo
+         PBET7I1d9lJjsEVsOCxT5st7fhG5bQJ6kCGWU6iSP+3Qw4aZFtvXhofyJgv4xho4p+KL
+         LMJsEexbhI03F6syK8xbNXVW//4zr69QcPZ7UQ/lqOpBC4ue/m2DaDdXIlBm6r8qBUjk
+         AwsAwyysVubByEEbIw1mT7NSZhGkFw0ZEbJ87DY1F4u5834Tvli+EoNPDiTuVl+GlFO8
+         UsGF7Z4oJMrdmzX+mU9ntdt8EV5wwBcCjPjJ4Is+SImHfoU2h4ZEhI1O/Lx9vJ3+P/FT
+         le1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788845182; x=1789449982;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tSn4eHKtRzspZgNVVCdMYZdE8RSN993BlWf0kOF29tw=;
+        b=bzWFCA1QUKQ/S2EnO6NOKPKv6bCi+AWwPUhsObO4YlfdpEZEzE8P6GnAex4oM381gj
+         yqqY/MHNVHHcrqrsBVV4hiH14ll1dSRuRRpYcd3SyWilnYn8zePI/Vl7zOWz+kCF1wbb
+         EeEhDf2fk52DfC1Wu5iCRo5C6mapDi4Em1QYcbkddR+mPF5nMst1diPxQtSsZ58FmS71
+         1JuALxfo3x2fHKbUzLmLI9jDFCZk1bDfj8HPSY/UiBJysAmjl8/ik+4W8YVCytwhuaB1
+         BYrkv9+XArjNksQPCXinggDGb++q2NDtR/Kw/zLO3BTZ4GwatON+X3A0S8j77ZGYoC8V
+         goGw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/fhQxvl57xW1sJQxclx8rz6K5I5wHyxehbhfb2SDMnXU5mJ1v/Gfw7ctNsnF2PFhfffRx6TaaUozRs3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWyctP3/t7GfJDVSmfo3a0RmmYph+qZAwDVPId4i11vmt3jOaU
+	GlzXed8uatbAQl+B64YxD7S8RXNtrqtyGj6A+85tXzl0P0Sva+mG/cQ9
+X-Gm-Gg: AYBFou1FpN1AetDnZVTMgADI88k2UKZqdhyFEWQOS7hW0bPUWvJYP9M+bYfLXnuPiob
+	HQvvptwM8jKaL3OPhSAxgkkHpl87FL015+lOEeahUCTmEMgy5ETxHBnBSPrIlJbCcnlamt5l2PY
+	/Vps7RoYZHOZrLtfLumrS0/1zF4eUztSMH/zFnTP0uXN9TxkkuNpk2NDS14do3NXcxpyfJUVJuj
+	1B+Ek4YvL9NN1/nAw9esWl9dN56EUGaJFOQqh/d62syshG8QOMB7+5GU9iKx4FD3vySx/i9ztqA
+	POTBB5x5h9cYwDp8ADBhysKvsEiEw1eH0olzg6wYA23yq0uAk/hCgFzpZHZph5QYdE+XuZpASbI
+	xUPZFkGnJX4rmL4pmaNhA2IFSq7hGErekgTEQHPM2xm5YqAhWApPzUCsiaD8xtRih94OZu3O7a6
+	2oPNMz9t2m2z5SlkcmCbMRucWkDTcXoeU5AgHDnQP576Fyi20uoR6mF087L28o1DpN5AtINR4h3
+	9BzeBsbfJUffYh71oolqH9g
+X-Received: by 2002:a17:90b:2542:b0:398:9beb:a2be with SMTP id 98e67ed59e1d1-39b08969b5dmr36864640a91.32.1788845181942;
+        Mon, 07 Sep 2026 22:26:21 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.26.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14340a69666sm11720586c88.9.2026.09.07.22.26.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:26:12 -0700 (PDT)
+        Mon, 07 Sep 2026 22:26:21 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
 To: "David S. Miller" <davem@davemloft.net>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -87,10 +89,12 @@ Cc: linux-arm-kernel@lists.infradead.org,
 	linux-kselftest@vger.kernel.org,
 	linux-parisc@vger.kernel.org,
 	netdev@vger.kernel.org
-Subject: [PATCH net-next v3 00/10] net: fix typos and repeated words in comments
-Date: Tue,  8 Sep 2026 10:55:52 +0530
-Message-ID: <20260908052602.27497-1-hemanth.selam@gmail.com>
+Subject: [PATCH net-next v3 01/10] net: llc: fix repeated word 'all' in comment
+Date: Tue,  8 Sep 2026 10:55:53 +0530
+Message-ID: <20260908052602.27497-2-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260908052602.27497-1-hemanth.selam@gmail.com>
+References: <20260908052602.27497-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,115 +103,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Fix misspellings and repeated words in comments across the networking
-code, found with scripts/checkpatch.pl using the misspelling list in
-scripts/spelling.txt.  Comments only, no code changes.
+Drop the second 'all', reported by checkpatch.pl as a possible repeated
+word.  Only touches a comment, no code changes.
 
-Changes since v2:
- - v2 put 184 changes in a single patch.  Andrew Lunn asked for it to be
-   split by vendor, which comes to 54 patches, so this is the first
-   batch.  maintainer-netdev.rst asks for no more than 15 patches
-   outstanding against a tree at a time and I have five in flight
-   already, so this batch is 10.  The rest will follow as these are
-   applied.
- - patches 1 and 2 are unchanged from v2 and carry Andrew's
-   Reviewed-by.  They are resent because the v2 series was marked
-   superseded, so they would otherwise be dropped on the floor.
- - dropped the sfc mcdi_pcol.h patch (v2 4/6) even though Andrew had
-   reviewed it.  Edward Cree pointed out that header and the Siena copy
-   are generated from the firmware definitions, so an edit here would be
-   overwritten the next time they are regenerated; he has forwarded the
-   typos to the firmware team instead.  The sfc changes outside pcol are
-   unaffected and will come in a later batch.
- - dropped the 8390 patch, the driver is Orphan / Obsolete in
-   MAINTAINERS.
- - dropped one octeontx2 hunk, in otx2_pf.c, because the comment holding
-   the typo has since been rewritten upstream.  The remaining octeontx2
-   typos are still fixed in the marvell patch.
- - dropped an "amount of times" to "number of times" change in qed_dev.c.
-   That is a wording fix rather than a misspelling, so it does not belong
-   in this series.
- - v2 6/6 (net: usb, "Medium Mode mode") is not in this batch.  Andrew
-   asked me to check the data sheet for that one, and I will answer on
-   that thread before resending it.
- - rebased onto net-next.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+---
+ net/llc/llc_conn.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Jijie Shao's Reviewed-by is carried on the hisilicon patch only, since he
-scoped it to the hns and hns3 parts.
-
-Hemanth Selam (10):
-  net: llc: fix repeated word 'all' in comment
-  selftests: net: fix repeated word 'use' in comment
-  net: broadcom: fix typos in comments
-  net: cavium: fix typos in comments
-  net: qlogic: fix typos in comments
-  net: fddi: fix typos in comments
-  net: marvell: fix typos in comments
-  net: hisilicon: fix typos in comments
-  net: atheros: fix typos in comments
-  net: dec: fix typos in comments
-
- drivers/net/ethernet/atheros/atl1c/atl1c_hw.h             | 2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e.h                | 2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_hw.c             | 2 +-
- drivers/net/ethernet/atheros/atl1e/atl1e_main.c           | 2 +-
- drivers/net/ethernet/atheros/atlx/atl1.c                  | 2 +-
- drivers/net/ethernet/atheros/atlx/atl2.c                  | 2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.c              | 2 +-
- drivers/net/ethernet/broadcom/bcm63xx_enet.h              | 2 +-
- drivers/net/ethernet/broadcom/bcmsysport.h                | 2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x.h               | 4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_dcb.c           | 4 ++--
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_hsi.h           | 2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_init_ops.h      | 2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c          | 8 ++++----
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_main.c          | 2 +-
- drivers/net/ethernet/broadcom/bnx2x/bnx2x_reg.h           | 4 ++--
- drivers/net/ethernet/cavium/liquidio/cn66xx_device.c      | 2 +-
- drivers/net/ethernet/cavium/liquidio/lio_core.c           | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_config.h      | 4 ++--
- drivers/net/ethernet/cavium/liquidio/octeon_iq.h          | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_main.h        | 2 +-
- drivers/net/ethernet/cavium/liquidio/octeon_nic.h         | 2 +-
- drivers/net/ethernet/cavium/liquidio/request_manager.c    | 2 +-
- drivers/net/ethernet/cavium/thunder/nic.h                 | 2 +-
- drivers/net/ethernet/cavium/thunder/nic_main.c            | 2 +-
- drivers/net/ethernet/dec/tulip/de2104x.c                  | 2 +-
- drivers/net/ethernet/dec/tulip/interrupt.c                | 4 ++--
- drivers/net/ethernet/dec/tulip/media.c                    | 2 +-
- drivers/net/ethernet/dec/tulip/tulip.h                    | 4 ++--
- drivers/net/ethernet/dec/tulip/winbond-840.c              | 2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_misc.c        | 2 +-
- drivers/net/ethernet/hisilicon/hns/hns_dsaf_ppe.c         | 2 +-
- drivers/net/ethernet/hisilicon/hns/hns_enet.c             | 4 ++--
- drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c   | 2 +-
- drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_tm.c     | 2 +-
- drivers/net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c | 2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2.h                | 2 +-
- drivers/net/ethernet/marvell/mvpp2/mvpp2_prs.c            | 8 ++++----
- drivers/net/ethernet/marvell/octeontx2/af/npc.h           | 4 ++--
- drivers/net/ethernet/marvell/octeontx2/af/rvu_nix.c       | 2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/cn10k.c        | 2 +-
- drivers/net/ethernet/marvell/octeontx2/nic/otx2_dcbnl.c   | 2 +-
- drivers/net/ethernet/marvell/pxa168_eth.c                 | 4 ++--
- drivers/net/ethernet/qlogic/netxen/netxen_nic_ctx.c       | 2 +-
- drivers/net/ethernet/qlogic/qed/qed_cxt.c                 | 2 +-
- drivers/net/ethernet/qlogic/qed/qed_mcp.h                 | 2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic.h               | 2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_83xx_init.c     | 4 ++--
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_ctx.c           | 2 +-
- drivers/net/ethernet/qlogic/qlcnic/qlcnic_main.c          | 4 ++--
- drivers/net/fddi/skfp/cfm.c                               | 2 +-
- drivers/net/fddi/skfp/ecm.c                               | 2 +-
- drivers/net/fddi/skfp/fplustm.c                           | 4 ++--
- drivers/net/fddi/skfp/h/hwmtm.h                           | 2 +-
- drivers/net/fddi/skfp/h/sba.h                             | 2 +-
- drivers/net/fddi/skfp/pcmplc.c                            | 2 +-
- drivers/net/fddi/skfp/rmt.c                               | 2 +-
- net/llc/llc_conn.c                                        | 2 +-
- tools/testing/selftests/net/xfrm_policy.sh                | 2 +-
- 59 files changed, 77 insertions(+), 77 deletions(-)
-
+diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
+index 260460d50f54..4b6fe9a473cb 100644
+--- a/net/llc/llc_conn.c
++++ b/net/llc/llc_conn.c
+@@ -193,7 +193,7 @@ void llc_conn_rtn_pdu(struct sock *sk, struct sk_buff *skb)
+ }
+ 
+ /**
+- *	llc_conn_resend_i_pdu_as_cmd - resend all all unacknowledged I PDUs
++ *	llc_conn_resend_i_pdu_as_cmd - resend all unacknowledged I PDUs
+  *	@sk: active connection
+  *	@nr: NR
+  *	@first_p_bit: p_bit value of first pdu
 -- 
 2.48.1
 
