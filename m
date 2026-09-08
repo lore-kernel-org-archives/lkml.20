@@ -1,112 +1,136 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from fhigh-b6-smtp.messagingengine.com (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A81526A84;
-	Tue,  8 Sep 2026 11:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013952B1FB;
+	Tue,  8 Sep 2026 11:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866057; cv=none; b=DpUBXiPCg81cMHDuSZBXCLrwdhO1lbp9d2a9QVd9/hj+slU2jrtSL+5b9pa+D9CSKGb8a/CcOsBPz+aCP9aSUeTn9eg0MgFpVh/IUe9wMFDHJalAYg6iQSq3anUk3vOSatKuPzGGc/BshYSSzxplRIjzYnl62Rc4tDE3Rp2evkU=
+	t=1788866061; cv=none; b=aCHvL/m4LS5D+88Awvcu7iHkQ3ayJQ4HAHoauz5izRN6S85cK7+5/lRdQ8MWn3vZZMJ1Cl2dNWhz/P+MOcK2wKX0z/hqvKxYFCKCUld5QJ3/+jy8xdNbvDS2pn2ELY2iFdd95fyCVyikbHGeXZZWJAuObKoELpGcJGuL1mBiSnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866057; c=relaxed/simple;
-	bh=xGoIe/NeHzhwCF7D/ZgE5eeSfjdWOuYshvLObJf5hfo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hsEkKaeUqJWqKUafAUN6jsnxlxvdeJD/YUPhllvQtuMSv5UfZ3yUx849uP/tr1dIFBnVTHHwAqjrecrkZCLyZL7sBrBCOp/j3YUtLZwz6nToxsUXHpix8gxpiOnWeDsWXzu7NvHFtQOpeSk2u2bbBF0SLCgmpj2119pe5pHlthA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jh4bkDw+; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788866061; c=relaxed/simple;
+	bh=36ZUTC+wOyLILm1JmFV6KfW80HMCBRqmg9QX12+pres=;
+	h=Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=M/un72TTkcfeY1fBGv7hDuHYXr8GvNgCi4xSYy+mu4lR8cOXI9rnBx2OUC/qZkgIlHypgEgInm/B7A8KrmgZ6C4fveBjpeb7wjWiy1z0LHNA3hWsEev6mTv9vXVUsy7i67ew/aau7WAY0dJCHQLMmHQvWWI6Owo65X2Q6CDLuq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org; spf=pass smtp.mailfrom=flapping.org; dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b=odcEVQhb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Pc2aoiVN; arc=none smtp.client-ip=202.12.124.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jh4bkDw+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788866052; x=1820402052;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xGoIe/NeHzhwCF7D/ZgE5eeSfjdWOuYshvLObJf5hfo=;
-  b=jh4bkDw+iyJfQzC5xsMZrrd0EjqIhK3vopJGXnsyde2pzLDT5iKUm2E9
-   rVoz5MwoJygpC0A9SWkwgOI1qNQ383e0tirjy+cQGi37h3hpbsJQADCbo
-   9NTawEyEkNJJeFUUcaoTpDVK/I/PEPgVYWy+NzACPjppdkuxY2IiojNVY
-   lF5BXZctTjeOVBIlo4UzEPJYp5NBk2rFEXYIdbvcERuwmYtjOfKKeTnNJ
-   HbKvaps193v+VwnEDciEgMz0mJYVwXY455cf2nIQshJU56vhHgZp2qGDE
-   0498DaiKN8CnaU7oqzeBcxJqc38H11LfV2tk/CsqKzfA5+IQlPaNG+Tc8
-   g==;
-X-CSE-ConnectionGUID: 3CF0vkzjT62FOTb/UuUqdQ==
-X-CSE-MsgGUID: mRMPnTdZS86ZhgFZF2fEpw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="76825101"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="76825101"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:14:07 -0700
-X-CSE-ConnectionGUID: JzJho5jyTJuDqqQ/GjRhPg==
-X-CSE-MsgGUID: ZK37vcV7TUGTEz4txHIBfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="294444862"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:14:05 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F133811F7F5;
-	Tue, 08 Sep 2026 14:14:07 +0300 (EEST)
-Date: Tue, 8 Sep 2026 14:14:07 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/4] media: i2c: og0ve1b: Use monochrome-appropriate
- test pattern name
-Message-ID: <ap_t_x0D5moBWJz5@kekkonen.localdomain>
-References: <20260901-og0va1b-v6-0-a05b2d04c892@oss.qualcomm.com>
- <20260901-og0va1b-v6-2-a05b2d04c892@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=flapping.org header.i=@flapping.org header.b="odcEVQhb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Pc2aoiVN"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id EAC2D7A00EA;
+	Tue,  8 Sep 2026 07:14:09 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 08 Sep 2026 07:14:10 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788866049;
+	 x=1788952449; bh=5qmHj4kxUir+AQue4QISqSFurMKIW3UuGg7zJ7IYMgU=; b=
+	odcEVQhb9C7TQvwQkAU9qux3vBTtjuMYKlyvzFFEBrpEVyIPpMCFeZaGvQLM0hGY
+	CBGQjK/AoF5VkQoZy2g0jsq5vNAK9OnMQqzEqUxaw30IlbPN/7+oTUdq8KuTDtzq
+	8uxgpWLZrelVfFSZ85YLNOuR5cLcZlgpD+/j/tovemg/TYaAPmdnD3slb9W5tnBI
+	tPADR56xlHa9jaPdmxXN2cPq2md6ZBhDDPfFecQZD4VWhZa1dJL2PsjnRN2qbk/l
+	N7RmiYMiwJtVhuNXpGV8pANyta7R6jtNFGwcnezJxW7/l59aLR/3KEXMJNN1mXFE
+	cuLYmy+hmN41o5lkQiD2hA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788866049; x=
+	1788952449; bh=5qmHj4kxUir+AQue4QISqSFurMKIW3UuGg7zJ7IYMgU=; b=P
+	c2aoiVNYG15p1L7bYjKk4Q/DqbawjuhAsD+r9VfCjr/BF+J/IIXhWP34rpIFZvov
+	aEo0cxw6X6MhDgfkj3ZIbTKbUlY1O7jCpXlryz9ErC7pNN+piDqjzBjappUPlC7E
+	Z8WwkMTLowM3mV+ON7K5nvoutltbgzzkpjQvIvVktq++2ENS91PPVHWYptLO3Sah
+	cnPbFVQW41Vg/5+qcXKmG/h6ta/P1+APQENMJ8TJImEaKS2whHXkMIQxHgYB1ys7
+	EfoaoDfX+zHCNzcpTuqxvp3mdJJIv/zY1bJ9a1aFl3eVm9uVxOahN1eUJyxvw/hT
+	ZJFEOw0Drge2HDWekUl+Q==
+X-ME-Sender: <xms:Ae6faiQDDC2ucbuyyB8oE2Dib1_5NFrIW3atO1c9ATb2VlqB7aHJDg>
+    <xme:Ae6fapa16Ctaewz1unD6J4t4wZ-1350RVn9uG4V1LaSb_mwb-K06K1f8iSJ6cNmbU
+    6MXazg_vd2TSqe2uYNO5LOGsb2IrCBC6b_vazSL_ISrDDqIHC3mdEVk>
+X-ME-Received: <xmr:Ae6faj76Q6Z5lFHjgos-PAY6PCaBT6U5OeGN6mGe7QboMg7vYGVzEwbd53HuDxaBHqMa8QSwLl-Azd-EsS56PIB6>
+X-ME-Proxy-Cause: dmFkZTE847dkQ2RnAhoEBiNLPCGY+6ZrGPBO+rjoDh8iYwze1IA9Xe/21J/+IfSrmRABzF
+    DE9lm2YeZbDvDUudvOJyKmw+K1/VP1AaSGN3dkuuTM60Km3SLSqQDLwt5AYO6K6INMDYiK
+    bvlJoLNYZdIeD6xQoHyQm7A//oeWFKMtWFvh4tyQfF2WOWYRpHmWFdvLU/0H0vyJgtfqDk
+    XZ4kiW7Dc6Se2hi/fsmrCE9Yie4AyoDosaSBM2PRf8P/VTbnPFU/0rgNq54IkUg+9uifcX
+    3EzjX93/IrYHer8QXziWFw9TPkI//8uHxNgeKoyxa/fBqkz2ffA4P4fpYAZYLndEmbuCN8
+    Z07ZtrzQ9BgVqW//Si4xYtseQsm8ukKyUWIX4U7hM6rprSsQdhPS6W6SLyIhAcwhyCFdfi
+    jgq+SvUC7v3z19yQsa5zrPlGmU9jJ2BAPCN9qfpQA/catp8YVoUDfn4rvJvs99NPXosk91
+    UnrQU4S2tE52gVgaoKcQBX5nuAolwberWjZPMRpfJjYGkgQBs2Ma4gKtP/MnCJSPm+n+7m
+    lUL52jOgU0wKtesoOBCfdEETM1FqmVeOpUBUC7CSZl+eLC0y0ZKnHa/Joh3BTxJCekv+c5
+    R3dBkoxH1Ulx2cB5ZfN+ZMK3zORPpvhtAS178DI41QjRVKyvWTZ5/7skaAgw
+X-ME-Proxy: <xmx:Ae6fakfn_hjs9a3bPEvRH3fF4ESsqSFHjWfVQAbZKHQOt7eOu2gNWg>
+    <xmx:Ae6faqffwD2XQS31ubR2Y1jn1XnMvA04n-17XARKBJ3Ps28YslyrZg>
+    <xmx:Ae6fapE3VJbZ6SzRI8Ft29X6dc56ZfwGAO1Qb5H89SoIRpu6dMDGkQ>
+    <xmx:Ae6fapH_n_tK1A6wUW3sjvlVursrn3-YEMuvZNfwsT8ZHCb5GExIUQ>
+    <xmx:Ae6far-56Q2DWHr4ReN9WEEHf-7J-F9GckzfL6YgMgpTyosvsQjeXhtj>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 07:14:04 -0400 (EDT)
+Date: Tue, 08 Sep 2026 20:14:00 +0900 (JST)
+Message-Id: <20260908.201400.2113025819273270637.tomo@flapping.org>
+To: a.hindborg@kernel.org
+Cc: mike@fireburn.co.uk, rust-for-linux@vger.kernel.org, boqun@kernel.org,
+ fujita.tomonori@gmail.com, frederic@kernel.org, lyude@redhat.com,
+ tglx@kernel.org, anna-maria@linutronix.de, jstultz@google.com,
+ sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 9/9] rust: time: add ktime_get_real_seconds
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <877blb1y3a.fsf@kernel.org>
+References: <-MGvfW7sYYLrXTWvmTSX5lTwjEMfK97Q5QgNWBrHikC8aI_fyF3Sa3qzN4A9Th5lK46jMOYU4KjO59m00z4P9A==@protonmail.internalid>
+	<20260826162851.2497-10-mike@fireburn.co.uk>
+	<877blb1y3a.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-og0va1b-v6-2-a05b2d04c892@oss.qualcomm.com>
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-Hi Wenmeng,
+On Thu, 27 Aug 2026 15:39:53 +0200
+Andreas Hindborg <a.hindborg@kernel.org> wrote:
 
-On Tue, Sep 01, 2026 at 03:40:05PM +0800, Wenmeng Liu wrote:
-> OG0VE1B is a monochrome sensor and cannot produce coloured test
-> patterns, so the "Vertical Colour Bars" test pattern name is misleading.
-> Rename it to "Standard Test Bar" to match the OG0VA1B naming.
-
-I guess the test pattern generator is still the same (or similar) even if
-the colour filter on the sensor isn't what you'd expect of e.g. a Bayer
-sensor. You you call it standard, however, I think you should define what
-that standard is. We're not limited to datasheet naming here.
-
+> "Mike Lothian" <mike@fireburn.co.uk> writes:
 > 
-> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->  drivers/media/i2c/og0ve1b.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>> Reading an `Instant<RealTime>` is the wrong tool for a caller that only
+>> wants a calendar time in seconds: it takes a full nanosecond timestamp and
+>> then needs a 64-bit division to get back to what the timekeeping core
+>> already maintains as a plain seconds field.
+>>
+>> Wrap `ktime_get_real_seconds()`, which is that field. Document the property
+>> that matters at the call site and that the type cannot express: the value
+>> follows CLOCK_REALTIME, so it is not monotonic and can move in either
+>> direction.
 > 
-> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-> index 84a28cdcade10f8fbcf945999e88f84641b9bc0d..da5c8e49d4a811f55736bd89c6922856f2e7391c 100644
-> --- a/drivers/media/i2c/og0ve1b.c
-> +++ b/drivers/media/i2c/og0ve1b.c
-> @@ -72,7 +72,7 @@ struct og0ve1b_mode {
->  
->  static const char * const og0ve1b_test_pattern_menu[] = {
->  	"Disabled",
-> -	"Vertical Colour Bars",
-> +	"Standard Test Bar",
->  };
->  
->  static const char * const og0ve1b_supply_names[] = {
-> 
+> We recently added the concept of `TimeUnit`. For now it is exposed via
+> `Delta<U: TimeUnit>`. We could extend this to `Instant` as well to have
+> a seconds based `Instant`.
 
--- 
-Regards,
+I don't think that is a good idea.
 
-Sakari Ailus
+`Instant` is a point in time that exists to produce a `Delta`: `now()` is its
+only constructor, and what you do with it is `elapsed()` or `Instant -
+Instant`. So a seconds based `Instant` has to define what `Instant - Instant`
+returns, and `Delta<Sec>` would have no consumer. Every interface that takes a
+span takes a `Delta<Nsec>`: `fsleep()`, `udelay()`, `HrTimer::forward()`,
+`read_poll_timeout()`. `Delta` also already treats seconds as an input format
+rather than a unit, since `Delta::from_secs()` returns a `Delta<Nsec>`. That is
+the difference from `Delta<Jiffy>`, which earned a type because the C side takes
+jiffies at the boundary and the conversion is lossy; `time64_t` is an `i64` and
+seconds to nanoseconds is exact.
+
+And that is not how `ktime_get_real_seconds()` is used in the first place. Its
+callers need a calendar value in seconds because something outside the kernel
+fixes the format: an on-disk field, a value passed to firmware, or a userspace
+ABI field. Many of them compare it against an expiry time that came from the
+wire or from disk.
+
+Does that make sense?
+
