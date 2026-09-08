@@ -1,75 +1,85 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE595237B3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:10:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBD2233344A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883836; cv=none; b=n6Y28ToBr0PHznb1a3tKmbP7gQb2o7nOwOZIwZHt4Co9QntvqoVtYdeYCQlJT7KjWBT5N7lBIijA3nnfdjui7muIgOUd7oJlpkzAF760vjNUVyU1Bfr7sOCoQjOY3sbMes5sBgDMD5bQ8NSje4jRKBwmnaiN/Oo8ZW9Ks+baee8=
+	t=1788883940; cv=none; b=s3xF3mPDfvuhNxk2MXUrJxTtFGdqRHOWBFvpWmSf9BuCn1i8cLgEcR6H9GFBoIsiET5+UVFSonNqa5ShyO/OfuVqE/VTe62o7c5z53BpUgw7Yohsf/6IvWsj19Xt21J2orExFewiITYSme6sedqFVUEMmZiOsspi4Wx3DRRecRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883836; c=relaxed/simple;
-	bh=Gl+Swk1dn461Tx4EjTwhkpaDP70S6FB1TJLZiQwopO8=;
+	s=arc-20240116; t=1788883940; c=relaxed/simple;
+	bh=ngRQZd35Jt8WtlvrkxLAiPGXLe55YxX1GcCgc8p/Miw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tEp/3X+5FWNZC4NtVZ0+TRm/DhrI/iXKK7Kv5S869llqa0kuOxkxReok+G81Dr1KdCiTHrUYraGgStyZi3+3PMxYHWah7RPHixVqwp1wXGryBTC4Lq+FOpT50L5MnXg8+t768efjozhVIuyrUgOHPX4C8mLQZ/1ydPUlnhLSmfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNWc5Fnu; arc=none smtp.client-ip=209.85.210.176
+	 Content-Type:Content-Disposition:In-Reply-To; b=hTMaYRv47duiM6RdagZ/T/YSMces/nX4YjbkIh03jdzZsrxq5uVpn9htKGoanjIJzNZSqaHjUjOjZimrODLwoVzphxSmOeuY4H0cydcszTYV2gmChPWjO5oOgXbeUtVSfaJl6e5xBndLN8q7DiBjRQcDIpJf6cbMAnb3gFAnHSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4J8Q2yy; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNWc5Fnu"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-85339ed040aso3916728b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:10:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4J8Q2yy"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6e954afbdso31059365ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:12:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788883833; x=1789488633; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788883937; x=1789488737; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=FBzAEPvhV3BtFCxgHkQSHE7fPChGhBuXoruAGzCkmWk=;
-        b=hNWc5Fnux8tGT7viaOITZwZdYS0A6iYjMRq8lNUAZEY2zOOZ7NZCKtmqK64jrpI0wb
-         gIxCptd6CUR70u33SUHCo8+zcjDmspoVKANabu1JvdFmlUkL9vFlzGCo8QT/IYeQFqn+
-         cV3l14NEofDCv+L1IvYVfhSOtDVk9LeBgtuSaivuKNgFmkFcjTTavtq+ETmQnpVtt5A3
-         /8YDwMOOjnj8gPdxgrJBvavYTMZqg0EnP6G3Vq7F7j6t1cBZS7CorFZah6BZS4jE+UH8
-         PEGNfBhnorIoemxq28Thp0+6JcUMDCrUvTrKFXnN+YRj6yKh/ZQZciGdHrCRtkpd1RdQ
-         fxQw==
+        bh=2RTVmx65sj/OQ1FTIJA7qw5cuQ/6mnn1iGRNRdhAkxI=;
+        b=e4J8Q2yyLgnaI3DuH2ilWxg3DHl3Q0BkXvbDPlZXmC2w4+ftoonQL77NoEVp338iiX
+         gJFWe/t0mVVAw1ODfUoCMFm1GWazrQZ4Yx5xlxl0TXHt9oKcEOd5UO6SgZsIkGSalrcw
+         8KqiUvLhF9XFYJGdo2jbToC+/M/DQh5KuJndIHo5NfPeDp5MBK+SpTddcwyCDXa6Gw3d
+         Wi+U3v3cfm0E3s8HY+LEas8r7lq4ckD0dtfZCO3vOJkVO25cxCEkqRBp5dYvza6Rt4iu
+         bl1MVzlG7rcvcoBQZ1g6gjLwoK7qQxNvqfnv2YZVDf3sQESJLZ8gB8jvrrZnEPWr28OI
+         NIWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883833; x=1789488633;
+        d=1e100.net; s=20251104; t=1788883937; x=1789488737;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FBzAEPvhV3BtFCxgHkQSHE7fPChGhBuXoruAGzCkmWk=;
-        b=BpV8QG0YXv6NW9TXYpDVdpII2tPWApohsvH/TIv5iumxm3JMXHYUlHu0VgdtTL02Ax
-         YQJxsdBhZUKN6IHyO0nwCfeN01kFZZCyI+ZkSsU6GYntKO3kGocMAWXsTVk+ZTl6nMVj
-         OahfSr9dYT3iaNjMiG3N9+amaXmDghv/YwHsyDLxmeMydmi8qodAqQr9fpz3gZLMmuqI
-         +J+uAGojehGFoGjwlSJZmyIjgoxvCgaB+e9je5VVhxqtiRhFbeSlo1ipeD6sEe0JuraP
-         1ajVR05wA1PZHW2MhSAeys+7ah+oqzq75uRsUsAs1D9EBm0qx9jGVhXAno4X/bVpXjZH
-         3f7A==
-X-Forwarded-Encrypted: i=1; AKwUvByZJbNVxVuu3mbsnRNmvKP3bQEY51XgXcRNDQOCPq2ySqRU8TZqwk3iSLU8sRGz8dXZtjgmLEbX5krR8Ew=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/g5OVcRipeuezk8NzvooKARll7mu7Ld4cYOxh+QPkpbT5WQw7
-	hW8Dsjt8CD/SG/RQAsIEkG0mljSO2N+767DtDtBNLFXA+e2ZONXJvMIH
-X-Gm-Gg: AYBFou3tnHiVg2ttGjCNQUzRen4BkFBgsP7nmYMxt0JLxuD+3GohbcUX7Mwscnb8CmN
-	EcJUBOigpMG18k1BEMM6oECWRynuz5G0+lD+tCwI2L6XHJaCjT06GxzJhbuvcZ6+J5wprTAE5rg
-	hGiFZTi5+tduFyfe1af/+TW3Tc1xqV/VqZLB5f3VFPQu3SJWtlnv+rqFqvJG9NBvKZ52T9iJ8Uf
-	yTvpCtolSlnoBBxRGLCBDyzGedNbm8egFq37LOoJhRaIh5n9FhfuKxcWQwHyqpgZMC44r4veiA9
-	zmBONTTRG00ezitJyAa8m1ccRB246R8ZX1ziAmJo5IrZ0IwI5kpZSRh7poorI7y9jULebRi2SBh
-	GNDuv1QkiPoDcoEYyvhKysvLq/loo097UBOBdLmtquLOByENCJlE1cKFKtcNi5/24Gl7VIk8jgc
-	pKn23jiP8kPOcUdL0VyD4htZHNYylT0emidfTmBdnkGdz0MwbpMw3WwkitJR/7biil8Bvf/e/vP
-	Sb5ax6vp12G
-X-Received: by 2002:a05:6a00:b94:b0:84e:2382:f4f0 with SMTP id d2e1a72fcca58-861660e2f8amr39694011b3a.4.1788883832664;
-        Tue, 08 Sep 2026 09:10:32 -0700 (PDT)
+        bh=2RTVmx65sj/OQ1FTIJA7qw5cuQ/6mnn1iGRNRdhAkxI=;
+        b=KLybfbnvspSWSHtOedSV+lhPS+1aVl4eumqJ4CXShuWZcPf5HHPQx0eQ3lfF2diUXt
+         Nh2J01mRY1r/DzPTnRZ2+ujur3V59zbi0X6EUNUjsWJhU6Dhbz0jclOflQC4oYbj6HUW
+         n3RauJ6pZEQDQDIvao5/93DZPZd/Se94DCxYiAVgc4ZrFNhgffTd4cx27kdxNeAHfaBx
+         z2rh6CbVZS0m1SvaCsGG8Iaynfu8IBy16qnNxPQbMfhC7IQeDNgEyP97aJTUEy080dPc
+         hhVXtyxL4m6M01/zDPAAM0ajqYkNIMZ7VMNCJXiU3SxCLzg9okYLlef6K/Hcg74E87os
+         bXlQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbxwZwcbqKVBufxSpVEA/dC8bhVbJ2Pz8QaiAKO5P+cAnmoyZ8S7+2Svv0E5w7Qvj0LWrXQ2/WvuuyLs0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5PU+nooTo6ux/VZY3/1DnmW93np9aGYpMHYcWgyYza4qTsQTy
+	4kDmNYolSKSaGtijdcJfjnzRQp5HCdBx+jVZAVC4vZTVuNAarU5vt7x212jSiw==
+X-Gm-Gg: AYBFou2Dx9UnY1mOlpzCfiMaXMsTMnlxgOEEEBBzUK3wBotjJjQN8oHJXBgpkSSXedR
+	lUNy8PZu9qneelQE9XdmAwSXbA52oOSM/tJgb5+zLZ2t9cd5R54w0jGtlAbkuf2tbldslwzOkKd
+	08N5iV8nw3KPHqLA/4UCcfeN8g5CK2mlCCp8PnbysvuBAlq1wxjIwBdU7xs9Mtuh0VQq3sYlIPF
+	GG3xc9uWlJr/nVxc/CvrrzxjWH4IkJl/Wj/vpY6UwD+LNl6Oni1uNDB8XQLYK6uRL8Q7ZuTCyz4
+	yMJZC3pQsyzF0h8ggKajDQ9UxuFiMmPewzIvvQo9x4u9VrpZw9ju3M1e1/SBnOTd6E4+d35ywOI
+	KV1HK2aWe98E+69lTZxVyz+Te98zuenCBZt6bWZBu2IIyJwFFAXml1rN/xEs1w8357ScSMmwZby
+	ZgxBA8XysUHUULx79VEmxFFDLSzZJQGXtpaMa3vC1KtshF4yZtgZM7HYenu1WNwo+ug+y1WJ6nG
+	g==
+X-Received: by 2002:a17:902:db07:b0:2db:5ea1:8b04 with SMTP id d9443c01a7336-2db5ea18e2amr170023395ad.5.1788883937378;
+        Tue, 08 Sep 2026 09:12:17 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152e39a38sm5766013b3a.39.2026.09.08.09.10.22
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b419sm61093785ad.13.2026.09.08.09.12.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:10:24 -0700 (PDT)
+        Tue, 08 Sep 2026 09:12:16 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 8 Sep 2026 09:10:21 -0700
+Date: Tue, 8 Sep 2026 09:12:15 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Carl Lee <carl.lee@amd.com>
-Cc: Delphine CC Chiu <Delphine_CC_Chiu@wiwynn.com>,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: (pmbus/ltc4286) Add writable shunt_resistor
- sysfs attribute
-Message-ID: <49b1e36c-32d3-4511-979c-d04b2e80d1b8@roeck-us.net>
-References: <20260907-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v2-1-5f47f7e5a1bb@amd.com>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>,
+	Karthikeyan Mitran <kmitran@axiado.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: Add Axiado AX3000 TSADC
+Message-ID: <ba945a15-bd57-4c6a-a738-53177a9cd814@roeck-us.net>
+References: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
+ <20260903-axiado-ax3000-tsadc-v1-1-a8a0f3b251f5@axiado.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,24 +88,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-hwmon-pmbus-ltc4286-add-runtime-shunt-resistor-control-v2-1-5f47f7e5a1bb@amd.com>
+In-Reply-To: <20260903-axiado-ax3000-tsadc-v1-1-a8a0f3b251f5@axiado.com>
 
-On Mon, Sep 07, 2026 at 03:58:32PM +0800, Carl Lee wrote:
-> The LTC4286/LTC4287 driver uses rsense to scale current and power
-> telemetry. rsense is board-specific rather than a fixed device
-> characteristic, and may differ across qualified BOM variants using the
-> same software image.
+On Thu, Sep 03, 2026 at 12:09:47AM -0700, Petar Stepanovic wrote:
+> Add a Devicetree binding for the temperature sensor ADC (TSADC)
+> controller found on the Axiado AX3000 and AX3005 SoCs.
 > 
-> If rsense does not match the installed board configuration, current and
-> power readings are mis-scaled.
+> The controller monitors the on-die temperature. An SoC may contain
+> multiple TSADC controllers at different locations on the die, each
+> represented by a separate Devicetree node.
 > 
-> Add a writable shunt_resistor sysfs attribute so userspace can update
-> the board calibration value after platform identification. Initialize
-> rsense from shunt-resistor-micro-ohms as before (or the existing default
-> when absent), and validate runtime updates before recalculating the
-> current/power scaling coefficients.
+> AX3005 uses the same programming model as AX3000 and is compatible
+> with the AX3000 implementation. Therefore, axiado,ax3000-tsadc is
+> used as its fallback compatible.
 > 
-> Signed-off-by: Carl Lee <carl.lee@amd.com>
+> Also add a MAINTAINERS entry covering the binding and driver.
+> 
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
 Applied.
 
