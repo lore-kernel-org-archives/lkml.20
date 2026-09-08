@@ -1,84 +1,53 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mta1.migadu.com (out-43.mta1.migadu.com [95.215.58.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7995A59B686
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:44:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350C159B67C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889485; cv=none; b=m4hYCcShtlyOn6bPmG5dJMSdIxqE8u03kUzwxQrc+oJ2CTscAIhUZXjRrSHA3TjrX6A6/H2Ra/VvKZl0Fl+vPkD4drR2pSNwpKalZ0Xm/D98X3IYUy1aXbkF/9c15mA1WhSYyN2J6iAbwCKD7n5nSOXXYWycv5RtbLMmUTJ85sg=
+	t=1788889486; cv=none; b=sH2UXK550vBIdP5AW7dFMSVmbNGShr5avOduGEuNHp4vLwC39TqOi3sVMAAE+M/x4Ef7r3OQZtWoz7IaBiXJYvaB5J3xVCV08XTLu7sd/4n3I3Zjes1Y8Rub3X1yi7hL5xjjtwkvW0bmtjngw2uv2ozecVMDVsx03gWPKnwc8IM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889485; c=relaxed/simple;
-	bh=07ov/I/ldShm72hNuJQXaFMDAcMGOum0C8wl6iv0rIQ=;
+	s=arc-20240116; t=1788889486; c=relaxed/simple;
+	bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mwwr7UDQ37k0KFSFaHbJXW3EqUPM3np8u7+ImuLWRd1LVpgW616vl1shDkdTd1yPZGk2NU1cauZnlWCWKsyYsV+AaHp0yFeJrDkc48rWYDyxJ7X/9zgB66JXxUnhDwI/4uhxg9B4yS/AmEUqrtRNkTQqipLHvbnWAL8slVWDDLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kkuZ/MIH; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=rn36jAhc1e0Sx1/6h/OILq1cVQNEc5F+100MfZXCtCFHCVsm5G2BQVDL6y/fKPqfkCf8RyBoj0eKuHSlRFzNrVX1FyZcytWP65eViGuYEbqfDjzi31YvHODayar1e8Wdgpe+AnLBj1XHVunbDFWZV9NyuVBirk6+cHPpEWz68lM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HqCs0Iez; arc=none smtp.client-ip=95.215.58.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kkuZ/MIH"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49d05d51553so27597285e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:44:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788889482; x=1789494282; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pzjiq1bNAWSar6CSSzfU0ZIGYB2L0BzVwz/Bd6duqAU=;
-        b=kkuZ/MIHSK5yRaH2AR1RuW3PyD/IMk39SEKUnzMwGMxHAUJnt/IRHp77162XmjScMS
-         6/W45zcdbLtF86HbUkyu1bJphc+BAbcVS0/FYMFcKjQavB+bgkT6gVwDp3Po0zbGxCGX
-         EV2Px7S2mAA/ES4u2qhCzOOWJPir7JQAPKwy1i0uCspnllX0DgPdw9De1+ig/e2csye/
-         AXuXj3fTrAGLSEcWFeVuTlogyxCp5CCxvFNtPAhlC9UAzSw1MrTsplZBh3hs12/dtWcq
-         MwQZiV+HxBClnuwGSv51B8uApIdOS9tvPsO4bvX6HaPA8H7L4xqsdXDCK2D7oAdyytE1
-         O+WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788889482; x=1789494282;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pzjiq1bNAWSar6CSSzfU0ZIGYB2L0BzVwz/Bd6duqAU=;
-        b=qp+FLGr87ezn42mndvxEo6ekhzy59fRIq68WWhbGLtyddNyF6VKYYtAShOpj07J9Ra
-         F8bkie1hKjaUbc5qlcK3cbA3l4txQQwYPxLT21v9gmYNLbBFmfIkJO/AiQcsutamaTie
-         s3Icw/bakZ7HLYt6hey4tRp7THYswkQugr6fxy+lrCygVR3YlkYBGvlVnpb4R6bP4ogl
-         hvKV22E8PtFzOR021211IwYPDvdgywnjS9IDWTM15oGeVnS90CbS3cOYFNALkHRvFZ3F
-         AapFmrgm1QAPVSeu1uxxV2hBUUReSUuoj5/rsfOgzvOg+zu6mbjqzv1OVSDQVJe0wJRQ
-         NbEw==
-X-Forwarded-Encrypted: i=1; AKwUvBz0PBHl56Un58RRlcCdB03635iQ7v74qr3qTVy5x0Lr5LJjZIB11LN2dDp3GsaEhCREl6TwBqmBfi4Xn64=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuMr8W8cqxIzq2BAbzVv0HLqEe79Wioul4rxep2ix0egYJku1n
-	za1+PfCmqoOPx45KFZIR1OKMIuKg/0hwO8ZkHLEjT3i8MK2hT5AbkQsN
-X-Gm-Gg: AYBFou0y7S3q4x36GeydgoIb1iRwxmXqjGgXVqVbQsYtXBQNbYtbyaebZYsFztfnJ5P
-	nZXb7Kra5v+DLCv6W6QUQfJ5nVrGzAyekUdYpj2ibMuyzmBMADytp7Ek2/5oqxkSmqCPm5EvCgI
-	w+iH0sx1UEaMAOxjypqtzD74V4p4bw3cT4E8mS+8XKM5m9LM9OiXEApZGjyCWA5HxUTUpXzKUj5
-	KxMzuTwL6MkN7XMqLL7skHVRZSE4NH7SBicxxN7v5QnAqJgLQC7P9BgXLJNc9vVQgVwPXiIGr0p
-	2Ta2Y/d4mLVyS7BljvYVtngqnPxekxo5uQGaFWA8dX1AEFe7mhD38eAjVqkue5lbAoE1z2BR50l
-	1jcw2z/TwDTdctM5BcKDvRkGlIq5dbY7ThcN3a4O1HtYRJnkYVkihKGTSJgvfM2YIHxf5zrRg9F
-	7Q26Id53J8hJgwW9H025atLeYALKhAXrdxd4K/riHm5b4duJg8p8UAxBNL
-X-Received: by 2002:a05:600c:4fc5:b0:49c:fe18:6dd5 with SMTP id 5b1f17b1804b1-49cfe186dfemr274872685e9.29.1788889481519;
-        Tue, 08 Sep 2026 10:44:41 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm487081105e9.15.2026.09.08.10.44.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:44:40 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v5 8/8] arm64: dts: mt8167: Add support for mmsys resets
-Date: Tue,  8 Sep 2026 19:38:35 +0200
-Message-ID: <20260908174259.9009-9-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908174259.9009-1-l.scorcia@gmail.com>
-References: <20260908174259.9009-1-l.scorcia@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HqCs0Iez"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zLK9ilxnouBl8OfzKtWT4IUHOCTEywTf0m+xYBuIXWw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788889480; v=1; x=1789494280;
+ b=HqCs0IezO0f3LQHksBjZd54u4bNx9c28PXVNZgolt1IRvCRjgnFghk7Q1Kmi0h7IdS6llbab
+ Ipn0nxM0Ntc+S2Sex4ACu/XTMVB9InGn5fGm84WLlihXAGjqEVRhizbMzAByQ9N9p3ELhD1oe4+
+ LUpm3IrZBtrK4TOHr7oCE6Cs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5043b55b054dda9e;
+	Tue, 08 Sep 2026 17:44:40 +0000
+X-Mizu-Trace-ID: 5043b55b054dda9e
+X-Migadu-Flow: FLOW_OUT
+From: Denis Benato <denis.benato@linux.dev>
+To: linux-kernel@vger.kernel.org
+Cc: linux-input@vger.kernel.org,
+	"Benjamin Tissoires" <bentiss@kernel.org>,
+	"Jiri Kosina" <jikos@kernel.org>,
+	"Luke D . Jones" <luke@ljones.dev>,
+	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
+	"Denis Benato" <benato.denis96@gmail.com>,
+	"Jonathan LoBue" <jlobue10@gmail.com>,
+	"Khamunetri Clark" <khamunetriclark@gmail.com>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Panz Dev <panz.development@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v6 01/13] HID: asus: do not send keyboard init reports to touchpads
+Date: Tue,  8 Sep 2026 17:44:21 +0000
+Message-ID: <20260908174433.74260-2-denis.benato@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908174433.74260-1-denis.benato@linux.dev>
+References: <20260908174433.74260-1-denis.benato@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -87,25 +56,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for mmsys resets by declaring the reset-cells property.
+From: Panz Dev <panz.development@gmail.com>
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Commit 0919db9f3583 ("HID: asus: always fully initialize devices") added a
+loop during asus_probe() to send keyboard feature report initializations
+(asus_kbd_init) to all ASUS HID devices.
+
+On ASUS laptops with I2C/HID touchpads (such as the ASUS E200HA), sending
+keyboard feature reports (FEATURE_KBD_REPORT_ID) to touchpad endpoints
+sends invalid feature requests to touchpad hardware, corrupting probe
+state and causing the touchpad to become unresponsive.
+
+Wrap the asus_report_id_init loop in an `if (!drvdata->tp)` check so
+keyboard feature initialization only runs for actual keyboards.
+
+Tested on ASUS E200HA (where touchpad functionality is fully restored)
+and ASUS VivoBook Flip 14 TP401MA (confirming zero regressions).
+
+Fixes: 0919db9f3583 ("HID: asus: always fully initialize devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Panz Dev <panz.development@gmail.com>
 ---
- arch/arm64/boot/dts/mediatek/mt8167.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/hid/hid-asus.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8167.dtsi b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-index be215390730b..9eb24dc8715f 100644
---- a/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8167.dtsi
-@@ -132,6 +132,7 @@ mmsys: syscon@14000000 {
- 			compatible = "mediatek,mt8167-mmsys", "syscon";
- 			reg = <0 0x14000000 0 0x1000>;
- 			#clock-cells = <1>;
-+			#reset-cells = <1>;
- 		};
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index ec966fc0a411..bd46aba6622a 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -1493,12 +1493,14 @@ static int asus_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return ret;
+ 	}
  
- 		larb0: larb@14016000 {
+-	for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
+-		if (asus_has_report_id(hdev, asus_report_id_init[r])) {
+-			ret = asus_kbd_init(hdev, asus_report_id_init[r]);
+-			if (ret < 0)
+-				hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
+-					 asus_report_id_init[r], ret);
++	if (!drvdata->tp) {
++		for (int r = 0; r < ARRAY_SIZE(asus_report_id_init); r++) {
++			if (asus_has_report_id(hdev, asus_report_id_init[r])) {
++				ret = asus_kbd_init(hdev, asus_report_id_init[r]);
++				if (ret < 0)
++					hid_warn(hdev, "Failed to initialize 0x%x: %d.\n",
++						 asus_report_id_init[r], ret);
++			}
+ 		}
+ 	}
+ 
 -- 
-2.43.0
+2.47.3
 
