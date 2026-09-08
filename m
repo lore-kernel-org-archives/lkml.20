@@ -1,70 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380DA513568;
-	Tue,  8 Sep 2026 13:04:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01493556B8C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:04:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872688; cv=none; b=PGALPIuf78YiQZsx/0zFxjc1je/uToleaZbRUnRDFsBMaj+xrpySUNKcfjWohkQH5tw4xIU9v46++GCwfRI5w4NnTAVMg2Mng9Qc6CwgYWwaIxc7KOaCTR7Sl5Lf7+0+IlcRsoCDoMO6CJ2qzEUVJlhpfEGwS9HghUSTbLBQ1+o=
+	t=1788872689; cv=none; b=oJbPe6F9/crFLmz9g4Idq4pYagt2+wxa8IA9EDWljDFYv/MLPBrQSWhqMc4p97fSWF3oerj9hvB8pO2KivWozVt86yj4qucJTCdNfBEljIzOGNlHVOSc5NSKg/EX/c1AWCJ+krmESNpDC7qukEPZQJHyuON+y9y2zIAGS2NjLLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872688; c=relaxed/simple;
-	bh=TWsqc2hmMoTS+LukWCXIXcfxrsBcDp2qVzqzJMX72FQ=;
-	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=nQR3fs+OylKJ44NvICTrCX4d9Pofsj5g1lu6kVWcPUgNmmBTvZTvmRsNFP5cO55siF8J6UVfIcGHC6sCLO4xg8aafQOTG1UEQNNr1sBfrvhWEIk/suqrmRNSjuPII+zr468obIXj7SFKgh+qJEUh0sc2IxNV3xq43IyRT6kVZ4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GME5OEfm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GME5OEfm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4F21F00A3A;
-	Tue,  8 Sep 2026 13:04:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788872686;
-	bh=0c6VVgpgr8QRvVK0L3AA+Ya2VGnRG3C/SeaIoCEOEIw=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc;
-	b=GME5OEfmBM3W0vV/lVcz+5iVnZEC5ckUSFlvI8uKcFRfnIi/d7yvCw33IdTcWPrOG
-	 +ODsMzky9dGz8w1QvGQ90Rjxbc6478UAnrg7p0yiOWzjOSF7WU7wxuE4NUxRanh3EY
-	 J5K091ChOVt841MVIvPiboxtyhgRplOqOOGj15aUxNb1vbrf5IZl/UbnwkrW5qD87Q
-	 Ov23nnRh40+Y3J/7ubOvVyg/lyu1P7SFBrsi4Q6EDRPLYoKu2jm4Xv30Yk+DFrdsJn
-	 XkOmt3S3WSQ7t2wPuUTZli7yc041+BiDeff9S74+zS6fP2gdhUrypH5nX4llhwjzd3
-	 3Dk7FHiMKatdw==
-Message-ID: <0ec40db90bd0d2ece46b185deb3c8eca@kernel.org>
-Date: Tue, 08 Sep 2026 13:04:43 +0000
-From: "Maxime Ripard" <mripard@kernel.org>
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Subject: Re: [PATCH v11 45/74] drm/vc4: hdmi: Propagate -EDEADLK to the top
- level
-In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
-References: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
- Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
- Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
- Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
- Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
- =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge Deller" <deller@gmx.de>, "Jernej
- Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
- Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
- Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
- Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
- Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
- Zimmermann" <tzimmermann@suse.de>
-Content-Transfer-Encoding: 7bit
+	s=arc-20240116; t=1788872689; c=relaxed/simple;
+	bh=QielMTt5kZGRA9qslagGlyuEZEWfmqWZ+CWbXIZJoTA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W8F4uY9/Bi4CJmXPtlb1une7BQNTiaNkapvWgFx5t+V59itHdp5WZJ+PFMYqQsh9awT/Ld+DBnZeS039caYzwl+qrreqrqh9Z5Jv9fUAhfG4LcEcag7MO1bzQmuAsYgOBzvYsbFSIp2cMMwKx+dur6gcgrmG64t57t5Mmo+aen8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c652293bcdso5054453e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:04:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872687; x=1789477487;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=r5dLsgIsqu5pg0i7fE8t17PFsu5iOt2muwNdqto+9Q0=;
+        b=mgZUc0vAJuhpzOrrul4UI9aNosSwhGDYxfmqEoO/N3LQud0SP969ZzZiCFmjsVgbkc
+         ewBRHIir6zkLwXlQRmjF9YtcAX7x3oesckF6JtfotPgxO7jfqM1MfS3Vf92Zg7Mjc8q2
+         NNAguotX5hv8RH2wh5XcieXTEGc1zJm6N6GYbKyBhdRRtbZkOCfAf/ueMEhvDksfjpMk
+         /FZ14wOORjm8Z+uuOVKMK+oR6I+TMMqOtnPBqMu8t6aUfpkTLhFjdA+5KfLYAAFy9OT1
+         KbMgjXwz5T7DVKLA+7xn8uGWhaWEuaKSsn93ziodJwzxxtayKDxkqOH66nM8n1ilq1ey
+         wzWg==
+X-Forwarded-Encrypted: i=1; AKwUvBzu4mCYza31muxA0nB9nC0uZte+5qGlxMy/djDBukgB37KK45GMY1f9Y2qwU38AVjlZidlRh7mQRKIBw5M=@vger.kernel.org
+X-Gm-Message-State: AFuF++k6/VtHeZ6p8e1Tl2NhwdDoe0tOWCzq4Tz6iDLtIQe5btfnbLwJ
+	qhkU2TWjQkLAy4eVKrfIH8TZXPhyuDscrAVSTq5QdmQtOJFRcWKE7mTVczY8YdvB
+X-Gm-Gg: AYBFou3GcZGV+hesu7mS4tBmixq7unLy2K2qSgKFOobscxvRzb718xfdDm6yIJUv0mm
+	2E8AKbE9QBgG5olHJSp7kib+VpMphOx7DrrY7t+C+mRlUa3ngV6wSrsOdmA5Je02q61v5jaTqzw
+	JOgB26CQBWAeQI8SoKtaFCWLXcGrndWckkcg1wVmVaWuVJOpIaOnN081CNOZAT/RZ+ReKJFu98e
+	mXkQbxE4Fv8xofU35FZlH6WHUHczq8j5sYHran4UMEtcTNbaKbFVkEkNiin3Oo2LIGjIyXKHeRR
+	4fQYJPw1vEoovJgwU4fHiGrd8gFOxAgHOdsw2fkPWYU/ObAIGxCBYhhEMUGgrQtJSVUg/WZOMeJ
+	lQ5VJq2seO0sM2b8R9/M5ud3lOjIJ86r2YRDix0scCZqkTE70rjj5QjXSf4/8P3hgapPVa7Ii6R
+	DCBUXJ7/nzDDBnyHcds3wUz+XxeNLjPjGL1Wt8Ac9uplWjpI2gwJ1LjMtABDrlV/i3MoVylchyZ
+	3iZBSJmRBuETHXoCYkRpV7erS+U2w==
+X-Received: by 2002:a05:6122:792:b0:5c6:6189:c756 with SMTP id 71dfb90a1353d-5c7ed4a07b0mr13843656e0c.2.1788872686666;
+        Tue, 08 Sep 2026 06:04:46 -0700 (PDT)
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3b2cb1sm9656487e0c.16.2026.09.08.06.04.42
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:04:44 -0700 (PDT)
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5c7bf03c4d0so3502634e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:04:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxmPRH3T375r+3WTZlShWpKaEaxwV4tJ8/u5n6JwcqNnQrZb3jUedB5hJpOP4xASSv8UGwbJy//rxI4cUA=@vger.kernel.org
+X-Received: by 2002:a05:6122:792:b0:5c6:6189:c756 with SMTP id
+ 71dfb90a1353d-5c7ed4a07b0mr13843335e0c.2.1788872682402; Tue, 08 Sep 2026
+ 06:04:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260826174854.199139-1-biju.das.jz@bp.renesas.com>
+ <20260826174854.199139-9-biju.das.jz@bp.renesas.com> <apAS50JiLKRBgKs1@tom-desktop>
+In-Reply-To: <apAS50JiLKRBgKs1@tom-desktop>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 15:04:31 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWucyUMVMWKrQVM=0vq7wYpajbKhQxoOR7B37cakOwx0g@mail.gmail.com>
+X-Gm-Features: AcwNN1U_zOQWTR9B9fm6IwJ4cRT-Y5AkSHwVnBmCWdF0OYXdSbkMzmBVZOWCSQE
+Message-ID: <CAMuHMdWucyUMVMWKrQVM=0vq7wYpajbKhQxoOR7B37cakOwx0g@mail.gmail.com>
+Subject: Re: [PATCH v3 08/13] arm64: dts: renesas: r9a08g046: Add fcpvd node
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 1 Sep 2026 21:51:09 +0300, Cristian Ciocaltea wrote:
-> drm_connector_helper_funcs.detect_ctx() is expected to propagate
-> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-> perform the required backoff and retry.
-> 
-> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
-> 
-> [ ... ]
+On Thu, 27 Aug 2026 at 12:35, Tommaso Merciai
+<tommaso.merciai.xr@bp.renesas.com> wrote:
+> On Wed, Aug 26, 2026 at 06:48:42PM +0100, Biju wrote:
+> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> >
+> > Add fcpvd node to RZ/G3L SoC DTSI.
+> >
+> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> > ---
+> > v2->v3:
+> >  * No change.
+> > v1->v2:
+> >  * No change.
+> > ---
+> >  arch/arm64/boot/dts/renesas/r9a08g046.dtsi | 11 +++++++++++
+> >  1 file changed, 11 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> > index 9f5ea62efc2c..ad38aee2efb3 100644
+> > --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> > @@ -696,6 +696,17 @@ ssi3: ssi@100e4c00 {
+> >                       status = "disabled";
+> >               };
+> >
+> > +             fcpvd: fcp@10880000 {
+> > +                     compatible = "renesas,r9a08g046-fcpvd", "renesas,fcpv";
+> > +                     reg = <0 0x10880000 0 0x10000>;
+> > +                     clocks = <&cpg CPG_MOD R9A08G046_LCDC_CLK_A>,
+> > +                              <&cpg CPG_MOD R9A08G046_LCDC_CLK_P>,
+> > +                              <&cpg CPG_MOD R9A08G046_LCDC_CLK_D>;
+> > +                     clock-names = "aclk", "pclk", "vclk";
+> > +                     resets = <&cpg R9A08G046_LCDC_RESET_N>;
+> > +                     power-domains = <&cpg>;
+>
+> Maybe for consistency with:
+>
+>         - arch/arm64/boot/dts/renesas/r9a07g043u.dtsi
+>         - arch/arm64/boot/dts/renesas/r9a07g044.dtsi
+>         - arch/arm64/boot/dts/renesas/r9a07g054.dtsi
+>
+> You can move reset entry to the latest position.
+> Apart from that LGTM.
+>
+> Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.4 with reset moved.
 
-Thanks!
-Maxime
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
