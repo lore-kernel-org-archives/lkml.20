@@ -1,115 +1,72 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE21EE7C6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A5B1429D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788833224; cv=none; b=UNJuTUpme73hUDlENo3q/4PCCvmjGfFXLkxkvNZBs/T5k+GWFwx+6lasx5cZlYil83mvJA/7p0JCPSSxjkqAbRPmFO3zo6+bHb33vMiUcaM1Ca5apZBIp0+3IUxpjoThH+Q/Jigfy6cwbKVrM7PXrkw/SV4yngtwl+o/vE+Ipzw=
+	t=1788833464; cv=none; b=GbI6aitMFQT/y7/iKTDLzI7N8qmuHJyp+Y/eRE5ficak+htjht31qcKKtYJki1tlUD6pwZjyOoRRf8hcqKKGHe357JZ30PrrcnVTfaD3sRtzkdjTkscyv1MEAQts82DUxhxw3MApMofzU8xBVq8uF2OTktIrVX3uNI1F50wAR+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788833224; c=relaxed/simple;
-	bh=1bDpjmehz57aQPddXQdZahHgqj5/zPnXJgjruqlsnoI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BqvMuvftirTJBi7kAsWsLGXdjrq3DGoxbf61R5EF7BvEJUD/X1NkHbql5JaY1ClYBXwMKgAITYu9cSiKdQAo4+qMZ0cBBH+Zd/vePviorvT4L3CxfZPM8ggj6JP30d01HD7duWqC+GlLZh8ucZi3u255O1SGrASy1MMkGum3Awo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Rn2bFVyK; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Rn2bFVyK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788833223; x=1820369223;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1bDpjmehz57aQPddXQdZahHgqj5/zPnXJgjruqlsnoI=;
-  b=Rn2bFVyKk5cwP6964bKWUzI2prrOemYkhHpzw1NumlQW2Eo8hel2rwBr
-   dqjzrNYhyJgNI4+GyWD814AMuQs/tm8FxC4pPT1eauMehlZq2RLna3Q1e
-   abpkdXmNVFyora0uu4EF2ytky6C0NuCFI+rTTAN8MHL2DpLApnx7TNorN
-   J6wVEPWvxFS4mWmlDc6mZPin8ashgKQB+226XQnU6dM4nuwAVGp5JO7bh
-   vYBSL0e4cKmorX/xkAFwmxVGBUYYZgbiubDfLl0PmPcR9CG2h5j8GSRI5
-   4TxJgwXBQMb4HScWnRk0on+VZPA4eThrqmQigYC9hFoQBcIds+jT2W0y+
-   g==;
-X-CSE-ConnectionGUID: 8sBtlrrQQ2WyuA90tt9Y9w==
-X-CSE-MsgGUID: zYcoFQR5SOud9tWlVIq/7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89101900"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="89101900"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 19:07:02 -0700
-X-CSE-ConnectionGUID: up5JpFSgRWKzaBtKHgkI5g==
-X-CSE-MsgGUID: C+dBTTI7SyWeLsCXQTcZNA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="274994654"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by orviesa005.jf.intel.com with ESMTP; 07 Sep 2026 19:07:00 -0700
-Date: Tue, 8 Sep 2026 10:06:58 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Dave Hansen <dave.hansen@intel.com>
-Cc: Tony Lindgren <tony.lindgren@linux.intel.com>,
-	dave.hansen@linux.intel.com, x86@kernel.org,
-	linux-kernel@vger.kernel.org, kas@kernel.org, nik.borisov@suse.com,
-	rick.p.edgecombe@intel.com, yilun.xu@intel.com,
-	linux-coco@lists.linux.dev
-Subject: Re: [PATCH v5] x86/virt/tdx: Formalize SEAMCALL leaf version
- encoding support
-Message-ID: <ap9twgQA2avLI+ro@yilunxu-OptiPlex-7050>
-References: <20260901105436.461823-1-yilun.xu@linux.intel.com>
- <ap6eDuCtcQ_GjTbI@tlindgre-MOBL1>
- <2ef38e83-dacc-4e2f-9b22-b02381664d9e@intel.com>
+	s=arc-20240116; t=1788833464; c=relaxed/simple;
+	bh=RL0hxNk+y0NTsZRnf1PnN31NJ4E1FfU1If0a5HKGRsE=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=dJi6B5WEMbxI3ho+XqrUvvAhs8AOVrdliI0N4XRFz1eAXqXvO+PhJJt8K1f2lrtOpj4fYzb7wkhiZB/upBVtLHSZCh4sGlN4B2DTwUX1brkIJ2Hfv0H7dcCQyyho0K5w4b4tCiUdyEyGVtyVVNc9Ztux5OAPSmIOYdE5AcdMHJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4e52682f0so5918645a34.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 19:11:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788833462; x=1789438262;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=q1WAxDDzROSwhWAGOhWN4A+5Yrco7BHkgNl3aTmG7mY=;
+        b=SKJvcKhfAjwF8czICSrSGtPQc8SVgaX7DrFXI0omWAOJrRF0+yWU4q9c9vjp3HZ1bS
+         2hFUelZpIJJSZn1N6s3dxjS8WwUjjmjo4vbuQSZC+YcxIY3dWmsfhIaDwWb4DBEqnlGH
+         UOxT6+ovKztVEGdSBDKeaKk1Ru5RNBwDwLE2Xwmcwf8KcD+TUhRmBI0GT9PSFT1shQiL
+         Aa/TWpyg2VYLc6mvnX5nQPdURxypJ6kuIHAxdLxgbyeqyoJm/tdbAN0W5dPuPy9KQiN9
+         FOHAn5WAaX3Ofj3pfG0SktBp4V8uBBgLeNMSMh0B8bvTDvZGlyib/CIENPOI2BAn1hZ9
+         FpGA==
+X-Forwarded-Encrypted: i=1; AKwUvByRNXfpeqeajPSde+6rEx6u4bygw7btrHLhUeT01zVZcJ77ShzkXzf+0ykn/dbJ8XFGFKHjeK55f3IJ1ZY=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+q5F20laTIKzVUzynAcZdhIseCSeNDwfXd04iVQ6TlDgiG7yc
+	d1D66Ez/qIC+q5lx2lBAH0VGZV/HXNx5Fg0qKs7irrrFjdyeWN7/vCYzV9oMkoiG4xw2h4HyHIz
+	A+ohOuxkTy6x4W5md35SVstaiRNsnfzvNmvSPnP/kWwiSFjueuikrRRS0m2w=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2ef38e83-dacc-4e2f-9b22-b02381664d9e@intel.com>
+X-Received: by 2002:a05:6820:162b:b0:6b7:46fc:1cf with SMTP id
+ 006d021491bc7-6b746fc2ed1mr13218870eaf.46.1788833461999; Mon, 07 Sep 2026
+ 19:11:01 -0700 (PDT)
+Date: Mon, 07 Sep 2026 19:11:01 -0700
+In-Reply-To: <CABm9WX4MT+2K-8d0-9ECJpkqVZiPyAi5-W43xJyZ5dM5ddavsQ@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9f6eb5.6e6c5f9e.28f11f.0006.GAE@google.com>
+Subject: Re: [syzbot] [usb?] WARNING in cx231xx_send_vendor_cmd/usb_submit_urb
+From: syzbot <syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com>
+To: jcperdomo100@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 07, 2026 at 07:35:31AM -0700, Dave Hansen wrote:
-> On 9/7/26 04:20, Tony Lindgren wrote:
-> >  /*
-> > - * Used in __tdcall*() to gather the input/output registers' values of the
-> > - * TDCALL instruction when requesting services from the TDX module. This is a
-> > - * software only structure and not part of the TDX module/VMM ABI
-> > + * Used in __tdcall*() to gather the input/output parameters of the TDCALL
-> > + * instruction when requesting services from the TDX module. "version" is
-> > + * encoded in RAX along with the leaf number. Others are raw input/output
-> > + * registers' values. This is a software only structure and not part of the TDX
-> > + * module/VMM ABI.
-> >   */
-> 
-> It's a wee bit silly to talk about "version" in here. If you need to
-> comment on "version" specifically, then put a comment *on* that variable.
+Hello,
 
-Yes. I'll recover the original structure description and comment on the
-"version".
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-And Thank Tony for the description for "version".
+Reported-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
+Tested-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
 
-----8<----
+Tested on:
 
- /*
-- * Used in __tdcall*() to gather the input/output parameters of the TDCALL
-- * instruction when requesting services from the TDX module. "version" is
-- * encoded in RAX along with the leaf number. Others are raw input/output
-- * registers' values. This is a software only structure and not part of the TDX
-- * module/VMM ABI.
-+ * Used in __tdcall*() to gather the input/output registers' values of the
-+ * TDCALL instruction when requesting services from the TDX module. This is a
-+ * software only structure and not part of the TDX module/VMM ABI
-  */
- struct tdx_module_args {
-        /* callee-clobbered */
-@@ -145,7 +143,10 @@ struct tdx_module_args {
-        u64 rbx;
-        u64 rdi;
-        u64 rsi;
--       /* leaf ABI version, encoded in rax */
-+       /*
-+        * leaf ABI version. Note that it gets encoded into RAX along with the
-+        * leaf number.
-+        */
-        u8  version;
- };
+commit:         df290809 Linux 7.3-rc2
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1123f105580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
+dashboard link: https://syzkaller.appspot.com/bug?extid=ddccc0c0dbc0a38ffccb
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1003caf9580000
+
+Note: testing is done by a robot and is best-effort only.
