@@ -1,125 +1,149 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE8E3AAF69
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021483AC0C9;
+	Tue,  8 Sep 2026 08:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854495; cv=none; b=LrmVC+kHVrMIvM7bhwYgVxoZeM6pp1+Fmj9zGM568/dwf/IvIEF4X4CHjgG7aJpewHGW2Vq3Jhiko1szXHiMAdnjNJhFV2/wYBPF6wz/elRFC3Ga++VEg6ZRL4A+zzwk2GSqGBy228q/mg40TqJCBSsy3TbuLnTVm1ltCt0PjX0=
+	t=1788854502; cv=none; b=ZBxIww2SKPy+LASpTL25q1yxZGS+aUBpFJc4+Dux3UCHy2DCBYs9C+QzznvNb56QBhxqzOiXWgi8ZBlXYt7V8TOjFJe2czx515S1s9J6UuJ8o0UFwm/C16fAQf3kblg3A8NwVaekb8TN8BlSWqM7LT+7xOCHzmVhxq1DGpL5MnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854495; c=relaxed/simple;
-	bh=kY5mHzv52Br0b7G2PSb1FefbbJw1TgOgY/VveBl3Qsc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q+paI+WkT46Cl+12PaSeKbZa/gHDUOXDnv8Ah9xQJxuGY1Wp7OONUrLycQdT4B+azSTFVZnYseDy0BbNBaovS6XeSJY2DkOfNpv9mouxLuiRgejT/anY4yeNxpGuvjwZPRxWpUJHQRHnCF1c0LJEOxCxF3RkzcALn3dl8qWcqDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m3Znfqj/; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788854502; c=relaxed/simple;
+	bh=Ni5sLgabX3+TrgYKZLGpGL/A9YLHAwDLjMNIBhaOLTw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ccDDAkdenpT66a9cA4CaE1FOPcfCWtX4MnuXbkxEln/7U8lECNykFy8MLiC/t8NjyK5+FS4Nc1g4mh8RCsB4+rPSqK3XH7QfBJIw3fHmETUUOQDhd7Ltqk4MotvbrAW8zEBpAs+1Z7IBHFb+X+/r+IUrt+BK4kiLt8lNSoEG7DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iorwu3x6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3Znfqj/"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso41422765e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:01:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788854491; x=1789459291; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kY5mHzv52Br0b7G2PSb1FefbbJw1TgOgY/VveBl3Qsc=;
-        b=m3Znfqj/bwDpzfbnj4anIyUafd6vcZG2LrHjiioVNO534/X+Hj82izwzCZ0QuffINT
-         dXhixNn7S2y5Sac+0rA6hugsNB3SMnrtoPlwhecNIxr+zVYnQbYeN738CXLNKa2DLRbA
-         god1R5uPrX5Mcj9sXL5R2d2Jmn0athEV82vEOjHzeC/BbR6cYLurlH1Cxtg0kN/b5oSY
-         Dgmjsss4aszvmK7b779Xefu3XaxLvqi3NUag4u8bE3sIWoelAqG2McQvMbmuTJ7HggSW
-         WlPFKwWaFL8hh3jDJ9XkQ4O1c7FzM+l5Pp5jIo9GD/3PT4Cpds6H3nj8Jgp54j2FqScJ
-         MAqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788854491; x=1789459291;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kY5mHzv52Br0b7G2PSb1FefbbJw1TgOgY/VveBl3Qsc=;
-        b=SxTi/CizygrR+MIZdWExtHG5cXBZRjk/6AOVeNst5t6w8a1yBbeYwhgB0jSLtO03gY
-         xgM8dek/ZMgn4CJqM5WgIFgOQHKja9rYVW4aZmb6gdqP6HZHNKERd4JMiZEmGlNgyYlh
-         rgeT4WgAlq/ObZiDsFA3J7gGnQo43SCuiR6cyhRGVLTxxB8GY4plafgBzutuMkZprcIg
-         BqngmuBl1/BBmJtyw31uLzE5oYwZcG8kMIVrvMTVWt6gJacwLHROIl5r9oV6XVZmRDsB
-         s8zxgy/BNswwPXZVw3YlYjqegY0GCg2QGEZGyzZDA1x3zbJ9UE3bL7gnifX8Z3LO6v3p
-         NarA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCZPe2/BSL82zKHNSBBzUgnzFbXO6jPnd7EZySzdijbh9jO9qq/1NXcesiRvhEVKTX3r9I/8tnA07cPxs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kA2c7ofeQ/A0OHHtWKLP4MNXSk21WT/ywRLo+mXfnUjKE5Ac3m
-	ZjK+z4Dc4742+SwYeN1530ZOtBY9ZGlSL727/3khnixLmNrlKYlDShyR
-X-Gm-Gg: AYBFou1GHnrlJ3zbcNOD5gC24slYGzTNStP38DMHfn2z1j3a/z5vFDik809kqge4QG7
-	4kbbZQXe3Wjc2ccFKazix/x/v8ES/EQK6eT6f3VryTlavuOJu0zU7u6F2EX2ITLRKixznULu2i6
-	M5VPuUVjdf9LJQO0za2+WJG0XncQR9F28C6rh4LatKQWNVlLZsFguR5cISs6KQZwihrO/Ezg0Ix
-	zUeLCTii6z8uVHpAKTCVpMgPSEMCHiqFyC4eDBN1XUMMda/xt30yut2NNlrhoM/dDw4JXcOr5Y7
-	BlTRozNA9g8/2g7vslwkdvV2guoq/NKBU2cu61gr9k6FaWSKqRNT2tNanAQ/Y2vO0sX36yhZOEc
-	qhZrz50BYdiprv7N9ZEhfmIRjmHmYoeqOIGBqaC4u6ozGIYGBQssx9x2rtkq/JxEpaXFro2mNW6
-	LoMFKliuDXlN5QW0APvOp6VG80iuEJQzuuvyiGmj9XZCD7DGDlhz0bIltC/f+zSnr3pZRdq76eK
-	J+pmsG4SNZ4u+LH5mE6AC6T+6UZpsvo7fsEKfbmKH6hcWeNb/uklKBzg3KgxU3zeViH+2RRfD7t
-X-Received: by 2002:a05:600c:4693:b0:49d:39:90ba with SMTP id 5b1f17b1804b1-49d00399d19mr187306625e9.3.1788854489959;
-        Tue, 08 Sep 2026 01:01:29 -0700 (PDT)
-Received: from MYL150-3871.localdomain (57.11.28.93.rev.sfr.net. [93.28.11.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm344218455e9.11.2026.09.08.01.01.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 01:01:29 -0700 (PDT)
-From: Nicolas Thibert <nithibert@gmail.com>
-To: marcel@holtmann.org,
-	luiz.dentz@gmail.com
-Cc: linux-bluetooth@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] Bluetooth: btusb: fix NXP IW610 composite device handling
-Date: Tue,  8 Sep 2026 10:01:08 +0200
-Message-Id: <20260908080108.1260799-1-nithibert@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iorwu3x6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DF171F00A3A;
+	Tue,  8 Sep 2026 08:01:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788854500;
+	bh=SmrRj7Gav6q2XR9DsmOZbzfZ2pmI6wotYdOd/GW3g3Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=iorwu3x6aKOsF07d2RrEXCC5sVMjD9q76d26bOGDEF0LNMDBbupvK1vGBaCVoyrEH
+	 iUwceYtxKeEKQisz8x0soZUarwyaisz1wwXREcGGAhROtxzKRE6VifuGruCrSO/I81
+	 ccFrTObSIu2lhZE3E5EqT4wM49KKatA/pXUxjzO3Kl/cy0c4jZCy7nzK59ibkugmZc
+	 r/eJgMSkYsTzM+rq9jjqN0IgnhRrU6tTIDFbVmDHp1rtz0cdCrapPpxtGu+EhzvrLL
+	 +YV8isg5nKNz0nF60FQSKeRaQiMbhLlpBNJJ/I/ae8lvcyC7QUjBmXb2+30ILmdBkF
+	 YEg19jSO8wdCQ==
+Subject: Re: [PATCH net RFT] ch9200: do return USB errors from control_write()
+From: netdev-bot+sashiko@kernel.org
+To: s.shtylyov@auroraos.dev
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, linux-usb@vger.kernel.org,
+ netdev@vger.kernel.org, mjg59@srcf.ucam.org, linux-kernel@vger.kernel.org
+Date: Tue, 08 Sep 2026 08:01:39 +0000
+Message-ID: <178885449964.219967.4487690524073410201@kernel.org>
+In-Reply-To: <20260904200108.85165-1-s.shtylyov@auroraos.dev>
+References: <20260904200108.85165-1-s.shtylyov@auroraos.dev>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: base64
 
-VGhlIE5YUCBJVzYxMCBtb2R1bGUgZXhwb3NlcyBpdHNlbGYgYXMgYSBjb21wb3NpdGUgVVNCIGRl
-dmljZQooMDQ3MTowMjE1KSB3aXRoIHRocmVlIGludGVyZmFjZXM6IHR3byByZWFsIEJsdWV0b290
-aCBIQ0kgaW50ZXJmYWNlcwooY2xhc3MgMHhlMCkgYW5kIG9uZSB2ZW5kb3Itc3BlY2lmaWMgV2lG
-aSBpbnRlcmZhY2UgKGNsYXNzIDB4ZmYpIHVzZWQKYnkgbXdpZmlleC1ueHAuCgpUaGUgY29tcG9z
-aXRlIGRldmljZSdzIHdob2xlIFVTQiBkZXNjcmlwdG9yIHJlcG9ydHMgY2xhc3MgMHhlMC8wMS8w
-MQooQmx1ZXRvb3RoKSwgc28gYnR1c2JfdGFibGUncyBnZW5lcmljIFVTQl9ERVZJQ0VfSU5GTygw
-eGUwLCAweDAxLCAweDAxKQplbnRyeSBtYXRjaGVzIGV2ZXJ5IGludGVyZmFjZSwgbm90IGp1c3Qg
-dGhlIHR3byByZWFsIEhDSSBvbmVzIC0tIGJ0dXNiCmVuZHMgdXAgYmluZGluZyB0aGUgV2lGaSBp
-bnRlcmZhY2UgdG9vLCBhbmQgbXdpZmlleC1ueHAgbmV2ZXIgZ2V0cyBpdC4KCkZpeDoKMS4gSW4g
-YnR1c2JfdGFibGUgKHRoZSB0YWJsZSB0aGUgVVNCIGNvcmUgYWN0dWFsbHkgbWF0Y2hlcyBhZ2Fp
-bnN0KSwKICAgZXhwbGljaXRseSBpZ25vcmUgdGhlIFdpRmkgaW50ZXJmYWNlIHZpYSBCVFVTQl9J
-R05PUkUsIGFoZWFkIG9mIHRoZQogICBnZW5lcmljIGVudHJ5LgoyLiBJbiBxdWlya3NfdGFibGUs
-IHNjb3BlIHRoZSBleGlzdGluZyBCVFVTQl9NQVJWRUxMIGVudHJ5IHRvIHRoZSBCVAogICBpbnRl
-cmZhY2UgY2xhc3MgaW5zdGVhZCBvZiBtYXRjaGluZyB0aGUgd2hvbGUgZGV2aWNlIGJ5IFZJRC9Q
-SUQKICAgKGhhcm1sZXNzIGVpdGhlciB3YXkgc2luY2UgcXVpcmtzX3RhYmxlIGlzbid0IGNvbnN1
-bHRlZCBmb3IgaW5pdGlhbAogICBiaW5kaW5nLCBidXQga2VlcCBpdCBjb3JyZWN0KS4KCk5vdCB1
-cHN0cmVhbSBhbnl3aGVyZTogY2hlY2tlZCBOWFAncyBvd24gaS5NWCBrZXJuZWwgZm9yawoobnhw
-LWlteC9saW51eC1pbXgpLCBubyBJVzYxMCByZWZlcmVuY2VzIGluIGJ0dXNiLmMgb24gYW55IGJy
-YW5jaCAtLQp0aGVpciByZWZlcmVuY2UgZGVzaWducyB3aXJlIHRoaXMgY2hpcCBkaWZmZXJlbnRs
-eSAoV2lGaSBvdmVyIFNESU8KcGVyIHRoZWlyIHJlbGVhc2Ugbm90ZXMpLCBzbyB0aGV5IG5ldmVy
-IGhpdCB0aGlzLgoKU2lnbmVkLW9mZi1ieTogTmljb2xhcyBUaGliZXJ0IDxuaXRoaWJlcnRAZ21h
-aWwuY29tPgpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpBc3Npc3RlZC1ieTogTExNIChDbGF1
-ZGUgU29ubmV0IDUsIEFudGhyb3BpYykKLS0tCiBkcml2ZXJzL2JsdWV0b290aC9idHVzYi5jIHwg
-MjIgKysrKysrKysrKysrKysrKysrKysrKwogMSBmaWxlIGNoYW5nZWQsIDIyIGluc2VydGlvbnMo
-KykKCi0tLSBhL2RyaXZlcnMvYmx1ZXRvb3RoL2J0dXNiLmMKKysrIGIvZHJpdmVycy9ibHVldG9v
-dGgvYnR1c2IuYwpAQCAtNzEsNiArNzEsMTUgQEAgc3RhdGljIHN0cnVjdCB1c2JfZHJpdmVyIGJ0
-dXNiX2RyaXZlcjsKICNkZWZpbmUgQlRVU0JfQlJPS0VOX0VYVF9TQ0FOCQlCSVQoMjkpCiAKIHN0
-YXRpYyBjb25zdCBzdHJ1Y3QgdXNiX2RldmljZV9pZCBidHVzYl90YWJsZVtdID0geworCS8qCisJ
-ICogTlhQIElXNjEwICgwNDcxOjAyMTUpOiB0aGUgY29tcG9zaXRlIGRldmljZSByZXBvcnRzIEJs
-dWV0b290aAorCSAqIGNsYXNzIGF0IHRoZSB3aG9sZS1kZXZpY2UgbGV2ZWwsIHNvIHRoZSBnZW5l
-cmljIGVudHJ5IGJlbG93CisJICogd291bGQgYWxzbyBtYXRjaCB0aGlzIFdpRmkgdmVuZG9yIGlu
-dGVyZmFjZS4gSWdub3JlIGl0IGhlcmUKKwkgKiBmaXJzdCBzbyBtd2lmaWV4LW54cCBjYW4gYmlu
-ZCBpdCBpbnN0ZWFkLgorCSAqLworCXsgVVNCX0RFVklDRV9BTkRfSU5URVJGQUNFX0lORk8oMHgw
-NDcxLCAweDAyMTUsIDB4ZmYsIDB4ZmYsIDB4ZmYpLAorCSAgLmRyaXZlcl9pbmZvID0gQlRVU0Jf
-SUdOT1JFIH0sCisKIAkvKiBHZW5lcmljIEJsdWV0b290aCBVU0IgZGV2aWNlICovCiAJeyBVU0Jf
-REVWSUNFX0lORk8oMHhlMCwgMHgwMSwgMHgwMSkgfSwKIApAQCAtNDc3LDYgKzQ4NiwxNCBAQCBz
-dGF0aWMgY29uc3Qgc3RydWN0IHVzYl9kZXZpY2VfaWQgcXVpcmtzCiAJeyBVU0JfREVWSUNFKDB4
-MTI4NiwgMHgyMDQ2KSwgLmRyaXZlcl9pbmZvID0gQlRVU0JfTUFSVkVMTCB9LAogCXsgVVNCX0RF
-VklDRSgweDEyODYsIDB4MjA0ZSksIC5kcml2ZXJfaW5mbyA9IEJUVVNCX01BUlZFTEwgfSwKIAor
-CS8qCisJICogTlhQIElXNjEwIEJUIGludGVyZmFjZXMgKE1hcnZlbGwtbGluZWFnZSBzaWxpY29u
-LCBzYW1lIHF1aXJrIGFzCisJICogdGhlIDB4MTI4NiBlbnRyaWVzIGFib3ZlKS4gU2NvcGVkIHRv
-IHRoZSBCVCBpbnRlcmZhY2UgY2xhc3MsCisJICogbm90IGp1c3QgVklEL1BJRCAtLSBzZWUgdGhl
-IGJ0dXNiX3RhYmxlIGVudHJ5IGFib3ZlLgorCSAqLworCXsgVVNCX0RFVklDRV9BTkRfSU5URVJG
-QUNFX0lORk8oMHgwNDcxLCAweDAyMTUsIDB4ZTAsIDB4MDEsIDB4MDEpLAorCSAgLmRyaXZlcl9p
-bmZvID0gQlRVU0JfTUFSVkVMTCB9LAorCiAJLyogSW50ZWwgQmx1ZXRvb3RoIGRldmljZXMgKi8K
-IAl7IFVTQl9ERVZJQ0UoMHg4MDg3LCAweDAwMjUpLCAuZHJpdmVyX2luZm8gPSBCVFVTQl9JTlRF
-TF9DT01CSU5FRCB9LAogCXsgVVNCX0RFVklDRSgweDgwODcsIDB4MDAyNiksIC5kcml2ZXJfaW5m
-byA9IEJUVVNCX0lOVEVMX0NPTUJJTkVEIH0sCi0tCjIuMzQuMQo=
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
+
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
+
+- [High] Incomplete fix: control_write() in drivers/net/usb/ch9200.c now
+  returns the real USB/short-transfer/allocation error (negative errno…
+
+--
+
+ch9200: do return USB errors from control_write()
+
+The patch removes the unconditional "return 0" from control_write() in
+drivers/net/usb/ch9200.c so that the value computed from usb_control_msg()
+(and the -ENOMEM from kmemdup()) reaches the callers.  The commit is tagged
+Fixes: 4a476bd6d1d9 ("usbnet: New driver for QinHeng CH9200 devices").
+
+> diff --git a/drivers/net/usb/ch9200.c b/drivers/net/usb/ch9200.c
+> index a206ffa76f1b9..3a81e9e96fd33 100644
+> --- a/drivers/net/usb/ch9200.c
+> +++ b/drivers/net/usb/ch9200.c
+> @@ -168,8 +168,6 @@ static int control_write(struct usbnet *dev, unsigned char request,
+>  		err = -EINVAL;
+>  	kfree(buf);
+>  
+> -	return 0;
+> -
+>  err_out:
+>  	return err;
+>  }
+
+[Severity: High]
+The commit message says the intent is to "propagate USB errors to the
+callers", but do any of the callers in this driver actually look at the
+returned value?
+
+There are only two call sites.  ch9200_mdio_write() is the void
+mii_if_info::mdio_write callback and drops the result completely:
+
+drivers/net/usb/ch9200.c:ch9200_mdio_write() {
+	...
+	control_write(dev, REQUEST_WRITE, 0, loc * 2, buff, 0x02,
+		      CONTROL_TIMEOUT_MS);
+}
+
+so the BMCR write issued by mii_nway_restart() from ch9200_bind() still
+fails silently.
+
+The other call site is ch9200_bind(), which assigns to retval six times
+without ever testing it, and then overwrites it one last time:
+
+drivers/net/usb/ch9200.c:ch9200_bind() {
+	...
+	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_THRESHOLD, data,
+			       0x02, CONTROL_TIMEOUT_MS);
+	...
+	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_FIFO_DEPTH, data,
+			       0x02, CONTROL_TIMEOUT_MS);
+	...
+	retval = control_write(dev, REQUEST_WRITE, 0, MAC_REG_CTRL, data, 0x02,
+			       CONTROL_TIMEOUT_MS);
+
+	retval = get_mac_address(dev, addr);
+	eth_hw_addr_set(dev->net, addr);
+
+	return retval;
+}
+
+Since get_mac_address() returns only 0 or -EINVAL, doesn't every newly
+propagated control_write() error get discarded here?  If the three MAC
+address reads succeed while, say, the MAC_REG_CTRL write fails, ch9200_bind()
+returns 0, usbnet_probe() only aborts on "status < 0", and the netdev is
+registered with MAC_REG_CTRL, the FIFO depth, the threshold and the flow
+control registers never programmed.
+
+Would it make sense to add the call site checks in the same patch, e.g.
+
+	retval = control_write(...);
+	if (retval < 0)
+		return retval;
+
+otherwise the error swallowing that the Fixes: tag refers to stays
+reachable and the change has no observable effect.
+
+One related detail for whoever adds those checks: on success control_write()
+now returns the transferred byte count, not 0, because the short transfer
+test leaves err == size untouched:
+
+	if (err >= 0 && err < size)
+		err = -EINVAL;
+
+So only "if (retval < 0)" tests are valid at the call sites; a later
+"if (retval)" check would abort probe on success.  Would it be preferable to
+normalise success to 0 in control_write() instead?
+
+If the intent is only a preparatory cleanup with no functional change, could
+the changelog say so and drop or justify the Fixes: tag, given that stable
+and AUTOSEL will otherwise pick up a no-op?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904200108.85165-1-s.shtylyov%40auroraos.dev
