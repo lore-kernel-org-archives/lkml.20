@@ -1,162 +1,119 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C791A484236;
-	Tue,  8 Sep 2026 23:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DFC33DEE9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:45:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911095; cv=none; b=DTrc7XFKtKFHAR5ZWphv3k8QXjoT1LkyXN2ElLyWJFqmfAvRsaS9Tg731x/bq3Ba0NqUM8vA9h0xOk+zeaiWnyD+A5cj7xvN2/DI4UgHxYIU7wUq3lceWC0I0SG29SEncgsj2aZlV/NpW2J/csFKw87xZ5zpW8rvf0xfqZ5qo50=
+	t=1788911121; cv=none; b=L6vKsbHTspqfwhwuvjFa2GiOGs++CwtGzUoL49x4r4zdpWYKo6x1s89g+sROkuhN6iVHwhrKQQJEjKDM3EKS2gMx/B82DzLUI+EfoDdjYQymNRkOSxDRNk0s0wlUbkSt/YeBeNht6nr8V8NrBSyW2toXZvgFhy1X5G0cxHsbYlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911095; c=relaxed/simple;
-	bh=VeMzhWQ6IE68U3WO3O4kVsqDVBYXVw/9y69DWxi4g/0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pXvfpvsS2B6nsmaGy1KnBoFQDaHDGyMiD3RVngkUrVX9P+dlllHGS2kXbdlP5B4twArDDULvnxZnM3fi8GKymVBKGAAjXG92tWKZ7xf7bR+rgWOnqlSeZjq3OKlXnELMflkzd5QqpQ37HYlw9UmqB/etxMiww+/P05VKYYlDm94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=sKOzwmEB; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788911121; c=relaxed/simple;
+	bh=6mIWYgtBuvcvpGsKXHdT6T+Rc+aQoXZ6wIGZxKIKKo4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=e6O2cB8sVdF2c6LYMxGexSSXb36e1GxF5RUQyYpzrFs5m8YU764guX0CLHgkFWh/weWd5zi/d5vivy+cM7+26vBmZZBR5tMEXtUTHBN5UUz+UJZy2ybNkyouQRe3826UAomQYbamE9BmacRQvsg41VLeqGx7lelUFDsT9UHfZW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fCeTXk3T; arc=none smtp.client-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="sKOzwmEB"
-Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 40BA820B7166;
-	Tue,  8 Sep 2026 16:44:12 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 40BA820B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788911053;
-	bh=P8fD+5o8YxUE5iDfnpfEVckIqMObSoRj7VJ+1ocXu8Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=sKOzwmEBhqCQgmpsX9iDct6oTbNDC8WVWCVhIuonMYsSgK4ZV7fd8M+wFxmpnaO3J
-	 jA8KHnWcqdb4nsPgxFmTqm8jEJ1Akr1b/s+qfLuUz0IrhACbSens8hJxvueNpX7Ym2
-	 XO8iQ9EQWC5kNtgGUq59n4hKxD4kOqMiCk+vYGF8=
-Message-ID: <8a526d96-c116-5e54-ebc1-941e12a08506@linux.microsoft.com>
-Date: Tue, 8 Sep 2026 16:44:51 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fCeTXk3T"
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-9399daa3c8eso256415985a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:45:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788911119; x=1789515919; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=r7pdQ+IQhQy0RxIIxOjPMghREM5a9DkR/NRAqDgtkYw=;
+        b=fCeTXk3THYcBP8eev63vYdDgskey8AJJpfRiLaFzIcEtdjZK6aYNkIzEvlqgi5HvFV
+         nmjHk4zUk/ZPj9yFLU77+f8vz0CVB225I1cBGp94aaXSK7QOVVlQhQ2C74eUlwiP9Go5
+         SXfhknL5mLt1OSN4Ezjnlw1VAqVESy3id2liY6BqvkQr6rGrsIHKVocjTZ29e4FfmWEl
+         ZR2K/FKe2+meZtuDrM9qGsffafDQZvq1NiV7EgF8Wsub0dJdnSGHocIfpXkzO6uBCT1o
+         mvLJKDdFID1bFPFcKetus9SqK9GSGTOqMb6x390GQ40eZILW5W0fDckU4zseLMz6JEbU
+         Z1ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788911119; x=1789515919;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=r7pdQ+IQhQy0RxIIxOjPMghREM5a9DkR/NRAqDgtkYw=;
+        b=ft8HcWVvRgi2S7jTMaEvlF0ghVpDj/OZ+O/Kmd+1eGnAed9iPqvj42C9bTc1Ggi+bF
+         cOAc/kK5D+yftw7CAninEdAGdyg3TZ+JWeRG23+NseiRfghMH5gh6HKbZ0VdfSTfJhrL
+         w+9wI1a1bKDTAyyaH0qZbAlZS5POHb+N2YJHG2ZIkTsqROKRgDCx1jpX9G95HIGMuscl
+         3w2LYc5hHRIi/pf+Nv5OhkD4+LhV+nJjjFvN9mtNkBP1cm8Jnr88Ltik0bMJ79uUk2/5
+         fASO8FGyj3YUztWviHzXtxVL9iPERcQ1E/Q6ibbJF/z51xPxY1apxRUB+3YmcsOMA7Xs
+         emeA==
+X-Forwarded-Encrypted: i=1; AKwUvBweIlwgHknCKY5EfXWqMqEHNgA8ssAz9gdtm10ylo1hB8bgPeiPwL2N+sUApWeX2HjOKulUJhLoDJx70mI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqs1sng1U8kOdAu9tJHfGJlN7CtsK5x0qls4lhbo3eLpkl0MJ+
+	8KIR8yeGQd6Mz4v0XpHb1VeBN8ICzssPG5R/mC5+afEN1axV/KeTj3kD
+X-Gm-Gg: AYBFou0TA41loW0Fc4g5LJ8n3AmNMefOBEMIxFLv4zjZ9VYysr4zYYZN+/AnGPBuxBa
+	2m2FVTI++vTWW7l3dmxAPK32E+cvmv0SJEhwEhPohK7CUmqjepAx61mrqXz79bWV4E4X69wUj2m
+	IadTl9rdjcleC1GJqH6VPy/nh/cRhrojJv0LmIZIi6BW4+ku52ezHy3JbrhItW245D9gB6T7jdX
+	nw9Eo2DGEpzGr45tzallcMMXMMxx5aLUdn4u6nDHKpSoFnqv998oXJZ1Ifs2p1lKTMSkk5JWWa8
+	tkvhzyQB3ormos3ItBEfuwxDEfdcKycqLspEn3fkduJABNKk8fVOpJAgQgbyF5apgHcOtEe/uZq
+	IEwVJ9astAN2QXh9od4mElobR8iwJX5nYu1pQMT9okQsSvZCk4EACIeoTijHkx0aZg0PFZtGy8d
+	j56oux87xpUnsm3fhnW8pInQpgYhw9Q8VjlgQI5LbqRx/oph0hcvLagImY/K7OoYDzcUhqvqLRS
+	JBpICJCLg==
+X-Received: by 2002:a05:620a:3725:b0:937:3aae:1385 with SMTP id af79cd13be357-939803241c0mr3039277585a.11.1788911119038;
+        Tue, 08 Sep 2026 16:45:19 -0700 (PDT)
+Received: from elster.cvl.swallow.glass ([2606:8e80:692f:3320:980c:c29f:b4b9:c06a])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939aff54ae0sm551872585a.8.2026.09.08.16.45.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 16:45:18 -0700 (PDT)
+From: Taylor Bates <tmbates12@gmail.com>
+Subject: [PATCH net-next 0/4] netlink: fix ynl spec tooling robustness bugs
+Date: Tue, 08 Sep 2026 19:45:06 -0400
+Message-Id: <20260908-ynl-robustness-v1-0-f255214c0f30@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.1
-Subject: Re: [PATCH v5 4/5] iommu/hyperv: Add para-virtualized IOMMU support
- for Hyper-V guest
-Content-Language: en-US
-To: Yu Zhang <zhangyu1@linux.microsoft.com>
-Cc: linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
- iommu@lists.linux.dev, linux-pci@vger.kernel.org,
- linux-arch@vger.kernel.org, x86@kernel.org, wei.liu@kernel.org,
- kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
- longli@microsoft.com, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, bhelgaas@google.com, kwilczynski@kernel.org,
- lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org, arnd@arndb.de,
- jgg@ziepe.ca, mhklinux@outlook.com, jacob.pan@linux.microsoft.com,
- tgopinath@linux.microsoft.com, easwar.hariharan@linux.microsoft.com,
- baolu.lu@linux.intel.com, suravee.suthikulpanit@amd.com, vasant.hegde@amd.com
-References: <20260904075512.174154-1-zhangyu1@linux.microsoft.com>
- <20260904075512.174154-5-zhangyu1@linux.microsoft.com>
- <af047ef8-91ef-7786-c230-25e28b1c8c04@linux.microsoft.com>
- <re2lmz757bvtzbkylxtsj7zu2pjqz7ro752tcg7bpjaicuj6ml@mgsg6jnvgbyd>
- <421b3805-5b90-dfc9-b84c-ee58969f5e36@linux.microsoft.com>
- <mjwk6raf75lpd3wjotii5lnxmnlt4c474tu55ezrwsvr2rbfmx@krnwg7yoifes>
-From: Mukesh R <mrathor@linux.microsoft.com>
-In-Reply-To: <mjwk6raf75lpd3wjotii5lnxmnlt4c474tu55ezrwsvr2rbfmx@krnwg7yoifes>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCMBAFf6W8swtphEj8FfFgk1VXZCvZtFRK/
+ 92ox2GYWWFchA3HbkXhWUxGbdDvOqT7RW9MkhvDOx9cdAd665PKOExWlc0oB59jiPuUeo8WvQp
+ fZfkNT1CupLxUnP/GpuHBqX5/2LYPlfBxs3wAAAA=
+X-Change-ID: 20260907-ynl-robustness-d62d9693cc12
+To: Donald Hunter <donald.hunter@gmail.com>, 
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jiri Pirko <jiri@resnulli.us>, 
+ Stanislav Fomichev <sdf@fomichev.me>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Taylor Bates <tmbates12@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 9/7/26 20:16, Yu Zhang wrote:
-> On Mon, Sep 07, 2026 at 02:08:35PM -0700, Mukesh R wrote:
->> On 9/7/26 01:41, Yu Zhang wrote:
->>> <snip>
->>>
->>>>> +{
->>>>> +	u64 status;
->>>>> +	u32 prefix;
->>>>> +	unsigned long flags;
->>>>> +	int ret;
->>>>> +	struct pci_dev *pdev = to_pci_dev(dev);
->>>>> +	struct hv_input_get_logical_device_property *input;
->>>>> +	struct hv_output_get_logical_device_property *output;
->>>>> +
->>>>> +	ret = hv_pci_lookup_dev_id(pci_domain_nr(pdev->bus), &prefix);
->>>>> +	if (ret)
->>>>> +		return ret;
->>>>> +
->>>>> +	local_irq_save(flags);
->>>>> +
->>>>> +	input = *this_cpu_ptr(hyperv_pcpu_input_arg);
->>>>> +	output = (struct hv_output_get_logical_device_property *)(input + 1);
->>>>
->>>> Any reason for not using pcpu output arg like we do in all other places?
->>>> If there is a technical reason, please document it, otherwise when revisited
->>>> in future for re-design, anyone looking at this will be confused and
->>>> waste time investigating if there is anything different about this hypercall.
->>>>
->>>>
->>>
->>> Thank you, Mukesh. I had also incorrectly assumed that output required
->>> a separate page, which is why the RFC included a separate output-page
->>> allocation patch. Michael clarified during that review [1] that input
->>> and output can share a page as long as their buffers do not overlap,
->>> so I dropped that patch latter.
->>
->> They can share a page, but we don't enforce the sizes combined do
->> not overflow a page, and that could be an issue in future. There is
-> 
-> The two hypercalls (HVCALL_GET_IOMMU_CAPABILITIES and
-> HVCALL_GET_LOGICAL_DEVICE_PROPERTY) each currently use only 40 bytes of
-> combined input and output. No concrete requirement has been identified
-> that would make either approach 4 KB. A hypothetical future expansion
-> is not sufficient reason to allocate another per-CPU page now.
+Hello!
 
-Understood and obvious. But just like you are pointing at
-hv_pci_read_mmio(), someone could point at this and may not be using
-small structs. When almost all hyperalls use a certain way, that is
-the convention. I see that outpage is not always allocated for guest
-VMs, and if you don't wanna check if it is and just share intput page,
-that's fine. Like I said earlier, add a comment so that when one
-looks at redoing all hypercalls that use input and output page, this
-one doesn't get missed because they might think there is something
-special about this. It would be ludicrous on my part to suggest
-that we fix all hypercalls as part of this series.
+This series is intended to address several robustness bugs found in the ynl
+tooling and the netlink-raw YAML specification.
 
-In a nutshell, a simple comment like this would help:
+These issues were found while writing a netlink-raw spec for the Bridge
+VLAN family. However each stands independently of that work, and fixes
+bugs in the parser that can be reproduced against the existing spec
+definitions.
 
-         /*
-          * This hyperall has small input and output parameters. So to avoid
-          * checking if output page has been allocated, we just use the input
-          * page for output. Using the output page would also be correct.
-          */
+The patches in this series carry Fixes tags, but are all in developer
+tooling and have no effect on the running kernel. That is why they have
+been targeted at net-next rather than net.
 
-Thanks,
--Mukesh
+Signed-off-by: Taylor Bates <tmbates12@gmail.com>
+---
+Taylor Bates (4):
+      netlink: specs: fix duplicate if/then keys in netlink-raw schema
+      tools: ynl: reject zero-length attributes instead of looping forever
+      tools: ynl: stop find_kernel_root() spinning at the filesystem root
+      tools: ynl: fix uapi generation for anonymous enums with documented entries
 
+ Documentation/netlink/netlink-raw.yaml | 31 +++++++++++++++++--------------
+ tools/net/ynl/pyynl/lib/ynl.py         |  4 ++++
+ tools/net/ynl/pyynl/ynl_gen_c.py       | 13 ++++++++++---
+ 3 files changed, 31 insertions(+), 17 deletions(-)
+---
+base-commit: ab217fbb9b2169ce677b09a66558d5c3adcfbb76
+change-id: 20260907-ynl-robustness-d62d9693cc12
 
->> a tool on the hyp side i believe to check that input and output struct
->> sizes do not exceed page size.
->>
->> Also, both the input and output pages are pre-allocated, so there is no
->> extra allocation (otherwise, we'd have changed all places by now). So
->> it's better to just follow the convention we've so far just to avoid
->> confusion during future redesign imo. We def need to revisit this in
->> near/medium future for all hypercalls.
->>
-> 
-> Well, output page is NOT pre-allocated ordinary child partitions. Please
-> see hv_output_page_exists() in hv_common.c.
->                                                                                                                                                          
-> My RFC included a separate allocation because I had incorrectly assumed
-> that output required its own page. Like I mentioned earlier, this was
-> already discussed during the RFC review [1], and that allocation patch
-> was dropped following the discussion.
-> 
-> Using separate pages is NOT a *convention* either: hv_pci_read_mmio()
-> already places input and output in non-overlapping regions of the same
-> page.
-> 
-> We can certainly reassess which hypercalls need separate output pages
-> in a broader review. I would keep that separate from this series,
-> rather than reopen the RFC discussion without a concrete issue in
-> the current implementation.
-> 
-> [1] https://lore.kernel.org/all/SN6PR02MB4157C3EF6617A7BA4CA9E432D485A@SN6PR02MB4157.namprd02.prod.outlook.com/
-> 
-> B.R.
-> Yu
+Best regards,
+--  
+Taylor Bates <tmbates12@gmail.com>
 
