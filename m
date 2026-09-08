@@ -1,100 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F403128CC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B19556BBD;
+	Tue,  8 Sep 2026 15:26:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788881161; cv=none; b=XOo43l7YUCj57KmAloRP6D3h/RzyG9EeaExMR6fNP69iioLcJWUmRpMVC6S6riB5Vdgq9uzDdNZ1SujD2cZb5WT++MywRLeZwHOEHD6zBMlQNaQYcv27BmC3oEAMjiskYYe90znkIl25Q3Ow80cd5LNE15s3SR7KKmrUSh6Dp6I=
+	t=1788881185; cv=none; b=HWQjVrMY1jXuU2VqtJE3rIf/366SvHwAJrhd0LeimqTwV1eQ0dsJnYZZ31OAFVkJM0c+uLOwJ3pOlJR8DON3wd+Uk5P2stlUsIRoXcHFQxOWwPR2dVfs+LAdkd/2UeGpWCcgm2Ae9cQ3/VHUw8bS/GiQFxG9Atjr01xsrcxvKQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788881161; c=relaxed/simple;
-	bh=JuND89I4erxGeed1BBcZFOuyajKTy6drp0z/zBacNvc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=htXjQSayvO2x/3luPo4axgnFcOE5A09VjghdjddUP+TgeIlEF5YIqsDK/RvI07i07twyDCKxKLMOBS5r9VibbKt2u2QSFTK8HgyiFk4Eo6NgokYKg8l/b/qlfPL7/22RVDMVk7tU2PQPXfADLgaNfe4DKHON5iLRpCrSkhIe4JI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GcoPCmuH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788881185; c=relaxed/simple;
+	bh=SJCZgyDPI7ofyvbsizKHWeIokAakDBKF0XCm339rtOA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=R3Nk5FPdawIJIW5W06YwRNhg9sPEJK7WGLpZG04UeoXwQ106EWwd2I2XA8D5OQUyrdogMOgmAJu+uoY/p1Ma8bzsKmp8hy/AyTAXg0TT7UtS9CVpDSPoxsAM0zoHlx9uTGUIJg/5Vvtk5N1yMQMTWpuOeRuwOMIXzoYBS+rdo4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=gaAIT9aA; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GcoPCmuH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DA5C1F00A3D;
-	Tue,  8 Sep 2026 15:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788881157;
-	bh=NLL5t97riWq5Zu+ReRl9pR+1kEZ80aHdKkkE9El90lc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GcoPCmuHbs/5Lr8Dm3X2nNRH+3lSUdkGa/XkNpVGsxclarhaAkefCdWtyKmFSW8Y9
-	 AmlVx6Q0ADymw9ComHNdXiilpB4JfYXFXYc4Nn10mfnc/x1nUarz9eWPvNnr0vkig4
-	 aEkQDUbEkC+WxILBSKz3HftOikoUPC9L3EPptzA6ZkpF58Dh9826YklupEqBc4chz9
-	 oNuWYwhyfG+GhPiXyCy5VBVAiba8lge4PKz8BDn4KMdfhNCo3tX4b/YPEVwSCC87f8
-	 cPqM8n03l+N8xbiniBAlI6CUw0r8AAArHa90gsAWPq7moHRF6m4obbb80ZCZ457/RK
-	 HRrvBwBlL+9ow==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7808F198003A;
-	Tue,  8 Sep 2026 11:25:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 08 Sep 2026 11:25:53 -0400
-X-ME-Sender: <xms:_Cigaje9FRO_OGuWBqzWBvHv5zWaO4010Dk337-2LRq7ZEWvWc8h1g>
-    <xme:_CigasQFOtA3bH0iFVK3KCvqrkZtptG4Jz92AkMpThKylse-J7Z0QqCaUFQjJpLpy
-    nmzB0gv75WNY_sPsgdR_sxaMOABYoZ95EHlIzrpunrjvKBtKvifUm0>
-X-ME-Received: <xmr:_CigaqmwrgW4QpFRWktIYM4j8UXE-LlpAJLPF-2BpiuwIZgbfvyoZR4-Nao>
-X-ME-Proxy-Cause: dmFkZTEb2T3SF9BXFaCq6Y7MiXTtJ1ovoHmlskKKyQz74Er/5FJa3tWOsXEjWGtdcJ4Go6
-    Ta0l/J3gvvprxj5O7HnzuAYqoQXGtcuHEGyCho/qrQD1FPdUR7Xf+EKDfUOaB9oXEzBRrF
-    t9VrvpJkYHKvWDkZDzWQJxJkPROr1SmDNami2TGx3knpupG+c1faSP3dh/FuLuR6OMQKqz
-    kn/xBFbt/vNohUevxk6tRPc3/HHyHA0y7CiwR1Z7EPnURPu3AWqoTfw8//6PgcsJZXqWDl
-    YpW2hISp/9iCrQcQd2xjm362PxVejFW0C28VwZ1mch3qpaiswmuK3UT2orIoV/JhxfAgd1
-    5qA371ZAr/otAXQgDnRnYGqrAl/Fd58jNcu+5+LSMULuayWiyyPBbamouZldJ36/JAUWIr
-    M/9ZbdhjM/LxxDYereX/96Pcf2Vv6bstoedRDGcxM8mKRgZr93gth/OwqP5qehi/9gGx+G
-    bRZSPOYSBgqFBU6Ag9OV33JDG2xImSJ0a9kFalv49g/FzdcwENOaeW3StmLrYD0wVguUrX
-    1jqQCOPr1mQtcu6KYIPLYY8E7TDo42PCbpXLGxEOzpOjEQ9mR4f7oNSiyFfbXtk3FzrsIp
-    yR5kAbcUZzJsKXda4T8BVMg1djPEYFS4YY/2p3Ndj+gNzeyo66GGY9IfVIMQ
-X-ME-Proxy: <xmx:_CigaoZOLW6ZiIRdGzCXzzjrEKo6fAGLDWyWuXJrqigHs0Kge3x1rg>
-    <xmx:_Cigal3_56a60cWkJrEt6_1tSxma3S79BtpJuzPGTm6-1kNJJ39gJw>
-    <xmx:_CigagoqJp27kMI6QFDj3K6glZU8fEDd-FvbDIokiag9uH4EeFe1kA>
-    <xmx:_CigahzTIxd3MDCQ4h5wGf4PDfn6iY_RCBQ-X5UUkcSY74WxE0Kn1g>
-    <xmx:_Sigavg6MMd9CFLhWO1YiuFkeTXtLp6gaHk61CmnNpkjK7NrDsZ1aWsi>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 11:25:48 -0400 (EDT)
-Date: Tue, 8 Sep 2026 16:25:47 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
-	Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v4 11/17] mm/huge_memory: move filemap management into
- the file split helper
-Message-ID: <aqAo4dFGofAJzkRn@thinkstation>
-References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
- <20260908-swap-thp-cleanup-v4-11-b532a3f20e71@tencent.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="gaAIT9aA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788881178;
+	bh=SJCZgyDPI7ofyvbsizKHWeIokAakDBKF0XCm339rtOA=;
+	h=From:Date:Subject:To:Cc:From;
+	b=gaAIT9aArrsjo4DzGu1RO4uOO2aGh4S1jrBf0pmwEFwGO5L8RFa/GToC2V+E5rNww
+	 vK03nOXFYZnyISozqv5mnFgpn3mBqwns2fohntPwhuelt+fMuqtHvON72/jouQ2eDr
+	 Uf6IBk5He+k2V4tbYGWxn5k39Hk0jmMpZd38H1jWLaJGco46atxkZC9xwHbL1zVONY
+	 H2b62Gob5IhEtIwabQfxcyfaw8PDwGTAiJSz3pV2HA3geq2g4rnlMjePUxyz+W2bnt
+	 /l5bl15d9t2G/4nKTFPfo28ZwLt1XolLZb1QJnmR+Je3jIBRASCaFCAB18PkmYvQOR
+	 NEvzAfElNMuiw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 58D6017E0420;
+	Tue, 08 Sep 2026 17:26:18 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 19DD748002B; Tue, 08 Sep 2026 17:26:18 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Tue, 08 Sep 2026 17:26:12 +0200
+Subject: [PATCH net-next] wifi: brcmfmac: Improve D3 substate entering
+ timeout handling
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-swap-thp-cleanup-v4-11-b532a3f20e71@tencent.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-brcmfmac-bcm43752-suspend-fix-v1-1-32585639d763@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMUQrCMBCE4auUfXYhTW21XkV8SJOJRkgs2VQKp
+ Xc36uM/A99GghwgdGk2yngHCa9Uoz00ZB8m3cHB1Sat9KBGdeYp2+ijsTzZeOxOvWZZZEZy7MP
+ Kfui7Ec60UI6qMWfU+edfKaFwwlro9n9kmZ6w5cvTvn8AkyjlTYsAAAA=
+X-Change-ID: 20260908-brcmfmac-bcm43752-suspend-fix-f6539eda1e0d
+To: Arend van Spriel <arend.vanspriel@broadcom.com>
+Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev, 
+ brcm80211-dev-list.pdl@broadcom.com, linux-kernel@vger.kernel.org, 
+ linux-rockchip@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2603;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=SJCZgyDPI7ofyvbsizKHWeIokAakDBKF0XCm339rtOA=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGqgKRo8y2VmGYf4BIyks2WRT+wE/N7Kfn9Yg
+ qbvZOkA84uMX4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqoCkaAAoJENju1/PI
+ O/qakQYP/jMeJljX2hbuCoCP90y6a4SbH4ycGwWknxl8ru0BaUB1Ij0Oidm2uCBFsOYm9QlsuDH
+ 0kuucrywl1INoyFj5lxUiOGNRveJx4noJc5+oPiI4hS0IRZntjhIA6up/CpcBLK62T3P+LqsRMV
+ klh/GCNgXzLpm6oi9xv8/H2XLvLPP1J+vrD0SzgxcTaM6RWFVqrDI7qbKMivVqYwiPHwulgPent
+ v6+gBdSY5Mwfyi9RLvjTp9XtV6wpYBkWPIlRBWhlHQHeAkTgTSl4h2R7URgp/Oqp4pe7Q9jSZFe
+ JJtq8CXPeKlssLgkN+eJW3Y/v9KHmpYLzCON/Pcoglv7GrqJvN58NRi42VzrGinAlTRb86eypHb
+ WfkmuoJA+J+2sjjrI9sKYgL6UXixHsPSJDI3xOo+NVICEbjuNkFqsBfbFbkT0gDYxxM7NbkjORx
+ BCzSoRVwcGHIJXiEt5VPqvyK4fLYfIOsbSgP08yuaHKQ98TzMt7ZG5SNEGo/vcxjEPk4vlDdguo
+ /932eb4wIou2H+60AuYLV4CRRSLm7b7BWQVMtdn/5AbdIlr870q6i1DEHFOYGG75Ftefw6DRdh+
+ 0xsIDI4FBJrrB0SmwLdQrQyoPhAmpiWCm60dW8G8XAeped3Y5KLO2YQC5m1Tf8v+x6Od+W4mseF
+ 4NM4uQ1obeGa1I7v+/fwq2A==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Tue, Sep 08, 2026 at 02:12:15AM +0800, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> Only file split needs the filemap and xarray handling and related
-> variables.  Move them out of __folio_split() into the file helper so
-> the helper is self-contained, and simplify the parameters.
-> 
-> No functional change.
-> 
-> Signed-off-by: Kairui Song <kasong@tencent.com>
+Some firmwares (e.g. BCM43752) do not service the D3_INFORM mailbox
+handshake when idle, so the D3 ACK never arrives. If WoWL is not armed
+the device is going to be powered off during system suspend and
+re-probed on resume anyway (brcmf_pcie_pm_leave_D3() handles that), so
+the missing ACK is harmless and must not abort the whole system suspend.
+When WoWL is active the device has to stay powered with its state
+preserved, so keep treating the timeout as fatal.
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+This was tested with Rockchip RK3588 EVB1, which has a BCM43752 based
+WLAN card (AP6275P). This card is also used by a few other Rockchip
+boards (at least Khadas Edge2, RK3576 EVB1). Unfortunately
+linux-firmware does not contain any firmware files for this chip,
+so I used the files available from Armbian [0]:
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+3779bd4f629961cf060a83cc5047a3b9b2d23c9d  brcmfmac43752-pcie.bin
+a471651d580b51da2a681e53c0cc3258eaa70e10  brcmfmac43752-pcie.clm_blob
+87294b22f4bf7b7f718cf24076f102df07e3c414  brcmfmac43752-pcie.txt
+
+[0] https://github.com/armbian/firmware/tree/master/brcm
+
+At least with that firmware the suspend command times out blocking
+system suspend. Testing on the Rockchip platform requires PCIe
+suspend support for it, which has been send separately.
+
+The patch is based on v7.3-rc1 and can go via -next as system suspend
+with mainline kernel needs quite some work on Rockchip anyways.
+---
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+index 55f4d7b970f2..c1a029d86c0f 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/pcie.c
+@@ -2653,8 +2653,13 @@ static int brcmf_pcie_pm_enter_D3(struct device *dev)
+ 			   BRCMF_PCIE_MBDATA_TIMEOUT);
+ 	if (!devinfo->mbdata_completed) {
+ 		brcmf_err(bus, "Timeout on response for entering D3 substate\n");
+-		brcmf_bus_change_state(bus, BRCMF_BUS_UP);
+-		return -EIO;
++
++		if (devinfo->wowl_enabled) {
++			brcmf_bus_change_state(bus, BRCMF_BUS_UP);
++			return -EIO;
++		}
++
++		brcmf_dbg(PCIE, "No D3 ACK, continuing to power the device off\n");
+ 	}
+ 
+ 	devinfo->state = BRCMFMAC_PCIE_STATE_DOWN;
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260908-brcmfmac-bcm43752-suspend-fix-f6539eda1e0d
+
+Best regards,
+--  
+Sebastian Reichel <sebastian.reichel@collabora.com>
+
