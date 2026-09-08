@@ -1,128 +1,140 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EA651A75A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864280; cv=pass; b=VMOXILCqVuwOhdIsI5oocrvJCXiB3qUYL4FYb2V/VSOAZYqnLS8Bzpp06u5Qw9oSO7yvbITbJMCM+/IdJ3WTnZWn2pZ7FMWFTirZXzsTmBpWeDGJ3FL5gzT+bU0b46nboPKu8abafnI/UuLI1K1HizGy2si43EH98IPJ1ym75rE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864280; c=relaxed/simple;
-	bh=jq6gi0uGPzFXQFJMzmHXSUyKvQOqcXHQQUSLfe6FVWU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Z6ORt/OaZvgA4LUmgJm2CaRIdFuml2M6HNp+Kovrr2U/ZeTsk2C1TN/Ccqkpt7xmM9tmHt95ZxAfNO/n5dRGpe0XTAKY6DNIQInDXRsvRKVK1R49JWJgfr+XHx0uIFY3a32IB4og9t2SjfDBa73NSSTGBsTF4Btj6uJR9N3qOSQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nXxykQZ6; arc=pass smtp.client-ip=209.85.160.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4455351FCBA;
+	Tue,  8 Sep 2026 10:46:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788864376; cv=none; b=KzZJvYDTGiYPhPY1b7gFgR0DzIXOpUWcVVLp47zdIuWPTf/03fx53unzmmyRzj7QICaXoa2VPY3K6SxDcO1/JbrQrTE+iY+mZADX19GS39LLZpsFlKUenobaf7to58U68TGzYKXCZ88F0FzhUCy75wGGznX3fR2eVU/pjSSnGt4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788864376; c=relaxed/simple;
+	bh=r/l1YoM6RxKXIyIUKiNRzuIxu6GWquA/QjRvwN8HJKc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=s7EmwxyyYMg2ADAj1vfCPx54SFZuNGMbiYkBbC1QeoMMA5KPeGW5jOUFPPB7kjizNXP02SsNbo5OFe0MKALp3mT53pxCQhac3q1pK5Q1CcZ46d3LWZc4yWjjAv0uu55LSZkRkrEJzazpsx3fmeiweStG+6KNBZLtE4vZ3JmJNQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ij4ikJ85; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nXxykQZ6"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52de50e77ffso56671601cf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:44:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788864273; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OnPK1f3P1TqjFSqBVtE6K3uJEhUmKJ+f8F0CTvKtiN/dE3uz+xpDO2QOfjycRq3HzQ
-         F4o4Mkn4SvlgirG1VTUVLg8HpbZmjjxCT/oP9s33HxC4PIoOwk3MiCJBarW5tE+wY2nt
-         6lkL2GB8dU06ZwIn9VsDanBeUQ4HZE1dDLpbnJ8ZNZH1R1wS7DdtcgNS/YC9ebDm1C0f
-         N9UsWoMojtK7KXYzwbe60+/cVIouT+xNYgawke5/tRmpcIU66qHMO7tA7sz2pHLyN4cd
-         KjyKnVLd1cORD8YaFDWVvZqBjum/fbHhoYM9ymk0RRMXFl8nxc+k26b2MMZTADHGXqj7
-         ZJJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=M4EEEB/zlA5ToTSxptMlKX/ejtiU2dv43nInBDoFTuI=;
-        fh=JFUfL4nSK8TUePz10tMALt63Kio08VSowlPsNYz3WUA=;
-        b=a+gCrGlxtbUhjrIsMhQ+QL0np13TlDQtdiHyg4KRgD9m7r5LMW4lha058dENH9Ox0C
-         Ulsd+12k7BzD7SNZ7Ze8A25gkcJ6sqF+tzMU0JmS7VDZvH7/1uHx+Nw364jP1+/BdIk0
-         QMeRmwMT+1gcNXyDvT1kASsC02Yc/kFkJTiCGUBl+/jZROo+hb+KeF9ny6hRv6n427Py
-         QbssTzbsggFYg1z0QIECNwbrDsEmzsPFfCkeC8KlcB8l1/yBub3SR18bgo8asByaueN4
-         aFKzUKcSupGRm7RfZwARjHf1d5IEFOyHNei8feRvXV5BLCxP7QgQ5Pt3pEAvcVn3Ujlv
-         P5sQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788864273; x=1789469073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M4EEEB/zlA5ToTSxptMlKX/ejtiU2dv43nInBDoFTuI=;
-        b=nXxykQZ6lTOFei0VsBEGnFlqtht5fveW9FUHPQVmm+ol+H2PI7RA8MHbMQe8Xu9Q4U
-         fz1x/oMiHVTNHPuZI8/qG9c0cU2GUFsBca4WyhzJTIsYyjYvo2zxKGKhAnsamjWRnoJr
-         yqdsUQ+yVaJF4+34sYFDcPiyhJBOevO/vo4gAMy+yQ+JK9s6W+iborh9j9s4HiTRFmfv
-         n0g9MDy4EQhnb6u9gfndsCrU3zC/BtAQUj0L+AfkndFil3qvLFbIgYGILIyqpgzBW0+2
-         WtjewQJK0VgOgeSFWpjltRIqYFp1uVOExA7T1Awts359WhQ40RT1TM/KP+4Cm9b5d6gh
-         TgBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788864273; x=1789469073;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M4EEEB/zlA5ToTSxptMlKX/ejtiU2dv43nInBDoFTuI=;
-        b=m3kKpop/aToRo8sCmDHzRXyV0553A247Vqf+LI9Z6ecAtK/Hts6w5fBG9siFvFkSyq
-         SpqPz4cbESbGAL5LKLhhkspcVy/nJsObNKps37d5VmhyjariBwDXV3W45eVBk9DE54gx
-         3nMXdYTxwvs9E5MBAC7B74jQxkHQq0X0Ijxp1z9biSZ20cqsa5V9LZ8I8G1hwQBMHOfo
-         N4J17VBGyAfbFSIyEb2iIILqXE1PnjaAjcsxi6cATBWCVCqchAZwoh5XgJkYD0lwi1os
-         VC80MdDM8usU/yN8yf7bDsOiESM7fbqIoE6wsHS9tSZwG4/VDSFcIGfznIOUGptYDWij
-         BrUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6sEuQjDe333IEHauv9++7qhgawZs0lPCgqljSdKSFeYkup2nomJ14R6yFYvN2xSZD7Faia9w+6YXWZ48=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkAfDBdoIheYnUtWxeUNNvNXAxLTG3OuzrJ3G3WWeTbVOQlZZM
-	n0svxOW++unb0ZfJCPII8cOkJmvcwwBjT7ROttUMkxRJvoBmrRG02IO2ocuccYq1Y+5b3aZW+a7
-	i0OmhHmAoAdF3tjdl/jB5wy1lWev0M8bQ+IWcMXIM
-X-Gm-Gg: AYBFou008+Pm3KUycHQrhFJYGYkMs9NYopVtG8XruO0yAzY/41L0JWf1V2lg1wqa2Oa
-	E+XqhuqzkypjnRjdPXkNRcohwQxH+iETGI+wkrFSBUhDtCX23TnoA9CapR/gYiPX4kpY89pHCIn
-	r3Dn5ZiDo2KnF6ZypO4GWcBzilJ56doSw3Dq7v+rDip6ccpiCNBlXo0k06XRh0QrFMiboh25Had
-	lKNKP4d1Q5t/De30IvbSt18EldaSAe5iQrybrWsNoqdjJAOsyvvkqr6EgfYPHTv+v5y0Q709r20
-	GpEEN8xbDznJhetWXVSkZpq5OXnITLfosQ9NhbrAEmofZJEbbdPZF5tMov7Jh40jh9rYKNPqOr4
-	DlemnkCpc3H97ZUIoDfIyiFQB1hBUCJkJUb4p2XJK5nlNBQkKXev2aMMs8g==
-X-Received: by 2002:a05:622a:5a1b:b0:530:4155:1935 with SMTP id
- d75a77b69052e-530547c4e64mr364507861cf.15.1788864272270; Tue, 08 Sep 2026
- 03:44:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ij4ikJ85"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788864373; x=1820400373;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=r/l1YoM6RxKXIyIUKiNRzuIxu6GWquA/QjRvwN8HJKc=;
+  b=ij4ikJ85Lk67/PYJPngoIW1Z5d//ckY4kyMSu5c5vPYXbtcnV6tIDFif
+   gZnI9B/DvT0GZXRczGM8TTJEwT5Qdpv9crQSSjfYn/xTlpYWjfQp2pWRW
+   nfcgRUm3YN+mdY4cOWMchvrgk3z7QFuE0ZSwM5ARMzX/yJ77m+zp6mGu2
+   M1qACMlv5n76L2pxWnCxJ63zrf2XXlXrWBodngBadKPsuc5+UHqKUJ9I8
+   jBkfiG0B0uRo/og2Mw5/JDPjTQfyXtdfRu87meSZ2/2qJxlaSCgqi8TAp
+   4C/hxvXe0Yxb/7ZvCSYzRc2ZynZifkt4QcKwPWYb8kGLWxb+ZJjxnUTfk
+   g==;
+X-CSE-ConnectionGUID: LQ2kziCfSTiKA63Fu2/Cng==
+X-CSE-MsgGUID: XVYHP1jKQ0GyiUM2n1z7YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100421361"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="100421361"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:46:10 -0700
+X-CSE-ConnectionGUID: mYt1HGNlT6ubu5HZabgTpw==
+X-CSE-MsgGUID: M8egQ/YUTG26EpMeldSn2g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="272890143"
+Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.174])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:46:07 -0700
+Date: Tue, 8 Sep 2026 13:46:04 +0300
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Andi Shyti <andi.shyti@linux.intel.com>,
+	Krzysztof Karas <krzysztof.karas@intel.com>,
+	Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+	Krzysztof Niemiec <krzysztof.niemiec@intel.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: Disable not supported reset methods on DG1 0x4905
+Message-ID: <ap_nbJWGXWTI8ARq@intel.com>
+References: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906123151.1391349-1-inbal.lipshtat@mail.huji.ac.il> <20260908103715.1402788-1-inbal.lipshtat@mail.huji.ac.il>
-In-Reply-To: <20260908103715.1402788-1-inbal.lipshtat@mail.huji.ac.il>
-From: Eric Dumazet <edumazet@google.com>
-Date: Tue, 8 Sep 2026 12:44:20 +0200
-X-Gm-Features: AcwNN1XerT-wrXYtzu47uv4JMhHWAWEOektoDXmj0vTPrbUdoiK42ii9uln2MZs
-Message-ID: <CANn89iLZr2K=TPkjQFqkg8Y1vx9ZRT6xOrxWeQrvfVjs-J2ngg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] tcp: exclude old ACKs from fast path
-To: Inbal Schussheim <inbal.lipshtat@mail.huji.ac.il>
-Cc: ncardwell@google.com, kuniyu@google.com, davem@davemloft.net, 
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907090249.1348552-2-janusz.krzysztofik@linux.intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 
-On Tue, Sep 8, 2026 at 12:38=E2=80=AFPM Inbal Schussheim
-<inbal.lipshtat@mail.huji.ac.il> wrote:
->
-> Exclude ACKs outside [SND.UNA, SND.NXT] from TCP header prediction so
-> that they fall through to the slow path, where ACK
-> validation is applied.
->
-> Add a packetdrill test for a data segment carrying an
-> excessively old ACK. The test fails on the unpatched kernel and passes
-> with the fix.
->
-> Changes in v2:
->
-> - Exclude all ACKs before SND.UNA from header prediction instead of
->   duplicating old-ACK validation in the fast path.
-> - Cover pure ACKs as well as data-carrying segments.
-> - Let the existing slow path handle validation and challenge ACKs.
-> - Remove the packetdrill reproducer from the commit message; add the
->   packetdrill test separately.
+On Mon, Sep 07, 2026 at 10:59:18AM +0200, Janusz Krzysztofik wrote:
+> DRM CI consistently reports failing device reset attempts on Intel DG1
+> discrete graphics adapters.  Manual reproduction attempts allowed to
+> narrow down the scope of that problem to a specific revision of that
+> hardware, SKU 8086:4905.  It has been confirmed that both reset methods
+> claimed by the device, i.e., flr and bus, suffer from that issue.
 
-OK but you forgot to CC netdev@vger.kernel.org and you forgot to tell
-which tree you target.
+IIRC the documented workaround for the issue is some kind of magic
+register write after the FLR to unblock some internal state machine,
+but the CPU isn't allowed to do that write and instead it has to be
+performed by the GuC. That means we'd somehow have to reinitialize
+the GuC very early after the FLR, which sounds rather difficult.
 
-Patches need to be sent to netdev@ (instead of lkml@) so that our CI
-can run tests on them.
+> 
+> Since consecutively failing device resets may lead to system hangs,
+> disable both useless reset methods.  A respective CI test will then be
+> skipped instead of aborting whole CI jobs.
+> 
+> Suggested-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/11814
+> Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+> Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
+> Signed-off-by: Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>
+> ---
+> v2: Fix commit description wording (Andi)
+>   - add Suggested-by: tag missing from v1,
+>   - add collected Reviewed-by: tags.
+> 
+>  drivers/pci/quirks.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda21fd..e55475374c6fd 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -3811,6 +3811,9 @@ DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_TI, 0xb005, quirk_no_bus_reset);
+>   */
+>  DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_ASMEDIA, 0x1164, quirk_no_bus_reset);
+>  
+> +/* Intel DG1 0x4905 may not recover from bus reset */
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_bus_reset);
+> +
+>  static void quirk_no_pm_reset(struct pci_dev *dev)
+>  {
+>  	/*
+> @@ -5597,6 +5600,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x443, quirk_intel_qat_vf_cap);
+>   * AMD Neural Processing Unit 0x1502 0x17f0
+>   * Intel 82579LM Gigabit Ethernet Controller 0x1502
+>   * Intel 82579V Gigabit Ethernet Controller 0x1503
+> + * Intel DG1 Discrete Graphics Adapter 0x4905
+>   * Mediatek MT7922 802.11ax PCI Express Wireless Network Adapter
+>   * Mediatek MT7925 802.11be PCI Express Wireless Network Adapter
+>   */
+> @@ -5612,6 +5616,7 @@ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x1502, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_AMD, 0x17f0, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1502, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x1503, quirk_no_flr);
+> +DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, 0x4905, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x0616, quirk_no_flr);
+>  DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_MEDIATEK, 0x7925, quirk_no_flr);
+>  
+> -- 
+> 2.54.0
 
-Please read Documentation/process/maintainer-netdev.rst for details.
-
-Thanks.
+-- 
+Ville Syrjälä
+Intel
