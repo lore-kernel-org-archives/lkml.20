@@ -1,122 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89122EAD15;
-	Tue,  8 Sep 2026 17:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C06D348C5D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889817; cv=none; b=aNWOZyaDpvqUv1fIpWGKHdHNu3082uhgatDK0Sw9y4iKYQOM5PkjGnpqnOa/jk/EtRz47+DKEc776KYad36coqMHhW8mnF15ZV37wF4sxGtZiRq+CCbwaI9G5yCFE5zIeYiFMCCqREAPTInUMDyoZ7RqxzlkJYdOiIdA/vdfM2E=
+	t=1788889853; cv=none; b=byNUz/LJesPV1dg7MSQsYNh0dkXiMnHL5rrOLh3mkd5EeMZdL4j0ZwXLYH7F0KvFctiUOuiUMUH7XY4dw6dUdG+T3JMdX6boIqrKd43VYSu6XOOIjY7ZumcD7LEF9MdqlZHzwa6ewkaASLGcE7dJnZN1Vm+LKuJDoXU3Vsu3Uss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889817; c=relaxed/simple;
-	bh=NV9RvyR0QyZB/j8pNOoCUKYeZY3RF7yFVC4bCoAEf9Q=;
+	s=arc-20240116; t=1788889853; c=relaxed/simple;
+	bh=5fVqqdPTWUjqRNwOypnkQIbUTq+zpnxZIaYivJYLEes=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r1S+7XEEY4XPo18osdwsfL3v+owoZXN629DeS2WOyjrtUmgSgYMo26cmNn8YHfQFfTd8rgmY90BG8OMDuGa20ymmYS1E8uytpHGuRRoeflT1gMGXHSUZejBVRqN77LZ/wivEeDsrDV+3+Ihn3BOnUAo35JcIQQZVFy4WBEE5M1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mS7Iv8JB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nBH0xrK+bEk46VnHjkqM5UGxwWF+T6bu1VmYVwXPQF9OpZSYggWYYFq/qBzx1h0kwXsI26NfhN3O7EQ0VZllKESR27T4B1ycZ44HGZgHfNxYV55PJjY9txF6zv1LJel1VFg/JMGaFbe/Mtgjnpc3bTU5dYLEBeD3c0xjZfGUlSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TzKsEcf8; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hlgAsNej; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mS7Iv8JB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144F31F00A3A;
-	Tue,  8 Sep 2026 17:50:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788889815;
-	bh=//uuhykbHITGZZ7vXNYzwKmowhpT9TF5NuDZncqVLqc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mS7Iv8JBf5eOu0WPKJCvDjM76ISD9Rg/d0fjtyT8KmvvKCsFRuhsS2Z4NM30UzL02
-	 nIYHVWBCas9cT91zewU1aJL56kkbDd6WlV476TcKb5uLvXhFi9lPuxjE1ldATt1XOV
-	 AOO1wKGNEFbTJM5cXtsispzFsQ1SrSL7Awqhj4TJsP1WgylrIsDcWeUmOeXzy0F9/o
-	 LFUhr+jSlQbzqgKxvgM2ADEJza7/lHBwVwpSvnG5oopyTS0S0TfXP7LzZiWoMK9+g0
-	 PCUM0dqpAN4IOcVs5BxZY6oRQWQO3UFCHrZMuRgMh0oRz1NijwcgDTY55iBzvK/if+
-	 jder6keVg9ovg==
-Date: Tue, 8 Sep 2026 18:50:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Peter Chen <peter.chen@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Ze Huang <huang.ze@linux.dev>
-Subject: Re: [PATCH v2 2/9] dt-bindings: usb: ci-hdrc-usb2: require clocks
- and resets for spacemit,k1-usb2
-Message-ID: <20260908-tapering-panic-e76cb4114d92@spud>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
- <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TzKsEcf8";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hlgAsNej"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788889849;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
+	b=TzKsEcf8dbF2pGJODpl2M7+sVhz2tSkzMbYEmpuWhuJM2vutpsUylWnFJqrNL6H9waN5ea
+	NYQyJgz+g8N4arBHMQc5CtE0W9CXfKy9h+kybdMVREJPH1qoTs+mE3IsJ2axmC5iXaCOuS
+	trKwGok0wMLjXASd1XXlLidtenRhcU4=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-82-6GotmCChPvO-jHcigTvKVw-1; Tue, 08 Sep 2026 13:50:47 -0400
+X-MC-Unique: 6GotmCChPvO-jHcigTvKVw-1
+X-Mimecast-MFC-AGG-ID: 6GotmCChPvO-jHcigTvKVw_1788889847
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc16ac179so89456831cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:50:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788889847; x=1789494647; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
+        b=hlgAsNejEynDpHxFo58pqvl+FR1sgvy6DLuZcCcC4sUeU/wT1JqIYKKVvLXHEvcqyi
+         9z6amcnpSttndmvSX4u1/WoQnKDuw1Ka4DaOgjzEZ00FL6Z8LKNWi5eBXmiRmHfet2h0
+         2fbqk5nU2d0xvA/IelXHsk4QHS+Wk8Dz0wvyZJuzYr5xm0tOq/cVgGl+Sw5Ea/gpmmS4
+         duCjVm5+VWFRfqURULsA6mYXCEMwo25bUUpk0AeBEdj9TRTUUsZ8x7YyhZyb8s2fDv1D
+         n3XuryrpNx5W1Y1uvTVYJWWpHcb3A/G2C7PBZMMaUuCIKk/TykSCQAZbK/vmYsoEGfHt
+         1uIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788889847; x=1789494647;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
+        b=D5Jkbj88YTaatmuhH4PvIBla8nwx4D4OnGAHeGWOl2V++5ohFDrsh9mvFkDDgq7KfT
+         ZmWKFRmLI/orf9u21pVgi4fH3+WdONZLOh4EC3w7COh7EtOxRX1eesH1Dbar8qWNzfa6
+         2Cgu8Rc38FMtDIgpJuN4iNGo5NM5A+AXUfhvSxL/NmiG8Hj2CzV8cjnPTyxRNlgvshcL
+         VbDoUR6NnwmhIaI9J3Lr5NLfnHPcamAzHCPAohIAUzSiUQsQlIVAiHMHezg2bD/V3fMm
+         iEwmFfFkQvzjeUk9enM6lSfhO6KJ/Lq5niZmXqE8y1fmJVlb1OrtqzfOEG7H+LEbFucl
+         f1CQ==
+X-Forwarded-Encrypted: i=1; AKwUvByz80gAOK+Jm0+ARbku5rT6/Z0Z8+VbLEEGOarJzPNIL6ZB5Ft+7PRh29SLqfhWo8LdusrOK/fncxgfPyE=@vger.kernel.org
+X-Gm-Message-State: AFuF++ms7ZDAXnWKbPu02QlRAyn+5yMke3Tc0p0jYOJXoL2SBkvxuKz9
+	yF/Kdr4Nyb23umGJUnr1wXNvGg0Je/+gEEYopJi985WJrAXaO7pmTrPNXssb1GMOODifXfa2/7P
+	MzRLxIqLNt6wHi/ZOgOh6PIq/lmQoMeJX+ZqEsNWFNd3gtaYuTQeoHxWOLeQ+Le47/A==
+X-Gm-Gg: AYBFou3bdXQ39kf2EcQbAeW/lwBIv5MTAMW3JdG5bNIXjS16O+OQ9HNZ6oteSw+SRxH
+	TX63vYckiWlmXukzYjQKTFkpLMmp+V9AxLagzpUChHwcMUoAynUtd57ozkxAMaZqvwG32Gechsq
+	2JgPsJF0ZQazE0xWtWlrbZ3kbizAyua/Xx4V/pw0MrZEc3Q2M93PB8RS1+3oEikKJZe/Edb7/GL
+	0lExFmyqEOxeuoB+2fZgoC3xoqnHMEp5AMc0DfurCppX9rF34kh6oY/fdMl8BBcU4MyDr3gzbFH
+	3dUiFnvuND9QnvLMMZkjyyUDfQLdIw2F0f8k8INLERs0ubpouGHo8zuLyq3KYXmoaADWk/3DN6B
+	f192o/zrNmYlOljEUj4FVnw8icd8X2p8igV8=
+X-Received: by 2002:a05:622a:1791:b0:517:c582:9161 with SMTP id d75a77b69052e-530430a7f66mr339307751cf.7.1788889846947;
+        Tue, 08 Sep 2026 10:50:46 -0700 (PDT)
+X-Received: by 2002:a05:622a:1791:b0:517:c582:9161 with SMTP id d75a77b69052e-530430a7f66mr339307191cf.7.1788889846385;
+        Tue, 08 Sep 2026 10:50:46 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530541ba2d2sm121111241cf.22.2026.09.08.10.50.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 10:50:45 -0700 (PDT)
+Date: Tue, 8 Sep 2026 13:50:44 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: ultrarisc: Register DP1000 clock provider earlier
+Message-ID: <aqBK9J1ZTJAGgxCu@redhat.com>
+References: <20260820-ultrarisc-clock-fix-v1-1-f27c6a980b42@ultrarisc.com>
+ <aoxzTneslr61sZmd@redhat.com>
+ <178876250098.2581040.1337852022443550878.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cx6n4VJrT74vmFyW"
-Content-Disposition: inline
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
-
---cx6n4VJrT74vmFyW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <178876250098.2581040.1337852022443550878.b4-reply@b4>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-On Tue, Sep 08, 2026 at 05:48:39PM +0800, Junzhong Pan wrote:
-> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
-> work, add constraints for it.
->=20
-> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Hi Jia,
 
-Squash this into patch 1.
+On Mon, Sep 07, 2026 at 02:28:20PM +0800, Jia Wang wrote:
+> On 2026-08-24 12:37 -0400, Brian Masney wrote:
+> > On Thu, Aug 20, 2026 at 10:50:47AM +0800, Jia Wang wrote:
+> > > The DP1000 PCIe and clock drivers both register at the device initcall
+> > > level. Since the PCIe driver is linked first, its probe runs before the
+> > > clock provider is available and defers.
+> > > 
+> > > sysfb_init() runs at the same initcall level before deferred probes are
+> > > retried. It claims the firmware framebuffer aperture, so the later PCIe
+> > > host probe cannot allocate the overlapping prefetchable window and the
+> > > GPU is not enumerated.
+> > > 
+> > > Register the clock provider with subsys_initcall() when built in so PCIe
+> > > host probing completes before sysfb_init(). Keep module builds using the
+> > > normal module init and exit paths.
+> > > 
+> > > Fixes: 3948a36be42b ("clk: ultrarisc: Add DP1000 clock driver")
+> > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > Reviewed-by: Brian Masney <bmasney@redhat.com>
+> > 
+> > I see this same pattern is also used by lots of qcom gcc drivers, 4
+> > Renesas drivers, and a few other drivers.
+> > 
+> 
+> A gentle ping on this fix.
+> 
+> Please let me know if any changes or a resend are needed.
 
-> ---
->  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 14 +++++++++++=
-+++
->  1 file changed, 14 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Do=
-cumentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> index 6f8d88a0681d..5c2b7eb1a6ff 100644
-> --- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> @@ -114,6 +114,20 @@ allOf:
->            maxItems: 2
->          clock-names:
->            maxItems: 2
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: spacemit,k1-usb2
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        resets:
-> +          minItems: 1
-> +      required:
-> +        - clocks
-> +        - resets
-> =20
->  unevaluatedProperties: false
-> =20
->=20
-> --=20
-> 2.34.1
->=20
+I just posted this series to reduce some boilerplate code across all of
+the clk drivers:
 
---cx6n4VJrT74vmFyW
-Content-Type: application/pgp-signature; name=signature.asc
+https://lore.kernel.org/linux-clk/20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com/T/#t
 
------BEGIN PGP SIGNATURE-----
+Let's see what people think about this.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBK0gAKCRB4tDGHoIJi
-0jgEAPoD/utP2/Sy4njxEBqRq7ll+X3uQeDuZxxMuHskHm1s0AD/ai7Bo6A4fBgd
-EDgNhPtdvP05rnHU3zmJnLTWJW1DiAw=
-=StnG
------END PGP SIGNATURE-----
+Brian
 
---cx6n4VJrT74vmFyW--
