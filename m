@@ -1,262 +1,157 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C95A3911B8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C8D37F8BD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:04:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788851066; cv=none; b=ZX8xAmHM7IzfqE9jPNzWvIdzUxdeNbqC4kJat592A1XCRRL0wI1ILqbA3GjIRGJGs1NcnPuvbGgGQgjllBDD4Z0ov93ZfsoqTKa9TLwwZESYygjt78a5y6wHztvV+pGjmZbhBedsxl2KSqYwXHz4BvF/cyDxiFrsfUbRDf3HDmU=
+	t=1788851074; cv=none; b=pdVThwqRYfaxKPM4EnQT0I52FO1StanhPKTrjpblTdH4nSln1Vn/xG3PYHFOVVLBSOOOvZA1Qydh8BlWb3CgX7q9BV9O4XscWMPV0bkAVWweIu2DdDXuAJGNA6alOLyqcmSxiqhSfgoUrTGyarF5GvG2LvWvZfXv8PCnDFIgwWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788851066; c=relaxed/simple;
-	bh=qrkomyrl64HLPxtqsg1h0AiBeTvAcyfrPyl9zzD9wqI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=josjsnnlFx79ItkepEBpwKnC+YzDB+wwlio0dx876IHopF6A/Fi7qy4LkkaLDmXtJcKYMhJTZbwk54O81FRuSUAtfIvQd/NyGWYTYm5YjliGXZiR9cSslRR3nSymUyPZrodgv9DGyMkY43nZ7Klf/HyG9GpGNtk0F05rHttbV/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PVAPFNs7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cdjAJiAz; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788851074; c=relaxed/simple;
+	bh=QzWEww27danke6pVuKQ865QkKlQ6qEvVrB1nT2Ssj5w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RTNB6I2u+pdJ9tbfU0BwI1a7mwLW9vkEHBwuVsCZhhqpiEmZFuTJxo0+WEfyVufZGHgKADWA9cmeeVHPULp9SNQY1OhV8lp69lAFkYIPVPpuA3xU1MASTlbvE5BlXj1IjDUQHKjMmiG0HtcHDjhdEX4I/nn/0bOO9+0O8Vr1p08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LS9eJkNV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CiQiETbG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PVAPFNs7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cdjAJiAz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788851064;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ol8taRaXNtmTj+LU+cXQwn5fB81XYMucQnFv/vJC8fU=;
-	b=PVAPFNs7m/Fc7hRZVn+eU0UkpINPLiE/gejR7Pw3FFyiOvUlgamk67HvsTe0OBhwczfqNT
-	qSwKfKLhcbCHg7Vlcg1TAIDRU064F54TWeWJhPoRx4RK93cr6HAvCsWp3yY2eyI7wMKrbo
-	k+YNZG81qXbT/wQau2CKyEk5ZzgAfy0=
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-gNR26U6pP8q3PDjVzTf2Xg-1; Tue, 08 Sep 2026 03:04:23 -0400
-X-MC-Unique: gNR26U6pP8q3PDjVzTf2Xg-1
-X-Mimecast-MFC-AGG-ID: gNR26U6pP8q3PDjVzTf2Xg_1788851062
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38dbf293831so9007338a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:04:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LS9eJkNV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CiQiETbG"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M2632363258
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:04:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=qb33tFd7B0AHkg7R+dCmJclp
+	qBJUbuxxgUYmiEyjnXs=; b=LS9eJkNVCxJeORL+Pr1WijtqzIvBVlEeDFJyJi2U
+	p3gIZiASmuTQmAmY3ZmqyHwSu04egCxuGP4237LeLhc2e7V8L40wfYyvNy8vRIZJ
+	5phGl4FpbTPUtsOgv7YSwIx7WIKcNFq6o0lwb2WORIHaxl99gFZ+g9jqoMpoyVDC
+	kdenPZ+lgV4WktmMq2U/IogggEEQgaHRTdIpS2R2kyGdEiR8gC0sXS+EzefbLZ3g
+	OXlPWNclU0oUgwr6VkxCCrh1Ia5OkE5j8ZvDqZ0EKykftdj3FThaFhrWXb6n1LrM
+	dkMnkECQsm607OGnH8gc80GdHPw5W2Np8JMdW3yrjY+7gQ==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjagugqb1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:04:32 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc18ced1a5aso7368779a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:04:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788851062; x=1789455862; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ol8taRaXNtmTj+LU+cXQwn5fB81XYMucQnFv/vJC8fU=;
-        b=cdjAJiAzfQ2KoImy3IZi+OEXwaJSAupltjpRyTTAJSgWJi1yVu1mivm//Df/haKRip
-         ZUMSSVQELL81xJvnuZl+dBpoqevdYaAadZKxYWa9WRDsnQ6Z8oeqiwQmTrUsKzblNDul
-         HJXZie29XNcFtX61O2tkg+/hn2LaPV9Zk66Ywlp4xLq1k/+CuSKD6u41Q02RtIsUm7Uk
-         /OOYWDFb4588x2sH4hT0kpbe322IiYGdU3bOTU4NR4qj81MNFXiU7JZFKHdQ9/cgSpES
-         zmnqRjdFYqBVY9P8Wgi+tsgkfvmwUB/oIv+qYc+q3f/CDaHTpc3MdhvMiZVxaFX3Cay0
-         GNcA==
+        d=oss.qualcomm.com; s=google; t=1788851071; x=1789455871; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qb33tFd7B0AHkg7R+dCmJclpqBJUbuxxgUYmiEyjnXs=;
+        b=CiQiETbGounJCCznHjkcbvWRJW4FD1Fyk4C/FzL1sv8RgomPFjNGfvW40oYqaaecaE
+         s0N1hRr7nbgaW9lQmQgE2d03zPWmmB/xSkQ/zme2vgoC3mSJme7sDjpNRF99NtW9nYlk
+         p6FLwj+/Oq6GJQeYVAPXILSQlS2YRO/pFOggYCFF7N7DiRuAvo0cI/AvnVZpIaYVB3dW
+         Eq9BDdU9YljUQmbEueJY8GiGAkr2fCE+SkZARvLFPO1NyY326/V00cvbJiw8hIrxUlH6
+         iiTsdmMPQJ2NWX9e8mHfbZvTdBnpiA0N8Cq/NqZZsvyg9efAgq9uN4Li2kV6Zi8Otd9l
+         RYfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788851062; x=1789455862;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ol8taRaXNtmTj+LU+cXQwn5fB81XYMucQnFv/vJC8fU=;
-        b=OCRfC17vY85JS3mZfNRsRS7aDVzG+R5LowBJDtkjtsJBcO5lDu4wZw+8VEQQI0rnoz
-         0aRHvSxDnJBRX1zAYUKGPvuFgICVq8Xj9+ZKsSBFFGQc/B6cx48GKSNK0+NrFHbIfaUm
-         9XI8tR462HzQeHXV84562S03PAl/RiZMBg/++/MlBbVFEutGR0NhNNHJMXlkoWF7iirk
-         DYHJWZRgEgNy9/y3cH2YYImlzZkVZiQ5Qtgvph53eB7ZC8ijrFDWI/PgER/FLhTPdZHp
-         4KWvUFa6x9MvkuBt49KWQ6v59OA0lFfwKbjm3o/NXcYrhwyG/hfpJriQ5O1FFVhf1iZ+
-         UMlA==
-X-Forwarded-Encrypted: i=1; AKwUvByAcMQlQkDPYNVgFQkilfFJ8nWXsHDp5xG5OQmxX/KblkXZqR6TwbGctyjsoFmNoudtdAQMtiVGpZXBsoI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpjgDsXn9vx+1XGiO2KTY76MUHEtvQFTyDW0KTK4Ui87M8+bO7
-	M8VwnPLOxBkgu70ZaXTfhhRZqLESudLWTscFYC5GxKOuD4vPasweH6IR5jdXQS8SZxrHnghvulR
-	Z1Z1owCX0v7ic4ItVjoEa60FVG2aW0wEne08PZSqlcPumZeIKBKXezkK8pFN/cM8zgg==
-X-Gm-Gg: AYBFou3XpyDpMMsM3Zyr7Bu8NQCUq7kTtTvDx1ITBJuuURCVXANF4k4kvBuM31oN9mz
-	I7UDENyEAwNdSLGEuF9fhUzVQDWONvmatQ4mkT/UjZXMcpyZj8OdVZ0YMxJ7UbuUucW+TAIDXHK
-	7fVFMbC3MHt9PP/FRWN+iUj2bOyYiXss4FNfWPsascnrPGyKtDa342c4piiEOEfUris/Y6t1sAU
-	rdKc/j3zmIcwGI0388KeQTwXbapzN3QiwxgADy0IRbm2hMirSvMl6gsBQwc6nyyaIOAWmcRZpCn
-	XBhUE29amI/ICimqXOYCBjMEe8MiPsyvB231VPAoCak3Frs756vQOBUKivC1DNFoeM+Fifh5PSl
-	2pn7XKmz7XYOHvbmaCzX23BHdGshTdhlNIfpOye7+wA==
-X-Received: by 2002:a17:90b:43:b0:395:5eec:b932 with SMTP id 98e67ed59e1d1-39b26141c79mr43891712a91.11.1788851061789;
-        Tue, 08 Sep 2026 00:04:21 -0700 (PDT)
-X-Received: by 2002:a17:90b:43:b0:395:5eec:b932 with SMTP id 98e67ed59e1d1-39b26141c79mr43891602a91.11.1788851061212;
-        Tue, 08 Sep 2026 00:04:21 -0700 (PDT)
-Received: from [192.168.68.52] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08bcc081sm30955490a91.6.2026.09.08.00.04.10
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 00:04:19 -0700 (PDT)
-Message-ID: <10893135-4757-44de-91b5-180a9774d868@redhat.com>
-Date: Tue, 8 Sep 2026 17:04:08 +1000
+        d=1e100.net; s=20251104; t=1788851071; x=1789455871;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qb33tFd7B0AHkg7R+dCmJclpqBJUbuxxgUYmiEyjnXs=;
+        b=V1s7ZuXtowuGiOLlZkIF1mqK9dvh6p9tmcrcmp8I9E+ezIAXF8L6SFpvlmrg7lmHNR
+         3zdwaoxlmSLbEkXWeInM6DH+iTC1uSnic9Mdj06+DHQac4T+ZrX/kc5Rvh6m0BR64VSN
+         SBT5vGWxyJdCMbPTkr+iFhGAsuNI266rk6v/5iQQsVGnbDnT8PJJcAbpwnilEH16yo0v
+         EWPlo7yqdsihBLqJaLZ1hHLirPnDkIxdFjbCS1TZI9kiKlDrbFeYvGN2e40pepJIfxiI
+         /jcLTsakfxwN8pTEoCnut+DHN761m1N+dgEvQgjZfcll0IkkMx5z1D9FE8aPjrOVCTKp
+         MDYg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnHdjXFcsBH+lPk4W5lSBIRM3/4A/Ly9tewp4AstOkSmTGXrPWcvUqo5RARLT+UqzpFU15hkymzIs/8BE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSSCKgyxF0+erNirYkGlL3AM4KDEnasu2xzfvm/Wz8KNmDd9up
+	6AmUs6jceYFX+k3DhE1DIHMYtbwiBXLBASVN15kG49wLAFayd6FXHSsIAWeKImbcLSn/xv89pg6
+	Sa68e6HRnk9ERfjY1EQ39rDwbjDjOkzx0sdnae/zILXzDeLQUzLWlCF5oBlDHhsX4NEg=
+X-Gm-Gg: AYBFou18uf8XOZzJY44cefYJ+2sDTadfy6I5oyJJX0J8WA1jmKLZDQh2GvbT8ACr414
+	zdlEF3bDqx2FmJ1rGGPv55rnRTiDmd2ZbJr+8z+3juLomj8Jvg6YyY4uopeEX+4sIcmX/INZWJ2
+	ofLq0356lno81iDVpM1jL2EkQcFUJUWbuyEx7toWrirkjHOO73ooK4+6hYWvS/VBOocB1ex3pnd
+	192zosE0CWeTvyciqGxkl+mL4e6T/CxmoVqUW571ZrGi9l9nN2ShhSVrWv7GLrYQTylJyw8REyD
+	/oyNJrgINMTXoPNJhpBeTQ/gzqV3kYUSnOxbiRquZsgTlqzzvC3SepqaNYPeUUvCtUO+If5HoNW
+	2EVqEGRVmp1XyOA==
+X-Received: by 2002:a17:90b:4b90:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39b2610f2fbmr38627656a91.8.1788851071231;
+        Tue, 08 Sep 2026 00:04:31 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b90:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-39b2610f2fbmr38627601a91.8.1788851070748;
+        Tue, 08 Sep 2026 00:04:30 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm32734467eec.22.2026.09.08.00.04.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:04:30 -0700 (PDT)
+Date: Tue, 8 Sep 2026 12:34:23 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Anurag Pateriya <apateriy@qti.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH PRELIMINARY 0/5] arm64: dts: qcom: shikra: add Ethernet
+ support
+Message-ID: <ap+zd/2QmerMwi0o@oss.qualcomm.com>
+References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
+ <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the
- host's page size
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
- kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-4-suzuki.poulose@arm.com>
-Content-Language: en-US
-From: Gavin Shan <gshan@redhat.com>
-In-Reply-To: <20260907095942.1140734-4-suzuki.poulose@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
+X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6a9fb380 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=K0Q-0DoUKIFXmulf0hMA:9 a=CjuIK1q_8ugA:10 a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: mB7RfUcWz6vZob4i85PhZNzsMLuIiQTK
+X-Proofpoint-ORIG-GUID: mB7RfUcWz6vZob4i85PhZNzsMLuIiQTK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfXwWlEHdBzmbOh
+ m4XVkeZdQwebPXTlGj/Pq8S8JFEDggu+9uCtj6F9LXsVKipfJ6/DTcPmY+rjdSA7WnpVMInPZLk
+ dlS+dEvpevMdrKW1V6U902sSt+VbC5Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MSBTYWx0ZWRfXzftNqmRRUmXu
+ nSnO7PE2/egHhDGtT4jkJCCSHZZzPMILufrwEwT1vjrOsW56oazT4EyBOdxierbh36BqcuBDdA0
+ zc2GuSBzb95fQ3+CzYQumDRyC0RnE5WqC6OJXKlra6pNW2NThfBGD7HI5JGOhy4Qda3zFHypglA
+ 1RvAEaTGtISnYBiOJpWMTrXK67/bLhjz8j0ZZJy5Yn9INhJlK4bdBsK8WK9S/ji+O1srsxCeQ0v
+ 9rX2Wnc1d1yy8Cyj2dz11UKHbTJf4jigIKoagn8EHBdbrJjMi6Pt5BaJaoYVKhtDZLx5Y3YiscH
+ YlgwRPWDD0gkK2/8/PFdGKeItbKhHSIrp2iYKkNcZBt/DjEh3zpScCVQyMraNvRUMkS2ryeGSfn
+ +hnzvlF9lvK6rI39hPr2ckGeguH9/YsAuSU8ZRgOrmXD91JWXcre80ZgYxplfuG9LjYP5uf1rdf
+ h5Vjza9kq/43ZLWvklA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080071
 
-Hi Suzuki,
-
-On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
-> From: Steven Price <steven.price@arm.com>
+On Tue, Sep 08, 2026 at 08:56:39AM +0200, Krzysztof Kozlowski wrote:
+> On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
+> > Hi,
+> > 
+> > This preliminary series adds the DTS changes required to enable
+> > Ethernet on the Qualcomm Shikra CQM, CQS, and IQS EVKs.
 > 
-> RMM v2.0 brings the ability to set the RMM's granule size. Check the
-> feature registers and configure the RMM so that it matches the host's
-> page size. This means that operations can be done with a granularity
-> equal to PAGE_SIZE.
+> What is "PRELIMINARY" patch in upstream? Where is this process
+> documented or expressed?
 > 
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> ---
->   Changes since v15:
->    * Actually check the feature register for the host's page-size support.
->   Changes since v14:
->    * Move the implementation into drivers/firmware/arm_rmm.
->   Changes since v13:
->    * Moved out of KVM.
-> ---
->   drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
->   include/linux/arm-rmi-cmds.h   | 17 ++++++++++
->   2 files changed, 75 insertions(+)
-> 
-> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> index 008a783407b4e..76f91c145e1fd 100644
-> --- a/drivers/firmware/arm_rmm/rmi.c
-> +++ b/drivers/firmware/arm_rmm/rmi.c
-> @@ -77,6 +77,60 @@ static int rmi_read_features(void)
->   	return 0;
->   }
->   
-> +static int rmi_configure(void)
-> +{
-> +	unsigned long granule_feature;
-> +	unsigned long granule_size;
-> +	int ret = 0;
-> +	struct rmm_config *config;
-> +
-> +	switch (PAGE_SIZE) {
-> +	case SZ_4K:
-> +		granule_size = RMI_GRANULE_SIZE_4KB;
-> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
-> +		break;
-> +	case SZ_16K:
-> +		granule_size = RMI_GRANULE_SIZE_16KB;
-> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
-> +		break;
-> +	case SZ_64K:
-> +		granule_size = RMI_GRANULE_SIZE_64KB;
-> +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
-> +		break;
-> +	default:
-> +		BUILD_BUG();
-> +	}
-> +
-> +	if (!(rmi_feat_reg(1) & granule_feature)) {
-> +		pr_err("RMM does not support %luKB granules\n",
-> +		       PAGE_SIZE >> 10);
-> +		return -ENXIO;
-> +	}
-> +
-> +	config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
-> +	if (!config)
-> +		return -ENOMEM;
 
-An error message is needed here.
+My apologies. The code is ready, and I was hoping that sharing the DTS
+changes would make reviewing the driver and dt-bindings a bit easier.
+The original RFC had them together, and I split it out for net-next
+and linux-next.
 
-	if (!config) {
-		pr_err("Unable to alloc RMM config memory\n");
-		return -ENOMEM;
-	}
+The only reason I added a PRELIMINARY tag was because these DTS changes
+should go in after the driver changes and dt-bindings.
 
-> +
-> +	config->rmi_granule_size = granule_size;
-> +
-> +	/*
-> +	 * For now we set the tracking_region_size to 0 which is the only option
-> +	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
-> +	 * TODO: Support other tracking sizes via Kconfig option for other
-> +	 * PAGE_SIZES
-> +	 */
-> +	config->tracking_region_size = 0;
-> +
-> +	ret = rmi_rmm_config_set(virt_to_phys(config));
-> +	if (ret) {
-> +		pr_err("RMM config set failed\n");
-> +		ret = -EINVAL;
-> +	}
-
-The error code from rmi_rmm_config_set() is indicative sometimes. Also, -ENXIO
-would be more appropriate than -EINVAL?
-
-	if (ret) {
-		pr_err("RMM config set failed (%d)\n", ret);
-		ret = -ENXIO;
-	}
-
-> +
-> +	free_page((unsigned long)config);
-> +	return ret;
-> +}
-> +
->   static int __init arm64_init_rmi(void)
->   {
->   	int ret;
-> @@ -90,6 +144,10 @@ static int __init arm64_init_rmi(void)
->   	if (ret)
->   		return ret;
->   
-> +	ret = rmi_configure();
-> +	if (ret)
-> +		return ret;
-> +
->   	return 0;
->   }
->   
-> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> index 2fb1f7f86d71e..9aa27697e2377 100644
-> --- a/include/linux/arm-rmi-cmds.h
-> +++ b/include/linux/arm-rmi-cmds.h
-> @@ -12,6 +12,23 @@
->   
->   unsigned long rmi_feat_reg(unsigned long id);
->   
-> +/**
-> + * rmi_rmm_config_set() - Configure the RMM
-> + * @cfg_ptr: PA of a struct rmm_config
-> + *
-> + * Sets configuration options on the RMM.
-> + *
-> + * Return: RMI return code
-> + */
-> +static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
-> +{
-> +	struct arm_smccc_res res;
-> +
-> +	arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
-> +
-> +	return res.a0;
-> +}
-> +
-
-rmi_rmm_config_set() is used for once by rmi.c::rmi_configure(), I would not expose
-rmi_rmm_config_set() by combining the logic to rmi.c::rmi_configure().
-
->   /**
->    * rmi_features() - Read feature register
->    * @index: Feature register index
-
-Thanks,
-Gavin
-
+	Ayaan
