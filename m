@@ -1,126 +1,211 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 361AD47DFBE;
-	Tue,  8 Sep 2026 09:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8B04D2EFE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:39:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860311; cv=none; b=mNnQ5pj6XKU3H9FV+LSo4vHexnC17tBKg89lHJeUOctvh7tuAxc+awf1Xs1RGgHbsELl9EmZzOwNscE/pkWeeU26aN9nKgt1VmVHkZbzw3ADuB1d75++7c3lFT7iivIWfnS8kRcMbOjjVjCbgWmtaXPwjquAU/I+t5ispeG0bsY=
+	t=1788860394; cv=none; b=XrysZCEnp+jMNd9U8K02BPDHZsTyBmK9F3zRkfCpKRNqX/lMwqsYAIaVFDSHDEBM6EzFAc6f6g3vdrV5D8uKeP12riSnERYTV0eqjKENAhY0tTs4SQ6nK/iYbeOF3f7Slvlpy3nNk7fcdH9oiW2wy0HaLdKZA5QLds2+U+dftXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860311; c=relaxed/simple;
-	bh=k2UArcySfeHpVp9ykOmNXM3lQrV4LeySR1aU7F9hDP0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mmp3Fj6Vl04d3hkMgJSe+5Lth8H1MVc2Bv4lxDIcz45/nVqDgfji/g1lJlrT6UEtPeTD9XYkHNiXzYCpK5TR2yVaWRa0zUw4WFPW7YTx8aQENdyy8DYLijUUrrcM5w31HTMm2iS2LBfyd8t2yL0G9Lj1lQWtmn/nL9mQPjqEGAQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=b3hKLnkp; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FdytLzOH; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788860394; c=relaxed/simple;
+	bh=yCew8vzP/YIvibWdDAJ7BqtfIX11EBzOyl+uk4tqf+A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gCWK5KaW/RKjeL5oLhcTiARf5FHwtQEKTRVE2mq/JiDbADBUSvg6bK4FIjKPVjPlcBGSVzWeuJAqVqnIBzmM29skfjcbCGDWQGuFgye8ApQUH7G7p16ktInLh0jOZeeJARS88d+82xCGmTq6+zN9LAfz9OUA1NINNLBB5Kyc14w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=w9m8GmV+; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="b3hKLnkp";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FdytLzOH"
-Date: Tue, 8 Sep 2026 11:38:26 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788860308;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7fZnrtBd3MzTcOpfIWwsZnM6g3Bkm0P4fYMYH0n4+Q=;
-	b=b3hKLnkpAyvy/BgVkCybg1woRIxg3mMEReV4irm3g+SWRIBY/HUN+jfcHA+o3n9G0TlfnD
-	+4s6YCIeXuBTyVwkSPAv3U3D7JkVvrR6yovUqCS0khx5OOzcJe8v1GEof20VR38KQ4oUTA
-	oTyrutQWkPR/hngX0h/NRQS+R5xWRlIAEc19xzXPIA2jsujxaUxym5GDcaKW6zSAL5CC6e
-	lDsk1XMSUk2CNMcxwjMUwYz7zOYSI1aNT+7Gr3IBYzlwLyPrQftKZP41GUCKBcHdvrYVip
-	gvCTlZjUpdow88Cjljtt2tYLi3/RzRW0NkG/zAFBnWdoVGh96Du3/CdlQ/c5Yg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788860308;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S7fZnrtBd3MzTcOpfIWwsZnM6g3Bkm0P4fYMYH0n4+Q=;
-	b=FdytLzOH5qdsMjt74W6WRHV+nX7GW7p+ezl+S07BdlCbtDKIjIfC7jz/m6K25I/G20mubY
-	8FlSJv/XjNyfjCCQ==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Russell King <linux@armlinux.org.uk>
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-perf-users@vger.kernel.org,
-	loongarch@lists.linux.dev, Mark Rutland <mark.rutland@arm.com>,
-	Ian Rogers <irogers@google.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Luis Claudio R. Goncalves" <lgoncalv@redhat.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
-	Waiman Long <longman@redhat.com>, WANG Xuerui <kernel@xen0n.name>,
-	Will Deacon <will@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>
-Subject: Re: [PATCH v2] ARM, ARM64, LONGARCH: Delay HW BP notification to
- task_work()
-Message-ID: <20260908093826.ofGxmRRK@linutronix.de>
-References: <20260814085118.OPEA_Ssn@linutronix.de>
- <20260903160710.vVf4gEL2@linutronix.de>
- <apmknG55qFAn8EPf@shell.armlinux.org.uk>
- <20260903133146.07095885@gandalf.local.home>
- <20260904155404.ESPFg3zi@linutronix.de>
- <ap7OMYBVKUrQjX9O@shell.armlinux.org.uk>
- <20260908075455.OffmMhrB@linutronix.de>
- <ap_AhKXlAWecV3BI@shell.armlinux.org.uk>
- <20260908083740.0qERUBOE@linutronix.de>
- <ap_Kv73A8exPhK-j@shell.armlinux.org.uk>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="w9m8GmV+"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788860387; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=PWYEPdRQ17N+5c66Weq133KixewGNO1R8mkZenc6WbY=;
+	b=w9m8GmV+E+jZUftAfdD81heihklgeZWk7WOxtiq8HmbNLIkgrigOqkC493QgPuJBpiqQTnN7VpbaqokVn9cIjL6nB5j80pwHxz7qsgr/uRvq5IiXxj4OyZTc7RRkr6ILoiwG7Aarl2uOh7NDEtXiFcsM75kpNM1f9GhjwjodXTc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XAbBF0o_1788860384;
+Received: from 30.74.144.127(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XAbBF0o_1788860384 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 08 Sep 2026 17:39:46 +0800
+Message-ID: <7d2ee486-0f59-43b7-8449-fed82b796a73@linux.alibaba.com>
+Date: Tue, 8 Sep 2026 17:39:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ap_Kv73A8exPhK-j@shell.armlinux.org.uk>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: mglru: clear the reference counter for rejected
+ folios
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Barry Song <baohua@kernel.org>, akpm@linux-foundation.org,
+ kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev,
+ axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
+ hannes@cmpxchg.org, david@kernel.org, mhocko@kernel.org, ljs@kernel.org,
+ ridong.chen@linux.dev, hebaoquan@kylinos.cn, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <8e4db9a298c5ea6ccb192e274caed5b96f0cf022.1788751143.git.baolin.wang@linux.alibaba.com>
+ <ap9zPPughaSlfXM2@fedora>
+ <CAGsJ_4wn5ArqhG9w7gJY7X4G+Lg6=1teCb70dzPdN0k+5H8MbQ@mail.gmail.com>
+ <67d9bbcf-2991-4867-8afb-14bad1cebf8d@linux.alibaba.com>
+ <31494361-406e-4874-8a2c-2c6f5cee5321@linux.alibaba.com>
+ <ap-yQOH0pni-mfdf@fedora>
+ <ccb8e121-bf5b-4bb4-a9de-fb5290998ddd@linux.alibaba.com>
+ <ap_GBGDHkEzZ1Osq@fedora>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <ap_GBGDHkEzZ1Osq@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-08 09:43:43 [+0100], Russell King wrote:
-> > > > The linked report shows a backtrace by "BUG: sleeping function"
-> > > > originating from el0_breakpt() -> perf_bp_event() following by sending a
-> > > > signal force_sig_fault() followed by rt_spin_lock() and
-> > > > __might_resched(). It also contains a reproducer.
-> > > > 
-> > > > The first sentence has the part
-> > > > | The hardware event is
-> > > > | delivered with disabled interrupts and perf intrastrucure expects
-> > > > | disabled interrupts while the overflow callback is invoked.
-> > > 
-> > > *Where* are interrupts disabled?
-> > 
-> > On exception entry point, that would el0t_64_sync() for arm64 as in the
-> > report.
+
+
+On 9/8/26 4:23 PM, Baoquan He wrote:
+> On 09/08/26 at 03:53pm, Baolin Wang wrote:
+>>
+>>
+>> On 9/8/26 2:59 PM, Baoquan He wrote:
+>>> On 09/08/26 at 12:01pm, Baolin Wang wrote:
+>>>>
+>>>>
+>>>> On 9/8/26 11:03 AM, Baolin Wang wrote:
+>>>>>
+>>>>>
+>>>>> On 9/8/26 10:34 AM, Barry Song wrote:
+>>>>>> On Tue, Sep 8, 2026 at 10:30 AM Baoquan He <baoquan.he@linux.dev> wrote:
+>>>>>>>
+>>>>>>> Hi Baolin,
+>>>>>>>
+>>>>>>> On 09/07/26 at 11:25am, Baolin Wang wrote:
+>>>>>>> ......snip...
+>>>>>>>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>>>>>>>> index 40d3f1b48a74..42c0a09938ab 100644
+>>>>>>>> --- a/mm/vmscan.c
+>>>>>>>> +++ b/mm/vmscan.c
+>>>>>>>
+>>>>>>> Well, this seems to be based on Andrew's mm-new branch. I usually track
+>>>>>>> mm-unstable branch. Maybe the subject should be marked as below?
+>>>>>>> [PATCH mm-new] mm: mglru: clear the reference counter for rejected
+>>>>>
+>>>>> ACK.
+>>>>>
+>>>>>>>
+>>>>>>>> @@ -5021,10 +5021,11 @@ static int evict_folios(unsigned
+>>>>>>>> long nr_to_scan, struct lruvec *lruvec,
+>>>>>>>>                  }
+>>>>>>>>
+>>>>>>>>                  /* don't add rejected folios to the oldest generation */
+>>>>>>>> -             if (lru_gen_folio_seq(lruvec, folio, false) ==
+>>>>>>>> min_seq[type]) {
+>>>>>>>> -                     folio_set_lru_refs(folio, 0);
+>>>>>>>> +             if (lru_gen_folio_seq(lruvec, folio, false) ==
+>>>>>>>> min_seq[type])
+>>>>>>>>                          folio_set_active(folio);
+>>>>>>>> -             }
+>>>>>>>> +
+>>>>>>>> +             /* See the comments on LRU_REFS_FLAGS */
+>>>>>>>> +             folio_set_lru_refs(folio, 0);
+>>>>>>>
+>>>>>>> This looks like a great catch, while the code change could bring issue.
+>>>>>>>
+>>>>>>> Because move_folios_to_lru() relies on folios' flags to decide their new
+>>>>>>> generation. You just cleared it before move_folios_to_lru(). This is no
+>>>>>>> problem for rejected folios that are determined to be put into the
+>>>>>>> oldest generation. But for those rejected folios that are determined to
+>>>>>>> be promoted, this could be wrong. E.g currently gen window is 4, and a
+>>>>>>> folio is referenced, lru_gen_folio_seq() decides its new gen as 1, which
+>>>>>>> is the 2nd oldest generation. While folio_set_lru_refs(folio, 0) clear
+>>>>>>> referenced bit, this causes it being put into the oldest generation in
+>>>>>>> move_folios_to_lru(), this is not expected.
+>>>>>
+>>>>> Yes. As I discussed with Barry earlier, lru_gen_folio_seq() also needs
+>>>>> to be reconsidered regarding whether it should rely on PG_referenced
+>>>>> [1].
+>>>>>
+>>>>> For commit 6cbdd9726fb5, we didn't discuss the impact on rejected folios
+>>>>> either. Before commit 6cbdd9726fb5, if rejected folios did not have
+>>>>> PG_active set by shrink_folio_list(), evict_folios() would set PG_active
+>>>>> on these rejected folios.
+>>>>>
+>>>>> [1] https://lore.kernel.org/linux-mm/20260901220430.79810-1-
+>>>>> baohua@kernel.org/
+>>>>>
+>>>>>> The original code looks quite weird. It even prioritizes folios
+>>>>>> that won't be promoted by `PG_active`. Do we need to change all
+>>>>>> the cases just to call `PG_active`?
+>>>
+>>> I would agree if we can. While I have one concern. A rejected folio that
+>>> should have gone into the oldest generation is now being promoted to the
+>>> 2nd newest generation. In the original code, referenced folio is only
+>>> being promoted to the next gen. I even think this is not a bug, but Yu
+>>
+>> That's not quite true. Before commit 6cbdd9726fb5, a rejected referenced
+>> folio was also put back to the 2nd youngest gen.
 > 
-> Oh FFS. So why does this need to be done on ARM? Explain it. This is
-> what I'm trying to get out of you, but you're being very resistant
-> to providing the technical details. I can only think you haven't
-> actually done the analysis.
+> OK, I didn't follow your earlier discussion, I need take some time to
+> fully understand that commit and the patch thread from Ehab.
+> 
+>>
+>>> Zhao intentionally did it: the coldest folio is moved to 2nd newest gen,
+>>> referenced folio (hot folio) is moved to new gen but carries the referenced
+>>> bit. Both of them seems to be treated somewhat equally.
+>>>
+>>> To me, I would rather move both of them to the next gen, while keep their
+>>> refs untouched.
+>>
+>> IMHO, I strongly recommend not doing this, and that's exactly the motivation
+>> behind my patch. Because this is also being treated as a promotion, it
+>> should behave like folio_inc_gen() or folio_update_gen() and clear the refs
+>> after promotion. I think this is a fundamental principle of promotion.
+>> Otherwise, ref-based promotion is already completely broken.
+> 
+> OK, it makes sense to me to make principle of promotion strictly applied
+> no efficiency degradation involved.
+> 
+>>
+>> Next, I also plan to clean up refs in lru_gen_set_refs() as discussed with
+>> Barry.
+> 
+> Looks forward to seeing that. By the way, your discussion with Baryr is
+> private or in public list, do you have pointer if public? Thanks.
 
-I had the feeling that this is not what you were expecting but I wasn't
-sure what you were expecting either.
+I raised this issue before[1], and recently there has been another 
+discussion[2] about it (we had some private discussions, but I'll post a 
+new patch for discussion).
 
-The hardware breakpoint is delivered to the OS via an exception and on
-exception entry point the interrupts are disabled. This isn't unique to
-ARM but the same on other architectures, too.
-It is not limited to ARM but also Loongarch which is sending a signal in
-its handler (the one registered via register_user_hw_breakpoint()).
-It is not an issue on X86 because they don't send signal but just toggle
-the DR6 register.
-powerpc and sh have different logic where the perf event is disabled
-without sending a signal.
-xtensa is the only one untouched which does send a signal from the
-hw-breakpoint handler but xtensa does not support PREEMPT_RT and
-therefore doesn't enforce proper lock nesting (so this is likely not the
-only issue).
+[1] 
+https://lore.kernel.org/all/eb395442-0aad-428a-a5ac-9072d2d89060@linux.alibaba.com/
+[2] 
+https://lore.kernel.org/linux-mm/20260901220430.79810-1-baohua@kernel.org/
 
-> So, NAK.
+>>>>> Yes. Regarding this concern, I plan to change back to the original
+>>>>> behavior:
+>>>>>
+>>>>>        /* See the comments on LRU_REFS_FLAGS */
+>>>>>        folio_set_lru_refs(folio, 0);
+>>>>>
+>>>>>        /* don't add rejected folios to the oldest generation */
+>>>>>        if (lru_gen_folio_seq(lruvec, folio, false) == min_seq[type])
+>>>>>            folio_set_active(folio);
+>>>>>
+>>>>> What do you think?
+>>>>
+>>>> Just FYI, after above changes, the performance improvement on zram is no
+>>>> longer obvious either. I think this also answers Kairui's earlier question
+>>>> about why I saw a performance improvement (which seems related to commit
+>>>> 6cbdd9726fb5). Also, there is no obvious performance regression either.
+>>>
+>>> Hi Baolin,
+>>>
+>>> Not sure if it's convenient to do a little more testing in your side.
+>>> E.g rejected folios are moved to next gen, but not clearing their flags.
+>>
+>> I'm not sure what you mean by "next gen" here. If you mean the 2nd oldest
+>> gen, I actually tested that too, that is, clearing refs after
+>> move_folios_to_lru(), and there wasn't any noticeable performance impact
+>> either (but the code was a bit hacky, so I didn't go with this approach).
+> 
+> Yeah, I meant the 2nd oldest gen, while what I am curious about is moving
+> them into 2nd oldest gen but not clearing refs. Clearly it's conflicting
+> with your plan. Anyway, it's just a brain store idea, please forget it.
+> Thanks for the sharing and detailed explanation.
 
-Would you reconsider, please? It does not seem justified.
-
-Sebastian
+Thanks for reviewing.
