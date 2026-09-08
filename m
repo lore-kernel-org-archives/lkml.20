@@ -1,281 +1,191 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BA5388369;
-	Tue,  8 Sep 2026 20:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898149; cv=none; b=nKMcXdO0DEXQv8KIeAzOz5aaRjc2SxPAF6dFLiIXcXzipMYll6Q3Kg0ie2PAuX9IWCTxtg4kuOPDBmu4LbFM1ivSwmYkrzOHlZqn+Xx9NKgJYi24ytBsJ0x8k7Q5SUUZzN2brbr9kF6JMSVHXe3eZSnum5T4m65i67siJShBS2M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898149; c=relaxed/simple;
-	bh=JOTHkDDSySWU/FaBwU/dlcCoevcoCS8rHIuAzWMFwPs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kHy1viOi9goeNyaNZy9N+lQL3HJ1fHbAX4811qVA9Z66uEk9jXQzP770fRaI6R5gsxW1pByzQoFCaaX/7CtwZIH0Uw+qB7mGvB2hsQzcjBNOeRr3doOHPKiaduIGqAg3azUeftZGmq8Ih0+KXgegFPEt2ux7+Nnn6tWJP5lk8MM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LeCjzr7L; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96015A5150
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788898164; cv=fail; b=dAKOJIFZGgJbD24eyp8hGdBm4XwV4A8qwlkVt3qR9/Hg/C3BLOvrqOYQ91an5pwA+8TQplC4Syi6YJMOYeE/y5rIFFe89hCgxHNFCMk0mRjtUZqOb8YnCAVKKofDuj9WHGevKZH/giY/uozassqm+m3d1J5EjLLVYdyQYhCbcag=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788898164; c=relaxed/simple;
+	bh=5N+LSF9Zno3plYhk33E1btpSZKuDOz7mb/R0BKpNhW4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=WQbxDdWq+lqCLD3JpLAS6I/urxkAM+3qLofpzapNXQNrou0FLlqg+1gm+TLi5ZDvT8ksG2viLXW/YyfXiBjtPMrlJ1nfmJnFjP9Shqw0ew1tgA0Xi140MvF7eYbDtmslG+98CzTRvRgmARSmEEKoKpqzj0EvTREVX7AzBuRKsoE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=08VZqFgb; arc=fail smtp.client-ip=52.101.46.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LeCjzr7L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B1C1F00A3D;
-	Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788898147;
-	bh=wkAy/O15nPnQoj39O2Jkmru1wT+lgic9B+37FMixNf4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LeCjzr7Lxvh1mK11clJatYArBKS24pOQj2ahoUiXsKc+TMcQ3s0bRMEPuPKe/H5cG
-	 ZsEW/MtqSep77H7nCkm/77+CSVWcqJoxGZbLCWl5ASvegv3qYyEmX0y8XC6Y0141Uo
-	 af6EjWwftHJuxPib7aF1l8vclmOnQgNieZ2HZiXZ30rDUhO/T0XypyMo2NiBJytLM4
-	 vPOstzXzO+A/e9TtkCQ+tQ4x7dLeKigZgNz7/Tm6QuEugL9gtJG1veO65ATNV8fJQy
-	 ELtXRPMisE79w3KzHtZleS+cd+UVh9zhKe52slLyVzGy5GWrN5w3yIDSpibI8kwAuV
-	 +VL06VNS0fwRg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:18 +0100
-Subject: [PATCH 14/39] mm/vma: add vma[_flags]_is_kernel_owned() predicates
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="08VZqFgb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QY7JXnFH2G0DCKJkoAKCN5rY4VPa3vnhxWqBi2l5B/RJfIe6NrV3AsAAKy6d+rNeTiylYqOcIANxm6LmKCnfz64RRVNoRghlyrUMba+pcsZ1eEfB5eFQAuMgEx8eleUvqZk9RhX8Nw6bSUjXd36szee8pM9Jp44OgcALKxym2d83fHI/2ZXqgDEjgeC9IGkOAPcqaXuE3Nih7fNl5vSSksKx+3dLiZQEtXPB3KPNUrDUaavGo5r74VLu1lEZNKhQloPdXjYaXDhiQlsAka3dzvgQilfG/LYKbxnxubTQfFuseeLSsqb8WA9MNGvyb1Pio/aqvjpw9S0DdQOoOCck1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xw50zLLgfzK0DhLBEYQyVAO8zl3n/t1zccuw2hwU5ZE=;
+ b=n4JzKOPAnAUMSDPH3oW1C6wCwpqGDJaqDVwoXyASA/igfusDK1w53zJGJPQWy6SBtwH/6CywEsbHENGak4WXt7/Cjd7dbaxcRJ7TdNyI77LcZLLswZCdCl9s0SXBlA1b5pg3y6kq4NfNy31YZfVSM7gkm+4EZaUWrvmzzR0LYDxtPIWbXe5sVkvWmrsNSi2AjigUbLv8sLkdRVdRTFMu1RJVOBtcqOpEbARrLzHJYoxJZESb2kzccgLIouAfPCuHzXfj18vi9nESeLuV3lUGLijiL4abKjDO2T3QJ8gfAksF2cfAzk57RU5Rsdz1wInluDI6zAnd+SfbT2pQ7EidcA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nvidia.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xw50zLLgfzK0DhLBEYQyVAO8zl3n/t1zccuw2hwU5ZE=;
+ b=08VZqFgbDk6KQ7Th9YroeXo4x3Ro2UR03A7IXNK/hMdc4W11tcrv0BfQN4sIiWOyP4GOp0mM6pVorfCtIf3Q97MiSd4kTD+qambcIuAZyRp8WV2Lgv7cDFOJ8Uriy25x5HZCJRbru9lvSQFYHftU0NEFb9GUGo5lbC1toa7z3lc=
+Received: from SA0PR12CA0010.namprd12.prod.outlook.com (2603:10b6:806:6f::15)
+ by PH8PR12MB999319.namprd12.prod.outlook.com (2603:10b6:510:40f::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 20:09:19 +0000
+Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
+ (2603:10b6:806:6f:cafe::67) by SA0PR12CA0010.outlook.office365.com
+ (2603:10b6:806:6f::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Tue, 8
+ Sep 2026 20:09:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 20:09:18 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 15:09:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 15:09:18 -0500
+Received: from [192.168.0.226] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Tue, 8 Sep 2026 15:09:13 -0500
+Message-ID: <ef19ea63-a4bc-407a-bca2-40a2818a3671@amd.com>
+Date: Wed, 9 Sep 2026 01:39:07 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: topology: Prefer PE0 on NVIDIA Olympus SMT
+ cores
+To: Andrea Righi <arighi@nvidia.com>, Ingo Molnar <mingo@redhat.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
+	"Vincent Guittot" <vincent.guittot@linaro.org>, Catalin Marinas
+	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>
+CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Mark Rutland
+	<mark.rutland@arm.com>, Christian Loehle <christian.loehle@arm.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, "Breno
+ Leitao" <leitao@debian.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20260908082345.103087-1-arighi@nvidia.com>
+ <20260908082345.103087-2-arighi@nvidia.com>
+Content-Language: en-US
+From: K Prateek Nayak <kprateek.nayak@amd.com>
+In-Reply-To: <20260908082345.103087-2-arighi@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-14-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5413; i=ljs@kernel.org;
- h=from:subject:message-id; bh=JOTHkDDSySWU/FaBwU/dlcCoevcoCS8rHIuAzWMFwPs=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG46/Dk21jE44vPvzcGS/6+X8j0O/utbrRvtXblW5
- 8piq5c+HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIcCPDXwExux8XPzA27F31
- bw0Tc6V9VTTb95yHxzZq+2xPZsnjNmBkuOonutzuk7tY0u2ujD8rmbM+7a/6VPJWsjn8WMXKbT1
- 7OQE=
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|PH8PR12MB999319:EE_
+X-MS-Office365-Filtering-Correlation-Id: 862ddb7a-e6e6-4e7a-f60a-08df0de510b2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|7416014|56012099006|11063799006|5023799004|10067099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	oNFIjLlN1qTdzLmRZSYpcOli+UrdAcpeeZswkXvk4e91MD0EjE9efRF5UW4zvzGoX0vg2HFZ6DkElRBPtSghzfQujHORv1OWbHxzWNGmRfeQYak2tWYnBLR7SlTqNUe0wCJ1FnPAB3Jm9CJpEXU1B0rZ6oa3Q/ve8UsPUSpxrtdapTjOFFzmq8fCHv+4cESjvlfIdDhtwJAra6o4jF1T1x+lLY4Xn2hvZR362eho1v1gYOteZ9XiXlzLgzrOZksvn5iLCYjCkA28EbzrWBCzvAMLhN76hPLoQoiw/uk1NFylbH/pP8CZorZqo8cgjLhfR5C/X9wJhTm+/6rS5a9LzY7NOcfy3v48J3jGorRnXweovRU6C2dK+bdkxNhXzH+A/uwP0eucpEBm87AuEtGlipqLqNxWk0KPmELnT0nKcBFTnxF4RrXtmBQ4HBGLnvXDht+hg5JSZwhSZVILNfCIgj3yZZeetHCdVCezm9jasDIXtFRA/nD4+wX8IZJVAsnWgk91Enb9eggzcMvxisnjI6+d71hXNS4qCe4ABzyZ66c0fVDwvJg19xMRW+VKNEOjaNBN0AtLaXq8kMCjmb8JL/qR8XbfdpCZEGKE8t9DF5zRRanc2LPl+0rhAX/DaQxB32S4edmQaySeCrDluIKKZdwzId9taQtcVNBi8Hilxa1C2Fjgwyuti53sV0AHxz1HSlQoiRUdEj1LduFp6yz+uw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(7416014)(56012099006)(11063799006)(5023799004)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	GW5ihL3g+b4tl9a3rfcNoVCdnshoeQ73xkE3Xib9pfzrVd5SxvgstaL1QGYFiivY5t7Q2xqGIYl67QCv1E753icSksTNzLqArb/2AUYTJGjAADNL/ZE801SmzugstJyWaO8APlEbEYwPmCLKOT5Ya1b31rf3AGghkM4vXZ09R+QoF7c8LOuBE7NVCBeQ0XzFQsDqWIBI05JhyIKIGw5AA3XGCiYjwCP5wHoaS+0vlb9+1hVtwIS9llKWPhfrvNkN/rMqCAkad+8TUnaeWylrbikcWSwiBsrxg4Wa3JBV2FnG7Uxx+C+aFp8v/aR2JmK9Iwo3EW1G1AIfNvBnJonpRx63+TTR6THYIAeGUB/VcLW3B5Ix2ocRATNnJWRESmHdOvZFPCyEr5bVNV17LYnlwBP2GOtp3N1ITBW0/rpGj+XaQOiWphJlN6qRNtwphhV2
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 20:09:18.8125
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 862ddb7a-e6e6-4e7a-f60a-08df0de510b2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F67.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999319
 
-Rather than referring to VMA flags with uncertain meaning, add a new
-predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
-or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
-determining VMA mergeability.
+Hello Andrea,
 
-Either flag means the contents of the mapping are owned by the kernel,
-usually a driver, rather than by the core mm: the memory may be MMIO,
-kernel-allocated pages or even ordinary pages the driver maps itself, but
-the core must not populate, reclaim, migrate, copy-on-write or merge the
-range on its own initiative.
+On 9/8/2026 1:53 PM, Andrea Righi wrote:
+> NVIDIA Olympus implements spatial SMT with symmetric steady-state PE
+> capacity but two different resource modes. One-Thread Active mode gives
+> one PE the full core, while waking the other PE restores Two-Thread
+> Active mode and partitions decode, issue, cache, TLB, and vector
+> resources. Returning to full-resource mode requires the sibling to
+> remain in WFI for 10 Ki cycles.
+> 
+> Measurements show that pinned workloads perform equally on either PE,
+> but freely migratable workloads lose substantial throughput when they
+> alternate between PE identities. Consistently selecting PE0 keeps PE1
+> idle, avoids repeated SMT repartitioning, and restores
+> one-thread-per-core performance.
+> 
+> Describe this scheduling preference with SD_ASYM_PACKING and give PE0,
+> identified by MPIDR_EL1.Aff0, the higher arch_asym_cpu_priority(). This
+> is independent of SD_ASYM_CPUCAPACITY: SMT siblings retain equal
+> capacity, while physical cores with different maximum frequencies are
+> handled by a higher scheduling domain.
+> 
+> Firmware currently provides no interface for describing the preferred
+> SMT sibling. Detect Olympus by MIDR until such an interface is
+> available.
+> 
+> Signed-off-by: Andrea Righi <arighi@nvidia.com>
 
-We initially also include VMA_IO_BIT here, as by implication, these must be
-kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
-while locking them, which is addressed later in this series.)
+Feel free to include:
 
-However the intent is to in future remove this, as no mapping should be
-marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
+Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
 
-This forms the basis of further work intended to improve how we express VMA
-properties such as this.
+Just one nit below ...
+> +/*
+> + * Switching the active PE on an NVIDIA Olympus SMT core can keep the core in
+> + * two-thread active mode, with resources partitioned between the PEs.
+> + *
+> + * Prefer PE0 so PE1 can remain idle and the core can stay in full-resource
+> + * mode. Firmware does not currently describe this preference, so detect
+> + * Olympus by MIDR until a firmware interface is available.
+> + */
+> +static bool olympus_prefer_pe0 __ro_after_init;
 
-Also update the VMA userland tests to reflect the change.
+nit. What is the purpose of "olympus_prefer_pe0"?
 
-No functional change intended.
+> +
+> +#ifdef CONFIG_SCHED_SMT
+> +static int arm64_smt_flags(void)
+> +{
+> +	int flags = cpu_smt_flags();
+> +
+> +	if (olympus_prefer_pe0)
+> +		flags |= SD_ASYM_PACKING;
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
- tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
- 2 files changed, 83 insertions(+), 2 deletions(-)
+If this flag function is being used, olympus_prefer_pe0 is always true,
+and the scheduler will never call into arch_asym_cpu_priority() without
+SD_ASYM_PACKING being set so olympus_prefer_pe0 is always true there
+too.
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 4604cd011ca4..45c59474c853 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
- 	return is_shared_maywrite(&vma->flags);
- }
- 
-+/**
-+ * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
-+ * contents of the VMA are owned by the kernel rather than the core mm?
-+ * @flags: The VMA flags to test.
-+ *
-+ * A kernel-owned mapping is one whose contents are established and controlled
-+ * by the kernel, typically a driver, rather than by the core mm's fault and
-+ * rmap machinery.
-+ *
-+ * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
-+ * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
-+ *
-+ * But in all cases core mm must not populate, reclaim, migrate, Copy-on-Write
-+ * or merge it of its own accord.
-+ *
-+ * The pages mapped, if any, may or may not be reference counted or map counted.
-+ *
-+ * Returns: true if the flags indicate a kernel-owned mapping.
-+ */
-+static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
-+{
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
-+				  VMA_IO_BIT);
-+}
-+
-+/**
-+ * vma_is_kernel_owned() - Are the contents of @vma owned by the kernel?
-+ * @vma: The VMA to test.
-+ *
-+ * See vma_flags_is_kernel_owned() for a description of this property.
-+ *
-+ * Returns: true if the VMA is kernel-owned.
-+ */
-+static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_kernel_owned(&vma->flags);
-+}
-+
- /**
-  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
-  * merged with another?
-@@ -1620,7 +1658,23 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
-  */
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+	/*
-+	 * VMA merging assumes that a VMA's flags and fields completely describe
-+	 * its state.
-+	 *
-+	 * However, kernel-owned mappings may have established state upon mapping
-+	 * not embodied in any attribute of the VMA.
-+	 *
-+	 * Additionally, private (CoW) PFN maps encode the source PFN of the
-+	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags))
-+		return false;
-+	/* VMA explicitly marked as being unmergeable. */
-+	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+		return false;
-+
-+	return true;
- }
- 
- /**
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 52eee05e6c32..3fe40e0f4034 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1659,7 +1659,34 @@ static inline bool file_is_dev_zero(const struct file *file)
- 	return file && file->f_op == &zero_fops;
- }
- 
-+static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
-+{
-+	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
-+				  VMA_IO_BIT);
-+}
-+
-+static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
-+{
-+	return vma_flags_is_kernel_owned(&vma->flags);
-+}
-+
- static inline bool vma_flags_can_merge(const vma_flags_t *flags)
- {
--	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
-+	/*
-+	 * VMA merging assumes that the properties of a VMA completely describe
-+	 * the properties of that VMA.
-+	 *
-+	 * However, kernel-owned mappings may have established state upon mapping
-+	 * not embodied in any attribute of the VMA.
-+	 *
-+	 * Additionally, PFN maps encode the source PFN of the range in
-+	 * vma->vm_pgoff, which may otherwise cause spurious merges.
-+	 */
-+	if (vma_flags_is_kernel_owned(flags))
-+		return false;
-+	/* VMA explicitly marked as being unmergeable. */
-+	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
-+		return false;
-+
-+	return true;
- }
+Seems redundant unless you were planning to do set_sched_topology()
+unconditionally for whole of arm64.
+
+> +
+> +	return flags;
+> +}
 
 -- 
-2.55.0
+Thanks and Regards,
+Prateek
 
