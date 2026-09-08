@@ -1,170 +1,201 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazolkn19010021.outbound.protection.outlook.com [52.103.33.21])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD99157C9F;
-	Tue,  8 Sep 2026 03:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788837989; cv=fail; b=cq35nZOITaw900ETGB/StFmDhEagnHxQoJUO2tQB4WW7Mp2u7iXbUIYVyWde4CP0ma/XuW61/UphxeTNX8o4cg1nTQ/09FTPgnoa43HabVzfS6zdy338xxRcw+6VKv1SQUGXexzynig8jBINhg/NLoO5PXLYcnMf0UJWKVxAu3M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788837989; c=relaxed/simple;
-	bh=p3n9b6TtH82OOeqN16QAdctR/As+SPZkkT/Z/6bIcUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rkIQu/26394xOUWGkcKuuwlJZyQ3cio09h8S1x8eRfbd6FjjLL6IBLTuN1ueIW3LPyNI7eeKMuTuzStgLbYK8Wl3Temv7h47KemINR1VmfZYiB0YCYARtNn5MGpum/C2Wpp7ls7dm6qfMlKKbjD4f3cnyjn+EpXBG7QMQOTipDM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=FhvbBdBs; arc=fail smtp.client-ip=52.103.33.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FA8315D5D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788838028; cv=none; b=fKw3MwqDesNEfz2a9ckY+GOibmPpXLS0kptsJ73gmM9RLIYZd2UjDXKOZUhP9GaiI/Ju8GHA+0vS36JwbSA3ahfOU7H+tkMfFxXjXwpdMOC0sswcnbVO3YjD0e6clulsg/mx64vtsC4X2ZO6Kdsp1zsPjQ9i3rA+mP3cNdGRnT4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788838028; c=relaxed/simple;
+	bh=hvSjnMnM4KCfcYRFgojfyvOGOUjPfntll5gryXHFof0=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=GwIMu9/XryQOYTsXjlmY3kR8kmAA+uk0/+TN6Xj3uReUpkCJVPMF5nj3nvzb23Vsfx6kUOb8oA4fPT/F5fIFft7yUVYPXj78+fQ2K1U2cJGQHxYOshULl+ii3wKcTrQEY5iI1JhOFhUpDbxQQpO9C1TqilF3t6tCa3nHlcwgTAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=mWscfgje; arc=none smtp.client-ip=43.163.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="FhvbBdBs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lfIeWhDzma7OqTW79R7DVU39Vqbi58SZGPDZN7DMSLqEbhghsidQi5P5aBtSobmOkN4YulVO0GMPs8ipTWXJyfFm0teqOKK4Y0gx1yrK2thKN6/OrktsQGY08dk1LyABNjrNM20gij0VtiHCWAmPaMHYS1rav9DYfLe7Uf/5YcO4dymmHHN5u5CdnBq9ThgvpJ33W9j7wEkve8HpHpagzlpQFgGqZzBgPJDk88tLOUSyIODnKA7cy9guGX+thXDD0MbcLd1XJl1eOoFrmpRXzg1DhiEutEUMCSFC74Ny+brLqqUf7fsP5ZVrXwBkSiQdZJYHRGt0YPk44wUhXi7H9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JYvEy1+85mtPLOOGemaabsH9jBeixK8M/HicGJ2rgL8=;
- b=EMzyn1TJCkl8bARCjsBucO+Eu5JiDLTjgQbTwwok28gzRm3nBFfHItaB7bmrf7rKZUzJpebWIx8K7XtrMrINLWMfOcgVe/DdbG/NtgRg9aWiWk3GDvbIUp/ebve1nXjB37i2vJ35m2WN7z6fPOCCaywjRhYMwg8/VtgohIynuPEv4aRa6okvKCBB3KNtSld34DYXEZdDHl+ylUPunh7Dzq6YaEuB0f21jpCpmKto9+Zw3FtatCGb44+gXsolYRMm6pa1ZCbtP4HYYvvLbLkaWjh4ruJqzsV1Rqc0psdls78D2RHHOd8GWlDuMyMdEDPa7xrrH0d/YmEeDE2pkSE0zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JYvEy1+85mtPLOOGemaabsH9jBeixK8M/HicGJ2rgL8=;
- b=FhvbBdBsyEfPwhvUEgKviMTv3+cI710Q7ND3QrN0Sltj7imDlNqIuL5zsnpntYynPqhOXslvJ2cfbyp/xPPRYwxgr98pevsbIaDniz93jLPgcunsIxHOTfK4Xn/RjYhYb0ompzXCcr8+bfcNC8Ts+/NcQLqtmgRSBHMWC/Xode6Cn45W6kViOyLN/nhH44lEKc9+wpNCIUKxwO0eOoy/uuyeZj7Jua39Ao3SUYog6grAbK5Qv3GHAAosNaKHYxfpmpDJfn4IbevMc7S46u8B1Tmk/ZTnPWAp51MZ9ejuWbrXnki9DurClWJ0msu29xh9XMuLSKjrWCe7YyCd9dLYQw==
-Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM (2603:10a6:102:1d9::15)
- by DU0P251MB0697.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:329::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 03:26:24 +0000
-Received: from PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- ([fe80::fb91:30d8:e31d:1f35]) by PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- ([fe80::fb91:30d8:e31d:1f35%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 03:26:24 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>
-Cc: Aamir Ahmed <elb12345@hotmail.co.uk>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="mWscfgje"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788838022; bh=RQhosnyt6aERtesI5svtuDxWAhd8P12cd7CiHkOvBTU=;
+	h=From:To:Cc:Subject:Date;
+	b=mWscfgjevZGVTvgitxJ/AfJWgSYexy47IImiJrtMzIkus8LSgIX0B8k/OYyP7Sh7a
+	 U2QfsUZCDBsuwS0xMwsczDQhhDaLt4mfXz9u1kMBhvGlMb2y2lt85fZIKMlJ5SjJxK
+	 UrAr/sI8OusV/FKyzXuT5e7BUa+asvv+5TiXRDE4=
+Received: from localhost.localdomain ([223.166.55.8])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 66039CB1; Tue, 08 Sep 2026 11:25:32 +0800
+X-QQ-mid: xmsmtpt1788837932t51o31uiw
+Message-ID: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
+X-QQ-XMAILINFO: NHWsITUsYMGeIo9jtsaxRfEhMDZ0EUQn/MHOxKkLfED+rUDknmzcqdqV8w2CBD
+	 8KRpHtmF05mGbRPpz/84e+3Pvep1R2QyUacznuwc3lIxe8ecMmkLLkzzVD59ij8TZ6X5npd1uUqO
+	 D/WZaIY3ewl99tElBQZ7l69rz+9GmC3qxxsTAi4COHmp9CeGUtDIIOJLG9s/hZvA5ZOzRaF0CoeN
+	 BnGkVfrDUA84FBDhuq61ZhiWkPwYZP07uE7ru5g+TBhxNDtzsE/zFKdM/q+YETM73c35nkmHK1ba
+	 FO6QaXF4Ks++E4kpHZUpno+NF9Yfx6uLO8GGgW87fpy4AmWSwW+chD6qswqummClUmVXGok22nGa
+	 yeShV6uEdvYSMjHaDH237xZ82GThtyN8jJkYtYWuDP13cwbAzDX1pa6siKHVTsUeV67ONkajm1jM
+	 AkV74pOsGhh+lRFmku8XbzNsgasVmoYpx6lKroN3EzFXo6zn5n/EpPyHJHPi/VhWJofJXf5SuECP
+	 xbKu5wzaEvq3NcaYb/xDQkUqvJgXPlcPYllkEmecqQlguW8A0lKZ7pwOKXsV3soMOVTw7ZI8eH7w
+	 c8C69XBmDBXp1/zVCFFD2HWRdVdZm47Wf3sFX1SwdynL+SinHMnPwyagSdqJZn7kL6QYj2N8Jdaz
+	 gDCrL2S3AOEg3iA3d/mzseMVTKeruM6OBuWT/ydqb9DozRyhSQTw0/yQP9Kiq1srcG7fh2hcWTwA
+	 uhPRrDwh+cCFrNV2HC4+WLW/+anBmJkinWLmtHa6Kz9T/fZSnfLj1MSTwSReFrBJ+DO9hzxRcEf9
+	 ihDtPDsrAmjZ06edpD/9bieklsOVWvq+YcKthMf2UmA0uU9pUy7BdsOkJwtnCg66TnWerEqzuldL
+	 24N7zGzVbIoviwnZtG28ss8ej3oU8gPsxwl7Pn/GHnn4EgABXSghG8iUrNLfZWxcraTD2THvXrBo
+	 bcPi77auJ6QkJJgs22hSiJ6kA6wVFq9I07Q7CNAsYyQHy1vQDYxAFpxOvoZGRi4CPtbmC1DyfWMD
+	 9Cdvkn4qxLjwocQ5RPKoL1FpM9z57o9W6Uu1vIsWxu0ShUPHyk/hcpCcd5HAE=
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: fzz <1768315307@qq.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>
+Cc: Richard Weinberger <richard@nod.at>,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: mt7996: validate TLV length in mt7996_mcu_ie_countdown()
-Date: Tue,  8 Sep 2026 04:26:20 +0100
-Message-ID:
- <PAXP251MB0010F4199498BAE6B474D845C8B12@PAXP251MB0010.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <AS8P251MB0001CCE8D1BEE1F330D9E57AC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-References: <AS8P251MB0001CCE8D1BEE1F330D9E57AC8B22@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO0P265CA0015.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:355::6) To PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:102:1d9::15)
-X-Microsoft-Original-Message-ID:
- <20260908032621.124902-1-elb12345@hotmail.co.uk>
+	Zongzhen Feng <1768315307@qq.com>
+Subject: [PATCH v2] mtd: spinand: cache the last read page to avoid redundant SPI operations
+Date: Tue,  8 Sep 2026 11:25:30 +0800
+X-OQ-MSGID: <20260908032530.3309746-1-1768315307@qq.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXP251MB0010:EE_|DU0P251MB0697:EE_
-X-MS-Office365-Filtering-Correlation-Id: adb8a546-8dda-4e49-a980-08df0d58f5fc
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|55001999006|25031999004|23021999003|37011999003|2604032031799003|51005399006|8060799015|15080799012|5072599009|19110799012|6090799003|25010399006|40105399003|2607281247196008|3412199025|26104999009|440099028|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?eWtJejNwM0NsTHBTYVlSSUxkYzB1WWU5bkxGWHc2dXdXNFNSRk5DRjAvUE03?=
- =?utf-8?B?YlFTTFlSeEdSMVNtcFd0dFhuNExlMzdUR0R5OVZtRmNidHdOMTFIWVpmcklQ?=
- =?utf-8?B?NnlJTG13dnJOQ1JVY0F1OWw2Q3pyNjJ1QmFjT0w3aC8xNk9CRHpYaXNxbVRI?=
- =?utf-8?B?bzJZa3hHVmV2aDhEMGd0aFM4NHozeEMrbHBXTlUvWmFacGdVaGhkcFVkWGJ2?=
- =?utf-8?B?cm5uRjhHMTIxV0ozbCtYTU1XNnBad014d0tnZ2RwZHUvcE5SS21wODcrdWN5?=
- =?utf-8?B?Y1VhUU84QUcyRVpOWlEwc1c1QlhnaUtzNnhLUFpCejRLOHlqSDRucnhOREla?=
- =?utf-8?B?TmE5ZUZBOGNrdmpQTTUzZFhUUkJaU2xXRk8zaXhKdjQzL1hVOEFpUXNpYkxE?=
- =?utf-8?B?TC8yaG9zOFlVdHdqaGVEUFJkREtvL002MTJRWnZzT2N5WTJnZUxiVGdRWGkx?=
- =?utf-8?B?ZXQ1dzdUWUR2TnZ6R29XTHQrWWZYKzF2cm9XWU5UL3NlajFnU0dRd0QwSitC?=
- =?utf-8?B?RW8rblpJOUQ4OFlEOXJZQ0JiUXhjUlZ1bnhueHJoSlFXTy9BMlVjZUE3bkFu?=
- =?utf-8?B?ejhaNG90OTNTQW1JYnFGbStpVHpFQVluRTYzeG51NnZWY3NuWm05SDh0a2dv?=
- =?utf-8?B?RDJwSjdhdVQ2cDUzMUFMVzJIRXcwbWtxU1pHSXNSSzNXZlppZVF3aVM1Q0h6?=
- =?utf-8?B?TWhseDhha25sRTNYUWNzcHY1M04yQzJhOWh5clMwOEc0Ky9ib20zN04rSnFy?=
- =?utf-8?B?ZGl0alcwbzlkdmU0TlhpZGtlVHI0VnNqcDVFdGdqZHR2WTRNdmZCTFZkWTcr?=
- =?utf-8?B?dXhVeWRHNXpLMndKQms0ZGZ3M1FJSE1XN1g4SGFYTU0xeGFmZEFsaWdaL2Jh?=
- =?utf-8?B?SE5rRU8zQmlxeGpvRStWMlE3QzRuNllaRUJ4bncyTVoxeURqUGhVLzBROTdV?=
- =?utf-8?B?RHZQekc0VnhVMGZLOXNPdVZKK2t1YjVEUmkyOHhHN3pEb3htdE9hRUdSdEJW?=
- =?utf-8?B?QWhwenRnRnVPVUQxVStNR2wzZGxYcEEvZSthN0g2UTQ5UEpING1JQVhuYVQ5?=
- =?utf-8?B?NG9GNjJUYjd3UFVzVXE2SGNMRzJadm5KL00wdHNWV1A3VE9VWHRnR1Y0WVpP?=
- =?utf-8?B?WjkvSDRVNVpQTEp2dnozYUo5czREektTSllVazJnVGdzUGR4Q2IvVDlmUkhp?=
- =?utf-8?B?WTdVTng0bXJCeHRkaDNFTG5JUWR6ODdObFNabnNMdlcvNlJ4T29xNnBLVENs?=
- =?utf-8?B?V2RVcmlQelV6K24rWS8zMTVzM21uU0t3eXpRTEY4Ynp4VGE1SzQ5N01lM3VP?=
- =?utf-8?B?eUYzTExabUZQSjhaWUNHUjZSZzRFcUU5Smw2bnZ1enhQaFcyWGZYNXBOd1Ru?=
- =?utf-8?B?dWlMci83Y2FsUndrQmpXaFBjME1hTmxMb1R0RlJWZ2I5SG8rajFtSFYreFdm?=
- =?utf-8?B?bkhOK0dRVW9lSXZHRXQ1SGJsSmh5KzZUTGcvKytDanN4OGZISWZQbitwc3l6?=
- =?utf-8?B?VEQ2VU9ockJINGtXUXk3c1NPcExqcnhsNG0xZGFqVy9PQ0lhSWRyMnduaTEz?=
- =?utf-8?B?d3J6UT09?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tk4wd24ybEJ0K0dUdWR4MUF6QTJjUlRubzZQdXZGcFlHeHRvMXZ5RjNHemdJ?=
- =?utf-8?B?SXJ1RjFTL3FhcTVsZDhxTlNqRDVqUGRoZFB5ejQ1Ni9mb1kzd3dVYVBZcCsr?=
- =?utf-8?B?OXh4YnRvTUhYY3pDRlVjU0F6M25Tbnk3WDdmU1hVWTYrSGU1VXJyNnEwTmp4?=
- =?utf-8?B?TG82NlhEYmRXRUswcG9ySUV1cm1mWmFmK2RMME0zT1lNZ1pJTTF5TnAxQlVW?=
- =?utf-8?B?Wm1HOEx3bEQ1Uy8zbGx2TUR0R2QzbGJpYWVCcitOcUxEdzdJclFxYzcvM28w?=
- =?utf-8?B?VHlWajVDNUZ6VnY2RTBQb21COHB5cVFoblpsb1hhUGxMS1lhOXh5cGI5NlQy?=
- =?utf-8?B?djBkeUQ4VXBUSS9DRlkxZk5JazRXN3YwVTZQN3E0ZGxNMXM3YVhZcTYreDVZ?=
- =?utf-8?B?eTlOa2x6SDVNWGlVbTBzdUo3aVo0RWlDdnlDSlpUTlQzRTNMU2RSYlRkeHQw?=
- =?utf-8?B?ZUVPRnl5S25jemxFR2tuZFdPbkxxdlBoS29QalFaWkxYMXFYZmZRY01jeVk3?=
- =?utf-8?B?eVhtemhHZjRnTVVYS1JPRk4rcVMrclMrRmJVVzV4c1FHSHQ3QStCM2pVemlj?=
- =?utf-8?B?VVNIVjNqenQ4Rll5cFpmS0dwU3BFbTJWTUs3SUtZK0lBUE9xK09paVdCRk9s?=
- =?utf-8?B?OFhDczNPL3JvSHlydHc3MWx3UkNxUEduTGp1djdJODFZamJCNDF2LzhJVlU1?=
- =?utf-8?B?YjlVVWRTcmZVci9lK3pRM3pzUGZ2REU2Z2Q1akkvZERYSDhPUTdNM0plYnph?=
- =?utf-8?B?ZDE2d0FJOGhRNDZLNXowRWk2VlJtZGcwOFhHLy81c3lvWnZvNkZ4SnBjSG5N?=
- =?utf-8?B?bGp0UFNBc21LUFBleWlMZEdtTDE5S3FpakpMKzJ0VGoweWt2T1BYNEVFN3Nv?=
- =?utf-8?B?ckk1ZmU1UThoeFN0dkZvaWI3dG1WVVhmZG9lQTcyb3dVU1NOem9DNzdhWTU4?=
- =?utf-8?B?a1JPZHVHVStlUEJtc3BZQlJVR2pMbk5HL0NjT3ZSQWt4MHVCR2lBVjdtZ0hl?=
- =?utf-8?B?MDRmM0pvRjQyWkFSaWM1N25hbFI5UStaV3c3OU5yU2xTbURTSGJQZi9DYndW?=
- =?utf-8?B?YjljQjNOZVpibUo5d2VBSGUrM3c1Tyt5UytZU1htekVxNGEvbVdrSTAzeCtr?=
- =?utf-8?B?S0E4L2x1aEwxZ1d0anc0SlNZL2xvZWZkWG9Vb0podk8yUlBlcmFITmRqT0Rq?=
- =?utf-8?B?cFExKzRjOXdxaHYwVjVuZDNud1Awa2swejVZcU9tb0hZN3pDVVVVWk40dHhh?=
- =?utf-8?B?bGVreS94eHdra011VDdVVDBpOU92dk1SaGJSajMxS3BRSEt2YkZieGVsZi9z?=
- =?utf-8?B?VUxtRk9abG5PcmdyRUFrcFhPODNlNCtKK1N3YXpIckQyTnFaM3RqRlNvZEho?=
- =?utf-8?B?RjY1VTh1V0hUeUsrL3Y3N1BaUzJQREswKzlIQnVIVTZ6OHZ6RFhLZTZueHJO?=
- =?utf-8?B?eEgyQURldVd3RUV6c1VTN205UjhJOHFpeUxBaW1lU2ZwSmpnVndNOU1rVWdE?=
- =?utf-8?B?ckRsV09iWjNTNVgvZzRURVlBeHllRVdXUyttQ2RCY2lxM1BocHhLZExUbVNG?=
- =?utf-8?B?MWVhYWZSTWJxdmh5UWd6aUdXZ3BiN1JCVndIL1MraS9PU1R2bWs2OXQvNnov?=
- =?utf-8?B?YXFmSy9Xb3loNUI2cThwRG1jU05MM1J6alZ6bXhzVzY5ZkQwbEZLaFA2WTFW?=
- =?utf-8?B?a1YyMllQb0Q0QlJiSkZXejhZcUtsd2hzZGduRWFXdWEyTnBPN0kyN3ZsMzQr?=
- =?utf-8?B?ZHk4bHpGVlFFOHFhUjlQa0J3dDJTbFZpWncrMWZTQWM1dkRSUFVzRWRxc0dj?=
- =?utf-8?B?VXgwbm1udWdqOHhBYzBkSEdMS1hHNHhHWkcvdFpLRkFFVzBTMUt1aWZZK3Fj?=
- =?utf-8?B?OHJGY0RSV2dScHQyb2wxR0pqT1RQVWR3dUZONUM5MkNSeXVaMGN4K214Z1Rz?=
- =?utf-8?Q?U9OlfKT+MTUl7o0hbwDGQ5Dj0H2tGDgc?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: adb8a546-8dda-4e49-a980-08df0d58f5fc
-X-MS-Exchange-CrossTenant-AuthSource: PAXP251MB0010.EURP251.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 03:26:24.8697
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0P251MB0697
+Content-Transfer-Encoding: 8bit
 
-Please drop this patch - there is no bug here.
+From: Zongzhen Feng <1768315307@qq.com>
 
-The existing loop condition already covers every byte the body reads:
+When squashfs reads files through mtdblock, the mtdblock layer
+splits I/O into 512-byte sectors. For a 4K-page SPI NAND, this
+means reading the same page 8 times (4096 / 512), generating 7x
+redundant SPI read-from-cache operations. Each such operation
+involves a full SPI bus transaction, significantly slowing down
+boot time and file access.
 
-	while (data + sizeof(*tlv) < tail && le16_to_cpu(tlv->len)) {
+Cache the last successfully read page in spinand_device to avoid
+these redundant operations. When the same {target, eraseblock,
+page} is requested consecutively, the data is served directly
+from the bounce buffer (databuf) via memcpy, skipping the SPI
+transaction entirely.
 
-struct tlv is 4 bytes and omac_idx is the first byte of struct
-mt7996_mcu_countdown_notify, so tag, len and omac_idx all lie at
-data..data + 4, strictly below tail. A length smaller than the header
-re-parses at a shifted offset but stays in bounds and still advances
-the cursor, and a length past the end fails the condition and ends the
-loop. The zero-length case is already excluded.
+The cache is invalidated on write and erase operations. RAW reads,
+OOB reads, and continuous reads are excluded from caching to
+maintain correctness.
 
-The mt7925 commit I referenced fixed a zero-length hang, which does
-not apply here.
+Signed-off-by: Zongzhen Feng <1768315307@qq.com>
+---
+v2: fix build error (use req->mode != MTD_OPS_RAW instead of
+    req->disable_ecc), fix whitespace noise, use real name
+---
+ drivers/mtd/nand/spi/core.c | 34 ++++++++++++++++++++++++++++++++++
+ include/linux/mtd/spinand.h |  9 +++++++++
+ 2 files changed, 43 insertions(+)
 
-Regards,
-Aamir Ahmed
+diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+index 8bf9301f25e7..21bc29ae62b8 100644
+--- a/drivers/mtd/nand/spi/core.c
++++ b/drivers/mtd/nand/spi/core.c
+@@ -560,6 +560,13 @@ static int spinand_read_from_cache_op(struct spinand_device *spinand,
+ 			       req->ooblen);
+ 	}
+ 
++	if (req->datalen && !req->continuous && req->mode != MTD_OPS_RAW) {
++		spinand->cur_target_cache = req->pos.target;
++		spinand->cur_block_cache = req->pos.eraseblock;
++		spinand->cur_page_cache = req->pos.page;
++		spinand->cache_valid = true;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -833,6 +840,20 @@ static int spinand_mtd_regular_page_read(struct mtd_info *mtd, loff_t from,
+ 		if (disable_ecc)
+ 			iter.req.mode = MTD_OPS_RAW;
+ 
++		if (spinand->cache_valid && !disable_ecc &&
++		    !iter.req.ooblen &&
++		    iter.req.pos.target == spinand->cur_target_cache &&
++		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
++		    iter.req.pos.page == spinand->cur_page_cache) {
++			if (iter.req.datalen)
++				memcpy(iter.req.databuf.in,
++				       spinand->databuf + iter.req.dataoffs,
++				       iter.req.datalen);
++			ops->retlen += iter.req.datalen;
++			ops->oobretlen += iter.req.ooblen;
++			continue;
++		}
++
+ 		ret = spinand_select_target(spinand, iter.req.pos.target);
+ 		if (ret)
+ 			break;
+@@ -1064,6 +1085,12 @@ static int spinand_mtd_write(struct mtd_info *mtd, loff_t to,
+ 		if (ret)
+ 			break;
+ 
++		if (spinand->cache_valid &&
++		    iter.req.pos.target == spinand->cur_target_cache &&
++		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
++		    iter.req.pos.page == spinand->cur_page_cache)
++			spinand->cache_valid = false;
++
+ 		ret = spinand_write_page(spinand, &iter.req);
+ 		if (ret)
+ 			break;
+@@ -1188,6 +1215,11 @@ static int spinand_erase(struct nand_device *nand, const struct nand_pos *pos)
+ 	if (!ret && (status & STATUS_ERASE_FAILED))
+ 		ret = -EIO;
+ 
++	if (!ret && spinand->cache_valid &&
++	    spinand->cur_target_cache == pos->target &&
++	    spinand->cur_block_cache == pos->eraseblock)
++		spinand->cache_valid = false;
++
+ 	return ret;
+ }
+ 
+@@ -2025,6 +2057,7 @@ static void spinand_cleanup(struct spinand_device *spinand)
+ 	nanddev_ecc_engine_cleanup(nand);
+ 	nanddev_cleanup(nand);
+ 	spinand_manufacturer_cleanup(spinand);
++	spinand->cache_valid = false;
+ 	kfree(spinand->databuf);
+ 	kfree(spinand->scratchbuf);
+ }
+@@ -2044,6 +2077,7 @@ static int spinand_probe(struct spi_mem *mem)
+ 	spi_mem_set_drvdata(mem, spinand);
+ 	spinand_set_of_node(spinand, mem->spi->dev.of_node);
+ 	mutex_init(&spinand->lock);
++	spinand->cache_valid = false;
+ 	mtd = spinand_to_mtd(spinand);
+ 	mtd->dev.parent = &mem->spi->dev;
+ 
+diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
+index 5f4c00ae72a7..887ef6d34a41 100644
+--- a/include/linux/mtd/spinand.h
++++ b/include/linux/mtd/spinand.h
+@@ -757,6 +757,10 @@ struct spinand_mem_ops {
+  *		   a command addressing a page or an eraseblock embedded in
+  *		   this die. Only required if your chip exposes several dies
+  * @cur_target: currently selected target/die
++ * @cur_target_cache: target of the cached page
++ * @cur_block_cache: eraseblock of the cached page
++ * @cur_page_cache: page number of the cached page
++ * @cache_valid: whether the cached page is valid
+  * @eccinfo: on-die ECC information
+  * @cfg_cache: config register cache. One entry per die
+  * @databuf: bounce buffer for data
+@@ -798,6 +802,11 @@ struct spinand_device {
+ 			     unsigned int target);
+ 	unsigned int cur_target;
+ 
++	unsigned int cur_target_cache;
++	unsigned int cur_block_cache;
++	unsigned int cur_page_cache;
++	bool cache_valid;
++
+ 	struct spinand_ecc_info eccinfo;
+ 
+ 	u8 *cfg_cache;
+-- 
+2.25.1
+
