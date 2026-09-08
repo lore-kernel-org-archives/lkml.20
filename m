@@ -1,109 +1,127 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA70438D006
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F2239A7FE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853158; cv=none; b=Jh2cGNe8FKrrhgSuxbAbUMPyW0pHNyBLE3Djlb4BMmVGdqul72N9BM4TodEtqFpFwOUFhDlHsh2gciDzAaXh4iHuHMJiEcqva5Q9SCXTtfkebuXWVutnRsaYkvYkZou3mxd0LKJ2b0fBjFyjW19TOr8hkOfkItxLsG1Lefof+rY=
+	t=1788853160; cv=none; b=ks8tsmkPFbcRQs7a32qlHgerZQM0udkS7xYZ3yxI0/qAzeB0YuuJ6IUkYfoNphifBpGW9EZf7FkiQ0OjiTY0LLgfar2GjtF8smthtL9/4Jx0af6WsnoneRAiULqO2CX9T9YCoH9b4wSzeO95N0Wx7p5tAYu3qN+iNQOkonuOxac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853158; c=relaxed/simple;
-	bh=dEb+aLy3u3BijpcnfQZEEQWczVw14PtEPSi7ZSnMsJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrBHnzfgNQHIAdl9aFYrh2tOW3LMmU+uZ1GY56MfC914LWqfEk+Un4OYj848PVv8Prd0dc0+8cR2W5dswuiRIoJ6v7hwJvN5lq8HfcqyjyAQqPhFbPmYOtiEGl2Ckm9mXZUEX/rHnI5s4CAfvSn4K1td/kjDTTJ6YkjwumLAUAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxpvChu59qKbgJAA--.28130S3;
-	Tue, 08 Sep 2026 15:39:13 +0800 (CST)
-Received: from linux.localdomain (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAx1cybu59qhQ4dAA--.34427S2;
-	Tue, 08 Sep 2026 15:39:07 +0800 (CST)
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] LoongArch: Remove arch-specific __smp_mb__{before,after}_atomic()
-Date: Tue,  8 Sep 2026 15:39:06 +0800
-Message-ID: <20260908073906.31781-1-yangtiezhu@loongson.cn>
-X-Mailer: git-send-email 2.42.0
+	s=arc-20240116; t=1788853160; c=relaxed/simple;
+	bh=D2RzBP/R2/Cwa/v8IXDhGj1L5RBiAsemHSKv+FgrT8Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Eb+kZ/Lbi3AOth5E8UDPY2syoJVfvD3p/1BQOd421tWzciDqCiVtyAGv+0LPWoZohLAEm7zsYNxQQp+pj6kIp8Q1kt1bVIzTw70TjuKp8FFoz1UbtLZm0Ib4789dcUZzDhayh+AvmNvE64dx9S0Wb5HxGmT2+XqJhPtyxwptBiQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLVXDUeb; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLVXDUeb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4E401F00A3A;
+	Tue,  8 Sep 2026 07:39:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788853157;
+	bh=AEH8AxXp8/DINU64YKh2WZQ7W3iV+JcF7rd/P0GvM9M=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=YLVXDUeb1/ASgMYIY7WSS+AhHmhSkqqo8U7jaHUQGlvGHgBTRIcMWODC9ff7vEopV
+	 xcpPz8DTRzDc9NRsgHdHhKLBlzpCNbGMuUbQJDOcd2dL4OuJE/ai4MSh7KiJLA6SU/
+	 SjXlsr2KzmJeDkUUCYguw+3ZLzyD4/VfKKvtA48BMgfC/E6BX8DWnKnAoxtgBtsEbF
+	 MJrUJwVauk74uq58UL1eYe6gUbcwQvacJtbu3GDZVj5qBT/VZQYvqjP4F03Dj/pYmX
+	 XbkEXIOII4uyVeuVFseKm7RFSXQKEMIsuBInUNQ5IUlLab4n5kgQtE/A8hM31PDjen
+	 l3KZYjBIUslCA==
+Message-ID: <bbbf056a-a86e-4ad4-97a4-4a32a36eafa2@kernel.org>
+Date: Tue, 8 Sep 2026 09:39:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx1cybu59qhQ4dAA--.34427S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXw47tr17Cr1UKF1xtF1kWFX_yoW5Gr15pF
-	WxCrn7KFWkWF48Jw1Dt3WUuw13J3yvkrW7XrWFgFykuw1qgryUJr4xWr43uFyUAan5WFyS
-	vrZYv34Ykas8JacCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUkFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCF04k20xvY0x
-	0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07josjUUUUUU=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] tools/power/x86/intel-speed-select: Clean up more build
+ artifacts in 'clean' target
+To: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>,
+ srinivas.pandruvada@linux.intel.com
+Cc: raj.khem@gmail.com, linux-kernel@vger.kernel.org, trivial@kernel.org
+References: <20260901093657.1884-1-zhangjiao2@cmss.chinamobile.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20260901093657.1884-1-zhangjiao2@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When running the BPF selftest "test_progs -t timer_lockup" on a LoongArch
-machine, the kernel intermittently experiences soft lockups and panics in
-hrtimer_cancel().
+On 01. 09. 26, 11:36, zhangjiao2 wrote:
+> From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+> 
+> The 'clean' target currently leaves behind .* .o.cmd and .* .o.d files,
+> as well as the generated 'include' directory. Extend the target to
+> remove these so 'make clean' fully resets the build tree.
+> 
+> Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+> ---
+>   tools/power/x86/intel-speed-select/Makefile | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/tools/power/x86/intel-speed-select/Makefile b/tools/power/x86/intel-speed-select/Makefile
+> index 6b299aae2ded..46874e4cee51 100644
+> --- a/tools/power/x86/intel-speed-select/Makefile
+> +++ b/tools/power/x86/intel-speed-select/Makefile
+> @@ -54,6 +54,8 @@ clean:
+>   	rm -f $(ALL_PROGRAMS)
+>   	rm -rf $(OUTPUT)include/linux/isst_if.h
+>   	find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '\.*.d' -delete
+> +	find $(or $(OUTPUT),.) -name '.*.o.cmd' -delete -o -name '.*.o.d' -delete
 
-The root cause is that bpf_timer_cancel() relies on smp_mb__after_atomic()
-to provide a full data barrier after a relaxed atomic_inc() to ensure the
-proper store-load ordering before performing lockless dependency checks on
-weakly-ordered architectures such as LoongArch, but the current definition
-of smp_mb__after_atomic() is a plain compiler barrier.
+There are no *.d at this point (removed by the previous find). You can 
+do it on one line (as many of the other tools/):
+find $(or $(OUTPUT),.) -name '*.o' -delete -o -name '.*.o.d' -delete -o 
+-name '.*.o.cmd' -delete
 
-This allows a subsequent read to bypass the prior write due to store-load
-reordering, enabling concurrent CPUs to simultaneously bypass the software
-deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABBA
-deadlock in the hrtimer core.
+> +	find $(or $(OUTPUT),.) -type d -name 'include' -exec rm -rf {} +
 
-Moreover, there are hundreds of smp_mb__after_atomic() call sites across
-the core kernel (kernel/, drivers/, mm/, net/, fs/) that currently lack
-necessary full data barriers on LoongArch, which have potential risks.
+So you can remove "rm -rf $(OUTPUT)include/linux/isst_if.h" above, right?
 
-To comply with the LKMM specification, fix this by removing the incorrect
-arch-specific definition of __smp_mb__after_atomic(), so that this macro
-can automatically fall back to the generic definition in asm-generic that
-maps to __smp_mb() and emits the required hardware DBAR instruction. While
-at it, do the same thing for __smp_mb__before_atomic().
-
-With this patch, the BPF timer_lockup selftest was stressed for 1 million
-consecutive loops on a physical LoongArch machine without encountering any
-further lockups.
-
-Reported-by: Vincent Li <vincent.mc.li@gmail.com>
-Closes: https://lore.kernel.org/loongarch/CAK3+h2xOSEZUHhou7N2cRL-aGrZCNSm45g+P7thObMe+fpgYCA@mail.gmail.com/
-Fixes: 46859ac8af52 ("LoongArch: Add multi-processor (SMP) support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
----
- arch/loongarch/include/asm/barrier.h | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/arch/loongarch/include/asm/barrier.h b/arch/loongarch/include/asm/barrier.h
-index 4b663f197706..84c6d739119d 100644
---- a/arch/loongarch/include/asm/barrier.h
-+++ b/arch/loongarch/include/asm/barrier.h
-@@ -57,9 +57,6 @@
- #define __WEAK_LLSC_MB		"			\n"
- #endif
- 
--#define __smp_mb__before_atomic()	barrier()
--#define __smp_mb__after_atomic()	barrier()
--
- /**
-  * array_index_mask_nospec() - generate a ~0 mask when index < size, 0 otherwise
-  * @index: array element index
+thanks,
 -- 
-2.42.0
+js
+suse labs
 
