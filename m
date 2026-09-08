@@ -1,883 +1,312 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC14524B0B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC2F4B2045;
+	Tue,  8 Sep 2026 11:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865254; cv=none; b=UfcA3fUceJSTO5vIA0Jtx42zxe2iBM3il1x/xDT2bF4SvZ2zwIrjcM6i8WfrCEpGDAGdgAfF2ECxNtCdcRiExgK7Fn4bX3G9AqRTrxEZ1PJg7bgwWfMP5T2W1In71VUhJw5HD6Ddskuo9dKvHvEt4+LSr3VIwhlTHIhaQNsTQQI=
+	t=1788865300; cv=none; b=JRecCLZ2i8x8XLttCVp5ookOwYQHnuLharXnuCYktzN354K73kQVcvuj9X3AJ2ePcHu+sZ5VQ98sSsvvycKBql2oRSelEFFp/NwDqjJz9SK7IbyFeR9TImifTJX9HIMTGw1tWVR3euL6DvEjQF/mXLho9qTw113ErMUHOWaqReM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865254; c=relaxed/simple;
-	bh=mzbqKPlos6WkCikA0mwSsXKh3Ae7Q3vlt2ntJZ8ge48=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FdYf3gcrOpYsGM/9FFk9lOV+G5Vl/VzOXOHOuneTcD3E3Yc8bwU5meXXjD3WdIKHsOCrWqHUtR0v5PughCRL0EY7jJdsarVBoB6cFXZIZ/BJHGNGxY3ZbPBmFtsd3YKSRLdRHSwwscurXTYJEU2SGRE140xDXLB5BLVlLKjMIi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aHw7QSn3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788865300; c=relaxed/simple;
+	bh=06UIArTqQzVqivLJycw3xy8erq7CsfS+f95+kEcmXIU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bj+qWO9BsXPN6KliZxikUpZQAcO2nFwkAnfHBgsb6b7YDP00C6HJS/72vGv+Xt/ejZJN9AC81942WE5d0v2baGXIhpLEqcx953lh+J19S08KeUbvlRg8vWZ1T/yhkQm4H7EzoixLmpzWkxIcIfb49Oq8DAydE3CcU6v4JeZzkUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=pThjgWwz; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=v5Y+v5V8; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=gPORJ++h; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Tvv92OAU; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aHw7QSn3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BE81F00A3A;
-	Tue,  8 Sep 2026 11:00:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788865251;
-	bh=VV0KWSFYOBK12xPMfbOhOETePxI2M8SE33LNJodwghY=;
-	h=From:To:Cc:Subject:Date;
-	b=aHw7QSn3xXUyIIUyNgVwMVSisvxCY6CjOohjWfyQSrerqh3uTEoIE6xfP+mxoFYDM
-	 +7/jucHbE+dEDq1RpLAY8v/EOrkSP7IEqsjWkVJh6fTs/XcZXz0WRY3DbYasnXg5om
-	 ocX6fyZycn/QA5Z4uWJEtS6GNPlOsCNmMtnOu0YG7y8kCjj+cMOPQeXNko+alFDIRR
-	 JDYPdefqCmUvL5O2WoxnME5aAa2+iuUMoKcPibdEt63uIQi1TU8lgVW02mSd7/SzeT
-	 vUelSmFHlyD72zMDIjh3fx+96yJu/zABtUnP8Ya4UTPuR/PjH905Y+kml6R5kf6PML
-	 kjpHM4iAlTTxw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	dakr@kernel.org,
-	Marco Pagani <marco.pagani@linux.dev>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Gary Guo <gary@garyguo.net>,
-	Jonghyuk Kim <malhyuk97@gmail.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Simona Vetter <simona@ffwll.ch>,
-	David Airlie <airlied@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Philipp Stanner <phasta@kernel.org>
-Subject: [RFC PATCH 1/2] dma-fence: Solve dma_fence's problems with additional spinlock
-Date: Tue,  8 Sep 2026 12:59:26 +0200
-Message-ID: <20260908105926.1120378-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="pThjgWwz";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="v5Y+v5V8";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="gPORJ++h";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Tvv92OAU"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2E2882120F;
+	Tue,  8 Sep 2026 11:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788865292; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmkm0Mn0ZPsCDRxVauvy2vcOyl8K0UpGlhINITeUl7E=;
+	b=pThjgWwzlRJam6rd914ffuMbJ9whcWdlwlB/pUzS8sZgEjgKqOSrmnsiGUiLv6t/K6oztq
+	74vPjr7nn1S1MIG5Sg8IehKUSasysOQ95MsClokhRVUYnpIPd8iUgvWHCx0WpJva7eHmh3
+	lv7UGyzzKt2dAgiMI1kDYSnQF0PHOTU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788865292;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmkm0Mn0ZPsCDRxVauvy2vcOyl8K0UpGlhINITeUl7E=;
+	b=v5Y+v5V8GELZ9VIVn5KBK6EAaK+t1FXpToTNjVRZL2YNXrWBq7y/ZovF0sA+WHHjn8/Rks
+	bDIyd7FYcVvqfcCA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788865288; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmkm0Mn0ZPsCDRxVauvy2vcOyl8K0UpGlhINITeUl7E=;
+	b=gPORJ++hpIyjhfM+WlC792O83GyzyEDAmC9QZt0mpl/bIwMtNqtkJ446XjQQfxKKcjWont
+	04ZXmtc5nfa/a4kivR6blB38dTTuj9zSTAP33M1dEfv6gfY5Z8B35FJ9npG66h/E2V30I2
+	ykoCbDhgsEy4VKsdlvGY/mNog3UJ2DY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788865288;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmkm0Mn0ZPsCDRxVauvy2vcOyl8K0UpGlhINITeUl7E=;
+	b=Tvv92OAUEzun4hhJUZcP79PoDXrJPtIXHoU6rH5PyUfJDwGhNfjOCsxvnaEuej9zB84JEt
+	cQ8augUuHOKar2AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0C4301347F;
+	Tue,  8 Sep 2026 11:01:28 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id RKD5Agjrn2riOAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 08 Sep 2026 11:01:28 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3AD25A12E2; Tue, 08 Sep 2026 13:01:23 +0200 (CEST)
+Date: Tue, 8 Sep 2026 13:01:23 +0200
+From: Jan Kara <jack@suse.cz>
+To: Xin Yin <yinxin.x@bytedance.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, Tejun Heo <tj@kernel.org>, 
+	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] writeback: snapshot foreign flush pages
+Message-ID: <matvd3klv4w7buhnjkdpllkautw3zu2e5hpjfdedvvoozpbfxj@z7joalz5an74>
+References: <cover.1788836830.git.yinxin.x@bytedance.com>
+ <dce170b76e9501d555b0af70cc8c45c248577400.1788836830.git.yinxin.x@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dce170b76e9501d555b0af70cc8c45c248577400.1788836830.git.yinxin.x@bytedance.com>
+X-Spam-Level: 
+X-Spam-Score: -3.80
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
 
-dma_fence's life time is solved already through refcounting. What breaks
-the implementation's neck are
- a) shared spinlocks via a pointer, so usage of a dma_fence lock can cause UAF
-    if the driver unloaded, although the user still holds a reference.
- b) callbacks which can run into the driver after unload.
+On Tue 08-09-26 11:23:52, Xin Yin wrote:
+> WB_REASON_FOREIGN_FLUSH is best-effort writeback for foreign dirtying. It
+> should write pages that are already visible to the target wb, but should
+> not keep extending the same work with pages dirtied while the work is
+> running.
+> 
+> Make foreign flushes use tagged writeback while preserving WB_SYNC_NONE
+> semantics. Use the remaining work budget as the per-inode chunk, so a
+> tagged pass is not truncated to the normal periodic chunk and a large
+> inode still cannot exceed the finite work budget.
+> 
+> Queue b_dirty only once for each foreign-flush work. Later passes only
+> retry b_more_io inodes skipped due to I_SYNC, and the work exits once
+> b_io and b_more_io are drained. If the budget is consumed, redirty the
+> inode instead of requeueing it to b_more_io so the same work cannot loop
+> on a continuously dirtied inode.
+> 
+> Do not refresh dirtied_when for foreign flushes; later dirtying should be
+> handled by later foreign, kupdate, or background writeback.
+> 
+> Fixes: 97b27821b485 ("writeback, memcg: Implement foreign dirty flushing")
+> Signed-off-by: Xin Yin <yinxin.x@bytedance.com>
 
-These problems have been worked around by introducing RCU grace periods
-into the implementation, with the rule of drivers only being allowed to
-free resources and / or unload after waiting for a grace period. This is
-fragile.
+I really dislike how your implementation ties the two writeback deadlock
+avoidance schemes (nr_to_write for WB_SYNC_NONE writeback vs folio tagging
++ inode dirty timestamp for WB_SYNC_ALL writeback) together. But before we
+get to the implementation details let's discuss the purpose a bit:
 
-The right solution to address these problems is:
-  1. Give fences a spinlock which is always theirs and, thus, respects
-     their life time.
-  2. Use this lock to guard all fence data, i.e. especially the fence
-     state, to synchronize the signaled state.
-  3. Enabled by the previous point, the signaled-bit of a fence can be
-     used as a hard decoupling point after which the driver is free to
-     do what it prefers.
-  4. Do not run into any callbacks after a fence is signaled, since
-     after this point the driver might have been unloaded.
+In principle I agree with you that the primary purpose of
+cgroup_writeback_by_id() is that it wants to flush inodes that have folios
+that are accounted to our memcg. It does this by a rather rough approach of
+flushing the whole wb. If this races with other dirtying, it might happen
+that we won't actually flush the foreign folios we want. Am I getting your
+concern right? Are you able to actually observe such situation in practice?
 
-This new, additional lock, is an internal component which must never be
-taken by users manually. All locking must be handled through API
-functions which have a well-defined contract.
+								Honza
 
-This, in the long run, will reduce the fragility and even complexity of
-dma_fence greatly, since all need for RCU falls away.
-
-One way to address the get_timeline_name() and get_driver_name()
-callbacks is presented here: the callbacks are called under lock
-protection if the fence is not signaled yet, and the returned strings
-are just copied into new buffers.
-
-The callbacks which cannot be fully solved yet are ops->release() and
-ops->wait. The former because they always need to be called when the
-refcount drops to 0, the latter because it might sleep and cannot be
-guarded by a spinlock.
-
-Possible solutions for these callbacks could be to keep the RCU-handling
-of the ops pointer for now, or to work towards removing the callbacks'
-users – or maybe to go back to the old broken state where these drivers
-were on their own.
-
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
-Just a quickly scetched out idea. Untested; also needs some twirks to
-make the tracepoint compile.
-
-I think this is what dma_fence should have been from the beginning, but
-here we are.
-
-If we can get to a solution with ops->release and ops->wait, we could
-phase out the external_lock in the long run.
----
- drivers/dma-buf/dma-fence.c | 220 +++++++++++++++++++++---------------
- drivers/dma-buf/sync_file.c |  31 +++--
- include/linux/dma-fence.h   | 102 ++++++++++++-----
- 3 files changed, 217 insertions(+), 136 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index 05090fb0fd5a..cb85811381a1 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -26,6 +26,9 @@ EXPORT_TRACEPOINT_SYMBOL(dma_fence_signaled);
- 
- static struct dma_fence dma_fence_stub;
- 
-+void dma_fence_driver_name_locked(struct dma_fence *fence, char *buff, unsigned short len);
-+void dma_fence_timeline_name_locked(struct dma_fence *fence, char *buff, unsigned short len);
-+
- /*
-  * fence context counter: each execution context should have its own
-  * fence context, this allows checking if fences belong to the same
-@@ -336,7 +339,7 @@ void __dma_fence_might_wait(void)
- #endif
- 
- /**
-- * dma_fence_signal_timestamp_locked - signal completion of a fence
-+ * dma_fence_signal_timestamp_locked_full - signal completion of a fence
-  * @fence: the fence to signal
-  * @timestamp: fence signal timestamp in kernel's CLOCK_MONOTONIC time domain
-  *
-@@ -350,10 +353,9 @@ void __dma_fence_might_wait(void)
-  * Unlike dma_fence_signal_timestamp(), this function must be called with
-  * &dma_fence.lock held.
-  */
--void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
-+void dma_fence_signal_timestamp_locked_full(struct dma_fence *fence,
- 				      ktime_t timestamp)
- {
--	const struct dma_fence_ops *ops;
- 	struct dma_fence_cb *cur, *tmp;
- 	struct list_head cb_list;
- 
-@@ -365,15 +367,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 
- 	trace_dma_fence_signaled(fence);
- 
--	/*
--	 * When neither a release nor a wait operation is specified set the ops
--	 * pointer to NULL to allow the fence structure to become independent
--	 * from who originally issued it.
--	 */
--	ops = rcu_dereference_protected(fence->ops, true);
--	if (!ops->release && !ops->wait)
--		RCU_INIT_POINTER(fence->ops, NULL);
--
- 	/* Stash the cb_list before replacing it with the timestamp */
- 	list_replace(&fence->cb_list, &cb_list);
- 
-@@ -385,7 +378,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 		cur->func(fence, cur);
- 	}
- }
--EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
- 
- /**
-  * dma_fence_signal_timestamp - signal completion of a fence
-@@ -401,17 +393,26 @@ EXPORT_SYMBOL(dma_fence_signal_timestamp_locked);
-  */
- void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 
- 	if (WARN_ON(!fence))
- 		return;
- 
-+	dma_fence_lock_full(fence, &flags_full);
- 	dma_fence_lock_irqsave(fence, flags);
--	dma_fence_signal_timestamp_locked(fence, timestamp);
-+
-+	dma_fence_signal_timestamp_locked_full(fence, timestamp);
-+
- 	dma_fence_unlock_irqrestore(fence, flags);
-+	dma_fence_unlock_full(fence, &flags_full);
- }
- EXPORT_SYMBOL(dma_fence_signal_timestamp);
- 
-+void dma_fence_signal_locked_full(struct dma_fence *fence)
-+{
-+	dma_fence_signal_timestamp_locked_full(fence, ktime_get());
-+}
-+
- /**
-  * dma_fence_signal_locked - signal completion of a fence
-  * @fence: the fence to signal
-@@ -427,7 +428,11 @@ EXPORT_SYMBOL(dma_fence_signal_timestamp);
-  */
- void dma_fence_signal_locked(struct dma_fence *fence)
- {
--	dma_fence_signal_timestamp_locked(fence, ktime_get());
-+	unsigned long flags;
-+
-+	dma_fence_lock_full(fence, &flags);
-+	dma_fence_signal_locked_full(fence);
-+	dma_fence_unlock_full(fence, &flags);
- }
- EXPORT_SYMBOL(dma_fence_signal_locked);
- 
-@@ -487,7 +492,7 @@ EXPORT_SYMBOL(dma_fence_check_and_signal);
-  */
- void dma_fence_signal(struct dma_fence *fence)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 	bool tmp;
- 
- 	if (WARN_ON(!fence))
-@@ -495,9 +500,13 @@ void dma_fence_signal(struct dma_fence *fence)
- 
- 	tmp = dma_fence_begin_signalling();
- 
-+	dma_fence_lock_full(fence, &flags_full);
- 	dma_fence_lock_irqsave(fence, flags);
--	dma_fence_signal_timestamp_locked(fence, ktime_get());
-+
-+	dma_fence_signal_timestamp_locked_full(fence, ktime_get());
-+
- 	dma_fence_unlock_irqrestore(fence, flags);
-+	dma_fence_unlock_full(fence, &flags_full);
- 
- 	dma_fence_end_signalling(tmp);
- }
-@@ -524,7 +533,6 @@ EXPORT_SYMBOL(dma_fence_signal);
- signed long
- dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
- {
--	const struct dma_fence_ops *ops;
- 	signed long ret;
- 
- 	if (WARN_ON(timeout < 0))
-@@ -532,24 +540,16 @@ dma_fence_wait_timeout(struct dma_fence *fence, bool intr, signed long timeout)
- 
- 	might_sleep();
- 
-+	// TODO: what could we do about wait_timeout?
-+
- 	__dma_fence_might_wait();
- 
- 	dma_fence_enable_signaling(fence);
- 
--	rcu_read_lock();
--	ops = rcu_dereference(fence->ops);
- 	trace_dma_fence_wait_start(fence);
--	if (ops && ops->wait) {
--		/*
--		 * Implementing the wait ops is deprecated and not supported for
--		 * issuers of fences who need their lifetime to be independent
--		 * of their module after they signal, so it is ok to use the
--		 * ops outside the RCU protected section.
--		 */
--		rcu_read_unlock();
--		ret = ops->wait(fence, intr, timeout);
-+	if (fence->ops->wait) {
-+		ret = fence->ops->wait(fence, intr, timeout);
- 	} else {
--		rcu_read_unlock();
- 		ret = dma_fence_default_wait(fence, intr, timeout);
- 	}
- 	if (trace_dma_fence_wait_end_enabled()) {
-@@ -570,26 +570,26 @@ EXPORT_SYMBOL(dma_fence_wait_timeout);
-  */
- void dma_fence_release(struct kref *kref)
- {
-+	unsigned long flags;
-+	char driver[64] = "";
-+	char timeline[64] = "";
- 	struct dma_fence *fence =
- 		container_of(kref, struct dma_fence, refcount);
--	const struct dma_fence_ops *ops;
- 
--	rcu_read_lock();
- 	trace_dma_fence_destroy(fence);
- 
-+	dma_fence_lock_full(fence, &flags);
-+
- 	if (!list_empty(&fence->cb_list) &&
- 	    !dma_fence_test_signaled_flag(fence)) {
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 		unsigned long flags;
- 
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name_locked(fence, driver, 64);
-+		dma_fence_timeline_name_locked(fence, timeline, 64);
- 
- 		WARN(1,
- 		     "Fence %s:%s:%llx:%llx released with pending signals!\n",
--		     rcu_dereference(driver), rcu_dereference(timeline),
--		     fence->context, fence->seqno);
-+		     driver, timeline, fence->context, fence->seqno);
- 
- 		/*
- 		 * Failed to signal before release, likely a refcounting issue.
-@@ -600,16 +600,19 @@ void dma_fence_release(struct kref *kref)
- 		 */
- 		dma_fence_lock_irqsave(fence, flags);
- 		fence->error = -EDEADLK;
--		dma_fence_signal_locked(fence);
-+		dma_fence_signal_locked_full(fence);
- 		dma_fence_unlock_irqrestore(fence, flags);
- 	}
- 
--	ops = rcu_dereference(fence->ops);
--	if (ops && ops->release)
--		ops->release(fence);
-+	dma_fence_unlock_full(fence, &flags);
-+
-+	// TODO: could then run into unloaded driver. Do we want to keep RCU
-+	// just for the two deprecated callbacks?
-+
-+	if (fence->ops->release)
-+		fence->ops->release(fence);
- 	else
- 		dma_fence_free(fence);
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_release);
- 
-@@ -622,13 +625,12 @@ EXPORT_SYMBOL(dma_fence_release);
-  */
- void dma_fence_free(struct dma_fence *fence)
- {
--	kfree_rcu(fence, rcu);
-+	kfree(fence);
- }
- EXPORT_SYMBOL(dma_fence_free);
- 
- static bool __dma_fence_enable_signaling(struct dma_fence *fence)
- {
--	const struct dma_fence_ops *ops;
- 	bool was_set;
- 
- 	dma_fence_assert_held(fence);
-@@ -639,18 +641,14 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
- 	if (dma_fence_test_signaled_flag(fence))
- 		return false;
- 
--	rcu_read_lock();
--	ops = rcu_dereference(fence->ops);
--	if (!was_set && ops && ops->enable_signaling) {
-+	if (!was_set && fence->ops->enable_signaling) {
- 		trace_dma_fence_enable_signal(fence);
- 
--		if (!ops->enable_signaling(fence)) {
--			rcu_read_unlock();
--			dma_fence_signal_locked(fence);
-+		if (!fence->ops->enable_signaling(fence)) {
-+			dma_fence_signal_locked_full(fence);
- 			return false;
- 		}
- 	}
--	rcu_read_unlock();
- 
- 	return true;
- }
-@@ -665,11 +663,15 @@ static bool __dma_fence_enable_signaling(struct dma_fence *fence)
-  */
- void dma_fence_enable_signaling(struct dma_fence *fence)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 
-+	dma_fence_lock_full(fence, &flags_full);
- 	dma_fence_lock_irqsave(fence, flags);
-+
- 	__dma_fence_enable_signaling(fence);
-+
- 	dma_fence_unlock_irqrestore(fence, flags);
-+	dma_fence_unlock_full(fence, &flags_full);
- }
- EXPORT_SYMBOL(dma_fence_enable_signaling);
- 
-@@ -698,15 +700,18 @@ EXPORT_SYMBOL(dma_fence_enable_signaling);
- int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
- 			   dma_fence_func_t func)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 	int ret = 0;
- 
- 	if (WARN_ON(!fence || !func))
- 		return -EINVAL;
- 
-+	dma_fence_lock_full(fence, &flags_full);
-+
- 	if (dma_fence_test_signaled_flag(fence)) {
- 		INIT_LIST_HEAD(&cb->node);
--		return -ENOENT;
-+		ret = -ENOENT;
-+		goto out;
- 	}
- 
- 	dma_fence_lock_irqsave(fence, flags);
-@@ -718,6 +723,8 @@ int dma_fence_add_callback(struct dma_fence *fence, struct dma_fence_cb *cb,
- 		ret = -ENOENT;
- 	}
- 	dma_fence_unlock_irqrestore(fence, flags);
-+out:
-+	dma_fence_unlock_full(fence, &flags_full);
- 
- 	return ret;
- }
-@@ -737,12 +744,16 @@ EXPORT_SYMBOL(dma_fence_add_callback);
-  */
- int dma_fence_get_status(struct dma_fence *fence)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 	int status;
- 
-+	dma_fence_lock_full(fence, &flags_full);
- 	dma_fence_lock_irqsave(fence, flags);
--	status = dma_fence_get_status_locked(fence);
-+
-+	status = dma_fence_get_status_locked_full(fence);
-+
- 	dma_fence_unlock_irqrestore(fence, flags);
-+	dma_fence_unlock_full(fence, &flags_full);
- 
- 	return status;
- }
-@@ -769,14 +780,18 @@ EXPORT_SYMBOL(dma_fence_get_status);
- bool
- dma_fence_remove_callback(struct dma_fence *fence, struct dma_fence_cb *cb)
- {
--	unsigned long flags;
-+	unsigned long flags, flags_full;
- 	bool ret;
- 
-+	dma_fence_lock_full(fence, &flags_full);
- 	dma_fence_lock_irqsave(fence, flags);
-+
- 	ret = !list_empty(&cb->node);
- 	if (ret)
- 		list_del_init(&cb->node);
-+
- 	dma_fence_unlock_irqrestore(fence, flags);
-+	dma_fence_unlock_full(fence, &flags_full);
- 
- 	return ret;
- }
-@@ -1019,13 +1034,17 @@ EXPORT_SYMBOL(dma_fence_wait_any_timeout);
-  */
- void dma_fence_set_deadline(struct dma_fence *fence, ktime_t deadline)
- {
--	const struct dma_fence_ops *ops;
-+	unsigned long flags;
- 
--	rcu_read_lock();
--	ops = rcu_dereference(fence->ops);
--	if (ops && ops->set_deadline && !dma_fence_is_signaled(fence))
--		ops->set_deadline(fence, deadline);
--	rcu_read_unlock();
-+	dma_fence_lock_full(fence, &flags);
-+	if (dma_fence_is_signaled_locked_full(fence))
-+		goto out;
-+
-+	if (fence->ops->set_deadline && !dma_fence_is_signaled_locked_full(fence))
-+		fence->ops->set_deadline(fence, deadline);
-+
-+out:
-+	dma_fence_unlock_full(fence, &flags);
- }
- EXPORT_SYMBOL(dma_fence_set_deadline);
- 
-@@ -1038,23 +1057,24 @@ EXPORT_SYMBOL(dma_fence_set_deadline);
-  */
- void dma_fence_describe(struct dma_fence *fence, struct seq_file *seq)
- {
--	const char __rcu *timeline = (const char __rcu *)"";
--	const char __rcu *driver = (const char __rcu *)"";
-+	unsigned long flags;
-+	char timeline[64] = "";
-+	char driver[64] = "";
- 	const char *signaled = "";
- 
--	rcu_read_lock();
-+	dma_fence_lock_full(fence, &flags);
- 
--	if (!dma_fence_is_signaled(fence)) {
--		timeline = dma_fence_timeline_name(fence);
--		driver = dma_fence_driver_name(fence);
-+	if (!dma_fence_is_signaled_locked_full(fence)) {
-+		dma_fence_timeline_name_locked(fence, timeline, 64);
-+		dma_fence_driver_name_locked(fence, driver, 64);
- 		signaled = "un";
- 	}
- 
-+	dma_fence_unlock_full(fence, &flags);
-+
- 	seq_printf(seq, "%llu:%llu %s %s %ssignalled\n",
- 		   fence->context, fence->seqno, timeline, driver,
- 		   signaled);
--
--	rcu_read_unlock();
- }
- EXPORT_SYMBOL(dma_fence_describe);
- 
-@@ -1064,6 +1084,7 @@ __dma_fence_init(struct dma_fence *fence, const struct dma_fence_ops *ops,
- {
- 	BUG_ON(!ops || !ops->get_driver_name || !ops->get_timeline_name);
- 
-+	spin_lock_init(&fence->full_lock);
- 	kref_init(&fence->refcount);
- 	/*
- 	 * While it is counter intuitive to protect a constant function pointer
-@@ -1144,6 +1165,16 @@ dma_fence_init64(struct dma_fence *fence, const struct dma_fence_ops *ops,
- }
- EXPORT_SYMBOL(dma_fence_init64);
- 
-+void dma_fence_driver_name_locked(struct dma_fence *fence, char *buff, unsigned short len)
-+{
-+	if (dma_fence_test_signaled_flag(fence)) {
-+		strscpy(buff, "detached-driver", len);
-+	} else {
-+		strscpy(buff, fence->ops->get_driver_name(fence), len);
-+	}
-+}
-+
-+
- /**
-  * dma_fence_driver_name - Access the driver name
-  * @fence: the fence to query
-@@ -1164,19 +1195,30 @@ EXPORT_SYMBOL(dma_fence_init64);
-  * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-  * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence)
-+void dma_fence_driver_name(struct dma_fence *fence, char *buff, unsigned short len)
- {
--	const struct dma_fence_ops *ops;
-+	unsigned long flags;
- 
--	/* RCU protection is required for safe access to returned string */
--	ops = rcu_dereference(fence->ops);
--	if (ops)
--		return (const char __rcu *)ops->get_driver_name(fence);
--	else
--		return (const char __rcu *)"detached-driver";
-+	if (len == 0)
-+		return;
-+
-+	dma_fence_lock_full(fence, &flags);
-+	dma_fence_driver_name_locked(fence, buff, len);
-+	dma_fence_unlock_full(fence, &flags);
- }
- EXPORT_SYMBOL(dma_fence_driver_name);
- 
-+void dma_fence_timeline_name_locked(struct dma_fence *fence, char *buff, unsigned short len)
-+{
-+	if (dma_fence_test_signaled_flag(fence)) {
-+		strscpy(buff, "detached-drivers-timeline", len);
-+	} else {
-+		strscpy(buff, fence->ops->get_timeline_name(fence), len);
-+	}
-+}
-+
-+
-+
- /**
-  * dma_fence_timeline_name - Access the timeline name
-  * @fence: the fence to query
-@@ -1197,15 +1239,15 @@ EXPORT_SYMBOL(dma_fence_driver_name);
-  * The pointer MUST be both queried and USED ONLY WITHIN a SINGLE block guarded
-  * by the &rcu_read_lock and &rcu_read_unlock pair.
-  */
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence)
-+void dma_fence_timeline_name(struct dma_fence *fence, char *buff, unsigned short len)
- {
--	const struct dma_fence_ops *ops;
-+	unsigned long flags;
- 
--	/* RCU protection is required for safe access to returned string */
--	ops = rcu_dereference(fence->ops);
--	if (ops)
--		return (const char __rcu *)ops->get_timeline_name(fence);
--	else
--		return (const char __rcu *)"signaled-timeline";
-+	if (len == 0)
-+		return;
-+
-+	dma_fence_lock_full(fence, &flags);
-+	dma_fence_timeline_name_locked(fence, buff, len);
-+	dma_fence_unlock_full(fence, &flags);
- }
- EXPORT_SYMBOL(dma_fence_timeline_name);
-diff --git a/drivers/dma-buf/sync_file.c b/drivers/dma-buf/sync_file.c
-index 2166bbdf7e4a..9d791e00f4d9 100644
---- a/drivers/dma-buf/sync_file.c
-+++ b/drivers/dma-buf/sync_file.c
-@@ -131,22 +131,21 @@ EXPORT_SYMBOL(sync_file_get_fence);
-  */
- char *sync_file_get_name(struct sync_file *sync_file, char *buf, int len)
- {
-+	char driver[64] = "";
-+	char timeline[64] = "";
-+
- 	if (sync_file->user_name[0]) {
- 		strscpy(buf, sync_file->user_name, len);
- 	} else {
- 		struct dma_fence *fence = sync_file->fence;
--		const char __rcu *timeline;
--		const char __rcu *driver;
- 
--		rcu_read_lock();
--		driver = dma_fence_driver_name(fence);
--		timeline = dma_fence_timeline_name(fence);
-+		dma_fence_driver_name(fence, driver, 64);
-+		dma_fence_timeline_name(fence, timeline, 64);
- 		snprintf(buf, len, "%s-%s%llu-%lld",
--			 rcu_dereference(driver),
--			 rcu_dereference(timeline),
-+			 driver,
-+			 timeline,
- 			 fence->context,
- 			 fence->seqno);
--		rcu_read_unlock();
- 	}
- 
- 	return buf;
-@@ -268,17 +267,15 @@ static long sync_file_ioctl_merge(struct sync_file *sync_file,
- static int sync_fill_fence_info(struct dma_fence *fence,
- 				 struct sync_fence_info *info)
- {
--	const char __rcu *timeline;
--	const char __rcu *driver;
-+	char timeline[64];
-+	char driver[64];
- 
--	rcu_read_lock();
-+	dma_fence_driver_name(fence, driver, 64);
-+	dma_fence_timeline_name(fence, timeline, 64);
- 
--	driver = dma_fence_driver_name(fence);
--	timeline = dma_fence_timeline_name(fence);
--
--	strscpy(info->obj_name, rcu_dereference(timeline),
-+	strscpy(info->obj_name, timeline,
- 		sizeof(info->obj_name));
--	strscpy(info->driver_name, rcu_dereference(driver),
-+	strscpy(info->driver_name, driver,
- 		sizeof(info->driver_name));
- 
- 	info->status = dma_fence_get_status(fence);
-@@ -287,8 +284,6 @@ static int sync_fill_fence_info(struct dma_fence *fence,
- 			ktime_to_ns(dma_fence_timestamp(fence)) :
- 			ktime_set(0, 0);
- 
--	rcu_read_unlock();
--
- 	return info->status;
- }
- 
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 158cd609f103..f22bc8783340 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -30,9 +30,9 @@ struct seq_file;
- 
- /**
-  * struct dma_fence - software synchronization primitive
-+ * @full_lock: INTERNAL lock which must never be taken manually by API users!
-  * @refcount: refcount for this fence
-  * @ops: dma_fence_ops associated with this fence
-- * @rcu: used for releasing fence with kfree_rcu
-  * @cb_list: list of all callbacks to call
-  * @extern_lock: external spin_lock_irqsave used for locking (deprecated)
-  * @inline_lock: alternative internal spin_lock_irqsave used for locking
-@@ -68,11 +68,12 @@ struct seq_file;
-  * been completed, or never called at all.
-  */
- struct dma_fence {
-+	spinlock_t full_lock;
- 	union {
- 		spinlock_t *extern_lock;
- 		spinlock_t inline_lock;
- 	};
--	const struct dma_fence_ops __rcu *ops;
-+	const struct dma_fence_ops *ops;
- 	/*
- 	 * We clear the callback list on kref_put so that by the time we
- 	 * release the fence it is unused. No one should be adding to the
-@@ -93,8 +94,6 @@ struct dma_fence {
- 		struct list_head cb_list;
- 		/* @cb_list replaced by @timestamp on dma_fence_signal() */
- 		ktime_t timestamp;
--		/* @timestamp replaced by @rcu on dma_fence_release() */
--		struct rcu_head rcu;
- 	};
- 	u64 context;
- 	u64 seqno;
-@@ -415,6 +414,16 @@ static inline spinlock_t *dma_fence_spinlock(struct dma_fence *fence)
- #define dma_fence_unlock_irqrestore(fence, flags)	\
- 	spin_unlock_irqrestore(dma_fence_spinlock(fence), flags)
- 
-+static void dma_fence_lock_full(struct dma_fence *fence, unsigned long *flags)
-+{
-+	spin_lock_irqsave(&fence->full_lock, *flags);
-+}
-+
-+static void dma_fence_unlock_full(struct dma_fence *fence, unsigned long *flags)
-+{
-+	spin_unlock_irqrestore(&fence->full_lock, *flags);
-+}
-+
- /**
-  * dma_fence_assert_held - lockdep assertion that fence is locked
-  * @fence: the fence which should be locked
-@@ -439,8 +448,9 @@ void dma_fence_signal(struct dma_fence *fence);
- bool dma_fence_check_and_signal(struct dma_fence *fence);
- bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
- void dma_fence_signal_locked(struct dma_fence *fence);
-+void dma_fence_signal_locked_full(struct dma_fence *fence);
- void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
--void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
-+void dma_fence_signal_timestamp_locked_full(struct dma_fence *fence, ktime_t timestamp);
- signed long dma_fence_default_wait(struct dma_fence *fence,
- 				   bool intr, signed long timeout);
- int dma_fence_add_callback(struct dma_fence *fence,
-@@ -470,8 +480,9 @@ void dma_fence_enable_signaling(struct dma_fence *fence);
-  * between signalling the fence and freeing the said data.
-  *
-  */
--const char __rcu *dma_fence_driver_name(struct dma_fence *fence);
--const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
-+void dma_fence_driver_name(struct dma_fence *fence, char *buff, unsigned short len);
-+void dma_fence_timeline_name(struct dma_fence *fence, char *buff, unsigned short len);
-+;
- 
- /*
-  * dma_fence_test_signaled_flag - Only check whether a fence is signaled yet.
-@@ -510,19 +521,36 @@ dma_fence_test_signaled_flag(struct dma_fence *fence)
- static inline bool
- dma_fence_is_signaled_locked(struct dma_fence *fence)
- {
--	const struct dma_fence_ops *ops;
-+	unsigned long flags;
-+	bool ret = false;
- 
-+	dma_fence_lock_full(fence, &flags);
-+
-+	if (dma_fence_test_signaled_flag(fence)) {
-+		ret = true;
-+		goto out;
-+	}
-+
-+	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-+		dma_fence_signal_locked(fence);
-+		ret = true;
-+	}
-+
-+out:
-+	dma_fence_unlock_full(fence, &flags);
-+	return ret;
-+}
-+
-+static inline bool
-+dma_fence_is_signaled_locked_full(struct dma_fence *fence)
-+{
- 	if (dma_fence_test_signaled_flag(fence))
- 		return true;
- 
--	rcu_read_lock();
--	ops = rcu_dereference(fence->ops);
--	if (ops && ops->signaled && ops->signaled(fence)) {
--		rcu_read_unlock();
--		dma_fence_signal_locked(fence);
-+	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-+		dma_fence_signal_locked_full(fence);
- 		return true;
- 	}
--	rcu_read_unlock();
- 
- 	return false;
- }
-@@ -546,21 +574,24 @@ dma_fence_is_signaled_locked(struct dma_fence *fence)
- static inline bool
- dma_fence_is_signaled(struct dma_fence *fence)
- {
--	const struct dma_fence_ops *ops;
-+	unsigned long flags;
-+	bool ret = false;
- 
--	if (dma_fence_test_signaled_flag(fence))
--		return true;
-+	dma_fence_lock_full(fence, &flags);
- 
--	rcu_read_lock();
--	ops = rcu_dereference(fence->ops);
--	if (ops && ops->signaled && ops->signaled(fence)) {
--		rcu_read_unlock();
--		dma_fence_signal(fence);
--		return true;
-+	if (dma_fence_test_signaled_flag(fence)) {
-+		ret = true;
-+		goto out;
- 	}
--	rcu_read_unlock();
- 
--	return false;
-+	if (fence->ops->signaled && fence->ops->signaled(fence)) {
-+		dma_fence_signal(fence);
-+		ret = true;
-+	}
-+
-+out:
-+	dma_fence_unlock_full(fence, &flags);
-+	return ret;
- }
- 
- /**
-@@ -656,14 +687,27 @@ static inline struct dma_fence *dma_fence_later(struct dma_fence *f1,
-  * been signaled without an error condition, or a negative error code
-  * if the fence has been completed in err.
-  */
--static inline int dma_fence_get_status_locked(struct dma_fence *fence)
-+static inline int dma_fence_get_status_locked_full(struct dma_fence *fence)
- {
--	if (dma_fence_is_signaled_locked(fence))
-+	if (dma_fence_is_signaled_locked_full(fence))
- 		return fence->error ?: 1;
- 	else
- 		return 0;
- }
- 
-+static inline int dma_fence_get_status_locked(struct dma_fence *fence)
-+{
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	dma_fence_lock_full(fence, &flags);
-+	if (dma_fence_is_signaled_locked_full(fence))
-+		ret = fence->error ?: 1;
-+	dma_fence_unlock_full(fence, &flags);
-+
-+	return ret;
-+}
-+
- int dma_fence_get_status(struct dma_fence *fence);
- 
- /**
-@@ -763,7 +807,7 @@ extern const struct dma_fence_ops dma_fence_chain_ops;
-  */
- static inline bool dma_fence_is_array(struct dma_fence *fence)
- {
--	return rcu_access_pointer(fence->ops) == &dma_fence_array_ops;
-+	return fence->ops == &dma_fence_array_ops;
- }
- 
- /**
-@@ -774,7 +818,7 @@ static inline bool dma_fence_is_array(struct dma_fence *fence)
-  */
- static inline bool dma_fence_is_chain(struct dma_fence *fence)
- {
--	return rcu_access_pointer(fence->ops) == &dma_fence_chain_ops;
-+	return fence->ops == &dma_fence_chain_ops;
- }
- 
- /**
+> ---
+>  fs/fs-writeback.c         | 57 ++++++++++++++++++++++++++++++---------
+>  include/linux/writeback.h |  1 +
+>  2 files changed, 45 insertions(+), 13 deletions(-)
+> 
+> diff --git a/fs/fs-writeback.c b/fs/fs-writeback.c
+> index 7c2340a5dead..6c5d1c85b6f8 100644
+> --- a/fs/fs-writeback.c
+> +++ b/fs/fs-writeback.c
+> @@ -40,6 +40,7 @@ struct wb_writeback_work {
+>  	struct super_block *sb;
+>  	enum writeback_sync_modes sync_mode;
+>  	unsigned int tagged_writepages:1;
+> +	unsigned int for_foreign_flush:1;
+>  	unsigned int for_kupdate:1;
+>  	unsigned int range_cyclic:1;
+>  	unsigned int for_background:1;
+> @@ -1174,6 +1175,12 @@ int cgroup_writeback_by_id(u64 bdi_id, int memcg_id,
+>  	if (work) {
+>  		work->nr_pages = dirty;
+>  		work->sync_mode = WB_SYNC_NONE;
+> +		/*
+> +		 * Foreign flushes should write a snapshot of dirty pages without
+> +		 * chasing concurrent dirtiers, but still honor the finite target
+> +		 * wb budget calculated above.
+> +		 */
+> +		work->for_foreign_flush = 1;
+>  		work->range_cyclic = 1;
+>  		work->reason = reason;
+>  		work->done = done;
+> @@ -1553,18 +1560,21 @@ static int move_expired_inodes(struct list_head *delaying_queue,
+>   *                                           +--> dequeue for IO
+>   */
+>  static void queue_io(struct bdi_writeback *wb, struct wb_writeback_work *work,
+> -		     unsigned long dirtied_before)
+> +		     unsigned long dirtied_before, bool queue_dirty)
+>  {
+> -	int moved;
+> +	int moved = 0;
+>  	unsigned long time_expire_jif = dirtied_before;
+>  
+>  	assert_spin_locked(&wb->list_lock);
+>  	list_splice_init(&wb->b_more_io, &wb->b_io);
+> -	moved = move_expired_inodes(&wb->b_dirty, &wb->b_io, dirtied_before);
+> -	if (!work->for_sync)
+> -		time_expire_jif = jiffies - dirtytime_expire_interval * HZ;
+> -	moved += move_expired_inodes(&wb->b_dirty_time, &wb->b_io,
+> -				     time_expire_jif);
+> +	if (queue_dirty) {
+> +		moved = move_expired_inodes(&wb->b_dirty, &wb->b_io,
+> +					    dirtied_before);
+> +		if (!work->for_sync)
+> +			time_expire_jif = jiffies - dirtytime_expire_interval * HZ;
+> +		moved += move_expired_inodes(&wb->b_dirty_time, &wb->b_io,
+> +					     time_expire_jif);
+> +	}
+>  	if (moved)
+>  		wb_io_lists_populated(wb);
+>  	trace_writeback_queue_io(wb, work, dirtied_before, moved);
+> @@ -1651,11 +1661,13 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
+>  
+>  	/*
+>  	 * Sync livelock prevention. Each inode is tagged and synced in one
+> -	 * shot. If still dirty, it will be redirty_tail()'ed below.  Update
+> -	 * the dirty time to prevent enqueue and sync it again.
+> +	 * shot for WB_SYNC_ALL or unbudgeted tagged writeback. If still dirty,
+> +	 * it will be redirty_tail()'ed below. Update the dirty time to prevent
+> +	 * enqueue and sync it again.
+>  	 */
+>  	if ((inode_state_read(inode) & I_DIRTY) &&
+> -	    (wbc->sync_mode == WB_SYNC_ALL || wbc->tagged_writepages))
+> +	    (wbc->sync_mode == WB_SYNC_ALL ||
+> +	     (wbc->tagged_writepages && !wbc->for_foreign_flush)))
+>  		inode->dirtied_when = jiffies;
+>  
+>  	if (wbc->pages_skipped) {
+> @@ -1678,6 +1690,7 @@ static void requeue_inode(struct inode *inode, struct bdi_writeback *wb,
+>  		 * sometimes bales out without doing anything.
+>  		 */
+>  		if (wbc->nr_to_write <= 0 &&
+> +		    !wbc->for_foreign_flush &&
+>  		    !inode_dirtied_after(inode, dirtied_before)) {
+>  			/* Slice used up. Queue for next turn. */
+>  			requeue_io(inode, wb);
+> @@ -1918,6 +1931,8 @@ static long writeback_chunk_size(struct super_block *sb,
+>  	 *                   (quickly) tag currently dirty pages
+>  	 *                   (maybe slowly) sync all tagged pages
+>  	 */
+> +	if (work->for_foreign_flush)
+> +		return work->nr_pages;
+>  	if (work->sync_mode == WB_SYNC_ALL || work->tagged_writepages)
+>  		return LONG_MAX;
+>  
+> @@ -1943,7 +1958,9 @@ static long writeback_sb_inodes(struct super_block *sb,
+>  {
+>  	struct writeback_control wbc = {
+>  		.sync_mode		= work->sync_mode,
+> -		.tagged_writepages	= work->tagged_writepages,
+> +		.tagged_writepages	= work->tagged_writepages ||
+> +					  work->for_foreign_flush,
+> +		.for_foreign_flush	= work->for_foreign_flush,
+>  		.for_kupdate		= work->for_kupdate,
+>  		.for_background		= work->for_background,
+>  		.for_sync		= work->for_sync,
+> @@ -2141,7 +2158,7 @@ static long writeback_inodes_wb(struct bdi_writeback *wb, long nr_pages,
+>  	blk_start_plug(&plug);
+>  	spin_lock(&wb->list_lock);
+>  	if (list_empty(&wb->b_io))
+> -		queue_io(wb, &work, jiffies);
+> +		queue_io(wb, &work, jiffies, true);
+>  	__writeback_inodes_wb(wb, &work);
+>  	spin_unlock(&wb->list_lock);
+>  	blk_finish_plug(&plug);
+> @@ -2202,6 +2219,13 @@ static long wb_writeback(struct bdi_writeback *wb,
+>  
+>  		spin_lock(&wb->list_lock);
+>  
+> +		if (queued && work->for_foreign_flush &&
+> +		    list_empty(&wb->b_io) &&
+> +		    list_empty(&wb->b_more_io)) {
+> +			spin_unlock(&wb->list_lock);
+> +			break;
+> +		}
+> +
+>  		trace_writeback_start(wb, work);
+>  		if (list_empty(&wb->b_io)) {
+>  			/*
+> @@ -2217,7 +2241,14 @@ static long wb_writeback(struct bdi_writeback *wb,
+>  			} else if (work->for_background)
+>  				dirtied_before = jiffies;
+>  
+> -			queue_io(wb, work, dirtied_before);
+> +			/*
+> +			 * After the initial queue_io() pass, a foreign flush may
+> +			 * still have I_SYNC-skipped inodes on b_more_io.  Move
+> +			 * those back to b_io without selecting another batch from
+> +			 * b_dirty.
+> +			 */
+> +			queue_io(wb, work, dirtied_before,
+> +				 !work->for_foreign_flush || !queued);
+>  			queued = true;
+>  		}
+>  		if (work->sb)
+> diff --git a/include/linux/writeback.h b/include/linux/writeback.h
+> index e530112c4b3a..096f0963d104 100644
+> --- a/include/linux/writeback.h
+> +++ b/include/linux/writeback.h
+> @@ -59,6 +59,7 @@ struct writeback_control {
+>  	unsigned for_kupdate:1;		/* A kupdate writeback */
+>  	unsigned for_background:1;	/* A background writeback */
+>  	unsigned tagged_writepages:1;	/* tag-and-write to avoid livelock */
+> +	unsigned for_foreign_flush:1;	/* foreign dirty flushing */
+>  	unsigned range_cyclic:1;	/* range_start is cyclic */
+>  	unsigned for_sync:1;		/* sync(2) WB_SYNC_ALL writeback */
+>  	unsigned unpinned_netfs_wb:1;	/* Cleared I_PINNING_NETFS_WB */
+> -- 
+> 2.20.1
 -- 
-2.55.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
