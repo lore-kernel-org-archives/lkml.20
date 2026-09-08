@@ -1,68 +1,69 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E5853446F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFABF534449
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869481; cv=none; b=g6TWzuX+l4ANuTKPrnVtO9xs6iB7grsWyPWtitd9HgeQzIOeGAN6mQ0iIrdHJICA7q+IDjpDVAp4nSs2sYJchodP0bGORA6Za/J3fl9QipJstPHLFECdEmtMeu1shSt7cwSS+LnnU1PdkqFp51o2Z7ghLGakwFKPnKJm5Fry3kk=
+	t=1788869486; cv=none; b=Z9kN5U1vn6eyO78A6hdRY112Il4e1+OjXxT/Ai+nqE67ZsT/MhjJhClrQIw+1AfQtw+wLbKx0XTx3ic4khrVwi4ByzQqSl7iuA332OLC08pH1rwotHwYSnG0NmZptMn624juPLZa7FIVmXp74sesBZRY7yBsQJs//uF1EYX6mI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869481; c=relaxed/simple;
-	bh=3hq1hCpYfFruAk9NwdwkNOcTA0yG+rhjKun45Ep62e4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=YkYMCxmXjAh5zaJpiLzv/RBMSSdzUH6knVBCCQFWzub+JpGdsHUFuweJOl+7DSI4zI8AxAcilmbRUxM9wQMNzWFh6sy1tvnt03dQxIMyu7xu53v016v12C0lQAIBahNWkpTaVPjN9uED7To/GALbBOeJRi9bfOeL+rpspp3a1H8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ugunq0fR; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788869486; c=relaxed/simple;
+	bh=mlMBJVkGekTwfc/d7j0y6RTfUgXm9izZZ7ZBU2yIX3o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GHZVCaLMkXDR6hjb/7QyKUW8ZCmHNGUl+mjcvqSM7e59RYtAH/JwR7rL1nqu+YUG13ZTiX8JLu9o+KPlKs1bEbsEOVeYAa0aES1N/LmoO3osl9iLASgGMGGQXTmdmEWUuP2t87nEEy5CpyRGpIBNP+NFzU3zzNz1Xd+rd9wxTas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BxQYXoal; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ugunq0fR"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49954b88fffso33679355e9.0
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BxQYXoal"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2637dd37c1so344042566b.0
         for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:11:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788869464; x=1789474264; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DbFI851Wc6QNNKR3nQbUG1a0fTB8uT4edMUZygEozxY=;
-        b=ugunq0fRufaLNO+bUusVzPYDVeZylkTeB3/IIDWgzoqRCNr0ewzcPZYSFU8HgmRRbF
-         KWAC/WGQlXplUoFUQc0/OjYkyaTq355D1DPdwklrWq6WLGBPFuY0Mj2Lj6BjOdPnpzMs
-         jcWR+XQRKI7HfUtyN5APa089jQ/1C0lqOo7CsXStiJ5iv7achFkXJ3N3iplYezrlCuhl
-         DhLHsPG01pocwGAiotSg+F5yUqN6MJ0cKq3D92d1NPm+cE0+kqkMIb2+CMXAY/oD2auI
-         QO4P8mkEmy7pPjN/jo/IPVX9/LTIvxAItpf9fGAlR4dBZdjosYv/chTvfEk9reYtESMW
-         FpEQ==
+        d=suse.com; s=google; t=1788869462; x=1789474262; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HTfnI3dp+d0/TG/Khs2JVLg9UCJ0wepa2hj2cOspexQ=;
+        b=BxQYXoalHux0OFHMoBQ5da/zUkwbG0Ra+1UXUBuTSHF8N0lX0KO6LgNnA/kn4u3NWo
+         Um7WGzk0EA+QCxKd2kERU/JOr8+PaPOZ/wK9Fx7UVz4gjPbhatupwZ23kS8RT1iGx4ke
+         FxosajLyOeeQof3KuWE7jFVU6LbLgOjcQ/HviJRvdNT6UJSXfMdDkO2xIrstb2Da4aD0
+         ZP9SVmTBTYdND0bRzhmrcs2pdkO+tW9cNzcOoG1VVoVZr1WeL7XA3hwyrBrHLPqSqhpx
+         q7nSuXGHSjclb8AtvlvPljiLMRa767m6QLp+mtPT/0mNVrXR+k8y3/AIQUo3AGqaVfWb
+         0WBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788869464; x=1789474264;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DbFI851Wc6QNNKR3nQbUG1a0fTB8uT4edMUZygEozxY=;
-        b=sSduUsYADXD0xvAx9xaEZSYuOjksOQtX3jT53m5u5X1YytahbAm+5OTcWF9SnqlXl1
-         pijXLQRbzk9KQawxMkd+yAHU92UwJXJAdGmFXqN444EgtvpTHadYrZcMA9eVvTxQLufF
-         dt8jjW5jK5PUuGVs9jePo/mYFOseQiSdb80BSY/vU9pRW9jRiHYc8BI6/eolNqu1prTy
-         qSbn/eDuUnFVwHR/p+PW2LlYTEpfcx7MZ2lFo7pSy0BQn4sW//lvW/CI1YWx486yqVi3
-         d40A5azWAHG1FgCMsNuL8QwXPbiRZBkI35rDVghxL0dOuNIlSa0BxIlEkTxlclglEA+0
-         EtEw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVUECGa3Rh02d6I9tPELoAZJh0ePOSs30UC7jaIxky3LMi6mTgyXk/NO12lhW/oqCtXlRh61tHGwkc9IE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJoxD+FJ8C9eOksV1NABd79u8Et/mcTp2lqaXwH6gFTDewp6pd
-	H5680cYcOig7KNZJ51SoTZhLH093dDwiN4EdaD7111ErzKx443Q00/QJSgTroIZmz8s=
-X-Gm-Gg: AYBFou0eMUYMH45ePcPf3cgzkHnIWXIqFIcY8OkQAUceFtYooHmpuiBfzNy4bic/XB8
-	Ge1iaoapv0hOuvZfxTEN78y/RvY2Pas8zPQA8JPM2SnQOyZL1QU8JVvsOZrK6Sq4QLK2J+aacIT
-	Qtg6osWE3d7rJxg2g5XZN6foz1z64uIAtLIq10FBVvxZaCzOW0b0lh7y987JAmgL2DlfKD/Jd+H
-	XtP3KHsCU3SWY/9YHqrS22OIZUpKfp9Evb6wXwr3c89KDkipwzZbuVd5uTd0Qdnr0TROKqQwblF
-	iyYilaIqJL7VQtxqnIFZG31V3pdW2BKOTeXukvdWGOr6BT1qKbd64tjXilWg8WSjy0EMYKWzLgi
-	kDsLdCnwgwFl3tCULevcdhwhRCGVgmrr1rqe8C+5Mx7mjt+Th+wUT1A+pv1mL901OlGQMEe2Wbz
-	35x40fXAhYS6wSB/Tah01vAn/gPp6lwJHE1RY6m0pPhGqa/svekrqvI1a7Oe6iKB5mn8hmw2wAv
-	vsx+hZ8vdTP3Ovwa4A2p/9pPAsRoILd0viixSp1SuuF
-X-Received: by 2002:a05:600c:46d5:b0:49c:fc6c:be06 with SMTP id 5b1f17b1804b1-49cfc6cc142mr239764675e9.29.1788869464167;
-        Tue, 08 Sep 2026 05:11:04 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ea45:883b:8b89:b4e5? ([2a01:e0a:106d:1080:ea45:883b:8b89:b4e5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm553052685e9.13.2026.09.08.05.11.03
+        d=1e100.net; s=20251104; t=1788869462; x=1789474262;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HTfnI3dp+d0/TG/Khs2JVLg9UCJ0wepa2hj2cOspexQ=;
+        b=ok5QCgXSwHBIWPfQvlnKyoz7ZJVtKPRGmOwb1W4NoIDxi/B/iIcAb3ehMw7Mp4IL//
+         ilF1VBYIJoLwsrUFO2PeBM0LENXI+pAdDDrFyoVHTfX8Z1Vq9FxfoxC5IWhWW7bGd6Ha
+         lFYJyq4nnX/a9DiM6qoXCDQhO6gLi7GM8XBNh3zyHueHJMf4QS+d/8/ER2BKfiMR2C6S
+         C+iUH9OIu4x6CypOU//tSGshxIJMPUdDRFds/cjNXAjrUsW71bCMy/IrrPu/AQwMk5HO
+         kHE0OgjYuhXH9Gzp0DNfwhQRMh8A1r5zkFhI4DNYIQriGy3ICdCU9rE3H6A1tSAGy6aG
+         GfQA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHs1VXdWajmtxlpUZ2uL6hnPDCCCZHIvJNxT4L74qRwkQNBFaOYKbkUFsHe1JS/XWH7s4KwNtgDiTNYX0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l8YVPsD7yQzu98opUCuBBAMoOBqHPb5HEP2u16QTHbRTO81FQQ
+	MUHNAvc+oHH0Rxq4K7DjCFvgt/V4wYPyhUc/vxpTwMWWcqN5Ac1x85jCiJxDJ5iX2F8=
+X-Gm-Gg: AYBFou1uuz/pa4p6xLdOt3x1Pn8aPsGHiaCr2rQbI1QvQClvcEhNFUnJ8NmsV52nIsT
+	0gDPczs0PApoxEILMceFxBW3P6Ajw/d1q1tTubC3TAZmncqLCNaBOJqLoT9LzWgikzaVhhMHp3D
+	5bVFU+FwKVViZQfnhscZQijtMl32jIzL784joemVnDbaBr8928P1g0zL1Sosp3jh5AjczqXPM/l
+	v+1/q4QobQcqXQMrTtHfmQJSavKfS2V8H246FdnHWhJhggzpRXg4rApi6FZT/gGH6PI3Wqaxma1
+	oFmF1uHHjK0bxxWWBTia3zAkin/DQxrEDvDEQgD59UIFZaNgk/93eXXiD3o/teiQYUhL2bFiaL+
+	PxMpsqmQ9gpC+LRr9Hqm0SeDVmn9VzVpoDWa5unwxkUMXiuUTy8rbRRZWqJwRhiKpi+da7CZphK
+	uSsBaykyEkDbkiqXRD5UK1I/qwJc2JGPZfrZkWByL7tKbbOpwEyhtfqfZNt09Y4TZXEgzULtVJH
+	5AMM1K0B6eSvbgAv8c1TIbpioHHVQVg3JKHmrIAwcU7dvFA8OH5jcigVW0VxjPGnWxDaokHMIXW
+	tHWshkcBjoQRYkDFMUzN2fiKyAGa0w==
+X-Received: by 2002:a17:907:e013:20b0:c28:ebc7:9e67 with SMTP id a640c23a62f3a-c28ebc79ed4mr328134766b.45.1788869461543;
+        Tue, 08 Sep 2026 05:11:01 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100? (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz. [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036674sm619593866b.8.2026.09.08.05.11.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 05:11:03 -0700 (PDT)
-Message-ID: <4688bc5c-edc0-4f1c-8534-286364f03c78@linaro.org>
-Date: Tue, 8 Sep 2026 14:11:02 +0200
+        Tue, 08 Sep 2026 05:11:01 -0700 (PDT)
+Message-ID: <90d4523b-70e7-44a2-9c8b-107f1087c18a@suse.com>
+Date: Tue, 8 Sep 2026 14:10:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,91 +71,225 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/3] drm/panel: ebbg-ft8719: Set prepare_prev_first
-To: david@ixit.cz, Joel Selvaraj <jo@jsfamily.in>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>,
- Linus Walleij <linusw@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, Casey Connolly <casey.connolly@linaro.org>,
- stable@vger.kernel.org
-References: <20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz>
- <20260906-ebbg-ft8719-fixups-v1-1-4e846510cad1@ixit.cz>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260906-ebbg-ft8719-fixups-v1-1-4e846510cad1@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC] module: init-failure path can free a module with live
+ try_module_get() users
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ linux-modules@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-s390@vger.kernel.org,
+ "D. Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>,
+ Sidraya Jayagond <sidraya@linux.ibm.com>, Tony Lu
+ <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+ Alexandra Winter <wintera@linux.ibm.com>, Halil Pasic <pasic@linux.ibm.com>,
+ Hidayath Khan <hidayath@linux.ibm.com>
+References: <5dc1fe2b-289e-4786-b9e9-e181dda8d4e9@linux.ibm.com>
+ <8b6506a1-5bfc-4f9b-92fa-234c89afe9ad@suse.com>
+ <37021811-78ac-4bdd-ab59-62fb089850f3@linux.ibm.com>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <37021811-78ac-4bdd-ab59-62fb089850f3@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 9/6/26 15:19, David Heidelberg via B4 Relay wrote:
-> From: Casey Connolly <casey.connolly@linaro.org>
+On 8/31/26 12:00 PM, Mahanta Jambigi wrote:
+> On 28/08/26 5:33 pm, Petr Pavlu wrote:
+>> On 8/24/26 8:13 AM, Mahanta Jambigi wrote:
+>>> Hi Luis, Petr, Daniel, Sami, Aaron,
+>>>
+>>> I'm writing to ask about what looks like a generic module-init failure
+>>> lifetime problem in the module loader. I ran into it while working on
+>>> the SMC networking module (net/smc/), but after several patch
+>>> iterations, it seems the root issue may belong in kernel/module/main.c
+>>> rather than in SMC itself. I'd appreciate your guidance on whether this
+>>> reading is correct, and if so, what fix direction would be preferred.
+>>>
+>>> THE ISSUE IN do_init_module()
+>>> =============================
+>>>
+>>> include/linux/module.h has a long-standing FIXME in module_is_live():
+>>>
+>>>     /* FIXME: It'd be nice to isolate modules during init, too, so they
+>>>        aren't used before they (may) fail. But presently too much code
+>>>        (IDE & SCSI) require entry into the module during init. */
+>>>     static inline bool module_is_live(struct module *mod)
+>>>     {
+>>>         return mod->state != MODULE_STATE_GOING;
+>>>     }
+>>>
+>>> Because MODULE_STATE_COMING is not MODULE_STATE_GOING, try_module_get()
+>>> can succeed once a module's __init is executing. If __init makes the
+>>> module externally reachable partway through and then later fails, the
+>>> failure path in do_init_module() appears to do:
+>>>
+>>>     fail:
+>>>         mod->state = MODULE_STATE_GOING;
+>>>         synchronize_rcu();
+>>>         module_put(mod);
+>>>         ...
+>>>         free_module(mod);
+>>>
+>>> synchronize_rcu() waits for RCU readers, but not for threads that
+>>> already obtained a module reference via try_module_get() and are still
+>>> executing module text.
+>>>
+>>> By contrast, the normal unload path in try_stop_module() refuses to
+>>> proceed while the refcount is non-zero.
+>>>
+>>> So the asymmetry seems to be that the normal unload path waits for
+>>> references to drain, while the init-failure path does not.
+>>>
+>>> A concrete race would look like:
+>>>
+>>>   1. Module __init registers an externally reachable interface.
+>>>   2. User space enters through that interface and try_module_get()
+>>>      succeeds while the module is still COMING.
+>>>   3. A later __init step fails.
+>>>   4. do_init_module() frees the module.
+>>>   5. The in-flight caller is still executing module text.
+>>>
+>>> SMC AS A CONCRETE EXAMPLE
+>>> =========================
+>>>
+>>> In SMC, simply moving registration later does not appear to eliminate
+>>> the window, because there are two separate registration points that can
+>>> make the module reachable via socket():
+>>>
+>>>   1. sock_register(&smc_sock_family_ops)
+>>>      After this, socket(AF_SMC, ...) can succeed and reach
+>>>      try_module_get() via __sock_create().
+>>>
+>>>   2. smc_inet_init() -> inet_register_protosw()
+>>>      After this, socket(AF_INET, SOCK_STREAM, IPPROTO_SMC) can succeed
+>>>      and again reach try_module_get().
+>>>
+>>> Either registration point can succeed before a later init step fails.
+>>>
+>>> This may not be specific to SMC; other protocol modules that become
+>>> reachable during init, such as Bluetooth, may have similar exposure and
+>>> appear worth auditing as well.
+>>>
+>>> ON THE FIXME'S IDE/SCSI CONCERN
+>>> ===============================
+>>>
+>>> The FIXME mentions IDE and SCSI as reasons not to isolate modules
+>>> during init.
+>>>
+>>>   1. IDE was removed in Linux 5.14, so that half of the concern no
+>>>      longer applies.
+>>>
+>>>   2. SCSI still appears to self-reference during init
+>>>      (scsi_device_get() -> try_module_get(hostt->module) during
+>>>      scsi_scan_host()), so a blanket wait-for-refcount-to-drain
+>>>      approach in the failure path may deadlock there.
+>>>
+>>> Also, strong_try_module_get() already rejects MODULE_STATE_COMING with
+>>> -EBUSY, so the infrastructure for refusing callers during init already
+>>> exists in some form.
+>>>
+>>> QUESTIONS
+>>> =========
+>>>
+>>> First, is my reading of this init-failure refcount/lifetime asymmetry
+>>> correct?
+>>
+>> Your analysis looks correct to me.
+>>
+>>>
+>>> If so, would one of the following directions be acceptable?
+>>>
+>>>   1. An opt-in mechanism (for example, a module flag) for modules that
+>>>      are safe to isolate during init and whose init-failure path should
+>>>      wait for external references to drain.
+>>
+>> In general, it is preferred if the module loader handles all modules in
+>> the same way.
+>>
+>> I would say that the module loader should wait for external references
+>> to drain after an init failure for all modules and that it should be the
+>> responsibility of individual modules to ensure that this wait eventually
+>> completes. Excluding some modules would mean that the module loader
+>> could still free them while they are in use by the kernel.
+>>
+>> Before such a wait, the module loader should cancel all idempotent
+>> module loads. This is especially important during boot when several
+>> udevd workers may be trying to insert the same module. In that case,
+>> a failed module init function should block only a single udevd task, so
+>> that the system can still boot properly.
+>>
+> Thank you for the clear direction. I agree with both points — uniform
+> handling for all modules, and unblocking concurrent loaders before the
+> drain wait. Below is the proposed change with the rationale for each
+> step. Proposed change to the fail: path in do_init_module().
 > 
-> This corrects the host initialisation sequence so that we can send
-> DSI/DCS commands in prepare().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: b00de0e237da ("drm/panel: introduce ebbg,ft8719 panel")
-> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->   drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> index fb9f9f42be4f2..1ab09c50a6306 100644
-> --- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> +++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
-> @@ -193,16 +193,18 @@ static int ebbg_ft8719_probe(struct mipi_dsi_device *dsi)
->   	ctx->dsi = dsi;
->   	mipi_dsi_set_drvdata(dsi, ctx);
->   
->   	dsi->lanes = 4;
->   	dsi->format = MIPI_DSI_FMT_RGB888;
->   	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
->   			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
->   
-> +	ctx->panel.prepare_prev_first = true;
-> +
->   	ret = drm_panel_of_backlight(&ctx->panel);
->   	if (ret)
->   		return dev_err_probe(dev, ret, "Failed to get backlight\n");
->   
->   	drm_panel_add(&ctx->panel);
->   
->   	ret = mipi_dsi_attach(dsi);
->   	if (ret < 0) {
-> 
+> fail_free_freeinit:
+> 	kfree(freeinit);
+> fail:
+> 	/*
+> 	 * Mark dying so try_module_get() fails for all new callers.
+> 	 * synchronize_rcu() ensures this is visible on all CPUs before
+> 	 * we proceed; no new references can be taken after this point.
+> 	 */
+> 	mod->state = MODULE_STATE_GOING;
+> 	synchronize_rcu();
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+The comment is somewhat misleading. The code invokes synchronize_rcu()
+to wait for any existing RCU readers to finish before proceeding, making
+sure that all new readers now observe the GOING state.
 
+> 
+> 	/* Drop the loader's own reference taken in module_unload_init(). */
+> 	module_put(mod);
+> 
+> 	/*
+> 	 * Unblock concurrent loaders before blocking on the drain below,
+> 	 * so that a failed init delays only this task, not every udevd
+> 	 * worker that raced to load the same module.
+> 	 *
+> 	 * Two dedup paths exist:
+> 	 *
+> 	 * - finit_module path: losers of the inode race sleep in
+> 	 *   idempotent_wait_for_completion(). They are unblocked by
+> 	 *   idempotent_complete() in idempotent_init_module(), which
+> 	 *   runs as do_init_module() returns — before we reach here.
+> 	 *   No action needed.
+
+This looks incorrect. Since this code is added in do_init_module(),
+idempotent_complete() has not yet been invoked.
+
+> 	 *
+> 	 * - init_module path: callers sleep in module_patient_check_exists()
+> 	 *   on module_wq waiting for finished_loading(), which returns
+> 	 *   true once state == MODULE_STATE_GOING. wake_up_all() kicks
+> 	 *   them loose immediately.
+> 	 */
+> 	*wake_up_all*(&module_wq);
+> 
+> 	/*
+> 	 * Drain async workers scheduled during __init (e.g. SCSI async
+> 	 * scan). MODULE_STATE_GOING is visible everywhere, so workers
+> 	 * that have not yet called try_module_get() will fail cleanly.
+> 	 * Workers already holding a reference complete and release it
+> 	 * naturally. Must run before free_module() regardless of
+> 	 * async_probe_requested.
+> 	 */
+> 	*async_synchronize_full*();
+> 
+> 	/*
+> 	 * Wait for references taken before MODULE_STATE_GOING became
+> 	 * visible. refcnt is monotonically decreasing from here; the
+> 	 * loop terminates provided the module's error path pairs every
+> 	 * __module_get() with a module_put(). The hung-task detector
+> 	 * catches violations.
+> 	 */
+> 	while (*module_refcount*(mod) != 0)
+> 		msleep(10);
+
+I think that instead of repeatedly polling the module refcount, it would
+be better for this code to sleep and for module_put() to wake it when
+the refcount drops to 0. This could be implemented using either the
+existing module_wq, a separate wait queue or a per-module completion.
+
+-- 
 Thanks,
-Neil
+Petr
