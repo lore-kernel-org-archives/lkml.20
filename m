@@ -1,188 +1,124 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1486B563FDB;
-	Tue,  8 Sep 2026 15:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F37956B854
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882789; cv=none; b=KB8/ndq8H9r8U8H4OxbxEwnVlwMWicxRi7KlPS4WMhz6Vd+yP9abKdE61NSaZCvcle+LiYpNJy9pJoIQPYNso36leKCnYkCHtH9ggGol4BUginJsl9fS0v0BrGYgu59+afamF0l4V/MZw9oBEU/zGglm9mTlwo104M2MzDGiXNI=
+	t=1788882798; cv=none; b=sSeGZVCicj5OyX5e6XVK9Bf6/60JjUdngPHbCbHo/a9TNks7TAeQGbfvxnqAH9lTQKJI27xfJ/5dVpMs4Iiqz/LzFKTiKQJKS6mXQwmTWxui+E4mQF+wnywP8nyVtCf3wTMPIDZrLmRypBYqfXdzZT+8K4FZmgPhN2YbEjbxrIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882789; c=relaxed/simple;
-	bh=FukBsNOUxII8H7puZtPe4XdMUNkWgygzzqqpbPg9BUU=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=UgqniZm9bLcfW8Ewv3K2QEUUZrQCNIQdfDuToyCFxWzKYRfUX00yIk8d4ofMeXRpJt4G3PKi27T8Go3yVa+cRh4lwg5kGY4J7dhRU0BYFMDrhq/qpSsC88J8UsRmozyA920OteYJjreOaZRGG5fdeZdmTrjqsXRqjQ9oEKWtSYY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=MwZW1Bna; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hMdKHMBp; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788882798; c=relaxed/simple;
+	bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I3MHiuGUhWuKM+PM2a2lOXOMDyaSp8KV43e/RQcPJEYA5r1aRs3lVvCUvL5Y4T88q5pnapO2Be0DVpuRJ9lgomxqKG4AtMguTOT5Jmnos2cIR/M8VG5rzt6s+XZRSRyzxhJzwN6yqfWedmF0BlkSp95/r/4U935vRa1jFU72as8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ifjNbn5W; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="MwZW1Bna";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hMdKHMBp"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788882766; bh=kJAyamF3aBcgQgrV0u6SKuK
-	UtNm2AMZgI2DLrfMy4rw=; b=MwZW1BnaAY0RxHC3OKVqTSeWFusFVpwmqRtDd0e3DDEMGARX7d
-	47BqhcqP15SZMqhYQn2E2PSEQM6IxPh+kwu0tN1zsQfv8dZinjRcy071DoZwHajEg7vuXGrqR8C
-	LTe5JVaPXI23h4LyrctUsBmj4eTGU/KIvXSL0UmlHoYfglF2UrwNux5YZv8XGFeQkXY1uHVVyd/
-	c5M8sS+6PBl904og4EKL5C3LTpL1pHZatekm0SuRnIcat4g2ca0P+TqxQ10Cv0Gv0VSEMVSPE+3
-	ywP3Ge7jRph0cou+Rb5RXwd0d4jM2dlbe9Vr/8aw/r6AVrzXx5zBE6COzlAqSf/nKdg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788882766; bh=kJAyamF3aBcgQgrV0u6SKuK
-	UtNm2AMZgI2DLrfMy4rw=; b=hMdKHMBpOHuH/tw8WAgPq7Bniozl2g/UT1tHhvttc48OTYjRCg
-	vbc4K4xhkF4tHiu2yJOc24snPgUB9bG9VsCg==;
-Date: Tue, 08 Sep 2026 16:52:45 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- "Paul E . McKenney" <paulmck@kernel.org>
-CC: linux-kernel@vger.kernel.org, kernel test robot <yi1.lai@intel.com>,
- Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev
-Subject: Re: [PATCH] hazptr: handle NULL address in hazptr_detach
-In-Reply-To: <7e574430-c77e-4ba9-aab0-cdaed40f788f@efficios.com>
-References: <20260908152228.4154-1-mathieu.desnoyers@efficios.com> <E8BCA0DB-FB79-4348-BB0D-229E8B550D91@mainlining.org> <7e574430-c77e-4ba9-aab0-cdaed40f788f@efficios.com>
-Message-ID: <0ED21EF9-F762-40D9-A54A-30F8B2DBCF31@mainlining.org>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ifjNbn5W"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so48189555e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:53:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788882794; x=1789487594; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
+        b=ifjNbn5W8oNZglsJKy9U9h1GN6fKrlziiakA/PftoOJqD0TytlC0GkA1oy0/3/goNS
+         IWl6J44WxuVhXOGhIFaUeW1ZP0CHlypTWEdTT1btCeEmsIzPFEExhWpDmzowiBpBhL+w
+         M6uoj0hUL61ywwxEEX1T5E8+VXD6Sdm1U4TO7PCZTlu4VHd11UXpR+eHANAFedx8Rkc+
+         Viot/xkn3xN25B5BDjNwjufh3W1pBUQQsi+dbD3mIDjAcjeaWUB1aWxJ9e95sE6kMDS8
+         do9zkBgWi4HcaSkC4ivsba1Y83dZS8FvzoXe9hodT0wXNe4zs04o8MmVw6S0k6yqt/MG
+         dO7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788882794; x=1789487594;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
+        b=GuTw/Ev6elAy+Dc86/e97s5RYBr9KLNEGhhULHbunbfQaAfHd5QkqDn56o4JC6AXlx
+         bij4Wu8u/3P5hDKNpX2BJXJ3LQzR/HcVzZ3+aBCwDeSW2yAPa9MjBsltSvgTb8gmgboL
+         v7dMilwnxWnIAyMU/EWny/Ymex9kASWtVxqiVq6XpTmCbdJOOIcRAnDQ3uK/ZKhVVQ1n
+         3BlqKkwtF+ngAKsmsubUwQWYkLCDMLCfQ/1UUqaZrfjpxANWeRR/5CcB2kOs9WMsdSs2
+         7PbwuGBQ8BpPjGyvhCZ17F6pT84naqGfe7LAfsiSl93exdYhzaDH0dllc85eKlFz7rMh
+         +0Sw==
+X-Forwarded-Encrypted: i=1; AKwUvBw50BVacEqJaTTiPePSTcYLSykaTyg3igD0ZK7Voe4bSXWxdZQaWt49Qy8hh1faGL6ePz5V1Nt2yoJurY4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo0rgUJxt0KvtRPt4qbXYl4n9GrJbpSTMi+w4G3HdU2H3Tl0+F
+	sjEeSbSL7Q4ei7L6hYjg/fL84ugYTnLhLhv1tPww0hydH5PLvxTVIxNq6LPnNrdo2mc=
+X-Gm-Gg: AYBFou0l3YGDME+WrHSz8RloQlA0LLj3k6ReUIEaX28jgswaFXDLvA4G7N8VWhtI1Oj
+	6Occqr+DRhCabZJ9B9VSrgN1qcc6vmMrkjLuDvvYfz9QiS8s7epz38dybFfWRrW26VwUkHzsNIH
+	KNPSP4Ai5vRPj+hWdL4UkzkcgX28d58cosxfS+wYd+JyAX5x0BzvLDWm7dEUdQ/9a56ocqH/D0+
+	a6KjVoz78RpxKGrUW9HxTakJQvdNomJX3QOfy55ykMG31xf05VtNByLapg4paTE69Rr50g9WS6D
+	S8o/KzxEH70gD5UGFyiLJVl4/mr023mRiBFUk+Et6fCuPVG2gGJHskHx08ZTcCjh8rLPr1vKfwZ
+	+aK3wCE7TfuFJ/yAcZI8Vmvef+GFB/pDNm5sKv4C8vNYm7R+OeoNBaydqrDpAgWdciAunfVtsEI
+	7vMzM2wl18FlYzxEYqNWUSJw5rHAhYcHtAzt4uM4zpD0IbsHMjSpKyNOZjg3fip5weqhUX9+zZX
+	LGWw8B92nzqF1A/GzaGTvBZImgqX7ZSLyBXiBG8CbD2+Ygj2kY=
+X-Received: by 2002:a05:600c:6098:b0:49c:fc6c:be05 with SMTP id 5b1f17b1804b1-49cfc6cbfdbmr310435145e9.28.1788882793168;
+        Tue, 08 Sep 2026 08:53:13 -0700 (PDT)
+Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cf7740d44sm881111065e9.15.2026.09.08.08.53.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 08:53:12 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:53:11 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Oleg Keri <okerixx@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org
+Subject: Re: [PATCH 2/2] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC
+ driver
+Message-ID: <aqAvALulXKtsQQnc@monoceros>
+References: <20260908091752.5508-1-okerixx@gmail.com>
+ <20260908091752.5508-3-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-On 8 September 2026 16:29:31 BST, Mathieu Desnoyers
-<mathieu.desnoyers@efficios.com> wrote:
->On 2026-09-08 11:24, Bradley Morgan wrote:
->> On 8 September 2026 16:22:14 BST, Mathieu Desnoyers
->> <mathieu.desnoyers@efficios.com> wrote:
->>> When hazptr_acquire loads a NULL pointer, it sets:
->>> 
->>> - slot_item->slot.addr = NULL,
->>> - slot_item->ctx.ctx = ctx
->>> - ctx->slot = slot
->>> 
->>> And it returns NULL.
->>> 
->>> Then hazptr_detach is called on this ctx, it will act on the ctx as if
->>> needed to be promoted to backup slot, even though it has a NULL addr.
->>> 
->>> Looking at what hazptr_note_context_switch() does before promoting
->>> to backup slot, it checks for a NULL slot->addr, which is exactly
->>> what is missing from hazptr_detach.
->>> 
->>> With this in place there would be no need to explicitly check the
->>> hazptr_acquire() return value before calling hazptr_detach().
->>> 
->>> hazptr_release() has a early return check for NULL addr as well, so it
->>> makes sense that detach does an early return (no-op) similarly.
->>> 
->> 
->> You shall kill me for this!!
->> 
->> Could you perhaps do a splat in ze commit description pls?
->
->The splat is available at the "Closes" URL below. I'm not sure whether
->we should duplicate this verbose information ?
->
->Paul ?
->
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="27nkzeturjw7lglz"
+Content-Disposition: inline
+In-Reply-To: <20260908091752.5508-3-okerixx@gmail.com>
 
 
-This is a example of what I did.
+--27nkzeturjw7lglz
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH 2/2] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC
+ driver
+MIME-Version: 1.0
 
-From 8861f6d5c0678a7c5089c7b272509fc5931b8437 Mon Sep 17 00:00:00 2001
-From: Bradley Morgan <brads@mainlining.org>
-Date: Thu, 27 Aug 2026 17:43:38 +0000
-Subject: ima: Check for ERR_PTR from dentry_path() in validate_hash_algo()
+On Tue, Sep 08, 2026 at 11:17:52AM +0200, Oleg Keri wrote:
+> +#include <linux/i2c.h>
+> [...]
+> +#include <linux/mod_devicetable.h>
 
-From: Bradley Morgan <brads@mainlining.org>
+Please don't include <linux/mod_devicetable.h>, this header should go
+away soon. To get a definition of of_device_id and i2c_device_id
+<linux/i2c.h> is enough. (Or if you want to go the full iwyu way,
+include <linux/device-id/of.h> and <linux/device-id/i2c.h>.)
 
-commit 8861f6d5c0678a7c5089c7b272509fc5931b8437 upstream.
+Best regards
+Uwe
 
-dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
-buffer. validate_hash_algo() passes the result straight to
-integrity_audit_msg() without checking. ERR_PTR is not NULL, so
-integrity_audit_message() sees a valid pointer and calls strlen() on
-it, which faults:
+--27nkzeturjw7lglz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-    BUG: unable to handle page fault for address: ffffffffffffffdc
-    RIP: 0010:strlen+0x30/0xa0
-    Call Trace:
-     audit_log_untrustedstring+0x19/0x30
-     integrity_audit_message+0x366/0x4f0
-     ima_inode_setxattr+0x512/0x5f0
+-----BEGIN PGP SIGNATURE-----
 
-Check for IS_ERR() and use NULL instead, which makes the audit message
-skip the name= field instead of crashing.
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgL2UACgkQj4D7WH0S
+/k7CwAgAnPntIvnHC0kMw1/QQBqCS3Vp07x/cj5/X3i2U07bGMvno27pCqx+dt5k
+NmyHEYA6GG1TzZ+fTlIBrP80JJBOlITt5D2bCVpqzWZfmVRP9lqEMTNzlPwHyID7
+WrxJ8AiL6IYplgPdSNo7ma4EjworEEjyrTfkzSFUAbLkPFKv6y4kreCZ3LaiMSk0
+b+inF4QOHKm+ZRqpaB/3QvOpt8ZM6m+RDrcqS+8dwblVR5kf2OVbxaHbhby0Wcta
+kgf1MkOpTASnGDan1SR1YSYKNHtu/Hwo+9TGnWITgb6MRZC/lBYdfysuLmhFrXMC
+hJ/3zZkWmanAcK1NoI3uKrIY4n84eg==
+=8Ft8
+-----END PGP SIGNATURE-----
 
-Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=SETXATTR_CHECK")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
-Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com/
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
- security/integrity/ima/ima_appraise.c |    2 ++
- 1 file changed, 2 insertions(+)
-
---- a/security/integrity/ima/ima_appraise.c
-+++ b/security/integrity/ima/ima_appraise.c
-@@ -754,6 +754,8 @@ static int validate_hash_algo(struct den
- 		return -EACCES;
- 
- 	path = dentry_path(dentry, pathbuf, PATH_MAX);
-+	if (IS_ERR(path))
-+		path = NULL;
- 
- 	integrity_audit_msg(AUDIT_INTEGRITY_DATA, d_inode(dentry), path,
- 			    "set_data", errmsg, -EACCES, 0);
-
-
->Thanks,
->
->Mathieu
->
->> 
->> 
->>> Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
->>> Reported-by: kernel test robot <yi1.lai@intel.com>
->>> Closes:
->https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
->>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
->>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
->>> Cc: Paul E. McKenney <paulmck@kernel.org>
->>> Cc: Boqun Feng <boqun@kernel.org>
->>> Cc: Bradley Morgan <brads@mainlining.org>
->>> Cc: <rcu@vger.kernel.org>
->>> Cc: <lkmm@lists.linux.dev>
->>> ---
->>> include/linux/hazptr.h | 4 +++-
->>> 1 file changed, 3 insertions(+), 1 deletion(-)
->>> 
->>> diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
->>> index 43122c5673bd..d1670121947a 100644
->>> --- a/include/linux/hazptr.h
->>> +++ b/include/linux/hazptr.h
->>> @@ -160,10 +160,12 @@ void hazptr_detach(struct hazptr_ctx *ctx)
->>> 	struct hazptr_slot *slot;
->>> 
->>> 	guard(preempt)();
->>> +	slot = ctx->slot;
->>> +	if (!slot->addr)
->>> +		return;
->>> #ifdef CONFIG_HAZPTR_DEBUG
->>> 	ctx->detach_task = ctx->detach_cpu = true;
->>> #endif
->>> -	slot = ctx->slot;
->>> 	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
->>> 		return;
->>> 	hazptr_promote_to_backup_slot(ctx, slot);
->>> 
->> 
->> --- Thanks!
->>
->https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
->
->
->
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+--27nkzeturjw7lglz--
