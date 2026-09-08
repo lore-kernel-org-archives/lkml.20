@@ -1,76 +1,76 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739FF54CF41
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:04:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD62559315
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876251; cv=none; b=Qh9owqBBQMumwJEHZCzYpWU/HCQHMBPmGpkrueuPzkkE8ICLBJN9vXkiFvUoSSqAVbD20ms4NOFg6GzJ2iQzXzLUBG3iPfRDbk98zd/fzKZgruP2M8+1tdWWXqHoGhh7dARs1XRrE+Lw1R/6zwlMv8IrXKytUwZyV8pORkIy17c=
+	t=1788876258; cv=none; b=t6JXV7biCgYYz4Ar0DfhNd5DFI0vsOQvwqxTrkAKhz/UC23NBMkOIbT86trVwn8GlnDgdXz4hZ20kS9KNxFollpb1H453S3Ns0jIAGNbneBN1NnZPKFNaJYc5hBtSB26j30JMJCsv/6giFSpYHF0VU+fLU2lo2JnFN6YLxQWyb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876251; c=relaxed/simple;
-	bh=o8OJDUsi1EblG4IemLkpTLGA2t32bXV44ss9aRsOqrY=;
+	s=arc-20240116; t=1788876258; c=relaxed/simple;
+	bh=T6U9OLyO1XxLOwAi7oui+xs/MXoNt7l8Uqjk+PGlDXI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qB7+4M7goYGxddjYGIdlGepBo5OgVhO5k3jIpOkhiLM+kGGWXrgopPaw2+MH/Bh6I6wS63gvmXISNOGE4do/QohBkWTOKQutfmsPuL52WASqPXMIr3VhmfoHVuvLWhFbf5czy3puWEC17n0G/UTSZyt5RAGG0JQG/YluDNrtaxA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=EsK1dTB3; arc=none smtp.client-ip=185.125.188.123
+	 MIME-Version; b=KVWDfMxIkq8z8Ej37A4It/px/GQJgcmxdp6uwvgdu79ghLxyBtvcMtQWJ8TcRrAFR5o8u5Ds3pMUYZ/jn3ZLBDEFOAycMTX17ui1G6RbZj1kkZ872XhVNo37UODP7R1GQi06zdZQKxBcCtTr5B3wD6Mb/OAFcNqoL0wLBpV2Oi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=BndoaZ0d; arc=none smtp.client-ip=185.125.188.122
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="EsK1dTB3"
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="BndoaZ0d"
+Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 649E73F60A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:03:56 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 809F83F272
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:03:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1788876236;
-	bh=widqTYp4xzFs2TnDgQ6LHpL+FeDKARGSWMUbVfZCj5g=;
+	s=20251003; t=1788876239;
+	bh=oZW+3HacXHXxgA1Yfz0voc7XtCtL4kOFjCa7sts9YXQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
 	 MIME-Version;
-	b=EsK1dTB331kJ0nIWoKytpCmZCJYOzFY9znTHubt/bCDtFJ+E7l4mExKKspnm3pRZy
-	 dCYchISt1xgleMUgwnufT9D8Er3c4rido+APkLQRNmr2sHDGfamulyx3FB2o3tD7Za
-	 eKnM1iUK8kEuKvqMKwLlIRBZySGQfsEOlzgbG4a5Q2ruhUJWdsiiWFj+GEdxodQMpb
-	 wpkcKObGXNRKADKpJZmaAKAGNejXpLEsnx35dP91/2cAO0dkDsntJqmGqj7T33bWAd
-	 l30GsHeK5wUwlhRyzjmhuxbVoNiDeEkSWFAFvtX6k6kvMQaIdK/kp8+DiKJmXiJ/UF
-	 /eJLIX2OyrfFitzHpThNZSEaCta+I/X5Nmtu+mwZxTsEl9QSsWivaTkrrnG6ivcnXj
-	 GqixaMW8kv0aNkAeWwibihEfk4uLRQDJ/V/kx4hFx2DBRJjd5EcD9hOHEEoqOCf7EB
-	 hyMr3hGmtdi/ryHSbv2lBWvJPEtZyS7QFlgTDljL4t6mt7TGt2WEmjPotXzECE2zyk
-	 hEvlBC7pDJ7EweRMSuwem1K+OUBqD/elV6D0xYVO979WrPboedEBMtDB6nL3lruHuY
-	 8TFp2RF8bT3arfw+NFbgdBu/rgURgRxETTeh1VqlqR+UZLpc/fVCpZBz4FVnLcr0j3
-	 ZodoeRqxKdB1MpWqvzjTwzJ4=
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c21946c03e5so528060566b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:03:56 -0700 (PDT)
+	b=BndoaZ0dIIEOpy0aV0bq2DWM5KhbG/oso5uX9szZEXHYObhnUh1zkIRx9XiGY96GS
+	 yVUB2Ef6zBJGLUvbsZt256f8HqSJ7xpYR0mY78X5SxexeHxWZIgnrCbcdDxhPlnpqh
+	 XPREQvTdxeg+dtdZfI8aFIKetZqREhi0DUkPX65BLCFm0zz0BBgkBTJ3edWM9tm7yH
+	 dfMSG6VwiatZcJ9VXBfx/nz+gqetZHbmD5N50YREBSUPFSTVHUvp/YLG/ePCadKcqr
+	 HK0VUshdoeD4FzwFdoaAzVyj5evYKe9z+iQIUSmVEpFhEPc+23Tzff1QcNdm0ppHLj
+	 YQIDDBe7jNM8LKCQNwbRXd4w0EMjpt2F7NAOOFsG8sZtivuWkSnlC0NcfXKfKeoEbw
+	 WZqZIX0/e8soRIYF0Q7WMJebQ0ACbvP8UD0Y9WEP1W/qaodXctNSiMHAmEt22bK88j
+	 wnm6WZ08Mff5nsVq8ZNzdagrWbye7jZP/TpPI9ZMDQQ+zJMjD3GmWv/XRpmpbXF3F/
+	 Ewvk05aNFtITYSD1s5hu1KV//cy7bRJ6d72jIPIJEmODUlOxlZKkb11YXXRPR4aY25
+	 hAcFVrbMosbhdUNTuiG8LTSHU++siUQHc7g4wErfywa5f4L8HioL/5CmZzYwVWd/4T
+	 PivGjQAHpRCeX5vmm/4gkFos=
+Received: by mail-ej1-f71.google.com with SMTP id a640c23a62f3a-c2580a59d0dso401298766b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:03:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788876236; x=1789481036;
+        d=1e100.net; s=20251104; t=1788876238; x=1789481038;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=widqTYp4xzFs2TnDgQ6LHpL+FeDKARGSWMUbVfZCj5g=;
-        b=QGNDCX6+ZvYKSZDHynuUIyJH9rsauSItzFQQj8aXhmKF5jj+f1BScyrpZYLvYEdn4N
-         08R2GKtDfnw2F01cACvlvp/W6zY+DlBGiVMZuMfyO0/5gUxOGeLX3jrlOQVARiImfgCO
-         2LTo9oSc4OSfxElf7gh3uq3BoP2ZFY+oAsvl26xqkhZjEMvVDo6/Q9YUeIMWKKPjeNga
-         5EL+YprNaA864tZAaCvw3SM7oS+3C1iR7ZtfNuj+ILAAqbr0+w9fHZBdgGGSjr/1kJuT
-         Jji6ZaKYYhk2ha+0kkl1LZWUp3HsB4vajt23GvP0Ydr4zVNG4n8R77V9T/UVTaN7BVr7
-         SikA==
-X-Forwarded-Encrypted: i=1; AKwUvBzHscwfxnQBduuPjyg/5UFG2l7DIcfTPzYijvOWR3pGADyOqQcpg9mo0rH41oJ04RCulOGaw5lSUUZAPkE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lJKGhkBTGUiQ8fWWGVMIwc0VbLBBT6kDYp6+TqjdLRGnr03Ckb
-	TiciG5Aj7oa/9E3+0LJ+wxs1XwNmzgzF9oI891M3KeS15fydxCGi0BcBS289Oix03lb/dYDb/QH
-	6b9tybeca0ZSC3YAKozD/aSBBcStRwfoqHVSSnNpopaAWU2PgPLs7427m3adkZlnOHtNzI13Org
-	9ck6A74fgHYZtkdUq8
-X-Gm-Gg: AYBFou3LTN4Zpcuho8sL9D3X/S90OgAlYocAtp61eLGeRFRTlN7/Rmcwq74bzk9IR7D
-	sk1/cruA155YsfV9Y/prIT2bM8u8yi84ft8U/4LNEvR+r3TLrr+T7zfcSLfznNgAizUpoxxHx4i
-	f25qQ91XpoxR1zIC6SclY0tEeuy9N3MxRVi8L6Hnlr9Ttwg0epOGI2+/j52HoifEDX/GSgYTWey
-	oBQmUWRrlnSASPMdO21R3jwL+7mMhxBZYLObPSd8SEMnzaRsx1JPNnYlIHsVXJVkqkQAp8IRElT
-	AFk9IxUrshd0uv0W/zmMldKgAjEt0Igs/4RjvhOtoeZwzyCe+t+xdzPVSry3mmnW0Us4BP3TORA
-	oLXDNeSMrhNaP6ckgzec9d8Aug1U0FLTgf0qyFUZvvSvupsSnebyJM52Tf9WT5P7oMg==
-X-Received: by 2002:a17:907:9288:b0:c25:3e36:acc8 with SMTP id a640c23a62f3a-c25efbe1685mr1400565466b.4.1788876235920;
-        Tue, 08 Sep 2026 07:03:55 -0700 (PDT)
-X-Received: by 2002:a17:907:9288:b0:c25:3e36:acc8 with SMTP id a640c23a62f3a-c25efbe1685mr1400562466b.4.1788876235454;
-        Tue, 08 Sep 2026 07:03:55 -0700 (PDT)
+        bh=oZW+3HacXHXxgA1Yfz0voc7XtCtL4kOFjCa7sts9YXQ=;
+        b=KYFEBxhCuDHjr9/2nbqcxKcZPh7HToavlz6m+ZBzMassZkPN+91Ys8tltzZzR707vA
+         UDgy1/6o+cvRVwEpoqP7dyHO24qgCBr8z8ZT/8wFUJvaQARU/Hnw/UZ8f8VZDeBsYW3W
+         QV/A3hEqqVk/8vFQb0UgnLbuZBlYzZcBByF89PQCFd2GuKHZJb9XGVWQHgSge1kKmmMU
+         M0hT1psH7eg6Yphjnkx8YFpFVa5jophbLGtZZ7R/qQJqSuBTRbfXM1CQkqUMdtkFvm0Z
+         7mRNS4k3uimAiQ814kiFEfP50T+DkSIJhGwquiwDojTdr6t6c402XPfBIffYF/Vg2VDF
+         Yyng==
+X-Forwarded-Encrypted: i=1; AKwUvBxOdoOvZESeoHeK49wYcS8wybTACMsSlhWyTTq+HtXrkCuuk8LGp2Bcz9jUW3eXizVuC9M9//vW6RP+MzQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2K5hr8gkU8yVFFu8iTEa5XlEiaOuSs1M2tPe1h4Oo2ERoWYVf
+	mSOFBaJYuYtQuMWxGvKMhS3nu+Z6h8dROSNft2u76HP1nWXxVtWu43PzZVDzYje7/O5tA646GEG
+	npYaxdJJvtXn4Mr/U4UBByF640sl0wt/IzXGFyv9sc6og/J979hNJBB4xN6dwx2srJaWQ9RKGPi
+	IJVP95PA==
+X-Gm-Gg: AYBFou2oVh0fEY2SxqOUeFk5EqpZHca+yCUyx4sq88ScFxKRgmkgpWW104p1JLSSlol
+	sb2FZ6K7w8B85QspYM0G9Vy1aDzfXZpeA1Lr/RO002LO8e9s7jIQiEqyEW41xH9BvYCDFzF7AKJ
+	6bLE9M99SlHtqH0VB9C2TBem5DSK+FGMgC7oFn9EXLpDsSAl0fWTqWsDpHpCiPBmtCL12ilmgf2
+	XUSMGzUiopXZrcerJQf7IYnVkuZjsTuntskTHqQChuLUoDcJ6zXisRDM9CXzOEhrDlTjWKopYJh
+	KI56JlsrmAVkIZVXYARSWscN/CBeO2CP78sdOgz69x9G2GpStNhzxcOyd0vcyy2VyQwX2K9Lx6b
+	hkBubY0x39GfXF4wHYeoQ90EyH+321Qjs4tl55obn2ZkP3uUHfplRig2u1239/7WOiQ==
+X-Received: by 2002:a17:907:d23:b0:c26:19de:9ae6 with SMTP id a640c23a62f3a-c2619dea7c4mr931872366b.37.1788876238278;
+        Tue, 08 Sep 2026 07:03:58 -0700 (PDT)
+X-Received: by 2002:a17:907:d23:b0:c26:19de:9ae6 with SMTP id a640c23a62f3a-c2619dea7c4mr931869866b.37.1788876237770;
+        Tue, 08 Sep 2026 07:03:57 -0700 (PDT)
 Received: from localhost ([154.62.191.154])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2622a7c677sm522959766b.9.2026.09.08.07.03.53
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d03644bsm631394566b.6.2026.09.08.07.03.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:03:53 -0700 (PDT)
+        Tue, 08 Sep 2026 07:03:56 -0700 (PDT)
 From: Andrei Gherzan <andrei.gherzan@canonical.com>
 To: Jakub Kicinski <kuba@kernel.org>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -85,9 +85,9 @@ Cc: netdev@vger.kernel.org,
 	Kleber Sacilotto de Souza <kleber.souza@canonical.com>,
 	Hangbin Liu <liuhangbin@gmail.com>,
 	Andrei Gherzan <andrei.gherzan@canonical.com>
-Subject: [PATCH net 1/2] netdevsim: print IPsec salt/key in network byte order
-Date: Tue,  8 Sep 2026 15:03:24 +0100
-Message-ID: <20260908140325.13367-2-andrei.gherzan@canonical.com>
+Subject: [PATCH net 2/2] selftests: rtnetlink: update ipsec_offload expected output
+Date: Tue,  8 Sep 2026 15:03:25 +0100
+Message-ID: <20260908140325.13367-3-andrei.gherzan@canonical.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908140325.13367-1-andrei.gherzan@canonical.com>
 References: <20260908140325.13367-1-andrei.gherzan@canonical.com>
@@ -99,89 +99,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nsim_sa.key[] and nsim_sa.salt hold raw key material in network byte
-order, but are typed as plain u32 and printed with "%08x" in the
-debugfs read handler. This prints host-endian, so output differs
-between little- and big-endian hosts for the same key:
+The previous patch ("netdevsim: print IPsec salt/key in network byte
+order") makes the netdevsim IPsec debugfs file print salt/key in
+network byte order on every host, instead of host CPU byte order.
 
-  little-endian: salt=0x61626364 key=0x34333231 38373635 32313039 36353433
-  big-endian:    salt=0x64636261 key=0x31323334 35363738 39303132 33343536
+Update the expected output of kci_test_ipsec_offload() to match: the
+values change from the little-endian-only representation to the new,
+endianness-independent one. No other changes are needed since the
+output is now the same on every architecture.
 
-This breaks selftests/net/rtnetlink.sh's ipsec_offload subtest on
-big-endian (e.g. s390x), which hardcodes the little-endian output.
+This depends on the previous driver patch: applied on its own, this
+change would regress the test on little-endian hosts (which still
+print the old host-order value), though it happens to have no effect
+on big-endian hosts (whose old host-order output already matched).
 
-Retype key[]/salt to __be32, matching ipaddr[], and convert with
-be32_to_cpu() before printing. Output is now network-order on every
-host, independent of endianness.
-
-A similar fix was proposed in 2022 but kept the u32 typing, so sparse
-couldn't validate the added ntohl() calls and it stalled in review.
-Retyping first avoids that problem. `make C=2` on netdevsim reports
-the same zero warnings as before this change.
-
-Selftest update follows in the next patch.
-
-Fixes: 7699353da875 ("netdevsim: add ipsec offload testing")
+Fixes: 2766a11161cc ("selftests: rtnetlink: add ipsec offload API test")
 Reported-by: Kleber Sacilotto de Souza <kleber.souza@canonical.com>
 Link: https://lore.kernel.org/netdev/20220308135106.890270-1-kleber.souza@canonical.com/
 Signed-off-by: Andrei Gherzan <andrei.gherzan@canonical.com>
 ---
- drivers/net/netdevsim/ipsec.c     | 10 +++++-----
- drivers/net/netdevsim/netdevsim.h |  4 ++--
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ tools/testing/selftests/net/rtnetlink.sh | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/netdevsim/ipsec.c b/drivers/net/netdevsim/ipsec.c
-index 36a1be4923d61..5722837bcda36 100644
---- a/drivers/net/netdevsim/ipsec.c
-+++ b/drivers/net/netdevsim/ipsec.c
-@@ -50,11 +50,11 @@ static ssize_t nsim_dbg_netdev_ops_read(struct file *filp,
- 		p += scnprintf(p, bufsize - (p - buf),
- 			       "sa[%i]    spi=0x%08x proto=0x%x salt=0x%08x crypt=%d\n",
- 			       i, be32_to_cpu(sap->xs->id.spi),
--			       sap->xs->id.proto, sap->salt, sap->crypt);
-+			       sap->xs->id.proto, be32_to_cpu(sap->salt), sap->crypt);
- 		p += scnprintf(p, bufsize - (p - buf),
- 			       "sa[%i]    key=0x%08x %08x %08x %08x\n",
--			       i, sap->key[0], sap->key[1],
--			       sap->key[2], sap->key[3]);
-+			       i, be32_to_cpu(sap->key[0]), be32_to_cpu(sap->key[1]),
-+			       be32_to_cpu(sap->key[2]), be32_to_cpu(sap->key[3]));
- 	}
- 
- 	len = simple_read_from_buffer(buffer, count, ppos, buf, p - buf);
-@@ -87,7 +87,7 @@ static int nsim_ipsec_find_empty_idx(struct nsim_ipsec *ipsec)
- 
- static int nsim_ipsec_parse_proto_keys(struct net_device *dev,
- 				       struct xfrm_state *xs,
--				       u32 *mykey, u32 *mysalt)
-+				       __be32 *mykey, __be32 *mysalt)
- {
- 	const char aes_gcm_name[] = "rfc4106(gcm(aes))";
- 	unsigned char *key_data;
-@@ -117,7 +117,7 @@ static int nsim_ipsec_parse_proto_keys(struct net_device *dev,
- 
- 	/* 160 accounts for 16 byte key and 4 byte salt */
- 	if (key_len > NSIM_IPSEC_AUTH_BITS) {
--		*mysalt = ((u32 *)key_data)[4];
-+		*mysalt = ((__be32 *)key_data)[4];
- 	} else if (key_len == NSIM_IPSEC_AUTH_BITS) {
- 		*mysalt = 0;
- 	} else {
-diff --git a/drivers/net/netdevsim/netdevsim.h b/drivers/net/netdevsim/netdevsim.h
-index 55aec41237b9b..a82a685384e6d 100644
---- a/drivers/net/netdevsim/netdevsim.h
-+++ b/drivers/net/netdevsim/netdevsim.h
-@@ -42,8 +42,8 @@
- struct nsim_sa {
- 	struct xfrm_state *xs;
- 	__be32 ipaddr[4];
--	u32 key[4];
--	u32 salt;
-+	__be32 key[4];
-+	__be32 salt;
- 	bool used;
- 	bool crypt;
- 	bool rx;
+diff --git a/tools/testing/selftests/net/rtnetlink.sh b/tools/testing/selftests/net/rtnetlink.sh
+index ace3a99023ed0..4843d474538f4 100755
+--- a/tools/testing/selftests/net/rtnetlink.sh
++++ b/tools/testing/selftests/net/rtnetlink.sh
+@@ -932,11 +932,11 @@ kci_test_ipsec_offload()
+ 	run_cmd diff $sysfsf - << EOF
+ SA count=2 tx=3
+ sa[0] tx ipaddr=$dstip
+-sa[0]    spi=0x00000009 proto=0x32 salt=0x61626364 crypt=1
+-sa[0]    key=0x34333231 38373635 32313039 36353433
++sa[0]    spi=0x00000009 proto=0x32 salt=0x64636261 crypt=1
++sa[0]    key=0x31323334 35363738 39303132 33343536
+ sa[1] rx ipaddr=$srcip
+-sa[1]    spi=0x00000009 proto=0x32 salt=0x61626364 crypt=1
+-sa[1]    key=0x34333231 38373635 32313039 36353433
++sa[1]    spi=0x00000009 proto=0x32 salt=0x64636261 crypt=1
++sa[1]    key=0x31323334 35363738 39303132 33343536
+ EOF
+ 	if [ $? -ne 0 ] ; then
+ 		end_test "FAIL: ipsec_offload incorrect driver data"
 -- 
 2.43.0
 
