@@ -1,111 +1,117 @@
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C42CE304BB3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C562C4B488E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:34:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906846; cv=none; b=sjAZix/ARJp2icffz0krFXlA3+R6eCvMSbH/8ozNx3TGDl3bpFYM+Gy64WLWgZ0IB2K//y9erp+uzphF3W5uLM7mho2AQwVnCz11bWpQz0qs1b4xmogUVlnEsHY3FFwjN+NSXITqMnBgxHLU8W1AR4q78ErrDD0pYWPyYo/AVPA=
+	t=1788906880; cv=none; b=t++aFDQThvwDVP/0P73lhFtJvrZiqfVe4xvdzkyVeJfc/x/DXTBSOv+7F07XyTRiBNj8sekSnuXOqyX+GHVpjsdYFfdPKZ9lt+CxUq2o16k+MaAUr6di2koC4V+CXwmrkWIljQudlQ1aKFLZpYkW7bYi5Y2ffXMPTWqk1JkFI5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906846; c=relaxed/simple;
-	bh=vHvk+bjLs682I9QfsEUIDfLsqAAo2RU7OhlRf0yB+ME=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=O5uTSLltMMHuhQkgRSLE+29NVBTYq3C4Lp7FWDIz+ocUzGBaHmPgLrtRLdkI43unCnIeOB52N3C08JDc+wbxnVa2aOYdksRySRseur026zHTfGQsa+PWeghQcp2c/AEubRPt1IdyVPmT1cGwKwKC204rbeUZCFXG/xoEJ1MGLPA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DljRVbPi; arc=none smtp.client-ip=209.85.219.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788906880; c=relaxed/simple;
+	bh=htNILk9Kpq12336HFpWbDN67/SR46TQMYtfCjV9wRxY=;
+	h=Date:In-Reply-To:Mime-Version:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=oXx2aCQFFOhXSfsq677i6QoMXUREWosg8k1aMsE22RAXFHgcrZ0eXo1uTCDnR2PBwUP/Aw1Has2cec3q5I8ECUmwpvIm96q/T5TI7f3a5egbR1nUXUhiCpJjKpKbK/ZobhJvVHqdCfjHJqkFY8daG+5zcqs26JSpqWq6tar1lQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uaYTHfPu; arc=none smtp.client-ip=209.85.160.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DljRVbPi"
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-9103be3b3d9so74818786d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:34:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uaYTHfPu"
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4566537e644so8010937fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:34:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788906843; x=1789511643; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vHvk+bjLs682I9QfsEUIDfLsqAAo2RU7OhlRf0yB+ME=;
-        b=DljRVbPifgUvjuWLFQbaCpq67FIJ5poreDTjpy5CdSPqFaSR3ZvyEKTrB5oCYOgnqn
-         /COz94phsyj7EI5aNcICP+2s2BDDCA2OcMqbCJth/qDNU2Pg0rX3HL46SxLfMh58aDPV
-         g/Y44HLWm4RQ7XrHdyPW5nkG0E3KEohHOPlK1eUMn1tinTCGvVnkD1riGCNFHBFbORiK
-         fiDbzr5bY9fXb2RIlukwWmP2bffFoUkuPTaknRZu6gc119R0HTyMKJgbwabCf+7KcMHb
-         XX7BCGiyzgW4cZPCNTT4F2udZcu7DbEepGYVRBUq66Bl+OkvmTy5O93El+xHwxjscdIL
-         o+YQ==
+        d=google.com; s=20251104; t=1788906878; x=1789511678; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y6DHdss8MRJ7r65GA41ught1FKJ932kAtSg2l2oUqQc=;
+        b=uaYTHfPueU0TDrIv7KfTmvg3C6htsYvnOGJ3Qni25YFImkYLkV92Wh/3Nz4Oq2/CKl
+         RPPNGU417AnV7rHYhfb6+9CGAUxH3qKjPJ/zZt7Imwkr6AJwZ94eOudhGpHCCDrBR+A4
+         cstus1mk+P7bbepGyatAXAOmVVFrPFNGOx7ZbhCVXZBpEpoygqjRHqAe1ssYn/72ItzA
+         u5GLCMjx7HcsmJamW6aKZkPpk5ZIwfFyfVC/0A03jh+RLXmbRDiUC/l7kFc0sYvgQ4mZ
+         HQETneyJDLiJCe+L1xN6IIxELlBKPd325sE8ZsVwKKzWTGUun6yJv87MUQBZNkUy/pVJ
+         oN+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788906843; x=1789511643;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=1e100.net; s=20251104; t=1788906878; x=1789511678;
+        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
+         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vHvk+bjLs682I9QfsEUIDfLsqAAo2RU7OhlRf0yB+ME=;
-        b=C9GvyIEOUUEmdyhp8zQ2/EkjLwCZsdct45LOGv10skpgQZH0yLDlWu3UmgQNM10rgJ
-         MwFXV7N53wE17tTOmbQTYiMlJ2+4OAqi17nHQcBz0+8mfA/OU0ByrXLIvkMtZVfsa2aM
-         X0xz5Z+5EJ9mHLGeWttXGUt85BcMfi6vxT5j5APeUSOdE2jgcGWBjdn8hJXila+TnHNm
-         RmHRgE7d+2ygL5R4x97ukWiusB3g226ogMV0ySA98OQF7DBhTldHw/V2TrmcJl05LT2z
-         q83W6cRzdRPDb2xK31U2QNr4vfltfjPIf4zVYroW3x8Eivz890r2aq68zxDxaY8hK872
-         OjGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwc0n218dP9YCYBoO4SeRUWpkt+rnhlQOAp26tWTv/riu9Lxz3LjOdE6ENSTiqCj2VVXWljucU4yiKQfdA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mktZThpotRx7EJfuINQd6Sq054nHfJZG3njJ8tIHDuFBkrBOn0
-	BFkKtPNi6Ia5CX64laqKWjjb3+qq8rzgNlsWBiN1rOkKE7GCmCJsKS6y
-X-Gm-Gg: AYBFou3w7TxSL9ih30Xbl5KBoa71kSppbtG3PWhKKHYJucxdLXrm8vMoUZ62jdvXJR/
-	syuOMEn7H60zSH1fTQxlLfC6sauxEaX2uhocoOWGcDGhf0ZS7ZIkMWZ3mRygzFksPmmAFJpRPaZ
-	7oeNqXlnHgHw5G86hx1tTLG37J/WTd1tXVP92l8MJM1y09tVClG3CAJNhTGs8Zl1q/bbsChfHLV
-	i4ziAGRnrLeK9EWzSclE0WzTP+zlbDSZnOSQ5w4c3IUmpTLNvMwMYittwVj0Xf5TXc+J6JoR6+a
-	e1P8M9ffFymCZ7fU2hwh0Wf3pftjK7hceCM+oNz2aBInTPyDUheUw0E8CU4x0EkH1y1fg25dZ6U
-	Eel70gAj6u0fi+lj0kaJewW6pf/ymQJ4nsfrCp7Hfzt2qz2bjbkBlpe/VXYkApQEdtEAxgwBR5s
-	dXrWKBOaPRVkr+Zaxy7xZigQ3+NdBb4e/M44cFl6VFyu2Zl6M5DXgYlvuCci99nR4tBQ==
-X-Received: by 2002:a05:620a:3711:b0:92e:541e:632b with SMTP id af79cd13be357-93980599abfmr3254114885a.2.1788906842594;
-        Tue, 08 Sep 2026 15:34:02 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939b39dc1d4sm461648185a.47.2026.09.08.15.34.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 15:34:02 -0700 (PDT)
+        bh=Y6DHdss8MRJ7r65GA41ught1FKJ932kAtSg2l2oUqQc=;
+        b=bzqXLWyOS3rgofL0F1Gznpoxb9u+3NtPkuvRF9uSHUuFSxSpzV5H1J8i+gG3Rj5RmO
+         f17EmdH3sCsE65Zbx97Zf7x9zsVl8lwLZGLcmvNj2mmRe5HNQzQ32FaOFE/6nlo4ovM1
+         NCDB6QDxPGr7VJi75dkXTAbEJDXhPUVicUNOLakEGowI84Uhw0yMVZTStLWkz7VdDB6b
+         eTp58xYGJb1yLUCPF83d4ev4YuR4947q86oU0JY5n6Er/kvJ81snVPLwE7og6xmruXOx
+         cuoHucB/3v+VgMa0ZaVqSsM/O1nLXU93nvGkbKW5FFWO9+wOq5dePQDfZMG/4qq8EkFX
+         fgbg==
+X-Forwarded-Encrypted: i=1; AKwUvByHWO4eAvMb2skKA01NLD4sTsa8Iufny8YJ6qB5scSoVj+ay2awu0OcbK7j3BpHReP2ddXUwAwuosNNTR4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kF8L/G/y2c/r/wE0SYWqUgth1DWv2H/f2BPzLRqqkAfXMlVUSj
+	Ghy7aDivr48v0QGCILIgQd0o5rUw7v7k8E3LvL1G5u6ov9PFFNu84Od8pEab22oiS2EihMssXkA
+	GIEzT8SG055f5quLDs0jBx+LarA==
+X-Received: from japm26.prod.google.com ([2002:a02:cdda:0:b0:5f1:325b:8e4c])
+ (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6820:179b:b0:6b6:c0bc:365c with SMTP id 006d021491bc7-6b6fcbdc9dfmr18638803eaf.22.1788906877369;
+ Tue, 08 Sep 2026 15:34:37 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:34:35 -0700
+In-Reply-To: <20260401092027.GW3738786@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 18:34:00 -0400
-Message-Id: <DLAAJTBDGCKN.1B13MQ3OGWWBG@gmail.com>
-Cc: "Bobby Eshleman" <bobbyeshleman@meta.com>, "Boris Pismenny"
- <borisp@nvidia.com>, "Carolina Jubran" <cjubran@nvidia.com>, "Cosmin Ratiu"
- <cratiu@nvidia.com>, "Daniel Zahka" <daniel.zahka@gmail.com>, "Doruk Tan
- Ozturk" <doruk@0sec.ai>, "Dragos Tatulea" <dtatulea@nvidia.com>, "Gal
- Pressman" <gal@nvidia.com>, "Jianbo Liu" <jianbol@nvidia.com>, "Kees Cook"
- <kees@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Mark Bloch" <mbloch@nvidia.com>, "Petr
- Machata" <petrm@nvidia.com>, "Raed Salem" <raeds@nvidia.com>, "Rahul
- Rameshbabu" <rrameshbabu@nvidia.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Shuah Khan" <shuah@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Simon Horman" <horms@kernel.org>, "Willem de Bruijn" <willemb@google.com>,
- "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next V4 12/14] selftests: drv-net: psp: Extract
- shared helpers into psp_lib.py
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Tariq Toukan" <tariqt@nvidia.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260908065244.3799142-1-tariqt@nvidia.com>
- <20260908065244.3799142-13-tariqt@nvidia.com>
-In-Reply-To: <20260908065244.3799142-13-tariqt@nvidia.com>
+Message-ID: <aqCMIFRHEQ3H9qad@google.com>
+Subject: Re: [PATCH 3/5] compiler_attributes: Add overflow_behavior macros
+ __ob_trap and __ob_wrap
+From: Justin Stitt <justinstitt@google.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, kasan-dev@googlegroups.com, 
+	linux-doc@vger.kernel.org, llvm@lists.linux.dev, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Nicolas Schier <nsc@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
+	linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue Sep 8, 2026 at 2:52 AM EDT, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
->
-> Put init_psp_dev() and the logic for requiring a psp version into a
-> shared lib, since they will soon be used by a second test file.
->
-> No functional change for psp.py.
->
-> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
+Hi,
 
-Reviewed-by: Daniel Zahka <daniel.zahka@gmail.com>
+On Wed, Apr 01, 2026 at 11:20:27AM +0200, Peter Zijlstra wrote:
+...
+> 
+> So I would like to second this option as being interesting.
+> 
+> But while pondering it, I did want to note that all of the options, with
+> the exception of __ob_wrap (which is effectively what we have today for
+> *everything*), will be 'interesting' to compose with _Atomic, another
+> one of these qualifiers.
+> 
+> Now, in the kernel we don't use _Atomic, so strictly speaking I don't
+> care ;-) But here goes...
+> 
+> Something like _Atomic int __ob_wrap, is trivial and good.
+> 
+> _Atomic int __ob_trap is either doable or impossible depending on how
+> you define the result to be on 'trap'. Specifically, the semantics
+> proposed where it keeps the old value makes it impossible.
+> 
+> And _Atomic int __ob_saturate is equally 'challenging', since the
+> fundamental thing of 'reset to min/max on under/over-flow' is rather
+> a non-atomic kind of thing. Look at the trouble we went through with
+> refcount_t to sort of make this work.
+> 
+
+FWIW, I've moved to simply disallow OBT+Atomic. We've got this under
+-fexperimental so I'm well within my right :). The idea being: __ob_trap
+isn't workable with Atomic (depending on storage semantics) and
+__ob_wrap isn't very useful there either, plus I had some parsing bugs
+where specific ordering of things could result in OBT being silently
+dropped with _Atomic and those magically go away by disallowing this
+pairing all together.
+
+I just opened the PR over at [1] and it is still pending but this is
+probably where I'll go with _Atomic and OBT :)
+
+Link: https://github.com/llvm/llvm-project/pull/222179
+
+Thanks
+Justin
