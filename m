@@ -1,369 +1,170 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from omta040.useast.a.cloudfilter.net (omta040.useast.a.cloudfilter.net [44.202.169.39])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4CD30E0FE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5590230D3ED
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:04:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788836673; cv=none; b=emOpfW0pBlV/++1tQcAdEcrNvBoAGyPbe7wxjcaiOBtVKAuozlSvdZ00DbflbcxUAZACoDONF/rAHx3zGsB8yES/YPFfXb3u6yrbmSgO0+O1HpxeaXiotkHt6RcW/j+O97tV2yV1hdTxOlk6WXGi4YFRyXuXhVC4LDW+ueKUYsQ=
+	t=1788836672; cv=none; b=rQllY03YXLp4k77WS8HCiIoG4qgU/f765uHSLQ7mSGDUZynv9snvdUcdoF/QohHRWqMErUxIxIqW2Y6ABZgQ666V5NdJtxUovotLwnSYTBJtmOL3St4pEWNbRaWx4FFvsprnipTr0o41zXaWDBkboM0PzpRXtPrASx984gy0zjI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788836673; c=relaxed/simple;
-	bh=dRLbFzgpgZgCYflbXCNRkhPaT+5HR8dXEGt9Utc4VhY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o1VF9SwaFYjwGpqdmym2nG5p/yVjatNHozc2EbWceq6WAIbneU/bmmiQu+3PJJF/8pjcFU9XP4H512yj9TKhpeGz8yI4+kkwHuZyYZbkX15jR4cqmiytMjv5k4DEgznixvWIaMhrmFyHKmcQSlXZjKaql+I5zzhLpkShVrhxNwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=TE//ASuY; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788836672; c=relaxed/simple;
+	bh=1qe/woO8zybzb2TQkYQIHvFXXqzfTTIqj6TrnoCsGjk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lG/fEpEt/BeLmcI9V08QxeFJmzx7OWeFoHJJftX1hrM5VwaThkA1Rajv1w5p4HwV9/fAb06IyeQYlLPbSOAG9w8j1pwJh0FBktvPY30AehRG3DHL1OZ3vfaJ7AIQDA+GhMb5eWLC+G6EaP2a/dEDJQ+FybES3TPBazSaWH8zea4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com; spf=pass smtp.mailfrom=embeddedor.com; dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b=B2cmRG0j; arc=none smtp.client-ip=44.202.169.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=embeddedor.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=embeddedor.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="TE//ASuY"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1c9879395so2733405a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:04:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1788836671; x=1789441471; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CVT6j1P3zfNYXYnEjgM8kLQiWtuO+wz13pOr0ZtKdew=;
-        b=TE//ASuYL2Y3Dff+qgLg9hcSpCfO9snNmNKd4D0FGpyNSGxSUKE8nc1/OGnt7/RRE8
-         FQpPa7BHQ6ZrJrmc0ArW+eEb/jizJ0EM6LG7/461IzCcKhUIaOsahhdnqld/ZT9N44qS
-         f7N9b8ZqZrgjq/8o+UENxXyJpMnnF3ULpU5qtHHIthZsnYH0Si3Fkf36bCgX8BbA6huX
-         CEg8kvUoLWOVjUdmJknGu7BNQDGSoRbtFQ/1ZCFO8owG4czBhKBX1y76fyhdMkZR3j4o
-         b1xt9KqPCYDJbKtG+2yO8Fa11jDI1YVSdsF7IxDrISNx86rFVATHMiYYEYzRmEOox6/J
-         UNYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788836671; x=1789441471;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CVT6j1P3zfNYXYnEjgM8kLQiWtuO+wz13pOr0ZtKdew=;
-        b=P+AMSI1TrJlUvDA4ssSSdGhGT05+3Cu4nUuCIbiJWfy5jVPD9KBTMk6z2tgo6KxRrL
-         zScJoPj9c4IUwQPlZ9OdFliHsqiXfDv9OOG+nAJuBOWonQgbnfgiIGfe6uZSOm300IRc
-         NUX56Trq8L9+fAfvCsKVJ9C2ViFnWkeFzOeJkxyr+RTIOToqjlGRa5VYPiZz4rxNr2tZ
-         4TfvRd+O2MK5Oj3DD/GvxR/WrVbGm1AFI9+UJ8x/pMeHeYKqOLnXSj+T21cpDdzD1hOa
-         EoZdUbxf7bQOahn2lqgJ4dqeBrFlzVjc3zvOBO0P5i5hbVtngRAusK2ycJjrj9GGF1hd
-         O8vQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3NqlpPRNc/X41VnR8OfiRbP6b7MrRGTByNj6UgfgGELzuaT5VImSVO1PYAD9PDqmvQpT1qTiqaax9dyY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEfhrd9k1QwwZQZNP7eyKHfa+lSdgB2f5kx4+/A4obYOqhABSW
-	acirVy01Eub7oowrxvnyLfx6gN3EiI/O+ht4C9gbfn+I1a4wCiM8ZugDdMPc62njb7w=
-X-Gm-Gg: AYBFou3hRpdiJVFZQKCvYeESjZkSYdu/Rj4dQP9EL0+OChN4nQ+LD/wAOvnWcPvo4/Z
-	i+/u12MNOSdpucSryHTeYn6YZKdGr34GzaSTJowG5QUaKkA0PIE8629WYRBZ9FxSTkd4GrqH//t
-	ooLZbsvng2mbKQ7hOUszYbhvo4b/Fk5vZ24y2HDcHOtHIjfXQdXaKJnTa9oGEfhopGd+kzOK8kG
-	X1JgJR+bgUHXDEFpcGV2jThbDFCsbEAjJz2MiV+1HWebppNbaNjDroNl39VcHwKs8QI9R6TqA/p
-	QIAsAgDkfi0N65jIYM+e14HHXpWqhn0d8r8oD/wso5y5zGwWvsNdqi9aUj0ivrsuB2h5Ath5U7V
-	I3lnbWf9QAAcR6PUmUjxtlPovoS0gqz1ajhe1CLwjA9YwSkrl3cQmUeny7NuqcurSV7lK0wfk+3
-	OmB/7afwb+LFTXGmFXQGqfD87AW7iiGiWy9KKGayiBJouexklytS4HBKP6sssEn/NohEiA2A+x8
-	CBs9vusowkApMOtS+7rwf5e
-X-Received: by 2002:a05:6a00:8c3:b0:856:30dd:91ba with SMTP id d2e1a72fcca58-86168e8bb34mr33801118b3a.2.1788836670753;
-        Mon, 07 Sep 2026 20:04:30 -0700 (PDT)
-Received: from G6L4RL2QG9.bytedance.net ([61.213.176.9])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152a358a2sm4868234b3a.29.2026.09.07.20.04.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 07 Sep 2026 20:04:30 -0700 (PDT)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	Muchun Song <muchun.song@linux.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Christophe Leroy <chleroy@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 07/11] mm/sparse-vmemmap: move HVO helpers to a public header
-Date: Tue,  8 Sep 2026 11:03:31 +0800
-Message-ID: <20260908030335.96549-8-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260908030335.96549-1-songmuchun@bytedance.com>
-References: <20260908030335.96549-1-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com header.b="B2cmRG0j"
+Received: from eig-obgw-6004b.ext.cloudfilter.net ([10.0.30.210])
+	by cmsmtp with ESMTPS
+	id 3apIxoFdhuFzg3m8Fxjtds; Tue, 08 Sep 2026 03:04:23 +0000
+Received: from gator4166.hostgator.com ([108.167.190.91])
+	by cmsmtp with ESMTPS
+	id 3m8ExvX4zn6N53m8ExqJen; Tue, 08 Sep 2026 03:04:22 +0000
+X-Authority-Analysis: v=2.4 cv=LJJmQIW9 c=1 sm=1 tr=0 ts=6a9f7b36
+ a=vY9Mjuda9oMEc2E4Cx1x2A==:117 a=vY9Mjuda9oMEc2E4Cx1x2A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7T7KSl7uo7wA:10 a=VwQbUJbxAAAA:8
+ a=Zo5euW2OAAAA:8 a=n92-qV7Ugmv0IUIatOIA:9 a=QEXdDO2ut3YA:10
+ a=2aFnImwKRvkU0tJ3nQRT:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=ROkla2LJMX0VNuCHtg9QFZ/+ccIHOqOJ+aiWXH5j+Wc=; b=B2cmRG0jj/RpW8XaSFuEKy3O89
+	piPvZVZNJ+5qzM4fhvfgTASBPxFXrgRhnANgg9Or4iCoBqgmsfVS4Nk3nhJKkXUKgiun44WJzMFIt
+	KQLiAb9fGxWE45Y1Y4PZIqANCLUE6eoeB5qjpqOxeSL2U5xXz5M/hnsX4LNL9AHIISasRxRIcmpW+
+	WL96KXpF+GDNeo7pYhjxrpremSG+vnR0i7e08dMpP4PaDWgcCuIttot/Sf1fR4BxwHihWglIo5GMo
+	qq2CldcCkowHLiQkqm5VPCqOBurtUmre+eeJBKXzO16BydJJKYRzwU6avRuBaH1qc32UwnXMOJCs0
+	29VUuOnA==;
+Received: from flh4-125-195-69-90.tky.mesh.ad.jp ([125.195.69.90]:57288 helo=[10.203.100.33])
+	by gator4166.hostgator.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <gustavo@embeddedor.com>)
+	id 1x3m8D-0000000257t-2CoX;
+	Mon, 07 Sep 2026 22:04:21 -0500
+Message-ID: <b5f44a35-52d8-4197-ac85-73bb9dd0d11c@embeddedor.com>
+Date: Tue, 8 Sep 2026 12:04:16 +0900
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: ipq-cmn-pll: Assign .num before accessing .hws
+To: Aamir Ahmed <elb12345@hotmail.co.uk>,
+ Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Luo Jie <jie.luo@oss.qualcomm.com>,
+ Kees Cook <kees@kernel.org>, linux-hardening@vger.kernel.org,
+ stable@vger.kernel.org
+References: <AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Language: en-US
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+In-Reply-To: <AS8P251MB0001B905088748016A0965F1C8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 125.195.69.90
+X-Source-L: No
+X-Exim-ID: 1x3m8D-0000000257t-2CoX
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: flh4-125-195-69-90.tky.mesh.ad.jp ([10.203.100.33]) [125.195.69.90]:57288
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 5
+X-Org: HG=hgshared;ORG=hostgator;
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfDpdlFWW/B3G6LI1ae9wFKCEdG6QGc199BzvAVA9SL1K/Uc0GDuWIV25wI6EO+FGSDr2Ra/Prdhu6uaZmH80hnkkRpnJWXgcpaaABnIfNiOFaa+Ckevy
+ zryUedifs3ZjMUZK7ZbZnCmgUSIZ7MreHTwW5HR4Y/9TSvJP9cXEgFbcRz2Y27ICYR3D9hNVL3k71+bjanbUioUi9uBk8F/ZUhdRyiTYeNizVe5ZU+qNXjlL
 
-The vmemmap optimization helpers currently live in mm/sparse.h,
-which is an internal MM header. That works for MM code, but
-prevents powerpc from using the same interfaces without including a
-private header.
 
-Move the declarations and inline helpers to
-include/linux/vmemmap-optimization.h. This is a preparatory change for
-powerpc, which has its own vmemmap optimization implementation and
-needs to use the HVO interfaces from architecture code.
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
----
-v2:
-- Fix missing header dependencies.
----
- MAINTAINERS                          |  1 +
- include/linux/vmemmap-optimization.h | 91 ++++++++++++++++++++++++++++
- mm/hugetlb.c                         |  2 +-
- mm/hugetlb_vmemmap.c                 |  2 +-
- mm/memory_hotplug.c                  |  1 +
- mm/sparse.h                          | 73 +---------------------
- 6 files changed, 96 insertions(+), 74 deletions(-)
- create mode 100644 include/linux/vmemmap-optimization.h
+On 9/6/26 05:48, Aamir Ahmed wrote:
+> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
+> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
+> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
+> about the number of elements in .hws[], so that it can warn when .hws[]
+> is accessed out of bounds. As noted in that change, the __counted_by
+> member must be initialized with the number of elements before the first
+> array access happens, otherwise there will be a warning from each access
+> prior to the initialization because the number of elements is zero.
+> This occurs in ipq_cmn_pll_register_clks() due to .num being assigned
+> only after the fixed rate output clocks and the CMN PLL clock have been
+> stored in .hws[]. If registering one of the fixed rate clocks fails, the
+> unwind loop under unregister_fixed_clk reads .hws[] while .num is still
+> zero as well. With CONFIG_UBSAN_BOUNDS and a compiler that implements
+> __counted_by (GCC 15.1+ or Clang 20.1+), this triggers an
+> array-index-out-of-bounds report during probe, and with
+> CONFIG_UBSAN_TRAP the first store traps so the CMN PLL clocks are never
+> provided.
+> 
+> Move the .num initialization to right after the allocation.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: f81715a4c87c ("clk: qcom: Add CMN PLL clock controller driver for IPQ SoC")
+> Assisted-by: LLM
+> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c7aaa2e4790e..2985286cbbbf 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12096,6 +12096,7 @@ F:	Documentation/mm/hugetlbfs_reserv.rst
- F:	Documentation/mm/vmemmap_dedup.rst
- F:	fs/hugetlbfs/
- F:	include/linux/hugetlb.h
-+F:	include/linux/vmemmap-optimization.h
- F:	include/trace/events/hugetlbfs.h
- F:	mm/hugetlb.c
- F:	mm/hugetlb_cgroup.c
-diff --git a/include/linux/vmemmap-optimization.h b/include/linux/vmemmap-optimization.h
-new file mode 100644
-index 000000000000..492dc662aae7
---- /dev/null
-+++ b/include/linux/vmemmap-optimization.h
-@@ -0,0 +1,91 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * vmemmap-optimization.h
-+ *
-+ * Generic vmemmap optimization declarations.
-+ *
-+ * Author: Muchun Song <songmuchun@bytedance.com>
-+ */
-+#ifndef _LINUX_VMEMMAP_OPTIMIZATION_H
-+#define _LINUX_VMEMMAP_OPTIMIZATION_H
-+
-+#include <linux/align.h>
-+#include <linux/log2.h>
-+#include <linux/mmdebug.h>
-+#include <linux/mmzone.h>
-+
-+#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
-+static inline unsigned int section_order(const struct mem_section *section)
-+{
-+	return section->order;
-+}
-+
-+static inline void section_set_order(struct mem_section *section, unsigned int order)
-+{
-+	VM_WARN_ON(section_order(section) && order && section_order(section) != order);
-+	section->order = order;
-+}
-+
-+static inline void section_set_order_range(unsigned long pfn, unsigned long nr_pages,
-+					   unsigned int order)
-+{
-+	unsigned long section_nr = pfn_to_section_nr(pfn);
-+
-+	if (!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION))
-+		return;
-+
-+	for (unsigned long i = 0; i < nr_pages / PAGES_PER_SECTION; i++)
-+		section_set_order(__nr_to_section(section_nr + i), order);
-+}
-+
-+static inline unsigned int pfn_to_section_order(unsigned long pfn)
-+{
-+	return section_order(__pfn_to_section(pfn));
-+}
-+#else
-+static inline unsigned int section_order(const struct mem_section *section)
-+{
-+	return 0;
-+}
-+
-+static inline void section_set_order(struct mem_section *section, unsigned int order)
-+{
-+}
-+
-+static inline void section_set_order_range(unsigned long pfn, unsigned long nr_pages,
-+					   unsigned int order)
-+{
-+}
-+
-+static inline unsigned int pfn_to_section_order(unsigned long pfn)
-+{
-+	return 0;
-+}
-+#endif /* CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION */
-+
-+static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
-+{
-+	const unsigned int order = pfn_to_section_order(pfn);
-+	const unsigned long nr_pages = 1UL << order;
-+
-+	if (!is_power_of_2(sizeof(struct page)))
-+		return false;
-+
-+	return (pfn & (nr_pages - 1)) >= VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES;
-+}
-+
-+static inline bool vmemmap_optimizable_order(unsigned int order)
-+{
-+	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
-+		return false;
-+
-+	if (!is_power_of_2(sizeof(struct page)))
-+		return false;
-+
-+	return order >= VMEMMAP_OPTIMIZATION_MIN_ORDER;
-+}
-+
-+#ifdef CONFIG_SPARSEMEM_VMEMMAP
-+struct page *vmemmap_shared_tail_page(unsigned int order, struct zone *zone);
-+#endif /* CONFIG_SPARSEMEM_VMEMMAP */
-+#endif /* _LINUX_VMEMMAP_OPTIMIZATION_H */
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index fda525bccf50..dff915e6c48b 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -38,6 +38,7 @@
- #include <linux/mm_inline.h>
- #include <linux/padata.h>
- #include <linux/pgalloc.h>
-+#include <linux/vmemmap-optimization.h>
- 
- #include <asm/page.h>
- #include <asm/tlb.h>
-@@ -52,7 +53,6 @@
- #include "hugetlb_cma.h"
- #include "hugetlb_internal.h"
- #include "mm_init.h"
--#include "sparse.h"
- #include <linux/page-isolation.h>
- 
- #define HUGE_BOOTMEM_ZONES_VALID	BIT(0)
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 4a57e6c3352c..25c4e7d2664c 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -15,10 +15,10 @@
- #include <linux/mmdebug.h>
- #include <linux/pagewalk.h>
- #include <linux/pgalloc.h>
-+#include <linux/vmemmap-optimization.h>
- 
- #include <asm/tlbflush.h>
- #include "hugetlb_vmemmap.h"
--#include "sparse.h"
- #include "internal.h"
- 
- /**
-diff --git a/mm/memory_hotplug.c b/mm/memory_hotplug.c
-index 0db0379826df..d7a59167bec4 100644
---- a/mm/memory_hotplug.c
-+++ b/mm/memory_hotplug.c
-@@ -43,6 +43,7 @@
- #include "mm_init.h"
- #include "page_alloc.h"
- #include "shuffle.h"
-+#include "sparse.h"
- 
- enum {
- 	MEMMAP_ON_MEMORY_DISABLE = 0,
-diff --git a/mm/sparse.h b/mm/sparse.h
-index 59b825df83b9..e511d99fc26b 100644
---- a/mm/sparse.h
-+++ b/mm/sparse.h
-@@ -9,77 +9,7 @@
- #define __MM_SPARSE_H
- 
- #include <linux/mmzone.h>
--
--#ifdef CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION
--static inline unsigned int section_order(const struct mem_section *section)
--{
--	return section->order;
--}
--
--static inline void section_set_order(struct mem_section *section, unsigned int order)
--{
--	VM_WARN_ON(section_order(section) && order && section_order(section) != order);
--	section->order = order;
--}
--
--static inline void section_set_order_range(unsigned long pfn, unsigned long nr_pages,
--					   unsigned int order)
--{
--	unsigned long section_nr = pfn_to_section_nr(pfn);
--
--	if (!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION))
--		return;
--
--	for (unsigned long i = 0; i < nr_pages / PAGES_PER_SECTION; i++)
--		section_set_order(__nr_to_section(section_nr + i), order);
--}
--
--static inline unsigned int pfn_to_section_order(unsigned long pfn)
--{
--	return section_order(__pfn_to_section(pfn));
--}
--#else
--static inline unsigned int section_order(const struct mem_section *section)
--{
--	return 0;
--}
--
--static inline void section_set_order(struct mem_section *section, unsigned int order)
--{
--}
--
--static inline void section_set_order_range(unsigned long pfn, unsigned long nr_pages,
--					   unsigned int order)
--{
--}
--
--static inline unsigned int pfn_to_section_order(unsigned long pfn)
--{
--	return 0;
--}
--#endif
--
--static inline bool vmemmap_optimizable_pfn(unsigned long pfn)
--{
--	const unsigned int order = pfn_to_section_order(pfn);
--	const unsigned long nr_pages = 1UL << order;
--
--	if (!is_power_of_2(sizeof(struct page)))
--		return false;
--
--	return (pfn & (nr_pages - 1)) >= VMEMMAP_OPTIMIZATION_NR_STRUCT_PAGES;
--}
--
--static inline bool vmemmap_optimizable_order(unsigned int order)
--{
--	if (!IS_ENABLED(CONFIG_SPARSEMEM_VMEMMAP_OPTIMIZATION))
--		return false;
--
--	if (!is_power_of_2(sizeof(struct page)))
--		return false;
--
--	return order >= VMEMMAP_OPTIMIZATION_MIN_ORDER;
--}
-+#include <linux/vmemmap-optimization.h>
- 
- /*
-  * mm/sparse.c
-@@ -139,7 +69,6 @@ static inline void sparse_sections_init(void) {}
-  * mm/sparse-vmemmap.c
-  */
- #ifdef CONFIG_SPARSEMEM_VMEMMAP
--struct page *vmemmap_shared_tail_page(unsigned int order, struct zone *zone);
- void sparse_init_subsection_map(void);
- int section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages,
- 		struct vmem_altmap *altmap, struct dev_pagemap *pgmap);
--- 
-2.54.0
+Reviewed-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+
+Thanks
+-Gustavo
+
+> ---
+> Found while auditing the remaining clk_hw_onecell_data users that assign
+> .num only after touching .hws[], following the fixes already merged for
+> clk-s2mps11 (3e14c7207a97), exynos-clkout (cf33f0b7df13) and
+> clk-raspberrypi (6dc445c19050). The audit, the fix and this changelog
+> were drafted with an LLM assistant and reviewed by hand.
+> 
+> Compile-tested only (W=1, no warnings) on x86_64 with GCC 13.3, via
+> COMPILE_TEST with CONFIG_IPQ_CMN_PLL=m. GCC 13.3 does not implement
+> __counted_by (CC_HAS_COUNTED_BY needs GCC 15.1+ or Clang 20.1+), so the
+> build only confirms that the change compiles; the sanitizer path was not
+> exercised. I do not have the hardware, so this is not runtime-tested and
+> no UBSAN report was captured.
+> 
+> Based on v7.3-rc1. Checked against the pending IPQ5210 CMN PLL series
+> (v3, 2026-08-14): no changed lines overlap, and the fix is still needed
+> after its first patch removes the unwind path.
+> 
+>   drivers/clk/qcom/ipq-cmn-pll.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
+> index dafe8c1738d..a9abad9ff4e 100644
+> --- a/drivers/clk/qcom/ipq-cmn-pll.c
+> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
+> @@ -380,6 +380,8 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>   	if (!hw_data)
+>   		return -ENOMEM;
+>   
+> +	hw_data->num = num_clks + 1;
+> +
+>   	/*
+>   	 * Register the CMN PLL clock, which is the parent clock of
+>   	 * the fixed rate output clocks.
+> @@ -406,7 +408,6 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
+>   	 * is configured to 12 GHZ by DT property assigned-clock-rates-u64.
+>   	 */
+>   	hw_data->hws[CMN_PLL_CLK] = cmn_pll_hw;
+> -	hw_data->num = num_clks + 1;
+>   
+>   	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_onecell_get, hw_data);
+>   	if (ret)
+> 
+> base-commit: 654ae5d73c05bd2943d65636ce6cd0aa46e62f18
 
