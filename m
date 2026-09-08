@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75E653ECEB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A769A53ECEF;
 	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871504; cv=none; b=iiDePxgLLRX2EC1s6r6Gyo32xjZ/581H12H+MayTg0Nt5rFgqrEZWvhMfnrPIB/Rg2TfxDqM+HzqH/3oSuyaSqjO5xP77JStqGFSoq3THypP9xov2iG9boLNEXX/F0LbowGRZXRZhTK02Ne4H9idzppNpCWM/uo+rRdgZ0mwAdA=
+	t=1788871504; cv=none; b=EN5f77Zcd0+hvLq4m6dxl8Z40QqH/DwUdw3F2U/IYR0QaePiJx9R9Xen/0E58FdXHl9+Fdtms7rUUBDd3tMeLfmUHkaAqBYliPCJBzIe3lQWjahIkJB7vvLg4BbTmtUpSYW/WRHtT+pmt+J9nymrckBKXVqB+owiMQbSqjfkFZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788871504; c=relaxed/simple;
-	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D/2ZBNFrDDgv7dmzDA3N5dmCJNPP94teIKX0PAIVgXiGqz+FGGiwKRWUokIIytbUFUqG7v9pF3MG974KYqJGAbXv1vwyaFOj4qlrVY+9zqy5tWm4BlF7ZPNw2nZZRw5ii/mNwcQ+Euv+DtucNpU0N5oRK+biPEM22hPfLvxZ7/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LvCSllkj; arc=none smtp.client-ip=10.30.226.201
+	bh=vzch2M62/WWHWost2D/9T230FaN7wq32AuSjdqMctMQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=MUYT9ubZnl0vmnfJ+/YE+M2gclyDEknsx+Ll5evAU+jvq9Hz3cumzxpxyqLjxtwZO1QqedUfzSDBlaoW2IOoCs+9BzsVXnR6omsOi/ucpMVCwVo9dh/uGqTEb8kNFOrM81OjSBCo3Zdx2oFgNjrBGKuUPeU/TdjarrRi7TVlgvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kiS+uzC2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LvCSllkj"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 56667C2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kiS+uzC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 80982C2BCFD;
 	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788871504;
-	bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=LvCSllkj2sm2J7JLd9pjsN4toGFiIanibYlRwxG8GRLppF9gcb+Q9E/2lfAUlcAMd
-	 CZ2Tqh3jfpZVXNznujApSMNDS8W9gpLjcB5jp9Ct9Wvyo6ZQC9MdB0CGxFHjG6XTne
-	 BPyDrS6EnQ9wDYqYk/7jikloDFqQMMvfIE0YVjXhgJEnhaOCoNZSs5/Gjil7A6YpEe
-	 0rp387o2TmN1ZzqVs7BmQ1jPJwnuBA4xVDYVJm2aacX9r1A3QSs6skSiwegDEdrvai
-	 CQlQNOswOM533J5YZhr8zVl+TPdfEbAOMSkmPvWN9X41qJhm77/1A6akfI9O/cX1VB
-	 DAVBVuXNoGOjA==
+	bh=vzch2M62/WWHWost2D/9T230FaN7wq32AuSjdqMctMQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kiS+uzC22HVOdgVM8xJzFJJOpakF1Ym0C6VAUQRTpznk+I/ZtO5w9G+w0t/GoCb61
+	 f4wbyU3Km6pvxpJom1q/WTBm5VvbRmDaiCvSxQrbrISlmZHD71SXpBA5Z4j3JDdBsC
+	 oNKn/zHg1Uy+CxzdMH56RNb0NUVMvGe0kGIPSZJbugdYXD0JL0UhACP5/P2eiVpQ7I
+	 ZR5tKl7uEOluP3o+IcTHLHdmJVbJmj3AfjGycuUrCYX/nnJXGvtdGegfeWzvYoUwYU
+	 DFZL8gE4Qf39gf6Vllyg+u7Zu9tYBzr8rmF7N7TO5u/IwvTOEdsEKbK+44Q3BVPFYG
+	 Md0ma5nKeEqMg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39B8FC79F99;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 647FCC79FA1;
 	Tue,  8 Sep 2026 12:45:04 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v2 0/3] Xiaomi Poco F1 (ebbg display variant) fixes
-Date: Tue, 08 Sep 2026 14:45:01 +0200
-Message-Id: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+Date: Tue, 08 Sep 2026 14:45:03 +0200
+Subject: [PATCH v2 2/3] drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE()
+ string
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NsQ6DMAxEfwV5rivHAgqd+I+KgQQDXgAlFNEi/
- r0pXTu+O927HYJ4lQD3ZAcvqwadxgh8ScANzdgLahsZmDgnw4xibY/dUtxMiZ1uzzmgdZKlBWd
- kiSEOZy+xOaWPOvKgYZn86/xYzTf96UrK/+lWg4SpFGmeGXJNayrddLm6N9THcXwAEn4yybIAA
- AA=
-X-Change-ID: 20260122-ebbg-ft8719-fixups-bce548250b02
+Message-Id: <20260908-ebbg-ft8719-fixups-v2-2-5454ae1f5581@ixit.cz>
+References: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
+In-Reply-To: <20260908-ebbg-ft8719-fixups-v2-0-5454ae1f5581@ixit.cz>
 To: Joel Selvaraj <foss@joelselvaraj.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -54,58 +53,62 @@ To: Joel Selvaraj <foss@joelselvaraj.com>,
  Sam Ravnborg <sam@ravnborg.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
  Linus Walleij <linusw@kernel.org>
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>, 
- Casey Connolly <casey.connolly@linaro.org>, stable@vger.kernel.org
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1011; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1249; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=tggSJCl2AdaSwI6K1UKsXMUFn3nfnZ+dlVIx8qMmy08=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANOFJeLQjNYi0kXTpsGdTO+bBpMS+a5Wl0S6
- Nl0RyjUoaiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
- ciBnD/wNSFGRfZVkyBhqNF/AkPwW+A9tFaAfw6x8X3yaefweifSqELEDIH87v+L6N1TSxgj32QD
- RNZ6ocaJEAZge4WV6qcvklwSJcWGlwhWFoBDHnIndBbRudUMIkdZkxvIo1htvE9Wn9Gq7GCsCwY
- mhIRGr05Uba06qS+W0SoZt1jt8U+Y0O9N1AOql3NGNv0qRXD63M8cPh2PYBuOFgcu/nQVOrF3m8
- GNB9GKF5dPRjRfjNB7Yp0pUCX+4OrS1opxeRZ4qZi9pin26icIIoMHBqMV+tz7qY+x5eRNJSL5y
- RmNkl2frVAmm4Apapb120L0gG4Rezu9RS/0hC94pRoRAypz4Ku2ZkhJ/7IlDbgEV8yNu4S0zCyg
- WoRACCzChM1NvHTey88xChBgEzsNleOO1GXjqVvzTNkCnFyNuTqIMDBdmhdM0poX/QGKu5Y4dPX
- F2dXB8APaQPmZssiW72lizk5G84nletKZKvHiPRO/y9M4B4pRzyGmw2cQ86Q+XSADb7Hj7HjZlk
- g3r6G1Dt47ugA8YxFSSvqT+CJH+zhTxcc+DbXHn2+Ein+ejEjocHPVGm1NCIrh6RUmvxULnvBOB
- FkHPEFCE+Z1A61t5ROmhpTKdQwRjALU9ow3HIQD40cy5V2cZLJGGWQbZs0Sfrg4hJxyvbBZljdv
- laqYTedl76R230A==
+ bh=pcKWoYS6L82YgpVkEYWbN55kI5NvaLGqQcKX3/w4Jbc=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqoANObviOu0ox4MSAY8PbmPEAfrKuso2+WBjwi
+ ga4pOVvfDWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqADTgAKCRBgAj/E00kg
+ ck7SD/9BssSUhW1R5woL/myJctiVqZjTmd0pwcw+ZwuaNzsI4ZSLE2XXFR2bgpZ+zBvAqf5iJn8
+ x15C6iD6dvW713r0htE9XL/VhtJHqULfQgpF3Eeq8ZF0VbKYKqcXFvm6ItQKeM1cThN8RBN16iz
+ oxLg+9/FlVoeNPKnS/lkvG73Aa/KJ51Mjf43SuCX1rHl/mmWvcUX+eCg92SPMrt7tOE9Pb11FZ4
+ Z7MblAsgt6Lb466HFpIFUeAoCDW55yQMk+5aifONk7uIa0bEYCsSLTybDHeKCjnQXzSqu65lyVd
+ O1BYLHu9kC8Po79tAbPhZuS/Y9pWUTnurEJKEtyEQ3rmawwwRtQ73oGH2s1cWheTbherinsap76
+ TFQkHeP3L5iNqnfMi2qTF2ZvDpf0CXCD3NifBdfsU3LjdK14+Z/I4HD7R0WYAAHkgO41W/5yU/g
+ rrrl8JUxiGjYGPJ3WTE8T7x2xuvHP1sk4lGJrqD048XzJKOuXo3eM4v1juypspfAyDO0Xe0tyMl
+ GSabg/Bd9nXct3H/8fRqCXyCcRDXucbUgm5fi/5uAVfz1JxfOGw8m+O+0W+H53SJiCyHPoUg5IG
+ QhixLZeVqlNzoSzYzEGuG9Ooj9bUP7C43dY1ni3mAZW4XMFNZ/Xh/bZqDSQG0lLO5bdzdKAvwaP
+ 5n8FnYrInSqhPmw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-Been broken in mainline for some time.
+From: David Heidelberg <david@ixit.cz>
 
+Replace the bogus "GPL v2" with "GPL" as MODULE_LICNSE() string. The
+value does not declare the module's exact license, but only lets the
+module loader test whether the module is Free Software or not.
+
+See commit bf7fbeeae6db ("module: Cure the MODULE_LICENSE "GPL" vs.
+"GPL v2" bogosity") in the details of the issue. The fix is to use
+"GPL" for all modules under any variant of the GPL.
+
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-Changes in v2:
-- Ignore the disable() errors, as there were ignored before too. (Neil)
-- Update the `Split initialization into enable/disable fn` commit
-  message. (Neil)
-- Replaced the maintainer old email with new, so Joel gets notified
-  about this patchset being sent.
-- Link to v1: https://patch.msgid.link/20260906-ebbg-ft8719-fixups-v1-0-4e846510cad1@ixit.cz
+ drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
----
-Casey Connolly (1):
-      drm/panel: ebbg-ft8719: Set prepare_prev_first
+diff --git a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+index 1ab09c50a6306..14982263a94f1 100644
+--- a/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
++++ b/drivers/gpu/drm/panel/panel-ebbg-ft8719.c
+@@ -241,9 +241,9 @@ static struct mipi_dsi_driver ebbg_ft8719_driver = {
+ 		.name = "panel-ebbg-ft8719",
+ 		.of_match_table = ebbg_ft8719_of_match,
+ 	},
+ };
+ module_mipi_dsi_driver(ebbg_ft8719_driver);
+ 
+ MODULE_AUTHOR("Joel Selvaraj <jo@jsfamily.in>");
+ MODULE_DESCRIPTION("DRM driver for EBBG FT8719 video dsi panel");
+-MODULE_LICENSE("GPL v2");
++MODULE_LICENSE("GPL");
 
-David Heidelberg (2):
-      drm/panel: ebbg-ft8719: Fix the MODULE_LICENSE() string
-      drm/panel: ebbg-ft8719: Split initialization into enable/disable fn
-
- drivers/gpu/drm/panel/panel-ebbg-ft8719.c | 23 +++++++++++------------
- 1 file changed, 11 insertions(+), 12 deletions(-)
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260122-ebbg-ft8719-fixups-bce548250b02
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+-- 
+2.55.0
 
 
