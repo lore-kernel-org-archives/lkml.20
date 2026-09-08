@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97EF13B442B;
-	Tue,  8 Sep 2026 20:34:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C82CD5A986A;
+	Tue,  8 Sep 2026 20:34:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899680; cv=none; b=FjEpUrQDZqCYzrpNVHJTqd5CbxJ/GlNj/MoofHEYlhV2OPk8dzkE4cxHCCNMX1REHe7WuHOD/R3Suv7/49s1UPEHDzF9Ysc4nrBE6a4gnrFnHjl5lPRvpP6Mtm71x5NExO8vmo23UemZH0SGuHfUoFVDoAtO8JC/uHrt3lTjHqk=
+	t=1788899681; cv=none; b=t0fbuO3u709t/knBaJL4MairYlQVy7m1LTSn2PgMgkIH98B3kpTJA5X+UwmPzdO9tN+XUOQvvmrUZvZmmshWyCvaPXFALQiccfNKpSzrtAcLkDwCN6PLjYZKkmaJhpfKxVRptBJAo9GdLukXSpAfsR1GGZ+rQ1HSTHBuePyr5u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899680; c=relaxed/simple;
-	bh=/7jIcjgOxFNGI7ubXzY3AcMW0+R1rsx2kBOe6fYE6Aw=;
+	s=arc-20240116; t=1788899681; c=relaxed/simple;
+	bh=VFz8lBru3Qms0pxRnA63kuF2S4xr2Wi8VDOhngblftM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NiZernqjUw+5+QEFRe3J7DLxbJM5sldU0BO0s/uZtAKYs3eYg1BBbhW+wy4GVOHsVXw998ziByRwLuYK/qLbUAIe/EaFZUUTHQPAkls8J46Id80VdMczZ6iZLRfcg5gc1bePFLc24FY1fWQI2JtsxnUuIyz6AMpurhTYgHv8ajw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TJvoNrUT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AWQCT2ARJv8JK2vlhZdsescmjV1Y34IsJlTw82WUEXNCwTrBa+DBgytOLNpwRSe9/jKZYsiywS507JBYzDc9u8m+ZT+mGLcp14XksU3n+c6d7gNGBsIJ/kSzlNrbwa20mQobwZG6bWvQm/xcyrICq6yXqFg6ePt0z+mnbWParB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dfdEB1Li; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TJvoNrUT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ECB31F00A3E;
-	Tue,  8 Sep 2026 20:34:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dfdEB1Li"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EA341F00A3A;
+	Tue,  8 Sep 2026 20:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899678;
-	bh=LpssU78NKD8pmI7WdfWJNnR20LDRSOoXQsuYdchzvVU=;
+	s=k20260515; t=1788899679;
+	bh=SasHm0H1uD9YNErhrHb6nEh7430J9yuNnou+/rYTmZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TJvoNrUTksWoiuke0M219zJ8JdNvDqX19lG8mUOObA6EOjXtgZZYvA3uTJkL8TuSu
-	 j3500BEWIfeRupA42m6RkRlDYxABZbBG63/haVJsX+DDZuwcIU421qY5GxT4uMRjuD
-	 coVfRsX9MYTVS/Y4WWpIHzL65ZATgfajqGFvgX0JRrQ8pMwsKp0yw/Rut+SbyBz5yh
-	 szIjA5Q2ybZXKyP36P0frCQwMIkaJJb5GcXuWqty+Qo7GsxbJwyu4Zh43RDplNDmnW
-	 HlilPqg25eNYatwt9tcERQAtogYz8fRDlrbN5P2qRbMqVcdCP/KoGVkvA85zUAAJjq
-	 uDs26sycQO36A==
+	b=dfdEB1LiHZq3kvB4p5BIb9bbkQjUdVJ/15D7GdlhvRDcsiBvaTpiC2hjNf6d4LR3A
+	 kjdAufuMJLwWByQTW8g7+9Ap3p/ei5vfRK9gZopGwW0Rk1DOZVGuxv880ptjC+fc7z
+	 0wvzsDrpms/H4R1mDrwGghppzziEi/qwB8XycArWt4ZZY1CHygxwOYFhwcMubfIPak
+	 fd8+c61spup+2O9g2vqBpvIhjP2ugMRLU4gQcUCSVyJuvjk/O2wyn0RjQhFPzzSQyp
+	 LnT8zLRkSMGxiCdtxGjOMPlM9RJLBoR0C3sW8QpReja98mnzpPJyVBX7msCFfFpn3Y
+	 U9MyCKNtYDtmg==
 From: Josh Poimboeuf <jpoimboe@kernel.org>
 To: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -38,9 +38,9 @@ Cc: linux-kernel@vger.kernel.org,
 	Nicolas Schier <nsc@kernel.org>,
 	linux-kbuild@vger.kernel.org,
 	Huacai Chen <chenhuacai@kernel.org>
-Subject: [PATCH v2 19/27] x86/xen: Make xen_start_kernel() noreturn
-Date: Tue,  8 Sep 2026 13:33:31 -0700
-Message-ID: <d2781cfce26aeb7136acf3af75d51bf299cf294a.1788899473.git.jpoimboe@kernel.org>
+Subject: [PATCH v2 21/27] objtool: Fix noreturn detection for non-sibling jumps to SYM_CODE
+Date: Tue,  8 Sep 2026 13:33:33 -0700
+Message-ID: <8a2e4b91bc77da223068b1da6366360c3973aed5.1788899473.git.jpoimboe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788899473.git.jpoimboe@kernel.org>
 References: <cover.1788899473.git.jpoimboe@kernel.org>
@@ -52,70 +52,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-startup_xen() calls xen_start_kernel() with the assumption that it never
-returns, otherwise it would fall off the end of SYM_CODE_END(),
-triggering undefined behavior.
+Objtool doesn't consider a jump to be a sibling call if the destination
+isn't a function, so srso_alias_untrain_ret()'s jump to
+srso_alias_return_thunk() is ignored by objtool and the former is
+falsely classified as noreturn.
 
-But startup_xen() actually can return if 'si' is NULL.  That doesn't
-seem to be possible, so drop the check and mark xen_start_kernel()
-__noreturn.
+Change the noreturn detection to consider such cases as effectively
+sibling calls, except for one known exception: jumping to .altinstr_aux.
 
-A NULL 'si' would now fault on the first xen_start_info dereference,
-which is at least a more deterministic way to crash.
+Currently the misclassification is harmless: dead ends aren't marked
+when calling a noreturn from an alternative replacement
+(CALL_UNTRAIN_RET), they're ignored by rethunk validation, and ORC
+generation relies on unwind hints in the SRSO code regardless.
 
-Now that the function can no longer return, objtool can derive its
-noreturn attribute directly and the noreturns.h entry can be removed.
+Fix it in the name of robustness and in preparation for a subsequent
+patch which generates a list of exported noreturns.
 
 Signed-off-by: Josh Poimboeuf <jpoimboe@kernel.org>
 ---
- arch/x86/xen/enlighten_pv.c | 5 +----
- arch/x86/xen/xen-ops.h      | 2 +-
- tools/objtool/noreturns.h   | 1 -
- 3 files changed, 2 insertions(+), 6 deletions(-)
+ tools/objtool/check.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 2c64b388f6164..8ec78df9d1d5b 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -1325,15 +1325,12 @@ static void __init xen_domu_set_legacy_features(void)
- extern void early_xen_iret_patch(void);
+diff --git a/tools/objtool/check.c b/tools/objtool/check.c
+index 35e24151f5785..41df5f608535f 100644
+--- a/tools/objtool/check.c
++++ b/tools/objtool/check.c
+@@ -266,8 +266,22 @@ static bool might_return(struct objtool_file *file, struct symbol *func)
+ 		if (insn->type == INSN_RETURN)
+ 			return true;
  
- /* First C function to be called on Xen boot */
--asmlinkage __visible void __init xen_start_kernel(struct start_info *si)
-+asmlinkage __visible void __init __noreturn xen_start_kernel(struct start_info *si)
- {
- 	struct physdev_set_iopl set_iopl;
- 	unsigned long initrd_start = 0;
- 	int rc;
+-		if (!is_sibling_call(insn))
++		if (!is_sibling_call(insn)) {
++			/*
++			 * Assume a jump into a non-function eventually returns
++			 * to the original caller one way or another, e.g., the
++			 * jump in srso_alias_untrain_ret().
++			 *
++			 * .altinstr_aux is an exception, cpu_feature_enabled()
++			 * jumps there and then right back.
++			 */
++			if (is_static_jump(insn) && insn->jump_dest &&
++			    !insn_func(insn->jump_dest) &&
++			    strcmp(insn->jump_dest->sec->name, ".altinstr_aux"))
++				return true;
++
+ 			continue;
++		}
  
--	if (!si)
--		return;
--
- 	clear_bss();
- 
- 	xen_start_info = si;
-diff --git a/arch/x86/xen/xen-ops.h b/arch/x86/xen/xen-ops.h
-index 47eebbb3684ab..d830807cfffca 100644
---- a/arch/x86/xen/xen-ops.h
-+++ b/arch/x86/xen/xen-ops.h
-@@ -73,7 +73,7 @@ void xen_force_evtchn_callback(void);
- 
- void xen_pv_pre_suspend(void);
- void xen_pv_post_suspend(int suspend_cancelled);
--void xen_start_kernel(struct start_info *si);
-+void __noreturn xen_start_kernel(struct start_info *si);
- 
- void set_pte_mfn(unsigned long vaddr, unsigned long pfn, pgprot_t flags);
- void xen_init_mmu_ops(void);
-diff --git a/tools/objtool/noreturns.h b/tools/objtool/noreturns.h
-index 01c94f20d1818..c4b93fc6e6299 100644
---- a/tools/objtool/noreturns.h
-+++ b/tools/objtool/noreturns.h
-@@ -21,4 +21,3 @@ NORETURN(panic)
- NORETURN(vpanic)
- NORETURN(rust_helper_BUG)
- NORETURN(sev_es_terminate)
--NORETURN(xen_start_kernel)
+ 		dest = insn_call_dest(insn);
+ 		if (!dest || !is_noreturn(dest))
 -- 
 2.55.0
 
