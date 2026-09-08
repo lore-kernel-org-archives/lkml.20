@@ -1,312 +1,190 @@
-Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C90C5237B3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9983503BD2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861793; cv=none; b=YBM1ryp5WNBl+MkimTrY9bn6eeobsnOpcWPHgpiV6EckOQ4q9YHlxGkbkXNt03a+SWcOcN75NCJayUi3Hfdo3AQ0itEzgl3Ggobv1m/N6r1B1yTAixCwCygcB7twiao5avJXXnwU46QFw/5HIzKOrkSUPRJTThYBPtuujIrOK20=
+	t=1788861801; cv=none; b=F9+JyU2eu2x21Y3es9p35XA1/gMY2lqyB2Vo261ZOGd6ibSaYm4jSEasezFcoNeRRwk26nP7nLtYs9zaZGgAk/KhxZ66GjymUqKl2lKdw4LD3oH1hAFXAAwJ3RO2ttLfx7llbuhnjtDXKnqEGQBa+jMEamQ+R7FCuu1pbcMbBG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861793; c=relaxed/simple;
-	bh=r4FFykHx2l0Mym4QKl1EfWhMWo17b+iIf/S75GX9C8I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hwDr6k4KyjXoGNxIfacwtlhFYo1j5nD5GwvpySXFC9wJKaZuwGtbF5Q9vCb1FyEpo8TwxJ1tiqfRq2wmd9Hhgbg1BZ0wkxQyJs9Gs7W6B3ZPvVigqgp5yyeUSMXKvtaDXwKYsbhzTQAkJ5f+9y6pvixDnzlxhBk7IUe8Uk16igs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Hjw1Nxt2; arc=none smtp.client-ip=91.218.175.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788861801; c=relaxed/simple;
+	bh=gU3el5vBaKIowxWErPSf+Ml57LVgUfxjbCElgrhuRcE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FHyssHz8Dx0ihJt83JdN7OaavWGJAURHAvGMj8EuO6nJ825tui2fdoCdRPVblz281cuDdjD2Di5bhk6R+yJoF1Vmd4V9UkkKc5b9i3+vHpuw4MZzNgyTxZA2YwyrxVhjEF0I6ecGfIc68+du3Su/ibnFUH6hSXWzf/Ld4v1KAJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D0tFBxn8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TGXnK+Xa; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Hjw1Nxt2"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r4FFykHx2l0Mym4QKl1EfWhMWo17b+iIf/S75GX9C8I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788861788; v=1; x=1789466588;
- b=Hjw1Nxt2FlCqtEby6RwyjPsfi6lncRLLubQU5P83G2amqWf8Ng7nmMPT77tiNSEnplLzyeu6
- gCVQeMiqQDcWMLvBqgjBDUw+IfOls7MHNOSxzZaN5x1mfojTTxnglofb15rQsEkM5pMLZRD2rIs
- Me4XMXnBVrfCTZHt8ypyB7No=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dbfa77b83717f402;
-	Tue, 08 Sep 2026 10:03:08 +0000
-X-Mizu-Trace-ID: dbfa77b83717f402
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	josef@toxicopanda.com,
-	axboe@kernel.dk
-Cc: cgroups@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	linux-kselftest@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [RFC PATCH 6/8] selftests/bpf: add iocost cost model test
-Date: Tue,  8 Sep 2026 18:01:41 +0800
-Message-ID: <20260908100143.47598-7-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908100143.47598-1-cui.tao@linux.dev>
-References: <20260908100143.47598-1-cui.tao@linux.dev>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D0tFBxn8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TGXnK+Xa"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6888cQeX2380979
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 10:03:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rfmoRRos15ggGyuCj+3H9fL/
+	SgvX7ZnyDI13Z33CBSw=; b=D0tFBxn8ZVxw/JXA7I6wUpKQXpfGKOM3vRPs3IK8
+	5CL6MVDqRo1W1YViRBo6aRyRH2jaf+JTkAmAxuVvA683Bs/Tk84laBk7+BAVR9Jj
+	XoavlV7SedRkB6iU57sWromNNQkz/BA6uHlE1C56bSCnQqnoBXOGmDobLyoEQejp
+	OmSDyPOZNDKgqqHXrz1WKUYW+MIWh9XyIK3RfiUkDW6BrIRskJWU0zDjKMIQarYf
+	opqatafYdUE9ZvG4nuyUPIUqWvMavlLiqkTYHtLGG6ta5Hk/PQUnHIZYa9ol/cH7
+	fikja42WTLvPLzz+wNBQO946IB/BC3xU2Ci+SPNmEPessA==
+Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjf1cgbj5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:03:18 +0000 (GMT)
+Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b34ad165e3so2409707eaf.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:03:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788861798; x=1789466598; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rfmoRRos15ggGyuCj+3H9fL/SgvX7ZnyDI13Z33CBSw=;
+        b=TGXnK+XanRawCsS5ibCnTKGsGyCpp5XZoiXvnVH60ljhQ7yB+TMP1I0kks9oN8nT5i
+         U79GjPgg9cHayVshD/ienKCNfclCypCoiM6l0IzbAvYKDqtXDatG7RAowBLUxKBZsjdA
+         Uvb7nIFmYcOidRxv7vpgjfgSlF/r85Emb4MkISp+6lord4K6YXmyRECRifFEZoGTp/f6
+         /DtvHxI/E+eHkCtYfx5qcLtHIoKMoGWiLMipgORqY+a00+Y8TyHLS3oK+/nZMyJqgRHk
+         s4a9Z7gifatE7GVC5VAJPuRMMFytRV5g/szotSUTjD4GiHdrKQgk9SFaNwJ/fqqIiuUj
+         0qfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788861798; x=1789466598;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rfmoRRos15ggGyuCj+3H9fL/SgvX7ZnyDI13Z33CBSw=;
+        b=a8IgkOzz1k3z/DL2jRsRi+RCknIWazlzIaTXfVdutzkEFGX/CEtBbAJtxCoHK7GuT0
+         IuEbOeCciE/ShUzjLRxkWRI/pQZZzoChL343ZLUMtBfn5DLAg9YykU9CeBPpZhpavsgR
+         YmtNFI0S7poCm3twdBurrEuuZgfddLWfSGRTQjS0CDu1+6fDr+PxZJZvRoAxGW3lZ2VT
+         G/f4mHSWtbckvUg/NwIDBV9/w1WAmhaYwLPXULas5DXnCcTGrXOq+SJ3tHySI95Gcs26
+         uKNw0/trkl2S5RQEdEKHpoH/90SWAf5u+Kgg/DDdfP8zDhZGXwoloFuVN5kKcvfoSAqX
+         KStA==
+X-Gm-Message-State: AFuF++mVDTvFfSOYN+laVjEvqXpxwfGZAAwckxVM2reaoeExomF6rDsW
+	N+z+80Xvaloj8SeWxKkNpSsp1YaTN+WP7Y7dYUNN5njegvtgNVVCnNz2y/k2SEDPf4MDmACHRlL
+	E0VJ7VLYYhgwSwurv7qarHO94sKuDqh4l41mSvJEemeDIxVf+Ic3opVHJ7dT+M1YJVmU=
+X-Gm-Gg: AYBFou1zaiyKVzG9pMcWpNV7stGbJ10KKhWAiIeipK/1AALPjIPja6sXkLyT2GzqVta
+	TIA8Wdi7om6MwHBOxz2CEr/l3jg9huCUejLLn5CqahzzOyvm0sJxMDH5FYonvaA0Erw8sV+odMO
+	E1Gp+WBD4WTz+2ZXuocHfoDmj7Zh8rnrO3TRTzsLCsespnJ+0AwqHFXzkqdXGMWP16Z5I8EzJo2
+	WBz5VBiceW4Wn7shcR/yWwp3embDqSEQXUDj3iEHrFM0bS9Ui9dW8ZtAZ+N5JtSzB+vnnND7Osg
+	3kNX6J3W/rlnAkK22VtgZqUjIsdEH3IEsxaNu/oNgrz864ppYF6FffqyH0KrXxr+9nqLI6umdEP
+	mXTjEisH0gwLCPbrxjcMtlc1k59JS+QfR2ExZ3vawY5X4ebUoL0vzlw43VavadXXi86/p+2qp6t
+	HGCZaoN5jNHiV+Fm8=
+X-Received: by 2002:a05:6820:988:b0:6b0:19bc:fd14 with SMTP id 006d021491bc7-6b6fe59c264mr15048385eaf.32.1788861798138;
+        Tue, 08 Sep 2026 03:03:18 -0700 (PDT)
+X-Received: by 2002:a05:6820:988:b0:6b0:19bc:fd14 with SMTP id 006d021491bc7-6b6fe59c264mr15048341eaf.32.1788861797698;
+        Tue, 08 Sep 2026 03:03:17 -0700 (PDT)
+Received: from hu-anancv-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm31124434c88.0.2026.09.08.03.03.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 03:03:17 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:33:12 +0530
+From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
+To: Vincent Guittot <vincent.guittot@linaro.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+        linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] sched/cpufreq: fix schedutil's boost frequency
+ handling
+Message-ID: <ap_a2uVHgjiNtL3I@hu-anancv-blr.qualcomm.com>
+References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=VN3tWdPX c=1 sm=1 tr=0 ts=6a9fdd66 cx=c_pps
+ a=wURt19dY5n+H4uQbQt9s7g==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=fTh2YsA6urFVvDZ4lSoA:9 a=CjuIK1q_8ugA:10 a=-UhsvdU3ccFDOXFxFb4l:22
+X-Proofpoint-ORIG-GUID: fXGe2v0eDIqXegIONmUJ2dj5GgQOp7OS
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDEwNiBTYWx0ZWRfXzKVB+r+jcXCw
+ 3U/N13NK4zN+SPPI1Vy4PkPLEFPNO4hUL4/vURKggJ8oo0NWdbWvK2r3WajNZOMRJpgVImQNm6P
+ i2g4qDmT8HSUwbH/759Nzp7f/4xaQEg=
+X-Proofpoint-GUID: fXGe2v0eDIqXegIONmUJ2dj5GgQOp7OS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDEwNiBTYWx0ZWRfX1FEeQd1+pwPZ
+ fRDxK25mF49MXqKfeFdWvlfvb9hHZGLEbhL0HYxsQgvG5mBjgZSnp65UvhXK8s1kvKJjXwX14bL
+ mmSbhkvpVKDm++Pbzc0eCi4pV3FDgPoBgzNhQCD6k6g4gmGYN3uIrXeb26Y7x0806dvjsnma2/j
+ AqdZwy1cf/5L3HrAOssRZ17rdRE93NrEdUsrOJxgg2rDc8mt29xpaktznSoEkKMob1IHCnDg58u
+ AO2XZXYFZzp+YX99aVq14+WGkxi1W8AWrOgsjnNjERZ6puf9Etjs8u4rGApgDYPiRMgsI0TLirz
+ /YsGsOjxV1ozyelQWs+uN4tYxTRD/xcBlkrhQY9LfAMz85VigwVMZhCKMFRJBi/1iQgoZop8gIN
+ UBXkLZbv2UBtUK6ACPJWThSONOkK3+Y8FUzYjj5TyAyJ9ZfRAEjaclqCM8qoGAX+U+AtdSxV4op
+ dNP1SSJZlRjeBBI4glA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080106
 
-From: Tao Cui <cuitao@kylinos.cn>
+It seems some mangling was done and all lines starting with hashes
+were considered comments and ignored, malforming the logs. Apologies
+for that, this is how it's supposed to look :)
 
-Add an example cost model implementing iocost_model_ops with the
-builtin linear HDD formula at double cost, and a runner which
-registers it as a struct_ops, switches a device to ctrl=bpf through
-io.cost.model and verifies the readback, restoring ctrl=auto
-afterwards.  The runner first checks the negative case: writing
-ctrl=bpf while no model is registered is rejected.  Under the same
-workload the doubled model should charge exactly twice the builtin
-model, which makes it a convenient way to verify that accounting
-goes through the BPF path; the accounting itself needs real IO and
-is covered by the kernel-side validation described in the cover
-letter.  The runner is skipped unless $IOCOST_TEST_DEV gives a
-major:minor of a device with iocost enabled.
+Before fix
+----------
+# cd /sys/devices/system/cpu/cpufreq/
+# ls
+boost  policy0  policy12  policy6
+# cat boost
+0
+# cat policy6/scaling_max_freq
+4454400
+# echo 1 > boost
+# cat policy6/scaling_max_freq
+4723200
+# echo 0 > boost
+# cat policy6/scaling_max_freq
+4723200
+4723200
 
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- .../selftests/bpf/prog_tests/iocost_model.c   | 124 ++++++++++++++++++
- .../selftests/bpf/progs/iocost_model.c        |  91 +++++++++++++
- 2 files changed, 215 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/iocost_model.c
- create mode 100644 tools/testing/selftests/bpf/progs/iocost_model.c
+# echo 1 > boost
+# cat policy6/stats/time_in_state
+355200 36958
+4454400 650
+4588800 0
+4723200 0
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/iocost_model.c b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
-new file mode 100644
-index 0000000000000..386026241d5b4
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
-@@ -0,0 +1,124 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Tao Cui */
-+#include <test_progs.h>
-+#include "iocost_model.skel.h"
-+
-+/*
-+ * Switch a device to ctrl=bpf through io.cost.model and verify the
-+ * readback, restoring ctrl=auto afterwards.  Returns 0 on success.
-+ * Shared by the example-model tests below.
-+ */
-+static int switch_to_bpf(const char *dev)
-+{
-+	char path[] = "/sys/fs/cgroup/io.cost.model";
-+	char word[256], line[256], buf[300];
-+	FILE *fp;
-+	int err, found = 0;
-+
-+	fp = fopen(path, "r+");
-+	if (!fp) {
-+		TH_LOG("open %s: %s", path, strerror(errno));
-+		return -1;
-+	}
-+
-+	while (fgets(line, sizeof(line), fp)) {
-+		if (sscanf(line, "%255s", word) == 1 && !strcmp(word, dev)) {
-+			found = 1;
-+			break;
-+		}
-+	}
-+	if (!found) {
-+		TH_LOG("%s has no iocost line", dev);
-+		fclose(fp);
-+		return -1;
-+	}
-+
-+	snprintf(buf, sizeof(buf), "%s ctrl=bpf", dev);
-+	err = fprintf(fp, "%s\n", buf);
-+	if (err <= 0) {
-+		TH_LOG("write ctrl=bpf failed");
-+		fclose(fp);
-+		return -1;
-+	}
-+	fflush(fp);
-+
-+	rewind(fp);
-+	found = 0;
-+	while (fgets(line, sizeof(line), fp)) {
-+		if (sscanf(line, "%255s", word) == 1 && !strcmp(word, dev)) {
-+			found = strstr(line, "ctrl=bpf") != NULL;
-+			break;
-+		}
-+	}
-+	if (!found)
-+		TH_LOG("readback does not show ctrl=bpf");
-+
-+	fprintf(fp, "%s ctrl=auto\n", dev);
-+	fclose(fp);
-+	return found ? 0 : -1;
-+}
-+
-+static int dev_has_iocost(void)
-+{
-+	FILE *fp = fopen("/sys/fs/cgroup/io.cost.qos", "r");
-+
-+	if (fp)
-+		fclose(fp);
-+	return fp != NULL;
-+}
-+
-+/*
-+ * Register the example cost model and switch a device to ctrl=bpf.
-+ * IO accounting itself is not checked here; it needs a device doing
-+ * real IO under iocost and is covered by the kernel-side validation
-+ * described in the cover letter.
-+ *
-+ * Requires root, cgroup v2 and a device with iocost support.  The
-+ * device must be given as major:minor in $IOCOST_TEST_DEV, otherwise
-+ * the test is skipped.
-+ */
-+void serial_test_iocost_model(void)
-+{
-+	struct iocost_model *skel;
-+	char word[256], *dev;
-+	int err;
-+
-+	dev = getenv("IOCOST_TEST_DEV");
-+	if (!dev || geteuid() != 0) {
-+		test__skip();
-+		return;
-+	}
-+	if (!ASSERT_TRUE(dev_has_iocost(), "iocost_mounted"))
-+		return;
-+
-+	/* negative: ctrl=bpf must be rejected while no model is
-+	 * registered, so a typo cannot silently disable cost model
-+	 * updates */
-+	if (sscanf(dev, "%255s", word) != 1)
-+		return;
-+	{
-+		char path[] = "/sys/fs/cgroup/io.cost.model";
-+		char buf[300];
-+		FILE *fp = fopen(path, "w");
-+
-+		snprintf(buf, sizeof(buf), "%s ctrl=bpf\n", word);
-+		err = 0;
-+		if (fp) {
-+			err = fprintf(fp, "%s", buf) <= 0;
-+			fclose(fp);
-+		}
-+		ASSERT_TRUE(err, "ctrl_bpf_without_model_rejected");
-+	}
-+
-+	skel = iocost_model__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "skel_open_load"))
-+		return;
-+
-+	/* attaching the struct_ops registers the model; a second
-+	 * registration of the same ops would fail with EBUSY */
-+	err = iocost_model__attach(skel);
-+	if (ASSERT_OK(err, "attach"))
-+		ASSERT_OK(switch_to_bpf(dev), "switch_and_readback");
-+
-+	iocost_model__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/iocost_model.c b/tools/testing/selftests/bpf/progs/iocost_model.c
-new file mode 100644
-index 0000000000000..70f7987f8eb6a
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/iocost_model.c
-@@ -0,0 +1,91 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 Tao Cui */
-+/*
-+ * Example iocost cost model: the builtin linear HDD formula with all
-+ * costs doubled.
-+ *
-+ * The constants mirror what calc_lcoefs() derives from the AUTOP_HDD
-+ * defaults (rbps=174019176 rseqiops=41708 rrandiops=370, w-side
-+ * analog) in vtime units where 1s == 2^37, expressed with the same
-+ * round-up divisions so they cannot drift from the kernel, so a
-+ * device switched to ctrl=bpf with this model registered charges
-+ * exactly twice the builtin model under the same workload, which
-+ * makes it a convenient way to verify that accounting goes through
-+ * the BPF path.
-+ */
-+#include "vmlinux.h"
-+#include <bpf/bpf_helpers.h>
-+#include <bpf/bpf_tracing.h>
-+
-+/* VTIME_PER_SEC comes from vmlinux.h (a BTF enum constant) */
-+#define IOC_PAGE_SIZE		4096
-+#define IOC_SECT_TO_PAGE_SHIFT	3	/* 512B sectors to 4kB pages */
-+#define LCOEF_RANDIO_PAGES	4096	/* 16MB seek threshold */
-+#define IOCOST_COST_F_MERGE	(1ULL << 0)	/* not in BTF: a plain macro */
-+
-+/* DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
-+ * compile time */
-+#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
-+
-+#define RBPS	174019176ULL
-+#define RSEQIOPS	41708ULL
-+#define RRANDIOPS	370ULL
-+#define WBPS	178075866ULL
-+#define WSEQIOPS	42705ULL
-+#define WRANDIOPS	378ULL
-+
-+#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
-+#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
-+#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
-+#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
-+#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
-+#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
-+
-+static __always_inline u64 builtin_cost(u64 op, u64 nbytes, u64 sector,
-+					u64 cursor, u64 flags)
-+{
-+	u64 pages, seek_pages = 0, base, coef_page;
-+
-+	if (!nbytes)
-+		return 0;
-+
-+	switch (op) {
-+	case REQ_OP_READ:
-+		base = RSEQIO;
-+		coef_page = RPAGE;
-+		break;
-+	case REQ_OP_WRITE:
-+		base = WSEQIO;
-+		coef_page = WPAGE;
-+		break;
-+	default:
-+		return 0;
-+	}
-+
-+	if (cursor) {
-+		seek_pages = sector > cursor ? sector - cursor
-+					     : cursor - sector;
-+		seek_pages >>= IOC_SECT_TO_PAGE_SHIFT;
-+		if (seek_pages > LCOEF_RANDIO_PAGES)
-+			base = (op == REQ_OP_READ) ? RRANDIO : WRANDIO;
-+	}
-+
-+	pages = RU(nbytes, IOC_PAGE_SIZE);
-+	if (flags & IOCOST_COST_F_MERGE)
-+		base = 0;
-+	return base + pages * coef_page;
-+}
-+
-+SEC("struct_ops")
-+u64 BPF_PROG(iocost_2x_calc_cost, u64 op, u64 nbytes, u64 sector,
-+	     u64 cursor, u64 iocg_id, u64 flags)
-+{
-+	return 2 * builtin_cost(op, nbytes, sector, cursor, flags);
-+}
-+
-+SEC(".struct_ops")
-+struct iocost_model_ops iocost_2x = {
-+	.calc_cost = (void *)iocost_2x_calc_cost,
-+};
-+
-+char LICENSE[] SEC("license") = "GPL";
--- 
-2.43.0
+After fix
+---------
+# cd /sys/devices/system/cpu/cpufreq/
+# ls
+boost  policy0  policy12  policy6
+# cat boost
+0
+# cat policy6/scaling_max_freq
+4454400
+# echo 1 > boost
+# cat policy6/scaling_max_freq
+4723200
+# echo 0 > policy6/boost
+# cat policy6/scaling_max_freq
+4454400
 
+# cat policy6/boost
+0
+# cat policy6/stats/time_in_state
+355200 40147
+4454400 79
+4588800 0
+4723200 0
+# echo 1 > policy6/boost
+# cat policy6/stats/time_in_state
+355200 44834
+4454400 93
+4588800 25
+4723200 569
+
+Best,
+Ananthu
