@@ -1,64 +1,64 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13245221DE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFEA5237A2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860466; cv=none; b=EmkQwBE8zOtVgokAKUoLdTpMVFQlcP6eEHgM6KBaKpefhWK6B0Tl/h6/mzW+AMFwS/XoQIvtrTtKG52q88FhdH0EoG73ECu4OytaVyJkerX+RNdBFvQ3dvCobCKuq8+QSeHI+ABbS2ufYTVA5rVeQ1iM6YuevI9kzsdn1n1Dw4Y=
+	t=1788860470; cv=none; b=b6wUZU1LSq7uNXj0MCHu1A4oPAS4HJRbqiJi0ltOypNIw/WKgcUB3UfZrYjVPvgouVlv/4JuN/W5DqWbLqujgA2qC479bzCrV5V5utRkR155wL/v8MMxuac20kgkNYhd/LWSsMTD8VFOCVelJR0a27Y+hcVZEXjzChfrqsT3cl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860466; c=relaxed/simple;
-	bh=llnT/Nhi0T0PSHQzd9OBlgDGZy6ViMTn3F2kEpxp+Q4=;
+	s=arc-20240116; t=1788860470; c=relaxed/simple;
+	bh=ymrWWchYGLjkNxZZNJjEWYLE5L5GJlodkp3U06kQKLo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SstuMIDZfkbesHRdqi9AWnT0eLpEWIucg8OOgEIzulyG+rl8X528GuFJFsNN2rzPRZyrNRuz4tu1VkwQLmKKB4XanOTJjC34ASbp+JaQS7xqEIuamIGYj2Zs1tGuX4B/8ExbMLkICY1VVmJNIrPctoQ34UvZpTymw3/FnfntdFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A2SfJfsr; arc=none smtp.client-ip=209.85.214.179
+	 MIME-Version; b=hy/k7es25U/4cB/xgukZjldjHOuhQlFQhGmuPJycOvvDXcGPoW+4Vg6G4Gp1JZabGu2vI8DpM4hn/txEZ0/Pue/q9CdI6S1GF4kMldVRBLSyw4b+6jj6GnGwswpkau7yWNveXDtEpD3DFL8jlFDPlO4uyWtX57q6hGCFBLruIW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1qUDlOc; arc=none smtp.client-ip=209.85.216.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A2SfJfsr"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d032846c95so50198165ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1qUDlOc"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so5148513a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788860463; x=1789465263; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788860468; x=1789465268; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UXOoZtg2JwC8xSALXmsKi6kXLvJ+n3TB4KwXOFfrD0U=;
-        b=A2SfJfsrsqjf7txyXkQU0dxC0n+3Bmc3merB9CWuYJsmFgasxJ7vJBPQYJlFtRzjXU
-         2DTK/CsU78CniBTn+DfZbWNaKiAUvVrN1JvgN1tVeZEStXQwsBa4wtpXDit0zVROpozD
-         KcOO/67ze/FNa1T2vICLLGkYx7+N2eJcWw8xSUGC+afwCJu5tfdEJEuE4fEb/OPX6Tmt
-         2tm2EA9HkUAuPC5LuIO8zMG3P3J0TNOlQGS0h20RZSt7WVlSR7HJxumeFBGUkycTDqQk
-         dIYYcWp1ADa6VD6iEh7rmf992wtUicRlzc+OeFIOFbrxmV21ag25BqC5s1c9/4HxxZ0S
-         JQEQ==
+        bh=2aAMCf2SpXVpQaOpvFq2x8nEqjxcR4A/9rWT4hksgxQ=;
+        b=i1qUDlOc70TxRXfkYvqWSrwX6+K/DjP5pnDdmRyPJ0aX/ZXYFlBBy0+fND2fcLUZwj
+         fpfN0l411eO6RwFEDsh1OwNlWApSCT4/Mz2onyX5TeDv5RaYG+QtGZDflEC0Edkc0i7s
+         YgjDufWlDOHpxgYhCR9yL+dtVFbK+x0oxH+VPpAvBrs37f2kKv4Gn40N3kpnlb81IpR3
+         GAf9CVGdhcBDrfXTtWaGce3Hcxm32ZwFhR4KdCaNZNXssYNUJRrWUhPrYJ2bGP8MXcCl
+         45a+oolmfxvwvu33E2y+h1DnkMU1T+Um7Ae+b9u8Z2tuXV6xW5hbAfKucj15621WKkj7
+         66Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788860463; x=1789465263;
+        d=1e100.net; s=20251104; t=1788860468; x=1789465268;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UXOoZtg2JwC8xSALXmsKi6kXLvJ+n3TB4KwXOFfrD0U=;
-        b=OWSMBzHwBsFBxny6eqJ7329cD8Ao1CkA1pIT9waAp66XSjHlG6Kc0rr7IodE39ZA7x
-         FxITkZhmBAsagyqO55ZYrQlWJqeOEcLX36uowEH0yypuLeFWwzQaZk2JNf1H0ymrS/nO
-         vZzQfqqqvhuRfqKMK59r7tAr/Cj76i/FvD52xgBSE+4C7DM3vWiBX6uWq4py24ayXhF6
-         00t64Kz8qIxObinZ8p6kPpBcbPHO/m1pu4NwMD6JsKo/rG/DDpbYJzejRqYWYKQOqDVV
-         axuHO2qhL9BFaTJ62ZmGDFCZkccT6ofWX/24tDQAf1fJ1Zl0JokVtSThXWtwC850rOY/
-         TpqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxXQ+81mds0Ty8WI/YqAFDJno6x55dup/qMP2qLTdrctLr7m5i+TSdcAr3IoP8QCSWYLFarjxtFHxxhUdQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mee29VrYM30O1EjyR+i2gqkCDboT6ZYFF+6Z/e8MVCJb0eg7CU
-	dlhhnB7m9aRU5C5oHuVC2Ksoph5pvD2ZSsIqGAiXhxAhxu67QAC7M305
-X-Gm-Gg: AYBFou2nyOfIcZftsjrzXtlxdFKuQU4UxhTXEpdr6pCQlv6vebHQke4LtD+3P8ggmG1
-	qHnoj7QtqotHTadCpu+4tuq58qmdppuSpoiiaYmj8jP479qMwwGZFRxtS+YnA1XuhU7wWN05Pss
-	eRZqBONCyariZgmYP2PWOA0rb7eNLMlhrRCxMGVnz6NkSBuN1BkMW6W9iYOX/EcaNRMPkM8SEHB
-	2e+GsbmO0TwDr8zr+Qi7lLMnthvMsEqcmplPklT4iC9uxhrk6FCxYl8kCQ8hpYZ0wUbaCYnit3Z
-	V3p5VP1YjqLNehSkv2dJyeJ90oa/0Q/PtuLQURSxu/I3WOEEq/3GJMesnC7gbv0Pg7K+52XfwuP
-	Go8NeOIiA46Oqqf0kiSt1q8N2Md1HAm6GxioW4QqXjzmM1xMTdDnEW7uP2UCYUnWOTQszLMdBHB
-	EBXWFsqWIMZzLSkhkb1LD5ZkqZsDa9VslOy5hkmU+/0du4bVMmGlqv+G1LFrXOzIGh3YdZGfP9z
-	kvw3Q+3kXTwarZ/bgcSBlzACkNs6HQ7BYdSR5KSOmvOYnhWmX5WfnS+1mg7cQgdAy8=
-X-Received: by 2002:a17:90a:e7cb:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-39b2624a3famr41207276a91.17.1788860463271;
-        Tue, 08 Sep 2026 02:41:03 -0700 (PDT)
+        bh=2aAMCf2SpXVpQaOpvFq2x8nEqjxcR4A/9rWT4hksgxQ=;
+        b=p2bGQBHPH2Zy7sF5NZ1CqoUhZA8ASMUSHBmcg7F9TZCTTmpoKMea5/c0uVOCw9Race
+         98cZZp6v1GoYVnxqU9sl35mY0icx5mYfjj7pxk7857e7H3OWT+xpUaRPBsbkHuhjtPnP
+         mo8i8MRi3y2ZMH1MH+J9R6wfoSrQp0mNjlnQKK8Iv9O4N9zVPpfOaOhH4ZCnV/7mZ4cj
+         BooZXL8euHqgNIXef6eJ9olVgemoLk4e8vieHVHa5U97MspBd2X4hF2LygRGX8IRbIxb
+         dzVmgyASI82Mnqc5/RvkJUmjT8g0n3az4t6cPAkej8CXmCFd2Upn/KRDDvZWFMHKonRW
+         VsPw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRqGwlxfPDJFkA9/8Ah3Os2tCudmczRGwJ6+PLyjhjstP2o34rcMv1kLyKFx/rSnS9u9SwEE+lFn4bFvg=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+5tX556fYy1yBbPGJ1gDR7rhVZDR8wcFLpKd8cQ7gjWYdP/Sm
+	j6jlLBHlfGrt/mXRkzNu2qU/QSboTSOH5U787MKf0QFtgW7m8jaPRe5i
+X-Gm-Gg: AYBFou1SL4oseLaUS+v09jCnPBhtonbQ93qawVrZ99xf9qXGP7kYw6AG6qUx7apHwYH
+	fTmgRKx0xsDcZ8/QXzE5BVMx7HaXp50Ar1cOy3stlWkAEktt6t4QzXKOq/5f9a5WtXVwHLNJ6/u
+	SMuEqpaAE8hk5SXTSj/D1eQGtwfwHu/hk9tit38iv3nH0WsgibIgYLtx2v352Sz3PnHGLVD+zfc
+	Pm/DW65pzzW8IgtbpUBPq2uir0k+1mFpWbYyxlWblk65rzRCGNqKf18sObhD/ry3XsqVpjO/M4X
+	TcfJUCx5Qp1rNygoItGon/KnQLXA3lv5d/nRX3ozkVavgo11rkcHJqRvtgE/t4e6CHv8l0fJpkT
+	uaLqpQdtL0QWeGswfwDGqLDtnTTY0szq6nCdJS6q0JvZfDdI5KkMEu+e9D6Rsb/hXxHsCpfZ5nW
+	jqWQtt8JxHjuPRzEP3U1M1PClW4xZCmwSqZsayKNkuXzglgJgP4MgXgJzDcwtfoWnPCYvFQ8DQg
+	FwzS6QUQ67Vj5HzdSN7yko68rk65X08qxq9c8TMbPillewtAjr3Hx9rH9j/lYtCCUDupfJopF9e
+X-Received: by 2002:a17:90b:2ccd:b0:398:b88c:2b7b with SMTP id 98e67ed59e1d1-39b260d7297mr49355163a91.8.1788860468117;
+        Tue, 08 Sep 2026 02:41:08 -0700 (PDT)
 Received: from visitorckw-work01.c.googlers.com.com (202.176.229.35.bc.googleusercontent.com. [35.229.176.202])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm31999240a91.13.2026.09.08.02.40.59
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm31999240a91.13.2026.09.08.02.41.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:41:02 -0700 (PDT)
+        Tue, 08 Sep 2026 02:41:07 -0700 (PDT)
 From: Kuan-Wei Chiu <visitorckw@gmail.com>
 To: geert@linux-m68k.org,
 	tglx@kernel.org,
@@ -73,9 +73,9 @@ Cc: radu@rendec.net,
 	linux-kernel@vger.kernel.org,
 	linux-m68k@lists.linux-m68k.org,
 	Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 5/6] m68k/irq: Add empty irq_eoi callback to auto/user IRQ chips
-Date: Tue,  8 Sep 2026 09:40:15 +0000
-Message-ID: <20260908094016.1997918-6-visitorckw@gmail.com>
+Subject: [PATCH 6/6] m68k: virt: Switch to generic goldfish-pic driver
+Date: Tue,  8 Sep 2026 09:40:16 +0000
+Message-ID: <20260908094016.1997918-7-visitorckw@gmail.com>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260908094016.1997918-1-visitorckw@gmail.com>
 References: <20260908094016.1997918-1-visitorckw@gmail.com>
@@ -87,46 +87,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an irq_chip lacks an irq_eoi callback, chained_irq_enter() falls
-back to invoking chip->irq_mask(). On auto_irq_chip and user_irq_chip,
-this leads to a NULL pointer dereference because autovector interrupts
-are masked via the CPU SR rather than dedicated mask registers.
+The m68k virt platform implements a custom irq_chip and chained handler
+in arch/m68k/virt/ints.c to handle its 6 goldfish PIC instances.
 
-Add a no-op m68k_irq_eoi() callback to auto_irq_chip and user_irq_chip
-so chained interrupt handlers can safely attach to these chips.
+Replace this custom implementation with calls to goldfish_pic_init() to
+use the generic goldfish-pic driver, and select CONFIG_GOLDFISH_PIC for
+CONFIG_VIRT.
 
 Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
 ---
- arch/m68k/kernel/ints.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/m68k/Kconfig.machine |  1 +
+ arch/m68k/virt/ints.c     | 89 ++++-----------------------------------
+ 2 files changed, 10 insertions(+), 80 deletions(-)
 
-diff --git a/arch/m68k/kernel/ints.c b/arch/m68k/kernel/ints.c
-index cf2b13488476..731d04ac95bd 100644
---- a/arch/m68k/kernel/ints.c
-+++ b/arch/m68k/kernel/ints.c
-@@ -33,16 +33,22 @@ extern u16 user_irqvec_fixup[];
+diff --git a/arch/m68k/Kconfig.machine b/arch/m68k/Kconfig.machine
+index cff990c319cb..7b15012ffb28 100644
+--- a/arch/m68k/Kconfig.machine
++++ b/arch/m68k/Kconfig.machine
+@@ -130,6 +130,7 @@ config VIRT
+ 	depends on MMU
+ 	select GENERIC_CLOCKEVENTS
+ 	select GOLDFISH
++	select GOLDFISH_PIC
+ 	select GOLDFISH_TIMER
+ 	select GOLDFISH_TTY
+ 	select M68040
+diff --git a/arch/m68k/virt/ints.c b/arch/m68k/virt/ints.c
+index 896aa6eb8bcc..54da6b1f5ce7 100644
+--- a/arch/m68k/virt/ints.c
++++ b/arch/m68k/virt/ints.c
+@@ -1,25 +1,14 @@
+ // SPDX-License-Identifier: GPL-2.0
  
- static int m68k_first_user_vec;
+-#include <linux/delay.h>
+ #include <linux/interrupt.h>
+-#include <linux/irq.h>
+-#include <linux/kernel.h>
+-#include <linux/sched.h>
+-#include <linux/sched/debug.h>
+-#include <linux/types.h>
+ #include <linux/ioport.h>
++#include <linux/irqchip/irq-goldfish-pic.h>
  
-+static void m68k_irq_eoi(struct irq_data *data)
-+{
-+}
-+
- static struct irq_chip auto_irq_chip = {
- 	.name		= "auto",
- 	.irq_startup	= m68k_irq_startup,
- 	.irq_shutdown	= m68k_irq_shutdown,
-+	.irq_eoi	= m68k_irq_eoi,
- };
+-#include <asm/hwtest.h>
+ #include <asm/irq.h>
+ #include <asm/irq_regs.h>
+ #include <asm/processor.h>
+ #include <asm/virt.h>
  
- static struct irq_chip user_irq_chip = {
- 	.name		= "user",
- 	.irq_startup	= m68k_irq_startup,
- 	.irq_shutdown	= m68k_irq_shutdown,
-+	.irq_eoi	= m68k_irq_eoi,
- };
+-#define GFPIC_REG_IRQ_PENDING           0x04
+-#define GFPIC_REG_IRQ_DISABLE_ALL       0x08
+-#define GFPIC_REG_IRQ_DISABLE           0x0c
+-#define GFPIC_REG_IRQ_ENABLE            0x10
+-
+ static struct resource picres[6];
+ static const char *picname[6] = {
+ 	"goldfish_pic.0",
+@@ -50,43 +39,6 @@ static const char *picname[6] = {
+  * CPU IRQ #7 -> NMI
+  */
  
- /*
+-static u32 gfpic_read(int pic, int reg)
+-{
+-	void __iomem *base = (void __iomem *)(virt_bi_data.pic.mmio +
+-					      pic * 0x1000);
+-
+-	return ioread32be(base + reg);
+-}
+-
+-static void gfpic_write(u32 value, int pic, int reg)
+-{
+-	void __iomem *base = (void __iomem *)(virt_bi_data.pic.mmio +
+-					      pic * 0x1000);
+-
+-	iowrite32be(value, base + reg);
+-}
+-
+-#define GF_PIC(irq) ((irq - IRQ_USER) / 32)
+-#define GF_IRQ(irq) ((irq - IRQ_USER) % 32)
+-
+-static void virt_irq_enable(struct irq_data *data)
+-{
+-	gfpic_write(BIT(GF_IRQ(data->irq)), GF_PIC(data->irq),
+-		    GFPIC_REG_IRQ_ENABLE);
+-}
+-
+-static void virt_irq_disable(struct irq_data *data)
+-{
+-	gfpic_write(BIT(GF_IRQ(data->irq)), GF_PIC(data->irq),
+-		    GFPIC_REG_IRQ_DISABLE);
+-}
+-
+-static unsigned int virt_irq_startup(struct irq_data *data)
+-{
+-	virt_irq_enable(data);
+-	return 0;
+-}
+-
+ static irqreturn_t virt_nmi_handler(int irq, void *dev_id)
+ {
+ 	static int in_nmi;
+@@ -102,40 +54,12 @@ static irqreturn_t virt_nmi_handler(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static struct irq_chip virt_irq_chip = {
+-	.name		= "virt",
+-	.irq_enable	= virt_irq_enable,
+-	.irq_disable	= virt_irq_disable,
+-	.irq_startup	= virt_irq_startup,
+-	.irq_shutdown	= virt_irq_disable,
+-};
+-
+-static void goldfish_pic_irq(struct irq_desc *desc)
+-{
+-	u32 irq_pending;
+-	unsigned int irq_num;
+-	unsigned int pic = desc->irq_data.irq - 1;
+-
+-	irq_pending = gfpic_read(pic, GFPIC_REG_IRQ_PENDING);
+-	irq_num = IRQ_USER + pic * 32;
+-
+-	do {
+-		if (irq_pending & 1)
+-			generic_handle_irq(irq_num);
+-		++irq_num;
+-		irq_pending >>= 1;
+-	} while (irq_pending);
+-}
+-
+ void __init virt_init_IRQ(void)
+ {
+ 	unsigned int i;
+-
+-	m68k_setup_irq_controller(&virt_irq_chip, handle_simple_irq, IRQ_USER,
+-				  NUM_VIRT_SOURCES - IRQ_USER);
++	int ret;
+ 
+ 	for (i = 0; i < 6; i++) {
+-
+ 		picres[i] = (struct resource)
+ 		    DEFINE_RES_MEM_NAMED(virt_bi_data.pic.mmio + i * 0x1000,
+ 					 0x1000, picname[i]);
+@@ -144,8 +68,13 @@ void __init virt_init_IRQ(void)
+ 			return;
+ 		}
+ 
+-		irq_set_chained_handler(virt_bi_data.pic.irq + i,
+-					goldfish_pic_irq);
++		ret = goldfish_pic_init((void __iomem *)(virt_bi_data.pic.mmio + i * 0x1000),
++					virt_bi_data.pic.irq + i,
++					IRQ_USER + i * 32, NULL);
++		if (ret) {
++			pr_err("Failed to initialize %s\n", picname[i]);
++			return;
++		}
+ 	}
+ 
+ 	if (request_irq(IRQ_AUTO_7, virt_nmi_handler, 0, "NMI",
 -- 
 2.55.0.979.g7e5102b832-goog
 
