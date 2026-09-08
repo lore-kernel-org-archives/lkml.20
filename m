@@ -1,27 +1,27 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44364545DA5;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676095476D3;
 	Tue,  8 Sep 2026 13:01:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872524; cv=none; b=s5fCpZqJiEeaDhq/9uSL32hUZZEH/1guATbBZw4CY51JNJlnkRW5cOGksGZ5i+DXdGluZ5e/LJHRb1urAV580hF93AABMeULcnymYC/0bCIAHjNkSbLkPcjwLH+nJvtNPz6Os7Hk47np33oguDM0cLlkF2j2S90uG4ikKOdneZY=
+	t=1788872528; cv=none; b=eqXFdDL5jMljYV/emsUv080VINIh9kfCml6ZJ8sqOAocYwAN7a8ydcYekpPcC+WiQdO3gvlaN3vHOjTLxNKg6L44KZnEL0kNBUV83nPvHiZ9R5fPlh8XHnYQhGzPyk+GrUPWsOYR/8fFKtvaqbQxVon925s20z7JHPVa9dZmAsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872524; c=relaxed/simple;
-	bh=V1/lLQAcdtn+hDCtPPbyRi2VQXlV/Q7PaQaL7rKvNq8=;
+	s=arc-20240116; t=1788872528; c=relaxed/simple;
+	bh=msO7gvzMCmQxp+5FSP1qIEkxjs1eIW94fah/aqxDUBM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LjS9nUuARwtE6m85QYP2U3m/e+79wKmZN5sDmHYaqpY5TjzGEGzvZJHSGlEHiBSuJSmRxA2Ve1nT6j22yKx/zFJAXS/pErRT17kY3iBe5xWv6ZDWacFwxpsNZaMLk/XNdZb000xTWTTbnOweIw6+5zjwplwlUA/OITMIBeUVz8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+	 MIME-Version; b=Y7FNCaAeJKnLd3zpXL20KGEU1HNR9tchSdNkXTJoJ7FpBkIGLu4tzbBAGunLb8JK0mSON0MzEMCJ8lPkM92xnIyKxk3F7OZzWj0V68AZLnlrXzoVVvwOyCw+tDo9KCT505gAZ+MX1vjdF4SikxJO/1MM4yaMXcPtm+/Zpwsxg+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPGS3bqSzKHN5B;
-	Tue,  8 Sep 2026 21:01:52 +0800 (CST)
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPFV62yyzYQvV5;
+	Tue,  8 Sep 2026 21:01:02 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.128])
-	by mail.maildlp.com (Postfix) with ESMTP id D013C4056E;
-	Tue,  8 Sep 2026 21:01:53 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTP id 591D64057A;
+	Tue,  8 Sep 2026 21:01:54 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.45])
-	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAni5gpB6BqC9rlBA--.34632S9;
+	by APP4 (Coremail) with UTF8SMTPA id gCh0CgAni5gpB6BqC9rlBA--.34632S14;
 	Tue, 08 Sep 2026 21:01:53 +0800 (CST)
 From: Tengda Wu <wutengda@huaweicloud.com>
 To: Namhyung Kim <namhyung@kernel.org>,
@@ -44,9 +44,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 07/26] perf dwarf-regs: Adapt get_dwarf_regnum() for arm64
-Date: Tue,  8 Sep 2026 13:01:03 +0000
-Message-Id: <20260908130122.633500-8-wutengda@huaweicloud.com>
+Subject: [PATCH v5 12/26] perf annotate-data: Extract invalidate_reg_state() as a common helper
+Date: Tue,  8 Sep 2026 13:01:08 +0000
+Message-Id: <20260908130122.633500-13-wutengda@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260908130122.633500-1-wutengda@huaweicloud.com>
 References: <20260908130122.633500-1-wutengda@huaweicloud.com>
@@ -57,14 +57,14 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:gCh0CgAni5gpB6BqC9rlBA--.34632S9
-X-Coremail-Antispam: 1UD129KBjvJXoWxAFyxGrW7tFy3Xw1UCry7trb_yoW5Cw48pF
-	srC347Jw4UW3WakwnxAF1fWF1rJw48Zr1FyrW0yw47CrsruF1UZw1fKr1j9F45X3yDJw10
-	kayDKr18Gr4rJF7anT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:gCh0CgAni5gpB6BqC9rlBA--.34632S14
+X-Coremail-Antispam: 1UD129KBjvJXoWxGr1rJry8CF1ktr17Kr4UJwb_yoW5XrW5p3
+	yDC347Gw43Gr4FgwnxJFW3XFWF9r1fXa4Fk3sYyan2vFWIyrn3JF92qFy5tFW7Xr93Gw12
+	yw1qgr4DJayxKaDanT9S1TB71UUUUUDqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUQm14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
 	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
 	4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
 	3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
 	IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
@@ -72,91 +72,78 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxAFyxGrW7tFy3Xw1UCry7trb_yoW5Cw48pF
 	kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY1x0264kExVAvwVAq07x20xyl42xK82IYc2Ij
 	64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
 	8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE
-	2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcV
+	2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcV
 	CF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIE
 	c7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjTRGMKuUUUUU
 X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-The current arm64 DWARF register lookup relies on 'aarch64_regstr_tbl',
-a static string table. While this works for kprobe-tracer where register
-names start with '%', it is insufficient for parsing register numbers
-directly from raw instructions (e.g., extracting '6' from 'x6' or 'w6')
-during annotation.
+The invalidate_reg_state() function is currently static and only used
+within the x86 data type profiling implementation. To prepare for adding
+arm64 instruction tracking support, extract it as a common helper that
+can be shared across architectures.
 
-Since get_dwarf_regnum() is currently used only by 'perf annotate' and
-does not affect kprobe-tracer, replace the limited table-based lookup
-with a programmatic implementation in __get_dwarf_regnum_arm64(). This
-allows resolving arm64 register names (x0-x30, w0-w30, sp, etc.) directly
-into their corresponding DWARF register numbers.
+No functional change intended.
 
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
 Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- .../util/dwarf-regs-arch/dwarf-regs-arm64.c   | 22 +++++++++++++++++++
- tools/perf/util/dwarf-regs.c                  |  2 +-
- tools/perf/util/include/dwarf-regs.h          |  1 +
- 3 files changed, 24 insertions(+), 1 deletion(-)
+ tools/perf/util/annotate-arch/annotate-x86.c | 9 ---------
+ tools/perf/util/annotate-data.c              | 9 +++++++++
+ tools/perf/util/annotate-data.h              | 1 +
+ 3 files changed, 10 insertions(+), 9 deletions(-)
 
-diff --git a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
-index 593ca7d4fccc..720c863d1869 100644
---- a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
-+++ b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
-@@ -1,5 +1,8 @@
- // SPDX-License-Identifier: GPL-2.0
- #include <errno.h>
-+#include <ctype.h>
-+#include <stdlib.h>
-+#include <string.h>
- #include <dwarf-regs.h>
- #include "../../../arch/arm64/include/uapi/asm/perf_regs.h"
- 
-@@ -10,3 +13,22 @@ int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum)
- 
- 	return perf_regnum;
+diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
+index 1acf31a2c759..aa381d25a63b 100644
+--- a/tools/perf/util/annotate-arch/annotate-x86.c
++++ b/tools/perf/util/annotate-arch/annotate-x86.c
+@@ -207,15 +207,6 @@ static int x86__cpuid_parse(struct arch *arch, const char *cpuid)
  }
-+
-+int __get_dwarf_regnum_arm64(const char *name)
+ 
+ #ifdef HAVE_LIBDW_SUPPORT
+-static void invalidate_reg_state(struct type_state_reg *reg)
+-{
+-	reg->kind = TSR_KIND_INVALID;
+-	reg->ok = false;
+-	reg->lifetime_active = false;
+-	reg->lifetime_end = 0;
+-	reg->copied_from = -1;
+-}
+-
+ static void update_insn_state_x86(struct type_state *state,
+ 				  struct data_loc_info *dloc, Dwarf_Die *cu_die,
+ 				  struct disasm_line *dl)
+diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
+index 4e4c58764082..104b80d471f1 100644
+--- a/tools/perf/util/annotate-data.c
++++ b/tools/perf/util/annotate-data.c
+@@ -638,6 +638,15 @@ struct type_state_stack *findnew_stack_state(struct type_state *state,
+ 	return stack;
+ }
+ 
++void invalidate_reg_state(struct type_state_reg *reg)
 +{
-+	int reg;
-+
-+	if (!strcmp(name, "sp"))
-+		return 31;
-+
-+	if (*name != 'x' && *name != 'w')
-+		return -ENOENT;
-+
-+	name++;
-+	if (!isdigit(*name))
-+		return -ENOENT;
-+
-+	reg = strtol(name, NULL, 10);
-+
-+	return reg >= 0 && reg <= 30 ? reg : -ENOENT;
++	reg->kind = TSR_KIND_INVALID;
++	reg->ok = false;
++	reg->lifetime_active = false;
++	reg->lifetime_end = 0;
++	reg->copied_from = -1;
 +}
-diff --git a/tools/perf/util/dwarf-regs.c b/tools/perf/util/dwarf-regs.c
-index 797f455eba0d..bacf5c13c3bc 100644
---- a/tools/perf/util/dwarf-regs.c
-+++ b/tools/perf/util/dwarf-regs.c
-@@ -114,7 +114,7 @@ int get_dwarf_regnum(const char *name, unsigned int machine, unsigned int flags)
- 		reg = _get_dwarf_regnum(arm_regstr_tbl, name);
- 		break;
- 	case EM_AARCH64:
--		reg = _get_dwarf_regnum(aarch64_regstr_tbl, name);
-+		reg = __get_dwarf_regnum_arm64(name);
- 		break;
- 	case EM_CSKY:
- 		reg = __get_csky_regnum(name, flags);
-diff --git a/tools/perf/util/include/dwarf-regs.h b/tools/perf/util/include/dwarf-regs.h
-index 46a764cf322f..a25f038bbff2 100644
---- a/tools/perf/util/include/dwarf-regs.h
-+++ b/tools/perf/util/include/dwarf-regs.h
-@@ -105,6 +105,7 @@ int __get_dwarf_regnum_x86_64(const char *name);
- int __get_dwarf_regnum_for_perf_regnum_i386(int perf_regnum);
- int __get_dwarf_regnum_for_perf_regnum_x86_64(int perf_regnum);
- 
-+int __get_dwarf_regnum_arm64(const char *name);
- int __get_dwarf_regnum_for_perf_regnum_arm(int perf_regnum);
- int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum);
- 
++
+ /* Maintain a cache for quick global variable lookup */
+ struct global_var_entry {
+ 	struct rb_node node;
+diff --git a/tools/perf/util/annotate-data.h b/tools/perf/util/annotate-data.h
+index c26130744260..453e13bbe3e2 100644
+--- a/tools/perf/util/annotate-data.h
++++ b/tools/perf/util/annotate-data.h
+@@ -258,6 +258,7 @@ void set_stack_state(struct type_state_stack *stack, int offset, u8 kind,
+ 				Dwarf_Die *type_die, int ptr_offset);
+ struct type_state_stack *find_stack_state(struct type_state *state,
+ 						int offset);
++void invalidate_reg_state(struct type_state_reg *reg);
+ bool get_global_var_type(Dwarf_Die *cu_die, struct data_loc_info *dloc,
+ 				u64 ip, u64 var_addr, int *var_offset,
+ 				Dwarf_Die *type_die);
 -- 
 2.34.1
 
