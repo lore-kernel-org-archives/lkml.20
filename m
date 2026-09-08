@@ -1,56 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5738148F031;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5DF58B6C4;
 	Tue,  8 Sep 2026 22:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907178; cv=none; b=l4vsAFXUkvIwn1q8fwYaNY0TOa6sp+06duuqZsO4QBkzWoQTLGwgWrpxhE92hfeo/qjFdWMEwzTUQsPf2gwXIi2RNFz4oj8Ig32PFck/VAZII2tI+DsJMd9iEbyL68Swir+qPK0NlpgsW94VJLgZPPdlHd0oy8Pq3RbSlyfS7jI=
+	t=1788907178; cv=none; b=sXG7orbOAK+aieRQH4IlmZ+uujx2tt60CLaMFFXigBHCMjQyA55Wc0X2TETJDdE4JHiDZ303wkW9knk4M/vb79ItjUvGk/Zlw5AbUm8vdXiS/oK1CD8lPG8ueWe+uTnHFustpukbWqK9EJJHoT+m5MBSTMUOZuAdgpjR/GIEAbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788907178; c=relaxed/simple;
-	bh=K0Fp3/8MPI78w3plDQwfDIHSCb1xhAWQDEbQt4yn1YI=;
+	bh=3UAISimIC2rghdurbEjI9N+2ZX/LOTz76+Lu1OR4+A0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HmqzMDD29ZZsEpUkunr6ooIvVbpDM8TdqvVOPjh2NnrFZhe/kce5gDorcA8bNEg1YleFTxAovuiqDprBtleGgqzVYXItDhiRhrHlUlWB6GSJC+MOv9ce2xm13EzO1IOBrg24ZOzRBKT+T8x7+ffEwy0NLKw0OJ2xbI7yd4Asny4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbshvHkc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AfqokEEvwaQPgLXlTSL3AU0bLDl6aXZGMnCqwWby6YrC2y3xl7aEg1ztwjo28lpbtxLy2ps3emc22D6+1NA+1TFGl+XnhCwdp/5Hw8iuGMRtJcbVESrvDjZNbQbno+apWkbF3tHUkMtL6pHQ0gphFH71aC2jCZYrBe8b+CLJ7Os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qu2QItTx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbshvHkc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF581F00ADB;
-	Tue,  8 Sep 2026 22:39:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qu2QItTx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AEA1F00ACF;
+	Tue,  8 Sep 2026 22:39:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907170;
-	bh=CUaNG8+3etczoLjmEJ1Fq9ktaYGuJi5EDDS65u7lJs8=;
+	s=k20260515; t=1788907168;
+	bh=lPHDZ2mZvwtlZu0p+PH8zwGf9L/RODz5SWSKEQXB9ws=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZbshvHkcX8KJmv37Zp8P3QrDcKKu2zIKlxOzSkVmHr3KHpEm5QBawF/4NRlPl8Wcm
-	 4Aq3xpOfjF1p+Qx7Ls+jDd9bIPYYsONxItG//KpJ3UMQtFEFv/60t0zlus8G3hxdvJ
-	 DlsDlcnxl1y95h7Oat6EWGlH+rb58T/uUB5uNyOcdv7/QBdkkYuD17s4BadixetrSk
-	 6IqDGHvmLI+8HiytiuEEzRkp5PZdL3v3/HVng7tLlNeDVu7CHADbHIjgCF/T4HOx2c
-	 xo321i3BM7YOecNOnHFnz2m3WaBGz67mc/xWplWy55/fzk1QoyPbwwdKB1VqTq7WdV
-	 ZfPA+vrscjBFA==
+	b=Qu2QItTx5bl0S3lHnm6axqMclUbDmfN6tSqZSTDVYSTKJIDiOxf2Cuaqj1Y1fnOgf
+	 il74irwvd/CgUZtd9ixWXGScFDIdhu4hfpFPjT+m7+N7073cmkcvwQDJ6iyVYgdCQD
+	 1NQTHwNmszlcsxCw1DGjW/+18zYxghDEXZmDEPLIiPFHQG/f7syWE465U/jTMuFrj3
+	 LaL0bbyDAks9LhFstBfFIcDWT2g6x2dafFiti2oS/4KsAJAtFzK7QNfky6bteHqfQa
+	 FdLvItZ4XUwnPwsD1SbA/e25Wd7tjh54khvywszivlprXg6Y1Ntblqta3/92KTuOl9
+	 30zmWjkzjlQaA==
 From: Sasha Levin <sashal@kernel.org>
-To: lee@kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jeff Layton <jlayton@kernel.org>,
-	Wentao Guan <guanwentao@uniontech.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Christian Brauner <brauner@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Soheil Hassas Yeganeh <soheil@google.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	Quentin Schulz <quentin.schulz@cherry.de>
-Subject: Re: [STABLE v5.15.y 4/8] eventpoll: kill __ep_remove()
-Date: Tue,  8 Sep 2026 18:39:15 -0400
-Message-ID: <2026-09-08-daily-reply-0008-eventpoll-refcount-bounce-5-15-p4@kernel.org>
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Artem Shimko <a.shimko.dev@gmail.com>,
+	Stepan Ionichev <sozdayvek@gmail.com>,
+	Serge Semin <Sergey.Semin@baikalelectronics.ru>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Denis Arefev <arefev@swemel.ru>
+Subject: Re: [PATCH 0/2 5.10] serial: 8250_dw: fix port leak on clock notifier failure
+Date: Tue,  8 Sep 2026 18:39:14 -0400
+Message-ID: <2026-09-08-daily-reply-0007-8250-dw-port-leak-5-10@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908085113.3960814-4-lee@kernel.org>
-References: <20260908085113.3960814-4-lee@kernel.org>
+In-Reply-To: <20260908093626.15492-1-arefev@swemel.ru>
+References: <20260908093626.15492-1-arefev@swemel.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,24 +52,13 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Remove the boolean conditional in __ep_remove() and restructure the code
-> so the check for racing with eventpoll_release_file() are only done in
-> the ep_remove_safe() path where they belong.
+> This series cleans up the error handling in dw8250_probe() and fixes a
+> port leak. When clk_notifier_register() fails, probe() returns an error
+> but the 8250 port registered just before it stays registered: the
+> matching serial8250_unregister_port() lives in dw8250_remove(), which is
+> not called on probe failure.
 
-This leaves ep_remove() with a redundant second refcount decrement on 5.15.y.
-On this tree the decrement already happens inside the helper (ep_remove_epi()
-ends with return ep_refcount_dec_and_test(ep), carried over correctly by patch
-3/8), but this patch imports upstream's caller body verbatim:
-
-  if (ep_remove_epi(...))
-          WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
-
-Upstream can do that because its own helper returns true without decrementing;
-5.15.y's doesn't, so on the WARN_ON_ONCE path this decrements an already-zero
-refcount.
-
-Could you respin with WARN_ON_ONCE(ep_remove_epi(ep, epi)); here instead,
-keeping the decrement inside the helper?
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
