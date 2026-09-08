@@ -1,103 +1,146 @@
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3899B4FC8F6;
-	Tue,  8 Sep 2026 13:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABADC54B1AE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874780; cv=none; b=eE3mtwjXFi8k1eTqynQG0LyWgoXLRQMJGP2Ctcab2TSAHPFsB8jtrF16zGuAXdzKqNEZUZelkDY/jNJtjyFlZ2WGkQ4KuT1Yk1rOzha89/KF31b8IBgHizKFelJW4dofowPUs2zJEb14qCpJRKsrotKQR4F2AWdWg5y6rmNX+ZQ=
+	t=1788874789; cv=none; b=lBBOIfqZJTgF+rrzJEhCbSMxmTrJwCHOxhhAqfds2p+Apd/n1ilskXDf3k9nxyrsPul2QMgQSFHW6mAv30wfVFF7nAxEettSMYSMRG/AUepxURvYSzMQqScPyMtdieXfOMHc/PZ5tYjUQGnM0OZqruIWyjEQwdvMEb2tRaSkTDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874780; c=relaxed/simple;
-	bh=mJIId2SG/DApe53JkGn9U6e1GVax4WGYQiytD1mHnd0=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=PB8b23Eo8BElkouDizeN7kC5hvtST2PIdciXn9fos8IHAKLGrEFa/7JHV9jQvzR415ssDVOT9zwDeUOaccXvdbmaqJG087qx7YQ7hohe0nEp+jZi9oFc3xrQmOEbMtgfPBKkSyXFRg/Sq55tRDkxg5M3H2d6LVlAHz+jplQmhuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=suJHOVuK; arc=none smtp.client-ip=216.40.44.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788874789; c=relaxed/simple;
+	bh=SdRROXN6EL+lU/WDjj/QcpJ5zvCkzpWhnGb6ShY7qIM=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LhW+0jMciP0MnjP6hErTE2emyU9Dq4h9RCYzcXElcw6iG2DmY6Y4974GQB2YVaHmj9fEFWBHPUTytpRfLam6RJ9+WLnWMGNOPDwy9EZPZ1eMYnII8RqiqwmX9y0WAfwr95ghEXkNllfySMgxYUysciJ9cVR1pLRx7hUUvbX50/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lPVWZ11z; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="suJHOVuK"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay03.hostedemail.com (Postfix) with ESMTP id 2B55CA06D8;
-	Tue,  8 Sep 2026 13:39:23 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 4606F20024;
-	Tue,  8 Sep 2026 13:39:21 +0000 (UTC)
-Date: Tue, 8 Sep 2026 09:40:35 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Vincent Donnefort
- <vdonnefort@google.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Linus Torvalds
- <torvalds@linux-foundation.org>
-Subject: [PATCH] ring-buffer: Add a MAINTAINERS category specific for the
- tracing ring-buffer
-Message-ID: <20260908094035.0b180833@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lPVWZ11z"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso69266255e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:39:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788874777; x=1789479577; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4c1OWqnqeFMUI7UCBm5h3sA/LSJxl6dx6ljBFoOkX0o=;
+        b=lPVWZ11zQZDJe5pn2+abBNYQ6mbTzfQv4eSwJ/Y8Z0UPfJG2l1pTY4gnQJbqecxWPH
+         RBGpwrKuv4WA4wetU5LpwWKfNX7vphDUNS0j3aAKjj137Wp1I/jC5ieDV9bFJegyF9MN
+         l/G/I8DwUX/4Io2VzgaqgofU45Z5ExDrEXcHPXy/uBjzvuXIZe4PR/K7plE6hijoxKMW
+         K84UHvqdmWzQmKzOLVKbsoygC2XKnY2EVUnyQ+zidcp4aFl8J6VHq1FwJMJDsv2YLLBg
+         JcSmGTuf/UVlvSvwDMxnUyxh6AACvcPWsQHz3irkToDZ4odHRmVRSmPs9tx676aSnJQ4
+         YLEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788874777; x=1789479577;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4c1OWqnqeFMUI7UCBm5h3sA/LSJxl6dx6ljBFoOkX0o=;
+        b=hVFkvKvFy3G+bbBw5pDdOhQ8rh7e/DGaj+2pf8jHo+/Uf1s0I8W4h4ANiEB3C8Ow+y
+         uXlrlDydMn5bgLEOoAX5wopVDKAHATal7+7KaWApmj+zZfc5xqVQAxL9bdHeNQhQDUM5
+         UYnr6SRYWSoyYKpxqa6Z6/jvjCKYiibzICdvvJvMxtD+USZlFrG6rOm9Et2+XADBO0I1
+         OGc/uqWmGevLbnAzkrE5Ix0WzYhsi8vMCjUcIJuiN2MWWz3xUftp4ZsHcQOYIVPOFoHF
+         qqWkOBoAXMtKv+lygZje4pjYC6qbU5Q2I2t4PF2fsuyHiTqPCefSEnB0ECAHnazOG6Iv
+         2zPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwspcevljE6tLfbpuaXOzuHmz9UoVQfKtsh99UdtjUd0FCXHLvE3epHz1yDMK2vMOfjqHHbYs3vSOa5OTs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mioKv49Bx/ewRqGUE03yAkKCGPWj2OBXMCPtdE+gkpAn36kAPw
+	FEdW19K5kA2y2WMQBJJz2dKtwMnSenbeim1MNZ3jiiKYfwIP5VMrpIA8d2N+X0K+chY=
+X-Gm-Gg: AYBFou3DVeOPhKiA6OOq0ohfOeBioWamAQrdMuz8y/1phGBBW0R8d+UeCjTDY8em4M/
+	oBOJ5J/IxALm57vuP7AMPNwyl5wNRTbY8Db5rvJ8Zm1Pj8xoDzPHSP97Q3mSdG6NrHXaXAS/DN2
+	C7dp9+94NCmmWH53NdISELOpXIbPSihswlEeYozqcbNym3kNQs6UYySgXMOCT9O6h5EqmjOb0B2
+	G5Xivw+fAcI7CA6pBmnleZwMAmvkmBkPxEn8dowb4bNIIgnMudSaHy7pmqAvCHNKxJUzXH0EyJX
+	hMw4bX5QzUMetIzdrDgjS9bLBWaGOfkANzt6WgIUtHVdJIH1gO1sPMX0XA/7XkrcDrhfXsqSQat
+	vC15Tv57kRWi7vwvsORwQiVI2063RaDY+5ySQHUxdBMiNVTR1aBjTszYC8fsmUveWsZ57oihHBC
+	KHStfxiqokSREaeQuM+6QpHO+P3cTuCdmaogY9Ct4ZNg5+hTeUWxrt3GPNW0x0X7HiNpF0jW2rE
+	W00h/A2OmhJJDoPJQdJDUY4dfvNnalwKtJNSQJqttCtfiFNUjqEyTc=
+X-Received: by 2002:a05:600c:358a:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cf82070famr289134495e9.2.1788874776647;
+        Tue, 08 Sep 2026 06:39:36 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:967d:afba:15af:27a2? ([2a01:e0a:106d:1080:967d:afba:15af:27a2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7fec25sm559730545e9.13.2026.09.08.06.39.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:39:36 -0700 (PDT)
+Message-ID: <6cb0a7eb-469c-4cbc-8592-8365d1514c2c@linaro.org>
+Date: Tue, 8 Sep 2026 15:39:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] drm/msm/a6xx: Add CX AO Counter registers used for
+ a750 GPUs
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+ <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-1-284880d6e68b@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-1-284880d6e68b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 4606F20024
-X-Stat-Signature: rg9hhdjkzd6f6otuzqn4mw53woao1ei9
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18CN4A85BQPBe5+wWf3JuXp3pbGA1LwvaI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kZ6ltbc+kee29n1wPsToONv5ZZsAdG14wi0YCLinLKQ=; b=suJHOVuKGjKmCfQusyK1VqYaQot4HUkFrnRAZHKUZ9S6XX3vUSFZ0pmFsk+qRAr3HdWvTQ9f9aIVMUeBMqtLSm6pR7F62QdmU928tR9f5je8TBATCJ+lMrsWTYQ3Kh0NoFe/xcJCQopDS/75uYs7dKxP2QGzkEItJKBqoi/F5fA=
-X-HE-Tag: 1788874761-143922
-X-HE-Meta: U2FsdGVkX1/+Iqkp1MAOogVscGZvFVmbUg2auJShrWbIrj+8N2W0nSyqSa4oZX7/8AcPo21yx1CWPHhel/jk3kf0v1FvHv7+zXz4a4nbQAer38CeTHQGyY+G7nYTLVuHJeY2DRV5cONMffxaCKfYB+3YoEh5MrIDUO9zHvQDWC8QXG/s+1df9//4A5Z/nzMeLsKpg/n1THrCm7xnOwTpX+F4fnNnEwbuIIrgOp/fmqrG/OpWiJtUUifn/8o3ZuzAjmWQ4quRGFImAHB246KAsuWFwtujv6R2PEVpZ25TnJqSNNiBq2wJcSvmIcdYC+T09ti99baHOAbUY9a5mI/xEvlWmwraM8UZI1f4M008WA/BvV41EukdKgrKP0qvVEYkINd9ljn6B3bwwho/XDRalx7TY6CHcEB81R6fXCpU/bFcPTuVzvvuktVQlvQye6uxHYkKS7sYyw3jns7t+/2+aUIHVd74JNvcA8WDZsInIMCMYW/A7dENdSjm/dDKiFA0
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On 9/8/26 15:24, Neil Armstrong wrote:
+> The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+> register on A6xx and other A7xx GPUs.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+>   drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+> index 33404eb18fd0..3fe7bc3ea93d 100644
+> --- a/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+> +++ b/drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml
+> @@ -141,6 +141,8 @@ xsi:schemaLocation="https://gitlab.freedesktop.org/freedreno/ rules-fd.xsd">
+>   	<reg32 offset="0x1f9f0" name="GMU_BOOT_KMD_LM_HANDSHAKE"/>
+>   	<reg32 offset="0x1f957" name="GMU_LLM_GLM_SLEEP_CTRL"/>
+>   	<reg32 offset="0x1f958" name="GMU_LLM_GLM_SLEEP_STATUS"/>
+> +	<reg32 offset="0x1f880" name="GMU_CX_AO_COUNTER_H" variants="A7XX"/>
+> +	<reg32 offset="0x1f881" name="GMU_CX_AO_COUNTER_L" variants="A7XX"/>
 
-The ring buffer code in the tracing directory has always been decoupled
-from the tracing code. It had a clean abstracted API to allow it to be
-used by systems outside of tracing. The API even allowed the ring buffer
-code to be drastically changed without affecting the tracing sub-system.
+It's swapped.... please ignore this patchset I'll send a v2 with the proper offsets
 
-Recently, Vincent Donnefort has been contributing a lot of work to enhance
-the ring buffer. He implemented the user space mappings and recently
-created a version to allow pKVM hypervisors to use the code to trace
-the hypervisor and expose the events to the user.
+>   	<reg32 offset="0x1f888" name="GMU_ALWAYS_ON_COUNTER_L" variants="A6XX-A7XX"/>
+>   	<reg32 offset="0x1f840" name="GMU_ALWAYS_ON_COUNTER_L" variants="A8XX-"/>
+>   	<reg32 offset="0x1f889" name="GMU_ALWAYS_ON_COUNTER_H" variants="A6XX-A7XX"/>
+> 
 
-Create a separate category for maintaining the ring buffer code so that
-Vincent can become an official maintainer of it. His work has little to do
-with the tracing code itself. In the future, he may even be the main
-maintainer of the ring buffer.
-
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- MAINTAINERS | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..71bd2f57055d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -27778,6 +27778,22 @@ F:	kernel/trace/trace_irqsoff.c
- F:	kernel/trace/trace_osnoise.c
- F:	kernel/trace/trace_sched_wakeup.c
- 
-+TRACING RING BUFFER
-+M:	Steven Rostedt <rostedt@goodmis.org>
-+M:	Vincent Donnefort <vdonnefort@google.com>
-+M:	Masami Hiramatsu <mhiramat@kernel.org>
-+L:	linux-kernel@vger.kernel.org
-+L:	linux-trace-kernel@vger.kernel.org
-+S:	Maintained
-+Q:	https://patchwork.kernel.org/project/linux-trace-kernel/list/
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-+F:	Documentation/trace/ring-buffer*
-+F:	Documentation/trace/remotes.rst
-+F:	include/linux/ring-buffer*.h
-+F:	kernel/trace/*ring_buffer*.c
-+F:	kernel/trace/remote*.c
-+F:	tools/testing/selftests/ring-buffer/
-+
- TRADITIONAL CHINESE DOCUMENTATION
- M:	Chen-Yu Yeh <chenyou910331@gmail.com>
- M:	Weijie Yuan <wy@wyuan.org>
--- 
-2.53.0
+Neil
 
