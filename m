@@ -1,73 +1,73 @@
 Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B915476DF;
-	Tue,  8 Sep 2026 12:51:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD655427F0;
+	Tue,  8 Sep 2026 12:51:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871904; cv=none; b=nvA1ByVH5NIEcIQ7Oaqq8dm2P/6Fa6OWE6t15VnTsdUGTTqZtAcKo6ZJOKi8WhLdgbr0FYI0TfBlKerCJNQ0KquPFLEf4N+YA+o39FNBkM6TbgruDtC8k746QqxqmnPF2bxpl9POr+wCBCr+XCNChpxjWy3a8fW3BFBkXYhQ3rc=
+	t=1788871908; cv=none; b=jp7cnM1RdPSwxQprJ197oCKCZ9nJjVFq6RjCR/5BtZWs7wwmwpD/Lbx6rW4K9lUg2ZqBvtv5K/DcuU3hxY5+00hVz6F6EzZH/+yNuzFZCbAHRulxSxKuq4+FHQp1N3cCVAmOKZDOcSBqsLPgGDwiZXPTpZiPbgpTk7Jx2gp1tMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871904; c=relaxed/simple;
-	bh=V42j0iX5pAWRXUMVVjzxfFEweY9WC13kbOlvn11gMYM=;
+	s=arc-20240116; t=1788871908; c=relaxed/simple;
+	bh=sEDoyljbr1xNNULU2pd7wIPLaa6XceILZL9t8obyF5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xb2DO9X67LljduibUQfQEozKVnDT8KwJD1XDLcRo+OIV74PyCSEg+DApp+PdxbJTpJj77thOoS4CNVtZ6lKPVX5WdjrBcV99MJ1mfkiKnbT+yFvWRtTdiML8kQJkuOLMHNJDdqGFJfxCKGWFQY/Es/BQHIjRcZgsJi1aIMbcKjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=YcoMIY5j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fqFNXSfR; arc=none smtp.client-ip=103.168.172.157
+	 MIME-Version; b=lgxWJqvRgpUu8TmWX+trZCr7BQs/tzAmjka95PAf3+0fEg7RMelpn5tYNo+6wKFQ8RtsTroeH3wrmGdYpG5yYjxXGqgvzJMVO3/8uMRD9FE2OLVDGS21FBYY/wbXSqidZsa1D9gcG1o3cicULVGejG0LBsZYVEh8c8kS3q8HfUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=Cen3VCr9; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=srxBstZ/; arc=none smtp.client-ip=103.168.172.157
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="YcoMIY5j";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fqFNXSfR"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id E44D11400067;
-	Tue,  8 Sep 2026 08:51:40 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 08 Sep 2026 08:51:40 -0400
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="Cen3VCr9";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="srxBstZ/"
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id A38DD1400068;
+	Tue,  8 Sep 2026 08:51:44 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-07.internal (MEProxy); Tue, 08 Sep 2026 08:51:44 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
 	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
 	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1788871900; x=
-	1788958300; bh=CZILZvAOGMjI41LtAL9Wja/r36L/47O7Yom6FYG5W74=; b=Y
-	coMIY5jDzpE+KozJjskv28NmyDqqWiuYlVmDid/8n5cqvaLGv170vm8yXGEeFQH7
-	rj4NhyH+344fnqST65AmGAHJ7XMVmMyni8rTtY9Hs3yWG//iUxeYPpH+zuGYP2RS
-	ls5GQVLnP/xMXm0RmpF1uHCtpMHXM2s8kM7nDbeXSDcmHVEyNYvUabWZKsYNMlVW
-	a3/gDJ0wIslM39j8+ub+Bf791DjaxhCNZbjV5GvYrZ3FupuRb/vXb7FQuY5/vEeM
-	CtqbFC6RZzkC9nM0RjJj1GpDsl5JaLAW7VwtvmT9Ei3e0oqqMUvgpPgZ4cERMK+9
-	GDlHvylMtiagzmuKZyh4g==
+	:reply-to:subject:subject:to:to; s=fm2; t=1788871904; x=
+	1788958304; bh=zbCvvEeTGNJUluvqL2n+kCyw5bEenmwnstQ3FSwOS9I=; b=C
+	en3VCr9mXESspPmSzUs7MHT+mJvHcm6vgknu1Xu5L/YIItjs+W98YEnu6RtbWi9m
+	FOx5327IK31dXKcjveHab/Ji8jDpeyWFqJV8fjlAVEiVXnxCA9bUpwOGKxAQa/ea
+	I9r08baLelHbK1KX99lBEJYNzYlQhk3+imEnWWl0pyh3c4eBvUUjVz0XMAZbjSJn
+	/A21txCc4+Q2umLOWBeXgw3jGKTU1Bge/xw7VydevjJvOQygDFRSVbmGHPY2azdo
+	OjjNBWNNW5EJaEvxkJgMcwv1G/q08OwBvHfjLs6MNN+BEdnNQ3LEBRAOIsekYgHd
+	M8kYJnd404soEtU8s0fiw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
 	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm1; t=1788871900; x=1788958300; bh=C
-	ZILZvAOGMjI41LtAL9Wja/r36L/47O7Yom6FYG5W74=; b=fqFNXSfRvbyByfW+0
-	TBviz3SLNeyttmM5UidxN627rG+HUtl4TAuM/NZEAExGehxhybdtjwjCadZtVz0D
-	C3sxB7JMST/u8j2jsVxGIR7Bs94p1TZeKfa8MKm82o5zqaXSAyiCBNpM221QxHVy
-	NY+bdxcRWbfqvdenSmxnCthdp40UTK8h594rIColX3VO1sxcp6iysNdzQ/6w58/a
-	fztkrhrTS3TYDA5KDIWlq3ZPYzyIzIIEYJ1z4lkqMJxfyrEuGZopb6K+qLY5kAlj
-	Jur2DCK81+bxVlJZpUBScTR5T+XrPuz/z0UY8FAXO4MWAw2Sf6gB+1TNI1HGMMKY
-	iDxDw==
-X-ME-Sender: <xms:3ASgalt54a6a51s9elOhAwQkUVzM0mabESoG_GNscMOm8-Cb24VnMg>
-    <xme:3ASgam0GMT3VTQGv59yIwO3HTNj98OED608oajNEH5ZcMsODSBpjQh-owBN48KtYw
-    jBtsh3l70X8q4gGono29LxAuPcuZIl-x0e7z87tryJWC9e05t5iYEE>
-X-ME-Received: <xmr:3ASgaq8C5rYKrmNGyAkH_2TMebXWh2nyO8l6mN6ALuAO_GxT9u5D1IEeSFQ>
-X-ME-Proxy-Cause: dmFkZTG2QNbEXtfY0NUH9lclFg4+7JIhiWYHukGkvnVSObSRwNQg1Sx7FYcKV3VpQKoNMX
-    4WQF58dhUXXs244+umMEX9jrGkMDwRzzMVgLkyqRYe3luiAtSdPaAslf0s6HAW42eLUNv6
-    Yph1/7mYlVaPCfn2xuWU60bwW6XHYPjfiiyNarJsdoAUaCUYZV71ky6dHMPGvGVuM8xvW4
-    m6EUOqtp7REAN37ZPBvE9zNKgCyv7ortpG0xd0B3rAc4044T4WY38XKdTr44RA10FWmQd5
-    JtVQe6/NLKa8+LTeK9YofjDIdR1CHuwVtlVlxJps7ZJJl3uGOhbQDTam1VDoGFqiJQ2gBw
-    3q0E4E8u/jFr3S2c7E8fpFGFLDLMP3UAVobp3kB7y+xUXlgv7Z+2RqgABE8sredu+CQLcX
-    XkiT66AHNKtEqpidCF9nsBxMHPCBST8FEqrwWcSZc9FQmMoVi6ETcSbc4IcLSJMQ82xat9
-    3YxaeeRohVrx9KRjilfhhEaMQgyrDOaVXfOqdvzufo9JXFYYpO+2meAnW/G56EO2tMqHrh
-    lLlK3gnVYRIvLDcHQqtdIXOa2qrkh4AwIaDT56h7SVI+NkHXPlOtVrpr4C2/d1hWgqCj9M
-    liknTVqmIy9s8xPcKprZNA9EpzGNArecNC+dd5MqMB9OZYPjzwp5fVIbmRbw
-X-ME-Proxy: <xmx:3ASgakCQCrPgAoHh8mAbSuVVqLsXiMR-AmiMbNXUudAvybOzdNyrUg>
-    <xmx:3ASgaoBU6n1qrbN7cJ8vckNzNgN_Kztw6SVF4alWVzHvLXduceOiOA>
-    <xmx:3ASgasJZwE4LjIdXFnVfDlx77KJspOgqidnGk978sEN6Y-OU6-d9wg>
-    <xmx:3ASgaqQtVPcCudybD9yrOrpaEAIE1Q2XeRPIt3kXsiCWztQNo9OWxA>
-    <xmx:3ASgamgo-ssYphzH1bzkHwu7MQt7Bmy__kHNdQguMIsUdI2Ym16pKst2>
+	:x-me-sender:x-sasl-enc; s=fm1; t=1788871904; x=1788958304; bh=z
+	bCvvEeTGNJUluvqL2n+kCyw5bEenmwnstQ3FSwOS9I=; b=srxBstZ/a5I3zrcpX
+	CnX9UM8oNW7jIh+h9f2IPWcukw0AO8aC7fMcCzx3oCAraYT5fWZ0buEOhL9IbLp4
+	kyVZciL6mr2RXGJJVZIoQ1HcrLPwwrDN5fYoxCCH32J+NCX4KHshi4EtOAM0mA++
+	dnYz0Ui6bzMxtUWmQG25O9LjGTLPvMzjwmaEuhiUSY1kjcKrVd8vJv8fhX0I9ZVD
+	k9T2gto/vZ57mEPTbiFChJOzf1XJISI3B6fhL+6rVaWvGjR9og0dA3cyHqrjSnhu
+	UJx+y2PxqIVwCZFlyw+Wqug+mpvRxNjS8zuZhf6HbXi36Y741uKyh6Y2spuuzYhv
+	YRicQ==
+X-ME-Sender: <xms:4ASgavCHMneS9i1S18jALXAn7oBj1EeWMC64Ybh1eQ3gA9AHhoeLvw>
+    <xme:4ASgat4ZKgIHqYYodj1AIrAiH1BDY5mOKXgDuca9zlwQbhHZ4vVG9uoDp794d2avo
+    uLjHuC7ShXDht5WMPM2Dzpy_dAWbiz6VYQDI4i7eSXV_AvUUSNMQxcq>
+X-ME-Received: <xmr:4ASgaszPlkbUbklH2h-BnUuDCwyQpLMe9pKeX0QV0sNJ-udcuYlQR-m0nTc>
+X-ME-Proxy-Cause: dmFkZTEFE5qoX+UuF24uzYsEDVhBj7K7PVNhp/QrdS9IridywNr6zbUVHRTwEJHEkegH78
+    2Q0FzpV7Ffbkv2IdJy+2X+gRr5j/GVU+OmQCyX7TrMKkR+B67hpV4qik2kuPcySyPVfL0N
+    fjj0puKIPOVKC53VUKH1AFABHK+HgKXG4fFGTm0bttO6aht4AByKsMi5q5m3My1bWaIsHx
+    VvWLDqNEgw9NR009yUV13rBPhKD5hG186SgbvLIVXWjVzTBDRGAi2tS1solDyldiLqdSzW
+    Z7lbjekX5xhyyUWYdDppP3CJdHwaOTYUEqdi4pIet3xRU1rw2DJzUGF3Njycnc94ehWzmw
+    R2sVtQqcjql9WndhmtChSoeg8JgqPt78nSih4/C1Mx3BlZ90urh9FBsiO6UWAUNJwRUGjc
+    8pZA9NVuO0gT2YokndUx/YfQS18X8XGNethIgxEH8zreKreLc/5QEgljrUNGtZJ/f9boOw
+    wRcMCRaWqx3u9UU2hS4og0hmE3v1ab0++imJ7UI6HSA/ISHYzUecwxxqq/SvydyNBmHIFz
+    hH/4J/13str7Xs52hP7vWlXtSeZ0hy4TIP77Wy6vvHRi2xUv9pzc6s88yXAWoav3Ojh8xW
+    JAWrV9qOhpvWiPBqrPc4z6Va90tfBjV0yPSYDHGWPwyCfksm9cHADsVtfO7g
+X-ME-Proxy: <xmx:4ASgapnzVfb1HydZ6RMfqQm5wkkyEzOleoBvKHmHC08kNI9dbSByMg>
+    <xmx:4ASgamWXUaSdN7lz9x1Z2K75_a_zU8oMEIcckG7iRVttegFBlsdqXw>
+    <xmx:4ASgakOT7a85P8hl5cdWfy0tK_5n8tzE3UI2dI1uXE_6hPr_6fajaw>
+    <xmx:4ASgapGPK9ocODrWktac23pzsLbLo-3MC797fhNQaXKHndrdhCCUdA>
+    <xmx:4ASgatCEwEuXL5CaALsdwJaS8MO_UCRtkyZWjSNnTiHzaKlLW6HP5FTD>
 Feedback-ID: ie3994620:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 08:51:40 -0400 (EDT)
+ 8 Sep 2026 08:51:43 -0400 (EDT)
 From: Kiryl Shutsemau <kirill@shutemov.name>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -96,9 +96,9 @@ Cc: linux-mm@kvack.org,
 	leon@kernel.org,
 	kernel-team@meta.com,
 	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v5 15/19] selftests/mm: check that one khugepaged pass collapses one window
-Date: Tue,  8 Sep 2026 13:51:01 +0100
-Message-ID: <20260908125105.1510704-16-kirill@shutemov.name>
+Subject: [PATCH v5 17/19] selftests/mm: race the collapse of windows with holes
+Date: Tue,  8 Sep 2026 13:51:03 +0100
+Message-ID: <20260908125105.1510704-18-kirill@shutemov.name>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260908125105.1510704-1-kirill@shutemov.name>
 References: <20260908125105.1510704-1-kirill@shutemov.name>
@@ -112,318 +112,106 @@ Content-Transfer-Encoding: 8bit
 
 From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
 
-khugepaged_full_pass() drives the daemon through sysfs: a store to
-scan_sleep_millisecs wakes it, and full_scans advancing by two marks one
-pass that started after setup.  Every mTHP collapse result in the suite
-rests on that pair, and nothing checks it.
+The harness pins max_ptes_none to 0, so khugepaged only collapses a window
+once every PTE in it is present.  A window with holes takes a different
+route, and never gets raced.  A hole is zero-filled in the new folio
+rather than copied.  Which slots count as holes keeps moving under the
+racing MADV_DONTNEED, right up to the moment the PMD is detached.
 
-Add khugepaged_sync_check.  Each step:
+Run both ends of the occupancy scale for every driver mode, one after the
+other.  mTHP collapse supports only those two, 0 and HPAGE_PMD_NR - 1, and
+coerces anything between them to 0.  Each result says which end it ran:
 
-  - prepare one aligned window
-  - record its source PFNs from pagemap
-  - run one khugepaged_full_pass() barrier
-  - require the window came out collapsed, with exactly one collapse
-    attempt attributed to it
-
-The anon events carry no virtual address, so an attempt is matched by the
-source folio PFN and order that the mm_collapse_huge_page_isolate
-tracepoint reports.
-
-Reading the trace buffer takes four small helpers in vm_util: open an
-event subsystem's enable file, flip it, clear the buffer, and open it for
-reading.
-
-scan_sleep_millisecs is set to a minute, so a step that took a sleep
-instead of a wake would blow the budget.
-
-Passes 5/5 on x86-64 4K and arm64 64K.
+  ok 1 stepped/strict: 5s, 231 steps, no corruption
+  ok 2 stepped/holes: 5s, 194 steps, no corruption
 
 Assisted-by: LLM
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 ---
- tools/testing/selftests/mm/Makefile           |   1 +
- .../selftests/mm/khugepaged_sync_check.c      | 179 ++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh     |   2 +
- tools/testing/selftests/mm/vm_util.c          |  38 ++++
- tools/testing/selftests/mm/vm_util.h          |   4 +
- 5 files changed, 224 insertions(+)
- create mode 100644 tools/testing/selftests/mm/khugepaged_sync_check.c
+ tools/testing/selftests/mm/khugepaged_race.c | 32 ++++++++++++--------
+ 1 file changed, 20 insertions(+), 12 deletions(-)
 
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 2093fcf6e915..b2d6e5c12934 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -105,6 +105,7 @@ TEST_GEN_FILES += merge
- TEST_GEN_FILES += rmap
- TEST_GEN_FILES += folio_split_race_test
- TEST_GEN_FILES += folio_order_check
-+TEST_GEN_FILES += khugepaged_sync_check
+diff --git a/tools/testing/selftests/mm/khugepaged_race.c b/tools/testing/selftests/mm/khugepaged_race.c
+index 448256704ef4..f31f12fc0390 100644
+--- a/tools/testing/selftests/mm/khugepaged_race.c
++++ b/tools/testing/selftests/mm/khugepaged_race.c
+@@ -231,6 +231,8 @@ int main(int argc, char **argv)
+ 	const int nr_threads = ARRAY_SIZE(thread_names);
+ 	pthread_t threads[ARRAY_SIZE(thread_names)];
+ 	static const char * const all_modes[] = { "stepped", "free", "madvise" };
++	static const bool occupancies[] = { false, true };	/* strict, holes */
++	const int nr_occupancies = ARRAY_SIZE(occupancies);
+ 	const char *one_mode[1];
+ 	const char * const *modes = all_modes;
+ 	int nr_modes = ARRAY_SIZE(all_modes);
+@@ -298,7 +300,7 @@ int main(int argc, char **argv)
+ 		 -1, 0) != (void *)mremap_scratch)
+ 		ksft_exit_fail_perror("mmap() mremap scratch");
  
- ifneq ($(ARCH),arm64)
- TEST_GEN_FILES += soft-dirty
-diff --git a/tools/testing/selftests/mm/khugepaged_sync_check.c b/tools/testing/selftests/mm/khugepaged_sync_check.c
-new file mode 100644
-index 000000000000..1c1b942ac325
---- /dev/null
-+++ b/tools/testing/selftests/mm/khugepaged_sync_check.c
-@@ -0,0 +1,179 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Check that khugepaged_full_pass() drives khugepaged in step: one barrier
-+ * over one prepared window must collapse it with exactly one collapse
-+ * attempt attributed to its source pages, step after step.
-+ *
-+ * scan_sleep_millisecs is a minute so that a step which slept instead of
-+ * being woken blows the budget.
-+ */
-+#define _GNU_SOURCE
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <unistd.h>
-+
-+#include "kselftest.h"
-+#include "vm_util.h"
-+#include "hugepage_settings.h"
-+
-+#define BASE_ADDR ((void *)(1UL << 30))
-+/* Smallest order khugepaged considers */
-+#define TARGET_ORDER 2
-+#define NR_ITERATIONS 5
-+#define PASS_TIMEOUT_S 30
-+
-+static int pagemap_fd;
-+static int kpageflags_fd;
-+static int trace_events_fd = -1;
-+static unsigned long hpage_pmd_size;
-+
-+/*
-+ * The events are system-wide: switch them off however the test ends,
-+ * including from inside a helper that gives up.
-+ */
-+static void trace_events_off(void)
-+{
-+	if (trace_events_fd >= 0)
-+		tracing_events_enable(trace_events_fd, false);
-+}
-+
-+/* Count the isolate events whose scan_pfn is one of the window's source PFNs */
-+static int count_attributed(unsigned long *pfns, int nr_pfns,
-+			    unsigned int order)
-+{
-+	char line[1024];
-+	int count = 0;
-+	FILE *fp;
-+
-+	fp = tracing_open_trace();
-+	if (!fp)
-+		ksft_exit_fail_msg("Cannot open trace buffer\n");
-+
-+	while (fgets(line, sizeof(line), fp)) {
-+		unsigned long val;
-+		unsigned int ord;
-+		char *s, *o;
-+		int i;
-+
-+		s = strstr(line, "mm_collapse_huge_page_isolate:");
-+		if (!s)
-+			continue;
-+		if (sscanf(s, "mm_collapse_huge_page_isolate: scan_pfn=0x%lx",
-+			   &val) != 1)
-+			continue;
-+		o = strstr(s, "order=");
-+		if (!o || sscanf(o, "order=%u", &ord) != 1 || ord != order)
-+			continue;
-+		for (i = 0; i < nr_pfns; i++) {
-+			if (val == pfns[i]) {
-+				count++;
-+				break;
-+			}
-+		}
-+	}
-+	fclose(fp);
-+	return count;
-+}
-+
-+static void one_step(int iteration)
-+{
-+	const size_t window = getpagesize() << TARGET_ORDER;
-+	const int nr_pages = 1 << TARGET_ORDER;
-+	unsigned long pfns[1 << TARGET_ORDER];
-+	bool collapsed, passed;
-+	int attributed;
-+	char *p;
-+	int i;
-+
-+	p = mmap(BASE_ADDR, hpage_pmd_size, PROT_READ | PROT_WRITE,
-+		 MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE, -1, 0);
-+	if (p != BASE_ADDR)
-+		ksft_exit_fail_perror("mmap() window");
-+
-+	for (i = 0; i < nr_pages; i++) {
-+		p[i * getpagesize()] = i + 1;
-+		pfns[i] = pagemap_get_pfn(pagemap_fd, p + i * getpagesize());
-+		if (pfns[i] == -1UL)
-+			ksft_exit_fail_msg("Source page not present\n");
-+	}
-+
-+	/* Clear before enabling so the buffer holds only this step's events */
-+	if (tracing_clear_trace())
-+		ksft_exit_fail_msg("Cannot clear the trace buffer\n");
-+	if (tracing_events_enable(trace_events_fd, true))
-+		ksft_exit_fail_msg("Cannot enable huge_memory events\n");
-+
-+	if (madvise(p, hpage_pmd_size, MADV_HUGEPAGE))
-+		ksft_exit_fail_perror("madvise(MADV_HUGEPAGE)");
-+	passed = khugepaged_full_pass(PASS_TIMEOUT_S);
-+
-+	/* Off before anything that can give up: the events are system-wide */
-+	if (tracing_events_enable(trace_events_fd, false))
-+		ksft_exit_fail_msg("Cannot disable huge_memory events\n");
-+	if (!passed)
-+		ksft_exit_fail_msg("khugepaged did not complete a full pass\n");
-+
-+	collapsed = is_range_backed_by_order(p, window, TARGET_ORDER,
-+					     pagemap_fd, kpageflags_fd);
-+	attributed = count_attributed(pfns, nr_pages, TARGET_ORDER);
-+
-+	ksft_test_result(collapsed && attributed == 1,
-+			 "step %d: window collapsed, %d attributed result(s)\n",
-+			 iteration, attributed);
-+
-+	munmap(p, hpage_pmd_size);
-+}
-+
-+int main(void)
-+{
-+	struct thp_settings settings;
-+	int i;
-+
-+	ksft_print_header();
-+
-+	if (!thp_available())
-+		ksft_exit_skip("Transparent Hugepages not available\n");
-+	if (!(thp_supported_orders() & (1UL << TARGET_ORDER)))
-+		ksft_exit_skip("Order %d is not a supported anon THP order\n",
-+			       TARGET_ORDER);
-+
-+	hpage_pmd_size = read_pmd_pagesize();
-+	if (!hpage_pmd_size)
-+		ksft_exit_fail_msg("Reading PMD pagesize failed\n");
-+	pagemap_fd = open("/proc/self/pagemap", O_RDONLY);
-+	if (pagemap_fd < 0)
-+		ksft_exit_fail_perror("open(/proc/self/pagemap)");
-+	kpageflags_fd = open("/proc/kpageflags", O_RDONLY);
-+	if (kpageflags_fd < 0)
-+		ksft_exit_skip("open(/proc/kpageflags) requires root\n");
-+	trace_events_fd = tracing_events_open("huge_memory");
-+	if (trace_events_fd < 0)
-+		ksft_exit_skip("huge_memory events require tracefs and root\n");
-+	atexit(trace_events_off);
-+
-+	ksft_set_plan(NR_ITERATIONS);
-+
-+	thp_save_settings();
-+	thp_read_settings(&settings);
-+	settings.thp_enabled = THP_MADVISE;
-+	settings.thp_defrag = THP_DEFRAG_ALWAYS;
-+	settings.khugepaged.defrag = 1;
-+	settings.khugepaged.scan_sleep_millisecs = 60 * 1000;
-+	settings.khugepaged.alloc_sleep_millisecs = 60 * 1000;
-+	settings.khugepaged.max_ptes_none = (hpage_pmd_size / getpagesize()) - 1;
-+	/* One wake must complete one full pass; see khugepaged_full_pass() */
-+	settings.khugepaged.pages_to_scan = 1UL << 24;
-+	for (i = 0; i < NR_ORDERS; i++)
-+		settings.hugepages[i].enabled = THP_NEVER;
-+	settings.hugepages[TARGET_ORDER].enabled = THP_INHERIT;
-+	/* Base of the settings stack; the bottom entry is never popped */
-+	thp_push_settings(&settings);
-+
-+	for (i = 0; i < NR_ITERATIONS; i++)
-+		one_step(i);
-+
-+	ksft_finished();
-+}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index 8bf898b71350..c0f69da3fd3b 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -404,6 +404,8 @@ CATEGORY="cow" run_test ./cow
+-	ksft_set_plan(nr_modes);
++	ksft_set_plan(nr_modes * nr_occupancies);
  
- CATEGORY="thp" run_test ./folio_order_check
+ 	thp_save_settings();
+ 	thp_read_settings(&settings);
+@@ -306,8 +308,9 @@ int main(int argc, char **argv)
+ 	/* Base of the settings stack; the bottom entry is never popped */
+ 	thp_push_settings(&settings);
  
-+CATEGORY="thp" run_test ./khugepaged_sync_check
-+
- CATEGORY="thp" run_test ./khugepaged
+-	for (int m = 0; m < nr_modes; m++) {
+-		const char *mode = modes[m];
++	for (int run = 0; run < nr_modes * nr_occupancies; run++) {
++		const char *mode = modes[run / nr_occupancies];
++		bool holes = occupancies[run % nr_occupancies];
  
- CATEGORY="thp" run_test ./khugepaged -s 2
-diff --git a/tools/testing/selftests/mm/vm_util.c b/tools/testing/selftests/mm/vm_util.c
-index 4947612e8b3d..af8324e1e8f2 100644
---- a/tools/testing/selftests/mm/vm_util.c
-+++ b/tools/testing/selftests/mm/vm_util.c
-@@ -599,6 +599,44 @@ bool is_range_backed_by_order(char *start, size_t len, int order,
- 	return true;
- }
+ 		thp_read_settings(&settings);
+ 		settings.thp_enabled = THP_MADVISE;
+@@ -317,12 +320,14 @@ int main(int argc, char **argv)
+ 		settings.khugepaged.scan_sleep_millisecs =
+ 			strcmp(mode, "free") ? 1000 : 0;
+ 		settings.khugepaged.alloc_sleep_millisecs = 10;
++
+ 		/*
+-		 * mTHP collapse honours only 0 or HPAGE_PMD_NR - 1 here, and 0
+-		 * keeps a step from being spent on PMD allocations that racing
+-		 * MADV_DONTNEED will not let succeed.
++		 * mTHP collapse honours only 0 or HPAGE_PMD_NR - 1 here.  The two
++		 * ends race different paths: a strict window has every PTE
++		 * present, a hole-heavy one is mostly zero-filled.
+ 		 */
+-		settings.khugepaged.max_ptes_none = 0;
++		settings.khugepaged.max_ptes_none = holes ?
++			(hpage_pmd_size / page_size) - 1 : 0;
+ 		/* One wake, one pass: the playground plus the forked children's copies */
+ 		settings.khugepaged.pages_to_scan =
+ 			nr_areas * (hpage_pmd_size / page_size) * 8;
+@@ -388,8 +393,9 @@ int main(int argc, char **argv)
+ 			check_page(i);
  
-+#define TRACEFS_ROOT "/sys/kernel/tracing"
-+
-+/*
-+ * Returns -1 without tracefs or the subsystem.  The events are system-wide:
-+ * whoever switches them on has to switch them off again, on every exit path.
-+ */
-+int tracing_events_open(const char *subsys)
-+{
-+	char path[256];
-+
-+	snprintf(path, sizeof(path), TRACEFS_ROOT "/events/%s/enable",
-+		 subsys);
-+	return open(path, O_WRONLY);
-+}
-+
-+int tracing_events_enable(int fd, bool enable)
-+{
-+	if (pwrite(fd, enable ? "1" : "0", 1, 0) != 1)
-+		return -1;
-+	return 0;
-+}
-+
-+/* Drop what the trace buffer holds so far */
-+int tracing_clear_trace(void)
-+{
-+	int fd = open(TRACEFS_ROOT "/trace", O_WRONLY | O_TRUNC);
-+
-+	if (fd < 0)
-+		return -1;
-+	close(fd);
-+	return 0;
-+}
-+
-+FILE *tracing_open_trace(void)
-+{
-+	return fopen(TRACEFS_ROOT "/trace", "r");
-+}
-+
- /* If `ioctls' non-NULL, the allowed ioctls will be returned into the var */
- int uffd_register_with_ioctls(int uffd, void *addr, uint64_t len,
- 			      bool miss, bool wp, bool minor, uint64_t *ioctls)
-diff --git a/tools/testing/selftests/mm/vm_util.h b/tools/testing/selftests/mm/vm_util.h
-index 3be430e01901..5a91b9676ec5 100644
---- a/tools/testing/selftests/mm/vm_util.h
-+++ b/tools/testing/selftests/mm/vm_util.h
-@@ -119,6 +119,10 @@ int close_procmap(struct procmap_fd *procmap);
- int write_sysfs(const char *file_path, unsigned long val);
- int read_sysfs(const char *file_path, unsigned long *val);
- bool softdirty_supported(void);
-+int tracing_events_open(const char *subsys);
-+int tracing_events_enable(int fd, bool enable);
-+int tracing_clear_trace(void);
-+FILE *tracing_open_trace(void);
+ 		ksft_test_result(!corrupted,
+-				 "%s: %ds, %d steps, no corruption\n",
+-				 mode, duration_s, steps);
++				 "%s/%s: %ds, %d steps, no corruption\n",
++				 mode, holes ? "holes" : "strict",
++				 duration_s, steps);
  
- static inline int open_self_procmap(struct procmap_fd *procmap_out)
- {
+ 		/* The next mode maps the same fixed address with its own settings */
+ 		munmap(region, nr_areas * hpage_pmd_size);
+@@ -399,9 +405,11 @@ int main(int argc, char **argv)
+ 
+ 		if (corrupted) {
+ 			/* Memory is suspect; the rest would prove nothing */
+-			while (++m < nr_modes)
+-				ksft_test_result_skip("%s: skipped after corruption\n",
+-						      modes[m]);
++			while (++run < nr_modes * nr_occupancies)
++				ksft_test_result_skip("%s/%s: skipped after corruption\n",
++						      modes[run / nr_occupancies],
++						      occupancies[run % nr_occupancies] ?
++						      "holes" : "strict");
+ 			break;
+ 		}
+ 	}
 -- 
 2.54.0
 
