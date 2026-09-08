@@ -1,127 +1,205 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9394AF17E;
-	Tue,  8 Sep 2026 08:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857602; cv=fail; b=EdmCwIfHJUo7GaGDB5PZGA49h/iax1wf/gKqoueV9z1EDRVe7Z2sf04pNXx0zdWx3CHuKceDHH+qJplz5BxdqIMYDB4dtXkeAJ42JVzYYRWI57p2VGKBwlUfUySoSYC34Q0+mcHjzApM2BADdxf495fabrEGub0J9pfmj0th2Qc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857602; c=relaxed/simple;
-	bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WN4yg0bFvm/YfEfsXKQtgOWmN5q96rd03tMBxsSSbMiclgczM+02DPFxK6QflJLGKIl+zZqtsFvWHTw3Ss2pfyiQAMy2rwsmbi2VN/tzjsHH6oQxDJuxwqzvEfbXYSJp3FtGxNEGwWsLNLqnuamUEGnOlncswXHN2Y5o1gG8lhs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hrBQUcSM; arc=fail smtp.client-ip=52.101.66.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D50AB4A3869
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:53:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788857628; cv=none; b=RavQGK5Os0+RevX8hIEJ4KctJaGa/e4rNjxS9tyWbl0m9IBiCjy1tEVDJRE6rglfpFXtWsGVhPTb6rnvI5GXwZrFHGvzmTq00JjHb1ZkBxDfjRhtYojFJ+0W+8sDgj8fZEUjG/YZNEBmMO27HRFJnkY0u4jzwHyoz476q1jczYc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788857628; c=relaxed/simple;
+	bh=amM6bviW6cqTMMnwlXoeIUSEOGW7QbeWgYsgc0LwNF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LF2YYWTKekA87e//4PlEsSVmg+hEUSXuOEujj0PiamG0omAneL2JIvKg1AI7RmvgsDvOO2votVf67F7QlIb52FhUKDLwz5V4LHYtRQrV4I1e64hf3WHMhqN0E+zfRH5T8Hp6kvIAdZAtg4lzn+mJISlTf8nKm9a6dxO72ChDvX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Xpq3bnTs; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hrBQUcSM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F2CfXqpoDX7d48+lIpMLjNQtmE/ZrNVEuMl3cqoO7UwH/lsWnG++6S2nN5DLiEM1kj8uA3cSztBh6K8+cxB38e3Cev240/1shzkbEl3MvgC+XAV/uvWKMDM61JpLQGTiMGptq/uqtpAWqQgZhLdQl0wiSXGI5uRZjkbCRCaZr+bRR63trZrHw02YQCip5xqUz9RNmKXEM136I/Ld5x+N3DuCVPLxg/Stll81RtUhRfO7ZgTEadR8M1Xi9w3eZ+9hZH4rlWaCUUwOVWabWZtaDDJjgTS4qrBDWvejtt/tUTiSzrW/tMEzCSNocUPUqc5y4NvPieDYo/N43k9n3u35lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
- b=yqUF49KvOO40y1uW06z1AOdS1gA7KCcz1iESv1TyRTVzzd2d7+5SmpHvOsZSzAWKRjA/KTfEl+5FUAY48VhBBRg3eHWHZedQeorsBIxa0Cx40+polS4vcvVg4EvtGX+YRic94TL8iENMexg5qY3kizAaPNRn38hyV3JaLRRJnQEdHvg80sjszFhgYRalmM9CZjaXv3tO23mLaq03MZr57o3noCDuC4mxDhaj8+Xgk0z4WXb9zxEIgSwyYzfoc2O7a4ct221In0sFfML1GBw7UVQbGiJ/fTjrZeFmBIb6ARUAUKRFq2u/RDiemd0rTcCOqM6bw96E16v1+x2cdXvPMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
- b=hrBQUcSMQM30+xYJ0yVksd4Aei8wHNrGHujV8N37X5ZfEOgaVEm/K+RyBaT5lflpLYzOpVnuXi30a2zLPtoUKeJadUMF98DlHKIvk0YEsy/IhHf7WUhZ1/28rEyznj2on9JLJT2XBC8mu0HO368OEN6QeV1qZvixybceNUm8Esw78ygML+x9wtK62xeUzMHUMhjUEOcYuEjGfiCb6uWl1jV1thjNDVL0KoyiE/lRTO55sL8O8/NWQjBzjt6JwMDZeSInyHg9xEm1OSfFyeTqFcJhXDzfM5ezy7butsTBHiRDyqgHQv5Ca/84HyuFaXtDEoS2iZ4mcl+bEJqaFtBStw==
-Received: from ZRAP278CA0002.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:10::12)
- by DU0PR10MB6608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:403::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 08:52:57 +0000
-Received: from MI3PEPF0000847F.eurprd02.prod.outlook.com
- (2603:10a6:910:10:cafe::2e) by ZRAP278CA0002.outlook.office365.com
- (2603:10a6:910:10::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 08:52:56 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000847F.mail.protection.outlook.com (10.167.240.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 08:52:56 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
- 2026 10:58:21 +0200
-Received: from [192.168.8.15] (10.48.86.45) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
- 2026 10:52:54 +0200
-Message-ID: <7b131dede6a53c2e7f775137a7a98b7902a8487b.camel@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: fix arm, smc-id of the
- SMC watchdog on stm32mp2
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
-	<alexandre.torgue@foss.st.com>, <mcoquelin.stm32@gmail.com>
-CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <linux-kernel@vger.kernel.org>,
-	<krzk+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 8 Sep 2026 10:52:53 +0200
-In-Reply-To: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
-References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Xpq3bnTs"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2F7171476;
+	Tue,  8 Sep 2026 01:53:33 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8652D3F528;
+	Tue,  8 Sep 2026 01:53:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788857616; bh=amM6bviW6cqTMMnwlXoeIUSEOGW7QbeWgYsgc0LwNF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Xpq3bnTsB7nfADZq1mqMIfArqNE/2hb+en5bjtvelJFstfz1UntdA5CLGgZsotsyc
+	 9fj79GXM8cIYl3/D9cylUy/jFk8yQ4IRdKd2A3/N2C+lZvCGAoE2F/D8iR7jzh3AfT
+	 hYsudH6rhg7zt1JXed4hKxPevhJIQlnKF3EKRd5I=
+Date: Tue, 8 Sep 2026 09:53:33 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, Andy Lutomirski <luto@kernel.org>,
+	Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, x86@kernel.org,
+	Yeoreum Yun <yeoreum.yun@arm.com>
+Subject: Re: [PATCH] x86/mm: Introduce helper for checking direct map 1G page
+ support
+Message-ID: <ap_NDXCWb0shVvzp@e129823.arm.com>
+References: <20260902194718.E1FF3041@davehans-spike.ostc.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000847F:EE_|DU0PR10MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6d484a1-8691-4e43-716a-08df0d8693da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ziA6vmkJn6b0CDXNSSDqup1KsK8h4X/3rwjvYcLjAOc/kOCszaUvXDWFj7QjaBnPX5cwmtRdUINQtWx790bPedBuZAlrtdmXLgPChKMc6iYIw4GtbGEp9zYnHMac57UaL2MkGWXu9A6GFEG65ad2c8aRZe1GfCvdhbT2YCq2y1SAi1LT95ZlXTyVNrgrY+1UNr+tzFdRoI2fBeIMI30/gjKBZ8iQ9oyZceyuQdbJXzb2D/TxG9m4l31dhCQRW9MmaYAtR1q41LDOOUEmat9cLNuoVt8Ek5fZuMKdY0Y8HwT20BuJWBoI/WvA8IFZ83tURFOLdNS5kaA8AprWnrosCThet2xhlmEXgfbEnHToItFWsxqnySp5AX4HmsONYY01PHvPqH/vHUBkq6zC+DCy+m7fqn+LDcQX4SehiwSrDxjTrzlhrImmTjNnJ4wrSbXBtuadEtENRtNTgWY1wqI39bZWXczxEg04exsm2sM7S8lv2nUtw7bUb/X44dx31089nGtzLuTEEdADPG8vyuzAeXQTQdhzckprCoSS9LYOHdBCdNnJAzWj85vZQtIoo2V707WlO42WzQU0H7TU+kJyfrsimW9RWa3/0jxJ/m3VE4CuOfbi1APwa5ITNKdr9w7uXk7Cm+xUZu0VcfBlmukiSXIg9Fsr+JRMJuuE9PiRA1K+Ddm1+GZ1cHhwzuzNi3nTnpKd7/XJb7M6DycQHtokKw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	X7rDzUDbyaAoK5mInJib896IiLKnnSq4dmuCygnDZsHIVfZ5FV5Umlg3HiQvaIm41RgHsGLIAn5HKYiTsKIjNMJ57zLSQ66t3fIXWNQqJQ4zl2f8RXDk6tcScAfdrWY57bXvxNnOaZQ/YAPsPcvLY1xjogoH8CIF2ILeElXsPHFPitKOKpkKYs2TnQDrFqnvgEg4M4qW4W9rjXhbJHaX2phDpEeeGgbgTSX/0BcvchaZm6/hcGplWSfDlvnam4G1yTgAVzRB0YsI4kIwLOqUCXzzXBe+GcDGXk3ui+QP+Dwoya97i6ywEARxZI+LccJucruzo2+jwn5qkWbDO6XJ2va6dPl0zEjLiKSVoT8IaTucOt3LV41Wa2BJMDI0iyLahoanVcLYwOdDiFFVi/YHI9rEiNikdeitDF9XX3HsbrhOv5A6mHYNZxbu2QzTru80
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:52:56.6402
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6d484a1-8691-4e43-716a-08df0d8693da
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847F.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6608
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902194718.E1FF3041@davehans-spike.ostc.intel.com>
 
-On Mon, 2026-09-07 at 09:14 +0000, Mateusz Nowicki wrote:
-> OP-TEE implements the STM32MP2 watchdog SMC service with function ID
-> 0xbc000000 (CFG_WDT_SM_HANDLER_ID), not 0xb200005a. With the current
-> value the arm_smc_wdt probe fails with -EIO and the IWDG started by the
-> bootloader is never refreshed.
->=20
-> Fixes: 89fca38168c9 ("arm64: dts: st: add arm-wdt node for watchdog suppo=
-rt on stm32mp251")
-> Fixes: e9b03ef21386 ("arm64: dts: st: introduce stm32mp23 SoCs family")
-> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Hi Dave,
 
-Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+> 
+> There is an existing variable (direct_gbpages) that says whether the
+> kernel can and should use 1G pages in the direct map. It is driven
+> by a bunch of other machinery. At least:
+> 
+>  1. Hardware support for 1G pages
+>  2. Kconfig support for 1G direct mappings
+>  3. Kernel command line overrides
+> 
+> Most code just checks the 'direct_gbpages' variable itself.  But there
+> are cases where 1G mappings are compile-time disabled (via
+> X86_DIRECT_GBPAGES) and 'direct_gbpages' is always 0. Unfortunately,
+> that constraint is invisible to the compiler.
+> 
+> This opacity has been historically functionally harmless; it only
+> leaves a bit of dead code. But, there are plans to tigthen up the
+> compile-time checks around folded page table levels. The build will
+> break if that dead code appears reachable to the compiler. Making
+> the compile-time config visible to the compiler fixes the build.
+> 
+> Add a helper to replace 'direct_gbpages' checks. Check the Kconfig
+> option and base CPU support before looking at the variable.
+> 
+> This lets the compiler optimize things better, especially
+> collapse_pud_page() where most of the function can now be optimized
+> out when the PUD level is folded.
+> 
+> Notes:
+> 
+> Use boot_cpu_has() instead of cpu_feature_enabled(). There's no
+> required/disabled features for 1G pages themselves
+> (X86_DIRECT_GBPAGES is for kernel mappings only) and the
+> static_cpu_has() infrastructure is just gets in the compiler's way.
+> 
+> This makes 64-bit build marginally larger (20 bytes in one compile)
+> and 32-bit builds less marginally _smaller_ (~700 bytes).
+> 
+> Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+> Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Tested-by: Yeoreum Yun <yeoreum.yun@arm.com>
+> Link: https://lore.kernel.org/all/20260902-dummy_ptxp3-v3-15-5d8f5b17c25c@arm.com/ [1]
+> ---
+> 
+>  b/arch/x86/include/asm/pgtable.h     |   14 ++++++++++++++
+>  b/arch/x86/kernel/cpu/common.c       |    2 +-
+>  b/arch/x86/kernel/machine_kexec_64.c |    2 +-
+>  b/arch/x86/mm/init.c                 |    2 +-
+>  b/arch/x86/mm/pat/set_memory.c       |    4 ++--
+>  5 files changed, 19 insertions(+), 5 deletions(-)
+> 
+> diff -puN arch/x86/include/asm/pgtable.h~direct_gbpages-compiletime arch/x86/include/asm/pgtable.h
+> --- a/arch/x86/include/asm/pgtable.h~direct_gbpages-compiletime	2026-09-02 10:08:59.999169372 -0700
+> +++ b/arch/x86/include/asm/pgtable.h	2026-09-02 10:09:00.011170394 -0700
+> @@ -1163,6 +1163,20 @@ static inline int pgd_none(pgd_t pgd)
+>  #ifndef __ASSEMBLER__
+>  
+>  extern int direct_gbpages;
+> +static inline bool direct_gbpages_enabled(void)
+> +{
+> +	/* Check the direct map config option: */
+> +	if (!IS_ENABLED(CONFIG_X86_DIRECT_GBPAGES))
+> +		return false;
+> +
+> +	/* Check the CPU feature: */
+> +	if (!boot_cpu_has(X86_FEATURE_GBPAGES))
+> +		return false;
+> +
+> +	/* Check the command-line and early setup variable: */
+> +	return direct_gbpages;
+> +}
+> +
+>  void init_mem_mapping(void);
+>  void early_alloc_pgt_buf(void);
+>  void __init poking_init(void);
+> diff -puN arch/x86/mm/init.c~direct_gbpages-compiletime arch/x86/mm/init.c
+> --- a/arch/x86/mm/init.c~direct_gbpages-compiletime	2026-09-02 10:09:00.001169542 -0700
+> +++ b/arch/x86/mm/init.c	2026-09-02 10:09:00.011170394 -0700
+> @@ -251,7 +251,7 @@ static void __init probe_page_size_mask(
+>  		__default_kernel_pte_mask &= ~_PAGE_GLOBAL;
+>  
+>  	/* Enable 1 GB linear kernel mappings if available: */
+> -	if (direct_gbpages && boot_cpu_has(X86_FEATURE_GBPAGES)) {
+> +	if (direct_gbpages_enabled()) {
+>  		printk(KERN_INFO "Using GB pages for direct mapping\n");
+>  		page_size_mask |= 1 << PG_LEVEL_1G;
+>  	} else {
+> diff -puN arch/x86/kernel/cpu/common.c~direct_gbpages-compiletime arch/x86/kernel/cpu/common.c
+> --- a/arch/x86/kernel/cpu/common.c~direct_gbpages-compiletime	2026-09-02 10:09:00.003169713 -0700
+> +++ b/arch/x86/kernel/cpu/common.c	2026-09-02 10:09:00.012170479 -0700
+> @@ -2660,7 +2660,7 @@ void __init arch_cpu_finalize_init(void)
+>  		 * Right now we don't do that with gbpages because there seems
+>  		 * very little benefit for that case.
+>  		 */
+> -		if (!direct_gbpages)
+> +		if (!direct_gbpages_enabled())
+>  			set_memory_4k((unsigned long)__va(0), 1);
+>  	} else {
+>  		fpu__init_check_bugs();
+> diff -puN arch/x86/kernel/machine_kexec_64.c~direct_gbpages-compiletime arch/x86/kernel/machine_kexec_64.c
+> --- a/arch/x86/kernel/machine_kexec_64.c~direct_gbpages-compiletime	2026-09-02 10:09:00.004169798 -0700
+> +++ b/arch/x86/kernel/machine_kexec_64.c	2026-09-02 10:09:00.012170479 -0700
+> @@ -257,7 +257,7 @@ static int init_pgtable(struct kimage *i
+>  		info.kernpg_flag |= _PAGE_ENC;
+>  	}
+>  
+> -	if (direct_gbpages)
+> +	if (direct_gbpages_enabled())
+>  		info.direct_gbpages = true;
+>  
+>  	for (i = 0; i < nr_pfn_mapped; i++) {
+> diff -puN arch/x86/mm/pat/set_memory.c~direct_gbpages-compiletime arch/x86/mm/pat/set_memory.c
+> --- a/arch/x86/mm/pat/set_memory.c~direct_gbpages-compiletime	2026-09-02 10:09:00.008170139 -0700
+> +++ b/arch/x86/mm/pat/set_memory.c	2026-09-02 10:09:00.013170565 -0700
+> @@ -130,7 +130,7 @@ void arch_report_meminfo(struct seq_file
+>  	seq_printf(m, "DirectMap4M:    %8lu kB\n",
+>  			direct_pages_count[PG_LEVEL_2M] << 12);
+>  #endif
+> -	if (direct_gbpages)
+> +	if (direct_gbpages_enabled())
+>  		seq_printf(m, "DirectMap1G:    %8lu kB\n",
+>  			direct_pages_count[PG_LEVEL_1G] << 20);
+>  }
+> @@ -1340,7 +1340,7 @@ static int collapse_pud_page(pud_t *pud,
+>  	pmd_t *pmd, first;
+>  	int i;
+>  
+> -	if (!direct_gbpages)
+> +	if (!direct_gbpages_enabled())
+>  		return 0;
+>  
+>  	addr &= PUD_MASK;
+> _
 
-Thanks,
-Antonio
+Sorry for late Dave, But would it be better to include below with your
+patch?
+
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index 0ce140e4bca6..1165cb793478 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -1697,7 +1697,7 @@ static int populate_pud(struct cpa_data *cpa, unsigned long start, p4d_t *p4d,
+        /*
+         * Map everything starting from the Gb boundary, possibly with 1G pages
+         */
+-       while (boot_cpu_has(X86_FEATURE_GBPAGES) && end - start >= PUD_SIZE) {
++       while (direct_gbpages_enabled() && end - start >= PUD_SIZE) {
+                set_pud(pud, pud_mkhuge(pfn_pud(cpa->pfn,
+                                   canon_pgprot(pud_pgprot))));
+
+-- 
+Sincerely,
+Yeoreum Yun
