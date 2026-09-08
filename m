@@ -1,198 +1,187 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A386A545D9A;
-	Tue,  8 Sep 2026 20:09:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E504B59C97F;
+	Tue,  8 Sep 2026 20:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898178; cv=none; b=A9nD+D6JezWOitbNyyvj1EHwI5g59xWz2yPjMhdzsDjsFSItPUvqXdk+DC/uRIrGs9LJZQSuVq85ShRXrAzuklJTUPkaUhCsJBeu8TJ24g5mwL5Z+KuupTiMnlcCFJvd5+q44tcT+pdtk4mfjc64UZxSeZORwzBwl37k+LQuEUc=
+	t=1788898196; cv=none; b=iYdVN4MgYV/SxQcoxYE1OUIJM8m0tJtsqQXck7OlQeLY790O67cmolDyWjGYa3+8thUX1wiwW0IZ334vGmR8Ft94E8uECGx2/vwwoKI8Uz9Ka8L1x+UfldZ4YJeQZ8ZmKYdrl5byHKBK0Azjzry4UzxE6BS29vObX1zADzKFHU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898178; c=relaxed/simple;
-	bh=RGYbj2HHlqxNjIH/BiZsGGf9u4x+neMkFtHuPWWBclU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uI1eETXrjaeFPWzgZxcuw/yT48xX0C3qhjPxi30ig/AYUpmbBRQn84VSToO3ypaETqNojOmHi3qiBVojj7jvFEkANbPbm+hoZVzizXO7hxFpHUKIg/EgbFgKyTVpIZK7Iby6KByw3LN7MJoVKCWPadNDsM4T6ydSAzjPGIoUCBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bOh9qaVC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788898196; c=relaxed/simple;
+	bh=NjpevSsqsdVcBoNaqYNd964U1pKMHVgRtoQ8Fgxmacw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=OauWcWgc1YjbSeB5/4IjX+6wb1jBNI61jl83ZWMCsRkx2LLrX7poH5+Qp9MOz0U0DMaPeILeD7UYRd08Gh312YcT1C3o6E2SyX/J0UPYKrdQ6AlHQ35C4SPBiHX4CRyAOOtARnmlCtrgZuTnGR43vMdu8qE0vGKwYoac37B49Kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=Ku2CBzv1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ujMQYS0s; arc=none smtp.client-ip=202.12.124.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bOh9qaVC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085C11F00A3A;
-	Tue,  8 Sep 2026 20:09:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788898176;
-	bh=p6dXD729ADCogJ3R/2wo51+NAzY7DqxT9oUL1eYTac8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=bOh9qaVCnrZTWRlq9PaX4TcWsfcuLV7Sk55MPnRysjd8DAKGgc5dbOGtlcX+R2Cct
-	 etBvSqJ826/6aRGiGtQTdPbMl+HUHI65BgItFp7dB3nEU6+P4nEKEQuNokScxDAGQF
-	 1FaBk52Dtsu0Sj4lK3UEIwxTGPy3xPZsEJhkMYRkKSFy9wGxZ8EyeXQaET+rodI8WW
-	 O/YNIb3WpWuRKRCra6d2SyqzYF+1G2MDLogKznQgseOC4k+u/CpmskHe9Vw88IcYKe
-	 RfnYBGrEddugW7tvStnErBL9GNi//B0nMtdD+kFUuBn48Nqiv9Gl8vTlzDJSrGw4yP
-	 Z9voucWtUuFqg==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:19 +0100
-Subject: [PATCH 15/39] mm/vma: only allow mmap to clear VMA_MAYWRITE_BIT if
- kernel-owned
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="Ku2CBzv1";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ujMQYS0s"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.stl.internal (Postfix) with ESMTP id 29C0A1300C52;
+	Tue,  8 Sep 2026 16:09:49 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 16:09:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788898188;
+	 x=1788905388; bh=XGzc/5Eb+lr6gHxtsWUeqlpbhH2hHOwRDxbQuElICwQ=; b=
+	Ku2CBzv1lbwKt7FkbK1hK9z6lUhC4lyMvWVuJCDperQCrGR4/rovcYZT14+F2GRU
+	Rav/lw7wDP1LZUNHanxxKPv9TiMXrWJeF4XcFPkUtSvKXHgFfqD1zYYomxsGk/6w
+	D0ugcsY4ct992ReVcs1IUi3KQk3MwK2m0/nVfeh2El0YDoKepsDCsUsJEw2Xopqf
+	vUaW1KTQtRtXeElKC9QKtKuQIKUo2YJjj/bJt4iyEuMRznXurrxMtEOYF0Vypnae
+	hzllfDFfMF4MLpuFLIHlHRQICSgPksOWfpJUZziA6rKH7zrejjbOHOF06vLIb/zc
+	w5HH3y04fc96xLHdT/IkTQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788898188; x=
+	1788905388; bh=XGzc/5Eb+lr6gHxtsWUeqlpbhH2hHOwRDxbQuElICwQ=; b=u
+	jMQYS0sL+Aowo4kNVDUIZ6sxKERcte19OIubGhUn842ROtFnMhzcn9nOmWNq8m7C
+	FHmwKHYgoJ/jG2pkJGkAUm7NezuYNDuHEtea2iCCY1h68vHHRw1tbwvNgBC7NsFY
+	rbLssRXRc0/8Z7/FVbSv77yvARhK4G2eGFJ9PzzEfE+9jQ1o9Hc+VoCcqrJKguIG
+	cVWq5h0ss748M5e43R0TGSageD0VACosHeHSAOqC2oKrcgC+Dywg34eoHUA61vUD
+	Om+SXPAR6IF9uWHBupFJaffqsw5yQdw56xQkgFp2LSYGh5EmlOC0wvW/IaDQZnCb
+	LMTZ1CVIosTouKpnUkAaA==
+X-ME-Sender: <xms:fmuganAtXtSwL-JpSs__4SRF0rTRt5GmxPf831izoU_erzPTWgAXSQ>
+    <xme:fmugaoXMuufuq90WbEJq3jH2RboT9th930_-cNxUKLtsWrbB1oneFf9Xz6yLhoedT
+    YqurXU9BXFFOxISdk694hhj0cpVnKQYoXn04NuD4ysdyrWwPbUYtRY>
+X-ME-Proxy-Cause: dmFkZTEOp8fHm5Y3J5V2OI0TYboevCVDMAAGYDcPknsZa+0X0RAcfHjfIunQUCrjwll0ea
+    rAQKkk63eMYO5/YsUuJodvREtVTrCuYoOIZ9cdLF4PumfhTpYgh50Lfo6o9D8QrGucOErt
+    1sYxt2QrPbopoRmAf/GENKdf06cSRGVrvjFFQcAbo5nmTHwS3A0bt3HwuabeSgvhnsObAg
+    dbPo0mT2Qbsifo2veGFIaoL0lJSdd83VAXqWQzrdwJ/OSfRVxeUmrfI9jQpSwWye6jKqFi
+    NOft3xXk0NdTzkITEAa33TJA6ix1zF0AwdpfuVEyfJmRNLBy11archzASh1BSGprZa93Ds
+    C+Sv9U/weUns6mx2nwFA2lCN3zLi/Rk8p/J83yqZM7VlcK675+DuzSxAZqfRkMJBci1i1e
+    eqsl5xkRkXCorwVc/2lQanGN1S0IbMaPI/UhcGXT2qI1gtN8VcS4pCweSc1uJ3MgWVP5Fr
+    fd6wuggi9qR2Is2m5jQDxFEcLJqjzcHUFW7JybEqzCT2wTsaTx7pu+YFjg6kopHPn0PbED
+    uooY3D/duB0e3xj8T9BQsm45luJjYM2Rz0k3B09xmHAt8V34sz5JvPIlWK2+nJkOpdV5Fl
+    Crqztnvqs4a/7+lCs3/5TbA3fZD27fPI9F+o3hImahc2L0qBOLFE1RAotMHQ
+X-ME-Proxy: <xmx:hWugatKoHMBMnZtP17UULzQB6EuGdq9y4KPlROoonj4Gm0uf8OUMXA>
+    <xmx:hWugaqqpPwtCM1AUnviPCuSqlRr2u6RRud1ajk-GboRnZDzrQIApPA>
+    <xmx:hWugauWHWoYrWzb7a2llPhn3uSnztbyj-cPoQd3ZWlwfPBa7MX2nuQ>
+    <xmx:hWugagatGK1_RhDhj2yYgoRPdRO8Qbn-tAse6dSoi-K2c4PVP9gsKg>
+    <xmx:jGugarmn9UC73Fhha86G49qnTJMPVdxBgve0N-zdSoV85HG7yX3TtBkr>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 5E56132A0078; Tue,  8 Sep 2026 16:09:34 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+X-ThreadId: AwGOxrB98c9B
+Date: Tue, 08 Sep 2026 22:09:14 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Russell King" <linux@armlinux.org.uk>,
+ "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Liviu Dudau" <liviu.dudau@arm.com>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Fabio Estevam" <festevam@gmail.com>,
+ "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Aaro Koskinen" <aaro.koskinen@iki.fi>,
+ "Andreas Kemnade" <andreas@kemnade.info>,
+ "Kevin Hilman" <khilman@baylibre.com>,
+ "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
+ "Nicolas Ferre" <nicolas.ferre@microchip.com>,
+ "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
+ "Andrew Lunn" <andrew@lunn.ch>,
+ "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
+ "Gregory Clement" <gregory.clement@bootlin.com>,
+ "Robert Jarzmik" <robert.jarzmik@free.fr>,
+ "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
+ "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
+ "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "A. Sverdlin" <alexander.sverdlin@siemens.com>,
+ "Shawn Guo" <shawnguo@kernel.org>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux-OMAP <linux-omap@vger.kernel.org>,
+ "Guenter Roeck" <linux@roeck-us.net>
+Message-Id: <e768247f-3c29-4d36-a40f-05ec81b45db2@app.fastmail.com>
+In-Reply-To: <aqBhF5oS1A2W6dAa@gmail.com>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-2-arnd@kernel.org> <aqBhF5oS1A2W6dAa@gmail.com>
+Subject: Re: [PATCH 01/13] ARM: remove sa1100 platform
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-15-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2245; i=ljs@kernel.org;
- h=from:subject:message-id; bh=RGYbj2HHlqxNjIH/BiZsGGf9u4x+neMkFtHuPWWBclU=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6KibjG1FkTM+mYgfPWohkScT/Xb9Je2BYwaa8ks
- yHfY4OSjlIWBjEuBlkxRZbnX8T3B4mEzeu84O8GM4eVCWQIAxenAEzkBg8jwwWjXZ+PPozePoEj
- 91kM1/nIHiO2iOq9T7OszDhdPvc8Xcvw33PlsoVL3+0qfv9hsV1yu1KidJlsg/7GnOnrzLas9Ck
- 5wA8A
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-For ordinary files the only way the VMA_MAYWRITE_BIT flag is cleared is if
-the underlying file is itself read-only.
+On Tue, Sep 8, 2026, at 21:39, Karl Mehltretter wrote:
+> On Tue, Sep 08, 2026 at 05:27:51PM +0100, Arnd Bergmann wrote:
+>>  62 files changed, 19 insertions(+), 10501 deletions(-)
+>
+> Note that Sashiko skipped reviewing this patch, because it exceeded
+> its current 10000 line limit.
+>
+>> diff --git a/drivers/rtc/rtc-sa1100.c b/drivers/rtc/rtc-sa1100.c
+>> @@ -275,18 +275,10 @@ static int sa1100_rtc_probe(struct platform_device *pdev)
+>> -	if (IS_ENABLED(CONFIG_ARCH_SA1100) ||
+>> -	    of_device_is_compatible(pdev->dev.of_node, "mrvl,sa1100-rtc")) {
+>> -		info->rcnr = base + 0x04;
+>> -		info->rtsr = base + 0x10;
+>> -		info->rtar = base + 0x00;
+>> -		info->rttr = base + 0x08;
+>> -	} else {
+>> -		info->rcnr = base + 0x0;
+>> -		info->rtsr = base + 0x8;
+>> -		info->rtar = base + 0x4;
+>> -		info->rttr = base + 0xc;
+>> -	}
+>> +	info->rcnr = base + 0x0;
+>> +	info->rtsr = base + 0x8;
+>> +	info->rtar = base + 0x4;
+>> +	info->rttr = base + 0xc;
+>
+> This drops the layout switch but keeps "mrvl,sa1100-rtc" in
+> sa1100_rtc_dt_ids[] and in bindings/rtc/sa1100-rtc.yaml, so a DT with
+> that compatible would now silently get the MMP register offsets instead
+> of the SA1100 ones.
 
-This means that mprotect() cannot mark a shared mapping of a read-only file
-as read/write, as doing so would violate the read only attribute, and
-permit writes.
+This one is interesting: this was already the behavior before
+my patch, as CONFIG_ARCH_SA1100 is mutually exclusive with all
+other targets. That obviously wasn't the intention of the code.
 
-In general, we do not want file systems to be able to do this for
-read/write files.
+I've removed the sa1100_rtc_dt_ids[] entry now.
 
-Doing so would violate fundamental user expectation of file attributes and
-likely break userspace.
+>> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+>> @@ -614,16 +614,16 @@ config S3C2410_WATCHDOG
+>>  	  be called s3c2410_wdt.
+>>  
+>>  config SA1100_WATCHDOG
+>> -	tristate "SA1100/PXA2xx watchdog"
+>> -	depends on ARCH_SA1100 || ARCH_PXA || COMPILE_TEST
+>> +	tristate "PXA2xx watchdog"
+>> +	depends on ARCH_PXA || COMPILE_TEST
+>>  	help
+>> -	  Watchdog timer embedded into SA11x0 and PXA2xx chips. This will
+>> -	  reboot your system when timeout is reached.
+>> +	  Watchdog timer embedded PXA2xx chips. This will reboot your
+>> +	  system when timeout is reached.
+>>  
+>
+> "embedded into PXA2xx chips" is better.
+>
+> The RTC_DRV_SA1100 help text a bit earlier in the patch also still says
+> "built into your SA11x0 or PXA2xx CPU".
 
-However, drivers pose a tricky problem here - the /dev/xxx file may be
-read/write but provide access to a resource which is fundamentally
-read-only.
+Fixed all these now, thanks for the review!
 
-Therefore we must allow drivers to be able to clear VMA_MAYWRITE_BIT.
-
-To achieve both of these things, restrict this ability to kernel-owned
-mappings as identified by vma_flags_is_kernel_owned().
-
-This constrains this ability to drivers which own the mapping's contents,
-whether memory-mapped I/O, kernel-allocated pages, or ordinary pages they
-map themselves, and so define its semantics.
-
-Every in-tree mmap hook which clears VMA_MAYWRITE_BIT, some twenty sites
-across drivers, filesystems and bpf, establishes a kernel-owned mapping,
-with usbmon and the ALSA PCM status page converted earlier in this series
-to do so.
-
-Note that drivers may, if they do not gate on VMA_SHARED_BIT, be able to
-disable MAP_PRIVATE-file-backed mapping CoW semantics.
-
-This is perhaps not always intended, but we retain this capacity to
-maintain existing behaviour.
-
-As all drivers which clear VMA_MAYWRITE_BIT establish kernel-owned
-mappings, no functional change is intended.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/vma.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/mm/vma.c b/mm/vma.c
-index 9e45fc83f74c..526428753218 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -2780,6 +2780,11 @@ static int mmap_validate(unsigned long prev_start,
- 	if (WARN_ON_ONCE(!was_maywrite && is_maywrite))
- 		return -EINVAL;
- 
-+	/* Only kernel-owned mappings may clear VMA_MAYWRITE_BIT. */
-+	if (!vma_flags_is_kernel_owned(curr_flags) &&
-+	    WARN_ON_ONCE(was_maywrite && !is_maywrite))
-+		return -EINVAL;
-+
- 	return mmap_validate_vma_flags(curr_flags);
- }
- 
-
--- 
-2.55.0
-
+      Arnd
