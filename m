@@ -1,279 +1,190 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C278B3D79FD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D7D49480D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:30:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788902986; cv=none; b=IFVupbAT/2F3SOMyglVj0/bmOiJdKqSxnL4tcJ8Xakdfq4YoqRUXHOY+5UU3w1CxFPyfu+pt6342K2jFYR8tQNMjCKh6u0wWsVz/dRYWaskrJdOk9nuvaLmbYFtfEUSyxZqq8+Bf/ZW8axryVtrYoHqsvsLt8pfhhEu4IRlkQQs=
+	t=1788903053; cv=none; b=Td1a95o+zQg0BkjyJ5r/qH5q+2NxW3fMeLS/hSlxFrmxMa5R+prryYciKutjXoVMzTZbiIkPZ0hGXozJEK+fh6a4msdacCt0a+BPR2feCqgO5fotEJQgFPBbC0R1YVrnd09SxX81OKQbmmOvCktljN8gSoVnPWjnlhqTzRSfu48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788902986; c=relaxed/simple;
-	bh=1bbkJGRuCYNgYQcE3PpG6Gv5p4UgTH3jP5ijeOUqU1I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=aQaOV9YWZkT6jWFwKv4hcopXX0A0GZ7JvADKr/htZCP4mlJnV6yPVoVgHWcJQKzrNqqy/cahTJvaRjMhCbeMnAxkN/S5rddZl+BEtQqF2EPdsmlC95AnrdCkK60uME7LF7tK/iTGjTqSp6faQI0QgfYorTYepjYBke1B5ryil6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cjAgKjdn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788903053; c=relaxed/simple;
+	bh=Tz1uM6P+y7LhaZdM77x7l8/ad4X1MfOM3q3en/0d7XU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jABb5WQpn0aQKtCQ0sU0+p+07GP9E7n69fzGaVhCuMqlONogNof/DSKc0sNvwi6YMNaV9D6lFQyxf52dHP5DBqvNhYImAIBmlUG1r2mD7wcaNTbbUVg/o7yK1AOuSgLzyp5gbzKHhTxbZN8IaP2g7JtZ/etiNlMZCntnlk+vjUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lde1XU2T; arc=none smtp.client-ip=209.85.215.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cjAgKjdn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C56C61F00A3A;
-	Tue,  8 Sep 2026 21:29:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788902984;
-	bh=4LPhynS6ZpJR2mwhfmwf3kOy6+dOmQAWPxTF8ZDrW1I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=cjAgKjdnnKUhNnmNu59zrHPXvsf6RzktuvQKtDfH673ni8hWTnh4pwv757LHr92QY
-	 xerS8rPol8zCXx6sIYYJHuYaUCTvosuK1X2rD6ALoQ/11LAWw2LreYB0sGKkBMMVmU
-	 hEB5ohjZSNlnBslFijdQdpgnML7dsqBqvrD591+7EQYw4DV32aTCMkwI89/fRWqtQB
-	 VJzEA4+8S6anTgfHvkSA/U3fCL/otooPTQFC94fceqPvsnZTp6OF99+vsA3TNfP/jO
-	 cK0sQV3w/C96J8F5vXKFKTbc1wTMXgzxkAIl6eMTFpwk5JHEzQ8PziJ4u/QBvtBP09
-	 r0ommOizN/NHQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Olivier Dion <odion@efficios.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, "Paul E. McKenney"
- <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, LKML
- <linux-kernel@vger.kernel.org>, Dmitry Vyukov <dvyukov@google.com>, David
- Matlack <dmatlack@google.com>, Marco Elver <elver@google.com>, Sean
- Christopherson <seanjc@google.com>, Wei Liu <wei.liu@kernel.org>, Florian
- Weimer <fweimer@redhat.com>, Mathias Stearn <mathias@mongodb.com>, Chris
- Kennelly <ckennelly@google.com>, Blake Oler <blake.oler@mongodb.com>, Rich
- Felker <dalias@libc.org>, Matthew Wilcox <willy@infradead.org>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Carlos O'Donell
- <codonell@redhat.com>
-Subject: Re: [RFC PATCH 0/5] rseq: add support for RSEQ operations
-In-Reply-To: <871pb3wsmk.fsf@laura>
-References: <20260828153349.8061-1-odion@efficios.com> <87y0db1y22.ffs@fw13>
- <871pb3wsmk.fsf@laura>
-Date: Tue, 08 Sep 2026 23:29:41 +0200
-Message-ID: <87jyov1lfe.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lde1XU2T"
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso3806502a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:30:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788903051; x=1789507851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ELAKfi+YR1hZspWrc4OqfL/ECj7P8UtZIJYMoMray7g=;
+        b=Lde1XU2Tb/YmytoqltqM5FF9IBKexQuGcmQBCIVCXegjaLo6qyPwFP5Pp9C/OSQplL
+         lYjaqa4MaW5yMvCUzX/olDERhd0Hdgj4neQojrrERqa1P21e8BLq/S1IFe4mnv3MplHc
+         X8VNjrVvaJKMKz4jSzWeNNMhxIK5ePrkOVhK7h/HZr5FWQ7Lse9Ga9MRCSRG+QMtfeba
+         qBFA65XzEgWWTz9edS0F9UZDQoyhvskiX++fybMjIAA2WZ1CFCk57/29GKGVxzF2xRXa
+         TR++1eU8N1/9P2MwO4IJy1lAGDysBhRxwDCwsMCsokGFUbkwsTAGi3sRQ/v14sxcik0D
+         PtUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788903051; x=1789507851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ELAKfi+YR1hZspWrc4OqfL/ECj7P8UtZIJYMoMray7g=;
+        b=lJ2Nkza8yg3Y6laUExeiVQSlMFIJ3VOGLsKBWCI/QyAENAtkfx3tX8TYLsHchUBo8h
+         mIJLqF4IhLkO87wjztNGO9sCH5OP7E2L84lesGWMLX6+QeV42VbuMUJhSqlHBHmobu/M
+         Yhw4kBmFo6LGFdMp0n5044UT8UEfMVtgGQk2wtzOsMrOvfVijZYC+BUJkRDQYxc7idLA
+         UANO8oTd4iOjbGLQ1aE4HmfMZpEvRnET4iiGUWU65Ru3wO5Y9Fdr43KUDJ9e6kOY3M0h
+         xqqO/XAVWgULfQUwTJw2oi9NAON9Qy5hv68/dFV2k9bo7CRVfgplFHbox7ON/u46T1kS
+         2Tiw==
+X-Forwarded-Encrypted: i=1; AKwUvByRUwJlCRqxNmMpOgC+lMQ5nc1Mnzzs3amn4EppN6QGW197ubpUvvjWIP15obL05npy/8ia+8B5DehFlZI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCWM2LNfPwEWL4qwHZfgx9CvuSJAA4lQf4iv8TVeZoRo/oia5d
+	8dZaa1csJO8jspWXx/hnlapJUCSaGckWJoECX6JLwi6vNNATHpQ25avAjwvAUA==
+X-Gm-Gg: AYBFou0J4Zmj0VbHp8JKgPYPjCehqjiwU6+UVnvwAmq4BB2RTvnG4iCDDXrEWUVHk4b
+	8UMz4yNb93fEbjW4CTwjSyUvKN4EjRhuydQd6dBeVx88vf7u89V8B2i3NBFY8BJHf64q2BZQYlb
+	RmC+n3oUcGW2WSpAHpQQpAWtrkSMFVu+n+z8QFM0Qacfvk0BYp09dZ7Vk0bXYOj0dmSwKGnynpM
+	xvV1aNIGJ6MoRmIDL6Gcml/HALC2i0q7P0KZH/ky+j4ermEy2ySIfbOQPqrt87zXxdBRYONtuRV
+	Avy4NN0AcUpQ3AUIFB5UAIUlUUepONUp1SrkQLJpilb6wuHHnmfvxSTCCrYV/4veDN2EkBS4PDT
+	hDz3I7tuU9B+v6lwMQXR0VTqGAcYHPT7He/BSbj79MsjHGhdVdry63NjPAxSO8pxYpjt435zzGM
+	vaIaGFBFjUEcdyQ8VveVWRAkLfraoWL3qtxHPuWsCBdqdSjd3r64a7mdFVzDlWOVI4UsPpWOIbY
+	EGUsbyrpasQ7GpqJuwBACkSwMVTg/qQwbSaihZ5eBeJmqlWFyGcFcCyT8RrUJau1FNVJy+DgSOR
+	rI8ZQx9kPLhEJ0pKocV9lMzF936n1E6HwU8+Wg==
+X-Received: by 2002:a17:90b:3804:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39b25f4397emr47315254a91.0.1788903051414;
+        Tue, 08 Sep 2026 14:30:51 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm34123574a91.11.2026.09.08.14.30.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 14:30:50 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: dmaengine@vger.kernel.org
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv3] dmaengine: bestcomm: ioremap early
+Date: Tue,  8 Sep 2026 14:30:49 -0700
+Message-ID: <20260908213049.592138-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08 2026 at 13:38, Olivier Dion wrote:
-> On Tue, 08 Sep 2026, Thomas Gleixner <tglx@kernel.org> wrote:
->> fixup_ip()
->>       ....
->>       user_rseq.fixup_in_progress = false;
->>       restore_and_return() // Returns to the original IP
->
-> Yes.  This is what I had in mind (see reply to Florian).
->
->> A reasonable limitation for the fixup function should be a strict "no
->> syscalls and no floating point within the fixup" rule. No floating point
->> avoids the whole sigframe disaster.
->
-> I suppose that no floating point also mean no xsave performance
-> trashing, which is obviously something we want to avoid.  Is that what
-> you mean by sigframe disaster?  Also, I am not sure how we can enforce
-> this no syscall/floating point policies other than asking users to be
-> good citizen.
+Replace the open-coded resource lookup, request_mem_region, ioremap and
+the manual iounmap/release_mem_region cleanup in probe/remove with the
+managed devm_platform_get_and_ioremap_resource() helper. This removes the
+now-unused error-unmap/release paths and simplifies probing.
 
-The sigframe disaster is that sigaltstack has been insufficient for the
-ever growing XSTATE to save (its even uncompressed XSTATE). Also these
-fixups really should do a few selective stores and not huge computations
-or wipe out a GB of memory. So avoiding the XSAVE/XRSTOR overhead
-completely is certainly a benefit.
+Fix a resource size mismatch between allocating and freeing where
+request_mem_region() and release_mem_region() hopefully use the same size
+but is not guarenteed.
 
->> When return to user observes user_rseq.fixup_in_progress then it can
->> mangle regs before doing anything else:
->>
->>         regs->ip = tsk->rseq.fixup_abort_ip;
->>         regs->sp = tsk->rseq.fixup_sp;
->>         user_rseq.fixup_in_progress = false;
->>         tsk->rseq.needs_fixup = true;
->>
->> Which rewinds the stack to the callframe and makes the interrupted fixup
->> continue at the fixup_abort_ip which just restores registers from the
->> callframe and returns to the original IP.
->
-> So the fixup handler would have an abort label, akin to RSEQ region.
-> But then there will be no guarantee that the fixup operations succeed?
-> Or did I completely misunderstood?
-
-They are only aborted when there is nesting, so the nesting context
-starts over and redoes them. Once the nesting context returns to the
-first fixup (abort IP) the state is correct and then the first fixup
-returns to the original return IP.
-
-That abort on nesting avoids the following issue:
-
-user_function()
-  ...
-  interrupt(#1)
-     schedule()
-       MMCID changes
-       fixup requested
-   ...
-   setup_callframe(....)
-   return to user
-
- fixup_ip:
-    fixup_c(data)
-    ...
-     interrupt(#2)
-       schedule()
-         MMCID changes
-         fixup requested
-
-     fixup_ip:
-        fixup_c(data)
-         data::mmcid = user_rseq::mmcid
-        restore_and_return()
-
-    data::mmcid = user_rseq::mmcid
-    restore_and_return()
-
-If the interrupt #2 hits between the load of user_rseq::mmcid and the
-store to data::mmcid of the first fixup, then the return to the first
-fixup context would obviously write the wrong ID back.
-
-And you can't skip the fixup on return from interrupt #2 and just return
-to the already running one in that case either.
-
-That would be possible if the fixups are truly idempotent, e.g. can only
-zero out memory.
-
-The trivial nest case would be:
-
-user_function()
-  ...
-  interrupt(#1)
-     schedule()
-       MMCID changes
-       fixup requested
-   ...
-   setup_callframe(....)
-   return to user
-
- fixup_ip:
-    fixup_c(data)
-    start zeroing
-
-    interrupt(#2)
-      schedule()
-         MMCID changes
-         fixup requested
-
-     observes fixup running
-     return to user
-
-    continue zeroing
-    restore_and_return()
-
-But that does not work with signals because the signal delivery does not
-return to the interrupted IP. It creates the sigframe and returns to the
-signal handler, which then goes back with sys_rt_sigreturn(). Then the
-kernel restores the interrupted context. So in that case you'd need:
-
-user_function()
-  ...
-  interrupt(#1)
-     schedule()
-       MMCID changes
-       fixup requested
-   ...
-   setup_callframe(....)
-   // Must be a counter
-   user_rseq->fixup_running++;
-   return to user
-
- fixup_ip:
-    fixup_c(data)
-    start zeroing
-
-    interrupt(#2)
-      signal_delivery()
-      setup_sigframe()
-      observes fixup running
-      setup_callframe(....)
-      user_rseq->fixup_running++;
-      return to user
-
- fixup_ip:
-    fixup_c(data)
-    zero everything
-    user_rseq->fixup_running--;
-      restore_and_return()
-
-   signal_handler()
-      sys_rt_sigreturn()
-      restore_regs()
-      observes fixup running
-      return to user
-    
- continue zeroing
- user_rseq->fixup_running--;
- restore_and_return()
-
-Idempotent fixup functions restrict obviously what can be done
-there. But if that restriction is fine, then this approach works too.
-
-I have no strong opinion either way.
-
->> There are obviously a ton of details to take care of (/me mumbles shadow
->> stacks and RSEQ CS interaction), but the general principle should just
->> work. Emphasis on should and I'm so NOT going to hack that up. :)
->
-> I could certainly make a POC out of this for x86.  It could handle
-> red-zone and shadow-stack to start with.  I don't know if there are
-
-I wouldn't even bother with shadow-stacks for a POC. The red-zone skip
-when setting up the callframe, i.e. SP - 128 is unavoidable, but that's
-it.
-
-> other architecture-specific quirks that need to be aware of, given I am
-> not familiar enough with architectures outside of x86.
-
-Well every architecture has some quirks but I'm not aware of one which
-would fundamentally stand in the way. The main difference is going to be
-how the callframe is set up and how the fixup function needs to
-look. That's always architecture specific and there are wizards for each
-architecture to help with that :)
-
-> One aspect that I have not think of for now is allowing fast
-> registration/unregistration.  This RFC uses a syscall for registration.
-> My original intent for this was to do a edge trigger detection of the
-> first/last registration/unregistration in the syscall and set/unset a
-> flag into the RSEQ state of the thread task.  That way, we don't need to
-> touch another cache line to know if the thread registered something.
-> This is obviously incompatible with short-live registrations.  However,
-> I did not come with a case for it yet, so perhaps I am over-thinking
-> this.
-
-TCMalloc wont have a short-lived registration, neither wont a tracer or
-something like that. Once a library is initialized it won't go away just
-because. So if the facility needs to pause the callback intermittently
-then this can simply be:
-
-cb(data)
-        if (!data->run)
-        	return;
-
-That won't be the end of the world if those pauses are not taking
-forever. If they do then the syscall is justified.
-
-Let's get the basic principles working first on a KISS basis and then
-think about how to keep it as simple as possible.
-
-So for the POC you neither need multi-lib support nor the VDSO
-bits. Just hack up the ASM fixup and a trivial C demonstrator in user
-space and register fixup and abort address with a hacked up sys_rseq().
-
-Once that works, the extra bells and whistels are not hard to add. They
-are hard to get right, but without the prove of concept wasting time
-on them is pretty pointless. :)
-
-Thanks,
-
-        tglx
-
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Everything should be made as simple as possible, but not simpler.
+ v3: reword again
+ v2: remove Sashiko generated description. Reword description.
+ drivers/dma/bestcomm/bestcomm.c | 45 ++++++++-------------------------
+ 1 file changed, 10 insertions(+), 35 deletions(-)
 
-                                  - attributed to Albert Einstein
-
+diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
+index 432b43520ddc..44ff4a42376b 100644
+--- a/drivers/dma/bestcomm/bestcomm.c
++++ b/drivers/dma/bestcomm/bestcomm.c
+@@ -13,7 +13,6 @@
+ #include <linux/kernel.h>
+ #include <linux/slab.h>
+ #include <linux/of.h>
+-#include <linux/of_address.h>
+ #include <linux/of_irq.h>
+ #include <linux/platform_device.h>
+ #include <asm/io.h>
+@@ -365,13 +364,19 @@ bcom_engine_cleanup(void)
+ static int mpc52xx_bcom_probe(struct platform_device *op)
+ {
+ 	struct device_node *ofn_sram;
+-	struct resource res_bcom;
++	struct resource *res_bcom;
++	void __iomem *regs;
+ 
+ 	int rv;
+ 
+ 	/* Inform user we're ok so far */
+ 	printk(KERN_INFO "DMA: MPC52xx BestComm driver\n");
+ 
++	/* Get, reserve & map io */
++	regs = devm_platform_get_and_ioremap_resource(op, 0, &res_bcom);
++	if (IS_ERR(regs))
++		return PTR_ERR(regs);
++
+ 	/* Get the bestcomm node */
+ 	of_node_get(op->dev.of_node);
+ 
+@@ -402,35 +407,13 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+ 	/* Save the node */
+ 	bcom_eng->ofnode = op->dev.of_node;
+ 
+-	/* Get, reserve & map io */
+-	if (of_address_to_resource(op->dev.of_node, 0, &res_bcom)) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't get resource\n");
+-		rv = -EINVAL;
+-		goto error_sramclean;
+-	}
+-
+-	if (!request_mem_region(res_bcom.start, resource_size(&res_bcom),
+-				DRIVER_NAME)) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't request registers region\n");
+-		rv = -EBUSY;
+-		goto error_sramclean;
+-	}
+-
+-	bcom_eng->regs_base = res_bcom.start;
+-	bcom_eng->regs = ioremap(res_bcom.start, sizeof(struct mpc52xx_sdma));
+-	if (!bcom_eng->regs) {
+-		printk(KERN_ERR DRIVER_NAME ": "
+-			"Can't map registers\n");
+-		rv = -ENOMEM;
+-		goto error_release;
+-	}
++	bcom_eng->regs = regs;
++	bcom_eng->regs_base = res_bcom->start;
+ 
+ 	/* Now, do the real init */
+ 	rv = bcom_engine_init();
+ 	if (rv)
+-		goto error_unmap;
++		goto error_sramclean;
+ 
+ 	/* Done ! */
+ 	printk(KERN_INFO "DMA: MPC52xx BestComm engine @%08lx ok !\n",
+@@ -439,10 +422,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
+ 	return 0;
+ 
+ 	/* Error path */
+-error_unmap:
+-	iounmap(bcom_eng->regs);
+-error_release:
+-	release_mem_region(res_bcom.start, sizeof(struct mpc52xx_sdma));
+ error_sramclean:
+ 	kfree(bcom_eng);
+ 	bcom_sram_cleanup();
+@@ -463,10 +442,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
+ 	/* Cleanup SRAM */
+ 	bcom_sram_cleanup();
+ 
+-	/* Release regs */
+-	iounmap(bcom_eng->regs);
+-	release_mem_region(bcom_eng->regs_base, sizeof(struct mpc52xx_sdma));
+-
+ 	/* Release the node */
+ 	of_node_put(bcom_eng->ofnode);
+ 
+-- 
+2.55.0
 
