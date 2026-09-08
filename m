@@ -1,125 +1,187 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D7A562616
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A76550DCC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890266; cv=none; b=SDlWPRabvqJ55xdRbCurALx6yzqQTunbm7E/+FidhfuU/KV/Q/SNosZ3zGrukN26Xxj8oKtJiP4uj1MmG1eRstrlZ4kf6BXBXZNVX0ZmQCrCgyD24uKZUoj5pHUMzz0qC4mCaREGZr9jrLgacEoqC2ClUKa642a8CD82O+f5P6E=
+	t=1788890290; cv=none; b=U6nqyEx15YbLbJzYlj8Yrl7Yy9H5sns7knjxsWi2Uwr3luYZ+0WzAd00aC71lEu3LlU8CBR8TggGvFuhE/NS9o/q6E98zuj1isT7q9De9ea/VILxtXjdmzoiKQQXInZeiL9Owckeoq3rutnhk9WxReMPQw4qE6kbHqLbFZioD6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890266; c=relaxed/simple;
-	bh=JMytFsLNDFlTZh0HBQ79AzodrB4sFdKnu4zEXPonQkM=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=pXqEo/RjZTLEENtlVwbBLy51NILUIHf4v2HqK756pLysWd7Q7kTWrQvpjk1jbG/7OGdOG4482waHB1W08JdpzV4L0DudB7wCDFqF5k+hKzrHZZywk1VFC6hH54H6YWNyQK+01FN1xX7YjxEtrqH9vpFA4iqeWhECEbAeyoU6Ic4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=UQ1DZdEW; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1788890290; c=relaxed/simple;
+	bh=VPXs8lvIsA9bvQTJ/c/tqiLS8AygmJoObd8lEynnagU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YjoE/UsW6OLcft67JYR9riQDvxUV0ax56+HH8DjamuNBBX0CNisACZgC2WtFs03vuVzMWMBsOBSNvppLJrlP2HDd8ccDmh8/ZYwOjoU+HCA1JBBDqz62ybXM+xO6tosdlXLlMPl1XHS3VPmOOArEf1nwVlHvrNgoJAczM8NrgRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m1tG/qzr; arc=none smtp.client-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="UQ1DZdEW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:Message-ID:Subject:Cc:To
-	:From:Date:MIME-Version:From:Reply-To;
-	bh=oSRZzJnAPLDDt/YuSrYjYSdAxN1Qp6X1YLFSuBN6GE8=; b=UQ1DZdEWCGgl5OC/rNxNxZ60eE
-	yjcGBcIqiuFAo51PkATaGhWHtJxSvVMFvtKp7MyRCyc34U7A4SOHVQOsFaVGsSuGrzbmZ1DbUZv78
-	SYxEBXzm95ONDdcupbJmVj2lIJg627nu4y2IthveO3N7YeY5O+D7GDVr7EjBGKaVLcGuEplae/xC9
-	hLMNujvnbhplyP0o9cEqVHqHPMtMmmbtU4Ziql0QZKbFcMiiUfNdHc3qVOOo/zQuIjhTeYthVWIHq
-	IUd9eyDjZ7YmAPDBY/q/YWM+nlSlHJOlqftXKram1aC608My7bDNWMtiAFjivRZavT+49XrAOkQsJ
-	2txK5O5w==;
-Received: from maestria.local.igalia.com ([192.168.10.14] helo=mail.igalia.com)
-	by fanzine2.igalia.com with esmtps 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x4047-00Gcpz-4h; Tue, 08 Sep 2026 19:57:03 +0200
-Received: from webmail.service.igalia.com ([192.168.21.45])
-	by mail.igalia.com with esmtp (Exim)
-	id 1x4046-006bwL-A4; Tue, 08 Sep 2026 19:57:03 +0200
-Received: from localhost ([127.0.0.1] helo=webmail.igalia.com)
-	by webmail.service.igalia.com with esmtp (Exim 4.98.2)
-	(envelope-from <mfo@igalia.com>)
-	id 1x4046-00000007AAD-14In;
-	Tue, 08 Sep 2026 19:57:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m1tG/qzr"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482dbe4d247so2744831f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:58:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788890286; x=1789495086; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UX8L/BtZO7H1FbvBOVuWTf8zSaxbJy2FpKxDe96gDGI=;
+        b=m1tG/qzr56Q03IrHTz5aKjZ6BMEtXRRwyEQ9gsWOLxNBjkAEW9MHw7t4H4YD5XabMH
+         PPOKS5uY7aC9HOBbD9iwJDyF8n/P96alx5pGPJC/TUSGyYyRHQjmtb5BR3xzM1gFDnPu
+         4tYoqxCCCbgmtCSE1OK7YnxlFwi9InbvT/qA7ZO65sjCym4QsCboCH7XMb/elkfQOUVd
+         QhDydQP35ar5zgxl3J3RbjsL6XaRF4dKWs25TaEigV4KqdpNJY9Ucaqx7ESZDb1Tk/a/
+         vN7Lu7SFrhIEhgEidVrxPF+AzYlE0hc3YRRjHfgy81o9/pzLWEXstYWk+vBiJIs9UtQD
+         FIJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788890286; x=1789495086;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UX8L/BtZO7H1FbvBOVuWTf8zSaxbJy2FpKxDe96gDGI=;
+        b=MrjTzYypt1bGTkTouGwpznZUpHDZT9ex1f7uJDXsq9JhUt9s6HXUvwWh8ZU+njyYR7
+         yEe81fqSNogRt/bKIxTQjeWtjM1AJoNueLiPYk/rrxG4E82HTImvGKbQ/1yLPVstcYbQ
+         2NKpgn1UkutbC7vJGOiVNFNC6X8M4c76EQvP0xDqWRV4pid3z9PXExG7g5ksaPQp+1CZ
+         Nky8cNgQmsdCiZ6h6QGYmI3rCNdEjlwJYo/x6pRecIzwtErmm+GsQ2uTnJef4/2sL8WW
+         1rlIEm2NBmnITZx5J7JfE2moneQSHEg3QUq9yiOyQTINVqwNkHpeMCHC8vCZmfJRh/L7
+         uH/w==
+X-Forwarded-Encrypted: i=1; AKwUvBz/rNOE/XDY+IzTWAeXWhaRXkqBY5tczESrH2zNjW0W/WY+tAupQ7TrgYk4/uHSXo7cTZhUiyApwp+hXnY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mivp1Ra7xrWQZhNHYXYyZTYdQua8rW2DPS++vC8hAGpGk4Rntk
+	l5xMxKx6t09IV3uDxdfgGZLO+UkoZQo+yITfz40M6o3x7OczMC2xtmSi
+X-Gm-Gg: AYBFou1ny46aypzEn7XPjAGpD3f5a2OFHy+EWytSCOsvGq9/c3TO8XreNURaDMHdvu7
+	hMvQEv2box320Tr8Pd8aGSQ8I8k7l9qzRWrGASG9tH7ZPMkbTZGc0es+W28Wt34sK8vDM2eYZf8
+	G/Z3lz6YjuX5REpVPhQcXb20WrERpmInS41OwD+DPGkDc+lYvKI0BUHbRvbC7Y2TxHuUH5noRsQ
+	NocNzYRUyUvmwZvgIGh0Fm4321/qEtc0M94EnCHxbRNRaO8siPJAImjYKXwh3SKbIweZq3vy3oe
+	HjdanFnz/HhXvtFAv3fwcmcKEn3u9HBEvwfTNvJLRNiB04FgQeNi9VYuTghJX+udz/BJ1C2SgqE
+	uNUwZT7NNU2RpRBN9pprHRVqkhh9n5F7E3cJN4v2mo++B6Pdk5XrmVetrw3JXfmaYJxfurWVJ4T
+	hBEC3Sp/shUUBTHD+m4Q0CjBVpBbSSjx7JnTJvwDi4e1pCMj2PkP1rnwDdsymtYJSXP7BdVAyBM
+	ow4vvzO//kq0t/uY+fm9g24/GAnp40=
+X-Received: by 2002:a05:6000:2c10:b0:485:4275:f207 with SMTP id ffacd0b85a97d-48587099a2dmr57344271f8f.24.1788890286214;
+        Tue, 08 Sep 2026 10:58:06 -0700 (PDT)
+Received: from dd-home.home ([2a01:cb1c:922:a700:4e5b:d129:8f46:873d])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm42561836f8f.25.2026.09.08.10.58.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 10:58:05 -0700 (PDT)
+From: Maxime Douailin <maxime.douailin@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: patches@opensource.cirrus.com,
+	alsa-devel@alsa-project.org,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-kernel@vger.kernel.org,
+	Maxime Douailin <maxime.douailin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: wm8962: Do not clear SYSCLK_ENA owned by DAPM in configure_bclk()
+Date: Tue,  8 Sep 2026 19:58:02 +0200
+Message-ID: <20260908175802.604262-1-maxime.douailin@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 08 Sep 2026 14:57:01 -0300
-From: Mauricio Faria de Oliveira <mfo@igalia.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Juergen Gross <jgross@suse.com>, Alexey Dobriyan
- <adobriyan@gmail.com>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan
- Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>,
- kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v9 2/5] x86/asm, x86/boot: expose inline memcmp()
-In-Reply-To: <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com>
- <20260822-pvh-kasan-inline-v9-2-e70ef3b75b6a@igalia.com>
- <20260906170116.GRap2cXOY6ENSzAXUJ@fat_crate.local>
-Message-ID: <4f91e90230e415fb036fbaac86bd5b27@igalia.com>
-X-Sender: mfo@igalia.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Spam-Report: NO, Score=-2.1, Tests=ALL_TRUSTED=-3,BAYES_50=0.8,KAM_DMARC_NONE=0.125,KAM_DMARC_STATUS=0.005
-X-Spam-Score: -20
-X-Spam-Bar: --
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-06 14:01, Borislav Petkov wrote:
-> On Sat, Aug 22, 2026 at 03:33:18PM -0300, Mauricio Faria de Oliveira wrote:
->> Move the inline memcmp function currently only available in 'boot/string.c'
->> into the shared string function header <asm/shared/string.h> to be reused.
->> 
->> This is not done through <asm/string.h> to avoid pulling unnecessary code
->> in 'boot/string.c' that causes build errors in 'boot/compressed/string.c'
->> and 'purgatory/purgatory.ro'.
-> 
-> Please drop those '' quotes - it is perfectly clear that those are .c files.
+wm8962_configure_bclk() provisionally sets SYSCLK_ENA so that the
+read-only DSPCLK_DIV field becomes valid, then clears it again whenever
+the bias level is below SND_SOC_BIAS_ON. It never checks whether the bit
+was already set.
 
-Ok.
+It can be: the "SYSCLK" DAPM supply widget owns that bit, and
+wm8962_mic_detect() force-enables the pin. On boards that call it (the
+Tegra machine driver, i.e. Microsoft Surface RT and Surface 2) DAPM sets
+SYSCLK_ENA once at card init and, because the widget then never changes
+power state, never writes it again. The first stream's transition to
+SND_SOC_BIAS_PREPARE runs configure_bclk(), which clears the bit behind
+DAPM's back. From then on every stream plays with SYSCLK off: the DACs
+do not run, CP_ENA refuses to latch, hp_event() reports "DC servo timed
+out", and the codec is silent although every register DAPM believes in
+looks right.
 
-> 
->> No functional changes.
->> 
->> Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
->> 
->> ---
->> 
->> Thanks to David Laight for noticing the return value difference between
->> inline and regular memcmp().
->> ---
->>  arch/x86/boot/string.c               | 13 ++-----------
->>  arch/x86/include/asm/shared/string.h | 26 ++++++++++++++++++++++++++
->>  2 files changed, 28 insertions(+), 11 deletions(-)
-> 
-> ...
-> 
->> diff --git a/arch/x86/include/asm/shared/string.h b/arch/x86/include/asm/shared/string.h
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..06c1d5e5013e4d59cfb49866d10e164362d2c4cc
->> --- /dev/null
->> +++ b/arch/x86/include/asm/shared/string.h
->> @@ -0,0 +1,26 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +#ifndef _ASM_X86_SHARED_STRING_H
->> +#define _ASM_X86_SHARED_STRING_H
->> +
->> +/*
->> + * This inline memcmp() returns 0 (equal) or 1 (not equal).
->> + * The regular memcmp() returns <0 (less than), 0 (equal), or >0 (greater than)
->> + * to indicate ordering as well.
-> 
-> No need to overdo it:
-> 
-> 	Returns:	0 (equal)
-> 			1 (not equal)
-> 
-> In contrast, the regular memcmp() follows glibc return value semantics.
+Remember whether SYSCLK_ENA was set on entry and only undo our own
+provisional enable.
 
-Ok.
+The bug was located with the help of an LLM coding assistant, by diffing
+the driver's regmap cache against raw I2C reads of the chip during
+playback; the assistant also drafted this patch and the changelog. The
+analysis was confirmed, and the fix written and tested, on real hardware.
 
-Thanks,
+Verified on a Microsoft Surface 2 (Tegra 4, WM8962 rev F): with the bit
+forced on over I2C during a stream the DC servo completes in ~56 ms and
+audio is heard; with this patch applied the DC servo completes on every
+stream and there is no more "DC servo timed out".
 
+Fixes: 75704ecfbb41 ("ASoC: wm8962: Enable SYSCLK provisonally before fetching generated DSPCLK_DIV")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Maxime Douailin <maxime.douailin@gmail.com>
+---
+Notes:
+ - Found and verified on a Microsoft Surface 2 (Tegra 4); the same silence
+   is reported on Microsoft Surface RT, whose machine driver is the same.
+   Background and the full register-level analysis (regmap cache vs. raw
+   I2C reads during playback):
+   https://github.com/grate-driver/linux/issues/141
+ - Boards that do not call wm8962_mic_detect() are unaffected: there
+   SYSCLK_ENA is never already set below SND_SOC_BIAS_ON, sysclk_was_ena
+   is false, and the sequence is bit-identical to the current one.
+ - The deeper question is whether tegra_wm8962 should be calling
+   wm8962_mic_detect() at all on these boards, but the codec should not be
+   clearing a bit DAPM owns regardless, so this fix stands on its own.
+ - Tooling, per Documentation/process/generated-content.rst: an LLM coding
+   assistant did the register-diff analysis that found the bug and drafted
+   this patch and changelog, over an interactive session on the affected
+   hardware rather than from a single prompt. Every register claim above
+   was checked against the chip over I2C, and the fix was built and
+   listened to on the machine before sending. I understand the change and
+   stand behind it.
+
+ sound/soc/codecs/wm8962.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/sound/soc/codecs/wm8962.c b/sound/soc/codecs/wm8962.c
+index af471605122..c314af2c860 100644
+--- a/sound/soc/codecs/wm8962.c
++++ b/sound/soc/codecs/wm8962.c
+@@ -2472,6 +2472,8 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	int clocking2 = 0;
+ 	int clocking4 = 0;
+ 	int aif2 = 0;
++	int sysclk;
++	bool sysclk_was_ena;
+ 
+ 	if (!wm8962->sysclk_rate) {
+ 		dev_dbg(component->dev, "No SYSCLK configured\n");
+@@ -2504,8 +2506,19 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	/* DSPCLK_DIV can be only generated correctly after enabling SYSCLK.
+ 	 * So we here provisionally enable it and then disable it afterward
+ 	 * if current bias_level hasn't reached SND_SOC_BIAS_ON.
++	 *
++	 * SYSCLK_ENA is owned by the "SYSCLK" DAPM supply widget, which may
++	 * already have it set even below SND_SOC_BIAS_ON: wm8962_mic_detect()
++	 * force-enables that pin, so on boards using it (the Tegra machine
++	 * driver) the bit is set once at card init and DAPM never writes it
++	 * again. If we unconditionally clear it here, SYSCLK stays off for
++	 * every stream, DAPM still believes it is on, and the codec is
++	 * silent with "DC servo timed out" errors. Only undo what we did.
+ 	 */
+-	if (snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
++	sysclk = snd_soc_component_read(component, WM8962_CLOCKING2);
++	sysclk_was_ena = sysclk >= 0 && (sysclk & WM8962_SYSCLK_ENA);
++	if (!sysclk_was_ena &&
++	    snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
+ 		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+ 				WM8962_SYSCLK_ENA_MASK, WM8962_SYSCLK_ENA);
+ 
+@@ -2519,7 +2532,8 @@ static void wm8962_configure_bclk(struct snd_soc_component *component)
+ 	usleep_range(500, 1000);
+ 	dspclk = snd_soc_component_read(component, WM8962_CLOCKING1);
+ 
+-	if (snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
++	if (!sysclk_was_ena &&
++	    snd_soc_dapm_get_bias_level(dapm) != SND_SOC_BIAS_ON)
+ 		snd_soc_component_update_bits(component, WM8962_CLOCKING2,
+ 				WM8962_SYSCLK_ENA_MASK, 0);
+ 
+
+base-commit: 0e2bf66c2f6326c0626c9db22530954ef5c64b08
 -- 
-Mauricio
+2.53.0
+
