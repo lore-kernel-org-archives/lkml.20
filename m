@@ -1,69 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEF5579815;
-	Tue,  8 Sep 2026 15:56:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0123857C70E;
+	Tue,  8 Sep 2026 15:56:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882996; cv=none; b=e5dCdxgZBP2CoHv5swkAHpkH1AaUHQyxx577vah6jSd5RZ7P22ykip17iFQyPYvIyZcGMYslgcSLDJm59TlvYoK+ys7oZw9x4KE5QYgvnBly6fcfg/Gvb2VqIRC/f05Tp7me0pO1K124IaKcD1NKCOKd/w1WbWimhHcRivlshA8=
+	t=1788883010; cv=none; b=O8BftewNg2WwCklNsdPZipr7gg6wy6Wixz+Hk6/VidvqcTrfD1JFMU6kgg5i0sFJnZ45TB3/cmyWTvePsSjGLvuL+W0jqgZV7w767FIXnPnJXTD1jUsUgIrMuqnBOzSf8f+t+mWgSa4iLHPvhMchGB+9oADGpfTV+Esh9QwIojo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882996; c=relaxed/simple;
-	bh=bgGTg7AIvSl8TrPSZ5iXvDEx/sXnRLRPObuk8inb50Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aFVewhTPrQX8gvoy6Qe96zYZD6D+cyQlixhRlUEIVZ28GkH21nbe3SEYM1KV45qxAL35qkg7CKyWZlmB3qFziac8KdMiPyj8E58cTjjmiomo29DuakNQn9gUv+nlsfOIAZSt9tIaY/+DVFxURI35y8SIe9sPuucTrtX46qOKusQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deCWNnZ2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788883010; c=relaxed/simple;
+	bh=jqomfzAPcB/YsEZ5Zl+BQ8kUXgK69YV3ld/oKwVf5+g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Imqg2Xs4zmiviULwA0wG2SnGILYsXtAqFxQQZOFimtt1YYSBodPZ30Np3uIzZ7UzoisBRNO7BA6UagE1rjUBvnBUuWhDYkfrWUk87q4e23NfZXrodveIQ6hMvNvQsOqJhgMdMhaYaR2mquq4V4n+X3MwZ6UKvCKT+KbT632F4Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgzqAq0R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deCWNnZ2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA731F00A3A;
-	Tue,  8 Sep 2026 15:56:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgzqAq0R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE3E71F00A3D;
+	Tue,  8 Sep 2026 15:56:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882994;
-	bh=sLFxr9ERzMOwRmfNohSacYm8DdBRRyU8CpJZ0uhark4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=deCWNnZ2UOqbSJc0sV+LQiCShgEaY1Zyh1zP6x03+ohUaJ/V5KdV4cJv7KzDJNkOS
-	 GMrJQtuXVANdXphLKz4h6K8Ypet6piqhU46zph1Kw98agRaKKMafLnSiE+F4btgqc5
-	 hkMA2j9AX8hOCbECzdvqzVjYIjhql2Dcs4R8gKVSeb+M6ApcXIuluv9hd+3BDKDixW
-	 6TfigBXYeAVZTp36gMyuGZg3PZXvz8LpjGte2kCONDQeBTitePuojjJMRuX6AxR0hw
-	 jFwj/JXAQX3B9qzXIpmIAyuIcW9qzYRmMWzs1w1JLK87hSknG4ohpp5Urrwq94DpVO
-	 VWXKpup38jEUg==
-Date: Tue, 8 Sep 2026 10:56:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Peter Rosin <peda@lysator.liu.se>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: mux: gpio-mux: Add enable-gpios
-Message-ID: <20260908155632.GA3264563-robh@kernel.org>
-References: <20260904-add-external-mux-enable-gpio-v3-0-1b868e669e43@vaisala.com>
- <20260904-add-external-mux-enable-gpio-v3-1-1b868e669e43@vaisala.com>
+	s=k20260515; t=1788883008;
+	bh=sRrd8HW6tVkZeGdEyEtiUpIMBkv6a/57SRsi9SBmBeE=;
+	h=From:To:Cc:Subject:Date;
+	b=dgzqAq0Rb4t3E65A90uWXQ8od7s2sZqu5HDBqaJYS739IKSVberiqznPYaCD46X76
+	 hg7VF2iHl6HtZqNtYIGeMQKuNy1OcnIqdyV2Npj8y99of6jDpJGQaTtRm4sV8kXBrT
+	 wZ28xpm0TQ+y8vNp9XgYu7sReJxXI2Srrf7PXc5BJKRImATk8y4scer0CX2Wdk+Ygs
+	 7fNnOlWi69n052qHTsAJcBEsosfaF/dO113v1vD1Hs/MR9HMYD7A5rHRuc+yLNe696
+	 iYg6m/WbEHurdr6ucmTDEdR45Zi7/yEnJJZLhMeePTkWBjoDdJMaLi/3GdTwdzmT7J
+	 YMPEMq8UVBnJA==
+From: Pratyush Yadav <pratyush@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Baoquan He <baoquan.he@linux.dev>
+Cc: x86@kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	linux-efi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arch@vger.kernel.org
+Subject: [PATCH v2 0/4] kho: rename "scratch" to "bootmem"
+Date: Tue,  8 Sep 2026 17:56:34 +0200
+Message-ID: <20260908155639.2496551-1-pratyush@kernel.org>
+X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-add-external-mux-enable-gpio-v3-1-1b868e669e43@vaisala.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 06:17:36AM +0000, Tapio Reijonen wrote:
-> Analog multiplexers have an enable input besides the address inputs. On a
-> 74HC4051 it is the E input: with E high, all eight switches are in the
-> high-impedance off state, independent of S0 to S2. A 74HC4067 works the
-> same way with four address inputs.
-> 
-> Two things need that input. The mux-controller binding describes an idle
-> state of disconnect, which a gpio-mux cannot reach today because the
-> address inputs always select a channel. And the address inputs are plain
-> gpios that may live on different gpio controllers, so they are not
-> updated in one go and the mux passes through the intermediate addresses
-> on every channel change unless it is disabled meanwhile.
-> 
-> Add enable-gpios to describe the enable input, and require it for an idle
-> state of disconnect.
-> 
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+From: "Pratyush Yadav (Google)" <pratyush@kernel.org>
 
-Missing Conor's ack.
+The term "KHO scratch" is vague and overloaded. It does not accurately
+describe what the memory is for. This was discussed previously at [0].
+The conclusion was to rename "KHO scratch" to "KHO bootmem", since this
+is memory passed by the previous kernel for early boot allocations.
+
+In addition, memblock does not care about the provenance of the memory.
+It cares more about how it should use it. Use MEMBLOCK_KHO_NOPRSRV,
+instead of MEMBLOCK_KHO_SCRATCH, to describe this memory to memblock.
+
+This series does the renames. It also gets rid of a redundant Kconfig.
+
+While the diffstat is big and scary, most of the changes are mechanical.
+The most interesting functional change is in patch 4.
+
+This series touches a lot of files across a lot of trees. But since all
+of that is purely KHO-related code, I would like to collect ACKs from
+the maintainers and take it via the liveupdate tree.
+
+Ideally we should queue it in liveupdate/next early in the v7.4 cycle
+since it will cause a lot of conflicts with other patches throughout the
+KHO tree.
+
+[0] https://lore.kernel.org/kexec/agHGOxSnP_VraH1M@kernel.org/T/#u
+
+Changes in v2:
+- Rebase on latest liveupdate/next.
+
+Pratyush Yadav (Google) (4):
+  memblock: get rid of CONFIG_MEMBLOCK_KHO_SCRATCH
+  memblock: rename KHO_SCRATCH to KHO_NOPRSRV
+  kho: rename KHO scratch to KHO bootmem
+  kho: rename kho_scratch= commandline parameter to kho_bootmem=
+
+ .../admin-guide/kernel-parameters.txt         |  15 +-
+ Documentation/admin-guide/mm/kho.rst          |  18 +-
+ Documentation/core-api/kho/index.rst          |  36 +-
+ arch/x86/boot/compressed/kaslr.c              |  12 +-
+ arch/x86/include/uapi/asm/setup_data.h        |   4 +-
+ arch/x86/kernel/e820.c                        |   2 +-
+ arch/x86/kernel/kexec-bzimage64.c             |   6 +-
+ arch/x86/kernel/setup.c                       |   2 +-
+ arch/x86/realmode/init.c                      |   2 +-
+ drivers/firmware/efi/efi-init.c               |   6 +-
+ drivers/of/kexec.c                            |  16 +-
+ include/asm-generic/kexec_handover.h          |   2 +-
+ include/linux/kexec.h                         |   2 +-
+ include/linux/kexec_handover.h                |  16 +-
+ include/linux/memblock.h                      |  30 +-
+ kernel/liveupdate/Kconfig                     |   1 -
+ kernel/liveupdate/kexec_handover.c            | 340 +++++++++---------
+ kernel/liveupdate/kexec_handover_debugfs.c    |  24 +-
+ kernel/liveupdate/kexec_handover_internal.h   |   4 +-
+ mm/Kconfig                                    |   4 -
+ mm/memblock.c                                 |  56 +--
+ mm/mm_init.c                                  |   6 +-
+ tools/testing/memblock/internal.h             |   2 +-
+ 23 files changed, 302 insertions(+), 304 deletions(-)
+
+
+base-commit: c65687600ed075d237a204755d99ad538db34b47
+-- 
+2.55.0.979.g7e5102b832-goog
+
