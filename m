@@ -1,141 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C06D348C5D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:50:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63D20565113
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889853; cv=none; b=byNUz/LJesPV1dg7MSQsYNh0dkXiMnHL5rrOLh3mkd5EeMZdL4j0ZwXLYH7F0KvFctiUOuiUMUH7XY4dw6dUdG+T3JMdX6boIqrKd43VYSu6XOOIjY7ZumcD7LEF9MdqlZHzwa6ewkaASLGcE7dJnZN1Vm+LKuJDoXU3Vsu3Uss=
+	t=1788889954; cv=none; b=ZQN45eB/rxAKrxJwpFzWrGTibg3op70dGXvF8morffXb4tOYmpCgeqLiIwc4s8z/TBCbwKejADnVVk3K3PKv8xtAKi4E3Qi1PMXxMQHJBhjYoLrW+A3UUNGk19h0sezs8Vl/u190mlzcl+hjDZT3rnMtOXtGWoybK5NlMyCCulk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889853; c=relaxed/simple;
-	bh=5fVqqdPTWUjqRNwOypnkQIbUTq+zpnxZIaYivJYLEes=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nBH0xrK+bEk46VnHjkqM5UGxwWF+T6bu1VmYVwXPQF9OpZSYggWYYFq/qBzx1h0kwXsI26NfhN3O7EQ0VZllKESR27T4B1ycZ44HGZgHfNxYV55PJjY9txF6zv1LJel1VFg/JMGaFbe/Mtgjnpc3bTU5dYLEBeD3c0xjZfGUlSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TzKsEcf8; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hlgAsNej; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788889954; c=relaxed/simple;
+	bh=KLjeMvdxyqc6SnotIiFUKvLtc/Zy+nfps2KNDr3g1+M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d9QVsNOuPQpzhE0KeEIAXqddzai1LaimjlJ6xi6Z4RvfmK4i+nYvN8HkofmBYmNHCscqeScbIKAHNEbtr9rKzK043Kxg/dSBFRvE3EVp22e8OrCEc9rUtDf+4ghi4P+wEFnA/OkO8WlVURJsWnN8LvBb4yojH7H+FxN8Y9pEMwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Le7bFbcB; arc=none smtp.client-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TzKsEcf8";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hlgAsNej"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788889849;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
-	b=TzKsEcf8dbF2pGJODpl2M7+sVhz2tSkzMbYEmpuWhuJM2vutpsUylWnFJqrNL6H9waN5ea
-	NYQyJgz+g8N4arBHMQc5CtE0W9CXfKy9h+kybdMVREJPH1qoTs+mE3IsJ2axmC5iXaCOuS
-	trKwGok0wMLjXASd1XXlLidtenRhcU4=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-82-6GotmCChPvO-jHcigTvKVw-1; Tue, 08 Sep 2026 13:50:47 -0400
-X-MC-Unique: 6GotmCChPvO-jHcigTvKVw-1
-X-Mimecast-MFC-AGG-ID: 6GotmCChPvO-jHcigTvKVw_1788889847
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52fc16ac179so89456831cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:50:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Le7bFbcB"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso3290813a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:52:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788889847; x=1789494647; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
-        b=hlgAsNejEynDpHxFo58pqvl+FR1sgvy6DLuZcCcC4sUeU/wT1JqIYKKVvLXHEvcqyi
-         9z6amcnpSttndmvSX4u1/WoQnKDuw1Ka4DaOgjzEZ00FL6Z8LKNWi5eBXmiRmHfet2h0
-         2fbqk5nU2d0xvA/IelXHsk4QHS+Wk8Dz0wvyZJuzYr5xm0tOq/cVgGl+Sw5Ea/gpmmS4
-         duCjVm5+VWFRfqURULsA6mYXCEMwo25bUUpk0AeBEdj9TRTUUsZ8x7YyhZyb8s2fDv1D
-         n3XuryrpNx5W1Y1uvTVYJWWpHcb3A/G2C7PBZMMaUuCIKk/TykSCQAZbK/vmYsoEGfHt
-         1uIA==
+        d=gmail.com; s=20251104; t=1788889951; x=1789494751; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yuf7kW9a8gMm8dZPCPYh7BVn/yZWMPnrvgi9MavGUdA=;
+        b=Le7bFbcBN7fW7k+Kv4zvNee4tu0BhOdi1XuAx6vYxqNJFa3f0dHwurTzPctMuU3Bnw
+         UGnHQfY0QxrjSj33IsicOXTQFIO9Dn3cDvlYDJ/FL9BxZj/cw54a2OjcBLFsf8cKL+A8
+         eHC7ZTRlPutWNzb+80uHE3DXK+T76Q52M8R+A88/b1lBePUTNEVeZU8CohGEJLoKnywF
+         Spx56465lDDuCybX51HCdKMtFWo6rpnFmt+BtLDCPkdWjOzKPIeIad0fMx/9GjeEWL1+
+         VXSWf7CKAWbTZuEHsDsUfe7Tj/8xRe7YjS78oZX7Gj8cEhKRWo78QcCoDGhLt0pz1kLs
+         PU1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788889847; x=1789494647;
-        h=user-agent:in-reply-to:content-disposition:content-type
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TXOnU8sIgJJ+Z2KqtqOzBqbOvUiDLN1HzyPE3TMJBew=;
-        b=D5Jkbj88YTaatmuhH4PvIBla8nwx4D4OnGAHeGWOl2V++5ohFDrsh9mvFkDDgq7KfT
-         ZmWKFRmLI/orf9u21pVgi4fH3+WdONZLOh4EC3w7COh7EtOxRX1eesH1Dbar8qWNzfa6
-         2Cgu8Rc38FMtDIgpJuN4iNGo5NM5A+AXUfhvSxL/NmiG8Hj2CzV8cjnPTyxRNlgvshcL
-         VbDoUR6NnwmhIaI9J3Lr5NLfnHPcamAzHCPAohIAUzSiUQsQlIVAiHMHezg2bD/V3fMm
-         iEwmFfFkQvzjeUk9enM6lSfhO6KJ/Lq5niZmXqE8y1fmJVlb1OrtqzfOEG7H+LEbFucl
-         f1CQ==
-X-Forwarded-Encrypted: i=1; AKwUvByz80gAOK+Jm0+ARbku5rT6/Z0Z8+VbLEEGOarJzPNIL6ZB5Ft+7PRh29SLqfhWo8LdusrOK/fncxgfPyE=@vger.kernel.org
-X-Gm-Message-State: AFuF++ms7ZDAXnWKbPu02QlRAyn+5yMke3Tc0p0jYOJXoL2SBkvxuKz9
-	yF/Kdr4Nyb23umGJUnr1wXNvGg0Je/+gEEYopJi985WJrAXaO7pmTrPNXssb1GMOODifXfa2/7P
-	MzRLxIqLNt6wHi/ZOgOh6PIq/lmQoMeJX+ZqEsNWFNd3gtaYuTQeoHxWOLeQ+Le47/A==
-X-Gm-Gg: AYBFou3bdXQ39kf2EcQbAeW/lwBIv5MTAMW3JdG5bNIXjS16O+OQ9HNZ6oteSw+SRxH
-	TX63vYckiWlmXukzYjQKTFkpLMmp+V9AxLagzpUChHwcMUoAynUtd57ozkxAMaZqvwG32Gechsq
-	2JgPsJF0ZQazE0xWtWlrbZ3kbizAyua/Xx4V/pw0MrZEc3Q2M93PB8RS1+3oEikKJZe/Edb7/GL
-	0lExFmyqEOxeuoB+2fZgoC3xoqnHMEp5AMc0DfurCppX9rF34kh6oY/fdMl8BBcU4MyDr3gzbFH
-	3dUiFnvuND9QnvLMMZkjyyUDfQLdIw2F0f8k8INLERs0ubpouGHo8zuLyq3KYXmoaADWk/3DN6B
-	f192o/zrNmYlOljEUj4FVnw8icd8X2p8igV8=
-X-Received: by 2002:a05:622a:1791:b0:517:c582:9161 with SMTP id d75a77b69052e-530430a7f66mr339307751cf.7.1788889846947;
-        Tue, 08 Sep 2026 10:50:46 -0700 (PDT)
-X-Received: by 2002:a05:622a:1791:b0:517:c582:9161 with SMTP id d75a77b69052e-530430a7f66mr339307191cf.7.1788889846385;
-        Tue, 08 Sep 2026 10:50:46 -0700 (PDT)
-Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530541ba2d2sm121111241cf.22.2026.09.08.10.50.45
+        d=1e100.net; s=20251104; t=1788889951; x=1789494751;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yuf7kW9a8gMm8dZPCPYh7BVn/yZWMPnrvgi9MavGUdA=;
+        b=hl7QcWRL7OSOHK1Jx6U5Jsel4/7L7g+QUF4Fa6/Oksc+JgboCsFIm3f8B7kQgZ5sS3
+         GwulCVpDaAQS7vVHX1e4/wd/HWMjfPHRlyfXvLoanAjAWTXTR+gzpmYAP/PBYYZQXHdb
+         fC+cvucNgsywrj2SUy7MLEplE/lqM8GywB3kCgzx6uyq7v2mcE0GZnBWG9aBxoRcL1OY
+         mg1aUGZSh6gI/0/JKLaaBRBHRwGvDTidoiHhY7CpHz0fmxfC9VbmKNW+4EmD60HmQ34M
+         hthvJ5d96+faNXbUm58Z7IzgZe+sKcKqiaQNtwT8ISlN/x7g5LbIXEBinYZ7rYzzGEVk
+         i1HA==
+X-Forwarded-Encrypted: i=1; AKwUvBz0gRe8ginOzVcBfYmmwzL5En+ktTgdYUJmgWj/hG8nUG15TQfvduSsXLPvpcQv7Yq82Qfjz8hEXnIKFso=@vger.kernel.org
+X-Gm-Message-State: AFuF++kom0TRkabvXtedHXcAgfbhv3bNWkT8cCmw1seoKMWTsezxz0T3
+	huy4cjXiJL3U+gvADsBcp/oBKklRRFoxoFPxmO/ABVxabTWxPzDx4OqM
+X-Gm-Gg: AYBFou0EZrnVKy9OMpI+oUiLO3RJZxEk0TvC1d4YKNpCbkhakfq7uoL4llMu/NNl41E
+	e/wYuaG3QhBBgtTYF9s0yAsfIZO2FXDx+WR/8BU1BK0mOISVKBEWvnuOvtkedFTYY0J861ixBxJ
+	JglNB7LlYLnAmk5i91RcA2qe7k2KIew6rPsW4gO3kdACkL6PDbAUMxNAbADVSp0TavolUJVvbmT
+	Hcn+GhQ8+OqSs6BQPFWhUSvKL/wLxCtW9HMWSosBiUNKStC5rh1pwsNOLIJLsmDgCo7tHXRCVB7
+	AgDj0S5Mi2vh3uWkuNXJubkryk+NcuMMkRbwXVKDavElvkz+jZ+bvUzVACUOyFcmrZPoTdUzcSA
+	ue0k64BPbanxTJumUtAE0tGOdK9BQU05Nlq250rygsZWhHcBJCezQQx9XpB6pG9JRaBDF5dtPV2
+	LXJZYYiIJyoc+d7l3kuIEMqaUEZbauIzepB6+ayfEzBTAbJvhtnVdv3vPt221tpAxhNjcJxZGjh
+	oTyQJavYv1dPJr2zQ==
+X-Received: by 2002:a05:6a21:d82:b0:3d3:af86:fb94 with SMTP id adf61e73a8af0-3da3a246eb2mr48825562637.26.1788889951323;
+        Tue, 08 Sep 2026 10:52:31 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:885b:4183:b098:c1b9:7033:be8a])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45a6abaa2sm5384356a12.23.2026.09.08.10.52.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:50:45 -0700 (PDT)
-Date: Tue, 8 Sep 2026 13:50:44 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>, linux-clk@vger.kernel.org,
+        Tue, 08 Sep 2026 10:52:30 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: 
+Cc: Liew Rui Yan <aethernet65535@gmail.com>,
+	SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] clk: ultrarisc: Register DP1000 clock provider earlier
-Message-ID: <aqBK9J1ZTJAGgxCu@redhat.com>
-References: <20260820-ultrarisc-clock-fix-v1-1-f27c6a980b42@ultrarisc.com>
- <aoxzTneslr61sZmd@redhat.com>
- <178876250098.2581040.1337852022443550878.b4-reply@b4>
+Subject: [RFC PATCH] Docs/mm/damon/design: clarify when qt_exceeds increases
+Date: Wed,  9 Sep 2026 01:50:23 +0800
+Message-ID: <20260908175105.42558-2-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178876250098.2581040.1337852022443550878.b4-reply@b4>
-User-Agent: Mutt/2.4.0 (2026-06-19)
+Content-Transfer-Encoding: 8bit
 
-Hi Jia,
+qt_exceeds counts how many times the quota of a scheme has exceeded.
 
-On Mon, Sep 07, 2026 at 02:28:20PM +0800, Jia Wang wrote:
-> On 2026-08-24 12:37 -0400, Brian Masney wrote:
-> > On Thu, Aug 20, 2026 at 10:50:47AM +0800, Jia Wang wrote:
-> > > The DP1000 PCIe and clock drivers both register at the device initcall
-> > > level. Since the PCIe driver is linked first, its probe runs before the
-> > > clock provider is available and defers.
-> > > 
-> > > sysfb_init() runs at the same initcall level before deferred probes are
-> > > retried. It claims the firmware framebuffer aperture, so the later PCIe
-> > > host probe cannot allocate the overlapping prefetchable window and the
-> > > GPU is not enumerated.
-> > > 
-> > > Register the clock provider with subsys_initcall() when built in so PCIe
-> > > host probing completes before sysfb_init(). Keep module builds using the
-> > > normal module init and exit paths.
-> > > 
-> > > Fixes: 3948a36be42b ("clk: ultrarisc: Add DP1000 clock driver")
-> > > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > 
-> > Reviewed-by: Brian Masney <bmasney@redhat.com>
-> > 
-> > I see this same pattern is also used by lots of qcom gcc drivers, 4
-> > Renesas drivers, and a few other drivers.
-> > 
-> 
-> A gentle ping on this fix.
-> 
-> Please let me know if any changes or a resend are needed.
+The value can confuse users when the effective size quota is zero,
+because a zero effective size quota does not always mean the quotas are
+unset.
 
-I just posted this series to reduce some boilerplate code across all of
-the clk drivers:
+If the quotas are unset, that is, both ms and bytes are zero and no
+quota goal is set, qt_exceeds never increases.  But if the user uses
+the temporal auto-tuning algorithm, the effective size quota becomes
+zero once the goal is [over-]achieved.  In that case the quotas are
+still set, so qt_exceeds keeps increasing once per quota reset
+interval while the goal stays achieved.
 
-https://lore.kernel.org/linux-clk/20260908-subsys_initcall-v1-0-cbccf4cd4288@redhat.com/T/#t
+Clarify this on the design document.
 
-Let's see what people think about this.
+Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
+---
 
-Brian
+By the way, I found a thing in the design document that confused me.
+
+    temporal: More straightforward algorithm. Tries to achieve the goal
+    as fast as possible, using maximum allowed quota, but only for a
+    temporal short time. ---> When the quota is under-achieved, this
+    algorithm keeps tuning quota to a maximum allowed one. Once the
+    quota is [over]-achieved <---, this sets the quota zero. Useful for
+    deterministic control required environments.
+
+I'm not sure if "goal" was accidentally written as "quota" here.  Would
+this be better?
+
+    When the goal is under-achieved, this algorithm keeps tuning quota
+    to a maximum allowed one. Once the goal is [over-]achieved, [...]
+
+---
+ Documentation/mm/damon/design.rst | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
+index d036340dae8a..e083b74d618b 100644
+--- a/Documentation/mm/damon/design.rst
++++ b/Documentation/mm/damon/design.rst
+@@ -863,6 +863,16 @@ scheme's execution.
+   completely tried to be applied.
+ - ``max_nr_snapshots``: Upper limit of ``nr_snapshots``.
+ 
++``qt_exceeds`` is increased for schemes with set quotas when the quota is found
++full at a quota reset interval boundary.  While the quotas are unset,
++``qt_exceeds`` never increased.  However, a zero effective size quota does not
++always mean the quotas are unset, if the ``temporal`` :ref:`auto-tuning
++algorithm <damon_design_damos_quotas_auto_tuning>` is used, the effective size
++quota is set to zero once the goal is [over-]achieved.  Since a set quota of
++zero effective size is always considered full, ``qt_exceeds`` keeps being
++increased once per quota reset interval in that case, until the goal is
++under-achieved again.
++
+ "A scheme is tried to be applied to a region" means DAMOS core logic determined
+ the region is eligible to apply the scheme's :ref:`action
+ <damon_design_damos_action>`.  The :ref:`access pattern
+-- 
+2.55.0
 
