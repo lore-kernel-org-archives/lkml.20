@@ -1,182 +1,119 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F06364926
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:11:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788840677; cv=pass; b=Oj2bU7tge5SrTM5tw04jE6S8Cx6Rq7EleYKM+VBax+dpdsx45N0Ky0ctc0lzDCUvarOVXsVWq/QhEBiP/TitZgwdaBvZjTrFcp5KwNdrq76RuXkdj9LUcVxVLHf0C4J3fR90zH4q7HEVcsUsKuxgOM1htD/5ofN5obZueWM021A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788840677; c=relaxed/simple;
-	bh=jSczsniPhvvQCy37MO6Dre5VLhSUR1qB0JIGD3RBcOE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PR4fN2r01uqZMsPo3qj4GRCMgDjCIeeqUnGZkJgduIzTXnYYmO2CTv5g0mqOzsgTC6DzQJ3MU2XWvHIbfcTI6y/2VUxCBS7cn9VJG47r4pCqlUZI7QV0rHAjuN5SqSiByUYLmczer2SFgJcGH+KZCYvyJHfLkdR9IddjYZjInoA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=QCpDVaLL; arc=pass smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDABA3537CD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788840685; cv=none; b=mJuneIZTqk6VQIB0SBbBVEH+46xnzWA76cuIdCvNlIlE8qZosesNCSI3a99QXm8x7qQqYLryp4PldNmpnCJ6F+hHwolFLG27+GfK+lr7zqLSJ6w4263bNjq6kpV50c6t5IRBe80p8CIJGuBogCYro7gFlzCqawvzION7IMBfWdc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788840685; c=relaxed/simple;
+	bh=sqNyn1Z+ZQ+b8tLzzcSh+t9423tl6ZqJ3teD5MJ6sB8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p0ieIS9N7+KOBecUgXt45iajDllE5q2+MrWJTaXA8aCwEuKDGtN22qPC2lYLW5mReE2MRDJSRSGWnWK+YY1uhZXbrZbAzvhCLrCvAV6sABbvbp5Wqdqj1Ai+Ymyu1sIMKsk8gMBHt/nT5tvnvpRNVOA6d4tk2zywPltHEKr+wpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=m70lSacZ; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="QCpDVaLL"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso3124671a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:11:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788840675; cv=none;
-        d=google.com; s=arc-20260327;
-        b=e0xCeUjZ3NteAWsjKg896Faf0+mZ9BY7KbQHXSm49qcpHCCmnD6bbdDs07uYX+fYGe
-         cnZ1MW7HB+hEiY61+CBbRNALeigGPIrUn6Cio8s60OIi+EfUcFhzryzzIvqMLdyW8+7T
-         7FTi0CSSuq73g/eCho7MQ8axpCznuDNSlULefKQTXdxQ2D0fj+VcR3OcBLG2lWtnXe8P
-         V56HIavlJCbJfJm34jtWDfVLmGrYR9XGZU0k63gIxsGOIFvn4Q25qnKcXrQq7HNmm9+s
-         xuNlpKXmjlDQUcwCjHpJHHWr1ZaRn6F6jYTSychH3e6USPn3NlzGDZl4OBB33YYSYUps
-         C4eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
-        fh=M9gjOoaA7GHZ3iWuHot7u0IN33ou5jEVxVHaueFagCY=;
-        b=tCJ9ille3enDzxBnUYzrrZNCEWAnimH88cizSSsSWHZ23nxsa0otJGishbE5xgbZgm
-         RxWyOKhtW5EORX9pB0QNKb9to04zo3AEhXFgcaak2H7A9HG4/khs4HbPngL1m8jD78dO
-         DBl+6g6C3P9gafGErYYhncwKQz5w8AUrUuYxXHAm8MhvvjLwL7Xq1LQf4yX+kO3EIsgQ
-         DEgWOWwcegkBG30tC/+hAybXUDdWD+13BEJlQlFxJYPO9NIwMsrhYpIhll/AQlCQZZdP
-         eSf8uJANQXuU+DebwETfDcUp8qwZkJ5afWWzR0JciSaHR2Gx+/kr3h1mQoypkeOP7QZZ
-         2Liw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="m70lSacZ"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso4289075a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:11:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1788840675; x=1789445475; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
-        b=QCpDVaLLdDovkNacqCQznPv7E1JeEyKyTzZe3ht1RYyTt5GZf1iWrjvTnmmz/q7SU0
-         SR2Bwr3cX2H7t62lYn6KSdeD22pZuke9rZFiXJMXIPIePQqUXOcwCH0M12jAdZi3qsNg
-         XyQtVLTQ6ByFusnwkXHig/705BQWB9ZZF3koEmTLT55HzJ51H6I9p3QYL/rKX8C+3si7
-         EL6EMLLb6ttm4EzGw1hN0tvlItIFyA0DGvIbjz9wZunfyGlG4JHUTFZfQUYqXmi/6RgS
-         eL1CQslXbudJkKoSAVQGv4YrxmoE8/G9SoBW9TXXRdNTKj+UYYkvhz3W7zt2abAkttWv
-         JS/A==
+        d=chromium.org; s=google; t=1788840683; x=1789445483; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k3IBDytwN2H/xXV0TEBFachD5Go/E9+5M3oIjuDOU/c=;
+        b=m70lSacZjBpp9rdTgF86VcVrxWCHSOa11nzhLQM4bHUTFwG/GfEMArbDK97Y0Ku2CW
+         2Y+UIO/OHcolVcVm1n0QiOespv/DKhgtpOFJug4QqtvFbqxqdQHymepNPBIec0kKuzK1
+         16AjSZ/KcPPS4lOmIEeTFL/C1cNCPF0YtsNUY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788840675; x=1789445475;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=NACF1mHDsALhIevCYN4DBwvAKGHyBbmDprBubQkPOns=;
-        b=UH4frKz+t2vJKoJaVVktz+vrPYWbQkgC5QyFIH0c5IEiA8PdHcEMUcRf2yEqViII4y
-         2dU8LTPrOLeVxyd1x8qzR8N4qAGomgqOQqC01dp9MzAEdivGaPdMMDsTvacq/odwH4Ly
-         jf3zEqnEhPDHlHye9ou54fgGt9OZLqJpDd83HiyJyh99fF4mmgC2XXL1d87keMumpLTs
-         Rnzx90v4Ly+83HNukib2d7eWX+0sWYiMu8JwPsT6MsiupcLzkjoi1YGI6Jd8iro1Bdu/
-         2E6mrLKlVFAFAAWmcza5LFz6bL/NEtKujm1dLj8La7lNbxDmz+xOduIVIdT7UxpNbEnE
-         8bYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwjxz3CEu7wQbhc4bIH+Fon8zRE0L48dArZvM8sdAKSBSBmZqtTUhwi0wYp5VNDTkOcDLORWB9l5vT4IEY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzb1UBv1zC2qaPDjKTGZJDmmeNSyfbPW90BCK6HiE4RNf1/fG3
-	oE9uCeHej/QXsOoL2fpITcAi6HtTtJJ1+MgluSDFmG4V/Z5XYxlSoryg0ZXmDf7gfRbNli/60sg
-	rKrrJd5f9QwRLFwE9blNO6bhad2fr+FIW7KK18UaG
-X-Gm-Gg: AYBFou01phU1e1RXYxES+Vn5tkIGtqdgFvRH/zv3pSq9nLOJt1d/m4i1OvGuMN5JwXT
-	CmpNIvewkzfBseDgQOaD/x0h3DBBWssRFU1SDRpqpHLbQNnslg3Qiaeei8uMfVFfU70Hga5xXoa
-	i29Rf23i9qcDM3fqfhbSCwzUxLwfZ3dNrbypTL0N85RdRkvU+iZO7c+VHgNW0DTW75S31BDblap
-	i46AAbHcKp14ESjt2fIiASpfk/5F8UxUCe+J2ZrLhF1fmwGfNMyUOL6vyGXJvEj/IsRwhduB3L7
-	GHbA4+REayXsWiL/MiXPze0eQnxK4QK2K2Swpi4PvSYorROkuK7NRokZgAFqxUnmYwbdIZdKA+g
-	WSsLqziGgYMDpuJkc35Qe/Yn8A0K1mVQ=
-X-Received: by 2002:a17:90b:56cf:b0:398:dcf6:d40e with SMTP id
- 98e67ed59e1d1-39b262aa580mr41210459a91.17.1788840674554; Mon, 07 Sep 2026
- 21:11:14 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788840683; x=1789445483;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=k3IBDytwN2H/xXV0TEBFachD5Go/E9+5M3oIjuDOU/c=;
+        b=A8NHbe44EgY0OqQeYPfAB2CWYKyOl5hiRGKSrCFHhy7C4AbeV1VgwWqbEBtVgq3A+v
+         Q2y7z8Zhru9fhsyT82xarn9MHzAWUhRoxn2M1I2ui01/1aamcLn6qT56NxVVg2uxugav
+         dK3bV55EzDdqSnecB79CrY/Vs/xT/2Kp+/n8eDZTH01eJTOebdHU+/imr23hnES9EH5L
+         WcW1XiMI2FK9bsnlFfH/VmY54qQS/HC4Nh7fg7nmblOjO6hZYPnLfY6SrTvNelQoIS3+
+         RAfRrGXGdwuEoRUdUeISHA5/JJHvQkGeMsCcICiMO450JTnI6+1UhffQ26H/mrmK191t
+         qVZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUJ3mPSNdL08vT8VTRdIhpWUnnWJFJVcUqDPJdBdjjKy7Ka65APHKzCYBrYi8e74ETQ5EJTCFN6qHY8GA=@vger.kernel.org
+X-Gm-Message-State: AFuF++npry9fryRgIpfmEu0hvzhSTbprj036nY7hqHwcKmOrgqCXSO09
+	KLCwM4ciopycBffFMU+2Hvf96pUwU83WH3EhNGvbI3v2tj3Lu0cXR19d18k0KHmGww==
+X-Gm-Gg: AYBFou1hCSEFFdcPsO7yX7RPg9AxSzksp8+YLk9JkiFRyZBS5ePHU8Ps0A/a6vn9085
+	SbwqkkWlaT826pcCEhK8Nn6b4Fz9kNtFz2fZXKyqrwhWv99TdnRNWBzfeVKuB9eMTiLbOCt1tE/
+	j9VYWbXZKcR39mDDrG3MkfpaL79LGeK9R3jArDDM40faBFLfKnajL3XtHGAY48rxC0PszmFtNKP
+	9U5Cw0uR6GohoB5tI1L/K4ckk/j1wwgXRbO3RGV8PFtD9lqxLED45KQPc7QZYTvzbu1aMycYR3q
+	/cIPbhdMPrObhjed577XSHXmJJawVir3XD6dtkX8YPHyL325O4zgHlZgpVQ33I2930B2xNkIWzM
+	8HQHVwSSo6dWCqVxDf9wh8mEpEaxxoFvmhiqqb9Px052znwfDh0D4jnD/Lo0pmtmylx6fHIylf+
+	jVHLx4hpoZaI9kydlfO3I1yuzo5BOcaBK0UE6iyA4Y8BJS8EtWKh9zR0mg5rQ5b2j3ZAlSZO6OV
+	kb/1lWCY63bmMYAUZSG6XbVl2CV
+X-Received: by 2002:a17:90b:5905:b0:398:9bd5:490b with SMTP id 98e67ed59e1d1-39b262133ccmr39121529a91.18.1788840682937;
+        Mon, 07 Sep 2026 21:11:22 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:56ed:100b:a906:b2eb])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b3312f9a8sm21325570a91.2.2026.09.07.21.11.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 21:11:22 -0700 (PDT)
+Date: Tue, 8 Sep 2026 13:11:16 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Gregory Price <gourry@gourry.net>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Kairui Song <kasong@tencent.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Minchan Kim <minchan@kernel.org>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: Re: [PATCH v3 01/14] mm/zsmalloc: replace PG_private with pointer
+ comparison
+Message-ID: <ap-Kx9qjJX2ElrSw@google.com>
+References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
+ <20260907-remove-pg_private-v3-1-6ae22f9d9272@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CA+0ovCiKb8axo+R-RsqzGbUsrVE0AcLbHqy=+-c9oSMCAqL1fA@mail.gmail.com>
- <apGbKdJiMx8nCfEl@mit.edu>
-In-Reply-To: <apGbKdJiMx8nCfEl@mit.edu>
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-Date: Mon, 7 Sep 2026 21:11:02 -0700
-X-Gm-Features: AcwNN1UYBCSH5A2hJgM3PpIqoboOHM6LnyVHWwC7eYjFsBSpLnGI_b-UeW3bNKo
-Message-ID: <CA+0ovCgxFN3TLpdS_O_Z48sARuQ-WR-JLDCqQWEmd9ELtkzddA@mail.gmail.com>
-Subject: Re: [BUG] WARNING in ext4_journalled_invalidate_folio
-To: Theodore Tso <tytso@mit.edu>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, 
-	linux-ext4@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="000000000000f86613065af0ec65"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-remove-pg_private-v3-1-6ae22f9d9272@nvidia.com>
 
---000000000000f86613065af0ec65
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On (26/09/07 22:56), Zi Yan wrote:
+> zsmalloc uses PG_private to indicate first zpdesc in a zspage chain. It is
+> equivalent to check zpdesc == zspage->first_zpdesc. Replace
+> is_first_zpdesc() with zpdesc == zspage->first_zpdesc in obj_allocated().
+> 
+> For get_first_zpdesc(), first_zpdesc is from zspage->first_zpdesc, so
+> replace is_first_zpdesc() with first_zpdesc->zspage == zspage, the second
+> requirement of a zspage chain, where all zpdescs point to the same zspage.
+> 
+> is_first_zpdesc(), is only used in VM_BUG_ON_PAGE(), so performance impact
+> should be negligible. While at it, change VM_BUG_ON() to
+> VM_WARN_ON_ONCE_PAGE().
+> 
+> It prepares for a future commit that remove PG_private.
+> 
+> No functional change intended.
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Assisted-by: Codex:gpt-5
+> To: Minchan Kim <minchan@kernel.org>
+> To: Sergey Senozhatsky <senozhatsky@chromium.org>
+> To: Andrew Morton <akpm@linux-foundation.org>
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+> Signed-off-by: Zi Yan <ziy@nvidia.com>
 
-Attaching the reproducer; thanks!
-
-On Fri, Aug 28, 2026 at 7:31=E2=80=AFAM Theodore Tso <tytso@mit.edu> wrote:
->
-> On Thu, Aug 27, 2026 at 10:45:30PM -0500, Farhad Alemi wrote:
-> > Hello,
-> >
-> > As part of the kernel research at ASU's SEFCOM
-> > lab, we hit the crash below. Crash reports can be found here:
-> >
-> >   https://github.com/farhad-alemi/public_bug_reports/tree/main/172-warn=
-ing-in-ext4-journalled-invalidate-folio/
->
-> Please send the reproducer.  Note that if it requries a maliciously
-> fuzzed file system, we consider this to be a minor bug (especially if
-> the maliciously file system would be fixed when the system
-> administrator runs fsck on the file system first), and not "security"
-> issue, so feel free to just send it to the list.
->
-> Cheers,
->
->                                         - Ted
-
---000000000000f86613065af0ec65
-Content-Type: application/octet-stream; name="reproducer.c"
-Content-Disposition: attachment; filename="reproducer.c"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mts5j3u30>
-X-Attachment-Id: f_mts5j3u30
-
-LyoKICogV0FSTklORyBpbiBleHQ0X2pvdXJuYWxsZWRfaW52YWxpZGF0ZV9mb2xpbywgZnMvZXh0
-NC9pbm9kZS5jLgogKi8KI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8ZmNudGwuaD4KI2lu
-Y2x1ZGUgPHB0aHJlYWQuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxzdGRsaWIuaD4K
-I2luY2x1ZGUgPHN0cmluZy5oPgojaW5jbHVkZSA8c3lzL21tYW4uaD4KI2luY2x1ZGUgPHN5cy9z
-dGF0Lmg+CiNpbmNsdWRlIDx1bmlzdGQuaD4KCiNkZWZpbmUgSU1BR0UJCSIvdG1wL2V4dDQuaW1n
-IgojZGVmaW5lIE1PVU5UUE9JTlQJIi9tbnQvZXh0NGoiCiNkZWZpbmUgTlJfV1JJVEVSUwk2CiNk
-ZWZpbmUgTlJfRlNZTkNFUlMJMgoKc3RhdGljIHVuc2lnbmVkIGNoYXIgKnNob3J0X2NvcHlfc291
-cmNlOwkvKiByZWFkYWJsZSBwYWdlLCB0aGVuIFBST1RfTk9ORSAqLwpzdGF0aWMgdm9sYXRpbGUg
-aW50IHN0b3A7CgovKiBTdHJhZGRsZSBpX3NpemUgaW5zaWRlIG9uZSBmb2xpbywgdGhlbiB3cml0
-ZSBwYXN0IGl0IHdpdGggYSBjb3VudCB0aGUKICogc291cmNlIGNhbm5vdCBzYXRpc2Z5OiB0aGUg
-d3JpdGVfZW5kIHNlZXMgYSBzaG9ydCBjb3B5IGFuZCB0cnVuY2F0ZXMuICovCnN0YXRpYyB2b2lk
-ICpwYXJ0aWFsX3dyaXRlcih2b2lkICphcmcpCnsKCWxvbmcgaWQgPSAobG9uZylhcmc7Cgl1bnNp
-Z25lZCBsb25nIHJvdW5kID0gMDsKCWNoYXIgcGF0aFs2NF07CglpbnQgZmQ7CgoJc25wcmludGYo
-cGF0aCwgc2l6ZW9mKHBhdGgpLCBNT1VOVFBPSU5UICIvdyVsZCIsIGlkKTsKCWZkID0gb3Blbihw
-YXRoLCBPX1JEV1IgfCBPX0NSRUFULCAwNjAwKTsKCWlmIChmZCA8IDApCgkJcmV0dXJuIE5VTEw7
-CgoJd2hpbGUgKCFzdG9wKSB7CgkJb2ZmX3Qgc2l6ZV9pbnNpZGVfZm9saW8gPSA0MDk2ICsgNDAw
-ICsgKG9mZl90KShyb3VuZCAlIDYwMCk7CgkJc2l6ZV90IHNvdXJjZV9vZmZzZXQgPSAzMDAwICsg
-KHJvdW5kICUgMTAwMCk7CgkJb2ZmX3Qgd3JpdGVfcG9zID0gNDA5NiArIDE1MDAgKyAob2ZmX3Qp
-KHJvdW5kICUgMjAwMCk7CgoJCWZ0cnVuY2F0ZShmZCwgMCk7CgkJZnRydW5jYXRlKGZkLCBzaXpl
-X2luc2lkZV9mb2xpbyk7CgkJLyogd3JpdGUoMiksIG5vdCBwd3JpdGUoMik6IHRoZSByZXBvcnRl
-ZCB0cmFjZSBlbnRlcnMgdGhyb3VnaAoJCSAqIG5ld19zeW5jX3dyaXRlKCkva3N5c193cml0ZSgp
-LiAqLwoJCWxzZWVrKGZkLCB3cml0ZV9wb3MsIFNFRUtfU0VUKTsKCQl3cml0ZShmZCwgc2hvcnRf
-Y29weV9zb3VyY2UgKyBzb3VyY2Vfb2Zmc2V0LCAweDIwMDAwKTsKCQlyb3VuZCsrOwoJfQoJY2xv
-c2UoZmQpOwoJcmV0dXJuIE5VTEw7Cn0KCi8qIEtlZXAgamJkMiBjeWNsaW5nIHNvIGEgdHJhbnNh
-Y3Rpb24gaXMgaW4gdGhlIGNvbW1pdHRpbmcgc3RhdGUuICovCnN0YXRpYyB2b2lkICpmc3luY2Vy
-KHZvaWQgKmFyZykKewoJbG9uZyBpZCA9IChsb25nKWFyZzsKCWNoYXIgcGF0aFs2NF0sIGJ1Zls1
-MTJdOwoJaW50IGZkOwoKCW1lbXNldChidWYsICdjJywgc2l6ZW9mKGJ1ZikpOwoJc25wcmludGYo
-cGF0aCwgc2l6ZW9mKHBhdGgpLCBNT1VOVFBPSU5UICIvcyVsZCIsIGlkKTsKCWZkID0gb3Blbihw
-YXRoLCBPX1JEV1IgfCBPX0NSRUFULCAwNjAwKTsKCWlmIChmZCA8IDApCgkJcmV0dXJuIE5VTEw7
-Cgl3aGlsZSAoIXN0b3ApIHsKCQlwd3JpdGUoZmQsIGJ1Ziwgc2l6ZW9mKGJ1ZiksIDApOwoJCWZz
-eW5jKGZkKTsKCX0KCWNsb3NlKGZkKTsKCXJldHVybiBOVUxMOwp9CgppbnQgbWFpbih2b2lkKQp7
-CglwdGhyZWFkX3QgdGhyZWFkc1tOUl9XUklURVJTICsgTlJfRlNZTkNFUlNdOwoJbG9uZyBpOwoK
-CXNob3J0X2NvcHlfc291cmNlID0gbW1hcChOVUxMLCAzICogNDA5NiwgUFJPVF9SRUFEIHwgUFJP
-VF9XUklURSwKCQkJCSBNQVBfUFJJVkFURSB8IE1BUF9BTk9OWU1PVVMsIC0xLCAwKTsKCWlmIChz
-aG9ydF9jb3B5X3NvdXJjZSA9PSBNQVBfRkFJTEVEKQoJCXJldHVybiAxOwoJbWVtc2V0KHNob3J0
-X2NvcHlfc291cmNlLCAnQScsIDMgKiA0MDk2KTsKCW1wcm90ZWN0KHNob3J0X2NvcHlfc291cmNl
-ICsgNDA5NiwgMiAqIDQwOTYsIFBST1RfTk9ORSk7CgoJdW5saW5rKElNQUdFKTsKCWlmIChzeXN0
-ZW0oImRkIGlmPS9kZXYvemVybyBvZj0iIElNQUdFICIgYnM9MU0gY291bnQ9MTYwIHN0YXR1cz1u
-b25lIikpCgkJcmV0dXJuIDE7CglpZiAoc3lzdGVtKCJta2ZzLmV4dDQgLXEgLUYgLWIgMTAyNCAt
-SiBzaXplPTE2IC1JIDI1NiAiIElNQUdFKSkKCQlyZXR1cm4gMTsKCW1rZGlyKE1PVU5UUE9JTlQs
-IDA3NTUpOwoJaWYgKHN5c3RlbSgibW91bnQgLXQgZXh0NCAtbyBsb29wLGRhdGE9am91cm5hbCxj
-b21taXQ9MSAiCgkJICAgSU1BR0UgIiAiIE1PVU5UUE9JTlQpKQoJCXJldHVybiAxOwoKCWZvciAo
-aSA9IDA7IGkgPCBOUl9XUklURVJTOyBpKyspCgkJcHRocmVhZF9jcmVhdGUoJnRocmVhZHNbaV0s
-IE5VTEwsIHBhcnRpYWxfd3JpdGVyLCAodm9pZCAqKWkpOwoJZm9yIChpID0gMDsgaSA8IE5SX0ZT
-WU5DRVJTOyBpKyspCgkJcHRocmVhZF9jcmVhdGUoJnRocmVhZHNbTlJfV1JJVEVSUyArIGldLCBO
-VUxMLCBmc3luY2VyLCAodm9pZCAqKWkpOwoKCXNsZWVwKDQyKTsKCXN0b3AgPSAxOwoJZm9yIChp
-ID0gMDsgaSA8IE5SX1dSSVRFUlMgKyBOUl9GU1lOQ0VSUzsgaSsrKQoJCXB0aHJlYWRfam9pbih0
-aHJlYWRzW2ldLCBOVUxMKTsKCglzeXN0ZW0oInVtb3VudCAiIE1PVU5UUE9JTlQgIiAyPi9kZXYv
-bnVsbCIpOwoJcmV0dXJuIDA7Cn0K
---000000000000f86613065af0ec65--
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
