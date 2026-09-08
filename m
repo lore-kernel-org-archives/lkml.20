@@ -1,35 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D21C9552946;
-	Tue,  8 Sep 2026 13:59:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 688B553CA93;
+	Tue,  8 Sep 2026 13:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876002; cv=none; b=h7ewKw4ZaCl0Vdw6ssTVEjuI9jIx/24K8ba62PpmiPpP7wAIqV4xA07f1a1GccT4VYqB5m4BhsPLl+jaZb2TPC7PP+0Z/vvOns/0+13W3FsVAmcIGv88WeWq4Xk8YHqiZUY7QGcZjq/YpWzS/yrHjHmWWe5qI5sBrg710ZvYnuI=
+	t=1788876002; cv=none; b=t8Zp0LPqK9dUqpk0WeIlH2p/inCorx2YnIbkA5mYRBk+YAqUhGLmgX6HMMBwaB+ycYqob2JBD3hNosA3ZrC9zuZuIatE/vhH2paQ9JpB6GAM/RKgaJ+BFKUxK5oQploIvVBENxfpW1MdXp1vpykiYdQGFZFZ9F/xJ1orNJZmJXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788876002; c=relaxed/simple;
-	bh=1yrsw7EfCCl5e0HroSc21jsyrFqJNPeX7I/G6E+OrzI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dTM2lE1FpSH4xAfaz3ea4AR+GjRaku5lpGUXgOfBLu9faFUKMnG1Mxn4J3607wAqv9mglam4N7d3aUiLQPx4eh+wU0ffYV/gEkqa1021xxhfv11DLJFs37/bjFplM19AmFf8KHvcaVSPYjBtST8fxUCbNOtPggij5cYKmpbN/ds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=ZekgHt6q; arc=none smtp.client-ip=116.203.77.234
+	bh=pCYoXBjmqmleM+Y0I4Hj40PjbWDiRSIxAHea931Zsl0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Bus6wHqCD2VP4h13eUrzu5Y9Mzz3Iz0GhKMwlSE3rpeK97T4dKoLUQ7FatHX6Uh8W4f+PWzXzi0/wsRVGjeddaOy7bxfL8vbUJvZ3HjV8ZF7JP+/131KSsHZgxMTZQf9M8cdFfVoa9IjUZb4POLAvP30qRV9ABLdymI0ptOsSxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=sYrdQZB9; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="ZekgHt6q"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="sYrdQZB9"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
 	t=1788875588;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=SWN1S1aR/SL8gM+eidiWKqzRizJ1TYpZGVJia38C4KQ=;
-	b=ZekgHt6qZvc3TbotMpRzzcDvHOV7WjRhllv75UJy7QBiUUTcVY7zbaCa+98sAxSJfWB0ub
-	I5v+nZ298lwRQHuVzYHR+dbG52A/hSmh9OrFobJifezgem/a70At5ibmZg++2LPFX7YqRC
-	jtem+JbDREb0+WH6WuQllXPoGViSuWdIEUn9qG+4bTFMZuCN0yAAL7sjTEwAgqk/AYi4sh
-	dnwFTrGNpLOQVnBIHEKZz+TqJZuOo4Agbk1hx5Pdel6guHQYSFmjD37vSk2emzO9GK+g3A
-	fUfBByixo/oA25QAZ8vRjOzLJ3UDVGiWRFxHP7o1E1oY/ez1IlbIGfhaS3IlJw==
-Subject: [PATCH 0/9] Misc Kontron i.MX DT improvements
-Date: Tue, 08 Sep 2026 15:51:47 +0200
-Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ApdltZkRhsVxOKrNUqqL3XcAJ2zFJ2RCffIpIs58H/g=;
+	b=sYrdQZB9HA8jXyruuTDBKFVyfdSFZ8mdvmILkAF57uRcHsvbmYV1I3LHfKltg21rNtnUGZ
+	8mbUV9TmQGZrbrwfx2n4jVheQX6FUp+XcpP9KKug7u5wUgvMWSiPW5ZKHvn3OxJJ9Klm27
+	TgE1BB6Sg/n/dbBDQ8ClR0qa1s4YJA6wcZbeVR6Orbbzmc6McWqd3gN+URBysVO2gXiHbz
+	P+4GlzRN3OpfjbyaTj9VgFdsObjEIZnjvQmi+UHqr6shM/QGfOP0SJwaLxKZJy+Oe9pJNy
+	fWEVAd2kkEwktmAm2Hm+f1v8eY0nd7N9uMTxJNbMhQv1JfpOoLajINYYDALDyg==
+Date: Tue, 08 Sep 2026 15:51:48 +0200
+Subject: [PATCH 1/9] ARM: dts: imx6ul-kontron-bl-common: Replace UART3 with
+ DIP switch GPIOs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,10 +40,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQrDIBBFrxJm3QFrQGuvUrpI4iSdgkYcI4GQu
- 9e2q8+Dz3sHCGUmgXt3QKbKwmtscL10ML2GuBCybwxaaaOcuuGWpGQaAscFq0WNHHb0pU3Ka6V
- AsQi2nzZobD9r76wj00MTpkwz77/Y4/ln2cY3TeVbgPP8AHoUlUSOAAAA
-X-Change-ID: 20260908-upstreaming-v7-2-imx-dt-improvements-08-26-673f2d979e63
+Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-1-4d0e8a75db79@kontron.de>
+References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
+In-Reply-To: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
  Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -50,46 +51,80 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Eberhard Stoll <eberhard.stoll@kontron.de>, 
- Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1351;
+ Eberhard Stoll <eberhard.stoll@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2269;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=1yrsw7EfCCl5e0HroSc21jsyrFqJNPeX7I/G6E+OrzI=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsO7vu4oNW63DXy/67W93M58n64aWubWMBuuV2+nHj
- 2zL3TW5o5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCJHoxgZblu9TatQu8Ao8Tkz
- MLanL2V3/pQVyq+L3m1ke7yH/+6MPYwM+52m2zu/EDtzdN36gqP7Q6dbLZhRv6tzR6Lwr6fqzw5
- LcAIA
+ bh=AE7Nzyaxb6x1i6gLi1eAISRF4DYohgutdzU1pqO/mwQ=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsJOJ992Mvc+f7s8PP8R3S0Z/urGOmXIut43UBNcrS
+ v4TSws7SlkYxLgYZMUUWaT4LV7bmsX6yB+rjoKZw8oEMoSBi1MAJqJXz/DPtv9ODGOyZ7ZtgUJF
+ lkDvRu1fr6rkHnrt2ncpT3/6jcrPjAyTS0vc5z+Oc3aXZp+m8+yw07NQ/bPmXlIfFiQ9iK+5K8Y
+ HAA==
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
+From: Eberhard Stoll <eberhard.stoll@kontron.de>
+
+The latest board revision has DIP switches and lacks UART3 instead.
+As the old revision has long been deprecated and not maintained
+anymore, drop the support and reflect the current state of the
+hardware. As the old revision hasn't been widely used, UART3 was
+only available through an obscure extension connector and we have
+carried this patch downstream for years, no users are expected to
+be affected by this change.
+
+Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
-Eberhard Stoll (1):
-      ARM: dts: imx6ul-kontron-bl-common: Replace UART3 with DIP switch GPIOs
+ .../boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi  | 21 +++++----------------
+ 1 file changed, 5 insertions(+), 16 deletions(-)
 
-Frieder Schrempf (2):
-      arm64: dts: imx93-kontron: Adjust GPIO4_IO29 usage
-      arm64: dts: imx8mm-kontron: Describe the ethernet PHY LEDs
+diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
+index f4c45e964daf..a71669bef7d4 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
+@@ -172,13 +172,6 @@ &uart2 {
+ 	status = "okay";
+ };
+ 
+-&uart3 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_uart3>;
+-	uart-has-rtscts;
+-	status = "okay";
+-};
+-
+ &uart4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_uart4>;
+@@ -283,6 +276,11 @@ MX6UL_PAD_SNVS_TAMPER5__GPIO5_IO05	0x1b0b0	/* DOUT1 */
+ 			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* DIN1 */
+ 			MX6UL_PAD_SNVS_TAMPER1__GPIO5_IO01	0x1b0b0	/* DOUT2 */
+ 			MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0	/* DIN2 */
++
++			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1b0b0	/* CAN_ADR0 (DIP sw 1) */
++			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1b0b0	/* CAN_ADR1 (DIP sw 2) */
++			MX6UL_PAD_UART3_CTS_B__GPIO1_IO26	0x1b0b0	/* CAN_ADR2 (DIP sw 3) */
++			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1b0b0	/* CAN_ADR3 (DIP sw 4) */
+ 		>;
+ 	};
+ 
+@@ -334,15 +332,6 @@ MX6UL_PAD_NAND_DATA07__UART2_DCE_RTS	0x1b0b1
+ 		>;
+ 	};
+ 
+-	pinctrl_uart3: uart3grp {
+-		fsl,pins = <
+-			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
+-			MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b0b1
+-			MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b0b1
+-			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
+-		>;
+-	};
+-
+ 	pinctrl_uart4: uart4grp {
+ 		fsl,pins = <
+ 			MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
 
-Oualid Derouiche (6):
-      ARM: dts: imx6ul-kontron-bl-common: Add GPIO labels
-      ARM: dts: imx6ul-kontron-bl-common: Fix USB OTG1 ID pin configuration
-      arm64: dts: imx93-kontron: Make USB-C connector "device-only"
-      arm64: dts: imx8mm-kontron: Add GPIO labels and comments
-      arm64: dts: imx8mm-kontron: Add SPI EERAM on BL device
-      arm64: dts: imx8mp-kontron: Fix LVDS clock frequency for DL device
-
- .../boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi |  38 +++++---
- .../arm64/boot/dts/freescale/imx8mm-kontron-bl.dts | 107 ++++++++++++++++-----
- .../boot/dts/freescale/imx8mp-kontron-dl.dtso      |  11 +++
- .../boot/dts/freescale/imx93-kontron-bl-osm-s.dts  |   6 +-
- .../boot/dts/freescale/imx93-kontron-osm-s.dtsi    |  32 +-----
- 5 files changed, 117 insertions(+), 77 deletions(-)
----
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
-change-id: 20260908-upstreaming-v7-2-imx-dt-improvements-08-26-673f2d979e63
-
-Best regards,
---  
-Frieder Schrempf <frieder.schrempf@kontron.de>
+-- 
+2.55.0
 
