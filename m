@@ -1,87 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-133.mta0.migadu.com [91.218.175.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE5653976A4;
-	Tue,  8 Sep 2026 09:29:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161924AA595
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859767; cv=none; b=MygOtsZIeSUWQF6Fa7JMbqeWbrCfF2Skz5FE6q3/XCzy7VbQ03M5ExDHLJ/D+uolz3GqpGxmnYSJSaqixm+I6+uG8h06y8TDvXcIlvbvnfXPcda2tO3eh1pbtPRrYNr8KEZMOIhLW10FVSu5yxEKjpncmQfDdjb6CXBZ/XG5HQk=
+	t=1788859783; cv=none; b=HE/gwLLs1ClezXFIA2gDR7isAMNfitF08ilK2ccfJgoiHwuFR6jhF8aNlbUYRn+34au8K6t2pzinXwFQLwLV+5wokhLdEX168nbIBkgF2441V3/xXNCAS7WO98WVuecFfX4P2ZeamfLIncrVHW0n0Yf094PnUVoR4BFz7YnguTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859767; c=relaxed/simple;
-	bh=8HNlZD5OOlfCDCBlZAW2xYxQOHSMdp4k66DWsewGV94=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B0mTNDwSJYpwMPIPx0zLXBAxwqm6VN4fqGRzJdENvjWifOXqb5aNuLpMQFiTT/JmWjU/p8MJYnZK5C3c1k5oVBjeU2ZcOFuYtggki3sIIIgkQxlkB5J6Hf8nqimWk5+ZPJtQWeBVDXKGccOQTAmwM6yzcjrBaIiaMfdzzf7ZHy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOPRUGZn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788859783; c=relaxed/simple;
+	bh=15IOOyKa+ijGmMxg7kwu9CI1MNJx0YkgAkPki5J/TZI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uRpBU5cs0p1JjN/WnaEMcnQcYsdRCEKqA9rtL8NqJt9COBBZWUBF1glk6qTzaNuLvt8SmgFgR6vZm3vlqlciwHy2IiKmwoaM1i7dlxtb2TfcKKEW8GaDpNqDcB7mSD4ghf2u03lJcLOmbcJSGcdqnEmoTGU5KYhfjlo/zuLhuI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=NT4ngglp; arc=none smtp.client-ip=91.218.175.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOPRUGZn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6634B1F00A3A;
-	Tue,  8 Sep 2026 09:29:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788859765;
-	bh=RLTmU7D9Vs9PNyIcNWfktfyTvD6dwfvTPEO7+SNJnX4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gOPRUGZn9Bly6FkfQSiA/GvEVLzJ9C2QF3nx9tlTtt399Af1tpdSdgxQnyOJDb0IB
-	 ejbirfKdG1lswNYDvvqB8fl3vMmvQ88HrOCqEKU07Xwgl+lJw7FBNk5VIBJ6dy0ihE
-	 /oGz8BoROlw8J9fG3duISQRiQXdMIWPvhzpYQTcGNPJJXoOr5qYnRbCGaGt/JE488R
-	 ShNc0UOLgZ5oKv5tELsk8fEqaI8/qLhyx3dKCVO8WpTuE9JUbupGZkuIFX1w9RiItr
-	 6qHNWcDA+QlU02J6IYBCWIdDvA4Lz6itFTVyQA5Nce7KMg49AFpKqs8H9mtopqav8h
-	 M+/U07s2J2LQg==
-Date: Tue, 8 Sep 2026 12:29:17 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Dave Hansen <dave.hansen@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	linux-tip-commits@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	syzbot@syzkaller.appspotmail.com, Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org,
-	x86@kernel.org, linux-kernel@vger.kernel.org,
-	Peter Zijlstra <peterz@infradead.org>
-Subject: Re: [tip: x86/urgent] x86/mm/pat: Fix effective RW computation in
- lookup_address_in_pgd_attr()
-Message-ID: <ap_VbQE97wgy9iZO@kernel.org>
-References: <20260813-cpa-fixes-v2-5-39b4ff90f91d@kernel.org>
- <178837401172.3717435.314324339347590321.tip-bot2@tip-bot2>
- <20260905044253.GA3816371@ax162>
- <b3fe6376-bd3f-4c58-8698-abcca3ad7186@intel.com>
- <20260906181247.GA1148584@ax162>
- <1987b7d6-7aa3-4bcd-9082-f2cdfde7c1e4@intel.com>
- <20260907222813.GB1619741@ax162>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="NT4ngglp"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=15IOOyKa+ijGmMxg7kwu9CI1MNJx0YkgAkPki5J/TZI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788859780; v=1; x=1789464580;
+ b=NT4ngglpu+P1qCAwMpvi5skJVqMX/UTGMoDC8wwv+T+PdUQBVVmjF2FUVhdYdbO9TwQ0CvzN
+ VImV7aNtVlKFs6JVQGKU8UHxprvBNk0VJgiTliDg1qEsPoHzunKUJDVQVQimHC01jnyUp+VmXla
+ n3/GnnhU8bFZ68YQHQVjMam0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c1b4dc536328070e;
+	Tue, 08 Sep 2026 09:29:39 +0000
+X-Mizu-Trace-ID: c1b4dc536328070e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <cc7003c6-9be6-430e-a37b-e43a08402825@linux.dev>
+Date: Tue, 8 Sep 2026 17:29:34 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907222813.GB1619741@ax162>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/11] Documentation/mm: update DAX vmemmap
+ deduplication docs
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
+References: <20260908030335.96549-1-songmuchun@bytedance.com>
+ <20260908030335.96549-12-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260908030335.96549-12-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Nathan,
 
-On Mon, Sep 07, 2026 at 03:28:13PM -0700, Nathan Chancellor wrote:
-> On Sun, Sep 06, 2026 at 12:12:54PM -0700, Dave Hansen wrote:
-> > On 9/6/26 11:12, Nathan Chancellor wrote:
-> > > Hmmm, I don't see a warning prior to this patch though. Do you mean that
-> > > this patch is just revealing the bad behavior that you mention below?
-> > 
-> > Yeah, "fixes" was a bad word to use.
-> > 
-> > The W^X detection has been broken for a while. The patch you bisected to
-> > fixes the W^X detection. It doesn't actually cause the issue.
+
+On 9/8/26 11:03 AM, Muchun Song wrote:
+> Device DAX now uses the common per-zone shared tail page for vmemmap
+> deduplication. The old documentation still described a DAX-specific
+> layout with a separately populated tail vmemmap page and half the HugeTLB
+> savings.
 > 
-> Ah okay, that parses way better. I assume this will be sorted out
-> without further information needed from me but I am happy to test a
-> patch when available.
+> Update the generic and powerpc documentation to describe the shared layout.
+> In the powerpc document, keep the radix and 64K-specific details, drop the
+> duplicated 4K PUD arithmetic, and replace the repeated device-dax diagrams
+> with a single parameterized PMD/PUD diagram.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+> v2:
+> - Clarify the commit message to state that the 4K PUD arithmetic is
+>    intentionally dropped reported by Sashiko.
+> ---
+>   Documentation/arch/powerpc/vmemmap_dedup.rst | 90 ++++----------------
+>   Documentation/mm/vmemmap_dedup.rst           | 32 +------
+>   2 files changed, 21 insertions(+), 101 deletions(-)
 
-Here:
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
-https://lore.kernel.org/all/20260908092730.4002628-1-rppt@kernel.org/T/#u
- 
-> -- 
-> Cheers,
-> Nathan
+Thanks,
+Qi
 
--- 
-Sincerely yours,
-Mike.
