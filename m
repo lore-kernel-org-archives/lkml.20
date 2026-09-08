@@ -1,145 +1,112 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E280526AA3;
-	Tue,  8 Sep 2026 09:50:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E603D525A97
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:50:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861016; cv=none; b=mhQb4ZFrbauiTurp9sVRgW3pol7iXJ+74UYB0x5IaumHModhqv27Mi1fuD8LKUnoEE8I3V5wKqWTLNM7l0blg+0YLqVmPJ1urvtlEdkNfbVHBUdbMxKoQwpZ8wYiAm0uLZ0pM7NlvynxD8BylJrtFIZ5TBWRyVQ5O2UuqjvTmuI=
+	t=1788861024; cv=none; b=uaunrgUvT2f+VhuTE/WR/0N/8iZZjjvbwiBZBLhd0FaUk1rbpU1xMypfXV13Mapuzm6WI+4WhxcQRIWtzVRITbnYdQsA/d0mbeDv3O/9N2awzKeAr5zixQNwmFYutEDfvOuC1ERfwEYsi+FdeitxnCvuAIAXxtielf4MlL5rEL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861016; c=relaxed/simple;
-	bh=Di+zPYQrmx8YPR59j7x1NjBpZu1CpEk8kjenbyRJxG8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=SRu4yqqbJUSe/us/b1Ayj5pkvmr7C26QakIafO+pEOZSKbSXscNJiltz/N6HCUA5SIv1Qvxs73RNh9ZPIEK8joZrTtA4FEgtKFAO8QwKokjMFBDIr4F/7kaZJDdvjiOsl4fD7jzxP0tHMP0AZyRNe+2K0IJJvzfaTkE2llwj398=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=VqmP1CVJ; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788861024; c=relaxed/simple;
+	bh=pQZHWbUauYzhKXZgERSKGkVg21iClqA7I2+s1O9zq+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pQoqkQ0btEH7/qNqFC274ko1woW8KqR/myZO5iotUFW8IQPAIJM1NLNBbXZ2GotJ6J/giCder503U8/hqVqLg2t1cbW+oUP/ssu6T1CBqSmNQ3di6reqmIH+fBN6KO0rxhzyBlAf5QgDKBTEI/1zvKAKfR5CZqw+lIC7exoM1qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q29CEe6K; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="VqmP1CVJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788860932;
-	bh=ThDT4tVj+YPojmgqj2lbcYBtKEEAUeWWPDjR4MEplgU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:To;
-	b=VqmP1CVJhHOV5Zce0Aqt5WsKEEcy7mKqmOWGUzAx4QEeuRmU/MjK4LsexYNEzYoIF
-	 BySZ7pW4p/ogSWfi3hrIcWasfYBU+Et6Y0XpFDDPyfr1Z6e4PppjyUzQfNdVuQyyeb
-	 lAO1rNUpHecC5oIIgTUYKWv7OA3WFxDCo9UiNMAA=
-X-QQ-mid: zesmtpgz5t1788860923t90e5fe56
-X-QQ-Originating-IP: qSRbQhLZ1bovcmOa+a9gCuzdjVIHFFNrdZXd0PpfhGM=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 17:48:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15635221017366424496
-EX-QQ-RecipientCnt: 23
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Subject: [PATCH v2 0/9] Add SpacemiT K1 USB2.0 controllers support
-Date: Tue, 08 Sep 2026 17:48:37 +0800
-Message-Id: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q29CEe6K"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc328b43a56so3553260a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:50:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788861022; x=1789465822; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JBQuh1kx0yz2cTZ9l3fLuYcMsBYVoT0wURqzHnn9FPU=;
+        b=Q29CEe6KZp3RwRtE19a9KHr+el/uzGbZ1fwFDGqBdfDORJvxJDNHZV9P9XZ5k5cKEn
+         OutrC/qadMyHiPXzWH2CoVQyBAgwa/lmFPU4gEsES1D0NWcSmfiFjxsqDFI2kpP0I6QE
+         Dpokh+v/TIRyzjeS4vH3Zj9uMGotg100psS1ff+jrbYc3up4jAPjM7ohyf4CmTVCap8g
+         FT+gdi1+tEai44GFqQx8vxZYh9OHXmlxNq6K7xUKeb5ALyE3p8HpPTbnCoMCfyDrRVHo
+         WA0Of9ALU43rDXj01KD+ummWzrManSQrNP132VMkaHTRKU0lUaqIUirWvipbVtG83wXo
+         kVPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788861022; x=1789465822;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JBQuh1kx0yz2cTZ9l3fLuYcMsBYVoT0wURqzHnn9FPU=;
+        b=EFTW20Wxvj2bMwMq9xaqvrDg9Wkmw0AmevtCPgffubdkDUdsxcpvtNz8V6kxwCM2Y3
+         i1HqI5WEzc+y9k+/01p3XYN1DLAS3NvsjGvsnUUIpYysFZKscMgVejGK+J5ofKhvxpEa
+         1NSu2s0Nk8K9nd3mjo7QeqqAW7VIMQxXgw0ziys8VlW8HZyyObURodmyaPkatDYs7/2G
+         rLnA96n6pqv0MCP+6oRlxmV+c15lEas4T7uhIUv+Piz5zv9s9XvhBIcd62Af9DjZN7jE
+         DFjLdgfasSqidGyTYEgpiwb5+paFV7d068+0EOuwLUnCCWg0FJjQ7aNWJ9EqKYFWOBle
+         WwHg==
+X-Forwarded-Encrypted: i=1; AKwUvBzZq5hS6qyPI4nU43OeFNs7Bf7MldNVh9vgo4Jz+HdeqZgUkqfms+40+v4iH7TEBRIanpyn5J6BCUygMbA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWRYj6qHW1gl2xyfKPihpz7hMClnySgWg4txp+3g687vWETlB0
+	XyRJfvavAPyXMmRNjA9TZwZ5PwzWQxr/G5ouDTG3lSHg9u3csnY1eIgjO++JDQ9ytK6Pfw==
+X-Gm-Gg: AYBFou3feh6OkYEBr5KoHPTcZGa9zB8nVcI0L/gZtdTWRHYKBCam4wnRP8UkDaeF/oz
+	yGGjpqGi1lzzftYJ/wnZNtRmxYib/D539hTo6oOD9gTamFXj2pHpi56MSpViJ6UQq3wrutUoUxu
+	sutNV1TzGF2ymaa2FqTzY7pNHzVej79ehk+jDmmDj19MX8OENOhQN3JvDWV674kZBNo1UDIUl9S
+	712Pu/cpigIljmZQfy39PgMPge9BWxmi2C5a462xEeauS91RX2OV+kcdmexRh57JvSeZev4pVt9
+	JSReSo6ANCZS8Js+Dee6igMhnMaz09Z6dD1gmZxqmkY5/aDw5quluKfJ8tOuF1IoGcFe/UZWwcp
+	U3i9pRjo4RG4QUBch0Zlw7CglG4jq30Vqo5snGfB40p3GjL/UeUjuE9eyPFVytPOnz2JTNA7cB0
+	MnE87q82HRT1FeLHRLyCStNaEU15c+6qbktA+jWgrHv4iJpZntP1eAGQSwPw47aMhytXjAz+VOR
+	IVc94dJoyqWSivc4WRovrI604aXV/rVDLwIoVNjLg==
+X-Received: by 2002:a05:6a20:7288:b0:3b2:a809:1000 with SMTP id adf61e73a8af0-3da39b437bemr40883077637.3.1788861022210;
+        Tue, 08 Sep 2026 02:50:22 -0700 (PDT)
+Received: from sergio-82n7.fritz.box (static-23-234-74-239.cust.tzulo.com. [23.234.74.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324410092sm32256614c88.14.2026.09.08.02.50.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:50:21 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: [PATCH v2] hwmon: (yogafan) Update reference database and contributors for new models
+Date: Tue,  8 Sep 2026 11:50:09 +0200
+Message-ID: <20260908095009.2227661-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAPXZn2oC/32NwQ6CMBBEf4Xs2SV0FS2e/A/DAcpWNkohLRAM4
- d+tJF49vsnMmxUCe+EA12QFz7ME6V0EOiRg2so9GKWJDJTROdOKsD5hGCrDnYz4VDiFmrC4VI0
- 1pI9NriEuB89Wlt16LyO3Esbev/eTWX3T/75ZYYaWtLFUcE5U317ipiX9FVPTd1Bu2/YBjlrKX
- r8AAAA=
-X-Change-ID: 20260812-b4-spacemit-k1-usb2-97adfc283d58
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>, 
- Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Peter Chen <peter.chen@kernel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860920; l=2304;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=Di+zPYQrmx8YPR59j7x1NjBpZu1CpEk8kjenbyRJxG8=;
- b=RD4yw5F0Pyp1Qj+JzsXRr6wgCoagoFelv/EpLdhpqhHNSdFXA+Jv68ADUaBHx4ZzsgTC79/HS
- JEBrKktHRY5AfsGXmUjUNADFx4eM8m5Ku1M02trwG6K2UywQ8ukhPc8
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: ONNzAaE3j5jCWVEMxszg/KhjL+fl4/m8t7hSIqyUQleacN9ECcdzr5Rd
-	Qw4Rd8XDTpaOVWQ/c85sdrzvt3UcoyacVgpKCMKlNvmMQIt72KTDc9fVeeCt8lsBd7Pv7b1
-	IPbTW8mcCSV8HRl06tjzz1Bd8iuRYzaOBL5yoUkEnhvqvVfZ0W1UUimkkDQsJFoMsSwuFtU
-	ODK3rjToAPpzZmdzQ76TNjDxPDO8rAFdVkg+A80Tv4SpD6okC2ZseMohmsWssWmttHbWiRi
-	vaSUZbFtd55agxr9y8nZiyih+pHA0FxvtqFmtXxJXFpAz+flZUXl+rg/xHsXN1mtMwldQ2h
-	7Z/CSifOkRobaUdvwJ7B7ZjOay+pETnZnG5O0X0L08md3FWSdKOykTWaQ5GGLFlQnfX7ZD3
-	6pvuARfoKcX1oVdKbYoIl/aApCkBGl1vbSNTMkSSeDxrTbMpVZ7D3jowI1Z34AW2ETa3nlA
-	M5AvcboSwCTqcE1GCt8GlOHQ9h8w7E7aFgrik/CL1gsJzQcl6kui7UWxmGD/wqYE5c5/Hdv
-	5Rxb9rLaFXNrIlgoawV7zluDOKy8qP5gO45xaZKQps1AB5j8nfbW1yJdGAP/Gdz4w0sTUXx
-	yjFkOYPiXVYneAeKXHDqg6iSGHQQou4eKwxOQGCh0OTvwNQE6gNezrQp5acJcwE56yglHap
-	MrO1QO//AtFB663s9kDyKhhf1HAy2jj1JM5W9PyDNBFPSKbSUGlxsHpRIrjGSH+aWVF29jL
-	wJQsXjndCtJasOLhNtVNJvV0Z6E1eoFqDV/XFjp4C65BnOoxX5kei+/36ceuiJu4B+6syQX
-	m5wHEAs3aamVgysBp2dS5HQjwrNMCOGWsY2vc2MEoWuiHqajfHmNwUn0hohYWkZi7TDQFk2
-	qHm6pLbJx+o4j/XkkMLfYYSMeE5dkWGLhulmMGZBdVNYoKacnE2MnvoAVu0WwDIX7kpVx0g
-	UdiGw4JiDBiZEuDVoXoRiWc9BF5e3t8Ah52n4yJKWbL+P/+n+hiN8EupfiJzSp0sm+PbrfZ
-	1ZKYZWziiw1SH2lL5b9t320Lg9aPBJzB+kJoSNUERlsaPWQPryBt6aWdOUk+xmrnmQ3Ip1q
-	+8iQpDTDkDNElpqhClBsR1+f2Yy4Y7t/K//lZf35tpuKN8/fvccoADmABKUSSzQDo/q+F6U
-	f+D/EjP1EoJVBfoRwwPfnazRyaG7dAf4qW/6GVb/iYHS+pj5DQ+kS1yL17EocrvmyOgHPef
-	s4/FHD2k=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-The SpacemiT K1 SoC has two USB2.0 controllers, one has Dual-Role
-support, but the hardware has no internal OTG registers, the other is
-Host only. These controllers are compatible with Chipidea USB2 driver
-with some flags set and reset control support.
+Add documentation entries for the newly supported laptop models
+(Yoga 14cACN 2021, Yoga 740-15IML, and IdeaPad 3 15ALC6 Ub) in the
+master reference database table, and include the new contributor.
 
-This series is based on 7.3-rc1 and has been tested on Banana Pi F3
-development board.
-
-A self-powered USB device/hub is needed to test the host function of the
-dual-role controller on Banana Pi F3, a MINI-PCIe USB2.0 module (a
-cellular module e.g.) is needed to test the host only controller.
-
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
 ---
-Changes in v2:
-- rebase on 7.3-rc1 and collect tags
-- reorder the usbphy and usb nodes in k1-bananapi-f3
-- add constraint for spacemit,k1-usb2 in dt-binding
-- add OrangePi RV2 device-tree change
-- use devm_clk_get_optional_enabled() for driver according to sashiko's advice
-- Link to v1: https://lore.kernel.org/r/20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com
-
+v2: Split changes and addressed reviewer comments.
 ---
-Junzhong Pan (9):
-      dt-bindings: usb: ci-hdrc-usb2: add spacemit,k1-usb2 compatible
-      dt-bindings: usb: ci-hdrc-usb2: require clocks and resets for spacemit,k1-usb2
-      usb: chipidea: usb2: use devm_clk_get_optional_enabled()
-      usb: chipidea: usb2: add optional reset support
-      usb: chipidea: usb2: add SpacemiT K1 support
-      riscv: dts: spacemit: add USB2.0 controller nodes for K1
-      riscv: dts: spacemit: enable USB2.0 controllers on BananaPi F3
-      riscv: dts: spacemit: enable USB2.0 controllers on OrangePi RV2
-      riscv: defconfig: enable ChipIdea USB controller support
+ Documentation/hwmon/yogafan.rst | 4 ++++
+ 1 file changed, 4 insertions(+)
 
- .../devicetree/bindings/usb/ci-hdrc-usb2.yaml      | 15 ++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    | 16 +++++++++
- arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts   | 28 +++++++++++++++
- arch/riscv/boot/dts/spacemit/k1.dtsi               | 40 ++++++++++++++++++++++
- arch/riscv/configs/defconfig                       |  4 +++
- drivers/usb/chipidea/ci_hdrc_usb2.c                | 30 +++++++++-------
- 6 files changed, 121 insertions(+), 12 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58
-
-Best regards,
+diff --git a/Documentation/hwmon/yogafan.rst b/Documentation/hwmon/yogafan.rst
+index 9ff5db5dc..5c21c50b7 100644
+--- a/Documentation/hwmon/yogafan.rst
++++ b/Documentation/hwmon/yogafan.rst
+@@ -87,6 +87,9 @@ immediately to ensure the user knows the fan has stopped.
+ 
+  MODEL (DMI PN) | FAMILY / SERIES  | EC OFFSET | FULL ACPI OBJECT PATH          | WIDTH  | MULTiplier
+  ----------------------------------------------------------------------------------------------------
++ 82N7           | Yoga 14cACN 2021   | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
++ 81TD           | Yoga 740-15IML     | 0x06      | \_SB.PCI0.LPCB.EC0.FANS        |  8-bit | 100
++ 82KU           | IdeaPad 3 15ALC6 Ub| 0x06      | \_SB.PCI0.LPC0.EC0.FANS/FA2S   |  8-bit | 100
+  82N7           | Yoga 14cACN      | 0x06      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+  80V2 / 81C3    | Yoga 710/720     | 0x06      | \_SB.PCI0.LPC0.EC0.FAN0        |  8-bit | 100
+  83E2           | Yoga Pro 7       | 0xFE      | \_SB.PCI0.LPC0.EC0.FANS        |  8-bit | 100
+@@ -159,6 +162,7 @@ Contributors & DSDT Providers:
+ - **Sarbajit Sarkar** (Lenovo LOQ 15IAX9)
+ - **HinataKato** (XiaoXin Pro 13ARE 2020 - 83KF)
+ - **PenPenIsGod** (IdeaPad 3 15ALC6 - 82KU & Legion Pro 7 16AFR10H - 83RU)
++- **wizard-28** (IdeaPad 3 15ALC6 Ub - 82KU)
+ - **unlockxiaom** (Legion Pro 7 16AFR10H - 83RU, Yoga Pro 7 14IAH10 - 83KF, ThinkCentre M80q)
+ - **Phani Pavan K** (Yoga Pro 7 14IAH10 - 83KF)
+ - **Splarkszter** (Yoga 7 16ARP8 - 83BS)
 -- 
-Junzhong Pan <panjunzhong@linux.spacemit.com>
+2.55.0
 
