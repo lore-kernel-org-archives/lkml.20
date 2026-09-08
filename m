@@ -1,33 +1,26 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49219.qiye.163.com (mail-m49219.qiye.163.com [45.254.49.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56AF543A80B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D903A4457D3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:30:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856207; cv=none; b=rJTLZREMDjPexpo7kFKqe9qCpOSYLKhu5VVp2MI8hKbnhMa4HrOH2Aig20OKt6FX3ParkOR7l0I6X8UcJ2Rp5Y595D5ykinutQGjBzQDgrWqI3UpiG/MpQyLBorNzN9h3XMvsRkYVvXzcDk3UQREeD2hUDXdyCxGTSMkMHU0mns=
+	t=1788856250; cv=none; b=UOG63/pQT4dv6Q9uDbreIJT0hjyramhn45548vRTC0MR0Q+Thjblkr0Eq2exFTDGLUViIFuKgPKrQY1Eefsfdo5VCYMoVFtfNaIh76JOlcg0PhbOrBq+ghzdnv8vtjqjepck4lp0oxDnSBZWZW3uRO1Ifa3C0U7QkSr4V/XhbAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856207; c=relaxed/simple;
-	bh=aOCoYIAHIxlFwQV4J+InIGSdig2bm9qzsd+cFa8uh4Y=;
+	s=arc-20240116; t=1788856250; c=relaxed/simple;
+	bh=TVXh6FPIytJkSq1XeqZ273eDS5qzmd9QohvI/NXzOtQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Snj5pC7/LKkDuJPXI945wWau1hZuC+HUr8tCkPMSiJk44qJpwLiK8dfIxhH66QKUdJk74eE05dy16ACN/ITLU7icFi29arD8lYNoGxH+XllsdSU/zhago4YbNUC0TgSHM32Kk3TtAjSvSLzkvnusJfa3+IsNgp2F18u8XZkdvgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LfMk3wkz; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=i9Dd4g26BAuDCniPbRZ+XOOv5BytK7fwRKsfQgW9Hdo6DE7R4qH8uW+iHhRqdHJ7ASEQnhMdY+QYhM6UyNbtPOQrhFpb6ZmQP1PgbZ5LpZ/CIJgODrwYo4xBkige7RW31gtA2xV1LurYyLCCpvOw7uo/NaQw6ZJ5rF8xgXqkDck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com; spf=pass smtp.mailfrom=hj-micro.com; dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b=AkdnegVY; arc=none smtp.client-ip=45.254.49.219
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hj-micro.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hj-micro.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LfMk3wkz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B861B1F00A3A;
-	Tue,  8 Sep 2026 08:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856205;
-	bh=ebCInI9e4Od3AHhat/r530l+pPuLJ5UuOoklobhTgGY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LfMk3wkzpvMtWNa9uiopWPpLLfLC13UUn6mEqFqhG/qMNhTUxJTv7gWgiL7w95bRD
-	 0vKcjlDAq/jahkdL2mFfijUfIk0dy98QCKqCYCoBiamLeocjj2qYqrxrBv7ARFcR5C
-	 Rxvjll3Oi27ywmi1n3bgfo8nr6Os4VRAiVCza9J/7bwfxXclMu+540O9RdZLegUk+b
-	 kRZQPL9CXB4lsxrAYrOFu5r6ACtrJAHouHzOogyfavu/f5tFWxhEAWPThHykKFonwd
-	 pH04EutZIU3bIOPIhD/5bI+sY9aOEhpBUDY+xHn3JTHWCT0ZZ093A872Pyd4rJMQRk
-	 39FODpLeFY51A==
-Message-ID: <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
-Date: Tue, 8 Sep 2026 10:29:55 +0200
+	dkim=pass (1024-bit key) header.d=hj-micro.com header.i=@hj-micro.com header.b="AkdnegVY"
+Received: from [127.0.0.1] (unknown [122.224.241.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4cf30c434;
+	Tue, 8 Sep 2026 16:15:15 +0800 (GMT+08:00)
+Message-ID: <f97fa5ae-3535-4e1a-a164-77138a93cc89@hj-micro.com>
+Date: Tue, 8 Sep 2026 16:15:08 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -35,161 +28,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: Xueyuan Chen <xueyuan.chen21@gmail.com>, akpm@linux-foundation.org
-Cc: ljs@kernel.org, usama.arif@linux.dev, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- lance.yang@linux.dev, kas@kernel.org, rppt@kernel.org,
- catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com,
- linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
- luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] perf/arm-cmn: Fix {wp_dev_sel2, wp_dev_sel} limited to
+ 0/1 when MXP_MULTIPLE_DTM_EN is TRUE
+To: will@kernel.org, robin.murphy@arm.com
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mark.rutland@arm.com, peter.du@hj-micro.com, andy.xu@hj-micro.com,
+ allen.wang@hj-micro.com
+References: <20260819105443.668784-1-allen.wang@hj-micro.com>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260901151818.3191443-2-xueyuan.chen21@gmail.com>
+From: "allen.wang" <allen.wang@hj-micro.com>
+In-Reply-To: <20260819105443.668784-1-allen.wang@hj-micro.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa08015ea9009d8kunmfb7445f2344b93
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUIYVk9MGUIaSx5PHR0ZGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSUlVSUlPVUlPSlVIT1lXWRYaDxIVHRRZQVlPS0hVSk
+	tJT09PSFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=AkdnegVYqDHiMZ5MObs6s/Wj5cJxR1D0LLQy0bRB+QuK+ZNrzqXA15I66PsSqwv9guPEaB1m+7qRXfqp4k5atrNe6OIxn1S8n+VlnV4R8bwSmG1i8vdzh8383Qr8KHu6CWcoMfHNIE8NrqG+UGlJzwC9h/c8IqCb1aYfmWzofUI=; c=relaxed/relaxed; s=default; d=hj-micro.com; v=1;
+	bh=HodnylibrZqGPAki3DhMLi+kPd5I6p19FhJfJww+nnc=;
+	h=date:mime-version:subject:message-id:from;
 
-On 9/1/26 17:18, Xueyuan Chen wrote:
-> The persistent huge zero folio is shared globally and should stay zero
-> after initialization. As Jann Horn pointed out [1], kernel bugs have
-> ended up writing to pages that were meant to be read-only, including in
-> security-sensitive cases. Making the folio read-only in the direct map
-> turns such writes into faults instead of silent zero-page corruption.
+Hi,
+
+Gentle ping on this patch.
+
+Could someone please review it when time permits?
+
+Thanks!
+Allen
+
+On 8/19/2026 6:54 PM, Shouping Wang wrote:
+> When MXP_MULTIPLE_DTM_EN is TRUE, each DTM will monitor at most
+> two device ports. In this case, {wp_dev_sel2, wp_dev_sel} will
+> only use values 2'b00 and 2'b01 per DTM.
 > 
-> Add a page-based helper consistent with the existing direct-map interfaces.
-> Handle TLB invalidation in the architecture implementation; unsupported
-> architectures retain their current behavior.
+> Previously the setting allowed values beyond the supported range
+> per DTM, which could cause each DTM to select invalid ports when
+> MXP_MULTIPLE_DTM_EN is TRUE.
 > 
-> Protect the folio after initialization. Skip highmem folios, which have no
-> permanent direct-map mapping.
+> Fix this by applying `dev %= 2` to clamp the selection value to
+> the valid range when MXP_MULTIPLE_DTM_EN is TRUE.
 > 
-> Inspired by Jann Horn's read-only zero page work [1] and follow-up
-> discussion [3] with Yang Shi.
-> 
-> Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@google.com [1]
-> Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@kernel.org [2]
-> Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=jDx9E6dLOULohnhBguvi9A@mail.gmail.com [3]
-> 
-> Suggested-by: David Hildenbrand <david@kernel.org>
-> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> Co-developed-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Lance Yang <lance.yang@linux.dev>
-> Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> Fixes: 60d1504070c2 ("perf/arm-cmn: Support new IP features")
+> Signed-off-by: Shouping Wang <allen.wang@hj-micro.com>
 > ---
->  include/linux/set_memory.h | 17 +++++++++++++++++
->  mm/huge_memory.c           | 13 ++++++++++---
->  2 files changed, 27 insertions(+), 3 deletions(-)
+>  drivers/perf/arm-cmn.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
-> index 3fe293cfed8c..ed9ce04b18a1 100644
-> --- a/include/linux/set_memory.h
-> +++ b/include/linux/set_memory.h
-> @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
->  #endif
->  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+> diff --git a/drivers/perf/arm-cmn.c b/drivers/perf/arm-cmn.c
+> index 40c05c519a1d..13ccbf2a7345 100644
+> --- a/drivers/perf/arm-cmn.c
+> +++ b/drivers/perf/arm-cmn.c
+> @@ -1392,6 +1392,7 @@ static void arm_cmn_claim_wp_idx(struct arm_cmn_dtm *dtm,
 >  
-> +#ifndef set_direct_map_ro
-> +/**
-> + * set_direct_map_ro - make a direct-map range read-only
-> + * @page: first page in the direct-map range
-> + * @nr: number of pages in the range
-> + *
-> + * Make the direct-map range starting at @page read-only and invalidate stale
-> + * writable translations before returning.
-> + *
-> + * Return: 0 on success, or a negative error code on failure.
-> + */
-> +static inline int set_direct_map_ro(struct page *page, unsigned int nr)
-> +{
-> +	return 0;
-> +}
-> +#endif
-> +
->  #ifdef CONFIG_X86_64
->  int set_mce_nospec(unsigned long pfn);
->  int clear_mce_nospec(unsigned long pfn);
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 54494c3fa983..742283b36d74 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -42,6 +42,7 @@
->  #include <linux/pgalloc_tag.h>
->  #include <linux/pagewalk.h>
->  #include <linux/cleanup.h>
-> +#include <linux/set_memory.h>
+>  static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+>  {
+> +	struct arm_cmn *cmn = to_cmn(event->pmu);
+>  	u32 config;
+>  	u32 dev = CMN_EVENT_WP_DEV_SEL(event);
+>  	u32 chn = CMN_EVENT_WP_CHN_SEL(event);
+> @@ -1404,6 +1405,9 @@ static u32 arm_cmn_wp_config(struct perf_event *event, int wp_idx)
+>  	if (is_cmn600)
+>  		grp &= 1;
 >  
->  #include <asm/tlb.h>
->  #include "internal.h"
-> @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
->  	huge_zero_folio = alloc_huge_zero_folio();
->  	if (!huge_zero_folio) {
->  		pr_warn("Allocating persistent huge zero folio failed\n");
-> -	} else {
-> -		huge_zero_pfn = folio_pfn(huge_zero_folio);
-> -		count_vm_event(THP_ZERO_PAGE_ALLOC);
-> +		return 0;
->  	}
+> +	if (cmn->multi_dtm)
+> +		dev %=  2;
 > +
-> +	huge_zero_pfn = folio_pfn(huge_zero_folio);
-> +	count_vm_event(THP_ZERO_PAGE_ALLOC);
-> +
-> +	/* Highmem folios have no permanent direct-map mapping to protect. */
-> +	if (!folio_test_highmem(huge_zero_folio))
-> +		set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_PMD_NR);
+>  	config = FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_DEV_SEL, dev) |
+>  		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_CHN_SEL, chn) |
+>  		 FIELD_PREP(CMN_DTM_WPn_CONFIG_WP_GRP, grp) |
 
-Assuming we keep the page-based approach, can't we just move the highmem test in
-there?
-
--- 
-Cheers,
-
-David
