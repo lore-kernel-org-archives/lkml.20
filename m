@@ -1,126 +1,265 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAE92F8E9E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544E32F5A36
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:09:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788840502; cv=none; b=WO/kRxE2/+KdRsUe415Ov6yo8PVBOJPcDl9O0UmWhOYq3MR7FD6J5RIHpFQ3RF3oc0/dd+qhLWhm5WDSz8erMIAJVJJFB6iqJeQwMt4gv+g5vIdTlPdWfTeShxd6Pd3BG+0ys6yeK+SVqRVInaxSNFVDkBhWdPvItVzBWt0IwHQ=
+	t=1788840541; cv=none; b=nlfICLk8UKQVjuVhEMb8Zyj4lhjYWn81/5Ie54Csujb0SgvvDp+XuXKP6AzUJ3GLjdBKnJTPnmrZDt1o+xGzBMvYccGGKb6sRiDWP7JrF/ar8tqUK7s04ScwnZiOJWCfE3FtjGO5k4bKxIsmHNTPloYWtW1QZgfn0yQ4ftkfCiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788840502; c=relaxed/simple;
-	bh=nuNxXV9IiXZmNVfBWYtPD7tRbYcEpSpQ5MUnS2wUNDM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=adAF8GAzmBJQ+ZASOca7AB490T/yah00bi4kpyaqw6WEDaHZvT0hjNiEDS/SnpMQutMKuz03X5sckx0eOWKe5PsMQinGXnk0gp7hJ8ydSNftFL4R8WYTkfiq3P8fmKHgA0E0Fr2XZDsFEdi1BDGCgnoWyO3wbv1dbxBS/cNexK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WwRR6IWu; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788840541; c=relaxed/simple;
+	bh=LgzuqXsiLqBrdZtyeXUWFV/L3O7GIAF6Te0OjwEMB0g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nDDPWUbJ/3nQHjLZkaB49XmoInFIbGRKAy39BEbolech6WI+ZmhGvWVPUO4Lh3x5hw+3nkaFS68cW1GnYEjt/sJkiwTMab+QSMD44USqmD4Odx47j/jzI4GaQCME2vCuV389nvivA1pIFwHhOc9kDMxHzW9hJHDCCoOtYRBmV8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ag5CVwaZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WwRR6IWu"
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-939c25604d4so5512085a.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:08:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788840500; x=1789445300; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pxUbMbA1DbE2G64rQIDQk+y7x2nUAdqEFheE61ifZbo=;
-        b=WwRR6IWu7yLmHDFoRCU0zQByOtv36iHLPKIfpRyG5mYhuOpF/JS7Ck2MfdW5w7fEcF
-         LIS+TnOvbUfe1g1/EefZUlQc3m2ocKDVhxkeqmmmDlxeq+23nbq/XyDM/sWNnqgPZLlx
-         x5PAa+AELvlBvccPjpwE2B1kLUdvkZg7pTm3gfib2Tk5YNQGvvwsSHe+GT0HmzJpcR+w
-         Z7EXDxuJbSBrApfn3UEVvbzhbDbbjURMIQohOc9MSMxyuJgAVeGW6IQirFcUp9HTtJzD
-         V4/zP8rggnzqvfHxWvPn5verfSHjC5n6Lkzf7yBXhfe2+cmEduHSQb+Y2j7la0fMu67j
-         /f1A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788840500; x=1789445300;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pxUbMbA1DbE2G64rQIDQk+y7x2nUAdqEFheE61ifZbo=;
-        b=by3k14CsQUAcq48p+eo+EhVWHQ10UIrJ8oF939Vv1kXzj1vt6IelKfxyORYT1cBnlX
-         rAtiz6zUHtHGiPx4tswhidMJUqjda7HAQFQnnfrfG++Up1F+x6ktXf19cB0q4i25MX34
-         /As54teNPUSH+vGyajJ5qFY4AYFssWjdP72lC96LMMX6ByaeN1cPp4enKgP2JkPwNRDi
-         ig81FoDamDyIgRP8Za/XCmvUTluQTvZXsIxEs4Vj4WFss1qml0FD+QideNa+M57uZoHg
-         KmWyx6VSsF5pPM5EK0iloYB0a2wUJ7qZrurcf8SnJpM4dXoIQ5bx0aTiwCwbkuMvH7hG
-         acyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMcWHRQE5wmOVlktpu6dfM6MTPQwMX8JlZQ5BAHlnOnIfckwvlCZ/WlJw9IgzXUyikmYx+E2oUkiwOVEA=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+ELscje4qlRf8X3KYLz/NfhdA1MLFK1KgapvF3waWqLQAHUBA
-	PxSen5yZTjKyAn6yXUWoCtEZ7GGz3qNReAC0XQwXHEev8kTgC9Xv8EPB
-X-Gm-Gg: AYBFou2GWz9mDS26L39Qrncgypc9eyfdWfjZGUoKBS1Ny3h6/MStkOHmUr69vdJHLIz
-	39OT6LDerYbp50Gx51K8llI78CBEswVEKTCFqMlu+hl2+CXdK9qXFPGbMHdoopP3OyqIYaf5Oq6
-	hlkUigLwmxisuMSoww+Dn/uDRuvFNQDTnvOOES6CF2/vNwzF0S1aSCwbm1YxCcdK6oDbRcyK0fv
-	+eYVE+ZlImm0douDkNdhodWYm4wQfoNwevRyb8Nn+IAH2Cmcv0cYfx/BuT4KL8C0h5ffXNEtONH
-	y8L2O4gXk0DeV5cb0xQ6qIz4kZdN3jZtscH0afTiXDQMNCacAGxrgHeXq/CbI9WTS63FvTerwwB
-	VGhIvRvRUeTFwz5Z07q+4vqclZj6xzE6aO8gW4B+wZiuJd21QXW3afKC/zsFB+FT1pliEOGwJyc
-	7MCwuSybwKmsGcH5V8lwC1qXF2ez/PayYyChpWyEvF4F0uiCeXjFxYhh7TT1nnaTbzH/opWIe2Y
-	EeGHNFLLggKql3Ai6I3Z6SWXoADlN1myp8pGnhG1pqWkZqeNJZTBolsd/6Rn5rbSw7N3uMCYCBD
-	zgJ3kYHicj1Bhz6kuAU2/dvtW8iDg4NObEr06AScR+Iukcvov/AiVE/UHfRGV2rySEzoLAw7BSA
-	WrkV8DhmdmVBKNxXVpXzr2m1/CzRNjlU=
-X-Received: by 2002:ae9:ee06:0:b0:936:e938:b07a with SMTP id af79cd13be357-9398032898bmr2266288085a.8.1788840499956;
-        Mon, 07 Sep 2026 21:08:19 -0700 (PDT)
-Received: from MacBook-Pro.wireless-1x.unc.edu ([152.23.158.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb566a8sm1055026785a.25.2026.09.07.21.08.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 07 Sep 2026 21:08:19 -0700 (PDT)
-From: Juan Perdomo <jcperdomo100@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
-Subject: [PATCH] media: cx231xx: preserve I2C transfer length
-Date: Tue,  8 Sep 2026 00:07:34 -0400
-Message-ID: <20260908040734.1175-1-jcperdomo100@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ag5CVwaZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2C981F00A3A;
+	Tue,  8 Sep 2026 04:08:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788840539;
+	bh=ehoCTMx0coj/KJ47b9XcGVJUZU+ZQz9X4iinIICsjVQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ag5CVwaZAQZNPeajC7pqJrW85pxzfgItMgDVZ1etA4SCzqeijDvQZyE0kpC3yK6TF
+	 Kuc+cXadqnt2UTUgZi5/Mwa9JuWe2qNPKLJ3NiA4TdPpl3bfHdpcucFD752xYOb75b
+	 mZEySrspBLVmu8NwVPTWzOtefb0H2IV++NdZ8OyN3XGYTddP2Z2ddLR0/RM6gPL0Bx
+	 5Hg7H/eT154Ue0vKTEO9//UifTXcGJ2WtoZs5XlUTit9KAPuS43sUUgc5fx1E8c/oq
+	 BKJsz3/4w7Tl8StirlH3w0ZBqZwn1DFHSyRXiOWPbnDrLiKQ0p5XHHhi6jfAGgCvHl
+	 d0zeVd+L/Owkg==
+Date: Tue, 8 Sep 2026 11:49:10 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vincenzo Frascino <vincenzo.frascino@arm.com>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com
+Subject: Re: [PATCH v2 4/5] riscv: RISCV_ISA_SV48 and RISCV_ISA_SV57 under
+ NONPORTABLE
+Message-ID: <ap-FtoTqMCnNACJN@xhacker>
+References: <20260907151437.7603-1-jszhang@kernel.org>
+ <20260907151437.7603-5-jszhang@kernel.org>
+ <20260907-backless-theatrics-f19e489bc63f@spud>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260907-backless-theatrics-f19e489bc63f@spud>
 
-The I2C core stores message lengths in u16, but cx231xx truncates them to
-u8 when populating cx231xx_i2c_xfer_data. A 0x700-byte read therefore
-becomes a zero-length request. USB treats zero-length control transfers as
-OUT regardless of bRequestType, so the IN control pipe trips the
-usb_submit_urb() direction warning.
+On Mon, Sep 07, 2026 at 05:21:11PM +0100, Conor Dooley wrote:
+> On Mon, Sep 07, 2026 at 11:14:36PM +0800, Jisheng Zhang wrote:
+> > In last commit, we have optimized the pgtable_l4|l5_enabled with isa
+> > extension alternative mechanism, thus a typical access_ok(addr, 1);
+> > is compiled as:
+> > 
+> > ffffffff8001dd30:	1141                	addi	sp,sp,-16
+> > ffffffff8001dd32:	e022                	sd	s0,0(sp)
+> > ffffffff8001dd34:	e406                	sd	ra,8(sp)
+> > ffffffff8001dd36:	0800                	addi	s0,sp,16
+> > ffffffff8001dd38:	00000013          	nop
+> > ffffffff8001dd3c:	02a0006f          	j	ffffffff8001dd66 <foo+0x3e>
+> > ffffffff8001dd40:	60a2                	ld	ra,8(sp)
+> > ffffffff8001dd42:	6402                	ld	s0,0(sp)
+> > ffffffff8001dd44:	57fd                	li	a5,-1
+> > ffffffff8001dd46:	83a1                	srli	a5,a5,0x8
+> > ffffffff8001dd48:	00a7b533          	sltu	a0,a5,a0
+> > ffffffff8001dd4c:	00154513          	xori	a0,a0,1
+> > ffffffff8001dd50:	0141                	addi	sp,sp,16
+> > ffffffff8001dd52:	8082                	ret
+> > ...
+> > ffffffff8001dd64:	bfe1                	j	ffffffff8001dd3c <foo+0x14>
+> > ffffffff8001dd66:	0180006f          	j	ffffffff8001dd7e <foo+0x56>
+> > ffffffff8001dd6a:	60a2                	ld	ra,8(sp)
+> > ffffffff8001dd6c:	6402                	ld	s0,0(sp)
+> > ffffffff8001dd6e:	57fd                	li	a5,-1
+> > ffffffff8001dd70:	83c5                	srli	a5,a5,0x11
+> > ffffffff8001dd72:	00a7b533          	sltu	a0,a5,a0
+> > ffffffff8001dd76:	00154513          	xori	a0,a0,1
+> > ffffffff8001dd7a:	0141                	addi	sp,sp,16
+> > ffffffff8001dd7c:	8082                	ret
+> > ffffffff8001dd7e:	60a2                	ld	ra,8(sp)
+> > ffffffff8001dd80:	6402                	ld	s0,0(sp)
+> > ffffffff8001dd82:	57fd                	li	a5,-1
+> > ffffffff8001dd84:	83e9                	srli	a5,a5,0x1a
+> > ffffffff8001dd86:	00a7b533          	sltu	a0,a5,a0
+> > ffffffff8001dd8a:	00154513          	xori	a0,a0,1
+> > ffffffff8001dd8e:	0141                	addi	sp,sp,16
+> > ffffffff8001dd90:	8082                	ret
+> > 
+> > As can be seen, different branches for SV39/SV48/SV57 are still there,
+> > since access_ok() sits at hot code path, why not reduce the code size
+> > to optimize to make the instruction cache happy?
+> > 
+> > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so that
+> > the embedded platforms can choose the best option themselves, while
+> > still keep the feature of unified one kernel Image for all SV39, SV48
+> > and SV57.
+> > 
+> > Before the patch, vmlinux built with pure RISCV64 defconfig
+> >    text    data     bss     dec     hex filename
+> > 13439437   6790446  483221 20713104 13c0e90 /tmp/old/vmlinux
+> > 
+> > After the patch, vmlinux built with pure RISCV64 defconfig:
+> >    text    data     bss     dec     hex filename
+> > 13314445   6787934  466837 20569216 139dc80 /tmp/new/vmlinux
+> > 
+> > .text section is reduced by 122KB!
+> > 
+> > And after the patch, typical access_ok(addr, 1) is compiled as:
+> > ffffffff8001809a:	1141                	addi	sp,sp,-16
+> > ffffffff8001809c:	e022                	sd	s0,0(sp)
+> > ffffffff8001809e:	e406                	sd	ra,8(sp)
+> > ffffffff800180a0:	0800                	addi	s0,sp,16
+> > ffffffff800180a2:	00000013          	nop
+> > ffffffff800180a6:	60a2                	ld	ra,8(sp)
+> > ffffffff800180a8:	6402                	ld	s0,0(sp)
+> > ffffffff800180aa:	4785                	li	a5,1
+> > ffffffff800180ac:	179a                	slli	a5,a5,0x26
+> > ffffffff800180ae:	00f53533          	sltu	a0,a0,a5
+> > ffffffff800180b2:	0141                	addi	sp,sp,16
+> > ffffffff800180b4:	8082                	ret
+> > 
+> > only 12 instruction!! For refernece, before the patch, the access(addr,
+> > 1) needs 32 instructions.
+> > 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  arch/riscv/Kconfig                  | 24 ++++++++++++++++++++++++
+> >  arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++++
+> >  arch/riscv/mm/init.c                | 10 ++++++++++
+> >  3 files changed, 46 insertions(+)
+> > 
+> > diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+> > index e9476b8cbeb0..4cdb1e3f34be 100644
+> > --- a/arch/riscv/Kconfig
+> > +++ b/arch/riscv/Kconfig
+> > @@ -602,6 +602,30 @@ config RISCV_ISA_SSQOSID
+> >  	  cache partitioning scheme and use the MCID to track how much
+> >  	  cache a process, or a group of processes, is using.
+> >  
+> > +config RISCV_ISA_SV48
+> > +	bool "Page-Based 48-bit Virtual-Memory System"
+> > +	depends on 64BIT && NONPORTABLE
+> > +	default y
+> 
+> I don't understand how you've got this set up here.
+> If this is genuinely non-portable, then you should not set the default to
+> enabled. However, I'm not really sure that this is actually non-portable
+> at all....
+> 
+> > +	help
+> > +	  Add support for the Page-Based 48-bit Virtual-Memory System.
+> > +
+> > +	  Enable this option for systems for which a 39-bit virtual address
+> > +	  space is insufficient. But if 39-bit is enough, disabling this
+> > +	  option will result in smaller kernel size and slighly better
+> > +	  performance.
+> > +
+> > +config RISCV_ISA_SV57
+> > +	bool "Page-Based 57-bit Virtual-Memory System"
+> > +	depends on 64BIT && NONPORTABLE
+> > +	default y
+> > +	help
+> > +	  Add support for the Page-Based 57-bit Virtual-Memory System.
+> > +
+> > +	  Enable this option for systems for which a 48-bit virtual address
+> > +	  space is insufficient. But if 48-bit is enough, disabling this
+> > +	  option will result in smaller kernel size and slighly better
+> > +	  performance.
+> > +
+> >  config RISCV_ISA_SVPBMT
+> >  	bool "Svpbmt extension support for supervisor mode page-based memory types"
+> >  	depends on 64BIT && MMU
+> > diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include/asm/pgtable-64.h
+> > index 7e30ec0e9f6c..f2d29da93eea 100644
+> > --- a/arch/riscv/include/asm/pgtable-64.h
+> > +++ b/arch/riscv/include/asm/pgtable-64.h
+> > @@ -16,21 +16,33 @@ extern bool _pgtable_l5_enabled;
+> >  #ifdef USE_EARLY_PGTABLE_LEVELS
+> >  static __always_inline bool pgtable_l5_enabled(void)
+> >  {
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57))
+> > +		return false;
+> > +
+> >  	return _pgtable_l5_enabled;
+> >  }
+> >  
+> >  static __always_inline bool pgtable_l4_enabled(void)
+> >  {
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48))
+> > +		return false;
+> > +
+> >  	return _pgtable_l4_enabled;
+> >  }
+> >  #else
+> >  static __always_inline bool pgtable_l4_enabled(void)
+> >  {
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48))
+> > +		return false;
+> > +
+> >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV48);
+> >  }
+> >  
+> >  static __always_inline bool pgtable_l5_enabled(void)
+> >  {
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57))
+> > +		return false;
+> > +
+> >  	return riscv_has_extension_likely(RISCV_ISA_EXT_SV57);
+> >  }
+> >  #endif
+> 
+> ...because the code here won't enable sv57 etc if not supported...
+> 
+> > diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+> > index 2a2402d79bc4..90bb85c5f167 100644
+> > --- a/arch/riscv/mm/init.c
+> > +++ b/arch/riscv/mm/init.c
+> > @@ -844,6 +844,16 @@ static __init void set_satp_mode(uintptr_t dtb_pa)
+> >  
+> >  	kernel_map.page_offset = PAGE_OFFSET_L5;
+> >  
+> > +	/* Fall back to Sv48 if Sv57 is unsupported on non-portable systems */
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV57) &&
+> > +			satp_mode_limit == 0)
+> > +		satp_mode_limit = SATP_MODE_48;
+> 
+> ...and neither does the code here.
+> 
+> > Introduce RISCV_ISA_SV48 and RISCV_ISA_SV57 under NONPORTABLE, so that
+> > the embedded platforms can choose the best option themselves, while
+> > still keep the feature of unified one kernel Image for all SV39, SV48
+> > and SV57.
+> 
+> NONPORTABLE is what you're meant to depend on when the kernel that gets
+> built cannot run on platforms without the feature.
 
-Use u16 for buf_size, matching both i2c_msg.len and
-VENDOR_REQUEST_IN.wLength. Oversized transfers then reach the existing
-URB_MAX_CTRL_SIZE check and return -EINVAL.
+The reason I put these two Kconfig options under NONPORTABLE is: all
+distributions won't enable NONPORTABLE for their defconfig, and I guess
+the distributions want to kept unified one kernel Image for all SV39,
+SV48 and SV57.
 
-Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
-Reported-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ddccc0c0dbc0a38ffccb
-Tested-by: syzbot+ddccc0c0dbc0a38ffccb@syzkaller.appspotmail.com
-Signed-off-by: Juan Perdomo <jcperdomo100@gmail.com>
----
-Testing:
-- Syzbot reproduced the original USB direction warning on unpatched
-  df290809 (Linux 7.3-rc2).
-  https://syzkaller.appspot.com/x/report.txt?x=1107e749580000
-- Built the complete cx231xx linked object on ARM64 with GCC 11.4.0,
-  CONFIG_VIDEO_CX231XX=m and W=1.
-- Syzbot tested the patch on df290809 (Linux 7.3-rc2) with Clang 22.1.8;
-  the supplied reproducer did not trigger an issue.
-  https://syzkaller.appspot.com/x/log.txt?x=1123f105580000
+I have no preference whether move them out of NONPORTABLE or not.
+> 
+> > +
+> > +	/* Fall back to Sv39 if Sv48 is unsupported on non-portable systems */
+> > +	if (IS_ENABLED(CONFIG_NONPORTABLE) && !IS_ENABLED(CONFIG_RISCV_ISA_SV48) &&
+> > +			satp_mode_limit == SATP_MODE_48)
+> > +		satp_mode_limit = SATP_MODE_39;
+> > +
+> >  	if (satp_mode_limit == SATP_MODE_48) {
+> >  		disable_pgtable_l5();
+> >  	} else if (satp_mode_limit == SATP_MODE_39) {
+> > -- 
+> > 2.53.0
+> > 
 
-No physical-device testing was performed.
 
- drivers/media/usb/cx231xx/cx231xx.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
-index 19f5036a7..f85d054fb 100644
---- a/drivers/media/usb/cx231xx/cx231xx.h
-+++ b/drivers/media/usb/cx231xx/cx231xx.h
-@@ -463,7 +463,7 @@ struct cx231xx_i2c_xfer_data {
- 	u8 direction;		/* 1 - IN, 0 - OUT */
- 	u8 saddr_len;		/* sub address len */
- 	u16 saddr_dat;		/* sub addr data */
--	u8 buf_size;		/* buffer size */
-+	u16 buf_size;		/* buffer size */
- 	u8 *p_buffer;		/* pointer to the buffer */
- };
- 
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.50.1 (Apple Git-155)
