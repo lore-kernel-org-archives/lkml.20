@@ -1,115 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84664F30E4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860090; cv=none; b=ZUmIKlecwdj0PuXfasRZOoKFv8pdxR3cxjfxGBEjtgZhrMemAARjGNhogTvv5LwgwVgWqf4aqhZ1Gegp0zix8MNOwh9Gac94dHnCyifpQPhceRdtspYE7c8CHmXKtFA4Oke5mDJGG6q5dqd+qQnEw57uJk0gMmTwScR2FisdbuA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860090; c=relaxed/simple;
-	bh=/7mJb5zwLxSBCtxFZ58EtxTprX1xsoQvMGsFAPnJMCw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k0pne7TeONfrC+fPxWnJQIx4UYXzkj62309aFt0bwx2PhqiXnLvGJht6Vu4HA7fBCwt9cEAcK2eNceMV3yPO4D7H3BbHvivkNOP3QQ3uizJcxM/3Oxg/sG6q4LrCL/DLCYZuJIWcb4u/dRqcfBRuMOnpOkiysy5/p5WaSLxlrqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OmgodSbs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFBAA4FC8CB;
+	Tue,  8 Sep 2026 09:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788860100; cv=pass; b=qt5tBSkiQmGqEqfVBWTRfTQZX3bbZ6sIbEkTRodM7V+GLAZHDZKmCH1auF6/S7lM/9m9m8QPehoYU7WrgJb+a/34gD2atbk0bk2qO0GXsUmxcee3YGiPFRt6vaTByHNZjrGuovk6776tLdGPK8Q7ZDuD4zX36G9n2UXIVOiKxTA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788860100; c=relaxed/simple;
+	bh=enV2kS1MIwHjXbYjHjRD3HBW9Nc1XOK61bJzzLEmGds=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mIAWMI38Mudw7sFUwbUFiJW6/qzxsJJjQKVG0Afk3SQ1Ffi6OPJQnNudfpsKWvvGIrh42ImJDsGYkT3KxlG1pfxvhBJW5v2bjBN2a/tCInSd9VgomiFd5ZdQ4gLSs6yW7LElBW7ZbpV8aI0UJLc3PKXDuTy8zVHD87KjPgmlK4M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=VXjEG8Ph; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OmgodSbs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7B11F00AC4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:34:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788860088;
-	bh=+dWSZPT2cSGadun9qNKyTf04I9xLfA1wAds+skSZwk8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=OmgodSbsMd+e2EKAAVE0Y4Ez9c6bYnvrydF7+hyJSlJnCCAc7MQc9WV8R+wGRLu3N
-	 iYE1NSmy+l83Jc+XosVTZ81xyv2Y8aScDeyadeTwOTi/vfiIpr97N+2g1Rj/IRaLUP
-	 Ex9u5LjDtE0uhFZ/nxlq2sZBy5fQH+AlFu/jWSCqF1YXqRTU0yfN6T5iIWEOco/ly/
-	 hyxpY5wavgkxE0EYzSpNDGgu/awjlq0InEY5QM0pRgFAs9TsGo/b4Gw0EYCm4fNBMK
-	 U9zQ85Ky4J7+YKZE1I0UwFSoK1MYw7Ozl5fa4mrRdrnv0iymvtdWW4+CYH/GZUEIIx
-	 p/jsRkWX8+mHg==
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-9399e925dcaso197801485a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:34:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwLWIDQ5V6xXdhhQH69SDoPWLoUouQUN+9MqQdtIFdYNV+KGAxDzLuRliQJlvAc8Kdb36R+18L7zbDnPxc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mhk9GOd/z67l0fiTR2c0ke6UigMOYob+kDGukoZE6CH2ccdHy8
-	YHOdah5CeAeUaliHpcVGW89J2K2uZGy0MoVsR+Pc5Nb0pgg4+HgEvD4Vrz1OzfW80w2MqeIRijC
-	qC+ZRTszgHxV8Q0R4eK54LJAPaoqX+D0=
-X-Received: by 2002:a05:620a:aa0c:b0:937:2e9f:70a8 with SMTP id
- af79cd13be357-939804af824mr3279565385a.39.1788860086621; Tue, 08 Sep 2026
- 02:34:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="VXjEG8Ph"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: jmtilli)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hfJgc1kNTz49Q5T;
+	Tue, 08 Sep 2026 12:34:52 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1788860092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dMiUD8CXxFO5/POyjEVKFLNmf5/jxdGfzIul6o7WvA0=;
+	b=VXjEG8PhTpo/Q51+H9fHF7FH5GOZXiiFcGN8TmdXeiYJW6oIV/OBg0Ew1zaQsjf7zYuGFW
+	4gsOV2bUcXUsX1RZq0SCrD3y5pis56efzanry7ciOgb5j3406KRCLdnurQ4LstCb6dF5L3
+	o436l9gTA+sRDWXoHN8vdEDGpBz6vCuvA2zqDSisjv3aRYBAtdjjCnYiGD5T0lPmfw91ON
+	sVQ+Tz1k81122mlAZziiRfeySZG76jPH6SRY97UQgNna0qB5Ll3aiRtLfdy8NYRVHfDSMQ
+	DDL89f9wvidXwvlUHISK+rlGYm+ar+0fBS80XNf5OqsuKM1OoWg/mwbE2kspeQ==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788860092;
+	b=c2Mi5Drvv9/uXUnQ3yphwJF2J8xEuLJT1EQWQevg5CS67OyLdwbq5I/Ha9mKwBEUKU63vF
+	EIvs99u+XHPolHwjFZOoZgDK5xAict6nIpnZ/ko8ODbb8jPySgqusDHzEUcMj9StoPDSB8
+	VqAp0G8fvAz00TtM7eD2alAyavQWkr0q2CC79xRXi0A3f7LE+Z88GScAThXtu915697aps
+	/0PjahmvMcAmGCTam61bKtnGeDnr+C9tymxwjYblZ5kfHMDGLKkVdmmgK8EMFpzfPPDP0f
+	Qo9+RhCrIxC41wTVQa1PjDbPRZJIHpq4Gp1kWxF9FAoIkbt6jALCwRIA2v1LpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1788860092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=dMiUD8CXxFO5/POyjEVKFLNmf5/jxdGfzIul6o7WvA0=;
+	b=sdE6EVLqgEBAt7ATM8O5/rpHyFG9APH+ZDEdEuuPDtzqX+zsSXRid3uNzI1/zvQMB77BXH
+	MCV+AAX5VzEIiVQ2/J50uhFlbK3TTfydPWMdi5pLsj3C4/k3k/5m9EUFlLvjNrEgRZWjUF
+	kmIZ9XiSKWZWdB0T/yUt4/zNLwxx40syvlhs4V7I5lEBw/uDq8XTorZWpOQOu8oIBjjQ+9
+	aril2sps1wGv285d2lau9yDZ5ltRFo6xFrPYQfn/PrLS9IDSKV9vPR+HsjNZ/5ei0Ukqoc
+	HtsBhi5eCw6PJVXz9r2mTgID2Ybv3BfWVIomyfG3rgU/fmlrUVesjqXbpHsvZQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	Kalle Valo <kvalo@kernel.org>,
+	Jeff Johnson <jjohnson@kernel.org>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	linux-wireless@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 08/12] wifi: ath11k: implement QRTR endpoint ID fetching for PCI
+Date: Tue,  8 Sep 2026 12:34:33 +0300
+Message-Id: <20260908093437.2493698-1-juha-matti.tilli@iki.fi>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908062649.1045883-1-zhangbo56@xiaomi.com>
-In-Reply-To: <20260908062649.1045883-1-zhangbo56@xiaomi.com>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 8 Sep 2026 17:34:34 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4y7XRChHuquYj9brgTv9bugOVo14DmoaPFHam+vnmGnFg@mail.gmail.com>
-X-Gm-Features: AcwNN1U9qAXnbYyo19332yqF90SnZUuQ82rHyPQcT8THjupG7pojENqlZKkPEQ8
-Message-ID: <CAGsJ_4y7XRChHuquYj9brgTv9bugOVo14DmoaPFHam+vnmGnFg@mail.gmail.com>
-Subject: Re: [PATCH v4] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache
-To: Bo Zhang <zhangbo0325@gmail.com>
-Cc: akpm@linux-foundation.org, hannes@cmpxchg.org, kasong@tencent.com, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, david@kernel.org, 
-	mhocko@kernel.org, ljs@kernel.org, ryncsn@gmail.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026 at 2:27=E2=80=AFPM Bo Zhang <zhangbo0325@gmail.com> wro=
-te:
->
-> We have observed some cases where memory is allocated with GFP_NOIO, so
-> we cannot reclaim any anon folios unless they are in swapcache. We can
-> end up spending more than 150 ms looping in `shrink_folio_list()` scannin=
-g
-> non-swapcache folios without reclaiming a single folio. This is pure
-> overhead.
->
-> This is particularly true on systems using zRAM, where swapcache is
-> relatively rare. So let's check whether anon reclaim is allowed by
-> GFP_IO and whether there is enough swapcache to make it worthwhile. If
-> the swapcache is extremely low, we're essentially searching for a
-> needle in a haystack, so let's avoid scanning anon in the first place.
->
-> On Android this is triggered by dm-verity hash-block reads through
-> dm-bufio, which legitimately use GFP_NOIO because they run underneath the
-> IO path:
->
->   verity_verify_io -> verity_hash_for_block -> verity_verify_level
->     -> dm_bufio_read_with_ioprio -> new_read -> __bufio_new
->       -> alloc_buffer
->          gfp: GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN
->
-> Such a reclaimer can land on a memcg with a large, unswapped anon LRU and
-> a tiny file LRU (e.g. inactive_anon ~335 MB vs inactive_file ~4 MB, with
-> negligible swapcache). shrink_lruvec() then keeps feeding that huge anon
-> list into shrink_folio_list() - ~2400 shrink_folio_list() calls, ~93,000
-> anon folios scanned - where every folio is kept because it needs IO. The
-> 150+ ms above is one such single shrink_lruvec() pass (not accumulated
-> across a reclaim cycle), and it reclaims nothing; the actual progress
-> comes entirely from the file side.
->
-> Aging anon alongside file does have some value for a later __GFP_IO
-> reclaimer, so it is not strictly pure overhead. But that aging is only
-> deferred, not lost: kswapd and other __GFP_IO reclaimers still walk and
-> age anon. Spending ~168 ms aging memory that this context cannot reclaim
-> is not a worthwhile trade-off in a latency-sensitive path.
->
-> To stay conservative, this only skips anon when the swapcache is really
-> tiny - below 1/64 of the anon LRU - i.e. when essentially no anon on the
-> list can be reclaimed without IO. Whenever there is a meaningful amount o=
-f
-> swapcached anon, the normal path is used and anon is scanned and aged as
-> before.
->
-> Note this only addresses the traditional active/inactive LRU. MGLRU
-> selects anon vs file scanning in its own path and is not covered here;
-> fixing the MGLRU case is left as a TODO.
->
-> Signed-off-by: Bo Zhang <zhangbo56@xiaomi.com>
+QRTR endpoint ID fetching for PCIe devices will use MHI.
 
-LGTM,
+Originally-by: Mihai Moldovan <ionic@ionic.de>
+Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+---
+ drivers/net/wireless/ath/ath11k/mhi.c | 46 +++++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath11k/mhi.h |  1 +
+ drivers/net/wireless/ath/ath11k/pci.c |  1 +
+ 3 files changed, 48 insertions(+)
 
-Reviewed-by: Barry Song <baohua@kernel.org>
+diff --git a/drivers/net/wireless/ath/ath11k/mhi.c b/drivers/net/wireless/ath/ath11k/mhi.c
+index a6c9ff112c68f..755a57b6058a1 100644
+--- a/drivers/net/wireless/ath/ath11k/mhi.c
++++ b/drivers/net/wireless/ath/ath11k/mhi.c
+@@ -11,6 +11,8 @@
+ #include <linux/of_address.h>
+ #include <linux/ioport.h>
+ 
++#include <net/qrtr.h>
++
+ #include "core.h"
+ #include "debug.h"
+ #include "mhi.h"
+@@ -502,3 +504,47 @@ void ath11k_mhi_coredump(struct mhi_controller *mhi_ctrl, bool in_panic)
+ {
+ 	mhi_download_rddm_image(mhi_ctrl, in_panic);
+ }
++
++static void ath11k_mhi_qrtr_free_mhi_id(void *mhi_cntrl_void)
++{
++	struct mhi_controller *mhi_cntrl = mhi_cntrl_void;
++	u32 id = mhi_cntrl->qrtr_endpoint_id;
++
++	if (id != 0)
++		qrtr_endpoint_free_data_id(id);
++	mhi_cntrl->qrtr_endpoint_id = 0;
++	mhi_cntrl->free_qrtr_endpoint_id = NULL;
++}
++
++int ath11k_mhi_set_qrtr_endpoint_id(struct ath11k_base *ab)
++{
++	struct ath11k_pci *ab_pci = ath11k_pci_priv(ab);
++	struct ath11k_qmi *qmi = &ab->qmi;
++	int ret;
++
++	spin_lock(&ab_pci->mhi_ctrl->qrtr_endpoint_lock);
++
++	if (ab_pci->mhi_ctrl->qrtr_endpoint_id) {
++		qmi->handle.endpoint_id = ab_pci->mhi_ctrl->qrtr_endpoint_id;
++	} else {
++		ret = qrtr_endpoint_get_data_id(&qmi->handle.endpoint_id);
++		if (!ret) {
++			ab_pci->mhi_ctrl->qrtr_endpoint_id =
++				qmi->handle.endpoint_id;
++			ab_pci->mhi_ctrl->free_qrtr_endpoint_id =
++				ath11k_mhi_qrtr_free_mhi_id;
++		}
++	}
++
++	spin_unlock(&ab_pci->mhi_ctrl->qrtr_endpoint_lock);
++
++	ath11k_dbg(ab, ATH11K_DBG_PCI,
++		   "queried mhi_ctrl QRTR endpoint ID: %u\n",
++		   qmi->handle.endpoint_id);
++	if (ret) {
++		ath11k_warn(ab, "failed to query QRTR endpoint ID: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
+diff --git a/drivers/net/wireless/ath/ath11k/mhi.h b/drivers/net/wireless/ath/ath11k/mhi.h
+index 7e7561ce883cb..46a9c978b30d1 100644
+--- a/drivers/net/wireless/ath/ath11k/mhi.h
++++ b/drivers/net/wireless/ath/ath11k/mhi.h
+@@ -28,4 +28,5 @@ int ath11k_mhi_suspend(struct ath11k_pci *ar_pci);
+ int ath11k_mhi_resume(struct ath11k_pci *ar_pci);
+ void ath11k_mhi_coredump(struct mhi_controller *mhi_ctrl, bool in_panic);
+ 
++int ath11k_mhi_set_qrtr_endpoint_id(struct ath11k_base *ab);
+ #endif
+diff --git a/drivers/net/wireless/ath/ath11k/pci.c b/drivers/net/wireless/ath/ath11k/pci.c
+index a163168f36176..56490a21964a3 100644
+--- a/drivers/net/wireless/ath/ath11k/pci.c
++++ b/drivers/net/wireless/ath/ath11k/pci.c
+@@ -918,6 +918,7 @@ static const struct ath11k_hif_ops ath11k_pci_hif_ops = {
+ 	.ce_irq_enable = ath11k_pci_hif_ce_irq_enable,
+ 	.ce_irq_disable = ath11k_pci_hif_ce_irq_disable,
+ 	.get_ce_msi_idx = ath11k_pcic_get_ce_msi_idx,
++	.set_qrtr_endpoint_id = ath11k_mhi_set_qrtr_endpoint_id,
+ #ifdef CONFIG_DEV_COREDUMP
+ 	.coredump_download = ath11k_pci_coredump_download,
+ #endif
+-- 
+2.34.1
+
