@@ -1,171 +1,259 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F7836196F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:34:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E51123976A4;
+	Tue,  8 Sep 2026 07:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852864; cv=none; b=JddZpPXktNXSfYivhma9RpU71tu9zuW9r2K6b1NGm7NfC8wNsgl4+UCqzDCXQwB+pfjubsvwD7WYiZPZfh+/gVmvxEaFrETEP+p2mhWgThEWyUzHcrg4S/BLWbUiQoyXq0a1hsC3DGYdp/y+c5J6g/FOHPh19iN4i8kuHI4sj5Q=
+	t=1788852917; cv=none; b=k45oBgLqFfFTFtro4LesrB6QjeK2SCrvYN1eoO30ieRcsqrlQ7ld69hMsombruZCsAuDeDHJrWhWOhCqB45HggH6HMtKMoY9w3eFxsbv/Ij927ti6YfOoUiRIO4dNU9oFHTISZ/qy3p/iwI3JehKWXFa393H+OArClf+J9K8jWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852864; c=relaxed/simple;
-	bh=kTcbf6zMBF7quyjwgGeI7I3sau3/PEf62+p8Ynm6Ouo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HuqBaGm6/Yc4Q+lFZF0sPp2lZb7fg1Sj2ba8xFAJWgvAYHlRyXa01saGAF0siBZeco21CIQyGKi7aphqcsudbbfaR2Cvtwf1TsWMnDjmG3Vvqu1D3RZOTASDrkXYuq46z29l0jYJwv0RiJyw9SczuORg4yXo2J6hzlPDBBoQPGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LFxI232U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BAXgKxNQ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LFxI232U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BAXgKxNQ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886Ll7t1477673
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:34:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=zSUX4rmxFz9Z2gBtnlzHh970
-	/YgCNq6kC/HDrBYmw8M=; b=LFxI232UImGoY7CUSZ6Azl+dcEDUwQKxtpApVysh
-	xqZy4LKcKVNXaYqFGA59tnRIT7hPrkgf7lpQZbb5zFGoaHeF9zaxBUuN2pf2/MGn
-	G5Fu4F/dh+IULKrxawsg3O3/whmSgfK1CtICF8l5zwD/XIgRuR7wcOXDNpqT1J4Q
-	3owJ5mEbD7QtB9fgifkg+uVR2Pc8Q779RMbZhAUZYY3biznfU2YswSe7f88Q8tGs
-	gph3d7V0jWgdncXbNXmUTlQVLQ3dk88dy9Qb0cdmajRWbTPsQj7PD3r+wz1XfTGd
-	00oy3PRKLyKztw5UEZ1LXSUBqyuFdbXE69hccD5bwThttQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjatjgsaa-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:34:22 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939694871aaso684636885a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:34:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788852861; x=1789457661; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zSUX4rmxFz9Z2gBtnlzHh970/YgCNq6kC/HDrBYmw8M=;
-        b=BAXgKxNQM08czM78/L/352i8aKR5GzyzbqjGtAZS3lq8u21uLMMxljlsvwCM1FPh8u
-         BFGqoOvDyDnEnzTquj60cark6lgE2F9Iz/NtcKZopOTnqj7Zlfswh7lai7Q/ROwmZSuS
-         tL3qDu/VahRtKIU6q6LAOToRG1KMejAbPQm9jeVzXc/rP+Axd+o8TiVaFjt/fW/M9zSl
-         uDpxlk9qqIxwy0oCUBYNtDC2kAd6puvV3LPoO5SRfo5FRXppCZKATDiWwheM/m6eFiZz
-         uAfPH4OUjNZt+va6dymfYyHXhV/WyQiJ0aqup1ElSzbcI4SAb3Z2a8wdeCQK8hAQ9EQV
-         SRxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788852861; x=1789457661;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zSUX4rmxFz9Z2gBtnlzHh970/YgCNq6kC/HDrBYmw8M=;
-        b=kF3aObjZI0U0JAgZ9NfQm4/qQwyMWZFgy6qqCOIIJvbvDLDy9cW+481RRifmuhYdPx
-         18ERAWoI+5D/IIt07T0gf3gvojtKolegxmtL9NDFKqmd//vxyP+2qdEk/tiB+wGbhtRO
-         J9SVauUBzXc7weZpkk5qA6i5dVu0ENpzOY8gouLoDkew2d7QJ/0OH7N7nxwz/+xZAYhS
-         6gfL05slmrr8bd6qS/tB4C7Z6Ai6xCMP/hN+rE6jdBzqtP+jV2NZJ8MmX5gg6chz4+Y2
-         /cRBhBVBB/NaAEhIzHSKg7H9HU7DfiCuKc3DChFhNLKZXfWaWwie7B/BGFqaEKUrdrnO
-         +Zww==
-X-Forwarded-Encrypted: i=1; AKwUvBzS9oZnuiuI1aXkKfItFY/iDWprWIVOjF14f3rnmWuskgHBAbFCnnJ/vJXuSUFySSq0QmB8W3pDASuB/TY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRkoegVJzK842tYgpj81aLOxsH3nLfduVNjXrcfn5ZYHFymyJ8
-	u7AXMwhsp8paYasEskWqTqjeGnnmg6SZiaPemcrE1PVinOl+Nyq0yiVFu6yzz1gUG/AuRIAio3Y
-	nrdXX7uRaHbA6I3ebi0gJZotQY878cGbOqE6D4+s4Cj6W0xhRZBGKxQLCLZqgOiKR7To=
-X-Gm-Gg: AYBFou25iPSBdWToykICR5LjwHUuOFRihVqWdV4BG0MCfy8andxPztgkh8abQjjq5ic
-	IlDMDF8pj72CBs/YszRfGHyptonWZMj3MDvOPGNoMJY1ykY0uNmP0Z39JdCoHDOOBECAAMAFEe/
-	FYwHIcXvBtUCUnhYhjzgi0omBlB8B5ESlYxBEf/7aZImdmEK/vYSzwJDnM3aoUg32shqt6Ysobk
-	4BonEzyj2kuY9hv7KSrwiS9XJni3UPE4yyfXMRwiGuRv612FtZ6TRcdLKhrga9RI2styFZ/Ax9H
-	Ze9QvSiO0Owiw6CMoOEeKJlBM3bBNL9YR/KJts4v7m5D60fHBausg5gXvRCPs3XGhstZNp4H+9P
-	Pn4t+7ar147c=
-X-Received: by 2002:a05:620a:7087:b0:939:7f87:ff22 with SMTP id af79cd13be357-9398045fd75mr2956893185a.36.1788852861040;
-        Tue, 08 Sep 2026 00:34:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:7087:b0:939:7f87:ff22 with SMTP id af79cd13be357-9398045fd75mr2956889485a.36.1788852860466;
-        Tue, 08 Sep 2026 00:34:20 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.7.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm818612285e9.15.2026.09.08.00.34.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 00:34:19 -0700 (PDT)
-Date: Tue, 8 Sep 2026 10:34:18 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mostafa Saleh <smostafa@google.com>
-Subject: Re: [PATCH] interconnect: qcom: icc-rpmh: Add opt-out parameter for
- QoS settings
-Message-ID: <6iixty74opjqkegpdmtytffgrllcjvrmhlsv53xtackdqzvwge@6fh5onz27p6c>
-References: <20260907171729.1735641-1-maz@kernel.org>
- <v2gxqazjoxe74q5364jucy4pjds6gx4gfdchgulekl5mwk2azk@we4ibolioibm>
- <87ld9c4vc2.wl-maz@kernel.org>
+	s=arc-20240116; t=1788852917; c=relaxed/simple;
+	bh=OukSDEUVKjZ7tLp5WM5ACCwFRh0Lpjk4JkKl/ZZoIOs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=prMyvnX0JMWTJ3PecLA5bjkB4F24eWOXRMcQdzuzQ02qhAE4GvdoQFCVA88jt6A8oJmZH6/L0lLYchHpDgu2cxlEPtic8o70JxDE31WILEXrpTwpaFUit89un3f/xtMl+R+JZsD83/ORmxp3rBRhJ4SdZJXhYMyyrxBCbep81gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxS_Cwup9qx7cJAA--.28150S3;
+	Tue, 08 Sep 2026 15:35:12 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJAx1cyrup9qnQ0dAA--.34416S2;
+	Tue, 08 Sep 2026 15:35:09 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: loongarch@lists.linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH bpf-next v3] selftests/bpf: Add test for indirect struct_ops trampoline
+Date: Tue,  8 Sep 2026 15:35:06 +0800
+Message-ID: <20260908073506.29734-1-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ld9c4vc2.wl-maz@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NiBTYWx0ZWRfX2MkuwDWo/rZS
- UdSUJjK4BGhgoDMEGQlZdpbq6nQgUKs+sUloZFQYwWWitpX+eHE7uP4YhwmOqYEa2YKMFqXklb5
- xbVO99rf62xls538U//8DO/Im9YhcT0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NiBTYWx0ZWRfX64+ChD+JkYyn
- eKpLOOl7FLjDz34e6vd/fsWn5Tf4APw7gMPfo17fqJDMlc2VxVl8kUcgPp5J9LhsovonnwGSUas
- 8m03ejbVJqMYuxMer5Ty8GmzQFWC7BGNLKGUd6NY6CRMW4r+Ig/OKnDf7a7nVj/mPwSZcOTv/1l
- q4UYUrFch2YaPYu0lH4jTJSC9efSL6ZTVtMgqVkwrjIK60c2agyNk+6MkMmHQW/DowgEuHmNBIS
- SvCkTlb3WsDHF5cCl+Bt4cHNGeyEk3RE8T+WYgObD3kdWh7R8k4A8bVzz1rsZVazMYZjrUOGMbj
- FAsbn31lpsYqmYkku4yBFt4nj4nnz0cTQpdoMsFHuU5vPD50i1cCLQeN3F4c2jfAb1QG55BFdtZ
- ipskMyqaOUT5YgO58sS1JgNEW8vyqw6TgUck/917T/XhUsqYfbNtbt+VDT/OQmF6+BYg/Y1JbW4
- NnnoLfHU3PZEJtKDPeQ==
-X-Proofpoint-ORIG-GUID: qBVSHuRAQGQMo6NRmDQ9pbHwZbbf4EhA
-X-Authority-Analysis: v=2.4 cv=QrduG1yd c=1 sm=1 tr=0 ts=6a9fba7e cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=z6oAIkbW-EU95i1wH_gA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: qBVSHuRAQGQMo6NRmDQ9pbHwZbbf4EhA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080076
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx1cyrup9qnQ0dAA--.34416S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW3Gw4kXr4UJFy3CFyfGFW3urX_yoW3GF4xpF
+	ykJw1YyFnYv39rWF18XF4UZF4Sgrs5Zw15CFWkJ3sayr93X347JF18tFyIyFn8JrZYvw43
+	A34q9rW5CayUXacCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUB2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
+	6r4UJVWxJr1ln4kS14v26r126r1DM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12
+	xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r12
+	6r1DMcIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64
+	vIr41lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_
+	Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
+	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
+	cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxU2-VyUUUUU
 
-On 26-09-07 22:15:09, Marc Zyngier wrote:
-> On Mon, 07 Sep 2026 21:21:44 +0100,
-> Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
-> > 
-> > On 26-09-07 18:17:29, Marc Zyngier wrote:
-> > > Recent addition of QoS configuration to the X1 variants resulted in
-> > > systems that spontaneously reset at boot time or under load.
-> > > 
-> > > Given that this is both very unpleasant and hard to debug, give the
-> > > affected user the option to survive such event with a module parameter.
-> > > 
-> > > Passing "icc_rpmh.enable_qos=0" to the kernel command-line will skip the
-> > > offending QoS setup.
-> > > 
-> > 
-> > Lets not start doing this, please.
-> > 
-> > Can we figure out which platform deosn't work and then maybe we can 
-> > add a quirk in DT per platform?
-> 
-> We have at least 3 machines that are dysfunctional since [1] was
-> merged (mini-x, sp12 and devkit). Probably some more, but I'm not
-> going to be the one doing a survey.
-> 
-> What really should happen is [1] to be reversed until QC figures out a
-> set of parameters that actually works, instead of making this platform
-> even more unreliable than it already is.
+Add a test case to verify that arguments passed on the stack are
+correctly read by an indirect struct_ops trampoline.
 
-I'd rather have the patch reverted than adding a module parameter which
-users might not know about and distros will probably never addopt.
+This test ensures the correctness of stack offsets across various
+architectures. It is particularly critical for architectures like
+LoongArch, RISC-V, ARM64, and PowerPC where arguments beyond the
+first 8 registers are passed on the stack, as well as x86_64 and
+s390x which have lower register argument limits.
 
-> 
-> Just like [2] should have been reverted.
-> 
-> Until then, we'll have to paper over this stuff.
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+v3:
+  -- Use bpf_program__set_log_buf() to capture and verify the log
+  -- Drop global state and mutex, just use kdata in bpf_dummy_reg()
 
-But a module parameter complicates things rather than just papering over.
+Test results for reference:
 
-I suggest we get both reverted if they break existing platforms.
+(1) Before JIT fixes:
+    $ sudo ./test_progs -t struct_ops_multi_args
+    #487/1   struct_ops_multi_args/test_refcounted_multi:OK
+    ...
+    test_trampoline_stack_args:FAIL:check_stack_passed_arg9 unexpected check_stack_passed_arg9: actual 1286686720 != expected 9999
+    #487/2   struct_ops_multi_args/test_trampoline_stack_args:FAIL
+    #487     struct_ops_multi_args:FAIL
+    Summary: 0/1 PASSED, 0 SKIPPED, 1/1 FAILED
+
+(2) After JIT fixes:
+    $ sudo ./test_progs -t struct_ops_multi_args
+    #487/1   struct_ops_multi_args/test_refcounted_multi:OK
+    #487/2   struct_ops_multi_args/test_trampoline_stack_args:OK
+    #487     struct_ops_multi_args:OK
+    Summary: 1/2 PASSED, 0 SKIPPED, 0/0 FAILED
+
+ .../prog_tests/test_struct_ops_multi_args.c   | 57 ++++++++++++++++++-
+ .../bpf/progs/struct_ops_multi_args.c         | 14 ++++-
+ .../selftests/bpf/test_kmods/bpf_testmod.c    | 10 ++++
+ .../selftests/bpf/test_kmods/bpf_testmod.h    |  5 ++
+ 4 files changed, 84 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
+index 0f321e889862..8767e5f8bcc7 100644
+--- a/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
++++ b/tools/testing/selftests/bpf/prog_tests/test_struct_ops_multi_args.c
+@@ -3,7 +3,62 @@
+ #include <test_progs.h>
+ #include "struct_ops_multi_args.skel.h"
+ 
++static void test_refcounted_multi(void)
++{
++	struct struct_ops_multi_args *skel;
++	char log_buf[4096] = {};
++	int err;
++
++	skel = struct_ops_multi_args__open();
++	if (!ASSERT_OK_PTR(skel, "struct_ops_multi_args__open"))
++		return;
++
++	bpf_program__set_log_buf(skel->progs.test_refcounted_multi, log_buf, sizeof(log_buf));
++
++	err = struct_ops_multi_args__load(skel);
++	if (!ASSERT_EQ(err, -EINVAL, "struct_ops_multi_args__load"))
++		goto out;
++
++	ASSERT_HAS_SUBSTR(log_buf, "program with __ref argument cannot tail call",
++			  "check_verifier_log_message");
++
++out:
++	struct_ops_multi_args__destroy(skel);
++}
++
++static void test_trampoline_stack_args(void)
++{
++	struct struct_ops_multi_args *skel;
++	struct bpf_link *link = NULL;
++	int err;
++
++	skel = struct_ops_multi_args__open();
++	if (!ASSERT_OK_PTR(skel, "struct_ops_multi_args__open"))
++		return;
++
++	bpf_program__set_autoload(skel->progs.test_refcounted_multi, false);
++	skel->struct_ops.testmod_ref_acquire->test_refcounted_multi = NULL;
++
++	err = struct_ops_multi_args__load(skel);
++	if (!ASSERT_OK(err, "struct_ops_multi_args__load"))
++		goto out;
++
++	link = bpf_map__attach_struct_ops(skel->maps.testmod_ref_acquire);
++	if (!ASSERT_OK_PTR(link, "bpf_map__attach_struct_ops"))
++		goto out;
++
++	ASSERT_EQ(skel->bss->trampoline_stack_arg9, 9999, "check_stack_passed_arg9");
++
++out:
++	bpf_link__destroy(link);
++	struct_ops_multi_args__destroy(skel);
++}
++
+ void test_struct_ops_multi_args(void)
+ {
+-	RUN_TESTS(struct_ops_multi_args);
++	if (test__start_subtest("test_refcounted_multi"))
++		test_refcounted_multi();
++
++	if (test__start_subtest("test_trampoline_stack_args"))
++		test_trampoline_stack_args();
+ }
+diff --git a/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c b/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
+index c62be15757f0..9d290f22b492 100644
+--- a/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
++++ b/tools/testing/selftests/bpf/progs/struct_ops_multi_args.c
+@@ -17,7 +17,6 @@ struct {
+ } prog_array SEC(".maps");
+ 
+ SEC("struct_ops/test_refcounted_multi")
+-__failure __msg("program with __ref argument cannot tail call")
+ int test_refcounted_multi(unsigned long long *ctx)
+ {
+ 	/* ctx[2] is used because the refcounted variable is the third argument */
+@@ -29,7 +28,20 @@ int test_refcounted_multi(unsigned long long *ctx)
+ 	return 0;
+ }
+ 
++__u64 trampoline_stack_arg9 = 0;
++
++SEC("struct_ops/test_trampoline_stack_args")
++int BPF_PROG(test_trampoline_stack_args, int arg1, int arg2, int arg3,
++					 int arg4, int arg5, int arg6,
++					 int arg7, int arg8, int arg9)
++{
++	trampoline_stack_arg9 = arg9;
++
++	return 0;
++}
++
+ SEC(".struct_ops.link")
+ struct bpf_testmod_ops testmod_ref_acquire = {
+ 	.test_refcounted_multi = (void *)test_refcounted_multi,
++	.test_trampoline_stack_args = (void *)test_trampoline_stack_args,
+ };
+diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+index f798bbbb4d13..df50b408972a 100644
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.c
+@@ -1774,6 +1774,8 @@ static int bpf_dummy_reg(void *kdata, struct bpf_link *link)
+ 	 */
+ 	if (ops->test_2)
+ 		ops->test_2(4, ops->data);
++	if (ops->test_trampoline_stack_args)
++		ops->test_trampoline_stack_args(1, 2, 3, 4, 5, 6, 7, 8, 9999);
+ 
+ 	return 0;
+ }
+@@ -1821,6 +1823,13 @@ bpf_testmod_ops__test_return_ref_kptr(int dummy, struct task_struct *task__ref,
+ 	return NULL;
+ }
+ 
++static int bpf_testmod_ops__test_trampoline_stack_args(int arg1, int arg2, int arg3,
++						       int arg4, int arg5, int arg6,
++						       int arg7, int arg8, int arg9)
++{
++	return arg9;
++}
++
+ static struct bpf_testmod_ops __bpf_testmod_ops = {
+ 	.test_1 = bpf_testmod_test_1,
+ 	.test_2 = bpf_testmod_test_2,
+@@ -1828,6 +1837,7 @@ static struct bpf_testmod_ops __bpf_testmod_ops = {
+ 	.test_refcounted = bpf_testmod_ops__test_refcounted,
+ 	.test_refcounted_multi = bpf_testmod_ops__test_refcounted_multi,
+ 	.test_return_ref_kptr = bpf_testmod_ops__test_return_ref_kptr,
++	.test_trampoline_stack_args = bpf_testmod_ops__test_trampoline_stack_args,
+ };
+ 
+ struct bpf_struct_ops bpf_bpf_testmod_ops = {
+diff --git a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
+index 210b919290cc..505cd6779ff7 100644
+--- a/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
++++ b/tools/testing/selftests/bpf/test_kmods/bpf_testmod.h
+@@ -46,6 +46,11 @@ struct bpf_testmod_ops {
+ 	struct task_struct *(*test_return_ref_kptr)(int dummy, struct task_struct *task,
+ 						    struct cgroup *cgrp);
+ 
++	/* Used to test indirect struct_ops trampoline with stack-passed arguments. */
++	int (*test_trampoline_stack_args)(int arg1, int arg2, int arg3,
++					  int arg4, int arg5, int arg6,
++					  int arg7, int arg8, int arg9);
++
+ 	/* The following fields are used to test shadow copies. */
+ 	char onebyte;
+ 	struct {
+-- 
+2.42.0
+
