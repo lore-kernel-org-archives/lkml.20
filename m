@@ -1,124 +1,382 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F37956B854
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882798; cv=none; b=sSeGZVCicj5OyX5e6XVK9Bf6/60JjUdngPHbCbHo/a9TNks7TAeQGbfvxnqAH9lTQKJI27xfJ/5dVpMs4Iiqz/LzFKTiKQJKS6mXQwmTWxui+E4mQF+wnywP8nyVtCf3wTMPIDZrLmRypBYqfXdzZT+8K4FZmgPhN2YbEjbxrIs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882798; c=relaxed/simple;
-	bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I3MHiuGUhWuKM+PM2a2lOXOMDyaSp8KV43e/RQcPJEYA5r1aRs3lVvCUvL5Y4T88q5pnapO2Be0DVpuRJ9lgomxqKG4AtMguTOT5Jmnos2cIR/M8VG5rzt6s+XZRSRyzxhJzwN6yqfWedmF0BlkSp95/r/4U935vRa1jFU72as8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ifjNbn5W; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1027856B857
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788882839; cv=pass; b=Yf+H5EG/BBsuDGNVTsjixLCCLx+2lJeB2b0GDNRNxgvpQQTIv6HT8jPeI3zZqZJrGzb32yPDOzMoauZ9n657ogeERZMy0yfiUVjcqLfb3SSYVYIoL4sBpqhl8P9nRgI42olUcGWI3XdyITgpdlQ7V4uQgMzIARdTx0ty+0+kPS0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788882839; c=relaxed/simple;
+	bh=Ikp0uhvztH30GrbIL3DQZHFxBp8d0BvUmBQvOxRGVOE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SO5HfxEQWgpJqk75CfkkVl+2mNTAI29886afykW76O0RdfJTY4ljKgFv4/dXXcf2UpZe47pE9QdAaNKyxIDhArhAl66PcnxCo10GMWXh+BZzKX3kwlYw7Dj4iubgAnIuuU4nO4hPDkMoaVykNYxWO/e5VqhXUmfZzyrdOSjd1ks=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com; spf=pass smtp.mailfrom=etsalapatis.com; dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b=uugbFlWb; arc=pass smtp.client-ip=209.85.128.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ifjNbn5W"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so48189555e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:53:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=etsalapatis-com.20251104.gappssmtp.com header.i=@etsalapatis-com.20251104.gappssmtp.com header.b="uugbFlWb"
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-855a66e5b5dso38037937b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:53:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788882835; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ghymERHqKsY99k0Eopx//ZtJCTYdRneoJSL3mOdOJ+um1f9np9Pja0Uwd0gnEXdnd7
+         E0vpeuYj9MoSprNPB+w26w6AH0IoPZs82GHjnxuuJBY4HwCRQSs+DkY/lKnGC2GOd0Pw
+         hZ7FOHMHnyJO3rZybjcF6XD+apkGxyWzTiuIK3dMYkHT35xnKXsmjNx/xqZTySUAacAc
+         /60zC3PWN5DhPTxBEHOkrBshM70E4X3C7+/EqBQR7YhehWyPcgTboQ9i+hLKefJOpfMc
+         2WTo7I3k0aZTDRoL5Evm250Wsp/S2QS+AczF9vj6qYt4T4zRsF2pIDh+/y4uivYJ0j5A
+         Kykw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mdlaDsd+kR4vJx7ggmKQI0XmbSPk1lGx0nVrQ9Q8nlw=;
+        fh=qoxMVWX3/EdN9EIMvtv8WPD7fEofJJz3Xvq0EEt0rvo=;
+        b=ixCFwn3lUrAWjAYQkzn5uIkgJ7ukyjIzEKFZqUDQ18wAqeQipXZqQRk/E6ps3Q43Bj
+         xrk4Wa7DdEn6Y8NLqdHWQcakjUqsxdz0Q8Rw/aQZ7N4Rvi2eUvkgPUKxMTDOg30C02nL
+         aWJ5B7/eL/VjopwSM1ZOpbVU1sSYjP2Vdm2/XMddT7cYCF42rNH9wZ4lnpZmkVTpUwax
+         CN5XL+IzalE5UruV2tUPrDcHcuWWdXBNXCZwZqaRCuFqkH6+gZuiuqpwgfTw2g9oPrRh
+         1DGd/mDbHaNj7t71aXLLLSuOeHadVJezW+f2NVaAkabpYFtZULETZ+lx0hjQ3QfpA4Mg
+         7S4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788882794; x=1789487594; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=etsalapatis-com.20251104.gappssmtp.com; s=20251104; t=1788882835; x=1789487635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
-        b=ifjNbn5W8oNZglsJKy9U9h1GN6fKrlziiakA/PftoOJqD0TytlC0GkA1oy0/3/goNS
-         IWl6J44WxuVhXOGhIFaUeW1ZP0CHlypTWEdTT1btCeEmsIzPFEExhWpDmzowiBpBhL+w
-         M6uoj0hUL61ywwxEEX1T5E8+VXD6Sdm1U4TO7PCZTlu4VHd11UXpR+eHANAFedx8Rkc+
-         Viot/xkn3xN25B5BDjNwjufh3W1pBUQQsi+dbD3mIDjAcjeaWUB1aWxJ9e95sE6kMDS8
-         do9zkBgWi4HcaSkC4ivsba1Y83dZS8FvzoXe9hodT0wXNe4zs04o8MmVw6S0k6yqt/MG
-         dO7A==
+        bh=mdlaDsd+kR4vJx7ggmKQI0XmbSPk1lGx0nVrQ9Q8nlw=;
+        b=uugbFlWblDg9SPdF39T/5IEK0lfWebAYthdBEWn92oy2sAGn7QmGKTwCwgJsMqD9C/
+         TJQI1eQigCtA0r3QV8ZuTR4JpHjHJRu2OuncVU64RlzON82KW/4shdV+G1PXW8uCgFA1
+         VceYm6wEQudt6lyd3TfRKw+4ScCnAvp+NdMXgGmOLxT5aqboIbVVWvzRaUjm9Gvt1WQs
+         YconI4K/9chhI7G2aYz4J6YtaYe3m/+k9R0QbZ4EJbFJg6I3KCFreMD3BnBubu8S0gOD
+         MhWFmmRfG1ZwwmuIigjShhr75+XYAEfMrxAvuZhyjU5mntbu1BC1QUVWTrMVMfXaALNr
+         Dvkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788882794; x=1789487594;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788882835; x=1789487635;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=E7n7efcL+FU6GvjK4ZDItRGo1F3p6DAx/2ZzkiPlhkg=;
-        b=GuTw/Ev6elAy+Dc86/e97s5RYBr9KLNEGhhULHbunbfQaAfHd5QkqDn56o4JC6AXlx
-         bij4Wu8u/3P5hDKNpX2BJXJ3LQzR/HcVzZ3+aBCwDeSW2yAPa9MjBsltSvgTb8gmgboL
-         v7dMilwnxWnIAyMU/EWny/Ymex9kASWtVxqiVq6XpTmCbdJOOIcRAnDQ3uK/ZKhVVQ1n
-         3BlqKkwtF+ngAKsmsubUwQWYkLCDMLCfQ/1UUqaZrfjpxANWeRR/5CcB2kOs9WMsdSs2
-         7PbwuGBQ8BpPjGyvhCZ17F6pT84naqGfe7LAfsiSl93exdYhzaDH0dllc85eKlFz7rMh
-         +0Sw==
-X-Forwarded-Encrypted: i=1; AKwUvBw50BVacEqJaTTiPePSTcYLSykaTyg3igD0ZK7Voe4bSXWxdZQaWt49Qy8hh1faGL6ePz5V1Nt2yoJurY4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo0rgUJxt0KvtRPt4qbXYl4n9GrJbpSTMi+w4G3HdU2H3Tl0+F
-	sjEeSbSL7Q4ei7L6hYjg/fL84ugYTnLhLhv1tPww0hydH5PLvxTVIxNq6LPnNrdo2mc=
-X-Gm-Gg: AYBFou0l3YGDME+WrHSz8RloQlA0LLj3k6ReUIEaX28jgswaFXDLvA4G7N8VWhtI1Oj
-	6Occqr+DRhCabZJ9B9VSrgN1qcc6vmMrkjLuDvvYfz9QiS8s7epz38dybFfWRrW26VwUkHzsNIH
-	KNPSP4Ai5vRPj+hWdL4UkzkcgX28d58cosxfS+wYd+JyAX5x0BzvLDWm7dEUdQ/9a56ocqH/D0+
-	a6KjVoz78RpxKGrUW9HxTakJQvdNomJX3QOfy55ykMG31xf05VtNByLapg4paTE69Rr50g9WS6D
-	S8o/KzxEH70gD5UGFyiLJVl4/mr023mRiBFUk+Et6fCuPVG2gGJHskHx08ZTcCjh8rLPr1vKfwZ
-	+aK3wCE7TfuFJ/yAcZI8Vmvef+GFB/pDNm5sKv4C8vNYm7R+OeoNBaydqrDpAgWdciAunfVtsEI
-	7vMzM2wl18FlYzxEYqNWUSJw5rHAhYcHtAzt4uM4zpD0IbsHMjSpKyNOZjg3fip5weqhUX9+zZX
-	LGWw8B92nzqF1A/GzaGTvBZImgqX7ZSLyBXiBG8CbD2+Ygj2kY=
-X-Received: by 2002:a05:600c:6098:b0:49c:fc6c:be05 with SMTP id 5b1f17b1804b1-49cfc6cbfdbmr310435145e9.28.1788882793168;
-        Tue, 08 Sep 2026 08:53:13 -0700 (PDT)
-Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cf7740d44sm881111065e9.15.2026.09.08.08.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:53:12 -0700 (PDT)
-Date: Tue, 8 Sep 2026 17:53:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Oleg Keri <okerixx@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Hans de Goede <hansg@kernel.org>, Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org
-Subject: Re: [PATCH 2/2] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC
- driver
-Message-ID: <aqAvALulXKtsQQnc@monoceros>
-References: <20260908091752.5508-1-okerixx@gmail.com>
- <20260908091752.5508-3-okerixx@gmail.com>
+        bh=mdlaDsd+kR4vJx7ggmKQI0XmbSPk1lGx0nVrQ9Q8nlw=;
+        b=n1RLSro6GPlGu1zvNW9mhRzucb6iAy7vQhH654Qv86IA5J+ebOQJqA30Hd34mf3dBj
+         et9+sxJ08Ppjuom1TAeiFNmJBWV5ZfWUbVQlnCGIkTSVf44F9ZAgmXMm1MzFxK4cFS3V
+         9uk8hX8mEGb65BgXmUfJzVZGeWME7x3TMguMGUXuI63sRYrlSMjIbaIKyS740b8XxJhB
+         ooKtVFuOYy4ome8zSE4E2wBTLU5q58Scu93hvVR/QinXrnS5zvX347vAcTwZkakSWBLV
+         k5xTNETzRMwYDhSGtGbKzFZqZQz03ceyTP7DqZwpKkYDnJAqD+Tes/HGWoZ8mF5W5O7C
+         02BQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwasgd1qb56BZ4jViF6ITXz327E0GoyAMMDPU/6JXkzvOQ0P62vFb7sOrbASvlhAfCQVY755cJpUwAnI2w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhiwZ6CMtHw1yEhNCFsNT8NhqN2Ph3KmLG0mRJCHzrTTe62ESC
+	vTSW0gKSbGjfYi8KO5ZpmBWEH6TSNPMjR5jIS2MqQRE9CFwF+JhezV43mvryI6EVjAad6kAZkI7
+	QhsDCP6/AZlB3yIZoRL/5QHLX7ZU9TfEsYuN8eVcz8w==
+X-Gm-Gg: AYBFou2RSGO3hZyVC+ikftv5oucHBr88atpeWD+KsZELEBB5QCxVrAoCzHID3cmrEOj
+	yxBIhAm3L0BgwCoKAk1H3d05rgpeeN/Wzdv/hG8iXPqT2bUIzdNXbOlh8/aQDWrJv1gSqoWPmQX
+	60y57EkJHRrD+kI28m7Qc0R6hcCohi30xyCJEmKsK7PUcXtBApzTM0HT7UErsiBPNIly+ziSCH9
+	WhZnXoER9Ks8JNHUGTDB+M4P4lUJVm4AY7AgXbW9U6vCcBQbNhwxsDlfL6O+ChUbUcWqxIswR4q
+	Fp5OTKuenOgiEhAF/K93ltGHn7Zn5Iffdq2Oi10f0B/N
+X-Received: by 2002:a05:690c:6207:b0:859:9c98:b8b4 with SMTP id
+ 00721157ae682-8712b9890d5mr136194947b3.31.1788882834469; Tue, 08 Sep 2026
+ 08:53:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="27nkzeturjw7lglz"
-Content-Disposition: inline
-In-Reply-To: <20260908091752.5508-3-okerixx@gmail.com>
+References: <CAADnVQKPSWBzaEc7QBT39C_N_32Gu5_P5Cob9G0rxcDgiSQg6g@mail.gmail.com>
+ <20260902093740.2338724-1-chenyuan_fl@163.com> <20260902093740.2338724-4-chenyuan_fl@163.com>
+In-Reply-To: <20260902093740.2338724-4-chenyuan_fl@163.com>
+From: Emil Tsalapatis <emil@etsalapatis.com>
+Date: Tue, 8 Sep 2026 11:53:43 -0400
+X-Gm-Features: AcwNN1U-iPQaheRLInhEbsEshSGnEHGKkH0P6Hqp8LfgSXuZsUyD_7-306XyuWU
+Message-ID: <CABFh=a6QOjBv1c7B0fw0AEqaBXiQJRh=8on5DUfqPC7hYuGBxg@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v5 3/3] bpf, arena: handle range_tree_set
+ failures in alloc/free paths
+To: chenyuan_fl@163.com
+Cc: bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+	Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Ihor Solodrai <ihor.solodrai@linux.dev>, Yuan Chen <chenyuan@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Wed, Sep 2, 2026 at 5:38=E2=80=AFAM <chenyuan_fl@163.com> wrote:
+>
+> From: Yuan Chen <chenyuan@kylinos.cn>
+>
+> arena_alloc_pages(), arena_free_pages() and arena_free_worker() now
+> handle range_tree_set() errors. arena_free_pages() aborts the free on
+> error, and arena_free_worker() moves range_tree_set() before PTE
+> clearing so that a failed tree update leaves the PTEs intact instead of
+> freeing pages that the arena free tree does not track.
+>
+> Also check the range_tree_set() return value in arena_alloc_pages()'s
+> error path, which restores the unpopulated tail of a partially
+> allocated range; log a warning instead of silently leaking the virtual
+> range when the tree update fails.
+>
+> range_tree_set() is failure-atomic (it pre-allocates the node before
+> touching the tree), so on -ENOMEM the range stays tracked as allocated
+> and the pages remain mapped and accessible. A failed free is therefore
+> retryable, and arena_map_free() reclaims any retained pages at map
+> destruction; aborting the free avoids clearing PTEs for pages the
+> arena free tree does not track.
+>
+> In arena_free_worker() a failed tree update used to leave the span in
+> the drained list, where the second loop would still flush TLB entries,
+> zap user VMAs, and free the span itself: the free request was dropped,
+> user mappings were destroyed for a free that never happened, and the
+> pages stayed mapped until map destruction. Keep failed spans on
+> arena->free_spans instead and retry them on a later worker run; only
+> spans whose PTE clearing actually ran are flushed, zapped, and
+> released.
+>
+> The retry queues arena->free_irq while the map can concurrently be
+> freed. arena_map_free() relied on irq_work_sync() + flush_work(),
+> which miss an irq_work queued by the running worker between the two
+> calls: the irq_work can fire after the arena is freed and its callback
+> schedules free_work on freed memory. Set arena->dying under the arena
+> spinlock before draining, so the worker stops requeueing, steal the
+> orphaned spans (their pages are reclaimed by existing_page_cb()), and
+> drain with flush_work() + irq_work_sync() + flush_work().
+>
+> Setting @dying requires the arena spinlock. raw_res_spin_lock_irqsave()
+> can fail (-EDEADLK on a proven deadlock cycle, -ETIMEDOUT after a long
+> hold), and proceeding without the lock would race the worker. Retry a
+> bounded number of times for a long but finite hold and do not retry
+> -EDEADLK; on exhaustion leak the arena with a WARN carrying the error
+> code rather than hang map free.
+>
+> Suggested-by: Emil Tsalapatis <emil@etsalapatis.com>
+> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+> ---
+>  kernel/bpf/arena.c | 95 ++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 87 insertions(+), 8 deletions(-)
+>
+> diff --git a/kernel/bpf/arena.c b/kernel/bpf/arena.c
+> index 7b6847200b43..b0d1f0facfb2 100644
+> --- a/kernel/bpf/arena.c
+> +++ b/kernel/bpf/arena.c
+> @@ -5,6 +5,7 @@
+>  #include <linux/cacheflush.h>
+>  #include <linux/err.h>
+>  #include <linux/irq_work.h>
+> +#include <linux/delay.h>
+>  #include "linux/filter.h"
+>  #include <linux/llist.h>
+>  #include <linux/btf_ids.h>
+> @@ -67,6 +68,8 @@ struct bpf_arena {
+>         struct irq_work     free_irq;
+>         struct work_struct  free_work;
+>         struct llist_head   free_spans;
+> +       /* set under spinlock during map free; stops the worker retry loo=
+p */
+> +       bool dying;
+>  };
+>
+>  static void arena_free_worker(struct work_struct *work);
+> @@ -370,6 +373,9 @@ static int existing_page_cb(pte_t *ptep, unsigned lon=
+g addr, void *data)
+>  static void arena_map_free(struct bpf_map *map)
+>  {
+>         struct bpf_arena *arena =3D container_of(map, struct bpf_arena, m=
+ap);
+> +       struct llist_node *list, *pos, *t;
+> +       unsigned long flags;
+> +       int ret, i;
+>
+>         /*
+>          * Check that user vma-s are not around when bpf map is freed.
+> @@ -380,7 +386,40 @@ static void arena_map_free(struct bpf_map *map)
+>         if (WARN_ON_ONCE(!list_empty(&arena->vma_list)))
+>                 return;
+>
+> -       /* Ensure no pending deferred frees */
+> +       /*
+> +        * No fallback if this fails, so retry a few times for a long but
+> +        * finite hold; -EDEADLK can't be waited out. Cap the retries:
+> +        * leaking the arena is better than hanging map free.
+> +        */
+> +       for (i =3D 0; i < 10; i++) {
+> +               ret =3D raw_res_spin_lock_irqsave(&arena->spinlock, flags=
+);
+> +               if (!ret || ret =3D=3D -EDEADLK)
+> +                       break;
+> +               msleep(1);
+> +       }
 
---27nkzeturjw7lglz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC
- driver
-MIME-Version: 1.0
+A hardcoded msleep is definitely not the way to go.
 
-On Tue, Sep 08, 2026 at 11:17:52AM +0200, Oleg Keri wrote:
-> +#include <linux/i2c.h>
-> [...]
-> +#include <linux/mod_devicetable.h>
+> +       if (ret) {
+> +               WARN_ONCE(1, "bpf_arena: spinlock acquire failed %d\n", r=
+et);
+> +               return;
+> +       }
+> +       /*
+> +        * Set @dying before draining: the worker checks it under this
+> +        * spinlock before requeueing, so a failed span is either stolen
+> +        * here or dropped by the worker.
+> +        */
+> +       arena->dying =3D true;
+> +       list =3D llist_del_all(&arena->free_spans);
+> +       raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
+> +
+> +       llist_for_each_safe(pos, t, list)
+> +               kfree_nolock(llist_entry(pos, struct arena_free_span, nod=
+e));
+> +
+> +       /*
+> +        * flush_work() lets the running worker observe @dying so it stop=
+s
+> +        * requeueing; irq_work_sync() retires anything queued before tha=
+t;
+> +        * the final flush_work() runs the instance which the retired
+> +        * irq_work's callback may have scheduled.
+> +        */
+> +       flush_work(&arena->free_work);
 
-Please don't include <linux/mod_devicetable.h>, this header should go
-away soon. To get a definition of of_device_id and i2c_device_id
-<linux/i2c.h> is enough. (Or if you want to go the full iwyu way,
-include <linux/device-id/of.h> and <linux/device-id/i2c.h>.)
+The extra IRQs are also not a great idea, considering the range tree
+failures are
+due to memory shortage. There is no perfectly clean way to deal with it, bu=
+t imo
+the way is to leak the memory instead of trying to recover, so the patch sh=
+ould
+focus on leaving the range tree and page tables consistent.
 
-Best regards
-Uwe
+Since this patch has drifted quite a bit since the initial revisions,
+can you also
+remove the Suggested-by tag from me?
 
---27nkzeturjw7lglz
-Content-Type: application/pgp-signature; name="signature.asc"
+pw-bot: cr
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgL2UACgkQj4D7WH0S
-/k7CwAgAnPntIvnHC0kMw1/QQBqCS3Vp07x/cj5/X3i2U07bGMvno27pCqx+dt5k
-NmyHEYA6GG1TzZ+fTlIBrP80JJBOlITt5D2bCVpqzWZfmVRP9lqEMTNzlPwHyID7
-WrxJ8AiL6IYplgPdSNo7ma4EjworEEjyrTfkzSFUAbLkPFKv6y4kreCZ3LaiMSk0
-b+inF4QOHKm+ZRqpaB/3QvOpt8ZM6m+RDrcqS+8dwblVR5kf2OVbxaHbhby0Wcta
-kgf1MkOpTASnGDan1SR1YSYKNHtu/Hwo+9TGnWITgb6MRZC/lBYdfysuLmhFrXMC
-hJ/3zZkWmanAcK1NoI3uKrIY4n84eg==
-=8Ft8
------END PGP SIGNATURE-----
-
---27nkzeturjw7lglz--
+>         irq_work_sync(&arena->free_irq);
+>         flush_work(&arena->free_work);
+>
+> @@ -766,7 +805,9 @@ static long arena_alloc_pages(struct bpf_arena *arena=
+, long uaddr, long page_cnt
+>         bpf_map_memcg_exit(old_memcg, new_memcg);
+>         return clear_lo32(arena->user_vm_start) + uaddr32;
+>  out:
+> -       range_tree_set(&arena->rt, pgoff + mapped, page_cnt - mapped);
+> +       if (range_tree_set(&arena->rt, pgoff + mapped, page_cnt - mapped)=
+)
+> +               pr_warn_ratelimited("bpf_arena: leak range %ld+%ld on fai=
+led alloc\n",
+> +                                   pgoff + mapped, page_cnt - mapped);
+>         raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
+>         if (mapped) {
+>                 flush_vmap_cache(kern_vm_start + uaddr32, mapped << PAGE_=
+SHIFT);
+> @@ -881,7 +922,20 @@ static void arena_free_pages(struct bpf_arena *arena=
+, long uaddr, long page_cnt,
+>         if (ret)
+>                 goto defer;
+>
+> -       range_tree_set(&arena->rt, pgoff, page_cnt);
+> +       ret =3D range_tree_set(&arena->rt, pgoff, page_cnt);
+> +       if (ret) {
+> +               /*
+> +                * range_tree_set() is failure-atomic, so -ENOMEM leaves =
+the
+> +                * range allocated and the pages mapped; abort the free r=
+ather
+> +                * than release pages the tree does not track. Nothing re=
+tries
+> +                * the free; the program can free the range again.
+> +                */
+> +               pr_warn_ratelimited("bpf_arena: free of %lx+%ld failed\n"=
+,
+> +                                   uaddr, page_cnt);
+> +               raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
+> +               bpf_map_memcg_exit(old_memcg, new_memcg);
+> +               return;
+> +       }
+>
+>         init_llist_head(&free_pages);
+>         cdata.arena =3D arena;
+> @@ -977,12 +1031,13 @@ static void arena_free_worker(struct work_struct *=
+work)
+>         struct llist_node *list, *pos, *t;
+>         struct arena_free_span *s;
+>         u64 arena_vm_start, user_vm_start;
+> -       struct llist_head free_pages;
+> +       struct llist_head free_pages, cleared;
+>         struct clear_range_data cdata;
+>         struct page *page;
+>         unsigned long full_uaddr;
+>         long kaddr, page_cnt, pgoff;
+>         unsigned long flags;
+> +       bool retry =3D false;
+>
+>         if (raw_res_spin_lock_irqsave(&arena->spinlock, flags)) {
+>                 schedule_work(work);
+> @@ -992,28 +1047,52 @@ static void arena_free_worker(struct work_struct *=
+work)
+>         bpf_map_memcg_enter(&arena->map, &old_memcg, &new_memcg);
+>
+>         init_llist_head(&free_pages);
+> +       init_llist_head(&cleared);
+>         cdata.arena =3D arena;
+>         cdata.free_pages =3D &free_pages;
+>         arena_vm_start =3D bpf_arena_get_kern_vm_start(arena);
+>         user_vm_start =3D bpf_arena_get_user_vm_start(arena);
+>
+>         list =3D llist_del_all(&arena->free_spans);
+> -       llist_for_each(pos, list) {
+> +       llist_for_each_safe(pos, t, list) {
+>                 s =3D llist_entry(pos, struct arena_free_span, node);
+>                 page_cnt =3D s->page_cnt;
+>                 kaddr =3D arena_vm_start + s->uaddr;
+>                 pgoff =3D compute_pgoff(arena, s->uaddr);
+>
+> +               /*
+> +                * Set the range free before clearing PTEs, and requeue t=
+he
+> +                * span on failure: the PTEs stay intact and the free is
+> +                * retried later. Only spans moved to @cleared (PTE clear=
+ing
+> +                * actually ran) reach the flush/zap/release loop below.
+> +                */
+> +               if (range_tree_set(&arena->rt, pgoff, page_cnt)) {
+> +                       if (arena->dying) {
+> +                               /*
+> +                                * The map is being freed. PTEs stay inta=
+ct
+> +                                * and the pages are reclaimed by
+> +                                * arena_map_free() via existing_page_cb(=
+).
+> +                                */
+> +                               kfree_nolock(s);
+> +                               continue;
+> +                       }
+> +                       llist_add(&s->node, &arena->free_spans);
+> +                       retry =3D true;
+> +                       continue;
+> +               }
+> +
+>                 /* clear ptes and collect pages in free_pages llist */
+>                 apply_to_existing_page_range(&init_mm, kaddr, page_cnt <<=
+ PAGE_SHIFT,
+>                                              apply_range_clear_cb, &cdata=
+);
+> -
+> -               range_tree_set(&arena->rt, pgoff, page_cnt);
+> +               llist_add(&s->node, &cleared);
+>         }
+>         raw_res_spin_unlock_irqrestore(&arena->spinlock, flags);
+>
+> +       if (retry)
+> +               irq_work_queue(&arena->free_irq);
+> +
+>         /* Iterate the list again without holding spinlock to do the tlb =
+flush and zap_pages */
+> -       llist_for_each_safe(pos, t, list) {
+> +       llist_for_each_safe(pos, t, cleared.first) {
+>                 s =3D llist_entry(pos, struct arena_free_span, node);
+>                 page_cnt =3D s->page_cnt;
+>                 full_uaddr =3D clear_lo32(user_vm_start) + s->uaddr;
+> --
+> 2.54.0
+>
