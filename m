@@ -1,122 +1,273 @@
-Received: from mta0.migadu.com (out-118.mta0.migadu.com [91.218.175.118])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED533839B3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:22:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.118
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134EF3812DE;
+	Tue,  8 Sep 2026 06:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848545; cv=none; b=ZJ7jKqa2iS6Eczz04h0I4JUMm2cxMiqC1+DZNop/+4p7rGm/aZwAIjlrtAMM4Vs1bJsAXOZePAr+IWi1Y3XnQFG+8AWPMLykanJ5zPm4hr5zUs5yRNegsXvTN8TNmnC1a70sW0w8JIpifxQJT6Hv0AfuLeLUm1fYiRcTbTpfzuw=
+	t=1788848544; cv=none; b=pBJFqEOqL5J9pBk8mDlTLX/5iQgmX4Iz5LfoAiRo3rj7mIsOf6WYG/wInTsUqstGzq4Lh+JPSPtEZQWXjbwqnTm0rWZ1wCWjP3L3w4cjU1vCD7l6VtfPnMhCUi36B3Tz3OFsSPNewJm9YP+D3BVwNkKQlPTrvuBl4RHnaAA9vU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848545; c=relaxed/simple;
-	bh=z0MVAooCmQ3rZNmO0VCYVTgDQhlmc13rqoT9wo169BE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W0x0fJBhdDPQEXtw2I3YetN25MzW3FhUKVSkp64Q4R/QlCAdvowLYaOMzs7iUIzaUf2738l0L4+ppbpI5/xs5D4xsmlP6KJ/Plq2FkfzJIoMgmoiWbf45G4mGsohf4qZJP+zVt+t22/5FKK4vUqQ/AkTkrfUSgzKPeafK/FToBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FQc8V1oK; arc=none smtp.client-ip=91.218.175.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788848544; c=relaxed/simple;
+	bh=WBf+zqJbBvN5xIbqWxhQ23l3IDDtZTVTqQvNQhY7iZs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=XzzlwZUSNI7WHBa8ZUumLPnKWZHGDReacFK+LbYM1QV1zAqxrxNDDGt7p12AhkGqiovTGvSBkXq5FMT7x6P7/n6khqNQ14lROZ4itprmeS8/zUqTTNocAyZ0tU+C3AXqhqmUbZWpw0N2Hvlyex3wtBq/cGS7wUaKJUGe9XnJc9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=qowH2sEU; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=I/hPtNVQ; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FQc8V1oK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z0MVAooCmQ3rZNmO0VCYVTgDQhlmc13rqoT9wo169BE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788848539; v=1; x=1789453339;
- b=FQc8V1oKBmRocgDHXCKMMxfQRrFh69ApwKYSbOzPgSey6FyOY7rHCKZ0K5GT/vXAL6S2/IwG
- CEET4Q34UbvmkvTtESDyiQtr5fISi3e/mLuzlpsNH3g1g9OYuyHcRaFw3HphmCw1cVFaIvLKMnB
- OeizhUt8IadYeZM4A++u+W+E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 14da612d3da88a82;
-	Tue, 08 Sep 2026 06:22:19 +0000
-X-Mizu-Trace-ID: 14da612d3da88a82
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 8 Sep 2026 14:22:08 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: faicker.mo@gmail.com
-Cc: stable@vger.kernel.org, Sridhar Samudrala <sridhar.samudrala@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Stanislav Fomichev <sdf@fomichev.me>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: net_failover: Fix the deadlock in
- net_failover_slave_name_change()
-Message-ID: <ap-pkHCX6O5AOEIz@fedora>
-References: <20260908040708.3972058-1-faicker.mo@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="qowH2sEU";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="I/hPtNVQ"
+From: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788848539;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OpkTnovo4vbK9Ryr8abdG64TmDgSw2P4cKEhNt7uqj4=;
+	b=qowH2sEUHDhHacv0cANwY6hAlOzn8Yeb6uEuD7+rCRh7Rf8EDoFRDSdnWJfaKWzLqzQsf3
+	mdRFtXpyBpLBVkauKDDgMdvCD7dX/oZT9sxb4QPj84wU6BGC8JNj/y6b5q1GVEIzGryMRU
+	K9M0G2n65ztysmBY7YYO2aUKpJ/SqlOJpRKSDC+BnTWL69ElZnf+1DwcGr/GfPqEVCxuzM
+	hwjT+in7cYouB/LbhClx6h+4QeWh1xAHarWpx0XWyGSXnV6Kh7mAxxB9UXwWAzjCcQR3aZ
+	e/jS+4qWpX/CYrsotiIsla1z0TRQn+r3Bq6leu3tdgmQXuC/YeNkizL/YmUzIQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788848540;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=OpkTnovo4vbK9Ryr8abdG64TmDgSw2P4cKEhNt7uqj4=;
+	b=I/hPtNVQ1lBMdgH7XzoEZ2C2Nhp1R78xLeg9hzuZNMoMVwihvTmaOibDpy1sKeCXTY9sJ6
+	Te0o7UzwWFgcrLBw==
+Date: Tue, 08 Sep 2026 08:22:20 +0200
+Subject: [PATCH v2 6/7] tracing: Add a filter argument to
+ __ftrace_set_clr_event()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908040708.3972058-1-faicker.mo@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260908-tracing-cli-event-filter-v2-6-05396a3fb663@linutronix.de>
+References: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
+In-Reply-To: <20260908-tracing-cli-event-filter-v2-0-05396a3fb663@linutronix.de>
+To: Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Jonathan Corbet <corbet@lwn.net>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, 
+ =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788848535; l=7325;
+ i=thomas.weissschuh@linutronix.de; s=20240209; h=from:subject:message-id;
+ bh=WBf+zqJbBvN5xIbqWxhQ23l3IDDtZTVTqQvNQhY7iZs=;
+ b=0UCIuq0xExQO0QrcwJ+GtXvc1nwzWMr7UdNTcq1peF2v8FCkzSFKXN6WTDrG2/fDU8wFR6Cjh
+ tb4usoSk1sLB5jWAKxXwsIZ1TfMdVzWJXLKU1ELAFvohVTXWs87T8Ya
+X-Developer-Key: i=thomas.weissschuh@linutronix.de; a=ed25519;
+ pk=pfvxvpFUDJV2h2nY0FidLUml22uGLSjByFbM6aqQQws=
 
-On Tue, Sep 08, 2026 at 12:06:29PM +0800, faicker.mo@gmail.com wrote:
-> From: Faicker Mo <faicker.mo@gmail.com>
-> 
-> This is a sibling fix of commit
-> b84c5632c7b3 ("net: net_failover: Fix the deadlock in slave register").
-> There is netdev_lock_ops() in the upper callers, so using netif_open()
-> instead of dev_open().
-> 
-> Call Trace:
->  __schedule+0x2bb/0x650
->  schedule+0x27/0xb0
->  schedule_preempt_disabled+0x15/0x30
->  __mutex_lock.constprop.0+0x550/0xaf0
->  __mutex_lock_slowpath+0x13/0x20
->  mutex_lock+0x3b/0x50
->  dev_open+0x3b/0xe0
->  net_failover_slave_name_change+0x22/0x40
->  failover_event+0xd4/0x1e0
->  notifier_call_chain+0x62/0xf0
->  raw_notifier_call_chain+0x16/0x30
->  call_netdevice_notifiers_info+0x50/0x80
->  netif_change_name+0x200/0x330
->  do_setlink.isra.0+0xb12/0xdf0
->  ? security_capable+0x9a/0x1e0
->  ? ns_capable+0x31/0x60
->  rtnl_setlink+0x302/0x670
->  ? netlink_recvmsg+0x296/0x340
->  ? security_capable+0x9a/0x1e0
->  ? __pfx_rtnl_setlink+0x10/0x10
->  rtnetlink_rcv_msg+0x384/0x460
->  ? __pfx_rtnetlink_rcv_msg+0x10/0x10
->  netlink_rcv_skb+0x61/0x120
->  rtnetlink_rcv+0x15/0x30
->  netlink_unicast+0x28f/0x3c0
->  netlink_sendmsg+0x216/0x450
->  __sys_sendto+0x222/0x230
->  __x64_sys_sendto+0x24/0x40
->  x64_sys_call+0x1d5d/0x2390
->  do_syscall_64+0x105/0x5a0
->  ? do_syscall_64+0x140/0x5a0
->  ? exc_page_fault+0x94/0x1e0
->  entry_SYSCALL_64_after_hwframe+0x76/0x7e
-> 
-> Fixes: 7e4d784f5810 ("net: hold netdev instance lock during rtnetlink operations")
-> Signed-off-by: Faicker Mo <faicker.mo@gmail.com>
-> ---
->  drivers/net/net_failover.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/net/net_failover.c b/drivers/net/net_failover.c
-> index 3f7d31033bae..1b5213e87070 100644
-> --- a/drivers/net/net_failover.c
-> +++ b/drivers/net/net_failover.c
-> @@ -675,7 +675,7 @@ static int net_failover_slave_name_change(struct net_device *slave_dev,
->  	/* We need to bring up the slave after the rename by udev in case
->  	 * open failed with EBUSY when it was registered.
->  	 */
-> -	dev_open(slave_dev, NULL);
-> +	netif_open(slave_dev, NULL);
->  
->  	return 0;
->  }
-> -- 
-> 2.53.0
-> 
+Make it possible to directly enable a filter when enabling an event.
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+For now this is unused, an upcoming patch will wire it up.
+
+Signed-off-by: Thomas Weißschuh <thomas.weissschuh@linutronix.de>
+---
+ kernel/trace/trace_events.c | 47 +++++++++++++++++++++++++++++----------------
+ 1 file changed, 30 insertions(+), 17 deletions(-)
+
+diff --git a/kernel/trace/trace_events.c b/kernel/trace/trace_events.c
+index 7a491dbe6e81..f8881a9d3c7a 100644
+--- a/kernel/trace/trace_events.c
++++ b/kernel/trace/trace_events.c
+@@ -943,6 +943,7 @@ struct event_mod_load {
+ 	char			*match;
+ 	char			*system;
+ 	char			*event;
++	char			*filter;
+ };
+ 
+ static void free_event_mod(struct event_mod_load *event_mod)
+@@ -952,6 +953,7 @@ static void free_event_mod(struct event_mod_load *event_mod)
+ 	kfree(event_mod->match);
+ 	kfree(event_mod->system);
+ 	kfree(event_mod->event);
++	kfree(event_mod->filter);
+ 	kfree(event_mod);
+ }
+ 
+@@ -993,7 +995,7 @@ static int remove_cache_mod(struct trace_array *tr, const char *mod,
+ }
+ 
+ static int cache_mod(struct trace_array *tr, const char *mod, int set,
+-		     const char *match, const char *system, const char *event)
++		     const char *match, const char *system, const char *event, const char *filter)
+ {
+ 	struct event_mod_load *event_mod;
+ 
+@@ -1032,6 +1034,12 @@ static int cache_mod(struct trace_array *tr, const char *mod, int set,
+ 			goto out_free;
+ 	}
+ 
++	if (filter) {
++		event_mod->filter = kstrdup(filter, GFP_KERNEL);
++		if (!event_mod->filter)
++			goto out_free;
++	}
++
+ 	list_add(&event_mod->list, &tr->mod_events);
+ 
+ 	return 0;
+@@ -1044,7 +1052,7 @@ static int cache_mod(struct trace_array *tr, const char *mod, int set,
+ #else /* CONFIG_MODULES */
+ static inline void clear_mod_events(struct trace_array *tr) { }
+ static int cache_mod(struct trace_array *tr, const char *mod, int set,
+-		     const char *match, const char *system, const char *event)
++		     const char *match, const char *system, const char *event, const char *filter)
+ {
+ 	return -EINVAL;
+ }
+@@ -1353,7 +1361,7 @@ static void remove_event_file_dir(struct trace_event_file *file)
+ static int
+ __ftrace_set_clr_event_nolock(struct trace_array *tr, const char *match,
+ 			      const char *sub, const char *event, int set,
+-			      const char *mod)
++			      const char *mod, char *filter)
+ {
+ 	struct trace_event_file *file;
+ 	struct trace_event_call *call;
+@@ -1403,7 +1411,11 @@ __ftrace_set_clr_event_nolock(struct trace_array *tr, const char *match,
+ 		if (event && strcmp(event, name) != 0)
+ 			continue;
+ 
+-		ret = ftrace_event_enable_disable(file, set);
++		if (filter)
++			ret = apply_event_filter(file, filter);
++
++		if (!filter || !ret)
++			ret = ftrace_event_enable_disable(file, set);
+ 
+ 		/*
+ 		 * Save the first error and return that. Some events
+@@ -1421,14 +1433,14 @@ __ftrace_set_clr_event_nolock(struct trace_array *tr, const char *match,
+ 	 * check if the module was loaded. If it wasn't cache it.
+ 	 */
+ 	if (module && ret == -EINVAL && !eret)
+-		ret = cache_mod(tr, module, set, match, sub, event);
++		ret = cache_mod(tr, module, set, match, sub, event, filter);
+ 
+ 	return ret;
+ }
+ 
+ static int __ftrace_set_clr_event(struct trace_array *tr, const char *match,
+ 				  const char *sub, const char *event, int set,
+-				  const char *mod)
++				  const char *mod, char *filter)
+ {
+ 	int ret;
+ 
+@@ -1436,7 +1448,7 @@ static int __ftrace_set_clr_event(struct trace_array *tr, const char *match,
+ 		return -EACCES;
+ 
+ 	mutex_lock(&event_mutex);
+-	ret = __ftrace_set_clr_event_nolock(tr, match, sub, event, set, mod);
++	ret = __ftrace_set_clr_event_nolock(tr, match, sub, event, set, mod, filter);
+ 	mutex_unlock(&event_mutex);
+ 
+ 	return ret;
+@@ -1499,7 +1511,7 @@ int ftrace_set_clr_event(struct trace_array *tr, const char *arg_buf, int set)
+ 
+ 	ftrace_parse_event_string(dupped_buf, &match, &sub, &event, &mod);
+ 
+-	return __ftrace_set_clr_event(tr, match, sub, event, set, mod);
++	return __ftrace_set_clr_event(tr, match, sub, event, set, mod, NULL);
+ }
+ 
+ /**
+@@ -1521,7 +1533,7 @@ int trace_set_clr_event(const char *system, const char *event, int set)
+ 	if (!tr)
+ 		return -ENODEV;
+ 
+-	return __ftrace_set_clr_event(tr, NULL, system, event, set, NULL);
++	return __ftrace_set_clr_event(tr, NULL, system, event, set, NULL, NULL);
+ }
+ EXPORT_SYMBOL_GPL(trace_set_clr_event);
+ 
+@@ -1547,7 +1559,7 @@ int trace_array_set_clr_event(struct trace_array *tr, const char *system,
+ 		return -ENOENT;
+ 
+ 	set = (enable == true) ? 1 : 0;
+-	return __ftrace_set_clr_event(tr, NULL, system, event, set, NULL);
++	return __ftrace_set_clr_event(tr, NULL, system, event, set, NULL, NULL);
+ }
+ EXPORT_SYMBOL_GPL(trace_array_set_clr_event);
+ 
+@@ -2067,7 +2079,7 @@ system_enable_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	if (system)
+ 		name = system->name;
+ 
+-	ret = __ftrace_set_clr_event(dir->tr, NULL, name, NULL, val, NULL);
++	ret = __ftrace_set_clr_event(dir->tr, NULL, name, NULL, val, NULL, NULL);
+ 	if (ret)
+ 		goto out;
+ 
+@@ -4022,7 +4034,8 @@ static void update_mod_cache(struct trace_array *tr, struct module *mod)
+ 
+ 		__ftrace_set_clr_event_nolock(tr, event_mod->match,
+ 					      event_mod->system,
+-					      event_mod->event, 1, mod->name);
++					      event_mod->event, 1, mod->name,
++					      event_mod->filter);
+ 		free_event_mod(event_mod);
+ 	}
+ }
+@@ -4796,7 +4809,7 @@ int event_trace_del_tracer(struct trace_array *tr)
+ 	__ftrace_clear_event_pids(tr, TRACE_PIDS | TRACE_NO_PIDS);
+ 
+ 	/* Disable any running events */
+-	__ftrace_set_clr_event_nolock(tr, NULL, NULL, NULL, 0, NULL);
++	__ftrace_set_clr_event_nolock(tr, NULL, NULL, NULL, 0, NULL, NULL);
+ 
+ 	/* Make sure no more events are being executed */
+ 	tracepoint_synchronize_unregister();
+@@ -5106,7 +5119,7 @@ static __init void event_trace_self_tests(void)
+ 
+ 		pr_info("Testing event system %s: ", system->name);
+ 
+-		ret = __ftrace_set_clr_event(tr, NULL, system->name, NULL, 1, NULL);
++		ret = __ftrace_set_clr_event(tr, NULL, system->name, NULL, 1, NULL, NULL);
+ 		if (WARN_ON_ONCE(ret)) {
+ 			pr_warn("error enabling system %s\n",
+ 				system->name);
+@@ -5115,7 +5128,7 @@ static __init void event_trace_self_tests(void)
+ 
+ 		event_test_stuff();
+ 
+-		ret = __ftrace_set_clr_event(tr, NULL, system->name, NULL, 0, NULL);
++		ret = __ftrace_set_clr_event(tr, NULL, system->name, NULL, 0, NULL, NULL);
+ 		if (WARN_ON_ONCE(ret)) {
+ 			pr_warn("error disabling system %s\n",
+ 				system->name);
+@@ -5130,7 +5143,7 @@ static __init void event_trace_self_tests(void)
+ 	pr_info("Running tests on all trace events:\n");
+ 	pr_info("Testing all events: ");
+ 
+-	ret = __ftrace_set_clr_event(tr, NULL, NULL, NULL, 1, NULL);
++	ret = __ftrace_set_clr_event(tr, NULL, NULL, NULL, 1, NULL, NULL);
+ 	if (WARN_ON_ONCE(ret)) {
+ 		pr_warn("error enabling all events\n");
+ 		return;
+@@ -5139,7 +5152,7 @@ static __init void event_trace_self_tests(void)
+ 	event_test_stuff();
+ 
+ 	/* reset sysname */
+-	ret = __ftrace_set_clr_event(tr, NULL, NULL, NULL, 0, NULL);
++	ret = __ftrace_set_clr_event(tr, NULL, NULL, NULL, 0, NULL, NULL);
+ 	if (WARN_ON_ONCE(ret)) {
+ 		pr_warn("error disabling all events\n");
+ 		return;
+
+-- 
+2.55.0
+
