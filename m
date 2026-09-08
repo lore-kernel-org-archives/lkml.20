@@ -1,145 +1,205 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77E257F726
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850F3580386
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883501; cv=none; b=e3TBBmQdshK/vhG26ryQfTeq7Vo9yAzX3z3Vdia2HGK4CZLUBheQp6f0MHDpTm6wp4gLGiB7Q85LGQ6BDIp07XBGssW6lpLPw2Pgg7SltA5BqPoqQHsECE9pmdpXe8CLodsdMoHBOGIY0NlED80TKIKe7B+z7DiEw9x2k8FYg34=
+	t=1788883506; cv=none; b=eQBV8mPkqJpz8EgGCvAEpGNtDZ9XTwQDsFV5ReVCkxLkLCQ6yS0j2VtRC4sWYcQJGhsLX8EfSedk9shbhnu+TPPvc3PVhYj5lCIh0MkpOclaSPP1Hlno9FbCqrxn/RGw+LHNQTvbty03Rp39ItKqvU5TIO3rOSeIfExa6y74wl4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883501; c=relaxed/simple;
-	bh=PoIZefIYgemK9yZJ4YbXFzvrGW+3EnfGu14JP84JhVo=;
+	s=arc-20240116; t=1788883506; c=relaxed/simple;
+	bh=wKPqxV2LJIDtPvxueXtuaqpAw1KYruaKoIfgvimOWQE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lE1yYJmqR14/WT3SXhvoMHzlimfm0v/+2fzfbw2BLnm+GGLQm1ELKwKAfXZ2RF8ZWrNTJxnN2Z90R5dOCtfrFbEfodnMa4HuHdZnC4Vws7G9dURsdwI3rwR3vhnEHdcaZYM//AznQpwISfu57cnot8hoL+XUAfOQiE0a/GsWO74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HQh8aQiS; arc=none smtp.client-ip=209.85.216.42
+	 MIME-Version:Content-Type; b=CBUikNoH2MpATGPcQ2FSZm/oJP5Bt3DIEkLySesw9N+4Hfg5fTAMNuWDINy4+1sdBWtZhWLRmzCA9R4CPgGXaVeBxGUDh//5mRRSQF02tCS1gJ8U0Ieo2kLCf2ztIY7cf9KAFVD5PzbuViuHpbPPqHWbuFAQCssYMs2s0xNfTrM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S1MkJOJ9; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HQh8aQiS"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso5201914a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:04:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S1MkJOJ9"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85368f1d484so227971b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:05:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788883498; x=1789488298; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=udEwa8n9rLXAHa2zU6AruMqakZJAsEvaZhfj1mlF4oU=;
-        b=HQh8aQiS275IMskl2futVye8miZjnPRPVcRHRjpN4m5eJFvEwFl26e3iBdFbtw7MMf
-         89fGFLmhqKrmoWEfTHIEBokyCNC6ZYFWPOUZ7i0y0ilBtHQxHE/jtsAdKMO2uCMBudrt
-         0wOmWbYugf8iIoTg9tsVq0+UIX32zop3iRkM27MZ31xVpqwRyNoXmfR8y53SuQbdkO69
-         vqrbFq9M6rEKiRPS+stKofqdU9sftr5kAs37PDINL7z93bs4gyI/BRtVGa2kUuefJ2ur
-         13lEFjI6+nY1VCIig76dg/wMiymXN9RJyUxcS3+WVr5OvYGmTcNjnZAcVJFW+j4ISVDh
-         QMbQ==
+        d=gmail.com; s=20251104; t=1788883504; x=1789488304; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EFc84YmPQ7APJ72znZItLC1opm46HMB1M/+k8Tjpgc0=;
+        b=S1MkJOJ9Y0YkBBoQZ0KwaEZiDru6Y7Pmdke1NhTBQmx0IdmOCUFxnXgMHWVILUVUlo
+         Qa5pOTV9ZoYV/i83gN91DkdLbY3R3Gd9LKA/Ar8lCGTPGRmO1H/N9SH8aE2uEMxDaO+b
+         O/nYyAFvO8D3qAtlkGTH4snGcT7AoDUzWYo0teXu4MbrUGFJpq6vvThuM0HEytUydIxQ
+         IOorO6lbwOeVEEpa4kNRedhE8VKIjKSZdSS3/bscmodZbvGD30T+UY9P9GKDRtlFQ6WF
+         Du6+iC60dhlOelsECzOl/1cNPpWIO9BUBs6MZtI8qG5Rb3AZcvK34M8vY0uPhf393KaB
+         5uFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883498; x=1789488298;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=udEwa8n9rLXAHa2zU6AruMqakZJAsEvaZhfj1mlF4oU=;
-        b=WHlqQfaV15HHz8YyLS5Wktpp79XgrPcuR6vOW/pBu2LPSjWN6MTDmDAyFxtWj6OgUD
-         0dgKw3OuABs0yEvpoIZqDg2w0nCS1N9YRvZQAtd0LjBxdm/SSbspQlQNOcYwT3izyvKm
-         oyE8NBIU+9yBZOnzzh8FO97Kv4kqjjEJF6SXPl/odJoFhJwTsdqbF8wUjZR/UFRX8xA7
-         9G6c8ParO+HS0CfvjzUMShRTQ5rguST9KT5kwqPFdJhZyYEOXiKif78hZ4cP4QRXej8q
-         5ycvptDUAnw+DXVQXvS5n+SWDfGGykbzBNkgVDKDn7gjXS7SkNFm3A7FO6yjuyI/WtnL
-         X5uw==
-X-Forwarded-Encrypted: i=1; AKwUvBwTRzVCWlWweZgk5h5/Aaez3n26TCavAGeuRcof/7dqv+wvSTsM3PM3k2Ph93zkEKtZ84NGkhA5FTLDnyw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpP4s7ZGuCYVs9gubbkkDWWcdFjAo1fJP2mC30VSa4g+HoOYkO
-	gm+xub0ZSSsw23/f7Gq3uRan16nrhNwepGz307s2hFXLJf0SP/qP/onA
-X-Gm-Gg: AYBFou1YW8i72QHxeLNSsakZRae0iskNiBeDkdMDWIwhAXgjsH2ZdGCSVNGIaBSqIMx
-	COCbO1T2bjVG3OxEElqyCa4jEnjL+AAAyMHmeydrZL/qptjlOrDh9FoB9qX7TswAuj6M3BO+PbQ
-	vVuUWoIEO8ncY5k8RMJdCvNz3/1fXZQ+X8NrgWo/uHTCjUmDp/yV/PpDqe/VNsH88v9gAkD+h91
-	wWB74BN7IT8kNi10mzRTK4xEUoPQ6NcYldZWYNiBbuTDsvwhOi8soYudBMznKbwq1e7oO7pswPd
-	9IU7VF4feKm+ACpuacpfKGE1pgfbKDygQ7PaWxL6jhAX4g/iIeividgVSNiigqIoucpO0/N3Zyn
-	TJHjFxSsfrPdJE2eTEqTmGhdnpznJgP2NF7BOFAIpZwYAwtmnaxRp4Ogte4jQGpPIGdG5CQb2+t
-	MnUniVt4C101scZJ3/BZ53M0XOt1IXqNvdbHWOo5popWrzCCA5QDZD9T+tPyHXVuzeh1AlTSrxr
-	0GZ9qlvJy5J
-X-Received: by 2002:a17:90a:ec8d:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-39b261002f5mr41870407a91.6.1788883497638;
-        Tue, 08 Sep 2026 09:04:57 -0700 (PDT)
-Received: from x1c ([2405:9800:b670:b64b:3ef4:ec38:7826:6c9b])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33825669695sm14204525eec.3.2026.09.08.09.04.52
+        d=1e100.net; s=20251104; t=1788883504; x=1789488304;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EFc84YmPQ7APJ72znZItLC1opm46HMB1M/+k8Tjpgc0=;
+        b=dtYoxCX/tdrZQszFKq5l7jWikp5U26meF2j+O/+ew+D9Br4s1AAnRIHR0ZQT/woIQt
+         6mRigXNX/ZH/IzV3nWsQtlclXPpHHbBu0JNX9y2lknD+hqJw8U9lcqTfriYzUROZUjVw
+         psj2KLWmomO9c24cotbvx99vDmhbc5WIGZtn97YrBn5XRhn7e17jAKVRZTWVlg+CHtxs
+         WNAKfBnmqEtATbfWAnMWcrkcKUhsZoQnbyEYl8PgRfXf0u8QWawlytgoIynS6A2muG8d
+         M6iyQuqTtBx8dppWcZAUeb49f8dcRzc9C9iLTI4BRzxzciD9r/TH/ySoyljHFv5oFF3h
+         iS3w==
+X-Forwarded-Encrypted: i=1; AKwUvByIOD1sap2ysxLyF3qrLS4zeAOkY1rnQd0bpxSt7dm3aloiObzroMm3yMrneuAXhOpfcn7W1ky6iQT8Xms=@vger.kernel.org
+X-Gm-Message-State: AFuF++leue0pa4krqQErF691ndoMzHEPHLY/HIhEpHSXVVeMPa31RBWF
+	nXfDGsbyDNm8QHArjC+cESbNyEAlxyAyIzskQo1CSEi/H6PiPGJVEhQL
+X-Gm-Gg: AYBFou3GdFJzz1KMMHXR1Gx7hCyknirc1uI6T1ePwcC+psBHpCLO96sw1clkN/PjlXh
+	G3EASGAfmpAe0Wua6fsfSovZAI3I5Oq5G/+ZgCs2Hg1PBUzBmHJMkc1jTSpuF4IttvImsbvoAT1
+	tLcDIxuPzCjtaq3P3YnltGE/nK6cZfp2fTa8fqSsnUAIhijoAz2tjdP28LqP6x/Cmwj1MPOkh/5
+	v/b7FOwe+mSrRHXsH72FbFXIgHUB7mEkuG6g87hM55kov2zzkgBrMDTL097PHiyp9cQwIXbwYz4
+	CVH0h1+O+KkhlWaJTwSeZlABad3zID6JrMUvxf6cpVLUodZxTLl7Xw3h91iNiJ+3tNns2/mzqKL
+	NnaqHJAJmtMtA5l38NL3NLz91OW8cbESy9LdW12929ZGQjmyV0wxlkw9Rtanyzvm31Lxb9GYNlL
+	nMOGwsz5/2kChJFr/vg+TIgDytk5yt+7NKYRnXBFCqZB77taajAdIqMwdkFCLPBG3aUAeXDkSkH
+	JRAl6h5RytrNTMEXk125EaByw==
+X-Received: by 2002:a05:6a00:4787:b0:863:2fc0:4052 with SMTP id d2e1a72fcca58-8632fc04106mr12652769b3a.2.1788883503595;
+        Tue, 08 Sep 2026 09:05:03 -0700 (PDT)
+Received: from o6.lan ([240e:391:e05:8d20::1])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153027951sm5767881b3a.40.2026.09.08.09.04.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:04:57 -0700 (PDT)
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-To: seanjc@google.com,
-	pbonzini@redhat.com,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	shuah@kernel.org
-Cc: hpa@zytor.com,
-	binbin.wu@linux.intel.com,
-	kai.huang@intel.com,
-	kvm@vger.kernel.org,
+        Tue, 08 Sep 2026 09:05:03 -0700 (PDT)
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: surenb@google.com
+Cc: akpm@linux-foundation.org,
+	liam@infradead.org,
+	ljs@kernel.org,
+	vbabka@kernel.org,
+	david@redhat.com,
+	willy@infradead.org,
+	jannh@google.com,
+	paulmck@kernel.org,
+	pfalcato@suse.de,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	jkoolstra@xs4all.nl,
-	Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Subject: [PATCH v1 1/2] KVM: x86: Reject reserved CR8 bits in KVM_SET_SREGS
-Date: Tue,  8 Sep 2026 23:04:25 +0700
-Message-ID: <20260908160426.6547-2-tharitt97@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908160426.6547-1-tharitt97@gmail.com>
-References: <20260908160426.6547-1-tharitt97@gmail.com>
+	linux-fsdevel@vger.kernel.org,
+	Xueyuan Chen <xueyuan.chen21@gmail.com>
+Subject: Re: [PATCH v2 0/5] read proc/pid/smaps_rollup under per-vma lock
+Date: Wed,  9 Sep 2026 00:04:52 +0800
+Message-ID: <20260908160452.1548235-1-xueyuan.chen21@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907063918.3432401-1-surenb@google.com>
+References: <20260907063918.3432401-1-surenb@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-kvm_is_valid_sregs() validates the incoming CR0, CR4, and efer values but
-never checks CR8.
 
-When userspace passes a CR8 value with any of the
-reserved bits [63:4] set, __set_sregs_common() forwards it to
-kvm_set_cr8(), which rejects the reserved bits and returns early. That
-return value is not checked, so the ioctl reports success while the
-requested value is silently dropped. A subsequent KVM_GET_SREGS then
-returns a CR8 different from the one userspace believed it had written.
+On Sun, Sep 06, 2026 at 11:39:13PM -0700, Suren Baghdasaryan wrote:
+>proc/pid/smaps_rollup can be read using the combination of RCU and
+>VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
+>required to safely traverse the VMA tree and VMA lock stabilizes the
+>VMA being processed and the pagetable walk.
+>Note that we have to keep the logic to drop mmap_lock on contention
+>because even when using per-VMA locks we might have to fall back to
+>holding the mmap_lock.
+>
 
-Factor the reserved-bit check out into kvm_is_valid_cr8() and use it both
-in kvm_set_cr8() and in kvm_is_valid_sregs().
+Hi Suren,
 
-Fixes: 2f5bb3fe5835 ("KVM: x86: Move the bulk of register specific code from x86.c to regs.c")
-Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
----
- arch/x86/kvm/regs.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+I tested this series on my arm64 24-core machine, using the same
+command:
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 8f66438989e4..fad31b59c622 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -440,9 +440,14 @@ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
- }
- EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_set_cr4);
- 
-+static bool kvm_is_valid_cr8(unsigned long cr8)
-+{
-+	return !(cr8 & CR8_RESERVED_BITS);
-+}
-+
- int kvm_set_cr8(struct kvm_vcpu *vcpu, unsigned long cr8)
- {
--	if (cr8 & CR8_RESERVED_BITS)
-+	if (!kvm_is_valid_cr8(cr8))
- 		return 1;
- 	if (lapic_in_kernel(vcpu))
- 		kvm_lapic_set_tpr(vcpu, cr8);
-@@ -565,6 +570,7 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
- 
- 	return kvm_is_valid_cr4(vcpu, sregs->cr4) &&
- 	       kvm_is_valid_cr0(vcpu, sregs->cr0) &&
-+	       kvm_is_valid_cr8(sregs->cr8) &&
- 	       kvm_valid_efer(vcpu, sregs->efer);
- }
- 
--- 
-2.53.0
+run-proc-vs-map.sh --nsamples 20 --rawdata -- \
+--busyduration 2 --procfile smaps_rollup
 
+baseline:
+  Median   Minimum   Maximum
+    0.132     0.121     2.600
+    0.132     0.123     2.768
+    0.132     0.123     2.804
+    0.132     0.125     2.835
+    0.132     0.125     2.837
+    0.132     0.125     2.849
+    0.132     0.125     2.858
+    0.132     0.125     2.888
+    0.132     0.130     2.894
+    0.132     0.132     2.896
+    0.132     0.132     2.915
+    0.132     0.134     2.921
+    0.132     0.134     2.927
+    0.132     0.137     2.945
+    0.132     0.141     2.984
+    0.132     0.246     3.004
+    0.132     0.270     3.381
+    0.132     1.316     3.533
+    0.132     1.321     3.551
+    0.132     1.343     3.924
+
+patched:
+   Median   Minimum   Maximum
+    0.006     0.006     1.950
+    0.006     0.006     1.955
+    0.006     0.006     1.955
+    0.006     0.006     1.956
+    0.006     0.006     1.956
+    0.006     0.006     1.957
+    0.006     0.006     1.958
+    0.006     0.006     1.959
+    0.006     0.006     1.959
+    0.006     0.006     1.961
+    0.006     0.006     1.962
+    0.006     0.006     1.963
+    0.006     0.006     1.964
+    0.006     0.006     1.966
+    0.006     0.006     1.969
+    0.006     0.006     1.976
+    0.006     0.006     1.982
+    0.006     0.006     1.995
+    0.006     0.006     1.996
+    0.006     0.006     2.043
+
+So the median is 0.132 -> 0.006 ms, about 22x, and the worst case
+drops from 3.9 to 2.0 ms.
+
+Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+
+Thanks,
+Xueyuan
+
+>The first 3 patches are cleanups making later change simpler. The main
+>change is in patch 4. Patch 5 extends existing proc-maps-race tearing
+>test to verify smaps_rollup content.
+>
+>Changes since v1 [1]
+>- removed helper functions which are not needed after per-VMA locks
+>became unconditional in [2];
+>- added a cover letter, per Lorenzo Stoakes and David Hildenbrand;
+>- removed is_mmap_lock_contended() as it's no more needed after [2],
+>per David Hildenbrand;
+>- fixed typos, per Lorenzo Stoakes and David Hildenbrand;
+>- refactored duplicate error checks, per Lorenzo Stoakes;
+>- eliminated special case of start=0 in smap_gather_stats(),
+>per Lorenzo Stoakes;
+>- updated comments, per Lorenzo Stoakes;
+>- moved original comment about 4 possible cases when mmap lock is
+>dropped into patch 4 changelog;
+>- added smaps_rollup testing into proc-maps-race test.
+>
+>[1] https://lore.kernel.org/all/20260606015729.1837935-1-surenb@google.com/
+>[2] https://lore.kernel.org/all/20260813193433.3318288-1-surenb@google.com/
+>
+>Suren Baghdasaryan (5):
+>  proc/task_mmu: remove unnecessary helpers
+>  proc/task_mmu: remove unnecessary inlines in function definitions
+>  proc/task_mmu: remove special-casing of smap_gather_stats() start
+>    parameter
+>  proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock
+>  selftests/proc: add /proc/pid/smaps_rollup tearing tests
+>
+> fs/proc/task_mmu.c                            | 280 +++++++-----------
+> tools/testing/selftests/proc/proc-maps-race.c | 187 +++++++++++-
+> 2 files changed, 291 insertions(+), 176 deletions(-)
+>
+>
+>base-commit: e3fc12b08aadde9cec7b3799ac0e0c9a1aa245c4
+>-- 
+>2.55.0.979.g7e5102b832-goog
+>
+>
