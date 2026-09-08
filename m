@@ -1,45 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA594351C2E;
-	Tue,  8 Sep 2026 04:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78A0319F115;
+	Tue,  8 Sep 2026 04:22:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788841183; cv=none; b=R81TtI65B+toQoDeIlpZOav8Libq3yjm9uW7tRusNkbYMU7d+roe1gmKGgtiUD93CfTYUKSQfVuBP+J+ZV2+h9Uk+Ggj72/zDj1tYLJ3AVwK/k7u1q49NpPdo70jEKBMk9Aww3rE4OlAlLR2Xxy4JwCKc3Zt3Kw9VjQM/i9lXms=
+	t=1788841366; cv=none; b=WRCiOk/9f3rGqzrSGLIbcrHBvBJlLIckXlZ3tilxsEppbg2ptrNA8nuHLnIBqKsRhp5vERbOk8SxlfWAunszN9IskxtIL//CQ6P14bujoQE9lxJuZSk8RLND0Uxixz/4uGqwrrSVtPTrgLNWs3DazBQ5jI6JNq1RDEUeS+eJ8bA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788841183; c=relaxed/simple;
-	bh=4EGpw+4NS2YtAY7YoxGWZBkJsbNtVsJZcX5YGO4nDa0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s2zVEYpFkpyhCenqX8qAuOQsNnSLuh8e/cpE8BkHxyv2miL/6rDJiywIJvh5e8pgy6l3LbYoPa0OLlApoka3OE8pFUqv+N0A3QWJ+yelQ++4loNzZsGYgNkUM5DakkdASaa7mSVP+dqcFyiqlcEd+ZAEd2EArwlY2Gkk8u/v8qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zbr4OiRc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zbr4OiRc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CE341F00A3E;
-	Tue,  8 Sep 2026 04:19:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788841181;
-	bh=vKmo73A1z07iImrTwKZJE9KTVXf5sPh6dnxOhpUAZiQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zbr4OiRclB4X6We7yyJ1uPWtwt+Yk9YMV6t0rd3uHCElqrnQnHJQLxwOZWDj/+T9L
-	 cb88V5y5Ch+LqGtX6jHfioaAkWSwjqSVMSuo06XcwzeSIwLHH5JBH/MC84Vp2MTzpK
-	 FAEadJ6KbL9u+f9MN/qSkbR366fymsS80OkjaNt5MLhNH6Kpaq2FnIFM5sMULh2hSv
-	 R7JR+EYTHXwKpfEN9HRDN0BsQXKQ4GmNx2fbMFDGSFElKC0greGK4J3JMbBI5M86Zl
-	 lGJVIWjpkvf5DX5kEwKnOgz5bd27tqoKMLZJcjlRkuttm2CSuVyYVhTUK6MZxmFEnM
-	 hE5Sx5R2AG6Mg==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Perry Yuan <perry.yuan@amd.com>,
-	linux-kernel@vger.kernel.org (open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)),
-	linux-pm@vger.kernel.org (open list:CPU FREQUENCY SCALING FRAMEWORK),
-	Vishal Badole <Vishal.Badole@amd.com>,
-	Richard Gong <Richard.Gong@amd.com>,
-	"Mario Limonciello (AMD)" <superm1@kernel.org>
-Subject: [PATCH v2 1/3] cpufreq/amd-pstate: Add per SoC and per core type EPP tuning values
-Date: Mon,  7 Sep 2026 23:19:33 -0500
-Message-ID: <20260908041935.402116-2-superm1@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908041935.402116-1-superm1@kernel.org>
-References: <20260908041935.402116-1-superm1@kernel.org>
+	s=arc-20240116; t=1788841366; c=relaxed/simple;
+	bh=qFAx9w5djwomjCqZF/+EPZjtBV3yE4+cb/UYRsC23+Q=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jrjss80r0cITUmwkUknz/X/rRsMZIJtRyuB3T9Me/dOSXRKkKopWG4aJJGhKH6kR7dyyaHfSFRHEo9kjDsrl8ONg3/qIl+FIv9TSoRXDicpDd0rp9vYpz3e77sThuP6wREo95ANNOsJTvk6dpYBBacQum5Hg9RrwkW1v3JBEWnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wA3EX6DjZ9qJ0v9AA--.22841S3;
+	Tue, 08 Sep 2026 12:22:28 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgCnPKeDjZ9qvzlkBA--.62142S2;
+	Tue, 08 Sep 2026 12:22:27 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org
+Cc: joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	benh@kernel.crashing.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Song Li <songl@zju.edu.cn>
+Subject: [PATCH] usb: gadget: aspeed-vhub: cancel wake work on device removal
+Date: Tue,  8 Sep 2026 04:17:39 +0000
+Message-Id: <20260908041740.613713-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -47,320 +40,141 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgCnPKeDjZ9qvzlkBA--.62142S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?aQaxtQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBHBKz8wg5YwzVCsKXh9KORbDx6nCOS/gp/XLEQsM9WWEs6A
+	SAYFFf03ZgYa92J2mMSp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxZFW5Jw17WF1kCF4fKF4rJFc_yoW7JFW8pa
+	15JrWxAFWDtFnFgrWUJrs3XF45G393KFWUGrW7Xw4YvF93Aryvyry7tFWFqa1UAFWIyF9I
+	9F4qqr4UXFs5XrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
 
-On newer SoCs the behavior of the platform has changed, and using
-the same EPP values for everything will yield worse results than expected.
+wake_work is armed from the gadget .wakeup callback to resume suspended
+downstream ports, and it is never cancelled in ast_vhub_remove(), so a
+work item queued before or during removal can run after devm has freed
+vhub and its ports, a use-after-free.
 
-Add a x86_cpu_id match table that allows setting policies on a
-per-SoC/per-core type basis.  If a SoC is missing, fallback to legacy
-values that are used.
+Cancelling the work alone is not sufficient: usb_gadget_wakeup() takes
+no lock and the unbind path never clears wakeup_en, so a remote-wakeup
+request in flight on another CPU can re-arm the work after the cancel
+and before vhub is freed.
 
-Changes also:
-- Change epp_values array and amd_pstate_cpu_epp_values() from unsigned int to u8
-- Add static_assert to ensure epp_values has rows for all CPU types
-- Fix show_energy_performance_preference() loop to exclude uninitialized
-  EPP_INDEX_CUSTOM and EPP_INDEX_DYNAMIC slots
-- Add debug print statements
-- Remove amd_pstate_get_epp_from_platform_profile and inline the logic
-- Fix cleanup path in amd_pstate_set_dynamic_epp
-- Change show_energy_performance_preference to use for loop with preference tracking
-- Add debug prints in amd_pstate_init_epp_values
+ast_vhub_del_dev() already clears d->registered under vhub->lock before
+unregistering the gadget. Refuse the wakeup in ast_vhub_udc_wakeup()
+once d->registered is clear: the check and the schedule_work() are then
+atomic against the unbind, so a wakeup that passed before the flag was
+cleared is drained by the cancel_work_sync() after the del_dev loop,
+and one that arrives later returns without arming. Also move INIT_WORK()
+to the top of ast_vhub_probe(), since the probe error path reuses
+ast_vhub_remove() and would otherwise cancel a never-initialized work
+item.
 
-Behavioral change: show_energy_performance_preference() now returns a numeric
-EPP value via sysfs when the cached EPP does not match any named preference,
-instead of returning -EINVAL as before. This provides visibility into custom
-EPP values set by hardware or BIOS.
+This issue was found by an in-house static analysis tool.
 
-No new platforms are added in this commit.
-
-Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Fixes: 7ecca2a4080c ("usb/gadget: Add driver for Aspeed SoC virtual hub")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- drivers/cpufreq/amd-pstate.c | 197 ++++++++++++++++++++++++++++-------
- 1 file changed, 160 insertions(+), 37 deletions(-)
+ drivers/usb/gadget/udc/aspeed-vhub/core.c | 4 ++++
+ drivers/usb/gadget/udc/aspeed-vhub/dev.c  | 2 +-
+ drivers/usb/gadget/udc/aspeed-vhub/hub.c  | 5 +++--
+ drivers/usb/gadget/udc/aspeed-vhub/vhub.h | 1 +
+ 4 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 9325c657d2d49..960db977cc8ca 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -55,10 +55,10 @@
- #define AMD_PSTATE_TRANSITION_DELAY	1000
- #define AMD_PSTATE_FAST_CPPC_TRANSITION_DELAY 600
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+index 4a8b9ff83..069673f0d 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
++++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+@@ -267,6 +267,9 @@ static void ast_vhub_remove(struct platform_device *pdev)
+ 	for (i = 0; i < vhub->max_ports; i++)
+ 		ast_vhub_del_dev(&vhub->ports[i].dev);
  
--#define AMD_CPPC_EPP_PERFORMANCE		0x00
--#define AMD_CPPC_EPP_BALANCE_PERFORMANCE	0x80
--#define AMD_CPPC_EPP_BALANCE_POWERSAVE		0xBF
--#define AMD_CPPC_EPP_POWERSAVE			0xFF
-+#define AMD_CPPC_EPP_LEGACY_PERFORMANCE			0x00
-+#define AMD_CPPC_EPP_LEGACY_BALANCE_PERFORMANCE		0x80
-+#define AMD_CPPC_EPP_LEGACY_BALANCE_POWERSAVE		0xBF
-+#define AMD_CPPC_EPP_LEGACY_POWERSAVE			0xFF
- 
- static const char * const amd_pstate_mode_string[] = {
- 	[AMD_PSTATE_UNDEFINED]   = "undefined",
-@@ -129,14 +129,102 @@ static const char * const energy_perf_strings[] = {
- };
- static_assert(ARRAY_SIZE(energy_perf_strings) == EPP_INDEX_MAX);
- 
--static unsigned int epp_values[] = {
--	[EPP_INDEX_DEFAULT] = 0,
--	[EPP_INDEX_PERFORMANCE] = AMD_CPPC_EPP_PERFORMANCE,
--	[EPP_INDEX_BALANCE_PERFORMANCE] = AMD_CPPC_EPP_BALANCE_PERFORMANCE,
--	[EPP_INDEX_BALANCE_POWERSAVE] = AMD_CPPC_EPP_BALANCE_POWERSAVE,
--	[EPP_INDEX_POWERSAVE] = AMD_CPPC_EPP_POWERSAVE,
-+/*
-+ * The numeric EPP value programmed for each named preference. First dimension
-+ * is CPU type (TOPO_CPU_TYPE_ANY for non-hybrid, TOPO_CPU_TYPE_PERFORMANCE/
-+ * EFFICIENCY/LOW_POWER for hybrid). The initializer holds the legacy values
-+ * used as the fallback on any platform not listed in amd_pstate_epp_soc_ids[];
-+ * amd_pstate_init_epp_values() overwrites slots at boot when the running SoC
-+ * has a per-SoC (and potentially per-CPU-type) override.
-+ */
-+static u8 epp_values[][EPP_INDEX_MAX] = {
-+	[TOPO_CPU_TYPE_ANY] = {
-+		[EPP_INDEX_DEFAULT] = 0,
-+		[EPP_INDEX_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_BALANCE_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_POWERSAVE] = AMD_CPPC_EPP_LEGACY_BALANCE_POWERSAVE,
-+		[EPP_INDEX_POWERSAVE] = AMD_CPPC_EPP_LEGACY_POWERSAVE,
-+	},
-+	[TOPO_CPU_TYPE_PERFORMANCE] = {
-+		[EPP_INDEX_DEFAULT] = 0,
-+		[EPP_INDEX_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_BALANCE_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_POWERSAVE] = AMD_CPPC_EPP_LEGACY_BALANCE_POWERSAVE,
-+		[EPP_INDEX_POWERSAVE] = AMD_CPPC_EPP_LEGACY_POWERSAVE,
-+	},
-+	[TOPO_CPU_TYPE_EFFICIENCY] = {
-+		[EPP_INDEX_DEFAULT] = 0,
-+		[EPP_INDEX_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_BALANCE_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_POWERSAVE] = AMD_CPPC_EPP_LEGACY_BALANCE_POWERSAVE,
-+		[EPP_INDEX_POWERSAVE] = AMD_CPPC_EPP_LEGACY_POWERSAVE,
-+	},
-+	[TOPO_CPU_TYPE_LOW_POWER] = {
-+		[EPP_INDEX_DEFAULT] = 0,
-+		[EPP_INDEX_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_PERFORMANCE] = AMD_CPPC_EPP_LEGACY_BALANCE_PERFORMANCE,
-+		[EPP_INDEX_BALANCE_POWERSAVE] = AMD_CPPC_EPP_LEGACY_BALANCE_POWERSAVE,
-+		[EPP_INDEX_POWERSAVE] = AMD_CPPC_EPP_LEGACY_POWERSAVE,
-+	},
-+};
-+static_assert(ARRAY_SIZE(epp_values) == TOPO_CPU_TYPE_LOW_POWER + 1,
-+	      "epp_values must have entries for all CPU types up to TOPO_CPU_TYPE_LOW_POWER");
++	/* Final drain; the worker takes vhub->lock, so stay outside of it */
++	cancel_work_sync(&vhub->wake_work);
 +
-+/*
-+ * Get the EPP value row for a given CPU, accounting for hybrid CPU types.
-+ * Non-hybrid systems use TOPO_CPU_TYPE_ANY; hybrid systems use the CPU's
-+ * actual type (PERFORMANCE/EFFICIENCY/LOW_POWER).
-+ */
-+static inline u8 *amd_pstate_cpu_epp_values(int cpu)
-+{
-+	enum x86_topology_cpu_type type = cpu_data(cpu).topo.cpu_type;
-+
-+	if (type == TOPO_CPU_TYPE_PERFORMANCE ||
-+	    type == TOPO_CPU_TYPE_EFFICIENCY ||
-+	    type == TOPO_CPU_TYPE_LOW_POWER)
-+		return epp_values[type];
-+
-+	return epp_values[TOPO_CPU_TYPE_ANY];
-+}
-+
-+/**
-+ * struct amd_pstate_epp_values - EPP values for the four named preferences
-+ * @performance:	value for the "performance" preference
-+ * @balance_performance: value for the "balance_performance" preference
-+ * @balance_power:	value for the "balance_power" preference
-+ * @power:		value for the "power" preference
-+ */
-+struct amd_pstate_epp_values {
-+	u8 performance;
-+	u8 balance_performance;
-+	u8 balance_power;
-+	u8 power;
-+};
-+
-+/**
-+ * struct amd_pstate_epp_soc - per-CPU-type EPP overrides for hybrid systems
-+ * @performance_core:	values for TOPO_CPU_TYPE_PERFORMANCE cores
-+ * @efficiency_core:	values for TOPO_CPU_TYPE_EFFICIENCY cores
-+ * @low_power_core:	values for TOPO_CPU_TYPE_LOW_POWER cores
-+ *
-+ * Referenced from amd_pstate_epp_soc_ids[] to give a hybrid platform its own
-+ * numeric EPP values for the four named preferences, with distinct values per
-+ * CPU type. Non-hybrid systems are not listed in the table and always use the
-+ * legacy defaults.
-+ */
-+struct amd_pstate_epp_soc {
-+	struct amd_pstate_epp_values performance_core;
-+	struct amd_pstate_epp_values efficiency_core;
-+	struct amd_pstate_epp_values low_power_core;
-+};
-+
-+/*
-+ * Per-CPU-type EPP overrides for hybrid systems. Only hybrid SoCs should be
-+ * listed here; non-hybrid systems always use the legacy defaults.
-+ */
-+static const struct x86_cpu_id amd_pstate_epp_soc_ids[] __initconst = {
-+	{}
- };
--static_assert(ARRAY_SIZE(epp_values) == EPP_INDEX_MAX - 2);
+ 	spin_lock_irqsave(&vhub->lock, flags);
  
- typedef int (*cppc_mode_transition_fn)(int);
+ 	/* Mask & ack all interrupts  */
+@@ -328,6 +331,7 @@ static int ast_vhub_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
  
-@@ -1204,13 +1292,16 @@ static int amd_pstate_power_supply_notifier(struct notifier_block *nb,
- static int amd_pstate_get_epp_from_platform_profile(struct cpufreq_policy *policy,
- 						    enum platform_profile_option profile)
- {
-+	struct amd_cpudata *cpudata = policy->driver_data;
-+	u8 *values = amd_pstate_cpu_epp_values(cpudata->cpu);
-+
- 	switch (profile) {
- 	case PLATFORM_PROFILE_PERFORMANCE:
--		return AMD_CPPC_EPP_PERFORMANCE;
-+		return values[EPP_INDEX_PERFORMANCE];
- 	case PLATFORM_PROFILE_BALANCED:
- 		return amd_pstate_get_balanced_epp(policy);
- 	case PLATFORM_PROFILE_LOW_POWER:
--		return AMD_CPPC_EPP_POWERSAVE;
-+		return values[EPP_INDEX_POWERSAVE];
- 	default:
- 		break;
- 	}
-@@ -1420,6 +1511,7 @@ ssize_t store_energy_performance_preference(struct cpufreq_policy *policy,
- 				    const char *buf, size_t count)
- {
- 	struct amd_cpudata *cpudata = policy->driver_data;
-+	u8 *values = amd_pstate_cpu_epp_values(policy->cpu);
- 	ssize_t ret;
- 	bool raw_epp = false;
- 	u8 epp;
-@@ -1454,12 +1546,13 @@ ssize_t store_energy_performance_preference(struct cpufreq_policy *policy,
- 		}
+ 	spin_lock_init(&vhub->lock);
++	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
+ 	vhub->pdev = pdev;
+ 	vhub->port_irq_mask = GENMASK(VHUB_IRQ_DEV1_BIT + vhub->max_ports - 1,
+ 				      VHUB_IRQ_DEV1_BIT);
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+index 8b9449d16..4b389de0d 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
++++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+@@ -280,7 +280,7 @@ static int ast_vhub_udc_wakeup(struct usb_gadget* gadget)
+ 	int rc = -EINVAL;
  
- 		if (ret)
--			epp = epp_values[ret];
-+			epp = values[ret];
- 		else
- 			epp = cpudata->epp_default_dc;
- 	}
+ 	spin_lock_irqsave(&d->vhub->lock, flags);
+-	if (!d->wakeup_en)
++	if (!d->wakeup_en || !d->registered)
+ 		goto err;
  
--	if (epp > 0 && cpudata->policy == CPUFREQ_POLICY_PERFORMANCE) {
-+	if (epp > 0 && epp != values[EPP_INDEX_PERFORMANCE] &&
-+	    cpudata->policy == CPUFREQ_POLICY_PERFORMANCE) {
- 		pr_debug("EPP cannot be set under performance policy\n");
- 		return -EBUSY;
- 	}
-@@ -1484,34 +1577,31 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(store_energy_performance_preference);
- ssize_t show_energy_performance_preference(struct cpufreq_policy *policy, char *buf)
- {
- 	struct amd_cpudata *cpudata = policy->driver_data;
--	u8 preference, epp;
-+	u8 *values = amd_pstate_cpu_epp_values(policy->cpu);
-+	u8 epp;
-+	int i;
- 
- 	epp = FIELD_GET(AMD_CPPC_EPP_PERF_MASK, cpudata->cppc_req_cached);
- 
- 	if (!cpudata->dynamic_epp && cpudata->raw_epp)
- 		return sysfs_emit(buf, "%u\n", epp);
- 
--	switch (epp) {
--	case AMD_CPPC_EPP_PERFORMANCE:
--		preference = EPP_INDEX_PERFORMANCE;
--		break;
--	case AMD_CPPC_EPP_BALANCE_PERFORMANCE:
--		preference = EPP_INDEX_BALANCE_PERFORMANCE;
--		break;
--	case AMD_CPPC_EPP_BALANCE_POWERSAVE:
--		preference = EPP_INDEX_BALANCE_POWERSAVE;
--		break;
--	case AMD_CPPC_EPP_POWERSAVE:
--		preference = EPP_INDEX_POWERSAVE;
--		break;
--	default:
--		return -EINVAL;
--	}
-+	/*
-+	 * Map the cached EPP value back to a named preference. Skip the
-+	 * "default" slot (index 0) so an EPP of 0 reports as "performance".
-+	 * Stop at POWERSAVE; CUSTOM and DYNAMIC are not initialized in epp_values.
-+	 */
-+	for (i = EPP_INDEX_PERFORMANCE; i <= EPP_INDEX_POWERSAVE; i++) {
-+		const char *name = energy_perf_strings[i];
- 
--	if (cpudata->dynamic_epp)
--		return sysfs_emit(buf, "dynamic(profile:%s)\n", energy_perf_strings[preference]);
-+		if (epp == values[i]) {
-+			if (cpudata->dynamic_epp)
-+				return sysfs_emit(buf, "dynamic(profile:%s)\n", name);
-+			return sysfs_emit(buf, "%s\n", name);
-+		}
-+	}
- 
--	return sysfs_emit(buf, "%s\n", energy_perf_strings[preference]);
-+	return sysfs_emit(buf, "%u\n", epp);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(show_energy_performance_preference);
- 
-@@ -1953,9 +2043,11 @@ static int amd_pstate_epp_cpu_init(struct cpufreq_policy *policy)
- 		cpudata->epp_default_ac = cpudata->epp_default_dc = default_epp;
- 		cpudata->current_profile = PLATFORM_PROFILE_PERFORMANCE;
- 	} else {
-+		u8 *values = amd_pstate_cpu_epp_values(policy->cpu);
-+
- 		policy->policy = CPUFREQ_POLICY_POWERSAVE;
--		cpudata->epp_default_ac = AMD_CPPC_EPP_PERFORMANCE;
--		cpudata->epp_default_dc = AMD_CPPC_EPP_BALANCE_PERFORMANCE;
-+		cpudata->epp_default_ac = values[EPP_INDEX_PERFORMANCE];
-+		cpudata->epp_default_dc = values[EPP_INDEX_BALANCE_PERFORMANCE];
- 		cpudata->current_profile = PLATFORM_PROFILE_BALANCED;
- 	}
- 
-@@ -2254,6 +2346,34 @@ static bool amd_cppc_supported(void)
- 	return true;
+ 	DDBG(d, "Device initiated wakeup\n");
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+index 02fe1a08d..d0345f310 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
++++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+@@ -558,7 +558,7 @@ void ast_vhub_device_connect(struct ast_vhub *vhub,
+ 		ast_vhub_send_host_wakeup(vhub);
  }
  
-+/*
-+ * Resolve the numeric EPP values for hybrid systems. Only hybrid SoCs are listed
-+ * in amd_pstate_epp_soc_ids[]; non-hybrid systems always use the legacy defaults.
-+ */
-+static inline void __init amd_pstate_set_epp_values(enum x86_topology_cpu_type type,
-+						    const struct amd_pstate_epp_values *core)
-+{
-+	epp_values[type][EPP_INDEX_PERFORMANCE] = core->performance;
-+	epp_values[type][EPP_INDEX_BALANCE_PERFORMANCE] = core->balance_performance;
-+	epp_values[type][EPP_INDEX_BALANCE_POWERSAVE] = core->balance_power;
-+	epp_values[type][EPP_INDEX_POWERSAVE] = core->power;
-+}
-+
-+static void __init amd_pstate_init_epp_values(void)
-+{
-+	const struct x86_cpu_id *id = x86_match_cpu(amd_pstate_epp_soc_ids);
-+	const struct amd_pstate_epp_soc *soc;
-+
-+	if (!id || !id->driver_data)
-+		return;
-+
-+	soc = (const struct amd_pstate_epp_soc *)id->driver_data;
-+
-+	amd_pstate_set_epp_values(TOPO_CPU_TYPE_PERFORMANCE, &soc->performance_core);
-+	amd_pstate_set_epp_values(TOPO_CPU_TYPE_EFFICIENCY, &soc->efficiency_core);
-+	amd_pstate_set_epp_values(TOPO_CPU_TYPE_LOW_POWER, &soc->low_power_core);
-+}
-+
- static int __init amd_pstate_init(void)
+-static void ast_vhub_wake_work(struct work_struct *work)
++void ast_vhub_wake_work(struct work_struct *work)
  {
- 	struct device *dev_root;
-@@ -2281,6 +2401,9 @@ static int __init amd_pstate_init(void)
- 	/* check if this machine need CPPC quirks */
- 	dmi_check_system(amd_pstate_quirks_table);
+ 	struct ast_vhub *vhub = container_of(work,
+ 					     struct ast_vhub,
+@@ -588,6 +588,8 @@ static void ast_vhub_wake_work(struct work_struct *work)
  
-+	/* resolve per-SoC EPP values for the named preferences */
-+	amd_pstate_init_epp_values();
+ void ast_vhub_hub_wake_all(struct ast_vhub *vhub)
+ {
++	lockdep_assert_held(&vhub->lock);
 +
  	/*
- 	* determine the driver mode from the command line or kernel config.
- 	* If no command line input is provided, cppc_state will be AMD_PSTATE_UNDEFINED.
+ 	 * A device is trying to wake the world, because this
+ 	 * can recurse into the device, we break the call chain
+@@ -1076,7 +1078,6 @@ static int ast_vhub_init_desc(struct ast_vhub *vhub)
+ int ast_vhub_init_hub(struct ast_vhub *vhub)
+ {
+ 	vhub->speed = USB_SPEED_UNKNOWN;
+-	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
+ 
+ 	return ast_vhub_init_desc(vhub);
+ }
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
+index aca2050e2..96f1c3709 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
++++ b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
+@@ -547,6 +547,7 @@ void ast_vhub_hub_suspend(struct ast_vhub *vhub);
+ void ast_vhub_hub_resume(struct ast_vhub *vhub);
+ void ast_vhub_hub_reset(struct ast_vhub *vhub);
+ void ast_vhub_hub_wake_all(struct ast_vhub *vhub);
++void ast_vhub_wake_work(struct work_struct *work);
+ 
+ /* dev.c */
+ int ast_vhub_init_dev(struct ast_vhub *vhub, unsigned int idx);
 -- 
-2.43.0
+2.34.1
 
