@@ -1,271 +1,230 @@
-Received: from mta0.migadu.com (out-210.mta0.migadu.com [91.218.175.210])
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5BF598BF4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:44:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.210
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889485; cv=none; b=US+gcKHS8POYSuVPVm8MLGk668odr+VJlerqWYuUfxkRgeH9ZKk4fMtBEnfYDNOIARyz7KV62R/C0N6gaagVpIROIwG0O/PcESVeUvxCdX2z6DK+188/Q4XQA/QGG/eHI6ZONPEg0pBpI0bIbFAqZpWR6b93pO0/LfFRyZUChe4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889485; c=relaxed/simple;
-	bh=/x/RR+oX5xZykj/EaAaJ0LoJZtIOzswkjAzDGQjLwik=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IYfNaVrvp4ckT+qiDFU3KrpGsDYBNKGto9euSCohrlgsD2q1glRwHXcgr5fDqgFCFp7lCoiBYJxthZkUvnkgSqJ5tIb9cFoCLB8LXx4W+f19m23I6nWcRYiR9gIiY9dxj9XZ838bn8bW0R1/eldFFMDau6yvrNYpd7zb50V/5Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=P3D1lHnK; arc=none smtp.client-ip=91.218.175.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9613A59C999
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:44:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788889494; cv=pass; b=HI+O6nqjaYrV1uAz6ghHr83xZIaHZs6o57YatHu4NCou5K5B1F6Z834YeYo+JbZjEvAC1rkuk6IjNENPAaygc5U5M/wgLnyjREhMOb8s4Zm34hyXI+MR9ZRej2cp4wZvK7ufFCFR2xkAKdfDmhafnuPcRSxVbYEGhewHvp+Y8fk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788889494; c=relaxed/simple;
+	bh=ShkHwOUomUiQJMzonDM5h/5GA/lpUuonj2FuUCvW7zc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ksQOlyy+qzAP5Jd/j3G5WzD4xI/AZjp5G7qadU7Bw9WpkzZVgOAVSUSjgxWHL+cSj/X3sxfUuu2PR2kcQN9H2xNCwrdFkYZVj9tw1kICIz45KWf1xdGq9QEXpZrtuPv35CuS+CqBZHWJEOef6A4xoLEMiUAw7z87rU4MxIexVmg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DPdGLf6a; arc=pass smtp.client-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="P3D1lHnK"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/x/RR+oX5xZykj/EaAaJ0LoJZtIOzswkjAzDGQjLwik=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788889479; v=1; x=1789494279;
- b=P3D1lHnKK1Va+sWt3gXA8Tdi82eoW7vdbdF+V8ufnJjJpGFbA4lQEs+QdiO2AbHjbqOpn1tf
- KpDPyVXbCdjd0Z5GU2qkbzryn0zqqup4C06JzcFNbw3AlYdHyJ2N7hOwANH+fjiE6838jnJzIw0
- DG4Xt46CAxl1TSnle6sZkCM8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aa3601c998513de3;
-	Tue, 08 Sep 2026 17:44:39 +0000
-X-Mizu-Trace-ID: aa3601c998513de3
-X-Migadu-Flow: FLOW_OUT
-From: Denis Benato <denis.benato@linux.dev>
-To: linux-kernel@vger.kernel.org
-Cc: linux-input@vger.kernel.org,
-	"Benjamin Tissoires" <bentiss@kernel.org>,
-	"Jiri Kosina" <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	"Mateusz Schwartz" <matthew.schwartz@linux.dev>,
-	"Denis Benato" <benato.denis96@gmail.com>,
-	"Jonathan LoBue" <jlobue10@gmail.com>,
-	"Khamunetri Clark" <khamunetriclark@gmail.com>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v6 00/13] HID: asus: add support for ROG Ally handhelds
-Date: Tue,  8 Sep 2026 17:44:20 +0000
-Message-ID: <20260908174433.74260-1-denis.benato@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DPdGLf6a"
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-5c6559620e3so2145168e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:44:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788889491; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KqP27opUBR5VRHuImii4rEy5Wa0Pqm+MiKCdUCa+kgd+4/O9qsFPyJZmnqLdAmvDOx
+         OCxluho63LB2EkpAwVe4B/lCAUxkL5URYtiTmFbekTlkLr6bwqS8dyfCn69x7bALIQrw
+         fip5a1ArwznFwgtt/vPTmu114dgqAPe5RYOane6lv4iARKc3Ct0Ge3+ZgMUoqhdny+6p
+         Gyh66vWu/c75F6T2LI3qjIsjkHsFCxl1vWzxq/a4Y6/MlUacIFPoma0Ferxonx+2Wezt
+         sw8paqkyPwjGqgvOZEUsjlgn4BrIT8hskAfNLlu7X6qIyVdnFHNSDnLmy23N8lkBD/VZ
+         mDkw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7o7XRFDV4hk6Nyyh3+8nvjhrOOUNY907igWbOd3YiI0=;
+        fh=6fpe/BU0ZbUahkf66hX0s83xEnZKuWcHpaFI7TIqLFU=;
+        b=X2qPdEibEObn4XTG6rwjm/bLtVmcmPqcWUrOfx2G+UbqzSUWrgPnNxwlDig2eoTuYI
+         kT5VXhZ8hYuN1iD63KMCqFTKQ9B7DhYM/E/mZevxCxEcA9YA4r85Uyh8jHH90yhGxq0C
+         9TtOOGKGUzJmCCDRkpDbLV4YRI3OVddWroOh8qwnFwtke3UQcpG8QrmxwqCL+tV1wAYo
+         voFekAhtqo2D8ALzQwuP6YnqWw+utozwtnT8g5juha/yix9xpWjTrAAQC6zyl9HBV698
+         Qo4XQl/nzoDZg3rCnNjDKArTAxT34ZLxCGxEHqPUpPCaP1Ud4HIXlZec5kiEOlVX4v1f
+         6RPQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788889491; x=1789494291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7o7XRFDV4hk6Nyyh3+8nvjhrOOUNY907igWbOd3YiI0=;
+        b=DPdGLf6aqmjpNGDMjJmIzcOlsF4qgfTfUd4okN7RLVz1S9S5HSUVqTEzbmry7iXxKN
+         1CSU7N+1DMUa7w4ETqcrISkMTnvyw43UfjsxUzZNuVzPZSJ7DMhlWREnO3SMP9NS5l4J
+         ecnTVCDphEr8sZdzR7QqpVMsTgFd3nyPW+bR9MDmdOK8ghhFUXYGFp3QPGXhcdxykFYH
+         fIUGaMPpm8yethfEND5BcbUdrxYdkZjBtq5u5ce43CMr9xsiP5IDfCHaYIxKVDstzA4E
+         xDEmW3rqRXLdSfnGe6vc5vggH+ebdoWXJlFR9twHcZyf+E2HoKPvd+KS13vBc9kL6680
+         Gvmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788889491; x=1789494291;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7o7XRFDV4hk6Nyyh3+8nvjhrOOUNY907igWbOd3YiI0=;
+        b=gUUPHYASOkpAj2a75PWtjsvqtWwhVzg+hRTN8X0cqz+fHeP5JELwLOi4JCVdpFp0SP
+         51tgtRIRDdl6UQKl6Ky0KnCTIhfuNcQUuGhaWSbb36PnOm8JccZ7JnTFAufKzlhIyglZ
+         pNRORCGwAsRXI6cJqkED/J1qpHyfODw3QqUpBJ1dYT3rAsXvqGJM6NzVNz1dzcyogLpL
+         AocUQ44o+Tu+npqrk8lz7JOSex+iCBY+2ZIYY0Tukyr88cDMQwMJm89Sku3XoeCG66gy
+         XKKUplp6nT8mIcmU+U1qtJSXEIACKY8DpyhqNmn2VeTp6VyGuEM7x6UQ1l7p4WmFkQwA
+         2viw==
+X-Forwarded-Encrypted: i=1; AKwUvBykImq2pD64MiAu5VTDpe9gnqRIc2ewNdM65YpjB9V0Os+WW5rlfyVVco1bmprTlTfEEkjY1nAymW7hwfk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l1rGTUeSs5nQtw0+sb2Qeu+FPo9Lz57fYILaPDEyUecgWXhYyv
+	qRx4dJXpBku3xm2oP2g+aCVWPUHW3ND7lscT2Yd8iM3Hy+9Mp4nOAz05NaXv+NzjCgEJL6t23oO
+	3DQm90oL+19WlpXlFeB9Hzt4wLwA84SRUZqRwmA8=
+X-Gm-Gg: AYBFou3JGR4SwDexsiF4h6zrme3h/h+XsxFoy8rN5meQ2qUGVX+6MXN/5aKJIIXM3pS
+	xcOAKlebEtFnwg8hU+Fobb5xukwLOIkH7Ddv+U+eiVv9iEJdtbmAcOlhSpPI6vcmKCy6EXR2r7S
+	a5WWPINFoQmtlK806PM4OEu7yVGSTbpiYaWCfPgHurIBCNkvFnEbnP+jfmIAZhYu1buMnTt2jDU
+	aVAYLWkPbHgy67XYRxgWVGEgeR+Ojb5ZAfq3Erm0MntNr01ZUxxMJcry5M7lvrUia+2BHUIuXTi
+	KUkFM9NQ0TmTpes67VaA2n9wbK+uYtWjnO+2zSlrzmek5IAPerpTV5yTE7NpTeiOfcJeioM8/vO
+	tuqJhu8wE4g6h6HZtZEkJE65rkk0/QkevMqhiLWYJmQ==
+X-Received: by 2002:a05:6122:2909:b0:5bf:a181:d46d with SMTP id
+ 71dfb90a1353d-5c7ed4201ddmr14549302e0c.3.1788889490770; Tue, 08 Sep 2026
+ 10:44:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260823125155.1136740-1-morbo@google.com> <20260826220041.4075333-1-morbo@google.com>
+ <20260826220041.4075333-2-morbo@google.com> <20260827152612-d0c71c10-cbe5-49f3-9be0-47eb76cd9b48@linutronix.de>
+ <CAGG=3QWPTL5z8MfAxJLpHb0P-3Ah6K+FzgrVHyRRcvRK7-6dSA@mail.gmail.com>
+ <20260831111423-400ed79e-6e52-438c-aa9f-f289e6dbdee5@linutronix.de>
+ <CAGG=3QUAY4BDiJM64uTX8C1A2WPg6dPRexbgUQZoi4QKkkpP9Q@mail.gmail.com>
+ <20260904091410-3a87d211-edf8-4ead-8b91-004a4a96a161@linutronix.de>
+ <CAGG=3QV1G0=19riYPPWhTXrW2X0YvyESdY=GesWm2F_8FEZwMg@mail.gmail.com> <202609041620.81446C2A@keescook>
+In-Reply-To: <202609041620.81446C2A@keescook>
+From: Bill Wendling <morbo@google.com>
+Date: Tue, 8 Sep 2026 10:44:34 -0700
+X-Gm-Features: AcwNN1WR73l0ge2WjdsLbGVpDM_YkwGwW3TPZUjUosckf5D48hKt9NjzjmEqtlA
+Message-ID: <CAGG=3QVB2Caght=56JLf6cGj1Xfvoky6cqyFz5b=KndL+emRxw@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] userns: Add KUnit test suite for uid_gid_map
+To: Kees Cook <kees@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	Bradley Morgan <brads@mainlining.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+	Aleksa Sarai <cyphar@cyphar.com>, Jan Kara <jack@suse.cz>, Nathan Chancellor <nathan@kernel.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
+	Douglas Anderson <dianders@chromium.org>, Anand Moon <linux.amoon@gmail.com>, 
+	Oleg Nesterov <oleg@redhat.com>, codemender-patching+linux@google.com, 
+	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+On Fri, Sep 4, 2026 at 4:34=E2=80=AFPM Kees Cook <kees@kernel.org> wrote:
+> On Fri, Sep 04, 2026 at 01:37:00PM -0700, Bill Wendling wrote:
+> > On Fri, Sep 4, 2026 at 1:02=E2=80=AFAM Thomas Wei=C3=9Fschuh
+> > <thomas.weissschuh@linutronix.de> wrote:
+> > >
+> > > On Thu, Sep 03, 2026 at 01:21:27PM -0700, Bill Wendling wrote:
+> > > > On Mon, Aug 31, 2026 at 2:22=E2=80=AFAM Thomas Wei=C3=9Fschuh
+> > > > <thomas.weissschuh@linutronix.de> wrote:
+> > > > > On Thu, Aug 27, 2026 at 12:27:30PM -0700, Bill Wendling wrote:
+> > > > > > On Thu, Aug 27, 2026 at 6:37=E2=80=AFAM Thomas Wei=C3=9Fschuh
+> > > > > > <thomas.weissschuh@linutronix.de> wrote:
+> > > > >
+> > > > > (...)
+> > > > >
+> > > > > > > > +config USER_NAMESPACE_KUNIT_TEST
+> > > > > > > > +     bool "Test user namespace map insertion" if !KUNIT_AL=
+L_TESTS
+> > > > > > > > +     depends on KUNIT=3Dy
+> > > > > > >
+> > > > > > > Urgh.
+> > > > > > >
+> > > > > > ?? What's wrong? It's identical to the conditional for EXEC_KUN=
+IT_TEST:
+> > > > >
+> > > > > Sorry for this non-descript review comment.
+> > > > >
+> > > > > > config EXEC_KUNIT_TEST
+> > > > > >      bool "Build execve tests" if !KUNIT_ALL_TESTS
+> > > > > >      depends on KUNIT=3Dy
+> > > > > >      default KUNIT_ALL_TESTS
+> > > > > >      help
+> > > > > >           This builds the exec KUnit tests, which tests boundar=
+y conditions
+> > > > > >           of various aspects of the exec internals.
+> > > > >
+> > > > > The problem is that KUNIT can be built as module, which would pre=
+vent this
+> > > > > test from being built. We have include/kunit/visibility.h to expo=
+rt certain
+> > > > > symbols only to tests and avoid this issue.
+> > > > > But I can see that some maintaines don't like this pattern, so ma=
+ybe they can
+> > > > > chime in at some point.
+> > > >
+> > > > Bradley commented on this earlier (which is why I mentioned EXEC_KU=
+NIT_TEST):
+> > > >
+> > > > <comment>
+> > > > The test is #include'd into user_namespace.c, which is builtin (USE=
+R_NS
+> > > > is a bool), so =3Dm here still compiles the suite into vmlinux. Wit=
+h
+> > > > KUNIT=3Dm that calls kunit symbols that live in a module, and the l=
+ink
+> > > > fails. Make it bool and depend on KUNIT=3Dy, like EXEC_KUNIT_TEST:
+> > > >
+> > > >  bool "KUnit test for user namespace map insertion" if !KUNIT_ALL_T=
+ESTS
+> > > >  depends on USER_NS && KUNIT=3Dy
+> > > > </comment>
+> > > >
+> > > > So there's a conflict and, because I'm not a KUnit guru, I'm not su=
+re
+> > > > which way is "best".
+> > >
+> > > It's subjective. So as mentioned before, the preference of the mainta=
+iners
+> > > should go into it. The aproach I prefer requires a bit more setup boi=
+lerplate
+> > > but make the tests usable in more circumstances.
+> > >
+> > Because user_namespace.c is always built-in (USER_NS is a bool),
+> > compiling the test into vmlinux causes linker failures if
+> > CONFIG_KUNIT=3Dm. Using the "visibility.h" version also strips static
+> > from insert_extent() and sort_idmaps() or exporting internal user
+> > namespace functions into the kernel symbol table, which isn't ideal.
+>
+> The export namespacing should limit it to just KUnit, so that should be
+> okay, I would think? My guide for this in the past has been "did the
+> kernel get less fast/safe because of Kunit exports, etc?" I don't
+> _think_ that's the case here.
+>
+> So, I guess it's down to a matter of taste by USER_NS maintainers? I've
+> move Christian to "To:" from "Cc:", as I think he is the defacto USER_NS
+> maintainer? I don't know, though, there is no MAINTAINERS entry for it.
+>
+My understanding of Bradley's comment is that we could use
+visibility.h, but that doesn't give us much because we couldn't run
+these tests with CONFIG_KUNIT=3Dm anyway. But as I said, I'm not a KUnit
+guru, which is why I'm leaving the decision to maintainers and
+reviewers. I'm fine with using the "visibility.h" if that's what
+people want, and it works.
 
-This patch series adds support for ROG Ally handhelds in the HID driver for ASUS devices.
+> > > > Test (3) (which I'll add in my next upload) throws a sanitizer exce=
+ption.
+> > >
+> > > What is the point of testing this specifically for user namespaces?
+> > > Normally we expect a used subsystem to work as advertised.
+> > > It is that used subsystem's responsibility to test that it does so.
+> > > If there is currently no test that validates __counted_by then it sur=
+ely
+> > > should be created. But not here.
+> > >
+> > This would directly test that the attribute on the struct field is
+> > caught by UBSAN. I'm not sure how we could more directly test it
+> > otherwise...
+>
+> It is tricky to catch the traps sanely with KUnit. All the Oops tests
+> I've written for it are in LKDTM, and only __bdos is tested in
+> lib/tests/overflow_kunit.c. I was playing with catching Oops in KUnit
+> for testing KCFI recently, but haven't come back to finishing it safely:
+> https://lore.kernel.org/lkml/20260618210946.it.538-kees@kernel.org/
+>
+I was using the kunit "run/catch" functions, but it's not complete
+because they don't tell what underlying issue actually caused the
+trap, only that a trap occurred. So not ideal. Maybe the LKDTM is the
+best way to go then...
 
-The changes include reinitialization of the device after exiting a sleep state,
-gamepad configuration, vibration strength configuration, joysticks and triggers
-range configuration, anti-deadzone configuration, response curve support,
-force feedback support, gamepad mode support, turbo buttons support,
-and button remapping support.
-
-This driver is based on the original Luke's work, which was a great starting point
-and I have reworked it to be upstreamable, while keeping the original functionality
-intact and extending hid-asus to avoid regressions in functionality such as the
-backlight control.
-
-The ally support has been a surprisingly long task, spanning multiple years and
-being used in Steam OS and well as other distributions for quite a while,
-and I am happy to finally be submitting it.
-
-At this time LEDs are not part of the patch series as I have work in progress to
-unify LEDs handling across all ASUS devices, and I will submit that in a separate
-patch series when the userspace interface will be ready to express capabilities
-of these devices, but that will take some more time.
-
-This driver is the culmination of a lot of work, from many different people,
-and I want to thank Luke for his original work, as well as the many people that have
-helped me test and provide feedback on the driver: Khamunetri, Jonathan, Derek,
-Matthew and others that have helped during these years.
-
-Best regards,
-Denis Benato
-
-Link v1: https://lore.kernel.org/all/20260813144736.2477941-1-denis.benato@linux.dev/
-Link v2: https://lore.kernel.org/all/20260819195835.1649657-1-denis.benato@linux.dev/
-Link v3: https://lore.kernel.org/all/20260823185849.2478673-2-denis.benato@linux.dev/
-Link v4: https://lore.kernel.org/all/20260830234320.114356-1-denis.benato@linux.dev/
-Link v5: https://lore.kernel.org/all/20260904145845.184887-1-denis.benato@linux.dev/
-
-With v5 I returned to the original manual management of memory and sysfs groups
-as going devm did not play well with the general "plugin" architecture of the
-ally portion of the driver and has caused more bugs than it solved: sashiko-bot
-will have to come to terms with hand-managed memory this time.
-
-Changelog:
-
--v2
-  - HID: asus: add support for ROG Ally handhelds
-   - release all vendor buttons on resume
-   - align arguments of hid_asus_ally_raw_event()
-  - HID: asus: add gamepad configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add vibration strength configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add triggers inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks anti-deadzone configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add support for response curve
-   - normalize kernel-doc comment
-  - HID: asus: add support to force feedback
-   - remove a stale comment
-  - HID: asus: add support for gamepad mode
-   - remove a stale comment, normalize kernel-doc
-  - HID: asus: add support for turbo buttons
-   - remove stale comments, normalize kernel-doc
-  - HID: asus: add support for btn remapping
-   - convert function comments to kernel-doc
-
--v3
-  - HID: asus: add support for ROG Ally handhelds
-   - take references on input devices to avoid use-after-free on unbind
-   - reject probes from USB devices other than the recorded controller
-   - add open/close callbacks to the gamepad input device
-   - keyboard_input is populated after hid_hw_start(): issue does not apply
-  - HID: asus: add gamepad configuration
-   - restore cached Xbox controller mode after an MCU reset
-   - convert remaining scoped_guard() users to guard()
-   - avoid printing "(null)" for unnamed sysfs groups
-  - HID: asus: add vibration strength configuration
-   - send MCU commands through ally_gamepad_send_packet()
-  - HID: asus: add joysticks inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add triggers inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add joysticks anti-deadzone configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add support for response curve
-   - send MCU commands through ally_gamepad_send_packet()
-   - check resp_curve_support in show callbacks too
-  - HID: asus: add support to force feedback
-   - read ally_x_hdev under ally_data_lock and take a reference on it
-   - publish ally_x_hdev before registering the input device
-  - HID: asus: add support for gamepad mode
-   - convert remaining scoped_guard() users to guard()
-  - HID: asus: add support for turbo buttons
-   - pass the config pointer directly to ally_config_remove()
-   - run ally_config_remove() outside ally_data_lock
-   - restore cached values when the hardware rejects an update
-   - check turbo_support in show callbacks too
-   - reported scoped_guard warning verified as false positive
-  - HID: asus: add support for btn remapping
-   - look up default mappings by name instead of array index
-   - resend the old mapping when a sequential update fails midway
-   - allow macros regardless of the gamepad mode
-   - rename PAD_* codes to proper input event names
-   - convert remaining scoped_guard() users to guard()
-
-- v4
-  - HID: asus: do not send keyboard init reports to touchpads
-    - Added to avoid regressting touchpads and as guidance for maintainers
-  - HID: asus: reinitialize the device after exiting a sleep state
-    - Follow the modified logic of the previous patch
-  - Addressed issues of sashiko-bot albeit one was a false positive
-  - Rework patches: I made some disasters rebasing in v3
-
-- v5
-  - HID: asus: add support for ROG Ally handhelds
-    - Fix UAF due to inverted input device ownership in hid_asus_ally_remove()
-    - Reject probes claiming an interface role that is already owned
-  - HID: asus: add gamepad configuration
-    - Keep the configuration allocated until module removal instead of
-      devm-managing it: the sysfs callbacks must be able to outlive probe
-    - Undo sysfs group creation manually on the error path and in
-      ally_config_remove(): creation and removal are now symmetric
-    - Add payloads size check in ally_alloc_cmd()
-  - HID: asus: add vibration strength configuration
-    - Restore the cached vibration intensity after an MCU reset
-  - HID: asus: add joysticks inner and outer range configuration
-    - Restore the cached joystick thresholds after an MCU reset
-    - Remove the calibration sysfs groups manually like the other ones
-  - HID: asus: add triggers inner and outer range configuration
-    - Restore the cached trigger ranges after an MCU reset
-  - HID: asus: add joysticks anti-deadzone configuration
-    - Restore the cached anti-deadzone values after an MCU reset
-  - HID: asus: add support for response curve
-    - Restore the cached response curves after an MCU reset
-    - Keep holding config_mutex until the curve packet has been sent
-  - HID: asus: add support to force feedback
-    - Serialize the cross-interface force-feedback sends with the gamepad
-      interface removal by holding intf_mutex in the callers
-  - HID: asus: add support for gamepad mode
-    - Restore the recorded gamepad mode after an MCU reset
-  - HID: asus: add support for turbo buttons
-    - Fix UAF allocating the turbo button entries with kcalloc
-    - Restore the cached turbo parameters after an MCU reset
-  - HID: asus: add support for btn remapping
-    - Keep the button mappings outside of the controller lifetime, so
-      that the recorded configuration survives a re-probe
-    - Re-apply the recorded mappings after an MCU reset
-    - Fetch the configuration through ally_get_config()
-
-- v6
-  - HID: asus: add support for ROG Ally handhelds
-    - Add a maximum size check in ally_alloc_cmd()
-    - Drop the dead x_hdev snapshot taken in hid_asus_ally_raw_event()
-    - Drop the unused hdev parameter of handle_ctrl_alt_del()
-    - Drop the unused hdev/report parameters of ally_x_raw_event()
-    - Turn the "// F20;" comment into a proper "/* F20 */"
-  - HID: asus: add gamepad configuration
-    - Publish the configuration (ally->config under ally_data_lock)
-      before the sysfs groups are created and withdraw it on the error
-      path: attributes could become visible while ally_get_config()
-      still returned NULL and the restore path silently did nothing
-    - Record the Xbox controller mode in the first-setup defaults and
-      apply the recorded value from hid_asus_ally_init()
-    - properly rebase ally_alloc_cmd(): make it no change from previous patch
-  - HID: asus: add joysticks inner and outer range configuration
-    - Drop the unused cfg parameter of ally_set_joystick_thresholds()
-  - HID: asus: add triggers inner and outer range configuration
-    - Drop the unused cfg parameter of ally_set_trigger_ranges()
-    - Fix a commit message typo: "sensitivity"
-  - HID: asus: add support for response curve
-    - Add ally_resp_curve_is_valid() and use it in the init/resume
-      restore path exactly like the apply path does
-    - Drop the unused struct device * parameter of the four
-      response-curve helpers
-  - HID: asus: add support to force feedback
-    - Drop the unused pointers from ally_x_send_ff_report() and ally_x_send_ff_off()
-  - HID: asus: add support for gamepad mode
-    - Apply the mode exactly once from hid_asus_ally_init()
-  - HID: asus: add support for turbo buttons
-    - Remove the calibration groups created before a sysfs failure
-  - HID: asus: add support for btn remapping
-    - Do not gate remapping by turbo
-    - Reject NULL remap/macro pointers in ally_set_button_mapping()
-    - Carry the ally pointer in struct button_remap_attr
-    - Fix the "hypen" comment typo
-
-Denis Benato (12):
-  HID: asus: reinitialize the device after exiting a sleep state
-  HID: asus: add support for ROG Ally handhelds
-  HID: asus: add gamepad configuration
-  HID: asus: add vibration strength configuration
-  HID: asus: add joysticks inner and outer range configuration
-  HID: asus: add triggers inner and outer range configuration
-  HID: asus: add joysticks anti-deadzone configuration
-  HID: asus: add support for response curve
-  HID: asus: add support to force feedback
-  HID: asus: add support for gamepad mode
-  HID: asus: add support for turbo buttons
-  HID: asus: add support for btn remapping
-
-Panz Dev (1):
-  HID: asus: do not send keyboard init reports to touchpads
-
- drivers/hid/Kconfig    |    1 +
- drivers/hid/hid-asus.c | 5187 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 5029 insertions(+), 159 deletions(-)
-
--- 
-2.47.3
-
+-bw
