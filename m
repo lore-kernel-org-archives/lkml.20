@@ -1,637 +1,193 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C22EC3290DB;
-	Tue,  8 Sep 2026 03:29:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788838175; cv=none; b=oZ15qWlKYA1B3HTTUZvlhtIDMst5H0wuNXXH87ieKmtxhk/QmAtt1pYw7jl/KAolBTyK1pLFUyczp03bMWEUzyVs+sa7sdKH0WWd6Mx9hJeWuYoJobp+cqe3DVtxBr7Xz4Wu/A8J7VIWmIjxJXUs4vaFo7UJhXxr5wqEylEuufs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788838175; c=relaxed/simple;
-	bh=jA3CMd8E1fTwT+hO7MGigiQ3OPRra42pMPdYeyTTXYc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mu6hghBQBQfaUf2P2KmrK3hJvoZ+BSj+RIe93zn+FxajrX5Cwp+tUYV9baP/KfkYF4EqA3CHkAeoaf/VjOaYriAjTQpcOV4y2k+rqmIY/9n4XYix8FcB+mS8JCTA6c4ekL6E1shL/581TkXzjlomMS1sS8L1ZSKiewXHG7RA2Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Received: by linux.microsoft.com (Postfix, from userid 1202)
-	id 41C0E20B700D; Mon,  7 Sep 2026 20:28:48 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 41C0E20B700D
-From: Long Li <longli@microsoft.com>
-To: Long Li <longli@microsoft.com>,
-	Long Li <longli@kernel.org>,
-	Konstantin Taranov <kotaranov@microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Leon Romanovsky <leon@kernel.org>,
-	Haiyang Zhang <haiyangz@microsoft.com>,
-	"K . Y . Srinivasan" <kys@microsoft.com>,
-	Wei Liu <wei.liu@kernel.org>,
-	Dexuan Cui <decui@microsoft.com>,
-	shradhagupta@linux.microsoft.com,
-	Simon Horman <horms@kernel.org>,
-	ernis@linux.microsoft.com,
-	stephen@networkplumber.org,
-	shirazsaleem@microsoft.com
-Cc: netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v4 09/13] net: mana: keep per-queue statistics in the port context
-Date: Mon,  7 Sep 2026 20:28:39 -0700
-Message-ID: <20260908032843.397667-10-longli@microsoft.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260908032843.397667-1-longli@microsoft.com>
-References: <20260908032843.397667-1-longli@microsoft.com>
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012069.outbound.protection.outlook.com [52.103.72.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C74F32B130
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788838369; cv=fail; b=spPqXWtp7pvGcGPtVeXRDkOXUKws/maETnshqGY9eIQeC807oNIVzItPJUUWqDfxz/jQCQVy2IDovw7BmRxONTT8rk6fF5vdKJkfcayVqOXiC0YKhZmiu9x29xb+q2HXWykY4qWSrjyNrOLikXj/y93BL/1u5hsvT1FjZSEx47o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788838369; c=relaxed/simple;
+	bh=oQRwkM3DByZvdeaSwE9zBtvd/fm1CiM3zRcdN5wjfbc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pfA511o86lysyw/4Q79lRQclhRfZIj1mVq5qeymJDusr5nq1GEjQ+maqdFXbDrUIoz9mGpE4XJ8SMAeCcY2vBZwwZdMH7uY6QdgC7WOHOHfb/99jLNTpPg+G0Yd2HCbgV/xaZHRBvJcXIb+cl4XQIlHjpPYl4OHR1Zg2XNWHGDM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=FxPLjm0V; arc=fail smtp.client-ip=52.103.72.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="FxPLjm0V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SJbsqNx1DANN4u9mfGBm76O58+qhyVBS+ea9ybVjnH1aot9trpF7Jd5j1+WwA+bkSYVXxmGUPDGiUTyy3QUnVHYQyXX+xvoYZmgZI1Wp6cLmAJEqtN794rzd9EXFlF7GUUcLIbvlcTapWYZ9BKPY6HMrdC4qwZ1Gx6Q5IN+61OjHJVdFYi7H0MVcg0THWzPkCUrShStePNZNDfKeYzIE14vHrOmkJX+wubFFah+4jxZ1pERA4b5uUtZzqrzWFl7uXjS3BhaoGI+Vpq34ObVxjVHD+CzTD3oIP8N2EZ5rTBnVs4egAPOYUFz6zaWekga842O4Yaql0L7HEkggUXfEww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oQRwkM3DByZvdeaSwE9zBtvd/fm1CiM3zRcdN5wjfbc=;
+ b=ScCM7w/C9xFn80p0BFCR0wtM8FOQGReQFbyTSoFYOvgR1WJ/MuHAGhKZxWGGqi6+b1EkblC+3nHri1RojJmX04ufRXPEPVVn3eL+6HsmlGdjlhmFMkQadZ/8Zz32GsSv96zzxZLUlJLLUxCIxTLnCmu4wLaHdi02y+jF9ZvRYGWgYDh1FGlWMTeCPOv4sFm4dgB67F6uRmDpkbn/JNopY0fOBmtUqjoSEvkNFn92ZjbNUG7C8NwYsg+C7NtOgguzq03kRgoymQja3OcxkK7v4MuaQR+lp9+lMAWRHYA0YSSKOphAkhAwjk5mD9C3CoIAmwgJiz8vIceF1QH3r55Wjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oQRwkM3DByZvdeaSwE9zBtvd/fm1CiM3zRcdN5wjfbc=;
+ b=FxPLjm0VME40+CdH6v+ixZ0H7zVA2FG0wAXMaJL3hYc1mZ48UaIpwydNcU2dvYZiTiyker9RuSoMYSK3JEvS2FRJ1Gm9Owks57YfM7FS/OgtUqYplt8Iw/E4Nd2eMnxeZtc+l+zCaJ/4R6dxD0e1E7N0a5tZaZDTEF7hNN5HQb23PVN8SfdJJwEq1gLWx4lGj8B68Ral4L4T3C6hVvF8JoNwqc8SpjGq51VyNrjfwM7hc51asDISN5Krk1dNXTlxpg2WnH6zK7l2keMv3m4W31HmrFAv2M6fuY1Qd5MHoH6cXV6GKqxtmw3IVo0hLuRkkpBhimqbgMcTLOxxwc07bw==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by SY8PR01MB9111.ausprd01.prod.outlook.com (2603:10c6:10:22c::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 03:32:36 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%7]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 03:32:36 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+CC: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+	Gurchetan Singh <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter
+	<simona@ffwll.ch>, Dave Airlie <airlied@gmail.com>, "Michael S. Tsirkin"
+	<mst@redhat.com>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "virtualization@lists.linux.dev"
+	<virtualization@lists.linux.dev>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>
+Subject: Re: [PATCH] drm/virtio: fix object leak when drm_gem_handle_create()
+ fails
+Thread-Topic: [PATCH] drm/virtio: fix object leak when drm_gem_handle_create()
+ fails
+Thread-Index: AQHdLH2jXN/VA5CZgEOlcQYzQq97d7bDS2sAgADg6AA=
+Date: Tue, 8 Sep 2026 03:32:36 +0000
+Message-ID: <52E0FE3A-C867-4AD7-85C4-2AA7AD1123E6@outlook.com>
+References: <20260815-virtgpu-gem-create-leak-v1-1-a4e9fb18caa3@outlook.com>
+ <55240372-c265-4b38-be94-f29a58ddbb22@collabora.com>
+In-Reply-To: <55240372-c265-4b38-be94-f29a58ddbb22@collabora.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|SY8PR01MB9111:EE_
+x-ms-office365-filtering-correlation-id: c77a53f2-4537-4f9e-5541-08df0d59d377
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|41001999006|8062599012|22091999003|15080799012|25010399006|4140399003|19110799012|16041099003|8060799015|24121999003|55001999006|24021099003|31061999003|12091999003|440099028|3412199025|102099032|40105399003|53005399003|2607281247196008;
+x-microsoft-antispam-message-info:
+ =?utf-8?B?YjBjTXlwMnNWMDVuWi9LWm5FWHZzMWRGbmtZKzB2c3dtK3ZUZy9rRWRiUmlt?=
+ =?utf-8?B?dEhPZzVLSDNOc0JNWGh1UUR6NXVsekJVSHdCeFpQQktXUVBmakVGWUR1d3Jt?=
+ =?utf-8?B?NEpTYU4vaDY1REZ2YWR4R3hYQW01K1FUSlMwMHhFcm15YTdSQk1UbmdHbmIr?=
+ =?utf-8?B?Rm1uV2pvUml2SHdQdFk5VENNVElxSU9zbW9WQVh5UG9YYVJ4RGJ3eWd4WnZX?=
+ =?utf-8?B?d0M1VG5OQ3BTbGNleDhhMFZTQlZnU2kycjBneUVSZC85SHYxN3VlSXRuRXhk?=
+ =?utf-8?B?dE1ITWxhLzNlb3NNSndaZUJNcndDTXhOMzExeTBLTytuQkpCUnRQdDlXNWlr?=
+ =?utf-8?B?UXk3ZG5RbHlVbHB1RnlrakxBRU5rdVJMVWJPVGtoVElYdkxyb1p2cHBOa1A2?=
+ =?utf-8?B?WTk5cGt0RUMrTUV3SGdRaVI4b0ovZjQ0ems4NXhJK2hpVkxLVVFZMUVvTC94?=
+ =?utf-8?B?dTVzZ3MwOEtOamQ5NHB6TEI2clQvOEFvYlZJbGgwWnRQWThLRUJRbkVaMXhi?=
+ =?utf-8?B?dEY4dml2UWZGdndvVkxUNVFWdHhWZGI2ZW9TeXFJTjVhZEdnNkZtMWkyYzFQ?=
+ =?utf-8?B?QkZsY2E1czlsVVdBSFowQnQxRDhiMWs0U0VpVG5DOEk4RjRNaTY3Q3Vjc201?=
+ =?utf-8?B?VVk1RWdJOGd5Z1N5SEhYQUZBV3FCdXkxOTQ3c2U1NERQNi9uRVQ1YStvY25a?=
+ =?utf-8?B?VWZnakJxTlVCQUExOE1ObG1UM1BzY2FhTFdid0VnT0I0ckR0K3FEVkxuYzdX?=
+ =?utf-8?B?eXUxaXZSWHdGTEVGWHRBSzRVMG5EektzdDlFUXhQRmlZdzFmS05ISng3WHZ6?=
+ =?utf-8?B?ZkhIN29hcEI5c2FCZ1dNMWxwOFJZUlFLWWVRWkM4YzdpT29mWW5sNlQ0ME9s?=
+ =?utf-8?B?dlhnSnFYNzBOcEtsZUhZamExQWJyOVZvZHh1eklqdkkvRWxwUzQ4bmJSRU5S?=
+ =?utf-8?B?bE80ei9hWXV2TUNWODVkS2kzMy9ma0VUWXI2MDBFemxEblBseGIzYmVKNzNh?=
+ =?utf-8?B?N3BwMUd1aUtMdXhsUXlPUGw4VmVLRTlhQndIR1EzY0hrNG53M3lpc1V6V2RN?=
+ =?utf-8?B?WFhLbkFVdEZaTHVqdUREQWVuS2ZZdWl2Vit6TG1IMkhMTGRlcHc1dGIxQ3Ft?=
+ =?utf-8?B?bDhsYUVHR1dUTEs4K2Y5NExMZ0hJeDR5Znk4ZGJ3VE5zb3BTcFN0cjNiTWU3?=
+ =?utf-8?B?REsyL1FlSjJLRks5L3YwMEFVNGQ5WGdyaDB5MW1RM3M5VkZWVlJEa0RVeTM3?=
+ =?utf-8?B?c1FBVXVNZU5nQXV0SDlBSjNZY1NhQm12dWkzZzJody9WYTBvT2s3WGZaODgr?=
+ =?utf-8?B?L1dWbUFtWkZZLzNYZlR0ZUNOZTB6N0h3ZE96akU0a2ZUdE53NjUxNlhMc0Rw?=
+ =?utf-8?B?L1dJRXRQQytpMHpUb05acTJTSXM4UU5Jb0pDT0lBSXhLYVNNRW5IVmVMSUx1?=
+ =?utf-8?B?dEMzbUdwbzNUeDJtVTZUNnFRVkZYSzFUdE9TRE56dGZqMzJTbHAvakxnQ1Bt?=
+ =?utf-8?Q?3y774iC4qfn+xtNDE+I6VL9AJxZ?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?OW5GMTF1dFVaYTNCT2hlMkFaZEdBU05IYVRra2VZV0VHYnZISTZoa2hFemEw?=
+ =?utf-8?B?MnNCSFlhTGhIK2YrTCtSL3hsVjQvSVpNR1RkNU5KOXhJQTJmRHA4Uzc4d3hR?=
+ =?utf-8?B?djh4RXJ0YW1UM0owYTh3dTJUWmQ2ZFYwMnZhWGd3STNwVG1XQjhqMk5IN2Nr?=
+ =?utf-8?B?Rlg5WmhLT1l4S3lZemZRYVpVRXBUTW81YWxXV2xKQ2Njak1yZTVpa3paN00x?=
+ =?utf-8?B?V0hyaEt3VVFKOXc2by9JTWxqS0RRYzNBeUxjVGNLRXhRamVhOWYvTmVsL3RV?=
+ =?utf-8?B?VVA4STVLc09zdWxvU1d1TlpZdnVkQ0lYWWpXSU5TeDZkNk5QUGNXZmZLSnh5?=
+ =?utf-8?B?RDA3b1cyaXBhNlQwZ0tmeC8wUFdZVkNCMGFQc2JMR1hDTi9PZk4vczVub3Q5?=
+ =?utf-8?B?c05WN3QvL25YSUhXSFpaTDk5aythR1Q1R3lXRVk5cUV1MnJiangrVVJ0a3Zz?=
+ =?utf-8?B?ZkVnYXp5YzNEQVhzNVArYnBtUUEyTVRhTk83T3pZdzBtbGR0cU5TbVFuKzRC?=
+ =?utf-8?B?R0NVdS9MQmhsZnJIUllNRDNyTGpUbXVjaGJvdjNsZnYxOExYajBja1RVdGl0?=
+ =?utf-8?B?QnFpVDhSUFZwZTVzSjIrNzRUa0UwN21mQk9jWUo5bVNUTDl3TS8rWUlCUGhm?=
+ =?utf-8?B?Tk0vbnVwcWVaWkNMZlRTNEZUOTZlQnZDMmJSQjY5VzdzQ09tYmN2a1NqbllJ?=
+ =?utf-8?B?RGMyVHNOUFBsRHplVFkyZFNubHBWRTdTeHZnRkxMVS9mcDJiNm5iWG41YUR2?=
+ =?utf-8?B?Z3NGQWE0QU1MT2JVWmc1UU42KzM5YmhQVFptWXRrQ0lJQTc2Nkg1cmluM1dr?=
+ =?utf-8?B?b3F4QXJ2cG54WUdoOGtwbW5aV0VuNFE3aE1uemF1amFxdm5LdGZxeFJDZXBE?=
+ =?utf-8?B?ZDhad1VJNDlVczlKak5MUXRSaXplMUhnU0lSdDZQaE5MT2RPc1pVUE41L3lL?=
+ =?utf-8?B?RFAwRk5KUkVQeEQxMWlDczVma3FVNHFvT0FmMzJYZGMxY2loL1IxMUp1ZmpR?=
+ =?utf-8?B?NlJoY09PcU1UZEg5TFZLUlBDcjl4Ynl6LzRmWUU0ajd6RDBnK2FsRUtxNFNq?=
+ =?utf-8?B?Y1NaTUNPb3RJV3pVbVV4ZFBlcEF5Y0tnemxGekZXTm96UktXU1ZJN1grT2ZR?=
+ =?utf-8?B?WXZZUURET05OSkdJRWc5c3NNU21nUWNMR2lFQXVtUStkdTM2bTVMLzZSSDdL?=
+ =?utf-8?B?SmZJdWViZ3gzdmJ5a3ZkZkQ0eXNyektYTE9scldhL3BXQTRsSFJ1TE1EVHZU?=
+ =?utf-8?B?d2ZvS1ZkK0ZKNnZZcXYvcXpJaWFpeGhCU1BnY1ZxNEIrYWlibklGN0c3QmNC?=
+ =?utf-8?B?S1dCRWxWYzBENTQ4Z0o1M1RISjZ2QklCeUJhQkc5b3YxYno1a3V2QlVMcEYv?=
+ =?utf-8?B?M0NvS21Ydyt0K3YvL1VLUnU3S05tc3JCTG9yM2lieFlrQW55QStmUVdQNnpn?=
+ =?utf-8?B?QThWY1RiK3FtWWg3MnR6bVQ5SWxkamRtakRodEJkS3MvNk1SbjRrcExzdzlB?=
+ =?utf-8?B?VWFFQ3lCQmh3Q0FISURac3ltSCtObmhmLzJzVTVzNEkyaG00YW9VRlhFSzZk?=
+ =?utf-8?B?WXJwRTdBMjQ1WEVUdzdNREJlT3BOUUQzWTJsK2VDc3NoRWlITXdGczFNRmdw?=
+ =?utf-8?B?UkgyWTQwVDFvQWlJU0d3RWtpWnc0eXdEVi9MclJIN1ZhMG5lNHozOEFzZlJL?=
+ =?utf-8?B?bnhhT2VZT0loSDJiS2RtT0J0N1FKT2Y3Qm05ZGhxWGI0ZWZpa0FPM2c1aS9P?=
+ =?utf-8?B?dWhlSldXMi8rWE12VzJ4aGpML1RISmpxR25hVlRIdGtKUDZseGFYTWo3dHRS?=
+ =?utf-8?B?N1RNQTJQZllZVGdXU3hUU0Q3d2dZYkxOVHVSUnBPTnM1YXVRSENlUlVRSDFI?=
+ =?utf-8?B?cVZZQmh3UEFKYVBDdWdkMnB4QTFkU2xGRVFxOGZXZkU0aFE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <1E769CBE85583E439A1DEE7E2BA37361@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: c77a53f2-4537-4f9e-5541-08df0d59d377
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 03:32:36.0914
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY8PR01MB9111
 
-Move RX/TX counters into port-lifetime arrays so queue rebuilds do not
-reset them. Sum all max_queues slots for ndo_get_stats64(); keep the
-current queue count for ethtool's per-queue output.
-
-Retiring RX queues count into private drain_stats. Destruction and
-rollback fold these into separate port slots after writer quiescence.
-Report counters while down too, but gate the PHY query on port_is_up.
-
-DIM now samples the persistent live counters and skips retiring queues.
-
-Signed-off-by: Long Li <longli@microsoft.com>
----
-Changes in v4:
-  - Remove the port-up early returns from both statistics readers;
-    retain that condition only for the hardware PHY query.
-  - Clarify drain-stat folding and DIM input changes; shorten comments.
-
- .../net/ethernet/microsoft/mana/mana_bpf.c    |   4 +-
- drivers/net/ethernet/microsoft/mana/mana_en.c | 204 +++++++++++++++---
- .../ethernet/microsoft/mana/mana_ethtool.c    |  48 ++++-
- include/net/mana/mana.h                       |  30 ++-
- 4 files changed, 242 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-index 2dc2624128a9141012ab59b723dbfc9617ae6237..8daeb65cc647bb4cf4391f6fadcd04793630c3b6 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
-@@ -73,7 +73,7 @@ int mana_xdp_xmit(struct net_device *ndev, int n, struct xdp_frame **frames,
- 		count++;
- 	}
- 
--	tx_stats = &apc->tx_qp[q_idx]->txq.stats;
-+	tx_stats = apc->tx_qp[q_idx]->txq.stats;
- 
- 	u64_stats_update_begin(&tx_stats->syncp);
- 	tx_stats->xdp_xmit += count;
-@@ -100,7 +100,7 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
- 
- 	act = bpf_prog_run_xdp(prog, xdp);
- 
--	rx_stats = &rxq->stats;
-+	rx_stats = mana_rxq_stats(rxq);
- 
- 	switch (act) {
- 	case XDP_PASS:
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 5752e3745ccc6ba26bdd8f9be3108e4f3de69be0..98007bb3ef7caa974849c3f4998854f15c925321 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -396,7 +396,7 @@ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	txq = &apc->tx_qp[txq_idx]->txq;
- 	gdma_sq = txq->gdma_sq;
- 	cq = &apc->tx_qp[txq_idx]->tx_cq;
--	tx_stats = &txq->stats;
-+	tx_stats = txq->stats;
- 
- 	BUILD_BUG_ON(MAX_TX_WQE_SGL_ENTRIES != MANA_MAX_TX_WQE_SGL_ENTRIES);
- 	if (MAX_SKB_FRAGS + 2 > MAX_TX_WQE_SGL_ENTRIES &&
-@@ -575,7 +575,7 @@ netdev_tx_t mana_start_xmit(struct sk_buff *skb, struct net_device *ndev)
- 	/* Populated the packet and bytes counters based on post GSO packet
- 	 * calculations
- 	 */
--	tx_stats = &txq->stats;
-+	tx_stats = txq->stats;
- 	u64_stats_update_begin(&tx_stats->syncp);
- 	tx_stats->packets += num_gso_seg;
- 	tx_stats->bytes += len + ((num_gso_seg - 1) * gso_hs);
-@@ -621,15 +621,15 @@ static void mana_get_stats64(struct net_device *ndev,
- 			     struct rtnl_link_stats64 *st)
- {
- 	struct mana_port_context *apc = netdev_priv(ndev);
--	unsigned int num_queues = apc->num_queues;
- 	struct mana_stats_rx *rx_stats;
- 	struct mana_stats_tx *tx_stats;
-+	unsigned int num_queues;
- 	unsigned int start;
- 	u64 packets, bytes;
- 	int q;
- 
--	if (!apc->port_is_up)
--		return;
-+	/* Report even while down; dev_get_stats() zeroes its output. */
-+	num_queues = apc->max_queues;
- 
- 	netdev_stats_to_stats64(st, &ndev->stats);
- 
-@@ -639,7 +639,18 @@ static void mana_get_stats64(struct net_device *ndev,
- 	st->rx_missed_errors = apc->ac->hc_stats.hc_rx_discards_no_wqe;
- 
- 	for (q = 0; q < num_queues; q++) {
--		rx_stats = &apc->rxqs[q]->stats;
-+		rx_stats = &apc->rxq_stats[q];
-+
-+		do {
-+			start = u64_stats_fetch_begin(&rx_stats->syncp);
-+			packets = rx_stats->packets;
-+			bytes = rx_stats->bytes;
-+		} while (u64_stats_fetch_retry(&rx_stats->syncp, start));
-+
-+		st->rx_packets += packets;
-+		st->rx_bytes += bytes;
-+
-+		rx_stats = &apc->rxq_stats_ret[q];
- 
- 		do {
- 			start = u64_stats_fetch_begin(&rx_stats->syncp);
-@@ -652,7 +663,7 @@ static void mana_get_stats64(struct net_device *ndev,
- 	}
- 
- 	for (q = 0; q < num_queues; q++) {
--		tx_stats = &apc->tx_qp[q]->txq.stats;
-+		tx_stats = &apc->txq_stats[q];
- 
- 		do {
- 			start = u64_stats_fetch_begin(&tx_stats->syncp);
-@@ -1065,6 +1076,105 @@ static void mana_cleanup_port_context(struct mana_port_context *apc)
- 	apc->rxqs = NULL;
- }
- 
-+/* Port lifetime preserves counters across queue replacement. */
-+static int mana_alloc_queue_stats(struct mana_port_context *apc)
-+{
-+	unsigned int i;
-+
-+	apc->rxq_stats = kcalloc(apc->max_queues, sizeof(*apc->rxq_stats),
-+				 GFP_KERNEL);
-+	if (!apc->rxq_stats)
-+		return -ENOMEM;
-+
-+	apc->rxq_stats_ret = kcalloc(apc->max_queues,
-+				     sizeof(*apc->rxq_stats_ret), GFP_KERNEL);
-+	if (!apc->rxq_stats_ret)
-+		goto free_rxq_stats;
-+
-+	apc->txq_stats = kcalloc(apc->max_queues, sizeof(*apc->txq_stats),
-+				 GFP_KERNEL);
-+	if (!apc->txq_stats)
-+		goto free_rxq_stats_ret;
-+
-+	for (i = 0; i < apc->max_queues; i++) {
-+		u64_stats_init(&apc->rxq_stats[i].syncp);
-+		u64_stats_init(&apc->rxq_stats_ret[i].syncp);
-+		u64_stats_init(&apc->txq_stats[i].syncp);
-+	}
-+
-+	return 0;
-+
-+free_rxq_stats_ret:
-+	kfree(apc->rxq_stats_ret);
-+	apc->rxq_stats_ret = NULL;
-+free_rxq_stats:
-+	kfree(apc->rxq_stats);
-+	apc->rxq_stats = NULL;
-+	return -ENOMEM;
-+}
-+
-+static void mana_free_queue_stats(struct mana_port_context *apc)
-+{
-+	kfree(apc->rxq_stats);
-+	apc->rxq_stats = NULL;
-+	kfree(apc->rxq_stats_ret);
-+	apc->rxq_stats_ret = NULL;
-+	kfree(apc->txq_stats);
-+	apc->txq_stats = NULL;
-+}
-+
-+/* Fold under RTNL after drain_stats writers quiesce. Clear drain_stats to
-+ * prevent double counting on rollback.
-+ */
-+static void mana_fold_rxq_stats(struct mana_port_context *apc,
-+				struct mana_rxq *rxq)
-+{
-+	struct mana_stats_rx *src = &rxq->drain_stats;
-+	struct mana_stats_rx *dst;
-+	unsigned int i;
-+
-+	ASSERT_RTNL();
-+
-+	if (!apc->rxq_stats_ret || rxq->rxq_idx >= apc->max_queues)
-+		return;
-+
-+	dst = &apc->rxq_stats_ret[rxq->rxq_idx];
-+
-+	u64_stats_update_begin(&dst->syncp);
-+	dst->packets		+= src->packets;
-+	dst->bytes		+= src->bytes;
-+	dst->xdp_drop		+= src->xdp_drop;
-+	dst->xdp_tx		+= src->xdp_tx;
-+	dst->xdp_redirect	+= src->xdp_redirect;
-+	dst->pkt_len0_err	+= src->pkt_len0_err;
-+	for (i = 0; i < ARRAY_SIZE(dst->coalesced_cqe); i++)
-+		dst->coalesced_cqe[i] += src->coalesced_cqe[i];
-+	u64_stats_update_end(&dst->syncp);
-+
-+	src->packets		= 0;
-+	src->bytes		= 0;
-+	src->xdp_drop		= 0;
-+	src->xdp_tx		= 0;
-+	src->xdp_redirect	= 0;
-+	src->pkt_len0_err	= 0;
-+	for (i = 0; i < ARRAY_SIZE(src->coalesced_cqe); i++)
-+		src->coalesced_cqe[i] = 0;
-+}
-+
-+static void mana_fold_qset_rx_stats(struct mana_port_context *apc,
-+				    struct mana_qset *qset)
-+{
-+	unsigned int q;
-+
-+	if (!qset->rxqs)
-+		return;
-+
-+	for (q = 0; q < qset->num_queues; q++) {
-+		if (qset->rxqs[q])
-+			mana_fold_rxq_stats(apc, qset->rxqs[q]);
-+	}
-+}
-+
- static void mana_cleanup_indir_table(struct mana_port_context *apc)
- {
- 	apc->indir_table_sz = 0;
-@@ -2172,7 +2282,7 @@ static void mana_rx_skb(void *buf_va, bool from_pool,
- 			struct mana_rxcomp_oob *cqe, struct mana_rxq *rxq,
- 			u32 pkt_len, u32 pkt_hash)
- {
--	struct mana_stats_rx *rx_stats = &rxq->stats;
-+	struct mana_stats_rx *rx_stats = mana_rxq_stats(rxq);
- 	struct net_device *ndev = rxq->ndev;
- 	u16 rxq_idx = rxq->rxq_idx;
- 	struct napi_struct *napi;
-@@ -2405,6 +2515,7 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
- 	struct net_device *ndev = rxq->ndev;
- 	struct mana_recv_buf_oob *rxbuf_oob;
- 	struct mana_port_context *apc;
-+	struct mana_stats_rx *rx_stats;
- 	struct device *dev = gc->dev;
- 	bool coalesced_8 = false;
- 	bool coalesced = false;
-@@ -2486,13 +2597,15 @@ static void mana_process_rx_cqe(struct mana_rxq *rxq, struct mana_cq *cq,
- 	 * Coalesced CQEs have at least 2 packets, so index is pkt_i - 2.
- 	 */
- 	if (pkt_i > 1) {
--		u64_stats_update_begin(&rxq->stats.syncp);
--		rxq->stats.coalesced_cqe[pkt_i - 2]++;
--		u64_stats_update_end(&rxq->stats.syncp);
-+		rx_stats = mana_rxq_stats(rxq);
-+		u64_stats_update_begin(&rx_stats->syncp);
-+		rx_stats->coalesced_cqe[pkt_i - 2]++;
-+		u64_stats_update_end(&rx_stats->syncp);
- 	} else if (!pkt_i && !pktlen) {
--		u64_stats_update_begin(&rxq->stats.syncp);
--		rxq->stats.pkt_len0_err++;
--		u64_stats_update_end(&rxq->stats.syncp);
-+		rx_stats = mana_rxq_stats(rxq);
-+		u64_stats_update_begin(&rx_stats->syncp);
-+		rx_stats->pkt_len0_err++;
-+		u64_stats_update_end(&rx_stats->syncp);
- 		netdev_err_once(ndev,
- 				"RX pkt len=0, rq=%u, cq=%u, rxobj=0x%llx\n",
- 				rxq->gdma_id, cq->gdma_id, rxq->rxobj);
-@@ -2624,8 +2737,12 @@ static void mana_update_rx_dim(struct mana_cq *cq)
- 	if (!smp_load_acquire(&apc->rx_dim_enabled))
- 		return;
- 
--	dim_update_sample(READ_ONCE(cq->dim_event_ctr), rxq->stats.packets,
--			  rxq->stats.bytes, &dim_sample);
-+	/* Skip retiring RXQs; DIM reads shared per-index counters. */
-+	if (READ_ONCE(rxq->retiring))
-+		return;
-+
-+	dim_update_sample(READ_ONCE(cq->dim_event_ctr), rxq->stats->packets,
-+			  rxq->stats->bytes, &dim_sample);
- 	net_dim(&cq->dim, &dim_sample);
- }
- 
-@@ -2842,7 +2959,7 @@ static int mana_create_txq(struct mana_port_context *apc,
- 		/* Create SQ */
- 		txq = &apc->tx_qp[i]->txq;
- 
--		u64_stats_init(&txq->stats.syncp);
-+		txq->stats = &apc->txq_stats[i];
- 		txq->ndev = net;
- 		txq->net_txq = netdev_get_tx_queue(net, i);
- 		txq->reset_gen = READ_ONCE(apc->ac->reset_gen);
-@@ -2969,6 +3086,9 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
- 		netif_napi_del_locked(napi);
- 	}
- 
-+	/* NAPI is quiesced, so drain_stats has no remaining writer. */
-+	mana_fold_rxq_stats(apc, rxq);
-+
- 	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
- 		xdp_rxq_info_unreg(&rxq->xdp_rxq);
- 
-@@ -3154,6 +3274,8 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
- 		return ERR_PTR(-ENOMEM);
- 
- 	rxq->ndev = ndev;
-+	rxq->stats = &apc->rxq_stats[rxq_idx];
-+	u64_stats_init(&rxq->drain_stats.syncp);
- 	rxq->num_rx_buf = apc->rx_queue_size;
- 	rxq->rxq_idx = rxq_idx;
- 	rxq->rxobj = INVALID_MANA_HANDLE;
-@@ -3304,8 +3426,6 @@ static int mana_add_rx_queues(struct mana_port_context *apc,
- 			goto out;
- 		}
- 
--		u64_stats_init(&rxq->stats.syncp);
--
- 		apc->rxqs[i] = rxq;
- 
- 		mana_create_rxq_debugfs(apc, i);
-@@ -4076,16 +4196,27 @@ static void mana_start_txqs(struct mana_port_context *apc)
- /* Retiring completions must not wake replacement queues. Mark the leaving set
-  * before unmarking the incoming set.
-  */
--static void mana_qset_set_retiring(struct mana_qset *qset, bool retiring)
-+static void mana_qset_set_retiring(struct mana_qset *qset,
-+				   const struct mana_qset *keep, bool retiring)
- {
- 	unsigned int q;
- 
--	if (!qset->tx_qp)
--		return;
--
- 	for (q = 0; q < qset->num_queues; q++) {
--		if (qset->tx_qp[q])
-+		if (qset->tx_qp && qset->tx_qp[q])
- 			WRITE_ONCE(qset->tx_qp[q]->txq.retiring, retiring);
-+
-+		if (!qset->rxqs || !qset->rxqs[q])
-+			continue;
-+
-+		/* Carried RXQs remain the sole poll writers of shared slots. */
-+		if (retiring && keep && q < keep->num_queues &&
-+		    keep->rxqs && keep->rxqs[q] == qset->rxqs[q])
-+			continue;
-+
-+		/* Switch to drain_stats; hand off shared slots after a grace
-+		 * period.
-+		 */
-+		WRITE_ONCE(qset->rxqs[q]->retiring, retiring);
- 	}
- }
- 
-@@ -4140,12 +4271,12 @@ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- 	/* Mark before the grace period so old completions cannot wake the
- 	 * replacement's stopped queue.
- 	 */
--	mana_qset_set_retiring(out_old, true);
-+	mana_qset_set_retiring(out_old, newq, true);
- 
- 	/* Drain TX/XDP readers past the gate and polls missing retiring. */
- 	synchronize_net();
- 
--	mana_qset_set_retiring(newq, false);
-+	mana_qset_set_retiring(newq, NULL, false);
- 
- 	mana_qset_install(apc, newq);
- 	apc->rss_state = apc->num_queues > 1 ? TRI_STATE_TRUE : TRI_STATE_FALSE;
-@@ -4183,8 +4314,16 @@ int mana_publish_qset(struct mana_port_context *apc, struct mana_qset *newq,
- 	netdev_err(ndev, "%s failed: %d, restoring previous queue set\n",
- 		   __func__, err);
- 
--	mana_qset_set_retiring(newq, true);
--	mana_qset_set_retiring(out_old, false);
-+	mana_qset_set_retiring(newq, out_old, true);
-+
-+	/* Quiesce new shared-slot writers before restoring old ones. */
-+	synchronize_net();
-+
-+	mana_qset_set_retiring(out_old, NULL, false);
-+
-+	/* Quiesce old drain_stats writers before folding. */
-+	synchronize_net();
-+	mana_fold_qset_rx_stats(apc, out_old);
- 
- 	mana_qset_install(apc, out_old);
- 	apc->rss_state = apc->num_queues > 1 ? TRI_STATE_TRUE : TRI_STATE_FALSE;
-@@ -4393,6 +4532,10 @@ static int mana_probe_port(struct mana_context *ac, int port_idx,
- 		apc->tx_dim_enabled = MANA_ADAPTIVE_TX_DEF;
- 	}
- 
-+	err = mana_alloc_queue_stats(apc);
-+	if (err)
-+		goto free_net;
-+
- 	mutex_init(&apc->vport_mutex);
- 	apc->vport_use_count = 0;
- 
-@@ -4415,7 +4558,7 @@ static int mana_probe_port(struct mana_context *ac, int port_idx,
- 
- 	err = mana_init_port(ndev);
- 	if (err)
--		goto free_net;
-+		goto free_stats;
- 
- 	err = mana_rss_table_alloc(apc);
- 	if (err)
-@@ -4452,6 +4595,8 @@ static int mana_probe_port(struct mana_context *ac, int port_idx,
- 	mana_cleanup_indir_table(apc);
- reset_apc:
- 	mana_cleanup_port_context(apc);
-+free_stats:
-+	mana_free_queue_stats(apc);
- free_net:
- 	*ndev_storage = NULL;
- 	netdev_err(ndev, "Failed to probe vPort %d: %d\n", port_idx, err);
-@@ -4792,6 +4937,7 @@ void mana_remove(struct gdma_dev *gd, bool suspending)
- 
- 		unregister_netdevice(ndev);
- 		mana_cleanup_indir_table(apc);
-+		mana_free_queue_stats(apc);
- 
- 		/* Remove the port from reset walks before freeing its netdev.
- 		 */
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-index 32f40f5cd850e6c67ea0dd57cc45a51b37c43b93..77dcbd01a1f3da692c341f17d8f2a8301c02bd6b 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_ethtool.c
-@@ -242,6 +242,12 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 	u64 xdp_tx;
- 	u64 pkt_len0_err;
- 	u64 coalesced_cqe[MANA_CQE_COAL_PKTS_8 - 1];
-+	u64 ret_coalesced_cqe[MANA_CQE_COAL_PKTS_8 - 1];
-+	u64 ret_packets, ret_bytes;
-+	u64 ret_xdp_redirect;
-+	u64 ret_pkt_len0_err;
-+	u64 ret_xdp_drop;
-+	u64 ret_xdp_tx;
- 	u64 tso_packets;
- 	u64 tso_bytes;
- 	u64 tso_inner_packets;
-@@ -252,14 +258,11 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 	u64 mana_map_err;
- 	int q, i = 0, j;
- 
--	if (!apc->port_is_up)
--		return;
--
--	/* We call this mana function to get the phy stats from GDMA and includes
--	 * aggregate tx/rx drop counters, Per-TC(Traffic Channel) tx/rx and pause
--	 * counters.
-+	/* Counters outlive the queues, but suspend can destroy the HW channel
-+	 * while the netdev remains registered. Gate only the PHY query.
- 	 */
--	mana_query_phy_stats(apc);
-+	if (apc->port_is_up)
-+		mana_query_phy_stats(apc);
- 
- 	for (q = 0; q < ARRAY_SIZE(mana_eth_stats); q++)
- 		data[i++] = *(u64 *)(eth_stats + mana_eth_stats[q].offset);
-@@ -271,7 +274,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 		data[i++] = *(u64 *)(phy_stats + mana_phy_stats[q].offset);
- 
- 	for (q = 0; q < num_queues; q++) {
--		rx_stats = &apc->rxqs[q]->stats;
-+		rx_stats = &apc->rxq_stats[q];
- 
- 		do {
- 			start = u64_stats_fetch_begin(&rx_stats->syncp);
-@@ -285,6 +288,33 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 				coalesced_cqe[j] = rx_stats->coalesced_cqe[j];
- 		} while (u64_stats_fetch_retry(&rx_stats->syncp, start));
- 
-+		/* Snapshot separately so a retry cannot add retired counters
-+		 * twice.
-+		 */
-+		rx_stats = &apc->rxq_stats_ret[q];
-+
-+		do {
-+			start = u64_stats_fetch_begin(&rx_stats->syncp);
-+			ret_packets = rx_stats->packets;
-+			ret_bytes = rx_stats->bytes;
-+			ret_xdp_drop = rx_stats->xdp_drop;
-+			ret_xdp_tx = rx_stats->xdp_tx;
-+			ret_xdp_redirect = rx_stats->xdp_redirect;
-+			ret_pkt_len0_err = rx_stats->pkt_len0_err;
-+			for (j = 0; j < MANA_CQE_COAL_PKTS_8 - 1; j++)
-+				ret_coalesced_cqe[j] =
-+					rx_stats->coalesced_cqe[j];
-+		} while (u64_stats_fetch_retry(&rx_stats->syncp, start));
-+
-+		packets += ret_packets;
-+		bytes += ret_bytes;
-+		xdp_drop += ret_xdp_drop;
-+		xdp_tx += ret_xdp_tx;
-+		xdp_redirect += ret_xdp_redirect;
-+		pkt_len0_err += ret_pkt_len0_err;
-+		for (j = 0; j < MANA_CQE_COAL_PKTS_8 - 1; j++)
-+			coalesced_cqe[j] += ret_coalesced_cqe[j];
-+
- 		data[i++] = packets;
- 		data[i++] = bytes;
- 		data[i++] = xdp_drop;
-@@ -296,7 +326,7 @@ static void mana_get_ethtool_stats(struct net_device *ndev,
- 	}
- 
- 	for (q = 0; q < num_queues; q++) {
--		tx_stats = &apc->tx_qp[q]->txq.stats;
-+		tx_stats = &apc->txq_stats[q];
- 
- 		do {
- 			start = u64_stats_fetch_begin(&tx_stats->syncp);
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 9b8c038042b4f90b0b5958fc33cdad36e169863c..6c6d906db207304cd2d32c474cf2e9e5f32f4738 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -102,7 +102,7 @@ struct mana_stats_rx {
- 	u64 pkt_len0_err;
- 	u64 coalesced_cqe[MANA_CQE_COAL_PKTS_8 - 1];
- 	struct u64_stats_sync syncp;
--};
-+} ____cacheline_aligned_in_smp;
- 
- struct mana_stats_tx {
- 	u64 packets;
-@@ -117,7 +117,7 @@ struct mana_stats_tx {
- 	u64 csum_partial;
- 	u64 mana_map_err;
- 	struct u64_stats_sync syncp;
--};
-+} ____cacheline_aligned_in_smp;
- 
- struct mana_txq {
- 	struct gdma_queue *gdma_sq;
-@@ -148,7 +148,7 @@ struct mana_txq {
- 	/* Suppress completion wakeups on the replacement's netdev queue. */
- 	bool retiring;
- 
--	struct mana_stats_tx stats;
-+	struct mana_stats_tx *stats;
- };
- 
- /* skb data and frags dma mappings */
-@@ -410,7 +410,16 @@ struct mana_rxq {
- 
- 	u32 buf_index;
- 
--	struct mana_stats_rx stats;
-+	/* Port-owned live slot; use mana_rxq_stats() to select the writer's
-+	 * slot.
-+	 */
-+	struct mana_stats_rx *stats;
-+
-+	/* Set under RTNL before another queue takes over this index. */
-+	bool retiring;
-+
-+	/* Folded under RTNL after drain-stat writers quiesce. */
-+	struct mana_stats_rx drain_stats;
- 
- 	struct bpf_prog __rcu *bpf_prog;
- 	struct xdp_rxq_info xdp_rxq;
-@@ -613,6 +622,14 @@ struct mana_port_context {
- 	unsigned int max_queues;
- 	unsigned int num_queues;
- 
-+	/* Port-lifetime arrays with max_queues slots. Live RX queues write
-+	 * rxq_stats[]; teardown and rollback fold drain_stats into
-+	 * rxq_stats_ret[] under RTNL. Readers sum both.
-+	 */
-+	struct mana_stats_rx *rxq_stats;
-+	struct mana_stats_rx *rxq_stats_ret;
-+	struct mana_stats_tx *txq_stats;
-+
- 	unsigned int rx_queue_size;
- 	unsigned int tx_queue_size;
- 
-@@ -714,6 +731,11 @@ int mana_detach(struct net_device *ndev, bool from_close);
- struct mana_port_context *
- mana_qset_scratch_alloc(struct mana_port_context *apc);
- void mana_qset_scratch_free(struct mana_port_context *scratch);
-+static inline struct mana_stats_rx *mana_rxq_stats(struct mana_rxq *rxq)
-+{
-+	return READ_ONCE(rxq->retiring) ? &rxq->drain_stats : rxq->stats;
-+}
-+
- int mana_alloc_qset(struct mana_port_context *apc,
- 		    struct mana_port_context *scratch, unsigned int num_queues,
- 		    unsigned int rx_queue_size, unsigned int tx_queue_size,
--- 
-2.43.0
+PiBPbiBTZXAgNywgMjAyNiwgYXQgMTA6MDfigK9QTSwgRG1pdHJ5IE9zaXBlbmtvIDxkbWl0cnku
+b3NpcGVua29AY29sbGFib3JhLmNvbT4gd3JvdGU6DQo+IA0KPiBPbiA4LzE1LzI2IDA5OjE2LCBK
+dW5ydWkgTHVvIHZpYSBCNCBSZWxheSB3cm90ZToNCj4+IEZyb206IEp1bnJ1aSBMdW8gPG1vb25h
+ZnRlcnJhaW5Ab3V0bG9vay5jb20+DQo+PiANCj4+IHZpcnRpb19ncHVfZ2VtX2NyZWF0ZSgpIG93
+bnMgdGhlIHJlZmVyZW5jZSB0YWtlbiBieQ0KPj4gdmlydGlvX2dwdV9vYmplY3RfY3JlYXRlKCku
+IE9uIHRoZSBkcm1fZ2VtX2hhbmRsZV9jcmVhdGUoKSBlcnJvciBwYXRoIGl0DQo+PiBjYWxscyBk
+cm1fZ2VtX29iamVjdF9yZWxlYXNlKCkgaW5zdGVhZCBvZiBkcm9wcGluZyB0aGF0IHJlZmVyZW5j
+ZS4NCj4+IA0KPj4gZHJtX2dlbV9vYmplY3RfcmVsZWFzZSgpIGlzIHRoZSBpbnZlcnNlIG9mIGRy
+bV9nZW1fb2JqZWN0X2luaXQoKSBhbmQgZG9lcw0KPj4gbm90IHRvdWNoIHRoZSByZWZlcmVuY2Ug
+Y291bnQgb3IgY2FsbCBvYmotPmZ1bmNzLT5mcmVlKCksIHNvIGl0IGlzIG9ubHkNCj4+IGNvcnJl
+Y3QgYXMgdGhlIGxhc3Qgc3RlcCBvZiBhIGRlc3RydWN0b3IsIGFzIGluDQo+PiB2aXJ0aW9fZ3B1
+X2NsZWFudXBfb2JqZWN0KCkuIFVzaW5nIGl0IGhlcmUgbGVhdmVzIHRoZSBibyBhdCByZWZjb3Vu
+dCAxDQo+PiB3aXRoIG5vIHJlbWFpbmluZyByZWZlcmVuY2UsIHNvIHZpcnRpb19ncHVfZnJlZV9v
+YmplY3QoKSBuZXZlciBydW5zIGFuZA0KPj4gdGhlIHNobWVtIHBhZ2VzLCBzZyB0YWJsZSBhbmQg
+dmlydGlvX2dwdV9vYmplY3QgYXJlIGxlYWtlZC4gU2luY2UNCj4+IHZpcnRpb19ncHVfb2JqZWN0
+X2NyZWF0ZSgpIGhhcyBhbHJlYWR5IHNldCBiby0+Y3JlYXRlZCwNCj4+IFZJUlRJT19HUFVfQ01E
+X1JFU09VUkNFX1VOUkVGIGlzIG5vdCBxdWV1ZWQgZWl0aGVyLCBsZWFraW5nIHRoZSBob3N0LXNp
+ZGUNCj4+IHJlc291cmNlIGFuZCB0aGUgcmVzb3VyY2UgaWQuDQo+PiANCj4+IGRybV9nZW1faGFu
+ZGxlX2NyZWF0ZV90YWlsKCkgZHJvcHMgdGhlIGhhbmRsZSByZWZlcmVuY2Ugb24gYWxsIG9mIGl0
+cw0KPj4gaW50ZXJuYWwgZXJyb3IgcGF0aHMsIHNvIHRoZSBjYWxsZXIgb25seSBoYXMgdG8gZHJv
+cCBpdHMgb3duLiBVc2UNCj4+IGRybV9nZW1fb2JqZWN0X3B1dCgpLCBtYXRjaGluZyB0aGUgc3Vj
+Y2VzcyBwYXRoIGJlbG93Lg0KPj4gDQo+PiBGaXhlczogZGM1Njk4ZTgwY2Y3ICgiQWRkIHZpcnRp
+byBncHUgZHJpdmVyLiIpDQo+PiBSZXBvcnRlZC1ieTogWXVoYW8gSmlhbmcgPGRhbmlzamlhbmdA
+Z21haWwuY29tPg0KPj4gQXNzaXN0ZWQtYnk6IENsYXVkZTpjbGF1ZGUtb3B1cy01DQo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBKdW5ydWkgTHVvIDxtb29uYWZ0ZXJyYWluQG91dGxvb2suY29tPg0KPj4gLS0t
+DQo+PiBkcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfZ2VtLmMgfCAyICstDQo+PiAxIGZp
+bGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4+IA0KPj4gZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9nZW0uYyBiL2RyaXZlcnMvZ3B1
+L2RybS92aXJ0aW8vdmlydGdwdV9nZW0uYw0KPj4gaW5kZXggNjZjM2Y2Zjc0ZTljLi5kMmYwYjhh
+M2YxNzIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdmlydGlvL3ZpcnRncHVfZ2Vt
+LmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS92aXJ0aW8vdmlydGdwdV9nZW0uYw0KPj4gQEAg
+LTQ1LDcgKzQ1LDcgQEAgc3RhdGljIGludCB2aXJ0aW9fZ3B1X2dlbV9jcmVhdGUoc3RydWN0IGRy
+bV9maWxlICpmaWxlLA0KPj4gDQo+PiByZXQgPSBkcm1fZ2VtX2hhbmRsZV9jcmVhdGUoZmlsZSwg
+Jm9iai0+YmFzZS5iYXNlLCAmaGFuZGxlKTsNCj4+IGlmIChyZXQpIHsNCj4+IC0gZHJtX2dlbV9v
+YmplY3RfcmVsZWFzZSgmb2JqLT5iYXNlLmJhc2UpOw0KPj4gKyBkcm1fZ2VtX29iamVjdF9wdXQo
+Jm9iai0+YmFzZS5iYXNlKTsNCj4+IHJldHVybiByZXQ7DQo+PiB9DQo+IENvdWxkIHlvdSBwbGVh
+c2UgZml4IGFsbCBvdGhlciBvY2N1cnJlbmNlcyByZXBvcnRlZCBieSBib3QgaW4gYSB2Mj8NCg0K
+R290IGl0LCBJ4oCZbGwgd29yayBvbiBpdC4NCg0KVGhhbmtzLA0KSnVucnVpDQoNCj4gDQo+IC0t
+IA0KPiBCZXN0IHJlZ2FyZHMsDQo+IERtaXRyeQ0KDQoNCg==
