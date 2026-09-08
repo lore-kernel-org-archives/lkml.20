@@ -1,110 +1,89 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A923F4EE842;
-	Tue,  8 Sep 2026 10:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53A564E66B8;
+	Tue,  8 Sep 2026 10:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862179; cv=none; b=iyt7H5VNVSTwqoe5yhsxeXdBPyhGbcbXShk5cu7JQLOhVRIuKkbc1LfZrUcSGTISc97w1uu4o+V4reJTdJ/o6FhkqjjbNvDdEMB+WDElUBvXX+RcVT27HP4ELpDdEXBgorqD2WdmZ/NjKmpEckvZ+ycIaOdmsSMP8Sox9EUFgeE=
+	t=1788862255; cv=none; b=Ml+o06ecmaYdHwFHGbCYOTrMyhOjlSxq1kKlmxrIyl9a7kGWaKeIFYGvVhP3DISvH6IT/kIJZ9gYjSnRR6GdF66ch10dZpq3kujWdIltaHHHDXIIPxrpmCPvDAI8NHaelvuRmZCEJn9ZIrEsGiRxV+Us8h7m8GQOsNsMksXa/OM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862179; c=relaxed/simple;
-	bh=jSh5+jm3H/Jo4Rqy338g389lcdURdakU3FgkslXJk7k=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UB1wsL/O7dZesKuExBQR7xxpJACqHM/hDsqxW6pj3N85DreuB8Y9tQi+JOCPVLiMKkJIVAuEQJK8qsSK+n851tpznFQXtSnf2FWv1bjoXcPD6tVgR7Hjw1IPKHZy86XqmkeFW/2t+hIsfukhbMYztPb3gUFMKcuFDfy4KJhcJgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=o7IZ1hrJ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=6orGnAmv; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788862255; c=relaxed/simple;
+	bh=AHxUGRiRnx/CLgRjxMWOyVMheita6x80DNzXfRCVnZg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DqusvQocmzRMoHWy+D4F5unIp1v1R1nYZ7Li6Ezx9P6cOoD/aCb5bRurH5E/wkQcVPLzsZhJhOPDtJuY/DYnDN73/0FOidRVM8MSM8i5h7F+XTWmYsbTyOz32XWeIwBbpizUkp4HL5ofvssQ9SbqhQPYzNbPTeDaY0U1f94ls9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eTZJA7OU; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="o7IZ1hrJ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="6orGnAmv"
-Message-ID: <fffb09cb0368c3bfba971e30d6ed7d852f808f8f.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788862175;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bLNIi7aDAfqwDaE8H7quXfQJ3kQz2tNUviBQgdf9gzI=;
-	b=o7IZ1hrJjDQugeaWmV0W5iSnFsQtWs4GD2ChBI2A+YBKz24h/ks5MbWv8WYBkCLO6BgWsx
-	hH2xXlhF2c/0CkGE4KA1dqKICWs1vwTaJJEXXG1LSEE8grAVKQzEzDh2yOx/xHgTEfvcFo
-	j1/Y+CEukGRI4VHr5N7hMa82SQOjY6nDrEkY+vWtn/XNPRLgeTA/Bf1iTFDSVW/4YwaLyJ
-	fIqihCPOFuLCU2ZaZMqnE2HZcqQ0KbcwqlkABfCgbz1FOXXpubRv6Nb1OGgtdsvK2UslKt
-	6I56hwB0Bm3A3n3bbXmefeNvuCe0sbzdFK5IBCF0sJ92hxLRcNt+NGRya1mBwg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788862175;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bLNIi7aDAfqwDaE8H7quXfQJ3kQz2tNUviBQgdf9gzI=;
-	b=6orGnAmvw/C60K9YVRkePlL+87NYbY6AycYjLpa8zmczL9HERqSl0+i7vXypCPOroLHH0U
-	8IvSEs820Mdv0VCw==
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
- Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Tue, 08 Sep 2026 12:09:34 +0200
-In-Reply-To: <20260908-psychedelic-jolly-kestrel-a743af@quoll>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
-	 <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
-	 <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
-	 <20260908-psychedelic-jolly-kestrel-a743af@quoll>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eTZJA7OU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788862253; x=1820398253;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AHxUGRiRnx/CLgRjxMWOyVMheita6x80DNzXfRCVnZg=;
+  b=eTZJA7OUGSAOelG7YVdMh7Lr8jO49Y3l0adgHbUCkWiXDi2f3Lo+KAEN
+   bDewciICkMtguX4Bn8HZiu/Sm1OSJnxCBDHFNm1meL6DjsL84pErwCI6U
+   o7h7Pm5ELB9XimqT3kegs0Hcluu5rocaARDPUqwg9QDVxpeZ81TgPqyqW
+   QBUUWaoOIARHtSCopL4CHTUmG/c/WizwNZuB/C6KS+bt3Yk5RXpfbT4dD
+   1jb513xLsfelqbxQOiFP4llU3Q6UHHbGeosVooLtaAAgwLj4qjyDmQ2EA
+   pGH7rkF65/SRQ0s9b2FxOQM4ZkWA1syZ2e7cd0zxxWbczp37wq1K8QcC1
+   g==;
+X-CSE-ConnectionGUID: TFQ96vdjR8ahhF+n3BgePQ==
+X-CSE-MsgGUID: F5D6WTluSxypHgEl/FMyVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99853766"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="99853766"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:53 -0700
+X-CSE-ConnectionGUID: rZSfksbeRNun+rB95b/j7w==
+X-CSE-MsgGUID: 2DBYMqv2T8ij4Juowe8KPg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="274472913"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:52 -0700
+Date: Tue, 8 Sep 2026 13:10:49 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1] ACPI: utils: Adjust message printing macros for ACPI
+ objects
+Message-ID: <ap_fKdABWuOqbz5W@ashevche-desk.local>
+References: <2300525.irdbgypaU6@rafael.j.wysocki>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2300525.irdbgypaU6@rafael.j.wysocki>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, 2026-09-08 at 11:14 +0200, Krzysztof Kozlowski wrote:
-> On Mon, Sep 07, 2026 at 04:01:26PM +0200, Vasilij Strassheim wrote:
-> > > > +patternProperties:
-> > > > +  '^(ethernet-)?ports$':
-> > >=20
-> > > ethernet-ports
-> > >=20
-> > > > +    patternProperties:
-> > > > +      '^(ethernet-)?port@[0-9a-f]+$':
-> > >=20
-> > > ethernet-port
-> > >=20
-> >=20
-> > Is there a reason for such a restriction?
-> > The pattern intentionally follows the generic DSA binding in dsa.yaml,
->=20
-> dsa.yaml lists ethernet-ports and port.
->=20
-> > which permits both ports/port@N and ethernet-ports/ethernet-port@N. The
-> > device-specific pattern is needed here to apply the SoC-e port
-> > constraints to both accepted node naming variants.
->=20
-> ports is legacy (because it conflicts with graph ports), for existing
-> users, so why insisting on this pattern? If legacy is being added to new
-> schemas, when are we going to be able to remove that legacy? Never.
->=20
+On Sun, Sep 06, 2026 at 05:56:56PM +0200, Rafael J. Wysocki wrote:
+> From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> 
+> The majority of acpi_handle_<level>() macros use neither pr_fmt() nor
+> dev_fmt() and acpi_handle_debug() uses pr_fmt() like dev_fmt(), but
+> only if dynamic debug is compiled in.
+> 
+> For more consistency, redefine all of the macros in question to use
+> dev_fmt() because they are more similar to the analogous dev_*()
+> family of macros than to the pr_*() ones and make all of them use it
+> in the same way.
+> 
+> While at it, rephrase the comment documenting those macros for more
+> clarity.
 
-I will use ethernet-ports and ethernet-port@N instead.
+Yes, makes a lot of sense!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Thanks for the clarification!
-I was not insisting on the pattern, just wanted to understand the
-reasoning behind it. I had missed that ports is legacy and followed the
-generic DSA pattern and the same 10-month-old pattern in Lantiq binding.
-Now I see that it is used for compatibility there and should not be
-introduced in new bindings.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Best regards,
-Vasilij
 
