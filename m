@@ -1,223 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4052F5237A3;
-	Tue,  8 Sep 2026 18:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891241; cv=none; b=RTynaY2DUCKZvYCMqZ1jCMGAXT9C2kiH8QVSPN3rq3M4k5WSowSpT0kLS6rPJ+hDwHzuaJ8+Ne+WkJj0MYBCKsk+IP8HEKNiWlDJbI1+h+R2CA8e0G5asAckSADNw01g0tl5j4XpNt3xteZNg2HPeGd/iQiFmW47BlmwhwPPng0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891241; c=relaxed/simple;
-	bh=NtFrhtnuyp69Nnab2ROizhRWavl4dBjWerLBkeZiofU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e30L9qcgZZKSESQz5xYlYk23oXyvp+3KG9LJ4b66O2i1VXttVY/foVrUmN941vDzYpH+Up7FtOzSHe8W7rIN9etmP5GpVk3NNl2NZ+M2+AszeUnsYT2BnTFUMPVBn2xPhHrW6xoWL3M5TmjvCM7ogZOkmkSNzgFuFJsQ2JicOBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dL0qIjiI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C852959C976
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.48
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788891314; cv=pass; b=AlJQIBGXb8oH5ryXlLY02I77G68P9NJbZuhssAdyWtd2wBzAtmSJFcRzuFQcCxT1nAfrNUbYHxmLQlShRS3FOvNU43H5D7ScP4MC2j2KgM6imn8QfueE5U3FTNOqu88XhON+QEO+mWxP6DdqSLXLWSIFBpzTZGzExITbklFbT0w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788891314; c=relaxed/simple;
+	bh=I1JWkwexAdECXk7Ri9fH4s02sP9GMsE/7YOTlpBK2Zg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N2b57KwdBM4K62ia7n9N6ILnkIb+a0iJTUdo/G8GB5FQGmOfVaXTL8LmuV/u5MtRaX3m4oVaCvCQ0wG4wKEnG+FgvlRRzj78bM3fLK1h2cjUCQ56QSS89XnxGoXzHb0etFHx4MtUzu/O3wRf3NvLe52UBTiqGQpb6qOBI59vEhw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSvEsi04; arc=pass smtp.client-ip=209.85.219.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dL0qIjiI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FAA81F00AC4;
-	Tue,  8 Sep 2026 18:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788891239;
-	bh=gFVchvThcD9Eo80lfIVILhQiw5GiMArAqLZas0is2C4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dL0qIjiIiO2Z65blxOAZ5PLcNAUleggM0+g5WhUv8JbTaOY6AriakINDHgTS+Icej
-	 6l5p5GRjRMw5+LFooAX7LXnzrQYVRwfhNnKKlsBMoxf+nyewxZGM6w+QCZizmwuXX9
-	 ukk7n76pYfupPF5GsiZBcLrtNK5DNQq9Wh6NSorTHXo8I7tC78WGkw5KOgJkvuREWj
-	 nA370hR/Wj/ancT6kFUdKLRXL2JJpRXKh0oSPpnpuhE6bJSDALJcmteuNcK+Zt7Gkb
-	 sCjxmFPrf2Q528cShMdn5iofLp6dg3XDe/du3dyK7zkeZ+5l4FYfyScEnfqCisk5Se
-	 MvZzMej2fn0xQ==
-Date: Tue, 8 Sep 2026 19:13:55 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20260908-dinner-shelve-1d61e19ee3b7@spud>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
- <20260907210042.32552-2-marcus.yu.56@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSvEsi04"
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90cbff85fa9so56849306d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:15:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788891311; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BZn3nQluAYbQ6DAAIfKtHz/RkGQLG0n7gmIhrQXjKarRQKm6UFPMIFqWW1t5boEw9a
+         pPSbvTfSigBIwCewISA+9W4RmCqofTOn4B//C2YuqIJuKgoyp1f2AzfZX1HnAwwp0lht
+         /4JB4Q1Vy1GJ7O/vX/09tUNA5IBWHjs9DNUKeD1F2VOOd6C8cnpya33LoZmzprm8PBTp
+         Pl/o15RJpqNYsx4eDh+v1raiWfjvtutjTWat7VOISxHAk8E7oe6y/x8x9mZaYu/Nm6xb
+         A0QcH19LkzG5onJwN8zNMQ2b+ry2Zx3Y8+qgLHOwObdcY3qGb+Vgu5gaQXKxTjFz5Ooc
+         0Qtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        fh=AklA9GtLxqTsqTPyCw5FugqXR3wF8EVQr5agOkUzreU=;
+        b=abHW76HtgVWQoBGCnWgFVGdq7uacnA6K1QFHwjKSr/8hgWYAQoTKXYqyH2wFX9yh/X
+         HLybmnaVGvr2Ye/tCVBa846s/CijL/26nKmiio8o515S0uzh786wnSWv/h7WcVmgrdBi
+         U5rexmq0Io3ZpDRLNwL8HrvcH3HtcOWL1OcN02QOpY8szdcgPjoUKR28MJglwezrvMK/
+         QqaaBPpwqRmQFkDWsZXnvZJEUrgEP+GwBQOd1LJHzKIcvrDfea3oks/LCU8I8x8fOevn
+         qBbyi3EyuYNf2CQpTr5/3kzlNZtnveUgQOvaCFFVbYjcP7IpXAO2IECpg4UZCACXVXwy
+         f3ag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788891311; x=1789496111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        b=PSvEsi044/VNrr+XO80eXovPHgKTD4gk4DP0jsH5y066JJbWAbjYw/ytoLwzIAgwzn
+         +WjzQjjQlimRn6hvbI/9BnueMc6LTpiC4I6ScDju9Ytji4d8N4TgXZJnXRXTAETG3Def
+         oLwLSC8lL29A4EqBtaNs2akAoS0H26mP8VU03BPDvP0Bmvd1bIO3AMjzrar/XfntgzBl
+         ynU4cPXcqer8s56en5zhmhc2Fusw1dXYiw7TcpHaF7IgocQTdMz3LUpvwsVlLefqofmC
+         6AEGk+kk54oSF3JiD4KN6ZoVWucF1NKrJGPRie/qGusYuisSdcXJ1ekqBKwAQqc0kfFn
+         pAxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788891311; x=1789496111;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MP3apYl6WaB7KiBrxFylQ3CL+F1Ox3GURYmefi8a5u4=;
+        b=rhqNtUnrvvwV0X+7BIrXFgUPvOdsdxROmb2sh7Y1vmsC2m95Ag4HvcdSJPP8TXib5f
+         a2rWs7wIPzF7q7X7igstJVABvLt2SM+I2XIfUYnZMzBXSQyQeX8GiUEWBjEnHjCBEMXp
+         7/jiLj7DwE4lg+crf24KkDLWibIE0W/f2AhFWOypyGcdqTVgycT2y6vd/UYIjCM3J6Ec
+         b2ErpyD6UpSLuPpVUn6qsrC+1dqSazdiN3U2KpQJrQKg6TXCqN8K7dH8ZNagqrvuhJv+
+         5VQxPjJOMio/RELpPBayJegLIzySl7fufpUpogouVPFOMMQM89qZ6I5W+1FzZZYcRqnA
+         Hiiw==
+X-Forwarded-Encrypted: i=1; AKwUvBzE31PssR0QuGayyKgyjSg/vzN/C3TWtOOt6JFzdFPdqpsktJqAACGPj49Qo72OqKSPKranY4G62LHjBMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++lNbZ01YFyXyw3k5rF/icT5NgK3ljJa8ix/oHB7f2jN08tg5b+h
+	zRhswHaxfYSoHUfaML6SppxhyuMv2xef+OjY6M/BQnvJvzVZjdPV32hgvpZEbC8DYMxgSgOK0wn
+	vf7WzNP9FQTsqXIdPxGuohP8x5cIWIdS550QI
+X-Gm-Gg: AYBFou3nWyFZL51MRsmDv7MEttSK9koalINWq7ZRp8crMHiRISdCX0uOC/XlrfYsSAO
+	hfr7YBbmd+D1vIoL5iPDhnFzj6996jIcpvOYx8Sz2GKQcsT0QqEVLdnA50wYlcPyxntrxm0hNu/
+	mT6HXgFs6uKgUJxn7rf0GoAOyViadKj6dyfxow+19CQEgsBa8T/oEqwt0KEIL0nZ0KWiP7S+4i5
+	mJD9Dl9SzC3A24DacQI7LgefQH8bxyJ/3n7fOqRz2TgXa/ucedKl5QRHe8AgS9ehNBMaDJJmyhZ
+	9AqO6eNIgyZYHGpKiWOez+Bv4LlwGLgFQbBPx9hMwq3X5MJv/u9S6/4=
+X-Received: by 2002:a05:6214:6354:b0:90e:8a84:f5b8 with SMTP id
+ 6a1803df08f44-9103efac50fmr274978446d6.28.1788891311145; Tue, 08 Sep 2026
+ 11:15:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4QRZKbOQ6hXibigH"
-Content-Disposition: inline
-In-Reply-To: <20260907210042.32552-2-marcus.yu.56@gmail.com>
-
---4QRZKbOQ6hXibigH
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <CANRwn3RFVDy+y-fpLkb1mfjiKyQgp1Jg0tyBTO+G0xem2s1jkQ@mail.gmail.com>
+ <20260904020235.8227-1-98lawweijie@gmail.com>
+In-Reply-To: <20260904020235.8227-1-98lawweijie@gmail.com>
+From: Jason Gerecke <killertofu@gmail.com>
+Date: Tue, 8 Sep 2026 11:14:59 -0700
+X-Gm-Features: AcwNN1UywzU7cqy163imiuwCDI-OJo3UKdSrETVCLN-wYAoD9DpBSTsnKrDgB1Y
+Message-ID: <CANRwn3RqPvR7g3riuKSg11TCm+Yt9MTd6r0tF4tqSK3rcRp_gA@mail.gmail.com>
+Subject: Re: [PATCH v3] HID: wacom: fix OOB read in wacom_wac_pen_serial_enforce()
+To: Wei Jie LAW <98lawweijie@gmail.com>
+Cc: bentiss@kernel.org, jason.gerecke@wacom.com, jikos@kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ping.cheng@wacom.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:
-> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> with i2c address of 0x39.
->=20
-> The GPIO pin is described as a generic GPIO for now. Binding design for t=
-he
-> more advanced measurement/LED synchronization use cases are deferred to
-> future patches.
+On Thu, Sep 3, 2026 at 7:02=E2=80=AFPM Wei Jie LAW <98lawweijie@gmail.com> =
+wrote:
+>
+>
+> On Thu, Sep 3, 2026 at 3:36 PM Jason Gerecke <killertofu@gmail.com> wrote=
+:
+> >
+> > I'm still finding the above paragraph kinda hard to understand. What
+> > do you think of something like the following instead?
+>
+> Your version is definitely easier to understand. I'm good with it!
+>
+> > Other than the above language issue:
+> > Reviewed-by: Jason Gerecke <jason.gerecke@wacom.com
+>
+> Thanks. Should I submit a v4 patch with your "Reviewed-by" and the
+> updated language, or is leaving it as-is (here) just fine?
+>
+> Regards,
+> Wei Jie
 
-Unfortunately, you can't change what you document, so picking something
-correct now is needed - even if the driver doesn't use it yet.
->=20
-> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-=
-14-Channel-Multi-Spectral-Sensor.pdf
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
-> ---
-> Changes in v2:
->   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
->   - Fix node name and unit address mismatch.
->   - Include MAINTAINERS changes.
->=20
->  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 75 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as734=
-3.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml =
-b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> new file mode 100644
-> index 000000000000..b06d445b92b3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> @@ -0,0 +1,69 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> +
-> +maintainers:
-> +  - Chang Yu <marcus.yu.56@gmail.com>
-> +
-> +description: |
-> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address =
-of 0x39.
-> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Chann=
-el-Multi-Spectral-Sensor.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ams,as7343
-> +
-> +  reg:
-> +    description:
-> +      I2C address of the device (0x39).
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      Open drain output active low interrupt pin.
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  ams,led-current-microamp:
-> +    description:
-> +      The driver current for the external LED connected to the LDR pin.
-> +    minimum: 4000
-> +    maximum: 258000
-> +    multipleOf: 2000
-> +    default: 12000
+I suspect Benjamin would prefer a v4 with my Reviewed-by attached so
+that he doesn't have to make the edits himself.
 
-Rather than a custom property, the tsl2772 uses led-max-microamp:
-tsl2772.yaml
-46:  led-max-microamp:
-81:                led-max-microamp =3D <100000>;
+Thanks for your work on this!
 
-I wonder if the same should be done here, or if there should be an leds
-subnode? Perhaps the IIO folks can comment on that.
-
-> +
-> +  gpios:
-> +    description:
-> +      Optional GPIO pin for general I/O.
-
-Please expand on "general IO". Docs appear to suggest this is used for
-synchronisation.
-
-Additionally, I think this name will make the gpio somewhat difficult to
-request. Calling it "sync-gpios" or w/e will permit the usual gpiod
-functions being used.
-
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        multispectral-sensor@39 {
-> +            compatible =3D "ams,as7343";
-> +            reg =3D <0x39>;
-> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> +            vdd-supply =3D <&vdd_regulator>;
-> +            ams,led-current-microamp =3D <14000>;
-> +            gpios =3D <&gpio0 6 GPIO_ACTIVE_LOW>;
-
-Valid Sashiko comment here I believe.
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 04fa5322d9f7..8cf4e1635053 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -1430,6 +1430,12 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
->  F:	drivers/iio/light/as73211.c
-> =20
-> +AMS AS7343 DRIVER
-> +M:	Chang Yu <marcus.yu.56@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> +
->  AMT (Automatic Multicast Tunneling)
->  M:	Taehee Yoo <ap420073@gmail.com>
->  L:	netdev@vger.kernel.org
-> --=20
-> 2.55.0
->=20
-
---4QRZKbOQ6hXibigH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBQYwAKCRB4tDGHoIJi
-0rFTAP0UKfiCDi1ACfy0mqQe48QJpi4vQY8KmzLN4QO8JUSvJgEAznVV+tWBYXqF
-Xonh23zq7OWQICdd0F9RHJi3wryHBQ8=
-=7PmM
------END PGP SIGNATURE-----
-
---4QRZKbOQ6hXibigH--
+Jason (she/they)
+---
+Now instead of four in the eights place /
+you=E2=80=99ve got three, =E2=80=98Cause you added one  /
+(That is to say, eight) to the two,     /
+But you can=E2=80=99t take seven from three,    /
+So you look at the sixty-fours....
