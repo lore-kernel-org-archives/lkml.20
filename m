@@ -1,197 +1,198 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCA04AA3FC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC3CA54489E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:29:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874159; cv=none; b=GA5LGN8Y9xYemdzvD1P3N+xwAYl5t/Ay6N2m11Uf7wfFG2veAeGRvl/diegjZGyVJUePEFR0MWkoZxSL1UcYwpybZmT3qZl7iHKdJ0IzUOhYE6DCohNcwm9WhByJwkpPrmDo4N8xgv4b14+uEt8gdK3ooxx3WSV8zMuqp0CgqPE=
+	t=1788874179; cv=none; b=K538VADdiP3ffb4YR6DdycNjxuyAE0EZgqiLQghRSfDyGW+ZzUKp9Dlbs0OYf8Wxz94UQXJLfrm9IUO91KvLzc0SfP+rafl3q+Neyx+BWF5WJPHhMPSa+IR84qKBKUhBlc+KnWYTSnhC6VISul+jKwjmCjFUHNwPp9jwfcnUeY4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874159; c=relaxed/simple;
-	bh=k5HCTeqFbMi57vKLkj2X7I2avf2P/QWPZAnpsRan1nY=;
+	s=arc-20240116; t=1788874179; c=relaxed/simple;
+	bh=ilMIv23jDI2om5QXhKraazCHucV6pJlWdlh4viYTMaQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H46FoXw99Pr9c5aKpcuAWbuWY5LVVg8beXVbnAHRChYh4ATwa3TwdrwH4TwvTl/caRinL3FLDg45QlepFvC2lGwDfLxS1kU2Klpx0i9JckgUstiVPpy3LW2SkS/yag/BFVxPDkrYXka3/7rod8iL13eTixjJATvHpdlY6vP+4cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NTivlwwr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LVk0e8TU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=j6eEoWHa1rTzNcj8YFaQ7OUYSGhAESbb0/b3E39swLnYTuzJYJxnxxq84K4fc0hm78w/uajy1aLPQMCDFyD8SvzfVTOxC0fAHndS8su5FQj3b9kNt8854j3p42bxoEdQr48gpnqt+g/gDquGaOKT7YaMkvVzKbMbxDSIpffGkhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=LKk5vrAM; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NTivlwwr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LVk0e8TU"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Ckovs3222078
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 13:28:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=LvFFq7I3YnVJDfVFV9SMgv5R
-	NwImgPOEhF+SmMTxkq8=; b=NTivlwwrnwlzxFRnUFxldBN/eOUOXanZpJrDmPEi
-	PwFbeBqjwtJ3WRLAj5OqONcO+mFxHFzzc5RmULIGhNTcKj7vCGvIMZvQEIoqSQyH
-	XnqzHAyH7vLlzZz6u0lpYeCuuYq+mkpv/8zdEzG4FlEH4hHLORky7EqyC8Tjrvuj
-	cUz39Om5GnyznOOx91XC3O0rEx5ygfwg8oHCYsl1Eu6SowI+pxlq8tuSjJZmFlYU
-	WQCPirjuiZra+4zo1RYOMB6VcbJtagVF7dVfLjRYUrXOtt3j8wPyXqmGA6e1u7YP
-	zTFAMt0hNT9nCtx9AEXYZbwNCiKkhIOgkfNOdGqYWvr/1Q==
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjaguj7he-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:28:57 +0000 (GMT)
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-980b637ed69so44014241.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:28:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="LKk5vrAM"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-47f96c5b722so3277122f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:29:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788874136; x=1789478936; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LvFFq7I3YnVJDfVFV9SMgv5RNwImgPOEhF+SmMTxkq8=;
-        b=LVk0e8TUm8nVGLXngBKGcMQc7diKv9+wrncdxwpc6iMu5bKFTocOAUPAcAJqjpitqS
-         TAij3P7Jz2iAko95bk8ghh96rS3atLhbQefiF4sKoFMxxWjiHcHccTceJYIy6GH2dDLt
-         ujXdqMdZkca8ANk65TabJzGEgGJul7nP74o5pFRtnb25DR0+CGnKD9Pjc5GN3LLbcRnl
-         nfrM590P6iJMAE7DlqwDCqHMT60IjeiKsaAG0runJ29wfKrvBue5mi67wCZQbhXpLsNy
-         W4ISjrJYlPu3kt4SKK1D53eItIh1lH5VwGTYavGdF4/NRFigr8NaoOmSq3AJvuuHJ8jY
-         BRag==
+        d=suse.com; s=google; t=1788874164; x=1789478964; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YSgzUdR3sqoyk/gUrIXmjoEFUchlJ3rVBgk6ATmeKIw=;
+        b=LKk5vrAMirwsRBoQ1AIBrFsSQOsmLowcPgn1wJ7cIxVDp0zrDWADp03ZaT5Etmscoy
+         kby7oDNQuW5n6GyqNgklJLOtXjWCGxAXEwGHYz5QDST1PHf+SKdG/1HxWm8sFMzMS1GX
+         L2VlCweH4l7a7HaDcSFPJp49daOSCM1NbHI7FRMVrxo6j/UUwHuIPEpWWqmCeNwyDCoh
+         vTMWWs/k5NAhu3OpCcvrAHyA4inHyBUJBw0YDtZVGhZ8qccl3v6r7m4B1U7FV0Sx7qrX
+         EW0mzcVL1XLqpk9qhvWVXCceY6PDKqc8WcatLUojy3+/aADoUVd85hI0rtsTxpZ0AWAs
+         b9OQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874136; x=1789478936;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LvFFq7I3YnVJDfVFV9SMgv5RNwImgPOEhF+SmMTxkq8=;
-        b=VImdfFUcepJ1tcXgMLBI3DJrJC33ZuKc2tBKsHg/fH702qxKxeVqW7D3CB72VRqiQP
-         Ec8Ck7CMbrSwqmTJLt2HBXMOAmMN1ZRwXdhOqC8XMkUYj5URhWv6rqSsYYMOqT2ooJMn
-         S/PwYBQzf2vuPLdlfZdLEcGNeDFil4eEd1alOFAm6rUdkryPhTtGyOa8cY08M10/JfuQ
-         BiSaBalZLoA3tJ85rc08ZlKpog2xOF7X4wVxuWvDnFklVbagtZtuqx+U1uE0/EUsifIk
-         PE/7FfTuxuboL2nvR7QG9B8FIR+oEc30eboH+kP4OagYoUxwqDZDQAZ7Q2S72UFPpKkN
-         8UJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwgPxwDTNLcLwtpDtVmc4XIwhHueXoN2DApkHThMUhj0h5eAzC4ZAHu53f3JtOVN620TclgCG47YYQbbU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mt3D+awvIuB3kpkagywxw466XDjCWB0CXjgTLa/ADpW2Lr+pho
-	PeHWEyuQKP+Q8BziHT7wowAUwxGxwMnJLh2LFcCQJe8SAdHxtRnIslBbDttUs3xM/JFrUpSepoL
-	xjKzQROmvpUH01JK0XHvlIkI6+REqWbm4mCbPAaAVd5yXkqohHaw+XFKINOGXCUt1rsE=
-X-Gm-Gg: AYBFou3D/afJGHiQz3H+CG2YZS0M0GOM6MOlT70JcOvWxu2DVSJt5YCcKt4p8KJRYGu
-	9s0Ru6lWzHKJAC9SWbjN68lfH1EVtRnYllKz3iQT/Q8+SFKX9NFezw05eAUrPg7VISDtr3hzINj
-	P6is9No8q4MWuSdvytsWcAhCcwmxAsX3C8gCVdpsIJ4tUoTvz9kIxH9IwZvbcjRq5QhW6SJNaJG
-	7qR0uv7kgRhqfK9NvYApV2fCxhvSYO+4IGuqZ7UzzcOq7DBaZbZJUFw/YZUXfrjRiHk0lTtuEBj
-	cQhiKxZMgd6wZqhderm7B+DET+2sUOOgnOhSr5GuNMKQxolQfgJiNDBjjvOcSsVNFvHBMKcR4I3
-	nU8PZA/7Rf31sXSyQYCQft8p1xEbSngtRJR1dVYkujw/SEARsdavq555ji+7977ZjAVL2DmOosb
-	UJuKnXyXzhcSKQ
-X-Received: by 2002:a05:6102:4409:b0:789:56eb:39a5 with SMTP id ada2fe7eead31-78a4a836e1amr8346232137.5.1788874136321;
-        Tue, 08 Sep 2026 06:28:56 -0700 (PDT)
-X-Received: by 2002:a05:6102:4409:b0:789:56eb:39a5 with SMTP id ada2fe7eead31-78a4a836e1amr8346200137.5.1788874135747;
-        Tue, 08 Sep 2026 06:28:55 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166ed043sm3118098e87.24.2026.09.08.06.28.53
+        d=1e100.net; s=20251104; t=1788874164; x=1789478964;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YSgzUdR3sqoyk/gUrIXmjoEFUchlJ3rVBgk6ATmeKIw=;
+        b=ku/EY6JkkdanAZv62y993T2uaqp0GIX/gX0jWgESaOKK3JaxxeS6xoZ5nPq29YRe+Y
+         Dh3W6jRyCrNcGtGF8Ty42boEPNVm2hRwb+gtfjsqzz5wSi69MroXn9QXoWlPA9sn6QzS
+         2kgL7qr6lsMYAxmuy4/vCy7cKZVfFtGDMXxjglw4MOo4ThQU6h4p27toX3nt5e28OaeG
+         u8K4h5l8cqdQit7gnyz7HZGtPwLQkuP/zG4N8izknrHw/5kdrb4IKMp+jk/rKw6ZPQe+
+         I5eJ88LFWExvcGnA8Ml5/1UGO6excB9cSYGiZXMbkf257RS/rZPSQ9rnc1zdikLnjiab
+         U+UA==
+X-Forwarded-Encrypted: i=1; AKwUvBxn8cK0hbxk8F6B9L14fJRolqsCwj6Uv+Wpsho978sC27l2foNRfSWNABBRglpzhhS6fdyJbTTiS+mqf6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBXsLHN0AdliAlUpjy7LY2gw+CvyFA71+0qyA15/n3zZjPaZGQ
+	jL6eyV0eYuUtfo6D24q/IuiMXov4B1J62LoivpihVkTp1G+2uPby1tGoGMg5Jg7GSYQ=
+X-Gm-Gg: AYBFou3K7ZeW0tlfsELWQIDIctNkdd7VkZ5VhTlVHehWLkslEMtqPxzqfqFSSTp/VQO
+	Lz1G1S3I90f3kHgosOaB0HNBHt1dqgKlM5M4HsesFzpExmPRrvIOmUo+f7y4sM4dPpqAmFNywci
+	yn9Q0kRdngxm2oXLpWqYhBqv0H7ilcPFVWV1VH0Ct4AV89ruqkwgmsBSUK3tEmVqMbFSmhF9fMx
+	pMXxzOPphgn6J60U/1lYXbEkcE3nMNcSgDTUP8S5Anw8bAKWlhJ6wXAYBY69Nz9opHkEvnxdl4t
+	1p9h65wns2HxgwjRrE0tCUjj90y6HSnt2IKYe/gQFvdYuhUfx8QJ3yIEvklO7Enci9Fr2wZ+jHq
+	fpkNS2wFcZqjIUxYkM66RXp6hwj00jzQjCdR19Ujwu8Ht9hfMEIQpeUxrfFIXY8TD82B/qbDBKI
+	GQK5gPOXHpZmGAwOprZoqKL7fWSB/8ZdExx7WAUlwbOcCVrbTVV8k=
+X-Received: by 2002:a05:6000:4710:b0:485:8a47:5b83 with SMTP id ffacd0b85a97d-4858a475c60mr26306825f8f.32.1788874163604;
+        Tue, 08 Sep 2026 06:29:23 -0700 (PDT)
+Received: from pathway ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b7bfasm36856922f8f.29.2026.09.08.06.29.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:28:54 -0700 (PDT)
-Date: Tue, 8 Sep 2026 16:28:52 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Luca Weiss <luca.weiss@fairphone.com>
-Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 00/12] iommu: qcom_iommu: implement support for instances
- on MSM8974
-Message-ID: <ssleznoahzs4wgf5irjiagss2rjwl2s2jjnqrrnlpp74rdkgfs@au6x63ykyjfs>
-References: <20260809-msm8974-iommu-upstream-v1-0-87f5cd492560@oss.qualcomm.com>
- <DKL6P7G0WTM7.UJ6KZERQZDFK@fairphone.com>
- <iv5radfllym2bjvkrdu4ffs25bqixyos7k3ymncpcdtc2uobn2@zlhsybrj3pwz>
- <DKX384NK76OS.3NNOMAH72PV2P@fairphone.com>
+        Tue, 08 Sep 2026 06:29:22 -0700 (PDT)
+Date: Tue, 8 Sep 2026 15:29:20 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: joe.lawrence@redhat.com, Harry Hsu <x90613@gmail.com>,
+	jpoimboe@kernel.org, mbenes@suse.cz, shuah@kernel.org,
+	linux-kernel@vger.kernel.org, live-patching@vger.kernel.org,
+	jikos@kernel.org, song@kernel.org
+Subject: Re: [PATCH v4 4/5] livepatch: Clear relocations when
+ klp_apply_object_relocs() fails
+Message-ID: <aqANsLgTIOy44sDg@pathway>
+References: <20260908120325.299649-1-pmladek@suse.com>
+ <20260908120325.299649-5-pmladek@suse.com>
+ <20260908121810.9577A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <DKX384NK76OS.3NNOMAH72PV2P@fairphone.com>
-X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6aa00d99 cx=c_pps
- a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=uEsHIfJi1mZuTdkiAjUA:9 a=CjuIK1q_8ugA:10
- a=TD8TdBvy0hsOASGTdmB-:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-GUID: 0EzhdtVml5sio5_nm0MH-p6GxEB7w8aO
-X-Proofpoint-ORIG-GUID: 0EzhdtVml5sio5_nm0MH-p6GxEB7w8aO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0NCBTYWx0ZWRfX9xhjqNomka6O
- Yyi7ugq7mXuOOwoD9l1Q5v1MKFVz/V3g6Xc1gKDGlb2AH922IyM3KPQbnuzzV/PNv71Ugf3D/h6
- QQlJvjsOtDr+r3+ie9x1x7tekkdOViQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0NCBTYWx0ZWRfX9lZ17hAXcIVr
- dAr7BJAX594Ci4pYx3cg9F9UYz5BaZc0xeQWpibhJuSaS5BamKfWY7m3U03o4Ih1B2RdaRMY3CP
- 10y1N7o+KPAuvcht4sM+NHozz9a6cw+X2z4wizSa6CQcpPxVzvWOSNZpZq/9AMCfAEMQRgLJCIs
- SjstSByyFW5wEfbCKkUw6x0rw4VtNeapk15Icik58EHhW0Hib29kOFeJU2cHJtx81fW6AiePsWD
- xWdhds/b+UxXdT4oJLADEo1NzrihaAUegatOQDhxnHWZ/fG2w96phigXXDhzHTubvVzUm/qA+nm
- 69UQGvb93aBB8uJ/Sg9ukIB0Oxl/OMqOLV5/A5Mh9LWzxQ8/tBPCgjs/gNP8G5CSXoQP0ASEFx/
- fy150WvswH1HFbdS12T2cGAbD1iVq7x+6MGyQEgS1CyIW7YkcjB50U71LOPjSBEeQUwEdyUmG8Q
- gs+Px9tQ+R5jbmwSdSw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080144
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908121810.9577A1F00A3A@smtp.kernel.org>
 
-On Mon, Aug 24, 2026 at 12:04:57PM +0200, Luca Weiss wrote:
-> Hi Dmitry,
+On Tue 2026-09-08 12:18:10, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Off-by-one error in the rollback loop leaves the failing section's partially applied relocations uncleared.
+> --
 > 
-> On Tue Aug 11, 2026 at 2:43 PM CEST, Dmitry Baryshkov wrote:
-> > On Mon, Aug 10, 2026 at 12:16:19PM +0200, Luca Weiss wrote:
-> >> Hi Dmitry,
-> >> 
-> >> Many thanks for working on this and sending this patch series!
-> >> 
-> >> On Sun Aug 9, 2026 at 10:15 PM CEST, Dmitry Baryshkov wrote:
-> >> > Qualcomm MSM8974 platform has five SMMU instances, used by display, GPU,
-> >> > Venus, VFE (camera) and JPEG encoder. Each of them follows ARM SMMU v1
-> >> > spec, however they differ from other Qualcomm platforms in the
-> >> > implementation-specific registers and also in interaction with TZ.
-> >> > Venus, MDP and VFE SMMUs are secured and require programming only of
-> >> > CBs, while GPU and JPEG require full programming.
-> >> >
-> >> > This series skips IOMMUs which can't be tested right now (VFE and JPEG),
-> >> > and adds only MDP, GPU and Venus (although untested, it is required for
-> >> > display to work) SMMU instances.
-> >> 
-> >> I do have a patch series (sent years ago to the mailing lists as well)
-> >> for CAMSS so I can definitely test this in the future.
-> >
-> > Ok, let's land these first, unless VFE IOMMU blocks display on your
-> > platform (Venus was blocking display on APQ8074 DragonBoard).
-> >
-> >> > Note, to get display to work properly one fix is necessary, [1]
-> >> >
-> >> > [1] https://patch.msgid.link/20260809-msm8974-mmcc-fix-v1-1-50f2dcf18d2e@oss.qualcomm.com
-> >> 
-> >> I've applied this series on v7.2-rc7, with the extra commits between
-> >> that and linux-next for qcom_iommu.c backported so that your series
-> >> applies without conflicts.
-> >> 
-> >> So far I'm stuck with the GPU not being able to probe, adding some
-> >> printk's shows that in msm_iommu_new() the call for
-> >> iommu_attach_device() is failing.
-> >> 
-> >> [    5.971154] msm_mdp fd900100.display-controller: failed to load adreno gpu
-> >> [    5.972991] msm_mdp fd900100.display-controller: failed to bind fdb00000.gpu (ops a3xx_ops [msm]): -16
-> >> [    5.974073] msm_mdp fd900100.display-controller: adev bind failed: -16
-> >> [    5.974152] panel-s6d6fa1 fd922800.dsi.0: error -EBUSY: Failed to attach to DSI host
-> >> [    5.974230] panel-s6d6fa1 fd922800.dsi.0: probe with driver panel-s6d6fa1 failed with error -16
-> >
-> > See the patch [1], it's picked up for 7.3
+> commit d297505bb4b1d833ec93725770d65ac1044abcad
+> Author: Petr Mladek <pmladek@suse.com>
 > 
-> I missed replying to you, with this patch the display lights up again!
+> livepatch: Clear relocations when klp_apply_object_relocs() fails
 > 
-> Unfortunately the GPU still seems to have issues, I don't have a log
-> right now (I think even SSH was dropping then with a bunch of log lines
-> appearing in kernel log on screen). I assume kmscube + more complex
-> workloads worked fine for you?
+> This commit introduces klp_write_object_relocs_limited() to unwind and
+> clear only the relocations that were successfully applied before
+> klp_write_object_relocs() encountered an error. This prevents partially
+> applied patches from leaving un-reverted changes that cause subsequent
+> patch operations to fail validation.
+> 
+> Link: https://lore.kernel.org/r/20260830175608.4BABB1F000E9@smtp.kernel.org
+> 
+> > diff --git a/kernel/livepatch/core.c b/kernel/livepatch/core.c
+> > index a6796cd6b65fd..714f97fdd271a 100644
+> > --- a/kernel/livepatch/core.c
+> > +++ b/kernel/livepatch/core.c
+> > @@ -342,14 +342,17 @@ int klp_apply_section_relocs(struct module *pmod, Elf_Shdr *sechdrs,
+> [ ... ]
+> > +static int klp_write_object_relocs_limited(struct klp_patch *patch,
+> > +					   struct klp_object *obj,
+> > +					   bool apply, int limit)
+> >  {
+> >  	int i, ret;
+> >  	struct klp_modinfo *info = patch->mod->klp_info;
+> >  
+> > -	for (i = 1; i < info->hdr.e_shnum; i++) {
+> > +	if (!limit || limit > info->hdr.e_shnum)
+> > +		limit = info->hdr.e_shnum;
+> > +
+> > +	for (i = 1; i < limit; i++) {
+> >  		Elf_Shdr *sec = info->sechdrs + i;
+> [ ... ]
+> > -		if (ret)
+> > +		if (ret) {
+> > +			if (apply)
+> > +				klp_write_object_relocs_limited(patch, obj, false, i);
+> 
+> [Severity: Medium]
+> When an error occurs in klp_write_section_relocs(), the rollback is triggered
+> with the failing section index passed as the limit. Since the rollback loop
+> iterates with a strict less-than bounds check against this limit, will this
+> skip the rollback for any relocations that were successfully applied within
+> the failing section itself before it encountered the error?
+> 
+> It looks like this could leave partially applied relocations permanently
+> in memory within the failing section, causing future module loads to fail
+> validation.
 
-I was mostly using kmscube, but I can try running the CTS once I get
-back to it, sorry for the delays.
+Sigh, I did not go deep enough. And it goes down to the arch-specific
+implementations, in particular arch/x86/kernel/module.c:
 
--- 
-With best wishes
-Dmitry
+static int __write_relocate_add(Elf64_Shdr *sechdrs,
+		   const char *strtab,
+		   unsigned int symindex,
+		   unsigned int relsec,
+		   struct module *me,
+		   void *(*write)(void *dest, const void *src, size_t len),
+		   bool apply)
+{
+[...]
+	for (i = 0; i < sechdrs[relsec].sh_size / sizeof(*rel); i++) {
+[...]
+			if (memcmp(loc, &zero, size)) {
+				pr_err("x86/modules: Invalid relocation target, existing value is nonzero for sec %u, idx %u, type %d, loc %lx, val %llx\n",
+				       relsec, i, (int)ELF64_R_TYPE(rel[i].r_info),
+				       (unsigned long)loc, val);
+				return -ENOEXEC;
+			}
+			write(loc, &val, size);
+		} else {
+			if (memcmp(loc, &val, size)) {
+				pr_warn("x86/modules: Invalid relocation target, existing value does not match expected value for sec %u, idx %u, type %d, loc %lx, val %llx\n",
+					relsec, i, (int)ELF64_R_TYPE(rel[i].r_info),
+					(unsigned long)loc, val);
+				return -ENOEXEC;
+			}
+			write(loc, &zero, size);
+		}
+[...]
+
+We would need to implement the revert at this level.
+IMHO, it could be done separately.
+
+I used Gemini LLM to check it and it seems that x86_64 is the only
+architecture with these permissive checks. It seems that all other
+architectures just write the new value without checking
+the existing one.
+
+Would you go this way and try to get patch into x86 code?
+Should I do it in v5 or separately?
+
+Best Regards,
+Petr
+
+PS: I would prefer to go with unless it causes regression
+    and fix this "later". We could not endlessly delay
+    fixes because of Sashiko finding pre-existing problems.
+
+> >  			return ret;
+> > +		}
+> >  	}
+> >  
+> >  	return 0;
+> >  }
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260908120325.299649-1-pmladek@suse.com?part=4
