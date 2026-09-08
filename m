@@ -1,168 +1,244 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012043.outbound.protection.outlook.com [52.101.48.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6625F326D44;
-	Tue,  8 Sep 2026 04:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788841934; cv=fail; b=urLv100qaINUgybsmy+fKw35C1ZTVuGItvZ1WwhaTdDYEOYMr3gWRMrvqa8I58wYn/g/KQib2DRoTNjsUw8mCwBLOiFYUGQZOXaYK3BleGuSXsfHv0U3TYAQ8VEQ3B9HeykNhSqXEkRw8c1AvfKHmBsN2rKzprFXqGq5fg/OB/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788841934; c=relaxed/simple;
-	bh=iyCfKWNkUE/biSj7HaDHnLoPDXw3Oa3aZBr2gkEua30=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lhPT5tzo6zwPP/fxPRgdSietZ5S5cb2gyXZb3gRM58ep+xKdV2jtVJd2fIthbotdow07l+VKgg4Xfgr2WsAZbT4qAugkvydL6IIjaB1tj5RBYmtjkyAyi2AkovnpwNf6sd8uFSw1iqzTmuI2ubDx3G5PhMFSZ1OSmvmj5pLcBmM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Vo02fBYe; arc=fail smtp.client-ip=52.101.48.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1CC9357CEA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:32:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788841942; cv=none; b=QRWkoY/X7THTTgBRpc6kh03jzlx8iM5QhQ79YrwHCpivQSYnTpueFTcYxjAJegZs2wsmt0vpZh3O4z37ZNW8Xfuc8S5DQ4KizQ/EGnaqC+EVfyUfDHqxrCtyXAVQyV5YLftrJd/WhNXECgIIctJjZvCJZ310C9z8pnxQMfzhdhI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788841942; c=relaxed/simple;
+	bh=VkgZ2z71mZW+gISvKxoo1p1Ae9kUFIXiQXB2+37B+bQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=do1SvpeWEg1L63cp+rkkB2Dzra2yJamnnVB10JNqcJUcyOHao5e+gv0T7M4wSsxo6qjBsuW2QiPWKF/7uGusV5QfXizy8WZpKMZwyzPQygpLD4i7KkfLatV57aIrpcYkkgvaG3r9TWrMsQCWpLbtfVxbf+M/LB/mSWx81mGavpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f2XgMff1; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Vo02fBYe"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d/MQ15OOdICLp0G5NOdjOM7JJpnr4TTeEySv9BR44vH+RNJYkeWMPS5cK0GnGr9/VhgHLmcmRYDJb7UweBgrg/WbzvZ/Oh3MvoUk8baTuPoMkLuhw2d/0Q3ZiGJSeJI/qRDquogVhBgx2njNnV07WsZOiN7MsxKA96Rvqi3kyqZZyB7ZiA8xP4yRTY1sAK2dFCYqD9cDhW/JwO75MJrSbo5/6F45H+FE14sk7t4ytiC3oozd8RyHGgCVTiy7wGxqlaB9573mt/ZBCQVDU+irw5LO/X+PBHhB5GmicyC6eBVoSxFGRss7oTg/FbHq1owLXDGHPI8aEtK3oyh9q7zQ2g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=m8NXlpvw6BvXaGS4s0zm00jlqvSNMBQId/ARa2gC/08=;
- b=hWlm2jJIqmbQSE2M9k08PLMFESCZRkoBcF5m0Yct5GWtWZr/3Jv+krTFRqCe8WzgvNpVcbSHJj9OfPheGY2YW36fZ+O5O/6mMJb5oj02jYOyKgKE95Z0ArbALQD0s2z8FcpqHgnCrImPNCgGofv+L+h39tg2ypBwql80bfM38o+955vZaCne6lxCwD+H2sF2lMcj9BU30aiq+pbov8LJOVKFg36Wc9uR9wPxSV+UQUlbr8kcSfH5r8CBUbxLscA+2pKurYeSLZPQrBMQDcWJpG+zzF/Mzv2yhmt5gomCQo81Xhn6+i3hy2ZvpWMW/BvtKN2JX5eCkhwcAemrRKH2LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m8NXlpvw6BvXaGS4s0zm00jlqvSNMBQId/ARa2gC/08=;
- b=Vo02fBYegcfs2wCWY8mAv7DWLUFYkP7RFOyA0/6Q7pH2bTaf62iV4XijzQhNoVzpQ8z3M843UD/otbP+1sb3XJkFR2GWx5gzD+wjtQtE5a+dfbfh1WRWJaZfnHL4Lcixisl/RxdxvQSirOX4rOdQ7YEfQzx0snkiX4HIla0UIk8=
-Received: from DS7PR03CA0128.namprd03.prod.outlook.com (2603:10b6:5:3b4::13)
- by MW6PR12MB8868.namprd12.prod.outlook.com (2603:10b6:303:242::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 04:32:06 +0000
-Received: from DS2PEPF00003445.namprd04.prod.outlook.com
- (2603:10b6:5:3b4:cafe::aa) by DS7PR03CA0128.outlook.office365.com
- (2603:10b6:5:3b4::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 04:32:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003445.mail.protection.outlook.com (10.167.17.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 04:32:06 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 23:32:05 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-CC: Saket Dumbre <saket.dumbre@intel.com>, Len Brown <lenb@kernel.org>, "open
- list:ACPI COMPONENT ARCHITECTURE (ACPICA)" <linux-acpi@vger.kernel.org>,
-	"open list:ACPI COMPONENT ARCHITECTURE (ACPICA)"
-	<acpica-devel@lists.linux.dev>, open list <linux-kernel@vger.kernel.org>,
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH v2] ACPI: utils: Ignore leading root scope prefix in string _UID match
-Date: Mon, 7 Sep 2026 23:31:24 -0500
-Message-ID: <20260908043124.53175-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f2XgMff1"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ce98cb8165so39855925ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:32:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788841940; x=1789446740; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7Sw3D1y3zjsW1riYaATFZMDrMCFKmp0phBD8508fQP4=;
+        b=f2XgMff15/x80i15lJKurMNyOadpVbDF0KYTDdaBY0HsMkkuLoBh78AahGGqpUuITT
+         NrKDTVrQW//4ypovuxMobv/dmI2+moNz8zXVFBXR3MRBd2J/fJss3tnBn+ND7Lo26i49
+         cXH28b93SgXgQwzkM291gNOs7XldPJ/AIlNG073HdF7SVfex0o+y4j4xG2Wf5PUSK1Lc
+         CZz7w2WsxCarPgRGHb98QGJy5F1Pbxtavu2NDZgxQknqKNazMGoQYTl7nzh+dPAWoLYF
+         ZZOYpAivK30LT86b/gwjDENthePSzfKiMNcY1wvYIpu+PePfqtBRf+re0yJD/L8FjDpR
+         /6OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788841940; x=1789446740;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7Sw3D1y3zjsW1riYaATFZMDrMCFKmp0phBD8508fQP4=;
+        b=gJ2r9/HVMZZB53RhRy2o4HI/PebCjrNvIG8mXZJ9Hgdc/j57C14LtvgX7wzlBitKyz
+         so1Lr8Oj8e7iOspamMShMtWUP6CqmAl7JOJ/Vv/ozwHOhhha/q4pdWTwphAD0q6BN9ZW
+         N/WKD00vXR+PIuh50NLouMo39oTAUYIi3Uzg/MwwJjoVBFraS5qgjhAMHkh/d+TAELV/
+         Y5XSgWSS8TmUnyF2F2uPF+ehJWX4R8nkGVdt1eVAA1pPhFNsJzntmlQudTIdeslph7ln
+         yQjDzX4J0YKaYF6Wl5e14HgNGNQuROAUhh8M0P0dIk62NXTNgxHoLv0RCo8BVhd2/Q/c
+         qzBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxeyGNzNyaSaesttSLbBp8IZLjnyI4d5TSkVdM7B51JcbXAtKIMLRfgOH94F/5Tgn1lePZzu/i9CFaKRT8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nSfdpXTRsU0BHkUBSnkF4q8urNJFA0+Yse73AsPI4v0MZiocwA
+	xa5I1XAkP0eJbb2r5ofu8b9DrSm7nSm2mN7NNkTqDZpfcGGYkWEk+ngFqEyB4D96GWY=
+X-Gm-Gg: AYBFou3lLR7WWDHk2TRrkd7z2NioKgNwWk4FZveuloQhm2dlDngejf8FBLFEyY6KIin
+	B7OO70Ig3PrIIU5TcDogEtUp7TNrWXZI2x23P4hD0mD3zIR5tUjiUK0HfMb4XkZj/9yloo4bQKN
+	rw917cbYmMEVwfxK14Z0+eaj0nkm14RIL779M1jXnOMypMG9mNu8njKstNlqIjE7XUy6TwM+2ZY
+	xBDq+hf4FjQ/YGTITAEbsvewqM/130Zyn4HtIKkgoWYlXXvW6E/ky2rM1p8BrATLWha7hU+v2OT
+	ggtiXZmRGJVDJLe+TJXJXShR8spIbX62DJNtuLW6Eo0UYFuSeO3MGqCXzAXqOpSWMAjeYHkJvy5
+	YO/EmUIZAVCyzRq3Ug6XFtCqKpOe4wIxs8BJ9S7GxEx62Q3J04Wdo2fi8wk7JfZn41Cp+JiJwNf
+	IniwF7fz2JiWFzypvywPz1RWaWP6DAcfXa6cj4XcYz6yLbgM0b0MidDVKVD1UJQ8cjCeRMhBWnj
+	nlTRWU=
+X-Received: by 2002:a17:903:1247:b0:2d8:d4d2:d137 with SMTP id d9443c01a7336-2dafb136bd7mr279546925ad.19.1788841940035;
+        Mon, 07 Sep 2026 21:32:20 -0700 (PDT)
+Received: from spr1.ipads-lab.se.sjtu.edu.cn ([202.120.40.82])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b57fsm52098875ad.24.2026.09.07.21.32.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 21:32:19 -0700 (PDT)
+From: Hengbin Zhang <uqbarz@gmail.com>
+To: netdev@vger.kernel.org,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Mina Almasry <almasrymina@google.com>,
+	Taehee Yoo <ap420073@gmail.com>,
+	Bobby Eshleman <bobbyeshleman@meta.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] net: devmem: TX dma-buf binding UAF on netdev-genl socket close
+Date: Tue,  8 Sep 2026 04:31:15 +0000
+Message-Id: <20260908043115.216613-1-uqbarz@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003445:EE_|MW6PR12MB8868:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ed72bf3-244b-4277-2fd0-08df0d622394
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|3023799007|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ldjapXyGT1Kn/AlNkVyViqQQeDeGkJq7GI/96YaWNv5k1pT/CIKv//9TRj+MPAeA2EXzLgdn/N70cR05xwaG4Z2qPukJ57OU3SlzzeV7CrUW8RJXNFzF8UcWIRIymKYOnGQ5sXUxjibvFDAdm7Xyg9ZDLXTkFXte7uXUi8oCgLb5jReSN+aADuQY2hAr379pUyhVXDODt4bu13/4F6OVRqRC2RzO9caWjC3/giiUuMPHS7bVFzlqBVNGNMCJgZ91rZHoCkn0LKVlV6I3XVAbXShn6NefEBKqybhusui0IBxudPe4BuDUGvGCr7Gf2rhKUJ2yTW1JFvv94CjJR9ctAxQzFbr1rMFztfkPwa+ViAw9WARaEG2QWe+73/0DZrUuElTVx+oJi8YdiHy1bWHYl1tvDfFFgZoT2mZGjA1AM7xBZ8Z4M7JHkNmaInht0gldJCgZPOU9Cnod2YtTkX9PTPj4h83gj32gXHbxpnn9U/5OT9wWEly/fWXwmhIu8BQU6rZSaO24kjct4SI8VTpAKaye4st1s96MhyOld0Ojdtmu1TjJQzLe9lgGJaEtA/XB1t2SIEhHZwhO+fVhMjeyMCWCCfBhyhxWvG95X0d/IRhImp4WC8lkJZkm6cWinQ7PzjW245sypXCgLgOn00Bh5clu9at/C/CXbJOZvCsSBFucHJ8FMrU9gkT3I2EW9VKLDhbIEiyrNsi1Z5BlhqA/GQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	hh4WQOgkwqQTC2IpGampmu2Aw4F2oi0CzChN3nTOAwM6LQRIBIQt6n9IQLshdQbYu2DCtUJsvteQvH1KWGyqADJiYptrXW1mJeRcT/C5jQ5qfwAeai9hk7nsMge3O4a0TsZH/NeeEcWzwBd2FbvD89oFWBuRQx/cPpy9+sJmc4B5F8I0neH960i2O7TvU+Ut408WdOkz4+AHOBQz6K250JNxBJGvCcBWxk2GeyPMeL79t6KXMvgt8cDuJFJEHM/nbUp9i375zzr5Bty+KZWBNdB0pX3Cbo06GOYKcZg6b5zFEfsvUHarRY04TBCrVxUknGqm5qZYHcdR7Qf5+VEhw8Hpb0EevlghIIgdp8ehPgGADqSaZ5VfsZ71xlkuhWzG/OXYXgHfNByfj5UUJvTWh63F1buIHafdwtbmplNomRScyk1BPlzxJHkBE7VvLz76
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 04:32:06.3977
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ed72bf3-244b-4277-2fd0-08df0d622394
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF00003445.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8868
 
-Firmware may express an ACPI namespace path used as a _UID with or
-without the leading root scope character ('\'). For example, an AMD
-IVRS IVHD ACPI HID device entry may carry a character UID of
-"\_SB.MHSP" while the corresponding device's _UID evaluates to
-"_SB.MHSP" (or vice versa).  This semantic difference is due to how
-Windows PnP enumerates and uses devices.
+Hi all,
 
-acpi_str_uid_match() compared the two strings verbatim, so such
-entries failed to match on the UID even though they refer to the same
-object. In the AMD IOMMU case (get_acpihid_device_id()) this caused
-the exact HID+UID match to be missed and the code to fall through to
-the HID-only path, spuriously raising a FW_BUG.
+Up front: I'm not a kernel developer, just someone who reads net code on
+the side, so please bear with me if I get some terminology or conventions
+wrong.  I found this issue while looking at the netmem/devmem code, and
+with some help from AI tooling I managed to reproduce it in QEMU and
+manually confirm the crash — I do believe it's a real bug.  Still, treat
+the analysis below as my best guess rather than a certainty.  Thanks a lot
+for taking the time to review this!
 
-Skip a single leading '\' on either string before comparing so that
-paths that differ only by the root scope prefix are treated as a
-match. The integer _UID path is unaffected.
+One-line summary
+================
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
-v2:
- * Add kdoc
- * Make sure the string is at least two characters long to normalize
----
- include/acpi/acpi_bus.h | 20 +++++++++++++++++++-
- 1 file changed, 19 insertions(+), 1 deletion(-)
+A TX (DMA_TO_DEVICE) dma-buf binding created with NETDEV_CMD_BIND_TX stores
+binding->dev without taking a netdev reference and never registers itself
+with any RX queue of the device.  When the bound device is unregistered and
+freed while the owning netlink socket is still open, closing the socket
+makes netdev_nl_sock_priv_destroy() call netdev_hold()/netdev_lock() on the
+already freed net_device -> use-after-free.  Confirmed with KASAN and by a
+real page fault / kernel panic on the same code path (log below).
 
-diff --git a/include/acpi/acpi_bus.h b/include/acpi/acpi_bus.h
-index a10a591c18b23..cfc3c8a21cb8e 100644
---- a/include/acpi/acpi_bus.h
-+++ b/include/acpi/acpi_bus.h
-@@ -826,11 +826,29 @@ static inline bool acpi_dev_hid_match(struct acpi_device *adev, const char *hid2
- 	return hid1 && hid2 && !strcmp(hid1, hid2);
- }
- 
-+/**
-+ * acpi_str_uid_match - Compare ACPI string _UID values
-+ * @adev: ACPI device providing the primary _UID
-+ * @uid2: Secondary _UID string to check against
-+ *
-+ * Returns true when both _UID strings match after optionally removing a
-+ * leading root scope character ('\') when the string contains additional
-+ * characters. Returns false if either _UID is missing or differs after the
-+ * normalization.
-+ */
- static inline bool acpi_str_uid_match(struct acpi_device *adev, const char *uid2)
- {
- 	const char *uid1 = acpi_device_uid(adev);
- 
--	return uid1 && uid2 && !strcmp(uid1, uid2);
-+	if (!uid1 || !uid2)
-+		return false;
-+
-+	if (*uid1 == '\\' && uid1[1])
-+		uid1++;
-+	if (*uid2 == '\\' && uid2[1])
-+		uid2++;
-+
-+	return !strcmp(uid1, uid2);
- }
- 
- static inline bool acpi_int_uid_match(struct acpi_device *adev, u64 uid2)
--- 
-2.43.0
+Environment
+===========
 
+- Kernel: v7.3.0-rc1-00515-g9f0346dcbea3 (commit 9f0346dcbea3), x86_64,
+  with KASAN enabled; relevant config knobs are in the reproducer README
+  (link below).
+- Test setup: QEMU (TCG) guest, initramfs only.  The kernel image has one
+  local, test-only addition: a small stub PCI driver (source in the
+  reproducer link below).  No core net code was modified.
+
+Steps to reproduce
+==================
+
+I reproduced this in a QEMU guest.  QEMU cannot emulate any of the in-tree
+NETMEM_TX_DMA devices (bnxt/mlx5/gve/fbnic are real NICs), so I wrote a
+tiny test-only stub PCI driver (source in the reproducer link below) that
+provides the same device-side properties: a net_device with
+netmem_tx = NETMEM_TX_DMA and a DMA-capable parent.  The bug lives in core
+net code, not in the driver, so this scenario should equally apply to real
+hardware — e.g. binding TX on a real netmem-TX NIC, then removing/unbinding
+that NIC while the netlink socket stays open.
+
+1. Build the stub driver from the gist into the kernel (CONFIG_STUBNET=y)
+   or as a module, boot the guest with "-device edu".
+2. Boot with the static "init" program from the gist (repro.c, run as
+   PID 1 in an initramfs).  It performs, in order:
+   a. DMA_HEAP_IOCTL_ALLOC on /dev/dma_heap/system -> dmabuf fd;
+   b. NETDEV_CMD_BIND_TX on the stub device (ifindex + dmabuf fd) and keeps
+      the netlink socket open; BIND_TX succeeds and returns a dmabuf id;
+   c. writes "1" to /sys/bus/pci/devices/<bdf>/remove, i.e. unregisters and
+      FREES the stub net_device (refcount drops to 1 in netdev_run_todo);
+   d. closes the netlink socket.
+3. Expected: closing the socket cleanly tears the binding down.
+   Actual: use-after-free, see log below.  On a kernel without KASAN the
+   same path takes a page fault and panics (second log excerpt below), so
+   this is not a KASAN-only artifact.
+
+KASAN log
+=========
+
+  stub0 ifindex = 2
+  dmabuf fd = 4
+  netdev family id=20 version=1
+  nl got: type=20 ... genl cmd=15 plen=8      <- BIND_TX ok (dmabuf id)
+  writing 1 to /sys/bus/pci/devices/0000:00:04.0/remove
+  stub0 gone (unregistered); net_device should now be freed
+  === CLOSING NETLINK SOCKET (expect UAF in netdev_hold) ===
+  [   43.895794] BUG: KASAN: slab-use-after-free in
+             netdev_nl_sock_priv_destroy+0x196/0x1c0
+  [   43.896434] Read of size 8 at addr ffff888002f06580 by task init/1
+  Call Trace:
+   netdev_nl_sock_priv_destroy+0x196/0x1c0
+   genl_release+0xee/0x190
+   netlink_release+0x715/0x13a0
+   __sock_release+0xa1/0x260
+   sock_close+0x10/0x20
+   __x64_sys_close+0x78/0xd0
+  Allocated by task 1:
+   __kvmalloc_node_noprof+0x202/0x5b0
+   alloc_netdev_mqs+0x7e/0x1270
+   stubnet_probe+0x120/0x3c0
+  Freed by task 1:
+   kfree+0x127/0x3b0
+   device_release+0xc8/0x240
+   kobject_put+0x101/0x1e0
+   netdev_run_todo+0x5a5/0xd70
+   unregister_netdev+0x104/0x180
+   stubnet_remove+0x3f/0x60
+   pci_device_remove+0xa6/0x180
+   remove_store+0xcc/0xe0
+  The buggy address belongs to the object ... which belongs to the cache
+  kmalloc-4k of size 4096; freed 4096-byte region [ffff888002f06000,
+  ffff888002f07000).
+
+The kernel then continued in the same function and faulted for real:
+
+  [   43.905270] BUG: unable to handle page fault for address: ffff8880b0ef9000
+  [   43.927189] RIP: 0010:netdev_nl_sock_priv_destroy+0xad/0x1c0
+  ...
+  [   43.938987] Kernel panic - not syncing: Fatal exception
+
+Analysis
+========
+
+The flaw is a four-step chain: BIND_TX stores a raw net_device pointer
+without taking a reference; TX bindings never populate bound_rxqs; the
+unregister cleanup that clears binding->dev only matches RX queues; so when
+the socket is closed after the device was unregistered and freed,
+netdev_nl_sock_priv_destroy() runs netdev_hold()/netdev_lock() on the freed
+net_device.
+
+1) Binding creation - raw pointer, no reference (net/core/devmem.c,
+   net_devmem_bind_dmabuf(), DMA_TO_DEVICE = TX path):
+
+    binding->dev = dev;              // raw store, NO netdev_hold()
+    xa_init_flags(&binding->bound_rxqs, XA_FLAGS_ALLOC);
+    // TX path never calls net_devmem_bind_dmabuf_to_queue()
+    // -> bound_rxqs stays EMPTY; the unregister cleanup (which matches
+    //    queues) cannot see this binding
+
+2) Device unregister - the only binding->dev clearing point is RX-only:
+
+    // net/core/dev.c:12395 dev_memory_provider_uninstall()
+    for (i = 0; i < dev->real_num_rx_queues; i++)
+            __netif_mp_uninstall_rxq(&dev->_rx[i], &dev->_rx[i].mp_params);
+            // scans the device's OWN RX queues only -> TX binding invisible
+
+    // net/core/devmem.c:537 mp_dmabuf_devmem_uninstall() - the ONLY place
+    // that clears binding->dev:
+    WRITE_ONCE(binding->dev, NULL);  // reached only when a bound queue is
+                                     // uninstalled (RX-only); never fires
+                                     // for TX bindings
+
+3) Free - the binding contributes zero references (net/core/dev.c):
+
+    // netdev_wait_allrefs_any()/netdev_run_todo()
+    if (netdev_refcnt_read(dev) == 1)    // no holder left; the binding holds
+                                         // no reference either
+            free_netdev(dev);            // net_device freed while the socket
+                                         // and its binding are still alive
+
+4) Socket close - teardown on freed memory (net/core/netdev-genl.c:1445,
+   netdev_nl_sock_priv_destroy()):
+
+    dev = binding->dev;              // RX: NULL (cleared in step 2);
+                                     // TX: dangling
+    if (!dev) { unbind; continue; }  // safe branch - never taken for TX
+    netdev_hold(dev, ...);           // UAF #1: refcount/tracker increment on
+                                     // the freed net_device
+    netdev_lock(dev);                // UAF #2: mutex on freed memory
+
+Full reproducer materials (stub driver source, trigger program, build/run
+README and the complete serial log):
+https://gist.github.com/hharryz/119f067937448ac6e30eb31e7f08dc5a
+
+I'd be happy to keep testing, digging deeper into the analysis, and trying
+to put together a possible fix if that helps.  Thanks a lot for your time!
+
+Hengbin Zhang
