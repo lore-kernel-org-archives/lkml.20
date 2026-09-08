@@ -1,126 +1,105 @@
-Received: from out203-205-221-239.mail.qq.com (out203-205-221-239.mail.qq.com [203.205.221.239])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-110.mta1.migadu.com [95.215.58.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C19A735E1C0;
-	Tue,  8 Sep 2026 08:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797CA3876CD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:06:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854802; cv=none; b=gA4eKx9hh6UaWE0bHMCMIGwkBWlK+4bREww2KDPKGaLVInc9Xz6W7jnVX63i0hKW9Wyy4owz93piqZxqNXFCZKb9G1tfeix6Vg0bhEbMwOqRHB/nsHcPMXF0BDDWGoQrfnm4Ok0epIKvETkMmxN9iQAOsZlNyFBcg3KrhyzOUGo=
+	t=1788854802; cv=none; b=tHwnqcDgVTgrknYgslYEfxI7gUqIhSEsFuR7iBkyEsmm93U4/6UzmHXEpUxbqlzJai53ymqDxBotfqhKWj7n27pOgUcMq7xDhnqZ59Tgj8uesxJuiKCDBxQRtEkzSziGCxBWZyF36BVT5AXHMBBb12B83qCQmprvPuLZev03qeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788854802; c=relaxed/simple;
-	bh=1LNdn2DsFwH2jWJWGOv9b4qwkxvpmnmbyfdbFz/ZxiI=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=BDfGtcgEhFcq+wwKYElGIE2z/dX66hKGhwCLnZqt4SMQacZ0RweEsm6lslJMgB49GUVjraEf4gaRIa2h/8A42Lfi+kZHEtf2ezl/42aEGVOtOQYrLrqm0uVMHyfCRnqyNa6vYAjU7Ef8KAZTmSqZlCYXyBYl60w2iL/bjU53vvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=LO2NSogM; arc=none smtp.client-ip=203.205.221.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	bh=X40NbP2VG3ynlCJ/mMCdKpCJsDLmQc6h9+cTEAWmcsE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YRC4Al3DSqfzR5+yGBLOh4VsVxL9zzzyhCKhSJnmlaKLVlw78dZ4TSDBG2t0OATet1lMfdsq1+bqIkWwn1cOHqMNN6xmXLgKwmkTqUX9awcgoBaQL6kFZEkeIEIEDTurfwMnF15dEVvoG58psY5yKs/8YECfkEfB+CwvV7cxBwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=rhOU4HRn; arc=none smtp.client-ip=95.215.58.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="LO2NSogM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788854796; bh=y1uTVxb9Gwa8hEjghU+MfLH1UYxda7+i6VRFQveA3F8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LO2NSogM8dxl1OO/I/JruzPfOktq7Ggg0tTrH0vWdvUhk4jcGNjSwubc3mItW50Rg
-	 EKt59fPrn00DFR+ILxSgCCBIwxyLZoAGbHJhUJq8CxlpHn2WOKvswB4A1HZtM/gE2B
-	 a2nDWYUxqf+loXw/ifC1ZUIOISQUPIjJv8J9n7Ss=
-Received: from localhost.localdomain ([106.114.216.75])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 185190A2; Tue, 08 Sep 2026 16:06:05 +0800
-X-QQ-mid: xmsmtpt1788854791t2biivmd5
-Message-ID: <tencent_DD1EF416B64C6088DB85E0AE3F9F0FCCEB07@qq.com>
-X-QQ-XMAILINFO: N/WmRbclY25G4q9zHqrX04L5YCvnivhOktp5B/tow4dzNi8d415buZCs8o9djs
-	 Q01yyi0roSfTjIHwrERHbYo2WGFpuL2DoITKDYxXjo0DD4J1cQSRYVLNlCPMSzn4srZc8bdeIey1
-	 bP5lqxKk0Vwn+FWiG0R1y8jkE0qBmKF9Rx/OcotUkR1umYQKcYH8Qg21T4J77ielxUAG5shJUGlk
-	 9s1YKlQEchvYRggrjLb3pRXKAXcKrkPJn7oYnWCpDfbtZ3/rAlv6CqlwyT/r1jO2+oVX+BLwAKSw
-	 BvplsXQCvNL0KhRHtMWm+OJmCNFHF804I+gH2cGrgKfOsF4rL8EQbXYukkTAXdjNojfD8bhvM+qM
-	 Apu9LI5rvsUxFlFZ831Q5byPa2VzKheIq4j+JK+7cvl34Q9wciNnVNoNbSRJ34puQ/ewWtdw6fy4
-	 SGjogAL/v2RneDByQnGmCv3RRprsDDo3CtzBWOpmxWcFEUfzE+kfVJYpANZdBz8qCFOvMNTgzMyX
-	 +hI/BcvrGRpZ7mITUcdV/JHWvtY0Ve9GIThzy61eARAmMRnFC47v73NwieY3vbv1dO+5ML48NSep
-	 7wz5uINMdLofQS8mSJ4Vw2KgnGnwdG/EArNA4ENjlr8bRi1wKMV6YQJWqIYvsj52P9bR0FwhTbqM
-	 uXG22QgNnGuTefcNim9O70S9Wmk9/23lBb9+lqa6Yk1qE6iymVDyHAx37k6EPPY/Jd2gTDr6FMKR
-	 HlGC2HwYJEEjeekWl3vbtL9zD0LoYA2JogqeVOwOrLU5bPZuSjDiW+ap6fR3Y21OURpN/SxqsNxf
-	 taBBrMzAvLthRfJfXPXTy6T5aCORCLMVKi23OUDQ1BBlNdBksDODSl0vYmOAc9wh9zlexX4RYfjd
-	 51bhFHXGgUxkn5hvRVYuM2+2YbbaqMHX9Ermf6W6T11kYGqv1HERr5VBgtLcCYid9tEaLhcBUZ6S
-	 1JUO0rJIlxrUzBPg1zbGIdw9DcodPgtJzH+LSAIA8xdDn2GlwHSccdjIM5SbIZXrdRabRfSFTz2T
-	 LdUW2RE1/hIpOzISZotdpUQoTwWJSL/gWB6C3vUg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: JX <1239989762@qq.com>
-To: Miguel Ojeda <ojeda@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] rust: make unsafe_precondition_assert! const compatible
-Date: Tue,  8 Sep 2026 16:06:02 +0800
-X-OQ-MSGID: <20260908080604.34070-2-1239989762@qq.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260908080604.34070-1-1239989762@qq.com>
-References: <20260908080604.34070-1-1239989762@qq.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="rhOU4HRn"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X40NbP2VG3ynlCJ/mMCdKpCJsDLmQc6h9+cTEAWmcsE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788854798; v=1; x=1789459598;
+ b=rhOU4HRngGezHIaW5x1C9VMF6X3WhwLxpat1O7zmmH9O4aG8TCmW1Gaj7bAe8B8Zh47Dypac
+ kQAuW2o1qxlLKHUSUH+LOHgXRoOOV8gi9YpxWIR1xe07x+N+yAA95ST+pV7T20Yzyu5DtACkdwO
+ d4VbrmqGO0yfLHqtVyurJnUc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d13c9dd9c39d3850;
+	Tue, 08 Sep 2026 08:06:38 +0000
+X-Mizu-Trace-ID: d13c9dd9c39d3850
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <adbffefd-b921-48b5-b0dc-a5f4c26d0838@linux.dev>
+Date: Tue, 8 Sep 2026 10:03:34 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] ASoC: sdw_utils: add tac5272 support
+To: Niranjan Holalu Yogendra <niranjan.hy@ti.com>, linux-sound@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, broonie@kernel.org,
+ ckeepax@opensource.cirrus.com, lgirdwood@gmail.com, perex@perex.cz,
+ tiwai@suse.com, cezary.rojewski@intel.com, peter.ujfalusi@linux.intel.com,
+ yung-chuan.liao@linux.intel.com, kai.vehmanen@linux.intel.com,
+ baojun.xu@ti.com, shenghao-ding@ti.com, sandeepk@ti.com, v-hampiholi@ti.com
+References: <20260908032757.389-1-niranjan.hy@ti.com>
+ <20260908032757.389-2-niranjan.hy@ti.com>
+Content-Language: en-US
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+In-Reply-To: <20260908032757.389-2-niranjan.hy@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The no-message form of unsafe_precondition_assert! routes the
-stringified condition through the formatting machinery. This prevents
-the macro from being used in const unsafe functions.
+On 9/8/26 05:27, Niranjan Holalu Yogendra wrote:
+> From: Niranjan H Y <niranjan.hy@ti.com>
+> 
+>  Update soundiwre utils to support tac5272 which is
+> UAJ only variant.
+> 
+> Signed-off-by: Niranjan H Y <niranjan.hy@ti.com>
+> Reviewed-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-Build its static diagnostic with concat! instead. This preserves the
-message while allowing the no-message form in const contexts. Keep the
-custom-message form unchanged since it intentionally supports runtime
-formatting.
+this one looks fine.
 
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/1232
-Signed-off-by: JX <1239989762@qq.com>
----
- rust/kernel/safety.rs | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
 
-diff --git a/rust/kernel/safety.rs b/rust/kernel/safety.rs
-index c1c6bd0fa2..a45a574709 100644
---- a/rust/kernel/safety.rs
-+++ b/rust/kernel/safety.rs
-@@ -7,6 +7,8 @@
- /// The check is enabled at runtime if debug assertions (`CONFIG_RUST_DEBUG_ASSERTIONS`)
- /// are enabled. Otherwise, this macro is a no-op.
- ///
-+/// The form without a custom message can be used in const contexts.
-+///
- /// # Examples
- ///
- /// ```no_run
-@@ -40,7 +42,13 @@
- #[macro_export]
- macro_rules! unsafe_precondition_assert {
-     ($cond:expr $(,)?) => {
--        $crate::unsafe_precondition_assert!(@inner $cond, ::core::stringify!($cond))
-+        ::core::debug_assert!(
-+            $cond,
-+            ::core::concat!(
-+                "unsafe precondition violated: ",
-+                ::core::stringify!($cond),
-+            ),
-+        )
-     };
- 
-     ($cond:expr, $($arg:tt)+) => {
--- 
-2.54.0
+> ---
+>  sound/soc/sdw_utils/soc_sdw_utils.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/sound/soc/sdw_utils/soc_sdw_utils.c b/sound/soc/sdw_utils/soc_sdw_utils.c
+> index 88031238c..ab0132031 100644
+> --- a/sound/soc/sdw_utils/soc_sdw_utils.c
+> +++ b/sound/soc/sdw_utils/soc_sdw_utils.c
+> @@ -81,6 +81,27 @@ static const struct snd_kcontrol_new rt700_controls[] = {
+>  };
+>  
+>  struct asoc_sdw_codec_info codec_info_list[] = {
+> +	{
+> +		.vendor_id = 0x0102,
+> +		.part_id = 0x5272,
+> +		.name_prefix = "tac5272",
+> +		.dais = {
+> +			{
+> +				/* UAJ only - no speaker or DMIC */
+> +				.direction = {true, true},
+> +				.dai_name = "tac5xx2-aif3",
+> +				.component_name = "tac5272",
+> +				.dai_type = SOC_SDW_DAI_TYPE_JACK,
+> +				.dailink = {SOC_SDW_JACK_OUT_DAI_ID, SOC_SDW_JACK_IN_DAI_ID},
+> +				.controls = generic_jack_controls,
+> +				.num_controls = ARRAY_SIZE(generic_jack_controls),
+> +				.widgets = generic_jack_widgets,
+> +				.num_widgets = ARRAY_SIZE(generic_jack_widgets),
+> +				.rtd_init = asoc_sdw_ti_sdca_jack_rtd_init,
+> +			},
+> +		},
+> +		.dai_num = 1,
+> +	},
+>  	{
+>  		.vendor_id = 0x0102,
+>  		.part_id = 0x5572,
 
