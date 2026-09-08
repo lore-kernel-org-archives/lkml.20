@@ -1,153 +1,175 @@
-Received: from mail-oi1-f208.google.com (mail-oi1-f208.google.com [209.85.167.208])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE5648F02B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.208
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07EF48F02F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:10:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905373; cv=none; b=XESM9cIK3ZlkdZSR2qVwblDEiRiIilP/3WAVyxVCwD4+cW/tU2olvyI/nGs370bjjVrJAV1CwJ9lXnHNDNWyrwHzvXcKhDyteWmiibm5hWT1bmBkj2CxqZCqxLeIFu5FpZTqEyix5M5GIQ1u9bZbmRip/VNVuY3l6BHztYo9gzo=
+	t=1788905407; cv=none; b=jXbCLG7zeorKqxHgaz3CKNqRB6t31xc34tJIqlAOOetCro31TueWwqwvrwKzdHOhsybDsXhu/94JBuyzcMl97iHYZpekKme4WXLRmpUH9XF93juxMOvGL7hkUgNoijXceL+d/uHN22ig7jpHH++XDvTyKSoT96RK4RFPApZChss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905373; c=relaxed/simple;
-	bh=EHKt9NbYGUymC36MfbAZsmTODDY5Vpw10DdNt/YJmD8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=NpmCmAeaPzFD/XM+7kisiNqhJycctUaHIKLOMMiMWuu/Q5og+okklh/cxI0ujJ9B0Ok+nluUwokQVT2dRgav8VOOLYIfe4dcbLKSTWBloVAXUXRbAeY2GrQQ0FGgMoaeNxNbQHqzPazhky8Fuq8BKhSzJ6NhuWoarBVlEY/ZtPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.208
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f208.google.com with SMTP id 5614622812f47-4b98ca6c270so4028146b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:09:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788905371; x=1789510171;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yp9bCBXeuGxq5t7CMR4zntq9fAV1aiG8/Y6iDz55CQo=;
-        b=jQA9Ml/XjQYbPUVfAOsymGnQa3XgywLTBadMASl+etjtCWvTiLrExW8WsNLgv0iDLy
-         amqqxrdmliL7YE7PE/nQzA7WoF1Ii7KqgFWtkLwg8+6KTMm2h/vHCUn5K9aWW5FwCssd
-         GRJssJ4e4cXmKvZJEIIaMzbSlbZrFDslaGavVdeN518Zyi68bqIM/GUKM/S0uR35tSiH
-         zDGoyDVchTgdIwSv5UrfMB3AoiLBMngOFfpTb30j2HfD2+hoGpVlLuc+ko/Ysw5MrbHJ
-         ion0FCxrKiF6Hb68kq0rcX90WdIAdhsuWcpdtYcS0ei3QJwP+0C05TCYEzd4pmLYhm4J
-         SVuw==
-X-Forwarded-Encrypted: i=1; AKwUvByWQ3OGZfiJQBNdpHoBalhhNnINtXktlyNeFgg8CwVg0bWtGbF58VPKb40fJKVkNMe5Nr0mghmY9H/l8ic=@vger.kernel.org
-X-Gm-Message-State: AFuF++l29VeFg1KVDQT4bki4rbXrTRLNCOYkwevD0D8Kinit2iZ3b37r
-	TxEr55meZuENk+yPYGP12rwOYck9n1ay0wh2ct4GJUMHiKDTAP7U8o09TQO3GT5RjqoWqmV5feI
-	MF34qOGsUv+9H+RNtW1CmmGMIZIo655i7ZWKPUMISRWbt9WrbgxxdB4ka+9s=
+	s=arc-20240116; t=1788905407; c=relaxed/simple;
+	bh=Q/jc42japFqRPbNGvUXBNitZamAzzq9svYH+Tr1/9No=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=juVYbLz4KsdvCb+1053FnOWunYWkZkEW6CbrDo+wFq+tgJKlcZ1KdD0XZ2pNbHgJB/0ePvcP3BYDyPehIgZaryjIULI0lUJEocydLq/12PnFXbmzUm0PZ23bqutxGmq6wIUdNspSOXd7RJA/dbkLKBybmIqwsai1NLmpaXrcEXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kwPxSGHK; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kwPxSGHK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788905405; x=1820441405;
+  h=from:to:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Q/jc42japFqRPbNGvUXBNitZamAzzq9svYH+Tr1/9No=;
+  b=kwPxSGHKlt+NKvWngnXAkwwUSYzih7ZrA6CgtYol4mbTSDh3zUDsxI4c
+   RwfNRGmFuVvJ+NU8F+qpQTF2Uirp9+95AcPTXBL2KIngxDS2bLBlIrC3H
+   KiEakLpFDIL4WIz0ns3XrhrjNL3IL7VUkFkqFBlS689Js5DD6Xa+Hrtwq
+   bKCxCLzSij3p0VU3l6Sf1xriN6BE/VZa/Lkb0QxoSqqydxe1IkZi4ZaxL
+   d0BRemRlVBWyQYCX4fdNl4FwH1y5opmU4WlWyo7TllphyTGr9VRCuOR1Z
+   YjOzCtr2fT5oACeXgcK1pgMTJEbgeRokglG+BcmdsrpPYaOCet2D/yP/Q
+   Q==;
+X-CSE-ConnectionGUID: PT5LPycPR8WKU9CNJ1ppTg==
+X-CSE-MsgGUID: YeIzmOiyRiOvQCm2CO2UWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93017359"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="93017359"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 15:10:05 -0700
+X-CSE-ConnectionGUID: tRGcOBcSTmKezjo7GGigCA==
+X-CSE-MsgGUID: SzgLCzq9Q+SBHFyfiT+p2A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="296067704"
+Received: from jf.intel.com ([10.165.154.102])
+  by fmviesa001.fm.intel.com with ESMTP; 08 Sep 2026 15:10:04 -0700
+From: Ehab Ababneh <ehab.ababneh@intel.com>
+To: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/3] mm/vmscan: adaptive multi-threaded kswapd for NUMA-aware reclaim
+Date: Tue,  8 Sep 2026 15:10:53 -0700
+Message-ID: <20260908221059.14777-1-ehab.ababneh@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2007:b0:6b5:ec2f:356e with SMTP id
- 006d021491bc7-6b5ec2f3676mr14259111eaf.31.1788905371100; Tue, 08 Sep 2026
- 15:09:31 -0700 (PDT)
-Date: Tue, 08 Sep 2026 15:09:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aa0879b.f81106d8.285f0a.0006.GAE@google.com>
-Subject: [syzbot] [kernel?] Internal error in futex_cmpxchg_value_locked
-From: syzbot <syzbot+635d160c0d4133481520@syzkaller.appspotmail.com>
-To: andrealmeid@igalia.com, dave@stgolabs.net, dvhart@infradead.org, 
-	linux-kernel@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
-	syzkaller-bugs@googlegroups.com, tglx@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+This series revives Buddy Lumpkin's earlier multi-kswapd proposal:
+https://lkml.iu.edu/hypermail/linux/kernel/1804.0/00342.html
 
-syzbot found the following issue on:
+The motivation is stronger now than when the patch was first discussed.
+Many current systems have hundreds of cores per NUMA node, not the
+single-digit or low-tens core counts that were more common at the time.
+When reclaim does not keep up, direct reclaim can still push allocation
+latency into application paths and leave substantial CPU capacity waiting
+for memory to be freed.
 
-HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=16f87125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
-dashboard link: https://syzkaller.appspot.com/bug?extid=635d160c0d4133481520
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15f87125580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=107f3af9580000
+This patchset adds adaptive multi-threaded kswapd. The wakeup policy uses
+node load to decide how many kswapd workers to run, so reclaim can scale
+when it helps and stay conservative on already busy nodes.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
+Series summary:
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+635d160c0d4133481520@syzkaller.appspotmail.com
+1. Allow multiple kswapd threads per node and add control plumbing.
+2. Wake an appropriate number of kswapd threads from per-node
+   runnable load.
 
-Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
-Modules linked in:
-CPU: 0 UID: 0 PID: 4916 Comm: syz.0.17 Tainted: G   M                syzkaller #0 PREEMPT 
-Tainted: [M]=MACHINE_CHECK
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
-pstate: 83000005 (Nzcv daif -PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : __llsc_futex_cmpxchg arch/arm64/include/asm/futex.h:64 [inline]
-pc : __futex_cmpxchg arch/arm64/include/asm/futex.h:247 [inline]
-pc : futex_atomic_cmpxchg_inatomic arch/arm64/include/asm/futex.h:295 [inline]
-pc : futex_cmpxchg_value_locked+0x114/0x394 kernel/futex/futex.h:295
-lr : access_ok arch/arm64/include/asm/uaccess.h:45 [inline]
-lr : futex_atomic_cmpxchg_inatomic arch/arm64/include/asm/futex.h:290 [inline]
-lr : futex_cmpxchg_value_locked+0xc8/0x394 kernel/futex/futex.h:295
-sp : ffff80009ab17750
-x29: ffff80009ab17770 x28: 1fffe000189dc765 x27: ffff0000c4ee3b2c
-x26: 1fffe000189dca44 x25: dfff800000000000 x24: 0000000000000000
-x23: 0000000000000000 x22: 000000008f0101ff x21: 000000000f0101ff
-x20: 000ffffffffffffd x19: ffff0000c4ee5224 x18: 0000000000000000
-x17: ffff8000805acb44 x16: ffff8000805ac7e0 x15: ffff8000805b05f8
-x14: ffff8000805aea98 x13: 0000000000000009 x12: 0000000000000000
-x11: 0000000072c79ec1 x10: 0000000000000080 x9 : 00000000fffffff5
-x8 : 0000000000000000 x7 : ffff800080375350 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000000 x3 : ffff8000805b145c
-x2 : 0000000000000000 x1 : ffff0000c4ee3b00 x0 : 0000000000000000
-Call trace:
- __llsc_futex_cmpxchg arch/arm64/include/asm/futex.h:64 [inline] (P)
- __futex_cmpxchg arch/arm64/include/asm/futex.h:247 [inline] (P)
- futex_atomic_cmpxchg_inatomic arch/arm64/include/asm/futex.h:295 [inline] (P)
- futex_cmpxchg_value_locked+0x114/0x394 kernel/futex/futex.h:295 (P)
- lock_pi_update_atomic+0x58/0xd4 kernel/futex/pi.c:549
- futex_lock_pi_atomic+0x28c/0x898 kernel/futex/pi.c:666
- futex_lock_pi+0x248/0x6e0 kernel/futex/pi.c:1018
- do_futex+0x2f8/0x378 kernel/futex/syscalls.c:-1
- __do_sys_futex kernel/futex/syscalls.c:210 [inline]
- __se_sys_futex kernel/futex/syscalls.c:191 [inline]
- __arm64_sys_futex+0x2e4/0x418 kernel/futex/syscalls.c:191
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
-Code: 2a1f03e0 12800149 d500409f f9800111 (885f7d14) 
----[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	2a1f03e0 	mov	w0, wzr
-   4:	12800149 	mov	w9, #0xfffffff5            	// #-11
-   8:	d500409f 	msr	pan, #0x0
-   c:	f9800111 	prfm	pstl1strm, [x8]
-* 10:	885f7d14 	ldxr	w20, [x8] <-- trapping instruction
+Concerns from the original discussion and how this series addresses some
+of them:
 
+- Concern: Direct reclaim is intended to slow a memory-hogging thread.
+  Response: That can be acceptable on lower-core systems. On high-core
+  systems, idling many cores while reclaim catches up can cost more than
+  allowing reclaim parallelism to scale. It can also block higher-priority
+  tasks in direct reclaim while they perform reclaim work on behalf of
+  lower-priority memory-hogging tasks.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+- Concern: More kswapd threads may hide deeper reclaim issues.
+  Response: This series is additive to ongoing reclaim improvements. In
+  our testing, multi-threaded kswapd was able to improve performance on
+  top of what multi-gen LRU already provides.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+- Concern: Existing knobs (such as swappiness and watermarks) should be
+  preferred.
+  Response: In our testing, those knobs alone did not reliably hit
+  performance targets and could increase CPU cost for the same workload
+  objective.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+- Concern: Need evidence from real workloads.
+  Response: This cover letter includes Cassandra results showing higher
+  throughput and lower response latency.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+- Concern: More reclaim threads may increase pressure on well-behaved
+  tasks.
+  Response: Adaptive wakeup addresses this by choosing thread count from
+  node load.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+- Concern: Additional configuration can increase operational complexity.
+  Response: The user-facing interface is intentionally minimal:
+  max_kswapds_per_node.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+- Concern: Lock contention may serialize workers.
+  Response: The Cassandra runs below still show net gains, indicating
+  contention did not erase the benefit for this workload. The wakeup path
+  now uses wake_up_nr() against the existing kswapd_wait queue, avoiding
+  pgdat->kswapd_lock (a sleeping mutex) entirely on the allocation hot
+  path.
 
-If you want to undo deduplication, reply with:
-#syz undup
+Real-world workload results (Cassandra):
+
+Tests were performed on 7.0.0-rc1.
+
+- max_kswapds_per_node=1
+  - throughput sample: 171146
+  - reference latency value: 6.375
+  - op rates: 43256, 42731, 42341, 42818 ops/s
+  - p99 latency: 6.3, 6.4, 6.4, 6.4 ms
+
+- max_kswapds_per_node=8
+  - throughput sample: 183639
+  - reference latency value: 6.0
+  - op rates: 45791, 45253, 46534, 46061 ops/s
+  - p99 latency: 6.0, 6.1, 5.9, 6.0 ms
+
+Observed improvement in these runs was about +7.3% throughput and about
+-5.9% response latency, which shows practical benefit for production-style
+database workloads.
+
+In our runs, performance numbers were essentially unchanged with and
+without the adaptive multi-threaded kswapd wakeup policy. In both cases,
+they outperformed the single-kswapd-thread baseline. This indicates the
+adaptive method preserved the multi-threaded performance improvement.
+
+Addendum: alternative approaches evaluated
+
+- PSI per NUMA node.
+  I prototyped PSI-based node pressure ranges to drive wakeup count.
+  This became cumbersome because robust PSI-to-thread mappings were not
+  straightforward across workload types.
+
+- CPU mask snapshot policy.
+  I also tested a simple CPU mask snapshot approach.
+  While functional, it reflects a moment-in-time view and does not capture
+  pressure trends over a broader sampling window.
+
+Buddy Lumpkin (1):
+  vmscan: Support multiple kswapd threads per node
+
+Ehab Ababneh (2):
+  mm/vmscan: handle racing max_seq advancement
+  mm/vmscan: make kswapd wakeups NUMA load-aware
+
+ include/linux/mmzone.h        |   5 +-
+ include/trace/events/vmscan.h |  28 +++
+ mm/compaction.c               |   8 +-
+ mm/internal.h                 |   3 +
+ mm/page_alloc.c               |  26 +++
+ mm/vmscan.c                   | 419 +++++++++++++++++++++++++++++++++++++++---
+ 6 files changed, 465 insertions(+), 24 deletions(-)
+
+-- 
+2.43.0
+
