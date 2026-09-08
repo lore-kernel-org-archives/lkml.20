@@ -1,459 +1,149 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E97471CE9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901515; cv=none; b=K4fYeUduNFAn/oXKK96RXHkhbw1vpD/ibtM8P+zplOVDGdRjuTwj4nU2az96djERnqZkRr5UOADsvDgZ6YZX0lBNTtyHXTU0r6UvtUK997dI6nYHwv1xmbG1+L1OCJmraMKvSWS5lYTxfYQ+H8davEA8OyWd9GM3dcgQH4AaWxo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901515; c=relaxed/simple;
-	bh=67SyYzIwQeaVB8qECauKzU1vkj6OlxuDbwBH9VfjrDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PK+FWsnRYdQOGWcKRby71P1bkIWA3R9JaMSgD3/mNBxJLtYB3tcsAqzyOvsNrwTJPWAk6FHHlx0Xftd3VGEikxh94JnpCAo4IBrNf2/yTwiOzNbBFdNS6wHLmjOQ7dYEhBY+ANQFE1MBAybdssSrK63lHxjIDthOZjIrG/NSrkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=H8/ov4IQ; arc=none smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC53BFE52
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:06:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788901593; cv=pass; b=dr4InyeaFgukL5tUAxx3+IHH+GOzd5UjQ62W+BJPc/viJ43ldSK2Xln1FN//oEoeC8e42cP4nHeRxLbKl5svSLKoWF53A6RDsUjTrlUhDqdbyY+9UOtW6rcf8ypB2TSqrhrFcSVUVhsh5zKHXxatUyIm0ztpgAvwbqbtPsISqqc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788901593; c=relaxed/simple;
+	bh=cIOFXtCuNna/zYNDEeDAmAkgX9xNg/vNmHFdct8PtpE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZoG5nZf+Tafp2FecC9fy6rLLKsOV70AqILfKP2QaCqrOmuT1vO/NxtaVLvET7jKa3QY/yByHaEYmy/d3UzE52N4BeYu8ZkGrS/ht0MHTPXXZU1+iFmGp6FlElmqjJHzNJ/eZKcFZEOTQeMsQp6mx77KwM04dlmdxEph4wpI22RA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=otsf6b66; arc=pass smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="H8/ov4IQ"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66f8053e7afso3405602d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="otsf6b66"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso48914955e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:06:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788901590; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XMDZ+jrc5GdyyjjCYnGVlsVpikISb9vs4hFVrJXrpbMNE51Uk2Fs8iUyHaH2onOr/M
+         ZOE9mgWCXgMFmqFf3p8zwJlm9h+TahiDwmj+LZ6uCrEiLk5jJapc3z5/Fe4Kg22li/XY
+         IHKTYdBwU+s0PV7ZS2nbGUGGrXKZsXf4VdGHICor+enGYpJNHUPf2hunWpS3lAO0eJbC
+         hzJYJ0vwYNrp/rpK3Nh9pBdwmG1N+40Wk8Ex13M5H+zFRPnJF0wanDh3cgNKUoMnfmGa
+         zIPMR6KuCHHQGJBGPt12UdPr+wB9UeOEL4mka1rTanB7Lx1j0xEnhZkHpxdpqloshu9S
+         IQow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/CB3Vtp7eYFgiX1lhWfAP6WjiIrj8nFLFrnLp7SXQSY=;
+        fh=oCcUcyTl7MU46nCBdlTp/5UaYOMrMj0JyDGaKyVR+6Q=;
+        b=CYPbbz6unltsX4Ge70YRNhDSQo2FO4bovXSMBz303WyUCIOGZfBkSO8V/OdvyOdm36
+         ecSU/tLbS9U/vd38VGtpnzMnkviFBzGAwQ53u2mVKB9y7IiwEwfXiKwCho53rWVLnrI5
+         cqvuSNewXNwT2YS/fUqnyvrOPxurCim1X+GbslbfoSqkOuWKO8azULl6gw/VHP3TAceF
+         LRPgPl1dK5nOiXEygkYp+CfA9sUbmludxrZYYv1v5TTC4GqSMC7ZBEe8Agj7GxBYHz2D
+         cYCbxFykTC+K45QRC46ew5PWD40u3cuF6HfSHWJVt6IA5fJZv5stdNimFtKA2qfRJW1X
+         vcTA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1788901512; x=1789506312; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b82npGyG+u9YzhjLZY8NY3sClLJXpbhUpD4i89Dp3Kw=;
-        b=H8/ov4IQHoWfy92miFqKjYIsQ5FrXXJqCLZx/Vi2YeE1oUNWx9ALy3IjtqgbDHSI/N
-         aPOl1KuEHfGKpWcd5+3bM4uy5PjCuu8TGg7X6E1YmYcGzWS4lgaExrZ4BeD1OgkdmscW
-         2vFPhTUR9PUIh6jKUlb3rWukTZqpbdNljIDUJxwFKUg4BllEZO++/GqXY0hJsfDhoFZp
-         jomvNt+qV2IJeX7Pl88RVcSBrS/0mF8DmpEho9N7zDLQU5cAGPaKxA6dH/88i+TAI9sY
-         K25Qbg1fcAlDPUPmOantWGc3vw2wDs50PjW3jP8t94Ps3C6yFBxQ/8fHq0ekw48zebYY
-         alkA==
+        d=google.com; s=20251104; t=1788901590; x=1789506390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/CB3Vtp7eYFgiX1lhWfAP6WjiIrj8nFLFrnLp7SXQSY=;
+        b=otsf6b66eLyN+62lzguVV+VBMlATv6z+svgDrA31hnA5b3fBV3bwYCqshPtnmsyGmv
+         QDNDZwx7N31zA+x89VYITcROT5ZRN8TP4ggK6R9uMannUm/MUJSMRZGWkbAMzCuOqlSY
+         H6biXYN3dL5DiY2yXed6Ky4yh4BVxXR56j5VYoNJgh5pu6nlbLx8ul8LTxw6ojhP81mJ
+         6JTXwtflQYVkO/SfV7yVBVRWnh5SQfasm8wlbFkY625Bkt4jmQ2QbNf1ssWLfzh6NMk7
+         l1RjM2KYlCGn6nKE0yFuTlHEHgKavdGE6I5+Sqelz5oi5Z+IpMaKNlUCqzRnSjeVC5x7
+         BuZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788901512; x=1789506312;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b82npGyG+u9YzhjLZY8NY3sClLJXpbhUpD4i89Dp3Kw=;
-        b=FHINiSoiBmetMO70cvid+wbUYdxl/HMnD3DyB0wLTdA0+rZFhWBWGI6sOVO9x2DgW0
-         qB8ldlOPG7ZAsU9OuLlz+ff1eP8Nf3Ni2+H/Lb7jp/NxFEefjucawTpps+ZoMDZPUtYd
-         Q1hp+Wd+Va428O8Yr2Yfuu/q4fVFlb9TNOUxKTpB2O+zv9iCI1t++qkriwH9A4Qv+jMU
-         9Qxr5pyQoiOyV1HlXJvbdSFhxsqhkbPsM4zh4sl0w/TqRLXO4N3TC3wTh3UAHJ5/ik3m
-         fvvztpZQ0ooTXY2MjusthY+IXqeR0TsWn9m9UlJXNzmjdFYrzx7BBRp16YTai7ly7yto
-         tdzw==
-X-Forwarded-Encrypted: i=1; AKwUvBztlE6x2R7xlSS31zu4j2lQ00klGQF2QNWdqoAQ0zDa5QH5CNZfeDU1G/H46QtzU6pH/PUvxk/Nc83rveQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0+k+tjkB89R6s6zoRwyilSLtahbKVsWS6VXGjE4qn9zMhNN71
-	okV6PL9Lp+UKOK/jvwqHKi+qQkI6nXUjWFmC/ZgbXlcruZmSQmDZSpC8BPVM6W455z4In342U1H
-	NJA6jQAEL9A==
-X-Gm-Gg: AYBFou0hTNFMdg/w49kiqUmNgrDsGgq7KsTcFpFefoj12YCosI3Lw9EEeS1qAvJhtfy
-	2a79BMh4l5OoCVcuGNHKfZc1yZqite+WkFPXvmfocpqmBDZrFxefaW3lwkENFGapLBASO5fa7rP
-	W/uv58YyTJn5i5TT4jv9VGcory6a2dtLDk1ZdRTul7A28LKnqypGMZeLJVZ2xNMp3TMvFlMFN/G
-	biDLUaJIeM8ja5jbu8AAthcSK+kihNXpCfTH6NjVum2JdzSSjHQ7W4N5v918Ajf/RA2MFoLbpSp
-	GvHzNSbnO3Woq0n7oCIO14mDprOOesJwncslOOU4fReH0fUdw2x6KDxkD6U9sEZtNJLOnKNTgbc
-	P8LQMEAjTygYWeLYcbIAzWr5EOhLFb3bKWWTnZfb74X+FQMXf+HvzduyhegIzRrO8w2Om1+M8Ki
-	cCFb5CmdW7JMQnFaL3cQxt5iiii694vl1vMER+Jjw/dguvmu1dmu8CdP2Y65sLLxNptTd5HHAff
-	xBoKEPQADcyhmsKsLd8qH+hiM5mnNlDSqkO+RI0k0bDBgajSMKYvubfcrdPtc+zqLsTOqK6WRDO
-	2mBI33r4ovjJ/e73
-X-Received: by 2002:a05:690e:2366:b0:66d:632:9afc with SMTP id 956f58d0204a3-66fb5a6f933mr7761340d50.30.1788901512177;
-        Tue, 08 Sep 2026 14:05:12 -0700 (PDT)
-Received: from pop-os.attlocal.net ([2600:1700:6476:1430:1eca:212:86d0:4e87])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm11078129d50.18.2026.09.08.14.05.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:05:11 -0700 (PDT)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	hch@lst.de
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	willy@infradead.org,
-	brauner@kernel.org,
-	djwong@kernel.org,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Subject: [PATCH v3 7/7] hfsplus: switch address_space_operations on iomap-based support
-Date: Tue,  8 Sep 2026 14:04:48 -0700
-Message-ID: <20260908210448.296772-8-slava@dubeyko.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908210448.296772-1-slava@dubeyko.com>
-References: <20260908210448.296772-1-slava@dubeyko.com>
+        d=1e100.net; s=20251104; t=1788901590; x=1789506390;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/CB3Vtp7eYFgiX1lhWfAP6WjiIrj8nFLFrnLp7SXQSY=;
+        b=BqLbDEz5PQE2+Up/ENI+mFpjUqT+7+Wt5U0wNUdVNorDBKz2FGM1Uyy7mjLmx/Muo0
+         lJVKbUJV8JY3l5txlrikwaRXjugnWobsmqM9HJW3BxHBh1lDyNfH31xduLciO42ZPvDN
+         rsGCA+NxueShAJvRq3+dIgAqNbS+86i0bV9LTrkPGDZwbotp5SpPOixNLTlbtnYBurEJ
+         59TvDkvvxurItF+99MmKu+SlgwsmSvRh2ikoXOBwKxX5uiGuwApz9AJaift9wmYf/oGP
+         k1N83t2ZOsbDwiTQPJcicF41MIlAsmIZMVvcn2WysWRvVTFsnwRW8in/LQL8soIzpSgo
+         j4kw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZs8lLMKJ3ZIgqxtsYGvwvoMjPhF7yPt8rVRpYsUYC6VaJUvrp+o1tYVmquAuw+rIXAZfDIai02nJKbiU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mApsaQByOSfplC7GhZsuz71oR3I941fAkuZ1Qs649DqyAYHbOQ
+	8B7usoR7TmReOX728wmJsiOdRtTvQO0nY12zvRaxj6Y6v/biuwDAn9eYOv1NFkdGUzdAoaD1+gk
+	TqD09CQEhDXnD4gwN7JIuBuOg9ySFEjuRv97FqP8H
+X-Gm-Gg: AYBFou2BmEj+V3ugK4Yi6jJAdHNpoKae9//BYdCrG/Q0uakBSKuiRQ4tjLQcqAy05qP
+	HxTIeOs4lrjbrQeLSQOkW549eNkrHPsDlyIwjl4h3kUrBWPZYzCwiHHFb8ZNyxPI//gt/q6txgO
+	JEj1RTtHgolhOWqrOktiGLCxmFbFb98dMDHD6dgQQ57sG5NTeS2apAFRHd2gaB6XA2rjPBQKNRl
+	SUUqx9mIbzcsoluEWpmNKh79ZRJREL8gpBzkvcibZj5utSbE5HdCjl4+MXgGLMc+mDVifpIPhnJ
+	CqqFhPjTG3RiA5cWgrEp2W6v9JiM6pKkTsJj7w5E+fWSApFaKp3T+KbMewxzFGTuhcyOmYELjaB
+	Gw7A39oBQGd+ijgXBtAqSUd2gjxJIGaE+zBT+8sOgZJwGMiVygkNnJGXO
+X-Received: by 2002:a05:600c:6091:b0:49c:eb17:cf3b with SMTP id
+ 5b1f17b1804b1-49cf8252497mr286154405e9.8.1788901589479; Tue, 08 Sep 2026
+ 14:06:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+In-Reply-To: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 8 Sep 2026 14:06:18 -0700
+X-Gm-Features: AcwNN1Vne6n6eJi0vjoX52mygVY2Bf7Bhttyek2fKXqRHQxDJ8Lg5WpFcLyZtjc
+Message-ID: <CAKwvOdmdFdW8=y+s5NLoNeKz4LVbmW8tr+JqJ26wqYFJDdARFQ@mail.gmail.com>
+Subject: Re: [PATCH 00/23] kbuild: significantly speed up kernel builds
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Nicolas Schier <nsc@kernel.org>, 
+	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ard Biesheuvel <ardb@kernel.org>, 
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>, Josh Poimboeuf <jpoimboe@kernel.org>, 
+	Peter Zijlstra <peterz@infradead.org>, Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>, linux-kbuild@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	linux-riscv@lists.infradead.org, linux-arch@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-efi@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Jens Axboe <axboe@kernel.dk>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This patch switches the regular file operations on iomap-based
-ones. The hfsplus_aops is redefined as the iomap-based
-operations. As a result, hfsplus_direct_IO() has been completely
-removed as a user of blockdev_direct_IO(). Also, unnecessary
-LEGACY_DIRECT_IO dependency has been removed from Kconfig.
+On Tue, Sep 8, 2026 at 1:55=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> A typical kernel build consists of a frustratingly large amount of time
+> spent stuck in single-threaded bottlenecks.
+>
+> It turns out that there's a lot we can do about this and doing so
+> significantly impacts kernel build times.
 
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
-cc: Christoph Hellwig <hch@lst.de>
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
----
-v2
-The hfsplus_btree_aops uses hfsplus_btree_read_folio() and
-hfsplus_btree_writepages() methods. The hfsplus_symlink_aops
-uses hfsplus_symlink_read_folio() and hfsplus_symlink_writepages()
-methods. Also, hfsplus_setattr() doesn't distinguish the regular
-and not regular file cases anymore.
 
-v3
-Fix failures in generic/091, generic/521, and generic/551.
----
- fs/hfsplus/Kconfig      |   1 -
- fs/hfsplus/extents.c    |  46 ++++++++----
- fs/hfsplus/hfsplus_fs.h |   1 +
- fs/hfsplus/inode.c      | 159 +++++++++++++++++++++-------------------
- 4 files changed, 117 insertions(+), 90 deletions(-)
+> Fundamentally the series improves build times by parallelising
+> single-threaded tasks as much as possible and improving the efficiency of
+> code used in the build process.
 
-diff --git a/fs/hfsplus/Kconfig b/fs/hfsplus/Kconfig
-index 865a1966f395..b4432c64db3b 100644
---- a/fs/hfsplus/Kconfig
-+++ b/fs/hfsplus/Kconfig
-@@ -5,7 +5,6 @@ config HFSPLUS_FS
- 	select BUFFER_HEAD
- 	select NLS
- 	select NLS_UTF8
--	select LEGACY_DIRECT_IO
- 	select FS_IOMAP
- 	help
- 	  If you say Y here, you will be able to mount extended format
-diff --git a/fs/hfsplus/extents.c b/fs/hfsplus/extents.c
-index ffd52ad8867c..fb2b12473cb2 100644
---- a/fs/hfsplus/extents.c
-+++ b/fs/hfsplus/extents.c
-@@ -15,6 +15,7 @@
- 
- #include "hfsplus_fs.h"
- #include "hfsplus_raw.h"
-+#include "iomap.h"
- 
- /* Compare two extents keys, returns 0 on same, pos/neg for difference */
- int hfsplus_ext_cmp_key(const hfsplus_btree_key *k1,
-@@ -275,6 +276,8 @@ int hfsplus_map_extent(struct inode *inode, u32 ablock, int create,
- 		*max_blocks = hfsplus_ext_find_block(hip->first_extents,
- 						     ablock,
- 						     dblock);
-+		if (!*max_blocks)
-+			return -EIO;
- 		return 0;
- 	}
- 
-@@ -302,6 +305,9 @@ int hfsplus_map_extent(struct inode *inode, u32 ablock, int create,
- 	if (was_dirty)
- 		mark_inode_dirty(inode);
- 
-+	if (!*max_blocks)
-+		return -EIO;
-+
- 	return 0;
- }
- 
-@@ -342,7 +348,7 @@ int hfsplus_get_block(struct inode *inode, sector_t iblock,
- 
- 	if (create) {
- 		set_buffer_new(bh_result);
--		hip->phys_size += sb->s_blocksize;
-+		hip->phys_size = (loff_t)(iblock + 1) << sb->s_blocksize_bits;
- 		hip->fs_blocks++;
- 		inode_add_bytes(inode, sb->s_blocksize);
- 		mark_inode_dirty(inode);
-@@ -607,20 +613,32 @@ void hfsplus_file_truncate(struct inode *inode)
- 		inode->i_ino, (long long)hip->phys_size, inode->i_size);
- 
- 	if (inode->i_size > hip->phys_size) {
--		struct address_space *mapping = inode->i_mapping;
--		struct folio *folio;
--		void *fsdata = NULL;
--		loff_t size = inode->i_size;
-+		if (S_ISREG(inode->i_mode)) {
-+			res = hfsplus_iomap_cont_expand(inode, inode->i_size);
-+			if (res)
-+				return;
-+
-+			mark_inode_dirty(inode);
-+		} else {
-+			struct address_space *mapping = inode->i_mapping;
-+			struct folio *folio;
-+			void *fsdata = NULL;
-+
-+			res = hfsplus_write_begin(NULL, mapping,
-+						  inode->i_size, 0,
-+						  &folio, &fsdata);
-+			if (res)
-+				return;
-+
-+			res = generic_write_end(NULL, mapping,
-+						inode->i_size, 0, 0,
-+						folio, fsdata);
-+			if (res < 0)
-+				return;
-+
-+			mark_inode_dirty(inode);
-+		}
- 
--		res = hfsplus_write_begin(NULL, mapping, size, 0,
--					  &folio, &fsdata);
--		if (res)
--			return;
--		res = generic_write_end(NULL, mapping, size, 0, 0,
--					folio, fsdata);
--		if (res < 0)
--			return;
--		mark_inode_dirty(inode);
- 		return;
- 	} else if (inode->i_size == hip->phys_size)
- 		return;
-diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
-index 190c7de704fd..844027679a75 100644
---- a/fs/hfsplus/hfsplus_fs.h
-+++ b/fs/hfsplus/hfsplus_fs.h
-@@ -466,6 +466,7 @@ void hfsplus_file_truncate(struct inode *inode);
- 
- /* inode.c */
- extern const struct address_space_operations hfsplus_aops;
-+extern const struct address_space_operations hfsplus_symlink_aops;
- extern const struct address_space_operations hfsplus_btree_aops;
- extern const struct dentry_operations hfsplus_dentry_operations;
- 
-diff --git a/fs/hfsplus/inode.c b/fs/hfsplus/inode.c
-index 9d25e6224ee5..717831dc5cca 100644
---- a/fs/hfsplus/inode.c
-+++ b/fs/hfsplus/inode.c
-@@ -18,15 +18,12 @@
- #include <linux/cred.h>
- #include <linux/uio.h>
- #include <linux/fileattr.h>
-+#include <linux/iomap.h>
- 
- #include "hfsplus_fs.h"
- #include "hfsplus_raw.h"
- #include "xattr.h"
--
--static int hfsplus_read_folio(struct file *file, struct folio *folio)
--{
--	return block_read_full_folio(folio, hfsplus_get_block);
--}
-+#include "iomap.h"
- 
- static void hfsplus_write_failed(struct address_space *mapping, loff_t to)
- {
-@@ -128,67 +125,13 @@ static bool hfsplus_release_folio(struct folio *folio, gfp_t mask)
- 	return res ? try_to_free_buffers(folio) : false;
- }
- 
--static ssize_t hfsplus_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
-+static int hfsplus_btree_read_folio(struct file *file, struct folio *folio)
- {
--	struct file *file = iocb->ki_filp;
--	struct address_space *mapping = file->f_mapping;
--	struct inode *inode = mapping->host;
--	loff_t isize;
--	size_t count = iov_iter_count(iter);
--	loff_t end = iocb->ki_pos + count;
--	ssize_t ret;
--
--	/*
--	 * The hfsplus_get_block() only allows creating the next sequential block.
--	 * For direct writes beyond EOF, expand the file first.
--	 */
--	if (iov_iter_rw(iter) == WRITE && iocb->ki_pos > i_size_read(inode)) {
--		loff_t start_off, end_off;
--		loff_t start_page, end_page;
--
--		isize = i_size_read(inode);
--
--		/*
--		 * Wait for any in-flight DIO on this inode to finish before
--		 * calling generic_cont_expand_simple().
--		 */
--		inode_dio_wait(inode);
--
--		ret = generic_cont_expand_simple(inode, iocb->ki_pos);
--		if (ret)
--			return ret;
--
--		start_off = isize;
--		end_off = (end > 0) ? end - 1 : end;
--
--		ret = filemap_write_and_wait_range(mapping, start_off, end_off);
--		if (ret)
--			return ret;
--
--		start_page = start_off >> PAGE_SHIFT;
--		end_page = end_off >> PAGE_SHIFT;
--
--		invalidate_inode_pages2_range(mapping, start_page, end_page);
--	}
--
--	ret = blockdev_direct_IO(iocb, inode, iter, hfsplus_get_block);
--
--	/*
--	 * In case of error extending write may have instantiated a few
--	 * blocks outside i_size. Trim these off again.
--	 */
--	if (unlikely(iov_iter_rw(iter) == WRITE && ret < 0)) {
--		isize = i_size_read(inode);
--
--		if (end > isize)
--			hfsplus_write_failed(mapping, end);
--	}
--
--	return ret;
-+	return block_read_full_folio(folio, hfsplus_get_block);
- }
- 
--static int hfsplus_writepages(struct address_space *mapping,
--			      struct writeback_control *wbc)
-+static int hfsplus_btree_writepages(struct address_space *mapping,
-+				    struct writeback_control *wbc)
- {
- 	return mpage_writepages(mapping, wbc, hfsplus_get_block);
- }
-@@ -196,8 +139,8 @@ static int hfsplus_writepages(struct address_space *mapping,
- const struct address_space_operations hfsplus_btree_aops = {
- 	.dirty_folio	= block_dirty_folio,
- 	.invalidate_folio = block_invalidate_folio,
--	.read_folio	= hfsplus_read_folio,
--	.writepages	= hfsplus_writepages,
-+	.read_folio	= hfsplus_btree_read_folio,
-+	.writepages	= hfsplus_btree_writepages,
- 	.write_begin	= hfsplus_write_begin,
- 	.write_end	= generic_write_end,
- 	.migrate_folio	= buffer_migrate_folio,
-@@ -205,18 +148,70 @@ const struct address_space_operations hfsplus_btree_aops = {
- 	.release_folio	= hfsplus_release_folio,
- };
- 
--const struct address_space_operations hfsplus_aops = {
-+static int hfsplus_symlink_read_folio(struct file *file, struct folio *folio)
-+{
-+	return block_read_full_folio(folio, hfsplus_get_block);
-+}
-+
-+static int hfsplus_symlink_writepages(struct address_space *mapping,
-+				      struct writeback_control *wbc)
-+{
-+	return mpage_writepages(mapping, wbc, hfsplus_get_block);
-+}
-+
-+const struct address_space_operations hfsplus_symlink_aops = {
- 	.dirty_folio	= block_dirty_folio,
- 	.invalidate_folio = block_invalidate_folio,
--	.read_folio	= hfsplus_read_folio,
-+	.read_folio	= hfsplus_symlink_read_folio,
- 	.write_begin	= hfsplus_write_begin,
- 	.write_end	= generic_write_end,
- 	.bmap		= hfsplus_bmap,
--	.direct_IO	= hfsplus_direct_IO,
--	.writepages	= hfsplus_writepages,
-+	.writepages	= hfsplus_symlink_writepages,
- 	.migrate_folio	= buffer_migrate_folio,
- };
- 
-+static int hfsplus_read_folio(struct file *file, struct folio *folio)
-+{
-+	iomap_bio_read_folio(folio, &hfsplus_iomap_ops);
-+	return 0;
-+}
-+
-+static void hfsplus_readahead(struct readahead_control *rac)
-+{
-+	iomap_bio_readahead(rac, &hfsplus_iomap_ops);
-+}
-+
-+static int hfsplus_writepages(struct address_space *mapping,
-+			      struct writeback_control *wbc)
-+{
-+	struct iomap_writepage_ctx wpc = {
-+		.inode	= mapping->host,
-+		.wbc	= wbc,
-+		.ops	= &hfsplus_writeback_ops,
-+	};
-+
-+	return iomap_writepages(&wpc);
-+}
-+
-+static sector_t hfsplus_aop_bmap(struct address_space *mapping, sector_t block)
-+{
-+	return iomap_bmap(mapping, block, &hfsplus_iomap_ops);
-+}
-+
-+const struct address_space_operations hfsplus_aops = {
-+	.read_folio		= hfsplus_read_folio,
-+	.readahead		= hfsplus_readahead,
-+	.writepages		= hfsplus_writepages,
-+	.dirty_folio		= iomap_dirty_folio,
-+	.bmap			= hfsplus_aop_bmap,
-+	.migrate_folio		= filemap_migrate_folio,
-+	.is_partially_uptodate	= iomap_is_partially_uptodate,
-+	.error_remove_folio	= generic_error_remove_folio,
-+	.release_folio		= iomap_release_folio,
-+	.invalidate_folio	= iomap_invalidate_folio,
-+	.swap_activate		= hfsplus_iomap_swap_activate,
-+};
-+
- const struct dentry_operations hfsplus_dentry_operations = {
- 	.d_hash       = hfsplus_hash_dentry,
- 	.d_compare    = hfsplus_compare_dentry,
-@@ -290,13 +285,27 @@ static int hfsplus_setattr(struct mnt_idmap *idmap,
- 	    attr->ia_size != i_size_read(inode)) {
- 		inode_dio_wait(inode);
- 		if (attr->ia_size > inode->i_size) {
--			error = generic_cont_expand_simple(inode,
--							   attr->ia_size);
-+			loff_t old_size = inode->i_size;
-+
-+			i_size_write(inode, attr->ia_size);
-+			error = hfsplus_iomap_cont_expand(inode, attr->ia_size);
-+			if (error) {
-+				i_size_write(inode, old_size);
-+				return error;
-+			}
-+			truncate_setsize(inode, attr->ia_size);
-+		} else {
-+			bool did_zero = false;
-+
-+			error = iomap_truncate_page(inode, attr->ia_size,
-+						    &did_zero,
-+						    &hfsplus_write_iomap_ops,
-+						    NULL, NULL);
- 			if (error)
- 				return error;
-+			truncate_setsize(inode, attr->ia_size);
-+			hfsplus_file_truncate(inode);
- 		}
--		truncate_setsize(inode, attr->ia_size);
--		hfsplus_file_truncate(inode);
- 		inode_set_mtime_to_ts(inode, inode_set_ctime_current(inode));
- 	}
- 
-@@ -399,7 +408,7 @@ struct inode *hfsplus_new_inode(struct super_block *sb, struct inode *dir,
- 		sbi->file_count++;
- 		inode->i_op = &hfsplus_symlink_inode_operations;
- 		inode_nohighmem(inode);
--		inode->i_mapping->a_ops = &hfsplus_aops;
-+		inode->i_mapping->a_ops = &hfsplus_symlink_aops;
- 		hip->clump_blocks = 1;
- 	} else if (S_ISCHR(inode->i_mode) || S_ISBLK(inode->i_mode) ||
- 		   S_ISFIFO(inode->i_mode) || S_ISSOCK(inode->i_mode)) {
-@@ -540,7 +549,7 @@ int hfsplus_cat_read_inode(struct inode *inode, struct hfs_find_data *fd)
- 		} else if (S_ISLNK(inode->i_mode)) {
- 			inode->i_op = &hfsplus_symlink_inode_operations;
- 			inode_nohighmem(inode);
--			inode->i_mapping->a_ops = &hfsplus_aops;
-+			inode->i_mapping->a_ops = &hfsplus_symlink_aops;
- 		} else {
- 			inode->i_op = &hfsplus_special_inode_operations;
- 			init_special_inode(inode, inode->i_mode,
--- 
-2.43.0
+Cool!  I have not reviewed this patch series, but am supportive of
+solving the problem, since I do recall this being an issue;
 
+i.e. it always annoyed me that despite have a 128 core machine, much
+of the build is sequential!  Having all those cores and not saturating
+them during a build was always something I noticed (usually have
+system monitor always showing system load, always) but never had time
+to look into.
+
+It would be cool if your LLM could generate any visualizations of
+what's going on during a build? Seeing what's serial vs parallelized
+in perhaps useful. Particularly when you can compare the before vs
+after.
+--=20
+Thanks,
+~Nick Desaulniers
