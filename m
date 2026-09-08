@@ -1,423 +1,195 @@
-Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06A32565108
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882255; cv=none; b=p0Hxvv14xyS5vFhxoMTSdJqzvT7nefttdzHq0do+pb3DsbFoqP1yyxEfg4r7trq6f5wbi1T6dlwuTDgSxgm+tD3paipVO8uTaQvQh3fnDdxsYNOZpMCJw7XxzslP81ucXZh4Z1P5SfvoDsGvJFyEBeQOLwJ3BHyczepj/ij0sSo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882255; c=relaxed/simple;
-	bh=00wfOUVVmDGin75fzlCubPsIZG4mioA3oUnp9bRd8Uk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k+OYV8FsEX6SOLCs0FfurdcRN7c7O+5Dwd52QvZEzCxMfrfQgL2bWmNIu8UthtkD6UISOM+AQqffdfMgXCPLy7ITBxUr9cQKN6sF6iVn2ilrKzxcgRA9/Rmk71j49qkl+IJUro0/9T28B35U5efR6aAMfiMxxA+iM+24cHAGJyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=S3qcLMFY; arc=none smtp.client-ip=115.124.30.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46EC7549364;
+	Tue,  8 Sep 2026 15:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788882262; cv=fail; b=sZ4WxzsYDC0Jpaq2kwIP8LqEd5vaEkukZ3Jl1VlGwlA2Dq/F+04oBr/kyyTqBHDDlGXzaXPXd/x+9gg132m5JYPz0LYif8omIU32fzw/JYonJGMT/1tkYPBuZKUYfpbzogdLNW92K0h2p0LpwcinTZ5uzUlww/4WTKr00pi4al0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788882262; c=relaxed/simple;
+	bh=xmqptpWgefcxNr49jCsqpaWip9K9MjWlTfDc91EvJgc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B7yKpvmSd/rl43V+dG2RpdszWQRFYKnEVSQlk8AZszgu1Zv/J09X5reTZi1R91xeABhS1JXkmxYPWkaWYzyijQmTj3xN8AtQWWNjXf0CRSFcwvxwSEXMOlGOLPz4x1iCZw21A7a/aB+P9S3RJmDp4Ec5G8z3KCTSfzxPFNF/Mhs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=PDgwPdUI; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=YoFeAnAb; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="S3qcLMFY"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788882247; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=moIJ5L+bC2j2KH91p1KtXumkwr+nJGgByBSZyudvL6g=;
-	b=S3qcLMFYzVRdq1BZx4t9mX8cRQCcJdQjNcqf5O5al9rJDJchQcbedvMnvPptQioz0qh810Z3+7ospv+cJGmwDMnOSUNETGHpL570g2j02uocvcPO+qHNHN7zuU4iNIhoSFXxml1Y9H6Mw7uqbJoSSBnn1g3dgTicyLLNYqbcC9I=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xueshuai@linux.alibaba.com;NM=1;PH=DS;RN=15;SR=0;TI=SMTPD_---0XAcGtEq_1788882246;
-Received: from 30.120.99.168(mailfrom:xueshuai@linux.alibaba.com fp:SMTPD_---0XAcGtEq_1788882246 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 08 Sep 2026 23:44:07 +0800
-Message-ID: <6e004ee1-1daa-4165-966a-fe60a3fbd443@linux.alibaba.com>
-Date: Tue, 8 Sep 2026 23:44:05 +0800
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="PDgwPdUI";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="YoFeAnAb"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 688Ek4dw2033099;
+	Tue, 8 Sep 2026 10:44:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=yWKiJkPgyISgf
+	pXAg8Zfe+oq7otO5OGE/xaNq9Z+l/s=; b=PDgwPdUIrszGVshk3aemYpm0TJGxp
+	EzgCWmxzgnV6t2d5biOvNA3w0bCiL073lPuhX04/3AS2AxtsYhJJHFh5uf4MMMbX
+	cPD5VW7GHGb5bvIDYmtAvRS2gUeocnWa/GpxvZh0SPnzjLSr4acWcT5GIvwarXQ2
+	PpNSwC5jzv4zEcNN1HwocJYNceg1XotVd5F324U1zcNK8IKLFfOnwW9HKU0QmfG7
+	0chcp3knmpes8vOACqIpiKaieO0hH2wGCwTkQCMM9e+UmZ+YE553+EwxVlkP8jYz
+	/cIsIQDx8Jvavnqre596ekKn8KrKf3jfnjBzVRx+d2+wr5SpEApcUcvCQ==
+Received: from dm1pr04cu001.outbound.protection.outlook.com (mail-centralusazon11010012.outbound.protection.outlook.com [52.101.61.12])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gjffmtbpw-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 10:44:08 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XvenqGfAhGmqGQudPSH/nNbiiUeWzS2G7QtconQgOeKKLU+2awYtpSOBWF0wpFzchwYrcbA+2kuPB7fI40V70QkX5VuOf9rAc/0C9ZvPoqTsHVALybroHFA4fugmpMZnblGtHotU4pNQvW9YKv+4HwqOemEhJswQoFkHTkO/spzWtSY01LPa2bOov2IAlzTUfnYisaYdm0nV+wQ+6kAcN63UuoWd0NXZujITHqQQZTohaHSzicCrcXK2YWxOvuzeFZnTMf+bGBF9d+UURN8thuhh1gMBrfyzzB6xKKYCF5cjMDnPFOZmfbJmBD4JhpQ3dxBdVmU4I9Q/qUoVD9vbxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yWKiJkPgyISgfpXAg8Zfe+oq7otO5OGE/xaNq9Z+l/s=;
+ b=dTmrbskn+gg3QdSYZA1X9iQJEpw10FV9wj+wEJ+Pk58aBcxna0GKoXTly1/i4pmvdiI7I94uGi4yWAxaR+yCf8BdMtWciUPmp75aiUudJoNnErvrfqSNzSIuHL/45MdBOJQ1VVNv9+6HcjPTbqoBKK4V5d6Rt9M4X377G8KeJtv9JgvgZ+DGIh2B0EvonGxeR8R9esWqBYs4bAEbH/sjIyI5az7QhMw6I+rHq3lcAANri/nlarvw+TqXGbs0BkleBES90qbe2JwAcvGcNRNPcVjZMm7hgKT1X4MQP9zlOoIOqALcam7k71bddG1tYVGj/osIoQu08nx22UQ9G0ip9Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yWKiJkPgyISgfpXAg8Zfe+oq7otO5OGE/xaNq9Z+l/s=;
+ b=YoFeAnAb2A7wR6cDjTqUuwpb3sNbC/vXrxdpF4CLTtKFLCHtEvj3V5t8l2JV97hBs0v2GCFI0lAAZquEYzW0p+qMmPGrZU0I89jY9O4hAwDxImLDPeb0jPn1xwF77n2PGWxyUbjNabsLr3USrLa3L8L8cxWMpFsU0h1l4yVPzJg=
+Received: from CH0PR13CA0039.namprd13.prod.outlook.com (2603:10b6:610:b2::14)
+ by BLAPR10MB4819.namprd10.prod.outlook.com (2603:10b6:208:307::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 15:43:06 +0000
+Received: from DS3PEPF0000C381.namprd04.prod.outlook.com
+ (2603:10b6:610:b2:cafe::2a) by CH0PR13CA0039.outlook.office365.com
+ (2603:10b6:610:b2::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 15:43:05 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ DS3PEPF0000C381.mail.protection.outlook.com (10.167.23.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 15:43:04 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
+ 2026 10:42:24 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
+ 2026 10:42:24 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 8 Sep 2026 10:42:24 -0500
+Received: from ula0226330.dhcp.ti.com ([10.249.33.213])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688FgNWa3725209;
+	Tue, 8 Sep 2026 10:42:24 -0500
+From: Andrew Davis <afd@ti.com>
+To: Tony Lindgren <tony@atomide.com>, Vignesh R <vigneshr@ti.com>,
+        "Andreas
+ Kemnade" <andreas@kemnade.info>,
+        Kevin Hilman <khilman@baylibre.com>,
+        "Roger
+ Quadros" <rogerq@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>
+CC: <linux-omap@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+        <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Andrew Davis
+	<afd@ti.com>
+Subject: [PATCH v2 0/8] OMAP I2C driver cleanups
+Date: Tue, 8 Sep 2026 10:42:15 -0500
+Message-ID: <20260908154223.116074-1-afd@ti.com>
+X-Mailer: git-send-email 2.39.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse
- map (new data structure)
-To: Marc Zyngier <maz@kernel.org>
-Cc: Wei-Lin Chang <weilin.chang@arm.com>, Wang Han
- <wanghan@linux.alibaba.com>, linux-arm-kernel@lists.infradead.org,
- kvmarm@lists.linux.dev, linux-kernel@vger.kernel.org, oupton@kernel.org,
- tabba@google.com, joey.gouly@arm.com, seiden@linux.ibm.com,
- suzuki.poulose@arm.com, catalin.marinas@arm.com, will@kernel.org,
- ljs@kernel.org, itaru.kitayama@fujitsu.com
-References: <20260810205038.118843-1-weilin.chang@arm.com>
- <20260902163500.1841671-1-wanghan@linux.alibaba.com>
- <877bl26aqg.wl-maz@kernel.org>
- <wsnf276xrun3g4hjr3t6alprapctg5z4kpj422v3hujqdjnrsa@swq4blkqvvj5>
- <46342b48-550e-42c1-9d9f-e800c72269c2@linux.alibaba.com>
- <874ig55u5h.wl-maz@kernel.org>
- <f2357ad9-ece1-4331-844d-5911baaf571f@linux.alibaba.com>
- <87o6ea4q67.wl-maz@kernel.org>
-From: Shuai Xue <xueshuai@linux.alibaba.com>
-In-Reply-To: <87o6ea4q67.wl-maz@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF0000C381:EE_|BLAPR10MB4819:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d4e9673-e060-4144-7fae-08df0dbfdf44
+X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	4rl0SQsuTPlQakJQJcg8GdZ/pXMkkI2oquzgVaEEAs0zRz5dd/u+t4Oj9PK4Eyt4sIUDhaNpSIg/D0WN4rl1+OOdG48eGNLujMEmwslfx8mZ5p4UpFIXJLN+C9ZIhPo1AOwZXiAtTSH5M1AfamABmAvxT5gkIB99zjYqzFHNQaDa768PjPsqRuXgk7uUTnQbMMKTU86R90+lQAcXwA05Ixc2vttMvbVVXerlGQmomRx+3JqSxGF1IFl3TnL8kiYmfjSj7a6kiPxHbpGJlJ5j0LmPdJnE3Q2zqblxZWu60eYF3oMV/u87PKgDgayhklI+yt7OJTzcL2Otoj2MmITtVw3k3ExpaMUQyLv7yYPJfz2H9EJybzVMO9mNatOZ3QRLHpqKVX2LJKNwTDwRW4FdstIxifRctJQHkCRd6ZgVfecmfGMWmHtZE3PcuHs0rmbQUVJH5PfE3P7glBgVpqszvYsNWAOad5UhaYu/wv/lve9k4bLTHYR4LMX17qibK5QsTsXCYLGRg1MlM+2wjNCDlJbsdL0goI6x56LqyT3yj2fZC0ssgYIa5itWz3iYkts+JDSLmv/kKVNFTK0Hd4VjbzStnnUXkVlP60Ci3wS9/qiLhcvyKV1Z6cr+JQLI6GxUx5Z6AL0u5cOHwTMFAw6Sp0LlKA3xByxB2gMMVrvUF2/6yWBqDn2NIsJdQtCf12qeHMORMtwQcFQixi1zanGyow==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NcryBAFSZTR7rCgcsU1PfFGQ4oBYmMA2YhrcrJGppINtcuFnSb943eInm78kY0UNISMrOtDPAZEMWXhMwsJhdFPhgweebCXjXTsoArfUVSbrnkHdLkoiUQYftvPLRrosMbE1GQISnd4SK7ZoBX0ww6Riz4n31dKjv759walejSEKRCS9R+vDnMba9BSAAse71Mhel6F3KqATbjjWwswB4Y+Y+vQiThaGZKuJyAFSXsXrzWWRkgGz6571MVAaxsoXtylodB/RF6fjKK326fpb7qyRprSS3DD0aG3q159d8WL7fDsegflnbhDblJ1vEPQuM3BeC5owYWGxn3r5OgA3I7lH/VwpMemT5ZYgY5F026DLuGb063Ef1ZRkLOm1r+agI8rzYc6vh1iMvKFnKeAme3PLSJgfx1yWm7e8pksjxTgE2YswAxrF4w0emnqZfyYR
+X-Exchange-RoutingPolicyChecked:
+	0gjXEBVj7be6qOsw7NActn6egMVV9/vNEfS7WFcFy08NLtTFDQGsapEo5dKBJ96Ukw2Xe2z7rkL0A3FoRc+Q+5wP3Fl6N0Vc2GYSKw7r8bOv6/lwYnDorCa9xzpyNYi8sOKqNAbVVvGlSvvhv97hY2jEXY883ZNl2bdw/4+ZzHb4LicZD6pyE/dnmJ+daPODeYMdAfNbvmExL2fujhOKb3cVAwIpk1TTIP3/NzpSsbV7ExCk0DU84JXEd41pnmN1yHIEq3IQE+NeZ3Kevnc0Rsso4TDs57GW/kEoK2B7j7ExPb2tDBYTFmhFtFu3y5XKrnbGuZ7Fso/U/nMFaF0edA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 15:43:04.3442
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d4e9673-e060-4144-7fae-08df0dbfdf44
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS3PEPF0000C381.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB4819
+X-Authority-Analysis: v=2.4 cv=FewHAp+6 c=1 sm=1 tr=0 ts=6aa02d48 cx=c_pps
+ a=Os0crU6ZVxYeJaTskmJGZw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
+ a=nnOhH74F2ekBJhm_1bsA:9
+X-Proofpoint-ORIG-GUID: ppyUnsJrMEr1iEwg307YohZpyeK1sVKf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE3MCBTYWx0ZWRfXwrY0A9zYIcJ8
+ nb/qeaqus7w+/YXGD3iRF3RfIyiVqcVjsL15JIvpiX4d1lG+Ypf/N7Plrd3TkQ+30sc3xJIjL7U
+ GjPm+vEBZ/r42MQ4EDah2820YD7bUQNLsDT4mTRIxVMp7uUoR3QvAAAJ5tJeVGU/k2B5CabbqZF
+ 9PQQjlYDddebN1k5c26lBaMsHone+NykSNtZGd2LMIuku02uZcKroPz49tFPcxyTrvr6G2LwMfY
+ nwKcIFHSOgGUNtZS3jPAYbz46TdwtoDtrbr6AMkCb6ezYNGggnU4TM6thXY3KRifKlmD0KlmcHl
+ 7rXnR5FXMsYakGiBmhKkKib/eNvNmiEbnfO2hino6B6JpsK6crSD1pOfrAfQLfxYn9NY1DHcmg+
+ 2FkofeZtne/NcMPZ6kGky6ccXwPsahqyDGsB3FuiMWXkJlPVODShRkfAaCjBNQ/wXW8G4CczEy3
+ azQh3LsawJ2MYqTq+mA==
+X-Proofpoint-GUID: ppyUnsJrMEr1iEwg307YohZpyeK1sVKf
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE3MCBTYWx0ZWRfXz8ZSSORJAvbX
+ XRyrozoLnwumCfslf40AoyOGPlp9NuP9yv0/yqIJ81l/Ia+kvgCGnbVNQGPpHVkgbQDiRD+q89Y
+ i/qTR6ss/FdEvcdczOm3a3pslvwNTGQ=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 impostorscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080170
 
+Hello all,
 
-
-On 9/6/26 6:42 PM, Marc Zyngier wrote:
-> On Sat, 05 Sep 2026 16:35:01 +0100,
-> Shuai Xue <xueshuai@linux.alibaba.com> wrote:
->>
->>
->>
->> On 9/4/26 3:54 PM, Marc Zyngier wrote:
->>> On Fri, 04 Sep 2026 08:01:24 +0100,
->>> Shuai Xue <xueshuai@linux.alibaba.com> wrote:
->>>>
->>>>
->>>>
->>>> On 9/3/26 9:28 PM, Wei-Lin Chang wrote:
->>>>> On Thu, Sep 03, 2026 at 08:43:35AM +0100, Marc Zyngier wrote:
->>>>>> On Wed, 02 Sep 2026 17:35:00 +0100,
->>>>>> Wang Han <wanghan@linux.alibaba.com> wrote:
->>>>>>>
->>>>>>> Hi Wei-Lin,
->>>>>>>
->>>>>>> I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
->>>>>>> (128 CPUs, 2 NUMA nodes).
->>>>>>>
->>>>>>> Test environment
->>>>>>> ----------------
->>>>>>>
->>>>>>>      L0 kernel: Linux v7.2-rc6
->>>>>>>      L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
->>>>>>>      QEMU: 10.2.3
->>>>>>>
->>>>>>> L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
->>>>>>> The host was booted with `kvm_arm.mode=nested`.
->>>>>>>
->>>>>>> This series fixes a functional hang that is exposed when NUMA balancing is
->>>>>>> enabled.  The previous nested stage-2 unmap path is too slow for this
->>>>>>> workload, making the performance problem user-visible: NUMA balancing can
->>>>>>> leave the L1 guest unable to make progress and eventually hang during boot.
->>>>>>>
->>>>>>> The L1 was started with 8 vCPUs and 32 GiB of RAM using:
->>>>>>>
->>>>>>>      qemu-system-aarch64 -smp 8 -m 32G \
->>>>>>>        -machine virt,accel=kvm,gic-version=3,virtualization=on \
->>>>>>>        -cpu host -nographic -enable-kvm \
->>>>>>>        -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
->>>>>>>        -drive if=pflash,format=raw,file=pflash1_bak.img \
->>>>>>>        -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
->>>>>>>        -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
->>>>>>>        -serial mon:stdio
->>>>>>>
->>>>>>
->>>>>> Puzzling. If you are only running an L1 in VHE mode, there is no
->>>>>> shadow S2, and therefore nothing to unmap. For shadow S2s to be built
->>>>>> and affect the MMU notifiers, you need to run an L2.
->>>>>
->>>>> I was thinking the same at first, but realized even with L1 in VHE mode
->>>>> there is a small period of time where L1 runs in its EL1 during boot, so
->>>>> one nested MMU will become valid for each vCPU. That causes
->>>>> kvm_nested_s2_unmap() to iterate through the entire IPA space 8 times
->>>>> (-smp 8).
->>>>>
->>>>> What I am curious about is whether one single notifier unmap is enough
->>>>> to hang L1, or were there multiple notifier unmaps.
->>>>>
->>>>> QEMU with -machine virt uses 40 IPA bits only, unmapping that takes:
->>>>> 1024  (4KB pages,  unmapping 1GB per iteration)
->>>>> 32768 (16KB pages, unmapping 32MB per iteration)
->>>>> 2048  (64KB pages, unmapping 512MB per iteration)
->>>>> iterations for each page size. There aren't many mappings in each
->>>>> iteration too. Does this really take that long on real hardware (even if
->>>>> this must be done 8 times)?
->>>>>
->>>>> Thanks,
->>>>> Wei-Lin Chang
->>>>>
->>>>>>
->>>>>> So what are your actual test conditions?
->>>>>>
->>>>>> 	M.
->>>>>>
->>>>
->>>> Hi, Wei-Lin and Marc,
->>>>
->>>> I was able to reproduce this issue and capture ftrace evidence that confirms
->>>> the root cause. Below is the analysis, trace log, and timing data.
->>>
->>> [...]
->>>
->>>> Each set_migration_pte line is a single-page NUMA migration. Yet each
->>>> migration triggers one full kvm_nested_s2_unmap() that takes 877 ms.
->>>
->>> And why is it taking so long? It should be *empty* after the first
->>> iteration.
->>
->> Good question.
->>
->> After dive into the details trace, let to try to answer the question.
->>
->> Yes, it is empty -- and that is exactly the point: the 877ms is paid *for*
->> an empty table.
->>
->> The cost is not in the walk and not in clearing PTEs;
->> **it is 262,144 broadcast TLB invalidations**, one at the end of every
->> 1GB chunk, each ~3.3us. Since v6.6 the cost of an unmap is
->> proportional to the size of the IPA range, not to the number of
->> mappings; an empty table pays in full.
->>
->>>
->>> [...]
->>>
->>>> ## Conclusion
->>>>
->>>> The root cause is confirmed: kvm_nested_s2_unmap() performs a full IPA space
->>>> unmap in the MMU notifier path instead of unmapping only the affected
->>>> GPA/CPAI range. The interval-tree-based precise range unmap approach is the
->>>> right fix.
->>>
->>> No. This just indicates that this is papering over a bigger problem,
->>> and your AI is jumping to conclusions.
->>
->> Sorry for the jumping up.
->>
->> The culprit is 7657ea920c54 ("KVM: arm64: Use TLBI range-based
->> instructions for unmap", v6.6). kvm_pgtable_stage2_unmap() ends
->> *every* call with an unconditional kvm_tlb_flush_vmid_range(), whether
->> or not the walk cleared a single PTE:
->>
->>          ret = kvm_pgtable_walk(pgt, addr, size, &walker);
->>          if (stage2_unmap_defer_tlb_flush(pgt))
->>                  /* Perform the deferred TLB invalidations */
->>                  kvm_tlb_flush_vmid_range(pgt->mmu, addr, size);
->>
->> stage2_apply_range() calls it once per 1GB chunk, and the nested MMU
->> covers the guest PARange -- 48 bits here, so 262,144 calls per
->> kvm_nested_s2_unmap(). Each broadcast is one IPAS2E1IS (range) plus one VMALLE1IS
->> plus two DSB(ish), ~3.2-3.4us without ftrace:
->>
->>          877ms / 262,144 chunks = 3.35us per chunk
->>
->> which is exactly the per-broadcast cost.
-> 
-> Right. That's pretty compelling, thanks for digging into this. Your
-> proposed approach (counting the invalidated regions) is interesting,
-> but I don't think it is the correct one.
-> 
-> The real issue here is that we treat a full S2 unmap as if it was a
-> set of ranges. This is what needs fixing, because we can invalidate
-> the whole thing with exactly *ONE* TLBI.
-> 
-> This is even more important once you run an L2, as L1 will also
-> perform its own TLB invalidation, and we want to avoid having trapping
-> pointlessly. This also propagates in the way we handle TLB emulation.
-> 
-> [...]
-> 
->> The candidate fix is below. Table entries
->> (KVM_PGTABLE_WALK_TABLE_POST) are unaffected: stage2_unmap_put_pte()
->> keeps issuing the immediate __kvm_tlb_flush_vmid_ipa() for them, and
->> their child leaves are counted as leaves within the same walk, so any
->> call that clears something still flushes a superset of what it
->> cleared. This restores the pre-v6.6 semantics -- cost proportional to
->> what is mapped. With it, an empty nested unmap costs ~110ms
->> instrumented (the pure walk); getting to "exactly zero" would
->> additionally require kvm_nested_s2_unmap() to skip nested MMUs that
->> are valid but empty.
-> 
-> That's an interesting remark. I guess we could add some extra tracking
-> for that, but let's see what we can do about the above first.
-> 
-> I've hacked something together and pushed the result at [1]
-> (compile-tested only). I'd appreciate it if you could put it to the
-> test with your setup.
-> 
-> Thanks,
-> 
-> 	M.
-> 
-> [1] https://web.git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git/log/?h=kvm-arm64/unmap-vmall
-
-
-Hi Marc, Wei-Lin,
-
-I have completed a controlled A/B test of Marc's
-kvm-arm64/unmap-vmall branch and a local port of Wei-Lin's v5
-interval-tree series on top of it.
-
-TL;DR
-=====
-
-Marc's series successfully removes the per-chunk TLBI amplification:
-no range TLBI is issued while walking the shadow stage-2, and each
-completed full unmap ends with a single VMID-wide invalidation.
-
-However, the reported soft lockup still reproduced in 13 out of 15
-Marc-only rounds.
-
-The remaining problem is that each small canonical MMU-notifier
-invalidation is still promoted to a full-IPA software iteration. On
-this 48-bit/4KB system, this means 262,144 no-TLBI chunks per valid
-shadow MMU. Under frequent NUMA migrations, multiple full-unmap calls
-become outstanding and are interleaved as stage2_apply_range()
-periodically drops and reacquires mmu_lock.
-
-With Wei-Lin's precise cIPA-to-NIPA lookup enabled, the same test
-completed 15 out of 15 rounds without a soft lockup, while exercising
-more than four million cIPA notifier calls.
-
-Test setup
-==========
-
-Both variants used:
-
-   - the same read-only golden L1 image;
-   - a fresh qcow2 overlay and writable pflash copy for every round;
-   - the same kernel configuration;
-   - QEMU 10.2.3;
-   - an 8-vCPU / 32-GiB L1;
-   - automatic NUMA balancing enabled;
-   - numad active;
-   - no additional memory-pressure workload;
-   - 15 rounds of 600 seconds per variant.
-
-Every round verified the kernel commit, config and installed Image,
-QEMU version, golden-image manifest, guest login, trace accounting,
-BPF stderr, disk integrity and result manifest.
-
-The tested revisions were:
-
-   Marc-only:
-     3b46d91c9aac2f9e8f0be58d0834b9932667af92
-
-   Marc + Wei-Lin:
-     d3fca181b5fadb86aeb35437c359dc09ad233f05
-
-The latter is a local conflict-resolved validation port of Wei-Lin's
-v5 interval-tree series on top of Marc's branch.
-
-A/B results
-===========
-
-   Metric                            Marc-only        Marc + Wei-Lin
-   ------------------------------------------------------------------
-   Test rounds                       15               15
-   Soft-lockup rounds                13               0
-   Guest soft-lockup lines           71               0
-   Guest RCU-stall lines             5                0
-   L0 hung-task/soft-lockup lines    0                0
-
-   kvm_nested_s2_unmap calls         776,896          0
-   kvm_stage2_unmap_all calls        775,067          0
-   Precise cIPA notifier calls       0                4,176,635
-
-   Completed full-unmap intervals    773,911          0
-   Total VMID-wide flush calls       773,937          0
-   Range TLBI inside full unmap      0 (*)            N/A
-
-   Successfully migrated pages       2,411,259        5,342,515
-   Harness/manifest failures         0                0
-
-(*) The absence of range TLBI inside Marc's full-unmap path was
-     confirmed separately with function-graph tracing. The formal
-     low-overhead batch correlated full-unmap completion with the final
-     VMID-wide flush instead of probing the hot range-TLBI symbol.
-
-Marc-only full-unmap behaviour
-==============================
-
-The formal trace records kvm_stage2_unmap_all() entry and correlates it
-with the final __kvm_tlb_flush_vmid() on the same TID. Only successfully
-paired intervals are used for latency and concurrency calculations.
-
-The minimum per-round completion-pairing coverage was 99.3175%, and all
-15 rounds passed the trace-accounting gate.
-
-The following comparison separates the 13 lockup rounds from the two
-rounds that completed 600 seconds without a lockup:
-
-   Metric                         13 lockup rounds    2 non-lockup rounds
-   -----------------------------------------------------------------------
-   Completed full unmaps          551,786             222,125
-
-   Peak outstanding unmaps        5--9                2--4
-   Median peak                    7                   3
-
-   Time with >=2 outstanding      1,115.3 s           5.94 s
-   Fraction of activity window    37.4%               0.49%
-
-   Time with >=4 outstanding      356.4 s             0.06 s
-   Fraction of activity window    11.9%               ~0.005%
-
-   Time with >=6 outstanding      34.74 s             0
-
-   Mean completed duration        9.91 ms             5.46 ms
-   Completed unmaps >=100 ms      8,514 (1.543%)      14 (0.006%)
-   Completed unmaps >=250 ms      5,372 (0.974%)      0
-   Completed unmaps >=500 ms      135                 0
-   Maximum completed duration     946.97 ms           179.12 ms
-
-In 12 of the 13 lockup rounds, the peak outstanding set included both
-numad and QEMU threads. One of those rounds also included kcompactd1.
-In the remaining lockup round, the peak consisted of six QEMU threads.
-
-"Outstanding" does not mean that these threads held mmu_lock
-simultaneously. kvm_stage2_unmap_all() is entered with the write lock
-held, but stage2_apply_range() calls cond_resched_rwlock_write() between
-chunks. This permits another waiting invocation to acquire the lock and
-start or continue its own full-IPA operation before the previous
-invocation has completed.
-
-The trace therefore shows a full-unmap hand-off convoy, rather than a
-single kvm_stage2_unmap_all() invocation remaining stuck for the entire
-watchdog interval. This also explains why removing the expensive
-per-chunk TLBIs substantially reduces individual work but does not
-eliminate the soft lockup under a sufficiently high notifier rate.
-
-Combined-kernel behaviour
-=========================
-
-With Wei-Lin's interval-tree path, every observed canonical notifier
-invalidation used kvm_nested_unmap_cipa_range(). None entered
-kvm_nested_s2_unmap(), kvm_stage2_unmap_all(), or the final VMALL path.
-
-All 15 rounds completed without a guest soft lockup or RCU stall. Three
-rounds successfully migrated approximately 2.106 million, 2.091 million
-and 1.130 million pages respectively, so the notifier path was heavily
-exercised.
-
-My interpretation
-=================
-
-The results distinguish two separate amplification problems:
-
-1. A true full shadow-stage-2 invalidation was implemented as many
-    range TLBIs.
-
-    Marc's series fixes this as intended by clearing the page tables
-    without per-chunk TLBI and issuing one final VMID-wide invalidation.
-
-2. A small canonical MMU-notifier invalidation is promoted to a full
-    invalidation of every valid shadow stage-2.
-
-    Marc's series does not change this policy. After the TLBI cost is
-    removed, the repeated full-IPA software iteration and resulting
-    overlap are still sufficient to reproduce the soft lockup.
-
-For this workload, Wei-Lin's reverse map removes the second
-amplification by translating the invalidated canonical IPA range into
-only the affected nested IPA ranges.
-
-I therefore think the two approaches are complementary:
-
-   - use precise reverse-map invalidation for canonical MMU-notifier
-     ranges; and
-   - retain Marc's no-TLBI walk plus one VMALL for operations that
-     genuinely require the complete shadow stage-2 to be invalidated.
-
-The combined runs did not exercise the full-unmap/MMU-reuse paths, so
-I am treating them as evidence for the notifier-path behaviour, not as
-complete validation of every interaction between the two series.
-
-I can provide the per-round summaries, manifests and raw BPF timelines
-if useful.
+Some hopefully simple cleanups and updates found while using this driver
+as reference when porting the same over to Zephyr. No functional changes.
 
 Thanks,
-Shuai
+Andrew
+
+Changes for v2:
+ - Seems bitfield.h is not indirectly included for all archs, include
+   it explicitly in patch [8/8]
+ - Add Reviewed-by tags
+
+Andrew Davis (8):
+  i2c: omap: Drop bit shift for I2C register addresses
+  i2c: omap: Remove unused is_rdr and is_xdr variables
+  i2c: omap: Use devm_pm_runtime_enable() helper
+  i2c: omap: Combine event flags register definitions
+  i2c: omap: Use bool for flag values
+  i2c: omap: Make reset bit name match register name
+  i2c: omap: Switch to using BIT and GENMASK
+  i2c: omap: Add OMAP_I2C_BUF_{TX,RX}TRSH definitions
+
+ arch/arm/mach-omap1/i2c.c              |   4 -
+ drivers/i2c/busses/i2c-omap.c          | 255 +++++++++++--------------
+ include/linux/platform_data/i2c-omap.h |   5 -
+ 3 files changed, 113 insertions(+), 151 deletions(-)
+
+-- 
+2.39.2
+
