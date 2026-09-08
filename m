@@ -1,106 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9540A39D6E8;
-	Tue,  8 Sep 2026 19:49:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10EC315D49;
+	Tue,  8 Sep 2026 19:49:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788896960; cv=none; b=h/SKcywFjtCZfsBvknmxyXbJN/mzkQddLv+HqMqEaqpbzM6q/FX1kEuTwElTnGjwVYve4ZbAi7l2gQgDpHbbwHwdjR3RveN5a8BQreZ0hWUk/8L8vR6B9KmGHZewAYh0ixacW+JTYfcLf4smqsrFMvOgCUtaSxFtQBn1iHzXXGI=
+	t=1788896967; cv=none; b=Z2FEKx+rpiKSRK0w/iqq+EMevADzpddPezyPP1vJYav1UHwzUKwVV9nuel/p1W6DFe1TV/FcOGxtFbBTv4IkjbVyJpCGHSMHIUMozArZJ6PYP+NatnNSPMSv+5Mv3k0525hjHB17aES3ouOgAByAzsFZniQKvvrLFM6I6Xlt/mk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788896960; c=relaxed/simple;
-	bh=oiYGsMaCLnwCmDy1yg36vtdu2oqucVkkNwHPUBlpkj8=;
+	s=arc-20240116; t=1788896967; c=relaxed/simple;
+	bh=rgJSUYHlkcErCbXk0bwy8oX8d3IsA4cgNJZC9Ka8Xxg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ErrnlGeTWXaXuPczygtXP8RvwBwXfUmj1yCuGgeKtgZOysFxGo2FrnJzAz4oZG7Ll0MGgNwqf3ZVowA+45Lyk7gUKzGa2c8cWIFumAQsEv1mg2nNCFcGOmYxw8SxxqYhvBNkvZhzhWjfQc5c8d5ZCtECp8mhmV1/mlSJf83lU60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fh9i0uXD; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kwyd7RZpOIwfJVIX2dgju7XsNKnyNBJSiKu4+cgyNUb76WpoIRnRHARuP3VJ/5QM10zlfvH3Vu6dW0Pg2/dNNQto4lo7W+9Va/asZXDYtlznKPovoUFCDQwTDslTkUCiLna1vDuMLKTR35XhHRqOaS8J1Rg9lc2Zqs9HWsk4Nr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/kn2Qh3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fh9i0uXD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D07451F00A3E;
-	Tue,  8 Sep 2026 19:49:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/kn2Qh3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF441F00A3E;
+	Tue,  8 Sep 2026 19:49:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788896959;
-	bh=/P9NMmb1bKlJESKNUVT1eu3XFgU1HlOoe7JBU7vKCC4=;
+	s=k20260515; t=1788896966;
+	bh=293efd8OkQdYG7J7DoMlVzlrpU2pBJJ+Nskz7GcwtAY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Fh9i0uXDyWEFR2uOr95NplkfG96J6thbYHCbX9Yw++FdCOUctWj04uVNF6GkWQbY0
-	 pwTZ02VYjDsovAfcxdhJxsXVUcTDJKbTKooDfAWFEu82TcprN8TjFQhQx2XiP4S6eO
-	 dMcKAmtaqHuVBAJEf/lfpYuw/qAi3Kt2HFynbKUcgUqCGLIHFhcGX7Po2h/Ywyuk/L
-	 mvtOJq9Fj1CwdG9DUf+iAXDE9T91PTCaq9Gl/220rr3StOTCpvykpBxKvD064dphUc
-	 sbBf4kWcrwzYLV9zlUS8pKbfewzeicNGRtdl1NwQSFaHkNb2wX9PLROfA9ogDlAXg0
-	 B9f3Lx2+nVRBA==
-Date: Tue, 8 Sep 2026 20:49:09 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-omap@vger.kernel.org,
+	b=h/kn2Qh3gwFEwIbq2y9bh/BbXhXeiDTimZQA4JLNxtzHWtkKxId0dPNeUQ9pesfg0
+	 xPJLUAE5yqSW8PbgPRIo4xf5muFhsKq7SUDijDQt1xxdCnGseniesPt2ZjagxJf6vG
+	 TTmOh+PUAF+4H9qjRqYEyS4GZtA7GiPLMsbkVN8SXpRaYDjx6xJaD4u0eXTzTidqe4
+	 TqngR5h23VjOVOqflApuK81+/E362+eO+6+f9Fjms1bSfGk+yfHn+aP0vMUCC59jHK
+	 YzXEjx0BF+UieqIO9GzUerSbJkSesGCNb32hDXprCdHt9yp37RYnIqHJhT8TzD+JZL
+	 1mVAaeVmT2D3g==
+Date: Tue, 8 Sep 2026 20:49:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org
-Subject: Re: [PATCH 11/13] ARM: versatile: remove mps2 support
-Message-ID: <20260908-nuthatch-of-utter-peace-68ead7@sudeepholla>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-12-arnd@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v5 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+Message-ID: <a69c1fb4-b1cc-4ba2-81d0-7f6488536062@sirena.org.uk>
+References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
+ <20260907-b4-qaif-shikra-audio-v5-1-6d8ad9ba5c9f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1iUwHh5skxVSU9mE"
+Content-Disposition: inline
+In-Reply-To: <20260907-b4-qaif-shikra-audio-v5-1-6d8ad9ba5c9f@oss.qualcomm.com>
+X-Cookie: The world is not octal despite DEC.
+
+
+--1iUwHh5skxVSU9mE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908152808.3928630-12-arnd@kernel.org>
 
-On Tue, Sep 08, 2026 at 05:28:01PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> The Arm mps2 platform is the reference implementation for Arm
-> microcontrollers and is useful for testing but not expected to be used
-> as a production device.
-> 
-> With all the Cortex-M based products gone, there is no longer a need
-> for a reference platform either, so remove it as well.
-> 
-> Cc: Liviu Dudau <liviu.dudau@arm.com>
-> Cc: Sudeep Holla <sudeep.holla@kernel.org>
+On Mon, Sep 07, 2026 at 05:39:26PM +0530, Harendra Gautam wrote:
+> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
+> controller used on the Shikra audio platform, together with a dt-bindings
+> header for QAIF DAI and AIF interface IDs.
 
-Acked-by: Sudeep Holla <sudeep.holla@kernel.org>
+> +  clocks:
+> +    minItems: 5
+> +    maxItems: 9
+> +
+> +  clock-names:
+> +    description:
+> +      The first five clocks are always required. Any further entries are the
+> +      per-AIF bit clocks (aif_if<N>_ibit), supplied in order starting from
+> +      AIF interface 0 for as many serial AIF interfaces as the board uses.
+> +    minItems: 5
+> +    items:
+> +      - const: lpass_config
+> +      - const: lpass_core_axim
+> +      - const: aud_dma
+> +      - const: aud_dma_mem
+> +      - const: bus
+> +      - const: aif_if0_ibit
+> +      - const: aif_if1_ibit
+> +      - const: aif_if2_ibit
+> +      - const: aif_if3_ibit
 
-While at it, should we also remove
+The driver doesn't request any of these clocks as optional, are they
+really optional?  Probably easier to make them all mandatory and then
+relax later if they can genuinely be optional.
 
-drivers/tty/serial/mps2-uart.c and related Makefile/Kconfig entries ?
+--1iUwHh5skxVSU9mE
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Regards,
-Sudeep
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgZr8ACgkQJNaLcl1U
+h9ClzAf/QWVhtZS3ZaMtJZ40O7yfH+/b/o0694RXmc5cGMnZOgD5VD5PfYBEkPqb
+DiaK8QaNMuJ26XPFceZNUjQx5oSpCEvevSvfu7CYRpBYeIK9ZLJfmRHZaaxe1/AO
+e+sCvYNmTAIojD7ew5Uz88Hfj4dlDj2ZwikTmj+XYJdcl02OhsIMbp+0cLRmGxJ8
+aQ+DUah7g0qp4cnF6FDYZ9bnQMp3eAZXMZ5zyzcvrbR1NvCDSs4IW55nc+y5vzGa
+TOAAn+ZXsoPVsD/PB5yL0Ngo0lxAdtDSDWgcreV7htVJzkhuFZFGrNIoF3mxXhb/
+d3i/SnHrqp95071rlPrSQ6ebWZQYPA==
+=ysw+
+-----END PGP SIGNATURE-----
+
+--1iUwHh5skxVSU9mE--
