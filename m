@@ -1,146 +1,264 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3F4233941
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C8B424D46;
+	Tue,  8 Sep 2026 08:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856068; cv=none; b=sZ9k5NC64sgpldA7Mh+C8UoZmy9cMpBQNJ6VYImaG8g3AzZNzRYr/IdCEAiKjBuKFM1yuKXC32ZGVOhCyzxOWgY5ghqf8NIFMNqjseOUGuu0vIWtPq1aPaGr4sDUPrazWfdZVsr6pVpIZdhhfZ947gFuiscpWpL99eOVVWiXW64=
+	t=1788856071; cv=none; b=hhVxFhstJFRYtsSo7rWv16Olaqi16VJssp9AsB445Coc1rSXuaniCeODwTt0wZRVzCN05nWPPxzXJqPJNyLWf/YmBDHAbzTpKXmvHrMvWR0qs0KzlOTX/teLlDjqeremthFiLfl6iw0rBNpD0cVlv5zd0nK38dru4U9skQmGAso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856068; c=relaxed/simple;
-	bh=wGWJGM/NS2T9XuzwoW91+XbZD5uWEEXTuVbuuctBpkY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bP07BG7wXYZ8yQLqEoeBNx1xOSQ9mfq40zQbN/E+hjscD/LD/+308vq8BJRtkA4jBsxOHVjNeMs2JAX1o6CC5SOnmwpS9pBRwKh3JiaBXzuahZdMxXnoOLNF4P+dihe/s7mhVan3H19jctt8k/zI1/CPV2cYAeuX/bF8pC3zujY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I+q7KJ/n; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788856071; c=relaxed/simple;
+	bh=FTvLSOhadhTu6lMQFsIBAOUQvhsywgx47TwQAUtekyQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X2FgUAZ/GTEMAJDACEhKiUGrbiYoUm+vtW5Q/Cc1/IlfbK4Ax/Yk2g3yJ6VHWe2ROMqm5IyLk17Adgo1QouZpdZcY4MCXeZj4I5kpzQtyYXm6Ix09FYTWhTTCKGkDei7pggUTi+XIozzwv74+O0/D7kBQ7HecS6QdAW6c2+tLjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ut0qLpm2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I+q7KJ/n"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso5236996a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:27:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788856067; x=1789460867; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cDCa4a8fieQ7UPqOtYIBeaZ67Cj9e1mlkdWpIAId3Co=;
-        b=I+q7KJ/n/b43/m1CfsFZ/ELR9WDP2Vi6jawa3zCOI/2VXyUdA3HFU+K5fLuWCKXhc7
-         9bgUnRK1/dFDq/Tpvpq4h7BYpo08Iy6UQLe2u5dw5kdJM4Fsv4c5oijxMH1B5l8mp7p6
-         QZyL+13qTH281gltcITaVrKcXjkVrMlSyJTiHuDuyxZiV7z2TDDBazRfSqGzV0E/Trzd
-         v4YhrErCiB8hNie4/A6fTAjQiHxhlU3FbSgqCcjjqZ1nwF0xesaws4EuyHgqMhhm45Bi
-         GyTNNzHNh2itYjz12IuLl9NfJFD1Ho0djuDmjGzjjXbDectLknK7HSMjFBNqp1vYD3dy
-         A/kA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788856067; x=1789460867;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cDCa4a8fieQ7UPqOtYIBeaZ67Cj9e1mlkdWpIAId3Co=;
-        b=RKkuVFA1LwFYGrMcL+ypBArA9moWh/COhFmQqJqqlH/qQD/LtVnzhpZ02qJIc6zYWH
-         v9EyL2xj1CczjWZ5gBvt0xFSyO8IIR6K5LSWU2kSF+XheOpUVNZ60Jcf+T0jmwpXknQV
-         COpJOvQTP3nY35afo9xF6LeISi4h6gbZ3XT71Nbpex1Ac7aGmvTOzgGipiC3Kv/f4eiq
-         3XpgKfQqSEJDynYY9DS3Q508N+e3MhTtsvJSCpH8RQEc6vnktoBrwtDLZyTcpfRVrn1Z
-         YP8MQP1pH/p6B1eWjrVTELFvzEaojF3a1kvLdzb5d0tGYLsn2KpPH4nkUzG23w04bxCo
-         GcTg==
-X-Forwarded-Encrypted: i=1; AKwUvBxMQBMGw8nQ8+CGh6vmAKTO0mqIxQ5tz+yhMVED8qshspidrHCmfCCdTodF0/Zp1X3tw8IV/h9bOSBrLdc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mcWns5zuy1jOaKjM0rq+P6ciq+np402oXTuL64t8CyAhK53QsR
-	CQlXhYzxQMbZhJCoAcYdNrNW6ymzKrAE+ud8z5LbtC1n7Cl8HXwVOJrq
-X-Gm-Gg: AYBFou2FwjLfII3+NtBdj3oMZGaJlHw34Pdk9erNCxZrcS1kKXlLiB3nHPHa5WncJa6
-	iIpMElhTbw5pI+9345uVF//+Vv+HLX8KEctYE0ZrYl8FePJGAxYD63WEKFaJkaWItu2k8IaFiJD
-	NisV6bWg9NIlzrnnKE+5uZlAzF9H+61UoDmSHsdoWWMz+glFrKUDiPyWwujSm+Jlj+dRu/wCFeI
-	lli3kFvUzCkVJSYoE81z0ZO2qe3F4mRyq0n4C5FA/KCMqIrx+aorenC/KJrkgBqjDRN69bJzcGM
-	u9aL98j7rBW1ez1D8cfRK7t3u7cTmoV3SLlve6ADZ9HNUAxhyVaT4A0S3Cq6IsDu710kYJWQxFy
-	kNYPeEQoj+cQaC6foTruTHDcdTqICPpx3d3IK50ZFSjVY/X3uXAXinjkAy4mAwQ1gJNnYbItbfB
-	+Rcz0UKgvxvwEp7MhG3elrVFjUUkcPzVylvtrA1bVov5ajZSZrhSHbksQf7pIZPSVhU7ceMubnv
-	dFcNmLEqog=
-X-Received: by 2002:a17:90b:1b44:b0:398:ba96:1afd with SMTP id 98e67ed59e1d1-39b2613249fmr37760083a91.8.1788856066863;
-        Tue, 08 Sep 2026 01:27:46 -0700 (PDT)
-Received: from ancienth-X870E-Nova-WiFi ([125.186.72.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b57fsm55110925ad.24.2026.09.08.01.27.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 01:27:46 -0700 (PDT)
-From: Daehyeon Ko <4ncienth@gmail.com>
-To: Stanislav Yakovlev <stas.yakovlev@gmail.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] wifi: libipw: reject TKIP frames without a full MIC
-Date: Tue,  8 Sep 2026 17:27:29 +0900
-Message-ID: <20260908082729.209627-1-4ncienth@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ut0qLpm2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FFAD1F00A3A;
+	Tue,  8 Sep 2026 08:27:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788856069;
+	bh=87vLGeLKcMe8wOMwunzlmPirL92y71FZBrhkM52WkuE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ut0qLpm270BmP73NPzh6QMBGrFKUijJuh4Er8DZ3F5EfMFLhbAEk8woEAIj7KojBL
+	 iSGEnFwSpg02DYC4RKgXw2A1UQnKVjUCUopIkyqbethhbqGITfRrjMf7bqspIA9uq9
+	 xComlGH2z+TJ4NKkzMY2O/qI/X7IE112FgA6/LZJIIiZdgjQjlNypAG0HvD/mzERcb
+	 HkZ/uySVa+2j8VKsYKez+leVmlMMFnWdWrQ7cPNi+6fuFGPdamMVUDjiFdlYUIFrCU
+	 K8FxS1kYoNxLWU22liXbeWCclYYZSnqLskrKZwXLjlqD9Aq241gfToeZUAXwIbdeX1
+	 HCZ/yadZZFRyA==
+Message-ID: <b5ba00c3-4842-4f39-a33f-93e4fe0794f7@kernel.org>
+Date: Tue, 8 Sep 2026 10:27:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Wrongly bound Elantech touchpad on Lenovo Yoga Slim 7
+To: Hans de Goede <hdegoede@redhat.com>,
+ Benjamin Tissoires <benjamin.tissoires@redhat.com>,
+ Takashi Iwai <tiwai@suse.de>, Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+ lkml <linux-kernel@vger.kernel.org>
+References: <s5hleyqwowl.wl-tiwai@suse.de>
+ <CAO-hwJK-7migm7VWkwvTPHwxgTZEbNX0XYpk0A1pr6N2jkYrxw@mail.gmail.com>
+ <0af0150d-c66e-3f46-f9a5-bb2886045e03@redhat.com>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <0af0150d-c66e-3f46-f9a5-bb2886045e03@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-libipw_tkip_decrypt() accepts a frame containing the TKIP header and a
-valid encrypted ICV even when the plaintext MSDU is shorter than the
-eight-byte Michael MIC.  After it removes the header and ICV,
-libipw_michael_mic_verify() subtracts the missing MIC from skb->len.
+Hi,
 
-skb->len is unsigned, so a zero-byte plaintext makes
+I am resuming an ooold thread...
 
-        skb->len - 8 - hdr_len
+On 05. 02. 22, 12:12, Hans de Goede wrote:
+> Hi,
+> 
+> On 2/4/22 18:39, Benjamin Tissoires wrote:
+>> Hi,
+>>
+>> [adding Dmitry, the maintainer of the input tree and Hans, a colleague of mine]
+>>
+>> On Fri, Feb 4, 2022 at 5:57 PM Takashi Iwai <tiwai@suse.de> wrote:
+>>>
+>>> Hi,
+>>>
+>>> we've got a bug report on openSUSE Bugzilla about the broken touchpad
+>>> on Lenovo Yoga Slim 7:
+>>>    https://bugzilla.opensuse.org/show_bug.cgi?id=1193064
+>>>
+>>> The touchpad is an Elantech one, connected over i2c, and there are two
+>>> drivers supporting it.  Unfortunately, the default one the system
+>>> binds, elan-i2c input driver, doesn't seem working properly, while
+>>> i2c-hid driver works.
+>>
+>> Hans, we do have a similar bug on RHEL at
+>> https://bugzilla.redhat.com/show_bug.cgi?id=2029078 (sorry, private
+>> bug).
+>>
+>> IIRC you worked on the discrimination between i2c-hid and elan_i2c (I
+>> might be completely wrong though).
+> 
+> Yes I did work on that, but then the other way around making sure
+> that the i2c-hid driver would not bind to some devices which need
+> the elan_i2c touch*pad* driver.
+> 
+> And indeed as Dmitry points out:
+> 
+>> I believe we need to do what Hans did for Elan Touch*screen* driver and
+>> avoid binding to the device if it has i2c-hid-specific _DMS in ACPI.
+>> I.e. we need to replicate elants_acpi_is_hid_device().
+>>
+>> Even better would be to factor it out, maybe not into a shared module
+>> but simply shared header with static inline function that we could share
+>> between elan drivers and maybe others as well.
+> 
+> I did fix a similar problem for the touchscreen driver last year or so.
+> 
+> I agree with Dmitry that we should try to avoid DMI matching here;
+> and I also agree that having some header with a static inline
+> acpi_is_hid_device() device helper would be good.
+> 
+> I'm a bit worried about the acpi_is_hid_device() approach though,
+> there is a lot of copy and pasting going on when vendors create
+> ACPI tables and sometimes a "PNP0C50" CID is present combined
+> with a valid i2c-hid _DSM method even though the device is not
+> an i2c-hid device, also see the i2c_hid_acpi_blacklist[] in
+> drivers/hid/i2c-hid/i2c-hid-acpi.c .
+> 
+> It seems to me that the problem is that the Lenovo Yoga Slim 7
+> is using what seems to be a very generic "ELAN0000" ACPI hardware
+> id instead of one of the many more specific ones.
+> 
+> So we could limit the acpi_is_hid_device() check to just the
+> "ELAN0000" ACPI hardware id I guess?
+> 
+> So I see the following 2 options:
+> 
+> 1. Add an unconditional acpi_is_hid_device() check to elan_probe()
+>     and watch out for any bug-reports that this is causing breakage
+>     elsehwere
+> 2. Add an acpi_is_hid_device() check to elan_probe() for ACPI enumerated
+>     touchpads with a hardware-id of ELAN0000 only; and still
+>     watch out for any bug-reports that this is causing breakage
+>     elsehwere just to be sure
 
-wrap to 4294967288.  michael_mic() then attempts 1073741822 four-byte
-reads starting at the end of the 802.11 header.  Generic KASAN reports a
-slab-out-of-bounds read once the loop leaves the skb allocation.
+I assume noone ever tried to implement this, right? Or was some 
+alternative approach merged in the meantime?
 
-The ipw2100 and ipw2200 receive paths call this from a tasklet while
-holding spin_lock_irqsave(), so the OOB access can panic the kernel or
-stall a CPU with local interrupts disabled.
+openSUSE still drags the Takashi's downstream patch with a DMI check. It 
+would be nice to sort this out upstream and drop that private one ;).
 
-The trigger requires an affected IPW device using host TKIP
-verification, an active TKIP key, and a sender able to construct a
-non-replayed frame with a valid encrypted ICV.  This conservatively means
-a malicious AP or a peer holding the same TKIP key.
+Thanks.
 
-Require the full MIC before entering the verifier.  A valid-MIC control
-continues to pass.  A zero-payload frame with a valid encrypted ICV is
-dropped without a KASAN report in three fresh boots through libipw_rx().
+>>> I'm not sure what's the best fix for this, but below a quick
+>>> workaround using a deny list with DMI matching.
+>>> If this is OK, I can resubmit the patch for merging.
+>>>
+>>> Any comments appreciated.
+>>>
+>>>
+>>> thanks,
+>>>
+>>> Takashi
+>>>
+>>> -- 8< --
+>>> From: Takashi Iwai <tiwai@suse.de>
+>>> Subject: [PATCH] Input: elan_i2c: Add deny list for Lenovo Yoga Slim 7
+>>>
+>>> The touchpad on Lenovo Yoga Slim 7 doesn't work well with elan-i2c but
+>>> rather better with i2c-hid.  Add a deny list for avoiding to bind with
+>>> elan-i2c.
+>>>
+>>> BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1193064
+>>> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+>>> ---
+>>>   drivers/input/mouse/elan_i2c_core.c | 19 +++++++++++++++++++
+>>>   1 file changed, 19 insertions(+)
+>>>
+>>> diff --git a/drivers/input/mouse/elan_i2c_core.c b/drivers/input/mouse/elan_i2c_core.c
+>>> index 47af62c12267..fd08481f7aea 100644
+>>> --- a/drivers/input/mouse/elan_i2c_core.c
+>>> +++ b/drivers/input/mouse/elan_i2c_core.c
+>>> @@ -18,6 +18,7 @@
+>>>   #include <linux/acpi.h>
+>>>   #include <linux/delay.h>
+>>>   #include <linux/device.h>
+>>> +#include <linux/dmi.h>
+>>>   #include <linux/firmware.h>
+>>>   #include <linux/i2c.h>
+>>>   #include <linux/init.h>
+>>> @@ -1222,6 +1223,20 @@ static void elan_disable_regulator(void *_data)
+>>>          regulator_disable(data->vcc);
+>>>   }
+>>>
+>>> +static const struct dmi_system_id elan_i2c_denylist[] __initconst = {
+>>> +#if IS_ENABLED(CONFIG_I2C_HID_ACPI)
+>>> +       {
+>>> +               /* Lenovo Yoga Slim 7 is better supported by i2c-hid */
+>>> +               .matches = {
+>>> +                       DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+>>> +                       DMI_MATCH(DMI_PRODUCT_NAME, "82A3"),
+>>> +                       DMI_MATCH(DMI_PRODUCT_VERSION, "Yoga Slim 7 14ITL05"),
+>>> +               },
+>>> +       },
+>>> +#endif
+>>> +       { }
+>>> +};
+>>> +
+>>>   static int elan_probe(struct i2c_client *client,
+>>>                        const struct i2c_device_id *dev_id)
+>>>   {
+>>> @@ -1233,6 +1248,10 @@ static int elan_probe(struct i2c_client *client,
+>>>
+>>>          if (IS_ENABLED(CONFIG_MOUSE_ELAN_I2C_I2C) &&
+>>>              i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
+>>> +               if (dmi_check_system(elan_i2c_denylist)) {
+>>> +                       dev_info(dev, "Hits deny list, skipping\n");
+>>> +                       return -ENODEV;
+>>> +               }
+>>>                  transport_ops = &elan_i2c_ops;
+>>>          } else if (IS_ENABLED(CONFIG_MOUSE_ELAN_I2C_SMBUS) &&
+>>>                     i2c_check_functionality(client->adapter,
+>>> --
+>>> 2.31.1
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>
+>>
+> 
+> 
 
-The KASAN reproduction uses a white-box module and the registered TKIP
-crypto operations.  I do not have the hardware, so this has not been
-tested over the air.
-
-The initial candidate was supplied for validation.  AI-assisted tooling
-traced the source and receive paths, prepared the reproducer and fix, and
-ran the build and runtime checks.
-
-Fixes: b453872c35cf ("[NET] ieee80211 subsystem")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
----
-A tested source reproducer and full serial logs are available privately
-to the maintainers on request.  They are not included because this
-finding was validated with AI assistance, as required by
-Documentation/process/security-bugs.rst.
-
-The source-equivalent one-line change was apply-checked on every current
-supported stable tag from v7.2.4 through v5.10.269.  v6.18 and older
-require context or path-adjusted backports because libipw was moved and
-the Michael helper was later changed.
-
- drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-index 24bb28ab7a49b..1fe543ea9dd26 100644
---- a/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-+++ b/drivers/net/wireless/intel/ipw2x00/libipw_crypto_tkip.c
-@@ -476,7 +476,7 @@ static int libipw_michael_mic_verify(struct sk_buff *skb, int keyidx,
- 	struct libipw_tkip_data *tkey = priv;
- 	u8 mic[8];
- 
--	if (!tkey->key_set)
-+	if (!tkey->key_set || skb->len < hdr_len + 8)
- 		return -1;
- 
- 	michael_mic(&tkey->key[24], (struct ieee80211_hdr *)skb->data,
-
-base-commit: da2ca406f45a6e21760243152ed8d2e8e72915c2
 -- 
-2.55.0
+js
+suse labs
 
