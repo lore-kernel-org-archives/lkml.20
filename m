@@ -1,199 +1,223 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B615476F4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D2554857C
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878403; cv=none; b=mhs+7jBllbK2hmlOGPtp+PONbEsXNac0ZHCGH03mFg9lEOWmfgFfPX3MfAb02lPyCvd3Rh/84Ie7ExkWYqP3pffLdpGa/v+mv1OaJX5lWyOgFIFoRYeVE8Sqjz7dapPcR19YnqsxsjzaJzrEo/pVna2y8lIAjLfMuK+ZwvrPfdQ=
+	t=1788878461; cv=none; b=lj+IIwSpAECzmZwFryPiCPPGzsLqQ++3yo2FdQJx7399x2wdyhQCG8ZBM0uuzolHf411hIoxGap0cr+wVf/qBl+wFj3b58W6loi7mCZlic4XHK3ZNl+nTgHiXLomwuN3OPAVRQA6QTkGGTZU6KCng4+d7ts67Ez/xLQdyhHk3/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878403; c=relaxed/simple;
-	bh=1joaK8aDf6gINARecUyPM7jTH11n+uwWquHYgC5ycBo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nX3OvbmpVpbFmi06LQnI+Hw9kKnMVeFZ5WChi6nuNMQCCN17TqWBz1SNn/2VDOSO6enzt5jxUgvsQRlrXwPIB8cq2XifJbeTKYXOu4D3NTbLdbPgVgHrjtP8znYVEh/5xZCSJI6TpNH4DMpCBhAasbrQ/HwQdWYUFEZznzkihCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jubzgs1d; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DfH/hXd2; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788878461; c=relaxed/simple;
+	bh=5cup85Qb2q3dpZ9j4NJ+riAqKzhV1ATVnwyRINFCU4Y=;
+	h=Message-ID:Date:From:To:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jWcs4hR50bTIPN2e+WIBRd4OYaGwMmga/OEg2WMxNiLYj9Y7P9Sy+Z9k3g1cRcN6yO/sxnNo+ri/AUsGvh2x1FtGAPxQ//Iglxbo0X0FhiKn2srZy3kBkK/QBREy+dfHk5okCDc9uFjIWmTQRAylzuWLYfQJu9T72qdsT61b1Yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCNsePWP; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jubzgs1d";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DfH/hXd2"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688EZUdd3815656
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 14:39:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	1GnrkNZL+INa2cy2Ro7Zdvw0+JDD23kLec3hRWayNkE=; b=jubzgs1dXVYggJta
-	BSb1m/n8aZvWqkFEAgUXQ+rvlzUm83GS8zyizStP/Rd9LsSLBXkIlmVv1lHXNeG2
-	jEu4jtVvpFYRyLK0lHDxbEod/P2NMg2GpAcXMsYMIiavlva7JyWyUwHP3IvMJf9i
-	P5XZte/WQtpgvcj/Mdn9r7otMWKu1i9e5NrLsOaK/5B4j5zH8F6yMuFb6ZEsJLFK
-	cUR8YwsHRFX6RB9F4zdj2A3cQyWVeqGNU1EuhGteCY85u5dbkjU0etnZPqVqCSIQ
-	6IsQnd+j9KdOJ5CDyOj660cq+MqdXMhlqVkPJ4SMyD7zbhPERZ2mTQdxYpluKqVk
-	8/wXww==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjfp499kj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:39:49 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc487bd6bfbso1804786a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:39:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCNsePWP"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482ea739de2so3221384f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:40:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788878389; x=1789483189; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1GnrkNZL+INa2cy2Ro7Zdvw0+JDD23kLec3hRWayNkE=;
-        b=DfH/hXd2wP+dCOU89OxMA6nMbX6PfxgBVF0qtkxL4G7KHoXHXwjGcM8b/lQEKyb+nG
-         /kL82a05DtASSBZ139IQ+7TtKNlSqE1L3OxBh1X34C1PiUrAouRkGxnfhG2gcomLtw2j
-         qDXjUrGajb/DDJ7tJxZJyBFaTnudNJfJHRDF5drkJD+Pur1An666HAJKRRI23yFrL4a1
-         PzwcW/fhDOELwGXk7Aldti1xh79tSrpxgIe+Kj8Jwzx/xNGuVdOfCL1Z2YgAy2ktwaTA
-         tq0YXBGuSzMIln/5AIueA3zzOFRP+q+1i3rhud5CiLVOVKwxLlxbd/3KnzjGEb9JfTEC
-         WXkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878389; x=1789483189;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788878449; x=1789483249; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:to:from:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1GnrkNZL+INa2cy2Ro7Zdvw0+JDD23kLec3hRWayNkE=;
-        b=VZsbBACoavZo6/2hOaAN3/rdp1KEm1nknukFh6GtLf5nxkyLkfzyUcKsouR0ed6YiO
-         wfkZ6KmcbkT+vZh222BGbEYlXSqu6F80fib1hkptMB6xkqq65LId6st/YZjNmBn1BT8/
-         /F5cwCdUuWtMZ0ly8wVkxYbu9+/G419pgfRqKQs3ZyvYRS62oGByfXp1FY7UXbs630xb
-         9oHDpATLOPyLvhpvVji7USgD3nhdKdzNkPi2eZxFNIogCTFgYnLr7FAvOgpikLGm9pLy
-         VqfRqJJYl9MqIFw98h1w641cXYJWX4gz2XO3jNxApVUCancTzk5YRCtwEbwNdOvqiiQo
-         dJcA==
-X-Forwarded-Encrypted: i=1; AKwUvByACKORRVCrEzKKQm+CD96Z08HcHs+JIn1NM/3xKzlJrFhr9JRw38IG5d4GRJCHaDDM4Umi93vF/tvkhc4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz39qhvpM/48Eq/NiLDnnrz9k0KByXOr/mGXWaZd+6EE68JUOH
-	k/k+td2QQWEIMk6YhmIXytxjdHviGPJwJUkWVp9MsyZnI0NQFlZLyUUzwoV9rUlh1vV7omoVfuF
-	TFGo/J+lLU+FdeeSNwZ6yBVN3qVSz/mcE8WedcEmuXP1IBR/rPteZamL1U6tbNwIRbsA=
-X-Gm-Gg: AYBFou0Tbt6GF3yzzxhpdZTIb0bfIAcdr5vxhWhpIhsloVk9z2BZafJyufUUpxZ1u3A
-	K94m7FnLV0noMqDX5VU0CpzdbNnrgYQf2YN+gB6MKYhg5sTB40vT9O3TVYDl/XyxCPLrMUg3Pgj
-	bZSC1Suv4j1I5p+flXu4B+BYTNzcK9FC5v8dVdqhV+Z/cB+kXRkK9bVU3H8VjoO9fm56DxKx5Vu
-	DRoTlE92+HaV0aQQEdwTgr2c8AikVSeDx8c+VqUXVwhzzRnSGK8SM3/Jw5jj5hO2YgKcJ45RQ4W
-	ju5irNki+5gADIma0ACSDyF56j56K8hPqWypY49NhJFBx4ntygBTR3yFYEDwuR835Db8QyIgt7a
-	LrqMQZY8vUxjfoT1hXv0GUQXBJTxd8Q==
-X-Received: by 2002:a05:6a21:880e:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3da3bdbb2a6mr41696233637.20.1788878388741;
-        Tue, 08 Sep 2026 07:39:48 -0700 (PDT)
-X-Received: by 2002:a05:6a21:880e:b0:3da:3bdb:b22a with SMTP id adf61e73a8af0-3da3bdbb2a6mr41696167637.20.1788878388154;
-        Tue, 08 Sep 2026 07:39:48 -0700 (PDT)
-Received: from [192.168.29.80] ([49.43.227.163])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm31086850eec.4.2026.09.08.07.39.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 07:39:47 -0700 (PDT)
-Message-ID: <9303e64b-00e2-4b8a-b92f-b96c0a3a5546@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 20:09:43 +0530
+        bh=Miv8sjNJdTG6Gu0+wUlQ27sQKF6CmSEymk2ANPK2DPg=;
+        b=NCNsePWPXgamXF5gE4I3+PMEkTLFk+CMHkSX+Y6c/fky3QE9NjQkeZCz2HIM7CcR3N
+         h+oTpBpH60cySSKTMUG030QaKEw73BFKARvuS/VRF70SRsnEuP/JdlTBKj4mI+TthW4s
+         U3oGATfgegngzuY92haEsHeG3VxR2oP51lbevojyhBOWxgisEfApusaLEl3gxDoo7PrO
+         1FFOAksWQOpIp4Ne5on8E5NH5qjBwFgmFFZ/uzMTPT9LaSSu+TNLYeFKtypkUlUNPGRo
+         /pSXaaqben506bSbbdIZpeosm5j8GvkOGE/oZQZBMbyMm/ize14mfMpGm6OlqgVlL1xi
+         PAWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788878449; x=1789483249;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:subject:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Miv8sjNJdTG6Gu0+wUlQ27sQKF6CmSEymk2ANPK2DPg=;
+        b=qyy+m9ap+1XqSpb8SB8D6mPzqojLqHciPFRkh8MRTw3TbcoO+K6DQxWrifX57wdxG7
+         QWM8LZnINxJZppafipw4dddlsDkZD58KRYJXMVF3sdgw49+qd57Do7/RZauFHxU3oRLe
+         lUICtKsSgVRYRO/zhNcyOaGipQxpNuyG42xAqssB7N5VaZaQcvZrUkHx6eUZ0RVW45um
+         jALFTDfT810UrZX2RUbNJalBvaeksaMriFOfU0H/l/YIFmc/6Ltmy1alAdm6C6rqKcfR
+         4bWa6A81t7CKx0IznRt+zONj5frCauxqyqEvdMlqyBEAA9LBkaQ5x9yN/6zLR/Vl9Rqu
+         amaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzRJziTjlCwgcLVJUwdMT66Gn7OeD0fG8E9JwVLFdazV6fYzkBNI/yPcrqyMdMNTX4LXp/hfSxOBK+oPbE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQAEwdQBOpoL4THenWF0jur/yQz22ImQs6xiIpkMr4qr4BKRbY
+	HWWYrMxmskR4eHQIAUpLQrtvQNTJKnF/jbX3leBN+xheikq7sQNjpTxw
+X-Gm-Gg: AYBFou0mfinU35Bea7zOYr6JrvIQ3rOovywnvUqW2iJgdd7EZh2vjfwqwcgSsj/cKfZ
+	3p73l/XYXsfERVAn2L/9GraCaGDycsDSqq8MXcBYJNiWYhNagDPJxaCOW9yIXNILCfE8yenLUkw
+	gTj/8xrU6fKzDG4B21hE5qs2DO/YuySveD1ea4UsICkNk8QyO9cZSSuhBqCIuQ1ckY18o3YRCe4
+	0kh9rqyRqR9rqYpBom9oMsgAT2n1/6LAJK8hsCOcrtKC7F6xLwX2dhQSdiW02zBwlN3yf9vLxhz
+	qVb8vri+Km3n/5291ZcwC0OXGi5ErhnOdwkWsOBh7APO/Fzup0C+mbbJ77OUc6rtBUQf/g1vjXP
+	oCa3IT8l1gb4WNrJBdwAVZO1g69CPhedAXxDI/gk8YF+1wxShG+z1c0TV8w2PgIlnCcedNufyZ4
+	7RziHf7qnO17bygepHiie1BPk7PFGAEjb3jCYY5sOHb/iTyv9PtH3IPybFqRWFOszKN6SvrMV9a
+	2sGPKDWk2EXPnH+BV5LZW1fAmRA+TWs2vyj
+X-Received: by 2002:a05:6000:46c2:b0:484:4769:18a4 with SMTP id ffacd0b85a97d-485872cd677mr23543135f8f.14.1788878449028;
+        Tue, 08 Sep 2026 07:40:49 -0700 (PDT)
+Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm39338196f8f.10.2026.09.08.07.40.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 07:40:48 -0700 (PDT)
+Message-ID: <6aa01e70.ebbd881c.32bd35.196e@mx.google.com>
+X-Google-Original-Message-ID: <aqAebOgm5w4VILoS@Ansuel-XPS.>
+Date: Tue, 8 Sep 2026 16:40:44 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH net-next v15 00/12] net: pcs: Introduce support for
+ fwnode PCS
+References: <20260901083001.8044-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Subject: Re: [PATCH v2] interconnect: qcom: implement get_bw with rpmh_read
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-        Georgi Djakov <djakov@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260908-topic-sm8x50-icc-read-rpmh-v2-1-b6f1c4205450@linaro.org>
-Content-Language: en-US
-In-Reply-To: <20260908-topic-sm8x50-icc-read-rpmh-v2-1-b6f1c4205450@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=Qu9uG1yd c=1 sm=1 tr=0 ts=6aa01e35 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=lJ7UW0itocO6TcfiNZNlOw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=bC-a23v3AAAA:8 a=KKAkSRfTAAAA:8 a=VwQbUJbxAAAA:8 a=TcFiEEHan0Z3ZoItQ4QA:9
- a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: SzqPmsxer29mcmp6sr-K97spRAaXIz7p
-X-Proofpoint-GUID: SzqPmsxer29mcmp6sr-K97spRAaXIz7p
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE1NiBTYWx0ZWRfX0rXIIiU0I1GO
- APbiOHyvm9ev0EUqw4MdHQq4z193hcIrJe6CH4fTR4J1jnQ7AZMm5EvZ98AmLSOL+pEcNv/zSQi
- ARlp1wT9IhR599q+W+cQkC7bJm/z6uWhUQSBxeW27OF5YYHblZOOz/iTcHo+iA6wBecTEBiWFR8
- RPO40l1qO+LoK1j0YRZfk23bxYkixrUwXydX5OpWh9fgzliahcTOsO4kZAW3fUy6fdbRtf1SESJ
- bDT9jaKREcVE7Z4HDFFaFKnWMj6a2eW/+zgwRBY/3bTOmKY3peTfbB2Zqcz7XGfAOXnZHYqE7tE
- do1/oLvFanquvd+1uk1zw+F14nMesH1K6Lx2k5B529xLR8qorub6Xf5jrt37t0c9d1AYPEClVuM
- uV9j7fJXHWdra0zjqEmqqlcEvMmCMAeIobbIzdyDBUfs6dNqCLvCX10t3A9sDXhI+Xk7V50b8hx
- ZD71HbTA9mjnSFFR8/A==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE1NiBTYWx0ZWRfXxA0lThCPlGW6
- PCeQne1jj/jRoZ6roz21ExcLJB31SyN7ONOkd79R+IqY6OaSxWyvzTBECSKFTSYQ9wyetODE6cA
- VuFhi1xSekBbmfzR+t58F7RsEJNCmTg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 adultscore=0 spamscore=0 bulkscore=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 phishscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080156
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901083001.8044-1-ansuelsmth@gmail.com>
 
-
-On 08-09-2026 13:39, Neil Armstrong wrote:
-> Since we can actually read back the APPS rpmh interconnect
-> BCM votes we can actually implement the get_bw() callback
-> and provide a coherent average and peak bandwidth at probe time.
->
-> The benefits of that are:
-> - keep disabled BCMs disabled
-> - avoid voting unused BCMs to INT_MAX
->
-> If the interconnects are correctly described for a platform,
-> all the required BCMs would be voted to the maximum bandwidth
-> until sync_state is reached.
->
-> Since we only get the BCM vote, we need to redistribute
-> the vote values to the associated nodes. The initial BCM
-> votes are read back at probe time in order to be ready when
-> the get_bw() is called when a node is added.
->
-> Tested-by: Georgi Djakov <djakov@kernel.org> #db845c
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+On Tue, Sep 01, 2026 at 10:29:15AM +0200, Christian Marangi wrote:
+> This series introduce a most awaited feature that is correctly
+> provide PCS with fwnode without having to use specific export symbol
+> and additional handling of PCS in phylink.
+> 
+> At times there were 2 different implementation (this and the one
+> from Sean) but Sean agreed that this can be picked and used in favor
+> of his implementation as long as his case with race condition is
+> correctly handled.
+> 
 > ---
-> Changes in v2:
-> - Added tested-by
-> - Rebased on v7.3-rc1 now the rpmh_read() is merged
-> - Link to v1: https://patch.msgid.link/20251106-topic-sm8x50-icc-read-rpmh-v1-1-d03a2e5ca5f7@linaro.org
+> First the PCS fwnode:
+> 
+> The concept is to implement a producer-consumer API similar to other
+> subsystem like clock or PHY.
+> 
+> That seems to be the best solution to the problem as PCS driver needs
+> to be detached from phylink and implement a simple way to provide a
+> PCS while maintaining support for probe defer or driver removal.
+> 
+> To keep the implementation simple, the PCS driver devs needs some
+> collaboration to correctly implement this. This is O.K. as helper
+> to correctly implement this are provided hence it's really a matter
+> of following a pattern to correct follow removal of a PCS driver.
+> 
+> A PCS provider have to implement and call fwnode_pcs_add_provider() in
+> probe function and define an xlate function to define how the PCS
+> should be provided based on the requested interface and phandle spec
+> defined in fwnode (based on the #pcs-cells)
+> 
+> fwnode_pcs_get() is provided to provide a specific PCS declared in
+> fwnode at index.
+> 
+> A simple xlate function is provided for simple single PCS
+> implementation, fwnode_pcs_simple_xlate.
+> 
+> A PCS provider on driver removal must call fwnode_pcs_del_provider()
+> to delete itself as a provider.
+> 
 > ---
->  drivers/interconnect/qcom/bcm-voter.c | 36 +++++++++++++++++++++
->  drivers/interconnect/qcom/bcm-voter.h |  1 +
->  drivers/interconnect/qcom/icc-rpmh.c  | 60 ++++++++++++++++++++++++++++++++++-
->  3 files changed, 96 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/interconnect/qcom/bcm-voter.c b/drivers/interconnect/qcom/bcm-voter.c
-> index a2d437a05a11..9014bf20adad 100644
-> --- a/drivers/interconnect/qcom/bcm-voter.c
-> +++ b/drivers/interconnect/qcom/bcm-voter.c
-> @@ -261,6 +261,42 @@ void qcom_icc_bcm_voter_add(struct bcm_voter *voter, struct qcom_icc_bcm *bcm)
->  }
->  EXPORT_SYMBOL_GPL(qcom_icc_bcm_voter_add);
->  
-> +/**
-> + * qcom_icc_bcm_get_bw - get current bcm vote
-> + * @voter: voter used to query bcm
-> + * @bcm: bcm to get current vote from
-> + */
-> +void qcom_icc_bcm_get_bw(struct bcm_voter *voter,
-> +			 struct qcom_icc_bcm *bcm)
-> +{
-> +	struct tcs_cmd cmd = { .addr = bcm->addr };
-> +	int ret, i;
-> +	u64 x, y;
-> +
-> +	mutex_lock(&voter->lock);
-> +
-> +	rpmh_invalidate(voter->dev);
+> Second PCS handling in phylink:
+> 
+> We have the PCS problem for the only reason that in initial
+> implementation, we permitted way too much flexibility to MAC driver
+> and things started to deviate. At times we couldn't think SoC
+> would start to put PCS outside the MAC hence it was OK to assume
+> they would live in the same driver. With the introduction of
+> 10g in more consumer devices, we are observing a rapid growth
+> of this pattern with multiple PCS external to MAC.
+> 
+> To put a stop on this, the only solution is to give back to phylink
+> control on PCS handling and enforce more robust supported interface
+> definition from both MAC and PCS side.
+> 
+> It's suggested to read patch 0003 of this series for more info, here
+> a brief explaination of the idea:
+> 
+> This series introduce handling of PCS in phylink and try to deprecate
+> .mac_select_pcs.
+> 
+> Phylink now might contain a linked list of available PCS and
+> those will be used for PCS selection on phylink_major_config.
+> 
+> MAC driver needs to define pcs_interfaces mask in phylink_config
+> for every interface that needs a dedicated PCS.
+> 
+> These PCS needs to be provided to phylink at phylink_create time
+> by setting the .fill_available_pcs and .num_possible_pcs in phylink_config.
+> Helpers to parse PCS from fwnode are provided
+> fwnode_phylink_pcs_count() that will return the count of PCS entries
+> described in the firmware node and fwnode_phylink_pcs_parse() that will
+> fill a preallocated array of PCS pointer with the actual available PCS
+> (ignoring the one that still needs to be probed).
+> 
+> phylink_create() will fill the internal PCS list with the passed
+> array of PCS. phylink_major_config and other user of .mac_select_pcs
+> are adapted to make use of this new PCS list.
+> 
+> The supported interface value is also moved internally to phylink
+> struct. This is to handle late removal and addition of PCS.
+> (the bonus effect to this is giving phylink a clear idea of what
+> is actually supported by the MAC and his constraint with PCS)
+> 
+> The supported interface mask in phylink is done by OR the
+> supported_interfaces in phylink_config with every PCS in PCS list.
+> 
+> PCS removal is supported by forcing a mac_config, refresh the
+> supported interfaces and run a phy_resolve().
+> 
+> PCS late addition is supported by introducing a global notifier
+> for PCS provider. If a phylink have the pcs_interfaces mask not
+> zero, it's registered to this notifier.
+> 
+> PCS provider will emit a global PCS add event to signal any
+> interface that a new PCS might be available.
+> 
+> The function will then check if the PCS is related to the MAC
+> fwnode and add it accordingly.
+> 
+> A user for this new implementation is provided as an Airoha PCS
+> driver. This was also tested downstream with the IPQ95xx QCOM SoC
+> and with the help of Daniel also on the various Mediatek MT7988
+> SoC with both SFP cage implementation and DSA attached.
+> 
+> Lots of tests were done with driver unbind/bind and with interface
+> up/down also by adding print to make sure major_config_fail gets
+> correctly triggered and reset once the PCS comes back.
+> 
+> The dedicated commits have longer description on the implementation
+> so it's suggested to also check there for additional info.
+> 
+> It's worth to mention that OpenWrt is currently using this on
+> Mediatek SoC and QCOM ipq807x/ipq60xx/ipq50xx and Airoha are
+> already ported in staging tree for testing.
+> 
 
-Don't see why rpmh_invalidate() is needed before a read request.
+Any news of this? I feel this version is now very mature and wonder if an
+human review is possible or any feedback of any needed change to make any
+progress?
 
-Thanks,
-Maulik
-
-> +
-> +	ret = rpmh_read(voter->dev, &cmd);
-> +	if (ret) {
-> +		pr_err("Error sending AMC RPMH requests (%d)\n", ret);
-> +		goto out;
-> +	}
-> +
->
+-- 
+	Ansuel
