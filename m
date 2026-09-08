@@ -1,189 +1,126 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1323939A7F2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:35:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852940; cv=pass; b=MXhockdCcXIrYgaFScH5QXhAqfZ247nICw9ZYx6UzipFhKNxsxh3LfBTTTd0wFJ/da/Glr96qN2MeW08TfBr5V+gc2OBQNoZ9AvtJyUr5j39/JnYL8Q3y/XP7B1JfJeGiKK9ptkX/cMT+Q1hcHc9MX5RkXu63HIH2DqSdUyAuzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852940; c=relaxed/simple;
-	bh=kEtwck+GhzVGnuAmeYI6QR28xLrnmqSNSlv9PEkxITQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IkeARmkimK1A2azUlWOUG7G2mPygkMNcRhdQdk7Hp1Tgi+XY8Dl9r+/1o3l9EGu2gn7ceu3NWF0nYIVtJke1wO/YVnNxR6mVB+wMQu5wMIG5ZeMxibX+xr0L9A4ssrToBFU7HypEWOii51VGjhPk9dr1tHZIMbtcPQwc+h9aiuE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzM9nAMy; arc=pass smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF61397923;
+	Tue,  8 Sep 2026 07:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788852955; cv=none; b=Wk1U6rMpr2OqAQlAYj2OxvQ/exBAdJCfFShpLqLUwPDAhPI6as/IAFedaMHJuwMBjBnAzHW2lnTYfs4eAK/RrSvWAl5SHXmpRfqCbyuxnDQ7JHNLoLpox1xjrObLXVwLwsgsxrdfFgxJkdUwvrY2zUw+fXrZMybJTWtlL72aJAg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788852955; c=relaxed/simple;
+	bh=Yas4x71zv2CucLgcDzjxZfSt/KtDAAqnSBc20UX9Q9M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TYAOag9HzfFiWW2VViPsfL/QHcTmEN0Vm7R/y0mdVxR2wnV1tcSCljKAB3izTDPNHFd1TxwzzJrnxA2s4CsgrzvKinHi1ZUK5SzLdrp3dkB6VvpQsf0eAi4+1vaoZU0zEKdRvvz/p4d3gtopD61rUvFkUbAbNIxLhfGo4DqNpdQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sF40x1Tn; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=t4GN1Dhf; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzM9nAMy"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843703c170so284807f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:35:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788852937; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dy25maASjVW+bV2l7UUGWgEASGyro3t2WU5jSN4C5rGLdw8SJ55MHbONjpBE2AX97b
-         duULveERDOHFx9EbDGACfTA3lSZpJ+P5Jli21SwxuB2rEANTwrvpFKVcAbsrnowE7AQL
-         U9Jku6NtDP6jUJXjXgmYfTvCAB1/w5lqQEk4H3IwaTf4X8SYeSROL6tyKC5BNfX0Zi1c
-         9bgCsdnKHM11sOdvAruyAqjXlM/kiWGbhLJbIl2V2FJUYvsZx6WPO/lE31xl1fI1qQnC
-         cU+Ea+AdoM87TFfg2jE/Yq6H9UNPnILIJBY2hpxh2aZSyGzp4TXgfKdRMzKgXBwLc+Ei
-         E1aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kEtwck+GhzVGnuAmeYI6QR28xLrnmqSNSlv9PEkxITQ=;
-        fh=eopTpsdRAfd2VvLkgSiqVdNBd/+e+O61kHTcaEtvKjQ=;
-        b=NuvD7jrpMBP5DCAo17T4qEOENR8CPrScyUSpKrlhIu8MU3153QXdced3mW77oCKpj9
-         GsGVelK7Xl5AWCeLSpwOJj0dxq8LLAJwLzshPzFijgMtkm4WHc8M9/wyNFpOLuiYP+Zf
-         CqUOWREVlvGtnbSGlvcCL31AHkXs2V0MxXnnNuUvH+LWf2avdZYHyo/U4CsRUCdb+cfb
-         eF82GNNEnoX/W5N99eTvciSCnsc4txXGsmjTFT7YiSEqfR5Ij1FcTDpyct0g3QKBaYmg
-         w9Mw+khhWpwLJVCp1gYrMX0BN8YARwb+p1t6MaPmWWNF3wTVxPG2CtmsAuG8sAJee7Gl
-         +/6A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788852937; x=1789457737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kEtwck+GhzVGnuAmeYI6QR28xLrnmqSNSlv9PEkxITQ=;
-        b=PzM9nAMy6bTbAmIJWmZjtWvSsF7TYd8Ohn994L40IXKuTBtm1ezfKRk2bqrrWQiZ7e
-         C7CCn1pZ/KUjRmghpmkUKMdMxpNypMrjH3zMLNlgAqwPv7xkxgtd9cSQ/4Ut/ApONJMs
-         xl8uEdC4s0nj2DYqIYSdrVmlOvnqU7ruISBndpIj/D/M7gzJs9pHY4peOSdHkth9R+fO
-         zB5961W/zV6E5UWkFqLpYtTizSp4HXSkdrQu4UrjamJ22HOn1qaK0TOm83Hfpnp16rd5
-         pwhp3KLZBtfYLDfpmABkYN8U3VYXRNYULOwEI0wABCxluDU+VVMLNTRpSTv+2ozjGq/F
-         dA0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788852937; x=1789457737;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kEtwck+GhzVGnuAmeYI6QR28xLrnmqSNSlv9PEkxITQ=;
-        b=MuEVAMgc5Yu6drg4HACgRD8NUU8A9HSjyCZyXWxBZ3IK7xTVVkDImu0FQE1cVnd3a8
-         jZRWioCzuWCJBL5uZMSzvdAbGdp0gRUEqKPdc4HXp3RHc9uX+PMlR23JOEMyCzJuIn11
-         7EE973D+2j8g0ztVldfIA8YA2EH5j/puNmQDDsHXrSNXQ2FzBISDwyFrghLgMSOxudFq
-         dWIGUFCpIvMbrXqGkuXJFvN5/kmO+VlSLZaPH4gDLoEQ/UDyvLSIBnroi0+D/21NB+wF
-         PpkAzwf+9H+YkQJsK0/9A/OH0svF0F2i/x7yQ7Avif2lDGs1SblLC4E4Kayfb4yjVVWc
-         omLw==
-X-Forwarded-Encrypted: i=1; AKwUvBzXI4apfgD8/XODVY9OkAQogn4OJTaFCzQnbXwbb4g5+1CyTyBXCQTbhqIFEAt8hxLbXoEptBtCdOVMkG4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWX2QgNaEMb10EnCQmXkOE0Lcsl5nrXS9jFShl1MqS6AECJdBO
-	rQnwgRBQRaNpzG6CdnmOaD9IQP/F8+jLKSnbxYTTgcmoDlPJoCzRfmBay5uqmc3GKgH3/4Sie7K
-	Qh5mN3/q3DkaQzSoIYaRdoBxet/j1EdE=
-X-Gm-Gg: AYBFou22faRbynvo8TPoe7VD8OJ/8K/3OetcQlDBpf8mJXOqDpyXlGCRsEFzDtxn4MT
-	RIqj2cGg+ZFbG+79tHEHg2lymE91jw8q8E7uOqJHI6w1PmTVfWvit5DTsWA8JbOtRm5OfeB0ty5
-	C+vWqWeoMMyos0iyOrD2iHMdnnWzTOr0Et5PT0wlmXDJhzMauVKkLjVPtGZMrEkro4WUXUUlBaD
-	A8foaquD9maXyWCHHxU1gWEr0CJ6IqV/xFm84LcB4hjd9phYsxOClj8cWvtqMEsLS8ow4B0MQTR
-	vE3M5hIuQGYWgjPcxUZ+NKF6bB5dHDghibOOdOjtjq4GhqxcqONaC3JjUJU9lFh8PXuY5akkHKS
-	FsOBLFA5uL+oMqC0vD4tuOBLEik8/Cg==
-X-Received: by 2002:a05:6000:2610:b0:482:ea38:6b80 with SMTP id
- ffacd0b85a97d-485905b6dcamr17746950f8f.1.1788852936749; Tue, 08 Sep 2026
- 00:35:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sF40x1Tn";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="t4GN1Dhf"
+Date: Tue, 8 Sep 2026 09:35:46 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788852947;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ji2FYflr/CbjV3rk9832i6ivZtcJlLtueWgeq3em9Fs=;
+	b=sF40x1TnpsNhyt0sI38rIHaeAvtNg/EM8w3EtHzsFSvvVwHHMnTzo9ND4gwdFmZKWgwiQI
+	zIUqZO38xf+hqbFqpxnJEf22XYPf5rduERB4k6rIc5UkCj8/unJYgFDyl/VlE7G+EFDI03
+	CNmgd/Vj1Q3c/q3Ydr3Q/DKOj3v431wlaOso4rjeyTahr+hMGIpBnsAkCalXgeDSgVmwoT
+	fSwtBw7bhzCeC4FkKyNmCXzfRLo7mT4mBMZCZPU/i5SaXQchJvrd+z5JqASF5WVbgiH5G4
+	it4ju8Bz/fYLxG5O3MBiu0Nd1yKjfxaEDd33C3bFc0Qo3/mwB0s4uDaabhB7ew==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788852947;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ji2FYflr/CbjV3rk9832i6ivZtcJlLtueWgeq3em9Fs=;
+	b=t4GN1DhfMH6AgNQoFSHKMaImcdOBofdEStAoUz2uy11ao2hSCXVnSiB6G9+q7fkA3MPgYT
+	C9GJghb2CAl+FqDg==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Richard Weinberger <richard@nod.at>, 
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>, Johannes Berg <johannes@sipsolutions.net>, 
+	Russell King <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+	Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
+	Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+	Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
+	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
+	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
+	Alexandre Ghiti <alexghiti@rivosinc.com>
+Subject: Re: [PATCH v5 12/24] vdso: Add the vdsocheck tool
+Message-ID: <20260908093302-1a1cf0c7-8103-48b1-9f6a-abd5c5c16523@linutronix.de>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+ <20260908-vdso-absolute-reloc-v5-12-3a93791af1cf@linutronix.de>
+ <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
- <20260901151818.3191443-2-xueyuan.chen21@gmail.com> <apk8ZRr6do_YAlzf@kernel.org>
- <CA+qSx6wqd5VSR=9yarFFmyN1SyvLJqEHpA7BwmzuxNQTHbS=Xg@mail.gmail.com>
- <ap05ue1pq3TgHOS6@kernel.org> <CA+qSx6y=OaMsvTKUbPP2DOan3Ym6c8L5z60512-tCYeUjLZz3w@mail.gmail.com>
- <ap5Tqu5yswJrj5UM@kernel.org> <69db9546-d14d-4107-96b7-30963292c2bd@kernel.org>
- <ap7L2UEriz6DJfif@kernel.org> <2e8dae0b-d81e-4c5d-b4d5-c80bde07a314@kernel.org>
-In-Reply-To: <2e8dae0b-d81e-4c5d-b4d5-c80bde07a314@kernel.org>
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-Date: Tue, 8 Sep 2026 15:35:23 +0800
-X-Gm-Features: AcwNN1WRh9Ejy1a6UjKpBEjkYuP25njGh2x0QoOc56jCCHUBW1sbsWwyKaUqbMk
-Message-ID: <CA+qSx6ybfqMMNKkAwVgcEga4uzFixXYKLZ-D8FuXmjXpQ9zExA@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, akpm@linux-foundation.org, ljs@kernel.org, 
-	usama.arif@linux.dev, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org, 
-	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
-	linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com, 
-	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
-	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908071911.GU4120091@noisy.programming.kicks-ass.net>
 
-On Mon, Sep 7, 2026 at 10:48=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 9/7/26 16:36, Mike Rapoport wrote:
-> > On Mon, Sep 07, 2026 at 01:18:42PM +0200, David Hildenbrand (Arm) wrote=
-:
-> >> On 9/7/26 08:03, Mike Rapoport wrote:
-> >>> Hi Xueyuan,
-> >>>
-> >>>
-> >>> And I believe this is an historical artifact rather than necessity. F=
-or
-> >>> configurations that allow set_direct_map on arm64, change_memory_comm=
-on can
-> >>> update direct map too, it just need to be implemented there.
-> >>>
-> >>
-> >> Are we sure the other architectures do what we want in their set_memor=
-y_ro?
-> >
-> > It's a zoo right now :(
->
-> Yeah, that's why I'm asking :)
->
-> > Although most of them do.
-> >
-> > But we need to sort it out anyway because of increasingly growing deman=
-d
-> > for modifications of the kernel page tables.
->
-> The question really is whether we want to use a single interface for all =
-page
-> tables.
->
-> I quite like a page-based directmap interface. Other page table areas are=
- not
-> necessarily page-based. It also expresses which types of operations we ex=
-pect on
-> the direct map.
->
-> One could, of course, use set_memory_ro() internally to implement
-> set_direct_map_ro() (and similarly for other variants); but at least
-> set_direct_map_*() would have clear, well documented semantics.
->
-> >
-> > I started something here:
-> > https://lore.kernel.org/linux-mm/20260721-generic-set-memory-v0-1-v1-0-=
-2c1fc62306b3@kernel.org/
-> >
-> > Now that x86 CPA is nearly fixed, I can look into the next iteration.
-> >
-> >> Having a dedicated set_direct_map_ro() with clear (documented ;)) sema=
-ntics does
-> >> not sound too crazy to me.
-> >
-> > It's not too crazy, no.
-> >
-> > Still making arm64 more aligned with x86 and other arches that update t=
-he
-> > direct/linear map in the set_memory_ro() seem a good thing on it's own.
->
-> Right, but I'd much rather user set_memory_ro() later to implement
-> set_direct_map_ro() [initially on architectures where we made sure that i=
-t
-> actually does what we expect? later maybe generically]
->
+On Tue, Sep 08, 2026 at 09:19:11AM +0200, Peter Zijlstra wrote:
+> On Tue, Sep 08, 2026 at 08:33:46AM +0200, Thomas Weiﬂschuh wrote:
+> > All vDSO code needs to be completely position independent. Symbol
+> > references are marked as hidden so the compiler emits PC-relative
+> > relocations. However there are cases where the compiler may still
+> > emit absolute relocations, as they are valid in regular PIC DSO code.
+> > These would be resolved by the linker and will break at runtime.
+> > This has been observed on arm64, see commit 0c314cda9325 ("arm64: vdso:
+> > Work around invalid absolute relocations from GCC")
+> > 
+> > Introduce a tool to check for absolute relocations during the build,
+> > as the current inline-shell logic is not expressive enough.
+> > The check is done on the object files as the relocations will not exist
+> > anymore in the final DSO. As there is no extension point for the
+> > compilation of each object file, perform the validation in vdso_check.
+> > 
+> > Signed-off-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+> > ---
+> >  Makefile                    |  19 ++
+> >  lib/vdso/Kconfig            |   5 +
+> >  lib/vdso/Makefile           |   2 +
+> >  lib/vdso/Makefile.include   |  14 ++
+> >  lib/vdso/check/.gitignore   |   3 +
+> >  lib/vdso/check/Makefile     |  34 +++
+> >  lib/vdso/check/elf.rs       | 498 ++++++++++++++++++++++++++++++++++++++++++++
+> >  lib/vdso/check/vdsocheck.rs | 154 ++++++++++++++
+> >  8 files changed, 729 insertions(+)
+> 
+> Urgh, does this mean I have to have rust installed just to build a
+> kernel now?
 
-Hi David, Mike,
+No.
 
-Thanks for the discussion. I'll keep the page-based set_direct_map_ro()
-interface. :)
+If you don't have rust installed the build will instead use the existing shell
+script for a less thorough check. We only need one build machine at some point
+to have rust installed to report issues and this check to be useful.
 
-Thanks,
-Xueyuan
 
-> --
-> Cheers,
->
-> David
+Thomas
