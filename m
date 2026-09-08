@@ -1,218 +1,201 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11B82364941;
-	Tue,  8 Sep 2026 07:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F125B0B8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:49:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853748; cv=none; b=r2w/4zXVdDz/tFoa4AgT6TFOZIpiJ89XTiHyjMnMeCEOxbSmuRFXIoaS27GcObnd3YnLCv5gbtvVR09+xdJWiw/iaHdGQ3Gch/bdEx02GxbumwW9IkqX3kxDEPyeaAaI25NfKCYdubAcl30hw+dGSAvMNdtY37EpBx2GIbrOYxw=
+	t=1788853771; cv=none; b=FiIfjpbZ9fQZCrajv3Huo3Pkt5XoepkocbgYmsebV7+d/IRF372wESZYvJwDx2Zyd6u3et4pD+lYkziuAWNwZxq3DjMUF16yZBB+4ywrcwGb4zpQjLvBiXla8TlcK16q5nm718kcMfYiO55vU2GtCgvDW+E6UTzs2/bR2tnDoR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853748; c=relaxed/simple;
-	bh=p7KKfNbQHDA9TMhkh4HGWycQ0upWV6GuCcLhH+0Hoyc=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=h91egdW5YBBxVZ8E8hkmndZK0G1l9EW+okDyUnwH3J+eIB+rIuaUL0Iw+UNrDVAQOWVp/GwDqXfelj3hIrfNgsCVazKwVpsd8Vl5q3JrfmIEfG1xUmgxx3PCh46lNRwF6u50vyXUUYQnU8AznXwOW+tVYJkMxgMcfiH9vRQuh00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=R0T9YyWb; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="R0T9YyWb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
-	Content-Type; bh=v2zIrl4sOz2DaazRXSoeXRnhKCIbghOPb8UjiV3YSHA=;
-	b=R0T9YyWbqOlbTZtLB4G992fyARTwuP/+AQsrTL6rCnP6Xa6f9sVtXpA/eOGVmH
-	+ZtQ1FcMivWQpjzXQ5fK6qt4W+AwCecmFjwPwpQMtenr4CbhDBpaG5hEKeoedxSX
-	H9S+t41XY2VNjrHbl4xKeoBucMr7s81EmOTjEe9mIbA+g=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDHz77SvZ9q0Rc8Aw--.6326S2;
-	Tue, 08 Sep 2026 15:48:34 +0800 (CST)
-Message-ID: <6A9FBDB3.20705@126.com>
-Date: Tue, 08 Sep 2026 15:48:03 +0800
-From: Hongling Zeng <zhongling0719@126.com>
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
+	s=arc-20240116; t=1788853771; c=relaxed/simple;
+	bh=w/a+1msjGoAq5RLfsEPT89FQwvNcgfDXVDAMK+BH8PQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YgrY1amcT8MMHMykHWplb5p2G9iQQWj0oJg+mnOyQP14q5pkpHSn7D3M3wtEpLRDu1+0LNyGT+TxVDSGetU2DrjhQfEqzAwJc9Lgcy3CjXmfxtpCal9lk0jL8w1vpY6f7FAgpY2j+VaZ1TvIys3Lylg6i5m/FVfIgyv1ko9okzI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97c441e66f0so2618830241.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:49:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788853768; x=1789458568;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jvWdv2bTFNskO/RaDsnSTq+0xZGM/I73gHnrYZO6XAc=;
+        b=U7B1ihtKt1Vs+LV9nWxws/LVuA9jWLQtSvQdsSA1QlKc9XDQSR6M5J+lft/Ty8GOIO
+         BVfejrKELygcmf/O6cnWFcdTnFe8zupNlWCX4F6TeOU67RzjOx1vWbRnBWKqaBwe8KZT
+         M3c5zTFwe/M5WvLx7CweTUPJaiRWpRhm3KjDbemCJZdVkLxnpPjK5hcejxLMv+iu8rJl
+         OrPp1g20IAU7ZjExzx0NsUIjc7pz8sxmxyLS2R4t87H0vkiaK4fCOGLS/kGXZghLb2sg
+         qh2ni9q9+1N3C8c9ju6UEc3Ua4Efl/IspnwWlNZ/TGWmrCAauEg3Yaf3L2otcHH+vGV0
+         cZzA==
+X-Forwarded-Encrypted: i=1; AKwUvBwm0JfpTFgBAY/e8LwTsbBIAMD/phNpgSjtGlZlwXvgtMh+HTSNfgOyFCKNcj28ouw/Gi1GGNJ4jz2QLhY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldMZpGpTNa4BZr87lKiKKHOE7pwAvAnadlgfsENF19CLIu4Ekm
+	adM+ADWOKDmGJXYHt0QLAo2+8ztm7c2u1yJ+kmu9NsY4FMrSnxfUqLmWZi+8+Doe
+X-Gm-Gg: AYBFou2bqdz8t8yEypkhfX0JZXRIroBSwiTNe55AJWIaO8nnYc+b8myyRR2kX9Tx4C8
+	fddjphbWpGs6VPVefbhEnK8H9MJX8psHW6a4y1pmmoRX94PkMmq3zmzuemMZzeRMJFgKYEBxLO3
+	himidCzRNvFXp92WE0R9wbu9LAD0LukkDFwRpcpH0Zj13xyzXmMilGK6w3gMPvvltQ6K0Hk2iNY
+	niMghqXDHCdL58KUfgVkeDrK3ki/qP2WDw0ugdlKxcEdKnYm+FWwXERCIv1UC58SRPMBTTjDr8y
+	noCw5EXKqn0SCLCAxkISkIZzqqsdIgnGPbS2mSk2kd6BbeqHk/+9QG8lzu9E/K0t5Sqdd1VNgt6
+	FUpSr62CjovX4dOXDqbV2DX4DcBOuynXtPKnnm3N2CHFfygvqFR7R746uJToMkPiBGxkOTnSkrQ
+	2XebFfrpkzGirEKaoysY/FM9M/YDVarT/8EvYES90E4ec7ZRNdlNoC6MfGyMY6/b/vCG/hswEen
+	5N5n9d24SglG2UyvnW17TtXUnDHfnj6i9nU
+X-Received: by 2002:a05:6102:2b9c:b0:785:1a50:3f56 with SMTP id ada2fe7eead31-78a4aa53ca4mr12727903137.12.1788853768227;
+        Tue, 08 Sep 2026 00:49:28 -0700 (PDT)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com. [209.85.217.46])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808ee8039csm9043435241.11.2026.09.08.00.49.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 00:49:28 -0700 (PDT)
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-73720e58dafso2915650137.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:49:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy3XPLClKHHrXFZo/jnbOGgJYv0/haIMa6DPbY0TR2OKh2l6IyoyIYltktloNg5DkmNm1se59X3jBv8qZY=@vger.kernel.org
+X-Received: by 2002:a05:6102:1481:b0:784:b9ec:9144 with SMTP id
+ ada2fe7eead31-78a4a9c3a45mr12132706137.8.1788853767856; Tue, 08 Sep 2026
+ 00:49:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Dave Chinner <dgc@kernel.org>
-CC: Hongling Zeng <zenghongling@kylinos.cn>, cem@kernel.org, 
- darrick.wong@oracle.com, chandanrlinux@gmail.com, 
- linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-Subject: Re: [PATCH v2] xfs: bound logged region access in inode buffer recovery
-References: <20260907080450.314067-1-zenghongling@kylinos.cn> <ap8ucHIw-pKLhh9c@dread> <6A9F7022.6020206@126.com> <ap-sV2Cc5U5fNMmo@dread>
-In-Reply-To: <ap-sV2Cc5U5fNMmo@dread>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDHz77SvZ9q0Rc8Aw--.6326S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtFWxKw1UAr48tr43XryftFb_yoW3XrW5pF
-	Z3KFWj9r1kJrWIyrn2yw4UXayFvrZ3tay5Wrn8J3s5CFn8Kw1ftFW8ta1jgF9rurnYqF4j
-	vr4jv3srWa4jva7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-GYdUUUUU=
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhIm9mqfvdL3rwAA3u
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMuHMdUapaP-8kkWT5cXtEO1h58aAzzm34XqO_mcrgbVSyXEwg@mail.gmail.com>
+ <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org> <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
+ <43eccc85-fca3-4c69-9114-b45ab5e1b487@mailbox.org>
+In-Reply-To: <43eccc85-fca3-4c69-9114-b45ab5e1b487@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 09:49:16 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVWm1JzmXx1++dhvHbnBbVqQnVVAANfmH5Y24bhJU7pXQ@mail.gmail.com>
+X-Gm-Features: AcwNN1V14nvpkxMTS1YJ9lEZFP5Wka8HrashHqoyW3yt83iI5VS79ckl8xfvtwY
+Message-ID: <CAMuHMdVWm1JzmXx1++dhvHbnBbVqQnVVAANfmH5Y24bhJU7pXQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Marek,
 
-在 2026年09月08日 14:33, Dave Chinner 写道:
-> On Tue, Sep 08, 2026 at 10:17:06AM +0800, Hongling Zeng wrote:
->> 在 2026年09月08日 05:36, Dave Chinner 写道:
->>> On Mon, Sep 07, 2026 at 04:04:50PM +0800, Hongling Zeng wrote:
->>>> xlog_recover_do_inode_buffer() reads the logged di_next_unlinked field
->>>> from a log record buffer at a computed offset:
->>>>
->>>>           logged_nextp = item->ri_buf[item_index].iov_base +
->>>>                           next_unlinked_offset - reg_buf_offset;
->>>>           *buffer_nextp = *logged_nextp;
->>>>
->>>> The only protection against reading past the log record buffer are
->>>> ASSERT()s, which compile away on non-DEBUG kernels.  The existing
->>>> XFS_IS_CORRUPT(*logged_nextp == 0) check also dereferences the pointer
->>>> before validating that the computed offset lies within the logged region.
->>>>
->>>> A crafted log record can make the computed offset exceed iov_len, causing
->>>> an out-of-bounds read from the log record buffer during inode buffer
->>>> recovery.
->>>>
->>>> Convert the relevant ASSERT-only checks into runtime corruption checks and
->>>> verify that the logged di_next_unlinked field lies entirely within the log
->>>> iovec before dereferencing it.
->>>>
->>>> Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
->>> <sigh>
->>>
->>> I'm going to say what I've said before again here, and it applies to
->>> the BLF bitmap range checks patches you posted yesterday, too:
->>>
->>> Hacking the same types of region size and range checks into every
->>> log item type in an ad-hoc manner is not the right way to address
->>> these log item verification issues.
->>>
->>> We need to add a robust verification layer to the journal to verify
->>> all the journal level metadata (e.g. ophdrs, transaction headers,
->>> initial log item regions, per-log item type verification, etc) so
->>> that we check *all* the journal items for sanity before we use them.
->>>
->>> This is the same architecture we use for metadata (the verifier
->>> layer) and it applies to the journal for the same reasons and
->>> provides the same benefits (i.e. validate at first access, rest of
->>> the code can assume validity and not have to clutter logic with
->>> random validity checks to prevent bad behaviour.)
->>>
->>> The high level design doc and rough plan I put together last time I
->>> brought this up is in the patch below. If you're not willing or able
->>> to spent time and tokens on fixing this entire class of problems for
->>> everyone, then let please let me know ASAP.
->>>
->>> -Dave.
->>    Hi Dave,
->>
->>    Thanks for the detailed feedback. I understand the concern: the ad-hoc
->>    region checks I posted don't address log recovery validation
->>    systematically.
->>
->>    I'll withdraw the inode buffer and BLF bitmap patches and switch to
->>    the design-driven approach. I'll post your patch 5 first (the
->>    unchecked ri_buf[ri_cnt-1] in add_to_cont_trans(), the unbounded
->>    kvrealloc() there, the missing oh_len alignment check in
->>    process_data() - all reachable bugs, no restructuring), then work
->>    through the rest of Phase 1.
->>
->>    Three points to confirm before coding:
-> Don't take the design doc as being complete or correct - it's a
-> working document and really only serves as the initial high level
-> plan I fleshed out.
+On Mon, 7 Sept 2026 at 18:37, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 9/7/26 9:53 AM, Geert Uytterhoeven wrote:
+> > On Sat, 5 Sept 2026 at 23:57, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> >> On 9/4/26 1:15 PM, Geert Uytterhoeven wrote:
+> >>>> +++ b/drivers/gpio/gpio-rcar.c
+> >>>
+> >>>> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
+> >>>>
+> >>>>    #define RCAR_MAX_GPIO_PER_BANK         32
+> >>>>
+> >>>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+> >>>
+> >>> IMO passing a pointer to offs complicates the code.  Perhaps pass offs
+> >>> by value, and return the adjusted offset or a negative error code?
+> >>
+> >> I want to avoid that, since if I only return error value, I can then do
+> >> simple:
+> >>
+> >> ret = gpio_rcar_remap_offset(...);
+> >> if (ret)
+> >>     return ret;
+> >>
+> >> in gpio_rcar_read() and gpio_rcar_write(), which are the only two call
+> >> sites of this function.
+> >
+> > gpio_rcar_read() and gpio_rcar_write() do not return error codes.
+> > I was thinking of
+> >
+> >      offs = gpio_rcar_remap_offset(p, offs);
+> >      if (offs < 0)
+> >              return 0;
+> >
+> > which is almost the same, but avoids passing offs by address.
 >
-> Indeed, I implemented a chunk of it yesterday afternoon (i.e.
-> before I saw your patch this morning) and my findings change quite a
-> bit of the generic infrastructure to make it handle the transaction
-> header without having to special case it. So from that perspective,
-> it's already out of date...
->
-> I'll post what I have in the series later this afternoon so you can
-> get up to speed.
->
->>    1. I don't see a write-side guarantee that a region is split at most
->>       once - xlog_write_partial() can emit multiple continuations. So
->>       beyond your patch 2 treating the header as a normal accumulated
->>       region, note that today a third fragment walks into
->>       ri_buf[ri_cnt-1] with ri_cnt == 0 / ri_buf == NULL. Correct?
-> The iterator structure behind the item decoding should handle
-> decoding regions split into an arbitrary number of ophdr regions
-> without issue.
->
-> That's kinda the point of it; ensure the region is
-> fully extracted from the journal before we try to decode any of it.
-> Hence we have to handle CONTINUE/WAS_CONT regions as partial
-> additives until we get to the final WAS_CONT region that closes off
-> the region as a whole.
->
->>    2. For the zero-length first fragment: if this is old-log
->>       compatibility only,
-> Real thing, go look at xlog_write_get_iclog_space() and
-> consider what happens when the lv_chain passed to xlog_write() gets
-> it's first iclog with only space for two ophdrs left in it....
->
->>       I'd document it that way and keep the special
->>       handling as narrow as possible rather than introducing a generic
->>       anonymous item state. Note the doc's ri_in_continuation has no
->>       owner at that point since no item exists yet - narrow handling
->>       avoids that entirely.
-> The special case handling for it is awful, and IMO needs to go away
-> because it is actually buggy and makes it much harder to reason
-> about what is a valid item in a transaction....
->
->>    3. For testing I'll cover each phase with crafted-log images and run
->>       xfstests.
-> This is why I have been rewriting xfs_logprint in rust: so it has
-> the same capabilities as xfs_db in terms of being able to walk,
-> parse and modify individual items in the journal. i.e. to be able to
-> explicitly fuzz the journal in a systematic, programmable and
-> reproducable way and hence avoid the need for hundreds of corrupted
-> images to test all the corner cases....
->
-> And, FWIW, the iterator + generic item handling design of the
-> validator for the kernel code is a fairly close translation of the
-> layered generic item type verification my new rust logprint code
-> already uses.
->
->>       My bigger worry is over-strict validation rejecting valid
->>       logs, which only shows up replaying real crash logs - what
->>       coverage do you expect there? And should the design doc go in
->>       first so the series can reference it?
-> We have extensive journal recovery stress and validity tests in
-> fstests (e.g. the recoveryloop group), and so I'm really not worried
-> about structure verification being too strict. I'd much prefer to
-> err on the "extremely strict" side right now, and loosen if needed.
-> I don't think it will be an issue, because if the journal
-> verification comes across improperly formatted items then it points
-> to a runtime bug that needs to be fixed, not a journal recovery
-> issue.
->
-> i.e. I'd much prefer we have strict verification because that finds
-> logic bugs on both sides during testing, that way they do not end up
-> in production systems...
->
-> -Dave.
->
-  Hi Dave,
+> Is there any benefit to it, compared to keeping the value and return
+> code separate ?
 
-  Understood - I'll treat the doc as a working draft and wait for your 
-series rather than building on the plan as posted.
+Naive me (I am not a compiler writer) thinks the compiler may have a
+harder time to optimize the code when addresses are involved.
 
-Thanks for the answers. On Q2 I mis-derived "old-log only" from
-xlog_write_partial()'s refill check - the start record being its own
-empty ophdr in xlog_cil_build_trans_hdr() makes the point, and the
-pre-refactor writer could emit the zero-length trans header fragment
-at the iclog boundary outright. Accepted, and agreed that special
-case needs to go.
+> >>>> +{
+> >>>> +       /* R-Car Gen4 and older do not need any offset remap. */
+> >>>> +       if (!p->info.has_layout_gen5)
+> >>>> +               return 0;
+> >>>> +
+> >>>> +       /*
+> >>>> +        * R-Car Gen5 register layout is slightly different and the offsets
+> >>>> +        * that have to be added to or subtracted from each register offset
+> >>>> +        * can be divided into five groups, listed below.
+> >>>> +        */
+> >>>> +       switch (*offs) {
+> >>>> +       case IOINTSEL...OUTDT:
+> >>>> +               return 0;
+> >>>> +       case INDT:
+> >>>> +               *offs += 0x10;
+> >>>> +               return 0;
+> >>>> +       case INTDT...EDGLEVEL:
+> >>>> +               fallthrough;
+> >>>> +       case BOTHEDGE:
+> >>>> +               *offs += 0x70;
+> >>>> +               return 0;
+> >>>> +       case OUTDTSEL:
+> >>>> +               *offs -= 0x34;
+> >>>> +               return 0;
+> >>>> +       case INEN:
+> >>>> +               *offs -= 0x38;
+> >>>> +               return 0;
+> >>>> +       default:
+> >>>> +               /*
+> >>>> +                * This here must never be reached, if this is reached, that
+> >>>> +                * means there is a catastrophic failure in the driver. Skip
+> >>>> +                * any IO read/write to prevent further damage.
+> >>>> +                */
+> >>>> +               WARN_ON(1);
+> >>>
+> >>> A build-time failure would be better.  I tried BUILD_BUG() instead,
+> >>> but unfortunately gcc is not smart enough to notice this case is
+> >>> never reached.  __always_inline doesn't seem to help either.
+> >> I had one more idea -- how about we convert the driver to mmio regmap,
+> >> use opaque register numbers throughout the driver to identify registers
+> >> to the regmap (maybe not a great idea), and then implement .read/.write
+> >> callbacks in the regmap_config which instead of doing plain
+> >> readl()/writel() for register IO would instead do this remapping ?
+> >> Regmap could validate that the opaque register numbers are only the
+> >> expected register numbers and reject all the others. Maybe the opaque
+> >> register numbers could instead of Gen4 register offsets. What do you think ?
+> >
+> > That's similar (but more complex?) than the array look-up
+> > in drivers/tty/serial/sh-sci.c I pointed to before.
+> > drivers/i2c/busses/i2c-riic.c uses the same method.
+>
+> Those do not use regmap (drivers/base/regmap/), do they ?
 
-Once your series is posted I'll start with review and the
-recoveryloop / logprint-based testing, then take the per-type
-validate_region() / validate_item() implementations on top of your
-iterator.
+No they don't.
 
-Thanks,
-Hongling
+> > I.e. just convert the existing register defines into an enum, and use
+> > that to index a table with the family-specific offsets?
+>
+> Are we back to the table look up discussion instead of remap function ?
 
+Yes, I think that's the simplest and best-performing solution: one
+extra table look-up (array indexing) in gpio_rcar_{read,write}(),
+compared to an extra function call to gpio_rcar_remap_offset().
+
+As a bonus, storing -1 for a non-existing register in the look-up table
+would let us get rid of the four existing .has_<reg> booleans, e.g.
+
+   -        if (p->info.has_both_edge_trigger)
+   +        if (p->info.regs[BOTHEDGE] >= 0)
+                    gpio_rcar_modify_bit(p, BOTHEDGE, hwirq, both);
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
