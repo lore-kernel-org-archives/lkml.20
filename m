@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
+Received: from mta1.migadu.com (out-102.mta1.migadu.com [95.215.58.102])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E80EE54EEBC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:29:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 019BC5632B9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:29:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874201; cv=none; b=i6McXqFz4maQrp5sRNtsTJcoExoJbENtWo1NCt+9qR7suoq/Wvtxh3iKfHbmcN+2wxfe/6iTgpecVMwD3xwR36GLOLA9X0QIp6VMfGENWGsDTi0yUrHopnW51bumHMFPIKblhYyizzhO2jkmE5AFX9gw6L1oHrCsqWqwooUHZzw=
+	t=1788874206; cv=none; b=Cd8Df2ep75LyJqUKocPdaST36CyZvLFp8z40EI3f9P8aHw9ghLW/HwccgDWqbzH23477qxA/dr0Bjfqsz8d+o+WYDGJtiDnsBCsV8V/R2QFBWxhrdDs9tFq3qELni4rURd7CN2Cc7nK0ZSXidCTZSrqS2+ohQXRVk70ni+ahINI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874201; c=relaxed/simple;
-	bh=MVin06amZxKHcazosou87jhcjKKSJQCHsOU8q2F4eLo=;
+	s=arc-20240116; t=1788874206; c=relaxed/simple;
+	bh=KmcOgdfAp4Twvg0vJF7kLpW1CTRThjEq5Dm0AXhgc4k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dUAo+zpTCsMcmy+4GIl0smOSzKX7si/s9O/sgnI7vI3sOdyFnP0flgo9opNqHjpPZlMuZQonFJq5Za0QnM4ccA62BKbCzGOqoCvcg1bDaPrdbT7SSOpInoCPuIMY41uksKuAZGROKj1077dCZsrxncxjR+16DPROsVK/tV4MQno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=szrNbKEt; arc=none smtp.client-ip=95.215.58.96
+	 MIME-Version; b=FAc+wupNpMTCafYrrs5+kSMMhAHPol3HfkHArTBq+oSPdYJWJVpU8gYKkMv8FgxWegRfvTGF+Ppy0HSMYR82X0G5ofblIm0+i2g38e4+Ww0pN6Kct8l8FHNG8MvQ6BhtfU/VxSPhvnM9IcEJS5ZC5jP3kBEe/nYSRiXNFl2RJYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=dFt6hYTR; arc=none smtp.client-ip=95.215.58.102
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="szrNbKEt"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="dFt6hYTR"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MVin06amZxKHcazosou87jhcjKKSJQCHsOU8q2F4eLo=;
+DKIM-Signature: a=rsa-sha256; bh=KmcOgdfAp4Twvg0vJF7kLpW1CTRThjEq5Dm0AXhgc4k=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788874184; v=1; x=1789478984;
- b=szrNbKEtJp+uVA7Li37tNuh7Sul4gEQkYT8rOsD+EdEDphD9c1SIW7KZRpL5LdI6ePKNG6l/
- GprOxCAgjisRSS7yWUejwAzcGSnbNsjQwq16RbM5Grkx2TUceOsGZFD/fIZnKu8+V6qyCcozY2f
- JNHX2c+auKYDkATW82VrdGoo=
+ t=1788874191; v=1; x=1789478991;
+ b=dFt6hYTR4LhigT/4em/guGnqr9D8AhpHL2AhugyY1QccaPRjjiP0qAa/X1Xa3Fj/+05hGonY
+ lTz317gnNcwCjAHcetV9GK+k8Rs91LiGkd7fFeUzrFIHXHEhjDrX+q16e3qT917cCsTRWZC5K40
+ jQMW3rGuGHmSlCR7LTEidtCQ=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f4c4f6709f620b7;
-	Tue, 08 Sep 2026 13:29:44 +0000
-X-Mizu-Trace-ID: 7f4c4f6709f620b7
+Received: by smtp.migadu.com with ESMTPS id 8fce7ac099ae2ce5;
+	Tue, 08 Sep 2026 13:29:51 +0000
+X-Mizu-Trace-ID: 8fce7ac099ae2ce5
 X-Migadu-Flow: FLOW_OUT
 From: luka.gejak@linux.dev
 To: Ping-Ke Shih <pkshih@realtek.com>
@@ -37,9 +37,9 @@ Cc: linux-wireless@vger.kernel.org,
 	Peter Robinson <pbrobinson@gmail.com>,
 	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
 	Luka Gejak <luka.gejak@linux.dev>
-Subject: [PATCH v10 1/6] wifi: rtw88: add the RTL8723B chip type and SDIO helper
-Date: Tue,  8 Sep 2026 15:29:21 +0200
-Message-ID: <20260908132926.68976-2-luka.gejak@linux.dev>
+Subject: [PATCH v10 5/6] wifi: rtw88: sdio: set up RX aggregation and interrupts for RTL8723BS
+Date: Tue,  8 Sep 2026 15:29:25 +0200
+Message-ID: <20260908132926.68976-6-luka.gejak@linux.dev>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260908132926.68976-1-luka.gejak@linux.dev>
 References: <20260908132926.68976-1-luka.gejak@linux.dev>
@@ -53,14 +53,18 @@ Content-Transfer-Encoding: 8bit
 
 From: Luka Gejak <luka.gejak@linux.dev>
 
-The RTL8723B is a 802.11n combo chip whose SDIO variant, RTL8723BS, runs
-a Realtek vendor firmware that differs from the firmware used by the
-other rtw88 8723 family devices. Supporting it needs a number of small
-adjustments spread across the shared core, all of which have to be
-restricted to this one chip and bus combination.
+Enable the existing RX aggregation setup for this chip and select the
+larger DMA burst count it needs. The RTL8723BS does not raise CPWM1, so
+leave that source out of its interrupt mask, and set the SDIO TX control
+bit the vendor driver uses to have transfers always recognised.
 
-Add the chip type and a helper that tests for it, so the changes that
-follow can be gated without repeating the chip and bus comparison.
+The chip was also seen to keep raising the interrupt after resume when
+undefined status bits were written back on acknowledgment, so
+acknowledge only the bits this driver defines. That observation dates
+from bring up and I cannot re-measure it: the test machine only offers
+s2idle and does not reliably return from it, so the resume path is not
+exercised here. The change is scoped to this chip; the other SDIO parts
+keep writing the status word back unchanged.
 
 Signed-off-by: Luka Gejak <luka.gejak@linux.dev>
 Acked-by: Ping-Ke Shih <pkshih@realtek.com>
@@ -72,36 +76,126 @@ Notes:
     Changes in v8: none.
     Changes in v7: none.
     Changes in v6: none.
-    Changes in v5: none.
+    Changes in v5: fixed the interrupt acknowledgment. It masked the status
+    word with both irq_mask and RTW_SDIO_HISR_CLEAR_MASK, but for this chip
+    irq_mask is REG_SDIO_HIMR_RX_REQUEST alone and that bit is not in the
+    clear mask, so the two had no bits in common and the driver acknowledged
+    nothing at all. It now masks with the defined bits only, which is what
+    the comment described. The commit message also no longer presents the
+    resume behaviour as re-measured, because it is not.
 
- drivers/net/wireless/realtek/rtw88/main.h | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/net/wireless/realtek/rtw88/sdio.c | 28 ++++++++++++++++++++++-
+ drivers/net/wireless/realtek/rtw88/sdio.h |  9 ++++++++
+ 2 files changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/main.h b/drivers/net/wireless/realtek/rtw88/main.h
-index 6883fbd9f768..d59f6e323adf 100644
---- a/drivers/net/wireless/realtek/rtw88/main.h
-+++ b/drivers/net/wireless/realtek/rtw88/main.h
-@@ -194,6 +194,7 @@ enum rtw_chip_type {
- 	RTW_CHIP_TYPE_8723D,
- 	RTW_CHIP_TYPE_8821C,
- 	RTW_CHIP_TYPE_8703B,
-+	RTW_CHIP_TYPE_8723B,
- 	RTW_CHIP_TYPE_8821A,
- 	RTW_CHIP_TYPE_8812A,
- 	RTW_CHIP_TYPE_8814A,
-@@ -2195,6 +2196,12 @@ static inline bool rtw_chip_has_tx_stbc(struct rtw_dev *rtwdev)
- 	return rtwdev->chip->tx_stbc;
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 64c6f0c881a2..73f81a287a90 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -924,7 +924,11 @@ static void rtw_sdio_init(struct rtw_dev *rtwdev)
+ {
+ 	struct rtw_sdio *rtwsdio = (struct rtw_sdio *)rtwdev->priv;
+ 
+-	rtwsdio->irq_mask = REG_SDIO_HIMR_RX_REQUEST | REG_SDIO_HIMR_CPWM1;
++	if (rtw_is_8723bs(rtwdev))
++		rtwsdio->irq_mask = REG_SDIO_HIMR_RX_REQUEST;
++	else
++		rtwsdio->irq_mask = REG_SDIO_HIMR_RX_REQUEST |
++				    REG_SDIO_HIMR_CPWM1;
  }
  
-+static inline bool rtw_is_8723bs(struct rtw_dev *rtwdev)
-+{
-+	return rtwdev->chip->id == RTW_CHIP_TYPE_8723B &&
-+	       rtwdev->hci.type == RTW_HCI_TYPE_SDIO;
-+}
-+
- static inline u8 rtw_acquire_macid(struct rtw_dev *rtwdev)
+ static void rtw_sdio_enable_rx_aggregation(struct rtw_dev *rtwdev)
+@@ -932,6 +936,7 @@ static void rtw_sdio_enable_rx_aggregation(struct rtw_dev *rtwdev)
+ 	u8 size, timeout;
+ 
+ 	switch (rtwdev->chip->id) {
++	case RTW_CHIP_TYPE_8723B:
+ 	case RTW_CHIP_TYPE_8703B:
+ 	case RTW_CHIP_TYPE_8821A:
+ 	case RTW_CHIP_TYPE_8812A:
+@@ -959,6 +964,8 @@ static void rtw_sdio_enable_rx_aggregation(struct rtw_dev *rtwdev)
+ 		    FIELD_PREP(BIT_DMA_AGG_TO_V1, timeout));
+ 
+ 	rtw_write8_set(rtwdev, REG_RXDMA_MODE, BIT_DMA_MODE);
++	if (rtw_is_8723bs(rtwdev))
++		rtw_write8_mask(rtwdev, REG_RXDMA_MODE, BIT_DMA_BURST_CNT, 0x3);
+ }
+ 
+ static void rtw_sdio_enable_interrupt(struct rtw_dev *rtwdev)
+@@ -1030,6 +1037,8 @@ static int rtw_sdio_8723bs_check_rqpn(struct rtw_dev *rtwdev)
+ 
+ static int rtw_sdio_start(struct rtw_dev *rtwdev)
  {
- 	unsigned long mac_id;
++	u32 clear;
++
+ 	if (rtw_is_8723bs(rtwdev)) {
+ 		int ret = rtw_sdio_8723bs_check_rqpn(rtwdev);
+ 
+@@ -1042,6 +1051,13 @@ static int rtw_sdio_start(struct rtw_dev *rtwdev)
+ 	}
+ 
+ 	rtw_sdio_enable_rx_aggregation(rtwdev);
++
++	if (rtw_is_8723bs(rtwdev)) {
++		clear = rtw_read32(rtwdev, REG_SDIO_HISR) & RTW_SDIO_HISR_CLEAR_MASK;
++		if (clear)
++			rtw_write32(rtwdev, REG_SDIO_HISR, clear);
++	}
++
+ 	rtw_sdio_enable_interrupt(rtwdev);
+ 
+ 	return 0;
+@@ -1121,6 +1137,8 @@ static void rtw_sdio_interface_cfg(struct rtw_dev *rtwdev)
+ 
+ 	val = rtw_read32(rtwdev, REG_SDIO_TX_CTRL);
+ 	val &= 0xfff8;
++	if (rtw_is_8723bs(rtwdev))
++		val |= BIT_SDIO_TX_CTRL_ALWAYS_RECOGNIZE;
+ 	rtw_write32(rtwdev, REG_SDIO_TX_CTRL, val);
+ }
+ 
+@@ -1385,6 +1403,14 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
+ 		rtw_sdio_rx_isr(rtwdev);
+ 	}
+ 
++	/*
++	 * RTL8723BS keeps raising the interrupt after resume if undefined
++	 * status bits are written back, so acknowledge only the bits this
++	 * driver defines. Other chips keep the existing behaviour.
++	 */
++	if (rtw_is_8723bs(rtwdev))
++		hisr &= RTW_SDIO_HISR_CLEAR_MASK;
++
+ 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
+ 
+ 	rtwsdio->irq_thread = NULL;
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.h b/drivers/net/wireless/realtek/rtw88/sdio.h
+index f43f1c6309b7..634c0b1339bb 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.h
++++ b/drivers/net/wireless/realtek/rtw88/sdio.h
+@@ -22,6 +22,7 @@
+ 
+ /* SDIO Tx Control */
+ #define REG_SDIO_TX_CTRL			(SDIO_LOCAL_OFFSET + 0x0000)
++#define BIT_SDIO_TX_CTRL_ALWAYS_RECOGNIZE	BIT(4)
+ 
+ /*SDIO status timeout*/
+ #define REG_SDIO_TIMEOUT			(SDIO_LOCAL_OFFSET + 0x0002)
+@@ -77,6 +78,14 @@
+ /* the following two are RTL8188 SDIO Specific */
+ #define REG_SDIO_HISR_MCU_ERR			BIT(28)
+ #define REG_SDIO_HISR_TSF_BIT32_TOGGLE		BIT(29)
++#define RTW_SDIO_HISR_CLEAR_MASK		\
++	(REG_SDIO_HISR_TXERR | REG_SDIO_HISR_RXERR | \
++	 REG_SDIO_HISR_TXFOVW | REG_SDIO_HISR_RXFOVW | \
++	 REG_SDIO_HISR_TXBCNOK | REG_SDIO_HISR_TXBCNERR | \
++	 REG_SDIO_HISR_C2HCMD | REG_SDIO_HISR_CPWM1 | \
++	 REG_SDIO_HISR_CPWM2 | REG_SDIO_HISR_HSISR_IND | \
++	 REG_SDIO_HISR_GTINT3_IND | REG_SDIO_HISR_GTINT4_IND | \
++	 REG_SDIO_HISR_PSTIMEOUT | REG_SDIO_HISR_OCPINT)
+ 
+ /* HCI Current Power Mode */
+ #define REG_SDIO_HCPWM				(SDIO_LOCAL_OFFSET + 0x0019)
 -- 
 2.55.0
 
