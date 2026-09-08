@@ -1,103 +1,119 @@
-Received: from smtp-outgoing-2001.laposte.net (smtp-outgoing-2001.laposte.net [160.92.124.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9081C2D0C7E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.92.124.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EE154DADD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:21:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877217; cv=none; b=dQP6NwFs/1zuGXq0BiGo78o02t6oukjuxJj+stx5EzyAdOmZZq5ifv48HsCLDl9UnttDG20YVIKvAau5Q2JaTap/2rkWeJB7w3FAKTAi/sZFSxRuqaDTnb1T/DVtPxioWThOmznHvGX9CyJ/ZMSYwXR25y6VsbFN8MvJZhe+A84=
+	t=1788877301; cv=none; b=Br8qh7P29sfPws0ZcNyy3jzd+7PP9kKemqi/NWAI0ylt+FuFUS1vCmt8qLr23MR/Hn95xmaj42L8xrMiCQGgHwtLntgpcJHhTCPPOlxkpK472T0Ir+sb0hfIIjKn65VnT4nRjACFXMvyBx2Yx1AZe0baVLZkx4OJayJftv9tDSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877217; c=relaxed/simple;
-	bh=DErKUlamimYuPinfWRQBo3L6f2qMDUbP2BPZtPx3X1g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FZXbov7/GcakSSuwIn7AUX7YvfwkmfailQkKR33JAnpGItOdEe/04jK1HzJOIfoMAhjxKnhR3MkP7zWtxFC758wefsTpGZjK+ThYIGCYQymw/UNrjXtc9xxh2SNu/I9soQH54HQaAigyjJ5iKcXVx2/0sPmUaFXkoVpql/eQH1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net; spf=pass smtp.mailfrom=laposte.net; dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b=Lj2gTHMU; arc=none smtp.client-ip=160.92.124.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=laposte.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=laposte.net
+	s=arc-20240116; t=1788877301; c=relaxed/simple;
+	bh=t9VEB+Wx7FTfVlIWnys+TVYHiif/HGxsyKc57vmrBlg=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JyN/Qct+VtNlNOh8TzddoykAOEk5ySxGIySOAtqqthy/IojxIZeajSBW7iqVtsV74RJsApzw7Uu5lTKJXpN1ucb591XLBnXojwTFSrv8X7CAaB4Y/bjOftTSpv8/ynARwVgke6tgc1n4eFo/gZQHmSG2T5IehqMeXWLx9E43/88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSv2Dx+/; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=laposte.net header.i=@laposte.net header.b="Lj2gTHMU"
-X-mail-filterd: {"version":"1.9.7","queueID":"4hfNKm4pmXzFpTt","contextId":
- "fa92bd25-bd04-4480-80fb-eb23f73b4bda"}
-Received: from outgoing-mail.laposte.net (localhost.localdomain [127.0.0.1])
-	by mlpnf0101.laposte.net (SMTP Server) with ESMTP id 4hfNKm4pmXzFpTt;
-	Tue,  8 Sep 2026 14:19:40 +0200 (CEST)
-X-mail-filterd: {"version":"1.9.7","queueID":"4hfNKm19m1zFpTZ","contextId":
- "5a289249-bd63-4880-894a-662698aa4d29"}
-X-lpn-mailing: LEGIT
-X-lpn-spamrating: 36
-X-lpn-spamlevel: not-spam
-Received: from [192.168.1.2] (m-dj.hd.free.fr [82.67.82.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mlpnf0101.laposte.net (SMTP Server) with ESMTPSA id 4hfNKm19m1zFpTZ;
-	Tue,  8 Sep 2026 14:19:40 +0200 (CEST)
-Message-ID: <c1fcd1f6-38a9-48a6-9986-9723d2dead39@laposte.net>
-Date: Tue, 8 Sep 2026 14:19:39 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSv2Dx+/"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d91ded8174so36835525ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:21:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788877287; x=1789482087; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=elHR2dmgdiO2iJMqseykTVVlGqNYHDXkrEZm70hbhR4=;
+        b=MSv2Dx+/UvwTHGw1G0odP9lswe4ypJmsfz8xFoG88tzngkBhH7g+ch3R5cLOMPmMut
+         7oWZkXB6LIYNyHEb2zwqv8L5jwx3R9CBMSYKwq+k+UUi/6ytJVRAEB8w07WVjzKCn4dI
+         M7mQ7HnC6eo0CRtA7ADyjcqpEXncCwdEG5jOAZmSqlsMqDF3szr0Stl4gkUE1I7t02WJ
+         1mVewZr6a5QHg85jUZC28pFyk68shDryPL+ok70rxI4Hn0dqAPq/FSRONUDLpAJHSP4r
+         FL/exm2vrYonpJNlDPcFI/St3UIdnlZKsEQTYW3qgHmTtbF270NRjACgwfaBhpd1olKn
+         CJ9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788877287; x=1789482087;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=elHR2dmgdiO2iJMqseykTVVlGqNYHDXkrEZm70hbhR4=;
+        b=FMPyJtXJ/vWDDww6VDvD4uRDdWL6ZXuyau4rHK/t1KICdDi1trBr1mU1d1VpHe6cVa
+         JKTX485CmJXY+uaoQTSStUXpa9DwdV9WKXelcDAdZ6+PKGrvUGmdCW/4ecNLmJXQoC11
+         gjix/OmtAeawO60zQrB5OCQzy+9cy+tu3+NobWGShg93GCDNjjWbE5Y4Sx8lBBqcOS6R
+         AP2bNG3CrIYpo4GBcgJGY3ci4YyPKTbhXmZn/gmmMJFQl+Oi2itEtW/gPcIXvvnG/Hny
+         SXz48Z90+fWkJPvGz8c3loA3JOfsuRwOVW041XbD3uBuB3wKkyYw43hDk+ojafXpJBXx
+         JAWg==
+X-Forwarded-Encrypted: i=1; AKwUvByGPbaOPaaxsSmSkpQLIRL/MvYL0afqN++gNEX6uyL0xMmNc6EBU0E0b3QXfuzZRjiSk93mF2d9Rf6jvUI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkPNhmpQ9Yi8q+LyvwYqic732rC0fF+4v7W8t4EbE+4uEI2xYU
+	qx0QeIse9elI5ChQvrntnfZ1XKNcy+Lp37kN5tuzwPcawyOOjWGEft00
+X-Gm-Gg: AYBFou2NDMc1vEmsxPjHTdIsZO2fyq6lHZlVITSgUWFmi+8NLeD1izdDDfuVAMi5MZA
+	zsNanEi7b6Rzyo0mAylU+XmqZePlC1t/UGqRt8Fi+D4D2DWkCwxPR3M1xJxcP+zbYUOGGm8ZOxo
+	utMq4+I/aIRF+Cu0JwFG+BWL+tiTD5Lt3jQXvPSZrrOziEWuztil/wB3gF2unbsagnalA52qLLV
+	FmWjP4/Oc7hqwerUvjXGSUQZeNn06Ism4n6AblYYOVFLQnhs7gqVBgEIqcPsPMMuN1s8U8+gOzt
+	Wu5YriojNJAHpnonXK2G2V4HPMN+kg41JJ1spoqdI8EdNbsw1r5c4lZzaJ8dhdFMpa+cDe1ZJJI
+	EyqGfpxnoEGhdCr5JBo56aUqj9g9yeZ+vMdSTC7qS5Vz5WYyzxfIBXBF+pZjY4Ze0JDUwrqdTWK
+	eMC25yjQtC3p2xLwoCDmteywnbZ8hYPygEqI3Pe0fOuQ==
+X-Received: by 2002:a17:903:11c8:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2db1235721dmr410393595ad.4.1788877286477;
+        Tue, 08 Sep 2026 07:21:26 -0700 (PDT)
+Received: from pc636 ([125.29.25.186])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14841054sm61015055ad.3.2026.09.08.07.21.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 07:21:25 -0700 (PDT)
+From: Uladzislau Rezki <urezki@gmail.com>
+X-Google-Original-From: Uladzislau Rezki <urezki@pc636>
+Date: Tue, 8 Sep 2026 16:21:20 +0200
+To: Hillf Danton <hdanton@sina.com>
+Cc: "Uladzislau Rezki (Sony)" <urezki@gmail.com>, linux-mm@kvack.org,
+	Baoquan He <bhe@redhat.com>, LKML <linux-kernel@vger.kernel.org>,
+	stable@vger.kernel.org, Dev Jain <dev.jain@arm.com>,
+	Ye Liu <ye.liu@linux.dev>, lirongqing <lirongqing@baidu.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH RESEND] mm/vmalloc: Use dedicated unbound workqueues for
+ vmap drain
+Message-ID: <aqAZ4H8mauWw4JVM@pc636>
+References: <20260905152717.11711-1-urezki@gmail.com>
+ <20260906035027.2106-1-hdanton@sina.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86: hp-wmi: add charge_behaviour support for
- Spectre 8C17
-To: Shang En Sim <sim@shangen.org>
-Cc: Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260812062113.27741-1-sim@shangen.org>
-Content-Language: fr
-From: Alain Cousinie <alain.cousinie@laposte.net>
-In-Reply-To: <20260812062113.27741-1-sim@shangen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=laposte.net; s=lpn-wlmd; t=1788877201; bh=DErKUlamimYuPinfWRQBo3L6f2qMDUbP2BPZtPx3X1g=; h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:Content-Transfer-Encoding; b=Lj2gTHMUNgWfrv/ObMhgK5KdidgXCAWfTmKr1+3HzC0GquLefcNaubVmI6mzV4W6Ih2CdR+HwNi7gm7zW3tLGiYol3B8g3dmrk3pT5wHplOP422C83Wkq1LlOgjoZf8jPyHuVvPRvSaUOr2Fkd9jIkPTkhlXyg3h5zX8OJIrKWF96fnEyJR8ZfVTxYtuhQ+B2HdtfNjjBi0Jw2/kvuWuQFwMVGjJC/nf++JLdBngp40ka2Zl+AY7obUEf2MlfRXkLhDxYdMPa50xVKy2l0hCLquUDjT1jA5KmMJCsZU1U5l4/M+/W4H8qmetaBU6ium14OxAGWW/OWi95EKbr0Ka+Q==;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906035027.2106-1-hdanton@sina.com>
 
-Le 12/08/2026 =C3=A0 08:20, Shang En Sim a =C3=A9crit=C2=A0:
-> HP Spectre x360 16-aa0xxx (board 8C17) exposes battery charge mode cont=
-rol
-> through WMI command 0x2b (GBCO/SBCO). Inhibit charge, force discharge, =
-and
-> restoring automatic charging all work through that command.
+On Sun, Sep 06, 2026 at 11:50:24AM +0800, Hillf Danton wrote:
+> On Sat, 5 Sep 2026 17:27:17 +0200 "Uladzislau Rezki (Sony)" wrote:
+> > drain_vmap_area_work() function can take >10ms to complete
+> > when there are many accumulated vmap areas in a system with
+> > high CPU count, causing workqueue watchdog warnings when run
+> > via schedule_work():
+> > 
+> >   workqueue: drain_vmap_area_work hogged CPU for >10000us
+> > 
+> > Move the top-level drain work to a dedicated WQ_UNBOUND
+> > workqueue so the scheduler can run this background work
+> > on any available CPU, improving responsiveness. Use the
+> > WQ_MEM_RECLAIM to ensure forward progress under memory
+> > pressure.
+> >
+> If the dedicated worker will run for 4ms on CPU2 before the tick irq kicks it
+> off cpu, the system event worker on CPU2 has to wait at least for 4ms to handle
+> 200 events for example in 1ms, the net effect is the same as the current scenario
+> where 200 events wait for the drain_vmap_area_work to complete on CPU1.
 >
->  =20
-> +#if IS_REACHABLE(CONFIG_ACPI_BATTERY)
-> +static const struct dmi_system_id hp_wmi_charge_control_quirks[] __ini=
-tconst =3D {
-> +	{
-> +		/* HP Spectre x360 16-aa0xxx */
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-> +			DMI_MATCH(DMI_BOARD_NAME, "8C17"),
-> +		},
-> +	},
-> +	{}
-> +};
-> +#endif
-> +
+It is scheduling decision. We do not want to tune any prio here.
 
-Hello Shang,
+> 
+> Different workers does not help to dramatically decrement the micro seconds
+> the drain_vmap_area_work takes.
+The problem of current approach consists from at least two problems:
 
-I am using an HP Spectre 14-eu0xxx (board 8C15), which appears to be iden=
-tical to the 8C17 model regarding `hp-wmi`.
-(See also https://github.com/aigilea/hp_spectre_x360_14_eu0xxx, which als=
-o covers the 16-aa0xxx model.)
-I found the same elements in the DSDT, and my tests seem to work after mo=
-difying `hp-wmi.c`.
-Is it possible to add 8C15 to your patch?
+- doing progress under memory pressure;
+- do not schedule all workers on current CPU and let schedule to find
+  the most attractive CPU from its point of view. For example: less busy
+  RQ, less energy consuming CPU and so on
 
-+=C2=A0 =C2=A0 {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 /* HP Spectre x360 14-eu0xxx */
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 .matches =3D {
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DMI_MATCH(DMI_BOARD_VENDOR, "H=
-P"),
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 DMI_MATCH(DMI_BOARD_NAME, "8C1=
-5"),
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 },
-+=C2=A0 =C2=A0 },
-
-Thanks in advance.
-Alain
-
+--
+Uladzislau Rezki
