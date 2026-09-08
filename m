@@ -1,150 +1,108 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3686538D8F;
-	Tue,  8 Sep 2026 14:25:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11E53955F1;
+	Tue,  8 Sep 2026 14:26:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788877548; cv=none; b=CttNQqaMD+W0Wpkrjdm4H+k1lb/ErutVQw1Eezlj7F4KtvnEKhcHx6wuc9cbdcHRncMhEHAQOmZ4Pnj/o9lFvKAPA+Q9UpJAIfulJnwwdI6V6mJpMuLK9X8NEi+awEOC1iYxjbc5VhEE/z2yA3LPDRqbtXhFGied0ieRO0Uj1mQ=
+	t=1788877583; cv=none; b=J8Gd0HwC1FJcmseUK+K1eUsdF31os7MOab8Pk4RvYRs+B0U4pJ6By24a6kNtV7vrcthIcSDtBhiuOC9xVEUPEGJs+Rn7xK+Y6MplbxWJCUZD80Kob7ChUEwPxK5E7XcfP8TDd35d3kS1GZ8xuneM+OdUL6CXwahUaJ6tM/N8Xf0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788877548; c=relaxed/simple;
-	bh=SBlrYUc5bktRNySDzMbsWFnudT8zvDRLFqwFtIeMcPA=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Cl9aHRkqLkbPBgQDjS7QM1M+HGJj92x9a1AF7bmEjsFskLYpRRv/O8/n0xJ+qelSWNU9jPuT15ZACTZyy7OU9KARwNyPagDmlKFNOFAm3EyteSuVa02t3vLZOnc9gCJXwJCtWLgBIioRfvNJl5H++PPJ/cjaJl4vfzN0y26UX5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=hlo3wOf2; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=IRH/Go4r; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=tQodyI59; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=sPONlnVx; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788877583; c=relaxed/simple;
+	bh=5Mv42E8KfV+o7sMkeP3depUAOidAkVxElMYKgS2D8nU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VVc9Mh7jtZR5cQpoXDX0FvhmQKtMjWJDL15zp2tHrQrligAw4a6WUWYh/EtVUR7Kwv1l9N61TiO0K3pfrbapyPejzQe5WfSgV9qObfsGGS+QpBOXlyUhmVGc4wxSFarY3rSoL2iUIwvzVavrMqMdwH+/yR/2s8GksWD1cr6yyB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=ibCJ1vTa; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dujpHxA7; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hlo3wOf2";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="IRH/Go4r";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="tQodyI59";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="sPONlnVx"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 96F391F84C;
-	Tue,  8 Sep 2026 14:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788877507; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ibCJ1vTa";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dujpHxA7"
+Date: Tue, 8 Sep 2026 16:26:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788877566;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zCM8OSlnfGjEuWyXAzlyV0IrTBlxNeBmK3x23X8/D3Q=;
-	b=hlo3wOf2CQh1Ou0LOuGoZiW0iNWftq/2gqdCELs/kR5JscgZNfkdtR2bZV8hrA5E8sgfWw
-	pXGrXNhHCV+8SVA1359W8KzQbttbY7MhP4mXjcxHKlRrNtpxQZThrDHc5f1Z3CFCTBkDDX
-	OoEPFC5GFU6eeHN1AKvqasNiQICaGls=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788877507;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	bh=3bG7xzyOLgkq/hT1vQoL2+37rRIngeN99Zi6O3p/t1Q=;
+	b=ibCJ1vTaf2PfeTeGGS4CPdeCQlmt6p7aLY7mIyests6CYT2a6E4Mjbx9HP5VcqSFIGIDN5
+	lQzNq4LeidtkfT+EysNyxDj3JNRd+SkiSObbBLZntgveQTRfZuO3v/L3jsJBVUb2BH8YCM
+	7vKdLixe7hXeDeAfmTR73MLoheT6qddEqn0zSpdo08XfzCFSXasPoLv5PXY5oZ4uUtuuhQ
+	ue9dInv7mMssJZ5SEhI8zG40m/o1XMobx0JA0bqLkrd6i/I6QO8W9g5ozGh5HmdlKJSK+H
+	nBg3aR8ypjomfwqNmYevI/XWRU18YkOzSNQOVFvzM7BNe1wvopfv0uHl4KPu0w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788877566;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zCM8OSlnfGjEuWyXAzlyV0IrTBlxNeBmK3x23X8/D3Q=;
-	b=IRH/Go4rWry0Cvxz1wvGtX/UFTTmAgRYa25qBzpA8T+5ElkNt3CMhM3F+hz6BLiZIXPii8
-	CqENVAtnxBjkYgCw==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=tQodyI59;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=sPONlnVx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788877503; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zCM8OSlnfGjEuWyXAzlyV0IrTBlxNeBmK3x23X8/D3Q=;
-	b=tQodyI59gyFGpBoRIcrcxSUOqVuQT3bvFp2vUz7XIbE/f9NDWqXebYiwyuhIo/rc3LzV5Q
-	2pH7Tc2xexi8LrPJdbPJy2vgh1kVeE5Do2HeINH/6l9o5SuzAn0DBGSqOseYiAXSF/ZYS0
-	lmKp5QkfJV1cEC6+mr0ZCIqswQueYJ4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788877503;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zCM8OSlnfGjEuWyXAzlyV0IrTBlxNeBmK3x23X8/D3Q=;
-	b=sPONlnVxot92X9qpK1MGUlBEDcRuShH5pycFYVfDmEes8s3DGg7cynPyDAANR6nIXxPR6Q
-	UBuZAyu0/j9jP1Aw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 61AB61364A;
-	Tue,  8 Sep 2026 14:25:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id cMYvF78aoGrNBwAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Tue, 08 Sep 2026 14:25:03 +0000
-Date: Tue, 08 Sep 2026 16:25:03 +0200
-Message-ID: <87h5jzq0qo.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: HyeongJun An <sammiee5311@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,	Jaroslav Kysela <perex@perex.cz>,
-	=?ISO-8859-1?Q?C=E1ssio?= Gabriel <cassiogabrielcontato@gmail.com>,
-	linux-sound@vger.kernel.org,	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda: Report a change when only the channel status bytes move
-In-Reply-To: <20260908134153.1614273-1-sammiee5311@gmail.com>
-References: <20260908134153.1614273-1-sammiee5311@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	bh=3bG7xzyOLgkq/hT1vQoL2+37rRIngeN99Zi6O3p/t1Q=;
+	b=dujpHxA7PKpeJCyeZiOagFVHrYS6MiqrupOYGFJ0EP4mlmR+jdnMRKg1XsL53yLYA37pen
+	ASTs5tXfWZYBIDDw==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Paul Walmsley <paul.walmsley@sifive.com>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, Andy Lutomirski <luto@kernel.org>, 
+	Vincenzo Frascino <vincenzo.frascino@arm.com>, Kees Cook <kees@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+	Richard Weinberger <richard@nod.at>, Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+	Johannes Berg <johannes@sipsolutions.net>, Russell King <linux@armlinux.org.uk>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Nicholas Piggin <npiggin@gmail.com>, Huacai Chen <chenhuacai@kernel.org>, 
+	WANG Xuerui <kernel@xen0n.name>, Heiko Carstens <hca@linux.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Miguel Ojeda <ojeda@kernel.org>, 
+	Alex Gaynor <alex.gaynor@gmail.com>, Gary Guo <gary@garyguo.net>, 
+	=?utf-8?B?QmrDtnJu?= Roy Baron <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
+	Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Christophe Leroy <chleroy@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Nicolas Schier <nsc@kernel.org>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, linux-mm@kvack.org, 
+	linux-um@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linuxppc-dev@lists.ozlabs.org, loongarch@lists.linux.dev, linux-s390@vger.kernel.org, 
+	linux-mips@vger.kernel.org, rust-for-linux@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+	Jan Stancek <jstancek@redhat.com>, Arnaldo Carvalho de Melo <acme@redhat.com>, 
+	Alexandre Ghiti <alexghiti@rivosinc.com>
+Subject: Re: [PATCH v5 02/24] x86/elf, um/x86/elf: Move relocation constants
+ to UAPI
+Message-ID: <20260908161740-0d79e592-87a6-43c5-9174-84ce1904e639@linutronix.de>
+References: <20260908-vdso-absolute-reloc-v5-0-3a93791af1cf@linutronix.de>
+ <20260908-vdso-absolute-reloc-v5-2-3a93791af1cf@linutronix.de>
+ <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Score: -3.51
-X-Rspamd-Queue-Id: 96F391F84C
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-3.51 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,gmail.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260908135513.GAaqATwXHcQD7plnH-@fat_crate.local>
 
-On Tue, 08 Sep 2026 15:41:53 +0200,
-HyeongJun An wrote:
+On Tue, Sep 08, 2026 at 06:55:13AM -0700, Borislav Petkov wrote:
+> On Tue, Sep 08, 2026 at 08:33:36AM +0200, Thomas Weißschuh wrote:
+> > These constants are useful for cross-platform userspace, for example to
+> > process ELF files during kernel cross-compilation.
+> > 
+> > Move them from the kernel-private architecture-specific header to the UAPI.
 > 
-> The put() callback of "IEC958 Playback Default" returns whether the
-> converted register value moved. The convert_from_spdif_status() helper
-> reads part of the first two channel status bytes and none of the last
-> two, while the get() callback returns all four. So a write that lands
-> only in the bits it does not read changes what userspace reads back and
-> reports no change. Of the 31 bits above the mode bit, 20 are such bits
-> in consumer mode and 29 in professional mode. The core notifies only on
-> a positive return.
+> Why UAPI?
 > 
-> Toggling status[2] bit 0 on an HDA HDMI codec moves the read-back from
-> 04 00 00 00 to 04 00 01 00 with no event. Toggling the non-audio bit
-> in status[0] gives one.
-> 
-> Compare the stored status as well, the way the ac97 code does. The
-> write to the codec stays gated on the converted value.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-> Assisted-by: Claude:claude-opus-5
+> Why not include/linux/ ?
 
-Applied now.  Thanks.
+The existing, generic ELF definitions are there.
+The ELF stuff in include/linux/ is highly specific to Linux.
+
+Also later in the patchset I want to expose the definitions to the
+tools/ build. Exposing generic UAPI definitions to tools/ is a much
+easier sell than include/linux/.
 
 
-Takashi
+Thomas
