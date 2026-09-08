@@ -1,115 +1,151 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6269C3A9850;
-	Tue,  8 Sep 2026 07:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F9D3A9D9A;
+	Tue,  8 Sep 2026 07:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853361; cv=none; b=KvbZpHwHBOfXBA3iLrPt47eZX5uOMTQVTgJ7BQ0PGc2rBDLZbzw6mBgAMYEIFAccDs739CTEKYyEy7NP9H/37m8NipuTFDB8NFQpo7OjUOFaFzVt+o+8/z0Stn7SYqVs32ivU/yRc5JmdFXuusuFgYJ8od2LurfGGO9KLzlff6c=
+	t=1788853362; cv=none; b=MQ+OsH5JzHr1iymR9qmkjv0nzQZdSkKWo45Hg48EdZLlSjpmCg2zUvVfSgM5ps9GRtWSBptDTRoUK+P+GTTi9++qqZ33umi/fwlojNG1X7Cqvn9cKkBJkb5BF2pppda3iYbbOgiVfJnxCd8b3gPG5trwW3J2nY4JlBHr+vU4JqU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853361; c=relaxed/simple;
-	bh=gqCy451RogHwWAWs/5Pzh822czFIXxvSEv2LlvcTmh4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N2YyN4Jvtne070aUvHQFtUB0eWF4E5cGYzDQ2kp6AYcGvjLxgwc5G3NLE9N54KAiJGJrAPDkKwpjBUYvbsJH1mm2BFpuylYsHoEHuQhi0UxOHIiNydPGifwnSIdJha7Pw1TlSqma5CX60SCHoN8iRuammBIuPHLODkZWYkkDvLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=eh4sqniW; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788853362; c=relaxed/simple;
+	bh=rXPgP4vqes+SSdiq8m/XbuntuYSVI7j++o0JqVbGZh8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=WJ9GdS181gU6TR/2ujMaRYxTXd6PcDtX/nHGY5PUFyNmVWnTaUCM6MPueGnc5p5+O1wSRcZfXVIAvu0RkUyswWRms4xLV77aCSPvneEOI3gtUVEb2rF8asSZg2BXx5Ki70raMssu7Kcr4x3ZsucSi05TA1T0nwtFZplRYPicqls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNVRszPG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="eh4sqniW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=ITKIR/SP3MZPnGUhR4LXjkgAnNpOrsRWnH2rgnYP3QY=; b=eh4sqniWZeE3YRU+SJi9F0y7YD
-	05mJTtjzX+NgbqCMm5O18Sw7waDe3W9pVUUBKaCioirTGvApWjZH8r4G1la+EFB5wFi5fHv6PLXdT
-	fkih5RQnAfldrNhepI2xLlxDYzzoc9V+v8GrY4UPiwauhFtbT/BcxeMt6oXH8y0cNY8p/0uJaS0Rx
-	s2ZAtsfPTTE+J+Me8AaG/g520HOB+z+CaGSf7cAY5VXpXjGcrW7D+dVxRVLSojGMpIuLzMgwrvbsF
-	y/zn6jpykbQGRlvz3LKeDXk8ca9BdoD5mKMiPzM0xBdaLMnUySbaPaf2Zyf5p0S/31zd5pKfkS+Up
-	K6TURICA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3qTN-00000006lil-3OkO;
-	Tue, 08 Sep 2026 07:42:29 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id CE6E33005AF; Tue, 08 Sep 2026 09:42:28 +0200 (CEST)
-Date: Tue, 8 Sep 2026 09:42:28 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Ye Liu <ye.liu@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, oleg@redhat.com,
-	david@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
-	gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org,
-	rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
-	babu.moger@amd.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <20260908074228.GW4120091@noisy.programming.kicks-ass.net>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNVRszPG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F6AF1F00A3E;
+	Tue,  8 Sep 2026 07:42:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788853361;
+	bh=3oXpl+cAhOXilhzd2THpb81XUKM3ZmVG18zD0Do4tnk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=FNVRszPGPHIJ1I1naUyZH3rt9LzQzHmvIHrNEtDbKyH8JbYraaPOuZ/lrR2kVyQjp
+	 3vm/P1J9KxfHo7NOLnqLlM/j+QQCw/0ibZVC7f9l9ut9RE/UQE8pgarhBg3IAZzcxA
+	 TyQ78cojxhrbIJWZflYs/qmLY104rBXoYkIM49Tms/r9d4mVYLH1QrXD9TVjVOBNj1
+	 QxPZe12l6xA97sCJyk7Ucbq3nbAc6XZJCqDfVC1ZEmxmSUksyR4nhovYaZmPHRCpOE
+	 ptwMHy3TuLKwynMg7mMzT/7us0onwOf0Gvw+oaYuxCEbbUysjP0AtGIS0+gYSygq/K
+	 EQcOGnOJ3ONDQ==
+From: Yixun Lan <dlan@kernel.org>
+Date: Tue, 08 Sep 2026 07:42:05 +0000
+Subject: [PATCH v4 3/3] riscv: dts: spacemit: k3: Add UFS support
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907081334.1152889-6-ye.liu@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-08-k3-ufs-support-v4-3-22aa2bd97d3b@kernel.org>
+References: <20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org>
+In-Reply-To: <20260908-08-k3-ufs-support-v4-0-22aa2bd97d3b@kernel.org>
+To: Alim Akhtar <alim.akhtar@samsung.com>, 
+ Avri Altman <avri.altman@sandisk.com>, Bart Van Assche <bvanassche@acm.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, "Martin K. Petersen" <mkp@kernel.org>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, 
+ Aurelien Jarno <aurelien@aurel32.net>, 
+ Jennifer Berringer <jberring@redhat.com>, linux-scsi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2292; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=rXPgP4vqes+SSdiq8m/XbuntuYSVI7j++o0JqVbGZh8=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqn7xYqMxLbATL8V3wklbt+Smix+P61sIZ311IS
+ bHc8of/EDeJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCap+8WBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+2vfA/+NrZfduXKP9hZ2XCJBScqdSDVBuP4Euoa7ixdAw9DUMHA+biwb5dyQ
+ B9kzqN6sgVRGqvmqGwM3/oANjmlpgeK0bueAmzYTWptU6+k+wORkk1cgF1R5g1lbYaRmwMhnQwg
+ zihkcFyUJbHNnUeYLWgqIX+hBXJUuC8Cf+fN+XV1KHhxeJKD7HBV72dUk4KmoMt8oEPl2iZWB1N
+ lh3D/VypQJQKcGU938pcvCiVFN33/X4pFJi1Kez4AJcqIoM9fiPKRlPGYpNq/SjzS38SxJW9Z5d
+ rQmcTRXzj/nW/HWia1Kr7j+ZhflIQV9QVax3c45xteRjEikXjL7fADcqa+3ibTbfsVu6z6R5gWd
+ XolQ1+aI58weEGk9XWZeU3Po/5UlN3PLneuQMnf6lIhkyAP23RVEWTku5UTiCpdrcHVKudOWOTw
+ gFmGOU4xCJzcKQqdxM7sweYHaVCcm1oOGjWDc4dIsIUC7bFNZMFTrdVsL2qTyt07azZWMQqMGE/
+ QC8n4j/Tg8Njh3aTWlcsCmXZ2HkUen9JzvyotjXo+9xFtjkcvhQxw+GuLInQklN7VehLOhChDqv
+ wG8KPC6HO6PcFp8vqOqlp2wkRFZIGL+V6P+aF191pxnQVHlTxsYJP9/JqjecyosQitMDTtWPmO0
+ Sm8Ug01/ojY5IqZ0TnGGvrsn7mPeCM=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-On Mon, Sep 07, 2026 at 04:13:31PM +0800, Ye Liu wrote:
-> From: Ye Liu <liuye@kylinos.cn>
-> 
-> Replace the manual rcu_read_lock()/rcu_read_unlock() and guard(rcu)
-> pairs combined with for_each_process(), for_each_thread() and
-> for_each_process_thread() loops across kernel/ with the
-> for_each_*_rculock() macros, which scope the RCU read lock to the
-> loop body via scoped_guard(rcu).
-> 
-> No functional change.
-> 
-> Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> Acked-by: Michal Hocko <mhocko@suse.com>
-> ---
-> Changes in v2:
->   - Rename *_rcu to *_rculock
->   - Rename stale 'unlock:' label to 'out:' in hung_task.c (Günther Noack)
->  kernel/cpu.c             |  4 +---
->  kernel/freezer.c         |  4 +---
->  kernel/hung_task.c       | 11 ++++-------
->  kernel/locking/lockdep.c |  4 +---
->  kernel/rcu/update.c      |  4 +---
->  kernel/sched/core.c      |  3 +--
->  kernel/sched/debug.c     |  4 +---
->  kernel/trace/fgraph.c    |  8 ++------
->  kernel/unwind/deferred.c |  3 +--
->  9 files changed, 13 insertions(+), 32 deletions(-)
+Add UFS Host Controller support for SpacemiT K3 SoC, and enable
+it both on Pico-ITX and CoM260-IFX boards.
 
-This is not something that can be applied.
+Tested-by: Aurelien Jarno <aurelien@aurel32.net>
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+ arch/riscv/boot/dts/spacemit/k3-com260.dtsi  |  4 ++++
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  4 ++++
+ arch/riscv/boot/dts/spacemit/k3.dtsi         | 22 ++++++++++++++++++++++
+ 3 files changed, 30 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+index 37627963a649..3251ee8405de 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-com260.dtsi
+@@ -220,3 +220,7 @@ &uart0 {
+ 	pinctrl-0 = <&uart0_0_cfg>;
+ 	status = "okay";
+ };
++
++&ufshc {
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b084a35aa00e..6369602e81da 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -307,6 +307,10 @@ &uart0 {
+ 	status = "okay";
+ };
+ 
++&ufshc {
++	status = "okay";
++};
++
+ &usb2_host {
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index c3f2dce0969c..436c0e7e2838 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -513,6 +513,28 @@ usb2_phy: phy@c0a20000 {
+ 			status = "disabled";
+ 		};
+ 
++		ufshc: ufshc@c0e00000 {
++			compatible = "spacemit,k3-ufshc";
++			reg = <0x0 0xc0e00000 0x0 0x40000>;
++			clocks = <&syscon_apmu CLK_APMU_UFS_ACLK>,
++				 <&syscon_apmu CLK_APMU_UFS_REFCLK>;
++			clock-names = "aclk", "ref_clk";
++			resets = <&syscon_apmu RESET_APMU_UFS_ACLK>;
++			interrupts = <135 IRQ_TYPE_LEVEL_HIGH>;
++			lanes-per-direction = <2>;
++			operating-points-v2 = <&ufs_opp_table>;
++			status = "disabled";
++
++			ufs_opp_table: opp-table {
++				compatible = "operating-points-v2";
++
++				opp-1 {
++					opp-hz = /bits/ 64 <491520000>,
++						 /bits/ 64 <19200000>;
++				};
++			};
++		};
++
+ 		eth0: ethernet@cac80000 {
+ 			compatible = "spacemit,k3-dwmac", "snps,dwmac-5.40a";
+ 			reg = <0x0 0xcac80000 0x0 0x2000>;
+
+-- 
+2.55.0
+
