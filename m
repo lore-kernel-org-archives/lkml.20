@@ -1,84 +1,84 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE73A5908DA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:10:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D890569F2A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:10:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887413; cv=none; b=HTjyok3Yi0wnes6IPvzOmJrfcrp4eh4/r1hFTH8w50+QFb47/9tcxTyQ+x3eZTOm1SdoWyU6wLESFs7Gk0CcJn7U7q5/UbryKJLShEZY9GCpqM7+4ofIjvEAW3lumBQCv1i5P6vjkLvX9HDViDxUsnSKUYd08J+IyQ0Fx9ilNAM=
+	t=1788887420; cv=none; b=Lb4rz7g2K1GvEI/aAGacU+7fRSKTKhqdxtF6ooKhs1fEUOLqRJHIHnh5XR86JjIVwR0OSNNzOOdhF3GLQhJqm8lGEZtz36NfbO+SArOtnSJbORzYtdShhtRpWPWu8ap2vcRTyPsokAjpmjUX7WqtThBZU2Wm7fJTs/tSjBfjOxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887413; c=relaxed/simple;
-	bh=NrgThq6Y8uHhb3wAckmPMV55GlSGJaL3Mt7emHZURDY=;
+	s=arc-20240116; t=1788887420; c=relaxed/simple;
+	bh=vGFJQ6aAodKhtzS21oPWEsRImbjCMwfBF99koJOYdiM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F8+Kxko/07U0ZT+UztcCMXpPOswgVmIz9T/9kxk+P2qrzoRdQCy8Cj85GOBHo3XToJ2chfS48bM5lhEak9tpkCpuCVbtB860ask0wT5QIc2R3gji1UP3hHD4XBjPdJFW7R/viLzs5MvbfBfT1QOkg2BVu1xhc/5s+gAObj+59ZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mbM6R92I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fgjDTlAx; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version:Content-Type; b=tZDv1aXZGpCVpJxPebCAS2Q2ZEg3mgGN+ciooh16yyAI+ZDJjDWl82h/VM5Id6NvPIWR3X9XgbVaz598d9OtQzFe3fhFo024cBKcTubrHz6ehxqJMz/VJ1/UbzcKET2EJIoUKZCWew2SKH38eqsMmOjf4e50772nsA7274z070g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GvTpwNkj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=em9L3VXJ; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mbM6R92I";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fgjDTlAx"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GvTpwNkj";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="em9L3VXJ"
 Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688FdZP22899279
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 17:10:10 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688FdxCr2900125
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 17:10:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UZdtDE9nITufoadjKmxDFYIwfAzWlsnkOtcwwliJ40E=; b=mbM6R92IpOK5evsc
-	mB1MtHjS76EOxfKfaWUgzbwllqe2qK8te+UJKcgClQbZu4hrivXX+gGxCBivQ8XT
-	U7fdyMtVAqyUpvS4s6nVmPRu5ER2Bs5BY8KTtxM3YA7zgUG8eywFmeYQy+sRQCj0
-	8ztVB2KG7i6Rg5k05cqwxbF6uGohb5f8j21/kOJrcEQZgN9LVICO+/6HTltnYOBF
-	09kgPHZvdcYbrLulrRBmlfpzispybVSYWfd89Pgq/CWUrH30gZglneMcgCqymuzn
-	mCfjt8SQO0pksuQ3Flbi9qXwwk7DfWxulqpX/Wz7irN4+wejdKw1GMMMmnFBXbik
-	2f2Oww==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcvujvc3-1
+	tmSBOtvSp+Gmy3pqLBjim1lUAAw6sE0lZZQQfu5q2wE=; b=GvTpwNkjRPblAZV3
+	wBYl4geZZJBHmih1Ts5hQwRvDRzRXpwkLEb/P+IDEeWv7GF9EKwlgR0LWbihzPgh
+	VgrdwdwvWq1mlyM2oNSuws9yRJqJeXmDmE82T8s+6y7D8BXmW22YxpXtP+BXT9IM
+	kL54lHzOhZgye0vJVV2ipuFgwNkaGDE153uVUPXDwF3b2T7WNLTk8uCk0POnkrEf
+	ltYzMXvi/pYRcihNwh9PkCgaTVMuWVw/JXh1KcpI37Qv6MBrZOekgYhS/wQ1Df0+
+	DPdmN/F4tVhwxi0TpWLGTGJZqLCB64NPM7l7yOqHS8FtASYkFLF16MlZAeC7nLGe
+	NmPdiA==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcvujvch-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:10:09 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-8663802b58fso2026726b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:10:09 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:10:17 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1bbd7d6e6so5194792a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788887404; x=1789492204; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788887417; x=1789492217; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UZdtDE9nITufoadjKmxDFYIwfAzWlsnkOtcwwliJ40E=;
-        b=fgjDTlAxTpb94Gre70BDBVeim08n9s1hD15RfS8DUC6IUS6nX1KEyWH6jm3++6Gc36
-         AA7HEXuJndZDoahkbmfwVTDgPcNH2ftpzQb7mbnvbAKyf+Z/8RliiLnthMLUcZsTRVqC
-         AburXl8y0+vsmSnvrlwR0D4iCPqZLyR1AEuQHV9E+GwIG31a4UwsTyhn1jUl2QDhc5qY
-         lGzH4lAcc8r4pRl72fxOq9uxbYWFJNPVwWsWABpzwJhGM2WIjZ0Fe7bnLaBOArhA0/5c
-         en6A/I5Xj+pcmEWiumAnWcoRTYZm6lQzia8plNY/w7fFkDGIhyKAa+OIRUr1o0xxuZd1
-         WMww==
+        bh=tmSBOtvSp+Gmy3pqLBjim1lUAAw6sE0lZZQQfu5q2wE=;
+        b=em9L3VXJR0AA7t0HKCixms3+990j4ly9vCT3R3KAYbzcAa33uCPUEibcV3dwIbyeam
+         8htzFfPjoZqNFqgXGeAlH64id+/03btyIvZhfaIGbl3+QAfb1DwyJ06dfDbLs3Ml4uV8
+         zvXC68LoGI7pCFsO7TF3ssbbRW8gYt1MnvEDwfrFNNONLAiVNvNhvsQAOeqyjnk5Xk4e
+         fn8M3d2JtjUqQCwNS9fe6LDmuPIvpYHpf+dELfccolEetFDK+rsdT6QSPcfsmrajkkSd
+         oHnLohWRieifFxK9X3/wRfcxxg/Sr9TEK4SGJeBxE0jWGUMFYZ2OxucE9AvCF6onGQ/E
+         tMeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788887404; x=1789492204;
+        d=1e100.net; s=20251104; t=1788887417; x=1789492217;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UZdtDE9nITufoadjKmxDFYIwfAzWlsnkOtcwwliJ40E=;
-        b=pVmCBxHFOch3JxRpCK3PjNwpBET7db2Dqk3irmXxruEb2sGm4bedgEIzKzkv3IFJnR
-         K2W1hCCtXJSXAA7A48qqlu8pI7HvmQj2aLjUlWKW+utRs4BAJnnw7DpnHG2DBgpFeX7J
-         cEp2sg4Jl9eK6cNWdCXY2D3li3OtO6P/7NdrcB7BoxvLP2D8vvDOd/WWgjhD2J1vwtBU
-         c/aIkZwwHggir4x93D4mKEtwFA5G1j/bpA+jwwKdkx0CNoAeWVm1sAe5uRumdHNgizMh
-         JYZBR6014YMfmIWCcN4DHdzsNEjUjRW7fFesa2wDnfd+ZPQ9QUDQtitnqk7SM+2+C7Gw
-         U+HQ==
-X-Gm-Message-State: AFuF++mdMNShhj4qHjsS+FxZY25NHkMl0tFEkDGFt80m3Rp6UhADf0rU
-	0uvIRl4MJ14/QMfr4vCNOlAwZUA0mV43IKDnweLNFqkRR4MXKUVJXYQa9GPUvMCBhQIUOzsQofG
-	bkDl8RQ5Q4z2f/4FTmHRqysUQPnK9GjnKZviJ5fPeGyOdExvkR4hilFL2G8xW5Baprg==
-X-Gm-Gg: AYBFou0mkqCw0yuodbnAn9NcMrEShCRq04hNLizcrx3xvr69kORLC8OEDNve+uacPtG
-	bF5utvBaBpntCeP3aYjWR/BYfu+OwdJfB0t/jnv5YBgQipqHf3jOnr6OqS3jnxnwIF0KQHnUbI+
-	bROrGGXTbGcljG+R5UoxGetNPD/Y7LzigxbdzSwGcZl7XtKKihb+Sx0uzzjzcxLYxTI+VAQVIgV
-	Al3Pw06/dSgX+Q2Rru47puvjMu034Xc/yMSDvSBLHjvfti/PZTk9xQiPUUpUtS3jK1A6aA3aYNC
-	B+tiaBQk59uutXRjxCoXtc2vVxRjfhLzmZEITB0s6Cx/L7HksYvYipJqcXx0RcocxugBR6UW16z
-	yQhw/n/UwBqY1CuupXFuzY22rzgomDB97lxLtr2d8yPIM12rSgkZGLvJtSVmCDn2ME7dIP/94Hf
-	EtNnRbtsV4H6gmL9pHU7bbyQ==
-X-Received: by 2002:a05:6a21:7748:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3da6bdd6cfcmr27957448637.10.1788887404144;
-        Tue, 08 Sep 2026 10:10:04 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7748:b0:3da:6bdd:2c74 with SMTP id adf61e73a8af0-3da6bdd6cfcmr27957381637.10.1788887403611;
-        Tue, 08 Sep 2026 10:10:03 -0700 (PDT)
+        bh=tmSBOtvSp+Gmy3pqLBjim1lUAAw6sE0lZZQQfu5q2wE=;
+        b=of24XaETOleO6hpOxVIj28lQtWX0ravHJcFkRaZJSKpNXzIZiuu9CEqua8macK+1pg
+         FrxZ1ned962ESTC1AkG++xPmmUDAwOU0YMp1f2ktzvNw1cKCeajkub4ewkcXyBTYK0YM
+         2TRCgXGahX4aadvXtu8/q/uDvlPVTkNU0bMf/q7b5qrNsHAJCaZ/dkf3DN3syoh4ec12
+         tLiFzBXEPJQn/yE107i+XEmb5tfTuTmqgVmpRRUFdCUYfYwR+dHFb1pixMEUl8Ss3mUj
+         xh71seyCypBf0fBzPEVTWzT0pTkDbZYGPnIzxKqrcJH/A04kttiWXLwZu2v3cHnra+Bq
+         TBPA==
+X-Gm-Message-State: AFuF++nhidkpr83usX0qkU1tcY6nss7zUnIM1xYslInoVLIcVJYN5Gx5
+	79IPZFQ9CwA7PGWs4g6NpPJ25Hoer156rJHuVGWJtAux/G627Z2eCKc50K+fqz8qbxyfIq3XGxk
+	YcZaQWRDkqf8WTSMsMX7InPya9+qfxHVjMAgysRKhOAKVQrP9K177tgXKPLElrjDPiQ==
+X-Gm-Gg: AYBFou3P/wRcI5cuGepsS77PH8HWDAFeRYWicwKhrvSADCSFpagxSrUDYyPrZaEJfY+
+	NnERG0yxnJAOC/awnCBPp6UZuptvDFlbXXzQtBryWi1lDZ3R2zXrTM6SjL2T0vneHteBVEjvdpK
+	ghcnd9Xqq0JIme2W7YTEspRgr3OMuQFp4cmX30p957XKhQYMElzMrbMW2wCuU1AybKYTHRT0pOm
+	XLocqqBsah2NXS7jyJyMac0EXDAJ4MezSOD8xCkDPeuCneMOhxG8xiM5+xP2jhKA8Rkd8Gxu+kS
+	BhN+axphLCnkwKYS5WgtQ1Wbc7xukMHvdqJ7dPxCpzqJ8PtDAIeM3YYG1iwPgRGAzKd/iG24niy
+	MmwaWrY0ZXGj2IkYrw+ePEGBM8FCcdCCPTo5P9uLiYCsqhChVfKJxU+Oidn6zGf3lr+Ojje+hFj
+	Vt364HgMaIAfQyjQsxpaJJgw==
+X-Received: by 2002:a05:6a20:db91:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3da3a0b9eecmr47536194637.21.1788887416833;
+        Tue, 08 Sep 2026 10:10:16 -0700 (PDT)
+X-Received: by 2002:a05:6a20:db91:b0:3d3:ae1f:d7f5 with SMTP id adf61e73a8af0-3da3a0b9eecmr47536097637.21.1788887416272;
+        Tue, 08 Sep 2026 10:10:16 -0700 (PDT)
 Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm31773675eec.4.2026.09.08.10.09.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm31773675eec.4.2026.09.08.10.10.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:10:02 -0700 (PDT)
+        Tue, 08 Sep 2026 10:10:15 -0700 (PDT)
 From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 To: "David S . Miller" <davem@davemloft.net>,
         Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
@@ -87,9 +87,9 @@ To: "David S . Miller" <davem@davemloft.net>,
 Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
         linux-wireless@vger.kernel.org,
         Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Subject: [PATCH RESEND wireless-next 01/18] net: skbuff: Add SKB extension support to wireless drivers
-Date: Tue,  8 Sep 2026 22:39:29 +0530
-Message-Id: <20260908-smd-v1-1-9fd2d876a1fb@oss.qualcomm.com>
+Subject: [PATCH RESEND wireless-next 04/18] wifi: cfg80211/mac80211: Configure AP with SMD capabilities
+Date: Tue,  8 Sep 2026 22:39:32 +0530
+Message-Id: <20260908-smd-v1-4-9fd2d876a1fb@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
 References: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
@@ -102,25 +102,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: b4 0.14.3
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=ePkjSnp1 c=1 sm=1 tr=0 ts=6aa04171 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=ePkjSnp1 c=1 sm=1 tr=0 ts=6aa04179 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=axc-8nxta6ncDHcsNdkA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: n3TiekvdxkgiOAtuaS8fiolJpKggnQEf
-X-Proofpoint-ORIG-GUID: n3TiekvdxkgiOAtuaS8fiolJpKggnQEf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfXyUXoU09MzP6H
- 8PHjLfb+h057vXF1UuoUp+c3HAE84wAS7RwNLY8c2bgPuBWtCJ02tzES4PAraYpDDA89ZJJg7og
- yinOc+H/aYCLLX2EpYLOIAMdN8Qts4umgeUMOEUE8wMIQSzajTeBYFQ1xS4dVXUNm7iFghN8QUB
- WZU15h4wn9Kr/VIGW6MvWhBZithdjjv/HZsv2NsHOkx2L61Xh3i83hHrVRxSmxDLOLgNk/0xw1/
- 02C/8e0U8IfjsGrPd8GuNpe/BZUswq/opGStCdePoOW3z2kXSbxlmgkcSacoPXJm+nV2rRLrHRy
- ckGW4pgRUWrA1Va67h/qVca1VBEW0pqprCmNZFUFfrMb5PwvoXkrVNJ5o+8omHVnaRvQqeR3nOb
- SgocdO7GEFtT45iTKrpPzk0lHHEc8z8GpT1f/B5MZSUfpdJ9LpjcQe02I8UUKWeAKp2ncpE+pwa
- BsJmY+V1wIU3fHlIxKQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfX+A//ia0iZSZg
- lY3achwD6kcQyK8/XdLoSvRaqGgCciJDTVbcooycvcOWike6D8u5dohC9g+zUi9FhnDVEzFw92K
- DUt2Sb8YCb5RjbYUWUNWemRGlRPwOEw=
+ a=EUspDBNiAAAA:8 a=56q9xwJp3_aMvtWITrUA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: MfAO-9NG9gvbuK3ZdkfnNkW3ZzXEE-gf
+X-Proofpoint-ORIG-GUID: MfAO-9NG9gvbuK3ZdkfnNkW3ZzXEE-gf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfX4yRJm859IVyW
+ xilAQbWdez5sGp0iIoqqZHesOcPxrN6YDtUnExU2PSA60M4fPVSYejIid7ie2JQNx63SNnPj8Vl
+ h+K41yET0ACQWoImdY5CKWNqN/8PsziYYiK9eaWorSEsUGeEnvRbpzV1x6x5apdw/OSoWnIQ6XK
+ R+TFCQzkFrKP53wwntzeWRSn4GtTbJdCoXgJYjefqs/a38RLwusjt2SbTHSYneR/MqfnmMS84BF
+ vOnXP4VI5FiGnH46Z4i53bjcn+DMhITddNsoP4vvvn054EkFUTT+BdUNbQDCd/mgsgMWquQIV7A
+ 1DNTVQ3Grz1/+vqeDOZ2pmup2Bb4pKcf7lEre0cKxv+H81h+JsuMQ2Cvv2o4p6dEhZEVbtCV6dy
+ uGuX3ofnr9RiE8F+5OhLQ8HcH71u2JF71XcRFLM1tCI5AQxohlbSZgjf84sg0c+rE5QgMudNGgU
+ TTicXJfHGOKI3dX3Z8A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfX3l4GLeL0Y0Un
+ AZg50P0+9kswf2AdJDH+db7gWK9HF42HhULK0c2q83WLWmDY/t2hh7O1uAZxRr27OyvsO4XwvZf
+ QFA/ObR+mmxQxlBO5br2w/USd7jMrCI=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
@@ -130,211 +130,219 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080185
 
-IEEE P802.11bn/D2.0, Aug 2026, subclause 37.16, defines Seamless
-Mobility Domain (SMD) BSS Transition, in which a station roams between
-two AP MLDs within an SMD across two phases: Preparation and Execution.
-During these phases, the receiving AP driver processes a query frame and
-must carry the station's roaming context - per-TID sequence numbers in
-downlink (DL) and uplink (UL) directions, packet number in DL and
-per-TID packet numbers in UL, and per-TID BlockAck session parameters in
-DL and UL, plus a variable-length driver context - up through mac80211
-and nl80211 to userspace, which uses it to complete the transition.
+From: Rohan Dutta <drohan@qti.qualcomm.com>
 
-This context does not fit in skb->cb (48 bytes). Carrying it separately,
-outside the SKB, breaks when the SKB is cloned through the RX path because
-the context lifetime is no longer tied to the frame; the driver would need
-independent state correlated with the SKB at nl80211 encode time, adding
-error-prone lifecycle management. SKB extensions avoid these problems: they
-are reference-counted, copy-on-write safe, and freed automatically with the
-SKB.
+When an AP is getting started, configure the AP as SMD-enabled if
+userspace defines configuration for the Seamless Mobility Domain (SMD).
 
-Add a new skbuff_wireless.h with a typed union structured to accommodate
-future wireless extension types, carrying the SMD roaming context as its
-first payload.
+The SMD parameters are:
+ - SMD Identifier: unique identifier of the SMD
+ - SMD Preparation Timeout: Valid duration for a prepared target AP MLD
+ - Downlink Data Forwarding: Forwarding support for buffered DL packets
+ - Max number of Peer AP MLDs: Number of target AP MLDs a non-AP MLD can
+       prepare with
+ - SMD Type: Type of SMD
+ - SMD PTK Mode: PTK mode used in the SMD
+ - Neighbor Probing: UHR Neighboring AP Probing
 
+Without these parameters configured, drivers and lower layers cannot be
+able to support SMD BSS Transition.
+
+Signed-off-by: Rohan Dutta <drohan@qti.qualcomm.com>
+Co-developed-by: Aditya Sathish <asathish@qti.qualcomm.com>
+Signed-off-by: Aditya Sathish <asathish@qti.qualcomm.com>
+Co-developed-by: Sidhanta Sahu <sidhanta.sahu@oss.qualcomm.com>
+Signed-off-by: Sidhanta Sahu <sidhanta.sahu@oss.qualcomm.com>
 Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
 ---
- include/linux/skbuff.h          |  3 +++
- include/linux/skbuff_wireless.h | 55 +++++++++++++++++++++++++++++++++++++++++
- net/core/skbuff.c               | 55 +++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 113 insertions(+)
+ include/net/cfg80211.h | 25 ++++++++++++++++
+ include/net/mac80211.h |  2 ++
+ net/mac80211/cfg.c     |  5 ++++
+ net/wireless/nl80211.c | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 110 insertions(+)
 
-diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
-index 421f6fc45451..fb686024e97d 100644
---- a/include/linux/skbuff.h
-+++ b/include/linux/skbuff.h
-@@ -5061,6 +5061,9 @@ enum skb_ext_id {
- #endif
- #if IS_ENABLED(CONFIG_CAN)
- 	SKB_EXT_CAN,
-+#endif
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+	SKB_EXT_WIRELESS,
- #endif
- 	SKB_EXT_NUM, /* must be last */
- };
-diff --git a/include/linux/skbuff_wireless.h b/include/linux/skbuff_wireless.h
-new file mode 100644
-index 000000000000..2cb04bff061c
---- /dev/null
-+++ b/include/linux/skbuff_wireless.h
-@@ -0,0 +1,55 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * IEEE 802.11 WLAN skb_ext definitions
-+ *
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef LINUX_SKB_WIRELESS_H
-+#define LINUX_SKB_WIRELESS_H
-+
-+#include <linux/types.h>
-+#include <linux/refcount.h>
-+
-+/**
-+ * enum wireless_skb_ext_type - type of data in wireless_skb_ext
-+ * @WIRELESS_SKB_EXT_INVALID: uninitialized state
-+ * @WIRELESS_SKB_EXT_UHR_SMD: payload is @uhr_smd_ctx
-+ */
-+enum wireless_skb_ext_type {
-+	WIRELESS_SKB_EXT_INVALID,
-+	WIRELESS_SKB_EXT_UHR_SMD,
-+};
-+
-+/**
-+ * struct wireless_skb_ext_smd_ctx - UHR SMD roaming context container in
-+ *	SKB extensions
-+ * @refcnt: reference count; one count per distinct skb_ext block that holds
-+ *	this pointer. Plain skb_clone() shares the same skb_ext block and
-+ *	does not increment this counter. Only skb_ext_maybe_cow() increments
-+ *	this counter, when a COW produces a second independent ext block copy.
-+ * @smd_ctx: pointer to the IEEE P802.11bn UHR SMD roaming context;
-+ *	must be a kmalloc-ed buffer, freed together with this container.
-+ */
-+struct wireless_skb_ext_smd_ctx {
-+	refcount_t refcnt;
-+	void *smd_ctx;
-+};
-+
-+/**
-+ * struct wireless_skb_ext - SKB extension data for wireless module use
-+ *
-+ * Carried as an skb extension (SKB_EXT_WIRELESS). The union is reserved
-+ * for future wireless extension types; only one member is active per skb.
-+ *
-+ * @type: type of data
-+ * @uhr_smd_ctx: pointer to the UHR SMD context container
-+ */
-+struct wireless_skb_ext {
-+	enum wireless_skb_ext_type type;
-+	union {
-+		struct wireless_skb_ext_smd_ctx *uhr_smd_ctx;
-+	};
-+};
-+
-+#endif /* LINUX_SKB_WIRELESS_H */
-diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-index ab195b99c853..f28ab7c3c888 100644
---- a/net/core/skbuff.c
-+++ b/net/core/skbuff.c
-@@ -93,6 +93,10 @@
- #include <linux/indirect_call_wrapper.h>
- #include <linux/textsearch.h>
- 
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+#include <linux/skbuff_wireless.h>
-+#endif
-+
- #include "dev.h"
- #include "devmem.h"
- #include "net-sysfs.h"
-@@ -5169,6 +5173,9 @@ static const u8 skb_ext_type_len[] = {
- #if IS_ENABLED(CONFIG_CAN)
- 	[SKB_EXT_CAN] = SKB_EXT_CHUNKSIZEOF(struct can_skb_ext),
- #endif
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+	[SKB_EXT_WIRELESS] = SKB_EXT_CHUNKSIZEOF(struct wireless_skb_ext),
-+#endif
+diff --git a/include/net/cfg80211.h b/include/net/cfg80211.h
+index 6461a7bd0169..d0a269f4c711 100644
+--- a/include/net/cfg80211.h
++++ b/include/net/cfg80211.h
+@@ -1587,6 +1587,29 @@ struct cfg80211_s1g_short_beacon {
+ 	size_t short_tail_len;
  };
  
- static __always_inline __no_profile unsigned int skb_ext_total_length(void)
-@@ -7152,6 +7159,16 @@ static struct skb_ext *skb_ext_maybe_cow(struct skb_ext *old,
- 		if (flow->key)
- 			refcount_inc(&flow->key->refs);
++/**
++ * struct cfg80211_smd_params - Seamless Mobility Domain parameters
++ *
++ * @smd_enabled: SMD is enabled on this device
++ * @smd_identifier: SMD ID (ETH_ALEN bytes)
++ * @smd_timeout: timeout in 64 TUs for ST preparation
++ * @dl_data_fwd: MSDU forwarding supported
++ * @max_num_of_peer_apmlds: max prepared AP MLDs supported (0-7)
++ * @smd_type: SMD type
++ * @ptk_mode: PTK mode
++ * @neighbor_probing: UHR Neighboring AP Probing supported
++ */
++struct cfg80211_smd_params {
++	bool smd_enabled;
++	u8 smd_identifier[ETH_ALEN];
++	u16 smd_timeout;
++	bool dl_data_fwd;
++	u8 max_num_of_peer_apmlds;
++	enum nl80211_smd_type smd_type;
++	enum nl80211_smd_ptk_mode ptk_mode;
++	bool neighbor_probing;
++};
++
+ /**
+  * struct cfg80211_ap_settings - AP configuration
+  *
+@@ -1623,6 +1646,7 @@ struct cfg80211_s1g_short_beacon {
+  * @mbssid_config: AP settings for multiple bssid
+  * @s1g_long_beacon_period: S1G long beacon period
+  * @s1g_short_beacon: S1G short beacon data
++ * @smd_params: Seamless Mobility Domain (SMD) parameters
+  */
+ struct cfg80211_ap_settings {
+ 	struct cfg80211_chan_def chandef;
+@@ -1655,6 +1679,7 @@ struct cfg80211_ap_settings {
+ 	struct cfg80211_mbssid_config mbssid_config;
+ 	u8 s1g_long_beacon_period;
+ 	struct cfg80211_s1g_short_beacon s1g_short_beacon;
++	struct cfg80211_smd_params smd_params;
+ };
+ 
+ 
+diff --git a/include/net/mac80211.h b/include/net/mac80211.h
+index 7bb4618065b6..6b82ca07fbf0 100644
+--- a/include/net/mac80211.h
++++ b/include/net/mac80211.h
+@@ -797,6 +797,7 @@ struct ieee80211_bss_npca_params {
+  * @s1g_long_beacon_period: number of beacon intervals between each long
+  *	beacon transmission.
+  * @npca: NPCA parameters
++ * @smd_params: SMD parameters
+  */
+ struct ieee80211_bss_conf {
+ 	struct ieee80211_vif *vif;
+@@ -904,6 +905,7 @@ struct ieee80211_bss_conf {
+ 	u8 s1g_long_beacon_period;
+ 
+ 	struct ieee80211_bss_npca_params npca;
++	struct cfg80211_smd_params smd_params;
+ };
+ 
+ #define IEEE80211_NAN_MAX_CHANNELS 3
+diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
+index 23f4f9ec86d0..b4b42790c5d7 100644
+--- a/net/mac80211/cfg.c
++++ b/net/mac80211/cfg.c
+@@ -1796,6 +1796,11 @@ static int ieee80211_start_ap(struct wiphy *wiphy, struct net_device *dev,
+ 		}
  	}
-+#endif
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+	if (old_active & (1 << SKB_EXT_WIRELESS)) {
-+		struct wireless_skb_ext *wifi =
-+			skb_ext_get_ptr(old, SKB_EXT_WIRELESS);
-+
-+		if (wifi->type == WIRELESS_SKB_EXT_UHR_SMD &&
-+		    wifi->uhr_smd_ctx)
-+			refcount_inc(&wifi->uhr_smd_ctx->refcnt);
-+	}
- #endif
- 	__skb_ext_put(old);
- 	return new;
-@@ -7256,6 +7273,36 @@ static void skb_ext_put_mctp(struct mctp_flow *flow)
- }
- #endif
  
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+static void skb_ext_put_wireless(struct wireless_skb_ext *wifi)
++	if (params->smd_params.smd_enabled)
++		link_conf->smd_params = params->smd_params;
++	else
++		link_conf->smd_params.smd_enabled = false;
++
+ 	if (sdata->vif.type == NL80211_IFTYPE_AP &&
+ 	    params->mbssid_config.tx_wdev) {
+ 		err = ieee80211_set_ap_mbssid_options(sdata,
+diff --git a/net/wireless/nl80211.c b/net/wireless/nl80211.c
+index 22d71f32815f..aa7aa70a5b41 100644
+--- a/net/wireless/nl80211.c
++++ b/net/wireless/nl80211.c
+@@ -7224,6 +7224,78 @@ static int nl80211_check_npca(struct cfg80211_registered_device *rdev,
+ 	return -EINVAL;
+ }
+ 
++static int nl80211_parse_smd_params(struct genl_info *info,
++				    struct cfg80211_smd_params *smd_params)
 +{
-+	switch (wifi->type) {
-+	case WIRELESS_SKB_EXT_UHR_SMD:
-+		if (!wifi->uhr_smd_ctx)
-+			break;
++	struct nlattr *smd_params_attr = info->attrs[NL80211_ATTR_SMD_PARAMS];
++	struct cfg80211_registered_device *rdev = info->user_ptr[0];
++	struct net_device *dev = info->user_ptr[1];
++	struct wireless_dev *wdev = dev->ieee80211_ptr;
++	struct nlattr *tb[NL80211_SMD_PARAMS_ATTR_MAX + 1];
++	int err;
 +
-+		if (refcount_dec_and_test(&wifi->uhr_smd_ctx->refcnt)) {
-+			kfree(wifi->uhr_smd_ctx->smd_ctx);
-+			kfree(wifi->uhr_smd_ctx);
-+		}
-+
-+		/*
-+		 * __skb_ext_del clears active_extensions but not ext->offset[],
-+		 * so __skb_ext_put will call skb_ext_put_wireless again;
-+		 * mark NULL regardless to avoid double free in __skb_ext_put.
-+		 */
-+		wifi->uhr_smd_ctx = NULL;
-+		break;
-+	case WIRELESS_SKB_EXT_INVALID:
-+		/* data not yet set */
-+		break;
-+	default:
-+		WARN_ONCE(1, "unknown wireless skb extension type=%u\n",
-+			  wifi->type);
++	if (!wiphy_ext_feature_isset(&rdev->wiphy,
++				     NL80211_EXT_FEATURE_SMD)) {
++		GENL_SET_ERR_MSG(info, "SMD is not supported");
++		return -EOPNOTSUPP;
 +	}
-+}
-+#endif
 +
- void __skb_ext_del(struct sk_buff *skb, enum skb_ext_id id)
++	if (!wdev->valid_links) {
++		GENL_SET_ERR_MSG(info, "SMD is not allowed without MLO");
++		return -EINVAL;
++	}
++
++	err = nla_parse_nested(tb, NL80211_SMD_PARAMS_ATTR_MAX,
++			       smd_params_attr, nl80211_smd_params_policy,
++			       NULL);
++	if (err) {
++		GENL_SET_ERR_MSG(info, "failed to parse SMD parameters");
++		return err;
++	}
++
++	if (!tb[NL80211_SMD_PARAMS_ATTR_IDENTIFIER] ||
++	    !tb[NL80211_SMD_PARAMS_ATTR_TIMEOUT] ||
++	    !tb[NL80211_SMD_PARAMS_ATTR_MAX_PEER_APMLDS] ||
++	    !tb[NL80211_SMD_PARAMS_ATTR_TYPE] ||
++	    !tb[NL80211_SMD_PARAMS_ATTR_PTK_MODE]) {
++		GENL_SET_ERR_MSG(info, "required SMD parameters are missing");
++		return -EINVAL;
++	}
++
++	memcpy(smd_params->smd_identifier,
++	       nla_data(tb[NL80211_SMD_PARAMS_ATTR_IDENTIFIER]),
++	       ETH_ALEN);
++
++	smd_params->smd_timeout =
++		nla_get_u16(tb[NL80211_SMD_PARAMS_ATTR_TIMEOUT]);
++
++	smd_params->dl_data_fwd =
++		!!tb[NL80211_SMD_PARAMS_ATTR_DL_DATA_FORWARDING];
++	if (smd_params->dl_data_fwd &&
++	    !wiphy_ext_feature_isset(&rdev->wiphy,
++				     NL80211_EXT_FEATURE_SMD_DL_PKT_FORWARDING)) {
++		GENL_SET_ERR_MSG(info,
++				 "SMD DL packet forwarding is not supported");
++		return -EOPNOTSUPP;
++	}
++
++	smd_params->max_num_of_peer_apmlds =
++		nla_get_u8(tb[NL80211_SMD_PARAMS_ATTR_MAX_PEER_APMLDS]);
++
++	smd_params->smd_type =
++		nla_get_u8(tb[NL80211_SMD_PARAMS_ATTR_TYPE]);
++
++	smd_params->ptk_mode =
++		nla_get_u8(tb[NL80211_SMD_PARAMS_ATTR_PTK_MODE]);
++
++	smd_params->neighbor_probing =
++		!!tb[NL80211_SMD_PARAMS_ATTR_NEIGHBOR_PROBING];
++
++	smd_params->smd_enabled = true;
++
++	return 0;
++}
++
+ static int nl80211_start_ap(struct sk_buff *skb, struct genl_info *info)
  {
- 	struct skb_ext *ext = skb->extensions;
-@@ -7278,6 +7325,10 @@ void __skb_ext_del(struct sk_buff *skb, enum skb_ext_id id)
- 	if (id == SKB_EXT_MCTP)
- 		skb_ext_put_mctp(skb_ext_get_ptr(ext, SKB_EXT_MCTP));
- #endif
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+	if (id == SKB_EXT_WIRELESS)
-+		skb_ext_put_wireless(skb_ext_get_ptr(ext, SKB_EXT_WIRELESS));
-+#endif
- }
- EXPORT_SYMBOL(__skb_ext_del);
+ 	struct cfg80211_registered_device *rdev = info->user_ptr[0];
+@@ -7505,6 +7577,12 @@ static int nl80211_start_ap(struct sk_buff *skb, struct genl_info *info)
  
-@@ -7300,6 +7351,10 @@ void __skb_ext_put(struct skb_ext *ext)
- 	if (__skb_ext_exist(ext, SKB_EXT_MCTP))
- 		skb_ext_put_mctp(skb_ext_get_ptr(ext, SKB_EXT_MCTP));
- #endif
-+#if IS_ENABLED(CONFIG_WIRELESS)
-+	if (__skb_ext_exist(ext, SKB_EXT_WIRELESS))
-+		skb_ext_put_wireless(skb_ext_get_ptr(ext, SKB_EXT_WIRELESS));
-+#endif
+ 	/* FIXME: validate MLO/link-id against driver capabilities */
  
- 	kmem_cache_free(skbuff_ext_cache, ext);
- }
++	if (info->attrs[NL80211_ATTR_SMD_PARAMS]) {
++		err = nl80211_parse_smd_params(info, &params->smd_params);
++		if (err)
++			goto out;
++	}
++
+ 	err = rdev_start_ap(rdev, dev, params);
+ 	if (!err) {
+ 		wdev->links[link_id].ap.beacon_interval = params->beacon_interval;
 
 -- 
 2.34.1
