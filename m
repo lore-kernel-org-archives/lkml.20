@@ -1,283 +1,227 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C6F54B1C6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878835; cv=none; b=taqhfWuk75NRhEoNfGwUEsZMK7tSKZdXlCrYnG7k9p53rCXUZl67jT5WA4h01LBA6z8ZHR5yKVoodz+Bc6HlEoL+5E4tBqCEZXfp+6Jf+ZMnObimL0IaU8pzytQGab90frBLFyTZJZN7zQoDP7gTtIlGZ2Odzoxg6tzgTLh/KhY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878835; c=relaxed/simple;
-	bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FbKbYLoxQ1jmcl61P50KCnxkcjH+A5BfNnCxfUIO36X24oMfNc0S7owWZUwG5Msxx1wBTw3rC2s2Ue4Vk/9eYsRTj0p3W2IpVtrzyWM69mGJT+yn+dKA7vcFnXTxzgiyk1QbliUq/xb5ieEnmYbXaNQJxlwNz18LDTTD6DV2KiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BgJRwNhu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6fJqpPN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B5C550DD8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788878916; cv=pass; b=EWLiDEjDYR1H7kZ4ROAPktNPJSMgHk0WrKeGqHwTUvJyk4XwkxMkXwRq8aRLJVggojiRa6NX+yzkO4pISNl6nJzvG1cF+UfJRLJ9m/Jkz9nipPk/mM8rFrHBaVfk2rVvbj2+EOPKUaJWyL110uu1TS81Dmy8AOH/SrQnv93B41k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788878916; c=relaxed/simple;
+	bh=EjEW2kUESRx+FlqmPNXRHTzoTzrwE2ifQQLqdnN8eXo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JwXegwBODzGIVodHyssd44UWYi8ay6KbWaR5gcF32p1ZAdQ0TMDjh/Du+RM4PCoNjNM7IyrPGiXopxAbjp2mkVnhVN6vF+Li9cAwPCoi2Q6jgDFnNRtqofrJLN0pilNDbcZxaopiNrvSWOQtL6+6b3xoNdO2zys9zGclCLWyl24=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V4xvgDvs; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BgJRwNhu";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6fJqpPN"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Ej5q73483196
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 14:47:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=ST7wDY9QZk1oGjjrN6llgg
-	nO0dFwmF9Svnv+hjQYAyA=; b=BgJRwNhuUWBhQXkjeKX0A+aaLb2C236cUyWi+Y
-	lPpZhFfKBKlf5sPNedjk3dvDcQiU9vH/AkNjma0IkpquFUS8OxkQqRNu4XyIkXze
-	hbJN7yJ5a9uMVH+aD2QjC3uDi6LJfEgUUnF0LJUNOdJyZxHExONJugpiGsqYAAzF
-	ANTbXxYTS5iZ7I1TLlhcx2I72a4QiQG4sOMGfCXrjQ4HnSvUaGiOTOv2y37pebbj
-	RKpAB12Av4Bixtl0JZVmoc0cFbU3+pbIQgx0Z8sXWzTKFxhqYGK5zrQQQX98RAwa
-	2HQsrl+MhKWw6aW7cxPcFCOc0VjEO3fXn41z2CG1/eW4xD0A==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjagujmwn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:47:04 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso5728252a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:47:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V4xvgDvs"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482e1b30c94so300782f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:48:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788878904; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dezt5QLlPoZlF2rw5/4Is4wY5unE3zbh10TCGX0/0UzlJih9+/f5/z5e+/fC8trpeG
+         KEkIVhizyU8bvEoQnfuXsGZ1KCPvDkRzwz+ODTgbtGAuCdDlpzlUoDsTD/PGAyg1Sact
+         EVlxd8dFr6tz6jICI+qhRcQCCrG/ZVPDkRJvOAbrYACztBjkW6J1hs+4zz5IALc2AbQW
+         La65oqUsVxwPYToQ7B7cwarAWiI7AwEjQUhXJ2SvitdX4XI60uHN23nTjXWrGiU1LUv8
+         KFZMaool+tuSTay2R8EcNNRwP+UUthDvHxC6QuuQyTZ2OPcPCSCFhYx/4MAp69RLVB7k
+         9JnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=3NYcqD9fW2oLParj8320kOSOxI0m9dJtpaA9HezT2S8=;
+        fh=eEkSqE2+ICSe/0OGIUi1vQsIZ68z7VrofHre+kyfTrE=;
+        b=I4BlLEUJmkoSIhfGYq/183q0iDxEwK19WndJfSQSBp28ba4jfyT3uf4VO7SCuHvJka
+         nJQ0Umgxe5GEN4cHWcaGyHI5YGGnvkSyd07df1foKiqgpCtv+QbvEmK3s/w3wgLFMZz7
+         WU/HAc3rFvaK0wkIOm3kEb/OxGrGefWEZ/zFr7XO+UzEbfZ1giSvp+IkCkzVBSgbs3YB
+         SMwqDnhYowxGtmojPTTbe7lgsu71ZhbszaBQblo/bspd2xAYudi1X4lLo6ydJ+PtgI82
+         SVBKZXf1Rd3GpO3hddzt89LRnP+A4D5Krz7Prds/zBczMxxkeyVDZBUHGNl6YELBKZ4B
+         1OPw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788878824; x=1789483624; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
-        b=Y6fJqpPNB3YteVoeL/6vkt4CkOyfwseqxYIASgDYH7igzawO+htZo71HRqX3Bd1ZM4
-         fPAz78xI/PJrfO99U60ym2XINRTxFAHIEbuVsyAhO/t/BhBWEIJW6I8vClcdwaK9Ml9l
-         bIypR8GFRL3uzifOKaos8+or1PCkn1sOTfPAqW3ekAFd2Env3HAoLVYexMAw/WTrHn8m
-         0szHcFvLFWBq2bVfJ7BSGrPV/hk/VP9yulyekXzCNQ6iqF4tBuBE0KLQujBNgCfYIQLU
-         7d5ITRgH1PzFSg23w+U4fky/XKjEx0yG2MZfqWh+bOcmJyvnaujSv5rwN80+Rb9eLGjn
-         PR8Q==
+        d=gmail.com; s=20251104; t=1788878904; x=1789483704; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3NYcqD9fW2oLParj8320kOSOxI0m9dJtpaA9HezT2S8=;
+        b=V4xvgDvsrO1ubBwHZxQog/mAIe5KyjUDn7uWl1NL2XOq7GaWFW99l8lIZkScXmIfe4
+         TUdzONpkLZPRHiK+cwN2Dlwt2Xbh4Cl8dj2g14ct+kPpY9muhsozJWj2+9BkBPHlaos6
+         EXhFVetoJPESV3DYAntYsoho95oSdoEQhV+4pA8RmN4LF1GjKXA3Cs6yJ5F3YbsFMrkr
+         Xkid5TS/xWWkXR07eQ1cmdRNdnqfw1/W5mdBlOVMIxR5uRC1Seer8KhxTknOA19Ij6Dl
+         JjYLh8IVuw/KyJ3ga+4dniOpGKGEY9cRZsx6C7f71KOXryITar0FcNMlFGIKWBh4xer1
+         +aoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878824; x=1789483624;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
-        b=RZ0P3FFBV3r7mBPi8sdyEOMPREXNda7E8AM45qWy+WLAj08lH5dWrIz4DmCDyyaJHJ
-         O1iZn9mUmlPuJSvqHuyhsjkPQVC5qFfekA8fx/6G01NQUDc+Tii/7VU2zM7rJ0kG3xRM
-         xx34FPAFKZ7lbf/37x8uZvSJms3ruVpXQjZv5YFb3Qg/rOTZ0KAumq2X4raQ6UAnevhn
-         5UEyROcgaQbOxg7yd7rCMVGS7XaO3A95FBzaYUXN2lI8oJjpcta7VLWvLF8jkBoRwVVd
-         OwJxgM7FMbehA+EwHgL5gUqezbDVXECXx2g+5Q1JxYVH715J3tltXdvjqfbfIIJgrK5U
-         UMbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzvlgMgCj7rbpmEpdTKWlZOmSLln9H3WfwTxfLQklyojseQBMAYdUL8UM8ltdYsnvyWxdY+7tsfJ8MEaCA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nDmDCsTUJjkw6+75s19mKe1bXMWFLytb3YKQiaJoIVDusMW/bf
-	7r0T5hZCO1g0mlKTQNVgqz7jv1s38mKzeftQyg34FMdEjugQWqAsFm9BZGAHY7ryVVcu46KHvb1
-	Nul5OsHOO3crX4gzkBcd3G/wGFxQeORSFqAafGbTD9VKY0h/HGsPtgu2WYjEoY0kUnqo=
-X-Gm-Gg: AYBFou1mw716yNFmtEQQoYnJjU2BsaQn84zXWko6iqH1yY9zSHIQLG0FDQW6us9MMjt
-	RzR2Osmw6JvEBT0S3HLSoXqDjQZvQ3elC4l6sGkoYEg1oDVZqYTQFjWg6pxI0PbE/vvA7ynMtTd
-	uEedLEKO9j+sgmtH73nmolRaveHUKR/KlM4TW0UkxD8r3Fs0VAqdfc87BUvv11M08yVyjhJQOZX
-	Yyv4kSo+ivfmMwf/SP3a0cvgJQ9TL2RvbEl8fLNzEqOvowijJZGYtEiq2porM3qf98bAw/KXQAX
-	ggj67wr7tMAIYo88VmCgHR0pYVwl38eqSC+RLpopK/3Kxzms59/AxYPHKX85rmrWXj5dSGzdxmm
-	sMVaGotE8yEm8rhskTHy8bfsofGZk6S/ucCQk
-X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609771a91.1.1788878823551;
-        Tue, 08 Sep 2026 07:47:03 -0700 (PDT)
-X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609705a91.1.1788878822944;
-        Tue, 08 Sep 2026 07:47:02 -0700 (PDT)
-Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm37018331eec.9.2026.09.08.07.46.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:47:01 -0700 (PDT)
-From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 20:16:43 +0530
-Subject: [PATCH v4] dt-bindings: remoteproc: qcom,shikra-pas: Allow
- bam-dmux subnode
+        d=1e100.net; s=20251104; t=1788878904; x=1789483704;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3NYcqD9fW2oLParj8320kOSOxI0m9dJtpaA9HezT2S8=;
+        b=tE1Mt03g2q3AF8QXfSUnjBPWgQlVKboTO7OPXin84OLDCiMb1fck2WKApHnrJVIN2F
+         E+UUvm0SoI+34UBFpVephAuVhcDika2AMpCupLS7bmP3qZmJJcIDW+aZxJowQdqg3MiY
+         9ThXvLea2MTetyuaXJGm7KbxdhuAgqDjU4gLG9mwBF1qTDjL2fLz7IHm+pNjsgyZP2vH
+         bKnfBBMyp7cucKODiKNAeMGiE8lLiXXDJsylt+ScNaQT0ADd3W9oIbEUzniL2hxt6rSa
+         fzn0KDT7LSppZEzXznGaeCoaszXPEFDBnXhqDICjDYNIgMQP8V5YIBKzxcrVaUEsDHC5
+         lzYg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2RsxZINx6TUkRb8UL0LSk3p09D1aoF61TJ1IEOBYpJzHQvVLQxTwsCOPdFowZSM3/i2VfzqtHVxaTRvo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lE1KQ6d5Osokz+/7YMKrIESuNgqgXwgAoqXBthlTwFa3pNwdlM
+	fIRyTyPI80d4e3CgzybCdDUJ8zi8wA059h5380fX0lfxyeYAgZhiUSX2ny0zCLjxzMtYTl2DwYR
+	Scqa/hwid9yKe8gbHl+LYkqtbaNNPyjE=
+X-Gm-Gg: AYBFou26nfneJasWIafYCK1gDuJfciSyv6lE0lLsiG2PYFno31lYIm59xDbSzrT607C
+	z3AfIMl99LFM4EwNqlAANVuwfjq0uNmQo3zjA3ixNpTdaGwQrVcbzCG1gqIVTy7omOlRTnQ7o2E
+	FvOTrAfQ/aPSkZ06m0G8yvWh8FYohjG1C24qG8i47cRE1KAKeQTGDQ/K8NHdEMcdcqGCne0KYD4
+	8z9qBN0tpI8p31Aal9Il7MPoVd25jSU7glQ7FvlHqJt17DRFw4x1Kc0sVN5/BHeUTj5buVAHdxY
+	u/7IyT3Wze7W0KbihGbXSjdBkzJ9p2e3IM2tAViBhP49IoRjquZWcvJJbmHSdLh8BE7KYt0cDRf
+	Sm5YZkON/4I3vWzjllG25kzkDejmMjHA=
+X-Received: by 2002:a5d:5e0a:0:b0:484:3200:b7a6 with SMTP id
+ ffacd0b85a97d-485907ec2c3mr20932696f8f.4.1788878903312; Tue, 08 Sep 2026
+ 07:48:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-shikra-pas-bam-dmux-binding-v4-1-6044889e7e3d@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANIfoGoC/43NTQ6CMBCG4auYrh1Df6DFlfcwLkpbYKKAttpgC
- He3stGFGjeTvLN4vokE59EFsl1NxLuIAYc+hViviGl13zhAm5qwjBWZZBJCi0ev4awDVLoD291
- GqLC32DfAlC6qupQql4Yk4exdjeOi7w+pWwzXwd+XsUif3//cSIGCyWheGmm4s2I3hLC53PTJD
- F23SYc8+cjeyfI3yRJpVV47rYShgn4h+YtUlP8meSJpITWvqzyz7BM5z/MDQCvLW3MBAAA=
-X-Change-ID: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788878817; l=5433;
- i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
- bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
- b=D3EiykkSbxrcWm38hRsxB6VTUWXZEET42Pcgy8jgmvgFQuF58Ds79vOBbAIakrak0rQQ/JZ8e
- /l1VH2SqGxhCMiuUpFayEp/ZeqrniTItldmp/y1Mi3OPhGNDaYcwHOt
-X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
- pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
-X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6aa01fe8 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gmyZvYRh-Lm61jtpQzcA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-GUID: K9Lf8ae_95PoNQlZRYLQGm2Kt-UQtvyu
-X-Proofpoint-ORIG-GUID: K9Lf8ae_95PoNQlZRYLQGm2Kt-UQtvyu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfX/ywfBk5biy5P
- 9MtnJWAahSpfS2z8/fijrO7sQ7vpUkkh9ufGP7ob5I6nkme5Uaiy1iyzR3gnM/VtVZZ7ceTrGtT
- fZw/u+L9XRQsyVtDnLDgoxbKntpp//M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfX7AwrnSr/NEh/
- yD09vB73c2p0sZ89TmGkGvbjHwpoJBujB+jBYDqM81UxBR3Ni4h06BtNs9ccXeh8lZHrDhf5ZIQ
- asKZqf+Aus5FJ/ktvxhqZOmT5C6VgfF0OGZe+pZ/CVTVIf5h62JE7kwqKag4mQXsrJMkGE/49EF
- M9E/ANx0KbBWOZvfUm3vcz8TXsW6GSsZDDQ8eS6rqgjXDAeRKoyBMaHuCTIKqfRkf6MbTRnRp/I
- 6TvCIM94j+hmzg8NtGJdvBROEJiVJ03h0bKQkGZznWJnJbKYXQqLk1aIOXqE/8V9M/pkIKN+nlD
- XbQIkO1td9AI/Fbventf49EL7hZwl0NIgrWTPUYJTtonObXHQz7LsZzAQm8eYLyDdNEeIAK7BIr
- Zz/d0f3sz7orcqW8DPwqgwV8jFtEzljmhk5nVaAPR8bVY2XtDblP5koDXkIQW729Ublo4FrmX1T
- WI6VFKyJmV/4k43kSbQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
- phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080158
+References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
+ <20260901151818.3191443-2-xueyuan.chen21@gmail.com> <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
+In-Reply-To: <1d5ac9d7-48ce-4fee-b893-f646bade4a86@kernel.org>
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Date: Tue, 8 Sep 2026 22:48:11 +0800
+X-Gm-Features: AcwNN1W4h4jJ4-flD89PVNlVIy_4xMFWj1BYld6srQf6ZceGKY-mFk9Pv3akMZI
+Message-ID: <CA+qSx6yjiXJkQm=hi=F8=_=DU0x_usSuXnL_1yuy0fUU9UU-Zg@mail.gmail.com>
+Subject: Re: [PATCH v7 1/3] mm: make persistent huge zero folio read-only
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: akpm@linux-foundation.org, ljs@kernel.org, usama.arif@linux.dev, 
+	ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org, 
+	nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, kas@kernel.org, rppt@kernel.org, 
+	catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, 
+	linux-arm-kernel@lists.infradead.org, tglx@kernel.org, mingo@redhat.com, 
+	bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, 
+	luto@kernel.org, peterz@infradead.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The Shikra modem uses BAM-DMUX for its WWAN data path, but the
-qcom,shikra-pas remoteproc binding has no way to describe that
-modem-owned child device.
+On Tue, Sep 8, 2026 at 4:30=E2=80=AFPM David Hildenbrand (Arm) <david@kerne=
+l.org> wrote:
+>
+> On 9/1/26 17:18, Xueyuan Chen wrote:
+> > The persistent huge zero folio is shared globally and should stay zero
+> > after initialization. As Jann Horn pointed out [1], kernel bugs have
+> > ended up writing to pages that were meant to be read-only, including in
+> > security-sensitive cases. Making the folio read-only in the direct map
+> > turns such writes into faults instead of silent zero-page corruption.
+> >
+> > Add a page-based helper consistent with the existing direct-map interfa=
+ces.
+> > Handle TLB invalidation in the architecture implementation; unsupported
+> > architectures retain their current behavior.
+> >
+> > Protect the folio after initialization. Skip highmem folios, which have=
+ no
+> > permanent direct-map mapping.
+> >
+> > Inspired by Jann Horn's read-only zero page work [1] and follow-up
+> > discussion [3] with Yang Shi.
+> >
+> > Link: https://lore.kernel.org/r/20260508-ro-zeropage-v1-1-9808abc20b49@=
+google.com [1]
+> > Link: https://lore.kernel.org/r/0e5b23a6-4895-454a-9dfa-6dc21adc2991@ke=
+rnel.org [2]
+> > Link: https://lore.kernel.org/r/CAHbLzkrXXe7r3n3jXgDKtwZhRqj=3DjDx9E6dL=
+OULohnhBguvi9A@mail.gmail.com [3]
+> >
+> > Suggested-by: David Hildenbrand <david@kernel.org>
+> > Suggested-by: Usama Arif <usama.arif@linux.dev>
+> > Co-developed-by: Lance Yang <lance.yang@linux.dev>
+> > Signed-off-by: Lance Yang <lance.yang@linux.dev>
+> > Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+> > ---
+> >  include/linux/set_memory.h | 17 +++++++++++++++++
+> >  mm/huge_memory.c           | 13 ++++++++++---
+> >  2 files changed, 27 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/include/linux/set_memory.h b/include/linux/set_memory.h
+> > index 3fe293cfed8c..ed9ce04b18a1 100644
+> > --- a/include/linux/set_memory.h
+> > +++ b/include/linux/set_memory.h
+> > @@ -54,6 +54,23 @@ static inline bool can_set_direct_map(void)
+> >  #endif
+> >  #endif /* CONFIG_ARCH_HAS_SET_DIRECT_MAP */
+> >
+> > +#ifndef set_direct_map_ro
+> > +/**
+> > + * set_direct_map_ro - make a direct-map range read-only
+> > + * @page: first page in the direct-map range
+> > + * @nr: number of pages in the range
+> > + *
+> > + * Make the direct-map range starting at @page read-only and invalidat=
+e stale
+> > + * writable translations before returning.
+> > + *
+> > + * Return: 0 on success, or a negative error code on failure.
+> > + */
+> > +static inline int set_direct_map_ro(struct page *page, unsigned int nr=
+)
+> > +{
+> > +     return 0;
+> > +}
+> > +#endif
+> > +
+> >  #ifdef CONFIG_X86_64
+> >  int set_mce_nospec(unsigned long pfn);
+> >  int clear_mce_nospec(unsigned long pfn);
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 54494c3fa983..742283b36d74 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -42,6 +42,7 @@
+> >  #include <linux/pgalloc_tag.h>
+> >  #include <linux/pagewalk.h>
+> >  #include <linux/cleanup.h>
+> > +#include <linux/set_memory.h>
+> >
+> >  #include <asm/tlb.h>
+> >  #include "internal.h"
+> > @@ -291,10 +292,16 @@ static int __init huge_zero_init(void)
+> >       huge_zero_folio =3D alloc_huge_zero_folio();
+> >       if (!huge_zero_folio) {
+> >               pr_warn("Allocating persistent huge zero folio failed\n")=
+;
+> > -     } else {
+> > -             huge_zero_pfn =3D folio_pfn(huge_zero_folio);
+> > -             count_vm_event(THP_ZERO_PAGE_ALLOC);
+> > +             return 0;
+> >       }
+> > +
+> > +     huge_zero_pfn =3D folio_pfn(huge_zero_folio);
+> > +     count_vm_event(THP_ZERO_PAGE_ALLOC);
+> > +
+> > +     /* Highmem folios have no permanent direct-map mapping to protect=
+. */
+> > +     if (!folio_test_highmem(huge_zero_folio))
+> > +             set_direct_map_ro(folio_page(huge_zero_folio, 0), HPAGE_P=
+MD_NR);
+>
+> Assuming we keep the page-based approach, can't we just move the highmem =
+test in
+> there?
 
-Without a bam-dmux child node, the binding cannot model the relationship
-between BAM-DMUX and the modem remoteproc, and userspace cannot
-associate the multiplexer with the correct remoteproc instance.
+Hi David,
 
-Add an optional bam-dmux subnode to qcom,shikra-mpss-pas referencing
-qcom,bam-dmux.yaml, and restrict it to the MPSS compatible since only
-the modem subsystem uses BAM-DMUX. Add a second example exercising the
-new subnode for dt_binding_check.
+We can move the check into set_direct_map_ro(). However, on x86,
+set_direct_map_invalid_noflush() and set_direct_map_default_noflush()
+also expect callers to exclude highmem pages.
 
-Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
----
-Changes in v4:
-- Reword the commit message to explain why BAM-DMUX belongs under the modem remoteproc.
-- Restore the original CDSP example and add a separate MPSS example that exercises the new bam-dmux subnode.
-- Link to v3: https://lore.kernel.org/r/20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com
+Would it make sense to make highmem a documented no-op for those
+helpers as well, so the direct-map APIs handle it consistently?
 
-Changes in v3:
-- Reword commit message to keep it scoped to the binding change. 
-- Retarget the example to qcom,shikra-mpss-pas and add a bam-dmux child.
-- Link to v2: https://lore.kernel.org/r/20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com
-
-Changes in v2:
-- Restrict bam-dmux to the qcom,shikra-mpss-pas compatible.
-- Link to v1: https://lore.kernel.org/r/20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com
----
- .../bindings/remoteproc/qcom,shikra-pas.yaml       | 75 ++++++++++++++++++++++
- 1 file changed, 75 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-index 253b14eb2b598f0ca91854c8ff4d0b785090e621..da66034311522ba36d160959172c1444c5999509 100644
---- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-+++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
-@@ -44,6 +44,11 @@ properties:
-       - description: Firmware name of the Hexagon core
-       - description: Firmware name of the Hexagon Devicetree
- 
-+  bam-dmux:
-+    $ref: /schemas/net/qcom,bam-dmux.yaml#
-+    description:
-+      Qualcomm BAM Data Multiplexer (provides network interface to the modem)
-+
-   glink-edge:
-     $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
-     description:
-@@ -117,6 +122,16 @@ allOf:
-         power-domains: false
-         power-domain-names: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - qcom,shikra-cdsp-pas
-+            - qcom,shikra-lpaicp-pas
-+    then:
-+      properties:
-+        bam-dmux: false
-+
- unevaluatedProperties: false
- 
- examples:
-@@ -165,3 +180,63 @@ examples:
-             label = "cdsp";
-         };
-     };
-+
-+  - |
-+    #include <dt-bindings/clock/qcom,rpmcc.h>
-+    #include <dt-bindings/interconnect/qcom,icc.h>
-+    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
-+    #include <dt-bindings/interconnect/qcom,shikra.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/power/qcom-rpmpd.h>
-+
-+    remoteproc@6080000 {
-+        compatible = "qcom,shikra-mpss-pas";
-+        reg = <0x06080000 0x100>;
-+
-+        interrupts-extended = <&intc GIC_SPI 307 IRQ_TYPE_EDGE_RISING>,
-+                              <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
-+                              <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
-+                              <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
-+                              <&modem_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
-+                              <&modem_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
-+        interrupt-names = "wdog", "fatal", "ready",
-+                          "handover", "stop-ack", "shutdown-ack";
-+
-+        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>;
-+        clock-names = "xo";
-+
-+        interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
-+                         &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
-+
-+        power-domains = <&rpmpd RPMHPD_CX>;
-+        power-domain-names = "cx";
-+
-+        memory-region = <&mpss_wlan_mem>;
-+
-+        qcom,smem-states = <&modem_smp2p_out 0>;
-+        qcom,smem-state-names = "stop";
-+
-+        firmware-name = "qcom/shikra/modem.mbn";
-+
-+        glink-edge {
-+            interrupts = <GIC_SPI 68 IRQ_TYPE_EDGE_RISING>;
-+            mboxes = <&apcs_glb 12>;
-+            qcom,remote-pid = <1>;
-+            label = "mpss";
-+        };
-+
-+        bam-dmux {
-+            compatible = "qcom,bam-dmux";
-+
-+            interrupt-parent = <&modem_smsm>;
-+            interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
-+            interrupt-names = "pc", "pc-ack";
-+
-+            qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
-+            qcom,smem-state-names = "pc", "pc-ack";
-+
-+            dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
-+            dma-names = "tx", "rx";
-+        };
-+    };
-
----
-base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
-change-id: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
-
-Best regards,
--- 
-Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-
+Thanks,
+Xueyuan
+>
+> --
+> Cheers,
+>
+> David
