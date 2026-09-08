@@ -1,65 +1,71 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com [209.85.219.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7BB5566C75
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7E568FAB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882317; cv=none; b=KkE4NsTxHUxsJfEYtlj1rBaInTRMMeQvPUMBOpUmpLYWU69A7xH7+YalqEel/y72MqblCC+QcRvDbAUIgL1sgMVVjCYOLyA8OYi/2KFj4KGxjyb1Lqj7OWtBRbRCuhdFiLuJShChCFVSDv5KXhw8E8G7CDPtCY2Wpe6O+pasilg=
+	t=1788882330; cv=none; b=uT9+ZjoJ68UrVqAPMbINmpQ2vZZ4PY+IdqUpzGFfP5p7B56wgh7K3TWNm+us/V9mkd0Fg+RK4hQxTG4eFMly0T89H5NVKSstTthFH+PmC4Y9LEaQAXcN0bt6v6t7EjqteA0iU1NgPP+DxOQQ1jKg/MbApqFpVUcqYJ8wd/8b7sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882317; c=relaxed/simple;
-	bh=UM1MBT/BJUGhWApI+IfB2Mek7UMuH86ncQOmZxWBn1Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=btStwaJ4dicO+lAfDZXWo18Zid8l89WgOsNvB+EEVdLpWlSd0ds8goqAQP+oIWa3BLwNwfwxkpwSbYPxfwpBZJ290WBtjLLV4zf5I2x5U9iOG+eg7C4vpDDIn73+oorhG2aewejE08a+bhIiq65Ks81aYN7Wd0ck0fDXe5bLtSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G8e/7D2B; arc=none smtp.client-ip=209.85.128.181
+	s=arc-20240116; t=1788882330; c=relaxed/simple;
+	bh=dFKB6M5FKojpRsZt+gYTvbAvCaAVxlex6m2PzwZrubI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=f6nBfd0yl1BmVLJnwYM/lLCBltIg5QV/aekLwUX0hIceFR9wTZ3EKEU5U9UR/mxqYqJcF5bKnsG/DEg7Ub9kFFQVjGvvry4Wyv8LVu3AuI5vNMZwkEFnzco6DGnsx2ixTjA1BYeVXoB1F9fhc/IxwLC4ug1M5bMqSSDGw5Z/8wI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U2xelVBp; arc=none smtp.client-ip=209.85.219.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G8e/7D2B"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-86d43cdee51so58403977b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:45:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U2xelVBp"
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91034716d1dso74166096d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:45:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788882313; x=1789487113; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WekuzezNfimNZjny0pBl2QWRYC2pvuksOZKhLQ04/po=;
-        b=G8e/7D2BAZJ7ZbwPsft1SkfkTeI8xHXImohFWugrsoy/dUC6EFUuGCiwWexcPYwhh3
-         kq49Ysul0LRMmXUTiRBdcIBfBjvVh3ghL1SkVIWOzsXAQeheTgeQYuT4qP1s++8bjVNi
-         ACxlXd6Fjgx1K7hQubUMDwnlD7bi7B7TXjYwWYztTjJfYYw3z6wnPZLR9s60O2XZHlgm
-         nV2r5OU8hu818/ITiUcVDs1SH3k3zkGUwvLrme0oNtQHu8Vq7Ufl+CJEZ4bVVxFEMa7V
-         ozbEktrIwMkniMON2R8UHa+4qvtlQG0lTCnCTwUVTLB43KwBgqAHiu8qWywO88JAcpa9
-         toYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788882313; x=1789487113;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788882327; x=1789487127; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WekuzezNfimNZjny0pBl2QWRYC2pvuksOZKhLQ04/po=;
-        b=pUW1doS9uZsZ3EvMMiNCTbGo/9PKxarQbky7n0N9h8GsLdwT/aG70imprpiLGK8StR
-         7yybfYLBArmHG92EYlwTkloLTaFTlnumB8DU6r1OpPJjxba6RJHl4MGBHRq2clXRGZnN
-         jFR8NZhZChNLsPwKLp7+E0B2qIIwsbSC0AgcAPkpuyYyG4QOoc5KRncyrXn2rSkKIc9J
-         Nt6uKBDkTKu6JzaBZIFWw5luLotkH51HOg5JSUA8tfQNElwZzQ/cHJFFDHuJ0E7uJQwu
-         WXto8tYem2XXnK/eXRgECUwH+3JtT38HoI1/WhpP8rtRkP1x7f2e0Ezrt5obf8q5/Qzl
-         jYQQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy195ypyo/6yKzmE3zjebgJ9lEcSnrGa2EA04gD93RvXJY+YHDB+Gt2WVXSOQVjICs2M+45Qc7dNhh+fWI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQXDJp8QQka81tATZas5crlgufYRbhnMfJiMN7bAD967ph763R
-	X9qcAJZHC02SFtTcJfxc41tOirrFwwaNzawklqw/vzCU/G6d1MoWUPZz
-X-Gm-Gg: AYBFou1UY1+uqaveR3MRmh7b3ecFqgq1A80l5M0E/4NVfoYKIOherQB/RV8SwDlX+WV
-	7mpZTEBmhWAMgjyMtOhLlDl30QbHSOjOlgZFaTqVUtRYNp5lyTmDem2CTSbTyJqE5aEJM6/nmwJ
-	LGWUXWNjZl/iJPdppkF06d1P0UeOyu+RXiIbvYTjmyOsBAYgPauNjXcawwoaVlz2yfT+fa9Tg0X
-	zUPmF7vDbEbkSgV0TIK88XS4ciMrCF11in+XUq7fvs3F7gul3OZuP+6RmXip+XNSCx0oCKJp60i
-	MppTF21qlAdvuWKBzfvnxXQ2Yrp9SMWq9PKk3sBTZAduJus/FE+k+Eq/Se+WVQlWB8sJrU+enac
-	Z9NkRp2tRkGlHPM8WDLGOFaN/F7M0OtqAGBN9iyAMTlMcfxupFVQfczJVoGsVVCi0TC15nUe6aC
-	bAInYVC3Sqrz08GFfhg7Dr5eV69OFFiUL6lGHLBSIgVDBtgJj3axHjvg9VeJyoLbvweGYzUYw8b
-	LKmqx+feJHPWGrxfThTpb9GTqkfgeeClr6pxTNt8kVggscFh8FLw+jqD3JbkVJIhnQ3CVNjCQ==
-X-Received: by 2002:a05:690e:1244:b0:66c:707b:60eb with SMTP id 956f58d0204a3-66fb5a149f7mr8100296d50.23.1788882312712;
-        Tue, 08 Sep 2026 08:45:12 -0700 (PDT)
+        bh=J2h+q2CPO6RUOr1bTBHq2Gab7Sy0CjwyXjSNQkF67CI=;
+        b=U2xelVBpPfi+FR92iBF3ElR1ZsNVeRFFgFWo1aOfKXbt0F8xE34wDo1yih0tOF5/25
+         8munbgqTHw38BTWjhYu8S3kjEJ8gkFZ/x9ARycZLwygXx1H9rUYawxaYMuijLjuWhap+
+         VdwvZE2VCvoCAH1VJ7e81R7w2owF27YO58s1pzalWxc76qOPAA2FWPUrvzE4x+dBdKtl
+         m6IXrx29mgpgfmtSbawijFdfjwfrz9HFBC2uExiDrLj7hk3SliZhP12JngjIG2v6rOfC
+         hgtViL/1wauXBHDxVx5ukxGWdOQy1lzOGPMnzBZpFysGFL76arx3NjtX2tPr5V74WMaW
+         Z5Rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788882327; x=1789487127;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=J2h+q2CPO6RUOr1bTBHq2Gab7Sy0CjwyXjSNQkF67CI=;
+        b=OIixABkA0o8Bh4tVgcukJlrSgEjFTMjSrUWet57rqJDkyLlugJfjoyPFcCRWzypA+t
+         0PjAgK2R9Cf7FvLRxJV99RhtPMFfwL/rCS0eYJAtZwwUZR6BV6kivVnAn9CR7krR2zos
+         vMJp3HIoLaxeZLkjqGw9OTVhK3AUSi4g06S2lwo6K3y6lD1GM8OSTXWhxH65+ctmIfSr
+         dL8agdkROJuZ/UqMUc9lKmCYHnSNQh4Yb+ukLXqEUhhyKBvZbGGym4qGcPurt2/JgCuQ
+         iZHHfPUJdBsy2xSlu29nQGC3HKUFbY96xewrwfGhpWocfIWvYFTGenMxFZ0eXhtDh1qF
+         8FxA==
+X-Forwarded-Encrypted: i=1; AKwUvBxNjJBUvktG1jdO1R4ILA801sEx5M94fzRNhB36OZvAS+5c424tcJhYTBdm3STspsOWWiWOcSdCNxHfZGI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lW77b4u5XunCwTltyT8jLUS3yHYR+SHYKf3RK7SHEnHiOveMtM
+	7QFNd7Jlicxj+kkkmIX7cz/sOG4skEbfTv6LZrir3y5YOqjExjYZRTko
+X-Gm-Gg: AYBFou0YJYtgp6wEuO5QH44cj9uSs16qpGyTLohukR3X0AOadgMDKy3aV+BRkBg+2Gp
+	urVFxjGSWb69OIWlMP/Pjww4f+i4c795cSLcsbCBLpmv+U/iYvFp061XQVUd0xt2G/PwWZd2Vr3
+	g/yRAYNeumDvgw//vQs+woyAIxbQaUcwJFIT1DXmXpEEI6z5CttN7bZOIc4oyolbarlZiJvByjo
+	w+LB7Sr2fUNXb/WHvvbST3EBjMwZel5JDLI27WPK0MfiPaDrWpu5zGpfn9+Qf/hMCP/FUSVFfln
+	jrGDmVi1juPo/NscMTSffEDcVHQWhYoYj5Y8KEhhGwih9fDzOoIA1H4feXwVqsGugmwcXf359WK
+	dFsnUYMTbQ4KrjdTYobPp77KJWyikIHWoZt1gtOZlweI7hvyRhXQsboLv1DaWVdAFBdEZFLvEIL
+	Psp49NmT8S5nm8gH9qhAWH+ceO5oV9HW/WSx3oCp9SUsVtDbOr0CErdEi/HHX0XgvXPUH+8HGZg
+	vkbO5K79h46/TABM8ABdkZ8z2TWXSdAx2fCzbs/rgk4hPEiz69fMsNzTfcHQlY=
+X-Received: by 2002:a05:6214:202b:b0:910:345b:4dea with SMTP id 6a1803df08f44-9103f086aa0mr381765736d6.36.1788882325436;
+        Tue, 08 Sep 2026 08:45:25 -0700 (PDT)
 Received: from Ammar-PC-Fedora.tail72f32.ts.net ([2600:1702:7bd1:29f:8000::1])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104049d30asm120779386d6.0.2026.09.08.08.45.10
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9104049d30asm120779386d6.0.2026.09.08.08.45.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:45:12 -0700 (PDT)
+        Tue, 08 Sep 2026 08:45:24 -0700 (PDT)
 From: Ammar Ratnani <ammrat13@gmail.com>
 To: linux-rdma@vger.kernel.org
 Cc: Ammar Ratnani <ammrat13@gmail.com>,
+	Ammar Ratnani <aratnani@nvidia.com>,
+	Kechen Lu <kechenl@nvidia.com>,
+	Mithun Maragiri <mmaragiri@nvidia.com>,
+	linux-kernel@vger.kernel.org,
 	Leon Romanovsky <leon@kernel.org>,
 	Jason Gunthorpe <jgg@ziepe.ca>,
 	Namjae Jeon <linkinjeon@kernel.org>,
@@ -67,15 +73,13 @@ Cc: Ammar Ratnani <ammrat13@gmail.com>,
 	Stefan Metzmacher <metze@samba.org>,
 	Tom Talpey <tom@talpey.com>,
 	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
-	linux-kernel@vger.kernel.org,
-	Ammar Ratnani <aratnani@nvidia.com>,
-	Kechen Lu <kechenl@nvidia.com>,
-	Mithun Maragiri <mmaragiri@nvidia.com>
-Subject: [PATCH 0/2] smbdirect: don't hang on netdev reconfiguration
-Date: Tue,  8 Sep 2026 08:44:25 -0700
-Message-ID: <20260908154454.10966-1-ammrat13@gmail.com>
+	samba-technical@lists.samba.org
+Subject: [PATCH 1/2] infiniband: force disconnect if DREP and DREQ fail
+Date: Tue,  8 Sep 2026 08:44:26 -0700
+Message-ID: <20260908154454.10966-2-ammrat13@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908154454.10966-1-ammrat13@gmail.com>
+References: <20260908154454.10966-1-ammrat13@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,46 +88,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When I mount a CIFS share using SMB Direct over RoCEv2, I observe a kernel
-thread hang if I "configure" its slave network device by taking its link
-down and bringing it back up. Attempting to just `ls` the mount point in
-this state gives EHOSTDOWN.
+When we call `rdma_disconnect`, it's possible that we fail to send both
+a DREQ and a DREP. In that case, we currently either do nothing or move
+into the `IB_CM_TIMEWAIT` state. Either way, we remain in the
+`RDMA_CM_CONNECT` state. Anyone waiting for us to disconnect hangs.
 
-I believe the following is the root-cause of the hang: When the link is
-taken down, the corresponding GID Table Entry is marked as pending deletion
-and has its slave ndev set to NULL. All sends on RDMA connections still
-using that GID Table Entry fail at MAD creation. SMB Direct eventually
-detects this and tries to disconnect / reconnect to recover. Unfortunately,
-disconnecting requires successfully sending either a DREQ or a DREP. Since
-neither of them even post, the connection remains in the RDMA_CM_CONNECT
-state, and no callback moves it out. The SMB Direct layer never gets the
-RDMA_CM_EVENT_DISCONNECTED it's waiting for, and hangs.
+Instead, while we're connected, when we call `rdma_disconnect`, and fail
+to send both a DREQ and a DREP, mark the connection as disconnected.
+Call the upper layer's handler for the disconnect, and destroy the
+connection if instructed.
 
-Fix this in the CMA. If we call `rdma_disconnect` on a connected connection
-and we fail to send both a DREP and a DREQ; disconnect, and thereby send
-the `RDMA_CM_EVENT_DISCONNECTED` event to SMB Direct.
+Cc: Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Paulo Alcantara <pc@manguebit.org>
+Cc: Stefan Metzmacher <metze@samba.org>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: linux-rdma@vger.kernel.org
+Cc: linux-cifs@vger.kernel.org
+Cc: samba-technical@lists.samba.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Ammar Ratnani <ammrat13@gmail.com>
+---
+ drivers/infiniband/core/cma.c | 39 +++++++++++++++++++++++++++++++----
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
-I tested this change in QEMU using RXE. I ran Ubuntu 26.04.1 with a
-mainline kernel. On commit 9f0346dcbea3 ("Merge tag 'driver-core-7.3-rc2'
-of git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core"),
-I reproduce the hang. With this patch applied, SMB Direct immediately
-disconnects and reconnects when the slave device is brought down then up.
-Listing and reading files from the mount point also work afterwards.
-
-Artifacts for reproducing the hang and testing my fix are available at
-
-    https://github.com/ammrat13/linux-cifs
-
-There, you can find: logs from the "bad" and "good" kernels, the kernel
-configuration, the VMs' configuration, and a playbook to trigger the hang.
-
-Ammar Ratnani (2):
-  infiniband: force disconnect if DREP and DREQ fail
-  infiniband: trace force disconnections
-
- drivers/infiniband/core/cma.c       | 41 ++++++++++++++++++++++++++---
- drivers/infiniband/core/cma_trace.h |  1 +
- 2 files changed, 38 insertions(+), 4 deletions(-)
-
+diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
+index 73170b15fc3d..1f1a8b4e160a 100644
+--- a/drivers/infiniband/core/cma.c
++++ b/drivers/infiniband/core/cma.c
+@@ -4823,6 +4823,34 @@ int rdma_reject(struct rdma_cm_id *id, const void *private_data,
+ }
+ EXPORT_SYMBOL(rdma_reject);
+ 
++/*
++ * Called from rdma_disconnect() when we know we're not receiving a callback.
++ * Emulate what that callback (in cma_ib_handler()) would have done.
++ *
++ * NOTE: Despite the name, this function will only actually disconnect when
++ * we're in the RDMA_CM_CONNECT state. Else, it does nothing.
++ */
++static int cma_force_disconnect(struct rdma_id_private *id_priv)
++{
++	struct cma_work *work;
++
++	work = kzalloc_obj(*work);
++	if (!work)
++		return -ENOMEM;
++
++	INIT_WORK(&work->work, cma_work_handler);
++	work->old_state = RDMA_CM_CONNECT;
++	work->new_state = RDMA_CM_DISCONNECT;
++	work->event.event = RDMA_CM_EVENT_DISCONNECTED;
++	work->event.status = -ECONNABORTED;
++
++	cma_id_get(id_priv);
++	work->id = id_priv;
++
++	queue_work(cma_wq, &work->work);
++	return 0;
++}
++
+ int rdma_disconnect(struct rdma_cm_id *id)
+ {
+ 	struct rdma_id_private *id_priv;
+@@ -4838,12 +4866,15 @@ int rdma_disconnect(struct rdma_cm_id *id)
+ 			goto out;
+ 		/* Initiate or respond to a disconnect. */
+ 		trace_cm_disconnect(id_priv);
+-		if (ib_send_cm_dreq(id_priv->cm_id.ib, NULL, 0)) {
+-			if (!ib_send_cm_drep(id_priv->cm_id.ib, NULL, 0))
+-				trace_cm_sent_drep(id_priv);
+-		} else {
++		if (!ib_send_cm_dreq(id_priv->cm_id.ib, NULL, 0)) {
+ 			trace_cm_sent_dreq(id_priv);
++			goto out;
++		}
++		if (!ib_send_cm_drep(id_priv->cm_id.ib, NULL, 0)) {
++			trace_cm_sent_drep(id_priv);
++			goto out;
+ 		}
++		ret = cma_force_disconnect(id_priv);
+ 	} else if (rdma_cap_iw_cm(id->device, id->port_num)) {
+ 		ret = iw_cm_disconnect(id_priv->cm_id.iw, 0);
+ 	} else
 -- 
 2.55.0
+
