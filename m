@@ -1,74 +1,100 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 592B453359E;
-	Tue,  8 Sep 2026 11:50:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829CA40BCBC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:52:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868257; cv=none; b=Uaf+cA/PV1zjfPEmstohmI9ai3dC5kp9QK8a0y0Dhm3HP9CmJXmkcctyblJMugCs12xWgVGvvmg2UXfQ8SYzT/gvAEl5c5BQ/YSX/7zkEpQ+HYdSPX/KZEPBccSa9UYjEAXvvDptHKe8FzgOU1jolsgAax6a3m17IncRGq9mInY=
+	t=1788868364; cv=none; b=Ydztb0IxR7CZqltM4Fy8dlQafADLbH0h38+y7EQ022olbkP7QXhTCs1pu9V4VGyeULQVhuJYCg/LyMBY5D4I5sNQzLMM492A6Dp/6IaCIDf/3Wk37Q+pS65bsRwQ4d8MIgT5yBkXQAoXcwo4gowiFVN09fixPOPKmJakG7YZ6bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868257; c=relaxed/simple;
-	bh=ANLjYav43Qgpp8LogkfF7k4/1uwRinARijYqMXyvIs8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tNEWPi4jQQd24bEnkqlMfAA10H3IPUE/8RiXLmf8MEanrIIj5QFbtE2SwCOmjyAnjcOgvuchNxiFyyGgejRS3stQb4rb0du14MW3KwaZqpgYj1t6mu0UA1CVIbAW5CWzO73VZA5NsmUAg+jOtI3L7K7h0qwaH9S5KvMA2jb4WMY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=O5MHOcXP; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788868364; c=relaxed/simple;
+	bh=u2f5BkksbAx4MYFZJiRaIDTf2BUWlDOCLBiJhegy/0s=;
+	h=Cc:Message-Id:References:To:Subject:Mime-Version:In-Reply-To:From:
+	 Content-Type:Date; b=P3QlyVVb1k9s1iN+MDxBmddl92/ItwqdNS+a3asEV6/cp5DsbdRo3cI7zVT4Dn5an3aeXhDbTN4T7/r6Fvgv8VydAby4gnwAeVmtZH4sNEeqM4yOftkIlQGQo6YEgPBqSvWqdb/eYWZOSGvHisfsvolIuOBrJmorCwnBywMZAVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=oAciaalE; arc=none smtp.client-ip=209.127.231.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="O5MHOcXP"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=rZKv0oYjH9kU/nuci5sCum5K2+eqIbaQ7+tvedim76Y=; b=O5MHOcXPsz0LcqpFph/kaXwzwB
-	oCWC8hpACK3hNGWb/dxcAcjVVLo4yGdYDC18qRMAEaoeR/IaySPYoPAV26ft1sAN4WGo4XzCzGbo6
-	D59jmBtBOVPMIDsyUxliOGzzlM/RIWxJxbGZg/IY7+3spUZFodkci+2iET+mNm20/Yz4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3uLW-003s8L-00; Tue, 08 Sep 2026 13:50:38 +0200
-Date: Tue, 8 Sep 2026 13:50:37 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Amitesh Singh <singh.amitesh@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, olteanv@gmail.com,
-	kuba@kernel.org, davem@davemloft.net
-Subject: Re: [PATCH] net: dsa: tag_rtl8_4: push VLAN tag into payload before
- DSA CPU tag
-Message-ID: <6ec8d359-727a-4fbb-9ef1-3b96d05c2942@lunn.ch>
-References: <20260908040041.124640-1-singh.amitesh@gmail.com>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="oAciaalE"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1788868349; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=5hRKRFStZ3kEtkRaRC1rzuo8LqIY953LY/PKVlQqvE4=;
+ b=oAciaalEffb71uX+sg5z6f5jDzSnbPFD1iEG6YmhvELBnkAhD9zucbEXXW7f2phztods6/
+ H4oWdhu5xCwTjC95HICwkCev0swo+nzQI+8ALxnO6SVISEowtVH+4X+NRWYJM8zSi0YEdi
+ yKxuoiM9D3QI3aktg8St0JxXCHjGkEKfIbX1xJkTUr/PA6jSow/cv4fX1bUD3DBO0r7YAH
+ n0zBcVdPh+6QhRrxtZSdS0LPdFcj7bd3ApjJ2HHxTpYju+DcSdF7U/4WArMd5QwInMT7wX
+ URvAGrxKE1RgzqXB2WQhm8MkVXe0q+x65pGtsz58rxfnbf2lTvxd27/4nPjQNg==
+Content-Transfer-Encoding: 7bit
+Cc: <yang.yicong@picoheart.com>, <ilpo.jarvinen@linux.intel.com>, 
+	<linux-serial@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<gregkh@linuxfoundation.org>, <jirislaby@kernel.org>, 
+	<geshijian@picoheart.com>, <yangyang.8776@picoheart.com>, 
+	<yanligen@picoheart.com>
+Message-Id: <37481c9a-fc5f-49d8-8f66-c07da703ba89@picoheart.com>
+References: <20260907074035.77796-1-yang.yicong@picoheart.com> <ap_ik82SVnEGkBPU@ashevche-desk.local>
+Content-Language: en-US
+To: "Andy Shevchenko" <andriy.shevchenko@linux.intel.com>
+Subject: Re: [PATCH v2] serial: 8250_dw: Prefer SRBR in bogus RX timeout workaround if available
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908040041.124640-1-singh.amitesh@gmail.com>
+Mime-Version: 1.0
+User-Agent: Mozilla Thunderbird
+In-Reply-To: <ap_ik82SVnEGkBPU@ashevche-desk.local>
+Received: from [100.86.221.254] ([120.234.91.245]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 19:52:26 +0800
+X-Lms-Return-Path: <lba+26a9ff6fb+916b45+vger.kernel.org+yang.yicong@picoheart.com>
+From: "Yicong Yang" <yang.yicong@picoheart.com>
+X-Original-From: Yicong Yang <yang.yicong@picoheart.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 8 Sep 2026 19:52:24 +0800
 
-On Tue, Sep 08, 2026 at 09:30:41AM +0530, Amitesh Singh wrote:
-> When a socket buffer has a hardware-accelerated VLAN tag (skb->vlan_tci
-> set), the upstream NIC (e.g. imx-dwmac with tx-vlan-offload fixed:on)
-> inserts the 802.1Q header after the DSA CPU tag, producing:
+On 9/8/26 6:25 PM, Andy Shevchenko wrote:
+> On Mon, Sep 07, 2026 at 03:40:35PM +0800, Yicong Yang wrote:
+>> The DW uart could get into the cases where a bogus RX timeout
+>> interrupt is asserted but no available data. This could be
+>> workaround by doing a bogus read.
+>>
+>> Currently the driver's using the standard RBR (receive buffer
+>> register) for this bogus read. However the reading of RBR
+>> in this case is allowed to raise a hardware error if vendor
+>> choose to implement in this way (our platform). It's also
+>> allowed to do the bogus read using SRBR (shadow RBR) for
+>> workaround which won't raise the hardware error. So change
+>> to use the SRBR to workaround the issue if it's available.
 > 
->   [8100 VID][8899 CPU tag]
+> ...
 > 
-> on the wire instead of the correct ordering:
+>> struct dw8250_port_data {
 > 
->   [8899 CPU tag][8100 VID]
+>>  
+>>  	/* RS485 variables */
+>>  	bool			hw_rs485_support;
+>>
+>> +	/* Shadow RBR offset, fallback to RBR if no shadow register support */
 > 
-> The switch reads 0x8100 as the EtherType, does not recognise a valid
-> CPU tag, and fails to strip it on egress. The raw 0x8899 tag then leaks
-> to the peer port, breaking any protocol (e.g. batman-adv over a VLAN
-> subinterface) that relies on seeing clean 802.1Q frames.
+> This comment is for "section", so split it to two
 > 
-> Fix this by calling __vlan_hwaccel_push_inside() to move the VLAN tag
-> into the skb payload before prepending the RTL8_4 DSA CPU tag in
-> rtl8_4_tag_xmit(). The helper frees the skb internally on allocation
-> failure, so returning NULL directly is correct and consistent with how
-> tag_sja1105.c handles the same pattern.
 
-Please take a step back. Rather than have two drivers do this, then a
-third, a fourth, ... should the core be doing this?
+sure, will split.
 
-       Andrew
+> 	/* Register offsets */
+> 	/* Shadow RBR (if not defined RBR will be used) */
+> 
+>> +	unsigned int		srbr;
+> 
+> In APIs this defined as int, I would follow (however I agree that ideally in
+> all of them it should be unsigned).
+> 
+> 	int		srbr;
+
+will make it int. I remembered that I referred to
+uart_port::serial_{in, out}() that use unsigned int
+for offset, but yes serial_port_{in, out}() use int.
+
+will update in v3.
+
+Thanks.
