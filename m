@@ -1,33 +1,33 @@
 Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B3554F6481;
-	Tue,  8 Sep 2026 10:02:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150C3509F18;
+	Tue,  8 Sep 2026 10:02:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861771; cv=none; b=HEqI526D0LKgJA94lRi1GL7R4hTcife0k7MUv2gMLod8L0h/sdHzLJehogUoABPw+9KE2Pard2bpP0kUf8OpiqsmVUagjHDzAS8vyWbxstVDT7xPEsQeSZDVMtrbmxSFTbRNwd2Ajjf3xXq5MN+a9YrUydFtUnh1p38ldm/ZwPA=
+	t=1788861773; cv=none; b=DsQOuf0lceGeaBNXgzTH+zrSuE6DVwBEmmD1caemX95ktQWCvmdU2YL6CM9Wk7mIlM/vzYACx4PUuZY3Xi3REvmzYvTJsnL6M7XKO+knQu+K5TQHfPcI3WdBieNNmWmbHcx/ZrJZQplZfOp3d24Pve0d8LZxQSExneoxwyWJU7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861771; c=relaxed/simple;
-	bh=WU3qre6rJH7AApeSR09fJkyk1FXaIxkjlTD7ptpBd3o=;
+	s=arc-20240116; t=1788861773; c=relaxed/simple;
+	bh=fU6IyVGeAZ2/0Aflv+2bdlGrk2LbMMDJUGa7dvmI7Xw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bZkN057cNQYvXLMYz5SwiUWc/sCpTHJ7GlJc5+TUY04oGREAHH5CCVkZxYJRUhmPAyGS8yoP5em1qmeDRHCRKXWK11x4LBMq6l/Hqkmz1NficIsZIHncWnErfzRwckHPhAM4j/hysVrAfSCg1/nwxGHqZzDxnfHol8yPXOkQ4vI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=dlshf81+; arc=none smtp.client-ip=217.194.8.81
+	 MIME-Version; b=nD2dtvG9BrhEQP5ZIEEGNsHEEe/DwixNynH4wb7SM3XAuS9CFHkJXTvS0Rxgm/mZ9Th0v09CIimp+NjH9zL8Hc63a5AXKdFkfdQJEktYv3b7LJb23mgqCGrcY/YXmTMBnZrm6rQ95GqUhXEagd6I/Zw66vEPc8Oa3uymE+iO8Jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=RS5h5kpt; arc=none smtp.client-ip=217.194.8.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="dlshf81+"
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="RS5h5kpt"
 Received: from francesco-nb.corp.toradex.com (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
-	by mail11.truemail.it (Postfix) with ESMTPA id BA7DB2037E;
-	Tue,  8 Sep 2026 12:02:39 +0200 (CEST)
+	by mail11.truemail.it (Postfix) with ESMTPA id C5CE920472;
+	Tue,  8 Sep 2026 12:02:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788861760;
-	bh=V2TCIVHLFUgANDNWEbBVnC10C0FF0MGdtrz2Vu9b1xk=; h=From:To:Subject;
-	b=dlshf81+8dGxY9ub4RsX410QT4OdtT7VMj5lG3Hdk+ZG3o/ngm01LaFuFB826Eo2l
-	 gSa2gp1yXwYmja5f5kqtZCFkSAwzvN8kPaUyC49R5zaBp+CaRX43GjCTxhYke7qSHh
-	 TEMuepx1zoP/Rj+vTyCiJJ+7hw2T5PiZuAZX9T+LJy1uTjeaM7djGVxbWnsK/lgtut
-	 uJPZD2VgFejbZMdoAEmwSKB5B7/y8aUbm9o0hfzEKZ8uRWtmnDEkjMm58tyDuTVdny
-	 Lne8pb+GzwUQHTf4E0yEXBr1RuYIdKml7w4CvKAGWeRkTcN9ne9ucTT7W2VjtF+Fgy
-	 OAUCESzA1631Q==
+	s=default; t=1788861763;
+	bh=MCbiA6d2rt3S8lOdzp5UrMVswALZKd4o8wNqLwS4zQI=; h=From:To:Subject;
+	b=RS5h5kpti2SyYd5yW2ROAgvenmgN5O/dVg9BxwIRiwseTW+g37UFGKhvaQJMQ3OGA
+	 coO3PpehTRRb//aoN4TRCWJxJ/wxobkSxiP79EhKr5uVOLs3wLTOyJhb4rUmWKMrTL
+	 st1RbLQbfy1uJ9quwNKNEFzA9UoJ+/XMV6IFd8d+gd45aq7BhW5MYfRfmCw0j1/LZx
+	 1YLpv6ynhzsiYvzM5Ypp6UmTmppohGvGjGAoOxzBEGPfWTaaXiCtN1aN7qZSZzZedx
+	 W9b2y40pXHopN6KKpovjWS7fhw78NpMmZJH2qGI+gUJiFWYmJ1dHU++nBRnxr6PeHe
+	 4/B3TMn+pUzkQ==
 From: Francesco Dolcini <francesco@dolcini.it>
 To: Francesco Dolcini <francesco@dolcini.it>,
 	Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -37,11 +37,11 @@ To: Francesco Dolcini <francesco@dolcini.it>,
 	Jonas Karlman <jonas@kwiboo.se>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
 	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
 	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
@@ -55,9 +55,9 @@ Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
 	linux-kernel@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 1/3] dt-bindings: display: bridge: Add THine THC63LVD827
-Date: Tue,  8 Sep 2026 12:02:25 +0200
-Message-ID: <20260908100230.83796-2-francesco@dolcini.it>
+Subject: [PATCH v1 3/3] ARM: dts: imx7d-colibri-emmc: Add Toradex Capacitive Touch Display 10" LVDS
+Date: Tue,  8 Sep 2026 12:02:27 +0200
+Message-ID: <20260908100230.83796-4-francesco@dolcini.it>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260908100230.83796-1-francesco@dolcini.it>
 References: <20260908100230.83796-1-francesco@dolcini.it>
@@ -71,167 +71,148 @@ Content-Transfer-Encoding: 8bit
 
 From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-Add THine THC63LVD827 DPI to LVDS encoder.
+Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
+LVDS connected via a DPI to LVDS on Iris carrier board. The panel is a
+LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the touch input is
+provided by an Atmel MaxTouch capacitive touch controller.
 
-The THC63LVD827 is a simple DPI to LVDS encoder that can be configured
-with input pins.
+The overlay is also combined with the Iris v2 carrier board device tree
+to provide a ready-to-use DTB.
 
-Link: https://www.thine.co.jp/en/products/detail/THC63LVD827.html
+Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
 Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 ---
- .../display/bridge/thine,thc63lvd827.yaml     | 126 ++++++++++++++++++
- MAINTAINERS                                   |   5 +
- 2 files changed, 131 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
+this is based on https://lore.kernel.org/all/20260901124921.78635-1-francesco@dolcini.it/
+---
+ arch/arm/boot/dts/nxp/imx/Makefile            |  6 ++
+ ...emmc-iris-panel-cap-touch-10inch-lvds.dtso | 92 +++++++++++++++++++
+ 2 files changed, 98 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml b/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
-new file mode 100644
-index 000000000000..ead50802e11e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
-@@ -0,0 +1,126 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/thine,thc63lvd827.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: THine THC63LVD827 DPI to LVDS encoder
-+
-+maintainers:
-+  - Francesco Dolcini <francesco.dolcini@toradex.com>
-+
-+description: |
-+  The THC63LVD827 converts a 24-bit parallel RGB interface plus HSYNC,
-+  VSYNC and data-enable to single-link or dual-link LVDS.
-+
-+  The LVDS output data mapping is configured using the MAP and 6B/8B inputs,
-+  that can be controlled by GPIOs.
-+
-+  The LVDS output link mode (single/dual) is configured using the MODE input.
-+
-+  The parallel interface pixel clock sample polarity is configurable with the
-+  R/F input strap option.
-+
-+properties:
-+  compatible:
-+    const: thine,thc63lvd827
-+
-+  map-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the MAP input. A high level selects Mapping Mode 1
-+      and a low level selects Mapping Mode 2.
-+
-+  mode-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the MODE input. A high level selects single-link
-+      LVDS output and a low level selects dual-link LVDS output.
-+
-+  b6b8-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the 6B/8B input. A high level selects 6-bit (21-bit)
-+      mode and a low level selects 8-bit (27-bit) mode.
-+
-+  powerdown-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO connected to the active-low /PDWN input. A high level selects
-+      normal operation and a low level power down the chip.
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: Parallel RGB input
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml
-+            unevaluatedProperties: false
-+
-+            properties:
-+              pclk-sample:
-+                description:
-+                  Sample data on falling (0) or rising (1) edges of the pixel
-+                  clock signal.
-+                enum: [ 0, 1 ]
-+                default: 0
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: LVDS output 1st link, used in single- and dual-link mode.
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Optional LVDS output 2nd link, for dual-link mode.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    lvds-encoder {
-+        compatible = "thine,thc63lvd827";
-+
-+        map-gpios = <&gpio4 10 GPIO_ACTIVE_HIGH>;
-+        mode-gpios = <&gpio4 11 GPIO_ACTIVE_HIGH>;
-+        powerdown-gpios = <&gpio4 12 GPIO_ACTIVE_LOW>;
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                endpoint {
-+                    pclk-sample = <1>;
-+                    remote-endpoint = <&dpi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                endpoint {
-+                    remote-endpoint = <&lvds_display_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6215fcb07770..0b5a25a35367 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8580,6 +8580,11 @@ F:	Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
- F:	drivers/gpu/drm/bridge/synopsys/dw-dp.c
- F:	include/drm/bridge/dw_dp.h
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index d1272104ef27..b9456e7e5310 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -424,6 +424,10 @@ imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
+ 	imx7d-colibri-emmc-aster.dtb \
+ 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
  
-+DRM DRIVER FOR THINE THC63LVD827 DPI TO LVDS BRIDGE
-+M:	Francesco Dolcini <francesco@dolcini.it>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/bridge/thine,thc63lvd827.yaml
++imx7d-colibri-emmc-iris-v2-panel-cap-touch-10inch-lvds-dtbs := \
++	imx7d-colibri-emmc-iris-v2.dtb \
++	imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtbo
 +
- DRM DRIVER FOR TI DLPC3433 MIPI DSI TO DMD BRIDGE
- M:	Jagan Teki <jagan@amarulasolutions.com>
- S:	Maintained
+ imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel-dtbs := \
+ 	imx7d-colibri-emmc-iris-v2.dtb \
+ 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
+@@ -459,8 +463,10 @@ dtb-$(CONFIG_SOC_IMX7D) += \
+ 	imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel.dtb \
+ 	imx7d-colibri-emmc-aster-vga.dtb \
+ 	imx7d-colibri-emmc-iris.dtb \
++	imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtbo \
+ 	imx7d-colibri-emmc-iris-vga.dtb \
+ 	imx7d-colibri-emmc-iris-v2.dtb \
++	imx7d-colibri-emmc-iris-v2-panel-cap-touch-10inch-lvds.dtb \
+ 	imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel.dtb \
+ 	imx7d-colibri-emmc-iris-v2-vga.dtb \
+ 	imx7d-colibri-emmc-eval-v3.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+new file mode 100644
+index 000000000000..ad0f37c71708
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-iris-panel-cap-touch-10inch-lvds.dtso
+@@ -0,0 +1,92 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex Capacitive Touch Display 10.1" LVDS
++ *
++ * Toradex Capacitive Touch Display 10.1" on Iris v2 carrier board X7 / X5
++ * connectors through on-carrier LVDS transmitter
++ *
++ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
++ * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
++ * https://developer.toradex.com/hardware/colibri-som-family/carrier-boards/iris-carrier-board/
++ * https://www.toradex.com/products/carrier-board/iris-carrier-board
++ * https://docs.toradex.com/108421-colibri_arm_iris_carrier_board_datasheet.pdf
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++&{/} {
++	lvds-encoder {
++		compatible = "thine,thc63lvd827";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_lvds_transceiver>;
++		b6b8-gpios = <&gpio7 2 GPIO_ACTIVE_HIGH>;
++		map-gpios = <&gpio2 13 GPIO_ACTIVE_HIGH>;
++		mode-gpios = <&gpio7 3 GPIO_ACTIVE_HIGH>;
++		powerdown-gpios = <&gpio7 11 GPIO_ACTIVE_LOW>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				lvds_bridge_in: endpoint {
++					pclk-sample = <1>;
++					remote-endpoint = <&lcdif_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				lvds_bridge_out: endpoint {
++					remote-endpoint = <&lvds_panel_in>;
++				};
++			};
++		};
++	};
++
++	lvds-panel {
++		compatible = "logictechno,lt170410-2whc";
++		backlight = <&backlight>;
++		power-supply = <&reg_3v3>;
++
++		port {
++			lvds_panel_in: endpoint {
++				remote-endpoint = <&lvds_bridge_out>;
++			};
++		};
++	};
++};
++
++&atmel_mxt_ts {
++	pinctrl-0 = <&pinctrl_atmel_connector>;
++	/* SODIMM 107 / TOUCH_INT# */
++	interrupt-parent = <&gpio2>;
++	interrupts = <15 IRQ_TYPE_EDGE_FALLING>;
++	/* SODIMM 106 / TOUCH_RST# */
++	reset-gpios = <&gpio2 28 GPIO_ACTIVE_LOW>;
++
++	status = "okay";
++};
++
++&backlight {
++	status = "okay";
++};
++
++&lcdif {
++	status = "okay";
++
++	port {
++		lcdif_out: endpoint {
++			remote-endpoint = <&lvds_bridge_in>;
++		};
++	};
++};
 -- 
 2.47.3
 
