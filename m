@@ -1,68 +1,68 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E090560AB7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:14:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9525C55D891
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873253; cv=none; b=IK1wTcNalpgqSNZQJVAaxrJe1cAvnktb698EZkrL+IlsCkAYCerNoZU6dM8p7pGcHSEMit0Hpw+Q52tEClkDlwtOWcoUCuwWgVeuOp6NXSp5smP+lEdg9ZRbYS+reXhEXr1j6wOi9XERd0T+9Zf8xZNBqxWRlwb0UaDZdSGM2d8=
+	t=1788873257; cv=none; b=j6DBve/s6azgJ/tfajJa9MdfkNZg6560en5iHJdMLrw5PvXLGeDyq1Rpfsp/BW1XsVOnBSiGDN86eOdgNL8mhZQMn2Yb6T37fa7a+iQERaPyEBXfCMaOMM0rvMQ+fcVnpSW38jF+L4ctH0rXYYRtpAAUR6QDhIBhJ56qsCbKZXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873253; c=relaxed/simple;
-	bh=4Gmxb5iLpVzmxwtAiwm50Wo4ui0NNmlc4p4QOsCkq9g=;
+	s=arc-20240116; t=1788873257; c=relaxed/simple;
+	bh=lv26SAeJxy+BsWe+88/ox4O1QD8JH8gEB6CZwLn5x4U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nstl2ArOOtukdeiGsqJApqqVOYaSfR8LrAT3Nj0B6BqG5vaGhZu7QI4l8yVdEea4tPYcLlsBb/DB6A6DmVOBuFpsS3r5BJt6pq8BASX3Z9XbfyAcpAO4YBMoU7ugbQie5elld7vK0wvTRkfEKMjZ1xXjnTUb4FKhqAO25UgD7Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZypczUh; arc=none smtp.client-ip=209.85.218.53
+	 In-Reply-To:To:Cc; b=onGhepgzTkYqUe2B1brV86tksYDN05oRHwufwSk8OUbxI/7Iqye+Xhz/Gk3Fxct56ssbK9o6a5Uxkd94aqgkiEJoWS83VERpbGzPmWp7ZYzD0nlt8nmZ4hcYH7E9pKVZxA1n05HBgK6/H4DulW3jdbhxm4Rmc5Exl5XPyd7r8OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnwGr5H3; arc=none smtp.client-ip=209.85.218.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZypczUh"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c253425b253so675116066b.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:14:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnwGr5H3"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c253425b253so675118966b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:14:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1788873240; x=1789478040; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qpzGXcywvBcmoPFLpe0sjmmkxn8qreN3FEfttSNZISw=;
-        b=dZypczUhnUIa2UAc0aeObyI5RgfI1TIRtY3iFfYGFY+2CFQTkwstfzR7zQEzEpEsRd
-         +48L31fqc4GIFdNW8MaqkEy/Nrow31jH8k+ZnBvZvQZa2AV8ppwNBr/8SmWLvhrZgGUL
-         /WkP+/Uw2yJzMR+r2ixkEUNShOP7VorhS/Rv+cMHREEaSKqbkgEnVTB8h/yBR3wUiSIR
-         /Nk66lgbKR1Eci4QXJ0QhxdBjWNUi5KTXsde+j7srYt/18W9JnktoERNse/0cJe5Itak
-         3+aWXQ2NCSpTDYiBD0xfN2i5/wWOw1RCgoklQVKPTgGrMAVkDFJTaGOShtzY25ExfipA
-         lTvQ==
+        bh=pZmngaVsUToRipCvkV5xzkVfvhYV30Q+0QWGu1nqLPY=;
+        b=jnwGr5H3ZAo5E8jbk/ncQQDxgMRLwVDQYIdi8+T8YfJh67kAOlFriHCA8hO1Ow+9cS
+         J7s0d7l/07H5EwtnsWThW10S4z7DVR7xvuWKETFVT8PqMVVGmVYONfMpeAHtjO3Jrqzj
+         EdUPlFAegdVRpLXjgtlJiZobT2LDF5RSv3Kath95/Gfb/+safwYs1m/DSFniqkOko8XR
+         UiojAv0TYniT36u84cPBasAIOqJVk/HL0VFYdOhmeD0fS4HuGWoiQ0WUoOhEJGy/89+e
+         cdji6JfvrMqR9JRMws6NQnsqpw2et7P0aYREA467yAqT0kSYsVkWfdTRvmjLXx+Ya4cx
+         s7Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788873240; x=1789478040;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qpzGXcywvBcmoPFLpe0sjmmkxn8qreN3FEfttSNZISw=;
-        b=K/ZiSnvdcgD8Uwg6Z0+qaCwW9L6CTdHM00qkeUKz6PulJlXMwJLfMLkY+E8bRlbZpj
-         uOeAXfIPDSNN+BMEZp5BpM2HTmRJAa+3MS49gjo31IvjHDB7/vXpP3W3zAPivpYU3Bzm
-         kfBrIpiJUuVL5sH9Vlgz5kwbMbmsvRa9qt/B7UzM1I2dGLQB4ZwfeGqi5k0qO/x23n9o
-         aeH5gsZ7HCHZ/rLgkx7fm69WA481xlqJ+18txWs85xDmxgfw7ZNeCqbX/H3nHFYyRI3j
-         0hOOl6Qvg1o/rVrJKBRqqtdesRcJxSzO4pFY6T+XU1N2zm4D7KHX/Q0e8HDTtEOGVIS8
-         ASRA==
-X-Forwarded-Encrypted: i=1; AKwUvBy10mBPrJLI+INezHe5qQLGq3dSiIZfQY4DHdXEjWBF1Or2bM9V0DH0+8HnY0kyEmlEKL6rH+Pt5/O5c+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++mv/T2mZVIHBb3Wy9LGHotiaTgbrJmlC7hrMJFiEG0A3TN2W44J
-	IDybtsS4UcbGCld9aC+RVBmsHNsT6gEcDZ8vNx7saFd0Giw6bhI4JEwW
-X-Gm-Gg: AYBFou2SO0moK+N5H5XE6ABLqOz32D3dwzQJMXGMQ9/x2y7S2VpdO1LoBD1OqHYJ0lq
-	eZecpmD7IIeP9WHXpYfaTJcXhuHISFLmYzOLy4woGaNj3zA82XYkS+tL9W5n3cVv4JijEgqfC6C
-	fd3UNVjKSKDkiPIraF+S9ZFOreTkPgH08tEWmirv+yzFTxXy0y/iXufy5VDatp6AhmFxnhFCqNT
-	DSY3KWH3D+fJyvANb9b7kXIezarmUtyk36dNyQFjoT7tjYe7EpKTR8d7tkKTVaI52uktHBp7zkF
-	Xc76Sw62tFf9V1b83hZjDgJ6SisJqe/DthtDU0oXZ1Zyn4RpZCcKWePP9AUfPtsGDqUJxJHvUtR
-	Ls1atL9ftU0g7SjJfAongmwyNXda1zXsV2RqoZ39WFuYrR5Wsav/i4dsV5gw7OsWgHFjYxtRQL5
-	jxP+X5l3HM80VgYSRKqFh4Cgq3s6y3HWDmxPY3APZ6rOjkG97JoA==
-X-Received: by 2002:a17:906:c116:b0:c26:19de:9add with SMTP id a640c23a62f3a-c2619dea99emr1021645266b.28.1788873239627;
-        Tue, 08 Sep 2026 06:13:59 -0700 (PDT)
+        bh=pZmngaVsUToRipCvkV5xzkVfvhYV30Q+0QWGu1nqLPY=;
+        b=CPPdROLW2qE+y3aaoRqljN6gW5LLorTxRKcNE4hQDEbkYS3UkkuCzAnodPagevMIYq
+         GufxO28FmZTxAap/CXMIeABUFcZB7Yo3MW0FfwTcc9K0O8yplPx/76mXpXCRh6EzS7lI
+         VUkj1h/si+msUXHA91IhpadmBynBqTR5JV4R2X5wC/E4iGejqJh8zJXQyEiLnF4vwJhE
+         GNZ4pwhKWitbjO9t5mC0zKYT8H6JyNsiPzsgle5IKokdW9dT1mp8VaJcH8erB6mLkGHi
+         sfQce/+SuO/bVrNcJOqE17vPFW5BEEb1SXPElofpRTpcOej+CPvh0XdGcXodT99rhiIU
+         52xw==
+X-Forwarded-Encrypted: i=1; AKwUvBxlVTljEenImhJdjKxXBiJExdn94f+QQMC3DjVugOrbXF9QJVWodIsrdo2WbHa0rzX3qlNS3hgXNHfCObk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPvfaAlIr7Z1sPKj/AKDKTz6uOThtKnpX1Nd3kxRE8cxkkIzKS
+	F/nNrqeIus3u/OPaQ1qhLgvYAJQag0oghlXpPsHhOGjx/TJ/GFJsdj8C
+X-Gm-Gg: AYBFou2pmvDkQ7lZ8pjTtEKDgWGMW7UMOJOtGj3r4CKE+vMnu22vOYqImx7RoEdyQvE
+	eFlmWaSu8QMtzjOnBO1ApLpJdk4KVEIvegGDRQMVPD89oakhx41Fa5XvO3n7m/doJHfej1lWU37
+	3uEEYmS9tQWiGlp19mNGGwFkjWz/3+aJLKXkLp/b3KotCGObA1ugyUQzuF14kRjtCYiqUNSLT4X
+	jiRBTtZESyO8Mw6gEXW+6Sz2vG6qRArD93YZdk8HLHa9lxNK76CfRGXeouThnEM8VDs7jZGrUDM
+	J/jIjMmGd5uHzzAMzJ3dcx1AmIf8xSr8w7WOgzn8/awq+HH8MgLP1fDYnEiSDv3IZGSdxaVv4LG
+	qglRUJbFHnJzvSFlgHkMNLi7SDtm6u0imWjB1FGCgwFEZU8Tgb7in9fh5JeIpns0rx+vbxaXtoO
+	4El31tD7u8zX5JOJfU5H+XtEuVj8UyoQt/bqsai7VTS3axU3YZBA==
+X-Received: by 2002:a17:906:2082:b0:c29:18da:43e with SMTP id a640c23a62f3a-c2918da084fmr93675766b.12.1788873240393;
+        Tue, 08 Sep 2026 06:14:00 -0700 (PDT)
 Received: from [127.0.0.1] ([2a09:bac6:37a9:1e5a::306:1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.58
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:13:59 -0700 (PDT)
+        Tue, 08 Sep 2026 06:14:00 -0700 (PDT)
 From: Caleb Kan <calebkan1106@gmail.com>
-Date: Tue, 08 Sep 2026 14:13:40 +0100
-Subject: [PATCH RFC v2 07/11] drm/locking: preserve deadlock diagnostics
- for trie-backed stacks
+Date: Tue, 08 Sep 2026 14:13:41 +0100
+Subject: [PATCH RFC v2 08/11] scripts/gdb: reject trie-backed stack depot
+ handles
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-stackdepot-trie-v2-7-1996d5cef732@cloudflare.com>
+Message-Id: <20260908-stackdepot-trie-v2-8-1996d5cef732@cloudflare.com>
 References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 In-Reply-To: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -85,44 +85,36 @@ X-Mailer: b4 0.16.0
 
 From: Caleb Kan <ckan@cloudflare.com>
 
-When a modeset lock acquisition returns -EDEADLK, DRM saves the call chain
-and prints it if the caller later attempts another lock or drops its locks
-without first calling drm_modeset_backoff(). This diagnostic currently
-fetches the saved stack through stack_depot_fetch().
+The lx-stack_depot_lookup command can reconstruct stacks only from
+contiguous hash-backed records. A later patch will encode trie-backed
+handles as dense stack IDs in pool_index_plus_1 and offset. Without an
+explicit check, a trie handle enters the hash-only out-of-bounds path.
 
-A later patch allows persistent stack depot saves to return trie-backed
-handles, while stack_depot_fetch() remains limited to hash-backed records.
-Use stack_depot_snprint() to format either backend. Keep the PAGE_SIZE
-buffer and leave the warning text, existing indentation, and backtrace
-unchanged.
+Reject pool_index_plus_1 values above stack_max_pools before looking up a
+hash pool, and report that trie-backed handles are unsupported. Supporting
+them would require the helper to walk the side table and parent links,
+which is left for future work.
 
 Signed-off-by: Caleb Kan <ckan@cloudflare.com>
 ---
- drivers/gpu/drm/drm_modeset_lock.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ scripts/gdb/linux/stackdepot.py | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
-index e14814c30d8c..f48b02379b71 100644
---- a/drivers/gpu/drm/drm_modeset_lock.c
-+++ b/drivers/gpu/drm/drm_modeset_lock.c
-@@ -94,16 +94,13 @@ static noinline depot_stack_handle_t __drm_stack_depot_save(void)
- static void __drm_stack_depot_print(depot_stack_handle_t stack_depot)
- {
- 	struct drm_printer p = drm_dbg_printer(NULL, DRM_UT_KMS, "drm_modeset_lock");
--	unsigned long *entries;
--	unsigned int nr_entries;
- 	char *buf;
+diff --git a/scripts/gdb/linux/stackdepot.py b/scripts/gdb/linux/stackdepot.py
+index 37313a5a51a0..82aeb9f532c3 100644
+--- a/scripts/gdb/linux/stackdepot.py
++++ b/scripts/gdb/linux/stackdepot.py
+@@ -37,6 +37,10 @@ def stack_depot_fetch(handle):
+     if handle == 0:
+         raise gdb.GdbError("handle is 0\n")
  
- 	buf = kmalloc(PAGE_SIZE, GFP_NOWAIT | __GFP_NOWARN);
- 	if (!buf)
- 		return;
- 
--	nr_entries = stack_depot_fetch(stack_depot, &entries);
--	stack_trace_snprint(buf, PAGE_SIZE, entries, nr_entries, 2);
-+	stack_depot_snprint(stack_depot, buf, PAGE_SIZE, 2);
- 
- 	drm_printf(&p, "attempting to lock a contended lock without backoff:\n%s", buf);
- 
++    stack_max_pools = gdb.parse_and_eval('stack_max_pools')
++    if parts['pool_index_plus_1'] > stack_max_pools:
++        raise gdb.GdbError("trie-backed stack depot handles are not supported\n")
++
+     pool_index = parts['pool_index_plus_1'] - 1
+     if pool_index >= pools_num:
+         gdb.write("pool index %d out of bounds (%d) for stack id 0x%08x\n" % (parts['pool_index'], pools_num, handle))
 
 -- 
 Git-155)
