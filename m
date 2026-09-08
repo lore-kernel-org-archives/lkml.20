@@ -1,125 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E62C59C977;
-	Tue,  8 Sep 2026 18:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A4D356766;
+	Tue,  8 Sep 2026 19:00:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893978; cv=none; b=lGo2NOxPW5dxXiMj20mgj3nhTGCbt5XqzwMQz3uA7OOPZNEccR/fsay5gCgIUgf7mOmz7UbGY5ujjoSlHYZwTZAk/1eANZimy3YWeLle3sYPfCpR9wUXCc0urD49RYxpi2t8oqskKfGYSbgKYaE4ggSBi/pZ+vl4cJcp6wM94i4=
+	t=1788894010; cv=none; b=YEqMSfgbqLAJLOOxKJjhFSjOaV5ftf3yFyYyjdH5xSZYiYQmrLvBG/Su61t94G+BlKZSTzK3N5HUTxZFFbV/4VkTk8LztSQH37piHE7DOum2OgJSycQgk8X10vnmqa4/aj2dSlJNeZuzgRjNwYmQGwcxjKSmcNVXOMLv9jzRFh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893978; c=relaxed/simple;
-	bh=fWURKfC0YnKtnpIW+sCXZWGoSCh2jCIDL2blX3O/UH0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kDx8XExUNUUWb5Ytwphiz1oakgIhXen7uu0F17cDghvp4g6V8BSg3oA5m4Q7ql4ot6gVb2n2I0XbQeKFGNMADHfI+wp6YS0+bSgeNNGRGSuk+2ThLbXWixkCmoe+jx5KgSVwOl44udVAuhSBm25gFOrsq02Vpkrntq4lritf4mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U4oLHunT; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788894010; c=relaxed/simple;
+	bh=8+uza+k5pHXZ0MWaODzess7JwDpGQss7ZmEM/0YU67c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=U4gCCDaD2NRPfvmeU2MCLYc/b/Accq3zXoZzj30wgqGEV19lAtDXlDaARcNc5TIVDc0mC4OIWNuFvZtN1i769T5TMCo5sjLP2mIGdc0IKCXIBGjapQXWfEFhAFXAfTmq1mSlvggb1XcUmZ4x+YubczMo2IUZFoFAPG1+mD0aRtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N/cQyMPR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U4oLHunT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788893977; x=1820429977;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fWURKfC0YnKtnpIW+sCXZWGoSCh2jCIDL2blX3O/UH0=;
-  b=U4oLHunTydgLRgJHVBXZmgl5ZG6vkOuK/0EpvxOT8kIiSR69RvcamciC
-   tuMmg+3l9rvoHqnfHMvCML74QzQ4aIy7zPr+zLHvXU5jhQqI+a8keDAh8
-   W/D2S7GSUVm/uX59g4o+A2PDiIf+47aApL5yoPs/cAkKRe8Ha0HYROKlm
-   macinbxQa4OVzWDaghI2ITkBWzj1R3ITc7Qk2tD+3AWInOD3uh1zP4X6Q
-   EcoAjKBTkdB1x2ksiUFKBZCEg7Q5LOTl5zMzTamAa3KINzBVbyMZsT2KQ
-   pMicR0/HTCo6dNGgMP3JVXbG70g+eHj1INXOV2z0ABNZwr8kCUFztPSAC
-   Q==;
-X-CSE-ConnectionGUID: uxSB/k+vRxenodLJzu9MTg==
-X-CSE-MsgGUID: m+zERQXcRLmCbdoCYjB+sA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100828040"
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="100828040"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 11:59:36 -0700
-X-CSE-ConnectionGUID: SAxxF9giQsaP/2WeIAZ85A==
-X-CSE-MsgGUID: cktt8h4WT8SZl+P+UCCZbw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
-   d="scan'208";a="266773711"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa006.fm.intel.com with ESMTP; 08 Sep 2026 11:59:33 -0700
-Date: Wed, 9 Sep 2026 02:59:32 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Heiko Schocher <hs@nabladev.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-fpga@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N/cQyMPR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75DA21F00A3A;
+	Tue,  8 Sep 2026 19:00:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788894009;
+	bh=HFouBrDvOF7lxX1bdyzrKECZyS1XzB2v6ceuwETk4Kg=;
+	h=From:To:Cc:Subject:Date;
+	b=N/cQyMPRycKSXLy03V/MOuTeh9ticoR1otYyI4v1VNPuECDDaNiE/lvwOLw66QzO9
+	 MSYQR6nOWjY/uAr6c49z/h/VlHo35cIp7zHDWpzs2aj5Ju9766NKEnvuepN/CuaakM
+	 xTrOMM2wI8/8Gi88R+EWPuMBjhMdhk8k+ZeV13J5NcxALqmhuTFkjG2nUUK4y6MrYG
+	 JxpWsnBmGDtKa1RlGkdq908lZMJSt6qKghNdXAIh89fC3Z2fW70H1SewcyuhtGLHgc
+	 Hm7e9vGqGUZ+00xuiGX8AI24w5odN5DOJAoqhowRnmXeiMn/Yq+Y37ToG4F2XovWw+
+	 wO0a7HXNDR63g==
+From: Thorsten Blum <blum@kernel.org>
+To: Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
 	Michal Simek <michal.simek@amd.com>,
-	Moritz Fischer <mdf@kernel.org>, Tom Rix <trix@redhat.com>,
-	Xu Yilun <yilun.xu@intel.com>, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
- support
-Message-ID: <aqBbFGExUpS0k0yE@yilunxu-OptiPlex-7050>
-References: <20260810062105.299808-1-hs@nabladev.com>
- <ap2Yx8oACWfBKOep@yilunxu-OptiPlex-7050>
- <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
+	Harsh Jain <h.jain@amd.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-crypto@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] crypto: xilinx - use kfree_sensitive() in cleanup paths
+Date: Tue,  8 Sep 2026 21:00:00 +0200
+Message-ID: <20260908190002.403337-2-blum@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a489d2b-b5d1-0455-793f-f4100fd3b3d1@nabladev.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1288; i=blum@kernel.org; h=from:subject; bh=8+uza+k5pHXZ0MWaODzess7JwDpGQss7ZmEM/0YU67c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkLoo0CiyRj8rY+n699qSJvlcx8kT13lgS2nnkRdX2y6 XqlqTvWdJSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEZC8wMszkezo9ymSrMJNc M1/9rChW1YbeqfyVD+r65OoceuX9Ehj+CgRJyx/LzGpmryv5ffVQx8wZkU3i3gwW+97v9p2WuW4 dKwA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-> I would change v5 commit message to:
-> """
->     The driver requests the optional CSI_B and RDWR_B GPIOs with
->     GPIOD_OUT_HIGH and never touches them again. That flag carries a
->     logical value, so both signals end up asserted on every board,
->     whatever polarity the device tree states.
+In zynqmp_aes_aead_cipher() and versal_aes_aead_cipher(), replace
+memzero_explicit() followed by kfree() with kfree_sensitive() to
+simplify the code.
 
-Yeah, that's clear now.
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/crypto/xilinx/zynqmp-aes-gcm.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-> 
->     Keeping them asserted works as long as a single FPGA owns the
->     SelectMAP port. That FPGA is the only device on the bus, so it may
->     stay selected, and the driver never reads from it, so the port may
->     stay in write mode.
-
-I think keeping them asserted is a bad idea even for single FPGA, isn't
-it?
-
-> 
->     It stops working as soon as two FPGAs share one SelectMAP data bus,
->     which is the case CSI_B exists for. Both devices are selected all
->     the time, so every byte written for one of them is clocked into the
->     other as well, and neither can be configured on its own.
-> 
->     CSI_B (Chip Select) selects the target FPGA. Assert it before the
->     configuration data is transferred and deassert it afterwards, so that
->     only the intended device sees the bus cycles.
-
-What if we re-program the 2 FPGAs at the same time? Is there still
-chance the 2 CS lines are all asserted? Can they be correctly
-re-programmed in this case?
-
-I mean I think this patch does fix the problem of "always assertion",
-which is good to me. But the changelog seems stop me, it talks all about
-2 FPGAs sharing the same bus, which seems more complex than just
-manipulating the CS.
-
-Thanks,
-Yilun
-
-> 
->     RDWR_B (Read/Write) selects the transfer direction on the SelectMAP
->     interface. Assert it for the write cycles that carry the bitstream and
->     deassert it afterwards. UG570 wants RDWR_B settled before CSI_B is
->     asserted, a change while the device is selected aborts the
->     configuration on the next CCLK.
-> 
->     Both are requested with GPIOD_OUT_LOW now, the logical 0 that leaves
->     them deasserted, and their descriptors are kept in the driver private
->     data.
-> 
->     A board with one FPGA keeps working. SelectMAP allows the bitstream to
->     be loaded non-continuously, with CSI_B deasserted between the data
->     transfers, and a deselected device ignores the bus.
-> """
+diff --git a/drivers/crypto/xilinx/zynqmp-aes-gcm.c b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
+index ebee37dddb1f..d9bd6dcd23a6 100644
+--- a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
++++ b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
+@@ -230,10 +230,8 @@ static int zynqmp_aes_aead_cipher(struct aead_request *req)
+ 	}
+ 
+ freemem:
+-	memzero_explicit(kbuf, dma_size);
+-	kfree(kbuf);
+-	memzero_explicit(dmabuf, sizeof(struct zynqmp_aead_hw_req) + GCM_AES_IV_SIZE);
+-	kfree(dmabuf);
++	kfree_sensitive(kbuf);
++	kfree_sensitive(dmabuf);
+ 
+ 	return ret;
+ }
+@@ -364,11 +362,9 @@ static int versal_aes_aead_cipher(struct aead_request *req)
+ 	if (unlikely(dma_addr_hw_req))
+ 		dma_unmap_single(dev, dma_addr_hw_req, dmabuf_size, DMA_BIDIRECTIONAL);
+ buf2_free:
+-	memzero_explicit(dmabuf, dmabuf_size);
+-	kfree(dmabuf);
++	kfree_sensitive(dmabuf);
+ buf1_free:
+-	memzero_explicit(kbuf, kbuf_size);
+-	kfree(kbuf);
++	kfree_sensitive(kbuf);
+ err:
+ 	return ret;
+ }
