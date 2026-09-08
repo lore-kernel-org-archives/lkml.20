@@ -1,165 +1,157 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C565A5147
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788894357; cv=none; b=L56nVo0TGFsrGotwzch2gF59fQgEVWa+F/8J7jSTTVXVt6Cx2yV4WO8hx6XPbw7gto37zO00kl2/mHQvTmrmUt8aoT3SNwsH/FaIh7kAyBTBiSGqiHcHPvyNM6qbyPnnolCecxG0L1vimJhP5vRi1vupxW+DqEpMBwYnTu8GQ5M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788894357; c=relaxed/simple;
-	bh=LkXaYSuv4+K6xLxwrRGfRfK2Xev7IX9Lxn3mJVmZfRE=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PsGxm7DkEb8jGdUwpyXVzvkRJKpDmkiNOCbrVFlVU91CF++LkzHV7kF6rHuJjYCwg7XQwLU+nXo4Mdd8R35HH7SAURohV2AgudbdYsZXzPfHzfc8/KgjOLgoJ5f6zMcnFrrGNy2ShOul050IO3FI7G8wBAQSgVrYe2MgJrze6xM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=qOoewXXo; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C604A1DE9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:06:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788894376; cv=pass; b=K25jRqG39xxKs0oxQr0Xrp3GuZdM+sBA2aYxdzJifmPXpSBSLIfrbaKW7PqdB9t/dw8f10olR6ot7o88FWrF3UNQ+2wC6EjtdELYdbiReiKtfZSWcEkUwkC6kBIbPZsL8SfC+cJHjLrNgl1lLifzb9suowTr/CzRff+2Hj0/IQY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788894376; c=relaxed/simple;
+	bh=JxAv9A35o8tRcwxKjZO94SBS9xDo9RgjGVk4mfstMJQ=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=m082W5D3cqktyPubtPvZXQyzrqFkCD18Xq3I81wL0EM0i6G4oaweN0uCzg+9/orXNV6e2verZPDcqLfaTB7+QJhgapi+Qj1F+Q2umwn2IvckJB3lc47EL7O8ySzZtnuncgNh/zGUSVteWhwzjPBVaIRsJpO19UvKouG1CCMmwGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oC67sJca; arc=pass smtp.client-ip=74.125.224.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="qOoewXXo"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92e99ef0902so367835385a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:05:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oC67sJca"
+Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66fa10f35caso4567558d50.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:06:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788894374; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CXi1538y2RECslDdyLs6ZhlmrExzPL27/C83xbvVP3qX84qTxHkgzKZYkHfkbjTBZJ
+         8yI9p2MyR++4//cSGBuFpJGYpIDeXrhfQ5HQB+4+J3JHeaQKnl1WWw7gbRL/xshLeaX3
+         SUXhXat1pyiLMHEwKs/uNeq0a52S1wAVkJLefSGnhhNsB3/mqwd2j2GjdNAE7S5Ca+Tx
+         6VIlT9Oub0iJuE6FTMBaz/imJzhrjZFEuJIH+pCIGmiJ0MYy9Arvqi2K/7aEmkY7pvq8
+         SW7YkxoCkwKXXbEl/NFMCr8ltH9YkKo4N2dqJRM02p4dL3wJliGMgnSBqgD/Rn7P8oXn
+         9HUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date
+         :mime-version:references:in-reply-to:from:dkim-signature;
+        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
+        fh=Dg9iUveyuM1CLptmcsnTUpCRCecspGwpY8o1VrF2hgU=;
+        b=M5CnYSfSRC9AKuMm4zanGIevNV08JgbKgqJ1YeNGLyjohDXRqd3j12vPkd9DyAWOhA
+         f1bNvkg2UNj8VPw4Y/zr6gdWcYrLB03//UDSf2D89UxrTlldfqmK+AvKYqO9MJzrdR3L
+         uJA5GrYr1+2Ym7QnstW50hVwccdNorotxB6WpoimKVF3SA3/U8+APFpWDVbTzBHdM1oj
+         OcB3KllfD0xVMyIaxdBdU61PbBHXPMTNdhx9z/OcZ54t33jYkeMvGfhhnmGkmFUIwi94
+         uvqyV9hGKKsDiO/5kW7oDr4GwRLiSytL7td/cvY5gqaxjcBpS9jzW/rWPymYqJvIv3ZZ
+         SMrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1788894355; x=1789499155; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+        d=google.com; s=20251104; t=1788894374; x=1789499174; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WQnqS6kLRJh/Dm1F9hxLkoPX5f8+YCWwFjIBhBfJySQ=;
-        b=qOoewXXodTROLMwwFcy7o1SE7bFZt2+v6KQZ/aOxhy1abw/a8pSFmdZvlnksjWTouh
-         45ycmaLq+tYyzStO315qRVUC3HQxvlQ8CJG0X4CgIWbLrtGziSKsoZAATr01v14xMsOA
-         rPR+yR3dOMpDa1D2cH7KUyYW7icwfGX3tvCRGC+O5Li4cp1u5/ObWilt5xYdLrROoVqX
-         2dkjOYsNyz2HpX+cLk8rdzFrd+wpWylK0IxuIll0HEqjT/lyp2B1cvYivIEFsQv/D8ZB
-         0mkpYJPeYVWKL8+u+1UKlV4z7PYchH3O8vyp6dtmkDbsfv73KUd4hZ5yISU1vgrG3zyB
-         F5RQ==
+        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
+        b=oC67sJcaorDh1kjqjpVLuyalUhep2NkbBs6C69vF3ZQ737maXmCGNC9HR3wVUUAu+p
+         IAPvdYi/hi9bOlyBUQWZuPxCac8/CSOfLY9V0PgProfNxs7AkRsoF/xQT1d7G1xlMbdq
+         Va/ZeX03But8KMlDOphJyp+FtdcpWSI/61ioT5egU/rUM2n8wo1p/BPvkMicwzBTXcrl
+         JOSAK3NFI/Mk3LQppqpEbN20vNgVLOk+xkmMx3+tOY3y4S64Cl2Uh7ZjiH1RT8yIRH8z
+         XJgWT6NsQmdCVTkpjN1EdoCGffm0mte2KnEI61rF2cVh4AhUIIxfRGylQ+5hYMKyTbnH
+         yb1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788894355; x=1789499155;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1788894374; x=1789499174;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:mime-version:references:in-reply-to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WQnqS6kLRJh/Dm1F9hxLkoPX5f8+YCWwFjIBhBfJySQ=;
-        b=ncpnx9KbpztP24VvSCjQWn10M4I4tchvjbHz3pNEof9vlOLON+HpMHD3fP+o7y3Im1
-         R4VA2aWDBnAzTtl49ztp8Y6mXjoszmO2qYZftZwtZ6P5XZiEuqtClqtxeNHJIiWeNbs6
-         gHnCOus+482JgMTy9R9UlUk2EItpSH2jjU+CEeLOa6HqUz2RttEUbQ/2/SAOr/eVT+q+
-         Y+brtG5FuCZoDcQkupdMDqGkxqefC+vjFikE0ydWGeX/KOlI6oCXwje1Ms14KtFyINSX
-         NjOi55DT+BgOG7+qacxV/XHcVIxBIJWJu7zEJhBcciSdY2jkNOs/op/zj+z2lB8Ubr0J
-         RbTA==
-X-Forwarded-Encrypted: i=1; AKwUvBw2SGXCtZYmUUg9cSc7u2O/F54sDKFqC3NTooRWbD++AOsKSRkuwaM9AvwHvooG2zGWYHc5MESTLc5x0S4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lu8D5optiFJEpC2MqKgBl+8WANb65mMacMUpt+siaaNth8CZfS
-	ANwxSK2EYXpnIpCGl4VIPfMEJxaWjI9isRMD23RGShlE2XLyWgVcucrEon0cq/jQyOWLcTJBxin
-	hOsZp
-X-Gm-Gg: AYBFou1+eMV7emdrbmR6kiUfY8uWE+Aj80yeokKhi369/mQYJL0QDw6czBDJIjQ4Uvj
-	lTDXpcDr5mzqeq6Za+76/MjY/p0EyyKF08NI4vcpI5vzZN1fgSflvGDc2D101pnlenbQaJjfG9Z
-	BToe6QqKmlYA9pqgoD76k61xXbAW9vrQh35x/GxPNXKOJWQo0M9E9w5pHhuqa9uAL7doWu0iKtq
-	YXb9bx7hou69VmTY9lB5LP0sZjxlDOyFusMJH3N62mcPc5rCokdMCWoShLE4Xs93zmaCoxtaAa7
-	taWkrcPbV183lU7GEDvsSwp4JW3gXEru7RSk3Q0rwB6OjtJSOskAZcpNUKV6Lo7qDdaM27X1A9P
-	+PNlRkYgRcsycfFghnDHYkEcf5CDZ5ks9vDc/rCSWgH8kePeNC8fOMp+q4Lef2D4hof+de/q2km
-	eETYg7sfCRcH+0mIQXyMIRBNL2ck5JFhtM/cgwJTYG2pzIurpGS8JqYnqL1c/BwTKI
-X-Received: by 2002:a05:620a:a103:b0:939:6dec:55e8 with SMTP id af79cd13be357-939804fa626mr2897299285a.49.1788894354874;
-        Tue, 08 Sep 2026 12:05:54 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb90d6csm1210337285a.33.2026.09.08.12.05.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:05:54 -0700 (PDT)
-Message-ID: <64de2b7f8acc9919ca18f41827a8e1010431b116.camel@ndufresne.ca>
-Subject: Re: [PATCH v2] media: v4l2-common: add Y12 to v4l2_format_info()
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Vishal Sagar
-	 <vishal.sagar@amd.com>
-Date: Tue, 08 Sep 2026 15:05:52 -0400
-In-Reply-To: <20260907-v4l2-format-info-y12-yuv24-v2-1-46d8689dab95@ideasonboard.com>
-References: 
-	<20260907-v4l2-format-info-y12-yuv24-v2-1-46d8689dab95@ideasonboard.com>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1eoZpEb35WjTVotSKJW7"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
+        b=ATz68RYg/zGg9D4S3/OBQLrGymrqHhigrtTOL030WCuAEGpP1JKiq5fJ9drftnJ4k3
+         1pJxqIwgBPvn/ef6ziBP0V4HlalyOJq0BGvlscsaWVe4cwC3MQXgeyfq/8f4uBCOoqcs
+         UxUqT4Qmq7FrEiROGqcCns+Jd9XYCianO/82p+S67Fqnokw2fXpDqUVtb3t+LLD3Xn5x
+         XvcJjENQTsyj+c0ekmkyMqTCK6QoJtVhhuSNJLJesBcUvJHPYtWDW6e6n8iY6ZGtLEDP
+         ZnQOc/qSf1pz6aJQEga9liLKDcdzCsnEA3SErnzGYPxTSPNKUnDx/Rt1Bb78BO3TPEQX
+         7tXA==
+X-Forwarded-Encrypted: i=1; AKwUvBwfnGqQdPNvI/rmjKf1YzEy2/7mEu8g4YKJ+WKKjqT0J83EFEk0FZx0VcZkehBZzpeTqdumzIieYdvXERM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n6QoXGeNaK9FRYhcSUjvDaOBANqz930041kBLX8ZmQsh7zY1oC
+	kSpPzuyr5FRhzCgIi+oz7HahUamkIuFMff2hDN51XAi3yFvaaO/7NKl+TSbjsgnGpLVrZqdHrEp
+	j4x/rQHb8loUU5lxmp6XU+86QMcKFDo4a0e9bM0D9
+X-Gm-Gg: AYBFou2GD/oXSxWJMKOJ9r6KM5ya4RAQMg7atmv8Xa3V7XrseB6VidCaBHojQHb0ifn
+	7b0i6JNzs6JLdDqjREGukwTc88J1iGTAkVhYUNPUxkfDY/xFLjZAVM9aPS25sOIpH61uVVqySF2
+	O32YQZ6rM6IPgHc699hIHo0iY+Q4CMuA/JY7RgZ/zPfTHTRgd8uCHcCLmAbbmZOepxs0i8Uqsvz
+	5CLRnKQ2d3lvLPiP/BafyYfKO1CrxW9Q0bcKnMJVE5AgDYu5BkCBV55XsBasduMvGlUeuTBGZPa
+	IR/dXnkzE7m1oQ+7MR+bGQ5pKKrhmAhpk5UTOyii90mOfjCxMWHX5KxpbPy98CisjtCeRnEIt6i
+	Z8GHtGY1AJ3YqKqmeFNU7GBp/+9ejow0bNNm2NG0EDQ==
+X-Received: by 2002:a05:690e:4143:b0:668:42d:95e5 with SMTP id
+ 956f58d0204a3-66fb58f1410mr10675130d50.4.1788894372039; Tue, 08 Sep 2026
+ 12:06:12 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 12:06:11 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 12:06:11 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <ae783977c1eaa34d2910f76dac1437c7aad47d93.camel@intel.com>
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-4-15ad654a50db@google.com> <ae783977c1eaa34d2910f76dac1437c7aad47d93.camel@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-1eoZpEb35WjTVotSKJW7
+Date: Tue, 8 Sep 2026 12:06:11 -0700
+X-Gm-Features: AcwNN1XsGt_fUaARpEZcGvQCOF1lLG5Qg2IcdgK2WB2r0fv2QH8UPnIsl3MEqiA
+Message-ID: <CAEvNRgHB9Vhwe4kOGYUn3piw3dw8zqSgVQX2VonoWCYPw-TaWA@mail.gmail.com>
+Subject: Re: [PATCH v14 04/22] KVM: selftests: TDX: Use KVM_TDX_CAPABILITIES
+ to validate TDs' attribute configuration
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Aktas, Erdem" <erdemaktas@google.com>, 
+	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "shuah@kernel.org" <shuah@kernel.org>, 
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "afranji@google.com" <afranji@google.com>, 
+	"kas@kernel.org" <kas@kernel.org>, "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, 
+	"ira.weiny@intel.com" <ira.weiny@intel.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
+	"Chatre, Reinette" <reinette.chatre@intel.com>, 
+	"isaku.yamahata@intel.com" <isaku.yamahata@intel.com>, "seanjc@google.com" <seanjc@google.com>, 
+	"pratikrajesh.sampat@amd.com" <pratikrajesh.sampat@amd.com>, "oupton@kernel.org" <oupton@kernel.org>, 
+	"wyihan@google.com" <wyihan@google.com>, "sagis@google.com" <sagis@google.com>, "Gao, Chao" <chao.gao@intel.com>, 
+	"Wang, Roger" <runanwang@google.com>, 
+	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, 
+	"ajones@ventanamicro.com" <ajones@ventanamicro.com>, "Qiang, Chenyi" <chenyi.qiang@intel.com>
+Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "jmcrey@google.com" <jmcrey@google.com>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Le lundi 07 septembre 2026 =C3=A0 14:36 +0300, Tomi Valkeinen a =C3=A9crit=
-=C2=A0:
-> Add the V4L2_PIX_FMT_Y12 (12-bit greyscale stored in 16 bit container)
-> to the v4l2_format_info table.
->=20
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+"Edgecombe, Rick P" <rick.p.edgecombe@intel.com> writes:
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+> On Wed, 2026-07-22 at 23:13 +0000, Lisa Wang wrote:
+>> +static void tdx_check_attributes(struct kvm_vm *vm, u64 attributes)
+>> +{
+>> +	struct kvm_tdx_capabilities *tdx_cap;
+>> +
+>> +	tdx_cap =3D tdx_read_capabilities(vm);
+>> +
+>> +	/* Make sure all the attributes are reported as supported */
+>> +	TEST_ASSERT_EQ(attributes & tdx_cap->supported_attrs, attributes);
+>
+> I think this patch actually does nothing because attributes is passed in =
+as 0?
+> So 0 & supported =3D=3D 0. It does exercise KVM_TDX_CAPABILITIES as claim=
+ed, but so
+> does tdx_filter_cpuid(). So for a minimal support, we could probably drop=
+ this
+> patch.
+>
 
-> ---
-> Changes in v2:
-> - Drop V4L2_PIX_FMT_YUV24 which was already added upstream
-> - Link to v1: https://patch.msgid.link/20260806-v4l2-format-info-y12-yuv2=
-4-v1-1-de2dc061be02@ideasonboard.com
-> ---
->  drivers/media/v4l2-core/v4l2-common.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-c=
-ore/v4l2-common.c
-> index 65db7340ad38..5920941d7f60 100644
-> --- a/drivers/media/v4l2-core/v4l2-common.c
-> +++ b/drivers/media/v4l2-core/v4l2-common.c
-> @@ -333,6 +333,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 f=
-ormat)
->  		{ .format =3D V4L2_PIX_FMT_YVU420,  .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
->  		{ .format =3D V4L2_PIX_FMT_YUV422P, .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 3, .bpp =3D { 1, 1, 1, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 1 },
->  		{ .format =3D V4L2_PIX_FMT_GREY,    .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 1, 0, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> +		{ .format =3D V4L2_PIX_FMT_Y12,     .pixel_enc =3D V4L2_PIXEL_ENC_YUV,=
- .mem_planes =3D 1, .comp_planes =3D 1, .bpp =3D { 2, 0, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 1, .vdiv =3D 1 },
-> =20
->  		/* Tiled YUV formats */
->  		{ .format =3D V4L2_PIX_FMT_NV12_4L4, .pixel_enc =3D V4L2_PIXEL_ENC_YUV=
-, .mem_planes =3D 1, .comp_planes =3D 2, .bpp =3D { 1, 2, 0, 0 }, .bpp_div =
-=3D { 1, 1, 1, 1 }, .hdiv =3D 2, .vdiv =3D 2 },
->=20
-> ---
-> base-commit: 274af88c8acaa4bb538791047bd17fa5136ba78f
-> change-id: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
->=20
-> Best regards,
-> -- =20
-> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+For more context, Isaku suggested this in [1], but after all the changes
+tdx_read_capabilities() is already used in the tdx_init_vm() so I think
+we're good to drop this patch.
 
---=-1eoZpEb35WjTVotSKJW7
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaqBckAAKCRDZQZRRKWBy
-9NRMAQCyIdXQYXKDpunGdGV6p+gwX9i1G3tXpI9Ce34+976J0wD/dVWwSIp5oVVi
-sk8qilc6jxcC1dNnjBTu57BXbfkUlw4=
-=Ok0O
------END PGP SIGNATURE-----
-
---=-1eoZpEb35WjTVotSKJW7--
+[1] https://lore.kernel.org/all/20220901012853.GF2711697@ls.amr.corp.intel.=
+com/
+>> +}
+>> +
+>> =C2=A0void tdx_init_vm(struct kvm_vm *vm, u64 attributes)
+>> =C2=A0{
+>> =C2=A0	struct kvm_tdx_init_vm *init_vm;
+>> @@ -112,6 +122,8 @@ void tdx_init_vm(struct kvm_vm *vm, u64 attributes)
+>> =C2=A0	memcpy(&init_vm->cpuid, cpuid, kvm_cpuid2_size(cpuid->nent));
+>> =C2=A0	free(cpuid);
+>>
+>> +	tdx_check_attributes(vm, attributes);
+>> +
+>> =C2=A0	init_vm->attributes =3D attributes;
+>>
+>> =C2=A0	tdx_vm_ioctl(vm, KVM_TDX_INIT_VM, 0, init_vm);
