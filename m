@@ -1,117 +1,130 @@
-Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC6F5452AE;
-	Tue,  8 Sep 2026 13:08:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB60549369
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872931; cv=none; b=NpsaPeljr4aiR+z140sQR8nyYLrTbfazNjSh7IMhBpyT6yqdsEW+juYQ5lkee01rnPu6Yt3wf/FfaVpN921cGgbP3E5wUUlaCZMg17RtDJmpSUtB90yiKyOK1lfTraNeRI5L3GbingEg0mNaXSaQ723uwL15MhYcdTFo9Fqmh58=
+	t=1788872949; cv=none; b=BAV6IMAOvbjcb9epAsTH433j3KCq4jV4Whd0TRVpSCuwI3Dg0e46k8IQbppPJ+Mp0oYyMCkA2pjnO+Jk3iCOOyhtGqzYE1nHBxzRtarwagq3g/Bhq1iXlx9/JPZyYSiww1sgdtFUAcEGIaryXLaGlGnFF2TH4bJRN4RiOYNx6HI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872931; c=relaxed/simple;
-	bh=zzd6uzk3xUz5w5wCwKt8Bv5z2FR/iAHlwOv9gj4Np6k=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ghWVZvh3yDlwVwROmh5W4nB+OYEJ+tBa2GBG6ey4iXk8BFSGEtjCe+Mt6jH2sS94tK73aA6nctS/uXV04S+bsrXkvWtveDzUDlZ3yfDNPUI9U2Qpj5CbkYEz856cBuF+hirwnu4saRJJ8lGsbazoE5aIiGD8HdPjP9u5xfNuo7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=f0V4G50U; arc=none smtp.client-ip=113.46.200.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788872949; c=relaxed/simple;
+	bh=j4TbLGfPIfIib7DoYRvqWh501ib/4MzE3b1vNb6XzkQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=O/+ZL4MeYFa8P6Kvv1VHCqVvax4+9W6f07gQCNz2bcbqGzhGNq3OywfgnwNXrNZo8EhsNrbbN/DJeVQOHj3vDnVuNeSst4vI5dXspyIuvfiCdPFRPG5+XW7vmqJJ5THB9YT2L3090ZpTSBuOCrVAqkoxOHk57xU48mYjYjyoR0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=hiT/r7zQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=q4gss+Uq; arc=none smtp.client-ip=103.168.172.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="f0V4G50U"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=B+2IBNaofa1Ew7xyFspcz5giGEkRFBZuf5UcHuv76xY=;
-	b=f0V4G50UOv0de6WaDiMYaOamv8cGS94BzJ6BX+evYDZN0nuzmTUYlt3hdkGmR4hb8MzACAJfq
-	4bYj2cBVTWtYLhlV721ChbXg+CEBYtbQG8Fzu38hcb0Un69AWuvfcrnCedzsJY5COYQt5g6OpfO
-	lEqEUcISounmbEeoxvSWNg4=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4hfP9f46zHzmVCF;
-	Tue,  8 Sep 2026 20:57:42 +0800 (CST)
-Received: from kwepemf100015.china.huawei.com (unknown [7.202.181.14])
-	by mail.maildlp.com (Postfix) with ESMTPS id 8D3414057A;
-	Tue,  8 Sep 2026 21:08:36 +0800 (CST)
-Received: from dggphicprd10024.huawei.com (10.243.6.112) by
- kwepemf100015.china.huawei.com (7.202.181.14) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 21:08:36 +0800
-From: Abbott Liu <liuwenliang@huawei.com>
-To: <liuwenliang@huawei.com>, <tony.luck@intel.com>, <bp@alien8.de>,
-	<jic23@kernel.org>, <ardb@kernel.org>, <rafael.j.wysocki@intel.com>,
-	<guohanjun@huawei.com>, <mchehab+huawei@kernel.org>,
-	<luoshengwei@huawei.com>, <jason@os.amperecomputing.com>,
-	<danielf@os.amperecomputing.com>, <linux-edac@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 0/3] RAS: Fix ARM processor error bounds checking
-Date: Tue, 8 Sep 2026 21:08:15 +0800
-Message-ID: <20260906130000.4181892-1-liuwenliang@huawei.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="hiT/r7zQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="q4gss+Uq"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id E0278EC012C;
+	Tue,  8 Sep 2026 09:09:06 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 08 Sep 2026 09:09:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1788872946; x=
+	1788959346; bh=4ayj4peSiR9Svnk4dcRkrIeubDo3GBkWjAAWp4/esog=; b=h
+	iT/r7zQhr70zC5NihfXkAb88NPIyxmpY6AT03lzRqA9MLg9KC7Ek8Ty9MEpXb4Ju
+	H1VQLu5+Ad351rw8epWiSuYjv5kkDsEiUOWJ3Uytfdc/MVORwf8d1w7lSzoZ7jFD
+	1+7d7JojdOQfcFDOqcuTLsn0jrwSPF9/n/uKomgS+9bUrTtpqBgGFY4jZf5aJiiU
+	86AokqbOrJ/P40AsKvuY45+WSM8JXy73+9rxM5tGuhpi8pj/vUKaQW4n1KjnzVr1
+	9C02zAUZCtCqFSM2JtlIcUCODURj25p8+WqOSvgaEbzl8hd6Jn99eF/Fa02S4Oqb
+	vmuW098rs4Gahnm7+OllA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1788872946; x=1788959346; bh=4ayj4peSiR9Svnk4dcRkrIeubDo3GBkWjAA
+	Wp4/esog=; b=q4gss+UqTOT1NnlPnnjbIKpJ/g3P+FoqFME2fM/13CR5+SFGjrg
+	ADMoyARmQLu+pU1WDi0iZjWHPYd4vBaafhfjyf1HcbuU/CUdceF0z3KKxhzy7hXB
+	R2h33gUWr3F1mlXJgyjhPasmJhC0fsNyAohG7HJkNvu4/Lx4gdINrfskvaUtXLlk
+	5O8O0JffWP5Zdte1Eu+u96buBwpuMFnluFsv9WD+SujzK5nQHbUR7BSXh7L8jw2x
+	SeRo/if9njVQBXxBO20kkJ3F6ZrNymRHZOojZITn+KDISVgianfuvN/8ySWrKq0v
+	6gmh/1mo9RTQ5uaFxg3Bx9zLUzTGxa3ouLg==
+X-ME-Sender: <xms:8gigatS6yC8ny3IVTtM0JzMpyrHuKXsHOt9Ct7XrqCL-jBEEUE9ZDA>
+    <xme:8gigao1HlhM9fZd1lx6ODg7qXColQhWnmiPONuhnoBwgNSF8FftXOAslGsHsTDEJ9
+    _6yZSfOcxyOW5rKGezHZG0yG9kEKnGjIJrYLsiB4XPJ0sxB17Tom0KZ>
+X-ME-Received: <xmr:8gigag8rFhCC6KseXt4l0witibDd6_eLy-zSPMWPp3Ke2koAqs-Vy5xG8f4>
+X-ME-Proxy-Cause: dmFkZTFVW8T6Hhbun1kCRweiWLTW4B0DweckVuex7uj8ZYNR1/gxJR7tKJt3JXNK8Om+03
+    K5k1jQTsgq+L9NoWVoR0nWsC411it3NbkREAwr7Mv8YOa6AECeJYV6rN8pUV2U7Ye5QXSE
+    Kb3b2KmjmfBJsH3moF1fEWaQxyoGveHt8bJlj4pFtC3Z4MRA/Hqg/zLKteN0LK9CXq6WfR
+    dGLbKn2Tk/pNxZQl1bfNTSji2dqJQFlIwfvSHKqM4mmK9RCgWRLrd4AThRYqA7qXrzzDyx
+    xixbOrMKoz1Bo03Wm9NGoQ8Fkkosjy30K2SXNi6bkjaY7FiqhmPQQ1L3FM4/uIdQa8/aT8
+    iqlnvc6OgLfXBjRiE3WVxkuDHsMC0K8rTFfZjzdhLHmb+CJ8cXUpbu5a7cwUNCsLRcP6HW
+    3jNJYgdGJ5JHLKMVcJGeoKBvUoONVrZ7hKZk2+V/wLGSuUZwTaALaoCP0tBSw7Kpc6jKwi
+    /oZ4G9nd4k6qvQzwjra1a6k9ZyqA+YL9T6AfwVJy4SYZYm465fdbPyDrEjfzXcT44EW//T
+    MXmJ2E+pBcV+rP6dQxzfL1b70ovzluegONoR28y/Bi4HvZuEbBsPlWSOB4KR2+bMiAU1Z7
+    5Isf7HdUQ/m8AFJqXDM4FdT1zUVN0XrhiKYpa/ry+BJgqqmNKSVf8RT+mjaw
+X-ME-Proxy: <xmx:8gigap9DySO-xz67KhqOoXTqVEM4C6MXgsPe7G_cznS9FXNIgXZxhw>
+    <xmx:8gigajECGeOagpaJs3teiMUFAz83cM_XBQNjl9fTWFRyemmhwsRiUA>
+    <xmx:8gigajf37X8vwqQdGC3lqQwteJkolOt99f6JCtPcfGZz6MGyPyslog>
+    <xmx:8gigaik-YgEmlZ5Q38n3BYnAFUr3v9T8nHIQ3lZE5Zh54HZX_VUqAw>
+    <xmx:8gigalH0G0HBl1IznQMXiEdN1oQLwpcUHFEF7mj-0aNkiWN01RKdyvon>
+Feedback-ID: ie3994620:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 09:09:05 -0400 (EDT)
+Date: Tue, 8 Sep 2026 14:09:04 +0100
+From: Kiryl Shutsemau <kirill@shutemov.name>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+	Gladyshev Ilya <ilya.gladyshev@linux.dev>
+Cc: akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, 
+	hannes@cmpxchg.org, usama.arif@linux.dev, lance.yang@linux.dev, 
+	baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, kasong@tencent.com, hughd@google.com, 
+	balbirs@nvidia.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH] mm/huge_memory: add folio_reset_partially_mapped()
+Message-ID: <aqAIFV4nOGPbWiDS@thinkstation>
+References: <20260907183340.1446132-1-kirill@shutemov.name>
+ <ap_Tjt5vxal-B8DP@gremlin>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemf100015.china.huawei.com (7.202.181.14)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_Tjt5vxal-B8DP@gremlin>
 
-Commit 87880af2d24e ("APEI/GHES: ARM processor Error: don't go past
-allocated memory") and commit 05954511b73e ("RAS: Report all ARM
-processor CPER information to userspace") introduced bounds checking
-for malformed ARM processor error records in log_arm_hw_error().
-However, three issues remain:
+On Tue, Sep 08, 2026 at 10:25:07AM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Sep 07, 2026 at 07:33:40PM +0100, Kiryl Shutsemau wrote:
+> > Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+> > Assisted-by: Claude-Code:claude-fable-5-1
+> 
+> Note that policy has changed on Assisted-by tags so this should be:
+> 
+> Assisted-by: LLM
 
-1. The ctx_info bounds check condition is inverted: it adds
-   ctx_info->size when the context header is already past the end of
-   the section instead of when it is within bounds.
+I was not aware. Thanks.
 
-2. When vsei_len < 0, the error path does not verify pei_len and
-   ctx_len. Since these are derived from err_info_num and
-   context_info_num, they may describe regions beyond the allocated
-   record, causing trace_arm_event() to read out of bounds.
+Will fix in v2.
 
-3. ctx_info->size is a u32 taken directly from the firmware-generated
-   record. A value over 0x7fffffff overflows the signed int sz used
-   to advance ctx_info, so the iteration can walk past the end of the
-   section.
+> > +static void folio_reset_partially_mapped(struct folio *folio)
+> > +{
+> > +	VM_WARN_ON_FOLIO(folio_ref_count(folio), folio);
+> 
+> NIT: I wonder if we could have a folio_is_frozen() that'd make this
+> self-documenting? As trivial as it'd be :)
+> 
+> If not, then a comment like:
+> 
+> 	/* Folio must be frozen. */
+> 
+> Would be helpful.
 
-Patch 1 fixes the inverted bounds check for context info iteration.
-Patch 2 sanitizes pei_len/ctx_len/ven_err_data in the vsei_len < 0
-error path to prevent out-of-bounds reads in trace_arm_event().
-Patch 3 checks each context entry with 64-bit arithmetic so that both
-the header and the context data fit in the section, and stops the walk
-at the first entry that does not fit, so a malformed size cannot
-overflow sz and walk ctx_info out of the section.
+There is a series that changes how frozen is encoded and would be the
+natural home for such a helper:
 
-Changes in v3:
-  - Remove the empty line between the Fixes: and Signed-off-by: tags
-    in patches 1 and 2, per Hanjun Guo's comments.
-  - Add braces around the else branch that assigns ven_err_data in
-    patch 2, as suggested by Hanjun Guo.
-  - Add new patch 3 to check each context entry with 64-bit
-    arithmetic and stop the walk at the first entry that does not fit
-    in the section, so a ctx_info->size over 0x7fffffff cannot
-    overflow the signed int sz and walk ctx_info past the section,
-    addressing Hanjun Guo's overflow comment.
+https://lore.kernel.org/all/bb1cb750157733f897df2e261cad3d5c42acc172@linux.dev/
 
-Changes in v2:
-  - Split the original single patch into two separate patches, one
-    for each distinct fix, to ease review and backporting.
+The patchset seems to be stuck. Not sure what the plan there. Ilya?
 
-v2:
-  RAS: Fix ARM processor error bounds checking
-  https://lore.kernel.org/all/20260825134323.4181892-1-liuwenliang@huawei.com/
-
-v1:
-  RAS: Fix out-of-range section_length in ARM processor error handling
-  https://lore.kernel.org/all/20260820131829.1006371-1-liuwenliang@huawei.com/
-
-Abbott Liu (3):
-  RAS: Fix inverted context info bounds check in ARM processor errors
-  RAS: Fix out-of-bounds read when tracing arm_event
-  RAS: Fix integer overflow in ARM processor error context walk
-
- drivers/ras/ras.c | 33 +++++++++++++++++++++++++++------
- 1 file changed, 27 insertions(+), 6 deletions(-)
+I will go with the comment for v2.
 
 -- 
-2.43.0
+  Kiryl Shutsemau / Kirill A. Shutemov
