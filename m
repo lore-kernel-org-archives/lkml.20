@@ -1,169 +1,281 @@
-Received: from mail-oo2-f29.google.com (mail-oo2-f29.google.com [74.125.231.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037DB388369
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BA5388369;
+	Tue,  8 Sep 2026 20:09:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898137; cv=none; b=GBz/Q/wfEWFYXeuNPc8Yaa/ETbgTb1OapAM6Lz/9G+zaVqEvmpxfwj8FtuuSlt7+0XrcV2odOF33ggTNHruE1M75+rZznjtOrPYjNp5CrSwCGXlayIr1j0egM4wBxI2/4bAUZGv1+CB56YgUdW2rBYBxqUiVEu//WJfotRJUpHo=
+	t=1788898149; cv=none; b=nKMcXdO0DEXQv8KIeAzOz5aaRjc2SxPAF6dFLiIXcXzipMYll6Q3Kg0ie2PAuX9IWCTxtg4kuOPDBmu4LbFM1ivSwmYkrzOHlZqn+Xx9NKgJYi24ytBsJ0x8k7Q5SUUZzN2brbr9kF6JMSVHXe3eZSnum5T4m65i67siJShBS2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898137; c=relaxed/simple;
-	bh=/kMit8CUDaP2BflI6bC+09wX3fqJwv8fLnZxYfqIkgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cc39TX6FretGuaU65S6O2gbF0shs89kBt9PW+DpWzhUQVhgv/eC3ilHMQzp65RH1iyxGjALFk05BmHzIxBW6qWTf6is3kWIhenDRMzf+/V9oqN5BOAtpVsgHvCQc1pH2+rza0XlflOsU9EJWDfdJfXTc18vFiAa0OgbIJJl8go0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tamu.edu; spf=pass smtp.mailfrom=tamu.edu; dkim=pass (2048-bit key) header.d=tamu.edu header.i=@tamu.edu header.b=GzgtppxI; arc=none smtp.client-ip=74.125.231.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tamu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tamu.edu
+	s=arc-20240116; t=1788898149; c=relaxed/simple;
+	bh=JOTHkDDSySWU/FaBwU/dlcCoevcoCS8rHIuAzWMFwPs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=kHy1viOi9goeNyaNZy9N+lQL3HJ1fHbAX4811qVA9Z66uEk9jXQzP770fRaI6R5gsxW1pByzQoFCaaX/7CtwZIH0Uw+qB7mGvB2hsQzcjBNOeRr3doOHPKiaduIGqAg3azUeftZGmq8Ih0+KXgegFPEt2ux7+Nnn6tWJP5lk8MM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LeCjzr7L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tamu.edu header.i=@tamu.edu header.b="GzgtppxI"
-Received: by mail-oo2-f29.google.com with SMTP id 46e09a7af769-7fcc35eeb48so215322a34.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:08:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tamu.edu; s=google; t=1788898134; x=1789502934; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cpZBZiNkX1boADxTuU2IVraCPujz/4cVmGXwbGYdtrg=;
-        b=GzgtppxIDL/LhxXRbBfnTCRUpuvgQ9f9hlAu2dLKdN3vqY2Tk9jNIlNX11ACGrSXwQ
-         FUNtmXfyRVRbo/qRL1Lxyd8sUb2mpmQzlAP3wHQbClgGDeuIZZTEPnxaogPLzaKJP44v
-         kWGsvTNzbeNmPEjtf9J8Lv7Jqpt0kenHQV3zKWnylPYfDwZVajObpvUFJqGAzGTxe/2L
-         M9978pleCh7C+Iw58Eh173jQPq9oIbq3KlaBbLeFP+qUVxZoKKQYwDgkyqjUEGNYlaNw
-         11tXwDBn6t4e5pyM5pnPgx7DPN7AunkojkjaixANUlA1CnmqO84C0DJG8fCnq419otOn
-         tvMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788898134; x=1789502934;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cpZBZiNkX1boADxTuU2IVraCPujz/4cVmGXwbGYdtrg=;
-        b=rUhW8rqdN8B3kt3iugivedpyZKi0I+vY6Nxi0ajkZ7YQlS+u5pCQPQ1LAg9FtXdGrG
-         hzLq4vJwezG5jFT3xMbYcOgdBTAMT0mZtkUqSEatonyTwSgSVa66va5+C6CSymnTHxpa
-         zP0iJJAs+mk/qQiwg2NoBnv79Rl9oLpSuFsVBd+v46bnEnhEKvX0mV54Km97J0WNy17s
-         9jOIblJWgtlu2KQjTRLrJ9J7qX06YUnipurltALaLmddhWxeYpIj255/3TQzL3PapAZw
-         MQ/RjrqjIhtfdT6l/YgpTA9bn9t/tYJSKxDYhf/1q9/bznh2E5eUjTvrtYaZwqtb1U9z
-         CrVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOkuq/06WiqKxUMEE7IBloO5qBnYMIQ4dQiySocyAeWpNZT5VXSmx9uQTDXr2Ef6CegtF0qpzEIffCAkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k2qwlw2jS2NnnuQfX9stbSkX7/Kkq4e5hvXlM3ERLXalkk9JPc
-	U4cJBxCie2c/m2/EIP1FgEaYJVM1AcY3KYGGjCEdyFvTuj9TJiP+94S91Wr1BbvnPbg=
-X-Gm-Gg: AYBFou1H3gZz+hJYJJ/rekJD/rlr2PQBIepMNlGdjc6ODH3FM9avI76XH7zkQ87V5tQ
-	MNr35e7H8++Opxc7m3NPMYndxPoXIkdYg2KoR9vnkZcxRsyb8YbJ/0gXVw1Li/jQMvMwcJsZyRl
-	Tfd7UiFoO81xW32ujnT4ZiLJWTz6HYC/vVnG0XKyr4IGg2aUFHLW2L/CVFJcb8C9qY4BkWC0fDn
-	CKXcXjylXjKOKaNHwaHDjJVJoFNcelGUAh+JSO4crpJfikwXU5AHhq5dNUlACwwUZtWknQDyFRm
-	njDcktsIPWafWO4ZgXDtM9TePHkg3ttAo0npxJZ081zfVPq5eW5wpANHeDA3pPsAhr39Atojnl/
-	gbOzOTAwmqWBL8lgo0hOYNu31qar+44v/FBtdG29ig7J02gDWGtD5RxHm3pWNDZ9F9NzNLlYXHC
-	nWWi8MZkNvj7xVnLZrgwnQQ8Mh8QTL+0m/dLy5c2YMAw/RGFn2WAid4vd4101j5u3XizxMfVbF4
-	3GwIEJw331ENwRkwjgC+2VIEtu8bu9DftfPRZtmb4Yuub1QK0eDdvUI5Z9He6JFm7URzLc=
-X-Received: by 2002:a05:6830:3499:b0:7f6:705b:ffe7 with SMTP id 46e09a7af769-800f1a35138mr1966540a34.14.1788898132377;
-        Tue, 08 Sep 2026 13:08:52 -0700 (PDT)
-Received: from fb.keuhufpvur4u1eezzhu5ttlizh.gx.internal.cloudapp.net ([20.106.51.18])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f6793f5fsm17086281a34.8.2026.09.08.13.08.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:08:51 -0700 (PDT)
-From: Qingxiao Xu <qingxiao@tamu.edu>
-To: 
-Cc: Qingxiao Xu <qingxiao@tamu.edu>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-block@vger.kernel.org,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rnull: fix geometry store check-then-act across lock scopes
-Date: Tue,  8 Sep 2026 20:08:43 +0000
-Message-ID: <20260908200845.405112-1-qingxiao@tamu.edu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LeCjzr7L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81B1C1F00A3D;
+	Tue,  8 Sep 2026 20:08:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788898147;
+	bh=wkAy/O15nPnQoj39O2Jkmru1wT+lgic9B+37FMixNf4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=LeCjzr7Lxvh1mK11clJatYArBKS24pOQj2ahoUiXsKc+TMcQ3s0bRMEPuPKe/H5cG
+	 ZsEW/MtqSep77H7nCkm/77+CSVWcqJoxGZbLCWl5ASvegv3qYyEmX0y8XC6Y0141Uo
+	 af6EjWwftHJuxPib7aF1l8vclmOnQgNieZ2HZiXZ30rDUhO/T0XypyMo2NiBJytLM4
+	 vPOstzXzO+A/e9TtkCQ+tQ4x7dLeKigZgNz7/Tm6QuEugL9gtJG1veO65ATNV8fJQy
+	 ELtXRPMisE79w3KzHtZleS+cd+UVh9zhKe52slLyVzGy5GWrN5w3yIDSpibI8kwAuV
+	 +VL06VNS0fwRg==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:18 +0100
+Subject: [PATCH 14/39] mm/vma: add vma[_flags]_is_kernel_owned() predicates
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-14-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5413; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=JOTHkDDSySWU/FaBwU/dlcCoevcoCS8rHIuAzWMFwPs=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG46/Dk21jE44vPvzcGS/6+X8j0O/utbrRvtXblW5
+ 8piq5c+HaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZiIcCPDXwExux8XPzA27F31
+ bw0Tc6V9VTTb95yHxzZq+2xPZsnjNmBkuOonutzuk7tY0u2ujD8rmbM+7a/6VPJWsjn8WMXKbT1
+ 7OQE=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-The blocksize/rotational/capacity/irqmode stores check powered under one
-Mutex acquisition, drop the guard, then update under a second acquisition.
-A concurrent power-on can create the live disk from stale geometry in
-between, leaving powered==true with config != live disk.
+Rather than referring to VMA flags with uncertain meaning, add a new
+predicate that explicitly describes what possession of the VMA_PFNMAP_BIT
+or VMA_MIXEDMAP_BIT flags mean, and then refer to that function for
+determining VMA mergeability.
 
-Hold one guard for the powered check and the field update.
+Either flag means the contents of the mapping are owned by the kernel,
+usually a driver, rather than by the core mm: the memory may be MMIO,
+kernel-allocated pages or even ordinary pages the driver maps itself, but
+the core must not populate, reclaim, migrate, copy-on-write or merge the
+range on its own initiative.
 
-Signed-off-by: Qingxiao Xu <qingxiao@tamu.edu>
+We initially also include VMA_IO_BIT here, as by implication, these must be
+kernel-owned. (mlock() also sets VMA_IO_BIT transiently on ordinary VMAs
+while locking them, which is addressed later in this series.)
+
+However the intent is to in future remove this, as no mapping should be
+marked as an I/O mapping without also being marked with VMA_PFNMAP_BIT.
+
+This forms the basis of further work intended to improve how we express VMA
+properties such as this.
+
+Also update the VMA userland tests to reflect the change.
+
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- drivers/block/rnull/configfs.rs | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ include/linux/mm.h              | 56 ++++++++++++++++++++++++++++++++++++++++-
+ tools/testing/vma/include/dup.h | 29 ++++++++++++++++++++-
+ 2 files changed, 83 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
-index 32c10c3f4..66ef91b3f 100644
---- a/drivers/block/rnull/configfs.rs
-+++ b/drivers/block/rnull/configfs.rs
-@@ -174,7 +174,8 @@ impl configfs::AttributeOperations<1> for DeviceConfig {
-     }
- 
-     fn store(this: &DeviceConfig, page: &[u8]) -> Result {
--        if this.data.lock().powered {
-+        let mut guard = this.data.lock();
-+        if guard.powered {
-             return Err(EBUSY);
-         }
- 
-@@ -182,7 +183,7 @@ fn store(this: &DeviceConfig, page: &[u8]) -> Result {
-         let value = text.parse::<u32>().map_err(|_| EINVAL)?;
- 
-         GenDiskBuilder::validate_block_size(value)?;
--        this.data.lock().block_size = value;
-+        guard.block_size = value;
-         Ok(())
-     }
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 4604cd011ca4..45c59474c853 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -1612,6 +1612,44 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+ 	return is_shared_maywrite(&vma->flags);
  }
-@@ -204,11 +205,12 @@ impl configfs::AttributeOperations<2> for DeviceConfig {
-     }
  
-     fn store(this: &DeviceConfig, page: &[u8]) -> Result {
--        if this.data.lock().powered {
-+        let mut guard = this.data.lock();
-+        if guard.powered {
-             return Err(EBUSY);
-         }
- 
--        this.data.lock().rotational = kstrtobool_bytes(page)?;
-+        guard.rotational = kstrtobool_bytes(page)?;
- 
-         Ok(())
-     }
-@@ -225,14 +227,15 @@ impl configfs::AttributeOperations<3> for DeviceConfig {
-     }
- 
-     fn store(this: &DeviceConfig, page: &[u8]) -> Result {
--        if this.data.lock().powered {
-+        let mut guard = this.data.lock();
-+        if guard.powered {
-             return Err(EBUSY);
-         }
- 
-         let text = core::str::from_utf8(page)?.trim();
-         let value = text.parse::<u64>().map_err(|_| EINVAL)?;
- 
--        this.data.lock().capacity_mib = value;
-+        guard.capacity_mib = value;
-         Ok(())
-     }
++/**
++ * vma_flags_is_kernel_owned() - Do the specified VMA flags indicate that the
++ * contents of the VMA are owned by the kernel rather than the core mm?
++ * @flags: The VMA flags to test.
++ *
++ * A kernel-owned mapping is one whose contents are established and controlled
++ * by the kernel, typically a driver, rather than by the core mm's fault and
++ * rmap machinery.
++ *
++ * The mapping may be memory-mapped I/O, kernel-allocated pages or ordinary
++ * pages the owner has chosen to map itself (shmem via a PFN map, for instance).
++ *
++ * But in all cases core mm must not populate, reclaim, migrate, Copy-on-Write
++ * or merge it of its own accord.
++ *
++ * The pages mapped, if any, may or may not be reference counted or map counted.
++ *
++ * Returns: true if the flags indicate a kernel-owned mapping.
++ */
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++/**
++ * vma_is_kernel_owned() - Are the contents of @vma owned by the kernel?
++ * @vma: The VMA to test.
++ *
++ * See vma_flags_is_kernel_owned() for a description of this property.
++ *
++ * Returns: true if the VMA is kernel-owned.
++ */
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ /**
+  * vma_flags_can_merge() - Do the specified VMA flags permit the VMA to be
+  * merged with another?
+@@ -1620,7 +1658,23 @@ static inline bool vma_is_shared_maywrite(const struct vm_area_struct *vma)
+  */
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that a VMA's flags and fields completely describe
++	 * its state.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, private (CoW) PFN maps encode the source PFN of the
++	 * range in vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
  }
-@@ -248,14 +251,15 @@ impl configfs::AttributeOperations<4> for DeviceConfig {
-     }
  
-     fn store(this: &DeviceConfig, page: &[u8]) -> Result {
--        if this.data.lock().powered {
-+        let mut guard = this.data.lock();
-+        if guard.powered {
-             return Err(EBUSY);
-         }
- 
-         let text = core::str::from_utf8(page)?.trim();
-         let value = text.parse::<u8>().map_err(|_| EINVAL)?;
- 
--        this.data.lock().irq_mode = IRQMode::try_from(value)?;
-+        guard.irq_mode = IRQMode::try_from(value)?;
-         Ok(())
-     }
+ /**
+diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+index 52eee05e6c32..3fe40e0f4034 100644
+--- a/tools/testing/vma/include/dup.h
++++ b/tools/testing/vma/include/dup.h
+@@ -1659,7 +1659,34 @@ static inline bool file_is_dev_zero(const struct file *file)
+ 	return file && file->f_op == &zero_fops;
  }
+ 
++static inline bool vma_flags_is_kernel_owned(const vma_flags_t *flags)
++{
++	return vma_flags_test_any(flags, VMA_PFNMAP_BIT, VMA_MIXEDMAP_BIT,
++				  VMA_IO_BIT);
++}
++
++static inline bool vma_is_kernel_owned(const struct vm_area_struct *vma)
++{
++	return vma_flags_is_kernel_owned(&vma->flags);
++}
++
+ static inline bool vma_flags_can_merge(const vma_flags_t *flags)
+ {
+-	return !vma_flags_test_any_mask(flags, VMA_SPECIAL_FLAGS);
++	/*
++	 * VMA merging assumes that the properties of a VMA completely describe
++	 * the properties of that VMA.
++	 *
++	 * However, kernel-owned mappings may have established state upon mapping
++	 * not embodied in any attribute of the VMA.
++	 *
++	 * Additionally, PFN maps encode the source PFN of the range in
++	 * vma->vm_pgoff, which may otherwise cause spurious merges.
++	 */
++	if (vma_flags_is_kernel_owned(flags))
++		return false;
++	/* VMA explicitly marked as being unmergeable. */
++	if (vma_flags_test(flags, VMA_DONTEXPAND_BIT))
++		return false;
++
++	return true;
+ }
+
 -- 
-2.43.0
+2.55.0
 
