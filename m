@@ -1,167 +1,214 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A244FDE76
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5689E25B08F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:11:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858653; cv=none; b=UfXTEFdgI8kn/myzth2o6sim1+ttc/tobMTsiDZh7VD8Q4EA5KrnY32lTBygQaMS3wA4xWGk0bcvX8IpUU7QZQ1CWRZRBIEU+iC2iEdZVlvCAW+eE6QAzNyVzwGFN4lMnqvGVePFCZciUdlNkBV4ZW/xIskD13aOoxb4In737ok=
+	t=1788858665; cv=none; b=tgEAsD+AtrWkJp/7GamewaTY262+QTwoD0jKiMFKc+MyT4wz3jSLX4em28ZioX+Qv2hn7ac38CcskRVD9GYBwemsU3Ds6BTF61OY7YfoBu6G8RTPXQLP5wHL+UXy7F/bVFp/Y65pP8LnoFHsWkcrN2FNG21AziX8aZzh19STi+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858653; c=relaxed/simple;
-	bh=8tSqHlLIXJuWsBQYydJqqwZT5KxUO6DtIPiXjOTGxhs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kQvjgqY65a/Dg65lWgi696eIUX3CFTHQGdz3AyiLE0rWq9pSFJMxUOVF6TLuForEeFJGHwWk3i4LJi6VB7aFeTPWjXtv9XwUGy/X+fQEZOf/cheBPYEeRM3IueP0zJGKvalKzrUl4XrAZdYnlRGWhPZU2u/5eereslMgIS0SFj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=XYbQ6+xP; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788858665; c=relaxed/simple;
+	bh=PvXsmkWYs08Fb6emr0vNeygHcdGIKgZy2QeAteTTf+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PHIj40+zrMMDxS69gju333vhFmnRG/kWrCANbSTq1symgQ8GgS17vhM5TgYs5+keGKs3xdJbbqQQ3yvKRIXpzDHb9kE3fa+wVPjk7Zjn6h7wzY4gsU9dUtBmrIkkiydrN37pYH888YJp3J2vzgqc44Q1g3PN9z/zs67GmMlqKas=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=od9zMfWD; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="XYbQ6+xP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788858650;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=C0xiqVZ1UP4oD+0sq73SGDSnEeFESxAGnTexw/YKrQk=;
-	b=XYbQ6+xPKhdULTdZwa4MyBMGLMulhkFhG+cFq/Pg8rckggehWWeZZmL/BoV5hJcdzWQKHr
-	OZT/Cir+aDKwyP1U4XucPiaX3xvvO3fOgCQ9ug4HqvRlXXeAHZ2oKTiYeWHeKmSLvGXnmn
-	Tos4QX9kJ48W/5ZihVroP50bA+b0GfI=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-522-Z9G_OryfNLuOMVNfyLh3Ag-1; Tue,
- 08 Sep 2026 05:10:46 -0400
-X-MC-Unique: Z9G_OryfNLuOMVNfyLh3Ag-1
-X-Mimecast-MFC-AGG-ID: Z9G_OryfNLuOMVNfyLh3Ag_1788858644
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4B2B31834595;
-	Tue,  8 Sep 2026 09:10:43 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3AA8430001A2;
-	Tue,  8 Sep 2026 09:10:34 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v12 0/8] netfs: Miscellaneous preparatory changes
-Date: Tue,  8 Sep 2026 10:10:21 +0100
-Message-ID: <20260908091031.1506798-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="od9zMfWD"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49954b88fffso32459395e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:11:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788858660; x=1789463460; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
+        b=od9zMfWDcF4OHQCHDnTSp+IxWBh7YcrsnqnYcySKIEcmm/ceS5PK+Ald4WsDAMQGca
+         JtStGdPNa4jsxYXMI/49ZgEEFYt9UcWI8IyRBsO3AybC/oohRQiO3QSxj3hPa2MT3HmE
+         jG815bbsxFI0fkVFJ6+wGUaARnLJaKxSfY22sakMY30hoTw9lRCpmnZd9jHdxlPxrk9a
+         IhrRS2O3xf1/jf1vWiD+7YlOF/bR52YD3FZlFwsuobxev0U4c3rqbs0WfcZmcYym8q6G
+         JzkgBiT4ugQ/LjmCIyf9fuaf6Rc5IxypahVG3fBdT3jSyDWYo8B9u4GFtEseJ8rKv28I
+         CGHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788858660; x=1789463460;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
+        b=AH8qqrSNLhWsdplCFb9li/uvl+rSEWenKn6xjQgRRVMn3YFiVqKZJJfhQcVVIfRSMG
+         Hsa/xzj7V0XoPPJrQjbJ+/EStao28qk7iA0xeePo5TgDvQz1U8j6brRCnaKVX0FI7oR6
+         EWw2koYOHU+DrEozNE+H5yVFF+ogrUXKrZHZ8QdwQ0vl6rzHLLzJrhdT+GjH2JSf22Xf
+         WP472RmTZx248EfNnBWM6jZQTs+bt2EFsjyIMCYe76rTxsSkTvqlGiCO7/TpBJmOx/sE
+         dmgZuflC2PvScRYGTKPApGpLDLxMLh7J899rXBG2JjN/9vmSAjogiWm5CAg/AYV4/34B
+         z9BQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzH+B9k9DMt6W183CpTSLfQU4Njfqj/vRGKgVXmiKqu8t2OzXkmp7egg6QzBTW+HJiAvBvge1jXysfCkkQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMcp7aC1j7eQP4hj/Viw+z7bY3K+w8ukJ2sEvDP5gLEuX13/Wc
+	A/dJrVv9u/mVNjK9WcHkcA+Q0780C97S2BeFvZGR2CrUzAk6A/N3psZLPUiZhoszmg==
+X-Gm-Gg: AYBFou0vjiosVW15sStCfM7q7Q0cSzIK4VlakZ+BZKl7MnH0t93rFxgNZBCramX0LCj
+	lmpHoYpF5rl/UTNdu2gRQ3Awcu7vM6mFr7dc/wGVIPBKGgJl8OG1roDDgFHMPLgspS1gi+JlKwh
+	b2Q4n/YG7XwbryKeMPuVZPSA7KOSA2ZLXB9Kx8+gijCf4/AlUJoeMHi2H1fZO6FFVmuQ5XAMQak
+	j4zOhjiRNpb5LESTcn9Wd8xxRcZKzHMiGipyiwdCDWJNUyXcQQ0jxbvCBL49js+uqXd8ygQaPqF
+	3imO0P/JN8L9UYXwtz21VOo9Y/FpK/LIk9u7h/sDP81eCsCFx0bwCDJohqxBvGPtX5IX34hPcHV
+	YrRhjuadynwf/cWH8t8Lt+HGPkGUvNb3BBwgkBK8i3r/qtfS1ysfNd62DHbusLtrVLQy9Hj+vJ8
+	85xihGegWrEIiG1z9ZzmLfwOqDI8t72YxtTZzhGSVSJRkyb8nQn/yxXDkQavxaQlrgakjwjxJbE
+	iP7gW5yz8GrMB53OV9snUuyvhtKShfAiAqzHU35Cmg=
+X-Received: by 2002:a05:600c:1549:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49cf81f47e6mr290181665e9.6.1788858659472;
+        Tue, 08 Sep 2026 02:10:59 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm279081265e9.4.2026.09.08.02.10.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:10:58 -0700 (PDT)
+Date: Tue, 8 Sep 2026 10:10:55 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <ap_RH4ZDE3XI0rng@google.com>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <apquUWgrD9C2jWQ0@willie-the-truck>
+ <ap_HzwVp-6aOKEbJ@orome>
+ <ap_OFQepcu26g88u@google.com>
+ <ap_QJG8EevX98SXa@orome>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_QJG8EevX98SXa@orome>
 
-Hi Christian,
+On Tue, Sep 08, 2026 at 11:08:26AM +0200, Thierry Reding wrote:
+> On Tue, Sep 08, 2026 at 09:57:57AM +0100, Vincent Donnefort wrote:
+> > On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
+> > > On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
+> > > > Hi Thierry,
+> > > > 
+> > > > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
+> > > > > This series adds support for the video protection region (VPR) used on
+> > > > > Tegra SoC devices. It's a special region of memory that is protected
+> > > > > from accesses by the CPU and used to store DRM protected content (both
+> > > > > decrypted stream data as well as decoded video frames).
+> > > > > 
+> > > > > Patches 1 through 3 add DT binding documentation for the VPR and add the
+> > > > > VPR to the list of memory-region items for display, host1x and NVDEC.
+> > > > > 
+> > > > > The set_direct_map_*_noflush() functions that will be used later in this
+> > > > > series are exported in patch 4 so that the drivers that use them can be
+> > > > > built as a module.
+> > > > > 
+> > > > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+> > > > > but works on sizes that are not a power of two.
+> > > > > 
+> > > > > The of_node_to_nid() function is exported in patch 6 because it is used
+> > > > > in a later patch adding a driver that can be built as a module.
+> > > > > 
+> > > > > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
+> > > > > allow memory to be allocated at a fixed offset within a CMA area. Tegra
+> > > > > VPR needs this in order to implement its own allocator on top of CMA to
+> > > > > meet the strict hardware requirements. This replaces the dynamic CMA
+> > > > > area creation patch from earlier versions.
+> > > > 
+> > > > Did you get a chance to see how this could work with Vincent's series:
+> > > > 
+> > > > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
+> > > > 
+> > > > ? I think that should remove your reliance on can_set_direct_map() and
+> > > > mean that you can retain block mappings for most of the linear mapping.
+> > > 
+> > > I'm not sure if it would help all that much. Yes, if we mark the VPR
+> > > region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
+> > > the checks for can_set_direct_map() redundant. However, from what I can
+> > > tell, Vincent's series still forces page-granularity on these regions,
+> > > so it won't retain block mappings at all for them.
+> > > 
+> > > The block mappings can be retained for the non-VPR memory, so that's
+> > > nice. It also reduces the amount of external prerequisites, but I had
+> > > kind of hoped that we could go one step further and keep block mappings
+> > > even for the VPR memory if the region happened to be a multiple of the
+> > > block size.
+> > > 
+> > > The recent addition of page count to the set_direct_map_*() functions
+> > > helps reduce the amount of checks that need to be run, so maybe there's
+> > > not too much to be gained from removing whole block mappings at once
+> > > from the linear map.
+> > > 
+> > > Thierry
+> > 
+> > I should be able to add PMD_SIZE mapping support to the series. That was
+> > actually my original idea as we can easily force the CMA allocation granule to
+> > be PMD_SIZE too.
+> > 
+> > I didn't implement it as I thought there were not much interest in the end (and
+> > also as contiguous.c is always using PAGE_SIZE granularity).
+> > 
+> > But now as I have implemented a specific pool (and do not use contiguous.c as
+> > originally planned), if you believe it is important for the VPR driver, let me
+> > see if I can extend the support in a V2.
+> 
+> I don't think it needs to be part of a v2 and can be a follow-up. It
+> should be transparent from an API point of view and merely be an
+> optimisation for that specific case.
+> 
+> Eventually it'd be nice to have, though it might also be worth checking
+> what the actually gains are.
+> 
+> Thierry
 
-Could you pull these patches please for -next?  This is the first of four
-batches.  This is based on your vfs.fixes as there are some prerequisite
-patches there.  This was split from v11 of a larger series[1].
+Ack. I'll keep it as is then and we will see later how to extend it, if it is
+necessary.
 
-This a collection of miscellaneous modifications to netfslib that I want to
-make ahead of bigger changes, including:
-
- (1) Convert "unsigned long long" to "uoff_t".  This makes it a little more
-     obvious as to the meaning of the value.  Also convert some "loff_t" to
-     "uoff_t" as most of the time it's used the value really should never
-     be negative.
-
- (2) Remove the writethrough code as the locking is really tricky to get
-     right and it looks like it could deadlock with Ceph if snapshots are
-     used.
-
- (3) Adjust some tracepoints, including adding the cache object ID to
-     certain tracepoinits.
-
- (4) Make use of PG_private_2 opt-in.  Use of PG_private_2 is deprecated
-     and the MM people would like their page bit back, so we need to stop
-     using it soon.
-
- (5) Add some helper functions to handle the barriering needed for the
-     NETFS_RREQ_ALL_QUEUED flag.
-
- (6) Set the subrequest type at allocation time so that the allocation
-     trace records the proposed type.
-
-The patches can also be found here:
-
-	https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs.git/log/?h=netfs-next-1
-
-Thanks,
-David
-
-Changes
-=======
-ver #12)
-- Split from v11 of "netfs: Keep track of folios in a segmented bio_vec[]
-  chain"[1]
-
-[1] https://lore.kernel.org/r/20260902173350.3468672-1-dhowells@redhat.com/
-
-David Howells (8):
-  netfs: Use uoff_t instead of unsigned long long and loff_t
-  netfs: Remove the writethrough code
-  netfs: trace: Change the "clear" folio traces to "endwb"
-  netfs: trace: Rejig a couple of the tracepoints
-  netfs: Add the cache object ID to netfs_read/write tracepoints
-  netfs: Make deprecated PG_private_2 support opt-in
-  netfs: Add some functions to wrap the all-queued handling
-  netfs: Set subrequest->source at alloc before trace emission
-
- fs/9p/vfs_addr.c                  |   1 -
- fs/afs/file.c                     |   5 +-
- fs/cachefiles/interface.c         |  10 +--
- fs/cachefiles/internal.h          |   4 +-
- fs/cachefiles/io.c                |  25 +++---
- fs/ceph/Kconfig                   |   1 +
- fs/ceph/addr.c                    |   4 +-
- fs/netfs/Kconfig                  |   3 +
- fs/netfs/Makefile                 |   2 +-
- fs/netfs/buffered_read.c          |  35 ++++----
- fs/netfs/buffered_write.c         |  66 +++------------
- fs/netfs/direct_read.c            |  14 ++--
- fs/netfs/direct_write.c           |   8 +-
- fs/netfs/fscache_cookie.c         |   8 +-
- fs/netfs/fscache_io.c             |  10 +--
- fs/netfs/internal.h               |  67 ++++++++++++---
- fs/netfs/iterator.c               |   2 +-
- fs/netfs/main.c                   |   1 -
- fs/netfs/misc.c                   |  10 +--
- fs/netfs/objects.c                |   6 +-
- fs/netfs/read_collect.c           |  14 ++--
- fs/netfs/read_pgpriv2.c           |  13 ++-
- fs/netfs/read_retry.c             |   5 +-
- fs/netfs/read_single.c            |  11 +--
- fs/netfs/stats.c                  |   4 +-
- fs/netfs/write_collect.c          |  25 +++---
- fs/netfs/write_issue.c            | 123 ++-------------------------
- fs/netfs/write_retry.c            |   5 +-
- fs/nfs/Kconfig                    |   1 +
- include/linux/fscache-cache.h     |   2 +-
- include/linux/fscache.h           |  36 ++++----
- include/linux/netfs.h             |  80 +++++++++---------
- include/trace/events/cachefiles.h |  30 +++----
- include/trace/events/fscache.h    |  10 +--
- include/trace/events/netfs.h      | 134 +++++++++++++++---------------
- 35 files changed, 324 insertions(+), 451 deletions(-)
-
+-- 
+Vincent
