@@ -1,178 +1,171 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25833D45FA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788901157; cv=pass; b=WE7QzfOqTK5yddiaKrMSHpxohVp9mmwALJvY5Yb87DBsPwQLKSSCFdAyN4DTixQGNpOrH8SRADmXx1b7ddPgO/gUJ9DR/J0GzZIIRJgKM+4Yyvb3DD8BADAqG+cDv77XB8sIkGAuB2lrO5+15e3n7w6+jPPq/do0UJGZktyFmnY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788901157; c=relaxed/simple;
-	bh=4L3mIQ51Za+hevnJQF35OKF0lhPUnBQCI7anwHqJZZY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EI2PftDHMhyMZfeH7E0qcDmFrgFOAXZh/XYekmcnPwcbE6rOnhOmAIeadKR7Q3NMC81UEeU0lHwWewE97CCB72fLidTIih8HwN8GI8WvNM7ULe6OThpuUpnl+0hBgRK+LEqs0W/VrJ3c+GT88UOU2nIjmrqNbG1PJ+zNdMG07jM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akraTvgC; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D63A83D47C0;
+	Tue,  8 Sep 2026 20:59:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788901159; cv=none; b=M/H3BK7XB0Y+D5ZCVSdmmJGaKlcSbdOXTPHWPw0LjMc5T7bHVFzRJV/8hvev/lUwLKXszEesLx5MLmVZ+90T+48bmFBwmwRmxOC1I7xs9w2pLKmdsTMMCmPYXvPo/YPnT5U5HASWcZuf4NzfLtWvYaxNs58/qKsPnjX27erIya0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788901159; c=relaxed/simple;
+	bh=LB9T7y9hXziw5kYzoWlATIyn+dzyDLeA+KV1Dtb+tR0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bZj/C47roIp9DkTGBUzLDYcfCddNpVCA6I5N9O12GXopXwp3uvP0B9eRSDD5zwY5fO0gjV6EZSltQbs2s+wH3ny5W8jAZTaNU7B/28Dm9YMim3+O5w7zbL/a4pXwIJqFWcChik+nyHkaY070g758Jr/WhwUtdCmcIM0g2HrlPRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2H8oEfy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akraTvgC"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-87005a0e052so60866397b3.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:59:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788901154; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JWNDru9v23aON0uiYrcNO0DN/rAwCoDPonir5xekfyfLfUvCqw6AO48hbTVll9azLv
-         VqZAr6qNYiAlva7M44Hs+VrAMr0opi1X2Ut4CTT9RddYKCu4csDvtOWiXrIu7iGh4pT9
-         PMNiJ3tJFD6v1+aiEdOW3U5abtwlVO7WLDjiVqLEAOTR/38t/AocXxEfDSe/AoqpGPE7
-         gm0/4nzm8nk0TGzrwV8q+PVObqYLM2kJ/ibdQ6JY3hOVX3uEJ9AE7FnkuHcpXZHa4SOp
-         N71sUY9yYOH3V1zad4H62+TFi0nvLlrSC502yZDub310Np7x9wiwcbzAfu+oSRr9UcYw
-         xoTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=j2HjWTwKOW7XBjlA+0JQVM2bxaK/3ypo576iHosJe1s=;
-        fh=AeBr3wgvPVkvdDZkQ30x+GrfBew5pWAWSoTcWH4a1bQ=;
-        b=kffZDyLNdoc2u+S8wjbUc9+6y1wVSd1qigpGT8ZrI8+iLQ5wVEVMuHKboM2Rr5Ajxq
-         SpB0pCQFAylVkGlL6nYrHGxetR5XpDFW/1iyf/qhCmN4+MigiUal/yyM6W4suDNFNm2c
-         feEDHQOWW/ze8rs5ls5tmlz83+krE/H6nIjpkkPetgtB8n3QL35aGGt2sQBoCJc0j15O
-         yFqk+e8NUYddjjzwuy8EoDwnTwTNDQEBCPp1PvqmrnKnEDtRaIketf/pL3nIBQSzka7N
-         Z556cGuxvcgapd2MILQ7Bu/xCTjq6Qw6Lteb4D5TSQSJz5VBE6y06K98kZiki6XzYHfg
-         o7fQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788901154; x=1789505954; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j2HjWTwKOW7XBjlA+0JQVM2bxaK/3ypo576iHosJe1s=;
-        b=akraTvgCjokgS5CTJ/WFLSqsdVGBXwZihAmeYk/+Mv8f+G5yhP26GsPDK86J9LZOHk
-         KUC6KAEhhOkM5n3ERHQqWI0oalIbOK73JZLWPY5pv9spndkR9yFC+RRZGVX0a2nYF3FT
-         UWtbs1d4NGDeaHBxXfF19reCM1dC/NiMeoYDCGNsKTPmLgCI/KoIrom62Yu/C/tUl17+
-         UV/ypagne6r9WX+Z0U/rzYL88z+Sn+MnOmGdjSypM6wJfhScOjbjdgymRFDls0k5hT5w
-         MjGFxCqLtSajXsrlif3LR1WNDELiA+3PkHtzzXHHQWPoPevj//oR2v0V4wxm3rDCVllH
-         DCSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788901154; x=1789505954;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j2HjWTwKOW7XBjlA+0JQVM2bxaK/3ypo576iHosJe1s=;
-        b=kOvQaJx68L7G0duNus4RzhqYkvIeaMw8YY+d/HgEOxj9p8wzSIcxbhKXVd7g6iuzWj
-         z8Kw1w0L8zUJmXfesLfHvrhvSSZTloWJCODem45TdgTajy/QQiH54G73uTc2qgSAnZTZ
-         KroJi/4Gv65MnAi/BBy/J6gkDawcDkyMbUttXe8onJm49Lzs3KN4lA0f5fwJijTBTJoP
-         O70p2NW4DC9IfdgmUV7TsM26kMjqlGOLHM7rveE0/CYlwvrH5dZFUXOzf3KqzG07hUII
-         c4jArCBnSEtdI6mN0WbxGTlC4JvAvPPtEtGhc+rAV8EeAEeuKlW/0c5Rwh3AbXZfQTis
-         AuuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw92f69sIMakHmPWqWzH3nur4S6lkprVO3xV7LFpk0g7Uy8P/zuNSK+dMSEzSj0WJgYgBhchtQ8EmRDbDQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0KkWANQC5KuwDXG8NdBOyE7ZLu1y4NKVRhC9AApMevjXydTX1
-	TxCwWFxucN+k2+OGnSEJf3LmI65qN4C4iUB+1VRv5U8lonmMsZy84Vvi3b1UnWvdPJGTOJAHm2s
-	WlJ+uS7aZGKe4gAvDc1Ki8vylh+e8PUBY5hJR
-X-Gm-Gg: AYBFou10F81zt8zbgON+KfiZCz+lQHLjiM+z2VXUA2K+czD1EdwcLFcul9wkko3Mxeo
-	fXQfyn2ly0NK9psyM++Qreyw84SZn9RDr1MErXPcszwMeeqE5wgDzDmY6A4U6gQiSUY/D5j4KsH
-	W0g2ebF85SeipKcYLYVD9GZWUlrJ2JQw/IcLRKAgBStpXHVflrAqwGo0osMOpNnKTyvFd990UaI
-	0teTlhYEh3u2e2+Oqpi+xmDP8zCbjrSd7hkwhKsHs69g8cycguLs2KShXy419aYd6ObrtA3Or4/
-	aP5Sjf+0mZtw7nvh2/m7KbF5KHFSV0IoQeeeann4vjyRhIdXECaAp8P7gi5VxEubFU56G4yHgZ3
-	apLxMkzWwaZriK/3RT7rDZyzkJLsAayj9b4dGNGYxng==
-X-Received: by 2002:a05:690c:45ca:b0:870:f53:4ec7 with SMTP id
- 00721157ae682-87122598fe1mr125736787b3.8.1788901154527; Tue, 08 Sep 2026
- 13:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2H8oEfy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D881F00A3D;
+	Tue,  8 Sep 2026 20:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788901157;
+	bh=KP4DPjtGqjYlZDY/C6oiw5PNNFH4xgYFq5gb3vP/9DM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=l2H8oEfyiisTrkmWPXFPkrb9zX+PnNqQLPTWl+vHf3NsuP+fCsXMWBsX7BjXJYlWZ
+	 nqqgTPf7uY55PDIAWtwo6hXNTbMnaLlGNx4ryMRpe/nOzVqpEzc5iWLw2JLhb8Co05
+	 9s1SasDqfvP91H8sdwcoy4A7YTh8DB0wv+Bi/OoXlL2MblT9cgvSRSaEexFHujfFy6
+	 8P4N8pmqaNnNKGCxCVliu0/Kec45kp7oMDRUSzS6XwAjYJU0gH5oVqdZOxDseQyQO1
+	 Jh1owZbgK0zD6cmR+j9o1TGHMmkFGwpKic4yhyualkluEnQUYWO/YKOT5YBaGeN1wf
+	 Oue7w0xvvFlNw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:55:20 +0100
+Subject: [PATCH 20/23] kbuild: rust: parallelise rustc front end
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908012048.3681904-2-radek@podgorny.cz> <20260908012048.3681904-4-radek@podgorny.cz>
- <CABBYNZ+nWb0m=qMvxADM2HvuLhopxG7L+io2JTmGXQM51YOYhA@mail.gmail.com> <178890003160.100543.8134592214245196581@podgorny.cz>
-In-Reply-To: <178890003160.100543.8134592214245196581@podgorny.cz>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Tue, 8 Sep 2026 16:59:02 -0400
-X-Gm-Features: AcwNN1XS4ExhaXQOfMrKhkKQKNCEj0x6gxd9015WVyRPoldkhojD6FLOhC076cs
-Message-ID: <CABBYNZ+5zV8xzhHZKTUQYT4tLHaZAO7iiKOEsKuT8aA+YNLjPQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Bluetooth: put the peer's on-air address on air when
- we cannot resolve
-To: Radek Podgorny <radek@podgorny.cz>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, 
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-build-speedup-v1-20-5dc1ac01672d@kernel.org>
+References: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+In-Reply-To: <20260908-build-speedup-v1-0-5dc1ac01672d@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ Masahiro Yamada <masahiroy@kernel.org>, Alexey Gladkov <legion@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Arnd Bergmann <arnd@arndb.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Jonathan Corbet <corbet@lwn.net>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, linux-riscv@lists.infradead.org, 
+ linux-arch@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-efi@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Jens Axboe <axboe@kernel.dk>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3115; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=LB9T7y9hXziw5kYzoWlATIyn+dzyDLeA+KV1Dtb+tR0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWlFnEMd3Ve9ZQVLbpj4/Z9s0fLu8KN58+tafn1S/fR
+ l1FmWdTO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR0CuMDFOjrd+XSqqK1Lpq
+ xpUur5gszfvmzYl5k5X2XJzc+WaJ1SNGhteOwtIX8jW6gl0FqjNPhzDoas99cHsCh5ZbR+ar/1f
+ 9uAA=
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-Hi Radek,
+Rust crates are compiled in a serial chain on the critical path - core,
+bindings, kernel crates and then the drivers - each a rustc invocation.
 
-On Tue, Sep 8, 2026 at 4:41=E2=80=AFPM Radek Podgorny <radek@podgorny.cz> w=
-rote:
->
-> Hi Luiz,
->
-> On Tue, Sep 8, 2026 at 4:00 PM Luiz Augusto von Dentz wrote:
->
-> > Ok, the problem is then that we are trying to an indentity address to
-> > connect when LL Privacy is not supported, so we probably can just
-> > revert to use the private address at hci_conn_add in LL Pirvacy is not
-> > supported or we didn't program the address in the resolving list.
->
-> Agreed, that is the better place. v2 does exactly that: __hci_conn_add()
-> keeps the RPA that hci_connect_le() swapped in unless
-> HCI_LL_RPA_RESOLUTION is set and the peer's identity is actually in
-> le_resolv_list. All of the hci_sync.c changes are gone;
-> le_conn_complete_evt() already resolves conn->dst back to the identity
-> once the link is up, so the round trip comes for free.
->
-> One cost worth naming: with the RPA in conn->dst from creation,
-> hci_conn_params_lookup() in hci_le_create_conn_sync() misses the
-> identity-keyed conn params and the connection falls back to the default
-> intervals. That is the pre-14b06c3a88f7 behaviour, so nothing regresses
-> relative to the code this fixes; if it matters it can be done on top by
-> resolving through hci_get_irk() the way hci_connect_le_scan_cleanup()
-> already does.
+With CONFIG_RUST set and every rust driver enabled, the entire chain takes
+around 25 seconds on a 128-thread machine, with the associated C code
+taking 24 seconds.
 
-That probably worth fixing, but yes it can be done on top.
+Each time a change is made to any of the bindings, it triggers a rebuild.
 
-> > Not really following why this is needed though, we always scan before
-> > connecting, so perhaps we need to update the rpa whenever we resolve
-> > at process_adv_report:
-> >
-> > /* Check if we need to convert to identity address */
-> > irk =3D hci_get_irk(hdev, bdaddr, bdaddr_type);
-> > if (irk) {
-> > bdaddr =3D &irk->bdaddr;
-> > bdaddr_type =3D irk->addr_type;
-> > }
-> >
-> > So we do translate the advertisements to back to the identity address,
-> > but we don't update the irk->rpa, which is probably what shall be used
-> > in case the controller cannot resolve.
->
-> irk->rpa is already kept current on that path, one call deeper than the
-> snippet: hci_get_irk() routes any RPA to hci_find_irk_by_rpa(), whose
-> second loop does
->
->         if (smp_irk_matches(hdev, irk->val, rpa)) {
->                 bacpy(&irk->rpa, rpa);
->
-> so every advertising report the host resolves refreshes the cached RPA,
-> including across a rotation. That is what the old swap in
-> hci_connect_le() fed on, and it still runs today.
->
-> Which also answers the timestamp question. Since every
-> scan-then-connect path refreshes irk->rpa from the report that triggered
-> the connect, the freshness check only matters for a peer that
-> distributed an IRK, used RPAs, and later went back to advertising its
-> identity address - the cached RPA then stays stale forever and keeps
-> being dialled. That corner predates 14b06c3a88f7 and has shipped that
-> way for years, so I have dropped the rpa_jiffies patch entirely; it can
-> come back as a separate change if that corner is ever worth closing.
+Use the -Zthreads option to have rustc perform builds in parallel. This has
+been available since rust 1.84 (rust-lang/rust#132282), and the kernel
+requires rust 1.85 or above.
 
-But if it advertises using the identity, we should connect using the
-identity as well; there's no reason to use the stale RPA if the peer
-somehow disabled its privacy.
+A future -j/--jobs option is planned for
+rustc:(rust-lang/compiler-team#1005), so check to see if this available and
+if so use it.
 
-> v2 follows as a single patch.
->
-> Radek
+If the user's rustc supports neither, then it falls back gracefully and
+neither are used.
 
+The threads are taken from make's jobserver, so a parallel build is not
+oversubscribed. It was found that benefits level off at 8 threads (16 was
+found to be around the same, and 32 slower).
 
+Generated output was confirmed byte-for-byte identical.
 
---=20
-Luiz Augusto von Dentz
+Observed build time changes (using rustc 1.98, clang):
+
+                                        before    after
+  core.o                                   7.7s	    4.9s
+  bindings.o                               4.3s     3.1s
+  kernel.o                                 2.0s     1.4s
+  clean build                             39.3s    34.6s
+  touch rust/kernel/lib.rs                12.9s    12.1s
+  touch rust/bindings/bindings_helper.h   19.5s    17.5s
+
+Whole build, 128-thread Threadripper 9980X, best of N runs:
+
+                                         before   after     delta
+                                         -------------------------------
+  x86 defconfig+RUST, clean               41.0s    36.4s     -4.6s (-11%)
+  x86 defconfig+RUST, touch lib.rs         8.3s     7.7s    -0.56s (-7%)
+
+Assisted-by: LLM
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ Makefile     | 4 ++++
+ init/Kconfig | 7 +++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 997fc7ebe096..7d23d7b64be3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1204,6 +1204,10 @@ KBUILD_RUSTFLAGS += --remap-path-prefix=$(srcroot)/= --remap-path-scope=macro
+ endif
+ endif
+ 
++ifdef CONFIG_RUST
++KBUILD_RUSTFLAGS += $(if $(CONFIG_RUSTC_HAS_JOBS),-j8,$(if $(CONFIG_RUSTC_HAS_ZTHREADS),-Zthreads=8))
++endif
++
+ # include additional Makefiles when needed
+ include-y			:= scripts/Makefile.warn
+ include-$(CONFIG_DEBUG_INFO)	+= scripts/Makefile.debug
+diff --git a/init/Kconfig b/init/Kconfig
+index 3c92c87254a3..4096a306e2ab 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -231,6 +231,13 @@ config RUSTC_HAS_FILE_AS_C_STR
+ config RUSTC_HAS_SUSPICIOUS_RUNTIME_SYMBOL_DEFINITIONS
+ 	def_bool RUSTC_VERSION >= 109800
+ 
++# rustc's parallel front end: -j is the coming spelling, -Zthreads the current one
++config RUSTC_HAS_JOBS
++	def_bool $(rustc-option,-j8)
++
++config RUSTC_HAS_ZTHREADS
++	def_bool $(rustc-option,-Zthreads=8)
++
+ config PAHOLE_VERSION
+ 	int
+ 	default "$(PAHOLE_VERSION)"
+
+-- 
+2.55.0
+
