@@ -1,92 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E107A560AD1;
-	Tue,  8 Sep 2026 16:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABAD758596A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886398; cv=none; b=rI36WnlGNtPd6T1mA8Mp7ghUjhNcsUVeMNSy1ioQge/jXLOklsso2QSCDEnbGpalSTTFVcYh0kZgL/4BBPGC7n7lHAFUEmEZY6voBz7XaWBdMHpWE6HIFRKI2GgEcNkYRRmOtprj6Cp+2zhSNeNSb6mYOWu7wA2KgB34WzpOFeQ=
+	t=1788886437; cv=none; b=KRMchjMTX6wUM5oBPc+01LM5AiStimHyybEiUwueT5S7riuvcUuf39Ul8a0zecI/0tNAILG3gpoxwjHBQDebOJoWiWhLNA05kzOOGd/biUZGxK2bLcZgi4i4W42s+E+O0CaYMdLgxiqhqmWOt0EdUPlbfDmQsuj7tFNyc5ImiCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886398; c=relaxed/simple;
-	bh=cpT7OQEPLNxVCz1TXyyDlKPePyp/fTmgSdMZ6xfSHs8=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=M2TUxViYsClcsYqTV/cNEMVH5WbRMAy8Vp271tBF4U105sp5xfwDn1amNxVKcblWjDY03tBDn2YLQ+raehJAXzah+e9jwQjrpXfnnGflRDm65L1r/lHrEUtI5DhJQSCgD9Ge1fG3TEDJFbXB58RIw3axUxvffPa9xeObNtAxToY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H9qKwAOe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788886437; c=relaxed/simple;
+	bh=9M7weo/ro39rmyV3qc6k67t2ckADpSAmD5qUSxEkVV0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=XsW1P0KMgHKctg5aWA+i6E2uTAFN1XeofNru3JyOoSV5+h0zo51ndiOLKH55zFUQJayqFYbCixypnBHMRTbKboA5IJXE3kwPFKaRZPnjzwQw6/V+JYq27OvWYGtFC++Sy/wf8HGwXFZGtG/yr2/RJLRDYmZh5CtlA0KIVqMj1ps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Yc3uH1KV; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H9qKwAOe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430171F00A3A;
-	Tue,  8 Sep 2026 16:53:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788886396;
-	bh=hvT35E+lvgJDmV+nQx8vU9ZX/qckYxRdIMTQp+jHHVc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=H9qKwAOe+BUuFC02U2SC6ULn0nLehxLSDgPmwMFnKrywW6QE626adnk2D9JCLorRw
-	 ISODwKduLr79f+uvFGo5Ota+XGq2hT3heynX9daRe8ai0hqq4UJjW61++A4c6hdtxn
-	 XoNKxRnH21600kRRp/s0V3x5oKqu8B+hkwne1Bt1By2EHVzcai0uxZQkfwFZu7bRDR
-	 K4Z8+Y52qxPlPADjLlzkJks3o42RDFk7WHfTUA+HaEmMAZtWrsHUgSWHtpPbIe9U7h
-	 Thy5tMVgtAFPJIHjQ5aNFCo5zJLOhEJA33gouKImC//Wf8REf3hL5f68zlRmcV5aC0
-	 E6mC0V1EU4mCw==
-Date: Tue, 8 Sep 2026 11:53:15 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Niklas Cassel <cassel@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	linux-pci@vger.kernel.org, ntb@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] PCI: endpoint: pci-epf-vntb: Pass PF/VF number when
- BAR programming
-Message-ID: <20260908165315.GA2710333@bhelgaas>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Yc3uH1KV"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso52207065e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1788886432; x=1789491232; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zJTRRM399Ynn6HcZ5P+mZPLneQozNygw9v2NsKc0JRs=;
+        b=Yc3uH1KVPRJPP+ywJXhufNRQ4lyIJHbKWH0QG4WJo53ymYmNHzNQ1qE4YB6e1PK3CF
+         mlfO2ucW23d9t4TJr6VuqDoeiEKViFCejQbVQJUNPYuD7sRBBj/Rtrlw3BLOYWBcfDtJ
+         shK1vgvASva7pAEVQfGL0x+fKmYId9vr+SCh1DIJX59JiE/+nJZxidV5HtNp/+SuL0uA
+         O6SHUIKbtDGi7JIf7/eQElMkMFUQtOufSHXN7s8WWABgFhF8ig2qMnaxVEIH6jm4OU1s
+         69Nr1DotvzEpazRKziFrkG1gJCTK555I+Wt3pyX0M7phJEXN4enNEBj0domnbjtVAx00
+         meNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788886432; x=1789491232;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zJTRRM399Ynn6HcZ5P+mZPLneQozNygw9v2NsKc0JRs=;
+        b=WtynwHh3vHlZQTCsn7PR5wePMYWZX9nRZpUt/WGI2ZBEzjhx3KCpNlKmk0U4LRCw15
+         2KE+lcuzqw8bG4UIHDUgA97AOtPovQuKK5mqZeSTKtISenikSpqTJmP/LGdLTBie3/ln
+         lHrjpsls9om904Hhcdf2a75SnIdfB5TbvedGy61lmQotqIzxeD3rKjR2iChROokYkRtC
+         fGDIaVeHK9N7J/2YZb2sGL8vh6yBzQ4r/LN0fVtIhxKYJDQSnG/vi+QZ7YxrHjP02mlf
+         uK/pB0Xvho8ZcFuohJQMBapNqAjDx6WsysqiBHMwfFsXgLDg2G0LqvxPDlTKkc9GQvbQ
+         mXiw==
+X-Gm-Message-State: AFuF++nJCAEKZLpr419zB6eyJScRfUv9NPGADCMstQKcWrCdFtACJxWH
+	Db//6WMKXQzfpY729dOY6A4VAn22BFlDcIw1ponJQ9XRMTkN6POtDAQ+B9lYg4NEr4w=
+X-Gm-Gg: AYBFou0Oj5GG4BLQuWY6E7XA52mpgVIbyzJyMJ0H//XJ1faZIYpsanp+duRgW1yhU4L
+	ZVty1g1re2O9tfcFQXjiUCNwV4io8QNmLaFSu0PGakW+yq1ow+RlW3Pl+SFGm+S246FgIpDMfDs
+	VzgHaUjHAUovbJy4gFrxoXveyyk7Pupl2RJsfBMMXT3XOOwd1v9Yq4ztwNajUx7r6iTgMNkfLCA
+	dFW3aAVVmVY8+SCOV2E8udgM9k3htNJkNPyLfmY9lWPTgz8WHzc/XoB9gGuMPT+34Np0R3YBQ24
+	O8FGa4VeE+ZopXx6XGbUPM2/lDH4939jHjud0Ik5drVvBNZvV8mzOdDGoGkxRZ3EB12SkVtaC2m
+	GgoU2+hfYjvAGBi+OTFl+Una3gehlype3qBAq1RLY/vGvM4KtYUOwg1tV/PmQcBXKxS3UBFsluO
+	V0ZOWy7wcKns59TPlZlozrFer610UWEB282GOjSNQA/w8lCHRDdCMnMHVK1aQGVx1qS0EPnEGQy
+	Wfy1zcrFwlShJMun8+OTG0/N88o7Iz3uNUtQZeZPTxV06S8ECU=
+X-Received: by 2002:a05:600c:4e11:b0:49c:f2f4:eddd with SMTP id 5b1f17b1804b1-49cf8268795mr324700295e9.16.1788886431855;
+        Tue, 08 Sep 2026 09:53:51 -0700 (PDT)
+Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49cee5d476esm536676275e9.1.2026.09.08.09.53.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:53:51 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: linux-pwm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev,
+	Manush Prajwal <manushprajwal555@gmail.com>
+Subject: [PATCH] pwm: lp3943: Mark parent device's platform data as const
+Date: Tue,  8 Sep 2026 18:53:41 +0200
+Message-ID: <20260908165341.1423611-2-u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728172306.2751813-2-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1607; i=u.kleine-koenig@baylibre.com; h=from:subject; bh=9M7weo/ro39rmyV3qc6k67t2ckADpSAmD5qUSxEkVV0=; b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqoD2VLnWy5R8B5NkHwHSMkn0/k3VEl+14/KK+G 694a8OVKSaJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCaqA9lQAKCRCPgPtYfRL+ TnkDB/9+HZE7ZVJbhQULxt24ztlbksvRvJrzMvU3jnHIoTQ1Fhlcty9R37MkMJcuhFjDr3crDB1 Tt/UNPv+m2EXBZSS8iNvzuhgCEW45745F/EOetjt6VezzjdDf6West9mFHQ9JzdOViL5rScuzlC Y5RzXDvHHAQF3HJbel4MUyZlDyFNVlHjBuiPt0aS10/S1tsjjfKLn6YNuzs5fToCnan5TEX86aQ vPRPVTtAaSG7WJhc+htDPSactsXYa8TG5dVtXTZCClQdIofqOm2x5bapTIe+npYFrWgg5ZUOm8j Y1EN8uLSNFXOzwuOcj5aCOvSQGEaAqUAy9ShNRY4rKKTrRrh
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp; fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 02:23:04AM +0900, Koichiro Den wrote:
-> vntb_epf_mw_set_trans() programs the memory-window BAR through
-> pci_epc_set_bar() with hardcoded function numbers (0, 0), so the BAR
-> lands on the wrong function whenever the vNTB EPF is bound to anything
-> but PF0. The other BAR programming sites in the vNTB driver already pass
-> the EPF's own numbers.
-> 
-> Pass the EPF's own func_no/vfunc_no here as well.
+Platform data should never get modified by a driver. So add a respective
+`const` which makes it explicit that the pwm-lp3943 driver indeed
+doesn't modify platform data.
 
-We're referring to these as "PF" and "VF" in the subject and "physical
-endpoint function" and "virtual endpoint function" in the
-pci_epc_set_bar() kernel-doc, but I don't think these have anything to
-do with the SR-IOV PF and VF concepts, do they?
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+---
+Hello,
 
-I don't have a better naming suggestion, but this is slightly
-confusing.
+I found this patch opportunity while reviewing another patch to this
+driver[1]. A possible followup is to mark struct lp3943::pdata also as
+const. I made a note to address at a later point (i.e. when the mfd tree
+contains this patch).
 
-> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
->  drivers/pci/endpoint/functions/pci-epf-vntb.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> index c3caec927d74..fba65abfb6b2 100644
-> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
-> @@ -1427,7 +1427,8 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
->  	epf_bar->barno = barno;
->  	epf_bar->size = size;
->  
-> -	ret = pci_epc_set_bar(ntb->epf->epc, 0, 0, epf_bar);
-> +	ret = pci_epc_set_bar(ntb->epf->epc, ntb->epf->func_no,
-> +			      ntb->epf->vfunc_no, epf_bar);
->  	if (ret) {
->  		dev_err(dev, "failure set mw trans\n");
->  		return ret;
-> -- 
-> 2.51.0
-> 
+Best regards
+Uwe
+
+[1] https://lore.kernel.org/linux-pwm/6a9d5187.d63de05c.175391.a17c@mx.google.com
+
+ drivers/pwm/pwm-lp3943.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pwm/pwm-lp3943.c b/drivers/pwm/pwm-lp3943.c
+index 10537e74be28..0fde89018d2a 100644
+--- a/drivers/pwm/pwm-lp3943.c
++++ b/drivers/pwm/pwm-lp3943.c
+@@ -21,7 +21,7 @@
+ 
+ struct lp3943_pwm {
+ 	struct lp3943 *lp3943;
+-	struct lp3943_platform_data *pdata;
++	const struct lp3943_platform_data *pdata;
+ 	struct lp3943_pwm_map pwm_map[LP3943_NUM_PWMS];
+ };
+ 
+@@ -33,7 +33,7 @@ static inline struct lp3943_pwm *to_lp3943_pwm(struct pwm_chip *chip)
+ static struct lp3943_pwm_map *
+ lp3943_pwm_request_map(struct lp3943_pwm *lp3943_pwm, int hwpwm)
+ {
+-	struct lp3943_platform_data *pdata = lp3943_pwm->pdata;
++	const struct lp3943_platform_data *pdata = lp3943_pwm->pdata;
+ 	struct lp3943 *lp3943 = lp3943_pwm->lp3943;
+ 	struct lp3943_pwm_map *pwm_map = &lp3943_pwm->pwm_map[hwpwm];
+ 	int i, offset;
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0.11.g153666a7d9bb
+
