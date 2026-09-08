@@ -1,90 +1,55 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BF55505F3
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B765505FC;
+	Tue,  8 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872752; cv=none; b=nJxWSyLAkbmhlDZSyjiCSr1/zKgJP53Jz/mFObdSQhDuQC4FOo4K27pz/31xF8q9f53MEJvUIQbVXNQUGHq9a8Bct+3Q9FS97Xxe/8wKLxwPOmv+pSi1RM5nUroH5pRh9WHTimR+P0X2OJAbYWhjBL7lmbem6A4MoqZQdlDHxnY=
+	t=1788872750; cv=none; b=b9azXtYV6cUR7kmd7x4+beFLN8MujvAzZBStztWMPbr6WT4UZJS8XmgzvTg5gegaUD6dEPkeUO7t3ZmcUqC2kQGbfm0wpQX7MuJ9n8M8XpIhtOphKut0C5fzdFRrI6y5PfP7aGozrzaj+mg6GVbYHBma7kaDvceqVe2+ewayMRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872752; c=relaxed/simple;
-	bh=Go39NKKMwkuXXP/SejpjyZo/TgbX2bfpHuiP0B8nCjc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mXhKRv14UWVYOZgxiyRt7a09Dar2LHYqKgZfQVHVWXC+oaHWDu5DskssOt1BVeKqsBERPeNuXwcWN8jwQdtRvFgrQV6t1CVEePCW+Udws3PM/yGAIf1RLoaUevIq9q5qcD9mdk/CNiY7lK5m29lfWDGwPrDmHpHtyiSxTxEM+2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=NrC+l5QQ; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="NrC+l5QQ"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso40713775e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:05:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788872745; x=1789477545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
-        b=NrC+l5QQzZzDbvV6/pkfTnXgMK0XcSkJnoytyNbe7501PmrJanyoeAjdRO1fdwf4Ll
-         67IDRbN1G+sVWuaAd1KB2BSXS+zy2GRvqkwg2e/sN9dxiGBYuL/qIfGkt0DahOEt1el0
-         MxdEls46Qbj+M/bd8F1PDJCZhbhOsv50FbzaWeJuUjvSHsw5gEMjEQn08JdFrMZtIzAZ
-         BKIOHHZ25Mm6PD7co3sSdOXVJ9cmvlP3wDGtNmwlDYrIfXO/v26LidRKeDzjPHNzLzg4
-         rTVqy6krhRLImqWFjEuj7dyKgnOU6pbV87DzNWsWY1+x22upFloQh7qWk22OW7WSEbL+
-         VuaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788872745; x=1789477545;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=piB6olxsDjTKBBKWtT/80MoIuyo/txOuxpczb55KJIY=;
-        b=X0vyjlCylBbVisWsGE1vGtKe3dxVLwiyb12z8ptEshLW+sI0U1dkLkZQ7LyPNtZoJv
-         j/VZxvy3hnJtiy3LnC+OIRczYMvQ+HSUGmeCad/NiIxUBT8HvUqJucTPcc3VBU0A7V8p
-         nBwAVRXyENBPXNCn+/KPq5fPLMZzHPj+ZcV86sxMQxPPQ1+vScim9qRg3D9Bi5Rfb8mW
-         I1TgF0w1lkscsEQ3z6mJkWlMef6K7gLGkWDmGKBFoXPC5dgb4G/xlTkYyPIq9LYiX0mJ
-         dgOmV0DdHcgnFbuLbaT8kxcitLQwUdzkVfHGLIh8TLJplAWNFI3CR3kYQNTigoa1iN8z
-         b6cw==
-X-Forwarded-Encrypted: i=1; AKwUvBwn69Y41BK1+fPbJZDfjaKXz0M3sg5Rr+QVQwnIY+ihylm8yvlk4yVVqTkwkFbnZeaBpXfQLLHlbVXPgdo=@vger.kernel.org
-X-Gm-Message-State: AFuF++k82fKPNBmvIChtzyKZB2kS1MMznQFc5HSZbdoYAbzKIpevdsgu
-	iiqPXgl/OZqdH6tiVSXHUDZ44knTl0N0BSeAB8VcBe0c+23ekJAIL3KLaFvfR0iilU4=
-X-Gm-Gg: AYBFou3pjyZyyFGiafiv+kaNdEwjEV1uNo/gvG5thzvRrr8bh2Vy9rDOP0ItARDGna6
-	8kW05sSMJNlwEm8yy+IxUWFrLL85Nd6thCit21uZSyxQh9Uuu2HVtdV+uPp6NC8Yy7xXmGSaYpP
-	zni1gfKXYV/OrI5jdVqkEX6LWLUZ+l0VraMZ+zTh3w/pMrh3694jO3DvXUTWMhtd0flYekeY9vh
-	4EmJMJHQNRyP87hTl6Qnyypr2RqsIGSgH8l2wb4+NjRpK5CFejOt8/IwQmhvtD7ci+KTTzQOgM/
-	xqGlzg1LabOS4NeT7xLbZJsZCOci4JcCvbmcU5w8fB/1wo+PI2UOQxll4seZRe2p5clsWY+Gp71
-	8zyKd6jgqANBn0CqefXGM+rDXxrVIm7+7B579pGfMmCFztGp3zy1vI1Lk1DxpaJwpgQJBdKE+za
-	rQThp6swPtUCEfncOBnQrFq9jJWE42tBiCIT7HobJJyxWI+WYg8Rwb5w7Xeg==
-X-Received: by 2002:a05:600c:1914:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49cf8269fdfmr280303225e9.13.1788872744932;
-        Tue, 08 Sep 2026 06:05:44 -0700 (PDT)
-Received: from localhost ([82.145.119.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm335275315e9.3.2026.09.08.06.05.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:05:43 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1788872750; c=relaxed/simple;
+	bh=6rKBnKbc8LbbUcnehDkEMcRqihU2QGf4nLMbOmEmLso=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FpGnFvGqUzjIvMwHcdJj8gzgrVDcx+o02JLGzk/VWiBKLbFSAQvKZ37qGIvLNtatpTKttlrax+Q4d/X8HZWPXxqbmV2ANqV3VrH961a5ocq638pZBgNqZADC5Sgkfgzqjppbh1/fDwhzSVCv2JA1Hy2eiTQybAXInnlH3I3iixY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPKv1mrNzYQw0n;
+	Tue,  8 Sep 2026 21:04:51 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id BA5AC40579;
+	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S8;
+	Tue, 08 Sep 2026 21:05:42 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Namhyung Kim <namhyung@kernel.org>,
+	james.clark@linaro.org,
+	xueshuai@linux.alibaba.com,
+	Adrian Hunter <adrian.hunter@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Zecheng Li <zli94@ncsu.edu>,
+	linux-perf-users@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>,
-	mbrugger@suse.com,
-	Sean Young <sean@mess.org>,
-	Julian Braha <julianbraha@gmail.com>,
-	"Gary Guo" <gary@garyguo.net>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v8 1/3] dt-bindings: pwm: Add Raspberry Pi RP1 PWM controller
-Date: Tue,  8 Sep 2026 15:09:12 +0200
-Message-ID: <ee0aa89faa14e0073f1271693bae28678652998b.1788872294.git.andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1788872294.git.andrea.porta@suse.com>
-References: <cover.1788872294.git.andrea.porta@suse.com>
+	llvm@lists.linux.dev,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v5 06/26] perf annotate: Introduce extract_op_location callback for arch-specific parsing
+Date: Tue,  8 Sep 2026 13:05:09 +0000
+Message-Id: <a9f1bafb17bc2e2c6152f6e3a0c63b9d72a0e657.1788872630.git.wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
+References: <cover.1788872630.git.wutengda@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -92,94 +57,330 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S8
+X-Coremail-Antispam: 1UD129KBjvJXoWxtr13tF45uFy8Wr1kuw1xZrb_yoWfKr48pw
+	4Du34Yyr1rKr4YqwsxXFs5W3Wakw4rWF1Y9r17KwsrAFn2vrn5Jan2gF1ayF1rtrZ5ur1j
+	vF1qqr48XryrGaDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
+	xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8
+	JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20V
+	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
+	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
+	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa
+	7xRxnoUUUUUUU==
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-From: Naushir Patuck <naush@raspberrypi.com>
+Assembly syntax for operands varies significantly across different
+architectures, which prevents the operand location (op_loc) parsing
+logic in annotate_get_insn_location() from being directly reused.
 
-Add the devicetree binding documentation for the PWM
-controller found in the Raspberry Pi RP1 chipset.
+To simplify the core logic and improve maintainability, move the
+operand parsing inside the for_each_insn_op_loc loop into arch-specific
+extract_op_location callbacks. This refactoring is intended to be a
+cleanup with no functional changes.
 
-Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
-Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Li Huafei <lihuafei1@huawei.com>
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- .../bindings/pwm/raspberrypi,rp1-pwm.yaml     | 66 +++++++++++++++++++
- 1 file changed, 66 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
+ .../util/annotate-arch/annotate-powerpc.c     |  9 ++
+ tools/perf/util/annotate-arch/annotate-x86.c  | 79 ++++++++++++++++
+ tools/perf/util/annotate.c                    | 94 +------------------
+ tools/perf/util/annotate.h                    |  2 +
+ tools/perf/util/disasm.h                      |  4 +
+ 5 files changed, 99 insertions(+), 89 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-new file mode 100644
-index 0000000000000..be020583fd0ba
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/raspberrypi,rp1-pwm.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/raspberrypi,rp1-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/tools/perf/util/annotate-arch/annotate-powerpc.c b/tools/perf/util/annotate-arch/annotate-powerpc.c
+index 218207b52581..00b93296fc94 100644
+--- a/tools/perf/util/annotate-arch/annotate-powerpc.c
++++ b/tools/perf/util/annotate-arch/annotate-powerpc.c
+@@ -390,6 +390,14 @@ static void update_insn_state_powerpc(struct type_state *state,
+ }
+ #endif /* HAVE_LIBDW_SUPPORT */
+ 
++static void extract_op_location_powerpc(const struct arch *arch __maybe_unused,
++					struct disasm_line *dl,
++					const char *op_str __maybe_unused, int op_idx,
++					struct annotated_op_loc *op_loc)
++{
++	get_powerpc_regs(dl->raw.raw_insn, !op_idx, op_loc);
++}
 +
-+title: Raspberry Pi RP1 PWM controller
+ const struct arch *arch__new_powerpc(const struct e_machine_and_e_flags *id,
+ 				     const char *cpuid __maybe_unused)
+ {
+@@ -406,5 +414,6 @@ const struct arch *arch__new_powerpc(const struct e_machine_and_e_flags *id,
+ #ifdef HAVE_LIBDW_SUPPORT
+ 	arch->update_insn_state = update_insn_state_powerpc;
+ #endif
++	arch->extract_op_location = extract_op_location_powerpc;
+ 	return arch;
+ }
+diff --git a/tools/perf/util/annotate-arch/annotate-x86.c b/tools/perf/util/annotate-arch/annotate-x86.c
+index 7e6136536393..1acf31a2c759 100644
+--- a/tools/perf/util/annotate-arch/annotate-x86.c
++++ b/tools/perf/util/annotate-arch/annotate-x86.c
+@@ -1,6 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <string.h>
++#include <stdlib.h>
+ #include <linux/compiler.h>
++#include <linux/ctype.h>
+ #include <linux/zalloc.h>
+ #include <assert.h>
+ #include <inttypes.h>
+@@ -809,6 +811,82 @@ static void update_insn_state_x86(struct type_state *state,
+ }
+ #endif
+ 
++/*
++ * Get register number and access offset from the given instruction.
++ * It assumes AT&T x86 asm format like OFFSET(REG).
++ * Fills @reg and @offset when return 0.
++ */
++static int extract_reg_offset(const struct arch *arch, const char *str,
++			      struct annotated_op_loc *op_loc)
++{
++	char *p;
 +
-+maintainers:
-+  - Naushir Patuck <naush@raspberrypi.com>
-+  - Andrea della Porta <andrea.porta@suse.com>
-+  - Stanimir Varbanov <svarbanov@suse.de>
++	if (arch->objdump.register_char == 0)
++		return -1;
 +
-+allOf:
-+  - $ref: pwm.yaml#
++	/*
++	 * It should start from offset, but it's possible to skip 0
++	 * in the asm.  So 0(%rax) should be same as (%rax).
++	 *
++	 * However, it also start with a segment select register like
++	 * %gs:0x18(%rbx).  In that case it should skip the part.
++	 */
++	if (*str == arch->objdump.register_char) {
++		/* FIXME: Handle other segment registers */
++		if (!strncmp(str, "%gs:", 4))
++			op_loc->segment = INSN_SEG_X86_GS;
 +
-+description: |
-+  The PWM peripheral is a flexible waveform generator with a
-+  variety of operational modes. It has the following features:
-+   - four independent output channels
-+   - 32-bit counter widths
-+   - Seven output generation modes
-+   - Optional per-channel output inversion
-+   - Optional duty-cycle data FIFO with DMA support
-+   - Optional sigma-delta noise shaping engine
-+  Serves as a fan speed provider to other nodes for a PWM-connected
-+  fan.
++		while (*str && !isdigit(*str) &&
++		       *str != arch->objdump.memory_ref_char)
++			str++;
++	}
 +
-+properties:
-+  compatible:
-+    const: raspberrypi,rp1-pwm
++	op_loc->offset = strtol(str, &p, 0);
++	op_loc->reg1 = arch__dwarf_regnum(arch, p);
++	if (op_loc->reg1 == -1)
++		return -1;
 +
-+  reg:
-+    maxItems: 1
++	/* Get the second register */
++	if (op_loc->multi_regs)
++		op_loc->reg2 = arch__dwarf_regnum(arch, p + 1);
 +
-+  clocks:
-+    maxItems: 1
++	return 0;
++}
 +
-+  "#pwm-cells":
-+    const: 3
++static void extract_op_location_x86(const struct arch *arch,
++				    struct disasm_line *dl __maybe_unused,
++				    const char *op_str, int op_idx __maybe_unused,
++				    struct annotated_op_loc *op_loc)
++{
++	if (op_str == NULL)
++		return;
 +
-+  dmas:
-+    maxItems: 1
-+    description: |
-+      Phandle to the DMA controller and the channel specifier for
-+      the duty-cycle FIFO.
++	if (strchr(op_str, arch->objdump.memory_ref_char)) {
++		op_loc->mem_ref = true;
++		extract_reg_offset(arch, op_str, op_loc);
++	} else {
++		const char *s = op_str;
++		char *p = NULL;
 +
-+  dma-names:
-+    items:
-+      - const: tx
++		/* FIXME: Handle other segment registers */
++		if (!strncmp(op_str, "%gs:", 4)) {
++			op_loc->segment = INSN_SEG_X86_GS;
++			op_loc->offset = strtol(op_str + 4, &p, 0);
++			if (p && p != op_str + 4)
++				op_loc->imm = true;
++			return;
++		}
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
++		if (*s == arch->objdump.register_char) {
++			op_loc->reg1 = arch__dwarf_regnum(arch, s);
++		} else if (*s == arch->objdump.imm_char) {
++			op_loc->offset = strtol(s + 1, &p, 0);
++			if (p && p != s + 1)
++				op_loc->imm = true;
++		}
++	}
++}
 +
-+unevaluatedProperties: false
+ const struct arch *arch__new_x86(const struct e_machine_and_e_flags *id, const char *cpuid)
+ {
+ 	struct arch *arch = zalloc(sizeof(*arch));
+@@ -848,5 +926,6 @@ const struct arch *arch__new_x86(const struct e_machine_and_e_flags *id, const c
+ #ifdef HAVE_LIBDW_SUPPORT
+ 	arch->update_insn_state = update_insn_state_x86;
+ #endif
++	arch->extract_op_location = extract_op_location_x86;
+ 	return arch;
+ }
+diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
+index f3d17d153b67..a3d48cf88dad 100644
+--- a/tools/perf/util/annotate.c
++++ b/tools/perf/util/annotate.c
+@@ -2472,7 +2472,7 @@ int annotate_check_args(void)
+ 	return 0;
+ }
+ 
+-static int arch__dwarf_regnum(const struct arch *arch, const char *str)
++int arch__dwarf_regnum(const struct arch *arch, const char *str)
+ {
+ 	const char *p;
+ 	char *regname, *q;
+@@ -2495,51 +2495,6 @@ static int arch__dwarf_regnum(const struct arch *arch, const char *str)
+ 	return reg < 0 ? -1 : reg;
+ }
+ 
+-/*
+- * Get register number and access offset from the given instruction.
+- * It assumes AT&T x86 asm format like OFFSET(REG).  Maybe it needs
+- * to revisit the format when it handles different architecture.
+- * Fills @reg and @offset when return 0.
+- */
+-static int extract_reg_offset(const struct arch *arch, const char *str,
+-			      struct annotated_op_loc *op_loc)
+-{
+-	char *p;
+-
+-	if (arch->objdump.register_char == 0)
+-		return -1;
+-
+-	/*
+-	 * It should start from offset, but it's possible to skip 0
+-	 * in the asm.  So 0(%rax) should be same as (%rax).
+-	 *
+-	 * However, it also start with a segment select register like
+-	 * %gs:0x18(%rbx).  In that case it should skip the part.
+-	 */
+-	if (*str == arch->objdump.register_char) {
+-		if (arch__is_x86(arch)) {
+-			/* FIXME: Handle other segment registers */
+-			if (!strncmp(str, "%gs:", 4))
+-				op_loc->segment = INSN_SEG_X86_GS;
+-		}
+-
+-		while (*str && !isdigit(*str) &&
+-		       *str != arch->objdump.memory_ref_char)
+-			str++;
+-	}
+-
+-	op_loc->offset = strtol(str, &p, 0);
+-	op_loc->reg1 = arch__dwarf_regnum(arch, p);
+-	if (op_loc->reg1 == -1)
+-		return -1;
+-
+-	/* Get the second register */
+-	if (op_loc->multi_regs)
+-		op_loc->reg2 = arch__dwarf_regnum(arch, p + 1);
+-
+-	return 0;
+-}
+-
+ /**
+  * annotate_get_insn_location - Get location of instruction
+  * @arch: the architecture info
+@@ -2595,50 +2550,11 @@ int annotate_get_insn_location(const struct arch *arch, struct disasm_line *dl,
+ 		/* Invalidate the register by default */
+ 		op_loc->reg1 = -1;
+ 		op_loc->reg2 = -1;
++		op_loc->mem_ref = mem_ref;
++		op_loc->multi_regs = multi_regs;
+ 
+-		if (insn_str == NULL) {
+-			if (!arch__is_powerpc(arch))
+-				continue;
+-		}
+-
+-		/*
+-		 * For powerpc, call get_powerpc_regs function which extracts the
+-		 * required fields for op_loc, ie reg1, reg2, offset from the
+-		 * raw instruction.
+-		 */
+-		if (arch__is_powerpc(arch)) {
+-			op_loc->mem_ref = mem_ref;
+-			op_loc->multi_regs = multi_regs;
+-			get_powerpc_regs(dl->raw.raw_insn, !i, op_loc);
+-		} else if (strchr(insn_str, arch->objdump.memory_ref_char)) {
+-			op_loc->mem_ref = true;
+-			op_loc->multi_regs = multi_regs;
+-			extract_reg_offset(arch, insn_str, op_loc);
+-		} else {
+-			const char *s = insn_str;
+-			char *p = NULL;
+-
+-			if (arch__is_x86(arch)) {
+-				/* FIXME: Handle other segment registers */
+-				if (!strncmp(insn_str, "%gs:", 4)) {
+-					op_loc->segment = INSN_SEG_X86_GS;
+-					op_loc->offset = strtol(insn_str + 4,
+-								&p, 0);
+-					if (p && p != insn_str + 4)
+-						op_loc->imm = true;
+-					continue;
+-				}
+-			}
+-
+-			if (*s == arch->objdump.register_char) {
+-				op_loc->reg1 = arch__dwarf_regnum(arch, s);
+-			}
+-			else if (*s == arch->objdump.imm_char) {
+-				op_loc->offset = strtol(s + 1, &p, 0);
+-				if (p && p != s + 1)
+-					op_loc->imm = true;
+-			}
+-		}
++		if (arch->extract_op_location)
++			arch->extract_op_location(arch, dl, insn_str, i, op_loc);
+ 	}
+ 
+ 	return 0;
+diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+index fa08d09b80f7..11b6e4780c02 100644
+--- a/tools/perf/util/annotate.h
++++ b/tools/perf/util/annotate.h
+@@ -492,6 +492,8 @@ int annotate_parse_percent_type(const struct option *opt, const char *_str,
+ 
+ int annotate_check_args(void);
+ 
++int arch__dwarf_regnum(const struct arch *arch, const char *str);
 +
-+examples:
-+  - |
-+    pwm@98000 {
-+      compatible = "raspberrypi,rp1-pwm";
-+      reg = <0x98000 0x100>;
-+      clocks = <&rp1_clocks 17>;
-+      #pwm-cells = <3>;
-+    };
+ /**
+  * struct annotated_op_loc - Location info of instruction operand
+  * @reg1: First register in the operand
+diff --git a/tools/perf/util/disasm.h b/tools/perf/util/disasm.h
+index 06c664fd4fc2..62c2949c4c30 100644
+--- a/tools/perf/util/disasm.h
++++ b/tools/perf/util/disasm.h
+@@ -16,6 +16,7 @@ struct symbol;
+ struct data_loc_info;
+ struct type_state;
+ struct disasm_line;
++struct annotated_op_loc;
+ 
+ struct e_machine_and_e_flags {
+ 	uint32_t e_flags;
+@@ -49,6 +50,9 @@ struct arch {
+ 				struct data_loc_info *dloc, Dwarf_Die *cu_die,
+ 				struct disasm_line *dl);
+ #endif
++	void		(*extract_op_location)(const struct arch *arch, struct disasm_line *dl,
++					       const char *op_str, int op_idx,
++					       struct annotated_op_loc *op_loc);
+ };
+ 
+ struct ins {
 -- 
-2.35.3
+2.34.1
 
