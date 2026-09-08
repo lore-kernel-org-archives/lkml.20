@@ -1,141 +1,147 @@
-Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B226D59D61C
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7E48E0D5
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788908168; cv=none; b=PFp7OG7HX3VS1AoEbf/c1FW36/jzUcUPOOedzE+q4YskfR4lyHz4grzoOJ1Obv5kCkhyLUi589sVSkfh0c59y0AdTvnlnVjTGJS58Owdx0hKeY2NBbZEsQH7XQnhXqC86JzLqVpuTRbmBJcFgnj+LPXmrnw8wHZHo+LY1Sa1gb0=
+	t=1788908229; cv=none; b=W6OfsyLpa/+XdnBDh6n64hikrBPpOLYHJE28bpF8eHyZQCfXlrQv4EEn+Gd0zrJo5wsoEI37IWQAVDl2rc2eNpCUt4021Iq6YEt+jgE86eoyMwnu2S+ibFbZu9toE6FTUAsg3RaxTyRaChWTDDk5XADUqDFEt3dFSnxQ8NuZ4Qk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788908168; c=relaxed/simple;
-	bh=vsBDx43bAIddb0gfmnVkap80n2BUxIXNwZDCRSqU0zw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=ZFEaRBgdKYfKWPozDjvIFwdrAcs3A0b4ZU4rT0eSTwHLJIipRLPr18yQF0VK6h1oDFvkA6T4h9xkLhMomIr26W82w3wl4sAe3y0q/gZE/NhBDmSc3fkxlGOex7J5UxwvwHF4xM1xnnPOmVlmiSqy8HBuIy5GAyLVXKwWvyoQk8I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O8agsmbs; arc=none smtp.client-ip=209.85.160.180
+	s=arc-20240116; t=1788908229; c=relaxed/simple;
+	bh=XkixryJ6xhw8563/RoCRB90dkT/SyANOqsZRCbfhKT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MDlBZWYVi0GyTCtJr/b3sHCFH2oIYhW+V3pE4zr+0MhoJ/XbM6JiKKwc6DMEi+CAEVCcOsC+v3WVp5cX4bvI9DtO5gqSWHReJlAnNN68LUdwl+YD0hqRxI5r+AVK/1VwiqHj6LB8DcRU/fGcv1Z7pEvr29fJJY1AYeB2MlYX42k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jvlw8Q1B; arc=none smtp.client-ip=209.85.219.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O8agsmbs"
-Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-51bfe810293so48610111cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:56:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jvlw8Q1B"
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-90ccbed6edcso77394216d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788908163; x=1789512963; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UviIj0mAB9dLNORxdxu0OPN9iCyl2WihzfLAQT9a7wo=;
-        b=O8agsmbsZWP0vIWWvG1/AT2jYZeC0zXoctb2/Cg0+eIsidsXQT/WkZs6H+V7vxDA9t
-         AuoVBht/vgsGsDpmUx0ijF9CO0EBJUbIo3/2JSx7tJtwvP5ZzUTdOaGFZPHnegHhf/d2
-         j1yRyyw0gb4LB5E6GtcTmUss+pJKywXHltXEy+IicxpxHd8Tbb7Z/s3y7gTd67Yq3x1J
-         Gs3o574yZSp4m/zxF/BKN8r9fxzGaB8nnNWHAhfqRmUKTICh1OwN6gUEE7hr9hDePSp4
-         D6v1na1vitV8Gjsh6roGjx4eNbvToIBim7z81oaVyd62XgSDph+C6U/VRQKz2JZKE+L7
-         ID0Q==
+        d=gmail.com; s=20251104; t=1788908226; x=1789513026; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=D0nTiw6DiAHBL12WLJk9/nfr01yMXuLmUjwkrlJeooc=;
+        b=jvlw8Q1B2N8SmqZqnPrDXYLnKyfMT8DcG08s+EuBJRGNnjsSZFz5jYPVOeOjC6abIk
+         V64X0NUOFiE+PAd4nP2/e7rTzTlm0OpQ2zBIkhF5w3j4vaGAC3IFaa8vqFs9PX2cW3cj
+         Q8g87hIqmiE/YlPnd1VA4oIeEHRho++27DUgolwxHJtSS6bfb4an+vD9LXvytqQtuMbu
+         AG7hCjxcAD/Jv9jIqpY+5bt9tXDFKd1OPUqSjpdd1EPH6cSDWNvJbjN25C+jmXlSW1AQ
+         uK55/X/Ps8dmIR2mOlQBYDz9hAwKQRxjGGpdRXInJeMpOXM9IaWMf7yhu/khRRogFp89
+         fdEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788908163; x=1789512963;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UviIj0mAB9dLNORxdxu0OPN9iCyl2WihzfLAQT9a7wo=;
-        b=Z9m8dAYIldHdfJA7YKLslfL4ac8DDIddKn37x70GkDHO0Lvul0rQCCSP7KTBNEAc32
-         GBIR36rxmVxOtuRPJD3p+k4IKoBO/1vUXVrEVA1Gwl0gmqtKvbCOBmef9Si30XL2czj4
-         f3G1dH+eLnvexgrUGiTLRNiSmemMjmIlgkHeyuU6UDy/e5GMQQrvkRTOh7rOVHTfQV/n
-         OZpi5HIGnyfpuyaUr8M/FfmOW1tDo7NfMMc2IHVqr+/n6la5SCd0gk8yhqpWgeX9vcPi
-         sD5cuA5LNjRDXjzPpMh6aV22IkUxMK7kv9L2nEZX2dKSKLvnghbu0NE695zPjHlk0D7p
-         h9tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxh8vIcjfu/dYMzGk/cLh0PZplKIjB/BcWECm87zvolPGgLjQbxRX8Xn+wpKz1b/COWF07GsB7IXTP+JRs=@vger.kernel.org
-X-Gm-Message-State: AFuF++ky0EdbGlzNrvOI97Bk4UPXXLqNX+uR45z4oJPt1VElNv51D+9f
-	bWsplC4qz3ANGpBBbD9aEDBdT/V2m7/GVOEcxXK5xDExL+HNxj4Krc5i
-X-Gm-Gg: AYBFou2quQSoSp0uNfFtG4vmeo4TllbhK0kcZStNV24hQlt8yNyJ0N0bNI5qlDTYO16
-	yjzDlpltL85NWPCnafxLXx+0vf/CnMPGCSCgdp0+PnDQlZyvNAZqUzWxQ+uyvjVSUw/cIz5G8Wx
-	I/ksqIAy9sSAlGiko6aaXituAhI43YlVDQLCiVX5MLPXh+EAQ6HGTjabO6S4xd2GPuHVn5C4kV4
-	3eIoF8/NkMCYtKXg2piqprxKi7wQnvXBbUSTutAyg7pVZcAA2PVVHcFqd9cmDgLGYwYBnHvoMZ3
-	KjdJYypWVn3kyJ9RxudzCzzaEcAPuquuA+/FRI+6mwE5RJKq+FpEU3tEhI27ZlXvP5sWJdZzjpp
-	HwHHjibqEzosFUIxswMh52UgiE4G+WYGtLSGDv2s7zCpKYyfbbHQFsZiDW2BpdOlmR7OaQkcqBB
-	HWILTlH4NiANQ+I0HRSICV5InnaHrhXaGHQplMr6fVtWDIyE422nRCgtsdnID2IBg/gA==
-X-Received: by 2002:a05:622a:551b:b0:530:5418:92be with SMTP id d75a77b69052e-53054989290mr42134121cf.28.1788908158185;
-        Tue, 08 Sep 2026 15:55:58 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9106ba5b95dsm7172286d6.21.2026.09.08.15.55.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 15:55:57 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788908226; x=1789513026;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=D0nTiw6DiAHBL12WLJk9/nfr01yMXuLmUjwkrlJeooc=;
+        b=CZ5Y0MPgWm6sR0E3o/ZjLJDJAKhlfEcrL/WyvCuaxUD/4wBLQJx4xTt3RyUzTaJnZk
+         lwb1k7Ck36gs5g61EiP0qEGtF+sLtKw9pr6iOgl/57rxMnfGqNtofdmEFjrGNdPbGuzv
+         7IMcMS4l0cywobeyZb6Tm72OblgpnM6FuDDyZUoQHoacPzX/H9B+B7kFpx+8KeQzMotE
+         jNQGvBZt6HvqLTEr0ac9fL7GD/Zch40DK1HJMbkNpJ4JnTtg+ejSpKKdWp6H1T4agY2k
+         x0LcuzPpX4HqCg9VG4IkrOQgHVB14F5sNxipFkqUDnOdr1RigJ1d5i++1oCNSRIiCJeB
+         zOmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSRW+hVHZJ3h4bmInPzdbCdXBqo7qPFJbj/p0J6JXDxrIWoEiirbiZNVHuo0S1OQb4nqESqrP+aTZPSaA=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0ybMiZyXZ4+MJO8d33gnjnuxnyRn2QRcibeTIMSvh6/LcZq/s
+	bPWin0pGL6djqc6FHQvvDXO8nl+2BTPQ7LfjfzA2A/yZ6Geke1u54+fg
+X-Gm-Gg: AYBFou1/kHLoLxy2MdpoDiBOMToLco8AACN/AmxVWVrXctxlPPjx2iGfegOFFRNXwCZ
+	hQyx9Kh3UE5YEZAy+1SxwVfEILaIVoouyuAOi50azY/dV6pR6X8yVjoDOjnL51qWd6WyY9XzZ4U
+	ZbLQhTCvRjfV4GWk7xv3eTy4oqFFZzfU7sj0U7iu2r1lg0ls0rYpUTKtAGoGaWOvyXxC+vRVWLx
+	X7GPgWg1vaFqp0uKWMDpIwCPdXUuhGUW1HYL0TG3iacvm3nprYLO7dfUEt+COqg+TH1XN0CmvEj
+	Meln7jkbK0AlPNqOTfj6WcEl7fzW0eqD2C+u8lkduGUZF7IftIooCLW3VC075esP/gaPDjoGkdO
+	rWTbWTXU/gVd2fAN7G+sGm9Dzcs+aMDNYLxpL4jPKRCJ5AUdqEhbiH+ULyFaWOqj9drAzsbfopE
+	LUuV9UKxjx/HZVhc62Rq7r7rDI8WqExFjZiQQ+tXT0H/QSLxTA0fpJEEP//lY=
+X-Received: by 2002:a05:620a:410c:b0:936:bcd8:8650 with SMTP id af79cd13be357-9398072a3f9mr3588825185a.38.1788908226211;
+        Tue, 08 Sep 2026 15:57:06 -0700 (PDT)
+Received: from tofu.. ([128.210.0.165])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406afe48sm127700986d6.43.2026.09.08.15.57.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 15:57:05 -0700 (PDT)
+From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	linux-clk@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Subject: [PATCH] rust: clk: document overflow panics in `Hertz` constructors
+Date: Tue,  8 Sep 2026 18:56:15 -0400
+Message-ID: <20260908225615.1732105-1-georgeandrout13@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 18:55:56 -0400
-Message-Id: <DLAB0LQ7WDE9.1IUD2U6BQCRKS@gmail.com>
-Subject: Re: [PATCH net-next V4 13/14] selftests: net: gro: Add PSP
- encapsulation and encryption
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Tariq Toukan" <tariqt@nvidia.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>
-Cc: "Bobby Eshleman" <bobbyeshleman@meta.com>, "Boris Pismenny"
- <borisp@nvidia.com>, "Carolina Jubran" <cjubran@nvidia.com>, "Cosmin Ratiu"
- <cratiu@nvidia.com>, "Daniel Zahka" <daniel.zahka@gmail.com>, "Doruk Tan
- Ozturk" <doruk@0sec.ai>, "Dragos Tatulea" <dtatulea@nvidia.com>, "Gal
- Pressman" <gal@nvidia.com>, "Jianbo Liu" <jianbol@nvidia.com>, "Kees Cook"
- <kees@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Mark Bloch" <mbloch@nvidia.com>, "Petr
- Machata" <petrm@nvidia.com>, "Raed Salem" <raeds@nvidia.com>, "Rahul
- Rameshbabu" <rrameshbabu@nvidia.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Shuah Khan" <shuah@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Simon Horman" <horms@kernel.org>, "Willem de Bruijn" <willemb@google.com>,
- "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260908065244.3799142-1-tariqt@nvidia.com>
- <20260908065244.3799142-14-tariqt@nvidia.com>
-In-Reply-To: <20260908065244.3799142-14-tariqt@nvidia.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 8, 2026 at 2:52 AM EDT, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
->
-> Add a PSP mode which wraps every transmitted frame in PSP transport
-> mode and encrypts them in SW with the help of OpenSSL.
-> The receiving NIC decrypts and decapsulates, so the frames seen on the
-> receiver on its AF_PACKET socket are identical to the non-PSP ones and
-> every geometry assertion in this file applies unchanged.
->
-> Sender packet construction is unchanged, PSP uses a different buffer to
-> avoid double encryption.
->
-> A few PSP-only cases are added: psp_spi_diff, psp_ver_diff, psp_mixed,
-> to cover coalescing scenarios which only exist for PSP.
->
-> OpenSSL is optional and scoped to this binary: gro is deployed by
-> several suites, so a missing libcrypto costs only the PSP mode.
->
-> Signed-off-by: Cosmin Ratiu <cratiu@nvidia.com>
-> Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
-> Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-> ---
-...
-> +/* PSP transport mode encapsulation, as built by the sender:
-> + *
-> + *	[eth][IP][UDP dport=3D1000][PSP hdr][encrypted L4][ICV]
-> + *
-> + * Can't use the kernel-only include/net/psp/types.h header, so copy the
-> + * encoding here.
-> + */
-> +struct psphdr {
-> +	uint8_t		nexthdr;
-> +	uint8_t		hdrlen;
-> +	uint8_t		crypt_offset;
-> +	uint8_t		verfl;
-> +	uint32_t	spi;		/* big endian */
-> +	uint64_t	iv;		/* big endian */
-> +} __packed;
+`Hertz::from_khz()`, `from_mhz()` and `from_ghz()` multiply their
+argument by 1_000, 1_000_000 and 1_000_000_000 respectively without
+checking for overflow. When `CONFIG_RUST_OVERFLOW_CHECKS` is enabled,
+each panics once its argument exceeds `c_ulong::MAX` divided by that
+factor. None of the three documents this. The panic occurs only at
+runtime, when the argument is not a constant expression.
 
-My llm is complaining that it thinks __packed is not defined for
-userspace code and being used as the name of an object being declared,
-instead of an attribute. Otherwise:
+Add the missing `# Panics` sections stating the bound for each unit.
 
-Reviewed-by: Daniel Zahka <daniel.zahka@gmail.com>
+Fixes: d01d70205601 ("rust: clk: Add initial abstractions")
+Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+---
+ rust/kernel/clk.rs | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
+index 7abbd0767d8c..f04f5c4a03d6 100644
+--- a/rust/kernel/clk.rs
++++ b/rust/kernel/clk.rs
+@@ -35,16 +35,31 @@ impl Hertz {
+     const GHZ_TO_HZ: c_ulong = 1_000_000_000;
+ 
+     /// Create a new instance from kilohertz (kHz)
++    ///
++    /// # Panics
++    ///
++    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `khz` is greater
++    /// than `c_ulong::MAX / 1_000`.
+     pub const fn from_khz(khz: c_ulong) -> Self {
+         Self(khz * Self::KHZ_TO_HZ)
+     }
+ 
+     /// Create a new instance from megahertz (MHz)
++    ///
++    /// # Panics
++    ///
++    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `mhz` is greater
++    /// than `c_ulong::MAX / 1_000_000`.
+     pub const fn from_mhz(mhz: c_ulong) -> Self {
+         Self(mhz * Self::MHZ_TO_HZ)
+     }
+ 
+     /// Create a new instance from gigahertz (GHz)
++    ///
++    /// # Panics
++    ///
++    /// Panics if `CONFIG_RUST_OVERFLOW_CHECKS` is enabled and `ghz` is greater
++    /// than `c_ulong::MAX / 1_000_000_000`.
+     pub const fn from_ghz(ghz: c_ulong) -> Self {
+         Self(ghz * Self::GHZ_TO_HZ)
+     }
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+-- 
+2.47.3
+
