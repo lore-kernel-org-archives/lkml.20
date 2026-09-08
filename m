@@ -1,67 +1,68 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D74D559CBC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CE05476F8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873249; cv=none; b=th/IM890PIPWYjTR3HKXrHpRXSvZtkaSV7CU3xBx0HtzReGS63kEz6rcV4Zib+kPzUzrL1JkmiAu52FiEwkc61hunHMb5BF75rHg6m/jrbKcclEO+1mGPbiBM3AFyT6vbL/grPVV6/F0pcxsvfqK1fJh2gRAUCvPHd+M0KJn3Rc=
+	t=1788873249; cv=none; b=PSf5Wi4Kpy8lgS7Ps46S178Z4yLkub+OsLrdfY+IRCGokFVk6JFiqyCxolfMPonSxOJfWT4bFNepYWWGOnpr6bgqD30sd1zRPqorm75/6ZJ78zJtj8nY/JjqlwZsHfV/3rEGr3R4ncttXMAPkNeKYUxqLJYxNU8mWL1ZdnE4CRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788873249; c=relaxed/simple;
-	bh=HpBFvtYbBbaBVYOSmjDeMZxcswzVX3gJi0+gdtI6+cQ=;
+	bh=qNTAB7oPX8OED8WnXC4Pxiv687JkKcIW5xcsxDNCZJQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lAXl7oPCf8C9TPwJhO/R7p55XbmKotbmue3jpE7Ye0r5Mt+yik0o5rQwKIEdOPhA2yyNeIwF3xK3v9hOLb2E+9Xex0pSqc/8/gVxh5DUV36ew+KUxUWRNQrOK1S0ZgtvSpM3NvwpU/iGq/GJoVBSzbTZrK7Fsx9jXi8JZcCW8uE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ip9j/d4z; arc=none smtp.client-ip=74.125.228.76
+	 In-Reply-To:To:Cc; b=gP7CAGmKJMGPHnogv2ll8A2D8ppp3IQWUdRm9aUtkMv8QPZU34Qiz0Da9eML3+yBrxEJ/gWrp6tWkBzG6VdZ+jqjQ1N/+jhc2xizrnfXBLc2Ezo2HrhcW+U8DTH0NyqY9mYsDXPYOvXxXedjLH+dPLK6N/GOxJ7eBgaIi5KhBKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhPNSZOY; arc=none smtp.client-ip=209.85.218.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ip9j/d4z"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591bb18so826714a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhPNSZOY"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2637dd37c1so354866866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788873236; x=1789478036; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788873233; x=1789478033; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YxLP4rXMEUOlBTXUJ41qDJ2wD0esY5E0fZn3mGsmNX4=;
-        b=ip9j/d4zThDzG/NtkhbEw4JpmAFe+neYygMTqDPaXP34kR1R2mNR+t7CppypNEGdM9
-         o+cbb1wNIljgIM6kvxsrjuOaGyToON6LpwDtMVlUBgIzDLVMxiWoknQvGj5jKcb6qrnK
-         45k79ObgE5Qn3OqUwJDUTTwYIYKTP4epHwGYTZYaVs6k2v7tY2lVtEyqeWZJzG+KrhhC
-         P1t750zh9vQkQ6mLxU5r0XATpga8EID+490++RG27SvHWrph1wG5Zcv6Urs9GiZlXb3b
-         4zKsJORDCAnqJPu78MdS3PkM0RoySN+IzQymTC2uCv1Wx52lfgtE3MANpKNfQnyT4Lge
-         ZTeA==
+        bh=s5+uH0xlKN2hEFrP0JeeUp1z2fKvzaAC1oyZ553cvDk=;
+        b=HhPNSZOYH8KNvW2ywhy2FVQN3DGSRxkO0X9np8iSepnXvleOCdiPbDyAqe/IynYo6h
+         O8+kvMrKifJRPo9sCXv/X+/fKAB8Hq5fd2IiBU4rXRXDJrXd7dg81t7v7EQGEKVMJzAH
+         jyKVFR8CVpSiT7y/B9ZCYKxoz2tBuHV3SNzx+32XNuX4epoD8Qcj5WCWaAt6bsF53byu
+         yNLSz/vT0ngmEouZUKX4+IUTSTmsp7dewRscC30S0nfqo33S5NwtAebSnE0tYeiAy/Fe
+         QxmZt4gCPZgxf3uxhfJS+MBdX/CKcg2MjXhmFgmoHAJwNkhkEcBVNvIQasp6AQqlz1rx
+         yzAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873236; x=1789478036;
+        d=1e100.net; s=20251104; t=1788873233; x=1789478033;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YxLP4rXMEUOlBTXUJ41qDJ2wD0esY5E0fZn3mGsmNX4=;
-        b=kUSy5zd8f4L4d7eBud/WpWdUzrAxCY/OqMnFV7urqXxOvJuov8hoSbbqzBofykaJJJ
-         E6xjskM2kedp08U10mKuDR8oWLWH+j1P2IznZ0YQbbp51owVqgqBjCOzD+I1ECNfgWeK
-         khQKjXpk6kgDj80F3tDZ24rR4hZyG2dizmDpqFyNjaXUDblSH+XQpYFrkDliGMVSm8FL
-         PIHRwlaxJ2e5ZKybJ4VSe+q1iaaKgMvCjM+36ds9Ous20NlgRM+byUG8N/Myi7PrnUu2
-         S6oHQw7ghLrY+sqkDvPY1IkvTA5HH71njZDBGzSXDVJAMRmH6Jsp/KrpSMa9D3niUrQl
-         lVDg==
-X-Forwarded-Encrypted: i=1; AKwUvByzVTvys/OMI0QBtlUetcKPvHX028jFTpCloeShih10ZH2yGcQU0HYoOxH8gSBemuMuyUGrJ6ywoqcOXao=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2C69j9+g6wCmlGGJrC6O5+MN8VV1CWNQw42Tqtef1Ucxv0rhm
-	gBTOT3j7so6yXK2t4+MtzfVaYRz8TFGwe/v61xF848MLaScKsJu/LI2n
-X-Gm-Gg: AYBFou12f4mAF2N2DT7FT6bi39flLkc3pKJoDwPg3KYtXT5sy9cuiIQH2Bti0a7r4w4
-	0gEevuQILQM8WJIknVVirxSb1N5D2+dH7hX6Do+iiaD5h/Ok0kOM9muPQSOtptbacJvyemtUfDh
-	UMQVdnsND7Lacmo/9jT+/Ze+hywBExgc+J6Se7bJgj+Khl/PxCe+NL7ah7tsNeZapiZ8XxDKKAQ
-	SIgGgPt+SSCs3Tm/rE1D90oAcLa0I3Qc248Qh7EVKSf5MKEr8EXAdV1TmgOwNUQ8aioYjJ1Nd2y
-	rsDSmdoZd9Gslr3SS47w9JvU8tE9YVwYkp6jdF6Dcfn+oMiS0Wl82XxqwrAPbymiGrwEFyt/C6N
-	S3ax3YyqoQN80VqrTuLjknXOIcgBxqa6h6+FAT73kgj5vG7DRHeuEJeehWXH+POVEQO69GLYYri
-	/zZbPO7C35XWqy2Js/Q0bzlKjp2//bc1Zr2lBNbrTgeEEVIkg67vDy4SW+8OMD
-X-Received: by 2002:a17:907:3f09:b0:c25:f7db:4bea with SMTP id a640c23a62f3a-c290446b88cmr319041366b.16.1788873235525;
-        Tue, 08 Sep 2026 06:13:55 -0700 (PDT)
+        bh=s5+uH0xlKN2hEFrP0JeeUp1z2fKvzaAC1oyZ553cvDk=;
+        b=U8CYylk/MLxIbLe5haV1hNZv2LE8pslD0InEIjKaEvtjCx/D5R/jJQSNg1FuHIoEwb
+         +jRL8q1O9JnpC8vTOO8jPKp7dcC1eSHbB56OZBKsZOYJxOC0STAPWnbGCbnWOEICB+G/
+         K3quT7I+El9CuY0e+JiAWHCsVy/x7jJwBa1L75BkiOqog/0ns91mCduqC2bP9g5cnAi7
+         dmG27KJ9PLIlGRkzptVunjlY1jgiKnXeE91tW/3qroFmsBQ75nCzlHiCKWDvkR4/+nPF
+         fBLhJQWXH+lSWUHFpHtsWi8EfaM+kfuu59wVnok9WP/ZaQ9zYW1jwzilHyBl7hMYMIZq
+         EddA==
+X-Forwarded-Encrypted: i=1; AKwUvByE0yF7PbJjKJacki3I++T03tdnlQuMnUH0A9u5xEjHnxIW06Fo5QHYyeJtsIvDgu4dDIg4Q32S4lPwGZo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbgjM0gV1HMh6dfwr8xhysBQX1jUchx533+EypYEbvN/QhaCc6
+	GQhlzsFIsTY3Lcq83NdGtATvtUnmYnDZfeqfJSvl45rqvRBPhVTIgY6m
+X-Gm-Gg: AYBFou0miPsDa8LpTTKfXuKgUkg0BsmaqY5pwbS71gnyEtnvkL4ssXz1R08g0mq0LAl
+	17QbqLF58AhEmVcniBNUFu5IgqMsgLp0x0HWr/VsPgoA03GpptlK1xyMMV2nFpdz1UfvEuQxz/a
+	H9BN7m73xfUs2B7Ht9Vbo9Cd7U/xcBk95yokCFnRM27IgHFKWkzDa1H+rrSQFoGZKI6KmUw5KfJ
+	WmYUxYbbUHWV/s9VSCB1oaW4PDh3wBRMie5p2Mh4VlQtNaYVE49IhlioTvkHN3zbDBllzFgLWRh
+	ShGVPvjMpPa3rxdXlFgSQl6JV3mGJe17cEdrvWtp5gb/k2V+bSnbA5Onaq2gU/3WwShAlAAAzO8
+	rzLZWPj7ShWV9Zox+wcdmGGNgJP9vtQ+N7c7baMUi8O52TZIWXfalf/toT8xnd8gGubLxGSfXRB
+	QyUxNmSG7FPmfodiL9uAMV0E8sKLt6XfQMMcPYLUb1ljLZH3afaw==
+X-Received: by 2002:a17:907:7281:b0:c25:cb7a:12d6 with SMTP id a640c23a62f3a-c260c9972aemr1109763266b.14.1788873233006;
+        Tue, 08 Sep 2026 06:13:53 -0700 (PDT)
 Received: from [127.0.0.1] ([2a09:bac6:37a9:1e5a::306:1])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.54
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:13:55 -0700 (PDT)
+        Tue, 08 Sep 2026 06:13:52 -0700 (PDT)
 From: Caleb Kan <calebkan1106@gmail.com>
-Date: Tue, 08 Sep 2026 14:13:38 +0100
-Subject: [PATCH RFC v2 05/11] kmsan: report trie-backed stack depot traces
+Date: Tue, 08 Sep 2026 14:13:35 +0100
+Subject: [PATCH RFC v2 02/11] stackdepot: add caller-owned stack trace
+ fetching
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-stackdepot-trie-v2-5-1996d5cef732@cloudflare.com>
+Message-Id: <20260908-stackdepot-trie-v2-2-1996d5cef732@cloudflare.com>
 References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 In-Reply-To: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -84,128 +85,251 @@ X-Mailer: b4 0.16.0
 
 From: Caleb Kan <ckan@cloudflare.com>
 
-KMSAN stores ordinary origin stacks and synthetic alloca and chain origins
-in stack depot and retains the resulting persistent handles. Once trie
-storage is enabled, these handles can refer to trie-backed entries, while
-kmsan_print_origin() still relies on the hash-only stack_depot_fetch() API.
+stack_depot_fetch() returns a pointer to contiguous storage owned by stack
+depot. That cannot work for a backend whose frames are not contiguous, so
+callers need an interface that copies the trace before they can support
+both backends.
 
-Use one KMSAN_STACK_DEPTH array to materialize each origin and chained
-stack in turn. Preserve the chain's head and next-origin handles before
-reusing the array for the chained stack. The array covers both the regular
-save limit and the smaller synthetic records.
+Add stack_depot_fetch_into() to copy a complete trace into caller-owned
+storage. Leave the destination unchanged when it is too small, keep a zero
+handle as a no-op, and document that callers must keep the handle valid
+while copying it. Warn if a caller passes a NULL buffer or zero capacity
+for a valid handle instead of treating the stack as missing.
 
-Pass the scratch array into a common origin-printing helper. Keep local
-storage for standalone kmsan_print_origin() calls, but let kmsan_report()
-reuse its existing stack_entries array after printing the report stack.
-With x86-64 Clang 19, the regular nested report path uses 752 bytes, below
-its 768-byte size before this conversion.
-
-lib/stackdepot.c is uninstrumented, so stack_depot_fetch_into() unpoisons
-the successfully copied range before returning it to KMSAN. Remove the
-now-redundant explicit unpoisoning of chained entries. Origin depth and
-use-after-free metadata remain in the handle's extra bits and are
-unchanged.
-
-Update test_stackdepot_roundtrip() to use caller-owned storage while
-retaining its frame-count and kmsan_check_memory() checks. This verifies
-that the copy-out API returns initialized entries to instrumented callers.
+Unpoison the copied entries before returning them because
+lib/stackdepot.c is not instrumented by KMSAN. Add built-in KUnit tests for
+exact and oversized destinations, zero handles, and undersized buffers.
+Later patches add tests for stack depot internals.
 
 Signed-off-by: Caleb Kan <ckan@cloudflare.com>
 ---
- mm/kmsan/kmsan_test.c |  4 ++--
- mm/kmsan/report.c     | 28 ++++++++++++++++------------
- 2 files changed, 18 insertions(+), 14 deletions(-)
+ include/linux/stackdepot.h   | 36 ++++++++++++++++++
+ lib/Kconfig.debug            | 16 ++++++++
+ lib/stackdepot.c             | 28 ++++++++++++++
+ lib/tests/Makefile           |  1 +
+ lib/tests/stackdepot_kunit.c | 89 ++++++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 170 insertions(+)
 
-diff --git a/mm/kmsan/kmsan_test.c b/mm/kmsan/kmsan_test.c
-index 31f47cc4dab4..7c04e4b21873 100644
---- a/mm/kmsan/kmsan_test.c
-+++ b/mm/kmsan/kmsan_test.c
-@@ -669,7 +669,7 @@ static void test_long_origin_chain(struct kunit *test)
-  */
- static void test_stackdepot_roundtrip(struct kunit *test)
- {
--	unsigned long src_entries[16], *dst_entries;
-+	unsigned long src_entries[16], dst_entries[16];
- 	unsigned int src_nentries, dst_nentries;
- 	EXPECTATION_NO_REPORT(expect);
- 	depot_stack_handle_t handle;
-@@ -680,7 +680,7 @@ static void test_stackdepot_roundtrip(struct kunit *test)
- 		stack_trace_save(src_entries, ARRAY_SIZE(src_entries), 1);
- 	handle = stack_depot_save(src_entries, src_nentries, GFP_KERNEL);
- 	stack_depot_print(handle);
--	dst_nentries = stack_depot_fetch(handle, &dst_entries);
-+	dst_nentries = stack_depot_fetch_into(handle, dst_entries, ARRAY_SIZE(dst_entries));
- 	KUNIT_EXPECT_TRUE(test, src_nentries == dst_nentries);
+diff --git a/include/linux/stackdepot.h b/include/linux/stackdepot.h
+index 2cc21ffcdaf9..734529767c8a 100644
+--- a/include/linux/stackdepot.h
++++ b/include/linux/stackdepot.h
+@@ -199,6 +199,42 @@ struct stack_record *__stack_depot_get_stack_record(depot_stack_handle_t handle)
+ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+ 			       unsigned long **entries);
  
- 	kmsan_check_memory((void *)dst_entries,
-diff --git a/mm/kmsan/report.c b/mm/kmsan/report.c
-index d6853ce08954..0770658ba932 100644
---- a/mm/kmsan/report.c
-+++ b/mm/kmsan/report.c
-@@ -83,9 +83,9 @@ static char *pretty_descr(char *descr)
- 	return report_local_descr;
- }
- 
--void kmsan_print_origin(depot_stack_handle_t origin)
-+static void kmsan_print_origin_with_buf(depot_stack_handle_t origin,
-+					unsigned long *entries)
- {
--	unsigned long *entries = NULL, *chained_entries = NULL;
- 	unsigned int nr_entries, chained_nr_entries, skipnr;
- 	void *pc1 = NULL, *pc2 = NULL;
- 	depot_stack_handle_t head;
-@@ -97,7 +97,8 @@ void kmsan_print_origin(depot_stack_handle_t origin)
- 		return;
- 
- 	while (true) {
--		nr_entries = stack_depot_fetch(origin, &entries);
-+		nr_entries =
-+			stack_depot_fetch_into(origin, entries, KMSAN_STACK_DEPTH);
- 		depth = kmsan_depth_from_eb(stack_depot_get_extra_bits(origin));
- 		magic = nr_entries ? entries[0] : 0;
- 		if ((nr_entries == 4) && (magic == KMSAN_ALLOCA_MAGIC_ORIGIN)) {
-@@ -123,14 +124,10 @@ void kmsan_print_origin(depot_stack_handle_t origin)
- 			origin = entries[2];
- 			pr_err("Uninit was stored to memory at:\n");
- 			chained_nr_entries =
--				stack_depot_fetch(head, &chained_entries);
--			kmsan_internal_unpoison_memory(
--				chained_entries,
--				chained_nr_entries * sizeof(*chained_entries),
--				/*checked*/ false);
--			skipnr = get_stack_skipnr(chained_entries,
--						  chained_nr_entries);
--			stack_trace_print(chained_entries + skipnr,
-+				stack_depot_fetch_into(head, entries,
-+						       KMSAN_STACK_DEPTH);
-+			skipnr = get_stack_skipnr(entries, chained_nr_entries);
-+			stack_trace_print(entries + skipnr,
- 					  chained_nr_entries - skipnr, 0);
- 			pr_err("\n");
- 			continue;
-@@ -147,6 +144,13 @@ void kmsan_print_origin(depot_stack_handle_t origin)
- 	}
- }
- 
-+void kmsan_print_origin(depot_stack_handle_t origin)
-+{
-+	unsigned long entries[KMSAN_STACK_DEPTH];
++/**
++ * stack_depot_fetch_into - Fetch a stack trace into caller-owned storage
++ *
++ * @handle:	Stack depot handle
++ * @entries:	Caller-owned buffer to copy the stack trace into
++ * @max_entries:	Number of frames that fit in @entries
++ *
++ * Copies the stored frames into caller-owned @entries. If fewer frames are
++ * stored than @max_entries, only the stored frames are written and their count
++ * is returned. If more frames are stored than @max_entries, the copy is skipped
++ * entirely and 0 is returned.
++ *
++ * Passing a NULL @entries buffer or zero @max_entries for a valid @handle is
++ * invalid. Callers must provide storage for @max_entries frames.
++ *
++ * Callers should size @entries to match the save-side stack depth cap (for
++ * example, %CONFIG_STACKDEPOT_MAX_FRAMES or the local stack_trace_save() limit)
++ * when losing diagnostics on an undersized buffer would be surprising.
++ *
++ * A non-zero invalid @handle, including a post-put handle, may WARN. Its return
++ * value and copied contents are undefined because the record may have been
++ * reused for another stack.
++ *
++ * Callers must ensure @handle remains valid for the duration of this call.
++ * Persistent handles saved without %STACK_DEPOT_FLAG_GET require no extra
++ * reference; handles saved with %STACK_DEPOT_FLAG_GET require a held reference.
++ * Callers must not call stack_depot_put() on persistent handles.
++ * Racing this helper with stack_depot_put() on the same handle is invalid.
++ *
++ * Return: Number of frames copied, 0 if @handle is 0, stack depot is disabled,
++ * or @max_entries is less than the number of stored frames.
++ */
++unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
++				    unsigned long *entries,
++				    unsigned int max_entries);
 +
-+	kmsan_print_origin_with_buf(origin, entries);
+ /**
+  * stack_depot_print - Print a stack trace from stack depot
+  *
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 134b15a44625..fcd74edfd93a 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -2785,6 +2785,22 @@ config RESOURCE_KUNIT_TEST
+ 
+ 	  If unsure, say N.
+ 
++config STACKDEPOT_KUNIT_TEST
++	bool "KUnit test for stack depot" if !KUNIT_ALL_TESTS
++	depends on KUNIT=y && STACKDEPOT
++	depends on STACKDEPOT_MAX_FRAMES >= 3
++	default KUNIT_ALL_TESTS
++	help
++	  Enable this option to test stack depot API behavior at boot.
++	  This test is built in, so KUNIT must also be built in.
++
++	  KUnit tests run during boot and output the results to the debug log
++	  in TAP format (https://testanything.org/). Only useful for kernel
++	  developers running the KUnit test harness, and not intended for
++	  inclusion into a production build.
++
++	  If unsure, say N.
++
+ config SYSCTL_KUNIT_TEST
+ 	tristate "KUnit test for sysctl" if !KUNIT_ALL_TESTS
+ 	depends on KUNIT
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index 90c52f2e0d3f..4da7279d9f83 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -785,6 +785,34 @@ unsigned int stack_depot_fetch(depot_stack_handle_t handle,
+ }
+ EXPORT_SYMBOL_GPL(stack_depot_fetch);
+ 
++unsigned int stack_depot_fetch_into(depot_stack_handle_t handle,
++				    unsigned long *entries,
++				    unsigned int max_entries)
++{
++	struct stack_record *stack;
++	unsigned int nr_entries;
++
++	if (!handle)
++		return 0;
++	if (stack_depot_disabled)
++		return 0;
++	WARN_ON_ONCE(!entries || !max_entries);
++
++	stack = depot_fetch_stack(handle);
++	if (!stack)
++		return 0;
++	nr_entries = stack->size;
++	if (WARN_ON_ONCE(!nr_entries))
++		return 0;
++	if (nr_entries > max_entries)
++		return 0;
++
++	memcpy(entries, stack->entries, nr_entries * sizeof(*entries));
++	kmsan_unpoison_memory(entries, nr_entries * sizeof(*entries));
++	return nr_entries;
++}
++EXPORT_SYMBOL_GPL(stack_depot_fetch_into);
++
+ void stack_depot_put(depot_stack_handle_t handle)
+ {
+ 	struct stack_record *stack;
+diff --git a/lib/tests/Makefile b/lib/tests/Makefile
+index 3cac3b63a752..1f72191f98bb 100644
+--- a/lib/tests/Makefile
++++ b/lib/tests/Makefile
+@@ -48,6 +48,7 @@ obj-$(CONFIG_SCANF_KUNIT_TEST) += scanf_kunit.o
+ obj-$(CONFIG_SEQ_BUF_KUNIT_TEST) += seq_buf_kunit.o
+ obj-$(CONFIG_SIPHASH_KUNIT_TEST) += siphash_kunit.o
+ obj-$(CONFIG_SLUB_KUNIT_TEST) += slub_kunit.o
++obj-$(CONFIG_STACKDEPOT_KUNIT_TEST) += stackdepot_kunit.o
+ obj-$(CONFIG_TEST_SORT) += test_sort.o
+ CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
+ obj-$(CONFIG_STACKINIT_KUNIT_TEST) += stackinit_kunit.o
+diff --git a/lib/tests/stackdepot_kunit.c b/lib/tests/stackdepot_kunit.c
+new file mode 100644
+index 000000000000..b0c44c096976
+--- /dev/null
++++ b/lib/tests/stackdepot_kunit.c
+@@ -0,0 +1,89 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++#include <kunit/test.h>
++#include <linux/array_size.h>
++#include <linux/gfp.h>
++#include <linux/stackdepot.h>
++#include <linux/string.h>
++
++static void stackdepot_fetch_into_roundtrip(struct kunit *test)
++{
++	unsigned long entries[] = {
++		0x101000UL,
++		0x102000UL,
++		0x103000UL,
++	};
++	unsigned long exact[ARRAY_SIZE(entries)] = {};
++	unsigned long fetched[ARRAY_SIZE(entries) + 1] = {
++		[ARRAY_SIZE(entries)] = 0xa5a5a5a5UL,
++	};
++	unsigned long expected_tail = fetched[ARRAY_SIZE(entries)];
++	depot_stack_handle_t handle;
++	unsigned int nr_entries;
++
++	KUNIT_ASSERT_EQ(test, stack_depot_init(), 0);
++
++	handle = stack_depot_save(entries, ARRAY_SIZE(entries), GFP_KERNEL);
++	KUNIT_ASSERT_NE(test, handle, (depot_stack_handle_t)0);
++
++	nr_entries = stack_depot_fetch_into(handle, exact, ARRAY_SIZE(exact));
++	KUNIT_EXPECT_EQ(test, nr_entries, (unsigned int)ARRAY_SIZE(entries));
++	KUNIT_EXPECT_MEMEQ(test, exact, entries, sizeof(entries));
++
++	nr_entries = stack_depot_fetch_into(handle, fetched, ARRAY_SIZE(fetched));
++	KUNIT_EXPECT_EQ(test, nr_entries, (unsigned int)ARRAY_SIZE(entries));
++	KUNIT_EXPECT_MEMEQ(test, fetched, entries, sizeof(entries));
++	KUNIT_EXPECT_EQ(test, fetched[ARRAY_SIZE(entries)], expected_tail);
 +}
 +
- void kmsan_report(depot_stack_handle_t origin, void *address, int size,
- 		  int off_first, int off_last, const void __user *user_addr,
- 		  enum kmsan_bug_reason reason)
-@@ -193,7 +197,7 @@ void kmsan_report(depot_stack_handle_t origin, void *address, int size,
- 			  0);
- 	pr_err("\n");
- 
--	kmsan_print_origin(origin);
-+	kmsan_print_origin_with_buf(origin, stack_entries);
- 
- 	if (size) {
- 		pr_err("\n");
++static void stackdepot_fetch_into_rejects_missing_or_short_stack(struct kunit *test)
++{
++	unsigned long entries[] = {
++		0x111000UL,
++		0x112000UL,
++		0x113000UL,
++	};
++	unsigned long fetched[ARRAY_SIZE(entries)] = {
++		0xa1a1a1a1UL,
++		0xb2b2b2b2UL,
++		0xc3c3c3c3UL,
++	};
++	unsigned long expected[ARRAY_SIZE(fetched)];
++	depot_stack_handle_t handle;
++	unsigned int nr_entries;
++
++	KUNIT_ASSERT_EQ(test, stack_depot_init(), 0);
++
++	handle = stack_depot_save(entries, ARRAY_SIZE(entries), GFP_KERNEL);
++	KUNIT_ASSERT_NE(test, handle, (depot_stack_handle_t)0);
++	memcpy(expected, fetched, sizeof(expected));
++
++	nr_entries = stack_depot_fetch_into(0, fetched, ARRAY_SIZE(fetched));
++	KUNIT_EXPECT_EQ(test, nr_entries, 0U);
++	KUNIT_EXPECT_MEMEQ(test, fetched, expected, sizeof(expected));
++
++	nr_entries = stack_depot_fetch_into(0, NULL, 0);
++	KUNIT_EXPECT_EQ(test, nr_entries, 0U);
++
++	nr_entries = stack_depot_fetch_into(handle, fetched,
++					    ARRAY_SIZE(fetched) - 1);
++	KUNIT_EXPECT_EQ(test, nr_entries, 0U);
++	KUNIT_EXPECT_MEMEQ(test, fetched, expected, sizeof(expected));
++}
++
++static struct kunit_case stackdepot_test_cases[] = {
++	KUNIT_CASE(stackdepot_fetch_into_roundtrip),
++	KUNIT_CASE(stackdepot_fetch_into_rejects_missing_or_short_stack),
++	{}
++};
++
++static struct kunit_suite stackdepot_test_suite = {
++	.name = "stackdepot",
++	.test_cases = stackdepot_test_cases,
++};
++
++kunit_test_suite(stackdepot_test_suite);
++
++MODULE_DESCRIPTION("KUnit tests for stack depot");
++MODULE_AUTHOR("Caleb Kan <ckan@cloudflare.com>");
++MODULE_LICENSE("GPL");
 
 -- 
 Git-155)
