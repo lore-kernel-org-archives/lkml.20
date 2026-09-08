@@ -1,137 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9444A4EE842;
-	Tue,  8 Sep 2026 10:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B185C5013AF;
+	Tue,  8 Sep 2026 10:15:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862487; cv=none; b=aI8uZviDfdLDG3c6SnvPA8LV8D8FYAs4JlQG+skj/Yi4dknHZHJ5HzeH/zRPy7t7xRLGjsCDFdBUQyvUbFATf031mlGMwUghWwuzO7FJqtwHQtdRAO0InqVSeQvnTFjkdyPgFIV+09RLUspBP6a2osRBo9sOhpZ+dvZMsB7hWBg=
+	t=1788862525; cv=none; b=Qsh99dN/7U0Ug8NNFiv/taXs+VQg5Un/ShgdRcdiAwDQEM646eMbRvTYjX87OgoenVQEguibRszVzOxt6QY5aGuxPEDenVHd+u2npyXV1RHAUMBq1mD2eIlZ8QwaFcjZI3Z3K5C8R1gT8IWPagMb8jIPVIzOkuNqH5i1kbaLWm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862487; c=relaxed/simple;
-	bh=faFEQjgMnDiusYVfCCUQAU59ZSChKuyIkz+2k2FWJ5U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LgMZM1tWyXkmzqpJah0K3YcT91FjPjeKFHhhg9fqxVRxELE5Z+sWchwmi4JdvluYgNKJ/mkI6kVVG4eCtrhXwfSaMfmXW/DVWzYfwo5TOCjaF9NAU3s2ZMpsopKsB8R+tv9sFNrD0jZVaOzYursXnttWgq1fQAWDivkIaf2UwVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iz9xURpW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788862525; c=relaxed/simple;
+	bh=KhZcOhwfqOXyJL827hD2p3zO+S18yDJfSF01/73/sIs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VCL5IrJcMyCI0iuOdrRPkMXlWGcZkyHIkVt8KeVkxdOkcc8eIkt/X5W/2kL+ESDFAWUexcYiUq2Kckr9f6g5ofdtkDIOnwdtHIVTqRDS0NEv6ShE5ShJ216DYOkCJCfiAb8iCUNWu/4LYP4B2WMMg1BNkcpoe2+k9K6pJ2iPGuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6l7AId2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iz9xURpW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28E1D1F00A3A;
-	Tue,  8 Sep 2026 10:14:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6l7AId2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA4121F00A3A;
+	Tue,  8 Sep 2026 10:15:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788862486;
-	bh=Cvq4qMjanLuwG3YSjMLX9OxK6QvsahWFeb4aWNdZaXM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iz9xURpWnnx+dU5/HrM8VQO5BbUDBW7rvyOLEuiLWetDXdQ8k9sBR4ImmLdNM+Dla
-	 N9Dfp7sOUwRPAKQbqdb/YMlpm5hpy6WKAwoioZvsKkWesFetbmX/dgCDD7SwWw0Sh8
-	 sdrThQmQVgTDomTp7h5cUd70qq67m8ahaB44eFW7y5LRfCBqUDMACXcX8xpnkJgR90
-	 ThiuAAAiaifndll5OnzG754tijKFWr3abF20Ynl6N13OEEvqTD5p/YrmKZ8l2+CuLy
-	 4e9UVv2pB0x39Ake1gvwn527QYcC2r9cUvKByu65tH2hoLFf2vOU18urhhaoqRuR1Q
-	 lT+RtcZM6i4Wg==
-Message-ID: <c8f3161f-0428-4f0e-a3bf-6ca72370b4fa@kernel.org>
-Date: Tue, 8 Sep 2026 12:14:41 +0200
+	s=k20260515; t=1788862524;
+	bh=mYc22su1Pld1wIXxVxkbK8rFZ05p1gw9nYRbfQ91Ry4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H6l7AId2d8E1bfFYe9r+WIdpjH4PiHVxEMKs1/G9RsJQgMGMqIsLm/oP+TXCUCvsU
+	 O9SwLXJWzSYEG5aDV9RcM1caiQT3rezFtKalcIFemPF6yrHmr7DK9s+c5Y5ytwr5E+
+	 m+rjeDLWFNOcWKoxK2em/x2Hgt5YF8c4ANkkUgeZmd60aPdU4tSQV3vc4pLKx5B2F0
+	 qB24+qiZ+5KfBwG58fLW71nL2ZqO2TMwdo9Hr1Mpts+xFd+aF4T4oM8DiLzTlV5kmd
+	 fOBhLOqaYzNTEqrRTYwT+sV1G4KE7n8ZoOCt1psYpym9wBogPoio6ao2aUAaQvyX4U
+	 Qc/suS3x+XdCA==
+Date: Tue, 8 Sep 2026 12:15:21 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+Cc: LKML <linux-kernel@vger.kernel.org>,
+	"Cc: Hyunwoo Kim" <imv4bel@gmail.com>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	John Stultz <jstultz@google.com>, Ingo Molnar <mingo@kernel.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	"Eric W. Biederman" <ebiederm@xmission.com>, stable@vger.kernel.org
+Subject: Re: [patch V2 1/8] signal: Prevent exec() race
+Message-ID: <ap_gOSWtPNjwWS1e@localhost.localdomain>
+References: <20260905181551.738186850@kernel.org>
+ <20260905185839.667208455@kernel.org>
+ <ap6urw5aAxrKO3Ck@localhost.localdomain>
+ <87ik4h2icz.ffs@fw13>
+ <ap8bUiYYwQT1nVg5@pavilion.home>
+ <875x0g3de3.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] selftests/mm: Only prepare ptrace_scope when
- memfd_secret is selected
-To: Tianyi Chen <hi@tychen.cc>, Andrew Morton <akpm@linux-foundation.org>
-Cc: shuah@kernel.org, linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, jsavitz@redhat.com
-References: <20260906135444.749144-1-hi@tychen.cc>
- <178886112560.138404.1278745290043112298.mm-cli-v2-0@tychen.cc>
- <178886112560.138404.8930658836608223518.mm-cli-v2-2@tychen.cc>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <178886112560.138404.8930658836608223518.mm-cli-v2-2@tychen.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <875x0g3de3.ffs@fw13>
 
-On 9/8/26 11:55, Tianyi Chen wrote:
-> The memfd_secret setup clears ptrace_scope whenever its test binary is
-> executable, even when a different category was selected. run_test() filters
-> the test invocation, but it does not protect the preceding setup.
+Le Tue, Sep 08, 2026 at 12:28:04AM +0200, Thomas Gleixner a écrit :
+> On Mon, Sep 07 2026 at 22:15, Frederic Weisbecker wrote:
+> > Le Mon, Sep 07, 2026 at 05:26:04PM +0200, Thomas Gleixner a écrit :
+> >> It's not obvious of course and might deserve a comment.
+> >> 
+> >>       exit_signals()
+> >>         lock(sighand)
+> >>           old_leader->flags |= PF_EXITING;
+> >>           head = remove_signals()
+> >> #1      // RELEASE: PF_EXITING must become visible
+> >>         unlock(sighand)
+> >>         flush_list(head)
+> >> 
+> >>      ...
+> >>      posixtimer_exit()
+> >>        posix_cpu_timers_exit_task()
+> >>         lock(sighand)
+> >>         ...
+> >> #2      // RELEASE: The stores in flush_list() must become visible
+> >>         //          They might be already in case of preemption
+> >>         //	    or due a RELEASE operation in seccomp_filter_release()
+> >>         unlock(sighand)
+> >
+> > That second step only appears at the end of the patchset, right? Otherwise
+> > it's done on release_task(), which is after transfer_pid().
 > 
-> Check the category selection before entering the memfd_secret block so
-> running unrelated categories does not change ptrace_scope. Keep the
-> existing executable check and the behavior when memfd_secret is selected.
+> Cleaning up the enqueued posix CPU timers has nothing to do with the
+> signals.
 > 
-> Assisted-by: Codex:GPT-6
-
-We prefer
-
-Assisted-by: LLM
-
-now
-
-> Signed-off-by: Tianyi Chen <hi@tychen.cc>
-> ---
->  tools/testing/selftests/mm/run_vmtests.sh | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> >>     exit_notify()
+> >>       lock(task_list_lock)
+> >>       exit_state = EXIT_ZOMBIE;
+> >> #3    // RELEASE: exit_state must become visible
 > 
-> diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-> index 836c7454cba..9932df252f4 100755
-> --- a/tools/testing/selftests/mm/run_vmtests.sh
-> +++ b/tools/testing/selftests/mm/run_vmtests.sh
-> @@ -371,7 +371,7 @@ CATEGORY="process_madv" run_test ./process_madv
->  
->  CATEGORY="vma_merge" run_test ./merge
->  
-> -if [ -x ./memfd_secret ]
-> +if test_selected "memfd_secret" && [ -x ./memfd_secret ]
->  then
->  if [ -f /proc/sys/kernel/yama/ptrace_scope ]; then
->  	(echo 0 > /proc/sys/kernel/yama/ptrace_scope 2>&1) | tap_prefix
+> In context of patch 1 alone, this RELEASE operation guarantees that the
+> stores in flush_list() are visible.
+> 
+> The new leader cannot proceed with swapping the TIDs _before_ it
+> acquires task list lock and observes under task_list_lock
+> 
+>          old_leader->exit_state != 0
+> 
+> The TID swap cannot be reordered by the CPU _before_ task list lock is
+> acquired and the exit_state is observed as non-zero.
+> 
+> As the exit_notify() RELEASE made both the exit_state store and the
+> preceeding flush_list() stores visible the third party must observe them
+> correctly as well when it can observe the TID swap.
+> 
+> It does not matter whether the RELEASE operation after flush_list() is
+> spin_unlock(siglock) or any other RELEASE operation before and including
+> the final one in exit_notify().
+> 
+> Any of them will provide the guarantee because _all_ preceeding stores
+> must be visible before the RELEASE operation is complete. 
+> 
+> No?
+> 
+> Thanks,
 
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Yes this side is well ordered but what about the other side.
+Ok let's simplify the picture:
 
--- 
-Cheers,
+Old leader                           Exec'ing New leader     CPU 2
+-----                                -----                   -----
 
-David
+WRITE q->next = q
+WRITE q->prev = q
+
+ACQUIRE tasklist
+RELEASE tasklist
+                                     ACQUIRE tasklist
+                                     RELEASE tasklist
+
+                                     WRITE pid
+                                                             READ pid
+							     // smp_mb()
+                                                             if q->next == q
+                                                                 WRITE q->prev
+
+Isn't there a missing pairing full barrier in CPU 2 ?
+
+Thanks.
