@@ -1,250 +1,182 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFEA5237A2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860470; cv=none; b=b6wUZU1LSq7uNXj0MCHu1A4oPAS4HJRbqiJi0ltOypNIw/WKgcUB3UfZrYjVPvgouVlv/4JuN/W5DqWbLqujgA2qC479bzCrV5V5utRkR155wL/v8MMxuac20kgkNYhd/LWSsMTD8VFOCVelJR0a27Y+hcVZEXjzChfrqsT3cl0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860470; c=relaxed/simple;
-	bh=ymrWWchYGLjkNxZZNJjEWYLE5L5GJlodkp3U06kQKLo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hy/k7es25U/4cB/xgukZjldjHOuhQlFQhGmuPJycOvvDXcGPoW+4Vg6G4Gp1JZabGu2vI8DpM4hn/txEZ0/Pue/q9CdI6S1GF4kMldVRBLSyw4b+6jj6GnGwswpkau7yWNveXDtEpD3DFL8jlFDPlO4uyWtX57q6hGCFBLruIW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1qUDlOc; arc=none smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF515237BA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788860474; cv=fail; b=rxP7Sc2orBdvEeAhQT2t/EbKDkghekrUq7Gg3OpPd44WUGCnYKghQpRhx/Fh4pWVlc2QiPpDRYvZaNZVBjD3XAKSAATNStushZZk17RhwWQ18ZjUa2M+M02rHf9BnvMiThB30OSRk0oXvTNQY3++ki0jtdutrEMYwXfL7evMJa8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788860474; c=relaxed/simple;
+	bh=RgVTFb4F8zdwwBhdYYY1Eb9W6S0LEHZ8c2xRyWzzggY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=d0vrt/9DgNvuf6mONExGlRWRbOUdgt9hNWjDtHNC2nyfRG8+UXMOp4VSxvuJoDK6Gqr1yWybtBMc2GArkFkSuDhWHhoBKz9TSVbmWAQw6PlqVQ6QRBo0+QAM6NzmZRbKUrBTtMqNDhOAfog2bRKfjzbiBf5qNNImZ2CTEOqw11k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HAdtsmdO; arc=fail smtp.client-ip=40.93.195.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1qUDlOc"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398a4dcf289so5148513a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788860468; x=1789465268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2aAMCf2SpXVpQaOpvFq2x8nEqjxcR4A/9rWT4hksgxQ=;
-        b=i1qUDlOc70TxRXfkYvqWSrwX6+K/DjP5pnDdmRyPJ0aX/ZXYFlBBy0+fND2fcLUZwj
-         fpfN0l411eO6RwFEDsh1OwNlWApSCT4/Mz2onyX5TeDv5RaYG+QtGZDflEC0Edkc0i7s
-         YgjDufWlDOHpxgYhCR9yL+dtVFbK+x0oxH+VPpAvBrs37f2kKv4Gn40N3kpnlb81IpR3
-         GAf9CVGdhcBDrfXTtWaGce3Hcxm32ZwFhR4KdCaNZNXssYNUJRrWUhPrYJ2bGP8MXcCl
-         45a+oolmfxvwvu33E2y+h1DnkMU1T+Um7Ae+b9u8Z2tuXV6xW5hbAfKucj15621WKkj7
-         66Xg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788860468; x=1789465268;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2aAMCf2SpXVpQaOpvFq2x8nEqjxcR4A/9rWT4hksgxQ=;
-        b=p2bGQBHPH2Zy7sF5NZ1CqoUhZA8ASMUSHBmcg7F9TZCTTmpoKMea5/c0uVOCw9Race
-         98cZZp6v1GoYVnxqU9sl35mY0icx5mYfjj7pxk7857e7H3OWT+xpUaRPBsbkHuhjtPnP
-         mo8i8MRi3y2ZMH1MH+J9R6wfoSrQp0mNjlnQKK8Iv9O4N9zVPpfOaOhH4ZCnV/7mZ4cj
-         BooZXL8euHqgNIXef6eJ9olVgemoLk4e8vieHVHa5U97MspBd2X4hF2LygRGX8IRbIxb
-         dzVmgyASI82Mnqc5/RvkJUmjT8g0n3az4t6cPAkej8CXmCFd2Upn/KRDDvZWFMHKonRW
-         VsPw==
-X-Forwarded-Encrypted: i=1; AKwUvBxRqGwlxfPDJFkA9/8Ah3Os2tCudmczRGwJ6+PLyjhjstP2o34rcMv1kLyKFx/rSnS9u9SwEE+lFn4bFvg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+5tX556fYy1yBbPGJ1gDR7rhVZDR8wcFLpKd8cQ7gjWYdP/Sm
-	j6jlLBHlfGrt/mXRkzNu2qU/QSboTSOH5U787MKf0QFtgW7m8jaPRe5i
-X-Gm-Gg: AYBFou1SL4oseLaUS+v09jCnPBhtonbQ93qawVrZ99xf9qXGP7kYw6AG6qUx7apHwYH
-	fTmgRKx0xsDcZ8/QXzE5BVMx7HaXp50Ar1cOy3stlWkAEktt6t4QzXKOq/5f9a5WtXVwHLNJ6/u
-	SMuEqpaAE8hk5SXTSj/D1eQGtwfwHu/hk9tit38iv3nH0WsgibIgYLtx2v352Sz3PnHGLVD+zfc
-	Pm/DW65pzzW8IgtbpUBPq2uir0k+1mFpWbYyxlWblk65rzRCGNqKf18sObhD/ry3XsqVpjO/M4X
-	TcfJUCx5Qp1rNygoItGon/KnQLXA3lv5d/nRX3ozkVavgo11rkcHJqRvtgE/t4e6CHv8l0fJpkT
-	uaLqpQdtL0QWeGswfwDGqLDtnTTY0szq6nCdJS6q0JvZfDdI5KkMEu+e9D6Rsb/hXxHsCpfZ5nW
-	jqWQtt8JxHjuPRzEP3U1M1PClW4xZCmwSqZsayKNkuXzglgJgP4MgXgJzDcwtfoWnPCYvFQ8DQg
-	FwzS6QUQ67Vj5HzdSN7yko68rk65X08qxq9c8TMbPillewtAjr3Hx9rH9j/lYtCCUDupfJopF9e
-X-Received: by 2002:a17:90b:2ccd:b0:398:b88c:2b7b with SMTP id 98e67ed59e1d1-39b260d7297mr49355163a91.8.1788860468117;
-        Tue, 08 Sep 2026 02:41:08 -0700 (PDT)
-Received: from visitorckw-work01.c.googlers.com.com (202.176.229.35.bc.googleusercontent.com. [35.229.176.202])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm31999240a91.13.2026.09.08.02.41.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:41:07 -0700 (PDT)
-From: Kuan-Wei Chiu <visitorckw@gmail.com>
-To: geert@linux-m68k.org,
-	tglx@kernel.org,
-	miodrag.dinic@mips.com
-Cc: radu@rendec.net,
-	zewenchen@google.com,
-	jamiechen@google.com,
-	edwardwchen@google.com,
-	marscheng@google.com,
-	eleanor15x@gmail.com,
-	jserv@ccns.ncku.edu.tw,
-	linux-kernel@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org,
-	Kuan-Wei Chiu <visitorckw@gmail.com>
-Subject: [PATCH 6/6] m68k: virt: Switch to generic goldfish-pic driver
-Date: Tue,  8 Sep 2026 09:40:16 +0000
-Message-ID: <20260908094016.1997918-7-visitorckw@gmail.com>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260908094016.1997918-1-visitorckw@gmail.com>
-References: <20260908094016.1997918-1-visitorckw@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HAdtsmdO"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VM607yTjagVTh46z/i7B0osDSY6Ku4Dm3Kp3c19Ez9kkkn5Cik7NgUEaLrWO37kNrHLg8BPKNKJCAN43Frh2d5LGBmmlDRPvned5tMaspWbhkXk9mHOrJvIIaQu2j9Hi9mlC91twkNm6sOy1HqQXTFk4DGEQ+GLN40vUKCxHoJLj730xVz22nnrg5DTYADdnySZWCI1zBWtd4v1Ala7zP94kl1MA8nSdIiCiuQ5RQyM+Ld/IJXiDwSycLSo9OabWCkg02WnqqhF4/Tft8nnb1nioKEXtET91F9QNnZ1/WSM4+it6LFQyRpg3hFkaYEtigN/+cOfpZ6+Gle0PuV2uuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hEU6m935A/jTKteJk+Q3MYthGj9bSucBtNdCB1qkcWw=;
+ b=cmdUQbjuQgLttNWPws7YCqhaG03wPpFzJnWrLOeVui5L3donNIO0AL0yN0MyWzjG5OGjIxZYPXIwsDgUge4XnfPw35mZlj4P09gts8msxxTnSrbxI7S88eC7LnqFvs89b7OfUPtLGJAUGAlCez78+UkeGzZ7cKtyee81u9N5IY1+1/yfCNCIGfxXVFTckkqL9Gn2EYpov0hzBhhMvqGIKHFQx/dbUSZNi+o3yHK56DnOGx7XNS8OVhw4elPtuPOXCoBAy2wEfpG/Jn+dhTgkSAD97XCZEAlz9CxvfXMzVUlfbwoWMdKmOCMYvufz82VKxhFCuqylDo1OzYKbgvloVg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hEU6m935A/jTKteJk+Q3MYthGj9bSucBtNdCB1qkcWw=;
+ b=HAdtsmdOFnFPSVubBNdJJxmSOiG56DOeCbY//j/cY8o2TrrqTI1wrR3aHde3E1mLB9OKaBEZY9MOqi0w/Dvqye2Uf1VKedPYqs20wHpC3QP6fWmMLY0xLbRc4+bl8N15gu5OjzDZOUX+6FMvy1+dc03iyMzqCr87vpTA6T7lpEA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
+ by MW6PR12MB9020.namprd12.prod.outlook.com (2603:10b6:303:240::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 8 Sep
+ 2026 09:41:07 +0000
+Received: from DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
+ ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 09:41:07 +0000
+Message-ID: <38c051cb-3852-424b-8951-a9d40d44eb54@amd.com>
+Date: Tue, 8 Sep 2026 16:40:57 +0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 18/24] iommu/amd: Introduce helper function for updating
+ device ID mapping table
+To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
+ Sairaj.K@amd.com, jay.chen@amd.com, wvw@google.com, wnliu@google.com,
+ dantuluris@google.com, chriscli@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com
+References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
+ <20260727132913.22475-19-suravee.suthikulpanit@amd.com>
+ <fbfc7a4a-3108-4cc0-b6d4-d89f56393aba@linux.alibaba.com>
+Content-Language: en-US
+From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
+In-Reply-To: <fbfc7a4a-3108-4cc0-b6d4-d89f56393aba@linux.alibaba.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: KL1P15301CA0065.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:820:3d::12) To DSVPR12MB999171.namprd12.prod.outlook.com
+ (2603:10b6:8:388::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|MW6PR12MB9020:EE_
+X-MS-Office365-Filtering-Correlation-Id: c464be82-e3b2-4a01-78bc-08df0d8d4e8d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|4143699003|11063799006|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	A42HHC6XjK32AkS0m7Obk0fVm/bmQ8JSCqnsil/pCEClfmvWJeIOymRQCnRrTuNav5Cx6U17qYSqh8rcVxm4o8TjUMGqbp8k0IbO941WffjllQpQSt2yYHuicm1VmG2yNKMAKLoy5g+jisRjAOgnMBIOUbiJXnzqofSgHhz3C0/hoAIdhEgsAe2a0uqIv1QAG+lMWva9nb7dbSXtYxwhCWBUqFwVYZyWFCpuk+Jw09hRSs0tgAcZL7G+jBf3aoCW8jckOCMGaqhnYKZT5p9kveHHhffMrI3I3gi5FUSpv+FTmqBDY0GlJ9CPf8su5LpG9klmQaztRRDKw/uaSJMG0vXOLqJjyQmdQUspKE2vj3Ixb+PVSXFSsLjv/gIuAff0fj3sCHBOqMefMvzNX6BM+LzMANZoCkEh/Tx+Mqefe6blv1r84nhBTLoxoWVqwYDfMjt9f03RUy4Q6VxCHW+QnABQgBmWBxcorU8/ZdxN3rkubYur771nHSBbgmmAECvWiwOLCXql+yO5RZtUVeyS/omixJHKiMJT+KIKw+M3/v1v35XTSYYJZTycTbrehieetG/+KeLLxNjEsBIcK6mN+5uig+Slr/PsfTXiL9UP4RbxIKDzObm+6BqwSial7KRqlkM7Loqi6xRk4e8UWQ1iWsU61LB3/HuF46mSUw6/QLM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UFZRdEtsZFpQdlRWdVBoby8rRmEyVlMyY2NLMWQxN1NQcUtvRkVDL1dxUXRB?=
+ =?utf-8?B?WDJwODhpSW5DTDUvQ0pXQU9aSjUzd1dQclRpRThWdlNBWURmVkpqbmc1SHdK?=
+ =?utf-8?B?b1paS2loOXVBTTR4QVlGTmF5dkZhcFQwQldZb0dmMEpUbGovNVFsS2tIS0pI?=
+ =?utf-8?B?UXVDdmVMLy9MdTR5ZGVlWnVLTTkzZnNOWEhGNTRXMkhxaTdPZmtLTUxjYU9p?=
+ =?utf-8?B?ZE1BNDRMMXpFcU90cDdEZEo0dS9NbVRmM1NaS0hYVjBQQktNWFR6cGRXSlN5?=
+ =?utf-8?B?cU9RSEtna2Y2ODhRdGlPR3hKaytWSXFON2xrcmdzWHNQeWJsTE5KVkpLSkEr?=
+ =?utf-8?B?ZDVHOXhheEJmdXBjbTlWMDAvTks3MHpqTkppSktVQ2dZYnRoZWp0blJSNGNB?=
+ =?utf-8?B?S0twOStjUkJnSzErMjVYbWRaWnZ4ZkZ1eHJ5MFhsZDIzbnJlbG05UEpvRG1r?=
+ =?utf-8?B?RGxqL3NlTG8wTjFVRlVTa0ZtRnd5dDFWMk9mUmI0d0VIa2ZNSmloT1ZTYzRt?=
+ =?utf-8?B?SE9ra0RZbDRid2Z4TEZoZ090VElXU0IvbDJlQml1UmxzZUZidElxVlBsNWdP?=
+ =?utf-8?B?REZRZUJ1OU5aTGNVWXNuSVlheWZ4ME1mbHNNekwyU2szU1B1TmxxN3R0eWtO?=
+ =?utf-8?B?emdvYXd0K1R3Mk5POVBYZXdKcGtrTEl2OHZ2OW1McWFHd05pTTZ2WXdxckVB?=
+ =?utf-8?B?NUVBcElRcGphcDRyVXlCL3U5aEU3NmJrNTZnclBtdDI1aGN5Wi9nTlZNT0hD?=
+ =?utf-8?B?T2NoWlhHOGlneTg3NFpsNzR5SWtDVTRxSGE0Y0hTK3dNcWQ5Sm1CWE9xWkxh?=
+ =?utf-8?B?WnB1NDVtRnV1M09UMGtXbUxjMk9qOXhqOTQ1a2czeTh1R0tCYUVIamZEMmRa?=
+ =?utf-8?B?djA4OTBHTlBpQWRrTGhDNXNuRFRKemNZeXp2RzBXZzJtamljNlhGSGV2cXVC?=
+ =?utf-8?B?Q2FmbTdIQzdObTBXRHdjKzl4SVRzcGd2Y3pERURRTlpjYm5ZZGxjUEFpbnds?=
+ =?utf-8?B?NzdVTUI0eDV3NjcwaWJUY1RackRvUWJyQzJpaGtHbEhJRHdaVTNyMndFQllm?=
+ =?utf-8?B?M2FXZGF1V01hYWRldW0ydWNtTGNrSFZlYi9aa2dtTy9PVmdTTUpTTlU0N0tQ?=
+ =?utf-8?B?S2hscUdxa3ZYMUFiMU5raFpxbTZDNGtxUmVDdWJGNXV2OVY1eit6dEFKeGtN?=
+ =?utf-8?B?cnl5Ri9GSDV3R01ZYUUwYU83ZUVSKzgremFpdFR4UnNBbnpNZEtxV2RPWFJ1?=
+ =?utf-8?B?YmhKYVBXcGRJVzJHWWNjSTZDRGF5VU1GWUcxaEVVa1V6aHNmMkVrNnFiSno3?=
+ =?utf-8?B?S1dld1Y0b2FjWmh1TU5najUyTGpla2ljOUEyOTQyNWxpeS82RSt0b2huUEpU?=
+ =?utf-8?B?VTZadkRGaDFLVkc4NzVLN3NFWDFhdkxqU2ZOUHdxY3pPYUE2VDd0QmlpQS85?=
+ =?utf-8?B?YWZ4OXNMN0t1c3lWS1dic2gwMkJpOEt0SG1hKzVYdm1wOThnVUZYOUI1cmJi?=
+ =?utf-8?B?aDlJNHpPVElqQ3ZMTnhKNUNOSndPVXorQVNpSHZkVzJPMC95Skc0R1pTL2tY?=
+ =?utf-8?B?M2F2eXh3NHlNRnhkVW9OZVZJTHpoMDd4TDcweE4rdlJ5NHhqYlZ3VC9OcHBj?=
+ =?utf-8?B?TWpjbm5Sd2FvN1RNRkloRGRPRVhQSFFNZTBYWXdBNWs3ZXphTmtLUkVHaTFI?=
+ =?utf-8?B?LzYrN0tXcnp2NUQ1cjFzL1N5MnVNWUNpL0RQbnFSYS8wUXYzRWtYdFVOMDg0?=
+ =?utf-8?B?TGk0VGx3T0Z0TnpnVTA1Z0psWk5uUE9LVWRlcUZPMUlLc0dUOXdrcE5VOHA4?=
+ =?utf-8?B?dGh6NVBiQVhpaTJFcXJBRk5NckppNzY3czJNaE5XemFQTEhuM0tmWWpibk5L?=
+ =?utf-8?B?SGlYalZENWIyTzhHS04vU2w0K1d1bnd0Q0NDZkN1QzRLK0o5SnVDZ05tbUtp?=
+ =?utf-8?B?b1YreUloRVNlTTZWUi9BaUpBRUlyM3pCVHExcDRNR3F5R2JGekVEcUFvd3BC?=
+ =?utf-8?B?RjNTdUFmWDB3SFpkMWpUU3c5ZGVhY1U4bXB0UVNicWhzZ1JYWC9HRlFZaGFV?=
+ =?utf-8?B?WktZN2srY3VpVUQzVEhBdlZ4RG1rcW9oUU9oRWJHbE1SQm1QaWhDVFhJbVRm?=
+ =?utf-8?B?QXBEVitRcE5SSUVzY0lkT1pKNEc5K1JWemFSYXl4d3RlUEQxZWZBRkdFM2RZ?=
+ =?utf-8?B?czhhbVNsM2NXNExMUGFFcVFvRWkzQWRNd0hnU283RkVMbzhIdDBDYnlEWDNF?=
+ =?utf-8?B?aDNteGthZ2xsMUN5eStKTGVDdkNlemxvREdUY3JOdXVLbTlGNDNPNGorZ0xL?=
+ =?utf-8?B?aHh0VXlDWWJCNzJNako3Yjd3SmlEU0NYNWdab3BYVENmRnJaYjY4UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c464be82-e3b2-4a01-78bc-08df0d8d4e8d
+X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:41:07.0846
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RllNSzXtOGV8BG5YcHwwj17yxQ1FYz/lPyTKIFL+XYzb7V1grzp/LQ/0MXFM2cBqwzHRV9Ir1qbtbjeGygBZ/g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9020
 
-The m68k virt platform implements a custom irq_chip and chained handler
-in arch/m68k/virt/ints.c to handle its 6 goldfish PIC instances.
 
-Replace this custom implementation with calls to goldfish_pic_init() to
-use the generic goldfish-pic driver, and select CONFIG_GOLDFISH_PIC for
-CONFIG_VIRT.
 
-Signed-off-by: Kuan-Wei Chiu <visitorckw@gmail.com>
----
- arch/m68k/Kconfig.machine |  1 +
- arch/m68k/virt/ints.c     | 89 ++++-----------------------------------
- 2 files changed, 10 insertions(+), 80 deletions(-)
+On 8/19/2026 5:26 PM, guanghuifeng@linux.alibaba.com wrote:
+>> +static void clear_device_mapping(struct amd_iommu *iommu, u16 
+>> guestId, u16 gDevId)
+>> +{
+>> +    u64 val;
+>> +    u8 __iomem *vfctrl;
+>> +
+>> +    /*
+>> +     * Clear the DevID in VFCTRL registers
+>> +     */
+>> +    val = FIELD_PREP(DEVID_ENTRY_GDEVID_MASK, gDevId) |
+>> +          FIELD_PREP(DEVID_ENTRY_HDEVID_MASK, 0) |
+>> +          DEVID_ENTRY_WRITE | DEVID_ENTRY_VALID;
+>> +
+>> +    vfctrl = VIOMMU_VFCTRL_MMIO_BASE(iommu, guestId);
+>> +    writeq(val, vfctrl + VIOMMU_VFCTRL_GUEST_DID_MAP_CONTROL0_OFFSET);
+>> +}
+> 
+> 
+> The clear path sets Vld=1 with hDevID=0. This semantics is ambiguous:
+> Vld=1 marks the entry as a *valid* mapping, and hDevID=0 is a legal PCI
+> BDF (Bus 0, Dev 0, Func 0), instead of treating the entry as invalid. To 
+> actually invalidate the mapping,
+> please use Vld=0
+> 
+>      val = FIELD_PREP(DEVID_ENTRY_GDEVID_MASK, gDevId) |
+>            FIELD_PREP(DEVID_ENTRY_HDEVID_MASK, 0) |
+>            DEVID_ENTRY_WRITE;
+> 
+> Alternatively, during the clear dev mapping process, you might directly 
+> specify the original hdevid being used.
 
-diff --git a/arch/m68k/Kconfig.machine b/arch/m68k/Kconfig.machine
-index cff990c319cb..7b15012ffb28 100644
---- a/arch/m68k/Kconfig.machine
-+++ b/arch/m68k/Kconfig.machine
-@@ -130,6 +130,7 @@ config VIRT
- 	depends on MMU
- 	select GENERIC_CLOCKEVENTS
- 	select GOLDFISH
-+	select GOLDFISH_PIC
- 	select GOLDFISH_TIMER
- 	select GOLDFISH_TTY
- 	select M68040
-diff --git a/arch/m68k/virt/ints.c b/arch/m68k/virt/ints.c
-index 896aa6eb8bcc..54da6b1f5ce7 100644
---- a/arch/m68k/virt/ints.c
-+++ b/arch/m68k/virt/ints.c
-@@ -1,25 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- 
--#include <linux/delay.h>
- #include <linux/interrupt.h>
--#include <linux/irq.h>
--#include <linux/kernel.h>
--#include <linux/sched.h>
--#include <linux/sched/debug.h>
--#include <linux/types.h>
- #include <linux/ioport.h>
-+#include <linux/irqchip/irq-goldfish-pic.h>
- 
--#include <asm/hwtest.h>
- #include <asm/irq.h>
- #include <asm/irq_regs.h>
- #include <asm/processor.h>
- #include <asm/virt.h>
- 
--#define GFPIC_REG_IRQ_PENDING           0x04
--#define GFPIC_REG_IRQ_DISABLE_ALL       0x08
--#define GFPIC_REG_IRQ_DISABLE           0x0c
--#define GFPIC_REG_IRQ_ENABLE            0x10
--
- static struct resource picres[6];
- static const char *picname[6] = {
- 	"goldfish_pic.0",
-@@ -50,43 +39,6 @@ static const char *picname[6] = {
-  * CPU IRQ #7 -> NMI
-  */
- 
--static u32 gfpic_read(int pic, int reg)
--{
--	void __iomem *base = (void __iomem *)(virt_bi_data.pic.mmio +
--					      pic * 0x1000);
--
--	return ioread32be(base + reg);
--}
--
--static void gfpic_write(u32 value, int pic, int reg)
--{
--	void __iomem *base = (void __iomem *)(virt_bi_data.pic.mmio +
--					      pic * 0x1000);
--
--	iowrite32be(value, base + reg);
--}
--
--#define GF_PIC(irq) ((irq - IRQ_USER) / 32)
--#define GF_IRQ(irq) ((irq - IRQ_USER) % 32)
--
--static void virt_irq_enable(struct irq_data *data)
--{
--	gfpic_write(BIT(GF_IRQ(data->irq)), GF_PIC(data->irq),
--		    GFPIC_REG_IRQ_ENABLE);
--}
--
--static void virt_irq_disable(struct irq_data *data)
--{
--	gfpic_write(BIT(GF_IRQ(data->irq)), GF_PIC(data->irq),
--		    GFPIC_REG_IRQ_DISABLE);
--}
--
--static unsigned int virt_irq_startup(struct irq_data *data)
--{
--	virt_irq_enable(data);
--	return 0;
--}
--
- static irqreturn_t virt_nmi_handler(int irq, void *dev_id)
- {
- 	static int in_nmi;
-@@ -102,40 +54,12 @@ static irqreturn_t virt_nmi_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static struct irq_chip virt_irq_chip = {
--	.name		= "virt",
--	.irq_enable	= virt_irq_enable,
--	.irq_disable	= virt_irq_disable,
--	.irq_startup	= virt_irq_startup,
--	.irq_shutdown	= virt_irq_disable,
--};
--
--static void goldfish_pic_irq(struct irq_desc *desc)
--{
--	u32 irq_pending;
--	unsigned int irq_num;
--	unsigned int pic = desc->irq_data.irq - 1;
--
--	irq_pending = gfpic_read(pic, GFPIC_REG_IRQ_PENDING);
--	irq_num = IRQ_USER + pic * 32;
--
--	do {
--		if (irq_pending & 1)
--			generic_handle_irq(irq_num);
--		++irq_num;
--		irq_pending >>= 1;
--	} while (irq_pending);
--}
--
- void __init virt_init_IRQ(void)
- {
- 	unsigned int i;
--
--	m68k_setup_irq_controller(&virt_irq_chip, handle_simple_irq, IRQ_USER,
--				  NUM_VIRT_SOURCES - IRQ_USER);
-+	int ret;
- 
- 	for (i = 0; i < 6; i++) {
--
- 		picres[i] = (struct resource)
- 		    DEFINE_RES_MEM_NAMED(virt_bi_data.pic.mmio + i * 0x1000,
- 					 0x1000, picname[i]);
-@@ -144,8 +68,13 @@ void __init virt_init_IRQ(void)
- 			return;
- 		}
- 
--		irq_set_chained_handler(virt_bi_data.pic.irq + i,
--					goldfish_pic_irq);
-+		ret = goldfish_pic_init((void __iomem *)(virt_bi_data.pic.mmio + i * 0x1000),
-+					virt_bi_data.pic.irq + i,
-+					IRQ_USER + i * 32, NULL);
-+		if (ret) {
-+			pr_err("Failed to initialize %s\n", picname[i]);
-+			return;
-+		}
- 	}
- 
- 	if (request_irq(IRQ_AUTO_7, virt_nmi_handler, 0, "NMI",
--- 
-2.55.0.979.g7e5102b832-goog
+Based on the IOMMU implementation, it requires the valid bit to be set 
+to 1. Otherwise, guest command INVALIDATE_IOMMU_ALL would trigger error 
+ILLEGAL_COMMAND_ERROR event.
+
+Generally, host device id BDF 0:00.0 is the host bridge, which is not 
+part of the list of devices managed by IOMMU. So, it is safe.
+
+Thanks,
+Suravee
+
 
