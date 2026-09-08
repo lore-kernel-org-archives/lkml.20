@@ -1,122 +1,127 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1A1449890A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:33:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22BA34854E6;
+	Tue,  8 Sep 2026 21:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903221; cv=none; b=FTkshHzN5jRdqeamPRaPwfb8dnpcilqQeYnPCIx+vlbGHCVw8fpRO9P8zfFlqH6e6l2zh4nDQiwHDKUBJh8QVYD9yCtwPuVXN3psh5Yloy54oHDbjmmDp0h1BGa+b9qDr1wYndHOl9VUOZg4mO4vVsiSvZkIC2f1p7ziIUYdIco=
+	t=1788903259; cv=none; b=W0CTFFepDRRoi6GrX37IwM7i5SiSjUGRiLflF8rmC41mveWtagE9PF1BqaBcVp4U2KZSZRHr21wt5UhCQsxjxT85J7Mg294zMDVRSni01TLwSMRaei5AZ+IWClHVL2xf2ZGAd3YISUOwvX+GLC/lfih5fQRRpzXCVVgZ+RXuAfs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903221; c=relaxed/simple;
-	bh=gQYMQIZ0a0qQpuJQGl9sxe6tSFIiwDa+pVKYc1H04vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lKvq6BLD4XKBaf+/voY+kwKjJFcMom/X5bBQZOaDAoizxVqJF9gl+gQs0Drv1gIjglC8/ejSq6GfKEzQiJbMhUBZgUBwCf+YXsTJr3UxZ01UbC14XGZmsLTLzYCBCYXkyis5paU9j8v3ISVq83t8+wkRH6J3xvQ61q02EIQTx5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mnxykDN6; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788903259; c=relaxed/simple;
+	bh=xCQ8MWi2wEUG15ApDe/Wb8ASN6Lc5h0YduQNrT23Ibs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JKP5avy6qQS3brunCqar+9ogl3/LDofav9c72xy08p1XdEvu6DFdZEuq/e4zI48b9X3RFjXzWRvVWpXd76x7mYd9icxc9V1WI9dm4W2bWSa4cKbV95E/ZET9yIAkkMl/SE3YntIYMLzEkGdwJjmJBMVbc4pdGlj+9JUeE61jK3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFzo8BRD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mnxykDN6"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2ceab75934dso48920255ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:33:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788903218; x=1789508018; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yHiWJUkqXIHHnljOBGvidp4XfKDa865c5NPgCl6nJgk=;
-        b=mnxykDN6MG7lKokO4lIuXto15ET5eg4fZ+6tV2sglQPz2txkLps9M06CHFBSVsXupR
-         EX6t+pZA37xFldmE7Yt3XCEATvl5kAmL0cpMGuhNVkv+aa8LSrce9OEwVfr88cEhoX7w
-         mCJ4Ld4F8BeWPwkVV5agP1SQRw7k61LIA0C3pn2qx2GpfWYixWteqodoJub28k+/ngt7
-         402sNcEr4EV9hMj9nasdR0fM1ID0MUX/J0nAgURSN/epn5reO8GBu40Z0M50Xnbx/2ot
-         yRZ95c4j0rFNqXyy4VI351vl28RSXOUHiCqkklJIR44SwitSzw0cvicTGDPAUptMUcz3
-         0vtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788903218; x=1789508018;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yHiWJUkqXIHHnljOBGvidp4XfKDa865c5NPgCl6nJgk=;
-        b=OeJptS7VSBpK7QfYZBMAFIkQgC1BC7smSr5H7latFDZ7GHHHyorExcu0ZnvvAnCPZ4
-         RvDAl+r/g782FKpi2OCEB/GsaezO7T5J/Izr5mXhTkqgDej/90hf+8aD/zPOhZUrjllq
-         MxBop4mgvw8ntRIZlZE5wQwRhwm54XlrCdhJtHjh6gYNv9ToRjzARBqEEbc0dAiy2Ecj
-         K58cmlWYYt8AwxXl2RezkRfhMKTikI/+rtYCqI01EJtCA/R/GQMD8V+KwCj2Rq0DHbeR
-         SkcXJMIuGTZXYCB4XuBVf0wKbAMuOWhU2vUKR52dYm5C8ow1IWNzgfUptw5qDw184XT4
-         64ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzeoycS4GYrT2TwmEdHUw7WD5yYA32jDer9woV5dZlaPQHdSerW8L6ONaOPThKQmLD3qw9Y+y5+buSxXFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIWKIKiD9w0NQ15l6tElGQ1Bd4qS4ZOlh8hyR4dOIWHOO/cUkB
-	vMQd4abbSgaLZdxGoofUBHcL0cWPvyx2NJx1GdKihv7idurebstLziq+
-X-Gm-Gg: AYBFou2whU2gEIdHesVFTQ4JnsmpFTxZBChN03bSlVivtpK8k+/g6U2yRGLSC/8IX35
-	eFiZW+wtOlZRxNF/xdhB4L6K1E5M1rCk1PggU0K5g+HTyyVbK4mNCGVUrClvQEh3g8gzNKkfDwD
-	zZFcGJT6D6AxNvLAuLuXpsynWgBQtfRE2RsRjOClojJRZPXU+Kxr5OvpE73RuMnDO1upJxN9fFi
-	fRNQcc+N+No4dpDxJI5Xks2u9HRUkASsuEwO54KpQZJTatgIypxp4u21fS0fHc788XyEBEI53pL
-	ffQOtYo9CdFVzv8TAPi6Wvc6nkKedoyVQknbAVN/b1QQKGaR61jVA4gV7AtoldVX53ljLO07lgl
-	ydCuFD88vU4jwLB7eMqTF+I5TqOub8OUZvZhhVGIWNGAx8VY+wmELXSH9Qn7O0IzvoOjJiTIrAJ
-	vdf2K6ygMjk6PigAI5HNJtGsgfQ0p2/zQ5l3+DoO6LL+XuW7EDPE8lMxHLge6DsbUqJ7+CufIHN
-	YPTIgZWvG0E9QQSDa6oafhR+6bnV5m5KLqZqOjsXKbmLbhrb901oxQladNFlEGBIOF80WXMRGCg
-	xmkf2vFrsGqyPvDkvPfo3joHwWBO+l08PAQL8Q==
-X-Received: by 2002:a17:90b:4c41:b0:398:9bd5:490e with SMTP id 98e67ed59e1d1-39b2623ac0fmr46132348a91.21.1788903217940;
-        Tue, 08 Sep 2026 14:33:37 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25f8d2c5sm28700771a91.2.2026.09.08.14.33.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:33:37 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-kernel@vger.kernel.org (open list),
-	llvm@lists.linux.dev (open list:CLANG/LLVM BUILD SUPPORT:Keyword:\b(?i:clang|llvm)\b)
-Subject: [PATCHv2] dmaengine: bestcomm: ata: drop unused local variable 'inc'
-Date: Tue,  8 Sep 2026 14:33:34 -0700
-Message-ID: <20260908213334.593584-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFzo8BRD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D25B1F00A3D;
+	Tue,  8 Sep 2026 21:34:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788903257;
+	bh=GtOJUKKq1jpadgFWEDaPhCFzpzv9SFpwe1VXJg3VB0M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XFzo8BRDbgtNiX+dR3OcDuWLER8t72A9JcFS0olSyJR6CBEcK0yLqR+hB88pZL6/i
+	 +UYhGNhKHNyvZB1xRib7IUCA/ym7/+horiqEonjhIJgQ/tJalPgEu6EXlbzQr+coPL
+	 e1YfXX1EqhBCGiIxAXqpgMu6Pb/swGZQvYw4nmlMkQZczJkj0dLQkjHvk9Tnbpy1GJ
+	 UIicFM/I03TNJXg7W+7gfy/eZLWo1MywwzriL54h9+3pyK03npOCfeReRuwk9exgmF
+	 fzvDeaWZQiUxa19yMHidrpO3tJtmvjdy1I4Yzo2wIcQNZsFAsy/JjeHTwj4SMXD31h
+	 Z4+EHG66YaNwA==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 906FE198003A;
+	Tue,  8 Sep 2026 17:34:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Tue, 08 Sep 2026 17:34:14 -0400
+X-ME-Sender: <xms:Un-gapFhB61ADkoccmhw5zm3p4L_-s0gB7LN30qyJbomNicHe_cW5Q>
+    <xme:Un-gavDcwOJrFBXjr0l9ZobFutjRQJGWLcVJQMfUiyoBt3qE3WMRLfAp--Nck0wXp
+    nUvvwLve7fDxhaAR-1eFujtdfg_xeP350twh9Sq8It4odAYP0Ra1CrW>
+X-ME-Received: <xmr:Un-gamMZ1c5IzQpPpSGXsw383LIVg6OhQXIy4ZWSKhikfdO7hMPJkpD7bW4>
+X-ME-Proxy-Cause: dmFkZTFzOLvDypeviElLWOuzJgTrjQKb2l067aPxJf+6YK6KiDCLqa/rTRQ8/WwYVcIAku
+    BIqGuq5zN2G8/NEnmldE7QhtDwVEldJdgjTrBf1xzQ/16VTQVQleGitKJ60xXK19fSeF+z
+    hccMeomwHSVgp5FuA7vNQIIbZInDXfyOrlXCbtPyZog+XbW/Ig05+azXCR4lassCChfm9X
+    f3I0SW/NRHWzmqxX8y7cQRLObB04isVipRyfkuwy9HFXjZbOnYzPvRiDENMBw4svEUJkna
+    QO902UB3k5TIGQq2HL+A7pk0VJDbGSiMPbKds126VhPC25WfX460vT2nXa25M4xcJbAfH2
+    FIANWinp/UUzAZK5wQy+sUiaMHVvoTNcUkuhMXUxZ4/UqSjS/ozIWInevk3vMMAflOq5iu
+    RdkpW80h1DggVoHGTukKCRonQPGHUVSBxhCY663KmePpSZ1dLHOibMQEyMLyehzMotgwlw
+    D8SFHPHbpTShehmaQ/Ceg3zkTXXB0mFiUmG7GmAgTBICeLnJ+mTbc2HKKKBlnXThJi8vxt
+    YmNkHGczK7N7/pp+qrJqumc5Na+ykqNsRfSp1F15MMU6ajXj9lIztD74FCw3+oWpVSreop
+    DqmkjYI8B/43ktuBE7/Jx5r+sMp11Qbqklo7104vlX2VaAHhqPjCB+q0/iHg
+X-ME-Proxy: <xmx:Un-gavGSnym1vVk21acKtxemQTjXHz05a_LuwK-cz8irYvPyYaF9dQ>
+    <xmx:Un-gaiSgdJ0a4mSbE2mzi02WlFf4JZYOGp5ze04iN2mt2WnG4X9RFQ>
+    <xmx:Un-gaq2S_bIQtHBqtkYFxGP9Grv9lWKfGJdBTN9JCNChIIJAVDGQcg>
+    <xmx:Un-gat4FVzjedHcbzMxh90GiCnxo9prb0-glfobOJgdr6IKDwPe5PA>
+    <xmx:Un-gahc0Q7_251V2quE8Ln8nIdWTysNGIYrb0eiRIuscT1MyJf5_WE2b>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 8 Sep 2026 17:34:09 -0400 (EDT)
+Date: Tue, 8 Sep 2026 22:34:08 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, 
+	rppt@kernel.org
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, usama.anjum@arm.com, usama.arif@linux.dev, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ziy@nvidia.com, baohua@kernel.org, 
+	dev.jain@arm.com, hughd@google.com, lance.yang@linux.dev, liam@infradead.org, 
+	mhocko@suse.com, ryan.roberts@arm.com, shuah@kernel.org, surenb@google.com, 
+	vbabka@kernel.org, agordeev@linux.ibm.com, jgg@ziepe.ca, leon@kernel.org, 
+	kernel-team@meta.com
+Subject: Re: [PATCH v5 16/19] selftests/mm: add khugepaged race harness
+Message-ID: <aqB-ycE8MlVwZJ7I@thinkstation>
+References: <20260908125105.1510704-1-kirill@shutemov.name>
+ <20260908125105.1510704-17-kirill@shutemov.name>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908125105.1510704-17-kirill@shutemov.name>
 
-bcom_ata_init() declared and assigned a struct bcom_ata_inc *inc that
-was never read, tripping clang -Wunused-but-set-variable:
+On Tue, Sep 08, 2026 at 01:51:02PM +0100, Kiryl Shutsemau wrote:
+> +static void *mremapper_fn(void *arg)
+> +{
+> +	unsigned int seed = (unsigned long)arg;
+> +
+> +	while (!stop) {
+> +		void *p;
+> +
+> +		p = mremap(mremap_area, hpage_pmd_size, hpage_pmd_size,
+> +			   MREMAP_MAYMOVE | MREMAP_FIXED, mremap_scratch);
+> +		if (p == MAP_FAILED)
+> +			ksft_exit_fail_perror("mremap() away");
+> +		for (int i = 0; i < 8; i++)
+> +			mremap_scratch[(rand_r(&seed) %
+> +				(hpage_pmd_size / page_size)) * page_size] = 1;
+> +		p = mremap(mremap_scratch, hpage_pmd_size, hpage_pmd_size,
+> +			   MREMAP_MAYMOVE | MREMAP_FIXED, mremap_area);
+> +		if (p == MAP_FAILED)
+> +			ksft_exit_fail_perror("mremap() back");
+> +		usleep(rand_r(&seed) % 2000);
+> +	}
+> +	return NULL;
+> +}
 
-  drivers/dma/bestcomm/ata.c:58:23: error: variable 'inc' set but not
-  used [-Werror,-Wunused-but-set-variable]
-     58 |         struct bcom_ata_inc *inc;
-        |                              ^
+Sashiko pointed out that mremap() freed scratch area and it has to be
+re-reserved for next cycle.
 
-Drop the declaration and the bcom_task_inc() call that fed it.
+Here's fixup:
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- v2: use suggested title
- drivers/dma/bestcomm/ata.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/dma/bestcomm/ata.c b/drivers/dma/bestcomm/ata.c
-index 502a45d76adc..40126f3f189e 100644
---- a/drivers/dma/bestcomm/ata.c
-+++ b/drivers/dma/bestcomm/ata.c
-@@ -55,7 +55,6 @@ bcom_ata_init(int queue_len, int maxbufsize)
- {
- 	struct bcom_task *tsk;
- 	struct bcom_ata_var *var;
--	struct bcom_ata_inc *inc;
- 
- 	/* Prefetch breaks ATA DMA.  Turn it off for ATA DMA */
- 	bcom_disable_prefetch();
-@@ -69,7 +68,6 @@ bcom_ata_init(int queue_len, int maxbufsize)
- 	bcom_ata_reset_bd(tsk);
- 
- 	var = (struct bcom_ata_var *) bcom_task_var(tsk->tasknum);
--	inc = (struct bcom_ata_inc *) bcom_task_inc(tsk->tasknum);
- 
- 	if (bcom_load_image(tsk->tasknum, bcom_ata_task)) {
- 		bcom_task_free(tsk);
+diff --git a/tools/testing/selftests/mm/khugepaged_race.c b/tools/testing/selftests/mm/khugepaged_race.c
+index c3478b5123e2..ccfe655b3ddd 100644
+--- a/tools/testing/selftests/mm/khugepaged_race.c
++++ b/tools/testing/selftests/mm/khugepaged_race.c
+@@ -209,6 +209,11 @@ static void *mremapper_fn(void *arg)
+ 			  MREMAP_MAYMOVE | MREMAP_FIXED, mremap_area);
+ 		if (p == MAP_FAILED)
+ 			ksft_exit_fail_perror("mremap() back");
++		/* The move back unmapped the scratch address: claim it again */
++		if (mmap(mremap_scratch, hpage_pmd_size, PROT_NONE,
++			MAP_ANONYMOUS | MAP_PRIVATE | MAP_FIXED_NOREPLACE,
++			-1, 0) != (void *)mremap_scratch)
++			ksft_exit_fail_perror("mmap() mremap scratch");
+ 		usleep(rand_r(&seed) % 2000);
+ 	}
+ 	return NULL;
 -- 
-2.55.0
-
+  Kiryl Shutsemau / Kirill A. Shutemov
