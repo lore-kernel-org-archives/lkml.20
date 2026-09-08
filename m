@@ -1,160 +1,132 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E741F192E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788831315; cv=pass; b=ioHGIJBTKRfenLlnva3s9PxxKkHA5pb8+UII2BWutwKu5EdDjs/rufr7lcBLOcYRcBg+3GGvtoxVHcdaP6YLVutQeBjiITFaVv32vFNyBnvHaVReVXS4/dglrufQbPjiXnZLyg1EB32YuBAFTvhxUGsTGtJc1ccJlQQ/6Ufv19k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788831315; c=relaxed/simple;
-	bh=INc7vJnKmcPadUVe0TBusKMD0asFCz4Y2fnVdUat3cc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dUlcyCXAK3gViPhe1lgWWazchBINr/3NJoqaxkPipzcbD1EYkEWlgULQeQuWkDakK0pI4JQeAWHPmPgrUemcVz6a7MhUIKRG0VhjPO0FPXqaH5bM8WQgHw0xpdt1YQuR0FmwguMz3lFVCzQd1VwJ+dyFOJpsQf3HbfWSkgPQ7/M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com; spf=pass smtp.mailfrom=clyso.com; dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b=fn2U3WK0; arc=pass smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=clyso.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=clyso.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC3E31A680C;
+	Tue,  8 Sep 2026 01:35:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788831321; cv=none; b=KS5olrGCWFaUtTaQqgRCTR0kII5TPv1lk14evh2IOzN8615wergC5GhLN7uNnfCjXe8UapzZ55gSCiIN29uWOF4rj/kIDRUIHmSM/M4THfWClrOmOtR3VFh5deRYtakGzSf0+qRs69bAgq5H7A8v6Qhy2S1nnIhITUwuskdQH+o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788831321; c=relaxed/simple;
+	bh=HcRShxzvk71BSA6oMKwUhJ3MkEJ8V1MqsW2aKf+Xxos=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=B61y1MgbkMXlMe9NgSDEP8PzRZ8Qvf0DXQAL4f9ZLbI85zgdMZyv8VNUiCQqPIZ06CcFWKXqgLm9QZn/kJ8otbTr1Lae0BXhLh7wcd4/pAit/BcDIOlmaiAJomezfGrGnsYr80+7SluKR1G2NQLwiDcYFMiC9/Rw5GiMHPrel5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKQyyJhb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=clyso.com header.i=@clyso.com header.b="fn2U3WK0"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2533d83e3bso694797666b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:35:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788831310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GxTyqW4VaXSFW3GY75/aEEhZa5nLKljLOT0TfGWf2Dwsv0t2IAzARif27an5S8Jmo+
-         Ct8btQLSBc+KGKgylz3Ka9tcLMQmFZ/kmfAgqMBYb+qdZIDBH9pnlE8xf+UK/RaTC2nl
-         x3ON7pkH/d/mpZRXLyiFbZ7lQUHx6gd7TncXhvm3aTJy0AuZNykeE2trKzD+tBj5aucp
-         XwXqTiI3IlN83Dk193G1jV02I0IV4KWSyvnPgZMuRN1YNeIM8RJETz/2xtkS360fzTsx
-         p4NfSnmsEp7Y4Bgtz018mVdoWpmeu4YbzFz/w+eJKK15+Ep9sxwTXnOew8nat5CPNjhy
-         qw+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JKmnj8WAMV3B+i0SHW5NJwI4T8pRLiTOo5rUmCTrPvo=;
-        fh=u/Jtb0ZSS2s+bDZLhVvtGOpsR+1FGFjMT+4YNyNe8Fo=;
-        b=YlQ0dTar9A3z/49CVkwNUsJhmdcrdOH7I/4wotP4w1S+kY7dD0N1cv8yM4MbX/Wz9B
-         byqCromdj2p4jQ8+/lATBd9NlMYPgO5PFY9+5yOmfPlAldR7eqOoKwefn1wxRyp+9m/Y
-         8iRqrQarRnCQGTEFnePOd44rkXcj2pxU6mMwZzQ5zGHMkNOa3s2HuqOBy/TiheqOfAnb
-         7kfPYrnJmLVNANsqKdmrqagSknKGxW6HDqmDYUiRRuJPciKDU1Ie0/0RaILVIMz70WpW
-         XSEjypsz2vDH2ol4DI0/xw/zqDsNkatVjc07wtR5AB5NcAp20twQ9uZ3fiX82PTsBdVg
-         LFfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=clyso.com; s=google; t=1788831310; x=1789436110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JKmnj8WAMV3B+i0SHW5NJwI4T8pRLiTOo5rUmCTrPvo=;
-        b=fn2U3WK0LRPIWvBglrbhzM3uQGjBLbGzcSXeFddhdU5EixfXzSoB8ocYAkYLdTs8fg
-         mfsP1n8s8IFKBE0P/5LPCl1MBrVoufZk13As7rtUcfKf7VqyGZx1VtH4y/vk7kGa2zUP
-         EPkUYRMNu7Ih0cEBZna1Q1exOf9tcE9yTb1R7qFva7aAM5LyIkwGHezOYhbpYFE0aeqx
-         G6J+W6EhMS0ZBGE4RIHQVKrEjEkGhEYFLerbsyyphg4P5i3IWtChN8owqffS3Xr7xPnr
-         EasiIrmoPyT3n9ao58sL7gy8Qkc7zGB+Z6ace3gPQtgFALcbIs+1/m9SXAVUp8gHfm+1
-         WZqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788831310; x=1789436110;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JKmnj8WAMV3B+i0SHW5NJwI4T8pRLiTOo5rUmCTrPvo=;
-        b=VbeXXtEDj3wWsZaRVP5WYsWvn3QXlXeaEyWE9YU/hPnTw/wzcHWFprYcWa7yIWxjEu
-         NvjxDJbzGQ5xdnv1StiZjAumttCHvWnveIWWK+rmv/ViTgc7EO70ZGLRW+qfYoCqBMyK
-         pAhRyO+XFDL6jXARYEsEk1q7I0mb9lHEPfBDjz+JLKUJG19j6fJOQOic8QRsbmw8NDE1
-         VCFYdCITc6awoXQFdWiKlUCKDUXRQS3AIkjFRdnbx/ya7n661TveoWeGO6YMfPFTPMRQ
-         SFQEMRI+4JY9cwwyZyA3eASMjvpyey41RJYHLUwy2qqZbSWcXUVigUQoXi4cXGZ/naKV
-         pj9A==
-X-Forwarded-Encrypted: i=1; AKwUvBzerRhfzMU0mzIbGKrvFpZNtQ+EQ2JyDCilJF5GYKl9KgEAEFd4EQW9lVVLX2I3VGHkPWEzUcXXzK9wePg=@vger.kernel.org
-X-Gm-Message-State: AFuF++l7q06ZelAvVsvKOpM81x3LsTtA+nBtsxE3OyCfOG8+QPkmMRp3
-	UkkWypDa8tInTPBf45Cm9vCdTv+CVjNNNGsSbHPvJ2A2BiAKKOp/gS6QJRoT8kCP24ahavoBMQa
-	zDhSs5yKYIi1qeJNAYaNZpE73HkL6R8UToFjshch8sA==
-X-Gm-Gg: AYBFou1SsXK9rdQEVaRwhktzlAmpnhEtFdg+y8RR3HkM9ZnEmOIBzveWkMsK0vAEhXr
-	VBXQM6qMFfMbLgmHylWErho4VvAKM5C4NhmUl3EYkN3YvRbhkwjkO3EPD8MhnZzalq0J0W+OifU
-	UXwmzqYPyMN7twlqR+kv5X6e0wq6nqXuroRcLzPmRU3tumynkH+x4zEtuRQOt6SnTMH5S6pT4MA
-	ojKyN+DPTyUzSGmcBZ0UtdCxbjeo9APPPDB18POvnBeLCA2HZIJ9Df+DN3LBbQ1p5OhFNIVhS4i
-	4scQK3EYY2phWX88DMQLll3dbt+9O+Epwgld5T7sMudk9w==
-X-Received: by 2002:a17:906:2083:b0:c26:18be:68a6 with SMTP id
- a640c23a62f3a-c2618be6a62mr1178802166b.18.1788831310377; Mon, 07 Sep 2026
- 18:35:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKQyyJhb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49CFF1F00A3A;
+	Tue,  8 Sep 2026 01:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788831319;
+	bh=jgByKFB/1L+upVT7rUj+pfkyRwkhlSdVhbrR4RRvcu8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fKQyyJhbZqca+VSht7hwIMTjP0FjW607X040OvzuWYn26H8ppy3D1Or8DB+hNR275
+	 f3SIDJecAajvgXwOOTIJRIpeEson+6ob9M86luy7ooyPmkKM264a3nQCMmUpvCwf+h
+	 D8sP15V8ddysd0kAak/h26GFxCwX94KTNxAwnYWuunxXMC9G8wqVarD/FeXAwT0O9P
+	 StR3FQb5wFrpS05cA7ckSxs4ruZVk65gyTL9H4nDRdsJAM3HI7yp722YzHhHAYCFMQ
+	 sgn5ORsxyck+TDtNDyHkweS0ODgxKf4h90xwHfIQazllPxq1loud8cCoIylj5Eg8E9
+	 DDI/Mlk1E7TWA==
+Date: Tue, 8 Sep 2026 10:35:14 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Pengfei Li <ljdlns1987@gmail.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Mark Rutland <mark.rutland@arm.com>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ kernel test robot <lkp@intel.com>, Bo Zhang <zhangbo56@xiaomi.com>, Pengfei
+ Li <lipengfei28@xiaomi.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+Subject: Re: [RFC PATCH v6 3/3] trace: add documentation, selftest and
+ tooling for stackmap
+Message-Id: <20260908103514.a1c61f51b84b8d67d6f0f511@kernel.org>
+In-Reply-To: <20260903132409.270195-4-lipengfei28@xiaomi.com>
+References: <20260903132409.270195-1-lipengfei28@xiaomi.com>
+	<20260903132409.270195-4-lipengfei28@xiaomi.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260904150304.49104-1-max.kellermann@ionos.com>
- <20260904150304.49104-4-max.kellermann@ionos.com> <CAOJNxRKxO3z3H0xXG0J0W9_hp2qwBfFEUeKFGFnk_MRQtu--tA@mail.gmail.com>
- <CAKPOu+-zixbekaeE3+96hV+abQxnEAnTQnFJwhgPeNa7__6irw@mail.gmail.com>
-In-Reply-To: <CAKPOu+-zixbekaeE3+96hV+abQxnEAnTQnFJwhgPeNa7__6irw@mail.gmail.com>
-From: Xiubo Li <xiubo.li@clyso.com>
-Date: Mon, 7 Sep 2026 18:34:59 -0700
-X-Gm-Features: AcwNN1Uuu5Oqsq4KB3cfDtW8BQx-uR9OtYrv2nZUZ2oDtvc-LBhe7NJyJM4ABBo
-Message-ID: <CAOJNxRLW_nfbqDReOQTS3Tewv8EAhKOAMzAuvzC8R_1gq0uHTQ@mail.gmail.com>
-Subject: Re: [PATCH v4 3/3] ceph: don't unregister an MDS session before
- removing its caps
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: idryomov@gmail.com, amarkuze@redhat.com, ceph-devel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Max
+On Thu,  3 Sep 2026 21:24:09 +0800
+Pengfei Li <ljdlns1987@gmail.com> wrote:
 
-I think you are right. I just checked the code again, I might have
-messed up the code with my local temp patches.
+> Add supporting files for the ftrace stackmap feature:
+> 
 
-Then this LGTM.
+Could you decouple tools/docs/tests in independent patches?
 
-Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+> Documentation/trace/ftrace-stackmap.rst:
+>   Documentation covering design, usage, tracefs interface, binary
+>   format, and performance characteristics. Added to the 'Core Tracing
+>   Frameworks' toctree in Documentation/trace/index.rst. Documents:
+>   - Reset clears the map and nothing else: the trace buffer is left
+>     untouched and tracing does not have to be stopped, so <stack_id N>
+>     records in an already-collected trace can stop resolving after a
+>     reset. Read the trace out first if the ids need to stay meaningful
+>   - Boot-time activation via trace_options=stackmap: events use the
+>     full-stack fallback until the map and required resolver are created
+>     and the map is published to global_trace.stackmap
+>   - bits parameter range [10, 18] and worst-case memory usage
+>   - tracefs file modes (0640 / 0440), with stack_map required and
+>     stack_map_stat / stack_map_bin treated as auxiliary observability
+>     nodes whose creation failure does not disable deduplication
+>   - Best-effort snapshot semantics for stack_map_bin, serialized
+>     against reset via the reader_sem
+>   - Counter definitions and stable output: successes counts map operations
+>     that return a stack ID; drops counts capacity or probe-limit
+>     failures; success_rate excludes bypasses that never call the map
+>     and remains present as 0% when both counters are zero
+>   - Gravestone amplification when the pool is exhausted
+> 
+> tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc:
+>   Functional selftest verifying:
+>   - required stackmap tracefs nodes exist; tests that consume auxiliary
+>     nodes declare them in '# requires:' and skip if unavailable
+>   - enabling stackmap + stacktrace produces stack_id events
+>   - stack_map_stat shows non-zero successes; a nonzero drops count is
+>     a legitimate by-design fallback and is not treated as failure
+>   - reset succeeds while tracing is active, since it clears the map
+>     only and leaves the ring buffer alone
+>   - reset also clears the map when tracing is stopped
+>   The test starts and exits with a map reset so a failed run cannot
+>   leak entries or counters into the next case. It reads trace contents
+>   BEFORE switching back to the nop tracer (tracer_init()
+>   unconditionally resets the ring buffer). The function:tracer
+>   dependency is declared in '# requires:' so ftracetest skips on
+>   kernels without CONFIG_FUNCTION_TRACER instead of failing spuriously.
 
-Thanks
+If each test has this volume description, it is enough to split those
+tests in independent patches.
 
-On Mon, 7 Sept 2026 at 12:15, Max Kellermann <max.kellermann@ionos.com> wro=
-te:
->
-> On Sat, Sep 5, 2026 at 3:56=E2=80=AFAM Xiubo Li <xiubo.li@clyso.com> wrot=
-e:
-> > Just one remaining teardown path still unregisters the session before
-> > removing its caps: the fallback loop in ceph_mdsc_close_sessions():
-> >
-> > mutex_lock(&mdsc->mutex);
-> > for (i =3D 0; i < mdsc->max_sessions; i++) {
-> >         if (mdsc->sessions[i]) {
-> >                 session =3D ceph_get_mds_session(mdsc->sessions[i]);
-> >                 __unregister_session(mdsc, session);
-> >                 mutex_unlock(&mdsc->mutex);
-> >                 mutex_lock(&session->s_mutex);
-> >                 remove_session_caps(session);
-> >                 mutex_unlock(&session->s_mutex);
-> >                 ...
-> >
-> > The rest of this series consistently changes the ordering to keep the
-> > rank occupied until remove_session_caps() has completed. Is the
-> > ordering in ceph_mdsc_close_sessions() intentionally excluded?
-> >
-> > This path is not limited to shutdown: it is also reached from the
-> > corrupt snap-trace handling in ceph_handle_caps(), ceph_handle_reply()
-> > and handle_snap(). In those cases mdsc->stopping may be false and the
-> > mount need not be in CEPH_MOUNT_FENCE_IO, so a concurrent
-> > __do_request() can register a new session for the rank in the window
-> > between __unregister_session() and remove_session_caps().
->
-> I don't think that's true for the call paths you mentioned. They call
-> ceph_mdsc_close_sessions() only after ceph_update_snap_trace() has
-> failed, and on failure, that function always sets CEPH_MOUNT_FENCE_IO,
-> which prevents creating a new session.
->
-> The only other callers are ceph_put_super() and the mount-failure path
-> in ceph_get_tree(), where this is not relevant (no requests exist).
->
-> Am I missing something?
->
-> --
-> Max Kellermann
-> Principal Architect
-> Hosting Technology
->
-> cm4all | Im Mediapark 6a | 50670 K=C3=B6ln | Germany
-> General information about the company can be found here:
-> https://www.cm4all.com/impressum
-> A member of the IONOS Group
+[...]
+
+> +def main():
+> +    parser = argparse.ArgumentParser(description='Parse ftrace stack_map_bin')
+> +    parser.add_argument('file', help='Path to stack_map_bin file')
+> +    parser.add_argument('--vmlinux', help='Path to vmlinux for symbol resolution')
+> +    parser.add_argument('--json', action='store_true', help='JSON output')
+> +    parser.add_argument('--top', type=int, default=0,
+> +                        help='Show only top N stacks by ref_count')
+> +    args = parser.parse_args()
+> +
+> +    with open(args.file, 'rb') as f:
+> +        data = f.read()
+
+nit: Can this support input from stdin? If we use this on android,
+user may want to do:
+
+adb shell cat /sys/.../stack_map_bin | python3 stackmap_dump.py 
+
+instead of pulling the file.
+
+Thanks,
+
+
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
