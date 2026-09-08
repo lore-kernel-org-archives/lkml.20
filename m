@@ -1,69 +1,68 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81142360EF9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B73F4EBAE9
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859423; cv=none; b=QWTP/KGAg55lNihBAf56me9ygCcWQtl7gNKon9GbmtbNM49oCuWPgm1vi88j3kIS34eBUpvHfMkp1zFSsBRshaVq+Dfx4Smv77PipM/oDcP6JCfZbSEIft+eBTiDzQgwTpqpYrROTQOqmclx8CEl6BCBWI1qQrCbohUhaeC/Lns=
+	t=1788859426; cv=none; b=hTCdr7NJcXWGFO9C9FOSl9hILz7VecvTgiYyey6Fb2Dfgm9kCkrhSVpkFcJc1Vv1SAEnYwsFHxJPqQvknNulwpvb3l/MPPP3+Z6pfoycjYuZ8QS/qFj0z4iWG+ljODC9Ghy4rgb7ZTTozzBQWyFWbHuhViCgorT7cM9j0KxCvks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859423; c=relaxed/simple;
-	bh=kMsKP9Zq4Gaj8w4igYhLQ64+EUrP9uQlyEov5FkmmpE=;
+	s=arc-20240116; t=1788859426; c=relaxed/simple;
+	bh=mLkOSCuGi1F7ikEomA0pBOdZqUpW2PLmvmHz8wQqwLE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=u2OjcmmYxTpbb3TW0VkWXyHG54yuudP8ZK2DW9JPGddK7t3nAnERtUsmqddK5KB4LoZ/2x846yiCEVXFB8ydFZO3/ggZxt7Rkz/EqLc+aUCDcX+42ezhkdKnqpscKH5n8S4jH+5q+YTz9FGYIts5lLgLVxZ54DWAGJ+PpPhAts0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BMyEb1Ty; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	 In-Reply-To:Content-Type; b=SW3QciBLpMqDPWTXPRbCimlxGWF5dGlEApi8YTNIO3cK5gDwVLIlzwT2/u3m74979kDhfoLFMSlhgs9/cv9UqNjwOtmmnTfEHtF1oKSwyPZ+aVQu35gjON+HW99+qQgiRCbIdSeTYYOqboF/uV70wrdPCTh5mP1uSvs/s2WrNIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com; spf=pass smtp.mailfrom=6wind.com; dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b=OBb9CaMf; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BMyEb1Ty"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso65568535e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:23:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.b="OBb9CaMf"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1ddd5d0aso110255e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:23:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788859420; x=1789464220; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tTTXXFxmC/zY8DY0xcOtABX4mbvLrd6CKNAWGvfCHrU=;
-        b=BMyEb1TyLOlv0qKdI7DW1ZbmuAfEMOUJipgT+60Vq4ZkZSbVM/RigNMYxA9VycHdh6
-         ZwZKqwaHenpHl2NzOhQBcLFRsBkZmBhAQ0JrUQ0OdF4NiCUmHzwa8fMyyNZOdWan01qT
-         6HYbjOzfQVX6q/szM45HFeTPvuS92Omdmu3u5XD6vT62BTcTRFGioF6ni2uPnB8z3kz3
-         9buPGLvw4OETWIZtkl69IhD7fbhAO+vBATGhTOLMZXJInvZOqXY+0AWRRbT5ssZNlnOk
-         ul4AfwWkYvK4EADs2GSS+VIbuSLGcFLSUQ8B3hv84MCLQQbgBHymzpgZn5IpRCk5djxA
-         Bepg==
+        d=6wind.com; s=google; t=1788859422; x=1789464222; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+mhExZfZ6TbLaX0jntmyh/vvWLxB3x3d1zAJxZ9rmVU=;
+        b=OBb9CaMfL4221ZFbRH/HbdxIWW6DIoNgMV94ARqwmLVnCrc/3mdwQwIJ66SOSQZX2G
+         fdErsdXQ3kknseEQ9RZHAGDNpZvGtlI0kN1nNu3P6wOppFqgAICgPTcsB17R8HgZTj+c
+         cigPGCvCRrN6qyVimn51tK8Sxv8yU3wTamN8FzWMQnPP2bpG+SU4qi4lDIuvR2VOuPAA
+         NMzAhNe+cSxb2cBiD2SPw5SNUoxFmpG1r3s/kCs4KMSFkuLVxyCRPZ4xAvSasPZewcFP
+         Z+U3/4pIKit9Q39gSrkMt6UfO1u2S4nLnd8mLZm0vP7zVJ/jqGPVddjeiei1DEVctDqs
+         HRmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859420; x=1789464220;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tTTXXFxmC/zY8DY0xcOtABX4mbvLrd6CKNAWGvfCHrU=;
-        b=LwrXRBB4z/TTF1B2C53CD0KBnrG6JTk2T0NgPvNangFG9iCEnRE9MCLqzQUcWYgO1x
-         Bv3fxXSEXEE7sYAixYGLrBox9AlHzKTRKJimg/upD9vbWdR/65zI6ymiTpsMgwdw+5xl
-         BOPjUFfzSEmcdbS03Iq6SKfqZmrKKht7SVOyemfMWUiPNmRYLdFKz8E/hTNG7E7GjDd/
-         C5o7EbIw6bdQ71blpWX4Stg+0Bw+kZyL8d4wMvzMDuhdEWv3MN+mIhOw6OZzPqInGePR
-         Aa6FsurQOTe1c/4Qe5HDoNf/71VbkaZSPGclOSpcH6cNlEJ0U7Lu4g0RKKtC2k0SZ9hO
-         Abuw==
-X-Forwarded-Encrypted: i=1; AKwUvBx/wHLM7c7ou75Kqu3inWH7pYSBjp+aOfh5zvDKQNmUaarH1JeOdeZHfMp6fIlK3FycI0bkcm0O9ntMYrc=@vger.kernel.org
-X-Gm-Message-State: AFuF++naSakRF76I6EUq2IlkojQoOb8tMmK4c2NFvBvVy7wmBzaqTKfw
-	H3v2N0zZKRfHzgsLO3DeV2sgzkCoeJIGXu+Z6l3hTfeqJxgz6UqagsKbxcALHtfLOC3mZaHjWhO
-	eF7DQ
-X-Gm-Gg: AYBFou36GBQpqtoaiXOf0YWDUuCUAK+2i1XDW+XXweN1qAuk0KuXdo4jFuqSm/z+CKQ
-	sDG/G+OQWi2PjfpOLVEP1F/3IshmisFq4HT37n44LEi2uG+UkrXCe7jo8k4CrI1PTpSPgbVrRiQ
-	Hf8CE/8saM/lUOKpkmGY6eUH8DtSL/6JJKRWN6Dc6GmVHI0EKIIayM7acSo0LwEaNNj6a+woISB
-	ofe8gi+AlNLd/xOsYs7CrYgKgTp/4hI2vhPW/rz7aX1bggm5rAHGvY03Mzy9clAaU4r09W2vO0P
-	d5VCJxPxA7aXfZDdopzRgBnNVSdLW/JMU265NPc6ciTmyrZQ0haYm1y17/oj4ocfFyUUTDGyxQZ
-	EggcchDQsHG90YTvxqzY2+cUparNQ6SyxtbV0vpepsOOf9ENxO0m/kVF42swBrUJvGxHby4hi07
-	KNlaDAcvOj8i92JSM1UAUsj+NC5MyD/kL7wuWciR6XUKdY/PyJIRGu5cvM2LjsTzbejy5Lfy4YZ
-	6gJwe6HwZ3B1biArsvW+WQcMCSN
-X-Received: by 2002:a05:600c:3b18:b0:49c:fa21:1c8a with SMTP id 5b1f17b1804b1-49cfa211d97mr230164885e9.31.1788859419699;
-        Tue, 08 Sep 2026 02:23:39 -0700 (PDT)
-Received: from ?IPV6:2001:a61:134a:e01:4312:e944:2d81:13bd? ([2001:a61:134a:e01:4312:e944:2d81:13bd])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm279321165e9.0.2026.09.08.02.23.39
+        d=1e100.net; s=20251104; t=1788859422; x=1789464222;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :content-language:from:references:cc:to:subject:reply-to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+mhExZfZ6TbLaX0jntmyh/vvWLxB3x3d1zAJxZ9rmVU=;
+        b=ATzsru6UX7e0emu8Fi+xJLwpgnyJKXU1x0Nhc8LdWmy0Xit9NXKics1AnF7oOdPtQy
+         TC5yUqKWq3c7c77Yb107hmCf74bpk9Gnu1faxVbmft+WWGvlDAV0ya6uF+pv9QHKwRq0
+         E+MGiyC2Y0xsEOwnrL6sWWHo7Xo3cOHJ7zyLhQxHLu+Fsd3yDMUKlqGRAJpgM3J1BGPP
+         a7DNhclYMOSgRRMG6sVQciEj86Epmom5Eu71n2GJx8bQ0QczubIBafHUbWRUEVKKHqV8
+         5NjRWUa1w761RXWwoF/sAjLiy8Lw1/MSpcrPQtk0CHke1FiZ5FnueWuTQBpx5XicLk+g
+         rdiA==
+X-Forwarded-Encrypted: i=1; AKwUvBz3/uVDQnzSmfntLou/IdeZ1swgnEDn6nIp6ANJNHwmOVyA3akZZhMNu2qW3nwBrrstHwLXDOvAMSD0IuE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nz3yeYLQDEEARZKeSOLgTBmEGdj/2pYSs2kVe4jJSDqvKFlVqz
+	jDPjhc1saw8UFTKRfvfBbp24Lf1Q/taBTXfrnJI277C0X02DO41cKWMhq1tmSmSsQnc=
+X-Gm-Gg: AYBFou3Ao/Eoro8V4kt8YHHl2eOytVi/cWXHMFBWY79pWwgQXjCgkj9OudwC3cEWPQ4
+	OrENUS45w/BdUAn8jcvGyabRzAeuASRaAouuxj6GGiK7mdr0n/YE/9ffyqZLE2Z5e2iGea/vnIl
+	+FXmtucRHJUXe6a0uSEgayEi9S/e4PzLPjtf8biEz8wsZG3YAAFQOZ4kOt1RvXX6spJ+IQn4QSm
+	+sJZCG3oehAGfjSheprI79mlE2hm6FmK3jSoReH45n1p9XTlzXhd4oXGLmsvjlLQwSWIzw6nl29
+	QfINOiTJo1l5GnhDDc9/09fMn5ef4NOmrWsup+mU2hRDXpnj0pra/6m+692DzOgrB5geMFh4ftW
+	Hn02gIOczov0DDXP719q0THLWflWpe6sANizIfUsaa4bvXCtPhlsSIZK4z8r/jydQtJZUOsYOhb
+	tpEQ9SiGQV9+Bl97cmSn6t/s5fZ3l/1pRxvu4Xgqi+mywcdbsx5iTx07QuHwU73DEdRSdEqvvV0
+	kaFwsBjWyMj1VvNcr0P2mSVxCX/RdHLGxNWfGC1QQ==
+X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr174560475e9.1.1788859422430;
+        Tue, 08 Sep 2026 02:23:42 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm340468655e9.3.2026.09.08.02.23.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 02:23:39 -0700 (PDT)
-Message-ID: <871c61a0-3834-4d58-a69b-96ddd3593873@suse.com>
-Date: Tue, 8 Sep 2026 11:23:38 +0200
+        Tue, 08 Sep 2026 02:23:42 -0700 (PDT)
+Message-ID: <53f0e11b-f464-48f1-8df3-f56d113d7c01@6wind.com>
+Date: Tue, 8 Sep 2026 11:23:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,65 +70,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] USB: cdc-acm: fix racy TIOCMIWAIT implementation
-To: Johan Hovold <johan@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260907065501.101013-1-johan@kernel.org>
- <e231a7e9-7aa9-40ea-8ac6-57855b4ac811@suse.com>
- <ap56NTVMq8GlbjmR@hovoldconsulting.com>
- <72615ee3-46eb-4639-a408-ba29c1235d08@suse.com>
- <ap6LcHWDvIWF3oNK@hovoldconsulting.com>
- <bc055887-3029-4740-bec5-7e2fe4205992@suse.com>
- <ap6iJ6vkVIaxXFwn@hovoldconsulting.com>
- <f642f815-df4f-473b-aaa2-89153c08bc05@suse.com>
- <ap62IbbQti28M_SA@hovoldconsulting.com>
- <a9db0fce-2a2d-4896-a3c3-2afff4080168@suse.com>
- <ap-1YzIoyYsH_3V-@hovoldconsulting.com>
+Reply-To: nicolas.dichtel@6wind.com
+Subject: Re: [PATCH net-next 0/3] rtnetlink: dump link-layer multicast
+ addresses
+To: Yuyang Huang <sigefriedhyy@gmail.com>
+Cc: "David S. Miller" <davem@davemloft.net>, David Ahern
+ <dsahern@kernel.org>, Donald Hunter <donald.hunter@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Ido Schimmel <idosch@nvidia.com>,
+ Jakub Kicinski <kuba@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>,
+ Nikolaos Gkarlis <nickgarlis@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ Sabrina Dubroca <sd@queasysnail.net>, Shuah Khan <shuah@kernel.org>,
+ Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ netdev@vger.kernel.org
+References: <20260905093932.43726-1-sigefriedhyy@gmail.com>
+ <f1e70062-943d-4521-976a-ae7c9fbc756b@6wind.com>
+ <CA+7S2vL7Xm3nPw96R1+aN-sHLaprPxFUNw4qi6kbTAUu5OUyNg@mail.gmail.com>
+From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
 Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <ap-1YzIoyYsH_3V-@hovoldconsulting.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Organization: 6WIND
+In-Reply-To: <CA+7S2vL7Xm3nPw96R1+aN-sHLaprPxFUNw4qi6kbTAUu5OUyNg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-
-
-On 08.09.26 09:12, Johan Hovold wrote:
-> On Tue, Sep 08, 2026 at 08:54:36AM +0200, Oliver Neukum wrote:
->>
->>
-
->> Very well. Ample reasons. Do you have a patch or do you want me to fix it?
+Le 08/09/2026 à 04:56, Yuyang Huang a écrit :
+>> These addresses could be listed with 'bridge fdb' (RTM_GETNEIGH on AF_BRIDGE).
+>> Instead of having a new message to get the missing info (users), maybe it would
+>> be better to update the current API.
 > 
-> I sent a v2 yesterday that should take care of it all:
+> I looked at the FDB dump based on the suggestion and I don't think
+> that path works well. The missing users count is not the only problem:
 > 
-> 	https://lore.kernel.org/all/20260907095130.130636-1-johan@kernel.org/
+> It doesn't list dev->mc for every device. Only ndo_dflt_fdb_dump()
+> walks dev->mc, and rtnl_fdb_dump() calls it only for Ethernet devices
+> that have no ndo_fdb_dump of their own. So bridge, vxlan, macvlan and
+> IPoIB devices never show their multicast filter in "bridge fdb show",
+> while /proc/net/dev_mcast lists them. Fixing that means calling the
+> default dump for those devices too, which adds new entries to
+> "bridge fdb show" output on every one of them.
+> 
+> User space can't reliably tell the entries apart either. "ip maddr"
+> would keep NTF_SELF entries with a multicast lladdr, but it seems vxlan's own
+> FDB entries seems also carry NTF_SELF, so a multicast MAC added there as a
+> forwarding rule (bridge fdb add ... dev vxlan0 dst ...) would show up
+> as a device multicast address, while the real dev->mc of that vxlan
+> device is missing. And since a dump can't be limited to self entries,
+> on a host with bridges "ip maddr show" would receive the whole learned
+> FDB of every port and drop it.
+> 
+> It would still need a new uAPI. All self entries are NUD_PERMANENT, so
+> the users count and the SIOCADDMULTI (static) bit would be new NDA_*
+> attributes. On the other hand, this series adds no new attributes;
+> IFA_MULTICAST, IFA_MC_USERS and IFA_F_PERMANENT already exist for the
+> IPv4 and IPv6 dumps.
+> 
+> Covering this with RTM_GETNEIGH would need the default dump for
+> devices with their own ndo_fdb_dump, a way to tell filter entries from
+> a device's own
+> NTF_SELF FDB entries, a self-only request filter, and new NDA_*
+> attributes for users and the static bit. That is more new uAPI than
+> this series for the same result.
+> 
+> Therefore, I feel that my original proposal seems cleaner and causes
+> less chrun. But feel free to let me know if I have any
+> misunderstanding on the suggestion.
+Ok, I agree, it seems easier to have another entry point.
 
-Thank you. I misinterpreted your intent. Sorry.
+> 
+>> FWIW, AF_PACKET seems strange to me. Isn't AF_UNSPEC (like for interface, cf
+>> rtnl_fill_ifinfo) more appropriate?
+> 
+> For address dumps AF_UNSPEC already means "all families" (RTM_GETADDR
+> goes through rtnl_dump_all()), so I'd rather keep it available for
+> RTM_GETMULTICAST. AF_PACKET is what iproute2 already uses for the link
+> family: "ip -0" sets preferred_family = AF_PACKET and sends it in
+> RTM_GETLINK, and ipmaddr.c has always tagged the /proc/net/dev_mcast
+> entries as AF_PACKET.
+I hadn't looked at iproute2. It uses AF_PACKET for link-layer addresses, so that
+seems OK too.
 
-I am afraid that patch has a few weaknesses.
-
-1. It mixes changes to measuring the old count and to how the sleeping works
-2. If you want to change the logic at all, then we have a first check for changes
-that is almost sure to fail.
-
-It seems to me that if you are going to touch the logic there at all, the
-sensible order of actions in the loop would be
-
-A - check for signals
-B - schedule
-C - check for changes
-
-That way we
-
-i   - avoid calling into the scheduler if signals are pending
-ii  - avoid returning -ERESTARTSYS if we have a result we can report
-iii - avoid rechecking for changes after only a few dozen cycles
-We have an inherent race against the hardware. The chance that we don't
-have to sleep is essentially zero.
-
-	Regards
-		Oliver
-
-
+Nicolas
