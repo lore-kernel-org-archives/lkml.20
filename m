@@ -1,392 +1,163 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D08650EBF6
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9745505F4;
+	Tue,  8 Sep 2026 13:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872735; cv=none; b=mbfmvwrAfH+ZbSWt7F4EMIZ0yyMWxh/Iemqxl2LKK50aRQdX/t3fVW/p1g1PnmQNZaY7WXhxhAEdSkZtRREmnsPD35CR4ZZjSesxGP7EhpNY9BBfUfTOvxQcJtgXQzpH1Xtu8qQvixasNBH2RfTm6PBdRggk8f0aiMIVbmLGwrA=
+	t=1788872750; cv=none; b=KXExOf7P6dZLbAqS8kaV4d1tPMUzz6+Z2whn/Bx9eOY5Df5q+XMYUW8kSu7tpcOOukTbAHIgURu/FGiJlI+cn7pk2qiJhcvB+s4T//93w55kzaR8rdI1CwBemZhWLd2/31QWjJFz5qGgWvVBU23DbMmmTm6UskzhSUc7jzlKyBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872735; c=relaxed/simple;
-	bh=vuO0EdKKDVe2qzkQQqiAe4OBkpzTR4i4oRo6li+AVzk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=R7wOoeyd2Q2aD1eA50Imy2a2R4R4vFWHV82yDo132n+JFzhjTzXv2JIuczA66QH7mzSdp2UevPRuTgmmUHtNhSo/qWmW+WynAUoexYvqFb3wJfLVWQ8bZU5n12+1k1nU2cAJJF5bAJLVbp14rve/rzCkw5Oomb/Uc4uF3EzW1Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=ZNtIAPAL; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="ZNtIAPAL"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=sp2BsziHI711rYJHOYSR08XOxS7kr9eHpOWhbzvmtNs=;
-	b=ZNtIAPAL5zt9MXMTYeE0EbxudJzmf5UF2b6cLtfoIfeftRarZhb5GrqGbSGBDxFX+02Q8ti5Z
-	pwsk0rFgGbF6RjDIJabudgaEE0lS+PfMHuDd8BrFkdW/f74Pt4CMBEHcuoqAuAQgjdiKucxQSxx
-	EqKcMWH1iqDE72mcd/o5ois=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4hfP5W03drz12LHj;
-	Tue,  8 Sep 2026 20:54:07 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id B5D1740591;
-	Tue,  8 Sep 2026 21:05:19 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 21:05:19 +0800
-Message-ID: <23be2187-4618-400d-b817-023e6bc8f4bc@huawei.com>
-Date: Tue, 8 Sep 2026 21:05:18 +0800
+	s=arc-20240116; t=1788872750; c=relaxed/simple;
+	bh=V1/lLQAcdtn+hDCtPPbyRi2VQXlV/Q7PaQaL7rKvNq8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=FspW3LP8faQ5jpyfTKbmMZJgZOoipePt5OR1XVQQmF4CwDOa4CWPu6Waagi6xdfdgOP8t/P+1QHdXgVr+/E1yCT0EmRxukvoYCTzPYZNbPdoKrM1VPWhlpeow2CXE65OJQ9BhKpOcUziJY9CqLXszDrAYr0iMjBHYfmpuNwkjgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLs3rWDzKHN72;
+	Tue,  8 Sep 2026 21:05:41 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id D96FE40571;
+	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S9;
+	Tue, 08 Sep 2026 21:05:42 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Namhyung Kim <namhyung@kernel.org>,
+	james.clark@linaro.org,
+	xueshuai@linux.alibaba.com,
+	Adrian Hunter <adrian.hunter@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	leo.yan@linux.dev,
+	Li Huafei <lihuafei1@huawei.com>,
+	Ian Rogers <irogers@google.com>,
+	Kim Phillips <kim.phillips@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Bill Wendling <morbo@google.com>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Zecheng Li <zli94@ncsu.edu>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH v5 07/26] perf dwarf-regs: Adapt get_dwarf_regnum() for arm64
+Date: Tue,  8 Sep 2026 13:05:10 +0000
+Message-Id: <61714d93cd55cd461d5c37146713ddb9e1d04743.1788872630.git.wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
+References: <cover.1788872630.git.wutengda@huaweicloud.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/19] arm64: smp: Use generic HOTPLUG_PARALLEL machinery
- for CPU onlining
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-19-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-19-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S9
+X-Coremail-Antispam: 1UD129KBjvJXoWxAFyxGrW7tFy3Xw1UCry7trb_yoW5Cw48pF
+	srC347Jw4UW3WakwnxAF1fWF1rJw48Zr1FyrW0yw47CrsruF1UZw1fKr1j9F45X3yDJw10
+	kayDKr18Gr4rJF7anT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
+	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
+	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
+	AKxVWxJr0_GcWl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAF
+	wI0_GcCE3s1ln4kS14v26r1Y6r17M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
+	xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8
+	JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20V
+	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
+	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
+	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
+	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa
+	7xRxnoUUUUUUU==
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
+The current arm64 DWARF register lookup relies on 'aarch64_regstr_tbl',
+a static string table. While this works for kprobe-tracer where register
+names start with '%', it is insufficient for parsing register numbers
+directly from raw instructions (e.g., extracting '6' from 'x6' or 'w6')
+during annotation.
 
+Since get_dwarf_regnum() is currently used only by 'perf annotate' and
+does not affect kprobe-tracer, replace the limited table-based lookup
+with a programmatic implementation in __get_dwarf_regnum_arm64(). This
+allows resolving arm64 register names (x0-x30, w0-w30, sp, etc.) directly
+into their corresponding DWARF register numbers.
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> Make the move from HOTPLUG_SPLIT_STARTUP to HOTPLUG_PARALLEL and
-> enable parallel CPU bringup on systems with PSCI v0.2 or later.
-> 
-> The fiddly part of all this is the error handling if a CPU fails to
-> come up, as we can no longer rely on a single global 'status' flag to
-> capture the details. Instead, the secondary_data::status field is
-> replaced with a zero-initialised byte array, with each byte representing
-> an error reason, so the total set of failures can be accurately captured
-> by the primary CPU.
-> 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/Kconfig                |  2 +-
->  arch/arm64/include/asm/smp.h      | 35 +++++++------
->  arch/arm64/include/asm/topology.h |  2 +
->  arch/arm64/kernel/head.S          | 15 +++---
->  arch/arm64/kernel/smp.c           | 81 ++++++++++++++++---------------
->  arch/arm64/mm/mmu.c               |  2 +-
->  6 files changed, 72 insertions(+), 65 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index fd8cf792b7fd..8d963cec7189 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -230,7 +230,7 @@ config ARM64
->  	select HAVE_SYSCALL_TRACEPOINTS
->  	select HAVE_KPROBES
->  	select HAVE_KRETPROBES
-> -	select HOTPLUG_SPLIT_STARTUP
-> +	select HOTPLUG_PARALLEL
->  	select HOTPLUG_SMT if HOTPLUG_CPU
->  	select IRQ_DOMAIN
->  	select IRQ_FORCED_THREADING
-> diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
-> index 7f2cd84b7785..3decb42164aa 100644
-> --- a/arch/arm64/include/asm/smp.h
-> +++ b/arch/arm64/include/asm/smp.h
-> @@ -7,20 +7,15 @@
->  
->  #include <linux/const.h>
->  
-> -/* Values for secondary_data.status */
-> -#define CPU_STUCK_REASON_SHIFT		(8)
-> -#define CPU_BOOT_STATUS_MASK		((UL(1) << CPU_STUCK_REASON_SHIFT) - 1)
-> +/* Offsets for early CPU boot reasons */
-> +#define EARLY_CPU_STUCK_REASON_52_BIT_VA	(0)
-> +#define EARLY_CPU_STUCK_REASON_NO_GRAN		(1)
-> +#define EARLY_CPU_STUCK_REASON_MAX		(2)
->  
-> -#define CPU_MMU_OFF			(-1)
-> -/* The cpu invoked ops->cpu_die, synchronise it with cpu_kill */
-> -#define CPU_KILL_ME			(1)
-> -/* The cpu couldn't die gracefully and is looping in the kernel */
-> -#define CPU_STUCK_IN_KERNEL		(2)
-> +/* Offsets for late (i.e. MMU-enabled) CPU boot reasons */
->  /* Fatal system error detected by secondary CPU, crash the system */
-> -#define CPU_PANIC_KERNEL		(3)
-> -
-> -#define CPU_STUCK_REASON_52_BIT_VA	(UL(1) << CPU_STUCK_REASON_SHIFT)
-> -#define CPU_STUCK_REASON_NO_GRAN	(UL(2) << CPU_STUCK_REASON_SHIFT)
-> +#define CPU_PANIC_KERNEL			(0)
-> +#define CPU_STATUS_FLAGS_MAX			(1)
->  
->  #ifndef __ASSEMBLER__
->  
-> @@ -81,6 +76,14 @@ static inline void set_smp_ipi_range(int ipi_base, int n)
->   */
->  asmlinkage void secondary_start_kernel(void);
->  
-> +union secondary_status {
-> +	u64	val;
-> +	union {
-> +		u8	flags[CPU_STATUS_FLAGS_MAX];
-> +		u8	early_flags[EARLY_CPU_STUCK_REASON_MAX];
-> +	};
-> +};
-> +
->  /*
->   * Initial data for bringing up a secondary CPU.
->   * @status - Result passed back from the secondary CPU to
-> @@ -88,7 +91,7 @@ asmlinkage void secondary_start_kernel(void);
->   */
->  struct secondary_data {
->  	struct task_struct *task;
-> -	long status;
-> +	union secondary_status status;
->  	cpumask_t cpu_died_early_mask;
->  };
->  
-> @@ -123,9 +126,11 @@ static inline void __noreturn cpu_park_loop(void)
->  	}
->  }
->  
-> -static inline void update_cpu_boot_status(int val)
-> +static inline void update_cpu_boot_status(const unsigned int val)
->  {
-> -	WRITE_ONCE(secondary_data.status, val);
-> +	BUILD_BUG_ON(val >= CPU_STATUS_FLAGS_MAX);
-> +
-> +	WRITE_ONCE(secondary_data.status.flags[val], 1);
->  	/* Ensure the visibility of the status update */
->  	dsb(ishst);
->  }
-> diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-> index b9eaf4ad7085..f1ff9e40b7cd 100644
-> --- a/arch/arm64/include/asm/topology.h
-> +++ b/arch/arm64/include/asm/topology.h
-> @@ -41,4 +41,6 @@ void update_freq_counters_refs(void);
->  
->  #include <asm-generic/topology.h>
->  
-> +#define cpu_primary_thread_mask	cpu_none_mask
-> +
->  #endif /* _ASM_ARM_TOPOLOGY_H */
-> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-> index 17868b497d7c..bec4bc1b12db 100644
-> --- a/arch/arm64/kernel/head.S
-> +++ b/arch/arm64/kernel/head.S
-> @@ -393,7 +393,6 @@ SYM_FUNC_START_LOCAL(__secondary_switched)
->  	mov	x0, x20
->  	bl	finalise_el2
->  
-> -	str_l	xzr, __early_cpu_boot_status, x3
->  	adr_l	x5, vectors
->  	msr	vbar_el1, x5
->  	isb
-> @@ -439,15 +438,15 @@ SYM_FUNC_END(set_cpu_boot_mode_flag)
->   * with MMU turned off.
->   *
->   * update_early_cpu_boot_status tmp, status
-> - *  - Corrupts tmp1, tmp2
-> - *  - Writes 'status' to __early_cpu_boot_status and makes sure
-> + *  - Corrupts tmp1
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+---
+ .../util/dwarf-regs-arch/dwarf-regs-arm64.c   | 22 +++++++++++++++++++
+ tools/perf/util/dwarf-regs.c                  |  2 +-
+ tools/perf/util/include/dwarf-regs.h          |  1 +
+ 3 files changed, 24 insertions(+), 1 deletion(-)
 
-Corrupts tmp1, tmp2 ?
-
-> + *  - Writes 1 to the 'status' field of __early_cpu_boot_status and makes sure
->   *    it is committed to memory.
->   */
->  
->  	.macro	update_early_cpu_boot_status status, tmp1, tmp2
-> -	mov	\tmp2, #\status
->  	adr_l	\tmp1, __early_cpu_boot_status
-> -	str	\tmp2, [\tmp1]
-> +	mov	\tmp2, #1
-> +	strb	w\tmp2, [\tmp1, #\status]
->  	dmb	sy
->  	dc	ivac, \tmp1			// Invalidate potentially stale cache line
->  	.endm
-> @@ -495,8 +494,7 @@ SYM_FUNC_START(__cpu_secondary_check52bitva)
->  	b.ge	2f
->  #endif
->  
-> -	update_early_cpu_boot_status \
-> -		CPU_STUCK_IN_KERNEL | CPU_STUCK_REASON_52_BIT_VA, x0, x1
-> +	update_early_cpu_boot_status EARLY_CPU_STUCK_REASON_52_BIT_VA, x0, x1
->  1:	wfe
->  	wfi
->  	b	1b
-> @@ -507,8 +505,7 @@ SYM_FUNC_END(__cpu_secondary_check52bitva)
->  
->  SYM_FUNC_START_LOCAL(__no_granule_support)
->  	/* Indicate that this CPU can't boot and is stuck in the kernel */
-> -	update_early_cpu_boot_status \
-> -		CPU_STUCK_IN_KERNEL | CPU_STUCK_REASON_NO_GRAN, x1, x2
-> +	update_early_cpu_boot_status EARLY_CPU_STUCK_REASON_NO_GRAN, x1, x2
->  1:
->  	wfe
->  	wfi
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index 95d5328c3f5a..d5da44949671 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -64,7 +64,7 @@
->   */
->  struct secondary_data secondary_data = {};
->  /* Number of CPUs which aren't online, but looping in kernel text. */
-> -static int cpus_stuck_in_kernel;
-> +static bool cpus_stuck_in_kernel;
->  
->  static int ipi_irq_base __ro_after_init;
->  static int nr_ipi __ro_after_init = NR_IPI;
-> @@ -93,6 +93,18 @@ static inline int op_cpu_kill(unsigned int cpu)
->  }
->  #endif
->  
-> +static bool smp_parallel_bringup;
-> +
-> +bool arch_cpuhp_init_parallel_bringup(void)
-> +{
-> +	const struct cpu_operations *ops = get_secondary_cpu_ops();
-> +
-> +	smp_parallel_bringup = ops &&
-> +			       ops->cpu_boot_has_arg &&
-> +			       ops->cpu_boot_has_arg();
-> +	return smp_parallel_bringup;
-> +}
-> +
->  /*
->   * Boot a secondary CPU, and assign it the specified idle task.
->   * This also gives us the initial stack to use for this CPU.
-> @@ -107,13 +119,11 @@ int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
->  	 * We need to tell the secondary core where to find its stack and the
->  	 * page tables.
->  	 */
-> -	if (ops->cpu_boot_has_arg && ops->cpu_boot_has_arg())
-> +	if (smp_parallel_bringup)
->  		arg = idle;
->  	else
->  		secondary_data.task = idle;
->  
-> -	update_cpu_boot_status(CPU_MMU_OFF);
-> -
->  	/* Now bring the CPU into our world */
->  	if (ops->cpu_boot)
->  		ret = ops->cpu_boot(cpu, (unsigned long)arg);
-> @@ -125,45 +135,42 @@ int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
->  
->  void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
->  {
-> -	long status;
-> +	union secondary_status status;
->  
->  	if (is_alive)
->  		return;
->  
-> -	secondary_data.task = NULL;
-> -	status = READ_ONCE(secondary_data.status);
-> -	if (status == CPU_MMU_OFF)
-> -		status = READ_ONCE(__early_cpu_boot_status);
-> -
->  	/* A CPU has failed to boot. Try to figure out what happened. */
-> -	switch (status & CPU_BOOT_STATUS_MASK) {
-> -	default:
-> -		pr_err("CPU%u: failed in unknown state : 0x%lx\n",
-> -		       cpu, status);
-> -		cpus_stuck_in_kernel++;
-> -		break;
-> -	case CPU_KILL_ME:
-> -		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
-> -			set_cpu_present(cpu, false);
-> +	if (smp_parallel_bringup)
-> +		pr_warn_once("Parallel CPU bringup failed; consider passing \"cpuhp.parallel=off\" for a more accurate diagnosis.\n");
-
-For some production systems, restarting to reproduce the issue may be
-troublesome.
-
-> +	else
-> +		secondary_data.task = NULL;
-> +
-> +	status.val = READ_ONCE(__early_cpu_boot_status);
-> +	if (status.early_flags[EARLY_CPU_STUCK_REASON_52_BIT_VA]) {
-> +		pr_crit_once("CPU%u detected lack of support for 52-bit VAs\n",
-> +			     cpu);
-> +	}
-> +
-> +	if (status.early_flags[EARLY_CPU_STUCK_REASON_NO_GRAN]) {
-> +		pr_crit_once("CPU%u detected lack of support for %luK granules\n",
-> +			     cpu, PAGE_SIZE / SZ_1K);
-> +	}
-> +
-> +	status = READ_ONCE(secondary_data.status);
-> +	if (status.flags[CPU_PANIC_KERNEL])
-> +		panic("CPU%u detected unsupported configuration\n", cpu);
-> +
-> +	if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask)) {
-> +		set_cpu_present(cpu, false);
->  		if (!op_cpu_kill(cpu)) {
->  			pr_crit("CPU%u: died during early boot\n", cpu);
-> -			break;
-> +			return;
->  		}
-> -		pr_crit("CPU%u: may not have shut down cleanly\n", cpu);
-> -		fallthrough;
-> -	case CPU_STUCK_IN_KERNEL:
-> -		pr_crit("CPU%u: is stuck in kernel\n", cpu);
-> -		if (status & CPU_STUCK_REASON_52_BIT_VA)
-> -			pr_crit("CPU%u: does not support 52-bit VAs\n", cpu);
-> -		if (status & CPU_STUCK_REASON_NO_GRAN) {
-> -			pr_crit("CPU%u: does not support %luK granule\n",
-> -				cpu, PAGE_SIZE / SZ_1K);
-> -		}
-> -		cpus_stuck_in_kernel++;
-> -		break;
-> -	case CPU_PANIC_KERNEL:
-> -		panic("CPU%u detected unsupported configuration\n", cpu);
->  	}
-> +
-> +	pr_crit_once("CPUs may be stuck in kernel\n");
-
-Need we print the "cpu"
-
-> +	cpus_stuck_in_kernel = true;
->  }
->  
->  static void init_gic_priority_masking(void)
-> @@ -407,12 +414,8 @@ void __noreturn cpu_die_early(void)
->  
->  	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
-
-It seems unsafe for multiple secondary CPUs to update
-cpu_died_early_mask concurrently.
-
->  
-> -	if (IS_ENABLED(CONFIG_HOTPLUG_CPU)) {
-> -		update_cpu_boot_status(CPU_KILL_ME);
-> +	if (IS_ENABLED(CONFIG_HOTPLUG_CPU))
->  		__cpu_try_die(cpu);
-> -	}
-> -
-> -	update_cpu_boot_status(CPU_STUCK_IN_KERNEL);
->  
->  	cpu_park_loop();
->  }
-> diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
-> index 79d90226fd5d..59e572a09304 100644
-> --- a/arch/arm64/mm/mmu.c
-> +++ b/arch/arm64/mm/mmu.c
-> @@ -61,7 +61,7 @@ static bool rodata_is_rw __ro_after_init = true;
->   * The booting CPU updates the failed status @__early_cpu_boot_status,
->   * with MMU turned off.
->   */
-> -long __section(".mmuoff.data.write") __early_cpu_boot_status;
-> +long __section(".mmuoff.data.write") __early_cpu_boot_status = 0;
->  
->  static DEFINE_SPINLOCK(swapper_pgdir_lock);
->  static DEFINE_MUTEX(fixmap_lock);
+diff --git a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
+index 593ca7d4fccc..720c863d1869 100644
+--- a/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
++++ b/tools/perf/util/dwarf-regs-arch/dwarf-regs-arm64.c
+@@ -1,5 +1,8 @@
+ // SPDX-License-Identifier: GPL-2.0
+ #include <errno.h>
++#include <ctype.h>
++#include <stdlib.h>
++#include <string.h>
+ #include <dwarf-regs.h>
+ #include "../../../arch/arm64/include/uapi/asm/perf_regs.h"
+ 
+@@ -10,3 +13,22 @@ int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum)
+ 
+ 	return perf_regnum;
+ }
++
++int __get_dwarf_regnum_arm64(const char *name)
++{
++	int reg;
++
++	if (!strcmp(name, "sp"))
++		return 31;
++
++	if (*name != 'x' && *name != 'w')
++		return -ENOENT;
++
++	name++;
++	if (!isdigit(*name))
++		return -ENOENT;
++
++	reg = strtol(name, NULL, 10);
++
++	return reg >= 0 && reg <= 30 ? reg : -ENOENT;
++}
+diff --git a/tools/perf/util/dwarf-regs.c b/tools/perf/util/dwarf-regs.c
+index 797f455eba0d..bacf5c13c3bc 100644
+--- a/tools/perf/util/dwarf-regs.c
++++ b/tools/perf/util/dwarf-regs.c
+@@ -114,7 +114,7 @@ int get_dwarf_regnum(const char *name, unsigned int machine, unsigned int flags)
+ 		reg = _get_dwarf_regnum(arm_regstr_tbl, name);
+ 		break;
+ 	case EM_AARCH64:
+-		reg = _get_dwarf_regnum(aarch64_regstr_tbl, name);
++		reg = __get_dwarf_regnum_arm64(name);
+ 		break;
+ 	case EM_CSKY:
+ 		reg = __get_csky_regnum(name, flags);
+diff --git a/tools/perf/util/include/dwarf-regs.h b/tools/perf/util/include/dwarf-regs.h
+index 46a764cf322f..a25f038bbff2 100644
+--- a/tools/perf/util/include/dwarf-regs.h
++++ b/tools/perf/util/include/dwarf-regs.h
+@@ -105,6 +105,7 @@ int __get_dwarf_regnum_x86_64(const char *name);
+ int __get_dwarf_regnum_for_perf_regnum_i386(int perf_regnum);
+ int __get_dwarf_regnum_for_perf_regnum_x86_64(int perf_regnum);
+ 
++int __get_dwarf_regnum_arm64(const char *name);
+ int __get_dwarf_regnum_for_perf_regnum_arm(int perf_regnum);
+ int __get_dwarf_regnum_for_perf_regnum_arm64(int perf_regnum);
+ 
+-- 
+2.34.1
 
