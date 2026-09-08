@@ -1,94 +1,170 @@
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+Received: from mta1.migadu.com (out-243.mta1.migadu.com [95.215.58.243])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1AA3451CD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDA4A4DBD8B
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.243
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861711; cv=none; b=oPo+Ua7aHK2xhuRVL4kSWTqDeFB/OntomN+NamkjdbKptFwJs0hsLfsZeWjWTete3lelwfekESdJuOQ0EAvp0n5yyDzk2VTjyskA3ZroFzJEZvpr3hJPQgBlWYhsizLGvYuRK54fIEaIJwxp5j3TY5rqhkOdbINNHFmZdKM3H3A=
+	t=1788861738; cv=none; b=WF37/Qg8/NX+mfE7FITIoOYudCmoHDGF6slHosGBqeRAw1y+dAmfHo0ssZq1TGfvyEkIJ8kGTxA64gIwc+1CRCqH3wkQj8WnShZR5Mq+EonjZg+AZIe5lPHFF/x7BErqbl03+HQ11ZbGZFntlboCUgkKGK8WdLCAerXWEqZ0CUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861711; c=relaxed/simple;
-	bh=7Fyxy571KMxMz2l9KXmc8erKfEp7VslXJ6d5gZZbnPM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VRYVpcjNtqoUEEu42tGngyC5QiFf4Eq6qjKb9aMPhs+RtU6yqxQjxtWXiCZev6aahqIwfCzjA4qgJei+wpaVeiP/8Lxiy79f0NTacnT2ojgcIaqqcSo3AHTgC1qPhRsfHmewWc1QarfKnMSjn58kT6sjIvfzbZXF7GUJfPPRRkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-745497ac8fcso957345137.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:01:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788861705; x=1789466505;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2tI/7x8c4NyE/PwWWec1lASAENg1AULIuOMZ9zg64C8=;
-        b=oAiCMIq+3EtXt1C6YUuob1OZp6+800tyF8yjXbIFJyLExwSW0521xT8e+Uukq26OqI
-         ZSAlZ7xWRq+6G2bBr7hJ0WREb3gEnLtFQnNlR2pEa/3hbujngz9p6ZmNHN7MKeMBa0IP
-         FKBumZnwafc1ZAnw+p3tJZSZCOZ6qjYTndUqClwQVwiXWk9ppuIOvTf56RTAEMgLa+N3
-         u+/c+8rRbVlBzkX9LEnoTg7S5Lys4/wQNNUeJVeWA6nBY2bbbZ6E2N8MS7fnkoSWObcF
-         TJojpUMbSocIwvEY3ggrevCXV44qs7rJW6hWYjoyItj+679PCVEiQJ1OQcXcJyh5C2Zu
-         9s0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByyjXDdUUbTo2r61rqCQFlLxZ+HdZUQsBWmXwuW40TrbU3G0230IUzyB5YatLJudmvt7ZmP3Z8rOkytJgo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mji6CV0nxLBl8Byc4+hfccQjhfbXwBnvK0ULWzEBPQ4eVcbO+8
-	0ItNY2LdfFleG4kjXTouJcfgVjillrU3bcyTonGt79MwTY0M/4KfrC38r4TB3I8A
-X-Gm-Gg: AYBFou0+a6UMW2zxpu29jWrMvZrykl7W+EqyI/47e2a4qZE6InN31dbJgqOpPoKVKfR
-	V7OHXPTrPqgGX5iMAut4+GqUjn/R4ooSN5l7oV25KnksItXj18SQCodJ2/PH71v4q724QiR9oLI
-	d91FsbdMylIwzo5D29ezudAco0DgrS0HEgvMZNrS43koJBdgWglZFDKyNvWJElE+GQLlKpomeeX
-	t0SRQD/itY/khWn1gu1nyDWShPlT4MfduumTefomoUuc3EO6OMtGncN30zZqac7zNsRFgAn9XfS
-	5AMZsapGqOpwrXKxttT94oT2rZ76TFlMPHWIK1q3sYKcofcNotIdv+0mCbNistztmY560iWn/iW
-	rEP9Z/NfKB9oMo8fp2WYWR1fprC0cbc2Sr8cjpwEaLM91klT4oV2qsSkkBFYscUdCl8n7uL6PnC
-	d9e+Q1iql5/ZSH08/QY6q3pdxzEjsxMHMOeCusort2OQj3ynEmo7txV9O958uN01PJ2oGZt0V81
-	vhx/bp2YeOijWDNnMEJlcOV8vww/w==
-X-Received: by 2002:a05:6102:91d:b0:785:76cd:ce88 with SMTP id ada2fe7eead31-78a4a67ba9bmr9093766137.3.1788861705226;
-        Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47b56bd3sm8022084137.12.2026.09.08.03.01.45
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c7afda4515so2553935e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw6B8PzRtw3uK7UPuhoQeS7zkEW4ijjVcq5I7GRpeVkKzpJpjnWSvYmkfto9VHEvQQWwSLKXtWduaS7ihg=@vger.kernel.org
-X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id
- ada2fe7eead31-78a4a6c8a04mr9752098137.4.1788861704764; Tue, 08 Sep 2026
- 03:01:44 -0700 (PDT)
+	s=arc-20240116; t=1788861738; c=relaxed/simple;
+	bh=6Er5qYt+ZL2rO4NlQ1VevHRE6P5HGnDAn+0Yr/dg/0g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cvX2ZB6JHsRCAcMZJpMnc2Yp/K28h6WquUn3qccaXRGDI0HZTG/TUeVJIaI3/KOpu7RgFnJFpv3lvyHlxgzd/6PPx/w2qS9IE0SZY2k1VlS0pKYC5+VE8TuZYTpWd1ilzpl9it/luL6OvloObUfIPz/Y9ZSR9BHwgMl7EBSWbcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JWvNfjWg; arc=none smtp.client-ip=95.215.58.243
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JWvNfjWg"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6Er5qYt+ZL2rO4NlQ1VevHRE6P5HGnDAn+0Yr/dg/0g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788861733; v=1; x=1789466533;
+ b=JWvNfjWgf7ukrdt4gC6LENfTtGxf6hReZebMLhAlTcqQa2PvtyEQBUDY8MWYY3173C2Fp8OP
+ t+8h7beDta2ewHRVOAXWvVkfB0dA6u2HpmCuaUfMi853g5EVYC4RpLJ02quSXHekNm8cZ7ZAEwD
+ i5XvSTaJDLFWdpL8RJiblY58=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f280b3f1737e38a0;
+	Tue, 08 Sep 2026 10:02:13 +0000
+X-Mizu-Trace-ID: f280b3f1737e38a0
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [RFC PATCH 1/8] blk-iocost: add iocost_ioc_tick tracepoint for per-period device summary
+Date: Tue,  8 Sep 2026 18:01:36 +0800
+Message-ID: <20260908100143.47598-2-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908100143.47598-1-cui.tao@linux.dev>
+References: <20260908100143.47598-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-7-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260817185700.322370-7-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 12:01:31 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWgPac64DF_MpVFioGJ2ef3irMB+_khaT32MgQS+UuCgQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XXZ_HyHzFSTOBPBh4qzYYojXkTSzZF4gN87445u1hVP8hGIVXwwu4oGIw
-Message-ID: <CAMuHMdWgPac64DF_MpVFioGJ2ef3irMB+_khaT32MgQS+UuCgQ@mail.gmail.com>
-Subject: Re: [PATCH 6/7] pinctrl: renesas: rzt2h: remove unused struct rzt2h_pinctrl::gpio_range
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> The struct rzt2h_pinctrl::gpio_range field is unused and seems to be a
-> vestige of calling pinctrl_add_gpio_range(). Remove it.
->
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+From: Tao Cui <cuitao@kylinos.cn>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-pinctrl for v7.4.
+The existing iocost tracepoints are state-change driven: vrate_adj
+fires only when the adjustment logic runs, inuse_* only on surplus
+state transitions, activate/idle only on cgroup state changes.  In a
+steady state none of them fire.  The only other way to observe the
+controller (period length, vrate, busy level, active cgroup count,
+device utilization) is iocost_monitor.py, which reads kernel memory
+through drgn and is not usable in most production environments.
 
-Gr{oetje,eeting}s,
+Add iocost_ioc_tick, emitted once per period from the tail of
+ioc_timer_fn() with the overall controller state: period_us, vrate,
+busy_level, active iocg count, usage percentage and running state.
+It fires every period the controller runs, including steady states,
+plus one final tick before the controller goes idle, which makes
+dormancy (e.g. a device saturated entirely by uncharged IO) directly
+visible.
 
-                        Geert
+At the default period this is a couple of events per second per
+device; the cost is zero while the static key is off.
 
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ block/blk-iocost.c            |  5 +++++
+ include/trace/events/iocost.h | 40 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 45 insertions(+)
+
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 2745bffcd5eef..c24daa9d72ee9 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -2238,6 +2238,7 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 	struct ioc_now now;
+ 	LIST_HEAD(surpluses);
+ 	int nr_debtors, nr_shortages = 0, nr_lagging = 0;
++	int nr_active = 0;
+ 	u64 usage_us_sum = 0;
+ 	u32 ppm_rthr;
+ 	u32 ppm_wthr;
+@@ -2274,6 +2275,8 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 		u64 vdone, vtime, usage_us;
+ 		u32 hw_active, hw_inuse;
+ 
++		nr_active++;
++
+ 		/*
+ 		 * Collect unused and wind vtime closer to vnow to prevent
+ 		 * iocgs from accumulating a large amount of budget.
+@@ -2460,6 +2463,8 @@ static void ioc_timer_fn(struct timer_list *timer)
+ 		ioc_refresh_vrate(ioc, &now);
+ 	}
+ 
++	trace_iocost_ioc_tick(ioc, nr_active, usage_us_sum);
++
+ 	spin_unlock_irq(&ioc->lock);
+ }
+ 
+diff --git a/include/trace/events/iocost.h b/include/trace/events/iocost.h
+index e772b1bc60d60..2b9ff348a4f51 100644
+--- a/include/trace/events/iocost.h
++++ b/include/trace/events/iocost.h
+@@ -178,6 +178,46 @@ TRACE_EVENT(iocost_ioc_vrate_adj,
+ 	)
+ );
+ 
++/*
++ * Periodic per-device summary, emitted once per period from the tail of
++ * ioc_timer_fn().  Unlike the state-change events above, this fires every
++ * period the controller is running, including steady states, and carries
++ * the overall controller state so basic monitoring doesn't require drgn.
++ */
++TRACE_EVENT(iocost_ioc_tick,
++
++	TP_PROTO(struct ioc *ioc, int nr_active, u64 usage_us_sum),
++
++	TP_ARGS(ioc, nr_active, usage_us_sum),
++
++	TP_STRUCT__entry (
++		__string(devname, ioc_name(ioc))
++		__field(u32, period_us)
++		__field(u64, vrate)
++		__field(int, busy_level)
++		__field(int, nr_active)
++		__field(u32, usage_pct)
++		__field(int, running)
++	),
++
++	TP_fast_assign(
++		__assign_str(devname);
++		__entry->period_us = ioc->period_us;
++		__entry->vrate = ioc->vtime_base_rate;
++		__entry->busy_level = ioc->busy_level;
++		__entry->nr_active = nr_active;
++		__entry->usage_pct = ioc->period_us ?
++			div_u64(usage_us_sum * 100, ioc->period_us) : 0;
++		__entry->running = ioc->running;
++	),
++
++	TP_printk("[%s] period=%uus vrate=%llu busy=%d active=%d usage=%u%% running=%d",
++		__get_str(devname), __entry->period_us, __entry->vrate,
++		__entry->busy_level, __entry->nr_active, __entry->usage_pct,
++		__entry->running
++	)
++);
++
+ TRACE_EVENT(iocost_iocg_forgive_debt,
+ 
+ 	TP_PROTO(struct ioc_gq *iocg, const char *path, struct ioc_now *now,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.43.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
