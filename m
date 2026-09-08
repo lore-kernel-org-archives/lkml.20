@@ -1,61 +1,35 @@
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A474F55BE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:20:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.164
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE524C77A0;
+	Tue,  8 Sep 2026 10:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862817; cv=none; b=YDPNR79nC8imj8w6lGR3Lx5BZjkpvLLWj2XhJnD9E36Yv2atvMlHLH3lc7SIY2+HIPOHaFTMR7yVeA8cM2/eFFOL8b0A1awSyHLWJI22bwqL8+Z1NOVU24bKFNtXNEXi98dp5ZJqgNVOCMVGi2STwfcU+8frXA/qF8oo6VfY6/o=
+	t=1788862868; cv=none; b=LgJEeBAIJVSMFwC8aKGxtm+SZfMzsZ46e1ATLNEGs+FGlFZ5iRKvJZO1cnhwZ34meurlHnQm393S/G4UlGdbOBdksNfzQ6rTmEPH6CivSM/Upfpm4SYQt1bVt/K6N3SRQSYRr/bkBrdB0ZuB0lID99CzMEeVn6SDp3eUkFDMH2w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862817; c=relaxed/simple;
-	bh=xPnNP7uxyugic1XzQqXWe8qmqyV5JID+iXt90df5txM=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=NLYNXeS6FWRP1T35Qhy6pcY9kndvBkxtMHNLYbGjI/xh0UNlHPsvFV+AT3FbaIzvYxvQdxKw/0qUa51DaHmKDwkCoYXsG1261qbBNYSvH5kO/tKS3OzsfBMRTN1ouOqHfS0G9+uFEyuUqn29Xt0A8EWMtQ14wQPQgjgyvaUr7XM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=AH8yx60C; arc=none smtp.client-ip=203.205.221.164
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788862868; c=relaxed/simple;
+	bh=ZHIgJ3S8Q8RJ9GB90CO93chXrJG8bKGqZvNs9SQZuU0=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=NgqAH2YPbENCc6wywbroAmx1qIVZOFii6Ts6/6YIKF/zFPZ/ATIq9PNjAALh3GfxCVGb4ktMuEZQ+opz+o1F3e/6or7mfEw098kmnGH1lX9gqlP+PZR0yxv8QreESucTYDw7EwbJQLVh+qZY0Iz6rtpd9ryO1FLnbT7tbpI58yY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FDr4rG1j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="AH8yx60C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788862811; bh=NNIBVf5+fanw9UbPk8ctZ4bXJ3jQgINTT+ZsSM8Xfho=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AH8yx60Cv1Q7BTEkUrKXipvKOCFbitVYCm0UOMw2pyyE0za00gaXS9xZ4JmeN51P0
-	 ZCgz2+e6e1oBBD0k74uC9KerJo8fdZ7eQNS1Xgq3ckqO97G6ZX+EJjO4dHnVUsRco4
-	 x2shf0qDmwpzXL8lEzpWsxdzT47Q//G1dJaFqx0g=
-Received: from localhost.localdomain ([223.166.55.8])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 4FBB86CE; Tue, 08 Sep 2026 18:19:59 +0800
-X-QQ-mid: xmsmtpt1788862799t8i3gumi7
-Message-ID: <tencent_E818586423F2F16D98DEF1EC2723EE4A6308@qq.com>
-X-QQ-XMAILINFO: Mfa2ogpi8We7usBzROBO8cDvatF2B7/FYhOERh51v+MCo3afLC2SM6TooGXfdZ
-	 MwJ8GTBmElYTOQAq4Ul6LT2XaxGV6zUG/XVwCB5wycCxo74ZsrF9HOOOl6O7JhVdnc0vAhzk/rWC
-	 HCRRuLg730nR2Tjlr7870PaRqG9xk1WtemYhWyiXjbIxr3g7M3z6ChNCSls8qNp3U/LPP94lJiFY
-	 jQc1LFb5tTFNxlZPbciGNSXeWlViWMqNstyjBmQyKN0Rt8c68b3Dmhse/CETmGRuxgYL1ULBfnFB
-	 WTJgjV3ACOu5P9bVT0AvqYUim3tpMk9zXyWUpluLfdMmTYh7aoRA34FiK5v7HpcRxXrOAd/VLp78
-	 Ur1FQAtJihfnRw/oAcdzLHCxjtezK69E5UFFBU3RiQevrBzn9iSundDr2nPXpp47Nlgt6oJLidGx
-	 7r3O7d8bbhs+m4cuNpFME65FAAVu8DF7DXoBg/EyB/yogKwYxAoMGWw2nlchJAvEUPFHcSKr1ZLk
-	 c7m1s2Gq4OZJr4qSVpk6W2lGMsKakNUTK20SHxaNRePTHznn0QQK+D2yo+TIR3gwQmujyyYNFCwM
-	 Xl382oFBXH7DjdfKiK23kfjLqkkGum0M4tR3O/9FneiytMeiJCYvrFv/jsonaUjR1V640/yAsiX3
-	 5FA+HTcihjOEyUUeN15O3aPr+EottiS0W5UM2WC0Ex5KPvhXaqKkjpRuIrblDOZjuXf22GLXZG42
-	 RpLWeb66YUW4l14af+8CYqaN9BDzClmCURY3lXRegUCfYyFoHRflMI6ZtiOTv7L1SNcL3gWB1uIK
-	 CbzGXJCQoaikmBUfn6KM57PVx36YK3eJ80VLRSV1vroUJA5gb76FUIUq0HlmXtNdfAKeQ5F2NiEC
-	 20Ae2mh21TRIzeIWk9QgG1UCuiMCy1LWWwMY3VWTqGmd3KHYZTe84DT11ESn33prUxA8TlvUztQC
-	 9VBVZ5ng76U8qw3lXXB+u26RrTZRn+kxmeqNlOCN1bzyrnFZLwMUgas6KXcp1NL0ZeKMfDEltKte
-	 0qZ6uErycWt3Z/gvwRIKpnSS4ZOI/vk+HhvCYmpq5r9JAtKGWw7qWgeFejB+w=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Zongzhen Feng <1768315307@qq.com>
-To: miquel.raynal@bootlin.com
-Cc: linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	richard@nod.at,
-	vigneshr@ti.com,
-	Zongzhen Feng <1768315307@qq.com>
-Subject: [PATCH v3] mtd: spinand: cache the last read page to avoid redundant SPI operations
-Date: Tue,  8 Sep 2026 18:19:58 +0800
-X-OQ-MSGID: <20260908101958.3311434-1-1768315307@qq.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
-References: <tencent_4C47F17C98F6F164274CEE84638558D62308@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FDr4rG1j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22EE11F00A3A;
+	Tue,  8 Sep 2026 10:21:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788862867;
+	bh=d0RVUKGzQViRfhpTWiTrG2gQKE1cWfQApfz0Noa/nxQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=FDr4rG1jykxjH42fVaoN3noXPX3ildn87M7q7ySMDJV9Uto2rD25ishapl9v/Tp/S
+	 rcrM6B5Uf9+PXJLuvpv9rYpa6YCKVMLHfFaF1lZ4mCDxzo7DnZeMt7ZGbeNe+/Ez7S
+	 4WuEKlQZRMWMVvPDi1mb+8JkrqOadPHvtt+x2F/QaGZzkqpp9I7J+BtGRe2hMPMb5V
+	 QT2b8qFNojxEp6ZYsN5jlm4v3AYIJ2ps5m8Dwsuf8d+WoWc5FMogEEHlQjBVq1SX+Q
+	 nRcekTtBEl5Wm5PQcFkuqfsFOB/OM9Lb9E7Z9nsrbKdNKzR9zGXX19o4jEl0qZ84uu
+	 3D0Mp5QpoCqZw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1983539E9602;
+	Tue,  8 Sep 2026 10:20:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,160 +37,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2 0/3] net: Make sure clk_init_data is fully
+ initialized
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178886280589.3447437.8919325096369252990.git-patchwork-notify@kernel.org>
+Date: Tue, 08 Sep 2026 10:20:05 +0000
+References: <cover.1788425654.git.geert+renesas@glider.be>
+In-Reply-To: <cover.1788425654.git.geert+renesas@glider.be>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: theo.lebrun@bootlin.com, conor.dooley@microchip.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, neil.armstrong@linaro.org, khilman@baylibre.com,
+ jbrunet@baylibre.com, martin.blumenstingl@googlemail.com,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-When squashfs reads files through mtdblock, the mtdblock layer
-splits I/O into 512-byte sectors. For a 4K-page SPI NAND, this
-means reading the same page 8 times (4096 / 512), generating 7x
-redundant SPI read-from-cache operations. Each such operation
-involves a full SPI bus transaction, significantly slowing down
-boot time and file access.
+Hello:
 
-Cache the last successfully read page in spinand_device to avoid
-these redundant operations. When the same {target, eraseblock,
-page} is requested consecutively, the data is served directly
-from the bounce buffer (databuf) via memcpy, skipping the SPI
-transaction entirely.
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-The cache is invalidated on write, erase, ECC errors, and when
-the bounce buffer is overwritten by non-cacheable reads (RAW,
-continuous, or OOB-only).
+On Thu,  3 Sep 2026 11:00:38 +0200 you wrote:
+> Hi all,
+> 
+> The clk_init_data structure contains several mutually-exclusive members
+> for different methods to specify the possible parents of a clock,
+> prompting drivers to initialize only the members they need.  However,
+> not initializing all members may cause subtle issues, which are only
+> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+> enabled.
+> 
+> [...]
 
-Signed-off-by: Zongzhen Feng <1768315307@qq.com>
----
-v3:
-- Invalidate cache when databuf is overwritten by a non-cacheable
-  read (RAW, continuous, OOB-only) to prevent stale cache hits.
-- Invalidate cache on uncorrectable ECC errors to prevent
-  subsequent reads from bypassing ECC checks.
+Here is the summary with links:
+  - [net-next,v2,1/3] net: macb: Make sure clk_init_data is fully initialized
+    https://git.kernel.org/netdev/net-next/c/83e6bb28644a
+  - [net-next,v2,2/3] net: mdio: mux-meson-g12a: Make sure clk_init_data is fully initialized
+    https://git.kernel.org/netdev/net-next/c/4bee840c7e43
+  - [net-next,v2,3/3] net: phy: air_en8811h: Make sure clk_init_data is fully initialized
+    https://git.kernel.org/netdev/net-next/c/64adb67e4568
 
-v2:
-- Fix compilation error: req->disable_ecc -> req->mode != MTD_OPS_RAW
-- Remove spurious indentation change
-- Use real name instead of pseudonym
----
- drivers/mtd/nand/spi/core.c | 39 +++++++++++++++++++++++++++++++++++++
- include/linux/mtd/spinand.h |  9 +++++++++
- 2 files changed, 48 insertions(+)
-
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 8bf9301f25e7..f545dd948604 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -560,6 +560,15 @@ static int spinand_read_from_cache_op(struct spinand_device *spinand,
- 			       req->ooblen);
- 	}
- 
-+	if (req->datalen && !req->continuous && req->mode != MTD_OPS_RAW) {
-+		spinand->cur_target_cache = req->pos.target;
-+		spinand->cur_block_cache = req->pos.eraseblock;
-+		spinand->cur_page_cache = req->pos.page;
-+		spinand->cache_valid = true;
-+	} else if (req->datalen) {
-+		spinand->cache_valid = false;
-+	}
-+
- 	return 0;
- }
- 
-@@ -833,6 +842,20 @@ static int spinand_mtd_regular_page_read(struct mtd_info *mtd, loff_t from,
- 		if (disable_ecc)
- 			iter.req.mode = MTD_OPS_RAW;
- 
-+		if (spinand->cache_valid && !disable_ecc &&
-+		    !iter.req.ooblen &&
-+		    iter.req.pos.target == spinand->cur_target_cache &&
-+		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
-+		    iter.req.pos.page == spinand->cur_page_cache) {
-+			if (iter.req.datalen)
-+				memcpy(iter.req.databuf.in,
-+				       spinand->databuf + iter.req.dataoffs,
-+				       iter.req.datalen);
-+			ops->retlen += iter.req.datalen;
-+			ops->oobretlen += iter.req.ooblen;
-+			continue;
-+		}
-+
- 		ret = spinand_select_target(spinand, iter.req.pos.target);
- 		if (ret)
- 			break;
-@@ -842,6 +865,9 @@ static int spinand_mtd_regular_page_read(struct mtd_info *mtd, loff_t from,
- 		if (ret < 0 && ret != -EBADMSG)
- 			break;
- 
-+		if (ret == -EBADMSG)
-+			spinand->cache_valid = false;
-+
- 		if (ret == -EBADMSG && spinand->set_read_retry) {
- 			if (spinand->read_retries && (++retry_mode <= spinand->read_retries)) {
- 				ret = spinand->set_read_retry(spinand, retry_mode);
-@@ -1064,6 +1090,12 @@ static int spinand_mtd_write(struct mtd_info *mtd, loff_t to,
- 		if (ret)
- 			break;
- 
-+		if (spinand->cache_valid &&
-+		    iter.req.pos.target == spinand->cur_target_cache &&
-+		    iter.req.pos.eraseblock == spinand->cur_block_cache &&
-+		    iter.req.pos.page == spinand->cur_page_cache)
-+			spinand->cache_valid = false;
-+
- 		ret = spinand_write_page(spinand, &iter.req);
- 		if (ret)
- 			break;
-@@ -1188,6 +1220,11 @@ static int spinand_erase(struct nand_device *nand, const struct nand_pos *pos)
- 	if (!ret && (status & STATUS_ERASE_FAILED))
- 		ret = -EIO;
- 
-+	if (!ret && spinand->cache_valid &&
-+	    spinand->cur_target_cache == pos->target &&
-+	    spinand->cur_block_cache == pos->eraseblock)
-+		spinand->cache_valid = false;
-+
- 	return ret;
- }
- 
-@@ -2025,6 +2062,7 @@ static void spinand_cleanup(struct spinand_device *spinand)
- 	nanddev_ecc_engine_cleanup(nand);
- 	nanddev_cleanup(nand);
- 	spinand_manufacturer_cleanup(spinand);
-+	spinand->cache_valid = false;
- 	kfree(spinand->databuf);
- 	kfree(spinand->scratchbuf);
- }
-@@ -2044,6 +2082,7 @@ static int spinand_probe(struct spi_mem *mem)
- 	spi_mem_set_drvdata(mem, spinand);
- 	spinand_set_of_node(spinand, mem->spi->dev.of_node);
- 	mutex_init(&spinand->lock);
-+	spinand->cache_valid = false;
- 	mtd = spinand_to_mtd(spinand);
- 	mtd->dev.parent = &mem->spi->dev;
- 
-diff --git a/include/linux/mtd/spinand.h b/include/linux/mtd/spinand.h
-index 5f4c00ae72a7..887ef6d34a41 100644
---- a/include/linux/mtd/spinand.h
-+++ b/include/linux/mtd/spinand.h
-@@ -757,6 +757,10 @@ struct spinand_mem_ops {
-  *		   a command addressing a page or an eraseblock embedded in
-  *		   this die. Only required if your chip exposes several dies
-  * @cur_target: currently selected target/die
-+ * @cur_target_cache: target of the cached page
-+ * @cur_block_cache: eraseblock of the cached page
-+ * @cur_page_cache: page number of the cached page
-+ * @cache_valid: whether the cached page is valid
-  * @eccinfo: on-die ECC information
-  * @cfg_cache: config register cache. One entry per die
-  * @databuf: bounce buffer for data
-@@ -798,6 +802,11 @@ struct spinand_device {
- 			     unsigned int target);
- 	unsigned int cur_target;
- 
-+	unsigned int cur_target_cache;
-+	unsigned int cur_block_cache;
-+	unsigned int cur_page_cache;
-+	bool cache_valid;
-+
- 	struct spinand_ecc_info eccinfo;
- 
- 	u8 *cfg_cache;
+You are awesome, thank you!
 -- 
-2.25.1
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
