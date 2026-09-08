@@ -1,117 +1,58 @@
-Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C562C4B488E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:34:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4333259B67F
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:37:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906880; cv=none; b=t++aFDQThvwDVP/0P73lhFtJvrZiqfVe4xvdzkyVeJfc/x/DXTBSOv+7F07XyTRiBNj8sekSnuXOqyX+GHVpjsdYFfdPKZ9lt+CxUq2o16k+MaAUr6di2koC4V+CXwmrkWIljQudlQ1aKFLZpYkW7bYi5Y2ffXMPTWqk1JkFI5Q=
+	t=1788907063; cv=none; b=TY5PzIg9n4ZnzPNdsfoCHsymtHk/gK6jKAgMQWt5skwG25VTzyiR0F4QAKXlk3TCuPVJWxl09m1GF9d0RPCfeRAmtDO6cr8anIZQfBe3gJCJ9GeC/OGUP6uj1hFof3bqz/UpejTDdMuydz4J+g5EJreBsFaDUdnoywXgTGEtta0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906880; c=relaxed/simple;
-	bh=htNILk9Kpq12336HFpWbDN67/SR46TQMYtfCjV9wRxY=;
-	h=Date:In-Reply-To:Mime-Version:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=oXx2aCQFFOhXSfsq677i6QoMXUREWosg8k1aMsE22RAXFHgcrZ0eXo1uTCDnR2PBwUP/Aw1Has2cec3q5I8ECUmwpvIm96q/T5TI7f3a5egbR1nUXUhiCpJjKpKbK/ZobhJvVHqdCfjHJqkFY8daG+5zcqs26JSpqWq6tar1lQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=uaYTHfPu; arc=none smtp.client-ip=209.85.160.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--justinstitt.bounces.google.com
+	s=arc-20240116; t=1788907063; c=relaxed/simple;
+	bh=2n0phIkKhbmLdtV+ZLRMad8KXdidoIOnQMaJlIdjOps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uefsaFHzBeype4Pm6vkp/vFQ4xJO3D/+pFMztbJgcbtfy4DuQSgEuKHH0hbZxtNlgEhw1JWoDlyQXZ2PRb1D1qEoW4ibdxjc1+adMi/9mnsVlvCIehhyUqx3EL/5+LKzg51B7p7pdZexIfgfY8mELPDW2P+HmxOvKrzIe3b9kHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs4PuKBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="uaYTHfPu"
-Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-4566537e644so8010937fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 15:34:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788906878; x=1789511678; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y6DHdss8MRJ7r65GA41ught1FKJ932kAtSg2l2oUqQc=;
-        b=uaYTHfPueU0TDrIv7KfTmvg3C6htsYvnOGJ3Qni25YFImkYLkV92Wh/3Nz4Oq2/CKl
-         RPPNGU417AnV7rHYhfb6+9CGAUxH3qKjPJ/zZt7Imwkr6AJwZ94eOudhGpHCCDrBR+A4
-         cstus1mk+P7bbepGyatAXAOmVVFrPFNGOx7ZbhCVXZBpEpoygqjRHqAe1ssYn/72ItzA
-         u5GLCMjx7HcsmJamW6aKZkPpk5ZIwfFyfVC/0A03jh+RLXmbRDiUC/l7kFc0sYvgQ4mZ
-         HQETneyJDLiJCe+L1xN6IIxELlBKPd325sE8ZsVwKKzWTGUun6yJv87MUQBZNkUy/pVJ
-         oN+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788906878; x=1789511678;
-        h=content-type:cc:to:from:subject:message-id:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y6DHdss8MRJ7r65GA41ught1FKJ932kAtSg2l2oUqQc=;
-        b=bzqXLWyOS3rgofL0F1Gznpoxb9u+3NtPkuvRF9uSHUuFSxSpzV5H1J8i+gG3Rj5RmO
-         f17EmdH3sCsE65Zbx97Zf7x9zsVl8lwLZGLcmvNj2mmRe5HNQzQ32FaOFE/6nlo4ovM1
-         NCDB6QDxPGr7VJi75dkXTAbEJDXhPUVicUNOLakEGowI84Uhw0yMVZTStLWkz7VdDB6b
-         eTp58xYGJb1yLUCPF83d4ev4YuR4947q86oU0JY5n6Er/kvJ81snVPLwE7og6xmruXOx
-         cuoHucB/3v+VgMa0ZaVqSsM/O1nLXU93nvGkbKW5FFWO9+wOq5dePQDfZMG/4qq8EkFX
-         fgbg==
-X-Forwarded-Encrypted: i=1; AKwUvByHWO4eAvMb2skKA01NLD4sTsa8Iufny8YJ6qB5scSoVj+ay2awu0OcbK7j3BpHReP2ddXUwAwuosNNTR4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kF8L/G/y2c/r/wE0SYWqUgth1DWv2H/f2BPzLRqqkAfXMlVUSj
-	Ghy7aDivr48v0QGCILIgQd0o5rUw7v7k8E3LvL1G5u6ov9PFFNu84Od8pEab22oiS2EihMssXkA
-	GIEzT8SG055f5quLDs0jBx+LarA==
-X-Received: from japm26.prod.google.com ([2002:a02:cdda:0:b0:5f1:325b:8e4c])
- (user=justinstitt job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6820:179b:b0:6b6:c0bc:365c with SMTP id 006d021491bc7-6b6fcbdc9dfmr18638803eaf.22.1788906877369;
- Tue, 08 Sep 2026 15:34:37 -0700 (PDT)
-Date: Tue, 8 Sep 2026 15:34:35 -0700
-In-Reply-To: <20260401092027.GW3738786@noisy.programming.kicks-ass.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs4PuKBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E3251F00A3A;
+	Tue,  8 Sep 2026 22:37:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788907058;
+	bh=7z89r6De+Pix2WcL9SoacX1sh2v4nb+4z6b1L4BolQo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bs4PuKBTBJ0ljf4gzJ5wMylFxMyLimDh67zyNz3W6NKDINFJGk2EEJiMNNUoE3kq/
+	 sX1IxqZuJBY6pDry3k52BHgs2TvjAGaKHqK2nYcWk63N5e1vsrr3Rty3BknUxOBdaa
+	 QguXJ0bvLEB0RrKHBtlKK+PtuZqMPvBzthNqAbftO80Cj/RwjtHVT7pC1mKsATfLHd
+	 84k0KtpeyiQyYjbddm6jVpgTtgROswYsnDzdpUeLryUqLWCPrtamZIDO15YcLpHMtT
+	 84OQkyZKZh3NiZF0nlNngijZGKh+fnqVb7Yh0feaACmaBAH+u5oV5L3o7iGIkv3Mhk
+	 ojYe7zXFeZZ0g==
+Date: Wed, 9 Sep 2026 00:37:34 +0200
+From: Thorsten Blum <blum@kernel.org>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] m68k/serial: Use generic BASE_BAUD in asm/serial.h
+Message-ID: <aqCOLjfOHCpV-9_E@kernel.org>
+References: <20260731094402.741645-3-thorsten.blum@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Message-ID: <aqCMIFRHEQ3H9qad@google.com>
-Subject: Re: [PATCH 3/5] compiler_attributes: Add overflow_behavior macros
- __ob_trap and __ob_wrap
-From: Justin Stitt <justinstitt@google.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Kees Cook <kees@kernel.org>, Marco Elver <elver@google.com>, 
-	Andrey Konovalov <andreyknvl@gmail.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, kasan-dev@googlegroups.com, 
-	linux-doc@vger.kernel.org, llvm@lists.linux.dev, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Nicolas Schier <nsc@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, linux-kbuild@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260731094402.741645-3-thorsten.blum@linux.dev>
 
-Hi,
+On Fri, Jul 31, 2026 at 11:44:00AM +0200, Thorsten Blum wrote:
+> Include asm-generic/serial.h and use the generic BASE_BAUD definition
+> instead of redefining it.
+> 
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> ---
+>  arch/m68k/include/asm/serial.h | 10 +---------
+>  1 file changed, 1 insertion(+), 9 deletions(-)
 
-On Wed, Apr 01, 2026 at 11:20:27AM +0200, Peter Zijlstra wrote:
-...
-> 
-> So I would like to second this option as being interesting.
-> 
-> But while pondering it, I did want to note that all of the options, with
-> the exception of __ob_wrap (which is effectively what we have today for
-> *everything*), will be 'interesting' to compose with _Atomic, another
-> one of these qualifiers.
-> 
-> Now, in the kernel we don't use _Atomic, so strictly speaking I don't
-> care ;-) But here goes...
-> 
-> Something like _Atomic int __ob_wrap, is trivial and good.
-> 
-> _Atomic int __ob_trap is either doable or impossible depending on how
-> you define the result to be on 'trap'. Specifically, the semantics
-> proposed where it keeps the old value makes it impossible.
-> 
-> And _Atomic int __ob_saturate is equally 'challenging', since the
-> fundamental thing of 'reset to min/max on under/over-flow' is rather
-> a non-atomic kind of thing. Look at the trouble we went through with
-> refcount_t to sort of make this work.
-> 
+Gentle ping?
 
-FWIW, I've moved to simply disallow OBT+Atomic. We've got this under
--fexperimental so I'm well within my right :). The idea being: __ob_trap
-isn't workable with Atomic (depending on storage semantics) and
-__ob_wrap isn't very useful there either, plus I had some parsing bugs
-where specific ordering of things could result in OBT being silently
-dropped with _Atomic and those magically go away by disallowing this
-pairing all together.
-
-I just opened the PR over at [1] and it is still pending but this is
-probably where I'll go with _Atomic and OBT :)
-
-Link: https://github.com/llvm/llvm-project/pull/222179
-
-Thanks
-Justin
+Thanks,
+Thorsten
