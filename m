@@ -1,78 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B837C57980A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:56:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEF5579815;
+	Tue,  8 Sep 2026 15:56:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882983; cv=none; b=rwOGKZYUBjGW15uYqa2BK3ua8fld9kjGflKlIPEfLF3znzlnwJtfSE3b2gbvSAl+DMRfexq11Sw5sBSvyWklsOFKkzGCeGXMTLoOta8toL6gxSFhnKOA35fP1jSQ9La7x6HVZ/62DSf+mbpaCEu3cPCBAxW2uf1b8QTF3OzgdzA=
+	t=1788882996; cv=none; b=e5dCdxgZBP2CoHv5swkAHpkH1AaUHQyxx577vah6jSd5RZ7P22ykip17iFQyPYvIyZcGMYslgcSLDJm59TlvYoK+ys7oZw9x4KE5QYgvnBly6fcfg/Gvb2VqIRC/f05Tp7me0pO1K124IaKcD1NKCOKd/w1WbWimhHcRivlshA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882983; c=relaxed/simple;
-	bh=wBdmAizSj2gtwIeAxyghpefUHJbzkJP8OIm1BpULIMM=;
+	s=arc-20240116; t=1788882996; c=relaxed/simple;
+	bh=bgGTg7AIvSl8TrPSZ5iXvDEx/sXnRLRPObuk8inb50Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K/JvzXqVHpdLzbpMkJ9ifczq3Uqz7Sio6BXPe2VTAPSLoLWwvDdKxMccf5QzsXA7OC+1c7lcylSewJy9pQIEv4yJQWlYSCD868qhucgOUvrbBeTm21zDme5oAPU2rNbkg0y9SvxyZ/AK5qjI0o3j4GYuwDuR/FK5c2boSKAqoiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYxSkOqq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=aFVewhTPrQX8gvoy6Qe96zYZD6D+cyQlixhRlUEIVZ28GkH21nbe3SEYM1KV45qxAL35qkg7CKyWZlmB3qFziac8KdMiPyj8E58cTjjmiomo29DuakNQn9gUv+nlsfOIAZSt9tIaY/+DVFxURI35y8SIe9sPuucTrtX46qOKusQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=deCWNnZ2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYxSkOqq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC2831F00A3E;
-	Tue,  8 Sep 2026 15:56:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="deCWNnZ2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA731F00A3A;
+	Tue,  8 Sep 2026 15:56:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882981;
-	bh=N9fgGq2X2uChEtYWmFfDevJiLw3yAP3NdTyXSMdqiTs=;
+	s=k20260515; t=1788882994;
+	bh=sLFxr9ERzMOwRmfNohSacYm8DdBRRyU8CpJZ0uhark4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AYxSkOqqtRkXROWj3gB+7ReXgoHiyFFrrjnxIz/90YaeJ3Q/oOcXcADEhYVwjqu1o
-	 3Fm1Jcwf8SAzxUUpS2kkTUbOxVkNcijIsb5l12Jm0B6zzqWxuj2KMgzZmQqsXor6vz
-	 B093oKN0PG5FLcZdSkIgl0IQbhWQgHP/RYNC68D/wm/ba/9vaFD6TCCMAo6S8BiNon
-	 M81/HJN1FLDDJjM5Kp0ZX92of4k9tcEImVeiL3r24SHpoKM+M8xf7wKYimg4gZ51D6
-	 dB2C/xNmu5FmDsDpegQt03q1fQRF1mUMthr9k7pe0dV50Y21GGAC8FDx/yj2yukz0n
-	 OhmCpmb5wEnxA==
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfauth.ams.internal (Postfix) with ESMTP id CA820198003A;
-	Tue,  8 Sep 2026 11:56:13 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Tue, 08 Sep 2026 11:56:18 -0400
-X-ME-Sender: <xms:HTCgateyjfYFJdrtV7amQ9wKd5WHkuIUJV1wBimJoVJ08GqbGVDl8Q>
-    <xme:HTCgauRae6D3D-6pIsU_QUdZxKrkpC8KEJxo87_2EoODrEVZEnud1qsMmo6WR_md5
-    1EtZbxZ7fMswFDzVZemiCkbu6_SrxU56Tr6pehvBO9TqHkEP-MJOIg>
-X-ME-Received: <xmr:HTCgakmvep3BQWXmrdY7q7Ef7PDqzQKKi5xj8CFcqCXJYXxmNUGf2cmdoxQ>
-X-ME-Proxy-Cause: dmFkZTF3IiLrxKTc6MEEiVzjdeGok30jImMQRh0oSfDm6XFoFRUjHYcV2z+3oyw9IE98S8
-    jhHjjVUPmLb8M1epXseCNDEw3g/pBEbeVDnYYxEmv/e8MqjF23LLhO7qB6zOijx3q2TO8Z
-    chf+iV/I1x+z9V8/XJ8dR80BupXVG0lg4hH4QLv1WG4+83EGiENMGK0RcO9dEJ8TODIGIE
-    8wJi2hmB6J1ep99h6Ir8Gc/c5bfldImT3JKGX8HjLU0BbFWuqm62tA7g6VKS+hvWJGI/j/
-    X05+tUfS3Abz/aIZ74BfbklxYyRaMDjdfIMlDmfoddqHWsbbkYh3Ce3RSfpHWut5aet9ZY
-    JJiG7gZhGux8ERCOwn6ER5ulGtWTcS3oPod6tev1968K2xCBHQySsRN0r9nXV27kFShhCx
-    E+DaEwFCUVqdfyq4enpFO3knr7GakbCY8YHyql2lIo+1gg6DmH21S1PbITefkjVzC/oBDk
-    rGivE4sjTsRAbzIfAtHqMU7HMkwAguEDmB5jFTozR0eX8kXCXiL+OBUGkSnAvFP5epOENB
-    /kLy2ln2QKxI5D3xfCzdIjX2HzMQeVrkKvXuEZFmemlN9uGAZyYJwBrToCOWJa/Mi7ej8X
-    eTwT1SbLxn/5mxYEk+0c314mj2MSpRkoxM6ltRC1v1My0h3nDOfh3HPKUa6w
-X-ME-Proxy: <xmx:HTCgaqZ4TNJfpPRLt2blkL-fSGCQUuK2aTJq7fiKRsbRtfQMPsrS9A>
-    <xmx:HTCgav2uhd1-UupJDsed_7VsdzptAOIz8jUkNT7xOlOsREgTUg5IEw>
-    <xmx:HTCgaiqxkzH_b6CQSua9FpR1ywCgjYVvehT9qgwQzcYeICM97WdDsQ>
-    <xmx:HTCgarwbrQIQaiihmQIsf43lSHARzGEj1U0WS3HJMnSyUdg0MbyEXg>
-    <xmx:HTCgahjnYxs-rz7p5qLOGW4K36XsgUA_7OcoKvtN0wkE_iE9u5BUGLcN>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 11:56:12 -0400 (EDT)
-Date: Tue, 8 Sep 2026 16:56:11 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
-	Yeoreum Yun <yeoreum.yun@arm.com>, Shivam Kalra <shivamkalra98@zohomail.in>, 
-	Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v4 12/17] mm/huge_memory: move anon_vma handling into the
- anon split helper
-Message-ID: <aqAvPuHUVXvkJmV4@thinkstation>
-References: <20260908-swap-thp-cleanup-v4-0-b532a3f20e71@tencent.com>
- <20260908-swap-thp-cleanup-v4-12-b532a3f20e71@tencent.com>
+	b=deCWNnZ2UOqbSJc0sV+LQiCShgEaY1Zyh1zP6x03+ohUaJ/V5KdV4cJv7KzDJNkOS
+	 GMrJQtuXVANdXphLKz4h6K8Ypet6piqhU46zph1Kw98agRaKKMafLnSiE+F4btgqc5
+	 hkMA2j9AX8hOCbECzdvqzVjYIjhql2Dcs4R8gKVSeb+M6ApcXIuluv9hd+3BDKDixW
+	 6TfigBXYeAVZTp36gMyuGZg3PZXvz8LpjGte2kCONDQeBTitePuojjJMRuX6AxR0hw
+	 jFwj/JXAQX3B9qzXIpmIAyuIcW9qzYRmMWzs1w1JLK87hSknG4ohpp5Urrwq94DpVO
+	 VWXKpup38jEUg==
+Date: Tue, 8 Sep 2026 10:56:32 -0500
+From: Rob Herring <robh@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Peter Rosin <peda@lysator.liu.se>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: mux: gpio-mux: Add enable-gpios
+Message-ID: <20260908155632.GA3264563-robh@kernel.org>
+References: <20260904-add-external-mux-enable-gpio-v3-0-1b868e669e43@vaisala.com>
+ <20260904-add-external-mux-enable-gpio-v3-1-1b868e669e43@vaisala.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,46 +46,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908-swap-thp-cleanup-v4-12-b532a3f20e71@tencent.com>
+In-Reply-To: <20260904-add-external-mux-enable-gpio-v3-1-1b868e669e43@vaisala.com>
 
-On Tue, Sep 08, 2026 at 02:12:16AM +0800, Kairui Song via B4 Relay wrote:
-> +	/*
-> +	 * Unmap/remap needs the anon_vma. The caller does not necessarily
-> +	 * hold an mmap_lock that would prevent the anon_vma from
-> +	 * disappearing, so we first take a reference and lock it.
-> +	 *
-> +	 * An unmapped folio needs none of this: folio_get_anon_vma() and
-> +	 * folio_lock_anon_vma_read() both bail out on !folio_mapped()
-> +	 * before taking the lock, and folio_ref_freeze() below still
-> +	 * rejects a folio that picked up a reference meanwhile. Note
-> +	 * a swapped-out THP counts as unmapped here as swap PTEs do
-> +	 * not contribute mapcount, and they are splittable.
-> +	 */
->  	if (folio_mapped(folio)) {
-> -		need_remap = true;
-> +		anon_vma = folio_get_anon_vma(folio);
-> +		if (!anon_vma)
-> +			return -EBUSY;
-> +		anon_vma_lock_write(anon_vma);
->  		ret = unmap_folio(folio);
->  		if (ret)
-> -			return ret;
-> +			goto out_unlock;
->  	}
+On Fri, Sep 04, 2026 at 06:17:36AM +0000, Tapio Reijonen wrote:
+> Analog multiplexers have an enable input besides the address inputs. On a
+> 74HC4051 it is the E input: with E high, all eight switches are in the
+> high-impedance off state, independent of S0 to S2. A 74HC4067 works the
+> same way with four address inputs.
+> 
+> Two things need that input. The mux-controller binding describes an idle
+> state of disconnect, which a gpio-mux cannot reach today because the
+> address inputs always select a channel. And the address inputs are plain
+> gpios that may live on different gpio controllers, so they are not
+> updated in one go and the mux passes through the intermediate addresses
+> on every channel change unless it is disabled meanwhile.
+> 
+> Add enable-gpios to describe the enable input, and require it for an idle
+> state of disconnect.
+> 
+> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
 
-Hm. Nothing serializes folio_mapped() here. I believe it is fine, but the
-reasoning deserves a comment, since it is what the whole change rests on.
-Something along the lines of:
-
-       * folio_mapped() is not stable here, but it can only change in
-       * one direction while the folio is locked. The mapcount can drop
-       * to zero at any time, zap_pte_range() takes no folio lock. It
-       * cannot go up: swapin, migration and uffd move all lock the folio
-       * before mapping it, and fork only copies PTEs that already exist.
-       *
-       * So if we see the folio mapped, the worst case is an empty rmap
-       * walk. If we see it unmapped, it stays unmapped. Anything else
-       * needs a reference first and folio_ref_freeze() below catches it.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Missing Conor's ack.
