@@ -1,46 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED5048E0EE;
-	Tue,  8 Sep 2026 22:39:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5738148F031;
+	Tue,  8 Sep 2026 22:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788907174; cv=none; b=qQodslkD2ARLYtWAN3UBNSHq4NS9p6rVLmSzzvPKRe6w6FZp3D8h8sVGvOEQzVR0kDK3/1Fnu/YCW10CHzeTK5aTBc6YGLYoxecBIw50SU9++WfdJP/t4Z/RsUOVYhL08Xc5NZnGSzI8R/TUxx+D8ertRiOqrBQam8app9pKH/M=
+	t=1788907178; cv=none; b=l4vsAFXUkvIwn1q8fwYaNY0TOa6sp+06duuqZsO4QBkzWoQTLGwgWrpxhE92hfeo/qjFdWMEwzTUQsPf2gwXIi2RNFz4oj8Ig32PFck/VAZII2tI+DsJMd9iEbyL68Swir+qPK0NlpgsW94VJLgZPPdlHd0oy8Pq3RbSlyfS7jI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788907174; c=relaxed/simple;
-	bh=vMfvSpho+BWlG8ZiW5udMMZ1Hw4Lv11VPiLD8o3D2Fo=;
+	s=arc-20240116; t=1788907178; c=relaxed/simple;
+	bh=K0Fp3/8MPI78w3plDQwfDIHSCb1xhAWQDEbQt4yn1YI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O3XFiNCHS/GrZoBSpE6m/RGy3ZAmc7mKJ74CcWWBU+r21OnAKwGWWCIAVP8e9N5hAAvPSoQMjEDoMYJ69hszdzOKWsg/1cWCY51BZPZYTPu3lTfHECDcVGYbrsLjL5Z5Zh3WpgSrO7yCasaFaMwk8Rn5zDFnhzTgNOwbZkdsht8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OI7jq/3R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HmqzMDD29ZZsEpUkunr6ooIvVbpDM8TdqvVOPjh2NnrFZhe/kce5gDorcA8bNEg1YleFTxAovuiqDprBtleGgqzVYXItDhiRhrHlUlWB6GSJC+MOv9ce2xm13EzO1IOBrg24ZOzRBKT+T8x7+ffEwy0NLKw0OJ2xbI7yd4Asny4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbshvHkc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OI7jq/3R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739701F00A3F;
-	Tue,  8 Sep 2026 22:39:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbshvHkc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BF581F00ADB;
+	Tue,  8 Sep 2026 22:39:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788907163;
-	bh=tSKxAeFtNIiZ0MMvnvckVM6rLNQkcV/nYhpXSi8PZ4g=;
+	s=k20260515; t=1788907170;
+	bh=CUaNG8+3etczoLjmEJ1Fq9ktaYGuJi5EDDS65u7lJs8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OI7jq/3RRO4C1OP8Y3wL6Dyn3kN5I6neDXcjCKnAKua9qsLIfeuyHC4UOrTIMXaqG
-	 x+eQpdyA1an3CcM27BRGRIP7wgxM1I6p0HS3H83kqZwaRcYkGlS3B7Ix6RFgb2ULEG
-	 dGx2KCQRbtGc8HuAB7u17CcAhtZkrBe5fRbnsRkWPCn21mzE0IFmWVVfSFVWVV66Lh
-	 pZkFqB2HbuW18Umu8++wc06F5GCw9HRpMpwTt7G1swGhHwspNY/GSYRdEZ1pHE39IP
-	 aeS2KPvLHbz2/hT9xmLhv7r9dfRtBYZm8CTzqa1F1qtGlnf3f3nEwMi562Up0XsML3
-	 JfTgWwT4p4afg==
+	b=ZbshvHkcX8KJmv37Zp8P3QrDcKKu2zIKlxOzSkVmHr3KHpEm5QBawF/4NRlPl8Wcm
+	 4Aq3xpOfjF1p+Qx7Ls+jDd9bIPYYsONxItG//KpJ3UMQtFEFv/60t0zlus8G3hxdvJ
+	 DlsDlcnxl1y95h7Oat6EWGlH+rb58T/uUB5uNyOcdv7/QBdkkYuD17s4BadixetrSk
+	 6IqDGHvmLI+8HiytiuEEzRkp5PZdL3v3/HVng7tLlNeDVu7CHADbHIjgCF/T4HOx2c
+	 xo321i3BM7YOecNOnHFnz2m3WaBGz67mc/xWplWy55/fzk1QoyPbwwdKB1VqTq7WdV
+	 ZfPA+vrscjBFA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: lee@kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jeff Layton <jlayton@kernel.org>,
+	Wentao Guan <guanwentao@uniontech.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Christian Brauner <brauner@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Soheil Hassas Yeganeh <soheil@google.com>,
+	Davidlohr Bueso <dave@stgolabs.net>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	dmitry.torokhov@gmail.com,
-	gregkh@linuxfoundation.org,
-	pengpeng@iscas.ac.cn,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Miguel Garcia <miguelgarciaroman8@gmail.com>
-Subject: Re: [PATCH 6.1.y] Input: aiptek - validate raw macro indices before updating state
-Date: Tue,  8 Sep 2026 18:39:10 -0400
-Message-ID: <2026-09-08-daily-reply-0003-aiptek-macro-index-6-1@kernel.org>
+	stable@vger.kernel.org,
+	Quentin Schulz <quentin.schulz@cherry.de>
+Subject: Re: [STABLE v5.15.y 4/8] eventpoll: kill __ep_remove()
+Date: Tue,  8 Sep 2026 18:39:15 -0400
+Message-ID: <2026-09-08-daily-reply-0008-eventpoll-refcount-bounce-5-15-p4@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com>
-References: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com>
+In-Reply-To: <20260908085113.3960814-4-lee@kernel.org>
+References: <20260908085113.3960814-4-lee@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,12 +59,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> aiptek_irq() derives macro key indices directly from tablet reports and
-> then uses them to index macroKeyEvents[]. Report types 4 and 5 also save
-> the derived value in aiptek->lastMacro and later use that state to
-> release the previous key.
+> Remove the boolean conditional in __ep_remove() and restructure the code
+> so the check for racing with eventpoll_release_file() are only done in
+> the ep_remove_safe() path where they belong.
 
-Queued for 6.1, thanks.
+This leaves ep_remove() with a redundant second refcount decrement on 5.15.y.
+On this tree the decrement already happens inside the helper (ep_remove_epi()
+ends with return ep_refcount_dec_and_test(ep), carried over correctly by patch
+3/8), but this patch imports upstream's caller body verbatim:
+
+  if (ep_remove_epi(...))
+          WARN_ON_ONCE(ep_refcount_dec_and_test(ep));
+
+Upstream can do that because its own helper returns true without decrementing;
+5.15.y's doesn't, so on the WARN_ON_ONCE path this decrements an already-zero
+refcount.
+
+Could you respin with WARN_ON_ONCE(ep_remove_epi(ep, epi)); here instead,
+keeping the decrement inside the helper?
 
 -- 
 Thanks,
