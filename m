@@ -1,96 +1,138 @@
-Received: from sonic304-21.consmr.mail.ne1.yahoo.com (sonic304-21.consmr.mail.ne1.yahoo.com [66.163.191.147])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2702052B1E0
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.191.147
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A815D52D2BB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866309; cv=none; b=ROUIM3b6an1yhaBtwERckQwhxr9vjjolfWqGy2dyLCN3zf+J3irS8aURgklSEircUN8GyIxBJ5d+TEMbYbtUuGp+UdbscsovQZBvKtsmlkvdtB8caFrI4a0pFOgsTzu4iY8H/Z79OhG+8TC39x8m0NY1O8LSDwalO2JPb+MXrRw=
+	t=1788866317; cv=none; b=HxdpuKDR/2ca2FFE51DnRY6TNsrbSNSXxU0kstkealGThliD8m71w/C9ACO6ukRG8xHdMRG210mwmP2LYXBSoCLKkl/1LReIauSFQIIfHQvagjDd1tAu+LNKzODjwFtql6Nshq4+F5pGHYnXVWDznS8xDya4F5A6ZBoFGUUg1U0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866309; c=relaxed/simple;
-	bh=LjH1faTnVVN5uMetA4uwbCmCsTumX7kxFH0HtObW7RY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vBvUUw0cgukX8QgfjJB3JGLek+zHv3xxDlcF1jKyHNCCOggOEta/MbuHZPFvyWQZeqB9FQ4CrOqQ2xH3gmuWYcsmb9VFmtlA7iRZgRu62pICbK59GQvBAtJe9HBQkgihp/nfx4fepqvdnz51A8uc0QW4z4lO2DsK1L4lAJL+pGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=gf+WBWfd; arc=none smtp.client-ip=66.163.191.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1788866317; c=relaxed/simple;
+	bh=t/ovtFrISDktBvngN1BFezgR29OO5wT7f3gkFho/p6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=n1K5hv9s5b0nJS37uRvNSmvxC/ScK5R3Oml8A4RKUd8s+AK577lJMvW1af57wReCIVa+HSH1rpsxWqq17MbgA6woogubUUsljHsLmcC9iTm/lGJ7cerJaRGLpfa83vZCFr4cusbOjbHh0jezrzJyGw9FyaZsdD4X+LCk5qk9+l0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kXgU2Ube; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="gf+WBWfd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=YRUBlZ8dLqp9JSfEYU3LqyguQG5ZgeUgfnh64Fsjygs=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=gf+WBWfd9pS3ixIK0ZCNrZa4aua8tGhu3dvQJOIOs9yL+v58zctqp1x8ORMSjRbOjFmju3k5DWD8cpVkcjkjh0RCaKrN6h8KIo2fd/qRkKPKZPVlJ3vByrLVDHpxEynD2L+F5KRaLkckZ9e5hn9RruyqI7FmRs9hEf8SOhbSXM0Vv6oAfg0H4ERlHN0eMaAZaFtm15tDbeTMs+bTT9Ra6OGfAweTYY8hT/T7465cCGlpHe0zSHqgwmbsdtqjksWbaE3cBdwpd4L6aPj0Wx6dhaqdZtw29BT23NMFThM2Wl6mZVpZ3Cd0nUQGkwjVvi2xkacPy7rvq9/sKLp/VCq1QA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788866298; bh=BO3nbZVVC/Q6WnfyDxtqxYZPIi85mZ6jnJBT8ZaJWy9=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=LEj2HvK5U0pbAsUXC+6X0Xwwdjb5AvXnvxtcnI2FweL8JJMbXl9r5VZWyqkzo9ketCm+h8uzxQksEA4q28ysUAYN0LexZFdgFGrGpOMcocJ4EXyxc/zA1vQ6nfIOn3jcYbC03dtmbQ8OAHP/bq9YD5auLp3F4765zq5oEcY5e15JmtuKObm4TkT3Ywo48n1LHIl/WpY9A72dpB7IR8g5fYCuSoLEz48kVN+V8OjX4rGsSDUvNvj/UOF0MbwKYYaRsKzlsDZMq+dgRkxsIu5sKVNEfTZgmXwu//AXFSUgiCw8PfiXnTmUHRkpYp0O/UdvcsIRwKUPkEsjEtB6/We7yQ==
-X-YMail-OSG: gmPyFQoVM1kc06WG4qbxndFv7A0iv9Zvs3kCG56zD6fXv0_RPErM.KJ2_Y03wTK
- P2DhEW7IyNdWPB1oZZUSd30nh9bY18etlCM7_76lo4eQPD8pRW5GjFvkb43LVq5L9xej2o7xEFuW
- GEJfkZ9aSs8Ze_o3MZXQ3oiGd9K6q7WrFgqp8HdYS8ka2aPZhu9Zhu.l8SCSETpSuI_GwXLa4sel
- Hc932i4trMUWVfSNlsIjRqNgiJ6k71EiWKqRMh5jR.1lilDP4hK00_t_rgl7wHlY3r98SjxxpfwY
- Z_yTwWje_ia9mdz11bFrFPlDWVoomvIF0c80uMZTlytwRcgKQIX9u1H0k.bI3SLPL1Y1L6mvRM8y
- 7BT16SikZrVBBTOZSehD6E4AIRN6NfpSIhDHq24VgqJtEr7nhQxIqJjmDekQb0pbOHu8HquYI.8O
- eoAv3HW8HuHBSSlc7n2xrUbZY1d05D1lOmaJfTNzr3eqUHt00Fcuq47BsgwVZgn.riCUy4oHxvU9
- 6EKJAnfT0Jggz2tW7wSZb167xC9ENpm0xe72ti3bfMEqcj7rekZHcsHN3Jo9M15f5dyq5Fv3Lvx5
- fNbNLjN0OTAvmO2j3yx1lB1R7d.BrM3m7Jp4I42SFt.H_8JkCBGP7vk_MXPSma72HOWbMb2w8TAH
- Z0xKYGUK9iNFY6422ZnUCERqA8PpFjpgj53A1KZ5t_zBw_6yF3tTbMYP1GtX122zluBJBuRBiYxm
- kFzpCl5drZcwBBrHFb9nkOr20KJv105U2HKaGzGVVEjsF3Qp.l8VbHdxACFzNk4n7Ei0exRs97S7
- hKLUywdg__q0dy3xOF9geMZwOn.PdntHq2dRweZ_vA3XH1FhpXD_qnVXAy3imyiX4v8D_QhUa9Vs
- JmwhrOeCAzS5joDHI0ZbJOzaOQsz617LirTFoWCdJYZWMaCMCXAKXzRpqLHvYvBrxL04g0ib9NU8
- AVMbAkttrVustmuJjLpDX3b0627711vkp0s_KRb5Q3vJW1GMNPYl9ls8YilSTeAZVlB5i_sny3Uo
- RNNbzC_jfjwcPdhjMo.j7ffSnXG0rI1zqgNPZ1AJHyU6Tg16Hf9Z4IR0m6T1irvaUG..TlnOFvkZ
- XkVpajROJxhPGUPaEemA5paAzCfrPUPrzmmgo4zAn631YjykEMjibnOBFqfTQ9_xm5wnA2FbvKVn
- AtCmAGmyV0KExIcv28plPUwH6OkeJG.oxIK2S6n5pMHD5g6ZGWzdYkYt9TyhrnD1KCV0c0UOtiDR
- qFsjLTFDAfqZgzEzDOHh8Ev9L06Kd8XDanoUqHsT1WQuQfbMAo68yLRUrT_IHQTbrDMj8mUp.rBz
- oc4V8jP6AlsMWNmjBUu.wPgIWB.whZ0O0yJ_0rn2ALs_IICsK_twRzlZspNETtapVUhv13kZSiwO
- tuPptpvjkGSHKLGkrdHiFi_ftp3TH9NU0PKabUa8FsHj0u3amhnh2LFyw0BWz937Efd2xoRsm._t
- Xp71I.OaC2y_nGRNuRng0kUgU5a9kWZnXdOXj9klDGAf6mb81d1fnnq_kE6T24HTjyjukjDdhFHf
- 34ZzZb4ZPENmfrXtc6w9hVA4bL_WDWxDEynJFaQnJxsgCV0VVHGl4pCJb0JdGH79JH0XWoRN8q7.
- hY_8ClVK.xU1wbwdNEA3LiRlIXpTmM9PeaGScduhnqJSgaPU8XT0bNjQ7UhYQqCk39WDWwitK9bl
- l4QG1VCdv6G0BCk1v9JQdayL69rN02EX8DColnqBHh5xA_dLyqQEc3MkDMEjLLr7VmUAeMC8lb6V
- _euX37AQEbeLinN4OMz5v6SdK8p8lPQLgln12ezgahZQTVstRdtVwVQDCTF8rmxJMOrWwu_C8TId
- J1_Og3za0k4VKJaB2HGi0hdkifQ9.DiG3RtwFGYNfCpHX4aZ6tnXjOBX2.CVagHMW5pJ_HYMI_gX
- s.WSVbRBOOILhzoJM.bx0sdRJlchiadweeK2Rh7NR9HstKOlqc0gab4IuHa8Tgk62Nx7ULVrA2pj
- 0mf0Zohdr5O1ngPpkdhyAs1DOjschcAoJu69OdFeX2VXok.kQSICNl3yJxSS06mNcV9d0XRnn0PB
- vJi87.4yCkaqBkGqNAnl7xV60IXjwEpdq4qyNlmoQexBx28vlR90idZvj5QlaRR2ZsFdFh.Fz8Br
- GSuQTtxRTzFjrdPWQGubTiBKCVio0UQlsxCBN8NIhZkBC33EvWRqzhIi.ccyJYO_1gB64i7TPYHo
- 3_6rOZxWP0Nnj08CpC0uyxC.vLi5Av8mtXvDQ6SH.lgEqLDwumzsCWrV.uxkoBup8dr8zcgH8_7r
- 0WL4eaSR.
-X-Sonic-MF: <namiltd@yahoo.com>
-X-Sonic-ID: a489773e-6412-4553-977e-0a5fc5d1ab86
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic304.consmr.mail.ne1.yahoo.com with HTTP; Tue, 8 Sep 2026 11:18:18 +0000
-Received: by hermes--production-ir2-cddf86dcf-rk2hx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 0f3422411e7bf53728402e6080428f01;
-          Tue, 08 Sep 2026 10:57:34 +0000 (UTC)
-Message-ID: <11b0c7d4-4e77-42a8-9528-6dacafd3e251@yahoo.com>
-Date: Tue, 8 Sep 2026 12:57:34 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kXgU2Ube"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-485843aeab8so5038023f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:18:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788866307; x=1789471107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Gk/nJeJxwPg2pq5tNRM4eCstoAGF0TBlM4pNX6SM0kY=;
+        b=kXgU2UbeblVOpJxBU4KLQ61KVyf5ihL461GpQ+KmK5Bv1pQaMrx5EOj23PMfWCDohZ
+         IUPXF/ZGU7BljhgKQvEgoXkILy3qDbjBhN6YSH/7cGrns9CWkzKhEvVw2IAR09LTgNYM
+         lEv7PDcJQd2dToSZtRDT0eGEzrrZXZK/3C++fMgglfrnHOFleh2wulHX4hkJUpW+1fCM
+         2+N5H6RJaRIg+WK4D/bzXVXQgkqromOW6sGyq69fTfsMet3WIaJYl/ZtIoZZ4RcZHPQV
+         KiTAhWKWdacGskOd3gQSqZp0jq0LquMxoH2jlfHcdTnkWhMwq5IiSUjFVF+Zh+te7C8C
+         6FEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788866307; x=1789471107;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Gk/nJeJxwPg2pq5tNRM4eCstoAGF0TBlM4pNX6SM0kY=;
+        b=EJAPZc+VohbsFSAsoNIMUrmGyezztZJ2ry+oZC1/4Y08t2ZP6642okIPrUcfD65mLj
+         Ovt63XT1oN2F+Q2Faekcz+8TJkR1LAoQ3EIHlZrzLnMDmzTrMjjKR4MbJmOImgwaxuYP
+         zFhLu4lJGC8enJAa56zPLLWRD5kcV3G0WFYTS68jVVI63xLKBW3+jVJM8vm/oIZU8a/r
+         URUZYR2kUsN56+KqHpZXyUA3GviNo7FslEOHRcpP3d3uxrCKRdzomVXX+qXqSp4Kwm5P
+         DdJW+RAfRAgfnQQ9A0uElgIv4xkRg8svMtvdIg2ZmxITk+Q8Vid5j8K/VjSTkGq6Fbh/
+         uQ4A==
+X-Forwarded-Encrypted: i=1; AKwUvByz03a+5g+rkIxCaWUvu0W9S6KAoQOFiKS+wbC2Kr4p0gGZ86KYM+yIef1qXJR4jGpZqbxBLbn2WiVzdSs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mRK2vLnymPFDgjsZqawckpNnHep1KKTcf/d8JWULti8ebNg8/M
+	uFB06jmV5H6VxtuUcfNqxjHqoszfHNSNtAFdCqQ2Yy0EvQv9K+P9ITY0
+X-Gm-Gg: AYBFou3n8++b7zw5AmHUfc6kT705XL9YgupM68r78uVX4V/pA87QfG8atypcvFJuTsf
+	jghLsTa9IejFe/FKlBKxL9C9Is0qqT775169AjG05K3wByL9eZJeKwOcO2pZ5YBWvm6aj9m9xxb
+	CZjRhNVY/YLnXm3kXBnhqP5MitFf3SjEAv+J2tLERfiSd5m1idzihyICNmJW9QFoKcIcy7zBo1M
+	EBErKACpT3fbkBDjxYLZGwh6or0FuJeobucNdvD3Bph+7H4APpYWSoohDyZl9uYnHEOgbOjFrUj
+	oOHauSi4U+Qa2d62CdDnBJvaT4lOmU1+Zc78IQmxgTPZV8oavylwM3b1JA6SJNobT2QOmQWEZ7m
+	X5J/t7L19pmkQ7CVmtszH5aLNJnv51bBXxBJSTASFyJL6LSSaIOeLyoXDhpBEbSyaC95jXlC6bG
+	lJFhp7q5m02+jKRXfD+wACu9ytP9ntOQ6IxiYd2SkLpG2OeANFycbL7hvJMftmBE+AintIuu5kN
+	9896ik05WpR+CtJRp5gCVJGHMVNLTDCD4gkxd+RfZiX
+X-Received: by 2002:a05:600c:3485:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cf825c119mr619835105e9.16.1788866307154;
+        Tue, 08 Sep 2026 04:18:27 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm34422099f8f.3.2026.09.08.04.18.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:18:26 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Mark Pearson <mpearson-lenovo@squebb.ca>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/2] HID: lenovo: suppress phantom radio control input on Yoga Slim 7x Gen 11
+Date: Tue,  8 Sep 2026 13:18:12 +0200
+Message-ID: <20260908111812.43837-3-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908111812.43837-1-okerixx@gmail.com>
+References: <20260908111812.43837-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] clk: qcom: ipq-cmn-pll: keep the CMN block bus clocks
- enabled
-To: Stanislaw Pal <kuncy7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette <mturquette@baylibre.com>
-Cc: Jie Luo <jie.luo@oss.qualcomm.com>, Georg Seema <georgseema@gmail.com>,
- Brian Masney <bmasney@redhat.com>, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260805193638.15327-1-kuncy7@gmail.com>
- <20260813093351.178419-1-kuncy7@gmail.com>
-Content-Language: pl
-From: Mieczyslaw Nalewaj <namiltd@yahoo.com>
-In-Reply-To: <20260813093351.178419-1-kuncy7@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26460 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Transfer-Encoding: 8bit
 
-Hi Stephen, Bjorn,
+The ITE keyboard controller (048d:83db) declares a Wireless Radio Controls
+application collection, which hid-input registers as a second input device
+advertising KEY_RFKILL. That collection never reports anything: the
+airplane mode key is wired to the embedded controller and reaches the host
+as EC event 0x19, where the platform driver emits the key.
 
-Just a quick ping regarding this series. The discussion between 
-Stanislaw and Qualcomm (Jie Luo) has been fully settled in late August. 
-It was proven that handling this on the UNIPHY side is not possible due 
-to the early stage of the watchdog reset.
+Map the collection to nothing so hidinput_has_been_populated() discards it
+and userspace is left with a single, real KEY_RFKILL source.
 
-Are there any remaining concerns, or can this v4 be picked up for the 
-next cycle?
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/hid/hid-lenovo.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-Mieczyslaw Nalewaj<namiltd@yahoo.com>
-
+diff --git a/drivers/hid/hid-lenovo.c b/drivers/hid/hid-lenovo.c
+index 3976d7b53b14..617bba662659 100644
+--- a/drivers/hid/hid-lenovo.c
++++ b/drivers/hid/hid-lenovo.c
+@@ -476,6 +476,16 @@ static int lenovo_input_mapping_x1_tab_kbd(struct hid_device *hdev,
+ 	return 0;
+ }
+ 
++static int lenovo_input_mapping_yoga7x_g11_kbd(struct hid_device *hdev,
++		struct hid_input *hi, struct hid_field *field,
++		struct hid_usage *usage, unsigned long **bit, int *max)
++{
++	if (field->application == HID_GD_WIRELESS_RADIO_CTLS)
++		return -1;
++
++	return 0;
++}
++
+ static int lenovo_input_mapping(struct hid_device *hdev,
+ 		struct hid_input *hi, struct hid_field *field,
+ 		struct hid_usage *usage, unsigned long **bit, int *max)
+@@ -510,6 +520,8 @@ static int lenovo_input_mapping(struct hid_device *hdev,
+ 	case USB_DEVICE_ID_LENOVO_X1_TAB2:
+ 	case USB_DEVICE_ID_LENOVO_X1_TAB3:
+ 		return lenovo_input_mapping_x1_tab_kbd(hdev, hi, field, usage, bit, max);
++	case I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD:
++		return lenovo_input_mapping_yoga7x_g11_kbd(hdev, hi, field, usage, bit, max);
+ 	default:
+ 		return 0;
+ 	}
+@@ -1568,6 +1580,8 @@ static const struct hid_device_id lenovo_devices[] = {
+ 		     USB_VENDOR_ID_LENOVO, USB_DEVICE_ID_LENOVO_X13_TAB) },
+ 	{ HID_DEVICE(BUS_I2C, HID_GROUP_GENERIC,
+ 		     USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD) },
++	{ HID_DEVICE(BUS_I2C, HID_GROUP_GENERIC,
++		     USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD) },
+ 	{ }
+ };
+ 
+-- 
+2.55.0
 
