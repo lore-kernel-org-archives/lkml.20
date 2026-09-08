@@ -1,168 +1,60 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4260C55295A
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878956; cv=pass; b=qlibRR45DrktGCacHGyqDb7Uobv5MbFFsU7eXzQf93qHwCaeK2Tn1JQwWVeb8Rm8sQ5Zh3vEWJK9kxwPs7mxFPFnQ1WkCOHn520U9oDafmFUPX2KkntI8r+/y9hH0kTd0xOtcXVz2MdGrdxgXAETS0VYNlJzha+6JVwY1CsYHXE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878956; c=relaxed/simple;
-	bh=vBTnbXlbtE0JtfGMQ2MHvqNX3t4tOrq8IAFxQ0wndOc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QyJNhoUpj0ulDgrmdKAStlZ8EelF5zRRGeBHOCnq8GlLXY6wIh6QU+BFiaGnponQCLrI7qfZHMX+fakhPlgpNyG9/2U6sVZ4Stotiynyeu/cpCqFTmw735jVRwd/3geaDtrC8+c9a0WJQYx5AYUx34TsO+NGxsA2AWvv5zuavWk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=darkrefraction.com; spf=none smtp.mailfrom=darkrefraction.com; dkim=pass (2048-bit key) header.d=darkrefraction-com.20251104.gappssmtp.com header.i=@darkrefraction-com.20251104.gappssmtp.com header.b=usKQCZYU; arc=pass smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=darkrefraction.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=darkrefraction.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E34552956;
+	Tue,  8 Sep 2026 14:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788878955; cv=none; b=RBCZ3+QsAi1roXgbJU5AmTn9MBbdCy3Kegqcvx8JPCRqPDzUSeS5YPA1rq+J3kjUZ5w9WMTur2Vr8mIavlSPQz+3lvVEFrHQJvgPRPSNCniPJIE+6ICseW1RXSH2Fw/C45xroewVD7Wl5b5Do1s0+su2qBuFZpFU/lWiyhUjhT8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788878955; c=relaxed/simple;
+	bh=QlHdIohpZXIdw/kroev1f1mzjcviMGmQo8zyFX53VBs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZEknhri9APIdxwt7B2qDAqeAI9ACUa20QrP/ey5QkooxsVREtVCsVMwFqTLX8vwvw1NM5BNFO4/2mSuV6HRGFHijoR0qByV/IH8oW9zjRjsP02kbOjT2iypiRkaPTXnTB58LUZQCQ5wOxyE7Y4p66VK3IyxE2PbvUaIFOxhU5us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=otzDxKaM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=darkrefraction-com.20251104.gappssmtp.com header.i=@darkrefraction-com.20251104.gappssmtp.com header.b="usKQCZYU"
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c65093556aso3660153e0c.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:49:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788878939; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IeoVZYHZGvma4nMcahYIB4oN/WEteQIFIrynoS5cGVBnBwXtWNoGkMj4dkOPEqSKPy
-         swUl+nropXY+9qCvaZGEf4x2FB/dSeYCG3TbP2hcHP5fw9b+q83jcOx0zViifupNc7S7
-         VT/goH5ZP3DOVarjdYqMedHyvGVakkL6+W5UhhoUWSSKPCuFSg6o3r6baVF83g2bu5fj
-         Kp/0heIIX5owLULX2YD+2ci6mtf56HZpNwcb6UsCGjcyTOnYBu6waOswoSvy63U7KQxR
-         VPKHc3zNgc8yIbx9dz9VKDSewv/49esI44IxQ9ceOJiv/qhP8QIzENeeSe9s7T/gm2Ka
-         7tEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mn26V6U9AHVIB3sm1/v6lJDDiA+oJxKcvjPFvuodVsA=;
-        fh=5bH7YfDXIgj67UB0sLrKc0ilOsI9gu/y2KfYJOFGC1Q=;
-        b=LpbJlKH+tAHl+hU1ZVT3MEkO8IxjMRSlHIcGJjgF5tHR3A1tJ5Q2xtKIAmu1hW+xNA
-         9SZGZoIAvo+rTayh8Oeof6hchKY9ST8vJbJhH+N8kdbz3HFaJfVdZraBRtH2ov/aMjDU
-         s8inhnSTkNbgs80WESwANh6F/kw3o5oI1vqtNmNjcP2dbrETIJ+le9g7YVzzwiqLeAUP
-         K5bFcGhY5ULBhr9CJQ5Hs36FUhgzDWx6/fgPfdB8f4XncUbxZJnxeg/3Abn5tmNDGPJc
-         Ydp1gFSAy2IgDf6s8rLXU7R4DHzTVG5KY/abOjLxlfal8Yz8layeA+4WaP77CuNQlt5g
-         HHbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=darkrefraction-com.20251104.gappssmtp.com; s=20251104; t=1788878939; x=1789483739; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mn26V6U9AHVIB3sm1/v6lJDDiA+oJxKcvjPFvuodVsA=;
-        b=usKQCZYUaNB14qGxSim51us7Ji6k6mUaZBzormMQZ7Azv8A3XC9AJxcY3dcC6Afwoa
-         4DmCFfRXeEoZv6EBxbHh+ZbGjuMJdEWQSYqyxLyuwi4VudJjmZ88xHpVqiQBnUQ4ON1e
-         kUGmNK1cfYoKXe3lg6Tau6ZQo0+6PeaNejGOMErA38ARqfQuIVe6Zd6PgZYJgN9xShu/
-         tG2gJmnhxwIUhHu/wOcScCL6AxzFGVn2/1uo3vOMbx+tXkIqDDQo3n5tWdsD3FMzYcx2
-         DOVpypblWFxdvfm5ZI7qFbspcEABb6OG6UBhJ0mg5G+JWy8A9eDz8bShDh5r0du+SpD0
-         yD5A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878939; x=1789483739;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mn26V6U9AHVIB3sm1/v6lJDDiA+oJxKcvjPFvuodVsA=;
-        b=IZerf5EUIHkz+xvFeDwjLYQb7JYF0T5Eas0DBUMwvJdVBdM8VnuluyFKXv1YgHxks7
-         z7FSaKibm6zP7YdE0oLZpJeb3gZ7KukFFGDXLeucYz/1GZC/Ph9j/Nrmj6LexTSlcM+O
-         XTtPLkiVr/7EOMFy5Fpmfw7J925IDz92F3rKEhnBwxZ+Y/KmlPppZ0qwRiax5Cklcxd2
-         0gI6ymFtP/KLeVYP1zn/ArlDktAxPROnaSca+f9JOvWa9+TMvYoHi2UkXS3wIMivCX6L
-         Z8Bn9f2Y3OFrogVHAYu/nLfw1hITjnlMDBo8u5SzO+9/EFFQ3TkKiWimvmUsiZ+TiMSl
-         6K3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxOn1/N8ZylponxR3x+KPHnFGoopND0J8eRxZGb19QfFYbqwTDryWBsRzFy/XZsgGQYcGx14ISNiZW+2Bk=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+Y5NotdFUyQUZkGYrbYisBnaPM6EYatiwFBFhfzCl9kHF66s9
-	oluaLJ2P1Bzhubg5wfixbGS1rfgPe8jMNQfbk2qGg87WaUMSHZRkiUyAFQRrFdEkqp9uD0Jx5KN
-	tiF5PuXRZwhGmQgFzMvU0ZCIOxsI9Eck0StMSmkfdWw==
-X-Gm-Gg: AYBFou2b37vb95xhyiIpHZDq0Y1XsqHPi5jXg3nJ81Tl3cFBNzTBL+SZqQOIrE8o9Vb
-	mgXhtY7qOp4pDeHd8jaqaopp4peYEixMB6H76dXRguCc6FdehwBaSibkAVzfd5YBBZJti5CsXT6
-	lHcJNWAz0vF3tUQzglooDyyrQhB6SVStCKMzy2lE4RYJXIYO50HYgfjFKrn4gZYYw8J8VfhuZPR
-	Z9EvdArNErD98YsEN7KI5s/REUETV2gdTYxiqTJIyyfeGNV8499Z1fGvo3+6uH6hgc1V6DL7rKS
-	D9i/cwVPLnM6rnovcw/BebR6Yh31BggbE4UTxqAYxE+p
-X-Received: by 2002:ac5:ce1c:0:b0:5c7:ed31:3c11 with SMTP id
- 71dfb90a1353d-5c7ed796b9amr13188562e0c.3.1788878939466; Tue, 08 Sep 2026
- 07:48:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="otzDxKaM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353461F00A3D;
+	Tue,  8 Sep 2026 14:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788878943;
+	bh=X+99Jcayi+nWYM1zL62pmOjFdwDFaLWV0ywtPPTSgRc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=otzDxKaMsEPo5BrTh9lku30PuCzo66+jUoEmpvNdOMJa+mEV0SykNq9Z6gLqExV1h
+	 cOZZQxrplmUWtetw0kDKb03j1d8R0zTPZTB6vRkvls2cQZv4B65o38aZMrKzbAbCOu
+	 3aveOxcjSZYbfLJf4tDSjdjbBBHPlzW3F4u7cSQ+YmXC+Upe06IiwTXJCGaBBu+ezP
+	 yVxQD9Ms9gBNq+fPKvVwN09Gv2HwPG8T3MlGY0PsXJawghAHcT7+04eHJUGo4qFYmH
+	 /FkWj5w/Rkaf38nZBXKNILzS7iinjA7szyqzaKSPydOajMCmaxycC63gDVj7785jb0
+	 u1AIDhfMppEzA==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v3 0/3] mm/damon: support access monitoring of hugetlb-backed memory
+Date: Tue,  8 Sep 2026 07:48:51 -0700
+Message-ID: <20260908144852.104829-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908135156.97481-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828033531.1117754-1-apopple@nvidia.com> <20260828033531.1117754-6-apopple@nvidia.com>
- <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org> <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
- <apdvTgAp5eGezO5t@nvdebian.thelocal> <DL4QCAZXM8EU.2K8MLAM00VNTX@kernel.org>
- <apioGUDamrCur_oR@nvdebian.thelocal> <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-In-Reply-To: <DL5MA26KZEF9.3KHKQXZ4JD2G6@kernel.org>
-From: M Henning <mhenning@darkrefraction.com>
-Date: Tue, 8 Sep 2026 10:48:33 -0400
-X-Gm-Features: AcwNN1VMoN6xdNn8eWXN2SwQNMCIT94e5yatQIWCSWj7WmgOlqVF8kOh6QLwKIs
-Message-ID: <CAAgWFh2iPJzQ5PJfFpPBTdgZ=GFjy7Eoz5C0e1WwFMuOuyJSTQ@mail.gmail.com>
-Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>, nova-gpu <nova-gpu@lists.linux.dev>, 
-	Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>, 
-	Alexandre Courbot <acourbot@nvidia.com>, Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 6:42=E2=80=AFAM Danilo Krummrich <dakr@kernel.org> w=
-rote:
-> Because userspace otherwise has to figure out the architecture itself bas=
-ed on
-> the chipid, while the kernel already did derive this information.
->
-> There's many ways userspace could do this, and I don't want to incentivis=
-e any
-> of them.
->
-> For instance, you previously showed how userspace derives the SM value fr=
-om the
-> chipid with sm_for_chipset() in mesa with its own lookup table.
->
-> Then in NAK (src/nouveau/compiler/nak/ir.rs), there's this code.
->
->         fn is_turing(&self) -> bool {
->             self.sm() >=3D 73 && self.sm() < 80
->         }
->
->         fn is_ampere(&self) -> bool {
->             self.sm() >=3D 80 && self.sm() < 89
->         }
->
->         fn is_ada(&self) -> bool {
->             self.sm() =3D=3D 89
->         }
->
->         #[allow(dead_code)]
->         fn is_hopper(&self) -> bool {
->             self.sm() >=3D 90 && self.sm() < 100
->         }
->
->         fn is_blackwell_a(&self) -> bool {
->             self.sm() >=3D 100 && self.sm() < 110
->         }
->
->         fn is_blackwell_b(&self) -> bool {
->             self.sm() >=3D 120 && self.sm() < 130
->         }
->
->         fn is_blackwell(&self) -> bool {
->             self.is_blackwell_a() || self.is_blackwell_b()
->         }
->
-> That's two unnecessary indirections for something the kernel already has
-> available.
+This series relies on atomic hugetlb pte setup patch [1].  Without it, applying
+this series on mm-new will fial with a conflict.  Because of the fact, Sashiko
+also failed to review this series.  Sashiko reviewed the previous version of
+this series and found no blocker.
 
-Userspace mostly uses sm id and engine id for feature checks, and I'd
-like to keep it that way. They correspond to either the shader isa or
-which class methods are available, which are what it relevant for the
-related code. Most of the checks don't look like those functions
-you've pasted above. Most checks look something like `self.sm.sm() >=3D
-86` or `info->cls_eng3d < MAXWELL_B`, which is to say that a
-completely opaque enum isn't practical for our purposes. We typically
-need to check if we're before or after the point where a specific
-feature was added or removed.
+[1] https://lore.kernel.org/20260907170358.100168-1-sj@kernel.org
 
-> Yeah, although if SM is correctly reported by the GSP, I'd rather have it
-> exported in an info structure than have userspace create its own lookup t=
-able.
 
-As others have stated, the sm ids reported by firmware don't always
-match the sm ids documented in cuda-related materials. and nvk follows
-the cuda conventions here.
+Thanks,
+SJ
+
+[...]
