@@ -1,63 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5384734E741;
-	Tue,  8 Sep 2026 10:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B1AA3451CD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:01:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861691; cv=none; b=ApZtIr9a7/j3eCUA8AQwave8YN0DdF+dCTJ8GXO2G6D+3muCarJw3DvZAuJuo1+keA2OLCGL9Sy6nz1P0OO4iMBlRksZt36h8GE7lelXzSrgNxumZdpHLKuijdemnbA+OHsIz0KNQXt4FYtAi2yiW20TwUWNGmmL64nqG2JivNc=
+	t=1788861711; cv=none; b=oPo+Ua7aHK2xhuRVL4kSWTqDeFB/OntomN+NamkjdbKptFwJs0hsLfsZeWjWTete3lelwfekESdJuOQ0EAvp0n5yyDzk2VTjyskA3ZroFzJEZvpr3hJPQgBlWYhsizLGvYuRK54fIEaIJwxp5j3TY5rqhkOdbINNHFmZdKM3H3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861691; c=relaxed/simple;
-	bh=LXbSDYsjkNm8cedG4AwDLbzDsF4yDyqkcWvKzBxsQMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FM3jEqzabtI44wTbKs8XuSyoQQuh7Qs3ySYgLB87oJKbVFYT1NrrETVZM5dCWi9w6Ei3Cyd4FIUgwwY7FKYVU4xSdPjthl6rL5ZiCi7qcfpisZPskNwhdoIzEtpI7FPOZzVz0K4z45biyKTLPWcKdpiICR4XDqHI5PTKPwu7ViM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fYs/vCiQ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fYs/vCiQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB6F71F00A3A;
-	Tue,  8 Sep 2026 10:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788861690;
-	bh=LXbSDYsjkNm8cedG4AwDLbzDsF4yDyqkcWvKzBxsQMo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fYs/vCiQ6VztJSFWja4EifGNBXEgJcn6i9LeOxbNuZ7YPVs8bKCPOBWKznPtGHFeX
-	 ggQU/V2yLb9hct/R54BI6siGgFtrJhwg/bz6zR72hZ9RxuVpgsXHSv2AwFSXMWhoIF
-	 Uzs7OLyVUc3s9UJ5G65/ZWy7J3sSqDnSUBcjFvsU=
-Date: Tue, 8 Sep 2026 12:01:23 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: HE =?utf-8?B?V0VJ77yI44Ku44Kr44Kv77yJ?= <skyexpoc@gmail.com>
-Cc: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	ntfs3@lists.linux.dev, linux-fsdevel@vger.kernel.org,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] fs/ntfs3: fix slab-out-of-bounds write in
- ni_create_attr_list()
-Message-ID: <2026090804-parted-manly-afd0@gregkh>
-References: <20260625031932.9412-1-skyexpoc@gmail.com>
- <CAOC0qyLj55itFPEurfNddWpzzcPJ4j3bvDxfWBRev_GzPLL+mw@mail.gmail.com>
- <74bcba1c-6bf4-43b0-bbb5-ef2f0490e3f7@paragon-software.com>
- <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
+	s=arc-20240116; t=1788861711; c=relaxed/simple;
+	bh=7Fyxy571KMxMz2l9KXmc8erKfEp7VslXJ6d5gZZbnPM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VRYVpcjNtqoUEEu42tGngyC5QiFf4Eq6qjKb9aMPhs+RtU6yqxQjxtWXiCZev6aahqIwfCzjA4qgJei+wpaVeiP/8Lxiy79f0NTacnT2ojgcIaqqcSo3AHTgC1qPhRsfHmewWc1QarfKnMSjn58kT6sjIvfzbZXF7GUJfPPRRkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-745497ac8fcso957345137.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:01:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788861705; x=1789466505;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2tI/7x8c4NyE/PwWWec1lASAENg1AULIuOMZ9zg64C8=;
+        b=oAiCMIq+3EtXt1C6YUuob1OZp6+800tyF8yjXbIFJyLExwSW0521xT8e+Uukq26OqI
+         ZSAlZ7xWRq+6G2bBr7hJ0WREb3gEnLtFQnNlR2pEa/3hbujngz9p6ZmNHN7MKeMBa0IP
+         FKBumZnwafc1ZAnw+p3tJZSZCOZ6qjYTndUqClwQVwiXWk9ppuIOvTf56RTAEMgLa+N3
+         u+/c+8rRbVlBzkX9LEnoTg7S5Lys4/wQNNUeJVeWA6nBY2bbbZ6E2N8MS7fnkoSWObcF
+         TJojpUMbSocIwvEY3ggrevCXV44qs7rJW6hWYjoyItj+679PCVEiQJ1OQcXcJyh5C2Zu
+         9s0Q==
+X-Forwarded-Encrypted: i=1; AKwUvByyjXDdUUbTo2r61rqCQFlLxZ+HdZUQsBWmXwuW40TrbU3G0230IUzyB5YatLJudmvt7ZmP3Z8rOkytJgo=@vger.kernel.org
+X-Gm-Message-State: AFuF++mji6CV0nxLBl8Byc4+hfccQjhfbXwBnvK0ULWzEBPQ4eVcbO+8
+	0ItNY2LdfFleG4kjXTouJcfgVjillrU3bcyTonGt79MwTY0M/4KfrC38r4TB3I8A
+X-Gm-Gg: AYBFou0+a6UMW2zxpu29jWrMvZrykl7W+EqyI/47e2a4qZE6InN31dbJgqOpPoKVKfR
+	V7OHXPTrPqgGX5iMAut4+GqUjn/R4ooSN5l7oV25KnksItXj18SQCodJ2/PH71v4q724QiR9oLI
+	d91FsbdMylIwzo5D29ezudAco0DgrS0HEgvMZNrS43koJBdgWglZFDKyNvWJElE+GQLlKpomeeX
+	t0SRQD/itY/khWn1gu1nyDWShPlT4MfduumTefomoUuc3EO6OMtGncN30zZqac7zNsRFgAn9XfS
+	5AMZsapGqOpwrXKxttT94oT2rZ76TFlMPHWIK1q3sYKcofcNotIdv+0mCbNistztmY560iWn/iW
+	rEP9Z/NfKB9oMo8fp2WYWR1fprC0cbc2Sr8cjpwEaLM91klT4oV2qsSkkBFYscUdCl8n7uL6PnC
+	d9e+Q1iql5/ZSH08/QY6q3pdxzEjsxMHMOeCusort2OQj3ynEmo7txV9O958uN01PJ2oGZt0V81
+	vhx/bp2YeOijWDNnMEJlcOV8vww/w==
+X-Received: by 2002:a05:6102:91d:b0:785:76cd:ce88 with SMTP id ada2fe7eead31-78a4a67ba9bmr9093766137.3.1788861705226;
+        Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
+Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com. [209.85.221.170])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47b56bd3sm8022084137.12.2026.09.08.03.01.45
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
+Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c7afda4515so2553935e0c.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:01:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw6B8PzRtw3uK7UPuhoQeS7zkEW4ijjVcq5I7GRpeVkKzpJpjnWSvYmkfto9VHEvQQWwSLKXtWduaS7ihg=@vger.kernel.org
+X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id
+ ada2fe7eead31-78a4a6c8a04mr9752098137.4.1788861704764; Tue, 08 Sep 2026
+ 03:01:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOC0qyKG=RG=7Nf0OpTYLQ5QZLhjNUMd2=YGQc4+S_SCoRBbcQ@mail.gmail.com>
+References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-7-cosmin-gabriel.tanislav.xa@renesas.com>
+In-Reply-To: <20260817185700.322370-7-cosmin-gabriel.tanislav.xa@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 12:01:31 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWgPac64DF_MpVFioGJ2ef3irMB+_khaT32MgQS+UuCgQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XXZ_HyHzFSTOBPBh4qzYYojXkTSzZF4gN87445u1hVP8hGIVXwwu4oGIw
+Message-ID: <CAMuHMdWgPac64DF_MpVFioGJ2ef3irMB+_khaT32MgQS+UuCgQ@mail.gmail.com>
+Subject: Re: [PATCH 6/7] pinctrl: renesas: rzt2h: remove unused struct rzt2h_pinctrl::gpio_range
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 08, 2026 at 05:52:20PM +0900, HE WEI（ギカク） wrote:
-> Thanks for clarifying. Since the upstream commit did not carry the
-> stable tag, could the stable team please consider backporting commit
-> 7c4841e2a627 to the applicable supported stable trees? This fixes an
-> attacker-controlled on-disk slab-out-of-bounds write. My v2 carried
-> Cc: stable@vger.kernel.org, but the functionally identical v1 was the
-> version merged upstream.
+On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> The struct rzt2h_pinctrl::gpio_range field is unused and seems to be a
+> vestige of calling pinctrl_add_gpio_range(). Remove it.
+>
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-Now queued up for only one tree, as there was conflicts with the others.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.4.
 
-thanks,
+Gr{oetje,eeting}s,
 
-greg k-h
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
