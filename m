@@ -1,283 +1,198 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013008.outbound.protection.outlook.com [40.93.196.8])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4C14E235C;
-	Tue,  8 Sep 2026 17:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35912D3727;
+	Tue,  8 Sep 2026 17:07:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887232; cv=fail; b=R7l3BwAL/RMyMDEc8Hdngj66cL16dX0afuEX4EoQUg54fmG80NSK5wzFb7MhElyL1Dv5vgQ1oHMpcEVWx9LmmFyMzOtvd0eF/mBTpSNLsGdfkLcObhPID08ULLfB1+tCN2GZZ9zRFx/J2auwa6n163+yhZ0lLPB3b9oV8+wdO2c=
+	t=1788887259; cv=fail; b=XR4Pyhuw4VDHo7/XzKunaRDCFyv/u8RdVv/Eijr9iCA2+n9tQxalvKUoj5FhUYc3MsdqAbtMWMrnEp7X7gSc0j4L+l86EVGRFyuNBE6vOJWg2Jp+o3gGRkiz0rBQDy1mhgv65IwHiCMyPzOTqBOly2C2pPUVvI9Gdm7Qo7zGFo0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887232; c=relaxed/simple;
-	bh=V1eb6IYZ86+fQzzweWnBJyvtyxBwCGSMG2HuIMaarbI=;
-	h=Content-Type:Date:Message-Id:To:From:Subject:Cc:References:
-	 In-Reply-To:MIME-Version; b=B+EsOFOivrvSpMqf6dOWean33RxtVtk0AVqXiKZJ+sOjKqniQG1n4dyd8pEg9Hfiy7qdaRG6F/dZ04HR936n857uEp+pDwdb2AXjqjtQ94hFwsUB+WvMjwIQ8voVYPg9tdeuui8V+a4fKpAyFyt8SY4USjZoMyAjquDrcPnoQvY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=SzQ7B3g5; arc=fail smtp.client-ip=40.93.196.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788887259; c=relaxed/simple;
+	bh=OIVx9s1riWx+UqHLDTsfy9bVYljiqga492giQMeC3rQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bbybdklys03TqkoM1MIDa4ewcQ6iYksTj7gP1X8e9yZ2EPCTYOotDO4eRhpd+w1btHPRk57h1zQNi617/kza7H0BLZlKKXLQXf+n6BxN/8k3iY21FYVh753pn0H+mNxti1UavBLn82YbK7vLaC6MXQtWYSmHbMTBU+jWX4gfB3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=pdGkXfB0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=a4WP7O+I; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="SzQ7B3g5"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="pdGkXfB0";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a4WP7O+I"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 688EkPfO173220;
+	Tue, 8 Sep 2026 12:07:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=WJVyonQPf03US
+	X4RK1at4qTPhvvjwTnMfMX3BXM7FEc=; b=pdGkXfB0jTlL4+q2U0+7pYMSHAEur
+	T/yxsHJ/q9oj2BdN8f+VsVbW0+muvfWTjI79oA5ZzIz+GMaoe7STyjKfWPpDwxxu
+	NNCy1lTopAtjTEZ7Qq8ErnadQGvq9ZsxFqqrIFkK3qAr2ivZ/YbRb05711mKpcQs
+	a1USrv3Hb8dPf4Se0a0nlr4PIC1GIOwz/fI4hVCXBwJ4rDoaRXA3JlShler266At
+	bz54JqVFif3nEeLjVAfaZHDI85k5wwxbikjTKRExzILEES4L90bBB7HX2ZTUAG2H
+	cg2VP8Rd0PCYRcrYAkrXJmNdvmk9VczI+Ru0wNV51+lDJqs27ohwBzxpg==
+Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4gjkdmsjnr-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 12:07:32 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mFmH3vfYYEnXuB/6E+O6M6ox63u3tJYw6TAZjFhHIcVn2lYuQoFRGe/5sAJtrYKT9vlpgabOrwmhHlCdAmwmlzrcI0dZGfHGwQ4kCh/BIbiTNGw2sRlrFwF1vbKitAY+RR3eIIVjiojeeq6bgBpDUZ2Ugd3NHvoHXl3T5n6+/aH7xn6QfpA/NSS+odyPrHefef71TiupHe3LOGp+3/7+c0lA/LmyEirY/A9+c0du3l4vfWBGZlyK+5CxSPVUPtetAflsjUGyQE0B4NBrsdd5wBpk/GLqhQQOasSohNHwLE4/91MB4TALbf5/Sy7hpLl138jCclLp1kWJG6LiQN4N9Q==
+ b=X87UTHjXrQK+ebvQw89GPYtTgUVdCd2sfo1EM61HFNexSVjfkOMse1tiCaGZMU8FYKONZJ42fufgj2eW/oNn2nffN7OBksdJMGNP86yRVlc2L5bREoujONgLc8L9uf+PDyrmhUiTjMu7bimY67MGH7jhRZ78bUu7hI6YX1PrwiMWChqmBq+ZunqnGtyKWjDhaHlWGrbNCZ8dZCfsYCzyfINV30VTS84AQNFadxbc+Fv1ouT35KH8DqRQmMfa7PSZw78gBN4W2C4GQcRlZ86pulICZaI08+pOy62oWbET+sA0bHEYray0IDL3enlddOVFHGyeqjGED4o/Obk9vIIRrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BcaLX0DLYHv4UqScJlzSiZ1GStIaXVtAtDtoZQtOvS4=;
- b=Dp9cGw3h33ALHs7bXd+9duHxQVyv5OalkA0p+U8dh6NFkb2tg9QaFxdzeEVtYuEwo97t3c2YIeUdL0euST9U629UTz+odd0SNZCZ8lBSXLv28I0mVgiVhqIEJ9qqDGsgyoI8bxyLOsm3w0/EZSnPYAbjQ82aPq7BBYuVwpaP22KNIzqkJD9YojStEz7jc0GfeLb/LmwOBzyh2bHWOkeLpthOXM9CB2cNytMmAtxco+uXj94vuxSYbhODnm3hYbqHaZrRwDLnfqFctAdUhxitJKy8Ioy461lC4wv2hL6Gm84xsnSw/G6WYx+cDeKI3f+shMwa891f1QBYJj5oLAI5Ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
+ b=UjKWZ7gAJmUUfx+HENqePFpgtsl8Nhb1GrKv+E2HY4tLCc1TdWdzDY+G+juVz5LuHB+gh6P1fJSiw4nFl21+udr67ZSVdsUahreWNeELIdEqViaTp2zdFT+CKaOxsjDQ2ztfmmKbEO5aWbnpjGjaxtenBs2R8WiPTmoWW/ps4I4uIECG5AEeD4fofHqVZmwPTAMJVnP+sJFplt+KFdNquNQNh+EOTeqHd9PrdXEKJbVt1mIP57wsVYD5y8/rnYmqeugIqG2PhHIYS7Uc3NnAQWzOzt1/xS4Q4vd0NBDRzSBQdMCZvD18zM1+XMeXIswvBxxJLGyYHy1wQPLg04Y8zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BcaLX0DLYHv4UqScJlzSiZ1GStIaXVtAtDtoZQtOvS4=;
- b=SzQ7B3g5SfPC0Kh1yz/gfedgQS6bxOykGVEhC5CctXTSd7Wwc+NbQTsenby0hBvHfnGsgh670xY+ZTtRuK+yxuMkbHBzq4HKZW+nlgHypFvtUA0a6e/ixduMqvEKESO3STyXEQFhD6RTvty+4JjKvxsAZU06172Y76CrnqhkIUUMi4D8VhxKNLYNtXLT0JjONm6c8PZ+wj/daE3KagVbYSwnqfYuJq8FqsTFefqShsA+un9TXnTZME5ia/PLNFNEmyHZAhPusYXeVl/WMzqSYslbcDCLmq4+LaF/7LC+4uz9nYFUCCUkxPDjwrTEDViGGJSjNogyS4cS+S6z39zMrA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by PH7PR12MB8796.namprd12.prod.outlook.com (2603:10b6:510:272::22) with
+ bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
+ b=a4WP7O+IKfbN9ZWYJlRWeWwjCTxCBRNt4hjS1f0vEV7/Po8l2jVosEGEkrsOXPZ5ZbAxnNi3jm0kMleocqG/PnOalXhu43JX8HvKfO1FQVTsqPS+I5Naf/82M06k5MsOGJ2UM4Cbw0F1V7CWzcmPaxhkrCUk8+wfGnkEz93Fpyo=
+Received: from CH2PR07CA0043.namprd07.prod.outlook.com (2603:10b6:610:5b::17)
+ by SABPR10MB997941.namprd10.prod.outlook.com (2603:10b6:806:50d::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 17:05:47 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 17:05:47 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 13:05:45 -0400
-Message-Id: <DLA3KHC5R6G3.22TAPOVQ1589Q@nvidia.com>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, "Matthew Wilcox (Oracle)"
- <willy@infradead.org>, "Andrew Morton" <akpm@linux-foundation.org>, "Muchun
- Song" <muchun.song@linux.dev>, "Lorenzo Stoakes" <ljs@kernel.org>, "Liam R.
- Howlett" <liam@infradead.org>, "Vlastimil Babka" <vbabka@kernel.org>, "Mike
- Rapoport" <rppt@kernel.org>, "Suren Baghdasaryan" <surenb@google.com>,
- "Michal Hocko" <mhocko@suse.com>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Nico Pache" <nico.pache@linux.dev>, "Ryan
- Roberts" <ryan.roberts@arm.com>, "Dev Jain" <dev.jain@arm.com>, "Barry
- Song" <baohua@kernel.org>, "Lance Yang" <lance.yang@linux.dev>, "Usama
- Arif" <usama.arif@linux.dev>, "Gregory Price" <gourry@gourry.net>, "Ying
- Huang" <ying.huang@linux.alibaba.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Johannes Weiner" <hannes@cmpxchg.org>, "Qi Zheng"
- <qi.zheng@linux.dev>, "Shakeel Butt" <shakeel.butt@linux.dev>, "Kairui
- Song" <kasong@tencent.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v3 07/14] erofs: mm/pagemap: add readahead_folio_last()
- to avoid folio->private
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, "Gao Xiang"
- <xiang@kernel.org>, "Chao Yu" <chao@kernel.org>, "Jan Kara" <jack@suse.cz>,
- "Yue Hu" <zbestahu@gmail.com>, "Jeffle Xu" <jefflexu@linux.alibaba.com>,
- "Sandeep Dhavale" <dhavale@google.com>, "Hongbo Li"
- <hongbohbli@tencent.com>, "Chunhai Guo" <guochunhai@vivo.com>,
- <linux-erofs@lists.ozlabs.org>, <linux-fsdevel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260907-remove-pg_private-v3-0-6ae22f9d9272@nvidia.com>
- <20260907-remove-pg_private-v3-7-6ae22f9d9272@nvidia.com>
- <eefbff2b-d619-496e-a977-52062da90f05@kernel.org>
-In-Reply-To: <eefbff2b-d619-496e-a977-52062da90f05@kernel.org>
-X-ClientProxiedBy: YQZPR01CA0166.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:8c::10) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+ 17:07:30 +0000
+Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
+ (2603:10b6:610:5b:cafe::35) by CH2PR07CA0043.outlook.office365.com
+ (2603:10b6:610:5b::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 17:07:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 17:07:28 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
+ 2026 12:06:36 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
+ 2026 12:06:36 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Tue, 8 Sep 2026 12:06:35 -0500
+Received: from hpz2.dhcp.ti.com (hpz2.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688H6Zge2860316;
+	Tue, 8 Sep 2026 12:06:36 -0500
+From: Judith Mendez <jm@ti.com>
+To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
+        Vignesh Raghavendra
+	<vigneshr@ti.com>,
+        Tero Kristo <kristo@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>
+CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH] mmc: dts: am654: Add 650ms power off delay for proper MMC power cycle
+Date: Tue, 8 Sep 2026 12:06:35 -0500
+Message-ID: <20260908170635.238775-1-jm@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|PH7PR12MB8796:EE_
-X-MS-Office365-Filtering-Correlation-Id: d81ff76a-e855-4187-3f30-08df0dcb6d65
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SABPR10MB997941:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|7416014|1800799024|921020|18002099003|22082099003|4143699003|11063799006|56012099006|10067099003;
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|56012099006|10067099003;
 X-Microsoft-Antispam-Message-Info:
-	1Lb+9cM/CDbXDsBCQTV6CRsbsKZcI0Kg5DQ6eA6K9xX1gBwXk1A4c5JzPCWXS09IN/VmUN0f2uL/7FOaAOCAEyMGGr0Al1W4JbEd6Aueb29IWxbZpbWXBwMALCsa8sopQAEtTaZ9CMgMzZiXMI6IFmilpkKt3r3WPGJ1ZHs4BuuEs4JD4JKOHDuRx/ppQcBXKZQh9ryp+CKAfnp7Xs/mcd3Cy79eVG2fTkFgUUWKTJ3biO1iSBstvR9Wf00f18K5evFHV5RMFf2ar5lt+TVvg7m0sK+ig9gcvSMnslIqpJmQAhccAKkTe1R7MhgYfFUfxkhXQJSuwhKyGLK5Tj58LxEr1cMtTjpyk8DpMdSqcU6XNne3xKADS0APLtrpR6P0K0tpqZ64fmpfZvE3ZxY+mwhTx1Ofoi4V3k6AfhiHg7ydVJhPxRoygG2Vcr/eJw15ZWIfeCY8fappC+LeZudg72MBSMZjYYPF4TeNADLjRCSbwMoytFr7eePZctM3T7CfKTqsHxaBeWQCrNMlpNOyNOMRdj9jg9ck6kUHu0q90XQXD5xYzsy0XgZ3T20nP+axhQrNat+r5zWAkvKnfRDSVuEoF/fYvpWExp2kJ/Jsh52TZkcL5Bpc79OqM34Mz7hYLaOtXZoS4yTnga7JxwxEI4pnVFKHbXnvXRCHHSQcA2u0U0eWMhylg2HDmw4lJ3A0EzTv7XWOWWmCOQX6EVT94w==
+	Cpg1deoLOARZoca91uc2oWecabNfVKEdrH6tLvFUWE+/Q6o+GJi8L3PQ9Q1PblBorURdeQCYm6DfNgeKB+m5PuxQLLDyuqgtWd+Ay/nlKIpYraPz3+f12uVNjTX8TEWSbGzi5dzrAa5xCE0tWBPjrYKU3W1cQEgvO8ILd4/PUOSBiYT+HPnnucExW2bcuqXjy51BKRueD9MZctGALwN9e3wqitQt8fyclQy2wqqBoQW3hg+a7ARyikExxdl7cV0+SIGQwH3AI9UDmxC1PXR0u0/Z41s79MejmJ986UeQpv64oC3TT0TTSn9jUb4L76xJj124DhBJJQFYR/V42jF5UdHrtpnRWYKDazD8ke+IeWjoqplrN5pys7MQ+Sh52lNFCxyBRr9h2Ik9u/vdr45yRNq113rkD5Q++WAyPySReKgetmQmcYFJ4J60dXGdKIg191H8CmVHbbeqOUfeOWAuJz9T8s31fBs1gI7IS9VU6xIPqtAwbTJE/bldkGcsh4rYg1IkVd0dhVLrCod1lw/BqBFke1Z6VKz1yxQf9A54v2ThWRoj5Pn+XwBMO6Uh4oXn30Z5mhjhECqCcYtWD7Emf/IWBfh4u5+iulmjIg8+KJqV6bOEgFdQP73wiXzHzAxTcfH8fV6wAtWFl/ml7aD4wRXFPgOASXDgR0VVG1sqY4IBpDvFQ3VG7LFRs+l0yQ+F
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(7416014)(1800799024)(921020)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aVJPR212OXZLWjJNeVMyVzFkaUxYS1h4OXdpekRxa3FRT29lRHBVUy93UDRq?=
- =?utf-8?B?UUIrZ3R1QTl6RWtOR3NVVnZPVUhoMUpPbFBJKzF6L1hjWllyTHkzRmVuU3Vk?=
- =?utf-8?B?c0Z2T2JGL2ZLQllCZFNsT3VzZE4yWXJnNFF3VGlwTkhybzBxcnFlMjlEbkpa?=
- =?utf-8?B?TWQ1bzNPdXdPREJXOVN0VWtrWU9zS2FnQVJkYWIrQTlmU3FBcmgrSm55dFZn?=
- =?utf-8?B?bVN5eGF4YWpZMmh2OEdzSTMzOUJFV2YzZi9WeFZBTmNxVE9ZVE1qWVJOUzMv?=
- =?utf-8?B?cnh5SzkzWFBwWkkvb24xenZvdmdrNWM2QWMyK2R2TU5HVXRuL09hWEg1d2Rx?=
- =?utf-8?B?VEdLZ0ZWdUU0aE5FS2RyWVNJQlpDQ3R3di9UNDdYZDh5Z1V1dmJuNWFsc3Ry?=
- =?utf-8?B?NTg3b3NGZ1NpOU9YeVFGbVMvR0cwTlVJREE4c3dHMU1hYW5WVnV6M1hYVzdN?=
- =?utf-8?B?TUJETDIyK082R3Y4aUludCt1ZEpZaFYva21vbHIzUGp1YTAxdVltVlpRcmRN?=
- =?utf-8?B?QWNLMk84Q3dMNHk3cTZXaHBsd1E5aU5Ec25lcVhIRHJLRDdlTE8wTkRrTlht?=
- =?utf-8?B?ZkNPS3ZzWldVaWIzT2l2elFPRU5mZzVEMmxuR2svaDJERmZ3Z1dmS3NpZTRJ?=
- =?utf-8?B?R20wSm1vcUlOdEpQdjB4SzdkSm9NWlpxenU0cFk3UmZBb2pYQ2tUb21KTnhi?=
- =?utf-8?B?M0JQNnJZRW93aUlFMEJDbGFBbkd0WFpDcG5YaTBQSEtwRFltQjVpS3VjN2Y2?=
- =?utf-8?B?bjNocDZTMFAxYmFPYldWemdnSTJVTUUyRGc3OUpMdUZtc2F6eThjQ2toZFBW?=
- =?utf-8?B?TC9RalpDSW1yWjFHZ2FuVHdjZW9wTUF2R2RhRUhOVHlkSkFkSXNPWVR4d1ZV?=
- =?utf-8?B?amtZaXRtRUxicTZ0eitNeXFQMXJjYUpKcUhDQ3Fob2FGYU10NUtEZXY5QXFP?=
- =?utf-8?B?bGRkbjAwb24xWDdoaEo2TUhPRnFaWG9nbE4wQy9hQVF2UkpIeXdYcTdKb3Fz?=
- =?utf-8?B?OC94NXNHKzZjK0ZhaGIveVNqQUIvUjB1NFZlNWlWZ0lPWkl5ZkxFcFArdnd3?=
- =?utf-8?B?Rzhpb1YwZy85UGdMYjZDSkdpakd0dUtUQUVMQU4xeU1pNmlEbUR5SWJMcmZ1?=
- =?utf-8?B?QlRQMzNTcGVySzN0N1puOVNub0hXaitSc0lmTzB3c3F1VDZiYWFHcXdXbXRT?=
- =?utf-8?B?SHZBbkNLRW5EeEg5U1RwMFU1UU5NWjB4Tk9WUnFEUzZDOTJLYndweXlFRFVa?=
- =?utf-8?B?ekFRU3NkR1E0MWo4MTg5RVFsdS90RFk2Szk5TzVmMEFKaVIzTkpiYk4zS0Y0?=
- =?utf-8?B?ZENNN2VJZ0dEN011TFVma1VZaVNud3FuOFlTZVZrNU9RTFlSQjEyY0R2dVJS?=
- =?utf-8?B?U0ErSkhKMjlmRzlEOXFZTmhIWjNmT3dPNUNUZzFERDNoUGJjLzBXWjZXc0RW?=
- =?utf-8?B?Z2xQQ0xyOEhSQzRQdUxWcUNOQVZOZHRmOE5oMlJubXJTcmEvdEhFZTBtVmpW?=
- =?utf-8?B?cHJRV1lpNTJjVDg0RUx3WnNycXRqSVVPcXlCZUEvekVER1dCc0lLaFFMVE9J?=
- =?utf-8?B?WEYvOWpBZGZGaWFuN2FWWXlxTlVFdFhPS1JpeDlzMmlTU0k2alVWa3I2MXFS?=
- =?utf-8?B?UzlnUTIwcTlaZUxGS3ZMVzJzcEd3WEdrZW11UkFnRWQxWnFQV2k3SDJWMmgy?=
- =?utf-8?B?OUVvaDhrcDJOcjlUU0tyMnZQSitYQ1VPekNSeFViejNPOVJDc3ZJWGZWd1RX?=
- =?utf-8?B?cWVOYm5VSVpQVEdsekZLMmI3TzZFY3YxZkdtQ3dqZDBrcnNvdVpZRHFEOFJM?=
- =?utf-8?B?b2paS0RFbHltVld5aTVlN1FEMWhkSC8vbERyNitIYUxvRng2VERGaDJEczhi?=
- =?utf-8?B?bXBGTXd4R2p1NUxSZFc4U2lBQzJBMi9ldmVTUmZ5S0RnRVNWY0lUanZuZ3cz?=
- =?utf-8?B?UlZ4bTk4dFpOeUNtSGNrejBwVE1pT2dsTkNWdE40cklFNEVxVjFhNER3ZTNV?=
- =?utf-8?B?aVluaDRlT2R5RlN0MW8vUkxCWmQwZzFkKzRmL2p5UTk3eDRRN3h2RElUUzUz?=
- =?utf-8?B?Rk92Rm9Cam1NMU9NWUc2YVVnb3ZrcE43M21aaEJGZnFLSit5U25nZ2RVL3pz?=
- =?utf-8?B?MnFpWVppdXZTMzYxSWFNUnlVNndtWTJGSXZrMUZnWnlUa1htQ0I1MG5LTjVV?=
- =?utf-8?B?L3FwOWtMeURWTFk0aS94K3h4b25GQlVqQTBJSmFJQlorU2dtZ3I5MEVlWCtV?=
- =?utf-8?B?UWtmVlphWk94L3d4YittVnB1K0kxVUxCTWkrTkQ4bEVsRzR6SHN0VmNnSU5m?=
- =?utf-8?Q?waRhyFvc6p29ecq8+H?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d81ff76a-e855-4187-3f30-08df0dcb6d65
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 17:05:47.6063
+	DYQGsQhsS9OQ0L3t2yMdiCtms7jHrcIzJzDymYB+Li2B4B66EqmXtFxPQiRlguqgCmGsJcyJRumJJvDcZ1bZyBku8/O+0e0xeQ4vQhK8zNJ8U8XzQBDJMBajMKfVU0dMJnZ4pVS3aAE1gIFpb1x1r/fMyqULUnrbbuzBahD4Tb9e8J7FDiVF31ESUWxkS6i3e9aFNTg9R0HYnN7HCgZac6AGZgemIwYx0S/Q02pZupjiqLkFHG7z9VJfQ3keRdVMJF2nDLbjUQaBIfY3W1muM6O7zYew40cZ/Q0t6VAA8pLlNas0DV0Ge5QsbYX8SNjVOYDflehIBn7AmlYh9r2BwUjOKP7nGT8QpocMgqFRVyr7Gsgd3CJbRM3IcegWLBGEcrVEuzJAMZ10I87Dm8pKbHsH9I4V2tbXilmuYkiBrJZTbWFBikeesnyCERBIM3gY
+X-Exchange-RoutingPolicyChecked:
+	apHKN6TvkqPacjSLu9a1WcbqhY/mujSvLFHIAUIeHbHgY6QUepwFhUqtT14RhN3sdU/trQ7MoaEFimDt8i/5OSUpedzYYF0VD8W7Tmb8bAdNSQZxLFMzI0MIr/mxH+lA/gjJbVOIckGxnXaJ5e/LuxaCVJd7VVZCWPlZZ29OqwTUSQ1VAvAdvw/w1cMgdaLFX5qTqT7qW/ju1wJ79NFhc/HzRniz6ZgsfXhwLloqPqmjmEMcJ0Ose2DCaPk3gL5ZQaHY5LuymDPJZu52W6Uxt9dAaI2N7PZkoUfTN6LGmrZZNTQDk8e9YCvdMXj/Rl1cozeLED7yi1O+vOiJzzU5sA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 17:07:28.6937
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HO0vhGqPVK1FRXiJU28rBCoa0MdO9U051gk616AvPWwx+3B0HfiGgIOuCs/aJzzu
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8796
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000013F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR10MB997941
+X-Proofpoint-ORIG-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
+X-Authority-Analysis: v=2.4 cv=KpZ9H2WN c=1 sm=1 tr=0 ts=6aa040d4 cx=c_pps
+ a=YOgfsySBG6Gh3lLixmEA+w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
+ a=sozttTNsAAAA:8 a=lUCeq0Dp3Nc7E5BXnPwA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfXxH2IJKbJ8uQe
+ tX42dF0mE7/r8t94iVT448geuXWr0joA4m8asXKn+5J99QgQtDrItoQY8rxdlUk1ucok8JYFf79
+ TjxQyOjQg8aExv0mg+BuIeJi2N15jvc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfX1HWOrPq7YVsS
+ jTmN2nmvWDLAh2oJn7BGsjkYoYUmSyxIHqieFbjJptkjN4IhmJ2pzzd40tykguhJ5YZnIuXOARh
+ 4iRKw6P051GRtn9/eS8iLmOmeJfbpolLiYxAWlNTM9WlfOiHBN1BDGWP9rFEueyCaEhYZFYf4Yj
+ kn4UOVDPk17G8l2IhHWC9KhQ67JUVFU0XTFKmwxSAg5VMOCIpO2/7hF02oobUge1iZ0p5qMyG7h
+ W2a1QyRFrIsj73+BCdk5v3+RF2oXw5oXIq+lve666/+JiES+ffjYciMtCsDNUzL8+phj3dvfl6v
+ SR6SSZrheUiDfTn7qpQ7md+uyucpbsGwJ26vTaFWXpOyMrKM0F63KE9vm/HVpOjyv1+zgc5cAQI
+ vu56z+NFX/a9zILJT68lfSNZPH9i5Qc89F91gDOPtM/TB5jnqryqD3Z6iIKpDoQUHvEGrNhvWTZ
+ +NW8YDTg4kCV/l/3zwg==
+X-Proofpoint-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080184
 
-On Tue Sep 8, 2026 at 12:04 PM EDT, David Hildenbrand (Arm) wrote:
-> On 9/8/26 04:56, Zi Yan wrote:
->> erofs needs to traverse readahead folios in reverse order to achieve
->> maximum performance by
->> 1. reading all folios from readahead_folio();
->> 2. storing the prior folio pointer in folio->private;
->> 3. traverse from the last folio to the first one.
->>=20
->> Add readahead_folio_last() to achieve the same function without using
->> folio->private. __readahead_advance() helper shares readahead_control
->> adjustment code among __readahead_folio(), readahead_folio_last(), and
->> __readahead_batch() by checking new private member, _forward, of
->> readahead_control.
->>=20
->> It prepares for a future commit that replaces PG_private checks with
->> !folio->private checks. After switching the checks, erofs's use of
->> folio->private without bumping folio refcount can cause unexpected
->> outcomes, e.g., in filemap_release_folio(), try_to_free_buffers() become=
-s
->> reachable.
->
-> Ah, I was just about to ask. So it's really about folios never using
-> folio->private manually (without the attach/detach).
->
->>=20
->> No functional change intended.
->>=20
->> Assisted-by: Claude:claude-opus-4-8
->> Assisted-by: Codex:gpt-5
->> Signed-off-by: Zi Yan <ziy@nvidia.com>
->> To: Gao Xiang <xiang@kernel.org>
->> To: Chao Yu <chao@kernel.org>
->> To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
->> To: Jan Kara <jack@suse.cz>
->> Cc: Yue Hu <zbestahu@gmail.com>
->> Cc: Jeffle Xu <jefflexu@linux.alibaba.com>
->> Cc: Sandeep Dhavale <dhavale@google.com>
->> Cc: Hongbo Li <hongbohbli@tencent.com>
->> Cc: Chunhai Guo <guochunhai@vivo.com>
->> Cc: linux-erofs@lists.ozlabs.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-fsdevel@vger.kernel.org
->> Cc: linux-mm@kvack.org
->> ---
->>  fs/erofs/zdata.c        | 13 +++---------
->>  include/linux/pagemap.h | 56 ++++++++++++++++++++++++++++++++++++++++++=
--------
->>  2 files changed, 51 insertions(+), 18 deletions(-)
->>=20
->> diff --git a/fs/erofs/zdata.c b/fs/erofs/zdata.c
->> index e1e25ca0d1904..78fd7d980e957 100644
->> --- a/fs/erofs/zdata.c
->> +++ b/fs/erofs/zdata.c
->> @@ -1898,21 +1898,14 @@ static void z_erofs_readahead(struct readahead_c=
-ontrol *rac)
->>  	struct inode *realinode =3D erofs_real_inode(sharedinode, &need_iput);
->>  	Z_EROFS_DEFINE_FRONTEND(f, realinode, sharedinode, readahead_pos(rac))=
-;
->>  	unsigned int nrpages =3D readahead_count(rac);
->> -	struct folio *head =3D NULL, *folio;
->> +	struct folio *folio;
->>  	int err;
->> =20
->>  	trace_erofs_readahead(realinode, readahead_index(rac), nrpages, false)=
-;
->>  	z_erofs_pcluster_readmore(&f, rac, true);
->> -	while ((folio =3D readahead_folio(rac))) {
->> -		folio->private =3D head;
->> -		head =3D folio;
->> -	}
->> -
->> -	/* traverse in reverse order for best metadata I/O performance */
->> -	while (head) {
->> -		folio =3D head;
->> -		head =3D folio_get_private(folio);
->> =20
->> +	/* traverse from last to first for best metadata I/O performance */
->> +	while ((folio =3D readahead_folio_last(rac))) {
->
-> Intuitively, this should be called readahead_folio_reverse /
-> readahead_folio_reversed, thinking of list_for_each_entry_reverse()?
->
-> 	list_for_each_entry_reverse - iterate backwards over list of given type.
->
-> or maybe readahead_folio_backwards (which matches the forward below)
->
-> But I'm not a readahead expert :)
+The AM65x EVM MMC1 VDD rail discharges slowly through RC circuit.
+SD spec (section 6.4.1.3) requires VDD < 0.5V for minimum 1ms during
+power cycle. Measured discharge time on this board is ~632.97ms to
+reach < 0.5V threshold.
 
-Jan suggested the name[1]. It can be readahead_folio_reverse() if you
-prefer it, like Jan said.
+During boot, MMC power cycles between boot stages. Without power off
+delay, VDD doesn't fully discharge. Card retains 1.8V signaling state
+from previous stages. When U-Boot initializes, card no longer asserts
+S18A in ACMD41 response (already switched to 1.8V). Host misinterprets
+card state and forces 1.8V anyway, falling into a bad state and causing
+a boot failure.
 
-[1] https://lore.kernel.org/all/332rknj4vo3cfhvfhhlf6pvg37s3lbrnzbbnv4swa6g=
-ctsiu6a@ndotgokvnglc/
+Add power-off-delay-us = 650000 (650ms) to ensure proper VDD discharge
+during power cycles, allowing card to fully reset state between boot
+stages.
 
->
->>  		err =3D z_erofs_scan_folio(&f, folio, true);
->>  		if (err && err !=3D -EINTR)
->>  			erofs_err(realinode->i_sb, "readahead error at folio %lu @ nid %llu"=
-,
->> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
->> index 939f3a5e973f6..2257df004305e 100644
->> --- a/include/linux/pagemap.h
->> +++ b/include/linux/pagemap.h
->> @@ -1415,6 +1415,7 @@ struct readahead_control {
->>  	bool dropbehind;
->>  	bool _workingset;
->>  	unsigned long _pflags;
->> +	bool _forward;
->>  };
->> =20
->>  #define DEFINE_READAHEAD(ractl, f, r, m, i)				\
->> @@ -1479,18 +1480,25 @@ void page_cache_async_readahead(struct address_s=
-pace *mapping,
->>  	page_cache_async_ra(&ractl, folio, req_count);
->>  }
->> =20
->> +static inline void __readahead_advance(struct readahead_control *rac)
->> +{
->> +	if (rac->_forward)
->> +		rac->_index +=3D rac->_batch_count;
->
-> No expert, but shouldn't we decrement the _index somewhere in the other c=
-ase? Or
-> where is that done? A comment might help :)
+Signed-off-by: Judith Mendez <jm@ti.com>
+---
+ arch/arm64/boot/dts/ti/k3-am654-base-board.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-A readahead folio comes from [_index, _index + _nr_pages), so for
-last/reverse/backwards case, the code only needs to decrease _nr_pages.
-
-Will add a comment about this.
-
---=20
-Best Regards,
-Yan, Zi
+diff --git a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
+index ca1300e130936..edcf039ccfbd0 100644
+--- a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
++++ b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
+@@ -460,6 +460,7 @@ &sdhci0 {
+ &sdhci1 {
+ 	status = "okay";
+ 	vmmc-supply = <&vdd_mmc1_sd>;
++	power-off-delay-us = <650000>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&main_mmc1_pins_default>;
+ 	ti,driver-strength-ohm = <50>;
+-- 
+2.34.1
 
