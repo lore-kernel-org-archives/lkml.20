@@ -1,152 +1,111 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAA851476B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784804F30FD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:41:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788867360; cv=none; b=r4TS7jxiVN0TXe+iz8RsOjcuMqnnhhmHbYUq2dad6h0JVVck4trqlvk0siYqkXhe8mvyJNsZsGMAurZHtDeVpdiSimGhM0HCdxXBcxz63M5eKdKnI3jtMhMSPXDDGARnGAa+ZRP2yr2V+xTRgq3o7IA/12xKm3TieKOEifPyiyc=
+	t=1788867700; cv=none; b=Ebpfydbjk1hgGgplb38m7TIgEVGcLumDGUOL9ddYRt4iuObznA8M3TIwkdfUSU214S8SNAF2dxEiTAQlO34UKptl3evT9zOHolHT5EWfC1+0a0DlQHREbxObfUDlCtNLuyrTEde4+Al/zIy1bcUI++P+uUT7DmDplHwODv+Kz+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788867360; c=relaxed/simple;
-	bh=IBHWvARfOwBInFcGHh1VbpTA1VN0yCgxQc7blVi7oaI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=iBsiaUriSzauSlcWftxiiN0LgPnWVmNvb/jE9GU62UUsU57ThY6OJaFQpmYa5ISSzy7v5plvW6pqR+9D2HoL6VQT8F7L8n/oS+aLJIwzXeP9Om+UY5oGUUKpWNI+F83aPfsXULDaB6Zt18SQ/LR/jC5bsXB0DWXlx7k2pJbfV2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=RnEFyQj2; arc=none smtp.client-ip=113.46.200.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788867700; c=relaxed/simple;
+	bh=JEriB6GDjlcrCUa78TKwGOGGWVkUgVsCS1pUbwbx7n8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ekWykrd9e3fN+gruqiOjamvLLq5b/mCo/2YWZ+wxfofuSkfmnSKVTCDYI4d7PQWl6weNJv63q1QJi8lcNzJyRZEDhyvgusiqeE0tYzveoVog6OvcUklqAFnyVQbxNtbMlTQwhv8bPejGOvW7F2GnyJgUUmtrLj2CdNqKuY0mmVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lR3I+aF3; arc=none smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="RnEFyQj2"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Lxu+jtNFToYdLxTytr/I9mfTRhn0vf5PcvRLft8Q8pg=;
-	b=RnEFyQj2evgRv1emXPf5fVmna1/HIRR+oFNx9asjTCtn+sTc3YgEfJBaiviv5hGFOXmDEgnVr
-	MmDt1Pq4YuNW7CKPxiuDHQsFQPr64iJO15DNyqvV3cEpTiw2C9qcwrqRH7xhrg4UsRh0Zq1mCmR
-	c4dE4c9w1oSw6RBbDnudEMc=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hfM6V6rFPzcb3G;
-	Tue,  8 Sep 2026 19:24:50 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id CA83A40561;
-	Tue,  8 Sep 2026 19:35:47 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 19:35:47 +0800
-Message-ID: <2f75098e-bc2c-4692-8325-809983042a9d@huawei.com>
-Date: Tue, 8 Sep 2026 19:35:46 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lR3I+aF3"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a68aaf4840so8082378a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788867692; x=1789472492; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=geWMNX1K6rx9sqL3rAvPz4Otwn4ZznXQlhtRu8yNQXQ=;
+        b=lR3I+aF3JKqFWmZq7/dZzhbQmd1vFF/b02TxJz5tfP4Tvm8OokaTHNqKVom4tnGf33
+         21XxReeSPgCvtuIwaXSBzXddEWexpY26rH0+o08xcg7trZpb0ZNmXg9C0W520QTNdDFI
+         IUxTYyppQX6f5KWLqnspucJy5rFe1Kro52kI4aStsfnVh5PZvacINOMO7MPUyRRC5sNE
+         mMdB+o3g/ftfUInN2FahS12Sp3NY70sJqRqMmzbbS+lc9uVEzjCDeamWyq+rcEpqVDUr
+         9Yxf+cOGtx5e85c16ucFPAfQD7Bv7uqbbHBqqcuPsaKEpUGGzghZvEsiD4PZbebqZpk6
+         I7Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788867692; x=1789472492;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=geWMNX1K6rx9sqL3rAvPz4Otwn4ZznXQlhtRu8yNQXQ=;
+        b=NO7YlWDbVKGY7O+7Kko2A6Wx0gFNquiw+cG0QGqVeXyiEunDhMoSoZT20td4rqYXoI
+         8FDmkDBeMWKutOVurMCnaumBhlyzww55kUZsp+hkMG7B4UIZ7DLRhjlVvEENMPI6O4/g
+         hOxhO01sJRSY260DpaPz55THc9dAZjMp/FoOCSwXI8l1KASk7tvGLbzGMSiZpYyttuB2
+         qtfc5xI9VkW22TpefCVO5jq9uqKEAUVwoZDXJdmSrCnBapwkFgUGCumyoN7UrpTEYvrS
+         960VbIomORRb2pBSjVaS4NyGajiLE2F9H9eFiYTJbrCEj4fisUVv9/l5HSFsOW+2ZVeO
+         I9uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVNi6hdMezSr374TzgEOM2t1nX0zs34AF49eqXTy8j3SV12xBdTy/K6hBN8Ju50j3SCDm8q5vcbEtJmXI=@vger.kernel.org
+X-Gm-Message-State: AFuF++ltS0M/jVIT3IR6IbSdqQ+Llg8AjZepARSp7ajQZ8RnWOKKRnuO
+	2d27A2oO88i3J/IinnjEjZl9I4ySsyHqq5+7TKbjV5T5fIh8BQOr0GF4
+X-Gm-Gg: AYBFou3t8Egr0+sjBjKQ9KIbbah6QZ3okplEsglnGrUfBJR+aV+86K5T6pMyIK9jVUD
+	wVh+B99fLSa0eVuKwRVPh9EjKImwjn4vnIAisaYutjjTz0wex3Kr11btD1CWaum9fXEVMYXoERF
+	XV5l9u83akFgHNFDHBEnX8sF1LP+qZ9517ZiqyAGiIfYeXTGgEUCCI+skwnDc7FN6Ku8lSNEDMA
+	K3ynNHEya5ioWoFcT/qw1W9xwx9aaPact/J9sq9mg4SfDYJcXMI+PfQP5NUxxR8Qg+sL6KV/U8c
+	sYUmLM47/ajWNApmnbbCuCYDghXpL6yVxnJVocGkWK0CIZp63UnwzoizgZmphOJtKVwdZ/qCSn1
+	3rXJKA6U7upu3Dx55TwcW8FgH8y4PY81OHHMjLULgF9hKTilz6q9SuhlkG5gAV89FRTscIRuHl0
+	g7PFWPxiHQ4WF8bfYzMLduroCIwFSwUhHRh3mYQ2KC3d+qXnL5CNtYwbPt2WblmwKbP/BdjMHHo
+	HXf8XLO01v8yy2757oxslcH16KqDAuyscbKXwkyANtvWewqs9k4WMGNvkSp0W4RiDrehAns3o82
+	k1wXSoUo+7msMQYVO1eNLhPNh2bEyrcJAAEeT8xHoZA8C+4JtCFPrND4Q8S7pGOnv6JhWr/uJQg
+	UBzRjJ04+kKvnOJQM8XgYE2TxITaZE/ibSTAn1hEckkUC4Z3yDENRVhaxePjQ9DvgVgUxDZdQG0
+	wUAPykh3Wysfogul1QpGBAM/rXpkjzFegZ6x44cTer2ItSX0xFGcHAeI7YnTL33R40/TNs6jnQ
+X-Received: by 2002:a05:6402:4050:10b0:6a6:92d6:daad with SMTP id 4fb4d7f45d1cf-6a696a98b4emr9152785a12.10.1788867692285;
+        Tue, 08 Sep 2026 04:41:32 -0700 (PDT)
+Received: from cs-280612103108-default.europe-west4-b.c.oa7bb030819b2a894-tp.internal (209.47.7.34.bc.googleusercontent.com. [34.7.47.209])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68a6beesm5530489a12.8.2026.09.08.04.41.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:41:31 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Kim Seer Paller <kimseer.paller@analog.com>,
+	Marilene Andrade Garcia <marilene.agarcia@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>
+Cc: linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: adc: max14001: add missing MODULE_DEVICE_TABLE macro
+Date: Tue,  8 Sep 2026 11:40:47 +0000
+Message-ID: <20260908114047.1360-1-joshua.crofts1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/19] arm64: smp: Use generic HOTPLUG_SPLIT_STARTUP
- machinery for CPU onlining
-To: Will Deacon <will@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-CC: <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@kernel.org>, Catalin
- Marinas <catalin.marinas@arm.com>, Borislav Petkov <bp@alien8.de>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Mark Rutland <mark.rutland@arm.com>, David
- Woodhouse <dwmw@amazon.co.uk>, Peter Zijlstra <peterz@infradead.org>, Marc
- Zyngier <maz@kernel.org>
-References: <20260907164024.17164-1-will@kernel.org>
- <20260907164024.17164-12-will@kernel.org>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <20260907164024.17164-12-will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+The MAX14001 has an SPI ID table, but is missing a MODULE_DEVICE_TABLE()
+macro.
 
+Add the missing macro.
 
-在 2026/9/8 0:40, Will Deacon 写道:
-> In preparation for enabling parallel bringup of secondary CPUs on arm64,
-> take the baby step of moving from HOTPLUG_CORE_SYNC_FULL to
-> HOTPLUG_SPLIT_STARTUP.
-> 
-> Rework the cpu_die_early() path to use a private cpumask, otherwise
-> clearing the incoming CPU from the present mask in the 'kick' stage will
-> prevent the hotplug stage machine from progressing and
-> arch_cpuhp_cleanup_kick_cpu() will not be called.
-> 
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/Kconfig           | 2 +-
->  arch/arm64/include/asm/smp.h | 1 +
->  arch/arm64/kernel/smp.c      | 9 +++++----
->  3 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-> index 89d1f0f2269c..fd8cf792b7fd 100644
-> --- a/arch/arm64/Kconfig
-> +++ b/arch/arm64/Kconfig
-> @@ -230,7 +230,7 @@ config ARM64
->  	select HAVE_SYSCALL_TRACEPOINTS
->  	select HAVE_KPROBES
->  	select HAVE_KRETPROBES
-> -	select HOTPLUG_CORE_SYNC_FULL
-> +	select HOTPLUG_SPLIT_STARTUP
->  	select HOTPLUG_SMT if HOTPLUG_CPU
->  	select IRQ_DOMAIN
->  	select IRQ_FORCED_THREADING
-> diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
-> index fe343c30d620..7b986a6a765b 100644
-> --- a/arch/arm64/include/asm/smp.h
-> +++ b/arch/arm64/include/asm/smp.h
-> @@ -89,6 +89,7 @@ asmlinkage void secondary_start_kernel(void);
->  struct secondary_data {
->  	struct task_struct *task;
->  	long status;
-> +	cpumask_t cpu_died_early_mask;
->  };
->  
->  extern struct secondary_data secondary_data;
-> diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-> index 00362ed6e1ab..c5e9d5d5e003 100644
-> --- a/arch/arm64/kernel/smp.c
-> +++ b/arch/arm64/kernel/smp.c
-> @@ -62,7 +62,7 @@
->   * so we need some other way of telling a new secondary core
->   * where to place its SVC stack
->   */
-> -struct secondary_data secondary_data;
-> +struct secondary_data secondary_data = {};
->  /* Number of CPUs which aren't online, but looping in kernel text. */
->  static int cpus_stuck_in_kernel;
->  
-> @@ -108,7 +108,7 @@ static int boot_secondary(unsigned int cpu, struct task_struct *idle)
->  	return -EOPNOTSUPP;
->  }
->  
-> -int __cpu_up(unsigned int cpu, struct task_struct *idle)
-> +int arch_cpuhp_kick_ap_alive(unsigned int cpu, struct task_struct *idle)
->  {
->  	int ret;
->  
-> @@ -146,6 +146,8 @@ void arch_cpuhp_cleanup_kick_cpu(unsigned int cpu, bool is_alive)
->  		cpus_stuck_in_kernel++;
->  		break;
->  	case CPU_KILL_ME:
-> +		if (cpumask_test_cpu(cpu, &secondary_data.cpu_died_early_mask))
-> +			set_cpu_present(cpu, false);
+Fixes: 59795109fa67 ("iio: adc: max14001: New driver")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+---
+ drivers/iio/adc/max14001.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Should we set_cpu_present(cpu, false) in CPU_STUCK_IN_KERNEL case, as we
-do not update to CPU_KILL_ME but CPU_STUCK_IN_KERNEL if
-CONFIG_HOTPLUG_CPU is not enabled.
-
->  		if (!op_cpu_kill(cpu)) {
->  			pr_crit("CPU%u: died during early boot\n", cpu);
->  			break;
-> @@ -406,8 +408,7 @@ void __noreturn cpu_die_early(void)
->  
->  	pr_crit("CPU%d: will not boot\n", cpu);
->  
-> -	/* Mark this CPU absent */
-> -	set_cpu_present(cpu, 0);
-> +	cpumask_set_cpu(cpu, &secondary_data.cpu_died_early_mask);
->  
->  	if (IS_ENABLED(CONFIG_HOTPLUG_CPU)) {
->  		update_cpu_boot_status(CPU_KILL_ME);
+diff --git a/drivers/iio/adc/max14001.c b/drivers/iio/adc/max14001.c
+index 58adeac62dde..7694fbb6a9fd 100644
+--- a/drivers/iio/adc/max14001.c
++++ b/drivers/iio/adc/max14001.c
+@@ -366,6 +366,7 @@ static const struct spi_device_id max14001_id_table[] = {
+ 	{ .name = "max14002", .driver_data = (kernel_ulong_t)&max14002_chip_info },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(spi, max14001_id_table);
+ 
+ static const struct of_device_id max14001_of_match[] = {
+ 	{ .compatible = "adi,max14001", .data = &max14001_chip_info },
+-- 
+2.47.3
 
