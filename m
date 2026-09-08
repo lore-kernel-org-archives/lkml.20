@@ -1,330 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC4253E40E7;
-	Tue,  8 Sep 2026 20:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF793E40E7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:13:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788898406; cv=none; b=a3wiqJX2rJnPEG2m46Gpu24Dbn9RpdZhIhBnC0VT7DYgqjiHX6Mf6wYU4XB9vtKf6G//19vwTjrhNGcAkGgyT7L2C3x/v1dwKUbiyBivN4suFCZY0vE3iag9CfHNAQo3uoTeKzftGcDplqB2RVktLwC2XE+ndOfI6UR6iHu57cU=
+	t=1788898429; cv=none; b=coQjv+mqq/qgpChn921DLmlb313B5Us5dqpstJ1jCd1rk6MO1Wk+2UkeWfCRwUe/GmxxwXL9SCsJezXg0CHdDepExzhE4x8trl9CiA03D5SNfn7YuQVWQ3RqKLE+sX+Ht+qE3gEBcnR1/BKghKsFCwRAzQIgNuWhI3yDmbJzljE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788898406; c=relaxed/simple;
-	bh=vEqZNj/orhd3A72a0KyhZ8lk/+VHtX68aC52ZbOqwFo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NcXJB6L0DmMJ5GgsiRQIuriX2jZxJcMNt95RpjuAOcy3RxwZ0bhTGbBlwRcZa+lJl8gwJNZ5gjaJWpwfgSoabbl4IVCkKh0haqyXVRWA3a9FXZNFFqfn9crifID0UnBrsayVVecNY6D3SA1aL7P07o/kuSanUIBl43OdSF0Gzpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fl/YCDPj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788898429; c=relaxed/simple;
+	bh=dxF2BaSzBnbJDO8svzFefD5jxms69tdB9jvx6FnSrDU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FXDVkLRIwbfLkA1tXifo6A4uy70UYMkXuAXT8B7qXWgvjXItMCHo43b+W7FkDJfz0zUGl34lMruTG4OiexhZL1JescIjdks7kRbYC6jr9ZqI3MPN74aE6k3Sfogam1prYWUj41TRXXimf8VG9jUBD25LNz/FlufqvWJCkpj84b0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gtld5I3U; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fl/YCDPj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799EB1F00A3A;
-	Tue,  8 Sep 2026 20:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788898404;
-	bh=5K16GlzsQoy0h7+0CkyHUMkjHsarATEzCzpeYhQPaCY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Fl/YCDPjRM8WBFFd2e8aQAOkcjORUNEDvBkYPZ0czOwSoKB9JUkzPuLgU9/uPT+28
-	 HH9oU0LFFmBARTFN9q3OvmwkkSEllMdPfkkJ9Y0U4lcd9dKI721He/knHyzy2TvflO
-	 /ou7DeEyJdwsk2wtsr6GfTfLEqwo/CfTcJ8EWEmtspNdXFBue7A1s/ztnSI4zxOZgM
-	 Nwfu2DysRSUinri8xi4SNPc7I2bJJhyUcL7w8lvFQJemkasfX86nje5c0yC+QmHl2H
-	 B9q5ltTeHhkkn7x4cw0Ot5AdEHPEyJ29dkPxUp/lKTqSNFoO8AzSgt/f+h+Kc06hgL
-	 bU7IDnReUhc5g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Tue, 08 Sep 2026 21:01:27 +0100
-Subject: [PATCH 23/39] mm/mlock: eliminate weird VMA_IO_BIT abuse and
- simplify
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gtld5I3U"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5300bdf61d9so52988211cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:13:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788898427; x=1789503227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G1WVEAgCDTyboEwqwqS6xMrZxXr/rnP7TsZmJjP2k8c=;
+        b=Gtld5I3U3zwNlhdPWB5px2usxxEgyBd49PaFnJBCS4L2ICxZPfqn2Jcad8zvfxerSj
+         L9ef+QG1i7UDRlRewrAOv3KbiRkrMcUYBDcYSqtrPUqLis3kw0e0AuW7cT/r7S86weKk
+         o+VbBsbH5CDVAKHUEXTXWqge6QYrEc1F9jKKZn8FU+lVx39lxCDPGH4RSpTUBgwXL5AM
+         iW9kBe9XjIy6QeXiMgOuPgO/IFoMpEqwATzEZA6tSm8ng4vjlWcdYVR/ovz1AwpItMFf
+         jtRB5So56zmDMLD4P4Yc9XnlL03SqPlC6FvFDps4M7i9/OlMEY8UBw9jdVGET2JGpoZw
+         YX7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788898427; x=1789503227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G1WVEAgCDTyboEwqwqS6xMrZxXr/rnP7TsZmJjP2k8c=;
+        b=ocqFEVpFLM0Ap0dHgeqJXax6RwUaB+iZLFSd+1GX4PDtN2JBgqWX5m0PGus6zLVEc/
+         c3G3Q1KnGdGH/0cFfy82imu9Kwr47Z6JL8tZRJBW7jGXbKgGCcdHXkkViAuee+q2ml5B
+         8lslMNEtarTkHXpdLbyhEeFO0WYY/Dkm4TCTYlOwA9R03cucvoSdZ5yvKEDGK4N9+l17
+         R6e5sgFF3PQFMLubmDDrSoqowxO26k/AB93kvIR1r5YmR6MhskZUtd0BNGzzTYquC2mB
+         QP1HeZy/7yHNyGNmFdxgVq+L1B43umgT3n4M1VgfehY62KiFiBGefKXjLNHZjbAa2r9t
+         qH2w==
+X-Forwarded-Encrypted: i=1; AKwUvBydjk5ht8c53Fa0qcQ2lJlxYnLkyLevhFdUCrxhTdyKLce4H1xtGTTlm0b7uoRO+z//iOhewvhjtc1PaEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFa2/fbHIfDwlIgSq9N9yt1PKu7glNex5NAah5R4ncZuT6S32O
+	YEpqv//Nn1Wh4rVuQCFAzXfq9cWbZyCgcuG/bTo3EVHjJgNeE8WTk2r2
+X-Gm-Gg: AYBFou0GuEyprh0HkFPDRwOIO5jyADtCPRfbsGdmXXfcLlB/lqUbyHkphL8KjHLN/Eu
+	u3BAr826j5ybknBFuxHaTK30+f8N3is6L5V39i7tJlty7Rsg8jxoXe4BqxP+x6JNQa04jkOdMNh
+	osoo2IFSLLVGkvk/XztLP7Oz/WAlTa/l80R6B3Otm9+hUqrOZqebZ/qipTWbGNe5vUz+QmbTeHy
+	KsFbPo5LgJ5v0kSEvMLv50ylFoX6CN/7t30fJZkU/zWSUJbiTWXi2FIPzv67CMrKDNxQ94LaAtJ
+	jOLdlNvPoRGZK3IV2l3yJslmBeo4aGxUihSQIa6YfAzu9TjZ3uOLPpwGCmfJv782OppQoWudjkB
+	aV6JZ0JtdqRTPgSe5FZ9xL283u7u2IiOy3tIyAmG5sOY/2Z2LQk2Np5uktk+549ZgjDABteU9R9
+	APbSj7t0f8+hi9/PNEZqxgmzKks0rkfoLaKsJve8tyN0gv/ctOS8Y9Ho8Apes=
+X-Received: by 2002:ac8:5945:0:b0:530:42d4:4c9a with SMTP id d75a77b69052e-53054a34924mr346612041cf.44.1788898426597;
+        Tue, 08 Sep 2026 13:13:46 -0700 (PDT)
+Received: from tofu.. ([128.210.0.165])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530a300c3adsm7197381cf.10.2026.09.08.13.13.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 13:13:46 -0700 (PDT)
+From: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+To: Alice Ryhl <aliceryhl@google.com>,
+	Burak Emir <burak.emir@gmail.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Yury Norov <yury.norov@gmail.com>
+Cc: Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Subject: [PATCH v3] rust: bitmap: document panics in `next_bit` and `next_zero_bit`
+Date: Tue,  8 Sep 2026 16:13:02 -0400
+Message-ID: <20260908201302.1085862-1-georgeandrout13@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-23-dacf19cce22b@kernel.org>
-References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Jonathan Corbet <corbet@lwn.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
- Paul Moore <paul@paul-moore.com>, 
- Stephen Smalley <stephen.smalley.work@gmail.com>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
- Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
- Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
- x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
- Catalin Marinas <catalin.marinas@arm.com>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- "David S. Miller" <davem@davemloft.net>, 
- Andreas Larsson <andreas@gaisler.com>, 
- Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
- Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
- linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
- linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
- linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
- kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
- linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
- fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7044; i=ljs@kernel.org;
- h=from:subject:message-id; bh=vEqZNj/orhd3A72a0KyhZ8lk/+VHtX68aC52ZbOqwFo=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG7RL7u2o4dd6mTohG0XpLh3TvjX9Gf1FYOdaqsvH
- GXtOFR7paOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATyUlmZOgIPuqrHpV47LaA
- aNfVw+2Lwhi9tDrPpU6+6l1edqHjhRDD/xxpMcYXGXueC8Z/OXa2u74xNjtI2T7XKerKxJOTr6f
- v5AEA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
+Content-Transfer-Encoding: 8bit
 
-When performing mlock() or munlock() otherwise normal VMAs have VMA_IO_BIT
-solely to fix a race with migration which might otherwise double-count
-mlock VMAs.
+`next_bit()` and `next_zero_bit()` use `bitmap_assert!()` to check
+that `start` is less than `self.len()`, which panics when
+`CONFIG_RUST_BITMAP_HARDENED` is enabled. However, neither function
+has a `# Panics` section, and both document that `None` is returned
+for exactly the input that triggers the panic.
 
-This is unnecessary - at the point of applying folio mlock state, whether
-setting or clearing PG_mlocked, we know whether or not we are locking.
+Update the documentation of `next_bit()` and `next_zero_bit()` to add
+the missing `# Panics` sections, add the missing blank doc comment line
+before `Returns` in `next_zero_bit()`, and simplify the wording.
 
-Solve this in two ways - thread a boolean through the page table walk
-indicating whether a lock or unlock is being performed, and run a locking
-walk with VMA_LOCKONFAULT_BIT set and VMA_LOCKED_BIT cleared.
-
-This state never occurs otherwise, as VMA_LOCKONFAULT_BIT always implies
-VMA_LOCKED_BIT. These are also always cleared together.
-
-Then, update folio_add_lru_vma() and mlock_folio() to check only for
-VMA_LOCKED_BIT, and update try_to_unmap_one() to check for VMA_LOCKED_MASK
-instead.
-
-Also remove the useless invocation of allow_mlock_munlock() which simply
-returns true if unlocking and instead rename it to allow_mlock() and only
-call it when locking.
-
-Finally, with the other mlock abuse of VMA_IO_BIT addressed, update
-mlock_vma_folio(), munlock_vma_folio() and folio_add_lru_vma() to simply
-test for VMA_LOCKED_BIT.
-
-While here, also replace some deprecated VMA flag predicates.
-
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Fixes: 11eca92a2cae ("rust: add bitmap API.")
+Closes: https://github.com/Rust-for-Linux/linux/issues/1252
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
 ---
- mm/folio.c    |  2 +-
- mm/internal.h |  5 ++---
- mm/mlock.c    | 51 +++++++++++++++++++--------------------------------
- mm/rmap.c     |  4 +++-
- 4 files changed, 25 insertions(+), 37 deletions(-)
+Changes in v3:
+- Use Closes: instead of Link:, and add Fixes:, following feedback from
+  Alexandre Courbot and Miguel Ojeda.
+- Link to v2: https://lore.kernel.org/rust-for-linux/20260828133543.2259029-1-georgeandrout13@gmail.com/
 
-diff --git a/mm/folio.c b/mm/folio.c
-index 50a6dbe55998..a3f5c463f665 100644
---- a/mm/folio.c
-+++ b/mm/folio.c
-@@ -502,7 +502,7 @@ void folio_add_lru_vma(struct folio *folio, struct vm_area_struct *vma)
- {
- 	VM_BUG_ON_FOLIO(folio_test_lru(folio), folio);
- 
--	if (unlikely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) == VM_LOCKED))
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		mlock_new_folio(folio);
- 	else
- 		folio_add_lru(folio);
-diff --git a/mm/internal.h b/mm/internal.h
-index 6e27d3b10c01..04b1f1d3d960 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -975,8 +975,7 @@ void mlock_folio(struct folio *folio);
- static inline void mlock_vma_folio(struct folio *folio,
- 				struct vm_area_struct *vma)
- {
--	/* The VM_IO check prevents migration from double-counting during mlock. */
--	if (unlikely((vma->vm_flags & (VM_LOCKED|VM_SPECIAL)) == VM_LOCKED))
-+	if (vma_test(vma, VMA_LOCKED_BIT))
- 		mlock_folio(folio);
- }
- 
-@@ -993,7 +992,7 @@ static inline void munlock_vma_folio(struct folio *folio,
- 	 * always munlock the folio and page reclaim will correct it
- 	 * if it's wrong.
- 	 */
--	if (unlikely(vma->vm_flags & VM_LOCKED))
-+	if (unlikely(vma_test(vma, VMA_LOCKED_BIT)))
- 		munlock_folio(folio);
- }
- 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index 39215a3eab1f..4235a1518fc9 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -316,22 +316,10 @@ static inline unsigned int folio_mlock_step(struct folio *folio,
- 	return folio_pte_batch(folio, pte, ptent, count);
- }
- 
--static inline bool allow_mlock_munlock(struct folio *folio,
-+static inline bool allow_mlock(struct folio *folio,
- 		struct vm_area_struct *vma, unsigned long start,
- 		unsigned long end, unsigned int step)
- {
--	/*
--	 * For unlock, allow munlock large folio which is partially
--	 * mapped to VMA. As it's possible that large folio is
--	 * mlocked and VMA is split later.
--	 *
--	 * During memory pressure, such kind of large folio can
--	 * be split. And the pages are not in VM_LOCKed VMA
--	 * can be reclaimed.
--	 */
--	if (!vma_test(vma, VMA_LOCKED_BIT))
--		return true;
--
- 	/* folio_within_range() cannot take KSM, but any small folio is OK */
- 	if (!folio_test_large(folio))
- 		return true;
-@@ -352,6 +340,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 
- {
- 	struct vm_area_struct *vma = walk->vma;
-+	const bool lock = walk->private;
- 	spinlock_t *ptl;
- 	pte_t *start_pte, *pte;
- 	pte_t ptent;
-@@ -368,7 +357,7 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 		folio = pmd_folio(*pmd);
- 		if (folio_is_zone_device(folio))
- 			goto out;
--		if (vma_test(vma, VMA_LOCKED_BIT))
-+		if (lock)
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -390,10 +379,10 @@ static int mlock_pte_range(pmd_t *pmd, unsigned long addr,
- 			continue;
- 
- 		step = folio_mlock_step(folio, pte, addr, end);
--		if (!allow_mlock_munlock(folio, vma, start, end, step))
-+		if (lock && !allow_mlock(folio, vma, start, end, step))
- 			goto next_entry;
- 
--		if (vma_test(vma, VMA_LOCKED_BIT))
-+		if (lock)
- 			mlock_folio(folio);
- 		else
- 			munlock_folio(folio);
-@@ -428,31 +417,29 @@ static void mlock_vma_pages_range(struct vm_area_struct *vma,
- 		.pmd_entry = mlock_pte_range,
- 		.walk_lock = PGWALK_WRLOCK_VERIFY,
- 	};
-+	const bool lock = vma_flags_test(new_vma_flags, VMA_LOCKED_BIT);
-+	vma_flags_t walk_flags = *new_vma_flags;
- 
- 	/*
--	 * There is a slight chance that concurrent page migration,
--	 * or page reclaim finding a page of this now-VMA_LOCKED_BIT vma,
--	 * will call mlock_vma_folio() and raise page's mlock_count:
--	 * double counting, leaving the page unevictable indefinitely.
--	 * Communicate this danger to mlock_vma_folio() with VMA_IO_BIT,
--	 * which is a VMA_SPECIAL_FLAGS flag not allowed on VMA_LOCKED_BIT vmas.
--	 * mmap_lock is held in write mode here, so this weird
--	 * combination should not be visible to other mmap_lock users;
--	 * but WRITE_ONCE so rmap walkers must see VMA_IO_BIT if VMA_LOCKED_BIT.
-+	 * LOCKONFAULT without LOCKED never otherwise occurs: it marks a walk in
-+	 * progress so that rmap-side callers, which test VMA_LOCKED_BIT, do not
-+	 * count folios, while try_to_unmap_one(), which tests VMA_LOCKED_MASK,
-+	 * still refuses to unmap them.
- 	 */
--	if (vma_flags_test(new_vma_flags, VMA_LOCKED_BIT))
--		vma_flags_set(new_vma_flags, VMA_IO_BIT);
-+	if (lock) {
-+		vma_flags_clear(&walk_flags, VMA_LOCKED_BIT);
-+		vma_flags_set(&walk_flags, VMA_LOCKONFAULT_BIT);
-+	}
-+
- 	vma_start_write(vma);
--	vma_flags_reset_once(vma, new_vma_flags);
-+	vma_flags_reset_once(vma, &walk_flags);
- 
- 	lru_add_drain();
--	walk_page_range_vma(vma, start, end, &mlock_walk_ops, NULL);
-+	walk_page_range_vma(vma, start, end, &mlock_walk_ops, (void *)lock);
- 	lru_add_drain();
- 
--	if (vma_flags_test(new_vma_flags, VMA_IO_BIT)) {
--		vma_flags_clear(new_vma_flags, VMA_IO_BIT);
-+	if (lock)
- 		vma_flags_reset_once(vma, new_vma_flags);
--	}
- }
- 
- /*
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 5fefe5b060b1..120c894d2dde 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -2239,9 +2239,11 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 
- 		/*
- 		 * If the folio is in an mlock()d vma, we must not swap it out.
-+		 * VMA_LOCKONFAULT_BIT alone marks an mlock walk in progress, see
-+		 * mlock_vma_pages_range().
- 		 */
- 		if (!(flags & TTU_IGNORE_MLOCK) &&
--		    (vma->vm_flags & VM_LOCKED)) {
-+		    vma_test_any_mask(vma, VMA_LOCKED_MASK)) {
- 			ptes++;
- 
- 			/*
+Changes in v2:
+- Simplify doc wording following feedback from Alice Ryhl.
+- Remove extra empty line between Link: and Signed-off-by:.
+- Link to v1: https://lore.kernel.org/rust-for-linux/20260827150719.109145-1-georgeandrout13@gmail.com/
+---
+ rust/kernel/bitmap.rs | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
+diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+index b27e0ec80d64..b51c8a96f1a8 100644
+--- a/rust/kernel/bitmap.rs
++++ b/rust/kernel/bitmap.rs
+@@ -459,7 +459,13 @@ pub fn last_bit(&self) -> Option<usize> {
+ 
+     /// Finds next set bit, starting from `start`.
+     ///
+-    /// Returns `None` if `start` is greater or equal to `self.nbits`.
++    /// Returns `None` if no bits are set on or after the given index. The
++    /// index `start` must be in bounds.
++    ///
++    /// # Panics
++    ///
++    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
++    /// out of bounds.
+     #[inline]
+     pub fn next_bit(&self, start: usize) -> Option<usize> {
+         bitmap_assert!(
+@@ -479,7 +485,14 @@ pub fn next_bit(&self, start: usize) -> Option<usize> {
+     }
+ 
+     /// Finds next zero bit, starting from `start`.
+-    /// Returns `None` if `start` is greater than or equal to `self.len()`.
++    ///
++    /// Returns `None` if no bits are zero on or after the given index. The
++    /// index `start` must be in bounds.
++    ///
++    /// # Panics
++    ///
++    /// Panics if `CONFIG_RUST_BITMAP_HARDENED` is enabled and `start` is
++    /// out of bounds.
+     #[inline]
+     pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
+         bitmap_assert!(
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 -- 
-2.55.0
+2.47.3
 
