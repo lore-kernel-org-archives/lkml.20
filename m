@@ -1,72 +1,45 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1174B3ABD96
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:34:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8753AD51C;
+	Tue,  8 Sep 2026 20:34:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899669; cv=none; b=IDeJh738VIpyCkF2eLh/OAI5d1nT17rocYpTZzPkfxn9oFwzM+0Ypsi1s8DXZuJ4WqRMC2wvMjv6sqhq2K/RF5ZP0x+wNFPH1cOgg/8aUUJ+ZIVytlS734ijSFk3xRL+lNF0qC4oyHBkkKELkKSOj9yLFAX64YZX/GyOB4XkmaY=
+	t=1788899669; cv=none; b=Ki4BoIp/MOvPw5owyFZJeqzQRYRAXJgty5pvcEdVxoHJManXUtgTy6ucNmOK9J2kzLFKnSJ9jnp3ZliCLsvmSfa7rFhnf8+v99iupqrclsBQtGR7U5V+9e7M6ZSHBJacHYScPonu8EwiqAaodlS71gqhUxDOkUbR+xjYlZepVv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788899669; c=relaxed/simple;
-	bh=DMkGKouuzbbi1kd4aKqcu2oLZO+dptA9r8V345aiSyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TeNKGhwNgB4e9R4owjBaFkvQ980e4eH0j8Lx15UUoMsEY0lb34sroXKtCMldaIC7mzCAWw3qWMYa2xQ0vhmyVSRauzGTEd3lov6tm/VfqjGR7UU6ttcuZGORJXPZCql9icf3TZp5XpHBmUsaBaYaaxFzu64W2T3dfTM5eANi9L8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mGsvuWAA; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=i2WUqestzEV+CQZTM2vaVu6zEsLumMc9aLqWUXeG64o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VL/FWoEjmQEMgKxrrbDjqoI3fWT6Eygs6dPBNSKOGvuv94oUD5kGiWmIXu/qARLfxdqNdZRuFIl33dtmvB/2JNIkE6aQhHzx8EUTUI1nulSVD/VoYH+SDG9hsWKCIAbYi9zqiu0WkDw5LLTIR9JAdrAjkejNRg93yiMXn7KHiFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PkqiX6n2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mGsvuWAA"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso42850165e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:34:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788899666; x=1789504466; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=creIK6w/RJsP6wNMNAa45yu25/0nc475hdrmkzg6PX0=;
-        b=mGsvuWAAeNj1aa0s0PdCG0frTPbPYjJ/d+N6YJBXnUFFclt4bRBlqI5gOsReBzuzTC
-         n1Xd9/Zqc3UicbaQqfQsWSMsmsdniiFjxNFVoyaXx6O7eOsXa6owDBR17AmVkpOO4Fb1
-         DG1UDPGi36eopU4Vr5mSTPsUSsGiOhjW1JRsDhC3I4CC8e7bZaBYBJBFy2lVcJIqvVRD
-         Z0BAxu4OZ848D3KN2WE4kZcn1c4UMhVVSnfBOZhO/yeiuzPQ4i+dGtEnVlEANaMbTI6e
-         qVizB0ZpeRrgiK1ZvZ5373hUsZ9hmKEXXJ5nvp6QTmv+UmkOHyqo5CLBY51pPMs5Xc43
-         fUcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788899666; x=1789504466;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=creIK6w/RJsP6wNMNAa45yu25/0nc475hdrmkzg6PX0=;
-        b=DPjm6M75U22o6VczNhi5GAtT2SIt+xAy4Dhta8DG/Av82FyAwC+iJ2ldTvKpqAaibx
-         jvixOhKX55/MotecefkTfsvyRvG7sOGElG+w3JXRKl8AArENAqA2GVwKfKfe1/vavpru
-         kpV6tuzoHR8IxhaJ7iXoQVtas5eketViKm0/znJDadtMCkR4yE/oUbHpem9nvKFauRvE
-         jgYg6cgRrdJJGi9osVpxGc2KQ2wBR//ORj6q/2xHm218mIuYOGIn+4obZ4+n2r+0wHaj
-         XVI+pDLc+yOhc0T54nRZYdnmVKR3kqHhRtoZ8USrvYvs5XeQhx7yuVQLVTejOil+gMbR
-         2kWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx6qkHtNIsHo7VdkJCaZEUm+rOoe4dnjuktg/zXJFfTBUl/5KqgVFagSj8qESFLPKqdIyMyVoOCBQFdwaw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfYbqMzzGgs4IPdWE3/c3f+ROwCfPYHNm6Ls/VlKx5E2C38fRI
-	OwWgqz7piRUJphM0LHKXWYG7RpmowFuD7EUoyp/9ci6K9Sdyfpg6XvAT
-X-Gm-Gg: AYBFou2iXL82gdo21jOYj8/vqbWV3M42uUco332eC48X/Zm4feHShh1xmP0VpHkDELX
-	lMK0VVzPPk/HKAJb/mShWeiTOeskBXFQbzqGYLYrEQk2kdmzA1VOOmvkPzC6UQvC14Jwbb03lTH
-	UZNPo46EAjq2hNSP6+/fHeOIJR75GYBp23AXDFh9m1CZFVXXfi5lLe9qjfGxvefHW4MdhMt/Zr7
-	DfRiQZCnxsJOLBSJKN55PtS+S7IH8LUdsCkYwr3+zhL8PsSWR15jy2pHAWkQZ3DNjfhZjzNsO+A
-	bqZzfadGUEJrYBefOfL+tibFc/pYDtnplDDvcqBjTJR8kpYTkenRULr6t1YDqpqpSdg7mvpk0rg
-	QSdSlEQX26qJjIqxK0FxC2Ozv4x1Dvqwj1mm1rG2wE7qMZl03gMNdljhiZQ1ldTzQcBXuB8cDF7
-	1raxArgSW10PRifG/zcOst+5nGmPKKvOnYu8587NgAGEwVeDcZPO69po8TSLP2e80iL3ev8dbVv
-	WHV7PMrKHlW1mSXbXSzsuAwo8whdKoIU/1OvAdXp7h1
-X-Received: by 2002:a05:600c:8b8c:b0:49c:e3ad:41d3 with SMTP id 5b1f17b1804b1-49cf7f4aea6mr307532965e9.0.1788899665998;
-        Tue, 08 Sep 2026 13:34:25 -0700 (PDT)
-Received: from arch.home ([2a02:1210:2e28:2800:36a5:7f85:ccb8:1176])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf772692dsm491652845e9.10.2026.09.08.13.34.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 13:34:25 -0700 (PDT)
-From: Gabriel Windlin <gawindlin@gmail.com>
-To: Antheas Kapenekakis <lkml@antheas.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Cc: platform-driver-x86@vger.kernel.org,
-	Gabriel Windlin <gawindlin@gmail.com>
-Subject: [PATCH] MAINTAINERS: fix sysfs-platform-ayaneo-ec documentation path
-Date: Tue,  8 Sep 2026 22:34:11 +0200
-Message-ID: <20260908203412.608606-1-gawindlin@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PkqiX6n2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC321F00A3A;
+	Tue,  8 Sep 2026 20:34:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788899667;
+	bh=P0t5klcuGPOZqVzgT74rAAnNeq5d/EWeiRAWMV72lLE=;
+	h=From:To:Cc:Subject:Date;
+	b=PkqiX6n2s04YkmZZLUAVi3EvVcneX6hGlDBvg8iOxLhyJueFIotihcsr1+2o/VuwN
+	 fYBc3MLazF/MAoE+8rLPs88F8cbCAxbDkxfArI29YFIUEP1oxf+cdUpa0sAkqACf32
+	 7d7TboIlCOC7hLOx81yLlinvXe5WYHzcyO01KAuT6NRH2BLgWlp8FYbnjfM7Bxaj6G
+	 PLAQcXv2hWrPmqUw1ZlmIyGGBhgbtnNQkkWifKP5jSIbubZt2+y9vdlbS21LobG3rH
+	 Kg9Z2SElkWLR0ks2bx4G3CfSjmjnmfMh0O/sehUSmROfTw7yJtfOIIgefmdrnilqBT
+	 vMrkblB3swoNA==
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: x86@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Peter Zijlstra <peterz@infradead.org>,
+	Gary Guo <gary@garyguo.net>,
+	rust-for-linux@vger.kernel.org,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	linux-kbuild@vger.kernel.org,
+	Huacai Chen <chenhuacai@kernel.org>
+Subject: [PATCH v2 00/27] objtool: dynamically detect noreturns
+Date: Tue,  8 Sep 2026 13:33:12 -0700
+Message-ID: <cover.1788899473.git.jpoimboe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -76,33 +49,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The documentation file for the AYANEO platform EC driver was added as
-Documentation/ABI/testing/sysfs-platform-ayaneo-ec, but MAINTAINERS
-references it without the '-ec' suffix, causing 'make refcheckdocs'
-to report a broken reference.
+changes since v1 (https://lore.kernel.org/cover.1787890035.git.jpoimboe@kernel.org):
+- improve commit log for "kbuild: Defer running objtool to link time for all CFG features"
+- rebase on v7.3-rc2 to get a proper Sashiko review
 
-Update the file entry to point to the correct file name.
+The C and rust manual noreturn lists are a maintenance nightmare.  Get
+rid of them by taking advantage of the fact that objtool can run on
+linked objects (vmlinux.o and modules) and can thus detect noreturns
+dynamically:
 
-Signed-off-by: Gabriel Windlin <gawindlin@gmail.com>
----
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  1) When features are enabled which require the noreturn knowledge
+     (i.e., control flow analysis) always defer objtool to run on linked
+     objects.  That obsoletes most of noreturns.h. (patch 12)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index da3e42d2d190..4e76c618dede 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -4512,7 +4512,7 @@ AYANEO PLATFORM EC DRIVER
- M:	Antheas Kapenekakis <lkml@antheas.dev>
- L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
--F:	Documentation/ABI/testing/sysfs-platform-ayaneo
-+F:	Documentation/ABI/testing/sysfs-platform-ayaneo-ec
- F:	drivers/platform/x86/ayaneo-ec.c
- 
- AZ6007 DVB DRIVER
+  2) For noreturn functions which are exported by vmlinux, dynamically
+     write their names to a file which is then read by objtool running
+     on modules.  That obsoletes most of the remaining noreturns.h
+     entries and the entirety of is_rust_noreturn(). (patch 24)
 
-base-commit: 5acbae5f7eb3d5275120abfe698c394b7325dcec
+  3) For the (four) noreturn functions which are exported by modules,
+     manually annotate them at their declaration sites with a new
+     ANNOTATE_EXPORTED_NORETURN().  That removes the last few stragglers
+     in noreturns.h. (patch 26)
+
+Josh Poimboeuf (27):
+  objtool: Remove obsolete noreturns.h entries
+  kbuild: Add CONFIG_OBJTOOL_DEFERRED
+  kbuild: Add CONFIG_OBJTOOL_CONTROL_FLOW
+  objtool: Fix dead end detection for sibling calls
+  objtool: Refactor the noreturn/dead-end detection
+  objtool: Ignore traps after noreturn calls in STT_CODE
+  objtool: Make .discard.stack_frame_non_standard non-allocatable
+  efi/libstub: Drop .discard.addressable from the stub objects
+  efi/loongarch: Mark loongarch efi_boot_kernel() non-standard for
+    objtool
+  objtool: Add ANNOTATE_IGNORE_NORETURN()
+  LoongArch: Annotate reboot and kexec paths as returnable
+  kbuild: Defer running objtool to link time for all CFG features
+  rust: Annotate the intrinsic stubs as returnable
+  panic: Mark abort() __noreturn
+  x86/xen: Ignore noreturn status of weak mem_map_via_hcall()
+  objtool: Detect noreturns in weak functions
+  x86/entry: Make rewind_stack_and_make_dead() a real function
+  x86/xen: Make xen_cpu_bringup_again() a real function
+  x86/xen: Make xen_start_kernel() noreturn
+  x86/boot: Rework how pi startup symbols get exposed to vmlinux
+  objtool: Fix noreturn detection for non-sibling jumps to SYM_CODE
+  objtool: Add options to write/read exported noreturns to/from a file
+  kbuild: Do the per-module objtool pass right before linking
+  kbuild: Generate the noreturn list and validate modules against it
+  objtool: Add ANNOTATE_EXPORTED_NORETURN()
+  objtool: Annotate all module-exported noreturns and remove noreturns.h
+  objtool: Warn about missing/stale ANNOTATE_EXPORTED_NORETURN() usage
+
+ Makefile                                 |   8 +
+ arch/arc/kernel/traps.c                  |   4 +-
+ arch/arm/kernel/traps.c                  |   2 +-
+ arch/loongarch/kernel/machine_kexec.c    |   2 +
+ arch/loongarch/kernel/reset.c            |   4 +
+ arch/x86/boot/startup/Makefile           |  16 +-
+ arch/x86/boot/startup/exports.h          |  14 -
+ arch/x86/boot/startup/unprefix.syms      |  13 +
+ arch/x86/entry/entry_64.S                |   7 +-
+ arch/x86/kernel/vmlinux.lds.S            |   2 -
+ arch/x86/platform/pvh/enlighten.c        |   1 +
+ arch/x86/xen/enlighten_pv.c              |   5 +-
+ arch/x86/xen/xen-head.S                  |   5 +-
+ arch/x86/xen/xen-ops.h                   |   2 +-
+ drivers/firmware/efi/libstub/Makefile    |   4 +
+ drivers/firmware/efi/libstub/loongarch.c |   8 +
+ drivers/message/fusion/mptbase.h         |   2 +
+ include/kunit/test.h                     |   1 +
+ include/kunit/try-catch.h                |   2 +
+ include/linux/annotate.h                 |  24 ++
+ include/linux/objtool.h                  |  13 +-
+ include/linux/objtool_types.h            |   1 +
+ include/linux/panic.h                    |   2 +-
+ include/linux/rtc/ds1685.h               |   2 +
+ kernel/exit.c                            |   2 +-
+ lib/Kconfig.debug                        |  14 +
+ lib/Kconfig.ubsan                        |   2 +-
+ rust/.gitignore                          |   1 +
+ rust/Makefile                            |  17 +
+ scripts/.gitignore                       |   1 +
+ scripts/Makefile.build                   |  31 +-
+ scripts/Makefile.lib                     |   4 +-
+ scripts/Makefile.modfinal                |  35 +-
+ scripts/Makefile.vmlinux_o               |  13 +-
+ scripts/link-vmlinux.sh                  |   3 +-
+ scripts/livepatch/klp-build              |   4 +-
+ tools/include/linux/objtool_types.h      |   1 +
+ tools/objtool/Documentation/objtool.txt  |  30 +-
+ tools/objtool/builtin-check.c            |  12 +
+ tools/objtool/check.c                    | 437 +++++++++++++++++------
+ tools/objtool/include/objtool/builtin.h  |   2 +
+ tools/objtool/include/objtool/elf.h      |   4 +
+ tools/objtool/klp-diff.c                 |  32 ++
+ tools/objtool/noreturns.h                |  56 ---
+ 44 files changed, 584 insertions(+), 261 deletions(-)
+ delete mode 100644 arch/x86/boot/startup/exports.h
+ create mode 100644 arch/x86/boot/startup/unprefix.syms
+ delete mode 100644 tools/objtool/noreturns.h
+
 -- 
 2.55.0
 
