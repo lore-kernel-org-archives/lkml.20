@@ -1,154 +1,398 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9079A548547
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:45:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D1B545DBA;
+	Tue,  8 Sep 2026 12:45:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871533; cv=none; b=jm+p4t73xA5tJ1ZjMUrqcfT6augCTRC9IckeBjsQLAD1awz/8YjAmcqZUHop40xZaHlcYt65Y4+C/IpA9QJEGneY9FgyHUGjHOauDfNdOaaiC3zefqBTvKfGRpk0pMlmIvlrEsg8v2sh8Pdk8RBIb1UISsabGklWSrm4Zm0N9YI=
+	t=1788871530; cv=none; b=RMmWSK2jMyf4pKP9HgLUDUdvW5ORpP0PQHaoPT32QzGUE8Y2Q3ATWfwYPOZ3m0nluRkRZ8Zsqy21ByI5yQ0K74mDvZ4m7V/xC7Nw8p6MNUt9bY5ZSBg5CBpXuIdSKz1ACxH7WszCibTB/vMCO0zE0NbxK0+0X5Eaj6uDqKi611s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871533; c=relaxed/simple;
-	bh=cefWH3zZ7K3vDSf+fLZ09nXocZembIWvzYOmUwp+oTY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YDCmAIkBMPKS9nFEXK7/mRNlzoWx/wKo6aj7aceVGfaDiGniNauJEpwt0L62/Yb/y9VdkHDY7jiP576qtKaimSQJIVCWlNfkqtqlOEa0yLIcxdz+j0QwUHqDRU1uzGLD3QAX6gZjBOtYqGogfU1wT1oHWLwkerKTeKMih/UnHbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so1001124241.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:45:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788871530; x=1789476330;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sWfYxxbbZLcnhPJrqJjUWtl71HlCnyMUS3wjMmJ9wMA=;
-        b=oN1nfiObu3/Ng71RpeC4qtzqMxBZE7p7JWX643s/a0vHy9KEC0va/C6JLxsL9k6Uum
-         wi8RMS17+YxeN399tqHtRxV4C1maQvSW51kjEhPp4qRWCE52Nql5mw0budHet9t1yzoO
-         UOc2vZWzoSWt2YlDRGGcLVfpgaopvLs8ibu34trb/Ub4C2JCszyTsuYJw+SGOQSQcdq4
-         35Ug7rH2t2LQHDOSmITlT3NVbqikfgcE5q0Vex51Mjo3bFEouF4F/Rr4nlXccjLGMsp7
-         stsyb7y0M641gEUs3vBUZaqw5uDbTOdtTg4Ok9Pgap37v9CNLcxIrGfyNsCBeG1Vd8fn
-         cBrQ==
-X-Forwarded-Encrypted: i=1; AKwUvByhGSHbg98tfvmnaQgKMEPox1joFjszicBrCbJBEYoPU2vxqPK1xptXaKWnbokL42eq8O7f+s6LdvVxa9E=@vger.kernel.org
-X-Gm-Message-State: AFuF++l867FOjWADLXsFmtMWBtiyHPvWJznzYIOOGJCWMPrabs5J/G6X
-	+l4hlgpLXbxDxf/GcY5h5bNeIWqCVfxql5kxc0cd+EGDfVyT3hyodsrii9HR9dCz
-X-Gm-Gg: AYBFou2qDBwGpvtj+vzTQKuGNkZH7apwMPP5c4xSukdUZkJm3tKJOV9Fb/ibJ53xfru
-	dA2cH6cfTt2Oispxib9tv1DTsBajceQTBzL60gH0Ul7NQjznaM129UK/5+1SsH17BhxLmgAokBN
-	LrJj+LNN/9Fh/P4TASzAGYaOr6gNxp678vI7dmr5efyFQWJD8aON9ReIV+LktoBWCuia14xsjOc
-	sF6CDHUARpWe463SmkMeM+IE4UIVh+tj+NOprOCZ12rDtR/SNLKBbqS+MateQusLBhAsRmYSWv1
-	HK4QCjLpK/ooq2m6/IVZ1B4uKQurwiMmCkkAXlpwb7lD8lq2eUv21TPnRhjaCvS2f1oA9utb0Ou
-	hCiPgFXTg8fs8+HxjZFnssorwpfZPR4UgTpAsBMPDTnOKfhrffrEqKnXYxPPCsjuOPJaKw8vBge
-	EgTis2jjUSREa/ubR0A4LMgYKMaES+B60YoO+z2CmToCYiqJQzZzpMNHoiOCZVIS4iFe4ZS9D1D
-	2H8pReXC7VGGwLx3rsCfrc9YQ==
-X-Received: by 2002:a05:6102:554a:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-78a4a8bb304mr10123876137.6.1788871530198;
-        Tue, 08 Sep 2026 05:45:30 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98097de57d4sm8184262241.10.2026.09.08.05.45.28
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 05:45:29 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-765c077b5c1so1487416137.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:45:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzBTpsxmLsBBcLnZKFot9zPHyzuUTfqit05AzH/0EYNtM8dicE3TagpI9fTliz8vcDPAAG/8IlxRP1Su34=@vger.kernel.org
-X-Received: by 2002:a05:6102:534e:b0:77f:fb50:8822 with SMTP id
- ada2fe7eead31-78a4a9106f4mr9231211137.7.1788871528665; Tue, 08 Sep 2026
- 05:45:28 -0700 (PDT)
+	s=arc-20240116; t=1788871530; c=relaxed/simple;
+	bh=btbAnW7XEqDU3rjY/DIUfd95J9aNMhneMrIssc+dwoo=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=B18Sn1t4grZpdWHxQNy3ydyKWBXAFYODEXju1SVYuTR/aJg2zLXc2ThJTpP1J65aA7Yiox/xANruFkjI54Ti6xAZ+5lRnw4PYtZWD+zRCiWapPtCWGjxajj7Pj36pNIsNMDP+yxWb4Q8PNDigFcOe4ZXzROv8+E0BiF1aqSUnZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MWV7C6jn; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MWV7C6jn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5561F00A3D;
+	Tue,  8 Sep 2026 12:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788871528;
+	bh=04EVxR5ZHLejSpxL9okl2sx0iBZM//I6epK7VnSXHAU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MWV7C6jnIpDFmp+aUZHgz+3MZcL3gzJTBxyiE42g5ts/QOVcf+h2URuEMuORkQE0l
+	 0/V9K9UUlU7xPmBZgCIID2nyauymUgIK2PlqVKRh9gx9C0dYvoXA/6CC15DkmBp3UF
+	 too0Wc3YPFUjrmBxj/pgNhVkhsociENiyL54V65mGGRpe1BT/q+hiQF66cF7HHJhAi
+	 n7s71Sc6epOEHV7KZcVLn80Ovpt57w9VSxlU2pEoacISCH2G7fTsR59/LUyLwTPTwq
+	 iwBJU9QqXUKXXRFI0FGcquXNfal7ZxSRwqxKXuxmKfF5yyRMmOG8AWdoXcMgg/YYt0
+	 KzdvpYjq/uDmg==
+Subject: Re: [PATCH net-next v8 12/15] dpll: sit9531x: add support to get
+ phase offset on the connected input pin
+From: netdev-bot+sashiko@kernel.org
+To: arouhi@sitime.com
+Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
+ arkadiusz.kubalewski@intel.com, ivecera@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, cjubran@nvidia.com,
+ Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Tue, 08 Sep 2026 12:45:26 +0000
+Message-ID: <178887152665.219967.3620325573196534009@kernel.org>
+In-Reply-To: <20260902214030.20955-13-arouhi@sitime.com>
+References: <20260902214030.20955-13-arouhi@sitime.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com>
- <20260817185700.322370-4-cosmin-gabriel.tanislav.xa@renesas.com>
- <CAMuHMdXfDRFz+zYj98GG=_jBhedh1+rCdWbyMSLOycAxzYWouw@mail.gmail.com> <TYRPR01MB1561960BD76ABAAAEF5AA13B385B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
-In-Reply-To: <TYRPR01MB1561960BD76ABAAAEF5AA13B385B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 14:45:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX+qcwEd0r5_WZEb42DKgEBMWAngjD08BWsc2bZoVf65w@mail.gmail.com>
-X-Gm-Features: AcwNN1XD1CUmhUYt-WGNvcOw7i9qN594qU3UZvFGN3lson5FhCOp_jfcJ-nsAHg
-Message-ID: <CAMuHMdX+qcwEd0r5_WZEb42DKgEBMWAngjD08BWsc2bZoVf65w@mail.gmail.com>
-Subject: Re: [PATCH 3/7] pinctrl: renesas: rzt2h: setup IRQ in .irq_{request,release}_resources()
-To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@kernel.org" <stable@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Cosmin,
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider:
 
-On Tue, 8 Sept 2026 at 14:23, Cosmin-Gabriel Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> > From: Geert Uytterhoeven <geert@linux-m68k.org>
-> > On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
-> > <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> > > When exporting a GPIO using the deprecated sysfs GPIO API,
-> > > gpio_is_visible() calls gpiod_to_irq() to determine whether a GPIO is
-> > > IRQ-capable, which ends up using
-> > > struct gpio_irq_chip::child_to_parent_hwirq().
-> > >
-> > > When using the GPIO character device, it is possible to request a line
-> > > and to dynamically switch between using it as an IRQ or as a GPIO, by
-> > > updating the edge detector.
-> > >
-> > > The current struct gpio_irq_chip::child_to_parent_hwirq() implementation
-> > > makes the assumption that it will only be called with the intention of
-> > > setting up the IRQ permanently, and that it will only be released when
-> > > the IRQ domain is freed.
-> > >
-> > > Since we now know that this is not the case, take the following steps in
-> > > order to properly handle that case.
-> > >
-> > > Implement struct irq_chip::irq_{request,release}_resources() based on
-> > > the default GPIOCHIP_IRQ_RESOURCE_HELPERS implementations.
-> > >
-> > > Move the IRQ setup and release logic inside them.
-> > >
-> > > Keep the mapping logic inside ::child_to_parent_hwirq() to be able to
-> > > provide a proper HW IRQ number, but do not actually setup the IRQ.
-> > >
-> > > Remove rzt2h_gpio_irq_domain_free() as its only purpose was to free
-> > > the acquired IRQs.
-> > >
-> > > Cc: stable@kernel.org
-> > > Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
-> > > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Critical: 0 · High: 0 · Medium: 4 · Low: 3
 
-> > > @@ -1089,7 +1077,39 @@ static void rzt2h_gpio_irq_domain_free(struct irq_domain *domain, unsigned
-> > int v
-> > >                 rzt2h_pinctrl_set_gpio_en(pctrl, port, pin, true);
-> > >         }
-> > >
-> > > -       irq_domain_free_irqs_common(domain, virq, nr_irqs);
-> >
-> > Why is this no longer needed?
->
-> We moved from using struct gpio_irq_chip::child_irq_domain_ops::free to
-> using struct irq_chip::irq_release_resources, so free is no longer set.
->
-> devm_gpiochip_add_data() ->
-> devm_gpiochip_add_data_with_key() ->
-> gpiochip_add_data_with_key() ->
-> gpiochip_add_irqchip() ->
-> gpiochip_hierarchy_create_domain() ->
-> gpiochip_hierarchy_setup_domain_ops() ->
->
->         if (!ops->free)
->                 ops->free = irq_domain_free_irqs_common;
->
-> It will end up being populated automatically, let me know if you think
-> we should set it explicitly.
+- [Medium] The TDC sample width is described three mutually inconsistent
+  ways by artifacts this patch adds.
+- [Medium] The callback's own comment states a hardware precondition it
+  neither creates nor checks: "the TDC compares against a signal the PLL…
+- [Medium] A transient I2C/regmap failure is converted into a fabricated,
+  successful phase-offset measurement of 0.
+- [Medium] The callback decides which pin owns the TDC sample from the
+  software cache `sitdev->chan[sitdpll->id].selected_ref`, but takes a…
+- [Low] The new kernel-doc for sit9531x_dpll_input_pin_phase_offset_get()
+  justifies its entire design decision (report the closed-loop residual,…
+- [Low] struct sit9531x_dpll_pin::phase_offset is declared `s64
+  phase_offset; /* picoseconds */` (drivers/dpll/sit9531x/dpll.h:35),…
+- [Low] sit9531x_phase_offset_read() documents the conversion as
+  `phase_diff (ps) = tdc_code * 1e12 / fvco` but implements `fvco_mhz =…
 
-Thanks, that's the part I was missing.  Please document in the patch
-description that irq_domain_free_irqs_common() is set up automatically.
+--
 
-Gr{oetje,eeting}s,
+dpll: sit9531x: add support to get phase offset on the connected input pin
 
-                        Geert
+This adds sit9531x_phase_offset_read() to sample the on-chip
+time-to-digital converter through the PLL debug window and convert the
+code to picoseconds, and wires it up as the input pin
+.phase_offset_get callback.  Pins that are not the PLL's selected
+reference report zero.
+
+A few questions on the readback and on what gets reported to userspace.
+
+> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index c93578f3b750..f552a9c73796 100644
+> --- a/drivers/dpll/sit9531x/core.c
+> +++ b/drivers/dpll/sit9531x/core.c
+> @@ -1586,6 +1586,131 @@ int sit9531x_output_pulse_ctrl_set(struct sit9531x_dev *sitdev,
+>  	return rc;
+>  }
+>  
+> +/*
+> + * sit9531x_phase_offset_read - read phase difference via TDC
+> + * @phase_ps:	output phase difference in picoseconds
+> + *
+> + * Reads the Time-to-Digital Converter (TDC) 40-bit code from the
+> + * PLL page registers, then converts to picoseconds using the VCO
+> + * frequency: phase_diff = tdc_code / fvco.
+> + *
+> + * Caller must hold sitdev->multiop_lock.
+> + */
+
+[ ... ]
+
+> +	tdc_raw = 0;
+> +
+> +	rc = sit9531x_read_pll_u8(sitdev, pll_idx,
+> +				  SIT9531X_PLL_REG_DBG_DATA_4, &v);
+> +	if (rc)
+> +		return rc;
+> +	sign = !!(v & BIT(SIT9531X_TDC_SIGN_BIT));
+> +	tdc_raw = (u64)(v & 0x07) << 32;
+
+[Severity: Medium]
+How wide is the TDC sample meant to be?  Three places in this patch
+disagree.
+
+The kernel-doc above says "Reads the Time-to-Digital Converter (TDC)
+40-bit code".
+
+regs.h annotates the top byte as nine bits in an eight bit register:
+
+	#define SIT9531X_PLL_REG_DBG_DATA_4		0xB9  /* [39:32] + sign */
+
+And the code keeps three bits of that register and takes bit 3 as the
+sign (SIT9531X_TDC_SIGN_BIT == 3):
+
+	sign = !!(v & BIT(SIT9531X_TDC_SIGN_BIT));
+	tdc_raw = (u64)(v & 0x07) << 32;
+
+That assembles code[34:0], not code[39:0].  If the register annotation is
+the correct one, are magnitude bits [39:35] dropped here with no range
+check, so a large sample is scaled and published as an arbitrary
+DPLL_A_PIN_PHASE_OFFSET value instead of an error?
+
+The 0x07 is also the only unnamed field mask in a header that names every
+other field, which hides the width at the call site.  Could it get a
+define next to SIT9531X_TDC_SIGN_BIT?
+
+[ ... ]
+
+> +	/*
+> +	 * Get VCO frequency for conversion.  Fvco==0 means DIVN is not
+> +	 * programmed (PLL unused on this board) -- skip silently rather
+> +	 * than spamming the log on every poll cycle.
+> +	 */
+> +	fvco = sit9531x_get_fvco(sitdev, pll_idx);
+> +	if (!fvco) {
+> +		dev_dbg(sitdev->dev, "PLL%c: Fvco unknown, skip TDC\n",
+> +			'A' + pll_idx);
+> +		return -ENODEV;
+> +	}
+
+[Severity: Medium]
+Is "Fvco==0 means DIVN is not programmed" the only case?  sit9531x_get_fvco()
+also returns 0 on any register read failure:
+
+	rc = sit9531x_divn_static(sitdev, pll_idx, &divn);
+	if (rc || divn <= 0)
+		return 0;
+
+	doubler = sit9531x_is_xo_doubler_enabled(sitdev);
+	if (doubler < 0)
+		return 0;
+
+So a single I2C NAK or timeout inside sit9531x_divn_static() ends up here
+as -ENODEV, and the caller turns that into a successful measurement:
+
+	if (rc == -ENODEV) {
+		dpin->phase_offset = 0;
+		*phase_offset = 0;
+		return 0;
+	}
+
+Does that make a bus error indistinguishable from "the loop residual is
+exactly 0 ps" on DPLL_A_PIN_PHASE_OFFSET?  The framework averages
+successive samples, so every failing poll would pull the average toward
+zero.
+
+Note also the asymmetry within this same function: the identical bus
+failure during the trigger and data reads is returned as an error, while
+the one inside sit9531x_get_fvco() becomes a reported value.  Would
+distinguishing "no DIVN programmed" from "read failed" (for example by
+having sit9531x_get_fvco() return an errno separately from the value) keep
+those two paths consistent?
+
+> +
+> +	/*
+> +	 * phase_diff (seconds) = tdc_code / fvco
+> +	 * phase_diff (ps) = tdc_code * 1e12 / fvco
+> +	 *
+> +	 * To avoid 64-bit overflow:
+> +	 *   phase_ps = tdc_code * 1e6 / (fvco / 1e6)
+> +	 */
+> +	fvco_mhz = div64_u64(fvco, 1000000ULL);
+> +	if (!fvco_mhz)
+> +		return -EIO;
+> +
+> +	*phase_ps = div64_s64(tdc_signed * 1000000LL, (s64)fvco_mhz);
+
+[Severity: Low]
+The comment states the conversion as tdc_code * 1e12 / fvco, but the code
+truncates the denominator to whole MHz first.
+
+sit9531x_get_fvco() returns Hz derived from a fractional DIVN:
+
+	return mul_u64_u64_div_u64(fref, (u64)divn, SIT9531X_DIVN_SCALE);
+
+so a sub-MHz remainder is normal, and 2949120000 Hz becomes 2949 MHz here,
+about 40 ppm of scale error on every reported magnitude.
+
+Is the overflow concern real?  mul_u64_u64_div_u64() is already used twice
+in this file (sit9531x_get_fvco() and sit9531x_pll_ffo_ppt()) and would
+keep the exact Hz denominator:
+
+	*phase_ps = mul_u64_u64_div_u64(abs(tdc_signed), 1000000000000ULL, fvco);
+
+> +
+> +	return 0;
+> +}
+> +
+>  /*
+>   * sit9531x_ref_state_fetch - read input reference status from hardware
+>   * @index:	logical input index
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index 76d7d7d21d3d..f813126077e1 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
+> +++ b/drivers/dpll/sit9531x/dpll.c
+> @@ -528,6 +528,105 @@ sit9531x_dpll_input_pin_prio_set(const struct dpll_pin *pin, void *pin_priv,
+>  	return 0;
+>  }
+>  
+> +/*
+> + * sit9531x_dpll_input_pin_phase_offset_get - phase offset of a reference
+
+[ ... ]
+
+> + * needs the digital loop filter held (and, on the 1PPS PLL, the automatic
+> + * phase- and frequency-lock helpers held off), which leaves the PLL
+> + * undisciplined until it is released.  A netlink read must not do that,
+> + * so the open-loop measurement lives behind a debugfs operation that owns
+> + * the freeze and restores it; it is not this callback.
+
+[Severity: Low]
+Where is that debugfs operation?  Searching the driver directory at the tip
+of the series, the only match for debugfs under drivers/dpll/sit9531x/ is
+this comment line itself, and the directory contains only Kconfig, Makefile,
+core.c/h, dpll.c/h, prop.c/h and regs.h.
+
+Since this sentence is the justification for reporting the closed-loop
+residual rather than the vendor's open-loop quantity, could it either point
+at code that exists or be reworded so the rationale can be checked?
+
+> + *
+> + * Precondition, which this callback cannot create: the TDC compares
+> + * against a signal the PLL drives, so a PLL driving no output with its
+> + * zero-delay buffer off has nothing to measure.  SiTime confirms this is
+> + * a property of the hardware rather than of their measurement script.
+> + * The script satisfies it by mapping a spare output and restarting the
+> + * PLL -- side effects that do not belong in a getter, so a reading taken
+> + * in that state is simply not meaningful.
+
+[Severity: Medium]
+If a reading taken in that state "is simply not meaningful", what stops it
+from being reported as a measurement?
+
+The callback only checks selected_ref and then reads unconditionally, and
+sit9531x_phase_offset_read() returns 0 regardless of whether the PLL drives
+any output, so whatever the debug window hands back is scaled and published
+as DPLL_A_PIN_PHASE_OFFSET with no extack warning.
+
+regs.h already defines SIT9531X_PLL_REG_ZDB0/ZDB1 with
+SIT9531X_PLL_ZDB_EN_BIT and SIT9531X_PLL_REG_OUT_MAP_HI/LO.  Could the
+getter test those and report zero (as it does for non-selected pins) when
+the precondition does not hold?
+
+The commit message does not mention the limitation at all; it says the
+small value "is the measurement, not an artefact of it".  Could the
+restriction be described there as well, so it is visible to anyone reading
+git history?
+
+[ ... ]
+
+> +	mutex_lock(&sitdev->multiop_lock);
+> +
+> +	/*
+> +	 * The on-chip TDC is a per-PLL resource that always measures the
+> +	 * phase difference between the VCO and the PLL's currently
+> +	 * selected reference; it cannot be pointed at an arbitrary input.
+> +	 * For any input that is not the active reference there is no
+> +	 * meaningful per-pin phase offset, so report 0 instead of the
+> +	 * active reference's value.
+> +	 */
+> +	if (sitdev->chan[sitdpll->id].selected_ref != dpin->id) {
+> +		mutex_unlock(&sitdev->multiop_lock);
+> +		dpin->phase_offset = 0;
+> +		*phase_offset = 0;
+> +		return 0;
+> +	}
+> +
+> +	rc = sit9531x_phase_offset_read(sitdev, sitdpll->id, &offset);
+> +	mutex_unlock(&sitdev->multiop_lock);
+
+[Severity: Medium]
+Can the pin the sample is attributed to differ from the pin the TDC
+actually measured?
+
+The ownership test uses the software cache chan[].selected_ref, whose only
+writer is sit9531x_chan_state_fetch() running from the periodic monitor
+work / threaded IRQ:
+
+	chan->selected_ref =
+		sit9531x_hw_src_input(input_sel & SIT9531X_PRIO_NIBBLE_MASK);
+
+The sample itself is live and always taken against whatever reference the
+PLL has selected at read time.  multiop_lock serialises access to the cache
+but does not stop the chip from switching reference on its own (LOS on the
+active input, revertive switchback).
+
+In the window between such a switch and the next cache refresh, would a
+dpll pin get on the previously selected pin pass the
+selected_ref == dpin->id test and publish the new reference's phase as the
+old pin's DPLL_A_PIN_PHASE_OFFSET, while the pin that is genuinely selected
+fails the test and reports exactly 0?
+
+Would reading the active-select register inside this same multiop_lock
+section, as sit9531x_chan_state_fetch() does, close that window?
+
+> +
+> +	/*
+> +	 * -ENODEV means the PLL has no programmed DIVN (unused on this
+> +	 * board); report phase_offset = 0 so a full pin-get dump does not
+> +	 * fail just because one DPLL is dormant.
+> +	 */
+> +	if (rc == -ENODEV) {
+> +		dpin->phase_offset = 0;
+> +		*phase_offset = 0;
+> +		return 0;
+> +	}
+> +	if (rc) {
+> +		NL_SET_ERR_MSG(extack, "TDC phase readback failed");
+> +		return rc;
+> +	}
+> +
+> +	/*
+> +	 * The ABI reports phase offset in units of 1/DPLL_PHASE_OFFSET_DIVIDER
+> +	 * picoseconds: the integer part of the attribute is the value divided
+> +	 * by the divider, the remainder is the fraction.  The TDC resolves one
+> +	 * VCO period (hundreds of picoseconds), so the fractional digits are
+> +	 * always zero here, but the magnitude still has to be scaled or every
+> +	 * reading would be reported a thousand times too small.
+> +	 */
+> +	offset *= DPLL_PHASE_OFFSET_DIVIDER;
+> +
+> +	dpin->phase_offset = offset;
+
+[Severity: Low]
+The value cached here is in ABI units (1/1000 ps), but the field it is
+stored in is documented as picoseconds:
+
+	s32				phase_adjust;	/* picoseconds */
+	s64				phase_offset;	/* picoseconds */
+
+The sibling phase_adjust really does hold picoseconds, since
+DPLL_A_PIN_PHASE_ADJUST has no divider, so the two identical unit comments
+now differ by a factor of 1000.  Nothing reads dpin->phase_offset today,
+but would it be worth either caching the unscaled value or fixing the
+comment to say 1/DPLL_PHASE_OFFSET_DIVIDER picoseconds?
+
+> +	*phase_offset = offset;
+> +	return 0;
+> +}
+> +
+
+[ ... ]
+
+> diff --git a/drivers/dpll/sit9531x/regs.h b/drivers/dpll/sit9531x/regs.h
+> index 251c98dc7cbe..aa60be243e6d 100644
+> --- a/drivers/dpll/sit9531x/regs.h
+> +++ b/drivers/dpll/sit9531x/regs.h
+> @@ -256,6 +256,42 @@
+
+[ ... ]
+
+> +#define SIT9531X_PLL_REG_DBG_DATA_3		0xB8  /* [31:24] */
+> +#define SIT9531X_PLL_REG_DBG_DATA_4		0xB9  /* [39:32] + sign */
+> +#define SIT9531X_PLL_REG_DBG_DATA_5		0xBA  /* [47:40] */
+
+[ ... ]
+
+> +/* Read code of the TDC phase tap, and the sign bit of its sample */
+> +#define SIT9531X_DBG_READ_CODE_TDC		69
+> +#define SIT9531X_TDC_SIGN_BIT		3
+
+These are the defines referenced in the sample-width question above.
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902214030.20955-1-arouhi%40sitime.com
