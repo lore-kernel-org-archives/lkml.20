@@ -1,134 +1,132 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B13CD35C680
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:16:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169B056511A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:16:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884179; cv=none; b=dVM1xzKWN03GpPWew/fKVo26N27A8vW4hS95HxeSGrRt9u9k7jN9XH+2U8QXW1btG6hq2De0nj5mXxNrvpSAyq3fOm/ZPk/S3R2McasRLlRvA9fRXXst3lI//MPOd9NK7TWzjNuez8IeruT5mZ29UAJlxZNvyHL2Nx6K/TE6OIA=
+	t=1788884186; cv=none; b=rVxUteADjHTO2IFuCkA8S+ON8s47Wpn2AZoqQfo7be/K7XXbsO+VzDGlmVhHS0Sg0R/kgU2xoads9Ti7QOk9L/NB4R1R8OKwI6PVK0aaHscpXj6Dk1iayDIt0SlJqgdDMdo641Ou7ebTJg3EFpr7smABboYvt8F8s5L09QxOn/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884179; c=relaxed/simple;
-	bh=W86j1xmuLlz2bk41yXWceX/GDhYI2NYm1k/krLylX4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PG3vkahnlpvGMtqA8ZAA4EhZ6BbFwU8qr/tfXoTy8+KtJqgHCPu/5VbX349bGBqD8ID+f9oP9+Sz7H/l/SSQYdbH5vC742KHkSAX+ypFZKPpEEcPJ0MBSArfTWhc2fDZgR6YrI+4qgr7C3eOQEyiU2/C+hLYm73mg+1pglGMHO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Qh8sgSR2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788884186; c=relaxed/simple;
+	bh=CGZhEJ2/tDWk+P71VLdAS5cNFu0IAU6zV03Cwlzkac8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EX0kDPXftaVCmZ5EU6JZ43NAp+aRueiXydtWRnt6jFT/R8WGSvKEdRqhNAaJQ0V2hv5P0I98AWeK3t2VggwAnjlld/FHXfNGnHhQciKkPFTRFe0BmyyoJil5Q9GUU5MUGMhoNgKtY1uxwOQ5aU/P+ZcZ6IKZKjqJPUzEeHhYSwg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AqYKK2Uo; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Qh8sgSR2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 355081476;
-	Tue,  8 Sep 2026 09:16:13 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 76E233F7B4;
-	Tue,  8 Sep 2026 09:16:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788884176; bh=W86j1xmuLlz2bk41yXWceX/GDhYI2NYm1k/krLylX4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Qh8sgSR2twbUctxTPL7/+iYnMnoN4URVKwArsPBGM/VyK9vQf92Fce8nkCqEgTUB/
-	 G9DhPh4RC259GqtINnAUa3906GZ7KK1Y2aAXUMv6Cxzua6FF23/iK06U2Rkz8n560k
-	 B/CHzhK2DuOl73avp3FjFYsFMewTAP/L28DTPpJo=
-Date: Tue, 8 Sep 2026 17:16:14 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: yingchao <dengyingchao@kylinsec.com.cn>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Miaoqian Lin <linmq006@gmail.com>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	qinyungao@kylinsec.com.cn
-Subject: Re: [PATCH] coresight: syscfg: fix deadlock on device registration
- failure
-Message-ID: <20260908161614.GA200420@e132581.arm.com>
-References: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AqYKK2Uo"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so45803435e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:16:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788884182; x=1789488982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aW1yDnVQMbshAqUi9NqbYxbv2XerDdqOEtxHNL3um4w=;
+        b=AqYKK2UoO8a1IsUtaRfW5epIFS6SxscA/cxnXXf2GF6nulMREIGBCriLXiCU9iqgWj
+         crEnykrsexBxaD9B1lQWXIcur3i/EZp/UdX6mtlN95Wg4IB5EOUVoJJoRqveZeHEi3AY
+         LrYoNJH8wmOvC9oJVo5W9PfdrEOO61EK5g5C4I9ILnG/RnR8aDYpvL0kxxjjHPCD5KSU
+         0paghXsjR4Pd9YvcZVcYZJcFWbYBc+Tsz3lkx9uG4NyB1u/UOcBPrXE1wba4FRLV96ak
+         d9ipf8vNGLmJTV21Tb5mjmOPNWXe34v9drQwgaB7EZfdBQ/9tc5DFTi6Fc6/qy2wM7HY
+         5TGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788884182; x=1789488982;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aW1yDnVQMbshAqUi9NqbYxbv2XerDdqOEtxHNL3um4w=;
+        b=Oocp4HWNqyd57KbZC4pauJNLgtuayaEY5qS8lcfYtJpcGKOhyIcyx23y8fwQdiIg7Q
+         FqpYyLU9G4FrOrdikjI00NheYljO4lpJsbvFFhdN/R3oJFQkA20mJ2xLavZWxMbuBRwZ
+         o+rrhSWCluYwQ3IO0F6gVdPq8X+5b8YQ44te3UmnB7jqA2FaZN9i+wUsJUSrpiwmmwkU
+         qD55O4emhlwV0GlrplrUCO4G2QsbhySY/UM1boRJUXHgFk2xq4bJ9V0PRGoxgA5FhNYx
+         11ZLZkbYdjFA3NfrpSc5ARRhHkbit1ZYxv7RMVoX++pKteEEEbRFwloDTNACN5eZ17iB
+         sOpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzX5eRMpcZBAtNmb49K/kzyz/wAu/7SSbLevFcu48FGjLgWApyzjxzm0Wo4THHsliSBtU3pls6jzSasD9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++knnshBoSTyW5Cg79lbYyStv9bddUhEC7caeqK1Ic3vzAxMP3RI
+	5HZGAQix+eFOKGgUE823sCBxOVGdQ2wJrmfQxqMSd+iD3mqdj9KK/b8=
+X-Gm-Gg: AYBFou3yyBCorhzOfCuljC0dXJmhd/9eQBIZ1szmDXcGo3TYamZRFeQZHvOkuc7UUHZ
+	hgmfA7La0A0Rf/xpZQR1UXo0mN8D1pCmKpXda8aDBg117FFC95dY1Byy1P78RxYU2EDyazkF3RU
+	/ytqnLV9p8nrkAM8clEuUnhfpD66ntT8mPn/QT8rvnpdTNZRiCWsd91mxef/uvajbwL3/nwteZD
+	6zzWRBghMRzxaXyFLH1N3OIvcnNeRmZRH2Kbrf2T4yD3S6hdS7MZYkolwvk1dSJr0kFa9rnDFlm
+	bXHBrVRmut55g5mHJQNZ0TbQV7Z0Xy3pHRusy0mg8sYQQilkj59ZGrU9xATA3/1tbsGsA5HqCyI
+	r8/nLV7T2mJlzujSx+QbDeSbzo7NzxcgZQZBpi6lLmYC4uvUb8OlTD12hq8CgXpqXTFbQxqUpUN
+	Hbx2xoHF6C96aoR7LR1NdWyFXpfTbzxMq4g7CTuGqigKXlBNZd2JkL1WWB2gpg5Hx471FBhw2TL
+	wDGdlq9qPyA3AohTd7u0pxuN+aeZntZi2bkPtpn3eWznwiikA==
+X-Received: by 2002:a05:600c:190b:b0:49c:fa21:e743 with SMTP id 5b1f17b1804b1-49cfa21e92amr288183415e9.25.1788884182199;
+        Tue, 08 Sep 2026 09:16:22 -0700 (PDT)
+Received: from latitude7275 (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm341499735e9.0.2026.09.08.09.16.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:16:21 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Thierry Chatard <tchatard@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: [PATCH] mfd: intel-lpss: add Dell Latitude 7275 to the resource conflict quirk
+Date: Tue,  8 Sep 2026 18:16:29 +0200
+Message-ID: <20260908161629.335223-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831160754.9857-2-tchatard@gmail.com>
+References: <20260831160754.9857-2-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <604ED754D4669F40+20260825014717.2346-1-dengyingchao@kylinsec.com.cn>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Aug 25, 2026 at 09:47:17AM +0800, yingchao wrote:
+The Dell Latitude 7275 2-in-1 has the same BIOS bug as the Latitude 5285:
+the ACPI GEXP device declares an OperationRegion (BAR0) on the GNVS
+variable SB04 and the I2C4 controller (INT3446) builds its _CRS from that
+same variable, so intel_lpss_acpi fails to bind the controller with
+-EBUSY and the front camera sensor (OV5670, INT3479) is never registered
+unless acpi_enforce_resources=lax is passed.
 
-> diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-> index 2bfdd7b45e49..d0e7e4720e46 100644
-> --- a/drivers/hwtracing/coresight/coresight-syscfg.c
-> +++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-> @@ -1210,8 +1210,14 @@ static int cscfg_create_device(void)
->  	dev->init_name = "cs_system_cfg";
->  
->  	err = device_register(dev);
-> -	if (err)
-> +	if (err) {
-> +		/* put_device() triggers cscfg_dev_release() which takes
-> +		 * cscfg_mutex, so drop the lock first to avoid deadlocking.
-> +		 */
-> +		mutex_unlock(&cscfg_mutex);
->  		put_device(dev);
-> +		return err;
-> +	}
+Add the machine to the DMI table so QUIRK_IGNORE_RESOURCE_CONFLICTS is
+applied to INT3446 on it as well.
 
-As module init and exit are serialized by the kernel, I don't think we
-need the mutex to protect the allocation and freeing of cscfg_mgr.
+Assisted-by: Claude Code:claude-fable-5-1
+Signed-off-by: D. Manresa <dmanresa@gmail.com>
+---
+Applies on top of "mfd: intel-lpss: add resource conflict quirk for Dell
+Latitude 5285" from Thierry Chatard's v10 series [1]. Thierry, feel free
+to fold this into v11 instead if you prefer.
 
-The mutex should only be used for exclusively access cscfg_mgr.
-So how about the change below?
+The conflict was verified in the 7275 DSDT (BIOS 1.18.0): GEXP has
+OperationRegion (BAR0, SystemMemory, SB04, 0x0208) and INT3446._CRS
+returns LCRS (SMD4, SB04, SIR4). With acpi_enforce_resources=lax, which
+has the same effect as the quirk, the controller binds and the camera
+works with the board data from "platform/x86: int3472: Add TPS68470 board
+data for Dell Latitude 7275" [2]. The distribution kernel here builds
+intel-lpss-acpi in, so this exact patch has not been run yet.
 
----8<---
+[1] https://lore.kernel.org/linux-media/20260831160754.9857-2-tchatard@gmail.com/
+[2] https://lore.kernel.org/platform-driver-x86/20260908161445.334910-1-dmanresa@gmail.com/
 
-diff --git a/drivers/hwtracing/coresight/coresight-syscfg.c b/drivers/hwtracing/coresight/coresight-syscfg.c
-index 2bfdd7b45e49..2dd0b29f44e4 100644
---- a/drivers/hwtracing/coresight/coresight-syscfg.c
-+++ b/drivers/hwtracing/coresight/coresight-syscfg.c
-@@ -1173,27 +1173,21 @@ struct device *cscfg_device(void)
- /* Must have a release function or the kernel will complain on module unload */
- static void cscfg_dev_release(struct device *dev)
- {
--	mutex_lock(&cscfg_mutex);
- 	kfree(cscfg_mgr);
- 	cscfg_mgr = NULL;
--	mutex_unlock(&cscfg_mutex);
- }
+ drivers/mfd/intel-lpss-acpi.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+--- a/drivers/mfd/intel-lpss-acpi.c
++++ b/drivers/mfd/intel-lpss-acpi.c
+@@ -191,6 +191,12 @@ static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
+ 			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
+ 		},
+ 	},
++	{
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7275"),
++		},
++	},
+ 	{ }
+ };
  
- /* a device is needed to "own" some kernel elements such as sysfs entries.  */
- static int cscfg_create_device(void)
- {
- 	struct device *dev;
--	int err = -ENOMEM;
--
--	mutex_lock(&cscfg_mutex);
--	if (cscfg_mgr) {
--		err = -EINVAL;
--		goto create_dev_exit_unlock;
--	}
-+	int err;
- 
- 	cscfg_mgr = kzalloc_obj(struct cscfg_manager);
- 	if (!cscfg_mgr)
--		goto create_dev_exit_unlock;
-+		return -ENOMEM;
-+
-+	mutex_lock(&cscfg_mutex);
- 
- 	/* initialise the cscfg_mgr structure */
- 	INIT_LIST_HEAD(&cscfg_mgr->csdev_desc_list);
-@@ -1204,6 +1198,8 @@ static int cscfg_create_device(void)
- 	cscfg_mgr->load_state = CSCFG_NONE;
- 	raw_spin_lock_init(&cscfg_mgr->sysfs_store_lock);
- 
-+	mutex_unlock(&cscfg_mutex);
-+
- 	/* setup the device */
- 	dev = cscfg_device();
- 	dev->release = cscfg_dev_release;
-@@ -1213,8 +1209,6 @@ static int cscfg_create_device(void)
- 	if (err)
- 		put_device(dev);
- 
--create_dev_exit_unlock:
--	mutex_unlock(&cscfg_mutex);
- 	return err;
- }
