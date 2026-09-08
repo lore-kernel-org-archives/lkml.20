@@ -1,159 +1,157 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC2153D0A5
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871024; cv=none; b=L9x7iSIPWdvsttj1KGQvNBZEnZsrytM+q4uarfc8SNm8aEFW+Qio4SFgbrlfNVE/lipcGR0bRBZA3x9/WGSOAG7dQsLwtcPMJsPhhmxy/nhN8xC3GWfhJ3bfF2SIRV13etBQoJ15dtZpDpfqu2DfjMVnERw5z6AsfCSabDsnQqQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871024; c=relaxed/simple;
-	bh=rFgdO2dJ9qHWHCugdPsurRI0n1j/jdZfr1HAi1LVuiE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kgdWzdNTydj5ummcAEyj9pLtb82v0+o1Bo5b6lIr6yoaHOr3TKOnd5vgqPW6gSLPXIv8sktXmoWHSVtd3BKhK0bEGO2+7tsq1vVBLpJb+405jAEw6rNOQCbWgpNiXhHgHFpi78ESC0mqT6GNs8qapuwTcygeZFb6fIV9bQw+r/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rLLyEI3S; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E848C4F55C0
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:37:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788871041; cv=pass; b=Kp3N0ByfHLG168V8XwggERonYlGCiaE5Z8Qt8PqcmKrv6nOCH+mKjx27EK6jZeTBF5BRks/jUREuAbwhvqBQv2yOWCJxtBi56Ngr7/q/4Agjaqt2L0aSmtoohaA/mStHRNnJkRl0e1uWWsZEYHiZaFpUzZVf92iLLC54RNYoR9A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788871041; c=relaxed/simple;
+	bh=RAvK+QlZpVZ6hzzt9JA68rH8p3fcTiFrApuxSgWpNy0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r0Xa9tgRokA9nn8g4EBwoPZgikZUehnziCFClnQrqoqP7R6S2owHOwkEW71evrgOwT6htGtDlf0OPvDW2aLJOeULXXHLRPASkbVE53WdknxIkLBF1UDdUzj9aFDgTe0KfkFzGXNjkPJ2IxNniiwlgrJuNbdDTOW73h11alAnM/I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UHkKcAQd; arc=pass smtp.client-ip=209.85.219.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rLLyEI3S"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cfbdac7a1so1509525e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:37:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UHkKcAQd"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-90e92b99ab9so30596326d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:37:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788871039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DzbCRbNaQf0OUaCA5Xf1NgZc06qkiKhrNe6dGcZc0W0b1Bye7rsvEzvIzVEzCG+O5P
+         BIz+hxhKIkombcbZJ2gIfMMb25RfStalZbzM/P1FWFgk0v4WveSBm2HXwZGjHbt2g64D
+         8sP1sO9ifQ/chDhyGFfevjx1hwgMAChEIygNYjuNaYUyCWcSB4bFZIWgLgmc7lJVhKnn
+         wqjb+VZUKOcrW3VOqZZwlI5PeJpkFBitzi6Lyeg0SNYRfiJ3tg8B3Jf1xbQKvH8tCtPB
+         qxXRyf2yJgMBDRqFU1tnhx8/ZiIzIZa9YTgFBElsZoINOGtRIu/pklofvYB6Ttv3zvQr
+         eKrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+oK2FpmTBiOTT3eOfoPFZBA9GuXPfUx5dYKLcub9lvI=;
+        fh=xb3bn5VwifWFLuat+YtqutlZc9qbWJT2UmqYFr4VZOg=;
+        b=k0jtT8/B8FQMBU5Al86E3pLqfbetRVTovpG0CKvAsAyXXYfSxA/qz0AJbjz+AuBolz
+         GtWXI8NwydHLUHTMje5J3uTnTlHtAWU9duOLV/MJoeLar9McKlkhKudVk6FCizCW2owW
+         l9HODeMElYuCSUwDVgHAAGksCvi1zGWYljF78q4yZUmHUGKupvaxF2cE2illQvakvzaB
+         9PNpGJ4zq9Fz97Fe4HuIDzMjBolLCakt3B670q+yHjfqDGXYp/ZtFpDTUB51l3CqaJIW
+         QvJ4X2B6xDfTVv5Rk6d9MdYgC/dbKo0cs8JbAI+fcm2v5Jnipn/sjkkfSl5vF9wlRJm+
+         0yzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788871021; x=1789475821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
-        b=rLLyEI3SMmxMOLKyiHNRr2PZaQulnFWIlx2NnPM+OfWM+ExYhYCjETiTGcWl020RC9
-         U2kFNCCRPe9pUympox+69Lzx1EmI7eIvrQhhEBUVnBFoo/b3XiX66l1e2KjKxoSRTVs8
-         RZQR5G15AZ5JwjiiMAEU7rFWOjt5D3TgBQL/7lVNE9lMGLuqYuCzM6KoLWM53BVcuyDp
-         tGsqAdYPnjyXxH8ZjCxQ8wmytz0p2vWrO37529tMhsfESUrEWBrjYocL5N1ir8lm4NBj
-         nTXO6mdXfUfMSIcFk40IuDj403NCLAGbRwqO+/pAYJBYb0/lir2WSjvcy/NgzMCOmJVO
-         +uuw==
+        d=gmail.com; s=20251104; t=1788871039; x=1789475839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+oK2FpmTBiOTT3eOfoPFZBA9GuXPfUx5dYKLcub9lvI=;
+        b=UHkKcAQdsPmX1AyeE+NYXqf8xbR2IMxFkScly6T34SfWT8kzrhPW0fhJDTtiCcFbuI
+         RADUEIuRrh2n4E9vIvKHec/qRpQpYUiE2ERic1YaXJ8vfY+GEB0GcVkUwOOWpVCIGoPb
+         VuqGipH3c3gfXgKqstQg0rAllddIIy3dt8Fo/H+9MTGfLsMvLiGbWjzYcSRFPIA9WxaR
+         KF0qDkWxFE8Cu/FP3DU/DNZ+wBYXF60mKPKFEmRb4ZpgUA5GgWxsq3bO/MMWv4Woajav
+         8SxvOu3KUiNZ6L7G/QMtDtjJhgbrgtOkda2jmmM7UzajBjAkDA8E2sntB1cYX0OTE4df
+         Ydag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788871021; x=1789475821;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+PniewoGsEvcFKc5X/0XmY8z47zqDeJXJz7RtOPgSmc=;
-        b=PtmxPFem2XZX5ka7suufCz9hNd98lGVvRcGS2aMGUTSZSm30RGT/Pa+BsVSDJCREJt
-         yaY0JqwGP2qViKqgGtL9UQLQdUD67a6oPdw9ureUOH2Dr1o7dsJd3ytgo/hRrtJOLsW/
-         37yoh9HzCc8MmTzAYEd2PrlWy/SrmPCHoR0tempyZj/Vlkbus7ymAq523tsZsKfuKVuR
-         loG3+Xg0vRpKNDKL8VI+Gf8oTSy+HmORzqEmKYoaljftY49acSFLI1Zm7bfMohgoENz2
-         wmiUFP5Sm9weZcotwkdyxcvGwiGqJIOQzAKcboB5k2Hy/bYbftoN+hAVprgdeHi7BhZE
-         LU9g==
-X-Forwarded-Encrypted: i=1; AKwUvBweZclfX9v0EowozVRLBK35QbiGIUWY5ADHMJLu2eJJP4vpldCg12OAlIM79Sb5VpKQtg3uASzlcL9n05g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVYGDX95JYwdeKgNIBm0xRnYeInihov5FioiFgMQKt6i8g9Vr+
-	AuLN4OpK/fGKtIYPGWrJCqxfwPHswxiE2DqjJV+RqZ4iC8u2ryhnjqNu
-X-Gm-Gg: AYBFou0tqWg8VMQRd5jPlYohsiXPQbkpoJyeop+NEDS6MaEwdrP2yLlfh3iEqTlgaRD
-	pGMHR2SK7xzAFb/xfwDPTuf7BqMId3abMMTTEbpI8DLlUL0gIKmRc2sIqElcrUo4rcQt01kppJw
-	VEUQaR8Hw9VFfAXIMEGuVmW4FeHiZjdISV2/c+QjGnGE8rlaVQ7DFmVBO+24u+Lnf9zugEYOzoX
-	Up+34mjXDzvIPf24HdT0KHUDO9WmRF8IAOagYwqnpTEm5nL+Y6mN8XR2H1NsqK1ez5E4PIyBwmO
-	M2XlLwE8F63gqqLy27UcBSvNCCaUTc/vu4zxcE4P2fl8qJ7RvNGbR/ciw8TYG0knHdegZepyVCu
-	55rLGz72zi1LB/VjhMdg3CTCF8kXJ64ypT9ADhZ8s7OtW+WsjgYguyz9mrDptftLeELEZf/ylMr
-	gZ09bv16VlW1P2bMRghvEkHaSKEIsBb/O3RynKWoEt8+JQigZXOyJohqxAAYex/aflxy0yaVJU0
-	216S/ZTmzsJ69spdf3QkJwHC8YhUh8u/84E9TIKr1N8dNaF1sxUl+vg6N3Jj5ltQqwRIw==
-X-Received: by 2002:a05:600c:8485:b0:499:5b0f:72b with SMTP id 5b1f17b1804b1-49d01dcc32cmr183513645e9.1.1788871020732;
-        Tue, 08 Sep 2026 05:37:00 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D004857F441745A19CB.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:4857:f441:745a:19cb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d0af538d0sm253454955e9.8.2026.09.08.05.36.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 05:36:59 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Frank Zhang <rmxpzlb@gmail.com>
-Cc: Igor Paunovic <royalnet026@gmail.com>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Detlev Casanova <detlev.casanova@collabora.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	luca.ceresoli@bootlin.com,
-	daniels@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	macromorgan@hotmail.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] drm/bridge: dw-hdmi-qp: Guard clear_audio_infoframe when PHY is down
-Date: Tue,  8 Sep 2026 14:36:34 +0200
-Message-ID: <20260908123638.7282-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908070220.41574-1-rmxpzlb@gmail.com>
-References: <20260908070220.41574-1-rmxpzlb@gmail.com>
+        d=1e100.net; s=20251104; t=1788871039; x=1789475839;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+oK2FpmTBiOTT3eOfoPFZBA9GuXPfUx5dYKLcub9lvI=;
+        b=fz8IkKeNgj37yMdX0FklQ7tzW8CJqO90o+hERCkJElUInK3lzmvQNRSuEB/fz2q0Lw
+         fB5zAxu8hwOPfrJ7eqU34AcYFUycTVePCl4TbquwYb+xKdg/kHaLM3xlHgFsgx9RlHCj
+         Ds/uLFgJqVqkqyQfvFHZRzQX/GlULnx4Wa8TRIzOkLH7d7kUYtqz6lOZqGdU6+/U+AZ0
+         Va4XpZ3wRyaLRaq1VMkHVnWU38/e61botf6gbNRb5yhuD0MW8V//YrpSB9TDQZ1jSL0M
+         6XQV6tNzRxDZmoTtQgBjtCUsgUm1CL0XUUq8uhpYoMsEAJdvaV0fjqe4+Dnfa2+WnlFS
+         9IZw==
+X-Forwarded-Encrypted: i=1; AKwUvBz2/xA5I84fwcenlq19ac4ZCNcMOSGqnW/84z05xZqIKXW0bPoK4sZzfI698XYIKFBml+wrXOvL7m/ha7c=@vger.kernel.org
+X-Gm-Message-State: AFuF++kk3sWN4bsfUFHx2mfDqx13KlyJ39AuNKST9asB2vdsX/CrmUQL
+	sOdQCecngviLX5yUk6SlsUc6BPb7owXMPUgoCxsmt0b9LSH1AEXeM4ps/LOM/4Om6HQPfGCZHag
+	zF6jj461sMMvjlMu3VLuZh9R6t/C8Lv8=
+X-Gm-Gg: AYBFou1sNJ04K0IICvq8bx4Av8EWcHSu2metpQLS3jjqZCZ1ZtUtoD9ych00co6Wt9Q
+	Hxis/e/UTUnmBaK1IN7jkBhOsDOW/dBoc4LpL2BCnaGpRPsigV4Hct+wUmBXY1LZfEUISYZ9yP4
+	CTO1VBvx40mkl1uEhhgfXSZfcj4sBTV/MbO4i0j0wumU7Q5BvvLpfmK4/mVdT8JI/k8bhZi8ojp
+	Oj31311bcMLlWJqraKePqGjuAFdFOGocg07/FUtKeyh0qRVSynmZGgJ0YnOrsLDOysqfdNcKCeO
+	wA1ksPL4Sj6t6PJseJzgEhs96E/hvTrergrpSp41wv5vAsqyh064FC1S
+X-Received: by 2002:ad4:4eac:0:b0:90c:4ddb:e298 with SMTP id
+ 6a1803df08f44-9103eefcf6bmr338643226d6.6.1788871038641; Tue, 08 Sep 2026
+ 05:37:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260907-ncsi-over-usb-v1-0-6b74d2f1196c@gmail.com> <1db2f8a7-6a17-410e-be1a-e9ac0b91e6d3@lunn.ch>
+In-Reply-To: <1db2f8a7-6a17-410e-be1a-e9ac0b91e6d3@lunn.ch>
+From: Potin Lai <potin.lai.pt@gmail.com>
+Date: Tue, 8 Sep 2026 20:33:55 +0800
+X-Gm-Features: AcwNN1WtVvXOykEE_hxcTq7GGNs3AgLO90Qs8ToeolRNdm2gAaEwR31to-VY1MM
+Message-ID: <CAGfYmwVUg-Tm42WeEAaG8bKrKp1Tv+08vvJVnmwk8+BeQ1j0Ww@mail.gmail.com>
+Subject: Re: [PATCH 0/2] net: add USB CDC Ethernet NCSI support and fix
+ unregister UAF
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Oliver Neukum <oliver@neukum.org>, Samuel Mendoza-Jonas <sam@mendozajonas.com>, 
+	Paul Fertser <fercerpav@gmail.com>, Simon Horman <horms@kernel.org>, linux-usb@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
+	Mik Lin <Mik.Lin@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
+	Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Frank,
+On Tue, Sep 8, 2026 at 2:23=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Mon, Sep 07, 2026 at 08:15:54PM +0800, Potin Lai wrote:
+> > This series introduces NCSI (Network Controller Sideband Interface)
+> > passthrough support for USB CDC Ethernet devices and fixes a
+> > use-after-free race condition in the NCSI core unregistration path.
+> >
+> > In DPU (Data Processing Unit) platforms such as the NVIDIA BlueField
+> > series, the Baseboard Management Controller (BMC) communicates with the
+> > host or DPU via a dedicated USB CDC Ethernet connection for out-of-band
+> > management traffic.
+>
+> I'm confused with the architecture here. What normally happens is the
+> BMC has a standard Ethernet interface which outputs RGMII. That goes
+> into what is in effect a little 3 port switch in the host
+> interface. That switch allows packets to flow to the host, to the BMC,
+> or out the PHY to the medium.
+>
+> Because the PHY is in effect being shared by two interfaces,
+> management of that PHY becomes "Interesting". You don't want either of
+> the interfaces setting the PHY down because it would cut the other off
+> from the medium.
+>
+> What is the architecture then USB is used?
+>
+>      Andrew
 
-Thank you for sending v5 so quickly.
+Hi Andrew,
 
-I tested it on an Orange Pi 5 Plus (RK3588) against the exact case I
-reported in [1]. v5 applied cleanly to my 7.2.0-rc7 based tree with no
-context fixup, which v4 still needed here.
+Thanks for the review. To clarify the architecture, it looks like this:
 
-Reproducer, unchanged from [1]: the compositor turns the HDMI sink off
-(so tmds_char_rate is 0 and the PHY is down), then plughw:hdmi1,0 is
-opened and closed. Before, that took the machine down on close, in
-dw_hdmi_qp_bridge_clear_audio_infoframe() -> regmap_update_bits_base()
--> _regmap_read() -> regmap_mmio_read32le(), either as a synchronous
-external abort in the closing task or as an asynchronous SError panic.
-The task died with interrupts disabled, so the codec lock stayed held
-and every later open of that PCM hung in D state until reboot.
+[ BMC ] <--(USB)--> [ SMA Controller ] <--(Internal)--> [ Shared NIC (CX9) =
+]
 
-With v5 applied, three consecutive open/close cycles in that state all
-behave identically: prepare fails with -ENODEV as before (3 x "ASoC
-error (-19) at snd_soc_dai_prepare()"), no external abort, no SError,
-the shutdown path completes, and the PCM can be opened again afterwards.
+1. The USB Interface: Between the BMC and the shared NIC, there is an
+   SMA controller. This controller emulates a standard USB CDC Ethernet
+   device facing the BMC.
 
-I also confirmed with ftrace that the guard is what stops it, rather than
-the path simply not being reached. Tracing
-dw_hdmi_qp_bridge_clear_audio_infoframe with function_graph:
+2. Passthrough (Bypass): The SMA controller acts as a transparent bridge.
+   It simply passes through both standard network packets and NCSI
+   control packets between the BMC's USB interface and the actual
+   shared NIC.
 
-  - sink off (tmds_char_rate == 0): the function is entered and returns
-    as a leaf, 2.9 us, with no calls inside it at all.
+3. PHY Management: Because of this architecture, the actual 3-port switch
+   logic and the physical PHY management are handled entirely by the
+   NIC/SMA hardware firmware on the DPU side.
 
-  - sink on, as a positive control: the same function shows
-    regmap_update_bits_base() -> _regmap_update_bits() -> _regmap_read()
-    / _regmap_write() nested inside - the same frames the crash walked
-    through - so the tracer does see the body, and "empty" in the first
-    case really is the tmds_char_rate check taking effect.
+From the BMC's perspective, it only sees a point-to-point USB CDC Ethernet
+device. The BMC driver does not have direct access to manage the shared
+PHY's link state.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK3588)
-
-Two notes, so this is not read as more than it is.
-
-First, what I exercised is the sequential case: the display is already
-off before the audio device is closed. I did not try to hit the narrow
-window the automated review raised in this thread, where the atomic
-disable lands between the tmds_char_rate check and the register access,
-so my test says nothing about that race either way.
-
-Second, for whoever picks this up: Detlev Casanova's patch [2] covers
-the other half of the same problem on this hardware - the enable/prepare
-side returning -EOPNOTSUPP when there is no link - and has three
-Tested-by tags. The two are complementary here. His cuts the case where
-the PCM is opened while the sink is already off; yours covers the case
-where the PCM is already open and the output goes away underneath it.
-Taking only one of them still leaves a way to reach the crash. With both
-applied together on this board the path is quiet and the -19 messages
-are gone as well.
-
-[1] https://lore.kernel.org/all/20260907153000.hdmiqp-audio-1-royalnet026@gmail.com/
-[2] https://lore.kernel.org/all/20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com/
-
-Igor
+Best regards,
+Potin
