@@ -1,58 +1,45 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFADC563FAB;
-	Tue,  8 Sep 2026 14:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA2254A7ED;
+	Tue,  8 Sep 2026 14:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876397; cv=none; b=iLSQpzCq5+z8CAcuJlg9T7+cnST9Ic/GJN2/dkg9lXVjpKe9VdTOAE7ctolxWeSY2KlYP01XWLmklbKCs/j3Pg5oajJJkUaR82Hk2VWMzDUVnw9Q2hHJV6l4tOg42UUtdTCHLvs2hbFqxK6I9zc3SIhihVQooG9g2PeKgsWU7uA=
+	t=1788876409; cv=none; b=XMYlIYCBrdRP8ir5bMKiziklbJVWe41NQ3zw6MU5/e5VeI+6Yl+IF7TLtSetqn+NgpfZf6yTjVA9Ej9hLYMyz8IXr2uLVlNLzS+98WQpk+uEzHt7mjIf+v+FzW1pqC77AZTLN4VyqJqrxlzJEx1j1b8qoi4mSMzu6fpew73DYR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876397; c=relaxed/simple;
-	bh=lKE8pTQb3SU3IlL3dMd1xcdSlzS75G2aqEM8bP8RQjw=;
+	s=arc-20240116; t=1788876409; c=relaxed/simple;
+	bh=nlw1n+Qam30svdA8271imhkhM/aU9BWN0kxR+6LiA4g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cJBrrGef/tr7U9tDFBJivB5XS6oWB+DwU9DwdZti8oUsP1Rs2dsnYlkx0FBaAqHFfsNUfEqP6KO+FeZ0UtyTT9df29Vlub6wuqdhO59vC7ZJ9gmnpTZWk33JHZOGolDPQ/SEmpq2b++OH6RKBDxEhzz0dqHAvMPbF+DbmndHDCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B66881F00A3A;
-	Tue,  8 Sep 2026 14:06:08 +0000 (UTC)
-Date: Tue, 8 Sep 2026 17:05:44 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Len Brown <lenb@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
-	Will Deacon <will@kernel.org>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-pm@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 4/6] mm/vmalloc: make set_area_direct_map HUGE_VMAP
- friendly
-Message-ID: <aqAWOKZDiHE9ksrM@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
- <20260903-execmem-set-vm-perms-v0-2-v3-4-949b64a9f755@kernel.org>
- <2b0f5877-e71a-4824-adeb-5af2dd8b0269@kernel.org>
- <ap_tjOTR48tja_8e@kernel.org>
- <d379aae2-4249-4c6a-a748-5419d4f74f34@kernel.org>
+	 Content-Type:Content-Disposition:In-Reply-To; b=unSXcL71fJoE6oPKhhOxlCH0jeLOK0ChWiZr27d4jHmwG6w5ASncpmE6kazmzr3+qy1WKvmLBNtHUwMBRHkeK5Wd/EJFUZij7kU+eUfa7XbpF5mhsg5xh5KEY/XMnT+0axE/n66P66BWkuKn5Q2RHx9Gv0zqtX6wTTO5k2EO8EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ptz0uxC9; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ptz0uxC9"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=ZAV6al87b/Jcv3+638F2PpIExIpheZIpC5LDyk7c2l4=; b=ptz0uxC9Lwk4karYcKY7az9XDF
+	CG0MMpwWc7/3UjFuwQ3T8xzDZRqDOeaC5y/Wz9s95bRFwuyjcKfrAXytWxXW2tieozYKAbHuZADOn
+	Q0pyf8dogCyd3zsKRHzeHFQnZDsOxdS4BxnQ548ZZQvTXpv5pAp9sSBqkeSgBzYGT+aM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3wSc-003uQZ-KZ; Tue, 08 Sep 2026 16:06:06 +0200
+Date: Tue, 8 Sep 2026 16:06:06 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: hkallweit1@gmail.com, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, linux@armlinux.org.uk,
+	daniel@makrotopia.org, o.rempel@pengutronix.de,
+	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v3 2/3] net: phy: dp83td510: handle the active-high
+ LED polarity mode
+Message-ID: <42c4c477-8fcd-41b6-ba6d-e0ab382b01e8@lunn.ch>
+References: <20260908105959.70453-1-donggeunyoo.kernel@gmail.com>
+ <20260908105959.70453-3-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -61,72 +48,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d379aae2-4249-4c6a-a748-5419d4f74f34@kernel.org>
+In-Reply-To: <20260908105959.70453-3-donggeunyoo.kernel@gmail.com>
 
-On Tue, Sep 08, 2026 at 01:48:36PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/8/26 13:12, Mike Rapoport wrote:
-> > On Tue, Sep 08, 2026 at 12:41:48PM +0200, David Hildenbrand (Arm) wrote:
-> >> On 9/3/26 11:28, Mike Rapoport (Microsoft) wrote:
-> >>> set_area_direct_map() always updates direct map alias permissions in
-> >>> single page increments.
-> >>>
-> >>> For HUGE_VMAP areas it's suboptimal. Not only the loop in
-> >>> set_area_direct_map() needlessly has more iterations (e.g times 512 on
-> >>> x86), but it also causes fragmentation of the direct map that could be
-> >>> avoided for the HUGE_VMAP areas populated with large pages.
-> >>>
-> >>> All pages in an area are always of the same order: either same-order
-> >>> large pages when VM_ALLOW_HUGE_VMAP is set and all huge pages were
-> >>> successfully allocated, or order-0 page when VM_ALLOW_HUGE_VMAP is
-> >>> cleared or when huge pages allocation fails and fallback path is taken.
-> >>>
-> >>> Instead of updating the direct map permissions for every order-0 page in
-> >>> an area, use the area's page_order as the loop increment and update the
-> >>> large pages in one call to set_direct_map_{invalid,default}_noflush().
-> >>>
-> >>> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-> >>> ---
-> >>>  mm/vmalloc.c | 13 ++++++++-----
-> >>>  1 file changed, 8 insertions(+), 5 deletions(-)
-> >>>
-> >>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> >>> index 5506b180f5c27..6ed6c160abed7 100644
-> >>> --- a/mm/vmalloc.c
-> >>> +++ b/mm/vmalloc.c
-> >>> @@ -3367,12 +3367,15 @@ static inline void set_area_direct_map(const struct vm_struct *area,
-> >>>  				       int (*set_direct_map)(struct page *page,
-> >>>  							     unsigned int nr))
-> >>>  {
-> >>> -	unsigned long i;
-> >>> +	unsigned int nr = (1U << vm_area_page_order(area));
-> >>> +
-> >>> +	for (unsigned long i = 0; i < area->nr_pages; i += nr) {
-> >>> +		if (page_address(area->pages[i])) {
-> >>> +			int err = set_direct_map(area->pages[i], nr);
-> >>
-> >> Do we really expect some pages to have a directmap and others not?
-> > 
-> > Every page in the area can be allocated separately and
-> > __vmalloc_area_node() has
-> > 
-> > 	if (!(gfp_mask & (GFP_DMA | GFP_DMA32)))
-> > 		gfp_mask |= __GFP_HIGHMEM;
-> > 
-> > so generally speaking yes :)
+On Tue, Sep 08, 2026 at 07:59:58PM +0900, Donggeun Yoo wrote:
+> dp83td510_led_polarity_set() only recognizes PHY_LED_ACTIVE_LOW, so
+> PHY_LED_ACTIVE_HIGH falls through to the default case and returns -EINVAL.
+> of_phy_led() propagates the error, of_phy_leds() drops the LEDs registered
+> so far and passes it on, and phy_probe() returns it. A device tree marking
+> a DP83TD510 LED as 'active-high', which leds/common.yaml allows and
+> ethernet-phy.yaml references for led@N nodes, thus leaves the mdio device
+> unbound, so phy_attach_direct() falls back to the genphy driver, which
+> cannot drive this 10BASE-T1L single-mode PHY, so the interface has no
+> usable link.
 > 
-> Ah, I was thinking in terms of HUGE_VMAP, because there we sure would expect
-> all-or-nothing, right?
-
-Even with VM_ALLOW_HUGE_VMAP an area may be backed by highmem pages. When
-huge allocations are disabled either because an architecture does not
-support them or nohugevmalloc=no, vmalloc(VM_ALLOW_HUGE_VMAP) silently
-falls back to order-0 allocations.
- 
-> -- 
-> Cheers,
+> The callback initializes polarity to DP83TD510E_LED_POLARITY(index), which
+> is the active-high setting, so the request is already satisfied and only
+> the case label is missing.
 > 
-> David
+> Cc: stable@vger.kernel.org
+> Fixes: 5b281fe7e396 ("net: phy: dp83td510: introduce LED framework support")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
--- 
-Sincerely yours,
-Mike.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+
+    Andrew
