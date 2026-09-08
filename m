@@ -1,384 +1,234 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8118454939F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788876048; cv=pass; b=eJOO+pAEcawUfvoMnXDqxj/yPMSZqkeswfxRihx4wOYK+vWmWyI7ZH3wVsq21p76s4YeJQiHoLL34Na48CjYtoOmfij/lwpB/1W9el61OlRasmcGgDiVqc8kZq5MJXe1493DV+d3fY/Cc0wsKbqfxIRLvsdtZY9FzEwJrTYB0Y0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788876048; c=relaxed/simple;
-	bh=iPjwqdkAoSQfhEH46iMs8ytY7do3IzdmRx6c6+kJVJU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=U5YRHQOygM+w4t+F/LWqIm/KfVSLYxTQsX98eqS2Xgjw6100FM4/4rxmRnYGYWemASwO1ZTftnWwgH7VTj66KA7Ks3uFS5F4+xX/NHYQ31dJiZBohoAPuv2kB5XG2YygoO2F99741/GhG3aoYuPQ6AcyFQ27MIsD8v8GOvI/2S0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pwJhGDYn; arc=pass smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC2554B1CC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 14:01:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788876094; cv=none; b=GcCXaX+1Oq5xNFKLNWTWXzn3dxVKmbw3q9LRwtii384m+c2NlLCIFmPZLtKbxH6VWrwg3xcC1QyyHx7F0nE6Ey+RsrtgS2AbaE1vvdCwoX9BgXTX/Jh68FN12Mce9xvTfJTkHmldQnENDR/5trl7HpWC/NtTfmDN9WdH8TD+BLw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788876094; c=relaxed/simple;
+	bh=t3l/DgW4/G5AtaUOpSAHHl86YPniiPlOjnFnvI5yvcc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=R2hkR3/q/hWUTu2cjAXg3MmlFgpR9OBb5UmiswHZItom7J6aamQyT31k+ITCtjuZSFvx2CcSrtDnwfD+lzCmjYpq91MZKPOrkxdY8o8mHmVhB/zHDHWXULTwDGrHkBH5BSZP7xqxUmcIS328jn/Phr1JmRdQHSfvGpSs8HDB19E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jakpfQm8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kQgXjOXQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pwJhGDYn"
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c4474028so41927417b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:00:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788876035; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mGES93jnt6rHrcbh6vW3InG/jFHmiPQAHd4sf9EDmyMLJSLMSjx2JkmdQbtFA6Of3X
-         /gqTWnW7T2+R0nCb9tNI/PhzclZb+tiiwVEaIU2d1gZ8i7gkFm2fL+YVTRJg1E2PwmLj
-         iBeglJvUgR3xst2UPQoRitLFkNHxYNDQvexlU7a6jSfSmYvwPKM7IDXs9QYEmtRZI8/s
-         7rYU/WD4iJvO+qHQ3eb0a/Heriahm7L4jJEWb7Tt6FKyLhokhHUrIL7bKYXyFvJpSrHU
-         vwatW+4dVvMw5vLBciLo7AlbbnMl7Lvb7L8BL/VMbfezCB0rj6RDEUMpKQ53ii+AfFUx
-         NqiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
-        fh=RQEFB5uKbP5b+MOVa3MKi0eWSto+3Tqv1EWpmi6ESVU=;
-        b=Gmwj+EUABgznwwDfcIPxvB57LBRyWKq+XGdx29V+d6s4Bn9xw9pi/w6hWqbxJAM/6w
-         KHwENZNp4jzYrPYOCd6stfeLPGrNu+ux1Ce6CsC6mxyB8XtI4hNbF4aGjrrtvxkXZMwv
-         G3a6quxDQnPz7LdZYNZpEOOuVXsLFnGFvhAATpPZBxqELeo1RkQPlc1qtCNCK54RYPWF
-         n9B6q3wPEKsOuJVWL9v+h7UScphrHdFYs8D7sTAuFRBTCbRqDh5wAc5F4tZL+hD01S1+
-         D5IeM+srMd2NLgmLOQtIlAk5j5Xx+iGhzWU6km3sZYSGo0JEFGLVhi578a/i+kLl7vM1
-         g5tQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jakpfQm8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kQgXjOXQ"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688CktH73013146
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 14:01:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=x8vtwhrNnZjX/q5gHND4bV
+	myOFe89HrZHW07ov1HHOM=; b=jakpfQm8gvUBMTyWnHUo6FqWAIjOjgZzTWsQac
+	VRHy76fZgzJX+6D/Nvu0dMdch6gXNu4fR66WKTjeCdEPf9eddBN0wTmFj3Fn/i0T
+	EYANAeC2mgWEr7LCV+qjTF+Sw1E6dpi68k5iakDElCwxMSFgHh/1ulwSZa5OM5Ln
+	mrVgb7R0I7H3VvswBBlXc4rdjyFkrffC+vnuH9sU9hlcjyVcn/DIDAnmSjpbirYS
+	7Dh1LEmQMSBbAsuZ2zkZI64bNXHOFQN3J9waBifXeJn9EoO64/jy2W1dPiQmQdaI
+	r0ZxttschbwIupY4CNA2fu3UaCucF3dULGWMcOaJdrpgopaQ==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwktaa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:01:20 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7f4fa572ba2so3239886a34.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:01:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788876035; x=1789480835; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
-        b=pwJhGDYnQVQgFCQ+pf9Zod0iTnE9eeHu/YETKfvDqyg+bzA7DM3LewrnPxt2C2P9WY
-         rINGvdJU/JukZN777J99BGxx1nMRlx5MSkMYctxUWWx5JjI558Ykz2oQ5ICNUJNKGepm
-         QUmaiVjoS5Oes1ENPA9Z4upq84P/J/MNG5Sp93p7CXA5M93bbUtLjV94SIQ1JWZAv+qW
-         0d9fZiLnoPppvlc11uo834qKdyg2z/nAM/q6OcBSwROs/glgTZdfwSRPP2I4RijMf6Zn
-         AHw+zPLuj7nW16AE6TJwzgwIp2vIJUg/BFp2/OF+To+jQflUnAjSODcampziMHiY1yfy
-         c5XQ==
+        d=oss.qualcomm.com; s=google; t=1788876079; x=1789480879; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=x8vtwhrNnZjX/q5gHND4bVmyOFe89HrZHW07ov1HHOM=;
+        b=kQgXjOXQfY3BYCfdS4mpRnmgbMlS4tuYTt4oaJdw2iKbNaut2kHO+ZOS8LtAD0BUNP
+         rTiMPQjs0d3ifT8mF+WN8ChbCOy8n1C1uCdbki0EfAWiinIv2ywxB6UYJdGhyC/xN1RK
+         FrLpPAc/4oUy4FEnm1tNMHvZ6Bn25pqURcQS1Alk3QWzzK2CcMy5wd7CrMWtESiV+FEV
+         E0PWNxALbKTyVM/52b/s4jj8+SrBNaEzg+79TscizLSGX8wr+/LN+dN3mevNRvJBMZL9
+         4KSr9BXkqd8E/7yg8INfNN3RmD42d4M7PxyJySvYYeWuziqQAWRXMyX3JpmpgzjUIGph
+         0jmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788876035; x=1789480835;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=k640zG7BWa9KUAoBYdvfQi2mkX3cXyctSPNiuSYngu4=;
-        b=sK+wKAnb0NPJoKhqXggCqdEDSVgW+bWNRbQZx8GYsM9ssl8zaJGKGOda2jJNiIh8O2
-         RtHzZVtWvemQl8bOG6bxjwBY/xO1ZCo8FE4uu9rVB+U2LFfR9mdrfbwdQyaQ2YprdJPG
-         6xEYGBNZnxIYhsOQqI5uC41gOvos3M/dy4NLOlgKpWIm0Ll/jBOJ9NCEyswUgq5DCiAb
-         426tyNYoL4XBHnR2XfEYjpKn9fkr261ct7xxSqX+V/hzaBgWUkCtvsAZ0hCcaapwrRDo
-         WPqrmQyrTtry7Y+dByP23NOsUSCyFqgcm3e4ayN5omjuq4DpPvFZYeTsorkSQjnQAwe/
-         47jg==
-X-Forwarded-Encrypted: i=1; AKwUvBwN1urdwdaXdPlR2iYVtvKcw+I3DUxqWZK9wvr3bJalB375B0e6pid5sef/iXfT2BBJhPTfS8eSJ7WBvQI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kY9usH3XnPg153ABkEpO8JH8C7D7kkc2bR1zcbUkmgrXIx+TTZ
-	MSuuANOrxG37TXwZvSD0+Z/SRIR4IXtm/Fsznd3CnbVJhhcL2zCsZ22BxqEXfRsC+xme84n2I9l
-	ysNVrVdNeRp2mKD/Ba+jOGXeYKE+7WSM=
-X-Gm-Gg: AYBFou1EGuDrFuxr2hyOYNNAFUgDjA0TOTqhVcEd5HVPgt5ipQBeyNrPERhiEv6Oh9y
-	rwDJK+cxCsh203mkPK75vshHneYgb5hOiqergEojKgR6OvV2vDBpgxtj9CYOlu/wuj549eViQUi
-	JU4rKRvxRQtx9ZF560zSWAmMQz9Drw13PupRQ2SPU8HT9gtute+REpppyHzv/KyKzjwM5LkaJOF
-	JepUcHyTa95mh/JyS/v8AmngmYc+aGaNhwi+3XZ/BtRJXfEVZ05yibxVUUh7xVD6LPkwb78dJWd
-	KmnhlMtyhksaFELZhtysEsPoJpgYI7ibKNLwRFHUhkj6s8gd1bGkGwINuXC/JKmpzK17F1rrJIK
-	SM6YFbmeISzOW9+Qp0RaGf7s6K4bQuG0BIJMxNrQ=
-X-Received: by 2002:a05:690c:39b:b0:873:5bb2:6c07 with SMTP id
- 00721157ae682-8735bb26d1emr73936247b3.49.1788876034932; Tue, 08 Sep 2026
- 07:00:34 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788876079; x=1789480879;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=x8vtwhrNnZjX/q5gHND4bVmyOFe89HrZHW07ov1HHOM=;
+        b=sxxnFprt07DNyg+cBnnxmgA+KjYF7akWZQH8NgMsbJ6GAGV2mWjiQj4ngbP79fvUps
+         QWRH3R01aJKO7EeLindBE/TNx/Fx4ts672w5gy2MXmEJefV7VotMexKXKhUcG8cuYPZ8
+         bfDCqiG9JcyMC40nyQ980zl46iR0EF8sMeM5axZw6i0avGrkGlYHiPnXWP1pv1RXdC1J
+         8ScHvo80Bgi2KnD0WyqxM3soRcV/Embu0kNtseTO7rsjj8rjUnaIpTjmicyyGhI+QJFC
+         UIdqDdugwkZ5M9P4U5DvvhYbk6QB4UNvZ4GOwJtnBdAEz27yjl2+XEAMnIGiw03GFLt6
+         X4dw==
+X-Forwarded-Encrypted: i=1; AKwUvBzMLDqMiYqjJYEdOwLyMV2B00lM12xFoeWLoZGNoaLb2obiifKbPPUPGduqx0n9ROh5KjOiOf9ApMZYCJY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lTZjMRtQzWGaxVqEiRbqu7DZg2tda6l9HWkA6nelg0bc1/PCUL
+	gAqU2ySonirJcXYiMIIbwkqSdAtoYjAkeLYHzrNGAr2EWo/h+yYr66Wwv9SNJJQslLARLTscC2V
+	bKbOBjV0yYh8/gOiHKhuZVOkPDbA8SKazMgWNSWbeZIF9NVwdyT74cC61+VAGO2Gaah8=
+X-Gm-Gg: AYBFou3Dil4wGWwQP8xoJtw2DFYvzcHL0/SgCTOvoiPcCU1UHSPOO11Pc5fwHgMZnU/
+	a4o8kaJ15iQmZYfQiKwDDfRWK20RM/AJ7cB22tQsEbtOZXnVPdp0I9Ri7oiEDDN5mECecpTFOoI
+	6HIGkPMTNFbX7l+qpBOvPIdC15K4zzU74z36ihjdTWdPrejq0ArbJO+0bbQA4HQScNf/Jgu1feS
+	dKsJ4MkzO9R7KKexLkI+p2eTRU/FGNHT6YKAvREnlUjahV29OdGHV3moQRNN8ybXn/H+JwxRRKl
+	RhBPue0KaCB7w3ClstfHIeElc4+rqhz5A6EAXJj6GQDIyxpy87ZfFyRQMbSnyacgglt30gJ7PFd
+	XKjkK0I9F6NvN91sbvftk9pkl8KA=
+X-Received: by 2002:a05:6820:1c82:b0:6b1:6c44:d3b1 with SMTP id 006d021491bc7-6b6fa8dca94mr15309535eaf.2.1788876077747;
+        Tue, 08 Sep 2026 07:01:17 -0700 (PDT)
+X-Received: by 2002:a05:6820:1c82:b0:6b1:6c44:d3b1 with SMTP id 006d021491bc7-6b6fa8dca94mr15309272eaf.2.1788876075616;
+        Tue, 08 Sep 2026 07:01:15 -0700 (PDT)
+Received: from hu-naala-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm57506667eec.16.2026.09.08.07.01.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 07:01:15 -0700 (PDT)
+From: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Subject: [PATCH v4 0/9] phy: qualcomm: qmp-combo: update DP PHY PLL
+ programming on Glymur
+Date: Tue, 08 Sep 2026 19:30:53 +0530
+Message-Id: <20260908-glymur-phy-v3-v4-0-ff22e5150538@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908012048.3681904-2-radek@podgorny.cz> <20260908012048.3681904-4-radek@podgorny.cz>
-In-Reply-To: <20260908012048.3681904-4-radek@podgorny.cz>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Tue, 8 Sep 2026 10:00:23 -0400
-X-Gm-Features: AcwNN1W7GZwfE2YnHeV3w1UncZu_mUSOdDvGCSKK7fOIS_oUcTprOZz8V7pe5T0
-Message-ID: <CABBYNZ+nWb0m=qMvxADM2HvuLhopxG7L+io2JTmGXQM51YOYhA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] Bluetooth: put the peer's on-air address on air when
- we cannot resolve
-To: Radek Podgorny <radek@podgorny.cz>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABUVoGoC/2WOQQqDMBBFryJZdyRGTbSr3qO40DhqihqbqFTEu
+ zdaSksLw8CHP2/eSiwahZacvZUYnJVVunchOnlENnlfI6jSZcIo4zRhEdTt0k0GhmaBOYSCCxk
+ JysqqYMTdDAYr9Th41+yV7VTcUI47ZG9URncwNgbzD1ew4JsrdV/BHEAAQiYpTeOYyRgv2lr/P
+ uWt1F3nu7XTGmVHbZZDfw73r2/T5MfUDYUERSjRKfOQ//Oybdue6sTIsREBAAA=
+X-Change-ID: 20260824-glymur-phy-v3-b67c4702dfb2
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        Nabige Aala <nabige.aala@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788876071; l=4385;
+ i=nabige.aala@oss.qualcomm.com; s=20260520; h=from:subject:message-id;
+ bh=t3l/DgW4/G5AtaUOpSAHHl86YPniiPlOjnFnvI5yvcc=;
+ b=AKG+qcl/AgM2knFNW7t7LKcyJ+jb18/yaCmY3lSWeIW8Juw/aBKGrjqLpGq/7a5mBlUr/QcaQ
+ nIueWXkCp6yCMiL89LI8OOFqUq+VLPotN9/athzaNfJmFlWV0KgtQpN
+X-Developer-Key: i=nabige.aala@oss.qualcomm.com; a=ed25519;
+ pk=PYHJom8sPos1IGkrbCCsWiE7XTBQrQZd9jzAo051tgw=
+X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6aa01530 cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=t9hbx3YKugSYWUFxl6sA:9
+ a=QEXdDO2ut3YA:10 a=EXS-LbY8YePsIyqnH6vw:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE1MSBTYWx0ZWRfXzSrsBPEsbrIl
+ t9I0dZxaAfjo+XuI7r+cvMuUlDs3obi69T3kU3oO68EjX3A1+6ybrigVkrF32GBrfe6zTfagXFG
+ CK8aPfKnF0vcihGLU8cQdzfqA3mX4Rg6o93tmONvnVjiLdBSgp6IbHgxJ5/F7kvJbfBxnnueLIu
+ r4OJRLP/AWVxYxzgZl+EGNbmkp6KepSDdbT362PwRzNht3JvSTI3VoR2NprD+iL31BuSLzv8zpK
+ /3nvhzclBnF+aKD24lFgHtMRZkRLueZZO5qOoKrOhS94h3RYOkEaReMaxl9MrYPgZP2uHmttz9q
+ G4SYUTcOEqhxyTizwcD1Nw12E9fjtotKimyB/zkt45P3AmtRQgDRXcOsKaRYc58doSRfs1jU+wN
+ FPVEVuXybcShtyYV7UBYly2Rw5fV3gxldHSJKdyHlCG415WLeyw2q3gOneZYCjjn0O38wVhbqmm
+ yJ/Y/UZjPw9VbRA2Ilg==
+X-Proofpoint-ORIG-GUID: Wza3BC-rrNALpmvEKbHwYFH6_kYPIASL
+X-Proofpoint-GUID: Wza3BC-rrNALpmvEKbHwYFH6_kYPIASL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE1MSBTYWx0ZWRfX1cUQEZrRwE5X
+ D+TZerB82R8oW0Q92Vww5PhSYtt49RMuWrzHbspN20m7cuPaVnUFKZCpe8YLIa+hqIBkvvMKUiL
+ Lv6abT3RQTdI4QJw+YcUo1duAVtDdQg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080151
 
-Hi Radek,
+The existing DP PHY PLL and AUX configuration for the Glymur platform
+does not fully follow the Hardware Programming Guide requirements for
+DP over Type-C, which results in DP link bring-up failures.
 
-On Mon, Sep 7, 2026 at 7:21=E2=80=AFPM Radek Podgorny <radek@podgorny.cz> w=
-rote:
->
-> An identity address only reaches a peer that is advertising an RPA if the
-> controller resolves on our behalf. Where it cannot, the host has to put t=
-he
-> peer's on-air address on air itself.
->
-> hci_connect_le() used to do exactly that, swapping the caller's identity
-> address for the peer's cached RPA before creating the connection:
->
->         irk =3D hci_find_irk_by_addr(hdev, dst, dst_type);
->         if (irk && bacmp(&irk->rpa, BDADDR_ANY)) {
->                 dst =3D &irk->rpa;
->                 dst_type =3D ADDR_LE_DEV_RANDOM;
->         }
->
-> __hci_conn_add() now resolves that RPA back to the identity address when =
-it
-> stores it, so the swap no longer survives into conn->dst and the identity
-> address is what goes out. Storing the identity is right for host
-> bookkeeping, but nothing translates it again on the way to the controller=
-.
->
-> A peer advertising an RPA cannot answer an identity address, so the attem=
-pt
-> burns a full create-connection timeout. That is not merely a slow connect=
-:
-> a controller without extended scanning cannot scan while it is initiating=
-,
-> so every dead attempt also takes the scanner off the air for the whole
-> timeout.
->
-> Measured on a CYW43438, which reports neither LL Privacy nor extended
-> advertising (LE features 3f 00 00 08 00 00 00 00), against a peer
-> advertising a resolvable private address the host holds the IRK for, with
-> the connection requested on the peer's identity address:
->
->   before: LE Create Connection to the identity address, public type
->           1.61s -> 22.07s, then LE Create Connection Cancel
->           LE Connection Complete: Unknown Connection Identifier (0x02)
->   after:  LE Create Connection to the peer's RPA, random type
->           LE Connection Complete: Success
+Update the DP PHY programming sequence and PLL-related register
+settings to align with the latest HPG recommendations. With this
+change, DP link training completes successfully on Glymur-based
+platforms.
 
-Ok, the problem is then that we are trying to an indentity address to
-connect when LL Privacy is not supported, so we probably can just
-revert to use the private address at hci_conn_add in LL Pirvacy is not
-supported or we didn't program the address in the resolving list.
+Fixes: d10736db98d2 ("phy: qualcomm: qmp-combo: Add DP offsets and
+settings for Glymur platforms")
+Fixes: d10736db98d25 ("phy: qualcomm: qmp-combo: Add DP offsets and
+settings for Glymur platforms")
+Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 
-> Advertising reports reaching the host per second, same window, same five
-> unrelated devices on the adapter:
->
->   before   1s:2   [nothing from 2s through 21s]   22s:5  23s:3
->   after    0s:11 1s:5 2s:2 3s:5 4s:3 5s:4 ... 21s:2 22s:1 23s:2
->
-> One dead connect costs twenty seconds of scanning for every device on the
-> adapter, not just the one being dialled. Enough of them in a row and the
-> host's advertisement monitor sees nothing for long enough to power-cycle
-> the adapter, dropping every link on it.
->
-> Choose the address to dial rather than assuming conn->dst:
->
->   - if the controller is resolving and this peer's IRK is programmed, the
->     identity address is correct and the resolving list translates it.
->     Testing ll_privacy_capable() alone is not enough: it reports the
->     feature bit, not whether resolution is switched on and not whether th=
-is
->     peer is in the list. Resolution is cleared with the other volatile
->     flags on power-off and switched off again while suspend pauses
->     scanning, and a peer's IRK is only programmed along the accept list
->     path, so a direct-connect target, a peer without
->     HCI_CONN_FLAG_ADDRESS_RESOLUTION, and one that did not fit in a full
->     list are all absent from it;
->   - a dst that is already a private address is what the peer is on air wi=
-th
->     and needs no translation;
->   - otherwise use the last RPA resolved for this peer, while it is still
->     fresh. A stale RPA is worse than none: the peer has already rotated
->     away from it.
->
-> The first branch was measured on an Intel controller that does report LL
-> Privacy. With the peer's IRK programmed into the controller's resolving
-> list the host puts the identity address on air and the controller
-> translates it, reporting Resolved Public with the peer's RPA
-> 6D:CA:DB:24:14:E9 in LE Enhanced Connection Complete. With the peer
-> absent from the list the same setup dials that RPA itself.
->
-> The address is chosen once in hci_le_create_conn_sync() and handed to
-> whichever command builder runs, the same way own_addr_type already is, so
-> the two paths cannot disagree.
->
-> Store the chosen address in conn->dst when it is not already there. The
-> connection complete event names the address that was dialled and
-> hci_conn_hash_lookup_role() finds a connection by conn->dst, so leaving t=
-he
-> identity address behind would make the event miss this connection and add=
- a
-> second one while this one waits out its timeout. le_conn_complete_evt()
-> resolves the address back to the identity once the link is up, which is t=
-he
-> same round trip hci_connect_le() has always relied on.
->
-> Fixes: 14b06c3a88f7 ("Bluetooth: HCI: Always use the identity address whe=
-n initializing a connection")
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Radek Podgorny <radek@podgorny.cz>
-> ---
->  net/bluetooth/hci_sync.c | 82 ++++++++++++++++++++++++++++++++++++----
->  1 file changed, 75 insertions(+), 7 deletions(-)
->
-> diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
-> index 5376ade2cdc1..136d801baa85 100644
-> --- a/net/bluetooth/hci_sync.c
-> +++ b/net/bluetooth/hci_sync.c
-> @@ -6794,8 +6794,60 @@ static void set_ext_conn_params(struct hci_conn *c=
-onn,
->         p->max_ce_len =3D cpu_to_le16(0x0000);
->  }
->
-> +/* An RPA resolved more recently than this is taken to still be what the=
- peer
-> + * is on air with. The spec-recommended rotation period is the best esti=
-mate
-> + * the host has; a stale RPA costs one failed connect, while falling bac=
-k to an
-> + * identity address the controller cannot translate costs a full
-> + * create-connection timeout that cannot succeed.
-> + */
-> +#define HCI_RPA_FRESH_TIMEOUT secs_to_jiffies(HCI_DEFAULT_RPA_TIMEOUT)
+Changes in v2:
+- Use the DP-specific v8 COM status register definitions
+(DP_QSERDES_V8_COM_C_READY_STATUS and DP_QSERDES_V8_COM_CMN_STATUS)
+instead of adding new N3 USB/DP variants.(Konrad)
+- Drop the qmp_v8_combo_configure_dp_mode() implementation and
+reuse the common qmp_combo_configure_dp_mode() helper, restoring
+orientation-specific DP_PHY_MODE programming (0x4c/0x5c) and addressing
+review comments regarding DP_PHY_MODE handling.
+- Include phy-qcom-qmp-dp-qserdes-com-v8.h for the DP COM register
+definitions.
+- Update patch author to Ritesh Kumar.(Konrad)
+- Link to v1:
+  https://lore.kernel.org/all/20260419-glymur_dp-v1-1-ad1067a8e8ae@oss.qualcomm.com/
 
-Not really following why this is needed though, we always scan before
-connecting, so perhaps we need to update the rpa whenever we resolve
-at process_adv_report:
+Changes in v3:
+- Split the monolithic patch into a logical 4-patch series (Dmitry):
+  - Patch 1: Add DP COM v8 header and fix register layout
+  - Patch 2: Update DP PHY common init tables
+  - Patch 3: Update link rate specific DP PHY tables
+  - Patch 4: Rework DP PHY runtime configuration
+- Improved commit messages with detailed explanations for each change
+- Better separation of concerns: header additions, table updates, and
+runtime logic changes are now in separate patches for easier review  
+- Link to v2:
+  https://lore.kernel.org/all/20260721-glymur-phy-conf-v1-1-7c8909552c5e@oss.qualcomm.com/
 
-/* Check if we need to convert to identity address */
-irk =3D hci_get_irk(hdev, bdaddr, bdaddr_type);
-if (irk) {
-bdaddr =3D &irk->bdaddr;
-bdaddr_type =3D irk->addr_type;
-}
+Changes in v4:
+- Split patch 4 ("Rework DP PHY runtime configuration") into 4 separate
+  patches to address review feedback (Mani)
+- Add named constants QSERDES_DP_PHY_CFG1_V456 (0x0f) and
+  QSERDES_DP_PHY_CFG1_V8 (0x2f) for the DP_PHY_CFG_1 magic values;
+  use them via a new dp_phy_cfg1 field in qmp_phy_cfg (Mani)
+- Set QSERDES_DP_PHY_CFG_1 to 0x2f on Glymur instead of 0x0f (Konrad)
+- Update qmp_combo_configure_dp_mode() to ignore TypeC reverse state
+  on Glymur via a new dp_mode_ignore_reverse flag in qmp_phy_cfg
+(Konrad)
+- Fix ignored return value of cfg->configure_dp_phy() in
+  qmp_combo_dp_power_on() (Konrad)
+- Make AUXLESS_SETUP_CYC, AUXLESS_SILENCE_CYC and LFPS_PERIOD writes
+  in qmp_v8_configure_dp_clocks() rate-dependent (Konrad)
+- Remove duplicated LFPS_PERIOD write in qmp_v8_configure_dp_clocks()
+  (Konrad)
+- Make LN0/LN1_DRV_LVL writes swing/pre-emphasis level dependent via
+  new qmp_dp_v8_ln_drv_lvl_hbr_rbr and qmp_dp_v8_ln_drv_lvl_hbr3_hbr2
+  tables
+- Make 2-lane drvr0_en/drvr1_en values in qmp_v8_configure_dp_phy()
+  depend on the reverse state (Konrad)
+- Patches 1-3 are unchanged from v3
+- Link to v3:
+  https://patch.msgid.link/20260828-glymur-phy-v3-v3-0-8e73ce7c4636@oss.qualcomm.com
 
-So we do translate the advertisements to back to the identity address,
-but we don't update the irk->rpa, which is probably what shall be used
-in case the controller cannot resolve.
+---
+Nabige Aala (1):
+      phy: qualcomm: qmp-combo: Fix error propagation in qmp_combo_dp_power_on()
 
-> +/* Pick the address to put on air for an outgoing LE connection.
-> + *
-> + * hci_conn_add() stores the peer identity address whenever an IRK resol=
-ves,
-> + * which is what host bookkeeping wants but not what reaches the peer: a=
-n
-> + * identity address only gets there if the controller resolves on our be=
-half.
-> + * Prefer an address the peer has actually been seen using.
-> + *
-> + * This function requires the caller holds hdev->lock.
-> + */
-> +static void hci_conn_select_peer_addr(struct hci_dev *hdev,
-> +                                     struct hci_conn *conn,
-> +                                     bdaddr_t *peer_addr, u8 *peer_addr_=
-type)
-> +{
-> +       struct smp_irk *irk;
-> +
-> +       /* conn->dst is right both when the controller translates it for =
-us and
-> +        * when it is already a private address.
-> +        */
-> +       bacpy(peer_addr, &conn->dst);
-> +       *peer_addr_type =3D conn->dst_type;
-> +
-> +       /* Supporting LL Privacy is not enough: resolution has to be swit=
-ched on
-> +        * and this peer's IRK actually programmed, which only happens al=
-ong the
-> +        * accept list path.
-> +        */
-> +       if (hci_dev_test_flag(hdev, HCI_LL_RPA_RESOLUTION) &&
-> +           hci_bdaddr_list_lookup_with_irk(&hdev->le_resolv_list, &conn-=
->dst,
-> +                                           conn->dst_type))
-> +               return;
-> +
-> +       if (hci_bdaddr_is_rpa(&conn->dst, conn->dst_type))
-> +               return;
-> +
-> +       irk =3D hci_find_irk_by_addr(hdev, &conn->dst, conn->dst_type);
-> +       if (!irk || !bacmp(&irk->rpa, BDADDR_ANY) ||
-> +           !time_before(jiffies, READ_ONCE(irk->rpa_jiffies) +
-> +                                 HCI_RPA_FRESH_TIMEOUT))
-> +               return;
-> +
-> +       bacpy(peer_addr, &irk->rpa);
-> +       *peer_addr_type =3D ADDR_LE_DEV_RANDOM;
-> +}
-> +
->  static int hci_le_ext_create_conn_sync(struct hci_dev *hdev,
-> -                                      struct hci_conn *conn, u8 own_addr=
-_type)
-> +                                      struct hci_conn *conn, u8 own_addr=
-_type,
-> +                                      bdaddr_t *peer_addr, u8 peer_addr_=
-type)
->  {
->         struct hci_cp_le_ext_create_conn *cp;
->         struct hci_cp_le_ext_conn_param *p;
-> @@ -6807,8 +6859,8 @@ static int hci_le_ext_create_conn_sync(struct hci_d=
-ev *hdev,
->
->         memset(cp, 0, sizeof(*cp));
->
-> -       bacpy(&cp->peer_addr, &conn->dst);
-> -       cp->peer_addr_type =3D conn->dst_type;
-> +       bacpy(&cp->peer_addr, peer_addr);
-> +       cp->peer_addr_type =3D peer_addr_type;
->         cp->own_addr_type =3D own_addr_type;
->
->         plen =3D sizeof(*cp);
-> @@ -6849,7 +6901,8 @@ static int hci_le_create_conn_sync(struct hci_dev *=
-hdev, void *data)
->  {
->         struct hci_cp_le_create_conn cp;
->         struct hci_conn_params *params;
-> -       u8 own_addr_type;
-> +       u8 own_addr_type, peer_addr_type;
-> +       bdaddr_t peer_addr;
->         int err;
->         struct hci_conn *conn =3D data;
->
-> @@ -6927,9 +6980,24 @@ static int hci_le_create_conn_sync(struct hci_dev =
-*hdev, void *data)
->          */
->         set_bit(HCI_CONN_CREATE, &conn->flags);
->
-> +       hci_dev_lock(hdev);
-> +       hci_conn_select_peer_addr(hdev, conn, &peer_addr, &peer_addr_type=
-);
-> +
-> +       /* The connection complete event names the address that was diall=
-ed and
-> +        * hci_conn_hash_lookup_role() finds a connection by conn->dst, s=
-o
-> +        * leaving the identity address there would make the event miss t=
-his
-> +        * connection and build a second one. Follow the dialled address
-> +        * instead; le_conn_complete_evt() resolves it back once the link=
- is
-> +        * up.
-> +        */
-> +       bacpy(&conn->dst, &peer_addr);
-> +       conn->dst_type =3D peer_addr_type;
-> +       hci_dev_unlock(hdev);
-> +
->         /* Send command LE Extended Create Connection if supported */
->         if (use_ext_conn(hdev)) {
-> -               err =3D hci_le_ext_create_conn_sync(hdev, conn, own_addr_=
-type);
-> +               err =3D hci_le_ext_create_conn_sync(hdev, conn, own_addr_=
-type,
-> +                                                 &peer_addr, peer_addr_t=
-ype);
->                 goto done;
->         }
->
-> @@ -6938,8 +7006,8 @@ static int hci_le_create_conn_sync(struct hci_dev *=
-hdev, void *data)
->         cp.scan_interval =3D cpu_to_le16(hdev->le_scan_int_connect);
->         cp.scan_window =3D cpu_to_le16(hdev->le_scan_window_connect);
->
-> -       bacpy(&cp.peer_addr, &conn->dst);
-> -       cp.peer_addr_type =3D conn->dst_type;
-> +       bacpy(&cp.peer_addr, &peer_addr);
-> +       cp.peer_addr_type =3D peer_addr_type;
->         cp.own_address_type =3D own_addr_type;
->         cp.conn_interval_min =3D cpu_to_le16(conn->le_conn_min_interval);
->         cp.conn_interval_max =3D cpu_to_le16(conn->le_conn_max_interval);
-> --
-> 2.55.0
->
+Ritesh Kumar (8):
+      phy: qualcomm: qmp-combo: Add DP COM v8 header and fix register layout
+      phy: qualcomm: qmp-combo: Update DP PHY common init tables
+      phy: qualcomm: qmp-combo: Update link rate specific DP PHY tables
+      phy: qualcomm: qmp-combo: Add hardware-specific DP PHY config fields
+      phy: qualcomm: qmp-combo: Add v8 PCS-level drive level tables for Glymur
+      phy: qualcomm: qmp-combo: Extract common DP PHY init sequence
+      phy: qualcomm: qmp-combo: Update qmp_v8_configure_dp_clocks() for Glymur
+      phy: qualcomm: qmp-combo: Fix Glymur v8 DP PHY init and configure sequences
 
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 356 +++++++++++++++++++++---------
+ 1 file changed, 250 insertions(+), 106 deletions(-)
+---
+base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
+change-id: 20260824-glymur-phy-v3-b67c4702dfb2
 
---=20
-Luiz Augusto von Dentz
+Best regards,
+--  
+Nabige Aala <nabige.aala@oss.qualcomm.com>
+
