@@ -1,34 +1,35 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FEE39D6D5;
-	Tue,  8 Sep 2026 07:54:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DB913A3E8C;
+	Tue,  8 Sep 2026 07:54:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854062; cv=none; b=SbfuqqDQXScxqWIRdhIYgb8UzvKbPKo8lCMuBOYmXFQKaipEqNv8fTDblaX9fmTlGijhXE0NP0/HwKLIPFlmI51ktUBhR9jpU62OHn6OxJk+h4UN479pOHsrIJa6IaTAKJbaaOV/mzjJ0ya43HjgiVWUZfsGN6/dogmlzwgt9uI=
+	t=1788854067; cv=none; b=OUSVJ5aiCnFQ4PW5wlWKDY/kipIB76IF4PUbCAbSvCsGOF9dduCCvPeMNB59R8P2bYd5mnV24pmv3qKwcO4H79Dgdu8IdsUuHxeiVO943c44u33u5emTxyzpdI+CCqEYFgTQD8rxn8M1pPKwgbpyB+fxDIt/QF2D0FP4khBEzh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854062; c=relaxed/simple;
-	bh=fkkDRb9iPNoDQ4BpJHf32cdtnBXQT9Lrjp/pNe/O+fI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jx11ogmuQLg0RBLz5IeEwoTHPO205AUP4U1V3hKNRWA2dH5w0tTuuutQCrKDwXhmlpYzjiEKB1hBuoWPrbkJxAmhV/6J0HQ7rUuO+zj/MKXJC/J5klOl79GbvhDodgcnsxApbs0MLjle9OoAtRRvQiTThal/K08Xk9eAKru+67I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCw8grLa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788854067; c=relaxed/simple;
+	bh=ZTbrFbcZbwqV6X0pAC6SDmsRQ5lbf4n5kQVqt++PbVg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dh86zh2o+dg1I919cVM61ux08L6c3kNNl04Rsf7ennJjWiifRIBLZ79c7ai6drhOKtTW+7SV3ruKe6bLo7Yz1WoSAG0ps3mX/3C4NCRYyM8v1S0rnF5diwCk1abL1Kwk4aCb/Wr5KBmnSKpZ+k0oahrU2T5hzYe0Z2c3xLMgtGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+cs5oH7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCw8grLa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB82A1F00A3A;
-	Tue,  8 Sep 2026 07:54:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+cs5oH7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0BB1F00A3E;
+	Tue,  8 Sep 2026 07:54:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788854060;
-	bh=L1qEmTcOVOuSfD/klU2LHmtkM0DYfjcpcZLFwOyJ1M4=;
-	h=From:Subject:Date:To:Cc;
-	b=PCw8grLazHz8vtMr0TuSOLZilQ1rshOeMLiWWBggiD2BxNIWjugFVPV3ej6ckWqNK
-	 vGpWu5ifOeMvQSbaX+4+DNfTxaeMIR+x43+Ugw+Z3n+O37Qm7T5Ie8QoLnsLR7uasj
-	 YQwTGR8kdE2GqkvFH8qLaMhrZuKTXL0IqCQ2TmLUh0OdFD3WRsOfNVGq8ziC/O5a6N
-	 ri0Zstk9d69zrurKu7yENnuR1K6CUAT75deP6TdCKTAnDd6dTdty68xCCR9s+10HHV
-	 H+FGMMuoZh5scNluaAEPwALBko7SeAKJGjaetUJxt44GPuqGyd0ei7W04tPMkx+p1W
-	 K1Ae1VhOPazsg==
+	s=k20260515; t=1788854065;
+	bh=HVvXYZHM/m8ynyTJN/l0O4HhP3zJLvT4O3YsJI9ghxE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=e+cs5oH7//czkiQtAJftmfaK63NbTR/okl1pt3FTQVhkW/+cXNqAYQgQ7FIKlyhWL
+	 3fj1YHX0DDVK+jRudNfbMWLE0cdLm93QKMvuMyMQ1VzUnmxdzlI6SleqFCl7RoI5vp
+	 2uAh+tLoGEcpl2REonleaI/QYRmF9uU4WzXwHMMN1X7y6/G4qUktCqc3KpwxTUtNso
+	 +CWJ2ddzvxDue4eLCU1zB0qKxgejSmFZMBmAxsNLmtX7hBgPXa0ud97uFkf5T7Um2u
+	 UILhRe1xQjuoAz3xFL6+Jjc6BN6JP7TgsxyFCD2QTU3mGz3LtH5gknA0n8INh4qq9n
+	 9RCgj/TD1r1bw==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Subject: [PATCH v5 0/5] USB4 mode programming for QMMPHY on X1E
-Date: Tue, 08 Sep 2026 09:54:04 +0200
-Message-Id: <20260908-topic-usb4phy-v5-0-73aac69578ef@oss.qualcomm.com>
+Date: Tue, 08 Sep 2026 09:54:05 +0200
+Subject: [PATCH v5 1/5] dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E
+ description for USB4
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,12 +38,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNQW7DIBAF0KtErEsEGAxk1XtEWcAw1FRNcI1tN
- Yp89+J0kaqpNyN96c/7N1JwSFjIYXcjA86ppHypQb3sCHTu8oY0hZqJYKJlihs65j4BnYqXfXe
- laFsuovKOMUPqTz9gTF9373j6yWXy7wjjiqyNLpUxD9f74MzX3pY9c8qo5sEIDdIGcK+5lP3n5
- D4gn8/7esg6MYsHosUTIiqigg1BcWkR9AbS/EIa9hdpKgIQWdTorPFqA5EPxIgnRFbEIdggwDc
- 8tv8gy7J8A0/tXV6SAQAA
-X-Change-ID: 20260518-topic-usb4phy-e9612f5ba008
+Message-Id: <20260908-topic-usb4phy-v5-1-73aac69578ef@oss.qualcomm.com>
+References: <20260908-topic-usb4phy-v5-0-73aac69578ef@oss.qualcomm.com>
+In-Reply-To: <20260908-topic-usb4phy-v5-0-73aac69578ef@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -56,94 +54,132 @@ Cc: linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
  Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788854054; l=3119;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788854054; l=3476;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=fkkDRb9iPNoDQ4BpJHf32cdtnBXQT9Lrjp/pNe/O+fI=;
- b=EWeICC/b875dRogbIAADlm50H5+HF0KAPMSMsqHh2oDxqhgGzl0nye9hFSKOaGV5slYz7eltW
- pHoQtURq+UZAZ0r4vMVpuKku0KURDjrPgmYFVyQRj1wPmA/Puq/0QZw
+ bh=/ttJwCXk6D832t5qMZlO9Nw3aJA1EFXBUMTLzeBgQc0=;
+ b=2c+VctWte3n71f03+UtnpBspq0+RPCByGId5TWQdXziaWxAv2jkHTWmKMnze91QQ/2jleBb8X
+ uFl7W4xKv4vCrAdXmh5Rz1+0wbaT/aIqvZq37iKRIdsIq9MOI8NUeaJ
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-The USB43DP QMP PHY, as the name suggests, supports USB4 in addition to
-DP/USB. This series provides the necessary plumbing to switch to that
-mode of operation on hamoa/purwa.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This is achieved by exposing a third `struct phy *` for the USB4 sub-
-PHY, which will be toggled by the USB4 router driver, living within the
-Thunderbolt framework, which will be posted separately.
+Some instances of the QMP combo PHY (called USB43DP) feature a third
+functional sub-block, responsible for USB4/Thunderbolt 3 communication.
 
-Find more details in the individual commit messages. Tested on a
-X1E80100 CRD.
+Compared to the today's state of the binding, one more clock (P2RR2P -
+PHY-to-Router, Router-to-PHY) needs to be enabled for the PHY to be
+able to switch to USB4 mode. Allow that for X1E.
 
-No external dependencies.
+Also, add a bindings define to let consumers access it.
 
+Assisted-by: Claude:sonnet-5
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-Changes in v5:
-- Reabse on next-20260907 (NOP)
-- By popular demand, wrap a comment at 80 lines
-- Link to v4: https://patch.msgid.link/20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com
+ .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         | 55 +++++++++++++++++-----
+ include/dt-bindings/phy/phy-qcom-qmp.h             |  1 +
+ 2 files changed, 45 insertions(+), 11 deletions(-)
 
-Changes in v4:
-- Rebase on next-20260820
-- Rename phy-tbt.h to phy-thunderbolt.h
-- Add missing error unrolling in usb4 phy_init()
-- Rename usb4phy_init_count to usb4_init_count
-- Refactor the submode acceptance logic in usb4 phy_set_mode()
-- Pick up tags
-- Link to v3: https://patch.msgid.link/20260730-topic-usb4phy-v3-0-ccf0f7ea98b5@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+index 8adfc78108fe..94a4fbff428f 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+@@ -53,12 +53,7 @@ properties:
+ 
+   clock-names:
+     minItems: 4
+-    items:
+-      - const: aux
+-      - const: ref
+-      - const: com_aux
+-      - const: usb3_pipe
+-      - const: cfg_ahb
++    maxItems: 5
+ 
+   power-domains:
+     maxItems: 1
+@@ -189,21 +184,59 @@ allOf:
+   - if:
+       properties:
+         compatible:
+-          enum:
+-            - qcom,sc7180-qmp-usb3-dp-phy
+-            - qcom,sdm845-qmp-usb3-dp-phy
++          contains:
++            enum:
++              - qcom,x1e80100-qmp-usb3-dp-phy
+     then:
+       properties:
+         clocks:
+           maxItems: 5
+         clock-names:
++          items:
++            - const: aux
++            - const: ref
++            - const: com_aux
++            - const: usb3_pipe
++            - const: p2rr2p_pipe
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,sc7180-qmp-usb3-dp-phy
++              - qcom,sdm845-qmp-usb3-dp-phy
++    then:
++      properties:
++        clocks:
+           maxItems: 5
+-    else:
++        clock-names:
++          items:
++            - const: aux
++            - const: ref
++            - const: com_aux
++            - const: usb3_pipe
++            - const: cfg_ahb
++
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - qcom,x1e80100-qmp-usb3-dp-phy
++                - qcom,sc7180-qmp-usb3-dp-phy
++                - qcom,sdm845-qmp-usb3-dp-phy
++    then:
+       properties:
+         clocks:
+           maxItems: 4
+         clock-names:
+-          maxItems: 4
++          items:
++            - const: aux
++            - const: ref
++            - const: com_aux
++            - const: usb3_pipe
+ 
+   - if:
+       properties:
+diff --git a/include/dt-bindings/phy/phy-qcom-qmp.h b/include/dt-bindings/phy/phy-qcom-qmp.h
+index 6b43ea9e0051..1c3ce0c02b0c 100644
+--- a/include/dt-bindings/phy/phy-qcom-qmp.h
++++ b/include/dt-bindings/phy/phy-qcom-qmp.h
+@@ -16,6 +16,7 @@
+ /* QMP USB4-USB3-DP PHYs */
+ #define QMP_USB43DP_USB3_PHY		0
+ #define QMP_USB43DP_DP_PHY		1
++#define QMP_USB43DP_USB4_PHY		2
+ 
+ /* QMP PCIE PHYs */
+ #define QMP_PCIE_PIPE_CLK		0
 
-Changes in v3:
-- Fix up assisted-by tag
-- Pick up tags
-- Link to v2: https://patch.msgid.link/20260728-topic-usb4phy-v2-0-5d9dd5149ec7@oss.qualcomm.com
-
-Changes in v2:
-- Massage the bindings to only allow the p2rr2p clock on Hamoa
-- Pick up tags
-- Rebase (nop)
-- Link to v1: https://patch.msgid.link/20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com
-
-To: Vinod Koul <vkoul@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: linux-phy@lists.infradead.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Konrad Dybcio (5):
-      dt-bindings: phy: qcom,qmp-usb3-dp: Extend X1E description for USB4
-      phy: core: Define TBT phy_mode
-      phy: qualcomm: qmp-combo: Add preliminary USB4 support
-      phy: qualcomm: qmp-combo: Add USB4/TBT3 configuration data for Hamoa
-      arm64: dts: qcom: hamoa: Extend QMPPHY description for USB4
-
- .../phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml         |  55 +-
- arch/arm64/boot/dts/qcom/hamoa.dtsi                |  18 +-
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c          | 602 ++++++++++++++++++---
- drivers/phy/qualcomm/phy-qcom-qmp-pcs-aon-v6.h     |   2 +
- drivers/phy/qualcomm/phy-qcom-qmp-pcs-usb-v6.h     |  15 +
- .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v6_n4.h |  45 ++
- include/dt-bindings/phy/phy-qcom-qmp.h             |   1 +
- include/linux/phy/phy-thunderbolt.h                |  14 +
- include/linux/phy/phy.h                            |   2 +
- 9 files changed, 661 insertions(+), 93 deletions(-)
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260518-topic-usb4phy-e9612f5ba008
-
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+-- 
+2.55.0
 
