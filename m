@@ -1,106 +1,188 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13AE4379991
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1486B563FDB;
+	Tue,  8 Sep 2026 15:53:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882721; cv=none; b=hh0KZiG03xnrYGKM36QrPxJ/hTUjDA3vfRr2AoXRhxpg/dpMOUMjh3gRSN5R0x/LQzmL5X5RTJslkEuUmOw8s84dVnq5YhSNrcXYlXbLSX4JKzTzWrTDziIwy5uQKnfuI5kFFu70//H9sWkTPCMOL/yFpTMVKKHs7GnzNIpYkVQ=
+	t=1788882789; cv=none; b=KB8/ndq8H9r8U8H4OxbxEwnVlwMWicxRi7KlPS4WMhz6Vd+yP9abKdE61NSaZCvcle+LiYpNJy9pJoIQPYNso36leKCnYkCHtH9ggGol4BUginJsl9fS0v0BrGYgu59+afamF0l4V/MZw9oBEU/zGglm9mTlwo104M2MzDGiXNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882721; c=relaxed/simple;
-	bh=DAhVo+VnvuwPf8P1BI0svmi6m7U7fXWrZ8gzfloqoPY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KzJqLNw9miQbP9HiiuPioo5ofB2Qlaas2SUgscRB1Vutbd+WJViO3k1mtA8ZMBmsR5kjpiCWhyUkG6Jl8i2SEkisfqmqUqFfP8WujVLR4mxN4P7aIm4OngF4/IEae0Ge8EiHhv9GW4IznHqhN694O796B/qX6w6DX09djA0QoDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=C2nxzAJ/; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788882789; c=relaxed/simple;
+	bh=FukBsNOUxII8H7puZtPe4XdMUNkWgygzzqqpbPg9BUU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=UgqniZm9bLcfW8Ewv3K2QEUUZrQCNIQdfDuToyCFxWzKYRfUX00yIk8d4ofMeXRpJt4G3PKi27T8Go3yVa+cRh4lwg5kGY4J7dhRU0BYFMDrhq/qpSsC88J8UsRmozyA920OteYJjreOaZRGG5fdeZdmTrjqsXRqjQ9oEKWtSYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=MwZW1Bna; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hMdKHMBp; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="C2nxzAJ/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2501D4E4159A;
-	Tue,  8 Sep 2026 15:51:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D37BE6031F;
-	Tue,  8 Sep 2026 15:51:51 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2476D11C7AF49;
-	Tue,  8 Sep 2026 17:51:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788882711; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=DAhVo+VnvuwPf8P1BI0svmi6m7U7fXWrZ8gzfloqoPY=;
-	b=C2nxzAJ/2j1JQy7Wp+D4kWMW3N7lqM5p8+HWmkRrLjB8pT4MGOshpbTVcWIHpNilkCUC8U
-	Iso2bROUUjnekiNbw0hO8//tj/RMQ307uz8DdvsbCs4Mzh9bIGXDEX2AFPezDyWozHpGQW
-	wmhlHFJ1WoxG/o0tLsAqUqJ40DGKiYqLgVHW5U0zAIlRSDyrJFpdPfI5SoPuOU3iC9vkfW
-	2V4GhxIvoYPQR9Q4TdeOx1gRFst/gW5FkfXTFghGir3fwetU1Su2gg8rpNDEFrDGPHN6DM
-	s3Sz2VwYMFMVRa29P+ymcXOSyJ64NJgAPXDeX8xIwEgsb4OZwcqPKJmjRCIdYA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] mtd: rawnand: sunxi: support randomized OOB formats
-In-Reply-To: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com>
-	(James Hilliard's message of "Fri, 04 Sep 2026 15:22:12 -0600")
-References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
-	<20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 08 Sep 2026 17:51:46 +0200
-Message-ID: <87ik4fu4fh.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="MwZW1Bna";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hMdKHMBp"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788882766; bh=kJAyamF3aBcgQgrV0u6SKuK
+	UtNm2AMZgI2DLrfMy4rw=; b=MwZW1BnaAY0RxHC3OKVqTSeWFusFVpwmqRtDd0e3DDEMGARX7d
+	47BqhcqP15SZMqhYQn2E2PSEQM6IxPh+kwu0tN1zsQfv8dZinjRcy071DoZwHajEg7vuXGrqR8C
+	LTe5JVaPXI23h4LyrctUsBmj4eTGU/KIvXSL0UmlHoYfglF2UrwNux5YZv8XGFeQkXY1uHVVyd/
+	c5M8sS+6PBl904og4EKL5C3LTpL1pHZatekm0SuRnIcat4g2ca0P+TqxQ10Cv0Gv0VSEMVSPE+3
+	ywP3Ge7jRph0cou+Rb5RXwd0d4jM2dlbe9Vr/8aw/r6AVrzXx5zBE6COzlAqSf/nKdg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788882766; bh=kJAyamF3aBcgQgrV0u6SKuK
+	UtNm2AMZgI2DLrfMy4rw=; b=hMdKHMBpOHuH/tw8WAgPq7Bniozl2g/UT1tHhvttc48OTYjRCg
+	vbc4K4xhkF4tHiu2yJOc24snPgUB9bG9VsCg==;
+Date: Tue, 08 Sep 2026 16:52:45 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ "Paul E . McKenney" <paulmck@kernel.org>
+CC: linux-kernel@vger.kernel.org, kernel test robot <yi1.lai@intel.com>,
+ Boqun Feng <boqun@kernel.org>, rcu@vger.kernel.org, lkmm@lists.linux.dev
+Subject: Re: [PATCH] hazptr: handle NULL address in hazptr_detach
+In-Reply-To: <7e574430-c77e-4ba9-aab0-cdaed40f788f@efficios.com>
+References: <20260908152228.4154-1-mathieu.desnoyers@efficios.com> <E8BCA0DB-FB79-4348-BB0D-229E8B550D91@mainlining.org> <7e574430-c77e-4ba9-aab0-cdaed40f788f@efficios.com>
+Message-ID: <0ED21EF9-F762-40D9-A54A-30F8B2DBCF31@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Hi James,
+On 8 September 2026 16:29:31 BST, Mathieu Desnoyers
+<mathieu.desnoyers@efficios.com> wrote:
+>On 2026-09-08 11:24, Bradley Morgan wrote:
+>> On 8 September 2026 16:22:14 BST, Mathieu Desnoyers
+>> <mathieu.desnoyers@efficios.com> wrote:
+>>> When hazptr_acquire loads a NULL pointer, it sets:
+>>> 
+>>> - slot_item->slot.addr = NULL,
+>>> - slot_item->ctx.ctx = ctx
+>>> - ctx->slot = slot
+>>> 
+>>> And it returns NULL.
+>>> 
+>>> Then hazptr_detach is called on this ctx, it will act on the ctx as if
+>>> needed to be promoted to backup slot, even though it has a NULL addr.
+>>> 
+>>> Looking at what hazptr_note_context_switch() does before promoting
+>>> to backup slot, it checks for a NULL slot->addr, which is exactly
+>>> what is missing from hazptr_detach.
+>>> 
+>>> With this in place there would be no need to explicitly check the
+>>> hazptr_acquire() return value before calling hazptr_detach().
+>>> 
+>>> hazptr_release() has a early return check for NULL addr as well, so it
+>>> makes sense that detach does an early return (no-op) similarly.
+>>> 
+>> 
+>> You shall kill me for this!!
+>> 
+>> Could you perhaps do a splat in ze commit description pls?
+>
+>The splat is available at the "Closes" URL below. I'm not sure whether
+>we should duplicate this verbose information ?
+>
+>Paul ?
+>
 
-On 04/09/2026 at 15:22:12 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
 
-> The controller randomizer covers the bad block marker along with the
-> rest of the OOB data. The driver currently compensates the marker bytes
-> before writes and after reads so that they remain plain on flash.
->
-> Allwinner NAND firmware instead stores the marker through the
-> randomizer. Media using that format appears to contain bad blocks unless
-> the randomizer is enabled while reading the marker.
->
-> Honor the allwinner,randomized-oob property by marking the NAND as
-> requiring scrambling during normal hardware-ECC transfers and leaving
-> the marker in the randomizer data stream. Keep the existing plain marker
-> behavior when the property is absent. Reject the property with software
-> or disabled ECC because those paths do not operate the controller
-> randomizer.
->
-> MTD_OPS_RAW behavior remains unchanged: raw accesses bypass both ECC and
-> randomization and expose the physical representation. The raw-NAND
-> core's bad-block and flash-BBT paths use decoded accesses and therefore
-> continue through the hardware-ECC/randomizer path.
->
-> This changes marker handling on all supported controllers; the H6/H616
-> protected user-data placement is handled separately.
->
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+This is a example of what I did.
 
-I believe it is still not completely working. If you look at the error
-path in the read functions, in case we face a factory bad block, there
-will be no data, we will face the "page is maybe empty" case where we
-still address columns like before. Since data is randomized with these
-accesses, I believe we would return errors which will not be interpreted
-correctly by the core. The discovery of the factory bad block markers is
-thus broken during BBT scan. But a BBT read is also broken, because even
-if errors are ignored, we perform pattern matching on data which is, if
-my understanding of your implementation is correct, not de-randomized in
-this case.
+From 8861f6d5c0678a7c5089c7b272509fc5931b8437 Mon Sep 17 00:00:00 2001
+From: Bradley Morgan <brads@mainlining.org>
+Date: Thu, 27 Aug 2026 17:43:38 +0000
+Subject: ima: Check for ERR_PTR from dentry_path() in validate_hash_algo()
 
-Thanks,
-Miqu=C3=A8l
+From: Bradley Morgan <brads@mainlining.org>
+
+commit 8861f6d5c0678a7c5089c7b272509fc5931b8437 upstream.
+
+dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
+buffer. validate_hash_algo() passes the result straight to
+integrity_audit_msg() without checking. ERR_PTR is not NULL, so
+integrity_audit_message() sees a valid pointer and calls strlen() on
+it, which faults:
+
+    BUG: unable to handle page fault for address: ffffffffffffffdc
+    RIP: 0010:strlen+0x30/0xa0
+    Call Trace:
+     audit_log_untrustedstring+0x19/0x30
+     integrity_audit_message+0x366/0x4f0
+     ima_inode_setxattr+0x512/0x5f0
+
+Check for IS_ERR() and use NULL instead, which makes the audit message
+skip the name= field instead of crashing.
+
+Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=SETXATTR_CHECK")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google.com/
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Mimi Zohar <zohar@linux.ibm.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+ security/integrity/ima/ima_appraise.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/security/integrity/ima/ima_appraise.c
++++ b/security/integrity/ima/ima_appraise.c
+@@ -754,6 +754,8 @@ static int validate_hash_algo(struct den
+ 		return -EACCES;
+ 
+ 	path = dentry_path(dentry, pathbuf, PATH_MAX);
++	if (IS_ERR(path))
++		path = NULL;
+ 
+ 	integrity_audit_msg(AUDIT_INTEGRITY_DATA, d_inode(dentry), path,
+ 			    "set_data", errmsg, -EACCES, 0);
+
+
+>Thanks,
+>
+>Mathieu
+>
+>> 
+>> 
+>>> Fixes: 6357ec235c59 ("hazptrtorture: Fix hazptr ownership issue")
+>>> Reported-by: kernel test robot <yi1.lai@intel.com>
+>>> Closes:
+>https://lore.kernel.org/oe-lkp/202608130915.62b53936-lkp@intel.com
+>>> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+>>> Reviewed-by: Bradley Morgan <brads@mainlining.org>
+>>> Cc: Paul E. McKenney <paulmck@kernel.org>
+>>> Cc: Boqun Feng <boqun@kernel.org>
+>>> Cc: Bradley Morgan <brads@mainlining.org>
+>>> Cc: <rcu@vger.kernel.org>
+>>> Cc: <lkmm@lists.linux.dev>
+>>> ---
+>>> include/linux/hazptr.h | 4 +++-
+>>> 1 file changed, 3 insertions(+), 1 deletion(-)
+>>> 
+>>> diff --git a/include/linux/hazptr.h b/include/linux/hazptr.h
+>>> index 43122c5673bd..d1670121947a 100644
+>>> --- a/include/linux/hazptr.h
+>>> +++ b/include/linux/hazptr.h
+>>> @@ -160,10 +160,12 @@ void hazptr_detach(struct hazptr_ctx *ctx)
+>>> 	struct hazptr_slot *slot;
+>>> 
+>>> 	guard(preempt)();
+>>> +	slot = ctx->slot;
+>>> +	if (!slot->addr)
+>>> +		return;
+>>> #ifdef CONFIG_HAZPTR_DEBUG
+>>> 	ctx->detach_task = ctx->detach_cpu = true;
+>>> #endif
+>>> -	slot = ctx->slot;
+>>> 	if (unlikely(hazptr_slot_is_backup(ctx, slot)))
+>>> 		return;
+>>> 	hazptr_promote_to_backup_slot(ctx, slot);
+>>> 
+>> 
+>> --- Thanks!
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>
+>
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
