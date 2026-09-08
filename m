@@ -1,76 +1,77 @@
 Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA03659C977;
-	Tue,  8 Sep 2026 20:03:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98168595747;
+	Tue,  8 Sep 2026 20:03:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897838; cv=none; b=hC/lrmXww/96qxF+52jtAYN7cM/nfH00ubayGtAHTAv+PmnliAUCR1bhGHxQKsM48ihlv4UPus6pkUuj/PmJ6Z2+EdkCnyyqudkAMKOVan+DRzcnySiDOs8ikQUArmjm53SG4xj/YHnEIcl1f73UtaLkP1LlyfbbEER72xOt+Lc=
+	t=1788897840; cv=none; b=eXBsPxVHvZHHAFRG3VcMapflJxXs7ZO/J3qfh75pY/veSHR1DFZDUeK8Eey+LTInmduLhJMRumEOptF5+es42MSrVD5SC5myXMd866jjMLfDHcXfpuXw2sPENigI7ZNGUkVWqlXFvqsM9FIa9c3Qlucpj/rk7K9wX5SmITvO1Xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897838; c=relaxed/simple;
-	bh=cx581AfwcbQLzd9ujjVVIBrRWNt1WDRo5RwXBP997PI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D1rDsY7IVKKe+3kvsLGLvDaI5sjgm50S1vQ3Fk21SSip5ic927VEblAxmrwhKCHWqpIs0bzdCfDUaKNK8ZWXv/TwaZdwp3Z6osgWIM7qLSSZgzYRaEntWykVez7055JxzxVmPjwTTRGidyr+OrCX77urSfLriLytYQyjAFXBdZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=LTgBpVYO; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=NTYUN7+L; arc=none smtp.client-ip=103.168.172.146
+	s=arc-20240116; t=1788897840; c=relaxed/simple;
+	bh=yQk/3LLnSNuDdY6idqNbnHriDzzRXxc7ZmuAgsGzVDw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=g2cNP7CIqphioJDKKyer4O9VQb+DGqPlooYTbBKD7krCCTJTarIGHTHFwW6JYPkJ6QoiA7zDAQoxnv9VU46+5dcvIhGOJrsdayryWcLkdBtIiJLB6YwmfkfiGiUBx88RsSIxomquErLeFFKKv8utoNgSA+ydl1+zSHr5nvWIs8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=BUK8RQOn; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IjxBmMlJ; arc=none smtp.client-ip=103.168.172.146
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="LTgBpVYO";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="NTYUN7+L"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfout.phl.internal (Postfix) with ESMTP id 93025EC018B;
-	Tue,  8 Sep 2026 16:03:55 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="BUK8RQOn";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IjxBmMlJ"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id B57E5EC0187;
+	Tue,  8 Sep 2026 16:03:57 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-05.internal (MEProxy); Tue, 08 Sep 2026 16:03:55 -0400
+  by phl-compute-04.internal (MEProxy); Tue, 08 Sep 2026 16:03:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
 	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm3; t=1788897835; x=1788984235; bh=SB
-	kCXwakpo1BWnUC/wmQDDWTeuf9BiXVQDl8v5mZQ0A=; b=LTgBpVYOrzr6mvevJ9
-	FD97g3qptU2dF85owB+cxZrxQS3mVothvQB0lfMnDV1dsUlvBCqfoIh7shU0ldyr
-	xfrCvaQD+hlS3JktaNfOMTMUoAlNvITr4vy1pgwVFuRg6D/TBF0XSdLNtk6d3117
-	WQEzC64XF7TIC7qJFPhRSx47efRrjlKmG8I1oR9LsT0AjqXHkV1MjS/s0RaUNJT2
-	GvLTWgM28PYaKNB59Y1uED/2NRtd14d/NeqyZ/rV2llqa7lulhaQ2TNor24yLSTM
-	4v4wAlr1wPi7RW5YrCaF2qh2WuQJTIDOjEMD2OG1DKWc6V5QiOYMPxMmUOVItWZQ
-	gygQ==
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788897837;
+	 x=1788984237; bh=3JImWNChjLHr5NNBrC/HTM5lPxR7o7hgTk1HeoiMGQY=; b=
+	BUK8RQOnuaS1dc89dk10bzA0eEhf6OPnfaceToTmiF/vlvM780ABZ+b9M3PQl0LU
+	/H+IxxkAw9t+daI4DjqmCQfy6Q7WjFNhuL3BbCvUqvgojz9zkkQd1SgqQwfpl9Xw
+	DdsB2WFxqiMaaHby8e19aRzc9vF0yaKJx7aUvqpbnqiGiVcSkdQpyEVN5XYtQO9w
+	RJ1jAK+iekPMovnriIvKWmRbg+R05Zmbj30yuSHii1norvkX8l6vh7m9H5Wp0Kg6
+	qRlA1AZwloyOsFVGQPIJqCgvF+4zLdmfllrnjCdRwc10vVcmrATNOcu8XZ5ScD0L
+	Z0AuTIPiLvcjupCk/2EH5Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1788897835; x=1788984235; bh=SBkCXwakpo1BWnUC/wmQDDWTeuf9
-	BiXVQDl8v5mZQ0A=; b=NTYUN7+Ln1Ti+21LpJkBkqILLE7Lsy5H3SygyDUGqvuv
-	5lDhdka4Z0SRcNpFAUUnXTERKUAEbndS2+qF0oVYkktLLUqZzDqVRY4VGUyyRABc
-	GF433hfGcOaZchP4J0QcXVo0CmW5Qnu45Nw2CMby1/NFfW++GB+fv/A8staGwuMu
-	cziiizqTmjgs+eqSkRjPBWfpX0lwAPQtuRnl9wmw0eSsIVG49iHwIJb9SWloF8Ni
-	fAIxU9zp9r8sbvf3RfTtzkHSJL/MGpm1lh0mWfvoSldTEavlCShiOMGoez2tfmhK
-	xwFX03Y9ssabBy7OaURV5zAtJvyE6SQwJFnYsnuv5Q==
-X-ME-Sender: <xms:K2qgaljkl0Zhf1XAns6kHne1Dt3TEJnK1uAHtlyUgLJlIAUtWlZvIQ>
-    <xme:K2qgai-j71p2T_-OK9cTzFH-31XK97T62vnUznu3tCjZsb-FZALD9bGCGdskJklwa
-    i6Mh14rAcdsTxSe7LLkRyvZtBAtOhSdeh9jEaHW24rF5s3nbKpO9_tFOg>
-X-ME-Received: <xmr:K2qgagr9MYyDIbndgVlLat_7jSBNGQ0kFdHuRqP1YTTuV7t3k7U_4CHpn1aZO_-anyrVf4ySAQWPwVLxmih14JuuqcdQf0Q>
-X-ME-Proxy-Cause: dmFkZTF5Ll7v9xSwyy2z4RsnmCY/GuO2svcAqBvuhdMGbW59pNMGJvUm2WfEdgj8Zp05Ci
-    2FdrNvVyJH9MGtbn7vP2cvq0KrcAKhtYHN62qnDweOeGl8Erl3Cye7cKxdDRcBfV7AMdlY
-    ZwKobc2TSLxim9gI/7cAmIS8AI8Bd316v6srQPVJpmRrGoaUhac+M6RaPLBe+ohi6U6fAL
-    0Bl2dBkqQ+BVMRXbWuwJ5yDxtgEuzTop8j7gujLMzopBjNRyWqF4SyHLdDTWJaEy2t41y1
-    oJNvrvsNmyolt1O2g+bdKUs6mXWqabFAE3OwsxwgGOwBO5TowicyRO/pON0uVZH6q7TWVT
-    vI1qzqzrLUOSZ+jv+fIGXvWbRrTdrexSB9lXe4hjixrsBWbSvo3RbKhP83nvov0oYgX7WO
-    13B0Ahj9Ys1J823rX1pd9uKsq5dlMUfBnMV0VdFButZ9n/YFOgclZf+1xJGVDiAx6597gc
-    V8+AelsZgcltsQUTBfeeLgOdBc/NwtP71kz7yTD634LKLH5LODF9ioMzp76wHr3ym0CfG7
-    3sBUPA9QFdizQdLV02hVuDS8GK+duXT7pfl4iAHgeI+ZzoZwyTWjJtDSwh25LLiMx7Dou/
-    IUKM/ZMOSW26Pgf2D7rWo+kupFO7JeC/VSvQToI5q/EmiBz9mx607UP2mr5A
-X-ME-Proxy: <xmx:K2qgaqX6SINFZ8u04CEJfPbm95wyL-AR_1VF6H4XApFmiE3wz8lhxA>
-    <xmx:K2qgavBQIuYWj40UsbYVaZMhDdbm6NMisnHNkPvB2yCCK_i3fW_g7w>
-    <xmx:K2qgau2FgXJiTpYCxKlPsXrWVj7nUr56XTL1maxaE6enrGkBBLovVA>
-    <xmx:K2qgah3DaoJ1B_PfF9IH5j7C4k39Ch7t7GlwXM0dGLxfqEBsziQ0cw>
-    <xmx:K2qgag8s7Hs4bzLsoy_N9LnuOqXZZ1UwHOBkWEVrWPZ-Wn1RV9Ho3Cfn>
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788897837; x=
+	1788984237; bh=3JImWNChjLHr5NNBrC/HTM5lPxR7o7hgTk1HeoiMGQY=; b=I
+	jxBmMlJFYBjTeiKvcqgldYFhtd1T/GreTTKo0TJ6SplIzBx8t+IdvAP77CQ/q+5U
+	N/YABS8GcuFdEHslPJEZyQHvYA9vOxxyVVJyA0EusRfr9R3Bu+pPxnpcbt2DR0rW
+	cjcfCpOgnxFkMCuefhHQnUEnmcJ0FjRFw70vA+UiUxHEFRVdCMwghNC4bBe3JO0p
+	Urbt66Zpe2+MEhmlWwHEgFaIsaUGudlFSL9HMycFeeu+KmSfz04OQ4n3Z/RI0N7k
+	17uoIOskjcu7pm7DuFMisk0FNZ05PLmfMWa9SnWi/tlLOlWWaW8FNJksWVZ5GPLT
+	rlm3iZp97Yde90dqmwXRA==
+X-ME-Sender: <xms:LWqgak6x5rSWimO5VCUL0CmyvNZfDPI9SkRswEoAS6-uIaTVTYx7Mg>
+    <xme:LWqgaj3aprdP6flZri0IjUCo1NqTSx1IxfN1LUz9yB1b4O0_kwuoRMi6iBiqr5Cnn
+    ZF29dGprjYtvCSQ7LctzLuXDreOHgRhGL8XSolOPg8gNbNCxr5ZoQDL>
+X-ME-Received: <xmr:LWqgalz7yidBkAEkrQqRBLKqUIesqdcnALyXnS-rKRAt3KW5ZVd6L7X-sZV_WpMcQDrphRiGAD7QgTQdpmmxOV4jk9TjnfE>
+X-ME-Proxy-Cause: dmFkZTEBy2eHQpvq/s+2ql84fEWy7qMHtdaZUb0eeNJD/nFyuYHB54yg4RsApO4enuVktZ
+    TqqSz+ukLKAq1qmf6DggrLSv1nAK5QSrN+Oc/CfYtr8VlDddE10kpIOgDcGHpl/IyHPrnh
+    QzY/8XxVrY+ZGNJTuVLtxiEgy05jgKYHF6odblr2EYYLjhKP42YNOLBXDp2ZJ93DG3Wem5
+    5EerpegaXRdJg2/nvh7Nblh2ohytpyrI9a9oses6Ic1lQX4FgOvbyB7ekql/h95a2SjPJx
+    XqhafUIU8fRCY+Z2OhRhE2dVAObFYYR3vPs2xlkrhzQApu22Dv+K4PYr9vjodUzSArIcRM
+    ZhjyJJHumSwQlCv2NQetPm3ByHvkI1yZtHCLfLwpfZkZ1oJQvhhAOTtZJzpsRoqtgSgjc9
+    uvjzd3BbrwJH6vDlee8zMOBXnbEuWDdvuu3y254VZqrILX/SIiLTWLuMBpfGPL1OW8eSb5
+    KSv7jYvLhwtS7PXTsFiE58C6LvsBQA8U9gZ/HLXoQJMb2AyOE1CU3xvxaTzx4c9idnMgwH
+    TE5ZsyuTtq4lt/KoSFEWjgTeXiKAYCxLJBTUSbiPIH7c5rXdJdpexBduq5wAzQhPplIO0c
+    7oFA6h6wgN1lSmkAiEiEz6FOH+WyMOErKxPfeyk1xs+rG0S/lyMkP6S5uttw
+X-ME-Proxy: <xmx:LWqgatsI1Rgw0OhTJs2O2Dzbx2mx0WVAocnKbuISxD9YragSC_QA4Q>
+    <xmx:LWqgavz2evCy7vUTrQH0Eo7NQ3aK2DPu3MU4HIh_nAkDQ3r7qP4ITw>
+    <xmx:LWqgaoBgB30skPFV8dAft6Di3JOrcGi7pQ9kPPqbEEZaRWdVGxzznA>
+    <xmx:LWqgalc1B2LnukZjjjgoPOh9qRJwD3L15WzbphXI9GKEJMb8hEQONA>
+    <xmx:LWqgahZOtcyQJcIhdUvwheVTSAaFNUl46qFHyMBjs6llTE9J6rbjo8-B>
 Feedback-ID: i80c9496c:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 8 Sep 2026 16:03:54 -0400 (EDT)
+ 8 Sep 2026 16:03:57 -0400 (EDT)
 From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH 0/3] media: uapi: Add 24- and 28-bit bayer media bus
- formats
-Date: Tue, 08 Sep 2026 22:02:55 +0200
-Message-Id: <20260908-v4l2-add-raw-mbus-v1-0-6973bffa5b80@ragnatech.se>
+Date: Tue, 08 Sep 2026 22:02:56 +0200
+Subject: [PATCH 1/3] media: uapi: Extend bayer media bus formats table to
+ 28 bits
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,56 +80,674 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDQAxA4atI1gamqcjYqxQXoxM1orZM6g+Id
- 3esy2/x3g7KQVjhlewQeBGVzxTxSBOoOze1jOKjgQzlpjAWl2wgdN5jcCuO1awXyJqndbYgiN0
- 3cCPb//kub+tc9Vz/rhEcxwm+hOMrdQAAAA==
-X-Change-ID: 20260908-v4l2-add-raw-mbus-add28038a892
+Message-Id: <20260908-v4l2-add-raw-mbus-v1-1-6973bffa5b80@ragnatech.se>
+References: <20260908-v4l2-add-raw-mbus-v1-0-6973bffa5b80@ragnatech.se>
+In-Reply-To: <20260908-v4l2-add-raw-mbus-v1-0-6973bffa5b80@ragnatech.se>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-renesas-soc@vger.kernel.org, 
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1007; i=niklas.soderlund+renesas@ragnatech.se;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12378; i=niklas.soderlund+renesas@ragnatech.se;
  h=from:subject:message-id;
- bh=cx581AfwcbQLzd9ujjVVIBrRWNt1WDRo5RwXBP997PI=;
- b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBqoGoiIPR6xQbFD088SfmdkYuf97OgBMupZ+mLP
- GZ9KlxTrLmJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCaqBqIgAKCRAJtP95BPlN
- JIK/EACC8Jw6/WSoQOBxK134PalA3bLIQSHxJau/qhs4z18dGsNXIvTqUnpYkcy1q/Kf5ZqvFtD
- Fec8OcblNC3ZgltX+xAxPxpXWcFMqgNPvPOnroZC+22S/IeS9AwjGE8GQyDWeKcGhuqvuj4rGR1
- ckjogjSGEctmTSjqKoiB2z+Tr77O5uZ6Bc1QU7tk4G4ZSRvEriaF0inHeVMP5yX9BKG2z4roC7O
- QyF18f+tVlpY3yeR1mNqHlIn8WSMQTCuATNn62DYOvAxzN1UdBveGi7cfOaWevJGnQSlVAWwAQW
- Ut6tMUiuqOwo1bH1b3NhxYytrnBCYR9cLhDVZnfLcbPwl7J6BNIVRxlCAp3zPKME0j7hf1gvJA7
- OtDKR7kgEtBzSUDkq2J8OU2oMGC8UN4EWFcuqdecOc1IepzWWkljkU+GjXN7/18DO12IY6pgxD/
- FPKhOKzS/IULRFNZLQ10TqKWSjYo+j/cd46OpTywkXx5l4AIsGWhU6pixVQI8EyPqe2KtXII416
- IESyQt6psKruwvxvBU3OXvsRycK/eek7a6lhVfj96wdjdNaEdI4EoFWqLzBmTuws2+miMAWwRJv
- ZC5X37VFMsq8U9zEO78/G07g/dF6gEJn03rMvVccyxqa54buSSqjzJJpSMktCwO3CBjz4u1Si8T
- FSxoKzqGdNPkNrw==
+ bh=yQk/3LLnSNuDdY6idqNbnHriDzzRXxc7ZmuAgsGzVDw=;
+ b=owEBbAKT/ZANAwAKAQm0/3kE+U0kAcsmYgBqoGoowD++QzsrHvGwC1PFl8Ox/L/WlfK4W0yj4
+ ukJw/lPhPuJAjIEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCaqBqKAAKCRAJtP95BPlN
+ JFbJD/j9kekOVCeAJneYh+c8CDzNv0gjeFS58/pOKcr/6+cnjckpCZO85009Sn4LKAc/LTr5ssf
+ 3oM0Mn0hnn34dt5E7JNC4TEWoL8kEsAmRdMVE4sZcRztgJcqQGTbjQYV/iHpjKcSRgDDJVecXXx
+ 0SZ2nZAsFC2PveP0sAr6na3IDuJkhnaUoajeb/Rivq2nw350+nYEFYJNNzvM5u8GU41g6gbkGeW
+ fkHK68+w9uG7mUtpS+DrKib2UP599OiGVZ9WvIu8Cp5Tbp5N9M+7ma0FdeA2Lt5JI4l3qy88kQS
+ PI8akwq8cXKDAaZvlbJdXFuH24IFFtdyTj89fHw2aS+zMiTFQ2DCzXVS4Mdsxn5S3s7Sgl7/0Dk
+ M8+4z8jooyd77CDt1HqwCMAh5ImHzdgl8X1xkvUi75EPAJ+7UtFv25l3FrK3u+qlSU4q7zbfA3Y
+ TH17ZoXGRPeOMw0AeCZ7fTMbhuE1bnNinBdAGF6cPzUtVN3rrWZcHuoDr6oVGrUt+Knbig+OSNs
+ GOTcC0Am9odkp7NVuqS+53kVlxAVdNexspmjaClEcNMj5kOrTjgTFMtCdVaSlUjTRoj7h2k5oDy
+ HS9+BMUDKjP+YqD3ojReTkPRRN7kdKGeJBxB7RDfaHJ5RqNI2JPWdHGnq3hyL8a3OllfsB5FvE2
+ 6XJ0kGZUjEdRi
 X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
  fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
 
-Hello,
-
-This small series adds the media bus formats and documentation for the 
-24- and 28-bit Bayer formats. This is done in preparation of work on the 
-Renesas R-Car video capture pipeline which will support these bus 
-formats in multiple drivers. For this reason it is posted as a separate 
-series before the driver work.
+Prepare to describe 24- and 28-bit media bus formats by first extending
+the table and existing formats to cover 28-bits.
 
 Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 ---
-Niklas Söderlund (3):
-      media: uapi: Extend bayer media bus formats table to 28 bits
-      media: uapi: Add 24-bit bayer media bus formats
-      media: uapi: Add 28-bit bayer media bus formats
+ .../userspace-api/media/v4l/subdev-formats.rst     | 332 ++++++++++++++++++++-
+ 1 file changed, 330 insertions(+), 2 deletions(-)
 
- .../userspace-api/media/v4l/subdev-formats.rst     | 596 ++++++++++++++++++++-
- include/uapi/linux/media-bus-format.h              |  10 +-
- 2 files changed, 603 insertions(+), 3 deletions(-)
----
-base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
-change-id: 20260908-v4l2-add-raw-mbus-add28038a892
+diff --git a/Documentation/userspace-api/media/v4l/subdev-formats.rst b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+index c9999b929773..892562ab48de 100644
+--- a/Documentation/userspace-api/media/v4l/subdev-formats.rst
++++ b/Documentation/userspace-api/media/v4l/subdev-formats.rst
+@@ -2821,7 +2821,7 @@ organization is given as an example for the first pixel only.
+     \tiny
+     \setlength{\tabcolsep}{2pt}
+ 
+-.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
++.. tabularcolumns:: |p{6.0cm}|p{0.7cm}|p{0.3cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|p{0.22cm}|
+ 
+ .. _v4l2-mbus-pixelcode-bayer:
+ 
+@@ -2834,10 +2834,18 @@ organization is given as an example for the first pixel only.
+     * - Identifier
+       - Code
+       -
+-      - :cspan:`19` Data organization
++      - :cspan:`27` Data organization
+     * -
+       -
+       - Bit
++      - 27
++      - 26
++      - 25
++      - 24
++      - 23
++      - 22
++      - 21
++      - 20
+       - 19
+       - 18
+       - 17
+@@ -2875,6 +2883,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -2900,6 +2916,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -2925,6 +2949,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -2950,6 +2982,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -2975,6 +3015,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3000,6 +3048,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3025,6 +3081,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3050,6 +3114,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -3075,6 +3147,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3100,6 +3180,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3125,6 +3213,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`7`
+       - g\ :sub:`6`
+       - g\ :sub:`5`
+@@ -3150,6 +3246,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`7`
+       - r\ :sub:`6`
+       - r\ :sub:`5`
+@@ -3175,6 +3279,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - 0
+       - 0
+       - 0
+@@ -3198,6 +3310,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3223,6 +3343,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`7`
+       - b\ :sub:`6`
+       - b\ :sub:`5`
+@@ -3246,6 +3374,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - 0
+       - 0
+       - 0
+@@ -3271,6 +3407,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3294,6 +3438,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`1`
+       - b\ :sub:`0`
+       - 0
+@@ -3319,6 +3471,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`1`
+       - b\ :sub:`0`
+       - 0
+@@ -3342,6 +3502,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3365,6 +3533,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`9`
+       - b\ :sub:`8`
+       - b\ :sub:`7`
+@@ -3390,6 +3566,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`9`
+       - g\ :sub:`8`
+       - g\ :sub:`7`
+@@ -3415,6 +3599,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`9`
+       - g\ :sub:`8`
+       - g\ :sub:`7`
+@@ -3440,6 +3632,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`9`
+       - r\ :sub:`8`
+       - r\ :sub:`7`
+@@ -3463,6 +3663,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`11`
+       - b\ :sub:`10`
+       - b\ :sub:`9`
+@@ -3488,6 +3696,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`11`
+       - g\ :sub:`10`
+       - g\ :sub:`9`
+@@ -3513,6 +3729,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`11`
+       - g\ :sub:`10`
+       - g\ :sub:`9`
+@@ -3538,6 +3762,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`11`
+       - r\ :sub:`10`
+       - r\ :sub:`9`
+@@ -3561,6 +3793,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`13`
+       - b\ :sub:`12`
+       - b\ :sub:`11`
+@@ -3586,6 +3826,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`13`
+       - g\ :sub:`12`
+       - g\ :sub:`11`
+@@ -3611,6 +3859,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`13`
+       - g\ :sub:`12`
+       - g\ :sub:`11`
+@@ -3636,6 +3892,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`13`
+       - r\ :sub:`12`
+       - r\ :sub:`11`
+@@ -3659,6 +3923,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`15`
+       - b\ :sub:`14`
+       - b\ :sub:`13`
+@@ -3684,6 +3956,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`15`
+       - g\ :sub:`14`
+       - g\ :sub:`13`
+@@ -3709,6 +3989,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`15`
+       - g\ :sub:`14`
+       - g\ :sub:`13`
+@@ -3734,6 +4022,14 @@ organization is given as an example for the first pixel only.
+       -
+       -
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`15`
+       - r\ :sub:`14`
+       - r\ :sub:`13`
+@@ -3755,6 +4051,14 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SBGGR20_1X20
+       - 0x3021
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - b\ :sub:`19`
+       - b\ :sub:`18`
+       - b\ :sub:`17`
+@@ -3780,6 +4084,14 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SGBRG20_1X20
+       - 0x3022
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`19`
+       - g\ :sub:`18`
+       - g\ :sub:`17`
+@@ -3805,6 +4117,14 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SGRBG20_1X20
+       - 0x3023
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - g\ :sub:`19`
+       - g\ :sub:`18`
+       - g\ :sub:`17`
+@@ -3830,6 +4150,14 @@ organization is given as an example for the first pixel only.
+       - MEDIA_BUS_FMT_SRGGB20_1X20
+       - 0x3024
+       -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
++      -
+       - r\ :sub:`19`
+       - r\ :sub:`18`
+       - r\ :sub:`17`
 
-Best regards,
---  
-Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+-- 
+2.55.0
 
