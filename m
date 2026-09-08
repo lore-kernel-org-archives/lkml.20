@@ -1,143 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE5B598C01;
-	Tue,  8 Sep 2026 18:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747B42F6596
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:48:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893301; cv=none; b=RWQUvbSO4AO/L6M0kQPUnSBmFbeWm3m5eRbyjcR9PQoujkrFtiN+kCjwuP6dXlxZtF0FQs/TgANudKkcwZMgtn6r2xQjPUstKYXjpBeFVzabhrxf6xUqs/ahxwkz94OSScnmK++3K6nwHP+1M/5eVDvqJsvWO9blqmI2ArYQ0jc=
+	t=1788893317; cv=none; b=AHU2bq+Mn94c2rF6vsoMiPgU6efJuI6jwxAynG/+faUdXo7F7WWyUptkZVip/8r0vdMZyCVaD/fPKRm+XBd4E8ZMZ9EVT+amUUhyQqwOBF4Nb8PVNMxyY04UOviSwuR+jGpEtdS7sy4xB8CF8sE9ny3k5zE04lVPmC3/tWJZGzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893301; c=relaxed/simple;
-	bh=xoul/AmjbT7mtSArYZ0HfSSRRed34jgm7ikODlj29Aw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rJgTTbw2oPlac7q9ve05qlTWn6tjHu81QnbBUvpmiWHH/523XzcpwEVl2RdAoe7qDM9r1xX9zFYrfxNH/wBVqvkH37/2kurGiaUZH+yupfCr42F27n7E7l6So50K+gHV1OTvnkNTALj0S5bp+4X6lsQvP7RbxQnJ1NqG0lEqXCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m/hlL+/j; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788893317; c=relaxed/simple;
+	bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TOnq8R/B30PUOGcr/aLFSJ6bbnVvxQ4NaaZ7phpyOKwYmaPw2WxGLnKy3dvoJc1DRG1vlp9m8WHqxB8s3I9c2zV9xq1deZxGgyXePMrRWbwf5R9yRLTRR2pohIT7FlxI0xg+nSNmQbRJxTmtoE66Mc16JWHQsLwUvrtRU92B9yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=niQ/237R; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m/hlL+/j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 824001F00A3D;
-	Tue,  8 Sep 2026 18:48:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788893297;
-	bh=KOJV19sSyfmHE3xyj5OINm0nC7ZyBG+yaMvc0SoKxcI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=m/hlL+/jY1WVC7HznaqXUyCUM53nHVCDIG3rVC8UROlL12KHWSX7Xlk2hPiZPSr7H
-	 9NVr4pwCjNlK2zcXDE6wcrzkdqfsquivyxVYqwqnN1RaqcRpf666vr2jYFDLYcCMEi
-	 KHUvIDtJ/bMMCQaM7XENCF5NiAzeTKlQy187S7oN/58seS02jcPRycWLmuMCaxCXZO
-	 NUTr4gtRZuSdW7Nr2hRdfoqmFATF8Mqo07yHJzCBCDVDmUYaxSK1pPxasOr9DAOuKb
-	 tOUvHm1eYvKIfYQAx9CLLiZu3RlXTd6wng41YeCdcRB5nXrU3aJ/49/02eXWRxPFXw
-	 Klt5/aCWGaUrQ==
-Message-ID: <2c7c1cfe-3ed7-468d-9056-8d7e77d15a5a@kernel.org>
-Date: Tue, 8 Sep 2026 20:48:12 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="niQ/237R"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3964e480f76so5715968a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:48:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788893311; x=1789498111; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
+        b=niQ/237RcqlNGguFrJCJ63NeFz3PsVXJiR469lDbIE1fCNLpfWhpCNkGOZF5x0heds
+         tE5dce2OWLAwkeEl+DQcObTZNEcs5o7qFXHq60hcUtbKOsvWnZpNXlDjywXUccHC+83g
+         t+156mVkmO+lexXIyhZ5VJjBI14dRyAPoOlxLXLUc3t+FJqQQ/P7N+Qi0RSXrECgWtrh
+         ncUexYHPYm2MrrSoI996fZzCGT8juAvLBgXBAlsdWDTozIBAl0e9Q/fjEdGh8gFdulJd
+         BS+TpFLjCIJyuHCXaeFkqhWHJQAMHYDKHpcChXBq40ORdcpfTn+GDAUMBgYe/gL8Kj1T
+         kPxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788893311; x=1789498111;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3BUQ40Te82zxUOd3nT7N9CSpWi8Fb7EeAV0xm/rLncI=;
+        b=hacyQwRQKSus1cGnHGEddY/HXdLR6GMlVEj2jThIb9g9dNqt3KStskmJaxKp66mQ4c
+         /CzpHciznRlP2vsV0lR+MZHmOi7XKItSM33aBHRzsKe26AypvhUSKkk5MZZ62VoGbCrP
+         f6RfUIx+ANjuvhfojzdPTz7BKTLZ0pYNRDi9TRD1MoMQd7VvX4gSvYIgXkJ1HO6VGpns
+         fv27AKDL4s2EE/0SqrrIGDJFGYCy9cqVUEcnWWUmj5fFsnjDvKyBZvJP2poiipoj140C
+         SF4PNw/jst954laHxRQtf/kgZr5gNT6XogAfc38VjgHyu9/nmjrM16zr4B6BnQXOT756
+         7PfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFdAO9Gq4IEA8ngXpphQEYlEsDL217XSdl+MD0hYvTnBR1cpkjJXnYv+fBaTifpC/QqqqV16vn6TAQYI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYiBf6y6juQk4mEiCZrO2km6S+RDzrB5IVir/xy0RS+cjaZfaY
+	EzN156T0fYVdZZK76aKQ+gktTPwDDUhSBSXuOB3dia25oZMe0TqloGz1
+X-Gm-Gg: AYBFou1bAwWju4EI0s4ItwsS68emwJU7zCpVFR4sc58ryXmubBdWOgIFKs8jpaJSZkJ
+	pvG5VWloUXq/obIS5gFmCuXX+l2+9xd4sCArq3cW2VIlm/HakBp+rjR69l/NkmKK8wHg3gs8TLu
+	Nh8PhJZ1TQc8yGMzl9XjkQhBMS3Q+S89pcaDtyLlZyRD52v+bTow1+xKRXYyMxka/28QDlEodFS
+	zDkLdxyXNS47kxkIPzWqU1l+tV5ILrquwub6hCs90GBgj4ef8uDESW3jp89LFRkq43P9wlELYtE
+	1+nm/pFjctc1fQPsi0VNwx6Bcdaare+MWcVEOnLmcuHxTKmrLjWf2LwxozmcDaBdPL1RRkMDoAl
+	tpxAUR6LfN3BQQIY8mCdfuz54+7nlhjX1DhGf3z8ci8thoBv087CHlRYd8CxISj3sJC0sw8CFEZ
+	hA3WFC6+wNbpob4mIDn4LeqablWo4JuZhlwJapuhqS+cG0g329S5fzEq5gxfmydo6Gs3dBR2Uml
+	NtYP88yLiDnkA==
+X-Received: by 2002:a17:90a:dfd0:b0:396:61f1:da5c with SMTP id 98e67ed59e1d1-39b260de667mr45639850a91.4.1788893310969;
+        Tue, 08 Sep 2026 11:48:30 -0700 (PDT)
+Received: from sergio-82n7.fritz.box ([23.162.40.92])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm37254955eec.22.2026.09.08.11.48.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 11:48:30 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: Re: [PATCH v2] hwmon: (yogafan) Update reference database and contributors for new models
+Date: Tue,  8 Sep 2026 20:48:13 +0200
+Message-ID: <20260908184813.2353047-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <32638fb3-4f3f-4798-a166-3cf1efe0c424@roeck-us.net>
+References: <32638fb3-4f3f-4798-a166-3cf1efe0c424@roeck-us.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] efi/libstub: add initial Boot Loader Interface support
-To: Ard Biesheuvel <ardb@kernel.org>,
- Ilias Apalodimas <ilias.apalodimas@linaro.org>
-Cc: linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org
-References: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmdfB/kCGwMFCQp/CJcFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcC
- F4AACgkQq1/riG27mcKBHgEAygbvORJOfMHGlq5lQhZkDnaUXbpZhxirxkAHwTypHr4A/joI
- 2wLjgTCm5I2Z3zB8hqJu+OeFPXZFWGTuk0e2wT4JzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmFiEE7Y9wBXTmfyDl
- dOjiq1/riG27mcIFAmceMvMCGwwFCQPCZwAACgkQq1/riG27mcJU7QEA+LmpFhfQ1aij/L8V
- zsZwr/S44HCzcz5+jkxnVVQ5LZ4BANOCpYEY+CYrld5XZvM8h2EntNnzxHHuhjfDOQ3MAkEK
-In-Reply-To: <20260906-efi_stub_bli-v3-1-e7dc0d6b8fcd@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 06/09/2026 at 23:52, Vincent Mailhol wrote:
-> The Boot Loader Interface (BLI) [1] defines EFI variables that expose
-> boot loader state to the running OS. LoaderInfo identifies the boot
-> loader, while LoaderDevicePartUUID records the GPT partition UUID of
-> the partition containing it.
-> 
-> LoaderDevicePartUUID is used, for example, by systemd-gpt-auto-generator
-> [2] to identify the disk the boot loader was launched from and
-> automatically detect and mount partitions on it.
-> 
-> GRUB [3] and systemd-boot [4] populate these variables, but when the
-> kernel is started directly by EFI firmware, there is no conventional
-> external boot loader to provide them. In that case, because the EFI stub
-> performs the boot loader role, it should provide the variables itself.
-> 
-> Use LoaderInfo as a sentinel: if it is already set by an earlier boot
-> stage or cannot be set, bail out. Otherwise, populate the other BLI
-> variables.
-> 
-> Parse the loaded image device path, extract the GUID signature from its
-> GPT HD() node and publish it under the Linux loader entry vendor GUID as
-> the volatile LoaderDevicePartUUID EFI variable.
-> 
-> Install the efi_bli_set_variables() hook in both the generic efi-stub.c
-> path and the x86-specific x86-stub.c path.
-> 
-> [1] The Boot Loader Interface
-> Link: https://systemd.io/BOOT_LOADER_INTERFACE/
-> 
-> [2] systemd-gpt-auto-generator
-> Link: https://www.freedesktop.org/software/systemd/man/latest/systemd-gpt-auto-generator.html
-> 
-> [3] GRUB -- §16.2 bli
-> Link: https://www.gnu.org/software/grub/manual/grub/html_node/bli_005fmodule.html
-> 
-> [4] systemd -- systemd-boot UEFI Boot Manager
-> Link: https://github.com/systemd/systemd/blob/main/docs/BOOT.md?plain=1#L102
-> 
-> Signed-off-by: Vincent Mailhol <mailhol@kernel.org>
-> ---
+Hi Guenter,
 
-(...)
+Understood. My apologies, I misinterpreted your feedback and split the
+documentation thinking you wanted it strictly isolated from the driver changes.
 
-> +static void efi_bli_populate_loader_part_uuid(efi_loaded_image_t *image)
-> +{
-> +	static efi_guid_t device_path_guid = EFI_DEVICE_PATH_PROTOCOL_GUID;
-> +	efi_char16_t partuuid[UUID_STRING_LEN + 1];
-> +	const struct efi_hd_dev_path *hd_node;
-> +	const struct efi_dev_path *path;
-> +
-> +	if (efi_bs_call(handle_protocol, efi_table_attr(image, device_handle),
-> +			&device_path_guid, (void **)&path) != EFI_SUCCESS)
-> +		return;
-> +
-> +	hd_node = efi_bli_find_hd_node(path);
-> +	if (!hd_node)
-> +		return;
-> +
-> +	if (efi_snprintf(partuuid, ARRAY_SIZE(partuuid), "%pUl",
-> +			 hd_node->signature.b) != UUID_STRING_LEN)
-                         ^^^^^^^^^^^^^^^^^^^^
-I just realize that there is a small mistake here. Conceptually
-speaking, %pUl expects a pointer to a efi_guid_t. Of course, because of
-the function being variadic, no type enforcement is done and the
-compiler is happy with hd_node->signature.b which is an u8 array.
+Since the driver patch is already in, please either apply this documentation
+update as-is to keep things in sync, or let me know if I should drop it
+and bundle it with the next patch set.
 
-But the clean approach is definitely:
+Thanks,
+Sergio
 
-	if (efi_snprintf(partuuid, ARRAY_SIZE(partuuid), "%pUl",
-			 &hd_node->signature) != UUID_STRING_LEN)
-
-@Ard, do you want me to send a v4, or can you just fix while applying?
-
-> +		return;
-> +
-> +	set_efi_var(L"LoaderDevicePartUUID", &loader_entry_guid,
-> +		    EFI_VARIABLE_BOOTSERVICE_ACCESS | EFI_VARIABLE_RUNTIME_ACCESS,
-> +		    sizeof(partuuid), partuuid);
-> +}
-
-(...)
-
-
-Yours sincerely,
-Vincent Mailhol
-
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
