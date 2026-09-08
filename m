@@ -1,168 +1,156 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 462E54A2065
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:45:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE30470111;
+	Tue,  8 Sep 2026 21:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903940; cv=none; b=F36VHQCwNUyNI3vg+WPtVUUlX8PktumqsjeugLj5phcF7ZFa/XcDzn5NtnkIa7GCogUYmFTtpG8VJ1j3nrsuDR8v06rfM3MgL3kknmUF6BwqHfLvrqLqOeYaqhSs9uL6hqOTrH0Kd67c2hvqvxgLPgL2dFHcj3AaGEjFBt1xUSg=
+	t=1788903986; cv=none; b=i/AOArz4qcXf9dKklxx4M8UCBZmxN2RsSqV48nRSilmYQmvXwiKIKWcFJ3Xz58AElxy10KS3FLA6X6gJQfMMtjYH2A4ynNtsCbQdBfJ4iiDy/bXn6AOMiCV5Sqo9Dq05o30k0YzgUCdCqx+OkPpy0KRBRHzwuCgT4GY43BqtN1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903940; c=relaxed/simple;
-	bh=R8g1dZY/ggKCMjit7jScrhBDCd+gAII9ItpPUFnKBRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s3OkU0/BBuAan3veWnbRacQVkToyIkpZJwiSqAPc9S6X8lc6BhN61g58LWw+q8LTbaxFfn5TNXCBEEl8KfwIi3WdSq/M9mCt3ndqBw/r5J/ZvIIT0an6pAEAfIMmg14JM6CEq1YbIF+jLNfHFc39murllxV0Tq4w53pv3WgTOIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJM9GFAz; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788903986; c=relaxed/simple;
+	bh=Wo0ZL3M+Wywg41LZ2lwCb4eKYlm6h4hOEsw4Jfr5HHw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YLtAyCKgKNNsKf6wq/S3YOa7k6yRD7y2nRbmr9W/B3IZAy62WShgUhXCaZRtqXvfA3PPi/CS3GvecjdmTQUrhuuazfdgAQg+UAfHYxsGfRPZX2LS8Ij16uYuujAwtcPreyT5CwRgtyT+1u+hT0N/Hf2yItSnXT9xAK2GkTehmvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nn9HoA7/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJM9GFAz"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccdaea75so494115a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:45:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788903938; x=1789508738; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SaN6XVxvP97I/EahdycgHKF+2oKgGUfbpldf6OV9k48=;
-        b=rJM9GFAzf44zx+kdVzPY5aUUn4KtZByV1BZOWlLdjY+t1wHWUW9dI96KOdzZJQf3vM
-         d0aP2XyvcR43oVIkN1N9lFmjJKxcuq3BCVnWPdXKS30F/74DI7Gkr71MjdfVQxBo3F2n
-         devWsTo2NiE+eH5Y4WPkgZcrhuNPJG8qAIdbUWuemBj4dpmXYNE0uzTLDF/nAxj1hRcc
-         V/FfzLqqIhyIWkzhlcxSKShIrT82iZZfM7zrtyN8l0WILZ8CEk4PhiiWCWIdwz+VrFd2
-         4GX3yN/KY/+NPoZ9RjzHwjundWhMxGqb4Lm2VzLIISkpbUtPUptEQ0d9BVNdfv9vfk0m
-         v+xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788903938; x=1789508738;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SaN6XVxvP97I/EahdycgHKF+2oKgGUfbpldf6OV9k48=;
-        b=ijK4GO6NHR6mMLi5j59olYHkg9oxoKf+WKEIhixOoARVaAX0nXA8AGy0S+l4QjHwyd
-         Fnbzw/NX7xN2BnMNW5MsvOwRHx2vRx3wQkmwoii4tUF7jkxxrLSzi1VqaTAHXjjrfrwV
-         ZiJTJzK+5rHDVrfuAIAkyk8qOaDZksc/aw0kf0W3ditSi8yn3fmajo+uQI9BfO8N7lAq
-         BwhYuhrJknDjvSAjh4K8i6nn7FhOyDyvwx2KQcUthCPIORa6PW+GoF44bh2WbLMRPgp3
-         HxWkTKSKl8pnXyDvfHj3AmRwJMpDsGRkn5rUWquRnEfJirPiv6g/Jce0yAHrXMbLwTn7
-         MX5w==
-X-Forwarded-Encrypted: i=1; AKwUvBzb6TsmrKgPq2skEs/ioNxvZo5hyGHcQm11BxkuJL6m4KR/s/XPOHQ+CEOUkXZADfYhnDkbIM8Ew17mzZ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lidIbrLIgWQ9N5bY4a8S3Nps+/dJ6g9mIk160/dTK8jN+FxjzI
-	+/X4qF8YGRsCY31M6VX+mL2skY4TMFVjdrXnmIt0sci44wCUoqriIx2i
-X-Gm-Gg: AYBFou0solJcacM0XGw4tUL87bLJ1OyJrm7x9T9b9mp4i9cG7Al8XNoT7/ZdOGOVdMr
-	hHM99djjh09mLUsut1afCMrc/MCumOb2Y4SRTjAX94w88lU1k4+dTVwHHXurBc0mPpY6Xra+ozf
-	T5/FENgIYSIsTE7Y7xLqDKGoB4ZVj4PTuFCAxH6aOBwWfWp7FQ7fCUmI53Lm/PKBR2OUK2iPiqz
-	ysLPtJUVi316UOo1OyzOLQhosaGIkymztbNrDAE/vnqrCHz+LyU9AneLSTaXxC5cMxL2M+3o3Ge
-	VP5lE3p5Mm2Di/ylklzTZ+FWdv+UT7w7WwKVSicg73s90k3JnHNI8LB1fr6KBh+kaf3+GC6ThW1
-	vdUqeL23zZLNzSZqMor4NOigoP6L3RDgCyLBrm2kCL3l1i05lXyUd4KegZt6dph2CbxB1xUqnUF
-	BsqTctMeL22ARSFNtrHDbYE6ixbHPEb8FwAJttSgjm7Bc3zqSmDAIYU98f0WGSPIaMapaent6dT
-	yfrv5eSVlbqjD/ECR8H+tbfb9ajv5zR0zLYQk+AjlY5S2WWZ7cMVFIdyDEJDuSsfFmP/F7gRHqH
-	C/GlwqaNQCI5whg6SrbxFqv2b1wd+EHSa3kYTg==
-X-Received: by 2002:a17:90b:4b06:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-39b8bf67006mr7365462a91.16.1788903938460;
-        Tue, 08 Sep 2026 14:45:38 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b84cce64fsm10245204a91.3.2026.09.08.14.45.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:45:37 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-ide@vger.kernel.org
-Cc: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Mans Rullgard <mans@mansr.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] ata: sata_dwc_460ex: preserve sactive_issued state across ISR invocations
-Date: Tue,  8 Sep 2026 14:45:36 -0700
-Message-ID: <20260908214536.598823-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nn9HoA7/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A671F00A3A;
+	Tue,  8 Sep 2026 21:46:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788903985;
+	bh=xDFCn0lNPOgF6i1hXkAPNA/hzn9F1hmDV3HSMIXSq0c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nn9HoA7/zv9eZsVfjPpLIaUXQ1AcSJn3gqPzs9xYEePlkOn7S0lvlYywod2dHun3L
+	 foerzEURPNeUMkpPX/0fJgpvnW5hanvxrEMKuH+5BipFzkhtUjfL7RJHg8bxyCxVFz
+	 Qs4Fb1Kcy0XI7zKBZQQRzxgZNeBelnZNCaQ9inRYkvP3lamuwe+kFhHQR4RtoDs4nn
+	 q6ycyvD7WLV3dnYJSSDDKX1cRjwq/bDyb6BhqZEJ0UWt+ONgmdGgJ+SGY3ItqXpHXy
+	 mir2VMg1aCcwiW8Dc0Shrem2bALxQXlyj+Ju3HrtJHnpCuKIhPWYzFchgVT7e6dms4
+	 8I6eUApzOaZzA==
+Message-ID: <0fe7a8b6-f3df-4822-a03a-d072b86cdfa8@kernel.org>
+Date: Tue, 8 Sep 2026 23:46:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: soc_button_array: ignored -EPROBE_DEFER loses the buttons on 68%
+ of boots (Surface Pro 11)
+To: Sergey Lebedev <lsa.uz@pm.me>, Dmitry Torokhov
+ <dmitry.torokhov@gmail.com>, Maximilian Luz <luzmaximilian@gmail.com>
+Cc: linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260830141355.55898-1-lsa.uz@pm.me>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260830141355.55898-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Zeroing hsdev->sactive_issued on every ISR entry destroys the NCQ tag
-tracking that must persist across interrupts.  This field is populated
-in the NEWFP (DMA Setup FIS) handler and used in subsequent DMAT (DMA
-Transfer Complete) interrupts to determine which tags have completed
-via the formula tag_mask = (sactive_issued | sactive) ^ sactive.
+Hi,
 
-With the zeroing in place, sactive_issued is always cleared before a
-DMAT interrupt can read it, so the NCQ completion path never identifies
-completed tags correctly.  The command completion then falls back to
-the non-NCQ path using ap->link.active_tag, which works for a single
-outstanding command but produces wrong results when multiple NCQ tags
-are in flight.
+On 30-Aug-26 16:14, Sergey Lebedev wrote:
+> Hello,
+> 
+> On a Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) the power and
+> volume buttons fail to appear on most boots. The probe runs, gives up
+> silently, and the device is lost until something rebinds it by hand.
+> 
+> Measured across the 40 boots in this machine's journal, using the monotonic
+> offset of the first "input: gpio-keys" message:
+> 
+>   driver attached on its own   13 boots   at 1.28 - 1.78 s
+>   did not attach               27 boots   68 %
+> 
+> The timing is binary. Either the inputs appear at about 1.3 s, or they never
+> appear at all - no intermediate values in 40 boots.
+> 
+> Where it fails
+> --------------
+> 
+> Nothing at all is logged on a failing boot, so I built with
+> soc_button_array.dyndbg=+p on the kernel command line. On four consecutive
+> failing boots the probe printed exactly one line:
+> 
+>   [    1.286567] soc_button_array MSHW0040:00: OEM Platform Revision 129
+> 
+> That eliminates most of the possibilities:
+> 
+>   - the probe does run
+>   - it passes soc_device_check_MSHW0040() - oem_platform_rev is 129, not 0
+>   - it passes gpiod_count() - the dev_dbg("no GPIO attached, ignoring...")
+>     would have printed with dyndbg on, and did not
+> 
+> By elimination the buttons are lost inside soc_button_device_create(), at
+> 
+>         error = soc_button_lookup_gpio(&pdev->dev, info->acpi_index,
+>                                        &gpio, &irq);
+>         if (error || irq < 0) {
+>                 /*
+>                  * Skip GPIO if not present. Note we deliberately
+>                  * ignore -EPROBE_DEFER errors here. ...
+>                  */
+>                 continue;
+>         }
+> 
+> Every button is skipped, n_buttons stays 0, and the two returns that follow
+> are both silent:
+> 
+>         if (n_buttons == 0) { error = -ENODEV; goto err_free_mem; }
+>   and
+>         if (!priv->children[0] && !priv->children[1]) return -ENODEV;
+> 
+> which is why nothing reaches the log.
+> 
+> The GPIO controller here is INTC105D, five gpiochips driven by
+> pinctrl-intel-platform. Both that and soc_button_array are modules in this
+> config:
+> 
+>   CONFIG_INPUT_SOC_BUTTON_ARRAY=m
+>   CONFIG_PINCTRL_INTEL_PLATFORM=m
+> 
+> A manual bind always works: 25 unbind/bind cycles at runtime gave 25
+> successes and 0 failures. The failure exists only in the early-boot window.
+> 
+> One hypothesis, tested and wrong
+> ---------------------------------
+> 
+> Since both are modules, load order looked like the cause, so I tried
+> 
+>   softdep soc_button_array pre: pinctrl-intel-platform
+> 
+> verified applied (modprobe --show-depends inserts pinctrl first), with the
+> rescue that normally binds it by hand disabled so nothing masked the result.
+> Five boots: 2 successes, 3 failures - the same rate as before.
+> 
+> pinctrl_intel_platform is a dependency of fifteen other modules and is
+> loaded long before either way. softdep orders modules; the race is against
+> the asynchronous probe of the individual INTC105D:0N devices, which register
+> their gpiochips at their own pace. Reporting this so nobody else spends the
+> evening on it.
+> 
+> Why no patch
+> ------------
+> 
+> The comment says -EPROBE_DEFER is discarded because Intel uses "virtual
+> GPIOs" that never materialise, so deferring on them would hang the probe
+> forever. A fix has to tell that case apart from a controller that simply has
+> not probed yet, and I do not know which signal you would want to use for
+> that. Guessing would risk reintroducing the problem the workaround exists
+> for.
+> > Happy to test whatever shape you would prefer - the machine is here and I
+> can build and boot kernels on it.
 
-Remove the spurious zeroing and fix the NCQ/non-NCQ discrimination:
-when tag_mask is zero but the active command is NCQ, all tracked tags
-are still in SCR_ACTIVE and no completion processing is needed.
+Thank you for your detailed bug report. I've just submitted a patch which
+I believe should fix this:
 
-Fixes: 2d20da00c324b ("ata: sata_dwc_460ex: get rid of global data")
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: resend as standalone patch
- drivers/ata/sata_dwc_460ex.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+https://lore.kernel.org/platform-driver-x86/20260908214410.70422-1-johannes.goede@oss.qualcomm.com/
 
-diff --git a/drivers/ata/sata_dwc_460ex.c b/drivers/ata/sata_dwc_460ex.c
-index 8a1d80ac906a..6cce790516cc 100644
---- a/drivers/ata/sata_dwc_460ex.c
-+++ b/drivers/ata/sata_dwc_460ex.c
-@@ -465,7 +465,6 @@ static irqreturn_t sata_dwc_isr(int irq, void *dev_instance)
- 	int handled, port = 0;
- 	uint intpr, sactive, sactive2, tag_mask;
- 	struct sata_dwc_device_port *hsdevp;
--	hsdev->sactive_issued = 0;
- 
- 	spin_lock_irqsave(&host->lock, flags);
- 
-@@ -517,8 +516,11 @@ static irqreturn_t sata_dwc_isr(int irq, void *dev_instance)
- 	sata_dwc_scr_read(&ap->link, SCR_ACTIVE, &sactive);
- 	tag_mask = (hsdev->sactive_issued | sactive) ^ sactive;
- 
--	/* If no sactive issued and tag_mask is zero then this is not NCQ */
--	if (hsdev->sactive_issued == 0 && tag_mask == 0) {
-+	/*
-+	 * If tag_mask is zero and the active command is not NCQ this is a
-+	 * non-NCQ completion.
-+	 */
-+	if (tag_mask == 0) {
- 		if (ap->link.active_tag == ATA_TAG_POISON)
- 			tag = 0;
- 		else
-@@ -534,6 +536,12 @@ static irqreturn_t sata_dwc_isr(int irq, void *dev_instance)
- 			handled = 1;
- 			goto DONE;
- 		}
-+		if (ata_is_ncq(qc->tf.protocol)) {
-+			/* NCQ commands still in flight; no tag completed. */
-+			ap->ops->sff_check_status(ap);
-+			handled = 1;
-+			goto DONE;
-+		}
- 		status = ap->ops->sff_check_status(ap);
- 
- 		qc->ap->link.active_tag = tag;
-@@ -612,9 +620,9 @@ static irqreturn_t sata_dwc_isr(int irq, void *dev_instance)
- 		tag_mask &= ~(1U << tag);
- 		qc = ata_qc_from_tag(ap, tag);
- 		if (unlikely(!qc)) {
--			dev_err(ap->dev, "failed to get qc");
--			handled = 1;
--			goto DONE;
-+			dev_err(ap->dev, "stale tag %d in NCQ completion",
-+				tag);
-+			continue;
- 		}
- 
- 		/* To be picked up by completion functions */
-@@ -1051,6 +1059,8 @@ static int sata_dwc_hardreset(struct ata_link *link, unsigned int *class,
- 
- 	ret = sata_sff_hardreset(link, class, deadline);
- 
-+	hsdev->sactive_issued = 0;
-+
- 	sata_dwc_enable_interrupts(hsdev);
- 
- 	/* Reconfigure the DMA control register */
--- 
-2.55.0
+Please give this a try and confirm if it fixes things.
+
+Regards,
+
+Hans
+
 
