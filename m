@@ -1,91 +1,99 @@
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D5DD39E18F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD91939E6CD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:01:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897617; cv=none; b=IZsMr+vosb4xvJmCAWBfqPCkY50g21w689FxnRVCs5/4rUVy7sf7x9k9ogLoowpWM6BjQnM9haDjBXXTqM4lrKR5CEG+eAzfXAESZ2nMi36hZ3IQ9/QsizrCDIj0UoxdH77R0ShO3YuWJU1pKVOdfRKJ/cKjqhKMVUFW82URvB4=
+	t=1788897669; cv=none; b=W8+FbhAGwTmyQUPnlc7gcnC+VhTmfrTAOvefslq2XoC2wN0bIbfqwOcXa2eOe8p/Sn0I4x433dhe1Mx5olC1tZMuaRcCQlU6cRqo5TkmziUsOw5VK+cgtCDX/6D0wGPZbaIoahuCb3OS9ofxIupuHVRu/3YyElgY7bJuvBLffkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897617; c=relaxed/simple;
-	bh=8EPOpJQG1mY0VHiccEtXuZTrOmJVktNSErD014DuW34=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tpJMDOtVhoRhUL/2ehibi07ekqiRQE/OCfoYuQWiKJdQBa7e5St6XcluCjxtKQtM+wPdl9EjD89bNaJ4b8x/+z1LUssN+TqcVcs7axDdEwu6gPPYhQheSIuDiArn16TkFShyr5xm9TY55TH7KE7A9c5qaDEfQ8we5z0tnDaWKH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=nDininVL; arc=none smtp.client-ip=213.97.179.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	s=arc-20240116; t=1788897669; c=relaxed/simple;
+	bh=/dvF7Skzv8vPsCa2LdD4Jkkz22ghIwkl2NtnE7AcCsA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=IH62LWDUuQyUeS4FHCPJ93lE2F85mjR0l3C3U54p7hlnEVz7mIEK2kKiESws6AUwF34Xtz8SOaxPDt+GpZUMGgwg+PLtW3PMOQo8xIC0cWpmf6lTPdee5B5/Iej2FFkVlSW0TeWu82JGGYlw+2Lnwrd11MDNqXYPefL1Mc54Xco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SwasziLr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="nDininVL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=ZMEWZWXTXy0juUhCP/VyyM3JVOauhXG+wy/tuimbToY=; b=nDininVLMc5mMXDKjwlnZEW+t5
-	5Xw81cbU76TOGCDu9EPI/j6qbrVfutRABD9THlZlii3RLb+v/xP6CUyXhu1tMSfyi0NtgnjkowXRK
-	sWthtG28KM4WX/hWcRLKZ+M0T2J/ABIxTvnEfp7zn8YJuAEm6ttmuyV7GloouowYKvqikq27hTSWG
-	dR393y/7JxWoeThKqK4ictdoKqAm7KRXCn8b3mjo72zG/qToBWYOCX3vzjmlvKZmF+rsNF/bYgv9a
-	8w57+wx3yzON6qBjtyo6FiaJYLZZOiiL9uXiUGGzAk3e8kjQLvdm5pxwF2mbc6tqnM9P+SI/umYHe
-	M7MuWWBw==;
-Received: from 179-125-79-245-dinamico.pombonet.net.br ([179.125.79.245] helo=[127.0.0.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1x41z9-00Gfaw-PE; Tue, 08 Sep 2026 22:00:04 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Tue, 08 Sep 2026 16:59:51 -0300
-Subject: [PATCH] Revert "drm/amdgpu: debugfs: avoid extra EOLs in
- amdgpu_gem_info"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SwasziLr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B091F00A3A;
+	Tue,  8 Sep 2026 20:01:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788897668;
+	bh=weVkAE66PuFA6ueVLI0Xd/LFcQkJbuYpx8zORck9hV0=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=SwasziLrkOuMlx81wWsx483cNYNLzF+oZCc9sKNSse/cX4Vx9Cs+ElESNljJRij+n
+	 y/OIyhWwQlVYaKUqMfDFAN9Gx8GsfdA7AHx5XcmfcKyaI2XU+d5ya3fjCQFjRoPZDD
+	 CfEIrlrCFglzvOgvkvF4J7apH8lB+5/fgoMRZs4UqEhiGL/1+9Sgo1xTXFbIJs5cj0
+	 6Nj4P8oQsN2UUExnKkPWWdD5oU8vFItVK5MpXDgMr6WODxkqqzzc6fz6479udQUtzI
+	 RZQlpPV8qtpQsX1BzgbdSmrw93iYi0+jd2TVBu9J8rVPXZqgqN9bwwFenuXd7aZMIC
+	 0BtKR3WTZIPHQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09A6380820D;
+	Tue,  8 Sep 2026 20:00:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-amdgpu_debugfs-v1-1-3b659e744691@igalia.com>
-X-B4-Tracking: v=1; b=H4sIADZpoGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwML3cTclPSC0viU1KTS9LRi3SRT48QUQyPzNGOzRCWgpoKi1LTMCrC
- B0bEQfnFpUlZqcgnIFKXaWgB0cmgjcgAAAA==
-X-Change-ID: 20260908-amdgpu_debugfs-b53ad127f36a
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, kernel-dev@igalia.com, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+Content-Transfer-Encoding: 8bit
+Subject: Re: [f2fs-dev] [PATCH v9 00/11] f2fs: prepare metadata layouts for
+ runtime block sizes
+From: patchwork-bot+f2fs@kernel.org
+Message-Id: 
+ <178889760650.3720652.823497895203817513.git-patchwork-notify@kernel.org>
+Date: Tue, 08 Sep 2026 20:00:06 +0000
+References: <cover.1788479509.git.zhangxp1998@gmail.com>
+In-Reply-To: <cover.1788479509.git.zhangxp1998@gmail.com>
+To: Kelvin Zhang <zhangxp1998@gmail.com>
+Cc: linux-f2fs-devel@lists.sourceforge.net, jaegeuk@kernel.org,
+ linux-kernel@vger.kernel.org
 
-This reverts commit c119d05a36a884482decc67e55944648f8cba97e.
+Hello:
 
-It removes the newline even when there are no fences attached to a
-struct dma_resv, leading to multiple BOs being output on the same line,
-making the debug file less readable, not more as the commit intended.
+This series was applied to jaegeuk/f2fs.git (dev)
+by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+On Thu,  3 Sep 2026 16:54:16 -0700 you wrote:
+> F2FS currently describes several on-disk metadata layouts and filesystem
+> geometry values with constants derived from PAGE_SIZE or a fixed 4KB block
+> size. This series derives those values from the mounted filesystem's block
+> size instead, as preparation for supporting filesystem blocks smaller than
+> PAGE_SIZE.
+> 
+> The patches initialize sb_info early, describe the SIT, NAT, orphan, dentry,
+> node, and xattr layouts dynamically, parameterize sector/byte/block
+> conversion helpers, and derive node-tree geometry at runtime.
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 5d9d137209b6..1b6c32a177fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -1701,9 +1701,8 @@ u64 amdgpu_bo_print_info(int id, struct amdgpu_bo *bo, struct seq_file *m)
- 	if (dma_resv_trylock(bo->tbo.base.resv)) {
- 		dma_resv_describe(bo->tbo.base.resv, m);
- 		dma_resv_unlock(bo->tbo.base.resv);
--	} else {
--		seq_puts(m, "\n");
- 	}
-+	seq_puts(m, "\n");
- 
- 	return size;
- }
+Here is the summary with links:
+  - [f2fs-dev,v9,01/11] f2fs: initialize sb_info early in f2fs_fill_super
+    https://git.kernel.org/jaegeuk/f2fs/c/425a464e82a1
+  - [f2fs-dev,v9,02/11] f2fs: describe SIT block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/b41496b999b3
+  - [f2fs-dev,v9,03/11] f2fs: describe NAT block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/4b1fbe38ce5b
+  - [f2fs-dev,v9,04/11] f2fs: describe orphan block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/0e346faac20c
+  - [f2fs-dev,v9,05/11] f2fs: describe dentry block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/2f5562816fac
+  - [f2fs-dev,v9,06/11] f2fs: describe {i, d, id}node block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/49d39bc4b877
+  - [f2fs-dev,v9,07/11] f2fs: describe xattr block layout dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/fbf612f85437
+  - [f2fs-dev,v9,08/11] f2fs: parameterize sector conversion macros
+    https://git.kernel.org/jaegeuk/f2fs/c/87f159c1492f
+  - [f2fs-dev,v9,09/11] f2fs: parameterize byte and block conversion macros
+    https://git.kernel.org/jaegeuk/f2fs/c/7c8fd5156c90
+  - [f2fs-dev,v9,10/11] f2fs: describe node tree geometry dynamically
+    https://git.kernel.org/jaegeuk/f2fs/c/a4bfdfc5d3d8
+  - [f2fs-dev,v9,11/11] f2fs: parameterize block size and mask macros
+    https://git.kernel.org/jaegeuk/f2fs/c/6a0dda6838b6
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260908-amdgpu_debugfs-b53ad127f36a
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
