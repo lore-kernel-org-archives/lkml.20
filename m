@@ -1,89 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B9357C72E;
-	Tue,  8 Sep 2026 18:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 916EA595745;
+	Tue,  8 Sep 2026 18:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788893563; cv=none; b=eiZVdWPxo6+/i5OrXkAzdqfX6lfzcI1en9dBKRulxQAXIuMk8CJUkHpafTvmaB5gAwLFlQm9P7kZCNOu3hwmoyptDJXbf7r9Nom9s2bQx01MF25uAGKlhfbPPG9/03qqvrzyDGuZjieTQ8vA/tBJxw2b3SQFzYzuLf1p1LNUH6s=
+	t=1788893808; cv=none; b=XznSKa52IMwA5ZUzADNn3pfOM+BR4fbKqMqqZfi6ehMkLMvO8YTxMsfrPDuM1wj+JVZRlBoUr1KYmaIsfbP+/YjjmrOlWVmhPeYtFA3LsPcwWeXI0yHKptcwIPVvbjGidNZGAjQ2aW+A1YvzDbpii0aG/xMqBlt3BUvYiW3wnk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788893563; c=relaxed/simple;
-	bh=utfaVtlGd7u5D4EQV6l5xEQC/ZWecWLHb/s4NJCNk1A=;
+	s=arc-20240116; t=1788893808; c=relaxed/simple;
+	bh=f7PEyOt3JNcaMn1+lbqfcipo2OVYJ+0pMlvBTga0ofA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y5sUXMjdI21zvH0yeeY8JtIy7IHer0kSF02AtpZESAHsZm6fDUeJM4MAVotSpb1HbebMwyT/5cqfejIhXD4rRMcAC07qcebZIU6RjjbXv+HshnDDF7NV3tumem1kYF/KTQzz5gzF9SkrG2gDCOi2gT08UEX8j5Gz/dkY7/Lgdl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ieq4JLaR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CVW0BhTzWvaen8DUnSbeNCChE5IN6B4l8t4yas+ufH5T8JnYAitNufy9c81Qa9EgPav+gEwBzIbhs12lNHo/X+jtVG8EsWlnNT45SbOFOQYZsqYbGfajlbZPB17dqKq1rvrqmD4YP5XsbBl+20zuqqLerzigP1sOAN0SYUMM4DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SZS7bQvb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ieq4JLaR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CE51F00A3D;
-	Tue,  8 Sep 2026 18:52:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SZS7bQvb"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 277FF1F00A3A;
+	Tue,  8 Sep 2026 18:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788893561;
-	bh=DOKPmpWRmdDBglqf84YkB3HAz/fgt7fFnGQ4z3lV4J8=;
+	s=k20260515; t=1788893807;
+	bh=Q3xTvYH38yrqBeUdvCpSOTtMsiy3C2x+4I+sL4PIZ5Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ieq4JLaRtlT92Yg0dCEjo4VFE7X1234dNn5s2zUPIZ7NiNXSGmSkQQFccLQBYWHhr
-	 RYN3F1nROxCUN1B3nbU1qcvdS/fARGMxeXIBC0M3xsXKUfhNOP0y0lBj7ZuD80FyrO
-	 YYD7Eni5KPI+8MP7nSsd/ANAyvZKOVnW4XlIQFXohh/yW3P/gwqVMp9XgrgrpIWGrM
-	 Kvwmv2mW3Zn7/utqqBEybj89h+2cbzaTqGwYaRW9WfZl62QybKty/KBfX+89QKf8dg
-	 YhnfVAqb1MqfylRhqRxXbuWa/SWl5KK5X12z097zGYHnCehSs1UY4qQ+WS+B8L/Nly
-	 Fclmqr2A1t+eA==
-Date: Tue, 8 Sep 2026 19:52:36 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: phucduc.bui@gmail.com, Liam Girdwood <lgirdwood@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kees Cook <kees@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Trevor Wu <trevor.wu@mediatek.com>,
-	Douglas Anderson <dianders@chromium.org>,
-	linux-sound@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Matthias Brugger <matthias.bgg@gmail.com>
-Subject: Re: [PATCH 3/7] ASoC: mediatek: mt8188: mt8188-afe-clk: Propagate
- regmap update errors
-Message-ID: <a88fbf17-faac-4902-bd39-ff0a616a7d2d@sirena.org.uk>
-References: <20260907120310.135693-1-phucduc.bui@gmail.com>
- <20260907120310.135693-4-phucduc.bui@gmail.com>
- <e011cd74-7c5a-4cd1-b412-ad11765ad11c@intel.com>
+	b=SZS7bQvbW6CRHvuZYpfTrWekS7YKmBHNnfrBfFuJmvEIcLlMUp1WjtSQO8jAnEbBg
+	 g9v5GcOakOwEhYQ1FJiBDwaTpT9staiOgNjgGHHgxB63p0F+fuZqcI8iNDOeOnJmLU
+	 KTUtHxkebBiHWUHYzMMI33D7pnF6ukKHQTg9qp8BKL62m3rBmud1X9inGrx2wvKY+q
+	 rln/D0Tatd+TNaLR9I1yCoFD7RqQPylNW/PHaLH2vjV0s5pZVNr4386gDvTJEcX6dg
+	 uqdtG6TRaPSC15OQBjbsIq8qJgAG9u3qRt6rkFnU/X5DJsYx7VLm7+moZZNe1p2u4F
+	 atksjE6aLgHiw==
+Date: Tue, 8 Sep 2026 11:56:46 -0700
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Javier Tia <javier@peridio.com>
+Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Dave Chinner <dgc@kernel.org>
+Subject: Re: [PATCH] xfs: reserve a full directory block when repair expands
+ the tempdir
+Message-ID: <20260908185646.GG127607@frogsfrogsfrogs>
+References: <20260908-b4-xrep-dir-total-v1-1-b982f1652fd7@peridio.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="JWy8Wwp5/yGMiUOU"
-Content-Disposition: inline
-In-Reply-To: <e011cd74-7c5a-4cd1-b412-ad11765ad11c@intel.com>
-X-Cookie: The world is not octal despite DEC.
-
-
---JWy8Wwp5/yGMiUOU
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260908-b4-xrep-dir-total-v1-1-b982f1652fd7@peridio.com>
 
-On Tue, Sep 08, 2026 at 07:49:00PM +0200, Cezary Rojewski wrote:
+On Tue, Sep 08, 2026 at 10:16:12AM -0600, Javier Tia wrote:
+> xrep_dir_swap_prep() passes args.total = 1 to xfs_dir2_sf_to_block(),
+> but the conversion allocates args->geo->fsbcount filesystem blocks,
+> which is 1 << sb_dirblklog.  The two agree only when the directory
+> block size equals the filesystem block size, so the shortfall is
+> invisible on a 4k block filesystem and is four blocks on a 1k block
+> filesystem carrying a 4k directory block size.  xfs_da_grow_inode_int()
+> then subtracts more blocks than total ever held, underflowing it, and
+> hands the understated value to xfs_bmapi_write() as the remaining-space
+> hint the allocator sizes minleft from.
+> 
+> fsbcount is what the other caller of this conversion already reserves:
+> xfs_bmap_add_attrfork_local() sets dargs.total the same way, and it is
+> exactly what the single xfs_dir2_grow_inode() call underneath consumes.
+> The attribute counterpart in xrep_xattr_swap_prep() keeps its literal 1
+> because m_attr_geo->fsbcount is always 1.
+> 
+> Found by the reservation assert in xfs_da_grow_inode_int(), which Dave
+> Chinner hit running xfs/286 at 1k block size.
+> 
+> Fixes: b1991ee3e7cf ("xfs: online repair of directories")
+> Reported-by: Dave Chinner <dgc@kernel.org>
+> Closes: https://lore.kernel.org/linux-xfs/ap-mIH9nTNkpWq9K@dread/
+> Signed-off-by: Javier Tia <javier@peridio.com>
+> ---
+>  fs/xfs/scrub/dir_repair.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+> index 31a23c5f386a..0a3d02d8f041 100644
+> --- a/fs/xfs/scrub/dir_repair.c
+> +++ b/fs/xfs/scrub/dir_repair.c
+> @@ -1488,7 +1488,7 @@ xrep_dir_swap_prep(
+>  			.geo		= sc->mp->m_dir_geo,
+>  			.whichfork	= XFS_DATA_FORK,
+>  			.trans		= sc->tp,
+> -			.total		= 1,
+> +			.total		= sc->mp->m_dir_geo->fsbcount,
 
-> I'd expect someone from Mediatek to verify this.  While I agree with the
-> change, some drivers follow "ignore register update result" arch and,
-> what was previously ignored will now cause basic operations to fail.
+This is enough to shut up the assertion, but it doesn't fix the
+additional problem that the block reservation in sc->tp can also
+underrun for this same reason.  I'm testing a fixpatch for both, please
+be patient...
 
-We don't really get any review from Mediatek, AngeloGioacchino used to
-try to cover things but it seems he got busy recently :(
+--D
 
---JWy8Wwp5/yGMiUOU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgWXMACgkQJNaLcl1U
-h9Ccvgf9Ggr9gv/6qkfKjZsgCMk8lQLLYxhJ/1oG28aS2ODQznEVI0n/o3onhTSp
-9sWz6l6XoSuTlM0+U+89WVv2HZFTcs0wsaA+pE+OGa7diIQxlVE2+V5AgbbdLPHJ
-h5Lhk2fB/Qubw+9taoXc8pT2Jmt/L89dCkVTgysWcDBJ+t0/2zhRB5YHSrsYiqbQ
-fgbnFPbf6JVIOqaCm20N1AAPm0cqbXi3+/TAqVmuHXpIOccFDiy/NrwG5BZj2JDk
-LySiLFKawdzJBIRjeP9EO46fau/vwCeJQbtsD0qdS4HAzi2FAtj+WZGjwS2Y9kJf
-Muc8BwBg69bA6BnfHttIdruciJ41Bw==
-=1Y36
------END PGP SIGNATURE-----
-
---JWy8Wwp5/yGMiUOU--
+>  			.owner		= I_INO(sc->ip),
+>  		};
+>  
+> 
+> ---
+> base-commit: 0ca15a1a115132dfebeee5447fd6abe46f66d61d
+> change-id: 20260908-b4-xrep-dir-total-3c77d0bcff51
+> 
+> Best regards,
+> -- 
+> Javier Tia <javier@peridio.com>
+> 
