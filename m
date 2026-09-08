@@ -1,60 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40C9643CE42;
-	Tue,  8 Sep 2026 10:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568B143DA2C;
+	Tue,  8 Sep 2026 10:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864780; cv=none; b=oe4Y63CuWFHKQk9ibvEbZ0lxSO9+B1X00mjby3UMNRpXf5KlbzvCE7IL7wf06uNfAQLnTgeS06DexxkRKG5mhV9Z6ked3M3OUKpFCBfHDF5HRYGc+qpEXW0RvEQNHgGlg2LXdHm1hJGdv6ENuo+9HVVj+cPXWUR+7Az4Y8vRkic=
+	t=1788864782; cv=none; b=aDfz+wnuiXeFgcASY44n8kkFZ6U5eg6VLCG0grI37PodsO7QWR3D0EGkbHMJKICeMb/mohc/RI+vd9Q3/6tZulv2oNM+JtviyPiOSvlvEREfY1NWag904QsyTV9yqYGZDb/PXVF09LFnJ3Xs7l6vUxnBuLddnik8TmrMfUM9is0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864780; c=relaxed/simple;
-	bh=Ra2t7zEnqkRWuYeek1PLxNIYGZxdxVDXZpfKjQp842Q=;
+	s=arc-20240116; t=1788864782; c=relaxed/simple;
+	bh=aoV1fH6ZTCW7LAfNKfuUHvS36wapbIrsxxRkUY+U2ms=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ho5PRix1ge2CxC63tnypRoxrz87Epzj7CiU3sU5cMIsiafA1sAmCZSOyotVoI/JbfNab/uys6PFS5vqzdLLO0Vlmgu7Rs52jiNH1X6+Q/iGSGvAu05jO3D8IsBoTLhBHz76CJWoxO/K4TWMxP21W52CDLUuTcbJcVI6TTCNbEtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z/7Lc15P; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BX5enclXXkMbK8fSGYsOYIXg4zKlpXX8p2QovGupbXx6Jo8nq9tirKE7q9ZFz+1kFh7Kj2e1iMNcl8z/vm+6ioN+cl4SSsvnEtng0lPeBKW35d5DTW7eS7X0Iok4IUpHlNOPwrtATEi5MK8Ubgv0fFzkB4xDSAtfio70dcxTFxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=KAQsciz0; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z/7Lc15P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7A7F1F00A3A;
-	Tue,  8 Sep 2026 10:52:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788864776;
-	bh=jh4q2SfgrC2c/XwzGGucjV51ZrTlQ89D6bANP8tu94Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z/7Lc15PlfN84qXwn3HlKZJV7xTgIEYtPKOWG8o4WOJhQZNVp/eAERxk3LML3IqA5
-	 WDofUWIQ+GGCdGJVHtjuKABxIIi6Pb7/6xAgjiIzdmjKJXjlq1BFRKdcNLiLJVYjXX
-	 ajstaYZgpluwgOYkiYVIDoMLjA79Sj3Kjm6Mhf0WSi6dCcxbYg2X0/8Akmj0Bwgglr
-	 hB2Fys4lnitDpiHAfceJuuloPG7z1xKZ8idO8Ngn01oN6NKWx/66esvvX/u5GzVusp
-	 cDl5ycU6xeUIYTcJJrQ1B8uwanLVCJtdaFJ1/7CLNLJ05ciN5UEroGNLLTomdz2HyS
-	 I6hfxBL7PxosA==
-Date: Tue, 8 Sep 2026 11:52:52 +0100
-From: Simon Horman <horms@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, Nicolas Pitre <nico@fluxnic.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next] net: smc91x: Remove stale documentation
- reference
-Message-ID: <20260908105252.GS40544@horms.kernel.org>
-References: <20260905051944.11604-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="KAQsciz0"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1269811DBE5;
+	Tue, 08 Sep 2026 12:52:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788864765;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Qm+/RmSsjqDSftrpb2Fdvmu04WuqU6msZ94XRN/Z0m0=;
+	b=KAQsciz0rHTUA8g2LH0r0l+PxwVd9Htz9ANOG2gGJVJZmtPLPa2bnBukwX1wiICmjmEa8z
+	zsb0cOQ7FfSFia/BTyCdiCrnX8FBXMNoGFyDywzBRXO+2ZehxB2wgID5Rx0tO053uHIYaX
+	0a6aeOe/UaET4ztukUmw0D+G9/rG6v8GMKYRSkmFefCmPNNbudmjtIqdjWegFyVHEEa9qU
+	ssQjW7bzENSxEpVkMMU4G1YfYDDOCFBiJvYSo18i/Z+q4joS/cwKlnTxThEnhW+5fMaA1/
+	W5BfRqZxwdRHW2kYBDwvpRgFoBs3QqZNh/ln+x23Uqf1K/QmIJB3wIZwhlyYNA==
+Date: Tue, 8 Sep 2026 12:52:41 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: yoshihiro.shimoda.uh@renesas.com, vkoul@kernel.org,
+	neil.armstrong@linaro.org, geert+renesas@glider.be,
+	magnus.damm@gmail.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+	claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	stable@vger.kernel.org, Pavel Machek <pavel@nabladev.com>,
+	Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Subject: Re: [PATCH v5] phy: renesas: rcar-gen3-usb2: Avoid long delay in
+ atomic context
+Message-ID: <ap_o-T5GGMFGYZ4v@duo.ucw.cz>
+References: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="AG7eLZ6YP0P+pQxb"
+Content-Disposition: inline
+In-Reply-To: <20260716183246.3183877-1-claudiu.beznea+renesas@tuxon.dev>
+X-Last-TLS-Session-Version: TLSv1.3
+
+
+--AG7eLZ6YP0P+pQxb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260905051944.11604-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Sep 05, 2026 at 07:19:44AM +0200, Karl Mehltretter wrote:
-> smc9.rst was removed with the separate smc91c92 driver. Stop
-> pointing SMC91X users to the nonexistent file.
-> 
-> Fixes: a3fb9a5bf660 ("drivers: net: smsc: smc91c92: Remove this driver")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Hi!
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>=20
+> To address this, release the spin lock before sleeping for 20 ms as
+> required by the HW manual and reacquire it afterwards. To avoid other
+> threads entering the critical section and configuring the HW while the
+> software is waiting for the OTG initialization to complete, introduce the
+> otg_initializing variable alongside the otg_init_done wait
+> queue. Any
 
+This is quite complex. How is this solved in mainline?
+
+> To avoid failures when multiple PHYs call struct
+> phy_ops::rcar_gen3_phy_usb2_init() simultaneously, and the PHY responsible
+> for initializing the OTG either fails or deinit quiqly and another PHY
+> takes over the PHY init role), the code waiting for the
+> channel->otg_init_done wait queue retries up to NUM_OF_PHYS times.
+
+And more complexity.
+
+Example of the code is quoted below, and we are returning EBUSY to
+userspace if it tries to change role at the wrong time. Not great.
+
+As far as I understand, the initialization on needs to be done
+once. Instead of exposing /sys interfaces before hardware is ready,
+and then doing complex dance when /sys is accessed, could we
+initialize hardware in rcar_gen3_phy_usb2_probe or something?
+
+Looking at the code:
+
+        /* If current and new mode is the same, this returns the error */
+        if (cur_mode =3D=3D new_mode)
+                return -EINVAL;
+
+this should probably just return success? (EINVAL is certainly wrong
+error code here.)
+
+Best regards,
+								Pavel
+
+> +++ b/drivers/phy/renesas/phy-rcar-gen3-usb2.c
+> @@ -392,26 +408,58 @@ static ssize_t role_store(struct device *dev, struc=
+t device_attribute *attr,
+>  	struct rcar_gen3_chan *ch =3D dev_get_drvdata(dev);
+>  	bool is_b_device;
+>  	enum phy_mode cur_mode, new_mode;
+> +	int retries =3D NUM_OF_PHYS;
+> +	unsigned long flags;
+> +	int ret =3D -EIO;
+> =20
+> -	guard(spinlock_irqsave)(&ch->lock);
+> +	spin_lock_irqsave(&ch->lock, flags);
+> =20
+> -	if (!ch->is_otg_channel || !rcar_gen3_is_any_otg_rphy_initialized(ch))
+> -		return -EIO;
+> +	if (!ch->is_otg_channel)
+> +		goto unlock;
+> +
+> +	while (retries-- && ch->otg_initializing) {
+> +		spin_unlock_irqrestore(&ch->lock, flags);
+> +
+> +		ret =3D wait_event_timeout(ch->otg_init_done, !ch->otg_initializing,
+> +					 USB2_OTG_INIT_TIMEOUT);
+> +		ret =3D ret ? 0 : -ETIMEDOUT;
+> +		if (ret && !retries)
+> +			goto exit;
+> +
+> +		spin_lock_irqsave(&ch->lock, flags);
+> +	}
+> +
+> +	/* If another thread started a new initialization just return -EBUSY. */
+> +	if (ch->otg_initializing) {
+> +		ret =3D -EBUSY;
+> +		goto unlock;
+=2E..
+> @@ -1007,6 +1226,7 @@ static int rcar_gen3_phy_usb2_probe(struct platform=
+_device *pdev)
+>  		return ret;
+> =20
+>  	spin_lock_init(&channel->lock);
+> +	init_waitqueue_head(&channel->otg_init_done);
+>  	for (i =3D 0; i < NUM_OF_PHYS; i++) {
+>  		channel->rphys[i].phy =3D devm_phy_create(dev, NULL,
+>  							channel->phy_data->phy_usb2_ops);
+
+
+
+--AG7eLZ6YP0P+pQxb
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCap/o+QAKCRAw5/Bqldv6
+8hBeAJ9DOdo6XuAz5OO4jIKpmONe8cgcKACeNVF5TPhlbIEtTN9b7mWO2f+b4IU=
+=QxD/
+-----END PGP SIGNATURE-----
+
+--AG7eLZ6YP0P+pQxb--
