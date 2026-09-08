@@ -1,115 +1,112 @@
-Received: from mta1.migadu.com (out-155.mta1.migadu.com [95.215.58.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 840D3242D89
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:36:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A4A242D89
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788834979; cv=none; b=DXdDTZXjnvmyPoJ0pr2r+NYnc2MiQ8+TvK+de1DTHI0+2lwROm29+usUYV+ypvT9eMni4BfcVkL6xiCJ/eGU509OMTowECsyB9Ntw/ZCkuXdkZ9rgylSnakMY6oCa3PWRDvolQpFDfd6S9ND+Gg/xQEXhxGI3Bdg6TeUKnR/BRA=
+	t=1788835089; cv=none; b=Ks9dyqyZulth7Yyq5HNb0lT3oG65N4prNcTL23AEA/4CZ6ArDhHDVV0Bchbw1xfUTe5tM9DjSY9DFuT8LbJf4iEeFcHt8Q8LOfVRfg6bT1CDFynbJW6NnihWMI7Mk54cAz82k8h0FuO8LqMwnpeXEv4hUaSHQ+6lenZP4Nu4O0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788834979; c=relaxed/simple;
-	bh=m6XqoUodv8NsilFjwXb7ElswNYC4z6Ylt8/xBRm4O48=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XWi9BoMvGTU6IT4ktrZqXYflqEYTKs4yhRbOEImjIM3p8D0J/6robNw6V/hYLxUH2NLwQkGsJdAtEto+kaV99kqCDUteTE/Qa0ZXVwlR/AbO69Py3TWC1dw789hdCuacy5eVP3ZOl70LD5J+SNiHTAA1y/gbNFtbv1y9Hh2geb4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=S8r9XEGU; arc=none smtp.client-ip=95.215.58.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788835089; c=relaxed/simple;
+	bh=ZO6BWUTrK4OLb/xzZYvpizxM1kZOMQ5Q2JarAiiVMsA=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WekRCmQUhQQBmrCTZEti6edv+YMB8K/YNX0T/R3sbq7MYb7YWDmStXbKwFOIU7jvIxHU757duCTrdZnsC7rvyoGBKQthXS/Tzo4CE9xljMbHANwdrUSS+i4ACh7iS6adY6vXQ29HO0BSbZl0yZuDIm3kfEQ1HqSFWENuhCNs2Io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uTPULx+T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="S8r9XEGU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=m6XqoUodv8NsilFjwXb7ElswNYC4z6Ylt8/xBRm4O48=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788834975; v=1; x=1789439775;
- b=S8r9XEGUQ1kF5s8otbZzIOMqWDhE8NdNCsKbUfk0c88GFm02KDhiuWvzP8/IfCDn4w2QYBQ+
- gXotAnsFkoH0K9PfVmLbx7XYfzZ3OimkrtSfy1BxRdbMXHvT3rM9zm2YtLovSulacVm3Prwn/Qm
- df+Z6Und3mA1ZRiLMx3KkyIA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cf50a8224a729a78;
-	Tue, 08 Sep 2026 02:36:15 +0000
-X-Mizu-Trace-ID: cf50a8224a729a78
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>,
-	Chao Shi <coshi036@gmail.com>,
-	Weidong Zhu <weizhu@fiu.edu>,
-	linux-fsdevel@vger.kernel.org (open list:FILESYSTEMS (VFS and infrastructure)),
-	linux-kernel@vger.kernel.org,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH next] buffer: guard folio_test_dropbehind() against a NULL b_folio in __bh_submit()
-Date: Tue,  8 Sep 2026 10:36:00 +0800
-Message-Id: <20260908023600.788219-1-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uTPULx+T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617D11F00A3A;
+	Tue,  8 Sep 2026 02:38:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788835087;
+	bh=efZgJABcoG5ggDnZhAKLlrjhxD8FD9hOCVM7mhQeFpU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=uTPULx+T8gxPX+bbiKHFilFF9EHAF5AWTvUS7p8r95JPYvApttPFOFq1Q9LEjEnAj
+	 szCy4LqZA05c07jaZhRlFjp7TftqHtTtWLy7c9Z364JLL/EmNXQ1q6NF5z0FAU9IqE
+	 g2oS/XYfXxYGZxjyaluL3wXd8edItcIwC69DoRZQ=
+Date: Mon, 7 Sep 2026 19:38:06 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: syzbot <syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com>
+Cc: baohua@kernel.org, baoquan.he@linux.dev, chrisl@kernel.org,
+ kasong@tencent.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ nphamcs@gmail.com, shikemeng@huaweicloud.com,
+ syzkaller-bugs@googlegroups.com, youngjun.park@lge.com
+Subject: Re: [syzbot] [mm?] WARNING in swap_put_entries_direct
+Message-Id: <20260907193806.3f562237942e4156c3d4d53e@linux-foundation.org>
+In-Reply-To: <6a9f6350.6e6c5f9e.28f11f.0005.GAE@google.com>
+References: <6a9f6350.6e6c5f9e.28f11f.0005.GAE@google.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Ridong Chen <chenridong@xiaomi.com>
+On Mon, 07 Sep 2026 18:22:24 -0700 syzbot <syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com> wrote:
 
-Commit 8deae2284976 ("buffer: allow a buffer_head to point at memory
-outside the page cache") made bh->b_folio optional: jbd2 submits a shadow
-buffer_head whose data lives in slab (the frozen/escaped copy of a metadata
-block), and such a buffer carries no folio at all - b_folio stays NULL from
-alloc_buffer_head() onwards (see the comment in
-jbd2_journal_write_metadata_buffer()).  That commit audited __bh_submit()
-and taught bio_add_folio_nofail() and wbc_account_cgroup_owner() to check
-for a NULL folio, but it missed an earlier dereference:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    8ab1afb2eb24 Merge tag 'for-7.3/dm-fixes' of git://git.ker..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1034a125580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+> dashboard link: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> userspace arch: i386
+> 
+> Unfortunately, I don't have any reproducer for this issue yet.
+> 
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-8ab1afb2.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/4767b33b6704/vmlinux-8ab1afb2.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/aa0bdf390bbc/bzImage-8ab1afb2.xz
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
+> 
+> get_swap_device: Bad swap file entry 7c00000000000002
 
-	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+hm, thanks.
 
-That test was added by commit a2c924c240e7 ("buffer: set
-BIO_COMPLETE_IN_TASK for dropbehind writeback"), which predates the
-NULL-b_folio semantics and so dereferenced b_folio unconditionally.  Once
-b_folio may be NULL, folio_test_dropbehind() reads NULL->flags and the
-kernel takes a NULL pointer dereference.
+https://syzkaller.appspot.com/x/log.txt?x=1034a125580000 reveals a huge
+storm of I/O errors:
 
-This is reached from the jbd2 commit path (bh_submit() -> __bh_submit())
-whenever a shadow buffer is submitted, i.e. when a metadata block has to be
-escaped or was copied out, so it is data/timing dependent rather than seen
-on every commit.  When it does hit, it is deterministic and independent of
-the dropbehind bit, since the flag test dereferences the folio before
-examining it.
+[ 1175.396574][ T1132] ata2: SATA link down (SStatus 0 SControl 300)
+[ 1175.417415][ T1123] ata1: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+[ 1175.421618][ T1123] ata1.00: configured for UDMA/100
+[ 1175.447991][ T1137] ata3: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
+[ 1175.456823][ T1137] ata3.00: configured for UDMA/100
+[ 1175.614247][ T5836] usb usb50-port1: unable to enumerate USB device
+[ 1175.647906][ T5108] Aborting journal on device sda1-8.
+[ 1175.651011][T12337] buffer_io_error: 18 callbacks suppressed
+[ 1175.651033][T12337] Buffer I/O error on dev sda1, logical block 131072, lost sync page write
+[ 1175.657294][T20237] EXT4-fs error (device sda1): ext4_journal_check_start:94: comm syz.5.3709: Detected aborted journal
+[ 1175.665579][ T5108] JBD2: I/O error when updating journal superblock for sda1-8.
+[ 1175.673842][T20239] EXT4-fs error (device sda1): ext4_journal_check_start:94: comm syz.6.3710: Detected aborted journal
+[ 1175.721163][ T5923] Buffer I/O error on dev sda1, logical block 0, lost sync page write
+[ 1175.723567][T20239] EXT4-fs (sda1): previous I/O error to superblock detected
+[ 1175.730930][ T5923] Buffer I/O error on dev sda1, logical block 0, lost sync page write
+[ 1175.731190][T20239] EXT4-fs (sda1): I/O error while writing superblock
+[ 1175.731223][T20239] EXT4-fs (sda1): Remounting filesystem read-only
+[ 1175.791874][T11112] Read-error on swap-device (8:0:516182)
+[ 1175.863539][T10850] Read-error on swap-device (8:0:364134)
+[ 1175.888507][T20241] EXT4-fs (sda1): shut down requested (2)
+[ 1175.908145][ T5726] Read-error on swap-device (8:0:332990)
+[ 1175.908919][ T5923] Read-error on swap-device (8:0:333014)
+[ 1175.909235][ T5923] Read-error on swap-device (8:0:313854)
+[ 1175.939843][T11112] Read-error on swap-device (8:0:356918)
+[ 1175.967225][ T5148] Read-error on swap-device (8:0:364766)
+[ 1175.979645][ T5724] Read-error on sw
 
-Reproduced on x86_64 with KASAN under filesystem write pressure:
 
-  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-  RIP: 0010:__bh_submit+0x21b/0x9d0
-  Call Trace:
-   bh_submit+0x15/0x30
-   jbd2_journal_commit_transaction+0x1c19/0x5ac0
-   kjournald2+0x1cf/0x760
+So I suspect something's wrong with shmem/swap error handling.  ie, the
+code which doesn't get tested :(
 
-Guard the flag test with a b_folio check, matching the other folio
-accesses in the same function.
-
-Fixes: 8deae2284976 ("buffer: allow a buffer_head to point at memory outside the page cache")
-Assisted-by: Claude:claude-opus-4-8
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- fs/buffer.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/buffer.c b/fs/buffer.c
-index 427d8a817cd5..f46fa6413032 100644
---- a/fs/buffer.c
-+++ b/fs/buffer.c
-@@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk_opf_t opf,
- 
- 	bio = bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
- 
--	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
-+	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
-+	    op_is_write(opf))
- 		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
- 
- 	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
--- 
-2.34.1
+> ------------[ cut here ]------------
+> !si
+> WARNING: mm/swapfile.c:2130 at swap_put_entries_direct+0x17d/0x1b0 mm/swapfile.c:2130, CPU#1: udevd/13167
 
