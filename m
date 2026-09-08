@@ -1,497 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DCE653FD38;
-	Tue,  8 Sep 2026 12:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9079A548547
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:45:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871526; cv=none; b=UeqFIHsQGGLXlIhsz9GPgcNSlsOY4XL8ZpYe24Mt/LF0dAo2hbHd3HEr0MxPOg7wgguQwj748xPLVwPLCmyAVx1kI35uaS21OW7x3bjTMFkck0cQPX7x1hC4VExA1oRV098aI/ml5NF0BNOzpr7iLrdpnEs9ilN1yZCteiCY5n8=
+	t=1788871533; cv=none; b=jm+p4t73xA5tJ1ZjMUrqcfT6augCTRC9IckeBjsQLAD1awz/8YjAmcqZUHop40xZaHlcYt65Y4+C/IpA9QJEGneY9FgyHUGjHOauDfNdOaaiC3zefqBTvKfGRpk0pMlmIvlrEsg8v2sh8Pdk8RBIb1UISsabGklWSrm4Zm0N9YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871526; c=relaxed/simple;
-	bh=o9//Zvowba5ACwSaJ0qqjcRyePOgiU+gUT9aDjQq65A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gMRP7H/lAtylDjhBgNbmKzCBqQlBbZtlIJEZJtUG7THX9uV4Zklc+Qzq4kub8kzuUCjEt+yCL13sAVkKUXJl5DHmTq+vQPOPwBEpGjaYhJY79eIbN75/pu7JfVTaxanyhH0UVzozV2m3Qznouu7M4QkZbKWexGzcQXOxvZDprDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/+pkSk2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/+pkSk2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD0491F00A3D;
-	Tue,  8 Sep 2026 12:45:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871522;
-	bh=EDt+w+jiSPPn6CedZQOGjUlvMXhfu48L07YuXdL4N6I=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X/+pkSk2thbQ5fFX8EpbrLfV1kQ9i/b983fh86r1Nyut1/fyzx5uu7yXs7/emIhGr
-	 KXejV2V0kdgcUiBs+hzG4uzdCFy3Y1ap34BBvxfIVRq4+Ax+evQvv3AfxGUMK233GE
-	 Wr4n0DcjyyYTTAD/rr0p+/w1J0q/l47Pz386BDyrhJPeAXCwNf1d4Q0BzxWmzxibEn
-	 8oOkfHvxWWT19+KvuEmyBfb1dq3kjoi5v3fcpFo7mKlMtaWjDctUPHWrpgtfIybQef
-	 OEjTBHIHGuoFcg16XkEMy6YX5LEc1LDtliD7lmi9Sm6tpqiUnUIojKWE9cxxxHvOKV
-	 Lc1exQ3b9TIHg==
-Subject: Re: [PATCH net-next v8 11/15] dpll: sit9531x: add support to get and
- set esync on pins
-From: netdev-bot+sashiko@kernel.org
-To: arouhi@sitime.com
-Cc: jiri@resnulli.us, vadim.fedorenko@linux.dev,
- arkadiusz.kubalewski@intel.com, ivecera@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, cjubran@nvidia.com,
- Oleg.Zadorozhnyi@devoxsoftware.com, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Tue, 08 Sep 2026 12:45:21 +0000
-Message-ID: <178887152134.219967.16181634650893462486@kernel.org>
-In-Reply-To: <20260902214030.20955-12-arouhi@sitime.com>
-References: <20260902214030.20955-12-arouhi@sitime.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1788871533; c=relaxed/simple;
+	bh=cefWH3zZ7K3vDSf+fLZ09nXocZembIWvzYOmUwp+oTY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YDCmAIkBMPKS9nFEXK7/mRNlzoWx/wKo6aj7aceVGfaDiGniNauJEpwt0L62/Yb/y9VdkHDY7jiP576qtKaimSQJIVCWlNfkqtqlOEa0yLIcxdz+j0QwUHqDRU1uzGLD3QAX6gZjBOtYqGogfU1wT1oHWLwkerKTeKMih/UnHbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97ccbba8e86so1001124241.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:45:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788871530; x=1789476330;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sWfYxxbbZLcnhPJrqJjUWtl71HlCnyMUS3wjMmJ9wMA=;
+        b=oN1nfiObu3/Ng71RpeC4qtzqMxBZE7p7JWX643s/a0vHy9KEC0va/C6JLxsL9k6Uum
+         wi8RMS17+YxeN399tqHtRxV4C1maQvSW51kjEhPp4qRWCE52Nql5mw0budHet9t1yzoO
+         UOc2vZWzoSWt2YlDRGGcLVfpgaopvLs8ibu34trb/Ub4C2JCszyTsuYJw+SGOQSQcdq4
+         35Ug7rH2t2LQHDOSmITlT3NVbqikfgcE5q0Vex51Mjo3bFEouF4F/Rr4nlXccjLGMsp7
+         stsyb7y0M641gEUs3vBUZaqw5uDbTOdtTg4Ok9Pgap37v9CNLcxIrGfyNsCBeG1Vd8fn
+         cBrQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhGSHbg98tfvmnaQgKMEPox1joFjszicBrCbJBEYoPU2vxqPK1xptXaKWnbokL42eq8O7f+s6LdvVxa9E=@vger.kernel.org
+X-Gm-Message-State: AFuF++l867FOjWADLXsFmtMWBtiyHPvWJznzYIOOGJCWMPrabs5J/G6X
+	+l4hlgpLXbxDxf/GcY5h5bNeIWqCVfxql5kxc0cd+EGDfVyT3hyodsrii9HR9dCz
+X-Gm-Gg: AYBFou2qDBwGpvtj+vzTQKuGNkZH7apwMPP5c4xSukdUZkJm3tKJOV9Fb/ibJ53xfru
+	dA2cH6cfTt2Oispxib9tv1DTsBajceQTBzL60gH0Ul7NQjznaM129UK/5+1SsH17BhxLmgAokBN
+	LrJj+LNN/9Fh/P4TASzAGYaOr6gNxp678vI7dmr5efyFQWJD8aON9ReIV+LktoBWCuia14xsjOc
+	sF6CDHUARpWe463SmkMeM+IE4UIVh+tj+NOprOCZ12rDtR/SNLKBbqS+MateQusLBhAsRmYSWv1
+	HK4QCjLpK/ooq2m6/IVZ1B4uKQurwiMmCkkAXlpwb7lD8lq2eUv21TPnRhjaCvS2f1oA9utb0Ou
+	hCiPgFXTg8fs8+HxjZFnssorwpfZPR4UgTpAsBMPDTnOKfhrffrEqKnXYxPPCsjuOPJaKw8vBge
+	EgTis2jjUSREa/ubR0A4LMgYKMaES+B60YoO+z2CmToCYiqJQzZzpMNHoiOCZVIS4iFe4ZS9D1D
+	2H8pReXC7VGGwLx3rsCfrc9YQ==
+X-Received: by 2002:a05:6102:554a:b0:785:c39b:6a1 with SMTP id ada2fe7eead31-78a4a8bb304mr10123876137.6.1788871530198;
+        Tue, 08 Sep 2026 05:45:30 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98097de57d4sm8184262241.10.2026.09.08.05.45.28
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:45:29 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-765c077b5c1so1487416137.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:45:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzBTpsxmLsBBcLnZKFot9zPHyzuUTfqit05AzH/0EYNtM8dicE3TagpI9fTliz8vcDPAAG/8IlxRP1Su34=@vger.kernel.org
+X-Received: by 2002:a05:6102:534e:b0:77f:fb50:8822 with SMTP id
+ ada2fe7eead31-78a4a9106f4mr9231211137.7.1788871528665; Tue, 08 Sep 2026
+ 05:45:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-Thank you for your contribution! Sashiko AI review found 7 potential
-issue(s) to consider:
-
-Critical: 0 · High: 2 · Medium: 3 · Low: 2
-
-- [High] Embedded-sync frequency is implemented as the output's carrier
-  frequency.
-- [High] sit9531x_dpll_output_pin_esync_set() is asymmetric and destroys
-  the only record of the pin's previous rate.
-- [Medium] sit9531x_dpll_output_pin_esync_get() reports esync state from
-  an unsynchronized software cache: it returns dpin->esync_freq and a…
-- [Medium] The uAPI duty-cycle percentage constant is written verbatim
-  into a hardware register field.
-- [Medium] The esync enable path chains three independently committed
-  hardware transactions with no rollback: sit9531x_output_freq_set()…
-- [Low] sit9531x_dpll_output_pin_esync_get() reports esync->pulse = 50
-  unconditionally, including when it reports esync->freq == 0 (embedded…
-- [Low] The new PROG0 write is wrapped in its own
-  prg_enter()/prg_commit() window even though PROG0 lives in the same…
-
---
-
-dpll: sit9531x: add support to get and set esync on pins
-
-This adds esync_get and esync_set callbacks to the sit9531x output pin ops
-and a new core helper that programs the per-output ODRn_PROG0 pulse control
-byte.  Only outputs flagged as esync-control accept the operations, the
-rest return -EOPNOTSUPP.
-
-No Link: tags are present in the commit header.
-
-A few questions below.
-
-> diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> index be033d7cfe7c..c93578f3b750 100644
-> --- a/drivers/dpll/sit9531x/core.c
-> +++ b/drivers/dpll/sit9531x/core.c
-> @@ -1535,6 +1535,57 @@ int sit9531x_clear_notifications(struct sit9531x_dev *sitdev)
->  	return 0;
->  }
->  
-> +/*
-> + * sit9531x_output_pulse_ctrl_set - program per-output PULSE_CTRL byte
-> + * @out_idx:	logical output index (translated to chip slot internally)
-> + * @pulse_ctrl:	8-bit PULSE_CTRL value (PROG0)
-> + *
-> + * Writes ODRn_PROG0 on the output page (Page 3 for slots 0..5,
-> + * Page 4 for slots 6..11) at offset 0x1B + 16 * (slot % 6).
-> + *
-> + * Caller must hold sitdev->multiop_lock.
-> + */
-> +int sit9531x_output_pulse_ctrl_set(struct sit9531x_dev *sitdev,
-> +				   u8 out_idx, u8 pulse_ctrl)
-> +{
-> +	const struct sit9531x_chip_info *info = sitdev->info;
-> +	u8 slot, page, reg;
-> +	int rc, ret;
-> +
-> +	lockdep_assert_held(&sitdev->multiop_lock);
-> +
-> +	if (out_idx >= info->num_outputs)
-> +		return -EINVAL;
-> +
-> +	slot = info->clkout_map[out_idx];
-> +	page = (slot > SIT9531X_PAGE_OUTSYS0_SLOT_MAX) ?
-> +		SIT9531X_PAGE_OUTSYS1 : SIT9531X_PAGE_OUTSYS0;
-> +	reg = SIT9531X_OUT_PROG0_BASE +
-> +	      SIT9531X_OUT_PRG_SLOT_STRIDE * (slot % 6);
-> +
-> +	/*
-> +	 * PROG0 lives in the output system, so like the DIVO and
-> +	 * PRG_RST_DELAY writes it only takes effect inside the PRG_CMD
-> +	 * programming state committed to the NVM shadow.
-> +	 */
-> +	rc = sit9531x_prg_enter(sitdev);
-> +	if (rc)
-> +		return rc;
-> +
-> +	rc = sit9531x_write_u8(sitdev, SIT9531X_REG(page, reg), pulse_ctrl);
-
-[Severity: Medium]
-Is any conversion needed between the value passed in as pulse_ctrl and the
-hardware field?  The only caller passes SIT9531X_ESYNC_PULSE_DEFAULT, which
-is decimal 50, and the same constant is handed to userspace as esync->pulse
-in sit9531x_dpll_output_pin_esync_get().  The uAPI unit for that attribute
-is percent:
-
-Documentation/netlink/specs/dpll.yaml
-        name: esync-pulse
-        type: u32
-        doc: |
-          A ratio of high to low state of a SYNC signal pulse embedded
-          into base clock frequency. Value is in percents.
-
-The new regs.h comment in this patch describes the same register as a pulse
-count byte for SYSREF / SYNCB modes and defines no field masks, so it looks
-like one constant is being used both as a uAPI percentage and as a raw
-register value.  Which of the two is it?
-
-Separately, this is an unmasked full-byte write with no read-modify-write.
-The neighbouring PROG6 programming in sit9531x_output_phase_adjust_set()
-does preserve the upper bits:
-
-	/* PROG6 RMW: preserve OPSTG_VCASC_BUMP in [7:5] */
-	rc = sit9531x_read_u8(sitdev, SIT9531X_REG(page, base), &prog6_val);
-	...
-	prog6_val &= SIT9531X_OUT_PRG_OPSTG_MASK;
-
-Can writing all eight bits of ODRn_PROG0 clear other fields in that byte
-that the initial config blob programmed?
-
-> +
-> +	/*
-> +	 * Always leave the PRG_CMD state via prg_commit(), even if the write
-> +	 * failed, so the output loops are re-locked rather than stranded
-> +	 * unlocked; keep the first error.
-> +	 */
-> +	ret = sit9531x_prg_commit(sitdev);
-> +	if (ret && !rc)
-> +		rc = ret;
-> +
-> +	return rc;
-> +}
-
-[Severity: Low]
-This isn't a bug, but the comment above states PROG0 shares the PRG_CMD
-programming state with the DIVO and PRG_RST_DELAY writes, so could this
-byte be written inside the window sit9531x_output_freq_set() already opens?
-
-As written, one call to sit9531x_dpll_output_pin_esync_set() runs three
-separate windows:
-
-  sit9531x_output_freq_set()        -> prg_enter()/prg_commit()
-  sit9531x_output_pulse_ctrl_set()  -> prg_enter()/prg_commit()
-  sit9531x_output_enable()          -> prg_enter()/prg_commit()
-
-and sit9531x_prg_commit() issues UPDATE_NVM, then LOOP_LOCK, then an
-unconditional msleep(100), so that is roughly 300 ms of multiop_lock hold
-time plus three unlock/relock cycles of the output loops on a live output.
-
->  /*
->   * sit9531x_ref_state_fetch - read input reference status from hardware
->   * @index:	logical input index
-> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
-> index c07fb2256510..76d7d7d21d3d 100644
-> --- a/drivers/dpll/sit9531x/dpll.c
-> +++ b/drivers/dpll/sit9531x/dpll.c
-> @@ -25,6 +25,17 @@
->  #define SIT9531X_ESYNC_FREQ_10MHZ	10000000ULL
->  #define SIT9531X_ESYNC_PULSE_DEFAULT	50
->  
-> +static const struct dpll_pin_frequency sit9531x_esync_ranges[] = {
-> +	DPLL_PIN_FREQUENCY(0),
-> +	DPLL_PIN_FREQUENCY(SIT9531X_ESYNC_FREQ_10MHZ),
-> +};
-
-[Severity: High]
-Is the embedded sync frequency here the marker rate or the carrier rate?
-
-The dpll uAPI describes DPLL_A_PIN_ESYNC_FREQUENCY as a signal embedded
-into the pin's separately configured base clock:
-
-Documentation/netlink/specs/dpll.yaml
-        name: esync-frequency
-        type: u64
-        doc: |
-          Frequency of Embedded SYNC signal. If provided, the pin is configured
-          with a SYNC signal embedded into its base clock frequency.
-
-This range advertises 0 and 10 MHz as the acceptable esync frequencies, and
-sit9531x_dpll_output_pin_esync_set() then feeds the accepted 10 MHz into
-sit9531x_output_freq_set(), which programs the DIVO output divider, i.e.
-the base clock of the pad.  A 1 PPS esync request is rejected with -EINVAL.
-
-For comparison, ice_dpll_output_esync_get() treats 10 MHz as the required
-base frequency and reports the marker rate separately:
-
-	if (!(p->flags[0] & ICE_AQC_GET_CGU_OUT_CFG_ESYNC_ABILITY) ||
-	    p->freq != DPLL_PIN_FREQUENCY_10_MHZ)
-		return -EOPNOTSUPP;
-	...
-		esync->freq = DPLL_PIN_FREQUENCY_1_HZ;
-
-The driver's own binding example also pairs esync-control with a base rate
-that esync_set would overwrite:
-
-Documentation/devicetree/bindings/dpll/sitime,sit95316.yaml
-    pin@0 {
-        reg = <0>;
-        label = "clkout0";
-        esync-control;
-        supported-frequencies-hz = /bits/ 64 <156250000>;
-    };
-
-Enabling esync on that pin changes the pad from 156.25 MHz to 10 MHz.  Is
-that intended?
-
-The changelog says:
-
-  "On this device that is the same divider programming as a frequency
-  change plus the per-output pulse control, so enabling it sets the output
-  to 1 Hz and disabling it restores the requested rate."
-
-That does not seem to match the code: the only accepted non-zero value is
-10 MHz, not 1 Hz, and the freq == 0 path only calls
-sit9531x_output_disable() rather than restoring a rate.  Could the
-changelog be adjusted to describe what the code does?
-
-> +
-> +static inline bool
-> +sit9531x_dpll_esync_pin_supported(const struct sit9531x_dpll_pin *dpin)
-> +{
-> +	return dpin->esync_control;
-> +}
-> +
->  static inline bool sit9531x_dpll_is_input_pin(const struct sit9531x_dpll_pin *pin)
->  {
->  	return pin->dir == DPLL_PIN_DIRECTION_INPUT;
-> @@ -785,6 +796,92 @@ sit9531x_dpll_output_pin_phase_adjust_set(const struct dpll_pin *pin,
->  	return 0;
->  }
->  
-> +static int
-> +sit9531x_dpll_output_pin_esync_get(const struct dpll_pin *pin,
-> +				   void *pin_priv,
-> +				   const struct dpll_device *dpll,
-> +				   void *dpll_priv,
-> +				   struct dpll_pin_esync *esync,
-> +				   struct netlink_ext_ack *extack)
-> +{
-> +	struct sit9531x_dpll_pin *dpin = pin_priv;
-> +
-> +	if (!sit9531x_dpll_esync_pin_supported(dpin))
-> +		return -EOPNOTSUPP;
-> +
-> +	esync->range = sit9531x_esync_ranges;
-> +	esync->range_num = ARRAY_SIZE(sit9531x_esync_ranges);
-> +	esync->pulse = SIT9531X_ESYNC_PULSE_DEFAULT;
-> +	esync->freq = dpin->esync_freq;
-
-[Severity: Medium]
-Can dpin->esync_freq go stale here?  Unlike
-sit9531x_dpll_output_pin_frequency_get(), this getter does no DIVO or
-PROG0 readback, and dpin->esync_freq is written only by esync_set().
-
-Two writers of the same divider leave it inconsistent:
-
-  sit9531x_dpll_output_pin_frequency_set()
-     -> sit9531x_output_freq_set(sitdev, dpin->id, actual_pll, frequency)
-
-  sit9531x_dpll_output_pin_state_on_dpll_set(DISCONNECTED)
-     -> sit9531x_output_disable(sitdev, dpin->id)
-
-Neither clears dpin->esync_freq, so after pin_set(esync-frequency=10000000)
-followed by pin_set(frequency=25000000) a pin dump still advertises an
-embedded sync configuration the device is no longer producing.  Note that
-dpll_pin_set_from_nlattr() handles DPLL_A_PIN_FREQUENCY and
-DPLL_A_PIN_ESYNC_FREQUENCY independently in message order, so both can
-arrive in one request.
-
-Userspace also cannot repair the stale value, because dpll_pin_esync_set()
-consults the getter first:
-
-drivers/dpll/dpll_netlink.c:dpll_pin_esync_set() {
-	...
-	if (freq == esync.freq)
-		return 0;
-	...
-}
-
-so a repeat request for the cached value is acked without the driver
-callback running.
-
-Also, sit9531x_dpll_pin_register() copies only the capability flag:
-
-	pin->esync_control = props->esync_control;
-
-so an output that the efuse/NVM blob already programmed for esync reads
-back as disabled.  Should the getter read the hardware instead?
-
-[Severity: Low]
-Should esync->pulse be reported as 0 when esync->freq is 0?  As written a
-pin dump on a never-configured esync-control output reports
-DPLL_A_PIN_ESYNC_FREQUENCY = 0 together with DPLL_A_PIN_ESYNC_PULSE = 50,
-i.e. a 50 percent pulse ratio for a signal that is not present.  Both
-ice_dpll_output_esync_get() and zl3073x_dpll_output_pin_esync_get() zero
-both fields in the disabled case:
-
-	} else {
-		esync->freq = 0;
-		esync->pulse = 0;
-	}
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +sit9531x_dpll_output_pin_esync_set(const struct dpll_pin *pin,
-> +				   void *pin_priv,
-> +				   const struct dpll_device *dpll,
-> +				   void *dpll_priv,
-> +				   u64 freq,
-> +				   struct netlink_ext_ack *extack)
-> +{
-> +	struct sit9531x_dpll_pin *dpin = pin_priv;
-> +	struct sit9531x_dpll *sitdpll = dpll_priv;
-> +	struct sit9531x_dev *sitdev = sitdpll->dev;
-> +	u8 actual_pll;
-> +	int rc;
-> +
-> +	if (!sit9531x_dpll_esync_pin_supported(dpin)) {
-> +		NL_SET_ERR_MSG(extack,
-> +			       "Embedded sync not enabled for this pin");
-> +		return -EOPNOTSUPP;
-> +	}
-> +
-> +	actual_pll = sitdev->out[dpin->id].pll_idx;
-> +
-> +	mutex_lock(&sitdev->multiop_lock);
-> +
-> +	/*
-> +	 * This output is a dedicated embedded-sync pin.
-> +	 * Treat freq=0 as a request to disable the entire output.
-> +	 */
-> +	if (!freq) {
-> +		rc = sit9531x_output_disable(sitdev, dpin->id);
-> +		if (!rc)
-> +			dpin->esync_freq = 0;
-> +		mutex_unlock(&sitdev->multiop_lock);
-> +		return rc;
-> +	}
-
-[Severity: High]
-Where is the pin's previous output rate saved so this path can restore it?
-
-The enable path below calls sit9531x_output_freq_set(), which reprograms
-DIVO and also replaces the cached rate:
-
-drivers/dpll/sit9531x/core.c:sit9531x_output_freq_set() {
-	...
-	sitdev->out[out_idx].freq = (u32)div64_u64(fvco, divo);
-}
-
-and sit9531x_output_disable() touches only the Hi-Z bits:
-
-	/* Take control (MASK=1) and mute (STATE=0) on both DIFF and SE */
-
-Neither struct sit9531x_dpll_pin nor struct sit9531x_out holds the
-pre-esync frequency or the previous PROG0 byte, and
-sit9531x_output_pulse_ctrl_set() never reads PROG0 back, so after an
-enable/disable cycle the rate userspace originally configured appears to be
-gone from both hardware and driver state.
-
-Does a following pin_set(state=connected) then un-mute the pad at 10 MHz
-with the esync pulse still armed?
-
-drivers/dpll/sit9531x/dpll.c:sit9531x_dpll_output_pin_state_on_dpll_set() {
-	case DPLL_PIN_STATE_CONNECTED:
-		rc = sit9531x_output_enable(sitdev, dpin->id);
-	...
-}
-
-while sit9531x_dpll_output_pin_esync_get() reports esync->freq == 0.
-
-> +
-> +	if (freq != SIT9531X_ESYNC_FREQ_10MHZ) {
-> +		mutex_unlock(&sitdev->multiop_lock);
-> +		NL_SET_ERR_MSG(extack,
-> +			       "Only 10 MHz esync frequency is supported");
-> +		return -EINVAL;
-> +	}
-> +
-> +	rc = sit9531x_output_freq_set(sitdev, dpin->id, actual_pll,
-> +				      SIT9531X_ESYNC_FREQ_10MHZ);
-> +	/*
-> +	 * Program the pulse generator (PROG0 PULSE_CTRL) so the embedded-sync
-> +	 * pulse is actually emitted; without it the output carries the clock
-> +	 * but no esync marker.  SIT9531X_ESYNC_PULSE_DEFAULT is the same duty
-> +	 * the esync_get callback advertises.
-> +	 */
-> +	if (!rc)
-> +		rc = sit9531x_output_pulse_ctrl_set(sitdev, dpin->id,
-> +						    SIT9531X_ESYNC_PULSE_DEFAULT);
-> +	if (!rc)
-> +		rc = sit9531x_output_enable(sitdev, dpin->id);
-> +
-> +	mutex_unlock(&sitdev->multiop_lock);
-> +
-> +	if (!rc)
-> +		dpin->esync_freq = SIT9531X_ESYNC_FREQ_10MHZ;
-> +
-> +	return rc;
-> +}
-
-[Severity: Medium]
-What happens if the second or third step here fails?
-
-Each of the three calls commits independently: sit9531x_output_freq_set()
-writes DIVO and runs prg_commit() with UPDATE_NVM plus LOOP_LOCK, and
-sit9531x_output_pulse_ctrl_set() opens its own PRG_CMD window, so this is
-not one transaction.  If sit9531x_output_pulse_ctrl_set() or
-sit9531x_output_enable() returns an I2C or regmap error, the divider change
-stays committed and nothing is unwound.
-
-Since dpin->esync_freq is only assigned when all three steps return 0, the
-driver then reports esync as disabled on a pin whose carrier has already
-been changed to 10 MHz.  Is that state recoverable through this attribute?
-dpll_pin_esync_set() short-circuits on the cached value:
-
-	if (freq == esync.freq)
-		return 0;
-
-so a follow-up request for freq == 0 matches the stale cached 0 and never
-reaches the driver.
-
-There is also a window between the frequency commit and the PROG0 commit
-where an already-enabled output emits the new rate with no marker.
-
->  static const struct dpll_pin_ops sit9531x_dpll_output_pin_ops = {
-
-[ ... ]
-
-> diff --git a/drivers/dpll/sit9531x/regs.h b/drivers/dpll/sit9531x/regs.h
-> index 91d33abd15c3..251c98dc7cbe 100644
-> --- a/drivers/dpll/sit9531x/regs.h
-> +++ b/drivers/dpll/sit9531x/regs.h
-> @@ -215,6 +215,13 @@
->  #define SIT9531X_OUT_PRG_FINE_MAX		7	/* 3-bit field */
->  #define SIT9531X_OUT_PRG_COARSE_BITS		34
->  
-> +/*
-> + * Per-output pulse-count control byte used in SYSREF / SYNCB modes.
-> + * Slot N within a page sits at 0x1B + 16 * (slot % 6).  Same page
-> + * mapping as PRG_RST_DELAY: slots 0-5 on Page 3, slots 6-11 on Page 4.
-> + */
-> +#define SIT9531X_OUT_PROG0_BASE		0x1B
-
-The comment says this byte applies in SYSREF / SYNCB modes.  The new esync
-path does not select either mode, so does the write take effect at all in
-the mode the output is left in?
-
-[ ... ]
+References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260817185700.322370-4-cosmin-gabriel.tanislav.xa@renesas.com>
+ <CAMuHMdXfDRFz+zYj98GG=_jBhedh1+rCdWbyMSLOycAxzYWouw@mail.gmail.com> <TYRPR01MB1561960BD76ABAAAEF5AA13B385B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+In-Reply-To: <TYRPR01MB1561960BD76ABAAAEF5AA13B385B12@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 8 Sep 2026 14:45:17 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdX+qcwEd0r5_WZEb42DKgEBMWAngjD08BWsc2bZoVf65w@mail.gmail.com>
+X-Gm-Features: AcwNN1XD1CUmhUYt-WGNvcOw7i9qN594qU3UZvFGN3lson5FhCOp_jfcJ-nsAHg
+Message-ID: <CAMuHMdX+qcwEd0r5_WZEb42DKgEBMWAngjD08BWsc2bZoVf65w@mail.gmail.com>
+Subject: Re: [PATCH 3/7] pinctrl: renesas: rzt2h: setup IRQ in .irq_{request,release}_resources()
+To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "stable@kernel.org" <stable@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Cosmin,
+
+On Tue, 8 Sept 2026 at 14:23, Cosmin-Gabriel Tanislav
+<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> > From: Geert Uytterhoeven <geert@linux-m68k.org>
+> > On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
+> > <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+> > > When exporting a GPIO using the deprecated sysfs GPIO API,
+> > > gpio_is_visible() calls gpiod_to_irq() to determine whether a GPIO is
+> > > IRQ-capable, which ends up using
+> > > struct gpio_irq_chip::child_to_parent_hwirq().
+> > >
+> > > When using the GPIO character device, it is possible to request a line
+> > > and to dynamically switch between using it as an IRQ or as a GPIO, by
+> > > updating the edge detector.
+> > >
+> > > The current struct gpio_irq_chip::child_to_parent_hwirq() implementation
+> > > makes the assumption that it will only be called with the intention of
+> > > setting up the IRQ permanently, and that it will only be released when
+> > > the IRQ domain is freed.
+> > >
+> > > Since we now know that this is not the case, take the following steps in
+> > > order to properly handle that case.
+> > >
+> > > Implement struct irq_chip::irq_{request,release}_resources() based on
+> > > the default GPIOCHIP_IRQ_RESOURCE_HELPERS implementations.
+> > >
+> > > Move the IRQ setup and release logic inside them.
+> > >
+> > > Keep the mapping logic inside ::child_to_parent_hwirq() to be able to
+> > > provide a proper HW IRQ number, but do not actually setup the IRQ.
+> > >
+> > > Remove rzt2h_gpio_irq_domain_free() as its only purpose was to free
+> > > the acquired IRQs.
+> > >
+> > > Cc: stable@kernel.org
+> > > Fixes: 829dde3369a9 ("pinctrl: renesas: rzt2h: Add GPIO IRQ chip to handle interrupts")
+> > > Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+
+> > > @@ -1089,7 +1077,39 @@ static void rzt2h_gpio_irq_domain_free(struct irq_domain *domain, unsigned
+> > int v
+> > >                 rzt2h_pinctrl_set_gpio_en(pctrl, port, pin, true);
+> > >         }
+> > >
+> > > -       irq_domain_free_irqs_common(domain, virq, nr_irqs);
+> >
+> > Why is this no longer needed?
+>
+> We moved from using struct gpio_irq_chip::child_irq_domain_ops::free to
+> using struct irq_chip::irq_release_resources, so free is no longer set.
+>
+> devm_gpiochip_add_data() ->
+> devm_gpiochip_add_data_with_key() ->
+> gpiochip_add_data_with_key() ->
+> gpiochip_add_irqchip() ->
+> gpiochip_hierarchy_create_domain() ->
+> gpiochip_hierarchy_setup_domain_ops() ->
+>
+>         if (!ops->free)
+>                 ops->free = irq_domain_free_irqs_common;
+>
+> It will end up being populated automatically, let me know if you think
+> we should set it explicitly.
+
+Thanks, that's the part I was missing.  Please document in the patch
+description that irq_domain_free_irqs_common() is set up automatically.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260902214030.20955-1-arouhi%40sitime.com
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
