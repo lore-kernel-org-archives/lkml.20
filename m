@@ -1,133 +1,146 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2943A7F46;
-	Tue,  8 Sep 2026 07:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 55D2B3A9DA1
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:51:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788853878; cv=none; b=J3J0M4RmZ95/qr5e6mvvTo3PLbDU9TWP7w7t0Lb89zoi1tUfYWPpgAJt5PrN84i7FZUvfcJ5525Q1U0e3wMmYmH8WkdK2RL91PYW7xQZ8cytP+fp5LUZ2PdyhNwFydQhSRpiqHu3AiOE6qdUklau/InrXR7x4PB6Y69ItH/9eAw=
+	t=1788853882; cv=none; b=n8A5xTQyCcwCi8kgmp9kFclqNfBkSrsQK5sgCb6XQW4YBXsfGI7ZAE6hfZ6BF9ZX4jCaVkLK6YIx+p5VLvN6JfXvd8hHzztPcCig8LRuE6CK0OV/8Vuaze/3cx2TZKBCP9PGFYhoGRZACbdyTx+rSaTo+wN15u+98iV0fXAAfdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788853878; c=relaxed/simple;
-	bh=WIi78645aQS+BD7vxZ1xIfq9lilvKns8uFwgNsI05M8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u4ihaDm4Sbaw14LtLndTX6CKfAcsT6kjWbIuBzwf6CNSJROahTFrqpuhSVcg6YnYz2qpYLLZcZF/BGvTeJ6L6KuCsWrUGu09b+018wcFLLHA/vBlI31zr59cUrKDciUy0hg8lPz+T5UJ9t3QAtICrxfvgkMcLusf7L3e3nZ+C/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=XCS8iecM; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="XCS8iecM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=aBoYasvQbq5xoJP4LEh5aZoFUz8WO3/k380GGIEYruU=; b=XCS8iecMLsVrAmCqTKe7ZMk0Yy
-	KQ8EmhZTNCZYqR+00BfSi6kUzfw3Ant2d9tILvmlH6QQA66jwSwlhZFFm4d3dIsB5BFUzojnQeeAJ
-	BibCl3DKdWBuKGJbXRsMdooxYu2aq3k6zkk07ACHbZGjLNA4KImHVfgT+aGGNtivqg5ik3W1kAjlr
-	jwPFdbCZKb4LRuZdmLnFuptyiINIhXQzIIV/wodhB+Vx/Hk9BfQFLKXmjfOZQpfZRQ4N4nC68mr20
-	F5/nZVlDZVQQJbsvdmg3r3kdgK9milM217siYOjpJACsBcY+2M+hmhDkV1C8A/GPuitFkQg9xuZFo
-	VBGg9/mw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3qbp-00000006pij-1leh;
-	Tue, 08 Sep 2026 07:51:13 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E7E223005AF; Tue, 08 Sep 2026 09:51:12 +0200 (CEST)
-Date: Tue, 8 Sep 2026 09:51:12 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: Ye Liu <ye.liu@linux.dev>, Thomas Gleixner <tglx@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <joelagnelf@nvidia.com>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Josh Poimboeuf <jpoimboe@kernel.org>, Ye Liu <liuye@kylinos.cn>,
-	Michal Hocko <mhocko@suse.com>, mic@digikod.net, oleg@redhat.com,
-	david@kernel.org, linmiaohe@huawei.com, nao.horiguchi@gmail.com,
-	gnoack3000@gmail.com, ljs@kernel.org, sj@kernel.org,
-	rientjes@google.com, shakeel.butt@linux.dev, xu.xin16@zte.com.cn,
-	chengming.zhou@linux.dev, tony.luck@intel.com,
-	reinette.chatre@intel.com, x86@kernel.org, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, pavel@kernel.org,
-	lance.yang@linux.dev, pmladek@suse.com, longman@redhat.com,
-	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
-	qiang.zhang@linux.dev, dietmar.eggemann@arm.com, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	mark.rutland@arm.com, Dave.Martin@arm.com, james.morse@arm.com,
-	babu.moger@amd.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	rcu@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org
-Subject: Re: [PATCH v2 5/8] kernel: convert process/thread iterators to
- for_each_*_rculock
-Message-ID: <20260908075112.GX4120091@noisy.programming.kicks-ass.net>
-References: <20260907081334.1152889-1-ye.liu@linux.dev>
- <20260907081334.1152889-6-ye.liu@linux.dev>
- <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
+	s=arc-20240116; t=1788853882; c=relaxed/simple;
+	bh=H+qJAKye2VwOk6NjMOsoAlqoEDHxgsJEC/6qIC9WV5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eY1to2D+qWBTz4IF0+QCp6cYEIk7D5zWquzYykbkFtMHVrBNIoD/vIplQxPr1nMbAuSuFCm1r/EilzwUv3xJLrWhclKb0wlgtLcOFX4b1PbBdAjUn5vFKB6LtSNVjt7I9ClrXb2yN9FUxIv3Q7bhY7sJiW1vM5w6RifbxabIKjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8AxYdFxvp9qCLkJAA--.28365S3;
+	Tue, 08 Sep 2026 15:51:13 +0800 (CST)
+Received: from linux.localdomain (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJBx5cxrvp9qVRAdAA--.35215S7;
+	Tue, 08 Sep 2026 15:51:10 +0800 (CST)
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 5/6] LoongArch: Fix perf hardware breakpoint failure via installation
+Date: Tue,  8 Sep 2026 15:51:05 +0800
+Message-ID: <20260908075106.5039-6-yangtiezhu@loongson.cn>
+X-Mailer: git-send-email 2.42.0
+In-Reply-To: <20260908075106.5039-1-yangtiezhu@loongson.cn>
+References: <20260908075106.5039-1-yangtiezhu@loongson.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap7dC-LWNaoPYJvv@gourry-fedora-PF4VCD3F>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJBx5cxrvp9qVRAdAA--.35215S7
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoWxJw1xGw13ZF13Ar4UKrWfWFX_yoW5Gw1Upr
+	ZrAF1vqrW5J3y7G3Zrtan8Aw15JrZru3y7W34akrWYy3ZFvr13tFs29FnrXF18A39Yqa40
+	gr1kWr1SvF4UXabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUk2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv
+	67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1Y6r17MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcCD7UUUUU
 
-On Mon, Sep 07, 2026 at 11:53:51AM -0400, Gregory Price wrote:
-> On Mon, Sep 07, 2026 at 04:13:31PM +0800, Ye Liu wrote:
-> > From: Ye Liu <liuye@kylinos.cn>
-> > 
-> > Replace the manual rcu_read_lock()/rcu_read_unlock() and guard(rcu)
-> > pairs combined with for_each_process(), for_each_thread() and
-> > for_each_process_thread() loops across kernel/ with the
-> > for_each_*_rculock() macros, which scope the RCU read lock to the
-> > loop body via scoped_guard(rcu).
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: Ye Liu <liuye@kylinos.cn>
-> > Acked-by: Michal Hocko <mhocko@suse.com>
-> 
-> Question below
-> 
-> > diff --git a/kernel/hung_task.c b/kernel/hung_task.c
-> > index 6fcc94ce4ca9..73a5ad3be9a8 100644
-> > --- a/kernel/hung_task.c
-> > +++ b/kernel/hung_task.c
-> > @@ -315,13 +315,12 @@ static void check_hung_uninterruptible_tasks(unsigned long timeout)
-> >  		return;
-> >  
-> >  	this_round_count = 0;
-> > -	rcu_read_lock();
-> > -	for_each_process_thread(g, t) {
-> > +	for_each_process_thread_rculock(g, t) {
-> >  		if (!max_count--)
-> > -			goto unlock;
-> > +			goto out;
-> ... snip ...
-> > - unlock:
-> > -	rcu_read_unlock();
-> > -
-> > +out:
-> >  	if (!this_round_count)
-> >  		return;
-> >  
-> 
-> The sunken rcu_read_lock()/unlock() + scoped_guard usage makes this goto
-> at a minimum very confusing, if not actually broken.
+In hw_breakpoint_control(), the logic to enable CSR_PRMD_PWE (global
+watchpoint enable) incorrectly relies on TIF_LOAD_WATCH. This thread
+flag is only set during ptrace operations, meaning that the standard
+hardware breakpoints created via perf_event_open() will never have
+this flag set.
 
-You can use goto to exit a scope, that's fine. Using goto to enter a
-scope is not (clang will error on that).
+As a result, the CSR_PRMD_PWE switch is skipped, leaving the hardware
+breakpoint completely inactive in perf usage.
 
-Just don't use computed goto, that goes sideways real quick.
+Fix this by decoupling the CSR_PRMD_PWE from the ptrace specific flag
+TIF_LOAD_WATCH, which ensures that CSR_PRMD_PWE is enabled whenever a
+hardware breakpoint is installed.
+
+Here is a user-space reproducer to demonstrate the issue:
+
+(1) Test program (test_perf_install.c):
+
+  #include <stdio.h>
+  #include <unistd.h>
+  #include <sys/syscall.h>
+  #include <sys/ioctl.h>
+  #include <linux/perf_event.h>
+  #include <linux/hw_breakpoint.h>
+
+  static int var = 0;
+
+  int main(void)
+  {
+  	size_t count = 0;
+  	struct perf_event_attr attr = {
+  		.type = PERF_TYPE_BREAKPOINT,
+  		.size = sizeof(attr),
+  		.bp_type = HW_BREAKPOINT_W,
+  		.bp_addr = (unsigned long)&var,
+  		.bp_len = HW_BREAKPOINT_LEN_1,
+  		.exclude_kernel = 1,
+  	};
+
+  	int fd = syscall(__NR_perf_event_open, &attr, 0, -1, -1, 0);
+  	ioctl(fd, PERF_EVENT_IOC_ENABLE, 0);
+
+  	asm volatile("st.b %1, %0" : "=m"(var) : "r"(11) : "memory");
+
+  	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
+  	read(fd, &count, sizeof(size_t));
+
+  	printf("Watchpoint counts: expected = 1, actual = %zu\n", count);
+
+  	close(fd);
+  	return 0;
+  }
+
+(2) Test steps:
+
+  $ gcc test_perf_install.c -o test_perf_install
+  $ ./test_perf_install
+
+(3) Test results:
+
+Without this patch:
+
+  Watchpoint counts: expected = 1, actual = 0
+
+With this patch:
+
+  Watchpoint counts: expected = 1, actual = 1
+
+Fixes: 3892b11eac5a ("LoongArch: Check TIF_LOAD_WATCH to enable user space watchpoint")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+---
+ arch/loongarch/kernel/hw_breakpoint.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/loongarch/kernel/hw_breakpoint.c b/arch/loongarch/kernel/hw_breakpoint.c
+index 3683a52b2368..9dcb122218c2 100644
+--- a/arch/loongarch/kernel/hw_breakpoint.c
++++ b/arch/loongarch/kernel/hw_breakpoint.c
+@@ -233,7 +233,7 @@ static int hw_breakpoint_control(struct perf_event *bp,
+ 		}
+ 		enable = csr_read64(LOONGARCH_CSR_CRMD);
+ 		csr_write64(CSR_CRMD_WE | enable, LOONGARCH_CSR_CRMD);
+-		if (bp->hw.target && test_tsk_thread_flag(bp->hw.target, TIF_LOAD_WATCH))
++		if (bp->hw.target)
+ 			regs->csr_prmd |= CSR_PRMD_PWE;
+ 		break;
+ 	case HW_BREAKPOINT_UNINSTALL:
+-- 
+2.42.0
+
