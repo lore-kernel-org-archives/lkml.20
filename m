@@ -1,113 +1,121 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20C4511189
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859169; cv=pass; b=psc5Zmsj0UOhXbJC6BnA7WBbUpVLVs+4H9J6aUfk8rBQmc2fu5KkhiUpfqQM5NCvIydR9ab97sip+iyUJwzD6SnMlwOz7thZ6+h1WNEVwLMUDRtEs5SqCxauGE4+xUmv0lG3zAzpv5zWQPLuLphZ9JDVQxVYnJkZehmfD9VvxHw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859169; c=relaxed/simple;
-	bh=1CJ3Fj5ZeETTIou3X8k81+BylqMvg1us8lXgPWVlAw4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hqxGccbSy6hFe2pGa8cy4uGnnL3pfs7U1FVfBp3ttWlS7bSCiSpU1d9EwThgt9z/MdHxBfqrtOv5n+MbZuI9YS97zDmfvyMG7HtEHp4yF64dCkRPgY/Uz7V5SvUyKQN+mEqpSZkk3tEOYB8LQTOMCreNaYAUt7Ukffq5vkdBk9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+XC3HIE; arc=pass smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555825293E5
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788859181; cv=none; b=PQAJwlYUH8Hv1TXtCTHIcViF0VOUMNmu43HitkBZyPvOt9Yt3qTunf6X2hh0avRSVKLJvN+KddktzH8pjfqTDi4J66uZJKGGdFAadJOlRw1Cs4eiu1+M8whMPFQ0ghdGJCT3P1f5b/SQSVVc+XyURAkmgsRvH6ecSfsjaVxFASE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788859181; c=relaxed/simple;
+	bh=heTE+AXphS60cWUC6FOFG7hyAUshpcINZu9nRa/71mE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aApnSYw0XoAN9s2/dj/PqwEosRscTjYV6R1pnn42fQJutW889zRFBApzlzzJlbDaR3JmNIzU/GVk9lT4Ulr7ugpt6cn6GcdWJSbhXES1kh4eABHlkrgW5F/HXup6TKtWlNCj/mEcieXcE12dq5enukgsB8GJCA52E+2Rfc/v7sQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KkbRzfz4; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+XC3HIE"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d6f9e2f681so47236285ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:19:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788859167; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gqKwJR0e/DgEZtaIoLK+9JKTruKjVcKnGqq8qNvmEJ2gRZV8pU10rpYc2AA4SltnlO
-         UFexY7IWNBVW+3EZbQ3W72YwoKFzvpPsGAA7MFnaWlpYBzqy79jlYZ4tJNnsmRoQgB5B
-         m2s346kz67eLU0mH3EP5Nd8o0WoZo04Wi6yS36RGzZXz3mKsi2hzjQKkGE2/rnrpYxFF
-         XoMI7xN+MJule3tjYKDib+DssNsOPFVe9871e23Byf2yELBlGHb4AYpbCZGYxP+mP/O7
-         dPOYF1rSRJz1v5K4Ml4jx9Y25kMfZ6wgR/8MtDiCCp/DCXnTmYk2cydgB6t/IwXdZTh6
-         NFNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
-        fh=sEFd+WQL9V24BrIbuXtEEtQ+pc3P1TuzXCmTxlZ1dms=;
-        b=dymmC3lNorkzSaY/hFXF3WWeyocJGxE4Y1zn6l7MDCRlUaj85Onw84iZjMsuNy6raB
-         +zQxyULz0zdAKXO3R0qScn4Nk7MBqJgD6fyrZud7eu32A2Bm9c7pkpmW7zSb784nTCUH
-         SkOhtC3xEtenkIbkIdHu7JlG9A/j4nWgcUcTl0wtVQ08taPCRX1CTHGjNRWZT8YNzyQ3
-         /bhfqA22nVnhvrm4IJpL7u367JT+Xj+WEkcAQ8vEg134VEkL+fE6VreCoOOGREwldiRm
-         PMcDuePghgXBj41HPxjUeJgbPGKnqAjPPhH/QMsV1fAdya73GkfnaY0ssLWp7kdbvGMN
-         KrHw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KkbRzfz4"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4843f205a5bso2646480f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:19:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788859167; x=1789463967; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
-        b=O+XC3HIEh4BvShXFCFAaXRAFIX46peg6MtueGCced9Gl6ZE3xOxNkfco69Lfy3plI3
-         szB4t5ssfobRGXsPxZgr8QvO/8va2hII6m/9oMSj5+0rD6wWoFT4BScsIJL9lO5gWEWX
-         gDItRBp2o/heh/OfsLdLVFnlS7VWf3B4sZenYi804DwdILHrM2TzosHoRq4R3X0ldary
-         VBP1R9T+LCZZivgjKOTkvUCYyWWfbxkyx91fQIF/j25ldADwBKnBgtfJt8T+iBBcqVh0
-         1ytdA2H2jShNv5YGSmnMpi2Bm9dYa1HFfB5YbZmAxgfAEv7+/6ls9rDEboZlhOpJKm0q
-         lqBw==
+        d=gmail.com; s=20251104; t=1788859178; x=1789463978; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L31na+RhIpfJ96Fuxsfu8L8TgoTwtkWhyGWhs8Vz64g=;
+        b=KkbRzfz4BlTpqdfDKAeRBNMkt8SV9ka88hD5AIHs1GxcuB1GSHjEegixEKHU0VFdFp
+         Cc7RIXFZGPRmsMkTcEfuP4Id4dtPrmFqVdl+cg1xjS3fYQOj02+9UTv1gvIR7eYZ6QCb
+         TEZvsvs6jHi57+hnr4Ua4rJJu8EazLQY5OXQCH79MKk/27WSF3yM2RAMXxQ0mxPmCWBs
+         SkgrekoKqBxYOkO+lLRVp57Xkwsj9wQYQ0+vjWJpnjGp0ivjxsWWBC5K62xmJBz12qal
+         RN23i8PXvMq6SFIvoJ0eibm+9/6I1JRzFu5JSZprylYWHrsP6ToTc3ixbvWiWamMHXWg
+         liFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859167; x=1789463967;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
-        b=SU+msSr9jBcgabEMGlVux/S/YSHwZZgG7H+wtRcN27240Y+lqLKrQ0P6KAUue5KYe/
-         l3Yw5TSj0eDgGPmYhE34kit8DZHSWqVobr6iDRE1u8rqhQ0GbFOTPCuOcau5rJ+BETxu
-         jX3PA3QGIQywEgNJdHhbpIsuVnAMKW9oEC4mNzf4ETHFpU6/seFfMWWoREYxCOM59NtW
-         XyzE1sbhvmF6Z7Bp90hKXwpGFz3wIuhP7wa9akv4WECZZX61vuBM+XKE8/gsGkSiruSn
-         eRUSSvIUqi6FJZc9OC4XrBLSG6oUtn4f/QoyZEA3VQESYfI2v1be1VNnN1AJX2m6dbzu
-         hdQA==
-X-Forwarded-Encrypted: i=1; AKwUvBzcyZMCP/FFrv5bnCckYYDdUTQ4xcbLYdKSOMdRFR+ON1JNo5QX8Fu+HZluEiQipjdnqLCYCZlC/qV+C44=@vger.kernel.org
-X-Gm-Message-State: AFuF++kV7/noqTShJTAXyazdt9lauo0di8Qptmu6DQgjM8ojY09L653O
-	bygzNk9A9BaiUaSeGQFe5K9aOT+fhjavHG1lOgV2rRvNpeoZrgsmDH/kRUJOU9RJregYR5sO/tH
-	GrLuh5qOlSDb8xVjFeRfbDbUPOEUly4U=
-X-Gm-Gg: AYBFou0lPxMdpuhU65zAqwZtBo+9fpIP4DMkoNEbxPXHwAv0QqRVTL6rjx16lQ1yT+c
-	gHkYb+WmExqX/qqQ7wgOh6cBtMfSgQKKqbJJXKpoEcDuVWftceZLUUSfSPV6HW4oFDhjMVH/W5a
-	TGuSbm6AlpozBKU4MZLM3S6keTjaSlgIrj29gGhRJATrV7q0df2ccxWtYNjf+Fua+RPzVPz0Nb7
-	s+WGeTqu118Qz9tjoPpPpMapU1eCjpMt5Lccnpet3pqVUJhDEDFkKn7Yp8ODwwjEpPdYHW2RDZF
-	KWl5HFGPO/Q0/19gtCe8gKDDwsVkNfs2295PomOpdSqdRWOcUAZwgBJUxGlqlgz+JqI7T5j6UXk
-	lO0VlM30P33aPtJ1+BN3zushxRzARGYC577pRWgyerq8O0T0d10D2ptlf
-X-Received: by 2002:a17:903:3c47:b0:2db:eb5:47ea with SMTP id
- d9443c01a7336-2db12106896mr426721305ad.0.1788859167169; Tue, 08 Sep 2026
- 02:19:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788859178; x=1789463978;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L31na+RhIpfJ96Fuxsfu8L8TgoTwtkWhyGWhs8Vz64g=;
+        b=BztVdDt2cKJRDJZXOB14GOq68yYs3JaTXeevIYe6gHFdoB2ssQnMg6EmuQQtUEpIvl
+         W6FN2un6e3nSiJ0PZWocqWi61nXRHc5gZrotyVVyUv5iJayt7lf30sxVsmPJ9/lTGEbS
+         /9j7HfJC4Ry5bNkLxp5yMjWEdA4Uuhqu4PUjaNR7vWUZ9J2mSF12p4LKF7pb1dNRv66n
+         ulusvhAf0/p47i94G/mUhfum5hHO72AIwXzSRtZMEshc+9u09VHUHYztOVi3guJLYXrk
+         7KtEmkqAuiKmvU0PXcIpDSEOHTO/LcI15XUsHxmv0ypiHxEOEHCx51wCWsc3pQ+kgJDa
+         VSEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHjRFvb7MZzrTfdai46Mh5M/IlXGDJgX89tyqyMO86MgawmXbYFVBtgKgHZGNLomy7RIDgQPW0l7jfqQU=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqh1MmBR6v0olu4TQFm78OyfufnFGOQion3/hrT8SO3CPJ31jV
+	bcJnZMPUTW7FmPJtZQmj80BD7z+S3G5FWuzju8xBfApYXEgCGeM9Q76ZOv+eAuzD3K8=
+X-Gm-Gg: AYBFou2d6lbMM5uXvYK+X4SkBYKl3tLa8k6DyGjDUFh1V/89HEzKxtjAbOXGtoZ9VNx
+	EGbsMrcA8Y/cNUeIwAFsWHK9t5ZP0HuY1Ge7S0wRl/gOF3hozN2+ecC4Zjo01cDPcyeHUTgxgzj
+	JZKD+rjKZw0FPIPtwhV0ZFOBSYh/r+4muIOrwobjkCv2Hq0PXk4Ez7CgzsJH8Eg8x5AIjUwUj70
+	0uMQFmjLej1N6RID2Fq1C2p4wOfXQA2bOQbcW+CscQAtAtWRgVGwTQeAGure7l7hk1DJ/b9kRFF
+	5fgHt5pNilhLGVpn/kO3pGkQWnfe9J+PlSm5hXRIt0rxqltNBvh4wjNSkWLbVJJYoEtcndN2dzF
+	eocXskEZiBgU7xT6RpQXWeGtu1hzMFuhggu5hvqZyOaLCXqBy4btN8/JGq8ZMQyMT87usGph2w7
+	PCx6VK1IM4fq229fH4bFA8dq5pHiQI5vOICpIj1dCDLnT0khCNdjA9E/MpagKI4BwSGC8a7CTqb
+	sd5UUGQXVEDNtGKgGjJbXu6wo+wAysd
+X-Received: by 2002:a05:6000:1ac8:b0:485:8926:531d with SMTP id ffacd0b85a97d-48589265336mr26148216f8f.4.1788859178335;
+        Tue, 08 Sep 2026 02:19:38 -0700 (PDT)
+Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485885bfe14sm35321836f8f.35.2026.09.08.02.19.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:19:37 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] HID: i2c-hid: add reset quirk for Lenovo Yoga Slim 7x Gen 11 keyboard
+Date: Tue,  8 Sep 2026 11:19:26 +0200
+Message-ID: <20260908091926.5773-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908090448.3332-1-ansuelsmth@gmail.com> <20260908090448.3332-5-ansuelsmth@gmail.com>
-In-Reply-To: <20260908090448.3332-5-ansuelsmth@gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Tue, 8 Sep 2026 16:19:14 +0700
-X-Gm-Features: AcwNN1VpPKN1gkIiS51yj4BLA5N52CV9eNK9WOCJ4im1zZlIaPxLmU_uBzBetZQ
-Message-ID: <CAABR9nERV0bGkEQm=4kLNBZVfurr+6c-Q_to9=XixJV9CT=vyQ@mail.gmail.com>
-Subject: Re: [PATCH v6 4/5] ASoC: airoha: Add AFE driver for Airoha AN7581
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Cyril Chao <Cyril.Chao@mediatek.com>, 
-	Darren Ye <darren.ye@mediatek.com>, Rosen Penev <rosenp@gmail.com>, 
-	Daniel Golle <daniel@makrotopia.org>, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-> +       ret = devm_request_irq(dev, irq_id, an7581_afe_irq_handler,
-> +                              IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
-> +       if (ret)
-> +               return dev_err_probe(dev, ret, "Failed to request irq for asys-isr\n");
-> +
+The ITE controller behind the keyboard of the Lenovo Yoga Slim 7x Gen 11
+(048d:83db) carries out a reset but never raises the interrupt that
+acknowledges it. i2c_hid_finish_hwreset() therefore waits out its full
+one second timeout and logs "device did not ack reset within 1000 ms" on
+every probe and every resume, before the keyboard comes up regardless.
 
-I think we can return the error directly here, as devm_request_irq()
-already reports the error.
-dev_err_probe() would result in a redundant error message.
+Set I2C_HID_QUIRK_NO_IRQ_AFTER_RESET for it, as is already done for
+several other ITE parts, so the reset is followed by a fixed 100 ms sleep
+instead.
+
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/hid/hid-ids.h              | 1 +
+ drivers/hid/i2c-hid/i2c-hid-core.c | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+index b3aca5aa9176..2e9d0fc41ed0 100644
+--- a/drivers/hid/hid-ids.h
++++ b/drivers/hid/hid-ids.h
+@@ -765,6 +765,7 @@
+ #define I2C_DEVICE_ID_ITE_LENOVO_LEGION_Y720	0x837a
+ #define USB_DEVICE_ID_ITE_LENOVO_YOGA900	0x8396
+ #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD	0x8987
++#define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD	0x83db
+ #define USB_DEVICE_ID_ITE8595		0x8595
+ #define USB_DEVICE_ID_ITE_MEDION_E1239T	0xce50
+ 
+diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
+index 0ff07fdab442..ad8d9f329404 100644
+--- a/drivers/hid/i2c-hid/i2c-hid-core.c
++++ b/drivers/hid/i2c-hid/i2c-hid-core.c
+@@ -126,6 +126,8 @@ static const struct i2c_hid_quirks {
+ 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
+ 	{ I2C_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_VOYO_WINPAD_A15,
+ 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
++	{ USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD,
++		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
+ 	{ I2C_VENDOR_ID_RAYDIUM, I2C_PRODUCT_ID_RAYDIUM_3118,
+ 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
+ 	{ USB_VENDOR_ID_ALPS_JP, HID_ANY_ID,
+-- 
+2.55.0
+
+base-commit: 5e036ce12de91c6fd674dad33b169c6150be2a7a
