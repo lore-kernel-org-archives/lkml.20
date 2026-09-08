@@ -1,186 +1,247 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010059.outbound.protection.outlook.com [52.101.201.59])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5003385509
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:36:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788896183; cv=fail; b=nYpcren8ZTLnGaeN4Ha5Z6jsM7Hk8+YGBjxIy8CpObHj7yPJ6ln4fV2LU5MF6Yv7EboihoIxFjUjXYXFjotvb5QpE1ONDDQOnnmImHGiXWC10+tKEU6+zVrGmKYTR/MbqP26v8xMZEvOGJJMgBnpjNwvDdQNiKSL/I5aYgTE3oY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788896183; c=relaxed/simple;
-	bh=z2ZZ1n3ojOq+OGs/i5RYK+fpOBwY4163zjRtlKInlqI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=fMXRIZDPWnbAORkxSBIHmC/IiL6Pqcg3farsouxIH00sgwsg6n2VFDbgPz+3/se9q370G7YVGNw9QFFNNL4MBBHBqmN6AjOLtM3F6h3Lto7L+yQMUFuOH119kismEzIiRm7/+8zT9Vvw+17HpVzzUhOFi/vHgOQ8u2+MG8I25OQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oO97p0br; arc=fail smtp.client-ip=52.101.201.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30213812FE;
+	Tue,  8 Sep 2026 19:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788896280; cv=none; b=Ymk4GvWpspdDvSEN6jQb10VVmxu5AAiwRjEda5aeXKcGEX//Sset70s1+3MfsSgIojZ0LrBSQFWZfOmtD+UIicc3WBiEJfJAB0blx5NAxgITK1V4XVxQAOkl+/bcBvPREMtdg8KwRyEhw3pTIY3BAbwAK1EQICjBo0ZgaNY2Ksw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788896280; c=relaxed/simple;
+	bh=2qk0fy8BaA5H2eULjkDkeUiAjpBmUTLpUODBkGZ+mHk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SA4oLx0HWBuecTMZ/i9PQf+mAVkcLaDdMSk0eMzjjxW6NDXzmGPZxmy/MMQVN+/ytJmjk70v5deFBqCpN2MqqQAruVBYq0FlKPGey1yxATr0aqI3x0dNKHicuGSuMRTD5oavAiGab9Y6w33XTHo2Ced77h+fP38O6oXQHW8/iVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxLO7Ylh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oO97p0br"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nxuLpigCwQEUtGEj/E67AmDUgGXz3WIYXKmHmQaHRt9Iy8fIZTvhnT+7uVSCvUYiSz1sYgWpOniB5Wsj5QFWdUK38KU+TtPFyHGuGekep7SKrAadGO1MEmxhDs2dZERsDltS/0+M8Uzr1yJUgpiG1bUfqE3KKK+OEv5Iu+NBOQCYbBYlzBHMfFlCnOR9ehL1EpnYrtZ/hV+QaBCJQbSnXJMjp5rHbzyc5BuPZ6U5V3wztxD56ErQqRJeb4RiZinvQL0Z9WtegbO9//rZ+64kt/mXldNdwWQc0JK48ndCYeS/ttpjpdJraIocPTZty3/XXyvUzouk+DMus6Tm1YMcgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YwjCRdBldOjnZbX82/bhrZGXEzwCiuwHXAc7mUYGVFM=;
- b=f4iqSh9Ecw/mJdDUMi6jxlgloqSkw+ZwtlhllWoIOojLa4FdDjDXWFi0B6fpIy8vgb7N6MnKDkZ74JSA9neiLG4DtCsaoAt7Gghy60GGvzSgSngeStnkJBo7zm15QPpHzms8hCxStz6nSzr05edBapIEztmBZs6MHaRc0X2S+FRSF70Z1zQFUBydSCQ1MkyyFZh9PKNyJbI2TEDAm8eSNEYsmhGDHl0J2CRw+R5/rAxtimK3A7x96ZansnM0lWJAFOmz/b0srv8iJdR3sSH8iVUxVMEfVEaXk72VQLSfAC0x66Mz/tqkFpFw1ijLrg9CIWcYjq4ZqkRdQRrT+Xff8Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YwjCRdBldOjnZbX82/bhrZGXEzwCiuwHXAc7mUYGVFM=;
- b=oO97p0brlvHs5DPeteskgWbbbbhdJeDw3uTCBQGFfyKCTHZBLnKY3YJw8NwxcKI76l9e771QHbWwjco/r4ZUlxS5ghm3iJZAuBu9VViZ8hIVZd8qrjhi8a7mRfMq7JRQ6/edSnGa0UYsS9EIfHGa8iG2KFaCeLa4BIbd/W+4Evc=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SA1PR12MB8947.namprd12.prod.outlook.com (2603:10b6:806:386::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 19:36:17 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 19:36:16 +0000
-Message-ID: <0e0dec3b-df41-4e9d-b975-57ff9a3ee856@amd.com>
-Date: Tue, 8 Sep 2026 13:36:14 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] drm/amd/display: Fix HDMI RGB quantization updates
-To: Satyajit Roy <edu042sjroy@proton.me>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, jerry.zuo@amd.com, wayne.lin@amd.com, yan.li@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Satyajit Roy <sroy14@alum.utk.edu>
-References: <20260830035120.937992-1-edu042sjroy@proton.me>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260830035120.937992-1-edu042sjroy@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR03CA0153.namprd03.prod.outlook.com
- (2603:10b6:303:8d::8) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxLO7Ylh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEFD1F00A3F;
+	Tue,  8 Sep 2026 19:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788896278;
+	bh=dqsuwEOibNCoxL+MY+KJcXPDxVwv27f/BtLbRZm4oLA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LxLO7YlhfkJ6kIOGDGZ5nSoikZlhH+iKssK96nrIO7LPlq5q0K2Xj6+A/pa9/a+RX
+	 MwPsws+1FTtge8362AgmAZRufc0hEQRFbUOUzwWcXHmJoIGnTqVfoWQPyV0JRvyvOs
+	 VmHenITvMjztqR/lCdFgSN/laLJDqebEOreLQId8H6kDq8mW2kpJlDTe+W6KqaHwWZ
+	 p+rR+msrIozKsAIdEu/QhUHnJKjr+snX2BjbUYougfQxRLPy6wTgLdGNR0Kn7VbpER
+	 Up1n5Q6hbMAqpZj1QlHWmyJkUyZ97Ej44ohBwdTHv5XiCehhhnrnKV33ex8bzFWzEm
+	 ddml7G1VkX4Cg==
+Date: Tue, 8 Sep 2026 20:37:52 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Cc: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Dmitry Osipenko <digetx@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH RFC 01/10] firmware: arm_scmi: Add SCMI QCOM Generic
+ Extension Protocol documentation
+Message-ID: <20260908-optimal-alpaca-of-justice-f55bba@sudeepholla>
+References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-rfc_v8_scmi_memlat-v1-1-cb732bcff1f4@oss.qualcomm.com>
+ <20260724-crouching-starfish-of-apotheosis-d1cdf8@sudeepholla>
+ <f39b2be0-b6d6-43a6-a412-44ff433c51f6@oss.qualcomm.com>
+ <20260813-remarkable-handsome-heron-e99e78@sudeepholla>
+ <fb0ad185-8989-48a9-86b4-9c765788febf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SA1PR12MB8947:EE_
-X-MS-Office365-Filtering-Correlation-Id: a48b6258-04c1-47ff-8db5-08df0de0732a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|1800799024|6133799003|18002099003|22082099003|3023799007|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	NeWH2+hj5uwfIqKLtxN5OnSvQjOqBexnesm+p5emU31ZGJkIdb29EmPeHe2iO/iSbTzT6ThTSiBIOK479wChPXigg2OtET5TH0bjjGxMev1MyQWJz+gcC4Q4F4zxAiJ6bymfVVzLDpe0qwhJh+UoPXuGYXctU6yoWIJXfUYboV7gWC/AOnBYxnC1ik4hsujgVAXQWA+Zj1aNQWgwtwwEpU8l8DuaOJJEjU7Arc2sPqTKkQyOvS/mTwqNhKXF7tfvjHSyL9Ml1QPsehXolx+T8j9JoO/rhXUCWkf4IfbMuhWOwLzWsmpfBM3uwNZchUDW6Klfdg56sn842BdumTSxsjQ8Xf6W9cTosaFzX3WxzLxsxmkLhrkx4Fatwc8BTxhsHl2g64j6qO92a1tR3GE/ZHBwEcpBdAyQJgEqdrcVAjA70/pnmr612SKzuCC8kWNZOX0DHMCq4HFF9b+SfFCQ+UmC1WM/MnhPkDMCXPP1SpW1/OZoyBKpC/jWNkf2sMTGKYfpf7FU6gh4Ee96FniVMTNP2E8w+nXPCTaWHbXOgtktySbJxhcCnMwb9XiaCXtISA6T9rEHjF2Xi8E4OJm6uKZTcj+WgQ9jYtDueG8+29JrLN2lZg2etWYSmMXWTFl9dSbhhJvTocPExWOKjbIijSe2F6h788hoTjZdl4vbjvM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB8476.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(18002099003)(22082099003)(3023799007)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZkJBWjJiYVJtMzRJeFVpSThYUFNRblV1Y1diL2VVdGFndVBLRmFSaHNwSTFi?=
- =?utf-8?B?cURoVjN6MVJRS2JoRW5ycmlGNW02RjBmUUM3bm5YVGJJOS9NSnlFTEZZc2py?=
- =?utf-8?B?blhhb3NmNjlRczlVMnJhbld2V1JTbmtTYzYxQzFXQ0d3RVBBRWkweld2VXk1?=
- =?utf-8?B?VlR2MVR3ZmRaejV6RjRPVWdIWnZUc25VZzlSNEIxcVRaampGekhlU1hUYXJh?=
- =?utf-8?B?UXlMZm42K25NWkVGdHVuYjVyR09YQTRWTXJwSnVBY0pTQnB5Vi9LMlVBQjFQ?=
- =?utf-8?B?K1k2Z0o4NzgydVRWSFhaOWJyUlowcHlIa2tHQWc5ZGVZZmIvdy9FcUZtVXhi?=
- =?utf-8?B?VDBXQy9ieHRZc2I3bTNCcyt5N2hmSitLYjd2a1FxQ2IzLzNiNjRuVXkva1ZQ?=
- =?utf-8?B?aW1qVEI0SkNhb2VadW01bWlsMzNYdC9RUzhTeWU2ZjBGZzBtanVtdjMvelkx?=
- =?utf-8?B?YlBKWVF5VUtVTjd5bENvTWllR0FadU1kblc5R0Y0QzRiVjRsRkV5Vjc1Z3Mw?=
- =?utf-8?B?TGswSW44WEpJYS9vOTUxaEUrSEhxRlorbndubkZLei9wcFAvb2g4eU1XZG1W?=
- =?utf-8?B?OEtJQk5ObFkxUGJoL3hFWVRqblJ2b2puT3gzVFZ1bnRMNHhnQTNTQXdKeU9t?=
- =?utf-8?B?bmc5RGQ1M2FNNXVOWXpBQXN0Uzh4ZlF4cHRTbzZBSWFDUEhkNGdxTC9Hcks2?=
- =?utf-8?B?cUpLZ1A2TkNHRU43SkRsYXJSVWVtcFdWdEZWNTRiSVF5dXRxYTVPYXdDREsw?=
- =?utf-8?B?UmZROXVpUURPaXlZcGV0OTFiRFFnbDQ3VWlLM3Q2WXBsS3h4MDRlVlVtb2RN?=
- =?utf-8?B?cTh2TXZ0TEpUNHV0Wm1MOC9rR25zWENCSDl2V01kVjJDSEMzbytpNHBsbk92?=
- =?utf-8?B?cEtpK0MrRGEyUlZVUmEwSHBlOXJUWHhweCtubzR3SjJCdnBEa1oyRDJhVGRF?=
- =?utf-8?B?SUxxTkRMNk1PLyt3anRRUTN0N3pJVE8vM21CYkcxdFVKcXZGdGpTSGgvdG9Y?=
- =?utf-8?B?SDBFcXlSdDg0Qzc1TjdpcTFnQ2ZpMDdpV0NFOTRpSXN1S3FFVDZsMlByZGJh?=
- =?utf-8?B?WHI3NDlQcDZBOVFTZ28ydGF3S0dqNjFjTFZQaXo3b3NYMTNNQWFQV25adG5S?=
- =?utf-8?B?MGZzaVYvSnBldVBsb2NhcXdXVW9RK3g0MG9WNVBKTldTSHY4SytFRUFlMGxL?=
- =?utf-8?B?NmJ6R1hRdkJhUnYxWUg2eGZYeDZGRDBwUGZybmRWR3dKeGNQOE00TTkveUhu?=
- =?utf-8?B?QmZqQnJZWHFMaFBhY25kb0U0QmV6OEh2Q2tnc0ZyRFRlWTlTSGR4d2dXWnZo?=
- =?utf-8?B?S3N2QmtvNHNBTjVGckxweDhvaW5Ecnk3ZVF1NTBlazBCR1J6d0I0S1FkZzB0?=
- =?utf-8?B?Vm5lTlJvNnpmZEFnT3NqeFQxb05zT2tCd0FheWc5Zy9OWUo2MGVpbDFlT05v?=
- =?utf-8?B?d2JWZ0NZa2loTFRvemNGL3ZKZlhlUG1OczNDeDdXb1dYRXVBV0xybm5paWtp?=
- =?utf-8?B?WFpTQjdZQ1doU3lYelpkK01ESWhadUVRb1lmUE5XWGQ2Y3MwdnRuSmxKeUpq?=
- =?utf-8?B?Z0djMGthdFpJa1h4b3JJeVl4RFVCeVJhVERDVnlXWGE5eWh2czNFN2VwcHdO?=
- =?utf-8?B?WlExcUw0UjdiZ3Mzc0dxcU5EQ1AyU3kvZ1Q5U1dVZDdUZVBnSldLcHdSU2Yy?=
- =?utf-8?B?eXlhcXk3ZUhla2JNc0NyU0QwSTdVcFk1dWdJUVBFdDUxVTBxSmZ5V1RtMnZs?=
- =?utf-8?B?UXJaYllkb25JV2U0bnZoWVdwWCs0Rm8yZEEyTW9CY2N3T3dqSmsxS2ZYWUph?=
- =?utf-8?B?UGl2UGthRnhSTDBDTVZuR0I0Z1dzRGFKdy81aFVTcVZ4S2h0ck5KTVk1djRU?=
- =?utf-8?B?WGd3M3crN292dDI4aC9BbHZzMzZkSmtoYTBPNDZIT0MzVi9oY3BOTGppS016?=
- =?utf-8?B?QU01OExOUVRRYXR4K3RTdUJhWmtHR2ppb1VDM2tZYUlHOEIzSTBNdVNBbWg5?=
- =?utf-8?B?d3V0Z2pkRG9NM0pjNnFyNzVBUTJkeUh0dXp5SmhLWWpxZ05ZUkkwcmM0MkdN?=
- =?utf-8?B?QXVxbzFLWkxqZm9DdktjbnRGVWpPMXk2b1Zkejc3VWdvU1pJVzAxOWVUKzFt?=
- =?utf-8?B?NmcxQk5MVzdJc2VBTDhvUzlkOXRmcHNiL0J0WlFFOWFHQlk0b2szMUJYaWE1?=
- =?utf-8?B?a2hIc2dBS1BOZzB6UFhXcmpQeWV5Z0FMdDNuekMyeENqRmp3MzRzemVUSnZ4?=
- =?utf-8?B?SnVYSkJrT2swWlkxQVNyeXhIQkJ2VWt5MTVTbGExOTd6L2FtUWQ4bHhUVHZD?=
- =?utf-8?Q?mkZURcCvLIvRdojknz?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a48b6258-04c1-47ff-8db5-08df0de0732a
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 19:36:16.7902
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RY65mHP2YkEJQ/tXdvF0OdG6hTCjm/H/N/dRIgkHb0L8LQObe4b7s+LnuWAAJcYYggmUzHkxAOagd3OMxSrcAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8947
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fb0ad185-8989-48a9-86b4-9c765788febf@oss.qualcomm.com>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+On Thu, Aug 20, 2026 at 01:26:57AM +0530, Sibi Sankar wrote:
+> 
+> On 8/13/2026 12:48 PM, Sudeep Holla wrote:
 
-On 8/29/26 21:51, Satyajit Roy wrote:
-> [Some people who received this message don't often get email from edu042sjroy@proton.me. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> 
-> From: Satyajit Roy <sroy14@alum.utk.edu>
-> 
-> The Broadcast RGB implementation currently has three gaps in the AMD
-> Display path:
-> 
->    1. DM does not propagate the sink's RGB quantization-range
->       selectability into DC, so the HDMI AVI InfoFrame Q field remains at
->       its default value.
->    2. BT.2020 RGB output is always selected as full range, so an explicit
->       Limited setting has no effect in HDR modes using BT.2020 RGB.
->    3. A property-only range transition updates the output CSC but does not
->       rebuild and program the InfoFrame, leaving the sink with stale range
->       signaling.
-> 
-> Together these can make the transmitted pixel range and the range inferred
-> by a television's automatic black-level setting disagree.
-> 
-> Patch 1 propagates the EDID QS capability. Patch 2 honors Limited for
-> BT.2020 RGB and adds KUnit coverage for both BT.2020 connector colorspace
-> values. Patch 3 rebuilds InfoFrames whenever output_color_space changes.
-> 
-> Validation performed on amd-staging-drm-next at the base commit below:
-> 
->    - scripts/checkpatch.pl --strict: no errors, warnings, or checks
->    - x86_64 AMD Display KUnit configuration built with CONFIG_WERROR=y
->    - new EDID-capability and BT.2020 quantization KUnit cases compiled
-> 
-> Equivalent changes were also tested on an HDMI 2.1 television with a
-> Valve Linux 7.2 kernel. The television's automatic black-level selection
-> followed Full-to-Limited and Limited-to-Full transitions in SDR, HDR, and
-> HDR with VRR active. No modeset or visible link blank was observed.
-> 
-> Satyajit Roy (3):
->    drm/amd/display: Propagate HDMI RGB quantization selectability
->    drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
->    drm/amd/display: Rebuild InfoFrames on output color space changes
-> 
->   .../display/amdgpu_dm/amdgpu_dm_connector.c   | 10 +++--
->   .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  1 +
->   .../tests/amdgpu_dm_connector_test.c          | 37 +++++++++++++++++++
->   .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  |  2 +
->   drivers/gpu/drm/amd/display/dc/core/dc.c      |  3 ++
->   5 files changed, 50 insertions(+), 3 deletions(-)
-> 
-> 
-> base-commit: 75a5e1b6b3661c3f946885d01eebeb6b031035ef
-> --
-> 2.51.1
+[...]
 
+> > The current rationale isn't entirely clear to me. Windows historically favors
+> > ACPI over native SCMI, meaning that supporting a proprietary vendor protocol
+> > would require non-native workarounds potentially hidden within interfaces like
+> > PEP. I am skeptical of this architectural direction. Since Android leverages
+> 
+> In an ideal world maybe but transition for all SoC capabilities to ACPI is
+> rarely that smooth and they do use the PEP interface.
+> 
+
+Well I agree, then we shouldn't be bringing up the topic of OS agnostic
+firmware as that is not a reality on the platforms we are talking about
+then ?
+
+> > the Linux kernel and already manages this through vendor modules, maintaining
+> > those as modules seems like the optimal path until we agree on the interface
+> > that can be merged.
+> > 
+> > Given that this patch series has been under discussion for nearly two years,
+> > please provide a summary of the feedback that has already been incorporated
+> > to address these concerns just for sake of argument and in your defence.
+> > 
+> > To clarify, the vendor protocol space is strictly intended for
+> > platform-specific functionalities that cannot be standardized; it should not
+> > be used to bypass standardization for convenience. It appears no evaluation
+> > was done to determine if or why the standard performance protocol was
+> > insufficient. Had that assessment occurred, I would expect the proposed
+> > interface to align much more closely with the standard definitions as I
+> > previously mentioned.
+> 
+> The design might seem contrived at the moment but it was still largely
+> shaped by the SCMI specification. There is a literally a 6-7 year window between
+> SCMI landing in mainline and the first mention of the vendor protocol identifiers
+> being re-useable between SoC vendors [1]. This largely shaped how Qualcomm
+
+[1] shows the date as 2024, so 6-7 years is bit of exaggeration IMO.
+
+> used vendor protocol. The first instance of vendor protocol was a straight
+> forward vendor protcol implementing just MEMLAT [2] but the sudden rise in
+> the number of protocol eating up vendor protocol space made them club
+> together the class of devfreq algorithms into a singular generic extension
+> protocol.
+>
+
+I fully understand that this interface is already deployed in firmware and
+that changing that firmware ABI may no longer be practical. However, I
+think we need to separate two things: supporting an existing firmware ABI
+and accepting that ABI as the abstraction exposed through the upstream SCMI
+framework.
+
+The former is a compatibility constraint for Qualcomm platforms. The latter
+is an upstream interface and maintainability decision, and the existence of
+deployed firmware cannot by itself determine that decision.
+
+> "deliberated attempt to circumvent the standard SCMI protocol template"
+
+This was specifically targeted for having performance related tunables
+outside of PERF protocol. If that is not possible, then I take back that
+statement.
+
+> "expectation of immediate acceptance without modification"
+> 
+> I gather that ^^ are the major objections to the current series landing but
+> sadly none of these were raised during this 2 year period and this protocol
+> even had a "Reviewed-by" from the only other reviewer listed [3]. We
+> promised to fix all the concerns raised [4] in the next major/minor version upgrade
+> [5].
+
+It is common for intermediate versions to receive Reviewed-by tags, but those
+do not necessarily imply final acceptance of the entire series. If there is an
+instance where I provided a Reviewed-by and later withdrew it without
+providing a technical justification, please point it out.
+
+Also, with code alone, please do not expect me to review these series
+effectively. It took more than a year and half for the documentation to reach
+a state where the design and implementation could be reasonably understood.
+Now that we have sufficient improved documentation and a clearer understanding
+of the approach, a proper and detailed review has just begun.
+
+Therefore, I do not think it is fair to claim that these issues should have
+been identified during reviews over the past two years. The lack of clear and
+adequate documentation made meaningful review difficult, and I have repeatedly
+requested improvements to the documentation for precisely this reason.
+
+> The current version works as is on Hamoa/Purwa/Glymur/Mahua/Kaanapali
+> maintaining the same ABI (that should count for something) and it would only
+> need a major/minor version update when a new algorithm string gets added
+> or a new param-ids gets added. Both of these are yet to happen.
+> 
+
+My concern with the generic extension protocol remains the multiplexing
+model. SCMI protocol IDs are themselves the mechanism by which
+independently defined functionality is identified, discovered and
+versioned. Introducing another namespace underneath a single vendor
+protocol, where an algorithm string selects effectively independent
+interfaces with their own sets of param_ids, duplicates that mechanism and
+makes protocol 0x80 a container for potentially unrelated functionality.
+
+> Given that we put out the pseudo code of what the MEMLAT algorithm does
+> and spent the past several revisions trying to explain why generic perf nor
+> mpam would work for us we keep getting hit with the blanket "It appears
+> no evaluation was done to determine if or why the standard performance
+> protocol was insufficient". The only recommendation I see from your side
+> is move MEMLAT to it's own protocol. With the documentation/code
+> available to you can please let us know how current perf protocol or MPAM
+> can be used as a standin replacement?
+> 
+
+This is also why I suggested treating MEMLAT as a distinct vendor protocol.
+I am not suggesting that MEMLAT can necessarily be replaced by the standard
+Performance protocol or MPAM. Those are separate questions. If MEMLAT
+semantics do not map to either of those, then that is a perfectly valid
+reason for having a vendor protocol. But "this functionality requires a
+vendor protocol" does not imply that the generic SET/GET/START/STOP
+multiplexing protocol is the right upstream representation of it. I am
+completely against such generalisation which will end up being ambiguous
+sooner or later.
+
+> [1] - https://lore.kernel.org/lkml/Zag5L9j8-oCebKFm@pluto/
+> [2] - https://lore.kernel.org/lkml/1667451512-9655-1-git-send-email-quic_sibis@quicinc.com/#t
+> [3] - https://lore.kernel.org/lkml/Zo14-rQ1Jaxh5Idi@pluto/
+> [4] - https://lore.kernel.org/lkml/Z1GfGk0yQAVQKEVL@pluto/
+> [5] - https://lore.kernel.org/lkml/55fd0c34-c52c-95c5-5cd0-16fd66a4baa2@quicinc.com/
+> 
+> > 
+> > The core issue here is that the proposed vendor protocol interface has been
+> > presented as a finished product without open discussion or a willingness to
+> > iterate based on upstream feedback. This approach bypasses standard
+> > development processes.
+> 
+> It would be way easier for us to re-design this but it would mean that we
+> are abandoning the current users stuck with this firmware version and that's the
+> only reason for trying to land this in a form that is maintainable. Either
+> way  please do take the call to decisively NAK the series (even if it's coming 9
+> revisions late and at the cost of 2 years). That way we can give up on this
+> and go about upstreaming using the standard development process.
+>
+
+I also don't think the fact that this has gone through several revisions
+means that architectural concerns can no longer be raised. I appreciate the
+amount of work that has gone into the series and the changes made in
+response to previous reviews, but neither elapsed time nor deployed
+non-standard vendor firmware can make an upstream interface immutable
+before it is merged. This series is not even properly versioned, carries
+RFC still without version if it is no the first RFC. Anyways, there are
+series that go through 15-20 versions before it get merged. See SCMI
+telemetry itself at v11 already. So, I don't understand your complaint and
+all I can say is welcome to the kernel development process if its still a
+for you.
+
+So I don't see this as a choice between accepting the current generic
+protocol or abandoning users of existing firmware. Sorry!
+
+If it is easier as you mentioned, yes please re-design MEMLAT and any other
+algorithm as a separate vendor protocol. If it helps take this as NACK for
+the current interface. Hopefully this helps you in making proper progress
+on upstreaming using the standard development process.
+
+This is not the only or first firmware ABI Qualcomm has failed to upstream
+because it was all baked and couldn't be changed. So nothing new/surprise
+at that end.
+
+> That said please do consider expanding your reviewer/maintainer count
+> in a way that gives you the capability to review series from all SoC
+> vendors.
+> 
+
+I don't quite understand this. Please elaborate.
+
+-- 
+Regards,
+Sudeep
