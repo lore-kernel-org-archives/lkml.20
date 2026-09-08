@@ -1,157 +1,71 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 618783D3498;
-	Tue,  8 Sep 2026 11:26:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E8E52ED38
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:27:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866793; cv=none; b=uwHh9lGnIniDXw1eAjsihmYPw10x1YzUr9ulNdwo0p12AMhWjcW+C47gOUtuUV+is/8ve/WRHdHevJbyM3W65LbaM05i/qfXHlByAWMgoGBSTS5Mu2WFXpcnfLXiesWqrJaxN0OIZwK5/7gKc3xhTm39tnvGuauPs/r4kaVYqig=
+	t=1788866836; cv=none; b=UP7JkTDemugawivqNIKQFS3VooouPG81oCX/+2lgnOEvxui5gPLjIxFgbv/VOm0LbvB27JZostDAd0GmYnQKH2tBX9gbR7p9Zu5QfoQIDGsvabgMhhAv0sp5/wVEJ98NeSGLzDPAYzZCNrfl02Shloykjpal/hw0TLStlq+2g40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866793; c=relaxed/simple;
-	bh=NRJWzG6+BUdTryF2o8t2oci58TIeBpzItGkSajbOHFI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LS8XGwNFrg6kMm/hjc2BSgTXmuz0veUj4VqAUfmSLFuSeE3mrVAZPF9j3y6YHISyqCJ/IR7xRqOW5ZBqzmiaoVerl17/crHtn1yxjYXUul8GakvlsIgPtVna0GGs9zyMfZ3ywcFON3yLLblR6TPYtEUhycegY/5Zd+OFyO/nYiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qfQcfxmS; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qfQcfxmS"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688AVNKl641397;
-	Tue, 8 Sep 2026 11:26:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=0+KOuUkv5NXhrHFikHiaqF1JEy8ozSeMHfFFSOVyk
-	r4=; b=qfQcfxmSrPhMZ58mnUbg546CZz+gzBVJj9tADChsn0KcBjuodqwg6NNoD
-	0lWjkwbxD0w5zsyGbWxbjIqIGe4N9a8b1tByytgjEGJxMmKnUd+V8uIiMmuvhvjB
-	vx/YuUhFbT7Q4vFaN0At/3W6+LmQs5Gboa9/2w5Jc7LGIiYq+IHkiTifNEgXZ5Qd
-	6GO+Dy4k6Sg1BFRXdMBn7xJZYGY6DDuaVWSN1Pp2VfO6jLB7M+YMa6BuTtrBU5yY
-	FnMDQ0ZBh0NXem9sJfXWXlAfMbrC+FHauCGyayY/cHeSTj8mmP0hOyrjE+R7P8z/
-	7iRLDMdsBtBZoAP7eRMz5X/EgXHSw==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbhkph17-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 11:26:25 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688BQPTA009378;
-	Tue, 8 Sep 2026 11:26:25 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw3jmh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 11:26:24 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688BQKXY22217320
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 8 Sep 2026 11:26:20 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9F1662004B;
-	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7CD2320043;
-	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  8 Sep 2026 11:26:20 +0000 (GMT)
-From: Jan Polensky <japo@linux.ibm.com>
-To: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com
-Cc: borntraeger@linux.ibm.com, svens@linux.ibm.com, ciunas@linux.ibm.com,
-        linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] s390/rwlock: Add contention tracepoints to rwlock slowpath
-Date: Tue,  8 Sep 2026 13:26:07 +0200
-Message-ID: <20260908112607.828469-1-japo@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788866836; c=relaxed/simple;
+	bh=S/M2yd4CMzMUGEc8FNckcIMievEkXsYxdzCmoMXniw8=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=iAaTWXtQj6a2RxHGHGJsWpU2D1NB5Ya1ovPgdDCkZBkK785FIIi49Ucyx4xR0Ws5Wwcgldct+hnzwvcOvkggFxl0Ovxy6ASFTrDgigRDgq2zWV9Gx1RrFUPm+C9cvKqFUY4ztdcEg6WejK0THpY225/tjQGBC3sP7Jv2hnWHCtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b9376ed5so5249949eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:27:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788866823; x=1789471623;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DS7KOmT6jFQRDP9HFawIeTDvJHjSZ82bJjBrvg/avsM=;
+        b=ih7wxrBXGarDGPvkeQZyiukMafJqhkQhCRjnCSWglom50fp0o1xkFeqIu7AQXKMlYu
+         xqsuyFVNd0l+vhnPlnfLIDaa15akYQuyTdVqh6oiU9cVtPz1oja8LYjg2Grm5e93YnOR
+         2t5FP5Db8aV1KUI0G66aVSnVk7EgvxTugkH3YB/2McHmmmZrBgaZ35oj83akRyqU41Hv
+         7LhQ/cOXKGNEISHCWxnOib41+XvCgxWdmuNWkfjQZmZMpdXpfTn25FkICchrCoeuqVJy
+         +DiWIw8w/M2Lc3iuz5/b0SjgQYWTEM+/SWM7lr3017xJKqjvgSb/l3SOLIQL+JVH0H/C
+         GgFg==
+X-Gm-Message-State: AFuF++lbwG+VjBVBFRYaa24JzUYuqufhNVi3CoQM7B5lDhvmtNv3b/5u
+	D5NSUdoB3ZBHx/2urRjiRHR5lgB4ceFv5sx8uV09+2/3Vpxjxru+MzsTYrslAbQC6KXuwKLKAPq
+	Byyaf1FHv2XfFUsZgA/aZqksjw/Qi/P5OFUJkGblrlQkSJ12SgNu5pa7LrRw=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDExNyBTYWx0ZWRfXxmZexCEm8m0/
- 5VZ6Oj/yn8PDpCREQl8VtFXlQdVEi6/418mAVIsi8eSG2/Xi8tAU+qM12Y2GsBIdkL6TCXR3fbl
- bwHrI+SGndqk9I8J9snE5UXl0XEkEl4=
-X-Proofpoint-ORIG-GUID: H5-Rwavw12wlNa_84TNdvAWUZHQDmjVy
-X-Authority-Analysis: v=2.4 cv=NMDlPU6g c=1 sm=1 tr=0 ts=6a9ff0e2 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=YYcdB7fvNfgyQl8EhqgA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDExNyBTYWx0ZWRfX3x4rAEtrjcWg
- H5zGqUtB/fydgh5T8y2rxtSzWtrPbY1ZL3c9zk4Un5JMf75FZuI61ZtIkpsYbcfDXgVcew0JCGp
- PFzs5rYoAn+V+TwYg7nCpZC+dw8Z8YcvyG14/wkBLttgV8lT6ssf/vQ45L8SwFgxaQeh6B94d4o
- LAyOctM4q3TF+vI2qxyMNgakXf0868uEtWtIef5swq2LrJ88EEZyDdXwR0UbR1EYQfr2zZLJv0w
- 1uJeSM2WOlNtzUlsOmVsu/Tv+FXFk6PtRc7a47n9QOliVdtelwIAyDKAbPAAonjmyj8CACZrjvf
- a2RaV6VfE/C768uVMYAexWVEbD29n29kWr/tFxyOxat5ifmZKm1NqoqXahG2rZ6Y3BpOiV/i0xr
- wSJvvG72ZBpQRJL0AiZf34wVm49Hxku3ZCityh3DEH3+dcENCFKde2/A7Ay3zu8V9Gxe+rsmGr6
- +8DBZcp0sBu9R3vO0MQ==
-X-Proofpoint-GUID: H5-Rwavw12wlNa_84TNdvAWUZHQDmjVy
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_02,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080117
+X-Received: by 2002:a05:6820:1501:b0:6b1:5c8b:c0b9 with SMTP id
+ 006d021491bc7-6b6fabe21b9mr16590405eaf.3.1788866823444; Tue, 08 Sep 2026
+ 04:27:03 -0700 (PDT)
+Date: Tue, 08 Sep 2026 04:27:03 -0700
+In-Reply-To: <20260908110640.1424-1-syedtayyabfarooq08@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9ff107.6e6c5f9e.28f11f.0011.GAE@google.com>
+Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in vhci_shutdown_connection
+From: syzbot <syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syedtayyabfarooq08@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Instrument arch_read_lock_wait() and arch_write_lock_wait() with
-trace_contention_begin() and trace_contention_end().
+Hello,
 
-These tracepoints are used by lock contention analysis tools such as
-perf lock contention to identify contended rwlocks and measure wait
-times. The generic implementation in kernel/locking/qrwlock.c already
-emits the same events from its read and write slowpaths.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-For arch_read_lock_wait(), the in_interrupt() fast-path is intentionally
-left outside the tracepoint scope. That path spins without entering the
-wait queue, so it does not represent queue-based contention and its
-duration is not comparable to the normal slowpath. This matches the
-behaviour of queued_read_lock_slowpath() in qrwlock.c.
+Reported-by: syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com
+Tested-by: syzbot+31117fde582fe6a0cd62@syzkaller.appspotmail.com
 
-The include for <trace/events/lock.h> is already present from
-commit ffa796cc1f45 ("s390/spinlock: Add contention tracepoints to
-lock slowpath").
+Tested on:
 
-Signed-off-by: Jan Polensky <japo@linux.ibm.com>
----
- arch/s390/lib/spinlock.c | 4 ++++
- 1 file changed, 4 insertions(+)
+commit:         28924df2 Merge tag 'perf-tools-fixes-for-v7.3-2026-09-..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10229749580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ec55b50193b453ea
+dashboard link: https://syzkaller.appspot.com/bug?extid=31117fde582fe6a0cd62
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=169c7125580000
 
-diff --git a/arch/s390/lib/spinlock.c b/arch/s390/lib/spinlock.c
-index dbabca35c008..9094617a5e00 100644
---- a/arch/s390/lib/spinlock.c
-+++ b/arch/s390/lib/spinlock.c
-@@ -316,6 +316,7 @@ void arch_read_lock_wait(arch_rwlock_t *rw)
- 		return;
- 	}
- 
-+	trace_contention_begin(rw, LCB_F_SPIN | LCB_F_READ);
- 	/* Remove this reader again to allow recursive read locking */
- 	__atomic_add_const(-1, &rw->cnts);
- 	/* Put the reader into the wait queue */
-@@ -326,6 +327,7 @@ void arch_read_lock_wait(arch_rwlock_t *rw)
- 	while (READ_ONCE(rw->cnts) & 0x10000)
- 		barrier();
- 	arch_spin_unlock(&rw->wait);
-+	trace_contention_end(rw, 0);
- }
- EXPORT_SYMBOL(arch_read_lock_wait);
- 
-@@ -333,6 +335,7 @@ void arch_write_lock_wait(arch_rwlock_t *rw)
- {
- 	int old;
- 
-+	trace_contention_begin(rw, LCB_F_SPIN | LCB_F_WRITE);
- 	/* Add this CPU to the write waiters */
- 	__atomic_add(0x20000, &rw->cnts);
- 
-@@ -349,6 +352,7 @@ void arch_write_lock_wait(arch_rwlock_t *rw)
- 	}
- 
- 	arch_spin_unlock(&rw->wait);
-+	trace_contention_end(rw, 0);
- }
- EXPORT_SYMBOL(arch_write_lock_wait);
- 
--- 
-2.53.0
-
+Note: testing is done by a robot and is best-effort only.
