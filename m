@@ -1,198 +1,89 @@
-Received: from mta1.migadu.com (out-32.mta1.migadu.com [95.215.58.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 669C03D6CDD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284C453445A;
+	Tue,  8 Sep 2026 12:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870364; cv=none; b=n6agrqwGiTb+yFps8vgKhmZLTMLZh98fwvHh4NRMjhjMX/tOiee3u8tU12gtvgK5HT61sPrlDxANklAKHDYoEHIhK+EbHsS5rYXyAaqDlO9u4Rr0oZ7SAWmbTvuBJMvYuFofKzaXpbqXp3e5haZIBwoecglVzDeDotNeAH40yzg=
+	t=1788870368; cv=none; b=RiEQ4YJUX6o9ZIl2r3d8vjH3Jvf5OP4oXiSiRoBVU0TShzeJZaiKxcTtYUFU0R89H3NpiA3+8doRVr/DpAmZp/OivgF31Y8O73foHoPdWau5Qy2fLJ273WOMyGYU4IDbm33raaiu8LHesvDJuK5XRMQwGExQA56lTU7eS2DQ+As=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870364; c=relaxed/simple;
-	bh=tFsgpBV6g8F8xBl+z2QVHBMs7DUcyN+PgiltX0ODWKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iopjci2eqyfn8+Zk3LQuikrAzWNXHlGawQnSQ26UkFGa6YCuUf29bGeVhN6C/PYj4zgj59suFkueJa9RC0SVZFbY+VRRUI+EkiPF/muvQ1QL6HOZ/9djLbPc6sukX5JACIjWNWmIBtxBhEQ6fjSTtr+e2wmNyf3JupOhp0V+Wfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=C/yxU9RR; arc=none smtp.client-ip=95.215.58.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788870368; c=relaxed/simple;
+	bh=QXOH7qEx4pUaa6qTcmb8GkT1aSElZQSeAUuSjfI6go0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=CIRMNsOl51FMyOeJo2X08x4Mpj94hp5ienI5aSuBtOqUVLwSECxo5BhbW5FtxZe3VdlSypXHEq51lb/u0xUODPHKceqdiSiJGYYGm3z+KrOl5V2eb4jjPuamwv2B7NvZ1bJ8g0vctTP8cHYiFZRXIJr1jrj5cyeq5R51gJ5zsOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=T+CF2PE4; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="C/yxU9RR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=tFsgpBV6g8F8xBl+z2QVHBMs7DUcyN+PgiltX0ODWKI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788870359; v=1; x=1789475159;
- b=C/yxU9RRUdPpzw3c6ATqEYPi9BY3z34WSttUVJkbiWWy9EK8EFgwismOHGohJBY0pSktXJfg
- +omTblRSvAheGPggqCfSWk+OQzW4pX5zpTPZAc8TfxuIRXKzzG6ElYT2c9T5sL8ATrmlnThCVc5
- HcG+QbzC2qqqp1Toim1aN0Ks=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cba39cd4919c1c92;
-	Tue, 08 Sep 2026 12:25:59 +0000
-X-Mizu-Trace-ID: cba39cd4919c1c92
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <792a64de-b5fc-49ca-8d7d-98c232d1b7cb@linux.dev>
-Date: Tue, 8 Sep 2026 20:25:52 +0800
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="T+CF2PE4"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=3TTkjK4efW9roUyrSzJPTQ13MVqEKMUhdpq/+UHmD+8=;
+	t=1788870367; x=1790079967; b=T+CF2PE4k+3v7J0XnnoV99n7fkM0xh5cpFsbzItFvuFRpEf
+	BcLzAbljRfVjYsEPlMkZhsv8CiY/QnXt/8If+jWsY6d0tQJ9dAIz90k8hjx0cggj4wryIi7PROgh/
+	sGmUCycpR8e5zvCy3uuq3Alhhr5eseW9WDoNMNP8VhY9FSNi0DDIH16y9r4U1l72CEhYUm/OtyUBg
+	GHPySYsI872xdkDuU8qIJ1ELSlghoWJ0F3Yv2YT6991DQ/K1T++WLZ5UbcYqub6e1zh3aJmF79EPf
+	ZehJEj5meBRLInOMmeaDsE+AzK7oy6nlaEB72Y1edGca43uNGf/juUlRa4uwO/Kw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x3utl-000000066si-0IbY;
+	Tue, 08 Sep 2026 14:26:01 +0200
+Message-ID: <22e7ddfc50d7a6a16c437b876dab5fe223799610.camel@sipsolutions.net>
+Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
+ adding new station
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Slawomir Stepien <sst@poczta.fm>
+Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev, 
+	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
+Date: Tue, 08 Sep 2026 14:25:59 +0200
+In-Reply-To: <ap_4hS6M8g4u6z--@nr200>
+References: <20260813090434.2071318-1-sst@poczta.fm>
+	 <20260813090434.2071318-3-sst@poczta.fm>
+	 <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
+	 <ap_Y8OD0eBAnB8QS@nr200>
+	 <8934029f86b1c0e75f777185b2768f8e9755cae5.camel@sipsolutions.net>
+	 <ap_4hS6M8g4u6z--@nr200>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] cgroup/cpuset: Factor out child partition
- validation
-To: Ridong Chen <ridong.chen@linux.dev>, Waiman Long <longman@redhat.com>,
- cgroups@vger.kernel.org
-Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20260902102615.79189-1-guopeng.zhang@linux.dev>
- <20260902102615.79189-2-guopeng.zhang@linux.dev>
- <5842edcd-9283-4a87-afc9-50e51962368e@redhat.com>
- <5e0d1386-b094-4d4e-8569-e6b584f955c5@linux.dev>
- <fe0c93af-5562-44fe-8aee-328c4a450a9b@linux.dev>
- <7c2a545f-7fa2-40d5-8d4f-25a65ec5df24@linux.dev>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <7c2a545f-7fa2-40d5-8d4f-25a65ec5df24@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-malware-bazaar: not-scanned
 
+On Tue, 2026-09-08 at 13:59 +0200, Slawomir Stepien wrote:
+> >=20
+> > Don't think you're missing anything, there's just the block handling
+> > param->vlan in add_station, it's dead code now. But why not kill it?
+>=20
+> For the reason explained below (in my previous message).
+> There can still be a command from userspace with AP base interface (as wd=
+ev) with
+> attrs[NL80211_ATTR_STA_VLAN] set and this block will be executed in such =
+case. Right?
 
+D'oh. Going too fast, I somehow managed to not connect the two things.
+Sorry!
 
-在 2026/9/8 09:40, Ridong Chen 写道:
-> 
-> 
-> On 9/7/2026 5:49 PM, Guopeng Zhang wrote:
->>
->>
->> 在 2026/9/4 09:25, Ridong Chen 写道:
->>>
->>>
->>> On 9/4/2026 2:33 AM, Waiman Long wrote:
->>>> On 9/2/26 6:26 AM, Guopeng Zhang wrote:
->>>>> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>>
->>>>> compute_partition_effective_cpumask() checks whether each valid child
->>>>> partition remains covered by the parent exclusive CPU mask and whether it
->>>>> would consume all remaining CPUs of a populated parent.
->>>>>
->>>>> Factor these two checks into child_partition_error() so the same rules can
->>>>> be reused when evaluating a proposed parent configuration. This is a
->>>>> preparatory refactoring with no intended functional change.
->>>>>
->>>>> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>>>> ---
->>>>>    kernel/cgroup/cpuset.c | 38 +++++++++++++++++++++++++++++---------
->>>>>    1 file changed, 29 insertions(+), 9 deletions(-)
->>>>>
->>>>> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->>>>> index 8f24171b6055..6994dc75d940 100644
->>>>> --- a/kernel/cgroup/cpuset.c
->>>>> +++ b/kernel/cgroup/cpuset.c
->>>>> @@ -2085,6 +2085,26 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>>>>        return 0;
->>>>>    }
->>>>> +/*
->>>>> + * Return the error that will invalidate a child partition under a proposed
->>>>> + * parent partition configuration.
->>>>> + */
->>>>> +static enum prs_errcode
->>>>> +child_partition_error(struct cpuset *child,
->>>>> +              const struct cpumask *partition_cpus,
->>>>> +              const struct cpumask *remaining_cpus,
->>>>> +              bool parent_populated)
->>>> I think you should add some functional comments on what "partition_cpus" and "remaining_cpus" are supposed to be so that caller knows what to pass into this helper.
->>>
->>> Would it help to rename them to excpus and local_excpus?
->>> local already implies "excluding children" (just like cgroup.stat.local), so I think that makes the intent clearer.
->>>
->>
->> Ridong, thanks for your review.
->>
->> Renaming the masks would help, but I think `local_excpus` may be slightly misleading here. When the helper is called, the mask may still contain active CPUs assigned to the current child and to children that have not yet been visited. It excludes only the CPUs of previously visited children that remain valid under the configuration being evaluated, and the mask itself is restricted to active CPUs.
->>
->> In addition, "local" already has the local-versus-remote partition meaning in cpuset.
->>
->> Would `parent_xcpus` for the complete effective exclusive mask, which may include offline CPUs, and `remaining_ecpus` for the remaining active CPUs before evaluating the current child be clearer? I will also document both parameters explicitly.
->>
-> 
-> Passing struct cpuset *parent into the function simplifies naming, as the needed values become local variables derived from it.
-> 
-Thanks, Ridong.
+But it's another messy code path - if you have AP A and B, and VLANs A'
+and B' belonging to A and B respectively, then you can
 
-I agree that passing `parent` would make the interface simpler, but I don't think `parent` alone provides all the state needed by this helper.
+	add_station(A, vlan=3DB')
 
-In `compute_partition_effective_cpumask()`, the remaining active CPU mask is temporary state maintained during the child walk:
+and it gets added on B/B', and B must be IFF_UP (because B' must be
+IFF_UP) but doesn't need to be beaconing and we're back to the bug, it
+seems? Maybe I'm missing something.
 
-compute_excpus(cs, new_ecpus);
-cpumask_and(new_ecpus, new_ecpus, cpu_active_mask);
+Since VLANs have to have the same local address as their AP (i.e. we
+need addr(B') =3D=3D addr(B)), I guess get_vlan() could check this though,
+if it's indeed a problem, and that would avoid it through the chain of
+other invariants (IFF_UP, beaconing, etc.)
 
-cpuset_for_each_child(child, css, cs) {
-	...
-
-	if (child_err)
-		continue;
-
-	cpumask_andnot(new_ecpus, new_ecpus,
-		       child->effective_xcpus);
-}
-
-So `new_ecpus` changes as valid children are processed and cannot be replaced by `parent->effective_cpus`. In this update path, `parent->effective_cpus` still contains the previously published effective mask, while `new_ecpus` already represents the active CPUs remaining before the current child is evaluated.
-
-For example, assume CPUs 1-3 are active, the parent is populated, and child A is visited before child B. Initially:
-
-parent:
-        effective_xcpus = 1-3
-        effective_cpus  = 3
-
-child A:
-        effective_xcpus = 1
-
-child B:
-        effective_xcpus = 2
-
-If the parent's effective exclusive mask is changed to `1-2`, this update path publishes the new `effective_xcpus` before recomputing `effective_cpus`. Therefore, when entering `compute_partition_effective_cpumask()`:
-
-parent->effective_xcpus = 1-2
-parent->effective_cpus  = 3
-new_ecpus               = 1-2
-
-After child A remains valid, its CPU is removed from `new_ecpus`:
-
-new_ecpus = 2
-
-So when child B is evaluated, the `PERR_NOCPUS` check uses:
-
-cpumask_subset(new_ecpus, child_B->effective_xcpus)
-= cpumask_subset(2, 2)
-= true
-
-Since the parent is populated, the `PERR_NOCPUS` condition is met for child B.
-
-At the same point:
-
-remaining mask needed by the check = 2
-parent->effective_cpus             = 3
-
-Using `parent->effective_cpus` instead would give:
-
-cpumask_subset(parent->effective_cpus,
-               child_B->effective_xcpus)
-= cpumask_subset(3, 2)
-= false
-
-and would miss the condition.
-
-So unless `cs_partition_error()` also takes over or reconstructs the relevant child-walk state, passing only `parent` cannot provide the remaining active CPU mask needed to evaluate the current child.
-
-The next patch also reuses this helper for a trial parent configuration. In that case, the complete mask being evaluated comes from `trialcs->effective_xcpus`, rather than from the currently published state in the real parent. The follow-up child-invalidation fix similarly needs to distinguish the complete effective exclusive mask from the remaining active CPU mask.
-
-So for now, I will use the more general `cs_partition_error()` name, but keep the two masks explicit in the interface.
-
-In the next version, I plan to include the remaining patches related to this helper and the associated invalidation paths so that all the call sites and use cases can be reviewed together.
-
-I may still be thinking within the constraints of the current code structure, so if you see a cleaner interface once the full picture is visible, I would very much appreciate your suggestion.
-
-Thanks,
-Guopeng
-
+johannes
