@@ -1,91 +1,76 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95696360EFC;
-	Tue,  8 Sep 2026 16:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 735CD54B1BA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884335; cv=none; b=t+8HVjRKfpOP1kRWSuhsRGkCO3uqxyvoTRnWu6D60IscPEVJvhVur9UU70h3Pbomi/Bvlxu3NkOdPNgeY58G3WQ0elyxYBVpi83Q2B3SQ1O58AjJrMCSQrWz6/Om9Sc3fnFlPhEW/Pilgk+bsSRoNtF80KjYt9N0OpG38AFKrGA=
+	t=1788884338; cv=none; b=jYSGBx6BPm7xs6BP+HRs6rvi/po+dxkfw116ZeO9TLyZKYtbQbYRY1OuqU/fuN9rDCQlvCXWn5wG0AIZFV5GhhCkZP5eEyOZLC2BztUSyCeub7yAznl/g0uaaHKYzfUZrEUN/ikeEsbFE95LgxBUJ4uxzEAlyT7C3ZELo6cLinA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884335; c=relaxed/simple;
-	bh=f1Jg9wpo1aaPvqekZqgWJP47UkgGXxwkxKzZP/qxiuk=;
+	s=arc-20240116; t=1788884338; c=relaxed/simple;
+	bh=ifCyZAyFto6dLGDgB6EevI8Do76Nk1nDkdhhmAqwOfA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UwWHnjDsixC9JrLcnnx3IbEIVThK0/wz/5Cf3cav5ARR9+0LDkh1MaixWjdLs6/CBK0lEG8eL+huulW8s8Z3cDnN+pWVNC5t3QZ8L4w9+Hh8poFKkuddtpLg5/sIDFvMOCm6E2QKmUpdUioiPQ8a+NrCwyxuVTIIgSgxCuO/SVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SqyHDiZx; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=V4wqDDoE+CZN1r9kGGIGUb54RRfYXzQj2DTpAHgCF3N4QIkTSRKjV3QMxYHJcSOd7CG4FgTOw4soWgQCOO6pGP82X+jXD7TtVWae13o9O2BhFpbMwflVeLNflOYJqdDMt+30UgY7YY7qedbGSAmfhZ+wWod5ScM3SFTLr7xwoxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mbufqICL; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SqyHDiZx"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=1VrAOeua9RY4Cyl0UJm4PGO/+r6BxBF2vE+BDj2nsg0=; b=SqyHDiZxSCw7IoUpHC4u1i/0a6
-	hBC3yTLqIe+krvblvAb28aAHQHzL3HSltdgJtU575hWdyaB6yQeIIecwFtkNz1xlhVC9+zglTJkF3
-	0zaBIxphWLCs/32EOelKSalU0zCTyYuNDj3XDRT/amKXfFsmC3JA1HDJUd8sOkUbGFO4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x3yWh-003wRU-M1; Tue, 08 Sep 2026 18:18:27 +0200
-Date: Tue, 8 Sep 2026 18:18:27 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Liviu Dudau <liviu.dudau@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-omap@vger.kernel.org, Alexander Clouter <alex@digriz.org.uk>,
-	"Jeremy J. Peper" <jeremy@jeremypeper.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>, Vinod Koul <vkoul@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
-	linux-ide@vger.kernel.org, linux-mmc@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-rtc@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, linux-sound@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 05/13] ARM: orion/dove/mv78xx0: remove all board files
-Message-ID: <a7792d03-917d-40c8-bb99-c939f374aa38@lunn.ch>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-6-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mbufqICL"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso4590467a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:18:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788884336; x=1789489136; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+Pq7zJZq76gvOX7Rgxjpwg/vc2noCS33nr+Em8sLDCA=;
+        b=mbufqICLSNmFS20OQRdrZNmaN+LZ20bQcP//QvJr2S8EJJ8iJ6zedZ/J6+XlbVg708
+         WG9CtoerxQSKfrzucvc7mz39HvjfvpWtAgE4RM5M3AOyKR7QFroK3Fhmoqr12oF85ne6
+         mfl5HU8TtKSRLEkWVtBP8zWMsE91IeC4/DWiGdvQDqdHCznYHgvHT02AhH6xjQsaEHf6
+         hsxxzhZ6SpucvZ+MTKwkjG0E3cJIN8TKby8iu+zViVWRieeHT9QS42xrWn7Ny6do4d46
+         fU6XXKlW3433jsTEaDEqLCcBbZdAiQO1WaKD6WTGXIusSI0NGxbelBSlIQUOo5+2BlSV
+         17uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788884336; x=1789489136;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Pq7zJZq76gvOX7Rgxjpwg/vc2noCS33nr+Em8sLDCA=;
+        b=cUjeRCjMxf/6f0M8jf3Fwabdz2aw2PTdzeOxkq5aEt6gdocf4JcKZQOIiAU1jBhP7E
+         XUDDIa+8chZr8pnQyzZVk+tlf2W/ojFHdWtKyEwMvB690ff8nIaknSn7QK3ThmbjFrIQ
+         ZamEnakozRciFJG7ugtyd0YJEJW6IlrZobvdfcC7TyW7IjVPZ/issnMNqz7Us1zbr3SI
+         7fcxV+fAyph3Mbj++R0JoAv+xXk2hTAqnhwR0FruweZZZSd91YFwAsKoU/rl4GpsLZSh
+         TfRUT2us3/wj6jVoPa61/VdgjZL12NaXltiNIkcvDCT7e/doV+O12hxc3mL2/8qetVSQ
+         1AoA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFMyogt5sxZktTN40vu1fn13mz4ZY4PxrVOTl+/YN849DzPuEwbRHRJ9p8X2wicgB0NdtdSKKEBe9q7uY=@vger.kernel.org
+X-Gm-Message-State: AFuF++kcxLQkaOE3SpY8M1X6s+2eKclUw5GRWvhhG5oEgOzlYGemq6ic
+	MWMwKzQnbsmLg9Q0ySyuIst7qtCqJlN7lWj97WEwYzz9hTuCj167x63RmcY4Cw==
+X-Gm-Gg: AYBFou10eBqwpYno0Un6kn6xoqE5HAosBSf2UOe5RAXIz+bcYcER3U0IjSkQVLkfAU/
+	Zrt3PdmzWUdiYIczJc5LSvhONHNCc/txzhRL74tr0YK1YAPrT+ieZo00gFyRJTbwt8ux+/epX+T
+	7P9FXe8DCtQ7STY3aFQuwRU5NgMZQ6DApjf3+EjPxDnK5Y7BihDow1VSzRI7owF3VUvEig8Eknc
+	ooxyQY5+IGFz3hagm/64tuqs/FdHA61rUe6mXKu2UZk/lJNvonMp6osIDhCqzEjmeWd9GO9/BrR
+	WWdfye6JEIWTUKB4rdIpDqpP+j7FWqvV0PWasPQMzMkB8rcrUHdQFzlRMz0KlhBIDTx6VeIOOAw
+	bblbpAZkmw9NCpo2BxoBbALSzVuLQOqhuo6tI/WX4aMN59CNmbO4QkLH/SMH7BbdED2AcVI/Uxo
+	i9ElvP4nt4or76FG5xkDao075G67AwcRYirHQIs64PenYQSytLLVOY76ahotvgI46SsbIupP2SP
+	Q==
+X-Received: by 2002:a17:90b:4c44:b0:38e:97f0:aa4b with SMTP id 98e67ed59e1d1-39b261cdb38mr42745655a91.13.1788884335483;
+        Tue, 08 Sep 2026 09:18:55 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260f64ecsm27316717a91.8.2026.09.08.09.18.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 09:18:54 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 8 Sep 2026 09:18:53 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Arie Miller <renari@arimil.com>
+Cc: Aleksa Savic <savicaleksa83@gmail.com>, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] hwmon: (asus_rog_ryujin) Validate HID report lengths
+Message-ID: <20350cd2-a3cc-4647-b3c9-c1ea498dc26d@roeck-us.net>
+References: <20260904022129.97896-1-renari@arimil.com>
+ <20260904022129.97896-2-renari@arimil.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -94,24 +79,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908152808.3928630-6-arnd@kernel.org>
+In-Reply-To: <20260904022129.97896-2-renari@arimil.com>
 
-On Tue, Sep 08, 2026 at 05:27:55PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
+On Thu, Sep 03, 2026 at 10:21:28PM -0400, Arie Miller wrote:
+> rog_ryujin_raw_event() parses response headers and payload fields without
+> first checking that they are present in the received report. A short report
+> can therefore make the driver consume uninitialized bytes from the HID
+> transport buffer and expose them as sensor values through sysfs.
 > 
-> The 'orion' platform is the predecessor to what linux now calls the
-> 'mvebu' line of Marvell SoCs, and originally covered orion5x,
-> mv78xx0, kirkwood, dove and a few others that do not have any
-> upstream support at the moment.
+> Validate the response header and the fields used by each response type
+> before parsing them.
 > 
-> Only a few board files remain here, these are the ones left
-> in 2022 board file purge because they had some level of support
-> in Debian or OpenWRT, mostly for commercial NAS or router boxes.
-> This distro support is now gone, and nobody has converted the
-> board files to devicetree, though the orion5x and dove platforms
-> also come with devicetree support for some other machines.
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> Fixes: ed3e03790c5c ("hwmon: Add driver for ASUS ROG RYUJIN II 360 AIO cooler")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/linux-hwmon/20260812104617.858D01F000E9@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol sparse
+> Signed-off-by: Arie Miller <renari@arimil.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Applied.
 
-    Andrew
+Thanks,
+Guenter
