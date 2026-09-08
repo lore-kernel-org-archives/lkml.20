@@ -1,169 +1,252 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CFD59B68D;
-	Tue,  8 Sep 2026 18:07:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA69581244
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890858; cv=none; b=EJ2eU79cknU49S1WFZmsH04xgaMxsDraqaNJQEeVW3QEbxCIGTcbGXm08lvc3eds8mgz+8cRzpkagkGluKIP16NPc/U2qS3M+shr88cN0ptxpUIrlIcWo03/mapuJV9r7afgOm3rfuNYbVvcXc3sF047VLH8qSf1bx4a+DMD5Nk=
+	t=1788890874; cv=none; b=sMjd6anR/LBQkz4Kj51TACFjGu7w+rOgMdwCHJ4bQ7T72hm8iG2rEcvXPfl3MO5qJp7JWzIbnJ6CFD1Fr7rauVO10hdUC9kVE9pieZhCGZsExY+By3QNA8Qof7EvQXvSgMXbJLNE36DOnnoS3eFISx7CNMfW4G5mWrt30nLM5KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890858; c=relaxed/simple;
-	bh=WE49m+T4YArfiEZEezGmAyk+RK98nBHr3/w8sIwKjoI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3wz0BdJXtXybWg6shDA1BZ5bNg60q+GsS8mgEabhhc7WW8MFVN4rDfUMQl81HabtIE1ExLvq/DT3x3k+5oFeV2a7XrRb8yZHgCIXYSHVdNgMlan59sozlUnjgPzCi/7B5+V+fEzrJiV6T5S/2A65dD+BlyJKT4p+aub44mqoC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=TF8pTfzY; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788890874; c=relaxed/simple;
+	bh=OTLibMJN8TSomAcVsMbXDk3Gt+WGTUspXK8ZV+K+zOA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OwLcKk3GNqweFkYAWt17IjohysI63+lRcKT8ar9SgCfEkiGbVcokK9EKwzsTMkZqGYRJmMwlmLLY3ygQL0anR6ktUdBXcD5vYGgiz+oJml5WTtHm8gKR1T4DxE63ZsZYHzAc/MDM9532kZ2Wu0VUagH67GrVxfbgX02nVl3LM3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=KwEQqq3D; arc=none smtp.client-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TF8pTfzY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=yGDxn8k8FaV9OYqO8qqylmLTXbLKQyP9aBdywz0C2Zk=; b=TF8pTfzY7mPKoBPoJ8Fioy5HMW
-	+JuKD4tWkAiJAWzQRBXPUcazg8AitZwIkYva5qvIhYC2+1TIZPBRD1yLvgfsPlnO39Zuj31cX31LH
-	cun+UiZW6P78LGKn6aFXmz+00/69JQYx/UJpV+8c7IhFUNiGlad2ylfVX1N6Jc0/9X5Ha9Mdib5xU
-	ZDV1COL5zVTD5YFOmYS+VWYbsCJ4QdLqvL7LCE/rhkZ+JY8OryGY+oJpdqIXXoZFk8v4JMNH0sQ1c
-	ZXyuzxBkSU9ECoLQPwc2vqv6J6mzdChw/N/MHSPD/g7Bsck3eqjxdFHKK5OCXIsYpbKjIguhwmxnA
-	ve+GXbZQ==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x40EB-00000009w4t-1GCM;
-	Tue, 08 Sep 2026 18:07:27 +0000
-Date: Tue, 8 Sep 2026 14:07:25 -0400
-From: "Liam R. Howlett" <liam@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, ljs@kernel.org, vbabka@kernel.org, 
-	david@redhat.com, willy@infradead.org, jannh@google.com, paulmck@kernel.org, 
-	pfalcato@suse.de, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] proc/task_mmu: remove special-casing of
- smap_gather_stats() start parameter
-Message-ID: <2kj54k3hscnsswjwernucsgd3ipv6tt7tp2wmukp6w5ltkanpv@iy4obfoaasp2>
-References: <20260907063918.3432401-1-surenb@google.com>
- <20260907063918.3432401-4-surenb@google.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="KwEQqq3D"
+Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-395cf2535acso4929561a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:07:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788890862; x=1789495662;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X96+zYCvaN6SOrdHaZFaRkSOvwWaLyxQvweykkN1/zc=;
+        b=IDRNOMqamUR31B7CTfUtcQ+Rf7fRB/xLPKB58c9cynyeTn/94K8fe4D/D3Qdph4mp+
+         jzlDUf1iy/YfOOBBeGY5QjkP5iXzTiLfgP82hV5DtV7mwI+aG6s+0JZQpXONPv84zpmy
+         IyC4A1Gz2NIz6rJ/djU9SPiBXQPeV7t0cP7eYczLzmFW3z0v9SsqFxabcktni43jfqVd
+         Feu+BXfBoyAL46dC0aFUTv1s87wEB7LYvOspi5BpE0kYrm0qNJ0jx9D6JOGnDZM4d82U
+         EsfRRGzwcFdKjENLJ7bPZnmWQ2yMrtoxZ5iVsAfkqSEZy2lDN768uhqmV3VLOqzSWnUe
+         4Fhg==
+X-Forwarded-Encrypted: i=1; AKwUvBw8i1dFFs4IkL4+u+suxe4rZb6sDaSHI8R0P9wY6WLD6yNAH3SlQr2aWVcPWO0oWvFRTJv6lUmbowKocI0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ0wmOBAaF1oKMrBcDRuajbt+kw/PYOZQjuGAtoGyUAMXV+S+o
+	lK1C5KEqMPS5zOphLHwmoJSMmyIinxbabCzYbLvkDSELHCFRVl2Y45R+VDmIEDtnF9VPr8P0CM/
+	h7luAmDuGOTe6zAsgZ51Q6Pem4rf3nesOQk7TNMH/xi6BlNSrOEQHsjzrKbDBu/YqHeyQz292uG
+	9Kqo8QT8wT41ksn4zGrtpgtAvZT5weUDZu2+6Ipbrr0DuNlk7ESY91eOmhucCHEgFoF4KUOnohf
+	tdH8jX4SgOlzpIF
+X-Gm-Gg: AYBFou1LIQbfc0xPGYeims/yvANA9o6ZrBbvUb/IOr2cQjwO7uNdZOC9IXFVDKDunTF
+	zps8azvZb8NXaLG/lFj69i5FGIiovi5csBC2FFTGN5AFfdm7ivw9YGRdDMfMyBEX2Q5khjZptbj
+	vXmEBkOmdXMRkVrgh7/RpvrXwOMxUdA1T6pdu1B+/cQp0EIf3hmNC+6U94ovYZLq5FDQmyavlgj
+	YIm9H/z8uxwman9RalwpyPK/r0sixwWf1akZ/cuPintj/GLqLhNesElY5yf5OVmYFLk7PN1uv6z
+	rAs/rrzQaBosMeEJ4lrHlOwcrA9rbIjwq39FlGlT/tfQc6s+tJsfqZFA8wq4B3zyB6bwS6btVk4
+	IeJeKoulLscAxom7awTT4RX6nblBaLOB8yzCG4RS0eS8SkaVTfGk6nGoe2cjv6B231+Ulhxduns
+	QsOJvQOqMCu11gnD4YwnerMwlSeZIjrQ==
+X-Received: by 2002:a17:90b:4b06:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-39b8bf67006mr6773956a91.16.1788890861670;
+        Tue, 08 Sep 2026 11:07:41 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-2.dlp.protect.broadcom.com. [144.49.247.2])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b1600a403sm10364272a91.4.2026.09.08.11.07.39
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 08 Sep 2026 11:07:41 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66e63e9b6feso2122622d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:07:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1788890858; x=1789495658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X96+zYCvaN6SOrdHaZFaRkSOvwWaLyxQvweykkN1/zc=;
+        b=KwEQqq3DNLTzwafG3ph6aAbagTqUpyYqHtDBwqxGcMnjWQn5+I8N4A4hBXch13P1ZZ
+         dyF26qhFaedjBNU7Pts46CFWNaDNI7jreO2z74c8O7UgmEUEsIvsytHA6TYKKTQbvmYa
+         UJ2OVtgQBuUubMxID68aJ9VrsLEIDJ4CKjd80=
+X-Forwarded-Encrypted: i=1; AKwUvBzAUab55HDgU6zXHWIqxTqbU1uI3uuqkz+fnQVgf6zyPZPwfdQW3tucBIFx+Hc04XAOttUajGOED/1Fe8k=@vger.kernel.org
+X-Received: by 2002:a05:690e:418d:b0:671:4d2:804e with SMTP id 956f58d0204a3-67104d28276mr98598d50.36.1788890858272;
+        Tue, 08 Sep 2026 11:07:38 -0700 (PDT)
+X-Received: by 2002:a05:690e:418d:b0:671:4d2:804e with SMTP id 956f58d0204a3-67104d28276mr98573d50.36.1788890857670;
+        Tue, 08 Sep 2026 11:07:37 -0700 (PDT)
+Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9106412e038sm27114866d6.20.2026.09.08.11.07.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 11:07:34 -0700 (PDT)
+From: Zack Rusin <zack.rusin@broadcom.com>
+To: Borislav Petkov <bp@alien8.de>,
+	Ajay Kaher <ajay.kaher@broadcom.com>,
+	Alexey Makhalov <alexey.makhalov@broadcom.com>,
+	x86@kernel.org,
+	Petr Mladek <pmladek@suse.com>,
+	Joel Granados <joel.granados@kernel.org>,
+	Baoquan He <baoquan.he@linux.dev>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	virtualization@lists.linux.dev,
+	bcm-kernel-feedback-list@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	John Ogness <john.ogness@linutronix.de>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Kees Cook <kees@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Dave Young <ruirui.yang@linux.dev>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Bo Gan <bo.gan@broadcom.com>,
+	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
+	kexec@lists.infradead.org,
+	linux-doc@vger.kernel.org,
+	Zack Rusin <zack.rusin@broadcom.com>
+Subject: [PATCH v1 3/4] x86/vmware: Report guest crashes after kmsg dumpers
+Date: Tue,  8 Sep 2026 14:07:15 -0400
+Message-ID: <8243a70e3bc282e3fbc1b507f40b889cb7e74305.1788414671.git.zack.rusin@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1788414671.git.zack.rusin@broadcom.com>
+References: <cover.1788414671.git.zack.rusin@broadcom.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907063918.3432401-4-surenb@google.com>
+Content-Transfer-Encoding: 8bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 26/09/06 11:39PM, Suren Baghdasaryan wrote:
-> smap_gather_stats() interprets its start parameter to mean vma->vm_start
-> when it's set to 0. Eliminate this special interpretation and pass
-> vma->vm_start explicitly when needed.
-> 
-> Since smap_gather_stats() operates within a single VMA, we can replace
-> walk_page_vma()/walk_page_range() calls with walk_page_range_vma()
-> which is simpler and also can be called while holding per-VMA lock.
-> 
-> No functional change intended.
-> 
-> Suggested by: Lorenzo Stoakes <ljs@kernel.org>
-> Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+VMware accepts a structured guest-crash event, but a host configured with
+backdoor.coredumpOnCrash may terminate the VM before the hypercall
+returns. Sending the event from a panic notifier could prevent later kmsg
+dumpers and a loaded crash kernel from running.
 
-Reviewed-by: Liam R. Howlett (Oracle) <liam@infradead.org>
+Register a second panic-only kmsg dumper with late_initcall_sync(). Kmsg
+dumpers run in registration order, placing the report after the early
+VMware logger and built-in dumpers registered by then. This leaves no
+report before the late initcall, but avoids losing dump output to a
+terminating host.
 
-> ---
->  fs/proc/task_mmu.c | 40 ++++++++++++++++++++++------------------
->  1 file changed, 22 insertions(+), 18 deletions(-)
-> 
-> diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
-> index 9908ba32f180..3351decd1172 100644
-> --- a/fs/proc/task_mmu.c
-> +++ b/fs/proc/task_mmu.c
-> @@ -1246,20 +1246,27 @@ get_smaps_shmem_walk_ops(struct proc_maps_private *priv)
->  	return &smaps_shmem_walk_vma_lock_ops;
->  }
->  
-> -/*
-> - * Gather mem stats from @vma with the indicated beginning
-> - * address @start, and keep them in @mss.
-> +/**
-> + * smap_gather_stats() - Gather mem stats from @vma.
-> + * @priv: proc maps private state.
-> + * @vma: The VMA to gather stats for.
-> + * @mss: The accumulated stats.
-> + * @start: The address from which to start.
->   *
-> - * Use vm_start of @vma as the beginning address if @start is 0.
-> + * This gathers stats for the whole of the VMA unless the lock was dropped
-> + * and VMA grew or got merged and we found it again, in which case we only
-> + * gather stats for the remainder of the VMA range.
->   */
->  static void smap_gather_stats(struct proc_maps_private *priv,
->  			      struct vm_area_struct *vma,
-> -			      struct mem_size_stats *mss, unsigned long start)
-> +			      struct mem_size_stats *mss,
-> +			      unsigned long start)
->  {
->  	const struct mm_walk_ops *ops = get_smaps_walk_ops(priv);
-> +	const bool is_partial = start > vma->vm_start;
->  
->  	/* Invalid start */
-> -	if (start >= vma->vm_end)
-> +	if (start < vma->vm_start || start >= vma->vm_end)
->  		return;
->  
->  	if (vma == get_gate_vma(priv->lock_ctx.mm))
-> @@ -1279,20 +1286,17 @@ static void smap_gather_stats(struct proc_maps_private *priv,
->  		 * Unless we know that the shmem object (or the part mapped by
->  		 * our VMA) has no swapped out pages at all.
->  		 */
-> -		unsigned long shmem_swapped = shmem_swap_usage(vma);
-> +		const unsigned long shmem_swapped = shmem_swap_usage(vma);
-> +		const bool shared_or_ro = vma_test(vma, VMA_SHARED_BIT) ||
-> +					  !vma_test(vma, VMA_WRITE_BIT);
->  
-> -		if (!start && (!shmem_swapped || (vma->vm_flags & VM_SHARED) ||
-> -					!(vma->vm_flags & VM_WRITE))) {
-> +		if (!is_partial && (!shmem_swapped || shared_or_ro))
->  			mss->swap += shmem_swapped;
-> -		} else {
-> +		else
->  			ops = get_smaps_shmem_walk_ops(priv);
-> -		}
->  	}
->  
-> -	if (!start)
-> -		walk_page_vma(vma, ops, mss);
-> -	else
-> -		walk_page_range(vma->vm_mm, start, vma->vm_end, ops, mss);
-> +	walk_page_range_vma(vma, start, vma->vm_end, ops, mss);
->  
->  	reacquire_rcu(priv);
->  }
-> @@ -1347,7 +1351,7 @@ static int show_smap(struct seq_file *m, void *v)
->  	struct vm_area_struct *vma = v;
->  	struct mem_size_stats mss = {};
->  
-> -	smap_gather_stats(priv, vma, &mss, 0);
-> +	smap_gather_stats(priv, vma, &mss, vma->vm_start);
->  
->  	show_map_vma(m, vma);
->  
-> @@ -1400,7 +1404,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
->  
->  	vma_start = vma->vm_start;
->  	do {
-> -		smap_gather_stats(priv, vma, &mss, 0);
-> +		smap_gather_stats(priv, vma, &mss, vma->vm_start);
->  		last_vma_end = vma->vm_end;
->  
->  		/*
-> @@ -1459,7 +1463,7 @@ static int show_smaps_rollup(struct seq_file *m, void *v)
->  
->  			/* Case 1 and 2 above */
->  			if (vma->vm_start >= last_vma_end) {
-> -				smap_gather_stats(priv, vma, &mss, 0);
-> +				smap_gather_stats(priv, vma, &mss, vma->vm_start);
->  				last_vma_end = vma->vm_end;
->  				continue;
->  			}
-> -- 
-> 2.55.0.979.g7e5102b832-goog
-> 
+Skip the event when a crash kernel is loaded. The earlier logger can still
+write panic text to vmware.log before __crash_kexec(). If kdump later
+fails, no structured event is sent; issuing it first could prevent kdump
+from running at all.
+
+Issue the event at most once. With CONFIG_PRINTK=n, install a late
+INT_MIN panic notifier. An unexpected dumper registration failure with
+printk enabled leaves reporting disabled because a notifier fallback
+would overtake working dumpers.
+
+Link: https://lore.kernel.org/r/20260309235250.2611115-4-alexey.makhalov@broadcom.com
+Co-developed-by: Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>
+Signed-off-by: Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>
+Co-developed-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
+Signed-off-by: Alexey Makhalov <alexey.makhalov@broadcom.com>
+Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
+---
+ arch/x86/include/asm/vmware.h |  1 +
+ arch/x86/kernel/cpu/vmware.c  | 63 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 64 insertions(+)
+
+diff --git a/arch/x86/include/asm/vmware.h b/arch/x86/include/asm/vmware.h
+index 598d4cd448ec..ea2ce5272a00 100644
+--- a/arch/x86/include/asm/vmware.h
++++ b/arch/x86/include/asm/vmware.h
+@@ -61,6 +61,7 @@
+ #define VMWARE_CMD_GETHZ		45
+ #define VMWARE_CMD_GETVCPU_INFO		68
+ #define VMWARE_CMD_STEALCLOCK		91
++#define VMWARE_CMD_REPORTGUESTCRASH	102
+ /*
+  * Hypercall command mask:
+  *   bits [6:0] command, range [0, 127]
+diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
+index 3848811550e9..c21fc835537f 100644
+--- a/arch/x86/kernel/cpu/vmware.c
++++ b/arch/x86/kernel/cpu/vmware.c
+@@ -22,10 +22,14 @@
+  */
+ 
+ #include <linux/dmi.h>
++#include <linux/atomic.h>
++#include <linux/crash_core.h>
+ #include <linux/init.h>
+ #include <linux/export.h>
+ #include <linux/kmsg_dump.h>
++#include <linux/limits.h>
+ #include <linux/mm.h>
++#include <linux/panic_notifier.h>
+ #include <linux/clocksource.h>
+ #include <linux/cpu.h>
+ #include <linux/efi.h>
+@@ -323,6 +327,65 @@ static int __init vmware_panic_log_init(void)
+ }
+ early_initcall(vmware_panic_log_init);
+ 
++static atomic_t vmware_crash_reported = ATOMIC_INIT(0);
++
++static void vmware_report_guest_crash(void)
++{
++	if (kexec_crash_loaded())
++		return;
++	if (atomic_xchg(&vmware_crash_reported, 1))
++		return;
++
++	vmware_hypercall1(VMWARE_CMD_REPORTGUESTCRASH, 0);
++}
++
++static void vmware_crash_report_dump(struct kmsg_dumper *dumper,
++				     struct kmsg_dump_detail *detail)
++{
++	vmware_report_guest_crash();
++}
++
++static struct kmsg_dumper vmware_crash_report_dumper = {
++	.dump = vmware_crash_report_dump,
++	.max_reason = KMSG_DUMP_PANIC,
++};
++
++static int vmware_crash_report_notify(struct notifier_block *nb,
++				      unsigned long action, void *data)
++{
++	vmware_report_guest_crash();
++	return NOTIFY_DONE;
++}
++
++static struct notifier_block vmware_crash_report_nb = {
++	.notifier_call = vmware_crash_report_notify,
++	.priority = INT_MIN,
++};
++
++static int __init vmware_crash_report_init(void)
++{
++	int ret;
++
++	if (!hypervisor_is_type(X86_HYPER_VMWARE))
++		return 0;
++
++	ret = kmsg_dump_register(&vmware_crash_report_dumper);
++	if (!ret)
++		return 0;
++	if (IS_ENABLED(CONFIG_PRINTK)) {
++		pr_err("failed to register crash report dumper: %d\n", ret);
++		return 0;
++	}
++
++	ret = atomic_notifier_chain_register(&panic_notifier_list,
++					     &vmware_crash_report_nb);
++	if (ret)
++		pr_err("failed to register crash report notifier: %d\n", ret);
++
++	return 0;
++}
++late_initcall_sync(vmware_crash_report_init);
++
+ #ifdef CONFIG_PARAVIRT
+ static struct cyc2ns_data vmware_cyc2ns __ro_after_init;
+ static bool vmw_sched_clock __initdata = true;
+-- 
+2.53.0
+
