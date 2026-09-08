@@ -1,221 +1,70 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EA254CF7D;
-	Tue,  8 Sep 2026 13:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872669; cv=fail; b=VBTMx1fvZ8iKIbhIYuoPSfYwfuZ7g/Dr6Abmna0vrNkfnEIEROUk0lbBJCjbewQo6RIa0bgCear90Vob+ZQEryy0j5N2FIrtzbMHIT4fzD7Wq9dF9hOwlJOcPGDrYZMR8ubUltGHRMOvp1eEBZhGdLi0xuWmqZirXeDuDS2//b4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872669; c=relaxed/simple;
-	bh=Sps9f0FuUjFlDy3DFN05M3d94Dlzi7NE1RV3STEZ8Mo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=IFFxkt06Qeq7aHVxOJd1zZfHPv/u8p3mtW2npqxnw1N57Oajoq31IZTjYE0EK+5hys9BNL+8cfxiivrYoVg9jzlBH0foHdyY/kbDEv2vgxvzlgkzC0Ru2jeAP4YKThC2HxfjqF2+4gH9Q+l/fsM70ft8BhfftP1zRpcdiwyHUXQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HsTeWkG3; arc=fail smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380DA513568;
+	Tue,  8 Sep 2026 13:04:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788872688; cv=none; b=PGALPIuf78YiQZsx/0zFxjc1je/uToleaZbRUnRDFsBMaj+xrpySUNKcfjWohkQH5tw4xIU9v46++GCwfRI5w4NnTAVMg2Mng9Qc6CwgYWwaIxc7KOaCTR7Sl5Lf7+0+IlcRsoCDoMO6CJ2qzEUVJlhpfEGwS9HghUSTbLBQ1+o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788872688; c=relaxed/simple;
+	bh=TWsqc2hmMoTS+LukWCXIXcfxrsBcDp2qVzqzJMX72FQ=;
+	h=Message-ID:Date:From:To:Subject:In-Reply-To:References:Cc; b=nQR3fs+OylKJ44NvICTrCX4d9Pofsj5g1lu6kVWcPUgNmmBTvZTvmRsNFP5cO55siF8J6UVfIcGHC6sCLO4xg8aafQOTG1UEQNNr1sBfrvhWEIk/suqrmRNSjuPII+zr468obIXj7SFKgh+qJEUh0sc2IxNV3xq43IyRT6kVZ4I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GME5OEfm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HsTeWkG3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788872666; x=1820408666;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=Sps9f0FuUjFlDy3DFN05M3d94Dlzi7NE1RV3STEZ8Mo=;
-  b=HsTeWkG3yZfEapZGrfoZguivAhZcmiOLuMJHXXTeO2lk8AY37DZdAL5x
-   ugOlEl6JuQSetSxy6JLPsDOK4rlDX/HAqwVvpmHOlTvJ5XGo49R6JDPuW
-   ZQ2CKWIcE566ZNc2zE7P0IeO2qjhg47tbFpWIZKcE8YV+WRIV/NvZmS/6
-   sPe+g7KYdBoPQfOZcXxTon2CmHJzX5s7US5kbKcO8ZJ0pJu0ZwMZL7HcZ
-   5v/y4iKll8WpH5vSMwVlfbC1UksC+JN35jithfzlyZqcBfiWjfkBAbkC4
-   J2xLB7vWD0RjIWCkSiXK7lzcLJ4SrwfurCS/YPeY89XJFpSxCmd+x9JWY
-   A==;
-X-CSE-ConnectionGUID: tr/AZwacSLKeOe3PTXZvag==
-X-CSE-MsgGUID: 9o2t8XbLTJGsGqEU0Wrfvw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99865983"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="99865983"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:04:23 -0700
-X-CSE-ConnectionGUID: rkDbqRpqRI2X8OgdVt2Rag==
-X-CSE-MsgGUID: P9a2S7W9Qz658hbiVbNIyg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="300877968"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:04:22 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:04:21 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 06:04:21 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.7) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:04:21 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f228g01VwRqjtNqwIwgWZqTMd+oQ6oyITQRFPD0r1fknlTPhEp553qe/ZNLnkjRSECHhtTOynLYhYEwb20VrfcsWVjGZgkpkLoYgHt8Ygboffdyj1yE+gqoXdZW22FwB+bcmAHpbr/F1AAAWW55IaZXTi91qDjjS0uZPDnBm1CbpBZunR7Z76xpj+YAcM47NVdYRT+LnP/l6iSHrtgpdDjGVljjzP84TBKiswqsur5ywNE067tm4CyTGRX1N4NfefnNdESRbv8YM5Q+qZIsFTd/opTWNMlYtUPQaI+zLIB85QWj8fCCz3aj30s3L6eIHD8tr/PR7gqbfvVoW1bv8Uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hc6LsVDSw3ItYVXLZ//GSmHA54g6L+/epa9TwWrPhUE=;
- b=SdALNzmWjMfwHhY5SHYfxvVhXdaXyEZWvZdjNPTJEtbzEmisY64gf8qsrvkYq/3/PUDOD82xKLr6je/mABO0RHapbOuItjY1KotOS+kMNsYktKQLlmd+fTWvd5cXQEYqVovgWYSIX5iyeXOhCNjXgu72u8YpSeGbqp4SXuJED4qQxOnWH5ZlkrRDMfkPbkMaNcxdNCPwD9D628DtpYgCqBeu/r9glnJnyxichO+mJ73ArcrwJWd6Z29wJy9W80AthMI52w4AXBIKH8ES07NQ9wzlzxahJ/06mkKEFBOKPhQ+dnEnmQ8+7TskgTvvp/nyGZJSofd9U93e6T6nLOYg6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by PH0PR11MB7658.namprd11.prod.outlook.com (2603:10b6:510:28d::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 13:04:18 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 13:04:18 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Yury Norov <yury.norov@gmail.com>, Andrew Lunn <andrew@lunn.ch>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Raju
- Rangoju" <Raju.Rangoju@amd.com>, Prashanth Kumar K R
-	<PrashanthKumar.K.R@amd.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Jian Shen <shenjian15@huawei.com>, Jijie Shao
-	<shaojijie@huawei.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
-	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
-	<intel-wired-lan@lists.osuosl.org>, "linux-usb@vger.kernel.org"
-	<linux-usb@vger.kernel.org>
-CC: Yury Norov <ynorov@nvidia.com>, Rasmus Villemoes
-	<linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>
-Subject: RE: [PATCH 2/9] linkmode: make linkmode_and() return boolean
-Thread-Topic: [PATCH 2/9] linkmode: make linkmode_and() return boolean
-Thread-Index: AQHdPxOKeTD4TQUTT0itXugHvo0DSLbEptmA
-Date: Tue, 8 Sep 2026 13:04:18 +0000
-Message-ID: <IA3PR11MB89865B9A21B9F74F3E179F15E5B12@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260907215439.409858-1-ynorov@nvidia.com>
- <20260907215439.409858-3-ynorov@nvidia.com>
-In-Reply-To: <20260907215439.409858-3-ynorov@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|PH0PR11MB7658:EE_
-x-ms-office365-filtering-correlation-id: 49d53f91-3d10-494d-654e-08df0da9b15c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|921020|22082099003|18002099003|38070700021|56012099006|11063799006|4143699003|10067099003;
-x-microsoft-antispam-message-info: FvGtCyMD+tcBCwkezCtwfNJSJ6QZfrH86On2Jidq4e80dWPdpmsieNHDeR2ezwVCMpbj6NveIW5f0eT4sXsy+bfVFHij8seAHqz1CiwBoMs8zzfsVyfIkZM6XIdKRBrLZmOHZn3P7Zcm+WFWccFTyOCGR/Ns5ZxR3IIs84sblqPj9I/iZclrWKAg0VOs67Z7D4kmKaRMONGTkvZ5IO6gEn7BqNGliwdy3JQkG38PvUL6hizgoREpj7DQBeRod4DT5YI18Zk6Yu3zx0IANGjljrMGpTi9i+EAPM+g9MXxhwyoRfvin+SiROnHriW6HbwTMSYhXjceFp1R72yoXs7yBQmOUUGNwcMzV9zHLCav9drRDR/UBKFNOb2fQB0sZi49s15+vCehuQ8cT9v0N8WOkAkDmutxFvRpL8cgQXkg3hvejfS5XZzE0rmYAJ8T+k54oOfh2YiqkEJmpbsW7v2DQYccAjEs1fqLFS1TFuNNqUGCaLZzN/svpajFM3OpkmDsUHnIQPm93w+n5Bw2ih1EU/eyIohODiSiSp/AyHNHyB5ZI0kOvt42+hhDZFNQ8S3wBDvdzLb0MxfpruaGqIlhXYQQzX40hOmDwDClvfLm8rMNG6zgqK8I/SPlIX5SkITHahwpmpCcKGTfGlnxLK6HiCeJubR1GL3zLSsVg+J6eAgF/VP78Pj/XKYP0hUx+L7gxq5Hx1S/fjrwgo32Zsh0W3EvFNycqGfKS13OVWPyev2hdN1/F7Ust1kxpMcAn3wH
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(921020)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Z3ODruO0ENBKS/uwlYXVWVAxyEQZTKj9zSZnExxywmvfuuIUlh1RCObB1VKY?=
- =?us-ascii?Q?biE2xcrFhxoZsSkwiPyWnCXJV++taegt9aReQHWSClGS8+968phm0+vNqukl?=
- =?us-ascii?Q?KDnzOpd/u75yne+J/SLQRS6G2xW1lpNgudXj1ndMcIcHy7+NUE5ty6Q/t8Zn?=
- =?us-ascii?Q?+9ZlOB36tmbaV7Od/aHjmVEbzDWpMBAO535FYglw/K5K17IvB/WEWJCyiihZ?=
- =?us-ascii?Q?6TDfgP0rvKGeuK+nvfMJuhcDcr7dxPcjsQJeONODY6Rbwg4nJdCGiCsUGKdK?=
- =?us-ascii?Q?4H0ofMy0tlKhu0lwvj9yWKIK0clclVaG7vumQ9pOf5qcqw7L9QvEWATcqdY9?=
- =?us-ascii?Q?DR9WeifDCL4B2tRMFewd53e4OzxzXxLILfnDupWUxXuxHVEw7HeeDDLAS4LG?=
- =?us-ascii?Q?HJmRKw6Qw3mrtTt6idzCu0mSsLTpOeE23JJ1ikST2cru3RUXwHtgvzJNL7HW?=
- =?us-ascii?Q?KlJnB6Kcw+nZaomYyHhE4E45ROj8CFB40BoHOhUvrkjx1lmaMHDfWBx/dsY0?=
- =?us-ascii?Q?MFLOcloymCEd3sCwXyraTMikOWjqKKkMRb/SFnZWGd1oz5lQt3WzSe+6Hzad?=
- =?us-ascii?Q?Rht+qQ1JXgqsRY1czptWt6URlE/A1YYPPjVAB+pc8r07Wjfc1W+VmBQ18Qex?=
- =?us-ascii?Q?skh7xC1ZVFivOwb89d7fEaSKI8U5sb52/gQjUxKDZQjkQRxFM5I2rsN7OHe8?=
- =?us-ascii?Q?anrUetRqhFtzmdfgmH8meo4lz+cD7P+3v5gY71nTTsPnrvHcBpAKwCJtxzVh?=
- =?us-ascii?Q?Ok2+SLRUwF9RE+pCt2GBPTYeB65tbm1ihAdMwOKW4UOZMDBhXi0nBDNcqYuC?=
- =?us-ascii?Q?qfUwiJTWv1yW/n0gGoou8XYw85bpQa/cEDzL9E+aUPHuXQPkc65XjGGFdBXp?=
- =?us-ascii?Q?psze+oDQMo7bTd2Ep3Em3MXPGspcH8bg/qggnZqnftTOjNnkBM7ugA3wiKkA?=
- =?us-ascii?Q?xi97/wRtTVKJM2/eMUxv2vELmdYw0/BooW+ZQ8UADizlhHXnz4WLzPGFehty?=
- =?us-ascii?Q?/0T6U6A6QgFk5LSHCXyfVR4JfbWNgCLlfFRTisQYStmtEDxtPXlpJ3EtQYsD?=
- =?us-ascii?Q?uT/pVBRkhABsR/S6AP/272OoBhplvEwGBAUTzXV65JE53U0RfeNnxuXt6/8C?=
- =?us-ascii?Q?+ru6Sp4ye2t0YofZIfjWoXxVwbOa7WCmfSt+kdcg6oP829DzRxtbUNrFwIzK?=
- =?us-ascii?Q?BsZqeslZedGu0ilcVbhWUTKfGv9J7Gi3QHakbFmhp0q/QXQVDaHKRJN5Aumi?=
- =?us-ascii?Q?l65YnfBwi22fm9rE3/kKp7zu772fRHVaqHEEbXhnqndjt5LFrtJzf+bF1Zf+?=
- =?us-ascii?Q?svpiUB2xtPlnDfAdvkxFxjwY86HijXXV+zlP9S15fUZHddtiAMwvBQn9jH16?=
- =?us-ascii?Q?vwcJFyqQbHXwyC/hS7Y22ZF1yUkK9jJbfzxWTiIEvBRODrnDlqFpNffWIwhx?=
- =?us-ascii?Q?c0xShqaAnt/AhKhAS/NC02KqaeH+BewocICut75M2wrbsmNZqBLCfpyqA4Kn?=
- =?us-ascii?Q?qvcTW5kmkqUSxCr2Jg5Ouw0blXCxbKX1jNKGLtD7Nj7PwmIf7Km3ka0AGTkj?=
- =?us-ascii?Q?gvSGbfX8DDnI9lyrn+eZZQHnL/TayOQ1Xwl7DbfjsQ5kX7RlRc3B89tMmCwX?=
- =?us-ascii?Q?Bx6CXIyMsrdeD49CrvTGkEe+d1G2Z5nYKDvxUZK9PBzO0Fl9Oz1ckQxOBUoQ?=
- =?us-ascii?Q?DvXUKMGsxB3C7SD/GP67AcQkaz3Xpx8QIefwyOjV6EVkXKjPlDE6VKb+BkF7?=
- =?us-ascii?Q?eEwIDNVkGl2lgWH9JCroJgllT3KDjHM=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GME5OEfm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4F21F00A3A;
+	Tue,  8 Sep 2026 13:04:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788872686;
+	bh=0c6VVgpgr8QRvVK0L3AA+Ya2VGnRG3C/SeaIoCEOEIw=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc;
+	b=GME5OEfmBM3W0vV/lVcz+5iVnZEC5ckUSFlvI8uKcFRfnIi/d7yvCw33IdTcWPrOG
+	 +ODsMzky9dGz8w1QvGQ90Rjxbc6478UAnrg7p0yiOWzjOSF7WU7wxuE4NUxRanh3EY
+	 J5K091ChOVt841MVIvPiboxtyhgRplOqOOGj15aUxNb1vbrf5IZl/UbnwkrW5qD87Q
+	 Ov23nnRh40+Y3J/7ubOvVyg/lyu1P7SFBrsi4Q6EDRPLYoKu2jm4Xv30Yk+DFrdsJn
+	 XkOmt3S3WSQ7t2wPuUTZli7yc041+BiDeff9S74+zS6fP2gdhUrypH5nX4llhwjzd3
+	 3Dk7FHiMKatdw==
+Message-ID: <0ec40db90bd0d2ece46b185deb3c8eca@kernel.org>
+Date: Tue, 08 Sep 2026 13:04:43 +0000
+From: "Maxime Ripard" <mripard@kernel.org>
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH v11 45/74] drm/vc4: hdmi: Propagate -EDEADLK to the top
+ level
+In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
+References: <20260901-dw-hdmi-qp-scramb-v11-45-bc12954a0688@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, kernel@collabora.com, linux-arm-kernel@lists.infradead.org, linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-sunxi@lists.linux.dev, "Algea
+ Cao" <algea.cao@rock-chips.com>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Andy
+ Yan" <andy.yan@rock-chips.com>, "Chen-Yu Tsai" <wens@kernel.org>, "Daniel
+ Stone" <daniels@collabora.com>, "Dave Stevenson" <dave.stevenson@raspberrypi.com>, "David
+ Airlie" <airlied@gmail.com>, "Dmitry Baryshkov" <lumag@kernel.org>,
+ =?utf-8?b?SGVpa28gU3TDvGJuZXI=?= <heiko@sntech.de>, "Helge Deller" <deller@gmx.de>, "Jernej
+ Skrabec" <jernej.skrabec@gmail.com>, "Jonas Karlman" <jonas@kwiboo.se>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Liu Ying" <victor.liu@nxp.com>, "Luca
+ Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime
+ Ripard" <mripard@kernel.org>, =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Phong LE" <ple@baylibre.com>, "Raphael
+ Gallais-Pou" <rgallaispou@gmail.com>, "Raspberry Pi Kernel Maintenance" <kernel-list@raspberrypi.com>, "Robert
+ Foss" <rfoss@kernel.org>, "Samuel Holland" <samuel@sholland.org>, "Sandy
+ Huang" <hjc@rock-chips.com>, "Simona Vetter" <simona@ffwll.ch>, "Thomas
+ Zimmermann" <tzimmermann@suse.de>
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: VtwKy5qXAbS6/KcRU6xdr4o/vKFhTKJCVBvbK4w4BKx98vOUjPsbEQR4sNH7eOVr8FGKuz9OYQuz1fb92QKEC4jR6oQbFRrbzpGhXukB707vtRocg0QnxEegzEmL7ZBL5SPgdGnrqJA0BGCzQPCL+QiUz/zbwrILj8Cf4NOHyImriJN2hbL+TrURZ7XS4sYut2kI91BokJOXFNfgu7pTRg9maYdPQqTiAOZFJSvmEBdkV/ZkVdpbx3kR/6CboAIgHjK0Op4j8HaXtnxFHncxc5JdTRzO3yCBLbAGoxRwnctZqn/TqEqEaG8B2Z7WqlecfR/nIV1WNav4PXu0EOTFlw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49d53f91-3d10-494d-654e-08df0da9b15c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 13:04:18.5573
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pMb7syCYxtNIE3emiGwRv9c4F7eKt7cb/NhC0CEWhgq72QWjOZTA+IRadgmA5VjdEdQUE3Ux6u29iFvUADTC86ATfZwogGqFxQRsQ0bdIxY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7658
-X-OriginatorOrg: intel.com
 
+On Tue, 1 Sep 2026 21:51:09 +0300, Cristian Ciocaltea wrote:
+> drm_connector_helper_funcs.detect_ctx() is expected to propagate
+> -EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
+> perform the required backoff and retry.
+> 
+> vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
+> 
+> [ ... ]
 
+Acked-by: Maxime Ripard <mripard@kernel.org>
 
-> -----Original Message-----
-> From: Yury Norov <yury.norov@gmail.com>
-> Sent: Monday, September 7, 2026 11:55 PM
-> To: Andrew Lunn <andrew@lunn.ch>; Heiner Kallweit
-> <hkallweit1@gmail.com>; Russell King <linux@armlinux.org.uk>; Raju
-> Rangoju <Raju.Rangoju@amd.com>; Prashanth Kumar K R
-> <PrashanthKumar.K.R@amd.com>; Nguyen, Anthony L
-> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
-> <przemyslaw.kitszel@intel.com>; Jian Shen <shenjian15@huawei.com>;
-> Jijie Shao <shaojijie@huawei.com>; David S. Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
-> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; linux-
-> kernel@vger.kernel.org; netdev@vger.kernel.org; intel-wired-
-> lan@lists.osuosl.org; linux-usb@vger.kernel.org
-> Cc: Yury Norov <ynorov@nvidia.com>; Yury Norov <yury.norov@gmail.com>;
-> Rasmus Villemoes <linux@rasmusvillemoes.dk>; Andrew Morton
-> <akpm@linux-foundation.org>
-> Subject: [PATCH 2/9] linkmode: make linkmode_and() return boolean
->=20
-> bitmap_and() returns true if the resulting bitmap is not empty.
-> Propagate that return value through linkmode_and() so callers can use
-> it where applicable.
->=20
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
->  include/linux/linkmode.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/include/linux/linkmode.h b/include/linux/linkmode.h index
-> 3b9de09871f6..c08632c10c3d 100644
-> --- a/include/linux/linkmode.h
-> +++ b/include/linux/linkmode.h
-> @@ -20,10 +20,10 @@ static inline void linkmode_copy(unsigned long
-> *dst, const unsigned long *src)
->  	bitmap_copy(dst, src, __ETHTOOL_LINK_MODE_MASK_NBITS);  }
->=20
-> -static inline void linkmode_and(unsigned long *dst, const unsigned
-> long *a,
-> +static inline bool linkmode_and(unsigned long *dst, const unsigned
-> long
-> +*a,
->  				const unsigned long *b)
->  {
-> -	bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
-> +	return bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
->  }
->=20
->  static inline void linkmode_or(unsigned long *dst, const unsigned
-> long *a,
-> --
-> 2.53.0
-
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Thanks!
+Maxime
