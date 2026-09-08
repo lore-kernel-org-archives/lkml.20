@@ -1,285 +1,1232 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667365328B4;
-	Tue,  8 Sep 2026 13:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873402; cv=fail; b=SNgf+oLUlwmLgwLcDftoHwUoMfx3dA0ktxGRELC2Nx3tG5IoGZ4o+P+pEYYEiK6OBLJOrsF8vhDklI0ZHGqKY37XgxGQR5cA7IhCux2U8vuh8rEOuNRNrVAk8Np9u+O3Bi6nULfjGOnc+8653yN8bSuIFKSK/56qoRLfv33qXmQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB1B53ED13;
+	Tue,  8 Sep 2026 13:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788873402; cv=none; b=KmtM3nAGQdmjHjkb9T6LkYV0LiLtRDWIjlhiop5SjBCVZCgfxpzLYqfRCLvkYDexmnPgGbEmhtDmCiQBiEhOkVAvCDWBwyYdsF6IhW6YdU7FJN75z3PINjtIBFalGUZ/Z5McAGq5bor19t4tMDDMplbqgZFFa+947Kgp6ZBZxBo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788873402; c=relaxed/simple;
-	bh=j05DfXJLDpWMypbYHTX9ycHhP68GAHURVYbcEAfRwZw=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=rdHzjPSkxIVIoiW8ZXSeY3WTArfUzDDXe4GHFH56pqQPayfAM82nno3nG7et+QtHA+DfYbo78U25NMebzGSN7nhV9J/8iBkLKfpEmJV91cNZQfdAZ0dmlhWGiUyRz6fmhDBJNsxY3ninV6jxc3FIypeO/Uub1I+dVzLFPX6W1zc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RJMKk+xG; arc=fail smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RJMKk+xG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788873400; x=1820409400;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=j05DfXJLDpWMypbYHTX9ycHhP68GAHURVYbcEAfRwZw=;
-  b=RJMKk+xGLCFbJflIkySpL8WtUWap3dm6GIJztunCYp+uYAmi3xRClAJp
-   NeEWNt/6ZXUAThviWYgycK2aLH8qthKfDvcBO8I/NDf8hVCW0+K38K/S/
-   2cOGS6ZTVxcQPCkJFDQBV/Y7zGeRZiPy2xR6MKMbDVcm3W1I2mFViOuWZ
-   5qpcZQ7OqeAp+siMRfWoBFDLOdQxN4h8suUKNw5Ve2CRU2oeMCjuxHwyK
-   w+6LGNZmRcYVG3Df1cqA8tGb0rS8Bwiffw8kuKg2aNmdB8X/7M3qF98H3
-   3HnhaAupOLIPHS4tcmRdWyJPQ+/f8L0/dIaIpIpH9nr1NkYvT1XN1bdDZ
-   A==;
-X-CSE-ConnectionGUID: pLQ3lKP0T9miTH0uTjbCKA==
-X-CSE-MsgGUID: WZhp3gQtScSFMR4tVQKRvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93094897"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="93094897"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:16:33 -0700
-X-CSE-ConnectionGUID: 89BlxcEZTW+TlYBLbBEQiQ==
-X-CSE-MsgGUID: jvO3v8YjSnOGpjQZUnEfkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="270510895"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:16:33 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:16:32 -0700
-Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 06:16:32 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.31) by
- edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:16:32 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xTs3SyQqnrfRMoEdL4NFvVtsK01u1xMAoP1VY/orfxhie69Zfn18fhsmP516Cx05Lp7idsTmJYxYHAinzN2kqLasmbiSs65x6Q1wzy0kRnqKNSrGieKtK9CfO56ECaQCK0XEJONJ+O32Z22CBsX0cqO2UooUh9QdNXA+rR7FUS3aGrKmnO1/HuhtSilYO431cps0uAMRk4FOZIt7rE6YdK7XaJ1jt9u4G1LQf/nmUkEsFY1vdOh5l4iRvewiK9/8lCE7nA6vDUL2Q7q0GjbLn2y7Vpgui6bKDD0wuy6oXbzpf2axvGPfrysjWb7y056Mr03XxMKkGxibTJ1cBA10uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WE1gut0p3Pfai+NkRlQEij9k55p/rDEOqsoyglLWb04=;
- b=jvDANpIIt5qSib30Zp15EhMwFY7SVmXmNZx//tjrfzwAllsBsF16S/z4DW6wp8vkGPkKK570ssbzPDThzOs3k6X8xFAY0bvx96hkMU87E6v4uVUlTM2RI1qwGn7OLMrChZzKuuf/GbnzmTLuXTBfv5HxPDWxaFB1S2T4VUiHrcVp2YCGfJhcpgMsyHwZRd8kv+V8wATFDJFEO7BQGRvZ2d8yLca8hKpS0ieDzWiH8VCqC4W0VSSPlmEpAYj2fb9IzZbX+6coCoaDSgzUWAidfGSD3jvq3s5HP1F/IZ4zL8AbMI7xWkPTR26jnS8xt4t83veS2IR2fHbKbANEIsxRSw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by IA4PR11MB9297.namprd11.prod.outlook.com (2603:10b6:208:56f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 13:16:29 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 13:16:29 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: "pavankumaryalagada@gmail.com" <pavankumaryalagada@gmail.com>, "Nguyen,
- Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>
-CC: "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "skhan@linuxfoundation.org"
-	<skhan@linuxfoundation.org>,
-	"syzbot+e0abb1d45ac291ebebeb@syzkaller.appspotmail.com"
-	<syzbot+e0abb1d45ac291ebebeb@syzkaller.appspotmail.com>, "kohei@enjuk.jp"
-	<kohei@enjuk.jp>
-Subject: RE: [PATCH iwl-next v4] e100: prevent shift-out-of-bounds in EEPROM
- access
-Thread-Topic: [PATCH iwl-next v4] e100: prevent shift-out-of-bounds in EEPROM
- access
-Thread-Index: AQHdMIgKx4BmWwjwjkmRGTY12qpnhbbEx2dQ
-Date: Tue, 8 Sep 2026 13:16:29 +0000
-Message-ID: <IA3PR11MB8986C8A760B37E94352670C8E5B12@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260820094045.41400-1-pavankumaryalagada@gmail.com>
-In-Reply-To: <20260820094045.41400-1-pavankumaryalagada@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|IA4PR11MB9297:EE_
-x-ms-office365-filtering-correlation-id: 7ca79403-3846-4e27-6245-08df0dab6526
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|13003099007|38070700021|10067099003|11063799006|56012099006|18002099003|22082099003;
-x-microsoft-antispam-message-info: rVRXdzyq63Hl7j2zEEo4ER8i882WcbNL2avoml+BoiG54lq7m7NZhG5DW+1QvWiaSy0dVyJBf2/9A6iwQb4NSVT7nQVtsgQsaE3X/isoGlW4cqYE93gSDBPc/H91dDfYKf9Y3eH8N36OrlYB2m91KZEEK2/crY+yQwuHqvntylWEdXVMidTWGDDID6WQGDGFzt3G0oKAoMXOfuvgsSRnMbjVw9OtrHhTbSOLTFrxZMld1k7OtQYDmFAOAt115pkeoAthp9vcmY+nZ4FUIdYfnvT2UQ8aFI7+XU/M79hkmcHDlCgFcJ22aO1ULhPynKVX9PQmuu7t14eUFNgSORWqEUCupQaDom6L8W/EOdkXADwZpBhoO/s20yWXk5ZqGottq4HVvKmEzK2XnczrZ0CJoYZfv8pTy2ajJVU1CfqT3IEu6TzCh9fQzSlSCrLpMJByP09krQ9Q6fwxlDkKojkxXBhQx4hwwJuF2YDyx+V9ewMvFECXwXjf2xI8Q3/ReIQjqkciCLtcYqZcvJnsZB2bWmeVECKT+LySDGGDNEp754ot6WDwAohL3Rs0/oQ6DmnbWRD014OipwwfkD59GQTcWT9FCcXoQDuKdYmroELo5eG6N2YMnR50duc00tYnWzb/6iXEFhNFBO2g7fIg5Zi1o4/3iZ813ULXkQ5bIJdn9oU=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(13003099007)(38070700021)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?uu1/eehXS3QSTkhn97YwwYydnEDpugwQ7aRD32GOATgoEBoJSo2fXvyG/DC5?=
- =?us-ascii?Q?Z533dkKGTysNFy/yA+N/jqw8473l7u7Vu33JPfHuIWf0HtKObHY8bCP0UtZA?=
- =?us-ascii?Q?STJF5XMAkFDTFA+fERTaj5uQHWgI+rDQAfgh4Z0FSAwTJsFMbbztB3UQPC5d?=
- =?us-ascii?Q?OBAiiVYpOJtM1d5O/+NKEG7+6S5v66PposL01acYklLY0HnflVXlw+XvJjwf?=
- =?us-ascii?Q?fmUD0Z9tHli685KMpqH3r6sXU1eWgCtJ5K/wpfERNSLKlv2mXx2vi3y5XrLU?=
- =?us-ascii?Q?qSkKxAjBMJeBG7yO7OL+bqgn9Qyc/EfSRo8yYsMLgHFKk5OXCIjjXiO2672L?=
- =?us-ascii?Q?d92wn7T1Ufsykz8K680zeTFPGweqaPYR09vH5HBaNw9yopIzTdjLuxUd/HNf?=
- =?us-ascii?Q?E2Q29C7S3S7cGaHqxj0wjayNCTYBG4hMd8i8NguFtfy/L5o62JmF5/PIOsWa?=
- =?us-ascii?Q?5uajJtTwYxhCFyjmSpllEehuZ/aVwJqlaKfO9nfr00G52kgZ1m+mD3CxnzC7?=
- =?us-ascii?Q?g7CMy7DhC41c8QBkzGj5Uky9XIo+ySjffi/OUBQANI9VCRUOIyqDaWnlTUTs?=
- =?us-ascii?Q?ZuixIdeSGrtQRAtqp1yAKkzoTOuPemwSu1nlnbKGP92coBqix05sLRYuv+ok?=
- =?us-ascii?Q?G6ibHvp5QLwFeNQtbAPQg+gyL0tAJFFHflGWn6yn1uK51hCizfsXDXF228XP?=
- =?us-ascii?Q?koj8hZe1cnLwvyzOqZZDq1rPy4DT60sS3xUToB4TbJsSC9Bi9dco8zWXcY1K?=
- =?us-ascii?Q?BQTA8bgzLHZpOeT2A3oZTJ8dojecrNLgGAEC/GwyrznC3zOmuvvk4+C/Xo2p?=
- =?us-ascii?Q?RCeDIA74PT/KG7Do9IwA+P6fz6tTozIMyY6+e6InBUVfRd3SLLzWnB7V9Qpu?=
- =?us-ascii?Q?Jnj0Tz2FUGeXXcjCA3Y9hCF2XnTt7YOzc6B9Qrp5bOBrFuGqC4yW/5P0fjFY?=
- =?us-ascii?Q?3xxHH554riA1X1EYIfjB6OphFnQACTTGUMRXRcowfpGVFOM32/Ie/TMHkJNe?=
- =?us-ascii?Q?1UKDlg8SzpVXyGhaG7UDmyL9n9HKrICP9F1MwCcatEUSpM/0C4/9/wfppYaI?=
- =?us-ascii?Q?CTml7lSBGbgzeNaNJ1eXn6Phkyi/12vLYCdmz03/XhzJLvhNd85XUo9vokvA?=
- =?us-ascii?Q?SGEi4px3eGREi5SdXNJtpias59PSovrxVK5ardyObK0hMZe1daNQN2ICVxwC?=
- =?us-ascii?Q?Tt3d2mXTjxsvH4f5+4AE0G8F7JhBAVDtgmfZxy/uk8zytaBpsVCovxcBaFZL?=
- =?us-ascii?Q?zCCbHJ2o166qQ5FM3hIuT6RBRDIPsPttzqhFjYh+AhX48BQYY4dd41LeOAGQ?=
- =?us-ascii?Q?mBgRPHPiE4vIm6qf9A5iSVFsUGUMFTeTpTYFZMj9QGo9sQW9iJhz08I3ktQ2?=
- =?us-ascii?Q?PhXmSdSJdQeGmCgysTHL0yCPinIqrDw7eY8Wz1D/iQc/fPQ87uWiFd8t22uq?=
- =?us-ascii?Q?xXir0RP7svx285s40oxKHbR+bzXrruUSLVy4n+2whtcuymmmpzr60xy07+Na?=
- =?us-ascii?Q?gok9DGjgQdF3xifGgIkrN00+oLXSLcZOQmpDdJ/HPn/uRTJra5N/mqJ4SCHF?=
- =?us-ascii?Q?vJBCjqAUnR9UHa1xeD3AKYB9UwSCRNTrS+hPn0x1ZCDJCc5sTylA735S1KO9?=
- =?us-ascii?Q?ZaR6FpSzUD9qsNJ/i2ew/kgWgfot46stWvJUW2W3/9GQI0qk8Sxv2/TQ8tMH?=
- =?us-ascii?Q?NQSWnOQVv281bbrDYECkQdimmsO39RtG57QfXyluEseayv/J92LAoozCbrX4?=
- =?us-ascii?Q?IBW1FNvzOrDdXcrXwDqaBtBowyMJUQk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	bh=YHY53JRFtnOScVjm7g0rB33FmG1+JnBDX3SSn1zr9+8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=CJ9ijn+xQDP2FQiv7Or8qRfcxFuaSJ3PM5CnJN38P/9CAw071+t0X1K5+tO/p9Z/L6XW0OM6kZetfxcS49KCiJ04Uv0hmsYFbcsSBZHV13MdBP4eKIf3cDS/wLX0p66SqQTkaHuebV9NFyYYdgeYDWzJVvl9Nlw3Q6vOz9PKesk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7e85835cab8711f19a56ed5b684f684d-20260908
+X-CTIC-Tags:
+	HR_CC_CHARSET, HR_CC_CHARSET_NUM, HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME
+	HR_CC_NO_NAME, HR_CHARSET, HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_TXT
+	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
+	HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
+	HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_TRUSTED
+	SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_TRUSTED
+	SN_EXISTED, SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED
+	CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_C_CI
+	GTI_FG_IT, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-CACHE: Type:Local,Time:202609082105+08,HitQuantity:1
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d8118267-8f5c-436b-a985-fb4c17c1b47c,IP:10,
+	URL:0,TC:0,Content:-25,EDM:0,RT:0,SF:-50,FILE:0,BULK:0,RULE:Release_Ham,AC
+	TION:release,TS:-65
+X-CID-INFO: VERSION:1.3.19,REQID:d8118267-8f5c-436b-a985-fb4c17c1b47c,IP:10,UR
+	L:0,TC:0,Content:-25,EDM:0,RT:0,SF:-50,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:-65
+X-CID-META: VersionHash:7db8b62,CLOUDID:fda857cdc681943c2123736841360ae2,BulkI
+	D:260908210518QG24D8FE,BulkQuantity:0,SF:13|17|19|66|78|102|127|307|313|31
+	6|324|332|342|344|347|350|351|660|865|898|1209|10055|15055|20036|25000|260
+	10,TC:nil,Content:0|15|50|99|100|102|156,EDM:-3,IP:-2|1,URL:99|1,File:nil,
+	RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,D
+	KP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_IBB,TF_CID_SPAM_ULS,TF_CID_SPAM_RUA,TF_CID_SPAM_SUA,
+	TF_CID_SPAM_SNR,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7e85835cab8711f19a56ed5b684f684d-20260908
+X-User: liwang@kylinos.cn
+Received: from computer.. [(116.128.244.169)] by mailgw.kylinos.cn
+	(envelope-from <liwang@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 980457190; Tue, 08 Sep 2026 21:16:25 +0800
+From: Li Wang <liwang@kylinos.cn>
+To: Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Mengmeng Zhao <zhaomengmeng@kylinos.cn>,
+	Li Wang <liwang@kylinos.cn>
+Subject: [RFC PATCH] misc: fgds: enable GPU-NVMe direct I/O via POSIX and io_uring
+Date: Tue,  8 Sep 2026 21:15:45 +0800
+Message-Id: <20260908131545.105987-1-liwang@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: WivQphf2ctASkMOvKEVUBP90pyZsO7FLqh7A1MZnMQYusc5Qu5LrlK5Fsvw823uo9RO6FIMM35EEelZijV/29HP0K0v+HBi0ayCy3s5VKOQRZKjs1baUTQuPYjPJQrQ/635XgkCpVoXcdA05DaR7tmVc3svkfdUfTRLhQA6bCV1jcIeoVS/8YjZJjIx2DxvYq7DGac5NBnc2EMNn9LMRaldYhtYJKp7MefAXu5VVzMuRUUNRQLWbsNoA6dO2sPjQ5wWtVjFbXqFnQO9AUFPGc6MBb8jVMaOo0bN37EcEL6zTBp+SjK/hcr+rf1KKAVS8tF7LITfxU0Qu7KFJMNy9yw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca79403-3846-4e27-6245-08df0dab6526
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 13:16:29.7233
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: btLIeaYj99o2Xb0J2enINnavhRIx63hF1fa1s61hvu04XR9DuNQp7ZfXhD9C0JU524FdGxaGdTSQjy/ec/kkO5LrGR2Qbt9sjSCoxEXuqSM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9297
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+From: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
 
+Inspired by the paper published in SC'25 [1], we implemented a character
+device named fgds that provides two ioctl interfaces:
+`REG_BUFFER/UNREG_BUFFER`. It enables applications to perform direct I/O
+between GPU memory and NVMe via POSIX and io_uring APIs. This is
+particularly useful for LLM workloads, such as model loading, KV cache
+offloading, and checkpointing. The fgds device corresponds one-to-one with
+the PCIe GPU on the machine. The usage is straightforward: an application
+simply opens the corresponding fgds device, calls ioctl on the returned fd
+with REG_BUFFER, taking the target GPU memory buffer address (represented
+as a dma-buf fd), and the buffer length as inputs, and then invokes mmap on
+the fgds device fd, using the return value of ioctl as the input. The mmap
+call returns a CPU virtual address (call it cpu_vaddr). Afterward,
+cpu_vaddr can be passed directly to pread/pwrite, or
+io_uring_prep_read/io_uring_prep_write to perform direct I/O between files
+on NVMe and GPU memory. A minimal working example can be found in [2].
+The underlying mechanism is that, with the support of fgds device,
+cpu_vaddr is made to point directly to the GPU memory buffer corresponding
+to the dma-buf fd. This solution is loosely coupled with the GPU vendor's
+driver; the GPU vendor only needs to support exporting the allocated GPU
+memory buffer through the standard Linux kernel dma-buf framework, which
+the vast majority of mainstream GPUs already support. This allows both
+applications and the fgds device to work seamlessly with GPUs from
+different vendors without any modifications. Furthermore, applications no
+longer need to call vendor-specific proprietary APIs (such as NVIDIA's
+cuFile API) or install vendor-specific kernel modules (such as NVIDIA's
+nvidia-fs.ko) for different GPU vendors. We have tested fgds on GPU cards
+from NVIDIA, AMD, and several other vendors, and it works well.
 
-> -----Original Message-----
-> From: pavankumaryalagada@gmail.com <pavankumaryalagada@gmail.com>
-> Sent: Thursday, August 20, 2026 11:41 AM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>
-> Cc: intel-wired-lan@lists.osuosl.org; Andrew Lunn
-> <andrew+netdev@lunn.ch>; David S . Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; netdev@vger.kernel.org; linux-
-> kernel@vger.kernel.org; skhan@linuxfoundation.org;
-> syzbot+e0abb1d45ac291ebebeb@syzkaller.appspotmail.com; kohei@enjuk.jp;
-> Loktionov, Aleksandr <aleksandr.loktionov@intel.com>; Yalagada Pavan
-> Kumar <pavankumaryalagada@gmail.com>
-> Subject: [PATCH iwl-next v4] e100: prevent shift-out-of-bounds in
-> EEPROM access
->=20
-> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
->=20
-> When reading the EEPROM address length, e100_eeprom_read() can return
-> an invalid length. This value is then used as a shift count when
-> calculating eeprom_wc, resulting in a shift-out-of-bounds UBSAN
-> warning.
->=20
-> Stop EEPROM address probing if the detected address length exceeds the
-> initial address length to prevent addr_len from underflowing.
->=20
-> Validate addr_len after reading it from the EEPROM in both
-> e100_eeprom_load() and e100_eeprom_save(), and return -EIO if the
-> value is zero or greater than 8.
->=20
-> Reported-by: syzbot+e0abb1d45ac291ebebeb@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3De0abb1d45ac291ebebeb
-> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> ---
->=20
-> v4:
->  - Squash the v1-v3 changes into a single standalone patch.
->  - Prevent addr_len underflow during EEPROM probing.
->  - Validate addr_len in e100_eeprom_load() and e100_eeprom_save().
->  - Use BIT() and cast the result to u16 for eeprom_wc.
->  - Target iwl-next as requested by Tony Nguyen.
->=20
-> v3: https://lore.kernel.org/all/20260816113754.22900-1-
-> pavankumaryalagada@gmail.com/T/
->=20
-> v2: https://lore.kernel.org/all/20260810083355.21631-1-
-> pavankumaryalagada@gmail.com/T/
->=20
-> v1: https://lore.kernel.org/all/20260807145626.52692-1-
-> pavankumaryalagada@gmail.com/T/
-> ---
->  drivers/net/ethernet/intel/e100.c | 29 ++++++++++++++++++++++++++---
->  1 file changed, 26 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/e100.c
-> b/drivers/net/ethernet/intel/e100.c
-> index 29960762e64a..cd8190386652 100644
-> --- a/drivers/net/ethernet/intel/e100.c
-> +++ b/drivers/net/ethernet/intel/e100.c
-> @@ -744,7 +744,14 @@ static __le16 e100_eeprom_read(struct nic *nic,
-> u16 *addr_len, u16 addr)
->  		 * complete address.  Use this to adjust addr_len. */
->  		ctrl =3D ioread8(&nic->csr->eeprom_ctrl_lo);
->  		if (!(ctrl & eedo) && i > 16) {
-> -			*addr_len -=3D (i - 16);
-> +			u16 len =3D i - 16;
-> +
-> +			if (len > *addr_len) {
-> +				*addr_len =3D 0;
-> +				break;
-> +			}
-> +
-> +			*addr_len -=3D len;
->  			i =3D 17;
->  		}
->=20
-> @@ -765,7 +772,15 @@ static int e100_eeprom_load(struct nic *nic)
->=20
->  	/* Try reading with an 8-bit addr len to discover actual addr
-> len */
->  	e100_eeprom_read(nic, &addr_len, 0);
-> -	nic->eeprom_wc =3D 1 << addr_len;
-> +
-> +	if (!addr_len || addr_len > 8) {
-> +		netif_err(nic, probe, nic->netdev,
-> +			  "Invalid EEPROM address length %u\n",
-> +			  addr_len);
-> +		return -EIO;
-> +	}
-> +
-> +	nic->eeprom_wc =3D (u16)BIT(addr_len);
->=20
->  	for (addr =3D 0; addr < nic->eeprom_wc; addr++) {
->  		nic->eeprom[addr] =3D e100_eeprom_read(nic, &addr_len,
-> addr); @@ -791,7 +806,15 @@ static int e100_eeprom_save(struct nic
-> *nic, u16 start, u16 count)
->=20
->  	/* Try reading with an 8-bit addr len to discover actual addr
-> len */
->  	e100_eeprom_read(nic, &addr_len, 0);
-> -	nic->eeprom_wc =3D 1 << addr_len;
-> +
-> +	if (!addr_len || addr_len > 8) {
-> +		netif_err(nic, probe, nic->netdev,
-> +			  "Invalid EEPROM address length %u\n",
-> +			  addr_len);
-> +		return -EIO;
-> +	}
-> +
-> +	nic->eeprom_wc =3D (u16)BIT(addr_len);
->=20
->  	if (start + count >=3D nic->eeprom_wc)
->  		return -EINVAL;
-> --
-> 2.43.0
+Besides the benefits in ease of use and compatibility, another key
+advantage of this solution is higher performance. [2] presents the
+performance comparison results between fgds and NVIDIA GDS. Because fgds
+eliminates the overhead of phony buffers incurred by NVIDIA GDS, it
+achieves significantly higher performance. For example, for reads, fgds
+outperforms GDS by 11% to 109%; for writes, fgds outperforms GDS by 10%
+to 71%.
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+To further accelerate the read and write operations of large files or
+massive data volumes—which are very common in LLM scenarios—we have
+implemented library functions `fgds_read` and `fgds_write`. Under the hood,
+these interfaces split large data into chunks and submit them
+asynchronously and in parallel via io_uring, thereby further boosting I/O
+performance, with read performance improved by up to 115% and write
+performance by up to 40%. In addition, we also provide the `fgds_register`
+library interface to encapsulate the `open`, `ioctl' and `mmap` operations.
+Readers who are interested can refer to [2].
+
+In addition, we have added the LMCache backend, enabling vLLM to offload KV
+cache via LMCache using fgds, which accelerates inference performance. We
+also added PyTorch APIs, compatible with the PyTorch GDS API, to improve
+the performance of reading and writing checkpoints during LLM training.
+
+We look forward to community feedback and are fully committed to iterating
+on this series to work towards upstreaming.
+
+[1] https://dl.acm.org/doi/10.1145/3712285.3759862
+[2] https://github.com/Storage-and-OS-for-AI/fgds
+
+Signed-off-by: Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+Signed-off-by: Li Wang <liwang@kylinos.cn>
+---
+ drivers/misc/Kconfig      |   9 +
+ drivers/misc/Makefile     |   1 +
+ drivers/misc/fgds.c       | 989 ++++++++++++++++++++++++++++++++++++++
+ include/uapi/linux/fgds.h |  54 +++
+ 4 files changed, 1053 insertions(+)
+ create mode 100644 drivers/misc/fgds.c
+ create mode 100644 include/uapi/linux/fgds.h
+
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 7364931dad3a..2f3a5a5fd0bf 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -568,6 +568,15 @@ config MCHP_LAN966X_PCI
+ 	    - lan966x-miim (MDIO_MSCC_MIIM)
+ 	    - lan966x-switch (LAN966X_SWITCH)
+ 
++config FGDS
++	tristate "GPU-NVMe direct I/O control driver"
++	depends on PCI && DMA_SHARED_BUFFER && ZONE_DEVICE
++	help
++	  Say Y here if you want to support GPU-NVME direct I/O
++	  via POSIX/io_uring interfaces.
++
++	  If unsure, say N.
++
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index e8d8d5d88c0d..04985abe1678 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -71,3 +71,4 @@ obj-y				+= keba/
+ obj-y				+= amd-sbi/
+ obj-$(CONFIG_MISC_RP1)		+= rp1/
+ obj-$(CONFIG_INTEL_SSEI)	+= issei/
++obj-$(CONFIG_FGDS)		+= fgds.o
+diff --git a/drivers/misc/fgds.c b/drivers/misc/fgds.c
+new file mode 100644
+index 000000000000..3aa4945f701b
+--- /dev/null
++++ b/drivers/misc/fgds.c
+@@ -0,0 +1,989 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Fast GPU Direct Storage via dma-buf.
++ *
++ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
++ *
++ * Maps GPU memory into user space to enable direct NVME-to-GPU DMA
++ * pread/pwrite syscalls. BAR pages are remapped into ZONE_DEVICE via
++ * devm_memremap_pages() and populated using dma-buf backing pages.
++ */
++#define pr_fmt(fmt) "fgds: " fmt
++
++#include <linux/cdev.h>
++#include <linux/device.h>
++#include <linux/dma-buf.h>
++#include <linux/dma-mapping.h>
++#include <linux/file.h>
++#include <linux/fs.h>
++#include <linux/idr.h>
++#include <linux/iommu.h>
++#include <linux/kernel.h>
++#include <linux/kref.h>
++#include <linux/list.h>
++#include <linux/memremap.h>
++#include <linux/mm.h>
++#include <linux/module.h>
++#include <linux/overflow.h>
++#include <linux/pci.h>
++#include <linux/slab.h>
++#include <linux/string.h>
++#include <linux/uaccess.h>
++#include <linux/xarray.h>
++
++#include <linux/fgds.h>
++
++/*
++ * Upper bound for chrdev minor allocation and IDA range
++ */
++#define FGDS_MAX_MINORS		512
++#define FGDS_MIN_GPU_BAR_SIZE	(64UL * 1024 * 1024)
++
++struct fgds_dev {
++	struct list_head node;		/* Entry in fgds_dev_list */
++	struct pci_dev *pdev;		/* Underlying GPU PCI device */
++	int idx;			/* Minor number from fgds_ida */
++	phys_addr_t bar_paddr;		/* GPU PCIe BAR physical base address */
++	resource_size_t bar_size;	/* GPU PCIe BAR size */
++	void __iomem *pci_mem_va;	/* Remapped kernel virtual address */
++	struct dev_pagemap *pgmap;	/* ZONE_DEVICE page map for the BAR */
++	struct device device;
++	struct cdev cdev;
++};
++
++/*
++ * Contiguous GPU memory extent mapped from dma-buf scatterlist
++ */
++struct fgds_extent {
++	u64 vma_offset;		/* Start offset within VMA (bytes) */
++	dma_addr_t dma_addr;	/* Bus address within BAR window */
++	u64 len;		/* Extent length(bytes) */
++};
++
++/*
++ * Registered dma-buf range. Reference counted by per-file registry and
++ * each active VMA mapped from it.
++ */
++struct fgds_buffer {
++	struct kref ref;
++	struct fgds_dev *fdev;
++	u64 idx;			/* Token passed to mmap(2) */
++	u64 size;			/* Range size(page aligned) */
++	u64 dmabuf_offset;		/* Offset inside the dma-buf */
++	struct dma_buf *dbuf;
++	struct dma_buf_attachment *attach;
++	struct sg_table *sgt;
++	struct fgds_extent *extents;	/* Merged physical extents */
++	u32 nr_extents;
++	bool invalidated;		/* Buffer moved by exporter */
++};
++
++/* Per-open session state. */
++struct fgds_file_ctx {
++	struct fgds_dev *fdev;
++	struct mutex lock;		/* Protects @buffers */
++	struct xarray buffers;		/* idx -> struct fgds_buffer */
++};
++
++static dev_t fgds_chr_devt;
++static struct class *fgds_chr_class;
++
++static DEFINE_IDA(fgds_ida);
++static LIST_HEAD(fgds_dev_list);
++static u32 fgds_dev_count;
++
++struct fgds_bdf_entry {
++	u16 domain;
++	u8  bus;
++	u8  slot;
++	u8  func;
++	struct list_head list;
++};
++
++static LIST_HEAD(fgds_whitelist);
++static char *devices = "all";
++
++module_param(devices, charp, 0444);
++MODULE_PARM_DESC(devices, "all | comma-separated BDF whitelist (e.g. 0000:1e:00.0,0000:1f:00.0)");
++
++static int __init fgds_parse_bdf_list(const char *str, struct list_head *head)
++{
++	char *dup, *token, *cur;
++
++	if (!str || !strcmp(str, "all") || !strlen(str))
++		return 0;
++
++	dup = kstrdup(str, GFP_KERNEL);
++	if (!dup)
++		return -ENOMEM;
++
++	cur = dup;
++	while ((token = strsep(&cur, ",")) != NULL) {
++		unsigned int dom, b, s, f;
++		struct fgds_bdf_entry *entry;
++
++		if (sscanf(token, "%x:%x:%x.%x", &dom, &b, &s, &f) != 4)
++			continue;
++
++		entry = kzalloc_obj(*entry, GFP_KERNEL);
++		if (!entry) {
++			kfree(dup);
++			return -ENOMEM;
++		}
++		entry->domain = dom;
++		entry->bus    = b;
++		entry->slot   = s;
++		entry->func   = f;
++		list_add_tail(&entry->list, head);
++	}
++	kfree(dup);
++	return 0;
++}
++
++static bool fgds_match_bdf(struct pci_dev *pdev, struct list_head *head)
++{
++	struct fgds_bdf_entry *entry;
++	u16 dom = pci_domain_nr(pdev->bus);
++	u8  b   = pdev->bus->number;
++	u8  s   = PCI_SLOT(pdev->devfn);
++	u8  f   = PCI_FUNC(pdev->devfn);
++
++	list_for_each_entry(entry, head, list) {
++		if (entry->domain == dom && entry->bus == b &&
++		    entry->slot == s && entry->func == f)
++			return true;
++	}
++	return false;
++}
++
++static bool fgds_should_bind(struct pci_dev *pdev)
++{
++	if (!devices || !strcmp(devices, "all"))
++		return true;
++	return fgds_match_bdf(pdev, &fgds_whitelist);
++}
++
++/*
++ * BAR-based mapping requires device physical addresses. When using
++ * IOMMU, DMA addresses are IOVAs, which cannot be mapped directly.
++ */
++static int fgds_check_gpu_iommu(struct pci_dev *pdev)
++{
++	struct iommu_domain *domain;
++
++	domain = iommu_get_domain_for_dev(&pdev->dev);
++	if (domain && domain->type != IOMMU_DOMAIN_IDENTITY) {
++		pr_warn("%s: reject attaching a translating IOMMU domain (requires iommu=pt or off\n",
++			dev_name(&pdev->dev));
++		return -EPERM;
++	}
++	return 0;
++}
++
++/* Prefetchable memory BARs are the only ones that can back GPU memory. */
++static bool fgds_bar_is_prefetch_mem(struct pci_dev *pdev, int bar)
++{
++	unsigned long flags = pci_resource_flags(pdev, bar);
++
++	return (flags & (IORESOURCE_MEM | IORESOURCE_PREFETCH)) ==
++	       (IORESOURCE_MEM | IORESOURCE_PREFETCH);
++}
++
++/*
++ * Check if the device exposes a large prefetchable memory BAR
++ */
++static bool fgds_has_large_memory_bar(struct pci_dev *pdev)
++{
++	int i;
++
++	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
++		if (!fgds_bar_is_prefetch_mem(pdev, i))
++			continue;
++		if (pci_resource_len(pdev, i) >= FGDS_MIN_GPU_BAR_SIZE)
++			return true;
++	}
++	return false;
++}
++
++/* Map the GPU PCIe BAR into ZONE_DEVICE kernel virtual memory. */
++static int fgds_devm_memremap(struct fgds_dev *gdev)
++{
++	struct dev_pagemap *pgmap;
++	int ret;
++	void *addr;
++
++	gdev->pgmap = devm_kzalloc(&gdev->pdev->dev, sizeof(struct dev_pagemap),
++				   GFP_KERNEL);
++	if (!gdev->pgmap)
++		return -ENOMEM;
++
++	pgmap = gdev->pgmap;
++	pgmap->range.start = gdev->bar_paddr;
++	pgmap->range.end = gdev->bar_paddr + gdev->bar_size - 1;
++	pgmap->nr_range = 1;
++	pgmap->type = MEMORY_DEVICE_GENERIC;
++
++	addr = devm_memremap_pages(&gdev->pdev->dev, pgmap);
++	if (IS_ERR(addr)) {
++		ret = PTR_ERR(addr);
++		pr_err("%s: cannot map BAR [%#llx, +0x%llx] as device memory (%d)\n",
++		       dev_name(&gdev->pdev->dev),
++		       (u64)gdev->bar_paddr, (u64)gdev->bar_size, ret);
++		devm_kfree(&gdev->pdev->dev, gdev->pgmap);
++		gdev->pgmap = NULL;
++		return ret;
++	}
++
++	gdev->pci_mem_va = addr;
++
++	pr_info("%s: BAR [%#llx, %#llx] remapped to kernel VA %#lx\n",
++		dev_name(&gdev->pdev->dev), (u64)gdev->bar_paddr,
++			     (u64)(gdev->bar_paddr + gdev->bar_size - 1),
++		(uintptr_t)gdev->pci_mem_va);
++	return 0;
++}
++
++/*
++ * Dynamic dma-buf attachment callbacks. Peer2peer ability hints exporters
++ * to retain buffers in device VRAM. Buffer movement invalidates existing
++ * VMA mappings and requires user-space re-registration.
++ */
++static void fgds_invalidate_mappings(struct dma_buf_attachment *attach)
++{
++	struct fgds_buffer *buf = attach->importer_priv;
++
++	pr_warn_ratelimited("dma-buf moved while mapped; re-register required\n");
++	if (buf)
++		WRITE_ONCE(buf->invalidated, true);
++}
++
++static const struct dma_buf_attach_ops fgds_attach_ops = {
++	.allow_peer2peer = true,
++	.invalidate_mappings = fgds_invalidate_mappings,
++};
++
++static void fgds_buffer_free(struct kref *kref)
++{
++	struct fgds_buffer *buf = container_of(kref, struct fgds_buffer, ref);
++
++	if (buf->sgt)
++		dma_buf_unmap_attachment(buf->attach, buf->sgt,
++					 DMA_BIDIRECTIONAL);
++	if (buf->attach)
++		dma_buf_detach(buf->dbuf, buf->attach);
++	if (buf->dbuf)
++		dma_buf_put(buf->dbuf);
++
++	kvfree(buf->extents);
++	kfree(buf);
++	module_put(THIS_MODULE);
++}
++
++static inline void fgds_buffer_get(struct fgds_buffer *buf)
++{
++	kref_get(&buf->ref);
++}
++
++static inline void fgds_buffer_put(struct fgds_buffer *buf)
++{
++	kref_put(&buf->ref, fgds_buffer_free);
++}
++
++/*
++ * Collect scatterlist segments into a coalesced extent array within the
++ * BAR
++ */
++static int fgds_fill_extents(struct fgds_buffer *buf)
++{
++	struct fgds_dev *gdev = buf->fdev;
++	struct scatterlist *sg;
++	dma_addr_t addr, seg_end;
++	unsigned int len;
++	u64 cur_vma_offset = 0;
++	u64 skip = buf->dmabuf_offset;
++	int i, idx = 0;
++
++	buf->extents = kvmalloc_array(buf->sgt->nents, sizeof(*buf->extents),
++				      GFP_KERNEL | __GFP_NOWARN);
++	if (!buf->extents)
++		return -ENOMEM;
++
++	pr_info_ratelimited("exporter %s attached to %s, dbuf size 0x%zx, offset 0x%llx, nents %u\n",
++			    buf->dbuf->exp_name, dev_name(buf->attach->dev),
++			    buf->dbuf->size, buf->dmabuf_offset, buf->sgt->nents);
++
++	for_each_sgtable_dma_sg(buf->sgt, sg, i) {
++		addr = sg_dma_address(sg);
++		len = sg_dma_len(sg);
++		if (!len)
++			len = sg->length;
++
++		if (!addr) {
++			pr_err("invalid dma address at sg[%d]\n", i);
++			goto err_free;
++		}
++
++		/* Verify the segment falls within the BAR window
++		 */
++		if (check_add_overflow(addr, (dma_addr_t)len, &seg_end) ||
++		    addr < gdev->bar_paddr ||
++		    seg_end > gdev->bar_paddr + gdev->bar_size) {
++			pr_err("segment sg[%d] [0x%llx, +0x%x] outside %s BAR window [0x%llx, 0x%llx]\n",
++			       i, (u64)addr, len,
++			       dev_name(&gdev->pdev->dev),
++			       (u64)gdev->bar_paddr,
++			       (u64)(gdev->bar_paddr + gdev->bar_size - 1));
++			goto err_free;
++		}
++
++		if ((addr & (PAGE_SIZE - 1)) || (len & (PAGE_SIZE - 1))) {
++			pr_err("unaligned sg[%d] addr 0x%llx len %u\n",
++			       i, (u64)addr, len);
++			goto err_free;
++		}
++		if (skip) {
++			if (skip >= len) {
++				skip -= len;
++				continue;
++			}
++			addr += skip;
++			len -= (unsigned int)skip;
++			skip = 0;
++		}
++		if (cur_vma_offset + len > buf->size)
++			len = (unsigned int)(buf->size - cur_vma_offset);
++
++		/*
++		 * Merge segments which is contiguous in both bus address and
++		 * VMA offset
++		 */
++		if (idx > 0 &&
++		    (buf->extents[idx - 1].dma_addr + buf->extents[idx - 1].len == addr) &&
++		    (buf->extents[idx - 1].vma_offset + buf->extents[idx - 1].len ==
++		     cur_vma_offset)) {
++			buf->extents[idx - 1].len += len;
++			cur_vma_offset += len;
++			if (cur_vma_offset >= buf->size)
++				break;
++			continue;
++		}
++
++		buf->extents[idx].vma_offset = cur_vma_offset;
++		buf->extents[idx].dma_addr   = addr;
++		buf->extents[idx].len        = len;
++		cur_vma_offset += len;
++		idx++;
++		if (cur_vma_offset >= buf->size)
++			break;
++	}
++
++	if (skip || cur_vma_offset < buf->size) {
++		pr_err("coverage mismatch (actual=0x%llx, req=0x%llx)\n",
++		       cur_vma_offset, buf->size);
++		goto err_free;
++	}
++
++	pr_info_ratelimited("%u extents, BAR window [0x%llx, 0x%llx], first 0x%llx last 0x%llx\n",
++			    idx, (u64)gdev->bar_paddr,
++			    (u64)(gdev->bar_paddr + gdev->bar_size - 1),
++			    (u64)buf->extents[0].dma_addr,
++			    (u64)(buf->extents[idx - 1].dma_addr +
++				  buf->extents[idx - 1].len - 1));
++
++	/* Shrink extent array to the actual merged count */
++	if (idx > 0 && idx < buf->sgt->nents) {
++		struct fgds_extent *e;
++
++		e = kvmalloc_array(idx, sizeof(*e), GFP_KERNEL | __GFP_NOWARN);
++		if (e) {
++			memcpy(e, buf->extents, idx * sizeof(*e));
++			kvfree(buf->extents);
++			buf->extents = e;
++		}
++	}
++
++	buf->nr_extents = idx;
++	return 0;
++
++err_free:
++	kvfree(buf->extents);
++	buf->extents = NULL;
++	return -EIO;
++}
++
++static int fgds_buffer_import_dmabuf(struct fgds_buffer *buf, s32 dmabuf_fd)
++{
++	struct dma_buf *dbuf;
++	int ret;
++	u64 end;
++
++	dbuf = dma_buf_get(dmabuf_fd);
++	if (IS_ERR(dbuf))
++		return PTR_ERR(dbuf);
++
++	if (check_add_overflow(buf->dmabuf_offset, buf->size, &end) ||
++	    end > dbuf->size) {
++		pr_err("request [0x%llx, +0x%llx) exceeds buffer size 0x%zx\n",
++		       buf->dmabuf_offset, buf->size, dbuf->size);
++		dma_buf_put(dbuf);
++		return -EINVAL;
++	}
++	buf->dbuf = dbuf;
++
++	/* Attach using GPU PCI device to satisfy dma_mask requirements */
++	buf->attach = dma_buf_dynamic_attach(dbuf, &buf->fdev->pdev->dev,
++					     &fgds_attach_ops, buf);
++	if (IS_ERR(buf->attach)) {
++		ret = PTR_ERR(buf->attach);
++		buf->attach = NULL;
++		goto err_put_dbuf;
++	}
++
++	buf->sgt = dma_buf_map_attachment(buf->attach, DMA_BIDIRECTIONAL);
++	if (IS_ERR(buf->sgt)) {
++		ret = PTR_ERR(buf->sgt);
++		buf->sgt = NULL;
++		goto err_detach;
++	}
++
++	ret = fgds_fill_extents(buf);
++	if (ret)
++		goto err_unmap;
++
++	return 0;
++
++err_unmap:
++	dma_buf_unmap_attachment(buf->attach, buf->sgt, DMA_BIDIRECTIONAL);
++	buf->sgt = NULL;
++err_detach:
++	dma_buf_detach(buf->dbuf, buf->attach);
++	buf->attach = NULL;
++err_put_dbuf:
++	dma_buf_put(buf->dbuf);
++	buf->dbuf = NULL;
++	return ret;
++}
++
++static void fgds_vma_open(struct vm_area_struct *vma)
++{
++	struct fgds_buffer *buf = vma->vm_private_data;
++
++	if (buf)
++		fgds_buffer_get(buf);
++}
++
++static void fgds_vma_close(struct vm_area_struct *vma)
++{
++	struct fgds_buffer *buf = vma->vm_private_data;
++
++	if (buf)
++		fgds_buffer_put(buf);
++}
++
++/* Binary search extents by VMA byte offset */
++static struct fgds_extent *fgds_lookup_extent(struct fgds_buffer *buf,
++					      u64 offset)
++{
++	struct fgds_extent *ext;
++	int low, high;
++
++	if (unlikely(!buf->nr_extents))
++		return NULL;
++
++	if (likely(buf->nr_extents == 1)) {
++		ext = &buf->extents[0];
++		if (offset < ext->vma_offset + ext->len)
++			return ext;
++		return NULL;
++	}
++
++	low = 0;
++	high = buf->nr_extents - 1;
++	while (low <= high) {
++		int mid = low + (high - low) / 2;
++
++		ext = &buf->extents[mid];
++
++		if (offset < ext->vma_offset)
++			high = mid - 1;
++		else if (offset >= ext->vma_offset + ext->len)
++			low = mid + 1;
++		else
++			return ext;
++	}
++	return NULL;
++}
++
++static vm_fault_t fgds_vma_fault(struct vm_fault *vmf)
++{
++	struct vm_area_struct *vma = vmf->vma;
++	struct fgds_buffer *buf = vma->vm_private_data;
++	u64 offset;
++	struct fgds_extent *ext;
++	phys_addr_t phys;
++	unsigned long pfn;
++	struct page *page;
++
++	if (!buf || unlikely(READ_ONCE(buf->invalidated)))
++		return VM_FAULT_SIGBUS;
++
++	offset = vmf->address - vma->vm_start;
++	if (offset >= buf->size)
++		return VM_FAULT_SIGBUS;
++
++	ext = fgds_lookup_extent(buf, offset);
++	if (!ext)
++		return VM_FAULT_SIGBUS;
++
++	phys = ext->dma_addr + (offset - ext->vma_offset);
++	pfn = phys >> PAGE_SHIFT;
++
++	if (unlikely(!pfn_valid(pfn)))
++		return VM_FAULT_SIGBUS;
++	page = pfn_to_page(pfn);
++	if (unlikely(!is_zone_device_page(page)))
++		return VM_FAULT_SIGBUS;
++
++	return vmf_insert_page(vma, vmf->address, page);
++}
++
++/*
++ * .page_mkwrite is omitted: vmf_insert_page() sets writable PTEs directly
++ * from vma->vm_page_prot for MAP_SHARED mappings, avoiding do_wp_page().
++ */
++static const struct vm_operations_struct fgds_vm_ops = {
++	.open	= fgds_vma_open,
++	.close	= fgds_vma_close,
++	.fault	= fgds_vma_fault,
++};
++
++static int fgds_mmap(struct file *filp, struct vm_area_struct *vma)
++{
++	struct fgds_file_ctx *ctx = filp->private_data;
++	struct fgds_buffer *buf;
++	int ret;
++
++	mutex_lock(&ctx->lock);
++	buf = xa_load(&ctx->buffers, vma->vm_pgoff);
++	if (buf)
++		fgds_buffer_get(buf);
++	mutex_unlock(&ctx->lock);
++
++	if (!buf)
++		return -EINVAL;
++
++	if (READ_ONCE(buf->invalidated)) {
++		pr_err("mmap failed: buffer invalidated by GPU driver\n");
++		ret = -EIO;
++		goto err_put;
++	}
++	if (vma->vm_end - vma->vm_start != buf->size) {
++		ret = -EINVAL;
++		goto err_put;
++	}
++
++	vm_flags_clear(vma, VM_PFNMAP | VM_IO);
++	vm_flags_set(vma, VM_MIXEDMAP | VM_DONTEXPAND | VM_DONTDUMP |
++			   current->mm->def_flags);
++	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
++	vma->vm_ops = &fgds_vm_ops;
++	vma->vm_private_data = buf;
++
++	return 0;
++err_put:
++	fgds_buffer_put(buf);
++	return ret;
++}
++
++static int fgds_ioctl_reg_buffer(struct fgds_file_ctx *ctx,
++				 struct fgds_ioctl_reg_buffer __user *argp)
++{
++	struct fgds_ioctl_reg_buffer arg;
++	struct fgds_buffer *buf = NULL;
++	u32 id;
++	int ret;
++	u64 end;
++
++	if (copy_from_user(&arg, argp, sizeof(arg))) {
++		ret = -EFAULT;
++		goto err;
++	}
++
++	if (arg.flags || arg.dmabuf_fd < 0 ||
++	    (arg.dmabuf_offset & (PAGE_SIZE - 1)) ||
++	    !arg.size || (arg.size & (PAGE_SIZE - 1))) {
++		ret = -EINVAL;
++		goto err;
++	}
++
++	if (check_add_overflow(arg.dmabuf_offset, arg.size, &end)) {
++		ret = -EOVERFLOW;
++		goto err;
++	}
++
++	if (arg.size > ctx->fdev->bar_size) {
++		pr_debug("%s: size 0x%llx exceeds BAR window 0x%llx\n",
++			 dev_name(&ctx->fdev->pdev->dev), (u64)arg.size,
++			 (u64)ctx->fdev->bar_size);
++		ret = -EINVAL;
++		goto err;
++	}
++
++	buf = kzalloc(sizeof(*buf), GFP_KERNEL);
++	if (!buf) {
++		ret = -ENOMEM;
++		goto err;
++	}
++
++	kref_init(&buf->ref);
++	/*
++	 * Pin the module for as long as the buffer exists: a VMA outlives
++	 * the file descriptor it was mapped from, so after close(2) nothing
++	 * keeps the module alive while .fault and .close still run from it,
++	 * and module exit would free the fgds_dev backing those pages.
++	 *
++	 * __module_get() rather than try_module_get() because the get
++	 * cannot fail here: the caller's open file already holds a module
++	 * reference, so this ioctl cannot overlap module removal.
++	 */
++	__module_get(THIS_MODULE);
++	buf->fdev = ctx->fdev;
++	buf->size = arg.size;
++	buf->dmabuf_offset = arg.dmabuf_offset;
++
++	ret = fgds_buffer_import_dmabuf(buf, arg.dmabuf_fd);
++	if (ret)
++		goto err_put;
++
++	mutex_lock(&ctx->lock);
++	ret = xa_alloc(&ctx->buffers, &id, buf, xa_limit_32b, GFP_KERNEL);
++	if (!ret)
++		buf->idx = (u64)id << PAGE_SHIFT;
++	mutex_unlock(&ctx->lock);
++	if (ret)
++		goto err_put;
++
++	arg.idx = buf->idx;
++	if (copy_to_user(argp, &arg, sizeof(arg))) {
++		struct fgds_buffer *erased;
++		u32 id = buf->idx >> PAGE_SHIFT;
++
++		/*
++		 * Drops reference only if this thread successfully erases
++		 * the entry.
++		 */
++		mutex_lock(&ctx->lock);
++		erased = xa_erase(&ctx->buffers, id);
++		mutex_unlock(&ctx->lock);
++		if (erased)
++			fgds_buffer_put(buf);
++		ret = -EFAULT;
++		goto err;
++	}
++
++	pr_debug("reg: %s dmabuf %d offset 0x%llx size 0x%llx -> token 0x%llx\n",
++		 dev_name(&buf->fdev->pdev->dev), arg.dmabuf_fd,
++		 buf->dmabuf_offset, buf->size, buf->idx);
++	ret = 0;
++
++err:
++	return ret;
++
++err_put:
++	fgds_buffer_put(buf);
++	return ret;
++}
++
++static int fgds_ioctl_unreg_buffer(struct fgds_file_ctx *ctx,
++				   struct fgds_ioctl_unreg_buffer __user *argp)
++{
++	struct fgds_ioctl_unreg_buffer arg;
++	struct fgds_buffer *buf;
++	u32 id;
++
++	if (copy_from_user(&arg, argp, sizeof(arg)))
++		return -EFAULT;
++
++	if (arg.idx & (PAGE_SIZE - 1))
++		return -EINVAL;
++
++	id = arg.idx >> PAGE_SHIFT;
++
++	mutex_lock(&ctx->lock);
++	buf = xa_erase(&ctx->buffers, id);
++	mutex_unlock(&ctx->lock);
++
++	if (!buf)
++		return -ENOENT;
++
++	fgds_buffer_put(buf);
++	return 0;
++}
++
++static long fgds_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
++{
++	struct fgds_file_ctx *ctx = filp->private_data;
++	void __user *argp = (void __user *)arg;
++
++	switch (cmd) {
++	case FGDS_IOCTL_REG_BUFFER:
++		return fgds_ioctl_reg_buffer(ctx, argp);
++	case FGDS_IOCTL_UNREG_BUFFER:
++		return fgds_ioctl_unreg_buffer(ctx, argp);
++	default:
++		return -ENOTTY;
++	}
++}
++
++static int fgds_open(struct inode *inode, struct file *filp)
++{
++	struct fgds_dev *gdev = container_of(inode->i_cdev,
++					     struct fgds_dev, cdev);
++	struct fgds_file_ctx *ctx;
++
++	ctx = kzalloc_obj(*ctx, GFP_KERNEL);
++	if (!ctx)
++		return -ENOMEM;
++
++	ctx->fdev = gdev;
++	mutex_init(&ctx->lock);
++	xa_init_flags(&ctx->buffers, XA_FLAGS_ALLOC);
++	filp->private_data = ctx;
++
++	pr_debug("open: %s\n", dev_name(&gdev->pdev->dev));
++	return 0;
++}
++
++static int fgds_release(struct inode *inode, struct file *filp)
++{
++	struct fgds_file_ctx *ctx = filp->private_data;
++	struct fgds_buffer *buf;
++	unsigned long index;
++
++	xa_for_each(&ctx->buffers, index, buf) {
++		xa_erase(&ctx->buffers, index);
++		fgds_buffer_put(buf);
++	}
++	xa_destroy(&ctx->buffers);
++	mutex_destroy(&ctx->lock);
++	kfree(ctx);
++	return 0;
++}
++
++static const struct file_operations fgds_fops = {
++	.owner		= THIS_MODULE,
++	.open		= fgds_open,
++	.release	= fgds_release,
++	.unlocked_ioctl	= fgds_ioctl,
++	.mmap		= fgds_mmap,
++};
++
++static void fgds_dev_release(struct device *dev)
++{
++	struct fgds_dev *gdev = container_of(dev, struct fgds_dev, device);
++
++	if (gdev->pgmap) {
++		devm_memunmap_pages(&gdev->pdev->dev, gdev->pgmap);
++		devm_kfree(&gdev->pdev->dev, gdev->pgmap);
++		gdev->pgmap = NULL;
++	}
++	if (gdev->idx >= 0)
++		ida_free(&fgds_ida, gdev->idx);
++	if (gdev->pdev) {
++		pci_dev_put(gdev->pdev);
++		gdev->pdev = NULL;
++	}
++	kfree(gdev);
++}
++
++/* Device naming: /dev/fgds_<domain>_<bus>_<dev>_<func> */
++#define FGDS_DEV_NAME_FMT	"fgds_%04x_%02x_%02x_%01x"
++
++/* Format char device name */
++static int fgds_dev_name(struct fgds_dev *gdev)
++{
++	struct pci_dev *pdev = gdev->pdev;
++
++	return dev_set_name(&gdev->device, FGDS_DEV_NAME_FMT,
++			    pci_domain_nr(pdev->bus), pdev->bus->number,
++			    PCI_SLOT(pdev->devfn), PCI_FUNC(pdev->devfn));
++}
++
++static int fgds_cdev_add(struct fgds_dev *gdev)
++{
++	struct device *dev = &gdev->device;
++	int ret;
++
++	dev->devt = MKDEV(MAJOR(fgds_chr_devt), gdev->idx);
++	dev->class = fgds_chr_class;
++	dev->parent = &gdev->pdev->dev;
++
++	ret = fgds_dev_name(gdev);
++	if (ret)
++		return ret;
++
++	cdev_init(&gdev->cdev, &fgds_fops);
++	gdev->cdev.owner = THIS_MODULE;
++
++	ret = cdev_device_add(&gdev->cdev, dev);
++	if (ret)
++		return ret;
++
++	pr_info("registered PCI %s -> /dev/%s (minor=%d)\n",
++		dev_name(&gdev->pdev->dev), dev_name(dev), gdev->idx);
++	return 0;
++}
++
++/* Build and register an fgds device for a GPU */
++static int fgds_create_device(struct pci_dev *pdev)
++{
++	struct fgds_dev *gdev;
++	int id, ret, j;
++
++	list_for_each_entry(gdev, &fgds_dev_list, node) {
++		if (gdev->pdev == pdev)
++			return -EEXIST;
++	}
++
++	if (fgds_check_gpu_iommu(pdev))
++		return -EPERM;
++
++	id = ida_alloc_range(&fgds_ida, 0, FGDS_MAX_MINORS - 1, GFP_KERNEL);
++	if (id < 0)
++		return id;
++
++	gdev = kzalloc_obj(*gdev, GFP_KERNEL);
++	if (!gdev) {
++		ida_free(&fgds_ida, id);
++		return -ENOMEM;
++	}
++	gdev->idx = id;
++	gdev->pdev = pci_dev_get(pdev);
++
++	device_initialize(&gdev->device);
++	gdev->device.release = fgds_dev_release;
++
++	/*
++	 * Same predicate as fgds_has_large_memory_bar(): without the MEM
++	 * and PREFETCH test the largest BAR could be a different one than
++	 * the BAR that was vetted, and the dma-buf extents would then be
++	 * checked against the wrong window.
++	 */
++	for (j = 0; j < PCI_STD_NUM_BARS; j++) {
++		resource_size_t sz = pci_resource_len(pdev, j);
++
++		if (!fgds_bar_is_prefetch_mem(pdev, j))
++			continue;
++		if (sz > gdev->bar_size) {
++			gdev->bar_paddr = pci_resource_start(pdev, j);
++			gdev->bar_size = sz;
++		}
++	}
++	pr_info("GPU %s: bus %#x, BAR size 0x%llx, BAR phys %#llx, remapping BAR to kernel VA\n",
++		dev_name(&pdev->dev), pdev->bus->number,
++		(u64)gdev->bar_size, (u64)gdev->bar_paddr);
++
++	ret = fgds_devm_memremap(gdev);
++	if (ret)
++		goto err_put_dev;
++
++	ret = fgds_cdev_add(gdev);
++	if (ret)
++		goto err_put_dev;
++
++	list_add_tail(&gdev->node, &fgds_dev_list);
++	fgds_dev_count++;
++	return 0;
++
++err_put_dev:
++	put_device(&gdev->device);
++	return ret;
++}
++
++static void fgds_destroy_device(struct fgds_dev *gdev)
++{
++	list_del(&gdev->node);
++	fgds_dev_count--;
++	cdev_device_del(&gdev->cdev, &gdev->device);
++	put_device(&gdev->device);
++}
++
++static void fgds_remove_devices(void)
++{
++	struct fgds_dev *gdev, *tmp;
++
++	list_for_each_entry_safe(gdev, tmp, &fgds_dev_list, node)
++		fgds_destroy_device(gdev);
++}
++
++static int __init fgds_init(void)
++{
++	struct pci_dev *pdev = NULL;
++	int ret;
++
++	ret = alloc_chrdev_region(&fgds_chr_devt, 0, FGDS_MAX_MINORS, "fgds");
++	if (ret)
++		return ret;
++
++	fgds_chr_class = class_create("fgds");
++	if (IS_ERR(fgds_chr_class)) {
++		ret = PTR_ERR(fgds_chr_class);
++		goto err_unreg_chrdev;
++	}
++
++	fgds_parse_bdf_list(devices, &fgds_whitelist);
++
++	/* Scan PCI for GPUs: 3D controllers first, then VGA adapters. */
++	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_3D << 8, pdev)) != NULL) {
++		if (fgds_has_large_memory_bar(pdev) && fgds_should_bind(pdev))
++			fgds_create_device(pdev);
++	}
++
++	pdev = NULL;
++	while ((pdev = pci_get_class(PCI_CLASS_DISPLAY_VGA << 8, pdev)) != NULL) {
++		if (fgds_has_large_memory_bar(pdev) && fgds_should_bind(pdev))
++			fgds_create_device(pdev);
++	}
++
++	if (list_empty(&fgds_dev_list)) {
++		pr_err("no GPU devices registered\n");
++		ret = -ENODEV;
++		goto err_destroy_class;
++	}
++
++	pr_info("loaded successfully: %u GPU(s) active\n", fgds_dev_count);
++	return 0;
++
++err_destroy_class:
++	fgds_remove_devices();
++	class_destroy(fgds_chr_class);
++err_unreg_chrdev:
++	unregister_chrdev_region(fgds_chr_devt, FGDS_MAX_MINORS);
++	return ret;
++}
++
++static void __exit fgds_exit(void)
++{
++	struct fgds_bdf_entry *entry, *tmp;
++
++	fgds_remove_devices();
++	ida_destroy(&fgds_ida);
++	class_destroy(fgds_chr_class);
++	unregister_chrdev_region(fgds_chr_devt, FGDS_MAX_MINORS);
++
++	list_for_each_entry_safe(entry, tmp, &fgds_whitelist, list) {
++		list_del(&entry->list);
++		kfree(entry);
++	}
++
++	pr_info("exit, Good bye!\n");
++}
++
++module_init(fgds_init);
++module_exit(fgds_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_IMPORT_NS("DMA_BUF");
++MODULE_AUTHOR("Mengmeng Zhao <zhaomengmeng@kylinos.cn>, Li Wang <liwang@kylinos.cn>");
++MODULE_DESCRIPTION("Fast GPU Direct Storage");
++MODULE_VERSION("1.0.0");
+diff --git a/include/uapi/linux/fgds.h b/include/uapi/linux/fgds.h
+new file mode 100644
+index 000000000000..4626b8497474
+--- /dev/null
++++ b/include/uapi/linux/fgds.h
+@@ -0,0 +1,54 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++/*
++ * Fast GPU Direct Storage user-kernel ABI definitions.
++ *
++ * Copyright (C) 2026 KylinSoft. Co., Ltd. All rights reserved.
++ */
++#ifndef _FGDS_H
++#define _FGDS_H
++
++#include <linux/types.h>
++#include <linux/ioctl.h>
++
++/*
++ * Register a GPU dma-buf range.
++ *
++ * @dmabuf_fd: File descriptor exported by the GPU runtime.
++ * @flags: Reserved for future extentions, must be 0.
++ * @dmabuf_offset: Byte offset inside dma-buf (PAGE_SIZE aligned).
++ * @size: Range size in bytes (PAGE_SIZE aligned, non-zero).
++ * @idx: Output token to pass as mmap(2) offset.
++ *
++ * Return mmap token by @idx on success. Caller may close @dmabuf_fd after
++ * registration. Higher platform alignment (e.g., 64KB) must be handled
++ * in user space.
++ */
++struct fgds_ioctl_reg_buffer {
++	/* Input */
++	__s32 dmabuf_fd;
++	__u32 flags;		/* Reserved, must be 0 */
++	__u64 dmabuf_offset;
++	__u64 size;
++
++	/* Output */
++	__u64 idx;
++};
++
++/*
++ * Unregister a GPU dma-buf range
++ *
++ * @idx: Token returned by %FGDS_IOCTL_REG_BUFFER.
++ *
++ */
++struct fgds_ioctl_unreg_buffer {
++	__u64 idx;
++};
++
++#define FGDS_IOCTL_MAGIC	0x88
++
++#define FGDS_IOCTL_REG_BUFFER	_IOWR(FGDS_IOCTL_MAGIC, 0x01, \
++				      struct fgds_ioctl_reg_buffer)
++#define FGDS_IOCTL_UNREG_BUFFER	_IOW(FGDS_IOCTL_MAGIC, 0x02, \
++				     struct fgds_ioctl_unreg_buffer)
++
++#endif /* _FGDS_H */
+-- 
+2.34.1
 
