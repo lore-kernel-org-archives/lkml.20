@@ -1,280 +1,163 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680B63769E7
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:39:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845954; cv=fail; b=FWOJojf1qpSiYq8njBe5bFD/v3VzeHHrenPP0mypoU7EuSQYvdM26wGBgfEuQdbUd87xZXYLHsxWimhUCsjRLAVOD7EV22e7eHUHhSLFvKv0qJqjvofjfHx/ivFfkABVlFhLpz/jNtu+9lC3iJJ24+RZyON05I7/L14615gF/gQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845954; c=relaxed/simple;
-	bh=cFtsWbqwdfnV+HIphMdBp3B7ZiLu3o8tjViTg/aVbmw=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bHdaTqkjhb7KI9VLG9qcekbWYaXFs423HLOxaGXQPI9HFADoILVT73EdUN7EQA+qum+xQQYkkRRCHN0vdzd9LxIXZz5XjcoZo6eyn+wiC3legFyNjZ7fuAlhF6lxlciZz78e1I8fHviMTqpB8v4b3oDrMOofhYpMttqYLr4ctNE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ETMw3ZLZ; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5527E37B3FD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788845969; cv=none; b=KVo/8hngTr6GOnM+NatfiJJfurbj5ghZvE4W+rLZQjOZ9tZWNNOvNCHBIYwAaUzAPXqsoUWsz0qxoGx7qaN+IWu10b4llCGbadQkVY+WBnNZ1bOco/9PjJRAbydWHJMj+RT16ClFPo9EK8CKnKbO1CbuFUlcp0nSTvFhdk3jJPI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788845969; c=relaxed/simple;
+	bh=5aoWEdoIK4LG8jJFDqvXeQojo/uZNre8Vv41wWy/GXA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=G30yYgOtc+tJjrAgm/i57IZI0tWdt9O4F+HKaeafKZg/hy1erU1VD0ucKPDIdxxIqW3cYuJPNwjUbRKhktnX9us3qoKNq5k2LzdLQ8L4OmKEYdm11ZQfVXVwEr5R2qtJqopixTRgGZoAJmxaGumaI/g4GOrmsQ/3PYZ6IdqpqZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=a/BhhBwL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OHYyu08p; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ETMw3ZLZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788845952; x=1820381952;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=cFtsWbqwdfnV+HIphMdBp3B7ZiLu3o8tjViTg/aVbmw=;
-  b=ETMw3ZLZN1s1/X8ce0cgQznQRN0R38N7DPqlm2OxN8FT2fNui5nFbmtS
-   zn423IbtIEe9ZMMfh5dVIDbEMIUPXHc1R9bJqhwyx9CvnQ+yHXt2JAwK0
-   ykPT3Wqt0OmjMe1QAPVXMT4odiz0/X8wDkSzDMDPXqH+S0ssAeFQBHNJQ
-   dDZqxvrA/VkqyiEE+GQQI29mPDzM12pSv/opdCLWxpZvsdtI0+Z6sfY8c
-   n/0aFU6L6EHNvkoj44Yov8PsgrkVKorqPt/cngBzZ/KVa+fR76dmVxtqj
-   dmN5FZIoXhhzMM6hMR8NKc2RxNZQAjFOVkunGMUYWHMKYKYc4KT6aFaP4
-   g==;
-X-CSE-ConnectionGUID: JSxgyc+bTweBzuMdnsIo3Q==
-X-CSE-MsgGUID: sKtqRoZ+SMC4x/cqdLmSgg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91747524"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="91747524"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 22:39:11 -0700
-X-CSE-ConnectionGUID: 13yLZj2hT3iVuSJ8SC/8rQ==
-X-CSE-MsgGUID: PZrCWHYTQUiJcqnkWA8kdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="269154760"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
-  by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 22:39:11 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 22:39:10 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 7 Sep 2026 22:39:10 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.31) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 7 Sep 2026 22:39:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dJzyHyzfyjhZ0AW9m4C5+pKe0ahWDeE6fbRymakS7wye5oTa/0OfAiIbqbHNWeAqlVqxIfjHpeiElP82MenzjIff1oteXD/qr1K1qHbdYWBSc1vnWniRfHiSdbL8A2ABH5RQ6kaIR3RqW3q9tvKrOcB6g5jRRkAzvPilQ8TMrqLD/dqCmWsno4pnL0KOU4WdWy0Rlw7dTn/wfeuEOYY1F+KFXryDNDKaEZd2l4QxQ+eMPalQbRS+Yv6GgzHURQeMuLjA2wYs2CdfT4uOq7nOK0jgsz1J4KI0X1lGCyXrudb3MoxqxoCTgNQsRKxR+VaX34Rq93Yv5S/rmHSxyYCNHA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GI0I98Hw5jnm7+d8oWxXYU2PPGmdG/VTxCbXRCJTuao=;
- b=HP96e2s1kO38X3u0yjfU9qXydyGzWGlCjay36IGsS1GccZ1hHbK2fRNwjhaBVz/rru1pxgBp7csaNqltWKZIAOlo0PWuDbenZiReWwlvBfWvl4vnpf8ITFvLXRv4v+AOWwXm1RkiXprbBpcdpzOOTCwJUZFb6dpDkA/drPZr0bPQ219euL3Z4RdAIivYWrmDE+HJnSlpBaaeDFXSaOsny6ZN0hkHwh1bJ2b56s7oxrPD7m7sbotovZbzDyszSa2y7S0G/5gsxVorZybFfIt+pU37vVOzsN84OGVYF2zBtc8s5H5Y3SPxNI+b9gRLBF0Y0OeJfTCKttRG7LPQjkB9RA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
- DS0PR11MB7788.namprd11.prod.outlook.com (2603:10b6:8:f5::11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.7; Tue, 8 Sep 2026 05:39:08 +0000
-Received: from DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
- ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 05:39:08 +0000
-Message-ID: <57833d3b-bf10-42b9-ae28-82d65a22a6af@intel.com>
-Date: Tue, 8 Sep 2026 13:38:58 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] sched/numa: Drive NUMA task tick from execution
- context
-To: Hui Su <sh_def@163.com>, Tim Chen <tim.c.chen@linux.intel.com>
-CC: K Prateek Nayak <kprateek.nayak@amd.com>, Juri Lelli
-	<juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Valentin Schneider
-	<vschneid@redhat.com>, John Stultz <jstultz@google.com>, Ingo Molnar
-	<mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260903041154.2479761-1-sh_def@163.com>
- <20260903041154.2479761-2-sh_def@163.com>
- <4593a7a4-cde1-499c-bba8-2fbe24f35422@intel.com>
- <08f682ba75a4700694d6f94719b367b4d26c032f.camel@linux.intel.com>
- <20260904141017.1512404-1-sh_def@163.com>
- <0d6117e597e6ca3ab3179c6304d6e5e454f53759.camel@linux.intel.com>
- <20260905135843.2818510-1-sh_def@163.com>
-Content-Language: en-US
-From: "Chen, Yu C" <yu.c.chen@intel.com>
-In-Reply-To: <20260905135843.2818510-1-sh_def@163.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: KL1PR02CA0032.apcprd02.prod.outlook.com
- (2603:1096:820:d::19) To DM4PR11MB6020.namprd11.prod.outlook.com
- (2603:10b6:8:61::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="a/BhhBwL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OHYyu08p"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6883pPmA1151278
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 05:39:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zgXJRuS6j45tDk50aJ/oEXxMgdJ1P69nwuH1jm3ZTs8=; b=a/BhhBwLUUXM2Ams
+	UKjGYQsshyhWnq0ujOrCSpk/JOiNz2KONFU70OA3hdAd1l0mfZQNyi8WaX18yWzE
+	OrR/69sk3b2aiiM3NLp8jBnf2HP22qz/XAAMOaB7sQ+1ZOuTKM95XDRo0fXt0bFA
+	X86WfZ7abxpF4BltOTHPkdSkG9kNLSnI3ZPXwTPNIxy7PTS3ICAYaPSK6796TC0o
+	4ESSUwfkyJ1AGSeWg6ijNKIiC97n8BFnifRRgfSHHeaeyG/VZZ8M59+nmxLUl+UH
+	r0lmoS1q1yx26J75WiH77edD0D/dfMnWCe/sPhSPj90u/dU+PBBrtAODWZrmYVSm
+	iacqIA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjatjga1u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:39:25 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e8e864ef0so7169704a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:39:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788845964; x=1789450764; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zgXJRuS6j45tDk50aJ/oEXxMgdJ1P69nwuH1jm3ZTs8=;
+        b=OHYyu08p5NRQg2U4MsVq0oEp6wVODueYqaJkWfWIMc3AwURymxuiKLCrxIZB9h/XVt
+         3bjJogXSnHy2IQk1TivU8/M6EX1ttcRnBnHOYRAZKTue9h80EY5bz//JpCaYK0g9Wq9D
+         SOjjb7YkL5PLQp4kacYUJvzh/NswScSwV4UQqSUJCUxbCZQu/CMlJjj5mN0G57zUbvIW
+         WoyoNYAwim3hJmnccjGS+vqdp1hATrk/EmjNQGwx711IuHpGypj73tqjt0t/kTGbYPak
+         F4qjsPcrwmN/1/rKv8+WmPcbTGFCJ8C/sUWxjDtDlfRPU1mg5p/ygEt8OVHXGmVoz9gK
+         li7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788845964; x=1789450764;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zgXJRuS6j45tDk50aJ/oEXxMgdJ1P69nwuH1jm3ZTs8=;
+        b=DD5p6QbfK6Xc8uk088OCojgdYr/0JBu70BxWtgJgQsWU6X8mihn4lF+suFOtUsOWh3
+         9GdSH9JcHUO5zJ6d1givfqjTwTz/oBV2lw46JYbR7jQixQpTC3vLNSdIUG70DqENgMPe
+         JqTQRTmZwLG7PoaKV89nt4V+uKFAuJs1nj/AXunASFLGO+VHkuZ1e2kL9Wv/v8MvWZqa
+         kwIU2Z0J8hwqKHCCokJO8WNSuIRndLS85ZWPzznhqUnzI0Ya1x4HqgQoesq1u0X1H2oL
+         zM3aCA0u5LjFDpIoQhtVhO/SRwT49VzsjeKkUGbVN3U/kKE3n4GlRh/tB3qrE4zxpfJ0
+         3TFw==
+X-Forwarded-Encrypted: i=1; AKwUvByX+cZR0kXE0FjXpotjFuXn3EGhDDaDCntRHz23arBOTMlrnC9xn3XyClIx3T/gbGGyNLzmuf03+1er2Zs=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngmKYk/UGhLtMfcaEkomMwMfkURuOqWt26rXalHQMgRoxh0tXH
+	A9jy43URrsVx45uo0OmftDY/Rr3+UQS7q/+Oo6bAQjfqtJ7KxmAAOPK7GZy/Tmwzg0CiKPPs6hD
+	DDaLjW7sWMJwQc6WRMQvRCFtzpNzLCzVR7+7w3dRQOjJeb0nPMP3/sItS26gJA0gH/Hw=
+X-Gm-Gg: AYBFou25rPXO/NAeo1I1wF9neZ166jIRzK62I43b3GcToQzL3IEUb92w8eSHOaJPvJW
+	YmRyvZ+jJvcCd7C7w+yCaCh1khQfVQtkfKF4aX6x41IAKHp7ZAII4imsKJHrSjbRHWmO0R8yaDn
+	pljmW6m7cRfMRA4XHWhVce605mo9xghzhrTG99xCpmU6k09ioRpiwmuf8OWeyv9fZPXFMXW+fqb
+	THmIwAKOJsUk6rt09GFhK0E+PNYOjvfA5zqoUaRx6CpIO/3mE0t6IeUErJzULiQjfWtS0kqUfvT
+	S1lSoJ4qMEm13jGtWGZyMk4J6WjdY/w6C8gj9cTKN2DHnvrlIClRJ5/KgijHb3T8xShXL67HbrN
+	u/Xnknpq/Zdd98d9gJ7rqHYrqxU5wpg==
+X-Received: by 2002:a17:90b:2b43:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39b25ed34f3mr46802512a91.0.1788845964454;
+        Mon, 07 Sep 2026 22:39:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b43:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39b25ed34f3mr46802442a91.0.1788845964016;
+        Mon, 07 Sep 2026 22:39:24 -0700 (PDT)
+Received: from [10.92.169.30] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm27672840c88.6.2026.09.07.22.39.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 22:39:23 -0700 (PDT)
+Message-ID: <8d10d92f-0afb-425d-a517-1a7b24b80342@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 11:09:17 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|DS0PR11MB7788:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53238e4b-3b5b-4a50-ba85-08df0d6b80e2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|4143699003|10067099003|6133799003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: lug1cNnBYNgIyGnWn/Cm/QSQNnbEwnPFjREsq8E0Y/gRmPiSJp7mJb3+XoS7AA+VOr1BKnoeAIJtO7GBVW1A4Lt5x6kJqQ+ef04oAXDTqNeMUdt2tI7l0axVFrHqou6mQxWKKaZzcML5Vw3lp6GgSsInqivOji/p6S1XfEOAA1Y3ITvgBILZvx+9iVjeRuN0iY7GOuidEDVFODgl6r4kiV2npajKwTjLIxINow977BNhuPxsAD6fqj7gzsyA01JuZ66iYmTMpvKhwebv84tcJ3hyWvy2GfrRf/eOVAYMhV96VDnhMY8AzqHg8R53T2cm/hAFkYcWCIaQ8k307x14knn15DI65bfl9U9qcnzX/kajKRFrYYiem312B7cGZxObdtSkqJwgiZAAk19tYcSQgSJJJSE/9ZszLhLvbywM7r4+mUVbThjfN8RNE9EJ+IsVyngI47XReGXQYwi6iC1mqnKSTF5AiMMQG1DRAeiGOUNlFgT07//u24Yazj9NfY5yygEwsLINgUNfLYE+kVtHMXLru3i5bZBZdPma+fK/UJA2jzo6m3d21aBDh/gXaOR8LtDAom/qPMaGXNPl3oz3QoLPKzustpvzHqFC8BQe7jpIVQ70dAEHePvNNyGRcsFLaHa3otkIsJ7mjc3TN2ic0xnGZLw3g4Dbw02sXeQ/Wi8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(4143699003)(10067099003)(6133799003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXREeHp3WGYvaEtMMGtwWXQ4OEE1QWdpbUtvQWhtS05ScGhsVldZV2k1aU52?=
- =?utf-8?B?ZHc5a1JRQTZ2dW5seE55aUtmeFFZOXVSTzhFRldKTlFTVEE0ZndBNmZPODI3?=
- =?utf-8?B?SzlhcEVPK2ZWR3Z0ODRsK1NUMW1hL0FVZ1ludkcxblVURUJvWkRJY1cweWEx?=
- =?utf-8?B?K3pMSWw4bHFUSnd4Wjh0NGdvbTRLM0xUM0NWL0xCUjA4bTRkUlEvam83RHVR?=
- =?utf-8?B?aDI2WTRsYWZSeTg5NzAzZkg3ODdnVEtzK1UrYTNBNlF2dUlpREdYMlpuQTlH?=
- =?utf-8?B?S0Y2OFFodmZjcE5SdEsyNUZHRVlpa0crOGVwNVhsL0NHSSt5TWRhbE1teGVs?=
- =?utf-8?B?QVgxZTd6dTlSNkw4a1laTlZ5QXBpZWpGTEJ0aEMwS3Zya2c5bks1SG1PaDk0?=
- =?utf-8?B?Wkcza0RtTVd5TGlkSG9Da3owcDVWMmtFK0owdVhMUWIydStrem1MR3h3QklJ?=
- =?utf-8?B?amx6NTFQZzgvWWFIbjF4c2tOa1BuVUVKUlhmUVRHWjAvUVFyTEdVaEE3bEpp?=
- =?utf-8?B?YytLcWNqQXFJVFlIQk5DekEzd2FTSDc0aW9sMXVDZmhWU2xwQXpkaVBCSnls?=
- =?utf-8?B?TmVUT09DZktyUDhjT2hCVi92RzM3d1Q4TUVXOXhpZTdCeFIxcUJnUWFuakhi?=
- =?utf-8?B?L3BkMmRSQ0svWEFCa0pTNVpvNDZ3Z09YdEJBOXZTT0JaUGlvU2V1MnB3TE5i?=
- =?utf-8?B?dlIrWVdRbjRhd3dBU1pDNytYY2dBa0duWWVXbm5uYjVKaVBoalU1UGVUd2pZ?=
- =?utf-8?B?dk5LY2s5cDU5WWNjRXNmd1M2Rm8rVUZSN2VrclFaWm90eFpNbTFueU5iNFJq?=
- =?utf-8?B?ZmUyT2FjZlZFa3RKNG9udHpVNnZVcitjV0x3RS92clM1emxRUDBTNHdZdjh1?=
- =?utf-8?B?MUhxMC9qenU4YnpLVUdhS09ERXlrOU9rdDdmVE5oSnNIbmY5MkUvYlM5UVRO?=
- =?utf-8?B?NTRjdk9OOVE3SzRuWFY4ME9xblJqNmdTM0ZoZlV6KzdEUXBTWDdkMC96QStI?=
- =?utf-8?B?N1QvVWs2WGx3NjJWZDJyNldwTklkZk8vblVoek10WVExeE9LWXl6S2Q4VVph?=
- =?utf-8?B?NUFxdE4vbW50cWpwQXhvR1FicG1GSUZhZGl1ejNyUEJpNDkzTmZ3K0NGVmlE?=
- =?utf-8?B?RkVuWllycURuYTkwZ0VHU2FDM2krK2dmWWN6czJaZmpuYkErREprbXVma3cw?=
- =?utf-8?B?clRtSUZ3ekQ3ZHNFZStWSVVyRERIYURCd3VXWGdtUFZkTEszSlVrU1ltS1Zt?=
- =?utf-8?B?VmVIRkpVSm43UkVDbXYvdjFzSDY0QlQ1Wkc1WDBSVGtjZnRKVWd6Vld6QUNt?=
- =?utf-8?B?blRycWNGcUppejBYVnFnRW10ZlI3bEIwN3JCUGo2OVE3cUcrVjR5T1lpcWtS?=
- =?utf-8?B?ZGRzT3hNSnhUZVhLa09Td3dOMC8vQ3RsbSt5dDBqSWo3SjExam1VUE1LejV1?=
- =?utf-8?B?Y2t1YnZKaTJLTkQyVlR2bmxWMDhWdTRUTUhiM0lkajRJbGk3V3QvMEthNHpM?=
- =?utf-8?B?blVTYStIdG9RbXFaY2M5bkg5UXZuMk01R1BmV0lKZE5yaUViYzgzZXdHZGZk?=
- =?utf-8?B?d1dUdjdQdi9uUzEvMXdnRlFPcmVCQy9FSGxkVzMybWJ1QVg5YThHS3drbURx?=
- =?utf-8?B?YVNjVkRWYll5aFFEVzd0WXFQY1RGMG8yRk5JRmlDaGM0cXFRUjgvdWo4U1ZQ?=
- =?utf-8?B?ODlPajJFUUZtTXl6QUZFRnNocWoveUd2anBGR1IyTCsvWmloa3FaVkoxaEpG?=
- =?utf-8?B?QWMveVozTGU3RDBmZVg4QWEvc1F3cEs1d3o5VVlqSzN6R3F1Y3NxcEZ2enh0?=
- =?utf-8?B?RHdVS2dCMTB4RDMraFAxVi9VYjJQUkw0R29zRUtvMU8waXdCdkVUajc5S3dn?=
- =?utf-8?B?N2ZVZ3VoTXkzSlVYUzVIVVM5YlNBaWY2KzVYd3RlVDhGYzBHOXlrRWdwNUQx?=
- =?utf-8?B?bnVNNEZqY1pkbkZRSU8wWUVyTm5wQWRCRDQ2R01sTFJONVYzVTFHby9pT1k3?=
- =?utf-8?B?ZDF5R3V2OGljaXQvMDJjMFVjS1U1R3ZRYU5ZOGNhN2FSd2lhNitLT1lIUkFz?=
- =?utf-8?B?anM0SDdHeUdBQnloYkl2cWRmd2Y5WkhGVkEzSXBHQnREQnpTdnlEK21DVEdE?=
- =?utf-8?B?UVgwK3k1bFZJVlYwV0FnKzlTc3ZUNEExNldBdURSZFFPZmZwTi9EbE8wa3gx?=
- =?utf-8?B?Vmtsa0FVSFFDRlJxZ3AwTjJnSmVlcHdtb0VmQ3luOEdpai9IVEdpcGxGV3BL?=
- =?utf-8?B?UVp5cXRxeG4wbkdIelVjTU5VdjdUdjZqN3RtV2pSRHkwdGM1MHRHVUpyTG5Z?=
- =?utf-8?B?Z1VkNGNhajcyWmpNSThuN3ZJM05PTSs4NWNxUVBBWXRKN2dwaUg3QT09?=
-X-Exchange-RoutingPolicyChecked: nTfJFCvq1I34pALDSHwrvXTipX7FcmYYi5DzyhfLCj0AvAoRKKkCZ6ldBfRr7pKlwMS9zGLEZwdcBHGWV+rrskElqXkRiNqjOeqKR1hWPAs6ySQzN9Q+lSK8M92LhOqgkiQEWb1FFmR2ePXC/wq9e2YfFAQKLojnfTkRS1gwC+6SlaCoygpo4+GI4I8zRO36Nt/k6v4ndKJxre6DJ5ztPUD13CR+flOPvz7gqZqalmU7pZx03zwTY2hID3pe/RM9dWjAoztPFd1egrwC1NbsUQBuI/OfHnB1xyazJvsxjHnFYLCcQ2XFVgLi5+6F31UGxQi9q+jhBjUsA5QPK+p3xg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53238e4b-3b5b-4a50-ba85-08df0d6b80e2
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 05:39:08.6297
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XAZtOd++JAwWu8K5qcUXMe2Uf07ks/RyU3FaP1cKYPpfXAY6DjvQTQegIhSiVqiJfGlkmNjjQXB5MSXsejjU5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB7788
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/2] Shikra: Support for QCE
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+References: <20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com>
+ <CAMRc=Me=JxgZv=cuysWhmwQjUp5eHcxzkzoPUnDWipjoNdn4Ag@mail.gmail.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <CAMRc=Me=JxgZv=cuysWhmwQjUp5eHcxzkzoPUnDWipjoNdn4Ag@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA1OSBTYWx0ZWRfXwXT43KruVjQ2
+ 9ACBlIZcDxdHXDxiU8MZmobYk96G2tZ3c+hUMz0YqXO9E+GS7jF/+bZlz9j7/+Vhn+jHIxz3Pvt
+ x5aNWlS9nE6xLLFct3mUh8FpsBbQpls=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA1OSBTYWx0ZWRfXy08s4Yr6DaEI
+ E0Vu0huuwPbQ/w4YSmOzovIwKXtJZ/izIz9dJL896Q8Qk8wlTEGWL2U5EPdXcEX3UCKcvU+Y+M2
+ Nnvtn8KEt9N3+0AxRicG0EU8PaFHiA8Smqe6ZQmge3x1SZ+X0seZBqO1k15vkVV7+83ibw8uItb
+ 2qJt5SPrOycoLeLItXURhXioSXN7UXs+pLtdP9SPeUXPo6/wONQoN4tqoBGfwkS/SKOe89yhGEp
+ 4M9M1b46ryo3CvHifI2PmVOakG+E7guOu50s+1q+flf+jB3JL4SkoHpCYLS32Ua9eJTFKK5zcu+
+ GdgnUnTeFGyGwy7UwYH65w1/rqI8aQiwmUb0y+a71oW0jJBDMrMuCETaKxLIsRlAOuWaUI5ezg3
+ dcV/BvyaJ2IpCDzlYBO4i1DhSlHW/I8j3iadecJH9EXiz26Iza4BMc6y6z2f82BiavYss5F1wAS
+ sKBvvGhyKLJ5EnhX26g==
+X-Proofpoint-ORIG-GUID: yKJRGHcgTD3cxV4MROau4Cd0kCP09Z8C
+X-Authority-Analysis: v=2.4 cv=QrduG1yd c=1 sm=1 tr=0 ts=6a9f9f8d cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rOgB9dYqbrrgEkEPSjwA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: yKJRGHcgTD3cxV4MROau4Cd0kCP09Z8C
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_07,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080059
 
-On 9/5/2026 9:58 PM, Hui Su wrote:
-> On Fri, Sep 4, 2026 at 1:15 PM, Tim Chen wrote:
->> Yes, you have a good point. The code I proposed just look at whether
->> we have consumed our allotment in the current slice.
+On 07-09-2026 19:16, Bartosz Golaszewski wrote:
+> On Mon, 7 Sep 2026 14:03:35 +0200, Kuldeep Singh
+> <kuldeep.singh@oss.qualcomm.com> said:
+>> This patch series enable QCE support on Shikra.
+>> Shikra is derived from agatti target and QCE was using different
+>> compatible configuration.
+>> Also, one more reason to update QCE is, clk-smd-rpm was doing proxy
+>> voting and crypto was consuming it. With proxy vote removal, qce need to
+>> vote for it's own clocks explicitly which is already being done for
+>> agatti target. Adapt same mechanism to Shikra QCE too.
+>> https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/arch/arm64/boot/dts/qcom/agatti.dtsi#n889
 >>
->> What we should have looked at is whether the donor's total run time has
->> exceeded its quota when doing core scheduling. And we may happen to
->> hit __entity_slice_used() at the front of the slice after advancing
->> the deadline and __entity_slice_used()
->> returns false instead of true, even though I have consumed more than
->> my fair share when looking at longer time period across multiple slices.
->>
->> The accumulated run time of the donor since it was picked for running
->> should be used for selection time baseline.
->>
->> So maybe a patch like the following instead.
 > 
+> This looks like a set of fixes to something that's already been queued, why
+> is this a v6 and not its own new series?
 
-[ ... ]
+Umm, both commits are having fixes tag so indeed it should be new
+series. I'll collect feedback on current patchsets and send v1 version
+next time.
 
-> 
-> In this example reweight_eevdf() did not change se->vruntime, so the
-> divergence does not depend on a vruntime coordinate adjustment. The
-> weight change alone is enough for the accumulated vused and the
-> current-weight vslice to no longer necessarily use the same scale.
-> 
+-- 
+Regards
+Kuldeep
 
-Makes sense. In the current kernel with a flat cgroup(commit 85570f10a4c6
-("sched/eevdf: Move to a single runqueue")), task_tick_fair()
-tries to re-calculate the task's h_load.weight - if the cgroup changes
-its share at runtime, the task se's h_load.weight changes accordingly.
-Thus comparing the delta derived from the snapshot vruntime and the
-slice using the latest weight is unreliable. (While before the flat cgroup
-was introduced, a task's se->load.weight will not be re-evaluated during 
-the tick, even if the cgroup changes its share at runtime.
-> diff --git a/include/linux/sched.h b/include/linux/sched.h
-> index 8b3d47a325cc..c32d9931129f 100644
-> --- a/include/linux/sched.h
-> +++ b/include/linux/sched.h
-> @@ -590,6 +590,9 @@ struct sched_entity {
->   	u64				sum_exec_runtime;
->   	u64				prev_sum_exec_runtime;
->   	u64				vruntime;
-> +#ifdef CONFIG_SCHED_CORE
-> +	u64				core_sched_start;
-> +#endif
->   	/* Approximated virtual lag: */
->   	s64				vlag;
->   	/* 'Protected' deadline, to give out minimum quantums: */
-> diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-> index f78275192036..22ae5dc57337 100644
-> --- a/kernel/sched/core.c
-> +++ b/kernel/sched/core.c
-> @@ -4580,6 +4580,9 @@ static void __sched_fork(u64 clone_flags, struct task_struct *p)
->   	p->se.prev_sum_exec_runtime	= 0;
->   	p->se.nr_migrations		= 0;
->   	p->se.vruntime			= 0;
-> +#ifdef CONFIG_SCHED_CORE
-> +	p->se.core_sched_start		= 0;
-> +#endif
->   	p->se.vlag			= 0;
->   	p->se.rel_deadline		= 0;
->   	INIT_LIST_HEAD(&p->se.group_node);
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8dff37059faf..1bd05c906d3a 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -6502,6 +6502,9 @@ set_next_entity(struct cfs_rq *cfs_rq, struct sched_entity *se)
->   	}
->   
->   	se->prev_sum_exec_runtime = se->sum_exec_runtime;
-> +#ifdef CONFIG_SCHED_CORE
-> +	se->core_sched_start = se->exec_start;
-
-if (entity_is_task(se)) ?
-
-> +#endif
->   }
->   
->   static bool __dequeue_task(struct rq *rq, struct task_struct *p, int flags);
-> @@ -14748,10 +14751,9 @@ static void rq_offline_fair(struct rq *rq)
->   static inline bool
->   __entity_slice_used(struct sched_entity *se, int min_nr_tasks)
->   {
-> -	u64 rtime = se->sum_exec_runtime - se->prev_sum_exec_runtime;
-> -	u64 slice = se->slice;
-> +	u64 rtime = se->exec_start - se->core_sched_start;
-> 
-> -	return (rtime * min_nr_tasks > slice);
-> +	return (rtime * min_nr_tasks > se->slice);
->   }
->   
->   #define MIN_NR_TASKS_DURING_FORCEIDLE	2
-> 
-> The task-clock version has matched the existing predicate in the
-> non-proxy tests so far and fixes the proxy reproducer as well. I am
-> still validating reselection, migration, and the remaining proxy
-> boundary cases, so I have not posted either implementation.
-> 
-> Do you think keeping the check in the original real-time/task-clock
-> domain is a reasonable direction here, or would you prefer preserving
-> the vruntime approach by carrying the accumulated service across
-> reweights?
-> 
-
-I would vote for the real-time comparison. What do you think, Tim?
-
-thanks,
-Chenyu
