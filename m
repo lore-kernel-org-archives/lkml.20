@@ -1,95 +1,76 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F36F4DBD9B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:04:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D894F30FD
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861883; cv=none; b=gymLwLzV8JQVrtOHxdKJskJnOUKEvkzF59UP8MtxKphPA5yQnyKiKjNfIO5VzPvtPtB7XfAhL6BqCm/hMQ2SgX/iUqT0qlwE51zcp5IM+SIYxo1MQPr+FLL5fMFXspID8h0+15DTqvpYOKXtgHCPg9m9Tk+N/fsuUL6pQMWLduM=
+	t=1788861904; cv=none; b=FbWGRpJCsYbLcgNwD5OQMOM6UhgJb5Zqe857oak9eMbn5+9mzgsHjsL3XSTdbOzDKPQw/f4mao8+UKS5r3WHX0vBBGt9tlB0gsxSmRH0PfgXeu1YFQl6B4Up/ohhoGo+Hz4LPR3PTpI3qSp62c12SiBTvpqGc6x4DAmsuMo1KIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861883; c=relaxed/simple;
-	bh=ghYsKIp07FN1l9ghsOylrYXrt4x8WJ0gtt+77NqonFA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dxRm6k9izz8hHI5XmAEPiKWcZ1+F07w0DpkYno3CbNkaHPo1mNYgfhsQgf1fyfawfQWl0D2ISm7W4/jguDv9Tc4hV3WAqRPWlgBmG1qc2hL2MWhX2JLH2ampijhLC654UckwbcotPOXuFzAEGh22ImpTAk0deP18xRYdSDRX2dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c6559620e3so1865897e0c.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:04:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788861881; x=1789466681;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1LnrkgW+HhkF2YKwW0WsGcBJcvFVVqkAq4nhlk/AGHs=;
-        b=FYd9u7nBj08EOl8fgWPHq2PS4ZeZwCE9e/nDdOwWifY7jkgJsjaCjfa+iGtHij0Y5K
-         U/8DLbvwl0/rNXlDT+GFWRaetjql4Palfs2iuRfk8cHwspBR/8lGJJK+WdUXDEDezPpf
-         2zUchAKJJBEETcLnotNRSSzqMOC3E1U4AzW+yZEztiuYlCpSASkDuG+FMLrgIzjIz4F0
-         DBUa8duwJvVhocVjN871utSmr0opM5503feV5URl+uzW2GZqzZVZXLK74KiFV/ygIzyn
-         eYGyAy0R6oxUro0ZmcwzUC32m638tnsBqmLuG0cjdBItkS97+/1ILryHIKJu2MPBd4Lx
-         nKbw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNON8UhrHa3mIkVU7AyU9jp79pYXt4Wb5+gldcs1i4SMCHscxL7dmA9WC7xqmO5RZKAgde2hSR9m0PANk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nD59SZWGSJBAGUl4kpZU7ghitrkfsk+kLfQqUTo00hcOu8xZR5
-	lstboFlqOQDRtLxgteN7cM9uePAjkz9gglwoBXkCRPF6Yj2m363SsnEx0ZqwTu53
-X-Gm-Gg: AYBFou1fXXjFnq9EN3k12xlnvrw2++F3jGMV/WRgls4n3v12bG9jwcGCf15HAg3eAs/
-	TmK2ucvDbDftO+aJhrjDSAIKartVeM+mrAJWg/mWJXcREsKm7rqkXWk2PWQPoEHESoBTaVXfriG
-	Iq6GeVAlGTfwHQgHoTDFr72LB6EFDAjmgN9DwW+FA9L2MYCpVK1LiuRoNVBgCEvQJnXBb9A5n2Z
-	imKzLDjKsFVW2gej4zkww/vq3QSEljluAVntdvdRzmniLW17AxavguRxJo8VEcKw1kv4DVc45ZR
-	fxexfhDKd/8YST2Cq5umZ2WI4RxSFrtAm1fp19BLPlF6Y1cU+XUhTzmKDow7mHjjpo5NBdv4pEP
-	8zUmdKGvZ9hKxPVqE+4pWp2M5zAY2ShBi3EdJhrmwHKAVB+TNv0XbnDXPpEJhFdCz/bLbra1cqD
-	ZMBAh9WWwrnfeb9HLky2MS/XUwhr9a81+JDbn08o/tY+ky6YYzGxTuBvhVOIw5igNve5szXQaGh
-	bLwpqxowgqVFg6xoKJa+s2T8g==
-X-Received: by 2002:a05:6122:2909:b0:5bf:a181:d46d with SMTP id 71dfb90a1353d-5c7ed4201ddmr12443967e0c.3.1788861881179;
-        Tue, 08 Sep 2026 03:04:41 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec386599sm9329597e0c.14.2026.09.08.03.04.41
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 03:04:41 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-74ab6c88052so1250776137.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:04:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwl+byRp66jRAnEoZtZQ7k7uuS36xwbDOmTKIgf1myEvd1jgFEWClT4miizGnZBVw1XOZzePDXlv+YdNsE=@vger.kernel.org
-X-Received: by 2002:a05:6102:943:b0:77a:d089:3dd8 with SMTP id
- ada2fe7eead31-78a4aa5a199mr8952340137.12.1788861880753; Tue, 08 Sep 2026
- 03:04:40 -0700 (PDT)
+	s=arc-20240116; t=1788861904; c=relaxed/simple;
+	bh=utEH7pUPEGRC3i+zZJZG6jYHf7HRvGc2s25CG7mpjLo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RgRzCPC9lkpS1llxU2H5ilhV9pyclF47G5Y29VsYTuM1zTG4bltq739VJWJilb1Biu+mEqadNJSWwshuruzdB/NSUuYEDW1hhl9TuO3UAYpcP9FUguL/sNhhQplRDmK7AVLc8S0OXVk8OqQ5QNmttmdbRj5nZtB+3MYHnEAkZi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bdaba626ab6c11f19a56ed5b684f684d-20260908
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:9160ecb6-f921-4fce-816e-bb2e7480bf6e,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:bcf8095c4c0e4b78c653f45a7ab8f1a5,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|83|102|850|865|898,TC:nil,Content:0|15|50|99
+	,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bdaba626ab6c11f19a56ed5b684f684d-20260908
+X-User: liuqiqi@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liuqiqi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1521093866; Tue, 08 Sep 2026 18:04:55 +0800
+From: Qiqi Liu <liuqiqi@kylinos.cn>
+To: Vlastimil Babka <vbabka@kernel.org>
+Cc: Qiqi Liu <liuqiqi@kylinos.cn>,
+	akpm@linux-foundation.org,
+	surenb@google.com,
+	mhocko@suse.com,
+	brendan.jackman@linux.dev,
+	hannes@cmpxchg.org,
+	ziy@nvidia.com,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	rostedt@goodmis.org,
+	gourry@gourry.net
+Subject: Re: [PATCH v3] mm: page_alloc: add missing hooks to bulk allocation path
+Date: Tue,  8 Sep 2026 18:04:51 +0800
+Message-Id: <20260908100451.341037-1-liuqiqi@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <c4c29830-ad49-4ca1-b4d5-6f40d30cdcdc@kernel.org>
+References: <20260908065043.217569-1-liuqiqi@kylinos.cn> <c4c29830-ad49-4ca1-b4d5-6f40d30cdcdc@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260817185700.322370-1-cosmin-gabriel.tanislav.xa@renesas.com> <20260817185700.322370-8-cosmin-gabriel.tanislav.xa@renesas.com>
-In-Reply-To: <20260817185700.322370-8-cosmin-gabriel.tanislav.xa@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 12:04:29 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV6etGuJC5Kg2S0fZGO=gq4HPHVtN2MzfxKTdMVTKsJCQ@mail.gmail.com>
-X-Gm-Features: AcwNN1X3RV4SYt13JI31j2zWzRybiv-rSaAkaCpsuF4HrMpzBo7HJkyDeoSaj10
-Message-ID: <CAMuHMdV6etGuJC5Kg2S0fZGO=gq4HPHVtN2MzfxKTdMVTKsJCQ@mail.gmail.com>
-Subject: Re: [PATCH 7/7] pinctrl: renesas: rzt2h: reuse helpers
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, 17 Aug 2026 at 20:58, Cosmin Tanislav
-<cosmin-gabriel.tanislav.xa@renesas.com> wrote:
-> The PMCm peripheral-mode test, the PFCm function read, the PINm input
-> read, the PMm write, and the PMm read are open-coded in several places.
->
-> Reuse the already existing helpers.
->
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+On Tue, Sep 08, 2026 at 10:38:46AM +0200, Vlastimil Babka wrote:
+> With normal page allocation the set_page_refcounted() happens after
+> trace+kmsan. While it currently shouldn't matter, it could be more future
+> proof to keep the same order.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Hi Vlastimil,
 
-Gr{oetje,eeting}s,
+Thanks for the review. You're right — I'll swap the order in v4 so that
+trace_mm_page_alloc() and kmsan_alloc_page() come before set_page_refcounted()
+to match the normal allocation path.
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Qiqi Liu
