@@ -1,159 +1,258 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-238.mta0.migadu.com [91.218.175.238])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BCC526A93;
-	Tue,  8 Sep 2026 09:10:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858610; cv=fail; b=IgS43V/6LSSHXSgnfqKqfzkusU38k9yZaD/E2jQ5OHvrXkSw+qyHuNby2YpviZVh2s5s8ThHA/d9Of7Pxjiy0/XYTCGkml5P8rWWq5Q9M2xOZoTWVJwxWx5Kg1NhVu12zc1pbawIq+3BQjbQMJdsSuGWuQYtUHempWEKJGHIRIo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858610; c=relaxed/simple;
-	bh=rZcKvHi0QRdRY8huIX0N3hxoVnb1HeINqsEgVY4dlfU=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qY07SgJhYy9zXP5wUP02wmByr5d3K/EfJRDEoymMP7ftwC9BKVJyYzSxcH3EZ7yqOqxW98jwRpm0npmUBe16QfLelhMk3JwacqSptDaalYJy6VyH1WxOgzWFjQq/Is9hMJC8hlCk7TLHXeUBy/POae0inABYVqnjh3qvNZgMM9o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=fnZ6mRkr; arc=fail smtp.client-ip=40.107.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58363372B58
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.238
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788858627; cv=none; b=ZaGsoxgVmAaS5wzlB9v13QUlpG7RuD0ejhgqaB8zjSzGV2JiNDI2LHLNwRnpHbq4/COGr0d3uzv7DLwhC2XpvxFxM1ONVjgzNzipFHwWO3TaLNSi34ILAOmXxaoxnI+7JqfhB0EayEehN65v/5cZoxEvuDlLXivBR4NQbBZZYCk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788858627; c=relaxed/simple;
+	bh=cEdVml3tdgAFLckXNxgJNh/xEbh5hOuVY3ofUnolJE8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NkzsljtoTTNVhiaylVUt1rpBv6WSbgMF1tHSbeiBsTfEXo7P89r9DGiOcMBpfFIzkCa8GjGv2xIGjSVSSy7EnzCAOzBNLG1CzeGn+bG/yFnyaeigvGsZ7YYpTFNQ9OcydGaJsEUvooFQ2jN6s/qPULz6K+uEcLvIoTd+bs7BnG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=mGDZGI/7; arc=none smtp.client-ip=91.218.175.238
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="fnZ6mRkr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uVQTU8/t0BpXQe0kPZpL2q83e5F3L6Yqkw/hECO1uBiZEjQ4upae+ZHj8HG4HG7vme956i3C9Hd9doB3Q+NKdVnZsNhIgkd3Ku/x5O3FJbzWLITiY9ohfimYZO4OO86gaceKkM4nmwmY8WXQaXbRhE98ALY9e8rhpp9gRe4+hJmnxN++JeKZhXbkR96sALEOU5PLSd1LnDHsDCD5B45YnLy+4yyzyRSm61p4D5P0Cbp5JpQE7o1jPc7uIGG8r8U9I+VK+G62duT08Wg8cAWPA2q0RlzOwDRk0wdq/Vln1K4q0omNH0TfbmFKEWZbbLCcF7anRirMs+SOxpSvXUPsRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z7Sc8T4dR6PoIvnv89UiSo98QDWsj/oilX6WBzax2x4=;
- b=XT+nxUa0tK8Z3snZ0Xr8Qm/ibvih2qTIeNn3CkeFlOQ7SxJr8lanQjYXsdrDmwY/e7yV/Rrqtn2BepOC4aCHkwyLgGLWtMFs1+QfS4MSpvW+QiAFnRnmMS+aK5gWtsjuG3TDmzgThdo7n76t+7GQke+QRkpP5ivOjWiAqHmUff0uKb9Whhpoh6FdY8EhReO3t9zea5mt0Bf+Z0C9tLXPvXWA+8IcfB0HeLWHOPeKLNg7a0fIgJuh2Jun+t+ZJoeC4a92a1dq6gsCRohGVoxoVWsxj3/+ALqtLvmxRrunAa3yjbtFLlf6go9scagtYVbX2KG2ebfnZpfK5n+HNu5zQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z7Sc8T4dR6PoIvnv89UiSo98QDWsj/oilX6WBzax2x4=;
- b=fnZ6mRkr2JmmVTZHKEw/f2CDj6uWqUsZdpalGB/L0AWQz7pRHwnjPQlasjsvGwWouFVO3yIpkVa+3RihqqG3SCs2zbMj9aO356rpP1NCqj2CZElmTfyZOew5pf6UbeoQz15havf2Zr2i2dVKPN1Dfayo2BV2n8Ozka3omC+hRYI=
-Received: from SJ0PR05CA0132.namprd05.prod.outlook.com (2603:10b6:a03:33d::17)
- by DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 09:08:53 +0000
-Received: from BY1PEPF00026959.namprd05.prod.outlook.com
- (2603:10b6:a03:33d:cafe::a8) by SJ0PR05CA0132.outlook.office365.com
- (2603:10b6:a03:33d::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5 via Frontend Transport; Tue, 8
- Sep 2026 09:08:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF00026959.mail.protection.outlook.com (10.167.244.170) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 09:08:52 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 04:08:52 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 04:08:51 -0500
-Received: from xhdipdslab46.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 8 Sep 2026 04:08:47 -0500
-From: Abhijit Gangurde <abhijit.gangurde@amd.com>
-To: <jgg@ziepe.ca>, <leon@kernel.org>, <brett.creeley@amd.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <allen.hubbe@amd.com>, <nikhil.agarwal@amd.com>,
-	<linux-rdma@vger.kernel.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Abhijit Gangurde <abhijit.gangurde@amd.com>
-Subject: [for-next v1 0/5] RDMA/ionic: add SRQ support and firmware assigned CQ and SRQ IDs 
-Date: Tue, 8 Sep 2026 14:37:56 +0530
-Message-ID: <20260908090802.152142-1-abhijit.gangurde@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="mGDZGI/7"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=cEdVml3tdgAFLckXNxgJNh/xEbh5hOuVY3ofUnolJE8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788858622; v=1; x=1789463422;
+ b=mGDZGI/7eho1oCAMQAFP5k6uHKGxgtsXd8LnWYLumuY0XG6E3ohGh1nh84Ajwve1i36GIUJ5
+ xuVzopiEDE5v2i0feRjZit/lC2rr588yofYX/0UqHdOYARgBKi9wA3XH2/JPiktRm8IcZNigfLt
+ FhI87zwu4LEy/18YBbZVaA40=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 375bf685a1d0cbc9;
+	Tue, 08 Sep 2026 09:10:05 +0000
+X-Mizu-Trace-ID: 375bf685a1d0cbc9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f2f1f7e4-539f-4385-a28b-1fde074cdeca@linux.dev>
+Date: Tue, 8 Sep 2026 17:09:58 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026959:EE_|DSVPR12MB999171:EE_
-X-MS-Office365-Filtering-Correlation-Id: 996915d8-2d85-4f06-e5e4-08df0d88cdd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|82310400026|376014|7416014|10067099003|18002099003|11063799006|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	EEeJgL4eVduSBIZf8pnpxse/xzPr0cd3JmFDqVNLyyYHnU0IPC28OOHBmjMgHyoKyBCuX/DsMaasbTh2Tj8MbAwrghixSEc145XrhtnHVsRcQEEnCNApi+rh3Qnl21WLM9NrDVIEnlAXJkHUJ23Mjs1tdowcAJ1PnvS8mGd5Vb6d/XiG74ZyKeIjSrY0nLCIFncDafXgzsAWVM7S7TzjzvkviTYqxiq4GWiE6J+Lw864j2AijC26HTzl7UJ8am1XHvYogcuoMRVENecUZCRjeA1zq+KG2nCE9Mb7mRu3OeKFsG1JoCnfs0jUrHRLWi9Xz9LjFPeDp+s9CKq9Olp2akmg0i2sVRkplSX6L5il9jdIKgnBuVPWxfedWttAEt9KQ5a6k7EzGiXIKgh3fj+A4MQqvV3mnk+bmDIG3m8kycG/IFZjPM51JJxI7RwKac8SFwNQdCLzKFAD73TIgIhReoIKZL7jxinxdgE8/ys6z7Qzw8SL3GvT8omjtm8aXnnzvoe62ZHwhfSbWf24gbt5n1e1kzoLWljRJs3LVALISgArFN69Mc2r27C37d9XowMY+K7M1A0h5lnS0rVEc9WMSFHvI0hd8DnK0IA2RiL7JJ0BPh8HVlJp1AB2J5YpThmgXXpV8GDI1fp5pEtntG2QRzBPdlBrO3kCc501irDDdjMIfrpHpPd/LieTeTT/ZtZXmrn4vIoWv5VAFtdXE2I0jQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(82310400026)(376014)(7416014)(10067099003)(18002099003)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rqOLnT8dFDrFuwLGI5GejDdnS1gcQZ3BAyqjCAQh0vlCQNbXVb/oW77gIpG8qS0Dijwjf8uZwKH326AGbmZeow8MpVUu7bYSTKuPTaUJSCDHTsdPYrxaO+4Qadp6vdgX1dYynag+BqKqWrZkeTImvXrv0+2xXHkKka3QKL0H1gBcVJRgBO+GceiIWfzkIPnZEMtiYCCV5Rra7GLDTNxNIAZkckIFmB4OkrzlAP7WhHMYr3PJDOuCTCBT8LcwrSBoZg5KaX+Z1G/vmjp+pER+6rSkqvcTsaBn3tNeA6QrkombXrD7P3/zJT+MiJiB1CL1DkCQbTHSdufsZmGqA3m7BrrOcFSXEG4Z+UikhVqQkv92oEeEIQwnXlmp2SwD4XYMMP4r4WdJ1M6fmxA6vYr3m+eYonyswfizLUD62smpzEdn2OfsQLMjWDZ4ZDdqcFGS
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:08:52.8408
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 996915d8-2d85-4f06-e5e4-08df0d88cdd1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026959.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999171
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 09/11] mm/sparse-vmemmap: drop the extra tail page from
+ device DAX reservation
+To: Muchun Song <songmuchun@bytedance.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Oscar Salvador <osalvador@suse.de>,
+ Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Michael Ellerman <mpe@ellerman.id.au>, Jonathan Corbet <corbet@lwn.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Muchun Song <muchun.song@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Nicholas Piggin <npiggin@gmail.com>,
+ Christophe Leroy <chleroy@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
+References: <20260908030335.96549-1-songmuchun@bytedance.com>
+ <20260908030335.96549-10-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20260908030335.96549-10-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This series adds ionic Shared Receive Queue support and lets firmware assign
-CQ/SRQ IDs when the LIF advertises qid-allocation capability.
 
-Patch 1: extends the RDMA LIF identity with SRQ qtype and alloc_qid_cap.
-Patch 2: uses that for firmware-assigned CQ IDs and splits CQ create/destroy
-so cq_tbl is updated only after the ID is known, and removed before the ID
-is returned to firmware.
-Patches 3: Refactor RQ state into ionic_rq so QP RQ and SRQ share init/destroy.
-Patches 4-5: add SRQ verbs and EQ events. Userspace ABI field srqid is new
-with this series;
 
-rdma-core PR: https://github.com/linux-rdma/rdma-core/pull/1799
-Net changes pull request:
-  The following changes since commit df2908090cda368b01ff43709f51890076c56157:
+On 9/8/26 11:03 AM, Muchun Song wrote:
+> The device DAX vmemmap population still reserves one extra tail vmemmap
+> page after the head page.
+> 
+> Drop that extra reservation and let the shared tail page cover all tail
+> vmemmap pages after the head page, so DAX follows the same reservation
+> model as HugeTLB.
+> 
+> This reduces the reserved vmemmap pages for optimized DAX mappings to
+> one and removes the now-unneeded first-tail population from the generic
+> and powerpc paths to simplify the code as well.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>   arch/powerpc/mm/book3s64/radix_pgtable.c | 46 ++----------------------
+>   include/linux/mm.h                       |  3 +-
+>   mm/mm_init.c                             |  2 +-
+>   mm/sparse-vmemmap.c                      | 13 ++-----
+>   4 files changed, 7 insertions(+), 57 deletions(-)
 
-    Linux 7.3-rc2 (2026-09-06 15:07:20 -0700)
+Looks like sashiko's response [1] is a false positive.
 
-  are available in the Git repository at:
+[1]. 
+https://sashiko.dev/#/patchset/20260908030335.96549-1-songmuchun%40bytedance.com
 
-    https://github.com/abhijitG-xlnx/linux.git ionic-shared
+__SetPageReserved() in vmemmap_shared_tail_page() marks the struct page
+entries stored inside the shared vmemmap backing page, i.e. the metadata
+templates that later represent DEV-DAX tail pages. It does not mark the
+struct page of the backing page itself.
 
-  for you to fetch changes up to 4d77450be558f140997fe23b362e4049c0ff0d74:
+On hot-remove, free_vmemmap_pages() is called with pte_page(*pte), which
+is the backing page. That page is not reserved, so the teardown goes
+through __free_pages(), not free_reserved_pages().
 
-    net: ionic: Fetch qid allocation and SRQ capability from firmware
+Right?
 
-Abhijit Gangurde (2):
-  net: ionic: Fetch qid allocation and SRQ capability from firmware
-  RDMA/ionic: support firmware-assigned CQ IDs
+If so:
 
-Amit Kumar (3):
-  RDMA/ionic: segregate rq related fields from ionic_qp into a new
-    ionic_rq struct
-  RDMA/ionic: add Shared receive queue (SRQ) support
-  RDMA/ionic: implement SRQ event handling support
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
- drivers/infiniband/hw/ionic/ionic_admin.c     | 117 ++-
- .../infiniband/hw/ionic/ionic_controlpath.c   | 771 +++++++++++++-----
- drivers/infiniband/hw/ionic/ionic_datapath.c  |  82 +-
- drivers/infiniband/hw/ionic/ionic_fw.h        |  74 +-
- drivers/infiniband/hw/ionic/ionic_ibdev.c     |  20 +
- drivers/infiniband/hw/ionic/ionic_ibdev.h     |  87 +-
- drivers/infiniband/hw/ionic/ionic_lif_cfg.c   |   2 +
- drivers/infiniband/hw/ionic/ionic_lif_cfg.h   |   2 +
- .../net/ethernet/pensando/ionic/ionic_if.h    |  31 +-
- include/uapi/rdma/ionic-abi.h                 |   2 +-
- 10 files changed, 907 insertions(+), 281 deletions(-)
+Thanks,
+Qi
 
--- 
-2.43.0
+> 
+> diff --git a/arch/powerpc/mm/book3s64/radix_pgtable.c b/arch/powerpc/mm/book3s64/radix_pgtable.c
+> index 831c231a4a18..e7e751c48dd2 100644
+> --- a/arch/powerpc/mm/book3s64/radix_pgtable.c
+> +++ b/arch/powerpc/mm/book3s64/radix_pgtable.c
+> @@ -1218,39 +1218,6 @@ int __meminit radix__vmemmap_populate(unsigned long start, unsigned long end, in
+>   	return 0;
+>   }
+>   
+> -static pte_t * __meminit radix__vmemmap_populate_address(unsigned long addr, int node,
+> -							 struct vmem_altmap *altmap,
+> -							 struct page *reuse)
+> -{
+> -	pgd_t *pgd;
+> -	p4d_t *p4d;
+> -	pud_t *pud;
+> -	pmd_t *pmd;
+> -	pte_t *pte;
+> -
+> -	pgd = pgd_offset_k(addr);
+> -	p4d = p4d_offset(pgd, addr);
+> -	pud = vmemmap_pud_alloc(p4d, node, addr);
+> -	if (!pud)
+> -		return NULL;
+> -	pmd = vmemmap_pmd_alloc(pud, node, addr);
+> -	if (!pmd)
+> -		return NULL;
+> -	if (pmd_leaf(*pmd))
+> -		/*
+> -		 * The second page is mapped as a hugepage due to a nearby request.
+> -		 * Force our mapping to page size without deduplication
+> -		 */
+> -		return NULL;
+> -	pte = vmemmap_pte_alloc(pmd, node, addr);
+> -	if (!pte)
+> -		return NULL;
+> -	radix__vmemmap_pte_populate(pmd, addr, node, NULL, NULL);
+> -	vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
+> -
+> -	return pte;
+> -}
+> -
+>   int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   					      unsigned long start,
+>   					      unsigned long end, int node,
+> @@ -1297,7 +1264,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   		if (!pte_none(*pte)) {
+>   			/*
+>   			 * This could be because we already have a compound
+> -			 * page whose VMEMMAP_RESERVE_NR pages were mapped and
+> +			 * page whose retained vmemmap page was mapped and
+>   			 * this request fall in those pages.
+>   			 */
+>   			next = addr + PAGE_SIZE;
+> @@ -1318,16 +1285,7 @@ int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   					return -ENOMEM;
+>   				vmemmap_verify(pte, node, addr, addr + PAGE_SIZE);
+>   
+> -				/*
+> -				 * Populate the tail pages vmemmap page
+> -				 * It can fall in different pmd, hence
+> -				 * vmemmap_populate_address()
+> -				 */
+> -				pte = radix__vmemmap_populate_address(addr + PAGE_SIZE, node, NULL, NULL);
+> -				if (!pte)
+> -					return -ENOMEM;
+> -
+> -				next = addr + 2 * PAGE_SIZE;
+> +				next = addr + PAGE_SIZE;
+>   				continue;
+>   			}
+>   
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index a2ebe87e7654..969594074fd2 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -5167,7 +5167,6 @@ static inline void vmem_altmap_free(struct vmem_altmap *altmap,
+>   }
+>   #endif
+>   
+> -#define VMEMMAP_RESERVE_NR	2
+>   #ifdef CONFIG_ARCH_WANT_OPTIMIZE_DAX_VMEMMAP
+>   static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
+>   					  struct dev_pagemap *pgmap)
+> @@ -5187,7 +5186,7 @@ static inline bool __vmemmap_can_optimize(struct vmem_altmap *altmap,
+>   	 * For vmemmap optimization with DAX we need minimum 2 vmemmap
+>   	 * pages. See layout diagram in Documentation/mm/vmemmap_dedup.rst
+>   	 */
+> -	return !altmap && (nr_vmemmap_pages > VMEMMAP_RESERVE_NR);
+> +	return !altmap && (nr_vmemmap_pages > VMEMMAP_OPTIMIZATION_PAGES);
+>   }
+>   /*
+>    * If we don't have an architecture override, use the generic rule
+> diff --git a/mm/mm_init.c b/mm/mm_init.c
+> index 7a2e58d631c2..629420a83891 100644
+> --- a/mm/mm_init.c
+> +++ b/mm/mm_init.c
+> @@ -1056,7 +1056,7 @@ static inline unsigned long compound_nr_pages(unsigned long pfn,
+>   	if (!section_vmemmap_optimizable(ms))
+>   		return pgmap_vmemmap_nr(pgmap);
+>   
+> -	return VMEMMAP_RESERVE_NR * (PAGE_SIZE / sizeof(struct page));
+> +	return VMEMMAP_OPTIMIZATION_PAGES * (PAGE_SIZE / sizeof(struct page));
+>   }
+>   
+>   static void __ref memmap_init_compound(struct page *head,
+> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+> index 0201877a7f80..e655d9d1348f 100644
+> --- a/mm/sparse-vmemmap.c
+> +++ b/mm/sparse-vmemmap.c
+> @@ -136,7 +136,6 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
+>   {
+>   	const struct mem_section *ms = __pfn_to_section(pfn);
+>   	const int order = section_order(ms);
+> -	const int vmemmap_pages = pgmap ? VMEMMAP_RESERVE_NR : VMEMMAP_OPTIMIZATION_PAGES;
+>   	const unsigned long pages_per_compound = 1UL << order;
+>   
+>   	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SUBSECTION));
+> @@ -147,13 +146,13 @@ int __meminit section_nr_vmemmap_pages(unsigned long pfn, unsigned long nr_pages
+>   
+>   	if (order < PFN_SECTION_SHIFT) {
+>   		VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, pages_per_compound));
+> -		return vmemmap_pages * nr_pages / pages_per_compound;
+> +		return VMEMMAP_OPTIMIZATION_PAGES * nr_pages / pages_per_compound;
+>   	}
+>   
+>   	VM_WARN_ON_ONCE(!IS_ALIGNED(pfn | nr_pages, PAGES_PER_SECTION));
+>   
+>   	if (IS_ALIGNED(pfn, pages_per_compound))
+> -		return vmemmap_pages;
+> +		return VMEMMAP_OPTIMIZATION_PAGES;
+>   
+>   	return 0;
+>   }
+> @@ -521,17 +520,11 @@ static int __meminit vmemmap_populate_compound_pages(unsigned long start_pfn,
+>   		if (!pte)
+>   			return -ENOMEM;
+>   
+> -		/* Populate the tail pages vmemmap page */
+> -		next = addr + PAGE_SIZE;
+> -		pte = vmemmap_populate_address(next, node, NULL, -1, flags);
+> -		if (!pte)
+> -			return -ENOMEM;
+> -
+>   		/*
+>   		 * Reuse the shared page for the rest of tail pages
+>   		 * See layout diagram in Documentation/mm/vmemmap_dedup.rst
+>   		 */
+> -		next += PAGE_SIZE;
+> +		next = addr + PAGE_SIZE;
+>   		rc = vmemmap_populate_range(next, last, node, NULL,
+>   					    page_to_pfn(page), flags);
+>   		if (rc)
 
