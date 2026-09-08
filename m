@@ -1,157 +1,145 @@
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C604A1DE9
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:06:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD30656C634;
+	Tue,  8 Sep 2026 19:06:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.58
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788894376; cv=pass; b=K25jRqG39xxKs0oxQr0Xrp3GuZdM+sBA2aYxdzJifmPXpSBSLIfrbaKW7PqdB9t/dw8f10olR6ot7o88FWrF3UNQ+2wC6EjtdELYdbiReiKtfZSWcEkUwkC6kBIbPZsL8SfC+cJHjLrNgl1lLifzb9suowTr/CzRff+2Hj0/IQY=
+	t=1788894383; cv=fail; b=JuofD9rRfLaDPILZ/JOTpnY7AkUy3Co70Zebi+Y3R5bHtQ58HCa9PGC76Qnljv6FrPUBoQjPNbuMz6J3EXR0+NmGVkk/vMhQXNwMQ8FJDUfLawtE4vsprPXKRYNMaVuuY7XfqM3FkD3nS2czRDEQ3qEqMCexwyPDD/cmwTjYVrs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788894376; c=relaxed/simple;
-	bh=JxAv9A35o8tRcwxKjZO94SBS9xDo9RgjGVk4mfstMJQ=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m082W5D3cqktyPubtPvZXQyzrqFkCD18Xq3I81wL0EM0i6G4oaweN0uCzg+9/orXNV6e2verZPDcqLfaTB7+QJhgapi+Qj1F+Q2umwn2IvckJB3lc47EL7O8ySzZtnuncgNh/zGUSVteWhwzjPBVaIRsJpO19UvKouG1CCMmwGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oC67sJca; arc=pass smtp.client-ip=74.125.224.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788894383; c=relaxed/simple;
+	bh=EZPQtm+bPefTUj5lMp6MUzxAtHVgAahOZ5Xk3wIIUAs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LmyHwZvYhy3f8PbTN0H6QLQoPUCiGE8D7B12z3s0coIa85tY5JDtmRWOu9AOyLy8ETUU2SFAroydB+/71Kgl5Joaqp4KE02j/08AiZ0XDyuDr1NrUC6/+s3X3rcjXCKhOJ1OIU/8lBpCGIZ9L5eMA793GWo1rzomQMSwmzwIVDA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=sSXjIVSJ; arc=fail smtp.client-ip=52.101.52.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oC67sJca"
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-66fa10f35caso4567558d50.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:06:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788894374; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CXi1538y2RECslDdyLs6ZhlmrExzPL27/C83xbvVP3qX84qTxHkgzKZYkHfkbjTBZJ
-         8yI9p2MyR++4//cSGBuFpJGYpIDeXrhfQ5HQB+4+J3JHeaQKnl1WWw7gbRL/xshLeaX3
-         SUXhXat1pyiLMHEwKs/uNeq0a52S1wAVkJLefSGnhhNsB3/mqwd2j2GjdNAE7S5Ca+Tx
-         6VIlT9Oub0iJuE6FTMBaz/imJzhrjZFEuJIH+pCIGmiJ0MYy9Arvqi2K/7aEmkY7pvq8
-         SW7YkxoCkwKXXbEl/NFMCr8ltH9YkKo4N2dqJRM02p4dL3wJliGMgnSBqgD/Rn7P8oXn
-         9HUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
-        fh=Dg9iUveyuM1CLptmcsnTUpCRCecspGwpY8o1VrF2hgU=;
-        b=M5CnYSfSRC9AKuMm4zanGIevNV08JgbKgqJ1YeNGLyjohDXRqd3j12vPkd9DyAWOhA
-         f1bNvkg2UNj8VPw4Y/zr6gdWcYrLB03//UDSf2D89UxrTlldfqmK+AvKYqO9MJzrdR3L
-         uJA5GrYr1+2Ym7QnstW50hVwccdNorotxB6WpoimKVF3SA3/U8+APFpWDVbTzBHdM1oj
-         OcB3KllfD0xVMyIaxdBdU61PbBHXPMTNdhx9z/OcZ54t33jYkeMvGfhhnmGkmFUIwi94
-         uvqyV9hGKKsDiO/5kW7oDr4GwRLiSytL7td/cvY5gqaxjcBpS9jzW/rWPymYqJvIv3ZZ
-         SMrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788894374; x=1789499174; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
-        b=oC67sJcaorDh1kjqjpVLuyalUhep2NkbBs6C69vF3ZQ737maXmCGNC9HR3wVUUAu+p
-         IAPvdYi/hi9bOlyBUQWZuPxCac8/CSOfLY9V0PgProfNxs7AkRsoF/xQT1d7G1xlMbdq
-         Va/ZeX03But8KMlDOphJyp+FtdcpWSI/61ioT5egU/rUM2n8wo1p/BPvkMicwzBTXcrl
-         JOSAK3NFI/Mk3LQppqpEbN20vNgVLOk+xkmMx3+tOY3y4S64Cl2Uh7ZjiH1RT8yIRH8z
-         XJgWT6NsQmdCVTkpjN1EdoCGffm0mte2KnEI61rF2cVh4AhUIIxfRGylQ+5hYMKyTbnH
-         yb1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788894374; x=1789499174;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hhSMn73HXnZUeqqhpj5wjt1oII0fZ8bLb8+fuULddR0=;
-        b=ATz68RYg/zGg9D4S3/OBQLrGymrqHhigrtTOL030WCuAEGpP1JKiq5fJ9drftnJ4k3
-         1pJxqIwgBPvn/ef6ziBP0V4HlalyOJq0BGvlscsaWVe4cwC3MQXgeyfq/8f4uBCOoqcs
-         UxUqT4Qmq7FrEiROGqcCns+Jd9XYCianO/82p+S67Fqnokw2fXpDqUVtb3t+LLD3Xn5x
-         XvcJjENQTsyj+c0ekmkyMqTCK6QoJtVhhuSNJLJesBcUvJHPYtWDW6e6n8iY6ZGtLEDP
-         ZnQOc/qSf1pz6aJQEga9liLKDcdzCsnEA3SErnzGYPxTSPNKUnDx/Rt1Bb78BO3TPEQX
-         7tXA==
-X-Forwarded-Encrypted: i=1; AKwUvBwfnGqQdPNvI/rmjKf1YzEy2/7mEu8g4YKJ+WKKjqT0J83EFEk0FZx0VcZkehBZzpeTqdumzIieYdvXERM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n6QoXGeNaK9FRYhcSUjvDaOBANqz930041kBLX8ZmQsh7zY1oC
-	kSpPzuyr5FRhzCgIi+oz7HahUamkIuFMff2hDN51XAi3yFvaaO/7NKl+TSbjsgnGpLVrZqdHrEp
-	j4x/rQHb8loUU5lxmp6XU+86QMcKFDo4a0e9bM0D9
-X-Gm-Gg: AYBFou2GD/oXSxWJMKOJ9r6KM5ya4RAQMg7atmv8Xa3V7XrseB6VidCaBHojQHb0ifn
-	7b0i6JNzs6JLdDqjREGukwTc88J1iGTAkVhYUNPUxkfDY/xFLjZAVM9aPS25sOIpH61uVVqySF2
-	O32YQZ6rM6IPgHc699hIHo0iY+Q4CMuA/JY7RgZ/zPfTHTRgd8uCHcCLmAbbmZOepxs0i8Uqsvz
-	5CLRnKQ2d3lvLPiP/BafyYfKO1CrxW9Q0bcKnMJVE5AgDYu5BkCBV55XsBasduMvGlUeuTBGZPa
-	IR/dXnkzE7m1oQ+7MR+bGQ5pKKrhmAhpk5UTOyii90mOfjCxMWHX5KxpbPy98CisjtCeRnEIt6i
-	Z8GHtGY1AJ3YqKqmeFNU7GBp/+9ejow0bNNm2NG0EDQ==
-X-Received: by 2002:a05:690e:4143:b0:668:42d:95e5 with SMTP id
- 956f58d0204a3-66fb58f1410mr10675130d50.4.1788894372039; Tue, 08 Sep 2026
- 12:06:12 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 12:06:11 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 12:06:11 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <ae783977c1eaa34d2910f76dac1437c7aad47d93.camel@intel.com>
-References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
- <20260722-tdx-selftests-v14-4-15ad654a50db@google.com> <ae783977c1eaa34d2910f76dac1437c7aad47d93.camel@intel.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="sSXjIVSJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=c+CeKItBpE3qUh9tXOp1WQ8aeliYcRM47oDP4rGTlg/wtOTKg7RqMxbIVcEC47Bv+NnAmfSIlIfigQVawts7dguzkOxqCwjv/whlaLsTy2UZUUV6BpxlXPkItUMbgVPI9T69joks74ve1ZhoTq1pnWY8mlIEOlOaGIl5vJbRkEIQwumGN1m4MQlIBCc77RMwazbC6D5bYA47wLmCaGbm92USJfSieeU7BV0jYtdK7C1G/1E04q/Z0dTPHmsg9qh37xbV0iyA3dw6vQqe1gmq+07Zp/0lmqPYvXWOy5U1if5/rVmDEOhm4NjiwmRtFh25pHRfUwMwhQtZ5M9BIPcw+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LtbcFJYtEf/HtRnVfcDYZKKsZHb9247CR5SHn7RNmXU=;
+ b=NBDDqpPiMohbN7LDQh2hXP5loXt98i3WBS3cX+hhk4kbv9k7a0kvtQ3qUiV5dFCJQXWNxg0pb4uI82zDIUW+qvTiiuHIcxDPsWvjGxn3mFU6fpYFrb84IohbVoMMTdfySMILDt4wsNfGtt2rbQkKfq8c5RTp2FNaBRqZMu9GE2N2WLm75LKMb50My5hue8aYz9YYOLnycRQyy7GUn1qLgT93tWFFFk3spWYz2QmV2sTcon1ryaOpdiaW7OstRZBuwYp/pxE+fKjyzzdxKCXSMmXDxXLHdz4GDsQ9FB/a1TF3c8UHhsu6CtabAo3tYF29jZApqnmPvpIq3NxxJumBOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LtbcFJYtEf/HtRnVfcDYZKKsZHb9247CR5SHn7RNmXU=;
+ b=sSXjIVSJaLlAhdvz7Jr4taqINeDL9kpc4pOQWE8ndFdhkRKiHatLpDavKjYlLSdCK/KA6IF5AVvScntjh3nrtOeW7802l13dUoduk5L8OANAStUty45ZsAclXd/dAetCt1LQDTiXKuOceiYD7/gDtOgae7tdKgMhju+DdjeFVt8=
+Received: from BN9PR03CA0108.namprd03.prod.outlook.com (2603:10b6:408:fd::23)
+ by CY3PR12MB9607.namprd12.prod.outlook.com (2603:10b6:930:103::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 19:06:17 +0000
+Received: from BN2PEPF000044AB.namprd04.prod.outlook.com
+ (2603:10b6:408:fd:cafe::6e) by BN9PR03CA0108.outlook.office365.com
+ (2603:10b6:408:fd::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 19:06:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF000044AB.mail.protection.outlook.com (10.167.243.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 19:06:17 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 14:06:16 -0500
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 14:06:15 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+CC: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, "H .
+ Peter Anvin" <hpa@zytor.com>, "open list:PCI SUBSYSTEM"
+	<linux-pci@vger.kernel.org>, "open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)"
+	<linux-kernel@vger.kernel.org>, "open list:LIBATA SUBSYSTEM (Serial and
+ Parallel ATA drivers)" <linux-ide@vger.kernel.org>, Mario Limonciello
+	<mario.limonciello@amd.com>
+Subject: [PATCH v2 0/2] Fix for storage corruption w/ AMD IOMMU on 64-bit addressing
+Date: Tue, 8 Sep 2026 14:05:58 -0500
+Message-ID: <20260908190600.226485-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 8 Sep 2026 12:06:11 -0700
-X-Gm-Features: AcwNN1XsGt_fUaARpEZcGvQCOF1lLG5Qg2IcdgK2WB2r0fv2QH8UPnIsl3MEqiA
-Message-ID: <CAEvNRgHB9Vhwe4kOGYUn3piw3dw8zqSgVQX2VonoWCYPw-TaWA@mail.gmail.com>
-Subject: Re: [PATCH v14 04/22] KVM: selftests: TDX: Use KVM_TDX_CAPABILITIES
- to validate TDs' attribute configuration
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>, "Aktas, Erdem" <erdemaktas@google.com>, 
-	"Li, Xiaoyao" <xiaoyao.li@intel.com>, "shuah@kernel.org" <shuah@kernel.org>, 
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "afranji@google.com" <afranji@google.com>, 
-	"kas@kernel.org" <kas@kernel.org>, "binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>, 
-	"ira.weiny@intel.com" <ira.weiny@intel.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, 
-	"Chatre, Reinette" <reinette.chatre@intel.com>, 
-	"isaku.yamahata@intel.com" <isaku.yamahata@intel.com>, "seanjc@google.com" <seanjc@google.com>, 
-	"pratikrajesh.sampat@amd.com" <pratikrajesh.sampat@amd.com>, "oupton@kernel.org" <oupton@kernel.org>, 
-	"wyihan@google.com" <wyihan@google.com>, "sagis@google.com" <sagis@google.com>, "Gao, Chao" <chao.gao@intel.com>, 
-	"Wang, Roger" <runanwang@google.com>, 
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>, 
-	"ajones@ventanamicro.com" <ajones@ventanamicro.com>, "Qiang, Chenyi" <chenyi.qiang@intel.com>
-Cc: "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, "jmcrey@google.com" <jmcrey@google.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "x86@kernel.org" <x86@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AB:EE_|CY3PR12MB9607:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4666a240-656d-44f5-74e0-08df0ddc4296
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|7416014|376014|36860700016|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	8YUI3p8RYrr3GqLn+83RFAgX1eXgvOKOC857aEccRgWYqSBw8BHBeWpiRzUGe2yqYsqfH3aazLlE9oV7PXF1QX78lKpJiMQHiTtb2CIdn5AXaI7fZuybHc8IYtpDm3JTseOJB2yW/rgfZwLJtAW1cXuRf3xkX9Bh9ViQonn3QTaY+BGQXrUAgIGYgMeH1SgDlXIgZTSe3jQNUBpPzvy9jVB4sBEKLTwFtA1r9NtLkcQL75VSSkLGNt/R8vhuZMpP11XLx59mgtTqM9sa3pyToR95HTz6FItiNbcC/ApUgTiydClaFhmKXj7RHhQFGATbGyc0Mzdel1Vj7LeKErJC9a03F2CVJCX6ylkbHrKqm27CgRQ6Ja8SZ9WCq+0REWOXja+tIapvrEJxQ26LOPeMyFI0VmrASTced93Os9r4vzNBdjB7DSQPMj11F5lw4UuZls7tiv+SoPvkIqe376+IN41NfiOCXPjcgXn7aQas3EEypD4+OyP1dIqsECt74jzqMCwWResHAW6rUpG1yJv5rr8d/6DdjWAjnRxQC+SLHg7YwFBMP7nyJTLnd9ZP3SL7EEMMEyRh2sGBvF9GdLQWtGWay27ALzjgGGWQ3r9cWM/8GRsqzizgOFCS0fjPNzN+TgTi9IhOIw0ZizNa2wQDeDytHAB4bLP2xsSuwYlljAVuU2R4rvwxOFLPx52tBg/10lb7YU8nNf8vF9aAect65g==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(7416014)(376014)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	mOT0VTj/getcgCCDGf/oUhCfoLTR+2UVd4Nu2dauu/kJoZRobetyNbzrjnqNfsGAyctg9MRghpw/ly/sUzL0gq11uXJZ3gVFptTLgmTHHomC/MuFGJep2N44K5S6DFH/56YV9l80DRhVwWp2IHvsr0W25h31nPRUZglGkNyqvMHg7Kj/a8/sLR+dhAcUH0dORfPFyAKpM+fd4GpKOAMAc4rB4zU2gkJHK66cmqRfSEO4iHuLejtcTYaDsWTiSNOAgrhMMM1F10H7iRkJ6bnu7g2vuVpNZ2rNNYdw0eIvhfU1aNJcaW67K869n8fyQre2pV0DTix5aRtPlkjG5vVlUqJrC/HqXulxAXTlYJp0pnes7VnrqSqwTtUp3JV+9Z/917e8UTCLspEngVEYgGjkx5bbAHTHz31TVtj1J2u5CHMbZu7YSMHdYq5tn6tCMsH7
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 19:06:17.0613
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4666a240-656d-44f5-74e0-08df0ddc4296
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF000044AB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9607
 
-"Edgecombe, Rick P" <rick.p.edgecombe@intel.com> writes:
+An issue has been reported by a number of people that corruption
+was occurring on storage for desktop systems.  It's notably reported
+on SATA, but the same issue also appears on NVME.
 
-> On Wed, 2026-07-22 at 23:13 +0000, Lisa Wang wrote:
->> +static void tdx_check_attributes(struct kvm_vm *vm, u64 attributes)
->> +{
->> +	struct kvm_tdx_capabilities *tdx_cap;
->> +
->> +	tdx_cap =3D tdx_read_capabilities(vm);
->> +
->> +	/* Make sure all the attributes are reported as supported */
->> +	TEST_ASSERT_EQ(attributes & tdx_cap->supported_attrs, attributes);
->
-> I think this patch actually does nothing because attributes is passed in =
-as 0?
-> So 0 & supported =3D=3D 0. It does exercise KVM_TDX_CAPABILITIES as claim=
-ed, but so
-> does tdx_filter_cpuid(). So for a minimal support, we could probably drop=
- this
-> patch.
->
+At a glance it looks like an IOMMU issue as turning off the IOMMU helps
+the issue, but it's actually a problem that occurs specifically with any
+IOVA addressed >58 bits.
 
-For more context, Isaku suggested this in [1], but after all the changes
-tdx_read_capabilities() is already used in the tdx_init_vm() so I think
-we're good to drop this patch.
+This is because the BIOS on these systems is enabling a feature of the
+root port called 'enhanced atomics' which repurposes those upper 5 bits
+of address space.  That feature should only be enabled by the BIOS when
+the partner device supports it, but it's instead needlessly enabled on a
+number of root ports.
 
-[1] https://lore.kernel.org/all/20220901012853.GF2711697@ls.amr.corp.intel.=
-com/
->> +}
->> +
->> =C2=A0void tdx_init_vm(struct kvm_vm *vm, u64 attributes)
->> =C2=A0{
->> =C2=A0	struct kvm_tdx_init_vm *init_vm;
->> @@ -112,6 +122,8 @@ void tdx_init_vm(struct kvm_vm *vm, u64 attributes)
->> =C2=A0	memcpy(&init_vm->cpuid, cpuid, kvm_cpuid2_size(cpuid->nent));
->> =C2=A0	free(cpuid);
->>
->> +	tdx_check_attributes(vm, attributes);
->> +
->> =C2=A0	init_vm->attributes =3D attributes;
->>
->> =C2=A0	tdx_vm_ioctl(vm, KVM_TDX_INIT_VM, 0, init_vm);
+As some of these systems probably won't receive BIOS updates and there is
+active reports of data corruption root caused to this add a quirk to
+disable it on affected models, and also remove the quirk that was
+introduced to work around this issue in drivers/ata.
+
+v2:
+ *  Added resume fixups for the affected AMD PCIe ports
+
+Mario Limonciello (2):
+  x86/PCI: Disable enhanced atomics on some AMD PCIe ports
+  Revert "ata: ahci: force 32-bit DMA for JMicron JMB582/JMB585"
+
+ arch/x86/pci/fixup.c | 99 ++++++++++++++++++++++++++++++++++++++++++++
+ drivers/ata/ahci.c   | 18 --------
+ 2 files changed, 99 insertions(+), 18 deletions(-)
+
+-- 
+2.43.0
+
