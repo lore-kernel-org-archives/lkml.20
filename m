@@ -1,190 +1,263 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-178.mta0.migadu.com [91.218.175.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9983503BD2
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D3D05013CA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:03:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861801; cv=none; b=F9+JyU2eu2x21Y3es9p35XA1/gMY2lqyB2Vo261ZOGd6ibSaYm4jSEasezFcoNeRRwk26nP7nLtYs9zaZGgAk/KhxZ66GjymUqKl2lKdw4LD3oH1hAFXAAwJ3RO2ttLfx7llbuhnjtDXKnqEGQBa+jMEamQ+R7FCuu1pbcMbBG0=
+	t=1788861803; cv=none; b=b2fwE0JPm3rOX2IPiptC9uVYXHwX28bV8uABL32wGRMRmQvJ91Mjpi0GvjVUecaeDCVhMgxsXlaHVgiK2imiIrN6lLNLhwPQ6WE2P1GNevZJzxns/pz6q2ssSeJO1R3JrO2TsRBFpKZtBY6zaQGP8t14KQDH7YGQWiO9OBl8pJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861801; c=relaxed/simple;
-	bh=gU3el5vBaKIowxWErPSf+Ml57LVgUfxjbCElgrhuRcE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FHyssHz8Dx0ihJt83JdN7OaavWGJAURHAvGMj8EuO6nJ825tui2fdoCdRPVblz281cuDdjD2Di5bhk6R+yJoF1Vmd4V9UkkKc5b9i3+vHpuw4MZzNgyTxZA2YwyrxVhjEF0I6ecGfIc68+du3Su/ibnFUH6hSXWzf/Ld4v1KAJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D0tFBxn8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=TGXnK+Xa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788861803; c=relaxed/simple;
+	bh=RhJmLBVSYcp5nip2MtkY2RhJjeuafeZzdoCjJRShePM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RMspItJfYP6sTon3AsNNKIf9+gbODmew5khA/08tKTtbx9YEMe4coiltuRtGHQ5S/p58r84bcFEaUBjmww/4p2H1oMryv0GD5sPjw9Jz8SIWsOsBXqNC88jXqOMBfRd+I3WTWpGNyLqcMNqA+ANa97KhxH98R3+pjaE3hz9Fy+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xfksQNEI; arc=none smtp.client-ip=91.218.175.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D0tFBxn8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="TGXnK+Xa"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6888cQeX2380979
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 10:03:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rfmoRRos15ggGyuCj+3H9fL/
-	SgvX7ZnyDI13Z33CBSw=; b=D0tFBxn8ZVxw/JXA7I6wUpKQXpfGKOM3vRPs3IK8
-	5CL6MVDqRo1W1YViRBo6aRyRH2jaf+JTkAmAxuVvA683Bs/Tk84laBk7+BAVR9Jj
-	XoavlV7SedRkB6iU57sWromNNQkz/BA6uHlE1C56bSCnQqnoBXOGmDobLyoEQejp
-	OmSDyPOZNDKgqqHXrz1WKUYW+MIWh9XyIK3RfiUkDW6BrIRskJWU0zDjKMIQarYf
-	opqatafYdUE9ZvG4nuyUPIUqWvMavlLiqkTYHtLGG6ta5Hk/PQUnHIZYa9ol/cH7
-	fikja42WTLvPLzz+wNBQO946IB/BC3xU2Ci+SPNmEPessA==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjf1cgbj5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:03:18 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6b34ad165e3so2409707eaf.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:03:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788861798; x=1789466598; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rfmoRRos15ggGyuCj+3H9fL/SgvX7ZnyDI13Z33CBSw=;
-        b=TGXnK+XanRawCsS5ibCnTKGsGyCpp5XZoiXvnVH60ljhQ7yB+TMP1I0kks9oN8nT5i
-         U79GjPgg9cHayVshD/ienKCNfclCypCoiM6l0IzbAvYKDqtXDatG7RAowBLUxKBZsjdA
-         Uvb7nIFmYcOidRxv7vpgjfgSlF/r85Emb4MkISp+6lord4K6YXmyRECRifFEZoGTp/f6
-         /DtvHxI/E+eHkCtYfx5qcLtHIoKMoGWiLMipgORqY+a00+Y8TyHLS3oK+/nZMyJqgRHk
-         s4a9Z7gifatE7GVC5VAJPuRMMFytRV5g/szotSUTjD4GiHdrKQgk9SFaNwJ/fqqIiuUj
-         0qfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788861798; x=1789466598;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rfmoRRos15ggGyuCj+3H9fL/SgvX7ZnyDI13Z33CBSw=;
-        b=a8IgkOzz1k3z/DL2jRsRi+RCknIWazlzIaTXfVdutzkEFGX/CEtBbAJtxCoHK7GuT0
-         IuEbOeCciE/ShUzjLRxkWRI/pQZZzoChL343ZLUMtBfn5DLAg9YykU9CeBPpZhpavsgR
-         YmtNFI0S7poCm3twdBurrEuuZgfddLWfSGRTQjS0CDu1+6fDr+PxZJZvRoAxGW3lZ2VT
-         G/f4mHSWtbckvUg/NwIDBV9/w1WAmhaYwLPXULas5DXnCcTGrXOq+SJ3tHySI95Gcs26
-         uKNw0/trkl2S5RQEdEKHpoH/90SWAf5u+Kgg/DDdfP8zDhZGXwoloFuVN5kKcvfoSAqX
-         KStA==
-X-Gm-Message-State: AFuF++mVDTvFfSOYN+laVjEvqXpxwfGZAAwckxVM2reaoeExomF6rDsW
-	N+z+80Xvaloj8SeWxKkNpSsp1YaTN+WP7Y7dYUNN5njegvtgNVVCnNz2y/k2SEDPf4MDmACHRlL
-	E0VJ7VLYYhgwSwurv7qarHO94sKuDqh4l41mSvJEemeDIxVf+Ic3opVHJ7dT+M1YJVmU=
-X-Gm-Gg: AYBFou1zaiyKVzG9pMcWpNV7stGbJ10KKhWAiIeipK/1AALPjIPja6sXkLyT2GzqVta
-	TIA8Wdi7om6MwHBOxz2CEr/l3jg9huCUejLLn5CqahzzOyvm0sJxMDH5FYonvaA0Erw8sV+odMO
-	E1Gp+WBD4WTz+2ZXuocHfoDmj7Zh8rnrO3TRTzsLCsespnJ+0AwqHFXzkqdXGMWP16Z5I8EzJo2
-	WBz5VBiceW4Wn7shcR/yWwp3embDqSEQXUDj3iEHrFM0bS9Ui9dW8ZtAZ+N5JtSzB+vnnND7Osg
-	3kNX6J3W/rlnAkK22VtgZqUjIsdEH3IEsxaNu/oNgrz864ppYF6FffqyH0KrXxr+9nqLI6umdEP
-	mXTjEisH0gwLCPbrxjcMtlc1k59JS+QfR2ExZ3vawY5X4ebUoL0vzlw43VavadXXi86/p+2qp6t
-	HGCZaoN5jNHiV+Fm8=
-X-Received: by 2002:a05:6820:988:b0:6b0:19bc:fd14 with SMTP id 006d021491bc7-6b6fe59c264mr15048385eaf.32.1788861798138;
-        Tue, 08 Sep 2026 03:03:18 -0700 (PDT)
-X-Received: by 2002:a05:6820:988:b0:6b0:19bc:fd14 with SMTP id 006d021491bc7-6b6fe59c264mr15048341eaf.32.1788861797698;
-        Tue, 08 Sep 2026 03:03:17 -0700 (PDT)
-Received: from hu-anancv-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143240d86c3sm31124434c88.0.2026.09.08.03.03.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 03:03:17 -0700 (PDT)
-Date: Tue, 8 Sep 2026 15:33:12 +0530
-From: Ananthu C V <ananthu.cv@oss.qualcomm.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>,
-        Sudeep Holla <sudeep.holla@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
-        linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] sched/cpufreq: fix schedutil's boost frequency
- handling
-Message-ID: <ap_a2uVHgjiNtL3I@hu-anancv-blr.qualcomm.com>
-References: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xfksQNEI"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RhJmLBVSYcp5nip2MtkY2RhJjeuafeZzdoCjJRShePM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788861799; v=1; x=1789466599;
+ b=xfksQNEIHgkw9CSFyzvYs7CU4LytEcilpuIow4UUDkXb0+E2g3/UOHi+BnOHF/HT041tYvJ4
+ bRYtVKqoPWpsG+vAoBHgPIRPGo7LYK0oaU1dKR+qxVyprO5ZljKBR8AjdqamY7jbjzXCZo/ZAmg
+ G6WZNwCIIlRB7e8dhCsWwGIo=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3258799641478f75;
+	Tue, 08 Sep 2026 10:03:19 +0000
+X-Mizu-Trace-ID: 3258799641478f75
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	josef@toxicopanda.com,
+	axboe@kernel.dk
+Cc: cgroups@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	andrii@kernel.org,
+	ast@kernel.org,
+	daniel@iogearbox.net,
+	linux-kselftest@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [RFC PATCH 7/8] selftests/bpf: add multi-stream sequentiality example model
+Date: Tue,  8 Sep 2026 18:01:42 +0800
+Message-ID: <20260908100143.47598-8-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260908100143.47598-1-cui.tao@linux.dev>
+References: <20260908100143.47598-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908-schedutil-boost-frequency-handling-v2-0-25312a713699@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=VN3tWdPX c=1 sm=1 tr=0 ts=6a9fdd66 cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=fTh2YsA6urFVvDZ4lSoA:9 a=CjuIK1q_8ugA:10 a=-UhsvdU3ccFDOXFxFb4l:22
-X-Proofpoint-ORIG-GUID: fXGe2v0eDIqXegIONmUJ2dj5GgQOp7OS
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDEwNiBTYWx0ZWRfXzKVB+r+jcXCw
- 3U/N13NK4zN+SPPI1Vy4PkPLEFPNO4hUL4/vURKggJ8oo0NWdbWvK2r3WajNZOMRJpgVImQNm6P
- i2g4qDmT8HSUwbH/759Nzp7f/4xaQEg=
-X-Proofpoint-GUID: fXGe2v0eDIqXegIONmUJ2dj5GgQOp7OS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDEwNiBTYWx0ZWRfX1FEeQd1+pwPZ
- fRDxK25mF49MXqKfeFdWvlfvb9hHZGLEbhL0HYxsQgvG5mBjgZSnp65UvhXK8s1kvKJjXwX14bL
- mmSbhkvpVKDm++Pbzc0eCi4pV3FDgPoBgzNhQCD6k6g4gmGYN3uIrXeb26Y7x0806dvjsnma2/j
- AqdZwy1cf/5L3HrAOssRZ17rdRE93NrEdUsrOJxgg2rDc8mt29xpaktznSoEkKMob1IHCnDg58u
- AO2XZXYFZzp+YX99aVq14+WGkxi1W8AWrOgsjnNjERZ6puf9Etjs8u4rGApgDYPiRMgsI0TLirz
- /YsGsOjxV1ozyelQWs+uN4tYxTRD/xcBlkrhQY9LfAMz85VigwVMZhCKMFRJBi/1iQgoZop8gIN
- UBXkLZbv2UBtUK6ACPJWThSONOkK3+Y8FUzYjj5TyAyJ9ZfRAEjaclqCM8qoGAX+U+AtdSxV4op
- dNP1SSJZlRjeBBI4glA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
- suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080106
+Content-Transfer-Encoding: 8bit
 
-It seems some mangling was done and all lines starting with hashes
-were considered comments and ignored, malforming the logs. Apologies
-for that, this is how it's supposed to look :)
+From: Tao Cui <cuitao@kylinos.cn>
 
-Before fix
-----------
-# cd /sys/devices/system/cpu/cpufreq/
-# ls
-boost  policy0  policy12  policy6
-# cat boost
-0
-# cat policy6/scaling_max_freq
-4454400
-# echo 1 > boost
-# cat policy6/scaling_max_freq
-4723200
-# echo 0 > boost
-# cat policy6/scaling_max_freq
-4723200
-4723200
+Add a second example cost model which replaces the builtin
+single-cursor sequentiality heuristic with a per-cgroup table of
+stream slots keyed by iocg_id: an IO is sequential iff its sector
+matches the expected next sector of any tracked stream.  Interleaved
+sequential readers in one cgroup keep their own slots instead of
+ping-ponging a single cursor, and random IO inside a hot window
+rarely matches a moving expectation.
 
-# echo 1 > boost
-# cat policy6/stats/time_in_state
-355200 36958
-4454400 650
-4588800 0
-4723200 0
+Measured (QEMU, virtio-blk with the HDD profile, 4k IOs, w=1000):
+two sequential readers in one cgroup are priced 2064us/op by the
+builtin model (judged random) and 23us/op by this model (judged
+sequential), a throughput recovery from 7.2 to 511 MiB/s; random IO
+inside an 8M window is priced 22.9us/op by builtin (undercharge) and
+2643us/op by this model; single-stream sequential and whole-disk
+random pricing are unchanged.
 
-After fix
----------
-# cd /sys/devices/system/cpu/cpufreq/
-# ls
-boost  policy0  policy12  policy6
-# cat boost
-0
-# cat policy6/scaling_max_freq
-4454400
-# echo 1 > boost
-# cat policy6/scaling_max_freq
-4723200
-# echo 0 > policy6/boost
-# cat policy6/scaling_max_freq
-4454400
+The runner reuses the switch helper from the first example model.
 
-# cat policy6/boost
-0
-# cat policy6/stats/time_in_state
-355200 40147
-4454400 79
-4588800 0
-4723200 0
-# echo 1 > policy6/boost
-# cat policy6/stats/time_in_state
-355200 44834
-4454400 93
-4588800 25
-4723200 569
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+---
+ .../selftests/bpf/prog_tests/iocost_model.c   |  31 +++++
+ tools/testing/selftests/bpf/progs/iocost_ms.c | 122 ++++++++++++++++++
+ 2 files changed, 153 insertions(+)
+ create mode 100644 tools/testing/selftests/bpf/progs/iocost_ms.c
 
-Best,
-Ananthu
+diff --git a/tools/testing/selftests/bpf/prog_tests/iocost_model.c b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
+index 386026241d5b4..2c149f3cd243a 100644
+--- a/tools/testing/selftests/bpf/prog_tests/iocost_model.c
++++ b/tools/testing/selftests/bpf/prog_tests/iocost_model.c
+@@ -2,6 +2,7 @@
+ /* Copyright (c) 2026 Tao Cui */
+ #include <test_progs.h>
+ #include "iocost_model.skel.h"
++#include "iocost_ms.skel.h"
+ 
+ /*
+  * Switch a device to ctrl=bpf through io.cost.model and verify the
+@@ -122,3 +123,33 @@ void serial_test_iocost_model(void)
+ 
+ 	iocost_model__destroy(skel);
+ }
++
++/*
++ * Same check for the multi-stream example model.  Only one model can
++ * be registered at a time, so this test must run separately from
++ * test_iocost_model; both are serial.
++ */
++void serial_test_iocost_model_streams(void)
++{
++	struct iocost_ms *skel;
++	char *dev;
++	int err;
++
++	dev = getenv("IOCOST_TEST_DEV");
++	if (!dev || geteuid() != 0) {
++		test__skip();
++		return;
++	}
++	if (!ASSERT_TRUE(dev_has_iocost(), "iocost_mounted"))
++		return;
++
++	skel = iocost_ms__open_and_load();
++	if (!ASSERT_OK_PTR(skel, "skel_open_load"))
++		return;
++
++	err = iocost_ms__attach(skel);
++	if (ASSERT_OK(err, "attach"))
++		ASSERT_OK(switch_to_bpf(dev), "switch_and_readback");
++
++	iocost_ms__destroy(skel);
++}
+diff --git a/tools/testing/selftests/bpf/progs/iocost_ms.c b/tools/testing/selftests/bpf/progs/iocost_ms.c
+new file mode 100644
+index 0000000000000..465fd5d5c62e0
+--- /dev/null
++++ b/tools/testing/selftests/bpf/progs/iocost_ms.c
+@@ -0,0 +1,122 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2026 Tao Cui */
++/*
++ * Example multi-stream sequentiality detection cost model.
++ *
++ * The builtin model keeps a single cursor per cgroup, so two
++ * interleaved sequential readers in one cgroup are all priced random
++ * (measured 89x overcharge, 12.9x throughput collapse), while random
++ * IO inside a hot window smaller than the 16MB seek threshold is
++ * priced sequential (measured 107x undercharge).  This model replaces
++ * the single cursor with a per-cgroup table of stream slots, keyed by
++ * the iocg_id argument: an IO is sequential iff its sector matches the
++ * expected next sector of any tracked stream.  Interleaved streams
++ * keep their own slots, and windowed random IO rarely matches a
++ * moving expectation.
++ */
++#include "vmlinux.h"
++#include <bpf/bpf_helpers.h>
++#include <bpf/bpf_tracing.h>
++
++/* VTIME_PER_SEC comes from vmlinux.h (a BTF enum constant) */
++#define IOC_PAGE_SIZE		4096
++#define IOCOST_COST_F_MERGE	(1ULL << 0)	/* not in BTF: a plain macro */
++
++/* DIV64_U64_ROUND_UP / DIV_ROUND_UP_ULL equivalents, folded at
++ * compile time */
++#define RU(x, y)		((x) / (y) + (((x) % (y)) ? 1 : 0))
++
++#define RBPS	174019176ULL
++#define RSEQIOPS	41708ULL
++#define RRANDIOPS	370ULL
++#define WBPS	178075866ULL
++#define WSEQIOPS	42705ULL
++#define WRANDIOPS	378ULL
++
++#define RPAGE	(RU(VTIME_PER_SEC, RU(RBPS, IOC_PAGE_SIZE)))
++#define RSEQIO	(RU(VTIME_PER_SEC, RSEQIOPS) - RPAGE)
++#define RRANDIO	(RU(VTIME_PER_SEC, RRANDIOPS) - RPAGE)
++#define WPAGE	(RU(VTIME_PER_SEC, RU(WBPS, IOC_PAGE_SIZE)))
++#define WSEQIO	(RU(VTIME_PER_SEC, WSEQIOPS) - WPAGE)
++#define WRANDIO	(RU(VTIME_PER_SEC, WRANDIOPS) - WPAGE)
++
++#define NSLOTS	4
++
++struct streams {
++	__u64 expected[NSLOTS];	/* next expected sector, per stream */
++	__u64 stamp[NSLOTS];	/* LRU stamp, 0 = empty */
++};
++
++struct {
++	__uint(type, BPF_MAP_TYPE_HASH);
++	__type(key, __u64);
++	__type(value, struct streams);
++	__uint(max_entries, 64);
++} stream_tab SEC(".maps");
++
++SEC("struct_ops")
++u64 BPF_PROG(iocost_ms_calc_cost, u64 op, u64 nbytes, u64 sector,
++	     u64 cursor, u64 iocg_id, u64 flags)
++{
++	struct streams *s;
++	u64 page, seqio, randio, base, advance, now;
++	u32 i, victim = 0, found = 0xFFFFFFFF;
++
++	if (op != REQ_OP_READ && op != REQ_OP_WRITE)
++		return 0;	/* delegate the rest to builtin */
++	if (!nbytes)
++		return 0;
++
++	if (op == REQ_OP_READ) {
++		page = RPAGE; seqio = RSEQIO; randio = RRANDIO;
++	} else {
++		page = WPAGE; seqio = WSEQIO; randio = WRANDIO;
++	}
++	advance = RU(nbytes, 512);	/* sectors */
++
++	s = bpf_map_lookup_elem(&stream_tab, &iocg_id);
++	if (!s) {
++		struct streams zero = {};
++
++		bpf_map_update_elem(&stream_tab, &iocg_id, &zero,
++				    BPF_NOEXIST);
++		s = bpf_map_lookup_elem(&stream_tab, &iocg_id);
++		if (!s)
++			return seqio + RU(nbytes, IOC_PAGE_SIZE) * page;
++	}
++
++	if (flags & IOCOST_COST_F_MERGE) {
++		base = 0;
++		goto out;
++	}
++
++	now = bpf_ktime_get_ns();
++	for (i = 0; i < NSLOTS; i++) {
++		if (s->expected[i] == sector && s->stamp[i]) {
++			found = i;
++			break;
++		}
++	}
++	if (found != 0xFFFFFFFF) {
++		base = seqio;
++		s->expected[found] = sector + advance;
++		s->stamp[found] = now;
++	} else {
++		base = randio;
++		for (i = 1; i < NSLOTS; i++) {
++			if (s->stamp[i] < s->stamp[victim])
++				victim = i;
++		}
++		s->expected[victim] = sector + advance;
++		s->stamp[victim] = now;
++	}
++out:
++	return base + RU(nbytes, IOC_PAGE_SIZE) * page;
++}
++
++SEC(".struct_ops")
++struct iocost_model_ops iocost_ms = {
++	.calc_cost = (void *)iocost_ms_calc_cost,
++};
++
++char LICENSE[] SEC("license") = "GPL";
+-- 
+2.43.0
+
