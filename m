@@ -1,405 +1,144 @@
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C755D346E55
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:20:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.207.212.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E69391E58
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852062; cv=none; b=UPmkm7c0r1U2aUFnR7hoR++fBiVUCjYPKb5B3qVlEZJE1lXB8DLED03H5KGxlyuK9JkBel+PJTdJWCCrwtFrduJum9AAJzDgsrakkWbiu+4UtWwPWLCd9jwdzxGiH9lRjXo+ZHxMmeQhiFU0SzXAg6pC2us/knTQhrZ4wVgATV0=
+	t=1788852092; cv=none; b=VBBLXZg5zoS29/2WidcB2gPtee2d1LdZ+5ZXGZ2LZyPI1GZCz57kbC+l0gjvaeiVUHk/uBoZHk7eVTjauC9UPOTEFR+DvMhbXNZrdv1HHbszHiWmNPVI82nbwvp8tcbNVLFXFCnKmFjJC0eIZRqaNu96jWdvgiYr+RTL+PLyYIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852062; c=relaxed/simple;
-	bh=6bakzHQdBO5mNecukusY2UbiKtHfuZrazBnvtKUE6cU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=e3jC1LQjrwuHS0vWxPQ1wtNKgNnIqmhGg9EAw8uzuifFpwtzUeTvmPzL8qFq02dEdIAzsTaw1eh70UzQdo050nhxhNyMIPiiQLWier4Hz4PElmu4bW1EbM5VNlS69yD0tyVYFj7Vz8mJ5AYOc2Zhp1M6qTnUeXp+jnNxtViOfYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=uaBJUnJT; arc=none smtp.client-ip=91.207.212.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
+	s=arc-20240116; t=1788852092; c=relaxed/simple;
+	bh=UbArGawaOLt004uiQzVxVKoD0CYmXsvOoyStHnCjaBM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hDJONzxUmS0vxbYXWGGeWdIpPUIBHQURLT8AczozVpSM1xA702rfK0evwGvjLZ9eR/Dh/FyeGRFGkZCjSZ+ZPFu0vQNTtuL88hRXHInLEGqpf4CF0p2Y3bvE/AYtRcdGLAIqfARRzt+Qw76YsQpJYzTNg8FxjA9kKpCW2bceGQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M46hdB4n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cUTPpF4o; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="uaBJUnJT"
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6887H9Jf2043923;
-	Tue, 8 Sep 2026 08:20:38 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=dk201812; bh=94/7cSjGumKbLVojsGn6txU
-	VsvIoMwFl9PmGiw3utUw=; b=uaBJUnJTHOEdpOctawzgNT9G+NNkvRlpZh2+hPM
-	vwa48zJ6iY7irQxz4IhCUSfaIN66BO3+ddsT1iMmgpQ31SmS3HhaJMDlrhtuzeW/
-	0lhiBaCUhDcUrGMYC2IplcDlUgIzLjx4Mxgh/jj8/d8NTzWMc0hkxO1P4xrXCdsh
-	QZReRPRxARTlTs8iaK7rBkfnDLV1dkdjoOA1pgn4aa+g78++j5SN/5LAXEjmhgNK
-	5KO0u2QhjmY/xdn2AcMibUXn8G129tFn+blbNWFb9g9RrQRItlyk6ImN5CIrPp+0
-	z4Im9WQl4XJJOpU2bySfu4+924bLmDEKhX9M1/2+OUDj+NA==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4gg9brj64q-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 08:20:38 +0100 (BST)
-Received: from [127.0.1.1] (172.25.5.88) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
- 2026 08:20:37 +0100
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Tue, 8 Sep 2026 10:20:27 +0300
-Subject: [PATCH v5] drm/imagination: Propagate all errors from KCCB command
- submission code
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M46hdB4n";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cUTPpF4o"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M01l2172912
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:21:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=CT4nJKvnmHwXrIL3UMrQ8SXJ
+	kJUib8CpEc/1U78sn/4=; b=M46hdB4nERfHRDmec6ezX877heZmliZM8niN4dK8
+	NxyNFZLj1flK58vXQMnYrRXusgYM59w13QMc9YZ8U02VsVHYbbYRIhcBk+rntBD2
+	z/aGikmrhBM+NIOuggGJY5lkTfWKhc+kGFUL7s8S28EiR2PTHQFEmsh7JODngCoX
+	iPBN6tCD8/7R9DXd2u4xwlN9JU+3cWkZouJnkBPi95pYhPYfiJSQUVBpQ5rk1LSj
+	2HX2SAxtgKXguEiHgTVJr51Og5+A/MiMl35hBPcn+BD0wa8BaAHzo+Myf9yMCuLz
+	hJ67l1Eg1h+YQfgqgFNFRGvUIzZcwTfsHVIcvvfNGkqVgQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rrj7xe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:21:28 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939a00c45easo305365785a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:21:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788852088; x=1789456888; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=CT4nJKvnmHwXrIL3UMrQ8SXJkJUib8CpEc/1U78sn/4=;
+        b=cUTPpF4oI/6HKS9ArlIDEnjHdvi8HIXnDq39YX/i7cU19hHGrPR6DVBY6FTIOPFR0F
+         jjHhLK0up+PvE1a4QeYvBsQU7/kv8nMBqVhfrY+AaQD2l2cqso4RFycqZ/9rSaSYOx6d
+         31fD+JRUsnvfFXjXzA72o5xqoFbTYzGQS2ZRQBFEnaTZKysUMBZmNQSytvvZQ9E0qKQM
+         BrU/Mor00Ioa7Q+oyYO0X6Mz5rGtdULF5hVi3Xeh41JmUbHzPdhXDVvfIGbm6ARmfFDU
+         4s7iK7ENCohc7uyZitL/GshPqKHW94ILTfoK8G1rXrMrvwsGL+zWQfMnBB/v6dxqeTUT
+         VEVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788852088; x=1789456888;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CT4nJKvnmHwXrIL3UMrQ8SXJkJUib8CpEc/1U78sn/4=;
+        b=UBkD5JimD3e04arsQblQp0NxUTBqXMlhpCqYo/EuopC/ZCFtmqKDs+j/fyN41r51uq
+         QY5cS8A1uwR944bkuwl5/bK6SZJVYot+7/Kl7lc+we0mwFJ5sNjSjcSi5S4/qCVaQ+Oc
+         JlPMO0gCnTNsjrQG6iHejzGViFSO2y1Ji0WP1939mz63r69GIsP9sIz1m6SSDk69/swr
+         4gfVBB5Et5I3ZBUpEIEMVJ28rvVbnNHK+WHmviv3ZQCvggeZSXxh4lnvt7YTnEWHzjYL
+         9kTPaOAb4w4GqSdO6DQk3O7GsZIQQNme3BJgxJkc2yqF+uwIJytCXW2HQ+ufLMrBee1s
+         +r9g==
+X-Forwarded-Encrypted: i=1; AKwUvBzY46l75+msTbBkFwewNFOAlMdpXGWr5kk1p31FmIS47z3ySBhl6l9f/rNaWhaDDsVRVXLETTEGaucIiw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz/0X+2R6xtjmKNh34817Sg4bieZaOqqMe2aaeo344Njfus6Yj
+	zRFjsXa4GAqDbL74McdwPVRLLYkk/bZcRfPoAwf5J0yvBU8U4QSsE4KFTw6K1XIrsXMAe98/LMq
+	SuQS05HizHwE4Dl4Ngpd2wq35CiRxQTIPtATvZQ4BaISrgbINzKU9T6KNd/TyXelny4M=
+X-Gm-Gg: AYBFou1ehJoFUTzwVgiOZAn/uSTNl50OnFqcPr+oDJwOpr/FKiytNSu0PNzAY9N4UyQ
+	geF25+XYRCNzvA1axiNSYz9P8/Z4CfgHXWK5dYXO9LBwyfIim+juyDsvFCbndj557T/2VM/0uSJ
+	B0ihIZCULNSqGRR6L794VAIPixsziH7MvAXIL73eo+rbwgkqypRcno0Tc0vHiw/OB2t/WH3oeK2
+	0HduCpLXOu4uphi7PI4RKoPak+EKuyBuepZZAMj86dnwa0jfQvJCTVlg3VSPvXW7e14KpjyMISc
+	J1P4MWc6VcniHsAHAgb+vFHfYI3c4Y5WTMPl2+T6y/BBDKYd4RHc1FTNJgl7+ROFmkDe2X1hGL6
+	eAAPyVwvHvCo=
+X-Received: by 2002:a05:620a:4054:b0:932:ddff:123d with SMTP id af79cd13be357-9398042e263mr3035261685a.29.1788852087733;
+        Tue, 08 Sep 2026 00:21:27 -0700 (PDT)
+X-Received: by 2002:a05:620a:4054:b0:932:ddff:123d with SMTP id af79cd13be357-9398042e263mr3035257985a.29.1788852087230;
+        Tue, 08 Sep 2026 00:21:27 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.7.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c5bc5sm36575044f8f.24.2026.09.08.00.21.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:21:26 -0700 (PDT)
+Date: Tue, 8 Sep 2026 10:21:24 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v6 7/8] arm64: dts: qcom: agatti: Add OPE node
+Message-ID: <jncyxiupuqadcasf7te2eugg5jog7yg67h6oilw57q2hblnz5u@uw7jbabkauta>
+References: <20260907-camss-isp-ope-v6-0-6b915b9c5131@oss.qualcomm.com>
+ <20260907-camss-isp-ope-v6-7-6b915b9c5131@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260908-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v5-1-5e262721454b@imgtec.com>
-X-B4-Tracking: v=1; b=H4sIADq3n2oC/63PTU7DMBAF4KtUXjPIcTxp2hX3QF34Z5wa6jqy0
- 6ioyt2xixCgLsPySTPzvbmxTMlTZvvNjSWaffbxXAI+bZg5qvNA4G3JTHDR8b7hoCVcxjwlUgH
- GFEc1qIlAnU5AKcWUwaUY4N0YDSZYyBcdfK5XwURLwK0i6Tg6o5EVZEzk/PVe4PXwlcvKG5mpq
- nXi6PMU08e94dzUue8yzdoycwMNOGcRBUrbWfHiwzCReTYxsNpmFr89udoTxWuxRXTKIlf04LU
- /3o5vV3tt8SRue8UL6Lrdgyf/15PF010vHRayM3//W5blE2GR/f9vAgAA
-X-Change-ID: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788852037; l=11858;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=ZZiwfI+qgl0Hx83CxY1CLvtp9ZhpkXmyRKUDpQ/Fuw4=;
- b=uYiKIBGuvM2hQCvrWAbmuIbu9m855bOsyg5joUhInu8Moz2Qp2356ELu/X4kUs/jHTQBbfou1
- B3yvqOG6m/nCTVyPuVPsilPJmqOBPt9TRV3x5K0FbxXoXk8U2R/zh59
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-GUID: j65CyzqErrl7DmLmIXsFN8hoIMGUbC4h
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NSBTYWx0ZWRfXzkfbNtDL2z92
- f7ykIYBgPQkJCo9eLrOn/5EVxSwO4R/z+a5jjBwFSDyLrbIDfE1NK5uNpi/2YxrOhqc3BY1c2t/
- t/wk5TaAtT3alvHb5uw8J/tu88bG+G7IJBvFq+4VBddt+qKQxBww4ihW9MIBfy5HOdqVXiQL4iP
- FGxyiGxztqDazP0+kjibWuP6tmIQXDQNHjmwiAvQjCTQ5aIU0iTzuDrMZ9hYBMfEGU1eY9D2Qe7
- I5Mtu2zwzplE1Qw0nUv1CG//Pg2iTLO+HMeQ6PN9UAYkdbTR5zpJ9gxEC7KAk86KQ7cjztUMc54
- CIqPjpM0ZDbissjvX23sqJJ5FUXSG9g1qqB78yRDHHDgF9xsN2gyBiPxSZM7unhWdVNrgWjqeB/
- HbhC7nSU21cnnRYdL/I6F1coyi0JnsieO9J5kspbtbAVDlydxlXRb5Yh6kJE6KBLfqEy+kQb8UM
- h4egYcltxvmic34Nuvg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NSBTYWx0ZWRfX2KV+a7Ba/EmV
- tK9Ruzz9FLFu+3A1Z36FGCZo2E0A8Ar8RIh8Y6dZ2LboLaRgl0Bj2curnuBYFBt9e2NOLiz8+hS
- kfxfuNXQikiyEhu3MruXhkLK11FMeAo=
-X-Proofpoint-ORIG-GUID: j65CyzqErrl7DmLmIXsFN8hoIMGUbC4h
-X-Authority-Analysis: v=2.4 cv=ePQbHnp1 c=1 sm=1 tr=0 ts=6a9fb746 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=YP7Kpn5otooA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=bC-a23v3AAAA:8 a=r_1tXGB3AAAA:8 a=QyXUC8HyAAAA:8 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=e5mUnYsNAAAA:8 a=-Hwv4S9AhHCUfRXPc_sA:9 a=QEXdDO2ut3YA:10
- a=FO4_E8m0qiDe52t0p3_H:22 a=t8nPyN_e6usw4ciXM-Pk:22 a=Vxmtnl_E_bksehYqCbjh:22
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-camss-isp-ope-v6-7-6b915b9c5131@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfXzbg/j51VZgVm
+ JZd1UNArj8JWPepuFBD4Pf/VJtxL7R83YJxJLh11h1Z/abkFONVzx1/iN3+zTb8rsMjMEXOlzcW
+ qTsuhskwg4IZyK1RlNVZQiv3fRp+wqo=
+X-Proofpoint-GUID: NEl9dNwgVb5JsddGCrMfjzX_BMczQ2TP
+X-Authority-Analysis: v=2.4 cv=NsjhtcdJ c=1 sm=1 tr=0 ts=6a9fb778 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=I_ukrOqQsWpVYGr8uL4A:9 a=CjuIK1q_8ugA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfX+RL06Fznaysc
+ dh21kdaI9r8vyI7E34V8e/HZxeDOqgoqNZfXAKR1J3k/Q3dLvM/nqpuPC0KjKJpOWp9hV5OCz4T
+ WQWghGnlce2r+lLk1YEyZ5TQuNGb0V413j9XUbNsu5m61pv6p8TKJAoK5aVbjfUGKAoM8aeUFlR
+ DgY3cjTFRV/c6StB8FJhrgUp94X/PSqG4N0Fe44BZDONFGGrlC74BSwCnhrQ+oCsziIlbyJglHe
+ wQ/DSsYVK8mEdGI5/J7vejNUaOFkbuaYmr4pcs2K9m7gUmCOrjxcD7NktGGH645RDcPnh6d3uog
+ FjhprgVgu05lERwfL1nVBiVfzgJBf59kkZiNz1vippOOM1LsfbQn+8s8ib43/ETSZM1RYXNezr7
+ J4WUU7WiqwVTfXHhFJK1JhZmQBSG2/XewgyYzXmjl6MdTP38JLi2puZJBpvm17vVpViGibFcpYL
+ vcHbrTmLTqms/ABHvuQ==
+X-Proofpoint-ORIG-GUID: NEl9dNwgVb5JsddGCrMfjzX_BMczQ2TP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080074
 
-From: Alessio Belle <alessio.belle@imgtec.com>
+On 26-09-07 12:51:17, Loic Poulain wrote:
+> Add the Offline Processing Engine (OPE) device tree node for the
+> Agatti platform (QCM2290). The node describes the five register
+> regions (top, bus_read, bus_write, pipeline, qos), clocks, interrupt,
+> interconnects, IOMMU mappings, and OPP table.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-pvr_kccb_send_cmd_reserved_powered() returned void while the other two
-variants of pvr_kccb_send_cmd*() returned int.
-
-The error is now propagated all the way to the DRM scheduler's run_job()
-callback, which is the only user of pvr_kccb_send_cmd_reserved_powered()
-outside of the other variants of pvr_kccb_send_cmd*().
-
-Signed-off-by: Alessio Belle <alessio.belle@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
-Changes in v5:
-- Added pvr_job_release_pm_ref() to the kccb kick command return value
-check.
-- Update v4 description typo.
-- Link to v4: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v4-1-b684f58a06ce@imgtec.com
-
-Changes in v4:
-- Added a check over the return value of the kccb kick command.
-- Link to v3: https://patch.msgid.link/20260907-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v3-1-4578a0fadf69@imgtec.com
-
-Changes in v3:
-- Dropped the job->kccb_fence check since pvr_queue_prepare_job() makes
-sure that the check would always be true.
-- Dropped the power references from the patch.
-- Link to v2: https://patch.msgid.link/20260814-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v2-1-35355fad50ae@imgtec.com
-
-Changes in v2:
-- Provide an error path in pvr_queue_run_job(). The path will use
-pvr_kccb_release_slot() to avoid resource leaks.
-- Link to v1: https://patch.msgid.link/20260811-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-v1-1-ffd55254d6d2@imgtec.com
-
-To: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: imagination@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/imagination/pvr_ccb.c   | 33 +++++++++++++++++------
- drivers/gpu/drm/imagination/pvr_ccb.h   |  6 ++---
- drivers/gpu/drm/imagination/pvr_cccb.c  | 12 ++++++---
- drivers/gpu/drm/imagination/pvr_cccb.h  | 20 +++++++-------
- drivers/gpu/drm/imagination/pvr_queue.c | 46 +++++++++++++++++++++------------
- 5 files changed, 76 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
-index b702d122d791..dfd068270542 100644
---- a/drivers/gpu/drm/imagination/pvr_ccb.c
-+++ b/drivers/gpu/drm/imagination/pvr_ccb.c
-@@ -257,8 +257,13 @@ pvr_kccb_used_slot_count_locked(struct pvr_device *pvr_dev)
-  * @pvr_dev: Device pointer.
-  * @cmd: Command to send.
-  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
-+ *
-+ * Returns:
-+ * * Zero on success,
-+ * * -EIO if the device is lost, or
-+ * * -EINVAL if a KCCB slot was not reserved or is not available.
-  */
--void
-+int
- pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 				   struct rogue_fwif_kccb_cmd *cmd,
- 				   u32 *kccb_slot)
-@@ -268,19 +273,25 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 	struct rogue_fwif_ccb_ctl *ctrl = pvr_ccb->ctrl;
- 	u32 old_write_offset;
- 	u32 new_write_offset;
-+	int err;
- 
--	WARN_ON(pvr_dev->lost);
-+	if (pvr_dev->lost)
-+		return -EIO;
- 
- 	mutex_lock(&pvr_ccb->lock);
- 
--	if (WARN_ON(!pvr_dev->kccb.reserved_count))
-+	if (WARN_ON(!pvr_dev->kccb.reserved_count)) {
-+		err = -EINVAL;
- 		goto out_unlock;
-+	}
- 
- 	old_write_offset = READ_ONCE(ctrl->write_offset);
- 
- 	/* We reserved the slot, we should have one available. */
--	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset)))
-+	if (WARN_ON(!pvr_ccb_slot_available_locked(pvr_ccb, &new_write_offset))) {
-+		err = -EINVAL;
- 		goto out_unlock;
-+	}
- 
- 	memcpy(&kccb[old_write_offset], cmd,
- 	       sizeof(struct rogue_fwif_kccb_cmd));
-@@ -298,8 +309,14 @@ pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
- 	pvr_fw_mts_schedule(pvr_dev,
- 			    PVR_FWIF_DM_GP & ~ROGUE_CR_MTS_SCHEDULE_DM_CLRMSK);
- 
-+	mutex_unlock(&pvr_ccb->lock);
-+
-+	return 0;
-+
- out_unlock:
- 	mutex_unlock(&pvr_ccb->lock);
-+
-+	return err;
- }
- 
- /**
-@@ -365,8 +382,9 @@ static int pvr_kccb_reserve_slot_sync(struct pvr_device *pvr_dev)
-  * @kccb_slot: Address to store the KCCB slot for this command. May be %NULL.
-  *
-  * Returns:
-- *  * Zero on success, or
-- *  * -EBUSY if timeout while waiting for a free KCCB slot.
-+ * * Zero on success,
-+ * * Any error returned by pvr_kccb_reserve_slot_sync(), or
-+ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
-  */
- int
- pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd *cmd,
-@@ -378,8 +396,7 @@ pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev, struct rogue_fwif_kccb_cmd
- 	if (err)
- 		return err;
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
--	return 0;
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, cmd, kccb_slot);
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_ccb.h b/drivers/gpu/drm/imagination/pvr_ccb.h
-index 4c8aef31eeb0..8b698206c68b 100644
---- a/drivers/gpu/drm/imagination/pvr_ccb.h
-+++ b/drivers/gpu/drm/imagination/pvr_ccb.h
-@@ -60,9 +60,9 @@ int pvr_kccb_send_cmd(struct pvr_device *pvr_dev,
- int pvr_kccb_send_cmd_powered(struct pvr_device *pvr_dev,
- 			      struct rogue_fwif_kccb_cmd *cmd,
- 			      u32 *kccb_slot);
--void pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
--					struct rogue_fwif_kccb_cmd *cmd,
--					u32 *kccb_slot);
-+int pvr_kccb_send_cmd_reserved_powered(struct pvr_device *pvr_dev,
-+				       struct rogue_fwif_kccb_cmd *cmd,
-+				       u32 *kccb_slot);
- int pvr_kccb_wait_for_completion(struct pvr_device *pvr_dev, u32 slot_nr, u32 timeout,
- 				 u32 *rtn_out);
- bool pvr_kccb_is_idle(struct pvr_device *pvr_dev);
-diff --git a/drivers/gpu/drm/imagination/pvr_cccb.c b/drivers/gpu/drm/imagination/pvr_cccb.c
-index 4fabab41bea7..da6e6d94e29f 100644
---- a/drivers/gpu/drm/imagination/pvr_cccb.c
-+++ b/drivers/gpu/drm/imagination/pvr_cccb.c
-@@ -220,8 +220,12 @@ static void fill_cmd_kick_data(struct pvr_cccb *cccb, u32 ctx_fw_addr,
-  * You must call pvr_kccb_reserve_slot() and wait for the returned fence to
-  * signal (if this function didn't return NULL) before calling
-  * pvr_cccb_send_kccb_kick().
-+ *
-+ * Returns:
-+ * * Zero on success, or
-+ * * Any error returned by pvr_kccb_send_cmd_reserved_powered().
-  */
--void
-+int
- pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
- 			struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
- 			struct pvr_hwrt_data *hwrt)
-@@ -235,10 +239,10 @@ pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
- 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
- 	wmb();
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
- }
- 
--void
-+int
- pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
- 				 struct pvr_cccb *geom_cccb,
- 				 struct pvr_cccb *frag_cccb,
-@@ -263,5 +267,5 @@ pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
- 	/* Make sure the writes to the CCCB are flushed before sending the KICK. */
- 	wmb();
- 
--	pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
-+	return pvr_kccb_send_cmd_reserved_powered(pvr_dev, &cmd_kick, NULL);
- }
-diff --git a/drivers/gpu/drm/imagination/pvr_cccb.h b/drivers/gpu/drm/imagination/pvr_cccb.h
-index 943fe8f2c963..a2155f732bf1 100644
---- a/drivers/gpu/drm/imagination/pvr_cccb.h
-+++ b/drivers/gpu/drm/imagination/pvr_cccb.h
-@@ -59,16 +59,16 @@ void pvr_cccb_fini(struct pvr_cccb *cccb);
- void pvr_cccb_write_command_with_header(struct pvr_cccb *pvr_cccb,
- 					u32 cmd_type, u32 cmd_size, void *cmd_data,
- 					u32 ext_job_ref, u32 int_job_ref);
--void pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
--			     struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
--			     struct pvr_hwrt_data *hwrt);
--void pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
--				      struct pvr_cccb *geom_cccb,
--				      struct pvr_cccb *frag_cccb,
--				      u32 geom_ctx_fw_addr,
--				      u32 frag_ctx_fw_addr,
--				      struct pvr_hwrt_data *hwrt,
--				      bool frag_is_pr);
-+int pvr_cccb_send_kccb_kick(struct pvr_device *pvr_dev,
-+			    struct pvr_cccb *pvr_cccb, u32 cctx_fw_addr,
-+			    struct pvr_hwrt_data *hwrt);
-+int pvr_cccb_send_kccb_combined_kick(struct pvr_device *pvr_dev,
-+				     struct pvr_cccb *geom_cccb,
-+				     struct pvr_cccb *frag_cccb,
-+				     u32 geom_ctx_fw_addr,
-+				     u32 frag_ctx_fw_addr,
-+				     struct pvr_hwrt_data *hwrt,
-+				     bool frag_is_pr);
- bool pvr_cccb_cmdseq_fits(struct pvr_cccb *pvr_cccb, size_t size);
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/imagination/pvr_queue.c
-index 09993e858df8..8aba8fbfccfa 100644
---- a/drivers/gpu/drm/imagination/pvr_queue.c
-+++ b/drivers/gpu/drm/imagination/pvr_queue.c
-@@ -769,17 +769,19 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 		    (job->type != DRM_PVR_JOB_TYPE_GEOMETRY ||
- 		     job->paired_job->type != DRM_PVR_JOB_TYPE_FRAGMENT ||
- 		     job->hwrt != job->paired_job->hwrt ||
--		     job->ctx != job->paired_job->ctx)))
--		return ERR_PTR(-EINVAL);
-+		     job->ctx != job->paired_job->ctx))) {
-+		err = -EINVAL;
-+		goto err_release;
-+	}
- 
- 	err = pvr_job_get_pm_ref(job);
- 	if (WARN_ON(err))
--		return ERR_PTR(err);
-+		goto err_release;
- 
- 	if (job->paired_job) {
- 		err = pvr_job_get_pm_ref(job->paired_job);
- 		if (WARN_ON(err))
--			return ERR_PTR(err);
-+			goto err_release;
- 	}
- 
- 	/* Submit our job to the CCCB */
-@@ -793,25 +795,37 @@ static struct dma_fence *pvr_queue_run_job(struct drm_sched_job *sched_job)
- 
- 		/* Submit the fragment job along the geometry job and send a combined kick. */
- 		pvr_queue_submit_job_to_cccb(frag_job);
--		pvr_cccb_send_kccb_combined_kick(pvr_dev,
--						 &geom_queue->cccb, &frag_queue->cccb,
--						 pvr_context_get_fw_addr(geom_job->ctx) +
--						 geom_queue->ctx_offset,
--						 pvr_context_get_fw_addr(frag_job->ctx) +
--						 frag_queue->ctx_offset,
--						 job->hwrt,
--						 frag_job->fw_ccb_cmd_type ==
--						 ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
-+		err = pvr_cccb_send_kccb_combined_kick(pvr_dev,
-+						       &geom_queue->cccb, &frag_queue->cccb,
-+						       pvr_context_get_fw_addr(geom_job->ctx) +
-+						       geom_queue->ctx_offset,
-+						       pvr_context_get_fw_addr(frag_job->ctx) +
-+						       frag_queue->ctx_offset,
-+						       job->hwrt,
-+						       frag_job->fw_ccb_cmd_type ==
-+						       ROGUE_FWIF_CCB_CMD_TYPE_FRAG_PR);
- 	} else {
- 		struct pvr_queue *queue = container_of(job->base.sched,
- 						       struct pvr_queue, scheduler);
- 
--		pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
--					pvr_context_get_fw_addr(job->ctx) + queue->ctx_offset,
--					job->hwrt);
-+		err = pvr_cccb_send_kccb_kick(pvr_dev, &queue->cccb,
-+					      pvr_context_get_fw_addr(job->ctx) +
-+					      queue->ctx_offset,
-+					      job->hwrt);
-+	}
-+
-+	if (WARN_ON(err)) {
-+		pvr_job_release_pm_ref(job);
-+		if (job->paired_job)
-+			pvr_job_release_pm_ref(job->paired_job);
-+		goto err_release;
- 	}
- 
- 	return dma_fence_get(job->done_fence);
-+
-+err_release:
-+	pvr_kccb_release_slot(pvr_dev);
-+	return ERR_PTR(err);
- }
- 
- static void pvr_queue_stop(struct pvr_queue *queue, struct pvr_job *bad_job)
-
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260810-b4-upstream-propagate-all-errors-from-kccb-cmd-submission-code-0dae4f05fcb5
-
-Best regards,
---  
-Alexandru Dadu <alexandru.dadu@imgtec.com>
-
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
