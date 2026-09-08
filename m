@@ -1,153 +1,177 @@
-Received: from mail-lf2-f12.google.com (mail-lf2-f12.google.com [74.125.229.204])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E606B498938
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F05ED3C09F8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:41:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903659; cv=pass; b=kb/1/o2dOxYyJ+CPR2TsIUq0thBmYRQw9jk/hSuqg89vtMTab3R8nai/euSJ98fvCokTe4CmW4pYFiqJ7Ub0Bd9CITV9qz/fvQbs6ZtYTn/lsUKwazwJchtqn/HcokthFqFU2fnT5JxZWl8o0DO5VaG7NmmhzeHu0k0B7c598rE=
+	t=1788903687; cv=pass; b=Z+kP66BHudqEfjhvsLUBUN3ATDT26aWNuZm9zdol5JTUD7NPwjCzQQdY+bSmaxiwuSUKbUEPKWgbvUlQCNHaqye5ywcJuK8KR85pKNYIUzLjVCGC/6y4Op8FLXQuEc5PH8aswVfsifCl8SivsVbcnxgHi1sGbPXqWhhV4DJYOWY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903659; c=relaxed/simple;
-	bh=s8/iqyVEMrqda2nfwXPpJ2kyzj5MWxyHQckmZinACOw=;
+	s=arc-20240116; t=1788903687; c=relaxed/simple;
+	bh=1JixTpiJnJVrlw6G8kCLXK3cdOVirj1OoF0J2e51dW0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rpI+l6wilEJYqp8W+2+1f9dunf6bGoCjk5j1Zmx01y0rBE60n9+lglkE93PnxyBibUt2w/0XhwFHulu0fuJpnOnD+b7AxYmbhRWRKey4OUupjaxBpeoNWNV5RtthOpSSl8Dh6Lupljwa1t7rEpybXHph+gLsSwBJFTTdkzNUR+g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nnGCa6sr; arc=pass smtp.client-ip=74.125.229.204
+	 To:Cc:Content-Type; b=qpHNhw6qzMAfXBeHAn+0AfQOAUIBBisGOUX0mR+XadzJq/j4KMW/BIvQUX77lcUwVmTg1bMHeVTIqscuGkFBi/yg8vot5UPnjkHnamPT4sLdq+A94KFNCd51WLwwhCw9u+N4/jHydy/V6vYlTQ+c9lxVVwlGXBlYZSLNd2gZAXQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QFg6gEzZ; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nnGCa6sr"
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0d31069so491214e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:40:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788903655; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QFg6gEzZ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396672b2569so519688a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:41:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788903685; cv=none;
         d=google.com; s=arc-20260327;
-        b=PnAuEGO6LlHdDM8283JksxSfCGem0qkQGX+93CILJgZqs/UZj6ZSYbVWq7N1qdvj//
-         D7ZTqaSEydp5TKmNsGmLhrhZLkDNjZaVKlOBkBicxZmu6LMAKjnz49v24KT8YiGSuwnp
-         OSSv3o8+yDVcG1274fMcXIYVRyQX6okxzr3EOkea8JXtSox7Lv/z/9SPMODL8mNsxdob
-         3j7m+kmsExmIX3zb+PXruyrcd4vL2o5+cp5yqXc6GLgyEKfjWN1DXZgeoBb/XANbvYs0
-         3zTT39RLMpPO/cH+seVlaIOUUgHE1FS6D7aJ/dptrk1YK+LUgv8FRe67mBH6yMvqSjJP
-         PijA==
+        b=W88vNJCxmwgiBrmL75JzzlR7ffHz4Fj0qLYEASGznoTFooPxAbmgT1LOVaJBEYsXNA
+         MM4GMMU+oWLCfvgjKAQgCt9yiCpbnzYEeC939mbBJLEKaZfFPFFfWICamAG+i8Xj++Se
+         P/L5KPepA11xlci+YJuUrFBuoC6TSPbbPnRmZUwUBgkwasit1FZSmPOxyEubhTIT5ink
+         yPFol8ftLYVXuObb+RnhtJY3+FTG4KOPPABy3IoUyke0VoQkSe5+94npAbcj/txRuxGS
+         gLPYEe0Y5j5kOnfZ9SjBw7k1B7HW/KYNqbgpR9eD9819fRCyAe6s9Zl7cslJGu0v8I8l
+         SKcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=s8/iqyVEMrqda2nfwXPpJ2kyzj5MWxyHQckmZinACOw=;
-        fh=JOmQpVVGkV7dXYDYh33/87ZAgGqSx6OPTbPpWmfR1KY=;
-        b=UTTaqG9CWZYuWd/+VB9iwiv3hg+LOomYj+b7zChnk7qgFtP/TRz8M3GHCpC8GIDEqt
-         3ErhGa+CJUPf04EZ7dLt4u8rALdpYAMn36KKYSxeO47m9iK0qCEKadygIyulnjbiCj1n
-         72DLHn/fHFgSwlegYzitxzGuwjnvy7Zd6u7MoRfumqlboOgfOoYhpPTWueBWXb6+72+Q
-         DiXDjIUtsHKkVAOKuV+nmx/rZqB/EvWhOrAvcIXOY7qMhD7bNCTg7DzhXLrY8q5UGHOD
-         Br1KWO5z2oolzyLH6ntBdUSDzZRZhm3G0seHaWdF3M8WCvr5KzvnGlviXxP0NXV7F1hl
-         s50w==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+        fh=I6guC2oowAjGraG+Sdoao7y2ZVRpKdLomfnfYmSX6ns=;
+        b=gB5q4lHGU8LeFBbGBsgsrBKDmUvCYG0+lnk/kOC2FySQ+QkWw2j2oCoE3CFkUt6pRO
+         dpCD5jujlZUbaEb38qTu92lU5AlUZLs2QL9EYM5NpEYmULqKCwfziDW2d04ggNVF3KI3
+         bLfhZlNjinCtyJJWhTmaZaLLHy6IHpCw2v/EqbS9nT5SpgPIczKgwhmfrQqNLJ2axmUI
+         MGMgtDlTNYJYfJEP33242Kd3Q/OvBllgpdnkzMJieLlSa2xbBjqzQKc/y8YE+dwVRH8c
+         otKwEwWkXhJwQZL3hMg8YvvuwQ99Cewq4QKeuJ+k+idDAjClM5Y+2XkFNnhxf0wpadC7
+         BOhw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788903655; x=1789508455; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s8/iqyVEMrqda2nfwXPpJ2kyzj5MWxyHQckmZinACOw=;
-        b=nnGCa6srOuNnqz/8OWsvPLxDj79g4A4Evr4cokx8951gQr35qICBzQOIahm5/UF3Vh
-         M6qbNGfXQxpF5oDBcUiugCFWErOjsqK1uQ6zm9dv5hFK22kBPBS2uX6gV8GQTwsXl0y1
-         56on8O9+HWBgkNt83neA6iBHfzhE8hPcG4rd9u/UdsBOcqX2MgfwdMDUy2MdEE3WRwiI
-         3aQu6I+H+jQZhN9KCupEmYQkxexjjwO67kRpBq4myZP4z8aEZDxLXsrWD+vaQiFGfRRq
-         A0I0tSO6Ck7OEzVCL+QRbFZH3g24tb3fyYPipEssYAfTKmB4nkHD/m/2R6SncrvWM0mq
-         wxcQ==
+        d=gmail.com; s=20251104; t=1788903685; x=1789508485; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+        b=QFg6gEzZQ0GxxNPBhsHk+iH0kBvwSMHpVRj0thI8qw7Yw6jzYu2YbQteWSGoxvMEiW
+         mABjERkafsp8s/Erkaz2mVbVZzfSH8K/4OZs/MdxRE453S5wtmVXFqHfo18n44DBL2az
+         szFC4VqN8wC56zSZCXxtj87pM6n1eK3M4JT8LmaIKkj+hcysDAoS5fCnYqnNvHycrP8o
+         H/BholSDH6GpG8MAmH6uBTFygBxh2gk/DWc8JnTl54b0+qikLK2lqqZSj4Y1283bl2PC
+         VfFs0t7ds/StT6Tjinkm96scM6tVa5OLVgFtCQyyKEEpt1/blkLFjIemSUYxRsMjrHWy
+         zAYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788903655; x=1789508455;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=s8/iqyVEMrqda2nfwXPpJ2kyzj5MWxyHQckmZinACOw=;
-        b=ej8HyFJA3wQ50Bpyo/E4o7CXdnbk44xjPCGViwvUgBzvL46PHVCfWdiZcSxGEebiVY
-         QSMMnbh8Ad0gw40rZ3o4GiIWEDk5Eu29ac4niIbZWmI+IHtRyBRAScIGdBsV9EgBCQTt
-         LU/VDWTWYKijB5JRPvdtGTnk3gd/nRYI6Llob7dqLLf/pAy0TPOie7sEMKrFMJqPUwR8
-         arOCtufkDu9zkgi8Fg+jT/VvKNKyGqIat2NLyuIWmVJTkfv+7OHP87/mSnWrqaR9QDiH
-         GTqHQdsUgq8xjNWUK9rjSUgJHC6ydOZsJK0AMHRu1s+3Cgiewf4TkUkTnevcN9RBKRlR
-         /1+g==
-X-Forwarded-Encrypted: i=1; AKwUvBzA/b2+gghuzFwviVFMWVOApd41rc6j1YGFcMuHPNHMBt006MmQ4pBZfeFimf3/mjv0I0gOKhxfW/SymRc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ln8kI+GbbjKHcxkpzwNrnOqYunTy8y+23RyGzKmFSVwd2VgOCx
-	KkuRjykDFaLO8iyJ9751ml1eseglxd1OAHqshAWqxtU8MnjEOP30Xr5uvoU6hiyvlO06njkVabr
-	1JtbZ3xZJ9+HAFg7OnSp5y1hGWGRNsiM=
-X-Gm-Gg: AYBFou2qGo6ESI7Yn7gv2Z2/U7r6M84J/jMcAJd/4WmtGYOcypESjGQPtODyGy/iAIg
-	3E1yY64Ne8YyrA6c5yL0jTdRByWFoT+sgRNDbZ4GGEMc+HO+RercEZIqOnOfTzfbNdCUD62sNy3
-	w7K9QFHinAoO2NiWCQFgOTE4Y0eg3NnkFY3r4J5y2O6Q7w2bbtNVSznleh7aseknr7ykmlGYkzd
-	mOWMmJ90Q77uSCAqGpTfcnSgRrmVWM/QM/KqQPSLQcKGcWIOH3osUHGjww1MnmKTPHAnHC51oAH
-	RJvFPtMWY0F8fhetVeBQA/E1LEEqxu4+yEUdTpbrJBo7ygb8qmTqY41Uu8x+EZifSyiiZRUPeKH
-	o2QMzICXEemX+GlvkrJ6ANLOSm40=
-X-Received: by 2002:a05:6512:1348:b0:5b7:518c:4fcb with SMTP id
- 2adb3069b0e04-5b7518c518emr3120909e87.6.1788903655259; Tue, 08 Sep 2026
- 14:40:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788903685; x=1789508485;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8rQkd5Au7Y+YHu9zGBjXy6N5KCdPe9r93Bw6y8CKr6U=;
+        b=ShKxFFsViXHhGbnVqT5TGEH0dTgN0tpTwcgt3cpFgo+drLZYIlSxsz+eKd0TJGt94r
+         AfLnEIDVm6zxWOaoUwVScP/HUBoKvrKqtmDzCYUfo1XtNybl5WHeQi6KijhmE2QCS97X
+         m5OB0h1oUFDuadWVS7ChU48NHFMGVHKcJ/c3pjOZh+hD/oO0NyHRD7d3UblfU2Y5nC+H
+         XC3ecmrTb0uSUp4RWBzTImhtwGDgpuKjAc3BCYClYvbtyxneOSYaKKSKHytj1VQ+sHFy
+         WIcEAJxrp0JKXQYgmeD8c6SD0+Af3dqUWBNe5FGGNPWO5zbX9IskEjPltzLvOMfABI9N
+         /nHg==
+X-Forwarded-Encrypted: i=1; AKwUvBy/lVDPA4QelmyjnwXxOzEYevuBX2+wis3JdrmzZT3FerPc6BF7EALMIbOkZHMWbfebDs33lf5PuBa1Ko8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nmrAz81aK2CzR7u4Zm3nn+JpOaluDMgxBJOiFNtUwdm9s2ipe5
+	YbXXaa3SFH0Ue9+LYfO9uIbFTPdH+w0Yd00XfR7cCLYRjvgOCt/RrcYmpk+3Icf2VQZop/xAcel
+	3ISrycyL2K6k5oAxva3+MzQ26xO54Anc=
+X-Gm-Gg: AYBFou3JV7MVNAoQXwROxkBg1qaj5ly8I/ca83JgEXEBjJDydxhq88PpbcMe0aYoNeN
+	YLJvo5pwi0WHUSl2CSxEaoxcBKSMEwXuxfZrykVIRnIlBnbHb1U4ajTzIFn80uu5yarAoMselZQ
+	J2BJUWQl97+sRYW+rdogW8+NhHIgyDfwFdMEkaPw7Ebe3LJPUGlSOepCZr/oa6Jal63OrbvyPtS
+	KVdO1p2d4RjWfdG1LHfZ6lSOLi+zmsf+8mBY6SBxCt/GlYaC5OhZqHuiHdpB0XdPqb57E1IQchC
+	k5LgMDpPOURtLzPFuINlrmIyKAalOwrEsF3tIgnybE2HD0Kr2x7Qy2Jk+yhjX6fkCtYUEpOpB7h
+	ZoWXkYcMTD3DUGFjjfXtMQbLEy82zCLI=
+X-Received: by 2002:a17:90b:3a48:b0:38e:480b:99a5 with SMTP id
+ 98e67ed59e1d1-39b3d5e53d5mr20820843a91.2.1788903685198; Tue, 08 Sep 2026
+ 14:41:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAKspUhJAbCWoxgh2eq8R5g_MiNK=oXgKPUWqGOpHh0w1-Fv74A@mail.gmail.com>
- <ap5xEtMdwXS8Pvcf@wyuan.org>
-In-Reply-To: <ap5xEtMdwXS8Pvcf@wyuan.org>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Wed, 9 Sep 2026 05:40:44 +0800
-X-Gm-Features: AcwNN1WOdxDTSZnALkJ0_OE_heepkh6O2vUX_lfRBKLZK2OROuY6I7wC2p3EoNc
-Message-ID: <CAKspUh+=T_v1HpwRkA7OY1m8aU-kZgMviHxDrYpBe__8YYHQhg@mail.gmail.com>
-Subject: Re: Subject: [RFC] docs/zh_TW: defining a maintainable scope for the
- Traditional Chinese translation
-To: Weijie Yuan <wy@wyuan.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Alex Shi <alexs@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Yanteng Si <si.yanteng@linux.dev>, Hu Haowen <srcres258@furdevs.cn>, linux-doc@vger.kernel.org, 
+References: <20260903-amdgpu-ras-wifpts-v1-1-7f3b4528f12c@kernel.org>
+In-Reply-To: <20260903-amdgpu-ras-wifpts-v1-1-7f3b4528f12c@kernel.org>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 8 Sep 2026 17:41:12 -0400
+X-Gm-Features: AcwNN1XCfKRR9Pp_3osr-NXErQWimzUuIEmAIhBaOCMAWbp5aPXAHcWmLCqHV_s
+Message-ID: <CADnq5_NZKS0Ng_8sy=AS=Jby_6dCwVKMziyvRgK8XHVYEQRD1g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/ras: Adjust second parameter of mp1_v13_0_eeprom_send_msg()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> If the current translation quality is acceptable and it's not
-> troublesome to move it, I think we can just move it. On the contrary,
-> if the translation is significantly behind, there is no need to go
-> through all the trouble, just delete them.
+On Thu, Sep 3, 2026 at 3:40=E2=80=AFAM Nathan Chancellor <nathan@kernel.org=
+> wrote:
+>
+> When building with -Wincompatible-function-pointer-types-strict, a
+> warning designed to catch kernel control flow integrity (kCFI) issues at
+> build time, there is an instance around mp1_v13_0_eeprom_send_msg():
+>
+>   drivers/gpu/drm/amd/amdgpu/../ras/ras_mgr/amdgpu_ras_mp1_v13_0.c:157:25=
+: error: incompatible function pointer types initializing 'int (*)(struct r=
+as_core_context *, u32, uint32_t, uint32_t *)' (aka 'int (*)(struct ras_cor=
+e_context *, unsigned int, unsigned int, unsigned int *)') with an expressi=
+on of type 'int (struct ras_core_context *, enum ras_fw_eeprom_cmd, uint32_=
+t, uint32_t *)' (aka 'int (struct ras_core_context *, enum ras_fw_eeprom_cm=
+d, unsigned int, unsigned int *)') [-Werror,-Wincompatible-function-pointer=
+-types-strict]
+>     157 |         .mp1_send_eeprom_msg =3D mp1_v13_0_eeprom_send_msg,
+>         |                                ^~~~~~~~~~~~~~~~~~~~~~~~~
+>
+> While 'u32' and 'enum ras_fw_eeprom_cmd' are ABI compatible, hence no
+> regular warning from -Wincompatible-function-pointer-types, the mismatch
+> will trigger a kCFI violation when mp1_v13_0_eeprom_send_msg() is called
+> indirectly.
+>
+> Update the second parameter of mp1_v13_0_eeprom_send_msg()' to be
+> 'u32 msg_id' to match the prototype in 'struct ras_mp1_sys_func' (which
+> was recently changed to support mp1_v15_0), clearing up the warning and
+> kCFI violation.
+>
+> Fixes: 11a948c7817b ("drm/amd/ras: Support retrieving bad page info from =
+mp1_v15_0")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-I understand the appeal, and for some files I think you are right. But
-I would like to separate two things that are getting mixed together:
-relocating a file is cheap and mechanical, while deciding to delete one
-is neither, and the two do not have to be decided at the same time.
+Applied.  Thanks!
 
-The four relocations in section 2 are the cheap case: the files are
-reachable, they are not the worst offenders, and moving them is a
-rename plus an :Original: fix. I would rather just do that and revisit
-their content later.
+Alex
 
-For deletion, my hesitation is that it is the one decision here we
-cannot walk back. Marking a file unmaintained can be undone the moment
-someone turns up to look after it; deleting it means the next person
-starts from nothing. Right now zh_TW has one native speaker, so
-"re-translate instead" is only more efficient if the re-translation
-actually happens.
-
-So I would suggest: deletion by exception rather than by rule. Rather
-than "significantly behind means delete", we name the specific files we
-think are beyond saving and say why. If you would like to propose a
-list, I am happy to look at each one -- I suspect we would agree on
-more of them than this exchange makes it sound.
-
-> Tricky?
-
-The six worst are mostly two clusters: admin-guide/mm/damon (5 files,
-55 commits between them) and arch/arm64. Those are exactly the files I
-would expect a Taiwanese reader to skip in favour of the English, so
-they are strong candidates for whatever we decide "unmaintained" means
--- and, if you want to make the case, for deletion.
-
-> However, the former might be clearer and more understandable for the
-> readers.
-
-Agreed, the notice belongs in the file. I will do it that way.
-
-> And after process/, I'd like to do that part "Working with the
-> development community".
-
-Good -- that is the section of the index that matters most after
-process/ itself.
-
-Dongliang: Weijie quoted you above on re-translation being more
-efficient. That was in a different context, so I would rather not
-assume it carries over -- what is your view on delete-versus-mark for
-the files outside process/?
-
-Thanks,
-Chen-Yu Yeh
+> ---
+>  drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c b/dri=
+vers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> index 7aa818a433f6..548594373d0b 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1_v13_0.c
+> @@ -105,14 +105,14 @@ static int mp1_v13_0_dump_valid_bank(struct ras_cor=
+e_context *ras_core,
+>  }
+>
+>  static int mp1_v13_0_eeprom_send_msg(struct ras_core_context *ras_core,
+> -                               enum ras_fw_eeprom_cmd index, uint32_t pa=
+ram, uint32_t *read_arg)
+> +                               u32 msg_id, uint32_t param, uint32_t *rea=
+d_arg)
+>  {
+>         struct amdgpu_device *adev =3D (struct amdgpu_device *)ras_core->=
+dev;
+>         int ret =3D 0;
+>
+>         if (down_read_trylock(&adev->reset_domain->sem)) {
+>                 ret =3D mp1_v13_send_smu_msg(adev,
+> -                       pmfw_eeprom_msgs[index], param, read_arg);
+> +                       pmfw_eeprom_msgs[msg_id], param, read_arg);
+>                 up_read(&adev->reset_domain->sem);
+>         } else {
+>                 ret =3D -RAS_CORE_GPU_IN_MODE1_RESET;
+>
+> ---
+> base-commit: 8fad652e7235dbf3bebfab1460610b0b0e75b199
+> change-id: 20260902-amdgpu-ras-wifpts-c8628642e565
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
