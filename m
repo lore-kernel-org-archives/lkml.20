@@ -1,201 +1,100 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F53E519929;
-	Tue,  8 Sep 2026 10:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7684B5CD4
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 10:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864214; cv=none; b=TUcFEf/1tBTgR76xQqWDX+JT7te41JKaaY6tLgWpw+qWetrP0TbfHOJ547ov87KS3WeTB61yYVxghfHoX6qff+uVo6LNedQ9HVgut2Mk3haxJYrSscgoQvHGnynhbDrPoMNZOoUMoomdKYhhMepnZDiYINUeKXaG7F8vyEfSIPQ=
+	t=1788864237; cv=none; b=Z5EoesX9rbpPsCYlZTmsYNvCflHf++AtYH6EQ+t/imRt6VGRqxFxb0AiY7ucPyFfAG06A0BPRGPMlTIe3jvmFzAK5BDCEpC6NxOOZ482whQgglyJ6UxZENf6LThvwy1bSCLa8Evwo4cZvmcx2Xat73Fb0xbTCHMYlQz0IrtjNFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864214; c=relaxed/simple;
-	bh=qWSAnx/2m4XMAWGRUdW5OZ4UAA1+skg43ZENO1oTeMw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m0eTGagFjfeOBUqbuxvjgAB3CQ0agid048+kmWcFXnFFijDioT9XxrDn/uZr+goWY2Ihjsk7Hc25v3tsC3KljWzqFmIXq5SQIEOls4e3StnwH9O//MQWn+wR5S9SjZoB9oZUaJ7b1hHypC7Un8mAgVwH+q2TmeLvXY/2ulRIihg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=G/vHDFqX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788864237; c=relaxed/simple;
+	bh=wJF87hAqw1DfV/G2Y8256aPe3GJWUQeIGK+xITMgWVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sppkbQ80hA428OWex/1RDn8eXYDuvEh9qzQITloD+t3Te+XMu6z+vQ7ZS27ia53yK/2jEYT8N9uenFJBw9eQjoI6EaekcJaaqAFCSofrQJTpVgtSHBNFkIqFHCrjZuH4Z/Jz2fR/xkUjLSItLsX5owZWe78aa8MyH1OzS8GLcaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YIT9i5/k; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="G/vHDFqX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 600F01476;
-	Tue,  8 Sep 2026 03:43:28 -0700 (PDT)
-Received: from [10.2.197.99] (ewhatever.cambridge.arm.com [10.2.197.99])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 725653F528;
-	Tue,  8 Sep 2026 03:43:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788864212; bh=qWSAnx/2m4XMAWGRUdW5OZ4UAA1+skg43ZENO1oTeMw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=G/vHDFqX/gKrcuszE3VshjePNe3v4uqUSjCOjN8C4AXE0ccvtSMqJKDdEcsBh8QIr
-	 4DQjNn9aFLMivvaX4bP08uncghR2Xgf+kYmaYVJ5OEX+xkdNgQTtow8PoqMjBd6urp
-	 0OOBLobpwlJVfXtrye5nKnBPb70udqw48c915/Qg=
-Message-ID: <27d26c01-f00e-4ef3-b262-63cbe06e85ff@arm.com>
-Date: Tue, 8 Sep 2026 11:43:28 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YIT9i5/k"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-382ef647e20so4558454a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 03:43:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788864235; x=1789469035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qCqQB19M3/bVXTywLYLz0qY+EnHLX+YyNCe+Rh8rNHM=;
+        b=YIT9i5/kw5N5auLfv5NH0nf/MDl5T/DQ1ZBzuCJpf2bB7yImQBzh2v6Omb5Pjw0W5X
+         bKTahI3dT6FuLd7XYXWOsrtAlJoJqL5CdiR319B+V7CLatq2+tU2B6b7YgykCpl45ogT
+         Fw4ZYtkQ6wqqn2p4pVpuVe38DW7d7YpE0DD1NOYyounronK+XoajP5I42IM0q44grwH6
+         kpmeGiaRylvu5himvEl2VIxx5OPC/CVD2hcfvuRxcPJHrmnZIoxYkpNjsdhK67T5xhxN
+         j8l0UCKHLZHljeugKM5KCLZeMfVjtb2JvLXZ+YPJ4UAZLwek1/IRFHahcxciuvbjWDyr
+         4eQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788864235; x=1789469035;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qCqQB19M3/bVXTywLYLz0qY+EnHLX+YyNCe+Rh8rNHM=;
+        b=KKTNKbArFqTfGn439SgxyE5oBf2+FCLpp3d/AkWWg4pmgN9xiaxvoVbhmiQSNQor2o
+         moGHKglrBlZOQTIWkZBg/39JHvAqRviWr1ii1OyAKH6pIrAPB9Gnf3qS3QZ+txV9dU1j
+         zSyhWVGShpn2K5+Ilu9BBQ+WNNmYIgNdRs+Pqhbi6+vZHF6s3BLmQCCJwpeBdNjpiikx
+         o1GLHwkiFvz0TuXjAW75UXRafTzydQnOfPKoC4KZjRNlWJ/QtdCry0LEq4rko0zH5GrD
+         m15XRHfZBkX5roAwTLxUBdNAfvrU1nSFGlBXWDtzkiAXTuVUyWI1StDdTIhMiV8MyffI
+         QIcA==
+X-Forwarded-Encrypted: i=1; AKwUvBwySMGyf/L7Lprm+HEJA9qP7qlFM4kXZgyq7nax3qMti5JYJPz9gLIdk9yWrZDcZfpKn2rFcAlDjFNamuI=@vger.kernel.org
+X-Gm-Message-State: AFuF++knQzYFSUMEs92uzh1MnLuO+t9A+UVEpjEQkGDUl+GnHFcFWIlL
+	+Xk+Wy5n1b4G99f/6GrN86KvkZQ/lftACzQcOYBJms9GYecEYgDvSKkL
+X-Gm-Gg: AYBFou3sEgNKS6idSBjXPwIWAtlWDoeBWgrijYoxTXleUXwox1/j1MgpXByFQp3jiQN
+	vijrfBiD+aE4YNsUrFbR+/J4f6ChlIFTjMZud7YQhoCOVSzqCzFNhU4ll+OpHcSsNuOMs6E+KhG
+	aR2UWwnkk606YsuGIsHCOwlJR40azoILjcHlFrhuKsGGiE7QMcvG1i5KO85E+8yLLCPxrwIAomj
+	rPW6QxSxj2jUObc4DLTWj5x9HwHX/7tf0u1Yetfl8sfmzv1Wd1hgLHxZvKnWz9yZOMBvA0hiwWA
+	nCIN/qtpM3Mx9w2vQ8AHSzw4jNsVvW+0AZtPOXZubsJWuw6EXu8ybZpMeykqcVBKxC2cy3cDAk7
+	jwkiOXSJceafBqHTl+GJ8ujpBmr3XxN9wA769nFacZQI5vRGN/7VTm6fTEDBRhHog4JuJApH997
+	ONaHec/9O1A1Q9kScGaVmIekU3L6yPX+1djta4NyS44vVo0HDvSEzTiKCcNNATwh1fE6uZWNbCv
+	ClonCCuFS2c
+X-Received: by 2002:a17:90a:d646:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39b26214798mr46686051a91.20.1788864234965;
+        Tue, 08 Sep 2026 03:43:54 -0700 (PDT)
+Received: from adminex-ThinkPad-E14-Gen-7.. ([14.97.7.198])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3396e7e477csm3595604eec.29.2026.09.08.03.43.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 03:43:54 -0700 (PDT)
+From: Mahantesh <mahantesh9789@gmail.com>
+To: James.Bottomley@HansenPartnership.com,
+	martin.petersen@oracle.com
+Cc: linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mahantesh <mahantesh9789@gmail.com>
+Subject: [PATCH] scsi: isci: Fix duplicate word in comment
+Date: Tue,  8 Sep 2026 16:13:42 +0530
+Message-ID: <20260908104342.30297-1-mahantesh9789@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the
- host's page size
-To: Gavin Shan <gshan@redhat.com>, kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: maz@kernel.org, will@kernel.org, catalin.marinas@arm.com,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, enju.kohei@fujitsu.com
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-4-suzuki.poulose@arm.com>
- <10893135-4757-44de-91b5-180a9774d868@redhat.com>
-Content-Language: en-US
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <10893135-4757-44de-91b5-180a9774d868@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 08/09/2026 08:04, Gavin Shan wrote:
-> Hi Suzuki,
-> 
-> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
->> From: Steven Price <steven.price@arm.com>
->>
->> RMM v2.0 brings the ability to set the RMM's granule size. Check the
->> feature registers and configure the RMM so that it matches the host's
->> page size. This means that operations can be done with a granularity
->> equal to PAGE_SIZE.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->> ---
->>   Changes since v15:
->>    * Actually check the feature register for the host's page-size 
->> support.
->>   Changes since v14:
->>    * Move the implementation into drivers/firmware/arm_rmm.
->>   Changes since v13:
->>    * Moved out of KVM.
->> ---
->>   drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
->>   include/linux/arm-rmi-cmds.h   | 17 ++++++++++
->>   2 files changed, 75 insertions(+)
->>
->> diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/ 
->> arm_rmm/rmi.c
->> index 008a783407b4e..76f91c145e1fd 100644
->> --- a/drivers/firmware/arm_rmm/rmi.c
->> +++ b/drivers/firmware/arm_rmm/rmi.c
->> @@ -77,6 +77,60 @@ static int rmi_read_features(void)
->>       return 0;
->>   }
->> +static int rmi_configure(void)
->> +{
->> +    unsigned long granule_feature;
->> +    unsigned long granule_size;
->> +    int ret = 0;
->> +    struct rmm_config *config;
->> +
->> +    switch (PAGE_SIZE) {
->> +    case SZ_4K:
->> +        granule_size = RMI_GRANULE_SIZE_4KB;
->> +        granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
->> +        break;
->> +    case SZ_16K:
->> +        granule_size = RMI_GRANULE_SIZE_16KB;
->> +        granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
->> +        break;
->> +    case SZ_64K:
->> +        granule_size = RMI_GRANULE_SIZE_64KB;
->> +        granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
->> +        break;
->> +    default:
->> +        BUILD_BUG();
->> +    }
->> +
->> +    if (!(rmi_feat_reg(1) & granule_feature)) {
->> +        pr_err("RMM does not support %luKB granules\n",
->> +               PAGE_SIZE >> 10);
->> +        return -ENXIO;
->> +    }
->> +
->> +    config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
->> +    if (!config)
->> +        return -ENOMEM;
-> 
-> An error message is needed here.
-> 
->      if (!config) {
->          pr_err("Unable to alloc RMM config memory\n");
->          return -ENOMEM;
->      }
-> 
+Remove the duplicate word "the" in a comment in task.c.
 
-I can add that, doesn't hurt.
+Signed-off-by: Mahantesh <mahantesh9789@gmail.com>
+---
+ drivers/scsi/isci/task.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->> +
->> +    config->rmi_granule_size = granule_size;
->> +
->> +    /*
->> +     * For now we set the tracking_region_size to 0 which is the only 
->> option
->> +     * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 
->> 16KB/64KB).
->> +     * TODO: Support other tracking sizes via Kconfig option for other
->> +     * PAGE_SIZES
->> +     */
->> +    config->tracking_region_size = 0;
->> +
->> +    ret = rmi_rmm_config_set(virt_to_phys(config));
->> +    if (ret) {
->> +        pr_err("RMM config set failed\n");
->> +        ret = -EINVAL;
->> +    }
-> 
-> The error code from rmi_rmm_config_set() is indicative sometimes. Also, 
-> -ENXIO
-> would be more appropriate than -EINVAL?
-> 
->      if (ret) {
->          pr_err("RMM config set failed (%d)\n", ret);
->          ret = -ENXIO;
->      }
-> 
-
-Ack
-
->> diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
->> index 2fb1f7f86d71e..9aa27697e2377 100644
->> --- a/include/linux/arm-rmi-cmds.h
->> +++ b/include/linux/arm-rmi-cmds.h
->> @@ -12,6 +12,23 @@
->>   unsigned long rmi_feat_reg(unsigned long id);
->> +/**
->> + * rmi_rmm_config_set() - Configure the RMM
->> + * @cfg_ptr: PA of a struct rmm_config
->> + *
->> + * Sets configuration options on the RMM.
->> + *
->> + * Return: RMI return code
->> + */
->> +static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
->> +{
->> +    struct arm_smccc_res res;
->> +
->> +    arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
->> +
->> +    return res.a0;
->> +}
->> +
-> 
-> rmi_rmm_config_set() is used for once by rmi.c::rmi_configure(), I would 
-> not expose
-> rmi_rmm_config_set() by combining the logic to rmi.c::rmi_configure().
-
-Ack
-
-Thank you for the review
-
-Cheers
-Suzuki
-
+diff --git a/drivers/scsi/isci/task.c b/drivers/scsi/isci/task.c
+index 3a25b1a2c52d..aeb2cda92465 100644
+--- a/drivers/scsi/isci/task.c
++++ b/drivers/scsi/isci/task.c
+@@ -67,7 +67,7 @@
+ /**
+ * isci_task_refuse() - complete the request to the upper layer driver in
+ *     the case where an I/O needs to be completed back in the submit path.
+-* @ihost: host on which the the request was queued
++* @ihost: host on which the request was queued
+ * @task: request to complete
+ * @response: response code for the completed task.
+ * @status: status code for the completed task.
+-- 
+2.43.0
 
