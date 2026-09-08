@@ -1,205 +1,136 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850F3580386
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:05:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3494658039E
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:05:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883506; cv=none; b=eQBV8mPkqJpz8EgGCvAEpGNtDZ9XTwQDsFV5ReVCkxLkLCQ6yS0j2VtRC4sWYcQJGhsLX8EfSedk9shbhnu+TPPvc3PVhYj5lCIh0MkpOclaSPP1Hlno9FbCqrxn/RGw+LHNQTvbty03Rp39ItKqvU5TIO3rOSeIfExa6y74wl4=
+	t=1788883509; cv=none; b=mYb8lQDc24nIvwlqU0iTlCUDrAuTIBZfKoJexz+AmG7eJd26fZPfH+grcDaq8IsP0FRl3pKghY1oLPp7PqFtRYJPQaaFZYPVlbTta0EqDAFHgIDKV9/v2b9c+L8AnYQqIJUioRQTLMIs/JwNUWujFj3Tlm1juLovlJ7oRLsz/0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883506; c=relaxed/simple;
-	bh=wKPqxV2LJIDtPvxueXtuaqpAw1KYruaKoIfgvimOWQE=;
+	s=arc-20240116; t=1788883509; c=relaxed/simple;
+	bh=sK1b5nDQtrjVKFr+o/6GwxhEgYwKp92RT5diVPkBA+U=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CBUikNoH2MpATGPcQ2FSZm/oJP5Bt3DIEkLySesw9N+4Hfg5fTAMNuWDINy4+1sdBWtZhWLRmzCA9R4CPgGXaVeBxGUDh//5mRRSQF02tCS1gJ8U0Ieo2kLCf2ztIY7cf9KAFVD5PzbuViuHpbPPqHWbuFAQCssYMs2s0xNfTrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S1MkJOJ9; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=FTo5Eo5Z/HiC3XTKgNTE1uPvREpEsSYgKqCOcuDP4BNdD2mZqrNL0oPJZrW8ykZNny5LH1z/mUP5R5uJf3inTVKCeJW6k9fPzY3q/BOSNH30dCNRjphIrB0l4nbAS55tWuNI7miCdVWKeyEuHFZMSUewxPNjLbKvzKNvQU90ivk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZfKObwWj; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S1MkJOJ9"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85368f1d484so227971b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:05:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZfKObwWj"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d5so89089b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:05:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788883504; x=1789488304; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EFc84YmPQ7APJ72znZItLC1opm46HMB1M/+k8Tjpgc0=;
-        b=S1MkJOJ9Y0YkBBoQZ0KwaEZiDru6Y7Pmdke1NhTBQmx0IdmOCUFxnXgMHWVILUVUlo
-         Qa5pOTV9ZoYV/i83gN91DkdLbY3R3Gd9LKA/Ar8lCGTPGRmO1H/N9SH8aE2uEMxDaO+b
-         O/nYyAFvO8D3qAtlkGTH4snGcT7AoDUzWYo0teXu4MbrUGFJpq6vvThuM0HEytUydIxQ
-         IOorO6lbwOeVEEpa4kNRedhE8VKIjKSZdSS3/bscmodZbvGD30T+UY9P9GKDRtlFQ6WF
-         Du6+iC60dhlOelsECzOl/1cNPpWIO9BUBs6MZtI8qG5Rb3AZcvK34M8vY0uPhf393KaB
-         5uFg==
+        d=gmail.com; s=20251104; t=1788883507; x=1789488307; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SSdpcNES+qMXGVTc/+WrAnmCz5JB/CaNe97EdcfztrE=;
+        b=ZfKObwWjNK7L05K1IvN9ICzOvstr1NZlsrbwloYMwlijiL/KhwcaIn8KXaD08mxM5M
+         p4BocJTIUF+LtbE4jvCDeA0pLStRxVf9nAKzYbKg7LRzeSylufcSUXRi5AjrLu2YgV1B
+         iZV9DoDUI1Qu/DJHf4nyG5SPoqMzFi7gO4mdr3jF+DcNEMLUhjFG7qRvxztAngXy0AKj
+         uDI7YDXbVVb3UwFZHwKdCaOAAXGLKqYcZS70YG8twwIk/HaZU9gJMoiutRp8E7e1kyMa
+         eh+M+sIpHd0CAhbXoJrzcWdLZkY6HiNB2syr77wTymo05XcGSb75S6JotjPKhhZCRR5H
+         0Zaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883504; x=1789488304;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EFc84YmPQ7APJ72znZItLC1opm46HMB1M/+k8Tjpgc0=;
-        b=dtYoxCX/tdrZQszFKq5l7jWikp5U26meF2j+O/+ew+D9Br4s1AAnRIHR0ZQT/woIQt
-         6mRigXNX/ZH/IzV3nWsQtlclXPpHHbBu0JNX9y2lknD+hqJw8U9lcqTfriYzUROZUjVw
-         psj2KLWmomO9c24cotbvx99vDmhbc5WIGZtn97YrBn5XRhn7e17jAKVRZTWVlg+CHtxs
-         WNAKfBnmqEtATbfWAnMWcrkcKUhsZoQnbyEYl8PgRfXf0u8QWawlytgoIynS6A2muG8d
-         M6iyQuqTtBx8dppWcZAUeb49f8dcRzc9C9iLTI4BRzxzciD9r/TH/ySoyljHFv5oFF3h
-         iS3w==
-X-Forwarded-Encrypted: i=1; AKwUvByIOD1sap2ysxLyF3qrLS4zeAOkY1rnQd0bpxSt7dm3aloiObzroMm3yMrneuAXhOpfcn7W1ky6iQT8Xms=@vger.kernel.org
-X-Gm-Message-State: AFuF++leue0pa4krqQErF691ndoMzHEPHLY/HIhEpHSXVVeMPa31RBWF
-	nXfDGsbyDNm8QHArjC+cESbNyEAlxyAyIzskQo1CSEi/H6PiPGJVEhQL
-X-Gm-Gg: AYBFou3GdFJzz1KMMHXR1Gx7hCyknirc1uI6T1ePwcC+psBHpCLO96sw1clkN/PjlXh
-	G3EASGAfmpAe0Wua6fsfSovZAI3I5Oq5G/+ZgCs2Hg1PBUzBmHJMkc1jTSpuF4IttvImsbvoAT1
-	tLcDIxuPzCjtaq3P3YnltGE/nK6cZfp2fTa8fqSsnUAIhijoAz2tjdP28LqP6x/Cmwj1MPOkh/5
-	v/b7FOwe+mSrRHXsH72FbFXIgHUB7mEkuG6g87hM55kov2zzkgBrMDTL097PHiyp9cQwIXbwYz4
-	CVH0h1+O+KkhlWaJTwSeZlABad3zID6JrMUvxf6cpVLUodZxTLl7Xw3h91iNiJ+3tNns2/mzqKL
-	NnaqHJAJmtMtA5l38NL3NLz91OW8cbESy9LdW12929ZGQjmyV0wxlkw9Rtanyzvm31Lxb9GYNlL
-	nMOGwsz5/2kChJFr/vg+TIgDytk5yt+7NKYRnXBFCqZB77taajAdIqMwdkFCLPBG3aUAeXDkSkH
-	JRAl6h5RytrNTMEXk125EaByw==
-X-Received: by 2002:a05:6a00:4787:b0:863:2fc0:4052 with SMTP id d2e1a72fcca58-8632fc04106mr12652769b3a.2.1788883503595;
-        Tue, 08 Sep 2026 09:05:03 -0700 (PDT)
-Received: from o6.lan ([240e:391:e05:8d20::1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86153027951sm5767881b3a.40.2026.09.08.09.04.58
+        d=1e100.net; s=20251104; t=1788883507; x=1789488307;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SSdpcNES+qMXGVTc/+WrAnmCz5JB/CaNe97EdcfztrE=;
+        b=qMD0MhHavQFM3KQYMyXlZZ/lM7j+4fxC5CsuFcWjSGydcDtEEfCM7u11Mzcrak3mnU
+         fnDjXWZ5yxXRBoDgA+afbQDFCp7HA33rqvAvbHL8fFQ/5Od9XfJYkfuWZtXpxuLI0kJX
+         QF6MZjY+MovB5NngbMZ/ZPLG4+hu6KpbcOSFJs0Ul3hB4oScH+mFvsMsBqnfjbM/rumF
+         NEJWwa/Rah059G2JZ7RYKZC5qU2tFuFhFODyhmsMVHgKYawncuGXKvC7LpJJb3yiP4ZV
+         +QdGfBY7s9dy8zKnMjMTp4wRo+gG6O9JmXHH3Y6dE4QRuDzRD+ZM2ioac6KPpwojdH8N
+         JZxQ==
+X-Forwarded-Encrypted: i=1; AKwUvByNVTh07+Ijp7k1lqu50GKFCuf7/xLpV9wx+yRI7aFIurUWW5T8wohOQxRt1bSNDKFLfOB/ztCKaY6Sq0Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9r/LA7uN4U8qaJsiJyx+Y6qkKmDdvKPB3E2Lowkx9x0ZAzsZD
+	hcic+F1Sh9Gvd0M3FcteDhFkaG/QGVQNBywHhjPXBIhhjp87ChNro/Mb
+X-Gm-Gg: AYBFou07QTME1Cml9/A8z6NcVs7QW/8oQ7VCT5olMFRTSMfN7n/x7j1dAhqJlefR1oe
+	ljDhZMl9ogBlVM1FhcWePWS28519rVCBNLOIlUsBmlAU0nzqo1bYbRGOIRYsdWhjUC7jPYrSUs3
+	wDLCllNF65cNJK+fM8SRdU3UWntNcsq6YPfy0uT70wwzQB3Y3ecaZ6xtwXLVjIkgj3ezES4Rgmj
+	7lwd0c0Dxl7UP8e+S9+9kMsC0pO0T9Su845+lh2kynLeLsfRS+dnqxZSFxKbWMBuiQbxwfCgilD
+	UhLGSTAZbaKTiudwaEqvl9gY8f97MhEu2+nnT0LD8Jokq8JMv6dQauudjPOmAmhMGalyfwNF7+V
+	tx1RcFiwDnVgAvnGmHz8n08ZaAYxemRiRKdMoUGv9WyBPmZa1zEsu8Kk7TIstkEqIrOpIaDYjdf
+	BsGeG6meJi6BzrbP9dNI+udr6AsbdGJEVnlg5tS0Bf607l3z3nCUN0DX6UPuesB2fG/Att384nr
+	RCFs0bMTXxP
+X-Received: by 2002:a05:6a20:2d22:b0:3d0:f57d:c87a with SMTP id adf61e73a8af0-3dabab860f3mr994786637.0.1788883506463;
+        Tue, 08 Sep 2026 09:05:06 -0700 (PDT)
+Received: from x1c ([2405:9800:b670:b64b:3ef4:ec38:7826:6c9b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33825669695sm14204525eec.3.2026.09.08.09.05.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:05:03 -0700 (PDT)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: surenb@google.com
-Cc: akpm@linux-foundation.org,
-	liam@infradead.org,
-	ljs@kernel.org,
-	vbabka@kernel.org,
-	david@redhat.com,
-	willy@infradead.org,
-	jannh@google.com,
-	paulmck@kernel.org,
-	pfalcato@suse.de,
-	linux-mm@kvack.org,
+        Tue, 08 Sep 2026 09:05:06 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: seanjc@google.com,
+	pbonzini@redhat.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	shuah@kernel.org
+Cc: hpa@zytor.com,
+	binbin.wu@linux.intel.com,
+	kai.huang@intel.com,
+	kvm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	Xueyuan Chen <xueyuan.chen21@gmail.com>
-Subject: Re: [PATCH v2 0/5] read proc/pid/smaps_rollup under per-vma lock
-Date: Wed,  9 Sep 2026 00:04:52 +0800
-Message-ID: <20260908160452.1548235-1-xueyuan.chen21@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907063918.3432401-1-surenb@google.com>
-References: <20260907063918.3432401-1-surenb@google.com>
+	linux-kselftest@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH v1 2/2] KVM: selftests: Add CR8 reserved-bit checks to set_sregs_test
+Date: Tue,  8 Sep 2026 23:04:26 +0700
+Message-ID: <20260908160426.6547-3-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260908160426.6547-1-tharitt97@gmail.com>
+References: <20260908160426.6547-1-tharitt97@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Extend set_sregs_test to cover CR8. Verify that the architecturally
+allowed bits [3:0] can be set and read back, that every reserved bit
+[63:4] is rejected by KVM_SET_SREGS, and that a successful set is
+observable via KVM_GET_SREGS.
 
-On Sun, Sep 06, 2026 at 11:39:13PM -0700, Suren Baghdasaryan wrote:
->proc/pid/smaps_rollup can be read using the combination of RCU and
->VMA read locks, similar to proc/pid/{maps|smaps|numa_maps}. RCU is
->required to safely traverse the VMA tree and VMA lock stabilizes the
->VMA being processed and the pagetable walk.
->Note that we have to keep the logic to drop mmap_lock on contention
->because even when using per-VMA locks we might have to fall back to
->holding the mmap_lock.
->
+Without the accompanying fix to kvm_is_valid_sregs(), setting a reserved
+CR8 bit is silently accepted and the read-back value diverges from the
+value written, so this test fails on an unpatched kernel and passes once
+the fix is applied.
 
-Hi Suren,
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+---
+ tools/testing/selftests/kvm/x86/set_sregs_test.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-I tested this series on my arm64 24-core machine, using the same
-command:
+diff --git a/tools/testing/selftests/kvm/x86/set_sregs_test.c b/tools/testing/selftests/kvm/x86/set_sregs_test.c
+index 603226ffe437..4e7c35179438 100644
+--- a/tools/testing/selftests/kvm/x86/set_sregs_test.c
++++ b/tools/testing/selftests/kvm/x86/set_sregs_test.c
+@@ -135,6 +135,18 @@ static void test_cr_bits(struct kvm_vcpu *vcpu, u64 cr4)
+ 	/* NW without CD is illegal, as is PG without PE. */
+ 	TEST_INVALID_SREG_BIT(vcpu, cr0, sregs, X86_CR0_NW);
+ 	TEST_INVALID_SREG_BIT(vcpu, cr0, sregs, X86_CR0_PG);
++
++	/* CR8 bits 3:0 are writable; bits 63:4 are reserved. */
++	vcpu_sregs_get(vcpu, &sregs);
++	sregs.cr8 = 0xf;
++	rc = _vcpu_sregs_set(vcpu, &sregs);
++	TEST_ASSERT(!rc, "Failed to set valid CR8 value 0xf");
++
++	vcpu_sregs_get(vcpu, &sregs);
++	TEST_ASSERT_EQ(sregs.cr8, 0xf);
++
++	for (i = 4; i < 64; i++)
++		TEST_INVALID_SREG_BIT(vcpu, cr8, sregs, BIT_ULL(i));
+ }
+ 
+ static void test_efer_bits(struct kvm_vcpu *vcpu, u64 efer)
+-- 
+2.53.0
 
-run-proc-vs-map.sh --nsamples 20 --rawdata -- \
---busyduration 2 --procfile smaps_rollup
-
-baseline:
-  Median   Minimum   Maximum
-    0.132     0.121     2.600
-    0.132     0.123     2.768
-    0.132     0.123     2.804
-    0.132     0.125     2.835
-    0.132     0.125     2.837
-    0.132     0.125     2.849
-    0.132     0.125     2.858
-    0.132     0.125     2.888
-    0.132     0.130     2.894
-    0.132     0.132     2.896
-    0.132     0.132     2.915
-    0.132     0.134     2.921
-    0.132     0.134     2.927
-    0.132     0.137     2.945
-    0.132     0.141     2.984
-    0.132     0.246     3.004
-    0.132     0.270     3.381
-    0.132     1.316     3.533
-    0.132     1.321     3.551
-    0.132     1.343     3.924
-
-patched:
-   Median   Minimum   Maximum
-    0.006     0.006     1.950
-    0.006     0.006     1.955
-    0.006     0.006     1.955
-    0.006     0.006     1.956
-    0.006     0.006     1.956
-    0.006     0.006     1.957
-    0.006     0.006     1.958
-    0.006     0.006     1.959
-    0.006     0.006     1.959
-    0.006     0.006     1.961
-    0.006     0.006     1.962
-    0.006     0.006     1.963
-    0.006     0.006     1.964
-    0.006     0.006     1.966
-    0.006     0.006     1.969
-    0.006     0.006     1.976
-    0.006     0.006     1.982
-    0.006     0.006     1.995
-    0.006     0.006     1.996
-    0.006     0.006     2.043
-
-So the median is 0.132 -> 0.006 ms, about 22x, and the worst case
-drops from 3.9 to 2.0 ms.
-
-Tested-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
-
-Thanks,
-Xueyuan
-
->The first 3 patches are cleanups making later change simpler. The main
->change is in patch 4. Patch 5 extends existing proc-maps-race tearing
->test to verify smaps_rollup content.
->
->Changes since v1 [1]
->- removed helper functions which are not needed after per-VMA locks
->became unconditional in [2];
->- added a cover letter, per Lorenzo Stoakes and David Hildenbrand;
->- removed is_mmap_lock_contended() as it's no more needed after [2],
->per David Hildenbrand;
->- fixed typos, per Lorenzo Stoakes and David Hildenbrand;
->- refactored duplicate error checks, per Lorenzo Stoakes;
->- eliminated special case of start=0 in smap_gather_stats(),
->per Lorenzo Stoakes;
->- updated comments, per Lorenzo Stoakes;
->- moved original comment about 4 possible cases when mmap lock is
->dropped into patch 4 changelog;
->- added smaps_rollup testing into proc-maps-race test.
->
->[1] https://lore.kernel.org/all/20260606015729.1837935-1-surenb@google.com/
->[2] https://lore.kernel.org/all/20260813193433.3318288-1-surenb@google.com/
->
->Suren Baghdasaryan (5):
->  proc/task_mmu: remove unnecessary helpers
->  proc/task_mmu: remove unnecessary inlines in function definitions
->  proc/task_mmu: remove special-casing of smap_gather_stats() start
->    parameter
->  proc/task_mmu: read proc/pid/smaps_rollup under per-vma lock
->  selftests/proc: add /proc/pid/smaps_rollup tearing tests
->
-> fs/proc/task_mmu.c                            | 280 +++++++-----------
-> tools/testing/selftests/proc/proc-maps-race.c | 187 +++++++++++-
-> 2 files changed, 291 insertions(+), 176 deletions(-)
->
->
->base-commit: e3fc12b08aadde9cec7b3799ac0e0c9a1aa245c4
->-- 
->2.55.0.979.g7e5102b832-goog
->
->
