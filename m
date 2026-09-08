@@ -1,94 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549E7549387;
-	Tue,  8 Sep 2026 13:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B7035E1C3;
+	Tue,  8 Sep 2026 13:53:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875597; cv=none; b=omzGysAPY5tvFyZ12Um2xI1183gxx8vPaDZiET+USbjhpfiBS22J0A4A2b6MwRqbpAq6+6zWYH4pGnoqAZneaNw1a68B0ElgCv+RHYDv7oZjul0oGdjV/UO9TvleJ9zCwyfKC6qDxkRmUhDJNRJukCP/87zTpUvSp9kr8zilhxw=
+	t=1788875611; cv=none; b=gHAGRRmDjeuvaUKoBvrm0xYvvZEvem53ximblpfvyVyAgYdKuqzth0vkAR7Ht1nwPzHCs+q9D/R0nrXL3LVVilS/nVuAN679sm79ptrVVSXwehgAstrZv+uzStPi/PJbTYS/wB6L8usoK2hWqhs9PutFQk+Yqj/njr6lNRi95oA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875597; c=relaxed/simple;
-	bh=bI1PpBI0cFvGVH5VMmLCiJDqLF3ehdwSKW2zmQUDQbI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z2qK0e0tZDnsJoTrEjMw6EQEAtNXvslwt43CjH3qadY4eHPWSwWn2FBs7gyFXbdpNyFN+CsoCkfJJUVyC++i9oEXDbg1xh299xfznXoYDkd5m8QRmFwkd9YHSZ7bX9iBIpYc38kLnPj56USiql1+YLnXOXvsA9ZcsSIab782vhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645831F00A3A;
-	Tue,  8 Sep 2026 13:53:05 +0000 (UTC)
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2] Docs/mm/damon/design: fix broken :ref: usage and a typo
-Date: Tue,  8 Sep 2026 06:52:55 -0700
-Message-ID: <20260908135257.97523-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
+	s=arc-20240116; t=1788875611; c=relaxed/simple;
+	bh=Qt4VL555vxac3fty5lZYyB5ZOkzD3p3mOdywTwgxECU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=sxMmka2UFDa9BVxr3OcNRrphaZNBsWGXSsyDthBJfV7nXacvcC1HEAhmGk5oozzjsSMhzO0b8QCCKz7YpdMBUCKqG2LCiUcPR1zczfHB8zXXf4Noex3Ze5LVZNJXaor6hwFNkTzyc+nGXG99BOxTOBn3BJYthCoRy24sB5Ud2Kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=JYywOxZn; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="JYywOxZn"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1788875589;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ddjlJDo16j6gyKZ/QxfYpcaKugYWnJGVhK4hU7DDRFQ=;
+	b=JYywOxZn+lQrLPd4OsfmpUNsMQby7MUQSp/GpiQyj0y4E5OBX8nmIJWx/UdaFcb88uZUXb
+	GOaUf6F6mfa3/1+lQuDwlmUZJpbSlKL+SR64lIFx/xZ1+ONCHWAAHZUkKu+e4GOE1nz+oH
+	1zBMXZl9iizoUcqp0KrXUwQNw9FCArfqXiMeeKYRDDV2AnTtA6totfnPyA/tmud2z3P4Zu
+	SImkvoG/pXzyxPxB0YNjnhBJKgVBoIzMsk4ql/artKHKYcGe0M9lwAPfv7DMdG5vKHP91K
+	0XH/KVZqNafV9NPVyanrWjZNnltSqQDSnsGWzlXtlobFQt9RmffnwftFabRgUQ==
+Date: Tue, 08 Sep 2026 15:51:53 +0200
+Subject: [PATCH 6/9] arm64: dts: imx8mm-kontron: Describe the ethernet PHY
+ LEDs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-6-4d0e8a75db79@kontron.de>
+References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
+In-Reply-To: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1413;
+ i=frieder.schrempf@kontron.de; h=from:subject:message-id;
+ bh=3o8FkH+94Gp91Ts9hc9WE4bcbXn8u9fadCMq2uRk+Xc=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsPMMRY1UhZwj/g4vdVV3RW2NDjliL8SU08Mwd8uua
+ p7K+3IdpSwMYlwMsmKKLFL8Fq9tzWJ95I9VR8HMYWUCGcLAxSkAEzl/kJFh0e0OHx3fXFm7zOfz
+ ne47Lrimp1BYoaF0sz74Um7Uv7fbGBl+a+5tdJK3m3p+yx2WmROzeq5NVTfY3Lxj1b7wwza/Lgj
+ xAgA=
+X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
+ fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
-From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-The Statistics section refers readers to the DAMON sysfs interface
-documentation for how to read the statistics, using a ':ref:' role.
-However, the role name has a superfluous 's' appended (':ref:s' instead of
-':ref:').  Moreover, its target label 'sysfs_stats' does not exist; the
-correct label is 'sysfs_schemes_stats'.  Fix both.
+The RJ45 of the BL i.MX8MM has two LEDs wired to LED0 and LED1 of
+the VSC8531 PHY. Describe them using the standard LED subnodes of
+the ethernet PHY binding, so that they show up as LED class devices
+and can be driven by the netdev trigger.
 
-Also fix a typo, 'frequenceis' -> 'frequencies', in the Adaptive Regions
-Adjustment section.
-
-Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
-Changes from v1
-- v1: https://lore.kernel.org/20260902124550.31175-1-zenghui.yu@linux.dev
-- Collec R-b: from SJ.
-- Rebase to latest mm-new.
+ arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
- Documentation/mm/damon/design.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-index d036340dae8af..aac84de261aa8 100644
---- a/Documentation/mm/damon/design.rst
-+++ b/Documentation/mm/damon/design.rst
-@@ -249,7 +249,7 @@ For each ``aggregation interval``, it compares the access frequencies
- sum of the two regions' sizes is smaller than the size of total regions divided
- by the ``minimum number of regions``, DAMON merges the two regions.  If the
- resulting number of total regions is still higher than ``maximum number of
--regions``, it repeats the merging with increasing access frequenceis difference
-+regions``, it repeats the merging with increasing access frequencies difference
- threshold until the upper-limit of the number of regions is met, or the
- threshold becomes higher than possible maximum value (``aggregation interval``
- divided by ``sampling interval``).   Then, after it reports and clears the
-@@ -889,7 +889,7 @@ the scheme is deactivated.  Note that, unlike watermarks, even if a scheme's
- ``nr_snapshots`` reaches ``max_nr_snapshots``, monitoring will not stop.
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
+index dd59af0ebaae..1f3d0577f10c 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
+@@ -5,6 +5,7 @@
  
- To know how user-space can read the stats via :ref:`DAMON sysfs interface
--<sysfs_interface>`, refer to :ref:s`stats <sysfs_stats>` part of the
-+<sysfs_interface>`, refer to :ref:`stats <sysfs_schemes_stats>` part of the
- documentation.
+ /dts-v1/;
  
- Regions Walking
++#include <dt-bindings/leds/common.h>
+ #include "imx8mm-kontron-sl.dtsi"
+ 
+ / {
+@@ -139,6 +140,25 @@ ethphy: ethernet-phy@0 {
+ 			reset-assert-us = <1>;
+ 			reset-deassert-us = <15000>;
+ 			reset-gpios = <&gpio4 27 GPIO_ACTIVE_LOW>;
++
++			leds {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				led@0 {
++					reg = <0>;
++					color = <LED_COLOR_ID_GREEN>;
++					function = LED_FUNCTION_LAN;
++					linux,default-trigger = "netdev";
++				};
++
++				led@1 {
++					reg = <1>;
++					color = <LED_COLOR_ID_YELLOW>;
++					function = LED_FUNCTION_LAN;
++					linux,default-trigger = "netdev";
++				};
++			};
+ 		};
+ 	};
+ };
 
-base-commit: 6ec15610f2de4a64c8cada08cb3dda0b6388b3ed
 -- 
-2.47.3
+2.55.0
+
