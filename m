@@ -1,132 +1,111 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1C42EEE86
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788843763; cv=none; b=IBGptfIfW96wTWaRECAqgDqjqgqgQkLETsKBwiM2ySbTZi/8rYFUusbrZVO2L57cG/AUysNFlF1oMudFcUeWTfSLCn2t6fdgrnal4KNc9IW28k2irMCtM+mENUA6qpUm+7PHOhrwF/4Cmi6qJbCgfOqxvOF11oIwKxkiVRjyIOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788843763; c=relaxed/simple;
-	bh=9Gz680K5QSslTUHGxRWjVgzzejSc0xlqkZhFGg8h0K0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SPvamSRRW6OEO6nUWniIAt7StAvB3S5+wYO3cWlzGAZZ3dpkbIudhYBxyLWa/slE71/A9btmTsGCun5Yo6eaxvHiV+bK7ekKmSJ6WcJCBtCiyB6WBsz8PkE+j7b5IrhYME5KjFSCYmxcmc91EMOU65uMre8L/ZAuzDrsTNlzhhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=nUig8c/B; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2261DDFE
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:03:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788843810; cv=pass; b=CzWE0GDOOVLHYW9rYp4J1KX4+XN6DZckdb1I+w0MCYdwTIlTyiGQJJrPYO1txIXtZ8EOU91QQzKXRK0q0lcekBdMziTM2fDAbZ8S+s8hcR1QywbJCKjgiCFEiNduJvxCBOyKBN63exUYNKL2MM+oXd8k/cqR6vzkKnppedj8TI4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788843810; c=relaxed/simple;
+	bh=wHWLl+AY+6R9gF+WQK0aNUVqFTeT2mAxVsrGGjIIecU=;
+	h=MIME-Version:From:In-Reply-To:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VOxZLhSfxyI0t8Ay9fAILOFkbXQfWjCuQUHSZTBRKAXaX6Xs6K1WqP+/5mmim8FY02oDmDJjx3u0AstQGBKVdqQD1crfE3Q59LKF+gt6sVmEJB4FcRr0ngN+Qe58YxMhkVo/ddU1D1BKFfLLSsYZ2xGicfmTLq9KUelPTZ7soIg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MafPXygO; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="nUig8c/B"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so3971749a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:02:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MafPXygO"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5309c3e17b2so95091cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:03:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788843808; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dxUMYql5Bi0atpiS9du1EMEHLBrxNNkfZkUS0msh12O6SZtg9ZhlFAtBPT6pUBIc+o
+         Jc0RE3lPJtPUEOibFNI21DjfqXEobo2jXxi3fBNKptBYd4AIpkPs4jLGxQHQBB7uuths
+         ATfvkv1JdGkhMBXMZ9LeLCSrfVOG5Rk9r2R2m5CPbkvU5wKKe4d7hbzey37D/oUN44Ud
+         SDpT7p+6D0BrRraehw99iGFwawQP8hnDPMrqwP3x4XumbvyNrfNx+pnd3mnMSMo/zU6Z
+         dSFAv80fdwmxDSp8EinKaFCNn7ZzK5Ez1TbQud5sLiKiwYZTsN9I7fzAJh7YmwJVWc1M
+         rKLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=wHWLl+AY+6R9gF+WQK0aNUVqFTeT2mAxVsrGGjIIecU=;
+        fh=BTGfUOpR1OWeezIFYnJFr+bRVN/XRufVKunkqFIv9js=;
+        b=S13TJsJKin/Qo9YsF5xCjMQL6wfBI9sYoWaVzvUtUwgnHTgtBd6yN6PDHdxHWSkEHv
+         z8eMksxx53n1xjIZPn9Sto0xiPj1Ryifl+vfSoc//b5gqzcG4Z3agetVhG67FI1tiNiQ
+         In8UXGf75YLfdt8zS+R0LUv7EKLSB5knRukBM/aGPLoFMggvlrHvKeT+SyFGwQG+3C9x
+         EIv3ZGxc4qLp6d3pEuByIGhPmdON3Po/ORlWQCWNL+7m+IA+LD+Pn0uUiZegH/HNsa4C
+         yoZnHnF/5YTfslRhn1aKKsltNMRiv6udkGmd2PbTmQvQ7zTnEtAPbz5/VKz5agrjJ5JQ
+         dkUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788843761; x=1789448561; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q5Plj4uGj3BvxxxoyuAGWT0KJk9RqOTiZJAPsoPxBFY=;
-        b=nUig8c/B2GPd6/HtcgXxxbrSKUCV0Tvx0EGmWoP/AFc095diJFjNQy6KdD6WeVrMNz
-         3/50KXyFO7jGFyM5xk4EoQuI2zmvcGtMkX+T/XB67/+hxeU/7IqffdsoH7fHIqxu2oO1
-         rOA3GynEYU2oUv7Xxyy3lvw5Lr83eGDjUy8mg=
+        d=gmail.com; s=20251104; t=1788843808; x=1789448608; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wHWLl+AY+6R9gF+WQK0aNUVqFTeT2mAxVsrGGjIIecU=;
+        b=MafPXygOggzgL6Cp43d4LlI8CyduSVRo85xvv3o/BBGszS5248f1ZyV7+1jHEtDDJb
+         Cel3WGCgfQ1RDe+ue2IY6udd+HDA8k+w21ESK1go8dBRhC84HfOFTWyBXJlnEtwgjfyh
+         YMmshhgoYgL5tjHwZDyj175121014PZgA0p1I/G3XcNOAB8G0HblmtfNWCMFchc2kIVf
+         CENpPl4irCEIzZbXYsoy/QML4PPzY2wmoZutCjQifjxxOpY/V7zRhCw8DgcqwDaYevfI
+         UaGyanNSXJSnMF/wIWDVfL0XeE0MVOXZZ4Le+comD97PEKwtwJ+OrGmjqHAgD0Z7c7SY
+         Tt9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788843761; x=1789448561;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q5Plj4uGj3BvxxxoyuAGWT0KJk9RqOTiZJAPsoPxBFY=;
-        b=F8E6ECsM3QJjrHLiNy4jdYS3V8eh7OCqeoffqGitiNCBg+QK8gTgVg469BRcbZ7HDA
-         0aZDvAJqNeJwWVi6plhl00UHU6VXhpgrZFHVmKUerto+89IkkIex8Oi1AZCyw82f17un
-         dfHu9pQw9NeeoF+fjvWCshNQe6sJfxpvxlKBhJsKxos8NR0casMWAzRxYkJtIIV0mXiZ
-         ffPhhH/RlsSYfNSF35ua8I+mLuvZen3TxSV0+gI8Aqr0Ohb+q7brp1nTKi6BHCj2ohRF
-         +g7GWxoEQGpHVEECV8YmqViGvtvU5Q4g35N5OA04hYHQDWt1pqh6GS0jqoYg1WIFyrXI
-         lm1g==
-X-Forwarded-Encrypted: i=1; AKwUvBymJBjaByWQUax7Aetbjm3JBUtXAiJVxZlnmsV2y49Cp+/yZ4x7GTuam+hiCJtUnifGHA2O8IrXoqnM7t0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nG6Bg2gxAwv0HjCZMTG2ec9CbAF+ART3sHnXRcZJmUJLcJlmm2
-	aztnU4/ye9Kyj/wY22R/ra0u2C0XGxliM20/PA8xDyk1TuX7RSb5vLnDXIurgOO8sA==
-X-Gm-Gg: AYBFou1FUEJyMEfHIghdSAwgiLxSpEqA0lr/V1ed4PB7LX5UlUC1RNtRIIFif75ts5v
-	SP6Us0RVC0d9xDzp/SBdx99bH1x6I3S5NeXPC5OPkLE8BYIdWHCKh2zyoFWb0ZsjTinQBGRfLEY
-	ayMFq8ZuYk6u98ysAxWUp1Z7rRkxraoNr++9GlWeJp9Bol1HNZ9nhOIko1AVQKnKZ3f1CZB8NsX
-	W5vJteVnAX1L98BOWESljhqlg4oLGNf7tEoIunLB0VnGSPKYkYeDPhuuBuAEW3vfbPJqSNE5Kw2
-	uXxJpX/Fm/VGTEvpeZWKl4abnI6w2MPQueNHt/gpuiYdttmlTkgkm0kNakNSusE7/9sxBJ2edKU
-	VL9lDEpUZwpocK1V2X1KQbq5IFsns/Bz7q2YvouNpEyJqBRmr12z2cVGlD4mhiFaW1bWimvM8Q1
-	r7420ELAzbohFUrzh3sEmLLn8/wmkvyNIQsdD6R8Ctr6t7gv2OmxfDmggtgE83gLt/i3gskjmqZ
-	anr/G8y68u/pcVre/TK6+STYfuvzRMMsEroYsJ7sCPspZ0u/N/eT2kTwA==
-X-Received: by 2002:a17:90b:4fcb:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-39b26100e5dmr38830828a91.4.1788843761523;
-        Mon, 07 Sep 2026 22:02:41 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:e541:8c2f:4ce9:823a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b813fb4ddsm6342730a91.10.2026.09.07.22.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 22:02:40 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/sun4i: Align VI buffer addresses for subsampled formats
-Date: Tue,  8 Sep 2026 13:02:28 +0800
-Message-ID: <20260908050229.754977-1-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
+        d=1e100.net; s=20251104; t=1788843808; x=1789448608;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wHWLl+AY+6R9gF+WQK0aNUVqFTeT2mAxVsrGGjIIecU=;
+        b=d7+2/HpHVQR3obxZ2tb0BXcQgA+2PxKRNM6g5blhQNj3JKSkw7KgxS5vljypKICD1K
+         jRI/HQ8pSWW+parfUpUAiy+muEbyZxVMtSXn20EK5iaQEe2p0znauMMqUI5G003K+93j
+         +CdtRJcs8rXqLm63+nB21f9ydcxXCJoWTRUz9HT+AI4hlcMlnKoPF45/0/AzzMm8058V
+         yMgGCNzdZPP6OJagdO075hD9SjFf94CcpNpamb/FMuMRFQscNKQew8DZDmi+9VS4gPD1
+         Fueg566ZqFj0RxTJIQ/HXXJYBoF+lHTowpdLEdgHZvLuQryN3soe9NMvoLiyYntk4y+9
+         BJAw==
+X-Forwarded-Encrypted: i=1; AKwUvBw+eYnnEukEXWRGB7d7145NJ/yPXP5ZHfab7w9HPes2LLcMUCERwVMn6ESL6pS9llNV0cXlCPccgreCpBs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n1hvzIfZxK6UG4mmJtfiRNo2lr0FCLxX3sX6V1xFs4OKjt/wcM
+	XfJVdmIL4ZpMYqcNCH+soqpYCPxb/ZYjx2Qvq2b9U1V0pU3aOIf7S/s5AhXVuVkMBncQChv9owu
+	/Z1EdJXt+6vLzlzaCmoZsLl8uBYgiXI/waQZ3
+X-Gm-Gg: AYBFou06/+uXpbY946ZsR4aXLANhjCzdg/ijrLZzOW8NefNq0mjX2SLKsNkgy1jHOrR
+	9TRjy89+fnGm4HrnUvbJmLbswtKFDHldsa1TPC7MBM7aPXK5OecyT1aOSrJObGg9bAG6UPmCXPn
+	39qvDasfv/bv4S1iOa2ffbQibAKTZGVgCBtee1aJTW2YpswW20NiXzkJclzzMzpWxyYgQyc2Z0U
+	ZGYRBXmOPRSVYjwnnzwMumFQXaMEGtKyRRP/O4n2eVN61qOwIowl3WHRnHStgOJbxFMgNbOfog4
+	Z/qGBrsTyQQI16rdiSmqQLSl9OW46wEUUd7M8bY9fJBMV6hYUlVakERlZqYqDojICZUqtMS7GGA
+	a4/BDTiSSbA+1ps+8da3pnfVei2E9Kg==
+X-Received: by 2002:a05:622a:148c:b0:50f:a53b:9d5 with SMTP id
+ d75a77b69052e-53064575926mr179500891cf.2.1788843807729; Mon, 07 Sep 2026
+ 22:03:27 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 8 Sep 2026 00:03:25 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 8 Sep 2026 00:03:25 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: miguelgarciaroman8@gmail.com
+In-Reply-To: <2026-09-07-daily-reply-0019-aiptek-6-1@kernel.org>
+References: <20260907184959.1567893-1-miguelgarciaroman8@gmail.com> <2026-09-07-daily-reply-0019-aiptek-6-1@kernel.org>
+Date: Tue, 8 Sep 2026 00:03:25 -0500
+X-Gm-Features: AcwNN1UHSRkRqX6Cchn0eyhtuQvh9SJQvknSWUvMUSQpGO_lX_JnVov7isf2EqQ
+Message-ID: <CABKbRoJKpLe+mhv3VdTxdce+HDfVBggvJgAeCkJ+Us2Hi3QVXA@mail.gmail.com>
+Subject: Re: [PATCH 6.1.y] Input: aiptek - validate raw macro indices before
+ updating state
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, dmitry.torokhov@gmail.com, 
+	gregkh@linuxfoundation.org, pengpeng@iscas.ac.cn, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Commit 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to
-get display memory") dropped the code to calculate the framebuffer's DMA
-address in favor of drm_fb_dma_get_gem_addr().
+> Signed-off-by, can you confirm your relationship to this submission (sending on
+> Pengpeng's/Dmitry's behalf, or an independent resubmission)?
 
-This turned out to be wrong in a couple ways. The hardware can handle
-pixel offsets within a sub-sampling block, but the buffer address must
-start at the beginning of the subsampled block for all planes. The
-hardware then does the interpolation internally. However the helper
-gives the address exact pixel for luma, which messes up the result.
+This is an independent submission for stable, not on their behalf.
+Pengpeng is the author, with Dmitry's adjustment. I forwarded the upstream
+patch unchanged and added my Signed-off-by as the stable submitter.
 
-Instead of reverting the commit, calculate the intra-block offset and
-adjust the buffer address so that it points to the start of the block.
-
-Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to get display memory")
-Cc: <stable@vger.kernel.org> # 7.1+
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-This is an alternative to Jernej's original revert:
-https://lore.kernel.org/all/3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785772659.git.jernej.skrabec@gmail.com/
----
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-index 2e9cda45c04e..185e9e5211c1 100644
---- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
-@@ -207,6 +207,20 @@ static void sun8i_vi_layer_update_buffer(struct sun8i_layer *layer,
- 		/* Get the start of the displayed memory */
- 		dma_addr = drm_fb_dma_get_gem_addr(fb, state, i);
- 
-+		/*
-+		 * The mixer can handle odd offsets into sub-sampled YUV
-+		 * planes, but needs the address of the first pixel in each
-+		 * sub-sampled block. Adjust the luma buffer address backwards.
-+		 */
-+		if (i == 0) {
-+			u32 x_diff, y_diff;
-+
-+			x_diff = (state->src.x1 >> 16) & (format->hsub - 1);
-+			y_diff = (state->src.y1 >> 16) & (format->vsub - 1);
-+			dma_addr -= y_diff * fb->pitches[i];
-+			dma_addr -= x_diff * format->cpp[i];
-+		}
-+
- 		/* Set the line width */
- 		DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
- 				 i + 1, fb->pitches[i]);
--- 
-2.55.0.979.g7e5102b832-goog
-
+Thanks,
+Miguel
