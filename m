@@ -1,160 +1,180 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05B4B397E9A;
-	Tue,  8 Sep 2026 07:23:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADB73909A6
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 07:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852200; cv=none; b=sK2NhM23zIA1okBjWGTnIBNH6VibUlyayeRWn31DTb5dAjk1+cfN1uhvMoquAdT6Fgw/ZBFutFqh8CfYstyUN3wEzvdr7GD/Le23XtkVAlYKPgumEdtSlgr39xWnB2SDxTl4BsJx4G2XtAS61etmM74u0kFHtncpToJRF55nkNs=
+	t=1788852229; cv=none; b=SSAFedAEtVAp+r/zUcD3yqefCt3KtLRUJBZNUo1g9oxdeu/YesCCsVqZXStryha+9TI04AI53LVgu3JApTEFeOLhS4MA7cit2d/thpqINDRsIqcjT1X0XNMy8wEeoaGxXRcFiNdiEItivrN1gCwZOtaer7oBc0nTRrWuntRp1Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852200; c=relaxed/simple;
-	bh=makrRhagJ7JUJ3k4RbYpqJ4BLFXsVTK341yRmsUQ0h0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=cnOg49g32NknF9UCKFS/MCH+WSHJxV3Eg0oAg7kcIcsYbVvvIEvMfE1ZBHD9+mlI8aGsMTb8mrRsT3t9mRFOS/kkhoqw+4gRm1JW8FPNdYpUc5MgrNJv6TvG/coSB0vrdpfEApLYrf0j8zR+0KSsVtEfk0VuSbv0zbhIPKM4qqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=hyaS2dA6; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788852229; c=relaxed/simple;
+	bh=0Hn3nwFflocQDE1Vnf/oZsgxF4q4ZrlzvFiOG4Em9aI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pbHh05YiBn4QTuiQqR38E09P5Abrx744POyj7EZdSt0WPB+Pxio4LY3GMdemTXitQWjB8Uz8EzaPjHilO8sredq53gyQ+dq67dUgta76FAuhjU1o+N/Ifa0X9LHUjGJwXvy9dhRJHlXz8Zn8R+vypnu/Mgeacu7g9EVT+8zaA4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gAt3yW2A; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EE9n50bc; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="hyaS2dA6"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=G7nz+2I01rp2LskTbFRR2FK0vPBroOC8XutcipcnIsM=;
-	b=hyaS2dA64DcCg3GRIM7kcjDzC2hUqQBzbi0wYEmlK75paxqrzZ4Qk09vQIT+D6ItcGzT9PK7K
-	+Fa6fiPBtKYscFQTRzVIbY6yweWimJ2oM5lKsGuwlq23S1Lfx1H1u//nCgErq4AFzAXXYPebOeM
-	yjA4Etr6FTTSMfxdr1fEXw0=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfFVy3mfZzKmVp;
-	Tue,  8 Sep 2026 15:12:10 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id D100C40586;
-	Tue,  8 Sep 2026 15:23:07 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- kwepemk200008.china.huawei.com (7.202.194.74) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 8 Sep 2026 15:23:05 +0800
-Message-ID: <92050fca-96ff-46e6-aca8-3cecd7cfb778@huawei.com>
-Date: Tue, 8 Sep 2026 15:23:04 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gAt3yW2A";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EE9n50bc"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M0Kj2979113
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 07:23:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=repPIlp7EV4oN5ph2gAva5Wf
+	gIj/jHE07iTHvT9P2zQ=; b=gAt3yW2A0/zE7b8Wn5f82T+fA4l7lq4kudwqWMvC
+	adw2vDQmfLzguOQnOKVRgc+CptAbjA4k3bbFiPYItE+pZhV3tS94rzo1j7VNqxGe
+	nKuTI1hKNJHvvEJorFf+juJgYSsKNCg2esVmi85pvdYMESKGSnFFvyNAXAehz6Io
+	pKPWCOG568TXw5QQVeg0hphYQiIa+cT+WkThGj2+0iWDQl4OmuDaLxJJ7Xn7AcNl
+	SnThu0XD8uwvFpG9EhxkVHsnc8NlMOL0/Ce5f9PVcRbXx3AesZU9Whyh3flUAf2s
+	h8sEJhvc65j1KhiURLf7A6luPK45cFDWb8MdKeXEy+0tHw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbn4d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 07:23:46 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-c856470fe9fso3752952a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 00:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788852226; x=1789457026; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=repPIlp7EV4oN5ph2gAva5WfgIj/jHE07iTHvT9P2zQ=;
+        b=EE9n50bcw6o9gzcOVgt7yyHkY9bq6skq50Zobpd+BwqD9I3pGaO+Mp7fMRolx8GM4h
+         OdQYlZS6TI2Wk1zo+JSHOn0uylTJTEFXG175stMRste4mLvkMOMHyySTL8lQKaszTaXe
+         7qTlrLgNCVxZ9h2B2BHszoiNh3F+d9BI36c95spKZpBliCbQF6BoMulTEXZ+4gmJnIXl
+         OOUvti0sz1DYR9eiIh8OsKjSHOI8oBNrar00mAzZuP823RTY/2ycBYG88cUBjO9KRfCG
+         XOj8XBEjWtsDH8IhlOd0eg4XnlYMIqYr2qAeJVym4BbTnSokbq50DrRo7hqt5dg385cE
+         +5Ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788852226; x=1789457026;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=repPIlp7EV4oN5ph2gAva5WfgIj/jHE07iTHvT9P2zQ=;
+        b=N4iUm9TgDN4jxJb23evGh7Ing8z1zdcJVmsBBMT6rrD7H/KOpfbaEjcSLcygZEWIz2
+         NwAadu4OslbbRGxCMGjn4AtdkhnmjQrm5djkshUuiqF4zAOql5jm38mG1llOC0QHYfWC
+         vb1A4TXVSN5k7zbD658qCY+Rtv9c78Vz1eoqsdtaavKkGzIbziZOLxIQ2X2hBQ/+niX0
+         NiGs1gBfkScsdTP9dnrjYUJFy88aml7c1oV6tMvUyF1tOjCdaerEcZyT2ZriFRCL1cbZ
+         uq5g+g7ewKw7uvFyQaS11CxzJC0vvEO5y8FurJF4jZvFCI3qQXyXhZ2MOZJirjyI5ARi
+         iXTQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxAW/iZ10tsK8ljYrsJS6HzKKr90TVuLcZ/kRCT2MX4NPZn83YBzMcmJVQO7fYURz6gfnbTwJMRLb8JZ1s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kB3Ev6CIsTYHxDJXkDYSxxc0iq8t4QgKmX1ukkwmvDmDpR4Mxe
+	b+VwWW7Z1m6W83BLk44kXE+WvoCj2dxcHAY2kFDup93ASvb6H+NbJH1e5YEcjFw3lxZu7r5+wNg
+	lCRu9E4nn4Ol3559RsfWXHXJ82zOz+OcO0KsPjZw1mVOj8Y1n2Ssu1e411Xv5vW7pu2M=
+X-Gm-Gg: AYBFou3pBB9V1kKKJRqbecHgMUJ4n+V8rCspX7WIz7AyS9v5zUWN46UIDcw28NgGbPS
+	Dev6Smys84B1kbS6wPZrt63qmRj5wwwmg/tYEYyyoVyOs6CGG17Q/C5aGJ5IbLbNS1mvGhI1EQR
+	bPiC1iNH86el8oE4edimgGtxKZJnjYGqCRCMf+4XhOWXDR7K6YszYdYvIaSrcKdHqTpCCR9keBQ
+	1TgbNk8wDgfFfYG2sgP6qYJKcgUcb68jYbfLqwZOK0u/tqRzvSGTP+TB1d/7O00yaDxWHyqgO8K
+	I3Kv+VEsNMtIKNfA6jwUT1wHHaXPOZTmKuVlzX/DildZxrqdUnrftlEoW5dwdEhTzfldD4v3Af0
+	Xx32yf+Spdy6nbQ==
+X-Received: by 2002:a05:6a20:2583:b0:3bf:7bf7:7913 with SMTP id adf61e73a8af0-3da39ff4716mr38887932637.14.1788852226253;
+        Tue, 08 Sep 2026 00:23:46 -0700 (PDT)
+X-Received: by 2002:a05:6a20:2583:b0:3bf:7bf7:7913 with SMTP id adf61e73a8af0-3da39ff4716mr38887881637.14.1788852225783;
+        Tue, 08 Sep 2026 00:23:45 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm35845902eec.24.2026.09.08.00.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 00:23:45 -0700 (PDT)
+Date: Tue, 8 Sep 2026 12:53:37 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+        Anurag Pateriya <apateriy@qti.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        Maxime Chevallier <maxime.chevallier@bootlin.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH PRELIMINARY 0/5] arm64: dts: qcom: shikra: add Ethernet
+ support
+Message-ID: <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com>
+References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
+ <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
+ <ap+zd/2QmerMwi0o@oss.qualcomm.com>
+ <c23369fc-84ff-4881-8327-c18fc3692306@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/12] LoongArch: kexec_file: Fix CMA page leaks in
- segment placement retry loops
-To: Huacai Chen <chenhuacai@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<kernel@xen0n.name>, <maddy@linux.ibm.com>, <mpe@ellerman.id.au>,
-	<npiggin@gmail.com>, <chleroy@kernel.org>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <akpm@linux-foundation.org>, <baoquan.he@linux.dev>,
-	<rppt@kernel.org>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
-	<jic23@kernel.org>, <tan.shaopeng@jp.fujitsu.com>, <zengheng4@huawei.com>,
-	<james.morse@arm.com>, <ardb@kernel.org>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <sourabhjain@linux.ibm.com>, <robh@kernel.org>,
-	<coxu@redhat.com>, <tangyouling@kylinos.cn>, <hbathini@linux.ibm.com>,
-	<adityag@linux.ibm.com>, <djbw@kernel.org>, <seanjc@google.com>,
-	<liaoyuanhong@vivo.com>, <vishal.l.verma@intel.com>,
-	<fuqiang.wang@easystack.cn>, <makb@juniper.net>, <piliu@redhat.com>,
-	<ebiggers@kernel.org>, <jbouron@amazon.com>, <mclapinski@google.com>,
-	<me@linux.beauty>, <graf@amazon.com>, <bgwin@google.com>,
-	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
-	<linux-mm@kvack.org>
-References: <20260907125404.922123-1-ruanjinjie@huawei.com>
- <20260907125404.922123-6-ruanjinjie@huawei.com>
- <CAAhV-H7qjJ7BPnJ2KoQZSyMUvX_6i9H=EfdadXnmXtNiiB4ROA@mail.gmail.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <CAAhV-H7qjJ7BPnJ2KoQZSyMUvX_6i9H=EfdadXnmXtNiiB4ROA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <c23369fc-84ff-4881-8327-c18fc3692306@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfX8M1gVni1lr7j
+ dia3pR86vjWCQe0a082PRZ8qMG42O6x+iU60tSIicmxuFP0T3lh56CJe+gYcER5Mfn62H18qhFh
+ fPedX6vXVoWU2B4Wcy+0c0IzwzX0s9g=
+X-Proofpoint-GUID: vRRnMhZ5Lejwanso8-q_HakiIOfEUSki
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fb802 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=enzuNw960j4ePshAGDsA:9 a=CjuIK1q_8ugA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: vRRnMhZ5Lejwanso8-q_HakiIOfEUSki
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3NCBTYWx0ZWRfXyUuyuz698NeQ
+ hGI33usTDbv+7YQFMxl81pyxluGnZkTe77Z0jE1FRaNrywp0kWjq/Ag7eL70Hkgku46CkIsMX8p
+ jvncqodYyCz5OLHtmtYGaF/QO1g7PImtZlwBjOxQSseury1cCI0F0sBrtfBsN4yHk2Q8SWz66Bu
+ ONKLE1OxNwx4lXuU4wiw4di9PXm52stP5jgMW9G5RnVgRIg7oM6HAm6b0iLGp+yzD6Q1aRUszZE
+ pv+DeUI0DPvsg0I5s3UyoRFRimja0w2kfsu2I7eC9CfiX2Vt9xqey9t3EeAt2TZv7NsQCc0vHNh
+ gBPuYlzK/BndC4UFYqw6iZYe7Du2Psk4a4DprIGBhWerEAUnsoRpGiAqMBTAGeRiYsTacPcUJef
+ PCNSJSWDTfk5cOH2i1trs1xnWJX6aN8FDM6x7BvxKa2mIcdHmenk6afrJEybeswNP2A3o0COMBs
+ Ae8edUrXGnrB+Wl02Eg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080074
 
+On Tue, Sep 08, 2026 at 09:14:45AM +0200, Krzysztof Kozlowski wrote:
+> On 08/09/2026 09:04, Mohd Ayaan Anwar wrote:
+> > On Tue, Sep 08, 2026 at 08:56:39AM +0200, Krzysztof Kozlowski wrote:
+> >> On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
+> >>> Hi,
+> >>>
+> >>> This preliminary series adds the DTS changes required to enable
+> >>> Ethernet on the Qualcomm Shikra CQM, CQS, and IQS EVKs.
+> >>
+> >> What is "PRELIMINARY" patch in upstream? Where is this process
+> >> documented or expressed?
+> >>
+> > 
+> > My apologies. The code is ready, and I was hoping that sharing the DTS
+> > changes would make reviewing the driver and dt-bindings a bit easier.
+> > The original RFC had them together, and I split it out for net-next
+> > and linux-next.
+> 
+> Yeah, but why calling it completely different than every other patchset?
+> Why coming with different style? Why this cannot be RFC?
 
-
-在 2026/9/7 22:05, Huacai Chen 写道:
-> Hi, Jinjie,
-
-Hi Huacai,
+Agreed. In hindsight, this should probably have been an RFC v2. I saw
+some recent series using a PRELIMINARY tag, but I see that its
+ultimately just an RFC.
 
 > 
-> On Mon, Sep 7, 2026 at 8:53 PM Jinjie Ruan <ruanjinjie@huawei.com> wrote:
->>
->> During kexec image placement retry loops, any midway failure causes
->> the loader to truncate `image->nr_segments` back to its initial state
->> to purge the failed segments.
->>
->> However, this truncation introduces a memory leak. The CMA pages
->> allocated via kexec_add_buffer() during the failed attempt are tracked
->> in the `image->segment_cma` array. Because the subsequent cleanup paths
->> only iterate up to the truncated `nr_segments` boundary, these allocated
->> CMA pages outside the new boundary are permanently leaked.
->>
->> Fix this by explicitly releasing the associated CMA buffers in
->> the failure paths before `image->nr_segments` is reduced.
-> I'm not sure but does the elf version have similar problems as the efi version?
-
-This issue does not exist in the ELF version, as the retry loop for
-load_other_segments() does not exit here.
-
-Best regards,
-Jinjie
-
+> > 
+> > The only reason I added a PRELIMINARY tag was because these DTS changes
+> > should go in after the driver changes and dt-bindings.
+> > 
 > 
-> Huacai
+> DTS cannot go after the driver changes. If that is your requirement,
+> then original work is broken and needs to be fixed.
 > 
->>
->> Cc: Huacai Chen <chenhuacai@kernel.org>
->> Cc: WANG Xuerui <kernel@xen0n.name>
->> Cc: Youling Tang <tangyouling@kylinos.cn>
->> Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
->> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
->> Cc: Kees Cook <kees@kernel.org>
->> Cc: stable@vger.kernel.org
->> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
->> Fixes: 55d990f0084c ("LoongArch: Add EFI binary support for kexec_file")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  arch/loongarch/kernel/kexec_efi.c          | 1 +
->>  arch/loongarch/kernel/machine_kexec_file.c | 6 +++++-
->>  2 files changed, 6 insertions(+), 1 deletion(-)
->>
->> diff --git a/arch/loongarch/kernel/kexec_efi.c b/arch/loongarch/kernel/kexec_efi.c
->> index 5ee78ebb1546..15fd797ff3de 100644
->> --- a/arch/loongarch/kernel/kexec_efi.c
->> +++ b/arch/loongarch/kernel/kexec_efi.c
->> @@ -86,6 +86,7 @@ static void *efi_kexec_load(struct kimage *image,
->>                  * We couldn't find space for the other segments; erase the
->>                  * kernel segment and try the next available hole.
->>                  */
->> +               kexec_free_segment_cma(image, kernel_segment_number);
->>                 image->nr_segments -= 1;
->>                 kbuf.buf_min = kernel_segment->mem + kernel_segment->memsz;
->>                 kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
->> diff --git a/arch/loongarch/kernel/machine_kexec_file.c b/arch/loongarch/kernel/machine_kexec_file.c
->> index 5412aa9f3568..62a5be102065 100644
->> --- a/arch/loongarch/kernel/machine_kexec_file.c
->> +++ b/arch/loongarch/kernel/machine_kexec_file.c
->> @@ -217,7 +217,11 @@ int load_other_segments(struct kimage *image,
->>         return 0;
->>
->>  out_err:
->> -       image->nr_segments = orig_segments;
->> +       while (image->nr_segments > orig_segments) {
->> +               kexec_free_segment_cma(image, image->nr_segments - 1);
->> +               image->nr_segments--;
->> +       }
->> +
->>         kfree(modified_cmdline);
->>         return ret;
->>  }
->> --
->> 2.34.1
->>
 
+I should have worded it better. I am only worried about the dt-bindings
+going in before this DTS. The driver changes just add support for
+whatever we are desribing in this series, they can go in after
+dt-bindings and DTS without any issues.
+
+	Ayaan
