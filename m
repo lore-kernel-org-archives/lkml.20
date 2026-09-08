@@ -1,161 +1,164 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA1F52ED5E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6572F40BCBC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868461; cv=none; b=Nej82s/fm/x8528NB0lerYHb4n+jq2cYO92teVpHsyA1eOHz2dOKiRO4t7VTJnlm6QDLDTuN2oc+3E/jXpugZspYeA8/6Yzh2L1EdnFyvasiZJmBGoVVzG3ZuKT27CrEE2bRs+2lA4wQp8VuKOrH4WGh7LEGhu0osv/MmZ5X2VQ=
+	t=1788868504; cv=none; b=nJw6mO3yq4b/5utDia8+470xdI7SiudXSZSfb63/hUPiAkQWoSKJeWvJEUJglvgtoqIaLuMBYNL60iTVWrXZDlMbLHkH8LAyTfe3VxrxnNXZ6A6QL+Xs1ar4hDUY/yghaW9LrZGIUV0tS2hvniJu5pgc6I8zXcGU4eRPZEdxP9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868461; c=relaxed/simple;
-	bh=lfEfgWaIXkWQzXO3mgmKwuNG0GZXb8kDAWn8OJKZ6EM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W+dsbraZBZ5ZoI7q5VYqWo54lS4HsWlDD7zwLj+hLx/WM1JQhsScPfNERMwBq2yUl5vquTeHuu9M9s/AkFR0c9rJGCyLQFGGFzkd0OsQFqz0e40f5nrEgBPxajRumnueJJWs4pHaZjmFfqFaTOvVzXFM6hljS+0muLjR2zpcesw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g2CnzLXZ; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788868504; c=relaxed/simple;
+	bh=vSwPl4QbnbnFWmj+AcDas4V0ov5zQlYQbWMorXWOeqI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Fxjh/DnMhmNvOLh/LOZd292QPAnTWkT30fNiFYvEERJBDGuDMC6sVLuy1bkZRcz41ocfKOScWKDkV05YmT2cJEdTctDki3K02ui4NhrEyaUKKJSQJlbdq1blpKdqph6Rgifn/XB36+Xqi8gE1+Kq02BAORQq4yojcLRRErA4WS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3u+q7i6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g2CnzLXZ"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc149372c14so2186421a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:54:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788868455; x=1789473255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dZOE11OpCwNaV09UAPonV57TojdiUArUTJ8kxHL6A1s=;
-        b=g2CnzLXZNB39NdVSDMwg/hcF7x58SlWaI+pC6c0RYgco6KtdoI48olUiaGQrHv7twK
-         swprr+Qf9rm5bGKSM76MopstRGzQRy5Yyf2IJpe6RV6ahOpEyHCpyU6Shozou2Qu3dAX
-         wUEjkaOg21/D4Uphz3y0JevokVae9wdCe9yVXhtQvNfrxlAqSRozSZe5Ih57vLTSNh5i
-         onkh8CQMDv6ykPja+tJ+kRsG7l+7BV8Gf0Cq4gDutE1rBI3Iu0heVRXaBGyPr+I/Ajyl
-         uOzEyIAbcpq0OrBwEsUXeVZ6Uz9y0/S1rb1VGPeHPfQpR8LWMp76mperDofxxo3YAx6i
-         zceg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788868455; x=1789473255;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dZOE11OpCwNaV09UAPonV57TojdiUArUTJ8kxHL6A1s=;
-        b=oksckj3wpGV2gxdimmZbd4opsNj3WwuXlvf3rZY3lB9mo1CsZdCBpU4vyVmmqEWwni
-         0C84vrhPgPEwpwqAad+0WJ1WNpmEu7hWP9zHmzVTymBCTFXbQHlFFGDIKRbg0JEpArzm
-         xG7JL8ilixmI3ZE+N3XuVofcYhiSq4pupwuJe+JXA2CMZA6boCmAzUxxfKKaZYsvNZlL
-         eibLjfTf+W8fpQOYO2UKnvAFZVGnm6gtW1/e0cQR5Z8mBHfE2Eiep/Vrht0GkMMd8Mag
-         Dretb8z+MMrq//O82GRkswxKvwnYEQl+7XRS7tBgipSb4/sf90w8GmaOd1KJ2YYjp+R2
-         DD7A==
-X-Forwarded-Encrypted: i=1; AKwUvBwTVRTGxInuEBdMps5EbdKOtdu9IdDhUiis9NdkWahUeJOubbVaH2B79kyfY+DsbIw5Yz+JPhYErmN4bhs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJGj2o4P40WtAnyF7X6xy0XivXubtQNT1ro+Z2Vd83wLtLbWWo
-	7tR3sRtHe3jeUM9DCmikhZ5d/qrBtp7CWIakdUUgsDaU2Z7M+xEEgWiO
-X-Gm-Gg: AYBFou0qh6wqNV0U+uvpwjaG929XyLkYxrzUqTpNTq8b/3EKf5AzuiiTh9E5yXG6/V3
-	FXJ2aW2QG8KwKCMl9f2LaNGEHzKDve4+hJmgsriUkE2ASJcxzcmXM6p5oU28gTqlab2vxKWh56J
-	VuVydv4jOErCzZY2nu4DSMsA2jqQt7RkDmG9/csjK06l3SEY+aYdGQJdj+FLsxIqnY2+Z1UiE5B
-	Xi9KnbA7GJWgN0oQ66LUOkkmepzXNCkovQ2IK1bf/n9YOu6D/J8RlnFL9RwFkm7G6yYckhmuNtV
-	Z1mwJOlwSbEPkKDCWXghyQiIzCvLiGL5vt4ha5vDaCjcKObDlH6ClEquC+UQfuCuueK5wlt/wI2
-	TpNOv4WnR9bMc7JwmPZVKWC74xoy0VgzeTb6xQ60xF01QTZKHZIWByCZCACaX8dRuh+EWbi1Rn5
-	bruM9QqWF0slGEt/Nx8ahcfKYVfg/i7IIhTGtkx5l7oGAq3BAz7nu9Y3KS+TyTQkKuOzFJCXn+8
-	BUqCRMj
-X-Received: by 2002:a17:90b:2749:b0:398:d292:e6d5 with SMTP id 98e67ed59e1d1-39b26304385mr44564090a91.24.1788868455113;
-        Tue, 08 Sep 2026 04:54:15 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d38:5c70:702d:8dd0:cd86:11f4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm26397740a91.9.2026.09.08.04.54.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:54:14 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f8ce6c197125ab9d72ce@syzkaller.appspotmail.com
-Subject: Re: [PATCH] hfsplus: fix recursive tree_lock in hfsplus_file_extend()
-Date: Tue,  8 Sep 2026 18:54:09 +0700
-Message-ID: <20260908115409.9818-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <1b3ba7f7afc3509720cad69ba8c7c17a9276ecd1.camel@dubeyko.com>
-References: <1b3ba7f7afc3509720cad69ba8c7c17a9276ecd1.camel@dubeyko.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3u+q7i6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4B91F00A3A;
+	Tue,  8 Sep 2026 11:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788868503;
+	bh=A8fGRJH1FYroE0NYq5pSQ/cdoutdIPA6KQGFv2lno1c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=O3u+q7i6QeyYtTqdVxTUmL8k11LRAGHiZTHWhr6k+T3QWv6q7uS4HDzW9FXq1Vocr
+	 SfFiOd7fqggCnDd2KFkF97idrc43LCaE5VM4g73AC4KFodCx9IS8NVTRZ1KwUon5dx
+	 sOPyvNX1DYrdEcKIRct65bFM1sBOPHn1EK5RaRsYsZLLxKPMV52QrFC2VPhVP+HAGW
+	 wtRPwv0O3QLICXC6EzOUSW6JiBETKuWAGceK1oJLhtLPEK0ku3vozxteWTTI3oeqid
+	 wTKMiFWoWF95fUnjr0pHc3MnXao3Wsq4WWSN979SZ3M7GC0Ay8nzXRdbC638/yfE27
+	 7hZMc/MF618PQ==
+Message-ID: <d202dcc3-d7d7-4e98-a9a5-3137cfbfd041@kernel.org>
+Date: Tue, 8 Sep 2026 13:54:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Content-Language: en-US
+To: Nimrod Oren <noren@nvidia.com>, Andrew Morton
+ <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>
+Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
+ Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260901190123.3511535-1-noren@nvidia.com>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Slava,
+On 9/1/26 21:01, Nimrod Oren wrote:
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
+> 
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+> 
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+> 
+> Even with that cap, min_free_kbytes can reach excessive levels.
+> 
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+> 
+> Remove set_recommended_min_free_kbytes() and all associated
+> recalculation paths. With this policy gone, min_free_kbytes is
+> controlled only by the page allocator's default calculation and the
+> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> higher value via that sysctl.
+> 
+> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> Suggested-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
+> ---
+> v3:
+> * Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
+>   increase as suggested by Michal.
+> * Remove all associated recalculation paths.
+> * Make min_free_kbytes, user_min_free_kbytes,
+>   calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
+> * Drop the now-unused declarations and khugepaged's page_alloc.h include.
+> * Drop the obsolete v2 documentation addition.
+> 
+> v2:
+> * Use a named constant for the cap.
+> * Drop explicit linux/sizes.h include.
+> * Update min_free_kbytes documentation.
+> https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> 
+> v1:
+> * Cap the final recommendation at 1 GiB as suggested by Lorenzo.
+> https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
+> 
+> RFC v1:
+> https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
+> ---
+>  include/linux/khugepaged.h |  5 ----
+>  mm/huge_memory.c           | 14 ---------
+>  mm/internal.h              |  8 -----
+>  mm/khugepaged.c            | 60 --------------------------------------
+>  mm/page_alloc.c            | 11 +++----
+>  mm/page_alloc.h            |  2 --
+>  mm/shmem.c                 |  7 -----
+>  7 files changed, 4 insertions(+), 103 deletions(-)
 
-> Could you share the dump/content of the Extents Overflow file's fork?
+Given neither of the patchset versions achieved universal acceptance, could
+we try just disabling all the automatic (re)calculations of min_free_kbytes
+the first moment the sysctl gets adjusted from userspace?
 
-Decoded the volume header from the syzbot image. The Extents Overflow
-fork (offset 192 in the header):
-
-  logicalSize=32768 clumpSize=32768 totalBlocks=32
-  extents[0]=(start=3,   count=32)
-  extents[1]=(start=0,   count=0)
-  extents[2]=(start=0,   count=0)
-  extents[3]=(start=0,   count=134217728)   <- garbage
-  extents[4]=(start=0,   count=0)
-  extents[5]=(start=0,   count=0)
-  extents[6]=(start=0,   count=11796736)    <- garbage
-  extents[7]=(start=0,   count=0)
-
-Correction to my last mail: it's not totalBlocks exceeding the fork's
-extents, it's the reverse and messier. hfsplus_inode_read_fork() sums
-all 8 extents' block_count into hip->first_blocks with no validation
-(inode.c:569). Slots 3 and 6 have start_block=0 (i.e. "unused") but
-garbage non-zero block_count, so first_blocks comes out to 146014496
-against a real totalBlocks (hip->alloc_blocks) of 32. Either direction
-of that mismatch takes hfsplus_file_extend() down the same
-hfsplus_ext_read_extent() path, since the code only tests
-alloc_blocks == first_blocks.
-
-> Could we detect the corruption of the fork during the mount phase?
-> If we can then we need to mount in Read-Only mode the corrupted
-> volume.
-
-Yes. Proposed v2, forcing read-only instead of touching extents.c:
-
---- a/fs/hfsplus/btree.c
-+++ b/fs/hfsplus/btree.c
-@@ -293,6 +293,14 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id)
- 		goto free_inode;
- 	}
-
-+	/* Per TN1150, the extents file can't have overflow extents of its own. */
-+	if (id == HFSPLUS_EXT_CNID &&
-+	    HFSPLUS_I(tree->inode)->first_blocks !=
-+	    HFSPLUS_I(tree->inode)->alloc_blocks) {
-+		pr_warn("extents overflow file has overflow extents of its own, forcing read-only.\n");
-+		sb->s_flags |= SB_RDONLY;
-+	}
-+
- 	mapping = tree->inode->i_mapping;
- 	page = read_mapping_page(mapping, 0, NULL);
- 	if (IS_ERR(page))
-
-One catch: the reproducer mounts MS_RDONLY, then remounts rw via a
-bare MS_REMOUNT|MS_MOVE. hfsplus_reconfigure() only re-checks
-VOL_UNMNT/SOFTLOCK/JOURNALED before allowing that, and this image sets
-VOL_UNMNT, so a read-only-only fix in hfs_btree_open() gets undone by
-that remount. Same check needs to go in hfsplus_reconfigure() too:
-
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -400,6 +400,12 @@ static int hfsplus_reconfigure(struct fs_context *fc)
- 			pr_warn("filesystem is marked journaled, leaving read-only.\n");
- 			sb->s_flags |= SB_RDONLY;
- 			fc->sb_flags |= SB_RDONLY;
-+		} else if (HFSPLUS_I(sbi->ext_tree->inode)->first_blocks !=
-+				HFSPLUS_I(sbi->ext_tree->inode)->alloc_blocks) {
-+			/* Per TN1150, the extents file can't have overflow extents of its own. */
-+			pr_warn("extents overflow file has overflow extents of its own, leaving read-only.\n");
-+			sb->s_flags |= SB_RDONLY;
-+			fc->sb_flags |= SB_RDONLY;
- 		}
- 	}
- 	return 0;
-
-Both hunks build cleanly here. Want me to send this as v2 replacing
-the extents.c hunk, or keep the extents.c guard too as a second line
-of defense (it's independent of mount-time state and free)?
-
-Thanks,
-Thang
