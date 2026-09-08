@@ -1,166 +1,505 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D852B1FB
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:19:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A31952D2BF;
+	Tue,  8 Sep 2026 11:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866374; cv=none; b=ZJ7WSPyr1yL5LJcZvyRz0FAMJlbwMPkKFAlBlMby8A+DFKAzlMgKrUtex+RMHRv35qtqMhYpjreoB4LxurmArqAzDjwurJ+4mUo1iZwU0Wb97XMO4iGj7Yhh3POiShs/anIVpZtjLdEz+X4e1140pn5q1lk3DuVl4dI4635N+SI=
+	t=1788866402; cv=none; b=ijrBQunM6MRkT6k5Mf3o0B+I/DneiFdzASwG6fUKTXSksnVT87NDr1rSYCb1WdVIqOjevh5gR1oHf0r/xHqM34AjdAKXszj/Wc1yMdsu1KOvoreP7SPgzZX0m15yC1deZRHr6cj29gl+CbuQ0vULEhZEvt+/irV/+yyWF0bJp+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866374; c=relaxed/simple;
-	bh=9O9kWGGQbODtRL5UAdOuaAinJL8bBPDsv7WUv1hTnnQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TPh7GDptIDMEwXvAfxtfR0fZtFenevDeL3TTFObCTG784ZprvFqAm+6fGRgsJnSJqOQwj7mDEnlizcdxEbPmTQ09QKr0V94tU012AwPtfJMz//7QWQGWTgBOsBMPqrwc/8KDjN+ZdAOOPQHM/zz1wWO+Ppmg7pgeSUFuwGNiAe0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rxsm3lPX; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788866402; c=relaxed/simple;
+	bh=CA2pUeeXWQxmiqxG/tx5kbgyGmFzFGQQSPekBGYlIvY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R64xJJcuwcMJ8h8XL5vLxdzz3or2ewvPQ3wBuxK3XVDGppzIP9j4QJnf2jF2aCLii+zcGsMeCD0uUXE3hI/I0ArtFRTFMLFeP2KsIxRDhFsYkxDIUkrVEfRmJc5P1tYj9o3Ej9ieNo5ecXV5mFdDQTIpjsh1vZFLcdTMqYCYtoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a+IK4sLn; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rxsm3lPX"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1331ce1bso650435e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:19:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788866369; x=1789471169; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
-        b=Rxsm3lPXjtOsq1hx/7RxBKcxjgKMvn30bD6YpJJ4fVzzU+dDl7uVNIMHh/T1gahU54
-         S6P9oHrfld1hU2yw9l1mtSedUlysUtSzXGUFgZvnmNdjMSsQHmdr0CMLeIqVAweH40kR
-         tj7LGOi2fhwAhR5baHueT7rHFTZ4S2fWtWtpD8R/4WpbGLQTAZtnXyc55l2cpgXLIG2B
-         rJWK3VES0Y37wMkFMH8sHJL41Dbm38gcROwCDPdfJW7Wb3b8D0toJ3ewEt5zORQMY/la
-         JghS6sv65UYICvQ5xmFVj8J5EBXt6CwUbnv0xncJbJsbVa+VwlOyB16DKAfs0V8tiaex
-         WXyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788866369; x=1789471169;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
-        b=oLy7CPhWIhddWa2t2Ysst4tN2UYGQuDzVRMFqa66wjFqGaBpo6S5stf0/dZC9tUE8g
-         T8reiO4/9gsumAox2w2i7amvDR/wyThIZEyiD+YjpI64DQOf6WC2ro9aR0Vg5LYH4Pfv
-         n9YFhiI9AuP+xSNLfXqVgjmV6crxLrp2dwz4StavXJmPY3EAclD/ixIIYiRlraxo/yV0
-         CFyqhfeT9oZcecBVNmcKqfQ3ERcW7IJBa5brkDEaAa812so0YPxVGXdsLcCIrQ3PR5qs
-         hPAYeNIhVpAqODoxBK6SAiV9GYRAyRcCI6V+JOLVEKD/BiWXW9kouTUDFBl3DG/m/Zf+
-         h0uA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1cHOBn7X5o211Ac1BIVOm5sFL2XOCszDn+a1lVfkKX5zzxqN3ZtMEHJ/uRp5C+Svf8uk8UgwZsenMQlA=@vger.kernel.org
-X-Gm-Message-State: AFuF++k0oYkVR7qq669tpDMHYl/WCR9AEjbXQ0PD0yROSZuLI9XpmDT+
-	3pLiiICux1bom63dNLnExKoI2qI3tspKNv8CesMbxpk5GLb1BOycbYRg
-X-Gm-Gg: AYBFou0J1Xr/Fk9cnCmUOpw5QfT/VhTp/1Bgh+gIHXQaQ/n+//hqVp9EHHnS1duUW7C
-	iu1qA2q+ffF80MnMZmYkltbnvFw+JSnLxLPY3BUJsqYOvCYoYMWnsss0v4Hq4s8PIMmci7tDaZM
-	PbAUulQUlpWvvp8HLpUm1ZTCpg/WH71HDpksWHU217xv6MuPkd3oVFg3v49fGdgGxpAvOS97Hbx
-	k+fXAF08pNQTCpTdzl4ho2wUUcPVw17PIuA0uVUJ0daWveEY0urOQuk3LzKilyfugctbzimsd6u
-	JmGj/oc2iRxGxbZG2sTeYi/dXnPa0odg7aJIkE4/zwj2np7/t+AUhOrxhJlDrh8wPmLCKo4qzIp
-	KOc0xqTf0pe8mgFSZadrbVeP7insPdpXIVwRfPSz5wmdYzfWszkn4o2UpbzvjNiSiFcUZMtn2Mf
-	2gJ7GIsRC2Za1Ei+ZKIiQAj6bzeYAQxNpvCgsgaanh/OmXubgNR2WOubuoO23Gp7WOgVU+aXmS6
-	/LRLzbDDNEEtfFJ65RoCKEFEKU1bcKsL4u8DcDlNz9wlHN759XSioBY5PbeLLnYXhLg
-X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr173785985e9.2.1788866368697;
-        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D009E74109367A274C5.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:9e74:1093:67a2:74c5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm973747855e9.0.2026.09.08.04.19.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a+IK4sLn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788866394; x=1820402394;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CA2pUeeXWQxmiqxG/tx5kbgyGmFzFGQQSPekBGYlIvY=;
+  b=a+IK4sLn+39VVTRcDM3bsVk0EuHa/4ol/k0gaUESEdMWGPqEK3Xijxc0
+   LTZS5UUZRoqVORn8zSbfub7b+Bm10riVi22JeE+IV9LttkegkkWzdJekg
+   vBCGtoGr5a468jkJH/MO2XCnTVVz521QcF0E/ebbjnyh8jrIa8YU+gTcu
+   n9rsI31WTVqCA1GGjZivvUcf0Lz7dvSBI8qep9QrcKIT+Ej2kNPsHNuQT
+   hLNieicbjJu8kmuw8JV9E/BolPBSaTdJHuITzu/+4R1BNUidTvUkgO60o
+   HQ1edtHbXyppIjYIuA6zhUY86TikrXZ6xZx7Guloktj90iOd37sTp4s5/
+   Q==;
+X-CSE-ConnectionGUID: F3r4kbs/QjGHj4X1p6C/Rw==
+X-CSE-MsgGUID: fd5ZbtOySM2U3sKAvMtegQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91776557"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="91776557"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:19:49 -0700
+X-CSE-ConnectionGUID: xTlFOYfxSmSWRGYZd+eU3w==
+X-CSE-MsgGUID: 9WkqdnbgQWaEzWcs1sv8YA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="270482056"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 04:19:48 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2825211F7F5;
+	Tue, 08 Sep 2026 14:19:49 +0300 (EEST)
+Date: Tue, 8 Sep 2026 14:19:49 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-Date: Tue,  8 Sep 2026 13:19:08 +0200
-Message-ID: <20260908111908.19371-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/4] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
+Message-ID: <ap_vVZ_Z7tJNcAYY@kekkonen.localdomain>
+References: <20260901-og0va1b-v6-0-a05b2d04c892@oss.qualcomm.com>
+ <20260901-og0va1b-v6-4-a05b2d04c892@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-og0va1b-v6-4-a05b2d04c892@oss.qualcomm.com>
 
-The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
-pin; the mainline board file uses RK_PB0, which does not carry the RTC
-interrupt on this board.
+Hi Wenmeng,
 
-As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-cannot be used as a wakeup source on this board.
+On Tue, Sep 01, 2026 at 03:40:07PM +0800, Wenmeng Liu wrote:
+> The OmniVision OG0VA1B is a monochrome image sensor closely related to
+> the OG0VE1B. It shares the SCCB control interface, power supplies and
+> the single-lane MIPI D-PHY description, and differs in its chip id, the
+> test pattern register, the register programming and the output format
+> (10-bit RAW instead of 8-bit).
+> 
+> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+> its 640x480 60fps register sequence.
+> 
+> Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org> # og0ve1b
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+> ---
+>  drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++++++++++--
+>  1 file changed, 266 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+> index f560d5d90fda94abf4bc622c5e4f861b078b811f..7b8555a833c255652204d5f4c87c8d701c3008e6 100644
+> --- a/drivers/media/i2c/og0ve1b.c
+> +++ b/drivers/media/i2c/og0ve1b.c
+> @@ -15,10 +15,14 @@
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-fwnode.h>
+>  
+> +#define OG0VA1B_LINK_FREQ_480MHZ	(480 * HZ_PER_MHZ)
+> +#define OG0VA1B_MCLK_FREQ_19_2MHZ	(19200 * HZ_PER_KHZ)
+> +
+>  #define OG0VE1B_LINK_FREQ_500MHZ	(500 * HZ_PER_MHZ)
+>  #define OG0VE1B_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+>  
+> -#define OG0VE1B_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OG0V_REG_CHIP_ID		CCI_REG24(0x300a)
+> +#define OG0VA1B_CHIP_ID			0xc75641
+>  #define OG0VE1B_CHIP_ID			0xc75645
+>  
+>  #define OG0VE1B_REG_MODE_SELECT		CCI_REG8(0x0100)
+> @@ -46,12 +50,18 @@
+>  #define OG0VE1B_REG_VTS			CCI_REG16(0x380e)
 
-This was verified on the board by enabling the alarm interrupt (AIE with
-AF already set, so INT# is asserted) and sampling the EXT_PORT register
-of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
-(high with AIE=0, low with AIE=1, in two off/on cycles), while GPIO0_B0
-stays high and its interrupt counter stays at zero.
+What about this register? Is it the same for both? If so, shouldn't you
+rename this one as well?
 
-Switch the interrupt and its pinctrl entry to GPIO0_C6. The board has an
-external pull-up on this open-drain line, so no internal bias is needed.
+>  #define OG0VE1B_VTS_MAX			0xffff
+>  
+> -/* Test pattern */
+> +/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
+> +#define OG0VA1B_REG_TEST_PATTERN	CCI_REG8(0x5100)
+> +#define OG0VA1B_TEST_PATTERN_BAR_SHIFT	2
+>  #define OG0VE1B_REG_PRE_ISP		CCI_REG8(0x5e00)
+>  #define OG0VE1B_TEST_PATTERN_ENABLE	BIT(7)
+>  
+>  #define to_og0ve1b(_sd)			container_of(_sd, struct og0ve1b, sd)
+>  
+> +static const s64 og0va1b_link_freq_menu[] = {
+> +	OG0VA1B_LINK_FREQ_480MHZ,
+> +};
+> +
+>  static const s64 og0ve1b_link_freq_menu[] = {
+>  	OG0VE1B_LINK_FREQ_500MHZ,
+>  };
+> @@ -74,15 +84,31 @@ struct og0ve1b_mode {
+>  struct og0ve1b;
+>  
+>  struct og0ve1b_sensor_data {
+> +	const char *name;
+>  	u64 chip_id;
+>  	unsigned long mclk_freq;
+>  	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
+> +	const char * const *test_pattern_menu;
+> +	int num_test_patterns;
+> +	bool cache_test_pattern_reg;
+> +	/* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole lines (0). */
+> +	unsigned int exposure_shift;
+> +	/* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B keeps 1. */
+> +	unsigned int pixel_rate_mul;
+>  	const s64 *link_freq_menu;
+>  	int num_link_freqs;
 
-With this change the alarm interrupt is delivered while the system is
-running, and the RTC wakes the SoC out of s2idle.
+Rearranging these (in a previous patch probably) would save some memory.
 
-Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM checkpatch dtbs_check
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Ondrej Jirman <megi@xff.cz>
----
-Changes in v2:
-- Drop the internal pull-up: the board schematic already has an external
-  pull-up on this line (Ondrej Jirman). Only the pin number changes now.
-- Reworded the effect paragraphs to state only what was measured; no
-  functional change.
-- Link to v1: https://lore.kernel.org/all/20260906181622.11991-1-royalnet026@gmail.com/
+>  	const struct og0ve1b_mode *modes;
+>  	int num_modes;
+>  };
+>  
+> +static const char * const og0va1b_test_pattern_menu[] = {
+> +	"Disabled",
+> +	"Standard Test Bar",
+> +	"Top-Bottom Darker Test Bar",
+> +	"Right-Left Darker Test Bar",
+> +	"Bottom-Top Darker Test Bar",
+> +};
+> +
+>  static const char * const og0ve1b_test_pattern_menu[] = {
+>  	"Disabled",
+>  	"Standard Test Bar",
+> @@ -116,6 +142,196 @@ struct og0ve1b {
+>  	const struct og0ve1b_sensor_data *data;
+>  };
+>  
+> +static const struct cci_reg_sequence og0va1b_640x480_60fps_mode[] = {
+> +	{ CCI_REG8(0x0302), 0x31 },
+> +	{ CCI_REG8(0x0303), 0x02 },
+> +	{ CCI_REG8(0x0304), 0x01 },
+> +	{ CCI_REG8(0x0305), 0x90 },
+> +	{ CCI_REG8(0x0306), 0x00 },
+> +	{ CCI_REG8(0x0323), 0x02 },
+> +	{ CCI_REG8(0x0325), 0x68 },
+> +	{ CCI_REG8(0x0326), 0xd8 },
+> +	{ CCI_REG8(0x3006), 0x0e },
+> +	{ CCI_REG8(0x300d), 0x08 },
+> +	{ CCI_REG8(0x3018), 0xf0 },
+> +	{ CCI_REG8(0x301c), 0xf0 },
+> +	{ CCI_REG8(0x3020), 0x20 },
+> +	{ CCI_REG8(0x3040), 0x0f },
+> +	{ CCI_REG8(0x3022), 0x01 },
+> +	{ CCI_REG8(0x3107), 0x40 },
+> +	{ CCI_REG8(0x3216), 0x01 },
+> +	{ CCI_REG8(0x3217), 0x00 },
+> +	{ CCI_REG8(0x3218), 0xc0 },
+> +	{ CCI_REG8(0x3219), 0x55 },
+> +	{ CCI_REG8(0x3506), 0x01 },
+> +	{ CCI_REG8(0x3507), 0x50 },
+> +	{ CCI_REG8(0x3508), 0x01 },
+> +	{ CCI_REG8(0x3509), 0x00 },
+> +	{ CCI_REG8(0x350a), 0x01 },
+> +	{ CCI_REG8(0x350b), 0x00 },
+> +	{ CCI_REG8(0x350c), 0x00 },
+> +	{ CCI_REG8(0x3541), 0x00 },
+> +	{ CCI_REG8(0x3542), 0x40 },
+> +	{ CCI_REG8(0x3605), 0x90 },
+> +	{ CCI_REG8(0x3606), 0x41 },
+> +	{ CCI_REG8(0x3612), 0x00 },
+> +	{ CCI_REG8(0x3620), 0x08 },
+> +	{ CCI_REG8(0x3630), 0x17 },
+> +	{ CCI_REG8(0x3631), 0x99 },
+> +	{ CCI_REG8(0x3639), 0x88 },
+> +	{ CCI_REG8(0x3668), 0x00 },
+> +	{ CCI_REG8(0x3674), 0x00 },
+> +	{ CCI_REG8(0x3677), 0x3f },
+> +	{ CCI_REG8(0x368f), 0x06 },
+> +	{ CCI_REG8(0x36a2), 0x19 },
+> +	{ CCI_REG8(0x36a4), 0xf1 },
+> +	{ CCI_REG8(0x36a5), 0x2d },
+> +	{ CCI_REG8(0x3706), 0x30 },
+> +	{ CCI_REG8(0x370d), 0x72 },
+> +	{ CCI_REG8(0x3713), 0x86 },
+> +	{ CCI_REG8(0x3715), 0x03 },
+> +	{ CCI_REG8(0x3716), 0x00 },
+> +	{ CCI_REG8(0x376d), 0x24 },
+> +	{ CCI_REG8(0x3770), 0x3a },
+> +	{ CCI_REG8(0x3778), 0x00 },
+> +	{ CCI_REG8(0x37a8), 0x03 },
+> +	{ CCI_REG8(0x37a9), 0x00 },
+> +	{ CCI_REG8(0x37df), 0x7d },
+> +	{ CCI_REG8(0x3800), 0x00 },
+> +	{ CCI_REG8(0x3801), 0x00 },
+> +	{ CCI_REG8(0x3802), 0x00 },
+> +	{ CCI_REG8(0x3803), 0x00 },
+> +	{ CCI_REG8(0x3804), 0x02 },
+> +	{ CCI_REG8(0x3805), 0x8f },
+> +	{ CCI_REG8(0x3806), 0x01 },
+> +	{ CCI_REG8(0x3807), 0xef },
+> +	{ CCI_REG8(0x3808), 0x02 },
+> +	{ CCI_REG8(0x3809), 0x80 },
+> +	{ CCI_REG8(0x380a), 0x01 },
+> +	{ CCI_REG8(0x380b), 0xe0 },
+> +	{ CCI_REG8(0x380c), 0x01 },
+> +	{ CCI_REG8(0x380d), 0x78 },
+> +	{ CCI_REG8(0x380e), 0x08 },
+> +	{ CCI_REG8(0x380f), 0x30 },
+> +	{ CCI_REG8(0x3810), 0x00 },
+> +	{ CCI_REG8(0x3811), 0x08 },
+> +	{ CCI_REG8(0x3812), 0x00 },
+> +	{ CCI_REG8(0x3813), 0x08 },
+> +	{ CCI_REG8(0x3814), 0x11 },
+> +	{ CCI_REG8(0x3815), 0x11 },
+> +	{ CCI_REG8(0x3816), 0x00 },
+> +	{ CCI_REG8(0x3817), 0x01 },
+> +	{ CCI_REG8(0x3818), 0x00 },
+> +	{ CCI_REG8(0x3819), 0x05 },
+> +	{ CCI_REG8(0x3820), 0x40 },
+> +	{ CCI_REG8(0x3821), 0x04 },
+> +	{ CCI_REG8(0x3823), 0x00 },
+> +	{ CCI_REG8(0x3826), 0x00 },
+> +	{ CCI_REG8(0x3827), 0x00 },
+> +	{ CCI_REG8(0x382b), 0x52 },
+> +	{ CCI_REG8(0x384a), 0xa2 },
+> +	{ CCI_REG8(0x3858), 0x00 },
+> +	{ CCI_REG8(0x3859), 0x00 },
+> +	{ CCI_REG8(0x3860), 0x00 },
+> +	{ CCI_REG8(0x3861), 0x00 },
+> +	{ CCI_REG8(0x3866), 0x0c },
+> +	{ CCI_REG8(0x3867), 0x07 },
+> +	{ CCI_REG8(0x3884), 0x00 },
+> +	{ CCI_REG8(0x3885), 0x08 },
+> +	{ CCI_REG8(0x3888), 0x50 },
+> +	{ CCI_REG8(0x3893), 0x6c },
+> +	{ CCI_REG8(0x3898), 0x00 },
+> +	{ CCI_REG8(0x389a), 0x04 },
+> +	{ CCI_REG8(0x389b), 0x01 },
+> +	{ CCI_REG8(0x389c), 0x0b },
+> +	{ CCI_REG8(0x389d), 0xdc },
+> +	{ CCI_REG8(0x38b1), 0x04 },
+> +	{ CCI_REG8(0x38b2), 0x00 },
+> +	{ CCI_REG8(0x38b3), 0x08 },
+> +	{ CCI_REG8(0x38c1), 0x46 },
+> +	{ CCI_REG8(0x38c9), 0x02 },
+> +	{ CCI_REG8(0x38d4), 0x06 },
+> +	{ CCI_REG8(0x38d5), 0x5a },
+> +	{ CCI_REG8(0x38d6), 0x08 },
+> +	{ CCI_REG8(0x38d7), 0x3a },
+> +	{ CCI_REG8(0x391f), 0x00 },
+> +	{ CCI_REG8(0x3920), 0xaa },
+> +	{ CCI_REG8(0x3921), 0x00 },
+> +	{ CCI_REG8(0x3922), 0x00 },
+> +	{ CCI_REG8(0x3923), 0x00 },
+> +	{ CCI_REG8(0x3924), 0x00 },
+> +	{ CCI_REG8(0x3925), 0x00 },
+> +	{ CCI_REG8(0x3926), 0x00 },
+> +	{ CCI_REG8(0x3927), 0x00 },
+> +	{ CCI_REG8(0x3928), 0x10 },
+> +	{ CCI_REG8(0x3929), 0x01 },
+> +	{ CCI_REG8(0x392a), 0xb4 },
+> +	{ CCI_REG8(0x392b), 0x00 },
+> +	{ CCI_REG8(0x392c), 0x10 },
+> +	{ CCI_REG8(0x392d), 0x01 },
+> +	{ CCI_REG8(0x392e), 0x78 },
+> +	{ CCI_REG8(0x392f), 0x4a },
+> +	{ CCI_REG8(0x391e), 0x01 },
+> +	{ CCI_REG8(0x389f), 0x08 },
+> +	{ CCI_REG8(0x38a0), 0x00 },
+> +	{ CCI_REG8(0x38a1), 0x00 },
+> +	{ CCI_REG8(0x3a06), 0x06 },
+> +	{ CCI_REG8(0x3a07), 0x78 },
+> +	{ CCI_REG8(0x3a08), 0x08 },
+> +	{ CCI_REG8(0x3a09), 0x80 },
+> +	{ CCI_REG8(0x3a52), 0x00 },
+> +	{ CCI_REG8(0x3a53), 0x01 },
+> +	{ CCI_REG8(0x3a54), 0x0c },
+> +	{ CCI_REG8(0x3a55), 0x04 },
+> +	{ CCI_REG8(0x3a58), 0x0c },
+> +	{ CCI_REG8(0x3a59), 0x04 },
+> +	{ CCI_REG8(0x4000), 0xcf },
+> +	{ CCI_REG8(0x4003), 0x40 },
+> +	{ CCI_REG8(0x4008), 0x04 },
+> +	{ CCI_REG8(0x4009), 0x13 },
+> +	{ CCI_REG8(0x400a), 0x02 },
+> +	{ CCI_REG8(0x400b), 0x34 },
+> +	{ CCI_REG8(0x4010), 0x71 },
+> +	{ CCI_REG8(0x4042), 0xc3 },
+> +	{ CCI_REG8(0x4306), 0x04 },
+> +	{ CCI_REG8(0x4307), 0x12 },
+> +	{ CCI_REG8(0x4500), 0x70 },
+> +	{ CCI_REG8(0x4509), 0x00 },
+> +	{ CCI_REG8(0x450b), 0x83 },
+> +	{ CCI_REG8(0x4604), 0x68 },
+> +	{ CCI_REG8(0x481b), 0x44 },
+> +	{ CCI_REG8(0x481f), 0x30 },
+> +	{ CCI_REG8(0x4823), 0x44 },
+> +	{ CCI_REG8(0x4825), 0x35 },
+> +	{ CCI_REG8(0x4837), 0x11 },
+> +	{ CCI_REG8(0x4f00), 0x04 },
+> +	{ CCI_REG8(0x4f10), 0x04 },
+> +	{ CCI_REG8(0x4f21), 0x01 },
+> +	{ CCI_REG8(0x4f22), 0x00 },
+> +	{ CCI_REG8(0x4f23), 0x54 },
+> +	{ CCI_REG8(0x4f24), 0x51 },
+> +	{ CCI_REG8(0x4f25), 0x41 },
+> +	{ CCI_REG8(0x5000), 0x3f },
+> +	{ CCI_REG8(0x5001), 0x80 },
+> +	{ CCI_REG8(0x500a), 0x00 },
+> +	{ CCI_REG8(0x5100), 0x00 },
+> +	{ CCI_REG8(0x5111), 0x20 },
+> +};
+> +
+> +static const struct og0ve1b_mode og0va1b_supported_modes[] = {
+> +	{
+> +		.width = 640,
+> +		.height = 480,
+> +		.hts = 752,
+> +		.vts = 2096,
+> +		.code = MEDIA_BUS_FMT_Y10_1X10,
+> +		.reg_list = {
+> +			.regs = og0va1b_640x480_60fps_mode,
+> +			.num_regs = ARRAY_SIZE(og0va1b_640x480_60fps_mode),
+> +		},
+> +	},
+> +};
+> +
+>  static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
+>  	{ CCI_REG8(0x30a0), 0x02 },
+>  	{ CCI_REG8(0x30a1), 0x00 },
+> @@ -276,6 +492,17 @@ static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
+>  	},
+>  };
+>  
+> +static int og0va1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
+> +{
+> +	u64 val = 0;
+> +
+> +	if (pattern)
+> +		val = ((pattern - 1) << OG0VA1B_TEST_PATTERN_BAR_SHIFT) |
+> +		      OG0VE1B_TEST_PATTERN_ENABLE;
+> +
+> +	return cci_write(og0ve1b->regmap, OG0VA1B_REG_TEST_PATTERN, val, NULL);
+> +}
+> +
+>  static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
+>  {
+>  	u64 val = og0ve1b->pre_isp;
+> @@ -288,10 +515,31 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
+>  	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
+>  }
+>  
+> +static const struct og0ve1b_sensor_data og0va1b_data = {
+> +	.name = "og0va1b",
+> +	.chip_id = OG0VA1B_CHIP_ID,
+> +	.mclk_freq = OG0VA1B_MCLK_FREQ_19_2MHZ,
+> +	.enable_test_pattern = og0va1b_enable_test_pattern,
+> +	.test_pattern_menu = og0va1b_test_pattern_menu,
+> +	.num_test_patterns = ARRAY_SIZE(og0va1b_test_pattern_menu),
+> +	.exposure_shift = 0,
+> +	.pixel_rate_mul = 2,
+> +	.link_freq_menu = og0va1b_link_freq_menu,
+> +	.num_link_freqs = ARRAY_SIZE(og0va1b_link_freq_menu),
+> +	.modes = og0va1b_supported_modes,
+> +	.num_modes = ARRAY_SIZE(og0va1b_supported_modes),
+> +};
+> +
+>  static const struct og0ve1b_sensor_data og0ve1b_data = {
+> +	.name = "og0ve1b",
+>  	.chip_id = OG0VE1B_CHIP_ID,
+>  	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
+>  	.enable_test_pattern = og0ve1b_enable_test_pattern,
+> +	.test_pattern_menu = og0ve1b_test_pattern_menu,
+> +	.num_test_patterns = ARRAY_SIZE(og0ve1b_test_pattern_menu),
+> +	.cache_test_pattern_reg = true,
+> +	.exposure_shift = 4,
+> +	.pixel_rate_mul = 1,
+>  	.link_freq_menu = og0ve1b_link_freq_menu,
+>  	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
+>  	.modes = og0ve1b_supported_modes,
+> @@ -332,7 +580,8 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
+>  		break;
+>  	case V4L2_CID_EXPOSURE:
+>  		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_EXPOSURE,
+> -				ctrl->val << 4, NULL);
+> +				ctrl->val << og0ve1b->data->exposure_shift,
+> +				NULL);
+>  		break;
+>  	case V4L2_CID_VBLANK:
+>  		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_VTS,
+> @@ -360,7 +609,7 @@ static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
+>  	const struct og0ve1b_mode *mode = &data->modes[0];
+>  	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
+>  
+> -	return div_u64(data->link_freq_menu[0], bpp);
+> +	return div_u64(data->link_freq_menu[0] * data->pixel_rate_mul, bpp);
+>  }
+>  
+>  static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+> @@ -413,8 +662,8 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
+>  
+>  	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &og0ve1b_ctrl_ops,
+>  				     V4L2_CID_TEST_PATTERN,
+> -				     ARRAY_SIZE(og0ve1b_test_pattern_menu) - 1,
+> -				     0, 0, og0ve1b_test_pattern_menu);
+> +				     data->num_test_patterns - 1,
+> +				     0, 0, data->test_pattern_menu);
+>  
+>  	if (ctrl_hdlr->error)
+>  		return ctrl_hdlr->error;
+> @@ -621,7 +870,7 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
+>  	u64 val;
+>  	int ret;
+>  
+> -	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_CHIP_ID, &val, NULL);
+> +	ret = cci_read(og0ve1b->regmap, OG0V_REG_CHIP_ID, &val, NULL);
+>  	if (ret) {
+>  		dev_err(og0ve1b->dev, "failed to read chip id: %d\n", ret);
+>  		return ret;
+> @@ -633,10 +882,12 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
+>  		return -ENODEV;
+>  	}
+>  
+> -	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
+> -		       &og0ve1b->pre_isp, NULL);
+> -	if (ret)
+> -		dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
+> +	if (og0ve1b->data->cache_test_pattern_reg) {
+> +		ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
+> +			       &og0ve1b->pre_isp, NULL);
+> +		if (ret)
+> +			dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
+> +	}
+>  
+>  	return ret;
+>  }
+> @@ -732,6 +983,8 @@ static int og0ve1b_probe(struct i2c_client *client)
+>  		return -ENODEV;
+>  
+>  	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
+> +	v4l2_i2c_subdev_set_name(&og0ve1b->sd, client,
+> +				 og0ve1b->data->name, NULL);
+>  
+>  	og0ve1b->regmap = devm_cci_regmap_init_i2c(client, 16);
+>  	if (IS_ERR(og0ve1b->regmap))
+> @@ -863,6 +1116,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
+>  };
+>  
+>  static const struct of_device_id og0ve1b_of_match[] = {
+> +	{ .compatible = "ovti,og0va1b", .data = &og0va1b_data },
+>  	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
+>  	{ /* sentinel */ }
+>  };
+> @@ -881,5 +1135,5 @@ static struct i2c_driver og0ve1b_i2c_driver = {
+>  module_i2c_driver(og0ve1b_i2c_driver);
+>  
+>  MODULE_AUTHOR("Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>");
+> -MODULE_DESCRIPTION("OmniVision OG0VE1B sensor driver");
+> +MODULE_DESCRIPTION("OmniVision OG0VE1B/OG0VA1B sensor driver");
+>  MODULE_LICENSE("GPL");
+> 
 
-Notes for reviewers (not part of the commit message):
-
-Measured on an Orange Pi 5 Plus. The input levels of all five GPIO banks were
-read from their EXT_PORT registers via /dev/mem while toggling the alarm
-interrupt enable through /sys/class/rtc/rtc0/wakealarm; GPIO0_C6 was the only
-pad that followed it.
-
-The s2idle wakeup was measured with the v1 form of this patch (same pin, but
-with the internal pull-up still set): 'PM: Triggering wakeup from IRQ 52'.
-With bias-disable, as posted here, I re-checked that the alarm interrupt still
-increments the hym8563 interrupt count at the programmed alarm time, with no
-spurious interrupts on the level-low line.
-
-Note that on this board the resume itself can still stall later in the USB 2.0
-host controllers (a separate issue reported in [1]); with those controllers
-unbound the full s2idle cycle completes. It does not affect this fix.
-
-[1] https://lore.kernel.org/all/20260907190000.s2idle-usb2-resume-royalnet026@gmail.com/
-
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 145986695720..3f2806284754 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -189,7 +189,7 @@ &hdptxphy1 {
- 
- &hym8563 {
- 	interrupt-parent = <&gpio0>;
--	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-+	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&hym8563_int>;
- };
-@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
- 
- 	hym8563 {
- 		hym8563_int: hym8563-int {
--			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
- 	};
- 
-
-base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
 -- 
-2.43.0
+Regards,
 
+Sakari Ailus
