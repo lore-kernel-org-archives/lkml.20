@@ -1,182 +1,116 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012019.outbound.protection.outlook.com [40.93.195.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF515237BA
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860474; cv=fail; b=rxP7Sc2orBdvEeAhQT2t/EbKDkghekrUq7Gg3OpPd44WUGCnYKghQpRhx/Fh4pWVlc2QiPpDRYvZaNZVBjD3XAKSAATNStushZZk17RhwWQ18ZjUa2M+M02rHf9BnvMiThB30OSRk0oXvTNQY3++ki0jtdutrEMYwXfL7evMJa8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860474; c=relaxed/simple;
-	bh=RgVTFb4F8zdwwBhdYYY1Eb9W6S0LEHZ8c2xRyWzzggY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=d0vrt/9DgNvuf6mONExGlRWRbOUdgt9hNWjDtHNC2nyfRG8+UXMOp4VSxvuJoDK6Gqr1yWybtBMc2GArkFkSuDhWHhoBKz9TSVbmWAQw6PlqVQ6QRBo0+QAM6NzmZRbKUrBTtMqNDhOAfog2bRKfjzbiBf5qNNImZ2CTEOqw11k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=HAdtsmdO; arc=fail smtp.client-ip=40.93.195.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE73492520
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788860484; cv=none; b=MI8LSjTKhp5MZFb1DmJIjHQzcAcNyqJm0OcXzvZIQS88R036oORueaZgHMDVPXK7zlyBP5Mu1J2s3kqgxOt/Yq02Q2uz0WKo8/1FCSmxKYH585UEvSLtMkUTwTN+x+GcyqZd9A7r1PnTDGJzpJvKR1yqnJIDTN5CQ2F3OpDKJDg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788860484; c=relaxed/simple;
+	bh=RwLQFqLrDNVfkarvRNPNob4p6+k/51OfvwavENLv0Lc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=keh76VueEJdEh10DqeZYKpEIgy44VFAmDhBiyV3oE0pnF+Hm0aoDzI6SG2IDgC2u1/zwR2vrmb2l59NAYvxtNu9VGGGxfvfQeeMcv1hQmDJPfLiic0GTNiAcoWCpAziOuys6Yo1MpNpAg+O01VY2CU7JsFiV26kF4+BQNZLn1l4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQaH6eRO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="HAdtsmdO"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VM607yTjagVTh46z/i7B0osDSY6Ku4Dm3Kp3c19Ez9kkkn5Cik7NgUEaLrWO37kNrHLg8BPKNKJCAN43Frh2d5LGBmmlDRPvned5tMaspWbhkXk9mHOrJvIIaQu2j9Hi9mlC91twkNm6sOy1HqQXTFk4DGEQ+GLN40vUKCxHoJLj730xVz22nnrg5DTYADdnySZWCI1zBWtd4v1Ala7zP94kl1MA8nSdIiCiuQ5RQyM+Ld/IJXiDwSycLSo9OabWCkg02WnqqhF4/Tft8nnb1nioKEXtET91F9QNnZ1/WSM4+it6LFQyRpg3hFkaYEtigN/+cOfpZ6+Gle0PuV2uuQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hEU6m935A/jTKteJk+Q3MYthGj9bSucBtNdCB1qkcWw=;
- b=cmdUQbjuQgLttNWPws7YCqhaG03wPpFzJnWrLOeVui5L3donNIO0AL0yN0MyWzjG5OGjIxZYPXIwsDgUge4XnfPw35mZlj4P09gts8msxxTnSrbxI7S88eC7LnqFvs89b7OfUPtLGJAUGAlCez78+UkeGzZ7cKtyee81u9N5IY1+1/yfCNCIGfxXVFTckkqL9Gn2EYpov0hzBhhMvqGIKHFQx/dbUSZNi+o3yHK56DnOGx7XNS8OVhw4elPtuPOXCoBAy2wEfpG/Jn+dhTgkSAD97XCZEAlz9CxvfXMzVUlfbwoWMdKmOCMYvufz82VKxhFCuqylDo1OzYKbgvloVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hEU6m935A/jTKteJk+Q3MYthGj9bSucBtNdCB1qkcWw=;
- b=HAdtsmdOFnFPSVubBNdJJxmSOiG56DOeCbY//j/cY8o2TrrqTI1wrR3aHde3E1mLB9OKaBEZY9MOqi0w/Dvqye2Uf1VKedPYqs20wHpC3QP6fWmMLY0xLbRc4+bl8N15gu5OjzDZOUX+6FMvy1+dc03iyMzqCr87vpTA6T7lpEA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by MW6PR12MB9020.namprd12.prod.outlook.com (2603:10b6:303:240::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 8 Sep
- 2026 09:41:07 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%4]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 09:41:07 +0000
-Message-ID: <38c051cb-3852-424b-8951-a9d40d44eb54@amd.com>
-Date: Tue, 8 Sep 2026 16:40:57 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 18/24] iommu/amd: Introduce helper function for updating
- device ID mapping table
-To: "guanghuifeng@linux.alibaba.com" <guanghuifeng@linux.alibaba.com>,
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
- jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- vasant.hegde@amd.com, jon.grimm@amd.com, santosh.shukla@amd.com,
- Sairaj.K@amd.com, jay.chen@amd.com, wvw@google.com, wnliu@google.com,
- dantuluris@google.com, chriscli@google.com, kpsingh@google.com,
- alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com
-References: <20260727132913.22475-1-suravee.suthikulpanit@amd.com>
- <20260727132913.22475-19-suravee.suthikulpanit@amd.com>
- <fbfc7a4a-3108-4cc0-b6d4-d89f56393aba@linux.alibaba.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <fbfc7a4a-3108-4cc0-b6d4-d89f56393aba@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: KL1P15301CA0065.APCP153.PROD.OUTLOOK.COM
- (2603:1096:820:3d::12) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQaH6eRO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE691F00A3D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788860482;
+	bh=/o85pS/qqd9I0BuTSjXv275q+WHwEmXL7pWePkBg4zM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=cQaH6eROPbXpCSWdztk67bny7BITqyRlfqMxjfYHXIfU/uprINaVOProkBIcXEQRA
+	 /zwfPsFBOhYzBP3PS1xj+dxBWfocOb3xeszA31pfyjT6UDtE4Vmp8kjlYCFCs7fpw3
+	 hAOEZFxlWEHFG/J9S4AwBB5fdK1C3AvmlPt+IKVqhg+hbS21/4SCqMWevlDDnpJ+N6
+	 OdJaPPrFF7s1cuS6xZNCggKxTFy3CTg+zsHLzdLDSlb4nXpKYyI5qrAIBDYtDWDoaT
+	 b3Gfkt+WwAhCgwmyhoycAHVK1TQw4SZKYe6EbriAXb5FJRQ7vJmCVZnvy0/ZA19otp
+	 +1c6/OltifWow==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c25b661d37dso609036866b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzIAZxlERQVkteCV7CFPEYTClen1lTOoJKQOkkrtdWHUWh0W0HOTx69JMLwZ+vAxxB+/OJwL1jztD4Cy6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+8GCVeFzBKYXOTZsrlCvrEG23vE2GUkHUAbTOqf5PELbD7YQG
+	hTgkH/LWlvtpONs/cceq8G3lDk78pAVBNh6dslud1nBB5qcUAht2BnU2wmApLRG4ymhD1cFEjIn
+	rIwTsBdMeFH3eGqhFXTahRmyHBpqVUZo=
+X-Received: by 2002:a17:907:ea8d:b0:c26:2795:b494 with SMTP id
+ a640c23a62f3a-c262795c1b3mr687549966b.49.1788860481301; Tue, 08 Sep 2026
+ 02:41:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|MW6PR12MB9020:EE_
-X-MS-Office365-Filtering-Correlation-Id: c464be82-e3b2-4a01-78bc-08df0d8d4e8d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|10067099003|4143699003|11063799006|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	A42HHC6XjK32AkS0m7Obk0fVm/bmQ8JSCqnsil/pCEClfmvWJeIOymRQCnRrTuNav5Cx6U17qYSqh8rcVxm4o8TjUMGqbp8k0IbO941WffjllQpQSt2yYHuicm1VmG2yNKMAKLoy5g+jisRjAOgnMBIOUbiJXnzqofSgHhz3C0/hoAIdhEgsAe2a0uqIv1QAG+lMWva9nb7dbSXtYxwhCWBUqFwVYZyWFCpuk+Jw09hRSs0tgAcZL7G+jBf3aoCW8jckOCMGaqhnYKZT5p9kveHHhffMrI3I3gi5FUSpv+FTmqBDY0GlJ9CPf8su5LpG9klmQaztRRDKw/uaSJMG0vXOLqJjyQmdQUspKE2vj3Ixb+PVSXFSsLjv/gIuAff0fj3sCHBOqMefMvzNX6BM+LzMANZoCkEh/Tx+Mqefe6blv1r84nhBTLoxoWVqwYDfMjt9f03RUy4Q6VxCHW+QnABQgBmWBxcorU8/ZdxN3rkubYur771nHSBbgmmAECvWiwOLCXql+yO5RZtUVeyS/omixJHKiMJT+KIKw+M3/v1v35XTSYYJZTycTbrehieetG/+KeLLxNjEsBIcK6mN+5uig+Slr/PsfTXiL9UP4RbxIKDzObm+6BqwSial7KRqlkM7Loqi6xRk4e8UWQ1iWsU61LB3/HuF46mSUw6/QLM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UFZRdEtsZFpQdlRWdVBoby8rRmEyVlMyY2NLMWQxN1NQcUtvRkVDL1dxUXRB?=
- =?utf-8?B?WDJwODhpSW5DTDUvQ0pXQU9aSjUzd1dQclRpRThWdlNBWURmVkpqbmc1SHdK?=
- =?utf-8?B?b1paS2loOXVBTTR4QVlGTmF5dkZhcFQwQldZb0dmMEpUbGovNVFsS2tIS0pI?=
- =?utf-8?B?UXVDdmVMLy9MdTR5ZGVlWnVLTTkzZnNOWEhGNTRXMkhxaTdPZmtLTUxjYU9p?=
- =?utf-8?B?ZE1BNDRMMXpFcU90cDdEZEo0dS9NbVRmM1NaS0hYVjBQQktNWFR6cGRXSlN5?=
- =?utf-8?B?cU9RSEtna2Y2ODhRdGlPR3hKaytWSXFON2xrcmdzWHNQeWJsTE5KVkpLSkEr?=
- =?utf-8?B?ZDVHOXhheEJmdXBjbTlWMDAvTks3MHpqTkppSktVQ2dZYnRoZWp0blJSNGNB?=
- =?utf-8?B?S0twOStjUkJnSzErMjVYbWRaWnZ4ZkZ1eHJ5MFhsZDIzbnJlbG05UEpvRG1r?=
- =?utf-8?B?RGxqL3NlTG8wTjFVRlVTa0ZtRnd5dDFWMk9mUmI0d0VIa2ZNSmloT1ZTYzRt?=
- =?utf-8?B?SE9ra0RZbDRid2Z4TEZoZ090VElXU0IvbDJlQml1UmxzZUZidElxVlBsNWdP?=
- =?utf-8?B?REZRZUJ1OU5aTGNVWXNuSVlheWZ4ME1mbHNNekwyU2szU1B1TmxxN3R0eWtO?=
- =?utf-8?B?emdvYXd0K1R3Mk5POVBYZXdKcGtrTEl2OHZ2OW1McWFHd05pTTZ2WXdxckVB?=
- =?utf-8?B?NUVBcElRcGphcDRyVXlCL3U5aEU3NmJrNTZnclBtdDI1aGN5Wi9nTlZNT0hD?=
- =?utf-8?B?T2NoWlhHOGlneTg3NFpsNzR5SWtDVTRxSGE0Y0hTK3dNcWQ5Sm1CWE9xWkxh?=
- =?utf-8?B?WnB1NDVtRnV1M09UMGtXbUxjMk9qOXhqOTQ1a2czeTh1R0tCYUVIamZEMmRa?=
- =?utf-8?B?djA4OTBHTlBpQWRrTGhDNXNuRFRKemNZeXp2RzBXZzJtamljNlhGSGV2cXVC?=
- =?utf-8?B?Q2FmbTdIQzdObTBXRHdjKzl4SVRzcGd2Y3pERURRTlpjYm5ZZGxjUEFpbnds?=
- =?utf-8?B?NzdVTUI0eDV3NjcwaWJUY1RackRvUWJyQzJpaGtHbEhJRHdaVTNyMndFQllm?=
- =?utf-8?B?M2FXZGF1V01hYWRldW0ydWNtTGNrSFZlYi9aa2dtTy9PVmdTTUpTTlU0N0tQ?=
- =?utf-8?B?S2hscUdxa3ZYMUFiMU5raFpxbTZDNGtxUmVDdWJGNXV2OVY1eit6dEFKeGtN?=
- =?utf-8?B?cnl5Ri9GSDV3R01ZYUUwYU83ZUVSKzgremFpdFR4UnNBbnpNZEtxV2RPWFJ1?=
- =?utf-8?B?YmhKYVBXcGRJVzJHWWNjSTZDRGF5VU1GWUcxaEVVa1V6aHNmMkVrNnFiSno3?=
- =?utf-8?B?S1dld1Y0b2FjWmh1TU5najUyTGpla2ljOUEyOTQyNWxpeS82RSt0b2huUEpU?=
- =?utf-8?B?VTZadkRGaDFLVkc4NzVLN3NFWDFhdkxqU2ZOUHdxY3pPYUE2VDd0QmlpQS85?=
- =?utf-8?B?YWZ4OXNMN0t1c3lWS1dic2gwMkJpOEt0SG1hKzVYdm1wOThnVUZYOUI1cmJi?=
- =?utf-8?B?aDlJNHpPVElqQ3ZMTnhKNUNOSndPVXorQVNpSHZkVzJPMC95Skc0R1pTL2tY?=
- =?utf-8?B?M2F2eXh3NHlNRnhkVW9OZVZJTHpoMDd4TDcweE4rdlJ5NHhqYlZ3VC9OcHBj?=
- =?utf-8?B?TWpjbm5Sd2FvN1RNRkloRGRPRVhQSFFNZTBYWXdBNWs3ZXphTmtLUkVHaTFI?=
- =?utf-8?B?LzYrN0tXcnp2NUQ1cjFzL1N5MnVNWUNpL0RQbnFSYS8wUXYzRWtYdFVOMDg0?=
- =?utf-8?B?TGk0VGx3T0Z0TnpnVTA1Z0psWk5uUE9LVWRlcUZPMUlLc0dUOXdrcE5VOHA4?=
- =?utf-8?B?dGh6NVBiQVhpaTJFcXJBRk5NckppNzY3czJNaE5XemFQTEhuM0tmWWpibk5L?=
- =?utf-8?B?SGlYalZENWIyTzhHS04vU2w0K1d1bnd0Q0NDZkN1QzRLK0o5SnVDZ05tbUtp?=
- =?utf-8?B?b1YreUloRVNlTTZWUi9BaUpBRUlyM3pCVHExcDRNR3F5R2JGekVEcUFvd3BC?=
- =?utf-8?B?RjNTdUFmWDB3SFpkMWpUU3c5ZGVhY1U4bXB0UVNicWhzZ1JYWC9HRlFZaGFV?=
- =?utf-8?B?WktZN2srY3VpVUQzVEhBdlZ4RG1rcW9oUU9oRWJHbE1SQm1QaWhDVFhJbVRm?=
- =?utf-8?B?QXBEVitRcE5SSUVzY0lkT1pKNEc5K1JWemFSYXl4d3RlUEQxZWZBRkdFM2RZ?=
- =?utf-8?B?czhhbVNsM2NXNExMUGFFcVFvRWkzQWRNd0hnU283RkVMbzhIdDBDYnlEWDNF?=
- =?utf-8?B?aDNteGthZ2xsMUN5eStKTGVDdkNlemxvREdUY3JOdXVLbTlGNDNPNGorZ0xL?=
- =?utf-8?B?aHh0VXlDWWJCNzJNako3Yjd3SmlEU0NYNWdab3BYVENmRnJaYjY4UT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c464be82-e3b2-4a01-78bc-08df0d8d4e8d
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:41:07.0846
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: RllNSzXtOGV8BG5YcHwwj17yxQ1FYz/lPyTKIFL+XYzb7V1grzp/LQ/0MXFM2cBqwzHRV9Ir1qbtbjeGygBZ/g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9020
+References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+ <CANFS6baT-+_u+c99qThd7jekqXZ3BW5utLPERLa_X3FE7XiBNw@mail.gmail.com> <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+In-Reply-To: <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 8 Sep 2026 18:41:09 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-8aGEA=cPifa48iF8Ek8_SjZMSEzpK0+bW6Y7PgGsYNg@mail.gmail.com>
+X-Gm-Features: AcwNN1UoA1V7RNEpcatzH43l99XRM3sttmDQkqqVNWQ3Gm5BlcgEnGg1xEUXCU8
+Message-ID: <CAKYAXd-8aGEA=cPifa48iF8Ek8_SjZMSEzpK0+bW6Y7PgGsYNg@mail.gmail.com>
+Subject: Re: [PATCH v2] ntfs: fix $MFTMirr write offset when it spans multiple folios
+To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>
+Cc: Hyunchul Lee <hyc.lee@gmail.com>, "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 8/19/2026 5:26 PM, guanghuifeng@linux.alibaba.com wrote:
->> +static void clear_device_mapping(struct amd_iommu *iommu, u16 
->> guestId, u16 gDevId)
->> +{
->> +    u64 val;
->> +    u8 __iomem *vfctrl;
->> +
->> +    /*
->> +     * Clear the DevID in VFCTRL registers
->> +     */
->> +    val = FIELD_PREP(DEVID_ENTRY_GDEVID_MASK, gDevId) |
->> +          FIELD_PREP(DEVID_ENTRY_HDEVID_MASK, 0) |
->> +          DEVID_ENTRY_WRITE | DEVID_ENTRY_VALID;
->> +
->> +    vfctrl = VIOMMU_VFCTRL_MMIO_BASE(iommu, guestId);
->> +    writeq(val, vfctrl + VIOMMU_VFCTRL_GUEST_DID_MAP_CONTROL0_OFFSET);
->> +}
-> 
-> 
-> The clear path sets Vld=1 with hDevID=0. This semantics is ambiguous:
-> Vld=1 marks the entry as a *valid* mapping, and hDevID=0 is a legal PCI
-> BDF (Bus 0, Dev 0, Func 0), instead of treating the entry as invalid. To 
-> actually invalidate the mapping,
-> please use Vld=0
-> 
->      val = FIELD_PREP(DEVID_ENTRY_GDEVID_MASK, gDevId) |
->            FIELD_PREP(DEVID_ENTRY_HDEVID_MASK, 0) |
->            DEVID_ENTRY_WRITE;
-> 
-> Alternatively, during the clear dev mapping process, you might directly 
-> specify the original hdevid being used.
-
-Based on the IOMMU implementation, it requires the valid bit to be set 
-to 1. Otherwise, guest command INVALIDATE_IOMMU_ALL would trigger error 
-ILLEGAL_COMMAND_ERROR event.
-
-Generally, host device id BDF 0:00.0 is the host bridge, which is not 
-part of the list of devices managed by IOMMU. So, it is safe.
-
-Thanks,
-Suravee
-
-
+On Tue, Sep 8, 2026 at 5:41=E2=80=AFAM =E6=9C=B1 =E5=A4=A9=E6=B5=A9 <zhutia=
+nhao75@hotmail.com> wrote:
+>
+> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
+> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
+> which is indeed what mkfs arranges.  However, the folio rewrite kept a
+> leftover from the old buffer-head/runlist based implementation:
+> vol->cluster_size_mask is still applied to the mirror write offset.
+> In fact it is no longer needed -- and in some configurations it is
+> actively wrong.
+>
+> The bug triggers whenever the four mirror records do not fit in a
+> single folio, i.e. when mft_record_size exceeds PAGE_SIZE / 4 (for
+> example mft_record_size > 1KiB on 4KiB pages).
+>
+> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
+> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
+> written to the location of record 0.  $MFTMirr therefore gets out of
+> sync with $MFT and the following warning is printed on remount:
+>
+>         ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
+>               record 0 do not match.  Run chkdsk.
+>
+> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
+> to the base LCN address instead of applying the cluster_size_mask
+> truncation.  This is the standard file-offset calculation and is
+> correct for every combination of cluster size, page size and MFT
+> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
+> (which mkfs always arranges).
+>
+> Tested on the volume above: before the change mirror records 1-3 are
+> all written to record 0's sector; after the change the write-back
+> probe reports:
+>
+>         ntfs: NTFSDBG pre mft_no=3D0x3 folio_idx=3D0x3 ofs=3D0x0 mftmirr_=
+lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0640
+>         ntfs: NTFSDBG pre mft_no=3D0x0 folio_idx=3D0x0 ofs=3D0x0 mftmirr_=
+lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0628
+>
+> which matches the expected sectors computed as:
+>
+>         (NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SE=
+CTOR_SHIFT
+>
+>         record 0: (0x2540c5 << 12) + 0x0000 =3D 0x2540c5000 >> 9 =3D 0x12=
+a0628
+>         record 3: (0x2540c5 << 12) + 0x3000 =3D 0x2540c8000 >> 9 =3D 0x12=
+a0640
+>
+> A 13 MB file write succeeds on this volume and the file is byte-for-byte
+> identical after a umount/mount cycle.
+>
+> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
+> Assisted-by: UOS-AI
+> Assisted-by: CodeBuddy:Hy4 preview
+> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
+Applied it to #ntfs-next.
+Thanks!
