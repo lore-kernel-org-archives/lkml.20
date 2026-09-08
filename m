@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483D456B848
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:04:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B8658B6C4
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 22:04:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905099; cv=none; b=agyxW5FoYpZGh5zsPYZs9ZctBUNwlHoqP0cCI9AZxaCb+pUYcs9bZNIFYddrG9L8Ps4CYmP/zJjToRR1PoTM67EFr/OMBEoDNMkCur1WNNT4oUke58EoUU9WFKaVMA3zzFlwQW+eMLPgys2vwS12J7A9YAId+sZHtGavgYaWtKs=
+	t=1788905100; cv=none; b=tL3DLCc9kCscLPawm9hGA6j0CpjeL2yP1ffxJWOk06Ziw9am97AR8TgUThchDjt+VgkLO9LyhNZ2QAiFTEP8EyxSMn1QgavDNnJtxZwKu4j3f57dHKFPPQKl280M9ggu1QYEI8Njez5pTLsBZNPKBkS3Zn1PPYZHkOyQKy8OHFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905099; c=relaxed/simple;
-	bh=hb2IGok6xcbmfJtXJDgTvf+32L/u6qDR2uGJpjJE3VU=;
+	s=arc-20240116; t=1788905100; c=relaxed/simple;
+	bh=KXjID5zwEnS/6i0i4yKo05v9d2iAqpm2hWmsH3xdD6c=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IQUXu1BEfP0O95oXsShk2c6lKayMk9AaQmbyHJuDgQxg8alEOTiaERJh+LzO8e2xbqH3BSj9cTda9WCE5EF2DWl/G1Z8Qpr7eNxixXFej2hOC8YetCgTsf+zLBeOIwgtd6/vD23lwBy/OQG9gg/T2t5altoxV4sFWmi/V55Uuh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KWy3ygku; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=A/A926Fwpy5a4PRTO9KAGwnSMxcgKDL14Yq8H/mdANuUdZwX9b8n+akPdkNkG0H+DZrIT5GXXZn742LLPiaoj+7+DnG3o5TzKRU7T6Jk+SOmn0L2J7drqJsyepTWMnZjNcYi7YMNB+nxeTRCNzvhxyfPn3rAqeCsBUMn4MauC2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V47tf8M2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KWy3ygku"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 010FB1F00A3E;
-	Tue,  8 Sep 2026 22:04:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V47tf8M2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AA431F00A3A;
+	Tue,  8 Sep 2026 22:04:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788905098;
-	bh=BSE/1dmV9/OlXUyEoOlbChcyMLLbhJNQh9ObguX2hFg=;
+	s=k20260515; t=1788905099;
+	bh=MWrrQYUhx+9Xsk9gELQ0A3vmgKNDW3R1AUupsQHIcE4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KWy3ygkuKMMALDFZMD3F1kdmflmOnlMZkqF/IBSZIQMF1+oaC/GUfh+Jo7p7dcTzu
-	 v+aWDpTRyITg/+mCn1Qk6V7VZ9aje1aihtcnMVPkFXK+xNa1urtmsC6tWIiJk7odao
-	 ZbwrRBl8e1YgX4kvGRdtXSACRbxMmSXW4n3sHFJTbz97KwJYLdKzRMsAuALQoRySf9
-	 8m3tSBvRBzDjBFf4lN2QVR0ToWw/KLLxnOwuHuMtc5cKUl+6PdbsfucM/L+l2rIlie
-	 +VYE2LRBtV6Fr2PKOyO3wMMuTIhm6AVE09GlryFkofLLBKwG6b6YIorSPN2Lw9Nsu8
-	 DD/rDt6AXM4Iw==
+	b=V47tf8M21es2gsJFShqGh0OT7Wu7y7TV3PL+6zVD+h6IihAVfftXqBkz8LZ5tS8Ak
+	 K80ayyzR3G1k5KjDLgtd8F5sfTIjqYYKFLNRLt8EIrOFZIkGX8zxzkI4uIRlzXcKM5
+	 wn0M3QKDBg/yFEm7e76LkFeIijKJEA66wNQP5lg52ZjfoE6XJ7TAiEAJ/mYT2Bmenv
+	 aARMAT5oCw4PtALaub0eimraeZIhmTwgkb2YdklkMD2uOjanUMkJFLFDNND9wrfFyl
+	 8vHoooi6XEFzwLjsr3zJQT7lLyol1DCy8JHbdtcXyoRcyc/vqzOzvLcslUuiyXpUaR
+	 i2A8nK1MCn95g==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Tue, 08 Sep 2026 17:04:42 -0500
-Subject: [PATCH v3 05/22] accel: ethosu: Quiesce jobs before scheduler
- teardown
+Date: Tue, 08 Sep 2026 17:04:43 -0500
+Subject: [PATCH v3 06/22] accel: ethosu: Prevent command stream export
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-ethosu-fixes-v3-5-490fe215286f@kernel.org>
+Message-Id: <20260908-ethosu-fixes-v3-6-490fe215286f@kernel.org>
 References: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
 In-Reply-To: <20260908-ethosu-fixes-v3-0-490fe215286f@kernel.org>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
@@ -46,14 +45,12 @@ To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16-dev
 
-An NPU job can complete while driver removal tears down the scheduler. Its
-IRQ handler could then access scheduler state after it has been
-destroyed.
+Command stream BOs are validated at creation time, but the generic PRIME
+export path can expose their backing memory to a DMA-BUF importer. The
+importer can then modify the command stream before the NPU executes it.
 
-Stop scheduler submission and timeout work, reset the NPU, and
-synchronize its IRQ before finalizing the scheduler. Add a cancel_job
-callback so drm_sched_fini() signals queued jobs with -ECANCELED; their
-runtime-PM references are then released during normal job cleanup.
+Reject PRIME export for validated command stream BOs while retaining generic
+export for data BOs.
 
 Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
 Cc: stable@vger.kernel.org
@@ -61,98 +58,42 @@ Assisted-by: LLM
 Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
 v3:
- - Add dma_fence_was_initialized() check in job cancel (sashiko)
-v2:
  - new patch
 ---
- drivers/accel/ethosu/ethosu_drv.c |  4 ++--
- drivers/accel/ethosu/ethosu_drv.h |  2 ++
- drivers/accel/ethosu/ethosu_job.c | 23 ++++++++++++++++++++++-
- 3 files changed, 26 insertions(+), 3 deletions(-)
+ drivers/accel/ethosu/ethosu_gem.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_drv.c b/drivers/accel/ethosu/ethosu_drv.c
-index 9d063daa1aa7..06e432854ce7 100644
---- a/drivers/accel/ethosu/ethosu_drv.c
-+++ b/drivers/accel/ethosu/ethosu_drv.c
-@@ -216,7 +216,7 @@ static const struct drm_driver ethosu_drm_driver = {
- #define U85_MEM_ATTR0_CFG	0x00000000
- #define U85_MEM_ATTR2_CFG	0x000000b7
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index 9afe2549ec84..c046aee42687 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -6,6 +6,7 @@
+ #include <linux/slab.h>
  
--static int ethosu_reset(struct ethosu_device *ethosudev)
-+int ethosu_device_reset(struct ethosu_device *ethosudev)
- {
- 	int ret;
- 	u32 reg;
-@@ -263,7 +263,7 @@ static int ethosu_device_resume(struct device *dev)
- 	if (ret)
- 		return ret;
+ #include <drm/ethosu_accel.h>
++#include <drm/drm_prime.h>
  
--	ret = ethosu_reset(ethosudev);
-+	ret = ethosu_device_reset(ethosudev);
- 	if (!ret)
- 		return 0;
- 
-diff --git a/drivers/accel/ethosu/ethosu_drv.h b/drivers/accel/ethosu/ethosu_drv.h
-index 2193bc51d425..f59c845c758b 100644
---- a/drivers/accel/ethosu/ethosu_drv.h
-+++ b/drivers/accel/ethosu/ethosu_drv.h
-@@ -11,6 +11,8 @@ struct ethosu_device;
- struct drm_device;
- struct drm_file;
- 
-+int ethosu_device_reset(struct ethosu_device *ethosudev);
-+
- struct ethosu_file_priv {
- 	struct ethosu_device *edev;
- 	struct drm_sched_entity sched_entity;
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index ec65305e0cd7..a1443cd0c5b0 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -189,6 +189,17 @@ static void ethosu_job_free(struct drm_sched_job *sched_job)
- 	ethosu_job_put(job);
+ #include "ethosu_device.h"
+ #include "ethosu_gem.h"
+@@ -30,9 +31,18 @@ static int ethosu_gem_mmap(struct drm_gem_object *obj, struct vm_area_struct *vm
+ 	return drm_gem_dma_object_mmap(obj, vma);
  }
  
-+static void ethosu_job_cancel(struct drm_sched_job *sched_job)
++static struct dma_buf *ethosu_gem_export(struct drm_gem_object *obj, int flags)
 +{
-+	struct ethosu_job *job = to_ethosu_job(sched_job);
++	if (to_ethosu_bo(obj)->info)
++		return ERR_PTR(-EPERM);
 +
-+	if (dma_fence_was_initialized(job->done_fence) &&
-+	    !dma_fence_is_signaled(job->done_fence)) {
-+		dma_fence_set_error(job->done_fence, -ECANCELED);
-+		dma_fence_signal(job->done_fence);
-+	}
++	return drm_gem_prime_export(obj, flags);
 +}
 +
- static void
- ethosu_switch_perfmon(struct ethosu_device *ethosu, struct ethosu_job *job)
- {
-@@ -315,7 +326,8 @@ static enum drm_gpu_sched_stat ethosu_job_timedout(struct drm_sched_job *bad)
- static const struct drm_sched_backend_ops ethosu_sched_ops = {
- 	.run_job = ethosu_job_run,
- 	.timedout_job = ethosu_job_timedout,
--	.free_job = ethosu_job_free
-+	.free_job = ethosu_job_free,
-+	.cancel_job = ethosu_job_cancel,
- };
- 
- int ethosu_job_init(struct ethosu_device *edev)
-@@ -363,6 +375,15 @@ int ethosu_job_init(struct ethosu_device *edev)
- 
- void ethosu_job_fini(struct ethosu_device *dev)
- {
-+	drm_sched_wqueue_stop(&dev->sched);
-+	cancel_delayed_work_sync(&dev->sched.work_tdr);
-+
-+	if (READ_ONCE(dev->in_flight_job)) {
-+		WRITE_ONCE(dev->in_flight_job, NULL);
-+		ethosu_device_reset(dev);
-+	}
-+
-+	synchronize_irq(dev->irq);
- 	drm_sched_fini(&dev->sched);
- }
- 
+ static const struct drm_gem_object_funcs ethosu_gem_funcs = {
+ 	.free = ethosu_gem_free_object,
+ 	.print_info = drm_gem_dma_object_print_info,
++	.export = ethosu_gem_export,
+ 	.get_sg_table = drm_gem_dma_object_get_sg_table,
+ 	.vmap = drm_gem_dma_object_vmap,
+ 	.mmap = ethosu_gem_mmap,
 
 -- 
 2.53.0
