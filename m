@@ -1,116 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE73492520
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA4594CA77E;
+	Tue,  8 Sep 2026 09:41:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860484; cv=none; b=MI8LSjTKhp5MZFb1DmJIjHQzcAcNyqJm0OcXzvZIQS88R036oORueaZgHMDVPXK7zlyBP5Mu1J2s3kqgxOt/Yq02Q2uz0WKo8/1FCSmxKYH585UEvSLtMkUTwTN+x+GcyqZd9A7r1PnTDGJzpJvKR1yqnJIDTN5CQ2F3OpDKJDg=
+	t=1788860487; cv=none; b=IiYLePDMVzpSWJGOvJSOE1zmHAh5jQVZMZ4/hzoUfvJ0vct+6zvWjPklAQw0GRYpwQqnmgImaSGJ2upbw2TZz2y13WBqfPAxhd6gU+iBBX11eIsRGSWTuq5SpCJZyaqm1wPqKDwbRM6D67bhLPKrwuIRb9BRriIUAOhVQfEJ1Ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860484; c=relaxed/simple;
-	bh=RwLQFqLrDNVfkarvRNPNob4p6+k/51OfvwavENLv0Lc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=keh76VueEJdEh10DqeZYKpEIgy44VFAmDhBiyV3oE0pnF+Hm0aoDzI6SG2IDgC2u1/zwR2vrmb2l59NAYvxtNu9VGGGxfvfQeeMcv1hQmDJPfLiic0GTNiAcoWCpAziOuys6Yo1MpNpAg+O01VY2CU7JsFiV26kF4+BQNZLn1l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cQaH6eRO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cQaH6eRO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAE691F00A3D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788860482;
-	bh=/o85pS/qqd9I0BuTSjXv275q+WHwEmXL7pWePkBg4zM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cQaH6eROPbXpCSWdztk67bny7BITqyRlfqMxjfYHXIfU/uprINaVOProkBIcXEQRA
-	 /zwfPsFBOhYzBP3PS1xj+dxBWfocOb3xeszA31pfyjT6UDtE4Vmp8kjlYCFCs7fpw3
-	 hAOEZFxlWEHFG/J9S4AwBB5fdK1C3AvmlPt+IKVqhg+hbS21/4SCqMWevlDDnpJ+N6
-	 OdJaPPrFF7s1cuS6xZNCggKxTFy3CTg+zsHLzdLDSlb4nXpKYyI5qrAIBDYtDWDoaT
-	 b3Gfkt+WwAhCgwmyhoycAHVK1TQw4SZKYe6EbriAXb5FJRQ7vJmCVZnvy0/ZA19otp
-	 +1c6/OltifWow==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c25b661d37dso609036866b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:41:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzIAZxlERQVkteCV7CFPEYTClen1lTOoJKQOkkrtdWHUWh0W0HOTx69JMLwZ+vAxxB+/OJwL1jztD4Cy6M=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+8GCVeFzBKYXOTZsrlCvrEG23vE2GUkHUAbTOqf5PELbD7YQG
-	hTgkH/LWlvtpONs/cceq8G3lDk78pAVBNh6dslud1nBB5qcUAht2BnU2wmApLRG4ymhD1cFEjIn
-	rIwTsBdMeFH3eGqhFXTahRmyHBpqVUZo=
-X-Received: by 2002:a17:907:ea8d:b0:c26:2795:b494 with SMTP id
- a640c23a62f3a-c262795c1b3mr687549966b.49.1788860481301; Tue, 08 Sep 2026
- 02:41:21 -0700 (PDT)
+	s=arc-20240116; t=1788860487; c=relaxed/simple;
+	bh=927i0POuteXLSBNVLgMU73J3Nczar0uXhikC4tx4xKg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WPjKJslGHUVGDpXmoov2ftLGJyK9PrSo9g/6osDQX1UqUab2MVn+ertNLcpuDK+zN6fdLz+NhQqq12eNSzH0Rhmyp7O+7FAAiXxguyCUOyLZMQ9V1U/pO/TqbCSFcRqiDUCEomn19vT6+3Qb1bZEmdAna43tSi6mAGPUdrJpBB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 714da566ab6911f19a56ed5b684f684d-20260908
+X-CTIC-Tags:
+	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CTE_8B
+	HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME
+	HR_SJ_DIGIT_LEN, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM
+	HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT
+	HR_TO_NO_NAME, IP_TRUSTED, SRC_TRUSTED, DN_TRUSTED, SA_TRUSTED
+	SA_EXISTED, SN_TRUSTED, SN_EXISTED, SPF_NOPASS, DKIM_NOPASS
+	DMARC_NOPASS, CIE_BAD, CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS
+	GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:b223f7a6-611b-4a2b-9651-2e2074a52760,IP:15,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:10
+X-CID-INFO: VERSION:1.3.19,REQID:b223f7a6-611b-4a2b-9651-2e2074a52760,IP:15,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:10
+X-CID-META: VersionHash:7db8b62,CLOUDID:4f6c2ac63aeba85c8c7c42e1d1963a5c,BulkI
+	D:260908174120EI0IXWZC,BulkQuantity:0,SF:10|38|66|78|102|127|850|865|898,T
+	C:nil,Content:0|15|50|99,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+	0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 714da566ab6911f19a56ed5b684f684d-20260908
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(116.128.244.171)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 894235165; Tue, 08 Sep 2026 17:41:18 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: sgoutham@marvell.com,
+	rkannoth@marvell.com,
+	gakula@marvell.com,
+	sbhatta@marvell.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>
+Subject: [PATCH net-next] octeontx2-af: consolidate RVU AFVF device id definitions
+Date: Tue,  8 Sep 2026 17:40:51 +0800
+Message-Id: <20260908094051.666769-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <SY0P300MB031263862D7FD47834F1E87FDEB42@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
- <CANFS6baT-+_u+c99qThd7jekqXZ3BW5utLPERLa_X3FE7XiBNw@mail.gmail.com> <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
-In-Reply-To: <SY0P300MB0312DC95FDD1B45AF364267EDEB22@SY0P300MB0312.AUSP300.PROD.OUTLOOK.COM>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Tue, 8 Sep 2026 18:41:09 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-8aGEA=cPifa48iF8Ek8_SjZMSEzpK0+bW6Y7PgGsYNg@mail.gmail.com>
-X-Gm-Features: AcwNN1UoA1V7RNEpcatzH43l99XRM3sttmDQkqqVNWQ3Gm5BlcgEnGg1xEUXCU8
-Message-ID: <CAKYAXd-8aGEA=cPifa48iF8Ek8_SjZMSEzpK0+bW6Y7PgGsYNg@mail.gmail.com>
-Subject: Re: [PATCH v2] ntfs: fix $MFTMirr write offset when it spans multiple folios
-To: =?UTF-8?B?5pyxIOWkqea1qQ==?= <zhutianhao75@hotmail.com>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>, "ntfs@lists.linux.dev" <ntfs@lists.linux.dev>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026 at 5:41=E2=80=AFAM =E6=9C=B1 =E5=A4=A9=E6=B5=A9 <zhutia=
-nhao75@hotmail.com> wrote:
->
-> When commit 115380f9a2f9 ("ntfs: update mft operations") refactored the
-> MFT code to use folios, it assumed $MFTMirr is allocated contiguously,
-> which is indeed what mkfs arranges.  However, the folio rewrite kept a
-> leftover from the old buffer-head/runlist based implementation:
-> vol->cluster_size_mask is still applied to the mirror write offset.
-> In fact it is no longer needed -- and in some configurations it is
-> actively wrong.
->
-> The bug triggers whenever the four mirror records do not fit in a
-> single folio, i.e. when mft_record_size exceeds PAGE_SIZE / 4 (for
-> example mft_record_size > 1KiB on 4KiB pages).
->
-> For example, on the built-in 4Kn SSD (Apple SSD AP0256J) of a
-> MacBookPro14,1 with 4096-byte MFT records, mirror record 3 is still
-> written to the location of record 0.  $MFTMirr therefore gets out of
-> sync with $MFT and the following warning is printed on remount:
->
->         ntfs: (device nvme0n1p3): check_mft_mirror(): $MFT and $MFTMirr
->               record 0 do not match.  Run chkdsk.
->
-> Fix it by always adding the folio offset (folio->index << PAGE_SHIFT)
-> to the base LCN address instead of applying the cluster_size_mask
-> truncation.  This is the standard file-offset calculation and is
-> correct for every combination of cluster size, page size and MFT
-> record size, provided $MFTMirr data is contiguous from mftmirr_lcn
-> (which mkfs always arranges).
->
-> Tested on the volume above: before the change mirror records 1-3 are
-> all written to record 0's sector; after the change the write-back
-> probe reports:
->
->         ntfs: NTFSDBG pre mft_no=3D0x3 folio_idx=3D0x3 ofs=3D0x0 mftmirr_=
-lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0640
->         ntfs: NTFSDBG pre mft_no=3D0x0 folio_idx=3D0x0 ofs=3D0x0 mftmirr_=
-lcn=3D0x2540c5 clu_bits=3D12 rec_bits=3D12 PAGE_SHIFT=3D12 sect=3D0x12a0628
->
-> which matches the expected sectors computed as:
->
->         (NTFS_CLU_TO_B(mftmirr_lcn) + (folio->index << PAGE_SHIFT)) >> SE=
-CTOR_SHIFT
->
->         record 0: (0x2540c5 << 12) + 0x0000 =3D 0x2540c5000 >> 9 =3D 0x12=
-a0628
->         record 3: (0x2540c5 << 12) + 0x3000 =3D 0x2540c8000 >> 9 =3D 0x12=
-a0640
->
-> A 13 MB file write succeeds on this volume and the file is byte-for-byte
-> identical after a umount/mount cycle.
->
-> Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-> Assisted-by: UOS-AI
-> Assisted-by: CodeBuddy:Hy4 preview
-> Signed-off-by: Zhu Tianhao <zhutianhao75@hotmail.com>
-Applied it to #ntfs-next.
-Thanks!
+commit f695390ea639 ("octeontx2-af: Fix limiting SRIOV VF count logic")
+added a local PCI_DEVID_OCTEONTX2_RVU_AFVF define in rvu.c, duplicating
+RVU_LBK_VF_DEVID in rvu.h.  Move the definition into the "PCI device
+IDs" block in rvu.h, rename RVU_LBK_VF_DEVID to match the PCI_DEVID_*
+naming convention of its peers, and drop the local define.
+
+No functional change.
+
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+---
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.c | 2 --
+ drivers/net/ethernet/marvell/octeontx2/af/rvu.h | 4 ++--
+ 2 files changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+index 937b085582b5..65e08ad9d82e 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+@@ -3468,8 +3468,6 @@ int rvu_get_num_lbk_chans(void)
+ 	return ret;
+ }
+ 
+-#define PCI_DEVID_OCTEONTX2_RVU_AFVF	0xA0F8
+-
+ static int rvu_enable_sriov(struct rvu *rvu)
+ {
+ 	struct pci_dev *pdev = rvu->pdev;
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+index 094227404ef9..16846eeb793d 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.h
+@@ -22,6 +22,7 @@
+ 
+ /* PCI device IDs */
+ #define	PCI_DEVID_OCTEONTX2_RVU_AF		0xA065
++#define	PCI_DEVID_OCTEONTX2_RVU_AFVF		0xA0F8
+ #define	PCI_DEVID_OCTEONTX2_LBK			0xA061
+ 
+ /* Subsystem Device ID */
+@@ -882,11 +883,10 @@ static inline bool is_rvu_supports_nix1(struct rvu *rvu)
+ /* Function Prototypes
+  * RVU
+  */
+-#define	RVU_LBK_VF_DEVID	0xA0F8
+ static inline bool is_lbk_vf(struct rvu *rvu, u16 pcifunc)
+ {
+ 	return (!(pcifunc & ~RVU_PFVF_FUNC_MASK) &&
+-		(rvu->vf_devid == RVU_LBK_VF_DEVID));
++		(rvu->vf_devid == PCI_DEVID_OCTEONTX2_RVU_AFVF));
+ }
+ 
+ static inline bool is_vf(u16 pcifunc)
+-- 
+2.25.1
+
