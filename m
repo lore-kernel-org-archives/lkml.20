@@ -1,76 +1,72 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D321360EDE
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:32:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749BD2475F7
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 05:32:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788845522; cv=none; b=qCz86iTjG1xUdOT6lHlvDjCm+QVeWjHV7BJeBUHXjWAcYeUcWGKTY2ZnajaqpUfJkAVOGvhrVFyWU43KK/7sNCW/sTbav0whijPd38b6yurF3sGXG41bbLNxIpE/IbfQFMPl4zMfuRV14GAGDRUt1cHBjcaAhPIyMHq/RIPGUps=
+	t=1788845545; cv=none; b=UQBuOKVOft4MVDBW2p2POf6A+Ofw4IxBGFUk+5oyTNwJhGRGOf+wq3cXW57xKKuWH2V1R+CB2FEHuUr4+b+nXNj1NiRnm+4n7FBhXlXePDoG45NB8zobEvVby/Aed78/k+Ex0hQNXlvj8Lf49rAD9DXSR81D96x28KIxU3Nq1TI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788845522; c=relaxed/simple;
-	bh=iwnWeb25yE+rfN9kEI49A4U/Q/LIF6dD2bDHyg4G3r4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TosQ0mZTWWrdAdlwTI6czUn3Y/yq1A9HHHh7omZq6HuQj6sc8o6vsJGPut446YrMCSe2JAx1UCAdqjRwHWGIVTMxXAtay+GFg53LgeTbVAbVnejYcCIY2cJxkz7PwNSd76WN7HVdA7qyGCsc9FwVgqZpIe1Kk9LpRi7Uvc1L9p8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com; spf=pass smtp.mailfrom=jclark.com; dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b=mrhfo5Gl; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	s=arc-20240116; t=1788845545; c=relaxed/simple;
+	bh=BUEFBi7BhLlZIE5vAE1BqHgeqpKUHbP6UUaZ/4gBUDs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ic9QpAqujDsFSAmQfcWhvjwFLFTpdRCuXBhQw086JEcWupj0GxC4jF7xjBqSR219l3vjQ55l5DNA2iFj+E0scMEqCpUtVLGJrKoRjF7PZTGIsbQDpv0HTWdE5/bfAM6nJsxuMD2VYX1w2f1DXYw5Wn0KX9JjwkUOgC874I7VsxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gaMXiA1K; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.b="mrhfo5Gl"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39b24d114d4so4363686a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:32:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gaMXiA1K"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d6so169002a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 22:32:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1788845520; x=1789450320; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788845544; x=1789450344; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WhTOX+3txKjY+wR/I/V3MXNzBLpDrt5vGG76ZNsRJD8=;
-        b=mrhfo5GlwTXyeDvnjGyeWlEDWgj025c3iITACc5W7RBSILRY6+HA50cIMAlo4YUwnV
-         5OFEsTzL9VoGMLLm4rAJvvOsOLIVOX9n3/bUBgyHA5Hn3A1LUN1XXjCJ2F7quf1S5yTZ
-         PP0kvsiBRxXENk9JlJQMLrl7+tpi+zpCHkCsdoM8ALO1SWH15TMwcpwkyvht1AqUGzYY
-         tUt/2+53T6A9Dm0J31zWOHaIBwvZreTkQU+rsPcadT0Ozq4+iYhURnm9WuZvRABPREeK
-         KJw1pztvtdqf/HHy5xwYXK09LiTECnkpCVQ7Swa50uJ+R8yodXhHLqajmtlC7VD0Zz+x
-         G0yQ==
+        bh=9F97joUpaeTJjnoK9hNmBns6HWtkcsHpFMF6nJgaGxc=;
+        b=gaMXiA1K/OU3BC0VL9q8yH/UUcEZuCp/vC/4bKeHJlqfaMT7ftfQCFDbKZEpCYlHv1
+         MXFpXRv0BwZeVKvAMvq8GtgtJx5lTkRqpkwup05n4C9ipML0y1duCxG8QYb5Nw4a3ID/
+         uRY8u0r+PqD8Xhhpr7FJXkUXAYhL25Encj6Xk3TXorclY2jBTBDFLboTmyvnBJEgkvhV
+         8oXInkR/li8DrF3HeMgpQodjFTX1JRTbKykTMT9qiSt21apbxCMN7lSJalp4dYNZmJbe
+         1mA+Bf/i2cJyvKji6r6Kr8zR9kTKj8JxST6aWycIDiMdeev0psqRCFCqX28CNQHcCaOc
+         HQUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788845520; x=1789450320;
+        d=1e100.net; s=20251104; t=1788845544; x=1789450344;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WhTOX+3txKjY+wR/I/V3MXNzBLpDrt5vGG76ZNsRJD8=;
-        b=ngV24KEJO+mDdm8z4t5SHgseF0kvUy4+TscrjvY0jfA/FasJns2/PsWFa/zBTc4yxY
-         Bv+7so5XRDpSEsSbcx0OccSarzhu9FizXII7W6zqfg7Inwx6oK4z/i24DGyWnYNgHohZ
-         QLQGrnPOCudgeSRPRKHMaPOiHUydruM0RomYMdRMBblG55PaDjS1jlwWvmLV9sHRYDAk
-         b1tGDRvIyW29OMSeUmh2Gg2h4XnQOCr8/FB023FAntE32PT6jsVSSB770Ihk/ZvaRNts
-         QrPD3B4i7P4I+YpD8XFddHdE+wFFWu20xv9Ten/LT/fQnrtbqz5lzZAbxaokA650Ct/u
-         st7w==
-X-Forwarded-Encrypted: i=1; AKwUvBx5ZCPcoRaDYRiXZyF9DO4VafkiSZ0lChwidEZC4C5MwShBbOf1SFxYzy2D0p3vOm717MryB3JxFpiPOX8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFdUrZxCMT5rMxvI+3LM51FUOMBKHlJsYbc6MDc7MWivWb4hnF
-	K2UcYVcgb7Lc75ja24ayU3K11WtPLpTgUDEAFnLVcwI/BqerJ9aTussskZbQp6ohQg==
-X-Gm-Gg: AYBFou3bFnbnYv0vyNy7xP8+iqQNL4IWixxoYVGDVkKlL/v5wtAKXS1rlFnQA18BYOs
-	QqeHhhEtgsU/hN0FkRFBVhYpPHK5YoUx6sXQJB7yOpz88RxM3r7pHii9oSop+HrRqB27uFPCDkA
-	MdRbYfebHW3/23yf/BpbeY55GOQ4SQhxq1PvtoQq6/L8ieuqColwJTAebt5g/R5ygmkyLWe+BFf
-	G5lL6xGNUvqYxAVysFlO/VX4Vwlt6h3TxeN5nc/nqlOpls3oJ5s9KfnZpQa82RRP+efjSqOP/l4
-	HfuLr7ylpiLAR/D2MNTJyB3+T+NE/7IQqULoYAgNbxBb+tRRm8ZL0Zey47aC2wIxsqRvgNL9apE
-	5FmiZjUM7PMpEWtYwLKg8af+OYcVl1aQS2nrABKlGRCrs0Dah3eoJX+U30R6lLj2dIBpwfVc0at
-	xMGO8sp8WxIWEg5/Losp6vtHXzZYqM7xPvJkuJWClJmXvGeaXhqbWl5siYRDGPhYRulTf/
-X-Received: by 2002:a17:90b:57cd:b0:38e:bfe:81e9 with SMTP id 98e67ed59e1d1-39b260fead0mr40465578a91.1.1788845520117;
-        Mon, 07 Sep 2026 22:32:00 -0700 (PDT)
-Received: from mimolette.lan ([58.136.73.233])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacba5sm31866443a91.12.2026.09.07.22.31.56
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 07 Sep 2026 22:31:59 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	netdev@vger.kernel.org
-Cc: Richard Cochran <richardcochran@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH net] net: macb: fix ordering around PTP timestamp read
-Date: Tue,  8 Sep 2026 12:31:45 +0700
-Message-ID: <20260908053150.28694-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.50.1
+        bh=9F97joUpaeTJjnoK9hNmBns6HWtkcsHpFMF6nJgaGxc=;
+        b=DSQHfePN65k+FcMLOEaDytajDRXjbKC7IiGuYHCIqgXFUrYFkdhkR/oRwI29nPLmBn
+         gXifPa4RznNqVw1o5K5WDyLKltyLbuL2TeGiAle8/YKmoEhle9DWvh4YM6BR6p6lEDKV
+         +h3Yqwz8gYaP+zGhROBCc6crhkS6ZnL5+3Y0tMg5GIM6QOZU9gV8uYE4CPoaMvQ09/av
+         QTi++SW3+hc92MlTS/mGJkucYxKeLPP4Mp+AiL81AMJCmBnZi6nk0ZETm8qSbO+J+5pE
+         RFViu0rcsoHVnads1iHfEmDtm6hYBP0Vszu1jCRvNcCNUENpKP364hduChYN/g5ftuye
+         rvag==
+X-Forwarded-Encrypted: i=1; AKwUvBzLOrLCKmCmbu5G2px4xmS1tyFiMs7nhwsZ+WgAlq/1xhOXzwLf6lneJuwBizTwng0mDNi6kYwmss0kY2k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lw9wsXAtn8Il15IYxF3H3y3C7THip8H5o+0j3jVPoxs+e+8fYJ
+	mmgEdtzTYlUY09RZhMN9bCMPHH19Mp7fCf3h3kpkOS5JlMmRG+klCaxD
+X-Gm-Gg: AYBFou3HdxpyAeQkJwv6TDTCbF//iiekqezoq51PRlof/aJ7+FXWuuOtRvpfpmfZVa4
+	1nM67dDcho+WfwhBhYs/XnTZQ/2ohCv3Nt+5fZD6ngWcmzjagjEGqrS8RimaBRmnkuAGnkmcvoP
+	cE7bpAuN+ua/Q2gtxZYqFZoEikD6g5SARpl02aWV631Xs4ekH0uf/1RL5C4jWReS2Fm18hhuIAl
+	pwpxD2PKU6HgcCJWWMmpCVaOk6EGjoNlJowLDVNkQfKcFXKqRL5NxjAFrkG1QmkuX2fxjmkJtwY
+	EgQyNna/MKV5oDcirviZWjHkGpkRGtjoJYo9uzy+ELKv2Wck0237TOvUR7xDfS8kiidtg+UrmYo
+	DWXac/KAoJpxbV9N3RukwC7VyssgMB/nqd3dMKMzTJKMCtxDN8vlnZIUOkMousiAIxwxzmQ+NFs
+	o99MwJlyj1f2Y+3fNOPIdTnsURoS291f+YKJZa+T7j633uUgEwamBy+T/5AlX+eCPMkBS2GzcH7
+	twS/kDhX35+YN6OER+bjdKqoT/PDZHHUVhS17Hxw9aXhg6GMSsp/jtFqSGHnFeDBgSe8nU2GgzK
+	wDinqC7SGxPQhBD8YaQpzO5pmjoAsQy5vc3dQg==
+X-Received: by 2002:a05:6a21:3204:b0:3d3:ad6e:9cdd with SMTP id adf61e73a8af0-3da9d98ddd3mr4188414637.11.1788845543542;
+        Mon, 07 Sep 2026 22:32:23 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4554a312dsm5041424a12.29.2026.09.07.22.32.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 22:32:22 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-leds@vger.kernel.org
+Cc: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] leds: rgb: qcom-lpg: Use fwnode APIs for LED parsing
+Date: Mon,  7 Sep 2026 22:32:21 -0700
+Message-ID: <20260908053221.29955-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,88 +75,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-PTP_SYS_OFFSET_EXTENDED returns system timestamps that do not correctly
-bracket the PHC register read on MACB/GEM. On a Raspberry Pi 5, the
-returned interval can be as short as 37 ns, while an ordered register
-read takes approximately 1 us. This biases the midpoint used by phc2sys,
-causing CLOCK_REALTIME to run approximately 0.5 us ahead when synchronized
-to the PHC.
+Convert LED and channel parsing in lpg_add_led() and
+lpg_parse_channel() from DT-specific helpers to the fwnode API.
+The probe loop now uses device_for_each_child_node_scoped(),
+dropping explicit node lifetime handling.
 
-gem_tsu_get_time() reads the nanoseconds register using the driver's
-relaxed MMIO accessor. On weakly ordered systems, the subsequent system
-timestamp can be taken before the register read completes.
+Behaviour is unchanged for device tree: fwnode_get_child_node_count()
+and both child iteration helpers skip unavailable children on OF,
+and the fwnode handle is passed straight to LED registration.
 
-Add rmb() after the bracketed nanoseconds read in both the normal and
-seconds rollover paths, ensuring that the read completes before the post
-timestamp is taken. With the fix, the minimum interval on the same
-Raspberry Pi 5 increases to approximately 1 us.
+cdev->default_trigger is only assigned when
+fwnode_property_read_string() succeeds, so an absent
+linux,default-trigger property no longer yields an uninitialized
+pointer.
 
-Fixes: e51bb5c2784c ("net: macb: ptp: Switch to gettimex64() interface")
-Signed-off-by: James Clark <jjc@jclark.com>
+Assisted-by: opencode:deepseek-v4-flash-free
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-This uses rmb() to preserve the existing accessor and endianness handling.
-Would an ordered MMIO accessor be preferable for these two reads?
+ drivers/leds/rgb/leds-qcom-lpg.c | 36 ++++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 16 deletions(-)
 
-Reproducer:
-
-#include <fcntl.h>
-#include <linux/ptp_clock.h>
-#include <stdio.h>
-#include <sys/ioctl.h>
-
-#define DEVICE "/dev/ptp0"
-
-int main(void)
-{
-	struct ptp_sys_offset_extended ex = { .n_samples = 25 };
-	long long min = -1;
-	int fd = open(DEVICE, O_RDONLY);
-
-	if (fd < 0) {
-		perror(DEVICE);
-		return 1;
-	}
-	for (int batch = 0; batch < 40; batch++) {
-		if (ioctl(fd, PTP_SYS_OFFSET_EXTENDED, &ex) < 0) {
-			perror("PTP_SYS_OFFSET_EXTENDED");
-			return 1;
-		}
-		for (unsigned int i = 0; i < ex.n_samples; i++) {
-			long long bracket = (ex.ts[i][2].sec - ex.ts[i][0].sec) * 1000000000LL
-				+ (long long)ex.ts[i][2].nsec - ex.ts[i][0].nsec;
-			if (min < 0 || bracket < min)
-				min = bracket;
-		}
-	}
-	printf("min bracket: %lld ns\n", min);
-	return 0;
-}
-
- drivers/net/ethernet/cadence/macb_ptp.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7da..8209ec190 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -51,6 +51,8 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
- 	spin_lock_irqsave(&bp->tsu_clk_lock, flags);
- 	ptp_read_system_prets(sts);
- 	first = gem_readl(bp, TN);
-+	/* Ensure the PHC read completes before taking the post timestamp. */
-+	rmb();
- 	ptp_read_system_postts(sts);
- 	secl = gem_readl(bp, TSL);
- 	sech = gem_readl(bp, TSH);
-@@ -63,6 +65,8 @@ static int gem_tsu_get_time(struct ptp_clock_info *ptp, struct timespec64 *ts,
- 		 */
- 		ptp_read_system_prets(sts);
- 		ts->tv_nsec = gem_readl(bp, TN);
-+		/* Ensure the PHC read completes before taking the post timestamp. */
-+		rmb();
- 		ptp_read_system_postts(sts);
- 		secl = gem_readl(bp, TSL);
- 		sech = gem_readl(bp, TSH);
+diff --git a/drivers/leds/rgb/leds-qcom-lpg.c b/drivers/leds/rgb/leds-qcom-lpg.c
+index d7d6518de30f..dcc8e6f14c8b 100644
+--- a/drivers/leds/rgb/leds-qcom-lpg.c
++++ b/drivers/leds/rgb/leds-qcom-lpg.c
+@@ -11,6 +11,7 @@
+ #include <linux/nvmem-consumer.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
++#include <linux/property.h>
+ #include <linux/pwm.h>
+ #include <linux/regmap.h>
+ #include <linux/slab.h>
+@@ -1342,7 +1343,7 @@ static int lpg_add_pwm(struct lpg *lpg)
+ 	return ret;
+ }
+ 
+-static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
++static int lpg_parse_channel(struct lpg *lpg, struct fwnode_handle *fw,
+ 			     struct lpg_channel **channel)
+ {
+ 	struct lpg_channel *chan;
+@@ -1350,17 +1351,18 @@ static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
+ 	u32 reg;
+ 	int ret;
+ 
+-	ret = of_property_read_u32(np, "reg", &reg);
++	ret = fwnode_property_read_u32(fw, "reg", &reg);
+ 	if (ret || !reg || reg > lpg->num_channels)
+-		return dev_err_probe(lpg->dev, -EINVAL, "invalid \"reg\" of %pOFn\n", np);
++		return dev_err_probe(lpg->dev, -EINVAL,
++				     "invalid \"reg\" of %s\n", fwnode_get_name(fw));
+ 
+ 	chan = &lpg->channels[reg - 1];
+ 	chan->in_use = true;
+ 
+-	ret = of_property_read_u32(np, "color", &color);
++	ret = fwnode_property_read_u32(fw, "color", &color);
+ 	if (ret < 0 && ret != -EINVAL)
+ 		return dev_err_probe(lpg->dev, ret,
+-				     "failed to parse \"color\" of %pOF\n", np);
++				     "failed to parse \"color\" of %s\n", fwnode_get_name(fw));
+ 
+ 	chan->color = color;
+ 
+@@ -1369,25 +1371,26 @@ static int lpg_parse_channel(struct lpg *lpg, struct device_node *np,
+ 	return 0;
+ }
+ 
+-static int lpg_add_led(struct lpg *lpg, struct device_node *np)
++static int lpg_add_led(struct lpg *lpg, struct fwnode_handle *fw)
+ {
+ 	struct led_init_data init_data = {};
+ 	struct led_classdev *cdev;
+ 	struct mc_subled *info;
+ 	struct lpg_led *led;
++	const char *trigger;
+ 	const char *state;
+ 	int num_channels;
+ 	u32 color = 0;
+ 	int ret;
+ 	int i;
+ 
+-	ret = of_property_read_u32(np, "color", &color);
++	ret = fwnode_property_read_u32(fw, "color", &color);
+ 	if (ret < 0 && ret != -EINVAL)
+ 		return dev_err_probe(lpg->dev, ret,
+-			      "failed to parse \"color\" of %pOF\n", np);
++			      "failed to parse \"color\" of %s\n", fwnode_get_name(fw));
+ 
+ 	if (color == LED_COLOR_ID_RGB || color == LED_COLOR_ID_MULTI)
+-		num_channels = of_get_available_child_count(np);
++		num_channels = fwnode_get_child_node_count(fw);
+ 	else
+ 		num_channels = 1;
+ 
+@@ -1403,7 +1406,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
+ 		if (!info)
+ 			return -ENOMEM;
+ 		i = 0;
+-		for_each_available_child_of_node_scoped(np, child) {
++		fwnode_for_each_available_child_node_scoped(fw, child) {
+ 			ret = lpg_parse_channel(lpg, child, &led->channels[i]);
+ 			if (ret < 0)
+ 				return ret;
+@@ -1426,7 +1429,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
+ 			cdev->pattern_clear = lpg_pattern_mc_clear;
+ 		}
+ 	} else {
+-		ret = lpg_parse_channel(lpg, np, &led->channels[0]);
++		ret = lpg_parse_channel(lpg, fw, &led->channels[0]);
+ 		if (ret < 0)
+ 			return ret;
+ 
+@@ -1441,14 +1444,15 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
+ 		}
+ 	}
+ 
+-	cdev->default_trigger = of_get_property(np, "linux,default-trigger", NULL);
++	if (!fwnode_property_read_string(fw, "linux,default-trigger", &trigger))
++		cdev->default_trigger = trigger;
+ 
+ 	if (lpg->lpg_chan_sdam)
+ 		cdev->max_brightness = PPG_MAX_LED_BRIGHTNESS;
+ 	else
+ 		cdev->max_brightness = LPG_RESOLUTION_9BIT - 1;
+ 
+-	if (!of_property_read_string(np, "default-state", &state) &&
++	if (!fwnode_property_read_string(fw, "default-state", &state) &&
+ 	    !strcmp(state, "on"))
+ 		cdev->brightness = cdev->max_brightness;
+ 	else
+@@ -1456,7 +1460,7 @@ static int lpg_add_led(struct lpg *lpg, struct device_node *np)
+ 
+ 	cdev->brightness_set_blocking(cdev, cdev->brightness);
+ 
+-	init_data.fwnode = of_fwnode_handle(np);
++	init_data.fwnode = fw;
+ 
+ 	if (color == LED_COLOR_ID_RGB || color == LED_COLOR_ID_MULTI)
+ 		ret = devm_led_classdev_multicolor_register_ext(lpg->dev, &led->mcdev, &init_data);
+@@ -1638,8 +1642,8 @@ static int lpg_probe(struct platform_device *pdev)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	for_each_available_child_of_node_scoped(pdev->dev.of_node, np) {
+-		ret = lpg_add_led(lpg, np);
++	device_for_each_child_node_scoped(&pdev->dev, child) {
++		ret = lpg_add_led(lpg, child);
+ 		if (ret)
+ 			return ret;
+ 	}
 -- 
-2.47.3
+2.55.0
 
