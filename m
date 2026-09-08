@@ -1,91 +1,103 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7DC583AB8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77CF5579838
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 16:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788885209; cv=none; b=C+7R31MwbcVUcgG/r1OWJUlAm9efjDiRUnI/AtdVxCgaZ4TVabaXkBPg528X6LS4RAojTs/uEm4mTKtDVOwU/G8og7lHiXO5Tl0QeqqK+yMMTeeefTn1HXZgJy5eapJMCs2ZzQw7ZXRbvbOEGT2/d+5PriCpJWEQHuMdsMWDhq8=
+	t=1788885243; cv=none; b=G/Whr5YgFKvYr5Mk8l9fKkf6S7+Ltr99DV41NiLy4pDt4StSZhDm/F7cuVd6wdEw+RmdOmjoyklwMdaEh+7B4A5TBey1CFjr1zVE5m1DQwgej3iJwb61X2PDCR+FpSd2me4/NGF2ZiJflAJ4R4F2pEWS0pbdWX3KAwGd9Fomm9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788885209; c=relaxed/simple;
-	bh=yBAnOHQn7rPSTJL9LuORbc7lDrVtXUzjk+vsXw73QIY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Io34uu0jAdb5E3fJOqYWZ9PnzZw6xLN+mnGswyUo+VaBuYLrR6EdHpGTQAF5qyB3frbrrcioVkqlKhrhkEpKQmxuTQWjMW6CwbVzaeZL8zkx7d/bwllxwkDVkT7UpMq8wj3H6pHDqQ4+ndgkeS3jvXbexIr2OidJRCFaDnkCPGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8I1n1lU; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788885243; c=relaxed/simple;
+	bh=4PWeVwZklsxBELa7PilCTz0ljdxc8I/fxpQlz8ppqaM=;
+	h=From:Date:Message-Id:To:Cc:Subject:Content-Type:Mime-Version; b=q7aoTIEh8IFkZP5J+NT3AuZgZaFb9P+BJnmG9JqTPZg/X78uObmJEczzgckt8dUEu7ZF2MCVeYLCed+ME1DHyR2TEGgmn+lpQG5BADPUvDgKHtAMycH9cK2q+HoTzAT2OUzXb8F9SBdcKp9Ugi+UUxZNM+l8NM43XNV2Ncq4mKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=Ga6vS0RM; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8I1n1lU"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d6d28aa26cso29922175ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:33:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788885207; x=1789490007; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HCMxOpzkPWvwtPGSWgpMXMCScuJYEjTiRbXV88KqE5g=;
-        b=s8I1n1lUG4fAKUec3yJLTF+Y/Ewm+9uAmbbp/6V4d7SLYTD9kn6w+PgXdwG7ri6UQ6
-         2bS/yO/jijYbtCIxz+jsXz7hvbNwySGoinDPgnIMqSan4a2+7L+uJxq0pt7fUN354gSw
-         Y5Ukie10vtJA5LS0cOl0qscYyHa3f+bMLDx9yHDz8sBk6GpLB9G4d7PcJUSpwn2d24xS
-         aD8x5wPZrxd2RqKymFByZiN5kyyfb/ykeaLqsYDv98qcnEv0HraWm1qKm2ojfRgLUEfd
-         ZoGZI2LRmrudCu5Xo4vPQh2yrGuH+O94KuSp1uJ6wmH7DT533PVW1J+39aCyrU2cOIRk
-         JMsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788885207; x=1789490007;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HCMxOpzkPWvwtPGSWgpMXMCScuJYEjTiRbXV88KqE5g=;
-        b=a5XO93tooIjRvamFxeZEyNAlj8gjGvLOuaASk1O/9cZFbesOUkT15X52TpENwU/le4
-         oxPJeoHw3xWHt1R0atPGYt7fR3VoMcbgd7ZIm2YwiFTR0lqjEcccMBsAljkJJ6G2Wv62
-         mOjkYS2Lzm/I7oLRfbCwYe8aZ+FUoSBk6pVoOMMhSdqso/a+23cdvFJY85fV4B2wJp3F
-         ypmyMcZs4WgNNqJlVJUBSq+o53oJbkoGZTp6LswgNJNMDr2BYDR2JVom8418lP1Tszxz
-         SutySrff0+JfF8WkzTH6NceILM6Befu0IVODqxNC1BtruzEBxXHDGawyUNde71WTCFao
-         Kg0A==
-X-Forwarded-Encrypted: i=1; AKwUvBx5WF18keo8nqRtYxEu2qnrioS25fmXFK7w/QUKJlEZj1tvwatg2/SjIrMOKEFBmHvp9J4qDVQW1UY9NmY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHvFBwYU2B3nOxxdltPWslvgsoOtOtkSrh/imaZy87edCLFJ1w
-	L9nvxg7LOgYBevsX7xv4zXMbZ9GAApCiWyWfj4LWsgRGtw34rmVpeFDO
-X-Gm-Gg: AYBFou1fvhPe0WaQUqzTFQYW3c4cggYlsfubSUXjU299gH/DfZGZVUtGXBY65/+3N+S
-	URGbo1oXq5+Se0VPifFXjQgxCfMmJtKRmSNAfUnmc7vGyDwF5Bae5XsivqLhEa6PJANLqjSPuHB
-	Jp6YZ1+a8NnvudDcne34ZK1hddqKiT74JExcWeGTxfFc/UztzO9Ls4L7tr7GnB+Ak7I9Roh5iS0
-	a0WDafSe989eekDJF6cmSdRoRS91EuiAV9wJmXq/RxJTjfFXGmXrrmccwnrVVyKraYmvb9XPDE7
-	7Z+cTwAnCl2RMAuDddfOzE0I63X3QFGqyvMXRfYmFNZdLv97sIb1YgleUsUq/tWQJ3NN/8qdgOL
-	ZFYBMMCxa077cA2Q30tZS9+fV+ynnmvYmBmEAyxW6ta3fQmSDqXbrcZ2JkStjZhConqwC9ugmec
-	mqPlUbrblt/2iCpI6bfwfkBLvIcPhR8KgNfp0/civ6p2SzSI7x49baQYwb/sz8u+d+n6vN2GfWE
-	Q==
-X-Received: by 2002:a17:90b:4984:b0:381:25ce:bcc2 with SMTP id 98e67ed59e1d1-39b26104798mr41111091a91.6.1788885206711;
-        Tue, 08 Sep 2026 09:33:26 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b26127fddsm26725619a91.12.2026.09.08.09.33.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 09:33:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 8 Sep 2026 09:33:25 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Sergio Melas <sergiomelas@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] hwmon: (yogafan) Add support for new Lenovo models
-Message-ID: <a5548d73-a923-4cc5-8c9f-d7204028bd64@roeck-us.net>
-References: <20260908094931.2227049-1-sergiomelas@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="Ga6vS0RM"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788885230; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=ATYwopDq3lOeKRynyx5bJtLt5Assf/MvZRtPVsMMab8=;
+ b=Ga6vS0RM1ljoSbbhFWuBmHpKE6GcrbuPCnX8hgY493uUmuo1Ra/zvXbsW7I/H4Xyy3A1zU
+ jyiQxykhRGj2t3q727J1v94Y92kvD3kNu3xzdYnS+YJiIGldRg2aHkRGQp9BznzzAZi6ct
+ s44PYkU9PfyJQk0LYzxJsL7Tng7sRq0D+4mJE7Qz8nJgEwIM/wjW5i+XsGJj/bpNjbpoGp
+ Eu+bPsjVGCq1NoCVr8lyC7WzHblegzAK+5WFFr/S7zsrOCfkCTqDJJ0UOTeTfTAZXeWSfj
+ 1n90ms4+lCWtdhTYJNEClyMirFIFD58NZLVBOWFPSm0h/L2vz6tCjuBU+XMa3A==
+X-B4-Tracking: v=1; b=H4sIAOc4oGoC/3WNQQ6CMBREr0K69pv+WkBceQ/jorS/UhfQtKXRE O4uoAs3LGcy897EIgVHkV2KiQXKLrqhX8LpUDDdqf5B4MySmeCi4g1HsKTBJw/eR6BMfYJRWTB a19iWhKblbPn6QNa9Nu6N9ZTY/VvGsX2STitxnXUupiG8N3vGbfwTyR1RRuDQKCtl1ZJUiFfdU QhHrTdFFv+Q8x5ELBCh0JQ1ClSG/iDzPH8AEycceBUBAAA=
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.75]) by smtp.feishu.cn with ESMTPS; Wed, 09 Sep 2026 00:33:47 +0800
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
+Date: Wed, 09 Sep 2026 00:33:43 +0800
+Message-Id: <20260909-fec-ptp-pps-event-uaf-v3-0-bead12c29a16@cherr.cc>
+To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>
+Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
+	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH net v3 0/2] net: fec: fix PTP clock teardown races on device removal
+Content-Type: text/plain; charset=UTF-8
+X-Lms-Return-Path: <lba+26aa038ec+27c1be+vger.kernel.org+me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908094931.2227049-1-sergiomelas@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
 
-On Tue, Sep 08, 2026 at 11:49:31AM +0200, Sergio Melas wrote:
-> Add DMI quirk entries and map correct ACPI paths and configurations for
-> additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
-> and Yoga 740-15IML, leveraging DMI product family matching.
-> 
-> Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
+This series fixes two FEC teardown races: ethtool can access a freed
+PTP clock, and the PPS interrupt can outlive the PHC and netdev.
 
-Applied.
+I have kept the main Ethernet IRQ issue discussed with Phuc [1] out of
+this revision. His PTP initialization error-propagation changes are
+also separate; if they land first, the new probe failure path will
+need PPS IRQ cleanup too.
 
-Thanks,
-Guenter
+The bugs were found by code inspection; no hardware testing was done.
+
+[1] https://lore.kernel.org/r/CAABR9nHLcR103aADF1WMSEkw-_BjWB9vyWXENJCYfjX5Wz1nkw@mail.gmail.com/
+
+---
+Changes in v3:
+- Use request_irq()/free_irq() for the PPS interrupt and drop
+  unnecessary braces in patch 2, as suggested by Wei Fang.
+- Patch 1 is unchanged.
+- Link to v2: https://lore.kernel.org/all/20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc/
+
+Changes in v2:
+- Drop the ptp_clock_index_by_dev() lookup and unregister the netdev
+  before fec_ptp_stop() instead, as suggested by Wei Fang, so the
+  netdev callbacks are drained before the PHC teardown.
+- Use -1 as the "no PPS interrupt" sentinel so a valid IRQ 0 is neither
+  skipped on release nor freed when the request never happened.
+- Link to v1: https://lore.kernel.org/netdev/20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc
+
+---
+Shengzhuo Wei (2):
+      net: fec: stop the PTP clock after the netdev is unregistered
+      net: fec: free the PPS interrupt before tearing down the PHC and netdev
+
+ drivers/net/ethernet/freescale/fec.h      |  1 +
+ drivers/net/ethernet/freescale/fec_main.c |  2 +-
+ drivers/net/ethernet/freescale/fec_ptp.c  | 12 ++++++++++--
+ 3 files changed, 12 insertions(+), 3 deletions(-)
+---
+base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
+change-id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
+
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
