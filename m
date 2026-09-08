@@ -1,156 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AE30470111;
-	Tue,  8 Sep 2026 21:46:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83DA54A0902;
+	Tue,  8 Sep 2026 21:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.117.225.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903986; cv=none; b=i/AOArz4qcXf9dKklxx4M8UCBZmxN2RsSqV48nRSilmYQmvXwiKIKWcFJ3Xz58AElxy10KS3FLA6X6gJQfMMtjYH2A4ynNtsCbQdBfJ4iiDy/bXn6AOMiCV5Sqo9Dq05o30k0YzgUCdCqx+OkPpy0KRBRHzwuCgT4GY43BqtN1c=
+	t=1788904120; cv=none; b=W04zIfClJx/zeF8ZcKiVR65XdEOW6TUXcpxyVdRjPrzfE5pyAQGtvQxJdBBRoixrMo282W0WB6lt5POrA92/bOQz4fVHJyvNHJ2g6wIlMS40F2bZUQEkD22FdjLM3sfg51wJVcZaf+qpZ7MeCmG2c7hp86tqw5AxwYqlxi23aXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903986; c=relaxed/simple;
-	bh=Wo0ZL3M+Wywg41LZ2lwCb4eKYlm6h4hOEsw4Jfr5HHw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YLtAyCKgKNNsKf6wq/S3YOa7k6yRD7y2nRbmr9W/B3IZAy62WShgUhXCaZRtqXvfA3PPi/CS3GvecjdmTQUrhuuazfdgAQg+UAfHYxsGfRPZX2LS8Ij16uYuujAwtcPreyT5CwRgtyT+1u+hT0N/Hf2yItSnXT9xAK2GkTehmvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nn9HoA7/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788904120; c=relaxed/simple;
+	bh=Bo+6Rdn77POaJ6YwdOntdmZgfwKCdhinnWntII9lVdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ISoMW6OQle22j7lYCbTVp+3zVjcxWsXxKVXqxrex619rh6ovPsqlejRsBvbE0PvEThLir2CjT4IsXvIVRbHaODGXV2PAg5yFTkuz+0IgSA2M1/AcMwcgKHwhxBvI0Jf2Ck0b3sdcmdRLMnKm+s2sKIJqP1yOuohNcQUKSf9IXsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com; spf=pass smtp.mailfrom=virtuozzo.com; dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b=ioicMYGF; arc=none smtp.client-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nn9HoA7/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5A671F00A3A;
-	Tue,  8 Sep 2026 21:46:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788903985;
-	bh=xDFCn0lNPOgF6i1hXkAPNA/hzn9F1hmDV3HSMIXSq0c=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nn9HoA7/zv9eZsVfjPpLIaUXQ1AcSJn3gqPzs9xYEePlkOn7S0lvlYywod2dHun3L
-	 foerzEURPNeUMkpPX/0fJgpvnW5hanvxrEMKuH+5BipFzkhtUjfL7RJHg8bxyCxVFz
-	 Qs4Fb1Kcy0XI7zKBZQQRzxgZNeBelnZNCaQ9inRYkvP3lamuwe+kFhHQR4RtoDs4nn
-	 q6ycyvD7WLV3dnYJSSDDKX1cRjwq/bDyb6BhqZEJ0UWt+ONgmdGgJ+SGY3ItqXpHXy
-	 mir2VMg1aCcwiW8Dc0Shrem2bALxQXlyj+Ju3HrtJHnpCuKIhPWYzFchgVT7e6dms4
-	 8I6eUApzOaZzA==
-Message-ID: <0fe7a8b6-f3df-4822-a03a-d072b86cdfa8@kernel.org>
-Date: Tue, 8 Sep 2026 23:46:21 +0200
+	dkim=pass (2048-bit key) header.d=virtuozzo.com header.i=@virtuozzo.com header.b="ioicMYGF"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=MIME-Version:Message-ID:Date:Subject:From:
+	Content-Type; bh=1f34i7ELcyl//Ubi8x1ZRHLDiv9uG7Y8v6wrp7ZZgSE=; b=ioicMYGF/98d
+	qqjSckkmuGfCT4jG2sqqS5SHNBYilUq7PKPSjAOqQ97blwRkAbMGvXwul/TqrGC2PoyXN5pZl4+I9
+	BisoZ1Jrs7mHw0YphNv29cCzAYkFZLdRUAtThlbGn6+IYXSAHe4Y5j54TrYMfzDB2g+r87bjD9l2S
+	sJ3wDPOI4SKkE2DgHNGPdYZLpQ+z2XL/y5hCyiU85K5QbjLTSOG4bMcbztR3DCX/lo114qVxjfNTa
+	afzC6XCwu9zY1Fzz5R7kmLCH91yfXLiS0g64cudwuG2v+dhwPXsVmPQWRNHE4wSRpADBDdOcbLBeb
+	UOq8JbAcCCsEs49oUYBgRA==;
+Received: from ch-vpn.virtuozzo.com ([130.117.225.6] helo=LekKit-T14)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <eva.kurchatova@virtuozzo.com>)
+	id 1x43db-002qQQ-1B;
+	Tue, 08 Sep 2026 23:48:23 +0200
+From: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	Eva Kurchatova <eva.kurchatova@virtuozzo.com>,
+	iommu@lists.linux.dev,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH 2/2] selftests: iommu: skip when the mock device is not there
+Date: Wed,  9 Sep 2026 00:48:12 +0300
+Message-ID: <20260908214825.2682078-2-eva.kurchatova@virtuozzo.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908214825.2682078-1-eva.kurchatova@virtuozzo.com>
+References: <20260908214825.2682078-1-eva.kurchatova@virtuozzo.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: soc_button_array: ignored -EPROBE_DEFER loses the buttons on 68%
- of boots (Surface Pro 11)
-To: Sergey Lebedev <lsa.uz@pm.me>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Maximilian Luz <luzmaximilian@gmail.com>
-Cc: linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260830141355.55898-1-lsa.uz@pm.me>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260830141355.55898-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Both iommufd tests need the mock device the iommufd module registers
+under CONFIG_IOMMUFD_TEST, and they open /dev/iommu in every fixture
+without checking, so on a kernel that does not provide it every case
+fails on the open.
 
-On 30-Aug-26 16:14, Sergey Lebedev wrote:
-> Hello,
-> 
-> On a Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) the power and
-> volume buttons fail to appear on most boots. The probe runs, gives up
-> silently, and the device is lost until something rebinds it by hand.
-> 
-> Measured across the 40 boots in this machine's journal, using the monotonic
-> offset of the first "input: gpio-keys" message:
-> 
->   driver attached on its own   13 boots   at 1.28 - 1.78 s
->   did not attach               27 boots   68 %
-> 
-> The timing is binary. Either the inputs appear at about 1.3 s, or they never
-> appear at all - no intermediate values in 40 boots.
-> 
-> Where it fails
-> --------------
-> 
-> Nothing at all is logged on a failing boot, so I built with
-> soc_button_array.dyndbg=+p on the kernel command line. On four consecutive
-> failing boots the probe printed exactly one line:
-> 
->   [    1.286567] soc_button_array MSHW0040:00: OEM Platform Revision 129
-> 
-> That eliminates most of the possibilities:
-> 
->   - the probe does run
->   - it passes soc_device_check_MSHW0040() - oem_platform_rev is 129, not 0
->   - it passes gpiod_count() - the dev_dbg("no GPIO attached, ignoring...")
->     would have printed with dyndbg on, and did not
-> 
-> By elimination the buttons are lost inside soc_button_device_create(), at
-> 
->         error = soc_button_lookup_gpio(&pdev->dev, info->acpi_index,
->                                        &gpio, &irq);
->         if (error || irq < 0) {
->                 /*
->                  * Skip GPIO if not present. Note we deliberately
->                  * ignore -EPROBE_DEFER errors here. ...
->                  */
->                 continue;
->         }
-> 
-> Every button is skipped, n_buttons stays 0, and the two returns that follow
-> are both silent:
-> 
->         if (n_buttons == 0) { error = -ENODEV; goto err_free_mem; }
->   and
->         if (!priv->children[0] && !priv->children[1]) return -ENODEV;
-> 
-> which is why nothing reaches the log.
-> 
-> The GPIO controller here is INTC105D, five gpiochips driven by
-> pinctrl-intel-platform. Both that and soc_button_array are modules in this
-> config:
-> 
->   CONFIG_INPUT_SOC_BUTTON_ARRAY=m
->   CONFIG_PINCTRL_INTEL_PLATFORM=m
-> 
-> A manual bind always works: 25 unbind/bind cycles at runtime gave 25
-> successes and 0 failures. The failure exists only in the early-boot window.
-> 
-> One hypothesis, tested and wrong
-> ---------------------------------
-> 
-> Since both are modules, load order looked like the cause, so I tried
-> 
->   softdep soc_button_array pre: pinctrl-intel-platform
-> 
-> verified applied (modprobe --show-depends inserts pinctrl first), with the
-> rescue that normally binds it by hand disabled so nothing masked the result.
-> Five boots: 2 successes, 3 failures - the same rate as before.
-> 
-> pinctrl_intel_platform is a dependency of fifteen other modules and is
-> loaded long before either way. softdep orders modules; the race is against
-> the asynchronous probe of the individual INTC105D:0N devices, which register
-> their gpiochips at their own pace. Reporting this so nobody else spends the
-> evening on it.
-> 
-> Why no patch
-> ------------
-> 
-> The comment says -EPROBE_DEFER is discarded because Intel uses "virtual
-> GPIOs" that never materialise, so deferring on them would hang the probe
-> forever. A fix has to tell that case apart from a controller that simply has
-> not probed yet, and I do not know which signal you would want to use for
-> that. Guessing would risk reintroducing the problem the workaround exists
-> for.
-> > Happy to test whatever shape you would prefer - the machine is here and I
-> can build and boot kernels on it.
+Checking the open is not enough on its own. /dev/iommu appears as soon
+as the iommufd module is loaded, which says nothing about the mock
+device: the release config here is CONFIG_IOMMUFD=m with
+CONFIG_IOMMUFD_TEST unset, so the open succeeds and the tests fail later
+in the ioctls that drive the mock device instead. Only the debug config
+sets CONFIG_IOMMUFD_TEST.
 
-Thank you for your detailed bug report. I've just submitted a patch which
-I believe should fix this:
+/sys/bus/iommufd_mock covers both, it exists only once the module is
+loaded and the kernel was built with CONFIG_IOMMUFD_TEST. Check for it
+once before handing over to the harness, rather than in each of the
+fixtures, and report a skip. test_harness_run() is what TEST_HARNESS_MAIN
+calls anyway, so the tests still run exactly as they did.
 
-https://lore.kernel.org/platform-driver-x86/20260908214410.70422-1-johannes.goede@oss.qualcomm.com/
+Signed-off-by: Eva Kurchatova <eva.kurchatova@virtuozzo.com>
+---
+ tools/testing/selftests/iommu/iommufd.c          | 15 ++++++++++++++-
+ tools/testing/selftests/iommu/iommufd_fail_nth.c | 15 ++++++++++++++-
+ 2 files changed, 28 insertions(+), 2 deletions(-)
 
-Please give this a try and confirm if it fixes things.
-
-Regards,
-
-Hans
-
+diff --git a/tools/testing/selftests/iommu/iommufd.c b/tools/testing/selftests/iommu/iommufd.c
+index d44b34b05757..446306badcdc 100644
+--- a/tools/testing/selftests/iommu/iommufd.c
++++ b/tools/testing/selftests/iommu/iommufd.c
+@@ -3613,4 +3613,17 @@ TEST_F(iommufd_device_pasid, pasid_attach)
+ 	test_cmd_mock_domain_replace(self->stdev_id, self->ioas_id);
+ }
+ 
+-TEST_HARNESS_MAIN
++static bool iommufd_mock_available(void)
++{
++	return access("/sys/bus/iommufd_mock", F_OK) == 0;
++}
++
++int main(int argc, char **argv)
++{
++	if (!iommufd_mock_available())
++		ksft_exit_skip("no iommufd mock device, the tests need "
++			       "CONFIG_IOMMUFD_TEST=y and the iommufd "
++			       "module loaded\n");
++
++	return test_harness_run(argc, argv);
++}
+diff --git a/tools/testing/selftests/iommu/iommufd_fail_nth.c b/tools/testing/selftests/iommu/iommufd_fail_nth.c
+index 25495d8dceb3..c516e00f7316 100644
+--- a/tools/testing/selftests/iommu/iommufd_fail_nth.c
++++ b/tools/testing/selftests/iommu/iommufd_fail_nth.c
+@@ -745,4 +745,17 @@ TEST_FAIL_NTH(basic_fail_nth, device)
+ 	return 0;
+ }
+ 
+-TEST_HARNESS_MAIN
++static bool iommufd_mock_available(void)
++{
++	return access("/sys/bus/iommufd_mock", F_OK) == 0;
++}
++
++int main(int argc, char **argv)
++{
++	if (!iommufd_mock_available())
++		ksft_exit_skip("no iommufd mock device, the tests need "
++			       "CONFIG_IOMMUFD_TEST=y and the iommufd "
++			       "module loaded\n");
++
++	return test_harness_run(argc, argv);
++}
+-- 
+2.55.0
 
