@@ -1,110 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370A7549373;
-	Tue,  8 Sep 2026 12:45:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C784A53A8AA;
+	Tue,  8 Sep 2026 12:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871539; cv=none; b=F3vUJR5kfv/ZDxC1bHUgJ+8OypbTPUNPLtBmcSq7O5HYoPDIZK5fEFNcQd+w8jBuTGiIaZrltLah7Hab8cX4npmo4szPALcPSkt+TMkmfRmkryWBpLTfsr/Tkpv0eRWiVzU+EDEQU1qBEJaJPG5J7UHMvJ7GuW/38x/Rg5St3sI=
+	t=1788871611; cv=none; b=YADboNyErEfhVGL5iyPa309ycYDJMGsI/HY8yjG90zW16HikF0x+710mrUeWKUQrYtU7wHGfSfdl5haVgFq4XmoaKnATTirtwEUODQpzM8wCOHS/DoScWKaW9eaITAcwINnJcs00WkjterE3TXhwm0B6FSlU3KyxfsMDyL0E3Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871539; c=relaxed/simple;
-	bh=I3O++xlc5GpM4IzIPuCmTJk4ggbk0/QpLeatNwsahFI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=d9bAxmVIvDFAzpHK+bAgnd3XaF0nMUbPncUzu9L85QaYZrP8pkhlno7UDO5TlrzoSPNVAe29sHxHbKSgu3W69ymjZgrTM2snA2qn9/O/Zhu362Hcmg5E3WYoaWsxfpfWr0aawPwTdayZWvGe9b+BJtemPFkWVo2fhPNPFG/Vn7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D285E1F00A3D;
-	Tue,  8 Sep 2026 12:45:36 +0000 (UTC)
-Subject: Re: [PATCH net-next] dibs: Avoid inconsistent lockstate warning in
- dibs_lo_move_data()
-From: netdev-bot+sashiko@kernel.org
-To: wintera@linux.ibm.com
-Cc: alibuda@linux.alibaba.com, dust.li@linux.alibaba.com,
- sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
- kuba@kernel.org, pabeni@redhat.com, edumazet@google.com,
- andrew+netdev@lunn.ch, tonylu@linux.alibaba.com, guwen@linux.alibaba.com,
- netdev@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-kernel@vger.kernel.org, hca@linux.ibm.com, gor@linux.ibm.com,
- agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
- horms@kernel.org
-Date: Tue, 08 Sep 2026 12:45:35 +0000
-Message-ID: <178887153533.219967.1817289806507440884@kernel.org>
-In-Reply-To: <20260904094446.1342654-1-wintera@linux.ibm.com>
-References: <20260904094446.1342654-1-wintera@linux.ibm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1788871611; c=relaxed/simple;
+	bh=hFwSZaU4jX+gf2S7p1+ZS5OtlLj8rto2j+q1fKuvxqs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AY8O/0Z1nJoXM/GpXer9//FG3sU5XJf5t/mgkvC5Bb3PwLBz2+j9HEduWZ1BGInJZXN1DSLYJUIOPb45f1qxOpC+eVNMFLFMqfofpD1d2iJIeQIliV98KONfR1gvjQNbKtAS5qtKPdk92OnqpJIIYeLMYGuVX6YrHkgIR5AEl3U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=HFrpLme8; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="HFrpLme8"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688AVcoD2959797;
+	Tue, 8 Sep 2026 12:46:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=hFwSZaU4jX+gf2S7p1+ZS5OtlLj8rt
+	o2j+q1fKuvxqs=; b=HFrpLme8WhjkMoAoeZlZ3zjb2vlP1fJZWJtmDTIFeX3Tgg
+	bdnhU2zG0AOIexcFSQPK/s/McVN0l8TEHIv+AxmZiVaLhc8pVyJZzWU9v06dM1WN
+	2EgaTiciQK6iaWmy3eNCMkYyd00Tb9i7XYxfNLoBru5IHF+2iqtyTvp2WefhLm14
+	WHPY1XblnziJnAfxFhUYAtrhy8ZrHdKUNR+zu227/juONnXypoEdD4sOgd7ka+lI
+	l+kIXJvFm76Vl0MaK/HaHbvhHfhvaAU6M3MYqGhCRUqA6nlKjR3vSJpwnAVyDTVQ
+	KhZo+oJ4BZR+2b6nWwejlzgFHdXKp8bUywDdwCTg==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4ggbqjxuy3-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 12:46:45 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 688CfEQ1008738;
+	Tue, 8 Sep 2026 12:46:44 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4ggwsw3x43-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 08 Sep 2026 12:46:44 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 688CkgxP34013494
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 8 Sep 2026 12:46:42 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7908D20043;
+	Tue,  8 Sep 2026 12:46:42 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5402E20040;
+	Tue,  8 Sep 2026 12:46:42 +0000 (GMT)
+Received: from tuxmaker (unknown [9.87.85.9])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue,  8 Sep 2026 12:46:42 +0000 (GMT)
+Date: Tue, 8 Sep 2026 14:46:41 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+        Masami Hiramatsu <mhiramat@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 0/2] ftrace/selftests: Fix registering kprobe on
+ non-unique symbol
+Message-ID: <20260908124641.1135846Aeb-agordeev@linux.ibm.com>
+References: <cover.1787670777.git.agordeev@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1787670777.git.agordeev@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: n_uIeoWkxEb1tAfiJfjUDKsT8nFFife0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDEzNCBTYWx0ZWRfX0QsiZieEoLwh
+ olfpXjkEWAVoN4N1ZBWrTIju7Y95I1ckZY+bWtndO+Im4sYvAcu9Q8NYR2ZIil9RmoRCFeteIl4
+ Q/LeVwy3kjC0o/OBy5wCyZXjO7SpXOw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDEzNCBTYWx0ZWRfXzFFnAKT+VKSs
+ JGOJPf9K6AwCdCT6Adm0VkRVrwe86ZnBqY/Fw0DLJGFhyCfdDs1LqtD17NK/0tqE1uaZ3lqaUhn
+ Ac+0IwEZ7Jpa7eD2VgyZ2u7gu5SzK57+7F4qnLBE/76d4Y4bwJRADAhc8bPW7JZHLB4bKfgF0Fj
+ kpjVdZICd+oNF6HHsHbpgIWJThvUooRQKZdHfQvlwkaY77cZgm1MdXHlBl0jEaM48TQOVP9NR0i
+ Fj6glPHjckDz9NaFQcaHBY45QK4K3KCS/c2qvnNV5pqchvP3yhDqxJ0IKldTeeiYVf2gMWHa4Vh
+ ulQVpNGujGuAQqZ0Zk2GJoV89gIaJ7wJ8lQO5scLuKFtOmV8HK8lilOzrx80nXiTOumU/Qxp+qI
+ 3VQJfKv9dAuF9lgRtPi1WiCUMqJvwjJ/+Gb1r8KrF/ESsUhKzrvqgLMNwYc9Q6GiTA+0jxrndoq
+ DKuSUljAzsN4dZfiQ7w==
+X-Authority-Analysis: v=2.4 cv=JaKMa0KV c=1 sm=1 tr=0 ts=6aa003b5 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=wdextDOBopOhIuI0tKgA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: n_uIeoWkxEb1tAfiJfjUDKsT8nFFife0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_02,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0
+ adultscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080134
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-- [Medium] The patch fixes an observable lockdep "inconsistent lock
-  state" splat produced by the plain spin_lock(&dibs->lock) in…
-
---
-
-Here is the report.
-
-dibs: Avoid inconsistent lockstate warning in dibs_lo_move_data()
-
-This converts the plain spin_lock()/spin_unlock() around the
-dibs->subs[]->ops->handle_irq() call in dibs_lo_move_data() to
-spin_lock_irqsave()/spin_unlock_irqrestore(), because the same lock is
-also taken from hardirq context in ism_handle_irq().  The commit message
-notes this is not a real deadlock since dibs_lo devices have no interrupt
-context.
-
-> diff --git a/drivers/dibs/dibs_loopback.c b/drivers/dibs/dibs_loopback.c
-> index 649e4e375be33..44a2e74c2efcb 100644
-> --- a/drivers/dibs/dibs_loopback.c
-> +++ b/drivers/dibs/dibs_loopback.c
-
-[ ... ]
-
-> @@ -267,12 +268,12 @@ static int dibs_lo_move_data(struct dibs_dev *dibs, u64 dmb_tok,
->  	if (!sf)
->  		return 0;
->  
-> -	spin_lock(&dibs->lock);
-> +	spin_lock_irqsave(&dibs->lock, flags);
->  	client_id = dibs->dmb_clientid_arr[sba_idx];
->  	s_mask = ror16(0x1000, idx);
->  	if (likely(client_id != NO_DIBS_CLIENT && dibs->subs[client_id]))
->  		dibs->subs[client_id]->ops->handle_irq(dibs, sba_idx, s_mask);
-> -	spin_unlock(&dibs->lock);
-> +	spin_unlock_irqrestore(&dibs->lock, flags);
-
-[Severity: Medium]
-Should this carry a Fixes: tag?  The lockdep splat quoted in the commit
-message is reproducible on shipped kernels, and git blame attributes the
-converted spin_lock()/spin_unlock() pair in dibs_lo_move_data() to:
-
-cc21191b584c6f ("dibs: Move data path to dibs layer")
-
-The hardirq-side acquisition of the same lock is in ism_handle_irq()
-(drivers/s390/net/ism_drv.c):
-
-	spin_lock(&dibs->lock);
-
-which matches the {IN-HARDIRQ-W} registration in the report, so the
-warning can be hit by ordinary SMC traffic through
-smc_close_active()->smcd_cdc_msg_send()->smcd_tx_ism_write()->dibs_lo_move_data()
-on a lockdep-enabled kernel.
-
-The splat also ends with "INFO: lockdep is turned off", so further lock
-checking is lost for the rest of that boot on affected kernels.
-
-Would adding the following help backporters and stable tooling identify
-which trees need this change?
-
-Fixes: cc21191b584c6f ("dibs: Move data path to dibs layer")
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904094446.1342654-1-wintera%40linux.ibm.com
+Polite ping.
