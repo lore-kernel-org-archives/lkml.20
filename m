@@ -1,89 +1,123 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284C453445A;
-	Tue,  8 Sep 2026 12:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B030529410
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:26:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870368; cv=none; b=RiEQ4YJUX6o9ZIl2r3d8vjH3Jvf5OP4oXiSiRoBVU0TShzeJZaiKxcTtYUFU0R89H3NpiA3+8doRVr/DpAmZp/OivgF31Y8O73foHoPdWau5Qy2fLJ273WOMyGYU4IDbm33raaiu8LHesvDJuK5XRMQwGExQA56lTU7eS2DQ+As=
+	t=1788870407; cv=none; b=pe9NWLxgmum3GwkkwKEoGEXNfm8tqx9kMklpSOeKLRlEAWU/H8ZeLbnwHAFVPPn+p5koJORq8Cq7nXcdLwopnGxoHlu4CsGx1qg/7GkAvSr17bAnkrf6F9ga2G1aNbWCfYlvef+ZfEgqdUi4t3jq7HiXvL5jTJK4U9Biepkox6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870368; c=relaxed/simple;
-	bh=QXOH7qEx4pUaa6qTcmb8GkT1aSElZQSeAUuSjfI6go0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CIRMNsOl51FMyOeJo2X08x4Mpj94hp5ienI5aSuBtOqUVLwSECxo5BhbW5FtxZe3VdlSypXHEq51lb/u0xUODPHKceqdiSiJGYYGm3z+KrOl5V2eb4jjPuamwv2B7NvZ1bJ8g0vctTP8cHYiFZRXIJr1jrj5cyeq5R51gJ5zsOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=T+CF2PE4; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788870407; c=relaxed/simple;
+	bh=TN7rGqqZ9OR376TXWS3MUze3xcTmiMRRJNOqSnu0G5Q=;
+	h=Content-Type:Cc:Mime-Version:To:From:References:In-Reply-To:
+	 Subject:Date:Message-Id; b=eqf1BM1NDwCwyo7+2QJZeesSlSX5YEgdVEhNv8dtu/SUESllZ2Pyn7ahMF2v2zqptU2R8OQpPijoPqrgcfM6SSjmtX5Tp8oesG6+RPRBkjWMNrbW3M+wE6/J7Uj9DFISjjYcz16OfH7oMVms67xNN/dmh1cSWgxaFRTMHzda+ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=BTzGz8RR; arc=none smtp.client-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="T+CF2PE4"
+	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="BTzGz8RR"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=3TTkjK4efW9roUyrSzJPTQ13MVqEKMUhdpq/+UHmD+8=;
-	t=1788870367; x=1790079967; b=T+CF2PE4k+3v7J0XnnoV99n7fkM0xh5cpFsbzItFvuFRpEf
-	BcLzAbljRfVjYsEPlMkZhsv8CiY/QnXt/8If+jWsY6d0tQJ9dAIz90k8hjx0cggj4wryIi7PROgh/
-	sGmUCycpR8e5zvCy3uuq3Alhhr5eseW9WDoNMNP8VhY9FSNi0DDIH16y9r4U1l72CEhYUm/OtyUBg
-	GHPySYsI872xdkDuU8qIJ1ELSlghoWJ0F3Yv2YT6991DQ/K1T++WLZ5UbcYqub6e1zh3aJmF79EPf
-	ZehJEj5meBRLInOMmeaDsE+AzK7oy6nlaEB72Y1edGca43uNGf/juUlRa4uwO/Kw==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x3utl-000000066si-0IbY;
-	Tue, 08 Sep 2026 14:26:01 +0200
-Message-ID: <22e7ddfc50d7a6a16c437b876dab5fe223799610.camel@sipsolutions.net>
-Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
- adding new station
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Slawomir Stepien <sst@poczta.fm>
-Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev, 
-	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
-Date: Tue, 08 Sep 2026 14:25:59 +0200
-In-Reply-To: <ap_4hS6M8g4u6z--@nr200>
-References: <20260813090434.2071318-1-sst@poczta.fm>
-	 <20260813090434.2071318-3-sst@poczta.fm>
-	 <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
-	 <ap_Y8OD0eBAnB8QS@nr200>
-	 <8934029f86b1c0e75f777185b2768f8e9755cae5.camel@sipsolutions.net>
-	 <ap_4hS6M8g4u6z--@nr200>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+ s=2212171451; d=bytedance.com; t=1788870400; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=j33x67pAIPEvtU7LsKxL/lIGzZa4GlqosjlcpBVmf4g=;
+ b=BTzGz8RRpWuVcr8EKWpkSwI3cIr99NYmZ3nn89gU413ahc8ehjOw08V+Ctpei92RK8e5U0
+ +lCoenJSYb0IUJ+f7NOGcKNzEdWlseqvO/CfFadgb6EsQqwZKZEkmapPgauKmRgvftwHPt
+ o/KsnN2Jelvh5RhE35FaQe9l9x3zNOvY6lIDpP6xtujwzbMjDIljn61dSWjZG9GIZIIriI
+ 9jdlcBfWwPidUOfTnnoFu9/BMgTcFyIIbEiHIh1Mqlg49kKJ7IYO7ylfM08M+AJMCNvwGH
+ BVvFY/vlyg7EQA/XytrVBCh1RrcWPTXa0la9tML9scg29MD2gXaGOhpkYZ9glQ==
+X-Lms-Return-Path: <lba+26a9ffefe+81d787+vger.kernel.org+lizhe.67@bytedance.com>
+X-Mailer: git-send-email 2.45.2
+Content-Type: text/plain; charset=UTF-8
+Cc: <linux-kernel@vger.kernel.org>, <linux-fsdevel@vger.kernel.org>, 
+	<linux-doc@vger.kernel.org>, <lizhe.67@bytedance.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Mime-Version: 1.0
+To: <mingo@redhat.com>, <peterz@infradead.org>, <juri.lelli@redhat.com>, 
+	<vincent.guittot@linaro.org>, <dietmar.eggemann@arm.com>, 
+	<rostedt@goodmis.org>, <bsegall@google.com>, <mgorman@suse.de>, 
+	<vschneid@redhat.com>, <kprateek.nayak@amd.com>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+References: <20260908122446.56708-1-lizhe.67@bytedance.com>
+In-Reply-To: <20260908122446.56708-1-lizhe.67@bytedance.com>
+Subject: [PATCH 2/4] sched/numa: Add prctl controls for process mode
+Date: Tue,  8 Sep 2026 20:24:44 +0800
+Message-Id: <20260908122446.56708-3-lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 7bit
 
-On Tue, 2026-09-08 at 13:59 +0200, Slawomir Stepien wrote:
-> >=20
-> > Don't think you're missing anything, there's just the block handling
-> > param->vlan in add_station, it's dead code now. But why not kill it?
->=20
-> For the reason explained below (in my previous message).
-> There can still be a command from userspace with AP base interface (as wd=
-ev) with
-> attrs[NL80211_ATTR_STA_VLAN] set and this block will be executed in such =
-case. Right?
+Expose the process automatic NUMA balancing mode through prctl().
+PR_SET_NUMA_BALANCING accepts PR_NUMA_BALANCING_DISABLE to opt the whole
+thread group out of future NUMA scanning and PR_NUMA_BALANCING_ENABLE to
+allow it to participate again when global NUMA balancing and memory
+policy permit it.
 
-D'oh. Going too fast, I somehow managed to not connect the two things.
-Sorry!
+PR_GET_NUMA_BALANCING returns the configured process mode, not the
+effective state after combining the global sysctl/static key and memory
+policy restrictions. This keeps the ABI weak and predictable: a process
+can observe and restore the value it configured, while administrators
+retain kernel.numa_balancing as the top-level hard-off switch.
 
-But it's another messy code path - if you have AP A and B, and VLANs A'
-and B' belonging to A and B respectively, then you can
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+---
+ include/uapi/linux/prctl.h |  6 ++++++
+ kernel/sys.c               | 18 ++++++++++++++++++
+ 2 files changed, 24 insertions(+)
 
-	add_station(A, vlan=3DB')
-
-and it gets added on B/B', and B must be IFF_UP (because B' must be
-IFF_UP) but doesn't need to be beaconing and we're back to the bug, it
-seems? Maybe I'm missing something.
-
-Since VLANs have to have the same local address as their AP (i.e. we
-need addr(B') =3D=3D addr(B)), I guess get_vlan() could check this though,
-if it's indeed a problem, and that would avoid it through the chain of
-other invariants (IFF_UP, beaconing, etc.)
-
-johannes
+diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
+index b6ec6f693719..5bc0a2a2a930 100644
+--- a/include/uapi/linux/prctl.h
++++ b/include/uapi/linux/prctl.h
+@@ -416,4 +416,10 @@ struct prctl_mm_map {
+ # define PR_CFI_DISABLE		_BITUL(1)
+ # define PR_CFI_LOCK		_BITUL(2)
+ 
++/* Per-process automatic NUMA balancing control */
++#define PR_SET_NUMA_BALANCING	82
++#define PR_GET_NUMA_BALANCING	83
++# define PR_NUMA_BALANCING_DISABLE	0
++# define PR_NUMA_BALANCING_ENABLE	1
++
+ #endif /* _LINUX_PRCTL_H */
+diff --git a/kernel/sys.c b/kernel/sys.c
+index 35b538ba843c..fb01841c0ce9 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -60,6 +60,7 @@
+ #include <linux/sched/stat.h>
+ #include <linux/sched/mm.h>
+ #include <linux/sched/coredump.h>
++#include <linux/sched/numa_balancing.h>
+ #include <linux/sched/task.h>
+ #include <linux/sched/cputime.h>
+ #include <linux/rcupdate.h>
+@@ -2907,6 +2908,23 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+ 		if (arg3 & PR_CFI_LOCK && !(arg3 & PR_CFI_DISABLE))
+ 			error = arch_prctl_lock_branch_landing_pad_state(me);
+ 		break;
++	case PR_SET_NUMA_BALANCING:
++		if (arg3 || arg4 || arg5)
++			return -EINVAL;
++		if (arg2 != PR_NUMA_BALANCING_DISABLE &&
++		    arg2 != PR_NUMA_BALANCING_ENABLE)
++			return -EINVAL;
++		error = task_numa_balancing_set_current(arg2 ==
++							 PR_NUMA_BALANCING_ENABLE);
++		break;
++	case PR_GET_NUMA_BALANCING:
++		if (arg2 || arg3 || arg4 || arg5)
++			return -EINVAL;
++		error = task_numa_balancing_get_current();
++		if (error >= 0)
++			error = error ? PR_NUMA_BALANCING_ENABLE :
++				PR_NUMA_BALANCING_DISABLE;
++		break;
+ 	default:
+ 		trace_task_prctl_unknown(option, arg2, arg3, arg4, arg5);
+ 		error = -EINVAL;
+-- 
+2.20.1
