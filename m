@@ -1,138 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDBE5328B3;
-	Tue,  8 Sep 2026 12:00:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EF5531B1D;
+	Tue,  8 Sep 2026 12:00:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868814; cv=none; b=Ei++3EJQ4D79qacBP7bHPE59zZ5fIiLqzwKvBf7/9BZt8xtqIovhlr5aKtCbXuT7M9/H0zKLdGYguHjuAhJMLTfupdsnifWEqAyn+b5o0rUHysYJ8NpxCnHtCFTw7zDQMeFdgw7xujtdvhXvRsAzk/opEzCpTfjJvszGy8ceSxE=
+	t=1788868841; cv=none; b=hM9ZpkUa/qj5/3DNR7gk3X+WfzGHdJwSl3vg2WkRIp5fr+soC3PNgq2JXZHEPXe11f4cxVhAtyUu4WKRrdlVHHADvxRtPt61sLM0CgtZj0rm9f8Z/mEwlG1ym7a6WNwjfDJe4bCOqtdWB98nkZHArdEAHwWaX/WiNu994HTRmSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868814; c=relaxed/simple;
-	bh=W8i82HOkiZbVbSBZCtn5Kofxi2cYhcgb58khxqBCrRA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dM/AkOS0v5DorC3f7tEsQsjw+pTgTXS9iDDvBxmyKDZMIXCrUlqKcIul+Jcm6TWKtx50Gl+ozDn9bDJSrKCkzQhYPs0bFHA5b6x6ZMiRLbUOwr3zxV4VoVzgJY93mXNctbObykUkwB5FebuD+u1khXu5GjxRdGkGTESDMoNIEYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LkVvsKPS; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788868841; c=relaxed/simple;
+	bh=iFrcA9JY1k9KmM3Q+olr7BPe5J3/7thmhQtIbbxcF4g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kOz5WAnr8QjD0fzKj3de07Jy4aW1bPFtxmiWwgUrb8ePBUASBhU68ve2Ec4bb7gJhARwAwQzCKWTWHWyt8Yn+NqsVPF3CTInvTkZD6PRqNBroTi+lu6B0XAXG+B7XZpuuOgBEOaKS0BNZ91FYZxTlsvOJarwuGyqFI3DupaxH+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nq9wXs/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LkVvsKPS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788868812; x=1820404812;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=W8i82HOkiZbVbSBZCtn5Kofxi2cYhcgb58khxqBCrRA=;
-  b=LkVvsKPS2RoqtCBfVtdptMPgVvS8w0kFBwF80JotWcUNMl6Xa2TMNRYx
-   YmEg7hTb/JSe7DrQsjWSaNXs2oEJMsvB5p7yOnOwgYNlc3TjHgdtPDm5F
-   uqWis2MXjU1IWGciRXiQA+18Ey0jf1Wd5ssUVEZHVh9bCtk5J951eUWHO
-   cBCYBbSU3ZEchqqgkIghFJnDHFui439GEsnkKHKblqy9O71hVemTjZerW
-   0yudj4WPiy0GcA7+cJPm5ryphSjRq/Y0arTXUW2sG284grHYjk4OhWUXT
-   6QLGiJaqd2N6X9sF0SYPt9Xde/lUuQg1K4AXEFkuVq+UKlofQMPFwiduu
-   w==;
-X-CSE-ConnectionGUID: Oj7bv9X1QXeQNTk5fIKmJQ==
-X-CSE-MsgGUID: 1tFAZGHQS7G62E/ntEFJyA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100625101"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="100625101"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 05:00:11 -0700
-X-CSE-ConnectionGUID: eahnnXcoR9aH1T7npJNTXA==
-X-CSE-MsgGUID: RWz8rladR3e4r9kcUpNVlg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="274502608"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa003.jf.intel.com with ESMTP; 08 Sep 2026 05:00:08 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id 555E399; Tue, 08 Sep 2026 14:00:06 +0200 (CEST)
-Date: Tue, 8 Sep 2026 14:00:06 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: Sven Peter <sven@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Mika Westerberg <westeri@kernel.org>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 01/22] usb: typec: Add alternate mode state notifiers
-Message-ID: <ap_4xnV_SJg1FoL_@black.igk.intel.com>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nq9wXs/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03CBE1F00A3A;
+	Tue,  8 Sep 2026 12:00:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788868839;
+	bh=8rlYsYzkN7mTWn/Fx5CPhjDhSHaoDxS6BZqjfUUPiAs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Nq9wXs/DHPmivj8aZfMcyF69E8E6KtsOVkavEBL/PfVDE6q+kkOUt+ZWADNk/7UwR
+	 oycfjgwV5YolTrDE1NUblJtl3bWjfjvg1OYSQPf1Cqdi8hM5wKmXvkXa/I+yz2SeQm
+	 A7RmvXkndTXrjLQh3S78YDicHzfEy59XBgRW+L/EPZx4D4+UKcgiUATmaceX/eoocP
+	 Xra+KShbuqjmaxNYDvG7BJUsSb2FGfoXez22sTKgUKpJm59X7qPLQHiYMo1rc+ZnMp
+	 SFi2X4bU2Hy2m/jVk4XXCeKpXBwVKEjS8PuiD1HOFYGWQs/bN6tcQkuHWUz9LGOkkQ
+	 ygzvGoh7XP5ug==
+Message-ID: <39db8a3e-ebde-4484-a401-45d8953e6bf2@kernel.org>
+Date: Tue, 8 Sep 2026 14:00:32 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
+ Purwa
+To: Mostafa Saleh <smostafa@google.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: jens.glathe@oldschoolsolutions.biz, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <ap_PdUrwLIVGJ3oG@google.com>
+ <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
+ <ap_RKfCbXAVBRtSY@google.com>
+ <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
+ <ap_rUIaJGAk-gZVP@google.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <ap_rUIaJGAk-gZVP@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 06, 2026 at 08:36:24PM +0200, Sven Peter wrote:
-> The Apple Silicon USB4/Thunderbolt driver needs to be made aware of
-> cable details and whenever USB4 or Thunderbolt is entered. The cable
-> details are already available as part of the typec subsystem but there
-> is no way to get a notification on typec_altmode_update_active() so
-> far.
+On 08/09/2026 13:02, Mostafa Saleh wrote:
+> On Tue, Sep 08, 2026 at 11:57:33AM +0200, Konrad Dybcio wrote:
+>> On 9/8/26 11:11 AM, Mostafa Saleh wrote:
+>>> On Tue, Sep 08, 2026 at 11:05:34AM +0200, Krzysztof Kozlowski wrote:
+>>>> On 08/09/2026 11:03, Mostafa Saleh wrote:
+>>>>> Hi Jens,
+>>>>>
+>>>>> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
+>>>>>> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
+>>>>>> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
+>>>>>> chassis, different silicon. Stubble and the DTB loader need distinct
+>>>>>> compatibles.
+>>
+>> [...]
+>>
+>>>>>> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
+>>>>>
+>>>>> This series does not apply to ToT nor I can find this base-commit
+>>>>> in it.
+>>>>
+>>>> It's a public/standard commit, next.
+>>>>
+>>>> What is ToT in upstream development?
+>>>
+>>> I am using Linus's Tree:
+>>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/
+>>
+>> This tree contains the latest release/rc tags, linux-next is an
+>> aggreagation of each submaintainers' branches, effectively "what is
+>> the next release going to look like" so essentially that's where the
+>> development happens
 > 
-> Add a blocking notifier chain to each alternate mode and call it
-> whenever the mode is activated or deactivated right next to the already
-> existing sysfs and kobject_uevent notifications. Replay activations when a
-> notifier is registered.
-> 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  drivers/usb/typec/bus.h   |  6 +++++
->  drivers/usb/typec/class.c | 59 +++++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/usb/typec.h | 16 +++++++++++++
->  3 files changed, 81 insertions(+)
+> AFAIU, linux-next is useful to get a view of the next release. However,
+> it shouldn't be used for developement. It should be either Linus's tree
+> or the maintainer's tree (as mentioned in process/submitting-patches)
 
-...
+So every developer gets it wrong, damn it...
 
-> diff --git a/include/linux/usb/typec.h b/include/linux/usb/typec.h
-> index 10a783b738ef..914a6f0844c5 100644
-> --- a/include/linux/usb/typec.h
-> +++ b/include/linux/usb/typec.h
-> @@ -19,6 +19,7 @@ struct typec_plug;
->  struct typec_port;
->  struct typec_altmode_ops;
->  struct typec_cable_ops;
-> +struct notifier_block;
->  
->  struct bus_type;
->  struct fwnode_handle;
-> @@ -184,6 +185,21 @@ struct typec_port *typec_altmode2port(struct typec_altmode *alt);
->  
->  void typec_altmode_update_active(struct typec_altmode *alt, bool active);
->  
-> +/**
-> + * enum typec_altmode_event - USB Type-C alternate mode state event
-> + * @TYPEC_ALTMODE_ENTERED: The alternate mode has been entered
-> + * @TYPEC_ALTMODE_EXITED: The alternate mode has been exited
-> + */
-> +enum typec_altmode_event {
-> +	TYPEC_ALTMODE_ENTERED,
-> +	TYPEC_ALTMODE_EXITED,
-> +};
-
-Mode entry and exit are not the only state changes that can happen.
-
-> +int typec_altmode_register_notifier(struct typec_altmode *alt,
-> +				    struct notifier_block *nb);
-> +int typec_altmode_unregister_notifier(struct typec_altmode *alt,
-> +				      struct notifier_block *nb);
-
-This is basically a partial revert of this commit bbe80c9a89b8 ("usb:
-typec: altmode: Remove the notification chain"). Can you check if it
-would enough to just completely revert that one.
-
-Thanks,
-
--- 
-heikki
+Best regards,
+Krzysztof
