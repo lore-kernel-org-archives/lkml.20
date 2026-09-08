@@ -1,102 +1,203 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532904ACC9C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9420F3F9A04;
 	Tue,  8 Sep 2026 08:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857800; cv=none; b=t/ZVZeeNLiPURFzNNUsM8VSInlKqvn1+msuJPihO8EKEB46RNCYyma9fV4Kg9Ro8cSeP3TlLw56Tnv7vAGXlCIvwpFLnKwim4tkro8UWy1gvfTXwzzZTgwNgd52gdqh+FEGk5oWEAaEEpXy8iMFzpzzxSzEc+9OlQwCoAj5cLLQ=
+	t=1788857799; cv=none; b=S9dwP4P8SKC1S5DLL/YD3KCKYYxbIlzFuHM8t6OODBrnTIZefDkji6jiH1ISgoELr6WTgILFb0zMz2xrX/z6yyfDDMsQ+TnYOtjJ1qje05n4JaG1mwDvy//k44bngmUP/svRPibOJ5jmfC1KGazeXHyP6FHqt10h1JqlT4SKZsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857800; c=relaxed/simple;
-	bh=Ahro2Srr+Bq9W6hD+AEH/Tw4GZscKYZxe91BI8YjBF4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KHMk2K9JHF8/T+v6KawbmCnvR/pOcCgnVsxHuUQ544ix83Rz1qDQCbxLmSgQyShFLlfp8GKlmaxPeni6rfYxBSNSSyvpTqSNEV7/PxOHUjzuGQ/KGVjsy72zTh3ugTg1xPlxMCnftnsiC+m6M+gX7sEFnbhSbMrN9isanIYwCJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GPaSlxFT; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788857799; c=relaxed/simple;
+	bh=fCVqIxDRV9LfquW63mZtbLxHFF3Bgw1t4t+NoPTxuGU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jnwhqND4aAY96/EBe5D0qYujqb7HRIGfWzMOPbLiaK9kxytejGBZqBNDENUJyHvWW7zvynO5/17uS8sPxLwGwUE3eGEq9V9Buo3fCnnOiQRZF3gFw5OoqEEn/BsVeAjtB2rSj8Vw5CW2cPCsQsSLTovbPHDHoxemSX6/qITxEDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hQ79rwIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GPaSlxFT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788857795; x=1820393795;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ahro2Srr+Bq9W6hD+AEH/Tw4GZscKYZxe91BI8YjBF4=;
-  b=GPaSlxFTwM8iHg+FleBy6ncQUPdlRyJMdyJqwi7ui/lHBf3/zxRZAp92
-   a78RyI1BCciKG4HDXVOA55mmfDVsVkFBJMJKuNqimRb/G3cBiEnOusZKC
-   znVEZJ844FKwqgGx8ddW5N93F7He6GQCVEUCRCVRDXqaNFT/MN90xrXGF
-   LO2fqXZkCkSqdHzlt32EczABAKzRp+J+IP7MyWKbexFvChWjuFng6AH9r
-   NJxdtDIUiq059/Cn4gYioRfrZfC0FxBHPPGxDlPi0jDhFtNYI1/tuO2W7
-   Nm+oECR0Ao4rTpGIqULeoUI4YVibpVLkf33bMyf/pdo8d0KAj9b3bW3mi
-   w==;
-X-CSE-ConnectionGUID: njSgW8llQdSVlND7d4H7dA==
-X-CSE-MsgGUID: fXMmZBihQSOpDveRvGQKuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89010480"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="89010480"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:56:29 -0700
-X-CSE-ConnectionGUID: YYYg/G2oSzypNapTAlU4bw==
-X-CSE-MsgGUID: BazvbqrfRQC/IF6oAMkTGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="264735949"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:56:24 -0700
-Message-ID: <1691a05c-49a6-4b16-8bad-cb3c004ed07c@linux.intel.com>
-Date: Tue, 8 Sep 2026 16:56:22 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hQ79rwIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050E91F00A3A;
+	Tue,  8 Sep 2026 08:56:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788857789;
+	bh=7GtzElf9EKxZso4ToovIvNR7XDQENlazd7Q/RdkJzdo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hQ79rwIbEigj2HF6YhUhvrVFLJQeX0d2CLSQ363xGAnSZG2MkP+aC/cHWxuxjEigT
+	 Q9iKlYIucsWreXv/r0AS/DJao72+AhIM4G4qUqH3eICYNbwVtWIk4f8PxitVXtpKGu
+	 bQDXJT6FWnwWbGoUpuJU2jtftDZrQZUMM9CBy9SMtVmtkPrRmZw9B3tv9063UbazD2
+	 3o8ai0gV0j06rkFLJInDR37/FfUAx5ohLnkb3QqIXt7ISK9IaAd7pRr6sHFGUgBe2v
+	 Chk6IuG/lChHjaK5tYzvDsc0Nv1SDd3plshDkUuSuKk2kX/09RUfnf8/bWmcYikXNP
+	 NWR2zFpjg6ZTg==
+Date: Tue, 8 Sep 2026 09:56:22 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH 6/6] tools/testing/selftests/mm: add
+ MAP_PRIVATE-/dev/zero merge tests
+Message-ID: <ap_LyUQNjxyytDue@gremlin>
+References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
+ <20260902-map-private-dev-zero-v1-6-a578c730cec7@kernel.org>
+ <42c1b1be-d176-45fd-b467-464b5b87e116@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] perf/x86: Disable precise sampling for
- PERF_SAMPLE_STACK_USER
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo
- <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Andi Kleen <ak@linux.intel.com>, Eranian Stephane <eranian@google.com>,
- linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
- Dapeng Mi <dapeng1.mi@intel.com>, Zide Chen <zide.chen@intel.com>,
- Falcon Thomas <thomas.falcon@intel.com>, Xudong Hao <xudong.hao@intel.com>,
- Gennady Kupava <gennady.kupava@gmail.com>,
- Ravi Bangoria <ravi.bangoria@amd.com>
-References: <20260908075102.540715-1-dapeng1.mi@linux.intel.com>
- <20260908075102.540715-2-dapeng1.mi@linux.intel.com>
- <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260908084906.GO4121339@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42c1b1be-d176-45fd-b467-464b5b87e116@kernel.org>
 
+On Mon, Sep 07, 2026 at 07:08:48PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/2/26 20:00, Lorenzo Stoakes (ARM) wrote:
+> > Assert that MAP_PRIVATE-mapped /dev/zero mappings behave like they are
+> > anonymous.
+> >
+> > We test both unfaulted and faulted/unfaulted merges - each with the regions
+> > having page offset of 0, which would not merge if the mappings were treated
+> > as if they were file-backed.
+> >
+> > With the recent change that makes them behave as pure anonymous mappings,
+> > the merges should succeed as their page offsets are equal to their
+> > anonymous page offsets.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  tools/testing/selftests/mm/merge.c | 104 +++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 104 insertions(+)
+> >
+> > diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
+> > index 52b8727b6628..7c528d470404 100644
+> > --- a/tools/testing/selftests/mm/merge.c
+> > +++ b/tools/testing/selftests/mm/merge.c
+> > @@ -1362,6 +1362,110 @@ TEST_F(merge, anon_and_page_offset_mismatch_memfd)
+> >  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
+> >  }
+> >
+> > +TEST_F(merge, merge_map_private_dev_zero_unfaulted)
+> > +{
+> > +	struct procmap_fd *procmap = &self->procmap;
+> > +	unsigned int page_size = self->page_size;
+> > +	char *carveout = self->carveout;
+> > +	char *ptr, *ptr2;
+> > +	int fd_zero;
+> > +
+> > +	if (access("/dev/zero", F_OK))
+> > +		SKIP(return, "No /dev/zero.");
+> > +	fd_zero = open("/dev/zero", O_RDWR);
+> > +	ASSERT_NE(fd_zero, -1);
+> > +
+> > +	/*
+> > +	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
+> > +	 * each.
+> > +	 *
+> > +	 * With these being made truly anonymous upon mapping, they will
+> > +	 * merge. If they were file-backed VMAs the page offsets would prevent
+> > +	 * merge:
+>
+> Nit: "the" merge? You're the native speaker, so I don't know if what you have is
+> just correct :)
 
-On 9/8/2026 4:49 PM, Peter Zijlstra wrote:
-> On Tue, Sep 08, 2026 at 03:51:02PM +0800, Dapeng Mi wrote:
->> PERF_SAMPLE_STACK_USER needs to return the user stack and user registers
->> to user space when the PMI exits. Since the skid from the PEBS/IBS sample
->> and PMI delivery, the PEBS/IBS register snapshot (especially IP/SP/BP)
->> can diverge from the user stack at PMI return. That mismatch breaks DWARF
->> unwinding.
->>
->> Precise sampling provides no benefit in this case, so disable PEBS/IBS
->> precise sampling and allow only PMI-based sampling when
->> PERF_SAMPLE_STACK_USER is requested.
->>
->> Reported-by: Gennady Kupava <gennady.kupava@gmail.com>
->> Closes: https://lore.kernel.org/all/CAPu-DQqF0aF6=GS8Z6KKWeeX_V5LiXeKU_rJQZC+uGg8zuTPNw@mail.gmail.com/
->> Cc: Ravi Bangoria <ravi.bangoria@amd.com>
->> Fixes: c5ebcedb566e ("perf: Add ability to attach user stack dump to sample")
->> Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-> This breaks long standing existing behaviour.
+You're right ;) native speakers are not immune from messing up grammar, as my
+copy editor will tell you :P
 
-Yeah, but it seems there is no better way to fix this issue.
+Will fix up on respin.
 
-An alternative way to fix this issue is still to return the PMI context register state rather than the PEBS precise registers for user stack sampling, but this actually falls back the imprecise PMI-based sampling. In my opinion, it could even make the thing worse. User requires to get precise samplings, but perf silently returns imprecise records, this would mislead user. 
+>
+> > +	 *
+> > +	 * |-----||------|    |-------------|
+> > +	 * | ptr || ptr2 | -> |     ptr     |
+> > +	 * |-----||------|    |-------------|
+> > +	 */
+> > +	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
+> > +		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> > +	if (ptr == MAP_FAILED) {
+> > +		close(fd_zero);
+> > +		ASSERT_TRUE(false);
+> > +	}
+> > +	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
+> > +		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> > +	if (ptr2 == MAP_FAILED) {
+> > +		close(fd_zero);
+>
+> Is the close() really required before the ASSERT?  After all, you're also not
+> munmap'ing, so I wonder to which degree we have to clean up.
+>
+> So maybe this could just become a
+>
+> 	ASSERT_NE(ptr2, MAP_FAILED);
+>
+> Same for ptr above.
+>
+> You could likely also do
+>
+> ptr = mmap()
+> ptr2 = mmap()
+> close(fd_zero);
+>
+> ASSERT_NE(ptr, MAP_FAILED);
+> ASSERT_NE(ptr2, MAP_FAILED);
 
+Yeah that's easiest I think! Will fixup on respin.
 
+>
+> > +		ASSERT_TRUE(false);
+> > +	}
+> > +	close(fd_zero);
+> > +
+> > +	/* Assert that they merged. */
+> > +	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
+> > +	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
+> > +	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
+> > +}
+> > +
+> > +TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
+> > +{
+> > +	struct procmap_fd *procmap = &self->procmap;
+> > +	unsigned int page_size = self->page_size;
+> > +	char *carveout = self->carveout;
+> > +	char *ptr, *ptr2;
+> > +	int fd_zero;
+> > +
+> > +	if (access("/dev/zero", F_OK))
+> > +		SKIP(return, "No /dev/zero.");
+> > +	fd_zero = open("/dev/zero", O_RDWR);
+> > +	ASSERT_NE(fd_zero, -1);
+> > +
+> > +	/*
+> > +	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
+> > +	 * it in:
+> > +	 *
+> > +	 * |-------------------------------|
+> > +	 * |           faulted             |
+> > +	 * |-------------------------------|
+> > +	 */
+> > +	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
+> > +		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> > +	if (ptr == MAP_FAILED) {
+> > +		close(fd_zero);
+> > +		ASSERT_TRUE(false);
+>
+> Same question regarding cleanup requirements. The ASSERT_TRUE(false) looks a bit
+> odd.
 
+Yeah it does. This case is trickier as you then do a memset(), so maybe just
+live with the 'leaked' fd in this case (the tests fail so it aborts the run at
+that point anyway and tears down).
+
+Fixed and will send respin!
+
+>
+> --
+> Cheers,
+>
+> David
+
+--
+Cheers, Lorenzo
