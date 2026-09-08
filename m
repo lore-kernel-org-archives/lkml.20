@@ -1,85 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from flow-b4-smtp.messagingengine.com (flow-b4-smtp.messagingengine.com [202.12.124.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14AED5908BF;
-	Tue,  8 Sep 2026 18:32:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06BD59E328;
+	Tue,  8 Sep 2026 18:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788892333; cv=none; b=awxmRyEFV75oXkT05wN8+Cv5N+42LkXBlWirEjMHK1S1rvd5zjn9SH9LVCgfAlNF++Qk0XyQWSAIHaZUaXUDMaQwn13oox5pbEmOyG9EbmQGb+fpqLpbDrDvGv9ZlCSV7YOumRyAhRnyBv4IpZyY/9c2rMK/B70TuZ0zE4Kv/3I=
+	t=1788892461; cv=none; b=vDcJtmMEPoQhiEet606UC20KRAEKjpfnLst7psp4vlzi44N5mvvFO54tsl1dMHvHttWVeqF+65TGClT1upPZLol2u7mbrnWGVcnnpZThxltQjlAB08WwMkYKtgEmnpKMvvqHKyVwrsMMkNOTmi4OsQlh7EiTEgBRWFWSnBIOHLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788892333; c=relaxed/simple;
-	bh=liWYTw1gFaWCOc3lsNTkoVeARu8vtlTsM0Gf7Ryge7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S1lXELJQyW1mPzkuieZkHfKttjkrI+3y26gknNLxwby0G3e/79z7RWPGnBjvSSSHI81eoTBLNR1flv/oV7p7P6SbImyr+/fX978oQNLm74OmoBgWds0f1ETwf/dHk5iQlrlv0BnV2rZvjpak8dG9leJO3hBA/a9MnTAcDV7gzgg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crBidmcr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788892461; c=relaxed/simple;
+	bh=CAUYxFIfOAUGf/eLL1zwg8VGlQjPE5mkI0urQpJ/E/w=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ClWfx8jM+eicIMnXJkgW1rUZAGqykty4UAODTFxIalvvquETEE8VWUtKNc/K/TXRxocsnDBR5F5lvbr9uSO8xcgBiE8e+KPxf0iO7mWwqpADYHyQZKNjxryk1Ec4SrQwQEAxe2Rz32FSJ6ElzW+R82coIAYThEJy5L6Ut87ezaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=O8kDBEJF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nh51fYk2; arc=none smtp.client-ip=202.12.124.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crBidmcr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8635D1F00A3A;
-	Tue,  8 Sep 2026 18:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788892331;
-	bh=l0CggrwevG1xFJXWU9JWMqvoGtAQryeGoT9XLBo0uuI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=crBidmcrpEcnBr67Ljy1VrLxiB9GDPbc+oVD+aJxu0WBgWe0tftkVIQr09iuviLxT
-	 5AjjKhYWInCjEnlJ6m/iPoeRccV6tD6azBT6MZh3/QGYhU6d/BdYzKxJAOlf89dgP4
-	 xGXh3tY9T1LYnMX5SvS1O0ttI6WhL8y/Ihq7HqM7p90/QwRt8CFNxWJh++liFe8IxR
-	 YVOs16jX3OWQ3emsqekKdjrqSmqFyLMSH2UM219oUtf1ww6Oto+lFY0AMD5ER1rQcd
-	 2JSzAr49CaPe6HlgxWELVMqIkMwF/FmrpCF+GHd965t5kFXyvnuSNj3Lqfq2fmMJqd
-	 FI06m+DSNAYVA==
-Date: Tue, 8 Sep 2026 19:32:07 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aaron Ma <aaron.ma@canonical.com>
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Henry Tieman <henry.w.tieman@intel.com>,
-	"moderated list:INTEL ETHERNET DRIVERS" <intel-wired-lan@lists.osuosl.org>
-Subject: Re: [PATCH v2 2/2] ice: clear Flow Director entries before reset
- cleanup
-Message-ID: <20260908183207.GE40544@horms.kernel.org>
-References: <20260907115221.926007-1-aaron.ma@canonical.com>
- <20260907115221.926007-2-aaron.ma@canonical.com>
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="O8kDBEJF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nh51fYk2"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.stl.internal (Postfix) with ESMTP id 462FA1300D1F;
+	Tue,  8 Sep 2026 14:34:09 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 14:34:14 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788892448;
+	 x=1788899648; bh=mehW/CyDxkmIO3arqkZApC9ipZYWGbvNNWYPndTatYU=; b=
+	O8kDBEJFUQ4hnv1KhcAzt7/VLZmhjlvZ8edI/TbX9L6wqWImnH/qIuTP0F5KonfL
+	fEm9ypqoiQpZNXZdyrT17Ac0Um/DowwvD7fx+ZJTFJwPSJyXfLL5l7gzF/Idymr4
+	f1epRMggcMnlJq7KSiCZKpteSuyKeAFbhIb9T+x2Zr8GG976/DOjIr1cQEwabi6E
+	mfQHPmaQlGCGffsknNmqUo48DrPjICNMv9IRhh72V5Vmg8/BPQxR+3XkzX+fAZzn
+	MVATdcImD4H2uXRjhtOxv1MGK319Se0qL1lYqAusfl3VUcCkqOPoxtZjW/pcodwj
+	x1+UoIkU5uRwM+pqUDy4RA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788892448; x=
+	1788899648; bh=mehW/CyDxkmIO3arqkZApC9ipZYWGbvNNWYPndTatYU=; b=n
+	h51fYk2zApplolvODNqDSJGm4M066/laYwyyzuFNbYJHYmj33L68Xx7qAQFPWbG9
+	OtoW56HY2PvXMTAxHGg1eZ08JwLYKkdBxzpHAKrjhsNEmt++3ZTWhz0QAT/fimgF
+	/u+E9z4OyDlIVsYYr5PvIih43auCfg+qLieBiiHjToXcyIpdYR68vqzrBofQObR/
+	o0zxM0tEvbHUcohNzFkNwfauajQdPwpIHVJgec69cvAdMZd4Kvv5YxVZUFkGotn/
+	X+900FTmnBlSqkXdA1Iiik481dVrIeTVRqD2oht5FnSxVU1A06Xd0Kn+BkjuqpCf
+	M+Ql3TBD1irt3E8kyvHPw==
+X-ME-Sender: <xms:EFWgauu7GtyXgWQHujeZXC7kxuUAC_fi4FQ66bW0xH0tqluuSR9odg>
+    <xme:EFWgauT4aZ6C2Yp_TEnfEXr4R2JO16aYIdaS6AKCTfr93DQiqwAyR0Kp5YNjM4nrX
+    d2_w13l5PCarWY-aO1VEQHJJmhtdIGli7HZbyK9sLGynnVgu5tol-Q>
+X-ME-Proxy-Cause: dmFkZTFPhVyeTYuwUsqrCzczPQ7NQS9SIU5BZcx5bS0XoavZIvkpWuRfxUE+TdQzqIZ8W3
+    KgRh5EaF0ATxLS3kYVyZadsjYR3587lVpn4U6wibqTG+Z+vEyX1K6BTf23Wl2vKcZvzswW
+    u896gNmqAsTDmDcBXdf+mKoJ6wtOOjaW4gf3mfRO76i5F5Fuzz0E7rvkdFBTjhtevaZfOV
+    2h85LBbFVxyH/oOrwBnvcPFLPz6Ba+tOAtLnWJWDeqSBK89IvitzmWMb/bG1kty+HzE4j8
+    t520Am6gozzkkQw5hKQLB5hk0heSKiwJnCqMl0Wt5slkx2lDfY55HPemu+FXy+aRnHd3c8
+    EgdCB1Eo7AlOganWzCXK9NPTeR9XP2OOrta8BRxSYYW3WSbQk/LE+6tZH5AfjA5ISpc+nF
+    ZBoS1kg5/CNGMB82EvzJlOWmxvZsrb+44jACuhaya3QA1nYa59bH5ivm4eam1s+O6yXT+D
+    Es5aM9afF/dIB6q1FUUobemW/JB0hmtjVDggfdDSy7y8WXdqdrKiwFIaSjFeLYFXGoNsQN
+    QHTddWgdmwDwzI3kyaQTZN/Ldx7dDZifv9UA8D0nNEso15LHPNQevm0ZpUqjkP6TdZ6cUE
+    6WVwBkQiqWw9SVWbppCzMBNqkmqsXmGSEjFiFR4FLFX17cwUPJ6ewti7U/xA
+X-ME-Proxy: <xmx:F1WgamlKMkU1kjxuFOg-_KGizDUsqst_ABIUsKjsRch3bpJytV-1Yg>
+    <xmx:F1WgajiTKAGQs6gDLhlMV1v79AmLVF51M_rhNVUV5O72N6_z3z_l1A>
+    <xmx:F1Wgal0RhH_jqzPU5xa8YOZ5ILjUWM9g7vCAzV0SXzjNf_OASrAq2g>
+    <xmx:F1WgaoYsEeJuD_jtW46ShO3uMCgKV-lDDTZIDnboqPyRElWa9RyzVg>
+    <xmx:IFWgarC94hF2G-29Xy07G5l6HzSUV8ei4nAmOV2N7J7lYRKVm4gcoHbV>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id D0F9232A007B; Tue,  8 Sep 2026 14:33:52 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907115221.926007-2-aaron.ma@canonical.com>
+X-ThreadId: ArxhsfFjo9nk
+Date: Tue, 08 Sep 2026 20:33:32 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Randy Dunlap" <rdunlap@infradead.org>, "Arnd Bergmann" <arnd@kernel.org>,
+ "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Linus Walleij" <linusw@kernel.org>, "Russell King" <linux@armlinux.org.uk>
+Cc: "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Liviu Dudau" <liviu.dudau@arm.com>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Fabio Estevam" <festevam@gmail.com>,
+ "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Aaro Koskinen" <aaro.koskinen@iki.fi>,
+ "Andreas Kemnade" <andreas@kemnade.info>,
+ "Kevin Hilman" <khilman@baylibre.com>,
+ "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
+ "Nicolas Ferre" <nicolas.ferre@microchip.com>,
+ "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
+ "Andrew Lunn" <andrew@lunn.ch>,
+ "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
+ "Gregory Clement" <gregory.clement@bootlin.com>,
+ "Robert Jarzmik" <robert.jarzmik@free.fr>,
+ "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
+ "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
+ "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "A. Sverdlin" <alexander.sverdlin@siemens.com>,
+ "Shawn Guo" <shawnguo@kernel.org>,
+ "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux-OMAP <linux-omap@vger.kernel.org>
+Message-Id: <173bb63a-59de-4961-a841-4a2fd0c2bcac@app.fastmail.com>
+In-Reply-To: <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
+Subject: Re: [PATCH 00/13] ARM: deprecated platform removal
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 07, 2026 at 07:52:21PM +0800, Aaron Ma wrote:
-> Flow Director profiles retain handles to generic flow entries. Reset calls
-> ice_clear_hw_tbls() to free those entries, but leaves the Flow Director
-> handles unchanged until replay replaces them.
-> 
-> If rebuild fails before replay completes, later driver removal follows a
-> stale handle and dereferences a freed flow entry in ice_flow_rem_entry().
-> KASAN reports a wild access to list poison from
-> ice_fdir_erase_flow_from_hw().
-> 
-> The failure is reported as:
-> 
->   KASAN: maybe wild-memory-access in range [0xdead000000000108-...]
->   RIP: ice_flow_rem_entry+0xaf/0x170 [ice]
->   ice_fdir_erase_flow_from_hw+0x1ee/0x420 [ice]
-> 
-> Clear the Flow Director handles while holding hw->fdir_fltr_lock before
-> the hardware tables free their entries. A successful replay installs new
-> handles, while a failed rebuild leaves them invalid for later cleanup.
-> 
-> Fixes: 148beb612031 ("ice: Initialize Flow Director resources")
-> Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-> Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
-> ---
-> v1 -> v2:
-> - Acquire hw->fdir_fltr_lock in ice_fdir_clear_flow_handles() to
->   synchronize with concurrent ethtool filter add/del.
+On Tue, Sep 8, 2026, at 18:53, Randy Dunlap wrote:
+>
+> If netwinder is going away, can all of
+> Documentation/arch/arm/nwfpe/ also go away?
+>
+> Or do all of these come later (in phase 2 or 3)?
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+nwfpe is used on all OABI platforms, not just netwinder, so
+the patch to remove that comes in the next series after removing
+OABI. See
 
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/commit/?id=ff375183fe225b79de700f004181405ff6a739cc
+
+for the draft patch.
+
+      Arnd
