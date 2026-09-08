@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD91939E6CD
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:01:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BB939E19A;
+	Tue,  8 Sep 2026 20:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897669; cv=none; b=W8+FbhAGwTmyQUPnlc7gcnC+VhTmfrTAOvefslq2XoC2wN0bIbfqwOcXa2eOe8p/Sn0I4x433dhe1Mx5olC1tZMuaRcCQlU6cRqo5TkmziUsOw5VK+cgtCDX/6D0wGPZbaIoahuCb3OS9ofxIupuHVRu/3YyElgY7bJuvBLffkQ=
+	t=1788897671; cv=none; b=E69Bj8qoJkyrYQWx1nW3bJHe7smFSTjK6j4g9pJkWIgY3DkY5PucaHWQOpImm5tnTAWcYFVOucfR/JYqmydvyAedFFsuvu41xNfaNzzCZ8tTUacDJI8C+i1QYpOpADG4R3GeDSM8dOhZvbXzCrsV9QhQu0ezY0ajR08tetfdse0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897669; c=relaxed/simple;
-	bh=/dvF7Skzv8vPsCa2LdD4Jkkz22ghIwkl2NtnE7AcCsA=;
+	s=arc-20240116; t=1788897671; c=relaxed/simple;
+	bh=avzkFG75eoL711X04gLfwmDG6d9k0HbHjq0/Cneajm4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=IH62LWDUuQyUeS4FHCPJ93lE2F85mjR0l3C3U54p7hlnEVz7mIEK2kKiESws6AUwF34Xtz8SOaxPDt+GpZUMGgwg+PLtW3PMOQo8xIC0cWpmf6lTPdee5B5/Iej2FFkVlSW0TeWu82JGGYlw+2Lnwrd11MDNqXYPefL1Mc54Xco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SwasziLr; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=LK5Wtb5+peKE1/cy9kNYGYa7TTfDwiGPq1J/smVlKJz2xLguVUZoZL3MD+MR3BJBCZbGJP6Gp85Ic0AorMBhnpqkq1z+ojtBRuo64uHnjxlzHb5W3B5mAuPaRWyZAIXLFBJ2nSVs+B+Eeo7kFqwT83u83erhBZAHmloVAFgIpn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRPEra+r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SwasziLr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19B091F00A3A;
-	Tue,  8 Sep 2026 20:01:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRPEra+r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95DB31F00A3D;
+	Tue,  8 Sep 2026 20:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788897668;
-	bh=weVkAE66PuFA6ueVLI0Xd/LFcQkJbuYpx8zORck9hV0=;
+	s=k20260515; t=1788897669;
+	bh=Mn2z802etyyKFuQdlZgVT3N2OhEpwVAgB4Jn5ZVA/UI=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SwasziLrkOuMlx81wWsx483cNYNLzF+oZCc9sKNSse/cX4Vx9Cs+ElESNljJRij+n
-	 y/OIyhWwQlVYaKUqMfDFAN9Gx8GsfdA7AHx5XcmfcKyaI2XU+d5ya3fjCQFjRoPZDD
-	 CfEIrlrCFglzvOgvkvF4J7apH8lB+5/fgoMRZs4UqEhiGL/1+9Sgo1xTXFbIJs5cj0
-	 6Nj4P8oQsN2UUExnKkPWWdD5oU8vFItVK5MpXDgMr6WODxkqqzzc6fz6479udQUtzI
-	 RZQlpPV8qtpQsX1BzgbdSmrw93iYi0+jd2TVBu9J8rVPXZqgqN9bwwFenuXd7aZMIC
-	 0BtKR3WTZIPHQ==
+	b=lRPEra+rmdTi5LkKVLuU4FRgbKIynMb4corkf4RBuMGsJGIzXCzwAqmGhGizciJDe
+	 cQ6bxi/wBslbGqyHkmsGEd1WV0NMIGvvS7W1lONEjmOd+N47Bn9Al97RFQLau+oqI/
+	 2Z1UDXSArHsZlhbxhxSdz5a1QQ4un9tB3yHQCC1BW1P62iAQR0Vo8IFJQbO/G+ZsSu
+	 0n9Vc/thbN26lelWGC2ZumSd7wDMkOfM71C/DMQEIxGD8tflMEr9oSRYKT6dEolYS3
+	 dKCGO67i2YqqakOz+sn0jU9hNC31UdADi7YmqTcPDCfp2fj99/0tzylCvv6i2Y8GHh
+	 hN7D+Wqu2Bjhw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D09A6380820D;
-	Tue,  8 Sep 2026 20:00:07 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56927380820D;
+	Tue,  8 Sep 2026 20:00:09 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -37,59 +37,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [f2fs-dev] [PATCH v9 00/11] f2fs: prepare metadata layouts for
- runtime block sizes
+Subject: Re: [f2fs-dev] [PATCH v4] f2fs: drop pending discard commands before
+ reserving device alias
 From: patchwork-bot+f2fs@kernel.org
 Message-Id: 
- <178889760650.3720652.823497895203817513.git-patchwork-notify@kernel.org>
-Date: Tue, 08 Sep 2026 20:00:06 +0000
-References: <cover.1788479509.git.zhangxp1998@gmail.com>
-In-Reply-To: <cover.1788479509.git.zhangxp1998@gmail.com>
-To: Kelvin Zhang <zhangxp1998@gmail.com>
-Cc: linux-f2fs-devel@lists.sourceforge.net, jaegeuk@kernel.org,
- linux-kernel@vger.kernel.org
+ <178889760788.3720652.6767085616150933422.git-patchwork-notify@kernel.org>
+Date: Tue, 08 Sep 2026 20:00:07 +0000
+References: <20260903161031.1280195-1-daeho43@gmail.com>
+In-Reply-To: <20260903161031.1280195-1-daeho43@gmail.com>
+To: Daeho Jeong <daeho43@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ kernel-team@android.com, daehojeong@google.com, stable@vger.kernel.org,
+ qiwenjie@xiaomi.com
 
 Hello:
 
-This series was applied to jaegeuk/f2fs.git (dev)
+This patch was applied to jaegeuk/f2fs.git (dev)
 by Jaegeuk Kim <jaegeuk@kernel.org>:
 
-On Thu,  3 Sep 2026 16:54:16 -0700 you wrote:
-> F2FS currently describes several on-disk metadata layouts and filesystem
-> geometry values with constants derived from PAGE_SIZE or a fixed 4KB block
-> size. This series derives those values from the mounted filesystem's block
-> size instead, as preparation for supporting filesystem blocks smaller than
-> PAGE_SIZE.
+On Thu,  3 Sep 2026 09:10:31 -0700 you wrote:
+> From: Daeho Jeong <daehojeong@google.com>
 > 
-> The patches initialize sb_info early, describe the SIT, NAT, orphan, dentry,
-> node, and xattr layouts dynamically, parameterize sector/byte/block
-> conversion helpers, and derive node-tree geometry at runtime.
+> When reserving a device alias via f2fs_ioc_reserve_dev_alias(),
+> f2fs_reserve_device_alias() bulk-marks all blocks in the target device
+> range as valid in SIT.
+> 
+> However, if the device was previously in the released state, stale
+> pending discard commands covering that range may still exist in dcc->root.
+> When f2fs_issue_discard_thread later processes those commands,
+> __check_sit_bitmap() detects valid blocks in the discard range and
+> triggers a kernel BUG().
 > 
 > [...]
 
 Here is the summary with links:
-  - [f2fs-dev,v9,01/11] f2fs: initialize sb_info early in f2fs_fill_super
-    https://git.kernel.org/jaegeuk/f2fs/c/425a464e82a1
-  - [f2fs-dev,v9,02/11] f2fs: describe SIT block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/b41496b999b3
-  - [f2fs-dev,v9,03/11] f2fs: describe NAT block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/4b1fbe38ce5b
-  - [f2fs-dev,v9,04/11] f2fs: describe orphan block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/0e346faac20c
-  - [f2fs-dev,v9,05/11] f2fs: describe dentry block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/2f5562816fac
-  - [f2fs-dev,v9,06/11] f2fs: describe {i, d, id}node block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/49d39bc4b877
-  - [f2fs-dev,v9,07/11] f2fs: describe xattr block layout dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/fbf612f85437
-  - [f2fs-dev,v9,08/11] f2fs: parameterize sector conversion macros
-    https://git.kernel.org/jaegeuk/f2fs/c/87f159c1492f
-  - [f2fs-dev,v9,09/11] f2fs: parameterize byte and block conversion macros
-    https://git.kernel.org/jaegeuk/f2fs/c/7c8fd5156c90
-  - [f2fs-dev,v9,10/11] f2fs: describe node tree geometry dynamically
-    https://git.kernel.org/jaegeuk/f2fs/c/a4bfdfc5d3d8
-  - [f2fs-dev,v9,11/11] f2fs: parameterize block size and mask macros
-    https://git.kernel.org/jaegeuk/f2fs/c/6a0dda6838b6
+  - [f2fs-dev,v4] f2fs: drop pending discard commands before reserving device alias
+    https://git.kernel.org/jaegeuk/f2fs/c/5200186c8cf1
 
 You are awesome, thank you!
 -- 
