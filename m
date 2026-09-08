@@ -1,98 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539884A4986;
-	Tue,  8 Sep 2026 10:32:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B027511E94;
+	Tue,  8 Sep 2026 10:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863570; cv=none; b=jHbUlJdslKC7c3kKiJSEfFvVCRYxptwdoME3wq5ArCBuMdrX0eGclrDudYvysKheh7njakefvtxcRu9vGckm8OlvYPSZrnO6d+LUjbPST63a4wjLBniS2yiYqxabJGKl2WYLoGvp2xBH3KxudL0XRswK3YaxiXEW7gWctWLzLSw=
+	t=1788863626; cv=none; b=dTBMxTjJFJJDGbf4T1qofiGyhQaErqD5yziaaiE0B4b797V7nXLm5OidpGmIeBg9HS7NIrFBlEsVnxyWT6UGuNbhulK7A/QH++5GWi5uJr2tfJwRf1bE2d/T6RnuWqVdIQWLtBVGD/7Nw9iFNardnYCHNZBwY6COZq14h0Z7D9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863570; c=relaxed/simple;
-	bh=BYa4Q1INIJL04DCmHAqSdo/9ottjX6vvhxQyhuMLnmc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JGEs7JPu+JLDn0IFSwVZEN9JjnEPxDJOill65kzG01tbbzHhnRcGYW9fDAZORlXhVpa64hsUV6ctHyrU4SfuZKiUz4DlAYP+zBX958HcJurDr3a/mwTvmiEBeU5ZnV1a08s2wT5aXJSgHDLvQtShzHpv3IOtQa51CTj0lnZD3D0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jWDSGpN7; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jWDSGpN7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788863569; x=1820399569;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=BYa4Q1INIJL04DCmHAqSdo/9ottjX6vvhxQyhuMLnmc=;
-  b=jWDSGpN7EUzkR7cNe+/KLBszTLCKVhvLZLbVm+a41/JXpUqFkImDjBMT
-   25JscAGSQHFpKuytgAv85Y46iiIx7KITt3/XeXqReXD/aVyjO6Q2yykLv
-   vhjFAbmZ+FIUFSK9zECVfPxv17YGfgYRFjPBtz8KdT2PCjCIDMI7+dQxF
-   8eF5QYdlQbvKb883WprSVk1w9T+12VhvcwDwZkBV2/YjBm+Aif9uqhxc1
-   9qjF5T4EGEkfp90I7ddVFHh/RdSPizWPsus3xeEY2lRZQ1S+PepvFA3+r
-   UB6Q1+wSbbWaYo08HF1DylqiTnjkSXSbihnJBzgfrNwsrJPSKY2ch6ONZ
-   g==;
-X-CSE-ConnectionGUID: uxquh3R5Q96Y0p6ZEsfoaw==
-X-CSE-MsgGUID: mwXeqD+TQNCSUalx59MGGg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91772069"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="91772069"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:32:48 -0700
-X-CSE-ConnectionGUID: 4KLeg5MIQou+0vP4RYY3Zg==
-X-CSE-MsgGUID: dtr2K5aMRzSPyCQw+oeobg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="264755941"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:32:47 -0700
-Date: Tue, 8 Sep 2026 13:32:44 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Salah Triki <salah.triki@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: temperature: tsys02d: Fix state desynchronization
- on resolution write error
-Message-ID: <ap_kTDGgJq1S8rVr@ashevche-desk.local>
-References: <20260907085353.54477-1-salah.triki@gmail.com>
- <20260907165009.0000035c@gmail.com>
+	s=arc-20240116; t=1788863626; c=relaxed/simple;
+	bh=TAR/+kHednxrxzylj9Ii7imx5KDUfn6/JXlxX+CWCs4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=je5/UPTMvL7w/TdaTmYxMBuYgY2Zn35wp63/wgEBHLCwwMQS7oGjIPtXVRyRchb5c/XF+U3Yn8JU4jPmO+xu2aCN+ePNMYB2XIq5NgW0vprDGnipx3dcsKO4qjXExDjreDHSwiHVzWxeYIF26qTX0UTKNxcI3cKk0pM29OceHvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
+Received: from io.fritz.box (p200300f6af085a00d84fb33a51badfd9.dip0.t-ipconnect.de [IPv6:2003:f6:af08:5a00:d84f:b33a:51ba:dfd9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.8bytes.org (Postfix) with ESMTPSA id D3CA72085C1;
+	Tue,  8 Sep 2026 12:33:40 +0200 (CEST)
+From: =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>
+To: Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>
+Cc: Michael Roth <michael.roth@amd.com>,
+	Liam Merwick <liam.merwick@oracle.com>,
+	Vishal Annapurve <vannapurve@google.com>,
+	Ninad Naik <ninadnaik07@gmail.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Tom Lendacky <thomas.lendacky@amd.com>,
+	James Bottomley <James.Bottomley@HansenPartnership.com>,
+	kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	coconut-svsm@lists.linux.dev
+Subject: [PATCH v2 0/8] KVM: SVM: Support direct setting of VMSA for SEV-SNP guests
+Date: Tue,  8 Sep 2026 12:33:30 +0200
+Message-ID: <20260908103338.427254-1-joro@8bytes.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907165009.0000035c@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 07, 2026 at 04:50:09PM +0200, Joshua Crofts wrote:
-> On Mon,  7 Sep 2026 09:53:53 +0100
-> Salah Triki <salah.triki@gmail.com> wrote:
+From: Joerg Roedel <joerg.roedel@amd.com>
 
-...
+Hi,
 
-> >  		ret = ms_sensors_write_resolution(dev_data, i);
-> > +		if (!ret)
-> > +			dev_data->res_index = i;
-> 
-> + blank line
-> 
-> >  		mutex_unlock(&dev_data->lock);
-> >  
-> >  		return ret;
-> 
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+here is the updated version of KVM-AMD changes to allow user-space to
+directly set the boot VMSA (direct-vmsa) for an SEV-SNP virtual
+machine.
 
-Actually we prefer usual pattern — "check for error first".
-This 'if (!ret)' is confusing.
+The direct-vmsa support is required for stable launch measurements
+when loading the initial SEV-SNP guest image from an IGVM file.
+Without this support KVM measures a VMSA at a fixed GPA for every
+VCPU, which makes the launch measurement dependent on the number of
+VCPUs. Besides that the current KVM VMSA-allocation behavior poses
+challenges for live migration of SEV-SNP VMs. The current behavior is
+fully preserved when direct-vmsa is not used.
 
+For a longer justification have a look at this email from the v1
+thread:
+	
+	https://lore.kernel.org/kvm/aiqwjn2DVOumfr3T@8bytes.org/
+
+One of the main concerns with the previous version was the user-space
+API, which has changed significantly in v2. The API now consists of
+three parts:
+
+	- A new KVM_CAP_SNP_DIRECT_VMSA VM-level capability which can
+	  be queried and enabled from user-space. When user-space
+	  enabled the capability, KVM will no longer allocate VMSA
+	  pages when creating VCPUs. This means that the capability
+	  can only be enabled before any VCPUs are created.
+
+	- Allow VMSA pages in SNP launch updates. This was already
+	  present in the previous version, but has different semantics
+	  now. In this version all it does is adding the VMSA pages to
+	  the initial image and the launch measurement. 
+	
+	- A new per-VCPU MEM_ENC operation to get and set the VMSA and
+	  GHCB addresses of a VCPU. User-space will use this operation
+	  to set the GPA of the launch VMSA of the VCPUs, but can
+	  also query and set the addresses during runtime. 
+
+	  This operation is designed to support the requirements of
+	  future live-migration support, which needs to be able to set
+	  and get VMSA as well as GHCB addresses. Since this
+	  functionality is a superset of the operation needed for
+	  direct-vmsa support, it goes the extra mile and allows
+	  import and export of all SEV-SNP specific VCPU state.
+
+For v2 I heavily used AI (codex with gpt-5.6-sol medium) and countless
+iterations with manual review and testing. All changes are reviewed by
+me, tested with KVM selftests, and booting an SVSM (as far as it
+gets without planes support). Lockdep was enabled during testing as
+well.
+
+Please review.
+
+-Joerg
+
+Joerg Roedel (8):
+  KVM: SEV: Document SNP direct VMSA user-space ABI
+  KVM: SVM: Implement GET_AP_APIC_IDS NAE event
+  KVM: SVM: Hold SRCU while reloading guest-owned VMSAs
+  KVM: SEV: Add direct VMSA capability
+  KVM: SEV: Allow VMSA pages in SNP launch updates
+  KVM: SEV: Add SNP vCPU state get and set commands
+  KVM: selftests: Test the SNP APIC-ID-list GHCB request
+  KVM: selftests: Test SNP vCPU state and direct VMSA launch
+
+ .../virt/kvm/x86/amd-memory-encryption.rst    |  66 ++-
+ arch/x86/include/asm/kvm-x86-ops.h            |   1 +
+ arch/x86/include/asm/kvm_host.h               |   1 +
+ arch/x86/include/asm/sev-common.h             |   1 +
+ arch/x86/include/uapi/asm/kvm.h               |  13 +
+ arch/x86/include/uapi/asm/svm.h               |   1 +
+ arch/x86/kvm/svm/sev.c                        | 287 +++++++++++-
+ arch/x86/kvm/svm/svm.c                        |  23 +
+ arch/x86/kvm/svm/svm.h                        |   2 +
+ arch/x86/kvm/x86.c                            |   6 +
+ include/uapi/linux/kvm.h                      |   2 +
+ tools/testing/selftests/kvm/Makefile.kvm      |   2 +
+ tools/testing/selftests/kvm/include/x86/sev.h |  49 ++
+ .../selftests/kvm/x86/sev_snp_apic_id_test.c  | 180 ++++++++
+ .../kvm/x86/sev_snp_direct_vmsa_test.c        | 421 ++++++++++++++++++
+ 15 files changed, 1039 insertions(+), 16 deletions(-)
+ create mode 100644 tools/testing/selftests/kvm/x86/sev_snp_apic_id_test.c
+ create mode 100644 tools/testing/selftests/kvm/x86/sev_snp_direct_vmsa_test.c
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
