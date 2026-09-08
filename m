@@ -1,190 +1,240 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D7D49480D
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 21:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2D545516E;
+	Tue,  8 Sep 2026 21:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903053; cv=none; b=Td1a95o+zQg0BkjyJ5r/qH5q+2NxW3fMeLS/hSlxFrmxMa5R+prryYciKutjXoVMzTZbiIkPZ0hGXozJEK+fh6a4msdacCt0a+BPR2feCqgO5fotEJQgFPBbC0R1YVrnd09SxX81OKQbmmOvCktljN8gSoVnPWjnlhqTzRSfu48=
+	t=1788903064; cv=none; b=jLKnrJDO0RAPGs0ZjSNhHLoSXOI8+lzbtyzVIm9I/IgfoMjwaTZoK5sSnhJyb+ZGOwd9RSBOWO7Mg5z01LAzKzOa4yEja8AH4W5jdu8TWT/ASBpxHmj6xZ32deQjobZ5GXPi0IFrgaB30bXFBmDxhMolBGx06kXC977/F1TyU+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903053; c=relaxed/simple;
-	bh=Tz1uM6P+y7LhaZdM77x7l8/ad4X1MfOM3q3en/0d7XU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jABb5WQpn0aQKtCQ0sU0+p+07GP9E7n69fzGaVhCuMqlONogNof/DSKc0sNvwi6YMNaV9D6lFQyxf52dHP5DBqvNhYImAIBmlUG1r2mD7wcaNTbbUVg/o7yK1AOuSgLzyp5gbzKHhTxbZN8IaP2g7JtZ/etiNlMZCntnlk+vjUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Lde1XU2T; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788903064; c=relaxed/simple;
+	bh=7V7s+HbyLTMDxfCpxTWXwY2jptfBasTXVzfNPzutucw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ktihBommhxFaLmTtC7xBYCks4eeT7bFfDY6pS3ehq4XAPEj5q3jF4qUXX7COsycu3Bq4wco3gNd5H/ZzgrmQdtEt60bEclMy3cPpbaBsPLE5VBBgj7YMElCyYpSdS7fpQ5e6ou7TnBkMnL+IAzqoCBYA7TrSX/IZlsxg0LMFqCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=S7d4uN+z; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=IO8hwZL7; arc=none smtp.client-ip=202.12.124.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Lde1XU2T"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc1c3d79b9bso3806502a12.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 14:30:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788903051; x=1789507851; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ELAKfi+YR1hZspWrc4OqfL/ECj7P8UtZIJYMoMray7g=;
-        b=Lde1XU2Tb/YmytoqltqM5FF9IBKexQuGcmQBCIVCXegjaLo6qyPwFP5Pp9C/OSQplL
-         lYjaqa4MaW5yMvCUzX/olDERhd0Hdgj4neQojrrERqa1P21e8BLq/S1IFe4mnv3MplHc
-         X8VNjrVvaJKMKz4jSzWeNNMhxIK5ePrkOVhK7h/HZr5FWQ7Lse9Ga9MRCSRG+QMtfeba
-         qBFA65XzEgWWTz9edS0F9UZDQoyhvskiX++fybMjIAA2WZ1CFCk57/29GKGVxzF2xRXa
-         TR++1eU8N1/9P2MwO4IJy1lAGDysBhRxwDCwsMCsokGFUbkwsTAGi3sRQ/v14sxcik0D
-         PtUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788903051; x=1789507851;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ELAKfi+YR1hZspWrc4OqfL/ECj7P8UtZIJYMoMray7g=;
-        b=lJ2Nkza8yg3Y6laUExeiVQSlMFIJ3VOGLsKBWCI/QyAENAtkfx3tX8TYLsHchUBo8h
-         mIJLqF4IhLkO87wjztNGO9sCH5OP7E2L84lesGWMLX6+QeV42VbuMUJhSqlHBHmobu/M
-         Yhw4kBmFo6LGFdMp0n5044UT8UEfMVtgGQk2wtzOsMrOvfVijZYC+BUJkRDQYxc7idLA
-         UANO8oTd4iOjbGLQ1aE4HmfMZpEvRnET4iiGUWU65Ru3wO5Y9Fdr43KUDJ9e6kOY3M0h
-         xqqO/XAVWgULfQUwTJw2oi9NAON9Qy5hv68/dFV2k9bo7CRVfgplFHbox7ON/u46T1kS
-         2Tiw==
-X-Forwarded-Encrypted: i=1; AKwUvByRUwJlCRqxNmMpOgC+lMQ5nc1Mnzzs3amn4EppN6QGW197ubpUvvjWIP15obL05npy/8ia+8B5DehFlZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCWM2LNfPwEWL4qwHZfgx9CvuSJAA4lQf4iv8TVeZoRo/oia5d
-	8dZaa1csJO8jspWXx/hnlapJUCSaGckWJoECX6JLwi6vNNATHpQ25avAjwvAUA==
-X-Gm-Gg: AYBFou0J4Zmj0VbHp8JKgPYPjCehqjiwU6+UVnvwAmq4BB2RTvnG4iCDDXrEWUVHk4b
-	8UMz4yNb93fEbjW4CTwjSyUvKN4EjRhuydQd6dBeVx88vf7u89V8B2i3NBFY8BJHf64q2BZQYlb
-	RmC+n3oUcGW2WSpAHpQQpAWtrkSMFVu+n+z8QFM0Qacfvk0BYp09dZ7Vk0bXYOj0dmSwKGnynpM
-	xvV1aNIGJ6MoRmIDL6Gcml/HALC2i0q7P0KZH/ky+j4ermEy2ySIfbOQPqrt87zXxdBRYONtuRV
-	Avy4NN0AcUpQ3AUIFB5UAIUlUUepONUp1SrkQLJpilb6wuHHnmfvxSTCCrYV/4veDN2EkBS4PDT
-	hDz3I7tuU9B+v6lwMQXR0VTqGAcYHPT7He/BSbj79MsjHGhdVdry63NjPAxSO8pxYpjt435zzGM
-	vaIaGFBFjUEcdyQ8VveVWRAkLfraoWL3qtxHPuWsCBdqdSjd3r64a7mdFVzDlWOVI4UsPpWOIbY
-	EGUsbyrpasQ7GpqJuwBACkSwMVTg/qQwbSaihZ5eBeJmqlWFyGcFcCyT8RrUJau1FNVJy+DgSOR
-	rI8ZQx9kPLhEJ0pKocV9lMzF936n1E6HwU8+Wg==
-X-Received: by 2002:a17:90b:3804:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39b25f4397emr47315254a91.0.1788903051414;
-        Tue, 08 Sep 2026 14:30:51 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ca63b3sm34123574a91.11.2026.09.08.14.30.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 14:30:50 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: dmaengine@vger.kernel.org
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv3] dmaengine: bestcomm: ioremap early
-Date: Tue,  8 Sep 2026 14:30:49 -0700
-Message-ID: <20260908213049.592138-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="S7d4uN+z";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="IO8hwZL7"
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailflow.stl.internal (Postfix) with ESMTP id 64AB41300D5B;
+	Tue,  8 Sep 2026 17:30:57 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 17:31:02 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788903056;
+	 x=1788910256; bh=pMVSTaPR9L/WFtxis++Ox75v2kZpFalNbRfgyF70oy4=; b=
+	S7d4uN+znfHu6WTJ6HPX6e4nBmBcyYjv5uUK1npmjc3P6JeDoJGP8AXrMLdRp2U8
+	pn1lQZz8uvTyolSH2e4N4gvmvX9esuqKDwkPRpBMr0y+zEr+/3kbSNXlBUyJFHWe
+	bGaHWA81Hk6NymexHRjoiEqrCF1XOukct3KhLRxahmWAg9kJy/DjCAZgQYgMag7e
+	Cu73m9DEkyPlBXD6p1BRiJ8C6OstTjytBRN+K8Cq4rBaVZZxU2sDBmCERKzFzgoD
+	7Wb2oodIpYSeNQePLI8m2AGDAZYHGQfQDT9o8b/7I/+yQztplHdmoSxHa0pDkVo+
+	Oqx61RET0YNB3UhaSlJmxg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788903056; x=
+	1788910256; bh=pMVSTaPR9L/WFtxis++Ox75v2kZpFalNbRfgyF70oy4=; b=I
+	O8hwZL7tDuEGMrnFZIkGGO0vtVu6wdU0x8QAhuctjYgas9kDutFamb6irRcpTjc6
+	KuyOhcpQkzoaPfGWgCiOhv/PlPIThFeT104ZlVtK2aV0prHzIyh35xu5QJAy8Ztm
+	FmZcvlSLeXNDfn6lRm0TOPvWLMMHTuUBJpRE9DR9Zo3jlJeoUI1wDwj25Nrc5GlA
+	JZZCe+YxNX+I13q12FvWlGb7uSa/+3fOwAL54T51nfL9ilb+tmw4EsmvbKOc7I80
+	24ZRxnoKizNA+542ufQQPKvQej3tIeemsfA0mhD67D3Lnjzq4hw+tWiXGUoDjHXW
+	wq3R+yfkacGu9/9SziSng==
+X-ME-Sender: <xms:gX6gat-21Fq6SnPAmAe4HmOM5pz3nTturGx5V8pH6tN20OG11ldpIA>
+    <xme:gX6gasgKAZz7ua4iY204lbRZFwp08a2OOdX02_B3-yIQB1fSlcWxX_aUBYZ7l2LM4
+    aJOdIsk1r8TnfiHop4K_-QCXLG2e-djWGmceBrFAd_vIwbhHLGtTJU>
+X-ME-Proxy-Cause: dmFkZTFb1JFJrJnD2uLKxZIyhU8m4ESpn2SxKKmvMpu8Uo4Z3dmO2lTyQu8o2TvVpNIc6S
+    UmlE9ILRLjAHujRHYufhylJnXWMyYyNFhp1mlbzh3h52AT8Ri+kYBTl4BI0ym5TzhWZJMh
+    mc7tmRQgKV73iqDpX+IGD7qspRpyhjHL8726DWe454TtTgJ/0dbV1CWuBEv8xQFhmGdjse
+    77yZsJdWgUTc3NYUR2lyibJarVj3y3syDmP7UKGIhRx39ap4O4yWmh+lSc7ieG4tO5/gCE
+    qy9hiAfm7I7cbcax+xjwIsLPhNCtFOjQEGP2SfXDPy6+qeW+XoCXL+CTVvfmUhi2rGe2k+
+    So3TCZsRR8J+tE80pDuP8maN4NUN196hbJ84SBUR2Jjl24vRymAp7D0IgaIp+CiV/uT7UJ
+    eGb5uWSyf12hPRK3j4dSAmm13/QFUT8ufJKN2KXcVWq3KYf8co0uAkWjNOOzcNPX1v3wqe
+    jJy9KoVPMt4n3baJbFqEx/h82KAVG5ufQfw0VE5WN//dDEUBJ0sa7plGwg1YAaRiFAqxWN
+    wJgNc4Xbq3B1pRchsLnQ8xK7A0vHcvbdrk7xLekCENiVZ45AaUzZXEoSYrICrQ3Kb7VLvj
+    M/lbF31JAmj1YnWBp6Jsj7PPOUJKpJmWxXSoELcwbmSc1pyulxWwXIIcGwyQ
+X-ME-Proxy: <xmx:h36gapzWvFXLmxtxFJucUNmu9cLGfklhb1f77AE8Kk15oQY9SWCLkA>
+    <xmx:h36gam4TvWbz2VBzVzcGKqJw-g1LzHNec1aou5xxH_-68dxmNM2LWw>
+    <xmx:h36gao7f1ELMyOpSFMq5B8cMyml_r_jqtWppZU0y1GgadSztwa0T9w>
+    <xmx:h36gavLWQaeQ2DeaTUci_gGKx5VWlcREC6-gBJ9GyLEOMm1ixsrP4A>
+    <xmx:kH6gajjihI0SooZtexQcDlvgEnLJ0Y-SJR5iTzej9oDSDQA_nwjtia-y>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 2816F32A0078; Tue,  8 Sep 2026 17:30:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Ab0V4S-ixU_F
+Date: Tue, 08 Sep 2026 23:30:20 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Rob Herring" <robh@kernel.org>, "Arnd Bergmann" <arnd@kernel.org>
+Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Russell King" <linux@armlinux.org.uk>,
+ "Drew Fustini" <fustini@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "Liviu Dudau" <liviu.dudau@arm.com>,
+ "Sudeep Holla" <sudeep.holla@kernel.org>,
+ "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
+ "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
+ "Pengutronix Kernel Team" <kernel@pengutronix.de>,
+ "Fabio Estevam" <festevam@gmail.com>,
+ "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
+ "Aaro Koskinen" <aaro.koskinen@iki.fi>,
+ "Andreas Kemnade" <andreas@kemnade.info>,
+ "Kevin Hilman" <khilman@baylibre.com>,
+ "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
+ "Nicolas Ferre" <nicolas.ferre@microchip.com>,
+ "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
+ "Andrew Lunn" <andrew@lunn.ch>,
+ "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
+ "Gregory Clement" <gregory.clement@bootlin.com>,
+ "Robert Jarzmik" <robert.jarzmik@free.fr>,
+ "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
+ "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
+ "Geert Uytterhoeven" <geert@linux-m68k.org>,
+ "A. Sverdlin" <alexander.sverdlin@siemens.com>,
+ "Shawn Guo" <shawnguo@kernel.org>,
+ "Karl Mehltretter" <kmehltretter@gmail.com>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Nicolas Pitre" <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Linux-OMAP <linux-omap@vger.kernel.org>
+Message-Id: <7608c487-390e-4526-a2ac-11f073c902c2@app.fastmail.com>
+In-Reply-To: <20260908210947.GA519272-robh@kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-13-arnd@kernel.org>
+ <20260908210947.GA519272-robh@kernel.org>
+Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Replace the open-coded resource lookup, request_mem_region, ioremap and
-the manual iounmap/release_mem_region cleanup in probe/remove with the
-managed devm_platform_get_and_ioremap_resource() helper. This removes the
-now-unused error-unmap/release paths and simplifies probing.
+On Tue, Sep 8, 2026, at 23:09, Rob Herring wrote:
+>
+> Do you want to drop all the samv7 platform compatibles from at91.yaml? 
+> Are there non-Linux users using DT?
 
-Fix a resource size mismatch between allocating and freeing where
-request_mem_region() and release_mem_region() hopefully use the same size
-but is not guarenteed.
+I see that zephyr uses DT here, but it uses an incompatible
+set of bindings, see
+https://github.com/zephyrproject-rtos/zephyr/tree/main/dts/arm/atmel
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v3: reword again
- v2: remove Sashiko generated description. Reword description.
- drivers/dma/bestcomm/bestcomm.c | 45 ++++++++-------------------------
- 1 file changed, 10 insertions(+), 35 deletions(-)
+I'm dropping the references from the binding now, and also from
+Documentation/arch/arm/microchip.rst, which I had missed earlier.
 
-diff --git a/drivers/dma/bestcomm/bestcomm.c b/drivers/dma/bestcomm/bestcomm.c
-index 432b43520ddc..44ff4a42376b 100644
---- a/drivers/dma/bestcomm/bestcomm.c
-+++ b/drivers/dma/bestcomm/bestcomm.c
-@@ -13,7 +13,6 @@
- #include <linux/kernel.h>
- #include <linux/slab.h>
- #include <linux/of.h>
--#include <linux/of_address.h>
- #include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <asm/io.h>
-@@ -365,13 +364,19 @@ bcom_engine_cleanup(void)
- static int mpc52xx_bcom_probe(struct platform_device *op)
- {
- 	struct device_node *ofn_sram;
--	struct resource res_bcom;
-+	struct resource *res_bcom;
-+	void __iomem *regs;
+      Arnd
+
+diff --git a/Documentation/arch/arm/microchip.rst b/Documentation/arch/arm/microchip.rst
+index e721d855f2c9..b776a6656717 100644
+--- a/Documentation/arch/arm/microchip.rst
++++ b/Documentation/arch/arm/microchip.rst
+@@ -157,45 +157,6 @@ the Microchip website: http://www.microchip.com.
  
- 	int rv;
+           Coming soon
  
- 	/* Inform user we're ok so far */
- 	printk(KERN_INFO "DMA: MPC52xx BestComm driver\n");
- 
-+	/* Get, reserve & map io */
-+	regs = devm_platform_get_and_ioremap_resource(op, 0, &res_bcom);
-+	if (IS_ERR(regs))
-+		return PTR_ERR(regs);
-+
- 	/* Get the bestcomm node */
- 	of_node_get(op->dev.of_node);
- 
-@@ -402,35 +407,13 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	/* Save the node */
- 	bcom_eng->ofnode = op->dev.of_node;
- 
--	/* Get, reserve & map io */
--	if (of_address_to_resource(op->dev.of_node, 0, &res_bcom)) {
--		printk(KERN_ERR DRIVER_NAME ": "
--			"Can't get resource\n");
--		rv = -EINVAL;
--		goto error_sramclean;
--	}
+-    * ARM Cortex-M7 MCUs
+-      - sams70 family
 -
--	if (!request_mem_region(res_bcom.start, resource_size(&res_bcom),
--				DRIVER_NAME)) {
--		printk(KERN_ERR DRIVER_NAME ": "
--			"Can't request registers region\n");
--		rv = -EBUSY;
--		goto error_sramclean;
--	}
+-        - sams70j19
+-        - sams70j20
+-        - sams70j21
+-        - sams70n19
+-        - sams70n20
+-        - sams70n21
+-        - sams70q19
+-        - sams70q20
+-        - sams70q21
 -
--	bcom_eng->regs_base = res_bcom.start;
--	bcom_eng->regs = ioremap(res_bcom.start, sizeof(struct mpc52xx_sdma));
--	if (!bcom_eng->regs) {
--		printk(KERN_ERR DRIVER_NAME ": "
--			"Can't map registers\n");
--		rv = -ENOMEM;
--		goto error_release;
--	}
-+	bcom_eng->regs = regs;
-+	bcom_eng->regs_base = res_bcom->start;
- 
- 	/* Now, do the real init */
- 	rv = bcom_engine_init();
- 	if (rv)
--		goto error_unmap;
-+		goto error_sramclean;
- 
- 	/* Done ! */
- 	printk(KERN_INFO "DMA: MPC52xx BestComm engine @%08lx ok !\n",
-@@ -439,10 +422,6 @@ static int mpc52xx_bcom_probe(struct platform_device *op)
- 	return 0;
- 
- 	/* Error path */
--error_unmap:
--	iounmap(bcom_eng->regs);
--error_release:
--	release_mem_region(res_bcom.start, sizeof(struct mpc52xx_sdma));
- error_sramclean:
- 	kfree(bcom_eng);
- 	bcom_sram_cleanup();
-@@ -463,10 +442,6 @@ static void mpc52xx_bcom_remove(struct platform_device *op)
- 	/* Cleanup SRAM */
- 	bcom_sram_cleanup();
- 
--	/* Release regs */
--	iounmap(bcom_eng->regs);
--	release_mem_region(bcom_eng->regs_base, sizeof(struct mpc52xx_sdma));
+-      - samv70 family
 -
- 	/* Release the node */
- 	of_node_put(bcom_eng->ofnode);
+-        - samv70j19
+-        - samv70j20
+-        - samv70n19
+-        - samv70n20
+-        - samv70q19
+-        - samv70q20
+-
+-      - samv71 family
+-
+-        - samv71j19
+-        - samv71j20
+-        - samv71j21
+-        - samv71n19
+-        - samv71n20
+-        - samv71n21
+-        - samv71q19
+-        - samv71q20
+-        - samv71q21
+-
+-          * Datasheet
+-
+-          http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf
+-
+-
+ Linux kernel information
+ ------------------------
+ Linux kernel mach directory: arch/arm/mach-at91
+diff --git a/Documentation/devicetree/bindings/arm/atmel-at91.yaml b/Documentation/devicetree/bindings/arm/atmel-at91.yaml
+index bf161e0950ea..d9b32a95b136 100644
+--- a/Documentation/devicetree/bindings/arm/atmel-at91.yaml
++++ b/Documentation/devicetree/bindings/arm/atmel-at91.yaml
+@@ -258,45 +258,6 @@ properties:
+           - const: microchip,lan9668
+           - const: microchip,lan966
  
--- 
-2.55.0
-
+-      - items:
+-          - enum:
+-              - atmel,sams70j19
+-              - atmel,sams70j20
+-              - atmel,sams70j21
+-              - atmel,sams70n19
+-              - atmel,sams70n20
+-              - atmel,sams70n21
+-              - atmel,sams70q19
+-              - atmel,sams70q20
+-              - atmel,sams70q21
+-          - const: atmel,sams70
+-          - const: atmel,samv7
+-
+-      - items:
+-          - enum:
+-              - atmel,samv70j19
+-              - atmel,samv70j20
+-              - atmel,samv70n19
+-              - atmel,samv70n20
+-              - atmel,samv70q19
+-              - atmel,samv70q20
+-          - const: atmel,samv70
+-          - const: atmel,samv7
+-
+-      - items:
+-          - enum:
+-              - atmel,samv71j19
+-              - atmel,samv71j20
+-              - atmel,samv71j21
+-              - atmel,samv71n19
+-              - atmel,samv71n20
+-              - atmel,samv71n21
+-              - atmel,samv71q19
+-              - atmel,samv71q20
+-              - atmel,samv71q21
+-          - const: atmel,samv71
+-          - const: atmel,samv7
+-
+ additionalProperties: true
+ 
+ ...
