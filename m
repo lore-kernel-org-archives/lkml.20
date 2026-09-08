@@ -1,163 +1,172 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20104D2ED8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:03:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8575149E5E8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:04:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858241; cv=none; b=BL2vSjpVUlaHITaRCgujeQ7ahDjcWzrpqftiK04e61WKbDADYuX/kFRpX7PHtHY5+4bPx5bbGCpHq3kh7X1OuYyJFhzKg8tOWd5CzBVNPjxq/hTVqPhYDyppc9nKcMT91iPmBor3/gf6v/9DcgoUe64ZIzqEmk0ZiBPXWcVKEHE=
+	t=1788858264; cv=none; b=rqMEeSfOo5lTwJ8UMai1FI8+TZev7ELws52lX0gIZYwgGwTf7BoHfDX6smvY1axlqMfrehG0TRNhCdRrKpmCKj5T3vZwoxgkqMzy+2kzcz2u3rHpOQJ+ZipeLMOtCARZFK0cr+ZgwTCqnY/HkDczTKqT3UhjPJm0sCvZI1PDLPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858241; c=relaxed/simple;
-	bh=R3MjWBE/Ujj+rmxiiXHErWZSR+OhISnpQEQhxQQd/9Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cyocXQ1fA6eBdGnL2soA+ryQ0hLydYEf14RQMBKBmbk7gUjRmelSylNWXSWJ0y5IgjBq9gXsEBruo+5ETvEbIcyJNjehY3a1Y60eDqTFUdxXTqIZWrlnQu9jL9qQuGzakz5AOhmvNb7X48Imj3aRztIFBXI4OLjMZ1zIMaLoIUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eIjTo9fK; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788858264; c=relaxed/simple;
+	bh=FGd4I6N454A4VuhNTdk+Vfvz3/mM0xq0WoXJ40DHEak=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pNE95/HwPYsyDkJFyToK3QJfPVG2tGfpZ6MCvcf4wEd9XfXpjnkoSRi2eh9UuDwAh8sm287Tn2tK1/rGTQG9vIQwx9g6n6tyNPwms1t/Zm+LWuK3FIqW0offzWW27HUcganKtt1dv6sZmfw8xc+41wezKsBeTPQ04d1zgKZIlfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LmFZn486; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WOzZayf+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eIjTo9fK"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3bc34cso105635e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:03:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LmFZn486";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WOzZayf+"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886Ldi91477246
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 09:04:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	nrvR5saH6GOs4h0ngL0nXxpJm3E6wYqtg0huqXOt+w0=; b=LmFZn486WXICePmu
+	8VPDrT8OO4QAVN1CdIP4OlKS0F830Hi8u6KoHxbmo7R45Ms/xP5kA1YuDfngK/H1
+	pmZ/yYUrUPZ6C0FIcpooxGAGe7T6HanS5RXEypDS43BrrWVTaKGIjn6jNQZpaAI4
+	Rzgx6YEyVUpmpgncuWx58U6O18YF8OwbQ7gN7rustfrvfb2ByJMO4fUYq8TQNCy1
+	6HAHyYYSqxxkPcL0rWhB7XTfrlndeHC337ygtS3N2XI3EQtmGvwMQbQbwZGAOANn
+	RVifMakjkXtTk4s4UMz7IGkknE3fg70rjaiSu5B3BOUKBV4SoQPJb69LpGT+aOxL
+	kc+ghw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjatjh59s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 09:04:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9392788b3f8so81715485a.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788858234; x=1789463034; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gRIuOpjz7PFWZps8IhzGrnOq20eTN92kUMY6nz/xu+I=;
-        b=eIjTo9fKkE0iEOnRcbbv4kLIx9iyfHQ1InHPxh1QG16VDfgp+sKrg4t4P9WL68FAwy
-         kZ100Dz9I6GSZH3zJVPyQMqyQzpJQFVnHIS1uXxveM4Ywbv5iGQeTSmhXNBBy2XeaBH/
-         oIL9RDG/DQh441mumWHSuuKPbFv8OmwbtwXAeDpaO6bYF+NSdsXvKXZFJ849Vc8ulxR7
-         xwvtoj3lr2yr93KXDailo6yN/d6rbc0Tcl3U/PcLA9Z0GLM2/p1G7x8Vut10sB6Fc2fF
-         r9uht0fN0mNh1SHkMfpWXCsKI7dW4YzPuP8oCNyDnywMf+1at4xEB65H256BycU0M0Oc
-         TXmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788858234; x=1789463034;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788858256; x=1789463056; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gRIuOpjz7PFWZps8IhzGrnOq20eTN92kUMY6nz/xu+I=;
-        b=riKlSuOTqBW4ImeS2W1aH+4xjFc6RCL9fNOxSzlYhBraC5EqdgTL6/aB7hv2xP9Or3
-         neb0lRLfR7mdnifFrO7wb27plP+zeAXgfVzJ4V7OSTcCKPrWqsOnyihMvXo83Pa21l2r
-         oz0/aghKqv2NRE6IyPohjq/n1HEQD+81/F+c++lRO6qAJvgiJJm/UbLpcJ86XQzZf8V/
-         ZzaOPxVckK86uSSD0BzA6kxHYyV/gvflgxfxhXTGnb+CIg9lM3nNUgxQiq6dBt3swvYm
-         MJTf0n/KMUhbTA2Z05IrwTKUITDPJKdHU2Yza0Hq2u7vlTdhgf1jfN6gAu7tS0GyUzxK
-         5UPA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrnk0a8CkiWAgKOW1eTZPAWZZuDHipwODg5o0GWPOWHxrq13FVNRZ9TPU8HKRwKsqlofE+qrsnz+fhNyQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lU7CSlOHRwNYJIVnxPyrveL4hM12q9Ir20+jUPeX///6bGI5qV
-	vqwAYQzC1TQClXWWzzLTSgYsxRYUO2O2IVU3rZiqVtN0/6IrpgT2Xd67487n4C4iGg==
-X-Gm-Gg: AYBFou3m7r3vFehVz5fLHWGxJpkdCSEyHxXdrKVzPYNen7wPmRboJzSo+QD3XCfoaE6
-	4451KkKEST934Aj8iyY05xMQEQE9FOzhOlT3ebtk5vaJnxCEtXMhWGxTfOSpFklvD8awtmtzoWo
-	J/DpTAjYuPfzyFEo+onxdLJ+ROeFgltVizsXbhcyVmwQrwjT1C8/zXknvXp87OASdRZGGMNhkCa
-	Zhw3rJGD/vrrrcMmhQ7b+ZBjGIUj5pN0TVTxeemgyn2oWQ6Ij9T52epbd6Zn7PkxrcWTr2zRg8H
-	wKGwOBa89izr4AQLC/Zp004TBBVFAacZ8JFpPnGMB84BVmxPyveaEBma6RmSb3g0n7uknviFc0t
-	owt/O06nYmivrInw+oBlkaah5wQpE2lyENTN2Z247++sGmxrm4vMxK1r1jR4WsYAUkySDR9aJER
-	H2ZKZJZxmGDW0SNiLElTlKeTp21RF3xbekCBBexNVB+l3N9VeKPePomZoIPYZynyNw7kgWlCGKO
-	yEw7QFUMt3PJEdj833k4Zu06triKw==
-X-Received: by 2002:a05:600c:1c20:b0:49c:e7a9:ebd6 with SMTP id 5b1f17b1804b1-49d01daafe2mr3477715e9.8.1788858233348;
-        Tue, 08 Sep 2026 02:03:53 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm278107825e9.0.2026.09.08.02.03.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:03:52 -0700 (PDT)
-Date: Tue, 8 Sep 2026 09:03:49 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-Message-ID: <ap_PdUrwLIVGJ3oG@google.com>
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+        bh=nrvR5saH6GOs4h0ngL0nXxpJm3E6wYqtg0huqXOt+w0=;
+        b=WOzZayf+0Ps4hWqUbasrNAiilyg904mVi/bQzBzhVCPmy6kJYMawI2SC00wHNzFcyH
+         CsBZiirVY8duVNpVd9qyMm0u0i5pfSYiRY8ALDagRjPNC7a94lmdwQ6bEbTVCJ8HZtRq
+         txaHWE1KzTJnQG97KVxFETpn8MmgOdnyVhlt8wI9iwz/BTCKuTgBZadIJXTfLDV7ohQK
+         c73+6GievCWzLp94/biTiFAyL0nL/JFR3C4ICPOvfTNp68INJlqdFdtt422/ygAo7m4m
+         A2QHxMQWxLIuVn3aNnV7MFKoBI/kZ8FaWlbiS252mhcjvDgGqifFhQ5FHSPOFBZGjKM8
+         RJOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788858256; x=1789463056;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nrvR5saH6GOs4h0ngL0nXxpJm3E6wYqtg0huqXOt+w0=;
+        b=UrOITE11ycqmdZuH3tj6BmFo3rODATLU9jxppZWZ5fi5HRtOn7oyv9CVDpcp1i3w5L
+         751yCfOI2VJQxy8nWAjpnZLI9L1Sn0rNPw0taHVvBDPcP3ye6oUOlZUmfQX2anZFF3Yu
+         8hZxti5iTa4/giRAg9ClrzyW9PejMFyhQLL21BXRP0nYgGw0W41UW1KSC5PGmkh5Q6rV
+         syu5hoZ2waSFN0m7vHm/+iJbXpgpSGiwj5qNeeuaInQKHFSngqT8UQWwcGUn0B3vPU0O
+         VQcFM+d4mWoYlFeVqPAd/QY6OwsDmbJl0vvAMhfX2QCicg6qKZKkbaK8Kr4K8cSE+PAm
+         +CSg==
+X-Forwarded-Encrypted: i=1; AKwUvByYG2Vle/DnuBmg3ecf9mLtgpYvMcilZzce3J8CgP4sZ0AfpTHWX24inBkhgTjUNMK3f4wgpP67qROFfh4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kbaj85AuL33yvwt53fkbISJzOoR2eP1k4o/bgvnQ4hFuf2Jm7r
+	K6Ksck7lGytwwW7M7fI+0Jdf3+9Xusxh1EA/Ih5wW6OcV8we6dHswyWrZRLhkzZUy7TJXCouSrU
+	oEEmIOvNRlmXzGInD/eujv2Z0FLX5DfMk58i2w7M8/HZ9/cx5XWTWjTmYJMX1rqjD6s4=
+X-Gm-Gg: AYBFou2ihHr7r2vB/rNF2iaBOFhOgu5xxksxn4NXNCfcuSDqwW/wEbOuYLNRRtq8I/a
+	ZjW8vQcV0z0LbdpZ65zVqTplXRMhf7/WYr7e0WfIwXc+kFOwc4U9LE3BYcjqG4/OCL0P5epV6WV
+	+5V7bhnWYoT0YSZosYsU2hR5sJ5uFZdWTtkVShugLr4I2AMV7muh8hQ1pK+r2RVdDzfpGAXomvW
+	wosJfya8kjaEetH4dO+h/TgfiqtutZzIA2oxpOfGLKA0CjWMyHVGVSeBIKMpv15gsOTy5Kp4KDO
+	nMWT6g86z8D1O0U8aqYgOQPTw3sN1jkITofMD22d2eHSstiTBb5lGGtypyBHXhHlrqjlyz8S8qi
+	2csAS6A0I1tSphmnUB/RCaw==
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr1758635485a.2.1788858256335;
+        Tue, 08 Sep 2026 02:04:16 -0700 (PDT)
+X-Received: by 2002:a05:620a:4409:b0:939:8bc:8826 with SMTP id af79cd13be357-93991702d25mr1758631585a.2.1788858255922;
+        Tue, 08 Sep 2026 02:04:15 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c26263cb042sm447308466b.47.2026.09.08.02.04.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 02:04:15 -0700 (PDT)
+Message-ID: <c8275581-7c02-4064-9824-aa77a5091d0b@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 11:04:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/msm/dp: don't gate eDP on DP_SINK_COUNT
+To: 092vk <vk092kumar@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        linux-kernel@vger.kernel.org
+References: <20260908090146.3100787-1-vk092kumar@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908090146.3100787-1-vk092kumar@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA5NCBTYWx0ZWRfX3vuiPSlT7vXr
+ 90lR8XN8lSyydh9+vZ3LhJ20yO1BiKE2HldZ6/zxlurKImgSSZd39HJZ43VRcb6YXZssX6+bh7V
+ +gF76Es0FXLzQsTa3YzBrEKmWDz08ts=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA5NCBTYWx0ZWRfX8lUe79Jls/Ub
+ 27jvtjJP5784/3anm7r07HIqAwk1nX8pnxePiMGM0AyPuLcDq/2cBHNWarSCRiBsU60gqzNdWdh
+ 9ZNAKv7dh1Iwd/XIr5bsyKhLtXCozVy0o3tWNYm6SUu/VYoh5i2tE24CBtMs1k2M6Sx4xxclQhD
+ zxevq/8/Kz4ShP2STyzcNCyVj3DKNauYjH/RcMcf8eWrrWuE0ShtY6wg8YHSsPiWL1jT1eIMMvA
+ Cv8AitnzLrZk94EFiycs5/AhAGPYhjF8HuTlDtguXPQLyIfphw88aGSD9x3CIW2KKWLpfEkVSBo
+ 34sCa5GN5RObaLNEtCI5qQ3Xsfo89Lr7g9Lvt+nkS0R3PC1RmB6ViKYIV1bKse2Kx7NCE1zrvlf
+ ggSKaxndvsLo6pV8b7UNGzn+eSHbj4skmVgh6QKWg5zUJeZRTkheDIR4uzFowP3hAneLnaBYg/q
+ NI1rwjMiEZ9BOYxx3Zg==
+X-Proofpoint-ORIG-GUID: H5OvYIQ2aiwKTLTjOWTbNB7_lE3PqCIY
+X-Authority-Analysis: v=2.4 cv=QrduG1yd c=1 sm=1 tr=0 ts=6a9fcf91 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=tHtyKFz_FhAUe0nsBNoA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: H5OvYIQ2aiwKTLTjOWTbNB7_lE3PqCIY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080094
 
-Hi Jens,
-
-On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
-> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
-> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
-> chassis, different silicon. Stubble and the DTB loader need distinct
-> compatibles.
+On 9/8/26 11:01 AM, 092vk wrote:
+> msm_dp_display_prepare_link(), msm_dp_display_disable(), and
+> msm_dp_hpd_unplug_handle() all treat dp->link->sink_count == 0 as
+> "nothing is connected", and in msm_dp_display_prepare_link() this
+> causes probe/enable to fail outright with -ENOTCONN.
 > 
-> This series splits the board description into
-> x1-lenovo-ideacentre-mini-01q8x10.dtsi and adds thin leaves. Each SKU
-> keeps lenovo,ideacentre-mini-01q8x10 as fallback:
+> This is correct for external DisplayPort, where a compliant sink is
+> required to report a valid DP_SINK_COUNT over the AUX channel. It is
+> not correct for eDP: some eDP sinks -- particularly fixed-format
+> eDP-to-HDMI bridge chips with no downstream AUX-capable panel
+> behind them -- never populate DP_SINK_COUNT with a nonzero value,
+> even while otherwise participating normally in DPCD capability
+> exchange and link training.
 > 
->   lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->   qcom,x1e80100
+> drm_dp_read_sink_count_cap() already accounts for this by excluding
+> eDP connectors from the sink-count requirement for other DPCD-derived
+> checks (msm_dp_bridge_detect() takes care). Apply the same exemption
+> to the raw sink_count reads in this file via a small shared
+> helper, so eDP outputs with a non-AUX-capable downstream sink are
+> not treated as permanently disconnected.
 > 
->   lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->   qcom,x1p42100
+> Tested on a Qualcomm QCS6490-based board driving a fixed-format
+> eDP-to-HDMI bridge IC (chrontel,ch7218a) with no negotiable
+> DPCD-capable panel behind it; without this fix,
+> msm_dp_display_prepare_link() unconditionally returns -ENOTCONN
+> and the display never comes up.
 > 
-> No qcom_scm change; the fallback is already on the allowlist.
+> Fixes: ca16db3d18cf ("drm/msm/dp: break up dp_display_enable into two parts")
 > 
-> The remaining patches fix the common DTSI for both boxes:
-> 
-> - Build the Hamoa EL2 DTB like the other Hamoa boards.
-> - Second M.2 3V3 is PMC8380_3 GPIO5, not TLMM18. A 2 s startup delay
->   is required or pcie3 fails to probe. always-on is a hack until there
->   is a real M.2 power sequencer.
-> - sound-name-prefix on the three DP ports. Enable lpass_vamacro: no
->   onboard mics, but it provides fsgen for tx_macro and rx_macro.
-> - usb_mp port 1 is not populated (no PTN3222 @ 0x4f). USB-C is
->   usb_1_ss0; rear Type-A is usb_mp port 0 behind a Genesys hub.
-> 
-> The Genesys hub is left undescribed.
-> 
-> UCM [1] and AudioReach [2] topology for these devices are online, too.
-> 
-> Tested on:
-> - IdeaCentre Mini 01Q8X10, Purwa (X1-26-100), 91B6
-> - Hamoa: compile-tested only
-> 
-> [1]: https://github.com/alsa-project/alsa-ucm-conf/pull/843
-> [2]: https://github.com/linux-msm/audioreach-topology/pull/74
-> 
-> Assisted-by: Grok 4.5 (xAI)
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> Signed-off-by: 092vk <vk092kumar@gmail.com>
 > ---
-> Jens Glathe (7):
->       dt-bindings: arm: qcom: Distinguish IdeaCentre Mini 01Q8X10 SKUs
->       arm64: dts: qcom: Split IdeaCentre Mini into a common DTSI
->       arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
->       arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2 DTB
->       arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
->       arm64: dts: qcom: ideacentre-mini: Wire up DP sound names and VA macro
->       arm64: dts: qcom: ideacentre-mini: Drop the unused USB MP port
-> 
->  Documentation/devicetree/bindings/arm/qcom.yaml    |   11 +-
->  arch/arm64/boot/dts/qcom/Makefile                  |    8 +-
->  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1188 +-------------------
->  .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  |   42 +
->  .../qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi    | 1185 +++++++++++++++++++
->  5 files changed, 1246 insertions(+), 1188 deletions(-)
-> ---
-> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
 
-This series does not apply to ToT nor I can find this base-commit
-in it.
+Hi, please use a known identity
 
-Does that have any dependency?
+https://docs.kernel.org/process/submitting-patches.html#sign-your-work-the-developer-s-certificate-of-origin
 
-Thanks,
-Mostafa
-
-> change-id: 20260905-x1-ideacentre-mini-prettify-a5d349d8954f
-> 
-> Best regards,
-> -- 
-> Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-> 
-> 
+Konrad
