@@ -1,94 +1,126 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97BD33D503;
-	Tue,  8 Sep 2026 03:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7961346769
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 03:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788838381; cv=none; b=ZcKmDDiIPqdMYGSDxbgcapIowTs1GPmJMKl+an7nYKEYfYGtjNTUfOmQUUUotkvuy6XC02FNlU9I/EYGggM+fgmFtvezbyjtCtCvTPoVbBRICZc0/7mUxprdJ5JdSgF+nbsLEf2jwoH80fRB3woJwGvnOCzQOBsp8az+TSNoF00=
+	t=1788838502; cv=none; b=XuEBgNnNmXhwUkYQOJJ2VHe7hCjmflbiqPJOO1bb+c53sITF8RjHtNKrFv2/zsUxyyajsXOShjqMXvDce4jzykENpXbXk1CI0/YesVdERM6R7D2ydwcnFcTX7Pr5jgdZ8ihWTklCC0MoJyw4iHVKNYMAUCr82UM0gXkEwlFjJmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788838381; c=relaxed/simple;
-	bh=tz6aBKJ3EeOYHZLF37tZIG2F6Q9S+RaJRrvQNXjjL14=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N7qU+6KcqNCkqsJKfR6/JwynV1Vb21Iu6/fDQTUmeWT9ksREOKEQexblh/lURPBsATL60iCKq8ZU2gRN6YCT+/XxqIaf6/faikPx9Z4xga1hybZ91jORA+9/tJbXGmPwh1Li9S/eNKQFabXr8aE4VdJRw0pYV8qyiKp2BFWkNzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Rn9g728A; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788838502; c=relaxed/simple;
+	bh=KWjiqmx5jxUmfL2zWElh8jvFeL+eqa+Egvh9KBljaIA=;
+	h=From:To:Cc:Subject:Mime-Version:Content-Type:Date:Message-ID:
+	 References:In-Reply-To; b=umGM+uus1suociv0VmpnqRfBQcvRaqU/YOWn21OXWAmFHfKz9OVnWWQ9bBcnX1XrT763a0eywRtns5ufmtdLO9e3wo/NpRerezvsZ/wCqoBhZL0cGS31kbHiV+fo1azI0N+hEAME80rj/bE5OgfA1dO0lXqP3lNH6d2O/J7fRjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=oTBg6t0K; arc=none smtp.client-ip=203.205.221.245
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Rn9g728A"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 78C4F40E016C;
-	Tue,  8 Sep 2026 03:32:45 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id z98zJYTWlIqk; Tue,  8 Sep 2026 03:32:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788838355; bh=/4nguhZJCkoXGgLEe9/E41pRIrfH1twM5GOij30kl3Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Rn9g728APQFXGVihqX/aORSO7cl2u6HXvTcOsIVgdTonjA7/5BAUBkzKGe7ZczpX2
-	 Z8267O1PV0aDqJj6mqNyaJDFhLYrxKk2BsGL0uMnUh1uu8HBlswru0Vwa5PnKhzWlw
-	 2zL/wNEwSvOaOoBLFILDruQsNiXiFZIbX9uxoIU/G+8D2tfv5WGyqRpenJbAAgk9Hx
-	 d4O0NdOnhf4l00yJv+T570C0XgW2oh7iXTwZ0admw7hRw447ft8KYfAd/3YCbbMkBE
-	 w1po5kON9YHG/ppIJB+3a9TEpDXgkuC7fLPmqrjetkcm/oWosNjCdDvZ3lfxc8vssY
-	 +5TKOGWxg59ZcRxS6Bpvgcdo6yWk8Od+pyHf9wfbomCocI344XNe/mbHBkqx1ngx2g
-	 xIWJMLzTBHq2hDauklzyR+p8IsHaD2ZyGcxaZeeB5j0xv4Pcf3cTpC1/spU6wmVnHm
-	 WXMxAN1epIDPnUi3mC/umUERlmv9ApHAsaDFJ7hWoExM12u2bwEsaYN046yhpEIspa
-	 VRLwe+5jG2A9Wl+KHNBnhnwSR2boRaN2BHVmNuMw4RNTOyNCDbPSG9K/E01OsFxRin
-	 1t+zYUcGOa2lBQhwJMP3SJJsXD3xn9GeDi6bE7h+hjBFB6lfOjMM7nL3f9eoEQwmlm
-	 CR5Dfch+lqt8azp4aueU4SO8=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6642E40E01DD;
-	Tue,  8 Sep 2026 03:32:20 +0000 (UTC)
-Date: Mon, 7 Sep 2026 20:32:16 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org,
-	Nicolas Pitre <nico@fluxnic.net>, Ingo Molnar <mingo@redhat.com>,
-	Thomas Gleinxer <tglx@linutronix.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260908033216.GAap-BwAmBqoVDUbMK@fat_crate.local>
-References: <20260803094702.3852-1-david.laight.linux@gmail.com>
- <11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
- <20260803163955.627bdd3f@pumpkin>
- <20260823233536.30b984ed@jic23-huawei>
- <20260901175101.1e059ac8@jic23-huawei>
- <20260907231444.7fa2d116@jic23-huawei>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="oTBg6t0K"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1788838467; bh=KWjiqmx5jxUmfL2zWElh8jvFeL+eqa+Egvh9KBljaIA=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=oTBg6t0KBBo6hS8nIVneR/eoL5SkuRSxsTkLl365+T2Rcwoz9j8C1TP0pCq0wN4ay
+	 1dGJAnKwtIGenrkeqTEjRerTdMxIjs22PNoN9EowO6iBhTBooM1r5SVf0MFKx00l4m
+	 icm/W+YaNOVNcq2b1hieYClt+MFNkZPobOT7tqdY=
+X-QQ-XMRINFO: MSVp+SPm3vtSYucI6VcG6/eGeelPZU7wMQ==
+X-QQ-XMAILINFO: MOQpAxjIVJuk8VRF4XCPuVCBcIz7GlyDgYHv9fKdfmdbsCU6SCUGoDq+7Uv0s1
+	 vjiYpyEhDW+fKtvc6MOOT/ZcAU7is4iZU6/DYNMTMiowFuxdlkbkCVJeWiLx0HYQcLF8JxoFai34V
+	 fhKf3yYAppZsHBcWQzC+3oZZe1c54Munl2sPQc+J6DNThSIpo6L8CXiA46FR6LQVge4Z4WgbHLI7V
+	 QubSzwF+9YgLoIZ0C3MomnHuuSg0nDR8uBE5JmK/Bbp1EcuMaTv6n5qs6q1iUBdDyMjDWUVo9lR7G
+	 YKICStWRulmmP3WYeAKM1nbyWrsl/iVzQt1M4XASrzOm8Tp/PyZP7vxNq/toC3DsT6C2v+oCNzina
+	 1awQkKif0af6IUioHH1+VUBlAdV78j9jUgVZNkyMLRydSVGyc3H63cvEKtpGnhR+x2BdJ2/TuMN5D
+	 fHA3j8yIthu1l29SogmnVNlbAqxg+7yEp92boCQmE5mg0nBkgrpW3Yh1TCTyVqsdm0BsHQTut7i3/
+	 8uVGk09RlrgwaNtgBbbvUdCbOVj0Y8xLUbEYB2FE3Zy8CqBXUC6KUIlFDpq3MiztUmsYG2jbi0HIo
+	 xT44HwZQUahkwqjrMlhSjexbVvD/YbV+ZdbHpE0+posbR6yQ/n3K2wlzmL7mqeLZqrNrLq88VrXdx
+	 6jTtjm754BjYROUAIFAvdqQy6tq6w/wns4Jb1mw8osXVhxrsA3hGaCIYtWa7whlOfgu3mwcHpNG/c
+	 tZFVPCblftNWiNY3fTzC82musKCtl8FzJc6T7l9e02lqVoXSR4aG6bWwrrMCvyBpvPno3h+RsfB2n
+	 cM7Q1T30UKoMjErEGV+dZyat+UZJ75doLyoWYHURRTapQLxbhO/CId++DDjwlWHX9XS1j+kgkuDPt
+	 keEfTrG4zugZiBkruoPnS4q1Ijc8DQKGJjWr+5gp/Riu7I/RMtpjFjPxHUlkUTToJ0BFMorFDSXJg
+	 XlsVTbvw2AIqxTsTEw40q9ziYClbXMdEfPd7OUGv0gb9iaXJdfLlZIcixoYrb6omkgapMPeYhQUxK
+	 kNupiB4pVyOntl+rQKTFRBDKb5YLyBtlTWzESk6/Ottv074s=
+From: "=?utf-8?B?MTc2ODMxNTMwNw==?=" <1768315307@qq.com>
+To: "=?utf-8?B?TWlxdWVsIFJheW5hbA==?=" <miquel.raynal@bootlin.com>
+Cc: "=?utf-8?B?VmlnbmVzaCBSYWdoYXZlbmRyYQ==?=" <vigneshr@ti.com>, "=?utf-8?B?UmljaGFyZCBXZWluYmVyZ2Vy?=" <richard@nod.at>, "=?utf-8?B?bGludXgtbXRk?=" <linux-mtd@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] mtd: spinand: cache the last read page to avoid redundant SPI operations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907231444.7fa2d116@jic23-huawei>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 8 Sep 2026 11:34:26 +0800
+X-Priority: 3
+Message-ID: <tencent_B6583056E4084CFC16E65D3CE8099ABBC906@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <tencent_219EED44C45D6CEC1D6B6724343E13733005@qq.com>
+	<87jyoxw8a3.fsf@bootlin.com>
+In-Reply-To: <87jyoxw8a3.fsf@bootlin.com>
+X-QQ-mid: xmsezc43-0t1788838466tqnxzbzy5
 
-On Mon, Sep 07, 2026 at 11:14:44PM +0100, Jonathan Cameron wrote:
-> I went ahead and picked these up on
-> https://git.kernel.org/pub/scm/linux/kernel/git/jic23/iio.git ib-iio-x86-asm-fix-7.3
-> and merged that into the main IIO branch. I want to give plenty of time in next
-> for the driver that was relying on them.
-> 
-> Currently this is all in my testing branch but I'll push that out as a non rebasing
-> (ideally) branch a bit later in the week.
+SGkgTWlxdWVsLAoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LiBTZW50IHYyIHdpdGggdGhlIGZp
+eGVzLgoKPiB3aHkgd291bGQgeW91IHVzZSBtdGRibG9jayBvbiB0b3Agb2YgYSBTUEkgTkFO
+RD8gSXQgc291bmRzIGxpa2UgYSB2ZXJ5Cj4gYmFkIGNob2ljZS4gTWF5YmUgbXRkYmxvY2sg
+aXRzZWxmIGNvdWxkIGJlIGltcHJvdmVkIHRvIGF2b2lkIDUxMkIKPiBhY2Nlc3NlcyBpbnN0
+ZWFkPwoKV2UgdXNlIGEgcmVhZC1vbmx5IHNxdWFzaGZzIHJvb3RmcyBvbiBtdGRibG9jayBm
+b3IgU1BJIE5BTkQuIFRoaXMgaXMKYSBtaW5pbWFsIGNvbmZpZ3VyYXRpb24gdGhhdCBhdm9p
+ZHMgdGhlIGNvbXBsZXhpdHkgb2YgVUJJL1VCSUZTIGZvcgphIHJlYWQtb25seSBwYXJ0aXRp
+b24sIGFuZCBpcyBjb21tb25seSB1c2VkIGluIGVtYmVkZGVkIGRldmljZXMgbGlrZQpyb3V0
+ZXJzIGFuZCBJb1Qgc3lzdGVtcy4KClRoZSBibG9jayBsYXllcidzIDUxMi1ieXRlIHNlY3Rv
+ciBzaXplIGlzIG5vdCBlYXNpbHkgY29uZmlndXJhYmxlIHBlcgpkZXZpY2UsIGFuZCB0aGUg
+ZHJpdmVyIGFscmVhZHkgaG9sZHMgdGhlIGZ1bGwgcGFnZSBpbiBpdHMgYm91bmNlIGJ1ZmZl
+cgphZnRlciBlYWNoIHJlYWQuIEFkZGluZyBhIGxpZ2h0d2VpZ2h0IGNhY2hlIGF2b2lkcyB0
+aGUgcmVkdW5kYW50IFNQSQpyZWFkcyB3aXRob3V0IGFueSBhZGRpdGlvbmFsIGhhcmR3YXJl
+IGNvc3QuCgo+IFBzZXVkb255bXMgYXJlIG5vdCBhbGxvd2VkIGluIHRoZSBMaW51eCBrZXJu
+ZWwuCgpGaXhlZCBpbiB2Mi4KCj4gU3B1cmlvdXMgY2hhbmdlLgoKRml4ZWQgaW4gdjIuCgpU
+aGFua3MsClpvbmd6aGVuIEZlbmcKCgoK5Y6f5aeL6YKu5Lu2CuWPkeS7tuS6uu+8mk1pcXVl
+bCBSYXluYWwgPG1pcXVlbC5yYXluYWxAYm9vdGxpbi5jb20+CuWPkeS7tuaXtumXtO+8mjIw
+MjblubQ55pyIN+aXpSAyMDozMwrmlLbku7bkurrvvJpmenogPDE3NjgzMTUzMDdAcXEuY29t
+PgrmioTpgIHvvJpWaWduZXNoIFJhZ2hhdmVuZHJhIDx2aWduZXNockB0aS5jb20+LCBSaWNo
+YXJkIFdlaW5iZXJnZXIgPHJpY2hhcmRAbm9kLmF0PiwgbGludXgtbXRkIDxsaW51eC1tdGRA
+bGlzdHMuaW5mcmFkZWFkLm9yZz4sIGxpbnV4LWtlcm5lbCA8bGludXgta2VybmVsQHZnZXIu
+a2VybmVsLm9yZz4K5Li76aKY77yaUmU6IFtQQVRDSF0gbXRkOiBzcGluYW5kOiBjYWNoZSB0
+aGUgbGFzdCByZWFkIHBhZ2UgdG8gYXZvaWQgcmVkdW5kYW50IFNQSSBvcGVyYXRpb25zCgoK
+SGVsbG8sCgpPbsKgMDcvMDkvMjAyNsKgYXTCoDE5OjEwOjQwwqArMDgswqBmenrCoDwxNzY4
+MzE1MzA3QHFxLmNvbT7CoHdyb3RlOgoKPsKgV2hlbsKgc3F1YXNoZnPCoHJlYWRzwqBmaWxl
+c8KgdGhyb3VnaMKgbXRkYmxvY2sswqB0aGXCoG10ZGJsb2NrwqBsYXllcgo+wqBzcGxpdHPC
+oEkvT8KgaW50b8KgNTEyLWJ5dGXCoHNlY3RvcnMuwqBGb3LCoGHCoDRLLXBhZ2XCoFNQScKg
+TkFORCzCoHRoaXMKPsKgbWVhbnPCoHJlYWRpbmfCoHRoZcKgc2FtZcKgcGFnZcKgOMKgdGlt
+ZXPCoCg0MDk2wqAvwqA1MTIpLMKgZ2VuZXJhdGluZ8KgN3gKPsKgcmVkdW5kYW50wqBTUEnC
+oHJlYWQtZnJvbS1jYWNoZcKgb3BlcmF0aW9ucy7CoEVhY2jCoHN1Y2jCoG9wZXJhdGlvbgo+
+wqBpbnZvbHZlc8KgYcKgZnVsbMKgU1BJwqBidXPCoHRyYW5zYWN0aW9uLMKgc2lnbmlmaWNh
+bnRsecKgc2xvd2luZ8KgZG93bgo+wqBib290wqB0aW1lwqBhbmTCoGZpbGXCoGFjY2Vzcy4K
+Pgo+wqBDYWNoZcKgdGhlwqBsYXN0wqBzdWNjZXNzZnVsbHnCoHJlYWTCoHBhZ2XCoGluwqBz
+cGluYW5kX2RldmljZcKgdG/CoGF2b2lkCj7CoHRoZXNlwqByZWR1bmRhbnTCoG9wZXJhdGlv
+bnMuwqBXaGVuwqB0aGXCoHNhbWXCoHt0YXJnZXQswqBlcmFzZWJsb2NrLAo+wqBwYWdlfcKg
+aXPCoHJlcXVlc3RlZMKgY29uc2VjdXRpdmVseSzCoHRoZcKgZGF0YcKgaXPCoHNlcnZlZMKg
+ZGlyZWN0bHkKPsKgZnJvbcKgdGhlwqBib3VuY2XCoGJ1ZmZlcsKgKGRhdGFidWYpwqB2aWHC
+oG1lbWNweSzCoHNraXBwaW5nwqB0aGXCoFNQSQo+wqB0cmFuc2FjdGlvbsKgZW50aXJlbHku
+Cj4KPsKgVGhlwqBjYWNoZcKgaXPCoGludmFsaWRhdGVkwqBvbsKgd3JpdGXCoGFuZMKgZXJh
+c2XCoG9wZXJhdGlvbnMuwqBSQVfCoHJlYWRzLAo+wqBPT0LCoHJlYWRzLMKgYW5kwqBjb250
+aW51b3VzwqByZWFkc8KgYXJlwqBleGNsdWRlZMKgZnJvbcKgY2FjaGluZ8KgdG8KPsKgbWFp
+bnRhaW7CoGNvcnJlY3RuZXNzLgoKV2h5wqB3b3VsZMKgeW91wqB1c2XCoG10ZGJsb2NrwqBv
+bsKgdG9wwqBvZsKgYcKgU1BJwqBOQU5EP8KgSXTCoHNvdW5kc8KgbGlrZcKgYcKgdmVyeQpi
+YWTCoGNob2ljZS4KCk1heWJlwqBtdGRibG9ja8KgaXRzZWxmwqBjb3VsZMKgYmXCoGltcHJv
+dmVkwqB0b8KgYXZvaWTCoDUxMkLCoGFjY2Vzc2VzwqBpbnN0ZWFkPwoKPsKgU2lnbmVkLW9m
+Zi1ieTrCoGZ6esKgPDE3NjgzMTUzMDdAcXEuY29tPgoKVW5mb3J0dW5hdGVseSzCoGZvcsKg
+bGljZW5zaW5nwqBhbmTCoGNvcHlyaWdodMKgcmVhc29ucyzCoHBzZXVkb255bXPCoGFyZcKg
+bm90CmFsbG93ZWTCoGluwqB0aGXCoExpbnV4wqBrZXJuZWwuCgo+wqAtLS0KPsKgwqBkcml2
+ZXJzL210ZC9uYW5kL3NwaS9jb3JlLmPCoHzCoDM2wqArKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKy0KPsKgwqBpbmNsdWRlL2xpbnV4L210ZC9zcGluYW5kLmjCoHzCoMKg
+OcKgKysrKysrKysrCj7CoMKgMsKgZmlsZXPCoGNoYW5nZWQswqA0NMKgaW5zZXJ0aW9ucygr
+KSzCoDHCoGRlbGV0aW9uKC0pCj4KPsKgZGlmZsKgLS1naXTCoGEvZHJpdmVycy9tdGQvbmFu
+ZC9zcGkvY29yZS5jwqBiL2RyaXZlcnMvbXRkL25hbmQvc3BpL2NvcmUuYwo+wqBpbmRleMKg
+OGJmOTMwMWYyNWU3Li5mYzA4MjEyN2JkYTjCoDEwMDY0NAo+wqAtLS3CoGEvZHJpdmVycy9t
+dGQvbmFuZC9zcGkvY29yZS5jCj7CoCsrK8KgYi9kcml2ZXJzL210ZC9uYW5kL3NwaS9jb3Jl
+LmMKPsKgQEDCoC01NTcsN8KgKzU1NywxNMKgQEDCoHN0YXRpY8KgaW50wqBzcGluYW5kX3Jl
+YWRfZnJvbV9jYWNoZV9vcChzdHJ1Y3TCoHNwaW5hbmRfZGV2aWNlwqAqc3BpbmFuZCwKPsKg
+wqAgwqDCoMKgwqByZXEtPm9vYmxlbik7Cj7CoMKgIGVsc2UKPsKgwqAgbWVtY3B5KHJlcS0+
+b29iYnVmLmluLMKgc3BpbmFuZC0+b29iYnVmwqArwqByZXEtPm9vYm9mZnMsCj7CoC0gwqDC
+oMKgwqDCoMKgwqByZXEtPm9vYmxlbik7Cj7CoCsgcmVxLT5vb2JsZW4pOwoKU3B1cmlvdXPC
+oGNoYW5nZS4KCj7CoCsgfQo+wqArCgpUaGFua3MsCk1pcXXDqGwKCg==
 
-No, this is not how this works. x86 changes go through tip and if you need an
-immutable branch, we can give you a tag.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
