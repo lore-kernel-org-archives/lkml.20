@@ -1,72 +1,61 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-111.mta1.migadu.com [95.215.58.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7763D50AC1E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B972750EC11
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858708; cv=none; b=OrinAsGEAgJ3lK/x9vvOOuyGbsnXOoa/BCOp8uCfqTe41OvFs63s8x+sYsWj6p0Cx+rMDa02JQIuhdE19SHTwdblWm8G/7QpwHZ008vMwTHP77AXD00WhNz/x4fOCp2yFWRekfX1rq6REv0mxqDadYNbJF5jV4LSdyjVlpDyHPk=
+	t=1788858709; cv=none; b=IWP1hUkbKsw48UtrBlc3s6Se3vsImJSShkoFJoO+aTHXe+R41V7B++YXcwXD+6iIb3IM2Mt7Sgn41BWjm/9b20qJp5S0TzGKiEFtrjDTRvehVmuT7QCdzCvgFSvqP+5FQtL5ODypAwv8kCOrblnJzL6teTFp0PFETmrRknBKoqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858708; c=relaxed/simple;
-	bh=eeOPFG4u6hLcPCpbsU0pt8NrQoGk7396tIENZh+Y75M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HeM23OIYs9hrOFyOca/21h7D9eKtzF6TU3NmaArzmpWFnV+jA8DRMZjGPjzIf+kBCIFYXIQXmloUW5a6+9O09kozmGrGxBFRHvJoA9+CG5b5j+GjY4Ks7stWnCMzupsOB23iGhpwA9JF/YFzscEfTNi7VI0lNv+WdHEONjRptcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QuFHa90/; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788858709; c=relaxed/simple;
+	bh=6VmEDsVAvJfO/ndzZMXcVM2LXI2zLrkuWTXR1AO7Mos=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bq5AIRsnHDDsvxMlp/Q+RRVnD3N2W7D674YRMBnjspOYT/iyPFxhzcnwbVP5yMIaoL27sWxuxMJAkSEUerBR6jUVQYVmWMgcrkF4nfE5B4g/RwMDCKLEgsb7RFIEJfDdktj36Vz2qlzI5btvF6t5XQidNcTk49uV2e2qtw20/oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=o/OsFgMD; arc=none smtp.client-ip=95.215.58.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QuFHa90/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788858705;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0o5QpxFeu5TrNwGgmbvg+/fFTzaz02uc6YukdcDfJEU=;
-	b=QuFHa90/H8D6zOQjCJx5FEDAZU004rSu/tEZ+eyBq/CD6hyTTA3Jhjtb1XaoX4rEuHr05g
-	H1HThLK4jPLfh0rzM693XBkbLgaOEBNiMBJmDqktbU1KkoPV9ap2fKSZ0rPYONP0ZCXP7r
-	FukJfjeUhvxwKL2mB/1NOiSs3OzPmOs=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-497-dDMc-nE1MM-cxGhXBWiWwA-1; Tue,
- 08 Sep 2026 05:11:39 -0400
-X-MC-Unique: dDMc-nE1MM-cxGhXBWiWwA-1
-X-Mimecast-MFC-AGG-ID: dDMc-nE1MM-cxGhXBWiWwA_1788858697
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 750D818345B6;
-	Tue,  8 Sep 2026 09:11:37 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id BC25C1955F0C;
-	Tue,  8 Sep 2026 09:11:31 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: David Howells <dhowells@redhat.com>,
-	Christian Brauner <christian@brauner.io>,
-	Matthew Wilcox <willy@infradead.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Stefan Metzmacher <metze@samba.org>,
-	Eric Van Hensbergen <ericvh@kernel.org>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	netfs@lists.linux.dev,
-	linux-afs@lists.infradead.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org,
-	v9fs@lists.linux.dev,
-	linux-erofs@lists.ozlabs.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v12 7/8] netfs: Add some functions to wrap the all-queued handling
-Date: Tue,  8 Sep 2026 10:10:28 +0100
-Message-ID: <20260908091031.1506798-8-dhowells@redhat.com>
-In-Reply-To: <20260908091031.1506798-1-dhowells@redhat.com>
-References: <20260908091031.1506798-1-dhowells@redhat.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="o/OsFgMD"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6VmEDsVAvJfO/ndzZMXcVM2LXI2zLrkuWTXR1AO7Mos=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788858705; v=1; x=1789463505;
+ b=o/OsFgMD/O1bayRQI8oxCjqnwesm8mhG7IbQxPmubhZdQCWn5FytYnHxyBMB1yhB1qL9ZVjJ
+ zrZd2KjKlbYjW51TJlvoFQycyVVkqmIlttgpxOWrp/6FkOWfoPWzv7yaujtlOHeMPo49Tsc1rce
+ L9bXMQWfw1fs5L6ecL3okDYA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id d929543bb24a8c1b;
+	Tue, 08 Sep 2026 09:11:45 +0000
+X-Mizu-Trace-ID: d929543bb24a8c1b
+X-Migadu-Flow: FLOW_OUT
+From: Hui Zhu <hui.zhu@linux.dev>
+To: Roman Gushchin <roman.gushchin@linux.dev>,
+	JP Kobryn <inwardvessel@gmail.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH bpf-next v9 0/2] bpf: BPF-driven proactive memcg reclaim
+Date: Tue,  8 Sep 2026 17:11:26 +0800
+Message-ID: <cover.1788857915.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,235 +63,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-Add some helper functions to wrap the handling of the NETFS_RREQ_ALL_QUEUED
-flag and to insert the appropriate barriers.
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Signed-off-by: David Howells <dhowells@redhat.com>
-Reviewed-by: Paulo Alcantara <pc@manguebit.org>
-cc: netfs@lists.linux.dev
-cc: linux-fsdevel@vger.kernel.org
----
- fs/netfs/buffered_read.c     |  9 +++------
- fs/netfs/direct_read.c       |  9 +++------
- fs/netfs/internal.h          | 19 +++++++++++++++++++
- fs/netfs/misc.c              |  2 +-
- fs/netfs/read_collect.c      |  4 +---
- fs/netfs/read_pgpriv2.c      |  3 +--
- fs/netfs/read_single.c       |  9 +++------
- fs/netfs/write_collect.c     |  3 +--
- fs/netfs/write_issue.c       |  6 ++----
- include/trace/events/netfs.h |  1 +
- 10 files changed, 35 insertions(+), 30 deletions(-)
+BPF programs can observe memory pressure on a cgroup (e.g. refault
+stats via bpf_mem_cgroup_page_state()), but cannot act on it:
+triggering reclaim on a chosen cgroup requires writing to
+memory.reclaim, which BPF cannot do. This series adds
+bpf_proactive_reclaim(), a sleepable kfunc performing one proactive
+reclaim pass on a target memcg, so when and how hard to reclaim is
+BPF policy rather than hard-coded thresholds.
 
-diff --git a/fs/netfs/buffered_read.c b/fs/netfs/buffered_read.c
-index 61cf82b4b60d..e7fa30376862 100644
---- a/fs/netfs/buffered_read.c
-+++ b/fs/netfs/buffered_read.c
-@@ -355,10 +355,8 @@ static void netfs_read_to_pagecache(struct netfs_io_request *rreq)
- 		}
- 		start += slice;
- 		size -= slice;
--		if (size <= 0) {
--			smp_wmb(); /* Write lists before ALL_QUEUED. */
--			set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
--		}
-+		if (size <= 0)
-+			netfs_all_subreqs_queued(rreq);
- 
- 		if (fq) {
- 			/* See if the cache indicated this should be cached. */
-@@ -378,8 +376,7 @@ static void netfs_read_to_pagecache(struct netfs_io_request *rreq)
- 	} while (size > 0);
- 
- 	if (unlikely(size > 0)) {
--		smp_wmb(); /* Write lists before ALL_QUEUED. */
--		set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+		netfs_all_subreqs_queued(rreq);
- 		netfs_wake_collector(rreq);
- 	}
- 
-diff --git a/fs/netfs/direct_read.c b/fs/netfs/direct_read.c
-index aa10af5171a8..5405e108b7a3 100644
---- a/fs/netfs/direct_read.c
-+++ b/fs/netfs/direct_read.c
-@@ -84,10 +84,8 @@ static void netfs_dispatch_unbuffered_reads(struct netfs_io_request *rreq)
- 		size -= slice;
- 		start += slice;
- 		rreq->submitted += slice;
--		if (size <= 0) {
--			smp_wmb(); /* Write lists before ALL_QUEUED. */
--			set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
--		}
-+		if (size <= 0)
-+			netfs_all_subreqs_queued(rreq);
- 
- 		rreq->netfs_ops->issue_read(subreq);
- 
-@@ -99,8 +97,7 @@ static void netfs_dispatch_unbuffered_reads(struct netfs_io_request *rreq)
- 	} while (size > 0);
- 
- 	if (unlikely(size > 0)) {
--		smp_wmb(); /* Write lists before ALL_QUEUED. */
--		set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+		netfs_all_subreqs_queued(rreq);
- 		netfs_wake_collector(rreq);
- 	}
- }
-diff --git a/fs/netfs/internal.h b/fs/netfs/internal.h
-index 532263d896a1..e0aa0ea510e9 100644
---- a/fs/netfs/internal.h
-+++ b/fs/netfs/internal.h
-@@ -341,6 +341,25 @@ static inline bool netfs_check_subreq_in_progress(const struct netfs_io_subreque
- 	return test_bit_acquire(NETFS_SREQ_IN_PROGRESS, &subreq->flags);
- }
- 
-+/*
-+ * Indicate that we've generated and queued all the subrequests we're going to.
-+ */
-+static inline void netfs_all_subreqs_queued(struct netfs_io_request *rreq)
-+{
-+	smp_wmb(); /* Write lists before ALL_QUEUED. */
-+	set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+	trace_netfs_rreq(rreq, netfs_rreq_trace_all_queued);
-+}
-+
-+/*
-+ * Query if all subrequests are queued.
-+ */
-+static inline bool netfs_are_all_subreqs_queued(const struct netfs_io_request *rreq)
-+{
-+	/* Read lists after ALL_QUEUED. */
-+	return test_bit_acquire(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+}
-+
- /*
-  * fscache-cache.c
-  */
-diff --git a/fs/netfs/misc.c b/fs/netfs/misc.c
-index eafc4edae6a0..a3cd76d584b8 100644
---- a/fs/netfs/misc.c
-+++ b/fs/netfs/misc.c
-@@ -424,7 +424,7 @@ static int netfs_collect_in_app(struct netfs_io_request *rreq,
- 			need_collect = true;
- 			break;
- 		}
--		if (subreq || !test_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags))
-+		if (subreq || !netfs_are_all_subreqs_queued(rreq))
- 			done = false;
- 	}
- 
-diff --git a/fs/netfs/read_collect.c b/fs/netfs/read_collect.c
-index 01ea1ddae04b..cb97dedad170 100644
---- a/fs/netfs/read_collect.c
-+++ b/fs/netfs/read_collect.c
-@@ -462,10 +462,8 @@ bool netfs_read_collection(struct netfs_io_request *rreq)
- 	/* We're done when the app thread has finished posting subreqs and the
- 	 * queue is empty.
- 	 */
--	if (!test_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags))
-+	if (!netfs_are_all_subreqs_queued(rreq))
- 		return false;
--	smp_rmb(); /* Read ALL_QUEUED before subreq lists. */
--
- 	if (!list_empty(&stream->subrequests))
- 		return false;
- 
-diff --git a/fs/netfs/read_pgpriv2.c b/fs/netfs/read_pgpriv2.c
-index bf4d9d6877d7..5280b606fda4 100644
---- a/fs/netfs/read_pgpriv2.c
-+++ b/fs/netfs/read_pgpriv2.c
-@@ -158,8 +158,7 @@ void netfs_pgpriv2_end_copy_to_cache(struct netfs_io_request *rreq)
- 		return;
- 
- 	netfs_issue_write(creq, &creq->io_streams[1]);
--	smp_wmb(); /* Write lists before ALL_QUEUED. */
--	set_bit(NETFS_RREQ_ALL_QUEUED, &creq->flags);
-+	netfs_all_subreqs_queued(creq);
- 	trace_netfs_rreq(rreq, netfs_rreq_trace_end_copy_to_cache);
- 	if (list_empty_careful(&creq->io_streams[1].subrequests))
- 		netfs_wake_collector(creq);
-diff --git a/fs/netfs/read_single.c b/fs/netfs/read_single.c
-index de67ac41548d..ccb5fc809d99 100644
---- a/fs/netfs/read_single.c
-+++ b/fs/netfs/read_single.c
-@@ -113,14 +113,12 @@ static int netfs_single_dispatch_read(struct netfs_io_request *rreq)
- 				goto cancel;
- 		}
- 
--		smp_wmb(); /* Write lists before ALL_QUEUED. */
--		set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+		netfs_all_subreqs_queued(rreq);
- 		rreq->netfs_ops->issue_read(subreq);
- 		rreq->submitted += subreq->len;
- 		break;
- 	case NETFS_READ_FROM_CACHE:
--		smp_wmb(); /* Write lists before ALL_QUEUED. */
--		set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+		netfs_all_subreqs_queued(rreq);
- 		trace_netfs_sreq(subreq, netfs_sreq_trace_submit);
- 		netfs_single_read_cache(rreq, subreq);
- 		rreq->submitted += subreq->len;
-@@ -136,8 +134,7 @@ static int netfs_single_dispatch_read(struct netfs_io_request *rreq)
- 	return ret;
- cancel:
- 	netfs_cancel_read(subreq, ret);
--	smp_wmb(); /* Write lists before ALL_QUEUED. */
--	set_bit(NETFS_RREQ_ALL_QUEUED, &rreq->flags);
-+	netfs_all_subreqs_queued(rreq);
- 	netfs_wake_collector(rreq);
- 	return ret;
- }
-diff --git a/fs/netfs/write_collect.c b/fs/netfs/write_collect.c
-index 7194182b975c..6d99d4a6f780 100644
---- a/fs/netfs/write_collect.c
-+++ b/fs/netfs/write_collect.c
-@@ -371,9 +371,8 @@ bool netfs_write_collection(struct netfs_io_request *wreq)
- 	/* We're done when the app thread has finished posting subreqs and all
- 	 * the queues in all the streams are empty.
- 	 */
--	if (!test_bit(NETFS_RREQ_ALL_QUEUED, &wreq->flags))
-+	if (!netfs_are_all_subreqs_queued(wreq))
- 		return false;
--	smp_rmb(); /* Read ALL_QUEUED before lists. */
- 
- 	transferred = LONG_MAX;
- 	for (s = 0; s < NR_IO_STREAMS; s++) {
-diff --git a/fs/netfs/write_issue.c b/fs/netfs/write_issue.c
-index 5d130df2ff0d..9a528da4bf9f 100644
---- a/fs/netfs/write_issue.c
-+++ b/fs/netfs/write_issue.c
-@@ -520,8 +520,7 @@ static void netfs_end_issue_write(struct netfs_io_request *wreq)
- {
- 	bool needs_poke = true;
- 
--	smp_wmb(); /* Write subreq lists before ALL_QUEUED. */
--	set_bit(NETFS_RREQ_ALL_QUEUED, &wreq->flags);
-+	netfs_all_subreqs_queued(wreq);
- 
- 	for (int s = 0; s < NR_IO_STREAMS; s++) {
- 		struct netfs_io_stream *stream = &wreq->io_streams[s];
-@@ -789,8 +788,7 @@ int netfs_writeback_single(struct address_space *mapping,
- stop:
- 	for (int s = 0; s < NR_IO_STREAMS; s++)
- 		netfs_issue_write(wreq, &wreq->io_streams[s]);
--	smp_wmb(); /* Write lists before ALL_QUEUED. */
--	set_bit(NETFS_RREQ_ALL_QUEUED, &wreq->flags);
-+	netfs_all_subreqs_queued(wreq);
- 
- 	netfs_wake_collector(wreq);
- 
-diff --git a/include/trace/events/netfs.h b/include/trace/events/netfs.h
-index c9ec4da97f0b..303309be253f 100644
---- a/include/trace/events/netfs.h
-+++ b/include/trace/events/netfs.h
-@@ -47,6 +47,7 @@
- 	E_(NETFS_PGPRIV2_COPY_TO_CACHE,		"2C")
- 
- #define netfs_rreq_traces					\
-+	EM(netfs_rreq_trace_all_queued,		"ALL-Q  ")	\
- 	EM(netfs_rreq_trace_assess,		"ASSESS ")	\
- 	EM(netfs_rreq_trace_collect,		"COLLECT")	\
- 	EM(netfs_rreq_trace_complete,		"COMPLET")	\
+The kfunc is restricted to BPF_PROG_TYPE_SYSCALL so that reclaim
+always runs in a clean process context: generic sleepable programs
+may execute with filesystem locks held or in NOFS/NOIO contexts,
+where the reclaim path could deadlock in filesystem shrinkers. The
+bpf_wq and task_work callbacks of a SYSCALL program keep its program
+type and run in process context, so reclaim work can still be queued
+asynchronously through them, as the selftest does with bpf_wq.
+
+The use case we are looking at is protecting high-priority workloads:
+a BPF program monitors the state of a high-priority cgroup and, when
+it degrades (e.g. PSI rises or refaults increase, as in the
+selftest), asynchronously reclaims memory from low-priority cgroups
+via bpf_wq and bpf_proactive_reclaim(), giving the pressured cgroup
+more free pages.
+
+Another use case: several vendor-maintained kernels carry private
+implementations that trigger asynchronous reclaim when a memcg enters
+a certain state. These exist for historical and partly psychological
+reasons, but the underlying demand is real. We expect BPF-driven
+proactive reclaim, combined with the BPF hooks for the memory
+controller currently under discussion and development, to serve these
+needs in mainline, reducing kernel fragmentation and improving kernel
+maintainability.
+
+Changelog:
+v9:
+According to the comments of JP, copy the motivation from the cover
+letter to the commit message, restructure the kfunc documentation
+to separate the direct and asynchronous calling contexts, fold the
+fs-lock warning into the SYSCALL-only rationale, soften the "bounded
+unit of work" wording (only the reclaim target is capped), and drop
+the redundant comment above the reclaim kfunc set registration.
+v8:
+According to the comments of Andrew, Kumar and Shakeel, drop the
+bpf_in_reclaim_context() check because the SYSCALL-only restriction
+already rules out reentrancy.
+According to the comments of Kumar, Add the swappiness argument to
+bpf_proactive_reclaim().
+v7:
+According to the comments of JP, clamp the reclaim target of one
+bpf_proactive_reclaim() call to MEMCG_CHARGE_BATCH so each call is
+a bounded unit of work, and document the batching policy in the kfunc.
+selftest: check the target cgroup for dying state before reclaiming
+from it, and add the memcg_async_reclaim_dying test covering target
+removal while reclaim is running.
+v6:
+According to the comments of Kumar and Shakeel, Restrict
+bpf_proactive_reclaim() to BPF_PROG_TYPE_SYSCALL by moving it
+to a dedicated kfunc set registered for that program type only, and
+document the clean-process-context requirement in its kerneldoc.
+v5:
+According to the comments of Andrii, Kumar and Shakeel, remove
+bpf_proactive_reclaim_swappiness.
+v4:
+According to the comments of bot+bpf-ci and sashiko, also check
+current->reclaim_state to close the fentry-on-trace-iter recursion
+window in bpf_in_reclaim_context.
+Return bytes instead of pages ( nr * PAGE_SIZE ) in
+bpf_proactive_reclaim_pages and bpf_proactive_reclaim_swappiness.
+Return (unsigned long)-1 on out-of-range swappiness (was 0).
+Kdoc of both kfuncs: updated Return descriptions; added FS-lock deadlock
+warning to bpf_proactive_reclaim.
+Fix potential child process leak in selftests.
+Use _exit() instead of exit() in forked children in selftests.
+Rename reclaimed_pages to reclaimed_bytes in selftests.
+Fix comments issues in selftests.
+v3:
+According to the comments of bot+bpf-ci, add a shared helper
+bpf_proactive_reclaim_pages() that is called by bpf_proactive_reclaim
+and bpf_proactive_reclaim_swappiness.
+According to the comments of sashiko and bot+bpf-ci, fix the issues of
+selftests.
+v2:
+According to the comments of Shakeel Butt, replace
+bpf_try_to_free_mem_cgroup_pages() with
+bpf_proactive_reclaim(memcg, size) and
+bpf_proactive_reclaim_swappiness(memcg, size, swappiness).
+According to the comments of Kumar Kartikeya Dwivedi, drop patch 2
+and patch 3.
+Remove bpf_thread_wq code in patch 4.
+According to the comments of sashiko-bot, fix the issues of selftests.
+
+Hui Zhu (2):
+  mm/bpf: Add bpf_proactive_reclaim kfunc
+  selftests/bpf: Add memcg async reclaim test
+
+ mm/bpf_memcontrol.c                           |  88 ++-
+ .../bpf/prog_tests/memcg_async_reclaim.c      | 686 ++++++++++++++++++
+ .../selftests/bpf/progs/memcg_async_reclaim.c | 259 +++++++
+ 3 files changed, 1032 insertions(+), 1 deletion(-)
+ create mode 100644 tools/testing/selftests/bpf/prog_tests/memcg_async_reclaim.c
+ create mode 100644 tools/testing/selftests/bpf/progs/memcg_async_reclaim.c
+
+-- 
+2.43.0
 
