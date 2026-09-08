@@ -1,27 +1,27 @@
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 798C955C1A3;
-	Tue,  8 Sep 2026 13:05:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CBE548553;
+	Tue,  8 Sep 2026 13:05:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872760; cv=none; b=eW/v5dJX3I9qsF8VfHOull0Abdjf/EzZSkPRGv9hKo2MMoE4osnS1lGN9tB1ibG2JAglXdBQ4bRHsXpl4T18s4w2asqGcmvgHFiWtvGMoxpvI4OQpjac5mX+uumnvFXUWKq6F7JcK2vP1fnmPaR9xfwnfbMekJS0BRMSzC7EgsI=
+	t=1788872758; cv=none; b=kJMB3dva37Ml0tmeJd4qLT4S7b9dqr8p3cFyckz7QHSd5jBv+KwzpRfmWYYRyrzGRAR7t4kOMZ5GLtJdkO9X4ZTadqKlCloPIcx9aloa1OA9sAz+JGSIPekICpwgFHdzKANWjHv1qdmeDojUh3XUQ739ZnFmdVuI3cufKF+pHmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872760; c=relaxed/simple;
-	bh=0iGqBogiDsUD9IX6n18y1qeHWvrszSQw6b6wW562DRI=;
+	s=arc-20240116; t=1788872758; c=relaxed/simple;
+	bh=1w6BN86PhU2QkpYdAW7SZj5CTkrvUjcDgdKClncLJaA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=epdLC8Z1kMhrZ7fVnJBScXzKK26wwtmWlcoISbehA7X/apPA3AsZ155Obm1kYaV45/xkgoFBeN94M+9bXc98ELCEfe0c0wjm08RQ1grKpBp9O0yZmRPgu9g5PUkHTvFyftStAZpl82jyXeOSsqwGQ30cD9ZvPYbn4zOTKiCYQSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+	 MIME-Version; b=ZPh+69QZ3kLga/BungkyNVXiMugX+J2Bh+NBVX5sGlThCQEr3q7H/c2618J9DSF+8zXopfCYdXNFG17SAL3XKPYlgETfvtDqlaIs6fv3v7TgvBxRj/re+pXTVtuG2UWvasZ6j5hR5LtZ/hHwZ7vtYpo9kOL1Ub448buutvlq7RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=pass smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hfPLt0VNMzKHN7x;
-	Tue,  8 Sep 2026 21:05:42 +0800 (CST)
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.198])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hfPKw1MTrzYQw9T;
+	Tue,  8 Sep 2026 21:04:52 +0800 (CST)
 Received: from mail02.huawei.com (unknown [10.116.40.75])
-	by mail.maildlp.com (Postfix) with ESMTP id 665864058D;
+	by mail.maildlp.com (Postfix) with ESMTP id AB79F40577;
 	Tue,  8 Sep 2026 21:05:43 +0800 (CST)
 Received: from huawei.com (unknown [10.67.174.45])
-	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S15;
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgDHLUoeCKBqX3XjBA--.22748S18;
 	Tue, 08 Sep 2026 21:05:43 +0800 (CST)
 From: Tengda Wu <wutengda@huaweicloud.com>
 To: Namhyung Kim <namhyung@kernel.org>,
@@ -44,9 +44,9 @@ Cc: Peter Zijlstra <peterz@infradead.org>,
 	linux-kernel@vger.kernel.org,
 	llvm@lists.linux.dev,
 	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH v5 13/26] perf annotate-arm64: Enable instruction tracking support
-Date: Tue,  8 Sep 2026 13:05:16 +0000
-Message-Id: <8ff5cfde0aad3d585b34f177fd87e8ec57ba4fa1.1788872630.git.wutengda@huaweicloud.com>
+Subject: [PATCH v5 16/26] perf annotate-arm64: Support load instruction tracking
+Date: Tue,  8 Sep 2026 13:05:19 +0000
+Message-Id: <a30c739f6462865d2ce4f8a780a12ec28bac707d.1788872630.git.wutengda@huaweicloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1788872630.git.wutengda@huaweicloud.com>
 References: <cover.1788872630.git.wutengda@huaweicloud.com>
@@ -57,11 +57,11 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S15
-X-Coremail-Antispam: 1UD129KBjvJXoW3WFy7Wr48tF1UAF4rCry8Krg_yoW7Kw17pa
-	yDC345KF4UJr42gwnxJF4UXry3G3yfW34Y9r9Ygw4SyFsFyryrtFs5KFWayF4rGrZ3Cw4Y
-	q3WqyFWDXw4UCaDanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUHCb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
+X-CM-TRANSID:Syh0CgDHLUoeCKBqX3XjBA--.22748S18
+X-Coremail-Antispam: 1UD129KBjvJXoW3Xw1xKw4rtFyfXrWxXFW7XFb_yoWfuryfpF
+	WDC3y5GrsrArs3WrsaqF48Wr9xuwn7Gr15Cr98Za9IyF42yrn5Ka93KFy2vF45Gr9ruw13
+	Ja1DKrnrXw42kaUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUHGb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k2
 	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAV
 	Cq3wA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
 	rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
@@ -72,186 +72,295 @@ X-Coremail-Antispam: 1UD129KBjvJXoW3WFy7Wr48tF1UAF4rCry8Krg_yoW7Kw17pa
 	AGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26rWY6Fy7MxkF7I0Ew4C2
 	6cxK6c8Ij28IcwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
 	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
-	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW5JVW7JwCI42IY6xIIjxv20xvEc7
+	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW7JVWDJwCI42IY6xIIjxv20xvEc7
 	CjxVAFwI0_Cr1j6rxdMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AK
-	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_GcJvcSsGvfC2KfnxnUUI43ZEXa
-	7xRxnoUUUUUUU==
+	xVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvj
+	4E73dUUUUUU
 X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-Enable basic instruction tracking for arm64 by implementing three
-essential functions in the find_data_type_block() call path:
+Extend update_insn_state_arm64() to handle load instructions, tracking
+register state changes when data is loaded from memory to registers.
 
-  find_data_type_block
-    -> arch_supports_insn_tracking  (1)
-    -> find_data_type_insn
-         -> init_type_state         (2)
-         -> update_var_state
-         -> update_insn_state       (3)
+Two main categories are considered: standard load (e.g, ldr variants)
+and load pair (ldp), for example:
 
-Changes:
+  ldr dst, [src, #imm]
+  ldp dst1, dst2, [src, #imm]
 
-* arch_supports_insn_tracking(): add arm64 to the list of supported
-  architectures, allowing find_data_type_block() to proceed with data
-  type analysis.
+For data type propagation, a load pair can be treated as two standard
+loads combined, first loading dst1 and then dst2. The difference is
+that when loading dst2, an additional memory offset 'mem_offset' after
+the first load must be added. This mem_offset can be derived from the
+instruction mnemonic and the size of the dst register. Each load operation
+is handled by introducing propagate_load_reg_state().
 
-* init_type_state(): correctly identify ret_reg, stack_reg, and
-  caller-saved registers for arm64 during type state initialization.
+When processing a load pair, the case where dst and src registers are
+the same (e.g., ldp x0, x1, [x0]) also needs to be considered. Therefore,
+before propagating data types, a snapshot of the src register's state
+must be saved and then passed to propagate_load_reg_state().
 
-* update_insn_state(): add the update_insn_state_arm64() callback with
-  conservative register invalidation for call instructions and those with
-  destination register(s), preventing stale type propagation. Full
-  instruction-level analysis support will be added incrementally in
-  later patches.
+Finally, handle the side effects of pre-index and post-index addressing
+via adjust_reg_index_state().
 
-With these changes, arm64 gains support for basic variable type
-inference during instruction tracking.
+A real-world example is shown below:
+
+  ffff80008011f5b0 <pick_task_stop>:
+  ffff80008011f5b8:  ldr  x0, [x0, #2712] // x0: struct rq* -> task_struct*
+* ffff80008011f5c0:  ldr  w1, [x0, #104]
+
+Before this commit, the type of x0 was incorrectly inferred as 'struct rq':
+
+  find data type for 0x68(reg0) at pick_task_stop+0x10
+  var [8] reg0 offset 0 type='struct rq*'
+  chk [10] reg0 offset=0x68 ok=1 kind=1 (struct rq*) : Good!
+  final result:  type='struct rq'
+
+After this commit, the type of x0 is correctly inferred as 'struct task_struct':
+
+  find data type for 0x68(reg0) at pick_task_stop+0x10
+  var [8] reg0 offset 0 type='struct rq*'
+  ldr [8] 0xa98(reg0) -> reg0 type='struct task_struct*'
+  chk [10] reg0 offset=0x68 ok=1 kind=1 (struct task_struct*) : Good!
+  final result: type='struct task_struct'
 
 Signed-off-by: Li Huafei <lihuafei1@huawei.com>
 Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
 ---
- .../perf/util/annotate-arch/annotate-arm64.c  | 78 +++++++++++++++++++
- tools/perf/util/annotate-data.c               | 11 ++-
- 2 files changed, 88 insertions(+), 1 deletion(-)
+ .../perf/util/annotate-arch/annotate-arm64.c  | 202 +++++++++++++++++-
+ 1 file changed, 201 insertions(+), 1 deletion(-)
 
 diff --git a/tools/perf/util/annotate-arch/annotate-arm64.c b/tools/perf/util/annotate-arch/annotate-arm64.c
-index d8a5904359b1..8fda4d4d6888 100644
+index 9a3226526522..c239ad9473dc 100644
 --- a/tools/perf/util/annotate-arch/annotate-arm64.c
 +++ b/tools/perf/util/annotate-arch/annotate-arm64.c
-@@ -9,6 +9,10 @@
- #include <regex.h>
- #include "../annotate.h"
- #include "../disasm.h"
-+#include "../annotate-data.h"
-+#include "../debug.h"
-+#include "../map.h"
-+#include "../symbol.h"
- 
- struct arch_arm64 {
- 	struct arch arch;
-@@ -442,6 +446,77 @@ static void extract_op_location_arm64(const struct arch *arch,
- 	}
+@@ -455,11 +455,206 @@ static bool is_readonly_branch_or_cmp(const char *name)
+ 	       !strcmp(name, "ccmp") || !strcmp(name, "ccmn");
  }
  
-+#ifdef HAVE_LIBDW_SUPPORT
-+static bool is_readonly_branch_or_cmp(const char *name)
++static int arm64__reg_size(const char *reg)
 +{
-+	return !strncmp(name, "cb", 2) || !strncmp(name, "tb", 2) ||
-+	       !strcmp(name, "tst") || !strcmp(name, "teq") ||
-+	       !strcmp(name, "cmp") || !strcmp(name, "cmn") ||
-+	       !strcmp(name, "ccmp") || !strcmp(name, "ccmn");
++	if (!reg || !*reg || !arm64__is_reg(reg))
++		return -1;
++
++	if (reg[0] == 'w')
++		return 4;
++
++	if (reg[0] == 'x' || !strncmp(reg, "sp", 2))
++		return 8;
++
++	return -1;
 +}
 +
-+static void update_insn_state_arm64(struct type_state *state,
-+				    struct data_loc_info *dloc, Dwarf_Die *cu_die __maybe_unused,
-+				    struct disasm_line *dl)
++/* Apply addressing mode (pre-index, post-index) to register state */
++static void adjust_reg_index_state(struct type_state *state,
++				   struct data_loc_info *dloc,
++				   struct disasm_line *dl,
++				   struct annotated_op_loc *op_loc)
 +{
-+	struct annotated_insn_loc loc;
-+	struct annotated_op_loc *dst = &loc.ops[INSN_OP_TARGET];
++	struct type_state_reg *tsr;
++	int reg = op_loc->reg1;
++	int offset;
++
++	if (op_loc->addr_mode != PERF_AAM_PRE_INDEX &&
++	    op_loc->addr_mode != PERF_AAM_POST_INDEX)
++		return;
++
++	if (!has_reg_type(state, reg) || !state->regs[reg].ok)
++		return;
++
++	tsr = &state->regs[reg];
++	tsr->copied_from = -1;
++
++	if (arch_get_reg_offset(dloc->arch, op_loc, reg, state, true, &offset)) {
++		invalidate_reg_state(tsr);
++		return;
++	}
++
++	tsr->offset += offset;
++
++	pr_debug_dtp("%s [%x] %s-index %#x(reg%d) -> reg%d", dl->ins.name,
++		     (u32) dl->al.offset, op_loc->addr_mode == PERF_AAM_PRE_INDEX ?
++		     "pre" : "post", offset, reg, reg);
++	pr_debug_type_name(&tsr->type, tsr->kind);
++}
++
++/*
++ * Match standard load variants (ldr, ldur, ldar, ldp) that follow
++ * straightforward load semantics: memory source on the right
++ * and target registers on the left (written). Excludes exclusive loads
++ * (ldxr, ldxp, etc.) and acquire/exclusive combination variants.
++ */
++static bool is_standard_load_insn(const char *name)
++{
++	return !strncmp(name, "ldr", 3)  ||  /* ldr, ldrb, ldrh, ldrsb, ldrsh, ldrsw */
++	       !strncmp(name, "ldur", 4) ||  /* ldur, ldurb, ldurh, ldursb, ldursh, ldursw */
++	       !strncmp(name, "ldar", 4) ||  /* ldar, ldarb, ldarh */
++	       !strncmp(name, "ldp", 3);     /* ldp, ldpsw */
++}
++
++/*
++ * For load insns: propagate type from source reg state @src_states to @dreg.
++ *
++ * @mem_offset accounts for additional memory byte offset when handling multi-reg
++ * loads (e.g. second target reg in 'ldp'), which is added to the reg offset.
++ */
++static int propagate_load_reg_state(struct type_state *state,
++				    struct data_loc_info *dloc,
++				    struct disasm_line *dl, int dreg,
++				    struct annotated_op_loc *src,
++				    struct type_state_reg **src_states,
++				    int mem_offset)
++{
++	struct type_state_reg *tsr;
++	struct type_state_reg *src_tsr = src_states[0];
++	Dwarf_Die type_die;
 +	u32 insn_offset = dl->al.offset;
++	int sreg = src->reg1;
++	int reg_offset;
 +
-+	/* Skip read-only instructions that do not affect register type state */
-+	if (is_readonly_branch_or_cmp(dl->ins.name))
-+		return;
++	if (!has_reg_type(state, dreg))
++		return -1;
 +
-+	if (annotate_get_insn_location(dloc->arch, dl, &loc) < 0)
-+		return;
++	tsr = &state->regs[dreg];
++	tsr->copied_from = -1;
 +
-+	/*
-+	 * Invalidate caller-saved registers on function calls per ARM64 AAPCS64
-+	 * ABI, unless DWARF location info indicates the register remains valid
-+	 * beyond the call address.
-+	 */
-+	if (ins__is_call(&dl->ins)) {
-+		struct symbol *func = dl->ops.target.sym;
-+		const char *call_name;
-+		u64 call_addr;
++retry:
++	if (arch_get_reg_offset(dloc->arch, src, sreg, state, false, &reg_offset))
++		return -1;
 +
-+		call_name = func ? func->name : dl->ops.target.name;
-+		pr_debug_dtp("call [%x] %s\n", insn_offset, call_name ?: "<unknown>");
++	reg_offset += mem_offset;
 +
-+		/* Invalidate caller-saved registers after call */
-+		call_addr = map__rip_2objdump(dloc->ms->map,
-+					      dloc->ms->sym->start + dl->al.offset);
-+		for (unsigned int i = 0; i < ARRAY_SIZE(state->regs); i++) {
-+			struct type_state_reg *reg = &state->regs[i];
++	if (!src_tsr || !src_tsr->ok)
++		return -1;
 +
-+			if (!reg->caller_saved)
-+				continue;
-+			/* Keep register valid within DWARF location lifetime */
-+			if (reg->lifetime_active && call_addr < reg->lifetime_end)
-+				continue;
-+			invalidate_reg_state(reg);
++	/* Dereference the pointer if it has one */
++	if (src_tsr->kind == TSR_KIND_TYPE &&
++	    die_deref_ptr_type(&src_tsr->type,
++			       src_tsr->offset + reg_offset, &type_die)) {
++		tsr->type = type_die;
++		tsr->kind = TSR_KIND_TYPE;
++		tsr->offset = 0;
++		tsr->ok = true;
++
++		if (src->multi_regs) {
++			pr_debug_dtp("%s [%x] %#x(reg%d, reg%d) -> reg%d",
++				     dl->ins.name, insn_offset, reg_offset,
++				     src->reg1, src->reg2, dreg);
++		} else {
++			pr_debug_dtp("%s [%x] %#x(reg%d) -> reg%d",
++				     dl->ins.name, insn_offset, reg_offset,
++				     sreg, dreg);
 +		}
-+		return;
++		pr_debug_type_name(&tsr->type, tsr->kind);
++		return 0;
 +	}
 +
-+	/*
-+	 * Invalidate destination register(s) for unsupported instructions to
-+	 * prevent stale type info from propagating to subsequent instructions.
-+	 */
-+	if (has_reg_type(state, dst->reg1) && !dst->mem_ref) {
-+		pr_debug_dtp("%s [%x] invalidate reg%d",
-+			     dl->ins.name, insn_offset, dst->reg1);
-+		invalidate_reg_state(&state->regs[dst->reg1]);
-+		if (dst->multi_regs && has_reg_type(state, dst->reg2)) {
-+			pr_debug_dtp(" and reg%d", dst->reg2);
-+			invalidate_reg_state(&state->regs[dst->reg2]);
-+		}
-+		pr_debug_dtp("\n");
-+		return;
++	/* Or try another register if any */
++	if (src->multi_regs && src->reg1 != src->reg2 && sreg != src->reg2 &&
++	    !(src->extend_type || src->shift_type)) {
++		sreg = src->reg2;
++		src_tsr = src_states[1];
++		goto retry;
 +	}
++
++	return -1;
 +}
-+#endif
 +
- const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
- 				   const char *cpuid __maybe_unused)
++static void update_load_insn_state(struct type_state *state,
++				   struct data_loc_info *dloc,
++				   struct disasm_line *dl,
++				   struct annotated_op_loc *src,
++				   struct annotated_op_loc *dst)
++{
++	struct type_state_reg snapshots[2];
++	struct type_state_reg *src_states[2] = {};
++
++	if (!src->mem_ref ||  /* exclude PC-relative loads */
++	    !has_reg_type(state, dst->reg1) ||
++	    (dst->multi_regs && !has_reg_type(state, dst->reg2)))
++		goto out_err_adjust;
++
++	/*
++	 * Snapshot source register states before updating destination registers.
++	 * This avoids state corruption in aliased instructions (e.g., ldp x0, x1, [x0]),
++	 * ensuring the second destination load still uses the original base
++	 * register state.
++	 */
++	if (has_reg_type(state, src->reg1)) {
++		snapshots[0] = state->regs[src->reg1];
++		src_states[0] = &snapshots[0];
++	}
++	if (src->multi_regs && has_reg_type(state, src->reg2)) {
++		snapshots[1] = state->regs[src->reg2];
++		src_states[1] = &snapshots[1];
++	}
++
++	/* Handle the first destination register */
++	if (propagate_load_reg_state(state, dloc, dl, dst->reg1,
++				     src, src_states, /*mem_offset=*/0))
++		goto out_err_adjust;
++
++	/* Handle the second destination register (if any) */
++	if (dst->multi_regs) {
++		int mem_offset;
++
++		/*
++		 * ldpsw loads two 32-bit signed words into 64-bit registers.
++		 * Memory spacing between elements is 4 bytes, not the register size.
++		 */
++		if (!strcmp(dl->ins.name, "ldpsw"))
++			mem_offset = 4;
++		else
++			mem_offset = arm64__reg_size(dl->ops.target.raw);
++
++		if (mem_offset < 0 ||
++		    propagate_load_reg_state(state, dloc, dl, dst->reg2,
++					     src, src_states, mem_offset))
++			goto out_err_adjust;
++	}
++
++out_adjust:
++	adjust_reg_index_state(state, dloc, dl, src);
++	return;
++
++out_err_adjust:
++	if (has_reg_type(state, dst->reg1))
++		invalidate_reg_state(&state->regs[dst->reg1]);
++	if (dst->multi_regs && has_reg_type(state, dst->reg2))
++		invalidate_reg_state(&state->regs[dst->reg2]);
++	goto out_adjust;
++}
++
+ static void update_insn_state_arm64(struct type_state *state,
+ 				    struct data_loc_info *dloc, Dwarf_Die *cu_die,
+ 				    struct disasm_line *dl)
  {
-@@ -461,6 +536,9 @@ const struct arch *arch__new_arm64(const struct e_machine_and_e_flags *id,
- 	arch->objdump.imm_char		  = '#';
- 	arch->associate_instruction_ops   = arm64__associate_instruction_ops;
- 	arch->extract_op_location	  = extract_op_location_arm64;
-+#ifdef HAVE_LIBDW_SUPPORT
-+	arch->update_insn_state		  = update_insn_state_arm64;
-+#endif
+ 	struct annotated_insn_loc loc;
++	struct annotated_op_loc *src = &loc.ops[INSN_OP_SOURCE];
+ 	struct annotated_op_loc *dst = &loc.ops[INSN_OP_TARGET];
+ 	u32 insn_offset = dl->al.offset;
  
- 	/* bl, blr */
- 	err = regcomp(&arm->call_insn, "^blr?$", REG_EXTENDED);
-diff --git a/tools/perf/util/annotate-data.c b/tools/perf/util/annotate-data.c
-index 104b80d471f1..c51b20a7af9b 100644
---- a/tools/perf/util/annotate-data.c
-+++ b/tools/perf/util/annotate-data.c
-@@ -28,6 +28,7 @@
- 
- /* register number of the stack pointer */
- #define X86_REG_SP 7
-+#define ARM64_REG_SP 31
- 
- static void delete_var_types(struct die_var_type *var_types);
- 
-@@ -178,6 +179,13 @@ static void init_type_state(struct type_state *state, const struct arch *arch)
- 		state->regs[11].caller_saved = true;
- 		state->ret_reg = 0;
- 		state->stack_reg = X86_REG_SP;
-+	} else if (arch__is_arm64(arch)) {
-+		int i;
-+
-+		for (i = 0; i < 18; i++)
-+			state->regs[i].caller_saved = true;
-+		state->ret_reg = 0;
-+		state->stack_reg = ARM64_REG_SP;
+@@ -519,7 +714,8 @@ static void update_insn_state_arm64(struct type_state *state,
+ 	 * Invalidate destination register(s) for unsupported instructions to
+ 	 * prevent stale type info from propagating to subsequent instructions.
+ 	 */
+-	if (has_reg_type(state, dst->reg1) && !dst->mem_ref) {
++	if (has_reg_type(state, dst->reg1) && !dst->mem_ref &&
++	    !is_standard_load_insn(dl->ins.name)) {
+ 		pr_debug_dtp("%s [%x] invalidate reg%d",
+ 			     dl->ins.name, insn_offset, dst->reg1);
+ 		invalidate_reg_state(&state->regs[dst->reg1]);
+@@ -530,6 +726,10 @@ static void update_insn_state_arm64(struct type_state *state,
+ 		pr_debug_dtp("\n");
+ 		return;
  	}
++
++	/* Memory to register transfers */
++	if (is_standard_load_insn(dl->ins.name))
++		update_load_insn_state(state, dloc, dl, src, dst);
  }
+ #endif
  
-@@ -1437,7 +1445,8 @@ static enum type_match_result find_data_type_insn(struct data_loc_info *dloc,
- 
- static int arch_supports_insn_tracking(struct data_loc_info *dloc)
- {
--	if ((arch__is_x86(dloc->arch)) || (arch__is_powerpc(dloc->arch)))
-+	if (arch__is_x86(dloc->arch) || arch__is_powerpc(dloc->arch) ||
-+	    arch__is_arm64(dloc->arch))
- 		return 1;
- 	return 0;
- }
 -- 
 2.34.1
 
