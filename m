@@ -1,112 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A4A242D89
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:38:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B1A336896
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788835089; cv=none; b=Ks9dyqyZulth7Yyq5HNb0lT3oG65N4prNcTL23AEA/4CZ6ArDhHDVV0Bchbw1xfUTe5tM9DjSY9DFuT8LbJf4iEeFcHt8Q8LOfVRfg6bT1CDFynbJW6NnihWMI7Mk54cAz82k8h0FuO8LqMwnpeXEv4hUaSHQ+6lenZP4Nu4O0A=
+	t=1788835092; cv=none; b=cELr+4EbiTABz1toEjucUil5+5Vhl9j+qQsT0c7ZTB3ndm/qr3ibPwCN9CxAA4uW9XTJgBW+6eL2Oh9wWWUkSmBz4/OokD3qG4BLpq5EO6V0hFDLkIcK70JO/hXhjAV/d5+ZLYTCwEueaROVPNPe9HLIm1n1Fxd+4vMVC5tQPZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788835089; c=relaxed/simple;
-	bh=ZO6BWUTrK4OLb/xzZYvpizxM1kZOMQ5Q2JarAiiVMsA=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=WekRCmQUhQQBmrCTZEti6edv+YMB8K/YNX0T/R3sbq7MYb7YWDmStXbKwFOIU7jvIxHU757duCTrdZnsC7rvyoGBKQthXS/Tzo4CE9xljMbHANwdrUSS+i4ACh7iS6adY6vXQ29HO0BSbZl0yZuDIm3kfEQ1HqSFWENuhCNs2Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=uTPULx+T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788835092; c=relaxed/simple;
+	bh=rfJMxKZZRzj4HZMtbUgPCYMFf6bfVaKIMTAZk4aVrjA=;
+	h=Message-Id:To:Cc:Subject:Date:Content-Type:From:Mime-Version; b=lLpeY5SUgoFO5bqkdWVs82pc8RTor9pLVX5XkHN58BKTJ5a1n+btkZpWeOhs0CYgSiBjTVltB4VpJSuZI5b/4tI3WTrCdUyvgktmB+PML2vq81s6zdivKjVte/w/LPFccZ1T2Prbc3TiRZ1tGYmIQHGOBu2Af1tJx68HqOVF5uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=cOL+YMup; arc=none smtp.client-ip=71.18.227.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="uTPULx+T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617D11F00A3A;
-	Tue,  8 Sep 2026 02:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788835087;
-	bh=efZgJABcoG5ggDnZhAKLlrjhxD8FD9hOCVM7mhQeFpU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=uTPULx+T8gxPX+bbiKHFilFF9EHAF5AWTvUS7p8r95JPYvApttPFOFq1Q9LEjEnAj
-	 szCy4LqZA05c07jaZhRlFjp7TftqHtTtWLy7c9Z364JLL/EmNXQ1q6NF5z0FAU9IqE
-	 g2oS/XYfXxYGZxjyaluL3wXd8edItcIwC69DoRZQ=
-Date: Mon, 7 Sep 2026 19:38:06 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: syzbot <syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com>
-Cc: baohua@kernel.org, baoquan.he@linux.dev, chrisl@kernel.org,
- kasong@tencent.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- nphamcs@gmail.com, shikemeng@huaweicloud.com,
- syzkaller-bugs@googlegroups.com, youngjun.park@lge.com
-Subject: Re: [syzbot] [mm?] WARNING in swap_put_entries_direct
-Message-Id: <20260907193806.3f562237942e4156c3d4d53e@linux-foundation.org>
-In-Reply-To: <6a9f6350.6e6c5f9e.28f11f.0005.GAE@google.com>
-References: <6a9f6350.6e6c5f9e.28f11f.0005.GAE@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="cOL+YMup"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1788835083; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=kSI7yGDTAXS2LsAwqINs1fL1cOHm9czyVm2WQa6R7SU=;
+ b=cOL+YMupfdxf8xPOZFa9bPKU87Lg3ltSnXVWV3Hh1kmomiwx5MtpV1/MahZm43Ncn9ft/z
+ yXcqGNxntS8j1Es5e9OdJBNZ6uh8NF3C8Y/DR2Aukz2MkUUqb8/oQ9E6T4o0TuzmyTz9CZ
+ 1ZtEc9BwpmSd+6NRP+xVSW0f0Mb0RVQ4KKLqAV1Arm1EjLXI2j5GMWxAzMLgyQyuxwJk1J
+ TJ0CZdJjKz3PLUBeuIpavNls7y54oauG0RW258cC4S2CFIAetl2pXfdKPD416VKcIE57C2
+ WKD2tsdpvLLXSP3HYuEe5i2IupqP+adtYUQvt6C90inWt10Cb6l/5D4gP080Ig==
+Message-Id: <20260908-fec-ptp-pps-event-uaf-v2-0-2a1d57121ade@cherr.cc>
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
+X-Lms-Return-Path: <lba+26a9f7509+c8d703+vger.kernel.org+me@cherr.cc>
+To: "Wei Fang" <wei.fang@nxp.com>, "Frank Li" <frank.li@nxp.com>, 
+	"Shenwei Wang" <shenwei.wang@nxp.com>, 
+	"Andrew Lunn" <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, 
+	"Eric Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, 
+	"Paolo Abeni" <pabeni@redhat.com>, 
+	"Richard Cochran" <richardcochran@gmail.com>, 
+	"Troy Kisky" <troy.kisky@boundarydevices.com>, 
+	"Fugang Duan" <fugang.duan@nxp.com>, 
+	"Lucas Stach" <l.stach@pengutronix.de>
+Cc: "Simon Horman" <horms@kernel.org>, "Phuc" <phucduc.bui@gmail.com>, 
+	<imx@lists.linux.dev>, <netdev@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
+	"Shengzhuo Wei" <me@cherr.cc>
+Subject: [PATCH net v2 0/2] net: fec: fix PTP clock teardown races on device removal
+Date: Tue, 08 Sep 2026 10:37:56 +0800
+X-B4-Tracking: v=1; b=H4sIAAR1n2oC/3WNwQ6CMBBEf4Xs2TUtqRg8+R+EQ7tspR5K05ZGQ /h3Ab16fJOZeQskjo4T3KoFIheX3OQ3qE8V0Kj9g9ENG0Mt6ka0QqJlwpADhpCQC/uMs7Y4EF2 lubAcjIBtGyJb9zp+O/Ccof+GaTZPprw/7rXRpTzF92Ev8ij/ROqPqEgU2GqrVGNYaSnvNHKMZ yLo13X9AKAq6HDQAAAA
+Content-Type: text/plain; charset=UTF-8
+X-Mailer: b4 0.16.0
+From: "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Received: from [192.168.9.107] ([111.42.148.30]) by smtp.feishu.cn with ESMTPS; Tue, 08 Sep 2026 10:38:00 +0800
 
-On Mon, 07 Sep 2026 18:22:24 -0700 syzbot <syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com> wrote:
+This series fixes two FEC teardown races: ethtool can access a freed
+PTP clock, and the PPS interrupt can outlive the PHC and netdev.
 
-> Hello,
-> 
-> syzbot found the following issue on:
-> 
-> HEAD commit:    8ab1afb2eb24 Merge tag 'for-7.3/dm-fixes' of git://git.ker..
-> git tree:       upstream
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1034a125580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
-> dashboard link: https://syzkaller.appspot.com/bug?extid=23b25ba3c6bf971f9c57
-> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-> userspace arch: i386
-> 
-> Unfortunately, I don't have any reproducer for this issue yet.
-> 
-> Downloadable assets:
-> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-8ab1afb2.raw.xz
-> vmlinux: https://storage.googleapis.com/syzbot-assets/4767b33b6704/vmlinux-8ab1afb2.xz
-> kernel image: https://storage.googleapis.com/syzbot-assets/aa0bdf390bbc/bzImage-8ab1afb2.xz
-> 
-> IMPORTANT: if you fix the issue, please add the following tag to the commit:
-> Reported-by: syzbot+23b25ba3c6bf971f9c57@syzkaller.appspotmail.com
-> 
-> get_swap_device: Bad swap file entry 7c00000000000002
+I have kept the main Ethernet IRQ issue discussed with Phuc [1] out of
+this revision. His PTP initialization error-propagation changes are
+also separate; if they land first, the new probe failure path will
+need PPS IRQ cleanup too.
 
-hm, thanks.
+Full x86_64 kernel and module builds passed with W=1, FEC=m and PTP
+enabled and disabled. The bugs were found by code inspection; no
+hardware testing was done.
 
-https://syzkaller.appspot.com/x/log.txt?x=1034a125580000 reveals a huge
-storm of I/O errors:
+[1] https://lore.kernel.org/r/CAABR9nHLcR103aADF1WMSEkw-_BjWB9vyWXENJCYfjX5Wz1nkw@mail.gmail.com/
 
-[ 1175.396574][ T1132] ata2: SATA link down (SStatus 0 SControl 300)
-[ 1175.417415][ T1123] ata1: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
-[ 1175.421618][ T1123] ata1.00: configured for UDMA/100
-[ 1175.447991][ T1137] ata3: SATA link up 1.5 Gbps (SStatus 113 SControl 300)
-[ 1175.456823][ T1137] ata3.00: configured for UDMA/100
-[ 1175.614247][ T5836] usb usb50-port1: unable to enumerate USB device
-[ 1175.647906][ T5108] Aborting journal on device sda1-8.
-[ 1175.651011][T12337] buffer_io_error: 18 callbacks suppressed
-[ 1175.651033][T12337] Buffer I/O error on dev sda1, logical block 131072, lost sync page write
-[ 1175.657294][T20237] EXT4-fs error (device sda1): ext4_journal_check_start:94: comm syz.5.3709: Detected aborted journal
-[ 1175.665579][ T5108] JBD2: I/O error when updating journal superblock for sda1-8.
-[ 1175.673842][T20239] EXT4-fs error (device sda1): ext4_journal_check_start:94: comm syz.6.3710: Detected aborted journal
-[ 1175.721163][ T5923] Buffer I/O error on dev sda1, logical block 0, lost sync page write
-[ 1175.723567][T20239] EXT4-fs (sda1): previous I/O error to superblock detected
-[ 1175.730930][ T5923] Buffer I/O error on dev sda1, logical block 0, lost sync page write
-[ 1175.731190][T20239] EXT4-fs (sda1): I/O error while writing superblock
-[ 1175.731223][T20239] EXT4-fs (sda1): Remounting filesystem read-only
-[ 1175.791874][T11112] Read-error on swap-device (8:0:516182)
-[ 1175.863539][T10850] Read-error on swap-device (8:0:364134)
-[ 1175.888507][T20241] EXT4-fs (sda1): shut down requested (2)
-[ 1175.908145][ T5726] Read-error on swap-device (8:0:332990)
-[ 1175.908919][ T5923] Read-error on swap-device (8:0:333014)
-[ 1175.909235][ T5923] Read-error on swap-device (8:0:313854)
-[ 1175.939843][T11112] Read-error on swap-device (8:0:356918)
-[ 1175.967225][ T5148] Read-error on swap-device (8:0:364766)
-[ 1175.979645][ T5724] Read-error on sw
+---
+Link to v1: https://lore.kernel.org/netdev/20260904-fec-ptp-pps-event-uaf-v1-0-9af446be4a11@cherr.cc
 
+Changes in v2:
+- Drop the ptp_clock_index_by_dev() lookup and unregister the netdev
+  before fec_ptp_stop() instead, as suggested by Wei Fang, so the
+  netdev callbacks are drained before the PHC teardown.
+- Use -1 as the "no PPS interrupt" sentinel so a valid IRQ 0 is neither
+  skipped on release nor freed when the request never happened.
 
-So I suspect something's wrong with shmem/swap error handling.  ie, the
-code which doesn't get tested :(
+---
+Shengzhuo Wei (2):
+      net: fec: stop the PTP clock after the netdev is unregistered
+      net: fec: free the PPS interrupt before tearing down the PHC and netdev
 
-> ------------[ cut here ]------------
-> !si
-> WARNING: mm/swapfile.c:2130 at swap_put_entries_direct+0x17d/0x1b0 mm/swapfile.c:2130, CPU#1: udevd/13167
+ drivers/net/ethernet/freescale/fec.h      |  1 +
+ drivers/net/ethernet/freescale/fec_main.c |  2 +-
+ drivers/net/ethernet/freescale/fec_ptp.c  | 12 +++++++++++-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+---
+base-commit: 548e7bcd0c5460ddcbca9600cea603ebeebf4da7
+change-id: 20260901-fec-ptp-pps-event-uaf-dcc71b5e1db0
 
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
