@@ -1,152 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8773592214
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:12:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B7DD57ED97;
+	Tue,  8 Sep 2026 17:13:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887560; cv=none; b=Krccultvx/uzEd2j9h7A4Fkae6QmFBgVUDhUKXP0Sxy3PGvIKjugeXaiHlIiwR4Vht47Bb4GlqGh6zzArPFJLpErc9OCBbvoThnTYoZY13UB12qntE0whypUbX9AW6xIi04IYZ8iGEm1q5Y6XdmD6w5U/j+dS7t+f4153jW/jwQ=
+	t=1788887637; cv=none; b=DY1BryJuPX4I6RAgR4orL77e1/YGKEFINiangVtOW6tk0vx6dNTPY19CT9K7i6Rs5Ys1euPEsnzL++mM127ObMJbz5KQsNQr9uKL+2DTSmD7tpdsljBSOqPP1q1S4uKd0z58NgEeMnLfbHPoHBsd7yucjNLsjjXidoUEwcxhpdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887560; c=relaxed/simple;
-	bh=6lmyKjg/24QLkipPzzSBUbJkMH+nJ/aPvegiHXYPXzk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=cLHpipmMMtH+ItEcRjcwQDcD2A5mr/VtoiDrGpBJbGe0Ve/GfDdcweZY9TPCuKl8YbtahaS/zfQ2teDG06rNsHG65x6+T1VCHCe1RDDutzhkk++jSiYDHb9LtUCia/pxZtB1jO4C7itM1MwiwZtTj2QzW4ZDOpysr4h5E0JIIDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNPyQigh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788887637; c=relaxed/simple;
+	bh=ek0Smayhi8B4gW1GXsCn8FTSwdWZSt/IemVrVchRirE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BPtqj1+Tsf5rXCMcvkHuEAOtJ9nCReNsWHzVYKB93MYYs7ZhNuZ5bWE2HXdZZMgNXsS5ebfzg2AaLcjb3uuXwxTJzf2abdCDfUO/p8ItxMO3jXwqAR2fnU5uBJftpk+OmBxqd6h6/fPAapwWUnTU6alhkGLJNKHQSHXG6CZcXLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g4gcHqvq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNPyQigh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE6E1F00A3A;
-	Tue,  8 Sep 2026 17:12:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g4gcHqvq"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id A523C1F00A3A;
+	Tue,  8 Sep 2026 17:13:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788887558;
-	bh=LBb9ADHMqWm21+2xiuaoD6zmeHkRqVhQ1J41zISVZPo=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=UNPyQighJpwB7k16N1QTtDfhRutUH5wNTLjkZOU8gxH3E5CO30yAFT24po/lVVUlo
-	 RmXjr0EWxFZ7+w0qITjiFiDPfhKHCgQvPbR64MZUQ1wQu/zazrvFBbPx4Kd+ZNCt36
-	 G4zPe05FDFYBGPS8iYi0qcYzDDUXNOyaSp1ECsEsKZTGBsUJGszvGchnPxpxQeeew0
-	 ZjNOjVBYrtmldOYTOYPu+Ivxo2+HKeO58i9MxixJq/J6LE9059SX0iKd5sysRwiuFB
-	 Gl9N8ks8THEcGLoGFxWGLSOGpF+YWuJEbQf/w3yfF9lOnXl85QiIWSY4t6dkXX/lVh
-	 sFLxBZnhryXVg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 8BB72198003A;
-	Tue,  8 Sep 2026 13:12:35 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 13:12:35 -0400
-X-ME-Sender: <xms:AUKgakqL4n7wutvMnvzDWLRL-kh5vN9TADPKZT2rBtmDz_ntUEnwGQ>
-    <xme:AUKgaleeYP9nxumKfTpNWSy2RzDNUiHNrBNGwN57YbTRQFesC0UBjl1wbg3F4Ta_i
-    pTgg3ocJLJXFvpG_Mnucp4zuD0zUO6iKthhQUKEEaRnONE-4Fr3mdU>
-X-ME-Proxy-Cause: dmFkZTEpDua1X995u/upmh/8VYUEeEvtAsxNZ28jsqTO2/21LX4omQP6tTahEpbGYbXrq3
-    iv7Ifl/LhyTLQXwzD22gMXOzSFq0K8sn1147GAalntI4KdbDwGWikhiiEep1ud5NR/hgH5
-    x91p/v42lRLHD0z1eqLxDwgC77/XPZmVuDL+4Y9DW893uBsirabnCTEJJuNCdmOjJHBRIE
-    IJpkJq7dDVGyzSOV5wVIIpm8mtJpfqK12zjE8OLIQ1eLJf7oYdb88oU/4JQaGwbQVfwmuQ
-    AzO3zdZ5RwFbttDTnDxIDqhNEhlJqi0Wtd26BGSv2xNvX5+e5gXLCnPj1c6YxMFaFXlgS2
-    TxNnbWQpRfNSQ742yw70sFKDgkPXdOBSFUNSxpx0jRtwrJCy64OEgSsAm/BMH6g+cP2+ug
-    VkiciIeGnqzpSLdJlbVRpXyRoD9Pdf/FqcMgjHVCLVl2wpKOnMUkYtiSMRu0gli85CAIf7
-    etRELk++Km2bvZoKdy6Sne2H0YUWmupH81g2Aul2m8GW7MSr9M0BV4774k0/mnFZ9Blzxd
-    qL326MZwrBsTKdsljjpZP8RILWzLKml/nJ9Iv34eyr/XljuYd8+QD8wu6pHnu4wGMaMFnF
-    tdAMexmGMZNsC5JW85bOAb5ho6eII7S7cygXLhsM4lGROosDq8+DKXx09Ldw
-X-ME-Proxy: <xmx:A0KgajPw9DTNq1MbtWKndEJHIC0n8X8ae82hlbJT7DzT8hjgABquOg>
-    <xmx:A0KgavhUyncxIWXps2OoWKMY9ITkUew1eOiVMmid6UaRuEqHkEfVKA>
-    <xmx:A0KgahiUp3RpJHTpZ4SnBAqYZjOLxH-PuO20DfUTnal_a6rrt9loUg>
-    <xmx:A0KgauJvhrtXs4d4Kwy39RBG6iH7aX-IheYbMQCwZ9vu7hZMIG7XPg>
-    <xmx:A0Kgagm9s4o7EniipLfoGBj6dFjP-wMYrU4A-UppdNDWdqF_Q_0MEKfh>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 11361F8007D; Tue,  8 Sep 2026 13:12:33 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788887636;
+	bh=/W45qRLtv26bOktI1LZR0If7Nwl0xlxx+IRS4Ck7a+4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g4gcHqvqiSL8lilNMcUUKApSZrQmo8qRP5ML43l85YT1dhOraV36u1FAEc07O8ad9
+	 RrrKvqJ5fuOGfZioFiDQfiiFML8gCvpIxoKpxPfsuC2P+ZMPREPAq59TlUYkKgi1El
+	 w2AqDMSp+mVz0JfjfIs3anBDi8BEMS86rWvuaCHKhHRxPuYVKt9YT02f1FiWDMUlN1
+	 tioKLbaXm2DhRWP9R6wSBLfUvijINHw5av3Xb35DNWPomWVTTWMiW/yKBqT4ukadqc
+	 bOv/HNFrNYu+JJlauc2GBEDzhh7EGYWPQfAYc7N9qqfTfGzoFqcUHLpPJy4XbQIRuh
+	 oGlCNb/IitN7g==
+Date: Tue, 8 Sep 2026 19:13:53 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Manush Prajwal <manushprajwal555@gmail.com>
+Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] pwm: lp3943: fix NULL pointer dereference for an
+ unconfigured channel
+Message-ID: <aqBBapT-KcJDDDGB@monoceros>
+References: <6a9d5187.d63de05c.175391.a17c@mx.google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 08 Sep 2026 19:12:12 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Will Deacon" <will@kernel.org>, linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org, "Arnd Bergmann" <arnd@arndb.de>,
- "Eric Biggers" <ebiggers@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Alexei Starovoitov" <ast@kernel.org>, "Oliver Upton" <oupton@kernel.org>,
- "Herbert Xu" <herbert@gondor.apana.org.au>, "Marc Zyngier" <maz@kernel.org>
-Message-Id: <ea76bef9-c346-41a6-9276-a5eb8cea3776@app.fastmail.com>
-In-Reply-To: <20260907163726.17104-8-will@kernel.org>
-References: <20260907163726.17104-1-will@kernel.org>
- <20260907163726.17104-8-will@kernel.org>
-Subject: Re: [PATCH v2 07/14] arm64: head: Force little-endian early during boot
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
-
-Hi Will,
-
-On Mon, 7 Sep 2026, at 18:37, Will Deacon wrote:
-> Commit 2ced0f30a426 ("arm64: head: Switch endianness before populating
-> the ID map") configured SCTLR_ELx.EE at boot according to the endianness
-> of the kernel in case the bootloader had entered the image in the wrong
-> endianness. Additionally, if the MMU was enabled in such a case, logic
-> was added to turn it back off to prevent the hardware walker from
-> misinterpreting the idmap page-table.
->
-> Given that the MMU is only expected to be enabled when booting EFI, EFI
-> only supports little-endian and arm64 kernels cannot be built as
-> big-endian images, we can rip out this handling and simply force
-> SCTLR_ELx.EE to 0 (little-endian).
->
-> Suggested-by: Ard Biesheuvel <ardb@kernel.org>
-> Signed-off-by: Will Deacon <will@kernel.org>
-> ---
->  arch/arm64/kernel/head.S | 20 +-------------------
->  1 file changed, 1 insertion(+), 19 deletions(-)
->
-> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-> index 8951ce693552..d5c1ea0c5b3c 100644
-> --- a/arch/arm64/kernel/head.S
-> +++ b/arch/arm64/kernel/head.S
-> @@ -138,29 +138,11 @@ SYM_CODE_START_LOCAL(record_mmu_state)
->  	b.ne	0f
->  	mrs	x19, sctlr_el2
->  0:
-> -	tbnz	x19, #SCTLR_ELx_EE_SHIFT, 1f
-> +	bic	x19, x19, #SCTLR_ELx_EE		// Force little-endian
-
-This bic has no effect here: the 'and' below clears it anyway, but x19
-is not written back to SCTLR.
-
-When I suggested this, I missed that SCTLR.EE still needs to be cleared
-before populating the ID map, regardless of whether we enter with the
-MMU and caches enabled.
-
-IOW, we need to retain the SCTLR writeback logic below. The only thing
-we can drop is the clearing of the M bit and the invocations of
-pre_disable_mmu_workaround. But we might as well keep that.
-
-Apologies for the bad suggestion.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sfwbrcaebbdwjzx7"
+Content-Disposition: inline
+In-Reply-To: <6a9d5187.d63de05c.175391.a17c@mx.google.com>
 
 
+--sfwbrcaebbdwjzx7
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] pwm: lp3943: fix NULL pointer dereference for an
+ unconfigured channel
+MIME-Version: 1.0
 
->  	tst	x19, #SCTLR_ELx_C		// Z := (C == 0)
->  	and	x19, x19, #SCTLR_ELx_M		// isolate M bit
->  	csel	x19, xzr, x19, eq		// clear x19 if Z
->  	ret
-> -
-> -	/*
-> -	 * Set the correct endianness early so all memory accesses issued
-> -	 * before init_kernel_el() occur in the correct byte order. Note that
-> -	 * this means the MMU must be disabled, or the active ID map will end
-> -	 * up getting interpreted with the wrong byte order.
-> -	 */
-> -1:	eor	x19, x19, #SCTLR_ELx_EE
-> -	bic	x19, x19, #SCTLR_ELx_M
-> -	b.ne	2f
-> -	pre_disable_mmu_workaround
-> -	msr	sctlr_el2, x19
-> -	b	3f
-> -2:	pre_disable_mmu_workaround
-> -	msr	sctlr_el1, x19
-> -3:	isb
-> -	mov	x19, xzr
-> -	ret
->  SYM_CODE_END(record_mmu_state)
-> 
->  /*
-> -- 
-> 2.55.0.979.g7e5102b832-goog
+On Sun, Sep 06, 2026 at 05:11:58PM +0530, Manush Prajwal wrote:
+> lp3943_pwm_probe() unconditionally registers a pwmchip with
+> LP3943_NUM_PWMS(2) hwpwm channels, but lp3943_pwm_parse_dt() only
+> populates pdata->pwms[i] for the channels whose ti,pwm0/ti,pwm1
+> property is actually present in the devicetree (the binding
+> explicitly allows each PWM generator to drive zero or more outputs,
+> and lp3943_pwm_parse_dt() only fails outright with -ENODATA if
+> *neither* property is present). A devicetree that configures only one
+> of the two channels leaves pdata->pwms[] NULL for the other.
+>=20
+> lp3943_pwm_request_map() dereferences pdata->pwms[hwpwm] with no NULL
+> check:
+>=20
+> 	pwm_map->output =3D pdata->pwms[hwpwm]->output;
+> 	pwm_map->num_outputs =3D pdata->pwms[hwpwm]->num_outputs;
+>=20
+> so requesting the unconfigured channel (e.g. exporting it from
+> sysfs) crashes with a NULL pointer dereference instead of failing
+> cleanly.
+>=20
+> Return -ENODEV from lp3943_pwm_request_map() when the channel was
+> never configured, before the pointer is dereferenced. The caller,
+> lp3943_pwm_request(), already propagates an ERR_PTR return correctly
+> (it does so today for the existing -EBUSY case).
+>=20
+> Reported-by: Sashiko AI review <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/6a9d4c6b.79b5ea6e.147aa1.5883@mx.g=
+oogle.com?part=3D1
+> Signed-off-by: Manush Prajwal <manushprajwal555@gmail.com>
+
+Applied to
+https://git.kernel.org/pub/scm/linux/kernel/git/ukleinek/linux.git pwm/for-=
+next
+
+adding a Fixes trailer for af66b3c0934e ("pwm: Add LP3943 PWM driver").
+
+I havn't made up my mind yet if I send a fixes PR before 7.3. If I do I
+will likely include this patch.
+
+Best regards
+Uwe
+
+--sfwbrcaebbdwjzx7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgQk4ACgkQj4D7WH0S
+/k7XpAgAnPnwwfi0ZrVs6V6kJfuKb2EBztPoEhjifptfZAhfy7evyhOW7huM33Tf
+5hmyHLbyBvnRfLtJbPgDdIGk9my6HCmiODbpAVF2h/2iLVbu3nG4CxpgsK6SY4hL
+shF75mdeN/Ju3pllmVI7h0R9yaS0IFxCtBMugeHGLo03vHamUtti8qE90kgKjGzb
+PEiB4vZBkhWIs9J1TTrUuzsUBEGDzb2c00OEct1VGn+4CODAclcNA+lN6Jvi+Lph
+m395cEwq51HSE51z5Y6x3HZXtSpUVuDB2uA550yjsIo5z5pSM4Vm8Ky79wFgSgwG
+vdFpBHarC2xVkSsSIVrPGJphe4uquw==
+=N3MN
+-----END PGP SIGNATURE-----
+
+--sfwbrcaebbdwjzx7--
