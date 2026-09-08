@@ -1,144 +1,150 @@
-Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com [209.85.219.45])
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CBA47798E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788910283; cv=none; b=e5RHtRNT5QoHsPkKQF8YciDACTVgz5pOebhsRFKesopeBOT3kBB0SUM31xsWyWQIkx/C4cR8zTyayFInK3usW0cGX7ovVkoeyBOLd6nGKWlmhADpgqpQIji2lW7GoJ3148DX+CN1GBD0cWoWncGc8x0HsTtWROUjtfI51HMYamM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788910283; c=relaxed/simple;
-	bh=lgK52YWEbmOHlLC5XhevTS6kX/pGRh0yPlV7xZbQ1f0=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=QKpHnrb499/N0duvxrCEfgr7U8qrOIZQ/qSSADdXtVsk+vXH/KubJL63mmfL3nVpj9TsNg/H9Ez2VfukxSbAt/gezlvp4cDxuJo4Wd6ZP2V++irTfHDRkt4sf0RHlQX5uK7r9+4SlHSLbdHPZ+We/97BcxnW31HJ06yUV3mh2go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a8i4RLV1; arc=none smtp.client-ip=209.85.219.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDCC4A3418
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:32:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788910326; cv=pass; b=IEOAMUTm4yZgsiuj0qXlRugufITtxyrxsNrYsDwggX85/SyhU3Nd6JFfv8e6nb65WVrqKr52S2m7Nf8Q8lx3R6FLNUhvQtAySczXGb5JvXSjL6VgLiMZbpdpH+slit+qsjOLJvpaycY6g3Bp4qG9FFOC1Avr9jr+ouWXOdJBgCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788910326; c=relaxed/simple;
+	bh=pLxPncky5zvsWZOTFKe5A+fK/mnU9up8jT15KYFF6dQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=O1N5j1M+l8IO9ViHMXpmYEHfG08pc6uw39YFJEUwsVhtQeWpgaeawX1FoAtNr+XMpn8tXyKnSvTpVBPFaYwAXb6GIw/vZKvjVaXNj0eF+RUZXu6kkZiHWbEg54IMc1uSZl5RD/Lm8yilMXRr/LSCSAm2+Q4Q0n4lw9YKxk5DcBU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=TQw3aIJ2; arc=pass smtp.client-ip=209.85.161.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a8i4RLV1"
-Received: by mail-qv1-f45.google.com with SMTP id 6a1803df08f44-9103f5b813aso42301256d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:31:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="TQw3aIJ2"
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6be4202867aso19887eaf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:32:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788910323; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jzsC0iHesTSaJ7zvxmviu/44xWG0RJVQOeIqxQVpqUkrRGz9kWJoSPsk8iZzSh57JW
+         N2N8mKi8AquX47BLMe14dY/IB95VZDRNr+plBqF6xAb8zgLxWspnX8EgpEVEUXoTZqcv
+         aqvvgsODvYb5Ytw6tQb+mtii1ijS+oK4KV7onLomM7JJNQ9X0SZbnkiSaxrjNJLgDbDH
+         F4hFkYr05UvUfkTdmcjmzd5znyJPAky8wBwWIeOkLYFACQpIeHOf+MPVuDB6HGNlou5A
+         +EgAJ/1/hcxKNLCR9clINrroOEw6E3TykQSehCYoShYub50kEDOI32x+sWKg+TPWz3Bm
+         rizg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
+        fh=hQrv+vviOQPSG0pS2uCJyMK7Uu/d1/WqnsbTOGx5Y8M=;
+        b=cntqo6QKZCUG+P8eGC6uQndf5fihsV588vLeMiZnHoexfF/eebEyIrl+7p9LE1aMcM
+         or72tT1zOVPrJ8RABcZ0KwBVUPfJRD+2M06MHmAw1WAPb5CSv9PlNSPCPU+41/7yUA4g
+         s+A48evkeHRS0WUnHdZahROlZJXeo7ZFeM14jv61ooQEaiTX6mMugl6ToBmZnycgwA9v
+         fVWHsUYtZFnbwzQulcmUzik6Krx6KnaowCS7L/ygE5V0yxeyI64HU/qI6222CMyL5Cwu
+         0TWIdCUxFX+PiO2tVxzAdAcr2Z6bk9469RDzOT8Xgmi8IPTNe1MAt44TqVDEM5OQC/H5
+         s3jg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788910281; x=1789515081; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Yq7lXkoWC5jfEWJMNBS6tBwhDj/bbJjyiLJq/Z7eNiQ=;
-        b=a8i4RLV1pifuM++BymVVYhMaH0AdhH/xLDGup7aZ6IlEPRIwxlfnQpkUQ56dZBmVbS
-         txpSL4mTMqPsJKXmxi3PYxf+Ua1IlW9pXqvM/VAyNVtEAZj/Qp3iXAt1ZOtGbjGFQ1oA
-         2uXFcotFa9pnuMQOAI9juTQas/wV39y67P7IPsca+LSgnRKP9ZiQCbOscBdZVOALKhrP
-         dbZuB78tfy00nzLF0nmd6ZvNs+FRX4I47RTeLNooVg2349Eum25A2+WVACsbjPxq54mu
-         kmhTj4QlgFlEEivseQTrU8tLSs8WKZE1ykn+BFw8siruaFVjHO/DNn4GOW16abW1SbHi
-         OmBQ==
+        d=google.com; s=20251104; t=1788910323; x=1789515123; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
+        b=TQw3aIJ2GQiXqCtRGlXmZqNBGNC5ojuHadlBGh80a5FD2j8d7ORLzQ4vJq1uDCx7TX
+         qiddYpqX9RiRnAuDkktfmt8ZqmMnl3WMQR9MnU+PWyVmbJFx6bs3Daej2B9P44n/Ic8i
+         ZKkU3XRcF4LCHl6KIUk0u8GjPP42YXNSyXyMeAZIB1t46LibkCQe4K/bRXiTO78YiaFO
+         KBHYMhkPMzP3h+aJzTesLPvoCMtrD9bdtEhz5I68xANwOk7sI0knCwe+qacBL/QccJkp
+         +Qhzh9nkmSmUcjTQfGlfSkhiuxOGyRQWcmwhUG67hAG3JvuEM7D37wK1uQUhtobVr39s
+         oEkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788910281; x=1789515081;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788910323; x=1789515123;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yq7lXkoWC5jfEWJMNBS6tBwhDj/bbJjyiLJq/Z7eNiQ=;
-        b=UmEW1aoz4AVvYwTJP9SFXEZLQSBAs7GtxhxiUFsPGsHYvEcY0EV1wrk3PcKLr4zIHq
-         ySF6wtbhdaTZTpTs8DIls7KUtRk/DQFTAO8ufZK7APceguL+MFSqs6JFWnJZLBvTMUlJ
-         5MZluQ4kBywf5N3yb65tvGO4z9y3LD4y/JgvwvHF5/RHj57CXfgVlTCAgyl6xUMzZtVf
-         STDxlNSqUtIYGuGkukNALaemTaIsx8ioVmtUXdxwFiPUDqd89nMNKTA1S3MI+npaIIN5
-         4O2y0FWNrMgM6Ig8FTaEmmTR7C3PpA8HseIzLJGtWnWzn1PFul88MiAbkyloCFkVDXvm
-         Soyg==
-X-Forwarded-Encrypted: i=1; AKwUvBz+kFquqtE8u5VzT3UtX+WTPBFXtBMaVDFmaIFwZ7jdlIqK8NVzuWXcky4K6fl9UpC5fTy/R81+wYUk2dM=@vger.kernel.org
-X-Gm-Message-State: AFuF++ksB52ASfL8tJkZ08T3qaAtkAzkjSlOdg7KvRRox1aL23pYZFKi
-	sloldViSucqsLjd0uUPDBpyE+EubhmyjJ7iC5Hql5Itq3ZpRAH0ePROI
-X-Gm-Gg: AYBFou3/91XGu2CRMdcNyccR7qNz/k/bINhgYllyVueDCqWAuyBAskGJy55y6mOaD1u
-	8ZiTkWs562dBrUqvaMFIkweJWqyTbO3ljTvcRMxpyjAhnJLk9T8cR8d6r1Vi2QgZd5B85qDtExw
-	YSeO4kOfc9WqUrqpjMficZtocxKjnGIKrSodT0Je6xOWvECUsciyerc9K/ELeCr77IpH+Pqo6gj
-	oZQxcjgM1MG1eG6OI9jDKlATAkghhdyI0tO/SlDDV4egjbR+Ey3vRCAxKVSt9HtyScFzXaSKeBB
-	t87Bvf47hEUd1Vjk6v43AD4zTz0lCwlKnwHxfVT1yZ00XvxZQjGB4hOV5wfijvRH1ZoKJpBqmLN
-	I6PcQxyEkh1f+L/lvWb90qZqYUF0GGWMl0oQA1GBF7srvtBN29X3P93A+iO6ORQW3mWSFRjskQg
-	aiBaFT/sLDy/imeiNufLoLxuBIHJNvd3UguVFT868wJ0rixyPWpgkmmiDdMtyCmRo0Mg==
-X-Received: by 2002:ad4:5ce2:0:b0:908:958f:4db with SMTP id 6a1803df08f44-9103eefd24fmr369191086d6.3.1788910276570;
-        Tue, 08 Sep 2026 16:31:16 -0700 (PDT)
-Received: from localhost ([2600:4040:9399:4000:e553:72e5:7d37:c7ef])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040694c35sm129077696d6.36.2026.09.08.16.31.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 16:31:16 -0700 (PDT)
+        bh=7+3nLzSILAYs3qmpLkeoZcGFoXxWf/bBrMplbZ8qrRk=;
+        b=Plx4dtIIT/KU27nG+4oGprPv0wILxuztGaD0SonjLm/2kidlcJN3VzsHOrr5xUrCyg
+         svaiKJ3dMnk4ZH+vh3lt9W+lJWbJh4jTfCeP+qZdkoODxAsQUuKwqJK4yotu7zk2/omQ
+         yq0/t70+BzTIaG/RYinoLW/F9RoehkTwUw6phm1FlIvF2/tNwgJqY7BO1pI6awydUtFI
+         d5gYTeTaZEfQT62tzxVuKhJlJxY9LgGyLX/diUIyI9ed+6XlP1SGdlNMHzviOkt4j1lp
+         +k/WMOrAbIGqDHt5CGhW5NDJOWTDdcQ8DxwUYnymCzs1uh41TDpHI1w8VgwhgKPt2ANo
+         Z3og==
+X-Forwarded-Encrypted: i=1; AKwUvBwQqtbRaxsrc6ymfQCrzGOj0W0WD441jNEUNYfi96fIG+5yBY6rVqtrJ+DjTL34kR6vyLnO5f9E3FwM220=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUoW0sTOmXo8nJHpV9vt8Kyw78yDzX6xg/t7RpiBPsZyDnSLca
+	Ten0p8PxO89ZmBzczu9LtZiUFD3lMd8A11ha3Jnt0BIvNIRX4BSYYA31nOvP33QT4wzP983xCs/
+	TmegOlScE9UitMcBPuyB1YUebyaGzZ2voBOWqHC4+
+X-Gm-Gg: AYBFou2Fwbu+UkYRn+Ff2178xP0WgrfH9cRsL3dHpMk/U1ZURmC5/G5IqA5WAmwOVyL
+	mUFOZS6NyCk8qwoSGuEaMm7MeQC1cQmR2txgv3lp887ZRMG42etSdemgG9i9L1jEaqb/7kaJ3aZ
+	mRBmdNgHnTPkVWUgUB/l0HOHcEk0AiIZ3P1zelt3z6f+ZhcGLuPZsV0/FER9lYB/ON7xz2FYo4i
+	JCzgw3If9wH/MUv6XBonZBmXb1a+eURuX3bQnHSCeALF0UT0r12qnSangjNxCg0k5gPDszBhd6C
+	GLIq4hOkSUqVccOAi3DgrKEKl2WBZVankin0woDFlBcIJ3djDdoWWspBloCkrpO/Eab/7hBDHM2
+	Tw9OAANWl2nc=
+X-Received: by 2002:a05:6820:4b85:b0:6b8:319b:9e1f with SMTP id
+ 006d021491bc7-6b8319b9e9cmr15317381eaf.5.1788910322806; Tue, 08 Sep 2026
+ 16:32:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260710172946.15633-2-rdbabiera@google.com> <ao3d2TlIRqxbz4WP@google.com>
+In-Reply-To: <ao3d2TlIRqxbz4WP@google.com>
+From: RD Babiera <rdbabiera@google.com>
+Date: Tue, 8 Sep 2026 16:31:51 -0700
+X-Gm-Features: AcwNN1Xw1Y5ryO3wQ35hV6_NmfuyHI7Zbl4nz0Z-Sqsiz6v2x3IDE9LAtXts248
+Message-ID: <CALzBnUF14HuRhAObW+HXbaWYpPYzqG_Tt0rrm1nF2OW1T1OSqg@mail.gmail.com>
+Subject: Re: [PATCH v6] phy: Add USB3 PHY support to Google Tensor SoC USB PHY driver
+To: Neill Kapron <nkapron@google.com>
+Cc: vkoul@kernel.org, peter.griffin@linaro.org, andre.draszik@linaro.org, 
+	tudor.ambarus@linaro.org, p.zabel@pengutronix.de, neil.armstrong@linaro.org, 
+	badhri@google.com, linux-arm-kernel@lists.infradead.org, 
+	linux-samsung-soc@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 08 Sep 2026 19:31:14 -0400
-Message-Id: <DLABRMYUL6Y5.2AH8IHHONR58N@gmail.com>
-Cc: "Bobby Eshleman" <bobbyeshleman@meta.com>, "Boris Pismenny"
- <borisp@nvidia.com>, "Carolina Jubran" <cjubran@nvidia.com>, "Cosmin Ratiu"
- <cratiu@nvidia.com>, "Daniel Zahka" <daniel.zahka@gmail.com>, "Doruk Tan
- Ozturk" <doruk@0sec.ai>, "Dragos Tatulea" <dtatulea@nvidia.com>, "Gal
- Pressman" <gal@nvidia.com>, "Jianbo Liu" <jianbol@nvidia.com>, "Kees Cook"
- <kees@kernel.org>, "Leon Romanovsky" <leon@kernel.org>, "open list"
- <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-rdma@vger.kernel.org>, "Mark Bloch" <mbloch@nvidia.com>, "Petr
- Machata" <petrm@nvidia.com>, "Raed Salem" <raeds@nvidia.com>, "Rahul
- Rameshbabu" <rrameshbabu@nvidia.com>, "Saeed Mahameed" <saeedm@nvidia.com>,
- "Shuah Khan" <shuah@kernel.org>, "Shuah Khan" <skhan@linuxfoundation.org>,
- "Simon Horman" <horms@kernel.org>, "Willem de Bruijn" <willemb@google.com>,
- "Willem de Bruijn" <willemdebruijn.kernel@gmail.com>
-Subject: Re: [PATCH net-next V4 09/14] net/mlx5e: psp: Add an rx_decap
- steering table
-From: "Daniel Zahka" <daniel.zahka@gmail.com>
-To: "Tariq Toukan" <tariqt@nvidia.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>,
- <netdev@vger.kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Sabrina
- Dubroca" <sd@queasysnail.net>
-X-Mailer: aerc 0.21.0-threadmapfix
-References: <20260908065244.3799142-1-tariqt@nvidia.com>
- <20260908065244.3799142-10-tariqt@nvidia.com>
-In-Reply-To: <20260908065244.3799142-10-tariqt@nvidia.com>
 
-On Tue Sep 8, 2026 at 2:52 AM EDT, Tariq Toukan wrote:
-> From: Cosmin Ratiu <cratiu@nvidia.com>
-> =20
-> +static void accel_psp_fs_rx_reconfigure(struct mlx5e_psp_fs *fs,
-> +					bool decap_wanted)
-> +{
-> +	bool decap_supported =3D
-> +		MLX5_CAP_FLOWTABLE(fs->mdev,
-> +				   flow_table_properties_nic_receive.reformat_del_psp_transport);
+Hi Neill, thanks for taking a look. Sorry for the delay here, the feedback
+arrived right before I had left for vacation so I wanted to make sure I had
+proper time to look at it:
 
-not for this series, but this makes me think having some way of letting
-the user know whether or not psp with hw gro is enabled would be nice,
-so that they don't wonder why stuff isn't coalescing when they have old
-fw like I do :) I could see a similar thing being useful for gso
-features if the psp device can't segment something that it otherwise can
-for non-psp.
+On Tue, Aug 25, 2026 at 11:24=E2=80=AFAM Neill Kapron <nkapron@google.com> =
+wrote:
 
-> +	bool decap_enable =3D decap_wanted && decap_supported;
-> +	struct mlx5_flow_destination dest =3D {};
-> +	int err;
-> +
-> +	if (decap_enable =3D=3D fs->decap_enabled)
-> +		return;
-> +
-> +	/* Create the decap table if needed. */
-> +	if (decap_enable && !fs->decap.ft) {
-> +		err =3D accel_psp_fs_rx_decap_ft_create(fs, &fs->decap);
-> +		if (err)
-> +			goto out_err;
-> +	}
-> +
-> +	/* Redirect traffic to the correct table. */
-> +	dest.type =3D MLX5_FLOW_DESTINATION_TYPE_FLOW_TABLE;
-> +	dest.ft =3D decap_enable ? fs->decap.ft : fs->rx.ft;
-> +	err =3D mlx5_modify_rule_destination(fs->check.rule, &dest, NULL);
-> +	if (err)
-> +		goto out_err;
-> +
-> +	fs->decap_enabled =3D decap_enable;
-> +	return;
-> +
-> +out_err:
-> +	mlx5_core_warn(fs->mdev,
-> +		       "Failed to create/modify PSP decapsulation rules (err %d), HW G=
-RO for PSP unavailable\n",
-> +		       err);
-> +}
+> Do we really need a 2.5s timeout?
+
+2.5s is actually the hardware default for this transaction, which I agree i=
+s
+unnecessarily long=E2=80=94I set it here for correctness. We use software p=
+olling
+instead of the hardware interrupt, and in the product's lifetime 100ms is
+more than enough time for the ACK signal to arrive. I'll update the next
+patch version to use this value. I'll also program
+TCA_CTRLSYNCMODE_CFG1.xa_timeout_val to match the SW
+poll timeout so we don't let the operation hang on the PHY when SW
+finishes its poll.
+
+> The dev_* calls throughout this patch should have trailing newline
+> characters.
+
+Thanks for the heads-up, I will add them.
+
+> > +
+> > +     pm_runtime_put_autosuspend(gphy->dev);
+>
+> Here you are using the _autosuspend variant, but autosuspend is never
+> configured in probe(). Should this be changed to the plain
+> pm_runtime_put(), or actually enable autosuspend in the probe function?
+>
+> > +
+> > +     return ret;
+> >  }
+
+That's fair, I'll commit to pm_runtime_put() here given we don't implement
+suspend/resume on the PHY itself.
+
+> I think prior to this we should add a check if phy_state is
+> COMBO_PHY_IDLE, return an error and change this check to phy_state =3D=3D
+> COMBO_PHY_INIT_DONE to make sure we are explicit in our state handling
+> to prevent issues with any potential refactoring.
+
+Makes sense to me, this will also allow power_on to only run once in the
+PHY init/exit lifetime as well.
+
+Best,
+RD
