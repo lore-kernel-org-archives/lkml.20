@@ -1,222 +1,313 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B43AC231829;
-	Tue,  8 Sep 2026 13:13:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873224; cv=fail; b=b/oMS1aA/lCw2mZhCEoUw3Tm9BOfsu3hqxUZ3ItZlzp3ejDWWVH6nBdll9lvi1bYVgl9wfwNe1wh2/Dzu52xD4wR5qo/fX4wRGGBG5gFlRaLyY7k/tIXi8sr+8iXuXvsuys4zyOY25U6Z8oBy9SyQ5BxhX6f0iS2omo9Ug5c+9M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873224; c=relaxed/simple;
-	bh=YTLHq7YrJo5cR2VkCBpdcC5xpbQ4fASI3VXq6SUBFZ8=;
-	h=From:To:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZfRszsNfTo0jdpfJDCxSaVqZilzCJY0CBaxVdyJ5s9AvLZ+JtkIC0qFGZW27Uq7T6AZrRvn7V3uufGS4gKyly7BIaMfrs38NDq5Kn4np+lc+/KHVsaBVZxat0sNlCo1liMCm1KEBZ019vRFfL02MzKZlghfbCTszdfEdor4wxtQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lxgS1Ts8; arc=fail smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE0955C32A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788873239; cv=none; b=QwYI6pdHuejeMBtG75uz5m0cLleNJ402Kpp7A7FC8i+bWmB/iLcnzgdKGD0l3mxfFypJhHHfaufaelKUSgSatvdYJdZPmgaCd3kJslMao4oQgPZUZNk7KY9R+KzJW4wAprauhSbrqDIbp+k+p1DscE8A3apsyKfQxzOAPdf646s=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788873239; c=relaxed/simple;
+	bh=QXcYtdrKDq+pmTlAwtQA/BCNNqUsRUy+3OBDwBhdFig=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Dr0eJSWekuW3eCqkI5Flgibnu3HmRlzdvcp1HGBennd8hvSlJSMJRB4xfPIktcsXXbqeOkiJTDAtb+TMRhjyKwxeCYiNZZhnX0tYsYvgyWjx+dHuHscZmv9UEhEQAqdarg6OLRcdDTzH9v4oao+ztTdKtc1JgFcfCdQ+VNEmHKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AHYRUfB/; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lxgS1Ts8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788873218; x=1820409218;
-  h=from:to:subject:date:message-id:references:in-reply-to:
-   content-transfer-encoding:mime-version;
-  bh=YTLHq7YrJo5cR2VkCBpdcC5xpbQ4fASI3VXq6SUBFZ8=;
-  b=lxgS1Ts88k+l5KSMEX/tDaBIb0MZFVPCS+lMIKiKeyW6XkflWLXjuPrt
-   wk4E28dAuekXiHDEQ5RR0pUdxq8JhICoViJJhsVx8ib4NAvlFgzQLs+6f
-   SU+w6oJ6LuISbZ3aqddm17RGPFkbbI8t4O96ebryekD52I9F9vPxetyrh
-   4cETMVGA/bCq8+ht7bMLV8zCZyuUwyo1p1i5QLJ04+CiZd1PKVUvd8IYN
-   Y3IOyKvWieI9JW3+bbQ7fcDFoogku0DTRl56LTNGNHc5fWyQQo8S15xIK
-   iCf806QbNEp894xKs1QKEgay3hbCElVepCIQqyuE4KCxZ9e79j+JVxGPe
-   g==;
-X-CSE-ConnectionGUID: Yx9L/wstRlmTG7NO6gGa8g==
-X-CSE-MsgGUID: vtZv77wiS5yxv2jI7AqkAw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91785584"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="91785584"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:13:33 -0700
-X-CSE-ConnectionGUID: OMXibpCLQXuAu+NwBsQa9A==
-X-CSE-MsgGUID: ATvLTIZYSb+EtQ0n4UIezw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="294498830"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:13:33 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:13:32 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 06:13:32 -0700
-Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.39) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 8 Sep 2026 06:13:32 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YSyGeUVg0WmO5OOw1KsFjm9ZoYOj9xEOzRsqJVa7CioxZcyNOSXWMGlN4yfAt6y1+gETGOK4AtkeOqw2mWgf/t70BI6qzPgf5JbiMKdgWILZuoiifBlhT2hd8zWySkgNkDO20GGOkV3RaSaehv8ohsAg67uEGDhD2Gj9mikHLdscMNBqd3Mq147XUbiqyPDzvl8dOdarf+fBRaZOlMuo9nGaQxdjM/lQVZGd1nJl7YlX0JkJ85czR1+R6CJoHJc/ui8h7GiSsQy7HomWXnoAvXd6fVqBBVccogUxLMHhuBohwDx4pahoLqUF8iI5E7sai75+31AcUni5l4ZcVRc8kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8hZEq+BQKLH50KT0lC81r1+G2VNWEIc8j9bf6fj/w0w=;
- b=OYLu/T6AejOUG7qlveJvPQ9zjYH4QGqdx4DTBJ+Ewnfx+WvD2L67sP4QLj0RrRqLrHcIfo31WvRmDNKz7hHiwhh5PGJO9u+JHaObOqy39QHAkdhNFVwQpNfp9dWPauVTAJIktd/k9ku2me6fuTJ3zJ9ESVT21Om8AdXGtLqHXJW+91USaskjbuhX8ZyCz9FQzLwHlFMLJ4H+M+nrgcDS07n4dWKflpRb2NBdKe6u9il5bo/7wM04rCkZRYvb5bEQlWjY9DxN2/199H56AHAl4mi9mjxa+OdfHFCrKjb3iwezHwNNDy+42mJJxaWA1AOsspylOG/gW813zbj1TtvZmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by CY8PR11MB7748.namprd11.prod.outlook.com (2603:10b6:930:87::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 13:13:25 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 13:13:25 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Yury Norov <ynorov@nvidia.com>, "Nguyen, Anthony L"
-	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
-	<przemyslaw.kitszel@intel.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
- S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
- Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, open list
-	<linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/2] ice: drop pf == NULL check in
- ice_pf_state_is_nominal()
-Thread-Topic: [PATCH 2/2] ice: drop pf == NULL check in
- ice_pf_state_is_nominal()
-Thread-Index: AQHdO6cdIKKIa/TNbkathCm0zhQM+7bEsE7w
-Date: Tue, 8 Sep 2026 13:13:25 +0000
-Message-ID: <IA3PR11MB89868D0C0C656B1D2A771A70E5B12@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260903132037.81346-1-ynorov@nvidia.com>
- <20260903132037.81346-3-ynorov@nvidia.com>
-In-Reply-To: <20260903132037.81346-3-ynorov@nvidia.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|CY8PR11MB7748:EE_
-x-ms-office365-filtering-correlation-id: fdadafb6-2589-4d83-0f0e-08df0daaf72c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|921020|18002099003|22082099003|38070700021|4143699003|11063799006|56012099006|10067099003;
-x-microsoft-antispam-message-info: olTEpKD7C5BOJy5d21ZKxvUUkje/bOusk+Xt/7WLyYp9PgAldaikGMEfLj824yatmcKv6AZHCxTJ4DoS3rgLyb3LoShX4hAqscDCgrKLR8w2m8yEx7ZJpE2Z19C+sCKb9nK0O5ZwvmdMMHNsUA/tpXt4RX2L2ESU3bnEmWjnfJvTS/gYS+xz8gROlMs3qLq7xtUcY13H30PhldstSBacTIvOGFOoVOzKFx2eTWDIRwbXUiSEBVyc6dC+ZeW2oHqiBtq/eKz5Nta8sqWQM4AYaX/Yvk+xkQXuyEXcj4XQaShIZxs1u6RRYeFVMHxcgMQPlqyRzqMFA4q2hu+VDTMMrMgkNzgQqO9RGWlEGLGNdYmCuWE+3lTrFmGhlxJARRBgNAT0o/8JqFuI55SUXXi7uAx/LfifbpSmqaAS9etCAoCOC8yM3lpCo15Y92VkbiCxolpOwHexXNTU/vDpE1lZiyuVK8JQ+wf1QTTaIRt+ztUiljqFxX0U5KhHMMJcIc8u5IlRMXmIL+l/VPZK4ir8UASs84nTqMy/VuRqv2p0KzkP+vE+h2Nh/HOmL6rdVo/yvIZirDaNBCMm+dSMCzyc3THllUQ+xgtoEwS2pxC5LlOlSXojKeJHJQJ1jOEHlBbIAVfP48GETzoAQyrYAqd9spp/VchbIM1tuJ61H18NVHQtmIvYZ2Ew5UlFHiq2A/LwY4XWBOJyvlMsS7jyktM3h27tpVNw0tuzJW0etO4qOJ4=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(921020)(18002099003)(22082099003)(38070700021)(4143699003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?nmxzkoB7T7wYY3Zt8AAWMac0lDFWTV5Rg86sQ4/KKrUDEGB246IQuV1JlszY?=
- =?us-ascii?Q?P0Ggo6+dNODK7zDyP61Gx9Jv8QNDpOA2Q3HuzA9t15cLeTjj7QL/g9STiInD?=
- =?us-ascii?Q?iEAYaGJwtRocSJMPZ+IaaBUKeCg8cHMVHGW0HEruBGhVGg6/iHFpXc36Mp8F?=
- =?us-ascii?Q?w16lsQ8r6FsRkj3lY9XNfMhwfGwDGIvMHJ0XLjPaoIx/2CjnDBgr1+KSZEQA?=
- =?us-ascii?Q?006mXcCibZNRrfnhWdafkDBhQqu4ragKp0YJH89T3aNAjs3edIlZrFRlb/wr?=
- =?us-ascii?Q?aH4C2ZT/subCP23dT/XYS38Aixj1a1SKfHeYo58X/SlkLmwLLK4hTiXyixHC?=
- =?us-ascii?Q?E5j69Ay3XZRPN7t4oD9ZzC+6eQWTm3ZTWsFoL7avs2x897XJINEahVASDrqe?=
- =?us-ascii?Q?N+SKVhGgIMv8gYzZ3EJHE1IpbMKfheXqPv40W8vgvYljkjtLz8TyEdmROf8Z?=
- =?us-ascii?Q?ChDwd+ZJCsS0JHvFsha3Jr2l+ASb+mu97ivSgJb3AnrR+w1sdgD0Vwy6CRNR?=
- =?us-ascii?Q?DaxrY1x2jsJWKDRiofI4GDjT5K3dIlyBVm3I5UnKcS+ZcXL1yOMo9TWfaTQy?=
- =?us-ascii?Q?b//Mu81WbcF/z4yBqg9NO/zVHGjdBLr14hAyXsLBpBGQozqmHAAzoICscAin?=
- =?us-ascii?Q?agchvBFIoAS1+Z6Zfx/+VNszzXb+hNRsv9qRmS81ACoMertn3+bOZI8mFJdJ?=
- =?us-ascii?Q?wdMKjlS4x1dHcrzkGASfVnYmeg5i81i2OBqShVUm+zkIStKlC480CaswNjsj?=
- =?us-ascii?Q?G6koEjeMd7dBm/OHA3BEB4mMLHmIV0zvtUhdWkv4zVCJ/VPJK12gBWu5I4aI?=
- =?us-ascii?Q?x941yc4KZSBwDzWu4T9hvANhca1A6v2SCrLaoVo1ONYFfgnnTI10RyxQtaDV?=
- =?us-ascii?Q?4ODUn2zLZ1kI1LEFP9OnIwLCbpnUKCHHFFSdGE3Jhn/Q498PvB/Ufbj3GoDn?=
- =?us-ascii?Q?Hl6ZaBzwMootQBr/n5zN7A5QYM664sz3KWwhzFaOF86IFcCE4gbBOIl9oGc2?=
- =?us-ascii?Q?wpg4Wj+q5rP43Dtx+UupENLUoEu0H8EFGwHm7spAyaVEiSlgLzxMwrXfFP2I?=
- =?us-ascii?Q?xZm5cl2qQ3HEGF6icw8WrW9LtZXHhZ69DVHfIN1Tks7ueZwKDP2+j8/Z7mtV?=
- =?us-ascii?Q?E2JeM3xgvlRutkLa/coc4BmNB84546WwfegJyxCWdOZk78KDaZOHCtzjK6N2?=
- =?us-ascii?Q?u5J/ttbtkTEcoqQu/saMnt3kFgqu2GdYp0aEDpDP5F554wpkBJ1TB6Ak22Fq?=
- =?us-ascii?Q?hPSOwtEmyryuWm1EszniuFnM8x84fJvTiBPhPAr4/ybHmnyZVaJWjXcjwsga?=
- =?us-ascii?Q?0ACSiCM9NKtIKHorRWoxvS4GvKezmtOqa4SeYRDuP0/qgTGeQA9Gp+qWpJ5L?=
- =?us-ascii?Q?3aciGtu9LrStCWpP5b309nNoVDgc2NX5XL1nLIivW/RlbziS8h5CUOVGfIH+?=
- =?us-ascii?Q?cpP1QN6yFLiVd5NwTA9x8l0AIhcaB0QaoWOrG25gornL4gmWWdKPaXax55qF?=
- =?us-ascii?Q?SIUyl3ncmr86HD2zWOkpggdQyCF7jmSyV3N25Ks2bvdJEPrRsYNHJANlzRfK?=
- =?us-ascii?Q?JxQ/2nvW0RkQsv/Bk2ZeCEwN4DR8wXUlmb4pdEoNZQa/kix32NKt2udNvrfP?=
- =?us-ascii?Q?Xn2UQMeJ/lLwDOoMeL+xW51qu/eOMxN2jFueFipZxja51pbs1rprFXzvi+v+?=
- =?us-ascii?Q?YsfSTMorM8AXo8V+pxTrb5SxbvDaeJvnVJfhX1Kw3yKtla+ynoHI03l2o7jl?=
- =?us-ascii?Q?z0qYVK8CcMaMVFmNw0Me59kWlYBh74I=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AHYRUfB/"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c15e592da74so555003666b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:13:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788873232; x=1789478032; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vo8u28j4GyXE0RpSvRuCGjIeNosarp7/Ns5KHxaIM7w=;
+        b=AHYRUfB/OZ38yPwFw/zrPfeVTaadJLXbPRphbGl1UDZzDZKCxdjREAe0f42Mf0yXhp
+         0v0+vNWTn6p2feq9bMAcqVov8u8OCtTGzoyNJeeLy+GWG4MHSZBwk/I5iroO4aVw/amM
+         PBZhJrO78bhtFnjefuVuqYAKCQ+EEjLS2lICGMCba0/ZKPmU+/DHGafsmm0JfqvYm/aL
+         nmoXXKCqGdyjeotTV2eAvCfxsGUyJ1Jp5USpACvUBR8a6D54CkPn7mqx1+iIKIQ7JsfM
+         y5tdPyPBDrU2t2QScNy+Na39WsGqI+pHsmvABbrQSjYzsVtEEz6B9KYaIrOviRAl8fbw
+         PeUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788873232; x=1789478032;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vo8u28j4GyXE0RpSvRuCGjIeNosarp7/Ns5KHxaIM7w=;
+        b=gbSwRn9xfBTPC2aGdZ6Mg4C0K/8ULesHKH3Vhv4Tk+aZ9JHrOhRcN8A5FsQHwaWye3
+         b0VZz7sByFBl5auEC7BwaEr2DulAk41tazCFQLBXvbdWH/ZTyjPt2gc5Ja1EeMoBduXv
+         K61WqJTjLpRVHMGsAQSAEmWHKuFzrOE0Ce/R/dBgQsB4ButJ8tuWMATOa8HbMJXsoery
+         E3PicCHW6qTM7jsgX23f2ghrvbsqSquoo/LpT/rQAmCGd1bBpbdhGtsVcocxJu81ORc+
+         2HQRJN5ndjswTqWQHDWwHMleGgDmearezqnf7QqLrhGj45RNKwik9+y5pQF7CsBUrij/
+         +oKg==
+X-Forwarded-Encrypted: i=1; AKwUvBxtBnBS02JDUolss6wqfCnQ7hk9FeyjPtESkSDskFVlg3xseTQKgczGND8S0/mki7oJd+gXC2rAVKED7tY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9k7L+FAxG4+lADIXhiNuBNf90E3wR0MOzB3Yer0bIJrZrucPo
+	2/Tkd4Kv9W8uoZKEB9VvS77qNnRQXxq54QJRooaiwdcab7EWr868+Hh9
+X-Gm-Gg: AYBFou2s9aix+fojaV7ukLlf8aEM/TL0EkXUnM6o3RXfqWr66JOXZiCgUDVAjWa9Wy9
+	KEWvMFLLAAcYdYYkdgUSLLDpNe2idr83SGGQFzXgJAS3Yz5RxVsZ9ZBeIveMuaVyuMQZuYZum2q
+	j3gdOzJD9GWrwUCdd8R81uDhDNGAPZNbLSzI/klE9L2STb8l0jvjpsEF0X1dxe5ksegBCkrSKYQ
+	2kBpCOCQmcA1smGkiyOvfsM7SgipHUvNJogqitoZgUUaqA0uUM111HHOTcG+9UmhB8CtdCEtaxp
+	IA+VtwTRrfbDsbukdC6OPccEG2fevVW5Y9BaKQKJq/pQGPPOdpIn1UeLXpLxdH3FqA5SDJLabSw
+	pM4tPKElywYfqO7B+70drU3S9gk3OyU6tWPaOSbXBCDRPRY2qWpiI8W1rv7iSgQGDn7JDZliCMK
+	FdaajuQ8etC25on1iOMPnxU+DHFDHHvuq0oR+KUCUzHVft2+Mzs/2n4u+1dAFL
+X-Received: by 2002:a17:907:934c:b0:c25:c954:faf2 with SMTP id a640c23a62f3a-c260ca20979mr1124208466b.21.1788873231550;
+        Tue, 08 Sep 2026 06:13:51 -0700 (PDT)
+Received: from [127.0.0.1] ([2a09:bac6:37a9:1e5a::306:1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d6e1c93sm625170866b.63.2026.09.08.06.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 06:13:51 -0700 (PDT)
+From: Caleb Kan <calebkan1106@gmail.com>
+Subject: [PATCH RFC v2 00/11] stackdepot: reduce memory use for persistent
+ stack records with a trie
+Date: Tue, 08 Sep 2026 14:13:33 +0100
+Message-Id: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: KCvJ+aG9aZQHgsXSbCpoQ7yqY5LKAwdEEmeOgOIXE07W1JmRo9/8FVmPAe10wI36Ph377PTmWQXTjttHnk+V37xd7Cc+FK3O2PdTzsA5Bz2JcRj6DBbzmNGwEaIVzhQoov2wZTqNAL/TQxhGtPhvqcq52f0LWsyIQctgzniKoHijSnPtfjAqUAaRENYn4audY4SpYJDticG/Aqs0GuCWCuclXX5MN6PxyffJxYmWfGp1HKVlYiEp3VIkhALzThMeM8SNlAw6aS6GYVb5/OhulFeOpZZoUeprqiRPbb1vkxSHfR74GbQQpRZI8J4xkSStWNWB/K2fwxPMK13BdDaiPw==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fdadafb6-2589-4d83-0f0e-08df0daaf72c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 13:13:25.1967
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: E9R2cDNrvC0ykHOOSrPfTtyr6nBXzY9jWkNdhAlTY7rU9V3/LAYHcqHgGHiHIw8y73Re6CqzDtoJKlTxlHs6wHGBa4SLkTeUeQjGpFwRlpI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7748
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNyw6CMBREf4XctTVtDQ9dmZj4AW4Ni3J7kSpS0
+ haiIfy7BZYuZzJnzgSenCEPp2QCR6PxxnYxyF0C2KjuQczomEFymfGC58wHhS9NvQ0sRJJJTSJ
+ VUmN9zCFSvaPafNbHO9yuFyi30g/VkzAsX8usMT5Y9129o1jHm0L8K0bBOEsPRc5RiSwV1RlbO
+ +i6VY72aN9QzvP8A3s9S5/KAAAA
+X-Change-ID: 20260807-stackdepot-trie-2de15a2dcf97
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ kasan-dev@googlegroups.com, Vlastimil Babka <vbabka@kernel.org>, 
+ Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
+ Dmitry Vyukov <dvyukov@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+ Oscar Salvador <osalvador@suse.de>, Caleb Kan <ckan@cloudflare.com>, 
+ kernel-team@cloudflare.com
+X-Mailer: b4 0.16.0
 
+Hi,
 
+This series reduces the memory used by persistent stack depot records by
+sharing common frame prefixes in a path-compressed trie.
 
-> -----Original Message-----
-> From: Yury Norov <ynorov@nvidia.com>
-> Sent: Thursday, September 3, 2026 3:21 PM
-> To: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel,
-> Przemyslaw <przemyslaw.kitszel@intel.com>; Andrew Lunn
-> <andrew+netdev@lunn.ch>; David S. Miller <davem@davemloft.net>; Eric
-> Dumazet <edumazet@google.com>; Jakub Kicinski <kuba@kernel.org>; Paolo
-> Abeni <pabeni@redhat.com>; intel-wired-lan@lists.osuosl.org;
-> netdev@vger.kernel.org; open list <linux-kernel@vger.kernel.org>
-> Cc: Yury Norov <ynorov@nvidia.com>
-> Subject: [PATCH 2/2] ice: drop pf =3D=3D NULL check in
-> ice_pf_state_is_nominal()
->=20
-> The function has 3 callers, all except one explicitly require pf !=3D
-> NULL. Add the corresponding check to the remaining caller, and remove
-> it from the ice_pf_state_is_nominal(). It makse the fun function a
-> one-liner.
->=20
-> Signed-off-by: Yury Norov <ynorov@nvidia.com>
-> ---
->  drivers/net/ethernet/intel/ice/ice_lib.c  | 3 ---
-> drivers/net/ethernet/intel/ice/ice_main.c | 2 +-
->  2 files changed, 1 insertion(+), 4 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/intel/ice/ice_lib.c
-> b/drivers/net/ethernet/intel/ice/ice_lib.c
-> index 73996e3022ef..6d5b8acc4764 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_lib.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_lib.c
-> @@ -1705,9 +1705,6 @@ static void ice_vsi_set_rss_flow_fld(struct
-> ice_vsi *vsi)
->   */
->  bool ice_pf_state_is_nominal(struct ice_pf *pf)  {
-> -	if (!pf)
-> -		return false;
-> -
->  	return bitmap_empty(pf->state, ICE_STATE_NOMINAL_CHECK_BITS);
-> }
->=20
-> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c
-> b/drivers/net/ethernet/intel/ice/ice_main.c
-> index d88835482d3a..168d85f9477f 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_main.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-> @@ -5521,7 +5521,7 @@ static int ice_suspend(struct device *dev)
->=20
->  	pf =3D pci_get_drvdata(pdev);
->=20
-> -	if (!ice_pf_state_is_nominal(pf)) {
-> +	if (!pf || !ice_pf_state_is_nominal(pf)) {
->  		dev_err(dev, "Device is not ready, no need to suspend
-> it\n");
->  		return -EBUSY;
->  	}
-> --
-> 2.53.0
+Cloudflare runs KASAN on pre-production servers so allocation and free
+stack traces are available when diagnosing memory-safety bugs. On some of
+these servers, stack depot exhausted its pool budget even after we raised
+stack_depot_max_pools from 8,192 to 32,768. Once the depot is full, a new
+persistent trace returns no handle and a later KASAN report can lose the
+history needed to explain the bug.
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+With 4 KiB pages, 32,768 order-2 pools allow 512 MiB of stack storage.
+Doubling the limit again would allow 1 GiB, but it would not change the
+linear growth: the hash backend shares identical complete traces, while
+two traces that differ by one frame are still stored independently.
+
+The trie is opt-in and disabled by default.
+
+Backend behavior
+================
+
+When the trie is enabled, a persistent save uses it unless the caller sets
+STACK_DEPOT_FLAG_GET or STACK_DEPOT_FLAG_COUNTABLE. GET records can be
+released. COUNTABLE records remain hash-backed because page_owner needs a
+stable struct stack_record and its count field.
+
+RFC v1 only looked up existing trie records when a save was not
+permitted to allocate. RFC v2 also makes one best-effort insertion
+outside NMI using pool and side-table memory that stack depot already has.
+It does not allocate, sleep, retry, wait for RCU, or fall back to the
+hash backend. If the trace cannot be recorded, the save returns 0.
+
+An NMI save remains lookup-only. It can return an existing trie handle, but
+a new trace returns 0. The hash backend can sometimes insert from NMI when
+it already has enough pool space.
+
+Both backends share stack_pools and the stack_depot_max_pools limit. A pool
+used by the trie is unavailable to hash-backed GET and COUNTABLE records.
+
+Design and API
+==============
+
+Each trie node stores a run of frames and branches only where traces
+diverge. On arm64 and x86-64, a frame uses a compressed 32-bit payload
+only when it can be decoded back to the exact original address. arm64
+stores a signed offset from _text. x86-64 stores the low 32 bits when the
+upper 32 bits are all set. Other frames remain full-width.
+
+Trie handles contain dense stack IDs. A sparse table maps each ID to the
+node where its trace ends. Fetch reconstructs the trace by following parent
+links.
+
+Insertion is serialized, while lookup and fetch run under RCU. A new stack
+is published only after every required reservation succeeds. Replaced
+nodes and child arrays are reused only after their RCU grace period.
+
+Trie records are not contiguous, so stack_depot_fetch() remains hash-only.
+The series adds stack_depot_fetch_into() for caller-owned storage and makes
+stack_depot_print() and stack_depot_snprint() work with either backend.
+Kmemleak, KMSAN, SLUB, and DRM use these interfaces. page_owner remains on
+COUNTABLE hash records, and the GDB helper rejects trie handles.
+
+Patch 1 fixes final-pool preallocation. Patches 2 through 9 prepare the
+API, consumers, tooling, and architecture hooks. Patch 10 enables
+trie-backed handles and adds a boot parameter that is disabled by
+default. Patch 11 adds trie KUnit coverage. Trie handles do not become
+reachable until all API and consumer changes are in place.
+
+CPU cost
+========
+
+The benchmark was pinned to one CPU and inserted 32,768 distinct 32-frame
+stacks on KASAN-enabled Linux 6.18.48. Within each group of 64 stacks, 75%
+of the frames were shared and all frames were compressible. The insertion
+order was shuffled, and the warm save-hit and fetch phases replayed the
+stacks 32 times.
+
+                         arm64 CPU ns/op         x86-64 CPU ns/op
+                         hash       trie        hash         trie
+Insertion                 777      9,417         792       11,269
+Warm save hit             945      1,287         623        1,012
+Fetch                     251        511         123          476
+
+The main cost is first insertion, which was about 12 times slower on arm64
+and 14 times slower on x86-64. A warm save hit was 1.4 to 1.6 times slower,
+and fetch was 2 to 4 times slower.
+
+Memory use
+==========
+
+I collected stack depot state from four live KASAN servers using the same
+kernel revision, 4 KiB pages, and an 8,192-pool limit. The servers remained
+active, so the values below are rounded.
+
+                              arm64                 x86-64
+                        trie off trie on      trie off trie on
+Run time (hours)              61      64            65      67
+Stored records              162k     87k          498k    217k
+Registered pools           2,630     925         8,192   1,940
+Pool budget used             32%     11%          100%     24%
+
+The trie-enabled x86-64 machine used less than a quarter of the pool budget
+while the trie-disabled machine reached the limit.
+
+The machines ran different workloads and stored different stacks, so this
+is not a controlled comparison. Exact memory savings depend on the
+workload.
+
+Stack use and limits
+====================
+
+Before this series, the KMSAN report path that prints an origin used 768
+bytes of stack on x86-64 with Clang 19. RFC v1 increased it to 1,264
+bytes. RFC v2 reuses KMSAN's existing scratch array and uses 752 bytes,
+slightly less than the tree before this series.
+
+RFC v1 also materialized as many as 256 frames on the stack. At that depth,
+stack_depot_print() and stack_depot_snprint() used 2,072 and 2,104 bytes.
+RFC v2 processes 16 frames at a time, reducing them to 184 and 200 bytes.
+Kmemleak and the converted SLUB callers each add one fixed 16-frame array,
+or 128 bytes on 64-bit systems. DRM uses the bounded snprint path without
+adding a trace array.
+
+A node's child array must fit in one pool. Each child represents a
+different next frame after a shared prefix. For example, allocator stacks
+can share the same initial frames and then diverge at many different call
+sites. On a 4 KiB, 64-bit system, one node can hold 1,024 children. The
+largest observed node had about 835 children. An insertion that would
+add a 1,025th child fails; existing records remain valid.
+
+Trie IDs use handle values left unused by the configured pool limit. With
+64 KiB pages, the default stack_depot_max_pools value leaves no such handle
+space. The limit must currently be lowered to enable the trie; otherwise
+trie initialization fails and the hash backend remains available.
+
+Testing
+=======
+
+I ran the common KUnit cases against both backends with a 64-frame maximum.
+Trie-specific cases also ran at 8 and 256 frames, including a 64 KiB arm64
+configuration. The tests cover public API behavior, each insertion shape,
+old handles after topology changes, and compressed and full-width frames.
+
+I also ran the patches with PROVE_LOCKING and KCSAN, ran KMSAN tests with
+both backends, built with arm64 GCC and x86-64 Clang, and booted with the
+trie disabled and enabled.
+
+Questions
+=========
+
+I would particularly appreciate feedback on:
+
+1. Is it acceptable for an NMI save to look up an existing trie record but
+   return 0 for a new trace, while a non-NMI save that is not permitted to
+   allocate gets one best-effort insertion attempt?
+
+2. Is the roughly 12 to 14 times higher first-insertion cost acceptable for
+   an optional backend, given the smaller cost for warm saves and fetches?
+
+3. Should stack depot reserve some of stack_depot_max_pools for hash-backed
+   GET and COUNTABLE records, or should both backends continue to share the
+   limit on a first-come basis?
+
+4. Is the 1,024-child limit acceptable for an initial implementation, or
+   should child arrays be allowed to span multiple pools?
+
+5. On 64 KiB systems, is requiring a lower stack_depot_max_pools value
+   acceptable, or should trie IDs use a different handle encoding?
+
+Signed-off-by: Caleb Kan <ckan@cloudflare.com>
+---
+Changes in v2:
+- Expanded the motivation with KASAN systems that exhausted the
+  32,768-pool limit.
+- Reordered the series so APIs, consumers, tooling, and architecture hooks
+  are ready before trie handles become reachable.
+- Added a best-effort insertion outside NMI for saves that are not
+  permitted to allocate.
+- Reduced trie allocator bitmap scans and added CPU benchmarks.
+- Reduced KMSAN and stack depot printing stack use.
+- Documented the shared pool budget, child limit, and 64 KiB handle limit.
+- Expanded KUnit coverage for public APIs, insertion shapes, trace depths,
+  and frame encoding.
+- Link to v1: https://patch.msgid.link/20260817-stackdepot-trie-v1-0-53870ca1651b@cloudflare.com
+
+---
+Caleb Kan (11):
+      stackdepot: stop preallocating after the final pool
+      stackdepot: add caller-owned stack trace fetching
+      mm/page_owner: preserve accounting with countable stack depot records
+      mm/kmemleak: print trie-backed stack depot traces
+      kmsan: report trie-backed stack depot traces
+      mm/slub: materialize trie-backed stack depot traces
+      drm/locking: preserve deadlock diagnostics for trie-backed stacks
+      scripts/gdb: reject trie-backed stack depot handles
+      stackdepot: add architecture hooks for compact frame storage
+      stackdepot: share persistent stack prefixes with trie storage
+      stackdepot: add KUnit tests for trie storage
+
+ Documentation/admin-guide/kernel-parameters.txt |    7 +
+ arch/arm64/include/asm/stackdepot.h             |   42 +
+ arch/um/include/asm/Kbuild                      |    1 +
+ arch/x86/include/asm/stackdepot.h               |   37 +
+ drivers/gpu/drm/drm_modeset_lock.c              |    5 +-
+ include/asm-generic/Kbuild                      |    1 +
+ include/asm-generic/stackdepot.h                |   19 +
+ include/linux/stackdepot.h                      |   83 +-
+ lib/Kconfig.debug                               |   17 +
+ lib/stackdepot.c                                | 1650 ++++++++++++++++++++++-
+ lib/tests/Makefile                              |    1 +
+ lib/tests/stackdepot_kunit.c                    |  582 ++++++++
+ mm/kmemleak.c                                   |    4 +-
+ mm/kmsan/kmsan_test.c                           |    4 +-
+ mm/kmsan/report.c                               |   28 +-
+ mm/page_owner.c                                 |    6 +-
+ mm/slub.c                                       |   12 +-
+ scripts/gdb/linux/stackdepot.py                 |    4 +
+ 18 files changed, 2454 insertions(+), 49 deletions(-)
+---
+base-commit: d118502628f8b673be9023db8bdf878f64a7ed45
+change-id: 20260807-stackdepot-trie-2de15a2dcf97
+
+Best regards,
+--  
+Caleb Kan <ckan@cloudflare.com>
 
