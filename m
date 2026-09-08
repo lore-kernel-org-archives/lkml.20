@@ -1,103 +1,254 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D87511E7E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:37:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D4365221C3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:37:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860244; cv=none; b=BJu0CIBOK4rR7FLdh1VzFUroYSqmw6APZ7F12f3COIDdlxoxcm+nfRPpwjaCGDHLiUwNb8MRBwoF6eD3OFM2co4MQ3Rcm0QK8QkH20VABiiM6PRytH8UZ1eqF4lxSmj/phsYchbBBh/nNcAsXqQW9KBJMKW08Ihe3DnmtDBz8xo=
+	t=1788860247; cv=none; b=G2Bvajvn+NryA1QRI6SX4/d8NgJrPiuscRgBGJfd05rlTJIJBNG6z/0fsHmfAiHermA5eJx0Wvcc8eKHaDIs5or1e4K7ATxN5YiCJpW/OblEv1Iy36sntSqBiqORKKPmb7vDITKGCjlnXTvmTQDI7Hl6K1c23GkLV6Wt1r7tRFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860244; c=relaxed/simple;
-	bh=BE9ON5HBCt5tW4TTWzfj+lE0By1JuD0S4nG2Sv9Tff0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=U6E7mP7P7k2e6C2q3+PSrOGaq/QQAJoWDAZwlf6skIhoZKqYf4XrwYeF0NI8qrMnm5usiDgY/a8DUgZcJFjRS6lGS1EIhUbGfBMs21qQLjZKKEoUqjj/LWIa7Q3scXWyW2aQ0C7m8EpXkF1gSTU2ekvKb2DoFl6CDGwute7QJrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hrFUetqT; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788860247; c=relaxed/simple;
+	bh=HvxZtc3mr9i12qOLGEDlGRfFFykU81xPzVzA7iGQRMs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=t8LGgbZA6d9W06boldsQuEFW3UJ1ubnvv0QlYBQoax2z5VZ4uCkRIod1GpL+tYB3RsvbTzo9NklZGTsgF9AwTZBU5MiAmXujZoeGzIhDAgzZ32/ii1qJYATHM8E0cGzCVCOHAvtWMY7h31Ymb0JdpEdCRfbInqanbY+vb5Dx2tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YOVTGmi8; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hrFUetqT"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C04861A1A53;
-	Tue,  8 Sep 2026 09:37:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 94F76603C4;
-	Tue,  8 Sep 2026 09:37:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 31B9411C7A34F;
-	Tue,  8 Sep 2026 11:37:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788860234; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=EqcRWg98mOcljlI9mTBH7+pU15MLtpwfrZFZb9Dljv0=;
-	b=hrFUetqTIKCDLj4NHUxP3C7PZLgE6AEYwXZ2Z3GJXuxLsYmwjHcFrdvK5/HPkZzswMt3Be
-	0hmSgZlbnUaH5Zs2ugviTlyI11jPWI2XEpfJUbBSZ5FrYHV6ZOrCleVe6wEnWJTE7IdHiQ
-	NZatVDDRiU7iI053ov2Fkd3aeTY+sjpzJXnzAmrd18I3NhRoYv/0cS51uCv7GQfMzbfQEB
-	+GeR4xv1TpNmJQ36gZHO4T7U70S/GnMWyrkBPdZSbfmr/aSPZy2cwlHqJaSya77W0SwZm7
-	23f4OmKuYNXsmTzGheydpyCcgXMVel1zpS1/a9h9fSzDCH3LE7D9RmO5YeQXpw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-mtd@lists.infradead.org,  Richard Weinberger <richard@nod.at>,
-  Vignesh Raghavendra <vigneshr@ti.com>,  linux-kernel@vger.kernel.org
- (open list)
-Subject: Re: [PATCHv2] mtd: rawnand: fsl_ifc: allocate shared ctrl with
- devm_kzalloc
-In-Reply-To: <20260908060111.41244-1-rosenp@gmail.com> (Rosen Penev's message
-	of "Mon, 7 Sep 2026 23:01:11 -0700")
-References: <20260908060111.41244-1-rosenp@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 08 Sep 2026 11:37:11 +0200
-Message-ID: <87h5k0ulrs.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YOVTGmi8"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8534d507f59so4615268b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788860246; x=1789465046; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jdo8OnRnaSJ+QK5iLvvBRCC1dMO84Sr5WG2RzM3Vkaw=;
+        b=YOVTGmi8Lz0PfQvS99ehQWKsOOwtEGHFRwKiGZ1bppImrvR6t66w6JnCSHww2wXkb6
+         H7yJ2LajLXhcLPhexpMfZzsL3K5FYwEs+cLCL6HfprKkQqi87KBQn3yG8bIVo83/72ns
+         4mYLtV7vTDIMFEoCL/MafzuFCOmaHWFeAYstEqvd6uqhYBFcBkM9MHmZEJ0Y9lWMB4Cq
+         r/06HFlNsUNzjfUhk06kg8W4GLkfeD/bkGfqHStDH3ez2h9cnPXVpoH0KT1T5ytiK1GU
+         WE9Bl0KhAKlZBPxph4gFB73o/u/y8QeUwbDVt5ws+FXBDT7sR5lUUdJ5uqanfG+X+d+V
+         k1WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788860246; x=1789465046;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jdo8OnRnaSJ+QK5iLvvBRCC1dMO84Sr5WG2RzM3Vkaw=;
+        b=pIXwiC1AKUUaS0LpcmDfngLetkMkXnz1tn1AraDhzrSZPvR9+xfbtujduf3HB6l6gs
+         wu2gImN+lfr66xebeoXH620bIymXSTRWNScvgyEesgeQwbACAoeJi56WV6+o7yBvis3z
+         OCdsaKhc38/oVladgrAWTSzlThRYz0148Szq867PyZmD0JQjPjaEMlbL6JL4dSmh/BYL
+         I6oltBkSgB5Br+BD2LHSDJv+J77kl0+avK9nfuH1pS3vFnsr4e9UcFsJD+WYYS6hDiov
+         UeHvKL2Aco2QHB66PeUvDbwuBWLq5mQY/lSmcvJQgSJiWzz2VgaBF7nAtnFb81C7dIWu
+         LbYA==
+X-Forwarded-Encrypted: i=1; AKwUvByjh3yj0/9LbRp1OdrmO8GGlMFcFeJcSU2thXs3e+FiSQ3sS/nnm3PtL0z+ls2exWzCnn+hF8a7loMR7mQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYCjyvyE6IVbp71SYGnsybW3Cdi9Q/VoDGjBnOfz0IgH6R381F
+	PcDzyaeALlivugZSCbnI1aKwlopjkKRIXZ8fXEK4B+sopkefXBgINMSl7lH6FJ6w0zY=
+X-Gm-Gg: AYBFou0EnxN9u0Iw2dECcaZ1tCJdsJGRvl7ql+u+OuySw7HjlKYyKUkZ3ssMTA9jSka
+	LF66vVextRmExHv8rxS7ITlbULLXkBgKCSxYCACWc2h3peMSbHu1j01uVwmiab/STYpD53Iqqgr
+	NcC1RCdmtmqs4JyrsKHmZ/l1+dMkkoVLfaC9SMZBovGHgtMJSNxWCLmUCxeL3KKrwxRNKLBidzQ
+	NWR7w1IdsbQulE8cuDXHT5odjLv/f8NqvO7Q+yA+VW8C7BoaNEvZ+/Z9wn2fvbfPwSwOCUjfFsw
+	PKfBFtLNF+MyTTDg8fIAbaFHBkUqXmFWfI5tfvy92+TEIZTrtq9Kk+1OHUT4GA0aPY9RDqvueRj
+	0iiIUnFyUNnWgBSShln0kJrk/RtalXLm0yF4wGCMd8cmUk5w/lnmjEBoQoakOCu4Ln2+fdY1WP6
+	ZENXqR+Z/3/LDHKpn5DWs1Nh7/ADWsStV56rOwV2dmHIKbDNSeRhFPnhFMjoI=
+X-Received: by 2002:a05:6a00:f94:b0:857:7337:5db7 with SMTP id d2e1a72fcca58-8616ac58363mr41402529b3a.21.1788860245006;
+        Tue, 08 Sep 2026 02:37:25 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8615292d875sm5324180b3a.25.2026.09.08.02.37.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:37:24 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+To: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Kunwu Chan <kunwu.chan@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kairui Song <kasong@tencent.com>,
+	Kairui Song <ryncsn@gmail.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Jan Kara <jack@suse.cz>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Wei Xu <weixugc@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] mm: swap: move LRU insertion out of the swap cache allocator
+Date: Tue,  8 Sep 2026 17:37:00 +0800
+Message-ID: <20260908093711.2364516-1-kunwu.chan@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260825135209.3135169-2-alex@ghiti.fr>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 07/09/2026 at 23:01:11 -07, Rosen Penev <rosenp@gmail.com> wrote:
+On Tue, 25 Aug 2026 15:52:05 +0200 Alexandre Ghiti <alex@ghiti.fr> wrote:
 
-> Allocate the shared fsl_ifc_nand_ctrl structure against the controller
-> device, which outlives all NAND child devices, so it is freed
-> automatically.  This drops the manual kfree() and the broken chip
-> counter that was decremented in remove() but never incremented
-> anywhere, leaking the structure and leaving the freed pointer in
-> ctrl->nand on re-probe.
->
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> zswap writeback wants a swap cache folio it can free directly once
+> writeback completes, i.e. one that is not on the LRU (folio_add_lru()
+> stages the folio in a per-CPU batch that holds a reference until it is
+> drained, which keeps remove_mapping() from freeing the folio on
+> synchronous devices, and likely on asynchronous ones too).
+> 
+> So defer the LRU addition to the callers of __swap_cache_alloc_folio(),
+> no functional change intended.
+> 
+> Suggested-by: Kairui Song <kasong@tencent.com>
+> Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
 > ---
->  v2: rebase.
->  drivers/mtd/nand/raw/fsl_ifc_nand.c | 15 ++-------------
->  1 file changed, 2 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/mtd/nand/raw/fsl_ifc_nand.c b/drivers/mtd/nand/raw/f=
-sl_ifc_nand.c
-> index a88ac2cfaccd..4c2d95461c2e 100644
-> --- a/drivers/mtd/nand/raw/fsl_ifc_nand.c
-> +++ b/drivers/mtd/nand/raw/fsl_ifc_nand.c
-> @@ -50,7 +50,6 @@ struct fsl_ifc_nand_ctrl {
->  	unsigned int index;	/* Pointer to next byte to 'read'	*/
->  	unsigned int oob;	/* Non zero if operating on OOB data	*/
->  	unsigned int eccread;	/* Non zero for a full-page ECC read	*/
-> -	unsigned int counter;	/* counter for the initializations	*/
->  	unsigned int max_bitflips;  /* Saved during READ0 cmd		*/
->  };
->=20=20
-> @@ -1033,15 +1032,13 @@ static int fsl_ifc_nand_probe(struct platform_dev=
-ice *dev)
->=20=20
->  	mutex_lock(&fsl_ifc_nand_mutex);
->  	if (!fsl_ifc_ctrl_dev->nand) {
-> -		ifc_nand_ctrl =3D kzalloc_obj(*ifc_nand_ctrl);
-> +		ifc_nand_ctrl =3D devm_kzalloc(fsl_ifc_ctrl_dev->dev, sizeof(*ifc_nand=
-_ctrl),
-> +					     GFP_KERNEL);
+>  mm/swap.h       |  6 +++---
+>  mm/swap_state.c | 20 ++++++++++++--------
+>  mm/zswap.c      |  5 +++--
+>  3 files changed, 18 insertions(+), 13 deletions(-)
+> 
+> diff --git a/mm/swap.h b/mm/swap.h
+> index 77d2d14eda42..fc44daae1de1 100644
+> --- a/mm/swap.h
+> +++ b/mm/swap.h
+> @@ -304,9 +304,9 @@ bool swap_cache_has_folio(swp_entry_t entry);
+>  struct folio *swap_cache_get_folio(swp_entry_t entry);
+>  void *swap_cache_get_shadow(swp_entry_t entry);
+>  void swap_cache_del_folio(struct folio *folio);
+> -struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+> -				     unsigned long orders, struct vm_fault *vmf,
+> -				     struct mempolicy *mpol, pgoff_t ilx);
+> +struct folio *__swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+> +				       unsigned long orders, struct vm_fault *vmf,
+> +				       struct mempolicy *mpol, pgoff_t ilx);
+>  /* Below helpers require the caller to lock and pass in the swap cluster. */
+>  void __swap_cache_add_folio(struct swap_cluster_info *ci,
+>  			    struct folio *folio, swp_entry_t entry);
+> diff --git a/mm/swap_state.c b/mm/swap_state.c
+> index 727a17ee7821..07418fc94f00 100644
+> --- a/mm/swap_state.c
+> +++ b/mm/swap_state.c
+> @@ -483,13 +483,11 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+>  	node_stat_mod_folio(folio, NR_FILE_PAGES, nr_pages);
+>  	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, nr_pages);
+>  
+> -	/* Caller will initiate read into locked new_folio */
+> -	folio_add_lru(folio);
+>  	return folio;
+>  }
+>  
+>  /**
+> - * swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
+> + * __swap_cache_alloc_folio - Allocate folio for swapped out slot in swap cache.
+>   * @targ_entry: swap entry indicating the target slot
+>   * @gfp: memory allocation flags
+>   * @orders: allocation orders, must be non zero
+> @@ -501,13 +499,17 @@ static struct folio *__swap_cache_alloc(struct swap_cluster_info *ci,
+>   * doing IO (e.g. swap in or zswap writeback). The swap slot indicated by
+>   * @targ_entry must have a non-zero swap count (swapped out).
+>   *
+> + * The returned folio is locked and is NOT on the LRU. The caller must either
+> + * add it to the LRU with folio_add_lru() so page reclaim can find it, or free
+> + * it directly once done; a folio left off the LRU is unreclaimable and leaks.
+> + *
+>   * Context: Caller must protect the swap device with reference count or locks.
+>   * Return: Returns the folio if allocation succeeded and folio is in the swap
+>   * cache. Returns error code if failed due to race, OOM or invalid arguments.
+>   */
+> -struct folio *swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
+> -				     unsigned long orders, struct vm_fault *vmf,
+> -				     struct mempolicy *mpol, pgoff_t ilx)
+> +struct folio *__swap_cache_alloc_folio(swp_entry_t targ_entry, gfp_t gfp,
+> +				       unsigned long orders, struct vm_fault *vmf,
+> +				       struct mempolicy *mpol, pgoff_t ilx)
+>  {
+>  	int order, err;
+>  	struct folio *ret;
+> @@ -643,12 +645,13 @@ static struct folio *swap_cache_read_folio(swp_entry_t entry, gfp_t gfp,
+>  		folio = swap_cache_get_folio(entry);
+>  		if (folio)
+>  			return folio;
+> -		folio = swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
+> +		folio = __swap_cache_alloc_folio(entry, gfp, BIT(0), NULL, mpol, ilx);
+>  	} while (PTR_ERR(folio) == -EEXIST);
+>  
+>  	if (IS_ERR_OR_NULL(folio))
+>  		return NULL;
+>  
+> +	folio_add_lru(folio);
+>  	swap_read_folio(folio, plug);
+>  	if (readahead) {
+>  		folio_set_readahead(folio);
+> @@ -683,12 +686,13 @@ struct folio *swapin_sync(swp_entry_t entry, gfp_t gfp, unsigned long orders,
+>  		folio = swap_cache_get_folio(entry);
+>  		if (folio)
+>  			return folio;
+> -		folio = swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
+> +		folio = __swap_cache_alloc_folio(entry, gfp, orders, vmf, mpol, ilx);
+>  	} while (PTR_ERR(folio) == -EEXIST);
+>  
+>  	if (IS_ERR(folio))
+>  		return folio;
+>  
+> +	folio_add_lru(folio);
+>  	swap_read_folio(folio, NULL);
+>  	return folio;
+>  }
+> diff --git a/mm/zswap.c b/mm/zswap.c
+> index 761cd699e0a3..8163e6c5f76c 100644
+> --- a/mm/zswap.c
+> +++ b/mm/zswap.c
+> @@ -1000,8 +1000,8 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+>  		return -EEXIST;
+>  
+>  	mpol = get_task_policy(current);
+> -	folio = swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
+> -				       NO_INTERLEAVE_INDEX);
+> +	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
+> +					 NO_INTERLEAVE_INDEX);
+>  	put_swap_device(si);
+>  
+>  	/*
+> @@ -1013,6 +1013,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
+>  	 */
+>  	if (IS_ERR(folio))
+>  		return PTR_ERR(folio);
+> +	folio_add_lru(folio);
+>  
+>  	/*
+>  	 * folio is locked, and the swapcache is now secured against
+> -- 
+> 2.53.0-Meta
+> 
+> 
 
-This is a global object. I don't get why it's global. But it seems not
-relevant to tie with ctrl_dev->dev (see Sashiko report). Can you please
-go one step further in this cleanup?
+I checked the callers of __swap_cache_alloc_folio(). The regular 
+swap-in paths add the folio to the LRU after allocation, while 
+the zswap writeback path keeps it off-LRU for the dropbehind 
+handling in patch 3. 
+The new allocator contract is preserved by all callers.
+
+swapfile.c still references the old name in a comment — minor 
+consistency nit.
+
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
 
 Thanks,
-Miqu=C3=A8l
+KunWu
+
