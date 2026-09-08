@@ -1,180 +1,309 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.187.6.220])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 78A0319F115;
-	Tue,  8 Sep 2026 04:22:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.187.6.220
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788841366; cv=none; b=WRCiOk/9f3rGqzrSGLIbcrHBvBJlLIckXlZ3tilxsEppbg2ptrNA8nuHLnIBqKsRhp5vERbOk8SxlfWAunszN9IskxtIL//CQ6P14bujoQE9lxJuZSk8RLND0Uxixz/4uGqwrrSVtPTrgLNWs3DazBQ5jI6JNq1RDEUeS+eJ8bA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788841366; c=relaxed/simple;
-	bh=qFAx9w5djwomjCqZF/+EPZjtBV3yE4+cb/UYRsC23+Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jrjss80r0cITUmwkUknz/X/rRsMZIJtRyuB3T9Me/dOSXRKkKopWG4aJJGhKH6kR7dyyaHfSFRHEo9kjDsrl8ONg3/qIl+FIv9TSoRXDicpDd0rp9vYpz3e77sThuP6wREo95ANNOsJTvk6dpYBBacQum5Hg9RrwkW1v3JBEWnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.187.6.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
-Received: from zju.edu.cn (unknown [10.98.66.117])
-	by mtasvr (Coremail) with SMTP id _____wA3EX6DjZ9qJ0v9AA--.22841S3;
-	Tue, 08 Sep 2026 12:22:28 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
-	by mail-app1 (Coremail) with SMTP id yy_KCgCnPKeDjZ9qvzlkBA--.62142S2;
-	Tue, 08 Sep 2026 12:22:27 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: gregkh@linuxfoundation.org,
-	linux-usb@vger.kernel.org
-Cc: joel@jms.id.au,
-	andrew@codeconstruct.com.au,
-	benh@kernel.crashing.org,
-	linux-aspeed@lists.ozlabs.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>
-Subject: [PATCH] usb: gadget: aspeed-vhub: cancel wake work on device removal
-Date: Tue,  8 Sep 2026 04:17:39 +0000
-Message-Id: <20260908041740.613713-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 053EB1D54FA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 04:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788841407; cv=pass; b=VsP2Fc4a8LkzCs1+zbKmRCi5TPs25l0VGZ1GhlbcWFMAquNFJTVlLYnUXbHHxKR7WYJew6AiQPReDDExe8gdibOuK4U+Z6f1FufAQKXEHB+0l4TaaqwG4sfTSIuGgIDPviSHmWMitdnJ9eLeFKpHeIWrXLVLqVAdza0LcrSc3/o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788841407; c=relaxed/simple;
+	bh=OiwksJVeBYIuZzTcu72Dg7gibbJleKPZw0Sws+Kzavk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lcbxjL7kbecb9etBolxPtNNXQJrXkBPjaTVTLcea+2Xfqf76HUjiAswXkkTj8SsIAsRsvVgv1x2x8+8yNFtuYxMQJWLx/IT/ZVmXE2HCgA5ZIy2bveHm1wXk7zHFWx3JAW7bU/dvz/+q/dVnJ5RlDdeAnhWgGD49b517ykG56rQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=bhThNsx9; arc=pass smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="bhThNsx9"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso40988845ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 21:23:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788841404; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dywefct1vgwcMma1x8BulfLkQGPlKBlRoo97oUlbKZJiMj0E8ycnzmQTT4jgpIzMeg
+         JfRu/QTwjTZi4k8jMJHK0fbyB0Y3KvsNfdOB7YwK98W6pce0Fm7vxadaCHumxttXA/4j
+         pnBiu7AapEQuMJZHjn+IiGnrwYOtfwQE4bNiuhGE0AA3cJbcKgApZjcjQtEyW59gT1iG
+         3OeCISeamG7ZMV3qGc7+dvFON4FdgUsEl6wAFgAsy6uz6jPK1dWY1fc5+gwFzRTklfUj
+         nrvzQD1BtJ+gR3LNNa3ENI9kEJv4tRW427HGbnV7X9Yi1j1FkkZa6+VlSFSHYmxY2H7t
+         q6qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=OiwksJVeBYIuZzTcu72Dg7gibbJleKPZw0Sws+Kzavk=;
+        fh=FPWOwJwKwoWydma+2DE1/T3Ap24o6VargPjXK703rdc=;
+        b=ToYWNacH2qkwUotFBIoXyfRk7yUDNbppOWIiZD/DVxVeTZ12gAXsUbUAYurLQ3C657
+         YdbrZ0ZKf33vv4jRIEvgOC5IJrBsxOtvUHkISAdcudEG2X1+lfPOf15ahUuTNxJ47B6/
+         rIbj2eR88vWxmDtlQo7iuM8rVIj4w25067ows3ycA8Q91gKJbsExNreVqoV1qBj6GZjd
+         VzE8Hd2B6/CfP931GrYgk9Ip05WrXyq+KErz2zhE3wMemlpdnE229LAN/p0GQrNEC0wi
+         UWMdn7zvg8PSHS3ke/P+Uv36VcW9HqLVRCYsGCw8QGoLumeFUGo1PHkiSxi6q0hL7AaC
+         XV/A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=berkeley.edu; s=google; t=1788841404; x=1789446204; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OiwksJVeBYIuZzTcu72Dg7gibbJleKPZw0Sws+Kzavk=;
+        b=bhThNsx99u4M2ti/dtd3Gh/jis8CyR88boUGm/Y5HPpzS5+uGR1PAJABLvOcEFdvKE
+         xJL2w40+vRgql4l4YCCudv5+VxzRDL88mp8zlyVORIVWxY6hCCryEg8gQusghgWgq+NO
+         ao538ptynLTL6RvtU9WfZubx/oYj7TkgoG5aroIVIM5C3RUVWkkN0dTA0CN1cGlKR4QR
+         g3bcRKmE52a52R+QWnR3yVn1Ec8m6659Hs+fRkRr0NpSy6IapLrkJWC/BuqWOWZxl8qD
+         wftC0LZQT+M4bDqZ/YT72Ii77AODWbtoaUKLxV6ZTb2+h0Fqxpt8WysXukn3immBqo3+
+         QblA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788841404; x=1789446204;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OiwksJVeBYIuZzTcu72Dg7gibbJleKPZw0Sws+Kzavk=;
+        b=Ec1gMBRZji2iHZ/4QBNhhio/deEnDFfV2zn5FmkrrP/tFE2jS1ZVngVR9XR2Tw1PbO
+         RA+3714Ev0048Vd4BTyAUw7Atsudrd1qn24tfxidm1W0YrxnPWPHmBS4RiPbqoN9dA+I
+         sxqf3bbwGxVOzduFoRqN0s3/ok4pQNjdzeX/M9uCiSsX8g0fCX5CqCuJ9GtDbFjbhLc7
+         tFFDeMnU/ctSeu0na4EtQq5d+z8dBrPFxqAwX5A0IUjjZ25V05wq+Sd77t71UiEkK/Rk
+         3/zfVTkpXyX0ApAM6ugmrJO57zD7LFWhdPjpfN4RnCPDhyIdci/BeDi80AE9wvlgEpiB
+         AMjA==
+X-Forwarded-Encrypted: i=1; AKwUvByi/Kg6VQYbjVshyrhrpslMXA8dn6N9AjoTFtiZ12VlhqjeCtawct6+dOp8JSt5LProBfpqvNbZs4dCPJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mHQ9+15F46MeYviMn5JVr0wwJjEl4f+cVeqHerfdxgkK1nDT0D
+	UeG4rFVpoDBJfc+vBKkeQNTsAfbYhHsxXLOAo5UxohSd+YE190PT3FQ9sCMAgBB1uGCk3sbWMS4
+	x8QHMAlmmqKKv+rQI1+P/tuvJierF/xzKgbzVwN8A
+X-Gm-Gg: AYBFou3/6lsQ2os5K56d2F4+mGrOd6ub6LPFabpjv20wr2RKUEIouMVEcsgx1stYegg
+	r2L6xEMPZCZv3fJlIkPv7huRhMYdZZMmRztbfSmq/N72cAbaE0Qf0hsq1yzdfcPxYcZA1KhBA/Z
+	RnbwCjlKV+kBvOjvfz51N+fkfipeDGOuCnPSl/zEKd+Ju2CvMqnAp2pLmxBijlHBhoXBdZBdLaT
+	Oc3g+RIaziXWNMuNRvZ5R4sOUBK+LmwI5yUNPnia2kWG/6nuHT0WEoLraqOMdCCQ3mGDzzxNzr5
+	Ks0ZloFp1Y4eTEuGce+SmCU3vHPF+bB0rlFVtHbI3j7wNbflToA3298nwi2NLH8ZKm+wWkgaR/T
+	BNI7n5fpPrvf3IJ/aqyhbFuOuh94diuE=
+X-Received: by 2002:a17:903:22d0:b0:2d8:d4ce:7e40 with SMTP id
+ d9443c01a7336-2db12674f20mr381151415ad.21.1788841403193; Mon, 07 Sep 2026
+ 21:23:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:yy_KCgCnPKeDjZ9qvzlkBA--.62142S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?aQaxtQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
-	sfnVCjTgEH9dVomQuWcozCBBHBKz8wg5YwzVCsKXh9KORbDx6nCOS/gp/XLEQsM9WWEs6A
-	SAYFFf03ZgYa92J2mMSp9E6mavGmQbzmcFsnzP86
-X-Coremail-Antispam: 1Uk129KBj93XoWxZFW5Jw17WF1kCF4fKF4rJFc_yoW7JFW8pa
-	15JrWxAFWDtFnFgrWUJrs3XF45G393KFWUGrW7Xw4YvF93Aryvyry7tFWFqa1UAFWIyF9I
-	9F4qqr4UXFs5XrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
-	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
-	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
-	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
-	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
-	I_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
-	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
-	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
-	JbIYCTnIWIevJa73UjIFyTuYvjxU7gAwDUUUU
+References: <CA+0ovCij3QDLRzt8CwpjBy-BbJ5Zf5SV9w9QZXz8uD3Agws31g@mail.gmail.com>
+ <20260830041303.1934825-1-peda@lysator.liu.se> <apSAfJARPgsbSDYb@zenone.zhora.eu>
+ <apSdR2m-uibYHxVI@gryt>
+In-Reply-To: <apSdR2m-uibYHxVI@gryt>
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
+Date: Mon, 7 Sep 2026 21:23:11 -0700
+X-Gm-Features: AcwNN1Upvo6GrSqmHicQ1hWJ9pTtZsthHj9TpYgDjsDKN3gq6BnDnB1FTbnfUDo
+Message-ID: <CA+0ovCg6zgs3Udd3tGCw-2gf3fV_THt2r1LrUsmdyx-R+kK_9g@mail.gmail.com>
+Subject: Re: [PATCH] i2c: mux: avoid WARN on benign symlink creation failures
+To: Peter Rosin <peda@lysator.liu.se>
+Cc: Andi Shyti <andi.shyti@kernel.org>, falemi@asu.edu, linux-i2c@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: multipart/mixed; boundary="000000000000671af2065af11849"
 
-wake_work is armed from the gadget .wakeup callback to resume suspended
-downstream ports, and it is never cancelled in ast_vhub_remove(), so a
-work item queued before or during removal can run after devm has freed
-vhub and its ports, a use-after-free.
+--000000000000671af2065af11849
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cancelling the work alone is not sufficient: usb_gadget_wakeup() takes
-no lock and the unbind path never clears wakeup_en, so a remote-wakeup
-request in flight on another CPU can re-arm the work after the cancel
-and before vhub is freed.
+Apologies for the delay in response; upon our run, the patched kernel
+(your 2 patches augmented & applied on 28924df2a08f) no longer panics
+on the attached reproducer.
 
-ast_vhub_del_dev() already clears d->registered under vhub->lock before
-unregistering the gadget. Refuse the wakeup in ast_vhub_udc_wakeup()
-once d->registered is clear: the check and the schedule_work() are then
-atomic against the unbind, so a wakeup that passed before the flag was
-cleared is drained by the cancel_work_sync() after the del_dev loop,
-and one that arrives later returns without arming. Also move INIT_WORK()
-to the top of ast_vhub_probe(), since the probe error path reuses
-ast_vhub_remove() and would otherwise cancel a never-initialized work
-item.
+Thanks!
 
-This issue was found by an in-house static analysis tool.
+On Sun, Aug 30, 2026 at 2:14=E2=80=AFPM Peter Rosin <peda@lysator.liu.se> w=
+rote:
+>
+> Den Sun, Aug 30, 2026 at 09:13:24PM +0200, skrev Andi Shyti:
+> > Hi Peter,
+> >
+> > On Sun, Aug 30, 2026 at 06:13:03AM +0200, Peter Rosin wrote:
+> > > WARN() is a bit harsh and causes a crash for panic-on-warn users. Deg=
+rade
+> > > the error reporting to ordinary dev_err() calls.
+> > >
+> > > Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
+> > > Link: https://lore.kernel.org/all/CA+0ovCij3QDLRzt8CwpjBy-BbJ5Zf5SV9w=
+9QZXz8uD3Agws31g@mail.gmail.com/
+> > > Signed-off-by: Peter Rosin <peda@lysator.liu.se>
+> > > ---
+> > >
+> > > Hi Farhad,
+> > >
+> > > I assume this patch helps?
+> >
+> > I sent this patch for a quick test:
+> >
+> > https://lore.kernel.org/all/20260828135950.454799-1-andi.shyti@kernel.o=
+rg/
+> >
+> > Maybe they can be taken together, as I agree not to fire a WARN()
+> > there.
+>
+> Hi Andi,
+>
+> [sorry for droping you from cc, that was unintentional]
+>
+> Yes, sure! And fixing the root cause is of course always nice, good one!
+>
+> Cheers,
+> Peter
 
-Fixes: 7ecca2a4080c ("usb/gadget: Add driver for Aspeed SoC virtual hub")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
----
- drivers/usb/gadget/udc/aspeed-vhub/core.c | 4 ++++
- drivers/usb/gadget/udc/aspeed-vhub/dev.c  | 2 +-
- drivers/usb/gadget/udc/aspeed-vhub/hub.c  | 5 +++--
- drivers/usb/gadget/udc/aspeed-vhub/vhub.h | 1 +
- 4 files changed, 9 insertions(+), 3 deletions(-)
+--000000000000671af2065af11849
+Content-Type: application/octet-stream; name="reproducer.c"
+Content-Disposition: attachment; filename="reproducer.c"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mts5xxtc1>
+X-Attachment-Id: f_mts5xxtc1
 
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-index 4a8b9ff83..069673f0d 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-@@ -267,6 +267,9 @@ static void ast_vhub_remove(struct platform_device *pdev)
- 	for (i = 0; i < vhub->max_ports; i++)
- 		ast_vhub_del_dev(&vhub->ports[i].dev);
- 
-+	/* Final drain; the worker takes vhub->lock, so stay outside of it */
-+	cancel_work_sync(&vhub->wake_work);
-+
- 	spin_lock_irqsave(&vhub->lock, flags);
- 
- 	/* Mask & ack all interrupts  */
-@@ -328,6 +331,7 @@ static int ast_vhub_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	spin_lock_init(&vhub->lock);
-+	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
- 	vhub->pdev = pdev;
- 	vhub->port_irq_mask = GENMASK(VHUB_IRQ_DEV1_BIT + vhub->max_ports - 1,
- 				      VHUB_IRQ_DEV1_BIT);
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-index 8b9449d16..4b389de0d 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-@@ -280,7 +280,7 @@ static int ast_vhub_udc_wakeup(struct usb_gadget* gadget)
- 	int rc = -EINVAL;
- 
- 	spin_lock_irqsave(&d->vhub->lock, flags);
--	if (!d->wakeup_en)
-+	if (!d->wakeup_en || !d->registered)
- 		goto err;
- 
- 	DDBG(d, "Device initiated wakeup\n");
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-index 02fe1a08d..d0345f310 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-@@ -558,7 +558,7 @@ void ast_vhub_device_connect(struct ast_vhub *vhub,
- 		ast_vhub_send_host_wakeup(vhub);
- }
- 
--static void ast_vhub_wake_work(struct work_struct *work)
-+void ast_vhub_wake_work(struct work_struct *work)
- {
- 	struct ast_vhub *vhub = container_of(work,
- 					     struct ast_vhub,
-@@ -588,6 +588,8 @@ static void ast_vhub_wake_work(struct work_struct *work)
- 
- void ast_vhub_hub_wake_all(struct ast_vhub *vhub)
- {
-+	lockdep_assert_held(&vhub->lock);
-+
- 	/*
- 	 * A device is trying to wake the world, because this
- 	 * can recurse into the device, we break the call chain
-@@ -1076,7 +1078,6 @@ static int ast_vhub_init_desc(struct ast_vhub *vhub)
- int ast_vhub_init_hub(struct ast_vhub *vhub)
- {
- 	vhub->speed = USB_SPEED_UNKNOWN;
--	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
- 
- 	return ast_vhub_init_desc(vhub);
- }
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-index aca2050e2..96f1c3709 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-@@ -547,6 +547,7 @@ void ast_vhub_hub_suspend(struct ast_vhub *vhub);
- void ast_vhub_hub_resume(struct ast_vhub *vhub);
- void ast_vhub_hub_reset(struct ast_vhub *vhub);
- void ast_vhub_hub_wake_all(struct ast_vhub *vhub);
-+void ast_vhub_wake_work(struct work_struct *work);
- 
- /* dev.c */
- int ast_vhub_init_dev(struct ast_vhub *vhub, unsigned int idx);
--- 
-2.34.1
+LyoKICogUmVwcm9kdWNlciBmb3IgMTg1LXdhcm5pbmctaW4taTJjLW11eC1hZGQtYWRhcHRlcgog
+Ki8KI2RlZmluZSBfR05VX1NPVVJDRQojaW5jbHVkZSA8ZGlyZW50Lmg+CiNpbmNsdWRlIDxmY250
+bC5oPgojaW5jbHVkZSA8cHRocmVhZC5oPgojaW5jbHVkZSA8c2lnbmFsLmg+CiNpbmNsdWRlIDxz
+dGRpbnQuaD4KI2luY2x1ZGUgPHN0ZGlvLmg+CiNpbmNsdWRlIDxzdGRsaWIuaD4KI2luY2x1ZGUg
+PHN0cmluZy5oPgojaW5jbHVkZSA8c3lzL2lvY3RsLmg+CiNpbmNsdWRlIDx1bmlzdGQuaD4KI2lu
+Y2x1ZGUgPGxpbnV4L3VzYi9jaDkuaD4KI2luY2x1ZGUgPGxpbnV4L3VzYi9yYXdfZ2FkZ2V0Lmg+
+CgojZGVmaW5lIEVQMF9NQVggNDA5NgoKc3RhdGljIGludCByYXdfZ2FkZ2V0X2ZkOwoKc3RhdGlj
+IGNvbnN0IHVpbnQ4X3QgZGV2aWNlX2Rlc2NyaXB0b3JbMThdID0gewoJMHgxMiwgMHgwMSwgMHgx
+MCwgMHgwMSwgMHgwMCwgMHgwMCwgMHgwMCwgMHg0MCwgMHg3MiwgMHgwNSwgMHhhMiwgMHg1OCwK
+CTB4MDAsIDB4MDEsIDB4MDEsIDB4MDIsIDB4MDMsIDB4MDEsCn07CgpzdGF0aWMgY29uc3QgdWlu
+dDhfdCBjb25maWdfZGVzY3JpcHRvclsxMjVdID0gewoJMHgwOSwgMHgwMiwgMHg3ZCwgMHgwMCwg
+MHgwNiwgMHgwMSwgMHgwMCwgMHg4MCwgMHgzMiwgMHgwOSwgMHgwOSwgMHgwMCwKCTB4MDAsIDB4
+MDEsIDB4MDAsIDB4MDAsIDB4MDAsIDB4MDAsIDB4MDgsIDB4MGIsIDB4MDEsIDB4MDUsIDB4ZmYs
+IDB4ZmYsCgkweGZmLCAweDAwLCAweDA5LCAweDA1LCAweDgxLCAweDAyLCAweDQwLCAweDAwLCAw
+eDAwLCAweDAwLCAweDAwLCAweDA5LAoJMHgwNCwgMHgwMSwgMHgwMCwgMHgwMSwgMHgwMCwgMHgw
+MCwgMHgwMCwgMHgwMCwgMHgwOSwgMHgwNSwgMHg4MiwgMHgwMiwKCTB4NDAsIDB4MDAsIDB4MDAs
+IDB4MDAsIDB4MDAsIDB4MDksIDB4MDQsIDB4MDIsIDB4MDAsIDB4MDEsIDB4MDAsIDB4MDAsCgkw
+eDAwLCAweDAwLCAweDA5LCAweDA1LCAweDgzLCAweDAyLCAweDQwLCAweDAwLCAweDAwLCAweDAw
+LCAweDAwLCAweDA5LAoJMHgwNCwgMHgwMywgMHgwMCwgMHgwMSwgMHgwMCwgMHgwMCwgMHgwMCwg
+MHgwMCwgMHgwOSwgMHgwNSwgMHg4NCwgMHgwMiwKCTB4NDAsIDB4MDAsIDB4MDAsIDB4MDAsIDB4
+MDAsIDB4MDksIDB4MDQsIDB4MDQsIDB4MDAsIDB4MDEsIDB4MDAsIDB4MDAsCgkweDAwLCAweDAw
+LCAweDA5LCAweDA1LCAweDg1LCAweDAyLCAweDQwLCAweDAwLCAweDAwLCAweDAwLCAweDAwLCAw
+eDA5LAoJMHgwNCwgMHgwNSwgMHgwMCwgMHgwMSwgMHgwMCwgMHgwMCwgMHgwMCwgMHgwMCwgMHgw
+OSwgMHgwNSwgMHg4NiwgMHgwMiwKCTB4NDAsIDB4MDAsIDB4MDAsIDB4MDAsIDB4MDAsCn07Cgpz
+dGF0aWMgdm9pZCBlcDBfdHJhbnNmZXIoY29uc3Qgdm9pZCAqZGF0YSwgdWludDMyX3QgbGVuKQp7
+Cgl1aW50OF90IGJ1ZltzaXplb2Yoc3RydWN0IHVzYl9yYXdfZXBfaW8pICsgRVAwX01BWF07Cglz
+dHJ1Y3QgdXNiX3Jhd19lcF9pbyAqaW8gPSAodm9pZCAqKWJ1ZjsKCglpby0+ZXAgPSAwOwoJaW8t
+PmZsYWdzID0gMDsKCWlvLT5sZW5ndGggPSBsZW47CglpZiAoZGF0YSkKCQltZW1jcHkoaW8tPmRh
+dGEsIGRhdGEsIGxlbik7CgkvKiBhbiBPVVQgdHJhbnNmZXIgaXMgYWNrbm93bGVkZ2VkIHdpdGgg
+RVAwX1JFQUQsIG5vdCBFUDBfV1JJVEUgKi8KCWlvY3RsKHJhd19nYWRnZXRfZmQsIGRhdGEgPyBV
+U0JfUkFXX0lPQ1RMX0VQMF9XUklURSA6IFVTQl9SQVdfSU9DVExfRVAwX1JFQUQsIGlvKTsKfQoK
+c3RhdGljIHZvaWQgaGFuZGxlX2NvbnRyb2xfcmVxdWVzdChjb25zdCBzdHJ1Y3QgdXNiX2N0cmxy
+ZXF1ZXN0ICpjdHJsKQp7CglzdGF0aWMgdWludDhfdCB2ZW5kb3JfcmVwbHlbRVAwX01BWF07Cglj
+b25zdCB1aW50OF90ICpyZXBseSA9IE5VTEw7Cgl1aW50MzJfdCByZXBseV9sZW4gPSAwOwoKCWlm
+ICgoY3RybC0+YlJlcXVlc3RUeXBlICYgVVNCX1RZUEVfTUFTSykgPT0gVVNCX1RZUEVfU1RBTkRB
+UkQpIHsKCQlpZiAoY3RybC0+YlJlcXVlc3QgPT0gVVNCX1JFUV9HRVRfREVTQ1JJUFRPUiAmJgoJ
+CSAgICAoY3RybC0+d1ZhbHVlID4+IDgpID09IFVTQl9EVF9ERVZJQ0UpIHsKCQkJcmVwbHkgPSBk
+ZXZpY2VfZGVzY3JpcHRvcjsKCQkJcmVwbHlfbGVuID0gc2l6ZW9mKGRldmljZV9kZXNjcmlwdG9y
+KTsKCQl9IGVsc2UgaWYgKGN0cmwtPmJSZXF1ZXN0ID09IFVTQl9SRVFfR0VUX0RFU0NSSVBUT1Ig
+JiYKCQkJICAgKGN0cmwtPndWYWx1ZSA+PiA4KSA9PSBVU0JfRFRfQ09ORklHKSB7CgkJCXJlcGx5
+ID0gY29uZmlnX2Rlc2NyaXB0b3I7CgkJCXJlcGx5X2xlbiA9IHNpemVvZihjb25maWdfZGVzY3Jp
+cHRvcik7CgkJfSBlbHNlIGlmIChjdHJsLT5iUmVxdWVzdCA9PSBVU0JfUkVRX1NFVF9DT05GSUdV
+UkFUSU9OKSB7CgkJCWlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9DVExfQ09ORklHVVJF
+LCAwKTsKCQkJZXAwX3RyYW5zZmVyKE5VTEwsIDApOwoJCQlyZXR1cm47CgkJfQoJfSBlbHNlIGlm
+IChjdHJsLT5iUmVxdWVzdFR5cGUgJiBVU0JfRElSX0lOKSB7CgkJbWVtc2V0KHZlbmRvcl9yZXBs
+eSwgMCwgc2l6ZW9mKHZlbmRvcl9yZXBseSkpOwoJCS8qIEJPQVJEX0NGR19TVEFUOiB3aXRob3V0
+IHRoaXMgaW5pdGlhbGl6ZV9jeDIzMXh4KCkgZmFpbHMgYW5kCgkJICogcHJvYmUgcmV0dXJucyBi
+ZWZvcmUgdGhlIGkyYyBtdXggaXMgZXZlciByZWdpc3RlcmVkICovCgkJaWYgKGN0cmwtPmJSZXF1
+ZXN0ID09IDB4MGQgJiYgY3RybC0+d0luZGV4ID09IDB4MDAwMCkKCQkJdmVuZG9yX3JlcGx5WzBd
+ID0gMHg4MTsKCQkvKiBBRkUgU1VQX0JMS19QV1JETjogdGhlIHZhbHVlIHRoZSB1bmNhcHBlZAoJ
+CSAqICJ3aGlsZSAoYWZlX3Bvd2VyX3N0YXR1cyAhPSAweDE4KSIgbG9vcHMgd2FpdCBmb3IgKi8K
+CQllbHNlIGlmIChjdHJsLT53SW5kZXggPT0gMHgwMDA4KQoJCQl2ZW5kb3JfcmVwbHlbMF0gPSAw
+eDE4OwoJCXJlcGx5ID0gdmVuZG9yX3JlcGx5OwoJCXJlcGx5X2xlbiA9IGN0cmwtPndMZW5ndGgg
+PiBFUDBfTUFYID8gRVAwX01BWCA6IGN0cmwtPndMZW5ndGg7Cgl9IGVsc2UgewoJCWVwMF90cmFu
+c2ZlcihOVUxMLCAwKTsKCQlyZXR1cm47Cgl9CglpZiAoIXJlcGx5KSB7CgkJaW9jdGwocmF3X2dh
+ZGdldF9mZCwgVVNCX1JBV19JT0NUTF9FUDBfU1RBTEwsIDApOwoJCXJldHVybjsKCX0KCWlmIChy
+ZXBseV9sZW4gPiBjdHJsLT53TGVuZ3RoKQoJCXJlcGx5X2xlbiA9IGN0cmwtPndMZW5ndGg7Cgll
+cDBfdHJhbnNmZXIocmVwbHksIHJlcGx5X2xlbik7Cn0KCnN0YXRpYyB2b2lkICpnYWRnZXRfZXZl
+bnRfbG9vcCh2b2lkICp1bnVzZWQpCnsKCXVpbnQ4X3QgYnVmW3NpemVvZihzdHJ1Y3QgdXNiX3Jh
+d19ldmVudCkgKyBFUDBfTUFYXTsKCXN0cnVjdCB1c2JfcmF3X2V2ZW50ICpldmVudCA9ICh2b2lk
+ICopYnVmOwoKCWZvciAoOzspIHsKCQlldmVudC0+dHlwZSA9IDA7CgkJZXZlbnQtPmxlbmd0aCA9
+IEVQMF9NQVg7CgkJaWYgKGlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9DVExfRVZFTlRf
+RkVUQ0gsIGV2ZW50KSA8IDApIHsKCQkJdXNsZWVwKDEwMDApOwoJCQljb250aW51ZTsKCQl9CgkJ
+aWYgKGV2ZW50LT50eXBlID09IFVTQl9SQVdfRVZFTlRfQ09OVFJPTCkKCQkJaGFuZGxlX2NvbnRy
+b2xfcmVxdWVzdCgoc3RydWN0IHVzYl9jdHJscmVxdWVzdCAqKWV2ZW50LT5kYXRhKTsKCX0KCXJl
+dHVybiB1bnVzZWQ7Cn0KCnN0YXRpYyB2b2lkIHdyaXRlX3N5c2ZzKGNvbnN0IGNoYXIgKnN5c2Zz
+X3BhdGgsIGNvbnN0IGNoYXIgKnZhbHVlKQp7CglpbnQgc3lzZnNfZmQgPSBvcGVuKHN5c2ZzX3Bh
+dGgsIE9fV1JPTkxZKTsKCglpZiAoc3lzZnNfZmQgPCAwKQoJCXJldHVybjsKCXdyaXRlKHN5c2Zz
+X2ZkLCB2YWx1ZSwgc3RybGVuKHZhbHVlKSk7CgljbG9zZShzeXNmc19mZCk7Cn0KCi8qIHVkZXYg
+cnVucyB2NGxfaWQgb24gdGhlIHZpZGVvIG5vZGUgY3gyMzF4eCByZWdpc3RlcnM7IHRoYXQgb3Bl
+biByYWNlcyB0aGUKICogZmFpbGluZyBwcm9iZSdzIHRlYXJkb3duIGFuZCBwYW5pY3Mgb24gYW4g
+dW5yZWxhdGVkIHVzZS1hZnRlci1mcmVlIGZpcnN0ICovCnN0YXRpYyB2b2lkIGZyZWV6ZV91ZGV2
+X2FuZF92NGxfaWQodm9pZCkKewoJRElSICpwcm9jX2RpciA9IG9wZW5kaXIoIi9wcm9jIik7Cglz
+dHJ1Y3QgZGlyZW50ICpwcm9jX2VudDsKCWNoYXIgY29tbV9wYXRoWzY0XSwgY29tbVs2NF07Cglp
+bnQgY29tbV9mZCwgY29tbV9sZW47CgoJd2hpbGUgKHByb2NfZGlyICYmIChwcm9jX2VudCA9IHJl
+YWRkaXIocHJvY19kaXIpKSkgewoJCWlmIChhdG9pKHByb2NfZW50LT5kX25hbWUpIDw9IDEpCgkJ
+CWNvbnRpbnVlOwoJCXNucHJpbnRmKGNvbW1fcGF0aCwgc2l6ZW9mKGNvbW1fcGF0aCksICIvcHJv
+Yy8lcy9jb21tIiwKCQkJIHByb2NfZW50LT5kX25hbWUpOwoJCWNvbW1fZmQgPSBvcGVuKGNvbW1f
+cGF0aCwgT19SRE9OTFkpOwoJCWlmIChjb21tX2ZkIDwgMCkKCQkJY29udGludWU7CgkJY29tbV9s
+ZW4gPSByZWFkKGNvbW1fZmQsIGNvbW0sIHNpemVvZihjb21tKSAtIDEpOwoJCWNsb3NlKGNvbW1f
+ZmQpOwoJCWlmIChjb21tX2xlbiA8PSAwKQoJCQljb250aW51ZTsKCQljb21tW2NvbW1fbGVuXSA9
+IDA7CgkJaWYgKHN0cnN0cihjb21tLCAidWRldmQiKSB8fCBzdHJzdHIoY29tbSwgInY0bF9pZCIp
+KQoJCQlraWxsKGF0b2kocHJvY19lbnQtPmRfbmFtZSksIFNJR1NUT1ApOwoJfQoJaWYgKHByb2Nf
+ZGlyKQoJCWNsb3NlZGlyKHByb2NfZGlyKTsKfQoKLyogdml2aWQubl9kZXZzPTY0IGV4aGF1c3Rz
+IHRoZSAyNTYgdjRsMiBtaW5vcnMsIHNvIGN4MjMxeHgncyB2Ymkgbm9kZSBmYWlscwogKiB0byBy
+ZWdpc3RlciBhbmQgcHJvYmUgZGllcyBiZWZvcmUgdGhlIG11eCBpcyBsZWZ0IGJlaGluZCAqLwpz
+dGF0aWMgdm9pZCB1bmJpbmRfdml2aWRfdG9fZnJlZV92NGwyX21pbm9ycyh2b2lkKQp7CglESVIg
+KnZpdmlkX2RpciA9IG9wZW5kaXIoIi9zeXMvYnVzL3BsYXRmb3JtL2RyaXZlcnMvdml2aWQiKTsK
+CXN0cnVjdCBkaXJlbnQgKnZpdmlkX2VudDsKCgl3aGlsZSAodml2aWRfZGlyICYmICh2aXZpZF9l
+bnQgPSByZWFkZGlyKHZpdmlkX2RpcikpKSB7CgkJaWYgKHN0cm5jbXAodml2aWRfZW50LT5kX25h
+bWUsICJ2aXZpZC4iLCA2KSkKCQkJY29udGludWU7CgkJd3JpdGVfc3lzZnMoIi9zeXMvYnVzL3Bs
+YXRmb3JtL2RyaXZlcnMvdml2aWQvdW5iaW5kIiwKCQkJICAgIHZpdmlkX2VudC0+ZF9uYW1lKTsK
+CX0KCWlmICh2aXZpZF9kaXIpCgkJY2xvc2VkaXIodml2aWRfZGlyKTsKfQoKaW50IG1haW4odm9p
+ZCkKewoJc3RydWN0IHVzYl9yYXdfaW5pdCBpbml0ID0geyAuc3BlZWQgPSBVU0JfU1BFRURfSElH
+SCB9OwoJY2hhciBjeDIzMXh4X2ludGZbMzJdLCBjeDIzMXh4X2ludGZfcGF0aFs2NF07CglwdGhy
+ZWFkX3QgZ2FkZ2V0X3RocmVhZDsKCURJUiAqdWRjX2RpcjsKCXN0cnVjdCBkaXJlbnQgKnVkY19l
+bnQ7CgljaGFyICp1ZGNfaW5kZXg7CglpbnQgYmluZF9mZCwgd2FpdGVkOwoKCS8qIEZpcnN0IFVE
+QyBpbiAvc3lzL2NsYXNzL3VkYywgZS5nLiAiZHVtbXlfdWRjLjIiIC0+IGRyaXZlcgoJICogImR1
+bW15X3VkYyIuICBkdW1teV9oY2QuTiBvd25zIFVTQiBidXMgTisxIGFuZCBoYXMgb25lIHBvcnQs
+IHNvIHRoZQoJICogZGV2aWNlIGxhbmRzIG9uICI8TisxPi0xIiBhbmQgY3gyMzF4eCBiaW5kcyBp
+dHMgaW50ZXJmYWNlIDEuICovCgl1ZGNfZGlyID0gb3BlbmRpcigiL3N5cy9jbGFzcy91ZGMiKTsK
+CXdoaWxlICgodWRjX2VudCA9IHJlYWRkaXIodWRjX2RpcikpICYmIHVkY19lbnQtPmRfbmFtZVsw
+XSA9PSAnLicpCgkJOwoJaWYgKCF1ZGNfZW50KQoJCXJldHVybiAxOwoJc3RyY3B5KChjaGFyICop
+aW5pdC5kZXZpY2VfbmFtZSwgdWRjX2VudC0+ZF9uYW1lKTsKCXN0cmNweSgoY2hhciAqKWluaXQu
+ZHJpdmVyX25hbWUsIHVkY19lbnQtPmRfbmFtZSk7CgljbG9zZWRpcih1ZGNfZGlyKTsKCXVkY19p
+bmRleCA9IHN0cnJjaHIoKGNoYXIgKilpbml0LmRyaXZlcl9uYW1lLCAnLicpOwoJaWYgKHVkY19p
+bmRleCkKCQkqdWRjX2luZGV4ID0gMDsKCXNucHJpbnRmKGN4MjMxeHhfaW50Ziwgc2l6ZW9mKGN4
+MjMxeHhfaW50ZiksICIlZC0xOjEuMSIsCgkJIGF0b2kodWRjX2luZGV4ID8gdWRjX2luZGV4ICsg
+MSA6ICIwIikgKyAxKTsKCXNucHJpbnRmKGN4MjMxeHhfaW50Zl9wYXRoLCBzaXplb2YoY3gyMzF4
+eF9pbnRmX3BhdGgpLAoJCSAiL3N5cy9idXMvdXNiL2RldmljZXMvJXMiLCBjeDIzMXh4X2ludGYp
+OwoKCS8qIGN4MjU4NDAgcmVxdWVzdHMgZmlybXdhcmU7IHdpdGggdWRldmQgZnJvemVuIG5vdGhp
+bmcgYW5zd2VycyB0aGUKCSAqIHN5c2ZzIGZhbGxiYWNrLCBzbyBjYXAgaXRzIHdhaXQgaW5zdGVh
+ZCBvZiBibG9ja2luZyBwcm9iZSBmb3IgNjBzICovCgl3cml0ZV9zeXNmcygiL3N5cy9jbGFzcy9m
+aXJtd2FyZS90aW1lb3V0IiwgIjEiKTsKCWZyZWV6ZV91ZGV2X2FuZF92NGxfaWQoKTsKCXVuYmlu
+ZF92aXZpZF90b19mcmVlX3Y0bDJfbWlub3JzKCk7CgoJcmF3X2dhZGdldF9mZCA9IG9wZW4oIi9k
+ZXYvcmF3LWdhZGdldCIsIE9fUkRXUik7Cglpb2N0bChyYXdfZ2FkZ2V0X2ZkLCBVU0JfUkFXX0lP
+Q1RMX0lOSVQsICZpbml0KTsKCWlvY3RsKHJhd19nYWRnZXRfZmQsIFVTQl9SQVdfSU9DVExfUlVO
+LCAwKTsKCXB0aHJlYWRfY3JlYXRlKCZnYWRnZXRfdGhyZWFkLCBOVUxMLCBnYWRnZXRfZXZlbnRf
+bG9vcCwgTlVMTCk7CgoJZm9yICh3YWl0ZWQgPSAwOyB3YWl0ZWQgPCAyMDAgJiYgYWNjZXNzKGN4
+MjMxeHhfaW50Zl9wYXRoLCBGX09LKTsgd2FpdGVkKyspCgkJdXNsZWVwKDUwMDAwKTsKCWlmICh3
+YWl0ZWQgPT0gMjAwKQoJCXJldHVybiAxOwoJc2xlZXAoMik7CgoJYmluZF9mZCA9IG9wZW4oIi9z
+eXMvYnVzL3VzYi9kcml2ZXJzL2N4MjMxeHgvYmluZCIsIE9fV1JPTkxZKTsKCXdyaXRlKGJpbmRf
+ZmQsIGN4MjMxeHhfaW50Ziwgc3RybGVuKGN4MjMxeHhfaW50ZikgKyAxKTsKCXJldHVybiAwOwp9
+Cg==
+--000000000000671af2065af11849
+Content-Type: application/octet-stream; name="185.patch"
+Content-Disposition: attachment; filename="185.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mts5xxt80>
+X-Attachment-Id: f_mts5xxt80
 
+LS0tIGEvZHJpdmVycy9tZWRpYS91c2IvY3gyMzF4eC9jeDIzMXh4LWNhcmRzLmMJMjAyNi0wOS0w
+NyAyMDozNzoyOS44OTkyOTg4MjIgLTA3MDAKKysrIGIvZHJpdmVycy9tZWRpYS91c2IvY3gyMzF4
+eC9jeDIzMXh4LWNhcmRzLmMJMjAyNi0wOS0wNyAyMDozNzoyOS45MjUzNjcxNjUgLTA3MDAKQEAg
+LTE4MjYsNyArMTgyNiw3IEBACiAKIAlyZXR2YWwgPSBjeDIzMXh4X2luaXRfdjRsMihkZXYsIHVk
+ZXYsIGludGVyZmFjZSwgaXNvY19waXBlKTsKIAlpZiAocmV0dmFsKQotCQlnb3RvIGVycl9pbml0
+OworCQlnb3RvIGVycl92aWRlb19hbHQ7CiAKIAlpZiAoZGV2LT5jdXJyZW50X3BjYl9jb25maWcu
+dHMxX3NvdXJjZSAhPSAweGZmKSB7CiAJCS8qIGNvbXB1dGUgYWx0ZXJuYXRlIG1heCBwYWNrZXQg
+c2l6ZXMgZm9yIFRTMSAqLwotLS0gYS9kcml2ZXJzL2kyYy9pMmMtbXV4LmMJMjAyNi0wOS0wNyAy
+MDozODozNy4zNDIxNjQ5MTUgLTA3MDAKKysrIGIvZHJpdmVycy9pMmMvaTJjLW11eC5jCTIwMjYt
+MDktMDcgMjA6Mzg6MzcuMzYzODA1NTQyIC0wNzAwCkBAIC0zOTMsMTQgKzM5MywxOCBAQAogCQl9
+CiAJfQogCi0JV0FSTihzeXNmc19jcmVhdGVfbGluaygmcHJpdi0+YWRhcC5kZXYua29iaiwgJm11
+eGMtPmRldi0+a29iaiwKLQkJCSAgICAgICAibXV4X2RldmljZSIpLAotCSAgICAgImNhbid0IGNy
+ZWF0ZSBzeW1saW5rIHRvIG11eCBkZXZpY2VcbiIpOworCXJldCA9IHN5c2ZzX2NyZWF0ZV9saW5r
+KCZwcml2LT5hZGFwLmRldi5rb2JqLCAmbXV4Yy0+ZGV2LT5rb2JqLAorCQkJCSJtdXhfZGV2aWNl
+Iik7CisJaWYgKHJldCkKKwkJZGV2X2VycihtdXhjLT5kZXYsICJjYW4ndCBjcmVhdGUgc3ltbGlu
+ayB0byBtdXggZGV2aWNlXG4iKTsKIAogCXNucHJpbnRmKHN5bWxpbmtfbmFtZSwgc2l6ZW9mKHN5
+bWxpbmtfbmFtZSksICJjaGFubmVsLSV1IiwgY2hhbl9pZCk7Ci0JV0FSTihzeXNmc19jcmVhdGVf
+bGluaygmbXV4Yy0+ZGV2LT5rb2JqLCAmcHJpdi0+YWRhcC5kZXYua29iaiwKLQkJCSAgICAgICBz
+eW1saW5rX25hbWUpLAotCSAgICAgImNhbid0IGNyZWF0ZSBzeW1saW5rIHRvIGNoYW5uZWwgJXVc
+biIsIGNoYW5faWQpOworCXJldCA9IHN5c2ZzX2NyZWF0ZV9saW5rKCZtdXhjLT5kZXYtPmtvYmos
+ICZwcml2LT5hZGFwLmRldi5rb2JqLAorCQkJCXN5bWxpbmtfbmFtZSk7CisJaWYgKHJldCkKKwkJ
+ZGV2X2VycihtdXhjLT5kZXYsCisJCQkiY2FuJ3QgY3JlYXRlIHN5bWxpbmsgdG8gY2hhbm5lbCAl
+dVxuIiwgY2hhbl9pZCk7CisKIAlkZXZfaW5mbygmcGFyZW50LT5kZXYsICJBZGRlZCBtdWx0aXBs
+ZXhlZCBpMmMgYnVzICVkXG4iLAogCQkgaTJjX2FkYXB0ZXJfaWQoJnByaXYtPmFkYXApKTsKIAo=
+--000000000000671af2065af11849--
