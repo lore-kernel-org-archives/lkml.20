@@ -1,65 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A092F43CE56;
-	Tue,  8 Sep 2026 23:46:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC9943CE56;
+	Tue,  8 Sep 2026 23:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788911213; cv=none; b=E0Efpc3KkjAwXPJI+3VJI8B8NQnIqETnIDfk4CSomIxoWm3MxHaEkBsBF0n9I/ZJXQksRul3469HH9wDS4bR8AKxc2ACdFXgSLn7y9VdxehIKc79ajx6P+92fbgtDnoFBPfEtkp7X3ZdrR4cqfI2jbC652VtAvHwgJZ+PMVgwHw=
+	t=1788911280; cv=none; b=SP5i9WUHNKF6+Pr2pZIgKYgXHLOzr1a5zlqPph4SugaaYgV3DCMs2ktCT78sQA4hfkTDBEW5gi1WFDogpRcy1EcXMlfaEh0/VEZU7YVOJtE3syjjsfpWVnbBz7ElS4mZFlsRzjL0S3mB29BauA4+QPgz6mSOr1agapafXXNRaNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788911213; c=relaxed/simple;
-	bh=6vCcIIQVnZPoU4q7D2c9z019f+3J7WNmqcOzGdrT6kc=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=W+DTSjlcXwL3GCXZwizmCUYOjNEuyiy30RjGkVvyN3aD/87x7qjuoFfa4PaTw6FUWyPAElAblipdomh8HQ3YyjnT0/VjPOueJ8BkqgELmotM0RaSzXu6LBscvUPauc1r1Y9CWYG0/n2G3krfADB7+vggb8K0tR8I1lSXpndty6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1+nmUsa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788911280; c=relaxed/simple;
+	bh=EaJbgfb2Xp6KjsXfat3qBVZhik7uyAklt1PcZr1OzdA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pzk454aiHAGP7wxYkjVoDPqChMXPk9G545R9kkW7AxfXpci5MtfPUSoiMZmVniS28T9a9SyZDQxSBr/ELGgjKQoet+Y/0Dw89Xx0oJIjVpQG7UX5BQHFLNxvBoImaOFhcwKzCJKwRuli2+WAzXx7zYGTxaiAWevoLs8PK3NDXAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzOeLNv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1+nmUsa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8349B1F00A3A;
-	Tue,  8 Sep 2026 23:46:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzOeLNv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206451F00A3A;
+	Tue,  8 Sep 2026 23:47:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788911212;
-	bh=s76MEdgN6Dlw3VEj2tiygClyBZDsu40WfSu1krSscek=;
+	s=k20260515; t=1788911278;
+	bh=7Y1bO6BSKs8lhourNZdBsvXbOFXn4uwlU+fUG4ILrEc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=U1+nmUsaenYMonLuueN/haGrGg4s69pb4x5XFrUrrO+zT8/N9DrZ3fTWwdLY03pZW
-	 qg5TBDLpiKcICA/PlLxjPnI5y6sfSTOx9GW1CpkX5zUep1Sr10OqiY+SQlf+cws0WR
-	 PLYVEQSguJgKTRnNcRlKGQwaqOgsvg4Ukbd3IbrC3gOTKybfH7bS85ghsxrkDMgPOB
-	 4ZRD2H+6LX8phjpeqxUCBdMkIsHCIWPZFKsNZxGBwfBfWunjH68mahhxrFY5/iQe3u
-	 rJ1G8L3ck36ekEw9TD795e746QUV8f926PXh6CV1lDTj+tsyFD6ow9wpN9cBrxLyda
-	 jdP8gNT73DSkQ==
-Date: Wed, 9 Sep 2026 08:46:47 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: davem@davemloft.net, include@grrlz.net, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, naveen@kernel.org
-Subject: Re: [PATCH v2] kprobes: use DEFINE_DEBUGFS_ATTRIBUTE for the
- enabled knob
-Message-Id: <20260909084647.e2d9cf350e7e98df6032bee0@kernel.org>
-In-Reply-To: <E69D1F6E-8329-4A67-BCEA-EFBFF91E57D2@mainlining.org>
-References: <20260908101017.a4a72b4c93b51571d0fbfbac@kernel.org>
-	<E69D1F6E-8329-4A67-BCEA-EFBFF91E57D2@mainlining.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=UzOeLNv7GkMKf2Mq6br3A1bWbAbJyNTtetHf+gy7lx4yP57gWxB81yEJtgKg6a1ts
+	 +FIlSc3YFhawgwdurKtG210kd9INERJ/0ZgbVPMvrAHlwsMQc4fMtdLV1Ws3ALHkRH
+	 y3lXfVmmlOvwobT9yyEkAY5kOKCKQaR4gLU/QfR/AiN32qinw2dOqFmpta2S86EUyZ
+	 KP0lTP2JZBFV6W2YCZezBlctsp7DsuCYdj7Nn2isCGC5zshrhK+JA1Lku99Icdj/MF
+	 I4tKL7eLU2uYTTb6u3HkSkaxPsly+pWBXWJAxZIeQKfAkhVJyuURgVDk6QJP+UmNrN
+	 Scq6Aa0ZCePUA==
+Date: Wed, 9 Sep 2026 00:47:52 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: alistair23@gmail.com
+Cc: linux-pci@vger.kernel.org, Jonathan.Cameron@huawei.com, djbw@kernel.org,
+ rust-for-linux@vger.kernel.org, lukas@wunner.de, alistair@alistair23.me,
+ linux-cxl@vger.kernel.org, bhelgaas@google.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, gary@garyguo.net, ojeda@kernel.org,
+ benno.lossin@proton.me, a.hindborg@kernel.org, wilfred.mallawa@wdc.com,
+ tmgross@umich.edu, boqun.feng@gmail.com, bjorn3_gh@protonmail.com,
+ alex.gaynor@gmail.com, aliceryhl@google.com
+Subject: Re: [PATCH v3 15/21] lib: rspdm: Support SPDM get_capabilities
+Message-ID: <20260909004752.6b8a3a46@jic23-huawei>
+In-Reply-To: <20260901010347.2614656-16-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
+	<20260901010347.2614656-16-alistair.francis@wdc.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Tue, 08 Sep 2026 16:19:00 +0100
-Bradley Morgan <brads@mainlining.org> wrote:
-> >
-> >
-> Hey, can u change sob to this email if possible? Check lore link below for
-> info
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+On Tue,  1 Sep 2026 11:03:41 +1000
+alistair23@gmail.com wrote:
 
-No, but basically I can add your new email. Or can you resend this to
-replace the new one?
-
-Thank you,
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> From: Alistair Francis <alistair@alistair23.me>
+> 
+> Support the GET_CAPABILITIES SPDM command.
+> 
+> Signed-off-by: Alistair Francis <alistair@alistair23.me>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
