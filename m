@@ -1,75 +1,73 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010034.outbound.protection.outlook.com [52.101.56.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8C74E66B8
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:51:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861091; cv=none; b=L1rHUvMKM5Aa0SNdx5zX7DH3AJW3biGRvlVUunq2dM4UWk3hHXS/OR3ckDHcYTRXDJyE98UvlSrnkM2mOQ/9BBCAncjHsqPKWrVwdl+6XfNwMklHo+t45YWNd+hY97j2I8HNStCuZooDqjLziRX6g5Aj3p9ME0X/1ADr5G1QxuI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861091; c=relaxed/simple;
-	bh=5CWTOwOGmV0tbIBmvdnUvKYui1xJoatPFsL+LsX19RE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SdnQ5ikyUtrvqAUmfakKCJS/st//nBvDMSlDLx6tbZU6NpWNNuH8TmKx92vUCnPu0aExVxbsKlZmdYQubAsR4+02gbNLH57LxOIp15kxvgK3qR2YwENpaOSdgoO7+RL+cowSbGdRI6iGZq5E7LnsfPfWEzRh40FW0krOMkKeuJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQRKJ3xX; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C464E56E7;
+	Tue,  8 Sep 2026 09:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788861090; cv=fail; b=pkDWwS+OqW6Ccp5Ec9N7iz/uVjoHaYO7XZsQYF2+c991++ZTEo+UnLxyVh7Ua5/avHfGWTCXFkiJXhmN5KnZPamV12dwa4uV4Ccl0sSsy+QJqDONBXYVhOHTgbPbvpXTeHmfpl59QqBf50ThPFmJape8Jz/Rc12/u4KDN/qGbvg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788861090; c=relaxed/simple;
+	bh=aKfqVeTxkaifxgxlbPnRKgUS2Cstyw4twB6HpBaj698=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=A4brcaJwABJUGMl6f4dsXpdhrZCvYFBIjWhaBSWrcxAOPb/IuCSFSbJ6fMs8UtPkt2jzGGsxvI1SYrurG1hdVqxk5JLdIceLLqmsSun5nkJOB8TTYzyyh2/JcWiV4RvS6bzgCb4moeIdkWlmtWidJWrqCF3Cgpoe1lim7MARXfg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UwINWqHv; arc=fail smtp.client-ip=52.101.56.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQRKJ3xX"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b1a806664so561603a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:51:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788861089; x=1789465889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5CWTOwOGmV0tbIBmvdnUvKYui1xJoatPFsL+LsX19RE=;
-        b=CQRKJ3xXgW74OfBTd/g6J7KyL4zGi32EJIk2VBzvm3Uxh97turAx1KhRC1nNklLW7M
-         UVho9kJ/5EnV2TEdq9i+J/pF2mDIYgvIHGux1aXTM2tzTZDFEeMNE7CdF7+ROA0aYIza
-         ZDHg9ozE2Hay70DEoE2nyjTHPeaUVRcLO2qtPZ3p2n0qhuSo4JfeHwJ8qzmAZumtYGep
-         NUEqnWF5GZ+Neeos/yH9fRHj0kSztsFJEYN+iv/EF5RvFZbyDJj/50MoPrMg3Yz06BUP
-         p332zIRrqNbcifLslKO+0aacvpKUJn7aFG3RgOaMkRJV6GJ8WiQ56Uk7fB08E26Vg92C
-         yuew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788861089; x=1789465889;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5CWTOwOGmV0tbIBmvdnUvKYui1xJoatPFsL+LsX19RE=;
-        b=rMG7GLiCOvApopGsuE8qECCibkFSCONK2yukDd2SYJ+366QjUw+qvLnY6KrR6UXHo2
-         Z/9T1o+xfKUR0W2NHxUKT+myOwBS9vic+cQnQz74lbqSaZCtXV1+YyPuStvRrCY/Waym
-         /tOYvj5kCQ0rMA65Ot+avdG7DnO5W8wBRtuyCbeBkUhWbHqtXgmx4Tz1HRf5+Kv9HmXT
-         JNRmnvZ/pUY0Xwh6A+SdLoJaYoKmhE5qzLGJmX+IKRQ6jiy+PUynJwN4MTMJMGQL6Qht
-         5PACC49X+m7ndFhPe1rITWW7bKs8zE2z1/ufJuEzt5Rtp/NBiKiJijwYqq6SAq8WPIi+
-         MQBA==
-X-Forwarded-Encrypted: i=1; AKwUvByYi26naCniB6XmKyg+Xb61b9s9TYNe8DgbiMKEmEdTiW6TBgYNOD6e7c0UqsXEg3qN8du+40tt8rbcH+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPNX4w/jLsMd95QVOHdPPAG+5R44j1k6mfKMSMk0HtTj6hMUoS
-	Op1qv29BvZqNydBbZUcc5cKsXnNobv4I89dGZ4K4Nz5C5svLFnYBql6v
-X-Gm-Gg: AYBFou2m3tH9+zICEM83wVMwKxfoZ6nztBObZjTRT42cONFD+9bvzSU0fkMOwIBsIxy
-	DbE2WrTEXEwuEdwFkKxvPTDco+WFlUqKMnHhZ+WzVFqqtmESNgca3jdOiiFRI2Jup2mrQwKjRwT
-	N+9NtDZR23+1NqIj6eS4uD5niJrZTIGLNbCfw8DttFrY4jkZ4EJx1SHnfV9ASZbtpNPDd+KQgNP
-	GOVH5DizB+k6PS7JWLrR7zY5nScf5kivGS+EyWR/zNuSx7JOFeVpDdXClO8jQWVwz4Li+Z9uMtA
-	5T1TMKLtTJNKqGQOicYfowD0eaqr5vp4ql4UfjRfSGLA9yMhozbRrL4gnUll0YziZCsc6oPKjtk
-	GtTAPGbEYzp1/CU0MzbS5GdObYNDCLssSRBXrkUJt2bGxrrd9sdOCTHR4bs+LQgUs+jcTVarM82
-	hoZp1XXzLexw3422vzNRc4O8JvRj4ggDAh/h35ZqiOT0CcATpZ/FYBxH7gzhS7DF+vNpMcI4dOv
-	5T9Pe+FlVyRoTjFEZw8FYdSK32pSQ==
-X-Received: by 2002:a17:90b:3ccf:b0:39b:34ef:3b24 with SMTP id 98e67ed59e1d1-39b3d5aaa70mr19661739a91.1.1788861089072;
-        Tue, 08 Sep 2026 02:51:29 -0700 (PDT)
-Received: from cachyos-aura ([45.112.148.105])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm39414604eec.1.2026.09.08.02.51.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:51:28 -0700 (PDT)
-From: Navon John Lukose <navonjohnlukose@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org
-Cc: linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC v2] platform/x86: hp-wmi: Add charge behaviour support
-Date: Tue,  8 Sep 2026 15:21:22 +0530
-Message-ID: <20260908095122.442670-1-navonjohnlukose@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <edbe584a-c241-c3e6-9993-2783934885d9@linux.intel.com>
-References: <20260531181326.1000801-1-navonjohnlukose@gmail.com> <edbe584a-c241-c3e6-9993-2783934885d9@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UwINWqHv"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vqL2IZdpKSarwVAWjbYnDQa4yBgK4KLz1Y/eD/7103pnaJh8pa2Ni3AhDiev9eOcR8LM8IJrtn2B8Mkiw5Aj2D/yi/6jHdNeZfugry8VQtP/9wDRCNpY6xmVuHRNv/nQWq4PoA9cLWaQzxXMUej7KX+FAHTv0QgZgFH/IiWJFqHdmZK5zh+vMzV41+DdhdVi5NaLHnh8AyGyvm5FZd57obpVNG0UYohnRU0zets6MvN9FYccL8YC9tXN/E13cn9uUqmkHn+DxsfDFUQD/wMwlQNgmLwgVNIEbcUSBu7QDSMLo+dXR3WKCZ0A8kGyFnBQQWoNjHTkpe+nzn1f1Y2alg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TQ8ilXLNMeQ7l1oAd+vAOU1OLCFXNPhgng5/EZJKPmU=;
+ b=dZ4bUvYjqeWt65RF6lxazsvD7g4LdY99QGv7bxCzn0sqYXhgSh/CFJ5CPe9Ws/s6E4C9w850fOcilqdnHesrt8059k3n356jlceNLIKLrLPN9wYUbyQEsISC9cleTw/ZNyTSYUDoY0SdicyKBxSWSzYZieZ6TQHxjV9Qj7Mfm6D6mw99X4/Rz8pwZ+mUtmBRlIEFqTePtBNWn86jyuQTVHd+D6j44gFqBox+cr/OkgfTSyuxZIY9FZHiQ35CwDXZ2NBBWKhjygA4vRfgQ/KgEizt1EGlgfPPrNfRXxKQBua7WWwlJ5c0aN5e87RM0auqW5dprVOFspZ7876YGhn+jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TQ8ilXLNMeQ7l1oAd+vAOU1OLCFXNPhgng5/EZJKPmU=;
+ b=UwINWqHvDHsmADPnxAwAWn6artTpUMUXA4i+KkO3W3JJ9qMuhGzx2XUpWALrywIULCfkpupd0/GInCmHZc2Et/AauMPY6mHMZltvIqDGZe4JeppTfdTdbsSYejeS/0YAvQe/m/lLUIoCthwMFrwLYpclUp3BYmVEGyjXRBV2KUVmtWUeGtAKkDwN8QtOfbUD4Z8bCSqnAFOYoi8CGqvY4lWNaB70Dxhlyf9Du8NUCzzJo+ERJA6yb8Iwmzf3sWArap+/k6Hc35M+3ExcjCAoKXQRb9AhImEX6UUE0G576o8/aHStaJ3ZcyE4GBXv04eAVEc2zFC6bq0aLDQTKxqVPQ==
+Received: from PH7PR02CA0025.namprd02.prod.outlook.com (2603:10b6:510:33d::14)
+ by MN0PR12MB5930.namprd12.prod.outlook.com (2603:10b6:208:37d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 09:51:22 +0000
+Received: from SJ1PEPF000023CD.namprd02.prod.outlook.com
+ (2603:10b6:510:33d:cafe::10) by PH7PR02CA0025.outlook.office365.com
+ (2603:10b6:510:33d::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 09:51:22 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ SJ1PEPF000023CD.mail.protection.outlook.com (10.167.244.8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 09:51:22 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 02:51:07 -0700
+Received: from r-build-bsp-06.mtr.labs.mlnx (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 02:51:05 -0700
+From: Felix Radensky <fradensky@nvidia.com>
+To: Andi Shyti <andi.shyti@kernel.org>
+CC: <linux-i2c@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Jean Delvare
+	<jdelvare@suse.com>, Vadim Pasternak <vadimp@nvidia.com>, Felix Radensky
+	<fradensky@nvidia.com>
+Subject: [PATCH] i2c: dev: Fix duplicate chardev registration during module init
+Date: Tue, 8 Sep 2026 12:50:16 +0300
+Message-ID: <20260908095016.1050174-1-fradensky@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,14 +75,122 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023CD:EE_|MN0PR12MB5930:EE_
+X-MS-Office365-Filtering-Correlation-Id: eea6ca65-6459-479c-f88c-08df0d8ebd4c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|30052699003|82310400026|36860700016|1800799024|376014|10067099003|6133799003|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	G1BX0JyJMnIIg+8l3zZenpsWgAqd5/q9LhiIeZ3Phd5jOVZxwjf1fIq+DQs99ag8wnXpaEPcSO1+sfOzLZrbSip5VCLGQ0fY9IBqWFmYJzF8bSMXiqEi1ghI2jMpkhKsCh987UkcdcJvUf5gAsRPhPk36zZy+mxzYQbtQHoWmRm1pLAT8WrKw3zoiJIIRZcEqvT38VinzTGC5bSphecfsNgcRYhvTfpo0WZHpAUE2duy1GPPDcUwe5cCKqWhkDnXUwRtxiKz026tZCYQ1dmrh6DBXP+t2MJnN+bRBQoGMCh1s/gYFbFCrAyYh0thrgAbSpuuSbS4U6csdaBmowKmRtHmdc1eKrWowGiTPMNC6U0S6ijsPrDbWy2AiCIa6p9vsLAhc+pOTZenUF/IxZvznjZXNcLfjfckJXYq4/tfPnscPOuH22JtOKHF3YcPVGB9cX89/aKn3ts9VRIPQpQEpj8k9Supf7pkrhR9Vb/y6RfS5FPpSwe3XLiIeWf8o+F5fzs8Q7paRoKPsIa7oYyg47nh9IxzQPFvtVdzokhnVZ922JnWpBkPkavNo78B2iflQonSDllcs7yhVMHWSSDBArWh+cTqyi3bzb+UJWFayZ6XmAIhLY8VJUmlKJ9JlOV4yEUGQWCQ2sADAEjOEIcae0omFdXCHDcyNcTzMGfEDL4iuZ8ZNVEpsVtPoUzETe3pdfPGhsCd4/r6LkcfJ2CTsw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(30052699003)(82310400026)(36860700016)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sT5TVX7yWJ/1rFEKYZEYTRbqFQ4GWGuEFSc8lODNnN70T/zpVr5ufcUGNHIvO63kHlDcQSBP6pK8dfReTUVxFw1y1NhgqCRlm0TYXaafV8LO1t0+pYEqJE1k0SCdE5qJiXri5hR1SgxJ409z5ig2TIQ+vE5po/Mr/vOKDgu4PlLlVTOLGVTuhdILQCkRY/W54L5aAb47a1+Mldc+2zjGswZvprva1Ckxw4Ni+nlMAZW4r26RiIdK4S8JICDKysXUCW8AlxNxiMb0XYbUGFWqG7ypCYUnSftl0QfUsm+6g778SRtiMgTIanoIgiPZAkUvURWMymWPlMLQQFQRGKWXi+ejKxvi1ShDbbf5wPTbmiWRjR0uZC9tQtyFvZ69uXGwgSvNlOn6AYNejMxpo/D1SPTFdRXQFcABoGdLiai/h+KwrSiqer5Xx9AkLg9k/Fjb
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 09:51:22.2066
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eea6ca65-6459-479c-f88c-08df0d8ebd4c
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000023CD.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5930
 
-Sorry for the slow reply.
+i2c_dev_init() first registers a bus notifier and only then walks the
+adapters that are already registered:
 
-It was RFC because I wasn't sure the WMI interface was right for other HP
-models. But I've since changed laptops and no longer have the HP, so I
-can't test a v3 or anything on top of it.
+	res = bus_register_notifier(&i2c_bus_type, &i2cdev_notifier);
+	if (res)
+		goto out_unreg_class;
 
-Dropping it. Best of luck to anyone with the hardware who wants to pick
-it up.
+	/* Bind to already existing adapters right away */
+	i2c_for_each_dev(NULL, i2c_dev_attach_adapter);
 
-Navon
+device_add() links a new device into the bus klist in bus_add_device(),
+which runs before BUS_NOTIFY_ADD_DEVICE is emitted.  An adapter that is
+registered while i2c_dev_init() is running can therefore be observed by
+both paths: the notifier creates its chardev, and i2c_for_each_dev(),
+which has no way to tell that the notifier already ran, tries to create
+it a second time.
+
+The second cdev_device_add() fails with -EEXIST:
+
+  sysfs: cannot create duplicate filename '/devices/platform/mlxplat/i2c_mlxcpld.1/i2c-1/i2c-2/i2c-dev/i2c-2'
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x5d/0x80
+   sysfs_warn_dup.cold+0x17/0x23
+   sysfs_create_dir_ns+0xca/0xe0
+   kobject_add_internal+0xba/0x250
+   kobject_add+0x96/0xc0
+   device_add+0xe2/0x890
+   cdev_device_add+0x48/0x90
+   i2cdev_attach_adapter+0x137/0x170 [i2c_dev]
+   i2c_dev_attach_adapter+0xe/0xf60 [i2c_dev]
+   bus_for_each_dev+0x88/0xe0
+   i2c_for_each_dev+0x31/0x50
+   i2c_dev_init+0x77/0xa0 [i2c_dev]
+   do_one_initcall+0x58/0x2f0
+   do_init_module+0x60/0x230
+   </TASK>
+  kobject: kobject_add_internal failed for i2c-2 with -EEXIST, don't try
+  to register things with the same name in the same directory.
+
+This is reproducible on systems where adapters appear asynchronously
+while i2c-dev is being loaded, for example when an i2c mux instantiates
+its child adapters from a deferred probe.
+
+Registering the notifier before walking the bus is intentional, as the
+reverse order would silently miss adapters registered in between, so the
+attach path has to tolerate being called twice for the same adapter.
+Make it idempotent: look for an existing i2c_dev while holding
+i2c_dev_list_lock, which serialises the lookup against a parallel
+insertion, and let the loser return -EBUSY.  i2cdev_attach_adapter()
+already ignores get_free_i2c_dev() failures, so it just backs off.
+
+Fixes: 9ea3e941d161 ("i2c-dev: Use standard bus notification mechanism")
+Cc: stable@vger.kernel.org
+Signed-off-by: Felix Radensky <fradensky@nvidia.com>
+---
+ drivers/i2c/i2c-dev.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/i2c-dev.c b/drivers/i2c/i2c-dev.c
+index e9577f9..d1de6d2 100644
+--- a/drivers/i2c/i2c-dev.c
++++ b/drivers/i2c/i2c-dev.c
+@@ -67,7 +67,7 @@ found:
+ 
+ static struct i2c_dev *get_free_i2c_dev(struct i2c_adapter *adap)
+ {
+-	struct i2c_dev *i2c_dev;
++	struct i2c_dev *i2c_dev, *tmp;
+ 
+ 	if (adap->nr >= I2C_MINORS) {
+ 		pr_err("Out of device minors (%d)\n", adap->nr);
+@@ -80,6 +80,13 @@ static struct i2c_dev *get_free_i2c_dev(struct i2c_adapter *adap)
+ 	i2c_dev->adap = adap;
+ 
+ 	spin_lock(&i2c_dev_list_lock);
++	list_for_each_entry(tmp, &i2c_dev_list, list) {
++		if (tmp->adap->nr == adap->nr) {
++			spin_unlock(&i2c_dev_list_lock);
++			kfree(i2c_dev);
++			return ERR_PTR(-EBUSY);
++		}
++	}
+ 	list_add_tail(&i2c_dev->list, &i2c_dev_list);
+ 	spin_unlock(&i2c_dev_list_lock);
+ 	return i2c_dev;
+-- 
+2.34.1
+
