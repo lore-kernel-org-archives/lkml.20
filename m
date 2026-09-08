@@ -1,78 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52055345751;
-	Tue,  8 Sep 2026 19:16:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E23550DC8;
+	Tue,  8 Sep 2026 19:18:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788894977; cv=none; b=JnjtNHDzipUYkI0OZ5F6Z+A1FyoeZQGeoOhny1FKQeMYDD0G2jQim2FA2WzP4SfZ5+oCNoYuXw5EtEoJunErhsuYr+du7s9hLzerw98NQmCcqI+l9/oosTquqcz4uE0Bc+OSlX/8+cQ2FNpu6KBjVVZITQ8VNGab/bKj+WQ35JY=
+	t=1788895087; cv=none; b=r+RxIZYaILQ7mpjKAFiyGUUjtHuuLWF9RDfXqm9ls3D44a8AeglGk63vEpYw/8nr8z5C+DU/eCcxZ3z8zYvaf2uECRXW3GlaufrSAIaTk1IFSEpo6+0PpcffhMOeiwjTT2knGvIkClEfwwW3aiXLQc7oxnx70fhj1KCVqzV6vEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788894977; c=relaxed/simple;
-	bh=cog+oVLaKQct6BzbWKYJueIWkbLd1K/8HinrtKRYCBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cimNJp3PlDR1FzBEt+Iu+SgtC8DVE7+aOL32XTk+AAC3MTXJ6r7aGTbEJUdyYqIOuSrjgwxn7adku2Mb1cnYFk91D+V2nCmnugmHQJ+7KrnBxmqu0IDIeui11rhUl5QRO1hR58EtQ5hEO6dx/Mh88X8ze76P9fouDkz1PNJhaOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FiBgZpIL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788895087; c=relaxed/simple;
+	bh=obfcqa143TIH83A5m78ACkUfBEk2IyZxN8MMKWepEzU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=dU5C7rO21+YDyb56uKrIKct4wu39j/dXQ34JznzMLsgl0cZBwe+BgNhHup+njbJWtz/YzVR5ncCL/OGUMAb6hz+mtjTaau7IQ25BP4JJEIsKmRG/RzOgJxXeSXWQRxPY4rYloZDRVD4DjugQicjAdraFynQNInEGaAHeQ0xcLAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDSd6NoB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FiBgZpIL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A40A1F00A3A;
-	Tue,  8 Sep 2026 19:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDSd6NoB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8DC1F00A3A;
+	Tue,  8 Sep 2026 19:18:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788894976;
-	bh=xMq8l7gT6yB6KuF9QRWCL28yujf4mq6rtubflHZD75Y=;
-	h=From:To:Cc:Subject:Date;
-	b=FiBgZpILqusTF6OW8Sna+WwhvoBP+hyiz7cfB+tCzf7IZikJNl9TVqmlmUADOv9H+
-	 T1eTEIpH4+D6jLMFIMa4/rbzDTWzpAHsKeysoI66xL22ZzeXjl2PnMLmpxUeeJxl13
-	 2CVKcw+pP3/2fESs5oli+DKZ7ZxYNF3Q9WaTGe+ruajAAxZY4lE5jEVLcFa99QZGFK
-	 AUBzNfq4o+CkEg/Mt8Y8MOEUH9R+hMbMPK7XWWnADjN6vJ2kRhVxjev7cOL5D5C3Ec
-	 PHFoZRDXdCpShrMgiv4MQsYMX04DGPTNG5nucTUhG/O/1Id9aCgHoCYKvcoIQN2dvs
-	 KYy1tK6f1p4TQ==
-From: Thorsten Blum <blum@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Michal Simek <michal.simek@amd.com>,
-	Harsh Jain <h.jain@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Takashi Sakamoto <o-takashi@sakamocchi.jp>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>
-Cc: Thorsten Blum <blum@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] crypto: xilinx - clear AES key buffer before freeing it
-Date: Tue,  8 Sep 2026 21:16:06 +0200
-Message-ID: <20260908191607.405177-2-blum@kernel.org>
-X-Mailer: git-send-email 2.55.0
+	s=k20260515; t=1788895086;
+	bh=3zNdWUSgSwvhga9v4qQ4H0Yaad35O2lT28Zf/3SCF4s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=VDSd6NoBDdS+z71yYs6um4yHJjfFBaWKwyvRdvaFK1ateiKCE1yrU01cEkcgibZOc
+	 L5gYaSDjwzZz79rOQyj8MXb87WtUIqPGzhsJkVEZGkICDvZCy1LCM6DqO2+w5BIi33
+	 7CTd0ho4UAR0uuLCuM8OTxczD7ocIz5xp92tpd/uaoqoDaKVroTMvnFviaH+2fb6n5
+	 e7iY8MqnrBJig67UQvP5Pk6GZfMZtXGJmkG42f91cpokeFfsz+0JzsdsENEmyj0p2D
+	 aNqO8VKNOv4wN81hWbQRjU09Fjq9KYsjfaRUvELIdUqTHEbJqB0+XQ2nkOhNOvYqww
+	 HbN4XF0SIdj+w==
+Date: Tue, 8 Sep 2026 14:18:04 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
+	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
+	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
+	david.laight.linux@gmail.com,
+	John Smith <imjohnsmith4000@gmail.com>,
+	Lennert Buytenhek <kernel@wantstofly.org>,
+	Roland Waltersson <roland.waltersson@netinsight.net>,
+	Mikael Etienne <mikael1022bzh@gmail.com>,
+	Arthur Husband <artmoty@gmail.com>,
+	Alvin Lim <alvinwylim@gmail.com>
+Subject: Re: [PATCH 1/2] x86/PCI: Disable enhanced atomics on some AMD PCIe
+ ports
+Message-ID: <20260908191804.GA2734734@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1078; i=blum@kernel.org; h=from:subject; bh=cog+oVLaKQct6BzbWKYJueIWkbLd1K/8HinrtKRYCBQ=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFkL4r5vf2fzboLsGc0Djwtd9L6o3bFbkDPLPW3NOqE/B qs3O9bGdpSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEmr8x/BUPu94jsKbVMEv7 p6hSYoLiz/rXIhHJ3/RWcm251rO+6Rcjwy6+/etf/+g+39l7/+HTMjVP1ocCTL3loR6FSpeD72n 5cwMA
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908170035.160166-2-mario.limonciello@amd.com>
 
-In xilinx_aes_aead_exit(), the AES key buffer is freed without being
-cleared, which allows key material to remain in memory. Use
-kfree_sensitive() to clear the buffer before freeing it.
+On Tue, Sep 08, 2026 at 12:00:34PM -0500, Mario Limonciello wrote:
+> There have been multiple reports of data corruption that can occur
+> with 64-bit DMA when the IOMMU is enabled. This occurs due to some
+> BIOSes enabling enhanced atomic operations on PCIe ports.
+> 
+> When enhanced atomic operations are enabled on PCIe ports for some
+> models, data corruption occurs when the 32-bit IOVA space is exhausted.
+> The problem is reported on storage devices, but can affect any device
+> that uses 64 bit DMA.
 
-Fixes: c315cb0005be ("crypto: xilinx - Change coherent DMA to streaming DMA API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- drivers/crypto/xilinx/zynqmp-aes-gcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I assume this means there's an erratum where NBIO doesn't handle
+64-bit DMA correctly when some AMD-specific "enhanced atomics" are
+enabled?
 
-diff --git a/drivers/crypto/xilinx/zynqmp-aes-gcm.c b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-index d54c268dfe34..ebee37dddb1f 100644
---- a/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-+++ b/drivers/crypto/xilinx/zynqmp-aes-gcm.c
-@@ -766,7 +766,7 @@ static void xilinx_aes_aead_exit(struct crypto_aead *aead)
- 	struct xilinx_aead_tfm_ctx *tfm_ctx = crypto_tfm_ctx(tfm);
- 
- 	dma_unmap_single(tfm_ctx->dev, tfm_ctx->key_dma_addr, AES_KEYSIZE_256, DMA_TO_DEVICE);
--	kfree(tfm_ctx->key);
-+	kfree_sensitive(tfm_ctx->key);
- 	if (tfm_ctx->fbk_cipher) {
- 		crypto_free_aead(tfm_ctx->fbk_cipher);
- 		tfm_ctx->fbk_cipher = NULL;
+Nothing to do with the atomic operations defined by the PCI specs?
+
+> Disable enhanced atomics using SMN for NBIO 7.7 and 7.11 based models.
+> 
+> Cc: david.laight.linux@gmail.com
+> Cc: John Smith <imjohnsmith4000@gmail.com>
+> Cc: Lennert Buytenhek <kernel@wantstofly.org>
+> Cc: Niklas Cassel <cassel@kernel.org>
+> Cc: Roland Waltersson <roland.waltersson@netinsight.net>
+> Reported-by: Mikael Etienne <mikael1022bzh@gmail.com>
+> Closes: https://lore.kernel.org/all/178789300872.392066.15963676631650361573@gmail.com/
+> Reported-by: Arthur Husband <artmoty@gmail.com>
+> Closes: https://lore.kernel.org/linux-ide/20260406222335.379935-1-artmoty@gmail.com/
+> Reported-by: Alvin Lim <alvinwylim@gmail.com>
+> Closes: https://lore.kernel.org/linux-ide/20260621100844.1224301-1-alvinwylim@gmail.com/
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  arch/x86/pci/fixup.c | 93 ++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 93 insertions(+)
+> 
+> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
+> index b301c6c8df753..0857fd9365ec2 100644
+> --- a/arch/x86/pci/fixup.c
+> +++ b/arch/x86/pci/fixup.c
+> @@ -886,6 +886,99 @@ static void quirk_clear_strap_no_soft_reset_dev2_f0(struct pci_dev *dev)
+>  	}
+>  }
+>  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15b8, quirk_clear_strap_no_soft_reset_dev2_f0);
+> +
+> +/*
+> + * Enhanced atomic operations can cause corruption with 64-bit IOVA
+> + * on these devices.
+> + */
+> +#define RX_ENH_ATOMIC_EN		BIT(8)
+> +
+> +static const u32 nbio_7_7_pcie_smn_addrs[] = {
+> +	0x111401d0,
+> +	0x111411d0,
+> +	0x111421d0,
+> +	0x111431d0,
+> +	0x111441d0,
+> +	0x112401d0,
+> +	0x112411d0,
+> +	0x112421d0,
+> +	0x112431d0,
+> +	0x112441d0,
+> +	0x112451d0,
+> +	0x113401d0,
+> +	0x114401d0,
+> +};
+> +
+> +static const u32 nbio_7_11_pcie_smn_addrs[] = {
+> +	0x112401d0,
+> +	0x112411d0,
+> +	0x112421d0,
+> +	0x112431d0,
+> +	0x112441d0,
+> +	0x112451d0,
+> +	0x113401d0,
+> +	0x113411d0,
+> +	0x113421d0,
+> +	0x113431d0,
+> +	0x113441d0,
+> +	0x113451d0,
+> +};
+> +
+> +static void quirk_amd_nbio_enhanced_atomic(struct pci_dev *host_bridge,
+> +					   const u32 *smn_addrs,
+> +					   size_t nr_smn_addrs)
+> +{
+> +	bool changed = false;
+> +	size_t i;
+> +	u32 data;
+> +	int ret;
+> +
+> +	for (i = 0; i < nr_smn_addrs; i++) {
+> +		ret = amd_smn_read(0, smn_addrs[i], &data);
+> +		if (ret)
+> +			continue;
+> +		if (!(data & RX_ENH_ATOMIC_EN))
+> +			continue;
+> +		data = data & ~RX_ENH_ATOMIC_EN;
+> +		ret = amd_smn_write(0, smn_addrs[i], data);
+> +		if (ret)
+> +			continue;
+> +		if (changed)
+> +			continue;
+> +		ret = amd_smn_read(0, smn_addrs[i], &data);
+> +		if (ret)
+> +			continue;
+> +		if (data & RX_ENH_ATOMIC_EN)
+> +			continue;
+> +		changed = true;
+> +	}
+> +
+> +	if (changed)
+> +		pci_info(host_bridge, "enhanced atomics disabled\n");
+> +}
+> +
+> +static void quirk_amd_nbio_7_7_disable_enhanced_atomic(struct pci_dev *dev)
+> +{
+> +	quirk_amd_nbio_enhanced_atomic(dev, nbio_7_7_pcie_smn_addrs,
+> +				       ARRAY_SIZE(nbio_7_7_pcie_smn_addrs));
+> +}
+> +
+> +static void quirk_amd_nbio_7_11_disable_enhanced_atomic(struct pci_dev *dev)
+> +{
+> +	quirk_amd_nbio_enhanced_atomic(dev, nbio_7_11_pcie_smn_addrs,
+> +				       ARRAY_SIZE(nbio_7_11_pcie_smn_addrs));
+> +}
+> +
+> +/* Phoenix, Hawk Point (NBIO 7.7) */
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x14E8,
+> +			quirk_amd_nbio_7_7_disable_enhanced_atomic);
+> +
+> +/* Strix, Krackan, Strix Halo (NBIO 7.11) */
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1507,
+> +			quirk_amd_nbio_7_11_disable_enhanced_atomic);
+> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1122,
+> +			quirk_amd_nbio_7_11_disable_enhanced_atomic);
+> +
+>  #endif
+>  
+>  /*
+> -- 
+> 2.43.0
+> 
