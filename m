@@ -1,129 +1,76 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB69526AA3;
-	Tue,  8 Sep 2026 09:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8BE52B1CF;
+	Tue,  8 Sep 2026 09:50:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861011; cv=none; b=eKHVUFlvpTHv2h5lEIAc2+78l8hzPj51KwyYg0mBQQYTBZIF5vTe1b412UrFC9JZsZiUFbJTl+7fTcS29bR1ArX/qvnSZ8xDf69COcZirCDCxaLk/iKIsAKUmIkzv8KkVgLGmtjyTMEnExOXbTD5F6gbKn+so9oP5faxO4cPKcE=
+	t=1788861014; cv=none; b=uNGCh4l7UMwLJ6s3bFPwQLWLSvcFtjMOSc42Mrkl/rhpE2MNGgs0r4Qy1fqKdNqPREIESlUq+fHi0vxQSJcAt3yh+8X60i+EkR0mDAkISVxijVqPKKWIr7xCwLH8oK+b/CKzJBuNwmbLg4HFsWH6CYyJ64a9KpPRZHk3V5r+/qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861011; c=relaxed/simple;
-	bh=fxBkl8UN4tRnHVfp02q8VLqsFWTrQ8bgE6+rw+AmQcc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qkwZFi5aGLc02Fh6YJ1xu42vM0K8vvBPmu/mqJrUB/hdNK04rjUS5Ncrr6Dk2lVailcOvVDaecXNMZxblDHSQJCXoVPNeTcZ5RdnX+OclLSzBuU/ny44hXn1BU8SyxzxsODAPVmh67fDGC/4IbTnba1PL5a17LHF87m7agEVj4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=BZQpFhBK; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788861014; c=relaxed/simple;
+	bh=gG0CYqaB3BBlWKe6dsmyD2vnlZhB7Veq2Ynt8JeOevQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EgzJkq5X+hsHOnV3j/3x/YWS7smURcByiPWCKm3whwazXsn9QThZY+mTzvglIg/yzhCjWo6l/elAYZbigFx+T/18dC0f7L3SaSYPpmTPHvjmKRKzN5fCQ/raFG9cfjmKqS1DtDGAf6KAXxDIkXdsspywcHZPXctH3OXXX8KUIeQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FxUwqzV9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="BZQpFhBK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788860938;
-	bh=xz739aXXIMUSh9Rjzk6Ups/xX8HvpqZMo6mX55mUgiw=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=BZQpFhBKrpEmq+z7kLQvLtc+IIRkkQHXeuldzS4UdYDIscDq63QiLB2l/LWYwPsLp
-	 0PaPNIzgay0cgApWPg31dwlTHxkCogKgSzytyGNAiZ50pOrIj/XlFwWD+qrK0CC4kp
-	 HKaU3/svgR+3MrtskG/5LfppTitUNO/kaTLhC9iU=
-X-QQ-mid: zesmtpgz5t1788860929tfc1f0512
-X-QQ-Originating-IP: 0x2hsZIjGcymUws19v1bVA6FVvDkhR+5jRKxV4RIAaA=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 17:48:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 12305366414733721363
-EX-QQ-RecipientCnt: 21
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Tue, 08 Sep 2026 17:48:39 +0800
-Subject: [PATCH v2 2/9] dt-bindings: usb: ci-hdrc-usb2: require clocks and
- resets for spacemit,k1-usb2
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FxUwqzV9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ABC11F00A3A;
+	Tue,  8 Sep 2026 09:50:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788861013;
+	bh=pOyngVYrItRuLe3u/yuA0H/Ld3sW0yaOzRVeptexYE4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FxUwqzV9pyaNtShWLPvMjWVA5HEpu5Ub9FmlIllTLQreh6DS7qrSu8hfJciWclUVd
+	 Ad5gj8mwGP6G+4HRp+OWSfuIyQSVLgaRm23zc0vN+7VEc0nLNEjAFRiVTafVoakpfM
+	 JDpqNEt3bvhylnCF3pluCauOud2JP5unjMTvr4Orkw5/UNT+hT/v2p6ehYJIxIENiM
+	 h45pmRxWFjGH7iLSOOk7L+qZOqCZHKyKvVBJIdHSrkI7qbrDdhy27BO7wvVZO4+eyn
+	 ipvrYCjPdee0DYRtxFUQNw4GgnUSfkefWDsWfMoTq2Ciw/m/ptonV3FVA6RGV3XOYF
+	 Q18xFkcU2iSWA==
+Date: Tue, 8 Sep 2026 11:50:09 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Nas Chung <nas.chung@chipsnmedia.com>
+Cc: mchehab@kernel.org, hverkuil@xs4all.nl, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, shawnguo@kernel.org, s.hauer@pengutronix.de, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-imx@nxp.com, linux-arm-kernel@lists.infradead.org, 
+	jackson.lee@chipsnmedia.com, lafley.kim@chipsnmedia.com, marek.vasut@mailbox.org
+Subject: Re: [PATCH v7 2/9] dt-bindings: media: nxp: Add Wave6 video codec
+ device
+Message-ID: <20260908-huge-shaggy-cockatoo-52b7a6@quoll>
+References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+ <d362714624fa5025db50293b1b737d3fa3ce2c49.1788496816.git.nas.chung@chipsnmedia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>, 
- Junzhong Pan <panjunzhong@linux.spacemit.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860920; l=1019;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=fxBkl8UN4tRnHVfp02q8VLqsFWTrQ8bgE6+rw+AmQcc=;
- b=m9KV9hF+XPbk6pI2SQLmdRaoo+k5YOn76xXHv40m1eGF7TS79E9DYA13F62LsJEopGJ1VIzZE
- eJypALXD3B9DNBfj7eep76NJFSjWVboQnfidFtnmSNIy4TaQ4N5X1Pa
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NZER9JwiPlooc+kbkAUnjfuov5yGG/9rElozlcxjprHHd5t1LvUhHpiD
-	bdciiFHPQQdIeozqHbvSSIzuwsvwbyX5uP/VIBbyGFoE/ANdpw3CVs6GQ7ykIZa8OnSqR+m
-	y1oEguF1BE23M+eedJGvTAY3hA7M60NX/K2s4w0FJ20vbmo22a5ebb7JR2dIeZmxV6kz8QI
-	jwmIL7SitiBHMyHvmT7bgFQ2yeGfoRoeAop+hOrFQHrH7vI4OWcu0XtIXwRdEmd37VbpwMR
-	AiLH6QSELtAd2fmT1UE/22E0YAGEhVLOBfzrPzqLZIqzrSXyZjhWGtat5aXwQCx7kdgQIF9
-	66KFUKyVT3uwZJ/D/BWlKWqpWZWxe0+uX4OvEo7Z2M0CvxDTFm7teddIOrE+tb0GbfEimsd
-	s+nS4Wu4CWdQ69mkTT0JFzEv56ffriAizU0ELPLlomgXOye6Jg0mE74JUaioenURzjdnfbq
-	5j2VCvtgqhFhzVgTuGDpc7hxdiWfAnxHK0QcyXHECxcX9iQnuQssiGHzU2z5k8q/u93DOf7
-	MtcBJEbnIB5wm5zpC4QkgAtqOAN/+vMNzmQWTQV5CLtO3R4yhcG5/t8ny3qrV/dhImH04+e
-	LX08fQQjSrpWpJYTcjb1s8G1VsX7ynQhppgBUcxLa+MHeS8yXkRoL0Xnlc3BjmIWil7MNeg
-	Vk9L2ruQhGwjJNdufhfDCj1g2amrplYqTrScTsTCJ3TLz0Mp8Fn372oT4nCSpf7/oZoLXZu
-	yAIvPKV9QwSfI6Hp0WCZ3QHdrk8Et0oM+4/tG0qqjblNTVh4NpDYsUmP38Z7Has0vlYsusE
-	6a09gCuyU2/rszy5XOpO3LlCQ9SmL5AKj8FMwkeeAqC4Pt011wYCkt3BwtzIl41azVe+Dlx
-	L4HzvW+6sEc1+4MiuzqP0X0xKFar3zdGGtJ4+duSf5li8i7keWn2B7Mrsdg8wtctoyAP5rS
-	WpjS0Zyq8T0zdq/AxDA8PFgTlV1xS3GjP+Qe/wS+mK0NXMXSojrSu+FTube0j1j21//XQ5k
-	8wL2o9PnoQGStmS8qiBCRA5j1JcMRy91fSeQJYTtkMfuyvHM7QwCJtpuFwkt6ok0WPDQ6Nn
-	NyBOYrbC4a7kPZ4IkAatYoJlDOo3M+XakTXpwqWAOFjORGV9ofQSbIfAq9wyDY/jsiMH/2q
-	SMVxCILvGTZSIHqktV1kQnT0Umo3wKlp2TIrZHByG+2+9zRHYVpldco6qA==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <d362714624fa5025db50293b1b737d3fa3ce2c49.1788496816.git.nas.chung@chipsnmedia.com>
 
-Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
-work, add constraints for it.
+On Fri, Sep 04, 2026 at 03:46:28PM +0900, Nas Chung wrote:
+> Add documentation for the Chips&Media Wave6 video codec on NXP i.MX SoCs.
+> 
+> The hardware contains one control register region and four interface
+> register regions for a shared video processing engine. The control region
+> manages shared resources such as firmware memory, while each interface
+> region has its own MMIO range and interrupt.
+> 
+> The control region and each interface region are distinct DMA requesters
+> and can be associated with separate IOMMU stream IDs. Represent the
+> control region as the parent node and the interface register regions as
+> child nodes to describe these resources.
+> 
+> Signed-off-by: Nas Chung <nas.chung@chipsnmedia.com>
+> ---
+>  .../bindings/media/nxp,imx95-vpu.yaml         | 162 ++++++++++++++++++
+>  MAINTAINERS                                   |   7 +
+>  2 files changed, 169 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/nxp,imx95-vpu.yaml
 
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
----
- Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-index 6f8d88a0681d..5c2b7eb1a6ff 100644
---- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-@@ -114,6 +114,20 @@ allOf:
-           maxItems: 2
-         clock-names:
-           maxItems: 2
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: spacemit,k1-usb2
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        resets:
-+          minItems: 1
-+      required:
-+        - clocks
-+        - resets
- 
- unevaluatedProperties: false
- 
-
--- 
-2.34.1
+Best regards,
+Krzysztof
 
