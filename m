@@ -1,19 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F12530E12;
-	Tue,  8 Sep 2026 12:20:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4254534460;
+	Tue,  8 Sep 2026 12:20:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870009; cv=none; b=NbR837ls2jgnbClMQAVHlb8S4tYV9o+xkxxV8vKWsGgkL5M3Cj/fzJ02sq9nSIG5cYYok0dklTlc5O2QEtbsDKfBDHyu2eRULFeCIDuJQN921fnQXiepaE+htQ3c00grCimO8IAaRNDVXLhYJDfsOhTkbEZasPft2zebU8gkj1E=
+	t=1788870026; cv=none; b=lix8ST3UhjtMne++mhRZ0OVqvePad4ytNcp4k66qCVX5vQmKwWbQZvkNJ6iLTYM/L9BpYWlaPDlTceDH/gZy0zdzRPILhwIz7FbPj32OuGVmdO2/yRgaJxA7quv+hTKYQY7DChMydyklg14Ve9TRafXXCQiUFvy+rvtDYacYuCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870009; c=relaxed/simple;
-	bh=rUz60QY6hEOa/UBHY++U20fAHfIj+fGeLbWwulTLC/I=;
+	s=arc-20240116; t=1788870026; c=relaxed/simple;
+	bh=byAJOdTpBF4CGlWDA5AzH0j6A2+DrEKRxxsIboe9xrw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NOA0aW8gMtjS47MlgvWZ1FaZbQhNgkOXzXY0UgZ3CCx+zcxl82gDVbilKGDl+xGyyAhRXT12JJpMniZbecheoijIeUAhatQxnwHNVf/nDeqIbzE1oR4WKRYIgXHUw6CX8M3SqEoQyEde42vPEoZaXUxTzVdCkZueYD23rrFEXF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECCED1F00ADB;
-	Tue,  8 Sep 2026 12:20:02 +0000 (UTC)
+	 MIME-Version; b=WLjiZBAJT0tnTb2k3kK6dcXN5mYx+jBZf551cmLw1qCLl8m2HTtPQa7QpuwcS3sZL/eDmk1ywCAi+UPTl7Kj1E7DvrvceYemWHvV4rYO1MiC88sPpXJDWAnMd49+Eyqufqlgfk38vQdk0eLXoKHqXeNfr6OyRVkaWK4D7ynRBVQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkLMwUgT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkLMwUgT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EF21F00A3A;
+	Tue,  8 Sep 2026 12:20:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788870018;
+	bh=RfmNEGjJsS/8c2GKuZ5ounjH9LtPffgjWi3vpyDzxbs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OkLMwUgTKFv4raOZUv4p+4J63le4/YXeU13EuJBy1LqxqbdNNHtlicHzn+Kplyz5L
+	 qUAK1hFZwfaRlbV135r2cvtZEYxww0H9xjjk4AJAzztAcJOspXAXm3wOMJ/5DT5cs0
+	 slbNhAQxRKrN5LTFC/H72y+/yROHVWxrMDCtf8gUNgK05WWcoi5dPopCXL5x9TnsGE
+	 uiP/7ink7TysEMkobIZA8Naq4SIbe38Ue0FlUYK8+mboRoX1S6cjPM7T9nMmisYLvn
+	 sFuBPM3L79pjse8K767ewj9vTC+93698Dd/CysrnKmdidUva4WoOn5y53rVauTALEX
+	 hVXbtTGMYL4lQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: David Howells <dhowells@redhat.com>,
@@ -25,13 +37,12 @@ Cc: David Howells <dhowells@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Steve French <stfrench@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] cifs: SMB1 split: Create smb1proto.h for SMB1 declarations
-Date: Tue,  8 Sep 2026 08:19:59 -0400
-Message-ID: <20260908122000.2049341-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] cifs: SMB1 split: connect.c
+Date: Tue,  8 Sep 2026 08:20:14 -0400
+Message-ID: <20260908122015.2050174-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908122000.2049341-1-sashal@kernel.org>
-References: <2026090305-henchman-snipping-25aa@gregkh>
- <20260908122000.2049341-1-sashal@kernel.org>
+In-Reply-To: <2026090337-crease-stuffing-cff2@gregkh>
+References: <2026090337-crease-stuffing-cff2@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,7 +53,10 @@ Content-Transfer-Encoding: 8bit
 
 From: David Howells <dhowells@redhat.com>
 
-[ Upstream commit 86c666506ea2c42649879eeac7f29e7bedef2f23 ]
+[ Upstream commit 88f7d7e32d9e086ba87c6b04a9ba57f3f41268bd ]
+
+Split SMB1-specific connection management stuff to smb1ops.c and move
+CIFSTCon() to cifssmb.c.
 
 Signed-off-by: David Howells <dhowells@redhat.com>
 cc: Steve French <sfrench@samba.org>
@@ -54,527 +68,368 @@ cc: linux-kernel@vger.kernel.org
 Acked-by: Enzo Matsumiya <ematsumiya@suse.de>
 Signed-off-by: Steve French <stfrench@microsoft.com>
 
-[ sashal: Reduced backport -- upstream 86c666506ea2c touches 3 file(s), this
-  backport carries 8. Not backported here:
-  fs/smb/client/cifsglob.h
+[ sashal: Reduced backport -- upstream 88f7d7e32d9e0 touches 5 file(s), this
+  backport carries 2. Not backported here:
   fs/smb/client/cifsproto.h
+  fs/smb/client/cifssmb.c
+  fs/smb/client/connect.c
+  fs/smb/client/smb1ops.c
   fs/smb/client/smb1proto.h
   This note is generated from the file lists only; see the resolution record
   for the reasoning. ]
 
-Stable-dep-of: 730d0bb19507 ("smb: client: fix UAF and buffer leak in cifs_check_trans2() for malformed secondary T2")
+Stable-dep-of: 65deb1835934 ("smb: client: reject a tree connect response whose byte count is too small")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/Makefile              |   2 +-
- fs/cifs/cifsglob.h            |   2 -
- fs/cifs/cifsproto.h           |  11 +--
- fs/cifs/fs_context.c          |   1 +
- fs/cifs/smb1ops.c             | 171 --------------------------------
- fs/cifs/smb1proto.h           |  40 ++++++++
- fs/cifs/smb1transport.c       |   3 +
- fs/smb/client/smb1transport.c | 180 ++++++++++++++++++++++++++++++++++
- 8 files changed, 226 insertions(+), 184 deletions(-)
- create mode 100644 fs/cifs/smb1proto.h
- create mode 100644 fs/cifs/smb1transport.c
- create mode 100644 fs/smb/client/smb1transport.c
+ fs/cifs/cifssmb.c | 161 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/cifs/connect.c | 162 ----------------------------------------------
+ 2 files changed, 161 insertions(+), 162 deletions(-)
 
-diff --git a/fs/cifs/Makefile b/fs/cifs/Makefile
-index cd17d0e50f2a1..f992815ce5041 100644
---- a/fs/cifs/Makefile
-+++ b/fs/cifs/Makefile
-@@ -8,7 +8,7 @@ obj-$(CONFIG_CIFS) += cifs.o
- cifs-y := trace.o cifsfs.o cifssmb.o cifs_debug.o connect.o dir.o file.o \
- 	  inode.o link.o misc.o netmisc.o smbencrypt.o transport.o asn1.o \
- 	  cifs_unicode.o nterr.o cifsencrypt.o \
--	  readdir.o ioctl.o sess.o export.o smb1ops.o winucase.o \
-+	  readdir.o ioctl.o sess.o export.o smb1ops.o smb1transport.o winucase.o \
- 	  smb2ops.o smb2maperror.o smb2transport.o \
- 	  smb2misc.o smb2pdu.o smb2inode.o smb2file.o cifsacl.o fs_context.o
- 
-diff --git a/fs/cifs/cifsglob.h b/fs/cifs/cifsglob.h
-index d0905aa0b04cd..98c9b97480136 100644
---- a/fs/cifs/cifsglob.h
-+++ b/fs/cifs/cifsglob.h
-@@ -1990,8 +1990,6 @@ extern mempool_t *cifs_mid_poolp;
- #define SMB1_VERSION_STRING	"1.0"
- #define SMB20_VERSION_STRING    "2.0"
- #ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
--extern struct smb_version_operations smb1_operations;
--extern struct smb_version_values smb1_values;
- extern struct smb_version_operations smb20_operations;
- extern struct smb_version_values smb20_values;
- #endif /* CIFS_ALLOW_INSECURE_LEGACY */
-diff --git a/fs/cifs/cifsproto.h b/fs/cifs/cifsproto.h
-index f99cc6f0c5d9c..eacf4c78543cc 100644
---- a/fs/cifs/cifsproto.h
-+++ b/fs/cifs/cifsproto.h
-@@ -25,6 +25,7 @@
- #ifdef CONFIG_CIFS_DFS_UPCALL
- #include "dfs_cache.h"
- #endif
-+#include "smb1proto.h"
- 
- struct statfs;
- struct smb_vol;
-@@ -373,16 +374,6 @@ extern int CIFSSMBSetFileSize(const unsigned int xid, struct cifs_tcon *tcon,
- 			      struct cifsFileInfo *cfile, __u64 size,
- 			      bool set_allocation);
- 
--struct cifs_unix_set_info_args {
--	__u64	ctime;
--	__u64	atime;
--	__u64	mtime;
--	__u64	mode;
--	kuid_t	uid;
--	kgid_t	gid;
--	dev_t	device;
--};
--
- extern int CIFSSMBUnixSetFileInfo(const unsigned int xid,
- 				  struct cifs_tcon *tcon,
- 				  const struct cifs_unix_set_info_args *args,
-diff --git a/fs/cifs/fs_context.c b/fs/cifs/fs_context.c
-index ad6c2fed4055b..e6a4257f925e1 100644
---- a/fs/cifs/fs_context.c
-+++ b/fs/cifs/fs_context.c
-@@ -9,6 +9,7 @@
- #include "cifsglob.h"
- #include "cifs_debug.h"
- #include "fs_context.h"
-+#include "smb1proto.h"
- 
- static const match_table_t cifs_smb_version_tokens = {
- 	{ Smb_1, SMB1_VERSION_STRING },
-diff --git a/fs/cifs/smb1ops.c b/fs/cifs/smb1ops.c
-index f4247e9536a9d..bbde5559d6751 100644
---- a/fs/cifs/smb1ops.c
-+++ b/fs/cifs/smb1ops.c
-@@ -227,146 +227,6 @@ cifs_get_next_mid(struct TCP_Server_Info *server)
- 	return mid;
+diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
+index 67ff1669cab2a..e69ab38a648d2 100644
+--- a/fs/cifs/cifssmb.c
++++ b/fs/cifs/cifssmb.c
+@@ -699,6 +699,167 @@ CIFSSMBNegotiate(const unsigned int xid, struct cifs_ses *ses)
+ 	return rc;
  }
+ 
++/*
++ * Issue a TREE_CONNECT request.
++ */
++int
++CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
++	 const char *tree, struct cifs_tcon *tcon,
++	 const struct nls_table *nls_codepage)
++{
++	struct smb_hdr *smb_buffer;
++	struct smb_hdr *smb_buffer_response;
++	TCONX_REQ *pSMB;
++	TCONX_RSP *pSMBr;
++	unsigned char *bcc_ptr;
++	int rc = 0;
++	int length;
++	__u16 bytes_left, count;
++
++	if (ses == NULL)
++		return -EIO;
++
++	smb_buffer = cifs_buf_get();
++	if (smb_buffer == NULL)
++		return -ENOMEM;
++
++	smb_buffer_response = smb_buffer;
++
++	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
++			NULL /*no tid */ , 4 /*wct */ );
++
++	smb_buffer->Mid = get_next_mid(ses->server);
++	smb_buffer->Uid = ses->Suid;
++	pSMB = (TCONX_REQ *) smb_buffer;
++	pSMBr = (TCONX_RSP *) smb_buffer_response;
++
++	pSMB->AndXCommand = 0xFF;
++	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
++	bcc_ptr = &pSMB->Password[0];
++	if (tcon->pipe || (ses->server->sec_mode & SECMODE_USER)) {
++		pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
++		*bcc_ptr = 0; /* password is null byte */
++		bcc_ptr++;              /* skip password */
++		/* already aligned so no need to do it below */
++	} else {
++		pSMB->PasswordLength = cpu_to_le16(CIFS_AUTH_RESP_SIZE);
++		/* BB FIXME add code to fail this if NTLMv2 or Kerberos
++		   specified as required (when that support is added to
++		   the vfs in the future) as only NTLM or the much
++		   weaker LANMAN (which we do not send by default) is accepted
++		   by Samba (not sure whether other servers allow
++		   NTLMv2 password here) */
++#ifdef CONFIG_CIFS_WEAK_PW_HASH
++		if ((global_secflags & CIFSSEC_MAY_LANMAN) &&
++		    (ses->sectype == LANMAN))
++			calc_lanman_hash(tcon->password, ses->server->cryptkey,
++					 ses->server->sec_mode &
++					    SECMODE_PW_ENCRYPT ? true : false,
++					 bcc_ptr);
++		else
++#endif /* CIFS_WEAK_PW_HASH */
++		rc = SMBNTencrypt(tcon->password, ses->server->cryptkey,
++					bcc_ptr, nls_codepage);
++		if (rc) {
++			cifs_dbg(FYI, "%s Can't generate NTLM rsp. Error: %d\n",
++				 __func__, rc);
++			goto out;
++		}
++
++		bcc_ptr += CIFS_AUTH_RESP_SIZE;
++		if (ses->capabilities & CAP_UNICODE) {
++			/* must align unicode strings */
++			*bcc_ptr = 0; /* null byte password */
++			bcc_ptr++;
++		}
++	}
++
++	if (ses->server->sign)
++		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
++
++	if (ses->capabilities & CAP_STATUS32) {
++		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
++	}
++	if (ses->capabilities & CAP_DFS) {
++		smb_buffer->Flags2 |= SMBFLG2_DFS;
++	}
++	if (ses->capabilities & CAP_UNICODE) {
++		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
++		length =
++		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
++			6 /* max utf8 char length in bytes */ *
++			(/* server len*/ + 256 /* share len */), nls_codepage);
++		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
++		bcc_ptr += 2;	/* skip trailing null */
++	} else {		/* ASCII */
++		strcpy(bcc_ptr, tree);
++		bcc_ptr += strlen(tree) + 1;
++	}
++	strcpy(bcc_ptr, "?????");
++	bcc_ptr += strlen("?????");
++	bcc_ptr += 1;
++	count = bcc_ptr - &pSMB->Password[0];
++	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
++	pSMB->ByteCount = cpu_to_le16(count);
++
++	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
++			 0);
++
++	/* above now done in SendReceive */
++	if (rc == 0) {
++		bool is_unicode;
++
++		tcon->tidStatus = CifsGood;
++		tcon->need_reconnect = false;
++		tcon->tid = smb_buffer_response->Tid;
++		bcc_ptr = pByteArea(smb_buffer_response);
++		bytes_left = get_bcc(smb_buffer_response);
++		length = strnlen(bcc_ptr, bytes_left - 2);
++		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
++			is_unicode = true;
++		else
++			is_unicode = false;
++
++
++		/* skip service field (NB: this field is always ASCII) */
++		if (length == 3) {
++			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
++			    (bcc_ptr[2] == 'C')) {
++				cifs_dbg(FYI, "IPC connection\n");
++				tcon->ipc = true;
++				tcon->pipe = true;
++			}
++		} else if (length == 2) {
++			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
++				/* the most common case */
++				cifs_dbg(FYI, "disk share connection\n");
++			}
++		}
++		bcc_ptr += length + 1;
++		bytes_left -= (length + 1);
++		strlcpy(tcon->treeName, tree, sizeof(tcon->treeName));
++
++		/* mostly informational -- no need to fail on error here */
++		kfree(tcon->nativeFileSystem);
++		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
++						      bytes_left, is_unicode,
++						      nls_codepage);
++
++		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
++
++		if ((smb_buffer_response->WordCount == 3) ||
++				 (smb_buffer_response->WordCount == 7))
++			/* field is in same location */
++			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
++		else
++			tcon->Flags = 0;
++		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
++	}
++out:
++	cifs_buf_release(smb_buffer);
++	return rc;
++}
++
+ int
+ CIFSSMBTDis(const unsigned int xid, struct cifs_tcon *tcon)
+ {
+diff --git a/fs/cifs/connect.c b/fs/cifs/connect.c
+index a95b9d2318fa2..16bc181a25647 100644
+--- a/fs/cifs/connect.c
++++ b/fs/cifs/connect.c
+@@ -4838,168 +4838,6 @@ int cifs_mount(struct cifs_sb_info *cifs_sb, struct smb_vol *vol)
+ }
+ #endif
  
 -/*
--	return codes:
--		0	not a transact2, or all data present
--		>0	transact2 with that much data missing
--		-EINVAL	invalid transact2
+- * Issue a TREE_CONNECT request.
 - */
--static int
--check2ndT2(char *buf)
+-int
+-CIFSTCon(const unsigned int xid, struct cifs_ses *ses,
+-	 const char *tree, struct cifs_tcon *tcon,
+-	 const struct nls_table *nls_codepage)
 -{
--	struct smb_hdr *pSMB = (struct smb_hdr *)buf;
--	struct smb_t2_rsp *pSMBt;
--	int remaining;
--	__u16 total_data_size, data_in_this_rsp;
+-	struct smb_hdr *smb_buffer;
+-	struct smb_hdr *smb_buffer_response;
+-	TCONX_REQ *pSMB;
+-	TCONX_RSP *pSMBr;
+-	unsigned char *bcc_ptr;
+-	int rc = 0;
+-	int length;
+-	__u16 bytes_left, count;
 -
--	if (pSMB->Command != SMB_COM_TRANSACTION2)
--		return 0;
+-	if (ses == NULL)
+-		return -EIO;
 -
--	/* check for plausible wct, bcc and t2 data and parm sizes */
--	/* check for parm and data offset going beyond end of smb */
--	if (pSMB->WordCount != 10) { /* coalesce_t2 depends on this */
--		cifs_dbg(FYI, "Invalid transact2 word count\n");
--		return -EINVAL;
--	}
+-	smb_buffer = cifs_buf_get();
+-	if (smb_buffer == NULL)
+-		return -ENOMEM;
 -
--	pSMBt = (struct smb_t2_rsp *)pSMB;
+-	smb_buffer_response = smb_buffer;
 -
--	total_data_size = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
--	data_in_this_rsp = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
+-	header_assemble(smb_buffer, SMB_COM_TREE_CONNECT_ANDX,
+-			NULL /*no tid */ , 4 /*wct */ );
 -
--	if (total_data_size == data_in_this_rsp)
--		return 0;
--	else if (total_data_size < data_in_this_rsp) {
--		cifs_dbg(FYI, "total data %d smaller than data in frame %d\n",
--			 total_data_size, data_in_this_rsp);
--		return -EINVAL;
--	}
+-	smb_buffer->Mid = get_next_mid(ses->server);
+-	smb_buffer->Uid = ses->Suid;
+-	pSMB = (TCONX_REQ *) smb_buffer;
+-	pSMBr = (TCONX_RSP *) smb_buffer_response;
 -
--	remaining = total_data_size - data_in_this_rsp;
--
--	cifs_dbg(FYI, "missing %d bytes from transact2, check next response\n",
--		 remaining);
--	if (total_data_size > CIFSMaxBufSize) {
--		cifs_dbg(VFS, "TotalDataSize %d is over maximum buffer %d\n",
--			 total_data_size, CIFSMaxBufSize);
--		return -EINVAL;
--	}
--	return remaining;
--}
--
--static int
--coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
--{
--	struct smb_t2_rsp *pSMBs = (struct smb_t2_rsp *)second_buf;
--	struct smb_t2_rsp *pSMBt  = (struct smb_t2_rsp *)target_hdr;
--	char *data_area_of_tgt;
--	char *data_area_of_src;
--	int remaining;
--	unsigned int byte_count, total_in_tgt;
--	__u16 tgt_total_cnt, src_total_cnt, total_in_src;
--
--	src_total_cnt = get_unaligned_le16(&pSMBs->t2_rsp.TotalDataCount);
--	tgt_total_cnt = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
--
--	if (tgt_total_cnt != src_total_cnt)
--		cifs_dbg(FYI, "total data count of primary and secondary t2 differ source=%hu target=%hu\n",
--			 src_total_cnt, tgt_total_cnt);
--
--	total_in_tgt = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
--
--	remaining = tgt_total_cnt - total_in_tgt;
--
--	if (remaining < 0) {
--		cifs_dbg(FYI, "Server sent too much data. tgt_total_cnt=%hu total_in_tgt=%u\n",
--			 tgt_total_cnt, total_in_tgt);
--		return -EPROTO;
--	}
--
--	if (remaining == 0) {
--		/* nothing to do, ignore */
--		cifs_dbg(FYI, "no more data remains\n");
--		return 0;
--	}
--
--	total_in_src = get_unaligned_le16(&pSMBs->t2_rsp.DataCount);
--	if (remaining < total_in_src)
--		cifs_dbg(FYI, "transact2 2nd response contains too much data\n");
--
--	/* find end of first SMB data area */
--	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
--				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
--
--	/* validate target area */
--	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
--				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
--
--	data_area_of_tgt += total_in_tgt;
--
--	total_in_tgt += total_in_src;
--	/* is the result too big for the field? */
--	if (total_in_tgt > USHRT_MAX) {
--		cifs_dbg(FYI, "coalesced DataCount too large (%u)\n",
--			 total_in_tgt);
--		return -EPROTO;
--	}
--	put_unaligned_le16(total_in_tgt, &pSMBt->t2_rsp.DataCount);
--
--	/* fix up the BCC */
--	byte_count = get_bcc(target_hdr);
--	byte_count += total_in_src;
--	/* is the result too big for the field? */
--	if (byte_count > USHRT_MAX) {
--		cifs_dbg(FYI, "coalesced BCC too large (%u)\n", byte_count);
--		return -EPROTO;
--	}
--	put_bcc(byte_count, target_hdr);
--
--	byte_count = be32_to_cpu(target_hdr->smb_buf_length);
--	byte_count += total_in_src;
--	/* don't allow buffer to overflow */
--	if (byte_count > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE - 4) {
--		cifs_dbg(FYI, "coalesced BCC exceeds buffer size (%u)\n",
--			 byte_count);
--		return -ENOBUFS;
--	}
--	target_hdr->smb_buf_length = cpu_to_be32(byte_count);
--
--	/* copy second buffer into end of first buffer */
--	memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
--
--	if (remaining != total_in_src) {
--		/* more responses to go */
--		cifs_dbg(FYI, "waiting for more secondary responses\n");
--		return 1;
--	}
--
--	/* we are done */
--	cifs_dbg(FYI, "found the last secondary response\n");
--	return 0;
--}
--
- static void
- cifs_downgrade_oplock(struct TCP_Server_Info *server,
- 		      struct cifsInodeInfo *cinode, __u32 oplock,
-@@ -375,37 +235,6 @@ cifs_downgrade_oplock(struct TCP_Server_Info *server,
- 	cifs_set_oplock_level(cinode, oplock);
- }
- 
--static bool
--cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
--		  char *buf, int malformed)
--{
--	if (malformed)
--		return false;
--	if (check2ndT2(buf) <= 0)
--		return false;
--	mid->multiRsp = true;
--	if (mid->resp_buf) {
--		/* merge response - fix up 1st*/
--		malformed = coalesce_t2(buf, mid->resp_buf);
--		if (malformed > 0)
--			return true;
--		/* All parts received or packet is malformed. */
--		mid->multiEnd = true;
--		dequeue_mid(server, mid, malformed);
--		return true;
--	}
--	if (!server->large_buf) {
--		/*FIXME: switch to already allocated largebuf?*/
--		cifs_dbg(VFS, "1st trans2 resp needs bigbuf\n");
+-	pSMB->AndXCommand = 0xFF;
+-	pSMB->Flags = cpu_to_le16(TCON_EXTENDED_SECINFO);
+-	bcc_ptr = &pSMB->Password[0];
+-	if (tcon->pipe || (ses->server->sec_mode & SECMODE_USER)) {
+-		pSMB->PasswordLength = cpu_to_le16(1);	/* minimum */
+-		*bcc_ptr = 0; /* password is null byte */
+-		bcc_ptr++;              /* skip password */
+-		/* already aligned so no need to do it below */
 -	} else {
--		/* Have first buffer */
--		mid->resp_buf = buf;
--		mid->large_buf = true;
--		server->bigbuf = NULL;
+-		pSMB->PasswordLength = cpu_to_le16(CIFS_AUTH_RESP_SIZE);
+-		/* BB FIXME add code to fail this if NTLMv2 or Kerberos
+-		   specified as required (when that support is added to
+-		   the vfs in the future) as only NTLM or the much
+-		   weaker LANMAN (which we do not send by default) is accepted
+-		   by Samba (not sure whether other servers allow
+-		   NTLMv2 password here) */
+-#ifdef CONFIG_CIFS_WEAK_PW_HASH
+-		if ((global_secflags & CIFSSEC_MAY_LANMAN) &&
+-		    (ses->sectype == LANMAN))
+-			calc_lanman_hash(tcon->password, ses->server->cryptkey,
+-					 ses->server->sec_mode &
+-					    SECMODE_PW_ENCRYPT ? true : false,
+-					 bcc_ptr);
+-		else
+-#endif /* CIFS_WEAK_PW_HASH */
+-		rc = SMBNTencrypt(tcon->password, ses->server->cryptkey,
+-					bcc_ptr, nls_codepage);
+-		if (rc) {
+-			cifs_dbg(FYI, "%s Can't generate NTLM rsp. Error: %d\n",
+-				 __func__, rc);
+-			cifs_buf_release(smb_buffer);
+-			return rc;
+-		}
+-
+-		bcc_ptr += CIFS_AUTH_RESP_SIZE;
+-		if (ses->capabilities & CAP_UNICODE) {
+-			/* must align unicode strings */
+-			*bcc_ptr = 0; /* null byte password */
+-			bcc_ptr++;
+-		}
 -	}
--	return true;
+-
+-	if (ses->server->sign)
+-		smb_buffer->Flags2 |= SMBFLG2_SECURITY_SIGNATURE;
+-
+-	if (ses->capabilities & CAP_STATUS32) {
+-		smb_buffer->Flags2 |= SMBFLG2_ERR_STATUS;
+-	}
+-	if (ses->capabilities & CAP_DFS) {
+-		smb_buffer->Flags2 |= SMBFLG2_DFS;
+-	}
+-	if (ses->capabilities & CAP_UNICODE) {
+-		smb_buffer->Flags2 |= SMBFLG2_UNICODE;
+-		length =
+-		    cifs_strtoUTF16((__le16 *) bcc_ptr, tree,
+-			6 /* max utf8 char length in bytes */ *
+-			(/* server len*/ + 256 /* share len */), nls_codepage);
+-		bcc_ptr += 2 * length;	/* convert num 16 bit words to bytes */
+-		bcc_ptr += 2;	/* skip trailing null */
+-	} else {		/* ASCII */
+-		strcpy(bcc_ptr, tree);
+-		bcc_ptr += strlen(tree) + 1;
+-	}
+-	strcpy(bcc_ptr, "?????");
+-	bcc_ptr += strlen("?????");
+-	bcc_ptr += 1;
+-	count = bcc_ptr - &pSMB->Password[0];
+-	be32_add_cpu(&pSMB->hdr.smb_buf_length, count);
+-	pSMB->ByteCount = cpu_to_le16(count);
+-
+-	rc = SendReceive(xid, ses, smb_buffer, smb_buffer_response, &length,
+-			 0);
+-
+-	/* above now done in SendReceive */
+-	if (rc == 0) {
+-		bool is_unicode;
+-
+-		tcon->tidStatus = CifsGood;
+-		tcon->need_reconnect = false;
+-		tcon->tid = smb_buffer_response->Tid;
+-		bcc_ptr = pByteArea(smb_buffer_response);
+-		bytes_left = get_bcc(smb_buffer_response);
+-		length = strnlen(bcc_ptr, bytes_left - 2);
+-		if (smb_buffer->Flags2 & SMBFLG2_UNICODE)
+-			is_unicode = true;
+-		else
+-			is_unicode = false;
+-
+-
+-		/* skip service field (NB: this field is always ASCII) */
+-		if (length == 3) {
+-			if ((bcc_ptr[0] == 'I') && (bcc_ptr[1] == 'P') &&
+-			    (bcc_ptr[2] == 'C')) {
+-				cifs_dbg(FYI, "IPC connection\n");
+-				tcon->ipc = true;
+-				tcon->pipe = true;
+-			}
+-		} else if (length == 2) {
+-			if ((bcc_ptr[0] == 'A') && (bcc_ptr[1] == ':')) {
+-				/* the most common case */
+-				cifs_dbg(FYI, "disk share connection\n");
+-			}
+-		}
+-		bcc_ptr += length + 1;
+-		bytes_left -= (length + 1);
+-		strlcpy(tcon->treeName, tree, sizeof(tcon->treeName));
+-
+-		/* mostly informational -- no need to fail on error here */
+-		kfree(tcon->nativeFileSystem);
+-		tcon->nativeFileSystem = cifs_strndup_from_utf16(bcc_ptr,
+-						      bytes_left, is_unicode,
+-						      nls_codepage);
+-
+-		cifs_dbg(FYI, "nativeFileSystem=%s\n", tcon->nativeFileSystem);
+-
+-		if ((smb_buffer_response->WordCount == 3) ||
+-			 (smb_buffer_response->WordCount == 7))
+-			/* field is in same location */
+-			tcon->Flags = le16_to_cpu(pSMBr->OptionalSupport);
+-		else
+-			tcon->Flags = 0;
+-		cifs_dbg(FYI, "Tcon flags: 0x%x\n", tcon->Flags);
+-	}
+-
+-	cifs_buf_release(smb_buffer);
+-	return rc;
 -}
 -
- static bool
- cifs_need_neg(struct TCP_Server_Info *server)
+ static void delayed_free(struct rcu_head *p)
  {
-diff --git a/fs/cifs/smb1proto.h b/fs/cifs/smb1proto.h
-new file mode 100644
-index 0000000000000..6a8fa2931008b
---- /dev/null
-+++ b/fs/cifs/smb1proto.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: LGPL-2.1 */
-+/*
-+ *
-+ *   Copyright (c) International Business Machines  Corp., 2002,2008
-+ *   Author(s): Steve French (sfrench@us.ibm.com)
-+ *
-+ */
-+#ifndef _SMB1PROTO_H
-+#define _SMB1PROTO_H
-+
-+struct cifs_unix_set_info_args {
-+	__u64	ctime;
-+	__u64	atime;
-+	__u64	mtime;
-+	__u64	mode;
-+	kuid_t	uid;
-+	kgid_t	gid;
-+	dev_t	device;
-+};
-+
-+/*
-+ * smb1transport.c
-+ */
-+bool cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
-+		       char *buf, int malformed);
-+
-+#ifdef CONFIG_CIFS_ALLOW_INSECURE_LEGACY
-+
-+/*
-+ * cifssmb.c
-+ */
-+
-+/*
-+ * smb1ops.c
-+ */
-+extern struct smb_version_operations smb1_operations;
-+extern struct smb_version_values smb1_values;
-+
-+#endif /* CONFIG_CIFS_ALLOW_INSECURE_LEGACY */
-+#endif /* _SMB1PROTO_H */
-diff --git a/fs/cifs/smb1transport.c b/fs/cifs/smb1transport.c
-new file mode 100644
-index 0000000000000..41b62c429b845
---- /dev/null
-+++ b/fs/cifs/smb1transport.c
-@@ -0,0 +1,3 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+#include "../smb/client/smb1transport.c"
-diff --git a/fs/smb/client/smb1transport.c b/fs/smb/client/smb1transport.c
-new file mode 100644
-index 0000000000000..f2b19d7786f42
---- /dev/null
-+++ b/fs/smb/client/smb1transport.c
-@@ -0,0 +1,180 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * SMB1 transport receive helpers
-+ */
-+
-+#include "cifsglob.h"
-+#include "cifsproto.h"
-+#include "cifs_debug.h"
-+#include "cifspdu.h"
-+
-+/*
-+	return codes:
-+		0	not a transact2, or all data present
-+		>0	transact2 with that much data missing
-+		-EINVAL	invalid transact2
-+ */
-+static int
-+check2ndT2(char *buf)
-+{
-+	struct smb_hdr *pSMB = (struct smb_hdr *)buf;
-+	struct smb_t2_rsp *pSMBt;
-+	int remaining;
-+	__u16 total_data_size, data_in_this_rsp;
-+
-+	if (pSMB->Command != SMB_COM_TRANSACTION2)
-+		return 0;
-+
-+	/* check for plausible wct, bcc and t2 data and parm sizes */
-+	/* check for parm and data offset going beyond end of smb */
-+	if (pSMB->WordCount != 10) { /* coalesce_t2 depends on this */
-+		cifs_dbg(FYI, "Invalid transact2 word count\n");
-+		return -EINVAL;
-+	}
-+
-+	pSMBt = (struct smb_t2_rsp *)pSMB;
-+
-+	total_data_size = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
-+	data_in_this_rsp = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
-+
-+	if (total_data_size == data_in_this_rsp)
-+		return 0;
-+	else if (total_data_size < data_in_this_rsp) {
-+		cifs_dbg(FYI, "total data %d smaller than data in frame %d\n",
-+			 total_data_size, data_in_this_rsp);
-+		return -EINVAL;
-+	}
-+
-+	remaining = total_data_size - data_in_this_rsp;
-+
-+	cifs_dbg(FYI, "missing %d bytes from transact2, check next response\n",
-+		 remaining);
-+	if (total_data_size > CIFSMaxBufSize) {
-+		cifs_dbg(VFS, "TotalDataSize %d is over maximum buffer %d\n",
-+			 total_data_size, CIFSMaxBufSize);
-+		return -EINVAL;
-+	}
-+	return remaining;
-+}
-+
-+static int
-+coalesce_t2(char *second_buf, struct smb_hdr *target_hdr)
-+{
-+	struct smb_t2_rsp *pSMBs = (struct smb_t2_rsp *)second_buf;
-+	struct smb_t2_rsp *pSMBt  = (struct smb_t2_rsp *)target_hdr;
-+	char *data_area_of_tgt;
-+	char *data_area_of_src;
-+	int remaining;
-+	unsigned int byte_count, total_in_tgt;
-+	__u16 tgt_total_cnt, src_total_cnt, total_in_src;
-+
-+	src_total_cnt = get_unaligned_le16(&pSMBs->t2_rsp.TotalDataCount);
-+	tgt_total_cnt = get_unaligned_le16(&pSMBt->t2_rsp.TotalDataCount);
-+
-+	if (tgt_total_cnt != src_total_cnt)
-+		cifs_dbg(FYI, "total data count of primary and secondary t2 differ source=%hu target=%hu\n",
-+			 src_total_cnt, tgt_total_cnt);
-+
-+	total_in_tgt = get_unaligned_le16(&pSMBt->t2_rsp.DataCount);
-+
-+	remaining = tgt_total_cnt - total_in_tgt;
-+
-+	if (remaining < 0) {
-+		cifs_dbg(FYI, "Server sent too much data. tgt_total_cnt=%hu total_in_tgt=%u\n",
-+			 tgt_total_cnt, total_in_tgt);
-+		return -EPROTO;
-+	}
-+
-+	if (remaining == 0) {
-+		/* nothing to do, ignore */
-+		cifs_dbg(FYI, "no more data remains\n");
-+		return 0;
-+	}
-+
-+	total_in_src = get_unaligned_le16(&pSMBs->t2_rsp.DataCount);
-+	if (remaining < total_in_src)
-+		cifs_dbg(FYI, "transact2 2nd response contains too much data\n");
-+
-+	/* find end of first SMB data area */
-+	data_area_of_tgt = (char *)&pSMBt->hdr.Protocol +
-+				get_unaligned_le16(&pSMBt->t2_rsp.DataOffset);
-+
-+	/* validate target area */
-+	data_area_of_src = (char *)&pSMBs->hdr.Protocol +
-+				get_unaligned_le16(&pSMBs->t2_rsp.DataOffset);
-+
-+	data_area_of_tgt += total_in_tgt;
-+
-+	total_in_tgt += total_in_src;
-+	/* is the result too big for the field? */
-+	if (total_in_tgt > USHRT_MAX) {
-+		cifs_dbg(FYI, "coalesced DataCount too large (%u)\n",
-+			 total_in_tgt);
-+		return -EPROTO;
-+	}
-+	put_unaligned_le16(total_in_tgt, &pSMBt->t2_rsp.DataCount);
-+
-+	/* fix up the BCC */
-+	byte_count = get_bcc(target_hdr);
-+	byte_count += total_in_src;
-+	/* is the result too big for the field? */
-+	if (byte_count > USHRT_MAX) {
-+		cifs_dbg(FYI, "coalesced BCC too large (%u)\n", byte_count);
-+		return -EPROTO;
-+	}
-+	put_bcc(byte_count, target_hdr);
-+
-+	byte_count = be32_to_cpu(target_hdr->smb_buf_length);
-+	byte_count += total_in_src;
-+	/* don't allow buffer to overflow */
-+	if (byte_count > CIFSMaxBufSize + MAX_CIFS_HDR_SIZE - 4) {
-+		cifs_dbg(FYI, "coalesced BCC exceeds buffer size (%u)\n",
-+			 byte_count);
-+		return -ENOBUFS;
-+	}
-+	target_hdr->smb_buf_length = cpu_to_be32(byte_count);
-+
-+	/* copy second buffer into end of first buffer */
-+	memcpy(data_area_of_tgt, data_area_of_src, total_in_src);
-+
-+	if (remaining != total_in_src) {
-+		/* more responses to go */
-+		cifs_dbg(FYI, "waiting for more secondary responses\n");
-+		return 1;
-+	}
-+
-+	/* we are done */
-+	cifs_dbg(FYI, "found the last secondary response\n");
-+	return 0;
-+}
-+
-+bool
-+cifs_check_trans2(struct mid_q_entry *mid, struct TCP_Server_Info *server,
-+		  char *buf, int malformed)
-+{
-+	if (malformed)
-+		return false;
-+	if (check2ndT2(buf) <= 0)
-+		return false;
-+	mid->multiRsp = true;
-+	if (mid->resp_buf) {
-+		/* merge response - fix up 1st*/
-+		malformed = coalesce_t2(buf, mid->resp_buf);
-+		if (malformed > 0)
-+			return true;
-+		/* All parts received or packet is malformed. */
-+		mid->multiEnd = true;
-+		dequeue_mid(server, mid, malformed);
-+		return true;
-+	}
-+	if (!server->large_buf) {
-+		/*FIXME: switch to already allocated largebuf?*/
-+		cifs_dbg(VFS, "1st trans2 resp needs bigbuf\n");
-+	} else {
-+		/* Have first buffer */
-+		mid->resp_buf = buf;
-+		mid->large_buf = true;
-+		server->bigbuf = NULL;
-+	}
-+	return true;
-+}
+ 	struct cifs_sb_info *sbi = container_of(p, struct cifs_sb_info, rcu);
 -- 
 2.53.0
 
