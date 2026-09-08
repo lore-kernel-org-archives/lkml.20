@@ -1,77 +1,79 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46E531A681B
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D852B1FB
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:19:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866317; cv=none; b=n4tTL7/WU27TIjDgwfU9TQPgKB98Hz3FBIhfMtGQRVULHUWWGY74rPTKn18OU5eyUnYmHOa81AjPhIyJ2K1XaJvGPHnN3ddEn3wB2q0bAbS0ZYEh84f9Wwe9FgqB8/q2luTDXVy5kPpLU4ebUHHIzpu4pykrzNXFILmmnrWjeKg=
+	t=1788866374; cv=none; b=ZJ7WSPyr1yL5LJcZvyRz0FAMJlbwMPkKFAlBlMby8A+DFKAzlMgKrUtex+RMHRv35qtqMhYpjreoB4LxurmArqAzDjwurJ+4mUo1iZwU0Wb97XMO4iGj7Yhh3POiShs/anIVpZtjLdEz+X4e1140pn5q1lk3DuVl4dI4635N+SI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866317; c=relaxed/simple;
-	bh=fIz/HrFxATsMpc2EUMqMUXZP+raGKK9br1Gr+ook9Bk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gYNw1/yl5O7T9uwKAindOARoGLJ5FiwCi/4x5Kko8+B1PtgF9zyruahlQaBjukrilPvHbC39p2NGVwDaINQsVCKgixC88FL1XUCJMxy9aje6kRfu9QY6l6O+QAU/8xVSJXl1Q68ISqNenwxOdO9i8Ng6aB8s3vC9jcmsuXmI710=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FcpMFY3n; arc=none smtp.client-ip=209.85.221.42
+	s=arc-20240116; t=1788866374; c=relaxed/simple;
+	bh=9O9kWGGQbODtRL5UAdOuaAinJL8bBPDsv7WUv1hTnnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TPh7GDptIDMEwXvAfxtfR0fZtFenevDeL3TTFObCTG784ZprvFqAm+6fGRgsJnSJqOQwj7mDEnlizcdxEbPmTQ09QKr0V94tU012AwPtfJMz//7QWQGWTgBOsBMPqrwc/8KDjN+ZdAOOPQHM/zz1wWO+Ppmg7pgeSUFuwGNiAe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rxsm3lPX; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcpMFY3n"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-484374f54d0so2871925f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:18:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rxsm3lPX"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d1331ce1bso650435e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:19:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788866306; x=1789471106; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=97Pr2TsyamP85AaCa0QMFuoJcjdpS6Zemfk+b51bDo8=;
-        b=FcpMFY3n5d5vhf3uGf7u2FLZkjp38xHhS+tNl+BF1w8pkWrEVehjA2MYDXYJsdAOxh
-         cYr4D/SWqQrEzSPepk8V85l0Xe78K0TteLZBTXX5PDTQ+69+WnIOmmkGSGegxKzch5xk
-         B96e7Jzr/++ojF3GAFDXpZl8fAHmjE0SQMJwTUFxhaRc5WeIdXFfXb9mC1YUNP7QsL2I
-         OUp1a75iaNciA1csrLmsO2rfOc1gwZoJ6OLOH8sK7BmyEMGCg8fm2GEBHXNErgOAo2BR
-         GCBGmnW/Cw2YOLNsLAYHlEr+f8yXuhhPU+2VOjoESveOpWRQsVlFQF76b6yNS1Q5kGMZ
-         mCoQ==
+        d=gmail.com; s=20251104; t=1788866369; x=1789471169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=Rxsm3lPXjtOsq1hx/7RxBKcxjgKMvn30bD6YpJJ4fVzzU+dDl7uVNIMHh/T1gahU54
+         S6P9oHrfld1hU2yw9l1mtSedUlysUtSzXGUFgZvnmNdjMSsQHmdr0CMLeIqVAweH40kR
+         tj7LGOi2fhwAhR5baHueT7rHFTZ4S2fWtWtpD8R/4WpbGLQTAZtnXyc55l2cpgXLIG2B
+         rJWK3VES0Y37wMkFMH8sHJL41Dbm38gcROwCDPdfJW7Wb3b8D0toJ3ewEt5zORQMY/la
+         JghS6sv65UYICvQ5xmFVj8J5EBXt6CwUbnv0xncJbJsbVa+VwlOyB16DKAfs0V8tiaex
+         WXyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788866306; x=1789471106;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=97Pr2TsyamP85AaCa0QMFuoJcjdpS6Zemfk+b51bDo8=;
-        b=O7uJPdof2agrN3Tccy1WQIcxbwWWvsBiH/p+mnd/3tzNHvgED+pqWLHELn9VmhPvKN
-         k/Gp+iSvlb+ZQS0uSA8B83HGNnzOBmTrcxJf1aPyk77Axz4olEFf08HbIat/Nowj+cpV
-         iKXPnCNLAVw2DgyaOMATloNR6URVCWoHcYIuOzqE6ukeGP1a/zs1kLUPwFLle0JVNqf2
-         mouEHXuBEZQXHxgCw8zAJzuzUUof8pXerGmKQt5PEjZfT6sA+M+VkTO+0Ar0DrKqae6C
-         d+1C1iuUzqckYgcGlaWzzaCuV5d8ikhO1dy8i+qU3DpbJR4jZ4ICYFpy/9vD5RoocfA8
-         lweA==
-X-Forwarded-Encrypted: i=1; AKwUvBwoS62hQXXD1MpT6FWC8Ps9n+r+4wkaf2YoyMBQ8kmwMB5sItYBhK9j3kqRml23oTtlX06MqujVBUc5Xqo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVfnDxSoEcJtx76DGo7PKb3lZ7szpuvHuxEoqK232y+mRy3xxt
-	owevmbjsKLw2Fc1Q5jRJEx9/FAQqVtA/rHoS93gEkwfO/LWGu0vJBycG
-X-Gm-Gg: AYBFou36qxdL7l7XUMIwIi1SMr/RRsvloZ8yuj+eHh0/HHsmPw56AFjpQLaALHB3S9s
-	/Cp1WUeBIiKoIBSGbdRub5JLHYi+ybdu/Umvm7lPv0tCMaZOl/mVlx69LsQ8UpFdCFeLlC/s2mY
-	3NXDxbAjsdMdXaC4IvE/qMrxRuKFrSCKYaEtGHM4vEDZ27vBaZQ0Z0E8RJ3wqo+YxzS2qbN+pwc
-	i6qYyEUNpxrE+0OjtMiBzSHVWt0QBUyF0fe4kg9CNRTzJQ7Co8PyaGENkJtZwYs2e3kyaYEFb0t
-	jyI4jifHoi3kWUX6hfi9zAdI7b3lNGUbGcVUXD+lA38H+qIakuNX7efhSh6haESpeYQYAxoKerQ
-	w/tBI0ap7JTOjIxPLbxPyej6RWE5w5n2Atb9NwC4PHySoI5oD2/y0pI8zp0zNg6QJ5nwdSgcipm
-	PWQPRE6i3KYdgQ8CicD5EAhn39gqQ7UIDNc5oG/m7kct2mOQGRRNDmQqAgmpQjVhoFuwM5jbYeD
-	02DkfCAivs9cr5NTS7YcnBupMy59SNhnElPkIUO4Al0
-X-Received: by 2002:a05:6000:707:b0:485:8542:fee3 with SMTP id ffacd0b85a97d-4858708cab5mr62827597f8f.16.1788866305735;
-        Tue, 08 Sep 2026 04:18:25 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm34422099f8f.3.2026.09.08.04.18.24
+        d=1e100.net; s=20251104; t=1788866369; x=1789471169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=oLy7CPhWIhddWa2t2Ysst4tN2UYGQuDzVRMFqa66wjFqGaBpo6S5stf0/dZC9tUE8g
+         T8reiO4/9gsumAox2w2i7amvDR/wyThIZEyiD+YjpI64DQOf6WC2ro9aR0Vg5LYH4Pfv
+         n9YFhiI9AuP+xSNLfXqVgjmV6crxLrp2dwz4StavXJmPY3EAclD/ixIIYiRlraxo/yV0
+         CFyqhfeT9oZcecBVNmcKqfQ3ERcW7IJBa5brkDEaAa812so0YPxVGXdsLcCIrQ3PR5qs
+         hPAYeNIhVpAqODoxBK6SAiV9GYRAyRcCI6V+JOLVEKD/BiWXW9kouTUDFBl3DG/m/Zf+
+         h0uA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1cHOBn7X5o211Ac1BIVOm5sFL2XOCszDn+a1lVfkKX5zzxqN3ZtMEHJ/uRp5C+Svf8uk8UgwZsenMQlA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0oYkVR7qq669tpDMHYl/WCR9AEjbXQ0PD0yROSZuLI9XpmDT+
+	3pLiiICux1bom63dNLnExKoI2qI3tspKNv8CesMbxpk5GLb1BOycbYRg
+X-Gm-Gg: AYBFou0J1Xr/Fk9cnCmUOpw5QfT/VhTp/1Bgh+gIHXQaQ/n+//hqVp9EHHnS1duUW7C
+	iu1qA2q+ffF80MnMZmYkltbnvFw+JSnLxLPY3BUJsqYOvCYoYMWnsss0v4Hq4s8PIMmci7tDaZM
+	PbAUulQUlpWvvp8HLpUm1ZTCpg/WH71HDpksWHU217xv6MuPkd3oVFg3v49fGdgGxpAvOS97Hbx
+	k+fXAF08pNQTCpTdzl4ho2wUUcPVw17PIuA0uVUJ0daWveEY0urOQuk3LzKilyfugctbzimsd6u
+	JmGj/oc2iRxGxbZG2sTeYi/dXnPa0odg7aJIkE4/zwj2np7/t+AUhOrxhJlDrh8wPmLCKo4qzIp
+	KOc0xqTf0pe8mgFSZadrbVeP7insPdpXIVwRfPSz5wmdYzfWszkn4o2UpbzvjNiSiFcUZMtn2Mf
+	2gJ7GIsRC2Za1Ei+ZKIiQAj6bzeYAQxNpvCgsgaanh/OmXubgNR2WOubuoO23Gp7WOgVU+aXmS6
+	/LRLzbDDNEEtfFJ65RoCKEFEKU1bcKsL4u8DcDlNz9wlHN759XSioBY5PbeLLnYXhLg
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr173785985e9.2.1788866368697;
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D009E74109367A274C5.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:9e74:1093:67a2:74c5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm973747855e9.0.2026.09.08.04.19.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:18:25 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] HID: i2c-hid: add reset quirk for Lenovo Yoga Slim 7x Gen 11 keyboard
-Date: Tue,  8 Sep 2026 13:18:11 +0200
-Message-ID: <20260908111812.43837-2-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260908111812.43837-1-okerixx@gmail.com>
-References: <20260908111812.43837-1-okerixx@gmail.com>
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Tue,  8 Sep 2026 13:19:08 +0200
+Message-ID: <20260908111908.19371-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,47 +82,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ITE controller behind the keyboard of the Lenovo Yoga Slim 7x Gen 11
-(048d:83db) carries out a reset but never raises the interrupt that
-acknowledges it. i2c_hid_finish_hwreset() therefore waits out its full
-one second timeout and logs "device did not ack reset within 1000 ms" on
-every probe and every resume, before the keyboard comes up regardless.
+The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
+pin; the mainline board file uses RK_PB0, which does not carry the RTC
+interrupt on this board.
 
-Set I2C_HID_QUIRK_NO_IRQ_AFTER_RESET for it, as is already done for
-several other ITE parts, so the reset is followed by a fixed 100 ms sleep
-instead.
+As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+cannot be used as a wakeup source on this board.
 
-Signed-off-by: Oleg Keri <okerixx@gmail.com>
+This was verified on the board by enabling the alarm interrupt (AIE with
+AF already set, so INT# is asserted) and sampling the EXT_PORT register
+of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
+(high with AIE=0, low with AIE=1, in two off/on cycles), while GPIO0_B0
+stays high and its interrupt counter stays at zero.
+
+Switch the interrupt and its pinctrl entry to GPIO0_C6. The board has an
+external pull-up on this open-drain line, so no internal bias is needed.
+
+With this change the alarm interrupt is delivered while the system is
+running, and the RTC wakes the SoC out of s2idle.
+
+Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM checkpatch dtbs_check
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Ondrej Jirman <megi@xff.cz>
 ---
- drivers/hid/hid-ids.h              | 1 +
- drivers/hid/i2c-hid/i2c-hid-core.c | 2 ++
- 2 files changed, 3 insertions(+)
+Changes in v2:
+- Drop the internal pull-up: the board schematic already has an external
+  pull-up on this line (Ondrej Jirman). Only the pin number changes now.
+- Reworded the effect paragraphs to state only what was measured; no
+  functional change.
+- Link to v1: https://lore.kernel.org/all/20260906181622.11991-1-royalnet026@gmail.com/
 
-diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index b3aca5aa9176..2e9d0fc41ed0 100644
---- a/drivers/hid/hid-ids.h
-+++ b/drivers/hid/hid-ids.h
-@@ -765,6 +765,7 @@
- #define I2C_DEVICE_ID_ITE_LENOVO_LEGION_Y720	0x837a
- #define USB_DEVICE_ID_ITE_LENOVO_YOGA900	0x8396
- #define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_KEYBOARD	0x8987
-+#define I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD	0x83db
- #define USB_DEVICE_ID_ITE8595		0x8595
- #define USB_DEVICE_ID_ITE_MEDION_E1239T	0xce50
+Notes for reviewers (not part of the commit message):
+
+Measured on an Orange Pi 5 Plus. The input levels of all five GPIO banks were
+read from their EXT_PORT registers via /dev/mem while toggling the alarm
+interrupt enable through /sys/class/rtc/rtc0/wakealarm; GPIO0_C6 was the only
+pad that followed it.
+
+The s2idle wakeup was measured with the v1 form of this patch (same pin, but
+with the internal pull-up still set): 'PM: Triggering wakeup from IRQ 52'.
+With bias-disable, as posted here, I re-checked that the alarm interrupt still
+increments the hym8563 interrupt count at the programmed alarm time, with no
+spurious interrupts on the level-low line.
+
+Note that on this board the resume itself can still stall later in the USB 2.0
+host controllers (a separate issue reported in [1]); with those controllers
+unbound the full s2idle cycle completes. It does not affect this fix.
+
+[1] https://lore.kernel.org/all/20260907190000.s2idle-usb2-resume-royalnet026@gmail.com/
+
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 145986695720..3f2806284754 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -189,7 +189,7 @@ &hdptxphy1 {
  
-diff --git a/drivers/hid/i2c-hid/i2c-hid-core.c b/drivers/hid/i2c-hid/i2c-hid-core.c
-index 0ff07fdab442..ad8d9f329404 100644
---- a/drivers/hid/i2c-hid/i2c-hid-core.c
-+++ b/drivers/hid/i2c-hid/i2c-hid-core.c
-@@ -126,6 +126,8 @@ static const struct i2c_hid_quirks {
- 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
- 	{ I2C_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_VOYO_WINPAD_A15,
- 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
-+	{ USB_VENDOR_ID_ITE, I2C_DEVICE_ID_ITE_LENOVO_YOGA_SLIM_7X_G11_KEYBOARD,
-+		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
- 	{ I2C_VENDOR_ID_RAYDIUM, I2C_PRODUCT_ID_RAYDIUM_3118,
- 		I2C_HID_QUIRK_NO_IRQ_AFTER_RESET },
- 	{ USB_VENDOR_ID_ALPS_JP, HID_ANY_ID,
+ &hym8563 {
+ 	interrupt-parent = <&gpio0>;
+-	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&hym8563_int>;
+ };
+@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
+ 
+ 	hym8563 {
+ 		hym8563_int: hym8563-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
+
+base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
 -- 
-2.55.0
+2.43.0
 
