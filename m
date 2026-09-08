@@ -1,80 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C94E4B489E;
-	Tue,  8 Sep 2026 20:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3EDC14B4861;
+	Tue,  8 Sep 2026 20:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900158; cv=none; b=aV96WB8DvB0hHr/X+kG4gL8I0yd1tZYuypbAZwxdvvMELOjHHWxRc6pSMtwH8hpzladK4b5om428sHpdOM6OvrKzwacuoU6MEyHBirvYL0WN5IywLW85YAb8JxLXmZJyg6+hgdiOLFzdrq/D8kQE7CDd2hcIFd9TllWZu/OCEl4=
+	t=1788900207; cv=none; b=F24NHT8mz7ikKyfh62YUiJZ1O1i4R6lZ1nXymsU0hLE/o7/Z3lv6CcQNGS3vguIjMeCNRUt/yyWubU/Yby46A+yBArjVBhuCCEK0SKZVgm1APtn6yWqMSNXPs7mqgm6YEdTCq0OYMoGOqSYA4T3pbvegAhKqVBvdhVqRwIVG69o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900158; c=relaxed/simple;
-	bh=oB7ddjmueOS9dIT+geS/vfuLILaUzI+Uh8quCQHB5Hg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PidfOEeA6HE9ddjsNdp6w5Y5ixy1pfFhn3WFkJdaDtVeYZXqh2s4h/9RdGP82yySiW1AMd1MKnBytj/0K1I0jirCGFI1AP1fMg1omtBdn3aU6KqhXktdT1yOdl8kxC4AummY6OxumeLJp6lr6B3/HSybOQ8WVByXVffNfsEqSl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=obyoNDZP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788900207; c=relaxed/simple;
+	bh=x3ltNi+mlg5xXpPiwLIvNwb8NCf0VtPbDGUCOtrtxl4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MvFaecDYo+xE7b/wTkL2dvGccbWLH8WdJ77I/oBhj9/JLBCcKsmD9lGXvqk6Hmy+DGPgnaGE7aPbnHYbl+8m3BI7XeRlHHdKrsmraNTPA7ZsPe6zKbeg9EVvAOZFVMhbzkrnKqZXYx2QP/hqeIxfGsl/W7VgaUMhENnXTLQ8OZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WGD9Rz0V; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="obyoNDZP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E3201F00AC4;
-	Tue,  8 Sep 2026 20:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788900156;
-	bh=j/etTlugt+t38bDZYesRkzHn2Pa7Crcl25ZwV4raeN8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=obyoNDZPWFRS0inJVT+06Ou3g2FPHMQnShYu1SWc0jcPAPtLt2RzdK5BPcyeWL5xq
-	 fcX2iiyLqkIJyVjUoSu9nY8AM8NVBGMKupZSl2TMC1qKhLdD41h9ulgRKiTk3VoPGY
-	 Xe3VNOFyuNqeXBmWCE2jmf3Q9DAdMqzB+vXTjVELMAAyEzukMcw3gqU0dzyx09YskK
-	 rWSpjqrjQRsQmrBqyksKss8DEgOsEwwcuDFdqzqjXIL6LsgAUXrbZvMqJcuhMoSSJc
-	 L8NKx5Fy9BSFSBldrmCijVHEeyBk3Mm901ExzSKeIZalp7V2rEY/kXJvoAqWWTIi23
-	 1/oABhfNaC36g==
-Date: Tue, 8 Sep 2026 17:42:33 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Wang Yan <wangyan01@kylinos.cn>, peterz@infradead.org, mingo@redhat.com,
-	namhyung@kernel.org, mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com, jolsa@kernel.org,
-	irogers@google.com, james.clark@linaro.org, atrajeev@linux.ibm.com,
-	tanze@kylinos.cn, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] perf powerpc-vpadtl: Fix off-by-one in auxtrace_info
- minimum size check
-Message-ID: <aqBzOdmxHyTRoLcG@x2>
-References: <20260824025553.363863-1-wangyan01@kylinos.cn>
- <61dff746-7b62-404b-89b2-3c9d73419d71@intel.com>
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WGD9Rz0V"
+Received: from [192.168.0.88] (192-184-212-33.fiber.dynamic.sonic.net [192.184.212.33])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 7F93820B7128;
+	Tue,  8 Sep 2026 13:42:45 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7F93820B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788900165;
+	bh=7Bk5RJUn+3ekyT3G6f+NHqnbS0cO26QgcVZCitW6VQM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WGD9Rz0VdNewyBAzLYwFEWs6M3yxs6BZsUkkK3dX2NLP9Foyr8gs/gk/gKzjpqytt
+	 hMkjrvsMbKJHi7jw7Z3NZ7y9wHvzCkHbTOLfnccUZHr8DVs5swgSFG4uS92uF+Jebz
+	 i3DCYMsBOEGDdishYBgLyVfihaWw8WAdq/8aUDUU=
+Message-ID: <921a1646-4257-c627-1019-8ac41ea89ed4@linux.microsoft.com>
+Date: Tue, 8 Sep 2026 13:43:24 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61dff746-7b62-404b-89b2-3c9d73419d71@intel.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.13.1
+Subject: Re: [PATCH V1 1/3] mshv: Rename memory deposit memory functions to
+ _old
+Content-Language: en-US
+To: Michael Kelley <mhklinux@outlook.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "kys@microsoft.com" <kys@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>
+References: <20260908021340.2548924-1-mrathor@linux.microsoft.com>
+ <20260908021340.2548924-2-mrathor@linux.microsoft.com>
+ <SN6PR02MB4157D9294688C8E5F21BDD19D4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
+From: Mukesh R <mrathor@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157D9294688C8E5F21BDD19D4B12@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 24, 2026 at 08:55:52AM +0300, Adrian Hunter wrote:
-> On 24/08/2026 05:55, Wang Yan wrote:
-> > min_sz is set to sizeof(u64) * POWERPC_VPADTL_TYPE, but the code reads
-> > auxtrace_info->priv[POWERPC_VPADTL_TYPE], which needs at least
-> > POWERPC_VPADTL_TYPE + 1 elements.  POWERPC_VPADTL_TYPE is the first
-> > enumerator of the priv index enum (0), so min_sz evaluates to 0 and the
-> > check validates only the perf_record_auxtrace_info header itself.  A
-> > PERF_RECORD_AUXTRACE_INFO event carrying a zero-length priv array then
-> > passes the size check, and the subsequent priv[POWERPC_VPADTL_TYPE]
-> > read runs one u64 past the validated region.
-> > 
-> > This is the same off-by-one fixed for Intel PT by commit c4362d5e1a5e
-> > ("perf intel-pt: Fix off-by-one in auxtrace_info minimum size check")
-> > and for Intel BTS by commit b9fb8225951c ("perf intel-bts: Fix off-by-one
-> > in auxtrace_info minimum size check").
-> > 
-> > Use sizeof(u64) * (POWERPC_VPADTL_TYPE + 1) so the highest accessed
-> > priv index is covered by the minimum-size validation.
-> > 
-> > Fixes: c4bbd4ec2e50 ("perf powerpc: Process auxtrace events and display in 'perf report -D'")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Wang Yan <wangyan01@kylinos.cn>
+On 9/8/26 11:01, Michael Kelley wrote:
+> From: Mukesh R <mrathor@linux.microsoft.com> Sent: Monday, September 7, 2026 7:14 PM
+>>
+>> Rename hv_call_deposit_pages() and hv_deposit_memory_node() to _old
+>> to make reviewing the new functions much easier.
+>>
+>> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
+>> ---
+>>   drivers/hv/hv_proc.c | 23 ++++++++++++++++-------
+>>   1 file changed, 16 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/hv/hv_proc.c b/drivers/hv/hv_proc.c
+>> index 57b2c64197cb..57864bb5bcd8 100644
+>> --- a/drivers/hv/hv_proc.c
+>> +++ b/drivers/hv/hv_proc.c
+>> @@ -13,10 +13,10 @@
+>>    * See struct hv_deposit_memory. The first u64 is partition ID, the rest
+>>    * are GPAs.
+>>    */
+>> -#define HV_DEPOSIT_MAX (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+>> +#define HV_DEPOSIT_MAX_OLD (HV_HYP_PAGE_SIZE / sizeof(u64) - 1)
+>>
+>>   /* Deposits exact number of pages. Must be called with interrupts enabled.  */
+>> -int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>> +static int hv_call_deposit_pages_old(int node, u64 partition_id, u32 num_pages)
+>>   {
+>>   	struct page **pages, *page;
+>>   	int *counts;
+>> @@ -29,7 +29,7 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>>   	struct hv_deposit_memory *input_page;
+>>   	unsigned long flags;
+>>
+>> -	if (num_pages > HV_DEPOSIT_MAX)
+>> +	if (num_pages > HV_DEPOSIT_MAX_OLD)
+>>   		return -E2BIG;
+>>   	if (!num_pages)
+>>   		return 0;
+>> @@ -40,7 +40,7 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>>   		return -ENOMEM;
+>>   	pages = page_address(page);
+>>
+>> -	counts = kzalloc_objs(int, HV_DEPOSIT_MAX);
+>> +	counts = kzalloc_objs(int, HV_DEPOSIT_MAX_OLD);
+>>   	if (!counts) {
+>>   		free_page((unsigned long)pages);
+>>   		return -ENOMEM;
+>> @@ -108,10 +108,14 @@ int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>>   	kfree(counts);
+>>   	return ret;
+>>   }
+>> +
+>> +int hv_call_deposit_pages(int node, u64 partition_id, u32 num_pages)
+>> +{
+>> +	return hv_call_deposit_pages_old(node, partition_id, num_pages);
+>> +}
+>>   EXPORT_SYMBOL_GPL(hv_call_deposit_pages);
+>>
+>> -int hv_deposit_memory_node(int node, u64 partition_id,
+>> -			   u64 hv_status)
+>> +static int __maybe_unused hv_deposit_memory_node_old(int node, u64 partition_id, u64 hv_status)
 > 
-> Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+> I'm not clear on why there is "__maybe_unused" here. If CONFIG_MSHV_ROOT
+> isn't defined, this whole file isn't built.
 
-Thanks, applied to perf-tools-next, for v7.4.
+The main 2nd patch adds newer version of the function, so  this _old is
+not called anymore, and will generate compiler warning.
 
-- Arnaldo
+Thanks,
+-Mukesh
+
+
+> But it doesn't really matter since Patch 3 of the series deletes the code anyway.
+> 
+>>   {
+>>   	u32 num_pages = 1;
+>>
+>> @@ -137,7 +141,12 @@ int hv_deposit_memory_node(int node, u64 partition_id,
+>>   		hv_status_err(hv_status, "Unexpected!\n");
+>>   		return -ENOMEM;
+>>   	}
+>> -	return hv_call_deposit_pages(node, partition_id, num_pages);
+>> +	return hv_call_deposit_pages_old(node, partition_id, num_pages);
+>> +}
+>> +
+>> +int hv_deposit_memory_node(int node, u64 partition_id, u64 hv_status)
+>> +{
+>> +	return hv_deposit_memory_node_old(node, partition_id, hv_status);
+>>   }
+>>   EXPORT_SYMBOL_GPL(hv_deposit_memory_node);
+>>
+>> --
+>> 2.51.2.vfs.0.1
+>>
+> 
+> The "__maybe_unused" notwithstanding,
+> 
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+
