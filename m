@@ -1,176 +1,192 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5A551A730
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 23:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7D93B47D5;
+	Tue,  8 Sep 2026 23:16:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788909162; cv=none; b=gErxxNqCQzraLStlGxAvXnweyA+mlfFfFWbqCxMrjCDyCgQ/LDEtUeyUCfAalqRVju+EVdsDjunfkilxg620oun9yr591a09+Y8J881upKO9FHFiaHNtc8ZyYnnR6xBAaJpzZS1KShjPghC5NPsiPc9PkmRTmT4/QxflNRb5GDY=
+	t=1788909379; cv=none; b=nOsyvKPcmjoiJ29QGI62J4kZOPjngGerzwyOk/G6uLNZZ8Q29TjxMlYVL9dOWPSrNNnMrxtNWbnoveVbZllObpPjPO+yr8awJP+X9eCbVfGefbb055Q1WV+q17G2PV5nwroDvfVNP67GpGGpGwus9xU9/nY/wOHQhAlEumZk5sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788909162; c=relaxed/simple;
-	bh=+ZjLG77YKfr9IPV1oRcpyx+bGhfiK19WyzbxnAw1Dlw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=rijZRx0vaVfuwoVVQ454rB+uZQR1/kIQsQaM/wM32M42/LH/73f5rc06uEYE/EUhP08FIe380RBhP45AcZ9wJqcHJ1RG+gwXBywyJBwoXQ1GOSZjxHt/pyFiUX/4U8KapQEkcBcVjrO+pNQQWL8vKBMQ/EFLyJ6pilqCLrB67vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iOlnBG10; arc=none smtp.client-ip=74.125.231.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788909379; c=relaxed/simple;
+	bh=FZkpYr2uck61cIN+btm62m8JTmhwKvtSUVKcro10fDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rldq9SeCVsYOYj1YegAEafGGi5vrjwp6Y3iR444IR9XMF6U3GgxE6zs5aZ/8sBLkdlHK06NL/t0evcq1bcPKo/q3+534+zstYnekpC3RA1SS/zw7R+QvszrtYp0fp8eDy0MOnMCoArzaHQWyTuSSNOP1VNSeDJGADhEA2Kej4/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D7GlLWtc; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iOlnBG10"
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4af7193adb7so1320984b6e.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 16:12:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788909159; x=1789513959; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=smnQky0ErsfDpiZznR4+kV0USKaVnCb3aDkonGaPobM=;
-        b=iOlnBG10+5D6djfvL3aTRimTe7NrfJoDXFTVQVUZrzpWcgX5u6fR9z5vLscGEEljrj
-         J25daj+ucu4RkhdJSEHVilKtdNO0qolLteYwMoRf+cKXOFjZ2jOYlUArnnofzzqzlhnZ
-         0Cwo6JQ6mIi3gsLthZprti4HTGB1L9ZQv/93TM44YBbeT0ii50NonrDi77N46nZR+MrK
-         hb7dnFqdwyTknZJb2ilgbEW+DJwBeHo8rpYE58fTp9MTvcGIctCHtvSBwAm2NR1j2mOJ
-         s+KfcNwYzYqVeykP7kq/aFI6spnY0K3WnTZNUeiDjniAJyIdcuFcQriWEdpmwZDGIe5X
-         hEUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788909159; x=1789513959;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=smnQky0ErsfDpiZznR4+kV0USKaVnCb3aDkonGaPobM=;
-        b=ooWFNNqvP8yTxab1oh3wjKjWpCFVR9/713yR2ATsG6m05Fb2icOJt9neCRUmQ2EgSN
-         KhEHiQtRZnNf+L6yEJ995phPIisUUM6+MH2ZveWCXxKFDRMy8O89XkZP634g6Ge9pg0S
-         eCLIN+2iJKpziUJEubX5cT6Xz8+sLRk0Kv1SsXRtqLGqZn4gY0/Kckwy/P99msWLVu0i
-         ivgq+53+TtIat7hlaK+FrbMcyL6oOoSyNU3kKSNTdsKuUsbvZYIOyQrtJaUMaDbcua1b
-         J3waA7cq8uJ4khy7MwqO51MsPM5dgHyMDOKanaypoFqwVmzKT5/rrrEpKNkMjzb7+hZF
-         9S7A==
-X-Forwarded-Encrypted: i=1; AKwUvBzoeADaLY7aTCgNxipc55gbOWIlkLJ9FlYr/7WFXbJ9Icx8selfSCdpxn26OH3b2fIPZ00m0yMtrub7mjc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nlZoWMrbaOQ5B0qY0yFba8RaV000mL11yZ0hRqkRnEGyFCm9oS
-	grFBg2dpWciw2JtEZ7MSRRVzHgImrm0/IpuIT/sFfPVkAyvsZOD/ecmo
-X-Gm-Gg: AYBFou1xmlTgT/Ue51oQUEIHQt2T6YxxA0HspkjyTeurImYs4RwSlZor6jtwfDX2kJm
-	uoDmxjK00xJC4T+cTqOxN/aMA6+axbIdbrMbdW2DLLq5mprzEQdS4Dz4TLKOH8F2PW/2yc6cSTk
-	ba7lPyaYJe5KXifb4cl2GtlNkb6X13oWfnaVH/s9PMXnKq/nvCUDE4yvrOUqtVr4R5LO/IPLiG5
-	JxHeiaGpNkCYEfy+pN8944tYXwl6WtcXKHatPBSHLQvT8XrL6BbnC4DG3X8bRq934uk297I3GDc
-	F8HRVk5gANMYJMQwv2t9XXOvsVpJ8rTMuqJaql2pv6A8o4B33gsgYMdcWdTwNTIYItoKkFc+2nH
-	o7SXau0ZunXTipSFEE3x8raUyjA8NgcyKCPjcBkTfHoccwhEpCUMn41tWh2pnIdbD1fg/rMJucm
-	lVDBDTETqG+Z0tFwtzMpWi7JzYCwfhtjqJeU4zMNO/OEGo5dD58SD1IUg9L6q8ZeoM0P8=
-X-Received: by 2002:a05:6808:c2bd:b0:4b9:a8ac:482 with SMTP id 5614622812f47-4b9a8bb6aa4mr15564787b6e.32.1788909159168;
-        Tue, 08 Sep 2026 16:12:39 -0700 (PDT)
-Received: from [192.168.18.164] ([2600:8804:5716:d800::b712])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475523d1dc5sm13776680fac.2.2026.09.08.16.12.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 16:12:37 -0700 (PDT)
-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Date: Tue, 08 Sep 2026 18:10:23 -0500
-Subject: [PATCH] usb: mtu3: fix system suspend in gadget mode after soft
- disconnect
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D7GlLWtc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788909377; x=1820445377;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=FZkpYr2uck61cIN+btm62m8JTmhwKvtSUVKcro10fDg=;
+  b=D7GlLWtcWKpIAoYUG0hrMLaJTcDAQJj65sXFBRDnMuxW1Ejqey/y4Jfi
+   9ouodX7E65p++Y8YOHKMxFI5wptnX2D5ZLBY0hx+EtWEd3vgh2KlVMzeu
+   YoXWmc10mCRH7g6rG4xozwxO8xOwvSYmEIihaZK0RwoLXfamPjk5So5BZ
+   NPZ08OfAnMXlkX9u1RYBkFEptPlKcHO9NBiSvbenpx55UjIh7y33jeLUB
+   0xv33i3XDLMKdEl/jNrwKXyIFuIW1b7ToDz/aTRD5mzY2fR9U3uM7r2PG
+   euSSzxOy0+p0vIMe6T7cJtC1AR8z5iw/zjyUZA3BEn8xO5kQ5hYdPI82f
+   Q==;
+X-CSE-ConnectionGUID: bEZlsgPiSryTvRcRUN1nUw==
+X-CSE-MsgGUID: 67T/L0UPQR+ME8f/IUVHRg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89530231"
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="89530231"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:16:17 -0700
+X-CSE-ConnectionGUID: Schtx44rSbaLD/hyOT7Xhg==
+X-CSE-MsgGUID: BXnrmtFgSBGzQoZTi5oWBA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,269,1779174000"; 
+   d="scan'208";a="266829125"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.111.130]) ([10.125.111.130])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 16:16:16 -0700
+Message-ID: <0bfbb372-31cc-42af-b485-001f9a64f3b5@intel.com>
+Date: Tue, 8 Sep 2026 16:16:15 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] x86/microcode/intel: Reject problematic loading on
+ Granite Rapids systems
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, andrew.cooper3@citrix.com,
+ arjan.van.de.ven@intel.com, sohil.mehta@intel.com, stable@vger.kernel.org
+References: <20260901231634.714144-2-chang.seok.bae@intel.com>
+ <20260908223209.916758-1-chang.seok.bae@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260908223209.916758-1-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-rbrue-suez-upstreaming-mtu3-fix-suspend-usb-gadget-mode-v1-1-3457dcea9f48@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNywrCMBBFf6XM2oG02mL9FekijzFGSBpmEhFL/
- 92oy8O9nLOBEAcSuHQbMD2DhDU16A8d2LtOnjC4xjCoYVKzOiMbroRS6Y01S2HSMSSPsdQj3sK
- rLZIpOaxi0GvnqWBcHaGdZjv26mSG0UCzZ6Z2/5Wvy5+lmgfZ8s3Bvn8AkI/oj5sAAAA=
-X-Change-ID: 20260908-rbrue-suez-upstreaming-mtu3-fix-suspend-usb-gadget-mode-c69c5104b25b
-To: Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Fei Shao <fshao@chromium.org>
-Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ryan Brue <ryanbrue.dev@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788909156; l=3498;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=+ZjLG77YKfr9IPV1oRcpyx+bGhfiK19WyzbxnAw1Dlw=;
- b=V2O6cHk26Nxt8LbULYU/sEf44lBkzKUl3wK7GAWx+IQ9lLvhe0k0Y8fzsYxUfdNDKEqL4tmi3
- 8GpBdhfJQ3hDKeuMLeV3szySlDOsdovXO/TPdutx5Dhf0d/tFSGylLR
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 
-ssusb_gadget_suspend() removes the D+ pullup for system suspend by calling
-mtu3_dev_on_off(mtu, 0) directly. That writes the hardware SOFT_CONN bit
-but leaves mtu->softconnect alone, deliberately: ssusb_gadget_resume()
-needs it to decide whether to pull up again.
+On 9/8/26 15:32, Chang S. Bae wrote:
+> Microcode updates can usually jump revisions. However, there is an
+> erratum on Granite Rapids systems. If they "jump over" to revision
+> 0x1000405 or later, they result in #MC.
+> 
+> Prevent loading 0x1000405 or later unless the running revision is already
+> at least 0x1000405. Apply this blocking to both early- and late-loading
+> paths.
 
-wait_for_ip_sleep() then asks ssusb_gadget_ip_sleep_check() whether the IP
-can sleep, and that function tests mtu->softconnect -- the gadget's intent
-rather than the state of the pin. So it answers "pulled up, the IP can
-sleep" for a device that was just disconnected, and the poll for
-SSUSB_IP_SLEEP_STS runs to its 100 ms timeout:
+This is a kinda wonky-looking patch but I don't know a nicer way to do
+it, so:
 
-  mtu3 11271000.usb: gadget (high-speed) pullup D-
-  mtu3 11271000.usb: ip sleep failed!!!
-  mtu3 11271000.usb: gadget (high-speed) pullup D+
-  mtu3 11271000.usb: PM: dpm_run_callback(): mtu3_suspend returns -16
-  PM: Some devices failed to suspend, or early wake event detected
+Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
 
-and the suspend fails. The rule the hardware follows is stated in that
-same function: the IP cannot sleep while D+ is not pulled up.
+> +static bool revision_banned(struct cpu_signature *sig, u32 rev)
+> +{
+> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
+> +
+> +	/*
+> +	 * Revision 0x1000405 contains prerequisite changes for subsequent
+> +	 * microcode updates on Granite Rapids systems. Updates directly from
+> +	 * an older revision to this or a newer one can result in #MC. This is
+> +	 * documented item GNR98, #835486 (Intel Xeon 6900/6700/6500-Series
+> +	 * Processors with P-Cores).
+> +	 */
 
-On an MT8173 tablet (Amazon Fire HD 10 2017, dr_mode = "peripheral") this
-makes system suspend impossible whenever VBUS is present, which on a board
-whose only USB port is also its charging input means whenever it is
-charging. Unbinding the UDC, which clears mtu->softconnect through
-mtu3_gadget_pullup() and so makes the check agree with the pin again, is
-enough to let the same suspend succeed with the driver still bound and the
-charger still attached:
+I honestly still prefer that this comment be more short and sweet. Does
+this miss anything?
 
-  gadget bound   (softconnect=1): suspend returns -16, "ip sleep failed!!!"
-  gadget unbound (softconnect=0): suspend completes, 20 s of 20 s
+	/*
+	 * Erratum GNR98 can cause #MC's if "jumping over"
+	 * revision 0x1000405. Avoid the jumps.
+	 */
 
-So record what mtu3_dev_on_off() actually wrote and test that instead.
-Runtime suspend is unaffected: it does not soft disconnect, so the pullup
-is still set and the IP-sleep poll is still performed.
+Also, we don't need to put whole document titles or numbers in here.
+They're fine, but if you can Google "erratum GNR98" and get the doc for
+the first hit, what does it matter?
 
-Fixes: e69027c25361 ("usb: mtu3: allow system suspend during active gadget connection")
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- drivers/usb/mtu3/mtu3.h      | 1 +
- drivers/usb/mtu3/mtu3_core.c | 3 ++-
- 2 files changed, 3 insertions(+), 1 deletion(-)
+Leave the precision and long chit chat for the changelog, I say.
 
-diff --git a/drivers/usb/mtu3/mtu3.h b/drivers/usb/mtu3/mtu3.h
-index ba5a63669e5f..7f4fb87d8438 100644
---- a/drivers/usb/mtu3/mtu3.h
-+++ b/drivers/usb/mtu3/mtu3.h
-@@ -361,6 +361,7 @@ struct mtu3 {
- 	unsigned is_self_powered:1;
- 	unsigned test_mode:1;
- 	unsigned softconnect:1;
-+	unsigned pullup:1;
- 	unsigned u1_enable:1;
- 	unsigned u2_enable:1;
- 	unsigned u3_capable:1;
-diff --git a/drivers/usb/mtu3/mtu3_core.c b/drivers/usb/mtu3/mtu3_core.c
-index a40bf5bad2d5..5ce61240194f 100644
---- a/drivers/usb/mtu3/mtu3_core.c
-+++ b/drivers/usb/mtu3/mtu3_core.c
-@@ -346,6 +346,7 @@ void mtu3_dev_on_off(struct mtu3 *mtu, int is_on)
- 	else
- 		mtu3_hs_softconn_set(mtu, is_on);
- 
-+	mtu->pullup = !!is_on;
- 	dev_info(mtu->dev, "gadget (%s) pullup D%s\n",
- 		usb_speed_string(mtu->speed), is_on ? "+" : "-");
- }
-@@ -1023,7 +1024,7 @@ bool ssusb_gadget_ip_sleep_check(struct ssusb_mtk *ssusb)
- 		return true;
- 
- 	/* device is started and pullup D+, ip can sleep */
--	if (mtu->is_active && mtu->softconnect)
-+	if (mtu->is_active && mtu->pullup)
- 		return true;
- 
- 	/* ip can't sleep if not pullup D+ when support device mode */
+But we can edit this in place when it gets applied.
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260908-rbrue-suez-upstreaming-mtu3-fix-suspend-usb-gadget-mode-c69c5104b25b
-
-Best regards,
---  
-Ryan Brue <ryanbrue.dev@gmail.com>
+> +	if (vfm == INTEL_GRANITERAPIDS_X &&
+> +	    x86_stepping(sig->sig) == 1 &&
+> +	    sig->pf & 0x95 &&
+> +	    sig->rev < 0x1000405 &&
+> +	    rev >= 0x1000405) {
+> +		if (rev == 0x1000405)
+> +			pr_err_once("Erratum GNR98: revision 0x1000405 is not loadable.\n");
+> +		else
+> +			pr_err_once("Erratum GNR98: revision 0x1000405 is required before 0x%x.\n", rev);
+> +		return true;
+> +	}
+> +
+> +	return false;
+> +}
+> +
+>  /* Scan blob for microcode matching the boot CPUs family, model, stepping */
+>  static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+>  						     struct ucode_cpu_info *uci,
+> @@ -330,6 +356,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
+>  		if (!intel_find_matching_signature(data, &uci->cpu_sig))
+>  			continue;
+>  
+> +		if (revision_banned(&uci->cpu_sig, mc_header->rev))
+> +			continue;
+> +
+>  		/*
+>  		 * For saving the early microcode, find the matching revision which
+>  		 * was loaded on the BSP.
+> @@ -878,6 +907,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
+>  		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
+>  			continue;
+>  
+> +		if (revision_banned(&uci->cpu_sig, mc_header.rev))
+> +			continue;
+> +
+>  		is_safe = ucode_validate_minrev(&mc_header);
+>  		if (force_minrev && !is_safe)
+>  			continue;
 
