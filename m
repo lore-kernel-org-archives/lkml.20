@@ -1,59 +1,84 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0267C3A5449;
-	Tue,  8 Sep 2026 10:25:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC0C50EC1A;
+	Tue,  8 Sep 2026 10:26:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863129; cv=none; b=AZAgSESFzGl4jW6G9NqqsdmsnjX35gMoVeuwneB0oW14yfQhfr1hFYDsUYQkAyPe8Bo6I/FmJPPdU9Hap6AbGhkIhXmnM0Sn22lRLq8ruN6dpvWkI7SAuU6449YvK/KxUcc/bgZHyJbmRrgpgj3hTaABT/dE4OVivEn3Xg+m9Mw=
+	t=1788863216; cv=none; b=KBe/JRa8HCWhABaqyO/SdjF8/FvGnF2cw+Bsy7ZNQxd23op5mB8uF0nrw5yBAJGsVsN2X4S9AI7faMc7gbfI36VG5r1vKf7Mb/p+iLqYbCScHphExkH4FtRvwwXNGfOlxfezScoGh1mgF1+OXzf7HM6UJgG5OgURlKJF5+zPOPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863129; c=relaxed/simple;
-	bh=OZYZnFvrMSs4DhZMW5h5XoDve6m3bUA1NNbd9qEqrkQ=;
+	s=arc-20240116; t=1788863216; c=relaxed/simple;
+	bh=NRw+ETGIsTmdeUKeknoQ0Yj1vx+B3Gy2R9aH3D5k+KM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lggV0daLgwn4CrJVZ9N7INSl/RC5M6JtZui1mkT3oTpmXLSxTOg9cUksC3ExglNm/t2KHMN/yJw6hC/BMWH8oGauxvwGqz57lUYfuRmHwtQ5zEweWHEmd3LPHxgncIG1GUD8xajK02Mtd8uzYamGIv1ONZoSEgt8DzXjVSo+Z6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a9GKiPR8; arc=none smtp.client-ip=192.198.163.13
+	 Content-Type:Content-Disposition:In-Reply-To; b=qLi4GNvsSwI/M3lz4OR6kGw3gYAKFiiNlPUBvCcr1bgSJo7gacizaXZzBJLbzokHYCGBIJllMm6oOVDo9CSwbdhAwR6tCLxQ1jX3CY5wgRJrGFozKBcO8e8vZNy/pEdtFy3C7pEFR2cNdUlGPOBY+wjqB6SB914eE4ogiNg1puA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K/XLMwxy; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a9GKiPR8"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K/XLMwxy"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788863128; x=1820399128;
+  t=1788863215; x=1820399215;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=OZYZnFvrMSs4DhZMW5h5XoDve6m3bUA1NNbd9qEqrkQ=;
-  b=a9GKiPR8RVGHxbC2aCuBBO0rYq032LXSOUXHP1JfdcfN/eErOgch35mY
-   Y4Y82S8HUdlkvvVnHYyS0TIIvX+hiiIpFz3++QBbFJXMtWSyIjFsoSH4b
-   iY0stlbLFhxm/v7b8nd5URV3/C8s4p11oFRLoFYEgYY6zTMc5ZPhQlNaQ
-   YcTYt8V1jgf9somFoA1nEjJBRrGNk9jjxbeekRuCb1Xv7kRUbDSFqPAfF
-   qmuuqIwq0u8Qb+B5oLPtg2Fj4I/Dg75bgxWJI1cpOj7R/b5aU53ZlxYYZ
-   LedUbP5DIxeBeHovwVlGCSXeMcfFYT+mq+zVb07NgTpSzxU8Z46K1BSb4
-   A==;
-X-CSE-ConnectionGUID: Bui+jcBfTx2uPPLSzjdfeA==
-X-CSE-MsgGUID: WRcFyaKhTgKRYObbtPg75w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="91771169"
+  bh=NRw+ETGIsTmdeUKeknoQ0Yj1vx+B3Gy2R9aH3D5k+KM=;
+  b=K/XLMwxyRlchtNhGAMZaxdK3O6RRyMXMh/LKjC4Xw+DWmZ93YvHlpZU2
+   OBcplq/TNofQJCj90yaB9G2Xe4ivIWPV2rWmp1AqtzP6H8dv/ZX/8e9at
+   dwiIK5vWedPApuDnvGpSkI4q0Vtdj6L2pejcSTnEh4EbuIVrYty2oIJYB
+   8NDrq94MNlllNilGIoIuZuP78RtQmt7zG8xKWw0iIW5ji6V6XX/Tp+jHs
+   zeURjNJIULeQJllVO+KGVANVfVZVaITHwbLTcF8q5nArsTeRhkZHjxbRH
+   3rrfFANTAYGHwfjlvqNnKxrRTXg+Hnmpmk3BzF1IBTNqwbOHkfit/O5Fe
+   w==;
+X-CSE-ConnectionGUID: iGO8/3x6QJCvvIlIJirIyA==
+X-CSE-MsgGUID: 9fZ5YlZ3QW6Cr+PYRPK/vg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93125268"
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="91771169"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:25:27 -0700
-X-CSE-ConnectionGUID: E/rh4UYSTIueZOxwQ2Ujog==
-X-CSE-MsgGUID: 3m43gia3TbaJxxLx85KXtQ==
+   d="scan'208";a="93125268"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:26:54 -0700
+X-CSE-ConnectionGUID: AWLCOjaVT36BCPSmrDCMmQ==
+X-CSE-MsgGUID: NbW/xd5MTgKX83yqBbb0VQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="264754543"
+   d="scan'208";a="271468162"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:25:25 -0700
-Date: Tue, 8 Sep 2026 13:25:23 +0300
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:26:47 -0700
+Date: Tue, 8 Sep 2026 13:26:44 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Yicong Yang <yang.yicong@picoheart.com>
-Cc: ilpo.jarvinen@linux.intel.com, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, geshijian@picoheart.com,
-	yangyang.8776@picoheart.com, yanligen@picoheart.com
-Subject: Re: [PATCH v2] serial: 8250_dw: Prefer SRBR in bogus RX timeout
- workaround if available
-Message-ID: <ap_ik82SVnEGkBPU@ashevche-desk.local>
-References: <20260907074035.77796-1-yang.yicong@picoheart.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 1/6] PCI: spacemit-k1: Add device data support
+Message-ID: <ap_i5Pw4nVB4LZ-7@ashevche-desk.local>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-2-inochiama@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -62,46 +87,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907074035.77796-1-yang.yicong@picoheart.com>
+In-Reply-To: <20260907112606.465778-2-inochiama@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Sep 07, 2026 at 03:40:35PM +0800, Yicong Yang wrote:
-> The DW uart could get into the cases where a bogus RX timeout
-> interrupt is asserted but no available data. This could be
-> workaround by doing a bogus read.
-> 
-> Currently the driver's using the standard RBR (receive buffer
-> register) for this bogus read. However the reading of RBR
-> in this case is allowed to raise a hardware error if vendor
-> choose to implement in this way (our platform). It's also
-> allowed to do the bogus read using SRBR (shadow RBR) for
-> workaround which won't raise the hardware error. So change
-> to use the SRBR to workaround the issue if it's available.
+On Mon, Sep 07, 2026 at 07:26:00PM +0800, Inochi Amaoto wrote:
+> To reuse the K1 PCIe driver logic for K3 PCIe controller, add device
+> data to handle the K1 specific logic and make room for the incoming
+> logic for K3.
 
 ...
 
-> struct dw8250_port_data {
-
+>  static int k1_pcie_probe(struct platform_device *pdev)
+>  {
+> +	const struct k1_pcie_device_data *data;
+>  	struct device *dev = &pdev->dev;
+>  	struct k1_pcie *k1;
+>  	int ret;
 >  
->  	/* RS485 variables */
->  	bool			hw_rs485_support;
->
-> +	/* Shadow RBR offset, fallback to RBR if no shadow register support */
+> +	data = device_get_match_data(dev);
+> +	if (!data)
+> +		return -ENODEV;
 
-This comment is for "section", so split it to two
+It's better to use -ENODATA which will help to distinguish from other ENODEV
+cases (which are more often to happen).
 
-	/* Register offsets */
-	/* Shadow RBR (if not defined RBR will be used) */
-
-> +	unsigned int		srbr;
-
-In APIs this defined as int, I would follow (however I agree that ideally in
-all of them it should be unsigned).
-
-	int		srbr;
-
->  };
+>  	k1 = devm_kzalloc(dev, sizeof(*k1), GFP_KERNEL);
+>  	if (!k1)
+>  		return -ENOMEM;
 
 -- 
 With Best Regards,
