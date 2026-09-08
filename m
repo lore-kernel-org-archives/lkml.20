@@ -1,76 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19A653FD55;
-	Tue,  8 Sep 2026 12:53:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64AA53ED1C;
+	Tue,  8 Sep 2026 12:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872014; cv=none; b=qXYABVjgPWt8x3r5rrBdBMGMBmWJ3+WzWYH/uYeV9o69mFnKdw1aHdoGtK1Pl9p9Xgf36AkGHG5Zz0PQvjBxXKTFBguSG06FL1VQBzk98/RUCJKIrbjDcf2YuwC93lR99JeRSP+TVF3azXLhLqV1rrhULXIn4L4vCvpVin4VWQk=
+	t=1788872016; cv=none; b=IS3xkCmOCVxaebYReqcTGCRJtig4qbQIlauHU/CEyEPkDehfzTjL39raGNbH0TRbGeqRNqWRLb84eBG9/PcGiw51G23ElZPAigzzTqDTmsM6GiSy6PBC2F5CuWcGoDiT3+TeolO9U8t05Vu3FNUTWBCbn8hpmaL9IxFh3wiwT/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872014; c=relaxed/simple;
-	bh=y6FRcqlWaa9yc/JdjdqrPQleuc+AxyMLw9NjsPzEBDs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fconaSU6iCrTp7z5ac4kQbbsdafcH+Hu+SWTlCLH2/ytgPDb0NHq7jGIBtYhNQiVW4grYqlJ7ZcVCZDdiKFzXuGPbJBid4icbAaP5eNvpWcxYtdSPXfpR3yqK27IoYQ6Z5LQ0tbnkYX0QnzRmE8KYu1qpLM+JMjSkOcjhHBTjF8=
+	s=arc-20240116; t=1788872016; c=relaxed/simple;
+	bh=SHszKqrGLoqQeDuO3gL6Yu9c18iVsW8OUxyygOggkEI=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tdXdG1bMfK3ljWjLXNRnGpQVAB3Driw2G7yarpI2l6EyYcLFrya3jGL27/mQhZCm3gk8cINlyidHINre6b+vkQmoRyYKoVQfPF5QFGWRXSPrFCNZ/4NISGzLjxrVLHb8/6BI7BrjlbhUYC+tq+cYMe2sTr3SYiPRxvlklC+25N8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44A371F00A3A;
-	Tue,  8 Sep 2026 12:53:26 +0000 (UTC)
-Date: Tue, 8 Sep 2026 13:52:57 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
-	Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH v2 3/6] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-Message-ID: <aqAFBTyAqPTHlxkZ@gremlin>
-References: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
- <20260908-map-private-dev-zero-v2-3-acc7b5625305@kernel.org>
- <e743b598-9048-440f-9124-72071c696679@kernel.org>
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57781F00A3E;
+	Tue,  8 Sep 2026 12:53:32 +0000 (UTC)
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3vJs-00000006D8h-2A4L;
+	Tue, 08 Sep 2026 12:53:00 +0000
+Date: Tue, 08 Sep 2026 13:53:00 +0100
+Message-ID: <864ifz52hf.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Oliver Upton <oupton@kernel.org>,
+	Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Keir Fraser <keirf@google.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Quentin Perret <qperret@google.com>,
+	Hiroyuki Katsura <hk590@cam.ac.uk>,
+	Fuad Tabba <tabba@google.com>,
+	stable@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] KVM: arm64: Fix host access to the EL2 stacks
+In-Reply-To: <20260908110713.1540304-1-fuad.tabba@linux.dev>
+References: <20260908110713.1540304-1-fuad.tabba@linux.dev>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e743b598-9048-440f-9124-72071c696679@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, oupton@kernel.org, will@kernel.org, catalin.marinas@arm.com, joey.gouly@arm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, seiden@linux.ibm.com, mark.rutland@arm.com, vdonnefort@google.com, keirf@google.com, kaleshsingh@google.com, qperret@google.com, hk590@cam.ac.uk, tabba@google.com, stable@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue, Sep 08, 2026 at 02:49:33PM +0200, David Hildenbrand (Arm) wrote:
->
-> > +	/* Temporary MAP_PRIVATE-/dev/zero workaround. */
-> > +	if (is_anon && map->file)
-> > +		vma_set_anonymous(vma);
-> > +
-> >  	if (error)
-> >  		goto free_iter_vma;
-> >
-> > @@ -2777,6 +2793,10 @@ static int call_mmap_prepare(struct mmap_state *map,
-> >  	if (err)
-> >  		return err;
-> >
-> > +	/* Hooks cannot mark themselves anonymous. */
->
-> Wasn't this supposed to be reworked? :)
+On Tue, 08 Sep 2026 12:07:09 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> Hi folks,
+> 
+> The per-CPU EL2 stacks are initialised as host-owned after pKVM init.
+> fix_host_ownership() walks only the linear-map alias of each memblock
+> region, and the stacks, mapped in the private VA range for their guard
+> pages, have none.
+> 
+> Patch 1 is the fix, and it needs none of the other three. Patch 4 adds
+> the check that would have caught it and would catch similar instances
+> in the future: once the transfer is done, walk the private VA range and
+> fail init unless every valid leaf is hyp-owned, or is hyp text mapped
+> without write access.
+> 
+> Patch 2 is a fix in its own right, but to a different bug.
+> fix_host_ownership_walker() matches hyp text on its stage-1 permissions,
+> and that test hasn't matched on a non-hVHE host since 7.0, so hyp text
+> is donated there rather than left read-only. Nothing crashes, but the
+> instruction dump on hyp panic reads a page the host can't access, so
+> the Code: line comes out as question marks. It matches by physical
+> address instead, which is what patch 4 needs too. Patch 3 splits the
+> start of the range from the allocation cursor, with no functional
+> change, so patch 4 knows where the range begins.
 
-It is, you yourself pointed out 4/6 makes this irrelevant, so I changed it
-there :)
+Reviewed-by: Marc Zyngier <maz@kernel.org>
 
->
-> In any case,
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
->
-> --
-> Cheers,
->
-> David
+	M.
 
---
-Cheers, Lorenzo
+-- 
+Without deviation from the norm, progress is not possible.
