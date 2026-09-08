@@ -1,176 +1,205 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11020083.outbound.protection.outlook.com [40.93.198.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFBD434E5F
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:28:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856123; cv=none; b=aA215wOoEf097yfeR2OmhDU/hLQULXXg/B+M7gV+3lu5vBDCIHiGahbFhMXB62Z5ENWtXZP/0boT8AaGTYt9j9R6toPBztSWq4fHn6DVqo+bLUoZbfh3LuPR7iRBKBIeqjFy/hzBvy6lds6m///+Y4SFG2T5jKVWDYsWoWS6ZD8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856123; c=relaxed/simple;
-	bh=/c4NFy4mbqgcTubVGDjrm/L6/KR3/OhBlimCDlvlQro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WTG+VLLncj6LU2JOWwQTNMMyrpbr7ksexnvSqqnf8cnEHtD2E6X5n2TyChEMg4dnw7YR/XQeuNtvCV8UIsBdBanJ2dpYW339/API+4Cl0dtX3bcr3AfAzdMCljbrCaCpdbV17LqGUN06KtsslP63WShlTHUnVZqiTBnnuHcud1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Er8OCECr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BID3uF9Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C8BA434E5F;
+	Tue,  8 Sep 2026 08:28:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788856129; cv=fail; b=lKxEkVr0jNiKMohHs7nBzG1DOGlvbc0cUI1Kt1Ms5VNjEA8VjmLWqetqnk+UwzVCQQTUxMWgggaZrn7uI1qw+7EJ3gYBdQrgAGquLOfsfFHYR5Oif13t6fGw/nKtalA+iMWVvjlF5C2591CFGEo232dJI/OJ2EEtAtoI3mIVgMQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788856129; c=relaxed/simple;
+	bh=6pfwkUarUCb3gzJ63Zcspm+3oWHggZhK8WjqgQjx8fU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=IwZu4At3zehy5jxl4C9SfA8Y4YylhZXB2nk6Hna6nt/XibHlaeFQwj2pI1ie2aSiTw5PYHJlah7Ba1iMAZiV7wruk3rGV/ibhwPKMN+G4nYkpQmYNrXjbq4CRgW439BV47ZGxYgRGbYBXAgOQIjJhAT4yymSt/xG6kRARw04I5o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=jyhLthcb; arc=fail smtp.client-ip=40.93.198.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Er8OCECr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BID3uF9Z"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M9Wn1521661
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 08:28:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=UTCiQoU464h
-	tRcfb9JVhf0FdQsMAlBERFwecvyCAnaI=; b=Er8OCECrtI7kIrpa0dzH28R5A+y
-	MeNFcIbAqY3h/yV8hdCACo/72q+jmpR1MU0snJ1/BcX1vDxUB/rmhHy0hOg9WjRb
-	UUpQrhJH3pjL9JBMbhI7JCYxvgTnMFJruiYcep+wYeUlDLJZPM9QhNUyVRGdVXfM
-	pgsGIlteR/0I9+23QUnBBgSJIWHTPbBkCARkMn24BjgfROVsJnFR7cGxiJWS+DK+
-	C8uTGnsny3+m7YrUkUV54nOFi1snMvJNB5PziODKnaj+3oO/fHMoFy/CjX9GXzCA
-	QZq4yw/TAjTQhOV59fBbKJHCsNioPd4Gd0yI33rI4xAZIH/El88LUr0rc8A==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj077jsap-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:28:39 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52d33c89a29so97120481cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:28:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788856113; x=1789460913; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UTCiQoU464htRcfb9JVhf0FdQsMAlBERFwecvyCAnaI=;
-        b=BID3uF9Z3DgDKmwlB0w3t6I74C5o1uRWR0FRx/QFFjzF4AyIeHRZOx7Hvf9o5ku2r+
-         pMU6iiAPGiLxcJ24pZUc1U7lVxI6518os7kFlgYt4dcJca3vjOx6J8NpKh6DMJUPCbXJ
-         Kx8CcqNmWq/96rn3eSTFmSxD3SLaR7nJ8WD+eLlHnfQ025JtGoRKZbYT3lW4zllcFUH2
-         5+U4XcUM7+lnG/eZJ9oX686apeFADTxvQD7iEju7Lytv1TALAKmhW+3daZnZjLvcisxA
-         wJFaHCwnGgd5Pn2co3YfSWn81Q06NcyXbk2T6r0NJx6tXgj2dWrDoNQdRxTQzjJUuxtJ
-         yANw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788856113; x=1789460913;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UTCiQoU464htRcfb9JVhf0FdQsMAlBERFwecvyCAnaI=;
-        b=PNY447cmeHq8b25n9ogqht7fiNt6PShbYDhXiu4IkHQrkAXPUSqRS52X/vDcC8pdVE
-         ygMtMnAgsT8EDXo5Uknns3Bf0BdlTJLYv0MG9bdAesPDhh/b31CdDnLZA/b7+g2v9uTV
-         Yx4BfDDY6ebGPCGm2DXpbEF4kMbsOIig6bvUDICwT7uWg7PzMAX/TRf2inQTO9vTQ6uq
-         DFzOfKyakB9olKuyAA6O8eZpU+NkbOvUBmjnhHRU3Isk7q5i1sxxNk1QXP5vuYQjCzdM
-         CnOy6OkGObxUIfMzG660aHtv3Xn8FY0IDT+ZlZ2Ht1u7dwQbyaMqADZq82L8R/r7hSIf
-         aq/A==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ15P1d0sIGHfy+CGAKUrzK4ETywtcBEouGkBSb5yy2zZQ5tP5BS6G2vQ55DOIoaEpwAiLvSdMtg3086A=@vger.kernel.org
-X-Gm-Message-State: AFuF++kznuueQvVovAGnazNzVwEk2c9I+PYWjgULxtQSHGBYpKe2FaXy
-	Dyc+SrApslGRIjQqPDBWvZl+cCvxbrpCbpjN8hehnWTkeL7sJcv0LM2sJjCLc11M+tod8CmoMTm
-	vkOJZhHUsIqHz51EZXQrFpNsLNia7N0nnPUUiJA/gs1LzfR76rBKDhq6kaGPEe5CXz3M=
-X-Gm-Gg: AYBFou1YdYiKZbo7lycqIr4BUjx7AegkgqHcPxSA10JJSOZg7hWb4v36zy3YrMm1xkV
-	v4dCVy9jfGiYW6Vdw4AqHHcle+i+LgzLp/VdND8VJ+ScpuIqPakx+6jRU6hrtvxxVGwWLRDXdr0
-	sSZXVbHEp6P9wD5qdm8ECJRLD7MiBlYJVe7DkulBma3Gt6E+G/98lYQkF1YRcxvDBbuGFzn+W5r
-	pEpUblQl5XIxrn9ys/TmTCenq+2DSAwvvfoMASSMuytE3hMvkZ7MQ+cDV74XOBm+2XffE2V/LbM
-	fDfAtKOicFMuPZ21ITppl8K5Bqxar8hYV1fZbP4pPWurXSB0EoUqqYERXbCBN/esMTKCa0fHJXp
-	DcNNw1FDhIP8kEw==
-X-Received: by 2002:a05:622a:153:b0:527:7813:a439 with SMTP id d75a77b69052e-53054982b53mr329351601cf.27.1788856113585;
-        Tue, 08 Sep 2026 01:28:33 -0700 (PDT)
-X-Received: by 2002:a05:622a:153:b0:527:7813:a439 with SMTP id d75a77b69052e-53054982b53mr329351381cf.27.1788856113183;
-        Tue, 08 Sep 2026 01:28:33 -0700 (PDT)
-Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7736132sm369414605e9.12.2026.09.08.01.28.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 01:28:32 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-To: broonie@kernel.org
-Cc: srini@kernel.org, lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH 2/6] ASoC: codecs: lpass-{rx,wsa}-macro: sort reg_defaults before regmap init
-Date: Tue,  8 Sep 2026 09:28:02 +0100
-Message-ID: <20260908082806.648797-3-srinivas.kandagatla@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908082806.648797-1-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260908082806.648797-1-srinivas.kandagatla@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="jyhLthcb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tDsRLYE3lQhm9yw6vfU6bIfUXiWDz1UZQqx0/6p19/OZ06GNiwMZJIq9QVFnUB/c+aXYTlss96ApdZtXcRM+mcOFIJj8qLJCQhaKJjFB+b5NHes4YPrKQz1ToqMSoWtD6epeBTp4mj30vBCQ9G97mbVge8dWZmOyIwb+ESXc3QQd5ZTxgY5WeSfIBEheLDy1r3dETAsyNAY905j9SmkVJt3O2ZJJNmNt3/mHsFaMeMdpoeLRr8EBqYEUbUOb0fT36ISwB9Q5laVNlaRNGuqLcTLrRu+h9PiYGVhFQ+KPBWMZ7DxBuwJoSvYrUilKKcZeVtpw/oRKLsfqNcadfZVluA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eNKB0qvsMCjr+ibrMp9Y1VW6wlLfG2e8zCw4E9cQBPE=;
+ b=EGt8bQ6Yl3UqHWa9Ob0gw8gMZ9IrrRPTI5tTjJvviU8HWLWf4RLRoRr6W/KACCVLuhS3LiG5YC9qtu8M8FClg4S4e6jpTxnshn7Zq7wSNzV6CwhyCngI6FVPtjreD4DCn5hS6o6LYv/HmEzN0mR50HoYrZg36ouYOMASwS+hdyDe/TDnjBjPyl/uxT5s4BPOhIAe2J9S74iu79Ai68eJVcJ+9uYpK8wC9ifLd/bRL2psemqFEAKSd8BiupdjlGTgLoa+yznyK4PfkRCuj7Fx9DIyAnOP5Rgcp837RBvCkUHID/zeZPfKHoTShpUcDx1r++UREC6TkdnH5NJ2dD9ZmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eNKB0qvsMCjr+ibrMp9Y1VW6wlLfG2e8zCw4E9cQBPE=;
+ b=jyhLthcb110uaPepxmHwEh8EsK+E1yv5u5p/a8ijvof3+xl1S7YDOLaqqghNf4zU8az/sIg8bIoXDDpwQxl/4gTOF+uvThvpkbkks/BPidv8QmEhFp9X2GCGjkMCNutWwl/zOuSEcOlwIrKhC36HMO6Fzn0Lmen7W36X/y8Yfw/9P3j4DJuvCMC44ULgbBpuQbYny0oLPbEkU6lpnOWl1T5SidFnaE3dXXg/J3Y2FtT3PgittUjeXAABjcD33Lb02mq7fMt+XPHMfIyfLlSav+/hqAYbt/+LriCuSh+GZpit2xPkQtG5HUArEYzgn0fPWeAIn43sstL4ePadOrpZyQ==
+Received: from SJ0PR05CA0188.namprd05.prod.outlook.com (2603:10b6:a03:330::13)
+ by SA3PR18MB235022.namprd18.prod.outlook.com (2603:10b6:806:510::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 08:28:43 +0000
+Received: from SJ1PEPF00001CDE.namprd05.prod.outlook.com
+ (2603:10b6:a03:330:cafe::8) by SJ0PR05CA0188.outlook.office365.com
+ (2603:10b6:a03:330::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 08:28:43 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ SJ1PEPF00001CDE.mail.protection.outlook.com (10.167.242.6) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
+ via Frontend Transport; Tue, 8 Sep 2026 08:28:43 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 3CA1C4186B5D;
+	Tue,  8 Sep 2026 01:28:43 -0700 (PDT)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Date: Tue, 08 Sep 2026 01:28:34 -0700
+Subject: [PATCH v4 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4OCBTYWx0ZWRfX6tLkVyl1pv+R
- k2gj94LWUJu7MIboDzY3Vsa2zEebRSzWx7snv2cEnuIbpq0hOR0TTAd+/2I4zjqneVLRmhKLaVM
- kMxWn/OmPfTTddPW6SQK1oAZOPGcGk9PrL5pnLTetJ0DcGRCUnaa8Yylw78LxQoSgzSR3VU0ZHX
- RgSjKuHA4QnkiJnXqJbx93LZtVox9Z/8OIaEgMpNsGtg9ib6APcWgg/YA2v61tV3PjrQZ6uHQiG
- CCJ/mWVdQBx1hTdf9TTRGxjCXgoN81gMOuAqnQjmrz9XrfypHYvJGQ5W9E5RiPx/neEJct8cIY5
- oHBK0uupLx0q9Yg3a248kRUTQ3Bf8csIpR0U5H5AWxfyh6SWyKUtPQfEtGTNVOEPSmZaqy4efVd
- q4yauvWbW+bgjOCI9n0Ly4KQtyxZ+VgPSxDv48vucrsZDPDfU4rUJPdmPYdPK+dk0oxLZcVoMx0
- resIQylcf+9HIqB/c8Q==
-X-Authority-Analysis: v=2.4 cv=Xbe5Co55 c=1 sm=1 tr=0 ts=6a9fc737 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=EQvkBjYcCjhqL2gfLRsA:9 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-ORIG-GUID: MUwvc3-1faUrd1gxGcRqy_bPwzAP7NUo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4OCBTYWx0ZWRfXyhG/gDJ+WLwO
- xEQ237xeoCSu4d1gjeD5yYaUm/aRaDyuIWZJp/g/bPlgOph5Aj3spJzTC7/guGAOcnkqsijQmkQ
- F9lOI7DAEE3m1yU+3Cf99C4BU2/HAS0=
-X-Proofpoint-GUID: MUwvc3-1faUrd1gxGcRqy_bPwzAP7NUo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080088
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
+References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
+In-Reply-To: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
+To: Akhila Kavi <akavi@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Petar Stepanovic <pstepanovic@axiado.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788856122; l=2395;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=6pfwkUarUCb3gzJ63Zcspm+3oWHggZhK8WjqgQjx8fU=;
+ b=OKcIof9UtYiAnxr+tzOGMtK342ArbfnAO5gmYi0lKRUUVStoea6LXoKsgDW0tQO4vqpm6mkJ/
+ EgjXSHB4dkICekd9PvY/JnG8c6uHTCf+MN/e4paZ2jIVR1guYv1cHZZ
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDE:EE_|SA3PR18MB235022:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b0320a6-8bdf-4578-4191-08df0d8331af
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|3023799007|56012099006|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	lovVl1ohG0xT3npvhdXUQVOZksoD8q9LkKFbQV/5+b3v7li4qWDXmabzqOLchmp/UqXlENm2CA3XTKRM5hGxhLgpJLO4f4vNJ1TD8DOyxJ829xDnc0pGYXV8Q5w6bH7zGm0aZLj5lBrspK/k7Smts/dB6bXC1wzgyxwmD8uE2VAXX0CWbuJn/VKZ0a+sEuCby6mVGHSZ9McMLaCTcSql2mNkXJcFi0aibbcR4oywH/KwkEwj84MYzCwU3nfWuXa+EJIFI8JaV0klZYXz8yfwUIzQvdmPZf4AwR+MStHdkVzE/kxgZNQ/oWuJL7Yco8jytV9aQsY12jTmFWuLGmBvX1biqlV1fGQPS3E7L2y2w7jFDfidi54GT2oCElqIR4XKnUVWtaF+WT2k3u0pC5bgusru2RquqngXDrduVFwl4dYAApANKqQIKpjUEtraaLj6A3tHceBzAp6hGwO3yyI96n4sOe5ILQiHoDsz1Rt5Tobv3idzao/hwr4/8TxvOU7qOK+hwJ0L7trp7EHKRw+FQHbD+nluWiKWISXFT1HOip+p3uei+ZVv/cbjekyVg4U6+hlK8xV2spEPKQJdrjntWH90RWDbe0a0GLT6FWgQhSY3M6al97KLnjHdeEEqqfBj2CHim8hXZz0A9y88U51XUg==
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(3023799007)(56012099006)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pSpQ1MgeV3sSoeLsIRnSA065t2Cbp2iVfJ/XQQM4JxfkASIyefs36py5HIkMTm1j5ZUDlDKUtAlfZJoMZnQIoo4xzJunqfFnqolpLmECC59m0ku8DXx/rvTSW2rHH0Tw1D79mpxhJXe/1fZK6ExwqmxYEVHp6bUv4QrH1Ds12zERv5SDNJqigPwh0uHi1NNVq1M4A3YIUaluKuwxByUAANlvoidBjLtPtjlLBBwLVfewdNtsYZEy+KYqf6YOZ6soECgcLccA+oaO1wrUtdUP531xOfk97IwsNPNOOtysogBhqG41WAADmpA1W8bELLddQTUqkWoco20qNqReQVGHc1hRxQXKU9i6v2hM3Gw6UkwLYt6UMgeJRiTTwmwKDNcwBik00IcsXRE6Mh6OGqWxK5JFnrPoVDxDRugEnkTF3pNItT8ZDt6zAxTn5+vJlmYE
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:28:43.4394
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b0320a6-8bdf-4578-4191-08df0d8331af
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CDE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR18MB235022
 
-Both drivers build the reg_defaults array by concatenating a base
-table with a codec-version-specific one; the resulting array is not in
-register-address order because the version-specific ranges overlap the
-base range.  Regmap detects this and prints
+The Axiado AX3000 and AX3005 SoCs include PWM controllers that can be
+used to generate configurable PWM output signals.
 
-  wsa_macro 6c90000.codec: Driver needs fixing: Unsorted reg_defaults,
-                           sorting the copy
-  rx_macro 6a70000.codec:  Driver needs fixing: Unsorted reg_defaults,
-                           sorting the copy
-
-then sorts its own copy at runtime.  Call regcache_sort_defaults() on
-the concatenated array before handing it to regmap so the warning goes
-away and regmap does not have to sort a second time.  Keeping the
-base/version-specific split is deliberate for readability, so a static
-reorder is not appropriate here.
-
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 ---
- sound/soc/codecs/lpass-rx-macro.c  | 2 ++
- sound/soc/codecs/lpass-wsa-macro.c | 2 ++
- 2 files changed, 4 insertions(+)
+ .../devicetree/bindings/pwm/axiado,ax3000-pwm.yaml | 53 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 ++++
+ 2 files changed, 61 insertions(+)
 
-diff --git a/sound/soc/codecs/lpass-rx-macro.c b/sound/soc/codecs/lpass-rx-macro.c
-index cac0451f8139..4dac376927bb 100644
---- a/sound/soc/codecs/lpass-rx-macro.c
-+++ b/sound/soc/codecs/lpass-rx-macro.c
-@@ -3855,6 +3855,8 @@ static int rx_macro_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	regcache_sort_defaults(reg_defaults, def_count);
+diff --git a/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+new file mode 100644
+index 000000000000..3b73b233da86
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
+@@ -0,0 +1,53 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/axiado,ax3000-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	struct regmap_config *reg_config __free(kfree) = kmemdup(&rx_regmap_config,
- 								 sizeof(*reg_config),
- 								 GFP_KERNEL);
-diff --git a/sound/soc/codecs/lpass-wsa-macro.c b/sound/soc/codecs/lpass-wsa-macro.c
-index 7a2b0cf9398a..4d7e7e30f460 100644
---- a/sound/soc/codecs/lpass-wsa-macro.c
-+++ b/sound/soc/codecs/lpass-wsa-macro.c
-@@ -2763,6 +2763,8 @@ static int wsa_macro_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	regcache_sort_defaults(reg_defaults, def_count);
++title: Axiado AX3000 PWM controller
 +
- 	struct regmap_config *reg_config __free(kfree) = kmemdup(&wsa_regmap_config,
- 								 sizeof(*reg_config),
- 								 GFP_KERNEL);
++maintainers:
++  - Petar Stepanovic <pstepanovic@axiado.com>
++  - Akhila Kavi <akavi@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
++
++description:
++  The Axiado PWM controller found on the AX3000 and AX3005 SoCs.
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - const: axiado,ax3000-pwm
++      - items:
++          - const: axiado,ax3005-pwm
++          - const: axiado,ax3000-pwm
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 2
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - "#pwm-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    pwm@80801c00 {
++      compatible = "axiado,ax3000-pwm";
++      reg = <0x80801c00 0x1000>;
++      #pwm-cells = <2>;
++      clocks = <&clk>;
++    };
++
+diff --git a/MAINTAINERS b/MAINTAINERS
+index b2040011a386..9999480376cc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4312,6 +4312,14 @@ S:	Orphan
+ F:	Documentation/devicetree/bindings/sound/axentia,*
+ F:	sound/soc/atmel/tse850-pcm5142.c
+ 
++AXIADO AX3000 PWM DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	Akhila Kavi <akavi@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-pwm@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/pwm/axiado,ax3000-pwm.yaml
++
+ AXIS ARTPEC ARM64 SoC SUPPORT
+ M:	Jesper Nilsson <jesper.nilsson@axis.com>
+ M:	Lars Persson <lars.persson@axis.com>
+
 -- 
-2.53.0
+2.34.1
 
