@@ -1,132 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-228.mta0.migadu.com [91.218.175.228])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFF552E057;
-	Tue,  8 Sep 2026 11:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212C452D2CA
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 11:22:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866469; cv=none; b=py8HVMB4RMjN3hm/NFJ4IX453X21Tg70Ltoe1nmG6YyxQP5m290Rlt4HifSSxRKN6cCzXfOxZ/4hPUEzM316Xjcl1/8QNMM55pfVmDS5cmpeNI0EMisi4kTCNmw+0MO4gFE9ng5RXVlbK7n27uoA62lY7GpSTDmeIuWn45ixbtg=
+	t=1788866560; cv=none; b=pUGj7UfIcT1E7vb+MRC0Bhn1AjyYbhf7QU+UaAbx5YgsIGqO64iIMrE7eo/Ta6mEPPcUZrBYhNVuBm+pZiG3n95cEJXtA9IiPYtNIcpkli3BQ9a1clzRbOgFaKrlIgW5qSjopdaFZm3b979qTBrGfRLpUbMyAp+AFZ+Gf6hMnww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866469; c=relaxed/simple;
-	bh=ULIBRC4d5jw36/PLdQBRzSg+X3VatAol/skFzcE4GHs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IEoVkO8fK8X/GJNehl57sJ3uTl0EIwVPI723RxYaSwrLgYqp2GMkQquUeXk5LNQdN3GnYo4QZzGvlNLNidN5NIjU25mRpC1sjPT5GuBT68pBzd+Ich1OolqehOiJWBQ6GAKAiyZUOG0pgnX9ewaliRqK8KkZftN/jN/+7ITeaAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GrB21XYO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788866560; c=relaxed/simple;
+	bh=ZZA+ZfYds4/VfNcL2acHrCCj6KTrChkpY0m87hvHxuE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=plCg09kGbrgKH0v8Sv6szEFjYMU72gkYpwfrkwmSUJE4l+cfhPY8mAgaHT4MsjjsrvKOKhdrX6EuaO34SKlx6vyzyN5250QMAjKDp/LfgTC9zM6qeCQmP6mQyMDCjzQHKL2GMygL9mPDR8/G+rgY/iNf9CTrPd3v8nhzcE8IefM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Ies7xEzQ; arc=none smtp.client-ip=91.218.175.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GrB21XYO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AB5F1F00A3A;
-	Tue,  8 Sep 2026 11:20:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788866463;
-	bh=IoqTyL+G5O6+fLL3cVLfgraMEyoqxgqBpPotfBdVQqw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GrB21XYOLGrBo6gxEF8O+VDQ8P6Z7IJTIEyPD1wG1Gw99Ip3jQphLMVskjjJ/q1Ia
-	 NbKynFOkclfWFGjzL/ZGOj6A9B0MpoII6bIk2IMQMeQDRYFtKMRU9tUxJ1xQ8R6XhN
-	 wy+hJ5Tgq+0qcKo/HXlbIKH3KURAlURNS462V+YZ3LJlrToDIY9DtyC4wV64/AhYYL
-	 F15CVr74IcEypm11lfsqKgyCfH6d29iy96Wyv6dN/8FLMchUrk+YzXSYPL0GlxRixZ
-	 hhPGyoW5IRAxaXfGXElFzqrAoW5JwJ8z3PYtqX0rXQUBb6XRR5zCWyXaB9s0M98V+f
-	 qbnt/MWTQnd1Q==
-Date: Tue, 8 Sep 2026 14:20:49 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Andy Lutomirski <luto@kernel.org>,
-	Borislav Petkov <bp@alien8.de>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Huacai Chen <chenhuacai@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Len Brown <lenb@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Paul Walmsley <pjw@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Vasily Gorbik <gor@linux.ibm.com>, WANG Xuerui <kernel@xen0n.name>,
-	Will Deacon <will@kernel.org>, x86@kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-pm@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-s390@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: Re: [PATCH v3 1/6] set_memory: add number of pages parameter to
- set_direct_map APIs
-Message-ID: <ap_vkSK_efv7ab90@kernel.org>
-References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
- <20260903-execmem-set-vm-perms-v0-2-v3-1-949b64a9f755@kernel.org>
- <a98df077-3e97-4eea-8bfe-470bad9ff9e0@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Ies7xEzQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZZA+ZfYds4/VfNcL2acHrCCj6KTrChkpY0m87hvHxuE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788866550; v=1; x=1789471350;
+ b=Ies7xEzQJf7JxDZI/4u0i0dCM/tumbE7X7UkIPTCa8Z5ARLiHjNVkfxiZ3PFHwp96chf3NQU
+ dVIvz00L+tb2eBJs9D+tVhVjH08j1q+CO9C5+6xJMDiGR50gQGryYUZlA/6AjSIqP64De8daXGI
+ nLGXEd1Hr+gXT+pXN1droyn8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1cd0bb8d8965546c;
+	Tue, 08 Sep 2026 11:22:30 +0000
+X-Mizu-Trace-ID: 1cd0bb8d8965546c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <df053a08-6c9a-4e56-9ba5-bdfbf930331b@linux.dev>
+Date: Tue, 8 Sep 2026 19:22:18 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a98df077-3e97-4eea-8bfe-470bad9ff9e0@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] selftests/mm: fix size truncation in pagemap_ioctl test
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, akpm@linux-foundation.org, ljs@kernel.org,
+ liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
+ mhocko@suse.com, shuah@kernel.org
+References: <20260907135613.68692-1-zenghui.yu@linux.dev>
+ <9a21fc3c-1ca9-42a3-a044-6421f20341f6@kernel.org>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <9a21fc3c-1ca9-42a3-a044-6421f20341f6@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 08, 2026 at 12:38:44PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/3/26 11:28, Mike Rapoport (Microsoft) wrote:
-> > When set_direct_map APIs were introduced by the commit d253ca0c3865
-> > ("x86/mm/cpa: Add set_direct_map_*() functions") the single page
-> > parameter made sense because the initial callers (vmalloc and
-> > hibernation) had sets of unsorted struct pages that required changes of
-> > their mappings in the direct map.
-> > 
-> > Since there is an increasing demand for direct map manipulation and it
-> > is also desirable to be able to update larger physically contiguous
-> > mappings, for example an entire large folio, extend set_direct_map APIs
-> > to receive number of pages parameter.
-> > 
-> > As there is still only a handful of callers, change the existing
-> > functions directly and update all the call sites rather than adding
-> > wrappers for single page case.
-> > 
-> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+On 9/7/26 11:22 PM, David Hildenbrand (Arm) wrote:
+> On 9/7/26 15:56, Zenghui Yu wrote:
+> > From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+> >
+> > On arm64 with 64K base pages, the huge page size is 512 MiB, and
+> > hpage_unit_tests() builds a 5 GiB range (10 * 512 MiB) for its tests.  This
+> > exceeds the range of the int size parameters of gethugepage(),
+> > wp_addr_range() and pagemap_ioctl().  The implicit truncation to 1 GiB
+> > makes gethugepage() allocate a too small buffer, while the callers keep
+> > operating on the original 5 GiB range, resulting in spurious failures or
+> > SIGSEGV.
+> >
+> > Change those size parameters to size_t.
+> >
+> > Fixes: 46fd75d4a3c9 ("selftests: mm: add pagemap ioctl tests")
+> > Assisted-by: GLM-5.3 OpenCode
+> > Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 > > ---
-> In general, LGTM.
 > 
-> But regarding semantics, is it well defined what happens when an update fails
-> halfway through an operation?
+> Looking at pagemap_ioctl.c ... I think most functions should actually be "static".
 
-Just like other set_memory, it bails out in the middle if anything bad
-happens.
- 
-> I'd assume such a case cannot currently get triggered, but there is no
-> documentation on what's supported and what's not. Or is there?
+Yup.
+
+> Using size_t is ok. But then we should also change "unsigned long long mem_size"
+> to size_t, no?
 > 
-> Imagine someone performing an update on an area that partially spans two PMDs.
-> While splitting and updating the first PMD could succeed, splitting the second
-> PMD could fail. What would be the end result? Rollback? Does the caller have to
-> clean up?
-
-There is no rollback in any of set_memory implementations. It's up to the
-callers to cleanup the mess afterwards.
- 
-> I'd appreciate if we could add proper documentation with expected semantics.
-
-I believe it's more in the scope of  "arch, mm: create a generic
-set_memory/change_page_attr core" [1] work than this patchset.
-
-I can write (or maybe even slop ;) ) a doc about set_memory/set_direct_map,
-but I wouldn't want to hold this because there's not set_memory
-documentation.
-
-[1] https://lore.kernel.org/all/20260721-generic-set-memory-v0-1-v1-0-2c1fc62306b3@kernel.org
- 
-> -- 
-> Cheers,
+> Also, in wp_free() we are suddenly using "long size". In pagemap_ioc() we're
+> also still using "int len".
 > 
-> David
+> Can we consistently use one type please?
 
--- 
-Sincerely yours,
-Mike.
+Yes we can.  This patch adopts a minimal fix for this specific issue.  I'll
+unify all size-related parameters and variables to size_t in v2.
+
+Thanks,
+Zenghui
