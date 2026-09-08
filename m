@@ -1,133 +1,170 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F822AE68;
-	Tue,  8 Sep 2026 00:11:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC4541C6A
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 00:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788826281; cv=none; b=TTCeCzsqY0BfGK2jVnjM6hsX7cdyl0VOVYeAGHbWC9h7F1etYqUTrjlkMVkge2ORv/hvpsjms0bW5n3BrJoaUj6OwSZvArNAwNLZsgOWnxS6pu5CP4SUzOjeDy+DCQOz8SzfTq9w4rCc85jUmGglUihndHhGqT/FKsKIsC5iEJQ=
+	t=1788826294; cv=none; b=HH/IfQ9uglgiALNpeezMLDcumfM+tU/28979okSp2lo6M4zUu8SLhqf1izBcZebLT1Kv05yvea+8DKiAQXZFvK7aapizfd4EpZ0VXIon1gyQlnlOnej2JFWCIM+iKLZq/ulI6mc5JP5byPbMD1Fm06PwrizsIyUZToNtfcodjRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788826281; c=relaxed/simple;
-	bh=AL638/hQUvxZ7ksKQGtecEARfPp3dotRpjQaGrQQF3M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ocOAneqm8bdYopnRfYdWNud9tAyaXKnIYIUgCLb14XI0mdxrHag0SOuzPWFa6VFGQw70FX1bWX4v1Gu22C/YyNf18l3+kkh/U2HQcrGlgeVYjawtvhtEHyOuW8HuFcMsn0Lk55wmzmSWoi9AJ0BqA/rRMuGRWvRBYllRhBVHJdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=LLJ3/45b; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	s=arc-20240116; t=1788826294; c=relaxed/simple;
+	bh=ls7R5dKuAv9pAtaI6tZbcbs0Cq6QuFIba8TTUWJGYAg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PIUjbtwIwvvNGClGAdSv5ag1VGEruSdsAuJHWEwx0cps3PnMVSZcM8lyGb/oHnjyzKZDXFhA63xabTyK5OoEYEB2CKf3flrRb9WDV0cZZ9zu5QMrK0/mTx/O/Gz/v92FtcQlGZmmQSpkGgFnXQbZImQ+U2wCcbMWcUeJ32JeAG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=AR/5ENzL; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=FfDpgQxD; arc=none smtp.client-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="LLJ3/45b"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1788825744; bh=AL638/hQUvxZ7ksKQGtecEARfPp3dotRpjQaGrQQF3M=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=LLJ3/45b9JMUxcH9Gv9bEbtvgzTehRkBk1PVr7b1A0gcFD/djeAiJOIq0Gp0WkL5O
-	 MTSM5hW4iVuKVzowUXDFTw2xZssxkEDQBHlKncvwi3mgM7YZekFFNmCfUoUqkwd5+i
-	 /kniqUrNVz9nFw6MPZi5+YazHlaOZ7mQ7Eyep+XU=
-Date: Tue, 8 Sep 2026 02:02:24 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: fix hym8563 interrupt pin on
- Orange Pi 5 Plus
-Message-ID: <pzcclrj5h32i5sfjhv75ntyrcmlqf224pzgk7zmea64jsxcriw@ezb2fpcpw5zt>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260906181622.11991-1-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="AR/5ENzL";
+	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="FfDpgQxD"
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687MXksa3578679
+	for <linux-kernel@vger.kernel.org>; Mon, 7 Sep 2026 20:11:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=6F9U
+	PwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=; b=AR/5ENzL+6KsEimeNtJ7
+	rXj7MjmNPF4of0uR9Y3453jKSftTEqsb1kb3Rbac5SfKI6X2Rdyl3IQyPhYga3FO
+	WFdxfyqT+8d8nzCy4AhbHIO7vvrOI+TITImwFA59T8NXC78JfCHQMj5q5wQpm+ue
+	IgvafaigkaybO+2wl3VUsUcQzonLqEhLyknt+Q9Wh8lUircBR8p4ZMQMOIv5qKH7
+	YN90XycDLxcQF/ZK9B9bGrI8F6TJa9AbDuDl7Co0nTqCtLLcXCBxZcqb7Bf5HbYf
+	jKd71lIImcFBIbiF3wN0yqTKK1Q+wWeLrxsiX+XW30pb/5YPIqMXry1vWamVl7Ea
+	lQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gj4y3gqhf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 20:11:31 -0400 (EDT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e62e3459fso599450485a.0
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 17:11:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1788826291; x=1789431091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6F9UPwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=;
+        b=FfDpgQxDS51d2UBHwMD/6f3jFEw+wem2zifg44x3LPqCEjPzSMRGfi+t7YtgH8ubfB
+         DAtlzEoF/Yh1bgc0XNnZjxQJy/Ic6oELZcIUAB8qNdh8qKbE4eck7WVXyZrbv180n1Of
+         vhQ9XyYB87Dep2joECqm5y8xYcQXTd3ZVYPdIn4v7DdsPWnqWLLWNNjzfSFtTFZSyh1o
+         bXV+e5ac+twJbHmSTN2eXuztRxhNeUvWQQ1ARxQSifrSqQuWzfwfcJ2TBI+99ChEOJ+0
+         Ar1bsAEU4cFhHXkJM8d+sD7Xt+E+Qis0IiT4UmlsWv0gNxQlwZDnGTMxkO8+amzxQJ/6
+         PQEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788826291; x=1789431091;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6F9UPwwA5IUAoLSDzoxdxlRxl2v/TtJim6aImNVQKrk=;
+        b=HTWUkAOJN5dHopH6Fn/yDDkVyh0VX/lsYKhhBZtr2vbAz/6d2t591e9G3hQkZusJk8
+         jzvJWxuq5tN5fQWTHoQzvT2Cges2NxNDDRET0VXn62tB1h2Pcmmhg75xYxGLMN7a95O9
+         P56p5QECYt739G6m3aDafFQNXDXupFbbIVrYPGcIEs4mspSXwfkS2h7SfNS8iJYZj+hW
+         PLHPDBmM0zq6eRwoKokPoY52kd5y8n/kpQZTL8KCTjc/PK7V8nbivyX75B5pF+VAo7rU
+         KlhoDran9FB41eJMpxHr8FkgqwqQh4n+s1gqnc6cV8z+4Qp1s4cRHqEPlqjBp5ApDasJ
+         TMEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpCMvVZ2QnIB5jILpyhuU2hbbAPp3tQtNn+Sg30bO80fKDsEEojqNMOPD5Ndn4MWOhm/c8DlmScC0T1xY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mUlaACRb3bimceEzMsd7mZhGXo+MhomHar5QdQ2p696o0o05Or
+	OGIed6MfsP1YcDGf2b+xxER/b5wzl0aCWYA0/cB4Y2SLzri291KlLPwe6RTjPMfBeWwM2mQE5bN
+	LB+CHkU6aL2TrIO5On7/cGPOdtUeP/Ri8xWjL0UgxwXyz/BV8MbbTE4TU2VAL5g==
+X-Gm-Gg: AYBFou3oXjObFRfnlXS2KBlR1epuRxQWxjH8P/t49DFRE7m7GqBo5TX9y0ob0hdqBBO
+	mVk/PVifr9z5Kv3wkrhTeFBn7hUTKK25fq/1DqwPXE5r9tPIxcrxul3g+3C1a4P5CGhHjuEACmr
+	xXYdwrSF2pYxDPq3D68jB+aUjJ+njVHKSqNqiS8xIQ6EEvZVh1zVe2rZb47/yU1sKGJJVSqah4j
+	29TPO4AGRKF236a+bNGctLEq1SBqQ4Ot+EhOVlh5aE9REBMgUjJu+1Sxc2g8qzFAu5XIr4gg6zf
+	Z3CgC7mcpXLWoCmNcfeq5187rTAa14IUY8iacScrpeJ/dkgwJWivTwjAwgRl1Q1U0PBGVHFttnB
+	RPF2lf09o8IBKwMadkoW8kr5d4Sc5m1vfx5bEGGuPnIaogMs=
+X-Received: by 2002:a05:620a:6081:b0:936:69dc:aedf with SMTP id af79cd13be357-93980370c3bmr2604431585a.16.1788826291295;
+        Mon, 07 Sep 2026 17:11:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:6081:b0:936:69dc:aedf with SMTP id af79cd13be357-93980370c3bmr2604427185a.16.1788826290792;
+        Mon, 07 Sep 2026 17:11:30 -0700 (PDT)
+Received: from [10.207.49.22] (nat-128-59-176-3.net.columbia.edu. [128.59.176.3])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fb59c72sm995351485a.26.2026.09.07.17.11.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 17:11:30 -0700 (PDT)
+Message-ID: <f51c6392-f77d-48e1-83a1-4d6d4f83aece@columbia.edu>
+Date: Mon, 7 Sep 2026 20:11:29 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906181622.11991-1-royalnet026@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 6/7] block: unpin all pages of a bvec in
+ bio_iov_iter_align_down()
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>,
+        Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+        Luis Chamberlain <mcgrof@kernel.org>, Hannes Reinecke <hare@suse.de>,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        John Garry <john.g.garry@oracle.com>,
+        Christian Brauner
+ <brauner@kernel.org>,
+        "Darrick J. Wong" <djwong@kernel.org>, Keith Busch <kbusch@kernel.org>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
+ <20260828-blkdev-fixes-v2-6-32f3f40cebed@columbia.edu>
+ <8da4a2dd-a4ef-4a61-888f-60c611d3f911@columbia.edu>
+ <20260907071318.GE934@lst.de>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <20260907071318.GE934@lst.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: vT-Vh8eo8VfgCrQj7F6B6VR_yCj5Fb8G
+X-Authority-Analysis: v=2.4 cv=T/68ifKQ c=1 sm=1 tr=0 ts=6a9f52b3 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=92j1mJcILCjWExuphHMrQw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=IfWMoTYk9wI_L9YC-tMA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDAwMCBTYWx0ZWRfX9Rjd17TQF++0
+ S+JyvJIRbgG2FC4VjFOoIEidc1egMsHt/0jh0HGd9vWnM8E4CIAJIfnAwFcgVUYHmvcaJOzBgbS
+ YE6aYjy1pFaM9oObIdwCr0wFpk792gvQgFgvk4NLLDiS4nTsjiXf
+X-Proofpoint-GUID: vT-Vh8eo8VfgCrQj7F6B6VR_yCj5Fb8G
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDAwMCBTYWx0ZWRfX7arf7iWC166v
+ RpvV8xbkI9Ax1gOZfnqbtPASFPJ+0eNPHYNib+rvzisC0AZBqgtZ+evF8RDnBDD34tdkcxydHka
+ DxF+q9C3TGjakDzCSxsi15fAnk2yXJbjdUS9GmoXYJE3a3tjkJ2chmBVOcQPQbVLz4zCNMqfe9W
+ ckWct676W4fCAypGpjAq2NEwX+6jawdQNiuqflO/WbYcMk2z769z18UXsEmOv4BjqTUFe4d3ZZF
+ VdKZJ1au9eVlpghNZ27RGr0+mujE+ZvFULLDSyyM3btrqXXqgwGfFCV9Nh3+6Xi8ZOf8+dBF6u3
+ dNoclhiM8XP5jhkH31vbBvWNsrBIxXeYzjsq5xowQAU3goPJ8CwBWnz9aZDdJ9X6CvZxt8WAc7+
+ Jw3hSFlFkKTRrNMG17yAKYcAJJvvfZFFIRsnMGzEd+ldmWLgqsAVZ7BvVo/TBtKIhzEQP9KtSDW
+ vqs1RzhiUSByM6iT/7A==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11899
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=10 priorityscore=1501 adultscore=0 impostorscore=10
+ spamscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=10 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080000
 
-Hello,
+On 9/7/26 10:13 AM, Christoph Hellwig wrote:
+> On Fri, Aug 28, 2026 at 05:36:24PM +0300, Tal Zussman wrote:
+>> > Both issues occur only with a logical block size above PAGE_SIZE and a
+>> > large folio backing the user buffer. On a device with a 64K logical
+>> > block size, an O_DIRECT pwritev() from a hugetlb mapping that ends 16K
+>> > past a block boundary leaks one huge page per call, whether the
+>> > remainder is its own bvec or the tail of a larger one.
+> 
+> Do you have a reproducer for that?
+> 
 
-On Sun, Sep 06, 2026 at 08:16:22PM +0200, Igor Paunovic wrote:
-> The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-> to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 with a
-> pull-up for this pin; the mainline board file uses RK_PB0, which is not
-> connected to the RTC.
-> 
-> As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-> cannot wake the board: rtcwake enters s2idle and the board never
-> returns, which looks like a hang.
-> 
-> This was verified on the board by enabling the alarm interrupt (AIE with
-> AF already set, so INT# is asserted) and sampling the EXT_PORT register
-> of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
-> (high with AIE=0, low with AIE=1, across repeated cycles), while GPIO0_B0
-> stays high and its interrupt counter stays at zero.
-> 
-> Switch the interrupt and its pinctrl entry to GPIO0_C6 and use a pull-up,
-> as the vendor tree does for this open-drain line.
-> 
-> With this change the alarm interrupt fires while the system is running
-> and the RTC wakes the board from s2idle ('PM: Triggering wakeup from
-> IRQ 52'); before it, rtcwake never returned.
-> 
-> Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM checkpatch dtbs_check
-> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-> ---
-> Notes for reviewers (not part of the commit message):
-> 
-> Measured on an Orange Pi 5 Plus with the vendor-style method described above
-> (GPIO0 EXT_PORT sampled while toggling the alarm interrupt enable); the vendor
-> device tree for this board uses RK_PC6 with a pull-up. With the fix the alarm
-> IRQ fires at runtime and the RTC wakes the SoC from s2idle. Note that on this
-> board the resume itself can still stall later in the USB 2.0 host controllers
-> (a separate, unrelated issue being looked at); it does not affect this fix.
-> 
->  arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> index 145986695720..572b892e4066 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-> @@ -189,7 +189,7 @@ &hdptxphy1 {
->  
->  &hym8563 {
->  	interrupt-parent = <&gpio0>;
-> -	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-> +	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&hym8563_int>;
->  };
-> @@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
->  
->  	hym8563 {
->  		hym8563_int: hym8563-int {
-> -			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-> +			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
+Of course :)
+I can wire that up to blktests too if desired.
 
-Schematic already shows a pullup, so this should not be needed:
-
-  https://xff.cz/dl/tmp/2995ddec50ce4597.png
-
-Other than that,
-
-Reviewed-by: Ondrej Jirman <megi@xff.cz>
-
-Thank you,
-	o.
-
->  		};
->  	};
->  
+>> > @@ -1213,14 +1219,24 @@ static int bio_iov_iter_align_down(struct bio *bio, struct iov_iter *iter,
+>> >  	bio->bi_iter.bi_size -= nbytes;
+>> >  	while (nbytes >= bv->bv_len) {
+>> >  		if (bio_flagged(bio, BIO_PAGE_PINNED))
+>> > -			unpin_user_page(bv->bv_page);
+>> > +			unpin_user_folio(bvec_folio(bv),
+>> > +					 bvec_nr_pages(bv));
+>> 
+>> And right after sending this, I noticed bvec_unpin()...
+>> 
+>> I think a cleaner solution is to move bvec_unpin() up, make bvec_nr_pages()
+>> handle bv_offset > PAGE_SIZE, use bvec_nr_pages() in bvec_unpin(), and then
+>> use bvec_unpin() here.
 > 
-> base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
-> -- 
-> 2.43.0
+> Yes, that sounds better.
 > 
+
