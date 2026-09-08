@@ -1,213 +1,425 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012055.outbound.protection.outlook.com [52.101.48.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0BE31328E
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:53:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850393; cv=none; b=pkO9ZnWkfY5tsp/YxRerDWCIwkAlLYSbgHXjfD9x7SvAdCucaVYyaA/15ZnOMTuepVY4e0+4YmJ1nZrbHsC+Qn4r4I5zUiThdN0rZEcCmVhBqkEWwMWtXd7gRJFPOjkwxPIWeMOrLx5xpufBGijXW1juzFgyy+IYMIP3QDCuvQI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850393; c=relaxed/simple;
-	bh=/rHP3l7Gq28erKII9JbPiB+PWMjwfT4NtvvwFQeB180=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fJOIIGrSPuYx1JqFrgyJK4xkqlOfw2VjNW8Pxxv5QpJTLYjYwBV23R31Qi3cWjIX5pcvbAIJOXEayA1K7GdsF4Qjn1mKbxstEmX3iWXceE3CTfy6m1BMB46LW63j+sz6w3nOFiDwY1lbg5bVfuQyOOdlSQuleUPztcd7xUotjkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GMUcJJ9U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JXjeU9g3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1062B38B7D9;
+	Tue,  8 Sep 2026 06:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788850425; cv=fail; b=c0P7YbEfkmNAW91QaVoAuMZpGMX1A6LKhSWTbvja5375IWGIyRxWpT18SXuXTdi7ilrJZYlSo2Hi+jojs+3H/WNHobTK98H2TAdAf147NK6c5FmCoLnucr/Lis1IMHQuzVPJa6S9HafLIDX4TkYW0bCzJn84qzhP4CO5sONotDw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788850425; c=relaxed/simple;
+	bh=8htw/KUtxLEh59R71GmegWhtGhSVklZD8Y+4ZnBr2tw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kXWAzYFrAxrSLcfXP+Jgo4A8op78CVcX9HE84y7Z8LxYygA8NLosZfOXlUJbHhdpWOsZZNCICXgEAB0RX2jgenMq+wpIqM1Zj3JzzRiUG9XRmyba7GqTL3EcdERO40iAgZWzPzAQ2iNw+k1dxCi1KqrSas26W8bdQVr2MQ8pB80=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=lA8wqKIF; arc=fail smtp.client-ip=52.101.48.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GMUcJJ9U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JXjeU9g3"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M1UH2712352
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 06:53:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=8u90eAf+GOGer9u+qAuP5b
-	dr9jQFbofFPJyNttu8OIQ=; b=GMUcJJ9Usd5QgC8dmVdXyWj9vS/e9WBHaHvlHf
-	mzui1t67GnqdeFrtCnBWeLdKoSiSjNtTbpujp/Ynqp5gcV0YC4vUdJe4WRfxGxvW
-	ztrclTYprFN3WYrUDePpsb2fCaEOQCEJkBBlObzfpj8MAMSnF5QaBMvjQ6yYOKPI
-	27MlXbNtS4OML3Gj37TeR3wcJTwIPIH/pA/ivT9rAC9qjZrIXPK81B9plVsn32fh
-	mgalwnPQLqfxUl8oC6zo5uA02hLd46QsTTdUjemvjoVbXJ35Aavn5TcEZH9N+Knh
-	RveDyKgid2btGIx9Uid5ZHDhB3AdRlui0r67bkaiObHkrnvQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtdqkvtb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:53:10 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d0010cfaso8250753a91.3
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 23:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788850390; x=1789455190; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8u90eAf+GOGer9u+qAuP5bdr9jQFbofFPJyNttu8OIQ=;
-        b=JXjeU9g3g2hhf0umgwE3ZyB3HRLqHV9pw+RxOD6H9a2SZp9dlgWgjiLU3A4z54XjJM
-         F8V5quwBfnxkxXhxrNzjBcM/cN2aaHasgrmsBbET8B3Lo5ruFIvGaSMnpKU/C76KUVy/
-         8fhz34jk19tgXX3GRrctd5odVpPD6ZX1bpyzqXC/MEhnIZq5lEnQi6IjZc/0q96anh2d
-         //q0X8EiLfwCnt0ezoCUK2PbCn4wSD+7mC3va4fA0P++kd7cH4nAYlEgNnqmwwWMRAq1
-         pCAU1qBkLJvj2YBJcPXhtWh69tpFxtA5dmnKJ2Bh5OZ+LPRa55jsCIFXL8WxpPuZGJdL
-         vR5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788850390; x=1789455190;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8u90eAf+GOGer9u+qAuP5bdr9jQFbofFPJyNttu8OIQ=;
-        b=f531OU3JszMenGKPIPpdNXN+N9x0FigvxQ5bGNOlFbFeeUSTzZXpo2OtfsSqqfkTz0
-         bOGC9nLvQqOPEPTgHCkURXUaVfT6U9Y1zqh3kHZTg2ohC3LDdw2G5X3E9rxZAaBoBTp9
-         mIQ5X9gMShpZXo/KeYcYtZHNscZdyqvBWYr68n41urkRhM4HsSpFP53oNmEdAZ95LHLt
-         a35KecZsVZYlDR9GK9pGz+PJXLYFse4Ddv8MGUwbVF05UDRdAGHjiyIdm1SW8uDxhKwX
-         eZkc4Nh98xUFH8YyNGuxf0t8L/EHB/9ZhXeDNCJGl/l60e0kf/JVMsmQJSTCfViqcyGR
-         ANtw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZLb4UwitOAhJpUDNybSXKiTZyFZwU1p9c0S1uUIsIqJe6k4cogd/qP7yuvIc9XMhXUJesDZHVTYG728o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYO2Eq7EKvaRoEkjbQmFVKLjUhCjrlW5M3G07vrFo2NxYxhgWJ
-	LsZaYf5FBjY+WlcXflnaYbF44Ckyb7ojyQKW37QG0JhAlVC/E0h84Keydv+bL2KSZD1etchWglc
-	3lY18rBnQvbWdaZ3qhQQc+2Je2q4K5uQkBa755lJTThQMZg/sECbObFVOf+EuCzGyfIc=
-X-Gm-Gg: AYBFou1fyONDDMYGANBkfjCnQaaGYXUMTqQ1ENV95XFs1sqt5AJ0VgCK416L2HDYzQg
-	SIvU9pkZ/FvC7LruCGYli8X7yVAjV2jTYY1tsUJaAgp6rn8aPWUOkSzIsx8pIS2uzPlc+YYVFT3
-	vW1Vy8KmdyL+evLUXgcpUtMPnfccL35soj/kax911a4XYAQUzpcaBfC57FyDclF5O+FPefS8JEr
-	XpBrW8HMsXHa+urZATNQ27ZxOEWE2UjbaY0AtccmtBqAZmqOMnDxYvZenjmhXjypkqTNPcC07/i
-	v6dum1LlAJFZ5ZACA1pUvi8975Lartn7l4CBXe7x5UUAAh4VKraHpBPhqN0HJcVF01yxI6CmVJ/
-	mNBNoKTTP7sZC856td2Pr7Yf5yX2RmyA3mw==
-X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr46201439a91.3.1788850389932;
-        Mon, 07 Sep 2026 23:53:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr46201376a91.3.1788850389427;
-        Mon, 07 Sep 2026 23:53:09 -0700 (PDT)
-Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm28231417c88.6.2026.09.07.23.53.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 23:53:08 -0700 (PDT)
-From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 12:23:01 +0530
-Subject: [PATCH v4] arm64: dts: qcom: agatti: Add memory-region for audio
- PD
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="lA8wqKIF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SOOzm7m/zGQ6CdHhO9bQHUltr8ULVlsC5R2jRz8vEmC3G6xHGm7eDrinX5qQHoxAjcdftGtIPfuuoVLAxBwtlCWN7xAVHEbKlKIr5rj4+4jjZjpMwu0bMqViQT+MZXIpjVUYU+D3ib9NjxmS+NqE9TJPVHjPQDSClh2YAQrbvgT5OrDiJ0kHu1l9obt3Ul4gfI0LZCD2tVJIqE8uxIF60mx25XTLu82GsszXo7Btz+0LSJRmH4xpVg/q0uzvX+uUOeNYU4CcVw5+i6yhEYpaTfpnWsl3vFcU75ecdOI0m0GaEmj3ZSx+QtAIxGrd4clBL1eMGRqDF2A2lVPZrYhL1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=j5j9ANX9DB1cp8Vfrn5uS1ZARDvQA8ojx5XrK2qvWgM=;
+ b=pxkN8mRVHYnSUS/PDTFN6Brafs4zcjiNa9B1g1SK+wHRw5tIRseH73X/dGqwvl0Df1+DM4U8NPnHNPOSy8jL2GCP+WOrdUtHEWR0NgWDIcwRq3cRcpoR2Fi8yUYug8hYlcXWVfOWPKcScDY6o6V0qlh4zvMureqDLANqMPDnNPmgIwvcDIQuiWQgCJs4pX0D9DRMCaiMlHYXtc7tTz8Ss9UFm1YJowbhGDCJ4LPPkc88VjSdcRMm03nsk7xKO9V0qxRuWv3OGq1Z+Z2/yAOpRY232EWdQrVLCi71fSUlNBvcE1OSvK4HLECjzJHcLSbLVfHeEXqrLqehv/UV4RHhWg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=j5j9ANX9DB1cp8Vfrn5uS1ZARDvQA8ojx5XrK2qvWgM=;
+ b=lA8wqKIFfR6OyVkST2rZHlqbFn+azCcYdrbCSyeb26v1lDEFkzjMpsVf23kZsEJQogfYTR0YVSZ5wyKzIPdE1kmqMAyNa7rnzOr9YR11ZP9laBuvA6UWuZE0aHomWQj5RnkxX8j7UZlyjLj8+ChkjSIq1CPYNQRLGC6sxzSrzEqmT4Yshbp8CO4ji/Xc+DGd6CFulblJgRudfbV5Jf0FpCEkjGI4ynujSWia3xdU9Ibkm1jtcofG8f28sOGBSqN/nHCNz5pGaopghY0Dke19+YeDnQksX1VRC/bLqxXujllw/RwbsVARLM46cya8JFYyNDMZ8UvHFmSHv2JQJ5ySQA==
+Received: from BL1PR13CA0275.namprd13.prod.outlook.com (2603:10b6:208:2bc::10)
+ by CY5PR12MB6156.namprd12.prod.outlook.com (2603:10b6:930:24::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 06:53:33 +0000
+Received: from BN7PEPF000000A6.namprd05.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::7a) by BL1PR13CA0275.outlook.office365.com
+ (2603:10b6:208:2bc::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
+ Sep 2026 06:53:33 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN7PEPF000000A6.mail.protection.outlook.com (10.167.245.230) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 06:53:32 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 23:53:19 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 23:53:19 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com (10.129.68.9)
+ with Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Mon, 7 Sep
+ 2026 23:53:11 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sabrina Dubroca <sd@queasysnail.net>
+CC: Bobby Eshleman <bobbyeshleman@meta.com>, Boris Pismenny
+	<borisp@nvidia.com>, Carolina Jubran <cjubran@nvidia.com>, Cosmin Ratiu
+	<cratiu@nvidia.com>, Daniel Zahka <daniel.zahka@gmail.com>, Doruk Tan Ozturk
+	<doruk@0sec.ai>, Dragos Tatulea <dtatulea@nvidia.com>, Gal Pressman
+	<gal@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, Kees Cook
+	<kees@kernel.org>, Leon Romanovsky <leon@kernel.org>, open list
+	<linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Petr Machata
+	<petrm@nvidia.com>, Raed Salem <raeds@nvidia.com>, Rahul Rameshbabu
+	<rrameshbabu@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shuah Khan
+	<shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Simon Horman
+	<horms@kernel.org>, Tariq Toukan <tariqt@nvidia.com>, Willem de Bruijn
+	<willemb@google.com>, Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Subject: [PATCH net-next V4 00/14] net/mlx5e: Add support for HW-GRO to PSP
+Date: Tue, 8 Sep 2026 09:52:30 +0300
+Message-ID: <20260908065244.3799142-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-agatti-audio-v4-1-b3db91d3fdec@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAMywn2oC/3XMQQ6DIBCF4as0rItBEJCueo+mCxioklRpRU0b4
- 92Lroypm0n+Sd43oeg67yK6nCbUudFHH9oUxfmEoNZt5bC3qRElVJCSCKwr3fce68H6gBmXBqw
- stFOA0uTVuYf/rNztnrr2sQ/dd9XHfPkeQGOOcwxWSCEAFIC5hhiz96CfEJomSwct3ki3htwZN
- BlMcWVybUrC1YHBNgYlO4Mlo5CMSaKkc5z9MeZ5/gESEZORNwEAAA==
-X-Change-ID: 20260806-agatti-audio-357bcd74ae9c
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
-        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
-        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Christopher Obbard <chris.obbard@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788850384; l=2319;
- i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
- bh=/rHP3l7Gq28erKII9JbPiB+PWMjwfT4NtvvwFQeB180=;
- b=yLmZzC3rXbMx6rEvh8K9U8LuTyZG1JpSu11wy4TufoCp9al/pHtMCf2nz1mXK5OD65iJk3/dW
- Q/0VmPiVMIzB32zRbms0v/sUMdWgScxjJ97keeJydGmmp/dRBzeeB9p
-X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
- pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MCBTYWx0ZWRfX2TBXvnSdNm4y
- B5erwMZ5/U9pRvuhnRdfo5P4WYSuFSHyMyD6oSsVEsGlJzQGDn0L8PsZ8EDPLUkKoXMTOlc7CfU
- TtwTYp107ivlkVGMZ6a3CvTa3TVnZJdA6+aIYv2zsc8ooZx865R1S1Vb0dXR+8GnaEt03xaA3xg
- j+jYN81kRCkRpS9LVJIuybk98aZHmu8sv61sf0OROFm7p1xuc3UnQ16PDZhFd3Rfc2MoQXiSVou
- PmmVZCDCnrm+/qiZaWzcvd1HLmkkhRAAYiIwE/i8vHFHk+5vWFme2GuovvRV2gPFFC8VH2/muo0
- 7AD1zZ6R5g4nd0W1Q2bYubuRQspifNdJiifwCXXelCh3nTRiuzScH7xGY/smgeusu96r9yhPeX5
- syZd5oIEnbQA3YXNTiiCRWUJqVeVV8cc3GK2gdkVn5e2eA16yW/1uIfB/vMTVgPBh8Nx4OOFg/N
- eplMuzuM7Oz5YtNsPkA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MCBTYWx0ZWRfX4Qr/DXo4IZs3
- b5sUpkX5ttQuBRRDhbK1Shu5pOBPDB+i2vEQzqVMmlZlBRjr0aqVGzvNQBclW9nOr+Sp95W6sd+
- B/EXD+80XT5n9k+2Xh4WK9aYbtzehtQ=
-X-Proofpoint-ORIG-GUID: 1WqnWeWWNKD8HNGt1E5NVqEKhcxPAZC2
-X-Authority-Analysis: v=2.4 cv=U6aiy+ru c=1 sm=1 tr=0 ts=6a9fb0d6 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tc8gWtmjloUqR9SNod4A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: 1WqnWeWWNKD8HNGt1E5NVqEKhcxPAZC2
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609080070
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF000000A6:EE_|CY5PR12MB6156:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec9741b7-915c-46db-6d00-08df0d75e60c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|23010399003|13003099007|3023799007|11063799006|56012099006|6133799003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	Z/yVsyYc+S0BmXeAhUETlBZiDDVlnBqq+w5wZ6QLNrxUUXnC7HWrmmEwPee7mue4GfjRBhJW0O2xmEBJytGzpNwlPT5+FzdUvXcMTiXQsdnaLl5w6TRwXWfspmUZXcWelM5G14O9BficZaXeOEIFifRUkNpYKFbD14z78ZtGyk+79mF37ZC6VotzYhqxXm0AaDFYi66PEeVJb4mQ2iOyBkX1lLRhSN+wJ9fL1Wrmh0R+B8lSxAXx1+sDMvKlbkbp1aCfoVwXjwOoOhS4GGdRiR98hWZuwMMdBtfnjIDvnSnVfyOKPK0IXVOHEtLx+NZhk1nVPP3r7uEjA+RJfdxc9Eau52whxQFiBrB+9zNhxBYBGf+zkIfhPVNiNU4/n9kIP+AnWMEwH23RsCEeRCbgC3InE0KEO1NoFy0vqsy9MXX3W5EVhjCJAVCTg9wHWV25G+sSyxSOF/4qH4MOuonXMQnd+2EoEAG7k+YfJQPPyJIS9RpHDKVMUbbA477k5CCoGVSSx7X3/RugtMpHTJKlY8GWL1PEUdACwzNi6iGT6q7k5XisOd15URA4ieqlNnxC0DBWlB5+9V3T2UgkvYFTe2nfPHAcfMF/rKasaMzcqPFPmdxG3nArseMQS46DrzmvQLLIM7Ce26datplXKJlykxcMpbgVSWsM4XpTdcE6B6EhX7plbz0kZ1ThaJWLssMftysju1YNsI3smK6XMc03kQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(13003099007)(3023799007)(11063799006)(56012099006)(6133799003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	XChqX/Ns5tOylEkEwNfCKn3vpEGx/woblUWIAfoJ/w9m/fWB/3ngZ0hYDwdusTglNkqvu1S9K76eKoEOuNVJbhv/YJhKQ+JzGAWmN8BwvoSKUyA/RP02enSZbdNwwoq1yr7FJbJIBr5SbCMQBTdBc4HJAE5LOrA176KPg1YvBqZIjHCks1MLcok/aNosRyqnq1NDU/DnkKeB8LMkFBMYYQLOW1ma5cVYJxPI6ZEVdu2oj1lAKRmGynHz7U+AojhC4r/BYxRvtW6+1kKvMeiv6pZK+wuZbb7ajjX1rNUstZ5uz5hp88uTQa+DlMtcD44QsOAijCtIq4biJpEMkZni8eJaLHoXaSovx6qsFExwkaXEjy9oIqtZ7t1I6KcaRCoNtbEkBaBt+UVSMN4KN84TE3IOkB1V2Fel8y0XdVhR3h8Hl5ePcerf27QUeu3+KnOS
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 06:53:32.9933
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec9741b7-915c-46db-6d00-08df0d75e60c
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF000000A6.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6156
 
-Reserve memory region for audio PD dynamic loading and remote heap
-requirements. Add the required VMID list for memory ownership
-transfers.
+Hi,
 
-Fixes: 851d5ae6003b ("arm64: dts: qcom: agatti: enable FastRPC on the ADSP")
-Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
----
-Changes in v4:
-- Added a Fixes tag.
-- Link to v3: https://lore.kernel.org/r/20260820-agatti-audio-v3-1-47337097ee53@oss.qualcomm.com
+Ingress PSP packets cannot be merged by the HW-GRO HW state machine
+because they are not decapsulated and the current HW-GRO state machine
+does not understand PSP.
 
-Changes in v3:
-- Changed alloc-ranges to <0x0 0x0 0x1 0x0> to cover the full 32-bit address space.
-- Collected Reviewed-by/Tested-by tags.
-- Link to v2: https://lore.kernel.org/r/20260807-agatti-audio-v2-1-3959b1ab8059@oss.qualcomm.com
+This series by Cosmin decapsulates PSP packets in steering, which allows
+the now-decapsulated PSP packets (== TCP) to go through HW-GRO and be
+aggregated. The SPI and PSP version from the PSP header are handed off
+to the driver in the CQE metadata fields. They are used to terminate the
+HW GRO session on mismatch, and are required to construct the skb
+extension which is used higher up in the stack.
 
-Changes in v2:
-- Fixed VMID list alignment.
-- Link to v1: https://lore.kernel.org/r/20260806-agatti-audio-v1-1-cd6766cc9ccb@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/agatti.dtsi | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Some preparatory work needed to happen to allow that:
+- All accel protocol markers were moved away from ft_metadata into
+  flow_tag
+- Mutual exclusion between TC and accel protocols was added. Trying to
+  configure both IPsec and TC at the same time for example is now
+  detected at config time instead of doing weird things at runtime.
 
-diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
-index e7fed60a59d9..8d557010d3c0 100644
---- a/arch/arm64/boot/dts/qcom/agatti.dtsi
-+++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
-@@ -381,6 +381,14 @@ rmtfs_mem: memory@89b01000 {
- 			qcom,client-id = <1>;
- 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
- 		};
-+
-+		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0x0 0x0 0x1 0x0>;
-+			reusable;
-+			alignment = <0x0 0x400000>;
-+			size = <0x0 0x800000>;
-+		};
- 	};
- 
- 	smp2p-adsp {
-@@ -2346,6 +2354,9 @@ fastrpc {
- 					compatible = "qcom,fastrpc";
- 					qcom,glink-channels = "fastrpcglink-apps-dsp";
- 					label = "adsp";
-+					memory-region = <&adsp_rpc_remote_heap_mem>;
-+					qcom,vmids = <QCOM_SCM_VMID_LPASS
-+						      QCOM_SCM_VMID_ADSP_HEAP>;
- 
- 					qcom,non-secure-domain;
- 
+kperf tests on a pair of CX7 NICs with 200Gbps link speed:
 
----
-base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
-change-id: 20260806-agatti-audio-357bcd74ae9c
+Streams   Gbps no HW-GRO   Gbps HW-GRO   Speedup
+-------   --------------   -----------   -------
+      1               28            58     2.07x
+      2               67           102     1.52x
+      4              136           180     1.32x
+      8              175           183     1.05x
+        
+Regards,
+Tariq
 
-Best regards,
+Some internal Sashiko findings, plus Cosmin's comments:
+
+> +        cfg.wait_hw_stats_settle()
+> +        after = cfg.netnl.qstats_get({"ifindex": cfg.ifindex}, dump=True)[0]
+Could this lead to flaky test failures on multiqueue NICs?
+By hardcoding the netlink dump array access to index [0], the test statically
+verifies statistics for the first queue only. Since the test sends traffic over
+an ephemeral random port, Receive Side Scaling (RSS) will hash this 4-tuple and
+could deliver the flow to any active RX queue. If the flow lands on a queue
+other than queue 0, will the test fail to observe the hardware GRO packet
+increments?
+
+[CR] The premise is wrong. [0] is not queue 0, it's the result for the
+requested dev.
+
+> @@ -1757,11 +1755,10 @@ macsec_fs_rx_add_rule(struct mlx5_macsec_fs *macsec_fs,
+>       rx_tables = &rx_fs->tables;
+>       ft_crypto = &rx_tables->ft_crypto;
+>
+> -     /* Set bit[31 - 30] macsec marker - 0x01 */
+>       /* Set bit[15-0] fs id */
+>       MLX5_SET(set_action_in, action, action_type, MLX5_ACTION_TYPE_SET);
+>       MLX5_SET(set_action_in, action, field, MLX5_ACTION_IN_FIELD_METADATA_REG_B);
+> -     MLX5_SET(set_action_in, action, data, macsec_fs_set_rx_fs_id(fs_id));
+> +     MLX5_SET(set_action_in, action, data, fs_id);
+Does removing the BIT(30) marker from the MACsec fs_id metadata cause a
+regression by exposing RoCE MACsec to an aliasing issue?
+By removing BIT(30) from the fs_id in this patch, the fs_id written to
+METADATA_REG_B becomes a small integer (e.g., 1, 2).
+Later in mlx5_macsec_fs_add_roce_rule_rx(), the hardware rule
+ft_macsec_op_check enforces MACsec on RoCE traffic by matching
+metadata_reg_c_5 exactly against this same fs_id value.
+Could any unencrypted packet that has its REG_B set to this small integer
+by another NIC feature (such as TC rules setting packet marks, or PSP IPsec
+decryption) falsely pass the MACsec check and bypass encryption enforcement?
+
+[CR] Preexisting, TC rules could set the fsid to the the previous value even before.
+'PSP IPsec' decryption doesn't make sense.
+
+> @@ -1757,11 +1755,10 @@ macsec_fs_rx_add_rule(struct mlx5_macsec_fs *macsec_fs,
+>  	rx_tables = &rx_fs->tables;
+>  	ft_crypto = &rx_tables->ft_crypto;
+>
+> -	/* Set bit[31 - 30] macsec marker - 0x01 */
+>  	/* Set bit[15-0] fs id */
+>  	MLX5_SET(set_action_in, action, action_type, MLX5_ACTION_TYPE_SET);
+>  	MLX5_SET(set_action_in, action, field, MLX5_ACTION_IN_FIELD_METADATA_REG_B);
+> -	MLX5_SET(set_action_in, action, data, macsec_fs_set_rx_fs_id(fs_id));
+> +	MLX5_SET(set_action_in, action, data, fs_id);
+Does removing the BIT(30) marker allow metadata collisions in the hardware
+RoCE datapath?
+If an administrator configures a benign TC rule that sets a mark equal to
+the MACsec fs_id (which is just a 16-bit integer), could an attacker send
+unauthenticated RoCE traffic that matches the TC mark, falsely setting the
+metadata and bypassing the MACsec hardware authentication checks?
+
+[CR] This series makes TC and MACsec mutually exclusive.
+
+> @@ -2160,8 +2167,8 @@ static int mlx5_macsec_fs_add_roce_rule_rx(struct mlx5_macsec_fs *macsec_fs, u32
+>
+>  	spec->match_criteria_enable |= MLX5_MATCH_MISC_PARAMETERS_2;
+>  	MLX5_SET_TO_ONES(fte_match_param, spec->match_criteria, misc_parameters_2.metadata_reg_c_5);
+> -	MLX5_SET(fte_match_param, spec->match_value, misc_parameters_2.metadata_reg_c_5,
+> -		 macsec_fs_set_rx_fs_id(fs_id));
+> +	MLX5_SET(fte_match_param, spec->match_value,
+> +		 misc_parameters_2.metadata_reg_c_5, fs_id);
+By matching on the bare fs_id without the BIT(30) marker in
+metadata_reg_c_5, is this RoCE datapath rule now susceptible to the TC
+mark collision issue?
+
+[CR] See above.
+
+> @@ -1778,6 +1775,11 @@ macsec_fs_rx_add_rule(struct mlx5_macsec_fs *macsec_fs,
+>  	/* Rx crypto table with SCI rule */
+>  	macsec_fs_rx_setup_fte(spec, &flow_act, attrs, true);
+>
+> +	spec->flow_context.flags |= FLOW_CONTEXT_HAS_TAG;
+> +	spec->flow_context.flow_tag =
+> +		FIELD_PREP(MLX5E_ACCEL_FLOW_TAG_PROTO_MASK,
+> +			   MLX5E_ACCEL_FLOW_TAG_PROTO_MACSEC);
+Can adding FLOW_CONTEXT_HAS_TAG to the shared MACsec crypto table corrupt
+RoCE Queue Pair Numbers (QPN)?
+This unconditionally adds a flow tag to the shared ft_crypto table, which
+processes both Ethernet and RoCE MACsec traffic. When FLOW_CONTEXT_HAS_TAG
+is set, the hardware writes the flow tag into the sop_drop_qpn field of
+the CQE.
+Will this cause the mlx5_ib driver to read the MACsec tag (value 2) instead
+of the actual destination QPN for RDMA traffic, breaking RoCE delivery?
+
+[CR] The flow_tag is only given for Eth CQEs. For RoCE/RDMA, that CQE
+field is the QPN, and therefore mlx5_ib is unaffected.
+
+> @@ -1803,6 +1805,11 @@ macsec_fs_rx_add_rule(struct mlx5_macsec_fs *macsec_fs,
+>
+>  		macsec_fs_rx_setup_fte(spec, &flow_act, attrs, false);
+>
+> +		spec->flow_context.flags |= FLOW_CONTEXT_HAS_TAG;
+> +		spec->flow_context.flow_tag =
+> +			FIELD_PREP(MLX5E_ACCEL_FLOW_TAG_PROTO_MASK,
+> +				   MLX5E_ACCEL_FLOW_TAG_PROTO_MACSEC);
+Is it safe to set the flow tag on the shared crypto table here as well?
+This risks corrupting the destination QPN for RoCE traffic as mentioned
+above.
+
+[CR] Same as above, QPN isn't corrupted, those CQEs don't carry flow_tag.
+
+> @@ -1717,7 +1717,7 @@ void mlx5e_macsec_offload_handle_rx_skb(struct net_device *netdev,
+>       if (!macsec)
+>               return;
+>
+> -     fs_id = MLX5_MACSEC_RX_METADAT_HANDLE(macsec_meta_data);
+> +     fs_id = MLX5_MACSEC_RX_METADATA_HANDLE(macsec_meta_data);
+>
+>       rcu_read_lock();
+>       sc_xarray_element = xa_load(&macsec->sc_xarray, fs_id);
+This is a pre-existing issue, but can this xa_load() race with an immediate
+kfree() during deletion, causing a use-after-free?
+In the deletion path, mlx5e_macsec_del_rxsc() calls xa_erase() and then
+immediately frees the element without an RCU grace period:
+mlx5e_macsec_del_rxsc() {
+        ...
+        xa_erase(&macsec->sc_xarray, rx_sc->sc_xarray_element->fs_id);
+        dst_release(&rx_sc->md_dst->dst);
+        kfree(rx_sc->sc_xarray_element);
+        ...
+}
+Since mlx5e_macsec_offload_handle_rx_skb() retrieves sc_xarray_element
+locklessly under rcu_read_lock() via xa_load(), would a concurrent deletion
+result in dereferencing freed memory?
+
+[CR] Preexisting.
+
+> +static inline int mlx5e_accel_block_tc_offload(struct mlx5_core_dev *mdev)
+> +{
+> +     int ret = 0;
+> +
+> +     mutex_lock(&mdev->offload_block.lock);
+> +     if (mdev->offload_block.num_accel)
+> +             ret = -EBUSY;
+> +     else
+> +             mdev->offload_block.num_tc++;
+This isn't a bug, but does the new naming here swap the semantics of the
+variables?
+In the original logic, num_block_tc counted the number of blockers on TC
+(which are IPsec/accel rules). By renaming it to num_tc,
+mlx5e_accel_block_tc_offload() now increments num_tc when an accel rule
+is added.
+Would it be clearer to keep "block" in the names, e.g., num_block_tc, so
+it doesn't look like num_tc is tracking the number of TC rules?
+
+[CR] Intentional, "offload_block.num_{tc, accel}" sounds better.
+
+> +static inline int mlx5e_accel_block_tc_offload(struct mlx5_core_dev *mdev)
+> +{
+> +	int ret = 0;
+> +
+> +	mutex_lock(&mdev->offload_block.lock);
+> +	if (mdev->offload_block.num_accel)
+> +		ret = -EBUSY;
+> +	else
+> +		mdev->offload_block.num_tc++;
+Are the semantic meanings of the num_tc and num_accel variables inverted?
+When an Accel rule is added here in mlx5e_accel_block_tc_offload(), it
+increments num_tc.
+
+[CR] Same thing, it's an intentional rename.
+
+> @@ -384,6 +429,215 @@ static void fill_transportlayer(void *buf, int seq_offset, int ack_offset,
+[ ... ]
+> +static char psp_scratch[L2_HLEN_MAX + IP_MAXPACKET + PSP_ENCAP_LEN];
+[ ... ]
+> +/* Encapsulates & encrypts @pkt with PSP transport mode into psp_scratch.
+> + * Returns the scratch buffer and updates *@lenp.
+> + */
+> +static char *psp_encapsulate(const char *pkt, int *lenp)
+> +{
+[ ... ]
+> +	memcpy(psp_scratch, pkt, len);
+> +
+> +	if (proto == PF_INET) {
+> +		struct iphdr *iph = (struct iphdr *)(psp_scratch + ETH_HLEN);
+Does this code violate strict aliasing rules?
+Since psp_scratch is declared as a character array, casting it to an
+incompatible structure pointer like struct iphdr * (and later struct ipv6hdr *
+and struct udphdr *) violates C11 strict aliasing rules.
+Because the tools/ directory assumes standard -fstrict-aliasing optimizations
+are active, could this cause the compiler to incorrectly reorder or optimize
+away memory writes to these headers, potentially resulting in malformed
+packets and spurious test failures?
+
+[CR] Maybe, but there are already 20+ similar things in the file.
+
+V4:
+- Removed dead mlx5_esw_lock() (Daniel).
+- Rebased on top of f225a7317c18 ("selftests: drv-net: split gro.py into one test per coalescing mode") (Daniel).
+- Dropped the gro_lib.py extraction, made obsolete by above change.
+- Fixed some typos (Aleksandr).
+- Added CONFIG_INET_PSP=y to the test config (Daniel).
+
+V3:
+https://lore.kernel.org/netdev/20260903085215.3691657-1-tariqt@nvidia.com/
+- Cleared fs->decap_enabled on config down (Daniel).
+- Made decap support optional (don't fail device reconfig on errors).
+- Used bitfield ops for accel protos & psp ver (Daniel).
+- Renamed psp_responder off -> len (Jakub).
+- Dedicated HW GRO PSP test (Jakub).
+- Extended HW GRO test coverage (Jakub).
+
+V2:
+https://lore.kernel.org/netdev/20260804083535.2946459-1-tariqt@nvidia.com/
+- Use XFail in patch 13 (Jakub).
+
+V1:
+https://lore.kernel.org/all/20260730091756.2543777-1-tariqt@nvidia.com/
+
+Cosmin Ratiu (14):
+  net/mlx5e: Generalize TC <-> IPsec mutual exclusion
+  net/mlx5e: ipsec: Block TC offload when IPsec is enabled
+  net/mlx5e: psp: Block TC offload when PSP is enabled
+  net/mlx5e: macsec: Block TC offload when MACsec is enabled
+  net/mlx5e: psp: Move RX marker from ft_metadata to flow_tag
+  net/mlx5e: ipsec: Move RX marker from ft_metadata to flow_tag
+  net/mlx5e: macsec: Move RX marker from ft_metadata to flow_tag
+  net/mlx5e: psp: Handle HW-decapsulated RX PSP packets
+  net/mlx5e: psp: Add an rx_decap steering table
+  net/mlx5e: shampo: Flush session on PSP mismatch
+  net/mlx5e: psp: Dynamically reconfigure based on SHAMPO mode
+  selftests: drv-net: psp: Extract shared helpers into psp_lib.py
+  selftests: net: gro: Add PSP encapsulation and encryption
+  selftests: drv-net: Add PSP HW GRO conformance tests
+
+ .../net/ethernet/mellanox/mlx5/core/en/fs.h   |   1 +
+ .../mellanox/mlx5/core/en_accel/en_accel.h    |  27 ++
+ .../mellanox/mlx5/core/en_accel/flow_tag.h    |  49 +++
+ .../mellanox/mlx5/core/en_accel/ipsec_fs.c    |  72 ++--
+ .../mellanox/mlx5/core/en_accel/ipsec_rxtx.h  |   8 +-
+ .../mellanox/mlx5/core/en_accel/macsec.c      |  34 +-
+ .../mellanox/mlx5/core/en_accel/macsec.h      |   4 +-
+ .../mellanox/mlx5/core/en_accel/psp.c         | 316 ++++++++++++++--
+ .../mellanox/mlx5/core/en_accel/psp.h         |   2 +
+ .../mellanox/mlx5/core/en_accel/psp_rxtx.c    |  21 +-
+ .../mellanox/mlx5/core/en_accel/psp_rxtx.h    |  44 ++-
+ .../net/ethernet/mellanox/mlx5/core/en_main.c |  10 +-
+ .../net/ethernet/mellanox/mlx5/core/en_rx.c   |  32 +-
+ .../net/ethernet/mellanox/mlx5/core/en_tc.c   |  46 ++-
+ .../net/ethernet/mellanox/mlx5/core/en_tc.h   |   7 +-
+ .../net/ethernet/mellanox/mlx5/core/eswitch.c |  12 -
+ .../net/ethernet/mellanox/mlx5/core/eswitch.h |   1 -
+ .../mellanox/mlx5/core/lib/macsec_fs.c        |  21 +-
+ .../mellanox/mlx5/core/lib/macsec_fs.h        |   9 +-
+ .../net/ethernet/mellanox/mlx5/core/main.c    |   3 +
+ include/linux/mlx5/driver.h                   |   7 +-
+ tools/testing/selftests/drivers/net/Makefile  |   1 +
+ .../testing/selftests/drivers/net/gro_lib.py  |  15 +-
+ .../testing/selftests/drivers/net/hw/Makefile |  17 +
+ tools/testing/selftests/drivers/net/hw/config |   1 +
+ .../selftests/drivers/net/hw/psp_gro.py       | 157 ++++++++
+ tools/testing/selftests/drivers/net/psp.py    |  77 ++--
+ .../testing/selftests/drivers/net/psp_lib.py  |  57 +++
+ tools/testing/selftests/net/lib/Makefile      |  16 +
+ tools/testing/selftests/net/lib/gro.c         | 337 +++++++++++++++++-
+ 30 files changed, 1198 insertions(+), 206 deletions(-)
+ create mode 100644 drivers/net/ethernet/mellanox/mlx5/core/en_accel/flow_tag.h
+ create mode 100755 tools/testing/selftests/drivers/net/hw/psp_gro.py
+ create mode 100644 tools/testing/selftests/drivers/net/psp_lib.py
+
+
+base-commit: bc6fe9d301d59fe5cb236d646abe792bffae5fa6
 -- 
-Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+2.44.0
 
