@@ -1,134 +1,115 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182953DD526;
-	Tue,  8 Sep 2026 20:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF96C3B9D93
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 20:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788900724; cv=none; b=ozWYUP5gI6/+nmQLPlu2aZRAidgW47rixlrntiL2VlGrxkwWCIOXrUJBa3w4BeKuNQooXP8qpgeuUz1yunwYp+LSoRB0tm3/54a9duajC/ETqEw1e40Vwayg17tIeUCLh3aZnWb+17wBaMtE4Jf0pRix0eorlCFIo/mjWfIt/MI=
+	t=1788900735; cv=none; b=oscQG8ySZanA6WkIdtfnhFFdKNBIH8Ft3sbCuFxl2wneURaGQSDbwolMoGiAAmYXjvA0oebsWa/kIsn+se2a+nPlwC4+UpGlZJuiGEY0Hp6udF21ajfnc26N8xqIzW8dj051QNJQKHF3H/kgVXKhowTc2hg9/sRzBkzw648HpbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788900724; c=relaxed/simple;
-	bh=Yup8mMlTsc2xt61JJMo3zUDjlmgGyAIJNZ8Ly69Kuoc=;
-	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
-	 Message-ID:Content-Type; b=jk3m7bOfhm03FW3FYcrP5ScTiZrWJR4k2E3/3anOGpMnosufyBLawdq+FbbxLqj3ibvn5IHjZTDl0VuLivOPqG0KFKyDkjs73GTNoBgj0TD8qpGHyOsa+Yh6tWjUk+Jf4HTn3ky6kav02K4hG/yobsUHA3SfkEZorknfhnNkj2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DuK00l+6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=60Gvuujw; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788900735; c=relaxed/simple;
+	bh=Kpu5kBclnHVhSmz3WE9GOefxBeuAI5GUjzbrXGDi3ag=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZIJ+2XYPsvmoRbm8Tv/x6ShHReOI9MLzIQLr7a2gqLGsB3cRTVbY2VE366/3XnsepmJ8XCykcQ7EwgqErZBnxdQpuiNmC3ncbsn2VZ4C7GE3IIiwwzgq4gMmz9KB2RrxUiJtmvdXOZZNp4Pm6/AHT9EXi+4YTUaIPsh0zK4jdvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YY74F9Tp; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DuK00l+6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="60Gvuujw"
-Date: Tue, 08 Sep 2026 20:51:59 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788900721;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TO7bhT/qAH7I0pfrPEGoQB/pRCwAD4iGWycC8A7LXRw=;
-	b=DuK00l+6mSGnrBBs5qTvLOz6xk2pvMMyLeGUlZh02Xajbq6oNDtpLlvqc59MILQ29V3ncz
-	HCcTQX3addUgceFzYK4jr/8sM/EEg6/certdHWj8QPSjiTUQQm/liOVrtty4r5Bk7+h8Ex
-	UB+BcUVU8EpCD+rp77PFSha7VrI2AMR9O78EB/OMZZHDuaj4igFsr210D6oM6qa4TlSr9T
-	zHOt9eBOhSsnoQcZoDxJWtEoDT5AxaQgRQ8ufDAZbRmFh+BC4YDsLaAehI7o23mRmQyi8h
-	L6LkaHYKXcm/B+TuJ5E94d2KQG5K0G/w+8GhvTYwnF/53ofM/wsXbc3QAwtadg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788900721;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TO7bhT/qAH7I0pfrPEGoQB/pRCwAD4iGWycC8A7LXRw=;
-	b=60GvuujwLFZseQBUTHj0OaI6e8u48h6DJg4ZMImwx4wz6nQGPOFTGtlv3e5d+GzpFzof7y
-	zzBBt1q/EY+fqEBQ==
-From: "tip-bot2 for Dapeng Mi" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: perf/core] perf/x86: Move hybrid PMU initialization before
- x86_pmu_starting_cpu()
-Cc: Dapeng Mi <dapeng1.mi@linux.intel.com>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260824082731.1013973-2-dapeng1.mi@linux.intel.com>
-References: <20260824082731.1013973-2-dapeng1.mi@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YY74F9Tp"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b8687630fso43474125e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 13:52:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788900732; x=1789505532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8YsqsoNDEKQnLJ62BEZDMso3RhbAevKRTh54YJUBzi4=;
+        b=YY74F9TplJpdkje1IBXw2lpGONEZ/5DzllWYuQ006NXMhun6b6UfMlgPJPH/e2ynnm
+         /ywcbUuXMfUj3JpV3Oa38JtOLFetDAWkCY0ORidXQfh4xjWHYh/xMLGJYg6kmHvDfVmD
+         0nURfCX+ShxUTnGU1bJPt/jHQxMZhPSWJAgE89OPHbpSKVxs2pk3MKpIYp5pZPqgQZ2f
+         vw+19CUdfLJ1KNeJCEJXZx9nWBHC1MslEovahcYn6oILFYi8LXlgeh8rsKqr3fUUwWwH
+         BnBQL/t1VmBJoVLB0TmlIjaAwJbZd/fj9aVEFEfbEeA+oMwJkHeVY8c/an3AvfaRfdHn
+         uolA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788900732; x=1789505532;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8YsqsoNDEKQnLJ62BEZDMso3RhbAevKRTh54YJUBzi4=;
+        b=LyF1ZK7wJZXgV7zwWTx71McyRDGeQFS39ADFunWD+/u04XVqb61Qj5Hv+XnJdhWdo+
+         Q50G0i9YinJKKo8O1zwGKbopQhR5srYht8meCHQ6ZMo+W8H5eKGbIvNE/AF1BMkUBvN5
+         VgDBs82sfiOjQYqd8pAm+a1/66b5ODR2j5hi8TUDy6I+z/p6lZNrPwF567N7MHU7zZiF
+         Izj88cYXTaRzX5b751nvtCALW9H2uDb3FaSFZrbamm9ZmTc9PMYkeWs4Uv0vuKv3eZ2X
+         1MajgrmdU7NPvLUbxJvJVrbyaoD1jgATi8XiVq8w/N5tZvfXhcqJdYlq9OXgNXQmT23e
+         GU3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz8wnl90Fm9gRNekVtmbsPxiw3WLnqGd3Awo1g8ldWrYgD38Daf1mpaXHEkUXww634FcBXLkxNzNKdXCZ8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kAiLIG5sSo4FpWozfwPgUi7neZLmXqDVQFvJkGc6iXZrg8tOp3
+	7xf6LvA9gEJR/EEE8QLPRsK35miB2gP+FCVI061t7x4sWM/yyLcxLqcJLz4dxRD1
+X-Gm-Gg: AYBFou1Cg/bQckq4g+qlyDkEihoGdOgx9jRmsMpaqqYutAhz6ZaxswBwwnkzvfD9c9q
+	GEKoxIoNZZLYfl9CgWwj7/5LcedCEXVA6IOlJDEbUVgaJFLjuEMUkVovOkQEFr500sOfY53W6id
+	BVqJcZkvvYmbJJ5FFqBs5rQz1wcUovd1p6njVhablMusNjzmHYFPpfg3k0Hd9pZXoLqsBUhB7eR
+	4yUPRsxk3cLmPzmr7LT9LGkXzZbNVWAVkq9KilsKRb4p82+tho9BTJibFQbJsqt2HhVBdcmnott
+	91tclft/wAFvEZMpPsse/h+4bCHMmAsE4D3UvFEW6odgTwP4D5N/3oB0PIolXKrXN0TcZXMWhIY
+	ROdMijtiBWf+7kOGCUZU2UBWK/FXWViRhQdwlP4qoYKgo9/92xmSFutg/FQUHQ8V8q9VBfoB0IF
+	zuZKkurK8lpZnxC+6nA1n2v9GQu/nfV5qYDOFAlD/NHN+OwuHG70A0EsGqqkT0dpfx6ELjMqoRg
+	7TW0TIJygiN66bOrXoHMRWCjXrFhi/IEECUPTIAhrtU
+X-Received: by 2002:a05:600c:c48f:b0:497:fecd:5b00 with SMTP id 5b1f17b1804b1-49cf825d507mr320789835e9.9.1788900731833;
+        Tue, 08 Sep 2026 13:52:11 -0700 (PDT)
+Received: from arch.home ([2a02:1210:2e28:2800:36a5:7f85:ccb8:1176])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm565265465e9.5.2026.09.08.13.52.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 13:52:11 -0700 (PDT)
+From: Gabriel Windlin <gawindlin@gmail.com>
+To: Peter Senna Tschudin <peter.senna@gmail.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Martyn Welch <martyn.welch@collabora.co.uk>,
+	Frank Li <Frank.Li@nxp.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
+	linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org,
+	Gabriel Windlin <gawindlin@gmail.com>
+Subject: [PATCH] MAINTAINERS: update MEGACHIPS dt-binding path to yaml
+Date: Tue,  8 Sep 2026 22:52:02 +0200
+Message-ID: <20260908205203.649957-1-gawindlin@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <178890071957.623050.17967989406448990455.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the perf/core branch of tip:
+Commit 74459b0dacce ("dt-bindings: display: bridge: convert
+        megachips-stdpxxxx-ge-b850v3-fw.txt to yaml") converted the legacy text
+binding to YAML schema and renamed the file, but forgot to update the
+corresponding entry in MAINTAINERS.
 
-Commit-ID:     9106892e27cad34c87ab1c5631d9c101237bbee1
-Gitweb:        https://git.kernel.org/tip/9106892e27cad34c87ab1c5631d9c101237=
-bbee1
-Author:        Dapeng Mi <dapeng1.mi@linux.intel.com>
-AuthorDate:    Mon, 24 Aug 2026 16:27:09 +08:00
-Committer:     Peter Zijlstra <peterz@infradead.org>
-CommitterDate: Wed, 02 Sep 2026 13:10:39 +02:00
+Fix the path to point to the new YAML binding schema.
 
-perf/x86: Move hybrid PMU initialization before x86_pmu_starting_cpu()
+Fixes: 74459b0dacce ("dt-bindings: display: bridge: convert megachips-stdpxxxx-ge-b850v3-fw.txt to yaml")
 
-The current approach initializes hybrid PMU structures immediately before
-registering them. This is risky as it can lead to key fields, such as
-'capabilities', being inadvertently overwritten.
-
-Although no issues have arisen so far, this method is not ideal. It makes
-the PMU structure fields susceptible to being overwritten, especially with
-future changes that might initialize fields like 'capabilities' within
-init_hybrid_pmu() called by x86_pmu_starting_cpu().
-
-To mitigate this potential problem, move the default hybrid structure
-initialization before calling x86_pmu_starting_cpu().
-
-Signed-off-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260824082731.1013973-2-dapeng1.mi@linux.inte=
-l.com
+Signed-off-by: Gabriel Windlin <gawindlin@gmail.com>
 ---
- arch/x86/events/core.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/events/core.c b/arch/x86/events/core.c
-index 8b3ea0a..75358a2 100644
---- a/arch/x86/events/core.c
-+++ b/arch/x86/events/core.c
-@@ -2218,8 +2218,20 @@ static int __init init_hw_perf_events(void)
-=20
- 	pmu.attr_update =3D x86_pmu.attr_update;
-=20
--	if (!is_hybrid())
-+	if (!is_hybrid()) {
- 		x86_pmu_show_pmu_cap(NULL);
-+	} else {
-+		int i;
-+
-+		/*
-+		 * Init default ops.
-+		 * Must be called before registering x86_pmu_starting_cpu(),
-+		 * otherwise some key PMU fields, e.g., capabilities
-+		 * initialized in x86_pmu_starting_cpu(), would be overwritten.
-+		 */
-+		for (i =3D 0; i < x86_pmu.num_hybrid_pmus; i++)
-+			x86_pmu.hybrid_pmu[i].pmu =3D pmu;
-+	}
-=20
- 	if (!x86_pmu.read)
- 		x86_pmu.read =3D _x86_pmu_read;
-@@ -2266,7 +2278,6 @@ static int __init init_hw_perf_events(void)
- 		for (i =3D 0; i < x86_pmu.num_hybrid_pmus; i++) {
- 			hybrid_pmu =3D &x86_pmu.hybrid_pmu[i];
-=20
--			hybrid_pmu->pmu =3D pmu;
- 			hybrid_pmu->pmu.type =3D -1;
- 			hybrid_pmu->pmu.attr_update =3D x86_pmu.attr_update;
- 			hybrid_pmu->pmu.capabilities |=3D PERF_PMU_CAP_EXTENDED_HW_TYPE;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index da3e42d2d190..e830a31525d4 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16848,7 +16848,7 @@ M:	Peter Senna Tschudin <peter.senna@gmail.com>
+ M:	Ian Ray <ian.ray@gehealthcare.com>
+ M:	Martyn Welch <martyn.welch@collabora.co.uk>
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/display/bridge/megachips-stdpxxxx-ge-b850v3-fw.txt
++F:  Documentation/devicetree/bindings/display/bridge/megachips,stdp2690-ge-b850v3-fw.yaml
+ F:	drivers/gpu/drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c
+ 
+ MEGARAID SCSI/SAS DRIVERS
+
+base-commit: 5acbae5f7eb3d5275120abfe698c394b7325dcec
+-- 
+2.55.0
+
