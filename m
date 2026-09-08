@@ -1,89 +1,103 @@
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11E12550DB5;
-	Tue,  8 Sep 2026 13:37:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3899B4FC8F6;
+	Tue,  8 Sep 2026 13:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874638; cv=none; b=gzjlrHL4Vri+zHQ2rtci2gjqEWIRm7RcuWfA8yc0qNgL6GEE8zZYcki26PIKFbB6IuSSR8RCs3b0az3QCx2PXy3sWrLQ/iWH7NvMJ+dT9fIYPDlnZ9yOPd5agHumNkK40rnNHKA8oO56HYtv0LWaciAMuuh1P29k2naR4rJIxRk=
+	t=1788874780; cv=none; b=eE3mtwjXFi8k1eTqynQG0LyWgoXLRQMJGP2Ctcab2TSAHPFsB8jtrF16zGuAXdzKqNEZUZelkDY/jNJtjyFlZ2WGkQ4KuT1Yk1rOzha89/KF31b8IBgHizKFelJW4dofowPUs2zJEb14qCpJRKsrotKQR4F2AWdWg5y6rmNX+ZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874638; c=relaxed/simple;
-	bh=IbM1Bv44TEHTLCWBNjA2HnURrhTufnRRCvdhOSZLlgY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dP4tNwr0exQ65lBQiw7BhgJMOEzzJUsXAxfVfmW2oAsVkmBQpW/z7HXh8BkR8ROJGY83RGpqglTWYKLqezax96wtSlwGt08MseLE1RudaU0S4lU5X2zJk9eYoRTqsN7q9c1Rrv8cmAZDc39kmllKTSzhmjQwFqeqvq1iLd2wfSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=B+APpEOs; arc=none smtp.client-ip=168.119.38.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	s=arc-20240116; t=1788874780; c=relaxed/simple;
+	bh=mJIId2SG/DApe53JkGn9U6e1GVax4WGYQiytD1mHnd0=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=PB8b23Eo8BElkouDizeN7kC5hvtST2PIdciXn9fos8IHAKLGrEFa/7JHV9jQvzR415ssDVOT9zwDeUOaccXvdbmaqJG087qx7YQ7hohe0nEp+jZi9oFc3xrQmOEbMtgfPBKkSyXFRg/Sq55tRDkxg5M3H2d6LVlAHz+jplQmhuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=suJHOVuK; arc=none smtp.client-ip=216.40.44.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="B+APpEOs"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=Baywc0yHKb2bcz/JRqx1yPA4dHvHWOqsOf8KAn6vPfw=;
-	t=1788874635; x=1790084235; b=B+APpEOs91AzE75ZKQ0Yqvr4veoaMe9pVnXeZDsNeVgn4FT
-	QfP96ENuO++3jXzFQ0oueFt8bswTIYlLA83wFoiA3PuVDZrJnQUbfns5yeb2A0D7Olh4CYPqihUD1
-	9oJNOzzSxBhz8YAo9k4x6KJ/AijRmlYzZ/bwPTYf4bQZZ/DfwOvOQ+tKnXGt8yeJr9zsZPr2lcPOy
-	H1e7f2OBbY9JBu76JS2C4pwg+OBixKRdka/Bcrp/szHjDNLuhbSKGQhnpTIq+itt+OFkHZtnfirFd
-	mIXfWtNGzAgneXi7MNSHC7Dl2TnVgUf2Em4r2Rm6WEcO1+VmpkX8WTtVDr92JVSg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1x3w0c-00000006BkC-49u7;
-	Tue, 08 Sep 2026 15:37:11 +0200
-Message-ID: <98532cdcf1feb1591353bd4b8e3e84822e3e1a11.camel@sipsolutions.net>
-Subject: Re: [PATCH 3/3] wifi: cfg80211: check if AP has been started before
- adding new station
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Slawomir Stepien <sst@poczta.fm>
-Cc: syzkaller-bugs@googlegroups.com, linux-wireless@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzbot@lists.linux.dev, 
-	syzbot+9bdc0c5998ab45b05030@syzkaller.appspotmail.com
-Date: Tue, 08 Sep 2026 15:37:10 +0200
-In-Reply-To: <aqAPPd4qHy0qjo1k@nr200>
-References: <20260813090434.2071318-1-sst@poczta.fm>
-	 <20260813090434.2071318-3-sst@poczta.fm>
-	 <113768c35523738bdc7ab8441ecda64a063900bf.camel@sipsolutions.net>
-	 <ap_Y8OD0eBAnB8QS@nr200>
-	 <8934029f86b1c0e75f777185b2768f8e9755cae5.camel@sipsolutions.net>
-	 <ap_4hS6M8g4u6z--@nr200>
-	 <22e7ddfc50d7a6a16c437b876dab5fe223799610.camel@sipsolutions.net>
-	 <aqAPPd4qHy0qjo1k@nr200>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="suJHOVuK"
+Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 2B55CA06D8;
+	Tue,  8 Sep 2026 13:39:23 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id 4606F20024;
+	Tue,  8 Sep 2026 13:39:21 +0000 (UTC)
+Date: Tue, 8 Sep 2026 09:40:35 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Vincent Donnefort
+ <vdonnefort@google.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>
+Subject: [PATCH] ring-buffer: Add a MAINTAINERS category specific for the
+ tracing ring-buffer
+Message-ID: <20260908094035.0b180833@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4606F20024
+X-Stat-Signature: rg9hhdjkzd6f6otuzqn4mw53woao1ei9
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18CN4A85BQPBe5+wWf3JuXp3pbGA1LwvaI=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=kZ6ltbc+kee29n1wPsToONv5ZZsAdG14wi0YCLinLKQ=; b=suJHOVuKGjKmCfQusyK1VqYaQot4HUkFrnRAZHKUZ9S6XX3vUSFZ0pmFsk+qRAr3HdWvTQ9f9aIVMUeBMqtLSm6pR7F62QdmU928tR9f5je8TBATCJ+lMrsWTYQ3Kh0NoFe/xcJCQopDS/75uYs7dKxP2QGzkEItJKBqoi/F5fA=
+X-HE-Tag: 1788874761-143922
+X-HE-Meta: U2FsdGVkX1/+Iqkp1MAOogVscGZvFVmbUg2auJShrWbIrj+8N2W0nSyqSa4oZX7/8AcPo21yx1CWPHhel/jk3kf0v1FvHv7+zXz4a4nbQAer38CeTHQGyY+G7nYTLVuHJeY2DRV5cONMffxaCKfYB+3YoEh5MrIDUO9zHvQDWC8QXG/s+1df9//4A5Z/nzMeLsKpg/n1THrCm7xnOwTpX+F4fnNnEwbuIIrgOp/fmqrG/OpWiJtUUifn/8o3ZuzAjmWQ4quRGFImAHB246KAsuWFwtujv6R2PEVpZ25TnJqSNNiBq2wJcSvmIcdYC+T09ti99baHOAbUY9a5mI/xEvlWmwraM8UZI1f4M008WA/BvV41EukdKgrKP0qvVEYkINd9ljn6B3bwwho/XDRalx7TY6CHcEB81R6fXCpU/bFcPTuVzvvuktVQlvQye6uxHYkKS7sYyw3jns7t+/2+aUIHVd74JNvcA8WDZsInIMCMYW/A7dENdSjm/dDKiFA0
 
-On Tue, 2026-09-08 at 15:35 +0200, Slawomir Stepien wrote:
-> > But it's another messy code path - if you have AP A and B, and VLANs A'
-> > and B' belonging to A and B respectively, then you can
-> >=20
-> > 	add_station(A, vlan=3DB')
-> >=20
-> > and it gets added on B/B', and B must be IFF_UP (because B' must be
-> > IFF_UP) but doesn't need to be beaconing and we're back to the bug, it
-> > seems? Maybe I'm missing something.
->=20
-> You can't add a vlan interface that dosn't have correct "parent" wiphy, g=
-et_vlan() checks that
-> already:
->=20
-> 	v =3D dev_get_by_index(genl_info_net(info), nla_get_u32(vlanattr));
-> 	if (!v)
-> 		return ERR_PTR(-ENODEV);
->=20
-> 	if (!v->ieee80211_ptr || v->ieee80211_ptr->wiphy !=3D &rdev->wiphy) {
+From: Steven Rostedt <rostedt@goodmis.org>
 
-Sure, but that just means that A and B have to be on the same wiphy.
+The ring buffer code in the tracing directory has always been decoupled
+from the tracing code. It had a clean abstracted API to allow it to be
+used by systems outside of tracing. The API even allowed the ring buffer
+code to be drastically changed without affecting the tracing sub-system.
 
-> This check I've pasted should be good enough, right?
+Recently, Vincent Donnefort has been contributing a lot of work to enhance
+the ring buffer. He implemented the user space mappings and recently
+created a version to allow pKVM hypervisors to use the code to trace
+the hypervisor and expose the events to the user.
 
-Don't think so? You can have A, B, A' and B' all on the same wiphy.
+Create a separate category for maintaining the ring buffer code so that
+Vincent can become an official maintainer of it. His work has little to do
+with the tracing code itself. In the future, he may even be the main
+maintainer of the ring buffer.
 
-johannes
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+ MAINTAINERS | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..71bd2f57055d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27778,6 +27778,22 @@ F:	kernel/trace/trace_irqsoff.c
+ F:	kernel/trace/trace_osnoise.c
+ F:	kernel/trace/trace_sched_wakeup.c
+ 
++TRACING RING BUFFER
++M:	Steven Rostedt <rostedt@goodmis.org>
++M:	Vincent Donnefort <vdonnefort@google.com>
++M:	Masami Hiramatsu <mhiramat@kernel.org>
++L:	linux-kernel@vger.kernel.org
++L:	linux-trace-kernel@vger.kernel.org
++S:	Maintained
++Q:	https://patchwork.kernel.org/project/linux-trace-kernel/list/
++T:	git git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
++F:	Documentation/trace/ring-buffer*
++F:	Documentation/trace/remotes.rst
++F:	include/linux/ring-buffer*.h
++F:	kernel/trace/*ring_buffer*.c
++F:	kernel/trace/remote*.c
++F:	tools/testing/selftests/ring-buffer/
++
+ TRADITIONAL CHINESE DOCUMENTATION
+ M:	Chen-Yu Yeh <chenyou910331@gmail.com>
+ M:	Weijie Yuan <wy@wyuan.org>
+-- 
+2.53.0
+
