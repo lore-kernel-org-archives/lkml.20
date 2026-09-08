@@ -1,229 +1,223 @@
-Received: from mail-pj1-f100.google.com (mail-pj1-f100.google.com [209.85.216.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F205C3A9605
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 18:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4052F5237A3;
+	Tue,  8 Sep 2026 18:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891231; cv=none; b=dVgbWYcyq2fVOcJkCw7y73uw3aS5jLcjC3jUF/p69jg4lP6wqxkcPa0u8hYmzKVAjwpfIydeH0n3nHHNGvsmv7jlDbf0hbKywBt/DErOk9cR6HtxKzZGwgdgi4I3I5OSU2aeAO6UvaEB2zUUhJ4yMTSPzPOPx8789HQnBdT8O54=
+	t=1788891241; cv=none; b=RTynaY2DUCKZvYCMqZ1jCMGAXT9C2kiH8QVSPN3rq3M4k5WSowSpT0kLS6rPJ+hDwHzuaJ8+Ne+WkJj0MYBCKsk+IP8HEKNiWlDJbI1+h+R2CA8e0G5asAckSADNw01g0tl5j4XpNt3xteZNg2HPeGd/iQiFmW47BlmwhwPPng0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891231; c=relaxed/simple;
-	bh=j2DJfVUt0mtvNFgR9qjhwA26YfFt3lRsoWgx9vJ3wP8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JnhiWvvDEj7bula0tka5XAuR8cdbjFS23SFUOOrTmkHRgnGBHSkWkM3MMS50Iuk3qps6CkSMSwcI9GNRY+SHqVeIaEKC0h8r+EsPc9BeFf9D2f7OfvjJmWWjjRlFVovi7XSyrXd59LSFpaXp9+UhVeprlIH9VRTfdxv+SB1m8nM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=Buz84a6K; arc=none smtp.client-ip=209.85.216.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1788891241; c=relaxed/simple;
+	bh=NtFrhtnuyp69Nnab2ROizhRWavl4dBjWerLBkeZiofU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e30L9qcgZZKSESQz5xYlYk23oXyvp+3KG9LJ4b66O2i1VXttVY/foVrUmN941vDzYpH+Up7FtOzSHe8W7rIN9etmP5GpVk3NNl2NZ+M2+AszeUnsYT2BnTFUMPVBn2xPhHrW6xoWL3M5TmjvCM7ogZOkmkSNzgFuFJsQ2JicOBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dL0qIjiI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="Buz84a6K"
-Received: by mail-pj1-f100.google.com with SMTP id 98e67ed59e1d1-382ef647e20so5203224a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:13:49 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788891229; x=1789496029;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i+U6lKJy3E9UudZt3FknVdHylx4G9kfIGWhaOGKfOa4=;
-        b=G+juz6CZJ4SvhjWjY9q6MvRTc8ZV3iJB+jbtdyVS87VBvEWM5KjIFKRvaq9ak2fC6K
-         dauy0iT1liOF+TKTNSbqqSX3xv0ismosDQTWUKj4eLA6tM8X+xnCuGXMaSEOb1dRwpEU
-         tCg+59hw3hPlY0tyoe3xIzK2pmiD4mWZYcEfUPI03PbdInh6qJ30AG8iiGvdapC/6BLj
-         xPD8QPzXwOjKG/+IRvK9eLcyngIe2U3XRxTte9uFbNrdKm35K5cDNUCDVQ7vmDts0E+U
-         nh46wZPZU4gHph4ouK4+0MjBy90xcR41jFtai1gV+gGZJczmNJqyVBkC4nKgGU6qvNae
-         930w==
-X-Forwarded-Encrypted: i=1; AKwUvByt1bHU0ERRp9qvDlJaX8i3+J9yeZQsxlweIiCj+i7E5w6qs+t7t6UfaPLfbgGlku4LZN19hf2bGpWiAGY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb8/OPKkuVZPAFLeUj4R8nMNdByMbAeUOIPJqKuuNkBQ2hgbU3
-	BzDZLV1lN4g8aQdCBeIQ1wtaYxaO9OMcHblt3iD+qPZQ29e1wIFDMl9FjIDFitVhztO5nUM87ui
-	Ika1yBY5tRcdls48XBnHcQP3wBYeQFnZQW/BY9fyJWdam1LIp3YG2hEW2WvqyfHaVRsI/X32VvU
-	BltS/oyUpVgOBGrkswNC2YBRQzRcpPpHpVFmVwzAhNBIJvUA56LYAdGhbi/esUGz191C90ZO3+p
-	hcbUfFClyIML4mX
-X-Gm-Gg: AYBFou30Po4XMGcUNxinuZtIY7akLflD+jvUXMz0DQpX535IDzcrVWHU9LuJ/vBWabh
-	3yeL16N49Ojh41D8ZLcn9XER2sVT7DSa6f0bvWDsPq28aN3Kl8CpGcfpz31s1NmEkFjLM1WyAKb
-	RFvhDcpyVesLLLyiK0jFpJ3X6lf3f23gFDUcExZKEXZew2oEncMnzmZNvcsgWjsthoFdZOXEKwZ
-	IJ3hmg7qy23uA4Nw2ACoVAqe8lDSXuWpxGIc9HPCpdGpF4On8DGsi1dJjhcsNN13SdOEKkitHxp
-	wzRiYFJedMxzzvHGSN6B3zTW4+ksjuA5AkirW01jfaMWKiDvv4WHlDq3aboomfd4Ee6+2d5xNnm
-	fOfXFUjdqPbpRwxT5CtwkYZuF4NHhJEsJr6dcAq3fqYtWq1AoEeChNQfZooPnGUmkjBVG5HI6ew
-	t1QI4XxGSIPjQnPaloMSE7hP/gRtR3iSrG5wE=
-X-Received: by 2002:a17:90a:1c81:b0:39b:3109:10ce with SMTP id 98e67ed59e1d1-39b310914e0mr28091846a91.16.1788891228764;
-        Tue, 08 Sep 2026 11:13:48 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b1600a403sm10369557a91.4.2026.09.08.11.13.48
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 08 Sep 2026 11:13:48 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c26012cd0so83104641cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 11:13:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788891227; x=1789496027; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i+U6lKJy3E9UudZt3FknVdHylx4G9kfIGWhaOGKfOa4=;
-        b=Buz84a6K0xdWIl64jv9rPHWLmUNiW6xmRe6TWqyjq2WyJL0xdmmflQIXt0MabWiwak
-         CQJZLY3SQk2rQQxtVVb9/FN2IEmkfYS6QtDRSWHx/H6fkupGICZ4W9nN/EtyL16Bi1CV
-         V2Q1az2bLGkuAaAYN19XxZTMeJwEoiGj3p5oU=
-X-Forwarded-Encrypted: i=1; AKwUvByzxO2c9boySQG7CD0ft3HfT0aqOgf+4TRoGSVPyu5qkP1LyBabBjuCuRfZ3FU5sOrL0aPYNgZd7M0CXYI=@vger.kernel.org
-X-Received: by 2002:a05:6214:4905:b0:90e:7e02:cc3f with SMTP id 6a1803df08f44-9103ef88ddemr25982186d6.18.1788890854645;
-        Tue, 08 Sep 2026 11:07:34 -0700 (PDT)
-X-Received: by 2002:a05:6214:4905:b0:90e:7e02:cc3f with SMTP id 6a1803df08f44-9103ef88ddemr25981186d6.18.1788890853962;
-        Tue, 08 Sep 2026 11:07:33 -0700 (PDT)
-Received: from vertex.localdomain (pool-173-49-113-140.phlapa.fios.verizon.net. [173.49.113.140])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9106412e038sm27114866d6.20.2026.09.08.11.07.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 11:07:29 -0700 (PDT)
-From: Zack Rusin <zack.rusin@broadcom.com>
-To: Borislav Petkov <bp@alien8.de>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	x86@kernel.org,
-	Petr Mladek <pmladek@suse.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Baoquan He <baoquan.he@linux.dev>
-Cc: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	virtualization@lists.linux.dev,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Kees Cook <kees@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	Pratyush Yadav <pratyush@kernel.org>,
-	Dave Young <ruirui.yang@linux.dev>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	Zack Rusin <zack.rusin@broadcom.com>
-Subject: [PATCH v1 2/4] x86/vmware: Add the vmware_record_panic_msg sysctl
-Date: Tue,  8 Sep 2026 14:07:14 -0400
-Message-ID: <03e5c9855e9578b00abf8da69764f1b468597218.1788414671.git.zack.rusin@broadcom.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788414671.git.zack.rusin@broadcom.com>
-References: <cover.1788414671.git.zack.rusin@broadcom.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dL0qIjiI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FAA81F00AC4;
+	Tue,  8 Sep 2026 18:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788891239;
+	bh=gFVchvThcD9Eo80lfIVILhQiw5GiMArAqLZas0is2C4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dL0qIjiIiO2Z65blxOAZ5PLcNAUleggM0+g5WhUv8JbTaOY6AriakINDHgTS+Icej
+	 6l5p5GRjRMw5+LFooAX7LXnzrQYVRwfhNnKKlsBMoxf+nyewxZGM6w+QCZizmwuXX9
+	 ukk7n76pYfupPF5GsiZBcLrtNK5DNQq9Wh6NSorTHXo8I7tC78WGkw5KOgJkvuREWj
+	 nA370hR/Wj/ancT6kFUdKLRXL2JJpRXKh0oSPpnpuhE6bJSDALJcmteuNcK+Zt7Gkb
+	 sCjxmFPrf2Q528cShMdn5iofLp6dg3XDe/du3dyK7zkeZ+5l4FYfyScEnfqCisk5Se
+	 MvZzMej2fn0xQ==
+Date: Tue, 8 Sep 2026 19:13:55 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20260908-dinner-shelve-1d61e19ee3b7@spud>
+References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+ <20260907210042.32552-2-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4QRZKbOQ6hXibigH"
+Content-Disposition: inline
+In-Reply-To: <20260907210042.32552-2-marcus.yu.56@gmail.com>
 
-Full panic text is useful on ordinary guests. Encrypted guests should
-export it only when an administrator opts in. Reporting a crash does not
-require transferring the log.
+--4QRZKbOQ6hXibigH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Enable panic recording by default for ordinary VMware guests and disable
-it when guest memory encryption is active. Expose the policy as the
-boolean kernel.vmware_record_panic_msg sysctl and document that it
-controls only the vmware.log transfer.
+On Mon, Sep 07, 2026 at 02:00:41PM -0700, Chang Yu wrote:
+> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> with i2c address of 0x39.
+>=20
+> The GPIO pin is described as a generic GPIO for now. Binding design for t=
+he
+> more advanced measurement/LED synchronization use cases are deferred to
+> future patches.
 
-Register the sysctl only after the panic buffer and dumper are ready, and
-only when sysctl support is built. A registration failure leaves the
-internal default in force.
+Unfortunately, you can't change what you document, so picking something
+correct now is needed - even if the driver doesn't use it yet.
+>=20
+> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-=
+14-Channel-Multi-Spectral-Sensor.pdf
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> ---
+> Changes in v2:
+>   - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+>   - Fix node name and unit address mismatch.
+>   - Include MAINTAINERS changes.
+>=20
+>  .../bindings/iio/light/ams,as7343.yaml        | 69 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 75 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as734=
+3.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml =
+b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> new file mode 100644
+> index 000000000000..b06d445b92b3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> @@ -0,0 +1,69 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
+> +
+> +maintainers:
+> +  - Chang Yu <marcus.yu.56@gmail.com>
+> +
+> +description: |
+> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address =
+of 0x39.
+> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Chann=
+el-Multi-Spectral-Sensor.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ams,as7343
+> +
+> +  reg:
+> +    description:
+> +      I2C address of the device (0x39).
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    description:
+> +      Open drain output active low interrupt pin.
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +  ams,led-current-microamp:
+> +    description:
+> +      The driver current for the external LED connected to the LDR pin.
+> +    minimum: 4000
+> +    maximum: 258000
+> +    multipleOf: 2000
+> +    default: 12000
 
-Signed-off-by: Zack Rusin <zack.rusin@broadcom.com>
----
- Documentation/admin-guide/sysctl/kernel.rst | 14 +++++++++++++
- arch/x86/kernel/cpu/vmware.c                | 23 +++++++++++++++++++++
- 2 files changed, 37 insertions(+)
+Rather than a custom property, the tsl2772 uses led-max-microamp:
+tsl2772.yaml
+46:  led-max-microamp:
+81:                led-max-microamp =3D <100000>;
 
-diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index b6328cd0f43e..4577e935ddcf 100644
---- a/Documentation/admin-guide/sysctl/kernel.rst
-+++ b/Documentation/admin-guide/sysctl/kernel.rst
-@@ -1690,6 +1690,20 @@ entry will default to 2 instead of 0.
- = =============================================================
- 
- 
-+vmware_record_panic_msg
-+=======================
-+
-+Controls whether panic kmsg data is written to the host's ``vmware.log``.
-+This setting does not control the separate VMware guest-crash event.
-+
-+= ==============================================================
-+0 Do not write panic kmsg data to ``vmware.log``. This is the
-+  default for encrypted guests.
-+1 Write panic kmsg data to ``vmware.log``. This is the default for
-+  ordinary guests.
-+= ==============================================================
-+
-+
- warn_limit
- ==========
- 
-diff --git a/arch/x86/kernel/cpu/vmware.c b/arch/x86/kernel/cpu/vmware.c
-index bf59653d6e07..3848811550e9 100644
---- a/arch/x86/kernel/cpu/vmware.c
-+++ b/arch/x86/kernel/cpu/vmware.c
-@@ -31,6 +31,7 @@
- #include <linux/efi.h>
- #include <linux/reboot.h>
- #include <linux/static_call.h>
-+#include <linux/sysctl.h>
- #include <linux/wordpart.h>
- #include <linux/sched/cputime.h>
- #include <asm/div64.h>
-@@ -255,6 +256,19 @@ static int vmware_log_rpc(const char *buffer, size_t length)
- }
- 
- static struct page *vmware_panic_page;
-+static int vmware_record_panic_msg;
-+
-+static const struct ctl_table vmware_panic_sysctls[] = {
-+	{
-+		.procname	= "vmware_record_panic_msg",
-+		.data		= &vmware_record_panic_msg,
-+		.maxlen		= sizeof(vmware_record_panic_msg),
-+		.mode		= 0644,
-+		.proc_handler	= proc_dointvec_minmax,
-+		.extra1		= SYSCTL_ZERO,
-+		.extra2		= SYSCTL_ONE,
-+	},
-+};
- 
- static void vmware_panic_log_dump(struct kmsg_dumper *dumper,
- 				  struct kmsg_dump_detail *detail)
-@@ -263,6 +277,9 @@ static void vmware_panic_log_dump(struct kmsg_dumper *dumper,
- 	char *buffer = page_address(vmware_panic_page);
- 	size_t length = 0;
- 
-+	if (!READ_ONCE(vmware_record_panic_msg))
-+		return;
-+
- 	memcpy(buffer, VMWARE_LOG_PREFIX, VMWARE_LOG_PREFIX_LEN);
- 	kmsg_dump_rewind(&iter);
- 	(void)kmsg_dump_get_buffer(&iter, true,
-@@ -283,6 +300,9 @@ static int __init vmware_panic_log_init(void)
- 	if (!hypervisor_is_type(X86_HYPER_VMWARE))
- 		return 0;
- 
-+	vmware_record_panic_msg =
-+		!cc_platform_has(CC_ATTR_GUEST_MEM_ENCRYPT);
-+
- 	vmware_panic_page = alloc_page(GFP_KERNEL);
- 	if (!vmware_panic_page) {
- 		pr_err("failed to allocate panic log buffer\n");
-@@ -295,6 +315,9 @@ static int __init vmware_panic_log_init(void)
- 		__free_page(vmware_panic_page);
- 		vmware_panic_page = NULL;
- 	}
-+	if (vmware_panic_page && IS_ENABLED(CONFIG_SYSCTL) &&
-+	    !register_sysctl("kernel", vmware_panic_sysctls))
-+		pr_err("failed to register panic log sysctl\n");
- 
- 	return 0;
- }
--- 
-2.53.0
+I wonder if the same should be done here, or if there should be an leds
+subnode? Perhaps the IIO folks can comment on that.
 
+> +
+> +  gpios:
+> +    description:
+> +      Optional GPIO pin for general I/O.
+
+Please expand on "general IO". Docs appear to suggest this is used for
+synchronisation.
+
+Additionally, I think this name will make the gpio somewhat difficult to
+request. Calling it "sync-gpios" or w/e will permit the usual gpiod
+functions being used.
+
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - vdd-supply
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        multispectral-sensor@39 {
+> +            compatible =3D "ams,as7343";
+> +            reg =3D <0x39>;
+> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
+> +            vdd-supply =3D <&vdd_regulator>;
+> +            ams,led-current-microamp =3D <14000>;
+> +            gpios =3D <&gpio0 6 GPIO_ACTIVE_LOW>;
+
+Valid Sashiko comment here I believe.
+pw-bot: changes-requested
+
+Thanks,
+Conor.
+
+> +        };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 04fa5322d9f7..8cf4e1635053 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -1430,6 +1430,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
+>  F:	drivers/iio/light/as73211.c
+> =20
+> +AMS AS7343 DRIVER
+> +M:	Chang Yu <marcus.yu.56@gmail.com>
+> +L:	linux-iio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+> +
+>  AMT (Automatic Multicast Tunneling)
+>  M:	Taehee Yoo <ap420073@gmail.com>
+>  L:	netdev@vger.kernel.org
+> --=20
+> 2.55.0
+>=20
+
+--4QRZKbOQ6hXibigH
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBQYwAKCRB4tDGHoIJi
+0rFTAP0UKfiCDi1ACfy0mqQe48QJpi4vQY8KmzLN4QO8JUSvJgEAznVV+tWBYXqF
+Xonh23zq7OWQICdd0F9RHJi3wryHBQ8=
+=7PmM
+-----END PGP SIGNATURE-----
+
+--4QRZKbOQ6hXibigH--
