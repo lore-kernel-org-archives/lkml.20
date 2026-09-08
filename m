@@ -1,121 +1,137 @@
-Received: from smtpbg150.qq.com (smtpbg150.qq.com [18.132.163.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D7451C329;
-	Tue,  8 Sep 2026 09:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.132.163.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3815951C348
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 09:49:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860988; cv=none; b=GffAXqwX7NlOEMJRIRXm4tVzxh8YoQionAvXx22WTRgNUM1VqQzb7D3CVtBB/capF+Tp6l7IKWVa9/UX7br2/FDIl/mrLLbo+nxvUMXO3Bg1IQQMz8CN2pwiFq34AbaBUg/MpWzqwlBhGNqZF3hUfel8rGby9yxOgH6a4c+xh3Q=
+	t=1788860990; cv=none; b=ZHN6LN9ktdDm8//EDhWFB66U23MDoBJNbnClAkk0t50o7q4eVbdEuLFcO3MPZzR0ks2hvSL3GaMHkHxpCIDXeViqwCIemNyJR3D5u7WpwTPbk43JPt5mBNU43OwCErnPbbzXmWD81iMNqucDo/5QEjGPPwzCLmaoizquxke5yuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860988; c=relaxed/simple;
-	bh=Q0kCzxHIUiOCWyfoizcW7qoxa2sZ8T22l48DSjpGzzE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eWWK0njA7cCxgE6Kz5W0Pla3WpXwFvfMc6L66XdflPXL9j6AoPhg8LjpmkMt5UZ9hi6pdYQvC1moE4YiJYKvDMTpBRkZnY2ubfhmGeeOB5d60xM5qAtQT1xQ6xVyrZCt+AdU9HyDlwoE2rJ2QY5M0hUvzb3N6dJRsArLhkUsFCI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=j2ZLtX5L; arc=none smtp.client-ip=18.132.163.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788860990; c=relaxed/simple;
+	bh=XQdkUvgOydo+9e7O8MX2+dcnxlTods4ZcA5zB20fLYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=m2GkME28QjOg/EKF0TxDtWboSY8kKWCM614GaGB7NOmGw7E/MvvisENK7HVuH5QrR3TG+Di0qr3PoCbEg6XSu+qzwT1N+4x0H8XLPudZCXduBdrr8KAfunGBG83Yayfl3zO4TDOidVzruGq0QsktUH+/7TyifhmT3vXHp9IWm8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DutMdQAI; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="j2ZLtX5L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788860928;
-	bh=ga7Cc8VmPlzvTcI0Jn15zu3WuFtjhfzWSPUrlOrjDeo=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=j2ZLtX5LtDJgMwTTMZ0YbVB8P+EV4wRbV5123iFvJRAZK0H9xY83pGT2sl7be/Tda
-	 WgI73jrry2umwdQ88FHfKuGfIlt86WzRi4+BuuQMZ7++xdebRz0Llg/TJSocGgfi6D
-	 FlDbgtnLQuOrquk/Det7K+8ciaRmF8TDveiRwFc0=
-X-QQ-mid: zesmtpgz5t1788860926t19f03d4d
-X-QQ-Originating-IP: YuZo8LBOHAKjnCpx7FWaCiN+8A3UW2Pf5gnxtsSGcnI=
-Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 17:48:44 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 435864523406959042
-EX-QQ-RecipientCnt: 22
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Date: Tue, 08 Sep 2026 17:48:38 +0800
-Subject: [PATCH v2 1/9] dt-bindings: usb: ci-hdrc-usb2: add
- spacemit,k1-usb2 compatible
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DutMdQAI"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d6efd73032so44370175ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 02:49:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788860987; x=1789465787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0PBUJEeFBiWjNqjSYPXJZjecT0G0qpYB0cRk1PSNGo4=;
+        b=DutMdQAIG+ipXfZbqZtXHvTTA+lkCIFdp3txm76S9by7FFFn3vPs+v1KeJOgP2wrdw
+         z+K4bqvlgJYX/7rTiHqsLxBHWh49KGMqQgjEd1D3oyMGTw403Ro/ZiFvOh3/Tu30MoOJ
+         vNfEWC/lCAVgCwli8sC95J9DyLa/rOjrnrtVh6upSOaHpcQlEivRjaC3Yn3HmLY29D4N
+         1EWzndrfGs7iD+72MWurvol1ybvwdw7w2sCUDDia+goNMQLIIjdmH+vGI67sZzsE8NdP
+         xITxfPCvbhjMfx0Gm2YA8Ym7MOIcIDNhORKHMFDkKsi4rtGG00khrsxTIVivr9gJOSvr
+         zl3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788860987; x=1789465787;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0PBUJEeFBiWjNqjSYPXJZjecT0G0qpYB0cRk1PSNGo4=;
+        b=bZx85ldgJbETMyPlJAewgxTatya/wbvUQNuwjHh/dujE/crfk32qsl2tc8rZf09LKa
+         vwz7RerOvVJdREk8D91ekOqXwRtGrrIWfECVqBBcxB72Wr9eN8ESYSZdux0D5eZ1YHIU
+         AA+uz4FzOyYvug4nnPOqtD4+bJ1/Rf1qXOxWGNmmpkLZQErwiiLPD65tE4jzkJnZMaUd
+         61yBSOR/u/8JVn9QIbjC1w6d1p7kIP9QFjoNfu2wW8HKUL36e6pvY/Xuwdls3UIUJESi
+         2GvBwG9zcL6Z3iWZnCQse1Wlg+noy54/sbRbSNWYnHj+DU3TGFsYEsV0qnAWauQCkLHB
+         tGDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8nxgXiOgKYPVAioSBnlQ0Q+AZ2GZSU6QdDezj7W6glWOH4O7LV6iP5U60gKcDFxDSD4GOYGbYqPUnwGg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0rz7utuJNausd0hjuX7L/2L4vZc3HBSs73D2RKjmRONsJl5zN
+	uFprPPsqsi8KotXzG53EVTD2Mrl5tpE9Mp42ipPBNqECPo0XwOpay5pw
+X-Gm-Gg: AYBFou2mdTZxw5Mw4fdQXlWHZVUmwYmPxeK0znVIqswXzinp0Xt9YbKHYSMXFkmTVPz
+	RF40dnsRyVE0REXJxmprBDJARo5Z7wnau1jMpsjjTc1akBuYjpRBjaTewkEKYDGGOB60lnjW5TM
+	WDcqkBxknwrJhlX+TP8re+ry4YYninTwwtHOEXovtpE82U0lzW83y/O5MS6Mo8bLqnK721xxe72
+	vSxnScswRn93PAKtx01p4DJ99+/65S59s5U+AZK0ybASs/UCAggL8UxJ1l5DJo5bTyHUWmGBEwO
+	RJ1eksIJwMyKom+QlZfqdDGryHF/6td+/WVj5zOcvJDGE6vnm/OBNFEdtYRvzV/UhTSRiQ+d/mI
+	Aq56ByY+PV5PeEoBYQikjwbkXxPjZyCKLLgRUgILHE/02l7Y1OEVxNpyXhkVDAtfpW1hoWJPKpo
+	rYtw1WItuODvmWch5ysu53SXgTfWgMRqex+FQ/of2C0Lrw0NKZwsbdxEPtzX7TwRf1trYF3/f0/
+	LFUvk2lHHNfOLta3IVCDfBs9EYi5JuNCiJX6bC0WAezPXiTqvde1A==
+X-Received: by 2002:a17:90b:2244:b0:380:86d8:8162 with SMTP id 98e67ed59e1d1-39b0865353bmr36029494a91.18.1788860987304;
+        Tue, 08 Sep 2026 02:49:47 -0700 (PDT)
+Received: from sergio-82n7.fritz.box (static-23-234-74-239.cust.tzulo.com. [23.234.74.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3356dc5c04dsm23583208eec.8.2026.09.08.02.49.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 02:49:46 -0700 (PDT)
+From: Sergio Melas <sergiomelas@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sergio Melas <sergiomelas@gmail.com>
+Subject: [PATCH v2] hwmon: (yogafan) Add support for new Lenovo models
+Date: Tue,  8 Sep 2026 11:49:31 +0200
+Message-ID: <20260908094931.2227049-1-sergiomelas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-b4-spacemit-k1-usb2-v2-1-f07342ffa051@linux.spacemit.com>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Ze Huang <huang.ze@linux.dev>, 
- Junzhong Pan <panjunzhong@linux.spacemit.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860920; l=1030;
- i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
- bh=Q0kCzxHIUiOCWyfoizcW7qoxa2sZ8T22l48DSjpGzzE=;
- b=hlvuL0vOizfCEuqH7I1fU0zVC+wKYnG4FY47seiO2aUDL5mRXqERk9fboyiy7o8Ykpyi5Haam
- T0Mcsf1RTX8AAJZbeUHAxphaWA100Yomfl5PbItbHNYerrSiiSHA4Yj
-X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
- pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MxwHD6hb8WBVHcxbDB4Lj5Z8QwT9ax/hdZpRutQ0QFVIiHTeivcKv5bE
-	1fSv5p1QUGgfGzAsmXPA5NceMMu4MI5KsblMKpTyfUSE0e9i3gE6zDb3QferV2gSEw2FBt1
-	ue1D27KaE14f68SIknbfLlwfNuGhX/eryAtZ4c+4pqCZnxani7Uavfm76dsTf6uC6VY6VhJ
-	4wuq2sOg4Jil05OVpoMVvZ7FY2zUXtyQ34hDkElmqsUO9/zhWbpd83EBSO1mg3vyXSagoOO
-	zNtPxbdNI5x1cLZb+ZXfalTQy3Qz8Akf5aW4FPmTQ5ScXW6I+h0Wt6iXwMRzlsR2Sv2BiD0
-	sTM8Ek/bvT90bup4HdqiaDK3e5+FFQmpaXviBrpLwmCS5iGFK4P2zN7Zci7qyZ8IHf2cdAQ
-	aFvMOReNQOWveSchUKp/fHQIbmMTwEvRzOV17NaAxzM59FKPVApBLLyPKD73AdyGBxK/lh5
-	GNjjnTO1uwB27aqepE5DtLyZuzuH6QmgPK3aVJqIs8NhNH9uAoTWJJYj1yEcFnCTx3WDoCY
-	ia9rcq3g0MP6RwgPN3jP4uatnsKq1CwAZO1UVnpixDopkWtiYY5AZOA4BDQ/41rJWq7FdQg
-	0P99fmKb4mf6Y79XCpxKPjugtk6eNChgTe2AcFuCK0MguRGI1252MrwWQ3kMqsEgJOcxX9J
-	BPHIqIhb7wNgqVqickud4ReIyaUftL6oB9Ij5evTiwNnkLtFxnKh3RHfbQYOw49fT1W6S92
-	6Af3lThe0PRZhMEpWDwahKb7msUGn5xVaNiXmon+e79svvUpuFjSL1COzP9k73YQs1/QJkO
-	egNTGegjJOK8Q0ABvZOqAyUUFWfEXhkJwEgzxK0ylnoBuUugSzHamRzbVYNbl0whGpAjPVr
-	D88AWDkE78aMO7PevlFbE1EY2Hti+eQHGR41IM9OUEQL6rCoOfmT+fRcg+5e/yMvMuL/ZM1
-	DYdxgQPHnhp7ulebi0pecsb5UmNCP8o+oFai9gZ6/kl3fer0iG0LmP3jOMaCVovDzTvYCpt
-	ZZaIhj5uOyBQ/+DpNbrWB1jk+lgwDxda1JokAZkBX4ez7/CCiZjyH/ELpkt0jhAurXcGjYR
-	Y5h9NjdUVfx7KJuL8E91nMkMl7KJp+B+QZ1KL934EY1GJiTWFEKp+37fwbkrqVB1L2amvZ8
-	ZsssM9SVWvG74nseSzBuIuN9CH0S0w2oHLLB+LyiIf1aZmkz9kHggkullg==
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+Content-Transfer-Encoding: 8bit
 
-The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
-has no internal OTG registers, this requires flags which disable
-related features set in platform data. Add a compatible string to match
-the platform data.
+Add DMI quirk entries and map correct ACPI paths and configurations for
+additional Lenovo laptop models: Yoga 14cACN 2021, IdeaPad 3 15ALC6 Ub
+and Yoga 740-15IML, leveraging DMI product family matching.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Tested-by: Ze Huang <huang.ze@linux.dev>
-Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Signed-off-by: Sergio Melas <sergiomelas@gmail.com>
 ---
- Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 1 +
- 1 file changed, 1 insertion(+)
+v2: Split changes and addressed reviewer comments.
+---
+ drivers/hwmon/yogafan.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-index 620b564914d4..6f8d88a0681d 100644
---- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-@@ -25,6 +25,7 @@ properties:
-           - nvidia,tegra124-udc
-           - nxp,s32g2-usb
-           - qcom,ci-hdrc
-+          - spacemit,k1-usb2
-       - items:
-           - enum:
-               - nvidia,tegra114-ehci
-
+diff --git a/drivers/hwmon/yogafan.c b/drivers/hwmon/yogafan.c
+index 413ddc721..aa3284560 100644
+--- a/drivers/hwmon/yogafan.c
++++ b/drivers/hwmon/yogafan.c
+@@ -53,6 +53,11 @@ struct yoga_fan_data {
+ };
+ 
+ /* Specific configurations mapped via DMI */
++static const struct yogafan_config yoga_740_15iml_cfg = {
++	.multiplier = 100,
++	.fan_count = 1,
++	.paths = { "\\_SB.PCI0.LPCB.EC0.FANS", NULL }
++};
+ 
+ static const struct yogafan_config yoga_8bit_fans_cfg = {
+ 	.multiplier = 100,
+@@ -200,6 +205,30 @@ static const struct hwmon_chip_info yoga_fan_chip_info = {
+ };
+ 
+ static const struct dmi_system_id yogafan_quirks[] = {
++	{
++		.ident = "Lenovo Yoga 740-15IML",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 740-15IML"),
++		},
++		.driver_data = (void *)&yoga_740_15iml_cfg,
++	},
++	{
++		.ident = "Lenovo IdeaPad 3 15ALC6 Ub",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "IdeaPad 3 15ALC6 Ub"),
++		},
++		.driver_data = (void *)&xiaoxin_8bit_dual_cfg,
++	},
++	{
++		.ident = "Yoga 14cACN 2021",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_FAMILY, "Yoga 14cACN 2021"),
++		},
++		.driver_data = (void *)&yoga_8bit_fans_cfg,
++	},
+ 	{
+ 		.ident = "Lenovo LOQ 15IAX9",
+ 		.matches = {
 -- 
-2.34.1
+2.55.0
 
