@@ -1,203 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E23550DC8;
-	Tue,  8 Sep 2026 19:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895087; cv=none; b=r+RxIZYaILQ7mpjKAFiyGUUjtHuuLWF9RDfXqm9ls3D44a8AeglGk63vEpYw/8nr8z5C+DU/eCcxZ3z8zYvaf2uECRXW3GlaufrSAIaTk1IFSEpo6+0PpcffhMOeiwjTT2knGvIkClEfwwW3aiXLQc7oxnx70fhj1KCVqzV6vEU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895087; c=relaxed/simple;
-	bh=obfcqa143TIH83A5m78ACkUfBEk2IyZxN8MMKWepEzU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=dU5C7rO21+YDyb56uKrIKct4wu39j/dXQ34JznzMLsgl0cZBwe+BgNhHup+njbJWtz/YzVR5ncCL/OGUMAb6hz+mtjTaau7IQ25BP4JJEIsKmRG/RzOgJxXeSXWQRxPY4rYloZDRVD4DjugQicjAdraFynQNInEGaAHeQ0xcLAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDSd6NoB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C465A0AD2
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 19:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788895129; cv=pass; b=scndTx3h8V1YgAnmkqxHuUYhzBCBQq2VwLBWYN4W5MjU3QrX2bL4jnXJTrXas0ZKAzkY9GQXjBLsnWPK8hGodcXWwHfYx/Mc+Y1CLpwcicYmjk9U1e3jiXWFNKkqRdOmH7dRi5ddBofyZ/whmaqAHlvR9eltPmcKL5+Gdgg+dC4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788895129; c=relaxed/simple;
+	bh=iF8wAwPOdw5l+3Cf+6kzkcaY9d4H9emgCFQIITZ4gH8=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bqLjOpDSYdYh4Q6SbrIP3bbycG3otwwnwMWmfVQUQkrh47zcvaGfnYwaw8uQNEFjlHMNHd4p0dE3ePSsnFmeYC45lSA1D9m5v2aKdRk+sYm5xt7P0NJefEoKDsRIlZBGRnWtlJJ6ytjXTzHgwpHfH59B1hxJ7x7IH5u5Ak5VW7A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jU3BKaz6; arc=pass smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDSd6NoB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8DC1F00A3A;
-	Tue,  8 Sep 2026 19:18:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788895086;
-	bh=3zNdWUSgSwvhga9v4qQ4H0Yaad35O2lT28Zf/3SCF4s=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=VDSd6NoBDdS+z71yYs6um4yHJjfFBaWKwyvRdvaFK1ateiKCE1yrU01cEkcgibZOc
-	 L5gYaSDjwzZz79rOQyj8MXb87WtUIqPGzhsJkVEZGkICDvZCy1LCM6DqO2+w5BIi33
-	 7CTd0ho4UAR0uuLCuM8OTxczD7ocIz5xp92tpd/uaoqoDaKVroTMvnFviaH+2fb6n5
-	 e7iY8MqnrBJig67UQvP5Pk6GZfMZtXGJmkG42f91cpokeFfsz+0JzsdsENEmyj0p2D
-	 aNqO8VKNOv4wN81hWbQRjU09Fjq9KYsjfaRUvELIdUqTHEbJqB0+XQ2nkOhNOvYqww
-	 HbN4XF0SIdj+w==
-Date: Tue, 8 Sep 2026 14:18:04 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	"open list:PCI SUBSYSTEM" <linux-pci@vger.kernel.org>,
-	"open list:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <linux-kernel@vger.kernel.org>,
-	"open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)" <linux-ide@vger.kernel.org>,
-	david.laight.linux@gmail.com,
-	John Smith <imjohnsmith4000@gmail.com>,
-	Lennert Buytenhek <kernel@wantstofly.org>,
-	Roland Waltersson <roland.waltersson@netinsight.net>,
-	Mikael Etienne <mikael1022bzh@gmail.com>,
-	Arthur Husband <artmoty@gmail.com>,
-	Alvin Lim <alvinwylim@gmail.com>
-Subject: Re: [PATCH 1/2] x86/PCI: Disable enhanced atomics on some AMD PCIe
- ports
-Message-ID: <20260908191804.GA2734734@bhelgaas>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jU3BKaz6"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-90cc39e06bdso60020236d6.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 12:18:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788895121; cv=none;
+        d=google.com; s=arc-20260327;
+        b=REPNt9q2RY3oAQ5at7hkMB4XaD/YVbfiLGjpIF/mqA1+w43dhNLgloXbt3ckOhI7Mt
+         kYMgxxzmWcaXoI/RQ7r9D+WSYmNjnFabSpSUHIXL6Ippnz/XwmFDvNmZFQRCvmQiMlnE
+         /qSGWyK+XeN6AerdT16jsmkut7ay9eDV92F6jB7/5/UioUSfH3CAfNRtKQZHrC8iAH4W
+         q8SI5fmXG3Js7eyHAw2D7O6l9Oe8Tj+d4+mzT2409z9lzsmUdEZxKsdMFUw00w8VThcd
+         NZSaflqd4sXKT+kvvHGDPT5mQcBxdILCoLacTMK/BJhVOTDTOmQpbGdxa2UkMjqhEzd3
+         0JKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=X8Qt7g6L7Ojilnm+sGhiq7WuzC+eIMrDfW/7+fmIyko=;
+        fh=iWIyAQscWd+ZgLDxtZEnBA9VnuJ4qZpzO8YQmc4FsaU=;
+        b=Xcw1EDF5Dekbv5WoXHAtC0GosJVtnpAoL77kasZlGxBXC3TNpIt3izF78lXTd7XatC
+         AqtpSxw29g8t/C2IXLuh5cnzUABtVP/jbkVedrKflgA71YhDUXe3I/vIhnoWC7325ttb
+         PZx58aW/uIqASl3gZ8JnF6wm2Xz81UU4HGR69Vzy7boLKsRChkFcZuPivgpErhMTg3xp
+         P4GabI8Wowp5kEVpNXfJFliGyBOHBHaOy4WVUrYg/6BugcunwU16MslD+eqZOMNh2DL1
+         JHL5hX7AnCkV9gXpCDEkUSK8DdU7CImxToGiB+DOk8AZv3pQbp4W9NE5nA2krYn55+4v
+         vt2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788895121; x=1789499921; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X8Qt7g6L7Ojilnm+sGhiq7WuzC+eIMrDfW/7+fmIyko=;
+        b=jU3BKaz6tK34z124OveImkUQ+Mt+/YIIjfsIdW7cIVq9OQ1BvMRQsv5r1uDdElC/oM
+         byOYvzELiLygiX66M4jnIR6qqMPjbdTz1vc/3x9tGoanK7OAMsLLLc6cczC7CukCwT58
+         GKf8MbTh9KUVSTtRfTdlE/bgtYKsSOoV0YoBQcPQdDHvMS2zWL7iKrzH13cAeWoJb+CZ
+         AW4D9jLaH7OLMymuYOXSQC9WzVTHVnbcpV5XcWpLZv658BnyKqthzP5qVu9FkBh3DKg/
+         T541cmfGTAFdyHZiNzgawLs3cfz1ojuQjXEg2qNEwO6l8ksrg0P75ApLIG6jzvGKFGHR
+         Mheg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788895121; x=1789499921;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X8Qt7g6L7Ojilnm+sGhiq7WuzC+eIMrDfW/7+fmIyko=;
+        b=YMVAhdkalhYqTI1qQK6g/Fuz1tgKoA8KWoIXukvHxfwMSBgjHp7Tk2VIuqusyh/yXW
+         RYaVANJK1uVgi6UqbKq9CNOo7+UKBchInTn3lvuyO1oBmxcOjMBc2jwNERW3nOTjiX+W
+         dBwDJFR7u2UHw0qQrflxaiVtRfBUGHOn1etAyTLvBAwXKYVBHK89qRGhQhVM8NwRnFm9
+         J7+PQ0AEUFRQCny76edZJKJtCTrwz8JX8utZVszRbogLWxxn70ZQpr1FDtJOzgE4KsOS
+         fg6H6BXjBR6ufw80EhtizoSIVlFB9q0tgb4quAcd8zTGc/C94hW9U2QIxCbTKs7jLRpw
+         eE6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwqcIoREjCGgfn/1gGwztV5WPKM/ZnbhtRFNM5qIbUq84jrzcE/tO5hzo2R+8sNC9wml6dm1icwajyLyA8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kvu+w3KiIa4vaRJrx+/AaksUozkedxotQfJ/GqV9dRxDe5LJG5
+	DrV+8dbvoLBJzvJc5DTGmU1YSN6IlrZJuxXqVNIDZ75AJAwWZi7hsnvNYmi6urHFDcYzcCjPOCW
+	axxecHR4vHuR4k2ZGWVISAWaGFvVdNOWXJGAebEpK
+X-Gm-Gg: AYBFou2AFg3eYNBAA0CwVhjw5EbOlNc/mg37MTOk0kwGxgLpVW0Nl2j2l/6LordYjoS
+	Z2NRtah9hnq42CwCgnsW2qt28Dzvhl2O5ydZrtfRvOex+OZ/LTUdhl1oEHmGZ7o4+QfWMSrIyGR
+	gQ8Dip1xIvSoQb1sw/GXdenIWIpNysczZS+6t+Ejyj65DIu4ewXm9XzzR+YBNioXkvQReZjK253
+	6+s3xzy7pMntM4lQak41ALs1hTDlkugXfCBB920v5o4ULyX7ArMZkjGk1+xSTxFkh5g8Ftql68A
+	8z5xqHOgGOwI9nXvpa35/9SMhU8fMqOifG71XOzWm7lvujyZR3iaH7rYcPth5dC/+NAYgbwrzOf
+	jqd6ACU4oexvl9PF8XTFM1MjdolnBO5s=
+X-Received: by 2002:a05:6214:8110:b0:90e:8d49:1ca2 with SMTP id
+ 6a1803df08f44-9103ef006e4mr328434076d6.2.1788895119795; Tue, 08 Sep 2026
+ 12:18:39 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 12:18:39 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 12:18:38 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20260825081448.GB3694338@pedri>
+References: <20260722-tdx-selftests-v14-0-15ad654a50db@google.com>
+ <20260722-tdx-selftests-v14-11-15ad654a50db@google.com> <20260825081448.GB3694338@pedri>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260908170035.160166-2-mario.limonciello@amd.com>
+Date: Tue, 8 Sep 2026 12:18:38 -0700
+X-Gm-Features: AcwNN1X5p6qITiCXmMYSZPSPB-N20ut6cFscoALs2WRbCQrztSKzH7k_if4I128
+Message-ID: <CAEvNRgHiQ5g94SQ8S6CTyTmEOguQqY9GmQUu1K8ff9L1pALpQA@mail.gmail.com>
+Subject: Re: [PATCH v14 11/22] KVM: selftests: Set up TDX boot parameters region
+To: Peter Fang <peter.fang@intel.com>, Lisa Wang <wyihan@google.com>
+Cc: Andrew Jones <ajones@ventanamicro.com>, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Chao Gao <chao.gao@intel.com>, Chenyi Qiang <chenyi.qiang@intel.com>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, Erdem Aktas <erdemaktas@google.com>, 
+	Ira Weiny <ira.weiny@intel.com>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, linux-kselftest@vger.kernel.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, "Pratik R. Sampat" <pratikrajesh.sampat@amd.com>, 
+	Reinette Chatre <reinette.chatre@intel.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Roger Wang <runanwang@google.com>, Ryan Afranji <afranji@google.com>, 
+	Sagi Shahar <sagis@google.com>, Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
+	Xiaoyao Li <xiaoyao.li@intel.com>, Oliver Upton <oupton@kernel.org>, 
+	Jeremiah McReynolds <jmcrey@google.com>, kvm@vger.kernel.org, linux-coco@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 08, 2026 at 12:00:34PM -0500, Mario Limonciello wrote:
-> There have been multiple reports of data corruption that can occur
-> with 64-bit DMA when the IOMMU is enabled. This occurs due to some
-> BIOSes enabling enhanced atomic operations on PCIe ports.
-> 
-> When enhanced atomic operations are enabled on PCIe ports for some
-> models, data corruption occurs when the 32-bit IOVA space is exhausted.
-> The problem is reported on storage devices, but can affect any device
-> that uses 64 bit DMA.
+Peter Fang <peter.fang@intel.com> writes:
 
-I assume this means there's an erratum where NBIO doesn't handle
-64-bit DMA correctly when some AMD-specific "enhanced atomics" are
-enabled?
+> On Wed, Jul 22, 2026 at 11:13:16PM +0000, Lisa Wang wrote:
+>> From: Sagi Shahar <sagis@google.com>
+>>
+>> Allocate memory for TDX boot parameters and define the utility functions
+>> necessary to fill this memory with the boot parameters.
+>>
+>> Co-developed-by: Ackerley Tng <ackerleytng@google.com>
+>> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+>> Signed-off-by: Sagi Shahar <sagis@google.com>
+>> Signed-off-by: Lisa Wang <wyihan@google.com>
+>> ---
+>>  .../selftests/kvm/include/x86/tdx/tdx_util.h       |  2 +
+>>  tools/testing/selftests/kvm/lib/x86/processor.c    |  2 +
+>>  tools/testing/selftests/kvm/lib/x86/tdx/tdx_util.c | 51 ++++++++++++++++++++++
+>>  3 files changed, 55 insertions(+)
+>>
+>
+> [ ... ]
+>
+>> +
+>> +void tdx_vm_load_common_boot_parameters(struct kvm_vm *vm)
+>> +{
+>> +	struct td_boot_parameters *params =
+>> +		addr_gpa2hva(vm, TD_BOOT_PARAMETERS_GPA);
+>> +	u32 cr4;
+>> +
+>> +	cr4 = kvm_get_default_cr4(vm->mmu.pgtable_levels);
+>> +
+>> +	/* TDX spec 11.6.2: CR4 bit MCE is fixed to 1 */
+>> +	cr4 |= X86_CR4_MCE;
+>> +
+>> +	/* TDX spec 11.6.2: CR4 bit VMXE and SMXE are fixed to 0 */
+>
+>         This is now out of date (11.9.2 as of today)...
+>         I wonder if it's better to just say something like: "Per the TDX
+>         spec, ..."
+>
 
-Nothing to do with the atomic operations defined by the PCI specs?
+Makes sense, thanks!
 
-> Disable enhanced atomics using SMN for NBIO 7.7 and 7.11 based models.
-> 
-> Cc: david.laight.linux@gmail.com
-> Cc: John Smith <imjohnsmith4000@gmail.com>
-> Cc: Lennert Buytenhek <kernel@wantstofly.org>
-> Cc: Niklas Cassel <cassel@kernel.org>
-> Cc: Roland Waltersson <roland.waltersson@netinsight.net>
-> Reported-by: Mikael Etienne <mikael1022bzh@gmail.com>
-> Closes: https://lore.kernel.org/all/178789300872.392066.15963676631650361573@gmail.com/
-> Reported-by: Arthur Husband <artmoty@gmail.com>
-> Closes: https://lore.kernel.org/linux-ide/20260406222335.379935-1-artmoty@gmail.com/
-> Reported-by: Alvin Lim <alvinwylim@gmail.com>
-> Closes: https://lore.kernel.org/linux-ide/20260621100844.1224301-1-alvinwylim@gmail.com/
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
-> ---
->  arch/x86/pci/fixup.c | 93 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 93 insertions(+)
-> 
-> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> index b301c6c8df753..0857fd9365ec2 100644
-> --- a/arch/x86/pci/fixup.c
-> +++ b/arch/x86/pci/fixup.c
-> @@ -886,6 +886,99 @@ static void quirk_clear_strap_no_soft_reset_dev2_f0(struct pci_dev *dev)
->  	}
->  }
->  DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x15b8, quirk_clear_strap_no_soft_reset_dev2_f0);
-> +
-> +/*
-> + * Enhanced atomic operations can cause corruption with 64-bit IOVA
-> + * on these devices.
-> + */
-> +#define RX_ENH_ATOMIC_EN		BIT(8)
-> +
-> +static const u32 nbio_7_7_pcie_smn_addrs[] = {
-> +	0x111401d0,
-> +	0x111411d0,
-> +	0x111421d0,
-> +	0x111431d0,
-> +	0x111441d0,
-> +	0x112401d0,
-> +	0x112411d0,
-> +	0x112421d0,
-> +	0x112431d0,
-> +	0x112441d0,
-> +	0x112451d0,
-> +	0x113401d0,
-> +	0x114401d0,
-> +};
-> +
-> +static const u32 nbio_7_11_pcie_smn_addrs[] = {
-> +	0x112401d0,
-> +	0x112411d0,
-> +	0x112421d0,
-> +	0x112431d0,
-> +	0x112441d0,
-> +	0x112451d0,
-> +	0x113401d0,
-> +	0x113411d0,
-> +	0x113421d0,
-> +	0x113431d0,
-> +	0x113441d0,
-> +	0x113451d0,
-> +};
-> +
-> +static void quirk_amd_nbio_enhanced_atomic(struct pci_dev *host_bridge,
-> +					   const u32 *smn_addrs,
-> +					   size_t nr_smn_addrs)
-> +{
-> +	bool changed = false;
-> +	size_t i;
-> +	u32 data;
-> +	int ret;
-> +
-> +	for (i = 0; i < nr_smn_addrs; i++) {
-> +		ret = amd_smn_read(0, smn_addrs[i], &data);
-> +		if (ret)
-> +			continue;
-> +		if (!(data & RX_ENH_ATOMIC_EN))
-> +			continue;
-> +		data = data & ~RX_ENH_ATOMIC_EN;
-> +		ret = amd_smn_write(0, smn_addrs[i], data);
-> +		if (ret)
-> +			continue;
-> +		if (changed)
-> +			continue;
-> +		ret = amd_smn_read(0, smn_addrs[i], &data);
-> +		if (ret)
-> +			continue;
-> +		if (data & RX_ENH_ATOMIC_EN)
-> +			continue;
-> +		changed = true;
-> +	}
-> +
-> +	if (changed)
-> +		pci_info(host_bridge, "enhanced atomics disabled\n");
-> +}
-> +
-> +static void quirk_amd_nbio_7_7_disable_enhanced_atomic(struct pci_dev *dev)
-> +{
-> +	quirk_amd_nbio_enhanced_atomic(dev, nbio_7_7_pcie_smn_addrs,
-> +				       ARRAY_SIZE(nbio_7_7_pcie_smn_addrs));
-> +}
-> +
-> +static void quirk_amd_nbio_7_11_disable_enhanced_atomic(struct pci_dev *dev)
-> +{
-> +	quirk_amd_nbio_enhanced_atomic(dev, nbio_7_11_pcie_smn_addrs,
-> +				       ARRAY_SIZE(nbio_7_11_pcie_smn_addrs));
-> +}
-> +
-> +/* Phoenix, Hawk Point (NBIO 7.7) */
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x14E8,
-> +			quirk_amd_nbio_7_7_disable_enhanced_atomic);
-> +
-> +/* Strix, Krackan, Strix Halo (NBIO 7.11) */
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1507,
-> +			quirk_amd_nbio_7_11_disable_enhanced_atomic);
-> +DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x1122,
-> +			quirk_amd_nbio_7_11_disable_enhanced_atomic);
-> +
->  #endif
->  
->  /*
-> -- 
-> 2.43.0
-> 
+>> +	cr4 &= ~(X86_CR4_VMXE | X86_CR4_SMXE);
+>> +
+>> +	/* Set parameters! */
+>> +	params->cr0 = kvm_get_default_cr0();
+>> +	TEST_ASSERT(vm->mmu.pgd < (1ULL << 32),
+>> +		    "PGD must be within 32-bit address space for 32-bit boot code");
+>> +	params->cr3 = vm->mmu.pgd;
+>> +	params->cr4 = cr4;
+>> +	params->idtr.base = vm->arch.idt;
+>> +	params->idtr.limit = kvm_get_default_idt_limit();
+>> +	params->gdtr.base = vm->arch.gdt;
+>
+>         vm->arch.{idt,gdt} must also be 32-bit addressable here, just
+>         like vm->mmu.pgd.
+>
+
+Something like this?
+
+    TEST_ASSERT(params->gdtr.base < (1ULL << 32),
+            "gdt must be within 32-bit address space for 32-bit boot code");
+
+
+>> +	params->gdtr.limit = kvm_get_default_gdt_limit();
+>> +
+>> +	TEST_ASSERT(params->cr0 != 0, "cr0 should not be 0");
+>> +	TEST_ASSERT(params->cr3 != 0, "cr3 should not be 0");
+>> +	TEST_ASSERT(params->cr4 != 0, "cr4 should not be 0");
+>> +	TEST_ASSERT(params->gdtr.base != 0, "gdt base address should not be 0");
+>> +	TEST_ASSERT(params->idtr.base != 0, "idt base address should not be 0");
+>
+>         Making sure that cr0/cr4 are simply non-zero feels kind of odd
+>         to me. And cr3/gdtr/idtr all came from memory allocators with
+>         non-zero minimum addresses.
+>
+
+I guess I intended these to be sanity checks that the caller didn't
+leave these unset (defaulting to 0), for an early warning to the
+selftest writer if something went wrong. I'd prefer to keep something
+that would retain this early warning for the writer.
+
+What would you replace this with, to provide the early warning, or would
+you rather just remove it?
+
+>> +}
+>> +
+>>  static struct kvm_tdx_capabilities *tdx_read_capabilities(struct kvm_vm *vm)
+>>  {
+>>  	static struct kvm_tdx_capabilities *tdx_cap;
+>>
+>> --
+>> 2.55.0.229.g6434b31f56-goog
+>>
+>>
