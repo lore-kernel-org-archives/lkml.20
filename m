@@ -1,50 +1,32 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF853380FC4
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 06:27:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2E40B37FF68;
+	Tue,  8 Sep 2026 06:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788848827; cv=none; b=EWCOkfSmzHpXWB7D5zh0ap9uSr+ysPZ/5ymiG7/WNb6y176+zb3h94GJV0zvA7FKGd4zsmKxsRCo3J9fteM5D/aXh6qupLRaN0s6kxBDY7K/HZhBASTEl1U7QKGdP6mm9nYtT91OxABNILiZ/Gzo2fyugnLIB1tuC+Bh0hVFwUk=
+	t=1788848841; cv=none; b=vFpU0uu4eojHMIQjaO70j2M46ykmduELNFlCfw3KT7orcMFvSf+wij/CuIKAedaS9rL4m/s72TOXmKdAHk+cqqFCE6QVxFtx1JrbIear1DxV5gqumAqrnMiZ+6B8Wq0HyaEHgDQ9Hedc8ObWlwSdOfNKWZ1DEdVk0Mkymk8BviE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788848827; c=relaxed/simple;
-	bh=Ja0gAh+m/wiEqRIRD3lBAVuJ697S8KTg+aCvtSadiac=;
+	s=arc-20240116; t=1788848841; c=relaxed/simple;
+	bh=moJMN8O3L98OMrpYwW001RWUIzOm27kfc+4ey19OG4g=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L4ecbgb3owkvvaUWN3QGunpDgODXQwvb0WJxeudoOy7AJJe4izw6IKK4yfYnyu95qzX3bL+niJebL4VlPFkUpoJ/lMvYEU68wyjkj5Z/FbXA9vYm36f+f7rzeqGJ9CzCmZNd9k8FNwJDntCTtoSepYfDD4vnxtWW+OdMJwPM1VE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fPgleaPM; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 In-Reply-To:Content-Type; b=IOKl130BnkjRMc7Z0babU5VyklBmyLMHP3pgKteixId1cwR/oPN28coUE21LyI4IVmw8NsDmznBnbPn+5/hf6MH4xtNTmVmhPkLAUbQ+qAD9poxVwE47fIDDi9tKNrp8EsxsmbTOEwuqlhqlZpeUF3DmYeZDmFPeFQ3cV2IeHIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Q6Y5vmWF; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fPgleaPM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788848825; x=1820384825;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=Ja0gAh+m/wiEqRIRD3lBAVuJ697S8KTg+aCvtSadiac=;
-  b=fPgleaPMcR1PdY3zKvecJcl7+Ji/e4p/FIgAJHyjw+WWfXqtxo9mWBoz
-   KwLpo/ySTDNWaVzipYsGdpdlaGbrwWh4bUY51Wx7XCMpSZklKMw6tgY7s
-   W6eimsB93HjIpyh/ru60EB8vfW23K6dltwwvy0Raj+65ytATXOAE5RNF2
-   SkogkHb2QSdaSILt3NU9ybaNCaUGunKPFJI8ElQsebsW16l/5vB95gqxX
-   A6JGzziyocM4J0zWUtESjr4Gy2FyYsTgKl/e1BrIFq29ZbhOKcuVcubuk
-   tzO4l6MdloP2Gd4T6RmCLMlCJqqeOv5Hza0WIFYV15hTBLfqyVP8wsl6K
-   g==;
-X-CSE-ConnectionGUID: hwYOOC6uR8yu3rTqOEehtA==
-X-CSE-MsgGUID: 8ic/YNqSSBuu4kCCth/gfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="114781413"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="114781413"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 23:27:04 -0700
-X-CSE-ConnectionGUID: pXiGC1OaT1C5Lj3lCwNuOg==
-X-CSE-MsgGUID: YyZ4f0T+SPC9V1GErK69dQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="267218359"
-Received: from unknown (HELO [10.238.2.139]) ([10.238.2.139])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 23:27:02 -0700
-Message-ID: <d2a198a8-cba9-4773-94b6-1513b8b718c5@linux.intel.com>
-Date: Tue, 8 Sep 2026 14:26:39 +0800
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Q6Y5vmWF"
+Received: from [10.95.64.224] (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 243C320B7128;
+	Mon,  7 Sep 2026 23:26:23 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 243C320B7128
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788848794;
+	bh=/8JxHTnBCLPamYDux4i0PHSyHFScUeetfljkq7nsqOk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Q6Y5vmWFnK85cH44VyzqkkVrA/+E83jXI+Jgf089f4IlXgeJG6DbqliW3wQLDCaab
+	 2hQrM09ctSJPnDN+fzvRKJSGc/7nTu4UmIr2h/WMUc065QLuKCS91B0pdginaH8lKu
+	 ccrlYXUnBEnSJ6lBEcRSg/Na2ImKaW+WznGVVcNc=
+Message-ID: <b993a1c1-19e3-4af8-887d-b171db83c1a4@linux.microsoft.com>
+Date: Tue, 8 Sep 2026 11:57:02 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,43 +34,78 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] x86/virt/tdx: Formalize SEAMCALL leaf version encoding
- support
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: dave.hansen@intel.com, dave.hansen@linux.intel.com, x86@kernel.org,
- linux-kernel@vger.kernel.org, kas@kernel.org, nik.borisov@suse.com,
- rick.p.edgecombe@intel.com, yilun.xu@intel.com, linux-coco@lists.linux.dev,
- Binbin Wu <binbin.wu@linux.intel.com>
-References: <20260901105436.461823-1-yilun.xu@linux.intel.com>
+Subject: Re: [PATCH v3 1/3] x86/hyperv: Set irq_retrigger for root partition
+ PCI/MSI irqchip
+To: Nam Cao <namcao@linutronix.de>, Michael Kelley <mhklinux@outlook.com>,
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "x86@kernel.org" <x86@kernel.org>, "H . Peter Anvin" <hpa@zytor.com>,
+ Wei Liu <wei.liu@kernel.org>, "K . Y . Srinivasan" <kys@microsoft.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Dexuan Cui <decui@microsoft.com>
+Cc: Long Li <longli@microsoft.com>, Joerg Roedel <joro@8bytes.org>,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Kees Cook <kees@kernel.org>,
+ "Rafael J . Wysocki" <rafael@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Sean Christopherson <seanjc@google.com>, Kai Huang <kai.huang@intel.com>,
+ Dmitry Ilvokhin <d@ilvokhin.com>,
+ Shradha Gupta <shradhagupta@linux.microsoft.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Thierry Reding <treding@nvidia.com>, Jiri Wiesner <jwiesner@suse.de>,
+ Daniel J Blueman <daniel@quora.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "iommu@lists.linux.dev" <iommu@lists.linux.dev>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>
+References: <20260907065129.269262-1-namjain@linux.microsoft.com>
+ <20260907065129.269262-2-namjain@linux.microsoft.com>
+ <SN6PR02MB41570E8F17B6A78AD607F91CD4B22@SN6PR02MB4157.namprd02.prod.outlook.com>
+ <87bja88djw.fsf@yellow.woof>
 Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20260901105436.461823-1-yilun.xu@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <87bja88djw.fsf@yellow.woof>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/1/2026 6:54 PM, Xu Yilun wrote:
-> The TDX architecture includes a syscall-like ABI for OSes to communicate
-> with SEAM mode software. This ABI has the concept of a "leaf". Each leaf
-> is roughly analogous to a Linux syscall: it has a set of register
-> arguments and does one logical thing like adding a page of memory to a
-> VM or running a VM. The TDX architecture refers to this interface
-> function as a "SEAMCALL leaf".
-> 
-> Just like syscalls, the TDX architecture wants to evolve the ABI to
-> extend functionality while keeping compatibility. But unlike syscalls,
-> which do this by picking a totally new syscall number, the ABI encodes
-> the "version" number directly into the bits of a register argument. So
-> instead of openatN being whatever the next free number is, the SEAMCALL
-> leaf number and version number are encoded into certain bits in how the
-> RAX register is defined in the ABI.
-> 
-> In Linux, several seamcall*() wrappers have been introduced to invoke
-> SEAMCALL leafs. They all take a u64 "fn" argument for the leaf number
-> which eventually get set in the register. As above, the version number
-> lives in the same register as the leaf number. So callers that want to
-> select a specific version of the leaf, can jam it in the right place in
-> the register by passing it in the "fn" argument.
 
-Do you think it's worth explaining how callers determine the versions
-supported by the TDX module, and what happens if the specified version
-is not supported by the TDX module?
+
+On 9/8/2026 11:55 AM, Nam Cao wrote:
+> Michael Kelley <mhklinux@outlook.com> writes:
+>> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, September 6, 2026 11:51 PM
+>>> diff --git a/arch/x86/hyperv/irqdomain.c b/arch/x86/hyperv/irqdomain.c
+>>> index b3ad50a874dca..1e273d7d6c5b3 100644
+>>> --- a/arch/x86/hyperv/irqdomain.c
+>>> +++ b/arch/x86/hyperv/irqdomain.c
+>>> @@ -304,6 +304,7 @@ static struct irq_chip hv_pci_msi_controller = {
+>>>   	.irq_ack		= irq_chip_ack_parent,
+>>>   	.irq_compose_msi_msg	= hv_irq_compose_msi_msg,
+>>>   	.irq_set_affinity	= irq_chip_set_affinity_parent,
+>>> +	.irq_retrigger		= irq_chip_retrigger_hierarchy,
+>>>   };
+>>
+>> There's a slight discrepancy compared with the guest pci-hyperv.c driver,
+>> where setting the .irq_retrigger function is done dynamically in
+>> hv_pcie_init_dev_msi_info() instead of statically.  The parallel here would
+>> be to set it in hv_init_dev_msi_info(). But given that Patch 3 of series
+>> removes setting .irq_retrigger in both cases, the discrepancy shouldn't
+>> really matter.
+>>
+>> If there's a reason to prefer one approach vs. the other, I don't know
+>> what that reason is.
+> 
+> hv_pcie_init_dev_msi_info() is for the MSI device's interrupt domain,
+> while this patch is setting it for the parent's interrupt domain.
+> 
+> The former is what we need.
+> 
+> Nam
+
+Acked. I will push this change in next version.
+
+Thanks,
+Naman
+
