@@ -1,122 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF32F52D2B3;
-	Tue,  8 Sep 2026 12:18:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D2E53A884
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788869885; cv=none; b=NnoEDlL7i2nmILgiXbmvU0XVe+MgtrWqzBcU+DhenQ5SR46B0zgW0w08sApc+X9rsuVHoNRMxP7OIEaNaXKiyaoCMe/MEQGMisEfJWskT2g7dXcNBLFMm9PX++NF3fF/TLUE5YA02N0qP1tE3ju2YnIt6L8g3KDYdWvob7G1aCk=
+	t=1788869892; cv=none; b=Rl00vdPdFtQS616EYmXS9MgeNXnncArtrrqlsKYtiw/hhnRxdWpVrBq7ryf9EFm2KaKOyd32/gx5Iu0iIqwt1+m6f2cyp7vNZAAwjCmOC2ak+gRmd2fsBMAAHEDOyAbM7EzkxLRBZtOJpOdk4/AU7OwhWudjXZVv/Z2BAwCuqTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788869885; c=relaxed/simple;
-	bh=KzsdawDLxTRlnTCuQxp0McWfnQ4xiy/NYzw9ZRBEEoc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NphT6K2CABI4c37dOpkmWMEYu+mY6i1o4QgsqQlwRYQ+FLuCWOFRiy8H+w5M+KBzrtp3gMxWM8ClcYrLXiSrjKhQkqDn7xFBUrDA0tWvcrJmBqlhYyC5YS4raqChh3LAkNY90ip1b/jBFk7OhYB950QYIiZOSoAVGEOsPEfrDiA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f296w9/q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788869892; c=relaxed/simple;
+	bh=RTKilPGKR/u0oGz3o82GUqPpw20OFeESu5T4jmRMD4M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NJci3DP2EwHjSY1PadfOcnBOx4ALemqtQv25R0CNk7k3Jmfu3JJ92NakYtgBXnhnttMPvRrbv+wRREV/KkQ+/Y4r3GqObtKHG/ufk8Kv5wBLmzRqCFBdA/K6xzuDPhMJwez2zDa47CZ7xGTLiFviQoF07Ie7XiJKDh+ncpY+9LI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0ISoZLo; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f296w9/q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFF7E1F00A3A;
-	Tue,  8 Sep 2026 12:17:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788869879;
-	bh=66ooEKVLbtl0ky7Wg+6hd1bobdHtjV4SER9G4/VGnLY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f296w9/qgQrLsZ2LDV5XUecyQD8yhrxnpQiC8SULUCZF54XsCwpH668rpA6xgX7zw
-	 PVal9tljne/UMSMDdeylNSDuNVpUJVFdLXDMo2mc3RVPB1uXrzAgTDlfDOFvroTWdR
-	 RYFLrVBMdGRmLbyCgzCsGaRj0eopCP2DWdU1rn9KaQF+tNHfaUPpjW4Fpyu4tJvnFD
-	 /1r2I2XeETIscEsU/xIm07gIM+nVZXXNyJ9e3kO8SAEsxVsrOEVWWxYM/cxCnGIDJn
-	 rwqR5TXeKiSQrXsDruRoBOp2XmSEZ0hZ7yNKiL3bbLXnKbfnHLPScfQZc826iL7RUP
-	 6UTHsolkGM7nA==
-From: Simon Horman <horms@kernel.org>
-To: zihanx@nebusec.ai
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	dhowells@redhat.com,
-	marc.dionne@auristor.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-afs@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Date: Tue,  8 Sep 2026 13:17:40 +0100
-Message-ID: <20260908121740.432088-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai>
-References: <a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0ISoZLo"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b568dae0e8so3276810e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:18:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788869884; x=1789474684; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NW6/rTE0SPCNPcO3PxE/nF5bbyVKnXeAwSYncVUIL58=;
+        b=o0ISoZLoBNmENhYwyx2EgB1QlkWMyO1TbctkgN0pN76HnxqCgpVFY1vMgfSqb2KTzX
+         RUNFev51EcpY+PGFEwdz921xHvzq8BM0eDVYqwVe6JesT7QI/VAevOWF0Ldr5AXP/X64
+         69P11BGqhyt+xA7oJFRkwvX6FT+/z6SOE+PEkNwlxTWma66p6y3K3mE4EJzpFjLqxZul
+         nONB2xM6dprWHbp3KXeBRjsKQTmcRmcq4TEs1vy852pDeXRuqCKekBEDYwAOebgS9/Sq
+         0+uGu89zF+suvCTmrh2GYRqTw2GQAbR7k9PrlfHxytLDsymCdWDaaanI9ue5DhCZ+tD2
+         XDYw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788869884; x=1789474684;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NW6/rTE0SPCNPcO3PxE/nF5bbyVKnXeAwSYncVUIL58=;
+        b=ZlPLTziFovqxPfE6eo/30MOCHGGWOBSb4y/J/r8OiXkKL9IpHAaQ4H5knVEAfoKFUD
+         mKa9WuI8sos9kelKai7KMoTSs8xNxYp3fOrYNjsZjGNUI98ygibJqjjT7GTmLL4NszSo
+         nPiGfzDjzzgQBO/BxtxqUmz1iXCr6yyYjKNA3mXF8p9E5MHAoFxXXl1dWz0M6iD0hmZN
+         yKulMMZhrQAhxhbN49XB2jBf7yrXsK1d+cQGP0WrIX0R2RPKusPfji82Sp/ri2lwpxhs
+         8V1pxEl7VESd4SOhRn0uK7lY+5f5kZ2RKm4mSYpJLFmY4MIJNdTBFYNWUhG4PqOE1LF9
+         oAsA==
+X-Forwarded-Encrypted: i=1; AKwUvBy6oZs8IY57qLFlDbmUKywH3uTFTT2fFl6BNb9wdQYNoCj7ncZUj7hlfcf3TrhCTrxM2TWrnSrnDNxrPpQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nEqVU0DSAcSmC5AoRT/Ym1kvv20uHoCSi5sCz5cOxqwVlogOly
+	lh+6MI6VGG1hpdhq295mJ07Tx/8lhsTZ15dvG6UscqWJff9RYbrzWk6v
+X-Gm-Gg: AYBFou0rPQnhkmgvhXigYTCfC+Ambkzk5v7H8zCj6PoCJKkEhNJPJXtUtlt5lpqvhSd
+	CktO4pCRKq5MY2Etw16VE0Cvqc2eB/9q0IasLEFKLdU6J9pQxwWSMp18/Ky/Dxs8aXnn46Ezz7B
+	fWxHTT6JYiwBnQ6G6oRbnlt+EopFefC1Atg8vxVSzSPjuCaCB6nUZhjHaJIUo74ozlDJnRN3UIV
+	szj04Zy5SOg2Io+uXIrooU1/fQaIoX7rNPhX7oXkVO9J0yy8iwW0jLapvi3wnYP4pGtduNjdXAn
+	TNBmGeJVG4Sj6JoFQ1TO3401v3NF3UUMJRAGvjbLyplAlQWyEltZmh37iimX0APvGTWEskfaMtb
+	7lYwSE95pZVsYPeY/0nficFxD9MYPAMf4NWnHLJYhvQaVWypXN/CXbw2m+7IoIEKSdvhxNs0trt
+	xKIHLZ7w9eI8yse0dyjwRO4Aa18lj3QLrljnoxwmDURFvPTiANGbtruh9k9LtvTu2nBrvBR3d+z
+	SO+Aem+AxPy
+X-Received: by 2002:a05:6512:159c:b0:5ae:b91d:b2ec with SMTP id 2adb3069b0e04-5b616f01b60mr4175715e87.3.1788869883842;
+        Tue, 08 Sep 2026 05:18:03 -0700 (PDT)
+Received: from [10.127.126.147] ([5.195.0.145])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669abd4sm3104468e87.5.2026.09.08.05.17.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:18:02 -0700 (PDT)
+Message-ID: <aaf8a5ef-2abe-4269-804e-4d2dd1bc4d3e@gmail.com>
+Date: Tue, 8 Sep 2026 16:17:57 +0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: phy-snps-eusb2: fix FSEL_48_MHZ_VAL definition
+To: Xu Yang <xu.yang_2@oss.nxp.com>, vkoul@kernel.org,
+ neil.armstrong@linaro.org, mani@kernel.org, dmitry.baryshkov@oss.qualcomm.com
+Cc: linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
+ imx@lists.linux.dev
+References: <20260908085953.3315953-1-xu.yang_2@oss.nxp.com>
+From: ivaylo <ivo.ivanov.ivanov1@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20260908085953.3315953-1-xu.yang_2@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/a2bd6f3ed29919a7328363b548299ae583f052b0.1788539302.git.zihanx@nebusec.ai?part=1
----
-> diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
-> --- a/net/rxrpc/io_thread.c
-> +++ b/net/rxrpc/io_thread.c
-> @@ -52,6 +50,19 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
->  	}
->  #endif
->  
-> +	if (atomic_read(&udp_sk->sk_rmem_alloc) >= READ_ONCE(udp_sk->sk_rcvbuf) ||
-> +	    !sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
-> +		sk_drops_inc(udp_sk);
-> +		kfree_skb(skb);
-> +		return 0;
-> +	}
-> +
-> +	skb->dev = NULL;
-> +	skb_set_owner_r(skb, udp_sk);
-> +	skb_dst_force(skb);
-> +
-> +	skb->mark = RXRPC_SKB_MARK_PACKET;
-> +	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
->  	skb_queue_tail(rx_queue, skb);
->  	wake_up_process(io_thread);
->  	return 0;
+On 8.09.26 12:59, Xu Yang wrote:
+> From: Xu Yang <xu.yang_2@nxp.com>
+>
+> According to Synopsys eUSB2 PHY Databook, FSEL_48_MHZ_VAL should be 0x6
+> for supported 48 MHz reference clock.
 
-[Severity: High]
-This borrows UDP's rmem accounting without borrowing the lock that
-protects it.
+I don't see this as a justified change. Samsung's implementation of eUSB2
+differs from the generic Synopsys interface, as is visible from the 
+differences
+between QCOM's implementation and Samsung's.
 
-rxrpc_encap_rcv() is called from the UDP receive path in softirq
-context with neither lock_sock(udp_sk) nor
-udp_sk->sk_receive_queue.lock held, and nothing serialises two CPUs
-delivering to the same local endpoint. Both new accounting calls in
-this hunk perform an unsynchronised read-modify-write on
-udp_sk->sk_forward_alloc: sk_rmem_schedule() reaches
-__sk_mem_schedule()/sk_forward_alloc_add(), and skb_set_owner_r()
-calls sk_mem_charge(), which is the same non-atomic
-WRITE_ONCE(sk->sk_forward_alloc, ...) update. The newly added
-skb_orphan() in rxrpc_io_thread() closes the loop from the kthread
-side: sock_rfree() -> sk_mem_uncharge() does the same non-atomic
-update concurrently with softirq enqueues on other CPUs. Note that
-only sk_rmem_alloc is atomic_t here; sk_forward_alloc is not, so the
-atomic_read() guard at the top of the hunk does not make any of this
-safe.
+ From what I see for exynos2200, the FSEL value is 0x2 for both 24 MHz and
+48 MHz. The differentiating part is that the upper PLL divider is 0x0 
+for 24 MHz
+and 0x1 for 48 MHz. The current programming was taken from the samsung
+vendor kernel driver, which is a reliable-ish reference for the 
+differences in register
+interface implementation when we have no other public resource like a 
+manual.
 
-The normal UDP path does not have this problem because
-__udp_enqueue_schedule_skb() performs the forward-alloc bookkeeping
-and the skb_set_owner_r() under sk->sk_receive_queue.lock, and
-udp_rmem_release() takes the same lock before reclaiming. The
-consequence of losing that serialisation is not confined to this
-socket: the drifted sk_forward_alloc is eventually handed to
-__sk_mem_reduce_allocated(), which subtracts it from the protocol-wide
-udp_prot memory_allocated counter, so a flood of RxRPC-shaped packets
-can skew global UDP memory accounting for every UDP socket on the
-machine. That is a worse failure mode than the unbounded rx_queue this
-patch is trying to fix.
+..now that I look into it though, the 11_8 value should probably be 
+field_prep'd
+instead of just directly passed as an argument of 
+snps_eusb2_hsphy_write_mask(),
+because right now it's essentially 0x1 & 0xf00 = 0? I haven't tested 
+this path on
+my hardware, so it might prove to be a regression in the future?
+So:
+snps_eusb2_hsphy_write_mask(phy->base, EXYNOS_USB_PHY_CFG_PLLCFG1, 
+EXYNOS_PHY_CFG_PLL_FB_DIV_11_8_MASK,
+FIELD_PREP(EXYNOS_PHY_CFG_PLL_FB_DIV_11_8_MASK, config->div_11_8_val));
 
-How do you want to serialise this? Options I can see are enqueueing
-via the existing UDP receive-queue locking rather than open-coding the
-charge, or holding local->rx_queue.lock across both the charge in
-rxrpc_encap_rcv() and the skb_orphan() in rxrpc_io_thread() so the
-charge and uncharge sides are mutually exclusive. Please say which you
-intend, and make sure the answer covers the I/O-thread uncharge path
-too, not just the two enqueue-side calls.
+For this patch though, unless this change is tested on real hardware and 
+backed up
+by a technical reference manual for this particular implementation, 
+CC-ing the
+change to stable is unreasonable.
+
+Best regards,
+Ivaylo Ivanov
+
+>
+> Fixes: c4098f3e6134 ("phy: phy-snps-eusb2: add support for exynos2200")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xu Yang <xu.yang_2@nxp.com>
+> ---
+>   drivers/phy/phy-snps-eusb2.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/phy/phy-snps-eusb2.c b/drivers/phy/phy-snps-eusb2.c
+> index af4fa17ac6cb..3cb18d6ebc1d 100644
+> --- a/drivers/phy/phy-snps-eusb2.c
+> +++ b/drivers/phy/phy-snps-eusb2.c
+> @@ -21,7 +21,7 @@
+>   #define FSEL_20_MHZ_VAL			(0x1)
+>   #define FSEL_24_MHZ_VAL			(0x2)
+>   #define FSEL_26_MHZ_VAL			(0x3)
+> -#define FSEL_48_MHZ_VAL			(0x2)
+> +#define FSEL_48_MHZ_VAL			(0x6)
+>   
+>   #define EXYNOS_USB_PHY_CFG_PLLCFG0	(0x8)
+>   #define PHY_CFG_PLL_FB_DIV_19_8_MASK	GENMASK(19, 8)
+
