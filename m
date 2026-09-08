@@ -1,144 +1,135 @@
-Received: from mail-oi2-f7.google.com (mail-oi2-f7.google.com [74.125.231.199])
+Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9623E2DE709
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8307829B78D
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 01:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830489; cv=none; b=JFvZvwdpsXcspDrZ1aKQqH7M6Hx3sqYDdFxh0Bys9cmIQkrE0X4IuXsMetfy+03NLxKhWDw3TGhzLz3yCX7YDkkZ7HvZ23w9n8QvGsX5XYQzPmzi6JhwGvRfdP0u9gvFDc2s17so0LtTX645xqDXzpTdf+Maiqj+ubXJkSda06g=
+	t=1788830490; cv=none; b=TV7xPFs3iIUn6Pmm959EVKaWi04gdxGP0dv4/7eqk9l3gYEP9aLXgJSC3jZ0Bny/4VqdcEcvdBmLXpwoA60OZAvJ6Bg2FrHXbS0JR2t3Tv2mBx3H8cN9hQ4EdHqC6QJx2GJONfeL7G0Ue4W1/Ce1G+G/Pk/si23fACVBPum+ZwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830489; c=relaxed/simple;
-	bh=5zT4sF2jCjYpsuSxYEnTY/3MK0x0xywUcP6NuyidrRo=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=gYrb84IsK5113dU+wK41d0IXYFq0ecFSIRP25fqgRbj1Wjyp3am76AcVGOXgQKykkz7FfO4RPK5pZiwCc5VxwhOxLEV1QQbYRFs+laZX4sPRaXBbR2SgToO4YO1aPp80BYc2FA6jdk+M0n/WH5oQ4ipyqB61IMicxuEDYGBxwh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.199
+	s=arc-20240116; t=1788830490; c=relaxed/simple;
+	bh=G4zy9MM1S/C8fB/9Oi6CU2i/qYUdYVqgr+OBjvdamqQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=i8Li7ULPCFB8/2G+yGNGvsDaHiwmnpgLmlRjq17Rn9NuTlpOQpCftKzba6VGalJGjWq/T7eotG3FK6lGnA2gfKmdpqWmgAf1fcF1RHeLfEY/LXd7GbCGFLwZjdlako1FWjgFPHbrkLVDkB9eEfQR+0itg/pNEgKI8YzJrCj26zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f7.google.com with SMTP id 5614622812f47-4b38bf64bfcso1697430b6e.0
-        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:21:25 -0700 (PDT)
+Received: by mail-oo2-f11.google.com with SMTP id 006d021491bc7-6aaf6076546so2141623eaf.1
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 18:21:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788830485; x=1789435285;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wj4LB9nxthiGiSxJ3o+Z6kc/vLG2la/KudYqRMk2urw=;
-        b=V8JSrj6SkCx0N05e9s0/z7gtCNOUIqxwtzMzC+1pnuw6yjil7cDJefauZLL7d+uoe5
-         RJ7Rg0Qc35GCBgY04CUvi6CebNYT97Zce0TOFFvwXEdqOFS6MYJYX1uynDKHmHg1U+mW
-         5QYRgEqyrBGhnXgqOfB52wjc3SYVM1kjNQwNaoqyMARVUIIZjoSwsDLM0UzFtSRzSpN/
-         E8ASTwim9/YeTiPvBEDl/7gpSKVkkm6VJ6EGhg2ung9g6NOGUh5/nJJSGeYT5d8xWtOf
-         XZ8Nj5HIO72YYj95oHqMG0xY3Ey0j1W7BU9wKeUj3DSmzPV2h8ddobYQOrQhDI15h1XD
-         HA9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxJH582xAtAfVoPnRkdk366btqQzSNAyV9gfpQfApvoCH2+cAdNPPpBWjRhUBTXNxbxWRz+kkUeOrGv+CI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKC6PFdU3U6b9GIMmqwJfC4dCXL8O2FcqCuA1JDnS0AlW6JYsi
-	g45Q0x497BRzTzwbDP4F/RUypuef8k7Ts8Q9JcA9TEsHcjHHPaxz3+NszBkSHaEXfpozARvLMSO
-	gi1d3dVXLKcvLe/2wDHSiNN6KOH4PzmCgQHSUBVdQB1QNIy27apNLdqa9uDc=
+        bh=/QSud1Qdfk+ScoqbW7iGZusn2n1W3X5f04d+3HD3u1I=;
+        b=eLAovBG1+IaUmd3gn+0SuJ9NCGOE/rc8T164rGpWtvCDvxv0PoGswplvi1CylmpHd6
+         aCwBggmcrJoZmX3A9MyB8U5dnDE/YVv4jp1goIePlabSuWNBFgfw9mAAu566xzTUQNCq
+         MaTJDxKnnoY8wN62I01xpQ/NHv923bRAInqd8zCkO07vXyhWFdLQw31y+5q3KMFXXgQg
+         uQ4FEIxP+CvrFdyZw50AQUlMwOkL0HWbjPO6FfFB/0A4Y3SQmM+LcBBbx6XWW3/nj0Xr
+         wamb0bi8to247HGNoxIECfm8Iv2VvaozQ+EwDuPa9dZjzs5wE+09sMlouYXYFUGelAPb
+         Q7hw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkGWI2ZJ3hC+W/tPYXpUG5Eh23ZopG4RascnXY9XIxs4rc+qpDI8vKBTg+AXLXGYN1svJmXobuUfOxSDM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mibX1RmdVa3YPetIxcvUFS/GBTntCS1HHX/Vtq3ApJWa3tUSKi
+	6iLvUj94wlNd06eu9vgm7pys6D0bjDhk84GWSrcymo/XvdPFP3CrbDJQhHL53axQFO+jYkX2WLl
+	9neAchP1JvKcVngSTehHmZc1jsL+y5YQ5xZZYr35rlaPwpiySzLmFwgaakL4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:211:b0:6b7:83d6:2926 with SMTP id
- 006d021491bc7-6b783d62ecamr12022027eaf.41.1788830484812; Mon, 07 Sep 2026
- 18:21:24 -0700 (PDT)
-Date: Mon, 07 Sep 2026 18:21:24 -0700
+X-Received: by 2002:a05:6820:624:b0:6b8:ef7d:e181 with SMTP id
+ 006d021491bc7-6b8ef7de33cmr8964649eaf.54.1788830485042; Mon, 07 Sep 2026
+ 18:21:25 -0700 (PDT)
+Date: Mon, 07 Sep 2026 18:21:25 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9f6314.6e6c5f9e.28f11f.0001.GAE@google.com>
-Subject: [syzbot] [fs?] BUG: unable to handle kernel NULL pointer dereference
- in getname_kernel
-From: syzbot <syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com>
-To: a.hindborg@kernel.org, leitao@debian.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6a9f6315.6e6c5f9e.28f11f.0002.GAE@google.com>
+Subject: [syzbot] [mm?] WARNING in vma_add_pgoff
+From: syzbot <syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com>
+To: akpm@linux-foundation.org, jannh@google.com, liam@infradead.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	pfalcato@suse.de, syzkaller-bugs@googlegroups.com, vbabka@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
-git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
-console output: https://syzkaller.appspot.com/x/log.txt?x=12e13125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=c35e49327a11721f
-dashboard link: https://syzkaller.appspot.com/bug?extid=6c46a179b56c651c4c96
-compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+HEAD commit:    5445d6419962 arm64: Don't read GMID_EL1 when MTE is disabled
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=1517ecf9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=56ed23170c168d4c
+dashboard link: https://syzkaller.appspot.com/bug?extid=c6879dc677a017f0a21b
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=100ae749580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16e13125580000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=147ad125580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=127ad125580000
 
 Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-73ae59e9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/aa44bfbf1645/vmlinux-73ae59e9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ec41058a1639/Image-73ae59e9.gz.xz
+disk image: https://storage.googleapis.com/syzbot-assets/e8b70e3bd109/disk-5445d641.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e5227e56ac93/vmlinux-5445d641.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/54905f78be59/Image-5445d641.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+6c46a179b56c651c4c96@syzkaller.appspotmail.com
+Reported-by: syzbot+c6879dc677a017f0a21b@syzkaller.appspotmail.com
 
-nvmet: adding nsid 1 to subsystem testsubsys
-Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
-Mem abort info:
-  ESR = 0x0000000096000006
-  EC = 0x25: DABT (current EL), IL = 32 bits
-  SET = 0, FnV = 0
-  EA = 0, S1PTW = 0
-  FSC = 0x06: level 2 translation fault
-Data abort info:
-  ISV = 0, ISS = 0x00000006, ISS2 = 0x00000000
-  CM = 0, WnR = 0, TnD = 0, TagAccess = 0
-  GCS = 0, Overlay = 0, DirtyBit = 0
-user pgtable: 4k pages, 52-bit VAs, pgdp=00000000437b3a80
-[0000000000000000] pgd=0800000053c32403, p4d=0800000053721403, pud=0800000049146403, pmd=0000000000000000
-Internal error: Oops: 0000000096000006 [#1]  SMP
+------------[ cut here ]------------
+WARNING: mm/vma.h:277 at assert_sane_pgoff mm/vma.h:277 [inline], CPU#1: syz.0.17/4912
+WARNING: mm/vma.h:277 at vma_set_pgoff mm/vma.h:283 [inline], CPU#1: syz.0.17/4912
+WARNING: mm/vma.h:277 at vma_add_pgoff+0x50c/0x700 mm/vma.h:314, CPU#1: syz.0.17/4912
 Modules linked in:
-CPU: 1 UID: 0 PID: 3633 Comm: syz.2.17 Tainted: G        W           syzkaller #0 PREEMPT 
-Tainted: [W]=WARN
-Hardware name: linux,dummy-virt (DT)
-pstate: 61402009 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
-pc : __pi_strlen+0x14/0x150 arch/arm64/lib/strlen.S:87
-lr : __fortify_strlen include/linux/fortify-string.h:218 [inline]
-lr : do_getname_kernel+0x20/0x12c fs/namei.c:260
-sp : ffff800089c2bb60
-x29: ffff800089c2bb60 x28: fbf0000003fa8000 x27: 0000000000000000
-x26: 0000000000000000 x25: 0000000000000000 x24: fcf0000008b7db00
-x23: f3f00000067df000 x22: 0000000000000000 x21: 0000000000000000
-x20: 00000000fffffff1 x19: 0000000000020002 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 00000000200004c0
-x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
-x11: 0000000000000000 x10: 0000000000000000 x9 : 0000000000000078
-x8 : 0101010101010101 x7 : fcf0000008b7db08 x6 : fdf0000013703002
-x5 : fdf0000013703002 x4 : 0000000000000000 x3 : fbf0000003fa8000
-x2 : 0000000000000000 x1 : 0000000000000000 x0 : 0000000000000000
+CPU: 1 UID: 0 PID: 4912 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/07/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : assert_sane_pgoff mm/vma.h:277 [inline]
+pc : vma_set_pgoff mm/vma.h:283 [inline]
+pc : vma_add_pgoff+0x50c/0x700 mm/vma.h:314
+lr : assert_sane_pgoff mm/vma.h:277 [inline]
+lr : vma_set_pgoff mm/vma.h:283 [inline]
+lr : vma_add_pgoff+0x50c/0x700 mm/vma.h:314
+sp : ffff8000963176e0
+x29: ffff800096317700 x28: 1fffe00019d174aa x27: 0000000000000001
+x26: ffff0000c659b700 x25: dfff800000000000 x24: 1fffe00019d174b0
+x23: ffff0000ce8ba580 x22: 0000000000020a97 x21: ffff0000ce8ba548
+x20: ffff0000ce8ba500 x19: 0000000020001000 x18: 1fffe00035ba3828
+x17: ffff800080adeaf4 x16: ffff800080addecc x15: ffff800080b8bf18
+x14: ffff800080b96bac x13: 0000000000000001 x12: 0000000000000000
+x11: 0000000000000000 x10: 0000000000000003 x9 : 0000000000000000
+x8 : 0000000000000000 x7 : ffff800080bee7b0 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff800080ae89e0
+x2 : 0000000000020001 x1 : ffff0000c825bb00 x0 : 0000000000000000
 Call trace:
- __pi_strlen+0x14/0x150 arch/arm64/lib/strlen.S:86 (P)
- getname_kernel+0x14/0x20 fs/namei.c:289
- class_filename_kernel_constructor include/linux/fs.h:2586 [inline]
- filp_open+0x34/0x104 fs/open.c:1391
- nvmet_file_ns_enable+0x38/0xfc drivers/nvme/target/io-cmd-file.c:41
- nvmet_ns_enable+0x12c/0x1e0 drivers/nvme/target/core.c:596
- nvmet_ns_enable_store+0x64/0xd4 drivers/nvme/target/configfs.c:737
- flush_write_buffer fs/configfs/file.c:207 [inline]
- configfs_write_iter+0xc4/0x128 fs/configfs/file.c:229
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x244/0x36c fs/read_write.c:687
- ksys_write+0x70/0x108 fs/read_write.c:739
- __do_sys_write fs/read_write.c:750 [inline]
- __se_sys_write fs/read_write.c:747 [inline]
- __arm64_sys_write+0x18/0x24 fs/read_write.c:747
+ assert_sane_pgoff mm/vma.h:277 [inline] (P)
+ vma_set_pgoff mm/vma.h:283 [inline] (P)
+ vma_add_pgoff+0x50c/0x700 mm/vma.h:314 (P)
+ __split_vma+0x6a8/0x83c mm/vma.c:607
+ split_vma mm/vma.c:643 [inline]
+ vma_modify+0x11ac/0x18f0 mm/vma.c:1771
+ vma_modify_policy+0x210/0x2b8 mm/vma.c:1834
+ mbind_range+0x160/0x3e4 mm/mempolicy.c:1061
+ do_mbind mm/mempolicy.c:1563 [inline]
+ kernel_mbind mm/mempolicy.c:1760 [inline]
+ __do_sys_mbind mm/mempolicy.c:1834 [inline]
+ __se_sys_mbind mm/mempolicy.c:1830 [inline]
+ __arm64_sys_mbind+0x5c8/0x994 mm/mempolicy.c:1830
  __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x54/0x10c arch/arm64/kernel/syscall.c:49
- el0_svc_common.constprop.0+0x40/0xe0 arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x1c/0x34 arch/arm64/kernel/syscall.c:140
- el0_svc+0x38/0x1fc arch/arm64/kernel/entry-common.c:758
- el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
- el0t_64_sync+0x1a4/0x1a8 arch/arm64/kernel/entry.S:590
-Code: 92400c04 b200c3e8 f100009f 5400088c (a9400c02) 
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+irq event stamp: 928
+hardirqs last  enabled at (927): [<ffff8000869a9950>] __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:210 [inline]
+hardirqs last  enabled at (927): [<ffff8000869a9950>] _raw_spin_unlock_irqrestore+0x38/0x98 kernel/locking/spinlock.c:221
+hardirqs last disabled at (928): [<ffff8000869841d4>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:445
+softirqs last  enabled at (208): [<ffff80008013891c>] local_bh_enable include/linux/bottom_half.h:33 [inline]
+softirqs last  enabled at (208): [<ffff80008013891c>] put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
+softirqs last  enabled at (208): [<ffff80008013891c>] do_sve_acc+0x32c/0x4b8 arch/arm64/kernel/fpsimd.c:1349
+softirqs last disabled at (206): [<ffff8000801386fc>] local_bh_disable include/linux/bottom_half.h:20 [inline]
+softirqs last disabled at (206): [<ffff8000801386fc>] get_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:234 [inline]
+softirqs last disabled at (206): [<ffff8000801386fc>] do_sve_acc+0x10c/0x4b8 arch/arm64/kernel/fpsimd.c:1325
 ---[ end trace 0000000000000000 ]---
-----------------
-Code disassembly (best guess):
-   0:	92400c04 	and	x4, x0, #0xf
-   4:	b200c3e8 	mov	x8, #0x101010101010101     	// #72340172838076673
-   8:	f100009f 	cmp	x4, #0x0
-   c:	5400088c 	b.gt	0x11c
-* 10:	a9400c02 	ldp	x2, x3, [x0] <-- trapping instruction
 
 
 ---
