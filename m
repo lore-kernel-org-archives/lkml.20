@@ -1,128 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2206747D450
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C73A3B42CC
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856734; cv=none; b=R5JaPL3aDcb+VUY+G4U+HbeHp6cz9srWHIePpugYjMIXJS+GMPN/Eo5Zi3UDPQQfnlHXTW/hSnbmoUaEURFC8yK1KjOkodtptEQEiHUhPhz66IV45iWiAL2u/SVryLblkEYxlRSQLzOp4DZXcq8PYvMToRhFbZnvLeuzwRUF57Y=
+	t=1788856750; cv=none; b=gG5dtar1nzl4nd1URSt7cXab9W67nb3/gIkNXvtXpWr6MnwtaPq+n0ktLh3cEdDKs2kXQoNwKMqiI+xP/S4tIhBmxOvO3kBMy1YIdE/UQl5l2+fkcKN1a9gPJg02/73+pUZqeVE/looiRQblc0/NkyXrf9AIMY4O83eZcL/5OhE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856734; c=relaxed/simple;
-	bh=Uf9lcRsimfLnNTBHM0phwKDA1O5oY5isHfX376NYS3Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZmByX7e+B4jyxM4+WmA/366Fj1NCbHXBn1HTux7972foouHD0XYS+BvOQLWiziDw3k7SlN0CJrIp2OLIAiRhJadwODchtlHiTnVDd4CYj28xnESk5jp11YlYZGId+SLexvglCvR11rLdIDCiw02woIj8QeEUX/qQfua+yy//Ur8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAD9imPX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788856750; c=relaxed/simple;
+	bh=Z+iz63taKQHo+c7eBYcTnzQttJ5PAsiNF5goSAmhfbU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kNcd3jIfZtcQPyoIuvqY/h7pLYMde3HN2tzxNzG9nMCGKCqNRp4NOQ3xYhlo5WTEaQCaV2Cc++AUoX0uwYP325CMy2Hiv0+AcL66TsdM83/t8gvWdATOZKPb4DjUjpWsTLifckOmaA3Ckz3yKzJ1Fdmlivd2v5bUAHtc/6CBVs8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=OoFGgC7g; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAD9imPX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3CAE1F00A3A;
-	Tue,  8 Sep 2026 08:38:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856731;
-	bh=x0TeNxa7WKy6H83W3YykrnYwLHUqj47zG0dTNGkPR8M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EAD9imPX7j1sj3xlERKzxrMcNSF79EWjH2FLPP6UrAVWmhWhEWEnrWkns+aGFfiQr
-	 9alkBgbZZm/6zgZmJdDlXjxMxAQOSLPJWPdZ9ULWoM3IsibLmHhRi4uKW3S1gVTEo/
-	 BJpwqWqcVYIYiaLaBT2c8WbpYTPhCyRl5AVcrkUoHeZk79BA1/+lqzgbf2P1sfK/ys
-	 L1ocK5IDCzNvvX9jUboF2L+9Z+3FvuqELM5cDGUR1IxHepvRp0iCcMuJIajweeGgND
-	 PlxxQki4lTRXyG4O1Gy9yxvgZcNogU0vuTQZTvK4Q/70DnPx+Z/rfNZ8HyYGRP7AOi
-	 b0QRKSftBReRg==
-Message-ID: <c4c29830-ad49-4ca1-b4d5-6f40d30cdcdc@kernel.org>
-Date: Tue, 8 Sep 2026 10:38:46 +0200
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="OoFGgC7g"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cda5e048fso106705e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:39:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788856744; x=1789461544; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X2bt3KrEqZ1UzyjV8hoPZ5E3RfVTbXnZPVm0wr6pv9s=;
+        b=OoFGgC7gJMs2GIzI8D1UBru2htdGO410LpzqEnyAYLsyDD3qyMOE7i1EjTjzqOaKyr
+         Vv8ZOtW70XQDMIxgDLh8LttFX6Hg0hCPX9iTntpTPgGwUUlFeH0DrgQgbURnR+KkL476
+         A/R/Uem2zE7YGLtf+RAg0OzsGtnU61nKvNYNQgG1xCKKTDvhzlmZ9tmgN1N4F9ezqlO9
+         p7ZpaGfWgDL3iuFKJ7Kq0mlDjTKd9e8J63XDmLQVmGG8WX+SeyxSnyuGbPl8so4UODq2
+         NZwdsUVdr7QpDmgIZER5g9xkFf0OM+jFEJiarfbpStN3XFfM5gWspNPFzXGjzkWLYpgY
+         pzKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788856744; x=1789461544;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X2bt3KrEqZ1UzyjV8hoPZ5E3RfVTbXnZPVm0wr6pv9s=;
+        b=M8V/INcWlrEAaoERAR4foUfA2WzMvy3mijCRtoyYnsJvxIpL1+l7Dx0Guav4+ZyM2j
+         mpK0tEuhnBZDbO68ma1vG5ATgzpisuZoZeGi/1mde/ZfxRufFS+KKlTrewM28AnVh4rc
+         w2oxP8zC4KoABlQvTNWTqBjbk+CdOxAipDW1MR4Ks6BsdL07tHzNcvcoCItc6bL4wmy4
+         k7zKAJuOH2axWzB+uhyWryL2t3Fi5++eTmTBPEGbrUB/+OaapCqd5a9DpoFWMV8PKKYu
+         PRKWEdAPC2eJ56k3E3hnkQxexTOB3Z4Mo3HyjOBNAzD7per7zuaIHKP8SjDJQUDaQLhf
+         hRQg==
+X-Gm-Message-State: AFuF++lymybtRj9QNM+Ot6BlKm0jhV0It9CCD7muIcxX+fYHjTxdjkxH
+	IE+SbwslKNMpiyVbQ24LR8/WM6nG20SGziAGPNSFEoqKRw//cmUQ3Bu3nCt35jibkw==
+X-Gm-Gg: AYBFou2X3u9FlMRssBqfM+WyrYG+oJq0V7dUmPOyVAIZ1LqMvdQaiKrbbde98fZv6pn
+	qm0m0zHOAnJEf+yzx2ia/GG3MtCfZ0jOIfZkPzhHZy4mYXiDZtG8Yq9oAr1i2jtL7qh+Mb8NYPS
+	E9PMfwk1JgjkTw/hOvggz38tTEEY2WfCKrYb/Faw5O2QXYlSOLxqko4CQZx7pILaiJXHhTBTDZf
+	kxIX0UVCuZX6hwVowLvMkrBoL0dR+l+Q3VSSCEYoIsyQX90SJflvnsBei149s1SsGWN1/EoblN1
+	CTCu+SSk8Kh9BcmwS2zcadFWwl+75+GwG8u2K387+OwTSDuO46TJd8BeOiwd6XbMU2R8Ku6mP6v
+	g8VgcuoO7P5QSeUy4tSgD8MVaLOo2aS6hB5ix1rvLHqT4zBk6rKYS4SIMWIon0Z3Ypz8xJ47b+S
+	rYR6gTNctttHcIgv95qqOZkC/ITnTwFaUpCCfn19FDGVEt5ieJgElxbM4bUhbwFak8PTCBtVW3e
+	yuDW4CdfoAfR2V7fl7v2+ISXqawXw==
+X-Received: by 2002:a7b:c054:0:b0:499:c46c:addc with SMTP id 5b1f17b1804b1-49d010d6113mr2292585e9.2.1788856743315;
+        Tue, 08 Sep 2026 01:39:03 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d057f4778sm274178525e9.8.2026.09.08.01.39.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 01:39:02 -0700 (PDT)
+Date: Tue, 8 Sep 2026 08:38:58 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, jpb@kernel.org,
+	will@kernel.org, robin.murphy@arm.com, joro@8bytes.org,
+	nicolinc@nvidia.com, praan@google.com
+Subject: Re: [PATCH] iommu/arm-smmu-v3-sva: Relax ASID requirements
+Message-ID: <ap_JokRTsUHtF4dN@google.com>
+References: <20260907154928.4012151-1-smostafa@google.com>
+ <20260907184513.GA2543240@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: page_alloc: add missing hooks to bulk allocation
- path
-Content-Language: en-US
-To: Qiqi Liu <liuqiqi@kylinos.cn>, akpm@linux-foundation.org
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org, gourry@gourry.net
-References: <20260907120949.418450-1-liuqiqi@kylinos.cn>
- <20260908065043.217569-1-liuqiqi@kylinos.cn>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260908065043.217569-1-liuqiqi@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907184513.GA2543240@ziepe.ca>
 
-On 9/8/26 08:50, Qiqi Liu wrote:
-> The bulk allocation path in alloc_pages_bulk_noprof() currently misses
-> trace_mm_page_alloc() and kmsan_alloc_page() calls, leaving bulk-allocated
-> pages invisible to ftrace/BPF/perf and leaving KMSAN shadow memory stale.
+On Mon, Sep 07, 2026 at 03:45:13PM -0300, Jason Gunthorpe wrote:
+> On Mon, Sep 07, 2026 at 03:49:28PM +0000, Mostafa Saleh wrote:
+> > arm_smmu_sva_supported() have some residual checks for ASID from the
+> > original commit d744f9e6c222 ("iommu/arm-smmu-v3: Check for SVA features")
+> > 
+> > As DVM was used for TLB invalidation and the ASID of the domain was shared
+> > with the CPU process.
+> > 
+> > However, the commit
+> > d38c28dbefee ("iommu/arm-smmu-v3: Put the SVA mmu notifier in the smmu_domain")
+> > removed that support.
+> > 
+> > So matching the SMMU ASID space to the CPU is unnecessary and can be
+> > relaxed.
+> > 
+> > Remove the CPU ASID related code, and update the print for the SMMUv3.
 > 
-> Add both calls after set_page_refcounted() in the bulk loop to match
-> the standard allocation path. The gfp mask passed to kmsan_alloc_page()
-> is stripped of __GFP_RECLAIM because the bulk loop runs under the PCP
-> spinlock, and KMSAN's stack depot allocation must not sleep.
-> 
-> Both are no-ops when their respective features are disabled, so there
-> is no overhead in production kernels.
-> 
-> Suggested-by: Gregory Price <gourry@gourry.net>
-> Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
-> ---
->  mm/page_alloc.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..73c73499a051 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -5280,6 +5280,8 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
->  
->  		prep_new_page(page, 0, gfp, ALLOC_DEFAULT);
->  		set_page_refcounted(page);
-> +		trace_mm_page_alloc(page, 0, gfp, ac.migratetype);
-> +		kmsan_alloc_page(page, 0, gfp & ~__GFP_RECLAIM);
+> It is OK, but maybe this could also be but under an if
+> ARM_SMMU_FEAT_BTM?  That is never enabled and is a placeholder to for
+> eventual BTM support.
 
-With normal page allocation the set_page_refcounted() happens after
-trace+kmsan. While it currently shouldn't matter, it could be more future
-proof to keep the same order.
+Yes, otherwise SMMUs with BTM would regress in the future.
+But I’d assume non-BTM SMMUs will still be supported; falling back
+to SW invalidation?
 
->  		page_array[nr_populated++] = page;
->  	}
->  
+Thanks,
+Mostafa
 
+> 
+> Once we get the last part of the invs code the BTM support can come
+> back in.
+> 
+> Jasson
