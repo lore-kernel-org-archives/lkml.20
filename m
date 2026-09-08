@@ -1,135 +1,126 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE13053FD47
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 12:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871747; cv=pass; b=HvMUGHgfFNRiThRioOU+nyeuOYTKkkV0ifmGuesDeBm62bmhVFvC1I8jPZA6XYvJi85WT3Gu2VJWtVunaggZfmq79h+eOpv7pif48w1VhgBZlS0Kz2bA1KovJsvUdGCYw/AGC6D4SLrCyis/gIGRpM2dxUoglTX7COI4dXxpgwM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871747; c=relaxed/simple;
-	bh=78Hqg4JS69EObpzSUByjTj00CCKytaf1mVYb9pI6H0c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ovmjnT+nYImsyrBG4vjSK493nKg6pdk4jams1JUiuZFgdnbavUnMyKaDVH/+qF5nCHL+DDss5mgwDCw8OVt4nj1ozSnE3Wopav6IZYgaq8T8u1ziNyxdpe4TQLWfXyVOMVwOAIgbj6arQ5FIJuk16FunqSgRMfs/fE7FXulNWmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sico+Lp/; arc=pass smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86C023C4F3;
+	Tue,  8 Sep 2026 12:49:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788871783; cv=none; b=t055+zOUKMtamEqMhJ2A1saCbdoq0UqtG0AJ2TdxEnRjerVdmfvTd8egVMZttjlb5U8d2eB/DPQnOWiebOxTEZ0WVz31W5JlxKI65T7RWNaIIKlg0hBoQc7R2+9zEyJ4wT3H4B3rB9WXoLfotES8QhT/lp4Y8IlC1CwNM84qsjs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788871783; c=relaxed/simple;
+	bh=P1OvG4uOnDnbS9mw/m1fHa28JIoHqdQlppOilVy+3L4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R34wMlYM7lrNB0IbgTA9BIGxHz2jzskikxpObVxOIJHIE2gT7uJHqLkNP8lxs04plq0xJHhCgklTDYwJRI2nrv6RGG+E92WTWGowHZ3ib91oxwSo3GZwW+ugMgWNugbOKROl/qHkw6aa/Kcjz5aBoOwo1RBwkyiKkmNF6ru+6nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H21B48+C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sico+Lp/"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90cbff85fa9so53687086d6.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 05:49:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788871745; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rjNLvLotMchott+r9S5egfIJUSLB7xILoyEcPlL3EvFa+EKX8UHbcmPCU8HB/ROkGE
-         z1DXwKUt40be21TMIA8NKhA6yfDQdVYQMxOfaKp4wg8LG8DTdsQt/eEFW/v2pb1k+tR8
-         vfDSDAVKsVHn1cWFJsaZMfWsE6JNR+bK/kan0k4nGUZ1Q1ie1CNMMiYJIu7f4+O4iD3G
-         cF+XOXspXuejLwPu+up5JSgtQa5xSwQ26qInVBpbesXBfjUniwrSpO4djFLa47j7Hwgq
-         PskVl0Rse0PiKoiGOp10bEVhtkjCkDvgtx+hyqfGo7I5jCpICJJHDXlpx7C0dUCqhbn2
-         lrkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BUiVqNsH2BqPxyyfl13B8I2hyyPsofxH5VCL45yPH5g=;
-        fh=2COrdVKQOGx42xQwHpzMh0zDxZLBKuupwFWaF2b/uCI=;
-        b=UWZYerMuGkba3BY3xdM9KkjPCPs8jC05xzc6YsH9TFUxtIbDEUbGeHmp0+s8Ufm8co
-         naHrl0okct+9v0KKr8WOko68hKsnJDtfErsNhUSNJdF3RoTEBZcibAfi/0ccSoukt7Mf
-         xXNVUzmWJwAJrej+nCG77UR86aSDDfrk63bFMT4LDYnze8aFkamG8yM1wQOUg7RIOdqq
-         QWrXN3u1jFNpab2wTWgDsYuIWHcBbXi6lA02SamNQmrRZ16HGPjZqiYOiVQC+d5rB1HF
-         BxNOyyXuifkYhNITP7SfX+sE/kiPq2LXfztAAzWWV3+ltAT+1yoOGUsLpkCN5h5QQCHv
-         lWUQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788871745; x=1789476545; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BUiVqNsH2BqPxyyfl13B8I2hyyPsofxH5VCL45yPH5g=;
-        b=sico+Lp/YysyRP4xLdqM7A1WE4+dF4Hegp6q5agjsNxHnEF57zInxfJ0Yw9u+hkPQA
-         ycm0Rd4EjJv5y7xEtcwZ08WaxdGO5bq1n+QEKwMFpAg6OLPTMbKBXBAb5+4m8+dqRB3q
-         +M2e1K8jcAW7tqZ/RDaKBAe5u0DXM1UcF/byGenCybwLNSgVG8OqWklcHXzME3Hq0H8e
-         lD1RQ1ftn6kDGp2BLHOzrgMS4sLTF21K9krSK6Eps7pH1q2wjOi7cTEmUbtr3HuXl1ge
-         HrbMpd7d3jM5KUe6Ixf3S10I2bcpVKU5yQwYr+bBRlyYdcPYjG4L6gi++V3snEC8YeSt
-         UGUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788871745; x=1789476545;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BUiVqNsH2BqPxyyfl13B8I2hyyPsofxH5VCL45yPH5g=;
-        b=tWELclJBx6C/jXHKjbf/Ee7sYo5On36YW04sAc5y5DBzZSbIjiLVZ1sTYjuEaN5K6r
-         Hjx07fwAicQheMZadN1BaTmfOfsrGPaYKgODjSbisaioIickG2q4dKudBJ1jYZKIuRX5
-         O7ImuNBDJqe9HS1+VypM64lGbj7Dl90j+v6f+3Zr8KeBt9l0slpLTKnwjSjxtQPJ2C7t
-         AQnCRUnQGRznyqiZ59HSkabisX+u/RMkPq3XFkGa6u6okmM/Fi/S2WQOZKirWTJNWX+o
-         EIQ9t3JrTSlp6PuPyIAbi7fbVE7XChJXCvXRzw9JegfnpThgLGgAM/Xj2DPXP9gae85U
-         LJNA==
-X-Forwarded-Encrypted: i=1; AKwUvByOgoDiZHRegM0WPPnKOBP8NS9n+AEX/DbSuluxHlZd/4zK4voBnrfyeQtDg0cxHyEYbTgishg6LJ38kmc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqAGhCs/4TMs7qjZp99z58qtr0gsyibHCO7WguJsx3aRhaS/Lb
-	6MYsKBWrxG97PgPDu1V+aVwWgXnawlR2tvYkadj7bgFAN/+ht17yqDFJdMPeDj8OezyfMB+JUFU
-	RbUEPHBMELq5KVaD8o5ERvqbDjhtybdY=
-X-Gm-Gg: AYBFou2UTkbzc5weFKdK7RwM7NvmM8efRwBL7yrqTZCx45MTzInO/JB2HPIU3Ms/66N
-	baabbFSvedCD0QyV5aFZkf3MTl5kuzWvKmFZOAO+07OEYOmOaVSiY8JKDOs9X+7aeOIxUs7Lx4i
-	DAC4XCbneYHW8a+ZxEQG+aSAgbfdPgSv4SJ9hOGU0bklKAF7O1sjL57xTLC4cyaB1k4U5ny1paU
-	zdUoxCKRZz0LrGM/dZBQT2ZMz0PI/FV4Aq5H70PnFD5CO56IjgLyD5OkZSLxRFJ+ZTwbva27/EV
-	Cz11ASb2WHb+BuN+BTfdVch4hAnc2PKEu1yNP1fxF/DmiQ==
-X-Received: by 2002:a05:6214:2f8c:b0:910:3451:341 with SMTP id
- 6a1803df08f44-9103efb48afmr389824056d6.32.1788871739943; Tue, 08 Sep 2026
- 05:48:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H21B48+C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE8A1F00A3A;
+	Tue,  8 Sep 2026 12:49:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788871781;
+	bh=N2rC79oE90b2dwI8Wn327CEOLpPVN9D2E6erew3jyVs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=H21B48+CODTED19M4/Omob27b4Id9ZDqXLmNXXJvVvZhlJ6+dBe1fEISd7C+nfkD0
+	 c7g3K1vJm5Oy5ezg5YgUGMFQUJKpzPnPVTgED6F3Ym0RVm+OmNAypwfr6bRukltTUM
+	 r1783v40mWOCxLs1YZV2HW4Mw7lR7dYq7fLSZsho32UVrp95SB8ONSGM9sQVzk1R7a
+	 QTDYn8GO5aZ2hhnPFWIkUkYn5xYhbtgFQMGDxhtEBWgpWijZBkN6KDVEw5VvA79qLD
+	 XDeCGhb23RijvvKmvCqBZ3je5AsnxF2SzPzPgvIytMHRf98jXxpokq6T9hjfXnv/RG
+	 8HoXeGAoD0x1Q==
+Message-ID: <e743b598-9048-440f-9124-72071c696679@kernel.org>
+Date: Tue, 8 Sep 2026 14:49:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-ncsi-over-usb-v1-0-6b74d2f1196c@gmail.com>
- <20260907-ncsi-over-usb-v1-1-6b74d2f1196c@gmail.com> <08083379-6eb9-441e-a656-0066c9006dd7@lunn.ch>
-In-Reply-To: <08083379-6eb9-441e-a656-0066c9006dd7@lunn.ch>
-From: Potin Lai <potin.lai.pt@gmail.com>
-Date: Tue, 8 Sep 2026 20:45:36 +0800
-X-Gm-Features: AcwNN1VVwv-AZVG7aa6d6kuiXNW-vhHZ-9WmoGIa_ElFwS3ifzk9WoGv7iR7QI4
-Message-ID: <CAGfYmwUTsqgDQCP1q=XxCyW=R+a61urg_Jnnw_3-oJfw_BU38Q@mail.gmail.com>
-Subject: Re: [PATCH 1/2] net: usb: cdc_ether: add NCSI passthrough support
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Oliver Neukum <oliver@neukum.org>, Samuel Mendoza-Jonas <sam@mendozajonas.com>, 
-	Paul Fertser <fercerpav@gmail.com>, Simon Horman <horms@kernel.org>, linux-usb@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Cosmo Chou <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, 
-	Mik Lin <Mik.Lin@quantatw.com>, Potin Lai <potin.lai@quantatw.com>, 
-	Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/6] mm/vma: only permit MAP_PRIVATE /dev/zero to be
+ mapped anonymous
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Hugh Dickins <hughd@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260908-map-private-dev-zero-v2-0-acc7b5625305@kernel.org>
+ <20260908-map-private-dev-zero-v2-3-acc7b5625305@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260908-map-private-dev-zero-v2-3-acc7b5625305@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026 at 2:17=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> > +/* NCSI operates at 100 Mbps */
-> > +#define NCSI_SPEED_BPS               (100 * 1000000)
->
-> Why 100Mbps? RGMII is often used, running at 1G.
->
 
-Since the original NC-SI specification was designed based on the
-RMII protocol, simply set the speed to 100 Mbps as the default
-for this virtual USB link.
+> +	/* Temporary MAP_PRIVATE-/dev/zero workaround. */
+> +	if (is_anon && map->file)
+> +		vma_set_anonymous(vma);
+> +
+>  	if (error)
+>  		goto free_iter_vma;
+>  
+> @@ -2777,6 +2793,10 @@ static int call_mmap_prepare(struct mmap_state *map,
+>  	if (err)
+>  		return err;
+>  
+> +	/* Hooks cannot mark themselves anonymous. */
 
-> > +struct cdc_ncsi_priv {
-> > +     struct ncsi_dev *ndev;
-> > +     struct net_device_ops netdev_ops;
-> > +     const struct net_device_ops *orig_netdev_ops;
-> > +};
-> > +
-> > +static int cdc_ncsi_open(struct net_device *net);
-> > +static int cdc_ncsi_stop(struct net_device *net);
->
-> No forward declarations. Move the code around so they are not needed.
+Wasn't this supposed to be reworked? :)
 
-Thanks for the suggestion, I will move the code to remove forward declarati=
-ons.
+In any case,
 
->
->    Andrew
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Best regards,
-Potin
+-- 
+Cheers,
+
+David
