@@ -1,116 +1,269 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E4B4B0498
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872881; cv=none; b=qwkECqKZm99APpBZNsaI0vB//1NhrS+UUYl6QMq3znosD9UVRSLMp88vQfJJ13ZLmfmQbVnruZg6dx5+EylmWK/r63vHeM5hW7JYRw2wRVYBCBRnrdxmRidWqwwE3LDsvIwLWJ59WaIM7y/+ckT4rNOY/Kxfjls6yFJ526LTzRY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872881; c=relaxed/simple;
-	bh=cw2N3W41LXIl6pSddh/dl3HNjG7u1Myg/bxOr7qfT6s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iqOyFW3zqw0kjLNAvtDZ7gN2ySzfCGI8VL2jgzhLgFCri695cvTw4UQpUW9EBEfrmKUcgLGHnnIaKhOYuPIfSku6SfJso2I77ETjElQpH+DxAWOdU9P947o5DzKsGJlQH4IuD1sTtvJhv7q837DWjm4Ui2tYDA6WlX0WbBw08Vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWlF5NOj; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D88B5013D7;
+	Tue,  8 Sep 2026 13:07:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788872882; cv=fail; b=VMyBgS7FsKXcGzrVWNYae4Zlob0tMc5cWlxF8BhQC7Yfs5syBMg2texhldeTBO7S6vMRcnO92eFEWlmJRZMypTdxTrYppyGVqnMH+CXu0/riUsP7Vz/+QFdtDTdsnM+ew7U/2kvYNebE9LarD7fzU5Q9wYmAZPK4qNtZ5aEftcA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788872882; c=relaxed/simple;
+	bh=rKUa69AmUvOWHcqcYmo3bRTpLpcd8N6P8vG9Bv2ge7g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tPppcm7tYaOqvcnjQljjG90xY/745HbyGcQi+zQmBCdnSdZauKrEJ+54xIC2K1lNuBAji66s1dAxm/jpeAxE9sp9H6Sgy1ekEHLzSYGdUc3grlj8oHp/WCRUD52PeyW72Xbw74WSf1froY/ph/6ivlwzqbcXNHwOHFKmKDYU2kQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f0GpniR1; arc=fail smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWlF5NOj"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so24761725e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:07:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788872878; x=1789477678; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cc+P01fTvqlQKKHP8oo+eSTRJiBil/x3iDFvTP+c3Tw=;
-        b=BWlF5NOjRo77e25eNBABnQaCIu8Hwcy3l4eaxOIDunZ3G/QOrArB1kRyq0GcoEdTwc
-         5Q14rHIIEzAcRe+cz08DS4QV92pGM+iYQfWpEE6PqW0GDDxmEVTAsjVNXuHUXooQPKrN
-         tTV48eARuxS6QidGiRwFRLKB9MjQWGfUI1ktaq4pEmtyg5Se/78sKgZyxgYytQb0z1s+
-         mZZrAV+LiqoG0BMwekf85kErhIu5jea7XAFhf+IHKhNzxKpUUgiHXd6P4EsR8bet3L4J
-         cCJ1n1yBqSENWeCdLy0RTdziVkCFPBwONaQ8BKSAWeVUlXRoa66Ln08QdfyGqH1hWQte
-         CcwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788872878; x=1789477678;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Cc+P01fTvqlQKKHP8oo+eSTRJiBil/x3iDFvTP+c3Tw=;
-        b=DhV6KTBnS+aNwFO9jPh+mf/tjciF8v1VaAZrXEahzMHBlZvVMjRuNDr17QtyVxiDZx
-         SijDs6LZGB+8wjL8yB4lXYQJv6rG+3DChV6MmavqgLUNZWjiR3y8iF/yaaEMQZxsgjtm
-         IBHoqPHU+kWGenze0VDpXdRYpCdeIXsnMDBPBB6iDIeAdL2MADCvlag3wFo1VM/2rTeo
-         zLR/mzGch8+P+9fYyyon32G22Z5jZpLQTdkNG3MYaggtnJqdLgzGO1Xc3RwEGEl7uoo8
-         zrxvUGWEAM5OsS0a63TPW3ORBv+oGLULdhjNvzBXk5eDvbkvKY8rcN4MXGgdJmFf32Nr
-         /gFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUzURYVKndO5PC5D9h83JIZNlz+EZYxU0WQMLI8FKG9WWnjV3BDtArrJ4kgPoaCScevCLAmI82Lb6n/Do=@vger.kernel.org
-X-Gm-Message-State: AFuF++mT0yqarFgKQITyGQlmzUkFOSxI8qf42EcPQn4Y1BoomRmRABaY
-	8dHYvO3PY2cbKSHnH3f1vILW4rDO2mXXkk0c98FPkdnJNyiJfjchQizQFtJMlUz4TTUuDA==
-X-Gm-Gg: AYBFou2i/+Qjq/bqj8AqJaveAzNrO+U2W8zPxqqnxP97g2iPLplp7BJP9N/2tXhFp5D
-	RgRFRsO778EOE0VkQ1JpfqJ8cwkiBy1j7QuCUe3GY+Fsr4TqhyC6A5EELew6uje+I2POwX8XIT6
-	KQQnrkYKt2T3pQPQP1urt1/KyqhwrGzWakZPWB0I6nwF7Db+z3FY32GRxsyyWZIzi2vdoBcboe+
-	keV2uHtp+K03ZQJ4TkZpURhBqNnZRGI32BEedKX1ZxpaEfIrtECzgXwFQe4P01CrFqox4IIlhVH
-	oeAURyNVE4t3Fl3kyzxC/fUzxiI0vK+eFtJ3tve+R6Nh3GtV2kAFzYsrRRS9b5n/Qh2+UiQmqPi
-	WP7S724U4v6JgKLftj67W/J3txIYt8x7KX29d9/HL+PkJKpMDnQta1oSOPSKcQ07j3GwO3+V2J9
-	jSeP7qRJxa6gWrbupkscpa1uY+tns4M565ER3bwt+xXqVrLqdDMjnilMIviaY8jV9KYbh62xgW5
-	sQMfQqLEjW0v0jXdWvx06Of+6S5iJvG4ev//2QlHf/t
-X-Received: by 2002:a05:600c:4744:b0:49c:fc6e:a3e0 with SMTP id 5b1f17b1804b1-49cfc6ea75amr279617375e9.31.1788872877979;
-        Tue, 08 Sep 2026 06:07:57 -0700 (PDT)
-Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm28884165f8f.20.2026.09.08.06.07.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:07:57 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guru Das Srinagesh <linux@gurudas.dev>
-Cc: linux-arm-msm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/2] mfd: qcom-pm8008: support PMICs with no interrupt line
-Date: Tue,  8 Sep 2026 15:07:43 +0200
-Message-ID: <20260908130745.2545-1-okerixx@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f0GpniR1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788872879; x=1820408879;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=rKUa69AmUvOWHcqcYmo3bRTpLpcd8N6P8vG9Bv2ge7g=;
+  b=f0GpniR1MnVB199/aGSi7Qt/pKO5ozGpMIWw9Cdu0LXjvn0zZ4i8BFpx
+   gp16FeYBHRjM/bXQQvMqoLzUT0pcFyUaa+9cgIDOgIuowhgLGp+3ZdgVt
+   tEm5jCgsg0BR0G4HEwl1fEdXNua0Wth6sxrreWl6/G+AgcX58A8DDT3LR
+   Oxi5RRdYxrHFjrR9rbhbT4sqa5hsBC0SVeMA7JitZygWTTs5P0zfrOUOs
+   +3f5m/qKAWgfYsrO4C4W/WWLD7cIrEkXRC/qajRlRjRR7/8+ubd7ATdUf
+   5SWhJta2pNoEOK7+NthS5569OMRipKO0W6OlOPftKd9tmJjoKuX2yPwWW
+   w==;
+X-CSE-ConnectionGUID: +3MSIh01R1qRB1oq+1d9lQ==
+X-CSE-MsgGUID: WOFNMIe4QHSZsEJyMx2+9w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99866397"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="99866397"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:07:58 -0700
+X-CSE-ConnectionGUID: cWr1mgRrRYW4lpH75hjgWw==
+X-CSE-MsgGUID: nvnyBrMCQKutQXKXujSgug==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="295904391"
+Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
+  by fmviesa001.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 06:07:58 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 06:07:58 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 8 Sep 2026 06:07:58 -0700
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.64) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 8 Sep 2026 06:07:58 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Hjic4Ij075TGuhD5BAOcXQE3ytvzs2xQ9IJ+ahoaP+LHfuFYTDJTFyolRMeSMEmEROeaN5lzlAkYgobiauyQs30Y32xfmYKYkLnX5e920pMX736BDR+oKWA2bOZpjzfx0SFBd3euQRstwn4QfdnIEnwYeckhzYKZRE6FSyDpDTmqcaUCrlLU5oFfhmTw6VULaO/mPfaOyJW9j+NIoxYa/Og9X+3DqSiPxZvjdOFA6DIZSI/40s4T93aJiNBrMVO/p0POjr88XBclbCeo00+pQ5TjjfMth22h0I4qfRUrVMIoR766rS7ynEZJKUuiLsIXYlqN49ly/rIz/vVIdatyuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=if0foLFhHYVuXRsUN+3aDrwwVtMdJ5dguaRKbC48EFk=;
+ b=frMhgrUtu9Ea3ulTRyilXzJgjO8PFPtlPsjS4INUTYdL0eOHgqK2UIrdlESX5hjgBpBXROjXPpWaqkMC+yAV9UahrKtB1GNwJgTh1SHxs8wMTvrPb5tB4Ba3GrZXJoi0dTg0lLPHsLzQPf0itt6Aox4doxiCP3Q4mPqjmQsFzFVaNkr22cweLHlAuMf7AQWoz27VQVW9xtIQSzt4O2dKlB7aRCMnB8zkpGwqD9LDgrvaiHMXErzdOgx9Fm+IojX+x/JKVNIaKYSIbIIWjP66s9pus8/pWtL38iTh8euJ7CJYsiRYftDpTcD+nyuqKa3gt6moO0X6tDMepiYYmy3cxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by PH0PR11MB7658.namprd11.prod.outlook.com (2603:10b6:510:28d::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
+ 2026 13:07:54 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 13:07:54 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Yury Norov <yury.norov@gmail.com>, Andrew Lunn <andrew@lunn.ch>, "Heiner
+ Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Raju
+ Rangoju" <Raju.Rangoju@amd.com>, Prashanth Kumar K R
+	<PrashanthKumar.K.R@amd.com>, "Nguyen, Anthony L"
+	<anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, Jian Shen <shenjian15@huawei.com>, Jijie Shao
+	<shaojijie@huawei.com>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+	<edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "intel-wired-lan@lists.osuosl.org"
+	<intel-wired-lan@lists.osuosl.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>
+CC: Yury Norov <ynorov@nvidia.com>, Rasmus Villemoes
+	<linux@rasmusvillemoes.dk>, Andrew Morton <akpm@linux-foundation.org>
+Subject: RE: [PATCH 7/9] net: phy: use linkmode operation return values in
+ phy_device.c
+Thread-Topic: [PATCH 7/9] net: phy: use linkmode operation return values in
+ phy_device.c
+Thread-Index: AQHdPxOOZVYU8Wsvxk++P9pUHXqKb7bEp+lA
+Date: Tue, 8 Sep 2026 13:07:54 +0000
+Message-ID: <IA3PR11MB89866E1B62B7C7E2F773B7A1E5B12@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260907215439.409858-1-ynorov@nvidia.com>
+ <20260907215439.409858-8-ynorov@nvidia.com>
+In-Reply-To: <20260907215439.409858-8-ynorov@nvidia.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|PH0PR11MB7658:EE_
+x-ms-office365-filtering-correlation-id: 88bba9c1-6483-4fb4-3fa5-08df0daa3223
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|376014|7416014|1800799024|921020|22082099003|18002099003|38070700021|56012099006|11063799006|4143699003|10067099003|3023799007;
+x-microsoft-antispam-message-info: S1vzNW01uZ5I/+U3w6z2TM5gTtPNxy+r5gnAxm4M7b0uw04a/NlAKOdvhsZPAd2oDmQLVa4CpKwfi3JC4igVEdY2QG8ko4olUTnjm9O6UtA2/1NQpLRRob1RtvwVGH4Fb6A47xJ5YBVdpC/G4rA4CaW1tfu93Qr+NcQhl7PcAgAwIEd8oKGUFJPB3FgPxPSok0zmMXuVkXd5kbe9UjDAs7EWb6gqNaZGmScs8nPUqc14RqGVzox7EZ4aGbS331knOpTO5kReWVpVuxJ5pkcJeake5/JlsJBEw2aG6NEOShxOvOGU6taTo6P5BZ5ZO3KO+cIQj2firhX7sLPlgR2POc7JFNIWqbcw3+y8oi8FDbVoF4AJrw+mNNWP91wlfDHAY4o8Y0qGEOMz96K7fYkRh6WoACw8iCZQv+Gmv+XVTnCT+AHn+qWU1O7WprxCDEDdeL6NAC7noG3KY9m+3niFluplbTzAyLp0raecMvoHoUJ8ngGDRqcCO6w1JbBl0OSx1Lrski/fo8vs3X09LtiCSHKX3LeFXf51iJyn4rV661/V/7Je9XrZJ9MhSBCcpLDMyZLE79k14pOO18dHBVNtmzWBYXvo0snrgGlNEn7DQGkHXJvGTzwdeTLZ7uqqo4ftvRVHw9Fj61TviERjxvxVUmG3AjX1FT6A/TbMDRh855lSNU+po+4Y/juqegkggtvVhCIDm6tQ2SVrnxgskJoe3NzJBRpEjoc1GgSV5Yg3jOpmJ6QOyF9SInU4kaN/x2WP
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(921020)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lij61lSWolb4oXgd1RPHWtgzXlndLVlbT7jxVEdmc8gY+FCGLVLBF4jXkp41?=
+ =?us-ascii?Q?v3wyqBpBII4eL7l9+jNw5mSYCk3MVABokmXOIYzkuBdC7dQnLcReGETmVa4b?=
+ =?us-ascii?Q?77Dl1zkGtLvxyB/JepJEW91lNeSGjMEwLMXf0ee4L/Qr95zZ+nPFOpPDO/w4?=
+ =?us-ascii?Q?DP3OpgXefjmfCSc/PoQGzcXokmsMcI8UmInt5yWqlglP/ZZKLauVjEbOfW58?=
+ =?us-ascii?Q?t3u4HVnnI5LSAxvh6FCcEqCUBIue/p0tQ2xvthRihW126DwBDjVrNSINhabp?=
+ =?us-ascii?Q?yMTlIvDUH7hfAwQ8xc9U1sW5LwW7WjhnL07niflnxRcOn958uiS2BlOhwnU6?=
+ =?us-ascii?Q?OoLdo4vM2uXCD9JUvIyIDlnRPImPtLLZBjbZMWTNd8FOvZjc49lwd1q3YkAg?=
+ =?us-ascii?Q?NPCWOrTzi/LnTH6fRNbuCr7fceWniYL5DrApOyJi+uBtH0aHaAorhhk3F3Lf?=
+ =?us-ascii?Q?PGcZ86eAe8wrHN5XaLDLFj9UO/qfoHUvfe0hvJVKcTSbSea/EIRD2lWarVFM?=
+ =?us-ascii?Q?c6fQNTR5qEcq4rVEqrL8V/tCKmqwnlM0To82L1WOvY9evllnA19Gg+HN2B74?=
+ =?us-ascii?Q?RmVwa1reBo4OKclE9Q6Oup3r4HyYqMOg1vsQwBmxO3yt2GAWrkqx/uA8EqI8?=
+ =?us-ascii?Q?/AW9+Hj3UwwmCF5C9AryGMoFiUXv4cFXOf2EbBGLfHAOTiu0hWgkNP6EY2fU?=
+ =?us-ascii?Q?yN1ZAUmO1iFLUgtbVRJ13t8hTCD2gBnp7tnxqtFI4k2Tdjn9nSH+aTT8Ifdv?=
+ =?us-ascii?Q?pdzzcaKzxr3PARnQWQd+P5hoU6twS3QKHZKka3lj4FUxy9uZ/kLrZga4uHTX?=
+ =?us-ascii?Q?en9aZnvlcuI9+Ins5ggHJPIP0g8//26tncVNU8/zvX25x6JKmQa4AHWQir6L?=
+ =?us-ascii?Q?1Jsi1/tIgEjsTbKzZY4ZT4ZqtDRuTvjuW9XkUsR0EwWwzQVmiHFun5i+wPqF?=
+ =?us-ascii?Q?H1sB9CRfu7dzyMrJ432DN/v+ffTLF+Sn24IXcx2hdokDHZIgxfa7pziqMRLH?=
+ =?us-ascii?Q?TBR//Z/H3h9tTrfcz4crLLSweYJ0yELhVnvSEVlviBoV3Ik6SJmMIO10KWYh?=
+ =?us-ascii?Q?/iAm6RyUga5HI35w/zOLhLA6GgaI1Sc8pzea6oo+jfby4S3Ms3XWReoIaafk?=
+ =?us-ascii?Q?mcBrsfxruQE8cN1i3kTk6gOGzeabLNAF+6WpVf9x5AR0MNe44WVjY7q2FAFb?=
+ =?us-ascii?Q?yqosiYVMJaK2vchUqK1v8gRY5KAfsyVLV6pPZCATXdGGbObbjlcqeVjd8u3u?=
+ =?us-ascii?Q?g9ffLVN4JYcooxGjJrxzcfXvB4OPfHJkdw1clbbxCKmfjlRKQx01ZcxuYDl5?=
+ =?us-ascii?Q?Kfbgyrcbki2ZkWKb/tyEZ2hoOFMDVqbGbQgrIcOaa1+NbfIaG1vXcmNvuVOh?=
+ =?us-ascii?Q?cISR1/BdRtRXxC2JdHO7rCdTE2/4tRWKmUgWGUCwmyGHaAtTCpH/nd4mmIfp?=
+ =?us-ascii?Q?AIVRUbMnKu01pPNaP8HcIxdOCChTu8lZcsWOp/3L4qBVTdFDR0xmUAdt62mV?=
+ =?us-ascii?Q?wwxFw2ASlH/eC0wyUhOPywlAUs6rAdBHxUpvJJeR4+lM1IghZbI8QU3mQ5+f?=
+ =?us-ascii?Q?E9Ohm38ya1RPyfb1hfh3OhGwBbk5S/65GF0cFQ+K+0kDGiPAKE4a17aCyHy0?=
+ =?us-ascii?Q?+d5uFyQJ6VAoVRW5HJBFhVIALFIpwtv6vy2x+x9uZzAXxRhRm0Y6Qc9Eq2sp?=
+ =?us-ascii?Q?i8djK+Mh0rGHt1p9ne42CvVcEC2Co7mRl/wz3qZHmXgfErRbVCt4h+nfxmfg?=
+ =?us-ascii?Q?WGApzGyZd+CpZpbPOI1DpX3dBnJW5qk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: egyQ6vaPceCsNT4D91yRekyLAhwrbofny6a7qiNTtmxQcqHxUFZWovbrskU7Qp5zWGbsyqJk8RBTobVEL58nP8J9WIR9+A1JBvxi6/N7J7jK4YAmJvr9CjaS/7YQhSrCIDtUkSBOry2JlmZIYA+2ZJILPfqGLknSYA2EkUWHsn4j/dR+aG7IeUC2tU+AO4mMxXRBslnW0Z5zK+INzFtiqr4U7cgfmK0LUaFbna+LVwTHP73PjXOo+8I+Fp+GFPZx9Rn82y/MJt8VqTA3G8soKbqy0hwHCXsfXf7HOscvrt2ppX/eTvSb0uednfaVty8JcchavytYIXByhmqLvEXWxw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 88bba9c1-6483-4fb4-3fa5-08df0daa3223
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Sep 2026 13:07:54.6456
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Nh5V2biya4QOZmDdhfqlToIPMK2azJiahgMyeWlMKbJUWDm/yXt4qO/p8eG+jIF7xktb7GTjMWanPn0KrJltcmjJ00ORBTHUJ8u6cvgTOBo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB7658
+X-OriginatorOrg: intel.com
 
-The camera PMIC on the Lenovo Yoga Slim 7x Gen 11 (Qualcomm Snapdragon X2
-Elite, glymur) has no interrupt line routed on the board. That is not a
-wiring omission - the part has no INT pin brought out in this design, and
-the sensor resets are driven from TLMM instead.
 
-The part is a PM8010; this board describes it with the qcom,pm8008
-compatible, which is what binds the driver touched here.
 
-qcom-pm8008 currently requires an interrupt: the binding marks it required
-and the driver fails probe without one, so the PMIC cannot be described at
-all on such a board even though everything it provides - the regulators -
-works fine without interrupts.
+> -----Original Message-----
+> From: Yury Norov <yury.norov@gmail.com>
+> Sent: Monday, September 7, 2026 11:55 PM
+> To: Andrew Lunn <andrew@lunn.ch>; Heiner Kallweit
+> <hkallweit1@gmail.com>; Russell King <linux@armlinux.org.uk>; Raju
+> Rangoju <Raju.Rangoju@amd.com>; Prashanth Kumar K R
+> <PrashanthKumar.K.R@amd.com>; Nguyen, Anthony L
+> <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw
+> <przemyslaw.kitszel@intel.com>; Jian Shen <shenjian15@huawei.com>;
+> Jijie Shao <shaojijie@huawei.com>; David S. Miller
+> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
+> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; linux-
+> kernel@vger.kernel.org; netdev@vger.kernel.org; intel-wired-
+> lan@lists.osuosl.org; linux-usb@vger.kernel.org
+> Cc: Yury Norov <ynorov@nvidia.com>; Yury Norov <yury.norov@gmail.com>;
+> Rasmus Villemoes <linux@rasmusvillemoes.dk>; Andrew Morton
+> <akpm@linux-foundation.org>
+> Subject: [PATCH 7/9] net: phy: use linkmode operation return values in
+> phy_device.c
+>=20
+> Use the return value of linkmode_and() where the resulting mask was
+> previously scanned for emptiness. In phy_probe(), combine the AND and
+> AND-NOT operations and use the return value of linkmode_and_andnot().
+>=20
+> Signed-off-by: Yury Norov <ynorov@nvidia.com>
+> ---
+>  drivers/net/phy/phy_device.c | 14 ++++++--------
+>  include/linux/linkmode.h     |  9 +++++++++
+>  2 files changed, 15 insertions(+), 8 deletions(-)
+>=20
+> diff --git a/drivers/net/phy/phy_device.c
+> b/drivers/net/phy/phy_device.c index 94b2e85e00a3..3430605695c5 100644
+> --- a/drivers/net/phy/phy_device.c
+> +++ b/drivers/net/phy/phy_device.c
+> @@ -1565,8 +1565,7 @@ static int phy_sfp_module_insert(void *upstream,
+> const struct sfp_eeprom_id *id)
+>=20
+>  	caps =3D sfp_get_module_caps(phydev->sfp_bus);
+>=20
+> -	linkmode_and(sfp_support, port->supported, caps->link_modes);
+> -	if (linkmode_empty(sfp_support)) {
+> +	if (!linkmode_and(sfp_support, port->supported, caps-
+> >link_modes)) {
+>  		dev_err(&phydev->mdio.dev, "incompatible SFP module
+> inserted, no common linkmode\n");
+>  		return -EINVAL;
+>  	}
+> @@ -3761,15 +3760,14 @@ static int phy_probe(struct device *dev)
+>  	/* Some PHYs may advertise, by default, not support EEE modes.
+> So,
+>  	 * we need to clean them. In addition remove all disabled EEE
+> modes.
+>  	 */
+> -	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
+> -		     phydev->advertising_eee);
+> -	linkmode_andnot(phydev->advertising_eee, phydev-
+> >advertising_eee,
+> -			phydev->eee_disabled_modes);
+> -
+>  	/* There is no "enabled" flag. If PHY is advertising, assume it
+> is
+>  	 * kind of enabled.
+>  	 */
+> -	phydev->eee_cfg.eee_enabled =3D !linkmode_empty(phydev-
+> >advertising_eee);
+> +	phydev->eee_cfg.eee_enabled =3D
+> +		linkmode_and_andnot(phydev->advertising_eee,
+> +				    phydev->advertising_eee,
+> +				    phydev->supported_eee,
+> +				    phydev->eee_disabled_modes);
+>=20
+>  	/* Get master/slave strap overrides */
+>  	of_set_phy_timing_role(phydev);
+> diff --git a/include/linux/linkmode.h b/include/linux/linkmode.h index
+> c08632c10c3d..49587a2e0f69 100644
+> --- a/include/linux/linkmode.h
+> +++ b/include/linux/linkmode.h
+> @@ -26,6 +26,15 @@ static inline bool linkmode_and(unsigned long *dst,
+> const unsigned long *a,
+>  	return bitmap_and(dst, a, b, __ETHTOOL_LINK_MODE_MASK_NBITS);
+> }
+>=20
+> +static inline bool linkmode_and_andnot(unsigned long *dst,
+> +				       const unsigned long *a,
+> +				       const unsigned long *b,
+> +				       const unsigned long *c)
+> +{
+> +	return bitmap_and_andnot(dst, a, b, c,
+> +				 __ETHTOOL_LINK_MODE_MASK_NBITS);
+> +}
+> +
+>  static inline void linkmode_or(unsigned long *dst, const unsigned
+> long *a,
+>  				const unsigned long *b)
+>  {
+> --
+> 2.53.0
 
-Patch 1 relaxes the binding, patch 2 makes the driver treat the interrupt
-as optional and skip the regmap-irq chip when it is absent. Boards that do
-wire the interrupt are unaffected.
-
-Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11"),
-where this PMIC powers an OV08X40 sensor.
-
-The DT change that describes this PMIC is not part of this series; it lands
-with the board DTS, which is being upstreamed separately.
-
-Oleg Keri (2):
-  dt-bindings: mfd: qcom,pm8008: make the interrupt line optional
-  mfd: qcom-pm8008: support PMICs with no interrupt line
-
- .../devicetree/bindings/mfd/qcom,pm8008.yaml  |  7 +--
- drivers/mfd/qcom-pm8008.c                     | 52 ++++++++++++-------
- 2 files changed, 38 insertions(+), 21 deletions(-)
-
--- 
-2.55.0
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
