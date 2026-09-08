@@ -1,36 +1,37 @@
 Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6FC941DE11;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83A03E6DE8;
 	Tue,  8 Sep 2026 13:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875611; cv=none; b=dFqwGpGy2x2uXv4UMyHQ5K9o2BzQSgCe1O7HP4epdbhMCZhU1lqDfdWmK0u4iBjiYh8/T4EPH0xwEbs1SEU7q423wKXgw740+ZXQqp1tu3goZGZ0W37qYtTOhq1QoG2tFj1U7tN86H/Jo7+gbYAlqMVkWdnsmLOiIjOnLlgt2fI=
+	t=1788875609; cv=none; b=PE0a9an2NFvolfZqJEfBtEaUrAdJyBOqUP/JPcVTdUSetshWzCQN4GampTpeThYA4725epjHPxR578ANIUZCOTnF0YwPbpAz71BXlEAkXv1fcRBPTX9xZmCp0HV5xWSvW64PVBxQ7VomRuuKghMxbDvTrEhCFDdkh6mS4ZepDKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875611; c=relaxed/simple;
-	bh=BuSi3lmhT77jdjyv0iyH89J76a7EbR1uQ5po35ac4pI=;
+	s=arc-20240116; t=1788875609; c=relaxed/simple;
+	bh=chhiIqRF5ou6bRD72rL6njTnM3BrKLWkzdLpOfMFweg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AadyRjyRtR/7oFLuFjhX49oBIUo4yuC1l3vhSc8EcpQBxWWdkEbEquKySyk3GqXWrxXzkBfoe+wjlaoCCBimxNi+GXzTTwHyd0JMTRHDAcW/GIddlEjOpwakWGpkG9lMFxGBXbPx+61QQZ75EOZB8d4ToFUh5EpsT/U2/ubgyXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=2i6Kxo8z; arc=none smtp.client-ip=116.203.77.234
+	 In-Reply-To:To:Cc; b=BqVAo49YpT2F3FkHZ7fajPcpBcUB98m4id5Ttak8hY5MlUrcD8VF2DeTSwcs9p064Thbgm74YOGFd8Td3vGjJABJnM65vYfRSCR5RDPgAx/T1fjCRiPk2ye0ShjaIOyiF7KFpHsnYLbEwdIBNoc2GrV4wiwHtLlCrlqfanv8Ywo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=iaAyeTrN; arc=none smtp.client-ip=116.203.77.234
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="2i6Kxo8z"
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="iaAyeTrN"
 From: Frieder Schrempf <frieder@fris.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1788875590;
+	t=1788875589;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Q4r9BLRd4S6GyCmxX0tVaI1kJc+BhsFxD4BdobYPRrc=;
-	b=2i6Kxo8z8T2mdCvSKqHiA31Ycex2ZF5Ha/q/hx2Ncf5lpzInAwIyv64YdEpZUg43fb70ag
-	J72pupOgdSl6laI1wskBdQ3xQZ4Ul+ZAxCVWYiMwfMx12e53OJ2N7fZyUCGdwQOLwxG55V
-	gbjzgAn4RhuLhfpsdcAoiJRPFjdmtGkGcjlI53PLBSOT97bOdEKc0cLB3+VJ9CoOwfgonI
-	5BKbf7dHRhwbQsluNGxMXmTyuBlFwWXYQL3OqqX001cDYEOyleTK3/WGfuPRYsveigWUf5
-	ojeSKuXeAWburAwKlbdltrzvaiYLixm1Gjx/t0UehdxLsZO7HHjiW22QFE8XPQ==
-Date: Tue, 08 Sep 2026 15:51:55 +0200
-Subject: [PATCH 8/9] arm64: dts: imx8mm-kontron: Add SPI EERAM on BL device
+	bh=5L/XcuxQLLZLXrKN2g2/0ioV+GT9Ym5AO4xWn00BwKE=;
+	b=iaAyeTrNCJLJQ/j1QOdrJeo4ecxauVYTE6q2lNJwsWzui/TbmSEGNFzvIm4jWcoi7KwgiF
+	JSWv6zSeLZd9L+orB9++8d69scpw+fhl5Y2YSgc9TX/hQz9BFIYTOr6IyQnif09M//l0Xe
+	QyiWozek7suUN87L2D3fP8dM4FVIAg9hj4Oo0ag/aJoWDrDKP+n7vFA3abBrdD3yKaWMrp
+	nS6BvFJ3oa3bRDusZ6RfFXIyYW9LkjNJiGNwEhIpdz88hxjSYQLbl6QEB/L+2LwtG0naV2
+	Q63NMlZC5O/7FY9IuLEjQQHMSXEQFSxF7rrri42xaJEwJR6+zUM6VqshEZV+TA==
+Date: Tue, 08 Sep 2026 15:51:52 +0200
+Subject: [PATCH 5/9] arm64: dts: imx93-kontron: Make USB-C connector
+ "device-only"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -39,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-8-4d0e8a75db79@kontron.de>
+Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-5-4d0e8a75db79@kontron.de>
 References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
 In-Reply-To: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -51,44 +52,46 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  Frieder Schrempf <frieder.schrempf@kontron.de>, 
  Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=863;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=993;
  i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=wxmv+3IKiPf8etyakSY8wg6YcKR53nL3E6fskoVc0yE=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsLPQ1Uku1u0CUitZGAtNns2a4fXtx9+Dq2cXXl4t5
- a8ouT6to5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCJf1RgZZm+/4bj0oG3bO/Ht
- kQvWr2Je+LzU80tq87evjpV+3k8uajL8lba07Pfa/q/sn1ahUQZnEc/ft9cvRtTPXJ+XZT79R1s
- JEwA=
+ bh=nBXNsn5j9wvYH8NLcZ6PDt1KYldwEPOzwtDvyon9Z9k=;
+ b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsHPxhE4np20PVp2LeD3rid+cPmkx84+fm9xyhC8Kz
+ Xt1NIW3o5SFQYyLQVZMkUWK3+K1rVmsj/yx6iiYOaxMIEMYuDgFYCLOsxkZrm5dtvJziNeqI0+P
+ XP8zcdW5yd+enQzs1+Y34ftdc/LPwhJGhiNzPQ2XXLnVM7UwSufh3oauZnYtJoa0NUzZTkk1G+b
+ lMAMA
 X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
  fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
 
 From: Oualid Derouiche <oualid.derouiche@kontron.de>
 
-Recent board revisions have an EERAM chip populated. Add support
-for it.
+The dual-role support was broken on early prototypes and has been
+removed in later hardware revisions. Reflect that by setting dr_mode
+to "peripheral" and removing properties related to dual-role usage.
 
 Signed-off-by: Oualid Derouiche <oualid.derouiche@kontron.de>
 Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-index 72588af057d2..27bfad56dbe8 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-kontron-bl.dts
-@@ -123,6 +123,12 @@ &ecspi3 {
- 	pinctrl-0 = <&pinctrl_ecspi3>;
- 	cs-gpios = <&gpio5 25 GPIO_ACTIVE_LOW>;
- 	status = "okay";
-+
-+	eeram@0 {
-+		compatible = "microchip,48l640";
-+		reg = <0>;
-+		spi-max-frequency = <20000000>;
-+	};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
+index 4620c070f4d7..0277640d7c4c 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
++++ b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
+@@ -158,12 +158,8 @@ &tpm6 {
  };
  
- /* ETH0 */
+ &usbotg1 {
+-	adp-disable;
+-	hnp-disable;
+-	srp-disable;
+ 	disable-over-current;
+-	dr_mode = "otg";
+-	usb-role-switch;
++	dr_mode = "peripheral";
+ 	status = "okay";
+ };
+ 
 
 -- 
 2.55.0
