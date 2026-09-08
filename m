@@ -1,440 +1,141 @@
-Received: from mail-106121.protonmail.ch (mail-106121.protonmail.ch [79.135.106.121])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A05329E7E;
-	Tue,  8 Sep 2026 01:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996F33264D8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 02:01:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788832639; cv=none; b=VodDEzJHROMnoAvd53yAm2puJc9f2HyLUSRibyvbavTu7cHd5BdjWkcukVnRA1FhcYl27BfCK1e3B7lXrM8677gPL71ZU+//GhbuZvk1VKW5z4tdqCJfjmmr0NmRPyY+P+poaEngSn50rjzb/QYFLGlgVifdyj7ciEw8N5IEd+I=
+	t=1788832911; cv=none; b=HUmRFVOik//mSpVHS4M/wnaodLcmikEkybRiguDED1okizht/Va/OzLQFmB5qGETTEZ5jVWt7VnkYvhrvWgAElXUYowNS8xTTXnZzubewT5mnetyoXhWDLOTE56shq+QSm/8z8KiKAApyrijKhPjgWLLOBBHHyjGyPIF9LKR8ZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788832639; c=relaxed/simple;
-	bh=I90uLmxBcumxygR08+v6n0cjwhkEbdY+f+9Tedk0hHA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I6G3VS5lPC4VEzEEnijEAU/tuK6vj1SGfvJBqU7mNZwayk+ufPE4JmhSjJiaWkRjaNJRa3hGkJ7Rljexkas2N+M10jdzn522PFksWq0HcpL9H6eeW1i9cLCP9pd8l5Tf9t9hvDzbtybTccJmVvWJr2GBdCUzrQyzNAJyEG93aB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=X7LZJuJz; arc=none smtp.client-ip=79.135.106.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788832911; c=relaxed/simple;
+	bh=pTwMML0rgJe6+QkcJd/cTu44v9vw01mO7xfgtNsP9Ko=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VYtv0GHeAzkW56ECdLKH0YhIE0TVHLCPMCfHscwoO7qpkHqO+sQL2YBFeHVIVbMnZS5gsT6jeNOIhch5hOfR9s00Yz36Poatxyi2uNc/7Ee3R5Z3BXvorU65u4/gtQAvzewjZhKF67aAkMuKeWApgqrvt39SZo7aIAdsKPerCmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gIYXkrHY; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="X7LZJuJz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788832634; x=1789091834;
-	bh=DfNVEzVrMl35YHsNx82vR8LdSSqAsyGmW5TEJdGFRC0=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=X7LZJuJzkVN3i6OnXsBYZcaci+pbfbufCChAyWj2/oleMqh0PW3+FvQtDHWnBKsjh
-	 HzEZHnBwUEvYY57Bu/+XlB1+/439zRP0moAr2GIE9Zy4pg4EXlMdeAWKTC/HPJmTuq
-	 1p++jAduqeHFJrsOE9yWE4dBwlOA4Rawj0nheM+ew2MtxwWtq8FAloUqxrWmt6rcHd
-	 qZXtOK89ycWIfBl0yLfDwOZ79iV2kk2GQN42ClPLrnKrBpCvefoPMFRO0Lbl0gzxuQ
-	 jmsVZ/ylSKWHHgkmlLHxbU1aJmbRh2R0bdXwiwXj9dBNhX7bOe0o6PObhDTch9BR9B
-	 8J6jb4quRQSTQ==
-Date: Tue, 08 Sep 2026 01:57:11 +0000
-To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Guenter Roeck <linux@roeck-us.net>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, Daniel J Blueman <daniel@quora.org>, Maya Matuszczyk <maccraft123mc@gmail.com>, linux-arm-msm@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/2] platform: arm64: qcom-hamoa-ec: test sensor and variant handling
-Message-ID: <20260908015650.84401-3-birk.skyum@pm.me>
-In-Reply-To: <20260908015650.84401-1-birk.skyum@pm.me>
-References: <20260908015650.84401-1-birk.skyum@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: 8090e75d779578d1058d8d9ab132b75e3c05e7e6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gIYXkrHY"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso3276941a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 07 Sep 2026 19:01:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788832909; x=1789437709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=lQtJgjCSof81+IM6z9nQ97DYMO5DHbxfkW0pYQM3/KU=;
+        b=gIYXkrHYfiki1Ec4bwm+BRx5k9SwAb19CbkSonXZVGGROl3bhgmB/Tub2PNpJmOVkM
+         yfiElqFKbzhLXsQUws5O9NUpelv4HcTd+j0akcHfMpaFRiRc75BgA00ELdOhFNOF7R33
+         AGcbkWJInX8lf0juswb+7BP+mqsrpcAXzAht3B+8CiWWMVkNPcQYAEyNjtp0cWdJaqt8
+         zX4Ga28kjFL0yLKTSMXId89/TQQGJO9v7PsvhqetZxST0IxzST6QdL8TQZmjUuWfb7u5
+         1eockqKkoVu1Kqx6+PR0sv5WJcZ3YP4RpsRwq9/EWL7b/gdLHCocrN26SelGZy8hF0x3
+         9oCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788832909; x=1789437709;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lQtJgjCSof81+IM6z9nQ97DYMO5DHbxfkW0pYQM3/KU=;
+        b=nO4MOxxSikIP0AkAm7VgyixMNixj9o9xVap02VrAB1bPacMLEcCQiwRKRalUL4i99k
+         hvF73Pl2XkZjh4jm5OGyDhjbtwhuGwgE+mFHES4UYf8Lshdy8d55cpK3hoPFlXdwegdv
+         B7ynz8J4ON9eoYFC7DtKxcPFpBPlF80n/taydwtehXKJHIGjERUrI3sbzogQODKq4dgK
+         i28XAd8Mp3AyBicf2J3iSVZVbb+teYDvlno6GMPjRUL2l3TqdPWysGhSt/Dyc+aeShkS
+         UNLgqzpSFNkXQoayCUm/UgTscMGg1GecXI66yBNS72AqZ2rikNx6syOcnTFuGytv2ux9
+         b0lA==
+X-Forwarded-Encrypted: i=1; AKwUvBzvBVlCIHWnzi2wBGjK0yFbdMk89BzS72Xamof14iBFUfP0Z45VbkACljF9FkdwMmndCnRhpjZmviW9gWU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lmvywUyn1gXSD8SIT9fGcPPlFjpdTlKLTEDFbquVn2PfLebTsl
+	8U1K/BsQ+uqpB2kUsnMQP/UoTOXD/o5HUv894bylxcHqhrzmiiE7cVUIOlvCuA==
+X-Gm-Gg: AYBFou2RlMNEW6mDPYubzOy9gwFotNzQbt0145UJICKTLt8GgXFIbRbcC7Ni9SC6dOL
+	opC+QueMCiXHURzG5Xp4XaWUJbCq5i8I2kCag8pAAlYS5SGK2QVBCAeZJZHW9+Y/c8D6qnKcJVC
+	Bhca9j0h0kFAdFwvtnfVbSPTKoo8DtCFK+83mdaIzcFCDktZDlZxTMz/4xch6DJhGEDxHY7GK6w
+	EBhsKW47VZTNNqXnUOptzQC3i0FXcQzZ4ug++npxD31P9aL3S8ADyr0KnDINmA2TCbS869s9ZSb
+	T9VDdabMlrzTKeuHzW4O5pV5JNe/teVd5YlhtCY4Z/E2tOQmxbx6p8U8yr6oGyW7ZP0RGrUfpm9
+	46IZL7NAD4jMw2fLYa11JjGhYiscRvihYxZxuH5scxtUdJlguJGJpI1RewU0IUl8C8t32HRoLul
+	751477Q834LafrT+4xPPzIBhpyPRnZV44jkCn2UVEvoj35a9RuagslAxN5TCq0DIiwkI3gVnBWt
+	MO0QVN4CBmwLpudIA==
+X-Received: by 2002:a17:90b:4cce:b0:38f:240d:b857 with SMTP id 98e67ed59e1d1-39b260dd4e9mr42617218a91.2.1788832908836;
+        Mon, 07 Sep 2026 19:01:48 -0700 (PDT)
+Received: from [192.168.1.13] ([106.37.146.213])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db2d91341dsm36247545ad.39.2026.09.07.19.01.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 19:01:48 -0700 (PDT)
+Message-ID: <7611bbd8-6241-46cb-b0bc-a4257277d98a@gmail.com>
+Date: Tue, 8 Sep 2026 10:01:44 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after
+ init sequence
+To: hverkuil+cisco@kernel.org, sakari.ailus@linux.intel.com,
+ mehdi.djait@linux.intel.com, u.kleine-koenig@baylibre.com,
+ laurent.pinchart@ideasonboard.com, jacopo@jmondi.org,
+ p.zabel@pengutronix.de, ezequiel@vanguardiasur.com.ar,
+ mchehab+samsung@kernel.org, festevam@gmail.com
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@kernel.org
+References: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+In-Reply-To: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Exercise the sensor callbacks against a simulated I2C adapter. Check
-little-endian RPM decoding, short transfers, malformed byte counts,
-the unavailable-temperature sentinel and propagation of bus errors.
+Humble ping ...
 
-Check that the Lenovo compatible takes precedence over its reference-
-board fallback, that its sensor attributes are read-only, and that its
-probe and PM/remove callbacks do not issue control writes. Keep coverage
-of the strict reference-board capability-response validation.
-
-The tests use KUnit and never access a physical EC.
-
-Signed-off-by: Birk Skyum <birk.skyum@pm.me>
----
- MAINTAINERS                                 |   1 +
- drivers/platform/arm64/Kconfig              |  12 +
- drivers/platform/arm64/qcom-hamoa-ec-test.c | 294 ++++++++++++++++++++
- drivers/platform/arm64/qcom-hamoa-ec.c      |   4 +
- 4 files changed, 311 insertions(+)
- create mode 100644 drivers/platform/arm64/qcom-hamoa-ec-test.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8518a97b4..58010a3e4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22442,6 +22442,7 @@ L:=09linux-arm-msm@vger.kernel.org
- S:=09Maintained
- F:=09Documentation/devicetree/bindings/embedded-controller/qcom,hamoa-crd-=
-ec.yaml
- F:=09Documentation/hwmon/qcom-ec.rst
-+F:=09drivers/platform/arm64/qcom-hamoa-ec-test.c
- F:=09drivers/platform/arm64/qcom-hamoa-ec.c
-=20
- QUALCOMM HEXAGON ARCHITECTURE
-diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfi=
-g
-index 4f338c715..d940973be 100644
---- a/drivers/platform/arm64/Kconfig
-+++ b/drivers/platform/arm64/Kconfig
-@@ -105,4 +105,16 @@ config EC_QCOM_HAMOA
- =09  This driver supports Hamoa/Purwa/Glymur reference devices and read-on=
-ly
- =09  fan speed and temperature monitoring on the Lenovo Yoga Slim 7x.
-=20
-+config EC_QCOM_HAMOA_KUNIT_TEST
-+=09bool "Tests for the Qualcomm EC driver" if !KUNIT_ALL_TESTS
-+=09depends on EC_QCOM_HAMOA && KUNIT && OF
-+=09depends on EC_QCOM_HAMOA=3Dm || KUNIT=3Dy
-+=09default KUNIT_ALL_TESTS
-+=09help
-+=09  Test the Qualcomm EC driver's sensor transactions and read-only
-+=09  callbacks using a simulated I2C adapter. No physical EC is accessed.
-+=09  Run these tests in a disposable test kernel, for example under QEMU.
-+
-+=09  If unsure, say N.
-+
- endif # ARM64_PLATFORM_DEVICES
-diff --git a/drivers/platform/arm64/qcom-hamoa-ec-test.c b/drivers/platform=
-/arm64/qcom-hamoa-ec-test.c
-new file mode 100644
-index 000000000..68868ef76
---- /dev/null
-+++ b/drivers/platform/arm64/qcom-hamoa-ec-test.c
-@@ -0,0 +1,294 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/* Included by qcom-hamoa-ec.c to test its private transport and callbacks=
-. */
-+
-+#include <kunit/resource.h>
-+#include <kunit/test.h>
-+#include <linux/of.h>
-+
-+struct qcom_ec_test_context {
-+=09struct i2c_adapter adapter;
-+=09struct qcom_ec ec;
-+=09u32 functionality;
-+=09int transfer_result;
-+=09int byte_result;
-+=09u8 reply[4];
-+=09u8 block_length;
-+=09unsigned int transactions;
-+=09unsigned int writes;
-+};
-+
-+static int qcom_ec_test_transfer(struct i2c_adapter *adapter,
-+=09=09=09=09 struct i2c_msg *messages, int count)
-+{
-+=09struct qcom_ec_test_context *ctx =3D i2c_get_adapdata(adapter);
-+
-+=09ctx->transactions++;
-+=09/* Only the RPM query's combined write/read transaction is allowed. */
-+=09if (count !=3D 2 || messages[0].addr !=3D 0x76 || messages[1].addr !=3D=
- 0x76 ||
-+=09    messages[0].flags || messages[1].flags !=3D I2C_M_RD ||
-+=09    messages[0].len !=3D 2 || messages[1].len !=3D 3 ||
-+=09    messages[0].buf[0] !=3D 0x22 || messages[0].buf[1] !=3D 1) {
-+=09=09ctx->writes++;
-+=09=09return -EPROTO;
-+=09}
-+
-+=09if (ctx->transfer_result =3D=3D 2)
-+=09=09memcpy(messages[1].buf, ctx->reply, messages[1].len);
-+
-+=09return ctx->transfer_result;
-+}
-+
-+static s32 qcom_ec_test_smbus(struct i2c_adapter *adapter, u16 address,
-+=09=09=09      unsigned short flags, char read_write, u8 command,
-+=09=09=09      int size, union i2c_smbus_data *data)
-+{
-+=09struct qcom_ec_test_context *ctx =3D i2c_get_adapdata(adapter);
-+
-+=09ctx->transactions++;
-+=09if (read_write !=3D I2C_SMBUS_READ) {
-+=09=09ctx->writes++;
-+=09=09return -EPROTO;
-+=09}
-+=09if (address !=3D 0x76 || flags)
-+=09=09return -EPROTO;
-+
-+=09if (command =3D=3D 0x29 && size =3D=3D I2C_SMBUS_BYTE_DATA) {
-+=09=09if (ctx->byte_result < 0)
-+=09=09=09return ctx->byte_result;
-+=09=09data->byte =3D ctx->byte_result;
-+=09=09return 0;
-+=09}
-+
-+=09if ((command =3D=3D 0x0e || command =3D=3D 0x42) && size =3D=3D I2C_SMB=
-US_I2C_BLOCK_DATA) {
-+=09=09data->block[0] =3D ctx->block_length;
-+=09=09memcpy(&data->block[1], ctx->reply, ctx->block_length);
-+=09=09return 0;
-+=09}
-+
-+=09return -EPROTO;
-+}
-+
-+static u32 qcom_ec_test_functionality(struct i2c_adapter *adapter)
-+{
-+=09struct qcom_ec_test_context *ctx =3D i2c_get_adapdata(adapter);
-+
-+=09return ctx->functionality;
-+}
-+
-+static const struct i2c_algorithm qcom_ec_test_algorithm =3D {
-+=09.master_xfer =3D qcom_ec_test_transfer,
-+=09.smbus_xfer =3D qcom_ec_test_smbus,
-+=09.functionality =3D qcom_ec_test_functionality,
-+};
-+
-+static void qcom_ec_test_delete_adapter(void *data)
-+{
-+=09i2c_del_adapter(data);
-+}
-+
-+static void qcom_ec_test_unregister_client(void *data)
-+{
-+=09i2c_unregister_device(data);
-+}
-+
-+static int qcom_ec_test_init(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx;
-+=09int ret;
-+
-+=09ctx =3D kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+=09KUNIT_ASSERT_NOT_NULL(test, ctx);
-+=09test->priv =3D ctx;
-+=09ctx->functionality =3D I2C_FUNC_I2C | I2C_FUNC_SMBUS_READ_BYTE_DATA |
-+=09=09=09     I2C_FUNC_SMBUS_READ_I2C_BLOCK;
-+=09ctx->transfer_result =3D 2;
-+=09ctx->reply[0] =3D 2;
-+=09ctx->byte_result =3D 36;
-+=09ctx->adapter.owner =3D THIS_MODULE;
-+=09ctx->adapter.algo =3D &qcom_ec_test_algorithm;
-+=09strscpy(ctx->adapter.name, "qcom-ec-kunit", sizeof(ctx->adapter.name));
-+=09i2c_set_adapdata(&ctx->adapter, ctx);
-+=09ret =3D i2c_add_adapter(&ctx->adapter);
-+=09KUNIT_ASSERT_EQ(test, ret, 0);
-+=09ret =3D kunit_add_action_or_reset(test, qcom_ec_test_delete_adapter, &c=
-tx->adapter);
-+=09KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+=09ctx->ec.client =3D i2c_new_dummy_device(&ctx->adapter, 0x76);
-+=09KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->ec.client);
-+=09ret =3D kunit_add_action_or_reset(test, qcom_ec_test_unregister_client,=
- ctx->ec.client);
-+=09KUNIT_ASSERT_EQ(test, ret, 0);
-+=09ctx->ec.variant =3D &qcom_ec_slim7x;
-+=09i2c_set_clientdata(ctx->ec.client, &ctx->ec);
-+
-+=09return 0;
-+}
-+
-+static void qcom_ec_rpm_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+=09static const struct {
-+=09=09int transfer_result;
-+=09=09u8 count;
-+=09=09int error;
-+=09} failures[] =3D {
-+=09=09{ 0, 2, -EIO },
-+=09=09{ 1, 2, -EIO },
-+=09=09{ -EREMOTEIO, 2, -EREMOTEIO },
-+=09=09{ -ETIMEDOUT, 2, -ETIMEDOUT },
-+=09=09{ 2, 0, -EPROTO },
-+=09=09{ 2, 1, -EPROTO },
-+=09=09{ 2, 3, -EPROTO },
-+=09=09{ 2, 0xff, -EPROTO },
-+=09};
-+=09long value =3D -1;
-+=09int i;
-+
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read_fan_rpm(&ctx->ec, &value), 0);
-+=09KUNIT_EXPECT_EQ(test, value, 0);
-+=09ctx->reply[1] =3D 0xef;
-+=09ctx->reply[2] =3D 0xbe;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read_fan_rpm(&ctx->ec, &value), 0);
-+=09KUNIT_EXPECT_EQ(test, value, 0xbeef);
-+
-+=09for (i =3D 0; i < ARRAY_SIZE(failures); i++) {
-+=09=09value =3D -1;
-+=09=09ctx->transfer_result =3D failures[i].transfer_result;
-+=09=09ctx->reply[0] =3D failures[i].count;
-+=09=09KUNIT_EXPECT_EQ_MSG(test, qcom_ec_read_fan_rpm(&ctx->ec, &value),
-+=09=09=09=09    failures[i].error, "case %d", i);
-+=09=09KUNIT_EXPECT_EQ(test, value, -1);
-+=09}
-+=09KUNIT_EXPECT_EQ(test, ctx->writes, 0);
-+}
-+
-+static void qcom_ec_temperature_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+=09static const int temperatures[] =3D { 0, 36, 254, 255, -EREMOTEIO };
-+=09long value;
-+=09int i, ret;
-+
-+=09for (i =3D 0; i < ARRAY_SIZE(temperatures); i++) {
-+=09=09value =3D -1;
-+=09=09ctx->byte_result =3D temperatures[i];
-+=09=09ret =3D qcom_ec_hwmon_read(&ctx->ec.client->dev, hwmon_temp,
-+=09=09=09=09=09 hwmon_temp_input, 0, &value);
-+=09=09if (temperatures[i] < 0) {
-+=09=09=09KUNIT_EXPECT_EQ(test, ret, temperatures[i]);
-+=09=09=09KUNIT_EXPECT_EQ(test, value, -1);
-+=09=09} else if (temperatures[i] =3D=3D 255) {
-+=09=09=09KUNIT_EXPECT_EQ(test, ret, -ENODATA);
-+=09=09=09KUNIT_EXPECT_EQ(test, value, -1);
-+=09=09} else {
-+=09=09=09KUNIT_EXPECT_EQ(test, ret, 0);
-+=09=09=09KUNIT_EXPECT_EQ(test, value, temperatures[i] * 1000);
-+=09=09}
-+=09}
-+=09KUNIT_EXPECT_EQ(test, ctx->writes, 0);
-+}
-+
-+static void qcom_ec_read_only_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+=09struct device *dev =3D &ctx->ec.client->dev;
-+=09long value =3D -1;
-+
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_is_visible(NULL, hwmon_fan, hwmon_f=
-an_input, 0),
-+=09=09=090444);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_is_visible(NULL, hwmon_temp, hwmon_=
-temp_input, 0),
-+=09=09=090444);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_is_visible(NULL, hwmon_fan, hwmon_f=
-an_input, 1), 0);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_is_visible(NULL, hwmon_pwm, hwmon_p=
-wm_input, 0), 0);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_read(dev, hwmon_fan, hwmon_fan_inpu=
-t, 1, &value),
-+=09=09=09-EOPNOTSUPP);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_read(dev, hwmon_pwm, hwmon_pwm_inpu=
-t, 0, &value),
-+=09=09=09-EOPNOTSUPP);
-+=09KUNIT_EXPECT_EQ(test, value, -1);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_suspend(dev), 0);
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_resume(dev), 0);
-+=09qcom_ec_remove(ctx->ec.client);
-+=09KUNIT_EXPECT_EQ(test, ctx->transactions, 0);
-+}
-+
-+static void qcom_ec_probe_transport_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+
-+=09ctx->functionality =3D I2C_FUNC_I2C;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_probe(&ctx->ec), -EOPNOTSUPP);
-+=09ctx->functionality =3D I2C_FUNC_SMBUS_READ_BYTE_DATA;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_probe(&ctx->ec), -EOPNOTSUPP);
-+=09KUNIT_EXPECT_EQ(test, ctx->transactions, 0);
-+}
-+
-+static void qcom_ec_probe_sensor_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_probe(&ctx->ec), 0);
-+=09KUNIT_EXPECT_EQ(test, ctx->transactions, 1);
-+=09KUNIT_EXPECT_EQ(test, ctx->writes, 0);
-+=09ctx->reply[0] =3D 0;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_hwmon_probe(&ctx->ec), -EPROTO);
-+=09KUNIT_EXPECT_EQ(test, ctx->writes, 0);
-+}
-+
-+static void qcom_ec_reference_validation_test(struct kunit *test)
-+{
-+=09struct qcom_ec_test_context *ctx =3D test->priv;
-+=09u8 response[3];
-+
-+=09ctx->block_length =3D 3;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read(&ctx->ec, EC_THERMAL_CAP_CMD, 3, res=
-ponse), 0);
-+=09ctx->block_length =3D 2;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read(&ctx->ec, EC_THERMAL_CAP_CMD, 3, res=
-ponse), -EIO);
-+=09ctx->block_length =3D 0;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read(&ctx->ec, EC_THERMAL_CAP_CMD, 3, res=
-ponse),
-+=09=09=09-EOPNOTSUPP);
-+=09ctx->block_length =3D 3;
-+=09ctx->reply[0] =3D 0;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read(&ctx->ec, EC_THERMAL_CAP_CMD, 3, res=
-ponse), -EINVAL);
-+=09ctx->reply[0] =3D 1;
-+=09KUNIT_EXPECT_EQ(test, qcom_ec_read(&ctx->ec, EC_THERMAL_CAP_CMD, 3, res=
-ponse), -EINVAL);
-+=09KUNIT_EXPECT_EQ(test, ctx->writes, 0);
-+}
-+
-+static void qcom_ec_variant_test(struct kunit *test)
-+{
-+=09static const char compatible[] =3D "lenovo,yoga-slim7x-ec\0qcom,hamoa-c=
-rd-ec";
-+=09struct property property =3D {
-+=09=09.name =3D "compatible",
-+=09=09.length =3D sizeof(compatible),
-+=09=09.value =3D (void *)compatible,
-+=09};
-+=09struct device_node node =3D { .properties =3D &property };
-+=09const struct of_device_id *match;
-+
-+=09match =3D of_match_node(qcom_ec_of_match, &node);
-+=09KUNIT_ASSERT_NOT_NULL(test, match);
-+=09KUNIT_EXPECT_PTR_EQ(test, match->data, &qcom_ec_slim7x);
-+=09property.value =3D "qcom,hamoa-crd-ec";
-+=09property.length =3D sizeof("qcom,hamoa-crd-ec");
-+=09match =3D of_match_node(qcom_ec_of_match, &node);
-+=09KUNIT_ASSERT_NOT_NULL(test, match);
-+=09KUNIT_EXPECT_PTR_EQ(test, match->data, &qcom_ec_reference);
-+}
-+
-+static struct kunit_case qcom_ec_test_cases[] =3D {
-+=09KUNIT_CASE(qcom_ec_rpm_test),
-+=09KUNIT_CASE(qcom_ec_temperature_test),
-+=09KUNIT_CASE(qcom_ec_read_only_test),
-+=09KUNIT_CASE(qcom_ec_probe_transport_test),
-+=09KUNIT_CASE(qcom_ec_probe_sensor_test),
-+=09KUNIT_CASE(qcom_ec_reference_validation_test),
-+=09KUNIT_CASE(qcom_ec_variant_test),
-+=09{}
-+};
-+
-+static struct kunit_suite qcom_ec_test_suite =3D {
-+=09.name =3D "qcom-hamoa-ec",
-+=09.init =3D qcom_ec_test_init,
-+=09.test_cases =3D qcom_ec_test_cases,
-+};
-+
-+kunit_test_suite(qcom_ec_test_suite);
-diff --git a/drivers/platform/arm64/qcom-hamoa-ec.c b/drivers/platform/arm6=
-4/qcom-hamoa-ec.c
-index 3a4ca8a0d..043f6ab7e 100644
---- a/drivers/platform/arm64/qcom-hamoa-ec.c
-+++ b/drivers/platform/arm64/qcom-hamoa-ec.c
-@@ -596,3 +596,7 @@ module_i2c_driver(qcom_ec_i2c_driver);
-=20
- MODULE_DESCRIPTION("QCOM Hamoa Embedded Controller");
- MODULE_LICENSE("GPL");
-+
-+#if IS_ENABLED(CONFIG_EC_QCOM_HAMOA_KUNIT_TEST)
-+#include "qcom-hamoa-ec-test.c"
-+#endif
---=20
-2.53.0
+Add linux-stable in Cc list
 
 
+thanks
+
+xiaolei
+
+在 2026/8/26 16:54, Xiaolei Wang 写道:
+> On the RK3576 platform, after ov5645_global_init_setting completes and
+> before stream on, the CSI host reports a high rate of CRC errors:
+>
+>    MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
+>
+> These errors occur exclusively in the window between init completion and
+> stream on. Once preview starts and the sensor outputs valid HS data, no
+> further CRC errors are observed.
+>
+> Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+> the power sequence to properly enter LP-11 during power-up. As part of
+> this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
+> with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
+> 0x02) from init through to s_stream. Reverting this commit resolves the
+> CRC errors, confirming it as the triggering change.
+>
+> Restore the power-down state after init by appending { 0x3008, 0x42 } to
+> the end of ov5645_global_init_setting[]. This powers down the sensor core
+> after MIPI configuration is complete, while keeping the MIPI PHY active in
+> LP-11. The sensor is then woken up only at s_stream time.
+>
+> This preserves all LP-11 compliance improvements from
+> commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
+> eliminating the CRC errors on RK3576.
+>
+> Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+> Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+> ---
+>   drivers/media/i2c/ov5645.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+> index c772ef6e51d2..be85e0155b81 100644
+> --- a/drivers/media/i2c/ov5645.c
+> +++ b/drivers/media/i2c/ov5645.c
+> @@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
+>   	{ 0x3008, 0x02 },
+>   	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+>   	{ OV5645_MIPI_CTRL00, 0x24 },
+> -	{ OV5645_PAD_OUTPUT00, 0x70 }
+> +	{ OV5645_PAD_OUTPUT00, 0x70 },
+> +	{ 0x3008, 0x42 }
+>   };
+>   
+>   static const struct reg_value ov5645_setting_sxga[] = {
