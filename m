@@ -1,140 +1,67 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594BD1A6811;
-	Tue,  8 Sep 2026 09:21:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB881F4631;
+	Tue,  8 Sep 2026 09:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859320; cv=none; b=ru1Atm7jAZPCPYeWuR2DEaDO39Mfd0gqmkWviLCJ08Uz+crAQeAVuPAeQNhnE7Rl5hz7zPuATjzsZj4Z4/BQXmOOCNeus2h9Z0d4786yoM2U3WERDO7bXgD0g0YRzN5d3yMoOP0/UWLzEZaSCNOdY3lCl4IbXKOWKN8EWqYWHZE=
+	t=1788859373; cv=none; b=nv9AqsoiQ+DXMPIMV1/fzulaMtCr0If2DsRTifkLNm+V8pDi1BlFcvVwetoy1KoHwjlfTbDJ+mQ/YHHxGJLpH0uDVuCCrk44cJqDGdpfOUYKqbD+TsJjdBE1NB/GSMJK4iRyBak/cBo6yd/Wcnj8cP6Anm3JFEWoEtd2GIutGjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859320; c=relaxed/simple;
-	bh=cbzkP+UYnNAHcLX7mr1OdaawPQAm0XvDJnTZSas9abA=;
+	s=arc-20240116; t=1788859373; c=relaxed/simple;
+	bh=2tOnUhKZ6vqIkcQZ6zmT+pGMYjF5d/4/OuOQm5oDEFI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qeAYh5XxclNPX0pNwqadq289/wjWDAS1DjsbXMDQC97tN4bfzWTzaOKXsI4vuznWMkhd0NzPQxEQpK7OWybulZXHW8IWgYKH2GzaftH4mQcImtLzXa2IdNwwj+yxewkFAURyKge97++STV6Mgf7SBjwItsXrEzloAiu4XfL9K3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=nBAJb68C; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=dmwYNSECYpd+SVv8FR0EAk5Lv0tKqbZXOmbN5JWLUSLAmEHg2OM2QkOr4A4NtyTntllS0/MCw+KZpVCq/mSOhghk9l/gsTSROJePu33AWwH7uHuEih78Y8SapX6azM3QfSUebfCy1jsZXckyOYzU0u1AIyRH3WySSIOriQaLDEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=XTYF6To+; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="nBAJb68C"
-Received: from ideasonboard.com (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 364C5981;
-	Tue,  8 Sep 2026 11:20:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788859220;
-	bh=cbzkP+UYnNAHcLX7mr1OdaawPQAm0XvDJnTZSas9abA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nBAJb68CZfYfVFSJvBeITMi8imJ1gdTigtnqYeaNenEBuzg0CWRbhU6K/INH9zRpg
-	 /JqZXM/TG+6S4NPe0pBUo3834BBa/G8LC7eFWwAhrFUtoXuK1A0hJWAOnM25k4/Mdj
-	 YyAcMxDZY3JhEcYNxYWrMA0PtJ3UFQN4j31sIdIk=
-Date: Tue, 8 Sep 2026 11:21:51 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap_TUa3D0-ZGnrXy@zed>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
- <ap-1tDtGCWGc9Hvs@zed>
- <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="XTYF6To+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=RLcfcZ2I8QX4qdQQiyxU4fXIYW6vLUxmkCmhpjwWLWc=; 
+	b=XTYF6To+fBCNT9nEVHvbO2KOod7eQqQFQyR3HmEQK6+ZLZNg5K6lrHazd1j6SFdkqGWHDReM8Tu
+	fEZr42bZywOJfscdb7vdH7/wUdPlxkmjsyykgj4lR9vrVdikJV6ww1SqJbUIfHZ72mzWE1q2+Lc4M
+	ixykFENbNNnEo4c1rynuXWxSQet70mWDTGeEGbMq5jyNZmQ/U1soHfCr/4TeovOAXUQJYiFs4ow+s
+	LN43lAXbG4qiMKgNbjnRIx26AsdP8ioQg1wxoa4YmVfHNjRlO+kvYxl6+oGm/h3qFZ7FNJ0KbXn1R
+	VqUgagtHJ603w6JIOzNPUd+6FlGGs240Eh7g==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x3s2F-0000000BnfR-2zax;
+	Tue, 08 Sep 2026 17:22:36 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Tue, 08 Sep 2026 19:22:35 +1000
+Date: Tue, 8 Sep 2026 19:22:35 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+Cc: clabbe@baylibre.com, davem@davemloft.net, skhan@linuxfoundation.org,
+	me@brighamcampbell.com, jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org, linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] crypto: amlogic: Fix IRQ handler return value and
+ fallthrough logic
+Message-ID: <ap_T2wCesl3whdJV@gondor.apana.org.au>
+References: <20260821151243.8125-1-raizudeen.kerneldev@gmail.com>
+ <apox0f2D6bYOYOnj@kernel>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
+In-Reply-To: <apox0f2D6bYOYOnj@kernel>
 
-Hi Sakari
-
-On Tue, Sep 08, 2026 at 11:12:45AM +0300, Sakari Ailus wrote:
-> On Tue, Sep 08, 2026 at 09:17:15AM +0200, Jacopo Mondi wrote:
-> > Hi Sakari
-> >
-> > On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
-> > > Hi Sakari, thanks for the review
-> > >
-> >
-> > [snip]
-> >
-> > > > > +
-> > > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
-> > > > > +{
-> > > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > > > > +	};
-> > > > > +
-> > > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> > > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> > > >
-> > > > Don't mask error codes! Just return the error code returned by
-> > > > v4l2_fwnode_endpoint_alloc_parse().
-> > > >
-> > >
-> > > With PTR_ERR() I presume
-> > >
-> > > > > +
-> > > > > +	/*
-> > > > > +	 * Link frequencies: the driver supports a single link frequency,
-> > > > > +	 * no need to check bitmap after this call.
-> > > > > +	 */
-> > > > > +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> > > > > +				     ep_cfg.nr_of_link_frequencies,
-> > > > > +				     mira016_link_freqs,
-> > > > > +				     ARRAY_SIZE(mira016_link_freqs),
-> > > > > +				     &mira016->link_freq_bitmap)) {
-> > > >
-> > > > Ditto.
-> > > >
-> > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > > > +		return -EINVAL;
-> > > > > +	}
-> > > > > +
-> > > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
-> > > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
-> > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
-> > > >
-> > > > Instead of callind v4l2_fwnode_endpoint_free() here and above, I'd add a
-> > > > label for error handling.
-> > > >
-> > >
-> > > ack
-> >
-> > I'll actually backtrack on this.
-> >
-> > Sashiko pointed out that mixing gotos and cleanups is probably not a good idea
-> > and this time, the bot is right.
+On Fri, Sep 04, 2026 at 08:19:53AM +0530, Mohamad Raizudeen wrote:
 >
-> I'm not quite sure what you mean. The general practice is that if error
-> handling is trivial and there's only a single location to unwind something,
-> you should do it on the site. In more complex cases use labels and gotos.
-> That's what we have here. (There are of course more complicated cases where
-> it's not that simple, but this isn't what we're discussing here.)
+> Just following up on this patch. Please let me know if you have any
+> feedback or if further changes are needed.
 
-include/linux/cleanup.h
+Please repost this patch by itself since it's not really part of a
+series.
 
- * Lastly, given that the benefit of cleanup helpers is removal of
- * "goto", and that the "goto" statement can jump between scopes, the
- * expectation is that usage of "goto" and cleanup helpers is never
- * mixed in the same function. I.e. for a given routine, convert all
- * resources that need a "goto" cleanup to scope-based cleanup, or
- * convert none of them.
-
-I take it as "do not mix gotos and cleanups"
-
-As the 2 cleanup paths are trivial, I would rather do not mix the two.
-
->
-> --
-> Sakari Ailus
->
+Thanks,
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
