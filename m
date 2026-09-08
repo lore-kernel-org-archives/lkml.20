@@ -1,196 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D1454B1CC;
-	Tue,  8 Sep 2026 13:52:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED3B2EC57C;
+	Tue,  8 Sep 2026 13:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875539; cv=none; b=fbRQtDmdOwlLi1QDDW5EWmXFt95/9JHU/aw6apMGaHjEHF3YKZzASn6hs9KTUvQxiqcaBv5CE2V2LRh74FHFHlxWdznjQ0VFkM4Zn7qWdc2wwhzbNRIeKLD1vNfrtN7Ws4tge/I84V8eAKP8RGP6QChUfdGaHnyO10KdlIHPcFM=
+	t=1788875556; cv=none; b=ULDFBxST7OyzzG/kRLMN1pTdfQlRXnqp+/ZAa+cJh2m/E+FADlGdkphnkxfZ9EsT64CTzxhDaB36VAbs5DjxhCOnBspGu/PyJWtWoZYgul4l25eEiw8EZ6a52I7j1DL0qJklQP14HHfRda6PumQr7tqZGb8WDXE/BG6OLmm/Mj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875539; c=relaxed/simple;
-	bh=KHDIh335W8FKetHqgUJZAilYRrFY8ilqgzc0OxsOTfE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gMIMs24r+ih28J5Jmq+W5Skqlz6XVufoK620NGHzE8UuVuf/0GRQ6Ij5/ZDV4I+xVaar/EDeRagQuoXyg7EZ3ZYEZXVocien1ME+dtmYmghxvTNZS8pCxLlBlaglw7MWuuO3tEchkaEieDjQwyGe3EhBxUrnwGAeC+M9I9YZcRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdfYkuV6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788875556; c=relaxed/simple;
+	bh=YQzSOrb6cF+q4UjJOTZpHg5tKXZxtJ7bqpsBK6wGFiE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Gp7WAMXP7Nn7vj7QMDgtcr+tLauMJyTr0gFj8FQKI3cbGWOahV1ofubdsI2JdOzIDPANGaE6BVA9ZP93lw8OpS+CpsbZT2naJQJF2SWZ1rSiDeHW7L9HeZyxXihGudRNYr2nfFT17FbDb3+wOgciCQUrp+UEIYgcWXcHFwupaC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Gez3hxu8; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdfYkuV6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC24B1F00A3E;
-	Tue,  8 Sep 2026 13:52:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788875524;
-	bh=6kczmrPAUogSYXZZ+xxo8bL8jMA/tFmXj3bQ+IC2xRQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hdfYkuV6xeUH2S6Q+QtzgR+3pVWXzHTRUCvHcyhdEZt8PVcgIXAC002vdQo9mo8Rn
-	 YHOYP5gHWieUOEJwHEqM8ENToViQzIareRHLM8Ha8X5aVR82QP0fU2IewbK/3bqP5v
-	 xL4h+XtBdkoQFonQesAT+1hjqUQ0wDcXasz59emqgCP80Mf4vnQEOj40ulgIcFvQ/V
-	 AmROXWB5pqz2v2yvd6yfl0C+XB3iccrOUEvg+DFM4vp4hggxnH4kqbOFjDB9ki0iR/
-	 +sn7i3tFBS4RO61PrkgZJTG1SKKbFdybDvj3Pq9yX2NcC237Yuw/cxdc9+Dm1QPTlU
-	 SWEo19qZcOdaA==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Krishna Iyer <kiyer@crusoe.ai>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v3 1/3] mm/damon: move damon_hugetlb_mkold() from vaddr to ops-common
-Date: Tue,  8 Sep 2026 06:51:53 -0700
-Message-ID: <20260908135156.97481-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908135156.97481-1-sj@kernel.org>
-References: <20260908135156.97481-1-sj@kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Gez3hxu8"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=VAXatVKGahitIUlqFkVj2QcQX1N1ATM06SDkNFJyLQ4=; b=Gez3hxu8ldF098qehu+vYdRXv7
+	iwPSK7oxGamRMi1ZkTPWAfhNFjfteuEP8KsuvWz8vgUv6T7SLLR/IavF1xqL8xYvyriN2lC/HInR6
+	Vg/j5qOOzVmgPqboO+SBUYbeqgmU49RgVDQw2wzKsPLXfD64ON1cqkyhkLzf6FUMdMTs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3wF7-003uBS-95; Tue, 08 Sep 2026 15:52:09 +0200
+Date: Tue, 8 Sep 2026 15:52:09 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yury Norov <yury.norov@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Raju Rangoju <Raju.Rangoju@amd.com>,
+	Prashanth Kumar K R <PrashanthKumar.K.R@amd.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Jian Shen <shenjian15@huawei.com>,
+	Jijie Shao <shaojijie@huawei.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	intel-wired-lan@lists.osuosl.org, linux-usb@vger.kernel.org,
+	Yury Norov <ynorov@nvidia.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 7/9] net: phy: use linkmode operation return values in
+ phy_device.c
+Message-ID: <67ed1522-cec8-4137-85df-ffbae654e07c@lunn.ch>
+References: <20260907215439.409858-1-ynorov@nvidia.com>
+ <20260907215439.409858-8-ynorov@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907215439.409858-8-ynorov@nvidia.com>
 
-From: Krishna Iyer <kiyer@crusoe.ai>
+> -	linkmode_and(sfp_support, port->supported, caps->link_modes);
+> -	if (linkmode_empty(sfp_support)) {
+> +	if (!linkmode_and(sfp_support, port->supported, caps->link_modes)) {
+>  		dev_err(&phydev->mdio.dev, "incompatible SFP module inserted, no common linkmode\n");
 
-damon_hugetlb_mkold() clears the accessed bit of a hugetlb-mapping huge
-PTE and propagates the aging to secondary MMUs via
-mmu_notifier_clear_young(), spanning the whole huge page size.  It
-currently lives in vaddr.c, and is thus usable only by the virtual
-address space monitoring operations set.
+From a readability perspective, i like linkmode_empty(). It is more
+obvious than !linkmode_and().
 
-The physical address space monitoring operations set will need the same
-logic, to support access monitoring of hugetlb-backed memory.  Move the
-function to ops-common as-is, with no behavioral change.  A follow-up
-change will use it from the folio-granular rmap walkers.
+None of this code is in the hot path. So we should put readability
+above performance. 
 
-Link: https://lore.kernel.org/20260902025700.17975-2-kiyer@crusoe.ai
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Krishna Iyer <kiyer@crusoe.ai>
-Reviewed-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/ops-common.c | 37 +++++++++++++++++++++++++++++++++++++
- mm/damon/ops-common.h |  9 +++++++++
- mm/damon/vaddr.c      | 34 ----------------------------------
- 3 files changed, 46 insertions(+), 34 deletions(-)
+>  	/* Some PHYs may advertise, by default, not support EEE modes. So,
+>  	 * we need to clean them. In addition remove all disabled EEE modes.
+>  	 */
+> -	linkmode_and(phydev->advertising_eee, phydev->supported_eee,
+> -		     phydev->advertising_eee);
+> -	linkmode_andnot(phydev->advertising_eee, phydev->advertising_eee,
+> -			phydev->eee_disabled_modes);
+> -
+>  	/* There is no "enabled" flag. If PHY is advertising, assume it is
+>  	 * kind of enabled.
+>  	 */
+> -	phydev->eee_cfg.eee_enabled = !linkmode_empty(phydev->advertising_eee);
+> +	phydev->eee_cfg.eee_enabled =
+> +		linkmode_and_andnot(phydev->advertising_eee,
+> +				    phydev->advertising_eee,
+> +				    phydev->supported_eee,
+> +				    phydev->eee_disabled_modes);
 
-diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-index 7219c608b1952..995cc1f3b9f32 100644
---- a/mm/damon/ops-common.c
-+++ b/mm/damon/ops-common.c
-@@ -3,6 +3,7 @@
-  * Common Code for Data Access Monitoring
-  */
- 
-+#include <linux/hugetlb.h>
- #include <linux/migrate.h>
- #include <linux/mmu_notifier.h>
- #include <linux/page_idle.h>
-@@ -103,6 +104,42 @@ void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr
- #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
- }
- 
-+#ifdef CONFIG_HUGETLB_PAGE
-+static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
-+		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
-+{
-+	unsigned long psize = huge_page_size(hstate_vma(vma));
-+
-+	if (!pte_young(*entry))
-+		return false;
-+	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
-+	*entry = pte_mkold(*entry);
-+	set_huge_pte_at(mm, addr, pte, *entry, psize);
-+	return true;
-+}
-+
-+void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	bool referenced = false;
-+	pte_t entry = huge_ptep_get(mm, addr, pte);
-+	struct folio *folio = pfn_folio(pte_pfn(entry));
-+
-+	folio_get(folio);
-+
-+	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
-+	if (mmu_notifier_clear_young(mm, addr,
-+				     addr + huge_page_size(hstate_vma(vma))))
-+		referenced = true;
-+
-+	if (referenced)
-+		folio_set_young(folio);
-+
-+	folio_set_idle(folio);
-+	folio_put(folio);
-+}
-+#endif	/* CONFIG_HUGETLB_PAGE */
-+
- #define DAMON_MAX_SUBSCORE	(100)
- #define DAMON_MAX_AGE_IN_LOG	(32)
- 
-diff --git a/mm/damon/ops-common.h b/mm/damon/ops-common.h
-index 38d295488fa18..f7811c9c7a024 100644
---- a/mm/damon/ops-common.h
-+++ b/mm/damon/ops-common.h
-@@ -9,6 +9,15 @@ struct folio *damon_get_folio(unsigned long pfn);
- 
- void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr);
- void damon_pmdp_mkold(pmd_t *pmd, struct vm_area_struct *vma, unsigned long addr);
-+#ifdef CONFIG_HUGETLB_PAGE
-+void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
-+		struct vm_area_struct *vma, unsigned long addr);
-+#else
-+static inline void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+}
-+#endif	/* CONFIG_HUGETLB_PAGE */
- void damon_folio_mkold(struct folio *folio);
- bool damon_folio_young(struct folio *folio);
- 
-diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index 91a0d441c1f94..af9e1b82454cc 100644
---- a/mm/damon/vaddr.c
-+++ b/mm/damon/vaddr.c
-@@ -283,40 +283,6 @@ static int damon_mkold_pmd_entry(pmd_t *pmd, unsigned long addr,
- }
- 
- #ifdef CONFIG_HUGETLB_PAGE
--static bool damon_hugetlb_ptep_mkold(pte_t *pte, struct mm_struct *mm,
--		struct vm_area_struct *vma, unsigned long addr, pte_t *entry)
--{
--	unsigned long psize = huge_page_size(hstate_vma(vma));
--
--	if (!pte_young(*entry))
--		return false;
--	*entry = huge_ptep_get_and_clear(mm, addr, pte, psize);
--	*entry = pte_mkold(*entry);
--	set_huge_pte_at(mm, addr, pte, *entry, psize);
--	return true;
--}
--
--static void damon_hugetlb_mkold(pte_t *pte, struct mm_struct *mm,
--				struct vm_area_struct *vma, unsigned long addr)
--{
--	bool referenced = false;
--	pte_t entry = huge_ptep_get(mm, addr, pte);
--	struct folio *folio = pfn_folio(pte_pfn(entry));
--
--	folio_get(folio);
--
--	referenced = damon_hugetlb_ptep_mkold(pte, mm, vma, addr, &entry);
--	if (mmu_notifier_clear_young(mm, addr,
--				     addr + huge_page_size(hstate_vma(vma))))
--		referenced = true;
--
--	if (referenced)
--		folio_set_young(folio);
--
--	folio_set_idle(folio);
--	folio_put(folio);
--}
--
- static int damon_mkold_hugetlb_entry(pte_t *pte, unsigned long hmask,
- 				     unsigned long addr, unsigned long end,
- 				     struct mm_walk *walk)
--- 
-2.47.3
+So, which is more readable, the original or this?
+
+	Andrew
