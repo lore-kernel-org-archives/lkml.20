@@ -1,130 +1,314 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B27D3A0EB8;
-	Tue,  8 Sep 2026 20:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3198C434989;
+	Tue,  8 Sep 2026 20:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788897990; cv=none; b=YNAhK36HWiB1jTWWbQJ3OohaDkN5ygDhRv4u1VJz0EIDRddh3nqDvHnF+G4CLojAtrZe11OG4lOC4nx7oKKtZ8N6+BcCRiBAjnih/rmiLq7Knije+UUh3JaBq6zgOY2QzeO40NhIwf4REmze444ic+rKDKTZhwX94yb1gwXRE54=
+	t=1788898006; cv=none; b=oXzzhybY+bZh10L1w3MBHCypTmoDXr0sqBO/L0lEnnC57WM5RCF8MDy4ttULSx6q2t3z4tkjzuDPihponM7AmoiX4rc/+7UO3Sa2/iWv9jPuSWQquy3hCOn79Ph/b4gaWo60DkRWzOI9Aw4XGqPitaBkmCyKoJ7h6z/oPD2x+zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788897990; c=relaxed/simple;
-	bh=iz9z7KReodlK2q8cUqb2rVtIgOTMExJlKh+c7EdFhRE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ap/5C/d9xc/gDnsZyCHceZbX+851E2Ro8lwXiGP31Ab5cnVa+DSST1Fk4ATnUIYbRPctRkWKi3xYPcatp3Gj7370bksXqpwPRbtFFCnX36OPTFeVViaoir+XCRplo8vnGxz76RIHZIfF+4kw0dgiqJ8BgO/7p+zfQi7GuUEsDyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=duPYE1Xm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788898006; c=relaxed/simple;
+	bh=Kga81qu7Oz3OCjE2VFbHFuLAyKOVWZ4qEDtF1PVGOsw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=spBomKH9vsYbiZ0UTW3FLCwd6otXJYg2lnpmIS8MjAm2+ekrk151MbvyJj9ZRPKTjNG/AU9qyF5P2OWXCBO2K+OTl/LVQsfoSst7lXcmVqWtH8PutzDHR4UhTevp3h+NKScJ7857S9DWqjLU7biLOcohnp3sHCpvPDiZOY7wkjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nAFFF8kU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="duPYE1Xm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDAE61F00A3D;
-	Tue,  8 Sep 2026 20:06:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nAFFF8kU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BA7F1F00A3A;
+	Tue,  8 Sep 2026 20:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788897989;
-	bh=7lK58BGvbT+0KFsfL00ur7tIOSKYjNnYpM36ZLoBwxw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=duPYE1XmufUDIvM963zEHdnWYrnlHMl5CNEYCKBx5IX5+RbuTsWEd7rhrP0WMbqNq
-	 WSZsT5ANJf0+Srhu3FLjfA4vSjn0cSm89fRj5f/9/HOD7R3DoGsRjswAdbtkWzuPIk
-	 GHBChwMesKv4Qs+U/woQKb6nIJzMpCU7OB/m8LRSScdanIRsFsSB0Pcm74hlBHs5/8
-	 3NCICDrZCR1Ka4q8qT+/yBg0B/br0i3pgBw5lWPUr8hgHl81Q4DrBzOlKeckUykNj6
-	 dFbYbJ8P48q5O81Hkgnv99PSBR55ytmR1RiXhNy9sDeDvoAaT3H4akABOHS8Ns8ZVS
-	 Kw/BcrSUmisyw==
-Date: Tue, 8 Sep 2026 21:06:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Chen Wang <unicorn_wang@outlook.com>,
-	Inochi Amaoto <inochiama@gmail.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Keguang Zhang <keguang.zhang@gmail.com>, linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: Re: [PATCH v5 0/8] Add StarFive JHB100 syscon modules
-Message-ID: <20260908-plaything-clutter-a72865edd110@spud>
-References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+	s=k20260515; t=1788898005;
+	bh=Q1zSXCuuemMYSZ+ATEEeV/0Jgsd6l+I3SUQ2G9I+xWQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=nAFFF8kULWGDtynQ1ptaTKgtwlADNVTMJQzH9XDZPaYvYCKiMrLjdGKXP9p4DzLES
+	 1IxJ2YXF+5EfIeFpLwZ47ZZU+ydsAaQYvfyiviYwez6sZf8Ka/2v8iw30Bsqey0Bzy
+	 hUekG1qis3YlBMAA2XEO06XY5v8B2T9kHQVzC+OBPtEp0yIm98MeGB6i2ZyV5GRBFz
+	 c07oX/1c5GK2D2RJ4GN/q++PPjmZjvOpzr7IxT2B2PMx/SnyguYWIV3H3ikbyvrJhF
+	 WhDPOrlqEwEt6qc3Oew4hW1unMOTBuwcErdgQhLim2QXogQv5C95YoT73t7g6MaCo8
+	 U9zjDfC5khPKw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Tue, 08 Sep 2026 21:01:13 +0100
+Subject: [PATCH 09/39] drivers/usb/mon: update to use mmap_prepare + map
+ kernel pages
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XrPUIry8dt0NQeQF"
-Content-Disposition: inline
-In-Reply-To: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-9-dacf19cce22b@kernel.org>
+References: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+In-Reply-To: <20260908-b4-mmap-prepare-vma-flag-sanify-v1-0-dacf19cce22b@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonathan Corbet <corbet@lwn.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, 
+ Paul Moore <paul@paul-moore.com>, 
+ Stephen Smalley <stephen.smalley.work@gmail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Doug Gilbert <dgilbert@interlog.com>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ "Martin K. Petersen" <mkp@kernel.org>, Jaya Kumar <jayalk@intworks.biz>, 
+ Simona Vetter <simona@ffwll.ch>, Helge Deller <deller@gmx.de>, 
+ Sebastian Reichel <sre@kernel.org>, John Hubbard <jhubbard@nvidia.com>, 
+ Peter Xu <peterx@redhat.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Anup Patel <anup@brainfault.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Michal Hocko <mhocko@kernel.org>, 
+ Miklos Szeredi <miklos@szeredi.hu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, selinux@vger.kernel.org, 
+ linux-sound@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-trace-kernel@vger.kernel.org, 
+ linux-perf-users@vger.kernel.org, linux-arch@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ kvmarm@lists.linux.dev, linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-s390@vger.kernel.org, sparclinux@vger.kernel.org, 
+ fuse-devel@lists.linux.dev, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6164; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=Kga81qu7Oz3OCjE2VFbHFuLAyKOVWZ4qEDtF1PVGOsw=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLIWZG6cuEiV50DhpRlXMmoT/tWx+xWIJD363xO/cd5xO
+ 65TdbnfO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCR64mMDF1i281jpHf15u/h
+ v+FZPH+fqPcFzyURLa9TgyafWdXt+Zrhf/mCRbffzl3VNUUn78jH5j2PbzOceMTNuN3lxiXR5tV
+ Wv9kA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
---XrPUIry8dt0NQeQF
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Replace the deprecated .mmap hook with its replacement .mmap_prepare. As
+part of this change, additionally take the approach of mapping pages upon
+mmap rather than providing a fault handler.
 
-On Fri, Aug 28, 2026 at 02:56:00AM -0700, Changhuang Liang wrote:
-> StarFive JHB100 has many syscon modules, as listed below:
-> - pcieep0_ecsr_syscon	(PCIe endpoint 0 externel syscon)
-> - pcieep1_ecsr_syscon
-> - host0_syscon		(Host0 syscon)
-> - host1_syscon
-> - husb0_syscon		(Host USB 0 syscon)
-> - husb1_syscon
-> - husbd0_syscon		(Host USB device 0 syscon)
-> - husbd1_syscon
-> - husbcmn_syscon	(Host USB common syscon)
-> - gpu0_syscon		(GPU0 syscon)
-> - gpu1_syscon
-> - b2h_syscon		(BMC to Host syscon)
-> - h2b_syscon		(Host to BMC syscon)
-> - vout_syscon		(Video output syscon)
-> - pcierp_ecsr_syscon	(PCIe root port externel syscon)
-> - pcierp_syscon		(PCIe root port syscon)
-> - usb_syscon
-> - npu_syscon
-> - per0_syscon		(Peripheral 0 syscon)
-> - per1_syscon
-> - per2_syscon
-> - per3_syscon
-> - sys0_syscon		(System 0 syscon)
-> - sys1_syscon
-> - sys2_syscon
-> - strap_syscon
-> - sfc0_filter_syscon	(SFC0 filter syscon)
-> - sfc1_filter_syscon
-> - sfc2_filter_syscon
->=20
-> Some syscon modules contain PLL, reset, and socinfo nodes
->=20
-> This series depends on the series:
-> https://lore.kernel.org/all/20260807112923.191627-1-changhuang.liang@star=
-fivetech.com/
+The page span cannot be mutated when an mmap mapping is in place, so this
+is safe to do in advance (the MON_IOCT_RING_SIZE ioctl operation exits
+-EBUSY if it's attempted, gated by the rp->mmap_active reference count).
 
-I tried to apply the soc patches, but they depend on this so I can't.
-Can you get someone from Starfive, ideally one of the listed clock
-maintainers, to review that series?
+Utilise the newly introduced mmap_action_map_discontig_kernel_pages() to do
+this, which allows for iteration over pages in mon_bin_discontig_get().
 
-If you look here, about half the patches are missing a review:
-https://patchwork.kernel.org/project/lei-conor/list/?series=3D1142160
+mon_bin_discontig_init() increments the rp->mmap_active reference count to
+stabilise page spans. Should an error arise the core unmaps the VMA and
+mon_bin_vma_close() drops the reference again.
 
-If you do that, I'll try to sort out getting a PR sent to the clock
-folks for it and figuring out how these bits can go on top.
+The vm_ops->close hook implemented in mon_bin_vma_close() will ensure
+correct reference count arithmetic upon unmap (with mon_bin_vma_open()
+accounting for splitting).
 
-Thanks,
-Conor.
+The existing semantics are all retained, including not mapping past the
+range of available pages, with a SIGBUS being raised in a userland process
+that attempts to access past this point.
 
---XrPUIry8dt0NQeQF
-Content-Type: application/pgp-signature; name=signature.asc
+Ultimately insert_page() is invoked to insert each page, which increments
+the reference count on each mapped page. This mimics what was being done
+previously, only we pre-map the entire range rather than doing so on
+demand.
 
------BEGIN PGP SIGNATURE-----
+The existing fault handler did nothing that required demand paging, and was
+presumably implemented this way due for historic reasons.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBqvgAKCRB4tDGHoIJi
-0pcXAP9wGUx5B0ugAlKrI+SAFNcGs2S5MjPe4f3L4H5VI0pZPAEAs3hu83T9jjU1
-QBx5LgX5pS+DNjwx5P2Effhh0mKzIgQ=
-=h5Z6
------END PGP SIGNATURE-----
+One behavioural difference: pages are no longer faulted in on demand, so a
+page discarded with MADV_DONTNEED is not repopulated and a subsequent
+access raises SIGBUS, as with other pre-populated kernel mappings.
 
---XrPUIry8dt0NQeQF--
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ drivers/usb/mon/mon_bin.c | 82 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 53 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/usb/mon/mon_bin.c b/drivers/usb/mon/mon_bin.c
+index 687f6a8981f3..9d00b21a8153 100644
+--- a/drivers/usb/mon/mon_bin.c
++++ b/drivers/usb/mon/mon_bin.c
+@@ -1219,6 +1219,15 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ 	return mask;
+ }
+ 
++static void __mon_bin_vma_open(struct mon_reader_bin *rp)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&rp->b_lock, flags);
++	rp->mmap_active++;
++	spin_unlock_irqrestore(&rp->b_lock, flags);
++}
++
+ /*
+  * open and close: just keep track of how many times the device is
+  * mapped, to use the proper memory allocation function.
+@@ -1226,64 +1235,79 @@ mon_bin_poll(struct file *file, struct poll_table_struct *wait)
+ static void mon_bin_vma_open(struct vm_area_struct *vma)
+ {
+ 	struct mon_reader_bin *rp = vma->vm_private_data;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&rp->b_lock, flags);
+-	rp->mmap_active++;
+-	spin_unlock_irqrestore(&rp->b_lock, flags);
++	__mon_bin_vma_open(rp);
+ }
+ 
+-static void mon_bin_vma_close(struct vm_area_struct *vma)
++static void __mon_bin_vma_close(struct mon_reader_bin *rp)
+ {
+ 	unsigned long flags;
+ 
+-	struct mon_reader_bin *rp = vma->vm_private_data;
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+ 	rp->mmap_active--;
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ }
+ 
+-/*
+- * Map ring pages to user space.
+- */
+-static vm_fault_t mon_bin_vma_fault(struct vm_fault *vmf)
++static void mon_bin_vma_close(struct vm_area_struct *vma)
+ {
+-	struct mon_reader_bin *rp = vmf->vma->vm_private_data;
++	struct mon_reader_bin *rp = vma->vm_private_data;
++
++	__mon_bin_vma_close(rp);
++}
++
++static const struct vm_operations_struct mon_bin_vm_ops = {
++	.open =     mon_bin_vma_open,
++	.close =    mon_bin_vma_close,
++};
++
++static int mon_bin_discontig_init(void *vm_private_data, void **private)
++{
++	struct mon_reader_bin *rp = vm_private_data;
++
++	/* Dropped by mon_bin_vma_close() on unmap, including on error. */
++	__mon_bin_vma_open(rp);
++	return 0;
++}
++
++static int mon_bin_discontig_get(struct discontig_kernel_page_state *state)
++{
++	struct mon_reader_bin *rp = state->vm_private_data;
+ 	unsigned long offset, chunk_idx;
+-	struct page *pageptr;
+ 	unsigned long flags;
+ 
+ 	spin_lock_irqsave(&rp->b_lock, flags);
+-	offset = vmf->pgoff << PAGE_SHIFT;
++
++	offset = state->pgoff << PAGE_SHIFT;
+ 	if (offset >= rp->b_size) {
+ 		spin_unlock_irqrestore(&rp->b_lock, flags);
+-		return VM_FAULT_SIGBUS;
++		discontig_kernel_map_abort(state);
++		return 0;
+ 	}
+ 	chunk_idx = offset / CHUNK_SIZE;
+-	pageptr = rp->b_vec[chunk_idx].pg;
+-	get_page(pageptr);
+-	vmf->page = pageptr;
++	discontig_kernel_map_page(state, rp->b_vec[chunk_idx].pg);
++
+ 	spin_unlock_irqrestore(&rp->b_lock, flags);
+ 	return 0;
+ }
+ 
+-static const struct vm_operations_struct mon_bin_vm_ops = {
+-	.open =     mon_bin_vma_open,
+-	.close =    mon_bin_vma_close,
+-	.fault =    mon_bin_vma_fault,
++static const struct discontig_kernel_page_ops mon_discontig_ops = {
++	.init = mon_bin_discontig_init,
++	.get = mon_bin_discontig_get,
+ };
+ 
+-static int mon_bin_mmap(struct file *filp, struct vm_area_struct *vma)
++static int mon_bin_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	/* don't do anything here: "fault" will set up page table entries */
+-	vma->vm_ops = &mon_bin_vm_ops;
++	const struct file *filp = desc->file;
+ 
+-	if (vma->vm_flags & VM_WRITE)
++	if (vma_desc_test(desc, VMA_WRITE_BIT))
+ 		return -EPERM;
+ 
+-	vm_flags_mod(vma, VM_DONTEXPAND | VM_DONTDUMP, VM_MAYWRITE);
+-	vma->vm_private_data = filp->private_data;
+-	mon_bin_vma_open(vma);
++	desc->vm_ops = &mon_bin_vm_ops;
++	vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
++	vma_desc_set_flags(desc, VMA_DONTEXPAND_BIT, VMA_DONTDUMP_BIT);
++	desc->private_data = filp->private_data;
++
++	mmap_action_map_discontig_kernel_pages(desc, NULL, &mon_discontig_ops);
+ 	return 0;
+ }
+ 
+@@ -1298,7 +1322,7 @@ static const struct file_operations mon_fops_binary = {
+ 	.compat_ioctl =	mon_bin_compat_ioctl,
+ #endif
+ 	.release =	mon_bin_release,
+-	.mmap =		mon_bin_mmap,
++	.mmap_prepare = mon_bin_mmap_prepare,
+ };
+ 
+ static int mon_bin_wait_event(struct file *file, struct mon_reader_bin *rp)
+
+-- 
+2.55.0
+
