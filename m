@@ -1,68 +1,69 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAC985592F5
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8190E339386
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 13:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873873; cv=none; b=n/EUcTGkyBgvW9NGPpQ89klwNBvPu0IRvxgkCFr+Oz9TSASjufP9/ciF8n6Ew8bYAYrp2C3XYw/P81kvxpdjdCCjadvxmN8tT2mvoLwmBDVNiO/wNyQloIFRh0EM4wUUdGkKIXP4fRCG0wsQH6rRmgXwxZi39U7YvxJblXF281A=
+	t=1788873882; cv=none; b=rgyyk+PVHluVSOxs+tYE/WWfiK/zbjnlna0BpowPqAdiRr0bkkxUmPXvwKoRXB7fYsnvSReB/o1fIf+fSmKsKivOY9c6jdpWU68lgXHXaRBpeEsuDRA22hlYt5Zh6hjWnOASnj9MWTxAcw0KdhsbLt/hqtGK2pqcmfydQ/j2AYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873873; c=relaxed/simple;
-	bh=5i9UIVCMxH7Rf1YAYLFze1m/DXMlN3h6KBiETNgPf/0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AAi/uk48r7TB+2AyUkYYpgBVQnYLAbFU1CBmmR7uo9etF4VKal+6krhXb4iArZmNtx5gOFfXM1+XJE7XHzdJaC6rAptt2cTd3LDXnyDjz66NEUkF7SgeiCR1g20FbPwhWaOqjguxPleTA2cNJV9MNfF1zZjLCDNCNpsb2gxqT8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZjOsaYKJ; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1788873882; c=relaxed/simple;
+	bh=lTxs5IQG2/5Kmpd54ZU4s/260yixN2la81LhVDZBsks=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YXqw2h6Hj/Otlta/F814NFr0JFHssuq7PcnrmiZjO3Y8V3IJIN48m565dznd3l1+vmyvYTYzTRElHaOYe+JopF5D3TogrD78uR+ocLVsExqySL9qV8AYeutTmif24ApqQU54pRgfYKAQUmp0eGa5H3cpnMqFk0sKQsvIGDnClR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FoQB2vL8; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZjOsaYKJ"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso39065795e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:24:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FoQB2vL8"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49cf4f81d86so36417705e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 06:24:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788873861; x=1789478661; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6G1+mRZXQkoxNNx9BRw+gGVfxUdpfs+D6xhoh1wgQ4M=;
-        b=ZjOsaYKJsrVRfzNO5iIex3JdMUD9GeADsl1VobPuVM3F+ROYuTHpyO2XFFTgXPEtdM
-         fvA0YMAOZ3RSkFHuRyviQun5zZJmHA6Y4TpQbr1S9or2PiVf7Hi9oHKz6kFBxmn2Yj5c
-         44NHIhiIGRvWzo5ouvyETGlkPhFBFWp88LbzxufEdi5BjVC4PqAbQZV0UBfXEuitMI/k
-         DD/ypJh6AkLeGKojrYMWomotNUNV8aUbBUA7EjTZjRUSWQeRDVrrd74DINHOztn4aSwn
-         BCz5sySil4r/0e2WJf+q4LppRYYHhd13I5Fu0Z6G0rjByWIoMHCVBy8VYY4qZZM9ELsm
-         8QvQ==
+        d=linaro.org; s=google; t=1788873864; x=1789478664; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x0TR0sJR5elynErLxudc3GJkwyMUOKu74/0krFherX0=;
+        b=FoQB2vL8409lc5TQwU1tuQj/LOYKQTb6u7XjHaaklTW/hI14XqbEm33F0YvGbaEkPu
+         bbe+FcSZ0a3YVP65USjOui/eVQJPAntqBgpm43+N0XI02AgRQLYe0Rj7WZ4+Zl0u1fyq
+         BjnbLJPAVpsnpc9hR+PfB1FNIHFZghkjk6BpxL+tUBMMRYOufrXWZ9l+7C0KpVlFrUEr
+         yDnQcH9ykndGjaTnfoPrKXol4OafR2CH/o+tL6dwWL/+m/CyAOtRIr1I3M1Jh7ubSBIz
+         ce+5p7m/cYj3uDcGUGJG2Du/Nqso6y3h/I/qSkALaSJFu3RhyOLQC/IDVoFqslFp5ATB
+         6bMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788873861; x=1789478661;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6G1+mRZXQkoxNNx9BRw+gGVfxUdpfs+D6xhoh1wgQ4M=;
-        b=GsChNuZzUdZeIowpG9FNZ61h7zzHpKDTDXhvy7FeDvOLs/qSkkcQOeIOVPvJ6aQa2q
-         w6out4x4c10THXbiANTLkFH+vqBiKqRHs+ZAgcDIplmxfnx8lt35kDPDXgdqwCZsYOBR
-         eT5ZjMc/F//mIK+OESD/o5U1NxNOn6Urhmc0EWegipKezm1pufDzwvH2s0vRZtXEQTUv
-         frithEZReaR40mIcnVFZlkRfKdXRwdx9/AvBtQll3KV5a1xjvUQUQ/dKgQhLpZei4R4v
-         lqL8UW7/uw7d1TfNFBCjbVgpY9ycBcZgWjLzkvVQB8qCLgKB81xHmmaBbNlcyihXXInj
-         AH8A==
-X-Forwarded-Encrypted: i=1; AKwUvBw6u0nNkPsMbtgq2rfEOlU3paikKwsubbkozyv1uZpaP5yQF4U3VHCjpYOVqOLkiUgcwIqoits3AiEH2Hw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxQTfNXWX36tXX7nBGJiGF4aFfIeApxLmEmEj/M2UDBW2qlFX3
-	wP4WSBEwArB5Heyhul556JjHoXFHGTQswioWrMPj+Y3aKycHnUr4jZ62DDVNIlASQF8=
-X-Gm-Gg: AYBFou3xKTYLI7pxtajPmEIjwTnfO+zdOiykeCKovqpgUFc2/+q3KH6rkx08ag6+RK0
-	PIPd2Pb3ZLs/QHypKyn7DpTOjWOitSSL3FCzSGYezujSgCVzuAO0m//9PmRUJlDFLvpSq3mNQ0Q
-	e38PwEsA8+uCXYEvjW6ItdTlTMQPIXlv7EjL7rZ7hUwmmNv1T8WRbDOaG2Cia+y3ceDliCPdw04
-	RVk3PYbNWTQoR8nECTgWrfvsT4boOgAjcMHWM/Eqw5+eHoRzbTnJjwElaygmQBhuBM0T1sRfu0z
-	C3Cf6DResSjCao7eU783+lPUi6d5bnRZvRMxHiJ7qxOu4yxEVJfjkHIM3M6TBFm8UyuPFzGHpOL
-	Io0qmWWSyG6UAsMnaLwph4DGzEIej5W6v3HpGtH/iTGzmg/bfGIo2JQbIDPVlS0kEMmzUtvp8qF
-	PFM9xsuxVB/sFrBOEnTULIs/zQ83C/Bg9QEdB6jdWPa1v6GZXSBXhQbEN5fx01t8QNpJH/xzN3W
-	jH8feDTTNuGY8kY+6w=
-X-Received: by 2002:a05:600c:3b99:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49cf81fb72amr306665585e9.1.1788873861249;
-        Tue, 08 Sep 2026 06:24:21 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788873864; x=1789478664;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x0TR0sJR5elynErLxudc3GJkwyMUOKu74/0krFherX0=;
+        b=qZvtSS+r9yYN5LSO/jhJK93aHKALhin2DBnIXqqqW7FPr79VGGsS/Gawll3aEd5gzn
+         XLsZJvj7iViKAhMl3Y0G/1d1r40lpQQWFFXEcuiurie8BoX2w8Oik46B9kPUsOs4soZS
+         anC0ITnFHGMtljN029gwsJ384t2TdlzNY+xzWT98h0JUNsUayXcjMBVLNSlu5Am1Vq7Z
+         sMxsR6rx1w57kAFwBUmL+S5NtmnA4JxMEY68pkSwLM3U+je4PIXFmlR5JWDkL34CzxsN
+         dU+tu1oR0gOpACoZMUddBkAayPE45wTkkVW8cBMVMw47JVszksWm6SQxEIjrhJsabD86
+         uJyg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/6tCaNsZUWMQcovDI38y6mLaYKAB3wnNgtQ/S8BlAje0CdaxUbD+fIEkevSTokO8/L70sK22OlO4MzTk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYh0I2XtB+bFUdMCTG/afnidj0LuIIdKQRCF2Vfg5/Uj9DxERS
+	6/B3SxXlyYVtnXotttgi5bWBDqAte3HroZbHWVQcIA23h1b8Rs5WDqy3dHkbxwaJWv8=
+X-Gm-Gg: AYBFou3vgPNVxO2yDNywXxp6SzejTRFC754K735UNPgO2L3n0SybKleCVk2DEpViuiB
+	5uPt/iS20+emCSnyu6Zte9C9wRGYc84d8ROZ+xiZ16v+jOPMMbx2J63xfqBJI0TOElnpTSgAp7o
+	YWQwi1RS9UDSBFxYH/zRN3MT+XSLVkKRBXUyfnBrS5jTflgxEgzQs7/v4rmPhcMF/C9Ke3HTCuN
+	DvFIIm6q5ZxxfW/wREMQRER8WuhVjJV2IhUuvnZ1t0cutkhw8JAOOjGTDooQCtrv9xRu6qQ8mof
+	5Yc+F3/yDcn4yRJmB7pN3wDxf1I1X4rbSUUZgmymZNmw7MpuuGl3zngsP3D1OgDhxydJeWFq7d2
+	z087SAgnwceen7aCfx32I+qYcRL6pKct4DueLslyx4hqk/SA+HWnkO+pZjoYBvUN38omggLdS5J
+	QbrPx39QDTlr+3HlMz7VYXAkbSY05cBMDZ4hjxmDlXb1DgURpy0PJIBZZQVZ5qaVB9aIjX7qXlG
+	1fEDffV
+X-Received: by 2002:a05:600c:a49:b0:49c:fc6c:be0c with SMTP id 5b1f17b1804b1-49cffdc3823mr223604815e9.18.1788873864056;
+        Tue, 08 Sep 2026 06:24:24 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07b371afsm298959475e9.9.2026.09.08.06.24.17
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07b371afsm298959475e9.9.2026.09.08.06.24.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:24:19 -0700 (PDT)
+        Tue, 08 Sep 2026 06:24:23 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH 0/2] drm/msm/a6xx: use correct timestamp counter on A750
- GPU
-Date: Tue, 08 Sep 2026 15:24:12 +0200
-Message-Id: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+Date: Tue, 08 Sep 2026 15:24:14 +0200
+Subject: [PATCH 2/2] drm/msm/a6xx: Use CX AO Counter register for timestamp
+ on a750 GPUs
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,10 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHwMoGoC/yXNQQrDIBCF4auEWXfACmrSq5QurJnaKZiIY0Ih5
- O6x6e59m/9tIFSYBG7dBoVWFp6nhuulg/D2UyTksRm00lYNqsc6Zw4oqbdGYUwLetdG5URSfcp
- YKKImZ5whq90wQivlQi/+ni/3x9+yPD8U6i8N+34A0GmWDYcAAAA=
-X-Change-ID: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
+Message-Id: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-2-284880d6e68b@linaro.org>
+References: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
+In-Reply-To: <20260908-topic-sm8650-gmu-a750-timestamp-reg-v1-0-284880d6e68b@linaro.org>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
  Konrad Dybcio <konradybcio@kernel.org>, 
  Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
@@ -87,52 +87,55 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1069;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1479;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=5i9UIVCMxH7Rf1YAYLFze1m/DXMlN3h6KBiETNgPf/0=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoAx/YenaoUcdB02S0+EiVQFN3+Cn5TVKagHczqri
- yd7HPweJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqAMfwAKCRB33NvayMhJ0fFyEA
- CT6MZorhtSK+DxddSw8ZifeJms8srEumSB82m2rdioHDbaia2uNoBc9MNN6oGpwF7R0Fc4NPIORCrR
- 6SRWedpN6l2BZsZerPeHkOc2x+pbfysSQ49Y2bLY87/VNl+jY1i+EmNvJ9OPrmbkzSdU/axL1BdaNX
- sF9seowpQEh8Kxp/6znKRtaGe32Cp/atWYGCWPlNSH4cAYMuleZXT2TVyTdlKzHeSKmgtAFg5oypEu
- vlpQDrGoxbbBP/hvLG3SFqkWKBSKw9hZfJw60Ps3zKXYTpCrihpn9yWsotfKZ3P/lRgmO8UAOXochr
- I2+6kEySMOJzT4MoUn5dxCTvYKFLohFtBDkp8zeZTwqPLE0gU8vW2y++euha8wka4raBj2w+ksFGpw
- ngE/g4CdlVH6uuW5rkQv8JN6GGoNzsxg6OhGK+fWJZBNxD/4irxJfqySKkI8JjDGHZXmZVQRrfdczh
- oPLU1gD4W0mOpO2yqr6tY1mF+FhyANHCkESqxfv1dUkl/PSIBEsF1zYU1qq7dlVMdhUwHxpQOAqhio
- QUG4Sy2qnksS0d0SqFr1CnnvGKAiQ/dKNFeL0lQU+RY32aXI+HfLQ0jhfypB431UX9fwRcqsyVmixw
- 237oM1v96EF8VZ3JlS6uya6BgXtg3MRUoYejSVaB8tX/djNmgzAw9Y3d0jew==
+ bh=lTxs5IQG2/5Kmpd54ZU4s/260yixN2la81LhVDZBsks=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqoAyA4vMrnOAdDDnXQLU8O6CGKN2a6I2XPJXTMela
+ hNLPsbeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCaqAMgAAKCRB33NvayMhJ0VSND/
+ kBS12+xPAnWKPwxOBAPU+LYGk5mfWYdzc6F1rGMbrOGjUuZ1IdlN2lEaerEpIKZZyfmqoRal6xzkJo
+ e3g1wv8EglBOGdLCYua952EMQof9eVztL9slS5TzmrMWroAVQt3DoPPTmCr3qpSJf7s95NbOnPsE2o
+ 8BgAWYsh+0KanTlDewh8SGKfOA8TVcwA/9GHdBjLdj4LkoYjBYUNrJfTWC1tSV+uvW7o9F2SWwONlh
+ ncRA0BQA0D44aUtnfhBA66k+sVEU/Wpt9ng6Nft1DM+nJAMOcBdNIeYVAByHXvGYqSybmDw/aJmTd3
+ Ys8K4dOMl6awY/FYuLKl1SMXed70tc2zHGjAXA7eFmMQ2b8Qrpl29ORO1AHRaLzsULYqt8TusXrTzh
+ JHFVYGu0WrLe7XuPZuXKebgOPOxnGgLoJFBU0SmnzI7k8ZgsVY1fCfLtwdw3q/m1u9RREHTK8urfP7
+ 1S0VK6O5QJFUpMwgywYshFL9vwLcuy9JCoMNj4elA/uD05+aPLTqsRDCxIzibnNcUI1pDqtFOCYatY
+ DDdvL/CCJjtpwNHH2BF8EsH58egBOsfYMJbR6ocfU8ubYaU2HRG6Km4M/IsfoZNVwyjDMjmoHX7/uc
+ lmCrIaEGpHQqEgbmiBH1acXwplidq5roHDUpgS/YlbTlwWpNTe5V1HFamfAA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The A750 uses a different counter register as used on the downstream
-driver:
-
-static u64 gen7_9_0_read_alwayson(struct adreno_device *adreno_dev)
-{
-...
-	/* Always use the GMU AO counter when doing a AHB read */
-	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_HI, &hi);
-	gmu_core_regread(device, GEN7_GMU_CX_AO_COUNTER_LO, &lo);
-...
-}
-
-gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_LO		0x1f880
-gen7_reg.h:#define GEN7_GMU_CX_AO_COUNTER_HI		0x1f881
+The a750 uses the CX AO Counters instead of the GMU_ALWAYS_ON_COUNTER
+register on A6xx and other A7xx GPUs, use it when running a A750 GPU.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Neil Armstrong (2):
-      drm/msm/a6xx: Add CX AO Counter registers used for a750 GPUs
-      drm/msm/a6xx: Use CX AO Counter register for timestamp on a750 GPUs
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c             | 12 +++++++++---
- drivers/gpu/drm/msm/registers/adreno/a6xx_gmu.xml |  2 ++
- 2 files changed, 11 insertions(+), 3 deletions(-)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260908-topic-sm8650-gmu-a750-timestamp-reg-2e7575e6279d
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index f9de9329dee3..081e79ea4652 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -23,9 +23,15 @@ static u64 a6xx_gmu_get_timestamp(struct msm_gpu *gpu)
+ 	u64 count_hi, count_lo, temp;
+ 
+ 	do {
+-		count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
+-		count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
+-		temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++		if (adreno_is_a750_family(adreno_gpu)) {
++			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
++			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_L);
++			temp = gmu_read(&a6xx_gpu->gmu, REG_A7XX_GMU_CX_AO_COUNTER_H);
++		} else {
++			count_hi = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++			count_lo = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_L);
++			temp = gmu_read(&a6xx_gpu->gmu, REG_A6XX_GMU_ALWAYS_ON_COUNTER_H);
++		}
+ 	} while (unlikely(count_hi != temp));
+ 
+ 	return (count_hi << 32) | count_lo;
 
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+-- 
+2.34.1
 
