@@ -1,78 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7877055D86B;
-	Tue,  8 Sep 2026 15:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882390; cv=none; b=Ne/HT9bTKfJaw64epyvi5PjjkALdCVG6GKytVqluOmDf/XeOuAJ3SARO47CQqiM2W7VTAmPy8h0MQElkA93MR+w50Aw2deNjrz1kJ5qq2/61UL+HHsyi+SW4aJzjTY1ruP6M3M6kZHk1YJUYYMMA/nb5+W98faSp7SdwWXRR0QM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882390; c=relaxed/simple;
-	bh=7qYYfjyLc3tn8rvvC+NAQfgXS4Fq6g//NqNTayfF6Po=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=UtSptC4pREwx4a7tGV9a3eDKDrOXSlNxIDjdEIGHk+QdjDGp8+pUUgcAO4JPckjbAOzfZY7ZFVfMBleqpVu1uvDKeauoNiddVpITw83c69yU4+QWNcgm7uLrlb4vBCfJE8w87cNKJ0Q3lCz7DCU5EUIzniV0wSI/YhoFN/8YKB0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iOuSoqWw; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8917D563FD8
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 15:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788882446; cv=pass; b=UtsF+Ww5Es5v/qse0QnHj8thVGzZ1vrO20qsfIbKF9n6Sqlh6936EvIhyxn7I5W9hSRZOaKVQActOvPnMD3m4ViF8UVf2sQV8TahYcwQ4qfdmg5aRhwExOp7E0z1XqJdxlCkPvS2lfQU1r0tgQCNzMO27jyTfj3B2yrtfxtsaQs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788882446; c=relaxed/simple;
+	bh=/gsnZQcsbiXQbrVg5jm8zjgIYcac93sU5h0gQJ8gm6E=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MJ/dYjQrVImu8vmEu2yfOneAHKccXsL7yRUe3QS1A5B0ZXHzPea4mdP90CAJYVArCd/6IP/q7n1un0YYCWLMuoMUB08zDqXI5fyrgHSlCHjc1dKEXShXW5oW2MdrieXAGdodUBj2kXKPnXt3Uu24tPvdHjp2cO3lU67tVfc643E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=REqqusUE; arc=pass smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iOuSoqWw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19761F00A3A;
-	Tue,  8 Sep 2026 15:46:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882389;
-	bh=Kztwgkb4XTqQOeNq3XmEydkSmcGr+YU/Q1mfeqyJ2XQ=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=iOuSoqWw7qP1Yc/L/V2+cOdZ+MANRMYM6PGoeDgP1FDhSg0a8zU61yQhHe+bkv766
-	 Ilqn+T9ExMWwNOk+nzExpTBxaw8/zA9OyXKYkvRWtq0KbnDU/nq0sv+ri3N7Y0eBEF
-	 ZHHjnUJA3zLbVzSZZaf4tTNZrNX7POGgWY/MIUYF9L8MyNdGEjgzHp1czviMIsyAVk
-	 g13G43fgzkCEvbWLl9aCIoYpHSNwMdLNDI8shCjpzD8UuoWXNqQGeiGiCYhXQFrt7C
-	 qy6NFbi/9RCf69zbGtel9SNg8bbuf1hLQArT8FsYXuM4CV2MWcKbIptG/kqDqkkSgn
-	 VFbP8HdCdtTCA==
-Content-Type: multipart/mixed; boundary="===============2347235133467270577=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="REqqusUE"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-857ff9fef54so43921087b3.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:47:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788882443; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YgODAVrUUo5+CQpjxJ/GubB507DM5zRviYNhW2/8zD6WL7uPmQ9tBh7aZHLboRWX3p
+         T1lkE371nOH83ZkgUyEEaMVSeRcOL/idq0gzsKRJPIeo86XNJKI6ZK688ikbglIaOsm8
+         eZw5gsaWSZK/xzrKhc8FnPAcm26JLnFYdMJ4k8LeN9JgM514RVlrck/anyOlu+mmjl2L
+         D+aXditAvBf4XBsdAj83e7nqX3DylbMTVDxIRmwCPuk9A+dWFVlYA8SXEyyM5ZBiyc5G
+         3YwhNEO18dnIpRZAeHD72mGmHGb2lTTt1Bec0wNvdgxm3r2tl0tb03E7wE1sidYJlg1p
+         aYLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oLshI+8aYbyGh7S/ZjJf7W8M+Vq4mxSjxpZV6utkZX8=;
+        fh=V2WTeJXVOwGL5ui3ygZVglTPOgaAD6b96E7HMpxMI94=;
+        b=kFMb1ovzccsOEDwsCiPckXizZWTn5fvDJRqo1fEkJLJeDaZtrILZZcgNKXgwRYbLS+
+         3bQcW0ID3mPpBg2hjpqEAeJRaEoV3KIFROBmRTyPXz8mCVDZjs6mooZblvpHDPFP7XCw
+         mFnqEIh7Rfp6E2BYOlzExPdv4fFPyT4HdsCUKgxmYdactn6oKpiEYsRUIhdzSQzaP3za
+         yW/1jiYPoyWoWXdCf/YgsBDmZMzxEk7iuYIk2o3iuUQp+Q6LRC0eIcmTdOFCFFqs+v43
+         ycNMTJ3CeQS0CVpFi56deKa+7cazEUDrVA1ejK0fg/JaaraouHYTtq1vTOcgC5htgwEe
+         3A9Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788882443; x=1789487243; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oLshI+8aYbyGh7S/ZjJf7W8M+Vq4mxSjxpZV6utkZX8=;
+        b=REqqusUEeskwGd+LEKzhBh1ImPb6DL5KbhYncIBsghAjLBfIfc+EJWwYHuvNaxXcl/
+         3Ocmr26b1uzGxNm++mfJ0PV7sWM+MY9Sx4azx3BZe/zl77HGi4A2ild33Uu6O7QBusve
+         WBstiaaHUOKbUfd33bHMB03nccN7Ywmsgn4VNxFwGJ2YB9IOJ8RHZ6NgkGV7rnlM51Rw
+         uq+eTt0Czp/v3Xz0vTRnB1hxsvOlx7P6PwvY5DLJ4ftEy3UE/Z0V1kyQJHDPLrJ3oeLi
+         KgIE2RTH81WLg6bohLHjdTe3POGxi92OIix/K29czbgaqoer3EknXJYKSYYYwFo9mWfg
+         nReA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788882443; x=1789487243;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oLshI+8aYbyGh7S/ZjJf7W8M+Vq4mxSjxpZV6utkZX8=;
+        b=gWXVhZmGwhHiEARtGb4jqoh3woWqZApTTNso/9T1eUzw5NZMshAGoO0/FGu3CmEWL1
+         ooZ42fsd6zg6uvGW8T5NqtYNL14bOIYVECWVqnF46JiNXpoA6fUsNxXbGO8ptxZ1fBR/
+         uTOtgQZ9KQm02ANAln8eLHR9ei6qf74uvcnouHUDiL7upEpSJxVQOqxfBTV0dTlB8qGI
+         Ws5Nngd1d6EbyTWV7lVHom12N66uGDnqFj1ibvbf6CLqI1HhXFN6JUsTPRi1USfRsZlV
+         0T6PWKpIHqjSOv0sIxJNVFZrjXWKmU8kTrjPTH+fQwSPdoDv5XePVvfX5uu5bWczbYgP
+         8zHw==
+X-Forwarded-Encrypted: i=1; AKwUvBzlqxen+IDI9Yxu3mZl+8hpJzis8PcUCfAUhaFhs+ePGPEhI7QB+uV/MSP+gZQX0P14ymOJHWGFHwr4pJQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3tz20wad/1ZCkmd2WIATSX3cU0jDUghMVzMnoe/k0WtOkRFNO
+	2nDYMAcl9d/z6e2fz8YSwYmSxJhFIqn5Ar2D2eB6jsCF2icB4MbUL7UI3eN+cSYzkHSTffXQBUc
+	WtT0fJD1QVGNp5K4FZ5GOAFTK0oNzcDQ=
+X-Gm-Gg: AYBFou1GWT97lHEnv9E4EnYr+o1ERcdn+JiY6261G0PQepuc5ocJQuFMAXMpaPatUmz
+	KnuZzZa/grGOsbj9+wY/lmWssV5feGH+MeaLFdw7H8CXUhWIpqbtVj2L9KrAtLr4ZuhiPpgocID
+	D17de2swm7W1vnKUW71aKICfrvFY6x9RKsmqxk2NEZ2qVC1y4EsSvGZ8BgWLMShSqD8q9rxoE2y
+	WPpC90DGABc41CUZLL1bTxAuJsw3uyIDsbe+ZUXM40B3Zs1el8SWqL0YqkY/UGqxRyCc+2zoG7+
+	Vc+F6E+XaW5LBcdfopR9s7NpC0Iyd9f6HnLyx2qajx0eYRERXTigtQLcwD4d8fbSGFW62bYiONU
+	eOytz9I13WaF+t9dfZgqQY3nNIi1saSjE9zSUUc0=
+X-Received: by 2002:a05:690c:e3c1:b0:86f:c1db:14c7 with SMTP id
+ 00721157ae682-8712259664fmr96188427b3.7.1788882443248; Tue, 08 Sep 2026
+ 08:47:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <e66e3d4c2b5ac1bafc96110f70eb902b88ff47da341ed847a46d11ffa01239ff@mail.kernel.org>
-In-Reply-To: <20260908065529.901593-2-tweek@google.com>
-References: <20260908065529.901593-2-tweek@google.com>
-Subject: Re: [PATCH bpf-next 2/2] selftests/bpf: Verify program FD after non-autoload programs in lskel
-From: bot+bpf-ci@kernel.org
-To: tweek@google.com,qmo@kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org,tweek@google.com,kpsingh@kernel.org,leon.hwang@linux.dev,emil@etsalapatis.com
-Cc: martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,linux-kselftest@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Tue,  8 Sep 2026 15:46:27 +0000 (UTC)
+References: <20260905-btusb-skip-non-hci-ifaces-v1-1-32dda494122f@nordicsemi.no>
+In-Reply-To: <20260905-btusb-skip-non-hci-ifaces-v1-1-32dda494122f@nordicsemi.no>
+From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Date: Tue, 8 Sep 2026 11:47:11 -0400
+X-Gm-Features: AcwNN1Wm1DJTXl1SSHT0RevS3ilTVO2buaToGeTZYyevXQPtMnXLDkiRvgpGU78
+Message-ID: <CABBYNZJ1FHSfrvLCVALdbYJ_Sn6xMZ1p-zbJdDbq=Exfa=xfWg@mail.gmail.com>
+Subject: Re: [PATCH] Bluetooth: btusb: do not probe non-HCI interfaces
+To: johann.fischer@nordicsemi.no
+Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---===============2347235133467270577==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Hi Johann,
 
-> In test_global_percpu_data.c, dump_percpu_data is defined after two
-> non-autoload SEC("?kprobe") programs (verifier_strncmp and
-> verifier_snprintf). Verify in test_global_percpu_data_lskel() that
-> lskel->progs.dump_percpu_data.prog_fd is properly populated (> 0) when
-> loaded via the light skeleton.
+On Fri, Sep 4, 2026 at 6:24=E2=80=AFPM Johann Fischer via B4 Relay
+<devnull+johann.fischer.nordicsemi.no@kernel.org> wrote:
 >
-> Fixes: 4c9241bd731a ("selftests/bpf: Add tests to verify global percpu data")
-> Fixes: 1ed2294b31fc ("selftests/bpf: Test verifier log for global percpu data")
+> From: Johann Fischer <johann.fischer@nordicsemi.no>
+>
+> If the driver selects BTUSB_PROTO_H4, the second interface (voice
+> channels) remains unclaimed. Then, the btusb_probe() is called for the
+> second interface. It misidentifies the interface as one that supports
+> legacy mode and fails with "failed to enumerate endpoints".
+>
+> Signed-off-by: Johann Fischer <johann.fischer@nordicsemi.no>
+> ---
+>  drivers/bluetooth/btusb.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/bluetooth/btusb.c b/drivers/bluetooth/btusb.c
+> index dfefb43fb792..44f0db347643 100644
+> --- a/drivers/bluetooth/btusb.c
+> +++ b/drivers/bluetooth/btusb.c
+> @@ -4293,6 +4293,11 @@ static int btusb_probe(struct usb_interface *intf,
+>                         return -ENODEV;
+>         }
+>
+> +       /*  Skip interfaces that do not implement the HCI transport */
+> +       if (usb_find_common_endpoints(intf->cur_altsetting,
+> +                                     &bulk_rx_ep, &bulk_tx_ep, &intr_ep,=
+ NULL))
+> +               return -ENODEV;
 
-The existing Fixes tags point to commits 4c9241bd731a and 1ed2294b31fc,
-but the specific test scenario being verified here (dump_percpu_data
-program appearing after non-autoload programs) was only fully introduced
-by commit 15945d02c6e1.
+https://sashiko.dev/#/patchset/20260905-btusb-skip-non-hci-ifaces-v1-1-32dd=
+a494122f%40nordicsemi.no
 
-While the earlier commits laid groundwork (4c9241bd731a added
-test_global_percpu_data_lskel(), 1ed2294b31fc added non-autoload
-programs), the dump_percpu_data program itself was added in 15945d02c6e1.
+Afaik it is possible to have devices implementing just H4
+mode/altsetting. Perhaps we should claim both interfaces to avoid a
+second probe?
 
-Would it be more accurate to use:
+>         data =3D kzalloc_obj(*data);
+>         if (!data)
+>                 return -ENOMEM;
+>
+> ---
+> base-commit: 88a8184cb44c8952e6a6fd21e250445300d1c7aa
+> change-id: 20260904-btusb-skip-non-hci-ifaces-b52ea298677b
+>
+> Best regards,
+> --
+> Johann
+>
+>
 
-  Fixes: 15945d02c6e1 ("selftests/bpf: Verify bpf_iter for global percpu data")
 
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34245369055
---===============2347235133467270577==--
+--=20
+Luiz Augusto von Dentz
