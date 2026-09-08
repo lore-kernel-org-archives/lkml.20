@@ -1,243 +1,162 @@
-Received: from esa10.hc1455-7.c3s2.iphmx.com (esa10.hc1455-7.c3s2.iphmx.com [139.138.36.225])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE643AAF4E;
-	Tue,  8 Sep 2026 08:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.138.36.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82A373AFD17
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 08:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854439; cv=none; b=ZEI42CWO39AFbAjOjEV4sKrilLljmZ7QGSQkqzFFgxuI104y2GREeXWIZgyIiHiDn/9r48c6hGbY1MG6M9KeyBLQSd9b7Fw9JJqf9lw49/OPJG/+cgD0VokKA4W/2em6I2rrOpSicpv89WtOXMrIM6HUPUfmymmVKxDikXHxaVk=
+	t=1788854444; cv=none; b=bqp+/sQtMIjgvNXsn6PIgWPXKeLSY27ucbj+3R92RSXB4GqIW4JhLqf+ozvBJrv1wuJ37Dbq8iNi2QBfxTJ2NWrdc/7HjuTvv0uisuHP3AB/CmOif3rmoMJBckn+8OCmdvJBKbVPP3AGPbm2ArVQGW+BaE6hQUTrxfQsSJP5k1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854439; c=relaxed/simple;
-	bh=d6H21zget9O+foARLFAgFZea8RUu6p9eIXmnIG1xYl8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VR+n2yFN+Fngzb56pBzWKhfryoJwX9NwbOoOi9h6mgObhBp9ZaW5/hXPj4fGP5E3+jnx1BheUNpLltObr0aNpt4JOkw5FjdLLwZKcz1RIWGKinFoLMoGQY+4o8pDc4MmNCrt8qWjlRE+wniaPerij+EoeY/IzpWFm9eHqsJ5aPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=RWSCyjcY; arc=none smtp.client-ip=139.138.36.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	s=arc-20240116; t=1788854444; c=relaxed/simple;
+	bh=d3+dSVc+d1QajUTVYCFzTEXO5nx+Cf3F8uVePoP+3hM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i5/pW+W3ZM/BjxMyU+Qg5KwzIt/msmziH2E3KJJ5Ln2oxz/J6ytIzFQqIMwjnOdq5EXSzaXfdUbdIlD7Y4mpFQYB7GcP+laFrySA9ea1I2ece0pXmd9fanUmHJokAg1sio9jXeLxpVtLkfiqLHovr7s2FzlXSMxHsSC0QndXu9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NkCXs8g1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b0LZ+4Hw; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="RWSCyjcY"
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1788854441; x=1820390441;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=d6H21zget9O+foARLFAgFZea8RUu6p9eIXmnIG1xYl8=;
-  b=RWSCyjcYC64q/Cz+QdDI4otzTFwieiUcZQ3JBmie9JOvaC/ValyJ70hp
-   PbUWT0HwECwrnmcPbtGeuvw/1Ju2H6P12B/Q/uZjI/Avv6QLYX9SMrjTr
-   hyON9USfgaxL+ykYWDBDzt82l/0txBVeXuDqm1MM9r+Ae7aZWgdViGeUT
-   IBpqlCgDdHA0x9cb0LX8HMRGNh8bUU8VhlmNaTXRL4uytkse/Ht8Kco/1
-   MfijLCzCWcablGaym24sggFiBPqKhKiaTZaH45UHvY4mecHHTEIpUxgfk
-   9fOiSSn1FalbpvnKFsD+h38NaMa5YvmDHsaH0J7y3mkez3RyYL8+GLZ/2
-   w==;
-X-CSE-ConnectionGUID: ywatUpDKRLaK4r1wMzOTmw==
-X-CSE-MsgGUID: f1PmuHKNRIKWjo0ZpbkHNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="240502944"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779116400"; 
-   d="scan'208";a="240502944"
-Received: from gmgwnl01.global.fujitsu.com ([52.143.17.124])
-  by esa10.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 17:00:39 +0900
-Received: from az2nlsmgm4.fujitsu.com (unknown [10.150.26.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwnl01.global.fujitsu.com (Postfix) with ESMTPS id 5B6261C000AE;
-	Tue,  8 Sep 2026 08:00:35 +0000 (UTC)
-Received: from az2nlsmom3.fujitsu.com (unknown [10.150.26.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2nlsmgm4.fujitsu.com (Postfix) with ESMTPS id 0C3BE1000460;
-	Tue,  8 Sep 2026 08:00:35 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.9.15.163])
-	by az2nlsmom3.fujitsu.com (Postfix) with SMTP id 5B31C101BB76;
-	Tue,  8 Sep 2026 08:00:27 +0000 (UTC)
-Date: Tue, 8 Sep 2026 17:00:19 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Gavin Shan <gshan@redhat.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org, 
-	kvmarm@lists.linux.dev, maz@kernel.org, will@kernel.org, catalin.marinas@arm.com, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, steven.price@arm.com, 
-	aneesh.kumar@kernel.org, oupton@kernel.org, joey.gouly@arm.com, tabba@google.com, 
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, 
-	sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org
-Subject: Re: [PATCH v17 3/7] firmware: arm_rmm: Configure the RMM with the
- host's page size
-Message-ID: <ap--9pJdD_Y_j1aY@FCCLS0092175.localdomain>
-References: <20260907095942.1140734-1-suzuki.poulose@arm.com>
- <20260907095942.1140734-4-suzuki.poulose@arm.com>
- <10893135-4757-44de-91b5-180a9774d868@redhat.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NkCXs8g1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b0LZ+4Hw"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886MBj01521769
+	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 08:00:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=; b=NkCXs8g1T6e/kcQ8
+	3LCq7wK7GG90UQimigTvNwffh8vfCx9bH5IXT8VvYqBGWLlRhlp2uUQjPK0AZHEW
+	6xicy/3Q2e2pj214fgikSy45UByEJg33BFmlgPBzjKlqX934DdDxkye/k9VAdNur
+	GxDfq5I5gogRGvJ4Wi88bb/cldgCOemfnalTGKWjqwZnlyg9WGqCGQZnIR4IvffQ
+	Ji9X8q4pMqGsyn9qQCvqMf+YI1KTySNeRBKrupw2kjyZU46sRizOV8ncNFHxqU+P
+	/amaHRs/7z4d6ONFWV2OFz24PLKVJaJ+Gxd+SF+v674qfUAKN6WP9evKAYnu+ZFc
+	CU/BLw==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj077jns9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 08:00:42 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97c4f47fa57so38161241.0
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 01:00:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788854442; x=1789459242; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=;
+        b=b0LZ+4HwLYcFmLYaoCN+5Cs3ZL9L5WuhoC6wufTITON/tiqjXKPveiq8lm9+jfYX4E
+         4HGI9dRwzMMHvvbLV4F0t59QQW7qfFXxRDRB9UK8dD3JWmqM1SPojEOxUUxIhXaCiDMu
+         pzTCQThanrPLwDhodfXWmvi4dwV0k5yrkFisyDGucpXO1IyipeG8MiUJ8c5pbod60p/m
+         lckuvinwIt3uR8kjQ5WEVMpkFvX+p4vk5/FBaKUVnyDuZ2Z4HkIplCle1lTXa7sTV1Tt
+         9oT4zwKlSAL2Ss/iQj3r6k+weeoZRWIpT/NxE2zLLWvAb43zh8fkpZvXe76lC0sKBh+i
+         dq3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788854442; x=1789459242;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ftOcMLq3GmIjv/8ZjcZBuH0q4Y4m34ZtQA4zDPU13TA=;
+        b=qQMnii6pNtzjogykozF/c2m0kzuDI5uHCbKgwJ7m4v4KtUC7I1XSoQteOnUPfpHd7s
+         2aXXrjyfOZNl11k/+SWzP1DsFH1yETJmVNW+DTe1MGY2p/bU6jbkPqv1H3MKW3tkYAPK
+         3yGaFXrKUCYolWasYkBI4eAzyjeHCmJHZvPuWABRyFxfv4h8OZ+ufGB3CAmRpFm5P1C9
+         MGAPxW2CR/vABuEh/ZFPhYSchdTSDFWcAxOK4D+O83VoBO3gZi4Th5nzzhsjUyGnkd2O
+         aCoLgrXIlFHTh0RjAjeCRNAC3GNJxOfVDOSrVib0QXYJd3hnSzisfwi7Cj7CqCVaylB3
+         I5Qg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9lHBQ8lqNixifkijV+Vo1I1/X3JGlk63Y8Ys8dI4CW5x/pt2p1CLYzuIkfdxPf10M6hpSxkcA5E3Ue0s=@vger.kernel.org
+X-Gm-Message-State: AFuF++lXqwjBTD6+5wUtUqQ4W9yv294FhS3S/OLFRyB5lHCKEZjpA5jJ
+	z2Afnq2DyyPGJyYAiXaKPEif5NzlDcPTl4vfhq3nhJI4n1liW86c1oFdt8XE/k/hCqOSqBBe/Zu
+	UTwApdiYbcj6DUTdVQztEP2ZwqU/l6y9O/IdHpDBbOiUXMV+RESshu+c425oEZoCWUQg=
+X-Gm-Gg: AYBFou0Au3+za8+9GB7fRKpF6IRLER4zXTBl8qckDNovwOSO9w+4MXJlpaCL6NLaaO/
+	4Nciq5iN+gV6sd9t1/PWAZsP9A378rfiJPyu/P2jNmb/7q7s9js8sWExHNeIor2KQZvilSe0kk9
+	k4664H4lkxZUDf4ZQlTRHJACsj5CQCBgcDaOSOFnz9ao3kbrDZqr4AiKEzBFgQfCDurnNZf5x3U
+	gu78mQYhxLVoJMY39yJJcm6VReqXgMxwgEfij1YJWc5v5PdLFiENEjVAXDjv8BoETKzNFUiueFY
+	lyd5sA7Git6rPvyRoDt+HOY+0ySYDvQV4RcsCjIIFTrDMK9RfmqWYR9PL8610RMDeptYum5h6pD
+	bWL494Sc9uz1rJVsMMM1VAA==
+X-Received: by 2002:ac5:c88e:0:b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c7fb54d026mr2461869e0c.0.1788854441546;
+        Tue, 08 Sep 2026 01:00:41 -0700 (PDT)
+X-Received: by 2002:ac5:c88e:0:b0:5bd:9cbc:93c6 with SMTP id 71dfb90a1353d-5c7fb54d026mr2461861e0c.0.1788854441099;
+        Tue, 08 Sep 2026 01:00:41 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669ae43sm2831689e87.3.2026.09.08.01.00.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 01:00:40 -0700 (PDT)
+Message-ID: <7faefff1-5aa4-4277-a250-add84a880a19@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 10:00:37 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <10893135-4757-44de-91b5-180a9774d868@redhat.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
+ cleanup order in post_disable
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
+ <20260908-drm-msm-hdmi-fixes-before-eliza-v3-3-dcf8956878ca@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-3-dcf8956878ca@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfX9yTXmkAmnyIV
+ N1hEcNHooPqo/EV/wPLZC0fQG+3Rd7uwfP1aIdc13uVq01xyaVrdesDJUrY+z+BwLv0GiKbeMU5
+ OQ0oBc2fLgmlA5NSbYRnfS/uMG4AgIFiFLbvJ2YXIBwTagygrrUKnoWd9eugO+Eb83EBbUmEq+t
+ oWhO4MtjuFA16V7OWU/rBlHJRHvg++CV8Yss7X0oTDxWkzuBL+/rZLzQ4UXOt+D1VUdqivlM/sn
+ rDecS5sTbMK2Y/+9amBbUIPgIGMYZ+zdp2rjkkYYi6HVAqAA6b5ieXzmUXcKn7vveo9l57/6xyy
+ a1yERhNlTpRRoMWD2pMMVt2Odhd5Dq0f5LBT/RnDJM4gIWrc92Xu1ch74XfCP4EkzGkSQQMyog1
+ NYry2R7J7Rp05Iwl8wiBiDRPg9vRlVcNnH2LcJc/q3I4IsOtyPQVRAfF9Ucsw5UD6RVNFyxHgxu
+ YkkbIhhVCJ2bJunBe9w==
+X-Authority-Analysis: v=2.4 cv=Xbe5Co55 c=1 sm=1 tr=0 ts=6a9fc0aa cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=1VKk1TRdkn99K7eK9r0A:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
+X-Proofpoint-ORIG-GUID: x4CqPcdQO6pPsypkfQ1lDR3AJUI5nzS1
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfXxOy9aUEwe1G0
+ oxhbgytAhD2WGBQgIqKGUSek8KHepMiTjSgCxosivS/EDAO+57t46DgJsGAJS1FiJJgLeNtVvII
+ bRqhqg/L+C2MaBzwf2PXd/Yck72Elo4=
+X-Proofpoint-GUID: x4CqPcdQO6pPsypkfQ1lDR3AJUI5nzS1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 priorityscore=1501 spamscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080082
 
-Hi Gavin,
+On 9/8/26 9:10 AM, Krzysztof Kozlowski wrote:
+> Turning off the power in msm_hdmi_bridge_atomic_post_disable() should
+> follow reverse order of powering up, not only because it is logical, but
+> also because msm_hdmi_audio_update() accesses registers thus block
+> should still be powered on.
+> 
+> Depending on specific timing, existing code could have accesses to MMIO
+> of powered off block.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: c0c0d9eeeb8d ("drm/msm: hdmi audio support")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-On 09/08 17:04, Gavin Shan wrote:
-> Hi Suzuki,
-> 
-> On 9/7/26 7:59 PM, Suzuki K Poulose wrote:
-> > From: Steven Price <steven.price@arm.com>
-> > 
-> > RMM v2.0 brings the ability to set the RMM's granule size. Check the
-> > feature registers and configure the RMM so that it matches the host's
-> > page size. This means that operations can be done with a granularity
-> > equal to PAGE_SIZE.
-> > 
-> > Signed-off-by: Steven Price <steven.price@arm.com>
-> > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > ---
-> >   Changes since v15:
-> >    * Actually check the feature register for the host's page-size support.
-> >   Changes since v14:
-> >    * Move the implementation into drivers/firmware/arm_rmm.
-> >   Changes since v13:
-> >    * Moved out of KVM.
-> > ---
-> >   drivers/firmware/arm_rmm/rmi.c | 58 ++++++++++++++++++++++++++++++++++
-> >   include/linux/arm-rmi-cmds.h   | 17 ++++++++++
-> >   2 files changed, 75 insertions(+)
-> > 
-> > diff --git a/drivers/firmware/arm_rmm/rmi.c b/drivers/firmware/arm_rmm/rmi.c
-> > index 008a783407b4e..76f91c145e1fd 100644
-> > --- a/drivers/firmware/arm_rmm/rmi.c
-> > +++ b/drivers/firmware/arm_rmm/rmi.c
-> > @@ -77,6 +77,60 @@ static int rmi_read_features(void)
-> >   	return 0;
-> >   }
-> > +static int rmi_configure(void)
-> > +{
-> > +	unsigned long granule_feature;
-> > +	unsigned long granule_size;
-> > +	int ret = 0;
-> > +	struct rmm_config *config;
-> > +
-> > +	switch (PAGE_SIZE) {
-> > +	case SZ_4K:
-> > +		granule_size = RMI_GRANULE_SIZE_4KB;
-> > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_4KB;
-> > +		break;
-> > +	case SZ_16K:
-> > +		granule_size = RMI_GRANULE_SIZE_16KB;
-> > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_16KB;
-> > +		break;
-> > +	case SZ_64K:
-> > +		granule_size = RMI_GRANULE_SIZE_64KB;
-> > +		granule_feature = RMI_FEATURE_REGISTER_1_RMI_GRAN_SZ_64KB;
-> > +		break;
-> > +	default:
-> > +		BUILD_BUG();
-> > +	}
-> > +
-> > +	if (!(rmi_feat_reg(1) & granule_feature)) {
-> > +		pr_err("RMM does not support %luKB granules\n",
-> > +		       PAGE_SIZE >> 10);
-> > +		return -ENXIO;
-> > +	}
-> > +
-> > +	config = (struct rmm_config *)get_zeroed_page(GFP_KERNEL);
-> > +	if (!config)
-> > +		return -ENOMEM;
-> 
-> An error message is needed here.
-> 
-> 	if (!config) {
-> 		pr_err("Unable to alloc RMM config memory\n");
-> 		return -ENOMEM;
-> 	}
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-I largely agree with your suggestions, and they look reasonable to me.
-
-However, wouldn't this be redundant? Since __GFP_NOWARN is not set, the
-page allocator would normally emit an allocation failure warning with a
-stack trace anyway.
-
-I don't have a strong preference, but as per "14) Allocating memory" in
-the coding style, I believe it would be considered unnecessary.
-
-Thanks,
-Kohei
-
-> 
-> > +
-> > +	config->rmi_granule_size = granule_size;
-> > +
-> > +	/*
-> > +	 * For now we set the tracking_region_size to 0 which is the only option
-> > +	 * for 4KB PAGE_SIZE (1GB for 4KB PAGE_SIZE, 32MB/512MB for 16KB/64KB).
-> > +	 * TODO: Support other tracking sizes via Kconfig option for other
-> > +	 * PAGE_SIZES
-> > +	 */
-> > +	config->tracking_region_size = 0;
-> > +
-> > +	ret = rmi_rmm_config_set(virt_to_phys(config));
-> > +	if (ret) {
-> > +		pr_err("RMM config set failed\n");
-> > +		ret = -EINVAL;
-> > +	}
-> 
-> The error code from rmi_rmm_config_set() is indicative sometimes. Also, -ENXIO
-> would be more appropriate than -EINVAL?
-> 
-> 	if (ret) {
-> 		pr_err("RMM config set failed (%d)\n", ret);
-> 		ret = -ENXIO;
-> 	}
-> 
-> > +
-> > +	free_page((unsigned long)config);
-> > +	return ret;
-> > +}
-> > +
-> >   static int __init arm64_init_rmi(void)
-> >   {
-> >   	int ret;
-> > @@ -90,6 +144,10 @@ static int __init arm64_init_rmi(void)
-> >   	if (ret)
-> >   		return ret;
-> > +	ret = rmi_configure();
-> > +	if (ret)
-> > +		return ret;
-> > +
-> >   	return 0;
-> >   }
-> > diff --git a/include/linux/arm-rmi-cmds.h b/include/linux/arm-rmi-cmds.h
-> > index 2fb1f7f86d71e..9aa27697e2377 100644
-> > --- a/include/linux/arm-rmi-cmds.h
-> > +++ b/include/linux/arm-rmi-cmds.h
-> > @@ -12,6 +12,23 @@
-> >   unsigned long rmi_feat_reg(unsigned long id);
-> > +/**
-> > + * rmi_rmm_config_set() - Configure the RMM
-> > + * @cfg_ptr: PA of a struct rmm_config
-> > + *
-> > + * Sets configuration options on the RMM.
-> > + *
-> > + * Return: RMI return code
-> > + */
-> > +static inline int rmi_rmm_config_set(unsigned long cfg_ptr)
-> > +{
-> > +	struct arm_smccc_res res;
-> > +
-> > +	arm_smccc_1_1_invoke(SMC_RMI_RMM_CONFIG_SET, cfg_ptr, &res);
-> > +
-> > +	return res.a0;
-> > +}
-> > +
-> 
-> rmi_rmm_config_set() is used for once by rmi.c::rmi_configure(), I would not expose
-> rmi_rmm_config_set() by combining the logic to rmi.c::rmi_configure().
-> 
-> >   /**
-> >    * rmi_features() - Read feature register
-> >    * @index: Feature register index
-> 
-> Thanks,
-> Gavin
-> 
+Konrad
