@@ -1,357 +1,232 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6239F5947FF
-	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887484; cv=none; b=sZD8aVjcBT6ra10By9oPCXE+1f+6jr7ZtxprUaggOU1tVUZB/ORFefS8wh8uKHcU2AUe5lGQ8VwtQDSBi2ODAMmJ7Qyc455xOUF1fDbrazyolcX+e1B9pRmJuGYqES+gWrJnqZwi0YAxkm4qIv1gITkVlDULjz82qrf12fLxrbw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887484; c=relaxed/simple;
-	bh=FQBKNG1LQN+Or7ubGtjxhGSxqu1NLRi2ZcAg1jgnpUg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vr875rdbndyA7+3YBEVECYe6kEbFssXlOuA6SjeYFZZF24k3DYHrWiWZSehX4hd9SJOWHK+apzjkkKYarugdPLYqmJmN+oSkHE1grXjtP7UgOFbRn3pQ/ZnDE0r0zVy8ff/63GbCzcyX7ptvML/OhB6webR4eoqRsqU6/uJF314=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dL6dzzfA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LTnKnzRU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7F65921E3
+	for <linux-kernel@vger.kernel.org>; Tue,  8 Sep 2026 17:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788887506; cv=pass; b=eZIQW1iWBRV9+hOMccbfWyMEWSelTG6zi4i6wp38Hj4PR3P7F0+JFfIw49j25Cd7n4CL66YiBb/JTSd3EBwpJUhZGolZ9ciekvofmDCoyMMzMmPcC4SEX75zY24+Gv/6LVAM2yo2dwJlB1PBCYHaHLgEqE8VkGwVflSgJSDG+O8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788887506; c=relaxed/simple;
+	bh=EsSaRGvIxD63ugwBKEyi2i+Vt5mUM4Sz6FUce0h4zBY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LGinTdRCJnm4kABfzmtI/d+6+eiII4JlADuQtGnZEMlTxXnPMmcx2o8MuB0sRYX91ay/O+w4FS2KqcCXwxyWWCavYaISn+ZAxvATX9cO5ijTp0tc6VsPSHkFW3pEVm2mVG4nP6VZTmennjVzWqIX4pQcXypsaIOELXDnsAS53vg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lyzEzKRj; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dL6dzzfA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LTnKnzRU"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Fdi3R3757633
-	for <linux-kernel@vger.kernel.org>; Tue, 8 Sep 2026 17:11:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=; b=dL6dzzfA1/3UOGHu
-	lRKK87nUJ7FTy2n+c0YsbLF1tnsUGy0pbX7aTbb57yuKakuo9OBEGNTDhUuJ2kV4
-	DdjFf8eBCTYoiiABkLrifRIlYwcH3OV8PE+bRVsLkpaeSOPsibvz7BRRAbY9BjNP
-	ZNIrE3yR2/ZJDzddNPZxTHReJq6/g+FOm0wUdOwR1xFZ0T1/f3jGR3oJmJpKd6Bk
-	8+70lXJb8o81s+RXcQY74r7HWnVxbLYpUSdwvc4Z52mBjRzxQhEeWMQ0kQjCQXpD
-	TjTJiNsyCCQvs1G979Io3kqwdd4WSl4brDenEFlSn/PBhhw/divyVXu5b1/BUHHJ
-	azwwHg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjcv7jy71-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 17:11:20 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so6329609a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:11:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lyzEzKRj"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-5306706e89dso757581cf.1
+        for <linux-kernel@vger.kernel.org>; Tue, 08 Sep 2026 10:11:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788887502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pCd5KhmZFFh0v7yQ5bI3BtU90eKUiyiI/3xavSXthZo5CmDTBjc0JOxa+7Z5I2dKat
+         tU6lckePQZ7uZtUIv7Fo8rUdiZlp6+X3ZVcxhMX9KyQFwrCSBZHtfOUbSD3TbZKJ4T1/
+         /mkXeSa+lY86XIaNBqoKjL4bLGZNdh6AoojE8d8pSoJOB6nxnxxutf9mrVJZqfhH1ZGZ
+         Qb8N7BqiPlnNShHhup4CkkNINxtaCWhw7Kgruzy0VyPwfz0aC3URk9a8bOZmnuiH3zpM
+         sEvxuKYHTTpm1dfNqEXrvQEIBF0G0Qc50JUcIw18x3/7Av15DNYRgkI4Ar0UuSrQsq95
+         NbLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zrmv8bXE0okXwbTlSHoQW+GmP7+eHityU98CjsAMjJQ=;
+        fh=dTxp1Wp2Fbas+EXfMfmzW2fxMjPSjpTKJm8JPT5DqHM=;
+        b=V2rpDZ+JR4a70iirLNPutvYoR8ZeWCp693whyHFGmtDqKCYrQAgwFxB62EdA/4JTk/
+         dxRvISGhRkXJv/l+E8v5oOhrhGyoj29LJdoTjTNGmNlqOc2CQAyILyJwgxhRt8/D2CsO
+         v0c5M7YzLZbKfx48KDWpdueF8XogJ//KuugYeR7GN2qq9EdZOOAPYRT0xDiTuulRvf98
+         /h4PfwF3utNJaPETFTL+nogcdRE1lOWhNeUktvVneb1xY6h8f/TYaB745FaP5/VNOEjx
+         aqFVG79NXlI64XUA+2rOW6lyZ4vKX5q7Oh2OUguzjC2Z1bUz+1E+gWnHziCRVi4gSzxu
+         XK8w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788887480; x=1789492280; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=google.com; s=20251104; t=1788887502; x=1789492302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=;
-        b=LTnKnzRUCYCmBwr84wZA3PKdWXzVNFLuDDjFzg7QwCRAwtLgRh19XxQCxGmiwt+p43
-         cqhEnGQet/h5Sc5HH153Z09WsMAh8RMCSz2vMkPxOO3wqWw2gepeXn2+1QEnVmRb7OCi
-         q5mfWljleOEKKB1eeVmneZKv/c+1+GmlYXFQtJNXn3vPgajzunQBanArgXJr85TmRrQ7
-         scBHbtvEjo5qt5behS4CQiUQdhZKHOZ75Ap4zgHs0M2wWhxbg5HQTcbOVJplzj7vsfRh
-         +Y3+kQJgeQt5n3XXx27ub7G7BuIAHljUih1swYqRRxH8dBorL/FqCFlahr+/Ikj8VXIV
-         sR6A==
+        bh=zrmv8bXE0okXwbTlSHoQW+GmP7+eHityU98CjsAMjJQ=;
+        b=lyzEzKRjvSuAxWx7P7RutK/Jinicm/Iamy1bNZgyWe+Tv+J7JnKSG+zdZPs/iKHheZ
+         LXyIVoABQwwc/PFayG1XmBPicuCrUc7tmYJGykamo4/yZwl11/teV8GkNG39fMqFD56z
+         X9o+W6ljWVjaLUdgzZN78otkUXm3asFMbk2vqRWWv/XBsD/Q6DIUG7ej01Vy5dfURuvM
+         jfXi621lFujbZ1LjQ2NJoADA5fokGsJwo59uXHG5E5L+QOBX+TngtWS0cqRvJF4YWXD2
+         WP85jlmS8aIYv6FY8e/+DCigPQczPUSPhf9Lke135IHYGIUK9RvfQRTCQ9OxamvaxqNP
+         rzxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788887480; x=1789492280;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788887502; x=1789492302;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tJrfU3MojC9W8Hc4my3vk6BlrKJp8pREKh3Df4ly1FA=;
-        b=DCbIhmlh6PJpSZ81bf+iOUHnKI1Xyef49qvk7sKBLvO+BkQPcSRQsRnPNdgnzTrMaQ
-         O9cMYiHy8KGqtTG61hbmo+kPmVM8/6S9o7h1GkmqHYGPP+1LIoo/sAEsKsOI0qxdtNCN
-         A/JU+ovBF8PpXgOf4tN9cWpQW7Asw68RVUUQvwOmn46sqkhapeWhlD2he4q6+bM+1IUL
-         Ff42SDQgGsDhg/T1GQUy22W1ABgbL8cKM0Udp/iamk7Yv2byV8/1I5Es0sovPE93pho8
-         +nH0ZYixXkGHXC4HZWdJ0r5k4Hl0+0mneaMzErbG1yQ11UqI3boj994+YwGOR7ZM2RjP
-         Iesg==
-X-Gm-Message-State: AFuF++k3AbprnC6UK/SRYCznD54W6l3oZcmVPEh1zLo0iO5HW8+5BjzU
-	jzA3yPmEw0hJsKBfS2/5UuKtuiuldc1I2uffk8bgv9GFgfRUrPtStdOg1spfd0ai+OjNv5MHJBi
-	y4AFgbqQT/Mfcas+XLwD7106zmD/dUWJ96qmaC5OPpY1BIgCv8h2DyqNHzYZEU4lr9Q==
-X-Gm-Gg: AYBFou1V8toA+divk2OO0f+6PNWN4sZ17NG+medKFS0MTF6W1Lx3AnNvA7QRGclvJz5
-	CZJctgm6Hb+YjJJa/PY2Ib4ervy3Q3WMC+zO8tvOm4vwhWwTFmWbD9NvKUeP+usbov3a2LhMibC
-	F4OP2xBnToCjXZ2TYj4nV9OX2+DRlnICr0YOhMfFY9fv0ykGkGAMZsbDmYhVNmcNXI3/+nenmj+
-	JlMXvkJZQQYdN6mkkewUxDKcpHsfvVzvGQdVObJ4O+LY0HTS5RpVwYO7vHz8T1eVoUVHdR5sYv3
-	mp916BUBLVpwWPiH3fLaDQfOeAdjRchZmLV+5cYcoVh+me80kRsBFojBR7W3N7sp/wxGXrlmsrO
-	WYaTtgdwrHoFiXqnr9OX0CqbZL+/t8IreC5hCRMQW9TKqhYCMGinqsk/39E3yeEZma/nbY5SxSE
-	CsUKFl/U9HTIbkqMJD9HtPow==
-X-Received: by 2002:a05:6a20:c786:b0:3da:9f19:bf2 with SMTP id adf61e73a8af0-3dabb1e8e8dmr1278167637.18.1788887479618;
-        Tue, 08 Sep 2026 10:11:19 -0700 (PDT)
-X-Received: by 2002:a05:6a20:c786:b0:3da:9f19:bf2 with SMTP id adf61e73a8af0-3dabb1e8e8dmr1278073637.18.1788887479002;
-        Tue, 08 Sep 2026 10:11:19 -0700 (PDT)
-Received: from hu-pooventh-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm31773675eec.4.2026.09.08.10.11.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:11:18 -0700 (PDT)
-From: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-To: "David S . Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-        Johannes Berg <johannes@sipsolutions.net>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org,
-        Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
-Subject: [PATCH RESEND wireless-next 18/18] wifi: mac80211: Add mac80211 support to handle NL80211_CMD_GET_SMD_CTX
-Date: Tue,  8 Sep 2026 22:39:46 +0530
-Message-Id: <20260908-smd-v1-18-9fd2d876a1fb@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
-References: <20260908-smd-v1-0-9fd2d876a1fb@oss.qualcomm.com>
+        bh=zrmv8bXE0okXwbTlSHoQW+GmP7+eHityU98CjsAMjJQ=;
+        b=WWiD0nKRxmm7D3cUAJ5NYrg/uNp6wKlgAiFI4IaBp6D4H5Wtcw5Y9H1ApE84vrW/ut
+         MYhNbynpMp5Pf+wV6C8vF4KuQ3eAQn9TRp1oTjKJqpGAO+BjwZ2amFSw7gcLSL9C0mh3
+         3pwb/p0ZB5K5j5qUJk8HdE2bh3MKxiiwF6k+c+kux18a5kCbApVF5fK9WuEVtRnS+vsR
+         cUtztOqa0Hz3Q5rqJ19cZsoi+LQsFNt5K5hUk7sbbG4d5wM06M6S3y6xu9u9Lt3zojD+
+         6xq3LK3SwfzYyeVbaxBZplEryNZ45f5NVx73pLGgLtrLlLruZRqnvbeGG5jxiXjuV9hN
+         MGZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwMHRL8ufnoFs53qkXQGD4g2NMbZWFSLADvw+hor3pnVG1bHm/mpUMjdwvKlvjhSGDzM7duJ85m9Xva9Lk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtZWRkKHGeNX2Cri8iCv4ZuR24l7yES18XiuAQCH8N9ZxF5R1Y
+	DJUui6AdtFKNvROshRu9llOgVKouKIWyqDBmdUrnEHNr1RkVm+yhZjMe839PUf1imQnWF1etwYn
+	DDwgwQx8KXtLm8FQzynm7MjetAEnDMV4Pyzg2ovWz
+X-Gm-Gg: AYBFou3cWFhLlgmXyFGmGmfXy+a2djf9Pe0UPN1y0x5jnCkarZmhkiodZdEqgS+3BQC
+	C8uD5pKCaRtEnKbmp3TnpUWCTpd54GeliCQk1cBjg3GPY6SkdeDBkJVxWeGmkpFktNbfrPGqLKx
+	9MQnJ+7rwpdxlcEN671DFKJheJordYM52+0cIFiUAMv+yx3Yk1x7lmF5IQL3o7Fpi1bQhUmB3GZ
+	0OKo/ta0gefAlRXxbaUX5pfyhtkS9HNxML3tUCC0SyHzQ85mSrYvGpx4ZoKdNk02zEPzASicBeR
+	2sg0E1neBC0etFVPvCOza3SAvodDhdsx2QYOvBFMN5coQCO6cWUJWELXnBcaUMh9r7V4LMjhPA=
+	=
+X-Received: by 2002:a05:622a:2589:b0:517:64f6:3365 with SMTP id
+ d75a77b69052e-53065d7943emr51763311cf.4.1788887501596; Tue, 08 Sep 2026
+ 10:11:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.14.3
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=CMEamxrD c=1 sm=1 tr=0 ts=6aa041b8 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=c93CP5vvwBK-QZUl55wA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfX8d8PbsgLoz1P
- rP8kaIwmjc/kP7n1oOabe7yUNchYlE14f+1eGWH/l20Nb0WCT2Qq1MUUqKxBbOt6ZQYAzpsA+mE
- elL4d1rPhx3jYUnxbHWhlS+dDB4GIjc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NSBTYWx0ZWRfX0fk/4K3F/CUN
- FOVEgNqvZ8oZdzHtF4DJ4goAxAUfd5mc3Xc5BRtbbw1WjjfT7oL90NR07KMr/g1OsJvSAh4Cq/5
- RZd27Zd8ZlRxvy/juTgrT1w3xadZqmaZTIdHFAFjLyEwhBSS6IS3bsOa30Q2ID1UjDdCoGNnop1
- vOtHSXb+frqYWde+Xxk4Q11elHjvxGMbGNnogxWcSsoubMbQncUqLZcaIXKltg2vhAve/8M+dYK
- WRBXnAYz4QC7ehYWD3jzn3Es2W7ZKklAP2BU/BaSbpsBcIsNmyjdbip97+gV/gTFT6YYef4tljH
- CGGLOT9We7WjladyaB1sR+BOCg8OOWyZNxAMDYYG6JuRNdpGU2U1uydt+BXai/z6Uo8+uopiPas
- f8Bs/2lXfGtcIDUVXVPYZmq0gC0kScUm4AlxQoWgacpOjUn/xmYN1Qv0y8t/b78USJvM0j3XYkp
- q6a5ZDJCN7jYDaww1Rw==
-X-Proofpoint-ORIG-GUID: dAuwmfOpjIDziS-VmxbenpPuOugzwd8U
-X-Proofpoint-GUID: dAuwmfOpjIDziS-VmxbenpPuOugzwd8U
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501 bulkscore=0
- spamscore=0 suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080185
+References: <20260904-perf-evlist-uncore-cpu-b4-v1-1-604b55c025ee@sifive.com>
+ <CAP-5=fX1uKg8AncsP5BVFtchgns5TquOTB10-mR5ury2CaH0sg@mail.gmail.com> <CACpYXwATq8nU9mB2SuNO6kAUNrj8bH3UjQiHd5X6=9VX4YZJgA@mail.gmail.com>
+In-Reply-To: <CACpYXwATq8nU9mB2SuNO6kAUNrj8bH3UjQiHd5X6=9VX4YZJgA@mail.gmail.com>
+From: Ian Rogers <irogers@google.com>
+Date: Tue, 8 Sep 2026 10:11:29 -0700
+X-Gm-Features: AcwNN1W_7TbKFmLSN9KMzfgyNcfZZaPeZ1089C38oYWYBJyJNhXAnE8ie59-N6k
+Message-ID: <CAP-5=fVw0+Xh6Xovj_Vt1XnTT8Y0fK-+wia=oxwFmPaT06MTBg@mail.gmail.com>
+Subject: Re: [PATCH] perf evlist: don't restrict uncore events to PMU CPUs
+To: Nia Su <nia.su@sifive.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
+	Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+	Thomas Falcon <thomas.falcon@intel.com>, linux-perf-users@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-cfg80211 supports NL80211_CMD_GET_SMD_CTX from userspace on the current
-AP MLD to collect the station's context on the target AP MLD's behalf;
-this context is used by the target AP MLD to program its TX and RX
-queues to support seamless roaming of the non-AP MLD.
+On Mon, Sep 7, 2026 at 8:23=E2=80=AFPM Nia Su <nia.su@sifive.com> wrote:
+>
+> On Fri, Sep 4, 2026 at 11:34=E2=80=AFPM Ian Rogers <irogers@google.com> w=
+rote:
+> >
+> > On Fri, Sep 4, 2026 at 6:45=E2=80=AFAM Nia Su <nia.su@sifive.com> wrote=
+:
+> > >
+> > > The PMU CPU map has different semantics for core and uncore PMUs.
+> > >
+> > > For core PMUs, pmu_cpus contains the CPUs on which the event can be
+> > > opened. Intersect the user-requested CPU map with the PMU CPU map to
+> > > reject CPUs unsupported by the PMU.
+> > >
+> > > For uncore PMUs, pmu_cpus is just the default CPU to open the event o=
+n,
+> > > not the set of CPUs it can only be opened on.
+> >
+> > This isn't quite true. On a dual socket Intel machine, `pmu_cpus` will
+> > contain a CPU to open the event on per-socket.
+>
+> Yes, I agree. My description was not precise enough. What I wanted to say
+> was that pmu_cpus provides the default CPU(s) used to open an event. It
+> is not necessarily an allowlist. A user may specify another valid CPU,
+> which the PMU driver can resolve to the appropriate control CPU.
+>
+> > > The user-requested CPU may
+> > > override the default and be used directly, and the driver can redirec=
+t
+> > > the event to the appropriate control CPU.
+> >
+> > Agreed.
+> >
+> > > Currently, __perf_evlist__propagate_maps() intersects the user-reques=
+ted
+> > > CPU map with pmu_cpus for all PMUs. If the user-requested CPU is not =
+in
+> > > pmu_cpus, the intersection becomes empty and the evsel is removed bef=
+ore
+> > > perf_event_open() is called.
+> >
+> > Could you give a command line example of the perf tool doing this? I
+> > ask because I'm surprised the uncore specifying a CPU behavior has
+> > been broken. As well as `perf record -C` there is also a somewhat
+> > newer cpu event qualifier.
+>
+> I tested both approaches, but they still fail whenever a perf event is
+> assigned to a CPU outside the uncore PMU's sysfs cpumask. for example,
+> assigning the event to CPU 1 fails when the cpumask is 0:
+>
+> perf stat -C 1 -e <uncore event> -- <program>
+>
+> Here, for an uncore PMU, pmu_cpumask() reads the sysfs cpumask into
+> pmu->cpus. When the event is created, perf copies pmu->cpus to the
+> local pmu_cpus variable and then stores it in evsel->core.pmu_cpus.
+> In this case, evsel->core.pmu_cpus is {0}. The CPU specified with
+> "-C 1" is stored in evsel->core.cpus as {1}. Then, in this function,
+> __perf_evlist__propagate_maps() then intersects the two maps, resulting
+> in an empty map, so the event is removed before reaching the PMU driver.
+>
+> > > Skip the intersection when evsel->requires_cpu is true, which is set =
+for
+> > > uncore PMUs. is_pmu_core is also false for other non-core PMUs, so
+> > > gating on it would have loosened this check for them too. Core PMUs
+> > > continue to be restricted to their PMU CPU map.
+> > >
+> > > requires_cpu can also be set for BPF counters regardless of PMU type,
+> > > but only when has_user_cpus is false, so this guard has no effect the=
+re
+> > > today.
+> >
+> > So the separation between libperf and perf is frustrating, and libperf
+> > lacks the necessary PMU abstraction. Using requires_cpu as a proxy for
+> > an uncore PMU test is okay, but it would be better if we had a boolean
+> > flag especially for this. Given this, a comment should be added saying
+> > that requires_cpu is used as a proxy for an uncore PMU. The real
+> > meaning of requires_cpu is that the event doesn't support
+> > perf_event_open with a thread.
+> >
+> > Thanks,
+> > Ian
+>
+> That makes sense. I=E2=80=99ll add a comment clarifying that requires_cpu=
+ is used
+> as a proxy for uncore PMUs and keep the current approach for now.
 
-Implement the get_smd_ctx cfg80211_op in mac80211 to invoke the driver
-to collect the requested station context. Because context collection is
-asynchronous, the driver signals completion later via
-ieee80211_get_smd_ctx_done(), which packs the collected context into
-NL80211_CMD_SMD_CTX_EVENT and delivers it to userspace as a multicast
-event.
+So I think the flag we can use is `evsel->is_pmu_core` which captures
+the !uncore behavior. I validated the fixes tag is correct.
 
-Signed-off-by: Pooventhiran G <pooventhiran.g@oss.qualcomm.com>
----
- include/net/mac80211.h    | 23 +++++++++++++++++++++++
- net/mac80211/cfg.c        | 34 ++++++++++++++++++++++++++++++++++
- net/mac80211/driver-ops.h | 24 ++++++++++++++++++++++++
- net/mac80211/sta_info.c   |  6 ++++++
- net/mac80211/trace.h      | 27 +++++++++++++++++++++++++++
- 5 files changed, 114 insertions(+)
+Thanks,
+Ian
 
-diff --git a/include/net/mac80211.h b/include/net/mac80211.h
-index e0e13f0ed31f..f16112e41594 100644
---- a/include/net/mac80211.h
-+++ b/include/net/mac80211.h
-@@ -2528,6 +2528,21 @@ enum ieee80211_sta_state {
- 	IEEE80211_STA_AUTHORIZED,
- };
- 
-+/**
-+ * ieee80211_get_smd_ctx_done - Deliver async get_smd_ctx result to nl80211
-+ * @vif: virtual interface
-+ * @sta_addr: non-AP MLD address the context was collected for
-+ * @st_info: SMD BSS Transition Info (@st_info or @st_info->ctx may be NULL to
-+ *	indicate failure). @st_info is owned by the driver.
-+ *
-+ * Called by the driver after the %NL80211_CMD_GET_SMD_CTX context collection
-+ * is complete. mac80211 forwards the result to cfg80211 which finds the pending
-+ * nl80211 request and sends reply to userspace.
-+ */
-+void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
-+				const u8 *sta_addr,
-+				struct cfg80211_smd_transition_info *st_info);
-+
- /**
-  * enum ieee80211_sta_rx_bandwidth - station RX bandwidth
-  * @IEEE80211_STA_RX_BW_20: station can only receive 20 MHz
-@@ -4782,6 +4797,11 @@ enum ieee80211_sta_smd_state {
-  *	The callback can sleep.
-  * @set_smd_ctx: Set the UHR SMD context for the non-AP MLD. This is used on
-  *	the target AP MLD side to program dynamic context.
-+ * @get_smd_ctx: Get the UHR SMD context for the non-AP MLD. This is used in
-+ *	the current AP MLD side on behalf of the target AP MLD to collect
-+ *	dynamic context, when the non-AP MLD sends ST Execute frame directly
-+ *	to the target. Since the response is asynchronous, the drivers that
-+ *	implement this should not store reference to @sta.
-  */
- struct ieee80211_ops {
- 	void (*tx)(struct ieee80211_hw *hw,
-@@ -5191,6 +5211,9 @@ struct ieee80211_ops {
- 	int (*set_smd_ctx)(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
- 			   struct ieee80211_sta *sta,
- 			   struct cfg80211_smd_transition_info *st_info);
-+	int (*get_smd_ctx)(struct ieee80211_hw *hw, struct ieee80211_vif *vif,
-+			   struct ieee80211_sta *sta,
-+			   enum nl80211_smd_ctx_type type);
- };
- 
- /**
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index 268d5f42293a..a33ce96a4752 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -6104,6 +6104,39 @@ static int ieee80211_set_smd_ctx(struct wiphy *wiphy, struct wireless_dev *wdev,
- 	return drv_set_smd_ctx(local, sdata, &sta->sta, st_info);
- }
- 
-+static int ieee80211_get_smd_ctx(struct wiphy *wiphy, struct wireless_dev *wdev,
-+				 const u8 *addr,
-+				 enum nl80211_smd_ctx_type type)
-+{
-+	struct ieee80211_local *local = wiphy_priv(wiphy);
-+	struct ieee80211_sub_if_data *sdata;
-+	struct sta_info *sta;
-+
-+	lockdep_assert_wiphy(wiphy);
-+
-+	sdata = IEEE80211_WDEV_TO_SUB_IF(wdev);
-+
-+	if (sdata->vif.type != NL80211_IFTYPE_AP &&
-+	    sdata->vif.type != NL80211_IFTYPE_AP_VLAN)
-+		return -EOPNOTSUPP;
-+
-+	sta = sta_info_get_bss(sdata, addr);
-+	if (!sta || !sta->sta.smd_params.smd_sta)
-+		return -EINVAL;
-+
-+	return drv_get_smd_ctx(local, sdata, &sta->sta, type);
-+}
-+
-+void ieee80211_get_smd_ctx_done(struct ieee80211_vif *vif,
-+				const u8 *sta_addr,
-+				struct cfg80211_smd_transition_info *st_info)
-+{
-+	struct ieee80211_sub_if_data *sdata = vif_to_sdata(vif);
-+
-+	cfg80211_get_smd_ctx_done(&sdata->wdev, sta_addr, st_info);
-+}
-+EXPORT_SYMBOL(ieee80211_get_smd_ctx_done);
-+
- const struct cfg80211_ops mac80211_config_ops = {
- 	.add_virtual_intf = ieee80211_add_iface,
- 	.del_virtual_intf = ieee80211_del_iface,
-@@ -6223,4 +6256,5 @@ const struct cfg80211_ops mac80211_config_ops = {
- 	.nan_set_local_sched = ieee80211_set_local_nan_sched,
- 	.nan_set_peer_sched = ieee80211_set_peer_nan_sched,
- 	.set_smd_ctx = ieee80211_set_smd_ctx,
-+	.get_smd_ctx = ieee80211_get_smd_ctx,
- };
-diff --git a/net/mac80211/driver-ops.h b/net/mac80211/driver-ops.h
-index e764dd394de2..0339ff71cd4a 100644
---- a/net/mac80211/driver-ops.h
-+++ b/net/mac80211/driver-ops.h
-@@ -1844,4 +1844,28 @@ static inline int drv_set_smd_ctx(struct ieee80211_local *local,
- 	return ret;
- }
- 
-+static inline int drv_get_smd_ctx(struct ieee80211_local *local,
-+				  struct ieee80211_sub_if_data *sdata,
-+				  struct ieee80211_sta *sta,
-+				  enum nl80211_smd_ctx_type type)
-+{
-+	int ret;
-+
-+	if (!sdata || !local->ops->get_smd_ctx)
-+		return -EOPNOTSUPP;
-+
-+	sdata = get_bss_sdata(sdata);
-+
-+	lockdep_assert_wiphy(local->hw.wiphy);
-+
-+	if (!check_sdata_in_driver(sdata))
-+		return -EIO;
-+
-+	trace_drv_get_smd_ctx(local, sdata, sta, type);
-+	ret = local->ops->get_smd_ctx(&local->hw, &sdata->vif, sta, type);
-+	trace_drv_return_int(local, ret);
-+
-+	return ret;
-+}
-+
- #endif /* __MAC80211_DRIVER_OPS */
-diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
-index 5aa6f5b481e3..9ea0a8791289 100644
---- a/net/mac80211/sta_info.c
-+++ b/net/mac80211/sta_info.c
-@@ -1312,6 +1312,7 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
- {
- 	struct ieee80211_local *local;
- 	struct ieee80211_sub_if_data *sdata;
-+	struct wireless_dev *wdev;
- 	int ret, i;
- 
- 	might_sleep();
-@@ -1321,6 +1322,7 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
- 
- 	local = sta->local;
- 	sdata = sta->sdata;
-+	wdev = &sdata->wdev;
- 
- 	lockdep_assert_wiphy(local->hw.wiphy);
- 
-@@ -1390,6 +1392,10 @@ static int __must_check __sta_info_destroy_part1(struct sta_info *sta)
- 	    rcu_access_pointer(sdata->u.vlan.sta) == sta)
- 		RCU_INIT_POINTER(sdata->u.vlan.sta, NULL);
- 
-+	if (sdata->vif.type == NL80211_IFTYPE_AP ||
-+	    sdata->vif.type == NL80211_IFTYPE_AP_VLAN)
-+		cfg80211_free_pending_smd_ctx_req(wdev, sta->addr);
-+
- 	return 0;
- }
- 
-diff --git a/net/mac80211/trace.h b/net/mac80211/trace.h
-index 7aba79e441cf..38ad5076232d 100644
---- a/net/mac80211/trace.h
-+++ b/net/mac80211/trace.h
-@@ -3487,6 +3487,33 @@ TRACE_EVENT(drv_set_smd_ctx,
- 	)
- );
- 
-+TRACE_EVENT(drv_get_smd_ctx,
-+	TP_PROTO(struct ieee80211_local *local,
-+		 struct ieee80211_sub_if_data *sdata,
-+		 struct ieee80211_sta *sta,
-+		 enum nl80211_smd_ctx_type type),
-+
-+	TP_ARGS(local, sdata, sta, type),
-+
-+	TP_STRUCT__entry(
-+		LOCAL_ENTRY
-+		VIF_ENTRY
-+		STA_ENTRY
-+		__field(u8, st_type)
-+	),
-+
-+	TP_fast_assign(
-+		LOCAL_ASSIGN;
-+		VIF_ASSIGN;
-+		STA_ASSIGN;
-+		__entry->st_type = type;
-+	),
-+
-+	TP_printk(LOCAL_PR_FMT VIF_PR_FMT STA_PR_FMT ", ST type=%u",
-+		  LOCAL_PR_ARG, VIF_PR_ARG, STA_PR_ARG, __entry->st_type
-+	)
-+);
-+
- #endif /* !__MAC80211_DRIVER_TRACE || TRACE_HEADER_MULTI_READ */
- 
- #undef TRACE_INCLUDE_PATH
-
--- 
-2.34.1
-
+> Thanks,
+> Nia
+>
+> > > Fixes: 811082e4b668 ("perf parse-events: Support user CPUs mixed with=
+ threads/processes")
+> > >
+> > > Assisted-by: Claude Sonnet 5
+> > > Signed-off-by: Nia Su <nia.su@sifive.com>
+> > > ---
+> > >  tools/lib/perf/evlist.c | 3 ++-
+> > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/tools/lib/perf/evlist.c b/tools/lib/perf/evlist.c
+> > > index 1f210dadd666ff818a23712ab95acaa659ccf8dc..a1064175f12ba655a9f7f=
+e42e7c7e4c49ae60423 100644
+> > > --- a/tools/lib/perf/evlist.c
+> > > +++ b/tools/lib/perf/evlist.c
+> > > @@ -80,7 +80,8 @@ static void __perf_evlist__propagate_maps(struct pe=
+rf_evlist *evlist,
+> > >         }
+> > >
+> > >         /* Ensure cpus only references valid PMU CPUs. */
+> > > -       if (!perf_cpu_map__has_any_cpu(evsel->cpus) &&
+> > > +       if (!evsel->requires_cpu &&
+> > > +           !perf_cpu_map__has_any_cpu(evsel->cpus) &&
+> > >             !perf_cpu_map__is_subset(evsel->pmu_cpus, evsel->cpus)) {
+> > >                 struct perf_cpu_map *tmp =3D perf_cpu_map__intersect(=
+evsel->pmu_cpus, evsel->cpus);
+> > >
+> > >
+> > > ---
+> > > base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+> > > change-id: 20260904-perf-evlist-uncore-cpu-b4-418af0f17c80
+> > >
+> > > --
+> > >
